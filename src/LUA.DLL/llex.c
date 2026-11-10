@@ -83,25 +83,28 @@ void __cdecl llex__5c70(int param_1)
   return;
 }
 
-/* ---- 0x10005cf0  luaX_save ---- */
-/* save_and_next: appends the current char to the token buffer */
+/* ---- 0x10005cf0  luaX_lasttoken ---- */
+/* save_and_next: appends the current char to the token buffer Original name luaX_lasttoken (the
+   remaster's libLua.so: same body: luaL_addchar(0); return luaL_buffer()); was luaX_save. */
 
-int luaX_save(void)
+int luaX_lasttoken(void)
 
 {
   int iVar1;
   
   luaL_addchar(0);
-  iVar1 = lbuiltin__2da0();
+  iVar1 = luaL_buffer();
   return iVar1;
 }
 
-/* ---- 0x10005d00  luaX_lex ---- */
+/* ---- 0x10005d00  luaY_lex ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* llex.c: main tokenizer; numbers are returned through the float out-parameter */
+/* llex.c: main tokenizer; numbers are returned through the float out-parameter Original name
+   luaY_lex (the remaster's libLua.so: string 'ambiguous syntax (decimal point x string
+   concatenation)' (the bison yylex renamed luaY_lex)); was luaX_lex. */
 
-uint __cdecl luaX_lex(float *param_1)
+uint __cdecl luaY_lex(float *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -121,7 +124,7 @@ uint __cdecl luaX_lex(float *param_1)
   puVar2 = (uint *)PTR_1002bf6c[0x10];
   luaL_resetbuffer();
   if (lua_debug != 0) {
-    luaY_code_word(puVar2[3]);
+    luaY_codedebugline(puVar2[3]);
   }
   puVar2[3] = puVar2[2];
   do {
@@ -179,7 +182,7 @@ uint __cdecl luaX_lex(float *param_1)
       }
       break;
     case 10:
-      luaX_pragma(puVar2);
+      inclinenumber(puVar2);
       puVar2[3] = puVar2[2];
       break;
     case 0x22:
@@ -587,7 +590,7 @@ LAB_100064b9:
   switch(uVar5) {
   case 10:
     luaL_addchar(10);
-    luaX_pragma(puVar2);
+    inclinenumber(puVar2);
     goto LAB_10006241;
   default:
     luaL_addchar((char)uVar5);
@@ -638,10 +641,13 @@ LAB_10006241:
 #endif
 
 
-/* ---- 0x10006890  luaX_pragma ---- */
-/* llex.c: handles the $debug / $nodebug / $if pragmas */
+/* ---- 0x10006890  inclinenumber ---- */
+/* llex.c: handles the $debug / $nodebug / $if pragmas Original name inclinenumber (the remaster's
+   libLua.so: static inclinenumber(LexState*): the pragma strings ('unknown pragma', 'too many
+   nested $ifs', 'unmatched $else'); the remaster's static table inclinenumber::pragmas); was
+   luaX_pragma. */
 
-void __cdecl luaX_pragma(uint *param_1)
+void __cdecl inclinenumber(uint *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -680,7 +686,7 @@ void __cdecl luaX_pragma(uint *param_1)
     piVar1[1] = (int)((byte *)piVar1[1] + 1);
   }
   *param_1 = uVar3;
-  llex__6bb0(param_1,(int)local_18);
+  readname(param_1,(int)local_18);
   iVar4 = luaO_findstring(local_18,&PTR_s_debug_10026da0);
   switch(iVar4) {
   case 0:
@@ -712,11 +718,11 @@ void __cdecl luaX_pragma(uint *param_1)
     if (param_1[5] == 4) {
       luaY_error(s_too_many_nested__ifs_10026ed4,&DAT_10026eec);
     }
-    llex__6bb0(param_1,(int)local_18);
+    readname(param_1,(int)local_18);
     uVar3 = param_1[5];
     param_1[5] = uVar3 + 1;
     param_1[(uVar3 + 3) * 3] = 0;
-    uVar3 = luaX_error(local_18);
+    uVar3 = checkcond(local_18);
     if (uVar3 != 0) {
       uVar5 = (uint)(uVar5 == 0);
     }
@@ -747,7 +753,7 @@ void __cdecl luaX_pragma(uint *param_1)
 LAB_10006a8e:
     luaY_error(msg,(char *)token);
   }
-  luaX_inclinenumber(param_1);
+  skipspace(param_1);
   if (*param_1 != 10) {
     if (*param_1 != 0xffffffff) {
       luaY_error(s_invalid_pragma_format_10026e94,(char *)local_18);
@@ -755,17 +761,18 @@ LAB_10006a8e:
     llex__6c30(param_1);
     return;
   }
-  luaX_pragma(param_1);
+  inclinenumber(param_1);
   llex__6c30(param_1);
   return;
 }
 #undef local_18
 
 
-/* ---- 0x10006b10  luaX_inclinenumber ---- */
-/* Unidentified function of llex.c (lexer) */
+/* ---- 0x10006b10  skipspace ---- */
+/* Original name skipspace (the remaster's libLua.so: static skipspace(LexState*): skips blanks,
+   tabs and CRs); was luaX_inclinenumber. */
 
-void __cdecl luaX_inclinenumber(uint *param_1)
+void __cdecl skipspace(uint *param_1)
 
 {
   byte bVar1;
@@ -788,10 +795,11 @@ void __cdecl luaX_inclinenumber(uint *param_1)
   return;
 }
 
-/* ---- 0x10006b60  luaX_error ---- */
-/* Unidentified function of llex.c (lexer) */
+/* ---- 0x10006b60  checkcond ---- */
+/* Original name checkcond (the remaster's libLua.so: the remaster's static table checkcond::opts;
+   string 'invalid $if condition'); was luaX_error. */
 
-uint __cdecl luaX_error(byte *param_1)
+uint __cdecl checkcond(byte *param_1)
 
 {
   bool bVar1;
@@ -805,16 +813,17 @@ uint __cdecl luaX_error(byte *param_1)
       luaY_error(s_invalid__if_condition_10026f08,(char *)param_1);
       return 0;
     }
-    bVar1 = lstring__9550(param_1);
+    bVar1 = luaS_globaldefined(param_1);
     uVar2 = ((uint)(bVar1));
   }
   return uVar2;
 }
 
-/* ---- 0x10006bb0  llex__6bb0 ---- */
-/* Unidentified function of llex.c (lexer) */
+/* ---- 0x10006bb0  readname ---- */
+/* Original name readname (the remaster's libLua.so: static readname(LexState*, char*): string
+   'pragma too long'); was llex__6bb0. */
 
-void __cdecl llex__6bb0(uint *param_1,int param_2)
+void __cdecl readname(uint *param_1,int param_2)
 
 {
   byte bVar1;
@@ -823,7 +832,7 @@ void __cdecl llex__6bb0(uint *param_1,int param_2)
   int iVar4;
   
   iVar4 = 0;
-  luaX_inclinenumber(param_1);
+  skipspace(param_1);
   while( true ) {
     uVar3 = FUN_1000f650(*param_1);
     if ((uVar3 == 0) && (*param_1 != 0x5f)) break;
@@ -861,7 +870,7 @@ void __cdecl llex__6c30(uint *param_1)
   uVar2 = param_1[param_1[5] * 3 + 8];
   while (uVar2 != 0) {
     if (*param_1 == 10) {
-      luaX_pragma(param_1);
+      inclinenumber(param_1);
     }
     else if (*param_1 == 0xffffffff) {
       luaY_error(s_input_ends_inside_a__if_10026e44,&DAT_1002bedc);
@@ -903,7 +912,7 @@ LAB_10006cb8:
     goto LAB_10006d66;
   case 10:
     luaL_addchar(10);
-    luaX_pragma(param_1);
+    inclinenumber(param_1);
     goto LAB_10006cb8;
   case 0x5b:
     goto switchD_10006cce_caseD_5b;

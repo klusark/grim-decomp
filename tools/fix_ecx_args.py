@@ -3,7 +3,7 @@
 MSVC passes `this` in ECX and the other arguments on the stack, and the callee
 pops them.  Ghidra marks these functions with the default convention, so the
 decompiler shows `in_ECX` inside the body and drops ECX at every call site
-(lvm__ddb0(a1, a2, a3) lost the object it initialises).  Declaring
+(ExecutionState_Construct(a1, a2, a3) lost the object it initialises).  Declaring
 `__thiscall` with an explicit first parameter makes the callers pass it.
 
 The number of stack arguments comes from the function's `RET imm` (see

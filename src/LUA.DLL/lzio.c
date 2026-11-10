@@ -17,14 +17,17 @@ luaZ_mopen(undefined4 *param_1,int param_2,undefined4 param_3,undefined4 param_4
   }
   param_1[1] = param_2;
   *param_1 = param_3;
-  param_1[2] = FUN_1000edf0;
+  param_1[2] = zmfilbuf;
   param_1[3] = 0;
   param_1[4] = param_4;
   return param_1;
 }
 
-/* ---- 0x1000edf0  FUN_1000edf0 ---- */
-undefined4 FUN_1000edf0(void)
+/* ---- 0x1000edf0  zmfilbuf ---- */
+/* Original name zmfilbuf (the remaster's libLua.so: static zmfilbuf: returns EOZ (-1)); was
+   FUN_1000edf0. */
+
+undefined4 zmfilbuf(void)
 
 {
   return 0xffffffff;
@@ -67,13 +70,16 @@ undefined4 * __cdecl luaZ_Fopen(undefined4 *param_1,int param_2,undefined4 param
   param_1[3] = param_2;
   *param_1 = 0;
   param_1[1] = param_1 + 5;
-  param_1[2] = FUN_1000ee60;
+  param_1[2] = zffilbuf;
   param_1[4] = param_3;
   return param_1;
 }
 
-/* ---- 0x1000ee60  FUN_1000ee60 ---- */
-uint __cdecl FUN_1000ee60(int *param_1)
+/* ---- 0x1000ee60  zffilbuf ---- */
+/* Original name zffilbuf (the remaster's libLua.so: static zffilbuf: refills 256 bytes through the
+   service table +0x38); was FUN_1000ee60. */
+
+uint __cdecl zffilbuf(int *param_1)
 
 {
   byte *pbVar1;

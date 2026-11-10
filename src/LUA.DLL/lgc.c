@@ -124,10 +124,10 @@ int __cdecl lgc__5070(undefined4 *param_1)
 void luaC_markall(void)
 
 {
-  ldo__4600(luaC_markobject);
+  luaD_travallstacks(markobject);
   luaC_travglobal();
   luaC_travstack();
-  ltm__cb80(luaC_markobject);
+  luaT_travtagmethods(markobject);
   return;
 }
 
@@ -145,7 +145,7 @@ void luaC_travstack(void)
     iVar1 = 0;
     do {
       if (((undefined4 *)(DAT_1002bf34 + iVar1))[2] == 0) {
-        luaC_markobject((undefined4 *)(DAT_1002bf34 + iVar1));
+        markobject((undefined4 *)(DAT_1002bf34 + iVar1));
       }
       uVar2 = uVar2 + 1;
       iVar1 = iVar1 + 0xc;
@@ -164,7 +164,7 @@ void luaC_travglobal(void)
   
   for (puVar1 = DAT_1002bf00; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
     if (puVar1[4] != -7) {
-      luaC_markobject(puVar1 + 4);
+      markobject(puVar1 + 4);
       luaC_strmark((int)puVar1);
     }
   }
@@ -183,23 +183,24 @@ void __cdecl luaC_strmark(int param_1)
   return;
 }
 
-/* ---- 0x10005170  luaC_markobject ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x10005170  markobject ---- */
+/* Original name markobject (the remaster's libLua.so: static markobject(TObject*): switch on the
+   tag (closure, table, proto, string)); was luaC_markobject. */
 
-undefined4 __cdecl luaC_markobject(undefined4 *param_1)
+undefined4 __cdecl markobject(undefined4 *param_1)
 
 {
   switch(*param_1) {
   case 0xfffffff6:
   case 0xfffffffc:
-    luaC_hashmark(param_1[1]);
+    luaC_protomark(param_1[1]);
     break;
   case 0xfffffff7:
   case 0xfffffff8:
-    luaC_protomark(param_1[1]);
+    closuremark(param_1[1]);
     return 0;
   case 0xfffffffd:
-    luaC_closuremark(param_1[1]);
+    hashmark(param_1[1]);
     return 0;
   case 0xfffffffe:
   case 0:
@@ -209,10 +210,12 @@ undefined4 __cdecl luaC_markobject(undefined4 *param_1)
   return 0;
 }
 
-/* ---- 0x100051f0  luaC_hashmark ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x100051f0  luaC_protomark ---- */
+/* Named luaC_protomark (not in the remaster: inlined into markobject there) Lua 3.1's static
+   protomark: marks the source name, the constants and the local names of a prototype (markobject's
+   PROTO / PMARK case); was misnamed luaC_hashmark; was luaC_hashmark. */
 
-void __cdecl luaC_hashmark(int param_1)
+void __cdecl luaC_protomark(int param_1)
 
 {
   int *piVar1;
@@ -229,7 +232,7 @@ void __cdecl luaC_hashmark(int param_1)
     uVar3 = 0;
     if (*(int *)(param_1 + 0xc) != 0) {
       do {
-        luaC_markobject((undefined4 *)(*(int *)(param_1 + 8) + uVar3 * 8));
+        markobject((undefined4 *)(*(int *)(param_1 + 8) + uVar3 * 8));
         uVar3 = uVar3 + 1;
       } while (uVar3 < *(uint *)(param_1 + 0xc));
     }
@@ -248,10 +251,11 @@ void __cdecl luaC_hashmark(int param_1)
   return;
 }
 
-/* ---- 0x10005270  luaC_protomark ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x10005270  closuremark ---- */
+/* Original name closuremark (the remaster's libLua.so: static closuremark(Closure*): marks the
+   closure's nelems + 1 consts (markobject's CLOSURE / CLMARK case)); was luaC_protomark. */
 
-void __cdecl luaC_protomark(int param_1)
+void __cdecl closuremark(int param_1)
 
 {
   undefined4 *puVar1;
@@ -264,7 +268,7 @@ void __cdecl luaC_protomark(int param_1)
       puVar1 = (undefined4 *)(param_1 + 0xc + iVar2 * 8);
       iVar2 = iVar2 + 1;
       do {
-        luaC_markobject(puVar1);
+        markobject(puVar1);
         puVar1 = puVar1 + -2;
         iVar2 = iVar2 + -1;
       } while (iVar2 != 0);
@@ -273,10 +277,11 @@ void __cdecl luaC_protomark(int param_1)
   return;
 }
 
-/* ---- 0x100052b0  luaC_closuremark ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x100052b0  hashmark ---- */
+/* Original name hashmark (the remaster's libLua.so: static hashmark(Hash*): marks key and value of
+   every node (markobject's ARRAY case)); was luaC_closuremark. */
 
-void __cdecl luaC_closuremark(int param_1)
+void __cdecl hashmark(int param_1)
 
 {
   int iVar1;
@@ -291,8 +296,8 @@ void __cdecl luaC_closuremark(int param_1)
       do {
         piVar3 = (int *)(*(int *)(param_1 + 8) + iVar1);
         if (*piVar3 != -7) {
-          luaC_markobject(piVar3);
-          luaC_markobject(piVar3 + 2);
+          markobject(piVar3);
+          markobject(piVar3 + 2);
         }
         uVar2 = uVar2 + 1;
         iVar1 = iVar1 + 0x10;
@@ -302,10 +307,11 @@ void __cdecl luaC_closuremark(int param_1)
   return;
 }
 
-/* ---- 0x10005300  lgc__5300 ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x10005300  luaC_checkGC ---- */
+/* Original name luaC_checkGC (the remaster's libLua.so: nblocks >= GCthreshold ->
+   lua_collectgarbage(0)); was lgc__5300. */
 
-void lgc__5300(void)
+void luaC_checkGC(void)
 
 {
   if (DAT_1002bf64 <= DAT_1002beec) {
@@ -314,8 +320,11 @@ void lgc__5300(void)
   return;
 }
 
-/* ---- 0x10005320  FUN_10005320 ---- */
-void FUN_10005320(void)
+/* ---- 0x10005320  io_readfrom ---- */
+/* Original name io_readfrom (the remaster's libLua.so: iolib entry 'readfrom'); was FUN_10005320.
+    */
+
+void io_readfrom(void)
 
 {
   int iVar1;

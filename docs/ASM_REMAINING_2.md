@@ -69,7 +69,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 |---|---|---|---|
 | 10001e10 | `lua_updatetasks` | lapi.c | task scheduler lua_updatetasks: setjmp per task, jmp_buf in the frame and mangled control flow |
 | 100046e0 | `luaD_protectedrun` | ldo.c | setjmp-protected call (luaD_protectedrun); decompilation reads the jmp_buf through stack0x offsets |
-| 10004a50 | `luaD_protectedparser` | ldo.c | setjmp-protected parse/undump (longjmp error unwinding); kept assembled |
+| 10004a50 | `protectedparser` | ldo.c | setjmp-protected parse/undump (longjmp error unwinding); kept assembled |
 
 64 further functions are MSVC C runtime internals (listed in `names/asm_funcs.json`, modules `crt*.c`): the real game code calls them by address, the host msvcrt is used wherever the rebuild does not need the exact original.
 
@@ -407,10 +407,10 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
   tier crash in the engine (an out-of-bounds write while a set loads); even the 191-function subset that an earlier, flawed bisect
   accepted fails it.  The cause was not found (the engine also has latent use-after-free crashes under a debugger, in
   Sector_ClipPolygon, with the all-assembly build), so no IMUSE function was converted.
-- LUA.DLL: the 7 former exception-frame functions (luaD_call, lua_Restore, lstate__87f0, lstate__8ad0, lvm__dbd0, lvm__dd10,
-  lbuiltin__3260), luaX_lex, yyparse, str_match, string.format, tostring, the undump helpers and lua_printstack are C now
+- LUA.DLL: the 7 former exception-frame functions (luaD_call, lua_Restore, LState_Restore, lua_newstate, ExecutionState_Restore, ExecutionState_New,
+  luaI_startscript), luaY_lex, luaY_parse, match, string.format, tostring, the undump helpers and lua_printstack are C now
   (hand-written ones are in build/overrides.c, blocks marked `agentJ`).  Remaining: setjmp users (lua_updatetasks,
-  luaD_protectedrun, luaD_protectedparser), lvm__dd/lstate pieces listed above, and the MSVC C runtime.
+  luaD_protectedrun, protectedparser), lvm__dd/lstate pieces listed above, and the MSVC C runtime.
 - EXE >= 0x4a0000: hand-written C for Lua_DimRegion, Lua_RestoreCacheRect, PositionedSound_Apply, Smush_SetFile,
   DSound_SetPrimaryVolume (build/jtmp/ov_exe_h.c) and for CHORE Cos_New*Tag, Cos_Save, Cos_Restore, FUN_100041e0
   (build/jtmp/ov_chore_j.c) were written but NOT enabled: not verified before the wrap-up.  Ghidra return types of

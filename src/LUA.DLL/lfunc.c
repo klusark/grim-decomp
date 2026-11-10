@@ -129,10 +129,11 @@ int __cdecl luaF_getlocalname(int param_1,int param_2,uint param_3)
   return iVar3;
 }
 
-/* ---- 0x10004d40  lfunc__4d40 ---- */
-/* Unidentified function of lfunc.c (prototypes and closures) */
+/* ---- 0x10004d40  luaC_ref ---- */
+/* Original name luaC_ref (the remaster's libLua.so: string 'reference table overflow'); was
+   lfunc__4d40. */
 
-uint __cdecl lfunc__4d40(int *param_1,int param_2)
+uint __cdecl luaC_ref(int *param_1,int param_2)
 
 {
   uint uVar1;
@@ -171,10 +172,11 @@ uint __cdecl lfunc__4d40(int *param_1,int param_2)
   return uVar1;
 }
 
-/* ---- 0x10004e30  lfunc__4e30 ---- */
-/* Unidentified function of lfunc.c (prototypes and closures) */
+/* ---- 0x10004e30  luaC_getref ---- */
+/* Original name luaC_getref (the remaster's libLua.so: -1 gives the nil object, otherwise the ref
+   record if its status is 0 or 1 (same test)); was lfunc__4e30. */
 
-undefined * __cdecl lfunc__4e30(uint param_1)
+undefined * __cdecl luaC_getref(uint param_1)
 
 {
   undefined *puVar1;

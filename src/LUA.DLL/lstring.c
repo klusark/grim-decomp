@@ -25,22 +25,24 @@ void luaS_init(void)
   return;
 }
 
-/* ---- 0x10008d90  luaS_hash ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x10008d90  luaS_createudata ---- */
+/* Original name luaS_createudata (the remaster's libLua.so: luaS_createudata: callers
+   lua_pushusertag and GlobalBeginRestore, calls insert); was luaS_hash. */
 
-undefined * __cdecl luaS_hash(byte *param_1,uint param_2)
+undefined * __cdecl luaS_createudata(byte *param_1,uint param_2)
 
 {
   undefined *puVar1;
   
-  puVar1 = lstring__8dc0(param_1,param_2,(uint *)(DAT_1002bef4 + ((uint)param_1 % 0x3d) * 0xc));
+  puVar1 = insert(param_1,param_2,(uint *)(DAT_1002bef4 + ((uint)param_1 % 0x3d) * 0xc));
   return puVar1;
 }
 
-/* ---- 0x10008dc0  lstring__8dc0 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x10008dc0  insert ---- */
+/* Original name insert (the remaster's libLua.so: static insert(char*, int, stringtable*): callers
+   luaS_new and luaS_createudata); was lstring__8dc0. */
 
-undefined * __cdecl lstring__8dc0(byte *param_1,uint param_2,uint *param_3)
+undefined * __cdecl insert(byte *param_1,uint param_2,uint *param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -276,8 +278,8 @@ undefined * __cdecl luaS_new(byte *param_1)
   undefined *puVar1;
   
                     /* 0x90e0  2  luaS_new */
-  puVar1 = lstring__8dc0(param_1,0xfffffffe,
-                         (uint *)(DAT_1002bef4 + ((uint)(int)(char)*param_1 % 0x3d) * 0xc));
+  puVar1 = insert(param_1,0xfffffffe,
+                  (uint *)(DAT_1002bef4 + ((uint)(int)(char)*param_1 % 0x3d) * 0xc));
   return puVar1;
 }
 
@@ -333,10 +335,11 @@ void __cdecl luaS_free(undefined4 *param_1)
   } while( true );
 }
 
-/* ---- 0x10009180  lstring__9180 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x10009180  luaS_writestrings ---- */
+/* Original name luaS_writestrings (the remaster's libLua.so: callee SaveObject, caller
+   SaveGlobals); was lstring__9180. */
 
-void __cdecl lstring__9180(undefined *param_1,int *param_2)
+void __cdecl luaS_writestrings(undefined *param_1,int *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -372,7 +375,7 @@ void __cdecl lstring__9180(undefined *param_1,int *param_2)
           else {
             piVar5 = param_2 + 4;
           }
-          lstate__7830((int)piVar5,(int)a2);
+          LState_SaveObject((int)piVar5,(int)a2);
           if (param_2[2] != -1) {
             uVar2 = 0xffffffff;
             piVar5 = param_2 + 6;
@@ -402,10 +405,11 @@ void __cdecl lstring__9180(undefined *param_1,int *param_2)
 #undef local_c
 
 
-/* ---- 0x10009290  lstring__9290 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x10009290  luaS_resolvestrings ---- */
+/* Original name luaS_resolvestrings (the remaster's libLua.so: callee ResolveObject, caller
+   GlobalBeginRestore); was lstring__9290. */
 
-void __cdecl lstring__9290(int *param_1)
+void __cdecl luaS_resolvestrings(int *param_1)
 
 {
   undefined *puVar1;
@@ -420,7 +424,7 @@ void __cdecl lstring__9290(int *param_1)
         puVar1 = *(undefined **)(param_1[2] + iVar3 * 4);
         if (((puVar1 != (undefined *)0x0) && (puVar1 != &DAT_10027898)) &&
            (*(int *)(puVar1 + 8) != -1)) {
-          lstate__78b0((int)(puVar1 + 0x10));
+          LState_ResolveObject((int)(puVar1 + 0x10));
         }
         iVar3 = iVar3 + 1;
       } while (iVar3 < *param_1);
@@ -431,10 +435,11 @@ void __cdecl lstring__9290(int *param_1)
   return;
 }
 
-/* ---- 0x100092e0  lstring__92e0 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x100092e0  luaS_count ---- */
+/* Original name luaS_count (the remaster's libLua.so: caller SaveGlobals (string count for the save
+   file)); was lstring__92e0. */
 
-int __cdecl lstring__92e0(int *param_1,uint *param_2)
+int __cdecl luaS_count(int *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -485,10 +490,11 @@ int __cdecl lstring__92e0(int *param_1,uint *param_2)
 #undef local_4
 
 
-/* ---- 0x10009370  lstring__9370 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x10009370  luaS_collector ---- */
+/* Original name luaS_collector (the remaster's libLua.so: caller lua_collectgarbage); was
+   lstring__9370. */
 
-int lstring__9370(void)
+int luaS_collector(void)
 
 {
   int *piVar1;
@@ -542,10 +548,11 @@ void __cdecl lstring__93e0(undefined4 *param_1)
   return;
 }
 
-/* ---- 0x10009410  lstring__9410 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x10009410  luaS_collectudata ---- */
+/* Original name luaS_collectudata (the remaster's libLua.so: caller lua_close (its result goes to
+   luaS_free)); was lstring__9410. */
 
-uint * lstring__9410(void)
+uint * luaS_collectudata(void)
 
 {
   int *piVar1;
@@ -577,10 +584,11 @@ uint * lstring__9410(void)
   return puVar3;
 }
 
-/* ---- 0x10009470  lstring__9470 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x10009470  luaS_freeall ---- */
+/* Original name luaS_freeall (the remaster's libLua.so: caller lua_close, after luaS_free); was
+   lstring__9470. */
 
-void lstring__9470(void)
+void luaS_freeall(void)
 
 {
   int *piVar1;
@@ -608,10 +616,11 @@ void lstring__9470(void)
   return;
 }
 
-/* ---- 0x100094e0  lstring__94e0 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x100094e0  luaS_rawsetglobal ---- */
+/* Original name luaS_rawsetglobal (the remaster's libLua.so: callers luaV_setglobal,
+   lua_rawsetglobal); was lstring__94e0. */
 
-void __cdecl lstring__94e0(int *param_1,int *param_2)
+void __cdecl luaS_rawsetglobal(int *param_1,int *param_2)
 
 {
   param_1[4] = *param_2;
@@ -623,10 +632,11 @@ void __cdecl lstring__94e0(int *param_1,int *param_2)
   return;
 }
 
-/* ---- 0x10009510  lstring__9510 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x10009510  luaS_travsymbol ---- */
+/* Original name luaS_travsymbol (the remaster's libLua.so: caller lua_getobjname); was
+   lstring__9510. */
 
-int * __cdecl lstring__9510(undefined *param_1)
+int * __cdecl luaS_travsymbol(undefined *param_1)
 
 {
   int iVar1;
@@ -646,10 +656,11 @@ int * __cdecl lstring__9510(undefined *param_1)
   return (int *)0x0;
 }
 
-/* ---- 0x10009550  lstring__9550 ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x10009550  luaS_globaldefined ---- */
+/* Original name luaS_globaldefined (the remaster's libLua.so: luaS_new(name)->value != nil (the
+   $ifnot pragma test)); was lstring__9550. */
 
-int __cdecl lstring__9550(byte *param_1)
+int __cdecl luaS_globaldefined(byte *param_1)
 
 {
   int iVar1;
@@ -658,8 +669,10 @@ int __cdecl lstring__9550(byte *param_1)
   return *(int *)(iVar1 + 0x10) != -7;
 }
 
-/* ---- 0x10009570  FUN_10009570 ---- */
-void FUN_10009570(void)
+/* ---- 0x10009570  str_len ---- */
+/* Original name str_len (the remaster's libLua.so: strlib entry 'strlen'); was FUN_10009570. */
+
+void str_len(void)
 
 {
   char cVar1;

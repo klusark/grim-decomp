@@ -15,35 +15,35 @@
 },
 {
 "addr": "10002d10",
-"name": "lbuiltin__2d10",
+"name": "luaL_addsize",
 "comment": "Unidentified function of lbuiltin.c (built-in functions)",
 "tags": "lbuiltin",
 "program": "/LUA.DLL"
 },
 {
 "addr": "10002d30",
-"name": "lbuiltin__2d30",
+"name": "luaL_newbuffer",
 "comment": "Unidentified function of lbuiltin.c (built-in functions)",
 "tags": "lbuiltin",
 "program": "/LUA.DLL"
 },
 {
 "addr": "10002d80",
-"name": "lbuiltin__2d80",
+"name": "luaL_oldbuffer",
 "comment": "Unidentified function of lbuiltin.c (built-in functions)",
 "tags": "lbuiltin",
 "program": "/LUA.DLL"
 },
 {
 "addr": "10004d40",
-"name": "lfunc__4d40",
+"name": "luaC_ref",
 "comment": "Unidentified function of lfunc.c (prototypes and closures)",
 "tags": "lfunc",
 "program": "/LUA.DLL"
 },
 {
 "addr": "10004e30",
-"name": "lfunc__4e30",
+"name": "luaC_getref",
 "comment": "Unidentified function of lfunc.c (prototypes and closures)",
 "tags": "lfunc",
 "program": "/LUA.DLL"

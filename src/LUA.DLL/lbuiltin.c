@@ -5,20 +5,21 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x10002d10  lbuiltin__2d10 ---- */
-/* Unidentified function of lbuiltin.c (built-in functions) */
+/* ---- 0x10002d10  luaL_addsize ---- */
+/* Original name luaL_addsize (the remaster's libLua.so: Mbuffnext += n); was lbuiltin__2d10. */
 
-void __cdecl lbuiltin__2d10(int param_1)
+void __cdecl luaL_addsize(int param_1)
 
 {
   DAT_1002bf4c = DAT_1002bf4c + param_1;
   return;
 }
 
-/* ---- 0x10002d30  lbuiltin__2d30 ---- */
-/* Unidentified function of lbuiltin.c (built-in functions) */
+/* ---- 0x10002d30  luaL_newbuffer ---- */
+/* Original name luaL_newbuffer (the remaster's libLua.so: returns the old base, opens space, new
+   base = Mbuffer + Mbuffnext); was lbuiltin__2d30. */
 
-int __cdecl lbuiltin__2d30(int param_1)
+int __cdecl luaL_newbuffer(int param_1)
 
 {
   int iVar1;
@@ -31,10 +32,11 @@ int __cdecl lbuiltin__2d30(int param_1)
   return iVar1;
 }
 
-/* ---- 0x10002d80  lbuiltin__2d80 ---- */
-/* Unidentified function of lbuiltin.c (built-in functions) */
+/* ---- 0x10002d80  luaL_oldbuffer ---- */
+/* Original name luaL_oldbuffer (the remaster's libLua.so: restores Mbuffnext and the base); was
+   lbuiltin__2d80. */
 
-void __cdecl lbuiltin__2d80(int param_1)
+void __cdecl luaL_oldbuffer(int param_1)
 
 {
   DAT_1002bf4c = DAT_1002befc - DAT_1002bf40;
@@ -42,17 +44,20 @@ void __cdecl lbuiltin__2d80(int param_1)
   return;
 }
 
-/* ---- 0x10002da0  lbuiltin__2da0 ---- */
-/* Unidentified function of lbuiltin.c (built-in functions) */
+/* ---- 0x10002da0  luaL_buffer ---- */
+/* Original name luaL_buffer (the remaster's libLua.so: returns Mbuffbase); was lbuiltin__2da0. */
 
-undefined4 lbuiltin__2da0(void)
+undefined4 luaL_buffer(void)
 
 {
   return DAT_1002befc;
 }
 
-/* ---- 0x10002db0  FUN_10002db0 ---- */
-void FUN_10002db0(void)
+/* ---- 0x10002db0  nextvar ---- */
+/* Original name nextvar (the remaster's libLua.so: int_funcs entry 'nextvar', string 'variable name
+   expected'); was FUN_10002db0. */
+
+void nextvar(void)
 
 {
   int iVar1;
@@ -60,7 +65,7 @@ void FUN_10002db0(void)
   int *piVar3;
   
   iVar1 = luaL_nonnullarg(1);
-  piVar2 = (int *)lapi__11e0(iVar1);
+  piVar2 = (int *)luaA_Address(iVar1);
   piVar3 = DAT_1002bf00;
   if (*piVar2 != -7) {
     if (*piVar2 != -2) {
@@ -104,8 +109,11 @@ void __cdecl lbuiltin__2e40(undefined4 param_1)
 #undef local_8
 
 
-/* ---- 0x10002e70  FUN_10002e70 ---- */
-void FUN_10002e70(void)
+/* ---- 0x10002e70  foreachvar ---- */
+/* Original name foreachvar (the remaster's libLua.so: int_funcs entry 'foreachvar'); was
+   FUN_10002e70. */
+
+void foreachvar(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -115,7 +123,7 @@ void FUN_10002e70(void)
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
   iVar1 = luaL_functionarg(1);
-  puVar2 = (undefined4 *)lapi__11e0(iVar1);
+  puVar2 = (undefined4 *)luaA_Address(iVar1);
   uStack_8 = *puVar2;
   uStack_4 = puVar2[1];
   iVar1 = PTR_1002bf6c[10] * 8;
@@ -148,8 +156,10 @@ void FUN_10002e70(void)
 #undef uStack_8
 
 
-/* ---- 0x10002f80  FUN_10002f80 ---- */
-void FUN_10002f80(void)
+/* ---- 0x10002f80  next ---- */
+/* Original name next (the remaster's libLua.so: int_funcs entry 'next'); was FUN_10002f80. */
+
+void next(void)
 
 {
   int iVar1;
@@ -159,8 +169,8 @@ void FUN_10002f80(void)
   
   iVar1 = luaL_tablearg(1);
   iVar2 = luaL_nonnullarg(2);
-  piVar3 = (int *)lapi__11e0(iVar2);
-  iVar1 = lapi__11e0(iVar1);
+  piVar3 = (int *)luaA_Address(iVar2);
+  iVar1 = luaA_Address(iVar1);
   puVar4 = (undefined4 *)luaH_next(iVar1,piVar3);
   if (puVar4 != (undefined4 *)0x0) {
     luaA_pushobject(puVar4);
@@ -169,8 +179,10 @@ void FUN_10002f80(void)
   return;
 }
 
-/* ---- 0x10002fd0  FUN_10002fd0 ---- */
-void FUN_10002fd0(void)
+/* ---- 0x10002fd0  foreach ---- */
+/* Original name foreach (the remaster's libLua.so: int_funcs entry 'foreach'); was FUN_10002fd0. */
+
+void foreach(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -183,10 +195,10 @@ void FUN_10002fd0(void)
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
   iVar1 = luaL_tablearg(1);
-  iVar1 = lapi__11e0(iVar1);
+  iVar1 = luaA_Address(iVar1);
   iVar1 = *(int *)(iVar1 + 4);
   iVar2 = luaL_functionarg(2);
-  puVar3 = (undefined4 *)lapi__11e0(iVar2);
+  puVar3 = (undefined4 *)luaA_Address(iVar2);
   uStack_8 = *puVar3;
   iVar2 = 0;
   uStack_4 = puVar3[1];
@@ -217,8 +229,11 @@ void FUN_10002fd0(void)
 #undef uStack_8
 
 
-/* ---- 0x100030d0  FUN_100030d0 ---- */
-void FUN_100030d0(void)
+/* ---- 0x100030d0  internaldostring ---- */
+/* Original name internaldostring (the remaster's libLua.so: int_funcs entry 'dostring'); was
+   FUN_100030d0. */
+
+void internaldostring(void)
 
 {
   int iVar1;
@@ -231,7 +246,7 @@ void FUN_100030d0(void)
   pcVar2 = (char *)luaL_check_string(1);
   iVar1 = lua_dostring(pcVar2);
   if (iVar1 == 0) {
-    iVar1 = lapi__1240();
+    iVar1 = luaA_passresults();
     if (iVar1 == 0) {
       lua_pushusertag((byte *)0x0,0);
     }
@@ -239,8 +254,11 @@ void FUN_100030d0(void)
   return;
 }
 
-/* ---- 0x10003120  FUN_10003120 ---- */
-void FUN_10003120(void)
+/* ---- 0x10003120  internaldofile ---- */
+/* Original name internaldofile (the remaster's libLua.so: int_funcs entry 'dofile'); was
+   FUN_10003120. */
+
+void internaldofile(void)
 
 {
   char *pcVar1;
@@ -249,7 +267,7 @@ void FUN_10003120(void)
   pcVar1 = (char *)luaL_opt_string(1,0);
   iVar2 = lua_dofile(pcVar1);
   if (iVar2 == 0) {
-    iVar2 = lapi__1240();
+    iVar2 = luaA_passresults();
     if (iVar2 == 0) {
       lua_pushusertag((byte *)0x0,0);
     }
@@ -257,25 +275,30 @@ void FUN_10003120(void)
   return;
 }
 
-/* ---- 0x10003150  FUN_10003150 ---- */
-void FUN_10003150(void)
+/* ---- 0x10003150  bi_tostring ---- */
+/* Original name bi_tostring (the remaster's libLua.so: int_funcs entry 'tostring'); was
+   FUN_10003150. */
+
+void bi_tostring(void)
 
 {
   int iVar1;
   byte *pbVar2;
   
   iVar1 = lua_lua2C(1);
-  pbVar2 = luaB_tostring(iVar1);
+  pbVar2 = to_string(iVar1);
   lua_pushstring(pbVar2);
   return;
 }
 
-/* ---- 0x10003170  luaB_tostring ---- */
+/* ---- 0x10003170  to_string ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* lbuiltin.c: userdata: %p / task: %d / table: %p formatting */
+/* lbuiltin.c: userdata: %p / task: %d / table: %p formatting Original name to_string (the
+   remaster's libLua.so: static to_string: the strings 'nil', 'table: %p', 'task: %d', 'internal
+   error', called by bi_tostring); was luaB_tostring. */
 
-undefined1 * __cdecl luaB_tostring(int param_1)
+undefined1 * __cdecl to_string(int param_1)
 
 {
   char *buf;
@@ -285,7 +308,7 @@ undefined1 * __cdecl luaB_tostring(int param_1)
   undefined4 uVar4;
   
   buf = (char *)luaL_openspace(0x1e);
-  puVar1 = (undefined4 *)lapi__11e0(param_1);
+  puVar1 = (undefined4 *)luaA_Address(param_1);
   switch(*puVar1) {
   case 0:
     sprintf(buf,s_userdata___p_10026708,*(undefined4 *)(puVar1[1] + 0x14));
@@ -322,12 +345,13 @@ undefined1 * __cdecl luaB_tostring(int param_1)
 #endif
 
 
-/* ---- 0x10003260  lbuiltin__3260 ---- */
+/* ---- 0x10003260  luaI_startscript ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of lbuiltin.c (built-in functions) */
+/* Original name luaI_startscript (the remaster's libLua.so: int_funcs entry 'start_script'); was
+   lbuiltin__3260. */
 
-void lbuiltin__3260(void)
+void luaI_startscript(void)
 
 {
   int *piVar1;
@@ -345,10 +369,10 @@ void lbuiltin__3260(void)
       this = (int *)0x0;
     }
     else {
-      this = lstate__75e0(puVar5);
+      this = LState_Construct(puVar5);
     }
     this[3] = 0;
-    lstate__8b70(this,(int)PTR_1002bf6c);
+    LState_attach(this,(int)PTR_1002bf6c);
     iVar4 = PTR_1002bf6c[8];
     this[0x31] = *(int *)(iVar4 + -8 + iVar3 * 8);
     this[0x32] = *(int *)(iVar4 + -4 + iVar3 * 8);
@@ -370,8 +394,11 @@ void lbuiltin__3260(void)
 #endif
 
 
-/* ---- 0x10003370  FUN_10003370 ---- */
-void FUN_10003370(void)
+/* ---- 0x10003370  luaI_stopscript ---- */
+/* Original name luaI_stopscript (the remaster's libLua.so: int_funcs entry 'stop_script', strings
+   'Argument to stopscript must be a task handle or function!'); was FUN_10003370. */
+
+void luaI_stopscript(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -398,7 +425,7 @@ void FUN_10003370(void)
     if (iVar2 != 0) {
       uStack_8 = *(undefined4 *)(PTR_1002bf6c[8] + -8 + iVar1 * 8);
       uStack_4 = *(undefined4 *)(PTR_1002bf6c[8] + -4 + iVar1 * 8);
-      piVar3 = (int *)lstate__8bf0(DAT_1002bf70);
+      piVar3 = (int *)LState_next(DAT_1002bf70);
       while (block = piVar3, block != (int *)0x0) {
         iVar1 = 8;
         bVar5 = true;
@@ -412,32 +439,32 @@ void FUN_10003370(void)
           pcVar4 = pcVar4 + 1;
         } while (bVar5);
         if ((bVar5) && (block != PTR_1002bf6c)) {
-          piVar3 = (int *)lstate__8bf0((int)block);
+          piVar3 = (int *)LState_next((int)block);
           if (block != (int *)0x0) {
-            lstate__8c00(block);
+            LState_Destruct(block);
             luaM_free(block);
           }
         }
         else {
-          piVar3 = (int *)lstate__8bf0((int)block);
+          piVar3 = (int *)LState_next((int)block);
         }
       }
     }
   }
   else {
     iVar1 = lua_gettask(iVar1);
-    piVar3 = (int *)lstate__8bf0(DAT_1002bf70);
+    piVar3 = (int *)LState_next(DAT_1002bf70);
     if (piVar3 != (int *)0x0) {
       do {
         if (piVar3[0x30] == iVar1) break;
-        piVar3 = (int *)lstate__8bf0((int)piVar3);
+        piVar3 = (int *)LState_next((int)piVar3);
       } while (piVar3 != (int *)0x0);
       if (piVar3 != (int *)0x0) {
         if (piVar3 == PTR_1002bf6c) {
           lua_error((byte *)s_Current_task_is_committing_suici_10026734);
           return;
         }
-        lstate__8c00(piVar3);
+        LState_Destruct(piVar3);
         luaM_free(piVar3);
         return;
       }
@@ -449,8 +476,11 @@ void FUN_10003370(void)
 #undef uStack_8
 
 
-/* ---- 0x100034c0  FUN_100034c0 ---- */
-void FUN_100034c0(void)
+/* ---- 0x100034c0  luaI_findscript ---- */
+/* Original name luaI_findscript (the remaster's libLua.so: strings 'Too few arguments to
+   findscript! ...'); was FUN_100034c0. */
+
+void luaI_findscript(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -479,9 +509,9 @@ void FUN_100034c0(void)
     if (iVar2 != 0) {
       uStack_8 = *(undefined4 *)(PTR_1002bf6c[8] + -8 + iVar1 * 8);
       uStack_4 = *(undefined4 *)(PTR_1002bf6c[8] + -4 + iVar1 * 8);
-      iVar2 = lstate__8bf0(DAT_1002bf70);
+      iVar2 = LState_next(DAT_1002bf70);
       iVar1 = 0;
-      for (; iVar2 != 0; iVar2 = lstate__8bf0(iVar2)) {
+      for (; iVar2 != 0; iVar2 = LState_next(iVar2)) {
         iVar3 = 8;
         bVar7 = true;
         pcVar5 = (char *)(iVar2 + 0xc4);
@@ -507,7 +537,7 @@ void FUN_100034c0(void)
   }
   else {
     iVar2 = lua_gettask(iVar1);
-    for (iVar4 = lstate__8bf0(DAT_1002bf70); iVar4 != 0; iVar4 = lstate__8bf0(iVar4)) {
+    for (iVar4 = LState_next(DAT_1002bf70); iVar4 != 0; iVar4 = LState_next(iVar4)) {
       if (*(int *)(iVar4 + 0xc0) == iVar2) {
         lua_pushobject(iVar1);
         lua_pushnumber(1.0);
@@ -523,8 +553,11 @@ void FUN_100034c0(void)
 #undef uStack_8
 
 
-/* ---- 0x10003610  FUN_10003610 ---- */
-void FUN_10003610(void)
+/* ---- 0x10003610  luaI_identifyscript ---- */
+/* Original name luaI_identifyscript (the remaster's libLua.so: strings 'Too few arguments to
+   identifyscript! ...'); was FUN_10003610. */
+
+void luaI_identifyscript(void)
 
 {
   int iVar1;
@@ -539,14 +572,14 @@ void FUN_10003610(void)
     lua_error((byte *)s_Argument_to_identifyscript_must_b_10026870);
   }
   iVar1 = lua_gettask(iVar1);
-  iVar2 = lstate__8bf0(DAT_1002bf70);
+  iVar2 = LState_next(DAT_1002bf70);
   if (iVar2 != 0) {
     do {
       if (*(int *)(iVar2 + 0xc0) == iVar1) {
         luaA_pushobject((undefined4 *)(iVar2 + 0xc4));
         return;
       }
-      iVar2 = lstate__8bf0(iVar2);
+      iVar2 = LState_next(iVar2);
     } while (iVar2 != 0);
     lua_pushnil();
     return;
@@ -555,8 +588,11 @@ void FUN_10003610(void)
   return;
 }
 
-/* ---- 0x100036a0  FUN_100036a0 ---- */
-void FUN_100036a0(void)
+/* ---- 0x100036a0  luaI_nextscript ---- */
+/* Original name luaI_nextscript (the remaster's libLua.so: strings 'Too few arguments to
+   nextscript! ...'); was FUN_100036a0. */
+
+void luaI_nextscript(void)
 
 {
   int iVar1;
@@ -573,9 +609,9 @@ void FUN_100036a0(void)
   iVar2 = lua_istask(iVar1);
   if (iVar2 != 0) {
     iVar2 = lua_gettask(iVar1);
-    for (iVar1 = lstate__8bf0(DAT_1002bf70); iVar1 != 0; iVar1 = lstate__8bf0(iVar1)) {
+    for (iVar1 = LState_next(DAT_1002bf70); iVar1 != 0; iVar1 = LState_next(iVar1)) {
       if (*(int *)(iVar1 + 0xc0) == iVar2) {
-        iVar1 = lstate__8bf0(iVar1);
+        iVar1 = LState_next(iVar1);
         if (iVar1 != 0) {
           lua_pushtask(*(int *)(iVar1 + 0xc0));
           return;
@@ -584,7 +620,7 @@ void FUN_100036a0(void)
       }
     }
   }
-  iVar1 = lstate__8bf0(DAT_1002bf70);
+  iVar1 = LState_next(DAT_1002bf70);
   if (iVar1 != 0) {
     lua_pushtask(*(int *)(iVar1 + 0xc0));
     return;
@@ -594,15 +630,21 @@ LAB_10003741:
   return;
 }
 
-/* ---- 0x10003770  FUN_10003770 ---- */
-void FUN_10003770(void)
+/* ---- 0x10003770  luaI_breakhere ---- */
+/* Original name luaI_breakhere (the remaster's libLua.so: the empty 'break_here' builtin
+   (luaI_breakhere is an empty function in the remaster too)); was FUN_10003770. */
+
+void luaI_breakhere(void)
 
 {
   return;
 }
 
-/* ---- 0x10003780  FUN_10003780 ---- */
-void FUN_10003780(void)
+/* ---- 0x10003780  luaI_print ---- */
+/* Original name luaI_print (the remaster's libLua.so: int_funcs entry 'print'); was FUN_10003780.
+    */
+
+void luaI_print(void)
 
 {
   int iVar1;
@@ -612,7 +654,7 @@ void FUN_10003780(void)
   iVar2 = lua_lua2C(1);
   iVar1 = 2;
   while (iVar2 != 0) {
-    puVar3 = luaB_tostring(iVar2);
+    puVar3 = to_string(iVar2);
     printf(&DAT_10026960,puVar3);
     iVar2 = lua_lua2C(iVar1);
     iVar1 = iVar1 + 1;
@@ -621,23 +663,28 @@ void FUN_10003780(void)
   return;
 }
 
-/* ---- 0x100037d0  FUN_100037d0 ---- */
-void FUN_100037d0(void)
+/* ---- 0x100037d0  luaI_type ---- */
+/* Original name luaI_type (the remaster's libLua.so: int_funcs entry 'type'); was FUN_100037d0. */
+
+void luaI_type(void)
 
 {
   int iVar1;
   int *piVar2;
   
   iVar1 = luaL_nonnullarg(1);
-  piVar2 = (int *)lapi__11e0(iVar1);
+  piVar2 = (int *)luaA_Address(iVar1);
   lua_pushstring((&PTR_s_userdata_100270a8)[-*piVar2]);
   iVar1 = lua_tag(iVar1);
   lua_pushnumber((float)iVar1);
   return;
 }
 
-/* ---- 0x10003820  FUN_10003820 ---- */
-void FUN_10003820(void)
+/* ---- 0x10003820  tonumber ---- */
+/* Original name tonumber (the remaster's libLua.so: int_funcs entry 'tonumber', string 'base out of
+   range'); was FUN_10003820. */
+
+void tonumber(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -686,8 +733,11 @@ void FUN_10003820(void)
 #undef uStack_8
 
 
-/* ---- 0x10003910  FUN_10003910 ---- */
-void FUN_10003910(void)
+/* ---- 0x10003910  luaI_error ---- */
+/* Original name luaI_error (the remaster's libLua.so: int_funcs entry 'error'); was FUN_10003910.
+    */
+
+void luaI_error(void)
 
 {
   int iVar1;
@@ -699,8 +749,11 @@ void FUN_10003910(void)
   return;
 }
 
-/* ---- 0x10003930  FUN_10003930 ---- */
-void FUN_10003930(void)
+/* ---- 0x10003930  luaI_assert ---- */
+/* Original name luaI_assert (the remaster's libLua.so: int_funcs entry 'assert'); was FUN_10003930.
+    */
+
+void luaI_assert(void)
 
 {
   int iVar1;
@@ -715,8 +768,11 @@ void FUN_10003930(void)
   return;
 }
 
-/* ---- 0x10003970  FUN_10003970 ---- */
-void FUN_10003970(void)
+/* ---- 0x10003970  setglobal ---- */
+/* Original name setglobal (the remaster's libLua.so: int_funcs entry 'setglobal'); was
+   FUN_10003970. */
+
+void setglobal(void)
 
 {
   byte *pbVar1;
@@ -730,8 +786,11 @@ void FUN_10003970(void)
   return;
 }
 
-/* ---- 0x100039b0  FUN_100039b0 ---- */
-void FUN_100039b0(void)
+/* ---- 0x100039b0  rawsetglobal ---- */
+/* Original name rawsetglobal (the remaster's libLua.so: int_funcs entry 'rawsetglobal'); was
+   FUN_100039b0. */
+
+void rawsetglobal(void)
 
 {
   byte *pbVar1;
@@ -745,8 +804,11 @@ void FUN_100039b0(void)
   return;
 }
 
-/* ---- 0x100039f0  FUN_100039f0 ---- */
-void FUN_100039f0(void)
+/* ---- 0x100039f0  getglobal ---- */
+/* Original name getglobal (the remaster's libLua.so: int_funcs entry 'getglobal'); was
+   FUN_100039f0. */
+
+void getglobal(void)
 
 {
   byte *pbVar1;
@@ -758,8 +820,11 @@ void FUN_100039f0(void)
   return;
 }
 
-/* ---- 0x10003a10  FUN_10003a10 ---- */
-void FUN_10003a10(void)
+/* ---- 0x10003a10  rawgetglobal ---- */
+/* Original name rawgetglobal (the remaster's libLua.so: int_funcs entry 'rawgetglobal'); was
+   FUN_10003a10. */
+
+void rawgetglobal(void)
 
 {
   byte *pbVar1;
@@ -771,8 +836,10 @@ void FUN_10003a10(void)
   return;
 }
 
-/* ---- 0x10003a30  FUN_10003a30 ---- */
-void FUN_10003a30(void)
+/* ---- 0x10003a30  luatag ---- */
+/* Original name luatag (the remaster's libLua.so: int_funcs entry 'tag'); was FUN_10003a30. */
+
+void luatag(void)
 
 {
   int iVar1;
@@ -783,8 +850,10 @@ void FUN_10003a30(void)
   return;
 }
 
-/* ---- 0x10003a60  FUN_10003a60 ---- */
-void FUN_10003a60(void)
+/* ---- 0x10003a60  luaI_call ---- */
+/* Original name luaI_call (the remaster's libLua.so: int_funcs entry 'call'); was FUN_10003a60. */
+
+void luaI_call(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -829,7 +898,7 @@ void FUN_10003a60(void)
       luaA_packresults();
       return;
     }
-    lapi__1240();
+    luaA_passresults();
   }
   else {
     puVar3 = strchr(puVar3,'x');
@@ -868,8 +937,10 @@ int __cdecl lbuiltin__3ba0(int param_1)
 #endif
 
 
-/* ---- 0x10003bf0  FUN_10003bf0 ---- */
-void FUN_10003bf0(void)
+/* ---- 0x10003bf0  settag ---- */
+/* Original name settag (the remaster's libLua.so: int_funcs entry 'settag'); was FUN_10003bf0. */
+
+void settag(void)
 
 {
   int iVar1;
@@ -882,8 +953,10 @@ void FUN_10003bf0(void)
   return;
 }
 
-/* ---- 0x10003c20  FUN_10003c20 ---- */
-void FUN_10003c20(void)
+/* ---- 0x10003c20  newtag ---- */
+/* Original name newtag (the remaster's libLua.so: int_funcs entry 'newtag'); was FUN_10003c20. */
+
+void newtag(void)
 
 {
   int iVar1;
@@ -893,8 +966,11 @@ void FUN_10003c20(void)
   return;
 }
 
-/* ---- 0x10003c40  FUN_10003c40 ---- */
-void FUN_10003c40(void)
+/* ---- 0x10003c40  copytagmethods ---- */
+/* Original name copytagmethods (the remaster's libLua.so: int_funcs entry 'copytagmethods'); was
+   FUN_10003c40. */
+
+void copytagmethods(void)
 
 {
   int iVar1;
@@ -908,8 +984,11 @@ void FUN_10003c40(void)
   return;
 }
 
-/* ---- 0x10003c80  FUN_10003c80 ---- */
-void FUN_10003c80(void)
+/* ---- 0x10003c80  rawgettable ---- */
+/* Original name rawgettable (the remaster's libLua.so: int_funcs entry 'rawgettable'); was
+   FUN_10003c80. */
+
+void rawgettable(void)
 
 {
   int iVar1;
@@ -924,10 +1003,11 @@ void FUN_10003c80(void)
   return;
 }
 
-/* ---- 0x10003cc0  luaB_rawsettable ---- */
-/* lbuiltin.c (built-in functions) */
+/* ---- 0x10003cc0  rawsettable ---- */
+/* lbuiltin.c (built-in functions) Original name rawsettable (the remaster's libLua.so: int_funcs
+   entry 'rawsettable'); was luaB_rawsettable. */
 
-void luaB_rawsettable(void)
+void rawsettable(void)
 
 {
   int iVar1;
@@ -944,8 +1024,11 @@ void luaB_rawsettable(void)
   return;
 }
 
-/* ---- 0x10003d10  FUN_10003d10 ---- */
-void FUN_10003d10(void)
+/* ---- 0x10003d10  settagmethod ---- */
+/* Original name settagmethod (the remaster's libLua.so: int_funcs entry 'settagmethod'); was
+   FUN_10003d10. */
+
+void settagmethod(void)
 
 {
   int iVar1;
@@ -961,8 +1044,11 @@ void FUN_10003d10(void)
   return;
 }
 
-/* ---- 0x10003d50  FUN_10003d50 ---- */
-void FUN_10003d50(void)
+/* ---- 0x10003d50  gettagmethod ---- */
+/* Original name gettagmethod (the remaster's libLua.so: int_funcs entry 'gettagmethod'); was
+   FUN_10003d50. */
+
+void gettagmethod(void)
 
 {
   byte *pbVar1;
@@ -976,8 +1062,11 @@ void FUN_10003d50(void)
   return;
 }
 
-/* ---- 0x10003d80  FUN_10003d80 ---- */
-void FUN_10003d80(void)
+/* ---- 0x10003d80  seterrormethod ---- */
+/* Original name seterrormethod (the remaster's libLua.so: int_funcs entry 'seterrormethod'); was
+   FUN_10003d80. */
+
+void seterrormethod(void)
 
 {
   int iVar1;
@@ -989,8 +1078,11 @@ void FUN_10003d80(void)
   return;
 }
 
-/* ---- 0x10003db0  FUN_10003db0 ---- */
-void FUN_10003db0(void)
+/* ---- 0x10003db0  luaI_collectgarbage ---- */
+/* Original name luaI_collectgarbage (the remaster's libLua.so: int_funcs entry 'collectgarbage');
+   was FUN_10003db0. */
+
+void luaI_collectgarbage(void)
 
 {
   int iVar1;

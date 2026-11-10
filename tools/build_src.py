@@ -31,7 +31,7 @@ PREFIX_MAP = {
     "luaY": "lparser", "luaU": "lundump", "luaZ": "lzio", "hmiFX": "hmi",
     "luaL": "lauxlib", "luaB": "lbuiltin", "luaD": "ldo", "luaF": "lfunc", "luaX": "llex",
     "luaM": "lmem", "luaO": "lobject", "luaT": "ltm", "luaH": "ltable", "luaV": "lvm",
-    "yyparse": "lparser", "luaC": "lgc", "luaA": "lapi", "luaI": "ltm",
+    "luaY_parse": "lparser", "luaC": "lgc", "luaA": "lapi", "luaI": "ltm",
     # MSVC C runtime internals with CamelCase or lowercase_prefix names
     "FindHandler": "crt", "CatchIt": "crt", "CallCatchBlock": "crt", "BuildCatchObject": "crt",
     "FrameUnwindToState": "crt", "Eh": "crt", "write": "crt", "get": "crt", "shortsort": "crt",
@@ -88,9 +88,21 @@ import dllnames
 DLL_STDCALL = dllnames.load()  # EXE imports that are callee-pop exports of the rebuilt DLLs
 
 
+# original names from the remaster (round orig-names, tools/orig_batch.py): {program: {name: module}} for the renamed
+# functions whose new name would put them in another module (or crt.c); exact-name entries like PREFIX_MAP's, per
+# program since the three DLLs share names such as `next`
+try:
+    ORIG_MODULES = json.load(open(os.path.join(ROOT, "names", "orig_modules.json")))
+except (OSError, ValueError):
+    ORIG_MODULES = {}
+
+
 def module_for(name):
     if name.startswith("FUN_") or name.startswith("thunk_"):
         return None
+    pinned = ORIG_MODULES.get(CUR_PROG, {}).get(name)
+    if pinned:
+        return pinned
     if name in IMPORT_NAMES or re.match(r"^(switchD|LAB|DAT)_", name):
         return None
     if name.startswith("lua_"):
@@ -103,7 +115,7 @@ def module_for(name):
         return name.split("__", 1)[0].lower()
     if re.match(r"^(Im[A-Z]|Sounds[A-Z]|Sounds_)", name):
         return "imuse_api"
-    if name in PREFIX_MAP:  # yyparse and other exact-name entries
+    if name in PREFIX_MAP:  # luaY_parse and other exact-name entries
         return PREFIX_MAP[name]
     if "_" not in name and name == name.lower():  # CRT names: atof, fopen, exit ...
         return "crt"
@@ -1050,12 +1062,14 @@ def fix_stdcall(code):
     head, body = split_function(code)
     if not body or not STDCALL_FUNCS:
         return code
-    m = re.search(r"([A-Za-z_]\w*)\s*\(", head.split("/*")[0] if head.lstrip().startswith("/*") is False else head)
-    names = re.findall(r"\b([A-Za-z_]\w*)\s*\((?!\*)", head)
+    # the signature follows the plate comment, which may itself contain `Name (` text
+    cut = head.rfind("*/") + 2 if "*/" in head else 0
+    plate, sig = head[:cut], head[cut:]
+    names = re.findall(r"\b([A-Za-z_]\w*)\s*\((?!\*)", sig)
     name = names[-1] if names else None
-    if name in STDCALL_FUNCS and "__stdcall" not in head and "__fastcall" not in head and "__thiscall" not in head:
-        head = re.sub(r"\b" + re.escape(name) + r"\s*\(", "__stdcall " + name + "(", head, count=1)
-    return head + body
+    if name in STDCALL_FUNCS and "__stdcall" not in sig and "__fastcall" not in sig and "__thiscall" not in sig:
+        sig = re.sub(r"\b" + re.escape(name) + r"\s*\(", "__stdcall " + name + "(", sig, count=1)
+    return plate + sig + body
 
 
 # ---- x87 return values feeding _ftol (Ghidra cannot pass ST0 to `_ftol`) ------------------------------------

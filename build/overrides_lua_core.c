@@ -1,5 +1,5 @@
 /* LUA.DLL: the three Lua VM core functions that were still assembled (lua_updatetasks, luaD_protectedrun,
- * luaD_protectedparser), written from the original 1.01 machine code (2026-11-09; notes in docs/notes/lua_core.md).
+ * protectedparser), written from the original 1.01 machine code (2026-11-09; notes in docs/notes/lua_core.md).
  *
  * All three bracket a call with MSVC's setjmp: `_setjmp3(buf, 0)`, and lua_error (luaD_error) leaves through
  * `longjmp(*L->errorJmp, 1)`. Both come from the host msvcrt.dll (names/lib_replace.json), so the C below makes the
@@ -23,16 +23,16 @@ extern int __cdecl _setjmp3(void *buf, int count, ...) __attribute__((returns_tw
 #define GL LS(PTR_1002bf6c)
 
 /* OVERRIDES: lua_updatetasks */
-/* The task scheduler: runs every task (lua_State linked by lstate__8bf0 = next task) once.
- * First every task's C call chain is marked (lvm__de20) and its "paused" flag cleared.  Then, from the first task on,
+/* The task scheduler: runs every task (lua_State linked by LState_next = next task) once.
+ * First every task's C call chain is marked (ExecutionState_resetcounter) and its "paused" flag cleared.  Then, from the first task on,
  * each task that is neither paused (+0x10) nor marked (+0x14) runs under a setjmp: a new task (no root, +0x00 == 0)
  * calls its function (+0xc4) with the arguments on its stack, a resumed one continues its root call (root+0x10,
  * root+0x14).  A task whose call returns non-zero (yielded) gets +0x10 = 1 and stays; one that finished (0) or raised
- * an error (longjmp: ldo__4160 unwinds its root, root cleared) is freed (lstate__8c00, luaM_free).  The task hook
+ * an error (longjmp: luaD_deletestates unwinds its root, root cleared) is freed (LState_Destruct, luaM_free).  The task hook
  * (lua_taskhook) is told 0 (start), 2 (resume), 1 (yield), 4 (end) or 3 (error).  When a task is freed the scan goes
  * back to the start (the saved L) and continues with the first task that can run.  With param_1 != 0 the whole
  * round repeats while there is any task.  Returns 1 if a task is left, 0 if not.
- * Kept from the machine code: lstate__8bf0 is __fastcall; the stack-size argument of luaD_openstack is the
+ * Kept from the machine code: LState_next is __fastcall; the stack-size argument of luaD_openstack is the
  * arithmetic shift ((top - base) >> 3) - cbase; luaD_call gets the C base read BEFORE luaD_openstack, plus 1; the
  * assert (services+0x18, line 0x2fe) only fires for a yield without a root; the global L is re-read after every call. */
 int __cdecl lua_updatetasks(int param_1)
@@ -45,19 +45,19 @@ int __cdecl lua_updatetasks(int param_1)
 
     for (;;) {
         /* 1e23: mark every task's call chain, clear its paused flag */
-        for (t = (int *)lstate__8bf0((int)PTR_1002bf6c); t != 0; t = (int *)lstate__8bf0((int)t)) {
+        for (t = (int *)LState_next((int)PTR_1002bf6c); t != 0; t = (int *)LState_next((int)t)) {
             for (c = (int *)t[0]; c != 0; c = (int *)c[3])
-                lvm__de20((int)c);
+                ExecutionState_resetcounter((int)c);
             t[4] = 0;
         }
         /* 1e5b: the runnable tasks after the current one */
     restart:
-        nx = (int *)lstate__8bf0((int)PTR_1002bf6c);
+        nx = (int *)LState_next((int)PTR_1002bf6c);
         PTR_1002bf6c = nx;
         if (nx != 0) {
             do {
                 if (GL[4] != 0 || GL[5] != 0) {
-                    nx = (int *)lstate__8bf0((int)PTR_1002bf6c);           /* 2019 */
+                    nx = (int *)LState_next((int)PTR_1002bf6c);           /* 2019 */
                 } else {
                     hookarg = 4;
                     GL[0xd] = (int)buf;
@@ -67,16 +67,16 @@ int __cdecl lua_updatetasks(int param_1)
                             luaD_openstack(((GL[7] - GL[8]) >> 3) - base);
                             luaA_setnormalized((int *)(GL[8] + GL[10] * 8), GL + 0x31);
                             if (lua_taskhook != 0)
-                                ldo__40c0(GL[0x30], 0);
+                                luaD_taskHook(GL[0x30], 0);
                             res = luaD_call((code *)(base + 1), (void *)0xff);
                         } else {
                             if (lua_taskhook != 0)
-                                ldo__40c0(GL[0x30], 2);
+                                luaD_taskHook(GL[0x30], 2);
                             res = luaD_call((code *)((int *)GL[0])[4], (void *)((int *)GL[0])[5]);
                         }
                     } else {
                         hookarg = 3;
-                        ldo__4160(GL[0]);
+                        luaD_deletestates(GL[0]);
                         res = 0;
                         GL[0] = 0;
                     }
@@ -85,17 +85,17 @@ int __cdecl lua_updatetasks(int param_1)
                             ((void (__cdecl *)(char *, char *, int))*(int *)(DAT_1002beb8 + 0x18))(
                                 s_L__pExecutionState_100261dc, s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4, 0x2fe);
                         if (lua_taskhook != 0)
-                            ldo__40c0(GL[0x30], 1);
+                            luaD_taskHook(GL[0x30], 1);
                         GL[4] = 1;
-                        nx = (int *)lstate__8bf0((int)PTR_1002bf6c);       /* 201b */
+                        nx = (int *)LState_next((int)PTR_1002bf6c);       /* 201b */
                     } else {
                         int *dead;
                         if (lua_taskhook != 0)
-                            ldo__40c0(GL[0x30], hookarg);
-                        nx = (int *)lstate__8bf0((int)PTR_1002bf6c);
+                            luaD_taskHook(GL[0x30], hookarg);
+                        nx = (int *)LState_next((int)PTR_1002bf6c);
                         dead = GL;
                         if (dead != 0) {
-                            lstate__8c00(dead);
+                            LState_Destruct(dead);
                             luaM_free(dead);
                         }
                     }
@@ -105,20 +105,20 @@ int __cdecl lua_updatetasks(int param_1)
         }
         /* 2030: back at the start; if any later task can run, scan again from the saved L */
         PTR_1002bf6c = saved;
-        for (t = (int *)lstate__8bf0((int)saved); t != 0; t = (int *)lstate__8bf0((int)t)) {
+        for (t = (int *)LState_next((int)saved); t != 0; t = (int *)LState_next((int)t)) {
             if (t[4] == 0 && t[5] == 0)
                 goto restart;
         }
         /* 2053 */
-        if (param_1 == 0 || lstate__8bf0((int)PTR_1002bf6c) == 0)
+        if (param_1 == 0 || LState_next((int)PTR_1002bf6c) == 0)
             break;
     }
-    return lstate__8bf0((int)PTR_1002bf6c) != 0;
+    return LState_next((int)PTR_1002bf6c) != 0;
 }
 
 /* OVERRIDES: luaD_protectedrun */
 /* Calls the function on the C stack (luaD_callinc(nResults)) under a setjmp.  On an error (longjmp) it restores the
- * C stack frame (+0x28..+0x30), sets top = base + cbase * 8 and unlinks and frees (lvm__dd90) every entry of the
+ * C stack frame (+0x28..+0x30), sets top = base + cbase * 8 and unlinks and frees (ExecutionState_Delete) every entry of the
  * call chain (+0x00, linked through +0x0c) above the one at entry.  The previous errorJmp is put back and the call
  * depth (+0x08, incremented before the setjmp) decremented on both paths.  Returns 0, or 1 after an error. */
 undefined4 __cdecl luaD_protectedrun(void *param_1)
@@ -145,7 +145,7 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
         while (GL[0] != oldroot) {
             int e = GL[0];
             GL[0] = ((int *)e)[3];
-            lvm__dd90(e);
+            ExecutionState_Delete(e);
         }
         status = 1;
     }
@@ -154,11 +154,11 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
     return status;
 }
 
-/* OVERRIDES: luaD_protectedparser */
+/* OVERRIDES: protectedparser */
 /* Parses (luaY_parser) or undumps (luaU_undump1, param_2 != 0) one chunk from the stream param_1 under a setjmp.
  * Returns 1 after an error, 2 when there was nothing to read (no function), else 0 with a closure of the new
  * function pushed (luaD_adjusttop(cbase + 1); stack[cbase] = {LUA_T_PROTO (-4), tf}; luaV_closure(0)). */
-undefined4 __cdecl luaD_protectedparser(int *param_1, int param_2)
+undefined4 __cdecl protectedparser(int *param_1, int param_2)
 {
     volatile int oldjmp;
     int status;

@@ -5,10 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x100075e0  lstate__75e0 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x100075e0  LState_Construct ---- */
+/* Original name LState_Construct (the remaster's libLua.so: LState::LState (constructor, __thiscall
+   here): clears the state, serial number, allocates the 0x400-byte stack (assert file lstate.cpp));
+   was lstate__75e0. */
 
-undefined4 * __fastcall lstate__75e0(undefined4 *param_1)
+undefined4 * __fastcall LState_Construct(undefined4 *param_1)
 
 {
   int iVar1;
@@ -37,10 +39,12 @@ undefined4 * __fastcall lstate__75e0(undefined4 *param_1)
   return param_1;
 }
 
-/* ---- 0x10007660  lstate__7660 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x10007660  LState_SerialToPtr ---- */
+/* Original name LState_SerialToPtr (the remaster's libLua.so: LState::SerialToPtr(TObject*): sorts
+   the four pointer tables (qsort with comparePtrIDs) once and bsearches them; assert 'aStringPtrs
+   && aClosurePtrs && aTablePtrs && aProtoPtrs'); was lstate__7660. */
 
-undefined4 __stdcall lstate__7660(int a1)
+undefined4 __stdcall LState_SerialToPtr(int a1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -64,10 +68,10 @@ undefined4 __stdcall lstate__7660(int a1)
                         s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x128);
   }
   if (DAT_1002bf7c == 0) {
-    qsort(DAT_1002bf44,DAT_1002bf30,8,FUN_10007810);
-    qsort(DAT_1002bf60,DAT_1002bf50,8,FUN_10007810);
-    qsort(DAT_1002bf10,DAT_1002bf2c,8,FUN_10007810);
-    puVar3 = (undefined1 *)((code *)qsort)(DAT_1002bf68,DAT_1002bef8,8,FUN_10007810);
+    qsort(DAT_1002bf44,DAT_1002bf30,8,comparePtrIDs);
+    qsort(DAT_1002bf60,DAT_1002bf50,8,comparePtrIDs);
+    qsort(DAT_1002bf10,DAT_1002bf2c,8,comparePtrIDs);
+    puVar3 = (undefined1 *)((code *)qsort)(DAT_1002bf68,DAT_1002bef8,8,comparePtrIDs);
     DAT_1002bf7c = 1;
   }
   if (iVar1 == 0) goto LAB_100077c9;
@@ -94,7 +98,7 @@ undefined4 __stdcall lstate__7660(int a1)
     uVar5 = DAT_1002bf30;
   }
   local_4 = iVar1;
-  puVar4 = (undefined4 *)bsearch(&local_8,(uint)puVar3,uVar5,8,FUN_10007810);
+  puVar4 = (undefined4 *)bsearch(&local_8,(uint)puVar3,uVar5,8,comparePtrIDs);
 LAB_100077b7:
   puVar3 = (undefined1 *)0x0;
   if (puVar4 != (undefined4 *)0x0) {
@@ -110,8 +114,11 @@ LAB_100077c9:
 #undef local_8
 
 
-/* ---- 0x10007810  FUN_10007810 ---- */
-uint __cdecl FUN_10007810(int param_1,int param_2)
+/* ---- 0x10007810  comparePtrIDs ---- */
+/* Original name comparePtrIDs (the remaster's libLua.so: static comparePtrIDs: compares the ids at
+   +4); was FUN_10007810. */
+
+uint __cdecl comparePtrIDs(int param_1,int param_2)
 
 {
   if (*(uint *)(param_1 + 4) < *(uint *)(param_2 + 4)) {
@@ -120,12 +127,13 @@ uint __cdecl FUN_10007810(int param_1,int param_2)
   return (uint)(*(uint *)(param_2 + 4) < *(uint *)(param_1 + 4));
 }
 
-/* ---- 0x10007830  lstate__7830 ---- */
+/* ---- 0x10007830  LState_SaveObject ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* Original name LState_SaveObject (the remaster's libLua.so: LState::SaveObject(TObject*, writer):
+   writes tag and value, a C function as lua_FuncPtrToID); was lstate__7830. */
 
-undefined4 __stdcall lstate__7830(int a1,int a2)
+undefined4 __stdcall LState_SaveObject(int a1,int a2)
 
 {
   int iVar1;
@@ -146,10 +154,11 @@ undefined4 __stdcall lstate__7830(int a1,int a2)
 #endif
 
 
-/* ---- 0x10007880  lstate__7880 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x10007880  LState_LoadObject ---- */
+/* Original name LState_LoadObject (the remaster's libLua.so: LState::LoadObject(TObject*, reader):
+   reads tag and value); was lstate__7880. */
 
-undefined4 __stdcall lstate__7880(int a1,int a2)
+undefined4 __stdcall LState_LoadObject(int a1,int a2)
 
 {
   undefined4 uVar1;
@@ -159,10 +168,11 @@ undefined4 __stdcall lstate__7880(int a1,int a2)
   return uVar1;
 }
 
-/* ---- 0x100078b0  lstate__78b0 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x100078b0  LState_ResolveObject ---- */
+/* Original name LState_ResolveObject (the remaster's libLua.so: LState::ResolveObject(TObject*): C
+   functions through lua_IDToFuncPtr, other pointers through SerialToPtr); was lstate__78b0. */
 
-int __stdcall lstate__78b0(int a1)
+int __stdcall LState_ResolveObject(int a1)
 
 {
   int iVar1;
@@ -176,7 +186,7 @@ int __stdcall lstate__78b0(int a1)
   case -1:
     goto switchD_100078c7_caseD_fffffff4;
   default:
-    iVar1 = lstate__7660(a1);
+    iVar1 = LState_SerialToPtr(a1);
 switchD_100078c7_caseD_fffffff4:
     return iVar1;
   case -5:
@@ -186,23 +196,25 @@ switchD_100078c7_caseD_fffffff4:
   }
 }
 
-/* ---- 0x10007910  lstate__7910 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x10007910  LState_LoadResolvedObject ---- */
+/* Original name LState_LoadResolvedObject (the remaster's libLua.so: LState::LoadResolvedObject:
+   LoadObject + ResolveObject); was lstate__7910. */
 
-undefined4 __stdcall lstate__7910(int a1,int a2)
+undefined4 __stdcall LState_LoadResolvedObject(int a1,int a2)
 
 {
   undefined4 uVar1;
   
-  lstate__7880(a1,a2);
-  uVar1 = lstate__78b0(a1);
+  LState_LoadObject(a1,a2);
+  uVar1 = LState_ResolveObject(a1);
   return uVar1;
 }
 
-/* ---- 0x10007930  lstate__7930 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x10007930  LState_GlobalEndRestore ---- */
+/* Original name LState_GlobalEndRestore (the remaster's libLua.so: LState::GlobalEndRestore: frees
+   the four pointer tables, clears the sorted flag (same body)); was lstate__7930. */
 
-undefined4 __stdcall lstate__7930(int a1)
+undefined4 __stdcall LState_GlobalEndRestore(int a1)
 
 {
   if (DAT_1002bf44 != 0) {
@@ -229,10 +241,11 @@ undefined4 __stdcall lstate__7930(int a1)
   return 0;
 }
 
-/* ---- 0x100079d0  lstate__79d0 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x100079d0  LState_GlobalBeginRestore ---- */
+/* Original name LState_GlobalBeginRestore (the remaster's libLua.so: LState::GlobalBeginRestore:
+   assert 'pTString'); was lstate__79d0. */
 
-undefined4 __stdcall lstate__79d0(int a1)
+undefined4 __stdcall LState_GlobalBeginRestore(int a1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -284,7 +297,7 @@ undefined4 __stdcall lstate__79d0(int a1)
         if (puStack_28 == (undefined4 *)0x0) {
           puVar6 = (undefined4 *)0xffffffff;
         }
-        iVar4 = luaS_hash(pbStack_1c,(uint)puVar6);
+        iVar4 = luaS_createudata(pbStack_1c,(uint)puVar6);
         if (lua_restorehook != (code *)0x0) {
           uVar8 = (*lua_restorehook)(*(undefined4 *)(iVar4 + 0x10),*(undefined4 *)(iVar4 + 0x14),a2)
           ;
@@ -325,7 +338,7 @@ undefined4 __stdcall lstate__79d0(int a1)
       uVar9 = 0;
       puVar6 = puVar5 + 3;
       do {
-        lstate__7880((int)puVar6,a2);
+        LState_LoadObject((int)puVar6,a2);
         uVar9 = uVar9 + 1;
         puVar6 = puVar6 + 2;
       } while (uVar9 <= (uint)puVar5[2]);
@@ -344,7 +357,7 @@ undefined4 __stdcall lstate__79d0(int a1)
     puVar5 = puVar6 + 1;
     do {
       (*(code *)a2)(puVar5,4);
-      puVar7 = luaH_new((undefined *)a2);
+      puVar7 = luaH_load((undefined *)a2);
       *puVar6 = puVar7;
       puVar6 = puVar6 + 2;
       puVar5 = puVar5 + 2;
@@ -374,7 +387,7 @@ undefined4 __stdcall lstate__79d0(int a1)
       uVar9 = 0;
       if (*puVar1 != 0) {
         do {
-          lstate__7880(puVar6[2] + uVar9 * 8,a2);
+          LState_LoadObject(puVar6[2] + uVar9 * 8,a2);
           uVar9 = uVar9 + 1;
         } while (uVar9 < *puVar1);
       }
@@ -406,17 +419,17 @@ undefined4 __stdcall lstate__79d0(int a1)
       a1 = a1 + 1;
     } while ((uint)a1 < DAT_1002bef8);
   }
-  lstring__9290(DAT_1002bef4);
+  luaS_resolvestrings(DAT_1002bef4);
   for (puVar6 = DAT_1002bf38; puVar5 = DAT_1002bf18, puVar6 != (undefined4 *)0x0;
       puVar6 = (undefined4 *)*puVar6) {
     iStack_14 = -2;
     puStack_10 = (undefined4 *)puVar6[6];
-    lstate__78b0((int)&iStack_14);
+    LState_ResolveObject((int)&iStack_14);
     uVar9 = 0;
     puVar6[6] = puStack_10;
     if (puVar6[3] != 0) {
       do {
-        lstate__78b0(puVar6[2] + uVar9 * 8);
+        LState_ResolveObject(puVar6[2] + uVar9 * 8);
         uVar9 = uVar9 + 1;
       } while (uVar9 < (uint)puVar6[3]);
     }
@@ -426,7 +439,7 @@ undefined4 __stdcall lstate__79d0(int a1)
       do {
         pbStack_1c = (byte *)0xfffffffe;
         uStack_18 = *puVar5;
-        lstate__78b0((int)&pbStack_1c);
+        LState_ResolveObject((int)&pbStack_1c);
         *(undefined4 *)(puVar6[7] + iVar4) = uStack_18;
         iVar4 = iVar4 + 8;
         puVar5 = (undefined4 *)(puVar6[7] + iVar4);
@@ -438,19 +451,19 @@ undefined4 __stdcall lstate__79d0(int a1)
     if (puVar5[4] != 0) {
       iVar4 = 0;
       do {
-        lstate__78b0(puVar5[2] + iVar4);
-        lstate__78b0(puVar5[2] + 8 + iVar4);
+        LState_ResolveObject(puVar5[2] + iVar4);
+        LState_ResolveObject(puVar5[2] + 8 + iVar4);
         uVar9 = uVar9 + 1;
         iVar4 = iVar4 + 0x10;
       } while (uVar9 < (uint)puVar5[4]);
     }
-    ltable__c450((int)puVar5);
+    luaH_forcerehash((int)puVar5);
   }
   for (; puVar6 != (undefined4 *)0x0; puVar6 = (undefined4 *)*puVar6) {
     uVar9 = 0;
     puVar5 = puVar6 + 3;
     do {
-      lstate__78b0((int)puVar5);
+      LState_ResolveObject((int)puVar5);
       uVar9 = uVar9 + 1;
       puVar5 = puVar5 + 2;
     } while (uVar9 <= (uint)puVar6[2]);
@@ -462,7 +475,7 @@ undefined4 __stdcall lstate__79d0(int a1)
     do {
       iStack_14 = -2;
       (*(code *)a2)(&puStack_10,4);
-      lstate__78b0((int)&iStack_14);
+      LState_ResolveObject((int)&iStack_14);
       puVar6 = puStack_10;
       if (puStack_10 == (undefined4 *)0x0) {
         (**(code **)(DAT_1002beb8 + 0x18))
@@ -475,7 +488,7 @@ undefined4 __stdcall lstate__79d0(int a1)
   }
   *puVar6 = 0;
   (*(code *)a2)(&DAT_1002bf74,4);
-  lstate__7910(IMG_ADDR(0x1002bf58),a2);
+  LState_LoadResolvedObject(IMG_ADDR(0x1002bf58),a2);
   (*(code *)a2)(&DAT_1002bef0,4);
   DAT_1002bf48 = (**(code **)(DAT_1002beb8 + 0x20))
                            (DAT_1002bef0 * 0x90,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2b6);
@@ -486,7 +499,7 @@ undefined4 __stdcall lstate__79d0(int a1)
       iVar10 = 0x12;
       iVar4 = DAT_1002bf48 + local_20;
       do {
-        lstate__7910(iVar4,a2);
+        LState_LoadResolvedObject(iVar4,a2);
         iVar4 = iVar4 + 8;
         iVar10 = iVar10 + -1;
       } while (iVar10 != 0);
@@ -502,7 +515,7 @@ undefined4 __stdcall lstate__79d0(int a1)
   if (DAT_1002bf08 != 0) {
     iVar4 = 0;
     do {
-      lstate__7910(DAT_1002bf34 + iVar4,a2);
+      LState_LoadResolvedObject(DAT_1002bf34 + iVar4,a2);
       (*(code *)a2)(DAT_1002bf34 + 8 + iVar4,4);
       uVar9 = uVar9 + 1;
       iVar4 = iVar4 + 0xc;
@@ -533,11 +546,13 @@ undefined4 __stdcall lstate__79d0(int a1)
 #undef uStack_c
 
 
-/* ---- 0x100081c0  lstate__81c0 ---- */
+/* ---- 0x100081c0  LState_SaveGlobals ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* Original name LState_SaveGlobals (the remaster's libLua.so: LState::SaveGlobals(writer):
+   luaA_ResetSaveCount, luaS_writestrings, luaH_save, SaveObject (caller lua_Save)); was
+   lstate__81c0. */
 
-undefined4 __stdcall lstate__81c0(int a1)
+undefined4 __stdcall LState_SaveGlobals(int a1)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -565,7 +580,7 @@ undefined4 __stdcall lstate__81c0(int a1)
   local_28 = 0;
   local_24 = 0;
   local_10 = 0;
-  local_10 = lstring__92e0(DAT_1002bef4,&local_8);
+  local_10 = luaS_count(DAT_1002bef4,&local_8);
   a2 = a1;
   for (puVar1 = DAT_1002bf20; puVar2 = DAT_1002bf18, puVar1 != (undefined4 *)0x0;
       puVar1 = (undefined4 *)*puVar1) {
@@ -586,26 +601,26 @@ undefined4 __stdcall lstate__81c0(int a1)
   (*(code *)a2)(&local_20,4);
   (*(code *)a2)(&local_1c,4);
   (*(code *)a2)(&local_8,4);
-  lapi__2660();
-  lstring__9180((undefined *)a2,DAT_1002bef4);
-  lapi__2660();
+  luaA_ResetSaveCount();
+  luaS_writestrings((undefined *)a2,DAT_1002bef4);
+  luaA_ResetSaveCount();
   for (puStack_30 = DAT_1002bf20; puStack_30 != (undefined4 *)0x0;
       puStack_30 = (undefined4 *)*puStack_30) {
     (*(code *)a2)(&puStack_30,4);
     (*(code *)a2)(puStack_30 + 2,4);
     uVar4 = 0;
     do {
-      lstate__7830((int)(puStack_30 + uVar4 * 2 + 3),a2);
+      LState_SaveObject((int)(puStack_30 + uVar4 * 2 + 3),a2);
       uVar4 = uVar4 + 1;
     } while (uVar4 <= (uint)puStack_30[2]);
   }
-  lapi__2660();
+  luaA_ResetSaveCount();
   for (puStack_2c = DAT_1002bf18; puStack_2c != (undefined4 *)0x0;
       puStack_2c = (undefined4 *)*puStack_2c) {
     (*(code *)a2)(&puStack_2c,4);
     luaH_save((undefined *)a2,(int)puStack_2c);
   }
-  lapi__2660();
+  luaA_ResetSaveCount();
   for (puStack_34 = DAT_1002bf38; puStack_34 != (undefined4 *)0x0;
       puStack_34 = (undefined4 *)*puStack_34) {
     (*(code *)a2)(&puStack_34,4);
@@ -615,7 +630,7 @@ undefined4 __stdcall lstate__81c0(int a1)
     uVar4 = 0;
     if (puStack_34[3] != 0) {
       do {
-        lstate__7830(puStack_34[2] + uVar4 * 8,a2);
+        LState_SaveObject(puStack_34[2] + uVar4 * 8,a2);
         uVar4 = uVar4 + 1;
       } while (uVar4 < (uint)puStack_34[3]);
     }
@@ -641,7 +656,7 @@ undefined4 __stdcall lstate__81c0(int a1)
     (*(code *)a2)(&pbStack_c,4);
     (*(code *)a2)(puStack_34[4],pbStack_c);
   }
-  lapi__2660();
+  luaA_ResetSaveCount();
   puVar2 = DAT_1002bf00;
   puVar1 = _DAT_1002bf0c;
   while (_DAT_1002bf0c = puVar2, apuStack_18[0] = _DAT_1002bf0c, _DAT_1002bf0c != (undefined4 *)0x0)
@@ -651,9 +666,9 @@ undefined4 __stdcall lstate__81c0(int a1)
     puVar2 = (undefined4 *)*apuStack_18[0];
   }
   _DAT_1002bf0c = puVar1;
-  lapi__2660();
+  luaA_ResetSaveCount();
   (*(code *)a2)(&DAT_1002bf74,4);
-  lstate__7830(IMG_ADDR(0x1002bf58),a2);
+  LState_SaveObject(IMG_ADDR(0x1002bf58),a2);
   (*(code *)a2)(&DAT_1002bef0,4);
   uVar4 = 0;
   iVar5 = DAT_1002bf48;
@@ -661,7 +676,7 @@ undefined4 __stdcall lstate__81c0(int a1)
     do {
       iVar3 = 0x12;
       do {
-        lstate__7830(iVar5,a2);
+        LState_SaveObject(iVar5,a2);
         iVar5 = iVar5 + 8;
         iVar3 = iVar3 + -1;
       } while (iVar3 != 0);
@@ -674,7 +689,7 @@ undefined4 __stdcall lstate__81c0(int a1)
   if (DAT_1002bf08 != 0) {
     iVar5 = 0;
     do {
-      lstate__7830(DAT_1002bf34 + iVar5,a2);
+      LState_SaveObject(DAT_1002bf34 + iVar5,a2);
       (*(code *)a2)(DAT_1002bf34 + 8 + iVar5,4);
       uVar4 = uVar4 + 1;
       iVar5 = iVar5 + 0xc;
@@ -688,7 +703,7 @@ undefined4 __stdcall lstate__81c0(int a1)
   (*(code *)a2)(&iStack_4,4);
   (*(code *)a2)(&DAT_1002bf4c,4);
   (*(code *)a2)(&DAT_1002bf78,4);
-  lapi__2660();
+  luaA_ResetSaveCount();
   return 0;
 }
 #undef apuStack_18
@@ -729,10 +744,11 @@ byte * __cdecl lstate__85e0(int param_1)
   return pbVar3 + (2 - (int)pbVar2);
 }
 
-/* ---- 0x10008640  lstate__8640 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x10008640  LState_Save ---- */
+/* Original name LState_Save (the remaster's libLua.so: LState::Save(writer): assert
+   'pExecutionState || !pPreviousState'); was lstate__8640. */
 
-undefined4 __thiscall lstate__8640(void *this,int a1)
+undefined4 __thiscall LState_Save(void *this,int a1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -761,7 +777,7 @@ undefined4 __thiscall lstate__8640(void *this,int a1)
   }
   (*(code *)a1)(&local_8,4);
   if (*(void **)this != (void *)0x0) {
-    lvm__db40(*(void **)this,a1);
+    ExecutionState_Save(*(void **)this,a1);
   }
   (*(code *)a1)(&local_4,4);
   (*(code *)a1)((int)this + 8,4);
@@ -776,7 +792,7 @@ undefined4 __thiscall lstate__8640(void *this,int a1)
   iVar1 = 0;
   if (0 < iStack_c) {
     do {
-      lstate__7830(*(int *)((int)this + 0x20) + iVar1 * 8,a1);
+      LState_SaveObject(*(int *)((int)this + 0x20) + iVar1 * 8,a1);
       iVar1 = iVar1 + 1;
     } while (iVar1 < iStack_c);
   }
@@ -796,7 +812,7 @@ undefined4 __thiscall lstate__8640(void *this,int a1)
     } while (iVar1 < *(int *)((int)this + 0xbc));
   }
   (*(code *)a1)((int)this + 0xc0,4);
-  lstate__7830((int)this + 0xc4,a1);
+  LState_SaveObject((int)this + 0xc4,a1);
   return 0;
 }
 #undef iStack_c
@@ -804,12 +820,13 @@ undefined4 __thiscall lstate__8640(void *this,int a1)
 #undef local_8
 
 
-/* ---- 0x100087f0  lstate__87f0 ---- */
+/* ---- 0x100087f0  LState_Restore ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* Original name LState_Restore (the remaster's libLua.so: LState::Restore(reader): caller
+   lua_Restore, restores the execution states (ExecutionState_Restore / _New)); was lstate__87f0. */
 
-undefined4 __thiscall lstate__87f0(void *this,int a1)
+undefined4 __thiscall LState_Restore(void *this,int a1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -831,15 +848,15 @@ undefined4 __thiscall lstate__87f0(void *this,int a1)
     *(undefined4 *)this = 0;
   }
   else {
-    pvStack_10 = lvm__dd10(0x30);
+    pvStack_10 = ExecutionState_New(0x30);
     if (pvStack_10 == (void *)0x0) {
       this_00 = (void *)0x0;
     }
     else {
-      this_00 = (void *)lvm__ddb0(pvStack_10,0,0,0);
+      this_00 = (void *)ExecutionState_Construct(pvStack_10,0,0,0);
     }
     *(void **)this = this_00;
-    lvm__dbd0(this_00,a1_00,(int)this + 0x1c,local_1c + -1);
+    ExecutionState_Restore(this_00,a1_00,(int)this + 0x1c,local_1c + -1);
   }
   (*(code *)a1_00)(&a1,4);
   if (a1 < 0) {
@@ -871,7 +888,7 @@ undefined4 __thiscall lstate__87f0(void *this,int a1)
   *(int *)((int)this + 0x1c) = *(int *)((int)this + 0x20) + iStack_14 * 8;
   if (0 < iStack_14) {
     do {
-      lstate__7910(*(int *)((int)this + 0x20) + iVar2 * 8,a1_00);
+      LState_LoadResolvedObject(*(int *)((int)this + 0x20) + iVar2 * 8,a1_00);
       iVar2 = iVar2 + 1;
     } while (iVar2 < iStack_14);
   }
@@ -890,7 +907,7 @@ undefined4 __thiscall lstate__87f0(void *this,int a1)
     } while (iVar3 < *(int *)((int)this + 0xbc));
   }
   (*(code *)a1_00)((int)this + 0xc0,4);
-  lstate__7910((int)this + 0xc4,a1_00);
+  LState_LoadResolvedObject((int)this + 0xc4,a1_00);
   return 0;
 }
 #undef iStack_14
@@ -901,12 +918,13 @@ undefined4 __thiscall lstate__87f0(void *this,int a1)
 #endif
 
 
-/* ---- 0x10008ad0  lstate__8ad0 ---- */
+/* ---- 0x10008ad0  lua_newstate ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* Original name lua_newstate (the remaster's libLua.so: lua_newstate(): new LState (0xd4 bytes),
+   initglobals; only callee of lua_open); was lstate__8ad0. */
 
-undefined4 * lstate__8ad0(void)
+undefined4 * lua_newstate(void)
 
 {
   int *piVar1;
@@ -917,28 +935,29 @@ undefined4 * lstate__8ad0(void)
   puVar2 = luaM_malloc(0xd4);
   piVar3 = (int *)0x0;
   if (puVar2 != (undefined4 *)0x0) {
-    piVar3 = lstate__75e0(puVar2);
+    piVar3 = LState_Construct(puVar2);
   }
   PTR_1002bf6c = piVar3;
-  lua_initstate();
+  LState_initglobals();
   PTR_1002bf6c = piVar1;
   return piVar3;
 }
 #endif
 
 
-/* ---- 0x10008b70  lstate__8b70 ---- */
+/* ---- 0x10008b70  LState_attach ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* Original name LState_attach (the remaster's libLua.so: LState::attach(LState*): links the state
+   after another (+0xcc next, +0xd0 prev)); was lstate__8b70. */
 
-int __thiscall lstate__8b70(void *this,int a1)
+int __thiscall LState_attach(void *this,int a1)
 
 {
   int extraout_EAX;
   int iVar1;
   
-  lstate__8bb0((int)this);
+  LState_detach((int)this);
   iVar1 = extraout_EAX;
   if (a1 != 0) {
     iVar1 = *(int *)(a1 + 0xcc);
@@ -954,10 +973,11 @@ int __thiscall lstate__8b70(void *this,int a1)
 #endif
 
 
-/* ---- 0x10008bb0  lstate__8bb0 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x10008bb0  LState_detach ---- */
+/* Original name LState_detach (the remaster's libLua.so: LState::detach: unlinks the state); was
+   lstate__8bb0. */
 
-void __fastcall lstate__8bb0(int param_1)
+void __fastcall LState_detach(int param_1)
 
 {
   if (*(int *)(param_1 + 0xd0) != 0) {
@@ -971,24 +991,26 @@ void __fastcall lstate__8bb0(int param_1)
   return;
 }
 
-/* ---- 0x10008bf0  lstate__8bf0 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x10008bf0  LState_next ---- */
+/* Original name LState_next (the remaster's libLua.so: LState::next: returns +0xcc); was
+   lstate__8bf0. */
 
-undefined4 __fastcall lstate__8bf0(int param_1)
+undefined4 __fastcall LState_next(int param_1)
 
 {
   return *(undefined4 *)(param_1 + 0xcc);
 }
 
-/* ---- 0x10008c00  lstate__8c00 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x10008c00  LState_Destruct ---- */
+/* Original name LState_Destruct (the remaster's libLua.so: LState::~LState: detach,
+   luaD_deletestates, frees the stack); was lstate__8c00. */
 
-void __fastcall lstate__8c00(int *param_1)
+void __fastcall LState_Destruct(int *param_1)
 
 {
-  lstate__8bb0((int)param_1);
+  LState_detach((int)param_1);
   if (*param_1 != 0) {
-    ldo__4160(*param_1);
+    luaD_deletestates(*param_1);
   }
   (**(code **)(DAT_1002beb8 + 0x24))(param_1[8]);
   return;

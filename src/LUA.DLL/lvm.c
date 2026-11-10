@@ -81,7 +81,7 @@ void luaV_gettable(void)
     }
   }
   else {
-    uVar4 = luaT_effectivetag((uint *)(iVar2 + -0x10));
+    uVar4 = luaT_efectivetag((uint *)(iVar2 + -0x10));
     piVar5 = (int *)(DAT_1002bf48 + uVar4 * -0x90);
   }
   if (*piVar5 != -7) {
@@ -110,7 +110,7 @@ void __cdecl luaV_settable(uint *param_1,int param_2)
     piVar5 = (int *)0x0;
   }
   else {
-    uVar6 = luaT_effectivetag(param_1);
+    uVar6 = luaT_efectivetag(param_1);
     piVar5 = (int *)(DAT_1002bf48 + uVar6 * -0x90 + 8);
   }
   if ((*param_1 == 0xfffffffd) && ((piVar5 == (int *)0x0 || (*piVar5 == -7)))) {
@@ -156,7 +156,7 @@ void __cdecl luaV_getglobal(int param_1)
   uint *puVar6;
   
   puVar1 = (uint *)(param_1 + 0x10);
-  uVar4 = luaT_effectivetag(puVar1);
+  uVar4 = luaT_efectivetag(puVar1);
   iVar5 = DAT_1002bf48 + uVar4 * -0x90;
   if (*(int *)(iVar5 + 0x18) == -7) {
     puVar6 = (uint *)PTR_1002bf6c[7];
@@ -193,11 +193,11 @@ void __cdecl luaV_setglobal(int *param_1)
   int iVar7;
   undefined4 *puVar8;
   
-  uVar5 = luaT_effectivetag((uint *)(param_1 + 4));
+  uVar5 = luaT_efectivetag((uint *)(param_1 + 4));
   iVar7 = DAT_1002bf48 + uVar5 * -0x90;
   if (*(int *)(iVar7 + 0x20) == -7) {
     PTR_1002bf6c[7] = PTR_1002bf6c[7] + -8;
-    lstring__94e0(param_1,(int *)PTR_1002bf6c[7]);
+    luaS_rawsetglobal(param_1,(int *)PTR_1002bf6c[7]);
     return;
   }
   piVar6 = PTR_1002bf6c + 7;
@@ -241,7 +241,7 @@ void __cdecl luaV_pack(int param_1,int param_2,undefined4 *param_3)
   if (param_2 < 0) {
     param_2 = 0;
   }
-  puVar3 = luaH_init(param_2 + 1);
+  puVar3 = luaH_new(param_2 + 1);
   param_3[1] = puVar3;
   *param_3 = 0xfffffffd;
   param_1 = 0;
@@ -273,10 +273,11 @@ void __cdecl luaV_pack(int param_1,int param_2,undefined4 *param_3)
 #endif
 
 
-/* ---- 0x1000db10  lvm__db10 ---- */
-/* Unidentified function of lvm.c (virtual machine) */
+/* ---- 0x1000db10  ExecutionState_CleanUp ---- */
+/* Original name ExecutionState_CleanUp (the remaster's libLua.so: ExecutionState::CleanUp: frees
+   the free list of states (same body)); was lvm__db10. */
 
-void lvm__db10(void)
+void ExecutionState_CleanUp(void)
 
 {
   void *pvVar1;
@@ -292,17 +293,18 @@ void lvm__db10(void)
   return;
 }
 
-/* ---- 0x1000db40  lvm__db40 ---- */
-/* Unidentified function of lvm.c (virtual machine) */
+/* ---- 0x1000db40  ExecutionState_Save ---- */
+/* Original name ExecutionState_Save (the remaster's libLua.so: ExecutionState::Save(writer): the
+   previous state first (+0xc), then the fields (caller LState::Save)); was lvm__db40. */
 
-undefined4 __thiscall lvm__db40(void *this,int a1)
+undefined4 __thiscall ExecutionState_Save(void *this,int a1)
 
 {
   int iVar1;
   
   iVar1 = a1;
   if (*(void **)((int)this + 0xc) != (void *)0x0) {
-    lvm__db40(*(void **)((int)this + 0xc),a1);
+    ExecutionState_Save(*(void **)((int)this + 0xc),a1);
   }
   (*(code *)iVar1)(this,4);
   (*(code *)iVar1)((int *)((int)this + 4),4);
@@ -316,12 +318,13 @@ undefined4 __thiscall lvm__db40(void *this,int a1)
   return 0;
 }
 
-/* ---- 0x1000dbd0  lvm__dbd0 ---- */
+/* ---- 0x1000dbd0  ExecutionState_Restore ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of lvm.c (virtual machine) */
+/* Original name ExecutionState_Restore (the remaster's libLua.so: ExecutionState::Restore: caller
+   LState::Restore, callees ResolveObject, new); was lvm__dbd0. */
 
-undefined4 __thiscall lvm__dbd0(void *this,int a1,int a2,int a3)
+undefined4 __thiscall ExecutionState_Restore(void *this,int a1,int a2,int a3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -332,24 +335,24 @@ undefined4 __thiscall lvm__dbd0(void *this,int a1,int a2,int a3)
   
   iVar1 = a3;
   if (a3 != 0) {
-    pvVar2 = lvm__dd10(0x30);
+    pvVar2 = ExecutionState_New(0x30);
     if (pvVar2 == (void *)0x0) {
       pvVar2 = (void *)0x0;
     }
     else {
-      pvVar2 = (void *)lvm__ddb0(pvVar2,0,0,0);
+      pvVar2 = (void *)ExecutionState_Construct(pvVar2,0,0,0);
     }
     *(void **)((int)this + 0xc) = pvVar2;
-    lvm__dbd0(pvVar2,a1,a2,iVar1 + -1);
+    ExecutionState_Restore(pvVar2,a1,a2,iVar1 + -1);
   }
   *(int *)((int)this + 0x1c) = a2;
   local_14 = 0xfffffff8;
   (*(code *)a1)(&local_10,4);
-  lstate__78b0((int)&local_14);
+  LState_ResolveObject((int)&local_14);
   *(undefined4 *)this = local_10;
   local_14 = 0xfffffffc;
   (*(code *)a1)(&local_10,4);
-  lstate__78b0((int)&local_14);
+  LState_ResolveObject((int)&local_14);
   *(undefined4 *)((int)this + 4) = local_10;
   (*(code *)a1)((int)this + 8,4);
   (*(code *)a1)((int)this + 0x10,4);
@@ -367,12 +370,13 @@ undefined4 __thiscall lvm__dbd0(void *this,int a1,int a2,int a3)
 #endif
 
 
-/* ---- 0x1000dd10  lvm__dd10 ---- */
+/* ---- 0x1000dd10  ExecutionState_New ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of lvm.c (virtual machine) */
+/* Original name ExecutionState_New (the remaster's libLua.so: ExecutionState::operator new: takes a
+   state from the free list or allocates one); was lvm__dd10. */
 
-void * __cdecl lvm__dd10(int size)
+void * __cdecl ExecutionState_New(int size)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -391,7 +395,7 @@ void * __cdecl lvm__dd10(int size)
         pvVar1 = (void *)0x0;
       }
       else {
-        pvVar1 = (void *)lvm__ddb0(pvVar1,(int)PTR_1002bf84,0,0);
+        pvVar1 = (void *)ExecutionState_Construct(pvVar1,(int)PTR_1002bf84,0,0);
       }
       iVar2 = iVar2 + -1;
       PTR_1002bf84 = pvVar1;
@@ -405,10 +409,11 @@ void * __cdecl lvm__dd10(int size)
 #endif
 
 
-/* ---- 0x1000dd90  lvm__dd90 ---- */
-/* Unidentified function of lvm.c (virtual machine) */
+/* ---- 0x1000dd90  ExecutionState_Delete ---- */
+/* Original name ExecutionState_Delete (the remaster's libLua.so: ExecutionState::operator delete:
+   puts the state on the free list (+0xc)); was lvm__dd90. */
 
-void __cdecl lvm__dd90(int param_1)
+void __cdecl ExecutionState_Delete(int param_1)
 
 {
   *(void **)(param_1 + 0xc) = PTR_1002bf84;
@@ -416,10 +421,12 @@ void __cdecl lvm__dd90(int param_1)
   return;
 }
 
-/* ---- 0x1000ddb0  lvm__ddb0 ---- */
-/* Unidentified function of lvm.c (virtual machine) */
+/* ---- 0x1000ddb0  ExecutionState_Construct ---- */
+/* Original name ExecutionState_Construct (the remaster's libLua.so:
+   ExecutionState::ExecutionState(ExecutionState*, int, int): +0xc, +0x10, +0x14, clears +0x18 /
+   +0x28 (same body)); was lvm__ddb0. */
 
-int __thiscall lvm__ddb0(void *this,int a1,int a2,int a3)
+int __thiscall ExecutionState_Construct(void *this,int a1,int a2,int a3)
 
 {
   *(int *)((int)this + 0xc) = a1;
@@ -430,19 +437,21 @@ int __thiscall lvm__ddb0(void *this,int a1,int a2,int a3)
   return (int)this;
 }
 
-/* ---- 0x1000dde0  lvm__dde0 ---- */
-/* Unidentified function of lvm.c (virtual machine) */
+/* ---- 0x1000dde0  ExecutionState_getaux ---- */
+/* Original name ExecutionState_getaux (the remaster's libLua.so: ExecutionState::getaux: returns
+   +0x24); was lvm__dde0. */
 
-undefined4 __fastcall lvm__dde0(int param_1)
+undefined4 __fastcall ExecutionState_getaux(int param_1)
 
 {
   return *(undefined4 *)(param_1 + 0x24);
 }
 
-/* ---- 0x1000ddf0  lvm__ddf0 ---- */
-/* Unidentified function of lvm.c (virtual machine) */
+/* ---- 0x1000ddf0  ExecutionState_setvalues ---- */
+/* Original name ExecutionState_setvalues (the remaster's libLua.so:
+   ExecutionState::setvalues(Closure*, TProtoFunc*, int) (same body)); was lvm__ddf0. */
 
-int __thiscall lvm__ddf0(void *this,int a1,int a2,int a3)
+int __thiscall ExecutionState_setvalues(void *this,int a1,int a2,int a3)
 
 {
   int iVar1;
@@ -457,27 +466,29 @@ int __thiscall lvm__ddf0(void *this,int a1,int a2,int a3)
   return iVar1;
 }
 
-/* ---- 0x1000de20  lvm__de20 ---- */
-/* Unidentified function of lvm.c (virtual machine) */
+/* ---- 0x1000de20  ExecutionState_resetcounter ---- */
+/* Original name ExecutionState_resetcounter (the remaster's libLua.so:
+   ExecutionState::resetcounter: +0x28 = 0); was lvm__de20. */
 
-void __fastcall lvm__de20(int param_1)
+void __fastcall ExecutionState_resetcounter(int param_1)
 
 {
   *(undefined4 *)(param_1 + 0x28) = 0;
   return;
 }
 
-/* ---- 0x1000de30  lvm__de30 ---- */
-/* Unidentified function of lvm.c (virtual machine) */
+/* ---- 0x1000de30  ExecutionState_execute ---- */
+/* Original name ExecutionState_execute (the remaster's libLua.so: ExecutionState::execute:
+   checkstack, adjust varargs, call hook, CrunchOpcodes (caller luaD_call)); was lvm__de30. */
 
-int __fastcall lvm__de30(int *param_1)
+int __fastcall ExecutionState_execute(int *param_1)
 
 {
   byte bVar1;
   int iVar2;
   
   if (param_1[6] == 0) {
-    lvm__de20((int)param_1);
+    ExecutionState_resetcounter((int)param_1);
     if (lua_callhook != 0) {
       luaD_callHook(param_1[2],param_1[1],0);
     }
@@ -489,16 +500,16 @@ int __fastcall lvm__de30(int *param_1)
       param_1[8] = (int)((byte *)param_1[8] + 1);
       luaD_adjusttop(param_1[2] + (uint)bVar1);
       param_1[6] = 1;
-      iVar2 = luaV_execute(param_1);
+      iVar2 = ExecutionState_CrunchOpcodes(param_1);
       return iVar2;
     }
-    lgc__5300();
+    luaC_checkGC();
     bVar1 = *(byte *)param_1[8];
     param_1[8] = (int)((byte *)param_1[8] + 1);
     luaV_adjust_varargs(param_1[2] + -0x40 + (uint)bVar1);
     param_1[6] = 1;
   }
-  iVar2 = luaV_execute(param_1);
+  iVar2 = ExecutionState_CrunchOpcodes(param_1);
   return iVar2;
 }
 
@@ -525,10 +536,13 @@ void __cdecl luaV_adjust_varargs(int param_1)
 #undef local_8
 
 
-/* ---- 0x1000df40  luaV_execute ---- */
-/* lvm.c: opcode interpreter loop */
+/* ---- 0x1000df40  ExecutionState_CrunchOpcodes ---- */
+/* lvm.c: opcode interpreter loop Original name ExecutionState_CrunchOpcodes (the remaster's
+   libLua.so: ExecutionState::CrunchOpcodes, the VM loop: strings 'WARNING: Killing Lua script that
+   ran without a break_here() ...', 'WARNING: Lua nesting level now %d inside breakable section!');
+   was luaV_execute. */
 
-int __fastcall luaV_execute(int *param_1)
+int __fastcall ExecutionState_CrunchOpcodes(int *param_1)
 
 {
   byte bVar1;
@@ -748,8 +762,8 @@ LAB_1000e13f:
     param_1[8] = (int)(pbVar2 + 3);
     param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e420:
-    lgc__5300();
-    puVar10 = luaH_init(param_1[9]);
+    luaC_checkGC();
+    puVar10 = luaH_new(param_1[9]);
     *(undefined4 **)(*(int *)param_1[7] + 4) = puVar10;
     **(undefined4 **)param_1[7] = 0xfffffffd;
     *(int *)param_1[7] = *(int *)param_1[7] + 8;
@@ -879,9 +893,9 @@ LAB_1000e37f:
   case 0x61:
     iVar13 = *(int *)param_1[7];
     if (((*(int *)(iVar13 + -8) == -1) ||
-        (iVar11 = luaU_str2number((int *)(iVar13 + -8)), iVar11 == 0)) &&
+        (iVar11 = luaV_tonumber((int *)(iVar13 + -8)), iVar11 == 0)) &&
        ((*(int *)(iVar13 + -0x10) == -1 ||
-        (iVar11 = luaU_str2number((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
+        (iVar11 = luaV_tonumber((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
       *(float *)(iVar13 + -0xc) = *(float *)(iVar13 + -4) + *(float *)(iVar13 + -0xc);
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
@@ -892,9 +906,9 @@ LAB_1000e37f:
   case 0x62:
     iVar13 = *(int *)param_1[7];
     if (((*(int *)(iVar13 + -8) == -1) ||
-        (iVar11 = luaU_str2number((int *)(iVar13 + -8)), iVar11 == 0)) &&
+        (iVar11 = luaV_tonumber((int *)(iVar13 + -8)), iVar11 == 0)) &&
        ((*(int *)(iVar13 + -0x10) == -1 ||
-        (iVar11 = luaU_str2number((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
+        (iVar11 = luaV_tonumber((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
       *(float *)(iVar13 + -0xc) = *(float *)(iVar13 + -0xc) - *(float *)(iVar13 + -4);
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
@@ -905,9 +919,9 @@ LAB_1000e37f:
   case 99:
     iVar13 = *(int *)param_1[7];
     if (((*(int *)(iVar13 + -8) == -1) ||
-        (iVar11 = luaU_str2number((int *)(iVar13 + -8)), iVar11 == 0)) &&
+        (iVar11 = luaV_tonumber((int *)(iVar13 + -8)), iVar11 == 0)) &&
        ((*(int *)(iVar13 + -0x10) == -1 ||
-        (iVar11 = luaU_str2number((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
+        (iVar11 = luaV_tonumber((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
       *(float *)(iVar13 + -0xc) = *(float *)(iVar13 + -4) * *(float *)(iVar13 + -0xc);
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
@@ -918,9 +932,9 @@ LAB_1000e37f:
   case 100:
     iVar13 = *(int *)param_1[7];
     if (((*(int *)(iVar13 + -8) == -1) ||
-        (iVar11 = luaU_str2number((int *)(iVar13 + -8)), iVar11 == 0)) &&
+        (iVar11 = luaV_tonumber((int *)(iVar13 + -8)), iVar11 == 0)) &&
        ((*(int *)(iVar13 + -0x10) == -1 ||
-        (iVar11 = luaU_str2number((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
+        (iVar11 = luaV_tonumber((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
       *(float *)(iVar13 + -0xc) = *(float *)(iVar13 + -0xc) / *(float *)(iVar13 + -4);
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
@@ -934,23 +948,23 @@ LAB_1000e37f:
   case 0x66:
     iVar13 = *(int *)param_1[7];
     if (((*(int *)(iVar13 + -0x10) == -2) ||
-        (iVar11 = lundump__d620((int *)(iVar13 + -0x10)), iVar11 == 0)) &&
-       ((*(int *)(iVar13 + -8) == -2 || (iVar11 = lundump__d620((int *)(iVar13 + -8)), iVar11 == 0))
+        (iVar11 = luaV_tostring((int *)(iVar13 + -0x10)), iVar11 == 0)) &&
+       ((*(int *)(iVar13 + -8) == -2 || (iVar11 = luaV_tostring((int *)(iVar13 + -8)), iVar11 == 0))
        )) {
       uVar12 = luaV_strconc((char *)(*(int *)(iVar13 + -0xc) + 0x18),
                             (char *)(*(int *)(iVar13 + -4) + 0x18));
       *(undefined4 *)(iVar13 + -0xc) = uVar12;
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
-      lgc__5300();
+      luaC_checkGC();
     }
     else {
-      luaV_call_binTM(0xf,s_unexpected_type_for_concatenatio_100281a0);
-      lgc__5300();
+      call_binTM(0xf,s_unexpected_type_for_concatenatio_100281a0);
+      luaC_checkGC();
     }
     goto switchD_1000dfaf_default;
   case 0x67:
     if ((*(int *)(*(int *)param_1[7] + -8) == -1) ||
-       (iVar13 = luaU_str2number((int *)(*(int *)param_1[7] + -8)), iVar13 == 0)) {
+       (iVar13 = luaV_tonumber((int *)(*(int *)param_1[7] + -8)), iVar13 == 0)) {
       *(float *)(*(int *)param_1[7] + -4) = -*(float *)(*(int *)param_1[7] + -4);
     }
     else {
@@ -1055,7 +1069,7 @@ LAB_1000e8b6:
     param_1[9] = param_1[9] + -0x76;
 LAB_1000e8ef:
     luaV_closure(param_1[9]);
-    lgc__5300();
+    luaC_checkGC();
     goto switchD_1000dfaf_default;
   case 0x78:
     param_1[9] = (uint)*pbVar8;
@@ -1208,22 +1222,23 @@ undefined4 __cdecl luaV_strconc(char *param_1,char *param_2)
   return uVar3;
 }
 
-/* ---- 0x1000ec50  luaV_call_binTM ---- */
+/* ---- 0x1000ec50  call_binTM ---- */
 /* call_binTM(event, msg): binary tag-method dispatch on the two top stack slots (was mislabelled
-   luaV_gettable) */
+   luaV_gettable) Original name call_binTM (the remaster's libLua.so: static call_binTM(int, char*):
+   caller of luaT_efectivetag from the VM's arithmetic); was luaV_call_binTM. */
 
-void __cdecl luaV_call_binTM(int param_1,byte *param_2)
+void __cdecl call_binTM(int param_1,byte *param_2)
 
 {
   uint uVar1;
   int iVar2;
   undefined4 *puVar3;
   
-  uVar1 = luaT_effectivetag((uint *)(PTR_1002bf6c[7] + -0x10));
+  uVar1 = luaT_efectivetag((uint *)(PTR_1002bf6c[7] + -0x10));
   iVar2 = param_1 + uVar1 * -0x12;
   puVar3 = (undefined4 *)(DAT_1002bf48 + iVar2 * 8);
   if (*(int *)(DAT_1002bf48 + iVar2 * 8) == -7) {
-    uVar1 = luaT_effectivetag((uint *)(PTR_1002bf6c[7] + -8));
+    uVar1 = luaT_efectivetag((uint *)(PTR_1002bf6c[7] + -8));
     iVar2 = param_1 + uVar1 * -0x12;
     puVar3 = (undefined4 *)(DAT_1002bf48 + iVar2 * 8);
     if ((*(int *)(DAT_1002bf48 + iVar2 * 8) == -7) &&
@@ -1243,7 +1258,7 @@ void __cdecl luaV_call_binTM(int param_1,byte *param_2)
 void __cdecl luaV_call_arith(int param_1)
 
 {
-  luaV_call_binTM(param_1,s_unexpected_type_in_arithmetic_op_1002825c);
+  call_binTM(param_1,s_unexpected_type_in_arithmetic_op_1002825c);
   return;
 }
 
@@ -1274,7 +1289,7 @@ void __cdecl luaV_comparison(undefined4 param_1,undefined4 param_2,undefined4 pa
   }
   else {
     if ((*(int *)(iVar3 + -0x10) != -2) || (*(int *)(iVar3 + -8) != -2)) {
-      luaV_call_binTM(param_4,s_unexpected_type_in_comparison_10028284);
+      call_binTM(param_4,s_unexpected_type_in_comparison_10028284);
       return;
     }
     iVar3 = strcoll((byte *)(*(int *)(iVar3 + -0xc) + 0x18),(byte *)(*(int *)(iVar3 + -4) + 0x18));

@@ -5,10 +5,11 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x1000c190  ltable__c190 ---- */
-/* Unidentified function of ltable.c (hash tables, with Grim save support) */
+/* ---- 0x1000c190  luaH_free ---- */
+/* Original name luaH_free (the remaster's libLua.so: same body: frees a list of tables (nblocks -=
+   1 + size / 16), callers lua_close, lua_collectgarbage); was ltable__c190. */
 
-void __cdecl ltable__c190(undefined4 *param_1)
+void __cdecl luaH_free(undefined4 *param_1)
 
 {
   undefined4 *puVar1;
@@ -69,8 +70,8 @@ void __cdecl luaH_save(undefined *param_1,int param_2)
     do {
       a1 = *(int *)(param_2 + 8) + iVar2;
       if ((*(int *)(*(int *)(param_2 + 8) + iVar2) != -7) && (*(int *)(a1 + 8) != -7)) {
-        lstate__7830(a1,(int)param_1);
-        lstate__7830(*(int *)(param_2 + 8) + 8 + iVar2,(int)param_1);
+        LState_SaveObject(a1,(int)param_1);
+        LState_SaveObject(*(int *)(param_2 + 8) + 8 + iVar2,(int)param_1);
         local_4 = local_4 + 1;
       }
       uVar3 = uVar3 + 1;
@@ -88,10 +89,11 @@ void __cdecl luaH_save(undefined *param_1,int param_2)
 #undef local_8
 
 
-/* ---- 0x1000c2e0  luaH_new ---- */
-/* Unidentified function of ltable.c (hash tables, with Grim save support) */
+/* ---- 0x1000c2e0  luaH_load ---- */
+/* Original name luaH_load (the remaster's libLua.so: luaH_load: callee LoadObject, caller
+   GlobalBeginRestore); was luaH_new. */
 
-undefined4 * __cdecl luaH_new(undefined *param_1)
+undefined4 * __cdecl luaH_load(undefined *param_1)
 
 {
   undefined4 *puVar1;
@@ -105,15 +107,15 @@ undefined4 * __cdecl luaH_new(undefined *param_1)
   (*(code *)param_1)(puVar1 + 3,4);
   (*(code *)param_1)(puVar1 + 4,4);
   (*(code *)param_1)(puVar1 + 5,4);
-  uVar2 = luaH_free(puVar1[3]);
+  uVar2 = luaH_hashnodecreate(puVar1[3]);
   puVar1[2] = uVar2;
   luaO_insertlist(&DAT_1002bf18,puVar1);
   uVar3 = 0;
   if (puVar1[4] != 0) {
     iVar4 = 0;
     do {
-      lstate__7880(puVar1[2] + iVar4,(int)param_1);
-      lstate__7880(puVar1[2] + 8 + iVar4,(int)param_1);
+      LState_LoadObject(puVar1[2] + iVar4,(int)param_1);
+      LState_LoadObject(puVar1[2] + 8 + iVar4,(int)param_1);
       uVar3 = uVar3 + 1;
       iVar4 = iVar4 + 0x10;
     } while (uVar3 < (uint)puVar1[4]);
@@ -121,10 +123,12 @@ undefined4 * __cdecl luaH_new(undefined *param_1)
   return puVar1;
 }
 
-/* ---- 0x1000c390  luaH_free ---- */
-/* Unidentified function of ltable.c (hash tables, with Grim save support) */
+/* ---- 0x1000c390  luaH_hashnodecreate ---- */
+/* Named luaH_hashnodecreate (not in the remaster: inlined there) Lua 3.1's static
+   hashnodecreate(nhash): allocates nhash nodes and sets each key to nil; the name luaH_free belongs
+   to 1000c190; was luaH_free. */
 
-undefined4 * __cdecl luaH_free(int param_1)
+undefined4 * __cdecl luaH_hashnodecreate(int param_1)
 
 {
   undefined4 *puVar1;
@@ -144,12 +148,13 @@ undefined4 * __cdecl luaH_free(int param_1)
   return puVar1;
 }
 
-/* ---- 0x1000c3d0  luaH_init ---- */
+/* ---- 0x1000c3d0  luaH_new ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of ltable.c (hash tables, with Grim save support) */
+/* Original name luaH_new (the remaster's libLua.so: luaH_new: callers lua_createtable, luaV_pack,
+   the VM); was luaH_init. */
 
-undefined4 * __cdecl luaH_init(int a1)
+undefined4 * __cdecl luaH_new(int a1)
 
 {
   undefined4 *puVar1;
@@ -162,7 +167,7 @@ undefined4 * __cdecl luaH_init(int a1)
   ;
   lVar4 = _ftol();
   iVar2 = luaO_redimension((int)lVar4);
-  uVar3 = luaH_free(iVar2);
+  uVar3 = luaH_hashnodecreate(iVar2);
   puVar1[2] = uVar3;
   puVar1[3] = iVar2;
   puVar1[4] = 0;
@@ -174,10 +179,11 @@ undefined4 * __cdecl luaH_init(int a1)
 #endif
 
 
-/* ---- 0x1000c450  ltable__c450 ---- */
-/* Unidentified function of ltable.c (hash tables, with Grim save support) */
+/* ---- 0x1000c450  luaH_forcerehash ---- */
+/* Original name luaH_forcerehash (the remaster's libLua.so: luaH_forcerehash: caller
+   GlobalBeginRestore, callee present); was ltable__c450. */
 
-void __cdecl ltable__c450(int param_1)
+void __cdecl luaH_forcerehash(int param_1)
 
 {
   int *piVar1;
@@ -188,14 +194,14 @@ void __cdecl ltable__c450(int param_1)
   int *piVar6;
   
   piVar1 = *(int **)(param_1 + 8);
-  uVar2 = luaH_free(*(int *)(param_1 + 0xc));
+  uVar2 = luaH_hashnodecreate(*(int *)(param_1 + 0xc));
   *(undefined4 *)(param_1 + 8) = uVar2;
   uVar5 = 0;
   piVar6 = piVar1;
   if (*(int *)(param_1 + 0x10) != 0) {
     do {
       if ((*piVar6 != -7) && (piVar6[2] != -7)) {
-        iVar3 = luaH_present(param_1,piVar6);
+        iVar3 = present(param_1,piVar6);
         piVar4 = (int *)(iVar3 * 0x10 + *(int *)(param_1 + 8));
         *piVar4 = *piVar6;
         piVar4[1] = piVar6[1];
@@ -210,10 +216,11 @@ void __cdecl ltable__c450(int param_1)
   return;
 }
 
-/* ---- 0x1000c4d0  luaH_present ---- */
-/* Unidentified function of ltable.c (hash tables, with Grim save support) */
+/* ---- 0x1000c4d0  present ---- */
+/* Original name present (the remaster's libLua.so: static present(Hash*, TObject*): callers
+   luaH_get / luaH_set / luaH_next / luaH_forcerehash); was luaH_present. */
 
-int __cdecl luaH_present(int param_1,int *param_2)
+int __cdecl present(int param_1,int *param_2)
 
 {
   int iVar1;
@@ -293,7 +300,7 @@ int * __cdecl luaH_get(int param_1,int *param_2)
   int iVar1;
   int *piVar2;
   
-  iVar1 = luaH_present(param_1,param_2);
+  iVar1 = present(param_1,param_2);
   piVar2 = (int *)(iVar1 * 0x10 + *(int *)(param_1 + 8));
   if (*piVar2 != -7) {
     return piVar2 + 2;
@@ -311,14 +318,14 @@ int * __cdecl luaH_set(int param_1,int *param_2)
   uint uVar2;
   int *piVar3;
   
-  iVar1 = luaH_present(param_1,param_2);
+  iVar1 = present(param_1,param_2);
   piVar3 = (int *)(iVar1 * 0x10 + *(int *)(param_1 + 8));
   if (*piVar3 == -7) {
     uVar2 = *(int *)(param_1 + 0x10) + 1;
     *(uint *)(param_1 + 0x10) = uVar2;
     if ((double)*(uint *)(param_1 + 0xc) * 0.7 < (double)uVar2) {
       luaH_rehash(param_1);
-      iVar1 = luaH_present(param_1,param_2);
+      iVar1 = present(param_1,param_2);
       piVar3 = (int *)(iVar1 * 0x10 + *(int *)(param_1 + 8));
     }
     *piVar3 = *param_2;
@@ -349,14 +356,14 @@ void __cdecl luaH_rehash(int param_1)
     uVar4 = luaO_redimension(*(int *)(param_1 + 0xc));
     *(undefined4 *)(param_1 + 0xc) = uVar4;
   }
-  uVar4 = luaH_free(*(int *)(param_1 + 0xc));
+  uVar4 = luaH_hashnodecreate(*(int *)(param_1 + 0xc));
   *(undefined4 *)(param_1 + 8) = uVar4;
   iVar3 = iVar1;
   piVar7 = piVar2;
   if (0 < iVar1) {
     do {
       if ((*piVar7 != -7) && (piVar7[2] != -7)) {
-        iVar5 = luaH_present(param_1,piVar7);
+        iVar5 = present(param_1,piVar7);
         piVar6 = (int *)(iVar5 * 0x10 + *(int *)(param_1 + 8));
         *piVar6 = *piVar7;
         piVar6[1] = piVar7[1];
@@ -412,7 +419,7 @@ int __cdecl luaH_next(int param_1,int *param_2)
     iVar1 = ltable__c810(iVar1,0);
     return iVar1;
   }
-  iVar2 = luaH_present(iVar1,param_2);
+  iVar2 = present(iVar1,param_2);
   piVar3 = (int *)(*(int *)(iVar1 + 8) + iVar2 * 0x10);
   if ((*piVar3 == -7) || (piVar3[2] == -7)) {
     luaL_argerror(2,IMG_ADDR(0x10027d38));

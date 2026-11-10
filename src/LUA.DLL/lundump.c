@@ -53,14 +53,16 @@ undefined4 * __cdecl luaU_LoadChunk(int *param_1)
   undefined4 *puVar1;
   
   luaU_loadheader(param_1);
-  puVar1 = luaU_LoadFunction(param_1);
+  puVar1 = LoadFunction(param_1);
   return puVar1;
 }
 
-/* ---- 0x1000cf30  luaU_LoadFunction ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000cf30  LoadFunction ---- */
+/* Original name LoadFunction (the remaster's libLua.so: static LoadFunction(ZIO*): luaF_newproto,
+   the code, locals, constants and nested functions (caller luaU_undump1's chunk loader)); was
+   luaU_LoadFunction. */
 
-undefined4 * __cdecl luaU_LoadFunction(int *param_1)
+undefined4 * __cdecl LoadFunction(int *param_1)
 
 {
   uint *puVar1;
@@ -74,7 +76,7 @@ undefined4 * __cdecl luaU_LoadFunction(int *param_1)
   puVar2 = luaF_newclosure();
   uVar3 = lundump__cfa0((int *)puVar1);
   puVar2[5] = uVar3;
-  uVar4 = luaU_LoadString(puVar1);
+  uVar4 = LoadTString(puVar1);
   puVar2[6] = uVar4;
   puVar6 = puVar1;
   uVar3 = luaU_LoadCode((int *)puVar1);
@@ -183,10 +185,11 @@ uint __cdecl luaU_LoadCode(int *param_1)
   return uVar3;
 }
 
-/* ---- 0x1000d0d0  luaU_LoadString ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d0d0  LoadTString ---- */
+/* Original name LoadTString (the remaster's libLua.so: static LoadTString(ZIO*): the string
+   (luaL_openspace + read) through luaS_new); was luaU_LoadString. */
 
-undefined4 __cdecl luaU_LoadString(uint *param_1)
+undefined4 __cdecl LoadTString(uint *param_1)
 
 {
   uint *puVar1;
@@ -274,7 +277,7 @@ void __cdecl luaU_LoadLocals(int param_1,uint *param_2)
       do {
         uVar3 = lundump__cfa0((int *)param_2);
         *(uint *)(*(int *)(param_1 + 0x1c) + 4 + iVar4 * 8) = uVar3;
-        uVar2 = luaU_LoadString(param_2);
+        uVar2 = LoadTString(param_2);
         *(undefined4 *)(*(int *)(param_1 + 0x1c) + iVar4 * 8) = uVar2;
         iVar4 = iVar4 + 1;
       } while (iVar4 < (int)uVar1);
@@ -322,7 +325,7 @@ void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
         }
         else if (uVar4 == 0x53) {
           *puVar1 = 0xfffffffe;
-          uVar3 = luaU_LoadString((uint *)*param_2);
+          uVar3 = LoadTString((uint *)*param_2);
           puVar1[1] = uVar3;
         }
         iVar5 = iVar5 + 1;
@@ -427,7 +430,7 @@ void __cdecl lundump__d3c0(int param_1,int *param_2)
     }
     if (uVar2 != 0x23) break;
     uVar2 = lundump__cfa0((int *)*param_2);
-    puVar3 = luaU_LoadFunction(param_2);
+    puVar3 = LoadFunction(param_2);
     *(undefined4 **)(*(int *)(param_1 + 8) + 4 + uVar2 * 8) = puVar3;
   }
   return;
@@ -512,12 +515,13 @@ void __cdecl luaU_LoadSignature(int *param_1)
   return;
 }
 
-/* ---- 0x1000d5c0  luaU_str2number ---- */
+/* ---- 0x1000d5c0  luaV_tonumber ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* lundump.c: parses %lf %c */
+/* lundump.c: parses %lf %c Original name luaV_tonumber (the remaster's libLua.so: sscanf '%lf %c',
+   callers lua_getnumber / lua_isnumber / the VM); was luaU_str2number. */
 
-undefined4 __cdecl luaU_str2number(int *param_1)
+undefined4 __cdecl luaV_tonumber(int *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -542,12 +546,13 @@ undefined4 __cdecl luaU_str2number(int *param_1)
 #endif
 
 
-/* ---- 0x1000d620  lundump__d620 ---- */
+/* ---- 0x1000d620  luaV_tostring ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* Original name luaV_tostring (the remaster's libLua.so: sprintf of the number, luaS_new; caller
+   lua_getstring); was lundump__d620. */
 
-undefined4 __cdecl lundump__d620(int *param_1)
+undefined4 __cdecl luaV_tostring(int *param_1)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

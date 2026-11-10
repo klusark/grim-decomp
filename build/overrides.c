@@ -1424,7 +1424,7 @@ undefined4 __cdecl lua_setfallback(byte *name, int fallback)
 {
     lua_pushstring(name);
     lua_pushCclosure(fallback, 0);
-    luaA_callObject(FUN_1000cc30, 2, (void *)1);
+    luaA_callObject(luaT_setfallback, 2, (void *)1);
     return lapi__12e0();
 }
 
@@ -1476,11 +1476,11 @@ int __cdecl luaH_hashindex(undefined4 *key)
 }
 
 /* new hash table with room for about size / 0.7 nodes */
-undefined4 * __cdecl luaH_init(int size)
+undefined4 * __cdecl luaH_new(int size)
 {
     undefined4 *t = (undefined4 *)(*(code **)(DAT_1002beb8 + 0x20))(0x18, s_C__grimsrc_libs_lua_src_ltable_c_10027cf4, 0xa4);
     int nnodes = luaO_redimension((int)(long long)((double)size * 1.4285714285714286));
-    t[2] = (undefined4)luaH_free(nnodes);
+    t[2] = (undefined4)luaH_hashnodecreate(nnodes);
     t[3] = nnodes;
     t[4] = 0;
     t[5] = (undefined4)-3;   /* tag: a table */
@@ -1516,11 +1516,11 @@ int __cdecl lua_gettask(int obj)
 #endif /* GRIM_LUA (agentJ) */
 
 #ifdef GRIM_LUA
-/* ---- agentJ: luaB_tostring (LUA.DLL 0x10003170) ---- tostring() of a stack object, for the print/tostring builtins */
-undefined1 * __cdecl luaB_tostring(int param_1)
+/* ---- agentJ: to_string (LUA.DLL 0x10003170) ---- tostring() of a stack object, for the print/tostring builtins */
+undefined1 * __cdecl to_string(int param_1)
 {
     char *buf = (char *)luaL_openspace(0x1e);
-    undefined4 *o = (undefined4 *)lapi__11e0(param_1);      /* stack object {tag, value} */
+    undefined4 *o = (undefined4 *)luaA_Address(param_1);      /* stack object {tag, value} */
     switch ((int)o[0]) {
     case 0:                                                 /* userdata: the pointer lives in the userdata record */
         sprintf(buf, s_userdata___p_10026708, *(undefined4 *)(o[1] + 0x14));
@@ -1548,7 +1548,7 @@ undefined1 * __cdecl luaB_tostring(int param_1)
  * format(fmt, ...): copies fmt to the Lua string buffer, replacing every %[n$][flags][width][.prec]conv by the next argument
  * formatted with C sprintf. The numeric conversions take the argument as a Lua number (a float): d i c o u x X convert it
  * to int, e E f g G pass it as a double. */
-void FUN_1000a440(void)
+void str_format(void)
 {
     int arg = 1;
     const char *fmt = (const char *)luaL_check_string(1);
@@ -1571,7 +1571,7 @@ void FUN_1000a440(void)
         cap[0] = 0;
         init = fmt + 1;
         /* skip "n$", flags, width and precision; the two captures are the width and the precision digits */
-        conv = str_match((char *)init, (int *)s__d_____________d_______d___10027aa4, cap);
+        conv = match((char *)init, (int *)s__d_____________d_______d___10027aa4, cap);
         if (cap[2] > 3 || cap[4] > 3)
             lua_error((byte *)s_invalid_format__width_or_precisi_10027a74);
         if (init[0] >= '0' && init[0] <= '9' && init[1] == '$') {   /* explicit argument number */
@@ -1603,7 +1603,7 @@ void FUN_1000a440(void)
             lua_error((byte *)s_invalid_option_in__format__10027a58);
             break;
         }
-        lbuiltin__2d10((int)strlen(buf));    /* the formatted text is now part of the result */
+        luaL_addsize((int)strlen(buf));    /* the formatted text is now part of the result */
     }
     str_closeandpush();
 }
@@ -1630,7 +1630,7 @@ float __cdecl luaU_LoadNumber(undefined4 *ld)
 }
 
 /* string -> number coercion of a stack object: 0 = converted in place, 1 = not a string, 2 = not a number */
-undefined4 __cdecl luaU_str2number(int *o)
+undefined4 __cdecl luaV_tonumber(int *o)
 {
     double d;
     char trailing;                          /* "%lf %c": a second item means the string has trailing characters */
@@ -1652,7 +1652,7 @@ void __cdecl luaV_pack(int first, int n, undefined4 *result)
     int i;
     if (n < 0)
         n = 0;
-    result[1] = (undefined4)luaH_init(n + 1);
+    result[1] = (undefined4)luaH_new(n + 1);
     result[0] = (undefined4)-3;             /* tag: table */
     for (i = 0; i < n; i++, src += 2) {
         int tag = src[0], val = src[1];     /* read before luaH_set, which may touch the stack */
@@ -1682,7 +1682,7 @@ int __cdecl lbuiltin__3ba0(int t)
 }
 
 /* reads one byte from a stream through the host's read callback: the byte as a signed char, -1 at the end */
-int __cdecl lauxlib__2960(undefined4 stream)
+int __cdecl luaFGetc(undefined4 stream)
 {
     char c;
     uint got = (*(uint (**)(undefined4, char *, int))(DAT_1002beb8 + 0x38))(stream, &c, 1);
@@ -1753,13 +1753,13 @@ void __cdecl luaU_LoadConstants(int fn, undefined4 *ld)
             *(float *)&k[1] = luaU_LoadNumber(ld);
         } else if (type == 'S') {
             k[0] = (undefined4)-2;
-            k[1] = luaU_LoadString((uint *)ld[0]);
+            k[1] = LoadTString((uint *)ld[0]);
         }
     }
 }
 
 /* number -> string coercion of a stack object: integers print as %d, anything else as %g.  0 = converted, 1 = not a number */
-undefined4 __cdecl lundump__d620(int *o)
+undefined4 __cdecl luaV_tostring(int *o)
 {
     char buf[60];
     float f;
@@ -1778,7 +1778,7 @@ undefined4 __cdecl lundump__d620(int *o)
 }
 
 /* saves a {tag, value} object through the writer callback; a C function is written as its function id instead of its pointer */
-undefined4 __stdcall lstate__7830(int obj, int writer)
+undefined4 __stdcall LState_SaveObject(int obj, int writer)
 {
     int (__cdecl *write)(void *, int) = (int (__cdecl *)(void *, int))writer;
     write((void *)obj, 4);                  /* the tag */
@@ -1792,10 +1792,10 @@ undefined4 __stdcall lstate__7830(int obj, int writer)
 
 /* moves task state `this` into the task list right after `after` (it is first unlinked from where it is); doubly linked
  * through +0xcc (next) and +0xd0 (previous) */
-int __thiscall lstate__8b70(void *self, int after)
+int __thiscall LState_attach(void *self, int after)
 {
     int next = 0;
-    lstate__8bb0((int)self);
+    LState_detach((int)self);
     if (after != 0) {
         next = *(int *)(after + 0xcc);
         *(int *)((int)self + 0xcc) = next;
@@ -1852,11 +1852,11 @@ undefined4 __cdecl lua_printstack(int out)
     return 0;
 }
 
-/* ---- agentJ: str_match (LUA.DLL 0x10009ea0) ----
+/* ---- agentJ: match (LUA.DLL 0x10009ea0) ----
  * Lua 3.1 pattern matcher: match the pattern `pat` against the text at `s` and return the end of the match, or NULL.
  * `cap` is the capture table {level, 9 x {start pointer, length (-1 while open)}}.  Single items are matched by
  * str_matchbalance, which returns the text after one match of the item (or NULL) and sets the end of the item. */
-char * __cdecl str_match(char *s, int *pat, int *cap)
+char * __cdecl match(char *s, int *pat, int *cap)
 {
     char *p = (char *)pat;
     for (;;) {
@@ -1875,14 +1875,14 @@ char * __cdecl str_match(char *s, int *pat, int *cap)
             cap[cap[0] * 2 + 1] = (int)s;
             cap[cap[0] * 2 + 2] = -1;
             cap[0]++;
-            r = str_match(s, (int *)(p + 1), cap);
+            r = match(s, (int *)(p + 1), cap);
             if (r == (char *)0)
                 cap[0]--;                   /* failed: forget the capture */
             return r;
         case ')': {                         /* end of a capture */
             int l = str_capture_to_close(cap);
             cap[l * 2 + 2] = (int)s - cap[l * 2 + 1];
-            r = str_match(s, (int *)(p + 1), cap);
+            r = match(s, (int *)(p + 1), cap);
             if (r == (char *)0)
                 cap[l * 2 + 2] = -1;        /* failed: reopen it */
             return r;
@@ -1892,17 +1892,17 @@ char * __cdecl str_match(char *s, int *pat, int *cap)
         ep = (char *)epi;
         switch (*ep) {
         case '*':                           /* any number of repetitions, as many as possible first */
-            if (next != (char *)0 && (r = str_match(next, (int *)p, cap)) != (char *)0)
+            if (next != (char *)0 && (r = match(next, (int *)p, cap)) != (char *)0)
                 return r;
             p = ep + 1;
             break;
         case '?':                           /* optional */
-            if (next != (char *)0 && (r = str_match(next, (int *)(ep + 1), cap)) != (char *)0)
+            if (next != (char *)0 && (r = match(next, (int *)(ep + 1), cap)) != (char *)0)
                 return r;
             p = ep + 1;
             break;
         case '-':                           /* any number of repetitions, as few as possible first */
-            r = str_match(s, (int *)(ep + 1), cap);
+            r = match(s, (int *)(ep + 1), cap);
             if (r != (char *)0)
                 return r;
             if (next == (char *)0)
@@ -1919,7 +1919,7 @@ char * __cdecl str_match(char *s, int *pat, int *cap)
     }
 }
 
-/* ---- agentJ: luaX_lex (LUA.DLL 0x10005d00), the Lua 3.1 tokenizer ----
+/* ---- agentJ: luaY_lex (LUA.DLL 0x10005d00), the Lua 3.1 tokenizer ----
  * ls = PTR_1002bf6c[0x10] is the lexer state: ls[0] current character (-1 at the end of input), ls[1] the input stream (a
  * zio: {chars left, next char pointer, refill function}), ls[2] current line, ls[3] line of the token being read, ls[5] depth
  * of $if nesting.  Every token's text is collected in the string buffer (luaL_addchar).  The result is the token: a single
@@ -1941,12 +1941,12 @@ static uint lx_zgetc(int *z)
 #define LX_NEXT()          (ls[0] = lx_zgetc((int *)ls[1]))
 #define LX_SAVE_AND_NEXT() (luaL_addchar((char)ls[0]), LX_NEXT())
 
-uint __cdecl luaX_lex(float *value)
+uint __cdecl luaY_lex(float *value)
 {
     uint *ls = (uint *)PTR_1002bf6c[0x10];
     luaL_resetbuffer();
     if (lua_debug != 0)
-        luaY_code_word(ls[3]);
+        luaY_codedebugline(ls[3]);
     ls[3] = ls[2];
     for (;;) {
         uint c;
@@ -1974,7 +1974,7 @@ uint __cdecl luaX_lex(float *value)
             LX_NEXT();
             break;
         case '\n':
-            luaX_pragma(ls);
+            inclinenumber(ls);
             ls[3] = ls[2];
             break;
         case '"': case 0x27: {                                   /* string literal ('"' or the apostrophe) */
@@ -2000,7 +2000,7 @@ uint __cdecl luaX_lex(float *value)
                 switch (ls[0]) {
                 case '\n':                                       /* backslash-newline: keeps the newline */
                     luaL_addchar('\n');
-                    luaX_pragma(ls);
+                    inclinenumber(ls);
                     break;
                 case 'n': luaL_addchar('\n'); LX_NEXT(); break;
                 case 'r': luaL_addchar('\r'); LX_NEXT(); break;
@@ -2126,15 +2126,15 @@ uint __cdecl luaX_lex(float *value)
 
 /* ---- agentJ: task state records and the call-frame pool (LUA.DLL) ----
  * These were C++ code with exception frames around `new`/constructors; the frames only free half-built objects when an
- * exception passes, so they are left out here.  A task state is a 0xd4-byte record built by lstate__75e0 (the
+ * exception passes, so they are left out here.  A task state is a 0xd4-byte record built by LState_Construct (the
  * `lua_State`: +0 call frame, +4 current frame, +0x20 stack base, +0x28.. counters, +0xcc/+0xd0 neighbours in the task list);
- * a call frame is a 0x30-byte record from a free list (PTR_1002bf84) built by lvm__ddb0.  Save games are written and read
+ * a call frame is a 0x30-byte record from a free list (PTR_1002bf84) built by ExecutionState_Construct.  Save games are written and read
  * through a callback (buffer, size). */
 typedef int (__cdecl *LuaIO)(void *buf, int size);
 #define LUA_HOST(slot) (DAT_1002beb8 + (slot))      /* the host's service table: +0x18 assert, +0x20 malloc, +0x24 free, +0x28 realloc */
 
 /* next free call-frame record; an empty pool is refilled with ten new records first.  (`size` is not used.) */
-void * __cdecl lvm__dd10(int size)
+void * __cdecl ExecutionState_New(int size)
 {
     void *rec = PTR_1002bf84;
     (void)size;
@@ -2143,7 +2143,7 @@ void * __cdecl lvm__dd10(int size)
         for (n = 10; n != 0; n--) {
             rec = luaM_malloc(0x30);
             if (rec != 0)
-                rec = (void *)lvm__ddb0(rec, (int)PTR_1002bf84, 0, 0);      /* link in front of the pool */
+                rec = (void *)ExecutionState_Construct(rec, (int)PTR_1002bf84, 0, 0);      /* link in front of the pool */
             PTR_1002bf84 = rec;
         }
     }
@@ -2152,26 +2152,26 @@ void * __cdecl lvm__dd10(int size)
 }
 
 /* reads one call frame (and, recursively, the `depth` frames below it) from a save game into `self` */
-undefined4 __thiscall lvm__dbd0(void *self, int read, int stackbase, int depth)
+undefined4 __thiscall ExecutionState_Restore(void *self, int read, int stackbase, int depth)
 {
     LuaIO rd = (LuaIO)read;
     int *f = (int *)self;
-    int obj[2];                                         /* a {tag, value} object read back by lstate__78b0 */
+    int obj[2];                                         /* a {tag, value} object read back by LState_ResolveObject */
     int stacksize;
     if (depth != 0) {
-        void *rec = lvm__dd10(0x30);
-        void *below = rec != 0 ? (void *)lvm__ddb0(rec, 0, 0, 0) : 0;
+        void *rec = ExecutionState_New(0x30);
+        void *below = rec != 0 ? (void *)ExecutionState_Construct(rec, 0, 0, 0) : 0;
         f[3] = (int)below;
-        lvm__dbd0(below, read, stackbase, depth - 1);
+        ExecutionState_Restore(below, read, stackbase, depth - 1);
     }
     f[7] = stackbase;
     obj[0] = -8;                                        /* a C function */
     rd(&obj[1], 4);
-    lstate__78b0((int)obj);
+    LState_ResolveObject((int)obj);
     f[0] = obj[1];
     obj[0] = -4;                                        /* a Lua function */
     rd(&obj[1], 4);
-    lstate__78b0((int)obj);
+    LState_ResolveObject((int)obj);
     f[1] = obj[1];
     rd(&f[2], 4);
     rd(&f[4], 4);
@@ -2185,7 +2185,7 @@ undefined4 __thiscall lvm__dbd0(void *self, int read, int stackbase, int depth)
 }
 
 /* reads a task state back from a save game */
-undefined4 __thiscall lstate__87f0(void *self, int read)
+undefined4 __thiscall LState_Restore(void *self, int read)
 {
     LuaIO rd = (LuaIO)read;
     int *s = (int *)self;
@@ -2194,10 +2194,10 @@ undefined4 __thiscall lstate__87f0(void *self, int read)
     if (count == 0) {
         s[0] = 0;
     } else {
-        void *rec = lvm__dd10(0x30);
-        void *top = rec != 0 ? (void *)lvm__ddb0(rec, 0, 0, 0) : 0;
+        void *rec = ExecutionState_New(0x30);
+        void *top = rec != 0 ? (void *)ExecutionState_Construct(rec, 0, 0, 0) : 0;
         s[0] = (int)top;
-        lvm__dbd0(top, read, (int)self + 0x1c, count - 1);
+        ExecutionState_Restore(top, read, (int)self + 0x1c, count - 1);
     }
     rd(&current, 4);                                    /* which frame is current, counted from the top */
     if (current < 0) {
@@ -2221,7 +2221,7 @@ undefined4 __thiscall lstate__87f0(void *self, int read)
     rd(&used, 4);
     s[7] = s[8] + used * 8;
     for (i = 0; i < used; i++)
-        lstate__7910(s[8] + i * 8, read);
+        LState_LoadResolvedObject(s[8] + i * 8, read);
     rd(&s[10], 4);
     rd(&s[11], 4);
     rd(&s[12], 4);
@@ -2232,32 +2232,32 @@ undefined4 __thiscall lstate__87f0(void *self, int read)
         rd(&s[0x13 + i * 3], 4);
     }
     rd(&s[0x30], 4);
-    lstate__7910((int)self + 0xc4, read);
+    LState_LoadResolvedObject((int)self + 0xc4, read);
     return 0;
 }
 
 /* a new task state, initialised (the current state is left as it was) */
-undefined4 * lstate__8ad0(void)
+undefined4 * lua_newstate(void)
 {
     int *saved = PTR_1002bf6c;
     undefined4 *mem = luaM_malloc(0xd4);
-    undefined4 *st = mem != 0 ? lstate__75e0(mem) : 0;
+    undefined4 *st = mem != 0 ? LState_Construct(mem) : 0;
     PTR_1002bf6c = (int *)st;
-    lua_initstate();
+    LState_initglobals();
     PTR_1002bf6c = saved;
     return st;
 }
 
 /* Lua tasks: start_script(function, args...) creates a task state running the function and pushes its task id */
-void lbuiltin__3260(void)
+void luaI_startscript(void)
 {
     int fn = lua_lua2C(1);
     if (lua_isfunction(fn) != 0) {
         undefined4 *mem = luaM_malloc(0xd4);
-        int *task = mem != 0 ? (int *)lstate__75e0(mem) : 0;
+        int *task = mem != 0 ? (int *)LState_Construct(mem) : 0;
         int *cur, arg, n;
         task[3] = 0;
-        lstate__8b70(task, (int)PTR_1002bf6c);         /* into the task list after the running one */
+        LState_attach(task, (int)PTR_1002bf6c);         /* into the task list after the running one */
         task[0x31] = *(int *)(PTR_1002bf6c[8] - 8 + fn * 8);       /* the function object */
         task[0x32] = *(int *)(PTR_1002bf6c[8] - 4 + fn * 8);
         cur = PTR_1002bf6c;
@@ -2285,29 +2285,29 @@ undefined4 lua_Restore(code *param_1)
     int *prev;
     lua_close();
     mem = luaM_malloc(0xd4);
-    PTR_1002bf6c = mem != 0 ? (int *)lstate__75e0(mem) : 0;
+    PTR_1002bf6c = mem != 0 ? (int *)LState_Construct(mem) : 0;
     DAT_1002bf70 = PTR_1002bf6c;
-    lua_initstate();
-    lstate__79d0((int)param_1);
+    LState_initglobals();
+    LState_GlobalBeginRestore((int)param_1);
     saved78 = DAT_1002bf78;
     rd(&numTasks, 4);
     if (numTasks == 0)
         (*(void (__cdecl **)(char *, char *, int))LUA_HOST(0x18))(s_numTasks___0_100262f4, s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4, 0x499);
     rd(&depth, 4);
-    lstate__87f0(DAT_1002bf70, (int)param_1);
+    LState_Restore(DAT_1002bf70, (int)param_1);
     prev = DAT_1002bf70;
     for (i = 1; i < numTasks; i++) {
         int *task;
         mem = luaM_malloc(0xd4);
-        task = mem != 0 ? (int *)lstate__75e0(mem) : 0;
-        if (lstate__87f0(task, (int)param_1) != 0)
+        task = mem != 0 ? (int *)LState_Construct(mem) : 0;
+        if (LState_Restore(task, (int)param_1) != 0)
             (*(void (__cdecl **)(char *, char *, int))LUA_HOST(0x18))(s_pNewState__Restore_restoreFunc____100262c8, s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4, 0x4a2);
-        lstate__8b70(task, (int)prev);
+        LState_attach(task, (int)prev);
         prev = task;
     }
     while (depth-- != 0)
-        PTR_1002bf6c = (int *)lstate__8bf0((int)PTR_1002bf6c);
-    lstate__7930((int)param_1);
+        PTR_1002bf6c = (int *)LState_next((int)PTR_1002bf6c);
+    LState_GlobalEndRestore((int)param_1);
     DAT_1002bf78 = saved78;
     return 0;
 }
@@ -2321,7 +2321,7 @@ undefined4 lua_Restore(code *param_1)
  *    -5 raw C function, not started        -11 C function running ("cmark")
  * anything else is called through its tag method ("call").  A handler returns `res`: > 0 the function finished and the
  * results start at stack index res, <= 0 it wants to call the function at position -res next (a new frame is pushed).
- * Returns 1 when the task function FUN_10003770 finished the task, else 0.  (The original had a C++ exception frame; not needed.) */
+ * Returns 1 when the task function luaI_breakhere finished the task, else 0.  (The original had a C++ exception frame; not needed.) */
 undefined4 luaD_call(code *param_1, void *param_2)
 {
     int pos = (int)param_1;                             /* stack position of the function to call */
@@ -2329,8 +2329,8 @@ undefined4 luaD_call(code *param_1, void *param_2)
     int res = nres;                                     /* the last handler's result */
     int base = *PTR_1002bf6c;                           /* call frame to return at */
     if (base == 0 || PTR_1002bf6c[6] != 0) {            /* no frame yet, or inside a C call: push a frame for this call */
-        void *rec = lvm__dd10(0x30);
-        int frame = rec != 0 ? lvm__ddb0(rec, *PTR_1002bf6c, pos, nres) : 0;
+        void *rec = ExecutionState_New(0x30);
+        int frame = rec != 0 ? ExecutionState_Construct(rec, *PTR_1002bf6c, pos, nres) : 0;
         *PTR_1002bf6c = frame;
         res = (int)rec;
     } else {
@@ -2348,19 +2348,19 @@ undefined4 luaD_call(code *param_1, void *param_2)
         case -10:
             if (((int *)*PTR_1002bf6c)[6] == 0)
                 goto call_tag_method;
-            res = lvm__de30((int *)*PTR_1002bf6c);
+            res = ExecutionState_execute((int *)*PTR_1002bf6c);
             break;
         case -9:
             if (((int *)*PTR_1002bf6c)[6] == 0)
                 goto call_tag_method;
             if (*(int *)(obj[1] + 0xc) != -5)
-                res = lvm__de30((int *)*PTR_1002bf6c);
+                res = ExecutionState_execute((int *)*PTR_1002bf6c);
             break;
         case -8:
             obj[0] = -9;
             if (*(int *)(obj[1] + 0xc) != -5) {         /* a Lua function: enter it */
-                lvm__ddf0((void *)*PTR_1002bf6c, obj[1], *(int *)(obj[1] + 0x10), pos);
-                res = lvm__de30((int *)*PTR_1002bf6c);
+                ExecutionState_setvalues((void *)*PTR_1002bf6c, obj[1], *(int *)(obj[1] + 0x10), pos);
+                res = ExecutionState_execute((int *)*PTR_1002bf6c);
             } else {                                    /* a C function */
                 fn = obj[1];
                 res = luaD_callC(fn, (undefined *)*(int *)(fn + 0x10), pos);
@@ -2373,12 +2373,12 @@ undefined4 luaD_call(code *param_1, void *param_2)
             break;
         case -4:
             obj[0] = -10;
-            lvm__ddf0((void *)*PTR_1002bf6c, 0, obj[1], pos);
-            res = lvm__de30((int *)*PTR_1002bf6c);
+            ExecutionState_setvalues((void *)*PTR_1002bf6c, 0, obj[1], pos);
+            res = ExecutionState_execute((int *)*PTR_1002bf6c);
             break;
         default:
         call_tag_method: {                              /* not a function: call its "function" tag method */
-                uint tag = luaT_effectivetag((uint *)obj);
+                uint tag = luaT_efectivetag((uint *)obj);
                 undefined4 *tm = (undefined4 *)(DAT_1002bf48 - tag * 0x90 + 0x88);
                 if ((int)*tm == -7)
                     lua_error((byte *)s_call_expression_not_a_function_10026a30);
@@ -2389,9 +2389,9 @@ undefined4 luaD_call(code *param_1, void *param_2)
         if (res <= 0) {                                 /* call the function at -res next, in a new frame */
             void *rec;
             pos = -res;
-            nres = (int)lvm__dde0(*PTR_1002bf6c);
-            rec = lvm__dd10(0x30);
-            *PTR_1002bf6c = rec != 0 ? lvm__ddb0(rec, *PTR_1002bf6c, pos, nres) : 0;
+            nres = (int)ExecutionState_getaux(*PTR_1002bf6c);
+            rec = ExecutionState_New(0x30);
+            *PTR_1002bf6c = rec != 0 ? ExecutionState_Construct(rec, *PTR_1002bf6c, pos, nres) : 0;
         } else {                                        /* finished: move the results down over the function, pop the frame */
             int *frame = (int *)*PTR_1002bf6c;
             int dst = frame[4] - 1;                     /* where the function was (0-based) */
@@ -2408,12 +2408,12 @@ undefined4 luaD_call(code *param_1, void *param_2)
             PTR_1002bf6c[7] += (dst - res) * 8;
             frame = (int *)*PTR_1002bf6c;
             *PTR_1002bf6c = frame[3];
-            lvm__dd90((int)frame);
+            ExecutionState_Delete((int)frame);
             if (*PTR_1002bf6c != 0) {                   /* continue in the frame below */
                 pos = ((int *)*PTR_1002bf6c)[4];
                 nres = ((int *)*PTR_1002bf6c)[5];
             }
-            if (fn == (int)FUN_10003770 && PTR_1002bf6c[2] == 0) {      /* the task function returned */
+            if (fn == (int)luaI_breakhere && PTR_1002bf6c[2] == 0) {      /* the task function returned */
                 PTR_1002bf6c[1] = base;
                 return 1;
             }
@@ -2423,4 +2423,4 @@ undefined4 luaD_call(code *param_1, void *param_2)
             return 0;
     }
 }
-#endif /* GRIM_LUA (agentJ luaB_tostring) */
+#endif /* GRIM_LUA (agentJ to_string) */
