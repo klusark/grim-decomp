@@ -82,7 +82,7 @@ static void run_tests(void)
     char first[160];
     int fmt[12], fmt2[12];
 
-    /* rdColormap_Build16bitTables */
+    /* rdColormap_BuildRGB16 */
     {
         static ushort ta[64 * 256 + 64], tb[64 * 256 + 64];
         byte pal[768];
@@ -99,7 +99,7 @@ static void run_tests(void)
             {
                 uint r = (uint)rnd(), g = (uint)rnd(), b = (uint)rnd();
                 rdColormap_Build16bitTables__orig(ta, (ushort *)pal, r, g, b, (int)fmt);
-                rdColormap_Build16bitTables(tb, (ushort *)pal, r, g, b, (int)fmt);
+                rdColormap_BuildRGB16(tb, (ushort *)pal, r, g, b, (int)fmt);
             }
             if (memcmp(ta, tb, sizeof(ta)) != 0) {
                 bad++;
@@ -107,12 +107,12 @@ static void run_tests(void)
                     sprintf(first, "trial %ld", n);
             }
         }
-        report("rdColormap_Build16bitTables", n, bad, first);
+        report("rdColormap_BuildRGB16", n, bad, first);
     }
     /* rdroid_BuildMathTables: the three tables 0x008fbfc0..0x00900000 */
     {
         static byte sa[0x4040], sb[0x4040];
-        byte *base = (byte *)&DAT_008fbfc0;
+        byte *base = (byte *)&g_aRdRaster_OneOverNFixed;
         memset(base, 0, 0x4040);
         rdroid_BuildMathTables__orig();
         memcpy(sa, base, 0x4040);
@@ -121,7 +121,7 @@ static void run_tests(void)
         memcpy(sb, base, 0x4040);
         report("rdroid_BuildMathTables", 1, memcmp(sa, sb, 0x4040) != 0, "tables differ");
     }
-    /* Math_SinCosTable / Math_SinDeg */
+    /* stdMath_SinCos / stdMath_Tan */
     {
         long bad1 = 0, bad2 = 0, bad3 = 0;
         char f1[160] = "", f2[160] = "", f3[160] = "";
@@ -139,14 +139,14 @@ static void run_tests(void)
             }
             s1 = c1 = s2 = c2 = 12345.0f;
             Math_SinCosTable__orig(a, &s1, &c1);
-            Math_SinCosTable(a, &s2, &c2);
+            stdMath_SinCos(a, &s2, &c2);
             if (memcmp(&s1, &s2, 4) != 0 || memcmp(&c1, &c2, 4) != 0) {
                 bad1++;
                 if (!f1[0])
                     sprintf(f1, "angle %a sin %a/%a cos %a/%a", a, s1, s2, c1, c2);
             }
             {
-                float r1 = (float)Math_SinDeg__orig(a), r2 = (float)Math_SinDeg(a);
+                float r1 = (float)Math_SinDeg__orig(a), r2 = (float)stdMath_Tan(a);
                 if (memcmp(&r1, &r2, 4) != 0) {
                     bad2++;
                     if (!f2[0])
@@ -155,8 +155,8 @@ static void run_tests(void)
             }
         }
         (void)bad3; (void)f3;
-        report("Math_SinCosTable", n, bad1, f1);
-        report("Math_SinDeg", n, bad2, f2);
+        report("stdMath_SinCos", n, bad1, f1);
+        report("stdMath_Tan", n, bad2, f2);
     }
     /* Palette_FromFloatTable */
     {
@@ -180,7 +180,7 @@ static void run_tests(void)
         }
         report("Palette_FromFloatTable", n, bad, first);
     }
-    /* Pixel_Convert / Pixel_ConvertOne */
+    /* stdColor_ColorConvertOneRow / stdColor_ColorConvertOnePixel */
     {
         static byte src[4096 * 3], da[4096 * 4], db[4096 * 4];
         bad = 0;
@@ -195,20 +195,20 @@ static void run_tests(void)
                 src[i] = (byte)rnd();
             memset(da, 0x33, sizeof(da));
             memset(db, 0x33, sizeof(db));
-            UINT_00806c80 = counter;
+            g_dwStdColor_ColorConvertOneRow_row = counter;
             Pixel_Convert__orig((ushort *)da, (int)fmt2, (ushort *)src, (int)fmt, cnt);
             {
-                uint after = UINT_00806c80;
-                UINT_00806c80 = counter;
-                Pixel_Convert((ushort *)db, (int)fmt2, (ushort *)src, (int)fmt, cnt);
-                if (UINT_00806c80 != after || memcmp(da, db, sizeof(da)) != 0) {
+                uint after = g_dwStdColor_ColorConvertOneRow_row;
+                g_dwStdColor_ColorConvertOneRow_row = counter;
+                stdColor_ColorConvertOneRow((ushort *)db, (int)fmt2, (ushort *)src, (int)fmt, cnt);
+                if (g_dwStdColor_ColorConvertOneRow_row != after || memcmp(da, db, sizeof(da)) != 0) {
                     bad++;
                     if (!first[0])
                         sprintf(first, "src fmt %d dst fmt %d count %u", sk, dk, cnt);
                 }
             }
         }
-        report("Pixel_Convert", n, bad, first);
+        report("stdColor_ColorConvertOneRow", n, bad, first);
         bad = 0;
         first[0] = 0;
         for (n = 0; n < 200000; n++) {
@@ -217,10 +217,10 @@ static void run_tests(void)
             int r1, r2;
             make_fmt(fmt, sk);
             make_fmt(fmt2, dk);
-            UINT_00806c80 = counter;
+            g_dwStdColor_ColorConvertOneRow_row = counter;
             r1 = Pixel_ConvertOne__orig((int)fmt2, px, (int)fmt);
-            UINT_00806c80 = counter;
-            r2 = Pixel_ConvertOne((int)fmt2, px, (int)fmt);
+            g_dwStdColor_ColorConvertOneRow_row = counter;
+            r2 = stdColor_ColorConvertOnePixel((int)fmt2, px, (int)fmt);
             /* the upper bytes come from the format pointer (a different address in the two calls only if they differ) */
             if (r1 != r2) {
                 bad++;
@@ -228,7 +228,7 @@ static void run_tests(void)
                     sprintf(first, "src %d dst %d px %08x: %08x/%08x", sk, dk, px, r1, r2);
             }
         }
-        report("Pixel_ConvertOne", n, bad, first);
+        report("stdColor_ColorConvertOnePixel", n, bad, first);
     }
     /* Render_BuildColorTable */
     {
@@ -238,12 +238,12 @@ static void run_tests(void)
         for (n = 0; n < 12; n++) {
             float gamma = (n == 0) ? 1.0f : rndf(0.3f, 3.0f);
             make_fmt(fmt, (int)(n % 2));
-            memset(&g_wColorTable, 0, sizeof(ta));
+            memset(&g_wSputRender_ColorLookup, 0, sizeof(ta));
             Render_BuildColorTable__orig((int)fmt, gamma);
-            memcpy(ta, &g_wColorTable, sizeof(ta));
-            memset(&g_wColorTable, 0, sizeof(ta));
+            memcpy(ta, &g_wSputRender_ColorLookup, sizeof(ta));
+            memset(&g_wSputRender_ColorLookup, 0, sizeof(ta));
             Render_BuildColorTable((int)fmt, gamma);
-            memcpy(tb, &g_wColorTable, sizeof(tb));
+            memcpy(tb, &g_wSputRender_ColorLookup, sizeof(tb));
             if (memcmp(ta, tb, sizeof(ta)) != 0) {
                 bad++;
                 if (!first[0])

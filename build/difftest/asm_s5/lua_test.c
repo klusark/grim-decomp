@@ -1,14 +1,14 @@
-/* Differential test of Lua_InitGameLibs (build/overrides_asm_o2.c) against the original machine code (with the build's
+/* Differential test of sputLua_Startup (build/overrides_asm_o2.c) against the original machine code (with the build's
  * asm patches).  Every callee is a recorder (LUA.DLL imports through their __imp__ slots for the original and their
  * plain names for the C), the exported variables lua_assume_binary / lua_savehook / lua_restorehook are test variables.
- * Build: build/difftest/asm_s5/build.sh build/difftest/asm_s5/lua_test.c build/difftest/asm_s5/out/lua_test.exe Lua_InitGameLibs */
+ * Build: build/difftest/asm_s5/build.sh build/difftest/asm_s5/lua_test.c build/difftest/asm_s5/out/lua_test.exe sputLua_Startup */
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "fx.h"
 
-extern int orig_Lua_InitGameLibs(void), Lua_InitGameLibs(void);
+extern int orig_sputLua_Startup(void), sputLua_Startup(void);
 static unsigned R(unsigned n) { return (unsigned)(fx_rnd() % n); }
 static void *th[64];
 
@@ -27,10 +27,10 @@ REC(8, lua_pushCclosure, 2)
 REC(9, lua_setglobal, 1)
 REC(10, lua_pushnumber, 1)
 REC(11, lua_setfallback, 2)
-REC(12, Reg_GetString, 4)
-REC(13, Lua_OpenEngineLib, 2)
+REC(12, wuRegistry_GetStr, 4)
+REC(13, sputLua_RegisterFunctions, 2)
 REC(14, Lua_CreateSystemTable, 0)
-REC(15, Engine_RegisterShutdownHook, 1)
+REC(15, sputControl_AddCallback, 1)
 REC(16, GRIM_RegisterModApiLib, 0)
 REC(17, GRIM_RegisterModApi, 0)
 REC(18, _stricmp, 2)
@@ -43,7 +43,7 @@ int *lua_assume_binary_exref = &v_binary, *lua_savehook_exref = &v_save, *lua_re
 static int reg_mode;
 static int eff(int tag, unsigned *a)
 {
-    if (tag == 12) {   /* Reg_GetString(name, buf, size, default) */
+    if (tag == 12) {   /* wuRegistry_GetStr(name, buf, size, default) */
         const char *s = reg_mode == 0 ? (const char *)FXDATA(0x4ec554) : reg_mode == 1 ? "TRUE" : (const char *)a[3];
         strncpy((char *)a[1], s, a[2] - 1); ((char *)a[1])[a[2] - 1] = 0;
         return 1;
@@ -71,9 +71,9 @@ int main(int argc, char **argv)
         v_binary = R(2); v_save = 0; v_restore = 0;
         fx_save();
         fx_reset();
-        ret[0] = orig_Lua_InitGameLibs();
+        ret[0] = orig_sputLua_Startup();
         fx_snap_a(); fx_restore(); fx_reset();
-        ret[1] = Lua_InitGameLibs();
+        ret[1] = sputLua_Startup();
         if (ret[0] != ret[1]) fx_fail("ret", i);
         if (fx_cmp_a()) fx_fail("mem", i);
         if (fx_cmp_log()) fx_fail("log", i);

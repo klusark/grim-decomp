@@ -1,4 +1,4 @@
-/* Differential test: rdPrimit3_CopyFaceVerts (0x0040e500).  Random vertex pool records (index lists, positions,
+/* Differential test: rdPrimit3_NoClipFace (0x0040e500).  Random vertex pool records (index lists, positions,
  * uvs, intensities with values around [0, 1], NaN, infinities, denormals), every geometry mode -1..5 and lighting mode
  * -1..4, with and without the extra-intensity array. */
 #include "harness.h"
@@ -42,9 +42,9 @@ static void setup(int *a)
     a[0] = (int)rndn(7) - 1; a[1] = (int)rndn(6) - 1; a[2] = rnd(); a[3] = SRC; a[4] = DST; a[5] = UVO;
     (void)u;
 }
-extern void rdPrimit3_CopyFaceVerts(void);
+extern void rdPrimit3_NoClipFace(void);
 static const Fn fns[] = {
-    {"rdPrimit3_CopyFaceVerts", 0x40e500, (void *)rdPrimit3_CopyFaceVerts, setup, 0},
+    {"rdPrimit3_NoClipFace", 0x40e500, (void *)rdPrimit3_NoClipFace, setup, 0},
 };
 int main(int argc, char **argv)
 {

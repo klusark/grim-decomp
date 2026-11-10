@@ -9,11 +9,11 @@
  * permutation of 0..n-1 and face material indexes in -1..n-1: the original keeps the material names in uninitialised
  * stack slots, so a hole would compare stack garbage.
  * Each case runs the original and the C on the same start state and compares: the return value, the model record and
- * every allocation (one arena, same addresses in both runs), the global scan buffer DAT_009056c0, and the call log of
+ * every allocation (one arena, same addresses in both runs), the global scan buffer g_bStd_genBuffer, and the call log of
  * every callee (stdConffile_*, sscanf with the format, the input string and the target pointers (stack targets as
  * one marker), strtok, atoi, strncpy, rdMaterial_Load, the allocator with size / file / line, the assertion).
  * The stand-ins: stdConffile_ReadLine gives the lines (lower-cased, comments and blank lines skipped) in the buffer
- * UINT_00900520 points to; sscanf / strtok / atoi / strncpy forward to msvcrt (strtok and atoi accept NULL here,
+ * g_dwStdConffile_aLine points to; sscanf / strtok / atoi / strncpy forward to msvcrt (strtok and atoi accept NULL here,
  * returning NULL / 0, so a mutated line cannot crash the test).
  * usage: model_test.exe [cases] [dir with the .3do files] */
 #include <windows.h>
@@ -120,14 +120,14 @@ void __cdecl rdModel3_NewEntry(uint *m)
     for (i = 0; i < 0x24; i++) m[i] = 0;
     r_strncpy((char *)m, "UNKNOWN", 0x1f);
 }
-char *__cdecl Str_FileNameFromPath(char *p)
+char *__cdecl stdFileFromPath(char *p)
 {
     char *r = p, *q;
     for (q = p; *q; q++) if (*q == '\\' || *q == '/') r = q + 1;
     L(0xf11e0000); L(P(p)); L(P(r));
     return r;
 }
-int __cdecl stdConffile_OpenRead(char *p) { L(0x09e40000); L(hstr(p)); rdpos = 0; return !open_fail; }
+int __cdecl stdConffile_Open(char *p) { L(0x09e40000); L(hstr(p)); rdpos = 0; return !open_fail; }
 void __cdecl stdConffile_Close(void) { L(0xc105e000); }
 int __cdecl stdConffile_ReadLine(void)
 {
@@ -375,7 +375,7 @@ int main(int argc, char **argv)
             else if (used != usedA) what = "arena size";
             else if (memcmp(ar, arA, used)) what = "model / allocations";
             else if (nlg != nlgA || memcmp(lg, lgA, nlg * 4)) what = "call log";
-            else if (memcmp(sbufA, FXDATA(0x9056c0), 0x800)) what = "scan buffer DAT_009056c0";
+            else if (memcmp(sbufA, FXDATA(0x9056c0), 0x800)) what = "scan buffer g_bStd_genBuffer";
             else if (cw != cwA || ((sw >> 11) & 7) != ((swA >> 11) & 7)) what = "x87 control word / stack top";
             if (what) {
                 if (nf++ < 5) {

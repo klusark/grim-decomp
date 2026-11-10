@@ -19,19 +19,19 @@ mut no_rect_height 'rect[2] = 0x280; rect[3] = 0x1e0;
             if (cnt' 'rect[2] = 0x280;
             if (cnt'
 mut nan_compare 'if (!(v > 1.0L))' 'if (v <= 1.0L)'
-mut float_quotient 'volatile long double v = (long double)(unsigned long long)diff / (long double)g_flIrisDurationMs;' 'volatile float vf = (float)((long double)(unsigned long long)diff / (long double)g_flIrisDurationMs); volatile long double v = vf;'
+mut float_quotient 'volatile long double v = (long double)(unsigned long long)diff / (long double)g_flIrisDuration;' 'volatile float vf = (float)((long double)(unsigned long long)diff / (long double)g_flIrisDuration); volatile long double v = vf;'
 mut list_forward 'entry = (byte *)list[k - 1];' 'entry = (byte *)list[n - k];'
 mut scale_not_reread 'if (ER_U32(actor, 0x30) != 0x3f800000) {
                 /* fld' 'if (vec[0] != 0x3f800000) {
                 /* fld'
 mut colormap_not_reread '                    cm = ER_PTR(actor, 0);
                     if (*(int *)cm == 0)' '                    if (*(int *)cm == 0)'
-mut buffer_count_cached 'while (n < g_nBufferCount);' 'while (n < cnt);'
-mut sector_debug_no_arg '((void (__cdecl *)(void *))Sector_DrawAllDebug)(Set_GetCurrent())' 'Sector_DrawAllDebug()'
-mut lights_bit 'g_dwRenderDebugFlags & 2) != 0)
-            Set_DrawDebugLights' 'g_dwRenderDebugFlags & 1) != 0)
+mut buffer_count_cached 'while (n < g_nNumPages);' 'while (n < cnt);'
+mut sector_debug_no_arg '((void (__cdecl *)(void *))Sector_DrawAllDebug)(sputRoom_GetCurrentRoom())' 'Sector_DrawAllDebug()'
+mut lights_bit 'g_dwDebugFlags & 2) != 0)
+            Set_DrawDebugLights' 'g_dwDebugFlags & 1) != 0)
             Set_DrawDebugLights'
 mut mode3_clears_pending '        Render_Present();
         return;' '        Render_Present();
-        g_nFullRedrawPending = 0;
+        g_nSputRender_Reset = 0;
         return;'

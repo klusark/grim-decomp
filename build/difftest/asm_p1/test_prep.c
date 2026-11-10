@@ -1,4 +1,4 @@
-/* Differential test: rdCanvas_PreparePolygon (0x00405770).  Random face records as in test_light.c plus the
+/* Differential test: rdActive_AddActiveFace (0x00405770).  Random face records as in test_light.c plus the
  * colour-key flag of the cel, the z-buffer mode and the polygon count; the 15 rdRaster_Select_* selectors and the
  * face callback (+0x18, the patched entry of an unrelated function, 0x0040aa20) are recorders (3 argument words
  * logged: the level is the third). */
@@ -53,8 +53,8 @@ static void setup(int *args)
     for (int i = 0; i < 10; i++) SF(VERTS + 4 * i);
     args[0] = FACE;
 }
-extern void rdCanvas_PreparePolygon(void);
-static const Fn fns[] = {{"rdCanvas_PreparePolygon", 0x405770, (void *)rdCanvas_PreparePolygon, setup, 1}};
+extern void rdActive_AddActiveFace(void);
+static const Fn fns[] = {{"rdActive_AddActiveFace", 0x405770, (void *)rdActive_AddActiveFace, setup, 1}};
 int main(int argc, char **argv)
 {
     rt_init();

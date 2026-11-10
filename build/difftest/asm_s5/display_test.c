@@ -1,9 +1,9 @@
 /* Differential test of the display set-up functions of build/overrides_asm_o2.c against the original machine code:
- * FUN_004761b0 (DirectDrawEnumerate callback), Display_DrawText, D3D_InitRenderState, DDraw_CreateSurfaces.
+ * FUN_004761b0 (DirectDrawEnumerate callback), stdDisplay_TextOut, D3D_InitRenderState, DDraw_CreateSurfaces.
  * DirectDraw / Direct3D objects are recorder COM objects (fx_com) whose effects write the out parameters; the Win32
  * imports are recorders reached through their __imp__ slots (original) and their decorated names (C).
  * Build: build/difftest/asm_s5/build.sh build/difftest/asm_s5/display_test.c build/difftest/asm_s5/out/display_test.exe \
- *   FUN_004761b0 Display_DrawText D3D_InitRenderState DDraw_CreateSurfaces */
+ *   FUN_004761b0 stdDisplay_TextOut D3D_InitRenderState DDraw_CreateSurfaces */
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,7 +12,7 @@
 
 extern int __stdcall orig_enum(int, int, int, int) __asm__("_orig_FUN_004761b0@16");
 extern int __stdcall new_enum(int, int, int, int) __asm__("_FUN_004761b0@16");
-extern int orig_Display_DrawText(char *, int, int), Display_DrawText(char *, int, int);
+extern int orig_stdDisplay_TextOut(char *, int, int), stdDisplay_TextOut(char *, int, int);
 extern int orig_D3D_InitRenderState(void), D3D_InitRenderState(void);
 extern int orig_DDraw_CreateSurfaces(int, int *, unsigned char *), DDraw_CreateSurfaces(int, int *, unsigned char *);
 
@@ -165,7 +165,7 @@ int main(int argc, char **argv)
             eff_seed = seed; ncap = 0; memset(cap, 0, sizeof cap); fx_reset();
             switch (which) {
             case 0: ret[pass] = pass ? new_enum(a_guid, (int)(uintptr_t)desc, (int)(uintptr_t)name, 7) : orig_enum(a_guid, (int)(uintptr_t)desc, (int)(uintptr_t)name, 7); break;
-            case 1: ret[pass] = pass ? Display_DrawText(text, x, y) : orig_Display_DrawText(text, x, y); break;
+            case 1: ret[pass] = pass ? stdDisplay_TextOut(text, x, y) : orig_stdDisplay_TextOut(text, x, y); break;
             case 2: ret[pass] = pass ? D3D_InitRenderState() : orig_D3D_InitRenderState(); break;
             case 3: ret[pass] = pass ? DDraw_CreateSurfaces(hwnd, mode, palette) : orig_DDraw_CreateSurfaces(hwnd, mode, palette); break;
             }

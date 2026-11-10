@@ -2,7 +2,7 @@
  * Build and run: build/difftest/lua_core/build.sh [cases]
  *
  * Each case builds a random set of lua_State-like records in a fixed pool (a task list linked through the stand-in
- * lstate__8bf0 = "next task", call chains linked through +0x0c, paused / marked flags, stack fields, task hook on or
+ * LState_next = "next task", call chains linked through +0x0c, paused / marked flags, stack fields, task hook on or
  * off), saves a snapshot, runs the original, saves the result, restores the snapshot, runs the C, and compares: the
  * return value, the call log of every stand-in callee (name and arguments as dwords, in order), the global L, the
  * services table, and the whole pool.  The stand-ins take their decisions from a per-case stream consumed in call order,
@@ -13,9 +13,9 @@
 #include <string.h>
 #include <stdint.h>
 
-extern int *PTR_1002bf6c;           /* the global L (data image) */
+extern int *g_pLuaState;           /* the global L (data image) */
 extern void *lua_taskhook;
-extern int *DAT_1002beb8;            /* the services table pointer; +0x18 is the assert function */
+extern int *g_dwLuaHS;            /* the services table pointer; +0x18 is the assert function */
 extern void __cdecl longjmp(void *, int) __attribute__((noreturn));
 
 typedef int updatetasks_fn(int);
@@ -23,7 +23,7 @@ typedef int protectedrun_fn(void *);
 typedef int protectedparser_fn(int *, int);
 extern updatetasks_fn orig_lua_updatetasks, lua_updatetasks;
 extern protectedrun_fn orig_luaD_protectedrun, luaD_protectedrun;
-extern protectedparser_fn orig_luaD_protectedparser, luaD_protectedparser;
+extern protectedparser_fn orig_protectedparser, protectedparser;
 static protectedrun_fn *cur_prun;
 static protectedparser_fn *cur_ppar;
 
@@ -51,11 +51,11 @@ static int *new_entry(void)
     e[0] = (int)snext(); e[4] = (int)S(1000); e[5] = (int)S(1000);
     return e;
 }
-static void raise_error(void) { L(0xEEEE); longjmp((void *)PTR_1002bf6c[0xd], 1); }
+static void raise_error(void) { L(0xEEEE); longjmp((void *)g_pLuaState[0xd], 1); }
 
-int __fastcall lstate__8bf0(int p) { L(0x8bf0); L(p); return p ? ((int *)p)[0x3c] : 0; }
-/* lstate__8c00 (the task's clean-up) unlinks it from the task list here, so that the scheduler terminates */
-void __fastcall lstate__8c00(int *p)
+int __fastcall LState_next(int p) { L(0x8bf0); L(p); return p ? ((int *)p)[0x3c] : 0; }
+/* LState_Destruct (the task's clean-up) unlinks it from the task list here, so that the scheduler terminates */
+void __fastcall LState_Destruct(int *p)
 {
     int i;
     L(0x8c00); L((uint32_t)p);
@@ -64,15 +64,15 @@ void __fastcall lstate__8c00(int *p)
     p[0x3f] = 0xDEAD;
 }
 /* the callees change what the real ones may change, so that the order of reads around them is tested */
-void __fastcall lvm__de20(int p) { L(0xde20); L(p); if (S(4) == 0) ((int *)p)[3] = 0; }
-void __cdecl lvm__dd90(int p) { L(0xdd90); L(p); ((int *)p)[3] = 0x0BAD0000; }   /* freed */
+void __fastcall ExecutionState_resetcounter(int p) { L(0xde20); L(p); if (S(4) == 0) ((int *)p)[3] = 0; }
+void __cdecl ExecutionState_Delete(int p) { L(0xdd90); L(p); ((int *)p)[3] = 0x0BAD0000; }   /* freed */
 void __cdecl luaM_free(void *p) { L(0x73d0); L((uint32_t)p); }
-void __cdecl ldo__40c0(int a, int b) { L(0x40c0); L(a); L(b); }
-void __cdecl ldo__4160(int a) { L(0x4160); L(a); }
+void __cdecl luaD_taskHook(int a, int b) { L(0x40c0); L(a); L(b); }
+void __cdecl luaD_deletestates(int a) { L(0x4160); L(a); }
 void __cdecl luaD_openstack(int n)
 {
     L(0x3f40); L(n);
-    if (S(3) == 0) { PTR_1002bf6c[10] = (int)S(8); PTR_1002bf6c[7] = (int)snext(); }
+    if (S(3) == 0) { g_pLuaState[10] = (int)S(8); g_pLuaState[7] = (int)snext(); }
 }
 void __cdecl luaA_setnormalized(int *a, int *b) { L(0x13c0); L((uint32_t)a); L((uint32_t)b); }
 void __cdecl luaD_adjusttop(int n) { L(0x3ee0); L(n); }
@@ -82,7 +82,7 @@ static void __cdecl assert_fn(char *a, char *b, int line) { L(0xA55E); L((uint32
 /* a call of Lua code: may change the state, nest a protected call, yield (non-zero), finish (0) or raise an error */
 static int lua_work(void)
 {
-    int *gl = PTR_1002bf6c, k;
+    int *gl = g_pLuaState, k;
     ncalls++;
     for (k = S(3); k > 0; k--) {                  /* push call entries */
         int *e = new_entry();
@@ -111,7 +111,7 @@ static void make_case(int which)
     memset(&P, 0, sizeof P);
     for (i = 0; i < 16; i++) P.services[i] = (int)rnd();
     P.services[6] = (int)assert_fn;
-    DAT_1002beb8 = P.services;
+    g_dwLuaHS = P.services;
     lua_taskhook = R(2) ? (void *)0x1234 : 0;
     nent_used = 0;
     for (i = 0; i < NSTATE; i++) {
@@ -135,7 +135,7 @@ static void make_case(int which)
         s[0x3c] = 0;
     }
     for (i = 0; i + 1 < n; i++) P.st[i][0x3c] = (int)P.st[i + 1];   /* task list: st[0] -> ... -> st[n-1] */
-    PTR_1002bf6c = P.st[which == 0 ? 0 : R(n)];
+    g_pLuaState = P.st[which == 0 ? 0 : R(n)];
 }
 static void no_stopped(void)   /* lua_updatetasks(1) loops until no task is left: a task flagged at +0x14 would never end */
 {
@@ -148,11 +148,11 @@ static int run(int which, int arg, int use_orig, uint64_t ss)
     int r;
     sstream = ss | 1; nlg = 0; overflow = 0; ncalls = 0; depth = 0; entcur = nent_used;
     cur_prun = use_orig ? orig_luaD_protectedrun : luaD_protectedrun;
-    cur_ppar = use_orig ? orig_luaD_protectedparser : luaD_protectedparser;
+    cur_ppar = use_orig ? orig_protectedparser : protectedparser;
     if (which == 0) r = (use_orig ? orig_lua_updatetasks : lua_updatetasks)(arg);
     else if (which == 1) r = cur_prun((void *)arg);
     else r = cur_ppar((int *)P.ent, arg);
-    L(0xF1A1); L((uint32_t)PTR_1002bf6c); L((uint32_t)DAT_1002beb8);
+    L(0xF1A1); L((uint32_t)g_pLuaState); L((uint32_t)g_dwLuaHS);
     /* lua_updatetasks leaves errorJmp pointing at its own (now dead) jmp_buf, at a frame offset that differs between
      * the original and gcc's frame: a stack address is replaced by a marker before the compare */
     { char here; int i;
@@ -176,14 +176,14 @@ int main(int argc, char **argv)
         make_case(which);
         arg = which == 0 ? (int)R(2) : which == 1 ? (int)R(300) : (int)R(2);
         if (which == 0 && arg) no_stopped();
-        snap = P; gl0 = PTR_1002bf6c; hook = lua_taskhook;
+        snap = P; gl0 = g_pLuaState; hook = lua_taskhook;
         r1 = run(which, arg, 1, ss);
         res_orig = P; memcpy(lg_orig, lg, sizeof lg); nlg_orig = nlg;
-        { int *glo = PTR_1002bf6c; int o = overflow;
-          P = snap; PTR_1002bf6c = gl0; lua_taskhook = hook; DAT_1002beb8 = P.services;
+        { int *glo = g_pLuaState; int o = overflow;
+          P = snap; g_pLuaState = gl0; lua_taskhook = hook; g_dwLuaHS = P.services;
           r2 = run(which, arg, 0, ss);
           ovf += o || overflow;
-          if (r1 != r2 || nlg != nlg_orig || memcmp(lg, lg_orig, nlg * 4) || memcmp(&P, &res_orig, sizeof P) || glo != PTR_1002bf6c) {
+          if (r1 != r2 || nlg != nlg_orig || memcmp(lg, lg_orig, nlg * 4) || memcmp(&P, &res_orig, sizeof P) || glo != g_pLuaState) {
               int i;
               if (bad++ < 5) {
                   printf("case %ld (%s, arg %d): ret %d vs %d, log %d vs %d entries\n", c,

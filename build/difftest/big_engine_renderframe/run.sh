@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage: build/difftest/big_engine_renderframe/run.sh [cases]
-# Differential test of Engine_RenderFrame (build/overrides_big_engine_renderframe.c) against the original 1.01 code.
+# Differential test of sputRender_Update (build/overrides_big_engine_renderframe.c) against the original 1.01 code.
 # The original is sliced from $BASE_ASM (default src/GRIMFANDANGO.EXE/asm_funcs.s, where the function is still assembled;
 # after the port is applied by the build, point BASE_ASM at an older copy), corrected with fix_orig.sed (the export
 # mis-decoded 0x0048483d), and its instruction sequence is checked against the real bytes (orig_bytes.hex, read from the
@@ -11,7 +11,7 @@ cd "$(dirname "$0")/../../.."
 T=build/difftest/big_engine_renderframe; W=$T/out; mkdir -p $W; rm -f $W/*.o
 BASE_ASM=${BASE_ASM:-src/GRIMFANDANGO.EXE/asm_funcs.s}
 DATA_O=${DATA_O:-build/obj/GRIMFANDANGO.EXE/data_s.o}
-python -I build/mixdiff/slice_orig.py $BASE_ASM $W/orig_raw.s Engine_RenderFrame >/dev/null
+python -I build/mixdiff/slice_orig.py $BASE_ASM $W/orig_raw.s sputRender_Update >/dev/null
 sed -E -f $T/fix_orig.sed $W/orig_raw.s > $W/orig.s
 /ucrt64/bin/gcc -m32 -c $W/orig.s -o $W/orig.o
 python3 -c "import binascii,sys; open(sys.argv[2],'wb').write(binascii.unhexlify(open(sys.argv[1]).read().strip()))" $T/orig_bytes.hex $W/orig.bin
@@ -30,7 +30,7 @@ for i in 1 2 3; do
   /ucrt64/bin/gcc -m32 -c $W/stubs.s -o $W/stubs.o
 done
 test -f $W/renderframe_test.exe || { head -20 $W/link.log; exit 1; }
-# the data image references many functions (stubbed); none of the callees of Engine_RenderFrame may be a stub
+# the data image references many functions (stubbed); none of the callees of sputRender_Update may be a stub
 for c in $(grep -oE 'call _[A-Za-z_0-9]+' $W/orig.s | cut -c7- | sort -u) _ObjectState_Draw _lua_printstack; do
   if grep -q "^$c:" $W/stubs.s; then echo "callee $c was stubbed"; exit 1; fi
 done

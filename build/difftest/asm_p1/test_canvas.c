@@ -1,4 +1,4 @@
-/* Differential test: rdCanvas_EmitSpans (0x00404e00).  Random scanlines: a sorted list of edge crossings over a
+/* Differential test: rdActive_BuildSpans (0x00404e00).  Random scanlines: a sorted list of edge crossings over a
  * few polygons (random crossing counts, sort keys with equal and different halves, z values on a coarse grid so that
  * ties occur, all material modes), a random fill level of the span table (rdCanvas_FlushSpans is a recorder that
  * empties it), and random control words in DAT_00900524 / 00900526. */
@@ -67,8 +67,8 @@ static void setup(int *args)
         G(r + 0x50) = c + 1 < nc ? r + 0x60 : SENT;
     }
 }
-extern void rdCanvas_EmitSpans(void);
-static const Fn fns[] = {{"rdCanvas_EmitSpans", 0x404e00, (void *)rdCanvas_EmitSpans, setup, 0}};
+extern void rdActive_BuildSpans(void);
+static const Fn fns[] = {{"rdActive_BuildSpans", 0x404e00, (void *)rdActive_BuildSpans, setup, 0}};
 int main(int argc, char **argv)
 {
     rt_init();

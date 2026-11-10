@@ -1,10 +1,10 @@
 /* Differential test of the small functions of build/overrides_asm_o2.c against the original machine code:
- * FUN_004d5fd0 / FUN_004d5e50 (memset), FUN_004d5f70 (log ring vsprintf), Rle_Decode, FUN_004965b0 (callback),
+ * FUN_004d5fd0 / FUN_004d5e50 (memset), FUN_004d5f70 (log ring vsprintf), Rle_Decode, MaterialInstanceSaveLoad (callback),
  * stdGif_LzwInitEncoder / stdGif_LzwEncodePixel (whole encode runs with the compiled C stdGif_LzwWriteCode /
  * ClearTable / FinishEncode of the current build and a recorder fwrite).
  * Build: EXTRA_OBJ="build/obj/GRIMFANDANGO.EXE/rle.o build/obj/GRIMFANDANGO.EXE/stdgif.o" build/difftest/asm_s5/build.sh \
  *   build/difftest/asm_s5/small_test.c build/difftest/asm_s5/out/small_test.exe FUN_004d5fd0 FUN_004d5e50 FUN_004d5f70 \
- *   Rle_Decode FUN_004965b0 stdGif_LzwInitEncoder stdGif_LzwEncodePixel
+ *   Rle_Decode MaterialInstanceSaveLoad stdGif_LzwInitEncoder stdGif_LzwEncodePixel
  * Run: small_test.exe <cases> */
 #include <windows.h>
 #include <stdio.h>
@@ -18,7 +18,7 @@ extern void n_fill(void *, int, int) __asm__("@FUN_004d5fd0@20");
 extern int orig_FUN_004d5e50(void *, int, int), FUN_004d5e50(void *, int, int);
 extern int orig_FUN_004d5f70(const char *, ...), FUN_004d5f70(const char *, ...);
 extern void orig_Rle_Decode(void *, void *, int), Rle_Decode(void *, void *, int);
-extern int orig_FUN_004965b0(int, int, int, int, void *), FUN_004965b0(int, int, int, int, void *);
+extern int orig_MaterialInstanceSaveLoad(int, int, int, int, void *), MaterialInstanceSaveLoad(int, int, int, int, void *);
 extern unsigned orig_stdGif_LzwInitEncoder(int, int), stdGif_LzwInitEncoder(int, int);
 extern unsigned orig_stdGif_LzwEncodePixel(int, unsigned char), stdGif_LzwEncodePixel(int, unsigned char);
 extern unsigned stdGif_LzwFinishEncode(int);
@@ -101,16 +101,16 @@ int main(int argc, char **argv)
         fx_cases++;
     }
     fx_region_reset();
-    /* FUN_004965b0 */
+    /* MaterialInstanceSaveLoad */
     {
         void *cb = fx_thunk(1, 2, 0);
         for (i = 0; i < n; i++) {
             int a[5], ra, rb;
             for (int k = 0; k < 4; k++) a[k] = (int)fx_rnd();
             fx_reset();
-            ra = orig_FUN_004965b0(a[0], a[1], a[2], a[3], cb);
+            ra = orig_MaterialInstanceSaveLoad(a[0], a[1], a[2], a[3], cb);
             fx_snap_a(); fx_reset();
-            rb = FUN_004965b0(a[0], a[1], a[2], a[3], cb);
+            rb = MaterialInstanceSaveLoad(a[0], a[1], a[2], a[3], cb);
             if (ra != rb) fx_fail("cb ret", i);
             if (fx_cmp_log()) fx_fail("cb log", i);
             fx_cases++;

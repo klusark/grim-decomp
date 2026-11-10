@@ -1,6 +1,6 @@
 /* Differential test of build/overrides_asm_q1.c against the original 1.01 machine code (sliced from the assembly of
- * 2df265d): rdClip_Line2D, rdClip_Face3_Pos, rdClip_Face3_PosB, rdClip_Face3_Pos_2, rdClip_Face3_PosB_2,
- * rdClip_Face3_PosUv.  Build: build/difftest/asm_q1/build.sh <exe>; run: <exe> [cases per function] [function index].
+ * 2df265d): rdClip_Line2D, rdClip_Face3W, rdClip_Face3WOrtho, rdClip_Face3S, rdClip_Face3SOrtho,
+ * rdClip_Face3GSOrtho.  Build: build/difftest/asm_q1/build.sh <exe>; run: <exe> [cases per function] [function index].
  *
  * Each case runs the original and the C on the same addresses and the same start state (the state is restored between
  * the two runs) under the x87 precision control 24, 53 or 64 bits (rotating) and compares:
@@ -27,11 +27,11 @@
 
 typedef unsigned uint;
 extern uint orig_rdClip_Line2D(int, int *, int *, int *, int *), rdClip_Line2D(int, int *, int *, int *, int *);
-extern uint orig_rdClip_Face3_Pos(uint *, float *, int), rdClip_Face3_Pos(uint *, float *, int);
-extern uint orig_rdClip_Face3_PosB(uint *, float *, int), rdClip_Face3_PosB(uint *, float *, int);
-extern uint orig_rdClip_Face3_Pos_2(uint *, float *, int), rdClip_Face3_Pos_2(uint *, float *, int);
-extern uint orig_rdClip_Face3_PosB_2(uint *, float *, int), rdClip_Face3_PosB_2(uint *, float *, int);
-extern uint orig_rdClip_Face3_PosUv(uint *, float *, float *, int), rdClip_Face3_PosUv(uint *, float *, float *, int);
+extern uint orig_rdClip_Face3W(uint *, float *, int), rdClip_Face3W(uint *, float *, int);
+extern uint orig_rdClip_Face3WOrtho(uint *, float *, int), rdClip_Face3WOrtho(uint *, float *, int);
+extern uint orig_rdClip_Face3S(uint *, float *, int), rdClip_Face3S(uint *, float *, int);
+extern uint orig_rdClip_Face3SOrtho(uint *, float *, int), rdClip_Face3SOrtho(uint *, float *, int);
+extern uint orig_rdClip_Face3GSOrtho(uint *, float *, float *, int), rdClip_Face3GSOrtho(uint *, float *, float *, int);
 
 extern unsigned char sect_data[] __asm__("_sect_data");
 #define DATA(va) (sect_data + ((va) - 0x4dd000))
@@ -83,8 +83,8 @@ static struct st {
 } s0, s;
 static struct res { uint ret; uint16_t cw, sw; struct st st; int nlg; } r[2];
 
-static const char *fname[6] = {"rdClip_Line2D", "rdClip_Face3_Pos", "rdClip_Face3_PosB", "rdClip_Face3_Pos_2",
-                               "rdClip_Face3_PosB_2", "rdClip_Face3_PosUv"};
+static const char *fname[6] = {"rdClip_Line2D", "rdClip_Face3W", "rdClip_Face3WOrtho", "rdClip_Face3S",
+                               "rdClip_Face3SOrtho", "rdClip_Face3GSOrtho"};
 
 static void run(int f, int n, uint16_t cw, int sd)
 {
@@ -95,11 +95,11 @@ static void run(int f, int n, uint16_t cw, int sd)
     set_cw(cw);
     switch (f) {
     case 0: ret = (sd ? rdClip_Line2D : orig_rdClip_Line2D)((int)s.canvas, &s.pt[0], &s.pt[1], &s.pt[2], &s.pt[3]); break;
-    case 1: ret = (sd ? rdClip_Face3_Pos : orig_rdClip_Face3_Pos)(s.fr, s.pos, n); break;
-    case 2: ret = (sd ? rdClip_Face3_PosB : orig_rdClip_Face3_PosB)(s.fr, s.pos, n); break;
-    case 3: ret = (sd ? rdClip_Face3_Pos_2 : orig_rdClip_Face3_Pos_2)(s.fr, s.pos, n); break;
-    case 4: ret = (sd ? rdClip_Face3_PosB_2 : orig_rdClip_Face3_PosB_2)(s.fr, s.pos, n); break;
-    case 5: ret = (sd ? rdClip_Face3_PosUv : orig_rdClip_Face3_PosUv)(s.fr, s.pos, s.in, n); break;
+    case 1: ret = (sd ? rdClip_Face3W : orig_rdClip_Face3W)(s.fr, s.pos, n); break;
+    case 2: ret = (sd ? rdClip_Face3WOrtho : orig_rdClip_Face3WOrtho)(s.fr, s.pos, n); break;
+    case 3: ret = (sd ? rdClip_Face3S : orig_rdClip_Face3S)(s.fr, s.pos, n); break;
+    case 4: ret = (sd ? rdClip_Face3SOrtho : orig_rdClip_Face3SOrtho)(s.fr, s.pos, n); break;
+    case 5: ret = (sd ? rdClip_Face3GSOrtho : orig_rdClip_Face3GSOrtho)(s.fr, s.pos, s.in, n); break;
     }
     r[sd].cw = get_cw();
     r[sd].sw = get_sw();

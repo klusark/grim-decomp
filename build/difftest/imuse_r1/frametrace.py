@@ -1,13 +1,13 @@
-# gdb script (agent r1): the stack words at the entry of FUN_100068b0 (and of its two callers) and the arguments of the
-# iMUSE calls FUN_100068b0 makes (only calls whose return address lies inside FUN_100068b0 are logged).
+# gdb script (agent r1): the stack words at the entry of Script_Trans (and of its two callers) and the arguments of the
+# iMUSE calls Script_Trans makes (only calls whose return address lies inside Script_Trans are logged).
 #   FT_MODE=orig  the original IMUSE.DLL (no symbols: addresses from its preferred base 0x10000000, moved by the load base)
-#   FT_MODE=sym   a rebuilt imuse.dll with symbols; FT_LEN = length of FUN_100068b0's code (hex)
+#   FT_MODE=sym   a rebuilt imuse.dll with symbols; FT_LEN = length of Script_Trans's code (hex)
 #   FT_OUT        output file
 import gdb, struct, os
 
 fo = open(os.environ.get("FT_OUT", "ft.txt"), "w")
 MODE = os.environ.get("FT_MODE", "sym")
-ORIG = {"FUN_100068b0": 0x100068b0, "FUN_10006560": 0x10006560, "FUN_10006620": 0x10006620,
+ORIG = {"Script_Trans": 0x100068b0, "FUN_10006560": 0x10006560, "Script_SetSequence": 0x10006620,
         "ImSwitchStream": 0x10004ec0, "ImSetHook": 0x10004db0, "ImFadeParam": 0x10004d90, "ImSetTrigger": 0x10004de0,
         "ImSetParam": 0x10004d10, "ImStartStream": 0x10004e80}
 NARGS = {"ImSwitchStream": 5, "ImSetHook": 2, "ImFadeParam": 4, "ImSetTrigger": 13, "ImSetParam": 3, "ImStartStream": 3}
@@ -29,11 +29,11 @@ class Ent(gdb.Breakpoint):
 
     def stop(self):
         esp = reg("esp")
-        if self.name == "FUN_100068b0":
+        if self.name == "Script_Trans":
             v = words(esp, 12)
             fo.write("ENTRY %s | esi=%x edi=%x ebx=%x ebp=%x\n" % (" ".join("%x" % x for x in v), reg("esi"), reg("edi"),
                                                                   reg("ebx"), reg("ebp")))
-        elif self.name in ("FUN_10006560", "FUN_10006620"):
+        elif self.name in ("FUN_10006560", "Script_SetSequence"):
             v = words(esp, 2)
             fo.write("%s ret=%x arg=%x esi=%x edi=%x\n" % (self.name, v[0], v[1], reg("esi"), reg("edi")))
         else:
@@ -64,7 +64,7 @@ def on_obj(ev):
     else:
         for n in ORIG:
             Ent("*" + n, n)
-        rng[0] = int(gdb.parse_and_eval("(unsigned)&FUN_100068b0"))
+        rng[0] = int(gdb.parse_and_eval("(unsigned)&Script_Trans"))
         rng[1] = rng[0] + int(os.environ.get("FT_LEN", "7f0"), 16)
         fo.write("BASE sym %x\n" % rng[0])
     fo.flush()

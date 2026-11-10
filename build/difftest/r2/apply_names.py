@@ -49,8 +49,8 @@ EXE_PARENT = {
     "004d5e1c": ("SEH filter funclet", "FUN_004d5de0 (the CRT longjmp's frame probe, dead)", "the _except_handler3 scope table 0x004dac00"),
     "004d5e30": ("SEH handler funclet", "FUN_004d5de0 (the CRT longjmp's frame probe, dead)", "the _except_handler3 scope table 0x004dac00"),
     "004d6030": ("C++ unwind funclet", "PrimitiveList_Append", "the FuncInfo 0x004dac10"),
-    "004d6050": ("C++ unwind funclet", "Actor_CreateWalker", "the FuncInfo 0x004dac40"),
-    "004d6070": ("C++ unwind funclet", "ObjectState_Create", "the FuncInfo 0x004dac68"),
+    "004d6050": ("C++ unwind funclet", "sputActor_EnablePuck", "the FuncInfo 0x004dac40"),
+    "004d6070": ("C++ unwind funclet", "sputRoom_AddObjectState", "the FuncInfo 0x004dac68"),
     "004d6090": ("C++ unwind funclet", "SetFile_ParseSectors", "the FuncInfo 0x004dac90"),
     "004d609e": ("C++ unwind funclet", "SetFile_ParseSectors", "the FuncInfo 0x004dac90"),
     "004d60ac": ("C++ unwind funclet", "SetFile_ParseSectors", "the FuncInfo 0x004dac90"),
@@ -59,10 +59,10 @@ EXE_PARENT = {
     "004d6100": ("C++ unwind funclet", "ObjectState_Destruct", "the FuncInfo 0x004dacf8"),
 }
 LUA_PARENT = {
-    "10021fb0": ("lbuiltin__3260", "0x10024df8"), "10021fd0": ("luaD_call", "0x10024e20"),
-    "10021fdb": ("luaD_call", "0x10024e20"), "10021ff0": ("lstate__87f0", "0x10024e50"),
-    "10022010": ("lstate__8ad0", "0x10024e78"), "10022030": ("lvm__dbd0", "0x10024ea0"),
-    "10022050": ("lvm__dd10", "0x10024ec8"),
+    "10021fb0": ("luaI_startscript", "0x10024df8"), "10021fd0": ("luaD_call", "0x10024e20"),
+    "10021fdb": ("luaD_call", "0x10024e20"), "10021ff0": ("LState_Restore", "0x10024e50"),
+    "10022010": ("lua_newstate", "0x10024e78"), "10022030": ("ExecutionState_Restore", "0x10024ea0"),
+    "10022050": ("ExecutionState_New", "0x10024ec8"),
 }
 rl = load("names/asm_reasons_logic.json")
 for a, (k, p, t) in EXE_PARENT.items():

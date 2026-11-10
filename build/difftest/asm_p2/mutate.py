@@ -6,7 +6,7 @@ root = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."
 os.chdir(root)
 cases = sys.argv[1] if len(sys.argv) > 1 else "20000"
 src = open("build/overrides_asm_p2.c").read()
-FUNCS = "Frustum_TestSphere Polygon_ClipToPlane Angles_ToMatrix Angles_ToMatrixNoPos Matrix_AxisAngle " \
+FUNCS = "rdClip_SphereInFrustrum rdClip_FaceToPlane rdMatrix_Build34 rdMatrix_BuildRotate34 rdMatrix_BuildFromVectorAngle34 " \
         "rdLight_CalcVertexIntensities rdCanvas_DrawPoint _ftol".split()
 MUT = [
     ("Frustum: first far test <= instead of < unordered", "if (!LE_U(loF, ff[2]))", "if (!LT_U(loF, ff[2]))"),

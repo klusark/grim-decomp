@@ -8,7 +8,7 @@ cd "$(dirname "$0")/../../.." || exit 1
 N=${1:-1000000}
 O=build/difftest/asm_p2/out; mkdir -p $O
 [ -s $O/base_asm_funcs.s ] || git show bb04517:src/GRIMFANDANGO.EXE/asm_funcs.s > $O/base_asm_funcs.s
-F="Frustum_TestSphere Polygon_ClipToPlane Angles_ToMatrix Angles_ToMatrixNoPos Matrix_AxisAngle rdLight_CalcVertexIntensities rdCanvas_DrawPoint _ftol"
+F="rdClip_SphereInFrustrum rdClip_FaceToPlane rdMatrix_Build34 rdMatrix_BuildRotate34 rdMatrix_BuildFromVectorAngle34 rdLight_CalcVertexIntensities rdCanvas_DrawPoint _ftol"
 rc=0
 bash build/difftest/asm_p2/build.sh build/difftest/asm_p2/math_test.c $O/math_test.exe $F >/dev/null || exit 1
 echo "== C at -O0 (the build's default), all inputs"; $O/math_test.exe $N || rc=1

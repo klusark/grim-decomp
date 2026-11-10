@@ -1,16 +1,16 @@
-/* Differential test of ModelComponent_NewInstance and FUN_004985c0 (build/overrides_asm_o2.c) against the original machine
+/* Differential test of ThingInstancer and SpriteInstancer (build/overrides_asm_o2.c) against the original machine
  * code.  The CHORE.DLL imports (Cos_Inst*), the rdThing / ResRef / puppet functions and the costume service table are
  * recorders; instance data, records, rdThings and allocated blocks come from pools inside compared memory regions.
  * Build: build/difftest/asm_s5/build.sh build/difftest/asm_s5/cos_test.c build/difftest/asm_s5/out/cos_test.exe \
- *   ModelComponent_NewInstance FUN_004985c0 */
+ *   ThingInstancer SpriteInstancer */
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "fx.h"
 
-extern void *orig_ModelComponent_NewInstance(void *, int, int), *ModelComponent_NewInstance(void *, int, int);
-extern void *orig_FUN_004985c0(int, void *, int), *FUN_004985c0(int, void *, int);
+extern void *orig_ThingInstancer(void *, int, int), *ThingInstancer(void *, int, int);
+extern void *orig_SpriteInstancer(int, void *, int), *SpriteInstancer(int, void *, int);
 
 static unsigned R(unsigned n) { return (unsigned)(fx_rnd() % n); }
 
@@ -57,15 +57,15 @@ void *imp_gid __asm__("__imp__Cos_InstGetInstanceData") = Cos_InstGetInstanceDat
 void *imp_cinfo __asm__("__imp__Cos_InstComponentInfo") = Cos_InstComponentInfoX;
 void *imp_udata __asm__("__imp__Cos_InstGetUserData") = Cos_InstGetUserDataX;
 void *imp_count __asm__("__imp__Cos_InstCountComponents") = Cos_InstCountComponentsX;
-void ResRef_AddX(void *a, void *b, char *c, int d) __asm__("_ResRef_Add");
+void ResRef_AddX(void *a, void *b, char *c, int d) __asm__("_Res_SetReference");
 void ResRef_AddX(void *a, void *b, char *c, int d) { CALLN(T_RRADD, (void *, void *, char *, int), a, b, c, d); }
-void ResRef_RemoveX(void *a) __asm__("_ResRef_Remove");
+void ResRef_RemoveX(void *a) __asm__("_Res_RemoveReference");
 void ResRef_RemoveX(void *a) { CALLN(T_RRREM, (void *), a); }
 void rdThing_FreeX(int a) __asm__("_rdThing_Free");
 void rdThing_FreeX(int a) { CALLN(T_TFREE, (int), a); }
 int rdThing_NewX(int a) __asm__("_rdThing_New");
 int rdThing_NewX(int a) { return CALLN(T_TNEW, (int), a); }
-void rdThing_SetModelX(void *a, void *b) __asm__("_rdThing_SetModel");
+void rdThing_SetModelX(void *a, void *b) __asm__("_rdThing_SetModel3");
 void rdThing_SetModelX(void *a, void *b) { CALLN(T_TMODEL, (void *, void *), a, b); }
 int rdPuppet_NewX(void *a) __asm__("_rdPuppet_New");
 int rdPuppet_NewX(void *a) { return CALLN(T_PUP, (void *), a); }
@@ -111,9 +111,9 @@ int main(int argc, char **argv)
         for (pass = 0; pass < 2; pass++) {
             fx_reset();
             if (i & 1)
-                ret[pass] = pass ? FUN_004985c0(inst, (void *)(uintptr_t)idx, create) : orig_FUN_004985c0(inst, (void *)(uintptr_t)idx, create);
+                ret[pass] = pass ? SpriteInstancer(inst, (void *)(uintptr_t)idx, create) : orig_SpriteInstancer(inst, (void *)(uintptr_t)idx, create);
             else
-                ret[pass] = pass ? ModelComponent_NewInstance((void *)(uintptr_t)inst, idx, create) : orig_ModelComponent_NewInstance((void *)(uintptr_t)inst, idx, create);
+                ret[pass] = pass ? ThingInstancer((void *)(uintptr_t)inst, idx, create) : orig_ThingInstancer((void *)(uintptr_t)inst, idx, create);
             if (pass == 0) { fx_snap_a(); fx_restore(); }
         }
         if (ret[0] != ret[1]) fx_fail("ret", i);

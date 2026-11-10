@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage: build/difftest/big_stdpic_loadinto/run.sh [cases]
-# Builds and runs the differential test of stdPic_LoadInto: the original machine code (sliced with its _ftol from $BASE_ASM,
+# Builds and runs the differential test of stdPic_LoadEntry: the original machine code (sliced with its _ftol from $BASE_ASM,
 # default the current src/GRIMFANDANGO.EXE/asm_funcs.s, where the function is still assembled; after a regeneration use
 # BASE_ASM=<copy of an older asm_funcs.s>) next to build/overrides_big_stdpic_loadinto.c compiled with the build's flags,
 # linked with the original data image build/obj/GRIMFANDANGO.EXE/data_s.o.  OVERRIDE=<file> tests another C version.
@@ -9,7 +9,7 @@ cd "$(dirname "$0")/../../.."
 BASE_ASM=${BASE_ASM:-src/GRIMFANDANGO.EXE/asm_funcs.s}
 OVERRIDE=${OVERRIDE:-build/overrides_big_stdpic_loadinto.c}
 D=build/difftest/big_stdpic_loadinto; W=$D/out; mkdir -p $W
-python -I build/mixdiff/slice_orig.py $BASE_ASM $W/orig.s stdPic_LoadInto _ftol >/dev/null
+python -I build/mixdiff/slice_orig.py $BASE_ASM $W/orig.s stdPic_LoadEntry _ftol >/dev/null
 /ucrt64/bin/gcc -m32 -c $W/orig.s -o $W/orig.o
 CF="-O0 -m32 -march=i686 -std=gnu11 -fpermissive -w -fno-builtin -fno-strict-aliasing -fwrapv -fsingle-precision-constant -fno-common -ffreestanding -include build/compat.h -Ibuild -Isrc/GRIMFANDANGO.EXE -DGRIM_EXE"
 /ucrt64/bin/gcc $CF $EXTRA_CFLAGS -c $OVERRIDE -o $W/mine.o

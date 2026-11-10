@@ -1,5 +1,5 @@
 /* Differential test (agent s2): the iMUSE fade engine of the rebuilt IMUSE.DLL against the original machine code.
- * Im_FadeParamImpl (0x10003b40, the body of ImFadeParam), Im_FadesClearSound (0x10003c70) and Im_FadesHeartbeat
+ * FdFadeParam (0x10003b40, the body of ImFadeParam), FdStopFade (0x10003c70) and FdIntHandler
  * (0x10003cb0, one step per heartbeat) as compiled in build/obj/IMUSE.DLL/imuse.o (the object linked into imuse.dll),
  * against orig_* sliced from the all-assembly IMUSE.DLL (git show 68b8b5b^:src/IMUSE.DLL/asm_funcs.s).  Both work on
  * the same fade table (16 slots of 10 words at 0x1002d860, flag 0x1002d858) in the original data image (data_s.o).
@@ -12,14 +12,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-extern unsigned DAT_1002d858;
-extern unsigned DAT_1002d860[160];
-int Im_FadeParamImpl(int, int, unsigned, int);
-void Im_FadesClearSound(int, int);
-unsigned Im_FadesHeartbeat(void);
-int orig_Im_FadeParamImpl(int, int, unsigned, int);
-void orig_Im_FadesClearSound(int, int);
-unsigned orig_Im_FadesHeartbeat(void);
+extern unsigned g_dwFadesOn;
+extern unsigned g_dwFades[160];
+int FdFadeParam(int, int, unsigned, int);
+void FdStopFade(int, int);
+unsigned FdIntHandler(void);
+int orig_FdFadeParam(int, int, unsigned, int);
+void orig_FdStopFade(int, int);
+unsigned orig_FdIntHandler(void);
 
 static unsigned long long rs;
 static unsigned rnd(void) { rs ^= rs << 13; rs ^= rs >> 7; rs ^= rs << 17; return (unsigned)(rs >> 11); }
@@ -36,8 +36,8 @@ int ImSetParam(int s, int p, unsigned v) { model[s & 7][(p >> 8) & 15] = v; ev(2
 int ImStopSound(int s) { ev(3, s, 0, 0); return 0; }
 
 typedef struct { unsigned tab[160], flag; unsigned model[8][16]; } State;
-static void save(State *s) { memcpy(s->tab, DAT_1002d860, sizeof s->tab); s->flag = DAT_1002d858; memcpy(s->model, model, sizeof model); }
-static void load(const State *s) { memcpy(DAT_1002d860, s->tab, sizeof s->tab); DAT_1002d858 = s->flag; memcpy(model, s->model, sizeof model); }
+static void save(State *s) { memcpy(s->tab, g_dwFades, sizeof s->tab); s->flag = g_dwFadesOn; memcpy(s->model, model, sizeof model); }
+static void load(const State *s) { memcpy(g_dwFades, s->tab, sizeof s->tab); g_dwFadesOn = s->flag; memcpy(model, s->model, sizeof model); }
 
 static const int params[] = {0x500, 0x600, 0x700, 0x800, 0x600, 0x600, 0x400, 0x100, 0, -1};
 static unsigned rval(void)
@@ -80,14 +80,14 @@ static void run(int orig)
         Op *o = &ops[i];
         step_no = i;
         if (o->op == 0)
-            res[i] = (unsigned)(orig ? orig_Im_FadeParamImpl(o->a, o->b, (unsigned)o->c, o->d) : Im_FadeParamImpl(o->a, o->b, (unsigned)o->c, o->d));
+            res[i] = (unsigned)(orig ? orig_FdFadeParam(o->a, o->b, (unsigned)o->c, o->d) : FdFadeParam(o->a, o->b, (unsigned)o->c, o->d));
         else if (o->op == 1) {
-            if (orig) orig_Im_FadesClearSound(o->a, o->b); else Im_FadesClearSound(o->a, o->b);
+            if (orig) orig_FdStopFade(o->a, o->b); else FdStopFade(o->a, o->b);
             res[i] = 0;
         } else
-            res[i] = orig ? orig_Im_FadesHeartbeat() : Im_FadesHeartbeat();
-        memcpy(tabs[i], DAT_1002d860, 640);
-        tabs[i][160] = DAT_1002d858;
+            res[i] = orig ? orig_FdIntHandler() : FdIntHandler();
+        memcpy(tabs[i], g_dwFades, 640);
+        tabs[i][160] = g_dwFadesOn;
     }
 }
 
@@ -102,7 +102,7 @@ int main(int argc, char **argv)
     for (c = 0; c < cases; c++) {
         /* random start: a few active slots with random fields, the rest free or stale */
         for (i = 0; i < 16; i++) {
-            unsigned *s = &DAT_1002d860[i * 10];
+            unsigned *s = &g_dwFades[i * 10];
             for (j = 0; j < 10; j++)
                 s[j] = rnd() % 4 == 0 ? rnd() : rnd() % 200;
             s[0] = rnd() % 3 == 0;
@@ -112,7 +112,7 @@ int main(int argc, char **argv)
             s[5] = rnd() % 4 == 0 ? rnd() : 1 + rnd() % 120;
             s[9] = rnd() % 2 ? 1 : (unsigned)-1;
         }
-        DAT_1002d858 = rnd() % 4 != 0;
+        g_dwFadesOn = rnd() % 4 != 0;
         for (i = 0; i < 8; i++)
             for (j = 0; j < 16; j++)
                 model[i][j] = rval();

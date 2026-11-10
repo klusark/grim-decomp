@@ -1,4 +1,4 @@
-/* Differential test of rdCache_DrawMeshList3D (build/overrides_asm_q3.c) against the original 1.01 machine code (sliced
+/* Differential test of rdCache_SendFaceListToHardware (build/overrides_asm_q3.c) against the original 1.01 machine code (sliced
  * from the assembly of 2df265d, with the original _ftol).
  *
  * Each case fills the mesh cache (up to 8 entries of 0x78 bytes at 0x008ddfc0) with random meshes: geometry / lighting
@@ -9,9 +9,9 @@
  * (1, below 1, NaN), the lighting flag 0x0090004c, the batch capacity (flushes in the middle), the device caps (forced
  * alpha).  It runs the original and the C on the same state under the x87 precision control 24, 53 or 64 bits and
  * compares: the return value, the cache entries, the mesh data (light arrays written back, z written back), the D3D
- * vertex buffer, both triangle lists and their counts, the call log of the stand-ins (rdCache_Begin3DBatch /
- * Flush3DBatch, Display_SetPalette3D, rdMaterial_EnsureTexture (sometimes failing), D3D_ResetTextures,
- * D3D_ClampTextureSize), the x87 control word and stack top.
+ * vertex buffer, both triangle lists and their counts, the call log of the stand-ins (std3D_ResetRenderList /
+ * Flush3DBatch, std3D_SetCurrentPalette, rdMaterial_AddToTextureCache (sometimes failing), std3D_PurgeTextureCache,
+ * std3D_GetValidDimensions), the x87 control word and stack top.
  * The original keeps the mip level and the last vertex colour in stack slots it never initialises; the generator
  * avoids the two cases that read them before a write (see the C's comment).
  * usage: cache_test.exe [cases]   (P3_NAN=1: no signalling NaN inputs) */
@@ -24,7 +24,7 @@
 #include "fx.h"
 
 typedef unsigned uint;
-extern uint orig_rdCache_DrawMeshList3D(void), rdCache_DrawMeshList3D(void);
+extern uint orig_rdCache_SendFaceListToHardware(void), rdCache_SendFaceListToHardware(void);
 
 #define ARSZ (1 << 20)
 static unsigned char ar[ARSZ] __attribute__((aligned(16))), ar0[ARSZ], arA[ARSZ];
@@ -74,26 +74,26 @@ static float rlevel(void)
 }
 
 /* ---- stand-ins ---- */
-static int ens_fail;   /* bit i: the i-th rdMaterial_EnsureTexture call fails */
+static int ens_fail;   /* bit i: the i-th rdMaterial_AddToTextureCache call fails */
 static int nens;
-void __cdecl rdCache_Begin3DBatch(void)
+void __cdecl std3D_ResetRenderList(void)
 {
     L(0xbe900000);
     if (snext() % 3 == 0) FXU32(0x68bfa8) = 0;
 }
-void __cdecl rdCache_Flush3DBatch(void)
+void __cdecl rdCache_DrawRenderList(void)
 {
     L(0xf1500000); L(FXU32(0x68bfa8)); L(FXU32(0x60bfa0)); L(FXU32(0x6f0fb0));
 }
-void __cdecl Display_SetPalette3D(void *p, int f) { L(0xd5e70000); L((uint)p); L(f); }
-int __cdecl rdMaterial_EnsureTexture(void *a, uint *info, int mip, int alt)
+void __cdecl std3D_SetCurrentPalette(void *p, int f) { L(0xd5e70000); L((uint)p); L(f); }
+int __cdecl rdMaterial_AddToTextureCache(void *a, uint *info, int mip, int alt)
 {
     int r = !((ens_fail >> (nens++ & 31)) & 1);
     L(0xe7500000); L((uint)a); L((uint)info); L(mip); L(alt); L(r);
     return r;
 }
-void __cdecl D3D_ResetTextures(void) { L(0xd3e50000); }
-void __cdecl D3D_ClampTextureSize(uint w, uint h, uint *ow, uint *oh)
+void __cdecl std3D_PurgeTextureCache(void) { L(0xd3e50000); }
+void __cdecl std3D_GetValidDimensions(uint w, uint h, uint *ow, uint *oh)
 {
     L(0xc1a70000); L(w); L(h);
     *ow = w > 256 ? 256 : w;
@@ -285,14 +285,14 @@ static void t_case(long i)
     /* original */
     ss = seed | 1; nlg = 0; nens = 0;
     _controlfp(pcs[i % 3] | _RC_NEAR, _MCW_PC | _MCW_RC);
-    ra = orig_rdCache_DrawMeshList3D();
+    ra = orig_rdCache_SendFaceListToHardware();
     cwA = get_cw(); swA = get_sw(); _controlfp(_PC_64 | _RC_NEAR, _MCW_PC | _MCW_RC);
     memcpy(arA, ar, used); gsave(gA); memcpy(lgA, lg, nlg * 4); nlgA = nlg;
     /* C */
     memcpy(ar, ar0, used); gload(g0);
     ss = seed | 1; nlg = 0; nens = 0;
     _controlfp(pcs[i % 3] | _RC_NEAR, _MCW_PC | _MCW_RC);
-    rb = rdCache_DrawMeshList3D();
+    rb = rdCache_SendFaceListToHardware();
     cw = get_cw(); sw = get_sw(); _controlfp(_PC_64 | _RC_NEAR, _MCW_PC | _MCW_RC);
     {
         const char *what = 0;
@@ -319,7 +319,7 @@ static void t_case(long i)
             else kind |= kk;
         }
         if (what) {
-            if (nf++ < 5) printf("DIFF rdCache_DrawMeshList3D case %ld: %s\n", i, what);
+            if (nf++ < 5) printf("DIFF rdCache_SendFaceListToHardware case %ld: %s\n", i, what);
         } else if (kind)
             nnan++;
         if (!ra) nret0++;
@@ -333,7 +333,7 @@ int main(int argc, char **argv)
     nan_mode = getenv("P3_NAN") ? atoi(getenv("P3_NAN")) : 0;
     dbg = getenv("P3DBG") != 0;
     for (i = 0; i < n; i++) t_case(i);
-    printf("%-32s %8ld cases (%ld returned 0), %ld differences, %ld NaN-payload-only\n", "rdCache_DrawMeshList3D", nc,
+    printf("%-32s %8ld cases (%ld returned 0), %ld differences, %ld NaN-payload-only\n", "rdCache_SendFaceListToHardware", nc,
            nret0, nf, nnan);
     return nf != 0 || nnan != 0;
 }

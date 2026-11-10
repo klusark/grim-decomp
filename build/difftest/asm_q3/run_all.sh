@@ -24,7 +24,7 @@ EOF
 fi
 P="rdPuppet_AdvanceTrack rdPuppet_UpdateFrame"
 M="rdModel3_LoadText FUN_004addf0"
-C="rdCache_DrawMeshList3D _ftol"
+C="rdCache_SendFaceListToHardware _ftol"
 rc=0
 B=build/difftest/asm_q3/build.sh
 bash $B build/difftest/asm_q3/puppet_test.c $O/puppet_test.exe $P >/dev/null || exit 1

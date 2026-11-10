@@ -1,4 +1,4 @@
-/* Differential test: rdModel3_LoadBinary (0x0040b8e0).  The file services of g_pSvcRdroid are recorders: pFread
+/* Differential test: rdModel3_LoadEntryBinary (0x0040b8e0).  The file services of g_pRdroid_HS are recorders: pFread
  * copies the next bytes of a random "file" (mostly small words, so that the counts in it stay small), pAlloc is a
  * bump allocator in the arena (0 for large sizes), pFree logs.  rdModel3_NewEntry clears the record, rdMaterial_Load
  * logs the name and returns a value derived from it.  Buffers on the caller's stack are logged by content. */
@@ -61,8 +61,8 @@ static void setup(int *args)
     fill_rand(MODEL, 0x100);
     args[0] = (int)rnd(); args[1] = MODEL;
 }
-extern void rdModel3_LoadBinary(void);
-static const Fn fns[] = {{"rdModel3_LoadBinary", 0x40b8e0, (void *)rdModel3_LoadBinary, setup, 1}};
+extern void rdModel3_LoadEntryBinary(void);
+static const Fn fns[] = {{"rdModel3_LoadEntryBinary", 0x40b8e0, (void *)rdModel3_LoadEntryBinary, setup, 1}};
 int main(int argc, char **argv)
 {
     rt_init();

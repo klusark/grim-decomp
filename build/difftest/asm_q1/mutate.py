@@ -27,7 +27,7 @@ M = [
     ("far: C in when < far", "inC = Q1_LE_U(C[1], k);", "inC = Q1_LT_U(C[1], k);"),
     ("near: equality not excluded", "eq = Q1_EQ_U(P[1], k) || Q1_EQ_U(C[1], k);\n            outP = Q1_LT_U(P[1], k);",
      "eq = 0;\n            outP = Q1_LT_U(P[1], k);"),
-    ("flag 0x40 after any pass", "if (i == 4)\n                UINT_007f4ac4 |= 0x40;", "UINT_007f4ac4 |= 0x40;"),
+    ("flag 0x40 after any pass", "if (i == 4)\n                g_dwRdClip_faceStatus |= 0x40;", "g_dwRdClip_faceStatus |= 0x40;"),
     ("intensity difference rounded", "iout[cnt - 1] = q1_st_f(((long double)*IC - *IP) * t + *IP);",
      "iout[cnt - 1] = q1_st_f((long double)q1_st_f((long double)*IC - *IP) * t + *IP);"),
     ("kept intensity via FLD/FSTP", "Q1_U32(iout[cnt]) = Q1_U32(*IC);", "iout[cnt] = q1_st_f(*IC);"),

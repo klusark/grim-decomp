@@ -1,13 +1,13 @@
 #!/bin/bash
 # usage: build/difftest/lua_core/build.sh [cases]
-# Differential test of build/overrides_lua_core.c (lua_updatetasks, luaD_protectedrun, luaD_protectedparser) against the
+# Differential test of build/overrides_lua_core.c (lua_updatetasks, luaD_protectedrun, protectedparser) against the
 # original LUA.DLL machine code, sliced from the asm_funcs.s of the last commit that still assembled them
 # (BASE_ASM=<file> for another copy), with stand-in callees (core_test.c) and the LUA.DLL data image.
 set -e
 cd "$(dirname "$0")/../../.."
 D=build/difftest/lua_core; W=$D/out; mkdir -p $W; rm -f $W/*.o
 if [ -z "$BASE_ASM" ]; then BASE_ASM=$W/base_asm_funcs.s; git show ${BASE_REV:-ea3c1a6}:src/LUA.DLL/asm_funcs.s > $BASE_ASM; fi
-python -I build/mixdiff/slice_orig.py $BASE_ASM $W/orig.s lua_updatetasks luaD_protectedrun luaD_protectedparser >/dev/null
+python -I build/mixdiff/slice_orig.py $BASE_ASM $W/orig.s lua_updatetasks luaD_protectedrun protectedparser >/dev/null
 /ucrt64/bin/gcc -m32 -c $W/orig.s -o $W/orig.o
 export PATH=/mingw32/bin:$PATH
 CF="-std=gnu11 -fpermissive -w -fno-builtin -ffreestanding -fno-common -include build/compat.h -Isrc/LUA.DLL -DGRIM_LUA"

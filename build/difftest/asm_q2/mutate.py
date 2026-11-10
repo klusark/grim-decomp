@@ -29,8 +29,8 @@ MUT = [
     ("intensity: rounded t", "out->li[cnt] = q2_st_f(((long double)*ci - *pi) * t + *pi);",
      "out->li[cnt] = q2_st_f(((long double)*ci - *pi) * q2_st_f(t) + *pi);"),
     ("0x40 also after the far plane", "if (p == 4)\n", "if (p >= 4)\n"),
-    ("no intensity copy-back", "            q2_copy((uint *)li, (const uint *)UINT_007f46b0, n);", "            ;"),
-    ("uv buffers not swapped", "                UINT_007f46a8 = s;", "                UINT_007f46a8 = UINT_007f461c;"),
+    ("no intensity copy-back", "            q2_copy((uint *)li, (const uint *)g_dwDestIVert, n);", "            ;"),
+    ("uv buffers not swapped", "                g_dwDestTVert = s;", "                g_dwDestTVert = g_dwSourceTVert;"),
     ("far plane runs without f[0]", "if (p == 5 && frustum[0] == 0)", "if (p == 5 && 0)"),
 ]
 # Mutations not run.  Equivalent (they cannot change any output):
