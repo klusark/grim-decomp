@@ -1,0 +1,101 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c74",
+  "old": "g_pSvcEngineModule",
+  "global": "g_pSputmHS",
+  "oldtype": "GrimServices *",
+  "names_only": true,
+  "comment": "Service table pointer stored by grimlib_GameInitialize Original name psputmHS (the remaster's GrimFandango (Linux): the services pointer grimlib_GameInitialize stores and grimlib_GameTerminate clears); was g_pSvcEngineModule."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c58",
+  "old": "UINT_008a8c58",
+  "global": "g_dwSputmInitialize",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bsputmInitialize (the remaster's GrimFandango (Linux): set by grimlib_GameInitialize when the modules started, tested and cleared by grimlib_GameTerminate); was UINT_008a8c58."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f4538",
+  "old": "DAT_004f4538",
+  "global": "g_aGrimdemo_StatusPrint_grimStatusBuffer",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name grimdemo_StatusPrint.grimStatusBuffer (the remaster's GrimFandango (Linux): the buffer grimdemo_StatusPrint formats into); was DAT_004f4538."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f4938",
+  "old": "DAT_004f4938",
+  "global": "g_aGrimdemo_DebugPrint_grimDebugBuffer",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name grimdemo_DebugPrint.grimDebugBuffer (the remaster's GrimFandango (Linux): the buffer grimdemo_DebugPrint formats into); was DAT_004f4938."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f4db0",
+  "old": "DAT_004f4db0",
+  "global": "g_aGrimdemo_ErrorPrint_grimErrorBuffer",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name grimdemo_ErrorPrint.grimErrorBuffer (the remaster's GrimFandango (Linux): the buffer grimdemo_ErrorPrint formats into); was DAT_004f4db0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f51b0",
+  "old": "DAT_004f51b0",
+  "global": "g_aGrimdemo_WarningPrint_grimWarningBuffer",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name grimdemo_WarningPrint.grimWarningBuffer (the remaster's GrimFandango (Linux): the buffer grimdemo_WarningPrint formats into); was DAT_004f51b0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f55b0",
+  "old": "DAT_004f55b0",
+  "global": "g_aGrimdemo_MessagePrint_grimMessageBuffer",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name grimdemo_MessagePrint.grimMessageBuffer (the remaster's GrimFandango (Linux): the buffer grimdemo_MessagePrint formats into); was DAT_004f55b0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5a00",
+  "old": "DAT_004f5a00",
+  "global": "g_dwGrimlib_MinimizeWhenInactive",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name grimlib_MinimizeWhenInactive (the remaster's GrimFandango (Linux): set in Main_Startup); was DAT_004f5a00."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8ca4",
+  "old": "UINT_008a8ca4",
+  "global": "g_dwLineCount",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name lineCount (the remaster's GrimFandango (Linux): the line count of PolyglotConfigure); was UINT_008a8ca4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddd80",
+  "old": "DAT_008ddd80",
+  "global": "g_aPolyglotServices",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name polyglotServices (the remaster's GrimFandango (Linux): the interface PolyglotInitialize fills in Main_Startup); was DAT_008ddd80."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dde20",
+  "old": "DAT_008dde20",
+  "global": "g_aMs",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name ms (the remaster's GrimFandango (Linux): the interface grimlib_GameInitialize fills in Main_Startup); was DAT_008dde20."
+ }
+]

@@ -261,12 +261,12 @@ What lives where in the installed data: `DATA000.LAB` the Lua scripts, fonts and
 `_actors.LUA`, `_controls.LUA`, ...), `DATA001-004.LAB` sets (`*.set`), backgrounds (`.bm`/`.zbm`), costumes
 (`.cos`), animations (`.key`), models (`.3do`), colormaps and materials; `DATA005.LAB` the 1.01 patch (17 files);
 `VOX*.LAB` voice, `YEAR*MUS.LAB` music, `MOVIE*.LAB` movies, `GRIM.TAB` the localised strings
-(`Polyglot_LoadTable`).
+(`PolyglotConfigure`).
 
 ## 7. Lua scripts
 
 The game logic is Lua 3.1 with LucasArts "tasks" (`LUA.DLL`). The engine runs `_system.lua` at start-up
-(`Lua_RunSystemScript`), which loads, in this order, `setfallback.lua`, `_colors.lua`, `_sfx.lua`, `_actors.lua`
+(`sputLua_FindSystemFiles`), which loads, in this order, `setfallback.lua`, `_colors.lua`, `_sfx.lua`, `_actors.lua`
 (which loads `_manny.lua` and the other character files), `_controls.lua`, `_objects.lua`, `_dialog.lua`, `_sets.lua`,
 `_inventory.lua`, `_cut_scenes.lua`, `_music.lua`, `_options.lua`, `year_0..4.lua` and finally **`_local.lua`**
 (language and hot keys). Sets register their own scripts (`mo.lua`, `ma.lua`, ...) when they load.
@@ -376,7 +376,7 @@ Names below are Ghidra names (see README for the naming conventions); `src/<PROG
 
 | Subsystem | Where | Notes |
 |---|---|---|
-| **Start-up, window, registry** | `grim.c` (`Win_WinMain`->`Win_Main`, `Grim_Init`, `Grim_ParseCommandLine`, `Grim_OpenRegistry`), `window.c` (`Win_WndProc`), `reg.c` (`Reg_*`, the `HKLM\...\Grim Fandango` key), `plat.c`, `services.c` | `build/startup.c` supplies `WinMain`. `GrimServices` (0x70 bytes, `compat.h`) is the table of allocator/file/printf function pointers handed to every module. |
+| **Start-up, window, registry** | `grim.c` (`Win_WinMain`->`Win_Main`, `Main_Startup`, `Grim_ParseCommandLine`, `Grim_OpenRegistry`), `window.c` (`Win_WndProc`), `reg.c` (`Reg_*`, the `HKLM\...\Grim Fandango` key), `plat.c`, `services.c` | `build/startup.c` supplies `WinMain`. `GrimServices` (0x70 bytes, `compat.h`) is the table of allocator/file/printf function pointers handed to every module. |
 | **Module protocol** | `enginemodule.c`, `engine.c` (`Engine_RegisterSubsystems`/`InitSubsystems`/`ShutdownSubsystems`/`ResetSubsystems`), `sputactor.c`, `sputroom.c`, ... | Every `sput*` module fills a 0x20-byte interface: `[0]` Initialize, `[1]` Terminate, `[2]` Start (0 = ok), `[3]` Stop, `[4]` SaveState, `[5]` RestoreState. Functions are named `<Module>_Terminate/_Start/_Stop/_SaveState/_RestoreState`. |
 | **Resources, archives** | `lab.c`, `labdir.c`, `resfile.c`, `res.c`, `resource.c`, `restype.c`, `resref.c` | see 6. `restype.c`: one handler per FOURCC (`BKND COST CMAP SET FONT KEYF MAT MODL ZBUF SYNC MEM`), `ResType_*Handler`: op 1 load, 2 free, 3 size. |
 | **Lua VM and API** | `LUA.DLL` (`lvm`/`ldo`/`llex`/`lparser`/`lundump`/`lapi`/`lgc`..., Lua 3.1 + tasks), EXE `lua.c` (the `Lua_*` API, `sputLua_Startup`), `sputlua.c` | asm: `lua.c`. See 7, 8. |

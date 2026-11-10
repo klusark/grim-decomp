@@ -83,7 +83,7 @@ void sputRoom_Shutdown(void)
   void *pvVar3;
   int iVar4;
   
-  pvVar3 = g_pSetActorLists;
+  pvVar3 = g_pRoomList;
   while (pvVar3 != (void *)0x0) {
     iVar4 = *(int *)((int)pvVar3 + 0x80);
     while (iVar4 != 0) {

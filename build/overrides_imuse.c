@@ -101,7 +101,7 @@ int ihost_get_buffer_info(int param_1)
 /* ==== MxInitialize (0x10005360) ====
  * Builds the two lookup tables of the software mixer and allocates its accumulator.  The decompiler lost the arithmetic that
  * is done in x87 registers between the calls of the _ftol helper (hmi__bae0), so it is written from the disassembly:
- *   pan weights  DAT_10033560[i][j] (17 x 17 bytes) = (int)((sin(j * 3.1415 * 0.03125) * i + 0.5) * 8.0)
+ *   pan weights  g_bPanTable[i][j] (17 x 17 bytes) = (int)((sin(j * 3.1415 * 0.03125) * i + 0.5) * 8.0)
  *   volume curve g_dwSoftLTable[k]    (g_dwImWaveMixCount * 0x8000 shorts) = (int)((524272 k / (262136 + 7 k) + 1) * 0.5)
  * The intermediate values stay in extended precision (long double) like the original x87 code. */
 static long double x87_fsin(long double x)
@@ -112,14 +112,14 @@ static long double x87_fsin(long double x)
 undefined4 MxInitialize(undefined4 *param_1)
 {
     int i, j, k, n;
-    unsigned char *pan = (unsigned char *)&DAT_10033560;
+    unsigned char *pan = (unsigned char *)&g_bPanTable;
     short *curve;
 
     for (i = 0; i < 17; i++)
         for (j = 0; j < 17; j++)
             *pan++ = (unsigned char)(long long)((x87_fsin((long double)j * 3.1415 * 0.03125) * (long double)i - -0.5) * 8.0);
     g_dwOutChannelCount = *param_1;
-    DAT_1002df24 = param_1[2] << 1;
+    g_dwMixBufSize = param_1[2] << 1;
     g_pMixBuf = (int *)(**(code **)(g_dwSounds_pHS + 0x20))(param_1[2] << 1, s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8, 0x7a);
     _DAT_1002df28 = param_1[3];
     curve = (short *)(**(code **)(g_dwSounds_pHS + 0x20))(g_dwImWaveMixCount << 16, s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8, 0x7f);

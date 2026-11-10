@@ -5,12 +5,15 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00483720  Polyglot_LoadTable ---- */
+/* ---- 0x00483720  PolyglotConfigure ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* polyglot.c: loads the language table (text id -> translated string) */
+/* polyglot.c: loads the language table (text id -> translated string) Original name
+   PolyglotConfigure (the remaster's GrimFandango (Linux): the table load Main_Startup calls after
+   PolyglotInitialize, same body (reads the .tab file through the polyglot pHS)); was
+   Polyglot_LoadTable. */
 
-void Polyglot_LoadTable(undefined *param_1)
+void PolyglotConfigure(undefined *param_1)
 
 {
   int iVar1;
@@ -20,39 +23,38 @@ void Polyglot_LoadTable(undefined *param_1)
   undefined1 *puVar5;
   
   PTR_s_language_tab_004e8024 = param_1;
-  iVar1 = (*g_pSvcIMuseModule->pFopen)(param_1,&DAT_004ddb18);
+  iVar1 = (*g_pPolyglot_HS->pFopen)(param_1,&DAT_004ddb18);
   if (iVar1 != 0) {
-    (*g_pSvcIMuseModule->pFread)(iVar1,&param_1,4);
-    (*g_pSvcIMuseModule->pFseek)(iVar1,0,2);
-    iVar2 = (*g_pSvcIMuseModule->pFtell)(iVar1);
-    (*g_pSvcIMuseModule->pFseek)(iVar1,0,0);
-    g_pPolyglotText =
-         (char *)(*g_pSvcIMuseModule->pAlloc)
-                           (iVar2,s_C__grimsrc_libs_grimlib_Engine_p_004e8038,0x8f);
-    (*g_pSvcIMuseModule->pFread)(iVar1,g_pPolyglotText,iVar2);
-    (*g_pSvcIMuseModule->pFclose)(iVar1);
-    pcVar3 = g_pPolyglotText;
+    (*g_pPolyglot_HS->pFread)(iVar1,&param_1,4);
+    (*g_pPolyglot_HS->pFseek)(iVar1,0,2);
+    iVar2 = (*g_pPolyglot_HS->pFtell)(iVar1);
+    (*g_pPolyglot_HS->pFseek)(iVar1,0,0);
+    g_pLanguageMalloc =
+         (char *)(*g_pPolyglot_HS->pAlloc)(iVar2,s_C__grimsrc_libs_grimlib_Engine_p_004e8038,0x8f);
+    (*g_pPolyglot_HS->pFread)(iVar1,g_pLanguageMalloc,iVar2);
+    (*g_pPolyglot_HS->pFclose)(iVar1);
+    pcVar3 = g_pLanguageMalloc;
     if (param_1 == (undefined *)0x454e4352) {
       iVar2 = iVar2 + -4;
       iVar1 = 0;
       if (0 < iVar2) {
         do {
-          g_pPolyglotText[iVar1] = g_pPolyglotText[iVar1 + 4] ^ 0xdd;
+          g_pLanguageMalloc[iVar1] = g_pLanguageMalloc[iVar1 + 4] ^ 0xdd;
           iVar1 = iVar1 + 1;
-          pcVar3 = g_pPolyglotText;
+          pcVar3 = g_pLanguageMalloc;
         } while (iVar1 < iVar2);
       }
     }
     do {
       puVar4 = Str_FindChar(pcVar3,0xd);
-      UINT_008a8ca4 = UINT_008a8ca4 + 1;
+      g_dwLineCount = g_dwLineCount + 1;
       pcVar3 = puVar4 + 2;
-    } while (puVar4 + 2 < g_pPolyglotText + iVar2 + -1);
-    UINT_008a8c9c =
-         (*g_pSvcIMuseModule->pAlloc)
-                   (UINT_008a8ca4 * 4,s_C__grimsrc_libs_grimlib_Engine_p_004e8038,0xa2);
+    } while (puVar4 + 2 < g_pLanguageMalloc + iVar2 + -1);
+    g_dwLanguageLine =
+         (*g_pPolyglot_HS->pAlloc)
+                   (g_dwLineCount * 4,s_C__grimsrc_libs_grimlib_Engine_p_004e8038,0xa2);
     iVar1 = 0;
-    pcVar3 = g_pPolyglotText;
+    pcVar3 = g_pLanguageMalloc;
     do {
       puVar4 = Str_FindChar(pcVar3,0xd);
       *puVar4 = 0;
@@ -61,11 +63,11 @@ void Polyglot_LoadTable(undefined *param_1)
         *puVar5 = 0;
       }
       _strupr(pcVar3);
-      *(char **)(UINT_008a8c9c + iVar1) = pcVar3;
+      *(char **)(g_dwLanguageLine + iVar1) = pcVar3;
       pcVar3 = puVar4 + 2;
       iVar1 = iVar1 + 4;
-    } while (pcVar3 < g_pPolyglotText + iVar2 + -1);
-    qsort(UINT_008a8c9c,UINT_008a8ca4,4,Str_ComparePtrs);
+    } while (pcVar3 < g_pLanguageMalloc + iVar2 + -1);
+    qsort(g_dwLanguageLine,g_dwLineCount,4,Str_ComparePtrs);
   }
   return;
 }
@@ -98,7 +100,7 @@ char * __cdecl PolyglotGetString(char *textId)
   }
   if ((*textId != '\0') && (*textId == '/')) {
     iVar2 = strchr(textId + 1,0x2f);
-    if (g_pPolyglotText == (char *)0x0) {
+    if (g_pLanguageMalloc == (char *)0x0) {
       return (char *)(iVar2 + 1);
     }
     uVar5 = 0xffffffff;
@@ -129,7 +131,7 @@ char * __cdecl PolyglotGetString(char *textId)
       *puVar3 = 0;
     }
     _strupr(local_100);
-    puVar4 = (undefined4 *)bsearch(&local_104,UINT_008a8c9c,UINT_008a8ca4,4,Str_ComparePtrs);
+    puVar4 = (undefined4 *)bsearch(&local_104,g_dwLanguageLine,g_dwLineCount,4,Str_ComparePtrs);
     if (puVar4 == (undefined4 *)0x0) {
       return (char *)(iVar2 + 1);
     }

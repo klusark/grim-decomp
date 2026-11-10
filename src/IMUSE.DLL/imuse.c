@@ -1227,7 +1227,7 @@ int __cdecl GoToNextRegion(int *param_1)
       } while (iVar3 == 0x53594e43);
       if (iVar3 != 0x54455854) goto LAB_10002d11;
       iVar3 = *(int *)(*param_1 + 0xc);
-      Im_FireTriggers(iVar3,(char *)(piVar7 + 3));
+      TgProcessMarker(iVar3,(char *)(piVar7 + 3));
       if (iVar3 != *(int *)(*param_1 + 0xc)) {
         local_4 = -3;
         iVar2 = local_4;
@@ -2185,7 +2185,7 @@ undefined4 __cdecl MxInitialize(undefined4 *param_1)
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   iVar2 = 0;
-  puVar3 = &DAT_10033560;
+  puVar3 = &g_bPanTable;
   do {
     local_4 = 0;
     do {
@@ -2198,7 +2198,7 @@ undefined4 __cdecl MxInitialize(undefined4 *param_1)
     iVar2 = iVar2 + 1;
   } while (iVar2 < 0x11);
   g_dwOutChannelCount = *param_1;
-  DAT_1002df24 = param_1[2] << 1;
+  g_dwMixBufSize = param_1[2] << 1;
   g_pMixBuf = (int *)(**(code **)(g_dwSounds_pHS + 0x20))
                                (param_1[2] << 1,s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8,0x7a);
   _DAT_1002df28 = param_1[3];
@@ -2248,9 +2248,9 @@ undefined4 MxBeginMix(void)
   uint uVar2;
   int *piVar3;
   
-  uVar2 = DAT_1002df24;
+  uVar2 = g_dwMixBufSize;
   piVar3 = g_pMixBuf;
-  for (uVar1 = DAT_1002df24 >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
+  for (uVar1 = g_dwMixBufSize >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
     *piVar3 = 0;
     piVar3 = piVar3 + 1;
   }
@@ -3489,30 +3489,29 @@ undefined4 __cdecl LoadLip(undefined4 param_1,char *param_2)
     Im_SoundsFreeSlot((int)param_2);
   }
   else if (param_2 != (char *)0x0) {
-    if (((param_2 == DAT_10031e74) || (param_2 == g_dwLipSfx2Data)) || (param_2 == g_dwLipSfx3Data))
-    {
+    if (((param_2 == g_dwLipSfx1ID) || (param_2 == g_dwLipSfx2ID)) || (param_2 == g_dwLipSfx3ID)) {
       (**(code **)(g_dwSounds_pHS + 0x34))(iVar1);
       return 1;
     }
     if (param_2 == (char *)0x2710) {
       g_dwLipStreamID = param_2;
       iVar3 = 0;
-      param_2 = &DAT_1002f3e8;
+      param_2 = &g_bLipStreamData;
     }
-    else if (DAT_10031e74 == (char *)0x0) {
-      DAT_10031e74 = param_2;
+    else if (g_dwLipSfx1ID == (char *)0x0) {
+      g_dwLipSfx1ID = param_2;
       iVar3 = 1;
-      param_2 = &DAT_1002e340;
+      param_2 = &g_aLipSfx1Data;
     }
-    else if (g_dwLipSfx2Data == (char *)0x0) {
-      g_dwLipSfx2Data = param_2;
+    else if (g_dwLipSfx2ID == (char *)0x0) {
+      g_dwLipSfx2ID = param_2;
       iVar3 = 2;
-      param_2 = &DAT_1002ec18;
+      param_2 = &g_aLipSfx2Data;
     }
-    else if (g_dwLipSfx3Data == (char *)0x0) {
-      g_dwLipSfx3Data = param_2;
+    else if (g_dwLipSfx3ID == (char *)0x0) {
+      g_dwLipSfx3ID = param_2;
       iVar3 = 3;
-      param_2 = &DAT_1002fbd0;
+      param_2 = &g_aLipSfx3Data;
     }
     if (-1 < iVar3) {
       (**(code **)(g_dwSounds_pHS + 0x4c))(iVar1,0,2);
@@ -3536,13 +3535,13 @@ undefined4 __cdecl LoadLip(undefined4 param_1,char *param_2)
             g_dwLipStreamID = (char *)0x0;
             return 0;
           case 1:
-            DAT_10031e74 = (char *)0x0;
+            g_dwLipSfx1ID = (char *)0x0;
             return 0;
           case 2:
-            g_dwLipSfx2Data = (char *)0x0;
+            g_dwLipSfx2ID = (char *)0x0;
             return 0;
           case 3:
-            g_dwLipSfx3Data = (char *)0x0;
+            g_dwLipSfx3ID = (char *)0x0;
             return 0;
           }
         }
@@ -3564,14 +3563,14 @@ void __cdecl Im_SoundsFreeSlot(int param_1)
   if (param_1 == g_dwLipStreamID) {
     g_dwLipStreamID = 0;
   }
-  if (param_1 == DAT_10031e74) {
-    DAT_10031e74 = 0;
+  if (param_1 == g_dwLipSfx1ID) {
+    g_dwLipSfx1ID = 0;
   }
-  if (param_1 == g_dwLipSfx2Data) {
-    g_dwLipSfx2Data = 0;
+  if (param_1 == g_dwLipSfx2ID) {
+    g_dwLipSfx2ID = 0;
   }
-  if (param_1 == g_dwLipSfx3Data) {
-    g_dwLipSfx3Data = 0;
+  if (param_1 == g_dwLipSfx3ID) {
+    g_dwLipSfx3ID = 0;
   }
   return;
 }
@@ -3591,7 +3590,7 @@ int iMUSE_GetPhoneme(int param_1,int param_2)
     iVar1 = FUN_10008c40(param_1,iVar1 + param_2);
     return iVar1;
   }
-  if (((param_1 == DAT_10031e74) || (param_1 == g_dwLipSfx2Data)) || (param_1 == g_dwLipSfx3Data)) {
+  if (((param_1 == g_dwLipSfx1ID) || (param_1 == g_dwLipSfx2ID)) || (param_1 == g_dwLipSfx3ID)) {
     iVar1 = 0;
     iVar4 = 0;
     piVar2 = &DAT_10031548;
@@ -3626,19 +3625,19 @@ int __cdecl FUN_10008c40(int param_1,int param_2)
     if (g_dwLipStreamID == 0) {
       return 0;
     }
-    puVar1 = &DAT_1002f3e8;
+    puVar1 = &g_bLipStreamData;
   }
-  else if (param_1 == DAT_10031e74) {
-    puVar1 = &DAT_1002e340;
+  else if (param_1 == g_dwLipSfx1ID) {
+    puVar1 = &g_aLipSfx1Data;
   }
-  else if (param_1 == g_dwLipSfx2Data) {
-    puVar1 = &DAT_1002ec18;
+  else if (param_1 == g_dwLipSfx2ID) {
+    puVar1 = &g_aLipSfx2Data;
   }
   else {
-    if (param_1 != g_dwLipSfx3Data) {
+    if (param_1 != g_dwLipSfx3ID) {
       return 0;
     }
-    puVar1 = &DAT_1002fbd0;
+    puVar1 = &g_aLipSfx3Data;
   }
   iVar3 = param_2 >> 4;
   psVar2 = (short *)(puVar1 + 8);
@@ -5652,10 +5651,13 @@ LAB_1000b40c:
 #undef local_4
 
 
-/* ---- 0x1000b430  Im_FireTriggers ---- */
-/* Matches a marker name against the trigger table and runs the stored commands */
+/* ---- 0x1000b430  TgProcessMarker ---- */
+/* Matches a marker name against the trigger table and runs the stored commands Original name
+   TgProcessMarker (the remaster's GrimFandango (Linux): the only unpaired user of midProcessing /
+   trigs on both sides, same body (copies the marker text to a static, walks the 8 triggers,
+   midProcessing count)); was Im_FireTriggers. */
 
-undefined4 * __cdecl Im_FireTriggers(int param_1,char *param_2)
+undefined4 * __cdecl TgProcessMarker(int param_1,char *param_2)
 
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5697,7 +5699,7 @@ undefined4 * __cdecl Im_FireTriggers(int param_1,char *param_2)
     uVar7 = ~uVar7;
     iVar9 = 8;
     pcVar10 = pcVar10 + -uVar7;
-    pcVar12 = (char *)&DAT_10032e40;
+    pcVar12 = (char *)&g_dwTgProcessMarker_textCopy;
     for (uVar8 = uVar7 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
       *(undefined4 *)pcVar12 = *(undefined4 *)pcVar10;
       pcVar10 = pcVar10 + 4;
@@ -5714,7 +5716,7 @@ undefined4 * __cdecl Im_FireTriggers(int param_1,char *param_2)
       if ((*piVar13 != 0) && (param_1 == *piVar13)) {
         pbVar11 = (byte *)(piVar13 + 1);
         if ((char)piVar13[1] != '\0') {
-          pbVar5 = (byte *)&DAT_10032e40;
+          pbVar5 = (byte *)&g_dwTgProcessMarker_textCopy;
           do {
             bVar2 = *pbVar5;
             bVar14 = bVar2 < *pbVar11;
@@ -5735,24 +5737,24 @@ LAB_1000b4dc:
           if (iVar6 != 0) goto LAB_1000b52c;
         }
         iVar6 = 0;
-        cVar1 = (char)DAT_10032e40;
+        cVar1 = (char)g_dwTgProcessMarker_textCopy;
         while (cVar1 != '\0') {
           local_100[iVar6] = cVar1;
           iVar3 = iVar6 + 1;
           iVar6 = iVar6 + 1;
-          cVar1 = *(char *)((int)&DAT_10032e40 + iVar3);
+          cVar1 = *(char *)((int)&g_dwTgProcessMarker_textCopy + iVar3);
         }
         local_100[iVar6] = '\0';
-        Im_RunTriggerCommand(piVar13,&DAT_10032e40);
+        Im_RunTriggerCommand(piVar13,&g_dwTgProcessMarker_textCopy);
         iVar6 = 0;
         cVar1 = local_100[0];
         while (cVar1 != '\0') {
-          *(char *)((int)&DAT_10032e40 + iVar6) = cVar1;
+          *(char *)((int)&g_dwTgProcessMarker_textCopy + iVar6) = cVar1;
           iVar3 = iVar6 + 1;
           iVar6 = iVar6 + 1;
           cVar1 = local_100[iVar3];
         }
-        *(undefined1 *)((int)&DAT_10032e40 + iVar6) = 0;
+        *(undefined1 *)((int)&g_dwTgProcessMarker_textCopy + iVar6) = 0;
       }
 LAB_1000b52c:
       piVar13 = piVar13 + 0x4d;

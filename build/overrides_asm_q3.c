@@ -46,7 +46,7 @@ static inline float q3_f(long double x)
 /* uint frame / marker count as FILD QWORD of the zero-extended dword */
 #define Q3_FILD_U(u) ((long double)(long long)(uint)(u))
 
-/* fldcw [DAT_00900526]; fld x; frndint; fstp float; fldcw [DAT_00900524] (the rounding mode Services_SetCurrent
+/* fldcw [DAT_00900526]; fld x; frndint; fstp float; fldcw [DAT_00900524] (the rounding mode stdStartup
  * stored in DAT_00900526, round down in the game) */
 static inline float q3_frndint_cw(float x)
 {
@@ -172,7 +172,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet, int track, float dt)
  *     Rotations through Math_NormalizeAngle180, rest position / rotation added back, rdMatrix_Build34, then
  *     Matrix_BuildTransform with the joint's scale (thing+0x24, 12 bytes per node) when one component is ordered
  *     non-zero.
- * Then rdThing_BuildNodeMatrix(thing, joints, frame) and thing+0x1c = UINT_004f5eb4.
+ * Then rdThing_BuildNodeMatrix(thing, joints, frame) and thing+0x1c = g_dwRdroid_frameTrue.
  * x87: the rotation y / z of a key with velocity stay extended until the rest rotation is subtracted (the position and
  * the rotation x are stored as floats first), every other step is stored as a float as in the original. */
 /* OVERRIDES: rdPuppet_UpdateFrame */
@@ -392,7 +392,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model, float *frame)
 
 done:
     rdThing_BuildNodeMatrix((int)thing, (int)Q3P(mdl, 0x58), frame);
-    Q3U(thing, 0x1c) = UINT_004f5eb4;
+    Q3U(thing, 0x1c) = g_dwRdroid_frameTrue;
 }
 
 /* ==== rdModel3_LoadEntryText (0x0040aa20) ====

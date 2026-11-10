@@ -66,7 +66,7 @@
  {"program": "/v101/IMUSE.DLL", "addr": "1000b220", "name": "TgSetTrigger", "tags": "imuse_triggers"},
  {"program": "/v101/IMUSE.DLL", "addr": "1000b2e0", "name": "TgCheckTrigger", "tags": "imuse_triggers"},
  {"program": "/v101/IMUSE.DLL", "addr": "1000b380", "name": "TgClearTrigger", "tags": "imuse_triggers"},
- {"program": "/v101/IMUSE.DLL", "addr": "1000b430", "name": "Im_FireTriggers", "comment": "Matches a marker name against the trigger table and runs the stored commands", "tags": "imuse_triggers"},
+ {"program": "/v101/IMUSE.DLL", "addr": "1000b430", "name": "TgProcessMarker", "comment": "Matches a marker name against the trigger table and runs the stored commands", "tags": "imuse_triggers"},
  {"program": "/v101/IMUSE.DLL", "addr": "1000b570", "name": "TgDeferCommand", "tags": "imuse_triggers"},
  {"program": "/v101/IMUSE.DLL", "addr": "1000b5e0", "name": "TgIntHandler", "tags": "imuse_triggers"},
  {"program": "/v101/IMUSE.DLL", "addr": "1000b630", "name": "TgGetPendCount", "tags": "imuse_triggers"},

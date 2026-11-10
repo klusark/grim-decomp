@@ -135,7 +135,7 @@ void SmushPlay_SysSetVideoCallbacks(uint *param_1)
   int iVar1;
   uint *puVar2;
   
-  puVar2 = &UINT_008d1098;
+  puVar2 = &g_dwVideoCallbacks;
   for (iVar1 = 6; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = *param_1;
     param_1 = param_1 + 1;
@@ -203,19 +203,19 @@ undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
   
   if ((param_1 != (int *)0x0) && (param_2 != (undefined4 *)0x0)) {
     _DAT_008d16c0 = 0;
-    if ((_DAT_008d1090 & 1) != 0) {
-      _DAT_008d1090 = _DAT_008d1090 & 0xfffffff9;
+    if ((_g_bMovieFlags & 1) != 0) {
+      _g_bMovieFlags = _g_bMovieFlags & 0xfffffff9;
       if ((int)param_3[2] / 2 < (int)UINT_008d11e8) {
         if ((int)UINT_008d11ec < (int)param_3[3]) {
-          _DAT_008d1090 = _DAT_008d1090 | 2;
+          _g_bMovieFlags = _g_bMovieFlags | 2;
         }
       }
       else {
-        _DAT_008d1090 = _DAT_008d1090 | 4;
+        _g_bMovieFlags = _g_bMovieFlags | 4;
       }
     }
-    iVar7 = ((_DAT_008d1090 & 6) != 0) + 1;
-    iVar5 = ((_DAT_008d1090 & 4) != 0) + 1;
+    iVar7 = ((_g_bMovieFlags & 6) != 0) + 1;
+    iVar5 = ((_g_bMovieFlags & 4) != 0) + 1;
     iVar6 = iVar5 * UINT_008d11e8;
     iVar3 = UINT_008d11ec * iVar7;
     uVar1 = *param_3;
@@ -240,8 +240,8 @@ undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
     iVar6 = param_1[5];
     uVar2 = *param_2;
     iVar5 = param_1[3] * uVar9 * iVar5 + uVar8 * iVar7 * iVar6 + *param_1;
-    if ((_DAT_008d1090 & 4) == 0) {
-      if ((_DAT_008d1090 & 2) == 0) {
+    if ((_g_bMovieFlags & 4) == 0) {
+      if ((_g_bMovieFlags & 2) == 0) {
         Insane_BlitRows16(uVar2,param_2[5],iVar5,iVar6,iVar4,iVar3 / iVar7);
       }
       else {

@@ -258,10 +258,10 @@ int __cdecl Font_LoadFile(char *filename,void **outFont)
   int iVar2;
   
   iVar2 = 1;
-  iVar1 = (*g_pSvcText->pFopen)(filename,&DAT_004ddb18);
+  iVar1 = (*g_pTextHS->pFopen)(filename,&DAT_004ddb18);
   if (iVar1 != 0) {
     iVar2 = Text_BuildLineTable(iVar1,outFont);
-    (*g_pSvcText->pFclose)(iVar1);
+    (*g_pTextHS->pFclose)(iVar1);
   }
   return iVar2;
 }
@@ -274,7 +274,7 @@ void __cdecl Text_FreeFont(void *font)
 
 {
   if ((font != (void *)0x0) && (font != g_pDefaultFont)) {
-    (*g_pSvcText->pHFree)(font);
+    (*g_pTextHS->pHFree)(font);
   }
   return;
 }
@@ -289,14 +289,14 @@ int __cdecl Text_NextChar(char **pText)
   char *pcVar2;
   
   if (*pText == (char *)0x0) {
-    (*g_pSvcText->pAssertFail)
+    (*g_pTextHS->pAssertFail)
               (s__ppText______void___0__004ed03c,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x1fc);
   }
   uVar1 = (uint)(byte)**pText;
   pcVar2 = (char *)(-(uint)(uVar1 != 0) & (uint)(*pText + 1));
   *pText = pcVar2;
   if ((uVar1 == 0) && (pcVar2 != (char *)0x0)) {
-    (*g_pSvcText->pAssertFail)
+    (*g_pTextHS->pAssertFail)
               (s_c_____0______c______0______ppTex_004ed008,
                s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x20a);
   }
@@ -317,11 +317,11 @@ int __cdecl Text_GetCharKernedWidth(void *ctx,int ch)
   
   iVar1 = *(int *)((int)ctx + 8);
   if (iVar1 == 0) {
-    (*g_pSvcText->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x270);
+    (*g_pTextHS->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x270);
   }
-  uVar2 = (*g_pSvcText->pHLock)(iVar1);
+  uVar2 = (*g_pTextHS->pHLock)(iVar1);
   iVar3 = Font_GlyphWidth(ctx,uVar2,ch);
-  (*g_pSvcText->pHUnlock)(iVar1);
+  (*g_pTextHS->pHUnlock)(iVar1);
   return iVar3;
 }
 
@@ -353,16 +353,16 @@ int __cdecl Text_GetStringWidth(void *ctx,char *text)
   iVar2 = *(int *)((int)ctx + 8);
   local_34 = 0;
   if (iVar2 == 0) {
-    (*g_pSvcText->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x28d);
+    (*g_pTextHS->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x28d);
   }
-  uVar1 = (*g_pSvcText->pHLock)(iVar2);
+  uVar1 = (*g_pTextHS->pHLock)(iVar2);
   do {
     text = (char *)text_FindNextBreak(local_30,uVar1,text,&local_34,0,1);
     if ((int)uVar3 <= (int)local_34) {
       uVar3 = local_34;
     }
   } while (text != (char *)0x0);
-  (*g_pSvcText->pHUnlock)(iVar2);
+  (*g_pTextHS->pHUnlock)(iVar2);
   return uVar3;
 }
 #undef local_30
@@ -397,15 +397,15 @@ int Text_GetStringHeight(void *ctx,char *text)
   }
   iVar3 = 0;
   if (iVar1 == 0) {
-    (*g_pSvcText->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x2b0);
+    (*g_pTextHS->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x2b0);
   }
-  uVar2 = (*g_pSvcText->pHLock)(iVar1);
+  uVar2 = (*g_pTextHS->pHLock)(iVar1);
   do {
     text = (char *)text_FindNextBreak(local_30,uVar2,text,0,0,1);
     iVar3 = iVar3 + (*(int *)(**(int **)((int)ctx + 8) + 4) * *(int *)((int)ctx + 0x24) + 0xffffU >>
                     0x10);
   } while (text != (char *)0x0);
-  (*g_pSvcText->pHUnlock)(iVar1);
+  (*g_pTextHS->pHUnlock)(iVar1);
   return iVar3;
 }
 #undef local_30
@@ -429,11 +429,11 @@ undefined4 Text_DrawFormatted(void *param_1,int param_2)
   uVar2 = vsprintf(local_3ec,param_2,&STACK0X(0x0000000c));
   iVar1 = *(int *)((int)param_1 + 8);
   if (iVar1 == 0) {
-    (*g_pSvcText->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x2fa);
+    (*g_pTextHS->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x2fa);
   }
-  font = (void *)(*g_pSvcText->pHLock)(iVar1);
+  font = (void *)(*g_pTextHS->pHLock)(iVar1);
   Text_DrawString(param_1,font,local_3ec);
-  (*g_pSvcText->pHUnlock)(iVar1);
+  (*g_pTextHS->pHUnlock)(iVar1);
   return uVar2;
 }
 #undef local_3ec
@@ -518,9 +518,9 @@ undefined4 Text_WrapLines(uint *param_1)
       uVar11 = uVar11 - 1;
     } while (uVar11 != 0);
   }
-  uStack_438 = (*g_pSvcText->pHAlloc)(uVar7);
+  uStack_438 = (*g_pTextHS->pHAlloc)(uVar7);
   if (uStack_438 != 0) {
-    puVar5 = (uint *)(*g_pSvcText->pHLock)(uStack_438);
+    puVar5 = (uint *)(*g_pTextHS->pHLock)(uStack_438);
     puVar8 = &local_430;
     puVar12 = puVar5;
     for (iVar6 = 0xc; iVar6 != 0; iVar6 = iVar6 + -1) {
@@ -590,7 +590,7 @@ undefined4 Text_WrapLines(uint *param_1)
       } while (local_43c != 0);
     }
     uVar4 = uStack_438;
-    (*g_pSvcText->pHUnlock)(uStack_438);
+    (*g_pTextHS->pHUnlock)(uStack_438);
     *param_1 = uVar4;
     return 0;
   }
@@ -688,8 +688,8 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
   #define iStack_10 (*(int *)(_frame + (0x60 - 0x10)))
   
   uVar1 = param_1;
-  (*g_pSvcText->pFread)(param_1,&local_40,4);
-  (*g_pSvcText->pFread)(uVar1,&local_40,4);
+  (*g_pTextHS->pFread)(param_1,&local_40,4);
+  (*g_pTextHS->pFread)(uVar1,&local_40,4);
   iVar5 = local_40;
   piVar6 = aiStack_30;
   for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
@@ -697,23 +697,23 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
     piVar6 = piVar6 + 1;
   }
   iStack_34 = local_40;
-  (*g_pSvcText->pFread)(uVar1,&local_40,4);
+  (*g_pTextHS->pFread)(uVar1,&local_40,4);
   aiStack_30[1] = local_40;
-  (*g_pSvcText->pFread)(uVar1,&local_40,4);
+  (*g_pTextHS->pFread)(uVar1,&local_40,4);
   aiStack_30[2] = local_40;
-  (*g_pSvcText->pFread)(uVar1,&local_40,4);
+  (*g_pTextHS->pFread)(uVar1,&local_40,4);
   aiStack_30[3] = local_40;
-  (*g_pSvcText->pFread)(uVar1,&local_40,4);
+  (*g_pTextHS->pFread)(uVar1,&local_40,4);
   iStack_20 = local_40;
-  (*g_pSvcText->pFread)(uVar1,&local_40,4);
+  (*g_pTextHS->pFread)(uVar1,&local_40,4);
   iVar4 = local_40;
   iStack_14 = local_40;
-  (*g_pSvcText->pFread)(uVar1,&local_40,4);
+  (*g_pTextHS->pFread)(uVar1,&local_40,4);
   iStack_10 = local_40;
   iStack_3c = (local_40 - iVar4) + 1;
-  iStack_38 = (*g_pSvcText->pHAlloc)(iVar5 + 0x30 + iStack_3c * 0x5e);
+  iStack_38 = (*g_pTextHS->pHAlloc)(iVar5 + 0x30 + iStack_3c * 0x5e);
   if (iStack_38 != 0) {
-    piVar2 = (int *)(*g_pSvcText->pHLock)(iStack_38);
+    piVar2 = (int *)(*g_pTextHS->pHLock)(iStack_38);
     piVar6 = aiStack_30;
     piVar8 = piVar2;
     for (iVar5 = 0xc; iVar5 != 0; iVar5 = iVar5 + -1) {
@@ -727,7 +727,7 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
     iVar5 = iStack_3c;
     if (0 < iStack_3c) {
       do {
-        (*g_pSvcText->pFread)(uVar1,&uStack_42,2);
+        (*g_pTextHS->pFread)(uVar1,&uStack_42,2);
         *(undefined2 *)piVar6 = uStack_42;
         piVar6 = (int *)((int)piVar6 + 2);
         iVar5 = iVar5 + -1;
@@ -739,19 +739,19 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
       pcVar7 = (char *)((int)piVar2 + iVar5 + 6);
       iVar5 = iStack_3c;
       do {
-        (*g_pSvcText->pFread)(uVar1,&local_40,4);
+        (*g_pTextHS->pFread)(uVar1,&local_40,4);
         *(int *)(pcVar7 + -6) = local_40;
-        (*g_pSvcText->pFread)(uVar1,&param_1,1);
+        (*g_pTextHS->pFread)(uVar1,&param_1,1);
         pcVar7[-2] = (char)param_1;
-        (*g_pSvcText->pFread)(uVar1,&param_1,1);
+        (*g_pTextHS->pFread)(uVar1,&param_1,1);
         pcVar7[-1] = (char)param_1;
-        (*g_pSvcText->pFread)(uVar1,&param_1,1);
+        (*g_pTextHS->pFread)(uVar1,&param_1,1);
         *pcVar7 = (char)param_1;
-        (*g_pSvcText->pFread)(uVar1,&param_1,1);
+        (*g_pTextHS->pFread)(uVar1,&param_1,1);
         pcVar7[1] = (char)param_1;
-        (*g_pSvcText->pFread)(uVar1,&local_40,4);
+        (*g_pTextHS->pFread)(uVar1,&local_40,4);
         *(int *)(pcVar7 + 6) = local_40;
-        (*g_pSvcText->pFread)(uVar1,&local_40,4);
+        (*g_pTextHS->pFread)(uVar1,&local_40,4);
         pcVar7[0xe] = '\x01';
         pcVar7[0xf] = '\0';
         pcVar7[0x10] = '\0';
@@ -773,9 +773,9 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
     }
     iVar5 = piVar2[10] + iStack_3c * 0x5c;
     piVar2[0xb] = iVar5;
-    (*g_pSvcText->pFread)(uVar1,(int)piVar2 + iVar5,iStack_34);
+    (*g_pTextHS->pFread)(uVar1,(int)piVar2 + iVar5,iStack_34);
     iVar5 = iStack_38;
-    (*g_pSvcText->pHUnlock)(iStack_38);
+    (*g_pTextHS->pHUnlock)(iStack_38);
     *param_2 = iVar5;
     return 0;
   }

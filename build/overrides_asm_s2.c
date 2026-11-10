@@ -12,12 +12,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ==== rdRaster_Span8_Flat (0x0041a810) ====
+/* ==== rdNRaster_DrawScanLineNGonGS_8 (0x0041a810) ====
  * Fills one horizontal span of an 8 bit paletted target.  param_1 / param_2 are the left and right edge records
  * (16.16 x at +0x00, a 16.16 per-scanline value at +0x38, another at +0x40 for the target row).  The start and end
  * columns are rounded up to whole pixels; the span is `count` pixels long; each pixel gets a value from the 64 level
- * table (g_aRdRaster_OneOverNFixed, 1/n in 16.16) and a shade byte through UINT_008ddeb0 + ((x >> 8) & 0x3f00) + DAT_008ddec0. */
-void rdRaster_Span8_Flat(uint *param_1, uint *param_2)
+ * table (g_aRdRaster_OneOverNFixed, 1/n in 16.16) and a shade byte through g_dwRdNRaster_aMonoMap + ((x >> 8) & 0x3f00) + g_bRdNRaster_color. */
+void rdNRaster_DrawScanLineNGonGS_8(uint *param_1, uint *param_2)
 {
     uint xl_raw = *param_1;                 /* left x, 16.16 */
     uint xl = xl_raw;                       /* ceiling to whole pixel */
@@ -60,16 +60,16 @@ void rdRaster_Span8_Flat(uint *param_1, uint *param_2)
         idx = (unsigned int)cur >> 8;
         cur += step;
         count--;
-        *dst = *(uint8_t *)((uintptr_t)UINT_008ddeb0 + (idx & 0x3f00) + (uintptr_t)DAT_008ddec0);
+        *dst = *(uint8_t *)((uintptr_t)g_dwRdNRaster_aMonoMap + (idx & 0x3f00) + (uintptr_t)g_bRdNRaster_color);
         dst++;
     } while (count != 0);
 }
 
-/* ==== rdRaster_Span16_Flat_3 (0x0041a900) ====
- * The 16 bit version of rdRaster_Span8_Flat: the same span set-up, but each pixel is a word read from the table at
- * UINT_008ddebc with index ((x >> 16) & 0x3f) * 0x100 + DAT_008ddec0, and written through PTR_007f43a8, which the
+/* ==== rdNRaster_DrawScanLineNGonGS_16 (0x0041a900) ====
+ * The 16 bit version of rdNRaster_DrawScanLineNGonGS_8: the same span set-up, but each pixel is a word read from the table at
+ * g_dwRdNRaster_aRGBMap with index ((x >> 16) & 0x3f) * 0x100 + g_bRdNRaster_color, and written through g_pWDest, which the
  * original keeps in a global and advances by 2 bytes per pixel (the global is left at the end of the span). */
-void rdRaster_Span16_Flat_3(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonGS_16(uint *param_1, uint *param_2)
 {
     uint xl_raw = *param_1;
     uint xl = xl_raw;
@@ -104,14 +104,14 @@ void rdRaster_Span16_Flat_3(uint *param_1, uint *param_2)
     camInfo = *(int *)(camInfo + 4);
     pitch_half = *(uint *)(camInfo + 0x18) >> 1;
     xl_int = (uint)((int)xl >> 16);
-    PTR_007f43a8 = (int *)(*(int *)(camInfo + 0x5c) +
+    g_pWDest = (int *)(*(int *)(camInfo + 0x5c) +
                            ((int)param_1[0x10] * (int)pitch_half + (int)xl_int) * 2);
 
     do {
         uint u = (uint)cur >> 16;
         cur += step;
-        *(uint16_t *)PTR_007f43a8 = *(uint16_t *)(UINT_008ddebc + ((u & 0x3f) * 0x100 + (uintptr_t)DAT_008ddec0) * 2);
-        PTR_007f43a8 = (int *)((char *)PTR_007f43a8 + 2);
+        *(uint16_t *)g_pWDest = *(uint16_t *)(g_dwRdNRaster_aRGBMap + ((u & 0x3f) * 0x100 + (uintptr_t)g_bRdNRaster_color) * 2);
+        g_pWDest = (int *)((char *)g_pWDest + 2);
         count--;
     } while (count != 0);
 }

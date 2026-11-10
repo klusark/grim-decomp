@@ -32,8 +32,8 @@ undefined4 rdCache_DrawFaceUser(byte *param_1)
   
   iVar5 = (int)param_1;
   iVar8 = *(int *)((int)param_1 + 8);
-  if (g_nRdroidGeometryMode <= *(int *)((int)param_1 + 8)) {
-    iVar8 = g_nRdroidGeometryMode;
+  if (g_nRdroid_curGeometryMode <= *(int *)((int)param_1 + 8)) {
+    iVar8 = g_nRdroid_curGeometryMode;
   }
   iVar11 = *(int *)((int)param_1 + 0xc);
   if (g_nRdroid_curLightingMode <= *(int *)((int)param_1 + 0xc)) {

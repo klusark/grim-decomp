@@ -14,7 +14,7 @@ int __cdecl Text_SysInitialize(GrimServices *svc,void *iface)
 {
   int iVar1;
   
-  g_pSvcText = svc;
+  g_pTextHS = svc;
   iVar1 = 1;
   if (g_dwTextSysInitialized == 0) {
     g_dwTextSysInitialized = 1;
@@ -77,7 +77,7 @@ void Text_SysStartup(void)
 void Text_SysShutdown(void)
 
 {
-  (*g_pSvcText->pHFree)(g_pDefaultFont);
+  (*g_pTextHS->pHFree)(g_pDefaultFont);
   g_dwTextSysStarted = 0;
   return;
 }

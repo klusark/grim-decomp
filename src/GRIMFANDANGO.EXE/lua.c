@@ -13,7 +13,7 @@
 void sputLua_Is3DHardwareEnabledL(void)
 
 {
-  if (g_pD3dDriver != (void *)0x0) {
+  if (g_pStd3D_CurDevice != (void *)0x0) {
     lua_pushnumber(1.0);
     return;
   }
@@ -36,7 +36,7 @@ void Lua_SetHardwareState(void)
   iVar2 = lua_lua2C(1);
   uVar1 = UINT_00901758;
   uVar3 = UINT_00900530;
-  if (g_pD3dDriver == (void *)0x0) {
+  if (g_pStd3D_CurDevice == (void *)0x0) {
     uVar3 = 0xffffffff;
   }
   iVar2 = lua_isnil(iVar2);
@@ -59,7 +59,7 @@ void Lua_GetVideoDevices(void)
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   
   lua_pushnumber((float)UINT_00901758);
-  if (g_pD3dDriver != (void *)0x0) {
+  if (g_pStd3D_CurDevice != (void *)0x0) {
     lua_pushnumber((float)UINT_00900530);
     return;
   }
@@ -87,7 +87,7 @@ void Lua_SetVideoDevices(void)
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
   uVar1 = UINT_00901758;
-  if (g_pD3dDriver == (void *)0x0) {
+  if (g_pStd3D_CurDevice == (void *)0x0) {
     local_4 = 0xffffffff;
   }
   else {
@@ -183,7 +183,7 @@ void Lua_EnumerateVideoDevices(void)
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   
   iVar1 = lua_createtable();
-  uVar2 = (uint)(INT_004f5a24 == 0);
+  uVar2 = (uint)(g_nDeveloper == 0);
   if (uVar2 < g_dwStdDisplay_numDevices) {
     pcVar3 = &DAT_00902ce0 + uVar2 * 0x298;
     do {
@@ -4381,7 +4381,7 @@ void sputLua_CanActorSeeL(void)
     else {
       local_c[2] = lua_getnumber(iVar3);
     }
-    iVar1 = Actor_CanSeePoint((void *)local_10,local_c,&local_14);
+    iVar1 = sputActor_CanActorSeePoint((void *)local_10,local_c,&local_14);
     if (iVar1 != 0) {
       lua_pushnumber(local_14);
       return;
@@ -4983,10 +4983,12 @@ void sputLua_IsPointInSector(void)
 #undef local_c
 
 
-/* ---- 0x0049c5e0  Lua_RunSystemScript ---- */
-/* lua_dofile('_system.lua') */
+/* ---- 0x0049c5e0  sputLua_FindSystemFiles ---- */
+/* lua_dofile('_system.lua') Original name sputLua_FindSystemFiles (the remaster's GrimFandango
+   (Linux): the only call of grimlib_FindSystemFiles, same body (lua_dofile of _system.lua)); was
+   Lua_RunSystemScript. */
 
-int Lua_RunSystemScript(void)
+int sputLua_FindSystemFiles(void)
 
 {
   int iVar1;
@@ -4995,10 +4997,12 @@ int Lua_RunSystemScript(void)
   return iVar1 == 0;
 }
 
-/* ---- 0x0049c600  Lua_CallSystemFunction ---- */
-/* Calls the global Lua function named by the string at 0x004ec3c8 with (flag, str) */
+/* ---- 0x0049c600  sputLua_Boot ---- */
+/* Calls the global Lua function named by the string at 0x004ec3c8 with (flag, str) Original name
+   sputLua_Boot (the remaster's GrimFandango (Linux): the boot-script call of grimlib_Open, same
+   body (pushes the flag and string, calls the boot global)); was Lua_CallSystemFunction. */
 
-int __cdecl Lua_CallSystemFunction(int flag,char *str)
+int __cdecl sputLua_Boot(int flag,char *str)
 
 {
   int iVar1;
@@ -6803,16 +6807,18 @@ void sputLua_PauseMovieL(void)
   return;
 }
 
-/* ---- 0x0049e960  Lua_IsMoviePlaying ---- */
+/* ---- 0x0049e960  sputLua_IsMoviePlayingL ---- */
 /* Lua opcodes: IsFullscreenMoviePlaying, IsMoviePlaying
-   also registered as IsFullscreenMoviePlaying */
+   also registered as IsFullscreenMoviePlaying Original name sputLua_IsMoviePlayingL (the remaster's
+   GrimFandango (Linux): same body (pushes 1 or nil by sputSmush_MoviePlaying)); was
+   Lua_IsMoviePlaying. */
 
-void Lua_IsMoviePlaying(void)
+void sputLua_IsMoviePlayingL(void)
 
 {
   int iVar1;
   
-  iVar1 = Movie_IsPlaying();
+  iVar1 = sputSmush_MoviePlaying();
   if (iVar1 != 0) {
     lua_pushnumber(1.0);
     return;
@@ -9387,15 +9393,15 @@ void sputLua_SetSpeechMode(void)
     lVar3 = (longlong)lua_getnumber(iVar1);
     iVar1 = (int)lVar3;
     if (iVar1 == 1) {
-      Speech_SetMode(1);
+      sputActor_SetSpeechMode(1);
     }
     else {
       if (iVar1 == 2) {
-        Speech_SetMode(2);
+        sputActor_SetSpeechMode(2);
         return;
       }
       if (iVar1 == 3) {
-        Speech_SetMode(3);
+        sputActor_SetSpeechMode(3);
         return;
       }
     }

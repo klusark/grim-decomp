@@ -42,7 +42,7 @@
  {"addr": "00482670", "name": "grimlib_MakeCurrentSet", "proto": "void grimlib_MakeCurrentSet(char * name)", "comment": "Lua MakeCurrentSet (NULL unloads the current set)", "tags": "set"},
  {"addr": "004a41b0", "name": "sputRoom_GetCurrentRoom", "proto": "void * sputRoom_GetCurrentRoom(void)", "tags": "set"},
  {"addr": "004a41d0", "name": "sputRoom_GetCurrentRoomName", "proto": "char * sputRoom_GetCurrentRoomName(void)", "tags": "set"},
- {"addr": "004894e0", "name": "Movie_IsPlaying", "tags": "movie"},
+ {"addr": "004894e0", "name": "sputSmush_MoviePlaying", "tags": "movie"},
  {"addr": "004894f0", "name": "sputSmush_Pause", "proto": "void sputSmush_Pause(int paused)", "tags": "movie"},
  {"addr": "00489370", "name": "sputSmush_StopMovie", "tags": "movie"},
  {"addr": "004a4050", "name": "Set_GetSoundDefaults", "comment": "Fills the default 3D sound parameters (min distance, volume, pan...) from the set", "tags": "set,sound"},

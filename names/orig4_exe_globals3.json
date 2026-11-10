@@ -1,0 +1,84 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c98",
+  "old": "g_pSvcIMuseModule",
+  "global": "g_pPolyglot_HS",
+  "oldtype": "GrimServices *",
+  "names_only": true,
+  "comment": "Service table pointer stored by PolyglotInitialize Original name pHS (the remaster's GrimFandango (Linux): polyglot.c static; the services pointer PolyglotInitialize stores and PolyglotConfigure / polyglot_shutdown use); was g_pSvcIMuseModule."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8ca0",
+  "old": "g_pPolyglotText",
+  "global": "g_pLanguageMalloc",
+  "oldtype": "char *",
+  "names_only": true,
+  "comment": "Whole decoded language table text Original name pLanguageMalloc (the remaster's GrimFandango (Linux): the text buffer PolyglotConfigure allocates and polyglot_shutdown frees); was g_pPolyglotText."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c9c",
+  "old": "UINT_008a8c9c",
+  "global": "g_dwLanguageLine",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name ppLanguageLine (the remaster's GrimFandango (Linux): the line table polyglot_shutdown frees); was UINT_008a8c9c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c9530",
+  "old": "g_nCamActorIndex",
+  "global": "g_nCamActorIndex",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Handle of the hidden camera actor Original name gCamActorIndex (the remaster's GrimFandango (Linux): the camera actor sputRender_Open allocates)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ca1c4",
+  "old": "g_nInputCaptured",
+  "global": "g_nControlOpen",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Input devices are acquired by the game Original name bControlOpen (the remaster's GrimFandango (Linux): set by sputControl_Open when stdControl_Open succeeds); was g_nInputCaptured."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00805f9c",
+  "old": "g_nInputEnabled",
+  "global": "g_nStdControl_bOpen",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Input system enabled (stdControl_Open) Original name stdControl_bOpen (the remaster's GrimFandango (Linux): set by stdControl_Open); was g_nInputEnabled."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004dd9a8",
+  "old": "GrimServices_004dd9a8",
+  "global": "g_aDefaultHostServices",
+  "oldtype": "GrimServices",
+  "names_only": true,
+  "comment": "Original name defaultHostServices (the remaster's GrimFandango (Linux): the table HostServicesInitialize copies); was GrimServices_004dd9a8.",
+  "strict_mode": "warn"
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5eb8",
+  "old": "UINT_004f5eb8",
+  "global": "g_dwRDroidStartup",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bRDroidStartup (the remaster's GrimFandango (Linux): the once flag of rdStartup); was UINT_004f5eb8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c78",
+  "old": "UINT_008a8c78",
+  "global": "g_dwSputmOpen",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name bSputmOpen (the remaster's GrimFandango (Linux): the once flag of grimlib_Open); was UINT_008a8c78."
+ }
+]

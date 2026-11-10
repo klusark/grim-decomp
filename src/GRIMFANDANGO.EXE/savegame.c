@@ -18,7 +18,7 @@ int __cdecl SaveGame_Write(void *data,int bytes)
   if (bytes != 0) {
     iVar1 = gzwrite(UINT_008a8770,data,bytes);
     if (iVar1 != bytes) {
-      (*g_pSvcEngineModule->pAssertFail)
+      (*g_pSputmHS->pAssertFail)
                 (s_tot_____int_bytes_004e7fd4,s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x60c);
     }
   }
@@ -115,7 +115,7 @@ void * __cdecl sputMain_GetSaveGameImage(char *filename)
   }
   gzread(pvVar1,&local_8c,4);
   if (local_8c != *(uint *)((int)pvVar2 + 0x14)) {
-    (*g_pSvcEngineModule->pAssertFail)
+    (*g_pSputmHS->pAssertFail)
               (s_size_____int_vbuf__rasterInfo_si_004e7ff4,
                s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x6f6);
   }

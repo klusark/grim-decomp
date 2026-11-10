@@ -979,7 +979,7 @@ void __cdecl Win_AbortIfAlreadyRunning(void *hInstance, void *hPrevInstance, cha
     iVar1 = GetSystemMetrics(0x20);
     iVar2 = GetSystemMetrics(0xf);
     UINT_008d0a88 = iVar2 + iVar1 * 2;
-    iVar1 = Grim_Init(cmdLine);
+    iVar1 = Main_Startup(cmdLine);
     if (iVar1 != 0) {
         UINT_008d0a8c = 1;
         do {
@@ -1144,7 +1144,7 @@ int __cdecl SaveGame_Write(void *data, int bytes)
     if (bytes != 0) {
         int n = gzwrite((undefined4 *)UINT_008a8770, (undefined4)data, bytes);
         if (n != bytes) {
-            (*g_pSvcEngineModule->pAssertFail)(s_tot_____int_bytes_004e7fd4, s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c, 0x60c);
+            (*g_pSputmHS->pAssertFail)(s_tot_____int_bytes_004e7fd4, s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c, 0x60c);
         }
         sg_trace_rec(data, bytes, (unsigned)__builtin_return_address(0), 1);
     }
@@ -1215,7 +1215,7 @@ void Engine_LoadGame(void)
         name = s_grim_sav_004e7fc8;
     UINT_008a8770 = (uint)SaveFile_Open(name, &DAT_004ddb18);
     if ((void *)UINT_008a8770 != 0) {
-        Render_SetWaitCursorEnabled(0);
+        sputRender_AllowLoadImage(0);
         Render_DrawProgressBar(0.1);
         ImStopAllSounds();
         sputSmush_StopMovie();
@@ -1253,7 +1253,7 @@ void Engine_LoadGame(void)
         gzclose((int)UINT_008a8770);
         lua_dofile(s_patch05_bin_004e7fe8);
         g_dwJustLoaded = 1;
-        Render_SetWaitCursorEnabled(1);
+        sputRender_AllowLoadImage(1);
         rect[0] = 0;
         rect[1] = 0;
         rect[2] = 0x280;

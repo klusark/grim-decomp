@@ -47,8 +47,8 @@ int __cdecl rdThing_Draw(void *thing,float *position)
     rdPuppet_UpdateFrame(g_pRdCurrentThing,position);
     pvVar4 = g_pRdCamera_CurCamera;
     g_dwCurTextureMode = *(uint *)((int)g_pRdCurrentThing + 0x38);
-    if (g_nRdroidGeometryMode <= (int)g_dwCurTextureMode) {
-      g_dwCurTextureMode = g_nRdroidGeometryMode;
+    if (g_nRdroid_curGeometryMode <= (int)g_dwCurTextureMode) {
+      g_dwCurTextureMode = g_nRdroid_curGeometryMode;
     }
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
        (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
@@ -94,7 +94,7 @@ int __cdecl rdThing_Draw(void *thing,float *position)
       }
     }
     rdModel_DrawNode(*(undefined4 *)((int)g_pRdCurrentModel + 0x58));
-    UINT_007f31ec = UINT_007f31ec + 1;
+    g_dwRdModel3_numDrawnModels = g_dwRdModel3_numDrawnModels + 1;
     return 1;
   }
   return 0;
@@ -305,7 +305,7 @@ int __cdecl rdThing_DrawAlt(void *thing,float *frame)
 {
   int iVar1;
   
-  if (g_nRdroidGeometryMode != 0) {
+  if (g_nRdroid_curGeometryMode != 0) {
     switch(*(undefined4 *)thing) {
     case 0:
     case 2:

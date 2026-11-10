@@ -1,6 +1,6 @@
 /* Differential test: polygon drawing functions (edges + spans + set-up), on random convex polygons.  The C draw
  * functions call the C edges and spans of build/overrides_asm_o1.c, the original ones the original code; functions
- * that are not converted (rdRaster_Edge_Flat_3, rdRaster_Grad_Flat, the perspective spans) are the original code on
+ * that are not converted (rdNRaster_SetupLeftEdgeNGonFS, rdNRaster_CalcAffineGradients, the perspective spans) are the original code on
  * both sides.  The span pointer UINT_007f42f8 holds the address of a C function on the C side: it is mapped back to
  * the original address before the comparison. */
 #include <math.h>
@@ -70,9 +70,9 @@ static const Fn fns[] = {
 #include "draw_list.h"
 };
 /* C addresses of span functions that a draw function may store in UINT_007f42f8, and their 1.01 addresses */
-extern void rdRaster_Span16_Tex_4(void), rdRaster_Span16_Tex_6(void), rdRaster_Span16_Tex_8(void);
+extern void rdNRaster_DrawScanLineNGonLAT_16(void), rdNRaster_DrawScanLineNGonFAT_16(void), rdNRaster_DrawScanLineNGonGAT_16(void);
 static const struct { void *c; uint32_t o; } ptrmap[] = {
-    {rdRaster_Span16_Tex_4, 0x41b880}, {rdRaster_Span16_Tex_6, 0x41d560}, {rdRaster_Span16_Tex_8, 0x41f2f0},
+    {rdNRaster_DrawScanLineNGonLAT_16, 0x41b880}, {rdNRaster_DrawScanLineNGonFAT_16, 0x41d560}, {rdNRaster_DrawScanLineNGonGAT_16, 0x41f2f0},
 };
 void harness_fixup(void)
 {

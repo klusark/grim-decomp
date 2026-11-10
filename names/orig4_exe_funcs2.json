@@ -1,0 +1,86 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047b5f0",
+  "old": "stdBitmap_InitHeader",
+  "name": "stdPalEffects_ResetEffect",
+  "comment": "Zeroes 10 dwords and sets the gamma/scale field to 1.0 Original name stdPalEffects_ResetEffect (the remaster's GrimFandango (Linux): the call on rdroid_curColorEffects in rdOpen, same body (ten words cleared, +0x24 = 1.0f)); was stdBitmap_InitHeader."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047fdc0",
+  "old": "Str_CopyBasenameNoExt",
+  "name": "stdFnames_CopyShortName",
+  "comment": "Original name stdFnames_CopyShortName (the remaster's GrimFandango (Linux): the short-name call of sputCostume_SaveHook (dst, 0x20, path), same body); was Str_CopyBasenameNoExt."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004877d0",
+  "old": "Plat_SaveFileDialog",
+  "name": "grimPlat_SaveFileRequest",
+  "comment": "Original name grimPlat_SaveFileRequest (the remaster's GrimFandango (Linux): the save-file request of sputCostume_SaveHook (\"Name chore list file...\", \"Script files (*.lua, *.def)\"); the remaster's is a stub); was Plat_SaveFileDialog."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048fa60",
+  "old": "Actor_CanSeePoint",
+  "name": "sputActor_CanActorSeePoint",
+  "comment": "True when the point lies within the head joint's view cone (cosine threshold at costume+0x24 set by Actor_SetHead) Original name sputActor_CanActorSeePoint (the remaster's GrimFandango (Linux): same body (actor +0xa0 joint, normalised direction, the distance out-parameter), called from sputActor_CanActorSeeActor and sputLua_CanActorSeeL on both sides); was Actor_CanSeePoint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404330",
+  "old": "rdroid_InitCaches",
+  "name": "rdClearPreStatistics",
+  "comment": "Original name rdClearPreStatistics (the remaster's GrimFandango (Linux): the same three counter resets (rdCache_ClearFrameCounters, rdActive_ClearFrameCounters, rdModel3_ClearFrameCounters), called from rdOpen and rdAdvanceFrame); was rdroid_InitCaches."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404300",
+  "old": "rdroid_BeginFrame",
+  "name": "rdAdvanceFrame",
+  "comment": "Resets the caches, bumps the frame counter, clears the canvas and begins the 3D scene Original name rdAdvanceFrame (the remaster's GrimFandango (Linux): same body (counter resets, rdroid_frameTrue++, rdCamera_AdvanceFrame, rdCache_AdvanceFrame), called from sputRender_Update on both sides); was rdroid_BeginFrame."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404ca0",
+  "old": "rdCanvas_ResetPolyCount",
+  "name": "rdActive_ClearFrameCounters",
+  "comment": "Original name rdActive_ClearFrameCounters (the remaster's GrimFandango (Linux): the second counter reset of rdClearPreStatistics (clears rdActive_drawnFaces, counted in rdActive_AddActiveFace)); was rdCanvas_ResetPolyCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040a860",
+  "old": "rdCamera_ResetStats",
+  "name": "rdModel3_ClearFrameCounters",
+  "comment": "Original name rdModel3_ClearFrameCounters (the remaster's GrimFandango (Linux): the third counter reset of rdClearPreStatistics (clears rdModel3_numDrawnModels, counted per model in rdThing_Draw)); was rdCamera_ResetStats."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040a7d0",
+  "old": "rdCamera_ClearCanvas",
+  "name": "rdCamera_AdvanceFrame",
+  "comment": "Original name rdCamera_AdvanceFrame (the remaster's GrimFandango (Linux): the camera call of rdAdvanceFrame, same body (z-buffer clear: hardware or fill)); was rdCamera_ClearCanvas."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00406650",
+  "old": "rdCache_BeginScene3D",
+  "name": "rdCache_AdvanceFrame",
+  "comment": "Original name rdCache_AdvanceFrame (the remaster's GrimFandango (Linux): the cache call of rdAdvanceFrame, same body (hardware: start the scene)); was rdCache_BeginScene3D."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00478730",
+  "old": "D3D_BeginScene",
+  "name": "std3D_StartScene",
+  "comment": "Original name std3D_StartScene (the remaster's GrimFandango (Linux): the only call of rdCache_AdvanceFrame (hardware path); the remaster's is a stub); was D3D_BeginScene."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00479aa0",
+  "old": "D3D_ClearZBuffer",
+  "name": "std3D_ClearZBuffer",
+  "comment": "Original name std3D_ClearZBuffer (the remaster's GrimFandango (Linux): the hardware call of rdCamera_AdvanceFrame; the remaster's is a stub); was D3D_ClearZBuffer."
+ }
+]

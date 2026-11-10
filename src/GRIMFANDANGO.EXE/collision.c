@@ -325,7 +325,7 @@ undefined4 Collision_UpdateMovedActors(void)
   bool bVar7;
   
   iVar4 = 0;
-  if (0 < g_nDrawableActorCount) {
+  if (0 < g_nTotActors) {
     ppvVar3 = &g_pDrawableActors;
     do {
       pvVar1 = *ppvVar3;
@@ -345,7 +345,7 @@ undefined4 Collision_UpdateMovedActors(void)
       }
       iVar4 = iVar4 + 1;
       ppvVar3 = ppvVar3 + 1;
-    } while (iVar4 < g_nDrawableActorCount);
+    } while (iVar4 < g_nTotActors);
   }
   return 1;
 }
@@ -404,7 +404,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
   local_68[0] = *(float *)((int)param_1 + 0x10) + local_98[1];
   local_68[1] = *(float *)((int)param_1 + 0x14) + local_98[2];
   fVar4 = *(float *)(iVar8 + 0x5c) * *(float *)(*(int *)((int)param_1 + 0xa4) + 0x3f4);
-  if (0 < g_nDrawableActorCount) {
+  if (0 < g_nTotActors) {
     local_74[1] = PUN(float,&g_pDrawableActors);
     do {
       actor = *PUN(void **,(float)local_74[1]);
@@ -530,7 +530,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
 LAB_004940c6:
       local_5c[2] = PUN(float,(PUN(int,(float)local_5c[2]) + 1));
       local_74[1] = PUN(float,(PUN(int,(float)local_74[1]) + 4));
-    } while (PUN(int,(float)local_5c[2]) < g_nDrawableActorCount);
+    } while (PUN(int,(float)local_5c[2]) < g_nTotActors);
   }
   return 1;
 }

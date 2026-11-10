@@ -9,7 +9,7 @@ A fldcw drains the x87 pipeline on current CPUs, and these sites sit in the rast
 (rdRaster_SpanR_Flat_*), which was the single hottest code in every scene. They are replaced by SSE4.1 rounding with
 the same result (floor/ceil are exact in single precision; out-of-range gives 0x80000000 in both). The control word
 variables are the EXE's DAT_00900524 (default) / ...526 (floor, 0x077f) / ...52a (ceil, 0x0b7f), set by
-Services_SetCurrent. Only EXE sequences whose interior labels are not jump targets are rewritten. The CRT's `_ftol`
+stdStartup. Only EXE sequences whose interior labels are not jump targets are rewritten. The CRT's `_ftol`
 (fstcw / fldcw trunc / fistp qword / fldcw) becomes one `fisttp` (SSE3).
 
 Proposed fix (agent q5, docs/notes/asm_q5.md; build/peephole.py itself is unchanged): the perspective span fillers

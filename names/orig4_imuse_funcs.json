@@ -1,0 +1,9 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1000b430",
+  "old": "Im_FireTriggers",
+  "name": "TgProcessMarker",
+  "comment": "Matches a marker name against the trigger table and runs the stored commands Original name TgProcessMarker (the remaster's GrimFandango (Linux): the only unpaired user of midProcessing / trigs on both sides, same body (copies the marker text to a static, walks the 8 triggers, midProcessing count)); was Im_FireTriggers."
+ }
+]

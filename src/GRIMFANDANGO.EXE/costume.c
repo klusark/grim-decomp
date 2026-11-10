@@ -226,7 +226,7 @@ undefined4 Costume_AllocRecord(void)
 {
   undefined4 uVar1;
   
-  uVar1 = Memory_AllocFixed(g_pCostumePool);
+  uVar1 = Memory_AllocFixed(g_pCosNodePool);
   Costume_InitRecord(uVar1);
   return uVar1;
 }
@@ -490,11 +490,13 @@ void __cdecl sputCostume_Update(void *costumeList,float dt)
 #endif
 
 
-/* ---- 0x00495e90  Costume_SaveChoreListFile ---- */
+/* ---- 0x00495e90  sputCostume_SaveHook ---- */
 /* Callback given to Cos_RegisterSaveHook (costume editor): asks for a .lua/.def file name and
-   writes the costume's chore list. */
+   writes the costume's chore list. Original name sputCostume_SaveHook (the remaster's GrimFandango
+   (Linux): the only unpaired user of psputCosHS, same body and strings ("Name chore list file...",
+   "-- Chore numbering for %s.")); was Costume_SaveChoreListFile. */
 
-undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 param_3)
+undefined4 sputCostume_SaveHook(char *param_1,uint *param_2,undefined4 param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -545,8 +547,8 @@ undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 para
     sprintf(pcVar4,&DAT_004ea45c);
   }
   else {
-    iVar3 = Plat_SaveFileDialog(s_Name_chore_list_file____004ea460,
-                                s_Script_files____lua____def__004ea478);
+    iVar3 = grimPlat_SaveFileRequest
+                      (s_Name_chore_list_file____004ea460,s_Script_files____lua____def__004ea478);
     if (iVar3 == 0) {
       return 0;
     }
@@ -557,7 +559,7 @@ undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 para
     pcVar4 = stdFnames_FindMedName(param_1);
     (*(code *)*ppvVar1)(iVar3,s____Chore_numbering_for__s__004ea3d4,pcVar4);
     (*g_pSputCosHS->pFprintf)(iVar3,s_____s_004ea3cc,param_3);
-    Str_CopyBasenameNoExt(acStack_20,0x20,param_1);
+    stdFnames_CopyShortName(acStack_20,0x20,param_1);
     iVar5 = Cos_CreateCosInstance(param_2,0);
     uVar6 = Cos_InstCountChores(iVar5);
     uVar8 = 0;

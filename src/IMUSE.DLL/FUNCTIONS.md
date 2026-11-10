@@ -55,7 +55,7 @@
 | 100068b0 | Script_Trans | imuse.c | 1 |
 | 100070e0 | Script_Callback | imuse.c | 1 |
 | 10007110 | FUN_10007110 | imuse.c | 11 |
-| 100089b0 | LoadLip | imuse.c | 83 |
+| 100089b0 | LoadLip | imuse.c | 82 |
 | 10008b60 | Im_SoundsFreeSlot | imuse.c | 19 |
 | 10008bb0 | iMUSE_GetPhoneme | imuse.c | 35 |
 | 10008c40 | FUN_10008c40 | imuse.c | 46 |
@@ -110,7 +110,7 @@
 | 1000b220 | TgSetTrigger | imuse.c | 1 |
 | 1000b2e0 | TgCheckTrigger | imuse.c | 60 |
 | 1000b380 | TgClearTrigger | imuse.c | 61 |
-| 1000b430 | Im_FireTriggers | imuse.c | 123 |
+| 1000b430 | TgProcessMarker | imuse.c | 126 |
 | 1000b570 | TgDeferCommand | imuse.c | 1 |
 | 1000b5e0 | TgIntHandler | imuse.c | 30 |
 | 1000b630 | TgGetPendCount | imuse.c | 36 |

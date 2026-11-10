@@ -1,7 +1,7 @@
 [
 {
 "addr": "0040f5f0",
-"name": "rdRaster_Select_Flat",
+"name": "rdAFRaster_SetupNGonLW",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
@@ -19,277 +19,277 @@
 },
 {
 "addr": "0040f770",
-"name": "rdRaster_EdgeSetup_Flat",
+"name": "rdAFRaster_SetupEdgeNGonLW",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0040fa20",
-"name": "rdRaster_Select_Flat_2",
+"name": "rdAFRaster_SetupNGonLS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0040fbe0",
-"name": "rdRaster_EdgeSetup_Flat_2",
+"name": "rdAFRaster_SetupEdgeNGonLS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0040fe90",
-"name": "rdRaster_Select_TexLit",
+"name": "rdAFRaster_SetupNGonFS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Tex Lit). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0040ffe0",
-"name": "rdRaster_EdgeSetup_Flat_3",
+"name": "rdAFRaster_SetupEdgeNGonFS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00410290",
-"name": "rdRaster_Select_FlatLit",
+"name": "rdAFRaster_SetupNGonGS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004104e0",
-"name": "rdRaster_EdgeSetup_Flat_4",
+"name": "rdAFRaster_SetupEdgeNGonGS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004108b0",
-"name": "rdRaster_Select_FlatLit_2",
+"name": "rdAFRaster_SetupNGonLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00410d80",
-"name": "rdRaster_EdgeSetup_Flat_5",
+"name": "rdAFRaster_SetupEdgeNGonLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00411270",
-"name": "rdRaster_Select_FlatLit_3",
+"name": "rdAFRaster_SetupNGonMLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004113e0",
-"name": "rdRaster_SpanR8_TexKey",
+"name": "rdAFRaster_DrawSpanNGonMLAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004114f0",
-"name": "rdRaster_SpanR16_TexKey",
+"name": "rdAFRaster_DrawSpanNGonMLAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00411630",
-"name": "rdRaster_Select_FlatLit_4",
+"name": "rdAFRaster_SetupNGonFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00411ba0",
-"name": "rdRaster_EdgeSetup_Flat_6",
+"name": "rdAFRaster_SetupEdgeNGonFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00412090",
-"name": "rdRaster_Select_FlatLit_5",
+"name": "rdAFRaster_SetupNGonMFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00412280",
-"name": "rdRaster_SpanR8_TexKey_2",
+"name": "rdAFRaster_DrawSpanNGonMFAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004123b0",
-"name": "rdRaster_SpanR16_TexKey_2",
+"name": "rdAFRaster_DrawSpanNGonMFAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004124f0",
-"name": "rdRaster_Select_FlatLit_6",
+"name": "rdAFRaster_SetupNGonGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00412a30",
-"name": "rdRaster_EdgeSetup_Flat_7",
+"name": "rdAFRaster_SetupEdgeNGonGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00413040",
-"name": "rdRaster_Select_FlatLit_7",
+"name": "rdAFRaster_SetupNGonMGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ea50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004131f0",
-"name": "rdRaster_SpanR8_TexKey_3",
+"name": "rdAFRaster_DrawSpanNGonMGAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00413340",
-"name": "rdRaster_SpanR16_TexKey_3",
+"name": "rdAFRaster_DrawSpanNGonMGAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004134a0",
-"name": "rdRaster_Select_FlatLit_8",
+"name": "rdAFRaster_SetupNGonLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004139f0",
-"name": "rdRaster_EdgeSetup_Flat_8",
+"name": "rdAFRaster_SetupEdgeNGonLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00413ce0",
-"name": "rdRaster_Select_FlatLit_9",
+"name": "rdAFRaster_SetupNGonMLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00413ee0",
-"name": "rdRaster_SpanP8_TexKeyZw",
+"name": "rdAFRaster_DrawSpanNGonMLIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00414530",
-"name": "rdRaster_SpanP16_TexKeyZw",
+"name": "rdAFRaster_DrawSpanNGonMLIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00414be0",
-"name": "rdRaster_Select_FlatLit_10",
+"name": "rdAFRaster_SetupNGonFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004151d0",
-"name": "rdRaster_EdgeSetup_Flat_9",
+"name": "rdAFRaster_SetupEdgeNGonFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004154c0",
-"name": "rdRaster_Select_FlatLit_11",
+"name": "rdAFRaster_SetupNGonMFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00415720",
-"name": "rdRaster_SpanP8_TexKeyZw_2",
+"name": "rdAFRaster_DrawSpanNGonMFIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00415dc0",
-"name": "rdRaster_SpanP16_TexKeyZw_2",
+"name": "rdAFRaster_DrawSpanNGonMFIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00416470",
-"name": "rdRaster_Select_FlatLit_12",
+"name": "rdAFRaster_SetupNGonGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00416a50",
-"name": "rdRaster_EdgeSetup_Flat_10",
+"name": "rdAFRaster_SetupEdgeNGonGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: EdgeSetup Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00416e70",
-"name": "rdRaster_Select_FlatLit_13",
+"name": "rdAFRaster_SetupNGonMGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Select Flat Lit). Calls 0040ef90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004170a0",
-"name": "rdRaster_SpanP8_TexKeyZw_3",
+"name": "rdAFRaster_DrawSpanNGonMGIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00417790",
-"name": "rdRaster_SpanP16_TexKeyZw_3",
+"name": "rdAFRaster_DrawSpanNGonMGIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanP Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00418550",
-"name": "rdRaster_Grad_Flat",
+"name": "rdNRaster_CalcAffineGradients",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00418a00",
-"name": "rdRaster_Grad_Flat_2",
+"name": "rdNRaster_CalcPerspGradients",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00419450",
-"name": "rdRaster_Draw16_FlatLit",
+"name": "rdNRaster_DrawNGonLS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 004195f0, 00419680, 00419840, 00419e60. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004195f0",
-"name": "rdRaster_Span16_Flat",
+"name": "rdNRaster_DrawScanLineNGonLS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00419680",
-"name": "rdRaster_Edge_Flat",
+"name": "rdNRaster_SetupLeftEdgeNGonLS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00419840",
-"name": "rdRaster_Edge_Flat_2",
+"name": "rdNRaster_SetupRightEdgeNGonLS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00419a00",
-"name": "rdRaster_Draw16_TexLit",
+"name": "rdNRaster_DrawNGonTLS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00419680, 00419840, 00419be0, 0041a4f0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00419be0",
-"name": "rdRaster_Span16_Tex",
+"name": "rdNRaster_DrawScanLineNGonTLS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00419ca0",
-"name": "rdRaster_Draw16_FlatLit_2",
+"name": "rdNRaster_DrawNGonFS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00419e60, 00419ee0, 00419f70, 0041a130. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
@@ -301,25 +301,25 @@
 },
 {
 "addr": "00419ee0",
-"name": "rdRaster_Span16_Flat_2",
+"name": "rdNRaster_DrawScanLineNGonFS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00419f70",
-"name": "rdRaster_Edge_Flat_3",
+"name": "rdNRaster_SetupLeftEdgeNGonFS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041a130",
-"name": "rdRaster_Edge_Flat_4",
+"name": "rdNRaster_SetupRightEdgeNGonFS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041a2f0",
-"name": "rdRaster_Draw16_TexLit_2",
+"name": "rdNRaster_DrawNGonTFS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00419f70, 0041a130, 0041a4f0, 0041a580. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
@@ -331,1189 +331,1189 @@
 },
 {
 "addr": "0041a580",
-"name": "rdRaster_Span16_Tex_2",
+"name": "rdNRaster_DrawScanLineNGonTFS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041a640",
-"name": "rdRaster_Draw_FlatLit",
+"name": "rdNRaster_DrawNGonGS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0041a810, 0041a900, 0041aa10, 0041ac60. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041a810",
-"name": "rdRaster_Span8_Flat",
+"name": "rdNRaster_DrawScanLineNGonGS_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041a900",
-"name": "rdRaster_Span16_Flat_3",
+"name": "rdNRaster_DrawScanLineNGonGS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041aa10",
-"name": "rdRaster_Edge_Flat_5",
+"name": "rdNRaster_SetupLeftEdgeNGonGS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041ac60",
-"name": "rdRaster_Edge_Flat_6",
+"name": "rdNRaster_SetupRightEdgeNGonGS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041aeb0",
-"name": "rdRaster_Draw16_TexLit_3",
+"name": "rdNRaster_DrawNGonTGS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 0041aa10, 0041ac60, 0041b0d0, 0041b1e0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041b0d0",
-"name": "rdRaster_Span_Tex_2",
+"name": "rdNRaster_DrawScanLineNGonTGS_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041b1e0",
-"name": "rdRaster_Span16_Tex_3",
+"name": "rdNRaster_DrawScanLineNGonTGS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041b310",
-"name": "rdRaster_Draw16_TexLit_4",
+"name": "rdNRaster_DrawNGonLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418550, 0041b6f0, 0041b880, 0041ba30, 0041bd20. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041b6f0",
-"name": "rdRaster_Span_Flat_2",
+"name": "rdNRaster_DrawScanLineNGonLAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041b880",
-"name": "rdRaster_Span16_Tex_4",
+"name": "rdNRaster_DrawScanLineNGonLAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041ba30",
-"name": "rdRaster_Edge_Flat_7",
+"name": "rdNRaster_SetupLeftEdgeNGonLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041bd20",
-"name": "rdRaster_Edge_Flat_8",
+"name": "rdNRaster_SetupRightEdgeNGonLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041c010",
-"name": "rdRaster_Draw16_TexLit_5",
+"name": "rdNRaster_DrawNGonTLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418550, 0041ba30, 0041bd20, 0041c260, 0041c410. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041c260",
-"name": "rdRaster_Span_Tex_3",
+"name": "rdNRaster_DrawScanLineNGonTLAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041c410",
-"name": "rdRaster_Span16_Tex_5",
+"name": "rdNRaster_DrawScanLineNGonTLAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041c5e0",
-"name": "rdRaster_Draw16_TexLitKey",
+"name": "rdNRaster_DrawNGonMLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041ba30, 0041bd20, 0041c810, 0041c9b0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041c810",
-"name": "rdRaster_Span_FlatKey",
+"name": "rdNRaster_DrawScanLineNGonMLAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041c9b0",
-"name": "rdRaster_Span16_TexKey",
+"name": "rdNRaster_DrawScanLineNGonMLAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041cb80",
-"name": "rdRaster_Draw16_TexLitKey_2",
+"name": "rdNRaster_DrawNGonMTLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041ba30, 0041bd20, 0041cdd0, 0041cf90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041cdd0",
-"name": "rdRaster_Span_TexKey",
+"name": "rdNRaster_DrawScanLineNGonMTLAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041cf90",
-"name": "rdRaster_Span16_TexKey_2",
+"name": "rdNRaster_DrawScanLineNGonMTLAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041d180",
-"name": "rdRaster_Draw_FlatLit_2",
+"name": "rdNRaster_DrawNGonFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00418550, 0041d710, 0041da00. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041d560",
-"name": "rdRaster_Span16_Tex_6",
+"name": "rdNRaster_DrawScanLineNGonFAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041d710",
-"name": "rdRaster_Edge_Flat_9",
+"name": "rdNRaster_SetupLeftEdgeNGonFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041da00",
-"name": "rdRaster_Edge_Flat_10",
+"name": "rdNRaster_SetupRightEdgeNGonFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041dcf0",
-"name": "rdRaster_Draw16_TexLit_6",
+"name": "rdNRaster_DrawNGonTFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418550, 0041d710, 0041da00, 0041df60, 0041e120. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041df60",
-"name": "rdRaster_Span_Tex_4",
+"name": "rdNRaster_DrawScanLineNGonTFAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041e120",
-"name": "rdRaster_Span16_Tex_7",
+"name": "rdNRaster_DrawScanLineNGonTFAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041e300",
-"name": "rdRaster_Draw_TexLitKey",
+"name": "rdNRaster_DrawNGonMFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041d710, 0041da00, 0041e550, 0041e700. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041e550",
-"name": "rdRaster_Span8_TexKey",
+"name": "rdNRaster_DrawScanLineNGonMFAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041e700",
-"name": "rdRaster_Span16_TexKey_3",
+"name": "rdNRaster_DrawScanLineNGonMFAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041e8d0",
-"name": "rdRaster_Draw_TexLitKey_2",
+"name": "rdNRaster_DrawNGonMTFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041d710, 0041da00, 0041eb40, 0041ed10. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041eb40",
-"name": "rdRaster_Span_TexKey_2",
+"name": "rdNRaster_DrawScanLineNGonMTFAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041ed10",
-"name": "rdRaster_Span_TexKey_3",
+"name": "rdNRaster_DrawScanLineNGonMTFAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041eef0",
-"name": "rdRaster_Draw_FlatLit_3",
+"name": "rdNRaster_DrawNGonGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00418550, 0041f520, 0041f890. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041f2f0",
-"name": "rdRaster_Span16_Tex_8",
+"name": "rdNRaster_DrawScanLineNGonGAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041f520",
-"name": "rdRaster_Edge_Flat_11",
+"name": "rdNRaster_SetupLeftEdgeNGonGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041f890",
-"name": "rdRaster_Edge_Flat_12",
+"name": "rdNRaster_SetupRightEdgeNGonGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041fc00",
-"name": "rdRaster_Draw16_TexLit_7",
+"name": "rdNRaster_DrawNGonTGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418550, 0041f520, 0041f890, 0041fe90, 004200c0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0041fe90",
-"name": "rdRaster_Span_Tex_5",
+"name": "rdNRaster_DrawScanLineNGonTGAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004200c0",
-"name": "rdRaster_Span16_Tex_9",
+"name": "rdNRaster_DrawScanLineNGonTGAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00420310",
-"name": "rdRaster_Draw_TexLitKey_3",
+"name": "rdNRaster_DrawNGonMGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041f520, 0041f890, 00420580, 004207b0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00420580",
-"name": "rdRaster_Span8_TexKey_2",
+"name": "rdNRaster_DrawScanLineNGonMGAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004207b0",
-"name": "rdRaster_Span16_TexKey_4",
+"name": "rdNRaster_DrawScanLineNGonMGAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004209f0",
-"name": "rdRaster_Draw16_TexLitKey_3",
+"name": "rdNRaster_DrawNGonMTGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418550, 0041f520, 0041f890, 00420c80, 00420ec0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00420c80",
-"name": "rdRaster_Span_TexKey_4",
+"name": "rdNRaster_DrawScanLineNGonMTGAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00420ec0",
-"name": "rdRaster_Span16_TexKey_5",
+"name": "rdNRaster_DrawScanLineNGonMTGAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00421120",
-"name": "rdRaster_Draw_FlatLit_4",
+"name": "rdNRaster_DrawNGonLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00418a00, 00421b60, 00421dc0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00421510",
-"name": "rdRaster_Span16_Tex_10",
+"name": "rdNRaster_DrawScanLineNGonLIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00421b60",
-"name": "rdRaster_Edge_Flat_13",
+"name": "rdNRaster_SetupLeftEdgeNGonLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00421dc0",
-"name": "rdRaster_Edge_Flat_14",
+"name": "rdNRaster_SetupRightEdgeNGonLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00421f80",
-"name": "rdRaster_Draw16_TexLit_8",
+"name": "rdNRaster_DrawNGonTLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418a00, 00421b60, 00421dc0, 004221f0, 00422820. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004221f0",
-"name": "rdRaster_Span_Tex_6",
+"name": "rdNRaster_DrawScanLineNGonTLIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00422820",
-"name": "rdRaster_Span16_Tex_11",
+"name": "rdNRaster_DrawScanLineNGonTLIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00422f00",
-"name": "rdRaster_Draw16_TexLitKey_4",
+"name": "rdNRaster_DrawNGonMLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 00421b60, 00421dc0, 00423150, 00423740. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00423150",
-"name": "rdRaster_Span_FlatKey_2",
+"name": "rdNRaster_DrawScanLineNGonMLIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00423740",
-"name": "rdRaster_Span16_TexKey_6",
+"name": "rdNRaster_DrawScanLineNGonMLIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00423db0",
-"name": "rdRaster_Draw16_TexLitKey_5",
+"name": "rdNRaster_DrawNGonMTLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 00421b60, 00421dc0, 00424020, 00424670. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00424020",
-"name": "rdRaster_Span_TexKey_5",
+"name": "rdNRaster_DrawScanLineNGonMTLIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00424670",
-"name": "rdRaster_Span16_TexKey_7",
+"name": "rdNRaster_DrawScanLineNGonMTLIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00424d50",
-"name": "rdRaster_Draw_FlatLit_5",
+"name": "rdNRaster_DrawNGonFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00418a00, 004257a0, 00425a00. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00425150",
-"name": "rdRaster_Span16_Tex_12",
+"name": "rdNRaster_DrawScanLineNGonFIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004257a0",
-"name": "rdRaster_Edge_Flat_15",
+"name": "rdNRaster_SetupLeftEdgeNGonFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00425a00",
-"name": "rdRaster_Edge_Flat_16",
+"name": "rdNRaster_SetupRightEdgeNGonFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00425bc0",
-"name": "rdRaster_Draw16_TexLit_9",
+"name": "rdNRaster_DrawNGonTFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418a00, 004257a0, 00425a00, 00425e50, 004264a0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00425e50",
-"name": "rdRaster_Span_Tex_7",
+"name": "rdNRaster_DrawScanLineNGonTFIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004264a0",
-"name": "rdRaster_Span16_Tex_13",
+"name": "rdNRaster_DrawScanLineNGonTFIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00426bc0",
-"name": "rdRaster_Draw_TexLitKey_4",
+"name": "rdNRaster_DrawNGonMFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 004257a0, 00425a00, 00426e30, 00427470. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00426e30",
-"name": "rdRaster_Span8_TexKey_3",
+"name": "rdNRaster_DrawScanLineNGonMFIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00427470",
-"name": "rdRaster_Span16_TexKey_8",
+"name": "rdNRaster_DrawScanLineNGonMFIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00427ae0",
-"name": "rdRaster_Draw16_TexLitKey_6",
+"name": "rdNRaster_DrawNGonMTFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 004257a0, 00425a00, 00427d70, 004283f0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00427d70",
-"name": "rdRaster_Span_TexKey_6",
+"name": "rdNRaster_DrawScanLineNGonMTFIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004283f0",
-"name": "rdRaster_Span16_TexKey_9",
+"name": "rdNRaster_DrawScanLineNGonMTFIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00428ae0",
-"name": "rdRaster_Draw_FlatLit_6",
+"name": "rdNRaster_DrawNGonGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 00418a00, 00429870, 00429b70. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00428f00",
-"name": "rdRaster_Span16_Tex_14",
+"name": "rdNRaster_DrawScanLineNGonGIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00429870",
-"name": "rdRaster_Edge_Flat_17",
+"name": "rdNRaster_SetupLeftEdgeNGonGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00429b70",
-"name": "rdRaster_Edge_Flat_18",
+"name": "rdNRaster_SetupRightEdgeNGonGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Edge Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00429dc0",
-"name": "rdRaster_Draw16_TexLit_10",
+"name": "rdNRaster_DrawNGonTGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit). Calls 00418a00, 00429870, 00429b70, 0042a070, 0042a790. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042a070",
-"name": "rdRaster_Span_Tex_8",
+"name": "rdNRaster_DrawScanLineNGonTGIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042a790",
-"name": "rdRaster_Span16_Tex_15",
+"name": "rdNRaster_DrawScanLineNGonTGIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042af60",
-"name": "rdRaster_Draw_TexLitKey_5",
+"name": "rdNRaster_DrawNGonMGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 00429870, 00429b70, 0042b1f0, 0042b8e0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042b1f0",
-"name": "rdRaster_Span8_TexKey_4",
+"name": "rdNRaster_DrawScanLineNGonMGIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042b8e0",
-"name": "rdRaster_Span16_TexKey_10",
+"name": "rdNRaster_DrawScanLineNGonMGIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042c010",
-"name": "rdRaster_Draw16_TexLitKey_7",
+"name": "rdNRaster_DrawNGonMTGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key). Calls 00418a00, 00429870, 00429b70, 0042c2c0, 0042c9f0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042c2c0",
-"name": "rdRaster_Span_TexKey_7",
+"name": "rdNRaster_DrawScanLineNGonMTGIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042c9f0",
-"name": "rdRaster_Span16_TexKey_11",
+"name": "rdNRaster_DrawScanLineNGonMTGIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042d190",
-"name": "rdRaster_Grad_Flat_3",
+"name": "rdZRaster_CalcAffineGradients",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042d5f0",
-"name": "rdRaster_Grad_Flat_4",
+"name": "rdZRaster_CalcPerspGradients",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Grad Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042e010",
-"name": "rdRaster_Draw_FlatLitZ",
+"name": "rdZRaster_DrawNGonLS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit Z). Calls 0042e200, 0042e320, 0042e440, 0042e630. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042e200",
-"name": "rdRaster_Span8_FlatZ",
+"name": "rdZRaster_DrawScanLineNGonLS_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042e320",
-"name": "rdRaster_Span16_FlatZ",
+"name": "rdZRaster_DrawScanLineNGonLS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042e440",
-"name": "rdRaster_SpanR_Flat",
+"name": "rdZRaster_SetupLeftEdgeNGonLS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042e630",
-"name": "rdRaster_SpanR_Flat_2",
+"name": "rdZRaster_SetupRightEdgeNGonLS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042e820",
-"name": "rdRaster_Draw_TexLitZ",
+"name": "rdZRaster_DrawNGonTLS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042e440, 0042e630, 0042ea50, 0042eb90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042ea50",
-"name": "rdRaster_Span8_TexLitZ",
+"name": "rdZRaster_DrawScanLineNGonTLS_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042eb90",
-"name": "rdRaster_Span16_TexLitZ",
+"name": "rdZRaster_DrawScanLineNGonTLS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042ecf0",
-"name": "rdRaster_Draw_FlatLitZ_2",
+"name": "rdZRaster_DrawNGonFS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit Z). Calls 0042ef00, 0042f020, 0042f140, 0042f330. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042ef00",
-"name": "rdRaster_Span8_FlatZ_2",
+"name": "rdZRaster_DrawScanLineNGonFS_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042f020",
-"name": "rdRaster_Span16_FlatZ_2",
+"name": "rdZRaster_DrawScanLineNGonFS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042f140",
-"name": "rdRaster_SpanR_Flat_3",
+"name": "rdZRaster_SetupLeftEdgeNGonFS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042f330",
-"name": "rdRaster_SpanR_Flat_4",
+"name": "rdZRaster_SetupRightEdgeNGonFS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042f520",
-"name": "rdRaster_Draw_TexLitZ_2",
+"name": "rdZRaster_DrawNGonTFS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042f140, 0042f330, 0042f770, 0042f8b0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042f770",
-"name": "rdRaster_Span8_TexLitZ_2",
+"name": "rdZRaster_DrawScanLineNGonTFS_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042f8b0",
-"name": "rdRaster_Span16_TexLitZ_2",
+"name": "rdZRaster_DrawScanLineNGonTFS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042fa10",
-"name": "rdRaster_Draw_FlatLitZ_3",
+"name": "rdZRaster_DrawNGonGS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit Z). Calls 0042fc30, 0042fdc0, 0042ff50, 004301d0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042fc30",
-"name": "rdRaster_Span8_FlatZ_3",
+"name": "rdZRaster_DrawScanLineNGonGS_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042fdc0",
-"name": "rdRaster_Span16_FlatZ_3",
+"name": "rdZRaster_DrawScanLineNGonGS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0042ff50",
-"name": "rdRaster_SpanR_Flat_5",
+"name": "rdZRaster_SetupLeftEdgeNGonGS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004301d0",
-"name": "rdRaster_SpanR_Flat_6",
+"name": "rdZRaster_SetupRightEdgeNGonGS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00430450",
-"name": "rdRaster_Draw_TexLitZ_3",
+"name": "rdZRaster_DrawNGonTGS",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042ff50, 004301d0, 004306c0, 00430860. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004306c0",
-"name": "rdRaster_Span8_TexZ",
+"name": "rdZRaster_DrawScanLineNGonTGS_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00430860",
-"name": "rdRaster_Span16_TexZ",
+"name": "rdZRaster_DrawScanLineNGonTGS_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00430a20",
-"name": "rdRaster_Draw_FlatLit_7",
+"name": "rdZRaster_DrawNGonLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d190, 00431400, 00431710. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00430fd0",
-"name": "rdRaster_Span_FlatZ",
+"name": "rdZRaster_DrawScanLineNGonLAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004311d0",
-"name": "rdRaster_Span16_TexLit",
+"name": "rdZRaster_DrawScanLineNGonLAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00431400",
-"name": "rdRaster_SpanR_Flat_7",
+"name": "rdZRaster_SetupLeftEdgeNGonLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00431710",
-"name": "rdRaster_SpanR_Flat_8",
+"name": "rdZRaster_SetupRightEdgeNGonLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00431a20",
-"name": "rdRaster_Draw_TexLitZ_4",
+"name": "rdZRaster_DrawNGonTLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d190, 00431400, 00431710, 00431c90, 00431eb0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00431c90",
-"name": "rdRaster_Span8_TexLitZ_3",
+"name": "rdZRaster_DrawScanLineNGonTLAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00431eb0",
-"name": "rdRaster_Span16_TexLit_2",
+"name": "rdZRaster_DrawScanLineNGonTLAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00432100",
-"name": "rdRaster_Draw_TexLitKeyZw",
+"name": "rdZRaster_DrawNGonMLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 00431400, 00431710, 00432350, 00432560. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00432350",
-"name": "rdRaster_Span8_FlatKeyZw",
+"name": "rdZRaster_DrawScanLineNGonMLAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00432560",
-"name": "rdRaster_Span16_TexLitKey",
+"name": "rdZRaster_DrawScanLineNGonMLAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004327a0",
-"name": "rdRaster_Draw_TexLitKeyZw_2",
+"name": "rdZRaster_DrawNGonMTLAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 00431400, 00431710, 00432a10, 00432c40. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00432a10",
-"name": "rdRaster_Span8_TexLitKeyZw",
+"name": "rdZRaster_DrawScanLineNGonMTLAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00432c40",
-"name": "rdRaster_Span16_TexLitKey_2",
+"name": "rdZRaster_DrawScanLineNGonMTLAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00432ea0",
-"name": "rdRaster_Draw_FlatLit_8",
+"name": "rdZRaster_DrawNGonFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d190, 004338d0, 00433be0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00433480",
-"name": "rdRaster_Span_TexLitZ",
+"name": "rdZRaster_DrawScanLineNGonFAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004336a0",
-"name": "rdRaster_Span16_TexLit_3",
+"name": "rdZRaster_DrawScanLineNGonFAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004338d0",
-"name": "rdRaster_SpanR_Flat_9",
+"name": "rdZRaster_SetupLeftEdgeNGonFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00433be0",
-"name": "rdRaster_SpanR_Flat_10",
+"name": "rdZRaster_SetupRightEdgeNGonFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00433ef0",
-"name": "rdRaster_Draw_TexLitZ_5",
+"name": "rdZRaster_DrawNGonTFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d190, 004338d0, 00433be0, 00434180, 004343b0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00434180",
-"name": "rdRaster_Span8_TexLitZ_4",
+"name": "rdZRaster_DrawScanLineNGonTFAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004343b0",
-"name": "rdRaster_Span16_TexLitZ_3",
+"name": "rdZRaster_DrawScanLineNGonTFAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00434610",
-"name": "rdRaster_Draw_TexLitKeyZw_3",
+"name": "rdZRaster_DrawNGonMFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 004338d0, 00433be0, 00434880, 00434aa0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00434880",
-"name": "rdRaster_Span8_TexLitKeyZw_2",
+"name": "rdZRaster_DrawScanLineNGonMFAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00434aa0",
-"name": "rdRaster_Span16_TexLitKey_3",
+"name": "rdZRaster_DrawScanLineNGonMFAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00434ce0",
-"name": "rdRaster_Draw_TexLitKeyZw_4",
+"name": "rdZRaster_DrawNGonMTFAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 004338d0, 00433be0, 00434f70, 004351a0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00434f70",
-"name": "rdRaster_Span8_TexLitKeyZw_3",
+"name": "rdZRaster_DrawScanLineNGonMTFAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004351a0",
-"name": "rdRaster_Span16_TexLitKey_4",
+"name": "rdZRaster_DrawScanLineNGonMTFAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00435400",
-"name": "rdRaster_Draw_FlatLit_9",
+"name": "rdZRaster_DrawNGonGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d190, 00435f60, 00436300. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00435a00",
-"name": "rdRaster_Span_TexLitZ_2",
+"name": "rdZRaster_DrawScanLineNGonGAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00435c70",
-"name": "rdRaster_Span16_TexLitZ_4",
+"name": "rdZRaster_DrawScanLineNGonGAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00435f60",
-"name": "rdRaster_SpanR_Flat_11",
+"name": "rdZRaster_SetupLeftEdgeNGonGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00436300",
-"name": "rdRaster_SpanR_Flat_12",
+"name": "rdZRaster_SetupRightEdgeNGonGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004366a0",
-"name": "rdRaster_Draw_TexLitZ_6",
+"name": "rdZRaster_DrawNGonTGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d190, 00435f60, 00436300, 00436950, 00436be0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00436950",
-"name": "rdRaster_Span8_TexLitZ_5",
+"name": "rdZRaster_DrawScanLineNGonTGAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00436be0",
-"name": "rdRaster_Span16_TexLitZ_5",
+"name": "rdZRaster_DrawScanLineNGonTGAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00436e80",
-"name": "rdRaster_Draw_TexLitKeyZw_5",
+"name": "rdZRaster_DrawNGonMGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 00435f60, 00436300, 00437110, 00437390. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00437110",
-"name": "rdRaster_Span8_TexLitKeyZw_4",
+"name": "rdZRaster_DrawScanLineNGonMGAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00437390",
-"name": "rdRaster_Span16_TexLitKeyZw",
+"name": "rdZRaster_DrawScanLineNGonMGAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00437620",
-"name": "rdRaster_Draw_TexLitKeyZw_6",
+"name": "rdZRaster_DrawNGonMTGAT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d190, 00435f60, 00436300, 004378d0, 00437b60. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004378d0",
-"name": "rdRaster_Span8_TexLitKeyZw_5",
+"name": "rdZRaster_DrawScanLineNGonMTGAT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00437b60",
-"name": "rdRaster_Span16_TexLitKeyZw_2",
+"name": "rdZRaster_DrawScanLineNGonMTGAT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00437e10",
-"name": "rdRaster_Draw_FlatLit_10",
+"name": "rdZRaster_DrawNGonLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d5f0, 004391a0, 00439400. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004383d0",
-"name": "rdRaster_Span_FlatZ_2",
+"name": "rdZRaster_DrawScanLineNGonLIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00438a90",
-"name": "rdRaster_Span16_TexZ_2",
+"name": "rdZRaster_DrawScanLineNGonLIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004391a0",
-"name": "rdRaster_SpanR_Flat_13",
+"name": "rdZRaster_SetupLeftEdgeNGonLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00439400",
-"name": "rdRaster_SpanR_Flat_14",
+"name": "rdZRaster_SetupRightEdgeNGonLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004395c0",
-"name": "rdRaster_Draw_TexLitZ_7",
+"name": "rdZRaster_DrawNGonTLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d5f0, 004391a0, 00439400, 00439840, 00439f50. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00439840",
-"name": "rdRaster_Span8_TexZ_2",
+"name": "rdZRaster_DrawScanLineNGonTLIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00439f50",
-"name": "rdRaster_Span16_TexZ_3",
+"name": "rdZRaster_DrawScanLineNGonTLIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043a6e0",
-"name": "rdRaster_Draw_TexLitKeyZw_7",
+"name": "rdZRaster_DrawNGonMLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 004391a0, 00439400, 0043a940, 0043b020. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043a940",
-"name": "rdRaster_Span8_FlatKeyZw_2",
+"name": "rdZRaster_DrawScanLineNGonMLIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Flat Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043b020",
-"name": "rdRaster_Span16_TexKeyZw",
+"name": "rdZRaster_DrawScanLineNGonMLIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043b760",
-"name": "rdRaster_Draw_TexLitKeyZw_8",
+"name": "rdZRaster_DrawNGonMTLIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 004391a0, 00439400, 0043b9e0, 0043c130. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043b9e0",
-"name": "rdRaster_Span8_TexKeyZw",
+"name": "rdZRaster_DrawScanLineNGonMTLIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043c130",
-"name": "rdRaster_Span16_TexKeyZw_2",
+"name": "rdZRaster_DrawScanLineNGonMTLIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043c8d0",
-"name": "rdRaster_Draw_FlatLit_11",
+"name": "rdZRaster_DrawNGonFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d5f0, 0043dcc0, 0043df20. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043ceb0",
-"name": "rdRaster_Span_TexZ",
+"name": "rdZRaster_DrawScanLineNGonFIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043d5b0",
-"name": "rdRaster_Span16_TexZ_4",
+"name": "rdZRaster_DrawScanLineNGonFIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043dcc0",
-"name": "rdRaster_SpanR_Flat_15",
+"name": "rdZRaster_SetupLeftEdgeNGonFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043df20",
-"name": "rdRaster_SpanR_Flat_16",
+"name": "rdZRaster_SetupRightEdgeNGonFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043e0e0",
-"name": "rdRaster_Draw_TexLitZ_8",
+"name": "rdZRaster_DrawNGonTFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d5f0, 0043dcc0, 0043df20, 0043e380, 0043eab0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043e380",
-"name": "rdRaster_Span8_TexZ_3",
+"name": "rdZRaster_DrawScanLineNGonTFIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043eab0",
-"name": "rdRaster_Span16_TexZ_5",
+"name": "rdZRaster_DrawScanLineNGonTFIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043f280",
-"name": "rdRaster_Draw_TexLitKeyZw_9",
+"name": "rdZRaster_DrawNGonMFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 0043dcc0, 0043df20, 0043f500, 0043fc30. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043f500",
-"name": "rdRaster_Span8_TexKeyZw_2",
+"name": "rdZRaster_DrawScanLineNGonMFIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "0043fc30",
-"name": "rdRaster_Span16_TexKeyZw_3",
+"name": "rdZRaster_DrawScanLineNGonMFIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00440370",
-"name": "rdRaster_Draw_TexLitKeyZw_10",
+"name": "rdZRaster_DrawNGonMTFIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 0043dcc0, 0043df20, 00440610, 00440d80. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00440610",
-"name": "rdRaster_Span8_TexKeyZw_3",
+"name": "rdZRaster_DrawScanLineNGonMTFIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00440d80",
-"name": "rdRaster_Span16_TexKeyZw_4",
+"name": "rdZRaster_DrawScanLineNGonMTFIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00441520",
-"name": "rdRaster_Draw_FlatLit_12",
+"name": "rdZRaster_DrawNGonGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Flat Lit). Calls 0042d5f0, 00442ab0, 00442db0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00441b20",
-"name": "rdRaster_Span_TexZ_2",
+"name": "rdZRaster_DrawScanLineNGonGIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004422d0",
-"name": "rdRaster_Span16_TexZ_6",
+"name": "rdZRaster_DrawScanLineNGonGIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00442ab0",
-"name": "rdRaster_SpanR_Flat_17",
+"name": "rdZRaster_SetupLeftEdgeNGonGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00442db0",
-"name": "rdRaster_SpanR_Flat_18",
+"name": "rdZRaster_SetupRightEdgeNGonGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: SpanR Flat). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00443000",
-"name": "rdRaster_Draw_TexLitZ_9",
+"name": "rdZRaster_DrawNGonTGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Z). Calls 0042d5f0, 00442ab0, 00442db0, 004432c0, 00443ab0. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004432c0",
-"name": "rdRaster_Span8_TexZ_4",
+"name": "rdZRaster_DrawScanLineNGonTGIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00443ab0",
-"name": "rdRaster_Span16_TexZ_7",
+"name": "rdZRaster_DrawScanLineNGonTGIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Z). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00444320",
-"name": "rdRaster_Draw_TexLitKeyZw_11",
+"name": "rdZRaster_DrawNGonMGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 00442ab0, 00442db0, 004445c0, 00444d90. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "004445c0",
-"name": "rdRaster_Span8_TexKeyZw_4",
+"name": "rdZRaster_DrawScanLineNGonMGIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00444d90",
-"name": "rdRaster_Span16_TexKeyZw_5",
+"name": "rdZRaster_DrawScanLineNGonMGIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00445570",
-"name": "rdRaster_Draw_TexLitKeyZw_12",
+"name": "rdZRaster_DrawNGonMTGIT",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Draw Tex Lit Key Zw). Calls 0042d5f0, 00442ab0, 00442db0, 00445830, 00446030. Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00445830",
-"name": "rdRaster_Span8_TexKeyZw_5",
+"name": "rdZRaster_DrawScanLineNGonMTGIT_8",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },
 {
 "addr": "00446030",
-"name": "rdRaster_Span16_TexKeyZw_6",
+"name": "rdZRaster_DrawScanLineNGonMTGIT_16",
 "comment": "Software rasterizer variant (auto-classified from the decompilation: Span Tex Key Zw). Grimjedi RDroid Rdraster; verify the exact pixel format before relying on the suffix.",
 "tags": "rdroid,raster,auto"
 },

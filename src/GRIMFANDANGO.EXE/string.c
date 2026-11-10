@@ -141,8 +141,11 @@ void Str_StripExtension(char *param_1)
   return;
 }
 
-/* ---- 0x0047fdc0  Str_CopyBasenameNoExt ---- */
-void __cdecl Str_CopyBasenameNoExt(char *dst,int size,char *path)
+/* ---- 0x0047fdc0  stdFnames_CopyShortName ---- */
+/* Original name stdFnames_CopyShortName (the remaster's GrimFandango (Linux): the short-name call
+   of sputCostume_SaveHook (dst, 0x20, path), same body); was Str_CopyBasenameNoExt. */
+
+void __cdecl stdFnames_CopyShortName(char *dst,int size,char *path)
 
 {
   char *pcVar1;

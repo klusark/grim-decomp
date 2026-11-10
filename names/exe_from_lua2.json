@@ -13,7 +13,7 @@
  {"addr": "004be180", "comment": "Debug light manager dialog (Lua LightMgrStartup). Creates the dialog, a keyboard hook and a helper actor wearing x_spot.cos", "tags": "debug"},
  {"addr": "00482ae0", "name": "gimlib_SetImuseState", "proto": "void gimlib_SetImuseState(int state)", "comment": "Lua ImSetState", "tags": "engine,sound"},
  {"addr": "004933c0", "name": "sputActor_SetWalkDominate", "proto": "void sputActor_SetWalkDominate(void * actor, int dominate)", "tags": "actor"},
- {"addr": "004931c0", "name": "Speech_SetMode", "proto": "void Speech_SetMode(int mode)", "comment": "Lua SetSpeechMode: 1 text only, 2 voice only, 3 both", "tags": "actor,text"},
+ {"addr": "004931c0", "name": "sputActor_SetSpeechMode", "proto": "void sputActor_SetSpeechMode(int mode)", "comment": "Lua SetSpeechMode: 1 text only, 2 voice only, 3 both", "tags": "actor,text"},
  {"addr": "004931e0", "name": "sputActor_GetSpeechMode", "comment": "Returns bits: 1 text, 2 voice", "tags": "actor,text"},
  {"addr": "00494890", "name": "sputCostume_SetShadowColor", "proto": "void sputCostume_SetShadowColor(int r, int g, int b)", "comment": "Lua SetShadowColor", "tags": "actor,render"},
  {"addr": "00493540", "name": "sputActor_ActivateActorShadow", "proto": "void sputActor_ActivateActorShadow(void * actor, int shadowIdx, int active)", "tags": "actor"},

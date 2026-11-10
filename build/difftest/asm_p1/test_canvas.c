@@ -1,6 +1,6 @@
 /* Differential test: rdActive_BuildSpans (0x00404e00).  Random scanlines: a sorted list of edge crossings over a
  * few polygons (random crossing counts, sort keys with equal and different halves, z values on a coarse grid so that
- * ties occur, all material modes), a random fill level of the span table (rdCanvas_FlushSpans is a recorder that
+ * ties occur, all material modes), a random fill level of the span table (rdActive_FlushSpans is a recorder that
  * empties it), and random control words in DAT_00900524 / 00900526. */
 #include "harness.h"
 #define CROSS  0x30000000u   /* crossing records, 0x60 apart */

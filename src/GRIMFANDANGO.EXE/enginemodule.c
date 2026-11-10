@@ -5,20 +5,22 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00482540  EngineModule_Init ---- */
+/* ---- 0x00482540  grimlib_GameInitialize ---- */
 /* Fills the engine module interface and registers the two Lua/engine callback tables (8 + 6
-   entries) */
+   entries) Original name grimlib_GameInitialize (the remaster's GrimFandango (Linux): the
+   module-interface filler Main_Startup calls with hs and ms, same slots (itself, terminate,
+   grimlib_GameStartup, shutdown) and base-module loop); was EngineModule_Init. */
 
-undefined * __cdecl EngineModule_Init(GrimServices *param_1,undefined **param_2)
+undefined * __cdecl grimlib_GameInitialize(GrimServices *param_1,undefined **param_2)
 
 {
   undefined *puVar1;
   
-  g_pSvcEngineModule = param_1;
-  *param_2 = EngineModule_Init;
-  param_2[1] = EngineModule_Terminate;
+  g_pSputmHS = param_1;
+  *param_2 = grimlib_GameInitialize;
+  param_2[1] = grimlib_GameTerminate;
   param_2[2] = grimlib_GameStartup;
-  param_2[3] = EngineModule_Stop;
+  param_2[3] = grimlib_GameShutdown;
   param_2[4] = (undefined *)0x0;
   param_2[5] = (undefined *)0x0;
   param_2[6] = (undefined *)0x0;
@@ -31,26 +33,29 @@ undefined * __cdecl EngineModule_Init(GrimServices *param_1,undefined **param_2)
              Engine_RegisterSubsystems
                        (param_1,&PTR_sputControl_Initialize_004e7e00,&g_aBaseModuleServices,6);
   }
-  UINT_008a8c58 = (uint)(puVar1 == (undefined *)0x0);
+  g_dwSputmInitialize = (uint)(puVar1 == (undefined *)0x0);
   return puVar1;
 }
 
-/* ---- 0x00482b60  EngineModule_Terminate ---- */
+/* ---- 0x00482b60  grimlib_GameTerminate ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Module interface slot 1 (EngineModule): called by Engine_ResetSubsystems / when registration
-   fails; drops the service table pointer and clears the initialised flag. */
+   fails; drops the service table pointer and clears the initialised flag. Original name
+   grimlib_GameTerminate (the remaster's GrimFandango (Linux): the terminate slot
+   grimlib_GameInitialize fills, same body (clears psputmHS, undoes the modules when
+   bsputmInitialize)); was EngineModule_Terminate. */
 
-undefined * EngineModule_Terminate(void)
+undefined * grimlib_GameTerminate(void)
 
 {
   undefined *puVar1;
   
-  g_pSvcEngineModule = (GrimServices *)0x0;
+  g_pSputmHS = (GrimServices *)0x0;
   puVar1 = (undefined *)0x0;
-  if (UINT_008a8c58 != 0) {
+  if (g_dwSputmInitialize != 0) {
     Engine_ResetSubsystems(&g_aBaseModuleServices,6);
     puVar1 = (undefined *)Engine_ResetSubsystems(&g_aGrimlib_Filenames,8);
-    UINT_008a8c58 = 0;
+    g_dwSputmInitialize = 0;
   }
   return puVar1;
 }
@@ -98,12 +103,14 @@ int grimlib_GameStartup(void)
   return iVar1;
 }
 
-/* ---- 0x00482cc0  EngineModule_Stop ---- */
+/* ---- 0x00482cc0  grimlib_GameShutdown ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Module interface slot 3 (EngineModule): called by Engine_ShutdownSubsystems in reverse order;
-   releases what _Start created. */
+   releases what _Start created. Original name grimlib_GameShutdown (the remaster's GrimFandango
+   (Linux): the shutdown slot grimlib_GameInitialize fills (shuts the modules down in reverse)); was
+   EngineModule_Stop. */
 
-undefined * EngineModule_Stop(void)
+undefined * grimlib_GameShutdown(void)
 
 {
   undefined *puVar1;

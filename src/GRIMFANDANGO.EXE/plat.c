@@ -141,8 +141,12 @@ int __cdecl grimPlat_OpenFileRequest(char *title,char *filter)
 #undef local_150
 
 
-/* ---- 0x004877d0  Plat_SaveFileDialog ---- */
-int __cdecl Plat_SaveFileDialog(char *title,char *filter)
+/* ---- 0x004877d0  grimPlat_SaveFileRequest ---- */
+/* Original name grimPlat_SaveFileRequest (the remaster's GrimFandango (Linux): the save-file
+   request of sputCostume_SaveHook ("Name chore list file...", "Script files (*.lua, *.def)"); the
+   remaster's is a stub); was Plat_SaveFileDialog. */
+
+int __cdecl grimPlat_SaveFileRequest(char *title,char *filter)
 
 {
   unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

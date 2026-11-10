@@ -16,9 +16,9 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
   float *frame;
   int iVar2;
   
-  g_nDrawBoxMinX = UINT_009055ec;
+  g_nRdCache_ulcExtent = UINT_009055ec;
   g_nDrawBoxMinY = *(int *)(UINT_008c97a0 + 0x10);
-  g_nDrawBoxMaxX = 0;
+  g_nRdCache_lrcExtent = 0;
   g_nDrawBoxMaxY = 0;
   *(undefined4 *)((int)actor + 0x6c) = 0;
   *(undefined4 *)((int)actor + 0x70) = 0;
@@ -28,11 +28,11 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
   iVar2 = rdThing_DrawAlt(*(void **)(*(int *)((int)actor + 0xa0) + 4),frame);
   if (iVar2 != 0) {
     *(undefined4 *)((int)actor + 0x68) = 1;
-    iVar2 = g_nDrawBoxMinX;
-    *(int *)((int)actor + 0x6c) = g_nDrawBoxMinX;
+    iVar2 = g_nRdCache_ulcExtent;
+    *(int *)((int)actor + 0x6c) = g_nRdCache_ulcExtent;
     iVar1 = g_nDrawBoxMinY;
     *(int *)((int)actor + 0x70) = g_nDrawBoxMinY;
-    *(int *)((int)actor + 0x74) = g_nDrawBoxMaxX - iVar2;
+    *(int *)((int)actor + 0x74) = g_nRdCache_lrcExtent - iVar2;
     *(int *)((int)actor + 0x78) = g_nDrawBoxMaxY - iVar1;
   }
   return;
@@ -277,11 +277,13 @@ sputActor_SetActorHead
 #undef local_14
 
 
-/* ---- 0x0048fa60  Actor_CanSeePoint ---- */
+/* ---- 0x0048fa60  sputActor_CanActorSeePoint ---- */
 /* True when the point lies within the head joint's view cone (cosine threshold at costume+0x24 set
-   by Actor_SetHead) */
+   by Actor_SetHead) Original name sputActor_CanActorSeePoint (the remaster's GrimFandango (Linux):
+   same body (actor +0xa0 joint, normalised direction, the distance out-parameter), called from
+   sputActor_CanActorSeeActor and sputLua_CanActorSeeL on both sides); was Actor_CanSeePoint. */
 
-int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
+int __cdecl sputActor_CanActorSeePoint(void *actor,float *point,float *outDistance)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -344,7 +346,7 @@ int __cdecl sputActor_CanActorSeeActor(void *viewer,void *target,float *outDista
       iVar1 = _stricmp((int)target + 0x7c,(int)viewer + 0x7c);
       if (iVar1 == 0) {
         pfVar2 = sputActor_GetOrientMatrix(target);
-        iVar1 = Actor_CanSeePoint(viewer,pfVar2 + 9,outDistance);
+        iVar1 = sputActor_CanActorSeePoint(viewer,pfVar2 + 9,outDistance);
         return iVar1;
       }
     }
@@ -2483,9 +2485,9 @@ void sputCostume_InternalDraw3D(int *param_1,float *param_2)
       return;
     }
     if (*(int *)(iVar5 + 0x38) != 0) {
-      g_nDrawBoxMinX = 0x280;
+      g_nRdCache_ulcExtent = 0x280;
       g_nDrawBoxMinY = 0x1e0;
-      g_nDrawBoxMaxX = 0;
+      g_nRdCache_lrcExtent = 0;
       g_nDrawBoxMaxY = 0;
       iVar7 = iVar5;
       if (*(int *)(iVar5 + 0x44) == 0) {
@@ -2586,8 +2588,8 @@ LAB_004951b3:
           std3D_SetCurrentPalette((void *)(piVar4[1] + 0x30),0);
         }
       }
-      iStack_10 = g_nDrawBoxMinX;
-      iStack_8 = g_nDrawBoxMaxX - g_nDrawBoxMinX;
+      iStack_10 = g_nRdCache_ulcExtent;
+      iStack_8 = g_nRdCache_lrcExtent - g_nRdCache_ulcExtent;
       iStack_c = g_nDrawBoxMinY;
       iStack_4 = g_nDrawBoxMaxY - g_nDrawBoxMinY;
       Render_InvalidateRectLastBuffer(&iStack_10,1);

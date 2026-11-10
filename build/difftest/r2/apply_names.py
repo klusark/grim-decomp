@@ -78,7 +78,7 @@ for a, (p, t) in LUA_PARENT.items():
 save("names/asm_reasons_logic.json", rl, nl=True)
 
 r = load("names/asm_reasons.json")
-r["0042003c"] = ("no longer built (round r2): the dead loop tail of rdRaster_Span_Tex_5 (not a function; nothing calls it, "
+r["0042003c"] = ("no longer built (round r2): the dead loop tail of rdNRaster_DrawScanLineNGonTGAT_8 (not a function; nothing calls it, "
                  "its only reference was a false pointer that build/gendata.py made of two entries of the VIMA step table "
                  "0x004daa58); names/lib_replace.json \"dead\"")
 save("names/asm_reasons.json", r, nl=True)

@@ -1,0 +1,142 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404270",
+  "old": "rdroid_Close",
+  "name": "rdClose",
+  "comment": "Original name rdClose (the remaster's GrimFandango (Linux): the only unpaired user of bRDroidOpen besides rdOpen, same body (clears the open flag)); was rdroid_Close."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00483a90",
+  "old": "Render_SetFlipCallback",
+  "name": "sputRender_SetPageFlipCallback",
+  "comment": "Installs the function Render_Present calls to show the back buffer Original name sputRender_SetPageFlipCallback (the remaster's GrimFandango (Linux): the only unpaired writer of sputRender_pPageFlipFunc, same body; grimlib_SetPageFlipCallback jumps to it); was Render_SetFlipCallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004894e0",
+  "old": "Movie_IsPlaying",
+  "name": "sputSmush_MoviePlaying",
+  "comment": "Original name sputSmush_MoviePlaying (the remaster's GrimFandango (Linux): returns SmushPlaying, called by sputLua_IsMoviePlayingL); was Movie_IsPlaying."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049e960",
+  "old": "Lua_IsMoviePlaying",
+  "name": "sputLua_IsMoviePlayingL",
+  "comment": "Lua opcodes: IsFullscreenMoviePlaying, IsMoviePlaying\nalso registered as IsFullscreenMoviePlaying Original name sputLua_IsMoviePlayingL (the remaster's GrimFandango (Linux): same body (pushes 1 or nil by sputSmush_MoviePlaying)); was Lua_IsMoviePlaying."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482750",
+  "old": "Engine_SetFlipCallback",
+  "name": "grimlib_SetPageFlipCallback",
+  "comment": "Original name grimlib_SetPageFlipCallback (the remaster's GrimFandango (Linux): the one-jump wrapper of sputRender_SetPageFlipCallback (the remaster's is a 5-byte jmp), called from Main_Startup); was Engine_SetFlipCallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004012b0",
+  "old": "Grim_Init",
+  "name": "Main_Startup",
+  "comment": "grimdemo.c: whole-engine startup: service tables, registry/config, window + 256-colour check, display enumeration, resource system, Lua engine lib registration, iMUSE. Original name Main_Startup (the remaster's GrimFandango (Linux): the same start-up sequence (developer registry key compared with \"TRUE\" and \"pl\", rdStartup / rdOpen, the window message hook, stdDisplay_Startup, the shutdown / palette / page-flip / debug-toggle callbacks, grimlib_FindResources)); was Grim_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482740",
+  "old": "Engine_SetIdleCallback",
+  "name": "grimlib_SetShutdownCallback",
+  "comment": "Original name grimlib_SetShutdownCallback (the remaster's GrimFandango (Linux): the first callback set in Main_Startup, with grimdemo_PleaseShutdown on both sides, same body); was Engine_SetIdleCallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482730",
+  "old": "Engine_SetRenderUserCallback",
+  "name": "grimlib_SetPaletteCallback",
+  "comment": "Original name grimlib_SetPaletteCallback (the remaster's GrimFandango (Linux): the palette callback set in Main_Startup (the remaster's jumps to sputRender_SetPaletteCallback, as this calls it)); was Engine_SetRenderUserCallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00483a80",
+  "old": "Render_SetUserCallback",
+  "name": "sputRender_SetPaletteCallback",
+  "comment": "Original name sputRender_SetPaletteCallback (the remaster's GrimFandango (Linux): the call of grimlib_SetPaletteCallback, same body (stores sputRender_pSetPaletteFunc)); was Render_SetUserCallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482720",
+  "old": "Engine_SetDebugKeysCallback",
+  "name": "grimlib_SetDebugToggleCallback",
+  "comment": "Original name grimlib_SetDebugToggleCallback (the remaster's GrimFandango (Linux): calls sputLua_SetDebugToggleCallback (the remaster's jumps to it), set in Main_Startup); was Engine_SetDebugKeysCallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00402060",
+  "old": "Grim_OnDisplayModeChange",
+  "name": "grimdemo_SetPalette",
+  "comment": "Original name grimdemo_SetPalette (the remaster's GrimFandango (Linux): the palette callback of Main_Startup, same body (two display palette calls, std3D_SetCurrentPalette with a device)); was Grim_OnDisplayModeChange."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00474d10",
+  "old": "Display_SetDIBPalette",
+  "name": "stdDisplay_SetPalette",
+  "comment": "Original name stdDisplay_SetPalette (the remaster's GrimFandango (Linux): the first call of grimdemo_SetPalette; the remaster's is a stub); was Display_SetDIBPalette."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00474d90",
+  "old": "Display_SetPalette",
+  "name": "stdDisplay_SetMasterPalette",
+  "comment": "Original name stdDisplay_SetMasterPalette (the remaster's GrimFandango (Linux): the second call of grimdemo_SetPalette; the remaster's is a stub); was Display_SetPalette."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00401040",
+  "old": "DebugLog_Init",
+  "name": "grimdemo_EnableDebugging",
+  "comment": "Opens debug.log / resource.log and installs the debug-print callbacks into the service table Original name grimdemo_EnableDebugging (the remaster's GrimFandango (Linux): the debug-toggle callback of Main_Startup; sets the same five host-service print slots (+4, +8, +0xc, +0x10, +0x14)); was DebugLog_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004023a0",
+  "old": "DebugLog_Printf",
+  "name": "grimdemo_StatusPrint",
+  "comment": "g_MainServices.pPrintf: snprintf into a 0x400 buffer, prints to the debugger/window and appends to debug.log. Original name grimdemo_StatusPrint (the remaster's GrimFandango (Linux): the host-service slot +4 grimdemo_EnableDebugging sets); was DebugLog_Printf."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00402330",
+  "old": "DebugLog_Printf2",
+  "name": "grimdemo_MessagePrint",
+  "comment": "g_MainServices.pPrintf2: like DebugLog_Printf with its own 0x400 buffer. Original name grimdemo_MessagePrint (the remaster's GrimFandango (Linux): the host-service slot +8 grimdemo_EnableDebugging sets); was DebugLog_Printf2."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00402480",
+  "old": "DebugLog_Warning",
+  "name": "grimdemo_WarningPrint",
+  "comment": "g_MainServices.pWarning: formats into a 0x400 buffer, prints and appends to debug.log. Original name grimdemo_WarningPrint (the remaster's GrimFandango (Linux): the host-service slot +0xc grimdemo_EnableDebugging sets); was DebugLog_Warning."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00402410",
+  "old": "DebugLog_Error",
+  "name": "grimdemo_ErrorPrint",
+  "comment": "g_MainServices.pError: formats into a 0x400 buffer, prints and appends to debug.log. Original name grimdemo_ErrorPrint (the remaster's GrimFandango (Linux): the host-service slot +0x10 grimdemo_EnableDebugging sets); was DebugLog_Error."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004024f0",
+  "old": "DebugLog_Debug",
+  "name": "grimdemo_DebugPrint",
+  "comment": "g_MainServices.pDebug: formats into a 0x400 buffer, prints and appends to debug.log. Original name grimdemo_DebugPrint (the remaster's GrimFandango (Linux): the host-service slot +0x14 grimdemo_EnableDebugging sets); was DebugLog_Debug."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00474420",
+  "old": "Display_Flip",
+  "name": "stdDisplay_Update",
+  "comment": "BitBlt of the DIB back buffer or DirectDraw flip Original name stdDisplay_Update (the remaster's GrimFandango (Linux): the page-flip callback of Main_Startup (the remaster's is the platform rewrite)); was Display_Flip."
+ }
+]

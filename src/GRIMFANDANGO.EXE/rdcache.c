@@ -5,12 +5,15 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00406650  rdCache_BeginScene3D ---- */
-void rdCache_BeginScene3D(void)
+/* ---- 0x00406650  rdCache_AdvanceFrame ---- */
+/* Original name rdCache_AdvanceFrame (the remaster's GrimFandango (Linux): the cache call of
+   rdAdvanceFrame, same body (hardware: start the scene)); was rdCache_BeginScene3D. */
+
+void rdCache_AdvanceFrame(void)
 
 {
   if (0 < g_nRdroid_curAcceleration) {
-    D3D_BeginScene();
+    std3D_StartScene();
     return;
   }
   return;
@@ -185,7 +188,7 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
   pfVar4 = (float *)(&UINT_008ddfe0)[g_dwRdCache_numProcFaces * 0x1e];
   *(void **)(&g_bRdCache_aProcFaces + iVar1) = mesh;
   (&UINT_008ddfdc)[uVar7 * 0x1e] = vertexCount;
-  *(uint *)(&DAT_008de034 + iVar1) = UINT_00900054;
+  *(uint *)(&DAT_008de034 + iVar1) = g_dwRdroid_curProcFaceUserData;
   local_10[1] = *pfVar4;
   fVar2 = pfVar4[1];
   *(undefined4 *)(&DAT_008de030 + iVar1) = 0;
@@ -249,11 +252,11 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
       }
       (&UINT_008de00c)[uVar7 * 0x1e] = g_dwRdColormap_pIdentityMap;
       g_dwRdCache_numProcFaces = g_dwRdCache_numProcFaces + 1;
-      if (*(uint *)(&DAT_008de014 + iVar1) < (uint)g_nDrawBoxMinX) {
-        g_nDrawBoxMinX = *(uint *)(&DAT_008de014 + iVar1);
+      if (*(uint *)(&DAT_008de014 + iVar1) < (uint)g_nRdCache_ulcExtent) {
+        g_nRdCache_ulcExtent = *(uint *)(&DAT_008de014 + iVar1);
       }
-      if ((uint)g_nDrawBoxMaxX < *(uint *)(&DAT_008de018 + iVar1)) {
-        g_nDrawBoxMaxX = *(uint *)(&DAT_008de018 + iVar1);
+      if ((uint)g_nRdCache_lrcExtent < *(uint *)(&DAT_008de018 + iVar1)) {
+        g_nRdCache_lrcExtent = *(uint *)(&DAT_008de018 + iVar1);
       }
       if (*(uint *)(&DAT_008de01c + iVar1) < (uint)g_nDrawBoxMinY) {
         g_nDrawBoxMinY = *(uint *)(&DAT_008de01c + iVar1);
@@ -357,7 +360,7 @@ undefined4 rdCache_SendFaceListToHardware(void)
     bVar6 = true;
     bVar7 = true;
   }
-  if (((bVar5) || (bVar6)) || (UINT_0090004c == 1)) {
+  if (((bVar5) || (bVar6)) || (g_dwRdroid_curVertexColorMode == 1)) {
     local_44 = local_44 | 0x8000;
   }
   std3D_ResetRenderList();
@@ -382,8 +385,8 @@ undefined4 rdCache_SendFaceListToHardware(void)
     }
     uVar9 = g_dwTotalVerts;
     local_8 = *(uint *)(puVar14 + 8);
-    if (g_nRdroidGeometryMode <= (int)local_8) {
-      local_8 = g_nRdroidGeometryMode;
+    if (g_nRdroid_curGeometryMode <= (int)local_8) {
+      local_8 = g_nRdroid_curGeometryMode;
     }
     local_34 = *(uint *)(puVar14 + 0xc);
     if (g_nRdroid_curLightingMode <= (int)local_34) {
@@ -398,8 +401,8 @@ undefined4 rdCache_SendFaceListToHardware(void)
       local_30 = local_44 | 0x200;
       local_24 = 200;
     }
-    if (((iVar11 != 0xff) && (*(int *)((int)g_pD3dDriver + 0x18) == 0)) &&
-       (*(int *)((int)g_pD3dDriver + 0x14) == 0)) {
+    if (((iVar11 != 0xff) && (*(int *)((int)g_pStd3D_CurDevice + 0x18) == 0)) &&
+       (*(int *)((int)g_pStd3D_CurDevice + 0x14) == 0)) {
       local_24 = 0xff;
       local_4c = 1;
     }
@@ -479,7 +482,7 @@ LAB_00406d8d:
             local_28 = uVar15;
           }
         }
-        if (((*material & 1) != 0) && (*(int *)((int)g_pD3dDriver + 0x10) != 0)) {
+        if (((*material & 1) != 0) && (*(int *)((int)g_pStd3D_CurDevice + 0x10) != 0)) {
           local_30 = local_30 | 0x400;
         }
         if (material[uVar15 * 0x26 + 0x29] == 0) {
@@ -556,7 +559,7 @@ LAB_00407a22:
             goto LAB_00407a22;
           }
           if (local_34 == 3) {
-            if (UINT_0090004c == 1) {
+            if (g_dwRdroid_curVertexColorMode == 1) {
               uVar15 = 0;
               if (*(int *)(puVar14 + 0x1c) != 0) {
                 do {
@@ -728,7 +731,7 @@ LAB_00407a22:
               local_18 = (uint)*(byte *)(iVar11 + 0x32);
             }
             else if (local_34 == 3) {
-              if (UINT_0090004c != 1) {
+              if (g_dwRdroid_curVertexColorMode != 1) {
                 iVar11 = *(int *)(local_2c + 4) * 3 + *(int *)(puVar14 + 0x4c);
                 local_14 = (uint)*(byte *)(iVar11 + 0x30);
                 lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
@@ -913,7 +916,7 @@ LAB_004071fa:
             goto LAB_004071fa;
           }
           if (local_34 == 3) {
-            if (UINT_0090004c == 1) {
+            if (g_dwRdroid_curVertexColorMode == 1) {
               uVar15 = 0;
               if (*(int *)(puVar14 + 0x1c) != 0) {
                 do {
@@ -1068,7 +1071,7 @@ LAB_004071fa:
               local_18 = local_10;
             }
             else if (local_34 == 3) {
-              if (UINT_0090004c == 1) {
+              if (g_dwRdroid_curVertexColorMode == 1) {
                 lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
                 local_1c = (uint)lVar16;
                 lVar17 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
@@ -1333,8 +1336,8 @@ int __cdecl rdCache_DrawFaceN(void *mesh)
   
   pvVar5 = mesh;
   iVar8 = *(int *)((int)mesh + 8);
-  if (g_nRdroidGeometryMode <= *(int *)((int)mesh + 8)) {
-    iVar8 = g_nRdroidGeometryMode;
+  if (g_nRdroid_curGeometryMode <= *(int *)((int)mesh + 8)) {
+    iVar8 = g_nRdroid_curGeometryMode;
   }
   iVar9 = *(int *)((int)mesh + 0xc);
   if (g_nRdroid_curLightingMode <= *(int *)((int)mesh + 0xc)) {
@@ -1387,13 +1390,13 @@ LAB_00408067:
   switch(iVar8) {
   case 1:
     if ((-1 < iVar9) && (iVar9 < 5)) {
-      rdRaster_DrawPoints(pvVar5,pbVar11);
+      rdNRaster_DrawNGonLV(pvVar5,pbVar11);
       return 1;
     }
     break;
   case 2:
     if ((-1 < iVar9) && (iVar9 < 5)) {
-      rdRaster_DrawWireframe(pvVar5,pbVar11);
+      rdNRaster_DrawNGonLW(pvVar5,pbVar11);
       return 1;
     }
     break;
@@ -1401,10 +1404,10 @@ LAB_00408067:
     switch(iVar9) {
     case 0:
       if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-        rdRaster_Draw16_FlatLit(pvVar5,pbVar11);
+        rdNRaster_DrawNGonLS(pvVar5,pbVar11);
         return 1;
       }
-      ((code *)rdRaster_Draw16_TexLit)();
+      ((code *)rdNRaster_DrawNGonTLS)();
       return 1;
     case 1:
       if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
@@ -1430,10 +1433,10 @@ LAB_00408067:
       fVar1 = local_4 * 63.0;
       *(float *)((int)pvVar5 + 0x44) = fVar1;
       if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-        rdRaster_Draw16_FlatLit_2(pvVar5,pbVar11,fVar1);
+        rdNRaster_DrawNGonFS(pvVar5,pbVar11,fVar1);
         return 1;
       }
-      rdRaster_Draw16_TexLit_2(pvVar5,pbVar11,fVar1);
+      rdNRaster_DrawNGonTFS(pvVar5,pbVar11,fVar1);
       return 1;
     case 2:
       fVar1 = *(float *)((int)pvVar5 + 0x48) + *(float *)((int)pvVar5 + 0x44);
@@ -1460,10 +1463,10 @@ LAB_00408067:
       fVar1 = local_4 * 63.0;
       *(float *)((int)pvVar5 + 0x44) = fVar1;
       if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-        rdRaster_Draw16_FlatLit_2(pvVar5,pbVar11,fVar1);
+        rdNRaster_DrawNGonFS(pvVar5,pbVar11,fVar1);
         return 1;
       }
-      rdRaster_Draw16_TexLit_2(pvVar5,pbVar11,fVar1);
+      rdNRaster_DrawNGonTFS(pvVar5,pbVar11,fVar1);
       return 1;
     case 3:
       uVar7 = 0;
@@ -1498,10 +1501,10 @@ LAB_00408067:
         } while (uVar7 < *(uint *)((int)pvVar5 + 0x1c));
       }
       if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-        rdRaster_Draw_FlatLit(pvVar5,pbVar11);
+        rdNRaster_DrawNGonGS(pvVar5,pbVar11);
         return 1;
       }
-      ((code *)rdRaster_Draw16_TexLit_3)();
+      ((code *)rdNRaster_DrawNGonTGS)();
       return 1;
     }
     break;
@@ -1511,17 +1514,17 @@ LAB_00408067:
       case 0:
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdRaster_Draw16_TexLit_4(pvVar5,pbVar11);
+            rdNRaster_DrawNGonLAT(pvVar5,pbVar11);
             return 1;
           }
-          ((code *)rdRaster_Draw16_TexLit_5)();
+          ((code *)rdNRaster_DrawNGonTLAT)();
           return 1;
         }
         if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdRaster_Draw16_TexLitKey(pvVar5,pbVar11);
+          rdNRaster_DrawNGonMLAT(pvVar5,pbVar11);
           return 1;
         }
-        ((code *)rdRaster_Draw16_TexLitKey_2)();
+        ((code *)rdNRaster_DrawNGonMTLAT)();
         return 1;
       case 1:
         if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
@@ -1548,17 +1551,17 @@ LAB_00408067:
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_2(pvVar5,pbVar11,fVar1);
+            rdNRaster_DrawNGonFAT(pvVar5,pbVar11,fVar1);
             return 1;
           }
-          rdRaster_Draw16_TexLit_6(pvVar5,pbVar11,fVar1);
+          rdNRaster_DrawNGonTFAT(pvVar5,pbVar11,fVar1);
           return 1;
         }
         if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKey(pvVar5,pbVar11,fVar1);
+          rdNRaster_DrawNGonMFAT(pvVar5,pbVar11,fVar1);
           return 1;
         }
-        rdRaster_Draw_TexLitKey_2(pvVar5,pbVar11,fVar1);
+        rdNRaster_DrawNGonMTFAT(pvVar5,pbVar11,fVar1);
         return 1;
       case 2:
         fVar1 = *(float *)((int)pvVar5 + 0x48) + *(float *)((int)pvVar5 + 0x44);
@@ -1586,17 +1589,17 @@ LAB_00408067:
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_2(pvVar5,pbVar11,fVar1);
+            rdNRaster_DrawNGonFAT(pvVar5,pbVar11,fVar1);
             return 1;
           }
-          rdRaster_Draw16_TexLit_6(pvVar5,pbVar11,fVar1);
+          rdNRaster_DrawNGonTFAT(pvVar5,pbVar11,fVar1);
           return 1;
         }
         if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKey(pvVar5,pbVar11,fVar1);
+          rdNRaster_DrawNGonMFAT(pvVar5,pbVar11,fVar1);
           return 1;
         }
-        rdRaster_Draw_TexLitKey_2(pvVar5,pbVar11,fVar1);
+        rdNRaster_DrawNGonMTFAT(pvVar5,pbVar11,fVar1);
         return 1;
       case 3:
         uVar7 = 0;
@@ -1632,17 +1635,17 @@ LAB_00408067:
         }
         if ((**(byte **)(pbVar11 + 0x1c) & 1) != 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdRaster_Draw_TexLitKey_3(pvVar5,pbVar11);
+            rdNRaster_DrawNGonMGAT(pvVar5,pbVar11);
             return 1;
           }
-          ((code *)rdRaster_Draw16_TexLitKey_3)();
+          ((code *)rdNRaster_DrawNGonMTGAT)();
           return 1;
         }
         if ((*(byte *)((int)pvVar5 + 4) & 2) != 0) {
-          ((code *)rdRaster_Draw16_TexLit_7)();
+          ((code *)rdNRaster_DrawNGonTGAT)();
           return 1;
         }
-        rdRaster_Draw_FlatLit_3(pvVar5,pbVar11);
+        rdNRaster_DrawNGonGAT(pvVar5,pbVar11);
       }
     }
     else if (mesh == (void *)0x1) {
@@ -1650,17 +1653,17 @@ LAB_00408067:
       case 0:
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_4(pvVar5,pbVar11);
+            rdNRaster_DrawNGonLIT(pvVar5,pbVar11);
             return 1;
           }
-          ((code *)rdRaster_Draw16_TexLit_8)();
+          ((code *)rdNRaster_DrawNGonTLIT)();
           return 1;
         }
         if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdRaster_Draw16_TexLitKey_4(pvVar5,pbVar11);
+          rdNRaster_DrawNGonMLIT(pvVar5,pbVar11);
           return 1;
         }
-        ((code *)rdRaster_Draw16_TexLitKey_5)();
+        ((code *)rdNRaster_DrawNGonMTLIT)();
         return 1;
       case 1:
         if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
@@ -1687,17 +1690,17 @@ LAB_00408067:
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_5(pvVar5,pbVar11,fVar1);
+            rdNRaster_DrawNGonFIT(pvVar5,pbVar11,fVar1);
             return 1;
           }
-          rdRaster_Draw16_TexLit_9(pvVar5,pbVar11,fVar1);
+          rdNRaster_DrawNGonTFIT(pvVar5,pbVar11,fVar1);
           return 1;
         }
         if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKey_4(pvVar5,pbVar11,fVar1);
+          rdNRaster_DrawNGonMFIT(pvVar5,pbVar11,fVar1);
           return 1;
         }
-        rdRaster_Draw16_TexLitKey_6(pvVar5,pbVar11,fVar1);
+        rdNRaster_DrawNGonMTFIT(pvVar5,pbVar11,fVar1);
         return 1;
       case 2:
         fVar1 = *(float *)((int)pvVar5 + 0x48) + *(float *)((int)pvVar5 + 0x44);
@@ -1725,17 +1728,17 @@ LAB_00408067:
         *(float *)((int)pvVar5 + 0x44) = fVar1;
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_5(pvVar5,pbVar11,fVar1);
+            rdNRaster_DrawNGonFIT(pvVar5,pbVar11,fVar1);
             return 1;
           }
-          rdRaster_Draw16_TexLit_9(pvVar5,pbVar11,fVar1);
+          rdNRaster_DrawNGonTFIT(pvVar5,pbVar11,fVar1);
           return 1;
         }
         if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKey_4(pvVar5,pbVar11,fVar1);
+          rdNRaster_DrawNGonMFIT(pvVar5,pbVar11,fVar1);
           return 1;
         }
-        rdRaster_Draw16_TexLitKey_6(pvVar5,pbVar11,fVar1);
+        rdNRaster_DrawNGonMTFIT(pvVar5,pbVar11,fVar1);
         return 1;
       case 3:
         uVar7 = 0;
@@ -1771,17 +1774,17 @@ LAB_00408067:
         }
         if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_6(pvVar5,pbVar11);
+            rdNRaster_DrawNGonGIT(pvVar5,pbVar11);
             return 1;
           }
-          ((code *)rdRaster_Draw16_TexLit_10)();
+          ((code *)rdNRaster_DrawNGonTGIT)();
           return 1;
         }
         if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKey_5(pvVar5,pbVar11);
+          rdNRaster_DrawNGonMGIT(pvVar5,pbVar11);
           return 1;
         }
-        ((code *)rdRaster_Draw16_TexLitKey_7)();
+        ((code *)rdNRaster_DrawNGonMTGIT)();
         return 1;
       }
     }
@@ -1795,7 +1798,7 @@ LAB_00408067:
 undefined4 FUN_00408800(void)
 
 {
-  ((code *)rdRaster_Draw16_TexLit_6)();
+  ((code *)rdNRaster_DrawNGonTFAT)();
   return 1;
 }
 
@@ -1824,8 +1827,8 @@ int __cdecl rdCache_DrawFaceZ(void *mesh)
   
   pvVar4 = mesh;
   iVar7 = *(int *)((int)mesh + 8);
-  if (g_nRdroidGeometryMode <= *(int *)((int)mesh + 8)) {
-    iVar7 = g_nRdroidGeometryMode;
+  if (g_nRdroid_curGeometryMode <= *(int *)((int)mesh + 8)) {
+    iVar7 = g_nRdroid_curGeometryMode;
   }
   iVar8 = *(int *)((int)mesh + 0xc);
   if (g_nRdroid_curLightingMode <= *(int *)((int)mesh + 0xc)) {
@@ -1878,13 +1881,13 @@ LAB_00408b6e:
   switch(iVar7) {
   case 1:
     if ((-1 < iVar8) && (iVar8 < 5)) {
-      rdRaster_DrawPointsZ(pvVar4,pbVar10);
+      rdZRaster_DrawNGonLV(pvVar4,pbVar10);
       return 1;
     }
     break;
   case 2:
     if ((-1 < iVar8) && (iVar8 < 5)) {
-      rdRaster_DrawWireframeZ(pvVar4,pbVar10);
+      rdZRaster_DrawNGonLW(pvVar4,pbVar10);
       return 1;
     }
     break;
@@ -1892,16 +1895,16 @@ LAB_00408b6e:
     switch(iVar8) {
     case 0:
       if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-        rdRaster_Draw_FlatLitZ(pvVar4,pbVar10);
+        rdZRaster_DrawNGonLS(pvVar4,pbVar10);
         return 1;
       }
-      ((code *)rdRaster_Draw_TexLitZ)();
+      ((code *)rdZRaster_DrawNGonTLS)();
       return 1;
     case 1:
       fVar11 = 0.0;
       *(undefined4 *)((int)pvVar4 + 0x44) = 0;
       if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-        ((code *)rdRaster_Draw_TexLitZ_2)();
+        ((code *)rdZRaster_DrawNGonTFS)();
         return 1;
       }
       break;
@@ -1930,7 +1933,7 @@ LAB_00408b6e:
       fVar11 = local_4 * 63.0;
       *(float *)((int)pvVar4 + 0x44) = fVar11;
       if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-        rdRaster_Draw_TexLitZ_2(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonTFS(pvVar4,pbVar10,fVar11);
         return 1;
       }
       break;
@@ -1967,15 +1970,15 @@ LAB_00408b6e:
         } while (uVar6 < *(uint *)((int)pvVar4 + 0x1c));
       }
       if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-        rdRaster_Draw_FlatLitZ_3(pvVar4,pbVar10);
+        rdZRaster_DrawNGonGS(pvVar4,pbVar10);
         return 1;
       }
-      ((code *)rdRaster_Draw_TexLitZ_3)();
+      ((code *)rdZRaster_DrawNGonTGS)();
       return 1;
     default:
       goto switchD_00408bad_default;
     }
-    rdRaster_Draw_FlatLitZ_2(pvVar4,pbVar10,fVar11);
+    rdZRaster_DrawNGonFS(pvVar4,pbVar10,fVar11);
     return 1;
   case 4:
     if (mesh == (void *)0x0) {
@@ -1983,17 +1986,17 @@ LAB_00408b6e:
       case 0:
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_7(pvVar4,pbVar10);
+            rdZRaster_DrawNGonLAT(pvVar4,pbVar10);
             return 1;
           }
-          ((code *)rdRaster_Draw_TexLitZ_4)();
+          ((code *)rdZRaster_DrawNGonTLAT)();
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw(pvVar4,pbVar10);
+          rdZRaster_DrawNGonMLAT(pvVar4,pbVar10);
           return 1;
         }
-        ((code *)rdRaster_Draw_TexLitKeyZw_2)();
+        ((code *)rdZRaster_DrawNGonMTLAT)();
         return 1;
       case 1:
         if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
@@ -2020,17 +2023,17 @@ LAB_00408b6e:
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_8(pvVar4,pbVar10,fVar11);
+            rdZRaster_DrawNGonFAT(pvVar4,pbVar10,fVar11);
             return 1;
           }
-          rdRaster_Draw_TexLitZ_5(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFAT(pvVar4,pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_3(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFAT(pvVar4,pbVar10,fVar11);
           return 1;
         }
-        rdRaster_Draw_TexLitKeyZw_4(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFAT(pvVar4,pbVar10,fVar11);
         return 1;
       case 2:
         fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
@@ -2058,17 +2061,17 @@ LAB_00408b6e:
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_8(pvVar4,pbVar10,fVar11);
+            rdZRaster_DrawNGonFAT(pvVar4,pbVar10,fVar11);
             return 1;
           }
-          rdRaster_Draw_TexLitZ_5(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFAT(pvVar4,pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_3(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFAT(pvVar4,pbVar10,fVar11);
           return 1;
         }
-        rdRaster_Draw_TexLitKeyZw_4(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFAT(pvVar4,pbVar10,fVar11);
         return 1;
       case 3:
         uVar6 = 0;
@@ -2104,17 +2107,17 @@ LAB_00408b6e:
         }
         if ((**(byte **)(pbVar10 + 0x1c) & 1) != 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_TexLitKeyZw_5(pvVar4,pbVar10);
+            rdZRaster_DrawNGonMGAT(pvVar4,pbVar10);
             return 1;
           }
-          ((code *)rdRaster_Draw_TexLitKeyZw_6)();
+          ((code *)rdZRaster_DrawNGonMTGAT)();
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-          ((code *)rdRaster_Draw_TexLitZ_6)();
+          ((code *)rdZRaster_DrawNGonTGAT)();
           return 1;
         }
-        rdRaster_Draw_FlatLit_9(pvVar4,pbVar10);
+        rdZRaster_DrawNGonGAT(pvVar4,pbVar10);
       }
     }
     else if (mesh == (void *)0x1) {
@@ -2122,17 +2125,17 @@ LAB_00408b6e:
       case 0:
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_10(pvVar4,pbVar10);
+            rdZRaster_DrawNGonLIT(pvVar4,pbVar10);
             return 1;
           }
-          ((code *)rdRaster_Draw_TexLitZ_7)();
+          ((code *)rdZRaster_DrawNGonTLIT)();
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_7(pvVar4,pbVar10);
+          rdZRaster_DrawNGonMLIT(pvVar4,pbVar10);
           return 1;
         }
-        ((code *)rdRaster_Draw_TexLitKeyZw_8)();
+        ((code *)rdZRaster_DrawNGonMTLIT)();
         return 1;
       case 1:
         if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
@@ -2159,17 +2162,17 @@ LAB_00408b6e:
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_11(pvVar4,pbVar10,fVar11);
+            rdZRaster_DrawNGonFIT(pvVar4,pbVar10,fVar11);
             return 1;
           }
-          rdRaster_Draw_TexLitZ_8(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFIT(pvVar4,pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_9(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFIT(pvVar4,pbVar10,fVar11);
           return 1;
         }
-        rdRaster_Draw_TexLitKeyZw_10(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFIT(pvVar4,pbVar10,fVar11);
         return 1;
       case 2:
         fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
@@ -2197,17 +2200,17 @@ LAB_00408b6e:
         *(float *)((int)pvVar4 + 0x44) = fVar11;
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_11(pvVar4,pbVar10,fVar11);
+            rdZRaster_DrawNGonFIT(pvVar4,pbVar10,fVar11);
             return 1;
           }
-          rdRaster_Draw_TexLitZ_8(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFIT(pvVar4,pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_9(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFIT(pvVar4,pbVar10,fVar11);
           return 1;
         }
-        rdRaster_Draw_TexLitKeyZw_10(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFIT(pvVar4,pbVar10,fVar11);
         return 1;
       case 3:
         uVar6 = 0;
@@ -2243,17 +2246,17 @@ LAB_00408b6e:
         }
         if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdRaster_Draw_FlatLit_12(pvVar4,pbVar10);
+            rdZRaster_DrawNGonGIT(pvVar4,pbVar10);
             return 1;
           }
-          ((code *)rdRaster_Draw_TexLitZ_9)();
+          ((code *)rdZRaster_DrawNGonTGIT)();
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdRaster_Draw_TexLitKeyZw_11(pvVar4,pbVar10);
+          rdZRaster_DrawNGonMGIT(pvVar4,pbVar10);
           return 1;
         }
-        ((code *)rdRaster_Draw_TexLitKeyZw_12)();
+        ((code *)rdZRaster_DrawNGonMTGIT)();
         return 1;
       }
     }

@@ -10,7 +10,7 @@
  * orig_X mapped to X), the calls of rdCanvas_DrawLine (stand-in that logs), the x87 control word and stack top.
  * The x87 precision control rotates through 24, 53 and 64 bits; the control words the original loads
  * (0x00900524 default, 0x00900526 floor, 0x00900528 truncate / 24 bits, 0x0090052a ceil) are set from it as
- * Services_SetCurrent does.
+ * stdStartup does.
  *
  * usage: q6_test.exe [cases per function] [function name filter: a substring, or =name]
  * Q6_SEED=n: another random sequence; Q6_NOSPECIAL=1: no NaN / inf / huge attribute values. */
@@ -323,11 +323,11 @@ static void restore(const snap *s)
 /* ---- the functions ---- */
 enum { K_DRAW, K_DRAWL, K_EDGE, K_SPAN, K_GRAD, K_PSPAN, K_PDRAW, K_SETUP, K_SEL, K_SELL, K_SELR, K_ESETUP, K_SPANR, K_SPANP };
 typedef struct { const char *name; int kind; void *orig, *c; } fn;
-#define FN(kind, n) extern void orig_rdRaster_##n(void), rdRaster_##n(void);
+#define FN(kind, n) extern void orig_##n(void), n(void);
 #include "q6_funcs.h"
 #undef FN
 static const fn fns[] = {
-#define FN(kind, n) {#n, kind, (void *)orig_rdRaster_##n, (void *)rdRaster_##n},
+#define FN(kind, n) {#n, kind, (void *)orig_##n, (void *)n},
 #include "q6_funcs.h"
 #undef FN
 };

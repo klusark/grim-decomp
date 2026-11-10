@@ -1,5 +1,5 @@
 [
- {"addr": "004877d0", "name": "Plat_SaveFileDialog", "proto": "int Plat_SaveFileDialog(char * title, char * filter)", "tags": "platform,debug"},
+ {"addr": "004877d0", "name": "grimPlat_SaveFileRequest", "proto": "int grimPlat_SaveFileRequest(char * title, char * filter)", "tags": "platform,debug"},
  {"addr": "00487c10", "name": "grimPlat_TreeDialog", "proto": "int grimPlat_TreeDialog(char * title, char ** items, int count, int * recursive)", "comment": "Editor 'Tree Select' dialog; returns the chosen index or -1", "tags": "platform,debug"},
  {"addr": "00488010", "name": "Dlg_MakeItemTemplate", "comment": "Builds a DLGITEMTEMPLATE (style, x, y, w, h, id, text, class) in a malloc'd block, size returned through the last argument", "tags": "platform,debug"},
  {"addr": "004881a0", "name": "Dlg_MakeDialogTemplate", "comment": "Builds a DLGTEMPLATE header (style, item count, x, y, w, h, title, font, point size)", "tags": "platform,debug"},
@@ -9,9 +9,9 @@
  {"addr": "00474380", "name": "Display_SuspendForDialog", "tags": "display"},
  {"addr": "004743d0", "name": "Display_ResumeAfterDialog", "tags": "display"},
  {"addr": "0048d050", "name": "Controls_ResetAll", "comment": "Clears the enabled/pressed bits of every control and resets the input devices", "tags": "input"},
- {"addr": "0048d150", "name": "Control_Capture", "tags": "input"},
+ {"addr": "0048d150", "name": "sputControl_Open", "tags": "input"},
  {"addr": "0048d170", "name": "Control_Release", "tags": "input"},
- {"addr": "008ca1c4", "global": "g_nInputCaptured", "type": "int", "comment": "Input devices are acquired by the game"},
+ {"addr": "008ca1c4", "global": "g_nControlOpen", "type": "int", "comment": "Input devices are acquired by the game"},
  {"addr": "0048d1c0", "name": "sputControl_Update", "comment": "Runs the registered shutdown hooks (sputControl_AddCallback) then dumps the memory log", "tags": "engine"},
  {"addr": "008ca198", "global": "g_apControlCallbacks", "type": "void *", "comment": "Up to nine shutdown callbacks"},
  {"addr": "008ca160", "global": "g_nNumControlCallbacks", "type": "int", "comment": "Number of registered shutdown hooks"},

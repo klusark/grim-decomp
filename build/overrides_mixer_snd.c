@@ -411,7 +411,7 @@ int SoundModule_DriverCommand3(void)
     return -1;
 }
 
-void SoundModule_SetDriverRate(uint rate)
+void sou_engine_SetRate(uint rate)
 {
     g_dwSndRate = rate;
     if (g_pSndDriver != 0)

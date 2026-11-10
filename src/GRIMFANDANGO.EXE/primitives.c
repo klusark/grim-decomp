@@ -12,7 +12,7 @@
 void __cdecl sputPrimitive_Update(uint layerMask)
 
 {
-  if (g_nPrimitivesHidden == 0) {
+  if (g_nSputPrimitive_Paused == 0) {
     PrimitiveList_Draw(&g_dwPrimitiveQ,*(void **)((int)g_pRdCamera_CurCamera + 4),layerMask);
   }
   return;
@@ -27,7 +27,7 @@ void sputPrimitive_Pause(void)
 
 {
   PrimitiveList_Invalidate(&g_dwPrimitiveQ,3);
-  g_nPrimitivesHidden = 1;
+  g_nSputPrimitive_Paused = 1;
   return;
 }
 
@@ -38,7 +38,7 @@ void sputPrimitive_Pause(void)
 void sputPrimitive_Resume(void)
 
 {
-  g_nPrimitivesHidden = 0;
+  g_nSputPrimitive_Paused = 0;
   return;
 }
 

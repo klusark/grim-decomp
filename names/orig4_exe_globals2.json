@@ -1,0 +1,56 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "005e6f98",
+  "old": "UINT_005e6f98",
+  "global": "g_dwRdActive_drawnFaces",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdActive_drawnFaces (the remaster's GrimFandango (Linux): cleared in rdActive_ClearFrameCounters, counted in rdActive_AddActiveFace); was UINT_005e6f98."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "007f31ec",
+  "old": "UINT_007f31ec",
+  "global": "g_dwRdModel3_numDrawnModels",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name rdModel3_numDrawnModels (the remaster's GrimFandango (Linux): cleared in rdModel3_ClearFrameCounters, counted per model in rdThing_Draw); was UINT_007f31ec."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a8c70",
+  "old": "UINT_008a8c70",
+  "global": "g_dwGrimlib_shutdownCallback",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name grimlib_shutdownCallback (the remaster's GrimFandango (Linux): the callback grimlib_SetShutdownCallback stores); was UINT_008a8c70."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008c97b8",
+  "old": "UINT_008c97b8",
+  "global": "g_dwSputRender_pSetPaletteFunc",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name sputRender_pSetPaletteFunc (the remaster's GrimFandango (Linux): the callback sputRender_SetPaletteCallback stores); was UINT_008c97b8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008ddda0",
+  "old": "DAT_008ddda0",
+  "global": "g_aHs",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name hs (the remaster's GrimFandango (Linux): the host-service table Main_Startup initialises and passes to rdStartup (print slots set by grimdemo_EnableDebugging)); was DAT_008ddda0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f5a24",
+  "old": "INT_004f5a24",
+  "global": "g_nDeveloper",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Original name bDeveloper (the remaster's GrimFandango (Linux): set when the decoded registry key reads \"TRUE\" or \"pl\" in Main_Startup); was INT_004f5a24."
+ }
+]

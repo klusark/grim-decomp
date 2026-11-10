@@ -788,7 +788,7 @@
   "addr": "00480790",
   "old": "Res_InstallFileServices",
   "name": "Res_OverrideFileCalls",
-  "comment": "Temp/Res.c: keeps a copy of the raw file services in g_ResFileServices and replaces svc->fopen..fprintf with the ResFile_* versions so every open goes through the LAB archive system Original name Res_OverrideFileCalls (the remaster's GrimFandango (Linux): aligned call in sputResource_Startup); was Res_InstallFileServices."
+  "comment": "Temp/Res.c: keeps a copy of the raw file services in g_aLowLevelHS and replaces svc->fopen..fprintf with the ResFile_* versions so every open goes through the LAB archive system Original name Res_OverrideFileCalls (the remaster's GrimFandango (Linux): aligned call in sputResource_Startup); was Res_InstallFileServices."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -1194,7 +1194,7 @@
   "addr": "00488980",
   "old": "Pool_Create",
   "name": "Memory_AllocatePool",
-  "comment": "Temp/Memory.c: fixed-size item pool. Items are 8-byte-headed (next, pool) blocks carved from grown chunks; pools are kept in the g_poolList singly linked list. Original name Memory_AllocatePool (the remaster's GrimFandango (Linux): aligned call in Res_SysStartup, sputRoom_Startup, sputText_Startup); was Pool_Create."
+  "comment": "Temp/Memory.c: fixed-size item pool. Items are 8-byte-headed (next, pool) blocks carved from grown chunks; pools are kept in the g_pFirstPool singly linked list. Original name Memory_AllocatePool (the remaster's GrimFandango (Linux): aligned call in Res_SysStartup, sputRoom_Startup, sputText_Startup); was Pool_Create."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -2223,7 +2223,7 @@
   "addr": "004cc250",
   "old": "Blocky16_SetOption",
   "name": "fob_flobdec_blocky16_config",
-  "comment": "Reads key and value pairs ending with key 0; key 1 sets the output callback g_pfnBlkOutput that Blocky16 hands decoded frames to; other keys are an error Original name fob_flobdec_blocky16_config (the remaster's GrimFandango (Linux): aligned call in SmushPlay_UpdateMovie); was Blocky16_SetOption."
+  "comment": "Reads key and value pairs ending with key 0; key 1 sets the output callback g_pFob_blit_routine that Blocky16 hands decoded frames to; other keys are an error Original name fob_flobdec_blocky16_config (the remaster's GrimFandango (Linux): aligned call in SmushPlay_UpdateMovie); was Blocky16_SetOption."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

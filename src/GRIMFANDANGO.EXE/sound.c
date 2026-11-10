@@ -15,8 +15,7 @@ void sputRoom_RelocateSounds(void)
   undefined4 *puVar1;
   
   PositionedSounds_DropFinished();
-  for (puVar1 = g_pPositionedSoundList; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1)
-  {
+  for (puVar1 = g_pSoundEventList; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
     SetSoundPosition(puVar1);
   }
   return;
@@ -53,13 +52,13 @@ void PositionedSounds_DropFinished(void)
   int iVar3;
   
   puVar2 = (undefined4 *)0x0;
-  item = g_pPositionedSoundList;
+  item = g_pSoundEventList;
   while (item != (undefined4 *)0x0) {
     iVar3 = SoundsIsSoundPlaying(item[1]);
     if (iVar3 == 0) {
       puVar1 = (undefined4 *)*item;
-      if (item == g_pPositionedSoundList) {
-        g_pPositionedSoundList = puVar1;
+      if (item == g_pSoundEventList) {
+        g_pSoundEventList = puVar1;
         Pool_Free(item);
         puVar2 = (undefined4 *)0x0;
         item = puVar1;
@@ -89,7 +88,7 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
   PositionedSounds_DropFinished();
   puVar1 = (undefined4 *)Memory_AllocFixed(g_pSoundPool);
   puVar1[1] = param_1;
-  *puVar1 = g_pPositionedSoundList;
+  *puVar1 = g_pSoundEventList;
   puVar1[2] = *param_2;
   puVar1[3] = param_2[1];
   puVar1[4] = param_2[2];
@@ -97,7 +96,7 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
   puVar1[6] = param_4;
   puVar1[7] = param_5;
   puVar1[8] = param_6;
-  g_pPositionedSoundList = puVar1;
+  g_pSoundEventList = puVar1;
   return (undefined *)puVar1;
 }
 

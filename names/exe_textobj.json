@@ -3,6 +3,6 @@
  {"addr": "0048cba0", "name": "TextObject_FindBySelf", "tags": "text"},
  {"addr": "008ca154", "global": "g_pTextEventPool", "type": "Pool *", "comment": "Pool of 0x260-byte text object records"},
  {"addr": "008ca140", "global": "g_nTranslationType", "type": "int", "comment": "Lua SetTranslationMode: 0 translate ids, 1 show the id, 2 show the raw line"},
- {"addr": "008c97c0", "global": "g_wTextColors", "type": "ushort", "comment": "16-bit foreground, background and shadow colours of the text object being drawn", "array_length": 3},
+ {"addr": "008c97c0", "global": "g_abSputRender_colorMap", "type": "ushort", "comment": "16-bit foreground, background and shadow colours of the text object being drawn", "array_length": 3},
  {"addr": "0048c8d0", "comment": "Splits a '/id/text' dialogue line: copies the id into outId and returns the text according to g_nTranslationType (translated, id only, or raw)"}
 ]

@@ -109,7 +109,7 @@ undefined4 __cdecl TgRestore(undefined4 *param_1); /* 0x1000b1e0 */
 undefined4 __cdecl TgSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7, int p8,int p9); /* 0x1000b220 */
 int __cdecl TgCheckTrigger(int param_1,byte *param_2,int param_3); /* 0x1000b2e0 */
 undefined4 __cdecl TgClearTrigger(int param_1,byte *param_2,int param_3); /* 0x1000b380 */
-undefined4 * __cdecl Im_FireTriggers(int param_1,char *param_2); /* 0x1000b430 */
+undefined4 * __cdecl TgProcessMarker(int param_1,char *param_2); /* 0x1000b430 */
 undefined4 __cdecl TgDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8, int p9); /* 0x1000b570 */
 void TgIntHandler(void); /* 0x1000b5e0 */
 int __cdecl TgGetPendCount(int param_1); /* 0x1000b630 */

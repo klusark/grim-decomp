@@ -1,6 +1,6 @@
 [
  {"addr": "00480790", "name": "Res_OverrideFileCalls", "proto": "void Res_OverrideFileCalls(GrimServices * svc)",
-  "comment": "Temp/Res.c: keeps a copy of the raw file services in g_ResFileServices and replaces svc->fopen..fprintf with the ResFile_* versions so every open goes through the LAB archive system", "tags": "resource"},
+  "comment": "Temp/Res.c: keeps a copy of the raw file services in g_aLowLevelHS and replaces svc->fopen..fprintf with the ResFile_* versions so every open goes through the LAB archive system", "tags": "resource"},
  {"addr": "00480800", "name": "Res_RestoreFileServices", "proto": "void Res_RestoreFileServices(GrimServices * svc)", "tags": "resource"},
  {"addr": "00480890", "name": "Res_FOpen", "proto": "int Res_FOpen(char * name, char * mode)",
   "comment": "Returns a 1-based handle into the 128-entry g_ResFileTable. Read-mode names without a path are looked up inside the open LAB archives first (entry = archive handle + offset + size); otherwise the underlying fopen is used.", "tags": "resource"},
@@ -55,7 +55,7 @@
  {"addr": "00482200", "name": "Res_Touch", "proto": "void Res_Touch(void * data)", "tags": "resource"},
  {"addr": "008a856c", "global": "g_pSvcRes", "type": "GrimServices *", "comment": "Service table pointer used by Temp/Res.c"},
  {"addr": "008a8570", "global": "g_pSvcResFile", "type": "GrimServices *", "comment": "Service table whose fopen/fread are the raw file functions underneath the resource system"},
- {"addr": "00825e90", "global": "g_ResFileServices", "type": "GrimServices", "comment": "Copy of the raw file services taken by Res_OverrideFileCalls"},
+ {"addr": "00825e90", "global": "g_aLowLevelHS", "type": "GrimServices", "comment": "Copy of the raw file services taken by Res_OverrideFileCalls"},
  {"addr": "008a85c0", "global": "g_pLabPool", "type": "Pool *", "comment": "Pool of 0x120-byte LAB archive records"},
  {"addr": "008a85c4", "global": "g_pLabList", "type": "void *", "comment": "Head of the open archive list, searched in order"},
  {"addr": "008a85cc", "global": "g_pResTypeList", "type": "void *", "comment": "Registered resource type handlers"},
@@ -87,7 +87,7 @@
  {"addr": "008a8c88", "global": "g_pszSaveFileName", "type": "char *", "comment": "File name for the pending save or restore, NULL means grim.sav"},
  {"addr": "008a8770", "global": "g_pSaveFile", "type": "void *", "comment": "Save file currently open for writing or reading"},
 
- {"addr": "00483720", "name": "Polyglot_LoadTable", "proto": "void Polyglot_LoadTable(char * filename)",
+ {"addr": "00483720", "name": "PolyglotConfigure", "proto": "void PolyglotConfigure(char * filename)",
   "comment": "Engine/polyglot.c: loads the language table (grim.tab). An 'RCNE' header means the body is XORed with 0xDD. Lines are split on CR, cut at the TAB between id and text, and sorted for binary search.", "tags": "text"},
  {"addr": "004838c0", "name": "Str_FindChar", "proto": "char * Str_FindChar(char * s, int c)", "tags": "text"},
  {"addr": "004838e0", "name": "PolyglotGetString", "proto": "char * PolyglotGetString(char * id, char * fallback)", "tags": "text"},

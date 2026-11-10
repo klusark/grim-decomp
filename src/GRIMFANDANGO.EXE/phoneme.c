@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00490e00  Phoneme_ToTalkChore ---- */
-/* bsearch in the phoneme table g_PhonemeTable (8-byte {phoneme, chore} entries) */
+/* bsearch in the phoneme table g_dwPhonemeTable (8-byte {phoneme, chore} entries) */
 
 uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme)
 
@@ -19,7 +19,7 @@ uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme)
     return 0;
   }
   local_8 = phoneme;
-  iVar1 = bsearch(&local_8,&g_PhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
+  iVar1 = bsearch(&local_8,&g_dwPhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
   if (iVar1 != 0) {
     return *(ushort *)(iVar1 + 4);
   }

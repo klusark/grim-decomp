@@ -227,16 +227,18 @@ undefined4 Svc_Identity(undefined4 param_1)
   return param_1;
 }
 
-/* ---- 0x00403880  Services_InitDefaults ---- */
-/* Copies the 28-entry default service table (mostly stubs) from 0x004dd9a8 */
+/* ---- 0x00403880  HostServicesInitialize ---- */
+/* Copies the 28-entry default service table (mostly stubs) from 0x004dd9a8 Original name
+   HostServicesInitialize (the remaster's GrimFandango (Linux): the first call of Main_Startup, same
+   body (copies the default host-service table)); was Services_InitDefaults. */
 
-void __cdecl Services_InitDefaults(GrimServices *svc)
+void __cdecl HostServicesInitialize(GrimServices *svc)
 
 {
   int iVar1;
   GrimServices *pGVar2;
   
-  pGVar2 = &GrimServices_004dd9a8;
+  pGVar2 = &g_aDefaultHostServices;
   for (iVar1 = 0x1c; iVar1 != 0; iVar1 = iVar1 + -1) {
     svc->flVersion = pGVar2->flVersion;
     pGVar2 = (GrimServices *)&pGVar2->pPrintf;
@@ -245,14 +247,16 @@ void __cdecl Services_InitDefaults(GrimServices *svc)
   return;
 }
 
-/* ---- 0x004733a0  Services_SetCurrent ---- */
+/* ---- 0x004733a0  stdStartup ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Stores the module service table in g_pServices and captures the FPU control words used for
-   rounding modes */
+   rounding modes Original name stdStartup (the remaster's GrimFandango (Linux): called from
+   Main_Startup with hs before PolyglotInitialize, stores std_pHS then starts the platform layer);
+   was Services_SetCurrent. */
 
-void __cdecl Services_SetCurrent(GrimServices *svc)
+void __cdecl stdStartup(GrimServices *svc)
 
 {
   undefined1 uVar1;
@@ -285,18 +289,23 @@ void Services_Clear(void)
   return;
 }
 
-/* ---- 0x00473420  Services_InitPlatform ---- */
-void Services_InitPlatform(GrimServices *param_1)
+/* ---- 0x00473420  stdInitServices ---- */
+/* Original name stdInitServices (the remaster's GrimFandango (Linux): the host-service set-up call
+   of Main_Startup before stdStartup); was Services_InitPlatform. */
+
+void stdInitServices(GrimServices *param_1)
 
 {
   Services_InitPlatformTable(param_1);
   return;
 }
 
-/* ---- 0x00478000  Svc_DebugPrintf ---- */
-/* Platform service printf: formats into g_szDebugBuffer and OutputDebugString */
+/* ---- 0x00478000  stdPlatform_Printf ---- */
+/* Platform service printf: formats into g_szDebugBuffer and OutputDebugString Original name
+   stdPlatform_Printf (the remaster's GrimFandango (Linux): the formatter all five grimdemo print
+   callbacks call (formats into std_genBuffer)); was Svc_DebugPrintf. */
 
-undefined4 __cdecl Svc_DebugPrintf(char *fmt,...)
+undefined4 __cdecl stdPlatform_Printf(char *fmt,...)
 
 {
   _snprintf(&g_bStd_genBuffer,0x400,fmt,&STACK0X(0x00000008));
@@ -311,10 +320,10 @@ undefined4 __cdecl Svc_DebugPrintf(char *fmt,...)
 void __cdecl Services_InitPlatformTable(GrimServices *svc)
 
 {
-  svc->pPrintf2 = Svc_DebugPrintf;
-  svc->pPrintf = Svc_DebugPrintf;
-  svc->pWarning = Svc_DebugPrintf;
-  svc->pError = Svc_DebugPrintf;
+  svc->pPrintf2 = stdPlatform_Printf;
+  svc->pPrintf = stdPlatform_Printf;
+  svc->pWarning = stdPlatform_Printf;
+  svc->pError = stdPlatform_Printf;
   svc->flVersion = 1000.0;
   svc->pDebug = (void *)0x0;
   svc->pAssertFail = stdPlatform_Assert;

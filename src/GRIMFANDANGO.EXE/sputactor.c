@@ -811,7 +811,7 @@ undefined4 sputActor_Startup(void)
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  qsort(&g_PhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
+  qsort(&g_dwPhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
   g_dwSputActStartup = 1;
   return 0;
 }

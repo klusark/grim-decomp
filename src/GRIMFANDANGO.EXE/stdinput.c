@@ -65,11 +65,14 @@ void stdControl_Shutdown(void)
   return;
 }
 
-/* ---- 0x00476fc0  Input_Enable ---- */
-undefined4 Input_Enable(void)
+/* ---- 0x00476fc0  stdControl_Open ---- */
+/* Original name stdControl_Open (the remaster's GrimFandango (Linux): the only call of
+   sputControl_Open (sets stdControl_bOpen and activates the controls)); was Input_Enable. */
+
+undefined4 stdControl_Open(void)
 
 {
-  g_nInputEnabled = 1;
+  g_nStdControl_bOpen = 1;
   Input_SetAcquired(1);
   return 1;
 }
@@ -78,11 +81,11 @@ undefined4 Input_Enable(void)
 undefined4 Input_Disable(void)
 
 {
-  if (g_nInputEnabled == 0) {
+  if (g_nStdControl_bOpen == 0) {
     return 0;
   }
   Input_SetAcquired(0);
-  g_nInputEnabled = 0;
+  g_nStdControl_bOpen = 0;
   return 1;
 }
 
@@ -262,7 +265,7 @@ int __cdecl stdControl_ReadKey(int inputId,int *down,int *justPressed)
 void __cdecl Input_SetAcquired(int acquire)
 
 {
-  if (g_nInputEnabled != 0) {
+  if (g_nStdControl_bOpen != 0) {
     if (acquire != 0) {
       if ((g_pDInputMouse != (void *)0x0) && (UINT_004dea40 != 0)) {
         (**(code_std **)(*(int *)g_pDInputMouse + 0x1c))(g_pDInputMouse);

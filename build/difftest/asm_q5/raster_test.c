@@ -9,7 +9,7 @@
  * (the span pointer 0x007f44f0 with orig_X mapped to X), the x87 control word and the x87 stack top.
  * The x87 precision control rotates through 24, 53 and 64 bits; the control words the original loads
  * (0x00900524 default, 0x00900526 floor, 0x00900528 truncate at 24 bits, 0x0090052a ceil) are set from it as
- * Services_SetCurrent does.  PEEP=1 builds of the test compare against the assembly after build/peephole.py.
+ * stdStartup does.  PEEP=1 builds of the test compare against the assembly after build/peephole.py.
  *
  * usage: raster_test.exe [cases per function] [function name filter: a substring, or =name]
  * Q5_TIME=1: also time original vs C (cycles per call); Q5_SEED=n: another random sequence;
@@ -318,11 +318,11 @@ enum { K_EDGE, K_SPAN, K_DRAW, K_DRAWL, K_GRAD, K_ZSPAN, K_NZW, K_NSPAN, K_NPSPA
 /* the span record of the renderer without z-buffer (x, count, y, u, du, v, dv, z, l, dl) */
 static int rec[16];
 typedef struct { const char *name; int kind; void *orig, *c; } fn;
-#define FN(kind, n) extern void orig_rdRaster_##n(void), rdRaster_##n(void);
+#define FN(kind, n) extern void orig_##n(void), n(void);
 #include "q5_funcs.h"
 #undef FN
 static const fn fns[] = {
-#define FN(kind, n) {#n, kind, (void *)orig_rdRaster_##n, (void *)rdRaster_##n},
+#define FN(kind, n) {#n, kind, (void *)orig_##n, (void *)n},
 #include "q5_funcs.h"
 #undef FN
 };
@@ -492,7 +492,7 @@ int main(int argc, char **argv)
         const fn *f = &fns[k];
         if (filt && (filt[0] == '=' ? strcmp(f->name, filt + 1) != 0 : !strstr(f->name, filt))) continue;
         /* the dithered filler indexes the light table without the 0..63 mask: keep the light in range */
-        small_light = !strcmp(f->name, "Span16_TexZw") || !strcmp(f->name, "Draw_FlatLit_12");
+        small_light = !strcmp(f->name, "rdRaster_Span16_TexZw") || !strcmp(f->name, "rdZRaster_DrawNGonGIT");
         long f0 = fails, cd0 = case_diffs, cb0 = cbuf_diffs;
         uint64_t t_orig = 0, t_c = 0;
         for (long i = 0; i < n; i++) {

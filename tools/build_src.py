@@ -1732,7 +1732,7 @@ def build(prog):
             w.write("\n".join(lines))
 
     # one-instruction `JMP target` wrappers Ghidra marks as thunks (sputLua_Display ->
-    # Render_Present, ImTerminate -> TrTerminate ...). They have no C body;
+    # sputRender_PageFlip, ImTerminate -> TrTerminate ...). They have no C body;
     # a jump in inline asm defines the symbol so callers and function-pointer
     # tables (data.s) resolve. Thunks that share their target's name are the same
     # symbol already; import thunks (`JMP [IAT]`) resolve to the import library.

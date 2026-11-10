@@ -60,7 +60,7 @@ void * __cdecl TextObject_New(void *ctx,char *text,int durationMs,int flags)
       puVar1[0x84] = g_hEmergencyFont;
     }
     puVar3 = puVar1 + 0x90;
-    puVar1[0x8d] = g_wTextColors;
+    puVar1[0x8d] = g_abSputRender_colorMap;
     puVar1[0x83] = puVar3;
     puVar4 = *(undefined4 **)((int)ctx + 4);
     if (puVar4 != (undefined4 *)0x0) {
@@ -108,18 +108,18 @@ void __cdecl TextObject_Draw(void *obj,int invalidate)
       local_10 = local_10 - (int)local_8 / 2;
     }
     uVar1 = *(uint *)((int)obj + 0x21c);
-    g_wTextColors[0] =
+    g_abSputRender_colorMap[0] =
          (ushort)((uVar1 >> 10 & 0x3f | ((int)uVar1 >> 3) << 6) << 5) |
          (ushort)(uVar1 >> 0x13) & 0x1f;
     uVar2 = *(uint *)((int)obj + 0x220);
-    g_wTextColors[1] =
+    g_abSputRender_colorMap[1] =
          (ushort)((uVar2 >> 10 & 0x3f | ((int)uVar2 >> 3) << 6) << 5) |
          (ushort)(uVar2 >> 0x13) & 0x1f;
     uVar3 = *(uint *)((int)obj + 0x224);
-    g_wTextColors[2] =
+    g_abSputRender_colorMap[2] =
          (ushort)((uVar3 >> 10 & 0x3f | ((int)uVar3 >> 3) << 6) << 5) |
          (ushort)(uVar3 >> 0x13) & 0x1f;
-    sputRender_ColorCorrect(g_wTextColors,3);
+    sputRender_ColorCorrect(g_abSputRender_colorMap,3);
     *(undefined4 *)((int)obj + 0x21c) = 0;
     *(undefined4 *)((int)obj + 0x220) = 1;
     *(undefined4 *)((int)obj + 0x224) = 2;

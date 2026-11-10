@@ -5,10 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004931c0  Speech_SetMode ---- */
-/* Lua SetSpeechMode: 1 text only, 2 voice only, 3 both */
+/* ---- 0x004931c0  sputActor_SetSpeechMode ---- */
+/* Lua SetSpeechMode: 1 text only, 2 voice only, 3 both Original name sputActor_SetSpeechMode (the
+   remaster's GrimFandango (Linux): the only unpaired user of smSpeechMode, same body, called from
+   sputLua_SetSpeechMode on both sides); was Speech_SetMode. */
 
-void __cdecl Speech_SetMode(int mode)
+void __cdecl sputActor_SetSpeechMode(int mode)
 
 {
   if ((mode != g_dwSmSpeechMode) && ((mode & 3U) != 0)) {

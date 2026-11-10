@@ -1,0 +1,107 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00404180",
+  "old": "rdroid_Startup",
+  "name": "rdStartup",
+  "comment": "RDroid library startup: stores the service table and builds the reciprocal/fixed-point tables Original name rdStartup (the remaster's GrimFandango (Linux): called from Main_Startup with hs on both sides, same body (stores rdroid_pHS, once flag bRDroidStartup)); was rdroid_Startup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00478000",
+  "old": "Svc_DebugPrintf",
+  "name": "stdPlatform_Printf",
+  "comment": "Platform service printf: formats into g_szDebugBuffer and OutputDebugString Original name stdPlatform_Printf (the remaster's GrimFandango (Linux): the formatter all five grimdemo print callbacks call (formats into std_genBuffer)); was Svc_DebugPrintf."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482790",
+  "old": "Engine_RunSystemScript",
+  "name": "grimlib_FindSystemFiles",
+  "comment": "Original name grimlib_FindSystemFiles (the remaster's GrimFandango (Linux): same body (the result of sputLua_FindSystemFiles negated), called from Main_Startup); was Engine_RunSystemScript."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049c5e0",
+  "old": "Lua_RunSystemScript",
+  "name": "sputLua_FindSystemFiles",
+  "comment": "lua_dofile('_system.lua') Original name sputLua_FindSystemFiles (the remaster's GrimFandango (Linux): the only call of grimlib_FindSystemFiles, same body (lua_dofile of _system.lua)); was Lua_RunSystemScript."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004827a0",
+  "old": "Engine_CallSystemFunction",
+  "name": "grimlib_Open",
+  "comment": "Original name grimlib_Open (the remaster's GrimFandango (Linux): called from Main_Startup, same body (once flag bSputmOpen, sputLua_Boot, grimlib_mode = 2, sputRender_Open, sputControl_Open)); was Engine_CallSystemFunction."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049c600",
+  "old": "Lua_CallSystemFunction",
+  "name": "sputLua_Boot",
+  "comment": "Calls the global Lua function named by the string at 0x004ec3c8 with (flag, str) Original name sputLua_Boot (the remaster's GrimFandango (Linux): the boot-script call of grimlib_Open, same body (pushes the flag and string, calls the boot global)); was Lua_CallSystemFunction."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00484000",
+  "old": "Engine_CreateCameraActor",
+  "name": "sputRender_Open",
+  "comment": "Creates the hidden actor that carries the camera frame (g_hCameraActor) Original name sputRender_Open (the remaster's GrimFandango (Linux): the render call of grimlib_Open, same body (allocates the camera actor gCamActorIndex, flag 1)); was Engine_CreateCameraActor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d150",
+  "old": "Control_Capture",
+  "name": "sputControl_Open",
+  "comment": "Original name sputControl_Open (the remaster's GrimFandango (Linux): the control call of grimlib_Open, same body (stdControl_Open, then bControlOpen)); was Control_Capture."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00476fc0",
+  "old": "Input_Enable",
+  "name": "stdControl_Open",
+  "comment": "Original name stdControl_Open (the remaster's GrimFandango (Linux): the only call of sputControl_Open (sets stdControl_bOpen and activates the controls)); was Input_Enable."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004836b0",
+  "old": "IMuseModule_Init",
+  "name": "PolyglotInitialize",
+  "comment": "Fills the 8-entry module interface {init, 0, shutdown=FUN_004c1e50, update, 0...} for the sound module Original name PolyglotInitialize (the remaster's GrimFandango (Linux): the module-interface filler Main_Startup calls after stdStartup, same slots (itself, 0, startup, shutdown, 0...) and its pHS (the old name was wrong: it is the polyglot module)); was IMuseModule_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004836f0",
+  "old": "IMuseModule_Stop",
+  "name": "polyglot_shutdown",
+  "comment": "Module interface slot 3 of IMuseModule: frees g_pLanguageMalloc and the string table buffer. Original name polyglot_shutdown (the remaster's GrimFandango (Linux): the shutdown slot PolyglotInitialize fills, same body (frees pLanguageMalloc and ppLanguageLine)); was IMuseModule_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00483720",
+  "old": "Polyglot_LoadTable",
+  "name": "PolyglotConfigure",
+  "comment": "polyglot.c: loads the language table (text id -> translated string) Original name PolyglotConfigure (the remaster's GrimFandango (Linux): the table load Main_Startup calls after PolyglotInitialize, same body (reads the .tab file through the polyglot pHS)); was Polyglot_LoadTable."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403880",
+  "old": "Services_InitDefaults",
+  "name": "HostServicesInitialize",
+  "comment": "Copies the 28-entry default service table (mostly stubs) from 0x004dd9a8 Original name HostServicesInitialize (the remaster's GrimFandango (Linux): the first call of Main_Startup, same body (copies the default host-service table)); was Services_InitDefaults."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00473420",
+  "old": "Services_InitPlatform",
+  "name": "stdInitServices",
+  "comment": "Original name stdInitServices (the remaster's GrimFandango (Linux): the host-service set-up call of Main_Startup before stdStartup); was Services_InitPlatform."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004733a0",
+  "old": "Services_SetCurrent",
+  "name": "stdStartup",
+  "comment": "Stores the module service table in g_pServices and captures the FPU control words used for rounding modes Original name stdStartup (the remaster's GrimFandango (Linux): called from Main_Startup with hs before PolyglotInitialize, stores std_pHS then starts the platform layer); was Services_SetCurrent."
+ }
+]

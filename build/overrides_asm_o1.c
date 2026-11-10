@@ -27,26 +27,26 @@
 
 /* Rasteriser state globals used by the span loops (Ghidra names, read at their real width) */
 #define RD_RECIP(n)  (((int *)&g_aRdRaster_OneOverNFixed)[n])   /* 0x10000 / n, filled at start-up */
-#define rd_u         R32(UINT_007f4454)            /* texture u (16.16, after the shift) */
-#define rd_uStep     R32(UINT_007f43bc)
-#define rd_v         R32(UINT_007f4458)            /* texture v */
-#define rd_vStep     R32(UINT_007f4254)
-#define rd_l         R32(UINT_007f4450)            /* light / shade value */
-#define rd_lStep     R32(UINT_007f439c)
-#define rd_texShift  R32(UINT_008ddee4)            /* u, v are shifted right by this */
-#define rd_uOffset   R32(UINT_008ddef8)
-#define rd_vOffset   R32(UINT_008ddeac)
-#define rd_vShift    R32(UINT_008dded8)            /* row index = (v >> (16 - rd_vShift)) & rd_vMask */
-#define rd_vMask     R32(UINT_008ddefc)
-#define rd_uMask     R32(UINT_008ddecc)            /* column index = (u >> 16) & (rd_uMask >> 16) */
-#define rd_pTex      U32(UINT_008ddee8)            /* texels */
-#define rd_pLight    U32(UINT_008ddea8)            /* light table, 256 bytes per level */
-#define rd_pShade    U32(UINT_008ddeb0)            /* shade table, 256 bytes per level */
-#define rd_pPal16    U32(UINT_008ddebc)            /* 16 bit palette, 256 words per level */
-#define rd_pTexPal   U32(UINT_008dded4)            /* texel to palette index */
-#define rd_level     R8(DAT_008ddec0)              /* light level of the face */
-#define rd_ptr8      PTR_007f4300                  /* 8 bit destination (or the texel of the 16 bit flat spans) */
-#define rd_ptr16     PTR_007f43a8                  /* 16 bit destination */
+#define rd_u         R32(g_dwFixU)            /* texture u (16.16, after the shift) */
+#define rd_uStep     R32(g_dwUStep)
+#define rd_v         R32(g_dwFixV)            /* texture v */
+#define rd_vStep     R32(g_dwVStep)
+#define rd_l         R32(g_dwFixI)            /* light / shade value */
+#define rd_lStep     R32(g_dwIStep)
+#define rd_texShift  R32(g_dwRdNRaster_mipMapNum)            /* u, v are shifted right by this */
+#define rd_uOffset   R32(g_dwRdNRaster_dUdXModifier)
+#define rd_vOffset   R32(g_dwRdNRaster_dVdXModifier)
+#define rd_vShift    R32(g_dwRdNRaster_texRowShift)            /* row index = (v >> (16 - rd_vShift)) & rd_vMask */
+#define rd_vMask     R32(g_dwRdNRaster_vWrap)
+#define rd_uMask     R32(g_dwRdNRaster_uWrap)            /* column index = (u >> 16) & (rd_uMask >> 16) */
+#define rd_pTex      U32(g_dwRdNRaster_pPixels)            /* texels */
+#define rd_pLight    U32(g_dwRdNRaster_aAlphaMap)            /* light table, 256 bytes per level */
+#define rd_pShade    U32(g_dwRdNRaster_aMonoMap)            /* shade table, 256 bytes per level */
+#define rd_pPal16    U32(g_dwRdNRaster_aRGBMap)            /* 16 bit palette, 256 words per level */
+#define rd_pTexPal   U32(g_dwRdNRaster_aRGBToPalette)            /* texel to palette index */
+#define rd_level     R8(g_bRdNRaster_color)              /* light level of the face */
+#define rd_ptr8      g_pDest                  /* 8 bit destination (or the texel of the 16 bit flat spans) */
+#define rd_ptr16     g_pWDest                  /* 16 bit destination */
 
 /* arithmetic shift by a count taken mod 32, as SAR with CL does */
 #define SAR(x, n)    ((int)(x) >> ((n) & 31))
@@ -63,7 +63,7 @@ static inline uint rd_ceil16(uint x)
 
 /* ==== rdRaster_Span_Tex (0x0041a4f0) ====
  * 8 bit span, flat lit: every pixel already in the frame buffer is remapped through the 256 byte light table
- * UINT_008ddea8 + DAT_008ddec0 * 0x100 (in place). */
+ * g_dwRdNRaster_aAlphaMap + g_bRdNRaster_color * 0x100 (in place). */
 void rdRaster_Span_Tex(uint *param_1, uint *param_2)
 {
     uint xl = rd_ceil16(*param_1) >> 16;
@@ -77,16 +77,16 @@ void rdRaster_Span_Tex(uint *param_1, uint *param_2)
     cv = RD_CANVAS();
     dst = (uint8_t *)(param_1[0x10] * *(int *)(cv + 0x18) + *(int *)(cv + 0x5c) + xl);
     do {
-        *dst = *(uint8_t *)(U32(UINT_008ddea8) + (uint)R8(DAT_008ddec0) * 0x100 + *dst);
+        *dst = *(uint8_t *)(U32(g_dwRdNRaster_aAlphaMap) + (uint)R8(g_bRdNRaster_color) * 0x100 + *dst);
         dst++;
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span16_Tex_2 (0x0041a580) ====
- * 16 bit span, one colour: the texel *PTR_007f4300 (not advanced) goes through the byte table UINT_008dded4, the
- * light table UINT_008ddea8 + DAT_008ddec0 * 0x100 and the word palette UINT_008ddebc.  The destination pointer is
- * the global PTR_007f43a8, advanced by 2 per pixel and left after the span. */
-void rdRaster_Span16_Tex_2(uint *param_1, uint *param_2)
+/* ==== rdNRaster_DrawScanLineNGonTFS_16 (0x0041a580) ====
+ * 16 bit span, one colour: the texel *g_pDest (not advanced) goes through the byte table g_dwRdNRaster_aRGBToPalette, the
+ * light table g_dwRdNRaster_aAlphaMap + g_bRdNRaster_color * 0x100 and the word palette g_dwRdNRaster_aRGBMap.  The destination pointer is
+ * the global g_pWDest, advanced by 2 per pixel and left after the span. */
+void rdNRaster_DrawScanLineNGonTFS_16(uint *param_1, uint *param_2)
 {
     uint xl = rd_ceil16(*param_1) >> 16;
     uint xr = rd_ceil16(*param_2) >> 16;
@@ -97,12 +97,12 @@ void rdRaster_Span16_Tex_2(uint *param_1, uint *param_2)
     if (count <= 0)
         return;
     cv = RD_CANVAS();
-    PTR_007f43a8 = (int *)(*(int *)(cv + 0x5c) + (param_1[0x10] * (*(uint *)(cv + 0x18) >> 1) + xl) * 2);
+    g_pWDest = (int *)(*(int *)(cv + 0x5c) + (param_1[0x10] * (*(uint *)(cv + 0x18) >> 1) + xl) * 2);
     do {
-        c = *(uint8_t *)(U32(UINT_008dded4) + *PTR_007f4300);
-        c = *(uint8_t *)((uint)R8(DAT_008ddec0) * 0x100 + U32(UINT_008ddea8) + c);
-        *(uint16_t *)PTR_007f43a8 = *(uint16_t *)(U32(UINT_008ddebc) + c * 2);
-        PTR_007f43a8 = (int *)((char *)PTR_007f43a8 + 2);
+        c = *(uint8_t *)(U32(g_dwRdNRaster_aRGBToPalette) + *g_pDest);
+        c = *(uint8_t *)((uint)R8(g_bRdNRaster_color) * 0x100 + U32(g_dwRdNRaster_aAlphaMap) + c);
+        *(uint16_t *)g_pWDest = *(uint16_t *)(U32(g_dwRdNRaster_aRGBMap) + c * 2);
+        g_pWDest = (int *)((char *)g_pWDest + 2);
     } while (--count != 0);
 }
 
@@ -114,10 +114,10 @@ static inline int rd_clamp_step(int step)
     return step;
 }
 
-/* ==== rdRaster_Span_Tex_2 (0x0041b0d0) ====
+/* ==== rdNRaster_DrawScanLineNGonTGS_8 (0x0041b0d0) ====
  * 8 bit span, Gouraud lit remap of the frame buffer: the light value (edge +0x38) is interpolated; each pixel is
  * remapped in place through light[shade[level + (l >> 8 & 0x3f00)] * 0x100 + pixel]. */
-void rdRaster_Span_Tex_2(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonTGS_8(uint *param_1, uint *param_2)
 {
     uint xl = rd_ceil16(*param_1);
     int xli = (int)xl >> 16;
@@ -140,10 +140,10 @@ void rdRaster_Span_Tex_2(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span16_Tex_3 (0x0041b1e0) ====
+/* ==== rdNRaster_DrawScanLineNGonTGS_16 (0x0041b1e0) ====
  * 16 bit span, one texel (*rd_ptr8, not advanced), Gouraud lit: palette word
  * pal16[((l >> 16) & 0x3f) * 0x100 + light[level * 0x100 + texpal[texel]]].  Writes through rd_ptr16. */
-void rdRaster_Span16_Tex_3(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonTGS_16(uint *param_1, uint *param_2)
 {
     uint xl = rd_ceil16(*param_1);
     int xli = (int)xl >> 16;
@@ -206,9 +206,9 @@ static inline uint8_t *rd_dst8(uint *e1, int xli)
     return (uint8_t *)(e1[0x10] * *(int *)(cv + 0x18) + *(int *)(cv + 0x5c) + xli);
 }
 
-/* ==== rdRaster_Span_Flat_2 (0x0041b6f0) ====
+/* ==== rdNRaster_DrawScanLineNGonLAT_8 (0x0041b6f0) ====
  * 8 bit span, affine textured, unlit: dst = texel(u, v).  u, v and the destination are kept in the globals. */
-void rdRaster_Span_Flat_2(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonLAT_8(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -223,9 +223,9 @@ void rdRaster_Span_Flat_2(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span_FlatKey (0x0041c810) ====
- * As rdRaster_Span_Flat_2, texel 0 is transparent (not written). */
-void rdRaster_Span_FlatKey(uint *param_1, uint *param_2)
+/* ==== rdNRaster_DrawScanLineNGonMLAT_8 (0x0041c810) ====
+ * As rdNRaster_DrawScanLineNGonLAT_8, texel 0 is transparent (not written). */
+void rdNRaster_DrawScanLineNGonMLAT_8(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -262,9 +262,9 @@ static inline int *rd_dst16(uint *e1, int xli)
 #define TEXPAL(i)    (*(uint8_t *)(rd_pTexPal + (i)))
 #define PAL16(i)     (*(uint16_t *)(rd_pPal16 + (i) * 2))
 
-/* ==== rdRaster_Span_Tex_3 (0x0041c260) ====
+/* ==== rdNRaster_DrawScanLineNGonTLAT_8 (0x0041c260) ====
  * 8 bit span, affine textured, blended with the frame buffer: dst = light[texel * 0x100 + dst]. */
-void rdRaster_Span_Tex_3(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonTLAT_8(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -279,9 +279,9 @@ void rdRaster_Span_Tex_3(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span_Tex_4 (0x0041df60) ====
+/* ==== rdNRaster_DrawScanLineNGonTFAT_8 (0x0041df60) ====
  * 8 bit span, affine textured, shaded and blended: dst = light[shade[texel] * 0x100 + dst]. */
-void rdRaster_Span_Tex_4(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonTFAT_8(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -296,9 +296,9 @@ void rdRaster_Span_Tex_4(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span8_TexKey (0x0041e550) ====
+/* ==== rdNRaster_DrawScanLineNGonMFAT_8 (0x0041e550) ====
  * 8 bit span, affine textured, colour key 0, shaded: dst = shade[texel]. */
-void rdRaster_Span8_TexKey(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonMFAT_8(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -315,10 +315,10 @@ void rdRaster_Span8_TexKey(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span_TexKey (0x0041cdd0) ====
+/* ==== rdNRaster_DrawScanLineNGonMTLAT_8 (0x0041cdd0) ====
  * 8 bit span, affine textured (row shifted left by rd_vShift), colour key 0, blended:
  * dst = light[texel * 0x100 + dst]. */
-void rdRaster_Span_TexKey(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonMTLAT_8(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -335,9 +335,9 @@ void rdRaster_Span_TexKey(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span_TexKey_2 (0x0041eb40) ====
+/* ==== rdNRaster_DrawScanLineNGonMTFAT_8 (0x0041eb40) ====
  * 8 bit span, affine textured, colour key 0, blended then shaded: dst = shade[light[texel * 0x100 + dst]]. */
-void rdRaster_Span_TexKey_2(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonMTFAT_8(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -356,9 +356,9 @@ void rdRaster_Span_TexKey_2(uint *param_1, uint *param_2)
 
 /* 16 bit affine spans: the destination is rd_ptr16. */
 
-/* ==== rdRaster_Span16_Tex_4 (0x0041b880), rdRaster_Span16_Tex_6 (0x0041d560) ====
+/* ==== rdNRaster_DrawScanLineNGonLAT_16 (0x0041b880), rdNRaster_DrawScanLineNGonFAT_16 (0x0041d560) ====
  * 16 bit span, affine textured, unlit: dst = pal16[texel].  The two functions are identical. */
-void rdRaster_Span16_Tex_4(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonLAT_16(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -372,15 +372,15 @@ void rdRaster_Span16_Tex_4(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-void rdRaster_Span16_Tex_6(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonFAT_16(uint *param_1, uint *param_2)
 {
-    rdRaster_Span16_Tex_4(param_1, param_2);
+    rdNRaster_DrawScanLineNGonLAT_16(param_1, param_2);
 }
 
-/* ==== rdRaster_Span16_Tex_5 (0x0041c410) ====
+/* ==== rdNRaster_DrawScanLineNGonTLAT_16 (0x0041c410) ====
  * 16 bit span, affine textured, blended with the 8 bit pixel at rd_ptr8 (not advanced):
  * dst = pal16[light[texel * 0x100 + texpal[*rd_ptr8]]]. */
-void rdRaster_Span16_Tex_5(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonTLAT_16(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -395,9 +395,9 @@ void rdRaster_Span16_Tex_5(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span16_TexKey (0x0041c9b0), rdRaster_Span16_TexKey_3 (0x0041e700) ====
+/* ==== rdNRaster_DrawScanLineNGonMLAT_16 (0x0041c9b0), rdNRaster_DrawScanLineNGonMFAT_16 (0x0041e700) ====
  * 16 bit span, affine textured, colour key 0: dst = pal16[texel].  The two functions are identical. */
-void rdRaster_Span16_TexKey(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonMLAT_16(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -414,15 +414,15 @@ void rdRaster_Span16_TexKey(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-void rdRaster_Span16_TexKey_3(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonMFAT_16(uint *param_1, uint *param_2)
 {
-    rdRaster_Span16_TexKey(param_1, param_2);
+    rdNRaster_DrawScanLineNGonMLAT_16(param_1, param_2);
 }
 
-/* ==== rdRaster_Span16_TexKey_2 (0x0041cf90) ====
+/* ==== rdNRaster_DrawScanLineNGonMTLAT_16 (0x0041cf90) ====
  * 16 bit span, affine textured (row shifted left by rd_vShift), colour key 0, blended with the 8 bit pixel at
  * rd_ptr8 (not advanced): dst = pal16[light[texel * 0x100 + texpal[*rd_ptr8]]]. */
-void rdRaster_Span16_TexKey_2(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonMTLAT_16(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -439,11 +439,11 @@ void rdRaster_Span16_TexKey_2(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span_TexKey_3 (0x0041ed10) ====
+/* ==== rdNRaster_DrawScanLineNGonMTFAT_16 (0x0041ed10) ====
  * Mixed span: rd_ptr8 is set to the 8 bit address of the first pixel and stays there; the pixels are written as
  * 16 bit words through rd_ptr16, which this function does not set (it continues from its current value), with
  * colour key 0: dst16 = pal16[light[texel * 0x100 + texpal[*rd_ptr8]]].  Kept as in the original. */
-void rdRaster_Span_TexKey_3(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonMTFAT_16(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -460,10 +460,10 @@ void rdRaster_Span_TexKey_3(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span16_Tex_7 (0x0041e120) ====
+/* ==== rdNRaster_DrawScanLineNGonTFAT_16 (0x0041e120) ====
  * 16 bit span, affine textured, blended through the palette index of the texel's colour with the 8 bit pixel at
  * rd_ptr8 (not advanced): dst = pal16[light[texpal[pal16[texel]] * 0x100 + texpal[*rd_ptr8]]]. */
-void rdRaster_Span16_Tex_7(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonTFAT_16(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uv(param_1, param_2, &xli);
 
@@ -509,11 +509,11 @@ static inline int rd_setup_uvl(uint *e1, uint *e2, int *pxli)
 #define LVL8()  (SAR(rd_l, 8) & 0x3f00)
 #define LVL16() ((SAR(rd_l, 16) & 0x3f) << 8)
 
-/* ==== rdRaster_Span_Tex_5 (0x0041fe90, with its loop tail FUN_0042003c) ====
+/* ==== rdNRaster_DrawScanLineNGonTGAT_8 (0x0041fe90, with its loop tail FUN_0042003c) ====
  * 8 bit span, affine textured, Gouraud lit, blended: dst = light[shade[lvl + texel] * 0x100 + dst].
  * Ghidra split this function at 0x0042003c (FUN_0042003c is the inner loop); in the assembled build its two
  * branches between the parts were lost (ud2), so this C is the first working version of the pair. */
-void rdRaster_Span_Tex_5(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonTGAT_8(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uvl(param_1, param_2, &xli);
 
@@ -528,9 +528,9 @@ void rdRaster_Span_Tex_5(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span16_Tex_8 (0x0041f2f0) ====
+/* ==== rdNRaster_DrawScanLineNGonGAT_16 (0x0041f2f0) ====
  * 16 bit span, affine textured, Gouraud lit: dst = pal16[lvl + texel]. */
-void rdRaster_Span16_Tex_8(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonGAT_16(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uvl(param_1, param_2, &xli);
 
@@ -543,10 +543,10 @@ void rdRaster_Span16_Tex_8(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span16_Tex_9 (0x004200c0) ====
+/* ==== rdNRaster_DrawScanLineNGonTGAT_16 (0x004200c0) ====
  * 16 bit span, affine textured, Gouraud lit, blended with the 8 bit pixel at rd_ptr8 (not advanced):
  * dst = pal16[lvl + light[texel * 0x100 + texpal[*rd_ptr8]]]. */
-void rdRaster_Span16_Tex_9(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonTGAT_16(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uvl(param_1, param_2, &xli);
 
@@ -560,9 +560,9 @@ void rdRaster_Span16_Tex_9(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span8_TexKey_2 (0x00420580) ====
+/* ==== rdNRaster_DrawScanLineNGonMGAT_8 (0x00420580) ====
  * 8 bit span, affine textured, Gouraud lit, colour key 0: dst = shade[lvl + texel]. */
-void rdRaster_Span8_TexKey_2(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonMGAT_8(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uvl(param_1, param_2, &xli);
 
@@ -578,9 +578,9 @@ void rdRaster_Span8_TexKey_2(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span_TexKey_4 (0x00420c80) ====
+/* ==== rdNRaster_DrawScanLineNGonMTGAT_8 (0x00420c80) ====
  * 8 bit span, affine textured, colour key 0, blended then lit: dst = shade[lvl + light[texel * 0x100 + dst]]. */
-void rdRaster_Span_TexKey_4(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonMTGAT_8(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uvl(param_1, param_2, &xli);
 
@@ -596,9 +596,9 @@ void rdRaster_Span_TexKey_4(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span16_TexKey_4 (0x004207b0) ====
+/* ==== rdNRaster_DrawScanLineNGonMGAT_16 (0x004207b0) ====
  * 16 bit span, affine textured, Gouraud lit, colour key 0: dst = pal16[lvl + texel]. */
-void rdRaster_Span16_TexKey_4(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonMGAT_16(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uvl(param_1, param_2, &xli);
 
@@ -614,10 +614,10 @@ void rdRaster_Span16_TexKey_4(uint *param_1, uint *param_2)
     } while (--count != 0);
 }
 
-/* ==== rdRaster_Span16_TexKey_5 (0x00420ec0) ====
+/* ==== rdNRaster_DrawScanLineNGonMTGAT_16 (0x00420ec0) ====
  * 16 bit span, affine textured, Gouraud lit, colour key 0, blended with the 8 bit pixel at rd_ptr8 (not advanced):
  * dst = pal16[lvl + light[texel * 0x100 + texpal[*rd_ptr8]]]. */
-void rdRaster_Span16_TexKey_5(uint *param_1, uint *param_2)
+void rdNRaster_DrawScanLineNGonMTGAT_16(uint *param_1, uint *param_2)
 {
     int xli, count = rd_setup_uvl(param_1, param_2, &xli);
 
@@ -634,14 +634,14 @@ void rdRaster_Span16_TexKey_5(uint *param_1, uint *param_2)
 }
 
 /* ======================================================================================================
- * Edge stepping.  The polygon's screen vertices are g_pRdRasterVerts (x, y, z floats per vertex); the texture
- * coordinates UINT_007f4398 (u, v floats per vertex) and the light values UINT_007f4304 (one float per vertex) are
- * pointers to parallel arrays.  An edge function walks from vertex e[3] in the direction g_nRdRasterStepA or
- * g_nRdRasterStepB (wrapping around the polygon) until it finds an edge that covers at least one scanline, fills the
+ * Edge stepping.  The polygon's screen vertices are g_pRdNRaster_aVertices (x, y, z floats per vertex); the texture
+ * coordinates g_dwRdNRaster_aTexVertices (u, v floats per vertex) and the light values g_dwRdNRaster_aIntensities (one float per vertex) are
+ * pointers to parallel arrays.  An edge function walks from vertex e[3] in the direction g_nRdNRaster_leftVertexStep or
+ * g_nRdNRaster_rightVertexStep (wrapping around the polygon) until it finds an edge that covers at least one scanline, fills the
  * edge record (start values and per-scanline steps, 16.16) and returns 0; it returns 1 when it reaches
- * g_nRdRasterEndVertex.
+ * g_nRdNRaster_yMaxVert.
  *
- * x87: the original rounds with the control words that Services_SetCurrent captured: DAT_0090052a (round up) for
+ * x87: the original rounds with the control words that stdStartup captured: DAT_0090052a (round up) for
  * frndint, DAT_00900526 (round down) for fistp, DAT_00900524 (the default) for everything else.  The helpers below do
  * the same instruction sequences; every intermediate value the original stores to a float is stored to a float
  * here (rd_f), everything it keeps on the x87 stack is a long double.
@@ -670,16 +670,16 @@ static inline int rd_floori(float x)
     return r;
 }
 
-#define RD_UV(i)  (((float *)U32(UINT_007f4398))[i])
-#define RD_LV(i)  (((float *)U32(UINT_007f4304))[i])
+#define RD_UV(i)  (((float *)U32(g_dwRdNRaster_aTexVertices))[i])
+#define RD_LV(i)  (((float *)U32(g_dwRdNRaster_aIntensities))[i])
 
 /* next vertex index in the given direction, wrapping around the polygon */
 static inline int rd_edge_next(int cur, int dir)
 {
     int n = dir + cur;
     if (n < 0)
-        return g_nRdRasterVertCount - 1;
-    return n > g_nRdRasterVertCount - 1 ? 0 : n;
+        return g_nRdNRaster_numVertices - 1;
+    return n > g_nRdNRaster_numVertices - 1 ? 0 : n;
 }
 
 /* one interpolated attribute of an edge: slope d (on the x87 stack) and d rounded to a float; the step is
@@ -697,7 +697,7 @@ static inline float rd_edge_attr(long double d, float dy, float a0, int *start, 
     return s;
 }
 
-#define EDGE_STEPB 1  /* walk with g_nRdRasterStepB (else g_nRdRasterStepA) */
+#define EDGE_STEPB 1  /* walk with g_nRdNRaster_rightVertexStep (else g_nRdNRaster_leftVertexStep) */
 #define EDGE_ROWDY 2  /* sub-scanline offset = integer row - y (else rounded-up y - y) */
 #define EDGE_DIV   4  /* x slope by a division (else times 1 / dy) */
 #define EDGE_UV    8  /* texture coordinates: e[10] / e[11] u, e[12] / e[13] v */
@@ -707,9 +707,9 @@ static inline float rd_edge_attr(long double d, float dy, float a0, int *start, 
 
 /* plane equations of the perspective attributes: value = vertex value + dx * gx + dy * gy */
 #define RDF(g)        (*(float *)&(g))
-#define RD_PL0(i)     (((float *)&UINT_007f43c8)[i])
-#define RD_PL1(i)     (((float *)&UINT_007f4260)[i])
-#define RD_PL2(i)     (((float *)&UINT_007f4310)[i])
+#define RD_PL0(i)     (((float *)&g_dwRdNRaster_aOneOverZ)[i])
+#define RD_PL1(i)     (((float *)&g_dwRdNRaster_aUOverZ)[i])
+#define RD_PL2(i)     (((float *)&g_dwRdNRaster_aVOverZ)[i])
 
 static int rd_edge(int *e, int flags)
 {
@@ -717,21 +717,21 @@ static int rd_edge(int *e, int flags)
     float yc, dy, inv, *v, s, xs;
     long double dxs;
 
-    if (cur == g_nRdRasterEndVertex)
+    if (cur == g_nRdNRaster_yMaxVert)
         return 1;
     for (;;) {
-        next = rd_edge_next(cur, (flags & EDGE_STEPB) ? g_nRdRasterStepB : g_nRdRasterStepA);
-        yc = rd_ceilf(g_pRdRasterVerts[cur * 3 + 1]);
+        next = rd_edge_next(cur, (flags & EDGE_STEPB) ? g_nRdNRaster_rightVertexStep : g_nRdNRaster_leftVertexStep);
+        yc = rd_ceilf(g_pRdNRaster_aVertices[cur * 3 + 1]);
         e[0x10] = rd_floori(yc);
-        n = rd_floori(rd_ceilf(g_pRdRasterVerts[next * 3 + 1])) - e[0x10];
+        n = rd_floori(rd_ceilf(g_pRdNRaster_aVertices[next * 3 + 1])) - e[0x10];
         e[2] = n;
         if (n > 0)
             break;
         cur = next;
-        if (next == g_nRdRasterEndVertex)
+        if (next == g_nRdNRaster_yMaxVert)
             return 1;
     }
-    v = g_pRdRasterVerts;
+    v = g_pRdNRaster_aVertices;
     if (flags & EDGE_ROWDY)
         dy = rd_f((long double)e[0x10] - v[cur * 3 + 1]);
     else
@@ -759,9 +759,9 @@ static int rd_edge(int *e, int flags)
         }
         if (flags & EDGE_PERSP) {
             /* per-scanline steps of the plane values */
-            ((float *)e)[5] = rd_f((long double)s * RDF(DAT_008ddef4) + RDF(DAT_008ddef0));
-            ((float *)e)[7] = rd_f((long double)s * RDF(DAT_008ddec8) + RDF(DAT_008ddec4));
-            ((float *)e)[9] = rd_f((long double)s * RDF(DAT_008ddedc) + RDF(DAT_008ddee0));
+            ((float *)e)[5] = rd_f((long double)s * RDF(g_dwRdNRaster_dOneOverZdX) + RDF(g_dwRdNRaster_dOneOverZdY));
+            ((float *)e)[7] = rd_f((long double)s * RDF(g_dwRdNRaster_dUOverZdX) + RDF(g_dwRdNRaster_dUOverZdY));
+            ((float *)e)[9] = rd_f((long double)s * RDF(g_dwRdNRaster_dVOverZdX) + RDF(g_dwRdNRaster_dVOverZdY));
         }
         if (flags & EDGE_UV) {
             rd_edge_attr(((long double)RD_UV(next * 2) - RD_UV(cur * 2)) * inv, dy, RD_UV(cur * 2), &e[10], &e[11], 0);
@@ -774,44 +774,44 @@ static int rd_edge(int *e, int flags)
     if (flags & EDGE_PERSP) {
         /* plane values at the start of the edge: dx is the rounded start x minus the vertex x */
         dxs = (long double)xs - v[cur * 3];
-        ((float *)e)[4] = rd_f((long double)dy * RDF(DAT_008ddef0) + dxs * RDF(DAT_008ddef4) + RD_PL0(cur));
-        ((float *)e)[6] = rd_f((long double)dy * RDF(DAT_008ddec4) + dxs * RDF(DAT_008ddec8) + RD_PL1(cur));
-        ((float *)e)[8] = rd_f((long double)dy * RDF(DAT_008ddee0) + dxs * RDF(DAT_008ddedc) + RD_PL2(cur));
+        ((float *)e)[4] = rd_f((long double)dy * RDF(g_dwRdNRaster_dOneOverZdY) + dxs * RDF(g_dwRdNRaster_dOneOverZdX) + RD_PL0(cur));
+        ((float *)e)[6] = rd_f((long double)dy * RDF(g_dwRdNRaster_dUOverZdY) + dxs * RDF(g_dwRdNRaster_dUOverZdX) + RD_PL1(cur));
+        ((float *)e)[8] = rd_f((long double)dy * RDF(g_dwRdNRaster_dVOverZdY) + dxs * RDF(g_dwRdNRaster_dVOverZdX) + RD_PL2(cur));
     }
     e[3] = next;
     return 0;
 }
 
 /* ==== the edge functions: x only ==== */
-/* rdRaster_Edge_Flat_4 (0x0041a130), _14 (0x00421dc0), _16 (0x00425a00): x, slope by division */
-undefined4 rdRaster_Edge_Flat_4(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_DIV); }
-undefined4 rdRaster_Edge_Flat_14(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_DIV); }
-undefined4 rdRaster_Edge_Flat_16(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_DIV); }
+/* rdNRaster_SetupRightEdgeNGonFS (0x0041a130), _14 (0x00421dc0), _16 (0x00425a00): x, slope by division */
+undefined4 rdNRaster_SetupRightEdgeNGonFS(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_DIV); }
+undefined4 rdNRaster_SetupRightEdgeNGonLIT(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_DIV); }
+undefined4 rdNRaster_SetupRightEdgeNGonFIT(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_DIV); }
 
 /* ==== x and light ==== */
-/* rdRaster_Edge_Flat_5 (0x0041aa10), _18 (0x00429b70); _6 (0x0041ac60) measures the sub-scanline offset from the
+/* rdNRaster_SetupLeftEdgeNGonGS (0x0041aa10), _18 (0x00429b70); _6 (0x0041ac60) measures the sub-scanline offset from the
  * integer row */
-undefined4 rdRaster_Edge_Flat_5(int *param_1) { return rd_edge(param_1, EDGE_L); }
-undefined4 rdRaster_Edge_Flat_6(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_ROWDY | EDGE_L); }
-undefined4 rdRaster_Edge_Flat_18(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_L); }
+undefined4 rdNRaster_SetupLeftEdgeNGonGS(int *param_1) { return rd_edge(param_1, EDGE_L); }
+undefined4 rdNRaster_SetupRightEdgeNGonGS(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_ROWDY | EDGE_L); }
+undefined4 rdNRaster_SetupRightEdgeNGonGIT(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_L); }
 
 /* ==== x and texture coordinates ==== */
-/* rdRaster_Edge_Flat_7 (0x0041ba30), _8 (0x0041bd20); _9 (0x0041d710), _10 (0x0041da00) keep 1 / dy unrounded for x */
-undefined4 rdRaster_Edge_Flat_7(int *param_1) { return rd_edge(param_1, EDGE_UV); }
-undefined4 rdRaster_Edge_Flat_8(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_UV); }
-undefined4 rdRaster_Edge_Flat_9(int *param_1) { return rd_edge(param_1, EDGE_UV | EDGE_XEXT); }
-undefined4 rdRaster_Edge_Flat_10(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_UV | EDGE_XEXT); }
+/* rdNRaster_SetupLeftEdgeNGonLAT (0x0041ba30), _8 (0x0041bd20); _9 (0x0041d710), _10 (0x0041da00) keep 1 / dy unrounded for x */
+undefined4 rdNRaster_SetupLeftEdgeNGonLAT(int *param_1) { return rd_edge(param_1, EDGE_UV); }
+undefined4 rdNRaster_SetupRightEdgeNGonLAT(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_UV); }
+undefined4 rdNRaster_SetupLeftEdgeNGonFAT(int *param_1) { return rd_edge(param_1, EDGE_UV | EDGE_XEXT); }
+undefined4 rdNRaster_SetupRightEdgeNGonFAT(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_UV | EDGE_XEXT); }
 
 /* ==== perspective: x and the three plane values (1 / z and the texture coordinates over z) ==== */
-/* rdRaster_Edge_Flat_13 (0x00421b60), _15 (0x004257a0): slope by division; _17 (0x00429870): times 1 / dy, plus light */
-undefined4 rdRaster_Edge_Flat_13(int *param_1) { return rd_edge(param_1, EDGE_DIV | EDGE_PERSP); }
-undefined4 rdRaster_Edge_Flat_15(int *param_1) { return rd_edge(param_1, EDGE_DIV | EDGE_PERSP); }
-undefined4 rdRaster_Edge_Flat_17(int *param_1) { return rd_edge(param_1, EDGE_PERSP | EDGE_L); }
+/* rdNRaster_SetupLeftEdgeNGonLIT (0x00421b60), _15 (0x004257a0): slope by division; _17 (0x00429870): times 1 / dy, plus light */
+undefined4 rdNRaster_SetupLeftEdgeNGonLIT(int *param_1) { return rd_edge(param_1, EDGE_DIV | EDGE_PERSP); }
+undefined4 rdNRaster_SetupLeftEdgeNGonFIT(int *param_1) { return rd_edge(param_1, EDGE_DIV | EDGE_PERSP); }
+undefined4 rdNRaster_SetupLeftEdgeNGonGIT(int *param_1) { return rd_edge(param_1, EDGE_PERSP | EDGE_L); }
 
 /* ==== x, texture coordinates and light ==== */
-/* rdRaster_Edge_Flat_11 (0x0041f520), _12 (0x0041f890), 1 / dy unrounded for x */
-undefined4 rdRaster_Edge_Flat_11(int *param_1) { return rd_edge(param_1, EDGE_UV | EDGE_L | EDGE_XEXT); }
-undefined4 rdRaster_Edge_Flat_12(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_UV | EDGE_L | EDGE_XEXT); }
+/* rdNRaster_SetupLeftEdgeNGonGAT (0x0041f520), _12 (0x0041f890), 1 / dy unrounded for x */
+undefined4 rdNRaster_SetupLeftEdgeNGonGAT(int *param_1) { return rd_edge(param_1, EDGE_UV | EDGE_L | EDGE_XEXT); }
+undefined4 rdNRaster_SetupRightEdgeNGonGAT(int *param_1) { return rd_edge(param_1, EDGE_STEPB | EDGE_UV | EDGE_L | EDGE_XEXT); }
 
 /* ======================================================================================================
  * Polygon drawing.  param_1 is the polygon (+0x1c vertex count, +0x20 screen vertices, +0x24 texture coordinates,
@@ -854,10 +854,10 @@ static void rd_draw(int bpp, rd_edge_fn edgeA, rd_edge_fn edgeB, rd_span_fn span
 {
     int a[0x11], b[0x11];
 
-    a[3] = g_nRdRasterStartVertex;
+    a[3] = g_nRdNRaster_yMinVert;
     if (edgeA(a))
         return;
-    b[3] = g_nRdRasterStartVertex;
+    b[3] = g_nRdNRaster_yMinVert;
     if (edgeB(b))
         return;
     if (ptr16) {
@@ -895,21 +895,21 @@ static void rd_draw(int bpp, rd_edge_fn edgeA, rd_edge_fn edgeB, rd_span_fn span
 /* polygon globals common to all variants */
 static void rd_draw_poly(int p1)
 {
-    g_nRdRasterStartVertex = *(int *)(p1 + 0x6c);
-    g_nRdRasterEndVertex = *(int *)(p1 + 0x70);
+    g_nRdNRaster_yMinVert = *(int *)(p1 + 0x6c);
+    g_nRdNRaster_yMaxVert = *(int *)(p1 + 0x70);
     if (*(int *)(p1 + 0x50) == 0) {
-        g_nRdRasterStepA = 1;
-        g_nRdRasterStepB = -1;
+        g_nRdNRaster_leftVertexStep = 1;
+        g_nRdNRaster_rightVertexStep = -1;
     } else {
-        g_nRdRasterStepA = -1;
-        g_nRdRasterStepB = 1;
+        g_nRdNRaster_leftVertexStep = -1;
+        g_nRdNRaster_rightVertexStep = 1;
     }
 }
 
-#define TS_WIDTH  1   /* also UINT_008ddeb4 = width of the mip level */
+#define TS_WIDTH  1   /* also g_dwRdNRaster_texPitch = width of the mip level */
 #define TS_PERSP  2   /* also the gradients times 16 (the perspective spans step 16 pixels at a time) */
 
-/* texture globals after the gradient set-up (rdRaster_Grad_Flat / _2 chose the mip level UINT_008ddee4) */
+/* texture globals after the gradient set-up (rdNRaster_CalcAffineGradients / _2 chose the mip level g_dwRdNRaster_mipMapNum) */
 static void rd_draw_tex(int p2, int flags)
 {
     int hdr = RD_TEXHDR(p2);
@@ -918,13 +918,13 @@ static void rd_draw_tex(int p2, int flags)
     rd_pTex = *(uint *)(*(int *)(hdr + 0x1c + mip * 4) + 0x5c);
     rd_vShift = *(int *)(hdr + 0xc) - mip;
     if (flags & TS_WIDTH)
-        U32(UINT_008ddeb4) = *(uint *)(*(int *)(hdr + 0x1c + mip * 4) + 0x18);
+        U32(g_dwRdNRaster_texPitch) = *(uint *)(*(int *)(hdr + 0x1c + mip * 4) + 0x18);
     rd_uMask = (int)((*(uint *)(hdr + 0x10) >> (mip & 31)) << 16);
     rd_vMask = (int)((*(uint *)(hdr + 0x14) >> (mip & 31)) << (rd_vShift & 31));
     if (flags & TS_PERSP) {
-        RDF(DAT_008ddeec) = rd_f((long double)RDF(DAT_008ddef4) * 16.0L);
-        RDF(DAT_008dded0) = rd_f((long double)RDF(DAT_008ddec8) * 16.0L);
-        RDF(DAT_008ddf00) = rd_f((long double)RDF(DAT_008ddedc) * 16.0L);
+        RDF(g_dwRdNRaster_oneOverZStep) = rd_f((long double)RDF(g_dwRdNRaster_dOneOverZdX) * 16.0L);
+        RDF(g_dwRdNRaster_uOverZStep) = rd_f((long double)RDF(g_dwRdNRaster_dUOverZdX) * 16.0L);
+        RDF(g_dwRdNRaster_vOverZStep) = rd_f((long double)RDF(g_dwRdNRaster_dVOverZdX) * 16.0L);
     }
 }
 
@@ -934,43 +934,43 @@ static void rd_draw_tex(int p2, int flags)
 /* textured set-up shared by most variants (order as in the original) */
 static void rd_draw_texpoly(int p1, int p2, int uv, int light)
 {
-    U32(UINT_007f4250) = *(int *)(RD_TEXHDR(p2) + 0x18) - 1;
-    g_pRdRasterVerts = *(float **)(p1 + 0x20);
+    U32(g_dwRdNRaster_maxMipMap) = *(int *)(RD_TEXHDR(p2) + 0x18) - 1;
+    g_pRdNRaster_aVertices = *(float **)(p1 + 0x20);
     if (uv)
-        U32(UINT_007f4398) = *(uint *)(p1 + 0x24);
+        U32(g_dwRdNRaster_aTexVertices) = *(uint *)(p1 + 0x24);
     if (light)
-        U32(UINT_007f4304) = *(uint *)(p1 + 0x28);
+        U32(g_dwRdNRaster_aIntensities) = *(uint *)(p1 + 0x28);
 }
 
-/* ==== rdRaster_Draw_FlatLit (0x0041a640) ==== Gouraud lit colour (8 / 16 bit) */
-void rdRaster_Draw_FlatLit(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonGS (0x0041a640) ==== Gouraud lit colour (8 / 16 bit) */
+void rdNRaster_DrawNGonGS(int param_1, int param_2)
 {
     int bpp;
 
     rd_level = *(uint8_t *)(param_2 + 4);
     bpp = RD_BPP();
-    g_pRdRasterVerts = *(float **)(param_1 + 0x20);
-    U32(UINT_007f4304) = *(uint *)(param_1 + 0x28);
-    g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
+    g_pRdNRaster_aVertices = *(float **)(param_1 + 0x20);
+    U32(g_dwRdNRaster_aIntensities) = *(uint *)(param_1 + 0x28);
+    g_nRdNRaster_numVertices = *(int *)(param_1 + 0x1c);
     if (bpp == 8)
         rd_pShade = *(uint *)(RD_MAT(param_1) + 0x330);
     else if (bpp == 0x10)
         rd_pPal16 = *(uint *)(RD_MAT(param_1) + 0x348);
     rd_draw_poly(param_1);
-    rd_draw(bpp, rdRaster_Edge_Flat_5, rdRaster_Edge_Flat_6, rdRaster_Span8_Flat, rdRaster_Span16_Flat_3, 0, DS_L);
+    rd_draw(bpp, rdNRaster_SetupLeftEdgeNGonGS, rdNRaster_SetupRightEdgeNGonGS, rdNRaster_DrawScanLineNGonGS_8, rdNRaster_DrawScanLineNGonGS_16, 0, DS_L);
 }
 
 /* 16 bit colour of the face: word of the palette at level 0x3f, its palette index and the level byte */
 static void rd_face_colour16(int p1, int p2)
 {
     rd_pPal16 = *(uint *)(RD_MAT(p1) + 0x348);
-    R16(DAT_008ddeb8) = *(uint16_t *)(*(int *)(RD_MAT(p1) + 0x348) + 0x7e00 + *(int *)(p2 + 4) * 2);
+    R16(g_wRdNRaster_RGBcolor) = *(uint16_t *)(*(int *)(RD_MAT(p1) + 0x348) + 0x7e00 + *(int *)(p2 + 4) * 2);
     rd_pTexPal = *(uint *)(RD_MAT(p1) + 0x34c);
-    rd_level = *(uint8_t *)(rd_pTexPal + R16(DAT_008ddeb8));
+    rd_level = *(uint8_t *)(rd_pTexPal + R16(g_wRdNRaster_RGBcolor));
 }
 
-/* ==== rdRaster_Draw16_TexLit_3 (0x0041aeb0) ==== Gouraud lit, translucent colour (remaps the frame buffer) */
-void rdRaster_Draw16_TexLit_3(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonTGS (0x0041aeb0) ==== Gouraud lit, translucent colour (remaps the frame buffer) */
+void rdNRaster_DrawNGonTGS(int param_1, int param_2)
 {
     int bpp = RD_BPP();
 
@@ -980,16 +980,16 @@ void rdRaster_Draw16_TexLit_3(int param_1, int param_2)
     } else if (bpp == 0x10) {
         rd_face_colour16(param_1, param_2);
     }
-    g_pRdRasterVerts = *(float **)(param_1 + 0x20);
-    U32(UINT_007f4304) = *(uint *)(param_1 + 0x28);
-    g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
+    g_pRdNRaster_aVertices = *(float **)(param_1 + 0x20);
+    U32(g_dwRdNRaster_aIntensities) = *(uint *)(param_1 + 0x28);
+    g_nRdNRaster_numVertices = *(int *)(param_1 + 0x1c);
     rd_pLight = *(uint *)(U32(g_dwRdColormap_pCurMap) + 0x338);
     rd_draw_poly(param_1);
-    rd_draw(bpp, rdRaster_Edge_Flat_5, rdRaster_Edge_Flat_6, rdRaster_Span_Tex_2, rdRaster_Span16_Tex_3, 0, DS_L);
+    rd_draw(bpp, rdNRaster_SetupLeftEdgeNGonGS, rdNRaster_SetupRightEdgeNGonGS, rdNRaster_DrawScanLineNGonTGS_8, rdNRaster_DrawScanLineNGonTGS_16, 0, DS_L);
 }
 
-/* ==== rdRaster_Draw16_TexLit_2 (0x0041a2f0) ==== translucent colour at the light level param_3 (rounded down) */
-void rdRaster_Draw16_TexLit_2(int param_1, int param_2, float param_3)
+/* ==== rdNRaster_DrawNGonTFS (0x0041a2f0) ==== translucent colour at the light level param_3 (rounded down) */
+void rdNRaster_DrawNGonTFS(int param_1, int param_2, float param_3)
 {
     int bpp = RD_BPP();
 
@@ -997,20 +997,20 @@ void rdRaster_Draw16_TexLit_2(int param_1, int param_2, float param_3)
         rd_level = *(uint8_t *)(*(int *)(param_2 + 4) + *(int *)(RD_MAT(param_1) + 0x330) + rd_floori(param_3) * 0x100);
     } else if (bpp == 0x10) {
         rd_pPal16 = *(int *)(RD_MAT(param_1) + 0x348) + 0x7e00;
-        R16(DAT_008ddeb8) = *(uint16_t *)(*(int *)(RD_MAT(param_1) + 0x348) +
+        R16(g_wRdNRaster_RGBcolor) = *(uint16_t *)(*(int *)(RD_MAT(param_1) + 0x348) +
                                           (*(int *)(param_2 + 4) + rd_floori(param_3) * 0x100) * 2);
         rd_pTexPal = *(uint *)(RD_MAT(param_1) + 0x34c);
-        rd_level = *(uint8_t *)(rd_pTexPal + R16(DAT_008ddeb8));
+        rd_level = *(uint8_t *)(rd_pTexPal + R16(g_wRdNRaster_RGBcolor));
     }
-    g_pRdRasterVerts = *(float **)(param_1 + 0x20);
-    g_nRdRasterVertCount = *(int *)(param_1 + 0x1c);
+    g_pRdNRaster_aVertices = *(float **)(param_1 + 0x20);
+    g_nRdNRaster_numVertices = *(int *)(param_1 + 0x1c);
     rd_pLight = *(uint *)(U32(g_dwRdColormap_pCurMap) + 0x338);
     rd_draw_poly(param_1);
-    rd_draw(bpp, rdRaster_Edge_Flat_3, rdRaster_Edge_Flat_4, rdRaster_Span_Tex, rdRaster_Span16_Tex_2, 0, 0);
+    rd_draw(bpp, rdNRaster_SetupLeftEdgeNGonFS, rdNRaster_SetupRightEdgeNGonFS, rdRaster_Span_Tex, rdNRaster_DrawScanLineNGonTFS_16, 0, 0);
 }
 
-/* Affine textured variants with rdRaster_Grad_Flat.  pal7e00: 16 bit palette at level 0x3f (unlit);
- * texpal: also UINT_008dded4; light: also UINT_008ddea8. */
+/* Affine textured variants with rdNRaster_CalcAffineGradients.  pal7e00: 16 bit palette at level 0x3f (unlit);
+ * texpal: also g_dwRdNRaster_aRGBToPalette; light: also g_dwRdNRaster_aAlphaMap. */
 static void rd_draw_affine_unlit(int p1, int p2, int texpal, int light, int width)
 {
     int bpp = RD_BPP();
@@ -1021,52 +1021,52 @@ static void rd_draw_affine_unlit(int p1, int p2, int texpal, int light, int widt
             rd_pTexPal = *(uint *)(RD_MAT(p1) + 0x34c);
     }
     rd_draw_texpoly(p1, p2, 1, 0);
-    g_nRdRasterVertCount = *(int *)(p1 + 0x1c);
+    g_nRdNRaster_numVertices = *(int *)(p1 + 0x1c);
     rd_draw_poly(p1);
     if (light)
         rd_pLight = *(uint *)(U32(g_dwRdColormap_pCurMap) + 0x338);
-    RD_GRAD(rdRaster_Grad_Flat, p1);
+    RD_GRAD(rdNRaster_CalcAffineGradients, p1);
     rd_draw_tex(p2, width ? TS_WIDTH : 0);
 }
 
-/* ==== rdRaster_Draw16_TexLitKey (0x0041c5e0) ==== affine textured, colour key, unlit */
-void rdRaster_Draw16_TexLitKey(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonMLAT (0x0041c5e0) ==== affine textured, colour key, unlit */
+void rdNRaster_DrawNGonMLAT(int param_1, int param_2)
 {
     rd_draw_affine_unlit(param_1, param_2, 0, 0, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_7, rdRaster_Edge_Flat_8, rdRaster_Span_FlatKey, rdRaster_Span16_TexKey, 0,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonLAT, rdNRaster_SetupRightEdgeNGonLAT, rdNRaster_DrawScanLineNGonMLAT_8, rdNRaster_DrawScanLineNGonMLAT_16, 0,
             DS_UV);
 }
 
-/* ==== rdRaster_Draw16_TexLit_5 (0x0041c010) ==== affine textured, blended */
-void rdRaster_Draw16_TexLit_5(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonTLAT (0x0041c010) ==== affine textured, blended */
+void rdNRaster_DrawNGonTLAT(int param_1, int param_2)
 {
     rd_draw_affine_unlit(param_1, param_2, 1, 1, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_7, rdRaster_Edge_Flat_8, rdRaster_Span_Tex_3, rdRaster_Span16_Tex_5, 0, DS_UV);
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonLAT, rdNRaster_SetupRightEdgeNGonLAT, rdNRaster_DrawScanLineNGonTLAT_8, rdNRaster_DrawScanLineNGonTLAT_16, 0, DS_UV);
 }
 
-/* ==== rdRaster_Draw16_TexLitKey_2 (0x0041cb80) ==== affine textured, colour key, blended */
-void rdRaster_Draw16_TexLitKey_2(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonMTLAT (0x0041cb80) ==== affine textured, colour key, blended */
+void rdNRaster_DrawNGonMTLAT(int param_1, int param_2)
 {
     rd_draw_affine_unlit(param_1, param_2, 1, 1, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_7, rdRaster_Edge_Flat_8, rdRaster_Span_TexKey, rdRaster_Span16_TexKey_2, 0,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonLAT, rdNRaster_SetupRightEdgeNGonLAT, rdNRaster_DrawScanLineNGonMTLAT_8, rdNRaster_DrawScanLineNGonMTLAT_16, 0,
             DS_UV);
 }
 
-/* ==== rdRaster_Draw16_TexLit_4 (0x0041b310) ==== affine textured, unlit; sets the span pointer as well */
-void rdRaster_Draw16_TexLit_4(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonLAT (0x0041b310) ==== affine textured, unlit; sets the span pointer as well */
+void rdNRaster_DrawNGonLAT(int param_1, int param_2)
 {
     rd_draw_affine_unlit(param_1, param_2, 0, 0, 1);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_7, rdRaster_Edge_Flat_8, rdRaster_Span_Flat_2, rdRaster_Span16_Tex_4,
-            rdRaster_Span16_Tex_4, DS_UV);
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonLAT, rdNRaster_SetupRightEdgeNGonLAT, rdNRaster_DrawScanLineNGonLAT_8, rdNRaster_DrawScanLineNGonLAT_16,
+            rdNRaster_DrawScanLineNGonLAT_16, DS_UV);
 }
 
 /* Set-up of the other textured variants. */
-#define SU_LARR   1   /* light values per vertex (UINT_007f4304) */
+#define SU_LARR   1   /* light values per vertex (g_dwRdNRaster_aIntensities) */
 #define SU_LEVEL  2   /* colour tables at the light level param_3: shade + level * 0x100, palette + level * 0x200 */
-#define SU_TEXPAL 4   /* also UINT_008dded4 (16 bit) */
-#define SU_LIGHT  8   /* also the light table UINT_008ddea8 */
-#define SU_WIDTH  16  /* also UINT_008ddeb4 */
-#define SU_PERSP  32  /* rdRaster_Grad_Flat_2 and the gradients times 16 (else rdRaster_Grad_Flat) */
+#define SU_TEXPAL 4   /* also g_dwRdNRaster_aRGBToPalette (16 bit) */
+#define SU_LIGHT  8   /* also the light table g_dwRdNRaster_aAlphaMap */
+#define SU_WIDTH  16  /* also g_dwRdNRaster_texPitch */
+#define SU_PERSP  32  /* rdNRaster_CalcPerspGradients and the gradients times 16 (else rdNRaster_CalcAffineGradients) */
 #define SU_PAL3F  64  /* 16 bit palette at level 0x3f (+0x7e00), no 8 bit shade table */
 
 static void rd_draw_setup(int p1, int p2, int flags, float p3)
@@ -1089,169 +1089,169 @@ static void rd_draw_setup(int p1, int p2, int flags, float p3)
     }
     if (flags & SU_LIGHT)
         rd_pLight = *(uint *)(U32(g_dwRdColormap_pCurMap) + 0x338);
-    g_nRdRasterVertCount = *(int *)(p1 + 0x1c);
+    g_nRdNRaster_numVertices = *(int *)(p1 + 0x1c);
     rd_draw_poly(p1);
     if (flags & SU_PERSP)
-        RD_GRAD(rdRaster_Grad_Flat_2, p1);
+        RD_GRAD(rdNRaster_CalcPerspGradients, p1);
     else
-        RD_GRAD(rdRaster_Grad_Flat, p1);
+        RD_GRAD(rdNRaster_CalcAffineGradients, p1);
     rd_draw_tex(p2, ((flags & SU_WIDTH) ? TS_WIDTH : 0) | ((flags & SU_PERSP) ? TS_PERSP : 0));
 }
 
-/* ---- affine textured, edges with texture coordinates (rdRaster_Edge_Flat_9 / _10), level param_3 ---- */
+/* ---- affine textured, edges with texture coordinates (rdNRaster_SetupLeftEdgeNGonFAT / _10), level param_3 ---- */
 
-/* ==== rdRaster_Draw_TexLitKey (0x0041e300) ==== colour key, shaded */
-void rdRaster_Draw_TexLitKey(int param_1, int param_2, float param_3)
+/* ==== rdNRaster_DrawNGonMFAT (0x0041e300) ==== colour key, shaded */
+void rdNRaster_DrawNGonMFAT(int param_1, int param_2, float param_3)
 {
     rd_draw_setup(param_1, param_2, SU_LEVEL, param_3);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_9, rdRaster_Edge_Flat_10, rdRaster_Span8_TexKey, rdRaster_Span16_TexKey_3, 0,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonFAT, rdNRaster_SetupRightEdgeNGonFAT, rdNRaster_DrawScanLineNGonMFAT_8, rdNRaster_DrawScanLineNGonMFAT_16, 0,
             DS_UV);
 }
 
-/* ==== rdRaster_Draw16_TexLit_6 (0x0041dcf0) ==== shaded, blended */
-void rdRaster_Draw16_TexLit_6(int param_1, int param_2, float param_3)
+/* ==== rdNRaster_DrawNGonTFAT (0x0041dcf0) ==== shaded, blended */
+void rdNRaster_DrawNGonTFAT(int param_1, int param_2, float param_3)
 {
     rd_draw_setup(param_1, param_2, SU_LEVEL | SU_TEXPAL | SU_LIGHT, param_3);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_9, rdRaster_Edge_Flat_10, rdRaster_Span_Tex_4, rdRaster_Span16_Tex_7, 0, DS_UV);
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonFAT, rdNRaster_SetupRightEdgeNGonFAT, rdNRaster_DrawScanLineNGonTFAT_8, rdNRaster_DrawScanLineNGonTFAT_16, 0, DS_UV);
 }
 
-/* ==== rdRaster_Draw_TexLitKey_2 (0x0041e8d0) ==== colour key, blended (16 bit: rdRaster_Span_TexKey_3) */
-void rdRaster_Draw_TexLitKey_2(int param_1, int param_2, float param_3)
+/* ==== rdNRaster_DrawNGonMTFAT (0x0041e8d0) ==== colour key, blended (16 bit: rdNRaster_DrawScanLineNGonMTFAT_16) */
+void rdNRaster_DrawNGonMTFAT(int param_1, int param_2, float param_3)
 {
     rd_draw_setup(param_1, param_2, SU_LEVEL | SU_TEXPAL | SU_LIGHT, param_3);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_9, rdRaster_Edge_Flat_10, rdRaster_Span_TexKey_2, rdRaster_Span_TexKey_3, 0,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonFAT, rdNRaster_SetupRightEdgeNGonFAT, rdNRaster_DrawScanLineNGonMTFAT_8, rdNRaster_DrawScanLineNGonMTFAT_16, 0,
             DS_UV);
 }
 
-/* ==== rdRaster_Draw_FlatLit_2 (0x0041d180) ==== span through the pointer: nothing (8 bit), rdRaster_Span16_Tex_6 */
-void rdRaster_Draw_FlatLit_2(int param_1, int param_2, float param_3)
+/* ==== rdNRaster_DrawNGonFAT (0x0041d180) ==== span through the pointer: nothing (8 bit), rdNRaster_DrawScanLineNGonFAT_16 */
+void rdNRaster_DrawNGonFAT(int param_1, int param_2, float param_3)
 {
     rd_draw_setup(param_1, param_2, SU_LEVEL | SU_WIDTH, param_3);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_9, rdRaster_Edge_Flat_10, 0, 0, rdRaster_Span16_Tex_6, DS_UV | DS_PTR);
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonFAT, rdNRaster_SetupRightEdgeNGonFAT, 0, 0, rdNRaster_DrawScanLineNGonFAT_16, DS_UV | DS_PTR);
 }
 
-/* ---- affine textured and Gouraud lit (rdRaster_Edge_Flat_11 / _12) ---- */
+/* ---- affine textured and Gouraud lit (rdNRaster_SetupLeftEdgeNGonGAT / _12) ---- */
 
-/* ==== rdRaster_Draw_TexLitKey_3 (0x00420310) ==== colour key */
-void rdRaster_Draw_TexLitKey_3(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonMGAT (0x00420310) ==== colour key */
+void rdNRaster_DrawNGonMGAT(int param_1, int param_2)
 {
     rd_draw_setup(param_1, param_2, SU_LARR, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_11, rdRaster_Edge_Flat_12, rdRaster_Span8_TexKey_2, rdRaster_Span16_TexKey_4,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonGAT, rdNRaster_SetupRightEdgeNGonGAT, rdNRaster_DrawScanLineNGonMGAT_8, rdNRaster_DrawScanLineNGonMGAT_16,
             0, DS_UV | DS_L);
 }
 
-/* ==== rdRaster_Draw16_TexLit_7 (0x0041fc00) ==== blended */
-void rdRaster_Draw16_TexLit_7(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonTGAT (0x0041fc00) ==== blended */
+void rdNRaster_DrawNGonTGAT(int param_1, int param_2)
 {
     rd_draw_setup(param_1, param_2, SU_LARR | SU_TEXPAL | SU_LIGHT, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_11, rdRaster_Edge_Flat_12, rdRaster_Span_Tex_5, rdRaster_Span16_Tex_9, 0,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonGAT, rdNRaster_SetupRightEdgeNGonGAT, rdNRaster_DrawScanLineNGonTGAT_8, rdNRaster_DrawScanLineNGonTGAT_16, 0,
             DS_UV | DS_L);
 }
 
-/* ==== rdRaster_Draw16_TexLitKey_3 (0x004209f0) ==== colour key, blended */
-void rdRaster_Draw16_TexLitKey_3(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonMTGAT (0x004209f0) ==== colour key, blended */
+void rdNRaster_DrawNGonMTGAT(int param_1, int param_2)
 {
     rd_draw_setup(param_1, param_2, SU_LARR | SU_TEXPAL | SU_LIGHT, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_11, rdRaster_Edge_Flat_12, rdRaster_Span_TexKey_4, rdRaster_Span16_TexKey_5,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonGAT, rdNRaster_SetupRightEdgeNGonGAT, rdNRaster_DrawScanLineNGonMTGAT_8, rdNRaster_DrawScanLineNGonMTGAT_16,
             0, DS_UV | DS_L);
 }
 
-/* ==== rdRaster_Draw_FlatLit_3 (0x0041eef0) ==== span through the pointer: nothing (8 bit), rdRaster_Span16_Tex_8 */
-void rdRaster_Draw_FlatLit_3(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonGAT (0x0041eef0) ==== span through the pointer: nothing (8 bit), rdNRaster_DrawScanLineNGonGAT_16 */
+void rdNRaster_DrawNGonGAT(int param_1, int param_2)
 {
     rd_draw_setup(param_1, param_2, SU_LARR | SU_WIDTH, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_11, rdRaster_Edge_Flat_12, 0, 0, rdRaster_Span16_Tex_8, DS_UV | DS_L | DS_PTR);
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonGAT, rdNRaster_SetupRightEdgeNGonGAT, 0, 0, rdNRaster_DrawScanLineNGonGAT_16, DS_UV | DS_L | DS_PTR);
 }
 
-/* ---- perspective textured (rdRaster_Grad_Flat_2, edges with the plane values; the spans are assembled) ---- */
+/* ---- perspective textured (rdNRaster_CalcPerspGradients, edges with the plane values; the spans are assembled) ---- */
 
-/* ==== rdRaster_Draw16_TexLitKey_4 (0x00422f00) ==== */
-void rdRaster_Draw16_TexLitKey_4(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonMLIT (0x00422f00) ==== */
+void rdNRaster_DrawNGonMLIT(int param_1, int param_2)
 {
     rd_draw_setup(param_1, param_2, SU_PAL3F | SU_PERSP, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_13, rdRaster_Edge_Flat_14, rdRaster_Span_FlatKey_2, rdRaster_Span16_TexKey_6,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonLIT, rdNRaster_SetupRightEdgeNGonLIT, rdNRaster_DrawScanLineNGonMLIT_8, rdNRaster_DrawScanLineNGonMLIT_16,
             0, DS_PLANE);
 }
 
-/* ==== rdRaster_Draw16_TexLit_8 (0x00421f80) ==== */
-void rdRaster_Draw16_TexLit_8(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonTLIT (0x00421f80) ==== */
+void rdNRaster_DrawNGonTLIT(int param_1, int param_2)
 {
     rd_draw_setup(param_1, param_2, SU_PAL3F | SU_TEXPAL | SU_LIGHT | SU_PERSP, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_13, rdRaster_Edge_Flat_14, rdRaster_Span_Tex_6, rdRaster_Span16_Tex_11, 0,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonLIT, rdNRaster_SetupRightEdgeNGonLIT, rdNRaster_DrawScanLineNGonTLIT_8, rdNRaster_DrawScanLineNGonTLIT_16, 0,
             DS_PLANE);
 }
 
-/* ==== rdRaster_Draw16_TexLitKey_5 (0x00423db0) ==== */
-void rdRaster_Draw16_TexLitKey_5(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonMTLIT (0x00423db0) ==== */
+void rdNRaster_DrawNGonMTLIT(int param_1, int param_2)
 {
     rd_draw_setup(param_1, param_2, SU_PAL3F | SU_TEXPAL | SU_LIGHT | SU_PERSP, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_13, rdRaster_Edge_Flat_14, rdRaster_Span_TexKey_5, rdRaster_Span16_TexKey_7,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonLIT, rdNRaster_SetupRightEdgeNGonLIT, rdNRaster_DrawScanLineNGonMTLIT_8, rdNRaster_DrawScanLineNGonMTLIT_16,
             0, DS_PLANE);
 }
 
-/* ==== rdRaster_Draw_FlatLit_4 (0x00421120) ==== span through the pointer: nothing (8 bit), rdRaster_Span16_Tex_10 */
-void rdRaster_Draw_FlatLit_4(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonLIT (0x00421120) ==== span through the pointer: nothing (8 bit), rdNRaster_DrawScanLineNGonLIT_16 */
+void rdNRaster_DrawNGonLIT(int param_1, int param_2)
 {
     rd_draw_setup(param_1, param_2, SU_PAL3F | SU_WIDTH | SU_PERSP, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_13, rdRaster_Edge_Flat_14, 0, 0, rdRaster_Span16_Tex_10, DS_PLANE | DS_PTR);
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonLIT, rdNRaster_SetupRightEdgeNGonLIT, 0, 0, rdNRaster_DrawScanLineNGonLIT_16, DS_PLANE | DS_PTR);
 }
 
-/* level param_3 (rdRaster_Edge_Flat_15 / _16) */
+/* level param_3 (rdNRaster_SetupLeftEdgeNGonFIT / _16) */
 
-/* ==== rdRaster_Draw_TexLitKey_4 (0x00426bc0) ==== */
-void rdRaster_Draw_TexLitKey_4(int param_1, int param_2, float param_3)
+/* ==== rdNRaster_DrawNGonMFIT (0x00426bc0) ==== */
+void rdNRaster_DrawNGonMFIT(int param_1, int param_2, float param_3)
 {
     rd_draw_setup(param_1, param_2, SU_LEVEL | SU_PERSP, param_3);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_15, rdRaster_Edge_Flat_16, rdRaster_Span8_TexKey_3, rdRaster_Span16_TexKey_8,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonFIT, rdNRaster_SetupRightEdgeNGonFIT, rdNRaster_DrawScanLineNGonMFIT_8, rdNRaster_DrawScanLineNGonMFIT_16,
             0, DS_PLANE);
 }
 
-/* ==== rdRaster_Draw16_TexLit_9 (0x00425bc0) ==== */
-void rdRaster_Draw16_TexLit_9(int param_1, int param_2, float param_3)
+/* ==== rdNRaster_DrawNGonTFIT (0x00425bc0) ==== */
+void rdNRaster_DrawNGonTFIT(int param_1, int param_2, float param_3)
 {
     rd_draw_setup(param_1, param_2, SU_LEVEL | SU_TEXPAL | SU_LIGHT | SU_PERSP, param_3);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_15, rdRaster_Edge_Flat_16, rdRaster_Span_Tex_7, rdRaster_Span16_Tex_13, 0,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonFIT, rdNRaster_SetupRightEdgeNGonFIT, rdNRaster_DrawScanLineNGonTFIT_8, rdNRaster_DrawScanLineNGonTFIT_16, 0,
             DS_PLANE);
 }
 
-/* ==== rdRaster_Draw16_TexLitKey_6 (0x00427ae0) ==== */
-void rdRaster_Draw16_TexLitKey_6(int param_1, int param_2, float param_3)
+/* ==== rdNRaster_DrawNGonMTFIT (0x00427ae0) ==== */
+void rdNRaster_DrawNGonMTFIT(int param_1, int param_2, float param_3)
 {
     rd_draw_setup(param_1, param_2, SU_LEVEL | SU_TEXPAL | SU_LIGHT | SU_PERSP, param_3);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_15, rdRaster_Edge_Flat_16, rdRaster_Span_TexKey_6, rdRaster_Span16_TexKey_9,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonFIT, rdNRaster_SetupRightEdgeNGonFIT, rdNRaster_DrawScanLineNGonMTFIT_8, rdNRaster_DrawScanLineNGonMTFIT_16,
             0, DS_PLANE);
 }
 
-/* ==== rdRaster_Draw_FlatLit_5 (0x00424d50) ==== span through the pointer: nothing (8 bit), rdRaster_Span16_Tex_12 */
-void rdRaster_Draw_FlatLit_5(int param_1, int param_2, float param_3)
+/* ==== rdNRaster_DrawNGonFIT (0x00424d50) ==== span through the pointer: nothing (8 bit), rdNRaster_DrawScanLineNGonFIT_16 */
+void rdNRaster_DrawNGonFIT(int param_1, int param_2, float param_3)
 {
     rd_draw_setup(param_1, param_2, SU_LEVEL | SU_WIDTH | SU_PERSP, param_3);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_15, rdRaster_Edge_Flat_16, 0, 0, rdRaster_Span16_Tex_12, DS_PLANE | DS_PTR);
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonFIT, rdNRaster_SetupRightEdgeNGonFIT, 0, 0, rdNRaster_DrawScanLineNGonFIT_16, DS_PLANE | DS_PTR);
 }
 
-/* Gouraud lit (rdRaster_Edge_Flat_17 / _18) */
+/* Gouraud lit (rdNRaster_SetupLeftEdgeNGonGIT / _18) */
 
-/* ==== rdRaster_Draw_TexLitKey_5 (0x0042af60) ==== */
-void rdRaster_Draw_TexLitKey_5(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonMGIT (0x0042af60) ==== */
+void rdNRaster_DrawNGonMGIT(int param_1, int param_2)
 {
     rd_draw_setup(param_1, param_2, SU_LARR | SU_PERSP, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_17, rdRaster_Edge_Flat_18, rdRaster_Span8_TexKey_4, rdRaster_Span16_TexKey_10,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonGIT, rdNRaster_SetupRightEdgeNGonGIT, rdNRaster_DrawScanLineNGonMGIT_8, rdNRaster_DrawScanLineNGonMGIT_16,
             0, DS_L | DS_PLANE);
 }
 
-/* ==== rdRaster_Draw16_TexLit_10 (0x00429dc0) ==== */
-void rdRaster_Draw16_TexLit_10(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonTGIT (0x00429dc0) ==== */
+void rdNRaster_DrawNGonTGIT(int param_1, int param_2)
 {
     rd_draw_setup(param_1, param_2, SU_LARR | SU_TEXPAL | SU_LIGHT | SU_PERSP, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_17, rdRaster_Edge_Flat_18, rdRaster_Span_Tex_8, rdRaster_Span16_Tex_15, 0,
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonGIT, rdNRaster_SetupRightEdgeNGonGIT, rdNRaster_DrawScanLineNGonTGIT_8, rdNRaster_DrawScanLineNGonTGIT_16, 0,
             DS_L | DS_PLANE);
 }
 
-/* ==== rdRaster_Draw_FlatLit_6 (0x00428ae0) ==== span through the pointer: nothing (8 bit), rdRaster_Span16_Tex_14 */
-void rdRaster_Draw_FlatLit_6(int param_1, int param_2)
+/* ==== rdNRaster_DrawNGonGIT (0x00428ae0) ==== span through the pointer: nothing (8 bit), rdNRaster_DrawScanLineNGonGIT_16 */
+void rdNRaster_DrawNGonGIT(int param_1, int param_2)
 {
     rd_draw_setup(param_1, param_2, SU_LARR | SU_WIDTH | SU_PERSP, 0);
-    rd_draw(RD_BPP(), rdRaster_Edge_Flat_17, rdRaster_Edge_Flat_18, 0, 0, rdRaster_Span16_Tex_14, DS_L | DS_PLANE | DS_PTR);
+    rd_draw(RD_BPP(), rdNRaster_SetupLeftEdgeNGonGIT, rdNRaster_SetupRightEdgeNGonGIT, 0, 0, rdNRaster_DrawScanLineNGonGIT_16, DS_L | DS_PLANE | DS_PTR);
 }
 
 #endif /* GRIM_EXE */

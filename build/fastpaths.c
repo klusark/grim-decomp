@@ -12,7 +12,7 @@
 /* functions that use SSE: the engine calls them with only 4-byte stack alignment */
 #define FASTFN __attribute__((force_align_arg_pointer, target("sse2")))
 
-/* Display_Flip (0x474420), DIB path. The back buffer is a 16 bpp (565) DIB section; BitBlt from it to the
+/* stdDisplay_Update (0x474420), DIB path. The back buffer is a 16 bpp (565) DIB section; BitBlt from it to the
  * 32 bpp window DC makes GDI convert every pixel inside the kernel, which took about 40% of a frame in
  * the office scene. The conversion is done here with SSE2 into a 32 bpp DIB section of the same size,
  * which BitBlt then copies without any format conversion. Anything unusual (8 bpp modes, DirectDraw,
@@ -102,7 +102,7 @@ static void conv555(const unsigned short *src, uint *dst, int n)
 }
 
 /* Test knobs (environment): GRIM_SLOWFLIP=1 uses the original 16 bpp BitBlt, GRIM_NODELTA=1 converts and blits every frame completely; GRIM_PERFLOG=1 appends
- * "perf: ..." lines (frame rate, time spent in Display_Flip) to the file named by GRIM_LUA_LOG every 256 frames. */
+ * "perf: ..." lines (frame rate, time spent in stdDisplay_Update) to the file named by GRIM_LUA_LOG every 256 frames. */
 extern char *GRIM_getenv(const char *) __asm__("_getenv");
 extern int __attribute__((stdcall)) GRIM_QPC(long long *) __asm__("_QueryPerformanceCounter@4");
 extern int __attribute__((stdcall)) GRIM_QPF(long long *) __asm__("_QueryPerformanceFrequency@4");
@@ -125,7 +125,7 @@ static void fp_perf_log(const char *text)
 
 static int fp_flip_impl(void);
 
-FASTFN int Display_Flip(void)
+FASTFN int stdDisplay_Update(void)
 {
     long long a, b;
     int r;

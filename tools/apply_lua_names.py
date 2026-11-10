@@ -12,7 +12,7 @@ P = g.EXE
 SHARED = {
     "00497830": ("Lua_Stub", "Shared handler for opcodes that the shipped engine does not implement"),
     "0049ddd0": ("Lua_Print_NoOp", "PrintError / PrintWarning / PrintDebug: no-op in the release build"),
-    "0049e960": ("Lua_IsMoviePlaying", "also registered as IsFullscreenMoviePlaying"),
+    "0049e960": ("sputLua_IsMoviePlayingL", "also registered as IsFullscreenMoviePlaying"),
     "004a0f80": ("sputLua_ImStartSound", "also registered as `play`"),
     "004a1080": ("sputLua_ImStopAllSounds", "also registered as `quiet`"),
     "004a17b0": ("sputLua_ImSetVoiceEffect", "also registered as `vfx`"),

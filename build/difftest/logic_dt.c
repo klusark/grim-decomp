@@ -109,7 +109,7 @@ static void run_tests(void)
         }
         report("rdColormap_BuildRGB16", n, bad, first);
     }
-    /* rdroid_BuildMathTables: the three tables 0x008fbfc0..0x00900000 */
+    /* rdRaster_Startup: the three tables 0x008fbfc0..0x00900000 */
     {
         static byte sa[0x4040], sb[0x4040];
         byte *base = (byte *)&g_aRdRaster_OneOverNFixed;
@@ -117,9 +117,9 @@ static void run_tests(void)
         rdroid_BuildMathTables__orig();
         memcpy(sa, base, 0x4040);
         memset(base, 0, 0x4040);
-        rdroid_BuildMathTables();
+        rdRaster_Startup();
         memcpy(sb, base, 0x4040);
-        report("rdroid_BuildMathTables", 1, memcmp(sa, sb, 0x4040) != 0, "tables differ");
+        report("rdRaster_Startup", 1, memcmp(sa, sb, 0x4040) != 0, "tables differ");
     }
     /* stdMath_SinCos / stdMath_Tan */
     {
