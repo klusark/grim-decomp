@@ -75,7 +75,7 @@ image) and the real Win32/DirectX import libraries (`build/stdcall_names.json`).
 included, is compiled C (much of
 it hand-written in `build/overrides*.c` where Ghidra's C is wrong about x87 results, register calling conventions and
 lost arguments), verified against the original machine code by differential tests and the clean-room tests
-(`grim_tools/cleanroom`, `run.py decomp`: all 5118 the same as the original). The result is playable. What is still stubbed:
+(`grim_tools/cleanroom`, `run.py decomp`: all 5167 the same as the original). The result is playable. What is still stubbed:
 11 MSVC runtime helpers (the host runtime replaces them) in the EXE.
 
 ## What the binary tells us about the original source
@@ -120,9 +120,9 @@ Output of `tools/stats.py` (regenerate after changes):
 
 | Program | Functions | Named | of which auto/module-level | Unnamed (FUN_) |
 |---|---|---|---|---|
-| GRIMFANDANGO.EXE | 2671 | 2334 | 378 | 337 |
+| GRIMFANDANGO.EXE | 2671 | 2338 | 378 | 333 |
 | LUA.DLL | 852 | 689 | 98 | 163 |
-| IMUSE.DLL | 451 | 292 | 52 | 159 |
+| IMUSE.DLL | 451 | 293 | 52 | 158 |
 | CHORE.DLL | 264 | 112 | 0 | 152 (all of them dead MSVC runtime copies) |
 
 Files in src/: 214
@@ -148,7 +148,9 @@ Files in src/: 214
   `libLua.so`) replace FUN_ and guessed names where the match is clear
   (docs/notes/orig_names.md): the Lua bindings are `sputLua_*`, LUA.DLL's VM
   is `ExecutionState_CrunchOpcodes`, ... Each renamed function's plate comment
-  says "was X". Globals and the generated `rdRaster_*` names are not done yet.
+  says "was X". Globals too: EXE 463 of 2274 named, LUA.DLL 69 of 367,
+  IMUSE.DLL 51 of 366 (docs/notes/orig_globals.md). The generated
+  `rdRaster_*` names are not done yet.
 * CHORE.DLL is fully named (names from the remaster's unstripped `libchore.so`,
   docs/notes/chore_naming.md) and its costume / chore / key records are typed;
   the 152 `FUN_` left are dead copies of the C runtime.
