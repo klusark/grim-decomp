@@ -63,10 +63,10 @@
 | 10004c40 | FUN_10004c40 | costume.c | 19 |
 | 10004c70 | FUN_10004c70 | costume.c | 50 |
 | 10004d70 | FUN_10004d70 | costume.c | 46 |
-| 10004e50 | FUN_10004e50 | costume.c | 44 |
+| 10004e50 | FUN_10004e50 | costume.c | 1 |
 | 10004f30 | FUN_10004f30 | costume.c | 14 |
 | 10004f70 | FUN_10004f70 | costume.c | 62 |
-| 10005090 | FUN_10005090 | costume.c | 44 |
+| 10005090 | FUN_10005090 | costume.c | 1 |
 | 10005160 | FUN_10005160 | costume.c | 10 |
 | 10005180 | FUN_10005180 | costume.c | 10 |
 | 100051a0 | FUN_100051a0 | costume.c | 8 |
