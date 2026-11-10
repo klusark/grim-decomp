@@ -1024,11 +1024,16 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
 ## Whole-game autorun again, shutdown crash (2026-11-09, lead)
 
 * Whole-game autorun on 045e8bd (private copies in C:\Users\Joel\grimW_*, commands in grimW_work: `sh wg_start.sh &&
-  sh wg_watch.sh`, one chapter from its checkpoint `sh wr_resume.sh <slot> <tag>`): **FAILED at ch54** (sewer hub:
-  `AUTORUN FAIL nav: no way from 0.78 -0.35 to -0.24 -0.07 in sewer hub for 18 seconds`; Manny enters ladderup_box but
-  the level never changes). Not a regression: the 2df265d build fails the same way, alone from grim54.gsv and in a full
-  run. The autorun itself has 14 commits since its 2026-10-30 pass (nav planner, known links), so it may be autorun
-  drift; the 2026-10-30 autorun (grim_tools ca8eb27, grimW_ar1030) did not get past ch51 in its one try (see below).
+  sh wg_watch.sh`, one chapter from its checkpoint `sh wr_resume.sh <slot> <tag>`): ch01-ch53 pass, **ch54 fails**
+  (`AUTORUN FAIL nav: no way from 0.78 -0.35 to -0.24 -0.07 in sewer hub for 18 seconds`). **Not the engine** (agent t1,
+  docs/notes/t1.md): from the same checkpoint the ORIGINAL 1.01 exe walks Manny through the same 310 (x, y, yaw) states
+  to 4 decimals, stops at the same points and fails with the same message. It is autorun drift: ar_nav_door_hot lists
+  every hot sector of the door object, sh.lua maps both ladderup_box and ladderdn_box (the top of the ladder, z 2.95)
+  to sh.te_ladder, and ar_w_in_goal_hot is 2-D, so the walk ends in ladderdn_box's floor footprint 0.11 m short of
+  ladderup_box and the climb never starts. The fix belongs in grim_tools/autorun (the height check ar_w_hot_zok in
+  ar_w_in_goal_hot, or no other-level hot sectors in ar_nav_door_hot). Also found: the install's GRIMFANDANGO.exe is
+  gfupd/v101_clean.exe (no grimdlg.dll: no log, no F12), so resume_original.sh runs an original that never logs; t1's
+  working recipe (grimlaunch.exe with its own patch.dll, CRLF grimrun.lua) is in docs/notes/t1.md.
 * Seen once: access violation in Render_BuildActorDrawList (`fsubs (%eax)`, eax = g_pCameraSetup) on the first frame
   after the switch to "temple back stairs" in ch49: a stale camera setup pointer across a set switch. Not reproduced.
 * **Every exit of the rebuilt game crashed** (fixed in da70a81): CHORE.DLL's hand-written FUN_10004970 had turned
