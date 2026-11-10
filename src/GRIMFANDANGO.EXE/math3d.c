@@ -1187,10 +1187,12 @@ void __cdecl rdMatrix_TransformPoint34(float *out,float *a,float *b)
   return;
 }
 
-/* ---- 0x004500d0  Vec3_Rotate3x3 ---- */
-/* Rotates the vector in place by the 3x3 part of the matrix */
+/* ---- 0x004500d0  rdMatrix_TransformPoint34Acc ---- */
+/* Rotates the vector in place by the 3x3 part of the matrix Original name
+   rdMatrix_TransformPoint34Acc (the remaster's GrimFandango (Linux): same body (v = v * R + t in
+   place, 3x4 matrix); rdModel3_Draw's call); was Vec3_Rotate3x3. */
 
-void __cdecl Vec3_Rotate3x3(float *vec,float *m)
+void __cdecl rdMatrix_TransformPoint34Acc(float *vec,float *m)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

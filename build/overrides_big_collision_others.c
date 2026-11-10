@@ -203,13 +203,13 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
                 cto_copy3(out, P);
             }
             frame = sputActor_GetOrientMatrix(other);
-            Vec3_Rotate3x3(out, frame);
+            rdMatrix_TransformPoint34Acc(out, frame);
             out[0] = cto_st((ld_t)out[0] - c0[0]);
             out[1] = cto_st((ld_t)out[1] - c0[1]);
             cto_copy3(self + 0x18, self + 0xc);
             out[2] = cto_st((ld_t)out[2] - c0[2]);
             frame = sputActor_GetOrientMatrix(other);
-            Vec3_Rotate3x3(g320, frame);
+            rdMatrix_TransformPoint34Acc(g320, frame);
             g320[0] = cto_st((ld_t)g320[0] - c0[0]);
             g320[1] = cto_st((ld_t)g320[1] - c0[1]);
             g320[2] = cto_st((ld_t)g320[2] - c0[2]);

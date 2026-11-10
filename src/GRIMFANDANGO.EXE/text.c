@@ -250,8 +250,12 @@ void * Text_GetSystemFont(void)
   return g_pDefaultFont;
 }
 
-/* ---- 0x004aa940  Font_LoadFile ---- */
-int __cdecl Font_LoadFile(char *filename,void **outFont)
+/* ---- 0x004aa940  Text_LoadNativeFont ---- */
+/* Original name Text_LoadNativeFont (the remaster's GrimFandango (Linux): both callers agree
+   (sputResource_FontHandler, sputText_SetEmergencyFontL); the remaster rewrote the body for its
+   native fonts); was Font_LoadFile. */
+
+int __cdecl Text_LoadNativeFont(char *filename,void **outFont)
 
 {
   int iVar1;

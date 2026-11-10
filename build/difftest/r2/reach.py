@@ -25,7 +25,7 @@ PROGS = {
                 0x4dac10: "FuncInfo of PrimitiveList_Append (thunk 4d6046), funclets 4d6030 4d603b",
                 0x4dac40: "FuncInfo of sputActor_EnablePuck (thunk 4d605b), funclet 4d6050",
                 0x4dac68: "FuncInfo of sputRoom_AddObjectState (thunk 4d607b), funclet 4d6070",
-                0x4dac90: "FuncInfo of SetFile_ParseSectors (thunk 4d60ba), funclets 4d60ac 4d6090 4d609e",
+                0x4dac90: "FuncInfo of ParseCollection (thunk 4d60ba), funclets 4d60ac 4d6090 4d609e",
                 0x4dacc8: "FuncInfo of ObjectState_Construct (thunk 4d60e9), funclets 4d60d0 4d60db",
                 0x4dacf8: "FuncInfo of ObjectState_Destruct (thunk 4d610b), funclet 4d6100"}),
     "LUA.DLL": dict(

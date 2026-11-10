@@ -176,11 +176,12 @@ int sputSmush_GetMovieLength(char *param_1)
 #undef local_80
 
 
-/* ---- 0x004893d0  Movie_CheckSurfaceFormat ---- */
+/* ---- 0x004893d0  sputSmush_StartVideo ---- */
 /* Smush surface callback: 0 when the movie surface has exactly the requested width, height and bits
-   per pixel. */
+   per pixel. Original name sputSmush_StartVideo (the remaster's GrimFandango (Linux): slot 0 of
+   sputVideoCallBacks (g_pSputVideoCallBacks)); was Movie_CheckSurfaceFormat. */
 
-undefined4 Movie_CheckSurfaceFormat(int param_1,int param_2,int param_3)
+undefined4 sputSmush_StartVideo(int param_1,int param_2,int param_3)
 
 {
   if ((((g_nSputSmushStarted != 0) && (*(int *)((int)g_pPresentBuf + 0xc) == param_1)) &&
@@ -191,18 +192,23 @@ undefined4 Movie_CheckSurfaceFormat(int param_1,int param_2,int param_3)
   return 1;
 }
 
-/* ---- 0x00489410  FUN_00489410 ---- */
-int FUN_00489410(void)
+/* ---- 0x00489410  sputSmush_StopVideo ---- */
+/* Original name sputSmush_StopVideo (the remaster's GrimFandango (Linux): slot 1 of
+   sputVideoCallBacks (g_pSputVideoCallBacks)); was FUN_00489410. */
+
+int sputSmush_StopVideo(void)
 
 {
   return g_nSputSmushStarted == 0;
 }
 
-/* ---- 0x00489420  Movie_LockSurface ---- */
+/* ---- 0x00489420  sputSmush_LockMovieBuffer ---- */
 /* Smush surface callback: locks the movie surface and returns its description (pixels, pitch, size,
-   bytes per pixel) and the full-frame rectangle. */
+   bytes per pixel) and the full-frame rectangle. Original name sputSmush_LockMovieBuffer (the
+   remaster's GrimFandango (Linux): slot 2 of sputVideoCallBacks (g_pSputVideoCallBacks)); was
+   Movie_LockSurface. */
 
-undefined4 Movie_LockSurface(undefined4 *param_1,undefined4 *param_2)
+undefined4 sputSmush_LockMovieBuffer(undefined4 *param_1,undefined4 *param_2)
 
 {
   if (g_nSputSmushStarted == 0) {
@@ -221,10 +227,12 @@ undefined4 Movie_LockSurface(undefined4 *param_1,undefined4 *param_2)
   return 0;
 }
 
-/* ---- 0x004894b0  Movie_UnlockSurface ---- */
-/* Smush surface callback: unlocks the movie surface. */
+/* ---- 0x004894b0  sputSmush_UnLockMovieBuffer ---- */
+/* Smush surface callback: unlocks the movie surface. Original name sputSmush_UnLockMovieBuffer (the
+   remaster's GrimFandango (Linux): slot 3 of sputVideoCallBacks (g_pSputVideoCallBacks)); was
+   Movie_UnlockSurface. */
 
-undefined4 Movie_UnlockSurface(void)
+undefined4 sputSmush_UnLockMovieBuffer(void)
 
 {
   if (g_nSputSmushStarted == 0) {
@@ -234,8 +242,11 @@ undefined4 Movie_UnlockSurface(void)
   return 0;
 }
 
-/* ---- 0x004894d0  FUN_004894d0 ---- */
-int FUN_004894d0(void)
+/* ---- 0x004894d0  sputSmush_SetVideoPalette ---- */
+/* Original name sputSmush_SetVideoPalette (the remaster's GrimFandango (Linux): slot 5 of
+   sputVideoCallBacks (g_pSputVideoCallBacks)); was FUN_004894d0. */
+
+int sputSmush_SetVideoPalette(void)
 
 {
   return g_nSputSmushStarted == 0;

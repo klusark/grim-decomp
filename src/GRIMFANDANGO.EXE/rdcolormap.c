@@ -364,8 +364,12 @@ undefined4 rdColormap_BuildGreyRamp(undefined4 *param_1)
   return 1;
 }
 
-/* ---- 0x00404b30  FUN_00404b30 ---- */
-int FUN_00404b30(int param_1)
+/* ---- 0x00404b30  rdColormap_Size ---- */
+/* Original name rdColormap_Size (the remaster's GrimFandango (Linux): same body (0x350 + 0x4100 /
+   0x10100 / 0x8000 / 0x10000 by the table flags); sputResource_ColormapHandler's size query); was
+   FUN_00404b30. */
+
+int rdColormap_Size(int param_1)
 
 {
   int iVar1;

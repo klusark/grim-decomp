@@ -246,8 +246,8 @@ Im_TriggersInit
 Im_TriggersRestore
 Im_TriggersSave
 Im_UpdateGroupVolumes
-Im_VimaDecodeBlock
-Im_VimaDecompress
+AudioLib_DetectRawFormat
+AudioLib_ParseWaveFileHeader
 ImCheckTrigger
 ImClearTrigger
 ImCloseAll

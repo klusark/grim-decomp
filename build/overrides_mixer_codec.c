@@ -7,7 +7,7 @@
  *             g_asBlkMotion, or f5: an explicit 16 bit vector follows)
  *     f6      copy the block from the frame before the previous one (fixed displacement)
  *     f7, f8  two colours (f7: two indexes into the 256 entry colour table of the header, f8: two 16 bit pixels) and the
- *             number of a "split mask" (see Blocky16_BuildSplitMasks): the pixels on one side of the line get the first
+ *             number of a "split mask" (see fob_block_maketiles): the pixels on one side of the line get the first
  *             colour, the others the second
  *     f9..fc  fill with one of the four colours of the header
  *     fd      fill with a colour of the 256 entry colour table
@@ -92,17 +92,17 @@ extern int g_anBlkSplit8Y[16] __asm__("_g_anBlockySplit8Y");
 
 /* the state of the frame decoder (see Blocky16_DecodeFrame) */
 extern void *vOutputFn __asm__("_g_pFob_blit_routine");          /* callback receiving the decoded frame (fob_flobdec_blocky16_config) */
-extern byte *vCur __asm__("_g_pbBlkCur");                    /* buffer the current frame is decoded into */
+extern byte *vCur __asm__("_g_pFob_blk16_render_buffer");                    /* buffer the current frame is decoded into */
 extern byte *vExpand __asm__("_g_pbBlkExpand");              /* 64K entry table: 16 bit pixel -> display pixel */
-extern int vShiftR __asm__("_g_nBlkShiftR");                 /* channel shifts of the display format the table was made for */
-extern int vShiftG __asm__("_g_nBlkShiftG");
-extern int vShiftB __asm__("_g_nBlkShiftB");
+extern int vShiftR __asm__("_g_nFob_translation_shiftr");                 /* channel shifts of the display format the table was made for */
+extern int vShiftG __asm__("_g_nFob_translation_shiftg");
+extern int vShiftB __asm__("_g_nFob_translation_shiftb");
 extern int *vBitmap0 __asm__("_g_pBlkBitmap0");              /* pixel format descriptors of the three buffers: [0] pixels, [1] width, [2] height */
 extern int *vBitmap1 __asm__("_g_pBlkBitmap1");
 extern int *vBitmap2 __asm__("_g_pBlkBitmap2");
 extern byte *vOutput __asm__("_g_pbBlkOutput");              /* the buffer the last frame was left in (0: none yet) */
-extern byte *vPrev2 __asm__("_g_pbBlkPrev2");                /* frame before the previous one */
-extern byte *vPrev __asm__("_g_pbBlkPrev");                  /* previous frame */
+extern byte *vPrev2 __asm__("_g_pFob_blk16_key_buffer");                /* frame before the previous one */
+extern byte *vPrev __asm__("_g_pFob_blk16_delta_buffer");                  /* previous frame */
 extern int vLastSeq __asm__("_g_nBlkLastSeq");               /* number of the last frame decoded (-1 at the start) */
 extern int vFrameCount __asm__("_g_nBretsFrameCount");
 
@@ -167,7 +167,7 @@ static const byte kSplitFill[5][5] = {
  * direction given by kSplitFill, are "ones"; the other cells "zeros".  Both lists are stored as cell numbers
  * (Blocky8Split / Blocky4Split of g_aBlkSplit8 / g_aBlkSplit4, entry first * 16 + second), in descending order; the pixel
  * offsets the decoder needs are made from them by Blocky16_BuildPixelOffsets when the frame width is known. */
-void Blocky16_BuildSplitMasks(int size)
+void fob_block_maketiles(int size)
 {
     int grid[64];
     const int *rowOf, *colOf;
@@ -538,11 +538,11 @@ int Blocky16_DecodeFrame(void *dst, uint *clip, int x, int y, int palette, byte 
     if (vBitmap0 == 0 || width != (uint)vBitmap0[1] || (uint)alignedHeight != (uint)vBitmap0[2]) {
         int depth;
 
-        Blocky16_FreeBuffers();
+        Blocky16_flobdec_Reset();
         depth = hdr->depth;
         if (depth == 0)
             depth = 8;
-        Blocky16_AllocBuffers(width, alignedHeight, depth);
+        AllocBuffers(width, alignedHeight, depth);
     }
     prevDelta = vPrev - vCur;
     prev2Delta = vPrev2 - vCur;
@@ -550,8 +550,8 @@ int Blocky16_DecodeFrame(void *dst, uint *clip, int x, int y, int palette, byte 
         Blocky16_BuildExpandTable(dst);
     if (hdr->seq == 0) {
         Blocky16_BuildPixelOffsets(width);
-        Video_FillPixels((char *)vPrev2, (int)vBitmap0, vBitmap0[1] * vBitmap0[2], (char *)hdr->fillPixel);
-        Video_FillPixels((char *)vPrev, (int)vBitmap0, vBitmap0[1] * vBitmap0[2], (char *)hdr->fillPixel);
+        gra_SetBuffer((char *)vPrev2, (int)vBitmap0, vBitmap0[1] * vBitmap0[2], (char *)hdr->fillPixel);
+        gra_SetBuffer((char *)vPrev, (int)vBitmap0, vBitmap0[1] * vBitmap0[2], (char *)hdr->fillPixel);
         vLastSeq = -1;
     }
     vFrameCount++;
@@ -585,7 +585,7 @@ int Blocky16_DecodeFrame(void *dst, uint *clip, int x, int y, int palette, byte 
         vOutput = vCur;
         break;
     case 5:
-        Rle_Decode((undefined1 *)vCur, (undefined4)(uint)data, hdr->dataSize);
+        msc_rle_DecompressBlock((undefined1 *)vCur, (undefined4)(uint)data, hdr->dataSize);
         vOutput = vCur;
         break;
     case 6: {
@@ -607,9 +607,9 @@ int Blocky16_DecodeFrame(void *dst, uint *clip, int x, int y, int palette, byte 
         ushort *out = (ushort *)vCur;
         int n = width * height;
 
-        Rle_Begin((int *)data);
+        msc_rle_DecompressInitialize((int *)data);
         for (; n != 0; n--)
-            *out++ = hdr->pairColors[Rle_NextByte(0) & 0xff];
+            *out++ = hdr->pairColors[msc_rle_DecompressGetbyte(0) & 0xff];
         Mem_DumpLog();
         vOutput = vCur;
         break; }

@@ -2,7 +2,7 @@
  * the track manager that the Smush movie player feeds with sound chunks and that the DirectSound driver pulls the mixed
  * samples from.  Differential tests against the original machine code: build/mixdiff/snd_test.c (docs/notes/mixer.md).
  *
- * Model: up to 16 "voices" (SndVoice, 0x34 bytes) each own a ring buffer.  A chunk handed to SoundModule_PlayChunk
+ * Model: up to 16 "voices" (SndVoice, 0x34 bytes) each own a ring buffer.  A chunk handed to sou_engine_Start
  * ("Crea" Creative VOC, "PSAD"/"PVOC"/"SAUD" Smush audio) is copied into a free or the least important voice.  The voice
  * data holds a small command stream (SAUD sub-chunks: 1 = play a block of samples, 2/8/9/10/11 = conditional jump on a
  * variable, 3 = set, 4 = add, 6/7 = start a sample run, anything else ends the voice); sou_engine_fill runs it
@@ -28,7 +28,7 @@ typedef struct SndVoice {           /* 0x34 bytes, array at 0x008dad58 */
     int age;                        /* +20 grows with every new sound, reset for the newest */
     uint ringSize;                  /* +24 bytes of the buffer used for sample data */
     uint received;                  /* +28 bytes of sample data received so far */
-    uint position;                  /* +2c bytes played so far (+1 is what SoundModule_GetPosition reports) */
+    uint position;                  /* +2c bytes played so far (+1 is what sou_engine_Query reports) */
     uint total;                     /* +30 total bytes of the sound (SAUD header) */
 } SndVoice;
 
@@ -73,7 +73,7 @@ extern int *g_pSndDriver __asm__("_g_pSoundModule_snddriver_services");         
 extern int *g_pSndServices __asm__("_g_pSoundModule_share_services");           /* module manager service table */
 extern int *g_pSndClock __asm__("_g_dwSoundModule_timer_services");             /* TIMER external_sync: [6] get sync time, [8] set */
 extern int g_nSndMixCalls __asm__("_g_dwSound_ticks");
-extern int g_nSndPause __asm__("_UINT_008db1ec");
+extern int g_nSndPause __asm__("_g_dwSou_paused_flag");
 extern int g_bSndDriverOpen __asm__("_g_dwSou_active_flag");
 extern int g_nSndSyncTime __asm__("_UINT_008db1f8");
 extern double g_dSndClock __asm__("_DAT_008db200");
@@ -82,7 +82,7 @@ extern int g_nSndOpenRate __asm__("_g_dwSound_samplerate");
 extern uint g_dwSndDriverModuleSize __asm__("_g_dwSound_name");
 extern int g_nSndOpenLimit __asm__("_g_dwSound_reserveram");
 extern uint g_adwSndBufferSizes[16] __asm__("_g_dwSound_bufsize");
-extern int g_nSndTrackExtra __asm__("_DAT_008db1e8");
+extern int g_nSndTrackExtra __asm__("_g_dwSound_channel");
 extern int g_anSndPlayCount[16] __asm__("_g_anSndChunkCount");     /* per voice: number of chunks received for a streamed sound */
 extern int g_anSndStreamKeys[16] __asm__("_g_anSndStreamKey");
 extern int g_anSndStreamFmt[16] __asm__("_g_anSndStreamKind");
@@ -102,7 +102,7 @@ typedef void (*SndFree)(void *p, const char *file, int line);
  *  Module entry points (LECMODULE insane_sound / SOUND insane)
  * =================================================================================================================== */
 
-int SoundModule_Register(int *services, uint moduleSize)
+int sou_sound_module(int *services, uint moduleSize)
 {
     int i;
 
@@ -123,7 +123,7 @@ int SoundModule_Register(int *services, uint moduleSize)
     return 0;
 }
 
-void SoundModule_Unregister(void)
+void SoundModule_module_terminate(void)
 {
     ((SndSvcName)g_pSndServices[1])(s_SOUND_insane_004f3e4c);
     ((SndSvcName)g_pSndServices[1])(s_LECMODULE_insane_sound_004f3e5c);
@@ -160,7 +160,7 @@ int SoundModule_module_startup(void)
                             g_adwSndBufferSizes[13], g_adwSndBufferSizes[14], g_adwSndBufferSizes[15], 0);
 }
 
-void SoundModule_Shutdown(void)
+void SoundModule_module_shutdown(void)
 {
     ((SndSvcName)g_pSndServices[3])((const char *)g_pSndMemory);
     ((SndSvcName)g_pSndServices[3])((const char *)g_pSndDriver);
@@ -263,7 +263,7 @@ int SoundModule_AddTrackBuffer(uint size, int limit)
         return -2;
     }
 filled:
-    FUN_004d5e50(v->buffer, 0x7f, v->size);
+    msc_MemSet(v->buffer, 0x7f, v->size);
     g_nSndVoiceCount++;
     return 0;
 }
@@ -272,8 +272,8 @@ filled:
  *  Chunks
  * =================================================================================================================== */
 
-/* A sound chunk: dispatch on its four character tag.  id / volume / pan / flags as for SoundModule_PlaySaud. */
-void SoundModule_PlayChunk(byte *p, int id, int volume, int pan, uint flags)
+/* A sound chunk: dispatch on its four character tag.  id / volume / pan / flags as for sou_engine_start_stream. */
+void sou_engine_Start(byte *p, int id, int volume, int pan, uint flags)
 {
     uint tag;
 
@@ -294,11 +294,11 @@ void SoundModule_PlayChunk(byte *p, int id, int volume, int pan, uint flags)
     } else if (tag != 0x50564f43) {                      /* 'PVOC' */
         if (tag != 0x53415544)                           /* 'SAUD' */
             return;
-        SoundModule_PlaySaud(p, BE32(p + 4) + 8, id, volume, pan, flags, 0, 0, 1, 0);
+        sou_engine_start_stream(p, BE32(p + 4) + 8, id, volume, pan, flags, 0, 0, 1, 0);
         return;
     }
     if (p[8] == 0 && p[9] == 0 && p[0xc] == 0 && p[0xd] == 0 && p[0x10] == 0 && p[0x11] == 0) {
-        SoundModule_PlaySaud(p + 0x14, BE32(p + 4) - 0xc, id, volume, pan, flags, (p[10] << 8) | p[0xb],
+        sou_engine_start_stream(p + 0x14, BE32(p + 4) - 0xc, id, volume, pan, flags, (p[10] << 8) | p[0xb],
                              (p[0xe] << 8) | p[0xf], (p[0x12] << 8) | p[0x13], 1);
         return;
     }
@@ -306,7 +306,7 @@ void SoundModule_PlayChunk(byte *p, int id, int volume, int pan, uint flags)
         pan = 0x80;
     else
         pan = pan + (signed char)p[0x11];
-    SoundModule_PlaySaud(p + 0x12, BE32(p + 4) - 10, id, (int)(p[0x10] * (uint)volume) >> 7, pan,
+    sou_engine_start_stream(p + 0x12, BE32(p + 4) - 10, id, (int)(p[0x10] * (uint)volume) >> 7, pan,
                          (int)*(short *)(p + 0xe) | flags, (int)*(short *)(p + 8), (int)*(short *)(p + 10),
                          (int)*(short *)(p + 0xc), 1);
 }
@@ -316,7 +316,7 @@ void SoundModule_PlayChunk(byte *p, int id, int volume, int pan, uint flags)
  * =================================================================================================================== */
 
 /* Stops the sound with the given id */
-void SoundModule_StopSound(uint id)
+void sou_engine_Stop(uint id)
 {
     int i;
 
@@ -328,18 +328,18 @@ void SoundModule_StopSound(uint id)
     }
 }
 
-void SoundModule_Pause(void)
+void sou_engine_Pause(void)
 {
     g_nSndPause++;
 }
 
-void SoundModule_Resume(void)
+void sou_engine_Resume(void)
 {
     if (g_nSndPause != 0)
         g_nSndPause--;
 }
 
-void SoundModule_StopAll(void)
+void sou_engine_StopAll(void)
 {
     int i;
 
@@ -350,7 +350,7 @@ void SoundModule_StopAll(void)
 }
 
 /* id -255: the default volume for sounds that do not carry one; otherwise the volume of the sound with that id */
-void SoundModule_SetVolume(int id, uint volume)
+void sou_engine_SetVol(int id, uint volume)
 {
     int i;
 
@@ -364,7 +364,7 @@ void SoundModule_SetVolume(int id, uint volume)
     }
 }
 
-uint SoundModule_GetVolume(uint id)
+uint sou_engine_GetVol(uint id)
 {
     int i;
 
@@ -377,7 +377,7 @@ uint SoundModule_GetVolume(uint id)
     return 0xffffffff;
 }
 
-void SoundModule_SetPan(int id, byte pan)
+void sou_engine_SetPan(int id, byte pan)
 {
     int i;
 
@@ -387,7 +387,7 @@ void SoundModule_SetPan(int id, byte pan)
     }
 }
 
-int SoundModule_GetPan(uint id)
+int sou_engine_GetPan(uint id)
 {
     int i;
 
@@ -398,13 +398,13 @@ int SoundModule_GetPan(uint id)
     return -1;
 }
 
-void SoundModule_DriverCommand2(int arg)
+void sou_engine_SetHVol(int arg)
 {
     if (g_pSndDriver != 0)
         ((void (*)(int))g_pSndDriver[2])(arg);
 }
 
-int SoundModule_DriverCommand3(void)
+int sou_engine_GetHVol(void)
 {
     if (g_pSndDriver != 0)
         return ((int (*)(void))g_pSndDriver[3])();
@@ -419,7 +419,7 @@ void sou_engine_SetRate(uint rate)
 }
 
 /* bytes played of a sound (+1), or of the first playing one (id 0xffffff01); a negative id counts voices from the end */
-int SoundModule_GetPosition(uint id)
+int sou_engine_Query(uint id)
 {
     int i;
 
@@ -469,12 +469,12 @@ int sou_engine_QueryTime(int voice)
 count:
     {
         double samples = (double)voice;
-        int rate = Sound_DriverQuery();
+        int rate = sou_engine_GetRate();
         return (int)(long long)(samples / ((double)rate * 0.001));
     }
 }
 
-int SoundModule_SetParam(int unused, int which, uint a, uint b)
+int sou_engine_SetParam(int unused, int which, uint a, uint b)
 {
     switch (which) {
     case 1:
@@ -503,7 +503,7 @@ int SoundModule_SetParam(int unused, int which, uint a, uint b)
     return 0;
 }
 
-int SoundModule_GetParam(int unused, int which, uint *a, uint *b)
+int sou_engine_GetParam(int unused, int which, uint *a, uint *b)
 {
     switch (which) {
     case 1:
@@ -674,7 +674,7 @@ void SoundModule_PlayVoc(byte *src, uint size, int id, int volume, int pan, uint
 /* One SAUD / PSAD sound chunk.  chunkNo == 0: the first chunk of a sound: choose a voice as SoundModule_PlayVoc does
  * (buffers close in size to the announced length first) and copy the header and what is there.  Otherwise (chunkNo
  * counts the following chunks, key identifies the stream): append the data to the ring buffer of that stream. */
-void SoundModule_PlaySaud(byte *data, int size, int id, int volume, int pan, uint flags, int key, int chunkNo,
+void sou_engine_start_stream(byte *data, int size, int id, int volume, int pan, uint flags, int key, int chunkNo,
                           int kind, int whole)
 {
     SndVoice *v;

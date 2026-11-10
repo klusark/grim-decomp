@@ -5,13 +5,15 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x10001000  Im_VimaDecodeBlock ---- */
+/* ---- 0x10001000  AudioLib_DetectRawFormat ---- */
 /* Compressed (VIMA-style ADPCM) block decoder using the step/index tables; identity inferred from
-   structure */
+   structure Original name AudioLib_DetectRawFormat (the remaster's GrimFandango (Linux):
+   AudioLib_ParseWaveFileHeader's only callee; same byte-delta statistics over the 8-bit samples);
+   was Im_VimaDecodeBlock. */
 
 void __cdecl
-Im_VimaDecodeBlock(ushort *param_1,uint param_2,undefined4 *param_3,undefined4 *param_4,
-                  undefined4 *param_5)
+AudioLib_DetectRawFormat
+          (ushort *param_1,uint param_2,undefined4 *param_3,undefined4 *param_4,undefined4 *param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -228,12 +230,17 @@ switchD_100012ad_default:
 #undef local_24
 
 
-/* ---- 0x100013c0  Im_VimaDecompress ---- */
-/* Drives Im_VimaDecodeBlock over a compressed sound chunk */
+/* ---- 0x100013c0  AudioLib_ParseWaveFileHeader ---- */
+/* Drives Im_VimaDecodeBlock over a compressed sound chunk Original name
+   AudioLib_ParseWaveFileHeader (the remaster's GrimFandango (Linux): same body start (an MCMP
+   header is skipped, RIFF / 'WAVEfmt ' checked, *param_2 = 0 first); callers CacheGetSoundId, the
+   dispatcher's region change and the sound start agree; not a VIMA decoder); was Im_VimaDecompress.
+    */
 
 uint * __cdecl
-Im_VimaDecompress(uint *param_1,int *param_2,uint *param_3,uint *param_4,uint *param_5,int *param_6,
-                 uint *param_7)
+AudioLib_ParseWaveFileHeader
+          (uint *param_1,int *param_2,uint *param_3,uint *param_4,uint *param_5,int *param_6,
+          uint *param_7)
 
 {
   ushort uVar1;
@@ -483,7 +490,7 @@ Im_VimaDecompress(uint *param_1,int *param_2,uint *param_3,uint *param_4,uint *p
       }
     }
     else {
-      Im_VimaDecodeBlock((ushort *)param_1,0x2000,param_4,param_5,param_6);
+      AudioLib_DetectRawFormat((ushort *)param_1,0x2000,param_4,param_5,param_6);
       if ((param_4 == (uint *)0x0) || (*param_4 == 0x10)) {
         if ((param_6 != (int *)0x0) &&
            ((param_2 != (int *)0x0 && (*param_2 = 2 - (uint)(*param_6 != 0), *param_3 != 0)))) {
@@ -1336,8 +1343,9 @@ int __cdecl Im_DispatchFetchNext(int *param_1)
       pcVar10 = pcVar10 + 1;
     } while (bVar11);
     if (bVar11) {
-      puVar8 = Im_VimaDecompress(puVar7,(int *)0x0,&local_54,(uint *)0x0,&local_58,(int *)0x0,
-                                 (uint *)&param_1);
+      puVar8 = AudioLib_ParseWaveFileHeader
+                         (puVar7,(int *)0x0,&local_54,(uint *)0x0,&local_58,(int *)0x0,
+                          (uint *)&param_1);
       piVar4[5] = (int)puVar8 - (int)puVar7;
       iVar6 = StReadData(piVar4[0x207],(int)puVar8 - (int)puVar7);
       if (iVar6 == 0) {
@@ -3813,8 +3821,9 @@ void __cdecl Im_SoundsPrepare(uint param_1)
       }
     }
     if ((*(int *)(puVar4 + 0x28) != 0) && (*(int *)(puVar4 + 0x2c) != 0)) {
-      Im_VimaDecompress(*(uint **)(puVar4 + 0x30),(int *)0x0,&local_c,&local_8,&local_4,(int *)0x0,
-                        &param_1);
+      AudioLib_ParseWaveFileHeader
+                (*(uint **)(puVar4 + 0x30),(int *)0x0,&local_c,&local_8,&local_4,(int *)0x0,&param_1
+                );
       if ((local_c == 0x5622) && (((local_8 == 0x10 && (local_4 == 1)) && (0 < (int)param_1)))) {
         puVar1 = (undefined2 *)
                  (**(code **)(g_dwSounds_pHS + 0x20))

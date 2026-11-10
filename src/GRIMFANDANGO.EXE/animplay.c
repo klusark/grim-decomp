@@ -39,7 +39,7 @@ int __cdecl anm_Start(void **out,char *name,int fps,int streamArg1,int streamArg
     if (iVar1 == 0) {
       iVar1 = anm_animator_NewAnim(*out,name,flags,-1,-1,0);
       if (iVar1 == 0) {
-        iVar1 = (*(code *)*g_pAnimPlay_timer_services)(FUN_004c2a70,1,2,p);
+        iVar1 = (*(code *)*g_pAnimPlay_timer_services)(frame_Timer,1,2,p);
         *p = iVar1;
         if (iVar1 == 0) {
           if ((g_pAnm_virtherc_services == (int *)0x0) || ((UINT_008d6f20 & 0x20000) == 0))
@@ -48,7 +48,7 @@ int __cdecl anm_Start(void **out,char *name,int fps,int streamArg1,int streamArg
           ((code *)Mem_DumpLog)(*out);
         }
         else {
-          iVar1 = (*(code *)*g_pAnimPlay_timer_services)(FUN_004c2a80,p[7],8,p);
+          iVar1 = (*(code *)*g_pAnimPlay_timer_services)(sync_Timer,p[7],8,p);
           p[1] = iVar1;
           if (iVar1 != 0) {
             p[4] = 0;
@@ -83,12 +83,14 @@ LAB_004c257d:
 #endif
 
 
-/* ---- 0x004c2690  AnimPlay_Destroy ---- */
+/* ---- 0x004c2690  anm_Stop ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Stops the timers of an AnimPlay frame player, closes the streamer and frees it */
+/* Stops the timers of an AnimPlay frame player, closes the streamer and frees it Original name
+   anm_Stop (the remaster's GrimFandango (Linux): slot 5 of the "ANIMPLAY=insane" service table);
+   was AnimPlay_Destroy. */
 
-void __cdecl AnimPlay_Destroy(void **pp)
+void __cdecl anm_Stop(void **pp)
 
 {
   undefined4 *puVar1;
@@ -96,7 +98,7 @@ void __cdecl AnimPlay_Destroy(void **pp)
   puVar1 = *pp;
   (*(code *)g_pAnimPlay_timer_services[1])(*puVar1);
   (*(code *)g_pAnimPlay_timer_services[1])(puVar1[1]);
-  if ((UINT_008d6f24 != 0) && (g_pAnimPlay_sound_services != (int *)0x0)) {
+  if ((g_dwAnm_audio_halted != 0) && (g_pAnimPlay_sound_services != (int *)0x0)) {
     (*(code *)g_pAnimPlay_sound_services[3])();
   }
   ((code *)Mem_DumpLog)(puVar1);

@@ -1,6 +1,6 @@
 /* Differential test of the pixel conversion code of the Smush video module (Video_*, VideoBitmap_*): original machine code
  * against build/overrides_mixer_video.c.  Random pixel data, counts (including the 0 / odd ones the do-while loops of the
- * original handle in their own way), strides and formats; the formats come from VideoBitmap_Create itself, which is tested
+ * original handle in their own way), strides and formats; the formats come from bmp_bitmap_Alloc itself, which is tested
  * against the original too.  ONLY=<n> selects a group. */
 #include <windows.h>
 #include <stdio.h>
@@ -23,14 +23,14 @@ extern void Video_CopyRect(unsigned char *, unsigned char *, int, unsigned, int,
 extern void orig_FUN_004cfdb0(unsigned char *, unsigned char *, int, unsigned, int, unsigned, unsigned, int, unsigned, unsigned);
 extern void Video_CopyRectDstFirst(unsigned char *, unsigned char *, int, unsigned, int, unsigned, unsigned, int, unsigned, unsigned);
 extern int orig_FUN_004cf010(void *, void *, int, unsigned char *, unsigned char *), Video_PixelsToRgba(void *, void *, int, unsigned char *, unsigned char *);
-extern int orig_FUN_004cf520(void *, void *, int, int, unsigned char *), Video_PixelsFromRgba(void *, void *, int, int, unsigned char *);
+extern int orig_FUN_004cf520(void *, void *, int, int, unsigned char *), gra_ConvertFromLecColor(void *, void *, int, int, unsigned char *);
 extern int orig_FUN_004cedc0(unsigned char *, void *, int, unsigned char *, unsigned char *, void *, unsigned char *);
 extern int VideoBitmap_ConvertPixels(unsigned char *, void *, int, unsigned char *, unsigned char *, void *, unsigned char *);
-extern int orig_FUN_004ce3e0(void *, int, int, int), VideoBitmap_Create(void *, int, int, int);
+extern int orig_FUN_004ce3e0(void *, int, int, int), bmp_bitmap_Alloc(void *, int, int, int);
 
 enum { T_ALLOC = 1, T_DISPFMT, T_LOG };
 static void *th_log;
-int FUN_004d5f70(void) { return 0; }                    /* replaced below by the recorder */
+int msc_error_SaveString(void) { return 0; }                    /* replaced below by the recorder */
 void FUN_004c3df0(void *d, void *s, unsigned n) { memcpy(d, s, n); }
 void Insane_MemCopyCdecl(void *d, void *s, unsigned n) { memcpy(d, s, n); }
 
@@ -62,7 +62,7 @@ int main(int argc, char **argv)
     int only = getenv("ONLY") ? atoi(getenv("ONLY")) : -1;
     int i;
     int svc_mem[2], svc_disp[4];
-    VB fmts[13];            /* descriptors made by VideoBitmap_Create (mine) */
+    VB fmts[13];            /* descriptors made by bmp_bitmap_Alloc (mine) */
     unsigned char *tmpdata;
 
     setvbuf(stdout, 0, _IONBF, 0);
@@ -148,7 +148,7 @@ int main(int argc, char **argv)
             if (sf->type == 0 && R(2)) { sf->bR = (int)(intptr_t)table; }
             fx_save();
             if (f == 5) { int so = (int)R(2); RUN(orig_FUN_004cf010(srcb + so, sf, count, pal, dstb), Video_PixelsToRgba(srcb + so, sf, count, pal, dstb)); }
-            else if (f == 6) RUN(orig_FUN_004cf520(dstb + 3, df, count, 0, srcb), Video_PixelsFromRgba(dstb + 3, df, count, 0, srcb));
+            else if (f == 6) RUN(orig_FUN_004cf520(dstb + 3, df, count, 0, srcb), gra_ConvertFromLecColor(dstb + 3, df, count, 0, srcb));
             else {
                 unsigned char *tab = R(3) ? 0 : table;
                 int cnt = R(4) ? count : (int)R(2000);
@@ -167,7 +167,7 @@ int main(int argc, char **argv)
             fx_save();
             alloc_fail = fail; pool_used = 0; fx_reset(); ra = orig_FUN_004ce3e0(&pa, w, h, fmt); fx_snap_a();
             if (ra == 0) memcpy(hdrA[0], pa, 0x60);
-            fx_restore(); alloc_fail = fail; pool_used = 0; fx_reset(); rb = VideoBitmap_Create(&pb, w, h, fmt) + neg;
+            fx_restore(); alloc_fail = fail; pool_used = 0; fx_reset(); rb = bmp_bitmap_Alloc(&pb, w, h, fmt) + neg;
             if (ra == 0 && rb == neg) {
                 /* headers are compared apart from the data pointers (pool addresses are the same: bump allocator) */
                 if (memcmp(hdrA[0], pb, 0x60)) fx_fail("bitmap header", it);

@@ -291,7 +291,7 @@
   "addr": "0044e7d0",
   "old": "Frustum_TestSphere",
   "name": "rdClip_SphereInFrustrum",
-  "comment": "Original name rdClip_SphereInFrustrum (the remaster's GrimFandango (Linux): aligned call in rdModel3_DrawMeshImpl, rdSprite_Draw, rdThing_Draw); was Frustum_TestSphere."
+  "comment": "Original name rdClip_SphereInFrustrum (the remaster's GrimFandango (Linux): aligned call in rdModel3_DrawMeshImpl, rdSprite_Draw, rdModel3_Draw); was Frustum_TestSphere."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -410,7 +410,7 @@
   "addr": "00450060",
   "old": "Matrix34_TransformPoint",
   "name": "rdMatrix_TransformPoint34",
-  "comment": "out = a * R + t for a 3x4 matrix (rotation in [0..8], translation in [9..11]). Was misnamed Vec3_Sub. rdModel_DrawMesh uses it with a zeroed translation (saved and restored around the call) to rotate light directions. Original name rdMatrix_TransformPoint34 (the remaster's GrimFandango (Linux): aligned call in rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox, rdThing_Draw); was Matrix34_TransformPoint."
+  "comment": "out = a * R + t for a 3x4 matrix (rotation in [0..8], translation in [9..11]). Was misnamed Vec3_Sub. rdModel_DrawMesh uses it with a zeroed translation (saved and restored around the call) to rotate light directions. Original name rdMatrix_TransformPoint34 (the remaster's GrimFandango (Linux): aligned call in rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox, rdModel3_Draw); was Matrix34_TransformPoint."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -1943,7 +1943,7 @@
   "addr": "004a5550",
   "old": "SetFile_ParseSections",
   "name": "sputRoom_LoadRoomEntry",
-  "comment": "Opens the .set file with stdConffile and calls Set_IsHandleValid (the registered section handler dispatcher) for every 'section: <name>' line; returns 0 if a handler rejects its section. Original name sputRoom_LoadRoomEntry (the remaster's GrimFandango (Linux): aligned call in sputRoom_LoadRoom); was SetFile_ParseSections."
+  "comment": "Opens the .set file with stdConffile and calls Set_IsHandleValid (the registered section handler dispatcher) for every 'section: <name>' line; returns 0 if a handler rejects its section. Original name sputRoom_LoadRoomEntry (the remaster's GrimFandango (Linux): aligned call in SetFile_Parse); was SetFile_ParseSections."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

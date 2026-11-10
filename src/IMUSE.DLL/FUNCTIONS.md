@@ -1,11 +1,11 @@
 # IMUSE.DLL function index
 
-434 functions, 284 with real names.
+434 functions, 285 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
-| 10001000 | Im_VimaDecodeBlock | imuse.c | 221 |
-| 100013c0 | Im_VimaDecompress | imuse.c | 266 |
+| 10001000 | AudioLib_DetectRawFormat | imuse.c | 223 |
+| 100013c0 | AudioLib_ParseWaveFileHeader | imuse.c | 271 |
 | 100017e0 | Im_DecodeSoundBlock | imuse.c | 98 |
 | 10001ba0 | AudioLib_ResetCompressor | imuse.c | 13 |
 | 10001bc0 | AudioLib_UncompressBlock | imuse.c | 32 |
@@ -14,7 +14,7 @@
 | 10002260 | DpSwitchStream | imuse.c | 136 |
 | 10002570 | DpProcessTrack | imuse.c | 154 |
 | 10002a60 | GoToNextRegion | imuse.c | 128 |
-| 10002d30 | Im_DispatchFetchNext | imuse.c | 168 |
+| 10002d30 | Im_DispatchFetchNext | imuse.c | 169 |
 | 100036b0 | DwInitialize | imuse.c | 26 |
 | 10003730 | DwQuery | imuse.c | 1 |
 | 100038d0 | DwTerminate | imuse.c | 1 |
@@ -63,7 +63,7 @@
 | 10008e00 | timer_callback | imuse.c | 15 |
 | 10008e30 | FUN_10008e30 | imuse.c | 10 |
 | 10008e60 | FUN_10008e60 | imuse.c | 27 |
-| 100093d0 | Im_SoundsPrepare | imuse.c | 59 |
+| 100093d0 | Im_SoundsPrepare | imuse.c | 60 |
 | 10009530 | FUN_10009530 | imuse.c | 8 |
 | 10009560 | FUN_10009560 | imuse.c | 8 |
 | 100095d0 | grimSound_LipSyncLoad | imuse.c | 40 |
@@ -225,7 +225,7 @@
 | 10007a60 | ihost_get_sound_addr | imuse_api.c | 9 |
 | 10007a70 | ihost_get_map_addr | imuse_api.c | 9 |
 | 10007a80 | ihost_get_buffer_info | imuse_api.c | 1 |
-| 10007a90 | FUN_10007a90 | imuse_api.c | 68 |
+| 10007a90 | ihost_open_sound | imuse_api.c | 72 |
 | 10007bc0 | ihost_fseek | imuse_api.c | 35 |
 | 10007ca0 | ihost_read | imuse_api.c | 242 |
 | 10008140 | sounds_shutdown | imuse_api.c | 41 |
@@ -234,7 +234,7 @@
 | 10008580 | sounds_restore | imuse_api.c | 104 |
 | 10008860 | sounds_pause | imuse_api.c | 13 |
 | 100088a0 | sounds_resume | imuse_api.c | 12 |
-| 10008ec0 | CacheGetSoundId | imuse_api.c | 227 |
+| 10008ec0 | CacheGetSoundId | imuse_api.c | 228 |
 | 100092f0 | CachePurgeOldestStoppedSound | imuse_api.c | 65 |
 | 1000b940 | ImFile_Read | imuse_api.c | 1 |
 | 1000b980 | ImFile_ReadImpl | imuse_api.c | 1 |

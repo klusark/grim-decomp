@@ -33,11 +33,11 @@
  },
  {
   "addr": "004cdc90",
-  "proto": "int InsaneTimer_Register(int * services, uint workspaceSize)"
+  "proto": "int sys_timer_module(int * services, uint workspaceSize)"
  },
  {
   "addr": "004cdce0",
-  "proto": "void InsaneTimer_Unregister(void)"
+  "proto": "void InsaneTimer_module_terminate(void)"
  },
  {
   "addr": "004cdd10",
@@ -45,7 +45,7 @@
  },
  {
   "addr": "004cdd60",
-  "proto": "void InsaneTimer_Shutdown(void)"
+  "proto": "void InsaneTimer_module_shutdown(void)"
  },
  {
   "addr": "004cdd80",
@@ -57,35 +57,35 @@
  },
  {
   "addr": "004cdef0",
-  "proto": "void InsaneTimer_Hold(void)"
+  "proto": "void sys_Disable(void)"
  },
  {
   "addr": "004cdf00",
-  "proto": "void InsaneTimer_Release(void)"
+  "proto": "void sys_Enable(void)"
  },
  {
   "addr": "004cdf10",
-  "proto": "int InsaneTimer_AddTimer(void * callback, int period, uint flags, int user)"
+  "proto": "int sys_Alloc(void * callback, int period, uint flags, int user)"
  },
  {
   "addr": "004cdf80",
-  "proto": "void InsaneTimer_RemoveTimer(int slot)"
+  "proto": "void sys_Free(int slot)"
  },
  {
   "addr": "004cdfa0",
-  "proto": "void InsaneTimer_SetPeriod(int slot, int period)"
+  "proto": "void sys_Reset(int slot, int period)"
  },
  {
   "addr": "004cdfd0",
-  "proto": "void InsaneTimer_Run(int ticks)"
+  "proto": "void sys_Delay(int ticks)"
  },
  {
   "addr": "004d2420",
-  "proto": "int DsndDriver_Register(int * services, uint moduleSize)"
+  "proto": "int sou_dsnd_module(int * services, uint moduleSize)"
  },
  {
   "addr": "004d2480",
-  "proto": "void DsndDriver_Unregister(void)"
+  "proto": "void DsndDriver_module_terminate(void)"
  },
  {
   "addr": "004d24b0",
@@ -93,27 +93,27 @@
  },
  {
   "addr": "004d2520",
-  "proto": "void DsndDriver_Shutdown(void)"
+  "proto": "void DsndDriver_module_shutdown(void)"
  },
  {
   "addr": "004d2550",
-  "proto": "int DsndDriver_Open(int rate, int unused, void * mix)"
+  "proto": "int dsn_initialize(int rate, int unused, void * mix)"
  },
  {
   "addr": "004d25f0",
-  "proto": "void DsndDriver_Close(void)"
+  "proto": "void dsn_terminate(void)"
  },
  {
   "addr": "004d2630",
-  "proto": "void DsndDriver_SetVolume(uint volume)"
+  "proto": "void dsn_setvol(uint volume)"
  },
  {
   "addr": "004d27b0",
-  "proto": "uint DsndDriver_GetVolume(void)"
+  "proto": "uint dsn_getvol(void)"
  },
  {
   "addr": "004d27c0",
-  "proto": "int DsndDriver_GetSampleRate(void)"
+  "proto": "int dsn_getrate(void)"
  },
  {
   "addr": "004d2940",
@@ -156,11 +156,11 @@
  },
  {
   "addr": "004d0300",
-  "proto": "int SoundModule_Register(int * services, uint moduleSize)"
+  "proto": "int sou_sound_module(int * services, uint moduleSize)"
  },
  {
   "addr": "004d03a0",
-  "proto": "void SoundModule_Unregister(void)"
+  "proto": "void SoundModule_module_terminate(void)"
  },
  {
   "addr": "004d03d0",
@@ -168,7 +168,7 @@
  },
  {
   "addr": "004d0510",
-  "proto": "void SoundModule_Shutdown(void)"
+  "proto": "void SoundModule_module_shutdown(void)"
  },
  {
   "addr": "004d0550",
@@ -184,47 +184,47 @@
  },
  {
   "addr": "004d0860",
-  "proto": "void SoundModule_PlayChunk(byte * p, int id, int volume, int pan, uint flags)"
+  "proto": "void sou_engine_Start(byte * p, int id, int volume, int pan, uint flags)"
  },
  {
   "addr": "004d0a50",
-  "proto": "void SoundModule_StopSound(uint id)"
+  "proto": "void sou_engine_Stop(uint id)"
  },
  {
   "addr": "004d0a80",
-  "proto": "void SoundModule_Pause(void)"
+  "proto": "void sou_engine_Pause(void)"
  },
  {
   "addr": "004d0a90",
-  "proto": "void SoundModule_Resume(void)"
+  "proto": "void sou_engine_Resume(void)"
  },
  {
   "addr": "004d0aa0",
-  "proto": "void SoundModule_StopAll(void)"
+  "proto": "void sou_engine_StopAll(void)"
  },
  {
   "addr": "004d0ad0",
-  "proto": "void SoundModule_SetVolume(int id, uint volume)"
+  "proto": "void sou_engine_SetVol(int id, uint volume)"
  },
  {
   "addr": "004d0b10",
-  "proto": "uint SoundModule_GetVolume(uint id)"
+  "proto": "uint sou_engine_GetVol(uint id)"
  },
  {
   "addr": "004d0b60",
-  "proto": "void SoundModule_SetPan(int id, byte pan)"
+  "proto": "void sou_engine_SetPan(int id, byte pan)"
  },
  {
   "addr": "004d0b90",
-  "proto": "int SoundModule_GetPan(uint id)"
+  "proto": "int sou_engine_GetPan(uint id)"
  },
  {
   "addr": "004d0bd0",
-  "proto": "void SoundModule_DriverCommand2(int arg)"
+  "proto": "void sou_engine_SetHVol(int arg)"
  },
  {
   "addr": "004d0bf0",
-  "proto": "int SoundModule_DriverCommand3(void)"
+  "proto": "int sou_engine_GetHVol(void)"
  },
  {
   "addr": "004d0c00",
@@ -232,7 +232,7 @@
  },
  {
   "addr": "004d0c30",
-  "proto": "int SoundModule_GetPosition(uint id)"
+  "proto": "int sou_engine_Query(uint id)"
  },
  {
   "addr": "004d0cf0",
@@ -240,11 +240,11 @@
  },
  {
   "addr": "004d0d70",
-  "proto": "int SoundModule_SetParam(int unused, int which, uint a, uint b)"
+  "proto": "int sou_engine_SetParam(int unused, int which, uint a, uint b)"
  },
  {
   "addr": "004d0e00",
-  "proto": "int SoundModule_GetParam(int unused, int which, uint * a, uint * b)"
+  "proto": "int sou_engine_GetParam(int unused, int which, uint * a, uint * b)"
  },
  {
   "addr": "004d0eb0",
@@ -260,7 +260,7 @@
  },
  {
   "addr": "004d1180",
-  "proto": "void SoundModule_PlaySaud(byte * data, int size, int id, int volume, int pan, uint flags, int key, int chunkNo, int kind, int whole)"
+  "proto": "void sou_engine_start_stream(byte * data, int size, int id, int volume, int pan, uint flags, int key, int chunkNo, int kind, int whole)"
  },
  {
   "addr": "004d1690",
@@ -276,7 +276,7 @@
  },
  {
   "addr": "004ce3e0",
-  "proto": "int VideoBitmap_Create(void * out, int width, int height, int format)"
+  "proto": "int bmp_bitmap_Alloc(void * out, int width, int height, int format)"
  },
  {
   "addr": "004cedc0",
@@ -288,7 +288,7 @@
  },
  {
   "addr": "004cf520",
-  "proto": "int Video_PixelsFromRgba(void * dst, void * fmt, int count, int unused, byte * src)"
+  "proto": "int gra_ConvertFromLecColor(void * dst, void * fmt, int count, int unused, byte * src)"
  },
  {
   "addr": "004cfdb0",
@@ -346,7 +346,7 @@
  },
  {
   "addr": "004cc7d0",
-  "proto": "void Blocky16_BuildSplitMasks(int size)",
+  "proto": "void fob_block_maketiles(int size)",
   "cc": "__cdecl"
  },
  {
@@ -401,7 +401,7 @@
  },
  {
   "addr": "004c2690",
-  "proto": "void AnimPlay_Destroy(void * * pp)",
+  "proto": "void anm_Stop(void * * pp)",
   "cc": "__cdecl"
  },
  {
@@ -421,22 +421,22 @@
  },
  {
   "addr": "004c5ab0",
-  "proto": "void Zfile_Close(int * z)",
+  "proto": "void Zfile_fle_Close(int * z)",
   "cc": "__cdecl"
  },
  {
   "addr": "004c5e30",
-  "proto": "int StdFile_Tell(void * file)",
+  "proto": "int StdFile_fle_Tell(void * file)",
   "cc": "__cdecl"
  },
  {
   "addr": "004c5e90",
-  "proto": "int StdFile_Size(void * file)",
+  "proto": "int fle_Size(void * file)",
   "cc": "__cdecl"
  },
  {
   "addr": "004c5f50",
-  "proto": "int StdFile_IsEof(void * file)",
+  "proto": "int fle_Eof(void * file)",
   "cc": "__cdecl"
  },
  {

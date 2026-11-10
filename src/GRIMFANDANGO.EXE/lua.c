@@ -828,7 +828,7 @@ void sputText_SetEmergencyFontL(void)
     }
     outFont = &g_hEmergencyFont;
     filename = (char *)lua_getstring(iVar1);
-    Font_LoadFile(filename,outFont);
+    Text_LoadNativeFont(filename,outFont);
     return;
   }
   iVar1 = lua_isnil(iVar1);

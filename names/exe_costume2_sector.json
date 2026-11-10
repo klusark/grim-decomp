@@ -4,7 +4,7 @@
  {"addr": "008cab38", "global": "g_pShadowMaterial", "type": "void *", "comment": "shadow.mat material used for actor shadows"},
  {"addr": "008ca790", "global": "g_pShadowColormap", "type": "void *", "comment": "shadow.cmp colormap used for actor shadows"},
  {"addr": "00417eb0", "name": "rdMaterial_Load", "proto": "void * rdMaterial_Load(char * name, int a, int b)", "tags": "rdroid"},
- {"addr": "00494bf0", "name": "Shadow_DrawClippedPoly", "proto": "void Shadow_DrawClippedPoly(float * verts, int count, float * minXY, float * maxXY, void * shadow)", "comment": "Clips the projected polygon against each sector of the shadow plane and draws it, growing the dirty box", "tags": "costume,render"},
+ {"addr": "00494bf0", "name": "sputCostume_OutputShadowPoly", "proto": "void sputCostume_OutputShadowPoly(float * verts, int count, float * minXY, float * maxXY, void * shadow)", "comment": "Clips the projected polygon against each sector of the shadow plane and draws it, growing the dirty box", "tags": "costume,render"},
  {"addr": "00409d50", "name": "rdPrimit3_DrawPolygon", "proto": "void * rdPrimit3_DrawPolygon(float * verts, int count, void * material)", "tags": "rdroid"},
  {"addr": "00494f90", "name": "Costume_AllocRecord", "tags": "costume"},
  {"addr": "00494fb0", "name": "Costume_InitRecord", "comment": "0xb4-byte costume record: [0] CHORE.DLL instance, [1] costume resource, [2] component list, [3-5] head joints, [6-8] head limits, [9] look rate, [10-13] walk/left/right/rest chores, [14-29] talk chores, [30] mumble chore, [44] next", "tags": "costume"},

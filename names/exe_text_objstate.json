@@ -16,7 +16,7 @@
  {"addr": "008d0878", "global": "g_pTextHS", "type": "GrimServices *", "comment": "Service table pointer used by Temp/Text.c"},
  {"addr": "004aa930", "name": "Text_GetSystemFont", "tags": "text"},
  {"addr": "008d0988", "global": "g_pDefaultFont", "type": "void *", "comment": "Built-in font handle used when no font is given"},
- {"addr": "004aa940", "name": "Font_LoadFile", "proto": "int Font_LoadFile(char * filename, void ** outFont)", "tags": "text"},
+ {"addr": "004aa940", "name": "Text_LoadNativeFont", "proto": "int Text_LoadNativeFont(char * filename, void ** outFont)", "tags": "text"},
  {"addr": "004aa990", "name": "Text_FreeFont", "proto": "void Text_FreeFont(void * font)", "tags": "text"},
  {"addr": "004aa9b0", "name": "Text_NextChar", "proto": "char Text_NextChar(char ** pText)", "comment": "Returns the next character and advances; the pointer becomes NULL at the end of the string", "tags": "text"},
  {"addr": "004aaa20", "name": "Text_GetCharKernedWidth", "proto": "int Text_GetCharKernedWidth(void * ctx, int ch)", "tags": "text"},

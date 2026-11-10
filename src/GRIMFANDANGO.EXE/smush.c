@@ -201,7 +201,7 @@ int __cdecl SmushPlay_UpdateMovie(int *outDone)
   
   local_46c = 0;
   local_468 = 0;
-  fob_flobdec_blocky16_config(1,FUN_004bdad0,0);
+  fob_flobdec_blocky16_config(1,SmushPlay_FakeBlit,0);
   iVar1 = (**(code **)(g_dwAnimplay_services + 0xc))
                     (g_dwAh,&g_aFakeBM,0,0,0,local_400,&local_468,&local_46c,1,0);
   (*(code *)UINT_008d10a0)(auStack_454,auStack_464);

@@ -12,15 +12,15 @@ extern void orig_DSound_Shutdown(void), DSound_Shutdown(void);
 extern void orig_DSound_SetPrimaryVolume(int), DSound_SetPrimaryVolume(int);
 extern void orig_DSound_FillStreamBuffer(void), DSound_FillStreamBuffer(void);
 extern int orig_DSound_GetPlayBlock(void), DSound_GetPlayBlock(void);
-extern int orig_FUN_004d2420(int *, unsigned), DsndDriver_Register(int *, unsigned);
-extern void orig_FUN_004d2480(void), DsndDriver_Unregister(void);
+extern int orig_FUN_004d2420(int *, unsigned), sou_dsnd_module(int *, unsigned);
+extern void orig_FUN_004d2480(void), DsndDriver_module_terminate(void);
 extern int orig_FUN_004d24b0(void), DsndDriver_Init(void);
-extern void orig_FUN_004d2520(void), DsndDriver_Shutdown(void);
-extern int orig_FUN_004d2550(int, int, void *), DsndDriver_Open(int, int, void *);
-extern void orig_FUN_004d25f0(void), DsndDriver_Close(void);
-extern void orig_FUN_004d2630(unsigned), DsndDriver_SetVolume(unsigned);
-extern unsigned orig_FUN_004d27b0(void), DsndDriver_GetVolume(void);
-extern int orig_FUN_004d27c0(void), DsndDriver_GetSampleRate(void);
+extern void orig_FUN_004d2520(void), DsndDriver_module_shutdown(void);
+extern int orig_FUN_004d2550(int, int, void *), dsn_initialize(int, int, void *);
+extern void orig_FUN_004d25f0(void), dsn_terminate(void);
+extern void orig_FUN_004d2630(unsigned), dsn_setvol(unsigned);
+extern unsigned orig_FUN_004d27b0(void), dsn_getvol(void);
+extern int orig_FUN_004d27c0(void), dsn_getrate(void);
 extern int orig_FUN_004d2940(void), DsndDriver_InitDirectSound(void);
 extern void orig_FUN_004d2aa0(int), DsndDriver_CreateStreamBuffer(int);
 extern void orig_FUN_004d2bf0(void), DsndDriver_ReleaseDirectSound(void);
@@ -41,7 +41,7 @@ void Lua_Stub(const char *fmt, int a) { ((void (*)(const char *, int))th_lua)(fm
 void *Win_GetMainHwnd(void) { return ((void *(*)(void))th_hwnd)(); }
 int FUN_004d2d40(int *svc, unsigned units, int frames) { return ((int (*)(int *, unsigned, int))th_mixinit)(svc, units, frames); }
 int Mixer_Init(int *svc, unsigned units, int frames) { return ((int (*)(int *, unsigned, int))th_mixinit)(svc, units, frames); }
-int FUN_004d2d70(int *svc) { return ((int (*)(int *))th_mixfree)(svc); }
+int sou_mixer_terminate(int *svc) { return ((int (*)(int *))th_mixfree)(svc); }
 int Mixer_Free(int *svc) { return ((int (*)(int *))th_mixfree)(svc); }
 int Mixer_ClearAccumulator(void) { return ((int (*)(void))th_clear)(); }
 void Mixer_Output(void *dst, int frames) { ((void (*)(void *, int))th_output)(dst, frames); }
@@ -226,15 +226,15 @@ int main(int argc, char **argv)
         case 1: RUN((orig_DSound_SetPrimaryVolume(a1), 0), (DSound_SetPrimaryVolume(a1), 0)); break;
         case 2: case 3: case 4: RUN((orig_DSound_FillStreamBuffer(), 0), (DSound_FillStreamBuffer(), 0)); break;
         case 5: RUN(orig_DSound_GetPlayBlock(), DSound_GetPlayBlock()); break;
-        case 6: RUN(orig_FUN_004d2420(svc, a2), DsndDriver_Register(svc, a2)); break;
-        case 7: RUN((orig_FUN_004d2480(), 0), (DsndDriver_Unregister(), 0)); break;
+        case 6: RUN(orig_FUN_004d2420(svc, a2), sou_dsnd_module(svc, a2)); break;
+        case 7: RUN((orig_FUN_004d2480(), 0), (DsndDriver_module_terminate(), 0)); break;
         case 8: RUN(orig_FUN_004d24b0(), DsndDriver_Init()); break;
-        case 9: RUN((orig_FUN_004d2520(), 0), (DsndDriver_Shutdown(), 0)); break;
-        case 10: RUN(orig_FUN_004d2550(a2 % 80000, 5, th_hmix), DsndDriver_Open(a2 % 80000, 5, th_hmix)); break;
-        case 11: RUN((orig_FUN_004d25f0(), 0), (DsndDriver_Close(), 0)); break;
-        case 12: RUN((orig_FUN_004d2630(a2), 0), (DsndDriver_SetVolume(a2), 0)); break;
-        case 13: RUN((int)orig_FUN_004d27b0(), (int)DsndDriver_GetVolume()); break;
-        case 14: RUN(orig_FUN_004d27c0(), DsndDriver_GetSampleRate()); break;
+        case 9: RUN((orig_FUN_004d2520(), 0), (DsndDriver_module_shutdown(), 0)); break;
+        case 10: RUN(orig_FUN_004d2550(a2 % 80000, 5, th_hmix), dsn_initialize(a2 % 80000, 5, th_hmix)); break;
+        case 11: RUN((orig_FUN_004d25f0(), 0), (dsn_terminate(), 0)); break;
+        case 12: RUN((orig_FUN_004d2630(a2), 0), (dsn_setvol(a2), 0)); break;
+        case 13: RUN((int)orig_FUN_004d27b0(), (int)dsn_getvol()); break;
+        case 14: RUN(orig_FUN_004d27c0(), dsn_getrate()); break;
         case 15: RUN(orig_FUN_004d2940(), DsndDriver_InitDirectSound()); break;
         case 16: RUN((orig_FUN_004d2aa0(a2 % 24 - 3), 0), (DsndDriver_CreateStreamBuffer(a2 % 24 - 3), 0)); break;
         case 17: RUN((orig_FUN_004d2bf0(), 0), (DsndDriver_ReleaseDirectSound(), 0)); break;

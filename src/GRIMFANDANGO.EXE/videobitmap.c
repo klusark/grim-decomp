@@ -5,10 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004ce3e0  VideoBitmap_Create ---- */
+/* ---- 0x004ce3e0  bmp_bitmap_Alloc ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __cdecl VideoBitmap_Create(void *out,int width,int height,int format)
+/* Original name bmp_bitmap_Alloc (the remaster's GrimFandango (Linux): slot 0 of the
+   "BITMAP=insane" service table); was VideoBitmap_Create. */
+
+int __cdecl bmp_bitmap_Alloc(void *out,int width,int height,int format)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -47,7 +50,7 @@ int __cdecl VideoBitmap_Create(void *out,int width,int height,int format)
     break;
   default:
 LAB_004ce7b5:
-    FUN_004d5f70();
+    msc_error_SaveString();
     return -1;
   }
   iVar1 = (*(code *)*g_pVideo_memory_services)
@@ -131,7 +134,7 @@ VideoBitmap_ConvertPixels
   }
   while( true ) {
     if (bVar1) {
-      iVar3 = Video_PixelsFromRgba(dst,dstFmt,iVar5,(int)palette,src);
+      iVar3 = gra_ConvertFromLecColor(dst,dstFmt,iVar5,(int)palette,src);
     }
     else if (bVar2) {
       iVar3 = Video_PixelsToRgba(src,srcFmt,iVar5,palette,dst);
@@ -143,7 +146,7 @@ VideoBitmap_ConvertPixels
       if (iVar3 != 0) {
         return -1;
       }
-      iVar3 = Video_PixelsFromRgba(dst,dstFmt,iVar5,(int)palette,&DAT_009272a0 + uVar4 * 0x1400);
+      iVar3 = gra_ConvertFromLecColor(dst,dstFmt,iVar5,(int)palette,&DAT_009272a0 + uVar4 * 0x1400);
     }
     if (iVar3 != 0) break;
     count = count - iVar5;

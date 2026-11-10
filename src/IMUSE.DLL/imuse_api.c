@@ -1634,7 +1634,7 @@ undefined4 sounds_startup(void)
     ImInitialize();
     SoundsAllocateBuffer(2,_g_dwImMusicBufferSize,_g_dwImMusicGulpSize,_g_dwImMusicCriticalSize);
     SoundsAllocateBuffer(1,_g_dwImVoiceBufferSize,_g_dwImVoiceGulpSize,_g_dwImVoiceCriticalSize);
-    ImInitializeScript(((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_10007a90),((unsigned)(uintptr_t)FUN_10007250),0,0,_g_bMuscriptLocal);
+    ImInitializeScript(((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)ihost_open_sound),((unsigned)(uintptr_t)FUN_10007250),0,0,_g_bMuscriptLocal);
     _g_bImuseInitialized = 1;
   }
   return 0;
@@ -1700,8 +1700,12 @@ int ihost_get_buffer_info(int param_1)
 #endif
 
 
-/* ---- 0x10007a90  FUN_10007a90 ---- */
-int FUN_10007a90(uint *param_1,int param_2)
+/* ---- 0x10007a90  ihost_open_sound ---- */
+/* Original name ihost_open_sound (the remaster's GrimFandango (Linux): same body (0x28-byte stream
+   slots from id 10000, iRes_FOPEN, 0x20-byte name, use count); the only unpaired caller of
+   iRes_FOPEN on both sides); was FUN_10007a90. */
+
+int ihost_open_sound(uint *param_1,int param_2)
 
 {
   byte bVar1;
@@ -2582,8 +2586,9 @@ LAB_10009063:
     iRes_FREAD(piVar2,(undefined4 *)puVar9[10],puVar9[0xd]);
   }
   iRes_FCLOSE(piVar2);
-  puVar4 = Im_VimaDecompress((uint *)puVar9[10],&iStack_38,&uStack_24,&uStack_3c,&uStack_28,
-                             &iStack_34,&uStack_40);
+  puVar4 = AudioLib_ParseWaveFileHeader
+                     ((uint *)puVar9[10],&iStack_38,&uStack_24,&uStack_3c,&uStack_28,&iStack_34,
+                      &uStack_40);
   if ((iStack_38 != 3) && (iStack_38 != 5)) {
     (**(code **)(g_dwSounds_pHS + 0x24))(puVar9[10]);
     Im_SoundsFreeSlot(puVar9[8]);

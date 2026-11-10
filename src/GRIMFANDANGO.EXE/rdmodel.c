@@ -400,11 +400,13 @@ undefined4 rdCache_ProcFaceCompare(int param_1,int param_2)
   return 0xffffffff;
 }
 
-/* ---- 0x0040d140  rdModel_DrawNode ---- */
+/* ---- 0x0040d140  rdModel3_DrawHNode ---- */
 /* Recursive hierarchy walk (+0x58 child count, +0x5c first child, +0x60 sibling) drawing each
-   node's mesh */
+   node's mesh Original name rdModel3_DrawHNode (the remaster's GrimFandango (Linux): same body
+   (mesh index +0x4c, geoset flag +0x40 bit 1 walks +0x54, draws the mesh, recurses over +0x58 /
+   +0x5c children)); was rdModel_DrawNode. */
 
-void rdModel_DrawNode(int param_1)
+void rdModel3_DrawHNode(int param_1)
 
 {
   byte bVar1;
@@ -412,7 +414,7 @@ void rdModel_DrawNode(int param_1)
   int iVar3;
   
   if ((*(int *)(param_1 + 0x4c) != -1) &&
-     (*(int *)(*(int *)((int)g_pRdCurrentThing + 0x2c) + *(int *)(param_1 + 0x44) * 4) != 0)) {
+     (*(int *)(*(int *)((int)g_pCurThing + 0x2c) + *(int *)(param_1 + 0x44) * 4) != 0)) {
     if ((*(byte *)(param_1 + 0x40) & 2) != 0) {
       iVar3 = *(int *)(param_1 + 0x54);
       bVar1 = *(byte *)(iVar3 + 0x40);
@@ -420,21 +422,21 @@ void rdModel_DrawNode(int param_1)
         iVar3 = *(int *)(iVar3 + 0x54);
         bVar1 = *(byte *)(iVar3 + 0x40);
       }
-      *(undefined4 *)(*(int *)(UINT_007f0fd0 + 4) + 0x28 + *(int *)(param_1 + 0x4c) * 0x7c) = 6;
-      *(undefined4 *)(*(int *)(UINT_007f0fd0 + 4) + 0x5c + *(int *)(param_1 + 0x4c) * 0x7c) =
-           *(undefined4 *)(*(int *)(UINT_007f0fd0 + 4) + 0x5c + *(int *)(iVar3 + 0x4c) * 0x7c);
+      *(undefined4 *)(*(int *)(g_dwCurGeo + 4) + 0x28 + *(int *)(param_1 + 0x4c) * 0x7c) = 6;
+      *(undefined4 *)(*(int *)(g_dwCurGeo + 4) + 0x5c + *(int *)(param_1 + 0x4c) * 0x7c) =
+           *(undefined4 *)(*(int *)(g_dwCurGeo + 4) + 0x5c + *(int *)(iVar3 + 0x4c) * 0x7c);
     }
-    ((code *)rdModel3_DrawMeshImpl)((void *)(*(int *)(UINT_007f0fd0 + 4) + *(int *)(param_1 + 0x4c) * 0x7c),
-               (float *)(*(int *)((int)g_pRdCurrentThing + 0x20) + *(int *)(param_1 + 0x44) * 0x30))
-    ;
+    rdModel3_DrawMeshImpl
+              ((void *)(*(int *)(g_dwCurGeo + 4) + *(int *)(param_1 + 0x4c) * 0x7c),
+               (float *)(*(int *)((int)g_pCurThing + 0x20) + *(int *)(param_1 + 0x44) * 0x30));
   }
   if (*(int *)(param_1 + 0x58) != 0) {
     iVar3 = *(int *)(param_1 + 0x5c);
     uVar2 = 0;
     if (*(int *)(param_1 + 0x58) != 0) {
       do {
-        if (*(int *)(*(int *)((int)g_pRdCurrentThing + 0x28) + *(int *)(iVar3 + 0x44) * 4) == 0) {
-          rdModel_DrawNode(iVar3);
+        if (*(int *)(*(int *)((int)g_pCurThing + 0x28) + *(int *)(iVar3 + 0x44) * 4) == 0) {
+          rdModel3_DrawHNode(iVar3);
         }
         iVar3 = *(int *)(iVar3 + 0x60);
         uVar2 = uVar2 + 1;

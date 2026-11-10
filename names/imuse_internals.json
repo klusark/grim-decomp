@@ -1,6 +1,6 @@
 [
- {"program": "/v101/IMUSE.DLL", "addr": "10001000", "name": "Im_VimaDecodeBlock", "comment": "Compressed (VIMA-style ADPCM) block decoder using the step/index tables; identity inferred from structure", "tags": "imuse_codec"},
- {"program": "/v101/IMUSE.DLL", "addr": "100013c0", "name": "Im_VimaDecompress", "comment": "Drives Im_VimaDecodeBlock over a compressed sound chunk", "tags": "imuse_codec"},
+ {"program": "/v101/IMUSE.DLL", "addr": "10001000", "name": "AudioLib_DetectRawFormat", "comment": "Compressed (VIMA-style ADPCM) block decoder using the step/index tables; identity inferred from structure", "tags": "imuse_codec"},
+ {"program": "/v101/IMUSE.DLL", "addr": "100013c0", "name": "AudioLib_ParseWaveFileHeader", "comment": "Drives AudioLib_DetectRawFormat over a compressed sound chunk", "tags": "imuse_codec"},
  {"program": "/v101/IMUSE.DLL", "addr": "100017e0", "name": "Im_DecodeSoundBlock", "tags": "imuse_codec"},
  {"program": "/v101/IMUSE.DLL", "addr": "10001ba0", "name": "AudioLib_ResetCompressor", "tags": "imuse_codec"},
  {"program": "/v101/IMUSE.DLL", "addr": "10001bc0", "name": "AudioLib_UncompressBlock", "tags": "imuse_codec"},

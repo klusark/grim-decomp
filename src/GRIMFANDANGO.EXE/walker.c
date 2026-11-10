@@ -730,7 +730,7 @@ void __thiscall Puck_SetPos(void *this,float *pos)
 void __thiscall Walker_RotateVector(void *this,float *vec)
 
 {
-  Vec3_Rotate3x3(vec,(float *)((int)this + 0xc));
+  rdMatrix_TransformPoint34Acc(vec,(float *)((int)this + 0xc));
   return;
 }
 

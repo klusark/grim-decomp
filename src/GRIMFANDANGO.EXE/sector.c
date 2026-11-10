@@ -117,13 +117,15 @@ void sputLua_CollisionHandler(int param_1,int param_2,float *param_3,float *para
 #undef local_4
 
 
-/* ---- 0x004a4b00  sputRoom_LoadRoom ---- */
+/* ---- 0x004a4b00  SetFile_Parse ---- */
 /* Remembers the set being parsed (g_dwLoadingRoom), stores its base file name (+0, 0x7f chars) and
-   parses the sections with SetFile_ParseSections. Original name sputRoom_LoadRoom (the remaster's
-   GrimFandango (Linux): the only unmatched caller of SetFile_ParseSections; 1 matched neighbours
-   agree, 0 disagree); was SetFile_Parse. */
+   parses the sections with SetFile_ParseSections. Earlier taken for sputRoom_LoadRoom (the
+   remaster's GrimFandango (Linux): the only unmatched caller of SetFile_ParseSections; 1 matched
+   neighbours agree, 0 disagree); was SetFile_Parse. Named SetFile_Parse (not in the remaster: gcc
+   inlined it into sputRoom_LoadRoom; the earlier hand-made name, back from the orig-names guess
+   sputRoom_LoadRoom, which is 0x4a49a0); was sputRoom_LoadRoom. */
 
-int sputRoom_LoadRoom(char *param_1,uint param_2)
+int SetFile_Parse(char *param_1,uint param_2)
 
 {
   char *pcVar1;
@@ -262,7 +264,7 @@ undefined4 sputRoom_ParseSectors(void)
 {
   int iVar1;
   
-  iVar1 = SetFile_ParseSectors(g_dwLoadingRoom);
+  iVar1 = ParseCollection(g_dwLoadingRoom);
   if (iVar1 != 0) {
     Set_IsHandleValid(iVar1);
   }
@@ -1707,10 +1709,14 @@ void SectorVertexPool_Release(int *param_1)
   return;
 }
 
-/* ---- 0x004a7bc0  SetFile_ParseSectors ---- */
-/* Source: Engine/WalkPlane.cpp (lines 1070-1184, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x004a7bc0  ParseCollection ---- */
+/* Source: Engine/WalkPlane.cpp (lines 1070-1184, from __FILE__/__LINE__ passed to the allocator)
+   Original name ParseCollection (the remaster's GrimFandango (Linux): the only unpaired callee of
+   sputRoom_ParseSectors on both sides; same parser (section:, numsectors, sector, id, type, default
+   visibility, height, numvertices, numgates, vertices:); WalkPlane.cpp); was SetFile_ParseSectors.
+    */
 
-undefined * SetFile_ParseSectors(int param_1)
+undefined * ParseCollection(int param_1)
 
 {
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

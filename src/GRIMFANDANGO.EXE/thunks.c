@@ -1,8 +1,8 @@
 /* GRIMFANDANGO.EXE: jump thunks. Each is a single `JMP target` instruction in the
    original; Ghidra marks them as thunks and decompiles no body. */
 
-/* Svc_Fn2c @ 0x00403700 */
-__asm__(".text\n.globl _Svc_Fn2c\n_Svc_Fn2c:\n\tjmp _Clock_ElapsedMs\n");
+/* defaultGetTimerTick @ 0x00403700 */
+__asm__(".text\n.globl _defaultGetTimerTick\n_defaultGetTimerTick:\n\tjmp _Clock_ElapsedMs\n");
 /* sputLua_BuildCache @ 0x00498e30 */
 __asm__(".text\n.globl _sputLua_BuildCache\n_sputLua_BuildCache:\n\tjmp _SectorList_SaveForShrink\n");
 /* sputLua_RevertCache @ 0x00498e40 */

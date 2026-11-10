@@ -107,11 +107,13 @@ int __cdecl ResType_DefaultHandler(void *msg)
 #undef local_4
 
 
-/* ---- 0x0048d8c0  ResType_LipSyncHandler ---- */
+/* ---- 0x0048d8c0  sputResource_LipSyncHandler ---- */
 /* Resource type handler for 'SYNC' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
-   the size. Load = grimSound_LipSyncLoad. */
+   the size. Load = grimSound_LipSyncLoad. Original name sputResource_LipSyncHandler (the remaster's
+   GrimFandango (Linux): the 'SYNC' entry of the resource type table (g_ResTypeTable /
+   TypesToRegister)); was ResType_LipSyncHandler. */
 
-void * ResType_LipSyncHandler(int *param_1)
+void * sputResource_LipSyncHandler(int *param_1)
 
 {
   int iVar1;
@@ -141,11 +143,13 @@ void * ResType_LipSyncHandler(int *param_1)
   return (void *)0x0;
 }
 
-/* ---- 0x0048d930  ResType_BitmapHandler ---- */
+/* ---- 0x0048d930  sputResource_BackgroundHandler ---- */
 /* BKND handler: op 1 loads the .bm with stdBitmap and remaps 16-bit frames to the display, op 2
-   frees it, op 3 reports its size */
+   frees it, op 3 reports its size Original name sputResource_BackgroundHandler (the remaster's
+   GrimFandango (Linux): the 'BKND' entry of the resource type table (g_ResTypeTable /
+   TypesToRegister)); was ResType_BitmapHandler. */
 
-int __cdecl ResType_BitmapHandler(void *msg)
+int __cdecl sputResource_BackgroundHandler(void *msg)
 
 {
   ushort *pixels;
@@ -202,10 +206,12 @@ int __cdecl ResType_BitmapHandler(void *msg)
   return 0;
 }
 
-/* ---- 0x0048da40  ResType_CostumeHandler ---- */
-/* COST handler: Cos_Load / Cos_Free */
+/* ---- 0x0048da40  sputResource_CostumeHandler ---- */
+/* COST handler: Cos_Load / Cos_Free Original name sputResource_CostumeHandler (the remaster's
+   GrimFandango (Linux): the 'COST' entry of the resource type table (g_ResTypeTable /
+   TypesToRegister)); was ResType_CostumeHandler. */
 
-int __cdecl ResType_CostumeHandler(void *msg)
+int __cdecl sputResource_CostumeHandler(void *msg)
 
 {
   int iVar1;
@@ -298,7 +304,7 @@ void * sputResource_ColormapHandler(int *param_1)
       return (void *)0x1;
     }
     if (iVar1 == 3) {
-      iVar1 = FUN_00404b30(param_1[3]);
+      iVar1 = rdColormap_Size(param_1[3]);
       param_1[4] = iVar1;
       return (void *)0x1;
     }
@@ -321,13 +327,15 @@ void * sputResource_ColormapHandler(int *param_1)
 #undef local_c
 
 
-/* ---- 0x0048dbd0  ResType_FontHandler ---- */
+/* ---- 0x0048dbd0  sputResource_FontHandler ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Resource type handler for 'FONT' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
-   the size. Load = Font_LoadFile, kept locked. */
+   the size. Load = Font_LoadFile, kept locked. Original name sputResource_FontHandler (the
+   remaster's GrimFandango (Linux): the 'FONT' entry of the resource type table (g_ResTypeTable /
+   TypesToRegister)); was ResType_FontHandler. */
 
-void * ResType_FontHandler(int *param_1)
+void * sputResource_FontHandler(int *param_1)
 
 {
   int *piVar1;
@@ -340,7 +348,7 @@ void * ResType_FontHandler(int *param_1)
   }
   iVar2 = *param_1;
   if (iVar2 == 1) {
-    iVar2 = Font_LoadFile((char *)param_1[1],&param_1);
+    iVar2 = Text_LoadNativeFont((char *)param_1[1],&param_1);
     if (iVar2 == 0) {
       pvVar3 = Res_SysAddHandle(piVar1[2],(char *)piVar1[1],param_1);
       Res_SetPurgable(param_1,0);
@@ -463,11 +471,13 @@ void * sputResource_MaterialHandler(int *param_1)
   return pvVar2;
 }
 
-/* ---- 0x0048de10  ResType_ModelHandler ---- */
+/* ---- 0x0048de10  sputResource_ModelHandler ---- */
 /* Resource type handler for 'MODL' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
-   the size. Load = rdModel3_New (.3do). */
+   the size. Load = rdModel3_New (.3do). Original name sputResource_ModelHandler (the remaster's
+   GrimFandango (Linux): the 'MODL' entry of the resource type table (g_ResTypeTable /
+   TypesToRegister)); was ResType_ModelHandler. */
 
-void * ResType_ModelHandler(int *param_1)
+void * sputResource_ModelHandler(int *param_1)
 
 {
   int iVar1;
@@ -476,7 +486,7 @@ void * ResType_ModelHandler(int *param_1)
   if (param_1[2] == 0x4c444f4d) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
-      pvVar2 = (void *)rdModel3_New(param_1[1]);
+      pvVar2 = (void *)rdModel3_Load(param_1[1]);
       if (pvVar2 != (void *)0x0) {
         pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
         return pvVar2;
@@ -496,11 +506,13 @@ void * ResType_ModelHandler(int *param_1)
   return (void *)0x0;
 }
 
-/* ---- 0x0048de70  ResType_SetHandler ---- */
+/* ---- 0x0048de70  sputResource_SetHandler ---- */
 /* Resource type handler for 'SET ' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
-   the size. Load = Set_LoadFile. */
+   the size. Load = Set_LoadFile. Original name sputResource_SetHandler (the remaster's GrimFandango
+   (Linux): the 'SET ' entry of the resource type table (g_ResTypeTable / TypesToRegister)); was
+   ResType_SetHandler. */
 
-void * ResType_SetHandler(int *param_1)
+void * sputResource_SetHandler(int *param_1)
 
 {
   int iVar1;
@@ -509,7 +521,7 @@ void * ResType_SetHandler(int *param_1)
   if (param_1[2] == 0x20544553) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
-      pvVar2 = (void *)sputResource_SetHandler(param_1[1]);
+      pvVar2 = (void *)sputRoom_LoadRoom(param_1[1]);
       if (pvVar2 != (void *)0x0) {
         pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
         return pvVar2;
@@ -517,7 +529,7 @@ void * ResType_SetHandler(int *param_1)
     }
     else {
       if (iVar1 == 2) {
-        Set_Free(param_1[3]);
+        sputRoom_FreeRoom(param_1[3]);
         return (void *)0x1;
       }
       if (iVar1 == 3) {
@@ -529,11 +541,13 @@ void * ResType_SetHandler(int *param_1)
   return (void *)0x0;
 }
 
-/* ---- 0x0048dee0  ResType_ZBufferHandler ---- */
+/* ---- 0x0048dee0  sputResource_ZBufferHandler ---- */
 /* Resource type handler for 'ZBUF' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
-   the size. Load = ZBuffer_Load (z-buffer bitmap). */
+   the size. Load = ZBuffer_Load (z-buffer bitmap). Original name sputResource_ZBufferHandler (the
+   remaster's GrimFandango (Linux): the 'ZBUF' entry of the resource type table (g_ResTypeTable /
+   TypesToRegister)); was ResType_ZBufferHandler. */
 
-void * ResType_ZBufferHandler(int *param_1)
+void * sputResource_ZBufferHandler(int *param_1)
 
 {
   int iVar1;
@@ -542,7 +556,7 @@ void * ResType_ZBufferHandler(int *param_1)
   if (param_1[2] == 0x4655425a) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
-      pvVar2 = (void *)((code *)ZBuffer_Load)(param_1[1]);
+      pvVar2 = (void *)((code *)sputRoom_LoadZBuffer)(param_1[1]);
       if (pvVar2 != (void *)0x0) {
         pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
         return pvVar2;
@@ -550,7 +564,7 @@ void * ResType_ZBufferHandler(int *param_1)
     }
     else {
       if (iVar1 == 2) {
-        ZBuffer_Free(param_1[3]);
+        sputRoom_FreeZBuffer(param_1[3]);
         return (void *)0x1;
       }
       if (iVar1 == 3) {
@@ -562,11 +576,13 @@ void * ResType_ZBufferHandler(int *param_1)
   return (void *)0x0;
 }
 
-/* ---- 0x0048e1e0  ResType_MemoryHandler ---- */
+/* ---- 0x0048e1e0  sputResource_MemoryHandler ---- */
 /* Resource type handler for 'MEM ' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
-   the size. Plain memory block: free releases the block and its data. */
+   the size. Plain memory block: free releases the block and its data. Original name
+   sputResource_MemoryHandler (the remaster's GrimFandango (Linux): the 'MEM ' entry of the resource
+   type table (g_ResTypeTable / TypesToRegister)); was ResType_MemoryHandler. */
 
-undefined4 ResType_MemoryHandler(int *param_1)
+undefined4 sputResource_MemoryHandler(int *param_1)
 
 {
   int iVar1;

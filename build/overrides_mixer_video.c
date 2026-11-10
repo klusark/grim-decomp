@@ -359,7 +359,7 @@ int Video_PixelsToRgba(void *src, void *fmt_, int count, byte *palette, byte *ds
 }
 
 /* RGBA bytes -> pixels in the format `fmt` (1 to 4 bytes per pixel).  Returns 0 or -1. */
-int Video_PixelsFromRgba(void *dst, void *fmt_, int count, int unused, byte *src)
+int gra_ConvertFromLecColor(void *dst, void *fmt_, int count, int unused, byte *src)
 {
     VideoBitmap *fmt = (VideoBitmap *)fmt_;
     int type = fmt->type;
@@ -452,7 +452,7 @@ int VideoBitmap_ConvertPixels(byte *src, void *srcFmt_, int count, byte *palette
         int rc;
 
         if (srcRgba) {
-            rc = Video_PixelsFromRgba(dst, dstFmt, piece, (int)palette, src);
+            rc = gra_ConvertFromLecColor(dst, dstFmt, piece, (int)palette, src);
         } else if (dstRgba) {
             rc = Video_PixelsToRgba(src, srcFmt, piece, palette, dst);
         } else {
@@ -462,7 +462,7 @@ int VideoBitmap_ConvertPixels(byte *src, void *srcFmt_, int count, byte *palette
             tmp = g_abVideoScratch + (g_nVideoScratchFlip & 1) * 0x1400;
             if (Video_PixelsToRgba(src, srcFmt, piece, palette, tmp) != 0)
                 return -1;
-            rc = Video_PixelsFromRgba(dst, dstFmt, piece, (int)palette, tmp);
+            rc = gra_ConvertFromLecColor(dst, dstFmt, piece, (int)palette, tmp);
         }
         if (rc != 0)
             return -1;
@@ -478,9 +478,9 @@ int VideoBitmap_ConvertPixels(byte *src, void *srcFmt_, int count, byte *palette
 /* Allocates a bitmap of `width` x `height` pixels of format `format` (-1: the display's format, 0 / 1: 8 bit without /
  * with a 256 entry palette, 2..12: 15, 16, 24, 16 with alpha and 32 bit variants) through the module's allocator
  * (services[0](size, file, line)); *out receives the header.  Returns 0, -101 (out of memory) or -1 (unknown format). */
-#define LOGF ((void (*)(const char *, const char *, int, int))FUN_004d5f70)    /* vsprintf into the Smush log ring */
+#define LOGF ((void (*)(const char *, const char *, int, int))msc_error_SaveString)    /* vsprintf into the Smush log ring */
 
-int VideoBitmap_Create(void *out_, int width, int height, int format)
+int bmp_bitmap_Alloc(void *out_, int width, int height, int format)
 {
     VideoBitmap **out = (VideoBitmap **)out_;
     int paletteEntries = 0, bytesPerPixel;
