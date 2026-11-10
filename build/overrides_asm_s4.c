@@ -47,7 +47,7 @@ int __cdecl rdPuppet_FadeOutTrack(void *puppet, int track, float seconds)
     return 1;
 }
 
-/* ==== rdPuppet_Advance (0x00450a90) ====
+/* ==== rdPuppet_UpdateTracks (0x00450a90) ====
  * Advances the six tracks of a puppet by `seconds` (scaled by each track's rate at +0x10).  Only when the puppet's first
  * dword is 0.  A track with a non-zero flag word and no 0x200 bit is advanced by rdPuppet_AdvanceTrack (unless 0x10 is
  * set).  A fading-in track (0x4) moves its level at +0x18 up to 1.0 and then clears 0x4; a fading-out track (0x8) moves it
@@ -55,7 +55,7 @@ int __cdecl rdPuppet_FadeOutTrack(void *puppet, int track, float seconds)
  * the compares are on the extended values (as FCOM is), so NaN takes the same branch as in the original.
  * The original returns in EAX the number of tracks with a non-zero flag word (0 when the puppet's first dword is set);
  * the decompiled prototype is void and no caller reads that value, so it is not returned here. */
-void __cdecl rdPuppet_Advance(void *puppet, float seconds)
+void __cdecl rdPuppet_UpdateTracks(void *puppet, float seconds)
 {
     uint *rec;
     int track;

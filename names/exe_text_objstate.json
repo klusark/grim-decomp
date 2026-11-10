@@ -41,7 +41,7 @@
  {"addr": "004abe90", "name": "PlatModule_Init", "proto": "int PlatModule_Init(GrimServices * svc, void * iface)", "tags": "platform,services"},
  {"addr": "004abf40", "name": "Win_AbortIfAlreadyRunning", "proto": "void Win_AbortIfAlreadyRunning(HINSTANCE hInstance, HINSTANCE hPrev, char * cmdline, int nShow, char * title)",
   "comment": "Win95/grimplat.cpp main: if a 'wKernel' window already exists it is activated and the process exits; otherwise creates the window, runs Grim_Init and pumps messages until quit", "tags": "platform,startup"},
- {"addr": "004ac020", "name": "Win_PumpMessages", "comment": "One message-loop iteration: runs Game_FrameUpdate when idle, routes messages to registered dialogs", "tags": "window"},
+ {"addr": "004ac020", "name": "Win_PumpMessages", "comment": "One message-loop iteration: runs Main_Service when idle, routes messages to registered dialogs", "tags": "window"},
  {"addr": "004ac100", "name": "Win_SetWindowedSize", "proto": "int Win_SetWindowedSize(int fullscreen, int w, int h)", "tags": "window"},
  {"addr": "004ac160", "name": "Win_AddMessageHook", "tags": "window"},
  {"addr": "004ac1a0", "name": "Win_RemoveMessageHook", "tags": "window"},

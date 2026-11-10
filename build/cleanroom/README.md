@@ -11,7 +11,7 @@ Everything here is off unless its environment variable is set, so a normal run o
 | `config`: grim.ini instead of the registry | `cleanroom.c` wraps `Reg_Open` ... `Reg_SetString` | `GRIM_INI=<file>` |
 | `debuglog`: PrintDebug to a log | `Lua_Print_NoOp` in `../overrides.c` | `GRIM_DEBUGLOG=<file>` |
 | patch.dll's `CRSNAP:<file>` screenshots | `cleanroom.c` wraps `Lua_Print_NoOp` | `GRIM_DEBUGLOG` set |
-| `simtime`: fixed frame time | `Game_FrameUpdate` in `../overrides_exe.c` | `GRIM_SIMTIME=17` |
+| `simtime`: fixed frame time | `Main_Service` in `../overrides_exe.c` | `GRIM_SIMTIME=17` |
 | (sound on real time, as the original's simtime patch leaves it) | `GRIM_ImSimOn` in `../overrides.c` | `GRIM_IMUSE_REALTIME=1` |
 | `windowed` | the build is windowed by default (`Win_CreateMainWindow` in `../overrides.c`) | (none) |
 | (drawing behind other windows) | `../overrides.c` | `GRIM_ACTIVE=1` |

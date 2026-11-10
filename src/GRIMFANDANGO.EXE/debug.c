@@ -26,12 +26,12 @@ undefined4 Debug_CameraFovKeys(void)
       if (iVar1 == 0) {
         return 0;
       }
-      pvVar2 = Set_GetCurrent();
+      pvVar2 = sputRoom_GetCurrentRoom();
       pvVar2 = *(void **)(*(int *)((int)pvVar2 + 0xac) + 0x48 + *(int *)((int)pvVar2 + 0xb4) * 300);
       fov = *(float *)((int)pvVar2 + 0x38) - 0.5;
     }
     else {
-      pvVar2 = Set_GetCurrent();
+      pvVar2 = sputRoom_GetCurrentRoom();
       pvVar2 = *(void **)(*(int *)((int)pvVar2 + 0xac) + 0x48 + *(int *)((int)pvVar2 + 0xb4) * 300);
       fov = *(float *)((int)pvVar2 + 0x38) - -0.5;
     }

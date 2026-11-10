@@ -12,7 +12,7 @@
  },
  {
   "addr": "004cdd10",
-  "name": "InsaneTimer_Init",
+  "name": "InsaneTimer_module_startup",
   "comment": "Allocates the timer workspace and starts the timer thread",
   "tags": "smush,timer"
  },
@@ -105,7 +105,7 @@
  },
  {
   "addr": "004d24b0",
-  "name": "DsndDriver_Init",
+  "name": "DsndDriver_module_startup",
   "comment": "Gets the TIMER clock interface and allocates the mixer table",
   "tags": "smush,dsound"
  },
@@ -225,7 +225,7 @@
  },
  {
   "addr": "004d03d0",
-  "name": "SoundModule_Init",
+  "name": "SoundModule_module_startup",
   "tags": "smush,sound"
  },
  {
@@ -604,7 +604,7 @@
  },
  {
   "addr": "004cc2c0",
-  "name": "Blocky16_Init",
+  "name": "Blocky16_module_startup",
   "comment": "Asks the module manager for the BITMAP clear service and the MEMORY workspace service of the decoder; -1 if one is missing",
   "tags": "smush,blocky16"
  },
@@ -914,7 +914,7 @@
  },
  {
   "addr": "004c23c0",
-  "name": "AnimPlay_Create",
+  "name": "anm_Start",
   "comment": "Creates the AnimPlay frame player: allocates it, opens the streamer and the file, starts the clock and frame timers; returns 0 or -1",
   "tags": "smush,animplay"
  },
@@ -926,7 +926,7 @@
  },
  {
   "addr": "004c27a0",
-  "name": "AnimPlay_Update",
+  "name": "anm_Render",
   "comment": "One step of the AnimPlay frame player: shows the next frame if due and adjusts the frame delay to keep sound and picture in sync",
   "tags": "smush,animplay"
  },

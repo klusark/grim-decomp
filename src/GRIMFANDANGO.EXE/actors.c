@@ -5,10 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x0048e240  Actors_FreeAllCostumes ---- */
-/* Lua NukeResources: drops every actor's costume list */
+/* ---- 0x0048e240  sputActor_NukeCostumeStacks ---- */
+/* Lua NukeResources: drops every actor's costume list Original name sputActor_NukeCostumeStacks
+   (the remaster's GrimFandango (Linux): the only unmatched caller of Costume_PrintList; 1 matched
+   neighbours agree, 1 disagree); was Actors_FreeAllCostumes. */
 
-void Actors_FreeAllCostumes(void)
+void sputActor_NukeCostumeStacks(void)
 
 {
   void *costume;
@@ -24,7 +26,7 @@ void Actors_FreeAllCostumes(void)
       if (*(int *)((int)pvVar1 + iVar2 + 0x9c) != 0) {
         costume = *(void **)((int)pvVar1 + iVar2 + 0xa0);
         if (costume != (void *)0x0) {
-          Costume_PrintList(costume);
+          sputCostume_PrintCostumeInfo(costume);
           pvVar1 = g_pActorTable;
         }
         Costume_FreeList(*(void **)((int)pvVar1 + iVar2 + 0xa0),1);
@@ -66,7 +68,7 @@ void __cdecl Actors_UpdateAll(float dt)
   int *piVar2;
   
   g_nDrawableActorCount = 0;
-  pvVar1 = Set_GetCurrent();
+  pvVar1 = sputRoom_GetCurrentRoom();
   if (pvVar1 != (void *)0x0) {
     Actors_UpdateTalking(dt);
     piVar2 = *(int **)(*(int *)((int)pvVar1 + 0x1abc) + 0x80);

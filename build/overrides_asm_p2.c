@@ -12,7 +12,7 @@
  *   - LT_U(a, b): `fcomp; test ah,1` taken = a < b or unordered.  LE_U(a, b): `test ah,0x41` = a <= b or unordered.
  *   - A float that the original copies with MOV (no FLD/FSTP) is copied as a dword here (U32), so a signalling NaN
  *     keeps its bits; a float that goes through FLD/FSTP is copied with st_f (a signalling NaN becomes quiet).
- *   - Math_SinCosTable gets the angle as the dword the original pushes (MOV/PUSH), not as a float argument. */
+ *   - stdMath_SinCos gets the angle as the dword the original pushes (MOV/PUSH), not as a float argument. */
 #include "ghidra_types.h"
 
 #ifdef GRIM_EXE
@@ -42,9 +42,9 @@ static inline long double p2_neg(long double x)
     return v;
 }
 
-/* Math_SinCosTable(angle, out1, out2) with the angle passed as the raw dword */
+/* stdMath_SinCos(angle, out1, out2) with the angle passed as the raw dword */
 typedef void (*p2_sincos_fn)(uint, float *, float *);
-#define SINCOS(bits, a, b) (((p2_sincos_fn)Math_SinCosTable)((bits), (a), (b)))
+#define SINCOS(bits, a, b) (((p2_sincos_fn)stdMath_SinCos)((bits), (a), (b)))
 
 /* _ftol: truncation of the x87 value to a 64-bit integer, low dword */
 static inline int p2_ftol(long double x)
@@ -252,7 +252,7 @@ uint Polygon_ClipToPlane(float *param_1, float *param_2, float *param_3, undefin
 
 /* ==== Angles_ToMatrix (0x0044eeb0), Angles_ToMatrixNoPos (0x0044f080) ====
  * Builds the 3x4 matrix (rows of 3 floats; translation in m[9..11]) of the Euler angles ang[0..2] (pitch, yaw, roll)
- * from Math_SinCosTable(angle, &a, &b) of each angle.  With a1, b1 / a2, b2 / a3, b3 the outputs for ang[0] / [1] / [2]:
+ * from stdMath_SinCos(angle, &a, &b) of each angle.  With a1, b1 / a2, b2 / a3, b3 the outputs for ang[0] / [1] / [2]:
  *   P1 = a3*a2, P2 = a3*b2, P3 = b3*a2, P4 = b3*b2 (extended), S2 / S3 = P2 / P3 stored as floats;
  *   m0 = -P1*a1 + P4   m1 = P2*a1 + S3   m2 = -a3*b1
  *   m3 = -a2*b1        m4 = b2*b1        m5 = a1
@@ -303,7 +303,7 @@ void Angles_ToMatrixNoPos(float *param_1, undefined4 *param_2)
 }
 
 /* ==== Matrix_AxisAngle (0x0044f210) ====
- * Rotation matrix (3x4, translation 0) of `angle` around the unit axis `ax`, with s, c from Math_SinCosTable(angle).
+ * Rotation matrix (3x4, translation 0) of `angle` around the unit axis `ax`, with s, c from stdMath_SinCos(angle).
  * Axis (almost) +z (|1 - z| <= 1e-5f or NaN) and (almost) -z (|z + 1| <= 1e-5f) are special cases (a plain rotation in
  * the x-y plane, m[0] / m[3] via FLD/FSTP, m[4] / m[1] as dword copies).  Otherwise, with xx = x*x, yy = y*y stored as
  * floats, z' = 1 - xx - yy (float), xc = xx*c, yc = yy*c:
@@ -401,7 +401,7 @@ void Matrix_AxisAngle(float *param_1, float *param_2, uint param_3)
  * 1.0f: lights of type >= 2 are culled when |lpos - vertex|^2 >= range^2 (light +0x34; the squared distance sums the
  * extended differences times their float roundings), types < 2 compare 0 < range^2.  Then
  *   type 0/1: dot(n, dir) > 0 adds intensity(+0x18) * dot,
- *   type 2:   L = normalised (lpos - vertex) (Vec3_Normalize, length stored as a float), dot(n, L) > 0 adds
+ *   type 2:   L = normalised (lpos - vertex) (rdVector_Normalize3Acc, length stored as a float), dot(n, L) > 0 adds
  *             (I - len * k) * dot,
  *   type 3:   cs = dot(dir, L); if cs > cosOuter(+0x2c): I' = I, or I * (1 - (cosInner(+0x24) - cs) * invRange(+0x30))
  *             when cs < cosInner; adds (I' - len * k) * dot(n, dir), unclamped,
@@ -459,13 +459,13 @@ long double rdLight_CalcVertexIntensities(int **lights, float *lpos, float *ldir
                                 *o = st_f((long double)lf[6] * dot + *o);
                             break;
                         case 2:
-                            lenf = st_f(Vec3_Normalize(L));
+                            lenf = st_f(rdVector_Normalize3Acc(L));
                             dot = ((long double)np[0] * L[0] + (long double)np[1] * L[1]) + (long double)np[2] * L[2];
                             if (!LE_U(dot, 0.0f))
                                 *o = st_f(((long double)lf[6] - (long double)lenf * k) * dot + *o);
                             break;
                         case 3:
-                            lenf = st_f(Vec3_Normalize(L));
+                            lenf = st_f(rdVector_Normalize3Acc(L));
                             cs = ((long double)dp[0] * L[0] + (long double)dp[1] * L[1]) + (long double)dp[2] * L[2];
                             cf = st_f(cs);
                             if (LE_U(cs, lf[11]))
@@ -500,7 +500,7 @@ long double rdLight_CalcVertexIntensities(int **lights, float *lpos, float *ldir
 /* ==== rdCanvas_DrawPoint (0x00451dd0) ====
  * Draws a point of radius r (4th argument, a float in an int slot) at (x, y) as a polygon of lines: when the
  * bounding box (x +- R, y +- R with R = trunc(r + 0.5)) touches the canvas rect (+0x18 .. +0x24), the first corner
- * is (trunc(b0*r + 0.5) + x, trunc(a0*r + 0.5) + y) with a0, b0 = Math_SinCosTable(0), then for angle = step,
+ * is (trunc(b0*r + 0.5) + x, trunc(a0*r + 0.5) + y) with a0, b0 = stdMath_SinCos(0), then for angle = step,
  * 2*step, ... while the extended sum <= 360 (or unordered) a line to the next corner (rdPrimit2_DrawLine).  The angle
  * is kept as a float, the comparison uses the unrounded sum. */
 /* OVERRIDES: rdCanvas_DrawPoint */

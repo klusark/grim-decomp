@@ -275,7 +275,7 @@ The game logic is Lua 3.1 with LucasArts "tasks" (`LUA.DLL`). The engine runs `_
   There is no decompiler; `python -I tools/luadump.py C:/path/_system.LUA` prints every function with its line number,
   constants (string, number, global names) and the code bytes. Extract the original with `tools/lab.py extract`.
 * **Text scripts load too**, but only when the registry value `TextAllowed` is `true` (compared case-insensitively;
-  `HKLM/SOFTWARE/WOW6432Node/LucasArts Entertainment Company LLC/Grim Fandango/v1.0`; `Lua_InitGameLibs` sets
+  `HKLM/SOFTWARE/WOW6432Node/LucasArts Entertainment Company LLC/Grim Fandango/v1.0`; `sputLua_Startup` sets
   `lua_assume_binary` otherwise, after which every file is read as bytecode). It is set on this machine. `lua_dofile` opens the file in text mode, looks at the first
   byte and re-opens as binary if it is `ESC`; so one loose file can be either form. CRLF line endings are fine.
 * `dofile("name")` in the game: it tries `name` through the archive list (6), then `Scripts\name` relative to the
@@ -308,27 +308,27 @@ without the test hook (it needs real keyboard input, which sessions here must no
 LUA.DLL is Lua 3.1 (stack-style C API: `lua_lua2C`, `lua_getnumber`, `lua_pushnumber` ...). The EXE registers its API
 with `lua_openlib(table, count)` where `table` is an array of `{ char *luaName; code *cfunction; }` pairs:
 
-* `Lua_InitGameLibs` (0x49de00, started by the `sputLua` module) registers the 279-entry **engine table** at
+* `sputLua_Startup` (0x49de00, started by the `sputLua` module) registers the 279-entry **engine table** at
   0x4ea8b0 (`EnginePause`, `Load`, `Save`, `SetActorWalkRate`, `PlayActorChore`, `MakeCurrentSet`, `StartMovie`,
   `ImStartSound`, ...);
 * other modules register their own tables when they start: video devices (0x4dd350), primitives (`DrawLine`, ...,
   0x4e8398), text (`SayLine`, `MakeTextObject`, ..., 0x4e8528), `GetKeyLength`/`GetSmushLength` (0x4ea058).
 
 `python -I tools/list_lua_api.py --md` regenerates **`docs/LUA_API.md`**: every Lua name with the C function behind it
-(`SetActorWalkRate` -> `Lua_SetActorWalkRate` at 0x49b0d0, ...). `lua_openlib` makes each entry a Lua global
+(`SetActorWalkRate` -> `sputLua_SetActorWalkRateL` at 0x49b0d0, ...). `lua_openlib` makes each entry a Lua global
 (`lua_pushCclosure` + `lua_setglobal`) and `lua_recognizelib` records the table so the save/restore code can turn a C
 function pointer into `(table index << 16) | entry` and back.
 
 A Lua C function has **no C parameters**. It reads its Lua arguments by position and pushes its results. From the
-engine (`Lua_SetActorWalkRate`, annotated):
+engine (`sputLua_SetActorWalkRateL`, annotated):
 
 ```c
-void Lua_SetActorWalkRate(void)
+void sputLua_SetActorWalkRateL(void)
 {
     int arg1 = lua_lua2C(1);                    // argument 1 as a lua_Object handle (actor userdata, tag 'ACTR')
     int arg2 = lua_lua2C(2);                    // argument 2 (the rate)
     if (lua_isuserdata(arg1) && lua_tag(arg1) == 0x52544341 && lua_isnumber(arg2)) {
-        int actor = Actor_FromHandle(lua_getuserdata(arg1));
+        int actor = sputActor_ActorDeref(lua_getuserdata(arg1));
         ... *(float *)(extra + 0x18) = lua_getnumber(arg2);
     }
 }
@@ -352,7 +352,7 @@ values is several pushes. Prototypes: `src/GRIMFANDANGO.EXE/functions.h` (import
    Arguments: `int a = lua_lua2C(1); if (lua_isnumber(a)) x = lua_getnumber(a);` (`lua_getnumber` returns a `float`).
 2. **Add it to the table** `mod_api[]` (same file): `{ "GetEngineVersionString", (void *)Lua_GetEngineVersionString },`.
    The table is recorded by `GRIM_RegisterModApiLib()` (`lua_recognizelib`, called by `names/asm_patches.json` at the start
-   of `Lua_InitGameLibs`, see the note below) and turned into globals by `GRIM_RegisterModApi()` (called right after the
+   of `sputLua_Startup`, see the note below) and turned into globals by `GRIM_RegisterModApi()` (called right after the
    engine's own table was registered). Nothing else is needed for further functions.
 3. **Build**: `make -C build link` (no assembly regeneration is needed: no assembled function was removed) and copy
    the binaries to `build/run/`.
@@ -363,7 +363,7 @@ values is several pushes. Prototypes: `src/GRIMFANDANGO.EXE/functions.h` (import
 Notes: a Lua C function is stored in a save file as `(index of its table in the list of recognised tables, counted from the
 newest) << 16 | index in the table`. A table recognised **after** the original ones therefore shifts the id of every older
 table by one, and saves of the original game (and of every earlier build) then call the wrong functions or a null
-pointer. That is why `GRIM_RegisterModApiLib` runs at the very start of `Lua_InitGameLibs` (before the Lua state exists and
+pointer. That is why `GRIM_RegisterModApiLib` runs at the very start of `sputLua_Startup` (before the Lua state exists and
 before the base library is registered): the mod table is the **oldest** one and no existing id changes (`build/perf/oldsaves.py`
 checks this against the original saves). Never register another table after start-up; add entries to the one `mod_api[]`
 table instead (new entries get ids behind the old ones, so saves stay compatible within one build). Functions that call
@@ -379,11 +379,11 @@ Names below are Ghidra names (see README for the naming conventions); `src/<PROG
 | **Start-up, window, registry** | `grim.c` (`Win_WinMain`->`Win_Main`, `Grim_Init`, `Grim_ParseCommandLine`, `Grim_OpenRegistry`), `window.c` (`Win_WndProc`), `reg.c` (`Reg_*`, the `HKLM\...\Grim Fandango` key), `plat.c`, `services.c` | `build/startup.c` supplies `WinMain`. `GrimServices` (0x70 bytes, `compat.h`) is the table of allocator/file/printf function pointers handed to every module. |
 | **Module protocol** | `enginemodule.c`, `engine.c` (`Engine_RegisterSubsystems`/`InitSubsystems`/`ShutdownSubsystems`/`ResetSubsystems`), `sputactor.c`, `sputroom.c`, ... | Every `sput*` module fills a 0x20-byte interface: `[0]` Initialize, `[1]` Terminate, `[2]` Start (0 = ok), `[3]` Stop, `[4]` SaveState, `[5]` RestoreState. Functions are named `<Module>_Terminate/_Start/_Stop/_SaveState/_RestoreState`. |
 | **Resources, archives** | `lab.c`, `labdir.c`, `resfile.c`, `res.c`, `resource.c`, `restype.c`, `resref.c` | see 6. `restype.c`: one handler per FOURCC (`BKND COST CMAP SET FONT KEYF MAT MODL ZBUF SYNC MEM`), `ResType_*Handler`: op 1 load, 2 free, 3 size. |
-| **Lua VM and API** | `LUA.DLL` (`lvm`/`ldo`/`llex`/`lparser`/`lundump`/`lapi`/`lgc`..., Lua 3.1 + tasks), EXE `lua.c` (the `Lua_*` API, `Lua_InitGameLibs`), `sputlua.c` | asm: `lua.c`. See 7, 8. |
-| **Renderer** | `rdroid.c`, `rdcache.c` (batching, `rdCache_Flush`), `rdraster.c` (~340 software rasterizer variants `rdRaster_<Role><Bpp>_<Features>`, auto-named), `rdcanvas.c`, `rdclip.c`, `rdprimit3.c`, `rdmodel.c` (`rdModel_DrawMesh`), `rdmodel3.c` (`.3do` loader, `rdModel3_*`), `rdthing.c`, `rdpuppet.c` (animation tracks), `rdlight.c`, `rdmaterial.c`, `rdcolormap.c`, `render.c` (`Render_*` back buffer, progress bar), `sputrender.c`, `stddisplay.c`/`std3d.c` (DirectDraw/Direct3D, DIB) | the default display device is a windowed DIB with the **software** rasterizer (`Display_InitFromConfig` in `overrides.c`). |
-| **Sets, setups, sectors, camera** | `set.c` (`Set_MakeCurrent`, `Set_SwitchSetup`, `Set_ApplySetupCamera`), `setup.c`, `sector.c` + `sputroom.c` (`SetFile_Parse*`: the text `.set` format: `section: setups / colormaps / lights / sectors`), `rdcamera.c` (`rdCamera_*` projection) | camera setups come from the set file (position, interest, roll, fov, nclip, fclip); Lua: `MakeCurrentSet`, `GetCameraPosition`, ... |
+| **Lua VM and API** | `LUA.DLL` (`lvm`/`ldo`/`llex`/`lparser`/`lundump`/`lapi`/`lgc`..., Lua 3.1 + tasks), EXE `lua.c` (the `Lua_*` API, `sputLua_Startup`), `sputlua.c` | asm: `lua.c`. See 7, 8. |
+| **Renderer** | `rdroid.c`, `rdcache.c` (batching, `rdCache_Flush`), `rdraster.c` (~340 software rasterizer variants `rdRaster_<Role><Bpp>_<Features>`, auto-named), `rdcanvas.c`, `rdclip.c`, `rdprimit3.c`, `rdmodel.c` (`rdModel3_DrawMeshImpl`), `rdmodel3.c` (`.3do` loader, `rdModel3_*`), `rdthing.c`, `rdpuppet.c` (animation tracks), `rdlight.c`, `rdmaterial.c`, `rdcolormap.c`, `render.c` (`Render_*` back buffer, progress bar), `sputrender.c`, `stddisplay.c`/`std3d.c` (DirectDraw/Direct3D, DIB) | the default display device is a windowed DIB with the **software** rasterizer (`Display_InitFromConfig` in `overrides.c`). |
+| **Sets, setups, sectors, camera** | `set.c` (`Set_MakeCurrent`, `Set_SwitchSetup`, `sputRender_SyncCamera`), `setup.c`, `sector.c` + `sputroom.c` (`sputRoom_LoadRoom*`: the text `.set` format: `section: setups / colormaps / lights / sectors`), `rdcamera.c` (`rdCamera_*` projection) | camera setups come from the set file (position, interest, roll, fov, nclip, fclip); Lua: `MakeCurrentSet`, `GetCameraPosition`, ... |
 | **Actors, costumes, chores** | `actor.c` (`Actor_*`; record 0xa8 bytes, `extra` 0x4a0 bytes with walk/turn rates and the walker), `actors.c`, `sputactor.c`; costumes and chores: **`CHORE.DLL`** (`Cos_*`, `src/CHORE.DLL/costume.c`) driven by `costume.c`, `sputcostume.c` and the tag handlers `*component.c` (`ModelComponent_*`, `MeshComponent_*`, `KeyframeComponent_*`, `SpriteComponent_*`, `ImuseSoundComponent_*`, `LuaVarComponent_*`) | a costume is a list of chores; a chore is a set of keyed tracks (`.cos` file). Lua: `PlayActorChore`, `SetActorCostume`, ... asm: `actor.c`, `walker.c`. |
-| **Walker and path planning** | `walker.c` (`Walker_*`: sector-constrained movement, turning, `Planner_*` path search over sectors), `actor.c` (`Actor_UpdateWalker`, `Actor_FollowPath`, `Actor_WalkForward`), `collision.c` | walk step = frame time x actor time scale x walk rate (extra+0x18); example mod a changes it. |
+| **Walker and path planning** | `walker.c` (`Walker_*`: sector-constrained movement, turning, `Planner_*` path search over sectors), `actor.c` (`Actor_UpdateWalker`, `Actor_FollowPath`, `sputActor_Forward`), `collision.c` | walk step = frame time x actor time scale x walk rate (extra+0x18); example mod a changes it. |
 | **Sound (iMUSE)** | **`IMUSE.DLL`** (iMUSE core, `hmi.c` HMI SOS audio, streams, DirectSound), EXE `imuse.c`/`imusemodule.c`/`mixer.c`/`sound.c` (positioned sounds), Lua `Im*` | HMI libraries come from the working directory (6). |
 | **Movies (Smush)** | `movie.c` (`Movie_*`), `smush.c`, `insane.c` + `lecshare.c` (the LecShare module registry and the INSANE player), `sputsmush.c` | `GRIM_NOMOVIE=1` skips them; Lua: `StartMovie`, `StartFullscreenMovie`. |
 | **Text, fonts, localisation** | `text.c` (`Text_*`, `Font_LoadFile`), `textobject.c` (`TextObject_*`, 0x260-byte text objects), `sputtext.c`, `glyph.c` (`Glyph_Blit*`), `polyglot.c` (`GRIM.TAB`, `/sytx123/` string ids) | Lua: `SayLine`, `MakeTextObject`, `PrintLine`, ... |

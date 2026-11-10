@@ -1,0 +1,1857 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00401ca0",
+  "old": "Lua_Is3DHardwareEnabled",
+  "name": "sputLua_Is3DHardwareEnabledL",
+  "comment": "Lua opcode: Is3DHardwareEnabled Original name sputLua_Is3DHardwareEnabledL (the remaster's GrimFandango (Linux): Lua / module table entry 'Is3DHardwareEnabled'); was Lua_Is3DHardwareEnabled."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00477010",
+  "old": "Input_Flush",
+  "name": "stdControl_Flush",
+  "comment": "Lua FlushControls: resets keyboard and joystick state Original name stdControl_Flush (the remaster's GrimFandango (Linux): Lua / module table entry 'FlushControls'); was Input_Flush."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482880",
+  "old": "Lua_NextSetup",
+  "name": "grimlib_NextSetup",
+  "comment": "Lua opcode: NextSetup Original name grimlib_NextSetup (the remaster's GrimFandango (Linux): Lua / module table entry 'NextSetup'); was Lua_NextSetup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004828a0",
+  "old": "Lua_PreviousSetup",
+  "name": "grimlib_PreviousSetup",
+  "comment": "Lua opcode: PreviousSetup Original name grimlib_PreviousSetup (the remaster's GrimFandango (Linux): Lua / module table entry 'PreviousSetup'); was Lua_PreviousSetup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486a00",
+  "old": "Render_RequestFullRedraw",
+  "name": "sputRender_ForceRefresh",
+  "comment": "Lua opcode: ForceRefresh Original name sputRender_ForceRefresh (the remaster's GrimFandango (Linux): Lua / module table entry 'ForceRefresh'); was Render_RequestFullRedraw."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486f50",
+  "old": "Lua_IrisClear",
+  "name": "sputRender_ClearIris",
+  "comment": "Lua opcode: IrisClear Original name sputRender_ClearIris (the remaster's GrimFandango (Linux): Lua / module table entry 'IrisClear'); was Lua_IrisClear."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489840",
+  "old": "Lua_DrawLine",
+  "name": "sputPrimitive_DrawLine",
+  "comment": "Lua opcode: DrawLine Original name sputPrimitive_DrawLine (the remaster's GrimFandango (Linux): Lua / module table entry 'DrawLine'); was Lua_DrawLine."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489a80",
+  "old": "Lua_DrawPolygon",
+  "name": "sputPrimitive_DrawPolygon",
+  "comment": "Lua opcode: DrawPolygon Original name sputPrimitive_DrawPolygon (the remaster's GrimFandango (Linux): Lua / module table entry 'DrawPolygon'); was Lua_DrawPolygon."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489d70",
+  "old": "Lua_DrawRectangle",
+  "name": "sputPrimitive_DrawRectangle",
+  "comment": "Lua opcode: DrawRectangle Original name sputPrimitive_DrawRectangle (the remaster's GrimFandango (Linux): Lua / module table entry 'DrawRectangle'); was Lua_DrawRectangle."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489fe0",
+  "old": "Lua_ChangePrimitive",
+  "name": "sputPrimitive_ChangePrimitive",
+  "comment": "Lua opcode: ChangePrimitive Original name sputPrimitive_ChangePrimitive (the remaster's GrimFandango (Linux): Lua / module table entry 'ChangePrimitive'); was Lua_ChangePrimitive."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048a460",
+  "old": "Lua_KillPrimitive",
+  "name": "sputPrimitive_KillPrimitive",
+  "comment": "Lua opcode: KillPrimitive Original name sputPrimitive_KillPrimitive (the remaster's GrimFandango (Linux): Lua / module table entry 'KillPrimitive'); was Lua_KillPrimitive."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048a4a0",
+  "old": "Lua_PurgePrimitiveQueue",
+  "name": "sputPrimitive_PurgeQueue",
+  "comment": "Lua opcode: PurgePrimitiveQueue Original name sputPrimitive_PurgeQueue (the remaster's GrimFandango (Linux): Lua / module table entry 'PurgePrimitiveQueue'); was Lua_PurgePrimitiveQueue."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048ad60",
+  "old": "Lua_SetOffscreenTextPos",
+  "name": "sputText_SetOffscreenTextPosL",
+  "comment": "Lua opcode: SetOffscreenTextPos Original name sputText_SetOffscreenTextPosL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetOffscreenTextPos'); was Lua_SetOffscreenTextPos."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048ade0",
+  "old": "Lua_SetEmergencyFont",
+  "name": "sputText_SetEmergencyFontL",
+  "comment": "Lua opcode: SetEmergencyFont Original name sputText_SetEmergencyFontL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetEmergencyFont'); was Lua_SetEmergencyFont."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048ae60",
+  "old": "Lua_LocalizeString",
+  "name": "sputText_LocalizeStringL",
+  "comment": "Lua opcode: LocalizeString Original name sputText_LocalizeStringL (the remaster's GrimFandango (Linux): Lua / module table entry 'LocalizeString'); was Lua_LocalizeString."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048aed0",
+  "old": "Lua_MakeColor",
+  "name": "sputText_MakeColorL",
+  "comment": "Lua opcode: MakeColor Original name sputText_MakeColorL (the remaster's GrimFandango (Linux): Lua / module table entry 'MakeColor'); was Lua_MakeColor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048b100",
+  "old": "Lua_GetColorComponents",
+  "name": "sputText_GetColorComponentsL",
+  "comment": "Lua opcode: GetColorComponents Original name sputText_GetColorComponentsL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetColorComponents'); was Lua_GetColorComponents."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048b190",
+  "old": "Lua_SetActorTalkColor",
+  "name": "sputText_SetActorTalkColorL",
+  "comment": "Lua opcode: SetActorTalkColor Original name sputText_SetActorTalkColorL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorTalkColor'); was Lua_SetActorTalkColor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048b230",
+  "old": "Lua_GetActorTalkColor",
+  "name": "sputText_GetActorTalkColorL",
+  "comment": "Lua opcode: GetActorTalkColor Original name sputText_GetActorTalkColorL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorTalkColor'); was Lua_GetActorTalkColor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048b2a0",
+  "old": "Lua_SetSayLineDefaults",
+  "name": "sputText_SetSayLineDefaultsL",
+  "comment": "Lua opcode: SetSayLineDefaults Original name sputText_SetSayLineDefaultsL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetSayLineDefaults'); was Lua_SetSayLineDefaults."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048b4c0",
+  "old": "Lua_SayLine",
+  "name": "sputText_SayLineL",
+  "comment": "Lua opcode: SayLine Original name sputText_SayLineL (the remaster's GrimFandango (Linux): Lua / module table entry 'SayLine'); was Lua_SayLine."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048b830",
+  "old": "Lua_PrintLine",
+  "name": "sputText_PrintLineL",
+  "comment": "Lua opcode: PrintLine Original name sputText_PrintLineL (the remaster's GrimFandango (Linux): Lua / module table entry 'PrintLine'); was Lua_PrintLine."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048b9a0",
+  "old": "Lua_IsMessageGoing",
+  "name": "sputText_IsMessageGoingL",
+  "comment": "Lua opcode: IsMessageGoing Original name sputText_IsMessageGoingL (the remaster's GrimFandango (Linux): Lua / module table entry 'IsMessageGoing'); was Lua_IsMessageGoing."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048ba90",
+  "old": "Lua_ExpireText",
+  "name": "sputText_ExpireTextQueueL",
+  "comment": "Lua opcode: ExpireText Original name sputText_ExpireTextQueueL (the remaster's GrimFandango (Linux): Lua / module table entry 'ExpireText'); was Lua_ExpireText."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048baf0",
+  "old": "Lua_PurgeText",
+  "name": "sputText_PurgeTextQueueL",
+  "comment": "Lua opcode: PurgeText Original name sputText_PurgeTextQueueL (the remaster's GrimFandango (Linux): Lua / module table entry 'PurgeText'); was Lua_PurgeText."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048bb20",
+  "old": "Lua_KillTextObject",
+  "name": "sputText_KillTextObjectL",
+  "comment": "Lua opcode: KillTextObject Original name sputText_KillTextObjectL (the remaster's GrimFandango (Linux): Lua / module table entry 'KillTextObject'); was Lua_KillTextObject."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048bb70",
+  "old": "Lua_GetFontDimensions",
+  "name": "sputText_GetFontDimensionsL",
+  "comment": "Lua opcode: GetFontDimensions Original name sputText_GetFontDimensionsL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetFontDimensions'); was Lua_GetFontDimensions."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048bbc0",
+  "old": "Lua_GetTextObjectDimensions",
+  "name": "sputText_GetTextObjectDimensionsL",
+  "comment": "Lua opcode: GetTextObjectDimensions Original name sputText_GetTextObjectDimensionsL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetTextObjectDimensions'); was Lua_GetTextObjectDimensions."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048bc50",
+  "old": "Lua_GetTextCharPosition",
+  "name": "sputText_GetTextCharPositionL",
+  "comment": "Lua opcode: GetTextCharPosition Original name sputText_GetTextCharPositionL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetTextCharPosition'); was Lua_GetTextCharPosition."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048bd10",
+  "old": "Lua_ChangeTextObject",
+  "name": "sputText_ChangeTextObjectL",
+  "comment": "Lua opcode: ChangeTextObject Original name sputText_ChangeTextObjectL (the remaster's GrimFandango (Linux): Lua / module table entry 'ChangeTextObject'); was Lua_ChangeTextObject."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048be30",
+  "old": "Lua_MakeTextObject",
+  "name": "sputText_MakeTextObjectL",
+  "comment": "Lua opcode: MakeTextObject Original name sputText_MakeTextObjectL (the remaster's GrimFandango (Linux): Lua / module table entry 'MakeTextObject'); was Lua_MakeTextObject."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048bf50",
+  "old": "Lua_BlastText",
+  "name": "sputText_BlastText",
+  "comment": "Lua opcode: BlastText Original name sputText_BlastText (the remaster's GrimFandango (Linux): Lua / module table entry 'BlastText'); was Lua_BlastText."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048c960",
+  "old": "Lua_GetTranslationMode",
+  "name": "sputText_GetTranslationModeL",
+  "comment": "Lua opcode: GetTranslationMode Original name sputText_GetTranslationModeL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetTranslationMode'); was Lua_GetTranslationMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048c980",
+  "old": "Lua_SetTranslationMode",
+  "name": "sputText_SetTranslationModeL",
+  "comment": "Lua opcode: SetTranslationMode Original name sputText_SetTranslationModeL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetTranslationMode'); was Lua_SetTranslationMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00495850",
+  "old": "Lua_GetKeyLength",
+  "name": "sputCostume_GetKeyLengthL",
+  "comment": "Lua opcode: GetKeyLength Original name sputCostume_GetKeyLengthL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetKeyLength'); was Lua_GetKeyLength."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00495900",
+  "old": "Lua_GetSmushLength",
+  "name": "sputCostume_GetSmushLengthL",
+  "comment": "Lua opcode: GetSmushLength Original name sputCostume_GetSmushLengthL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetSmushLength'); was Lua_GetSmushLength."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498d80",
+  "old": "Lua_GetMemoryUsage",
+  "name": "sputLua_GetMemoryUsageL",
+  "comment": "Lua opcode: GetMemoryUsage Original name sputLua_GetMemoryUsageL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetMemoryUsage'); was Lua_GetMemoryUsage."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498da0",
+  "old": "Lua_GetDiskFreeSpace",
+  "name": "sputLua_GetDiskFreeSpaceL",
+  "comment": "Lua opcode: GetDiskFreeSpace Original name sputLua_GetDiskFreeSpaceL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetDiskFreeSpace'); was Lua_GetDiskFreeSpace."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498e20",
+  "old": "Lua_TEST",
+  "name": "sputLua_Test",
+  "comment": "Lua opcode: TEST Original name sputLua_Test (the remaster's GrimFandango (Linux): Lua / module table entry 'TEST'); was Lua_TEST."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498e30",
+  "old": "Lua_BuildCache",
+  "name": "sputLua_BuildCache",
+  "comment": "Lua opcode: BuildCache Original name sputLua_BuildCache (the remaster's GrimFandango (Linux): Lua / module table entry 'BuildCache'); was Lua_BuildCache."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498e40",
+  "old": "Lua_RestoreCache",
+  "name": "sputLua_RevertCache",
+  "comment": "Lua opcode: RestoreCache Original name sputLua_RevertCache (the remaster's GrimFandango (Linux): Lua / module table entry 'RestoreCache'); was Lua_RestoreCache."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498e50",
+  "old": "Lua_ShrinkBoxes",
+  "name": "sputLua_ShrinkBoxes",
+  "comment": "Lua opcode: ShrinkBoxes Original name sputLua_ShrinkBoxes (the remaster's GrimFandango (Linux): Lua / module table entry 'ShrinkBoxes'); was Lua_ShrinkBoxes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498e90",
+  "old": "Lua_UnShrinkBoxes",
+  "name": "sputLua_UnShrinkBoxes",
+  "comment": "Lua opcode: UnShrinkBoxes Original name sputLua_UnShrinkBoxes (the remaster's GrimFandango (Linux): Lua / module table entry 'UnShrinkBoxes'); was Lua_UnShrinkBoxes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498ea0",
+  "old": "Lua_GetShrinkPos",
+  "name": "sputLua_GetShrinkPosition",
+  "comment": "Lua opcode: GetShrinkPos Original name sputLua_GetShrinkPosition (the remaster's GrimFandango (Linux): Lua / module table entry 'GetShrinkPos'); was Lua_GetShrinkPos."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498ff0",
+  "old": "Lua_DumpMemoryLog",
+  "name": "sputLua_DumpMemoryLogL",
+  "comment": "Lua opcode: DumpMemoryLog Original name sputLua_DumpMemoryLogL (the remaster's GrimFandango (Linux): Lua / module table entry 'DumpMemoryLog'); was Lua_DumpMemoryLog."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499000",
+  "old": "Lua_SetSoundParameters",
+  "name": "sputLua_SetSoundParametersL",
+  "comment": "Lua opcode: SetSoundParameters Original name sputLua_SetSoundParametersL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetSoundParameters'); was Lua_SetSoundParameters."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004991c0",
+  "old": "Lua_GetSoundParameters",
+  "name": "sputLua_GetSoundParametersL",
+  "comment": "Lua opcode: GetSoundParameters Original name sputLua_GetSoundParametersL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetSoundParameters'); was Lua_GetSoundParameters."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499260",
+  "old": "Lua_EnginePause",
+  "name": "sputLua_EnginePause",
+  "comment": "Lua opcode: EnginePause Original name sputLua_EnginePause (the remaster's GrimFandango (Linux): Lua / module table entry 'EnginePause'); was Lua_EnginePause."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499270",
+  "old": "Lua_EngineResume",
+  "name": "sputLua_EngineResume",
+  "comment": "Lua opcode: EngineResume Original name sputLua_EngineResume (the remaster's GrimFandango (Linux): Lua / module table entry 'EngineResume'); was Lua_EngineResume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499280",
+  "old": "Lua_EngineDisplay",
+  "name": "sputLua_EngineDisplay",
+  "comment": "Lua opcode: EngineDisplay Original name sputLua_EngineDisplay (the remaster's GrimFandango (Linux): Lua / module table entry 'EngineDisplay'); was Lua_EngineDisplay."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004992b0",
+  "old": "Lua_LoadActor",
+  "name": "sputLua_AllocateActorL",
+  "comment": "Lua opcode: LoadActor Original name sputLua_AllocateActorL (the remaster's GrimFandango (Linux): Lua / module table entry 'LoadActor'); was Lua_LoadActor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004992d0",
+  "old": "Lua_PutActorAtInterest",
+  "name": "sputLua_PutActorAtInterestL",
+  "comment": "Lua opcode: PutActorAtInterest Original name sputLua_PutActorAtInterestL (the remaster's GrimFandango (Linux): Lua / module table entry 'PutActorAtInterest'); was Lua_PutActorAtInterest."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499360",
+  "old": "Lua_SetSelectedActor",
+  "name": "sputLua_SetSelectedActorL",
+  "comment": "Lua opcode: SetSelectedActor Original name sputLua_SetSelectedActorL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetSelectedActor'); was Lua_SetSelectedActor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004993c0",
+  "old": "Lua_PutActorAt",
+  "name": "sputLua_PutActorAtL",
+  "comment": "Lua opcode: PutActorAt Original name sputLua_PutActorAtL (the remaster's GrimFandango (Linux): Lua / module table entry 'PutActorAt'); was Lua_PutActorAt."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004994a0",
+  "old": "Lua_PutActorInSet",
+  "name": "sputLua_PutActorInSetL",
+  "comment": "Lua opcode: PutActorInSet Original name sputLua_PutActorInSetL (the remaster's GrimFandango (Linux): Lua / module table entry 'PutActorInSet'); was Lua_PutActorInSet."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499590",
+  "old": "Lua_WalkActorVector",
+  "name": "sputLua_WalkActorVectorL",
+  "comment": "Lua opcode: WalkActorVector(actor, cameraActor, x, y, z [, yawOffset]). Transforms the vector by the camera actor's frame, adds the actor position, turns the walker heading toward it by at most 2 * |rate| * frameSeconds (Walker_TurnToPoint) and, if the point is less than 90 degrees from the heading, clears actor+8 bit 0 and calls Actor_WalkForward. Dereferences the walker without creating it. Original name sputLua_WalkActorVectorL (the remaster's GrimFandango (Linux): Lua / module table entry 'WalkActorVector'); was Lua_WalkActorVector."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499800",
+  "old": "Lua_WalkActorForward",
+  "name": "sputLua_WalkActorForwardL",
+  "comment": "Lua opcode: WalkActorForward Original name sputLua_WalkActorForwardL (the remaster's GrimFandango (Linux): Lua / module table entry 'WalkActorForward'); was Lua_WalkActorForward."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499860",
+  "old": "Lua_WalkActorTo",
+  "name": "sputLua_WalkActorToL",
+  "comment": "Lua opcode: WalkActorTo Original name sputLua_WalkActorToL (the remaster's GrimFandango (Linux): Lua / module table entry 'WalkActorTo'); was Lua_WalkActorTo."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004999d0",
+  "old": "Lua_WalkActorToAvoiding",
+  "name": "sputLua_WalkActorToAvoidingL",
+  "comment": "Lua opcode: WalkActorToAvoiding Original name sputLua_WalkActorToAvoidingL (the remaster's GrimFandango (Linux): Lua / module table entry 'WalkActorToAvoiding'); was Lua_WalkActorToAvoiding."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499b80",
+  "old": "Lua_IsActorMoving",
+  "name": "sputLua_IsActorMovingL",
+  "comment": "Lua opcode: IsActorMoving Original name sputLua_IsActorMovingL (the remaster's GrimFandango (Linux): Lua / module table entry 'IsActorMoving'); was Lua_IsActorMoving."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499be0",
+  "old": "Lua_IsActorTurning",
+  "name": "sputLua_IsActorTurningL",
+  "comment": "Lua opcode: IsActorTurning(actor). TRUE while extra+0x28 (angle left between visible yaw and walker heading) is not 0. That field is written only by Walker_UpdateYaw (0 once under 0.5 degrees) and Actor_SetRot, so an actor without a walker is never turning. Original name sputLua_IsActorTurningL (the remaster's GrimFandango (Linux): Lua / module table entry 'IsActorTurning'); was Lua_IsActorTurning."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499c70",
+  "old": "Lua_SetActorChoreLooping",
+  "name": "sputLua_SetActorChoreLoopingL",
+  "comment": "Lua opcode: SetActorChoreLooping Original name sputLua_SetActorChoreLoopingL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorChoreLooping'); was Lua_SetActorChoreLooping."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499da0",
+  "old": "Lua_IsActorResting",
+  "name": "sputLua_IsActorRestingL",
+  "comment": "Lua opcode: IsActorResting Original name sputLua_IsActorRestingL (the remaster's GrimFandango (Linux): Lua / module table entry 'IsActorResting'); was Lua_IsActorResting."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499e20",
+  "old": "Lua_IsActorChoring",
+  "name": "sputLua_IsActorChoringL",
+  "comment": "Lua opcode: IsActorChoring Original name sputLua_IsActorChoringL (the remaster's GrimFandango (Linux): Lua / module table entry 'IsActorChoring'); was Lua_IsActorChoring."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00499ff0",
+  "old": "Lua_GetActorChores",
+  "name": "sputLua_GetActorChoresL",
+  "comment": "Lua opcode: GetActorChores Original name sputLua_GetActorChoresL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorChores'); was Lua_GetActorChores."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049a160",
+  "old": "Lua_GetActorCostumeDepth",
+  "name": "sputLua_GetActorCostumeDepthL",
+  "comment": "Lua opcode: GetActorCostumeDepth Original name sputLua_GetActorCostumeDepthL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorCostumeDepth'); was Lua_GetActorCostumeDepth."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049a2a0",
+  "old": "Lua_GetActorLoopingChores",
+  "name": "sputLua_GetActorLoopingChoresL",
+  "comment": "Lua opcode: GetActorLoopingChores Original name sputLua_GetActorLoopingChoresL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorLoopingChores'); was Lua_GetActorLoopingChores."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049a410",
+  "old": "Lua_SetActorColormap",
+  "name": "sputLua_SetActorColormapL",
+  "comment": "Source: Scripts/sputLua.cpp (line 2035, from __FILE__/__LINE__ passed to the allocator) Original name sputLua_SetActorColormapL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorColormap'); was Lua_SetActorColormap."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049a500",
+  "old": "Lua_SetActorCostume",
+  "name": "sputLua_SetActorCostumeL",
+  "comment": "Lua opcode: SetActorCostume Original name sputLua_SetActorCostumeL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorCostume'); was Lua_SetActorCostume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049a5e0",
+  "old": "Lua_PrintActorCostumes",
+  "name": "sputLua_PrintActorCostumesL",
+  "comment": "Lua opcode: PrintActorCostumes Original name sputLua_PrintActorCostumesL (the remaster's GrimFandango (Linux): Lua / module table entry 'PrintActorCostumes'); was Lua_PrintActorCostumes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049a640",
+  "old": "Lua_PushActorCostume",
+  "name": "sputLua_PushActorCostumeL",
+  "comment": "Lua opcode: PushActorCostume Original name sputLua_PushActorCostumeL (the remaster's GrimFandango (Linux): Lua / module table entry 'PushActorCostume'); was Lua_PushActorCostume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049a6c0",
+  "old": "Lua_PopActorCostume",
+  "name": "sputLua_PopActorCostumeL",
+  "comment": "Lua opcode: PopActorCostume Original name sputLua_PopActorCostumeL (the remaster's GrimFandango (Linux): Lua / module table entry 'PopActorCostume'); was Lua_PopActorCostume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049a750",
+  "old": "Lua_StopActorChore",
+  "name": "sputLua_StopActorChoreL",
+  "comment": "Lua opcode: StopActorChore Original name sputLua_StopActorChoreL (the remaster's GrimFandango (Linux): Lua / module table entry 'StopActorChore'); was Lua_StopActorChore."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049a830",
+  "old": "Lua_PlayActorChore",
+  "name": "sputLua_PlayActorChoreL",
+  "comment": "Lua opcode: PlayActorChore Original name sputLua_PlayActorChoreL (the remaster's GrimFandango (Linux): Lua / module table entry 'PlayActorChore'); was Lua_PlayActorChore."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049a910",
+  "old": "Lua_CompleteActorChore",
+  "name": "sputLua_CompleteActorChoreL",
+  "comment": "Lua opcode: CompleteActorChore Original name sputLua_CompleteActorChoreL (the remaster's GrimFandango (Linux): Lua / module table entry 'CompleteActorChore'); was Lua_CompleteActorChore."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049a9e0",
+  "old": "Lua_PlayActorChoreLooping",
+  "name": "sputLua_PlayActorChoreLoopingL",
+  "comment": "Lua opcode: PlayActorChoreLooping Original name sputLua_PlayActorChoreLoopingL (the remaster's GrimFandango (Linux): Lua / module table entry 'PlayActorChoreLooping'); was Lua_PlayActorChoreLooping."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049aac0",
+  "old": "Lua_ActorLookAt",
+  "name": "sputLua_ActorLookAtL",
+  "comment": "Lua opcode: ActorLookAt Original name sputLua_ActorLookAtL (the remaster's GrimFandango (Linux): Lua / module table entry 'ActorLookAt'); was Lua_ActorLookAt."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ad30",
+  "old": "Lua_IsActorLooking",
+  "name": "sputLua_IsActorLookingL",
+  "comment": "Lua opcode: IsActorLooking Original name sputLua_IsActorLookingL (the remaster's GrimFandango (Linux): Lua / module table entry 'IsActorLooking'); was Lua_IsActorLooking."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ad90",
+  "old": "Lua_SetActorLookRate",
+  "name": "sputLua_SetActorLookRate",
+  "comment": "Lua opcode: SetActorLookRate Original name sputLua_SetActorLookRate (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorLookRate'); was Lua_SetActorLookRate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ae10",
+  "old": "Lua_GetActorLookRate",
+  "name": "sputLua_GetActorLookRate",
+  "comment": "Lua opcode: GetActorLookRate Original name sputLua_GetActorLookRate (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorLookRate'); was Lua_GetActorLookRate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ae80",
+  "old": "Lua_SetActorVisibility",
+  "name": "sputLua_SetActorVisibilityL",
+  "comment": "Lua opcode: SetActorVisibility Original name sputLua_SetActorVisibilityL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorVisibility'); was Lua_SetActorVisibility."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049af00",
+  "old": "Lua_SetActorFollowBoxes",
+  "name": "sputLua_SetActorFollowBoxesL",
+  "comment": "Lua opcode: SetActorFollowBoxes Original name sputLua_SetActorFollowBoxesL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorFollowBoxes'); was Lua_SetActorFollowBoxes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049af80",
+  "old": "Lua_ShutUpActor",
+  "name": "sputLua_ShutUpActorL",
+  "comment": "Lua opcode: ShutUpActor Original name sputLua_ShutUpActorL (the remaster's GrimFandango (Linux): Lua / module table entry 'ShutUpActor'); was Lua_ShutUpActor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049afd0",
+  "old": "Lua_SetActorFrustrumCull",
+  "name": "sputLua_SetActorFrustrumCull",
+  "comment": "Lua opcode: SetActorFrustrumCull Original name sputLua_SetActorFrustrumCull (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorFrustrumCull'); was Lua_SetActorFrustrumCull."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b040",
+  "old": "Lua_GetCameraActor",
+  "name": "sputLua_GetCameraActorL",
+  "comment": "Lua opcode: GetCameraActor Original name sputLua_GetCameraActorL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetCameraActor'); was Lua_GetCameraActor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b060",
+  "old": "Lua_GetActorWalkRate",
+  "name": "sputLua_GetActorWalkRateL",
+  "comment": "Lua opcode: GetActorWalkRate Original name sputLua_GetActorWalkRateL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorWalkRate'); was Lua_GetActorWalkRate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b0d0",
+  "old": "Lua_SetActorWalkRate",
+  "name": "sputLua_SetActorWalkRateL",
+  "comment": "Lua opcode: SetActorWalkRate Original name sputLua_SetActorWalkRateL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorWalkRate'); was Lua_SetActorWalkRate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b160",
+  "old": "Lua_GetActorTurnRate",
+  "name": "sputLua_GetActorTurnRateL",
+  "comment": "Lua opcode: GetActorTurnRate Original name sputLua_GetActorTurnRateL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorTurnRate'); was Lua_GetActorTurnRate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b1d0",
+  "old": "Lua_SetActorTurnRate",
+  "name": "sputLua_SetActorTurnRateL",
+  "comment": "Lua opcode: SetActorTurnRate(actor, rate). Stores the rate at extra+0x1c, keeping the sign of the current rate (a negative rate is the pending snap flag). The value itself is not made absolute here; readers take |rate|. Original name sputLua_SetActorTurnRateL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorTurnRate'); was Lua_SetActorTurnRate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b280",
+  "old": "Lua_SetActorWalkChore",
+  "name": "sputLua_SetActorWalkChoresL",
+  "comment": "Lua opcode: SetActorWalkChore Original name sputLua_SetActorWalkChoresL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorWalkChore'); was Lua_SetActorWalkChore."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b350",
+  "old": "Lua_SetActorTurnChores",
+  "name": "sputLua_SetActorTurnChoresL",
+  "comment": "Lua opcode: SetActorTurnChores Original name sputLua_SetActorTurnChoresL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorTurnChores'); was Lua_SetActorTurnChores."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b430",
+  "old": "Lua_SetActorRestChore",
+  "name": "sputLua_SetActorRestChoreL",
+  "comment": "Lua opcode: SetActorRestChore Original name sputLua_SetActorRestChoreL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorRestChore'); was Lua_SetActorRestChore."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b500",
+  "old": "Lua_SetActorMumblechore",
+  "name": "sputLua_SetActorMumbleChoreL",
+  "comment": "Lua opcode: SetActorMumblechore Original name sputLua_SetActorMumbleChoreL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorMumblechore'); was Lua_SetActorMumblechore."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b5a0",
+  "old": "Lua_SetActorTalkChore",
+  "name": "sputLua_SetActorTalkChoreL",
+  "comment": "Lua opcode: SetActorTalkChore Original name sputLua_SetActorTalkChoreL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorTalkChore'); was Lua_SetActorTalkChore."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b6c0",
+  "old": "Lua_SetActorHead",
+  "name": "sputLua_SetActorHeadL",
+  "comment": "Lua opcode: SetActorHead Original name sputLua_SetActorHeadL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorHead'); was Lua_SetActorHead."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b830",
+  "old": "Lua_CanActorSee",
+  "name": "sputLua_CanActorSeeL",
+  "comment": "Lua opcode: CanActorSee Original name sputLua_CanActorSeeL (the remaster's GrimFandango (Linux): Lua / module table entry 'CanActorSee'); was Lua_CanActorSee."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049b9e0",
+  "old": "Lua_GetVisibleThings",
+  "name": "sputLua_GetVisibleThingsL",
+  "comment": "Lua opcode: GetVisibleThings Original name sputLua_GetVisibleThingsL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetVisibleThings'); was Lua_GetVisibleThings."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049bb10",
+  "old": "Lua_GetActorRect",
+  "name": "sputLua_GetActorRectL",
+  "comment": "Lua opcode: GetActorRect Original name sputLua_GetActorRectL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorRect'); was Lua_GetActorRect."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049bba0",
+  "old": "Lua_GetActorPuckVector",
+  "name": "sputLua_GetActorPuckVectorL",
+  "comment": "Lua opcode: GetActorPuckVector Original name sputLua_GetActorPuckVectorL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorPuckVector'); was Lua_GetActorPuckVector."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049bcc0",
+  "old": "Lua_GetActorYawToPoint",
+  "name": "sputLua_GetActorYawToPoint",
+  "comment": "Lua opcode: GetActorYawToPoint(actor, x, y, z | {x, y, z}). Creates the extra and the walker if missing, then returns Actor_GetYawToPoint. Original name sputLua_GetActorYawToPoint (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorYawToPoint'); was Lua_GetActorYawToPoint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049be40",
+  "old": "Lua_SetActorReflection",
+  "name": "sputLua_SetActorReflection",
+  "comment": "Lua opcode: SetActorReflection Original name sputLua_SetActorReflection (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorReflection'); was Lua_SetActorReflection."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049bec0",
+  "old": "Lua_GetActorPos",
+  "name": "sputLua_GetActorPosL",
+  "comment": "Lua opcode: GetActorPos Original name sputLua_GetActorPosL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorPos'); was Lua_GetActorPos."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049bf30",
+  "old": "Lua_GetActorRot",
+  "name": "sputLua_GetActorRotL",
+  "comment": "Lua opcode: GetActorRot Original name sputLua_GetActorRotL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorRot'); was Lua_GetActorRot."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049bfa0",
+  "old": "Lua_SetActorRot",
+  "name": "sputLua_SetActorRotL",
+  "comment": "Lua opcode: SetActorRot Original name sputLua_SetActorRotL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorRot'); was Lua_SetActorRot."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049c0a0",
+  "old": "Lua_SetActorPitch",
+  "name": "sputLua_SetActorPitch",
+  "comment": "Lua opcode: SetActorPitch Original name sputLua_SetActorPitch (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorPitch'); was Lua_SetActorPitch."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049c110",
+  "old": "Lua_SetActorRoll",
+  "name": "sputLua_SetActorRoll",
+  "comment": "Lua opcode: SetActorRoll Original name sputLua_SetActorRoll (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorRoll'); was Lua_SetActorRoll."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049c180",
+  "old": "Lua_TurnActor",
+  "name": "sputLua_TurnActorL",
+  "comment": "Lua opcode: TurnActor Original name sputLua_TurnActorL (the remaster's GrimFandango (Linux): Lua / module table entry 'TurnActor'); was Lua_TurnActor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049c200",
+  "old": "Lua_GetActorSector",
+  "name": "sputLua_GetActorSectorL",
+  "comment": "Lua opcode: GetActorSector Original name sputLua_GetActorSectorL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorSector'); was Lua_GetActorSector."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049c2c0",
+  "old": "Lua_IsActorInSector",
+  "name": "sputLua_IsActorInSector",
+  "comment": "Lua opcode: IsActorInSector Original name sputLua_IsActorInSector (the remaster's GrimFandango (Linux): Lua / module table entry 'IsActorInSector'); was Lua_IsActorInSector."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049c4c0",
+  "old": "Lua_IsPointInSector",
+  "name": "sputLua_IsPointInSector",
+  "comment": "Lua opcode: IsPointInSector Original name sputLua_IsPointInSector (the remaster's GrimFandango (Linux): Lua / module table entry 'IsPointInSector'); was Lua_IsPointInSector."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ca80",
+  "old": "Lua_JustLoaded",
+  "name": "sputLua_JustLoadedL",
+  "comment": "Lua opcode: JustLoaded Original name sputLua_JustLoadedL (the remaster's GrimFandango (Linux): Lua / module table entry 'JustLoaded'); was Lua_JustLoaded."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049caa0",
+  "old": "Lua_ActorVoiceIs3D",
+  "name": "sputLua_ActorVoiceIs3DL",
+  "comment": "Lua opcode: ActorVoiceIs3D Original name sputLua_ActorVoiceIs3DL (the remaster's GrimFandango (Linux): Lua / module table entry 'ActorVoiceIs3D'); was Lua_ActorVoiceIs3D."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049cca0",
+  "old": "Lua_CheckForFile",
+  "name": "sputLua_CheckForFileL",
+  "comment": "Lua opcode: CheckForFile Original name sputLua_CheckForFileL (the remaster's GrimFandango (Linux): Lua / module table entry 'CheckForFile'); was Lua_CheckForFile."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049cd10",
+  "old": "Lua_NukeResources",
+  "name": "sputLua_NukeResourcesL",
+  "comment": "Lua opcode: NukeResources Original name sputLua_NukeResourcesL (the remaster's GrimFandango (Linux): Lua / module table entry 'NukeResources'); was Lua_NukeResources."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049cd40",
+  "old": "Lua_DetachFromResources",
+  "name": "sputLua_DetachFromResourcesL",
+  "comment": "Lua opcode: DetachFromResources Original name sputLua_DetachFromResourcesL (the remaster's GrimFandango (Linux): Lua / module table entry 'DetachFromResources'); was Lua_DetachFromResources."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049cd50",
+  "old": "Lua_AttachToResources",
+  "name": "sputLua_AttachToResourcesL",
+  "comment": "Lua opcode: AttachToResources Original name sputLua_AttachToResourcesL (the remaster's GrimFandango (Linux): Lua / module table entry 'AttachToResources'); was Lua_AttachToResources."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049cd60",
+  "old": "Lua_SearchForFileOrSwapCDs",
+  "name": "sputLua_SearchForFileOrSwapCDsL",
+  "comment": "Lua opcode: SearchForFileOrSwapCDs Original name sputLua_SearchForFileOrSwapCDsL (the remaster's GrimFandango (Linux): Lua / module table entry 'SearchForFileOrSwapCDs'); was Lua_SearchForFileOrSwapCDs."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049cea0",
+  "old": "Lua_Load",
+  "name": "sputLua_LoadL",
+  "comment": "Lua opcode: Load Original name sputLua_LoadL (the remaster's GrimFandango (Linux): Lua / module table entry 'Load'); was Lua_Load."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049cef0",
+  "old": "Lua_Save",
+  "name": "sputLua_SaveL",
+  "comment": "Lua opcode: Save Original name sputLua_SaveL (the remaster's GrimFandango (Linux): Lua / module table entry 'Save'); was Lua_Save."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049cf40",
+  "old": "Lua_EnableDebugKeys",
+  "name": "sputLua_EnableDebugKeysL",
+  "comment": "Lua opcode: EnableDebugKeys Original name sputLua_EnableDebugKeysL (the remaster's GrimFandango (Linux): Lua / module table entry 'EnableDebugKeys'); was Lua_EnableDebugKeys."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049cf60",
+  "old": "Lua_WorldToScreen",
+  "name": "sputLua_WorldToScreenL",
+  "comment": "Lua opcode: WorldToScreen Original name sputLua_WorldToScreenL (the remaster's GrimFandango (Linux): Lua / module table entry 'WorldToScreen'); was Lua_WorldToScreen."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049d030",
+  "old": "Lua_ScreenToWorld",
+  "name": "sputLua_ScreenToWorldL",
+  "comment": "Lua opcode: ScreenToWorld Original name sputLua_ScreenToWorldL (the remaster's GrimFandango (Linux): Lua / module table entry 'ScreenToWorld'); was Lua_ScreenToWorld."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049d220",
+  "old": "Lua_ConcatFallback",
+  "name": "sputLua_ConcatFallback",
+  "comment": "Lua opcode: Lua_ConcatFallback Original name sputLua_ConcatFallback (the remaster's GrimFandango (Linux): Lua / module table entry '  concatfallback'); was Lua_ConcatFallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049d3a0",
+  "old": "Lua_exit",
+  "name": "sputLua_ExitL",
+  "comment": "Lua opcode: exit Original name sputLua_ExitL (the remaster's GrimFandango (Linux): Lua / module table entry 'exit'); was Lua_exit."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049d3f0",
+  "old": "Lua_EnableControl",
+  "name": "sputLua_EnableControlL",
+  "comment": "Lua opcode: EnableControl Original name sputLua_EnableControlL (the remaster's GrimFandango (Linux): Lua / module table entry 'EnableControl'); was Lua_EnableControl."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049d430",
+  "old": "Lua_DisableControl",
+  "name": "sputLua_DisableControlL",
+  "comment": "Lua opcode: DisableControl Original name sputLua_DisableControlL (the remaster's GrimFandango (Linux): Lua / module table entry 'DisableControl'); was Lua_DisableControl."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049d470",
+  "old": "Lua_GetControlState",
+  "name": "sputLua_GetControlStateL",
+  "comment": "Lua opcode: GetControlState Original name sputLua_GetControlStateL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetControlState'); was Lua_GetControlState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049db70",
+  "old": "Lua_MakeCurrentSetup",
+  "name": "sputLua_MakeCurrentSetupL",
+  "comment": "Lua opcode: MakeCurrentSetup Original name sputLua_MakeCurrentSetupL (the remaster's GrimFandango (Linux): Lua / module table entry 'MakeCurrentSetup'); was Lua_MakeCurrentSetup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049dbb0",
+  "old": "Lua_GetCurrentSetup",
+  "name": "sputLua_GetCurrentSetupL",
+  "comment": "Lua opcode: GetCurrentSetup Original name sputLua_GetCurrentSetupL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetCurrentSetup'); was Lua_GetCurrentSetup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049dc70",
+  "old": "Lua_MakeCurrentSet",
+  "name": "sputLua_MakeCurrentSetL",
+  "comment": "Lua opcode: MakeCurrentSet Original name sputLua_MakeCurrentSetL (the remaster's GrimFandango (Linux): Lua / module table entry 'MakeCurrentSet'); was Lua_MakeCurrentSet."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049dcb0",
+  "old": "Lua_LockSet",
+  "name": "sputLua_LockSet",
+  "comment": "Source: Scripts/sputLua.cpp (line 5305, from __FILE__/__LINE__ passed to the allocator) Original name sputLua_LockSet (the remaster's GrimFandango (Linux): Lua / module table entry 'LockSet'); was Lua_LockSet."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049dd10",
+  "old": "Lua_UnLockSet",
+  "name": "sputLua_UnLockSet",
+  "comment": "Lua opcode: UnLockSet Original name sputLua_UnLockSet (the remaster's GrimFandango (Linux): Lua / module table entry 'UnLockSet'); was Lua_UnLockSet."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049dd70",
+  "old": "Lua_PrintMessage",
+  "name": "sputLua_MessagePrintL",
+  "comment": "Lua opcode: PrintMessage Original name sputLua_MessagePrintL (the remaster's GrimFandango (Linux): Lua / module table entry 'PrintMessage'); was Lua_PrintMessage."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049e590",
+  "old": "Lua_SetSoundPosition",
+  "name": "sputLua_SetSoundPosition",
+  "comment": "Lua opcode: SetSoundPosition Original name sputLua_SetSoundPosition (the remaster's GrimFandango (Linux): Lua / module table entry 'SetSoundPosition'); was Lua_SetSoundPosition."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049e7e0",
+  "old": "Lua_StartFullscreenMovie",
+  "name": "sputLua_StartFullScreenMovieL",
+  "comment": "Lua opcode: StartFullscreenMovie Original name sputLua_StartFullScreenMovieL (the remaster's GrimFandango (Linux): Lua / module table entry 'StartFullscreenMovie'); was Lua_StartFullscreenMovie."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049e850",
+  "old": "Lua_StopMovie",
+  "name": "sputLua_StopMovieL",
+  "comment": "Lua opcode: StopMovie Original name sputLua_StopMovieL (the remaster's GrimFandango (Linux): Lua / module table entry 'StopMovie'); was Lua_StopMovie."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049e860",
+  "old": "Lua_PauseMovie",
+  "name": "sputLua_PauseMovieL",
+  "comment": "Lua opcode: PauseMovie Original name sputLua_PauseMovieL (the remaster's GrimFandango (Linux): Lua / module table entry 'PauseMovie'); was Lua_PauseMovie."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049e980",
+  "old": "Lua_FileFindFirst",
+  "name": "sputLua_FileFindFirst",
+  "comment": "Lua opcode: FileFindFirst Original name sputLua_FileFindFirst (the remaster's GrimFandango (Linux): Lua / module table entry 'FileFindFirst'); was Lua_FileFindFirst."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ea20",
+  "old": "Lua_FileFindNext",
+  "name": "sputLua_FileFindNext",
+  "comment": "Lua opcode: FileFindNext Original name sputLua_FileFindNext (the remaster's GrimFandango (Linux): Lua / module table entry 'FileFindNext'); was Lua_FileFindNext."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ea90",
+  "old": "Lua_FileFindDispose",
+  "name": "sputLua_FileFindDispose",
+  "comment": "Lua opcode: FileFindDispose Original name sputLua_FileFindDispose (the remaster's GrimFandango (Linux): Lua / module table entry 'FileFindDispose'); was Lua_FileFindDispose."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049eab0",
+  "old": "Lua_QueryDialog",
+  "name": "sputLua_QueryDialog",
+  "comment": "Lua opcode: QueryDialog Original name sputLua_QueryDialog (the remaster's GrimFandango (Linux): Lua / module table entry 'QueryDialog'); was Lua_QueryDialog."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049eb60",
+  "old": "Lua_InputDialog",
+  "name": "sputLua_InputDialog",
+  "comment": "Lua opcode: InputDialog Original name sputLua_InputDialog (the remaster's GrimFandango (Linux): Lua / module table entry 'InputDialog'); was Lua_InputDialog."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ec50",
+  "old": "Lua_WriteRegistryValue",
+  "name": "sputLua_WriteRegistryValue",
+  "comment": "Lua opcode: WriteRegistryValue Original name sputLua_WriteRegistryValue (the remaster's GrimFandango (Linux): Lua / module table entry 'WriteRegistryValue'); was Lua_WriteRegistryValue."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ece0",
+  "old": "Lua_ReadRegistryValue",
+  "name": "sputLua_ReadRegistryValue",
+  "comment": "Lua opcode: ReadRegistryValue Original name sputLua_ReadRegistryValue (the remaster's GrimFandango (Linux): Lua / module table entry 'ReadRegistryValue'); was Lua_ReadRegistryValue."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ed90",
+  "old": "Lua_GetSectorOppositeEdge",
+  "name": "sputLua_GetSectorOppositeEdge",
+  "comment": "Lua opcode: GetSectorOppositeEdge Original name sputLua_GetSectorOppositeEdge (the remaster's GrimFandango (Linux): Lua / module table entry 'GetSectorOppositeEdge'); was Lua_GetSectorOppositeEdge."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ee20",
+  "old": "Lua_IsSectorActive",
+  "name": "sputLua_IsSectorActiveL",
+  "comment": "Lua opcode: IsSectorActive Original name sputLua_IsSectorActiveL (the remaster's GrimFandango (Linux): Lua / module table entry 'IsSectorActive'); was Lua_IsSectorActive."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049eeb0",
+  "old": "Lua_MakeSectorActive",
+  "name": "sputLua_MakeSectorActiveL",
+  "comment": "Lua opcode: MakeSectorActive Original name sputLua_MakeSectorActiveL (the remaster's GrimFandango (Linux): Lua / module table entry 'MakeSectorActive'); was Lua_MakeSectorActive."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ef50",
+  "old": "Lua_PreRender",
+  "name": "sputLua_PreRender",
+  "comment": "Lua opcode: PreRender Original name sputLua_PreRender (the remaster's GrimFandango (Linux): Lua / module table entry 'PreRender'); was Lua_PreRender."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049efa0",
+  "old": "Lua_SpewStartup",
+  "name": "sputLua_SpewStartup",
+  "comment": "Lua opcode: SpewStartup Original name sputLua_SpewStartup (the remaster's GrimFandango (Linux): Lua / module table entry 'SpewStartup'); was Lua_SpewStartup."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049efb0",
+  "old": "Lua_SpewShutdown",
+  "name": "sputLua_SpewShutdown",
+  "comment": "Lua opcode: SpewShutdown Original name sputLua_SpewShutdown (the remaster's GrimFandango (Linux): Lua / module table entry 'SpewShutdown'); was Lua_SpewShutdown."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049efc0",
+  "old": "Lua_GetCurrentScript",
+  "name": "sputLua_GetCurrentScript",
+  "comment": "Lua opcode: GetCurrentScript Original name sputLua_GetCurrentScript (the remaster's GrimFandango (Linux): Lua / module table entry 'GetCurrentScript'); was Lua_GetCurrentScript."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049efe0",
+  "old": "Lua_LockFont",
+  "name": "sputLua_LockFontL",
+  "comment": "Lua opcode: LockFont Original name sputLua_LockFontL (the remaster's GrimFandango (Linux): Lua / module table entry 'LockFont'); was Lua_LockFont."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f040",
+  "old": "Lua_LoadCostume",
+  "name": "sputLua_LoadCostumeL",
+  "comment": "Lua opcode: LoadCostume Original name sputLua_LoadCostumeL (the remaster's GrimFandango (Linux): Lua / module table entry 'LoadCostume'); was Lua_LoadCostume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f080",
+  "old": "Lua_GetPhysicalBytes",
+  "name": "sputLua_GetPhysicalBytes",
+  "comment": "Lua opcode: GetPhysicalBytes Original name sputLua_GetPhysicalBytes (the remaster's GrimFandango (Linux): Lua / module table entry 'GetPhysicalBytes'); was Lua_GetPhysicalBytes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f0a0",
+  "old": "Lua_SetMemoryUsage",
+  "name": "sputLua_SetMemoryUsage",
+  "comment": "Lua opcode: SetMemoryUsage Original name sputLua_SetMemoryUsage (the remaster's GrimFandango (Linux): Lua / module table entry 'SetMemoryUsage'); was Lua_SetMemoryUsage."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f2b0",
+  "old": "Lua_GetCameraPosition",
+  "name": "sputLua_GetCameraPositionL",
+  "comment": "Lua opcode: GetCameraPosition Original name sputLua_GetCameraPositionL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetCameraPosition'); was Lua_GetCameraPosition."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f300",
+  "old": "Lua_GetCameraInterest",
+  "name": "sputLua_GetCameraInterestL",
+  "comment": "Lua opcode: GetCameraInterest Original name sputLua_GetCameraInterestL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetCameraInterest'); was Lua_GetCameraInterest."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f350",
+  "old": "Lua_GetCameraFOV",
+  "name": "sputLua_GetCameraFOVL",
+  "comment": "Lua opcode: GetCameraFOV Original name sputLua_GetCameraFOVL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetCameraFOV'); was Lua_GetCameraFOV."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f380",
+  "old": "Lua_GetCameraRoll",
+  "name": "sputLua_GetCameraRollL",
+  "comment": "Lua opcode: GetCameraRoll Original name sputLua_GetCameraRollL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetCameraRoll'); was Lua_GetCameraRoll."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f3b0",
+  "old": "Lua_SetCameraPosition",
+  "name": "sputLua_SetCameraPositionL",
+  "comment": "Lua opcode: SetCameraPosition Original name sputLua_SetCameraPositionL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetCameraPosition'); was Lua_SetCameraPosition."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f480",
+  "old": "Lua_SetCameraInterest",
+  "name": "sputLua_SetCameraInterestL",
+  "comment": "Lua opcode: SetCameraInterest Original name sputLua_SetCameraInterestL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetCameraInterest'); was Lua_SetCameraInterest."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f550",
+  "old": "Lua_SetActorScale",
+  "name": "sputLua_SetActorScaleL",
+  "comment": "Lua opcode: SetActorScale Original name sputLua_SetActorScaleL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorScale'); was Lua_SetActorScale."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f5d0",
+  "old": "Lua_SetActorTimeScale",
+  "name": "sputLua_SetActorTimeScaleL",
+  "comment": "Lua opcode: SetActorTimeScale Original name sputLua_SetActorTimeScaleL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorTimeScale'); was Lua_SetActorTimeScale."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f690",
+  "old": "Lua_GetActorNodeLocation",
+  "name": "sputLua_GetActorNodeLocationL",
+  "comment": "Lua opcode: GetActorNodeLocation Original name sputLua_GetActorNodeLocationL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorNodeLocation'); was Lua_GetActorNodeLocation."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f810",
+  "old": "Lua_GetActorScale",
+  "name": "sputLua_GetActorScaleL",
+  "comment": "Lua opcode: GetActorScale Original name sputLua_GetActorScaleL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorScale'); was Lua_GetActorScale."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f860",
+  "old": "Lua_GetActorTimeScale",
+  "name": "sputLua_GetActorTimeScaleL",
+  "comment": "Lua opcode: GetActorTimeScale Original name sputLua_GetActorTimeScaleL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetActorTimeScale'); was Lua_GetActorTimeScale."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f8d0",
+  "old": "Lua_SetCameraFOV",
+  "name": "sputLua_SetCameraFOVL",
+  "comment": "Lua opcode: SetCameraFOV Original name sputLua_SetCameraFOVL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetCameraFOV'); was Lua_SetCameraFOV."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f930",
+  "old": "Lua_SetCameraRoll",
+  "name": "sputLua_SetCameraRollL",
+  "comment": "Lua opcode: SetCameraRoll Original name sputLua_SetCameraRollL (the remaster's GrimFandango (Linux): Lua / module table entry 'SetCameraRoll'); was Lua_SetCameraRoll."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049f9b0",
+  "old": "Lua_GetCameraLookVector",
+  "name": "sputLua_GetCameraLookVectorL",
+  "comment": "Lua opcode: GetCameraLookVector Original name sputLua_GetCameraLookVectorL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetCameraLookVector'); was Lua_GetCameraLookVector."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049fb00",
+  "old": "Lua_PointActorAt",
+  "name": "sputLua_PointActorAtL",
+  "comment": "Lua opcode: PointActorAt(actor, x, y, z | actor). Creates the walker if missing, turns the walker heading all the way to the point (Walker_TurnToPoint with FLT_MAX) and negates the turn rate so Walker_UpdateYaw snaps the visible yaw next frame. Only the yaw changes; pitch and roll are not touched. Original name sputLua_PointActorAtL (the remaster's GrimFandango (Linux): Lua / module table entry 'PointActorAt'); was Lua_PointActorAt."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049fc60",
+  "old": "Lua_TurnActorTo",
+  "name": "sputLua_TurnActorTo",
+  "comment": "Lua opcode: TurnActorTo(actor, x, y, z | actor). Creates the walker if missing, turns the heading by at most |rate| * frameSeconds (no time scale) and returns TRUE while a whole step was taken (angle left >= step), nil once done. With a turn rate of 0 the step is 0 and it returns TRUE forever. Original name sputLua_TurnActorTo (the remaster's GrimFandango (Linux): Lua / module table entry 'TurnActorTo'); was Lua_TurnActorTo."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049fdf0",
+  "old": "Lua_PerSecond",
+  "name": "sputLua_PerSecondL",
+  "comment": "Lua opcode: PerSecond Original name sputLua_PerSecondL (the remaster's GrimFandango (Linux): Lua / module table entry 'PerSecond'); was Lua_PerSecond."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049fe40",
+  "old": "Lua_SnapToPlane",
+  "name": "sputLua_SnapToPlane",
+  "comment": "Lua opcode: SnapToPlane Original name sputLua_SnapToPlane (the remaster's GrimFandango (Linux): Lua / module table entry 'SnapToPlane'); was Lua_SnapToPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049ff00",
+  "old": "Lua_GetAngleBetweenVectors",
+  "name": "sputLua_GetAngleBetweenVectorsL",
+  "comment": "Lua opcode: GetAngleBetweenVectors Original name sputLua_GetAngleBetweenVectorsL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetAngleBetweenVectors'); was Lua_GetAngleBetweenVectors."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a00a0",
+  "old": "Lua_GetAngleBetweenActors",
+  "name": "sputLua_GetAngleBetweenActorsL",
+  "comment": "Lua opcode GetAngleBetweenActors(a, b) (Grim). forward = walker heading axis (walker+0x18..0x20, not the eased visible yaw); delta = b.pos - a.pos normalized in 3D; returns 90 - asin(dot(forward, delta)) = unsigned angle between them, in degrees. (The z of delta in the decompile reads forward.z - a.z, probably a decompiler slot mix-up.) Original name sputLua_GetAngleBetweenActorsL (the remaster's GrimFandango (Linux): Lua / module table entry 'GetAngleBetweenActors'); was Lua_GetAngleBetweenActors."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0230",
+  "old": "Lua_SetAmbientLight",
+  "name": "sputLua_SetAmbientLight",
+  "comment": "Lua opcode: SetAmbientLight Original name sputLua_SetAmbientLight (the remaster's GrimFandango (Linux): Lua / module table entry 'SetAmbientLight'); was Lua_SetAmbientLight."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0290",
+  "old": "Lua_FindLight",
+  "name": "sputLua_FindLight",
+  "comment": "Lua opcode: FindLight Original name sputLua_FindLight (the remaster's GrimFandango (Linux): Lua / module table entry 'FindLight'); was Lua_FindLight."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a02f0",
+  "old": "Lua_TurnLightOn",
+  "name": "sputLua_TurnLightOn",
+  "comment": "Lua opcode: TurnLightOn Original name sputLua_TurnLightOn (the remaster's GrimFandango (Linux): Lua / module table entry 'TurnLightOn'); was Lua_TurnLightOn."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0380",
+  "old": "Lua_IsLightOn",
+  "name": "sputLua_IsLightOn",
+  "comment": "Lua opcode: IsLightOn Original name sputLua_IsLightOn (the remaster's GrimFandango (Linux): Lua / module table entry 'IsLightOn'); was Lua_IsLightOn."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0400",
+  "old": "Lua_SetLightType",
+  "name": "sputLua_SetLightType",
+  "comment": "Lua opcode: SetLightType Original name sputLua_SetLightType (the remaster's GrimFandango (Linux): Lua / module table entry 'SetLightType'); was Lua_SetLightType."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0530",
+  "old": "Lua_GetLightType",
+  "name": "sputLua_GetLightType",
+  "comment": "Lua opcode: GetLightType Original name sputLua_GetLightType (the remaster's GrimFandango (Linux): Lua / module table entry 'GetLightType'); was Lua_GetLightType."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a05e0",
+  "old": "Lua_SetLightPosition",
+  "name": "sputLua_SetLightPosition",
+  "comment": "Lua opcode: SetLightPosition Original name sputLua_SetLightPosition (the remaster's GrimFandango (Linux): Lua / module table entry 'SetLightPosition'); was Lua_SetLightPosition."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0760",
+  "old": "Lua_GetLightPosition",
+  "name": "sputLua_GetLightPosition",
+  "comment": "Lua opcode: GetLightPosition Original name sputLua_GetLightPosition (the remaster's GrimFandango (Linux): Lua / module table entry 'GetLightPosition'); was Lua_GetLightPosition."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0800",
+  "old": "Lua_SetLightRotation",
+  "name": "sputLua_SetLightRotation",
+  "comment": "Lua opcode: SetLightRotation Original name sputLua_SetLightRotation (the remaster's GrimFandango (Linux): Lua / module table entry 'SetLightRotation'); was Lua_SetLightRotation."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a09a0",
+  "old": "Lua_GetLightRotation",
+  "name": "sputLua_GetLightRotation",
+  "comment": "Lua opcode: GetLightRotation Original name sputLua_GetLightRotation (the remaster's GrimFandango (Linux): Lua / module table entry 'GetLightRotation'); was Lua_GetLightRotation."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0a50",
+  "old": "Lua_SetLightAngles",
+  "name": "sputLua_SetLightAngles",
+  "comment": "Lua opcode: SetLightAngles Original name sputLua_SetLightAngles (the remaster's GrimFandango (Linux): Lua / module table entry 'SetLightAngles'); was Lua_SetLightAngles."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0b40",
+  "old": "Lua_GetLightAngles",
+  "name": "sputLua_GetLightAngles",
+  "comment": "Lua opcode: GetLightAngles Original name sputLua_GetLightAngles (the remaster's GrimFandango (Linux): Lua / module table entry 'GetLightAngles'); was Lua_GetLightAngles."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0bd0",
+  "old": "Lua_PointLightAt",
+  "name": "sputLua_PointLightAt",
+  "comment": "Lua opcode: PointLightAt Original name sputLua_PointLightAt (the remaster's GrimFandango (Linux): Lua / module table entry 'PointLightAt'); was Lua_PointLightAt."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0da0",
+  "old": "Lua_SetLightIntensity",
+  "name": "sputLua_SetLightIntensity",
+  "comment": "Lua opcode: SetLightIntensity Original name sputLua_SetLightIntensity (the remaster's GrimFandango (Linux): Lua / module table entry 'SetLightIntensity'); was Lua_SetLightIntensity."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0e90",
+  "old": "Lua_GetLightIntensity",
+  "name": "sputLua_GetLightIntensity",
+  "comment": "Lua opcode: GetLightIntensity Original name sputLua_GetLightIntensity (the remaster's GrimFandango (Linux): Lua / module table entry 'GetLightIntensity'); was Lua_GetLightIntensity."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a0f70",
+  "old": "Lua_ImStopRecording",
+  "name": "sputLua_ImStopRecording",
+  "comment": "Lua opcode: ImStopRecording Original name sputLua_ImStopRecording (the remaster's GrimFandango (Linux): Lua / module table entry 'ImStopRecording'); was Lua_ImStopRecording."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1080",
+  "old": "Lua_ImStopAllSounds",
+  "name": "sputLua_ImStopAllSounds",
+  "comment": "Lua opcodes: ImStopAllSounds, quiet\nalso registered as `quiet` Original name sputLua_ImStopAllSounds (the remaster's GrimFandango (Linux): Lua / module table entry 'ImStopAllSounds' | 'quiet'); was Lua_ImStopAllSounds."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a13d0",
+  "old": "Lua_ImGetMasterVol",
+  "name": "sputLua_ImGetMasterVol",
+  "comment": "Lua opcode: ImGetMasterVol Original name sputLua_ImGetMasterVol (the remaster's GrimFandango (Linux): Lua / module table entry 'ImGetMasterVol'); was Lua_ImGetMasterVol."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1400",
+  "old": "Lua_ImSetMasterVol",
+  "name": "sputLua_ImSetMasterVol",
+  "comment": "Lua opcode: ImSetMasterVol Original name sputLua_ImSetMasterVol (the remaster's GrimFandango (Linux): Lua / module table entry 'ImSetMasterVol'); was Lua_ImSetMasterVol."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1440",
+  "old": "Lua_ImGetSfxVol",
+  "name": "sputLua_ImGetSfxVol",
+  "comment": "Lua opcode: ImGetSfxVol Original name sputLua_ImGetSfxVol (the remaster's GrimFandango (Linux): Lua / module table entry 'ImGetSfxVol'); was Lua_ImGetSfxVol."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1470",
+  "old": "Lua_ImSetSfxVol",
+  "name": "sputLua_ImSetSfxVol",
+  "comment": "Lua opcode: ImSetSfxVol Original name sputLua_ImSetSfxVol (the remaster's GrimFandango (Linux): Lua / module table entry 'ImSetSfxVol'); was Lua_ImSetSfxVol."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a14b0",
+  "old": "Lua_ImGetVoiceVol",
+  "name": "sputLua_ImGetVoiceVol",
+  "comment": "Lua opcode: ImGetVoiceVol Original name sputLua_ImGetVoiceVol (the remaster's GrimFandango (Linux): Lua / module table entry 'ImGetVoiceVol'); was Lua_ImGetVoiceVol."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a14e0",
+  "old": "Lua_ImSetVoiceVol",
+  "name": "sputLua_ImSetVoiceVol",
+  "comment": "Lua opcode: ImSetVoiceVol Original name sputLua_ImSetVoiceVol (the remaster's GrimFandango (Linux): Lua / module table entry 'ImSetVoiceVol'); was Lua_ImSetVoiceVol."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1520",
+  "old": "Lua_ImGetMusicVol",
+  "name": "sputLua_ImGetMusicVol",
+  "comment": "Lua opcode: ImGetMusicVol Original name sputLua_ImGetMusicVol (the remaster's GrimFandango (Linux): Lua / module table entry 'ImGetMusicVol'); was Lua_ImGetMusicVol."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1550",
+  "old": "Lua_ImSetMusicVol",
+  "name": "sputLua_ImSetMusicVol",
+  "comment": "Lua opcode: ImSetMusicVol Original name sputLua_ImSetMusicVol (the remaster's GrimFandango (Linux): Lua / module table entry 'ImSetMusicVol'); was Lua_ImSetMusicVol."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1630",
+  "old": "Lua_ImStopVoice",
+  "name": "sputLua_ImStopVoice",
+  "comment": "Lua opcode: ImStopVoice Original name sputLua_ImStopVoice (the remaster's GrimFandango (Linux): Lua / module table entry 'ImStopVoice'); was Lua_ImStopVoice."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1640",
+  "old": "Lua_ImSetState",
+  "name": "sputLua_ImSetState",
+  "comment": "Lua opcode: ImSetState Original name sputLua_ImSetState (the remaster's GrimFandango (Linux): Lua / module table entry 'ImSetState'); was Lua_ImSetState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a16d0",
+  "old": "Lua_ImSetCuePoint",
+  "name": "sputLua_ImSetCuePoint",
+  "comment": "Lua opcode: ImSetCuePoint Original name sputLua_ImSetCuePoint (the remaster's GrimFandango (Linux): Lua / module table entry 'ImSetCuePoint'); was Lua_ImSetCuePoint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1790",
+  "old": "Lua_ImPause",
+  "name": "sputLua_ImPause",
+  "comment": "Lua opcode: ImPause Original name sputLua_ImPause (the remaster's GrimFandango (Linux): Lua / module table entry 'ImPause'); was Lua_ImPause."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a17a0",
+  "old": "Lua_ImResume",
+  "name": "sputLua_ImResume",
+  "comment": "Lua opcode: ImResume Original name sputLua_ImResume (the remaster's GrimFandango (Linux): Lua / module table entry 'ImResume'); was Lua_ImResume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a17f0",
+  "old": "Lua_ImGetMemoryFootprint",
+  "name": "sputLua_ImGetMemoryFootprint",
+  "comment": "Lua opcode: ImGetMemoryFootprint Original name sputLua_ImGetMemoryFootprint (the remaster's GrimFandango (Linux): Lua / module table entry 'ImGetMemoryFootprint'); was Lua_ImGetMemoryFootprint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1820",
+  "old": "Lua_ImGetSoundCacheSize",
+  "name": "sputLua_ImGetSoundCacheSize",
+  "comment": "Lua opcode: ImGetSoundCacheSize Original name sputLua_ImGetSoundCacheSize (the remaster's GrimFandango (Linux): Lua / module table entry 'ImGetSoundCacheSize'); was Lua_ImGetSoundCacheSize."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1850",
+  "old": "Lua_SetGamma",
+  "name": "sputLua_SetGamma",
+  "comment": "Lua opcode: SetGamma Original name sputLua_SetGamma (the remaster's GrimFandango (Linux): Lua / module table entry 'SetGamma'); was Lua_SetGamma."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1890",
+  "old": "Lua_SetActorWalkDominate",
+  "name": "sputLua_SetActorWalkDominate",
+  "comment": "Lua opcode: SetActorWalkDominate Original name sputLua_SetActorWalkDominate (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorWalkDominate'); was Lua_SetActorWalkDominate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1900",
+  "old": "Lua_SetActorConstrain",
+  "name": "sputLua_SetActorConstrain",
+  "comment": "Lua opcode: SetActorConstrain Original name sputLua_SetActorConstrain (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorConstrain'); was Lua_SetActorConstrain."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1970",
+  "old": "Lua_RenderModeUser",
+  "name": "sputLua_RenderModeUser",
+  "comment": "Lua opcode: RenderModeUser Original name sputLua_RenderModeUser (the remaster's GrimFandango (Linux): Lua / module table entry 'RenderModeUser'); was Lua_RenderModeUser."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a19f0",
+  "old": "Lua_DimScreen",
+  "name": "sputLua_DimScreen",
+  "comment": "Lua opcode: DimScreen Original name sputLua_DimScreen (the remaster's GrimFandango (Linux): Lua / module table entry 'DimScreen'); was Lua_DimScreen."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1a00",
+  "old": "Lua_DimRegion",
+  "name": "sputLua_DimRegion",
+  "comment": "Lua opcode: DimRegion Original name sputLua_DimRegion (the remaster's GrimFandango (Linux): Lua / module table entry 'DimRegion'); was Lua_DimRegion."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1ac0",
+  "old": "Lua_CleanBuffer",
+  "name": "sputLua_CleanBuffer",
+  "comment": "Lua opcode: CleanBuffer Original name sputLua_CleanBuffer (the remaster's GrimFandango (Linux): Lua / module table entry 'CleanBuffer'); was Lua_CleanBuffer."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1ad0",
+  "old": "Lua_Display",
+  "name": "sputLua_Display",
+  "comment": "Lua opcode: Display Original name sputLua_Display (the remaster's GrimFandango (Linux): Lua / module table entry 'Display'); was Lua_Display."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1ae0",
+  "old": "Lua_SetSpeechMode",
+  "name": "sputLua_SetSpeechMode",
+  "comment": "Lua opcode: SetSpeechMode Original name sputLua_SetSpeechMode (the remaster's GrimFandango (Linux): Lua / module table entry 'SetSpeechMode'); was Lua_SetSpeechMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1b40",
+  "old": "Lua_GetSpeechMode",
+  "name": "sputLua_GetSpeechMode",
+  "comment": "Lua opcode: GetSpeechMode Original name sputLua_GetSpeechMode (the remaster's GrimFandango (Linux): Lua / module table entry 'GetSpeechMode'); was Lua_GetSpeechMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1b80",
+  "old": "Lua_ActorShadow",
+  "name": "sputLua_ActorShadow",
+  "comment": "Lua opcode: ActorShadow Original name sputLua_ActorShadow (the remaster's GrimFandango (Linux): Lua / module table entry 'ActorShadow'); was Lua_ActorShadow."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1bf0",
+  "old": "Lua_ActivateActorShadow",
+  "name": "sputLua_ActivateActorShadow",
+  "comment": "Lua opcode: ActivateActorShadow Original name sputLua_ActivateActorShadow (the remaster's GrimFandango (Linux): Lua / module table entry 'ActivateActorShadow'); was Lua_ActivateActorShadow."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1c90",
+  "old": "Lua_SetActorShadowPlane",
+  "name": "sputLua_SetActorShadowPlane",
+  "comment": "Lua opcode: SetActorShadowPlane Original name sputLua_SetActorShadowPlane (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorShadowPlane'); was Lua_SetActorShadowPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1d10",
+  "old": "Lua_SetActorShadowPoint",
+  "name": "sputLua_SetActorShadowPoint",
+  "comment": "Lua opcode: SetActorShadowPoint Original name sputLua_SetActorShadowPoint (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorShadowPoint'); was Lua_SetActorShadowPoint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1dc0",
+  "old": "Lua_SetActiveShadow",
+  "name": "sputLua_SetActiveShadow",
+  "comment": "Lua opcode: SetActiveShadow Original name sputLua_SetActiveShadow (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActiveShadow'); was Lua_SetActiveShadow."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1e50",
+  "old": "Lua_ActorDistToShadowPlane",
+  "name": "sputLua_ActorDistToShadowPlane",
+  "comment": "Lua opcode: ActorDistToShadowPlane Original name sputLua_ActorDistToShadowPlane (the remaster's GrimFandango (Linux): Lua / module table entry 'ActorDistToShadowPlane'); was Lua_ActorDistToShadowPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1f30",
+  "old": "Lua_AddShadowPlane",
+  "name": "sputLua_AddShadowClipPlane",
+  "comment": "Lua opcode: AddShadowPlane Original name sputLua_AddShadowClipPlane (the remaster's GrimFandango (Linux): Lua / module table entry 'AddShadowPlane'); was Lua_AddShadowPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a1fd0",
+  "old": "Lua_SetActorShadowValid",
+  "name": "sputLua_SetActorShadowValid",
+  "comment": "Lua opcode: SetActorShadowValid Original name sputLua_SetActorShadowValid (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorShadowValid'); was Lua_SetActorShadowValid."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2070",
+  "old": "Lua_KillActorShadows",
+  "name": "sputLua_KillActorShadows",
+  "comment": "Lua opcode: KillActorShadows Original name sputLua_KillActorShadows (the remaster's GrimFandango (Linux): Lua / module table entry 'KillActorShadows'); was Lua_KillActorShadows."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a20d0",
+  "old": "Lua_SetShadowColor",
+  "name": "sputLua_SetShadowColor",
+  "comment": "Lua opcode: SetShadowColor Original name sputLua_SetShadowColor (the remaster's GrimFandango (Linux): Lua / module table entry 'SetShadowColor'); was Lua_SetShadowColor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2130",
+  "old": "Lua_NewObjectState",
+  "name": "sputLua_NewObjectState",
+  "comment": "Lua opcode: NewObjectState Original name sputLua_NewObjectState (the remaster's GrimFandango (Linux): Lua / module table entry 'NewObjectState'); was Lua_NewObjectState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a21f0",
+  "old": "Lua_FreeObjectState",
+  "name": "sputLua_FreeObjectState",
+  "comment": "Lua opcode: FreeObjectState Original name sputLua_FreeObjectState (the remaster's GrimFandango (Linux): Lua / module table entry 'FreeObjectState'); was Lua_FreeObjectState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2240",
+  "old": "Lua_SendObjectToBack",
+  "name": "sputLua_SendObjectToBack",
+  "comment": "Lua opcode: SendObjectToBack Original name sputLua_SendObjectToBack (the remaster's GrimFandango (Linux): Lua / module table entry 'SendObjectToBack'); was Lua_SendObjectToBack."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a22b0",
+  "old": "Lua_SendObjectToFront",
+  "name": "sputLua_SendObjectToFront",
+  "comment": "Lua opcode: SendObjectToFront Original name sputLua_SendObjectToFront (the remaster's GrimFandango (Linux): Lua / module table entry 'SendObjectToFront'); was Lua_SendObjectToFront."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2320",
+  "old": "Lua_SetObjectType",
+  "name": "sputLua_SetObjectType",
+  "comment": "Lua opcode: SetObjectType Original name sputLua_SetObjectType (the remaster's GrimFandango (Linux): Lua / module table entry 'SetObjectType'); was Lua_SetObjectType."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2380",
+  "old": "Lua_ActorToClean",
+  "name": "sputLua_ActorToClean",
+  "comment": "Lua opcode: ActorToClean Original name sputLua_ActorToClean (the remaster's GrimFandango (Linux): Lua / module table entry 'ActorToClean'); was Lua_ActorToClean."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a23e0",
+  "old": "Lua_SetActorCollisionMode",
+  "name": "sputLua_SetActorCollisionMode",
+  "comment": "Lua opcode: SetActorCollisionMode Original name sputLua_SetActorCollisionMode (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorCollisionMode'); was Lua_SetActorCollisionMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2470",
+  "old": "Lua_SetActorCollisionScale",
+  "name": "sputLua_SetActorCollisionScale",
+  "comment": "Lua opcode: SetActorCollisionScale Original name sputLua_SetActorCollisionScale (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorCollisionScale'); was Lua_SetActorCollisionScale."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2500",
+  "old": "Lua_SetActorOffsetYaw",
+  "name": "sputLua_SetActorOffsetYaw",
+  "comment": "Lua opcode: SetActorOffsetYaw Original name sputLua_SetActorOffsetYaw (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorOffsetYaw'); was Lua_SetActorOffsetYaw."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2590",
+  "old": "Lua_CacheRect",
+  "name": "sputLua_CacheRect",
+  "comment": "Lua opcode: CacheRect Original name sputLua_CacheRect (the remaster's GrimFandango (Linux): Lua / module table entry 'CacheRect'); was Lua_CacheRect."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a26b0",
+  "old": "Lua_RestoreCacheRect",
+  "name": "sputLua_RestoreCacheRect",
+  "comment": "Lua opcode: RestoreCacheRect Original name sputLua_RestoreCacheRect (the remaster's GrimFandango (Linux): Lua / module table entry 'RestoreCacheRect'); was Lua_RestoreCacheRect."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a26f0",
+  "old": "Lua_ResReport",
+  "name": "sputLua_ResReport",
+  "comment": "Lua opcode: ResReport Original name sputLua_ResReport (the remaster's GrimFandango (Linux): Lua / module table entry 'ResReport'); was Lua_ResReport."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2720",
+  "old": "Lua_HardwareAccelerated",
+  "name": "sputLua_HardwareAccelerated",
+  "comment": "Lua opcode: HardwareAccelerated Original name sputLua_HardwareAccelerated (the remaster's GrimFandango (Linux): Lua / module table entry 'HardwareAccelerated'); was Lua_HardwareAccelerated."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2750",
+  "old": "Lua_SetActorClipActive",
+  "name": "sputLua_SetActorClipActive",
+  "comment": "Lua opcode: SetActorClipActive Original name sputLua_SetActorClipActive (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorClipActive'); was Lua_SetActorClipActive."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a27b0",
+  "old": "Lua_SetActorClipPlane",
+  "name": "sputLua_SetActorClipPlane",
+  "comment": "Lua opcode: SetActorClipPlane Original name sputLua_SetActorClipPlane (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorClipPlane'); was Lua_SetActorClipPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2920",
+  "old": "Lua_MarkDirtyRect",
+  "name": "sputLua_MarkDirtyRect",
+  "comment": "Lua opcode: MarkDirtyRect Original name sputLua_MarkDirtyRect (the remaster's GrimFandango (Linux): Lua / module table entry 'MarkDirtyRect'); was Lua_MarkDirtyRect."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2a20",
+  "old": "Lua_FadeOutChore",
+  "name": "sputLua_FadeOutChore",
+  "comment": "Lua opcode: FadeOutChore Original name sputLua_FadeOutChore (the remaster's GrimFandango (Linux): Lua / module table entry 'FadeOutChore'); was Lua_FadeOutChore."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2c10",
+  "old": "Lua_IrisDown",
+  "name": "sputLua_IrisDown",
+  "comment": "Lua opcode: IrisDown Original name sputLua_IrisDown (the remaster's GrimFandango (Linux): Lua / module table entry 'IrisDown'); was Lua_IrisDown."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2c70",
+  "old": "Lua_IrisUp",
+  "name": "sputLua_IrisUp",
+  "comment": "Lua opcode: IrisUp Original name sputLua_IrisUp (the remaster's GrimFandango (Linux): Lua / module table entry 'IrisUp'); was Lua_IrisUp."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2cd0",
+  "old": "Lua_IrisComplete",
+  "name": "sputLua_IrisComplete",
+  "comment": "Lua opcode: IrisComplete Original name sputLua_IrisComplete (the remaster's GrimFandango (Linux): Lua / module table entry 'IrisComplete'); was Lua_IrisComplete."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2ee0",
+  "old": "Lua_ScreenShot",
+  "name": "sputLua_ScreenShot",
+  "comment": "Lua opcode: ScreenShot Original name sputLua_ScreenShot (the remaster's GrimFandango (Linux): Lua / module table entry 'ScreenShot'); was Lua_ScreenShot."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2f90",
+  "old": "Lua_SaveScreen",
+  "name": "sputLua_SaveScreen",
+  "comment": "Lua opcode: SaveScreen Original name sputLua_SaveScreen (the remaster's GrimFandango (Linux): Lua / module table entry 'SaveScreen'); was Lua_SaveScreen."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a2fd0",
+  "old": "Lua_GetSaveGameImage",
+  "name": "sputLua_GetSaveGameImage",
+  "comment": "Lua opcode: GetSaveGameImage Original name sputLua_GetSaveGameImage (the remaster's GrimFandango (Linux): Lua / module table entry 'GetSaveGameImage'); was Lua_GetSaveGameImage."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3040",
+  "old": "Lua_GetImage",
+  "name": "sputLua_GetImage",
+  "comment": "Lua opcode: GetImage Original name sputLua_GetImage (the remaster's GrimFandango (Linux): Lua / module table entry 'GetImage'); was Lua_GetImage."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a30e0",
+  "old": "Lua_FreeImage",
+  "name": "sputLua_FreeImage",
+  "comment": "Lua opcode: FreeImage Original name sputLua_FreeImage (the remaster's GrimFandango (Linux): Lua / module table entry 'FreeImage'); was Lua_FreeImage."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3130",
+  "old": "Lua_BlastImage",
+  "name": "sputLua_BlastImage",
+  "comment": "Lua opcode: BlastImage Original name sputLua_BlastImage (the remaster's GrimFandango (Linux): Lua / module table entry 'BlastImage'); was Lua_BlastImage."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a31f0",
+  "old": "Lua_BlastRect",
+  "name": "sputLua_BlastRect",
+  "comment": "Lua opcode: BlastRect Original name sputLua_BlastRect (the remaster's GrimFandango (Linux): Lua / module table entry 'BlastRect'); was Lua_BlastRect."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3720",
+  "old": "Lua_GetSaveGameData",
+  "name": "sputLua_GetSaveGameData",
+  "comment": "Lua opcode: GetSaveGameData Original name sputLua_GetSaveGameData (the remaster's GrimFandango (Linux): Lua / module table entry 'GetSaveGameData'); was Lua_GetSaveGameData."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3830",
+  "old": "Lua_GetTextSpeed",
+  "name": "sputLua_GetTextSpeed",
+  "comment": "Lua opcode: GetTextSpeed Original name sputLua_GetTextSpeed (the remaster's GrimFandango (Linux): Lua / module table entry 'GetTextSpeed'); was Lua_GetTextSpeed."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3850",
+  "old": "Lua_SetTextSpeed",
+  "name": "sputLua_SetTextSpeed",
+  "comment": "Lua opcode: SetTextSpeed Original name sputLua_SetTextSpeed (the remaster's GrimFandango (Linux): Lua / module table entry 'SetTextSpeed'); was Lua_SetTextSpeed."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3890",
+  "old": "Lua_FindFileOnAnyCD",
+  "name": "sputLua_FindFileOnAnyCD",
+  "comment": "Lua opcode: FindFileOnAnyCD Original name sputLua_FindFileOnAnyCD (the remaster's GrimFandango (Linux): Lua / module table entry 'FindFileOnAnyCD'); was Lua_FindFileOnAnyCD."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3a10",
+  "old": "Lua_ActorPuckOrient",
+  "name": "sputLua_ActorPuckOrient",
+  "comment": "Lua opcode: ActorPuckOrient Original name sputLua_ActorPuckOrient (the remaster's GrimFandango (Linux): Lua / module table entry 'ActorPuckOrient'); was Lua_ActorPuckOrient."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3aa0",
+  "old": "Lua_GetTickCount",
+  "name": "sputLua_GetTickCount",
+  "comment": "Lua opcode: GetTickCount Original name sputLua_GetTickCount (the remaster's GrimFandango (Linux): Lua / module table entry 'GetTickCount'); was Lua_GetTickCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3ad0",
+  "old": "Lua_ResetTextures",
+  "name": "sputLua_ResetTexturesL",
+  "comment": "Lua opcode: ResetTextures Original name sputLua_ResetTexturesL (the remaster's GrimFandango (Linux): Lua / module table entry 'ResetTextures'); was Lua_ResetTextures."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3ae0",
+  "old": "Lua_SetActorInvClipNode",
+  "name": "sputLua_SetActorInvClipNode",
+  "comment": "Lua opcode: SetActorInvClipNode Original name sputLua_SetActorInvClipNode (the remaster's GrimFandango (Linux): Lua / module table entry 'SetActorInvClipNode'); was Lua_SetActorInvClipNode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3b80",
+  "old": "Lua_SetWalkSystemFadeTime",
+  "name": "sputLua_SetWalkSystemFadeTime",
+  "comment": "Lua opcode: SetWalkSystemFadeTime Original name sputLua_SetWalkSystemFadeTime (the remaster's GrimFandango (Linux): Lua / module table entry 'SetWalkSystemFadeTime'); was Lua_SetWalkSystemFadeTime."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3bc0",
+  "old": "Lua_SaveIMuse",
+  "name": "sputLua_SaveIMuse",
+  "comment": "Lua opcode: SaveIMuse Original name sputLua_SaveIMuse (the remaster's GrimFandango (Linux): Lua / module table entry 'SaveIMuse'); was Lua_SaveIMuse."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3bd0",
+  "old": "Lua_RestoreIMuse",
+  "name": "sputLua_RestoreIMuse",
+  "comment": "Lua opcode: RestoreIMuse Original name sputLua_RestoreIMuse (the remaster's GrimFandango (Linux): Lua / module table entry 'RestoreIMuse'); was Lua_RestoreIMuse."
+ }
+]

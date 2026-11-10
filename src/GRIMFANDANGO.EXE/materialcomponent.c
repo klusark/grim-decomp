@@ -44,12 +44,14 @@ void * __cdecl MaterialComponent_NewInstance(void *cosInst,int componentIdx,int 
 #undef auStack_4
 
 
-/* ---- 0x00496670  MaterialComponent_Create ---- */
+/* ---- 0x00496670  MaterialRequester ---- */
 /* Costume tag handler for 'RDroid Animated Material' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, parses a key or asks for a .mat file ('Select mat
-   file to animate...') for a model/sprite component. */
+   file to animate...') for a model/sprite component. Original name MaterialRequester (the
+   remaster's GrimFandango (Linux): strings: 'Select mat file to animate...'); was
+   MaterialComponent_Create. */
 
-int MaterialComponent_Create(uint param_1,int param_2,int *param_3,int param_4,char *param_5)
+int MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

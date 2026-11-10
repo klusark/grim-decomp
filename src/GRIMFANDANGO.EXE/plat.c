@@ -14,10 +14,12 @@ undefined4 Plat_ReturnTrue(void)
   return 1;
 }
 
-/* ---- 0x00478150  Plat_GetPhysicalMemory ---- */
-/* Lua GetPhysicalBytes */
+/* ---- 0x00478150  stdPlatform_GetPhysicalRam ---- */
+/* Lua GetPhysicalBytes Original name stdPlatform_GetPhysicalRam (the remaster's GrimFandango
+   (Linux): the only unmatched callee of Lua_GetPhysicalBytes; 1 matched neighbours agree, 0
+   disagree); was Plat_GetPhysicalMemory. */
 
-uint Plat_GetPhysicalMemory(void)
+uint stdPlatform_GetPhysicalRam(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -32,11 +34,12 @@ uint Plat_GetPhysicalMemory(void)
 #undef local_20
 
 
-/* ---- 0x00487650  Plat_MessageBox ---- */
+/* ---- 0x00487650  grimPlat_QueryDialog ---- */
 /* Win95/grimplat.cpp: MessageBoxA on the game window; returns the IDxxx button code (2 = cancel, 7
-   = no) */
+   = no) Original name grimPlat_QueryDialog (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_QueryDialog; 3 matched neighbours agree, 0 disagree); was Plat_MessageBox. */
 
-int __cdecl Plat_MessageBox(char *text,char *caption,uint flags)
+int __cdecl grimPlat_QueryDialog(char *text,char *caption,uint flags)
 
 {
   int iVar1;
@@ -425,10 +428,12 @@ int __cdecl Plat_TreeSelectDialog(char *title,char **items,int count,int *recurs
 #undef local_c
 
 
-/* ---- 0x00487e30  Plat_InputDialog ---- */
-/* Lua InputDialog: modal text entry dialog */
+/* ---- 0x00487e30  grimPlat_InputDialog ---- */
+/* Lua InputDialog: modal text entry dialog Original name grimPlat_InputDialog (the remaster's
+   GrimFandango (Linux): the only unmatched callee of Lua_InputDialog; 3 matched neighbours agree, 0
+   disagree); was Plat_InputDialog. */
 
-int __cdecl Plat_InputDialog(char *title,char *prompt,char *buf,int bufSize,char *defaultText)
+int __cdecl grimPlat_InputDialog(char *title,char *prompt,char *buf,int bufSize,char *defaultText)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -658,7 +663,7 @@ undefined * __stdcall Plat_TreeSelectDialogProc(int a1,int a2,int a3,int a4)
       iVar2 = GetDlgItem(a1,0x3ea);
       local_54 = SendMessageA(iVar2,0x110a,9,0);
       if (local_54 == 0) {
-        Plat_MessageBox(s_Not_so_fast__004e81c8,s_No_item_was_picked__004e81d8,0);
+        grimPlat_QueryDialog(s_Not_so_fast__004e81c8,s_No_item_was_picked__004e81d8,0);
         return (undefined *)0x1;
       }
       local_48 = UINT_008c982c;

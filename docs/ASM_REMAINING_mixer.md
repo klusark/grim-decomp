@@ -57,7 +57,7 @@ with a differential test, see the notes), so there is no list of reasons.
 | 004c3e10 | `Insane_MemCopy` |
 | 004cdc90 | `InsaneTimer_Register` |
 | 004cdce0 | `InsaneTimer_Unregister` |
-| 004cdd10 | `InsaneTimer_Init` |
+| 004cdd10 | `InsaneTimer_module_startup` |
 | 004cdd60 | `InsaneTimer_Shutdown` |
 | 004cdd80 | `InsaneTimer_StartThread` |
 | 004cddf0 | `InsaneTimer_ThreadProc` |
@@ -75,7 +75,7 @@ with a differential test, see the notes), so there is no list of reasons.
 | 004d2400 | `Dsnd_MemFillCdecl` |
 | 004d2420 | `DsndDriver_Register` |
 | 004d2480 | `DsndDriver_Unregister` |
-| 004d24b0 | `DsndDriver_Init` |
+| 004d24b0 | `DsndDriver_module_startup` |
 | 004d2520 | `DsndDriver_Shutdown` |
 | 004d2550 | `DsndDriver_Open` |
 | 004d25f0 | `DsndDriver_Close` |
@@ -98,9 +98,9 @@ with a differential test, see the notes), so there is no list of reasons.
 | 004bf560 | `LightEd_ReadControl` |
 | 004bffb0 | `LightEd_KeyboardProc` |
 | 004c16c0 | `LecShare_Resolve` |
-| 004c23c0 | `AnimPlay_Create` |
+| 004c23c0 | `anm_Start` |
 | 004c2690 | `AnimPlay_Destroy` |
-| 004c27a0 | `AnimPlay_Update` |
+| 004c27a0 | `anm_Render` |
 | 004c36b0 | `AnimPlay_ResetState` |
 | 004c3d30 | `AnimPlay_OpenFile` |
 | 004c3e60 | `gz_open` |
@@ -115,7 +115,7 @@ with a differential test, see the notes), so there is no list of reasons.
 |---|---|
 | 004d0300 | `SoundModule_Register` |
 | 004d03a0 | `SoundModule_Unregister` |
-| 004d03d0 | `SoundModule_Init` |
+| 004d03d0 | `SoundModule_module_startup` |
 | 004d0510 | `SoundModule_Shutdown` |
 | 004d0550 | `SoundModule_Open` |
 | 004d0610 | `SoundModule_Close` |

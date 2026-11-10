@@ -425,7 +425,7 @@ undefined4 D3D_CreateViewport(uint width, uint height)
 }
 
 
-/* ==== ModelComponent_NewInstance (0x00496950) ====
+/* ==== ThingInstancer (0x00496950) ====
  * Instance data of a model component (0x194 bytes: +0x34 .., +0x38 is root, +0x3c colormap, +0x40 rdThing,
  * +0x44 / +0x48 parent instance data, +0x50 reference count).  create == 0 releases one reference (on the last one the
  * ResRef, the rdThing and the block are freed) and returns 0.  Otherwise Cos_InstComponentInfo(cosInst, idx, &tag,
@@ -435,7 +435,7 @@ undefined4 D3D_CreateViewport(uint width, uint height)
  * up and it is returned.  Else a new block: model = record[1] (assert "Bad model Reference" if record[0] is 0), ResRef,
  * rdThing with the model and a puppet, colormap = record[0x34]; the parent's instance data gives +0x44 / +0x48, no
  * parent makes it a root (+0x48 = -1). */
-void * __cdecl ModelComponent_NewInstance(void *cosInst, int componentIdx, int create)
+void * __cdecl ThingInstancer(void *cosInst, int componentIdx, int create)
 {
     int tag = 0;
     char *name;
@@ -453,7 +453,7 @@ void * __cdecl ModelComponent_NewInstance(void *cosInst, int componentIdx, int c
         inst = (int *)Cos_InstGetInstanceData(cosInst, componentIdx, 0);
         inst[0x50 / 4] = inst[0x50 / 4] - 1;
         if (inst[0x50 / 4] == 0) {
-            ResRef_Remove(inst);
+            Res_RemoveReference(inst);
             rdThing_Free(inst[0x40 / 4]);
             (*g_pSvcCostume->pFree)(inst);
         }
@@ -479,7 +479,7 @@ void * __cdecl ModelComponent_NewInstance(void *cosInst, int componentIdx, int c
     ref = (int *)(*g_pSvcCostume->pAlloc)(0x194, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xa8d);
     for (i = 0; i < 0x65; i++)
         ref[i] = 0;
-    ResRef_Add(ref, model, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xa91);
+    Res_SetReference(ref, model, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xa91);
     thing = (int *)rdThing_New(0);
     rdThing_SetModel(thing, model);
     thing[0x14 / 4] = (int)rdPuppet_New(thing);
@@ -500,12 +500,12 @@ void * __cdecl ModelComponent_NewInstance(void *cosInst, int componentIdx, int c
     return ref;
 }
 
-/* ==== FUN_004985c0 (0x004985c0): sprite component instance ====
- * Same scheme as ModelComponent_NewInstance without sharing: create == 0 drops a reference (rdThing and block freed on
+/* ==== SpriteInstancer (0x004985c0): sprite component instance ====
+ * Same scheme as ThingInstancer without sharing: create == 0 drops a reference (rdThing and block freed on
  * the last).  Otherwise Cos_InstComponentInfo(cosInst, idx, &tag, &record, &parent) (outputs into locals, the original
  * reuses its parameter slots), a zeroed 0x194 byte block: +0x34 = record[0], a new rdThing (its +0x30 cleared) with the
  * polyline record[0], the parent's instance data at +0x44 / +0x48 or root (+0x38 = 1, +0x48 = -1), one reference. */
-undefined4 * FUN_004985c0(int cosInst, undefined4 *componentIdx, int create)
+undefined4 * SpriteInstancer(int cosInst, undefined4 *componentIdx, int create)
 {
     int tag = create;
     undefined4 *record = componentIdx;
@@ -550,7 +550,7 @@ undefined4 * FUN_004985c0(int cosInst, undefined4 *componentIdx, int create)
 }
 
 
-/* ==== Lua_InitGameLibs (0x0049de00) ====
+/* ==== sputLua_Startup (0x0049de00) ====
  * Once (UINT_008cab80 set means done: returns 1): calls the hook in UINT_008cab58, reads the registry value
  * "TextAllowed" (default DAT_004f5a98) and sets lua_assume_binary unless it equals DAT_004ec554 (_stricmp), opens the
  * io / string / math libraries and the engine's function table (PTR_s_EnginePause_004ea8b0, UINT_004eb168 entries),
@@ -562,7 +562,7 @@ undefined4 * FUN_004985c0(int cosInst, undefined4 *componentIdx, int create)
 void GRIM_RegisterModApiLib(void);
 void GRIM_RegisterModApi(void);
 
-undefined4 Lua_InitGameLibs(void)
+undefined4 sputLua_Startup(void)
 {
     char text[0x20];
 
@@ -594,11 +594,11 @@ undefined4 Lua_InitGameLibs(void)
     lua_setglobal(s_SPECIAL_004ec52c);
     lua_pushnumber(32768.0f);
     lua_setglobal(&DAT_004ec528);
-    lua_pushobject(lua_setfallback(s_concat_004ec520, Lua_ConcatFallback));
+    lua_pushobject(lua_setfallback(s_concat_004ec520, sputLua_ConcatFallback));
     UINT_008cab44 = lua_ref(1);
     *(void **)lua_savehook_exref = (void *)Lua_SaveUserdataHook;
     *(void **)lua_restorehook_exref = (void *)Lua_RestoreUserdataHook;
-    Engine_RegisterShutdownHook((void *)Lua_DispatchControlHandlers);
+    sputControl_AddCallback((void *)Lua_DispatchControlHandlers);
     return 0;
 }
 

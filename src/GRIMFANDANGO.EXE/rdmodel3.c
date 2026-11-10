@@ -85,7 +85,7 @@ undefined4 rdModel3_Load(int param_1,undefined4 param_2)
   }
   (*g_pSvcRdroid->pFread)(iVar1,&param_1,4);
   if (param_1 == 0x4d4f444c) {
-    iVar2 = rdModel3_LoadBinary(iVar1,param_2);
+    iVar2 = rdModel3_LoadEntryBinary(iVar1,param_2);
     if (iVar2 != 0) {
       (*g_pSvcRdroid->pFclose)();
       return 1;
@@ -159,7 +159,7 @@ rdModel3_LoadEntryText
   Str_FileNameFromPath(in_stack_0002048c);
   ((code *)strncpy)();
   *(undefined1 *)(in_stack_00020490 + 0x1f) = 0;
-  iVar2 = ((code *)stdConffile_OpenRead)();
+  iVar2 = ((code *)stdConffile_Open)();
   if (iVar2 == 0) {
     return 0;
   }
@@ -572,13 +572,15 @@ LAB_0040b8c4:
 #endif
 
 
-/* ---- 0x0040b8e0  rdModel3_LoadBinary ---- */
+/* ---- 0x0040b8e0  rdModel3_LoadEntryBinary ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Reader of the binary 'MODL' model format (materials, geometry sets, meshes, hierarchy nodes).
-   Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
+   Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). Original name
+   rdModel3_LoadEntryBinary (the remaster's GrimFandango (Linux): the only unmatched callee of
+   rdModel3_Load; 2 matched neighbours agree, 1 disagree); was rdModel3_LoadBinary. */
 
-undefined4 rdModel3_LoadBinary(int param_1,int param_2)
+undefined4 rdModel3_LoadEntryBinary(int param_1,int param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1156,7 +1158,7 @@ void rdModel3_CalcBoundingBoxes(uint param_1)
   *(undefined4 *)(iVar4 + 0x6c) = 0xff7fc99e;
   *(undefined4 *)(iVar4 + 0x70) = 0xff7fc99e;
   *(undefined4 *)(iVar4 + 0x74) = 0xff7fc99e;
-  rdModel3_AccumulateNodeBounds(iVar4,*(undefined4 *)(iVar4 + 0x58),g_MatrixIdentity);
+  rdModel3_CalcModelBoundingBox(iVar4,*(undefined4 *)(iVar4 + 0x58),g_MatrixIdentity);
   fVar3 = *(float *)(iVar4 + 0x60) - *(float *)(iVar4 + 0x6c);
   fVar1 = *(float *)(iVar4 + 100) - *(float *)(iVar4 + 0x70);
   fVar2 = *(float *)(iVar4 + 0x68) - *(float *)(iVar4 + 0x74);
@@ -1172,12 +1174,14 @@ void rdModel3_CalcBoundingBoxes(uint param_1)
 #undef local_4
 
 
-/* ---- 0x0040c710  rdModel3_AccumulateNodeBounds ---- */
+/* ---- 0x0040c710  rdModel3_CalcModelBoundingBox ---- */
 /* Recursively composes the node matrices (angles, offset, pivot) and accumulates the transformed
    mesh boxes into the model bounds. Source file Rdmodel3.c
-   (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
+   (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). Original name rdModel3_CalcModelBoundingBox (the
+   remaster's GrimFandango (Linux): the only unmatched callee of rdModel3_CalcBoundingBoxes; 1
+   matched neighbours agree, 0 disagree); was rdModel3_AccumulateNodeBounds. */
 
-void rdModel3_AccumulateNodeBounds(int param_1,int param_2,float *param_3)
+void rdModel3_CalcModelBoundingBox(int param_1,int param_2,float *param_3)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1239,7 +1243,7 @@ void rdModel3_AccumulateNodeBounds(int param_1,int param_2,float *param_3)
     uVar2 = 0;
     if (*(int *)(param_2 + 0x58) != 0) {
       do {
-        rdModel3_AccumulateNodeBounds(param_1,iVar3,local_60);
+        rdModel3_CalcModelBoundingBox(param_1,iVar3,local_60);
         iVar3 = *(int *)(iVar3 + 0x60);
         uVar2 = uVar2 + 1;
       } while (uVar2 < *(uint *)(param_2 + 0x58));
@@ -1293,7 +1297,7 @@ void rdModel3_CalcRadii(int param_1)
     } while (uVar6 < *(uint *)(param_1 + 0x24));
   }
   _DAT_007f3200 = 0;
-  rdModel3_AccumulateNodeRadius(param_1,*(undefined4 *)(param_1 + 0x58),g_MatrixIdentity);
+  rdModel3_BuildExpandedRadius(param_1,*(undefined4 *)(param_1 + 0x58),g_MatrixIdentity);
   return;
 }
 #undef local_4
@@ -1301,12 +1305,15 @@ void rdModel3_CalcRadii(int param_1)
 #endif
 
 
-/* ---- 0x0040c970  rdModel3_AccumulateNodeRadius ---- */
+/* ---- 0x0040c970  rdModel3_BuildExpandedRadius ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Recursive helper of rdModel3_CalcRadii: composes node matrices and updates the radius. Source
-   file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
+   file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). Original name
+   rdModel3_BuildExpandedRadius (the remaster's GrimFandango (Linux): the only unmatched callee of
+   rdModel3_CalcRadii; 1 matched neighbours agree, 0 disagree); was rdModel3_AccumulateNodeRadius.
+    */
 
-void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3)
+void rdModel3_BuildExpandedRadius(int param_1,int param_2,float *param_3)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1355,7 +1362,7 @@ void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3)
     uVar3 = 0;
     if (*(int *)(param_2 + 0x58) != 0) {
       do {
-        rdModel3_AccumulateNodeRadius(param_1,iVar4,local_60);
+        rdModel3_BuildExpandedRadius(param_1,iVar4,local_60);
         iVar4 = *(int *)(iVar4 + 0x60);
         uVar3 = uVar3 + 1;
       } while (uVar3 < *(uint *)(param_2 + 0x58));
@@ -1566,13 +1573,13 @@ void rdModel3_CalcVertexNormals(int param_1)
                              (pfVar9[1] - pfVar9[iVar10 * 3 + 1]);
                 pfVar16[2] = (fVar1 - fVar6) + (fVar2 - fVar12);
                 *pfVar16 = (fVar4 - fVar5) + (fVar3 - fVar7);
-                Vec3_Normalize(pfVar16);
+                rdVector_Normalize3Acc(pfVar16);
               }
               else {
                 *pfVar16 = fVar1 / local_44[0];
                 pfVar16[1] = local_20[0] / local_44[0];
                 pfVar16[2] = local_20[1] / local_44[0];
-                Vec3_Normalize(pfVar16);
+                rdVector_Normalize3Acc(pfVar16);
               }
               pfVar16 = pfVar16 + 3;
               local_38 = local_38 + 1;

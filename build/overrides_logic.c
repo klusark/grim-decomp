@@ -84,14 +84,14 @@ void rdroid_BuildMathTables(void)
         scaled[n] = recip[n] * *(float *)&DAT_004ddb30;
 }
 
-/* ==== rdCamera_BuildProjection (0x0040a280) ====
+/* ==== rdCamera_BuildFOV (0x0040a280) ====
  * Computes the projection of an rdCamera from its canvas size and the frustum planes (the record the camera points to at
  * +0x48).  Camera fields: +0 projection type (0 orthographic, 1 perspective), +4 canvas, +0x38 field of view (degrees), +0x3c
  * perspective scale (output), +0x40 aspect ratio, +0x44 orthographic scale.  Canvas fields +0x18 / +0x1c / +0x20 / +0x24 are the
  * pixel rectangle.  Written by hand: Ghidra typed the camera record int[], so every float field came out as a float -> int
  * conversion of its bits.  Half sizes and the scale go through float variables where the code stores them (hh, hw, scale, the
  * sine), everything else is extended precision like the x87 code. */
-undefined4 __cdecl rdCamera_BuildProjection(int *cam)
+undefined4 __cdecl rdCamera_BuildFOV(int *cam)
 {
     char *c = (char *)cam;
     char *canvas = *(char **)(c + 4);
@@ -259,7 +259,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
     clipface_copy_pos(src, dst);
     dst[0] = (clipface_persp() ? (rdClipFn3)rdClip_Face3_Pos_2 : (rdClipFn3)rdClip_Face3_PosB_2)(param_1, (float *)dst[3], src[0]);
 }
-/* ==== rdModel_AddMeshToCache (0x0040d880) ====
+/* ==== rdModel3_DrawFace (0x0040d880) ====
  * Allocates a draw cache entry for a mesh of a model, copies its geometry / lighting modes (capped by the global limits),
  * runs the vertices through the clipper or the plain copy (rdPrimit3_ClipFace / rdPrimit3_CopyFaceVerts, 7 and 6 arguments),
  * clips the polygon against the extra plane, derives the lighting mode from the mesh alpha and the keyframe interpolation,
@@ -268,7 +268,7 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
  * therefore crashed at start-up). */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
+undefined4 rdModel3_DrawFace(int param_1,int param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -900,7 +900,7 @@ switchD_00408bad_default:
 }
 #undef local_4
 /* ==== rdModel3_Load (0x0040a980) ====
- * Opens the model file; the magic 'MODL' selects rdModel3_LoadBinary, anything else is parsed by rdModel3_LoadEntryText.  The
+ * Opens the model file; the magic 'MODL' selects rdModel3_LoadEntryBinary, anything else is parsed by rdModel3_LoadEntryText.  The
  * magic was read into the parameter slot of the file name (the C text lost the name for the text loader); both close
  * calls take the file.  Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 undefined4 rdModel3_Load(int name, undefined4 model)
@@ -913,7 +913,7 @@ undefined4 rdModel3_Load(int name, undefined4 model)
         return 0;
     (*g_pSvcRdroid->pFread)(file, &magic, 4);
     if (magic == 0x4d4f444c) {
-        ok = rdModel3_LoadBinary(file, model);
+        ok = rdModel3_LoadEntryBinary(file, model);
         (*g_pSvcRdroid->pFclose)(file);
         return ok != 0;
     }
@@ -978,7 +978,7 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts, int count, void *material)
 /* ==== rdModel3_CalcRadii (0x0040c8c0) ====
  * Computes the bounding radius of every mesh of a model (the largest vertex distance from the origin, kept in a float
  * between vertices, then times 1.1) into +0x60 of the 0x7c byte mesh record, and the radius of the model through
- * rdModel3_AccumulateNodeRadius.  The decompiler stored the float radius with a float -> int conversion (the C version
+ * rdModel3_BuildExpandedRadius.  The decompiler stored the float radius with a float -> int conversion (the C version
  * therefore gave integer radii).  Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 static inline long double fsqrt_ld(long double x)
 {
@@ -1005,7 +1005,7 @@ void rdModel3_CalcRadii(int model)
         *(float *)(rec + 0x60) = (float)((long double)mx * 0.1f + mx);
     }
     _DAT_007f3200 = 0;
-    rdModel3_AccumulateNodeRadius(model, *(undefined4 *)(model + 0x58), g_MatrixIdentity);
+    rdModel3_BuildExpandedRadius(model, *(undefined4 *)(model + 0x58), g_MatrixIdentity);
 }
 /* ==== rdModel3_CalcVertexNormals (0x0040cc30) ====
  * Averages the normals of the faces that share a vertex into the mesh's vertex normal array and normalises them.  For every
@@ -1071,12 +1071,12 @@ void rdModel3_CalcVertexNormals(int model)
                     nrm[1] = (float)(((long double)p[1] - p[next * 3 + 1]) + ((long double)p[1] - p[prev * 3 + 1]));
                     nrm[2] = (float)(((long double)p[2] - p[next * 3 + 2]) + ((long double)p[2] - p[prev * 3 + 2]));
                     nrm[0] = (float)(((long double)p[0] - p[prev * 3]) + ((long double)p[0] - p[next * 3]));
-                    Vec3_Normalize(nrm);
+                    rdVector_Normalize3Acc(nrm);
                 } else {
                     nrm[0] = (float)(ax / cnt_f);
                     nrm[1] = (float)((long double)ay_f / cnt_f);
                     nrm[2] = (float)((long double)az_f / cnt_f);
-                    Vec3_Normalize(nrm);
+                    rdVector_Normalize3Acc(nrm);
                 }
             }
         }
@@ -1144,7 +1144,7 @@ int __cdecl rdSprite_DrawThing(void *thing, void *sprite)
     }
     return 1;
 }
-/* ==== Math_SinCosTable (0x0047bd20), Math_SinDeg (0x0047c120) ====
+/* ==== stdMath_SinCos (0x0047bd20), Math_SinDeg (0x0047c120) ====
  * Sine / cosine of an angle in degrees from a quarter-wave table of 4096 floats (0x004df600, cosine = the same table
  * read backwards; Math_SinDeg has its own table at 0x004e3600) with linear interpolation: `index = angle * 16384 / 360`
  * runs over four quadrants of 4096 entries.  The code reads the table through biased base addresses
@@ -1157,7 +1157,7 @@ static inline float sincos_lerp(float v0, float v1, float frac)
     return (float)((((long double)v1 - v0) * frac) + v0);
 }
 
-void Math_SinCosTable(float deg, float *outSin, float *outCos)
+void stdMath_SinCos(float deg, float *outSin, float *outCos)
 {
     const float *T = (const float *)&DAT_004df600;
     volatile float a, t, frac;
@@ -1241,11 +1241,11 @@ float10 Math_SinDeg(float deg)
     return (float10)r;
 }
 
-/* ==== rdCamera_ProjectPoint (0x0040dc30) ====
+/* ==== rdPrimit3_GetScreenCoord (0x0040dc30) ====
  * Lua WorldToScreen helper: moves the world point into camera space, rejects it when the view frustum does not contain it
  * and otherwise runs the camera's projection (function pointer at +0x4c) on it.  The screen position is stored as two
  * integers (x and y truncated by _ftol, the decompiler lost both operands) followed by the depth as a float. */
-int rdCamera_ProjectPoint(float *world, float *outScreen)
+int rdPrimit3_GetScreenCoord(float *world, float *outScreen)
 {
     char *cam = (char *)g_pRdCurrentCamera;
     float local[3], proj[3];
@@ -1518,7 +1518,7 @@ void Render_DrawProgressBar(float fraction)
     if (1.0f < fraction)
         fraction = 1.0f;
     filled = (int)(long long)((long double)fraction * 540.0f);
-    Render_RemapPixels((ushort *)&color, 1);
+    sputRender_ColorCorrect((ushort *)&color, 1);
     Surface_Lock(&g_PrimarySurface);
     line = (char *)(UINT_00901698 * 0x1c7 + UINT_009016dc);
     p = (ushort *)(line + 100);
@@ -1579,11 +1579,11 @@ void Render_DrawIris(float percent, int x, int y)
     Surface_Unlock(&g_BackBuffer);
 }
 
-/* ==== Render_CaptureThumbnail (0x00486f90) ====
+/* ==== sputRender_ScreenShot (0x00486f90) ====
  * Renders a dimmed frame, then makes a new w x h surface and fills it with the background scaled down by point sampling:
  * the source column / row is the truncated running sum of 640 / w and 480 / h (the sums stay in extended precision on
  * the x87 stack, the steps are floats).  Returns the new surface (save game thumbnail). */
-void *Render_CaptureThumbnail(int w, int h)
+void *sputRender_ScreenShot(int w, int h)
 {
     uint savedMode = UINT_008a8c40;
     void *bg, *thumb;
@@ -1594,7 +1594,7 @@ void *Render_CaptureThumbnail(int w, int h)
 
     UINT_008a8c40 = 2;
     g_nFullRedrawPending = 1;
-    ((void (*)(int, int))Render_DimBackground)(1, 0);
+    ((void (*)(int, int))sputRender_Dim)(1, 0);
     bg = g_pBackgroundSurface;
     memcpy(info, (char *)bg + 0xc, 0x4c);
     info[0] = w;
@@ -1621,11 +1621,11 @@ void *Render_CaptureThumbnail(int w, int h)
     g_nFullRedrawPending = 1;
     return thumb;
 }
-/* ==== Lua_DimRegion (0x004a1a00), Lua_RestoreCacheRect (0x004a26b0) ====
+/* ==== sputLua_DimRegion (0x004a1a00), sputLua_RestoreCacheRect (0x004a26b0) ====
  * Lua DimRegion(x, y, w, h, amount) scales the brightness of a screen rectangle (Render_FillRect); the first four numbers
  * are truncated by _ftol, the decompiler lost their operands.  RestoreCacheRect(rect) takes a cache rect userdata (tag
  * word 0x11111111), reads its number (truncated, passed on to CacheRect_Restore which ignores it). */
-void Lua_DimRegion(void)
+void sputLua_DimRegion(void)
 {
     int a1 = lua_lua2C(1);
     int a2 = lua_lua2C(2);
@@ -1643,7 +1643,7 @@ void Lua_DimRegion(void)
     Render_FillRect(x, y, w, h, amount);
 }
 
-void Lua_RestoreCacheRect(void)
+void sputLua_RestoreCacheRect(void)
 {
     int arg = lua_lua2C(1);
     int *rect = (int *)lua_getuserdata(arg);
@@ -1661,7 +1661,7 @@ void Lua_RestoreCacheRect(void)
  * 127; parameter 0x700.  The sums stay in extended precision.  The decompiler lost the operands of both _ftol. */
 undefined4 PositionedSound_Apply(int entry)
 {
-    char *set = (char *)Set_GetCurrent();
+    char *set = (char *)sputRoom_GetCurrentRoom();
     char *cam;
     float d[3];
     long double t, dot;
@@ -1753,7 +1753,7 @@ void __cdecl Actor_UpdateTalk(void *actor, float dt)
     if (*(char *)(talk + 0x1dc) != '\0' && *(int *)(talk + 0x1f0) != 0 && *(int *)((char *)actor + 0xa0) != 0) {
         phoneme = iMUSE_GetPhoneme(*(int *)(talk + 0x1c8), 0);
         if (phoneme == 0) {
-            Actor_ShutUp(actor);
+            sputActor_ShutUp(actor);
         } else {
             chore = Phoneme_ToTalkChore(actor, phoneme);
             node = *(int **)((char *)actor + 0xa0);
@@ -1777,7 +1777,7 @@ void __cdecl Actor_UpdateTalk(void *actor, float dt)
         if (-1 < *(int *)(*(int *)((char *)actor + 0xa4) + 0x1cc))
             return;
     }
-    Actor_ShutUp(actor);
+    sputActor_ShutUp(actor);
 }
 
 /* ==== rdCache_AddMesh (0x00406860) ====
@@ -1863,13 +1863,13 @@ int rdCache_AddMesh(void *mesh, uint vertexCount, byte flags)
     return 1;
 }
 
-/* ==== Lua_ChangePrimitive (0x00489fe0) ====
+/* ==== sputPrimitive_ChangePrimitive (0x00489fe0) ====
  * ChangePrimitive(id, {color, layer, xoffset, yoffset, ..., width, height}): changes the properties of a screen primitive.
  * The numbers are truncated by _ftol (the decompiler lost the operand of every one); the colour (userdata with tag
  * 0x524c4f43) is converted to the display format channel by channel (bits dropped, shifted to the channel position).
  * The first attempt at a C version crashed in the colour packing (PIECE() on a stack slot). */
 
-void Lua_ChangePrimitive(void)
+void sputPrimitive_ChangePrimitive(void)
 
 {
   int iVar1;
@@ -2033,11 +2033,11 @@ void __cdecl Services_SetCurrent(GrimServices *svc)
     _DAT_007f6490 = 1;
 }
 
-/* ==== Costume_UpdateAll (0x00495730) ====
+/* ==== sputCostume_Update (0x00495730) ====
  * Per frame: the frame time in seconds is rounded to whole milliseconds (round half away from zero, as the code does it
  * with +-0.5 and _ftol), every costume of the list gets Cos_InstUpdateChores(cos, ms) and every puppet of the second list
  * advances by ms * 0.001 seconds.  The decompiler lost the operand of the _ftol and the double bias constants. */
-void __cdecl Costume_UpdateAll(void *costumeList, float dt)
+void __cdecl sputCostume_Update(void *costumeList, float dt)
 {
     uint ms = (uint)round_half_away((long double)dt * 1000.0f);
     float seconds = (float)((long double)(unsigned long long)ms * 0.001f);
@@ -2057,15 +2057,15 @@ void __cdecl Costume_UpdateAll(void *costumeList, float dt)
     for (item = *(int *)((int)costumeList + 8); item != 0; item = *(int *)(item + 400)) {
         void *puppet = *(void **)(*(int *)(item + 0x40) + 0x14);
         if (puppet != (void *)0)
-            rdPuppet_Advance(puppet, seconds);
+            rdPuppet_UpdateTracks(puppet, seconds);
     }
 }
 
-/* ==== SpriteComponent_EditKey (0x004986e0) ====
+/* ==== SpriteAdjuster (0x004986e0) ====
  * Costume editor dialog for a sprite key ("Width", "Height" and three more fields).  The values shown are the sprite's
  * floats times 100 (+ 0.2, truncated: the decompiler lost the five _ftol operands); on OK they are stored back as
  * value * 0.01 (plus the half sizes) and the key's text "name w h ..." is rewritten. */
-undefined4 SpriteComponent_EditKey(undefined4 *param_1, undefined4 param_2)
+undefined4 SpriteAdjuster(undefined4 *param_1, undefined4 param_2)
 {
     char *labels[5];
     int vals[5];
@@ -2171,8 +2171,8 @@ void Actor_DrawShadowPlane(void *costumeList, void *shadow)
         Render_InvalidateRectLastBuffer(rect, 1);
     }
 }
-/* ==== SectorList_ShrinkWalkSectors (0x004a9d00) ====
- * SectorList_ShrinkWalkSectors(radius), called by Lua ShrinkBoxes after SectorList_SaveForShrink.  For every active walk
+/* ==== ShrinkBoxes (0x004a9d00) ====
+ * ShrinkBoxes(radius), called by Lua ShrinkBoxes after SectorList_SaveForShrink.  For every active walk
  * sector (type & 0x1000, flag +0x28) each vertex is moved inward along the bisector of its two edges by radius / sin(a),
  * a = 90 - asin(bisector . next edge) degrees.  The move is valid when the new point is inside the sector
  * (Sector_ContainsPoint) and at least radius - 0.001 from the line of every edge (Sector_EdgeDistance); when it is not,
@@ -2183,7 +2183,7 @@ void Actor_DrawShadowPlane(void *costumeList, void *shadow)
  * Rewritten from the instructions: the Ghidra prototype had 14 parameters because the decompiler took the 16 KB frame of
  * the function (shift sums, counts, a table of 10 shifts) for stack arguments.  The new point uses the extended precision
  * scale for x and the scale rounded to float for y and z, as the x87 code does. */
-void __cdecl SectorList_ShrinkWalkSectors(float radius)
+void __cdecl ShrinkBoxes(float radius)
 {
     float acc[1024 * 3];
     int cnt[1024];
@@ -2216,18 +2216,18 @@ void __cdecl SectorList_ShrinkWalkSectors(float radius)
                 A[0] = prev[0] - cur[0];
                 A[1] = prev[1] - cur[1];
                 A[2] = prev[2] - cur[2];
-                Vec3_Normalize(A);
+                rdVector_Normalize3Acc(A);
                 B[0] = next[0] - cur[0];
                 B[1] = next[1] - cur[1];
                 B[2] = next[2] - cur[2];
-                Vec3_Normalize(B);
+                rdVector_Normalize3Acc(B);
                 A[0] = B[0] + A[0];
                 A[1] = B[1] + A[1];
                 A[2] = B[2] + A[2];
-                Vec3_Normalize(A);
+                rdVector_Normalize3Acc(A);
                 d = (float)(((long double)B[0] * A[0] + (long double)B[1] * A[1]) + (long double)B[2] * A[2]);
-                ang = (float)(90.0L - (long double)Math_AsinDegreesSeries(d));
-                Math_SinCosTable(ang, &sinv, &cosv);
+                ang = (float)(90.0L - (long double)stdMath_ArcSin3(d));
+                stdMath_SinCos(ang, &sinv, &cosv);
                 sc_ext = (long double)radius / sinv;
                 sc = (float)sc_ext;
                 P[0] = (float)(sc_ext * A[0] + cur[0]);
@@ -2283,10 +2283,10 @@ void __cdecl SectorList_ShrinkWalkSectors(float radius)
     }
 }
 
-/* ==== Str_ToLower (0x0047b5c0), Res_TouchByData (0x00482200), Actor_SetSelected (0x00490320) ====
+/* ==== Str_ToLower (0x0047b5c0), Res_TouchByData (0x00482200), sputActor_SetSelectedActor (0x00490320) ====
  * Small functions the decompiler got wrong only in what they return: Str_ToLower ends with 0 (the last character, the
  * terminator, in EAX), Res_TouchByData returns whatever Res_MoveToFront left in EAX (that function is declared void) and
- * Actor_SetSelected passes the actor to Actor_GetHandle without a second argument. */
+ * sputActor_SetSelectedActor passes the actor to sputActor_GetActorHandle without a second argument. */
 char * __cdecl Str_ToLower(char *s)
 {
     for (; *s != '\0'; s++)
@@ -2303,21 +2303,21 @@ undefined * __cdecl Res_TouchByData(void *data)
     return (undefined *)((int (*)(void *))Res_MoveToFront)(res);
 }
 
-int __cdecl Actor_SetSelected(int handle)
+int __cdecl sputActor_SetSelectedActor(int handle)
 {
     int old = -1;
 
     if (g_pSelectedActor != (void *)0)
-        old = ((int (*)(void *))Actor_GetHandle)(g_pSelectedActor);
+        old = ((int (*)(void *))sputActor_GetActorHandle)(g_pSelectedActor);
     if (-1 < handle && handle < g_nActorCapacity)
         g_pSelectedActor = (void *)((int)g_pActorTable + handle * 0xa8);
     return old;
 }
-/* ==== Lua_GetDiskFreeSpace (0x00498da0) ====
+/* ==== sputLua_GetDiskFreeSpaceL (0x00498da0) ====
  * GetDiskFreeSpace() -> megabytes free on the current drive: bytes per sector / 1024 * sectors per cluster / 1024 * free
  * clusters.  Written by hand because Ghidra typed the output slots as float (the cast rewrite then mixed bit copies and
  * conversions). */
-void Lua_GetDiskFreeSpace(void)
+void sputLua_GetDiskFreeSpaceL(void)
 {
     uint v[4];       /* bytes per sector, sectors per cluster, free clusters, total clusters */
     long double mb;
@@ -2330,7 +2330,7 @@ void Lua_GetDiskFreeSpace(void)
     lua_pushnumber((float)mb);
 }
 
-/* ==== Lua_GetActorChores (0x00499ff0), Lua_GetActorLoopingChores (0x0049a2a0) ====
+/* ==== sputLua_GetActorChoresL (0x00499ff0), sputLua_GetActorLoopingChoresL (0x0049a2a0) ====
  * GetActorChores(actor, costume) returns a table {[i] = i for every chore i of the costume that is playing (status bit 0),
  * count = n}; the looping variant also needs status bit 1.  Written by hand: Ghidra reused one stack slot for the chore
  * index, the count and the table size and typed it float. */
@@ -2344,8 +2344,8 @@ static int actor_chores_table(int statusMask)
 
     if (lua_isuserdata(arg) != 0 && lua_tag(arg) == 0x52544341) {
         arg = lua_getuserdata(arg);
-        arg = (int)Actor_FromHandle(arg);
-        if (Lua_ResolveCostumeArg(luaObj, *(void **)(arg + 0xa0), (void **)&costume) == 0)
+        arg = (int)sputActor_ActorDeref(arg);
+        if (FindCostumeInStack(luaObj, *(void **)(arg + 0xa0), (void **)&costume) == 0)
             return 0;
         if (costume != (int *)0) {
             tab = lua_createtable();
@@ -2376,20 +2376,20 @@ static int actor_chores_table(int statusMask)
     return 0;
 }
 
-void Lua_GetActorChores(void)
+void sputLua_GetActorChoresL(void)
 {
     actor_chores_table(1);
 }
 
-void Lua_GetActorLoopingChores(void)
+void sputLua_GetActorLoopingChoresL(void)
 {
     actor_chores_table(3);
 }
 
-/* ==== Lua_WorldToScreen (0x0049cf60) ====
- * WorldToScreen(x, y, z) -> screen x, y as numbers, or two nils when the point is not visible.  (rdCamera_ProjectPoint
+/* ==== sputLua_WorldToScreenL (0x0049cf60) ====
+ * WorldToScreen(x, y, z) -> screen x, y as numbers, or two nils when the point is not visible.  (rdPrimit3_GetScreenCoord
  * stores the screen position as two integers.) */
-void Lua_WorldToScreen(void)
+void sputLua_WorldToScreenL(void)
 {
     int a1 = lua_lua2C(1);
     int a2 = lua_lua2C(2);
@@ -2402,7 +2402,7 @@ void Lua_WorldToScreen(void)
     world[0] = lua_getnumber(a1);
     world[1] = lua_getnumber(a2);
     world[2] = lua_getnumber(a3);
-    if (rdCamera_ProjectPoint(world, (float *)screen) != 0) {
+    if (rdPrimit3_GetScreenCoord(world, (float *)screen) != 0) {
         lua_pushnumber((float)screen[0]);
         lua_pushnumber((float)screen[1]);
         return;
@@ -2531,7 +2531,7 @@ void Actor_UpdateMovement(void *actor, float dt)
     if (*(int *)(a + 0xa4) != 0 && *(int *)(*(int *)(a + 0xa4) + 0x1b4) != 0)
         Actor_UpdateWalker(actor);
     Actor_UpdateMoveChores(actor);
-    Costume_UpdateAll(*(void **)(a + 0xa0), dt);
+    sputCostume_Update(*(void **)(a + 0xa0), dt);
     if ((*(byte *)(a + 8) & 2) != 0)
         Actor_UpdateLookAt(actor, dt);
     if ((*(byte *)(a + 4) & 0x10) != 0)
@@ -2569,11 +2569,11 @@ void __cdecl Actor_PuckOrient(void *actor)
     fu[1] = *(float *)(walker + 0x28);
     fu[2] = *(float *)(walker + 0x2c);
     dot = Vec3_Dot2(up, fu);
-    angx = 90.0L - (long double)Math_AsinDegreesSeries(dot);     /* the test below uses the unrounded value */
+    angx = 90.0L - (long double)stdMath_ArcSin3(dot);     /* the test below uses the unrounded value */
     ang = (float)angx;
     if (!(((angx < 0.0L) ? -angx : angx) > 2.0L))
         return;
-    limit = (long double)Timer_GetFrameSeconds() * *(float *)(state + 0x1c);
+    limit = (long double)sputTime_GetFrameTimeFlex() * *(float *)(state + 0x1c);
     if (ang > 0.0f && limit < (long double)ang)
         ang = (float)limit;
     if (ang < 0.0f && -limit > (long double)ang)
@@ -2581,7 +2581,7 @@ void __cdecl Actor_PuckOrient(void *actor)
     axis[0] = (float)((long double)fu[2] * up[1] - (long double)fu[1] * up[2]);
     axis[1] = (float)((long double)fu[0] * up[2] - (long double)fu[2] * up[0]);
     axis[2] = (float)((long double)fu[1] * up[0] - (long double)fu[0] * up[1]);
-    Vec3_Normalize(axis);
+    rdVector_Normalize3Acc(axis);
     Matrix_AxisAngle(rot, axis, ang);
     Matrix_Multiply(a + 0x38, rot);
     Matrix_ToAngles(a + 0x38, a + 0x24);
@@ -2618,7 +2618,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor, char *text, int x, int y)
         if (*(int *)(a + 0xa0) == 0 || (*(byte *)(a + 4) & 2) != 0) {
             char *setName = Set_GetCurrentName();
 
-            if (_stricmp((int)(a + 0x7c), setName) == 0 && rdCamera_ProjectPoint((float *)(a + 0xc), (float *)proj) != 0) {
+            if (_stricmp((int)(a + 0x7c), setName) == 0 && rdPrimit3_GetScreenCoord((float *)(a + 0xc), (float *)proj) != 0) {
                 pt[0] = proj[0];
                 pt[1] = proj[1];
             }
@@ -2649,12 +2649,12 @@ void * __cdecl Actor_CreateSubtitle(void *actor, char *text, int x, int y)
     *(uint *)(a + 4) = *(uint *)(a + 4) | 4;
     return obj;
 }
-/* ==== Lua_PrintLine (0x0048b830) ====
+/* ==== sputText_PrintLineL (0x0048b830) ====
  * PrintLine(text, table): shows a line of text on screen with the options of the table (position, colour, duration ...).  When
  * the table gives no duration it is (characters * ms per character + base ms) * 16.666668 - the two values at 0x004e8470 /
  * 0x004e8474 are in front of UINT_004e8480.  The decompiler lost the operand of that _ftol. */
 
-void Lua_PrintLine(void)
+void sputText_PrintLineL(void)
 
 {
   char cVar1;
@@ -2699,7 +2699,7 @@ void Lua_PrintLine(void)
     }
     iVar4 = lua_istable((int)pvVar3);
     if (iVar4 != 0) {
-      local_58 = Text_ParseLuaTable((void *)local_5c,pvVar3,(void *)0x0);
+      local_58 = GetTextParamsFromTable((void *)local_5c,pvVar3,(void *)0x0);
     }
     iVar4 = lua_isstring(iVar2);
     if (iVar4 != 0) {
@@ -2835,8 +2835,8 @@ undefined4 Walker_UpdateYaw(void *actor, float *pos)
     v[2] = pos[2] + v[2];
     Walker_ToLocalSpace(pos, v);
     v[2] = 0.0f;
-    Vec3_Normalize(v);
-    angx = 90.0L - (long double)Math_AsinDegreesSeries(v[1]);
+    rdVector_Normalize3Acc(v);
+    angx = 90.0L - (long double)stdMath_ArcSin3(v[1]);
     ang = (float)angx;
     if (!(angx >= 0.5L)) {
         *(undefined4 *)(*(char **)(a + 0xa4) + 0x28) = 0;
@@ -2849,7 +2849,7 @@ undefined4 Walker_UpdateYaw(void *actor, float *pos)
         *(float *)(st + 0x1c) = (float)((long double)rate * -1.0f);     /* snap: all the way, and the rate comes back positive */
         step = 3.4028234663852886e+38L;
     } else {
-        step = (long double)Timer_GetFrameSeconds() * *(float *)(st + 0x41c) * *(float *)(st + 0x1c);
+        step = (long double)sputTime_GetFrameTimeFlex() * *(float *)(st + 0x41c) * *(float *)(st + 0x1c);
     }
     if ((long double)ang > step)
         ang = (float)(((long double)ang - step) * 0.1f + step);
@@ -2892,10 +2892,10 @@ void * ResType_FontHandler(int *rec)
     return (void *)0;
 }
 
-/* ==== ModelComponent_EditParentOffset (0x00496890) ====
+/* ==== ThingAdjuster (0x00496890) ====
  * Editor dialog 'Resolve parent offset': a one field dialog on the component's flag at +0x34; on OK the key text becomes
  * "<name> <value>". */
-undefined4 ModelComponent_EditParentOffset(int *component, undefined4 text)
+undefined4 ThingAdjuster(int *component, undefined4 text)
 {
     int obj = *component;
     char *labels[1];
@@ -2968,14 +2968,14 @@ void Polyglot_LoadTable(undefined *name)
     qsort(UINT_008a8c9c, UINT_008a8ca4, 4, Str_ComparePtrs);
 }
 
-/* ==== ImuseSoundComponent_OnKey (0x004971a0) ====
+/* ==== SoundChanger (0x004971a0) ====
  * Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start through
  * Cos_NewStateBasedTag / Cos_NewIntTag): when the chore key fires it starts the sound unless it already plays (state 0 and
  * not playing): a streamed sound ('imss') through SoundStartVoiceStream, a resident one ('imls') through
  * SoundsLoadStartSound with positional parameters from the current set; state 1 stops it again, state 2 sets iMUSE hook 0x80.
- * Arguments: tag, sound record, -, state slot, -, -, -, costume instance.  The five outputs of Set_GetSoundParams were
+ * Arguments: tag, sound record, -, state slot, -, -, -, costume instance.  The five outputs of sputRoom_GetSoundParameters were
  * written over spent parameter slots in the original; Ghidra typed the sound pointer and the slot float. */
-void __cdecl ImuseSoundComponent_OnKey(int tag, int snd, undefined4 p3, int slot, uint p5, uint p6, uint p7, uint inst)
+void __cdecl SoundChanger(int tag, int snd, undefined4 p3, int slot, uint p5, uint p6, uint p7, uint inst)
 {
     int actor = Cos_InstGetUserData(inst);
     void *actors = g_pActorTable;
@@ -2995,11 +2995,11 @@ void __cdecl ImuseSoundComponent_OnKey(int tag, int snd, undefined4 p3, int slot
             SoundsSetParam(snd, 0x500, *(uint *)(snd + 0x24));
             return;
         }
-        set = Set_GetCurrent();
+        set = sputRoom_GetCurrentRoom();
         handle = SoundsLoadStartSound(snd, *(int *)(snd + 0x24), 1);
         if (set == (void *)0)
             return;
-        Set_GetSoundParams(set, &o1, (char *)&o2, (char *)&o3, &o4, &o5);
+        sputRoom_GetSoundParameters(set, &o1, (char *)&o2, (char *)&o3, &o4, &o5);
         quiet = *(byte *)(snd + 0x20);
         if ((byte)o3 < quiet)
             quiet = (byte)o3;
@@ -3234,16 +3234,16 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
     fVar5 = -fVar5;
   }
   vv[2] = fVar3 * fVar5;
-  fVar10 = Vec3_Normalize(vv);
+  fVar10 = rdVector_Normalize3Acc(vv);
   fVar11 = Vec3_Dot2(vv,nn);
-  fVar11 = Math_AsinDegreesSeries(fVar11);
+  fVar11 = stdMath_ArcSin3(fVar11);
   if (90.0 - fVar11 < 90.0) {
     return 0;
   }
   axis[0] = nn[2] * vv[1] - nn[1] * vv[2];
   axis[1] = nn[0] * vv[2] - nn[2] * vv[0];
   axis[2] = nn[1] * vv[0] - nn[0] * vv[1];
-  Vec3_Normalize(axis);
+  rdVector_Normalize3Acc(axis);
   Matrix_AxisAngle(local_30,axis,(90.0 - fVar11) - 90.0);
   Vec3_Transform(vv,local_30);
   *pfVar8 = fVar10 * vv[0] + *pfVar8;

@@ -60,12 +60,16 @@ void SoundModule_Unregister(void)
 #endif
 
 
-/* ---- 0x004d03d0  SoundModule_Init ---- */
+/* ---- 0x004d03d0  SoundModule_module_startup ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name SoundModule_module_startup (the remaster's GrimFandango (Linux): the static
+   module_startup of the SoundModule module (the remaster has one per module file, hence the
+   prefix); strings: 'Sound Module: Cannot allocate memory services.' | 'TIMER.external_sync' |
+   'Sound Module: Cannot allocate timer services.' | 'SNDDRIVER.driver'); was SoundModule_Init. */
 
-int SoundModule_Init(void)
+int SoundModule_module_startup(void)
 
 {
   uint uVar1;

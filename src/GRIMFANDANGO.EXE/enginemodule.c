@@ -17,7 +17,7 @@ undefined * __cdecl EngineModule_Init(GrimServices *param_1,undefined **param_2)
   g_pSvcEngineModule = param_1;
   *param_2 = EngineModule_Init;
   param_2[1] = EngineModule_Terminate;
-  param_2[2] = EngineModule_Start;
+  param_2[2] = grimlib_GameStartup;
   param_2[3] = EngineModule_Stop;
   param_2[4] = (undefined *)0x0;
   param_2[5] = (undefined *)0x0;
@@ -54,11 +54,13 @@ undefined * EngineModule_Terminate(void)
   return puVar1;
 }
 
-/* ---- 0x00482ba0  EngineModule_Start ---- */
+/* ---- 0x00482ba0  grimlib_GameStartup ---- */
 /* Module interface slot 2 (EngineModule): called by Engine_InitSubsystems, returns 0 on success
-   (non-zero makes the whole start-up unwind).  */
+   (non-zero makes the whole start-up unwind). Original name grimlib_GameStartup (the remaster's
+   GrimFandango (Linux): the only unmatched caller of Plat_GetPhysicalMemory; 1 matched neighbours
+   agree, 0 disagree); was EngineModule_Start. */
 
-int EngineModule_Start(void)
+int grimlib_GameStartup(void)
 
 {
   int iVar1;
@@ -73,17 +75,17 @@ int EngineModule_Start(void)
     if (iVar1 == 0) {
       return 1;
     }
-    iVar1 = Plat_GetPhysicalMemory();
+    iVar1 = stdPlatform_GetPhysicalRam();
     if (iVar1 < 0x1000001) {
       iMUSE_DeclareBufferSizes(88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,6);
       budget = 0xa00000;
     }
     else {
       iMUSE_DeclareBufferSizes(88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,9);
-      iVar1 = Plat_GetPhysicalMemory();
+      iVar1 = stdPlatform_GetPhysicalRam();
       budget = UINT_004e7b20;
       if (iVar1 - (int)IMG_ADDR(0x00800000) <= (int)UINT_004e7b20) {
-        iVar1 = Plat_GetPhysicalMemory();
+        iVar1 = stdPlatform_GetPhysicalRam();
         budget = iVar1 - 0x800000;
       }
     }

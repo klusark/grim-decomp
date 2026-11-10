@@ -1,6 +1,6 @@
 [
  {"addr": "004c4c40", "name": "zlibVersion", "tags": "zlib"},
- {"addr": "004c57d0", "name": "deflateParams_or_SetDictionary", "comment": "zlib deflate.c helper taking the stream only; exact identity not confirmed", "tags": "zlib"},
+ {"addr": "004c57d0", "name": "fle_zfilio_config", "comment": "zlib deflate.c helper taking the stream only; exact identity not confirmed", "tags": "zlib"},
  {"addr": "004c60e0", "name": "inflateInit2_", "tags": "zlib"},
  {"addr": "004c61f0", "name": "inflate", "tags": "zlib"},
  {"addr": "004c6640", "name": "deflateInit2_", "tags": "zlib"},

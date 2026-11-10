@@ -17,10 +17,12 @@ void __cdecl Speech_SetMode(int mode)
   return;
 }
 
-/* ---- 0x004931e0  Speech_GetMode ---- */
-/* Returns bits: 1 text, 2 voice */
+/* ---- 0x004931e0  sputActor_GetSpeechMode ---- */
+/* Returns bits: 1 text, 2 voice Original name sputActor_GetSpeechMode (the remaster's GrimFandango
+   (Linux): the only unmatched callee of Lua_GetSpeechMode; 1 matched neighbours agree, 0 disagree);
+   was Speech_GetMode. */
 
-uint Speech_GetMode(void)
+uint sputActor_GetSpeechMode(void)
 
 {
   return g_dwSpeechMode;

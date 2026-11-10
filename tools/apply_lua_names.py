@@ -14,10 +14,10 @@ SHARED = {
     "0049ddd0": ("Lua_Print_NoOp", "PrintError / PrintWarning / PrintDebug: no-op in the release build"),
     "0049e960": ("Lua_IsMoviePlaying", "also registered as IsFullscreenMoviePlaying"),
     "004a0f80": ("sputLua_ImStartSound", "also registered as `play`"),
-    "004a1080": ("Lua_ImStopAllSounds", "also registered as `quiet`"),
+    "004a1080": ("sputLua_ImStopAllSounds", "also registered as `quiet`"),
     "004a17b0": ("sputLua_ImSetVoiceEffect", "also registered as `vfx`"),
 }
-FALLBACK_NAMES = {"concatfallback": "Lua_ConcatFallback", "typeoverride": "sputLua_TypeOverride"}
+FALLBACK_NAMES = {"concatfallback": "sputLua_ConcatFallback", "typeoverride": "sputLua_TypeOverride"}
 
 funcs = {f["address"]: f for f in g.get_json("list_functions_enhanced", program=P, limit=10000)["functions"]}
 

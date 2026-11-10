@@ -85,20 +85,20 @@ void ChoreFace_OnCommand(undefined4 param_1,int param_2)
   case 0:
     goto switchD_00402299_caseD_0;
   case 1:
-    Game_FrameUpdate();
+    Main_Service();
     return;
   case 2:
-    Engine_SetPaused(1);
+    grimlib_SetPause(1);
     return;
   case 3:
-    Engine_SetPaused(0);
+    grimlib_SetPause(0);
     return;
   case 4:
     if (g_bWindowedMode != UINT_004dd388) {
       g_bWindowedMode = UINT_004dd388;
       Display_InitFromConfig();
     }
-    Engine_PopSelectedActorCostume();
+    grimlib_RestoreSelectedActorCostume();
     return;
   case 5:
     UINT_004dd388 = g_bWindowedMode;
@@ -107,7 +107,7 @@ void ChoreFace_OnCommand(undefined4 param_1,int param_2)
       Display_InitFromConfig();
     }
 switchD_00402299_caseD_0:
-    Engine_PushSelectedActorCostume(param_1);
+    grimlib_OverrideSelectedActorCostume(param_1);
     return;
   case 6:
     return;

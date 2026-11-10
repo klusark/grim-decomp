@@ -63,7 +63,7 @@ PREFIX_MAP = {
 ZLIB_NAMES = {"zlibVersion", "inflate", "deflate", "zcalloc", "zcfree", "crc32", "adler32",
               "inflateInit2_", "inflateEnd", "inflateReset", "deflateInit2_", "deflateReset",
               "deflateEnd", "putShortMSB", "flush_pending", "lm_init", "huft_build", "bi_flush",
-              "bi_windup", "copy_block", "init_block", "deflateParams_or_SetDictionary"}
+              "bi_windup", "copy_block", "init_block", "fle_zfilio_config"}
 ZLIB_PREFIXES = ("gz", "inflate_", "deflate_", "_tr_", "longest_match", "fill_window", "send_")
 # address-range overrides for *unnamed* functions (start, end, module)
 RANGES = {
@@ -1046,7 +1046,7 @@ def fix_call_args(body, vt, ctx, stats):
                 args[i] = f"PUN(float,{a.strip()})"
             elif pk == "int" and ak == "float" and is_dword_type(pt) and not NUM_RE.fullmatch(a.strip()):
                 # the reverse: a float for a dword parameter is pushed as its bits (Ghidra writes the conversion as
-                # ROUND()/(int) otherwise); the sprite component's rdPolyline_New got the width truncated to an int
+                # ROUND()/(int) otherwise); the sprite component's rdSprite_New got the width truncated to an int
                 args[i] = f"PUN({' '.join(pt.split())},(float)({a.strip()}))"
             else:
                 continue
@@ -1672,7 +1672,7 @@ def build(prog):
         with open(os.path.join(out, mod + ".c"), "w", newline="\n") as w:
             w.write("\n".join(lines))
 
-    # one-instruction `JMP target` wrappers Ghidra marks as thunks (Lua_Display ->
+    # one-instruction `JMP target` wrappers Ghidra marks as thunks (sputLua_Display ->
     # Render_Present, ImTerminate -> Im_ShutdownSubsystems ...). They have no C body;
     # a jump in inline asm defines the symbol so callers and function-pointer
     # tables (data.s) resolve. Thunks that share their target's name are the same

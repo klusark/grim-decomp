@@ -5215,8 +5215,9 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
     break;
   case 0x402:
     if (((sVar2 == 0) && (g_nLightEdSelected != -1)) &&
-       (iVar5 = Plat_InputDialog(s_New_light_name_004f0ec8,(char *)0x0,(char *)&local_28,0x20,
-                                 (char *)0x0), iVar5 != 0)) {
+       (iVar5 = grimPlat_InputDialog
+                          (s_New_light_name_004f0ec8,(char *)0x0,(char *)&local_28,0x20,(char *)0x0)
+       , iVar5 != 0)) {
       uVar3 = 0;
       if (*(int *)((int)g_pLightEdSet + 0xb8) != 0) {
         puVar8 = &UINT_008d1730;
@@ -5275,8 +5276,11 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
 #undef local_28
 
 
-/* ---- 0x004c1900  FUN_004c1900 ---- */
-undefined4 FUN_004c1900(int *param_1)
+/* ---- 0x004c1900  BatchUnsubscribe ---- */
+/* Original name BatchUnsubscribe (the remaster's GrimFandango (Linux): strings:
+   "LecShare:BatchUnsubscribe Couldn't unsubscribe from %s inte); was FUN_004c1900. */
+
+undefined4 BatchUnsubscribe(int *param_1)
 
 {
   int iVar1;
@@ -5324,7 +5328,7 @@ undefined4 FUN_004c1f40(int *param_1,uint param_2)
   PTR_00906c40 = param_1;
   UINT_008d6f14 = param_2;
   (*(code *)*param_1)(s_LECMODULE_insane_animplay_004f1360,&PTR_FUN_004f12e0);
-  (*(code *)*PTR_00906c40)(s_ANIMPLAY_insane_004f1350,&PTR_FUN_004f12f0);
+  (*(code *)*PTR_00906c40)(s_ANIMPLAY_insane_004f1350,&PTR_anm_EasyPlay_004f12f0);
   (*(code *)*PTR_00906c40)(s_DEBUG_insane_animplay_004f1338,&PTR_FUN_004f1328);
   _DAT_008d6f0c = 0x4b000;
   _DAT_008d6f08 = 1000;
@@ -5341,8 +5345,14 @@ void FUN_004c1fb0(void)
   return;
 }
 
-/* ---- 0x004c1ff0  FUN_004c1ff0 ---- */
-undefined4 FUN_004c1ff0(void)
+/* ---- 0x004c1ff0  AnimPlay_module_startup ---- */
+/* Original name AnimPlay_module_startup (the remaster's GrimFandango (Linux): the static
+   module_startup of the AnimPlay module (the remaster has one per module file, hence the prefix);
+   strings: 'AnimPlay Module: Cannot allocate bitmap services.' | 'AnimPlay Module: Cannot allocate
+   animframe services.' | 'STREAMER.spooler' | 'AnimPlay Module: Cannot allocate streamer
+   services.'); was FUN_004c1ff0. */
+
+undefined4 AnimPlay_module_startup(void)
 
 {
   g_pAnimMemory = (int *)(*(code *)PTR_00906c40[2])(s_MEMORY_workspace_004f14ec,UINT_008d6f14);
@@ -5393,8 +5403,11 @@ void FUN_004c2150(void)
   return;
 }
 
-/* ---- 0x004c21e0  FUN_004c21e0 ---- */
-int FUN_004c21e0(char *param_1,int param_2,uint param_3,undefined4 param_4,undefined4 param_5,
+/* ---- 0x004c21e0  anm_EasyPlay ---- */
+/* Original name anm_EasyPlay (the remaster's GrimFandango (Linux): strings: 'Cannot allocate render
+   bitmap.'); was FUN_004c21e0. */
+
+int anm_EasyPlay(char *param_1,int param_2,uint param_3,undefined4 param_4,undefined4 param_5,
                 undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9,
                 code *param_10,int param_11,int param_12,int param_13)
 
@@ -5430,7 +5443,7 @@ int FUN_004c21e0(char *param_1,int param_2,uint param_3,undefined4 param_4,undef
         (**(code **)(UINT_008d6f04 + 8))(&local_414);
         return iStack_404;
       }
-      iStack_404 = AnimPlay_Create(&pvStack_418,param_1,param_2,param_12,param_13,param_3);
+      iStack_404 = anm_Start(&pvStack_418,param_1,param_2,param_12,param_13,param_3);
       param_11 = iStack_408;
     } while (iStack_404 != 0);
 LAB_004c22ac:
@@ -5490,8 +5503,8 @@ int FUN_004c25c0(void *param_1,int param_2,int param_3,int param_4,int param_5,i
       UINT_004f1334 = UINT_004f1334 - 1;
     }
     (*(code *)g_pAnimStreamer[4])(*(undefined4 *)((int)param_1 + 0x60),UINT_004f1334 << 0xb);
-    iVar1 = AnimPlay_Update(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
-                            param_10);
+    iVar1 = anm_Render(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
+                       param_10);
     return iVar1;
   }
   return -1;
@@ -5632,8 +5645,14 @@ void FUN_004c2ba0(void)
   return;
 }
 
-/* ---- 0x004c2be0  FUN_004c2be0 ---- */
-int FUN_004c2be0(void)
+/* ---- 0x004c2be0  AnimFrame_module_startup ---- */
+/* Original name AnimFrame_module_startup (the remaster's GrimFandango (Linux): the static
+   module_startup of the AnimFrame module (the remaster has one per module file, hence the prefix);
+   strings: 'AnimFrame Module: Cannot allocate memory services.' | 'FLOBDEC.temp' | 'AnimFrame
+   Module: Cannot allocate bitmap services.' | "AnimFrame Module: Can't allocate overlay buffer (%ld
+   bytes)); was FUN_004c2be0. */
+
+int AnimFrame_module_startup(void)
 
 {
   int iVar1;
@@ -5798,10 +5817,14 @@ undefined4 FUN_004c2ee0(undefined1 *param_1,int param_2)
   return 0;
 }
 
-/* ---- 0x004c2fa0  FUN_004c2fa0 ---- */
-uint FUN_004c2fa0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-                 uint *param_5,uint *param_6,uint *param_7,uint param_8,undefined4 param_9,
-                 undefined4 param_10,byte *param_11,int param_12)
+/* ---- 0x004c2fa0  anm_DecodeBody ---- */
+/* Original name anm_DecodeBody (the remaster's GrimFandango (Linux): strings: "Parsing Block
+   '%c%c%c%c' (%ld)\n" | "Bad Header Found '%c%c%c%c'\n" | "Found Unknown Block '%c%c%c%c'\n"); was
+   FUN_004c2fa0. */
+
+uint anm_DecodeBody(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
+                   uint *param_5,uint *param_6,uint *param_7,uint param_8,undefined4 param_9,
+                   undefined4 param_10,byte *param_11,int param_12)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6080,10 +6103,13 @@ uint FUN_004c36a0(void)
   return UINT_008d77e8;
 }
 
-/* ---- 0x004c36f0  FUN_004c36f0 ---- */
-uint FUN_004c36f0(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-                 undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8,
-                 undefined4 param_9,undefined4 param_10,undefined4 param_11)
+/* ---- 0x004c36f0  anm_animator_Render ---- */
+/* Original name anm_animator_Render (the remaster's GrimFandango (Linux): strings: 'Read invalid
+   frame header %c%c%c%c -- CD may be dirty or da); was FUN_004c36f0. */
+
+uint anm_animator_Render(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
+                        undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8,
+                        undefined4 param_9,undefined4 param_10,undefined4 param_11)
 
 {
   uint uVar1;
@@ -6586,8 +6612,13 @@ void FUN_004c4b60(void)
   return;
 }
 
-/* ---- 0x004c4b90  FUN_004c4b90 ---- */
-undefined4 FUN_004c4b90(void)
+/* ---- 0x004c4b90  Streamer_module_startup ---- */
+/* Original name Streamer_module_startup (the remaster's GrimFandango (Linux): the static
+   module_startup of the Streamer module (the remaster has one per module file, hence the prefix);
+   strings: 'Streamer Module: Cannot allocate filio services.' | 'FILIO.io' | 'Streamer Module:
+   Cannot allocate memory services.'); was FUN_004c4b90. */
+
+undefined4 Streamer_module_startup(void)
 
 {
   PTR_008d7814 = (int *)(*(code *)PTR_008d7818[2])(s_MEMORY_workspace_004f14ec,UINT_008d7820);
@@ -6869,8 +6900,11 @@ undefined4 FUN_004c5080(int param_1)
   return 0;
 }
 
-/* ---- 0x004c50a0  FUN_004c50a0 ---- */
-int FUN_004c50a0(undefined4 *param_1,int param_2)
+/* ---- 0x004c50a0  fle_StreamerDispense ---- */
+/* Original name fle_StreamerDispense (the remaster's GrimFandango (Linux): strings: 'File Streamer:
+   Invalid frame size %ld'); was FUN_004c50a0. */
+
+int fle_StreamerDispense(undefined4 *param_1,int param_2)
 
 {
   int iVar1;
@@ -6999,8 +7033,12 @@ void FUN_004c52c0(void)
   return;
 }
 
-/* ---- 0x004c52f0  FUN_004c52f0 ---- */
-undefined4 FUN_004c52f0(void)
+/* ---- 0x004c52f0  Directory_module_startup ---- */
+/* Original name Directory_module_startup (the remaster's GrimFandango (Linux): the static
+   module_startup of the Directory module (the remaster has one per module file, hence the prefix);
+   strings: 'FILE.io' | 'Directory Module: Cannot allocate file services.'); was FUN_004c52f0. */
+
+undefined4 Directory_module_startup(void)
 
 {
   UINT_008d7828 = (*(code *)PTR_008d782c[2])(s_FILE_io_004f1c10,UINT_008d7830);
@@ -7374,7 +7412,7 @@ undefined4 FUN_004c5790(int *param_1,uint param_2)
   PTR_008d7838 = param_1;
   UINT_008d7840 = param_2;
   (*(code *)*param_1)(s_LECMODULE_insane_zfilio_004f1d24,&PTR_FUN_004f1cf8);
-  (*(code *)*PTR_008d7838)(s_FILIO_insane_zfilio_004f0ca0,&PTR_FUN_004f1d08);
+  (*(code *)*PTR_008d7838)(s_FILIO_insane_zfilio_004f0ca0,&PTR_Zfile_fle_Open_004f1d08);
   return 0;
 }
 
@@ -7387,8 +7425,13 @@ void FUN_004c5840(void)
   return;
 }
 
-/* ---- 0x004c5870  FUN_004c5870 ---- */
-undefined4 FUN_004c5870(void)
+/* ---- 0x004c5870  Zfile_module_startup ---- */
+/* Original name Zfile_module_startup (the remaster's GrimFandango (Linux): the static
+   module_startup of the Zfile module (the remaster has one per module file, hence the prefix);
+   strings: 'Zfile Module: Cannot allocate memory services.' | 'MEMORY.buffers' | 'Zfile Module:
+   Cannot allocate filio services.'); was FUN_004c5870. */
+
+undefined4 Zfile_module_startup(void)
 
 {
   g_pZfileFileIo = (int *)(*(code *)PTR_008d7838[2])(s_FILIO_chainto_004f1dcc,UINT_008d7840);
@@ -7417,8 +7460,12 @@ void FUN_004c5910(void)
   return;
 }
 
-/* ---- 0x004c5950  FUN_004c5950 ---- */
-int * FUN_004c5950(char *param_1,char *param_2)
+/* ---- 0x004c5950  Zfile_fle_Open ---- */
+/* Original name Zfile_fle_Open (the remaster's GrimFandango (Linux): the Zfile module's static
+   fle_Open (two in the remaster, hence the prefix); strings: 'Zfile Memory Alloc fail'); was
+   FUN_004c5950. */
+
+int * Zfile_fle_Open(char *param_1,char *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7617,8 +7664,12 @@ void FUN_004c5d20(void)
   return;
 }
 
-/* ---- 0x004c5d50  FUN_004c5d50 ---- */
-undefined4 FUN_004c5d50(void)
+/* ---- 0x004c5d50  StdFile_module_startup ---- */
+/* Original name StdFile_module_startup (the remaster's GrimFandango (Linux): the static
+   module_startup of the StdFile module (the remaster has one per module file, hence the prefix);
+   strings: 'StdFile Module: Cannot allocate filio services.'); was FUN_004c5d50. */
+
+undefined4 StdFile_module_startup(void)
 
 {
   g_pStdFileIo = (int *)(*(code *)PTR_008d7844[2])(s_FILIO_chainto_004f1dcc,UINT_008d784c);
@@ -9690,8 +9741,13 @@ void FUN_004cba70(void)
   return;
 }
 
-/* ---- 0x004cbaa0  FUN_004cbaa0 ---- */
-int FUN_004cbaa0(void)
+/* ---- 0x004cbaa0  DWave_module_startup ---- */
+/* Original name DWave_module_startup (the remaster's GrimFandango (Linux): the static
+   module_startup of the DWave module (the remaster has one per module file, hence the prefix);
+   strings: 'MEMORY' | 'D_WAVE: Cannot allocate sound services.' | 'SOUND' | 'D_WAVE: Cannot
+   allocate memory services.'); was FUN_004cbaa0. */
+
+int DWave_module_startup(void)
 
 {
   UINT_008da4ec = (*(code *)PTR_008d7864[2])(s_SOUND_004f3434,UINT_008da4e8);
@@ -10063,8 +10119,12 @@ void FUN_004ce320(void)
   return;
 }
 
-/* ---- 0x004ce350  FUN_004ce350 ---- */
-undefined4 FUN_004ce350(void)
+/* ---- 0x004ce350  Video_module_startup ---- */
+/* Original name Video_module_startup (the remaster's GrimFandango (Linux): the static
+   module_startup of the Video module (the remaster has one per module file, hence the prefix);
+   strings: 'Video Module: Cannot allocate memory services.' | 'VIDEO.getbm'); was FUN_004ce350. */
+
+undefined4 Video_module_startup(void)
 
 {
   PTR_008da890 = (int *)(*(code *)PTR_008da894[2])(s_MEMORY_workspace_004f14ec,UINT_008da898);

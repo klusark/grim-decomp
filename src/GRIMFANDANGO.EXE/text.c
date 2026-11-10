@@ -5,11 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x0048c050  Text_ParseLuaTable ---- */
+/* ---- 0x0048c050  GetTextParamsFromTable ---- */
 /* Reads x, y, font, width, height, fgcolor, bgcolor, ... keys from a Lua table into a text context
-    */
+   Original name GetTextParamsFromTable (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_SetSayLineDefaults; 5 matched neighbours agree, 0 disagree); was
+   Text_ParseLuaTable. */
 
-int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj)
+int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -208,8 +210,11 @@ char * __cdecl Text_ParseLineId(char *line,char *outId)
   return pcVar2 + 1;
 }
 
-/* ---- 0x00494740  Text_GetSpeed ---- */
-int Text_GetSpeed(void)
+/* ---- 0x00494740  sputActor_GetActorTextRate ---- */
+/* Original name sputActor_GetActorTextRate (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_GetTextSpeed; 1 matched neighbours agree, 0 disagree); was Text_GetSpeed. */
+
+int sputActor_GetActorTextRate(void)
 
 {
   return g_nTextSpeed;

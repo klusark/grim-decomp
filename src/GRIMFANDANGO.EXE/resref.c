@@ -5,11 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00482070  ResRef_Add ---- */
+/* ---- 0x00482070  Res_SetReference ---- */
 /* Registers a 0x34-byte reference {valid, data, tag[0x20], line, prev, next} on the resource so it
-   cannot be freed */
+   cannot be freed Original name Res_SetReference (the remaster's GrimFandango (Linux): the only
+   unmatched callee of Lua_LockSet; 10 matched neighbours agree, 0 disagree); was ResRef_Add. */
 
-void __cdecl ResRef_Add(void *ref,void *data,char *file,int line)
+void __cdecl Res_SetReference(void *ref,void *data,char *file,int line)
 
 {
   void *res;
@@ -41,10 +42,13 @@ void __cdecl ResRef_Add(void *ref,void *data,char *file,int line)
   return;
 }
 
-/* ---- 0x00482110  ResRef_Remove ---- */
+/* ---- 0x00482110  Res_RemoveReference ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name Res_RemoveReference (the remaster's GrimFandango (Linux): the only unmatched callee
+   of KeyframeComponent_TrackCallback; the only unmatched callee of Lua_UnLockSet; 5 matched
+   neighbours agree, 0 disagree); was ResRef_Remove. */
 
-void ResRef_Remove(void *ref)
+void Res_RemoveReference(void *ref)
 
 {
   void *pvVar1;
@@ -82,8 +86,8 @@ void ResRef_Release(undefined4 *param_1)
     *param_1 = 0;
     param_1[0xc] = 0;
     param_1[0xb] = 0;
-    ResRef_Add(param_1,*(void **)((int)pvVar1 + 0x14),s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,
-               0xeec);
+    Res_SetReference(param_1,*(void **)((int)pvVar1 + 0x14),
+                     s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xeec);
   }
   return;
 }

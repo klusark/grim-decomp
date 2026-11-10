@@ -216,7 +216,7 @@ def name_tables(img, funcs, shift=0):
     (Lua registration tables, the module tables).  The words are classified as string pointers (S) and function
     pointers (F, any function or thunk); a run of alternating S / F words with stride 4 is a table, and its first word
     tells the order of each pair (a run starting with S pairs each S with the F after it, one starting with F each F
-    with the S after it).  Runs shorter than two pairs or of odd length are ignored."""
+    with the S after it; the last word of an odd run is dropped).  Runs shorter than two pairs are ignored."""
     out = defaultdict(set)
     fset = set(funcs)
     for start, data in img.blocks:
@@ -239,7 +239,9 @@ def name_tables(img, funcs, shift=0):
             while j < len(kinds) and kinds[j][0] is not None and kinds[j][0] != kinds[j - 1][0]:
                 j += 1
             run = kinds[i:j]
-            if len(run) >= 4 and len(run) % 2 == 0:   # an odd run has an unknown orientation: skip it
+            if len(run) % 2:
+                run = run[:-1]   # the last word of an odd run belongs to the next object (the first tells the order)
+            if len(run) >= 4:
                 for x in range(0, len(run) - 1, 2):
                     a, b = run[x], run[x + 1]
                     st, fn = (a[1], b[1]) if a[0] == "S" else (b[1], a[1])

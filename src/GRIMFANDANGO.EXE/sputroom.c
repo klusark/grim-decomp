@@ -18,10 +18,10 @@ undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2)
   g_pSvcRoom = (GrimServices *)param_1;
   *param_2 = sputRoom_Initialize;
   param_2[1] = sputRoom_Terminate;
-  param_2[2] = sputRoom_Start;
+  param_2[2] = sputRoom_Startup;
   param_2[3] = sputRoom_Stop;
   param_2[4] = Set_SaveState;
-  param_2[5] = Set_RestoreState;
+  param_2[5] = sputRoom_Restore;
   param_2[6] = (undefined *)0x0;
   param_2[7] = (undefined *)0x0;
   puVar2 = &g_CurrentSetRef;
@@ -48,21 +48,23 @@ void sputRoom_Terminate(void)
   return;
 }
 
-/* ---- 0x004a53b0  sputRoom_Start ---- */
+/* ---- 0x004a53b0  sputRoom_Startup ---- */
 /* Module interface slot 2 (sputRoom): called by Engine_InitSubsystems, returns 0 on success
    (non-zero makes the whole start-up unwind). _Start registers the set-file chunk handlers
-   (colormaps, setups, lights, sectors) and creates the positioned-sound pool. */
+   (colormaps, setups, lights, sectors) and creates the positioned-sound pool. Original name
+   sputRoom_Startup (the remaster's GrimFandango (Linux): strings: 'setups' | 'colormaps' |
+   'sectors'); was sputRoom_Start. */
 
-undefined4 sputRoom_Start(void)
+undefined4 sputRoom_Startup(void)
 
 {
   if (UINT_008cb09c != 0) {
     return 1;
   }
-  Set_RegisterHandle(s_colormaps_004ec734,SetFile_ParseColormaps);
+  Set_RegisterHandle(s_colormaps_004ec734,sputRoom_ParseColormaps);
   Set_RegisterHandle(s_setups_004ec72c,sputRoom_ParseSetups);
   Set_RegisterHandle(s_lights_004ec724,sputRoom_ParseLights);
-  Set_RegisterHandle(s_sectors_004ec71c,SetFile_SectorsSectionHandler);
+  Set_RegisterHandle(s_sectors_004ec71c,sputRoom_ParseSectors);
   g_pPositionedSoundPool = (void **)Pool_Create(0x24,0x10,8);
   UINT_008cb09c = 1;
   return 0;
@@ -211,7 +213,7 @@ LAB_004a5767:
           iVar3 = sscanf((char *)UINT_00900520,s_direction__f__f__f_004ec7a4,pbVar6 + 0x38,
                          pbVar6 + 0x3c,pbVar6 + 0x40);
           if (iVar3 == 3) {
-            Vec3_Normalize((float *)(pbVar6 + 0x38));
+            rdVector_Normalize3Acc((float *)(pbVar6 + 0x38));
           }
           sscanf((char *)UINT_00900520,s_position__f__f__f_004ec790,pbVar6 + 0x20,pbVar6 + 0x24,
                  pbVar6 + 0x28);

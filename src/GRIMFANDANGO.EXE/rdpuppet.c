@@ -41,7 +41,7 @@ undefined4 * rdPuppet_New(void *param_1)
     puVar2 = puVar2 + 1;
   }
   if (puppet != (undefined4 *)0x0) {
-    iVar1 = rdPuppet_Init(puppet,param_1);
+    iVar1 = rdPuppet_NewEntry(puppet,param_1);
     if (iVar1 != 0) {
       *(undefined4 **)((int)param_1 + 0x14) = puppet;
       return puppet;
@@ -50,10 +50,12 @@ undefined4 * rdPuppet_New(void *param_1)
   return (undefined4 *)0x0;
 }
 
-/* ---- 0x00450560  rdPuppet_Init ---- */
-/* Six tracks of 0x134 bytes starting at +8; all stopped */
+/* ---- 0x00450560  rdPuppet_NewEntry ---- */
+/* Six tracks of 0x134 bytes starting at +8; all stopped Original name rdPuppet_NewEntry (the
+   remaster's GrimFandango (Linux): the only unmatched callee of rdPuppet_New; 1 matched neighbours
+   agree, 0 disagree); was rdPuppet_Init. */
 
-int __cdecl rdPuppet_Init(void *puppet,void *thing)
+int __cdecl rdPuppet_NewEntry(void *puppet,void *thing)
 
 {
   undefined4 *puVar1;
@@ -348,14 +350,16 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
 #endif
 
 
-/* ---- 0x00450a90  rdPuppet_Advance ---- */
+/* ---- 0x00450a90  rdPuppet_UpdateTracks ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Ported to C (build/overrides_asm_s4.c): read against the assembly only, NOT differentially tested
-   (docs/notes/asm_s*.md). */
+   (docs/notes/asm_s*.md). Original name rdPuppet_UpdateTracks (the remaster's GrimFandango (Linux):
+   the only unmatched caller of rdPuppet_AdvanceTrack; 1 matched neighbours agree, 0 disagree); was
+   rdPuppet_Advance. */
 
-void __cdecl rdPuppet_Advance(void *puppet,float seconds)
+void __cdecl rdPuppet_UpdateTracks(void *puppet,float seconds)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -873,7 +877,7 @@ undefined4 rdKeyframe_LoadEntry(char *param_1,int param_2)
   pcVar3 = Str_FileNameFromPath(param_1);
   strncpy(iVar2,pcVar3,uVar12);
   *(undefined1 *)(iVar2 + 0x1f) = 0;
-  iVar4 = ((code *)stdConffile_OpenRead)(param_1);
+  iVar4 = ((code *)stdConffile_Open)(param_1);
   if (iVar4 == 0) {
     return 0;
   }

@@ -5,15 +5,16 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00497890  KeyframeComponent_OnKey ---- */
+/* ---- 0x00497890  KeyframeChanger ---- */
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, applies a keyframe key to the actor's puppet: finds
    or adds the track (rdPuppet_AddTrack) and plays/loops/stops/fades it according to the key type
-   0..14. */
+   0..14. Original name KeyframeChanger (the remaster's GrimFandango (Linux): the only unmatched
+   caller of rdPuppet_PlayTrack; 5 matched neighbours agree, 0 disagree); was
+   KeyframeComponent_OnKey. */
 
-void KeyframeComponent_OnKey
-               (undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5,
-               undefined4 param_6,undefined4 param_7,undefined4 param_8)
+void KeyframeChanger(undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5,
+                    undefined4 param_6,undefined4 param_7,undefined4 param_8)
 
 {
   void *puppet;
@@ -44,10 +45,10 @@ void KeyframeComponent_OnKey
         return;
       }
       *(int *)(*(int *)(*param_2 + 0x40) + 0x48) = *param_2;
-      ResRef_Add((void *)(*param_2 + 0x54 + track * 0x34),data,
-                 s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xe3a);
+      Res_SetReference((void *)(*param_2 + 0x54 + track * 0x34),data,
+                       s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xe3a);
       *(undefined4 *)(*param_2 + 0x18c) = param_8;
-      rdPuppet_SetTrackUserData(puppet,track,KeyframeComponent_TrackCallback);
+      rdPuppet_SetTrackUserData(puppet,track,sputCostume_PuppetHook);
       bVar2 = true;
       goto LAB_00497960;
     }
@@ -154,21 +155,23 @@ LAB_00497bc4:
   return;
 }
 
-/* ---- 0x00497cb0  KeyframeComponent_TrackCallback ---- */
+/* ---- 0x00497cb0  sputCostume_PuppetHook ---- */
 /* Track user-data callback installed by KeyframeComponent_OnKey (rdPuppet_SetTrackUserData):
    forwards track markers of the playing animation to Lua_CallCostumeMarkerHandler for the actor and
-   drops the keyframe ResRef when the track ends. */
+   drops the keyframe ResRef when the track ends. Original name sputCostume_PuppetHook (the
+   remaster's GrimFandango (Linux): the only unmatched caller of Lua_CallCostumeMarkerHandler; 1
+   matched neighbours agree, 0 disagree); was KeyframeComponent_TrackCallback. */
 
-void KeyframeComponent_TrackCallback(int param_1,int param_2,uint param_3)
+void sputCostume_PuppetHook(int param_1,int param_2,uint param_3)
 
 {
   int iVar1;
   
   if (param_1 != 0) {
     iVar1 = Cos_InstGetUserData(*(int *)(param_1 + 0x18c));
-    Lua_CallCostumeMarkerHandler((void *)((int)g_pActorTable + iVar1 * 0xa8),param_3);
+    sputLua_DoCostumeMarkerCallback((void *)((int)g_pActorTable + iVar1 * 0xa8),param_3);
     if (param_3 == 0) {
-      ResRef_Remove((void *)(param_1 + 0x54 + param_2 * 0x34));
+      Res_RemoveReference((void *)(param_1 + 0x54 + param_2 * 0x34));
     }
   }
   return;
@@ -193,7 +196,7 @@ int * __cdecl KeyframeComponent_NewInstance(int inst,int component,int create)
   iVar1 = inst;
   if (create == 0) {
     iVar1 = Cos_InstGetInstanceData(inst,component,(int *)0x0);
-    ResRef_Remove((void *)(iVar1 + 4));
+    Res_RemoveReference((void *)(iVar1 + 4));
     (*g_pSvcCostume->pFree)(iVar1);
     return (int *)0x0;
   }
@@ -210,7 +213,7 @@ int * __cdecl KeyframeComponent_NewInstance(int inst,int component,int create)
     *piVar4 = 0;
     piVar4 = piVar4 + 1;
   }
-  ResRef_Add(piVar2 + 1,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xeda);
+  Res_SetReference(piVar2 + 1,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xeda);
   piVar2[0xe] = *(int *)(component + 0x34);
   piVar2[0xf] = *(int *)(component + 0x38);
   iVar1 = Cos_InstGetInstanceData(iVar1,inst,(int *)0x0);
@@ -271,13 +274,13 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
       ((code *)strncpy)(&DAT_008ca7b8,uVar2);
       DAT_008ca837 = 0;
       local_24 = (uint)Str_Basename(g_szDialogFileName);
-      data = Resource_Load(0x4659454b,g_szDialogFileName);
+      data = sputResource_Alloc(0x4659454b,g_szDialogFileName);
     }
     else {
       strncpy(&local_20,param_5,0x1f);
       local_1 = 0;
       name = (char *)strtok(&local_20,&DAT_004ea52c);
-      data = Resource_Load(0x4659454b,name);
+      data = sputResource_Alloc(0x4659454b,name);
       uVar1 = strtok(0,&DAT_004ea52c);
       if (uVar1 != 0) {
         local_2c = (uint)atoi(uVar1);
@@ -293,7 +296,7 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
         *puVar4 = 0;
         puVar4 = puVar4 + 1;
       }
-      ResRef_Add(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xf29);
+      Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xf29);
       ref[0xe] = local_2c;
       ref[0xd] = local_28;
       if (param_5 == 0) {
@@ -361,7 +364,7 @@ undefined4 KeyframeAdjuster(int *param_1,undefined4 param_2)
 undefined4 KeyframeComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3)
 
 {
-  ResRef_Remove(param_3);
+  Res_RemoveReference(param_3);
   (*g_pSvcCostume->pFree)(param_3);
   return 1;
 }

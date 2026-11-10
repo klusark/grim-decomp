@@ -68,11 +68,12 @@ void MeshComponent_Stop(int param_1)
   return;
 }
 
-/* ---- 0x00496e20  MeshComponent_Create ---- */
+/* ---- 0x00496e20  MeshRequester ---- */
 /* Registers a MODL/MMDL component attached to a mesh node ('Mesh N: name'); with no node name the
-   editor shows 'Select mesh node to add' */
+   editor shows 'Select mesh node to add' Original name MeshRequester (the remaster's GrimFandango
+   (Linux): strings: 'Mesh %d (%s)' | 'Select mesh node to add...'); was MeshComponent_Create. */
 
-undefined4 MeshComponent_Create(uint param_1,int param_2,int *param_3,int param_4,char *param_5)
+undefined4 MeshRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -145,7 +146,7 @@ undefined4 MeshComponent_Create(uint param_1,int param_2,int *param_3,int param_
         iVar5 = *(int *)(iVar6 + 0x58);
         if (*(int *)(iVar3 + 0x50 + iVar5) <= *(int *)(iStack_4 + 0x50 + iVar5)) break;
         sprintf(buf,s_Mesh__d___s__004ea64c,puVar12,iVar3 + iVar5);
-        MeshComponent_Create(param_1,param_2,param_3,param_4,buf);
+        MeshRequester(param_1,param_2,param_3,param_4,buf);
         puVar12 = puVar12 + 1;
         iVar3 = iVar3 + 0xb8;
       } while (puVar12 < *(undefined **)(iVar6 + 0x54));

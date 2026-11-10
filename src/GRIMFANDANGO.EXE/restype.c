@@ -155,7 +155,7 @@ int __cdecl ResType_BitmapHandler(void *msg)
   }
   iVar1 = *(int *)msg;
   if (iVar1 == 1) {
-    pvVar2 = stdBitmap_LoadFile(*(char **)((int)msg + 4),0,0);
+    pvVar2 = stdLoadImageData(*(char **)((int)msg + 4),0,0);
     if (pvVar2 != (void *)0x0) {
       if ((((*(int *)((int)pvVar2 + 0x20) != 3) && (*(int *)((int)pvVar2 + 0x20) == 0)) &&
           (*(int *)((int)pvVar2 + 0x28) == 1)) && (iVar1 = 0, 0 < *(int *)((int)pvVar2 + 100))) {
@@ -165,9 +165,10 @@ int __cdecl ResType_BitmapHandler(void *msg)
           iVar3 = 0;
           if (0 < *(int *)((int)surface + 0x10)) {
             do {
-              Render_RemapPixels((ushort *)
-                                 (iVar3 * *(int *)((int)surface + 0x18) +
-                                 *(int *)((int)surface + 0x5c)),*(uint *)((int)surface + 0xc));
+              sputRender_ColorCorrect
+                        ((ushort *)
+                         (iVar3 * *(int *)((int)surface + 0x18) + *(int *)((int)surface + 0x5c)),
+                         *(uint *)((int)surface + 0xc));
               iVar3 = iVar3 + 1;
             } while (iVar3 < *(int *)((int)surface + 0x10));
           }
@@ -175,7 +176,7 @@ int __cdecl ResType_BitmapHandler(void *msg)
           pixels = (ushort *)((int)surface + 0x60);
           pixels[0] = 0xf81f;
           pixels[1] = 0;
-          Render_RemapPixels(pixels,1);
+          sputRender_ColorCorrect(pixels,1);
           iVar1 = iVar1 + 1;
         } while (iVar1 < *(int *)((int)pvVar2 + 100));
       }
@@ -231,11 +232,13 @@ int __cdecl ResType_CostumeHandler(void *msg)
   return (int)pvVar2;
 }
 
-/* ---- 0x0048dab0  ResType_ColormapHandler ---- */
+/* ---- 0x0048dab0  sputResource_ColormapHandler ---- */
 /* Resource type handler for 'CMAP' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
-   the size. Load = rdColormap_Load + 16-bit tables + pixel remap. */
+   the size. Load = rdColormap_Load + 16-bit tables + pixel remap. Original name
+   sputResource_ColormapHandler (the remaster's GrimFandango (Linux): the only unmatched caller of
+   rdColormap_Free; 2 matched neighbours agree, 0 disagree); was ResType_ColormapHandler. */
 
-void * ResType_ColormapHandler(int *param_1)
+void * sputResource_ColormapHandler(int *param_1)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -280,7 +283,7 @@ void * ResType_ColormapHandler(int *param_1)
       rdColormap_Build16bitTables
                 (*(undefined2 **)((int)pvVar2 + 0x348),(ushort *)((int)pvVar2 + 0x30),0,0,0,
                  (int)&local_38);
-      Render_RemapPixels(*(ushort **)((int)pvVar2 + 0x348),0x4000);
+      sputRender_ColorCorrect(*(ushort **)((int)pvVar2 + 0x348),0x4000);
       pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
       return pvVar2;
     }
@@ -355,11 +358,14 @@ void * ResType_FontHandler(int *param_1)
 #endif
 
 
-/* ---- 0x0048dc60  ResType_KeyframeHandler ---- */
+/* ---- 0x0048dc60  sputResource_KeyframeHandler ---- */
 /* Resource type handler for 'KEYF' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
-   the size. Load = rdKeyframe_Load (default 15 fps). */
+   the size. Load = rdKeyframe_Load (default 15 fps). Original name sputResource_KeyframeHandler
+   (the remaster's GrimFandango (Linux): the only unmatched caller of rdKeyframe_Free; the only
+   unmatched caller of rdKeyframe_Load; 2 matched neighbours agree, 0 disagree); was
+   ResType_KeyframeHandler. */
 
-void * ResType_KeyframeHandler(int *param_1)
+void * sputResource_KeyframeHandler(int *param_1)
 
 {
   int iVar1;
@@ -406,11 +412,13 @@ void * ResType_KeyframeHandler(int *param_1)
   return (void *)0x1;
 }
 
-/* ---- 0x0048dd20  ResType_MaterialHandler ---- */
+/* ---- 0x0048dd20  sputResource_MaterialHandler ---- */
 /* Resource type handler for 'MAT ' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
-   the size. Load = rdMaterial_LoadFile, falls back to dflt.mat. */
+   the size. Load = rdMaterial_LoadFile, falls back to dflt.mat. Original name
+   sputResource_MaterialHandler (the remaster's GrimFandango (Linux): strings: 'dflt.mat'); was
+   ResType_MaterialHandler. */
 
-void * ResType_MaterialHandler(int *param_1)
+void * sputResource_MaterialHandler(int *param_1)
 
 {
   void *material;
@@ -425,9 +433,9 @@ void * ResType_MaterialHandler(int *param_1)
   if (iVar1 == 1) {
     material = (void *)(**(code **)(UINT_008ca1d0 + 0x20))
                                  (0xb0,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0x49f);
-    iVar1 = rdMaterial_LoadFile((char *)param_1[1],material,0,0);
+    iVar1 = rdMaterial_LoadEntry((char *)param_1[1],material,0,0);
     if (iVar1 == 0) {
-      iVar1 = rdMaterial_LoadFile(s_dflt_mat_004e9c68,material,0,0);
+      iVar1 = rdMaterial_LoadEntry(s_dflt_mat_004e9c68,material,0,0);
       if (iVar1 == 0) {
         rdMaterial_FreeContents(material);
         (**(code **)(UINT_008ca1d0 + 0x24))(material);
@@ -497,7 +505,7 @@ void * ResType_SetHandler(int *param_1)
   if (param_1[2] == 0x20544553) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
-      pvVar2 = (void *)Set_LoadFile(param_1[1]);
+      pvVar2 = (void *)sputResource_SetHandler(param_1[1]);
       if (pvVar2 != (void *)0x0) {
         pvVar2 = Res_Register(param_1[2],(char *)param_1[1],pvVar2);
         return pvVar2;

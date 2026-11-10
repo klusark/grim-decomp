@@ -149,7 +149,7 @@ void InsaneTimer_StopThread(void)
     }
 }
 
-int InsaneTimer_Init(void)
+int InsaneTimer_module_startup(void)
 {
     g_pTimerWorkspace = ((void *(*)(const char *, uint))g_pTimerServices[2])(s_MEMORY_workspace_004f14ec, g_dwTimerWorkspaceSize);
     if (g_pTimerWorkspace == 0) {
@@ -349,7 +349,7 @@ void DsndDriver_Unregister(void)
     ((void (*)(const char *))g_pDsndServices[1])(s_LECMODULE_insane_dsnd_004f3fec);
 }
 
-int DsndDriver_Init(void)
+int DsndDriver_module_startup(void)
 {
     g_pDsndClock = ((int *(*)(const char *, uint))g_pDsndServices[2])(s_TIMER_clock_004f4054, g_dwDsndModuleSize);
     if (g_pDsndClock == 0) {

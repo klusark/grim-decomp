@@ -19,16 +19,16 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 
 | address | name | module | reason |
 |---|---|---|---|
-| 004a1a00 | `Lua_DimRegion` | lua.c | register-passed value or callee-saved register used across a call (unaff_EDI,unaff_ESI) |
-| 004a26b0 | `Lua_RestoreCacheRect` | lua.c | register-passed value or callee-saved register used across a call (unaff_ESI) |
+| 004a1a00 | `sputLua_DimRegion` | lua.c | register-passed value or callee-saved register used across a call (unaff_EDI,unaff_ESI) |
+| 004a26b0 | `sputLua_RestoreCacheRect` | lua.c | register-passed value or callee-saved register used across a call (unaff_ESI) |
 | 004a4e80 | `PositionedSound_Apply` | sound.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: unaff_EBP,unaff_ESI,_ftol(); register-passed value or callee-saved register used across a call (unaff_EBP,unaff_ESI) |
 | 004a5d50 | `ObjectState_Create` | objstate.c | C++ exception frame (SEH registration) around allocations |
 | 004a7bc0 | `SetFile_ParseSectors` | sector.c | C++ exception frame (SEH registration) around allocations; calls a function whose result Ghidra does not see (Sector_SetSavedType) |
 | 004a83c0 | `Walker_TurnHeading` | walker.c | not converted yet (no known artifact); see notes below |
-| 004a85b0 | `Walker_SetConstraint` | walker.c | not converted yet (no known artifact); see notes below |
+| 004a85b0 | `Puck_Constrain` | walker.c | not converted yet (no known artifact); see notes below |
 | 004a89b0 | `Walker_SetSectorFrame` | walker.c | not converted yet (no known artifact); see notes below |
 | 004a8b00 | `Walker_DrawDebugAxes` | walker.c | register-passed value or callee-saved register used across a call (in_ECX) |
-| 004a9d00 | `SectorList_ShrinkWalkSectors` | sector.c | address of a parameter slot is taken (scanf-style outputs / reused slots); address of a parameter slot is taken (scanf-style outputs / reused slots) |
+| 004a9d00 | `ShrinkBoxes` | sector.c | address of a parameter slot is taken (scanf-style outputs / reused slots); address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 004aa410 | `ObjectState_Construct` | objstate.c | C++ exception frame (SEH registration) around allocations |
 | 004aa4c0 | `ObjectState_Destruct` | objstate.c | C++ exception frame (SEH registration) around allocations |
 | 004ab210 | `Text_LayoutString` | text.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
@@ -411,7 +411,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
   luaI_startscript), luaY_lex, luaY_parse, match, string.format, tostring, the undump helpers and lua_printstack are C now
   (hand-written ones are in build/overrides.c, blocks marked `agentJ`).  Remaining: setjmp users (lua_updatetasks,
   luaD_protectedrun, protectedparser), lvm__dd/lstate pieces listed above, and the MSVC C runtime.
-- EXE >= 0x4a0000: hand-written C for Lua_DimRegion, Lua_RestoreCacheRect, PositionedSound_Apply, Smush_SetFile,
+- EXE >= 0x4a0000: hand-written C for sputLua_DimRegion, sputLua_RestoreCacheRect, PositionedSound_Apply, Smush_SetFile,
   DSound_SetPrimaryVolume (build/jtmp/ov_exe_h.c) and for CHORE Cos_New*Tag, Cos_Save, Cos_Restore, FUN_100041e0
   (build/jtmp/ov_chore_j.c) were written but NOT enabled: not verified before the wrap-up.  Ghidra return types of
   Walker_TurnHeading/SetConstraint/SetSectorFrame (void), Text_NextChar (int) and luaD_callC (int) were fixed, so those

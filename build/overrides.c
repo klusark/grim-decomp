@@ -277,13 +277,13 @@ undefined *Display_InitFromConfig(void)
 
 /* Costume_ApplyScale (0x495510): called before and after the meshes of a scaled actor are drawn; it
  * multiplies the bounding radius of every model (and of every mesh) by actor+0x30 so that the
- * frustum test in rdModel_DrawMesh covers the scaled-up geometry, then stores the reciprocal of the
+ * frustum test in rdModel3_DrawMeshImpl covers the scaled-up geometry, then stores the reciprocal of the
  * scale in actor+0x30 so that the second call undoes the first. The original code stores the
  * reciprocal inside the per-component loop, so the factor alternates s, 1/s, s, ... from component to
  * component: with an even number of components (Manny has 26) the second call does not undo the
  * first, every call scales the even components by s and the odd ones by 1/s again, and the radii
  * drift by s^2 per frame (to infinity / zero). A model whose radius has shrunk is judged "inside the
- * frustum" although its polygons stick out, rdModel_AddMeshToCache then skips the clipper, and an
+ * frustum" although its polygons stick out, rdModel3_DrawFace then skips the clipper, and an
  * unclipped polygon on the screen edge makes the span routines write rows outside the z-buffer.
  * Here the factor is the same for all components and is inverted once per call. Non-model
  * components (type != 1, e.g. colormaps) are left alone: the original multiplied a float at +0x5c of
@@ -460,7 +460,7 @@ static void walk_scale_init(void)
 #define ACT_F(p, off) (*(float *)((char *)(p) + (off)))
 
 /* Actor_UpdateWalker (0x491110), rewritten from the disassembly with the walk speed scale added. Actor layout (see the
- * plate comment of Actor_Create): +8 flags (bit 0 = following a path), +0xa4 extra. Extra: +0xc walk-forward flag,
+ * plate comment of sputActor_AllocateActor): +8 flags (bit 0 = following a path), +0xa4 extra. Extra: +0xc walk-forward flag,
  * +0x10 turn direction (-1/0/1), +0x18 walk rate, +0x1c turn rate, +0x20 yaw done, +0x28 yaw error, +0x1b4 walker,
  * +0x1bc follow-boxes off, +0x41c time scale. */
 void Actor_UpdateWalker(int actor)
@@ -471,13 +471,13 @@ void Actor_UpdateWalker(int actor)
 
     walk_scale_init();
     if (ACT_I(extra, 0x10) != 0 && (ACT_I(actor, 8) & 1) == 0) {
-        dt = Timer_GetFrameSeconds();
+        dt = sputTime_GetFrameTimeFlex();
         Walker_TurnHeading(walker, (float)ACT_I(extra, 0x10) * ACT_F(extra, 0x1c) * dt * ACT_F(extra, 0x41c));
     }
     extra = ACT_I(actor, 0xa4);
     if (ACT_I(extra, 0xc) != 0) {
         int a2, a3;
-        dt = Timer_GetFrameSeconds();
+        dt = sputTime_GetFrameTimeFlex();
         if (ACT_I(extra, 0x1bc) == 0) {
             a3 = ACT_I(extra, 0x10) != 1;
             a2 = ACT_I(extra, 0x10) != -1;
@@ -537,7 +537,7 @@ static struct { const char *name; void *fn; } mod_api[] = {
  * library and stderrorim registered inside lua_open being the two oldest. A library of ours that is registered after
  * them would shift the id of every older library by one (an original save then calls the wrong functions or a null
  * pointer), so it has to be the OLDEST one: names/asm_patches.json calls GRIM_RegisterModApiLib at the start of
- * Lua_InitGameLibs, before anything has opened the Lua state (lua_recognizelib only needs the allocator), and
+ * sputLua_Startup, before anything has opened the Lua state (lua_recognizelib only needs the allocator), and
  * GRIM_RegisterModApi right after the engine's own table (state exists then) to create the globals. */
 void GRIM_RegisterModApiLib(void)
 {
@@ -568,16 +568,16 @@ void GRIM_RegisterModApi(void)
 }
 
 /* ==== agentJ: walker / sector functions whose decompilation reuses a parameter slot as a float local ====
- * Ghidra types `a1` of Walker_TurnToPoint (a pointer on entry, the turn angle later), of Actor_GetYawToPoint and the
+ * Ghidra types `a1` of Puck_PointAt (a pointer on entry, the turn angle later), of Puck_GetYawToPoint and the
  * x87 result of Vec3_NormalizeTo (a float in ST0 that the code keeps across calls) in ways that compile to garbage, so
  * these three are written out in C (same operations in the same order as the machine code). */
 
 /* Vec3_NormalizeTo (0x446920) normalises src into dst and returns the original length in ST(0); Ghidra has it as void */
 #define Vec3_NormalizeToLen ((float (*)(float *, float *))Vec3_NormalizeTo)
 
-/* Walker_TurnToPoint (0x4a8450): turns the walker towards a point (in set coordinates) by at most maxTurn degrees.
+/* Puck_PointAt (0x4a8450): turns the walker towards a point (in set coordinates) by at most maxTurn degrees.
  * Returns the signed turn angle that was applied (positive = the point is on the right of the heading). */
-float __thiscall Walker_TurnToPoint(void *this, float *point, float maxTurn)
+float __thiscall Puck_PointAt(void *this, float *point, float maxTurn)
 {
     float v[3];
     float angle;
@@ -589,8 +589,8 @@ float __thiscall Walker_TurnToPoint(void *this, float *point, float maxTurn)
     if (sector != 0)
         Sector_FixPlaneCoordinate(sector, (int)v);   /* keeps the point on the plane of the walker's sector */
     Walker_ToLocalSpace(this, v);
-    Vec3_Normalize(v);
-    angle = 90.0f - Math_AsinDegreesSeries(v[1]);
+    rdVector_Normalize3Acc(v);
+    angle = 90.0f - stdMath_ArcSin3(v[1]);
     if (maxTurn < angle)
         angle = maxTurn;
     if (0.0f < v[0])
@@ -599,8 +599,8 @@ float __thiscall Walker_TurnToPoint(void *this, float *point, float maxTurn)
     return angle;
 }
 
-/* Actor_GetYawToPoint (0x4a8500): the yaw (walker heading + the turn needed) that points the walker at a point */
-float __thiscall Actor_GetYawToPoint(void *this, float *point)
+/* Puck_GetYawToPoint (0x4a8500): the yaw (walker heading + the turn needed) that points the walker at a point */
+float __thiscall Puck_GetYawToPoint(void *this, float *point)
 {
     float v[3];
     float angle;
@@ -612,8 +612,8 @@ float __thiscall Actor_GetYawToPoint(void *this, float *point)
     if (sector != 0)
         Sector_FixPlaneCoordinate(sector, (int)v);
     Walker_ToLocalSpace(this, v);
-    Vec3_Normalize(v);
-    angle = 90.0f - Math_AsinDegreesSeries(v[1]);
+    rdVector_Normalize3Acc(v);
+    angle = 90.0f - stdMath_ArcSin3(v[1]);
     if (0.0f < v[0])
         angle = angle * -1.0f;
     return *(float *)(Walker_GetAngles((int)this) + 4) + angle;
@@ -641,8 +641,8 @@ float __thiscall Sector_EdgeDistance(void *this, int edge, float *point)
     toPoint[2] = point[2] - v0[3];
     Vec3_NormalizeToLen(edgeUnit, edgeDir);
     dist = Vec3_NormalizeToLen(pointUnit, toPoint);
-    angle = Math_AsinDegreesSeries(pointUnit[2] * edgeUnit[2] + pointUnit[1] * edgeUnit[1] + pointUnit[0] * edgeUnit[0]);
-    Math_SinCosTable(90.0f - angle, &sinA, &cosA);
+    angle = stdMath_ArcSin3(pointUnit[2] * edgeUnit[2] + pointUnit[1] * edgeUnit[1] + pointUnit[0] * edgeUnit[0]);
+    stdMath_SinCos(90.0f - angle, &sinA, &cosA);
     return sinA * dist;
 }
 /* ==== end agentJ walker block ==== */
@@ -656,7 +656,7 @@ float __thiscall Sector_EdgeDistance(void *this, int edge, float *point)
 /* The iMUSE re-entrancy guard (DAT_100172c0, Enter/Leave around nearly every Im* call) is a plain counter:
  * Enter is INC without LOCK, Leave is load / test / dec / store. The WINMM heartbeat thread and the main thread
  * leave at the same moment now and then, both read 2 and store 1, and the counter stays 1 for good: ImHeartbeat
- * (which only runs at 0) never runs again, no stream is consumed and SoundsFloodMusicBuffer (Set_LoadResources)
+ * (which only runs at 0) never runs again, no stream is consumed and SoundsFloodMusicBuffer (sputRoom_LoadResources)
  * spins forever (seen with fast set switches and with the original binary too). Same semantics, made atomic. */
 /* OVERRIDES: Im_GuardEnter Im_GuardLeave */
 __asm__(".text\n"
@@ -1088,7 +1088,7 @@ void Lua_Print_NoOp(void)
     }
 }
 
-/* The frame time of Game_FrameUpdate (0x401721 loads the one-shot "fixed frame time" DAT_004f5a48, 0 = wall
+/* The frame time of Main_Service (0x401721 loads the one-shot "fixed frame time" DAT_004f5a48, 0 = wall
  * clock): GRIM_SIMTIME=<ms> makes every frame that long whatever the machine does (the scripted tests compare
  * against values recorded on the original with a fixed 17 ms frame). names/asm_patches.json calls this. */
 int GRIM_SimTime(void)
@@ -1165,12 +1165,12 @@ int __cdecl SaveGame_Read(void *buf, int n)
 /* ---- Engine_LoadGame (0x483240) with a post-load pass for the text objects' speaker pointers ----
  * A speech text object (flag 4, made by Actor_SayLine) keeps a RAW pointer to its actor at +0x254. sputText saves it as is
  * and nothing remaps it on load, so it is only right when the actor table sits at the address it had when the game was
- * saved: the original game (heap addresses differ from run to run, and Actor_Create reallocs the table) loaded such a save
- * with a stale pointer and Lua_ExpireText then zeroed a word of some other heap block; in the rebuilt engine the same stale
+ * saved: the original game (heap addresses differ from run to run, and sputActor_AllocateActor reallocs the table) loaded such a save
+ * with a stale pointer and sputText_ExpireTextQueueL then zeroed a word of some other heap block; in the rebuilt engine the same stale
  * pointer is a different address and the write faults. What the save does keep consistent is the other direction: the
- * actor's extra data +0x1ec holds the text object, which sputActor_RestoreState maps through TextObject_FindBySelf. So after
+ * actor's extra data +0x1ec holds the text object, which sputActor_Restore maps through TextObject_FindBySelf. So after
  * the restore hooks, link every text object back to the actor that points at it, and drop the speech flag of text objects
- * no actor points at (they would be dereferenced by Lua_ExpireText). */
+ * no actor points at (they would be dereferenced by sputText_ExpireTextQueueL). */
 static void GRIM_FixTextActors(void)
 {
     char *table = (char *)g_pActorTable;
@@ -1247,7 +1247,7 @@ void Engine_LoadGame(void)
             (*(code *)g_pfnIMuseRestoreHook)(SaveGame_Read);
         GRIM_FixTextActors();
         Resource_SetNoPurge(0);
-        set = Set_GetCurrent();
+        set = sputRoom_GetCurrentRoom();
         setupIdx = set == 0 ? 0 : *(int *)((int)set + 0xb4);
         Set_SwitchSetup(set, setupIdx);
         gzclose((int)UINT_008a8770);
@@ -1258,7 +1258,7 @@ void Engine_LoadGame(void)
         rect[1] = 0;
         rect[2] = 0x280;
         rect[3] = 0x1e0;
-        Render_InvalidateRect(rect, 1);
+        MarkDirtyRect(rect, 1);
     }
 }
 #endif /* GRIM_EXE (Engine_LoadGame) */

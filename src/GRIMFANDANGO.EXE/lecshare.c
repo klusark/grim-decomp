@@ -372,10 +372,12 @@ undefined4 LecShare_Release(uint param_1)
   return 1;
 }
 
-/* ---- 0x004c1850  LecShare_BatchSubscribe ---- */
-/* Resolves a null-terminated list of {out, name} subscriptions */
+/* ---- 0x004c1850  BatchSubscribe ---- */
+/* Resolves a null-terminated list of {out, name} subscriptions Original name BatchSubscribe (the
+   remaster's GrimFandango (Linux): strings: "LecShare:BatchSubscribe Couldn't subscribe to %s
+   interface.); was LecShare_BatchSubscribe. */
 
-undefined4 LecShare_BatchSubscribe(int *param_1,char *param_2)
+undefined4 BatchSubscribe(int *param_1,char *param_2)
 
 {
   int *piVar1;

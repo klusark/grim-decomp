@@ -21,7 +21,7 @@
  {"addr": "00402b60", "name": "Display_PickDefault", "proto": "int Display_PickDefault(int wantFullscreen, int want3D, int * deviceIdx, int * modeIdx, int * threeDIdx)", "tags": "display"},
  {"addr": "00402930", "name": "Display_InitFromConfig", "comment": "Uses the registry's last display, else picks a default, then Display_Select", "tags": "display"},
  {"addr": "00473c80", "name": "Display_SelectDevice", "proto": "int Display_SelectDevice(int deviceIdx)", "tags": "display"},
- {"addr": "00473a40", "name": "Display_EnumDevices", "comment": "Adds the 'Window Display Device' (DIBsection windowed) entry then DirectDrawEnumerate adds the DirectDraw devices", "tags": "display"},
+ {"addr": "00473a40", "name": "stdDisplay_Startup", "comment": "Adds the 'Window Display Device' (DIBsection windowed) entry then DirectDrawEnumerate adds the DirectDraw devices", "tags": "display"},
  {"addr": "00473370", "name": "Win_GetMainHwnd", "proto": "HWND Win_GetMainHwnd(void)", "tags": "window"},
  {"addr": "007f6088", "global": "g_pMainHwnd", "type": "void *", "comment": "Handle of the main game window"},
 
@@ -34,7 +34,7 @@
   "comment": "Fills the 8-entry module interface {init, 0, shutdown=FUN_004c1e50, update, 0...} for the sound module", "tags": "services"},
  {"addr": "00482540", "name": "EngineModule_Init", "proto": "int EngineModule_Init(GrimServices * svc, ModuleIface * iface)",
   "comment": "Fills the engine module interface and registers the two Lua/engine callback tables (8 + 6 entries)", "tags": "services"},
- {"addr": "0048d1a0", "name": "Engine_RegisterShutdownHook", "proto": "void Engine_RegisterShutdownHook(void * fn)", "comment": "Appends fn to the 9-slot hook array g_pShutdownHooks", "tags": "services"},
+ {"addr": "0048d1a0", "name": "sputControl_AddCallback", "proto": "void sputControl_AddCallback(void * fn)", "comment": "Appends fn to the 9-slot hook array g_pShutdownHooks", "tags": "services"},
 
  {"addr": "004038a0", "name": "Reg_Open", "proto": "void Reg_Open(HKEY root, char * subkey)",
   "comment": "W32Util/wuregistry: creates/opens the game key; if its Version value differs from ours the key is deleted and recreated. Then caches all value names.", "tags": "registry"},

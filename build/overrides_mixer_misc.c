@@ -272,7 +272,7 @@ extern int g_nAnimDelayTotal __asm__("_UINT_008d6f28");     /* sum of the frame 
 /* Creates the player: allocates the AnimPlay object, opens the streamer, sets the frame delay from the frame rate
  * (1193180 / fps, the ticks of the 1.19 MHz clock), resets the state, opens the file and starts the two timers.  Returns
  * 0, or -1 with *out = 0 (and everything released) when a step fails. */
-int AnimPlay_Create(void **pout, char *name, int fps, int streamArg1, int streamArg2, uint flags)
+int anm_Start(void **pout, char *name, int fps, int streamArg1, int streamArg2, uint flags)
 {
     AnimPlay **out = (AnimPlay **)pout;
     AnimPlay *p = SVC_CALL(g_pAnimMemory, 0, AnimPlay *, (int, const char *, int))(0x70, ANIM_FILE, 0x140);
@@ -351,14 +351,14 @@ void AnimPlay_Destroy(void **ppIn)
  * (state 5 is the first step: it just starts the frame decoder).  The sound position is compared with the frame counter
  * (66.67 ms per frame) and the frame delay is sped up or slowed down by 1/8 or 1/16 of the nominal delay, within 3/4 .. 4/3
  * of it, to keep the picture in sync.  Returns the state: <0 error, 1 finished, 6 nothing to do. */
-int AnimPlay_Update(void *pIn, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10)
+int anm_Render(void *pIn, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10)
 {
     AnimPlay *p = (AnimPlay *)pIn;
     int lead, buffered, base, step;
     uint flags;
 
     if (p->state == 5) {
-        p->state = FUN_004c36f0((int)p, a2, a3, a4, a5, a6, a7, a8, p->flags, a9, a10);
+        p->state = anm_animator_Render((int)p, a2, a3, a4, a5, a6, a7, a8, p->flags, a9, a10);
         if (p->state < 0) {
             p->failed = 1;
             return p->state;
@@ -404,7 +404,7 @@ int AnimPlay_Update(void *pIn, int a2, int a3, int a4, int a5, int a6, int a7, i
     flags = p->flags;
     if (p->lagMode != 0 && (flags & 2) == 0)
         flags |= 0x8000;
-    p->state = FUN_004c36f0((int)p, a2, a3, a4, a5, a6, a7, a8, flags, a9, a10);
+    p->state = anm_animator_Render((int)p, a2, a3, a4, a5, a6, a7, a8, flags, a9, a10);
     if (g_pAnimDebug != 0 && (g_dwAnimDebugFlags & 0xc0000000) != 0) {
         void **d = (void **)g_pAnimDebug;
         int v = SVC_CALL(d, 7, int, (int, int))(4, 0x20);

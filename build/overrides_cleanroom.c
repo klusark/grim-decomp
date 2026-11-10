@@ -78,8 +78,8 @@ float Math_AsinDegrees(float x)
     return neg ? -v : v;
 }
 
-/* Math_AsinDegreesSeries (0x47c4a0): asin(x) in degrees from the series x + x^3/6 + 3x^5/40 + ... */
-float Math_AsinDegreesSeries(float x)
+/* stdMath_ArcSin3 (0x47c4a0): asin(x) in degrees from the series x + x^3/6 + 3x^5/40 + ... */
+float stdMath_ArcSin3(float x)
 {
     float ax, t1, t2, v;
     int neg = CR_LT_U(x, CR_FLT(0x004d8744));
@@ -154,19 +154,19 @@ float Math_Atan2Deg(float y, float x)
     return c;
 }
 
-/* Actor_ToClean (0x4937c0, Lua ActorToClean): draws the actor's costumes into the clean background with the colormap of
+/* sputActor_DrawToClean (0x4937c0, Lua ActorToClean): draws the actor's costumes into the clean background with the colormap of
  * the actor (or of the set). The original pushes (colormap + 0x30, 0) for Render_GetUserCallback, which takes no
  * arguments and returns the palette callback (0x8c97b8), then calls that callback with the same two words still on the
  * stack (CALL EAX; ADD ESP,8). The decompiled C passed the two words to Render_GetUserCallback and called the callback
  * with none, so it read whatever was on the stack. */
-void __cdecl Actor_ToClean(void *actor)
+void __cdecl sputActor_DrawToClean(void *actor)
 {
     int setup, bg, cmap, scale[3];
     void *set;
     int *pal;
     uint savedZ, savedBg;
 
-    set = Set_GetCurrent();
+    set = sputRoom_GetCurrentRoom();
     setup = *(int *)((int)set + 0xac) + *(int *)((int)set + 0xb4) * 300;
     bg = *(int *)(*(int *)(setup + 0x48) + 4);
     if (bg == 0)
@@ -177,12 +177,12 @@ void __cdecl Actor_ToClean(void *actor)
     *(uint *)(*(int *)(*(int *)(setup + 0x48) + 4) + 0x10) = Render_GetZBufferSurface();
     pal = *(int **)actor;
     if (*pal == 0) {   /* no colormap of its own: the set's */
-        set = Set_GetCurrent();
+        set = sputRoom_GetCurrentRoom();
         pal = (int *)(*(int *)((int)set + 0x80) + *(int *)((int)set + 0x88) * 0x34);
         if (*pal == 0)
             (*g_pSvcMain->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
         rdroid_SetColormap(pal[1]);
-        set = Set_GetCurrent();
+        set = sputRoom_GetCurrentRoom();
         pal = (int *)(*(int *)((int)set + 0x80) + *(int *)((int)set + 0x88) * 0x34);
         if (*pal == 0)
             (*g_pSvcMain->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);

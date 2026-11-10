@@ -114,8 +114,12 @@ void Render_SetZBufferEnabled(int param_1)
   return;
 }
 
-/* ---- 0x00483eb0  Render_SetBufferCount ---- */
-void __cdecl Render_SetBufferCount(int n)
+/* ---- 0x00483eb0  sputRender_PageCountIs ---- */
+/* Original name sputRender_PageCountIs (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Engine_OpenRenderer; 1 matched neighbours agree, 0 disagree); was
+   Render_SetBufferCount. */
+
+void __cdecl sputRender_PageCountIs(int n)
 
 {
   g_nBufferCount = 1;
@@ -153,11 +157,13 @@ void __cdecl Render_InvalidateRectLastBuffer(int *rect,int flag)
   return;
 }
 
-/* ---- 0x00483f60  Render_InvalidateRect ---- */
+/* ---- 0x00483f60  MarkDirtyRect ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Aligns x/width to 4 pixels and marks the rectangle dirty on every buffer */
+/* Aligns x/width to 4 pixels and marks the rectangle dirty on every buffer Original name
+   MarkDirtyRect (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_IrisClear; 2
+   matched neighbours agree, 0 disagree); was Render_InvalidateRect. */
 
-void __cdecl Render_InvalidateRect(int *rect,int flag)
+void __cdecl MarkDirtyRect(int *rect,int flag)
 
 {
   int iVar1;
@@ -188,14 +194,17 @@ void __cdecl Render_InvalidateRect(int *rect,int flag)
   return;
 }
 
-/* ---- 0x00484030  Render_Open ---- */
+/* ---- 0x00484030  sputRender_SetDisplay ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Creates the rdCanvas, the background, temp and z-buffer surfaces, programs the pixel format into
-   RDroid and draws the current set */
+   RDroid and draws the current set Original name sputRender_SetDisplay (the remaster's GrimFandango
+   (Linux): the only unmatched caller of rdCamera_SetAmbientLight; the only unmatched caller of
+   rdCanvas_New; 3 matched neighbours agree, 1 disagree); was Render_Open. */
 
 undefined4
-Render_Open(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5,
-           undefined4 param_6,int param_7)
+sputRender_SetDisplay
+          (uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5,
+          undefined4 param_6,int param_7)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -206,7 +215,7 @@ Render_Open(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,unde
   bool bVar5;
   #define local_4c (*(undefined4 (*)[19])(_frame + (0x60 - 0x4c)))
   
-  Render_Close();
+  sputRender_Close();
   g_pCanvas = (void *)rdCanvas_New(1,param_1,param_2,param_3,param_4,param_5,param_6,0);
   UINT_008c97a4 = param_2;
   UINT_008c97a0 = param_1;
@@ -235,7 +244,7 @@ Render_Open(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,unde
     _DAT_008a94cc = UINT_009055f8;
     *(uint *)(param_7 + 0xc) = *(uint *)(param_7 + 0xc) | 2;
     Render_SetPixelFormat(param_7);
-    pvVar1 = Set_GetCurrent();
+    pvVar1 = sputRoom_GetCurrentRoom();
     if (pvVar1 != (void *)0x0) {
       rdCamera_SetAmbientLight
                 (*(void **)(*(int *)((int)pvVar1 + 0xac) + 0x48 + *(int *)((int)pvVar1 + 0xb4) * 300
@@ -244,14 +253,14 @@ Render_Open(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,unde
     UINT_008c9780 = (uint)&DAT_00905600;
     Render_InitColorConstants(&UINT_004ddaa0);
     _DAT_008c9790 = 1;
-    pvVar1 = Set_GetCurrent();
+    pvVar1 = sputRoom_GetCurrentRoom();
     if (pvVar1 != (void *)0x0) {
-      pvVar1 = Set_GetCurrent();
+      pvVar1 = sputRoom_GetCurrentRoom();
       iVar2 = *(int *)((int)pvVar1 + 0xb4);
-      pvVar1 = Set_GetCurrent();
+      pvVar1 = sputRoom_GetCurrentRoom();
       Set_SwitchSetup(pvVar1,iVar2);
     }
-    Render_RequestFullRedraw();
+    sputRender_ForceRefresh();
     return 1;
   }
   return 0;
@@ -259,10 +268,12 @@ Render_Open(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,unde
 #undef local_4c
 
 
-/* ---- 0x004841f0  Render_Close ---- */
+/* ---- 0x004841f0  sputRender_Close ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name sputRender_Close (the remaster's GrimFandango (Linux): the only unmatched caller of
+   rdCanvas_Free; 1 matched neighbours agree, 1 disagree); was Render_Close. */
 
-void Render_Close(void)
+void sputRender_Close(void)
 
 {
   if (g_pCanvas != (void *)0x0) {
@@ -676,7 +687,7 @@ void Render_BuildActorDrawList(void)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   DrawList_Reset();
-  pvVar2 = Set_GetCurrent();
+  pvVar2 = sputRoom_GetCurrentRoom();
   piVar1 = *(int **)(*(int *)((int)pvVar2 + 0x1abc) + 0x80);
   do {
     if (piVar1 == (int *)0x0) {
@@ -750,8 +761,12 @@ void __cdecl Render_ScreenToWorld(int x,int y,float *outPos)
 #undef local_c
 
 
-/* ---- 0x004863b0  Render_InvalidateBackground ---- */
-void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
+/* ---- 0x004863b0  sputRender_PreRendered ---- */
+/* Original name sputRender_PreRendered (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_PreRender; 1 matched neighbours agree, 0 disagree); was
+   Render_InvalidateBackground. */
+
+void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -763,11 +778,11 @@ void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   g_dwRenderFlags = g_dwRenderFlags | 3;
-  pvVar1 = Set_GetCurrent();
+  pvVar1 = sputRoom_GetCurrentRoom();
   if (pvVar1 != (void *)0x0) {
-    pvVar1 = Set_GetCurrent();
+    pvVar1 = sputRoom_GetCurrentRoom();
     iVar2 = *(int *)((int)pvVar1 + 0xb4);
-    pvVar1 = Set_GetCurrent();
+    pvVar1 = sputRoom_GetCurrentRoom();
     iVar2 = *(int *)((int)pvVar1 + 0xac) + iVar2 * 300;
     if (iVar2 != 0) {
       if ((redrawBackground != 0) && (*(int *)(iVar2 + 0xc0) != 0)) {
@@ -869,8 +884,11 @@ void Render_BuildColorTable(int param_1,float param_2)
 #endif
 
 
-/* ---- 0x00486620  Render_RemapPixels ---- */
-void __cdecl Render_RemapPixels(ushort *pixels,uint n)
+/* ---- 0x00486620  sputRender_ColorCorrect ---- */
+/* Original name sputRender_ColorCorrect (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Shadow_SetColor; 5 matched neighbours agree, 0 disagree); was Render_RemapPixels. */
+
+void __cdecl sputRender_ColorCorrect(ushort *pixels,uint n)
 
 {
   int iVar1;
@@ -906,10 +924,12 @@ void __cdecl Render_RemapPixels(ushort *pixels,uint n)
   return;
 }
 
-/* ---- 0x00486710  Render_SetGamma ---- */
-/* Rebuilds the colour constants and redraws the current setup when the gamma changes */
+/* ---- 0x00486710  sputRender_SetGamma ---- */
+/* Rebuilds the colour constants and redraws the current setup when the gamma changes Original name
+   sputRender_SetGamma (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_SetGamma; 2 matched neighbours agree, 0 disagree); was Render_SetGamma. */
 
-void __cdecl Render_SetGamma(float gamma)
+void __cdecl sputRender_SetGamma(float gamma)
 
 {
   void *pvVar1;
@@ -918,11 +938,11 @@ void __cdecl Render_SetGamma(float gamma)
   if (g_flGamma != gamma) {
     g_flGamma = gamma;
     Render_InitColorConstants(UINT_008c9780);
-    pvVar1 = Set_GetCurrent();
+    pvVar1 = sputRoom_GetCurrentRoom();
     if (pvVar1 != (void *)0x0) {
-      pvVar1 = Set_GetCurrent();
+      pvVar1 = sputRoom_GetCurrentRoom();
       setupIdx = *(int *)((int)pvVar1 + 0xb4);
-      pvVar1 = Set_GetCurrent();
+      pvVar1 = sputRoom_GetCurrentRoom();
       Set_SwitchSetup(pvVar1,setupIdx);
     }
   }
@@ -953,17 +973,19 @@ void Render_ConvertBackground(void *param_1)
   }
   *(undefined4 *)((int)g_pTempSurface + 0x60) = 0xf81f;
   if (*(int *)((int)param_1 + 0x20) != 5) {
-    Render_RemapPixels(*(ushort **)((int)g_pTempSurface + 0x5c),iVar1 * iVar2);
+    sputRender_ColorCorrect(*(ushort **)((int)g_pTempSurface + 0x5c),iVar1 * iVar2);
     *(uint *)((int)g_pTempSurface + 0x60) = (uint)DAT_008c856e;
   }
   return;
 }
 
-/* ---- 0x004867d0  Render_DimBackground ---- */
+/* ---- 0x004867d0  sputRender_Dim ---- */
 /* Renders a frame, copies it to the background and darkens every pixel by the given shift (used
-   while menus are up) */
+   while menus are up) Original name sputRender_Dim (the remaster's GrimFandango (Linux): the only
+   unmatched callee of Lua_DimScreen; 2 matched neighbours agree, 1 disagree); was
+   Render_DimBackground. */
 
-void Render_DimBackground(ushort *param_1,byte param_2)
+void sputRender_Dim(ushort *param_1,byte param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -995,7 +1017,7 @@ void Render_DimBackground(ushort *param_1,byte param_2)
       TextObjects_Freeze();
       Primitives_Hide();
       Timer_UpdateFixedStep(0);
-      Engine_RenderFrame();
+      sputRender_Update();
       rdroid_EndFrame();
       TextObjects_Unfreeze();
       Primitives_Show();
@@ -1013,7 +1035,7 @@ void Render_DimBackground(ushort *param_1,byte param_2)
         local_20 = 0;
         if (0 < *(int *)((int)surface + 0xc)) {
           do {
-            pvVar3 = Set_GetCurrent();
+            pvVar3 = sputRoom_GetCurrentRoom();
             if (pvVar3 == (void *)0x0) {
               uVar8 = 0;
             }
@@ -1051,7 +1073,7 @@ void Render_DimBackground(ushort *param_1,byte param_2)
     local_c = 0;
     local_8 = *(uint *)((int)surface + 0xc);
     local_4 = *(uint *)((int)surface + 0x10);
-    Render_InvalidateRect((int *)&local_10,0);
+    MarkDirtyRect((int *)&local_10,0);
   }
   return;
 }
@@ -1100,10 +1122,11 @@ void Render_CleanBuffer(void)
 #undef local_c
 
 
-/* ---- 0x00486a00  Render_RequestFullRedraw ---- */
-/* Lua opcode: ForceRefresh */
+/* ---- 0x00486a00  sputRender_ForceRefresh ---- */
+/* Lua opcode: ForceRefresh Original name sputRender_ForceRefresh (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ForceRefresh'); was Render_RequestFullRedraw. */
 
-void Render_RequestFullRedraw(void)
+void sputRender_ForceRefresh(void)
 
 {
   g_nFullRedrawPending = 1;
@@ -1270,8 +1293,11 @@ void __cdecl Render_StartIrisOpen(int x,int y,int durationMs)
   return;
 }
 
-/* ---- 0x00486f30  Render_IsIrisDone ---- */
-uint Render_IsIrisDone(void)
+/* ---- 0x00486f30  sputRender_IrisComplete ---- */
+/* Original name sputRender_IrisComplete (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_IrisComplete; 1 matched neighbours agree, 0 disagree); was Render_IsIrisDone. */
+
+uint sputRender_IrisComplete(void)
 
 {
   if ((g_dwRenderFlags & 8) != 0) {
@@ -1280,13 +1306,15 @@ uint Render_IsIrisDone(void)
   return ~g_dwRenderFlags >> 2 & 1;
 }
 
-/* ---- 0x00486f90  Render_CaptureThumbnail ---- */
+/* ---- 0x00486f90  sputRender_ScreenShot ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Renders a dimmed frame and scales the background down into a new w x h bitmap (save game
-   thumbnail) */
+   thumbnail) Original name sputRender_ScreenShot (the remaster's GrimFandango (Linux): the only
+   unmatched caller of Render_DimBackground; 2 matched neighbours agree, 0 disagree); was
+   Render_CaptureThumbnail. */
 
-void * __cdecl Render_CaptureThumbnail(int w,int h)
+void * __cdecl sputRender_ScreenShot(int w,int h)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1312,7 +1340,7 @@ void * __cdecl Render_CaptureThumbnail(int w,int h)
   uVar2 = UINT_008a8c40;
   UINT_008a8c40 = 2;
   g_nFullRedrawPending = 1;
-  Render_DimBackground(1,0);
+  sputRender_Dim(1,0);
   surface = g_pBackgroundSurface;
   puVar5 = (uint *)((int)g_pBackgroundSurface + 0xc);
   puVar6 = &local_4c;
@@ -1423,10 +1451,12 @@ void __cdecl Render_FillRect(int x,int y,int w,int h,float scale)
 #endif
 
 
-/* ---- 0x00487260  Render_SaveScreen ---- */
-/* Lua SaveScreen */
+/* ---- 0x00487260  sputRender_SaveScreen ---- */
+/* Lua SaveScreen Original name sputRender_SaveScreen (the remaster's GrimFandango (Linux): the only
+   unmatched callee of Lua_SaveScreen; 3 matched neighbours agree, 0 disagree); was
+   Render_SaveScreen. */
 
-void __cdecl Render_SaveScreen(char *filename)
+void __cdecl sputRender_SaveScreen(char *filename)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1463,7 +1493,7 @@ void __cdecl Render_SaveScreen(char *filename)
   if (filename != (char *)0x0) {
     bitmap = (void *)stdBitmap_Convert(&g_BackBuffer,0,0);
     stdBitmap_CopyFrom(&local_38,bitmap);
-    stdBitmap_SaveByExtension(filename,bitmap);
+    stdWriteImage(filename,bitmap);
     stdBitmap_Free(bitmap);
   }
   return;
@@ -1498,10 +1528,12 @@ void __cdecl Render_SaveZBufferBmp(char *filename)
   return;
 }
 
-/* ---- 0x00487340  Render_SaveScreenshotBmp ---- */
-/* Debug key S: writes the back buffer as a 24-bit .bmp */
+/* ---- 0x00487340  sputRender_SaveDrawBuffer ---- */
+/* Debug key S: writes the back buffer as a 24-bit .bmp Original name sputRender_SaveDrawBuffer (the
+   remaster's GrimFandango (Linux): the only unmatched caller of stdBitmap_SaveByExtension; 2
+   matched neighbours agree, 0 disagree); was Render_SaveScreenshotBmp. */
 
-void __cdecl Render_SaveScreenshotBmp(char *filename)
+void __cdecl sputRender_SaveDrawBuffer(char *filename)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1537,7 +1569,7 @@ void __cdecl Render_SaveScreenshotBmp(char *filename)
   local_4 = 0;
   bitmap = (void *)stdBitmap_Convert(&g_BackBuffer,0,0);
   stdBitmap_CopyFrom(&local_38,bitmap);
-  stdBitmap_SaveByExtension(filename,bitmap);
+  stdWriteImage(filename,bitmap);
   stdBitmap_Free(bitmap);
   return;
 }
@@ -1577,7 +1609,7 @@ void __cdecl Render_DrawProgressBar(float fraction)
   
   local_4 = 0xffe0;
   lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  Render_RemapPixels((ushort *)&local_4,1);
+  sputRender_ColorCorrect((ushort *)&local_4,1);
   Surface_Lock(&g_PrimarySurface);
   iVar3 = 0x21c;
   iVar1 = UINT_00901698 * 0x1c7 + UINT_009016dc;
@@ -1660,11 +1692,11 @@ void Render_UpdateWaitCursor(void)
         UINT_008c9770 = 0;
         if (UINT_008a92d0 == 0) {
           UINT_004e808c = 0;
-          data = Resource_Load(0x444e4b42,s_wait_bm_004e812c);
+          data = sputResource_Alloc(0x444e4b42,s_wait_bm_004e812c);
           if (data == (void *)0x0) {
             return;
           }
-          ResRef_Add(&UINT_008a92d0,data,s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0xb35);
+          Res_SetReference(&UINT_008a92d0,data,s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0xb35);
           UINT_004e808c = 1;
           if (UINT_008a92d0 == 0) {
             (*g_pSvcMain->pAssertFail)
@@ -1681,7 +1713,7 @@ void Render_UpdateWaitCursor(void)
         iStack_c = *piVar1;
         uStack_8 = *(undefined4 *)(*(int *)*piVar3 + 0xc);
         uStack_4 = *(undefined4 *)(*(int *)*piVar3 + 0x10);
-        Render_InvalidateRect(&iStack_10,1);
+        MarkDirtyRect(&iStack_10,1);
       }
     }
   }
@@ -1693,8 +1725,12 @@ void Render_UpdateWaitCursor(void)
 #undef uStack_8
 
 
-/* ---- 0x0048f920  Render_GetFrameCounter ---- */
-int Render_GetFrameCounter(void)
+/* ---- 0x0048f920  sputActor_GetNumActorsTalking ---- */
+/* Original name sputActor_GetNumActorsTalking (the remaster's GrimFandango (Linux): the only
+   unmatched callee of Lua_IsMessageGoing; 1 matched neighbours agree, 0 disagree); was
+   Render_GetFrameCounter. */
+
+int sputActor_GetNumActorsTalking(void)
 
 {
   return g_nTalkingActorCount;

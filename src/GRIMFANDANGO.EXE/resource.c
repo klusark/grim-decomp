@@ -5,10 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00480010  Resource_RegisterFilioModule ---- */
-/* Registers the resource file io as a LecShare module and fills the caller's vtable */
+/* ---- 0x00480010  Res_SysInitialize ---- */
+/* Registers the resource file io as a LecShare module and fills the caller's vtable Original name
+   Res_SysInitialize (the remaster's GrimFandango (Linux): the only unmatched callee of
+   sputResource_Initialize; 1 matched neighbours agree, 0 disagree); was
+   Resource_RegisterFilioModule. */
 
-undefined4 Resource_RegisterFilioModule(uint param_1,undefined4 *param_2)
+undefined4 Res_SysInitialize(uint param_1,undefined4 *param_2)
 
 {
   undefined4 uVar1;
@@ -19,11 +22,11 @@ undefined4 Resource_RegisterFilioModule(uint param_1,undefined4 *param_2)
   if (UINT_008a85b8 == 0) {
     UINT_008a85b8 = 1;
     if (param_2 != (undefined4 *)0x0) {
-      *param_2 = Resource_RegisterFilioModule;
+      *param_2 = Res_SysInitialize;
       param_2[1] = Resource_Filio_Terminate;
       param_2[2] = Resource_Filio_Start;
       param_2[3] = Resource_Filio_Stop;
-      param_2[4] = Resource_Filio_SaveState;
+      param_2[4] = Res_SysSave;
       param_2[5] = Resource_Filio_RestoreState;
       param_2[6] = 0;
       param_2[7] = 0;
@@ -51,11 +54,11 @@ undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,u
   if (param_2 == 0) {
     UINT_008a85b8 = 1;
     if (param_4 != (undefined4 *)0x0) {
-      *param_4 = Resource_RegisterFilioModule;
+      *param_4 = Res_SysInitialize;
       param_4[1] = Resource_Filio_Terminate;
       param_4[2] = Resource_Filio_Start;
       param_4[3] = Resource_Filio_Stop;
-      param_4[4] = Resource_Filio_SaveState;
+      param_4[4] = Res_SysSave;
       param_4[5] = Resource_Filio_RestoreState;
       param_4[6] = 0;
       param_4[7] = 0;
@@ -128,13 +131,14 @@ void Resource_Filio_Stop(void)
   return;
 }
 
-/* ---- 0x00482260  Resource_Filio_SaveState ---- */
+/* ---- 0x00482260  Res_SysSave ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Module interface slot 4 (Resource_Filio): save-game writer, calls the SaveGame_Write callback it
-   is handed for every field. */
+   is handed for every field. Original name Res_SysSave (the remaster's GrimFandango (Linux):
+   strings: 'TEMP'); was Resource_Filio_SaveState. */
 
-undefined4 Resource_Filio_SaveState(code *param_1)
+undefined4 Res_SysSave(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -266,11 +270,13 @@ void __cdecl Resource_SetNoPurge(int noPurge)
   return;
 }
 
-/* ---- 0x0048d350  Resource_Load ---- */
+/* ---- 0x0048d350  sputResource_Alloc ---- */
 /* sputresource.cpp: Res_Load plus the memory budget check that frees unreferenced resources above
-   g_nResMemoryBudget */
+   g_nResMemoryBudget Original name sputResource_Alloc (the remaster's GrimFandango (Linux): the
+   only unmatched callee of Lua_LoadCostume; 11 matched neighbours agree, 1 disagree); was
+   Resource_Load. */
 
-void * __cdecl Resource_Load(int fourcc,char *name)
+void * __cdecl sputResource_Alloc(int fourcc,char *name)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -280,14 +286,14 @@ void * __cdecl Resource_Load(int fourcc,char *name)
   
   data = Res_Load(fourcc,name);
   if (data != (void *)0x0) {
-    iVar1 = Res_GetMemoryUsed();
+    iVar1 = daTotalAllocated();
     if ((g_nResMemoryBudget < iVar1) && (g_nResNoPurge == 0)) {
-      Res_GetMemoryUsed();
+      daTotalAllocated();
       local_34 = 0;
-      ResRef_Add(&local_34,data,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0xfb);
+      Res_SetReference(&local_34,data,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0xfb);
       Res_FreeUnreferenced(UINT_004e9a30,(uint *)&name);
-      Res_GetMemoryUsed();
-      ResRef_Remove(&local_34);
+      daTotalAllocated();
+      Res_RemoveReference(&local_34);
     }
   }
   return data;
@@ -642,7 +648,7 @@ void Resource_ReloadBitmaps(void)
   while (name != (char *)0x0) {
     local_c = (uint)name;
     if (*(int *)(name + 0x20) == 0) {
-      pvVar3 = stdBitmap_LoadFile(name,0,0);
+      pvVar3 = stdLoadImageData(name,0,0);
       if (pvVar3 != (void *)0x0) {
         iVar4 = 0;
         if (0 < *(int *)(name + 100)) {
@@ -666,9 +672,10 @@ void Resource_ReloadBitmaps(void)
           iVar5 = 0;
           if (0 < *(int *)((int)pvVar3 + 0x10)) {
             do {
-              Render_RemapPixels((ushort *)
-                                 (iVar5 * *(int *)((int)pvVar3 + 0x18) +
-                                 *(int *)((int)pvVar3 + 0x5c)),*(uint *)((int)pvVar3 + 0xc));
+              sputRender_ColorCorrect
+                        ((ushort *)
+                         (iVar5 * *(int *)((int)pvVar3 + 0x18) + *(int *)((int)pvVar3 + 0x5c)),
+                         *(uint *)((int)pvVar3 + 0xc));
               iVar5 = iVar5 + 1;
             } while (iVar5 < *(int *)((int)pvVar3 + 0x10));
           }
@@ -680,12 +687,12 @@ void Resource_ReloadBitmaps(void)
     pixels = (ushort *)(name + 0x74);
     pixels[0] = 0xf81f;
     pixels[1] = 0;
-    Render_RemapPixels(pixels,1);
+    sputRender_ColorCorrect(pixels,1);
     iVar4 = 0;
     if (0 < *(int *)(name + 100)) {
       do {
         *(undefined4 *)(*(int *)(*(int *)(name + 0x78) + iVar4 * 4) + 0x60) = 0xf81f;
-        Render_RemapPixels((ushort *)(*(int *)(*(int *)(name + 0x78) + iVar4 * 4) + 0x60),1);
+        sputRender_ColorCorrect((ushort *)(*(int *)(*(int *)(name + 0x78) + iVar4 * 4) + 0x60),1);
         iVar4 = iVar4 + 1;
       } while (iVar4 < *(int *)(name + 100));
     }
@@ -744,7 +751,7 @@ void Resource_RebuildColormaps(void)
     puVar1 = (undefined4 *)(local_40 + 0x348);
     rdColormap_Build16bitTables
               ((undefined2 *)*puVar1,(ushort *)(local_40 + 0x30),0,0,0,(int)&local_38);
-    Render_RemapPixels((ushort *)*puVar1,0x4000);
+    sputRender_ColorCorrect((ushort *)*puVar1,0x4000);
     Res_NextInList(local_3c,&local_40,0x50414d43);
   }
   return;
@@ -776,7 +783,7 @@ void * Resource_MaterialLoadHook(char *param_1)
 {
   void *data;
   
-  data = Resource_Load(0x2054414d,param_1);
+  data = sputResource_Alloc(0x2054414d,param_1);
   if ((data != (void *)0x0) && (*(int *)((int)data + 0x24) == 0)) {
     Res_SetLocked(data,0);
   }

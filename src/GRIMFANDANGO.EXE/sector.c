@@ -48,10 +48,12 @@ void __cdecl Sector_DrawAllDebug(void)
   } while( true );
 }
 
-/* ---- 0x0049c750  Sector_IntersectSegment ---- */
-/* Tests a segment against a sector's edges, returning the entry/exit points */
+/* ---- 0x0049c750  sputLua_CollisionHandler ---- */
+/* Tests a segment against a sector's edges, returning the entry/exit points Original name
+   sputLua_CollisionHandler (the remaster's GrimFandango (Linux): strings: 'collisionHandler'); was
+   Sector_IntersectSegment. */
 
-void Sector_IntersectSegment(int param_1,int param_2,float *param_3,float *param_4,float *param_5)
+void sputLua_CollisionHandler(int param_1,int param_2,float *param_3,float *param_4,float *param_5)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -115,11 +117,13 @@ void Sector_IntersectSegment(int param_1,int param_2,float *param_3,float *param
 #undef local_4
 
 
-/* ---- 0x004a4b00  SetFile_Parse ---- */
+/* ---- 0x004a4b00  sputRoom_LoadRoom ---- */
 /* Remembers the set being parsed (UINT_008cb0a8), stores its base file name (+0, 0x7f chars) and
-   parses the sections with SetFile_ParseSections. */
+   parses the sections with SetFile_ParseSections. Original name sputRoom_LoadRoom (the remaster's
+   GrimFandango (Linux): the only unmatched caller of SetFile_ParseSections; 1 matched neighbours
+   agree, 0 disagree); was SetFile_Parse. */
 
-int SetFile_Parse(char *param_1,uint param_2)
+int sputRoom_LoadRoom(char *param_1,uint param_2)
 
 {
   char *pcVar1;
@@ -146,7 +150,7 @@ undefined4 SetFile_ParseSections(undefined4 param_1)
   int iVar1;
   #define local_20 (*(undefined1 (*)[32])(_frame + (0x30 - 0x20)))
   
-  iVar1 = ((code *)stdConffile_OpenRead)(param_1);
+  iVar1 = ((code *)stdConffile_Open)(param_1);
   if (iVar1 == 0) {
     return 0;
   }
@@ -172,11 +176,13 @@ undefined4 SetFile_ParseSections(undefined4 param_1)
 #undef local_20
 
 
-/* ---- 0x004a5b40  SetFile_ParseColormaps ---- */
+/* ---- 0x004a5b40  sputRoom_ParseColormaps ---- */
 /* Section handler 'colormaps' registered by sputRoom_Start: reads 'numcolormaps' and the colormap
-   names (0x34-byte entries at set+0x80). */
+   names (0x34-byte entries at set+0x80). Original name sputRoom_ParseColormaps (the remaster's
+   GrimFandango (Linux): strings: ' colormap %s' | ' numcolormaps %d\n'); was
+   SetFile_ParseColormaps. */
 
-undefined4 SetFile_ParseColormaps(void)
+undefined4 sputRoom_ParseColormaps(void)
 
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -243,11 +249,13 @@ LAB_004a5c4e:
 #undef local_100
 
 
-/* ---- 0x004a5c90  SetFile_SectorsSectionHandler ---- */
+/* ---- 0x004a5c90  sputRoom_ParseSectors ---- */
 /* Section handler 'sectors' registered by sputRoom_Start: runs SetFile_ParseSectors for the set
-   being parsed. */
+   being parsed. Original name sputRoom_ParseSectors (the remaster's GrimFandango (Linux): the only
+   unmatched caller of SetFile_ParseSectors; 1 matched neighbours agree, 0 disagree); was
+   SetFile_SectorsSectionHandler. */
 
-undefined4 SetFile_SectorsSectionHandler(void)
+undefined4 sputRoom_ParseSectors(void)
 
 {
   int iVar1;
@@ -513,7 +521,7 @@ undefined1 * __thiscall Sector_Construct(void *this,int a1,int a2,int a3)
     } while (a1 != 0);
   }
   pfVar1 = (float *)((int)this + 0x60);
-  Vec3_Normalize(pfVar1);
+  rdVector_Normalize3Acc(pfVar1);
   if (*pfVar1 <= *(float *)((int)this + 100)) {
     fVar2 = *(float *)((int)this + 100);
   }
@@ -738,8 +746,8 @@ void __thiscall Sector_SetSavedType(void *this,uint type)
     local_18 = *(float *)(iVar3 + 4) - *(float *)(iVar4 + 4);
     local_14 = *(float *)(iVar3 + 8) - *(float *)(iVar4 + 8);
     local_10 = *(float *)(iVar3 + 0xc) - *(float *)(iVar4 + 0xc);
-    fVar7 = Vec3_Normalize(&local_c);
-    fVar8 = Vec3_Normalize(&local_18);
+    fVar7 = rdVector_Normalize3Acc(&local_c);
+    fVar8 = rdVector_Normalize3Acc(&local_18);
     fVar5 = local_10 * local_4 + local_14 * local_8 + local_18 * local_c;
     if (fVar5 < 0.0) {
       fVar5 = -fVar5;
@@ -754,8 +762,8 @@ void __thiscall Sector_SetSavedType(void *this,uint type)
     local_18 = *(float *)(iVar3 + 4) - *(float *)(iVar4 + 4);
     local_14 = *(float *)(iVar3 + 8) - *(float *)(iVar4 + 8);
     local_10 = *(float *)(iVar3 + 0xc) - *(float *)(iVar4 + 0xc);
-    fVar9 = Vec3_Normalize(&local_c);
-    fVar10 = Vec3_Normalize(&local_18);
+    fVar9 = rdVector_Normalize3Acc(&local_c);
+    fVar10 = rdVector_Normalize3Acc(&local_18);
     fVar6 = local_10 * local_4 + local_14 * local_8 + local_18 * local_c;
     if (fVar6 < 0.0) {
       fVar6 = -fVar6;
@@ -991,10 +999,14 @@ int __thiscall Sector_ClampPoint(void *this,int a1)
 #endif
 
 
-/* ---- 0x004a6d10  Sector_FindExitPoint ---- */
+/* ---- 0x004a6d10  WalkPlane_Intersection ---- */
 /* WARNING: Variable defined which should be unmapped: local_3c */
+/* Original name WalkPlane_Intersection (the remaster's GrimFandango (Linux):
+   WalkPlane::Intersection in the remaster (a C++ method there); the only unmatched callee of
+   Sector_MoveWalkerToOppositeEdge; 3 matched neighbours agree, 1 disagree); was
+   Sector_FindExitPoint. */
 
-float __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3)
+float __thiscall WalkPlane_Intersection(void *this,int a1,int a2,int a3)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1086,16 +1098,16 @@ float __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3)
       local_18 = *(float *)a1 - *(float *)a2;
       local_14 = *(float *)(a1 + 4) - *(float *)(a2 + 4);
       local_10 = *(float *)(a1 + 8) - *(float *)(a2 + 8);
-      Vec3_Normalize(&local_c);
-      Vec3_Normalize(&local_18);
+      rdVector_Normalize3Acc(&local_c);
+      rdVector_Normalize3Acc(&local_18);
       fVar13 = Vec3_Dot2(&local_c,&local_18);
-      fVar13 = Math_AsinDegreesSeries(fVar13);
+      fVar13 = stdMath_ArcSin3(fVar13);
       if (fVar13 <= 0.0) {
         return -90.2 - fVar13;
       }
       return 90.2 - fVar13;
     }
-    Sector_SnapToPlane(this,(float *)a3);
+    WalkPlane_SnapTo(this,(float *)a3);
   }
   return 0.0;
 }
@@ -1112,10 +1124,13 @@ float __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3)
 #undef local_c
 
 
-/* ---- 0x004a6fa0  Sector_SnapToPlane ---- */
-/* Lua SnapToPlane: projects the point onto the plane of the sector found by Sector_FindByName */
+/* ---- 0x004a6fa0  WalkPlane_SnapTo ---- */
+/* Lua SnapToPlane: projects the point onto the plane of the sector found by Sector_FindByName
+   Original name WalkPlane_SnapTo (the remaster's GrimFandango (Linux): WalkPlane::SnapTo in the
+   remaster (a C++ method there); the only unmatched callee of Lua_SnapToPlane; 1 matched neighbours
+   agree, 0 disagree); was Sector_SnapToPlane. */
 
-void __thiscall Sector_SnapToPlane(void *this,float *pos)
+void __thiscall WalkPlane_SnapTo(void *this,float *pos)
 
 {
   int iVar1;
@@ -1210,8 +1225,12 @@ void * SectorList_FindByPoint(float *param_1,uint param_2)
   return this;
 }
 
-/* ---- 0x004a7230  Sector_FindByName ---- */
-void * __cdecl Sector_FindByName(char *name)
+/* ---- 0x004a7230  WalkPlane_PlaneNamed ---- */
+/* Original name WalkPlane_PlaneNamed (the remaster's GrimFandango (Linux): WalkPlane::PlaneNamed in
+   the remaster (a C++ method there); the only unmatched callee of Actor_SetShadowPlane; 7 matched
+   neighbours agree, 0 disagree); was Sector_FindByName. */
+
+void * __cdecl WalkPlane_PlaneNamed(char *name)
 
 {
   byte bVar1;
@@ -1314,8 +1333,12 @@ void * SectorList_FindNearestPoint(float *param_1,uint param_2)
 #undef local_c
 
 
-/* ---- 0x004a7390  Sector_MoveWalkerToOppositeEdge ---- */
-void __thiscall Sector_MoveWalkerToOppositeEdge(void *this,float *walker)
+/* ---- 0x004a7390  WalkPlane_JumpOut ---- */
+/* Original name WalkPlane_JumpOut (the remaster's GrimFandango (Linux): WalkPlane::JumpOut in the
+   remaster (a C++ method there); the only unmatched callee of Actor_PushSectorOppositeEdge; 1
+   matched neighbours agree, 1 disagree); was Sector_MoveWalkerToOppositeEdge. */
+
+void __thiscall WalkPlane_JumpOut(void *this,float *walker)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1343,7 +1366,7 @@ void __thiscall Sector_MoveWalkerToOppositeEdge(void *this,float *walker)
     local_24 = walker[6] * -10.0 + local_18;
     local_20 = walker[7] * -10.0 + local_14;
     local_1c = walker[8] * -10.0 + local_10;
-    Sector_FindExitPoint(this,(int)&local_18,(int)&local_24,(int)&local_c);
+    WalkPlane_Intersection(this,(int)&local_18,(int)&local_24,(int)&local_c);
     iVar1 = *(int *)((int)this + 0x74);
     if (iVar1 != -1) {
       iVar7 = *(int *)((int)this + iVar1 * 4 + 0x38);
@@ -1380,7 +1403,7 @@ void __thiscall Sector_MoveWalkerToOppositeEdge(void *this,float *walker)
       local_8 = (*(float *)(iVar7 + 8) - *(float *)(iVar1 + 8)) * fVar3 + *(float *)(iVar1 + 8);
       local_4 = (*(float *)(iVar7 + 0xc) - *(float *)(iVar1 + 0xc)) * fVar3 +
                 *(float *)(iVar1 + 0xc);
-      Walker_SetPosition(walker,&local_c);
+      Puck_SetPos(walker,&local_c);
     }
   }
   return;
@@ -1455,7 +1478,7 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
   local_30 = walker[6] * fVar12 + local_18;
   local_2c = walker[7] * fVar4 + local_14;
   local_28 = walker[8] * fVar5 + local_10;
-  Sector_FindExitPoint(this,(int)&local_18,(int)&local_30,IMG_ADDR(0x008cf260));
+  WalkPlane_Intersection(this,(int)&local_18,(int)&local_30,IMG_ADDR(0x008cf260));
   iVar1 = *(int *)((int)this + 0x74);
   if (iVar1 != -1) {
     iVar2 = *(int *)((int)this + iVar1 * 4 + 0x38);
@@ -1500,9 +1523,9 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
         }
         local_1c = *(float *)(*(int *)((int)this + uVar10 * 4 + 0x38) + 0xc) -
                    *(float *)(*(int *)((int)this + *(int *)((int)this + 0x74) * 4 + 0x38) + 0xc);
-        Vec3_Normalize(&local_24);
+        rdVector_Normalize3Acc(&local_24);
         fVar12 = Vec3_Dot2(&local_24,walker + 6);
-        fVar12 = Math_AsinDegreesSeries(fVar12);
+        fVar12 = stdMath_ArcSin3(fVar12);
         if ((90.0 - fVar12 < 1.0) || (179.0 < 90.0 - fVar12)) {
           uVar8 = *(int *)((int)this + 0x74) - 1;
           if (0x7fffffff < uVar8) {
@@ -1530,9 +1553,9 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
       }
       local_1c = *(float *)(*(int *)((int)this + uVar8 * 4 + 0x38) + 0xc) -
                  *(float *)(*(int *)((int)this + iVar1 * 4 + 0x38) + 0xc);
-      Vec3_Normalize(&local_24);
+      rdVector_Normalize3Acc(&local_24);
       fVar12 = Vec3_Dot2(&local_24,walker + 6);
-      fVar12 = Math_AsinDegreesSeries(fVar12);
+      fVar12 = stdMath_ArcSin3(fVar12);
       if (90.0 - fVar12 < 1.0) {
         *(int *)((int)this + 0x74) = (*(int *)((int)this + 0x74) + 1) % *(int *)((int)this + 0x34);
       }
@@ -1580,7 +1603,7 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
          g_vEdgeFollowDir;
     *(float *)&DAT_008cf264 = local_8 - *(float *)&DAT_008cf264;
     *(float *)&DAT_008cf268 = local_4 - *(float *)&DAT_008cf268;
-    Vec3_Normalize(&g_vEdgeFollowDir);
+    rdVector_Normalize3Acc(&g_vEdgeFollowDir);
     if (walker[0x10] < 0.0) {
       g_vEdgeFollowDir = g_vEdgeFollowDir * -1.0;
       *(float *)&DAT_008cf264 = *(float *)&DAT_008cf264 * -1.0;
@@ -2284,8 +2307,8 @@ float __thiscall Sector_EdgeDistance(void *this,int edge,float *point)
   fStack_1c = point[2] - *(float *)(iVar1 + 0xc);
   Vec3_NormalizeTo(&local_c,&local_30);
   Vec3_NormalizeTo(&fStack_18,&fStack_24);
-  fVar3 = Math_AsinDegreesSeries(fStack_10 * fStack_4 + fStack_14 * fStack_8 + fStack_18 * local_c);
-  Math_SinCosTable(90.0 - fVar3,&fStack_38,auStack_34);
+  fVar3 = stdMath_ArcSin3(fStack_10 * fStack_4 + fStack_14 * fStack_8 + fStack_18 * local_c);
+  stdMath_SinCos(90.0 - fVar3,&fStack_38,auStack_34);
   return fStack_38 * (float)extraout_ST0;
 }
 #undef auStack_34
@@ -2461,7 +2484,7 @@ undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1)
 #undef local_54
 
 
-/* ---- 0x004a9d00  SectorList_ShrinkWalkSectors ---- */
+/* ---- 0x004a9d00  ShrinkBoxes ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
@@ -2474,9 +2497,11 @@ undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1)
    (Sector_EdgeDistance). Not valid: Sector_CollapseShortestEdge and retry; cannot collapse: the
    sector is switched off (+0x28 = 0). The shifts are summed per pool vertex (shared by the sectors)
    and the pool vertex moves by the mean, so all sectors that share it move together. Undone by
-   SectorList_RestoreAfterShrink. */
+   SectorList_RestoreAfterShrink. Original name ShrinkBoxes (the remaster's GrimFandango (Linux):
+   the only unmatched callee of Lua_TEST; 3 matched neighbours agree, 0 disagree); was
+   SectorList_ShrinkWalkSectors. */
 
-void __cdecl SectorList_ShrinkWalkSectors(float radius)
+void __cdecl ShrinkBoxes(float radius)
 
 {
   unsigned char _frame[0x30];  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2568,19 +2593,18 @@ LAB_004a9d6a:
           fVar2 = pfVar11[1];
           fVar3 = pfVar8[2];
           fVar13 = pfVar11[2];
-          Vec3_Normalize(&local_4);
+          rdVector_Normalize3Acc(&local_4);
           in_stack_00000014 = *(float *)(iVar6 + 4) - *pfVar11;
           in_stack_00000018 = *(float *)(iVar6 + 8) - pfVar11[1];
           in_stack_0000001c = *(float *)(iVar6 + 0xc) - pfVar11[2];
-          Vec3_Normalize(&STACK0X(0x00000014));
+          rdVector_Normalize3Acc(&STACK0X(0x00000014));
           local_4 = in_stack_00000014 + local_4;
           fVar1 = in_stack_00000018 + (fVar1 - fVar2);
           fVar2 = in_stack_0000001c + (fVar3 - fVar13);
-          Vec3_Normalize(&local_4);
-          Math_AsinDegreesSeries
-                    (in_stack_0000001c * fVar2 +
-                     in_stack_00000018 * fVar1 + in_stack_00000014 * local_4);
-          ((code *)Math_SinCosTable)();
+          rdVector_Normalize3Acc(&local_4);
+          stdMath_ArcSin3(in_stack_0000001c * fVar2 +
+                          in_stack_00000018 * fVar1 + in_stack_00000014 * local_4);
+          ((code *)stdMath_SinCos)();
           fVar3 = fVar2 / in_stack_00000024;
           bVar4 = true;
           in_stack_00000028 = fVar3 * local_4 + *pfVar11;

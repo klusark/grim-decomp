@@ -440,7 +440,7 @@ undefined4 rdModel3_LoadEntryText(char *path, char *m)
     rdModel3_NewEntry((undefined4 *)m);
     strncpy((uint *)m, (uint *)Str_FileNameFromPath(path), 0x1f);
     m[0x1f] = 0;
-    if (((int (*)(char *))stdConffile_OpenRead)(path) == 0)
+    if (((int (*)(char *))stdConffile_Open)(path) == 0)
         return 0;
     if (!Q3_READ() || sscanf(Q3_LINEBUF, s_section___s_004ddd64, Q3_SBUF) != 1)
         goto fail;

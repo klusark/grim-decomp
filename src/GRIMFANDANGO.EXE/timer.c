@@ -19,8 +19,11 @@ uint Timer_GetFrameMs(void)
   return g_dwTimerFrameMs;
 }
 
-/* ---- 0x004a3c00  Timer_GetFrameSeconds ---- */
-float __cdecl Timer_GetFrameSeconds(void)
+/* ---- 0x004a3c00  sputTime_GetFrameTimeFlex ---- */
+/* Original name sputTime_GetFrameTimeFlex (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_PerSecond; 3 matched neighbours agree, 0 disagree); was Timer_GetFrameSeconds. */
+
+float __cdecl sputTime_GetFrameTimeFlex(void)
 
 {
   return g_flTimerFrameSeconds;

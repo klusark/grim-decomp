@@ -5,11 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x0047c7c0  stdConffile_OpenRead ---- */
+/* ---- 0x0047c7c0  stdConffile_Open ---- */
 /* Opens a text configuration file for reading (stdConffile_OpenMode with mode "r"). Source file
-   Stdconffile.c (C:\grimjedi\Libs\Std\General\Stdconffile.c). */
+   Stdconffile.c (C:\grimjedi\Libs\Std\General\Stdconffile.c). Original name stdConffile_Open (the
+   remaster's GrimFandango (Linux): the only unmatched caller of stdConffile_OpenMode; 4 matched
+   neighbours agree, 0 disagree); was stdConffile_OpenRead. */
 
-void stdConffile_OpenRead(undefined4 param_1)
+void stdConffile_Open(undefined4 param_1)
 
 {
   stdConffile_OpenMode(param_1,&DAT_004dda54);

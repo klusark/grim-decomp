@@ -44,287 +44,287 @@ void Grim_OpenRegistry(void); /* 0x004034b0 */
 void Grim_ShowSplash(void); /* 0x00403520 */
 
 /* ===== game.c ===== */
-void Game_FrameUpdate(void); /* 0x004016a0 */
+void Main_Service(void); /* 0x004016a0 */
 
 /* ===== lua.c ===== */
-void Lua_Is3DHardwareEnabled(void); /* 0x00401ca0 */
+void sputLua_Is3DHardwareEnabledL(void); /* 0x00401ca0 */
 void Lua_SetHardwareState(void); /* 0x00401cc0 */
 void Lua_GetVideoDevices(void); /* 0x00401d30 */
 void Lua_SetVideoDevices(void); /* 0x00401da0 */
 void Lua_Enumerate3DDevices(void); /* 0x00401e90 */
 void Lua_EnumerateVideoDevices(void); /* 0x00401fb0 */
-void Lua_NextSetup(void); /* 0x00482880 */
-void Lua_PreviousSetup(void); /* 0x004828a0 */
-void Lua_IrisClear(void); /* 0x00486f50 */
-void Lua_DrawLine(void); /* 0x00489840 */
-void Lua_DrawPolygon(void); /* 0x00489a80 */
-void Lua_DrawRectangle(void); /* 0x00489d70 */
-void Lua_ChangePrimitive(void); /* 0x00489fe0 */
-void __cdecl Lua_KillPrimitive(void); /* 0x0048a460 */
-void Lua_PurgePrimitiveQueue(void); /* 0x0048a4a0 */
-void Lua_SetOffscreenTextPos(void); /* 0x0048ad60 */
-void Lua_SetEmergencyFont(void); /* 0x0048ade0 */
-void Lua_LocalizeString(void); /* 0x0048ae60 */
-void Lua_MakeColor(void); /* 0x0048aed0 */
-void Lua_GetColorComponents(void); /* 0x0048b100 */
-void Lua_SetActorTalkColor(void); /* 0x0048b190 */
-void Lua_GetActorTalkColor(void); /* 0x0048b230 */
-void Lua_SetSayLineDefaults(void); /* 0x0048b2a0 */
-void Lua_SayLine(void); /* 0x0048b4c0 */
+void grimlib_NextSetup(void); /* 0x00482880 */
+void grimlib_PreviousSetup(void); /* 0x004828a0 */
+void sputRender_ClearIris(void); /* 0x00486f50 */
+void sputPrimitive_DrawLine(void); /* 0x00489840 */
+void sputPrimitive_DrawPolygon(void); /* 0x00489a80 */
+void sputPrimitive_DrawRectangle(void); /* 0x00489d70 */
+void sputPrimitive_ChangePrimitive(void); /* 0x00489fe0 */
+void __cdecl sputPrimitive_KillPrimitive(void); /* 0x0048a460 */
+void sputPrimitive_PurgeQueue(void); /* 0x0048a4a0 */
+void sputText_SetOffscreenTextPosL(void); /* 0x0048ad60 */
+void sputText_SetEmergencyFontL(void); /* 0x0048ade0 */
+void sputText_LocalizeStringL(void); /* 0x0048ae60 */
+void sputText_MakeColorL(void); /* 0x0048aed0 */
+void sputText_GetColorComponentsL(void); /* 0x0048b100 */
+void sputText_SetActorTalkColorL(void); /* 0x0048b190 */
+void sputText_GetActorTalkColorL(void); /* 0x0048b230 */
+void sputText_SetSayLineDefaultsL(void); /* 0x0048b2a0 */
+void sputText_SayLineL(void); /* 0x0048b4c0 */
 void Lua_ParseSayLineTable (int param_1,int *param_2,int *param_3,int *param_4,int *param_5,int *param_6); /* 0x0048b6a0 */
-void Lua_PrintLine(void); /* 0x0048b830 */
-void Lua_IsMessageGoing(void); /* 0x0048b9a0 */
-void Lua_ExpireText(void); /* 0x0048ba90 */
-void Lua_PurgeText(void); /* 0x0048baf0 */
-void Lua_KillTextObject(void); /* 0x0048bb20 */
-void Lua_GetFontDimensions(void); /* 0x0048bb70 */
-void Lua_GetTextObjectDimensions(void); /* 0x0048bbc0 */
-void Lua_GetTextCharPosition(void); /* 0x0048bc50 */
-void Lua_ChangeTextObject(void); /* 0x0048bd10 */
-void Lua_MakeTextObject(void); /* 0x0048be30 */
-void Lua_BlastText(void); /* 0x0048bf50 */
-void Lua_GetTranslationMode(void); /* 0x0048c960 */
-void Lua_SetTranslationMode(void); /* 0x0048c980 */
-void Lua_GetKeyLength(void); /* 0x00495850 */
-void Lua_GetSmushLength(void); /* 0x00495900 */
+void sputText_PrintLineL(void); /* 0x0048b830 */
+void sputText_IsMessageGoingL(void); /* 0x0048b9a0 */
+void sputText_ExpireTextQueueL(void); /* 0x0048ba90 */
+void sputText_PurgeTextQueueL(void); /* 0x0048baf0 */
+void sputText_KillTextObjectL(void); /* 0x0048bb20 */
+void sputText_GetFontDimensionsL(void); /* 0x0048bb70 */
+void sputText_GetTextObjectDimensionsL(void); /* 0x0048bbc0 */
+void sputText_GetTextCharPositionL(void); /* 0x0048bc50 */
+void sputText_ChangeTextObjectL(void); /* 0x0048bd10 */
+void sputText_MakeTextObjectL(void); /* 0x0048be30 */
+void sputText_BlastText(void); /* 0x0048bf50 */
+void sputText_GetTranslationModeL(void); /* 0x0048c960 */
+void sputText_SetTranslationModeL(void); /* 0x0048c980 */
+void sputCostume_GetKeyLengthL(void); /* 0x00495850 */
+void sputCostume_GetSmushLengthL(void); /* 0x00495900 */
 void Lua_Stub(void); /* 0x00497830 */
-void Lua_GetMemoryUsage(void); /* 0x00498d80 */
-void Lua_GetDiskFreeSpace(void); /* 0x00498da0 */
-void __cdecl Lua_TEST(void); /* 0x00498e20 */
-void __cdecl Lua_ShrinkBoxes(void); /* 0x00498e50 */
-void Lua_UnShrinkBoxes(void); /* 0x00498e90 */
-void __cdecl Lua_GetShrinkPos(void); /* 0x00498ea0 */
-void Lua_SetSoundParameters(void); /* 0x00499000 */
-void Lua_GetSoundParameters(void); /* 0x004991c0 */
+void sputLua_GetMemoryUsageL(void); /* 0x00498d80 */
+void sputLua_GetDiskFreeSpaceL(void); /* 0x00498da0 */
+void __cdecl sputLua_Test(void); /* 0x00498e20 */
+void __cdecl sputLua_ShrinkBoxes(void); /* 0x00498e50 */
+void sputLua_UnShrinkBoxes(void); /* 0x00498e90 */
+void __cdecl sputLua_GetShrinkPosition(void); /* 0x00498ea0 */
+void sputLua_SetSoundParametersL(void); /* 0x00499000 */
+void sputLua_GetSoundParametersL(void); /* 0x004991c0 */
 void Lua_SetDebugKeysCallback(uint param_1); /* 0x00499250 */
-void Lua_EnginePause(void); /* 0x00499260 */
-void Lua_EngineResume(void); /* 0x00499270 */
-void Lua_EngineDisplay(void); /* 0x00499280 */
-void Lua_LoadActor(void); /* 0x004992b0 */
-void Lua_PutActorAtInterest(void); /* 0x004992d0 */
-void Lua_SetSelectedActor(void); /* 0x00499360 */
-void Lua_PutActorAt(void); /* 0x004993c0 */
-void Lua_PutActorInSet(void); /* 0x004994a0 */
-void Lua_WalkActorVector(void); /* 0x00499590 */
-void Lua_WalkActorForward(void); /* 0x00499800 */
-void Lua_WalkActorTo(void); /* 0x00499860 */
-void Lua_WalkActorToAvoiding(void); /* 0x004999d0 */
-void Lua_IsActorMoving(void); /* 0x00499b80 */
-void Lua_IsActorTurning(void); /* 0x00499be0 */
-void Lua_SetActorChoreLooping(void); /* 0x00499c70 */
-void Lua_IsActorResting(void); /* 0x00499da0 */
-void Lua_IsActorChoring(void); /* 0x00499e20 */
-void Lua_GetActorChores(void); /* 0x00499ff0 */
-void Lua_GetActorCostumeDepth(void); /* 0x0049a160 */
-void Lua_GetActorLoopingChores(void); /* 0x0049a2a0 */
-void Lua_SetActorColormap(void); /* 0x0049a410 */
-void Lua_SetActorCostume(void); /* 0x0049a500 */
-void Lua_PrintActorCostumes(void); /* 0x0049a5e0 */
-void Lua_PushActorCostume(void); /* 0x0049a640 */
-void Lua_PopActorCostume(void); /* 0x0049a6c0 */
-void Lua_StopActorChore(void); /* 0x0049a750 */
-void Lua_PlayActorChore(void); /* 0x0049a830 */
-void Lua_CompleteActorChore(void); /* 0x0049a910 */
-void Lua_PlayActorChoreLooping(void); /* 0x0049a9e0 */
-void Lua_ActorLookAt(void); /* 0x0049aac0 */
-void Lua_IsActorLooking(void); /* 0x0049ad30 */
-void Lua_SetActorLookRate(void); /* 0x0049ad90 */
-void Lua_GetActorLookRate(void); /* 0x0049ae10 */
-void Lua_SetActorVisibility(void); /* 0x0049ae80 */
-void Lua_SetActorFollowBoxes(void); /* 0x0049af00 */
-void Lua_ShutUpActor(void); /* 0x0049af80 */
-void Lua_SetActorFrustrumCull(void); /* 0x0049afd0 */
-void Lua_GetCameraActor(void); /* 0x0049b040 */
-void Lua_GetActorWalkRate(void); /* 0x0049b060 */
-void Lua_SetActorWalkRate(void); /* 0x0049b0d0 */
-void Lua_GetActorTurnRate(void); /* 0x0049b160 */
-void Lua_SetActorTurnRate(void); /* 0x0049b1d0 */
-void Lua_SetActorWalkChore(void); /* 0x0049b280 */
-void Lua_SetActorTurnChores(void); /* 0x0049b350 */
-void Lua_SetActorRestChore(void); /* 0x0049b430 */
-void Lua_SetActorMumblechore(void); /* 0x0049b500 */
-void Lua_SetActorTalkChore(void); /* 0x0049b5a0 */
-void Lua_SetActorHead(void); /* 0x0049b6c0 */
-void Lua_CanActorSee(void); /* 0x0049b830 */
-void Lua_GetVisibleThings(void); /* 0x0049b9e0 */
-void Lua_GetActorRect(void); /* 0x0049bb10 */
-void Lua_GetActorPuckVector(void); /* 0x0049bba0 */
-void Lua_GetActorYawToPoint(void); /* 0x0049bcc0 */
-void Lua_SetActorReflection(void); /* 0x0049be40 */
-void Lua_GetActorPos(void); /* 0x0049bec0 */
-void Lua_GetActorRot(void); /* 0x0049bf30 */
-void Lua_SetActorRot(void); /* 0x0049bfa0 */
-void Lua_SetActorPitch(void); /* 0x0049c0a0 */
-void Lua_SetActorRoll(void); /* 0x0049c110 */
-void Lua_TurnActor(void); /* 0x0049c180 */
-void Lua_GetActorSector(void); /* 0x0049c200 */
-void Lua_IsActorInSector(void); /* 0x0049c2c0 */
-void Lua_IsPointInSector(void); /* 0x0049c4c0 */
+void sputLua_EnginePause(void); /* 0x00499260 */
+void sputLua_EngineResume(void); /* 0x00499270 */
+void sputLua_EngineDisplay(void); /* 0x00499280 */
+void sputLua_AllocateActorL(void); /* 0x004992b0 */
+void sputLua_PutActorAtInterestL(void); /* 0x004992d0 */
+void sputLua_SetSelectedActorL(void); /* 0x00499360 */
+void sputLua_PutActorAtL(void); /* 0x004993c0 */
+void sputLua_PutActorInSetL(void); /* 0x004994a0 */
+void sputLua_WalkActorVectorL(void); /* 0x00499590 */
+void sputLua_WalkActorForwardL(void); /* 0x00499800 */
+void sputLua_WalkActorToL(void); /* 0x00499860 */
+void sputLua_WalkActorToAvoidingL(void); /* 0x004999d0 */
+void sputLua_IsActorMovingL(void); /* 0x00499b80 */
+void sputLua_IsActorTurningL(void); /* 0x00499be0 */
+void sputLua_SetActorChoreLoopingL(void); /* 0x00499c70 */
+void sputLua_IsActorRestingL(void); /* 0x00499da0 */
+void sputLua_IsActorChoringL(void); /* 0x00499e20 */
+void sputLua_GetActorChoresL(void); /* 0x00499ff0 */
+void sputLua_GetActorCostumeDepthL(void); /* 0x0049a160 */
+void sputLua_GetActorLoopingChoresL(void); /* 0x0049a2a0 */
+void sputLua_SetActorColormapL(void); /* 0x0049a410 */
+void sputLua_SetActorCostumeL(void); /* 0x0049a500 */
+void sputLua_PrintActorCostumesL(void); /* 0x0049a5e0 */
+void sputLua_PushActorCostumeL(void); /* 0x0049a640 */
+void sputLua_PopActorCostumeL(void); /* 0x0049a6c0 */
+void sputLua_StopActorChoreL(void); /* 0x0049a750 */
+void sputLua_PlayActorChoreL(void); /* 0x0049a830 */
+void sputLua_CompleteActorChoreL(void); /* 0x0049a910 */
+void sputLua_PlayActorChoreLoopingL(void); /* 0x0049a9e0 */
+void sputLua_ActorLookAtL(void); /* 0x0049aac0 */
+void sputLua_IsActorLookingL(void); /* 0x0049ad30 */
+void sputLua_SetActorLookRate(void); /* 0x0049ad90 */
+void sputLua_GetActorLookRate(void); /* 0x0049ae10 */
+void sputLua_SetActorVisibilityL(void); /* 0x0049ae80 */
+void sputLua_SetActorFollowBoxesL(void); /* 0x0049af00 */
+void sputLua_ShutUpActorL(void); /* 0x0049af80 */
+void sputLua_SetActorFrustrumCull(void); /* 0x0049afd0 */
+void sputLua_GetCameraActorL(void); /* 0x0049b040 */
+void sputLua_GetActorWalkRateL(void); /* 0x0049b060 */
+void sputLua_SetActorWalkRateL(void); /* 0x0049b0d0 */
+void sputLua_GetActorTurnRateL(void); /* 0x0049b160 */
+void sputLua_SetActorTurnRateL(void); /* 0x0049b1d0 */
+void sputLua_SetActorWalkChoresL(void); /* 0x0049b280 */
+void sputLua_SetActorTurnChoresL(void); /* 0x0049b350 */
+void sputLua_SetActorRestChoreL(void); /* 0x0049b430 */
+void sputLua_SetActorMumbleChoreL(void); /* 0x0049b500 */
+void sputLua_SetActorTalkChoreL(void); /* 0x0049b5a0 */
+void sputLua_SetActorHeadL(void); /* 0x0049b6c0 */
+void sputLua_CanActorSeeL(void); /* 0x0049b830 */
+void sputLua_GetVisibleThingsL(void); /* 0x0049b9e0 */
+void sputLua_GetActorRectL(void); /* 0x0049bb10 */
+void sputLua_GetActorPuckVectorL(void); /* 0x0049bba0 */
+void sputLua_GetActorYawToPoint(void); /* 0x0049bcc0 */
+void sputLua_SetActorReflection(void); /* 0x0049be40 */
+void sputLua_GetActorPosL(void); /* 0x0049bec0 */
+void sputLua_GetActorRotL(void); /* 0x0049bf30 */
+void sputLua_SetActorRotL(void); /* 0x0049bfa0 */
+void sputLua_SetActorPitch(void); /* 0x0049c0a0 */
+void sputLua_SetActorRoll(void); /* 0x0049c110 */
+void sputLua_TurnActorL(void); /* 0x0049c180 */
+void sputLua_GetActorSectorL(void); /* 0x0049c200 */
+void sputLua_IsActorInSector(void); /* 0x0049c2c0 */
+void sputLua_IsPointInSector(void); /* 0x0049c4c0 */
 int Lua_RunSystemScript(void); /* 0x0049c5e0 */
 int __cdecl Lua_CallSystemFunction(int flag,char *str); /* 0x0049c600 */
 void __cdecl Lua_CallCamChangeHandler(int fromSetup,int toSetup); /* 0x0049c660 */
-void __cdecl Lua_CallPostCamChangeHandler(int setup); /* 0x0049c6e0 */
+void __cdecl sputLua_PostCameraChange(int setup); /* 0x0049c6e0 */
 void Lua_OpenEngineLib(int *param_1,int param_2); /* 0x0049ca60 */
-void Lua_JustLoaded(void); /* 0x0049ca80 */
-void Lua_ActorVoiceIs3D(void); /* 0x0049caa0 */
-int __cdecl Lua_ResolveCostumeArg(void *luaObj,void *costumeList,void **outCostume); /* 0x0049cb10 */
-void Lua_CheckForFile(void); /* 0x0049cca0 */
-void Lua_NukeResources(void); /* 0x0049cd10 */
-void Lua_DetachFromResources(void); /* 0x0049cd40 */
-void Lua_AttachToResources(void); /* 0x0049cd50 */
-void Lua_SearchForFileOrSwapCDs(void); /* 0x0049cd60 */
-void Lua_Load(void); /* 0x0049cea0 */
-void Lua_Save(void); /* 0x0049cef0 */
-void Lua_EnableDebugKeys(void); /* 0x0049cf40 */
-void Lua_WorldToScreen(void); /* 0x0049cf60 */
-void Lua_ScreenToWorld(void); /* 0x0049d030 */
-void Lua_ConcatFallback(void); /* 0x0049d220 */
-void Lua_exit(void); /* 0x0049d3a0 */
-void Lua_EnableControl(void); /* 0x0049d3f0 */
-void Lua_DisableControl(void); /* 0x0049d430 */
-void Lua_GetControlState(void); /* 0x0049d470 */
-void __cdecl Lua_CallCostumeOverrideHandler(void *actor,int flag); /* 0x0049d550 */
-void __cdecl Lua_CallCostumeMarkerHandler(void *actor,uint marker); /* 0x0049d670 */
-void Lua_CallUserPaintHandler(void); /* 0x0049d7b0 */
-uint Lua_CallExitHandler(void); /* 0x0049d890 */
-uint Lua_CallPauseHandler(void); /* 0x0049d970 */
-int __cdecl Lua_CallCharacterHandler(int ch); /* 0x0049da50 */
-void Lua_MakeCurrentSetup(void); /* 0x0049db70 */
-void Lua_GetCurrentSetup(void); /* 0x0049dbb0 */
-void Lua_MakeCurrentSet(void); /* 0x0049dc70 */
-void Lua_LockSet(void); /* 0x0049dcb0 */
-void Lua_UnLockSet(void); /* 0x0049dd10 */
-void Lua_PrintMessage(void); /* 0x0049dd70 */
+void sputLua_JustLoadedL(void); /* 0x0049ca80 */
+void sputLua_ActorVoiceIs3DL(void); /* 0x0049caa0 */
+int __cdecl FindCostumeInStack(void *luaObj,void *costumeList,void **outCostume); /* 0x0049cb10 */
+void sputLua_CheckForFileL(void); /* 0x0049cca0 */
+void sputLua_NukeResourcesL(void); /* 0x0049cd10 */
+void sputLua_DetachFromResourcesL(void); /* 0x0049cd40 */
+void sputLua_AttachToResourcesL(void); /* 0x0049cd50 */
+void sputLua_SearchForFileOrSwapCDsL(void); /* 0x0049cd60 */
+void sputLua_LoadL(void); /* 0x0049cea0 */
+void sputLua_SaveL(void); /* 0x0049cef0 */
+void sputLua_EnableDebugKeysL(void); /* 0x0049cf40 */
+void sputLua_WorldToScreenL(void); /* 0x0049cf60 */
+void sputLua_ScreenToWorldL(void); /* 0x0049d030 */
+void sputLua_ConcatFallback(void); /* 0x0049d220 */
+void sputLua_ExitL(void); /* 0x0049d3a0 */
+void sputLua_EnableControlL(void); /* 0x0049d3f0 */
+void sputLua_DisableControlL(void); /* 0x0049d430 */
+void sputLua_GetControlStateL(void); /* 0x0049d470 */
+void __cdecl sputLua_DoCostumeOverrideCallback(void *actor,int flag); /* 0x0049d550 */
+void __cdecl sputLua_DoCostumeMarkerCallback(void *actor,uint marker); /* 0x0049d670 */
+void sputLua_DoUserPaintCallback(void); /* 0x0049d7b0 */
+uint sputLua_DoExitCallback(void); /* 0x0049d890 */
+uint sputLua_DoPauseCallback(void); /* 0x0049d970 */
+int __cdecl sputLua_DoCharacterCallback(int ch); /* 0x0049da50 */
+void sputLua_MakeCurrentSetupL(void); /* 0x0049db70 */
+void sputLua_GetCurrentSetupL(void); /* 0x0049dbb0 */
+void sputLua_MakeCurrentSetL(void); /* 0x0049dc70 */
+void sputLua_LockSet(void); /* 0x0049dcb0 */
+void sputLua_UnLockSet(void); /* 0x0049dd10 */
+void sputLua_MessagePrintL(void); /* 0x0049dd70 */
 void Lua_Print_NoOp(void); /* 0x0049ddd0 */
-undefined4 Lua_InitGameLibs(void); /* 0x0049de00 */
+undefined4 sputLua_Startup(void); /* 0x0049de00 */
 uint Lua_SaveUserdataHook(int param_1,uint param_2); /* 0x0049dfa0 */
 void * Lua_RestoreUserdataHook(int param_1,void *param_2); /* 0x0049e020 */
 undefined4 Lua_DispatchControlHandlers(void); /* 0x0049e0b0 */
 uint Lua_CreateSystemTable(void); /* 0x0049e380 */
 void Lua_CreateControlsTable(uint param_1); /* 0x0049e460 */
-void Lua_SetSoundPosition(void); /* 0x0049e590 */
-void Lua_StartFullscreenMovie(void); /* 0x0049e7e0 */
-void Lua_PauseMovie(void); /* 0x0049e860 */
+void sputLua_SetSoundPosition(void); /* 0x0049e590 */
+void sputLua_StartFullScreenMovieL(void); /* 0x0049e7e0 */
+void sputLua_PauseMovieL(void); /* 0x0049e860 */
 void Lua_IsMoviePlaying(void); /* 0x0049e960 */
-void __fastcall Lua_FileFindFirst(char *param_1); /* 0x0049e980 */
-void Lua_FileFindNext(void); /* 0x0049ea20 */
-void Lua_FileFindDispose(void); /* 0x0049ea90 */
-void Lua_QueryDialog(void); /* 0x0049eab0 */
-void Lua_InputDialog(void); /* 0x0049eb60 */
-void Lua_WriteRegistryValue(void); /* 0x0049ec50 */
-void Lua_ReadRegistryValue(void); /* 0x0049ece0 */
-void Lua_GetSectorOppositeEdge(void); /* 0x0049ed90 */
-void Lua_IsSectorActive(void); /* 0x0049ee20 */
-void Lua_MakeSectorActive(void); /* 0x0049eeb0 */
-void Lua_PreRender(void); /* 0x0049ef50 */
-void Lua_GetCurrentScript(void); /* 0x0049efc0 */
-void Lua_LockFont(void); /* 0x0049efe0 */
-void Lua_LoadCostume(void); /* 0x0049f040 */
-void __fastcall Lua_GetPhysicalBytes(undefined4 param_1); /* 0x0049f080 */
-void Lua_SetMemoryUsage(void); /* 0x0049f0a0 */
-void Lua_GetCameraPosition(void); /* 0x0049f2b0 */
-void Lua_GetCameraInterest(void); /* 0x0049f300 */
-void Lua_GetCameraFOV(void); /* 0x0049f350 */
-void Lua_GetCameraRoll(void); /* 0x0049f380 */
-void Lua_SetCameraPosition(void); /* 0x0049f3b0 */
-void Lua_SetCameraInterest(void); /* 0x0049f480 */
-void Lua_SetActorScale(void); /* 0x0049f550 */
-void Lua_SetActorTimeScale(void); /* 0x0049f5d0 */
-void Lua_GetActorNodeLocation(void); /* 0x0049f690 */
-void Lua_GetActorScale(void); /* 0x0049f810 */
-void Lua_GetActorTimeScale(void); /* 0x0049f860 */
-void Lua_SetCameraFOV(void); /* 0x0049f8d0 */
-void Lua_SetCameraRoll(void); /* 0x0049f930 */
-void Lua_GetCameraLookVector(void); /* 0x0049f9b0 */
-void Lua_PointActorAt(void); /* 0x0049fb00 */
-void Lua_TurnActorTo(void); /* 0x0049fc60 */
-void Lua_PerSecond(void); /* 0x0049fdf0 */
-void Lua_SnapToPlane(void); /* 0x0049fe40 */
-void Lua_GetAngleBetweenVectors(void); /* 0x0049ff00 */
-void Lua_GetAngleBetweenActors(void); /* 0x004a00a0 */
-void Lua_SetAmbientLight(void); /* 0x004a0230 */
-void Lua_FindLight(void); /* 0x004a0290 */
-void Lua_TurnLightOn(void); /* 0x004a02f0 */
-void Lua_IsLightOn(void); /* 0x004a0380 */
-void Lua_SetLightType(void); /* 0x004a0400 */
-void Lua_GetLightType(void); /* 0x004a0530 */
-void Lua_SetLightPosition(void); /* 0x004a05e0 */
-void Lua_GetLightPosition(void); /* 0x004a0760 */
-void Lua_SetLightRotation(void); /* 0x004a0800 */
-void Lua_GetLightRotation(void); /* 0x004a09a0 */
-void Lua_SetLightAngles(void); /* 0x004a0a50 */
-void Lua_GetLightAngles(void); /* 0x004a0b40 */
-void Lua_PointLightAt(void); /* 0x004a0bd0 */
-void Lua_SetLightIntensity(void); /* 0x004a0da0 */
-void Lua_GetLightIntensity(void); /* 0x004a0e90 */
-void __fastcall Lua_ImGetMasterVol(undefined4 param_1); /* 0x004a13d0 */
-void Lua_ImSetMasterVol(void); /* 0x004a1400 */
-void __fastcall Lua_ImGetSfxVol(undefined4 param_1); /* 0x004a1440 */
-void Lua_ImSetSfxVol(void); /* 0x004a1470 */
-void __fastcall Lua_ImGetVoiceVol(undefined4 param_1); /* 0x004a14b0 */
-void Lua_ImSetVoiceVol(void); /* 0x004a14e0 */
-void __fastcall Lua_ImGetMusicVol(undefined4 param_1); /* 0x004a1520 */
-void Lua_ImSetMusicVol(void); /* 0x004a1550 */
-void Lua_ImSetState(void); /* 0x004a1640 */
-void Lua_ImSetCuePoint(void); /* 0x004a16d0 */
-void Lua_ImGetMemoryFootprint(void); /* 0x004a17f0 */
-void Lua_ImGetSoundCacheSize(void); /* 0x004a1820 */
-void Lua_SetGamma(void); /* 0x004a1850 */
-void Lua_SetActorWalkDominate(void); /* 0x004a1890 */
-void Lua_SetActorConstrain(void); /* 0x004a1900 */
-void Lua_RenderModeUser(void); /* 0x004a1970 */
-void Lua_DimScreen(void); /* 0x004a19f0 */
-void Lua_DimRegion(void); /* 0x004a1a00 */
-void Lua_SetSpeechMode(void); /* 0x004a1ae0 */
-void Lua_GetSpeechMode(void); /* 0x004a1b40 */
-void Lua_ActorShadow(void); /* 0x004a1b80 */
-void Lua_ActivateActorShadow(void); /* 0x004a1bf0 */
-void Lua_SetActorShadowPlane(void); /* 0x004a1c90 */
-void Lua_SetActorShadowPoint(void); /* 0x004a1d10 */
-void Lua_SetActiveShadow(void); /* 0x004a1dc0 */
-void Lua_ActorDistToShadowPlane(void); /* 0x004a1e50 */
-void Lua_AddShadowPlane(void); /* 0x004a1f30 */
-void Lua_SetActorShadowValid(void); /* 0x004a1fd0 */
-void Lua_KillActorShadows(void); /* 0x004a2070 */
-void Lua_SetShadowColor(void); /* 0x004a20d0 */
-void Lua_NewObjectState(void); /* 0x004a2130 */
-void Lua_FreeObjectState(void); /* 0x004a21f0 */
-void Lua_SendObjectToBack(void); /* 0x004a2240 */
-void Lua_SendObjectToFront(void); /* 0x004a22b0 */
-void Lua_SetObjectType(void); /* 0x004a2320 */
-void Lua_ActorToClean(void); /* 0x004a2380 */
-void Lua_SetActorCollisionMode(void); /* 0x004a23e0 */
-void Lua_SetActorCollisionScale(void); /* 0x004a2470 */
-void Lua_SetActorOffsetYaw(void); /* 0x004a2500 */
-void Lua_CacheRect(void); /* 0x004a2590 */
-void Lua_RestoreCacheRect(void); /* 0x004a26b0 */
-void __fastcall Lua_ResReport(undefined4 param_1); /* 0x004a26f0 */
-void Lua_HardwareAccelerated(void); /* 0x004a2720 */
-void Lua_SetActorClipActive(void); /* 0x004a2750 */
-void Lua_SetActorClipPlane(void); /* 0x004a27b0 */
-void Lua_MarkDirtyRect(void); /* 0x004a2920 */
-void Lua_FadeOutChore(void); /* 0x004a2a20 */
-void Lua_IrisDown(void); /* 0x004a2c10 */
-void Lua_IrisUp(void); /* 0x004a2c70 */
-void __fastcall Lua_IrisComplete(undefined4 param_1); /* 0x004a2cd0 */
+void __fastcall sputLua_FileFindFirst(char *param_1); /* 0x0049e980 */
+void sputLua_FileFindNext(void); /* 0x0049ea20 */
+void sputLua_FileFindDispose(void); /* 0x0049ea90 */
+void sputLua_QueryDialog(void); /* 0x0049eab0 */
+void sputLua_InputDialog(void); /* 0x0049eb60 */
+void sputLua_WriteRegistryValue(void); /* 0x0049ec50 */
+void sputLua_ReadRegistryValue(void); /* 0x0049ece0 */
+void sputLua_GetSectorOppositeEdge(void); /* 0x0049ed90 */
+void sputLua_IsSectorActiveL(void); /* 0x0049ee20 */
+void sputLua_MakeSectorActiveL(void); /* 0x0049eeb0 */
+void sputLua_PreRender(void); /* 0x0049ef50 */
+void sputLua_GetCurrentScript(void); /* 0x0049efc0 */
+void sputLua_LockFontL(void); /* 0x0049efe0 */
+void sputLua_LoadCostumeL(void); /* 0x0049f040 */
+void __fastcall sputLua_GetPhysicalBytes(undefined4 param_1); /* 0x0049f080 */
+void sputLua_SetMemoryUsage(void); /* 0x0049f0a0 */
+void sputLua_GetCameraPositionL(void); /* 0x0049f2b0 */
+void sputLua_GetCameraInterestL(void); /* 0x0049f300 */
+void sputLua_GetCameraFOVL(void); /* 0x0049f350 */
+void sputLua_GetCameraRollL(void); /* 0x0049f380 */
+void sputLua_SetCameraPositionL(void); /* 0x0049f3b0 */
+void sputLua_SetCameraInterestL(void); /* 0x0049f480 */
+void sputLua_SetActorScaleL(void); /* 0x0049f550 */
+void sputLua_SetActorTimeScaleL(void); /* 0x0049f5d0 */
+void sputLua_GetActorNodeLocationL(void); /* 0x0049f690 */
+void sputLua_GetActorScaleL(void); /* 0x0049f810 */
+void sputLua_GetActorTimeScaleL(void); /* 0x0049f860 */
+void sputLua_SetCameraFOVL(void); /* 0x0049f8d0 */
+void sputLua_SetCameraRollL(void); /* 0x0049f930 */
+void sputLua_GetCameraLookVectorL(void); /* 0x0049f9b0 */
+void sputLua_PointActorAtL(void); /* 0x0049fb00 */
+void sputLua_TurnActorTo(void); /* 0x0049fc60 */
+void sputLua_PerSecondL(void); /* 0x0049fdf0 */
+void sputLua_SnapToPlane(void); /* 0x0049fe40 */
+void sputLua_GetAngleBetweenVectorsL(void); /* 0x0049ff00 */
+void sputLua_GetAngleBetweenActorsL(void); /* 0x004a00a0 */
+void sputLua_SetAmbientLight(void); /* 0x004a0230 */
+void sputLua_FindLight(void); /* 0x004a0290 */
+void sputLua_TurnLightOn(void); /* 0x004a02f0 */
+void sputLua_IsLightOn(void); /* 0x004a0380 */
+void sputLua_SetLightType(void); /* 0x004a0400 */
+void sputLua_GetLightType(void); /* 0x004a0530 */
+void sputLua_SetLightPosition(void); /* 0x004a05e0 */
+void sputLua_GetLightPosition(void); /* 0x004a0760 */
+void sputLua_SetLightRotation(void); /* 0x004a0800 */
+void sputLua_GetLightRotation(void); /* 0x004a09a0 */
+void sputLua_SetLightAngles(void); /* 0x004a0a50 */
+void sputLua_GetLightAngles(void); /* 0x004a0b40 */
+void sputLua_PointLightAt(void); /* 0x004a0bd0 */
+void sputLua_SetLightIntensity(void); /* 0x004a0da0 */
+void sputLua_GetLightIntensity(void); /* 0x004a0e90 */
+void __fastcall sputLua_ImGetMasterVol(undefined4 param_1); /* 0x004a13d0 */
+void sputLua_ImSetMasterVol(void); /* 0x004a1400 */
+void __fastcall sputLua_ImGetSfxVol(undefined4 param_1); /* 0x004a1440 */
+void sputLua_ImSetSfxVol(void); /* 0x004a1470 */
+void __fastcall sputLua_ImGetVoiceVol(undefined4 param_1); /* 0x004a14b0 */
+void sputLua_ImSetVoiceVol(void); /* 0x004a14e0 */
+void __fastcall sputLua_ImGetMusicVol(undefined4 param_1); /* 0x004a1520 */
+void sputLua_ImSetMusicVol(void); /* 0x004a1550 */
+void sputLua_ImSetState(void); /* 0x004a1640 */
+void sputLua_ImSetCuePoint(void); /* 0x004a16d0 */
+void sputLua_ImGetMemoryFootprint(void); /* 0x004a17f0 */
+void sputLua_ImGetSoundCacheSize(void); /* 0x004a1820 */
+void sputLua_SetGamma(void); /* 0x004a1850 */
+void sputLua_SetActorWalkDominate(void); /* 0x004a1890 */
+void sputLua_SetActorConstrain(void); /* 0x004a1900 */
+void sputLua_RenderModeUser(void); /* 0x004a1970 */
+void sputLua_DimScreen(void); /* 0x004a19f0 */
+void sputLua_DimRegion(void); /* 0x004a1a00 */
+void sputLua_SetSpeechMode(void); /* 0x004a1ae0 */
+void sputLua_GetSpeechMode(void); /* 0x004a1b40 */
+void sputLua_ActorShadow(void); /* 0x004a1b80 */
+void sputLua_ActivateActorShadow(void); /* 0x004a1bf0 */
+void sputLua_SetActorShadowPlane(void); /* 0x004a1c90 */
+void sputLua_SetActorShadowPoint(void); /* 0x004a1d10 */
+void sputLua_SetActiveShadow(void); /* 0x004a1dc0 */
+void sputLua_ActorDistToShadowPlane(void); /* 0x004a1e50 */
+void sputLua_AddShadowClipPlane(void); /* 0x004a1f30 */
+void sputLua_SetActorShadowValid(void); /* 0x004a1fd0 */
+void sputLua_KillActorShadows(void); /* 0x004a2070 */
+void sputLua_SetShadowColor(void); /* 0x004a20d0 */
+void sputLua_NewObjectState(void); /* 0x004a2130 */
+void sputLua_FreeObjectState(void); /* 0x004a21f0 */
+void sputLua_SendObjectToBack(void); /* 0x004a2240 */
+void sputLua_SendObjectToFront(void); /* 0x004a22b0 */
+void sputLua_SetObjectType(void); /* 0x004a2320 */
+void sputLua_ActorToClean(void); /* 0x004a2380 */
+void sputLua_SetActorCollisionMode(void); /* 0x004a23e0 */
+void sputLua_SetActorCollisionScale(void); /* 0x004a2470 */
+void sputLua_SetActorOffsetYaw(void); /* 0x004a2500 */
+void sputLua_CacheRect(void); /* 0x004a2590 */
+void sputLua_RestoreCacheRect(void); /* 0x004a26b0 */
+void __fastcall sputLua_ResReport(undefined4 param_1); /* 0x004a26f0 */
+void sputLua_HardwareAccelerated(void); /* 0x004a2720 */
+void sputLua_SetActorClipActive(void); /* 0x004a2750 */
+void sputLua_SetActorClipPlane(void); /* 0x004a27b0 */
+void sputLua_MarkDirtyRect(void); /* 0x004a2920 */
+void sputLua_FadeOutChore(void); /* 0x004a2a20 */
+void sputLua_IrisDown(void); /* 0x004a2c10 */
+void sputLua_IrisUp(void); /* 0x004a2c70 */
+void __fastcall sputLua_IrisComplete(undefined4 param_1); /* 0x004a2cd0 */
 void Lua_TextFileGetLineCount(void); /* 0x004a2d00 */
 void Lua_TextFileGetLine(void); /* 0x004a2e20 */
-void Lua_ScreenShot(void); /* 0x004a2ee0 */
-void Lua_SaveScreen(void); /* 0x004a2f90 */
-void Lua_GetSaveGameImage(void); /* 0x004a2fd0 */
-void Lua_GetImage(void); /* 0x004a3040 */
-void Lua_FreeImage(void); /* 0x004a30e0 */
-void Lua_BlastImage(void); /* 0x004a3130 */
-void Lua_BlastRect(void); /* 0x004a31f0 */
-void __cdecl Lua_CallSaveGameCallback(void *writeFn); /* 0x004a34c0 */
-void Lua_GetSaveGameData(void); /* 0x004a3720 */
-void __fastcall Lua_GetTextSpeed(undefined4 param_1); /* 0x004a3830 */
-void Lua_SetTextSpeed(void); /* 0x004a3850 */
-void Lua_FindFileOnAnyCD(void); /* 0x004a3890 */
-void Lua_ActorPuckOrient(void); /* 0x004a3a10 */
-void Lua_GetTickCount(void); /* 0x004a3aa0 */
-void Lua_SetActorInvClipNode(void); /* 0x004a3ae0 */
-void Lua_SetWalkSystemFadeTime(void); /* 0x004a3b80 */
+void sputLua_ScreenShot(void); /* 0x004a2ee0 */
+void sputLua_SaveScreen(void); /* 0x004a2f90 */
+void sputLua_GetSaveGameImage(void); /* 0x004a2fd0 */
+void sputLua_GetImage(void); /* 0x004a3040 */
+void sputLua_FreeImage(void); /* 0x004a30e0 */
+void sputLua_BlastImage(void); /* 0x004a3130 */
+void sputLua_BlastRect(void); /* 0x004a31f0 */
+void __cdecl sputLua_SaveGameCallback(void *writeFn); /* 0x004a34c0 */
+void sputLua_GetSaveGameData(void); /* 0x004a3720 */
+void __fastcall sputLua_GetTextSpeed(undefined4 param_1); /* 0x004a3830 */
+void sputLua_SetTextSpeed(void); /* 0x004a3850 */
+void sputLua_FindFileOnAnyCD(void); /* 0x004a3890 */
+void sputLua_ActorPuckOrient(void); /* 0x004a3a10 */
+void sputLua_GetTickCount(void); /* 0x004a3aa0 */
+void sputLua_SetActorInvClipNode(void); /* 0x004a3ae0 */
+void sputLua_SetWalkSystemFadeTime(void); /* 0x004a3b80 */
 void Lua_LightMgrStartup(void); /* 0x004be180 */
 void Lua_LightMgrSetChange(void); /* 0x004be260 */
 void Lua_LightMgrShutdown(void); /* 0x004be2a0 */
@@ -345,7 +345,7 @@ void stdDisplay_BuildBitmapInfo8 (int param_1,uint param_2,int param_3,int param
 void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4); /* 0x00473180 */
 undefined * __cdecl DIB_CreateSection565(uint param_1,uint param_2,int param_3,uint param_4); /* 0x004731f0 */
 undefined4 Palette_SwapRedBlue(int param_1,undefined1 *param_2); /* 0x00473270 */
-int Display_EnumDevices(void); /* 0x00473a40 */
+int stdDisplay_Startup(void); /* 0x00473a40 */
 void Display_RestoreMode(void); /* 0x00473b30 */
 int __cdecl Display_SelectDevice(int deviceIdx); /* 0x00473c80 */
 void Display_CloseDevice(void); /* 0x00474100 */
@@ -399,10 +399,10 @@ int Pixel_ConvertOne(int param_1,undefined4 param_2,int param_3); /* 0x0047bbb0 
 /* ===== services.c ===== */
 undefined4 __cdecl Svc_Printf(char *fmt,...); /* 0x004035b0 */
 undefined4 Svc_Printf2(undefined4 param_1); /* 0x004035e0 */
-undefined4 Svc_Warning(undefined4 param_1); /* 0x00403610 */
-undefined4 Svc_Error(undefined4 param_1); /* 0x00403640 */
-undefined4 Svc_Debug(undefined4 param_1); /* 0x00403670 */
-void __cdecl Svc_AssertFail(char *expr,char *file,int line); /* 0x004036a0 */
+undefined4 defaultWarningPrint(undefined4 param_1); /* 0x00403610 */
+undefined4 defaultErrorPrint(undefined4 param_1); /* 0x00403640 */
+undefined4 defaultDebugPrint(undefined4 param_1); /* 0x00403670 */
+void __cdecl defaultAssert(char *expr,char *file,int line); /* 0x004036a0 */
 void Svc_Fn1c(undefined4 param_1); /* 0x004036d0 */
 void * __cdecl Svc_Realloc(void *p,uint size); /* 0x004036e0 */
 void * __cdecl Svc_Fopen(char *name,char *mode); /* 0x00403710 */
@@ -520,8 +520,8 @@ int __cdecl rdCache_DrawMeshZ(void *mesh); /* 0x00408af0 */
 undefined4 rdModel_ComputeMeshLighting(byte *param_1); /* 0x00409580 */
 undefined4 FUN_00409d20(int param_1,int param_2); /* 0x00409d20 */
 void rdModel_DrawNode(int param_1); /* 0x0040d140 */
-void __cdecl rdModel_DrawMesh(void *mesh,float *matrix); /* 0x0040d230 */
-undefined4 rdModel_AddMeshToCache(int param_1,int param_2); /* 0x0040d880 */
+void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix); /* 0x0040d230 */
+undefined4 rdModel3_DrawFace(int param_1,int param_2); /* 0x0040d880 */
 
 /* ===== rdprimit3.c ===== */
 void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material); /* 0x00409d50 */
@@ -540,7 +540,7 @@ undefined4 rdCamera_SetCurrent(void *param_1); /* 0x0040a0e0 */
 void __cdecl rdCamera_SetFov(void *camera,float fov); /* 0x0040a100 */
 int __cdecl rdCamera_SetProjectType(void *camera,int type); /* 0x0040a150 */
 void __cdecl rdCamera_SetZoom(void *camera,float zoom); /* 0x0040a1d0 */
-undefined4 rdCamera_BuildProjection(int *param_1); /* 0x0040a280 */
+undefined4 rdCamera_BuildFOV(int *param_1); /* 0x0040a280 */
 void __cdecl rdCamera_SetFrame(float *frame); /* 0x0040a430 */
 void rdCamera_OrthoProject(float *param_1,float *param_2); /* 0x0040a470 */
 void rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3); /* 0x0040a4b0 */
@@ -554,7 +554,7 @@ void __cdecl rdCamera_SetAmbientLight(void *camera,float ambient); /* 0x0040a750
 void __cdecl rdCamera_AddLight(void *camera,void *light,float *pos); /* 0x0040a760 */
 void rdCamera_ClearCanvas(void); /* 0x0040a7d0 */
 void rdCamera_ResetStats(void); /* 0x0040a860 */
-int __cdecl rdCamera_ProjectPoint(float *world,float *outScreen); /* 0x0040dc30 */
+int __cdecl rdPrimit3_GetScreenCoord(float *world,float *outScreen); /* 0x0040dc30 */
 
 /* ===== renderer.c ===== */
 void Renderer_EnableClipPlane(uint param_1); /* 0x0040a870 */
@@ -565,15 +565,15 @@ void rdModel3_NewEntry(undefined4 *param_1); /* 0x0040a8c0 */
 undefined4 * rdModel3_New(undefined4 param_1); /* 0x0040a8f0 */
 undefined4 rdModel3_Load(int param_1,undefined4 param_2); /* 0x0040a980 */
 undefined4 rdModel3_LoadEntryText (undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4,uint param_5, uint param_6,uint param_7,uint param_8); /* 0x0040aa20 */
-undefined4 rdModel3_LoadBinary(int param_1,int param_2); /* 0x0040b8e0 */
+undefined4 rdModel3_LoadEntryBinary(int param_1,int param_2); /* 0x0040b8e0 */
 void rdModel3_LoadPostProcess(undefined4 param_1); /* 0x0040c090 */
 void rdModel3_Free(int param_1); /* 0x0040c0d0 */
 void rdModel3_FreeEntry(int param_1); /* 0x0040c100 */
 void rdModel3_BuildBoundingBoxCorners(int param_1); /* 0x0040c280 */
 void rdModel3_CalcBoundingBoxes(uint param_1); /* 0x0040c520 */
-void rdModel3_AccumulateNodeBounds(int param_1,int param_2,float *param_3); /* 0x0040c710 */
+void rdModel3_CalcModelBoundingBox(int param_1,int param_2,float *param_3); /* 0x0040c710 */
 void rdModel3_CalcRadii(int param_1); /* 0x0040c8c0 */
-void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3); /* 0x0040c970 */
+void rdModel3_BuildExpandedRadius(int param_1,int param_2,float *param_3); /* 0x0040c970 */
 void rdModel3_CalcFaceNormals(uint param_1); /* 0x0040cad0 */
 void rdModel3_CalcVertexNormals(int param_1); /* 0x0040cc30 */
 void rdModel3_CountNodeChildren(int param_1); /* 0x0040ce90 */
@@ -581,7 +581,7 @@ void rdModel3_CountNodeChildren(int param_1); /* 0x0040ce90 */
 /* ===== rdpuppet.c ===== */
 void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint index,float *out); /* 0x0040cee0 */
 undefined4 * rdPuppet_New(void *param_1); /* 0x00450500 */
-int __cdecl rdPuppet_Init(void *puppet,void *thing); /* 0x00450560 */
+int __cdecl rdPuppet_NewEntry(void *puppet,void *thing); /* 0x00450560 */
 uint __cdecl rdPuppet_AddTrack(void *puppet,uint keyframe,uint lowPri,uint highPri); /* 0x004505a0 */
 void __cdecl rdPuppet_StopTrack(void *puppet,int track); /* 0x00450640 */
 undefined4 rdPuppet_SetTrackFlags(int param_1,int param_2,uint param_3); /* 0x004506a0 */
@@ -590,7 +590,7 @@ undefined4 rdPuppet_PlayTrack(int param_1,int param_2); /* 0x004506f0 */
 int __cdecl rdPuppet_FadeInTrack(void *puppet,int track,float seconds); /* 0x00450720 */
 int __cdecl rdPuppet_FadeOutTrack(void *puppet,int track,float seconds); /* 0x00450780 */
 void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt); /* 0x004507e0 */
-void __cdecl rdPuppet_Advance(void *puppet,float seconds); /* 0x00450a90 */
+void __cdecl rdPuppet_UpdateTracks(void *puppet,float seconds); /* 0x00450a90 */
 void rdPuppet_ClearTrackNodes(int param_1,int param_2); /* 0x00450b50 */
 void __cdecl rdPuppet_UpdateFrame(void *model,float *frame); /* 0x00450ba0 */
 void rdKeyframe_NewEntry(undefined4 *param_1); /* 0x004c0630 */
@@ -990,7 +990,7 @@ void rdRaster_Span16_TexZw_13(uint *param_1,uint *param_2); /* 0x004710e0 */
 uint rdMaterial_SetLoadHook(uint param_1); /* 0x00417e90 */
 uint rdMaterial_SetFreeHook(uint param_1); /* 0x00417ea0 */
 void * __cdecl rdMaterial_Load(char *name,int a,int b); /* 0x00417eb0 */
-int __cdecl rdMaterial_LoadFile(char *filename,void *material,int a,int b); /* 0x00417f30 */
+int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b); /* 0x00417f30 */
 void rdMaterial_Free(undefined4 param_1); /* 0x00418360 */
 void rdMaterial_FreeContents(int param_1); /* 0x004183a0 */
 int __cdecl rdMaterial_EnsureTexture(void *a,uint *material,int cel,int alt); /* 0x004184a0 */
@@ -1000,9 +1000,9 @@ float __cdecl Vec3_Dot(float *a,float *b); /* 0x00446880 */
 float __cdecl Vec3_Dot2(float *a,float *b); /* 0x004468a0 */
 void __cdecl Vec3_Cross(float *out,float *a,float *b); /* 0x004468d0 */
 void __cdecl Vec3_NormalizeTo(float *param_1,float *param_2); /* 0x00446920 */
-float __cdecl Vec3_Normalize(float *param_1); /* 0x004469a0 */
+float __cdecl rdVector_Normalize3Acc(float *param_1); /* 0x004469a0 */
 float __cdecl Vec3_NormalizeApprox(float *param_1); /* 0x00446a10 */
-void __cdecl Vec3_Rotate(float *vec,float *rot); /* 0x00446ba0 */
+void __cdecl rdVector_Rotate3Acc(float *vec,float *rot); /* 0x00446ba0 */
 void __cdecl Matrix_GetAngles(float *matrix,float *outAngles); /* 0x00446bd0 */
 uint Frustum_TestSphere(int *param_1,float *param_2,float param_3); /* 0x0044e7d0 */
 uint Polygon_ClipToPlane(float *param_1,float *param_2,float *param_3,undefined4 *param_4, float *param_5,uint *param_6); /* 0x0044ea50 */
@@ -1014,7 +1014,7 @@ void Matrix_BuildTranslation2(undefined4 *param_1,undefined4 *param_2); /* 0x004
 void Matrix_AxisAngle(float *param_1,float *param_2,float param_3); /* 0x0044f210 */
 void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 param_4); /* 0x0044f490 */
 void Matrix_ToAngles(float *param_1,float *param_2); /* 0x0044f650 */
-void __cdecl Matrix_Identity(float *m); /* 0x0044f880 */
+void __cdecl rdMatrix_Identity34(float *m); /* 0x0044f880 */
 void __cdecl Matrix_Mul34(float *out,float *a,float *b); /* 0x0044f8a0 */
 void __cdecl Matrix_BuildRotation(float *m,float *angles); /* 0x0044fa70 */
 void Matrix_Multiply(float *param_1,float *param_2); /* 0x0044fc60 */
@@ -1077,8 +1077,8 @@ void Pool_Grow(int param_1,int param_2); /* 0x00488c00 */
 undefined4 rdPolyline_Draw(int param_1,float *param_2); /* 0x00471ee0 */
 void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *param_4); /* 0x00472360 */
 int __cdecl rdSprite_DrawThing(void *thing,void *sprite); /* 0x00472640 */
-int rdPolyline_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10); /* 0x004728a0 */
-undefined4 rdPolyline_Init(int param_1,int param_2,undefined4 param_3,char *param_4,undefined4 param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9, undefined4 param_10,undefined4 *param_11); /* 0x00472910 */
+int rdSprite_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10); /* 0x004728a0 */
+undefined4 rdSprite_NewEntry(int param_1,int param_2,undefined4 param_3,char *param_4,undefined4 param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9, undefined4 param_10,undefined4 *param_11); /* 0x00472910 */
 void rdSprite_Free(int param_1); /* 0x00472b50 */
 void rdSprite_FreeContents(int param_1); /* 0x00472b70 */
 undefined4 rdSprite_Draw(int param_1,float *param_2); /* 0x00472bd0 */
@@ -1108,18 +1108,18 @@ int __cdecl Math_Log2Int(int n); /* 0x004735d0 */
 float __cdecl Math_PowInt(float x,int n); /* 0x0047bbe0 */
 float __cdecl Math_NormalizeAngle360(float degrees); /* 0x0047bc20 */
 float __cdecl Math_NormalizeAngle180(float param_1); /* 0x0047bce0 */
-void Math_SinCosTable(float param_1,float *param_2,float *param_3); /* 0x0047bd20 */
+void stdMath_SinCos(float param_1,float *param_2,float *param_3); /* 0x0047bd20 */
 float __cdecl Math_Floor(float param_1); /* 0x0047c100 */
 float10 Math_SinDeg(float param_1); /* 0x0047c120 */
 float __cdecl Math_AsinDegrees(float x); /* 0x0047c3b0 */
 float __cdecl Math_Sqrt(float param_1); /* 0x0047c490 */
-float __cdecl Math_AsinDegreesSeries(float param_1); /* 0x0047c4a0 */
+float __cdecl stdMath_ArcSin3(float param_1); /* 0x0047c4a0 */
 float __cdecl Math_Atan2Deg(float y,float x); /* 0x0047c5f0 */
 
 /* ===== stdbitmap.c ===== */
 void * __cdecl stdBitmap_Load(char *filename,int param_2,int param_3); /* 0x00473630 */
-void * __cdecl stdBitmap_LoadFile(char *name,int a,int b); /* 0x00473660 */
-int __cdecl stdBitmap_SaveByExtension(char *filename,void *bitmap); /* 0x00473810 */
+void * __cdecl stdLoadImageData(char *name,int a,int b); /* 0x00473660 */
+int __cdecl stdWriteImage(char *filename,void *bitmap); /* 0x00473810 */
 void * __cdecl stdBitmap_LoadResource(char *name,int a,int b); /* 0x0047aa50 */
 void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c); /* 0x0047aab0 */
 undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param_4); /* 0x0047ab20 */
@@ -1140,7 +1140,7 @@ undefined * Input_Init(void); /* 0x00476f10 */
 void Input_Shutdown(void); /* 0x00476f70 */
 undefined4 Input_Enable(void); /* 0x00476fc0 */
 undefined4 Input_Disable(void); /* 0x00476fe0 */
-void Input_Flush(void); /* 0x00477010 */
+void stdControl_Flush(void); /* 0x00477010 */
 void Input_ResetState(void); /* 0x00477040 */
 int __cdecl Input_EnableAxis(uint axis); /* 0x00477090 */
 void Input_Update(void); /* 0x004770d0 */
@@ -1161,15 +1161,15 @@ void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone); /* 0x0
 
 /* ===== plat.c ===== */
 undefined4 Plat_ReturnTrue(void); /* 0x00477f00 */
-uint Plat_GetPhysicalMemory(void); /* 0x00478150 */
-int __cdecl Plat_MessageBox(char *text,char *caption,uint flags); /* 0x00487650 */
+uint stdPlatform_GetPhysicalRam(void); /* 0x00478150 */
+int __cdecl grimPlat_QueryDialog(char *text,char *caption,uint flags); /* 0x00487650 */
 void Plat_SetDialogDirectory(undefined4 param_1); /* 0x00487690 */
 char * Plat_GetDialogFileName(void); /* 0x004876b0 */
 int __cdecl Plat_OpenFileDialog(char *title,char *filter); /* 0x004876c0 */
 int __cdecl Plat_SaveFileDialog(char *title,char *filter); /* 0x004877d0 */
 int Plat_PromptDialog(int param_1,int param_2,undefined4 *param_3,uint param_4); /* 0x004878c0 */
 int __cdecl Plat_TreeSelectDialog(char *title,char **items,int count,int *recursive); /* 0x00487c10 */
-int __cdecl Plat_InputDialog(char *title,char *prompt,char *buf,int bufSize,char *defaultText); /* 0x00487e30 */
+int __cdecl grimPlat_InputDialog(char *title,char *prompt,char *buf,int bufSize,char *defaultText); /* 0x00487e30 */
 undefined * __stdcall Plat_PromptDialogProc(int a1,int a2,int a3,int a4); /* 0x00488370 */
 undefined * __stdcall Plat_TreeSelectDialogProc(int a1,int a2,int a3,int a4); /* 0x00488460 */
 undefined * __stdcall Plat_InputDialogProc(int a1,int a2,int a3,int a4); /* 0x004886f0 */
@@ -1177,7 +1177,7 @@ void * __cdecl Plat_Alloc(uint size); /* 0x00488800 */
 void __cdecl Plat_Free(void *p); /* 0x00488820 */
 
 /* ===== platsvc.c ===== */
-void PlatSvc_AssertFail(undefined4 param_1,char *param_2,undefined4 param_3); /* 0x00477f10 */
+void stdPlatform_Assert(undefined4 param_1,char *param_2,undefined4 param_3); /* 0x00477f10 */
 void PlatSvc_HAlloc(uint param_1); /* 0x00478030 */
 void PlatSvc_HFree(undefined4 param_1); /* 0x00478040 */
 void PlatSvc_HRealloc(undefined4 param_1,undefined4 param_2); /* 0x00478050 */
@@ -1228,7 +1228,7 @@ undefined4 * stdPcx_Load(undefined4 param_1,int param_2,int param_3); /* 0x0047e
 undefined4 stdPcx_Save(undefined4 param_1,int param_2); /* 0x0047ef10 */
 
 /* ===== stdconffile.c ===== */
-void stdConffile_OpenRead(undefined4 param_1); /* 0x0047c7c0 */
+void stdConffile_Open(undefined4 param_1); /* 0x0047c7c0 */
 undefined4 stdConffile_OpenMode(byte *param_1,undefined4 param_2); /* 0x0047c7e0 */
 void stdConffile_Close(void); /* 0x0047c8c0 */
 undefined4 stdConffile_ReadLine(void); /* 0x0047c920 */
@@ -1237,12 +1237,12 @@ void stdConffile_Pop(void); /* 0x0047ca90 */
 
 /* ===== stdbmp.c ===== */
 uint stdBmp_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x0047cb20 */
-undefined4 stdBmp_LoadInto(char *param_1,undefined4 *param_2,int param_3,int param_4); /* 0x0047cb70 */
+undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int param_4); /* 0x0047cb70 */
 undefined4 stdBmp_Save(undefined4 param_1,int param_2); /* 0x0047d050 */
 
 /* ===== stdpic.c ===== */
 uint stdPic_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x0047d280 */
-undefined4 stdPic_LoadInto(char *param_1,undefined4 *param_2,int param_3,int param_4); /* 0x0047d2d0 */
+undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int param_4); /* 0x0047d2d0 */
 
 /* ===== stdgif.c ===== */
 void * stdGif_Load(char *param_1,int param_2,int param_3); /* 0x0047db00 */
@@ -1276,13 +1276,13 @@ void __cdecl stdMemory_Free(void *p); /* 0x0047ff00 */
 void * __cdecl stdMemory_Realloc(void *p,uint size,char *file,int line); /* 0x0047ff70 */
 
 /* ===== res.c ===== */
-int Res_GetMemoryUsed(void); /* 0x00480000 */
+int daTotalAllocated(void); /* 0x00480000 */
 void * __cdecl Res_Register(int fourcc,char *name,void *data); /* 0x00480230 */
 int __cdecl Res_GetFilePath(char *name,char *buf,int size); /* 0x004802b0 */
 void * __cdecl Res_Load(int type,char *name); /* 0x00480520 */
 uint __cdecl Res_SetLocked(void *data,int unlock); /* 0x00480560 */
 int __cdecl Res_FreeUnreferenced(uint bytesWanted,uint *bytesFreed); /* 0x004805b0 */
-int __cdecl Res_WriteReport(char *filename,int type); /* 0x00480680 */
+int __cdecl Res_Dump(char *filename,int type); /* 0x00480680 */
 int __cdecl Res_OpenLog(char *filename); /* 0x00480740 */
 void __cdecl Res_InstallFileServices(GrimServices *svc); /* 0x00480790 */
 void __cdecl Res_RestoreFileServices(GrimServices *svc); /* 0x00480800 */
@@ -1305,18 +1305,18 @@ void Res_NextInList(int *param_1,int *param_2,int param_3); /* 0x004821b0 */
 undefined * __cdecl Res_TouchByData(void *param_1); /* 0x00482200 */
 int Res_CountChildren(uint param_1,uint param_2); /* 0x004824f0 */
 void Res_SetCacheSizeMB(int param_1); /* 0x00482520 */
-void Res_PrintReport(void); /* 0x0048e230 */
+void sputResource_ReportAllocations(void); /* 0x0048e230 */
 
 /* ===== resource.c ===== */
-undefined4 Resource_RegisterFilioModule(uint param_1,undefined4 *param_2); /* 0x00480010 */
+undefined4 Res_SysInitialize(uint param_1,undefined4 *param_2); /* 0x00480010 */
 undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,undefined4 *param_4); /* 0x00480020 */
 void Resource_Filio_Terminate(void); /* 0x004800a0 */
 undefined4 Resource_Filio_Start(void); /* 0x004800b0 */
 void Resource_Filio_Stop(void); /* 0x00480140 */
-undefined4 Resource_Filio_SaveState(code *param_1); /* 0x00482260 */
+undefined4 Res_SysSave(code *param_1); /* 0x00482260 */
 undefined4 Resource_Filio_RestoreState(code *param_1); /* 0x00482380 */
 void __cdecl Resource_SetNoPurge(int noPurge); /* 0x0048d340 */
-void * __cdecl Resource_Load(int fourcc,char *name); /* 0x0048d350 */
+void * __cdecl sputResource_Alloc(int fourcc,char *name); /* 0x0048d350 */
 undefined4 Resource_CloseArchives(void); /* 0x0048d3e0 */
 undefined4 Resource_OpenArchives(void); /* 0x0048d3f0 */
 int __cdecl Resource_SetExtraDataDir(char *dir); /* 0x0048d4b0 */
@@ -1351,10 +1351,10 @@ int __cdecl ResType_DefaultHandler(void *msg); /* 0x00481e10 */
 void * ResType_LipSyncHandler(int *param_1); /* 0x0048d8c0 */
 int __cdecl ResType_BitmapHandler(void *msg); /* 0x0048d930 */
 int __cdecl ResType_CostumeHandler(void *msg); /* 0x0048da40 */
-void * ResType_ColormapHandler(int *param_1); /* 0x0048dab0 */
+void * sputResource_ColormapHandler(int *param_1); /* 0x0048dab0 */
 void * ResType_FontHandler(int *param_1); /* 0x0048dbd0 */
-void * ResType_KeyframeHandler(int *param_1); /* 0x0048dc60 */
-void * ResType_MaterialHandler(int *param_1); /* 0x0048dd20 */
+void * sputResource_KeyframeHandler(int *param_1); /* 0x0048dc60 */
+void * sputResource_MaterialHandler(int *param_1); /* 0x0048dd20 */
 void * ResType_ModelHandler(int *param_1); /* 0x0048de10 */
 void * ResType_SetHandler(int *param_1); /* 0x0048de70 */
 void * ResType_ZBufferHandler(int *param_1); /* 0x0048dee0 */
@@ -1378,16 +1378,16 @@ void * __cdecl LabDir_Open(char *dir); /* 0x00481b00 */
 undefined4 LabDir_FindEntry(int param_1,undefined4 param_2,byte *param_3,int param_4,undefined4 *param_5); /* 0x00481cf0 */
 
 /* ===== resref.c ===== */
-void __cdecl ResRef_Add(void *ref,void *data,char *file,int line); /* 0x00482070 */
-void ResRef_Remove(void *ref); /* 0x00482110 */
+void __cdecl Res_SetReference(void *ref,void *data,char *file,int line); /* 0x00482070 */
+void Res_RemoveReference(void *ref); /* 0x00482110 */
 void ResRef_Release(undefined4 *param_1); /* 0x00482220 */
 
 /* ===== engine.c ===== */
 void Engine_ResetState(void); /* 0x00482460 */
 void Engine_OpenResourceLog(undefined4 param_1); /* 0x00482530 */
-void Engine_PushSelectedActorCostume(int param_1); /* 0x004825c0 */
-void Engine_PopSelectedActorCostume(void); /* 0x004825f0 */
-int __cdecl Engine_OpenRenderer(void *mode,int flags); /* 0x00482620 */
+void grimlib_OverrideSelectedActorCostume(int param_1); /* 0x004825c0 */
+void grimlib_RestoreSelectedActorCostume(void); /* 0x004825f0 */
+int __cdecl grimlib_SetDisplay(void *mode,int flags); /* 0x00482620 */
 undefined4 Engine_CloseRenderer(void); /* 0x00482660 */
 void Engine_ShutdownGame(void); /* 0x004826e0 */
 void Engine_SetDebugKeysCallback(undefined4 param_1); /* 0x00482720 */
@@ -1399,9 +1399,9 @@ void Engine_SetExtraDataDir(char *param_1); /* 0x00482770 */
 int Engine_RunSystemScript(void); /* 0x00482790 */
 undefined4 Engine_CallSystemFunction(int param_1,char *param_2); /* 0x004827a0 */
 void Engine_InvalidateRect(int *param_1,int param_2); /* 0x00482800 */
-int Engine_CallExitHandler(void); /* 0x004828d0 */
+int grimlib_ConfirmClose(void); /* 0x004828d0 */
 void __cdecl Engine_Quit(int exitCode); /* 0x004828e0 */
-void __cdecl Engine_SetPaused(int paused); /* 0x00482900 */
+void __cdecl grimlib_SetPause(int paused); /* 0x00482900 */
 undefined * __cdecl Engine_CallCharacterHandler(int param_1); /* 0x00482980 */
 void Engine_UpdateFrame(int param_1,int param_2); /* 0x00482990 */
 void __cdecl Engine_SetIMuseState(int state); /* 0x00482ae0 */
@@ -1412,43 +1412,43 @@ undefined4 Engine_ShutdownSubsystems(int param_1,int param_2); /* 0x00482dd0 */
 undefined4 Engine_ResetSubsystems(int param_1,int param_2); /* 0x00482e00 */
 void Profile_Begin(int param_1); /* 0x00482e30 */
 undefined * __cdecl Profile_End(int param_1); /* 0x00482e80 */
-undefined4 Engine_BlitToBackBuffer (undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5); /* 0x00482f00 */
-void Engine_CallUserPaint(void); /* 0x00482f80 */
+undefined4 grimlib_PlayMovie(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5); /* 0x00482f00 */
+void grimlib_UserPaint(void); /* 0x00482f80 */
 void Engine_RequestSave(char *param_1); /* 0x00482f90 */
-void Engine_RequestLoad(char *param_1); /* 0x00482fb0 */
-uint Engine_TakeRestoreFlag(void); /* 0x00482fd0 */
+void grimlib_Load(char *param_1); /* 0x00482fb0 */
+uint grimlib_JustLoaded(void); /* 0x00482fd0 */
 void Engine_SaveGame(void); /* 0x00482fe0 */
 void Engine_LoadGame(void); /* 0x00483240 */
 void Engine_SetSavedValue(uint param_1); /* 0x004835f0 */
 uint Engine_GetSavedValue(void); /* 0x00483600 */
 undefined4 Engine_CreateCameraActor(void); /* 0x00484000 */
-void Engine_RenderFrame(void); /* 0x00484260 */
-void __cdecl Engine_RegisterShutdownHook(void *fn); /* 0x0048d1a0 */
+void sputRender_Update(void); /* 0x00484260 */
+void __cdecl sputControl_AddCallback(void *fn); /* 0x0048d1a0 */
 void __cdecl Engine_RunShutdownHooks(undefined4 param_1,undefined4 param_2); /* 0x0048d1c0 */
 
 /* ===== set.c ===== */
 int Set_GetRefCount(void *param_1); /* 0x004824c0 */
 void __cdecl Set_MakeCurrent(char *name); /* 0x00482670 */
 void * Set_ChangeSetup(uint param_1); /* 0x00482820 */
-void __cdecl Set_ApplySetupCamera(void *set,int setupIdx); /* 0x00483aa0 */
+void __cdecl sputRender_SyncCamera(void *set,int setupIdx); /* 0x00483aa0 */
 void __cdecl Set_SwitchSetup(void *set,int setupIdx); /* 0x00483b50 */
 void Set_DrawDebugLights(int param_1); /* 0x00485780 */
 void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx); /* 0x004859c0 */
 void Set_SetSoundParams(int param_1,undefined4 param_2,undefined1 param_3,undefined1 param_4, undefined4 param_5,undefined4 param_6); /* 0x004a4010 */
-void __cdecl Set_GetSoundParams(void *set,float *minVol,char *maxVol,char *c,float *d,float *e); /* 0x004a4050 */
-void __cdecl Set_SetCurrent(void *set,int param_2); /* 0x004a40f0 */
-void * Set_GetCurrent(void); /* 0x004a41b0 */
+void __cdecl sputRoom_GetSoundParameters(void *set,float *minVol,char *maxVol,char *c,float *d,float *e); /* 0x004a4050 */
+void __cdecl sputRoom_SetCurrentRoom(void *set,int param_2); /* 0x004a40f0 */
+void * sputRoom_GetCurrentRoom(void); /* 0x004a41b0 */
 char * Set_GetCurrentName(void); /* 0x004a41d0 */
 int __cdecl Set_SaveState(void *writeFn); /* 0x004a41e0 */
-int __cdecl Set_RestoreState(void *readFn); /* 0x004a44e0 */
-undefined4 * Set_LoadFile(char *param_1); /* 0x004a49a0 */
+int __cdecl sputRoom_Restore(void *readFn); /* 0x004a44e0 */
+undefined4 * sputResource_SetHandler(char *param_1); /* 0x004a49a0 */
 void Set_InitRecord(undefined4 *param_1); /* 0x004a4a70 */
 void __cdecl Set_ReleaseResources(void *set); /* 0x004a4b40 */
 void Set_Free(undefined4 param_1); /* 0x004a4c40 */
 void Set_FreeContents(char *param_1); /* 0x004a4c60 */
 void Set_FreeSetups(int param_1); /* 0x004a4d10 */
 void Set_FreeSetup(undefined4 param_1,int param_2); /* 0x004a4d80 */
-int __cdecl Set_LoadResources(void *set); /* 0x004a4fe0 */
+int __cdecl sputRoom_LoadResources(void *set); /* 0x004a4fe0 */
 int __cdecl Set_RegisterHandle(char *name,void *fn); /* 0x004a54a0 */
 int Set_FindHandle(char *name); /* 0x004a5500 */
 int Set_IsHandleValid(char *param_1); /* 0x004a55d0 */
@@ -1461,7 +1461,7 @@ void __cdecl Set_ActivateSectors(void *set); /* 0x004a7150 */
 /* ===== enginemodule.c ===== */
 undefined * __cdecl EngineModule_Init(GrimServices *param_1,undefined **param_2); /* 0x00482540 */
 undefined * EngineModule_Terminate(void); /* 0x00482b60 */
-int EngineModule_Start(void); /* 0x00482ba0 */
+int grimlib_GameStartup(void); /* 0x00482ba0 */
 undefined * EngineModule_Stop(void); /* 0x00482cc0 */
 
 /* ===== savegame.c ===== */
@@ -1489,11 +1489,11 @@ void Render_SetFlipCallback(void *param_1); /* 0x00483a90 */
 int __cdecl Render_SaveState(void *writeFn); /* 0x00483da0 */
 int __cdecl Render_RestoreState(void *readFn); /* 0x00483e20 */
 void Render_SetZBufferEnabled(int param_1); /* 0x00483ea0 */
-void __cdecl Render_SetBufferCount(int n); /* 0x00483eb0 */
+void __cdecl sputRender_PageCountIs(int n); /* 0x00483eb0 */
 void __cdecl Render_InvalidateRectLastBuffer(int *rect,int flag); /* 0x00483ed0 */
-void __cdecl Render_InvalidateRect(int *rect,int flag); /* 0x00483f60 */
-undefined4 Render_Open(uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5, undefined4 param_6,int param_7); /* 0x00484030 */
-void Render_Close(void); /* 0x004841f0 */
+void __cdecl MarkDirtyRect(int *rect,int flag); /* 0x00483f60 */
+undefined4 sputRender_SetDisplay (uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5, undefined4 param_6,int param_7); /* 0x00484030 */
+void sputRender_Close(void); /* 0x004841f0 */
 void Render_Present(void); /* 0x004849a0 */
 void Render_SetPixelFormat(uint *param_1); /* 0x004849d0 */
 undefined4 FUN_00484a50(void); /* 0x00484a50 */
@@ -1502,15 +1502,15 @@ void Render_DrawDebugGrid(void); /* 0x00485bd0 */
 int Render_CanvasIsPaletted(void); /* 0x00486100 */
 void Render_BuildActorDrawList(void); /* 0x00486120 */
 void __cdecl Render_ScreenToWorld(int x,int y,float *outPos); /* 0x004862e0 */
-void __cdecl Render_InvalidateBackground(int redrawBackground,int redrawDepth); /* 0x004863b0 */
+void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth); /* 0x004863b0 */
 void Render_BuildColorTable(int param_1,float param_2); /* 0x004864a0 */
-void __cdecl Render_RemapPixels(ushort *pixels,uint n); /* 0x00486620 */
-void __cdecl Render_SetGamma(float gamma); /* 0x00486710 */
+void __cdecl sputRender_ColorCorrect(ushort *pixels,uint n); /* 0x00486620 */
+void __cdecl sputRender_SetGamma(float gamma); /* 0x00486710 */
 void Render_ConvertBackground(void *param_1); /* 0x00486760 */
-void Render_DimBackground(ushort *param_1,byte param_2); /* 0x004867d0 */
+void sputRender_Dim(ushort *param_1,byte param_2); /* 0x004867d0 */
 void Render_CopyBackBufferToBackground(void); /* 0x00486990 */
 void Render_CleanBuffer(void); /* 0x004869b0 */
-void Render_RequestFullRedraw(void); /* 0x00486a00 */
+void sputRender_ForceRefresh(void); /* 0x00486a00 */
 void * Render_GetBackgroundSurface(void); /* 0x00486b00 */
 void * Render_GetZBufferSurface(void); /* 0x00486b10 */
 uint Render_GetUserCallback(void); /* 0x00486b20 */
@@ -1518,16 +1518,16 @@ void Render_SetDrawEnabled(int param_1); /* 0x00486b30 */
 void __cdecl Render_DrawIris(float percent,int x,int y); /* 0x00486d00 */
 void __cdecl Render_StartIrisClose(int x,int y,int durationMs); /* 0x00486eb0 */
 void __cdecl Render_StartIrisOpen(int x,int y,int durationMs); /* 0x00486ef0 */
-uint Render_IsIrisDone(void); /* 0x00486f30 */
-void * __cdecl Render_CaptureThumbnail(int w,int h); /* 0x00486f90 */
+uint sputRender_IrisComplete(void); /* 0x00486f30 */
+void * __cdecl sputRender_ScreenShot(int w,int h); /* 0x00486f90 */
 void __cdecl Render_FillRect(int x,int y,int w,int h,float scale); /* 0x004870e0 */
-void __cdecl Render_SaveScreen(char *filename); /* 0x00487260 */
+void __cdecl sputRender_SaveScreen(char *filename); /* 0x00487260 */
 void __cdecl Render_SaveZBufferBmp(char *filename); /* 0x004872f0 */
-void __cdecl Render_SaveScreenshotBmp(char *filename); /* 0x00487340 */
+void __cdecl sputRender_SaveDrawBuffer(char *filename); /* 0x00487340 */
 void __cdecl Render_DrawProgressBar(float fraction); /* 0x004873d0 */
 void Render_SetWaitCursorEnabled(uint param_1); /* 0x004874c0 */
 void Render_UpdateWaitCursor(void); /* 0x004874d0 */
-int Render_GetFrameCounter(void); /* 0x0048f920 */
+int sputActor_GetNumActorsTalking(void); /* 0x0048f920 */
 
 /* ===== sputrender.c ===== */
 undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2); /* 0x00483d40 */
@@ -1539,51 +1539,51 @@ void sputRender_Stop(void); /* 0x004860d0 */
 void __cdecl Actor_ComputeScreenBox(void *actor); /* 0x00485290 */
 void Actor_DrawDebugWalker(void *param_1); /* 0x00485320 */
 void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y); /* 0x0048b2e0 */
-int __cdecl Actor_SetCostume(void *actor,char *name,int param_3); /* 0x0048f930 */
+int __cdecl sputActor_SetCostume(void *actor,char *name,int param_3); /* 0x0048f930 */
 void __cdecl Actor_SetHead(void *actor,int joint1,int joint2,int joint3,float maxRoll,float maxPitch,float maxYaw ); /* 0x0048f9d0 */
 int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance); /* 0x0048fa60 */
 int __cdecl Actor_CanSee(void *viewer,void *target,float *outDistance); /* 0x0048fb80 */
-void Actor_TurnKey(int param_1,float param_2); /* 0x0048fbd0 */
-void Actor_WalkForward(int param_1); /* 0x0048fc80 */
+void sputActor_Turn(int param_1,float param_2); /* 0x0048fbd0 */
+void sputActor_Forward(int param_1); /* 0x0048fc80 */
 void Actor_UpdateMovement(void *param_1,float param_2); /* 0x0048fd90 */
 void __cdecl Actor_UpdateLookAt(void *actor,float dt); /* 0x0048fe80 */
 void __cdecl Actor_UpdateTalk(void *actor,float dt); /* 0x00490210 */
-int __cdecl Actor_SetSelected(int handle); /* 0x00490320 */
-void * Actor_FromHandle(int param_1); /* 0x00490360 */
-int __cdecl Actor_GetHandle(void *actor,int tag); /* 0x00490380 */
-int Actor_Create(void); /* 0x004903a0 */
-void Actor_CreateExtra(int param_1); /* 0x00490580 */
-void Actor_SetFollowBoxes(int param_1,int param_2); /* 0x004906b0 */
-void Actor_CreateWalker(void *param_1,int param_2); /* 0x00490730 */
-void Actor_SetPositionClamped(int param_1,float *param_2); /* 0x00490870 */
-void Actor_SetRot(int param_1,undefined4 *param_2,int param_3); /* 0x00490900 */
-void __cdecl Actor_SetReflection(void *actor,float angle); /* 0x00490a40 */
+int __cdecl sputActor_SetSelectedActor(int handle); /* 0x00490320 */
+void * sputActor_ActorDeref(int param_1); /* 0x00490360 */
+int __cdecl sputActor_GetActorHandle(void *actor,int tag); /* 0x00490380 */
+int sputActor_AllocateActor(void); /* 0x004903a0 */
+void sputActor_AllocateActorExtra(int param_1); /* 0x00490580 */
+void sputActor_EnableWalkSystem(int param_1,int param_2); /* 0x004906b0 */
+void sputActor_EnablePuck(void *param_1,int param_2); /* 0x00490730 */
+void sputActor_SetActorPosition(int param_1,float *param_2); /* 0x00490870 */
+void sputActor_SetActorRotation(int param_1,undefined4 *param_2,int param_3); /* 0x00490900 */
+void __cdecl sputActor_SetReflection(void *actor,float angle); /* 0x00490a40 */
 void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *costume); /* 0x00490b50 */
 void __cdecl Actor_SetRestChore(void *actor,int chore,void *costume); /* 0x00490c80 */
-int __cdecl Actor_PushCostume(void *actor,char *name,int param_3); /* 0x00490d30 */
-void __cdecl Actor_PopCostume(void *actor,int free); /* 0x00490dd0 */
+int __cdecl sputActor_PushCostume(void *actor,char *name,int param_3); /* 0x00490d30 */
+void __cdecl sputActor_PopCostume(void *actor,int free); /* 0x00490dd0 */
 void __cdecl Actor_PuckOrient(void *actor); /* 0x00490f50 */
 void Actor_UpdateWalker(int param_1); /* 0x00491110 */
 void Actor_UpdateMoveChores(int param_1); /* 0x004913f0 */
 void __cdecl Actor_SayLine(void *actor,char *text,int background,int volume,int pan,int x,int y); /* 0x00492b30 */
-void __cdecl Actor_ShutUp(void *actor); /* 0x00493060 */
-void __cdecl Actor_PushSectorOppositeEdge(int a1,int a2); /* 0x004931f0 */
+void __cdecl sputActor_ShutUp(void *actor); /* 0x00493060 */
+void __cdecl sputActor_LeaveSector(int a1,int a2); /* 0x004931f0 */
 void Actor_FollowPath(int param_1); /* 0x00493230 */
-void __cdecl Actor_SetWalkDominate(void *actor,int dominate); /* 0x004933c0 */
-void Actor_SetConstrain(int param_1,int param_2); /* 0x004933e0 */
+void __cdecl sputActor_SetWalkDominate(void *actor,int dominate); /* 0x004933c0 */
+void sputActor_SetActorConstrain(int param_1,int param_2); /* 0x004933e0 */
 int __cdecl Actor_IsVoicePlaying(void *actor); /* 0x004934b0 */
-int __cdecl Actor_HasShadow(void *actor); /* 0x00493510 */
+int __cdecl sputActor_ActorHasShadow(void *actor); /* 0x00493510 */
 void __cdecl Actor_ActivateShadow(void *actor,int shadowIdx,int active); /* 0x00493540 */
-void Actor_SetShadowPlane(int param_1,char *param_2); /* 0x00493570 */
-void __cdecl Actor_SetShadowPoint(void *actor,float x,float y,float z); /* 0x004935f0 */
+void sputActor_SetShadowPlane(int param_1,char *param_2); /* 0x00493570 */
+void __cdecl sputActor_SetShadowPoint(void *actor,float x,float y,float z); /* 0x004935f0 */
 void __cdecl Actor_SetShadowValid(void *actor,int shadowIdx,int valid); /* 0x00493630 */
-void __cdecl Actor_AddShadowPlane(void *actor,int shadowIdx,char *sectorName); /* 0x00493660 */
-void __cdecl Actor_KillShadows(void *actor); /* 0x004936b0 */
-void Actor_DrawShadows(int param_1); /* 0x004936e0 */
+void __cdecl sputActor_AddShadowClipPlane(void *actor,int shadowIdx,char *sectorName); /* 0x00493660 */
+void __cdecl sputActor_ResetShadows(void *actor); /* 0x004936b0 */
+void sputCostume_DrawActorShadow(int param_1); /* 0x004936e0 */
 float * __cdecl Actor_GetFrame(void *actor); /* 0x00493790 */
-void __cdecl Actor_ToClean(void *actor); /* 0x004937c0 */
+void __cdecl sputActor_DrawToClean(void *actor); /* 0x004937c0 */
 int Actor_CountCostumes(int param_1); /* 0x00494690 */
-void Actor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3); /* 0x004946b0 */
+void sputActor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3); /* 0x004946b0 */
 void Actor_SetClipActive(int param_1,undefined4 param_2); /* 0x00494710 */
 void Actor_SetFrustumCull(int param_1,int param_2); /* 0x00494780 */
 void __cdecl Actor_Destroy(void *actor); /* 0x004947c0 */
@@ -1592,7 +1592,7 @@ void Actor_DrawCostumes(undefined4 param_1,undefined4 param_2); /* 0x00495080 */
 void Actor_DrawCostumeMeshes(int *param_1,float *param_2); /* 0x004950a0 */
 void __cdecl Actor_RemoveFromSet(char *setName,void *actor); /* 0x004a5eb0 */
 void __cdecl Actor_PutInSet(void *actor,char *setName); /* 0x004a5f60 */
-float __thiscall Actor_GetYawToPoint(void *this,float *point); /* 0x004a8500 */
+float __thiscall Puck_GetYawToPoint(void *this,float *point); /* 0x004a8500 */
 
 /* ===== dirtyrect.c ===== */
 void __cdecl DirtyRect_Add(int *rect,int flag,int bufferIdx); /* 0x00485420 */
@@ -1606,11 +1606,11 @@ void * __cdecl Setup_GetZBufferBitmap(void *set,int setupIdx); /* 0x004a3ef0 */
 
 /* ===== sector.c ===== */
 void __cdecl Sector_DrawAllDebug(void); /* 0x00485dc0 */
-void Sector_IntersectSegment(int param_1,int param_2,float *param_3,float *param_4,float *param_5); /* 0x0049c750 */
-int SetFile_Parse(char *param_1,uint param_2); /* 0x004a4b00 */
+void sputLua_CollisionHandler(int param_1,int param_2,float *param_3,float *param_4,float *param_5); /* 0x0049c750 */
+int sputRoom_LoadRoom(char *param_1,uint param_2); /* 0x004a4b00 */
 undefined4 SetFile_ParseSections(undefined4 param_1); /* 0x004a5550 */
-undefined4 SetFile_ParseColormaps(void); /* 0x004a5b40 */
-undefined4 SetFile_SectorsSectionHandler(void); /* 0x004a5c90 */
+undefined4 sputRoom_ParseColormaps(void); /* 0x004a5b40 */
+undefined4 sputRoom_ParseSectors(void); /* 0x004a5c90 */
 void SectorList_SaveForShrink(void); /* 0x004a61c0 */
 void SectorList_FreeShrinkSave(void); /* 0x004a6330 */
 void SectorList_RestoreAfterShrink(void); /* 0x004a6380 */
@@ -1620,15 +1620,15 @@ void __thiscall Sector_SetName(void *this,char *name); /* 0x004a6760 */
 void __thiscall Sector_SetSavedType(void *this,uint type); /* 0x004a6790 */
 int __thiscall Sector_ContainsPoint(void *this,float *point,int checkActive); /* 0x004a6980 */
 int __thiscall Sector_ClampPoint(void *this,int a1); /* 0x004a6b30 */
-float __thiscall Sector_FindExitPoint(void *this,int a1,int a2,int a3); /* 0x004a6d10 */
-void __thiscall Sector_SnapToPlane(void *this,float *pos); /* 0x004a6fa0 */
+float __thiscall WalkPlane_Intersection(void *this,int a1,int a2,int a3); /* 0x004a6d10 */
+void __thiscall WalkPlane_SnapTo(void *this,float *pos); /* 0x004a6fa0 */
 int __thiscall Sector_FixPlaneCoordinate(void *this,int a1); /* 0x004a7000 */
 void __thiscall Sector_DrawOutline(void *this,int color); /* 0x004a70a0 */
 void * SectorList_FindByPoint(float *param_1,uint param_2); /* 0x004a71e0 */
-void * __cdecl Sector_FindByName(char *name); /* 0x004a7230 */
+void * __cdecl WalkPlane_PlaneNamed(char *name); /* 0x004a7230 */
 void * __cdecl Sector_FindById(int id); /* 0x004a7290 */
 void * SectorList_FindNearestPoint(float *param_1,uint param_2); /* 0x004a72b0 */
-void __thiscall Sector_MoveWalkerToOppositeEdge(void *this,float *walker); /* 0x004a7390 */
+void __thiscall WalkPlane_JumpOut(void *this,float *walker); /* 0x004a7390 */
 float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker); /* 0x004a7520 */
 void SectorList_ResetFree(void); /* 0x004a7a90 */
 float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2); /* 0x004a7ab0 */
@@ -1637,7 +1637,7 @@ undefined * SetFile_ParseSectors(int param_1); /* 0x004a7bc0 */
 int __thiscall Sector_ClipPolygon(void *this,float *verts,int count,float *out); /* 0x004a8cb0 */
 float __thiscall Sector_EdgeDistance(void *this,int edge,float *point); /* 0x004a9070 */
 undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1); /* 0x004a9180 */
-void __cdecl SectorList_ShrinkWalkSectors(float radius); /* 0x004a9d00 */
+void __cdecl ShrinkBoxes(float radius); /* 0x004a9d00 */
 
 /* ===== drawlist.c ===== */
 void DrawList_Reset(void); /* 0x00486250 */
@@ -1680,7 +1680,7 @@ undefined4 DirScan_Next(int param_1,char *param_2); /* 0x00488ee0 */
 
 /* ===== sputsmush.c ===== */
 undefined4 sputSmush_Initialize(undefined4 param_1,undefined4 *param_2); /* 0x00488fb0 */
-undefined4 sputSmush_Start(void); /* 0x00489130 */
+undefined4 sputSmush_Startup(void); /* 0x00489130 */
 void sputSmush_Stop(void); /* 0x00489190 */
 
 /* ===== movie.c ===== */
@@ -1690,14 +1690,14 @@ undefined4 Movie_PollPlayback(void); /* 0x004891b0 */
 int __cdecl Movie_SetTarget(void *surface); /* 0x00489280 */
 undefined4 Movie_Start(char *param_1,int param_2,uint param_3,uint param_4); /* 0x004892a0 */
 void Movie_Stop(void); /* 0x00489370 */
-int Movie_SetFile(char *param_1); /* 0x00489390 */
+int sputSmush_GetMovieLength(char *param_1); /* 0x00489390 */
 undefined4 Movie_CheckSurfaceFormat(int param_1,int param_2,int param_3); /* 0x004893d0 */
 int FUN_00489410(void); /* 0x00489410 */
 undefined4 Movie_LockSurface(undefined4 *param_1,undefined4 *param_2); /* 0x00489420 */
 undefined4 Movie_UnlockSurface(void); /* 0x004894b0 */
 int FUN_004894d0(void); /* 0x004894d0 */
 int Movie_IsPlaying(void); /* 0x004894e0 */
-void Movie_SetPaused(int paused); /* 0x004894f0 */
+void sputSmush_Pause(int paused); /* 0x004894f0 */
 
 /* ===== primitivelist.c ===== */
 void PrimitiveList_StaticConstruct(void); /* 0x00489510 */
@@ -1755,9 +1755,9 @@ undefined4 sputText_SaveState(code *param_1); /* 0x0048cbc0 */
 undefined4 sputText_RestoreState(code *param_1); /* 0x0048cd80 */
 
 /* ===== text.c ===== */
-int __cdecl Text_ParseLuaTable(void *ctx,void *table,void *textObj); /* 0x0048c050 */
+int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj); /* 0x0048c050 */
 char * __cdecl Text_ParseLineId(char *line,char *outId); /* 0x0048c8d0 */
-int Text_GetSpeed(void); /* 0x00494740 */
+int sputActor_GetActorTextRate(void); /* 0x00494740 */
 void __cdecl Text_SetSpeed(int speed); /* 0x00494750 */
 void * Text_GetDefaultFont(void); /* 0x004aa930 */
 int __cdecl Font_LoadFile(char *filename,void **outFont); /* 0x004aa940 */
@@ -1808,14 +1808,14 @@ int sputResource_Start(void); /* 0x0048d790 */
 void sputResource_Stop(void); /* 0x0048d830 */
 
 /* ===== actors.c ===== */
-void Actors_FreeAllCostumes(void); /* 0x0048e240 */
+void sputActor_NukeCostumeStacks(void); /* 0x0048e240 */
 void __cdecl Actors_UpdateTalking(float dt); /* 0x0048fcc0 */
 void __cdecl Actors_UpdateAll(float dt); /* 0x0048fcf0 */
 
 /* ===== sputactor.c ===== */
 undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2); /* 0x0048e2c0 */
 undefined4 sputActor_SaveState(code *param_1); /* 0x0048e330 */
-undefined4 sputActor_RestoreState(code *param_1); /* 0x0048ecd0 */
+undefined4 sputActor_Restore(code *param_1); /* 0x0048ecd0 */
 void __cdecl sputActor_SetWalkChore(void *actor,int chore,void *costume); /* 0x00490a60 */
 void sputActor_Terminate(void); /* 0x00490e60 */
 undefined4 sputActor_Start(void); /* 0x00490e80 */
@@ -1833,13 +1833,13 @@ void __cdecl Walker_SetFadeTime(int ms); /* 0x00494880 */
 void * __thiscall Walker_Create(void *this,float radius); /* 0x004a8200 */
 void __fastcall Walker_Destroy(int param_1); /* 0x004a8270 */
 undefined * __fastcall Walker_GetAngles(int param_1); /* 0x004a82a0 */
-void __fastcall Walker_ReattachToSet(void *param_1); /* 0x004a82c0 */
-void __thiscall Walker_SetPosition(void *this,float *pos); /* 0x004a8310 */
+void __fastcall Puck_Validate(void *param_1); /* 0x004a82c0 */
+void __thiscall Puck_SetPos(void *this,float *pos); /* 0x004a8310 */
 void __thiscall Walker_RotateVector(void *this,float *vec); /* 0x004a8350 */
 void __thiscall Walker_ToLocalSpace(void *this,float *vec); /* 0x004a8370 */
 void __thiscall Walker_TurnHeading(void *this,float angle); /* 0x004a83c0 */
-float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn); /* 0x004a8450 */
-void __thiscall Walker_SetConstraint(void *this,int a1); /* 0x004a85b0 */
+float __thiscall Puck_PointAt(void *this,float *point,float maxTurn); /* 0x004a8450 */
+void __thiscall Puck_Constrain(void *this,int a1); /* 0x004a85b0 */
 undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,int turnRightOk); /* 0x004a8610 */
 void __thiscall Walker_SetSectorFrame(void *this,int a1); /* 0x004a89b0 */
 void __fastcall Walker_RebuildRightVector(int param_1); /* 0x004a8a90 */
@@ -1864,14 +1864,14 @@ undefined4 Collision_BoxSlide(float *param_1,float *param_2,float param_3,float 
 
 /* ===== speech.c ===== */
 void __cdecl Speech_SetMode(int mode); /* 0x004931c0 */
-uint Speech_GetMode(void); /* 0x004931e0 */
+uint sputActor_GetSpeechMode(void); /* 0x004931e0 */
 
 /* ===== costume.c ===== */
-void Cos_StartChoreFaded(void *param_1,uint param_2,int param_3); /* 0x00493410 */
-undefined * __cdecl Cos_StopChoreFaded(void *param_1,int param_2,int param_3); /* 0x00493450 */
-void __cdecl Costume_PrintList(void *costume); /* 0x00494d10 */
+void FadeInChore(void *param_1,uint param_2,int param_3); /* 0x00493410 */
+undefined * __cdecl FadeOutChore(void *param_1,int param_2,int param_3); /* 0x00493450 */
+void __cdecl sputCostume_PrintCostumeInfo(void *costume); /* 0x00494d10 */
 void __cdecl Costume_FreeList(void *list,int free); /* 0x00494dc0 */
-void * __cdecl Costume_Pop(void *list,int free); /* 0x00494e10 */
+void * __cdecl sputCostume_PopCostume(void *list,int free); /* 0x00494e10 */
 void * __cdecl Costume_ReplaceTop(void *list,void *costumeRes,int flags); /* 0x00494e50 */
 void * __cdecl Costume_Push(void *list,void *costumeRes,int flags); /* 0x00494e80 */
 undefined4 Costume_AllocRecord(void); /* 0x00494f90 */
@@ -1881,12 +1881,12 @@ void __cdecl Costume_ApplyScale(void *actor,void *componentList); /* 0x00495510 
 void __cdecl Costume_ApplyComponentState(void *cosInst); /* 0x004955e0 */
 void __cdecl Costume_UpdateAttachedFrame(void *component,float *frame); /* 0x004956a0 */
 void Costume_TouchComponents(int param_1); /* 0x004956f0 */
-void __cdecl Costume_UpdateAll(void *costumeList,float dt); /* 0x00495730 */
+void __cdecl sputCostume_Update(void *costumeList,float dt); /* 0x00495730 */
 undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 param_3); /* 0x00495e90 */
 undefined4 Costume_InstanceHook(int param_1,int param_2); /* 0x00496020 */
 
 /* ===== shadow.c ===== */
-void __cdecl Shadow_SetColor(int r,int g,int b); /* 0x00494890 */
+void __cdecl sputCostume_SetShadowColor(int r,int g,int b); /* 0x00494890 */
 void __cdecl Shadow_DrawClippedPoly(float *verts,int count,float *minXY,float *maxXY,void *shadow); /* 0x00494bf0 */
 
 /* ===== sputcostume.c ===== */
@@ -1911,12 +1911,12 @@ undefined4 FUN_004965b0(void); /* 0x004965b0 */
 /* ===== materialcomponent.c ===== */
 void MaterialComponent_OnKey(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4); /* 0x004965d0 */
 void * __cdecl MaterialComponent_NewInstance(void *cosInst,int componentIdx,int create); /* 0x004965e0 */
-int MaterialComponent_Create(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496670 */
+int MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496670 */
 
 /* ===== modelcomponent.c ===== */
-undefined4 ModelComponent_EditParentOffset(int *param_1,undefined4 param_2); /* 0x00496890 */
+undefined4 ThingAdjuster(int *param_1,undefined4 param_2); /* 0x00496890 */
 void ModelComponent_SetVisibleFlag(undefined4 param_1,int param_2,undefined4 param_3,int param_4); /* 0x00496930 */
-void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int create); /* 0x00496950 */
+void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create); /* 0x00496950 */
 undefined4 ModelComponent_Stop(int param_1); /* 0x00496b40 */
 int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00496b60 */
 undefined4 ModelComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x00496d10 */
@@ -1925,20 +1925,20 @@ undefined4 ModelComponent_Destroy(undefined4 param_1,undefined4 param_2,void *pa
 void MeshComponent_OnKey(undefined4 param_1,int *param_2,undefined4 param_3,int param_4); /* 0x00496d40 */
 int * __cdecl MeshComponent_NewInstance(int inst,int component,int create); /* 0x00496d70 */
 void MeshComponent_Stop(int param_1); /* 0x00496e10 */
-undefined4 MeshComponent_Create(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496e20 */
+undefined4 MeshRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496e20 */
 int FUN_00497180(undefined4 param_1,undefined4 param_2); /* 0x00497180 */
 
 /* ===== imusesoundcomponent.c ===== */
-void __cdecl ImuseSoundComponent_OnKey (int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param_6,uint param_7, uint inst); /* 0x004971a0 */
-undefined4 ImuseSoundComponent_EditKey(int *param_1,undefined4 param_2); /* 0x00497320 */
-int ImuseSoundComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00497460 */
+void __cdecl SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param_6,uint param_7, uint inst); /* 0x004971a0 */
+undefined4 SoundAdjuster(int *param_1,undefined4 param_2); /* 0x00497320 */
+int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00497460 */
 undefined4 ImuseSoundComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00497640 */
 undefined4 ImuseSoundComponent_Stop(int param_1); /* 0x00497660 */
 
 /* ===== luavarcomponent.c ===== */
 void LuaVarComponent_OnKey(undefined4 param_1,char *param_2,undefined4 param_3,int param_4); /* 0x00497680 */
-undefined4 LuaVarComponent_EditKey(undefined4 *param_1,int param_2,int param_3); /* 0x004976a0 */
-int LuaVarComponent_Create(uint param_1,int param_2,int param_3,int param_4,int param_5); /* 0x00497710 */
+undefined4 LuaVarAdjuster(undefined4 *param_1,int param_2,int param_3); /* 0x004976a0 */
+int LuaVarRequester(uint param_1,int param_2,int param_3,int param_4,int param_5); /* 0x00497710 */
 undefined4 LuaVarComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004977f0 */
 undefined4 LuaVarComponent_Stop(char *param_1); /* 0x00497810 */
 
@@ -1946,8 +1946,8 @@ undefined4 LuaVarComponent_Stop(char *param_1); /* 0x00497810 */
 int ImuseIntComponent_Create(uint param_1,int param_2,int param_3,int param_4); /* 0x00497840 */
 
 /* ===== keyframecomponent.c ===== */
-void KeyframeComponent_OnKey (undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x00497890 */
-void KeyframeComponent_TrackCallback(int param_1,int param_2,uint param_3); /* 0x00497cb0 */
+void KeyframeChanger(undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x00497890 */
+void sputCostume_PuppetHook(int param_1,int param_2,uint param_3); /* 0x00497cb0 */
 int * __cdecl KeyframeComponent_NewInstance(int inst,int component,int create); /* 0x00497d10 */
 int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint param_5); /* 0x00497e10 */
 undefined4 KeyframeAdjuster(int *param_1,undefined4 param_2); /* 0x00498000 */
@@ -1956,22 +1956,22 @@ undefined4 KeyframeComponent_Stop(int *param_1); /* 0x004980e0 */
 
 /* ===== smushcomponent.c ===== */
 undefined4 SmushComponent_Destroy(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00498140 */
-void SmushComponent_OnKey(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4); /* 0x00498160 */
-int SmushComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00498190 */
+void SmushChanger(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4); /* 0x00498160 */
+int SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00498190 */
 
 /* ===== costumetag.c ===== */
 undefined4 CostumeTag_Nop(void); /* 0x00498180 */
 
 /* ===== spritecomponent.c ===== */
-undefined4 SpriteComponent_Create(uint param_1,int param_2,int param_3,float param_4,char *param_5); /* 0x00498280 */
+undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,char *param_5); /* 0x00498280 */
 void SpriteComponent_OnKey(undefined4 param_1,int param_2,undefined4 param_3,int param_4); /* 0x00498550 */
-undefined4 SpriteComponent_Destroy(undefined4 param_1,undefined4 param_2,int *param_3); /* 0x00498580 */
-undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3); /* 0x004985c0 */
-undefined4 SpriteComponent_EditKey(undefined4 *param_1,undefined4 param_2); /* 0x004986e0 */
+undefined4 SpriteFreer(undefined4 param_1,undefined4 param_2,int *param_3); /* 0x00498580 */
+undefined4 * SpriteInstancer(int param_1,undefined4 *param_2,int param_3); /* 0x004985c0 */
+undefined4 SpriteAdjuster(undefined4 *param_1,undefined4 param_2); /* 0x004986e0 */
 
 /* ===== chore.c ===== */
-void __cdecl Chore_FadeIn(void *cosInst,int chore,int ms); /* 0x00498990 */
-void __cdecl Chore_FadeOut(void *cosInst,int chore,int ms); /* 0x00498ad0 */
+void __cdecl sputCostume_FadeKeysIn(void *cosInst,int chore,int ms); /* 0x00498990 */
+void __cdecl sputCostume_FadeKeysOut(void *cosInst,int chore,int ms); /* 0x00498ad0 */
 
 /* ===== config.c ===== */
 void __cdecl Config_GetPath(char *name,char *buf,char *defaultSubdir); /* 0x00498bf0 */
@@ -1985,7 +1985,7 @@ undefined4 sputLua_Initialize(GrimServices *param_1,undefined4 *param_2); /* 0x0
 void sputLua_FunctionNameL(void); /* 0x0049cbe0 */
 void sputLua_TypeOverride(void); /* 0x0049d140 */
 void sputLua_Terminate(void); /* 0x0049e500 */
-void sputLua_Stop(void); /* 0x0049e530 */
+void sputLua_Shutdown(void); /* 0x0049e530 */
 void sputLua_StartMovieL(void); /* 0x0049e880 */
 void sputLua_RotateVectorL(void); /* 0x0049f0f0 */
 void sputLua_ImStartRecording(void); /* 0x004a0f20 */
@@ -2004,7 +2004,7 @@ void sputLua_SubmitSaveGameData(void); /* 0x004a35d0 */
 /* ===== timer.c ===== */
 uint Timer_GetTotalMs(void); /* 0x004a3be0 */
 uint Timer_GetFrameMs(void); /* 0x004a3bf0 */
-float __cdecl Timer_GetFrameSeconds(void); /* 0x004a3c00 */
+float __cdecl sputTime_GetFrameTimeFlex(void); /* 0x004a3c00 */
 void Timer_UpdateFromWallClock(void); /* 0x004a3c10 */
 void Timer_UpdateFixedStep(uint param_1); /* 0x004a3c80 */
 void Timer_Reset(void); /* 0x004a3ce0 */
@@ -2027,7 +2027,7 @@ int __cdecl Sound_VoiceSampleCount(int voice); /* 0x004d0cf0 */
 /* ===== sputroom.c ===== */
 undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2); /* 0x004a48c0 */
 void sputRoom_Terminate(void); /* 0x004a5390 */
-undefined4 sputRoom_Start(void); /* 0x004a53b0 */
+undefined4 sputRoom_Startup(void); /* 0x004a53b0 */
 void sputRoom_Stop(void); /* 0x004a5430 */
 undefined4 sputRoom_ParseLights(void); /* 0x004a5600 */
 undefined4 sputRoom_ParseSetups(void); /* 0x004a5890 */
@@ -2040,11 +2040,11 @@ void ZBuffer_FreeData(void *param_1); /* 0x004a4990 */
 
 /* ===== light.c ===== */
 void * __cdecl Light_Get(void *set,int index); /* 0x004a5cc0 */
-int __cdecl Light_FindByName(void *set,char *name); /* 0x004a5cf0 */
+int __cdecl sputRoom_FindLightByName(void *set,char *name); /* 0x004a5cf0 */
 
 /* ===== objstate.c ===== */
 void * __cdecl ObjectState_Create(int setupIdx,int type,char *bitmap,char *zbitmap,int visible); /* 0x004a5d50 */
-void __cdecl ObjectState_Free(void *state); /* 0x004a5e50 */
+void __cdecl sputRoom_RemoveObjectState(void *state); /* 0x004a5e50 */
 undefined4 * __fastcall StateImage_Construct(undefined4 *param_1); /* 0x004aa070 */
 void __fastcall StateImage_Release(int param_1); /* 0x004aa0b0 */
 void __thiscall StateImage_Init(void *this,char *name); /* 0x004aa100 */
@@ -2060,8 +2060,8 @@ void __fastcall ObjectState_UnloadBitmaps(int param_1); /* 0x004aa560 */
 void __thiscall ObjectState_CaptureBackground(void *this,void *bg,void *zbuf); /* 0x004aa580 */
 void __thiscall ObjectState_Draw(void *this,int type,void *dst,void *zdst); /* 0x004aa5c0 */
 int __thiscall ObjectState_SetFrame(void *this,int a1); /* 0x004aa6b0 */
-void * __thiscall ObjectState_SendToBack(void *this,void *list); /* 0x004aa6c0 */
-void * __thiscall ObjectState_SendToFront(void *this,void *list); /* 0x004aa720 */
+void * __thiscall ObjectState_MoveToBack(void *this,void *list); /* 0x004aa6c0 */
+void * __thiscall ObjectState_MoveToFront(void *this,void *list); /* 0x004aa720 */
 
 /* ===== setactorlist.c ===== */
 void SetActorList_Free(void *param_1); /* 0x004a6160 */
@@ -2448,12 +2448,12 @@ void FUN_004be120(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 
 void FUN_004be140(undefined4 param_1); /* 0x004be140 */
 void FUN_004be160(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004be160 */
 undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4); /* 0x004bf950 */
-undefined4 FUN_004c1900(int *param_1); /* 0x004c1900 */
+undefined4 BatchUnsubscribe(int *param_1); /* 0x004c1900 */
 undefined4 FUN_004c1f40(int *param_1,uint param_2); /* 0x004c1f40 */
 void FUN_004c1fb0(void); /* 0x004c1fb0 */
-undefined4 FUN_004c1ff0(void); /* 0x004c1ff0 */
+undefined4 AnimPlay_module_startup(void); /* 0x004c1ff0 */
 void FUN_004c2150(void); /* 0x004c2150 */
-int FUN_004c21e0(char *param_1,int param_2,uint param_3,undefined4 param_4,undefined4 param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9, code *param_10,int param_11,int param_12,int param_13); /* 0x004c21e0 */
+int anm_EasyPlay(char *param_1,int param_2,uint param_3,undefined4 param_4,undefined4 param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9, code *param_10,int param_11,int param_12,int param_13); /* 0x004c21e0 */
 int FUN_004c2590(int param_1); /* 0x004c2590 */
 int FUN_004c25c0(void *param_1,int param_2,int param_3,int param_4,int param_5,int param_6, int param_7,int param_8,int param_9,int param_10); /* 0x004c25c0 */
 void FUN_004c2650(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9); /* 0x004c2650 */
@@ -2467,18 +2467,18 @@ void FUN_004c2b30(uint param_1); /* 0x004c2b30 */
 uint FUN_004c2b40(void); /* 0x004c2b40 */
 undefined4 FUN_004c2b50(int *param_1,uint param_2); /* 0x004c2b50 */
 void FUN_004c2ba0(void); /* 0x004c2ba0 */
-int FUN_004c2be0(void); /* 0x004c2be0 */
+int AnimFrame_module_startup(void); /* 0x004c2be0 */
 void FUN_004c2dc0(void); /* 0x004c2dc0 */
 void FUN_004c2eb0(void); /* 0x004c2eb0 */
 undefined4 FUN_004c2ee0(undefined1 *param_1,int param_2); /* 0x004c2ee0 */
-uint FUN_004c2fa0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, uint *param_5,uint *param_6,uint *param_7,uint param_8,undefined4 param_9, undefined4 param_10,byte *param_11,int param_12); /* 0x004c2fa0 */
+uint anm_DecodeBody(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, uint *param_5,uint *param_6,uint *param_7,uint param_8,undefined4 param_9, undefined4 param_10,byte *param_11,int param_12); /* 0x004c2fa0 */
 void FUN_004c34d0(short *param_1,int param_2); /* 0x004c34d0 */
 int FUN_004c3560(int param_1); /* 0x004c3560 */
 void FUN_004c35c0(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,byte param_6,byte param_7,uint param_8); /* 0x004c35c0 */
 char * FUN_004c3660(int param_1); /* 0x004c3660 */
 void FUN_004c3690(uint param_1); /* 0x004c3690 */
 uint FUN_004c36a0(void); /* 0x004c36a0 */
-uint FUN_004c36f0(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10,undefined4 param_11); /* 0x004c36f0 */
+uint anm_animator_Render(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10,undefined4 param_11); /* 0x004c36f0 */
 void FUN_004c3b30(int param_1,undefined4 param_2); /* 0x004c3b30 */
 undefined4 FUN_004c3bb0(int param_1); /* 0x004c3bb0 */
 undefined4 FUN_004c3c00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5 ,undefined4 param_6,undefined4 param_7,undefined4 param_8,uint param_9, undefined4 param_10,undefined4 param_11); /* 0x004c3c00 */
@@ -2491,7 +2491,7 @@ uint FUN_004c4650(int param_1,undefined4 param_2); /* 0x004c4650 */
 undefined * FUN_004c4a00(int param_1,int *param_2); /* 0x004c4a00 */
 undefined4 FUN_004c4b20(int *param_1,uint param_2); /* 0x004c4b20 */
 void FUN_004c4b60(void); /* 0x004c4b60 */
-undefined4 FUN_004c4b90(void); /* 0x004c4b90 */
+undefined4 Streamer_module_startup(void); /* 0x004c4b90 */
 void FUN_004c4c10(void); /* 0x004c4c10 */
 int FUN_004c4c50(undefined4 *param_1,uint param_2,int param_3); /* 0x004c4c50 */
 void FUN_004c4d20(int *param_1); /* 0x004c4d20 */
@@ -2500,13 +2500,13 @@ void FUN_004c4dd0(uint *param_1,uint param_2); /* 0x004c4dd0 */
 undefined4 FUN_004c4ee0(int param_1,char *param_2,undefined4 param_3); /* 0x004c4ee0 */
 undefined4 FUN_004c4f60(int param_1); /* 0x004c4f60 */
 undefined4 FUN_004c5080(int param_1); /* 0x004c5080 */
-int FUN_004c50a0(undefined4 *param_1,int param_2); /* 0x004c50a0 */
+int fle_StreamerDispense(undefined4 *param_1,int param_2); /* 0x004c50a0 */
 undefined4 FUN_004c51b0(int param_1); /* 0x004c51b0 */
 undefined4 FUN_004c51e0(int param_1,int param_2); /* 0x004c51e0 */
 int FUN_004c5220(int param_1); /* 0x004c5220 */
 undefined4 FUN_004c5280(int *param_1,uint param_2); /* 0x004c5280 */
 void FUN_004c52c0(void); /* 0x004c52c0 */
-undefined4 FUN_004c52f0(void); /* 0x004c52f0 */
+undefined4 Directory_module_startup(void); /* 0x004c52f0 */
 void FUN_004c5330(void); /* 0x004c5330 */
 void FUN_004c5350(undefined4 param_1,undefined4 *param_2); /* 0x004c5350 */
 void FUN_004c5370(undefined4 *param_1); /* 0x004c5370 */
@@ -2520,9 +2520,9 @@ undefined4 FUN_004c55d0(char *param_1,char *param_2,char *param_3,undefined4 par
 int FUN_004c5720(int param_1,int param_2); /* 0x004c5720 */
 undefined4 FUN_004c5790(int *param_1,uint param_2); /* 0x004c5790 */
 void FUN_004c5840(void); /* 0x004c5840 */
-undefined4 FUN_004c5870(void); /* 0x004c5870 */
+undefined4 Zfile_module_startup(void); /* 0x004c5870 */
 void FUN_004c5910(void); /* 0x004c5910 */
-int * FUN_004c5950(char *param_1,char *param_2); /* 0x004c5950 */
+int * Zfile_fle_Open(char *param_1,char *param_2); /* 0x004c5950 */
 int FUN_004c5b00(int *param_1,undefined4 param_2,int param_3); /* 0x004c5b00 */
 undefined4 FUN_004c5bc0(int *param_1,undefined4 param_2,int param_3); /* 0x004c5bc0 */
 int FUN_004c5c20(int *param_1); /* 0x004c5c20 */
@@ -2530,7 +2530,7 @@ void FUN_004c5c50(int *param_1,int param_2,int param_3); /* 0x004c5c50 */
 void FUN_004c5cb0(int *param_1); /* 0x004c5cb0 */
 undefined4 FUN_004c5ce0(int *param_1,uint param_2); /* 0x004c5ce0 */
 void FUN_004c5d20(void); /* 0x004c5d20 */
-undefined4 FUN_004c5d50(void); /* 0x004c5d50 */
+undefined4 StdFile_module_startup(void); /* 0x004c5d50 */
 void FUN_004c5d90(void); /* 0x004c5d90 */
 void FUN_004c5db0(undefined4 param_1,undefined4 param_2); /* 0x004c5db0 */
 void FUN_004c5dd0(undefined4 param_1); /* 0x004c5dd0 */
@@ -2565,7 +2565,7 @@ void FUN_004ca3f0(int param_1); /* 0x004ca3f0 */
 uint FUN_004ca460(uint param_1,int param_2); /* 0x004ca460 */
 undefined4 FUN_004cba30(int *param_1,uint param_2); /* 0x004cba30 */
 void FUN_004cba70(void); /* 0x004cba70 */
-int FUN_004cbaa0(void); /* 0x004cbaa0 */
+int DWave_module_startup(void); /* 0x004cbaa0 */
 void FUN_004cbb30(void); /* 0x004cbb30 */
 char * FUN_004cbb80(int param_1); /* 0x004cbb80 */
 undefined4 FUN_004cbbb0(void); /* 0x004cbbb0 */
@@ -2580,7 +2580,7 @@ uint FUN_004ce010(void); /* 0x004ce010 */
 void FUN_004ce020(int param_1); /* 0x004ce020 */
 undefined4 FUN_004ce2e0(int *param_1,uint param_2); /* 0x004ce2e0 */
 void FUN_004ce320(void); /* 0x004ce320 */
-undefined4 FUN_004ce350(void); /* 0x004ce350 */
+undefined4 Video_module_startup(void); /* 0x004ce350 */
 void FUN_004ce3b0(void); /* 0x004ce3b0 */
 undefined4 FUN_004ce840(int *param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6, undefined4 *param_7); /* 0x004ce840 */
 void FUN_004ce980(int *param_1); /* 0x004ce980 */
@@ -2627,8 +2627,8 @@ int strpbrk_or_strspn(byte *param_1,byte *param_2); /* 0x004ae220 */
 /* ===== insane.c ===== */
 int Insane_Poll(void); /* 0x004bd370 */
 undefined4 Insane_RegisterFilio(uint param_1,undefined4 *param_2); /* 0x004bd3a0 */
-void Insane_Terminate(void); /* 0x004bd430 */
-undefined4 Insane_Start(void); /* 0x004bd440 */
+void SmushPlay_SysShutdown(void); /* 0x004bd430 */
+undefined4 SmushPlay_SysStartup(void); /* 0x004bd440 */
 void Insane_Stop(void); /* 0x004bd4d0 */
 void Insane_SetOutputParams(uint *param_1); /* 0x004bd540 */
 undefined4 Insane_ReadFrameHeader(int param_1,int param_2); /* 0x004bd7c0 */
@@ -2708,16 +2708,16 @@ int __cdecl LecShare_Register(char *name,void *vtable); /* 0x004c15c0 */
 uint LecShare_Unregister(undefined4 param_1); /* 0x004c1650 */
 void * __cdecl LecShare_Resolve(char *name,char *pattern); /* 0x004c16c0 */
 undefined4 LecShare_Release(uint param_1); /* 0x004c1800 */
-undefined4 LecShare_BatchSubscribe(int *param_1,char *param_2); /* 0x004c1850 */
+undefined4 BatchSubscribe(int *param_1,char *param_2); /* 0x004c1850 */
 uint LecShare_Subscribe(char *param_1,uint param_2); /* 0x004c1990 */
 uint LecShare_CountMatching(char *param_1); /* 0x004c1b60 */
 uint * LecShare_FindEntry(undefined4 param_1); /* 0x004c1be0 */
 undefined4 LecShare_Nop(void); /* 0x004c1e50 */
 
 /* ===== animplay.c ===== */
-int __cdecl AnimPlay_Create(void **out,char *name,int fps,int streamArg1,int streamArg2,uint flags); /* 0x004c23c0 */
+int __cdecl anm_Start(void **out,char *name,int fps,int streamArg1,int streamArg2,uint flags); /* 0x004c23c0 */
 void __cdecl AnimPlay_Destroy(void **pp); /* 0x004c2690 */
-int __cdecl AnimPlay_Update(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10); /* 0x004c27a0 */
+int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10); /* 0x004c27a0 */
 int __cdecl AnimPlay_ResetState(void *p); /* 0x004c36b0 */
 int __cdecl AnimPlay_OpenFile(void *p,char *name,uint flags,int a4,int a5,int a6); /* 0x004c3d30 */
 
@@ -2735,7 +2735,7 @@ int gz_getLong(int param_1); /* 0x004c4920 */
 undefined4 gzclose(int param_1); /* 0x004c4970 */
 void __cdecl gz_putLong(void *file,uint x); /* 0x004c49c0 */
 undefined4 zlibVersion(void); /* 0x004c4c40 */
-undefined4 deflateParams_or_SetDictionary(int param_1); /* 0x004c57d0 */
+undefined4 fle_zfilio_config(int param_1); /* 0x004c57d0 */
 undefined4 inflateReset(int param_1); /* 0x004c6040 */
 undefined4 inflateEnd(int param_1); /* 0x004c6090 */
 undefined4 inflateInit2_(int param_1,int param_2,char *param_3,int param_4); /* 0x004c60e0 */
@@ -2781,7 +2781,7 @@ int __cdecl StdFile_IsEof(void *file); /* 0x004c5f50 */
 undefined4 Blocky16_Register(int *param_1,uint param_2); /* 0x004cc210 */
 int __cdecl Blocky16_SetOption(int key,...); /* 0x004cc250 */
 void Blocky16_Unregister(void); /* 0x004cc290 */
-undefined4 Blocky16_Init(void); /* 0x004cc2c0 */
+undefined4 Blocky16_module_startup(void); /* 0x004cc2c0 */
 void Blocky16_Shutdown(void); /* 0x004cc340 */
 char * Blocky16_GetInfoString(int param_1); /* 0x004cc370 */
 undefined4 Blocky16_GetFourCC(void); /* 0x004cc3a0 */
@@ -2804,7 +2804,7 @@ byte * __cdecl Blocky16_DecodeBlock2(byte *src,byte *dst,int pitch); /* 0x004cdb
 /* ===== insanetimer.c ===== */
 int __cdecl InsaneTimer_Register(int *services,uint workspaceSize); /* 0x004cdc90 */
 void InsaneTimer_Unregister(void); /* 0x004cdce0 */
-int InsaneTimer_Init(void); /* 0x004cdd10 */
+int InsaneTimer_module_startup(void); /* 0x004cdd10 */
 void InsaneTimer_Shutdown(void); /* 0x004cdd60 */
 int InsaneTimer_StartThread(void); /* 0x004cdd80 */
 undefined * __stdcall InsaneTimer_ThreadProc(int a1); /* 0x004cddf0 */
@@ -2843,7 +2843,7 @@ void __cdecl Video_CopyRect(byte *src,byte *dst,int srcX,uint srcY,int dstX,uint
 /* ===== soundmodule.c ===== */
 int __cdecl SoundModule_Register(int *services,uint moduleSize); /* 0x004d0300 */
 void SoundModule_Unregister(void); /* 0x004d03a0 */
-int SoundModule_Init(void); /* 0x004d03d0 */
+int SoundModule_module_startup(void); /* 0x004d03d0 */
 void SoundModule_Shutdown(void); /* 0x004d0510 */
 int __cdecl SoundModule_Open(int rate,int limit,uint size,...); /* 0x004d0550 */
 int SoundModule_Close(void); /* 0x004d0610 */
@@ -2880,7 +2880,7 @@ void __cdecl Dsnd_MemFill(void *dst,int value,uint n); /* 0x004d2ce0 */
 /* ===== dsnddriver.c ===== */
 int __cdecl DsndDriver_Register(int *services,uint moduleSize); /* 0x004d2420 */
 void DsndDriver_Unregister(void); /* 0x004d2480 */
-int DsndDriver_Init(void); /* 0x004d24b0 */
+int DsndDriver_module_startup(void); /* 0x004d24b0 */
 void DsndDriver_Shutdown(void); /* 0x004d2520 */
 int __cdecl DsndDriver_Open(int rate,int unused,void *mix); /* 0x004d2550 */
 void DsndDriver_Close(void); /* 0x004d25f0 */

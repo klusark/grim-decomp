@@ -15,7 +15,7 @@ void * __cdecl ObjectState_Create(int setupIdx,int type,char *bitmap,char *zbitm
   int iVar1;
   void *pvVar2;
   
-  pvVar2 = Set_GetCurrent();
+  pvVar2 = sputRoom_GetCurrentRoom();
   iVar1 = *(int *)((int)pvVar2 + 0xac) + setupIdx * 300;
   pvVar2 = Plat_Alloc(0xfc);
   if (pvVar2 == (void *)0x0) {
@@ -39,8 +39,11 @@ void * __cdecl ObjectState_Create(int setupIdx,int type,char *bitmap,char *zbitm
   return pvVar2;
 }
 
-/* ---- 0x004a5e50  ObjectState_Free ---- */
-void __cdecl ObjectState_Free(void *state)
+/* ---- 0x004a5e50  sputRoom_RemoveObjectState ---- */
+/* Original name sputRoom_RemoveObjectState (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_FreeObjectState; 1 matched neighbours agree, 1 disagree); was ObjectState_Free. */
+
+void __cdecl sputRoom_RemoveObjectState(void *state)
 
 {
   int iVar1;
@@ -49,7 +52,7 @@ void __cdecl ObjectState_Free(void *state)
   
   if (state != (void *)0x0) {
     iVar1 = *(int *)((int)state + 8);
-    pvVar3 = Set_GetCurrent();
+    pvVar3 = sputRoom_GetCurrentRoom();
     iVar2 = *(int *)((int)pvVar3 + 0xac);
     pvVar3 = *(void **)(iVar2 + 0x128 + iVar1 * 300);
     if (pvVar3 == state) {
@@ -90,7 +93,7 @@ void __fastcall StateImage_Release(int param_1)
 
 {
   if (*(int *)(param_1 + 0x34) != 0) {
-    ResRef_Remove((void *)(param_1 + 0x34));
+    Res_RemoveReference((void *)(param_1 + 0x34));
   }
   if (*(void **)(param_1 + 0x68) != (void *)0x0) {
     Surface_Free(*(void **)(param_1 + 0x68));
@@ -124,7 +127,7 @@ void __thiscall StateImage_Load(void *this,int load)
   
   if ((load == 0) || (*(char *)((int)this + 0x14) == '\0')) {
     if (*(int *)((int)this + 0x34) != 0) {
-      ResRef_Remove((void *)((int)this + 0x34));
+      Res_RemoveReference((void *)((int)this + 0x34));
     }
     if (*(void **)((int)this + 0x68) != (void *)0x0) {
       Surface_Free(*(void **)((int)this + 0x68));
@@ -132,9 +135,10 @@ void __thiscall StateImage_Load(void *this,int load)
     }
   }
   else if (*(int *)((int)this + 0x34) == 0) {
-    data = Resource_Load(0x444e4b42,(char *)((int)this + 0x14));
+    data = sputResource_Alloc(0x444e4b42,(char *)((int)this + 0x14));
     if (data != (void *)0x0) {
-      ResRef_Add((void *)((int)this + 0x34),data,s_C__grimsrc_libs_grimlib_Engine_O_004ec9d0,0x3d);
+      Res_SetReference((void *)((int)this + 0x34),data,s_C__grimsrc_libs_grimlib_Engine_O_004ec9d0,
+                       0x3d);
       *(undefined4 *)((int)this + 4) = *(undefined4 *)((int)data + 0x6c);
       *(undefined4 *)((int)this + 8) = *(undefined4 *)((int)data + 0x70);
       *(undefined4 *)((int)this + 0xc) = *(undefined4 *)(**(int **)((int)data + 0x78) + 0xc);
@@ -368,7 +372,7 @@ void __thiscall ObjectState_Draw(void *this,int type,void *dst,void *zdst)
           StateImage_Draw((void *)((int)this + 0x80),zdst);
           iVar2 = 1;
         }
-        Render_InvalidateRect((int *)((int)this + 0x10),iVar2);
+        MarkDirtyRect((int *)((int)this + 0x10),iVar2);
         return;
       }
     }
@@ -380,7 +384,7 @@ void __thiscall ObjectState_Draw(void *this,int type,void *dst,void *zdst)
         iVar2 = *(int *)(*(int *)((int)this + 0x44) + 0x68);
       }
       if ((iVar2 == -1) && (*(int *)((int)this + 0x78) != -1)) {
-        Render_InvalidateRect((int *)((int)this + 0x10),1);
+        MarkDirtyRect((int *)((int)this + 0x10),1);
       }
       StateImage_Draw((void *)((int)this + 0xc),dst);
       StateImage_Draw((void *)((int)this + 0x80),zdst);
@@ -400,10 +404,13 @@ int __thiscall ObjectState_SetFrame(void *this,int a1)
   return a1;
 }
 
-/* ---- 0x004aa6c0  ObjectState_SendToBack ---- */
-/* Returns the new head of the setup's object state list */
+/* ---- 0x004aa6c0  ObjectState_MoveToBack ---- */
+/* Returns the new head of the setup's object state list Original name ObjectState_MoveToBack (the
+   remaster's GrimFandango (Linux): ObjectState::MoveToBack in the remaster (a C++ method there);
+   the only unmatched callee of Lua_SendObjectToBack; 1 matched neighbours agree, 0 disagree); was
+   ObjectState_SendToBack. */
 
-void * __thiscall ObjectState_SendToBack(void *this,void *list)
+void * __thiscall ObjectState_MoveToBack(void *this,void *list)
 
 {
   if (list != this) {
@@ -420,8 +427,12 @@ void * __thiscall ObjectState_SendToBack(void *this,void *list)
   return this;
 }
 
-/* ---- 0x004aa720  ObjectState_SendToFront ---- */
-void * __thiscall ObjectState_SendToFront(void *this,void *list)
+/* ---- 0x004aa720  ObjectState_MoveToFront ---- */
+/* Original name ObjectState_MoveToFront (the remaster's GrimFandango (Linux):
+   ObjectState::MoveToFront in the remaster (a C++ method there); the only unmatched callee of
+   Lua_SendObjectToFront; 1 matched neighbours agree, 0 disagree); was ObjectState_SendToFront. */
+
+void * __thiscall ObjectState_MoveToFront(void *this,void *list)
 
 {
   void *pvVar1;

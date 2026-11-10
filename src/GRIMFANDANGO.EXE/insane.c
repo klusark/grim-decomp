@@ -41,8 +41,8 @@ undefined4 Insane_RegisterFilio(uint param_1,undefined4 *param_2)
     UINT_008d16a0 = 1;
     if (param_2 != (undefined4 *)0x0) {
       *param_2 = Insane_RegisterFilio;
-      param_2[1] = Insane_Terminate;
-      param_2[2] = Insane_Start;
+      param_2[1] = SmushPlay_SysShutdown;
+      param_2[2] = SmushPlay_SysStartup;
       param_2[3] = Insane_Stop;
       param_2[4] = 0;
       param_2[5] = 0;
@@ -54,11 +54,13 @@ undefined4 Insane_RegisterFilio(uint param_1,undefined4 *param_2)
   return uVar1;
 }
 
-/* ---- 0x004bd430  Insane_Terminate ---- */
+/* ---- 0x004bd430  SmushPlay_SysShutdown ---- */
 /* Module interface slot 1 (Insane): called by Engine_ResetSubsystems / when registration fails;
-   drops the service table pointer and clears the initialised flag. */
+   drops the service table pointer and clears the initialised flag. Original name
+   SmushPlay_SysShutdown (the remaster's GrimFandango (Linux): the only unmatched caller of
+   LecShare_Shutdown; 1 matched neighbours agree, 0 disagree); was Insane_Terminate. */
 
-void Insane_Terminate(void)
+void SmushPlay_SysShutdown(void)
 
 {
   LecShare_Shutdown();
@@ -66,12 +68,13 @@ void Insane_Terminate(void)
   return;
 }
 
-/* ---- 0x004bd440  Insane_Start ---- */
+/* ---- 0x004bd440  SmushPlay_SysStartup ---- */
 /* Module interface slot 2 (Insane): called by Engine_InitSubsystems, returns 0 on success (non-zero
    makes the whole start-up unwind). _Start starts the LecShare module chain of the INSANE/Smush
-   player. */
+   player. Original name SmushPlay_SysStartup (the remaster's GrimFandango (Linux): strings: '.SNM'
+   | '.gz' | '.GZ'); was Insane_Start. */
 
-undefined4 Insane_Start(void)
+undefined4 SmushPlay_SysStartup(void)
 
 {
   int iVar1;
@@ -79,10 +82,10 @@ undefined4 Insane_Start(void)
   
   uVar2 = 1;
   if ((UINT_008d16a0 != 0) && (UINT_008d16a4 == 0)) {
-    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cc4,0);
-    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cbc,0);
-    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cb8,0);
-    ((code *)deflateParams_or_SetDictionary)(1,&DAT_004f0cb4,0);
+    ((code *)fle_zfilio_config)(1,&DAT_004f0cc4,0);
+    ((code *)fle_zfilio_config)(1,&DAT_004f0cbc,0);
+    ((code *)fle_zfilio_config)(1,&DAT_004f0cb8,0);
+    ((code *)fle_zfilio_config)(1,&DAT_004f0cb4,0);
     iVar1 = LecShare_StartupModules();
     if (iVar1 == 0) {
       iVar1 = (*(code *)PTR_008d11d4[4])(&PTR_PTR_004f0b70,0);

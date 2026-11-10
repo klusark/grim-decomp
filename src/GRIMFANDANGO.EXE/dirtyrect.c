@@ -218,7 +218,7 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   item = g_pDirtyRectList;
-  pvVar3 = Set_GetCurrent();
+  pvVar3 = sputRoom_GetCurrentRoom();
   if (pvVar3 != (void *)0x0) {
     if (((byte)g_dwRenderDebugFlags & 1) != 0) {
       local_10 = *(uint *)((int)g_pCanvas + 0x18);

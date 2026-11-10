@@ -5,12 +5,13 @@ Usage: python -I rename_refs.py [--dry] names/orig_lua.json [more batches...]   
 Each batch entry with "old" and "name" (tools/orig_batch.py writes them) is a rename old -> new in its program.
 All renames are applied in one pass per file (so swaps and chains such as luaH_free -> luaH_hashnodecreate,
 ltable__c190 -> luaH_free work), whole words only:
-  * build/*.c, build/*.h: only where the #ifdef GRIM_<PROG> guards put the text in the renamed function's program,
+  * build/*.c, build/*.h, build/cleanroom/*.[ch]: only where the #ifdef GRIM_<PROG> guards put the text in the renamed function's program,
     or, outside such guards, when no other program has a function of the old name (the three DLLs share the image
     base, so FUN_1000xxxx names repeat);
   * names/*.json: in place (the files keep their formatting), when no other program has a function of the old name,
     or when every entry of the file that has the name is the renamed function's (same "addr" and program);
-  * tools/*.py, docs/*.md (not docs/notes, which is history): when no other program has a function of that name.
+  * tools/*.py, build/*.py, docs/*.md, build/cleanroom/*.md (not docs/notes or build/BUILD_NOTES.md, which are history,
+    nor build/difftest): when no other program has a function of that name.
 Prints every file it changes and the occurrences it left alone (shared names in unguarded text) for review.
 Run it once per batch, on files that still have the old names: it is not idempotent for chains and swaps (a second
 run would carry luaH_free on to luaH_hashnodecreate)."""
@@ -80,7 +81,8 @@ def main():
                 owners.setdefault(e["old"], set()).add(p)
     word = {p: re.compile(r"\b(" + "|".join(map(re.escape, sorted(m, key=len, reverse=True))) + r")\b") if m else None
             for p, m in ren.items()}
-    allold = re.compile(r"\b(" + "|".join(re.escape(o) for m in ren.values() for o in m) + r")\b")
+    # whole words, and the assembler names "_Name" of __asm__("_Name") declarations
+    allold = re.compile(r"(?:\b|(?<=\"_))(" + "|".join(re.escape(o) for m in ren.values() for o in m) + r")\b")
     skipped = []
 
     def unique_owner(old):
@@ -119,7 +121,8 @@ def main():
 
     changed = []
     # hand-written C
-    for path in sorted(glob.glob(os.path.join(ROOT, "build", "*.c")) + glob.glob(os.path.join(ROOT, "build", "*.h"))):
+    for path in sorted(glob.glob(os.path.join(ROOT, "build", "*.c")) + glob.glob(os.path.join(ROOT, "build", "*.h")) +
+                       glob.glob(os.path.join(ROOT, "build", "cleanroom", "*.[ch]"))):
         text = open(path, encoding="utf-8").read()
         new = sub_free(text, os.path.relpath(path, ROOT), progs_of_line=True)
         if new != text:
@@ -163,7 +166,8 @@ def main():
             if not dry:
                 open(path, "w", encoding="utf-8", newline="").write(new)
     # tools and docs
-    for path in sorted(glob.glob(os.path.join(ROOT, "tools", "*.py")) + glob.glob(os.path.join(ROOT, "docs", "*.md"))):
+    for path in sorted(glob.glob(os.path.join(ROOT, "tools", "*.py")) + glob.glob(os.path.join(ROOT, "docs", "*.md")) +
+                       glob.glob(os.path.join(ROOT, "build", "*.py")) + glob.glob(os.path.join(ROOT, "build", "cleanroom", "*.md"))):
         if os.path.basename(path) in ("rename_refs.py", "orig_match.py", "orig_batch.py", "orig_dump.py"):
             continue
         text = open(path, encoding="utf-8").read()

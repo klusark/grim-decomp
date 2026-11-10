@@ -41,7 +41,7 @@
  },
  {
   "addr": "004cdd10",
-  "proto": "int InsaneTimer_Init(void)"
+  "proto": "int InsaneTimer_module_startup(void)"
  },
  {
   "addr": "004cdd60",
@@ -89,7 +89,7 @@
  },
  {
   "addr": "004d24b0",
-  "proto": "int DsndDriver_Init(void)"
+  "proto": "int DsndDriver_module_startup(void)"
  },
  {
   "addr": "004d2520",
@@ -164,7 +164,7 @@
  },
  {
   "addr": "004d03d0",
-  "proto": "int SoundModule_Init(void)"
+  "proto": "int SoundModule_module_startup(void)"
  },
  {
   "addr": "004d0510",
@@ -396,7 +396,7 @@
  },
  {
   "addr": "004c23c0",
-  "proto": "int AnimPlay_Create(void * * out, char * name, int fps, int streamArg1, int streamArg2, uint flags)",
+  "proto": "int anm_Start(void * * out, char * name, int fps, int streamArg1, int streamArg2, uint flags)",
   "cc": "__cdecl"
  },
  {
@@ -406,7 +406,7 @@
  },
  {
   "addr": "004c27a0",
-  "proto": "int AnimPlay_Update(void * p, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10)",
+  "proto": "int anm_Render(void * p, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10)",
   "cc": "__cdecl"
  },
  {

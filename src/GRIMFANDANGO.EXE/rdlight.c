@@ -41,8 +41,8 @@ void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
   local_4 = 0;
   *(float *)((int)light + 0x20) = inner;
   *(float *)((int)light + 0x28) = outer;
-  Math_SinCosTable(inner,&local_4,(float *)((int)light + 0x24));
-  Math_SinCosTable(outer,&local_4,(float *)((int)light + 0x2c));
+  stdMath_SinCos(inner,&local_4,(float *)((int)light + 0x24));
+  stdMath_SinCos(outer,&local_4,(float *)((int)light + 0x2c));
   fVar1 = *(float *)((int)light + 0x24) - *(float *)((int)light + 0x2c);
   if (0.0 < fVar1) {
     *(float *)((int)light + 0x30) = 1.0 / fVar1;
@@ -126,7 +126,7 @@ LAB_0045173f:
               }
               break;
             case 2:
-              fVar8 = Vec3_Normalize(local_c);
+              fVar8 = rdVector_Normalize3Acc(local_c);
               fVar3 = *pfVar7 * local_c[2] + pfVar7[-1] * local_c[1] + pfVar7[-2] * local_c[0];
               if (0.0 < fVar3) {
                 fVar3 = (*(float *)(iVar2 + 0x18) - fVar8 * param_10) * fVar3;
@@ -134,7 +134,7 @@ LAB_0045173f:
               }
               break;
             case 3:
-              fVar8 = Vec3_Normalize(local_c);
+              fVar8 = rdVector_Normalize3Acc(local_c);
               fVar3 = *pfVar6 * local_c[2] + pfVar6[-2] * local_c[0] + pfVar6[-1] * local_c[1];
               if (*(float *)(iVar2 + 0x2c) < fVar3) {
                 fVar1 = *(float *)(iVar2 + 0x18);
@@ -211,7 +211,7 @@ rdLight_CalcFaceIntensity
         fVar3 = *pfVar5 - *(float *)(param_7 + 8 + *piVar2 * 0xc);
         if (fVar3 * fVar3 + local_10[2] * local_10[2] + local_10[1] * local_10[1] <
             *(float *)(iVar1 + 0x34) * *(float *)(iVar1 + 0x34)) {
-          fVar6 = Vec3_Normalize(local_10 + 1);
+          fVar6 = rdVector_Normalize3Acc(local_10 + 1);
           fVar3 = local_10[1] * *param_6 + param_6[1] * local_10[2] + param_6[2] * fVar3;
           if (0.0 < fVar3) {
             local_10[0] = (*(float *)(iVar1 + 0x18) - fVar6 * param_8) * fVar3 + local_10[0];

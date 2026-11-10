@@ -419,9 +419,9 @@ void rdModel_DrawNode(int param_1)
       *(undefined4 *)(*(int *)(UINT_007f0fd0 + 4) + 0x5c + *(int *)(param_1 + 0x4c) * 0x7c) =
            *(undefined4 *)(*(int *)(UINT_007f0fd0 + 4) + 0x5c + *(int *)(iVar3 + 0x4c) * 0x7c);
     }
-    rdModel_DrawMesh((void *)(*(int *)(UINT_007f0fd0 + 4) + *(int *)(param_1 + 0x4c) * 0x7c),
-                     (float *)(*(int *)((int)g_pRdCurrentThing + 0x20) +
-                              *(int *)(param_1 + 0x44) * 0x30));
+    ((code *)rdModel3_DrawMeshImpl)((void *)(*(int *)(UINT_007f0fd0 + 4) + *(int *)(param_1 + 0x4c) * 0x7c),
+               (float *)(*(int *)((int)g_pRdCurrentThing + 0x20) + *(int *)(param_1 + 0x44) * 0x30))
+    ;
   }
   if (*(int *)(param_1 + 0x58) != 0) {
     iVar3 = *(int *)(param_1 + 0x5c);
@@ -439,12 +439,15 @@ void rdModel_DrawNode(int param_1)
   return;
 }
 
-/* ---- 0x0040d230  rdModel_DrawMesh ---- */
+/* ---- 0x0040d230  rdModel3_DrawMeshImpl ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name rdModel3_DrawMeshImpl (the remaster's GrimFandango (Linux): the only unmatched
+   caller of rdLight_CalcVertexIntensities; 1 matched neighbours agree, 0 disagree); was
+   rdModel_DrawMesh. */
 
-void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
+void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -653,7 +656,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
           else {
             uVar7 = 0;
 LAB_0040d640:
-            rdModel_AddMeshToCache(iVar12,uVar7);
+            rdModel3_DrawFace(iVar12,uVar7);
           }
           iVar12 = iVar12 + 0x4c;
           uVar10 = uVar10 + 1;
@@ -680,12 +683,15 @@ LAB_0040d640:
 #endif
 
 
-/* ---- 0x0040d880  rdModel_AddMeshToCache ---- */
+/* ---- 0x0040d880  rdModel3_DrawFace ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name rdModel3_DrawFace (the remaster's GrimFandango (Linux): the only unmatched caller
+   of rdLight_CalcFaceIntensity; 3 matched neighbours agree, 0 disagree); was
+   rdModel_AddMeshToCache. */
 
-undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
+undefined4 rdModel3_DrawFace(int param_1,int param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

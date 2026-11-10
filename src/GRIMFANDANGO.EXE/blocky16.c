@@ -58,11 +58,15 @@ void Blocky16_Unregister(void)
   return;
 }
 
-/* ---- 0x004cc2c0  Blocky16_Init ---- */
+/* ---- 0x004cc2c0  Blocky16_module_startup ---- */
 /* Asks the module manager for the BITMAP clear service and the MEMORY workspace service of the
-   decoder; -1 if one is missing */
+   decoder; -1 if one is missing Original name Blocky16_module_startup (the remaster's GrimFandango
+   (Linux): the static module_startup of the Blocky16 module (the remaster has one per module file,
+   hence the prefix); strings: 'FlobDec-Blocky16 Module: Cannot allocate bitmap services.' |
+   'BITMAP.clear' | 'FlobDec-Blocky16 Module: Cannot allocate memory services.'); was Blocky16_Init.
+    */
 
-undefined4 Blocky16_Init(void)
+undefined4 Blocky16_module_startup(void)
 
 {
   PTR_008da4fc = (int *)(*(code *)PTR_008da500[2])(s_BITMAP_clear_004f3aa0,UINT_008da504);

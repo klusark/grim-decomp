@@ -21,7 +21,7 @@ undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2)
   param_2[5] = Render_RestoreState;
   param_2[6] = 0;
   param_2[7] = 0;
-  Engine_RegisterShutdownHook(FUN_00484a50);
+  sputControl_AddCallback(FUN_00484a50);
   UINT_008c9788 = 1;
   return 0;
 }

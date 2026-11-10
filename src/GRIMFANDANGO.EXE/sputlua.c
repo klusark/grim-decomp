@@ -23,7 +23,7 @@ void sputLua_GetActorCostumeL(void)
   iVar3 = lua_isuserdata(iVar1);
   if ((iVar3 != 0) && (iVar3 = lua_tag(iVar1), iVar3 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    iVar1 = Actor_FromHandle(iVar1);
+    iVar1 = sputActor_ActorDeref(iVar1);
     piVar5 = *(int **)(iVar1 + 0xa0);
     iVar1 = lua_isnil(iVar2);
     if (iVar1 == 0) {
@@ -164,8 +164,8 @@ undefined4 sputLua_Initialize(GrimServices *param_1,undefined4 *param_2)
   g_pSvcLua = param_1;
   *param_2 = sputLua_Initialize;
   param_2[1] = sputLua_Terminate;
-  param_2[2] = Lua_InitGameLibs;
-  param_2[3] = sputLua_Stop;
+  param_2[2] = sputLua_Startup;
+  param_2[3] = sputLua_Shutdown;
   param_2[4] = 0;
   param_2[5] = 0;
   param_2[6] = 0;
@@ -303,11 +303,13 @@ void sputLua_Terminate(void)
   return;
 }
 
-/* ---- 0x0049e530  sputLua_Stop ---- */
+/* ---- 0x0049e530  sputLua_Shutdown ---- */
 /* Module slot 3 of sputLua: disposes the Lua file finder, unrefs the system table, clears the
-   save/restore hooks and closes the Lua libs. */
+   save/restore hooks and closes the Lua libs. Original name sputLua_Shutdown (the remaster's
+   GrimFandango (Linux): the only unmatched caller of stdFileUtil_DisposeFind; 1 matched neighbours
+   agree, 0 disagree); was sputLua_Stop. */
 
-void sputLua_Stop(void)
+void sputLua_Shutdown(void)
 
 {
   if (g_pLuaFileFind != (void *)0x0) {
@@ -366,7 +368,7 @@ void sputLua_StartMovieL(void)
     uVar10 = (uint)(iVar2 == 0);
     uVar9 = 0;
     iVar1 = lua_getstring(iVar1);
-    iVar1 = Engine_BlitToBackBuffer(iVar1,uVar9,uVar10,uVar6,uVar7);
+    iVar1 = grimlib_PlayMovie(iVar1,uVar9,uVar10,uVar6,uVar7);
     if (iVar1 == 1) {
       lua_pushnumber(1.0);
       return;
@@ -420,7 +422,7 @@ void sputLua_RotateVectorL(void)
       lua_pushstring(&DAT_004ec3b8);
       iVar1 = lua_gettable();
       local_c[2] = lua_getnumber(iVar1);
-      Vec3_Rotate(local_18,local_c);
+      rdVector_Rotate3Acc(local_18,local_c);
       iVar1 = lua_createtable();
       lua_pushobject(iVar1);
       lua_pushstring(&DAT_004e8454);
@@ -843,7 +845,7 @@ void sputLua_FadeInChore(void)
   iVar3 = lua_isuserdata(iVar1);
   if ((iVar3 != 0) && (iVar3 = lua_tag(iVar1), iVar3 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    iVar1 = Actor_FromHandle(iVar1);
+    iVar1 = sputActor_ActorDeref(iVar1);
     lVar4 = (longlong)lua_getnumber(iVar2);
     chore = (uint)lVar4;
     lVar4 = (longlong)lua_getnumber(local_4);
@@ -851,11 +853,11 @@ void sputLua_FadeInChore(void)
     if ((iVar2 == 0) && (iVar2 = lua_isnumber((int)luaObj), iVar2 == 0)) {
       return;
     }
-    iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_8);
+    iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_8);
     if (iVar1 != 0) {
       Cos_InstPlayChore(*(int *)local_8,chore,0,0);
       Cos_InstUpdateChore(*(int *)local_8,chore,100);
-      Chore_FadeIn(*(void **)local_8,chore,(int)lVar4);
+      sputCostume_FadeKeysIn(*(void **)local_8,chore,(int)lVar4);
     }
   }
   return;

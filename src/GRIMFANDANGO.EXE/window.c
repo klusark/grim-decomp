@@ -40,7 +40,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
       if (param_2 == 0x1c && GRIM_getenv("GRIM_ACTIVE") == 0) {
         if ((param_3 == 0) && (INT_004dd38c != 0)) {
           if (g_bWindowedMode == 0) {
-            Engine_SetPaused(1);
+            grimlib_SetPause(1);
             Grim_ShutdownDisplay();
             iVar6 = 6;
             iVar3 = Win_GetMainHwnd();
@@ -57,7 +57,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
           return (undefined *)0x0;
         }
         if (g_bWindowedMode == 0) {
-          Engine_SetPaused(0);
+          grimlib_SetPause(0);
           iVar6 = 9;
           iVar3 = Win_GetMainHwnd();
           ShowWindow(iVar3,iVar6);
@@ -65,7 +65,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
         }
         INT_004dd38c = 1;
         Input_SetAcquired(1);
-        Render_RequestFullRedraw();
+        sputRender_ForceRefresh();
         Input_ShowCursor(g_bWindowedMode);
         return (undefined *)0x0;
       }
@@ -83,7 +83,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
           }
           break;
         case 0x13:
-          Lua_CallPauseHandler();
+          sputLua_DoPauseCallback();
           return (undefined *)0x1;
         case 0x43:
           if (g_bDebugChordHeld != 0) {
@@ -107,7 +107,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
           if (g_bDebugChordHeld != 0) {
             UINT_004f5a90 = UINT_004f5a90 + 1;
             sprintf(local_40,s__s_d_bmp_004dd928,&DAT_004dd934,uVar1);
-            Render_SaveScreenshotBmp(local_40);
+            sputRender_SaveDrawBuffer(local_40);
             return (undefined *)0x0;
           }
           break;
@@ -179,7 +179,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
       if (iVar3 != 0) {
         return (undefined *)0x0;
       }
-      iVar3 = Engine_CallExitHandler();
+      iVar3 = grimlib_ConfirmClose();
       return (undefined *)(uint)(iVar3 == 0);
     }
 switchD_0040336f_caseD_105:
@@ -195,7 +195,7 @@ switchD_0040336f_caseD_105:
   if (g_nInputEnabled != 0) {
     Input_SetAcquired((uint)(sVar5 != 0));
     if (sVar5 == 0) goto LAB_0040303f;
-    Input_Flush();
+    stdControl_Flush();
     Input_ShowCursor(g_bWindowedMode);
   }
   if (sVar5 != 0) {
@@ -324,7 +324,7 @@ uint Win_PumpMessages(void)
   
   iVar1 = PeekMessageA((int)local_1c,0,0,0,0);
   if (iVar1 == 0) {
-    Game_FrameUpdate();
+    Main_Service();
     return 0;
   }
   iVar1 = GetMessageA((int)local_1c,0,0,0);

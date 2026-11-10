@@ -18,14 +18,18 @@ uint stdBmp_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3)
   if (uVar1 == 0) {
     return 0;
   }
-  iVar2 = stdBmp_LoadInto(param_1,uVar1,param_2,param_3);
+  iVar2 = stdBmp_LoadEntry(param_1,uVar1,param_2,param_3);
   return -(uint)(iVar2 != 0) & uVar1;
 }
 
-/* ---- 0x0047cb70  stdBmp_LoadInto ---- */
-/* Reads BITMAPFILEHEADER/BITMAPINFOHEADER; 8-bit paletted or 24-bit sources */
+/* ---- 0x0047cb70  stdBmp_LoadEntry ---- */
+/* Reads BITMAPFILEHEADER/BITMAPINFOHEADER; 8-bit paletted or 24-bit sources Original name
+   stdBmp_LoadEntry (the remaster's GrimFandango (Linux): strings: '16 bit-per-pixel BMP not yet
+   supported.' | 'Unable to read all the data from your BMP file.  It may be  | 'This BMP file uses
+   a bit-depth which I do not support yet.' | 'Unable to read the palette.  Your file is
+   corrupted.'); was stdBmp_LoadInto. */
 
-undefined4 stdBmp_LoadInto(char *param_1,undefined4 *param_2,int param_3,int param_4)
+undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
