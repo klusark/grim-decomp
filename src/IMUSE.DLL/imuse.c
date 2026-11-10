@@ -1902,8 +1902,6 @@ Im_ApplyFXPreset(undefined2 *param_1,uint param_2,undefined2 *param_3,int *param
 }
 
 /* ---- 0x10004970  FUN_10004970 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 void FUN_10004970(void)
@@ -1921,8 +1919,6 @@ void FUN_10004970(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x100049b0  Im_GroupsInit ---- */
 /* Unidentified function of iMUSE_dsound.c (DirectSound output) */

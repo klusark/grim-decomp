@@ -6,7 +6,7 @@ of the nearest preceding named function (code from one compilation unit is conti
 in the image), except that a long run of unnamed functions becomes its own
 region_<addr> module so we do not pretend to know what it is."""
 import sys
-import glob, json, os, re, sys
+import bisect, glob, json, os, re, sys
 from collections import Counter, OrderedDict, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import frame_locals
@@ -722,22 +722,78 @@ def load_lib_replace(prog):
     return out
 
 
+GUARD_PROG = {"GRIM_EXE": "GRIMFANDANGO.EXE", "GRIM_LUA": "LUA.DLL", "GRIM_IMUSE": "IMUSE.DLL", "GRIM_CHORE": "CHORE.DLL"}
+ALL_PROGS = frozenset(GUARD_PROG.values())
+_GUARD = r"\bGRIM_(?:EXE|LUA|IMUSE|CHORE)\b"
+
+
+def _guard_set(cond, parent):
+    """Programs for which an #if condition holds; None when it is not a program guard (the block then inherits its
+    parent).  `0` is no program, `defined(GRIM_X) || defined(GRIM_Y)` (or a bare name) the listed ones."""
+    cond = cond.strip()
+    if re.fullmatch(r"0\b.*", cond):
+        return frozenset()
+    names = re.findall(_GUARD, cond)
+    rest = re.sub(r"defined\s*\(\s*GRIM_(?:EXE|LUA|IMUSE|CHORE)\s*\)|" + _GUARD + r"|\|\||[\s()]", "", cond)
+    if not names or rest:
+        return None
+    return frozenset(GUARD_PROG[n] for n in names) & parent
+
+
 def load_overrides():
-    """Names of the functions build/overrides.c and build/fastpaths.c define by hand."""
-    names = set()
+    """Names of the functions build/overrides.c, build/fastpaths.c and build/overrides_*.c define by hand, per program.
+    Each file is compiled for every program (build/link.py) and guards its code with #ifdef GRIM_EXE / GRIM_LUA /
+    GRIM_IMUSE / GRIM_CHORE, so a name only counts for the programs whose guard encloses its definition: the three DLLs
+    share the image base 0x10000000, so a FUN_1000xxxx name of one DLL is often an unrelated function of another
+    (CHORE.DLL's hand-written FUN_10004970 used to turn IMUSE.DLL's own FUN_10004970, called at shutdown, into a trap
+    stub).  Returns {program: set of names}."""
+    by_prog = {p: set() for p in ALL_PROGS}
+    defn = re.compile(r"^[A-Za-z_][\w *]*?\b(\w+)\s*\([^;{]*\)\s*\{", re.M)
     for fname in ["overrides.c", "fastpaths.c"] + sorted(os.path.basename(x) for x in glob.glob(os.path.join(ROOT, "build", "overrides_*.c"))):
         path = os.path.join(ROOT, "build", fname)
         if not os.path.exists(path):
             continue
         text = open(path, encoding="utf-8").read()
-        names |= set(re.findall(r"^[A-Za-z_][\w *]*?\b(\w+)\s*\([^;{]*\)\s*\{", text, re.M))
+        lines = text.split("\n")
+        # programs in force on each line: a stack of (this branch, parent, programs of the branches before an #else)
+        progs_at = []
+        stack = [(ALL_PROGS, ALL_PROGS, frozenset())]
+        for line in lines:
+            m = re.match(r"\s*#\s*(ifdef|ifndef|if|elif|else|endif)\b(.*)", line)
+            if m:
+                kind, cond = m.group(1), m.group(2)
+                cur, parent, taken = stack[-1]
+                if kind in ("ifdef", "ifndef", "if"):
+                    g = (_guard_set("defined(%s)" % cond.strip(), cur) if kind == "ifdef" else
+                         _guard_set(cond, cur) if kind == "if" else None)
+                    stack.append((cur if g is None else g, cur, frozenset() if g is None else g))
+                elif len(stack) > 1 and kind == "elif":
+                    g = _guard_set(cond, parent)
+                    stack[-1] = (parent if g is None else g - taken, parent, taken | (g or frozenset()))
+                elif len(stack) > 1 and kind == "else":
+                    stack[-1] = (parent - taken if taken else parent, parent, taken)
+                elif len(stack) > 1 and kind == "endif":
+                    stack.pop()
+            progs_at.append(stack[-1][0])
+        starts = [0]
+        for line in lines:
+            starts.append(starts[-1] + len(line) + 1)
+
+        def progs_of(pos):
+            return progs_at[bisect.bisect_right(starts, pos) - 1]
+
+        for m in defn.finditer(text):
+            for p in progs_of(m.start()):
+                by_prog[p].add(m.group(1))
         # functions written in top-level asm() blocks are declared by a `/* OVERRIDES: a b c */` line
         for m in re.finditer(r"^/\* OVERRIDES: ([^*]*?)\s*\*/", text, re.M):
-            names |= set(m.group(1).split())
-    return names
+            for p in progs_of(m.start()):
+                by_prog[p] |= set(m.group(1).split())
+    return by_prog
 
 
-OVERRIDES = load_overrides()
+OVERRIDES_BY_PROG = load_overrides()
+OVERRIDES = set().union(*OVERRIDES_BY_PROG.values())   # any program (for tools that do not know the program)
 FLOAT_RETURNERS_NOW = ftol_fold.float_returners()   # float/double-returning functions (previous functions.h)
 # modules that call DirectX COM objects: every `(**(code **)(` / `(*(code *)**` in them is a vtable
 # method call (the cdecl service-table calls live in other modules)
@@ -1356,6 +1412,7 @@ def global_decl(g, u, ctx):
 
 
 def build(prog):
+    prog_ov = OVERRIDES_BY_PROG.get(prog, OVERRIDES)   # hand-written functions of this program
     rawdir = os.path.join(RAW, prog)
     global IMG_SECTIONS
     IMG_SECTIONS = []
@@ -1574,15 +1631,15 @@ def build(prog):
                     globals_seen[g].add(f["address"])
             title = f["name"] + (f"  (renamed {renamed[f['address']]}: duplicate name)" if f["address"] in renamed else "")
             lines.append(f"/* ---- 0x{f['address']}  {title} ---- */")
-            if f["address"] in LIB_REPL and f["name"] not in OVERRIDES:
+            if f["address"] in LIB_REPL and f["name"] not in prog_ov:
                 lines.append("/* NOT COMPILED: names/lib_replace.json (%s): the system C runtime / zlib (or nothing, for dead "
                              "code) is used instead; this C text is only for reading */" % LIB_REPL[f["address"]])
                 lines.append("#if 0")
                 lines.append(code)
                 lines.append("#endif")
                 code = ""
-            elif f["name"] in OVERRIDES or f["address"] in ASM_ADDRS:
-                if f["name"] in OVERRIDES:
+            elif f["name"] in prog_ov or f["address"] in ASM_ADDRS:
+                if f["name"] in prog_ov:
                     lines.append("/* replaced by the hand-written version in build/overrides.c */")
                 else:
                     lines.append("/* NOT COMPILED: the build uses the original machine code of this function (src/%s/asm_funcs.s, "

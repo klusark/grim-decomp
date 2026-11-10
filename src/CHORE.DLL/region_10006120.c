@@ -263,7 +263,7 @@ undefined1 * FUN_100063d0(undefined1 *param_1,int param_2,int param_3,int *param
 
 
 /* ---- 0x100064d0  FUN_100064d0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 int FUN_100064d0(undefined4 *param_1,int param_2,int param_3)
 
@@ -521,7 +521,7 @@ int FUN_10006890(void)
 
 
 /* ---- 0x100068b0  FUN_100068b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_100068b0(uint param_1)
 
@@ -1576,7 +1576,7 @@ void FUN_10007a70(void)
 
 
 /* ---- 0x10007a80  FUN_10007a80 ---- */
-/* replaced by the hand-written version in build/overrides.c */
+/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
 #if 0
 void FUN_10007a80(void)
 
