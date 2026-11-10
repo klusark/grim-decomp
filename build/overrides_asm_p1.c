@@ -982,7 +982,7 @@ static void p1_light_dir(int light, float *mt, int slot)
     dir[0] = -P1_F(light + 0xc);
     dir[1] = -P1_F(light + 0x10);
     dir[2] = -P1_F(light + 0x14);
-    Vec3_Sub((float *)((int)&DAT_007f1168 + slot * 12), dir, mt);
+    Matrix34_TransformPoint((float *)((int)&DAT_007f1168 + slot * 12), dir, mt);
     ((uint *)mt)[9] = t0;
     ((uint *)mt)[10] = t1;
     ((uint *)mt)[11] = t2;
@@ -1013,7 +1013,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
     PTR_007f30a0 = mesh;
     if (P1_I32((int)mesh + 0x24) == 0)
         return;
-    Vec3_Sub(rel, matrix + 9, (float *)((int)g_pRdCurrentCamera + 8));
+    Matrix34_TransformPoint(rel, matrix + 9, (float *)((int)g_pRdCurrentCamera + 8));
     if (UINT_007f30a4 == 0)
         n = 0;
     else if ((DAT_00900068 & 1) == 0)
@@ -1035,7 +1035,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
     Matrix_Mul34(mc, (float *)((int)g_pRdCurrentCamera + 8), matrix);
     Matrix_TransformPoints(mc, *(float **)((int)PTR_007f30a0 + 0x30), (float *)&DAT_007f18a0,
                            P1_I32((int)PTR_007f30a0 + 0x48));
-    Matrix_Transpose(mt, matrix);
+    Matrix34_InvertRigid(mt, matrix);
     {
         int m = (int)PTR_007f30a0;
         int v;
@@ -1084,7 +1084,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
             if (!reach)
                 continue;
             (&UINT_007f30e0)[UINT_007f31fc] = light;
-            Vec3_Sub((float *)((int)&DAT_007f1598 + UINT_007f31fc * 12), (float *)P1_LIGHTPOS(cam, light), mt);
+            Matrix34_TransformPoint((float *)((int)&DAT_007f1598 + UINT_007f31fc * 12), (float *)P1_LIGHTPOS(cam, light), mt);
             if (P1_I32(light + 4) != 2)
                 p1_light_dir(light, mt, UINT_007f31fc);
             UINT_007f31fc = UINT_007f31fc + 1;
@@ -1107,7 +1107,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
     eye[0] = UINT_008ddf84;
     eye[1] = UINT_008ddf88;
     eye[2] = UINT_008ddf8c;
-    Vec3_Sub((float *)&DAT_007f0fd8, (float *)eye, mt);
+    Matrix34_TransformPoint((float *)&DAT_007f0fd8, (float *)eye, mt);
     {
         int face = P1_I32((int)mesh + 0x40);
 

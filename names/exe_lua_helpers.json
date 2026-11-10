@@ -11,7 +11,7 @@
  {"addr": "0049c600", "name": "Lua_CallSystemFunction", "proto": "int Lua_CallSystemFunction(int flag, char * str)", "comment": "Calls the global Lua function named by the string at 0x004ec3c8 with (flag, str)", "tags": "lua-binding"},
  {"addr": "0049c660", "name": "Lua_CallCamChangeHandler", "proto": "void Lua_CallCamChangeHandler(int fromSetup, int toSetup)", "comment": "system.camChangeHandler(from, to)", "tags": "lua-binding"},
  {"addr": "0049c6e0", "name": "Lua_CallPostCamChangeHandler", "proto": "void Lua_CallPostCamChangeHandler(int setup)", "comment": "system.postCamChangeHandler(setup)", "tags": "lua-binding"},
- {"addr": "0049c8f0", "name": "Lua_UpdateFrame", "comment": "Per frame: stores system.frameTime and system.movieTime, collects garbage every 10 s, runs lua_updatetasks", "tags": "lua-binding,engine"},
+ {"addr": "0049c8f0", "name": "sputLua_Update", "comment": "Per frame: stores system.frameTime and system.movieTime, collects garbage every 10 s, runs lua_updatetasks", "tags": "lua-binding,engine"},
  {"addr": "008cab40", "global": "g_nLuaSystemTableRef", "type": "int", "comment": "lua_ref of the global `system` table"},
  {"addr": "008cab90", "global": "g_dwLuaGcTimerMs", "type": "uint", "comment": "Milliseconds since the last Lua garbage collection"},
  {"addr": "008cab74", "global": "g_dwMovieTime", "type": "uint", "comment": "Current movie time published as system.movieTime"},

@@ -12,7 +12,7 @@
  {"addr": "00473810", "name": "stdBitmap_SaveByExtension", "proto": "int stdBitmap_SaveByExtension(char * filename, void * bitmap)", "comment": "Picks the writer from the file extension: .bm/.zbm (stdBitmap_SaveBM, zbm marks format 5), .bmp, .gif, .pcx, .lbm", "tags": "jedi,bitmap"},
  {"addr": "0047fd50", "name": "Str_FileExtension", "proto": "char * Str_FileExtension(char * path)", "tags": "string"},
  {"addr": "0047b250", "name": "stdBitmap_SaveBM", "proto": "int stdBitmap_SaveBM(char * filename, void * bitmap)", "tags": "jedi,bitmap"},
- {"addr": "0047f720", "name": "stdLbm_Save", "tags": "jedi,bitmap"},
+ {"addr": "0047f720", "name": "stdLbm_Write", "tags": "jedi,bitmap"},
  {"addr": "0047ef10", "name": "stdPcx_Save", "tags": "jedi,bitmap"},
  {"addr": "0047e060", "name": "stdGif_Save", "tags": "jedi,bitmap"},
  {"addr": "0047d050", "name": "stdBmp_Save", "tags": "jedi,bitmap"},

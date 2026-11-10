@@ -500,8 +500,11 @@ void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
 #endif
 
 
-/* ---- 0x0044efd0  Matrix_Transpose ---- */
-void __cdecl Matrix_Transpose(float *out,float *m)
+/* ---- 0x0044efd0  Matrix34_InvertRigid ---- */
+/* Rigid inverse of a 3x4 matrix: rotation transposed, translation = -(R^T t). Was misnamed
+   Matrix_Transpose. Not a true inverse when the matrix has scale. */
+
+void __cdecl Matrix34_InvertRigid(float *out,float *m)
 
 {
   float fVar1;
@@ -1108,8 +1111,12 @@ void __cdecl Vec3_Transform(float *vec,float *m)
 #undef local_c
 
 
-/* ---- 0x00450060  Vec3_Sub ---- */
-void __cdecl Vec3_Sub(float *out,float *a,float *b)
+/* ---- 0x00450060  Matrix34_TransformPoint ---- */
+/* out = a * R + t for a 3x4 matrix (rotation in [0..8], translation in [9..11]). Was misnamed
+   Vec3_Sub. rdModel_DrawMesh uses it with a zeroed translation (saved and restored around the call)
+   to rotate light directions. */
+
+void __cdecl Matrix34_TransformPoint(float *out,float *a,float *b)
 
 {
   *out = *a * *b + a[1] * b[3] + a[2] * b[6] + b[9];

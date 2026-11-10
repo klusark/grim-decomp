@@ -13,11 +13,11 @@
 
 extern void GRIM_lua_cmd_poll(void);   /* overrides.c: the Lua test hook */
 
-/* ==== Lua_UpdateFrame (0x0049c8f0) ====
+/* ==== sputLua_Update (0x0049c8f0) ====
  * Per frame: stores system.frameTime and system.movieTime in the Lua "system" table, collects garbage every 10 s and
  * runs the Lua tasks (lua_updatetasks).  Written by hand because the test hook (GRIM_LUA_FILE, see overrides.c) is
  * called from here: the assembled copy got the call through names/asm_patches.json. */
-void Lua_UpdateFrame(void)
+void sputLua_Update(void)
 {
     uint frameMs;
     int sys;

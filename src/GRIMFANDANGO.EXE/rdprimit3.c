@@ -47,8 +47,9 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
     iVar4 = count;
     out = &local_300;
     do {
-      Vec3_Sub(out,(float *)(((int)verts - (int)&local_300) + (int)out),
-               (float *)((int)g_pRdCurrentCamera + 8));
+      Matrix34_TransformPoint
+                (out,(float *)(((int)verts - (int)&local_300) + (int)out),
+                 (float *)((int)g_pRdCurrentCamera + 8));
       local_330[0] = local_330[0] + *out;
       iVar4 = iVar4 + -1;
       local_330[1] = out[1] + local_330[1];
@@ -148,8 +149,8 @@ rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,u
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  Vec3_Sub(local_18,a,(float *)((int)g_pRdCurrentCamera + 8));
-  Vec3_Sub(local_c,b,(float *)((int)g_pRdCurrentCamera + 8));
+  Matrix34_TransformPoint(local_18,a,(float *)((int)g_pRdCurrentCamera + 8));
+  Matrix34_TransformPoint(local_c,b,(float *)((int)g_pRdCurrentCamera + 8));
   iVar1 = rdClip_Line3(*(void **)((int)g_pRdCurrentCamera + 0x48),local_18,local_c,clipA,clipB);
   if (iVar1 != 0) {
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))(local_30,local_18);
@@ -201,7 +202,7 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define afStack_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  Vec3_Sub(&local_30,world,(float *)((int)g_pRdCurrentCamera + 8));
+  Matrix34_TransformPoint(&local_30,world,(float *)((int)g_pRdCurrentCamera + 8));
   local_24[0] = local_30 + radius;
   local_24[1] = local_2c[0];
   local_24[2] = local_2c[1];

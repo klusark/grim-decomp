@@ -67,7 +67,7 @@ function (in `src/GRIMFANDANGO.EXE`) that runs when a script calls it. Arguments
 | Lua name | C function | address |
 |---|---|---|
 | `  concatfallback` | `Lua_ConcatFallback` | 0x0049d220 |
-| `  typeoverride` | `Lua_TypeOverride` | 0x0049d140 |
+| `  typeoverride` | `sputLua_TypeOverride` | 0x0049d140 |
 | `  dfltcamera` | `Lua_Stub` | 0x00497830 |
 | `  dfltcontrol` | `Lua_Stub` | 0x00497830 |
 | `EnginePause` | `Lua_EnginePause` | 0x00499260 |
@@ -78,7 +78,7 @@ function (in `src/GRIMFANDANGO.EXE`) that runs when a script calls it. Arguments
 | `Load` | `Lua_Load` | 0x0049cea0 |
 | `Save` | `Lua_Save` | 0x0049cef0 |
 | `SetActorColormap` | `Lua_SetActorColormap` | 0x0049a410 |
-| `GetActorCostume` | `Lua_GetActorCostume` | 0x0049a1e0 |
+| `GetActorCostume` | `sputLua_GetActorCostumeL` | 0x0049a1e0 |
 | `SetActorCostume` | `Lua_SetActorCostume` | 0x0049a500 |
 | `GetActorScale` | `Lua_GetActorScale` | 0x0049f810 |
 | `SetActorScale` | `Lua_SetActorScale` | 0x0049f550 |
@@ -128,7 +128,7 @@ function (in `src/GRIMFANDANGO.EXE`) that runs when a script calls it. Arguments
 | `IsActorInSector` | `Lua_IsActorInSector` | 0x0049c2c0 |
 | `GetActorSector` | `Lua_GetActorSector` | 0x0049c200 |
 | `IsPointInSector` | `Lua_IsPointInSector` | 0x0049c4c0 |
-| `GetPointSector` | `Lua_GetPointSector` | 0x0049c3b0 |
+| `GetPointSector` | `sputLua_GetPointSectorL` | 0x0049c3b0 |
 | `TurnActor` | `Lua_TurnActor` | 0x0049c180 |
 | `GetActorRot` | `Lua_GetActorRot` | 0x0049bf30 |
 | `SetActorRot` | `Lua_SetActorRot` | 0x0049bfa0 |
@@ -149,7 +149,7 @@ function (in `src/GRIMFANDANGO.EXE`) that runs when a script calls it. Arguments
 | `WorldToScreen` | `Lua_WorldToScreen` | 0x0049cf60 |
 | `ScreenToWorld` | `Lua_ScreenToWorld` | 0x0049d030 |
 | `exit` | `Lua_exit` | 0x0049d3a0 |
-| `FunctionName` | `Lua_FunctionName` | 0x0049cbe0 |
+| `FunctionName` | `sputLua_FunctionNameL` | 0x0049cbe0 |
 | `EnableDebugKeys` | `Lua_EnableDebugKeys` | 0x0049cf40 |
 | `LockFont` | `Lua_LockFont` | 0x0049efe0 |
 | `UnLockFont` | `Lua_Stub` | 0x00497830 |
@@ -173,7 +173,7 @@ function (in `src/GRIMFANDANGO.EXE`) that runs when a script calls it. Arguments
 | `PreviousSetup` | `Lua_PreviousSetup` | 0x004828a0 |
 | `StartFullscreenMovie` | `Lua_StartFullscreenMovie` | 0x0049e7e0 |
 | `IsFullscreenMoviePlaying` | `Lua_IsMoviePlaying` | 0x0049e960 |
-| `StartMovie` | `Lua_StartMovie` | 0x0049e880 |
+| `StartMovie` | `sputLua_StartMovieL` | 0x0049e880 |
 | `StopMovie` | `Lua_StopMovie` | 0x0049e850 |
 | `PauseMovie` | `Lua_PauseMovie` | 0x0049e860 |
 | `IsMoviePlaying` | `Lua_IsMoviePlaying` | 0x0049e960 |
@@ -203,7 +203,7 @@ function (in `src/GRIMFANDANGO.EXE`) that runs when a script calls it. Arguments
 | `LoadCostume` | `Lua_LoadCostume` | 0x0049f040 |
 | `GetPhysicalBytes` | `Lua_GetPhysicalBytes` | 0x0049f080 |
 | `SetMemoryUsage` | `Lua_SetMemoryUsage` | 0x0049f0a0 |
-| `RotateVector` | `Lua_RotateVector` | 0x0049f0f0 |
+| `RotateVector` | `sputLua_RotateVectorL` | 0x0049f0f0 |
 | `GetCameraPosition` | `Lua_GetCameraPosition` | 0x0049f2b0 |
 | `SetCameraPosition` | `Lua_SetCameraPosition` | 0x0049f3b0 |
 | `GetCameraInterest` | `Lua_GetCameraInterest` | 0x0049f300 |
@@ -237,16 +237,16 @@ function (in `src/GRIMFANDANGO.EXE`) that runs when a script calls it. Arguments
 | `LightMgrStartup` | `Lua_LightMgrStartup` | 0x004be180 |
 | `LightMgrShutdown` | `Lua_LightMgrShutdown` | 0x004be2a0 |
 | `LightMgrSetChange` | `Lua_LightMgrSetChange` | 0x004be260 |
-| `ImStartRecording` | `Lua_ImStartRecording` | 0x004a0f20 |
+| `ImStartRecording` | `sputLua_ImStartRecording` | 0x004a0f20 |
 | `ImStopRecording` | `Lua_ImStopRecording` | 0x004a0f70 |
-| `ImStartSound` | `Lua_ImStartSound` | 0x004a0f80 |
-| `play` | `Lua_ImStartSound` | 0x004a0f80 |
-| `ImStopSound` | `Lua_ImStopSound` | 0x004a1030 |
+| `ImStartSound` | `sputLua_ImStartSound` | 0x004a0f80 |
+| `play` | `sputLua_ImStartSound` | 0x004a0f80 |
+| `ImStopSound` | `sputLua_ImStopSound` | 0x004a1030 |
 | `ImStopAllSounds` | `Lua_ImStopAllSounds` | 0x004a1080 |
 | `quiet` | `Lua_ImStopAllSounds` | 0x004a1080 |
-| `ImGetParam` | `Lua_ImGetParam` | 0x004a1090 |
-| `ImSetParam` | `Lua_ImSetParam` | 0x004a1140 |
-| `ImFadeParam` | `Lua_ImFadeParam` | 0x004a1260 |
+| `ImGetParam` | `sputLua_ImGetParam` | 0x004a1090 |
+| `ImSetParam` | `sputLua_ImSetParam` | 0x004a1140 |
+| `ImFadeParam` | `sputLua_ImFadeParam` | 0x004a1260 |
 | `ImGetMasterVol` | `Lua_ImGetMasterVol` | 0x004a13d0 |
 | `ImSetMasterVol` | `Lua_ImSetMasterVol` | 0x004a1400 |
 | `ImGetSfxVol` | `Lua_ImGetSfxVol` | 0x004a1440 |
@@ -255,16 +255,16 @@ function (in `src/GRIMFANDANGO.EXE`) that runs when a script calls it. Arguments
 | `ImSetVoiceVol` | `Lua_ImSetVoiceVol` | 0x004a14e0 |
 | `ImGetMusicVol` | `Lua_ImGetMusicVol` | 0x004a1520 |
 | `ImSetMusicVol` | `Lua_ImSetMusicVol` | 0x004a1550 |
-| `ImStartVoice` | `Lua_ImStartVoice` | 0x004a1590 |
+| `ImStartVoice` | `sputLua_ImStartVoice` | 0x004a1590 |
 | `ImStopVoice` | `Lua_ImStopVoice` | 0x004a1630 |
 | `ImSetState` | `Lua_ImSetState` | 0x004a1640 |
-| `ImSetSequence` | `Lua_ImSetSequence` | 0x004a1680 |
-| `ImSetAttribute` | `Lua_ImSetAttribute` | 0x004a1710 |
+| `ImSetSequence` | `sputLua_ImSetSequence` | 0x004a1680 |
+| `ImSetAttribute` | `sputLua_ImSetAttribute` | 0x004a1710 |
 | `ImSetCuePoint` | `Lua_ImSetCuePoint` | 0x004a16d0 |
 | `ImPause` | `Lua_ImPause` | 0x004a1790 |
 | `ImResume` | `Lua_ImResume` | 0x004a17a0 |
-| `vfx` | `Lua_ImSetVoiceEffect` | 0x004a17b0 |
-| `ImSetVoiceEffect` | `Lua_ImSetVoiceEffect` | 0x004a17b0 |
+| `vfx` | `sputLua_ImSetVoiceEffect` | 0x004a17b0 |
+| `ImSetVoiceEffect` | `sputLua_ImSetVoiceEffect` | 0x004a17b0 |
 | `ImGetMemoryFootprint` | `Lua_ImGetMemoryFootprint` | 0x004a17f0 |
 | `ImGetSoundCacheSize` | `Lua_ImGetSoundCacheSize` | 0x004a1820 |
 | `LoadBundle` | `Lua_Stub` | 0x00497830 |
@@ -307,7 +307,7 @@ function (in `src/GRIMFANDANGO.EXE`) that runs when a script calls it. Arguments
 | `SetActorClipActive` | `Lua_SetActorClipActive` | 0x004a2750 |
 | `SetActorClipPlane` | `Lua_SetActorClipPlane` | 0x004a27b0 |
 | `FadeOutChore` | `Lua_FadeOutChore` | 0x004a2a20 |
-| `FadeInChore` | `Lua_FadeInChore` | 0x004a2b00 |
+| `FadeInChore` | `sputLua_FadeInChore` | 0x004a2b00 |
 | `IrisDown` | `Lua_IrisDown` | 0x004a2c10 |
 | `IrisUp` | `Lua_IrisUp` | 0x004a2c70 |
 | `IrisComplete` | `Lua_IrisComplete` | 0x004a2cd0 |
@@ -321,7 +321,7 @@ function (in `src/GRIMFANDANGO.EXE`) that runs when a script calls it. Arguments
 | `FreeImage` | `Lua_FreeImage` | 0x004a30e0 |
 | `BlastImage` | `Lua_BlastImage` | 0x004a3130 |
 | `BlastRect` | `Lua_BlastRect` | 0x004a31f0 |
-| `SubmitSaveGameData` | `Lua_SubmitSaveGameData` | 0x004a35d0 |
+| `SubmitSaveGameData` | `sputLua_SubmitSaveGameData` | 0x004a35d0 |
 | `GetSaveGameData` | `Lua_GetSaveGameData` | 0x004a3720 |
 | `SetTextSpeed` | `Lua_SetTextSpeed` | 0x004a3850 |
 | `GetTextSpeed` | `Lua_GetTextSpeed` | 0x004a3830 |

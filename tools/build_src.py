@@ -54,6 +54,10 @@ PREFIX_MAP = {
     "Mixer": "mixer", "DSound": "mixer", "Insane": "insane", "LightEd": "lighted",
     "LecShare": "lecshare", "Actor": "actor", "Costume": "costume", "Room": "room",
     "Walk": "walkplane", "WalkPlane": "walkplane", "Primitive": "primitives",
+    "Matrix34": "math3d",
+    # costume tag handlers with their original names (exact-name entries): keep them with their components
+    "BitmapRequester": "bitmapcomponent", "ColormapRequester": "cmapcomponent", "ThingRequester": "modelcomponent",
+    "KeyframeRequester": "keyframecomponent", "KeyframeAdjuster": "keyframecomponent",
 }
 # zlib 1.1.3 functions have no module prefix
 ZLIB_NAMES = {"zlibVersion", "inflate", "deflate", "zcalloc", "zcfree", "crc32", "adler32",
@@ -522,7 +526,7 @@ def fix_casts(body, vt, ctx):
     has_fild, has_fist = int_float_conversions(CUR_FN_ADDR)
     # an int variable that gets a float's bits (`v = (uint)(float)x;` -> PUN below) holds a float: `(float)v` reads those
     # bits back, also in a function that has FILD for other conversions (`local_4 = (uint)(float)(int)i;
-    # lua_pushnumber((float)local_4);` in Lua_SubmitSaveGameData pushed 1065353216 for index 1, found by grim_tools/cleanroom)
+    # lua_pushnumber((float)local_4);` in sputLua_SubmitSaveGameData pushed 1065353216 for index 1, found by grim_tools/cleanroom)
     float_slots = set() if has_fist else set(re.findall(
         r"\b(\w+)\s*=\s*\(\s*(?:u?int|undefined4|ulong|long|dword)\s*\)\s*\(\s*float\s*\)", body))
 

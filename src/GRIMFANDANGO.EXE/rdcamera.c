@@ -247,7 +247,7 @@ void __cdecl rdCamera_SetFrame(float *frame)
   int iVar1;
   float *pfVar2;
   
-  Matrix_Transpose((float *)((int)g_pRdCurrentCamera + 8),frame);
+  Matrix34_InvertRigid((float *)((int)g_pRdCurrentCamera + 8),frame);
   pfVar2 = (float *)&UINT_008ddf60;
   for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
     *pfVar2 = *frame;
@@ -560,7 +560,7 @@ int __cdecl rdCamera_ProjectPoint(float *world,float *outScreen)
   #define fStack_10 (*(float *)(_frame + (0x20 - 0x10)))
   #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
-  Vec3_Sub(local_c,world,(float *)((int)g_pRdCurrentCamera + 8));
+  Matrix34_TransformPoint(local_c,world,(float *)((int)g_pRdCurrentCamera + 8));
   iVar1 = rdClip_PointInFrustum(*(void **)((int)g_pRdCurrentCamera + 0x48),local_c);
   if (iVar1 != 0) {
     (**(code **)((int)g_pRdCurrentCamera + 0x4c))((_stkneg + 24),local_c);

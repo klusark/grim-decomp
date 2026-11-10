@@ -22,7 +22,7 @@
  * probes with `or dword [ecx], 0` (a store of the unchanged value) where the original reads (`test [ecx], eax`),
  * for a multiple of 4 KiB the original probes the last page twice, and EAX on return is the old ESP instead of the
  * return address (EAX is scratch for __chkstk callers).  Nothing in the rebuilt exe calls it (its three callers,
- * rdModel3_LoadText, SectorList_ShrinkWalkSectors and the runtime's _chsize, are gcc C or dead); the symbol stays
+ * rdModel3_LoadEntryText, SectorList_ShrinkWalkSectors and the runtime's _chsize, are gcc C or dead); the symbol stays
  * defined so that any future reference gets a working probe.  A tail jump: the stack is untouched, so ___chkstk sees
  * exactly the entry state the original saw. */
 __asm__(".text\n"

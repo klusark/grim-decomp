@@ -47,9 +47,9 @@ extern char *GRIM_getenv(const char *) __asm__("_getenv");   /* host C runtime *
 
 /* Test hook: run Lua statements in the game without any keyboard or mouse events. If the environment
  * variable GRIM_LUA_FILE names a file, every complete line appended to it is executed with
- * lua_dostring once per frame (at the start of Lua_UpdateFrame); the result (0 = ok) is appended to the file named
+ * lua_dostring once per frame (at the start of sputLua_Update); the result (0 = ok) is appended to the file named
  * by GRIM_LUA_LOG. Nothing is sent to other windows or processes. The call sits at the start of
- * Lua_UpdateFrame (names/asm_patches.json). */
+ * sputLua_Update (names/asm_patches.json). */
 static void *lua_cmd_file;
 static int lua_cmd_state;   /* 0 = not looked at yet, 1 = enabled, -1 = disabled */
 

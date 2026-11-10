@@ -586,6 +586,8 @@ uint stdGif_ReadByte(undefined4 param_1)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
 
 uint stdGif_LzwInitEncoder(undefined4 param_1,undefined4 param_2)
 
@@ -689,6 +691,8 @@ void stdGif_LzwWriteCode(undefined4 param_1,short param_2)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
 
 uint stdGif_LzwEncodePixel(undefined4 param_1,byte param_2)
 

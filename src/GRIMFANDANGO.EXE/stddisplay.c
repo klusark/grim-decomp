@@ -861,9 +861,11 @@ void Display_CloseDevice(void)
 int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
 
 {
-  undefined4 uVar1;
-  int iVar2;
-  void *pvVar3;
+  undefined4 hwnd;
+  int iVar1;
+  void *pvVar2;
+  uint *mode;
+  byte *palette_00;
   
   if (g_dwVideoModeCount <= modeIdx) {
     return 0;
@@ -876,9 +878,9 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
   UINT_00803fa0 = 1;
   g_pVideoMode = &UINT_00901760 + modeIdx * 0x15;
   if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
-    pvVar3 = (void *)Win_GetMainHwnd();
-    pvVar3 = DIB_CreateSurface(g_pVideoMode,&UINT_007feae0,palette,pvVar3);
-    if (pvVar3 == (void *)0x0) {
+    pvVar2 = (void *)Win_GetMainHwnd();
+    pvVar2 = DIB_CreateSurface(g_pVideoMode,&UINT_007feae0,palette,pvVar2);
+    if (pvVar2 == (void *)0x0) {
       return 0;
     }
     g_PrimarySurface = 0;
@@ -894,9 +896,11 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
     UINT_0090563c = UINT_007feae0;
   }
   else if (*(int *)((int)g_pDisplayDevice + 0x100) == 1) {
-    uVar1 = ((code *)Win_GetMainHwnd)(g_pVideoMode,palette);
-    iVar2 = ((code *)DDraw_CreateSurfaces)(uVar1);
-    if (iVar2 == 0) {
+    mode = g_pVideoMode;
+    palette_00 = palette;
+    hwnd = Win_GetMainHwnd();
+    iVar1 = DDraw_CreateSurfaces(hwnd,(int *)mode,palette_00);
+    if (iVar1 == 0) {
       return 0;
     }
   }
@@ -1588,7 +1592,9 @@ int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
 /* ---- 0x00474e40  Display_DrawText ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* GDI TextOut of the debug font onto the back buffer (DIB or locked DirectDraw DC) */
+/* GDI TextOut of the debug font onto the back buffer (DIB or locked DirectDraw DC)
+   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
 
 int __cdecl Display_DrawText(char *text,int x,int y)
 
@@ -2626,6 +2632,9 @@ void DDraw_Release(void)
 /* ---- 0x004761b0  FUN_004761b0 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
+
 undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
 
 {
@@ -2934,9 +2943,11 @@ void * DDraw_Get(void)
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Sets the display mode and creates the primary (+ back buffer when triple buffering) surfaces and
-   palette */
+   palette
+   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
 
-undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
+undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2953,14 +2964,14 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
   #define uStack_10 (*(undefined4 *)(_frame + (0x40 - 0x10)))
   
   uVar5 = 0x11;
-  if ((UINT_00803f9c != 0) && (*param_2 != 0)) {
+  if ((UINT_00803f9c != 0) && (*mode != 0)) {
     uVar5 = 0x51;
   }
   iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))();
   if (iVar2 != 0) {
     return 0;
   }
-  src = param_2 + 2;
+  src = mode + 2;
   UINT_00803fb0 = uVar5;
   iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x54))();
   if (iVar2 != 0) {
@@ -2979,7 +2990,7 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
     puVar6 = puVar6 + 1;
   }
   *(int *)((int)g_pDDrawPrimary + 0x14) = *src;
-  *(int *)((int)g_pDDrawPrimary + 0x10) = param_2[3];
+  *(int *)((int)g_pDDrawPrimary + 0x10) = mode[3];
   *(undefined4 *)((int)g_pDDrawPrimary + 8) = 0x6c;
   *(undefined4 *)((int)g_pDDrawPrimary + 4) = 0;
   if (UINT_00803f9c == 0) {
@@ -3021,7 +3032,7 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
       puVar6 = puVar6 + 1;
     }
     *(int *)((int)g_pDDrawBack + 0x14) = *src;
-    *(int *)((int)g_pDDrawBack + 0x10) = param_2[3];
+    *(int *)((int)g_pDDrawBack + 0x10) = mode[3];
     *(undefined4 *)((int)g_pDDrawBack + 8) = 0x6c;
     *(undefined4 *)((int)g_pDDrawBack + 0xc) = 0x21;
     *(undefined4 *)((int)g_pDDrawBack + 0x70) = 4;
@@ -3043,7 +3054,7 @@ undefined4 DDraw_CreateSurfaces(undefined4 param_1,int *param_2)
     _DAT_009055fc = UINT_009055f8 / (uint)pvVar7;
     *(undefined4 *)((int)g_pDDrawBack + 4) = 0;
   }
-  if (param_2[7] == 0) {
+  if (mode[7] == 0) {
     iVar2 = GetDC(0);
     GetSystemPaletteEntries(iVar2,0,0x100,(int)(_stkneg + 28));
     ReleaseDC(0,iVar2);

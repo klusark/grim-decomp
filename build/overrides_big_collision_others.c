@@ -95,7 +95,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             goto next;
         omodel = CTO_MODEL(other);
         frame = Actor_GetFrame(other);
-        Vec3_Sub(B, (float *)(omodel + 0x78), frame);
+        Matrix34_TransformPoint(B, (float *)(omodel + 0x78), frame);
         dx = (ld_t)A[0] - B[0];
         dy = (ld_t)A[1] - B[1];
         dz = (ld_t)A[2] - B[2];

@@ -327,7 +327,7 @@ undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
   }
   if (UINT_007f3204 != 0) {
     Vec3_Copy(local_c,(float *)&DAT_004ddb70,(float *)((int)g_pRdCurrentCamera + 8));
-    Vec3_Sub(local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCurrentCamera + 8));
+    Matrix34_TransformPoint(local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCurrentCamera + 8));
     uVar3 = Polygon_ClipToPlane(local_c,local_18,UINT_007f1474,UINT_007f1478,UINT_007f147c,
                                 UINT_007f1468);
     if ((int)uVar3 < 2) {
@@ -350,7 +350,7 @@ undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
       iVar5 = *(int *)((int)PTR_007f30a0 + 0x30);
       pfVar4 = &local_24;
     }
-    fVar7 = rdKeyframe_InterpolateNode
+    fVar7 = rdLight_CalcFaceIntensity
                       ((int *)&UINT_007f30e0,IMG_ADDR(0x007f1598),IMG_ADDR(0x007f1168),UINT_007f31fc,param_1,pfVar4,iVar5,
                        fVar7);
     *(float *)(iVar2 + 0x44) = fVar7;
@@ -900,7 +900,7 @@ switchD_00408bad_default:
 }
 #undef local_4
 /* ==== rdModel3_Load (0x0040a980) ====
- * Opens the model file; the magic 'MODL' selects rdModel3_LoadBinary, anything else is parsed by rdModel3_LoadText.  The
+ * Opens the model file; the magic 'MODL' selects rdModel3_LoadBinary, anything else is parsed by rdModel3_LoadEntryText.  The
  * magic was read into the parameter slot of the file name (the C text lost the name for the text loader); both close
  * calls take the file.  Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 undefined4 rdModel3_Load(int name, undefined4 model)
@@ -918,7 +918,7 @@ undefined4 rdModel3_Load(int name, undefined4 model)
         return ok != 0;
     }
     (*g_pSvcRdroid->pFclose)(file);
-    return ((undefined4 (*)(int, undefined4))rdModel3_LoadText)(name, model);
+    return ((undefined4 (*)(int, undefined4))rdModel3_LoadEntryText)(name, model);
 }
 /* ==== rdPrimit3_DrawPolygon (0x00409d50) ====
  * Draws a world-space polygon with the 3D primitives: the vertices are moved into camera space (up to 32 on the stack), clipped
@@ -940,7 +940,7 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts, int count, void *material)
     for (i = 0; i < count; i++) {
         float *out = cv + 3 * i;
 
-        Vec3_Sub(out, verts + 3 * i, (float *)(cam + 8));
+        Matrix34_TransformPoint(out, verts + 3 * i, (float *)(cam + 8));
         cen[0] = cen[0] + out[0];
         cen[1] = out[1] + cen[1];
         cen[2] = out[2] + cen[2];
@@ -1099,7 +1099,7 @@ int __cdecl rdSprite_DrawThing(void *thing, void *sprite)
     uint k, count;
     float *pt;
 
-    Vec3_Sub(campos, (float *)((char *)sprite + 0x24), (float *)(cam + 8));
+    Matrix34_TransformPoint(campos, (float *)((char *)sprite + 0x24), (float *)(cam + 8));
     if ((DAT_00900068 & 2) == 0)
         visible = *(int *)(t + 0x44);
     else
@@ -1250,7 +1250,7 @@ int rdCamera_ProjectPoint(float *world, float *outScreen)
     char *cam = (char *)g_pRdCurrentCamera;
     float local[3], proj[3];
 
-    Vec3_Sub(local, world, (float *)(cam + 8));
+    Matrix34_TransformPoint(local, world, (float *)(cam + 8));
     if (rdClip_PointInFrustum(*(void **)(cam + 0x48), local) == 0)
         return 0;
     ((void (*)(float *, float *))*(code **)(cam + 0x4c))(proj, local);
@@ -1272,7 +1272,7 @@ void rdPrimit3_DrawPoint(float *world, float radius, uint a3, uint a4, uint a5)
     float p[3], q[3], s1[3], s2[3], size;
     int ix, iy;
 
-    Vec3_Sub(p, world, (float *)(cam + 8));
+    Matrix34_TransformPoint(p, world, (float *)(cam + 8));
     q[0] = p[0] + radius;
     q[1] = p[1];
     q[2] = p[2];
@@ -1300,8 +1300,8 @@ undefined4 rdPrimit3_DrawLine(float *a, float *b, int *outA, int *outB, int *cli
     float v1[3], v2[3], s1[3], s2[3];
     int x1, y1, x2, y2;
 
-    Vec3_Sub(v1, a, (float *)(cam + 8));
-    Vec3_Sub(v2, b, (float *)(cam + 8));
+    Matrix34_TransformPoint(v1, a, (float *)(cam + 8));
+    Matrix34_TransformPoint(v2, b, (float *)(cam + 8));
     if (rdClip_Line3(*(void **)(cam + 0x48), v1, v2, clipA, clipB) == 0)
         return 0;
     ((void (*)(float *, float *))*(code **)(cam + 0x4c))(s1, v1);
@@ -2142,7 +2142,7 @@ void Actor_DrawShadowPlane(void *costumeList, void *shadow)
                 continue;
             for (k = 0; k < 0xc0; k += 0xc) {
                 float *out = (float *)((char *)pts + k);
-                Vec3_Sub(out, (float *)(k + *(int *)(rec + node * 0x7c + 0x58)), (float *)(pointOff + *(int *)(model + 0x20)));
+                Matrix34_TransformPoint(out, (float *)(k + *(int *)(rec + node * 0x7c + 0x58)), (float *)(pointOff + *(int *)(model + 0x20)));
                 if (Plane_IntersectSegment(out, (float *)((char *)shadow + 0x18), out, *(float *)((char *)shadow + 8),
                                            *(float *)((char *)shadow + 0xc), *(float *)((char *)shadow + 0x10),
                                            *(float *)((char *)shadow + 0x14)) == 0)

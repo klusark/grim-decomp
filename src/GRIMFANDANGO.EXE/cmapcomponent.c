@@ -53,11 +53,11 @@ int * __cdecl CmapComponent_NewInstance(int inst,int component,int create)
 #endif
 
 
-/* ---- 0x00496460  CmapComponent_Create ---- */
+/* ---- 0x00496460  ColormapRequester ---- */
 /* Registers a 'cmap' colormap component (CMAP resource, 0x34-byte ResRef); with no name a file
    dialog asks for one (editor) */
 
-int CmapComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   undefined4 uVar1;
@@ -119,6 +119,9 @@ undefined4 CmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *par
 /* ---- 0x004965b0  FUN_004965b0 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
+
 undefined4 FUN_004965b0(void)
 
 {

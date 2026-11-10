@@ -10530,6 +10530,9 @@ undefined * __stdcall FUN_004d5e35(int a1)
 /* ---- 0x004d5e50  FUN_004d5e50 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
+
 void FUN_004d5e50(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 
 {
@@ -10543,6 +10546,8 @@ void FUN_004d5e50(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
 
 int FUN_004d5f70(void)
 
@@ -10569,6 +10574,9 @@ int FUN_004d5f70(void)
 /* ---- 0x004d5fd0  FUN_004d5fd0 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
+
 undefined8 __fastcall
 FUN_004d5fd0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4,
             uint param_5)

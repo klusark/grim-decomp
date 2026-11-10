@@ -294,7 +294,7 @@ void Engine_UpdateFrame(int param_1,int param_2)
       }
       if (UINT_004e7d98 != 0) {
         Profile_Begin(2);
-        Lua_UpdateFrame();
+        sputLua_Update();
         Profile_End(2);
       }
       if ((UINT_008a8c40 != 3) && (UINT_008a8c40 != 4)) {
@@ -822,7 +822,9 @@ undefined4 Engine_CreateCameraActor(void)
 #if 0
 /* sputRender.cpp: draws one frame. Mode 3 polls the movie; otherwise re-prepares the set when it
    changed, draws object states, actors (profile slots 4-7), overlays, the iris/fade (flag 4 of
-   g_dwRenderFlags) and text */
+   g_dwRenderFlags) and text
+   Ported to C (build/overrides_big_engine_renderframe.c): differential test vs recorder stand-ins,
+   0 differences (docs/notes/big_engine_renderframe.md). */
 
 void Engine_RenderFrame(void)
 

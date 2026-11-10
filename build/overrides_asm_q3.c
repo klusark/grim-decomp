@@ -1,5 +1,5 @@
 /* Readable C for assembled GRIMFANDANGO.EXE functions, agent asm_q3 (see docs/notes/asm_q3.md): rdPuppet_AdvanceTrack,
- * rdPuppet_UpdateFrame, rdModel3_LoadText, rdCache_DrawMeshList3D.
+ * rdPuppet_UpdateFrame, rdModel3_LoadEntryText, rdCache_DrawMeshList3D.
  *
  * Every function here was written by hand from the original 1.01 machine code (src/GRIMFANDANGO.EXE/asm_funcs.s as of
  * 2df265d) and checked against it with a differential test in build/difftest/asm_q3/ (original bytes and this C on the
@@ -25,9 +25,9 @@
 
 #ifdef GRIM_EXE
 #include "globals.h"
-#define rdModel3_LoadText rdModel3_LoadText__ghidra
+#define rdModel3_LoadEntryText rdModel3_LoadEntryText__ghidra
 #include "functions.h"
-#undef rdModel3_LoadText
+#undef rdModel3_LoadEntryText
 
 #define Q3U(p, off) (*(uint *)((char *)(p) + (off)))
 #define Q3I(p, off) (*(int *)((char *)(p) + (off)))
@@ -395,7 +395,7 @@ done:
     Q3U(thing, 0x1c) = UINT_004f5eb4;
 }
 
-/* ==== rdModel3_LoadText (0x0040aa20) ====
+/* ==== rdModel3_LoadEntryText (0x0040aa20) ====
  * Loads a text .3do model (path, model record) through the stdConffile line reader (each line in the buffer
  * UINT_00900520 points to; the reader lower-cases and skips comments) and the game's own sscanf / strtok / atoi:
  * header and version, the material names (" %d: %s": copied into the stack slot the index names, then loaded with
@@ -426,8 +426,8 @@ typedef void (*q3_assert_fn)(char *, char *, int);
 #define Q3_WS ((char *)&DAT_004dd918)              /* " \t" */
 #define Q3_WSC ((char *)IMG_ADDR(0x004ddc10))      /* " \t," */
 
-/* OVERRIDES: rdModel3_LoadText */
-undefined4 rdModel3_LoadText(char *path, char *m)
+/* OVERRIDES: rdModel3_LoadEntryText */
+undefined4 rdModel3_LoadEntryText(char *path, char *m)
 {
     char names[0x80][0x400];    /* [ESP+0x498]: material name slots */
     char name[0x400];           /* [ESP+0x98] */

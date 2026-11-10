@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: actor.c
- * functions 0x00485290 .. 0x004a8500 (58 functions)
+ * functions 0x00485290 .. 0x004a8500 (57 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -76,7 +76,7 @@ void Actor_DrawDebugWalker(void *param_1)
     if (*(int *)(*(int *)((int)param_1 + 0xa4) + 0x3f8) != 0) {
       iVar1 = *(int *)(*(int *)(*(int *)((int)param_1 + 0xa0) + 4) + 4);
       b = Actor_GetFrame(param_1);
-      Vec3_Sub(local_c,(float *)(iVar1 + 0x78),b);
+      Matrix34_TransformPoint(local_c,(float *)(iVar1 + 0x78),b);
       rdPrimit3_DrawPoint(local_c,*(float *)(iVar1 + 0x5c) *
                                   *(float *)(*(int *)((int)param_1 + 0xa4) + 0x3f4),0x41200000,
                           0xffff,0xffffffff);
@@ -495,7 +495,7 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
     pfVar6 = afStack_60;
     pfVar7 = Actor_GetFrame(actor);
     rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),pfVar7,index,pfVar6);
-    Matrix_Transpose(afStack_90,afStack_60);
+    Matrix34_InvertRigid(afStack_90,afStack_60);
     pfVar6 = *(float **)((int)actor + 0xa4);
     if (((*pfVar6 == 0.0) && (pfVar6[1] == 0.0)) && (pfVar6[2] == 0.0)) {
       pfVar6 = afStack_90;
@@ -504,7 +504,7 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
       Vec3_Copy(afStack_a8,pfVar7 + 3,pfVar6);
     }
     else {
-      Vec3_Sub(afStack_a8,pfVar6,afStack_90);
+      Matrix34_TransformPoint(afStack_a8,pfVar6,afStack_90);
       Vec3_Normalize(afStack_a8);
     }
     Vec3_Cross(afStack_9c,local_c0,afStack_a8);
@@ -980,46 +980,6 @@ void __cdecl Actor_SetReflection(void *actor,float angle)
   iVar1 = *(int *)(*(int *)((int)actor + 0xa4) + 0x1b4);
   if (iVar1 != 0) {
     *(float *)(iVar1 + 0x3c) = angle;
-  }
-  return;
-}
-
-/* ---- 0x00490a60  Actor_SetWalkChore ---- */
-void __cdecl Actor_SetWalkChore(void *actor,int chore,void *costume)
-
-{
-  int *piVar1;
-  uint uVar2;
-  int *piVar3;
-  
-  piVar3 = *(int **)((int)actor + 0xa0);
-  if (piVar3 != (int *)0x0) {
-    if (costume == (void *)0x0) {
-      costume = piVar3;
-    }
-    piVar1 = piVar3 + 1;
-    if (piVar3 != (int *)0x0) {
-      do {
-        if ((piVar3[1] != *piVar1) || (-1 < piVar3[10])) break;
-        piVar3 = (int *)piVar3[0x2c];
-      } while (piVar3 != (int *)0x0);
-      if ((piVar3 != (int *)0x0) && (piVar3[1] == *piVar1)) {
-        if (chore == piVar3[10]) {
-          return;
-        }
-        uVar2 = Cos_InstChoreStatus(*piVar3,piVar3[10]);
-        if ((uVar2 != 0) &&
-           (Cos_StopChoreFaded((void *)*piVar3,piVar3[10],g_nChoreFadeMs), chore != -1)) {
-          Cos_InstPlayChore(*piVar3,chore,uVar2 & 2,~uVar2 >> 2 & 1);
-          Cos_InstUpdateChore(*piVar3,chore,100);
-          Chore_FadeIn((void *)*piVar3,chore,g_nChoreFadeMs);
-        }
-        piVar3[10] = -1;
-        *(int *)((int)costume + 0x28) = chore;
-        return;
-      }
-    }
-    *(int *)((int)costume + 0x28) = chore;
   }
   return;
 }
@@ -2268,8 +2228,9 @@ void Actor_DrawShadowPlane(void *costumeList,void *shadow)
             iVar7 = 0;
             do {
               out = (float *)((int)local_c0 + iVar7);
-              Vec3_Sub(out,(float *)(iVar7 + *(int *)(iVar5 + iVar4 * 0x7c + 0x58)),
-                       (float *)(local_f4 + *(int *)(iVar2 + 0x20)));
+              Matrix34_TransformPoint
+                        (out,(float *)(iVar7 + *(int *)(iVar5 + iVar4 * 0x7c + 0x58)),
+                         (float *)(local_f4 + *(int *)(iVar2 + 0x20)));
               iVar6 = Plane_IntersectSegment
                                 (out,(float *)((int)shadow + 0x18),out,*(float *)((int)shadow + 8),
                                  *(float *)((int)shadow + 0xc),*(float *)((int)shadow + 0x10),

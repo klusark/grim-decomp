@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: rdlight.c
- * functions 0x00451460 .. 0x00451510 (3 functions)
+ * functions 0x00451460 .. 0x00451800 (4 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -174,4 +174,60 @@ LAB_0045173f:
 #undef local_c
 
 #endif
+
+
+/* ---- 0x00451800  rdLight_CalcFaceIntensity ---- */
+/* Flat per-face light level (face light mode 2), called from rdModel_AddMeshToCache. Sums (I -
+   k*dist) * dot(faceNormal, L) for every enabled light within cull range (+0x34) of the face's
+   FIRST vertex, treating every light as omni (uses the light position even for direct/spot). Normal
+   is negated for back faces. Starts at 0, returns as soon as the sum >= 1. */
+
+float __cdecl
+rdLight_CalcFaceIntensity
+          (int *param_1,int param_2,uint param_3,uint param_4,int param_5,float *param_6,int param_7
+          ,float param_8)
+
+{
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  int *piVar2;
+  float fVar3;
+  uint uVar4;
+  float *pfVar5;
+  float fVar6;
+  #define local_10 (*(float (*)[3])(_frame + (0x20 - 0x10)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  
+  uVar4 = 0;
+  local_10[0] = 0.0;
+  if (param_4 != 0) {
+    pfVar5 = (float *)(param_2 + 8);
+    do {
+      iVar1 = *param_1;
+      if (*(int *)(iVar1 + 8) != 0) {
+        piVar2 = *(int **)(param_5 + 0x18);
+        local_10[1] = pfVar5[-2] - *(float *)(param_7 + *piVar2 * 0xc);
+        local_10[2] = pfVar5[-1] - *(float *)(param_7 + 4 + *piVar2 * 0xc);
+        fVar3 = *pfVar5 - *(float *)(param_7 + 8 + *piVar2 * 0xc);
+        if (fVar3 * fVar3 + local_10[2] * local_10[2] + local_10[1] * local_10[1] <
+            *(float *)(iVar1 + 0x34) * *(float *)(iVar1 + 0x34)) {
+          fVar6 = Vec3_Normalize(local_10 + 1);
+          fVar3 = local_10[1] * *param_6 + param_6[1] * local_10[2] + param_6[2] * fVar3;
+          if (0.0 < fVar3) {
+            local_10[0] = (*(float *)(iVar1 + 0x18) - fVar6 * param_8) * fVar3 + local_10[0];
+          }
+        }
+      }
+      if (1.0 <= local_10[0]) {
+        return local_10[0];
+      }
+      uVar4 = uVar4 + 1;
+      param_1 = param_1 + 1;
+      pfVar5 = pfVar5 + 3;
+    } while (uVar4 < param_4);
+  }
+  return local_10[0];
+}
+#undef local_10
+#undef local_4
 

@@ -41,7 +41,7 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   local_38[0] = 0.0;
   local_38[1] = *(float *)(iVar1 + 0x20);
   local_38[2] = 0.0;
-  Vec3_Sub(local_88 + 1,local_38,local_78);
+  Matrix34_TransformPoint(local_88 + 1,local_38,local_78);
   *(float *)&DAT_007f4e84 = local_88[2] - -0.001;
   *(float *)&DAT_007f4e80 = local_88[1] - *(float *)(iVar1 + 0x28);
   *(float *)&DAT_007f4e88 = local_7c - *(float *)(iVar1 + 0x28);
@@ -292,7 +292,8 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
   #define local_30 (*(float (*)[12])(_frame + (0x50 - 0x30)))
   
   iVar1 = *(int *)((int)thing + 4);
-  Vec3_Sub(local_3c,(float *)((int)sprite + 0x24),(float *)((int)g_pRdCurrentCamera + 8));
+  Matrix34_TransformPoint
+            (local_3c,(float *)((int)sprite + 0x24),(float *)((int)g_pRdCurrentCamera + 8));
   if ((DAT_00900068 & 2) == 0) {
     iVar2 = *(int *)((int)thing + 0x44);
   }
@@ -558,7 +559,7 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
   #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
   
   iVar1 = *(int *)(param_1 + 4);
-  Vec3_Sub(&local_64,param_2 + 9,(float *)((int)g_pRdCurrentCamera + 8));
+  Matrix34_TransformPoint(&local_64,param_2 + 9,(float *)((int)g_pRdCurrentCamera + 8));
   Vec3_Copy(&local_70,(float *)(iVar1 + 0xac),param_2);
   Vec3_Transform(&local_70,(float *)((int)g_pRdCurrentCamera + 8));
   if (0.0 <= local_70) {

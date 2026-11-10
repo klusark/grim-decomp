@@ -742,7 +742,7 @@ void __cdecl Render_ScreenToWorld(int x,int y,float *outPos)
     local_c = (1.0 / fVar1) * ((float)x - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 8));
     local_8[1] = (-1.0 / fVar1) *
                  ((float)y - *(float *)(*(int *)((int)g_pRdCurrentCamera + 4) + 0xc));
-    Vec3_Sub(outPos,&local_c,g_pCameraSetup + 0xc);
+    Matrix34_TransformPoint(outPos,&local_c,g_pCameraSetup + 0xc);
   }
   return;
 }

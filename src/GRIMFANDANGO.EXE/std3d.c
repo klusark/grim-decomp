@@ -117,8 +117,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   if (UINT_00806930 == 0) {
     return 0;
   }
-  iVar1 = ((code *)D3D_CreateViewport)(*(undefined4 *)((int)g_pVideoMode + 8),
-                             *(undefined4 *)((int)g_pVideoMode + 0xc));
+  iVar1 = D3D_CreateViewport(*(uint *)((int)g_pVideoMode + 8),*(uint *)((int)g_pVideoMode + 0xc));
   if (iVar1 == 0) {
     return 0;
   }
@@ -422,7 +421,9 @@ int __cdecl D3D_AddTriangles(void *tris,uint count)
 /* ---- 0x00478b40  D3D_ExecuteBuffer ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Terminates and executes the buffer on the device */
+/* Terminates and executes the buffer on the device
+   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
 
 int D3D_ExecuteBuffer(void)
 
@@ -1336,6 +1337,7 @@ void D3D_SetViewportRect(uint *param_1)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Fills an execute buffer with the initial STATERENDER list derived from the driver capability bits
+   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
     */
 
 undefined4 D3D_InitRenderState(void)
@@ -1495,7 +1497,10 @@ undefined4 D3D_InitRenderState(void)
 /* ---- 0x0047a130  D3D_CreateViewport ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-undefined4 D3D_CreateViewport(void)
+/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
+
+undefined4 __cdecl D3D_CreateViewport(uint width,uint height)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -5,13 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004960a0  BitmapComponent_Create ---- */
+/* ---- 0x004960a0  BitmapRequester ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Costume tag handler for 'General Bitmap / Animation (old use Bitmap)' (registered by
    sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a bitmap key or
    asks for an image file (.pcx/.gif/.lbm) and loads it as a bitmap resource. */
 
-undefined4 BitmapComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

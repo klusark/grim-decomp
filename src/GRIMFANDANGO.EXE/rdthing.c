@@ -25,7 +25,7 @@ int __cdecl rdThing_Draw(void *thing,float *position)
   
   g_pRdCurrentThing = thing;
   g_pRdCurrentModel = *(void **)((int)thing + 4);
-  Vec3_Sub(local_c,(float *)((int)g_pRdCurrentModel + 0x78),position);
+  Matrix34_TransformPoint(local_c,(float *)((int)g_pRdCurrentModel + 0x78),position);
   Vec3_Rotate3x3(local_c,(float *)((int)g_pRdCurrentCamera + 8));
   if (*(int *)((int)thing + 0x44) == 0) {
     UINT_007f30a4 = 1;

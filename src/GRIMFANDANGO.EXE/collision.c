@@ -75,7 +75,7 @@ void Collision_PushOutOfBox
         local_4 = local_14[1];
       }
     }
-    Vec3_Sub(param_1,&local_c,param_8);
+    Matrix34_TransformPoint(param_1,&local_c,param_8);
   }
   return;
 }
@@ -354,6 +354,8 @@ undefined4 Collision_UpdateMovedActors(void)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Ported to C (build/overrides_big_collision_others.c): differential test vs model stand-ins, 0
+   differences (docs/notes/big_collision_others.md). */
 
 undefined4 Collision_TestActorAgainstOthers(void *param_1)
 
@@ -412,7 +414,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
         pfVar6 = (float *)(iVar8 + 0x78);
         pfVar7 = Actor_GetFrame(actor);
         pvStack_d0 = (void *)0x493ac7;
-        Vec3_Sub(local_68 + 2,pfVar6,pfVar7);
+        Matrix34_TransformPoint(local_68 + 2,pfVar6,pfVar7);
         local_50[1] = fVar3 - local_68[2];
         local_50[0] = local_68[0] - local_5c[0];
         fVar5 = local_68[1] - local_5c[1];
