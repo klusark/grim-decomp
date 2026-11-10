@@ -555,7 +555,7 @@ undefined4 * FUN_004985c0(int cosInst, undefined4 *componentIdx, int create)
  * "TextAllowed" (default DAT_004f5a98) and sets lua_assume_binary unless it equals DAT_004ec554 (_stricmp), opens the
  * io / string / math libraries and the engine's function table (PTR_s_EnginePause_004ea8b0, UINT_004eb168 entries),
  * registers the userdata tag table at 0x004ea890 (4 entries) for save / restore, creates the system table, keeps a
- * reference to the old global DAT_004ec54c ("type") and replaces it by Lua_TypeOverride, sets five number globals
+ * reference to the old global DAT_004ec54c ("type") and replaces it by sputLua_TypeOverride, sets five number globals
  * (0, 4096, 8192 CAMERA, 16384 SPECIAL, 32768), installs the "concat" fallback (keeping a reference to the old one),
  * the save / restore userdata hooks and the shutdown hook.  Returns 0.
  * The two calls of the build's mod API (names/asm_patches.json, after 0x0049de35 and 0x0049de7c) are kept. */
@@ -582,7 +582,7 @@ undefined4 Lua_InitGameLibs(void)
     g_nLuaSystemTableRef = Lua_CreateSystemTable();
     lua_pushobject(lua_getglobal(&DAT_004ec54c));
     UINT_008cab48 = lua_ref(1);
-    lua_pushCclosure(Lua_TypeOverride, 0);
+    lua_pushCclosure(sputLua_TypeOverride, 0);
     lua_setglobal(&DAT_004ec54c);
     lua_pushnumber(0.0f);
     lua_setglobal(&DAT_004ec544);

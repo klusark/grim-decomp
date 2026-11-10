@@ -102,7 +102,7 @@ modules, the renderer and the costume DLL are assembled; the set/sector, text an
 **Which functions get assembled** (`python -I tools/gen_asm.py <PROG> --select`): the COM-calling DirectX modules,
 functions whose decompilation contains artifacts (x87 state, register values crossing calls), the hand-picked list
 `names/asm_extra.json`, minus `names/asm_exclude.json` (functions that broke when assembled, e.g.
-`ModelComponent_Create`) and minus every function that `build/overrides.c` defines.
+`ThingRequester`) and minus every function that `build/overrides.c` defines.
 
 To make a change to an assembled function you either override it in C (10 a does this to `Actor_UpdateWalker`: write the
 function in `overrides.c`, then rerun `gen_asm.py ... --select` so the assembled copy is dropped) or patch the

@@ -8,11 +8,11 @@
 #include "globals.h"
 #include "functions.h"
 
-#define COS_COUNT (*(int *)&DAT_100143b0)        /* number of costume slots */
-#define COS_INST_COUNT (*(int *)&DAT_100143c8)   /* number of costume instance records */
+#define COS_COUNT (*(int *)&g_nMaxCostumes)        /* number of costume slots */
+#define COS_INST_COUNT (*(int *)&g_nMaxInstances)   /* number of costume instance records */
 
 /* ==== Cos_NewStateBasedTag (0x10001e80), Cos_NewIntTag (0x10001f80), Cos_NewFloatTag (0x10001fd0) ====
- * Register a costume tag type (id, name, ..., 28 byte description of its handlers): FUN_10001ed0 creates the table entry
+ * Register a costume tag type (id, name, ..., 28 byte description of its handlers): Cos_NewTagEntry creates the table entry
  * (it refuses a duplicate id or a name longer than 31 characters) and returns it through its first argument; the entry gets
  * the kind (0 state based, 1 int, 2 float) and the handler description.  The old text passed the address of the fifth
  * parameter for the result. */
@@ -20,7 +20,7 @@ static undefined4 cos_new_tag(int kind, undefined4 id, undefined4 name, undefine
 {
     int entry = extra;
 
-    if (FUN_10001ed0(&entry, id, (char *)name, unused, extra) == 0)
+    if (Cos_NewTagEntry(&entry, id, (char *)name, unused, extra) == 0)
         return 0;
     *(undefined4 *)(entry + 4) = kind;
     memcpy((char *)entry + 0x2c, handlers, 7 * sizeof(undefined4));
@@ -55,11 +55,11 @@ int CosUtil_ComponentInfo(int cos, uint index, int *outTag, undefined4 *outA, un
     int rec;
 
     if (cos == 0)
-        (**(code **)(DAT_100143a8 + 0x18))(file + 0x140, file, 0x797);
+        (*g_pSvcChore->pAssertFail)(file + 0x140, file, 0x797);
     if (*(uint *)(cos + 0x28) <= index)
-        (**(code **)(DAT_100143a8 + 0x18))(file + 0x238, file, 0x798);
+        (*g_pSvcChore->pAssertFail)(file + 0x238, file, 0x798);
     rec = *(int *)(cos + 0x2c) + index * 0x40;
-    tag = PTR_100143c0 + *(int *)(rec + 0x20) * 0x17;
+    tag = ((int *)g_aComponentTags) + *(int *)(rec + 0x20) * 0x17;
     if (outTag != (int *)0)
         *outTag = tag[0];
     if (outA != (undefined4 *)0)
@@ -77,50 +77,50 @@ int CosUtil_ComponentInfo(int cos, uint index, int *outTag, undefined4 *outA, un
  * them its handle and 32 bytes of name, and the number of costume instances.  Restore frees the loaded costumes, grows the
  * slot table, reloads every saved costume by name under its saved handle (Cos_LoadEntry) and resets the instance table
  * (records of 0x14 bytes with the last field 1).  The old text used the parameter slots as buffers. */
-undefined4 Cos_Save(code *io)
+undefined4 Cos_Save(void *io)
 {
     int count = 0, i, rec;
     int handle;
 
     ((void (*)(void *, int))io)(&COS_COUNT, 4);
     for (i = 0; i < COS_COUNT; i++) {
-        rec = DAT_100143b4 + i * 0x3c;
+        rec = (int)g_aCostumes + i * 0x3c;
         if (*(int *)(rec + 0x38) == 0) {
-            if (_DAT_100143e8 != (code *)0 && ((int (*)(int))_DAT_100143e8)(rec) == 0)
+            if (g_pfnSaveVerify != (code *)0 && ((int (*)(int))g_pfnSaveVerify)(rec) == 0)
                 continue;
             count++;
         }
     }
     ((void (*)(void *, int))io)(&count, 4);
     for (i = 0; i < COS_COUNT; i++) {
-        rec = DAT_100143b4 + i * 0x3c;
+        rec = (int)g_aCostumes + i * 0x3c;
         if (*(int *)(rec + 0x38) == 0) {
-            if (_DAT_100143e8 != (code *)0 && ((int (*)(int))_DAT_100143e8)(rec) == 0)
+            if (g_pfnSaveVerify != (code *)0 && ((int (*)(int))g_pfnSaveVerify)(rec) == 0)
                 continue;
-            handle = FUN_10005180(i);
+            handle = Cos_IndexToHandle(i);
             ((void (*)(void *, int))io)(&handle, 4);
             ((void (*)(void *, int))io)((void *)rec, 0x20);
         }
     }
-    ((void (*)(void *, int))io)(&DAT_100143c8, 4);
+    ((void (*)(void *, int))io)(&g_nMaxInstances, 4);
     return 0;
 }
 
-undefined4 Cos_Restore(code *io)
+undefined4 Cos_Restore(void *io)
 {
     int i, n, loaded, handle, rec;
     char name[32];
 
     for (i = 0; i < COS_COUNT; i++) {
-        if (*(int *)(DAT_100143b4 + i * 0x3c + 0x38) == 0)
-            Cos_Free(FUN_10005180(i));
+        if (*(int *)((int)g_aCostumes + i * 0x3c + 0x38) == 0)
+            Cos_Free(Cos_IndexToHandle(i));
     }
     ((void (*)(void *, int))io)(&n, 4);
     if (COS_COUNT < n) {
-        DAT_100143b4 = ((int (*)(int, int, char *, int))*(code **)(DAT_100143a8 + 0x28))(DAT_100143b4, n * 0x3c,
+        *(int *)&g_aCostumes = ((int (*)(int, int, char *, int))g_pSvcChore->pRealloc)((int)g_aCostumes, n * 0x3c,
                                                                                     s_C__grimsrc_libs_chore_Costume_c_1001020c, 0xa2b);
         while (COS_COUNT < n) {
-            *(int *)(DAT_100143b4 + COS_COUNT * 0x3c + 0x38) = 1;
+            *(int *)((int)g_aCostumes + COS_COUNT * 0x3c + 0x38) = 1;
             COS_COUNT = COS_COUNT + 1;
         }
         COS_COUNT = n;
@@ -130,18 +130,18 @@ undefined4 Cos_Restore(code *io)
         ((void (*)(void *, int))io)(&handle, 4);
         ((void (*)(void *, int))io)(name, 0x20);
         Cos_LoadEntry(name, handle);
-        rec = FUN_10005160(handle);
-        *(int *)(DAT_100143b4 + rec * 0x3c + 0x38) = 0;
-        _DAT_100143ac = _DAT_100143ac + 1;
+        rec = Cos_HandleToIndex(handle);
+        *(int *)((int)g_aCostumes + rec * 0x3c + 0x38) = 0;
+        g_nCostumes = g_nCostumes + 1;
     }
     ((void (*)(void *, int))io)(&n, 4);
     if (COS_INST_COUNT < n) {
-        DAT_100143cc = ((int (*)(int, int, char *, int))*(code **)(DAT_100143a8 + 0x28))(DAT_100143cc, n * 0x14,
+        *(int *)&g_aCostumeInstances = ((int (*)(int, int, char *, int))g_pSvcChore->pRealloc)((int)g_aCostumeInstances, n * 0x14,
                                                                                     s_C__grimsrc_libs_chore_Costume_c_1001020c, 0xa42);
         COS_INST_COUNT = n;
     }
     for (i = 0; i < COS_INST_COUNT; i++) {
-        undefined4 *r = (undefined4 *)(DAT_100143cc + i * 0x14);
+        undefined4 *r = (undefined4 *)((int)g_aCostumeInstances + i * 0x14);
 
         r[0] = 0;
         r[1] = 0;

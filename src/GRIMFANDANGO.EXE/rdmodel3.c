@@ -94,21 +94,22 @@ undefined4 rdModel3_Load(int param_1,undefined4 param_2)
     return 0;
   }
   (*g_pSvcRdroid->pFclose)(iVar1);
-  uVar3 = ((code *)rdModel3_LoadText)(iVar2,param_2);
+  uVar3 = ((code *)rdModel3_LoadEntryText)(iVar2,param_2);
   return uVar3;
 }
 #endif
 
 
-/* ---- 0x0040aa20  rdModel3_LoadText ---- */
+/* ---- 0x0040aa20  rdModel3_LoadEntryText ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Parser of the text .3do format (stdConffile 'section:' lines). Source file Rdmodel3.c
    (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
 undefined4
-rdModel3_LoadText(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4,uint param_5,
-                 uint param_6,uint param_7,uint param_8)
+rdModel3_LoadEntryText
+          (undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4,uint param_5,
+          uint param_6,uint param_7,uint param_8)
 
 {
   char cVar1;
@@ -1209,7 +1210,7 @@ void rdModel3_AccumulateNodeBounds(int param_1,int param_2,float *param_3)
     a = *(float **)(iVar1 + 0x30 + iVar3 * 0x7c);
     if (*(int *)(iVar1 + 0x48 + iVar3 * 0x7c) != 0) {
       do {
-        Vec3_Sub(&local_a8,a,local_60);
+        Matrix34_TransformPoint(&local_a8,a,local_60);
         if (*(float *)(param_1 + 0x6c) < local_a8) {
           *(float *)(param_1 + 0x6c) = local_a8;
         }
@@ -1338,7 +1339,7 @@ void rdModel3_AccumulateNodeRadius(int param_1,int param_2,float *param_3)
     a = *(float **)(iVar1 + 0x30 + iVar4 * 0x7c);
     if (*(int *)(iVar1 + 0x48 + iVar4 * 0x7c) != 0) {
       do {
-        Vec3_Sub(local_a8,a,local_60);
+        Matrix34_TransformPoint(local_a8,a,local_60);
         fVar2 = SQRT(local_a8[2] * local_a8[2] +
                      local_a8[1] * local_a8[1] + local_a8[0] * local_a8[0]);
         if (*(float *)&DAT_007f3200 < fVar2) {

@@ -54,7 +54,9 @@ void ModelComponent_SetVisibleFlag(undefined4 param_1,int param_2,undefined4 par
 #if 0
 /* 0x194-byte instance {ResRef model, ..., +0x38 isRoot, +0x40 rdThing, +0x44 parentInstance, +0x48
    parentNode, +0x4c colormap, +0x50 refCount, +0x190 next}; shared with an identical component of
-   the actor's current costume */
+   the actor's current costume
+   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
 
 void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int create)
 
@@ -159,13 +161,13 @@ undefined4 ModelComponent_Stop(int param_1)
   return 1;
 }
 
-/* ---- 0x00496b60  ModelComponent_Create ---- */
+/* ---- 0x00496b60  ThingRequester ---- */
 /* Costume tag handler for 'MAIN RDroid Thing (3DO) / RDroid Thing (3DO)' (registered by
    sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a key from 'name x
    y' text or asks for a .3do file ('Select model file to add...') and loads it as a model resource.
     */
 
-int ModelComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

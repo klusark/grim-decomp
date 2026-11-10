@@ -78,6 +78,10 @@ atexit.register(_flush_touched)
 def post(path, **body):
     _record(path, body)
     url = f"{BASE}/{path.lstrip('/')}"
+    if body.get("program"):
+        # the bridge takes the program of a write from the query string (a `program` in the JSON body is ignored and
+        # the write goes to its current program, which switch_program does not always change)
+        url += "?" + urllib.parse.urlencode({"program": body["program"]})
     data = json.dumps(body).encode()
     req = urllib.request.Request(url, data=data, headers={"Content-Type": "application/json"})
     for attempt in range(4):
@@ -97,6 +101,8 @@ def post(path, **body):
 
 
 def ok(resp):
+    if isinstance(resp, dict) and str(resp.get("_raw", "")).lstrip().startswith(("Failed", "Error")):
+        return False   # some endpoints answer with plain text ("Failed to set function prototype: ...")
     return isinstance(resp, dict) and ("error" not in resp or resp.get("status") == "success")
 
 

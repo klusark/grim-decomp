@@ -254,8 +254,8 @@ void * stdLbm_Load(char *param_1,int param_2,int param_3)
 #undef uStack_84
 
 
-/* ---- 0x0047f720  stdLbm_Save ---- */
-undefined4 stdLbm_Save(undefined4 param_1,int param_2)
+/* ---- 0x0047f720  stdLbm_Write ---- */
+undefined4 stdLbm_Write(undefined4 param_1,int param_2)
 
 {
   unsigned char _frame[0x800] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

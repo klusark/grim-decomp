@@ -23,7 +23,7 @@
  {"addr": "00490d30", "name": "Actor_PushCostume", "proto": "int Actor_PushCostume(void * actor, char * name)", "tags": "actor"},
  {"addr": "0048f930", "name": "Actor_SetCostume", "proto": "int Actor_SetCostume(void * actor, char * name)", "comment": "Lua SetActorCostume: replaces the whole costume stack with one costume", "tags": "actor"},
  {"addr": "0049cb10", "name": "Lua_ResolveCostumeArg", "proto": "int Lua_ResolveCostumeArg(void * luaObj, void * costumeList, void ** outCostume)", "comment": "Turns the optional costume argument of the chore opcodes (nil, index or name) into the costume record in the actor's list", "tags": "lua-binding"},
- {"addr": "00490a60", "name": "Actor_SetWalkChore", "proto": "void Actor_SetWalkChore(void * actor, int chore, void * costume)", "tags": "actor"},
+ {"addr": "00490a60", "name": "sputActor_SetWalkChore", "proto": "void sputActor_SetWalkChore(void * actor, int chore, void * costume)", "tags": "actor"},
  {"addr": "00490b50", "name": "Actor_SetTurnChores", "proto": "void Actor_SetTurnChores(void * actor, int leftChore, int rightChore, void * costume)", "tags": "actor"},
  {"addr": "00490c80", "name": "Actor_SetRestChore", "proto": "void Actor_SetRestChore(void * actor, int chore, void * costume)", "tags": "actor"},
  {"addr": "00490320", "name": "Actor_SetSelected", "proto": "int Actor_SetSelected(int handle)", "comment": "Lua SetSelectedActor; returns the handle or -1", "tags": "actor"},

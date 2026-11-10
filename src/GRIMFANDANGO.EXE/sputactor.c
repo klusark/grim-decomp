@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: sputactor.c
- * functions 0x0048e2c0 .. 0x00490ef0 (6 functions)
+ * functions 0x0048e2c0 .. 0x00490ef0 (7 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -732,6 +732,46 @@ undefined4 sputActor_RestoreState(code *param_1)
 #undef uStack_144
 #undef uStack_bc
 
+
+/* ---- 0x00490a60  sputActor_SetWalkChore ---- */
+void __cdecl sputActor_SetWalkChore(void *actor,int chore,void *costume)
+
+{
+  int *piVar1;
+  uint uVar2;
+  int *piVar3;
+  
+  piVar3 = *(int **)((int)actor + 0xa0);
+  if (piVar3 != (int *)0x0) {
+    if (costume == (void *)0x0) {
+      costume = piVar3;
+    }
+    piVar1 = piVar3 + 1;
+    if (piVar3 != (int *)0x0) {
+      do {
+        if ((piVar3[1] != *piVar1) || (-1 < piVar3[10])) break;
+        piVar3 = (int *)piVar3[0x2c];
+      } while (piVar3 != (int *)0x0);
+      if ((piVar3 != (int *)0x0) && (piVar3[1] == *piVar1)) {
+        if (chore == piVar3[10]) {
+          return;
+        }
+        uVar2 = Cos_InstChoreStatus(*piVar3,piVar3[10]);
+        if ((uVar2 != 0) &&
+           (Cos_StopChoreFaded((void *)*piVar3,piVar3[10],g_nChoreFadeMs), chore != -1)) {
+          Cos_InstPlayChore(*piVar3,chore,uVar2 & 2,~uVar2 >> 2 & 1);
+          Cos_InstUpdateChore(*piVar3,chore,100);
+          Chore_FadeIn((void *)*piVar3,chore,g_nChoreFadeMs);
+        }
+        piVar3[10] = -1;
+        *(int *)((int)costume + 0x28) = chore;
+        return;
+      }
+    }
+    *(int *)((int)costume + 0x28) = chore;
+  }
+  return;
+}
 
 /* ---- 0x00490e60  sputActor_Terminate ---- */
 /* Module interface slot 1 (sputActor): called by Engine_ResetSubsystems / when registration fails;

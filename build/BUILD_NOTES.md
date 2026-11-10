@@ -287,7 +287,7 @@ What it took, in the order the bugs showed up (each is a class that will recur):
   behaviour), `OutputDebugStringA` shows up as a gdb warning, `PrintWindow` captures the game window
   even when it is behind others, `rdModel_DrawMesh` arguments (mesh, matrix) show whether node
   matrices are sane, `Cos_InstChoreName/Status` show which chores run.
-* Functions that break when assembled stay C via `names/asm_exclude.json`: `ModelComponent_Create`
+* Functions that break when assembled stay C via `names/asm_exclude.json`: `ThingRequester`
   (0x496e20), `luaS_newlstr`/`lstring__9180`, two EXE CRT functions. Whole-EXE assembly (`--all`)
   still hangs at start-up (black window); the working set is the rendering/math/actor/walker modules
   plus the artifact-driven picks.
@@ -345,7 +345,7 @@ game" at the end of this file.
 
 Test knobs (environment, all optional): `GRIM_MULTI=<tag>` (window title "Grim Fandango (<tag>)", several instances),
 `GRIM_NOMOVIE=1` (movies off, set every frame), `GRIM_ACTIVE=1` (draw and present although the window is not the foreground
-window, ignore WM_ACTIVATEAPP), `GRIM_LUA_FILE`/`GRIM_LUA_LOG` (Lua lines per frame; polled from Lua_UpdateFrame and from
+window, ignore WM_ACTIVATEAPP), `GRIM_LUA_FILE`/`GRIM_LUA_LOG` (Lua lines per frame; polled from sputLua_Update and from
 Game_FrameUpdate, so it also works while the engine is paused in a menu). An unhandled exception writes `grim_crash.txt`
 (registers, three frame arguments, stack) in the working directory; resolve addresses with `nm`.
 
@@ -755,8 +755,8 @@ reason).  About 570 functions are compiled C again; about 20 of them are written
   the `-O2` modules.
 - `Math_NormalizeAngle360` needs the intermediate rounded to float (volatile), `Walker_UpdateYaw` (scale 0 / NaN) and
   `Collision_TestActorAgainstOthers` differ in NaN compares: kept assembled.
-- Functions patched by `names/asm_patches.json` (`Game_FrameUpdate`, `Input_PollKeyboard`, `Lua_UpdateFrame`, `Lua_InitGameLibs`) need the
-  hook in C too (`Game_FrameUpdate`, `Lua_UpdateFrame` are in `overrides_exe.c`).
+- Functions patched by `names/asm_patches.json` (`Game_FrameUpdate`, `Input_PollKeyboard`, `sputLua_Update`, `Lua_InitGameLibs`) need the
+  hook in C too (`Game_FrameUpdate`, `sputLua_Update` are in `overrides_exe.c`).
 - Shared Ghidra edits by other agents change prototypes under you (the `Walker_*` floats): re-export (`tools/export_changed.py`) and look
   at `overrides.c`.
 
@@ -925,7 +925,7 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   (1,000,000 cases per function, 0 differences, mutation checks). Every merge on main was checked with the clean-room
   tests (`grim_tools/cleanroom`, `run.py decomp`): 5107 of 5107 the same after each merge and at the end.
   * q1 / q2: rdClip_Line2D and the ten rdClip_Face3_* frustum clippers (one shared plane pass each file).
-  * q3: rdPuppet_AdvanceTrack, rdPuppet_UpdateFrame, rdModel3_LoadText (now `(char *path, char *model)`, what the
+  * q3: rdPuppet_AdvanceTrack, rdPuppet_UpdateFrame, rdModel3_LoadEntryText (now `(char *path, char *model)`, what the
     caller passes; tested on the game's 10 text .3do files and mutations of them), rdCache_DrawMeshList3D.
   * q4 / q5 / q6: the whole software rasteriser, as macro templates per feature flag (long double for x87 values,
     volatile stores at the original's `fstp dword`, SSE4.1 `roundss` for the FLDCW floor/ceil conversions;
@@ -945,7 +945,7 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   peephole.py itself; no assembled function needs it any more.
 * Original behaviour kept (notes per stream): 1-pixel spans drawn with leftover register / global values, `colour << 8`
   table indexing in Span16_TexZ_5/_7 and Span16_Tex_13/_15. Not reproducible in C (the original reads stack slots it
-  never wrote; game data never reaches them): rdModel3_LoadText with material indices outside 0..0x7f,
+  never wrote; game data never reaches them): rdModel3_LoadEntryText with material indices outside 0..0x7f,
   rdCache_DrawMeshList3D's mip level / first vertex colour in two odd modes, Grad_Flat_2 / SetupPolyTex when the
   vertex next to the top is the bottom.
 * Merging: each stream removes lines from names/asm_funcs.json and bodies from asm_funcs.s, so parallel branches
@@ -1046,3 +1046,29 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   With a number argument it reads setup[n] (n * 300 bytes into the set's setup array) without a bounds check, so a set
   with one setup is read past its end; the original does the same and survives because its heap leaves readable memory
   there. Heap-layout dependent, like the CHORE.DLL slot bug; reruns passed.
+
+## CHORE.DLL named, EXE caught up with the Ghidra project (2026-11-10, agent chore-naming, lead)
+
+* CHORE.DLL: 67 -> 112 named; the 152 `FUN_` left are exactly the dead MSVC runtime copies of names/lib_replace.json.
+  The remaster's `libchore.so` is not stripped and gives the original static and global names; field names come from
+  the asserts. Batches names/chore_{functions,globals,types,comments}.json; Costume / CosComponent / Chore / ChoreTrack /
+  ChoreKey / CosInstance / ChoreInstance / ComponentTag / CosStateBitmap in Ghidra and build/compat.h (size asserts).
+  Private runtime copies are `msvc_<name>` so build_src does not drop them into crt.c and the exported symbols do not
+  capture the EXE's own qsort / _stricmp. Details: docs/notes/chore_naming.md.
+* **Locking a prototype can silently break the callers' decompilation**: Ghidra then trusts the callee's stored stack
+  purge, which was wrong (4 / 16 bytes) for Cos_AddKey, CosUtil_PtrFromHandle, Cos_HandleToIndex and
+  Cos_InstIndexToHandle (all `__cdecl` with a plain RET), so callers read their parameters at the wrong offset
+  (`in_stack_`, and one silent swap in Cos_InstRescue). First clean-room run of the typed build: 321 differ. The 11
+  affected functions are hand-written in build/overrides_chore_naming.c (main's checked bodies, new names); they can go
+  once `setStackPurgeSize(0)` is run on those callees (no bridge endpoint for it). After any prototype batch, look for
+  new `in_stack_` / changed parameter uses in the callers.
+* tools/ghidra_api.py: writes put `program` in the query string; the bridge ignored it in the JSON body and wrote to
+  its current program (the EXE). `ok()` now sees plain-text "Failed ..." answers.
+* The Ghidra EXE had 34 renames made outside any batch and never exported (original-style names: `sputLua_*`,
+  `*Requester`, `KeyframeAdjuster`, `stdLbm_Write`, and corrections: Vec3_Sub -> Matrix34_TransformPoint (it is a
+  3x4 matrix times point), Matrix_Transpose -> Matrix34_InvertRigid, rdKeyframe_InterpolateNode ->
+  rdLight_CalcFaceIntensity) plus pending edits (Display_OpenMode, D3D_SelectDriver). The EXE src is regenerated from
+  the project; the old names are replaced in build/overrides*.c, the names/exe_*.json batches (so re-applying them does
+  not undo the renames), tools and docs; build_src.PREFIX_MAP keeps Matrix34_* in math3d.c and the costume tag handlers
+  in their component files.
+* Clean-room (`run.py decomp`): 5118 of 5118 the same (the suite has 5118 tests now).

@@ -479,7 +479,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
   PTR_007f30a0 = mesh;
   if (*(int *)((int)mesh + 0x24) != 0) {
     a = matrix + 9;
-    Vec3_Sub(local_48,a,(float *)((int)g_pRdCurrentCamera + 8));
+    Matrix34_TransformPoint(local_48,a,(float *)((int)g_pRdCurrentCamera + 8));
     if (UINT_007f30a4 == 0) {
       UINT_007f1898 = 0;
     }
@@ -500,7 +500,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
       Matrix_TransformPoints
                 (local_30,*(float **)((int)PTR_007f30a0 + 0x30),(float *)&DAT_007f18a0,
                  *(int *)((int)PTR_007f30a0 + 0x48));
-      Matrix_Transpose(local_84,matrix);
+      Matrix34_InvertRigid(local_84,matrix);
       UINT_007f31e8 = *(uint *)((int)PTR_007f30a0 + 0x24);
       if ((int)UINT_007f1494 <= (int)UINT_007f31e8) {
         UINT_007f31e8 = UINT_007f1494;
@@ -540,8 +540,9 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
                SQRT(fVar5 * fVar5 + fVar13 * fVar13 + fVar4 * fVar4) <
                PUN(float,piVar3[0xd]) + *(float *)((int)pvVar11 + 0x60))) {
               (&UINT_007f30e0)[uVar10] = (uint)piVar3;
-              Vec3_Sub((float *)(&DAT_007f1598 + uVar10 * 0xc),
-                       (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
+              Matrix34_TransformPoint
+                        ((float *)(&DAT_007f1598 + uVar10 * 0xc),
+                         (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
               if (piVar3[1] != 2) {
                 local_60 = 0;
                 local_5c = 0;
@@ -550,7 +551,8 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
                 local_a0[0] = -PUN(float,piVar3[3]);
                 local_a0[1] = -PUN(float,piVar3[4]);
                 local_a0[2] = -PUN(float,piVar3[5]);
-                Vec3_Sub((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),local_a0,local_84);
+                Matrix34_TransformPoint
+                          ((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),local_a0,local_84);
                 local_58 = local_34;
               }
               uVar10 = UINT_007f31fc + 1;
@@ -587,8 +589,9 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
               fVar4 = PUN(float,piVar3[0xd]) + *(float *)((int)pvVar11 + 0x60);
               if (fVar13 < fVar4 * fVar4) {
                 (&UINT_007f30e0)[uVar10] = (uint)piVar3;
-                Vec3_Sub((float *)(&DAT_007f1598 + uVar10 * 0xc),
-                         (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
+                Matrix34_TransformPoint
+                          ((float *)(&DAT_007f1598 + uVar10 * 0xc),
+                           (float *)((int)pvVar9 + (*piVar3 + 0x1d) * 0xc),local_84);
                 uVar6 = local_58;
                 if (piVar3[1] != 2) {
                   local_60 = 0;
@@ -597,7 +600,8 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
                   local_a0[0] = -PUN(float,piVar3[3]);
                   local_a0[1] = -PUN(float,piVar3[4]);
                   local_a0[2] = -PUN(float,piVar3[5]);
-                  Vec3_Sub((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),local_a0,local_84);
+                  Matrix34_TransformPoint
+                            ((float *)(&DAT_007f1168 + UINT_007f31fc * 0xc),local_a0,local_84);
                 }
                 uVar10 = UINT_007f31fc + 1;
                 pvVar9 = g_pRdCurrentCamera;
@@ -631,7 +635,7 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
       local_54[0] = (float)UINT_008ddf84;
       local_54[1] = (float)UINT_008ddf88;
       local_54[2] = (float)UINT_008ddf8c;
-      Vec3_Sub((float *)&DAT_007f0fd8,local_54,local_84);
+      Matrix34_TransformPoint((float *)&DAT_007f0fd8,local_54,local_84);
       iVar12 = *(int *)((int)mesh + 0x40);
       uVar10 = 0;
       if (*(int *)((int)mesh + 0x50) != 0) {
@@ -739,7 +743,7 @@ undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
   }
   if (UINT_007f3204 != 0) {
     Vec3_Copy(local_c,(float *)&DAT_004ddb70,(float *)((int)g_pRdCurrentCamera + 8));
-    Vec3_Sub(local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCurrentCamera + 8));
+    Matrix34_TransformPoint(local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCurrentCamera + 8));
     uVar3 = Polygon_ClipToPlane(local_c,local_18,UINT_007f1474,UINT_007f1478,UINT_007f147c,
                                 UINT_007f1468);
     if ((int)uVar3 < 2) {
@@ -762,7 +766,7 @@ undefined4 rdModel_AddMeshToCache(int param_1,int param_2)
       iVar5 = *(int *)((int)PTR_007f30a0 + 0x30);
       pfVar4 = &local_24;
     }
-    fVar7 = rdKeyframe_InterpolateNode
+    fVar7 = rdLight_CalcFaceIntensity
                       ((int *)&UINT_007f30e0,IMG_ADDR(0x007f1598),IMG_ADDR(0x007f1168),UINT_007f31fc,param_1,pfVar4,iVar5,
                        fVar7);
     *(float *)(iVar2 + 0x44) = fVar7;

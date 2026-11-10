@@ -75,7 +75,7 @@ image) and the real Win32/DirectX import libraries (`build/stdcall_names.json`).
 included, is compiled C (much of
 it hand-written in `build/overrides*.c` where Ghidra's C is wrong about x87 results, register calling conventions and
 lost arguments), verified against the original machine code by differential tests and the clean-room tests
-(`grim_tools/cleanroom`, `run.py decomp`: all 5107 the same as the original). The result is playable. What is still stubbed:
+(`grim_tools/cleanroom`, `run.py decomp`: all 5118 the same as the original). The result is playable. What is still stubbed:
 11 MSVC runtime helpers (the host runtime replaces them) in the EXE.
 
 ## What the binary tells us about the original source
@@ -120,12 +120,12 @@ Output of `tools/stats.py` (regenerate after changes):
 
 | Program | Functions | Named | of which auto/module-level | Unnamed (FUN_) |
 |---|---|---|---|---|
-| GRIMFANDANGO.EXE | 2671 | 2204 | 378 | 467 (438 of them C runtime / zlib / EH internals at 0x4ad000+) |
-| LUA.DLL | 852 | 599 | 158 | 253 |
+| GRIMFANDANGO.EXE | 2671 | 2319 | 378 | 352 |
+| LUA.DLL | 852 | 623 | 158 | 229 |
 | IMUSE.DLL | 451 | 285 | 52 | 166 |
-| CHORE.DLL | 264 | 67 | 0 | 197 |
+| CHORE.DLL | 264 | 112 | 0 | 152 (all of them dead MSVC runtime copies) |
 
-Files in src/: 200
+Files in src/: 214
 
 ## Known gaps
 
@@ -144,5 +144,8 @@ Files in src/: 200
   defined; the new ones are the Lua io/string libraries and more C runtime,
   now named, apart from ~100 small runtime fragments (x87 helpers, locale
   tables, exception-handling thunks).
+* CHORE.DLL is fully named (names from the remaster's unstripped `libchore.so`,
+  docs/notes/chore_naming.md) and its costume / chore / key records are typed;
+  the 152 `FUN_` left are dead copies of the C runtime.
 * Struct types are applied only where a batch set a prototype; most parameters
   are still Ghidra's inferred `int`/`undefined4`.

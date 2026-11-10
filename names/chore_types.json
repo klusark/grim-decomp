@@ -1,0 +1,591 @@
+[
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001000",
+  "proto": "int Cos_InstRescue(int hInst, int hCostume)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001040",
+  "proto": "int Cos_Free(int hCostume)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100010d0",
+  "proto": "void Cos_NewEntry(Costume * pCostume)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001110",
+  "proto": "int CosUtil_Write(char * fileName, Costume * pCostume, char * comment)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100016a0",
+  "proto": "int Cos_New(void)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100016e0",
+  "proto": "int Cos_Load(char * fileName)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001a30",
+  "proto": "int Cos_FreeCosInstance(int hInst)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001a80",
+  "proto": "int Cos_CreateCosInstance(int hCostume, int userData)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001d70",
+  "proto": "int Cos_InstGetInstanceData(int hInst, int compNum, int * outTagId)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001e00",
+  "proto": "void * Cos_RegisterInstanceHook(void * hook)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001e10",
+  "proto": "void * Cos_RegisterSaveHook(void * hook)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001e20",
+  "proto": "int Cos_InstGetUserData(int hInst)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001e50",
+  "proto": "int Cos_InstSetUserData(int hInst, int userData)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001ed0",
+  "proto": "int Cos_NewTagEntry(ComponentTag * * ppTag, int tagId, char * name, int unused, int userData)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002020",
+  "proto": "CosComponent * CosUtil_CompPtrFromHandle(Costume * pCostume, uint compNum)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002040",
+  "proto": "Costume * CosUtil_PtrFromHandle(int hCostume)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002060",
+  "proto": "void * CosUtil_RegisterCompNotifier(void * notifier)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002070",
+  "proto": "void * CosUtil_RegisterBitmapMunger(void * munger)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002080",
+  "proto": "int Cos_RegisterComponent(uint hCostume, char * name, int data, int tagId, int parentData, int parentTagId, int * pStates)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100021f0",
+  "proto": "int Cos_RemoveComponent(int hCostume, int tagId, int data)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002260",
+  "proto": "int CosUtil_DeleteComponent(uint hCostume, uint compNum)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100026a0",
+  "proto": "int CosUtil_AdjustComponent(Costume * pCostume, uint compNum)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002740",
+  "proto": "int CosUtil_ComponentHasAdjuster(Costume * pCostume, uint compNum)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100027e0",
+  "proto": "int CosUtil_AddComponent(int hCostume, char * name, int tagId, int parentData, int parentTagId)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002880",
+  "proto": "int CosUtil_AddChore(Costume * pCostume)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100028f0",
+  "proto": "Chore * CosUtil_DeleteChore(Costume * pCostume, uint choreNum)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100029e0",
+  "proto": "Chore * CosUtil_SetChoreLength(Costume * pCostume, uint choreNum, uint length)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002ab0",
+  "proto": "char * CosUtil_NameChore(Costume * pCostume, int choreNum, char * name)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002b40",
+  "proto": "int CosUtil_DeleteKey(Costume * pCostume, uint choreNum, uint compNum, int time)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002c50",
+  "proto": "ChoreKey * CosUtil_QueryValueAtTime(Costume * pCostume, uint choreNum, uint compNum, uint time)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002cf0",
+  "proto": "int CosUtil_AddFSKey(Costume * pCostume, uint choreNum, int compNum, uint time, int value)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002d50",
+  "proto": "int CosUtil_AddIntKey(Costume * pCostume, uint choreNum, int compNum, uint time, int value)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002db0",
+  "proto": "int CosUtil_AddFloatKey(Costume * pCostume, uint choreNum, int compNum, uint time, int value)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002e10",
+  "proto": "uint CosUtil_CountComponents(Costume * pCostume)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002ee0",
+  "proto": "int Cos_InstCountComponents(int hInst)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002f70",
+  "proto": "int Cos_InstCountChores(int hInst)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002fa0",
+  "proto": "uint CosUtil_CountChores(Costume * pCostume)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002fb0",
+  "proto": "char * Cos_GetCostumeName(int hCostume)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003000",
+  "proto": "Costume * Cos_InstGetCostume(int hInst, int * outHandle)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003050",
+  "proto": "char * Cos_InstChoreName(int hInst, uint choreNum)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100030b0",
+  "proto": "char * CosUtil_ChoreName(Costume * pCostume, uint choreNum)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100030f0",
+  "proto": "uint CosUtil_CountTags(void)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003100",
+  "proto": "char * CosUtil_TagInfo(uint whichTag, int * outTagId)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003160",
+  "proto": "int Cos_InstStopChores(uint hInst)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003240",
+  "proto": "int Cos_InstStopChore(int hInst, uint choreNum)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003300",
+  "proto": "int Cos_InstPauseChores(int hInst)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003360",
+  "proto": "int Cos_InstPauseChore(int hInst, uint choreNum)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100033b0",
+  "proto": "int Cos_InstCompleteChore(int hInst, uint choreNum)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003430",
+  "proto": "int Cos_InstCompleteChores(int hInst)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100034c0",
+  "proto": "int Cos_InstPlayChore(int hInst, uint choreNum, int loop, int manual)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003530",
+  "proto": "int Cos_InstUpdateChore(int hInst, uint choreNum, int dt)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100035a0",
+  "proto": "int Cos_InstUpdateChores(int hInst, int dt)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003620",
+  "proto": "int Cos_InstSetChoreLoop(int hInst, uint choreNum, int loop)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003690",
+  "proto": "int Cos_InstSetChoreAdv(int hInst, uint choreNum, int manual)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003700",
+  "proto": "uint Cos_InstChoreStatus(int hInst, uint choreNum)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003750",
+  "proto": "int Cos_Initialize(GrimServices * svc, void * * moduleIface)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003890",
+  "proto": "int Cos_SaveInstance(int hInst, void * io)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003b40",
+  "proto": "int Cos_RestoreInstance(int hInst, void * io)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003c20",
+  "proto": "uint Cos_CollectUsedTags(Costume * pCostume)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003c90",
+  "proto": "ChoreKey * Cos_AddKey(Costume * pCostume, uint choreNum, int compNum, uint time)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003e50",
+  "proto": "int Cos_CompareKeys(ChoreKey * a, ChoreKey * b)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003e70",
+  "proto": "uint Cos_InitComponentStates(CosComponent * pComponent, int * pStates)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004090",
+  "proto": "void Cos_InitComponent(Costume * pCostume, CosComponent * pComponent, char * name, int tag, int data, int parent)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004140",
+  "proto": "void Cos_InitChore(Chore * pChore)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004170",
+  "proto": "int Cos_FindComponent(Costume * pCostume, int tagId, int hash, char * name)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004320",
+  "proto": "int Cos_FindTag(int tagId, char * name, int kind)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004770",
+  "proto": "int Cos_FindComponentWithParent(Costume * pCostume, int tagId, int hash, char * name, int parent)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004bb0",
+  "proto": "int Cos_ReadLine(int file, char * buf, int size)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004c40",
+  "proto": "void Cos_InitChoreInstances(Chore * pChores, ChoreInstance * pChoreInstances, uint numChores)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004c70",
+  "proto": "void Cos_FreeCostume(int hCostume)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004d70",
+  "proto": "void Cos_FreeComponent(int hCostume, ComponentTag * pTag, CosComponent * pComponent)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004f30",
+  "proto": "uint Cos_AllocTagSlot(void)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004f70",
+  "proto": "void Cos_FreeInstanceData(int instIndex)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005160",
+  "proto": "int Cos_HandleToIndex(int hCostume)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005180",
+  "proto": "int Cos_IndexToHandle(int index)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100051a0",
+  "proto": "int Cos_InstHandleToIndex(int hInst)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100051c0",
+  "proto": "int Cos_InstIndexToHandle(int index)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100051e0",
+  "proto": "void Cos_Terminate(void)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005200",
+  "proto": "int Cos_Startup(void)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005350",
+  "proto": "void Cos_Shutdown(void)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005590",
+  "proto": "void * Cos_RegisterSaveVerify(void * verify)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005530",
+  "proto": "void Chore_ApplyKey(int reason, ComponentTag * pTag, int instData, ChoreKey * pKey, int dt, ChoreKey * pKey2, int zero, int user)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100053e0",
+  "proto": "void Chore_AdvanceTime(Costume * pCostume, CosInstance * pInst, int choreNum, int dt, int hInst)",
+  "cc": "__cdecl"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001770",
+  "proto": "uint Cos_LoadEntry(char * name, int handle)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001e80",
+  "proto": "uint Cos_NewStateBasedTag(uint id, uint name, uint unused, uint * handlers, int extra)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001f80",
+  "proto": "uint Cos_NewIntTag(uint id, uint name, uint unused, uint * handlers, int extra)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001fd0",
+  "proto": "uint Cos_NewFloatTag(uint id, uint name, uint unused, uint * handlers, int extra)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100037a0",
+  "proto": "uint Cos_Save(void * io)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003970",
+  "proto": "uint Cos_Restore(void * io)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100041e0",
+  "proto": "uint Cos_ReadTagsSection(uint file, uint unused2, uint unused3)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004390",
+  "proto": "uint Cos_ReadComponentsSection(uint file, uint handle, uint unused3, uint unused4)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100047f0",
+  "proto": "uint Cos_ReadChoresSection(uint file, int costume, uint unused3)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004970",
+  "proto": "uint Cos_ReadKeysSection(uint file, int costume)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004e50",
+  "proto": "int Cos_AllocCostumeSlot(void)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005090",
+  "proto": "int Cos_AllocInstanceSlot(void)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005740",
+  "proto": "int msvc_stricmp(byte * a, byte * b)",
+  "cc": "__cdecl",
+  "_note": "locked to the signature of the hand-written definition in build/overrides*.c"
+ }
+]

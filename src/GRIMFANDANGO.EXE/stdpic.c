@@ -25,7 +25,9 @@ uint stdPic_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* ---- 0x0047d2d0  stdPic_LoadInto ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Decoder of '.pic' files (allocation string stdPic.c) */
+/* Decoder of '.pic' files (allocation string stdPic.c)
+   Ported to C (build/overrides_big_stdpic_loadinto.c): differential test on generated inputs, 0
+   differences (docs/notes/big_stdpic_loadinto.md). */
 
 undefined4 stdPic_LoadInto(char *param_1,undefined4 *param_2,int param_3,int param_4)
 

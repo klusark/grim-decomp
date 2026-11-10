@@ -16,12 +16,12 @@
    "_FUN_10012360": "_rand"
   },
   "CHORE.DLL": {
-   "_FUN_100055a0": "_strncpy",
-   "_FUN_100056a0": "_strrchr",
-   "_FUN_10005810": "_sscanf",
-   "_FUN_10005860": "_memmove",
-   "_FUN_10005de0": "_bsearch",
-   "_FUN_10005e90": "_strchr"
+   "_msvc_strncpy": "_strncpy",
+   "_msvc_strrchr": "_strrchr",
+   "_msvc_sscanf": "_sscanf",
+   "_msvc_memmove": "_memmove",
+   "_msvc_bsearch": "_bsearch",
+   "_msvc_strchr": "_strchr"
   },
   "IMUSE.DLL": {
    "_ImFile_Read": "_fseek",

@@ -1,0 +1,398 @@
+[
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001000",
+  "comment": "Export: points the costume instance `hInst` at the costume `hCostume` again (CosInstance +0), without rebuilding it; the EXE's actor update calls it with the current handle of the actor's costume resource. Returns g_aCostumeInstances when both handles are valid (the converted index otherwise).",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001040",
+  "comment": "Export: frees the costume `hCostume`: every costume instance of it (Cos_FreeCosInstance), then its components, chores and keys (Cos_FreeCostume); the slot is marked free and g_nCostumes lowered. Returns the new g_nCostumes.",
+  "tags": "chore,costume,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001110",
+  "comment": "Export (costume editor): writes `pCostume` as a text costume file: the save hook (Cos_RegisterSaveHook) may refuse; then the file is created ('wt+'), the costume renamed after the file name, and '# comment', 'costume v0.1', 'section tags' (Cos_CollectUsedTags), 'section components', 'section chores' and 'section keys' written with the host's fprintf (GrimServices +0x54). A chore with two tracks for one component, a refused save or a file that cannot be created return 0; a file name over 32 characters closes the file and returns 0. The result after a complete write is a stack slot that only the error paths set (Ghidra: uStack_18).",
+  "tags": "chore,cosfile,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100016a0",
+  "comment": "Export: a new empty costume (Cos_AllocCostumeSlot + Cos_NewEntry); returns its handle, 0 when no slot.",
+  "tags": "chore,costume,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100016e0",
+  "comment": "Export: handle of the costume loaded from the text costume file `fileName`: an already loaded costume of that name (_stricmp) is shared, otherwise a new slot is filled by Cos_LoadEntry. A failed load frees the slot again (Cos_FreeCostume) and returns 0.",
+  "tags": "chore,costume,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001770",
+  "comment": "Export: loads the text costume file `name` into the costume `handle` (sections tags, components, chores, keys). Hand-written in build/overrides_asm_o2_chore.c, which has the details.",
+  "tags": "chore,cosfile,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001a30",
+  "comment": "Export: frees the costume instance `hInst`: instance hook (created = 0), Cos_FreeInstanceData, record marked free, g_nInstances lowered. Returns the new g_nInstances.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001a80",
+  "comment": "Export: creates a costume instance (CosInstance) of the costume `hCostume` for the EXE's actor (`userData`): chore states (assert 'pInstance->aChoreInstances != NULL', Cos_InitChoreInstances), the instance data array initialised from each component's data (assert 'pInstance->aInstanceData != NULL'), then the NewInstance handler (ComponentTag +0x40) of every component, parents before children (tree depth, assert 'aTreeDepths != NULL'), whose non-zero result replaces the instance data. The instance hook (Cos_RegisterInstanceHook) can refuse the instance. Returns the instance handle, 0 on failure.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001d70",
+  "comment": "Export: instance data of component `compNum` of the instance (and its tag id through outTagId), 0 for a bad handle or index.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001e00",
+  "comment": "Export: installs the costume instance hook (g_pfnInstanceHook) and returns the previous one.",
+  "tags": "chore,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001e10",
+  "comment": "Export: installs the costume save hook (g_pfnSaveHook, asked by CosUtil_Write) and returns the previous one.",
+  "tags": "chore,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001e20",
+  "comment": "Export: the EXE's user data of the instance (CosInstance +8), 0 for a bad handle.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001e50",
+  "comment": "Export: sets the EXE's user data of the instance (CosInstance +8).",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001e80",
+  "comment": "Export: registers a state-based component tag (kind 0): id, name, user data and the seven handlers (ComponentTag +0x2c). Hand-written in build/overrides_logic_chore.c.",
+  "tags": "chore,tag,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001f80",
+  "comment": "Export: registers an int component tag (kind 1), see Cos_NewStateBasedTag. Hand-written in build/overrides_logic_chore.c.",
+  "tags": "chore,tag,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001fd0",
+  "comment": "Export: registers a float component tag (kind 2), see Cos_NewStateBasedTag. Hand-written in build/overrides_logic_chore.c.",
+  "tags": "chore,tag,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002020",
+  "comment": "Export: component `compNum` of the costume, 0 when out of range.",
+  "tags": "chore,component,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002040",
+  "comment": "Export: the costume record of a costume handle (no range check beyond Cos_HandleToIndex).",
+  "tags": "chore,costume,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002060",
+  "comment": "Export: installs the component notifier (g_pfnCompNotifier: (costume, component, index, added)) and returns the previous one.",
+  "tags": "chore,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002070",
+  "comment": "Export: installs the state bitmap munger (g_pfnBitmapMunger) and returns the previous one.",
+  "tags": "chore,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002080",
+  "comment": "Export, called back by a tag's Create handler: appends a component to the costume: tag `tagId`, the EXE's component data `data`, parent = the component with tag `parentTagId` and data `parentData` (0 for a root; an unknown tag or parent refuses), the state description `pStates` for state-based tags (Cos_InitComponentStates); the component notifier is told. Returns 1, 0 when refused.",
+  "tags": "chore,component,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100021f0",
+  "comment": "Export: deletes the component with tag `tagId` and component data `data` (CosUtil_DeleteComponent).",
+  "tags": "chore,component,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002260",
+  "comment": "Export (costume editor): deletes component `compNum` and all its descendants: the hashes of later components with the same tag and name are renumbered, the component array is compacted and the parent indices remapped, the chore tracks of the deleted components and their keys are freed, and the component notifier is told about each deleted one. Returns 1, 0 for a bad costume or index.",
+  "tags": "chore,component,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100026a0",
+  "comment": "Export (costume editor): calls the Edit handler (ComponentTag +0x3c, slot 4) of component `compNum` with (&data, name, 32).",
+  "tags": "chore,component,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002740",
+  "comment": "Export (costume editor): 1 when the component's tag has an Edit handler (ComponentTag +0x3c).",
+  "tags": "chore,component,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100027e0",
+  "comment": "Export: adds a component through the Create handler (ComponentTag +0x30, slot 1) of tag `tagId`: (costume, tag id, parent data, parent tag id, name); the handler builds the EXE's data and calls Cos_RegisterComponent. Returns 1 on success.",
+  "tags": "chore,component,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002880",
+  "comment": "Export (costume editor): appends an empty chore (Cos_InitChore) and returns its index.",
+  "tags": "chore,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100028f0",
+  "comment": "Export (costume editor): deletes chore `choreNum` with its tracks and keys and shifts the later chores down; returns the reallocated chore array.",
+  "tags": "chore,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100029e0",
+  "comment": "Export: sets the length of chore `choreNum` (ms); when it shrinks, keys after the old length are dropped from every track. Returns the chore.",
+  "tags": "chore,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002ab0",
+  "comment": "Export (costume editor): renames chore `choreNum` (at most 31 characters, spaces become '_').",
+  "tags": "chore,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002b40",
+  "comment": "Export (costume editor): deletes the key at `time` from the track of component `compNum` in chore `choreNum`. Returns 1 when one was deleted.",
+  "tags": "chore,keys,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002c50",
+  "comment": "Export: the key of component `compNum` in chore `choreNum` that is in effect at `time` (the key at that time, else the last one before it), 0 for none.",
+  "tags": "chore,keys,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002cf0",
+  "comment": "Export (costume editor): adds or replaces a key of a state-based component (Cos_AddKey); 0 for another tag kind.",
+  "tags": "chore,keys,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002d50",
+  "comment": "Export (costume editor): adds or replaces a key of an int component (Cos_AddKey); 0 for another tag kind.",
+  "tags": "chore,keys,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002db0",
+  "comment": "Export (costume editor): adds or replaces a key of a float component (Cos_AddKey; the value is stored as its bits); 0 for another tag kind.",
+  "tags": "chore,keys,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002e10",
+  "comment": "Export: number of components of the costume.",
+  "tags": "chore,component,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002e40",
+  "comment": "Export: tag id, component data, parent index and tag kind of component `index`; returns the component record (the EXE uses it). Hand-written in build/overrides_logic_chore.c.",
+  "tags": "chore,component,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002ee0",
+  "comment": "Export: number of components of the instance's costume.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002f20",
+  "comment": "Export: CosUtil_ComponentInfo for the instance's costume (without the tag kind).",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002f70",
+  "comment": "Export: number of chores of the instance's costume.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002fa0",
+  "comment": "Export: number of chores of the costume.",
+  "tags": "chore,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10002fb0",
+  "comment": "Export: name of the costume `hCostume` (assert 'whichCostume >= 0 && whichCostume < maxCostumes').",
+  "tags": "chore,costume,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003000",
+  "comment": "Export: the costume of an instance, and its handle through outHandle.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003050",
+  "comment": "Export: name of chore `choreNum` of the instance's costume (assert 'choreNum >= 0 && choreNum < pCostume->numChores').",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100030b0",
+  "comment": "Export: name of chore `choreNum` of the costume.",
+  "tags": "chore,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100030f0",
+  "comment": "Export: number of registered component tags.",
+  "tags": "chore,tag,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003100",
+  "comment": "Export: name of registered tag `whichTag` and its id through outTagId (assert 'whichTag >= 0 && whichTag < numComponentTags').",
+  "tags": "chore,tag,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003160",
+  "comment": "Export: stops every chore of the instance (flags and time cleared) and calls the Stop handler (ComponentTag +0x38, slot 3) of each component that a chore has a track for.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003240",
+  "comment": "Export: stops chore `choreNum` of the instance like Cos_InstStopChores. Returns 1, 0 for a bad chore.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003300",
+  "comment": "Export: pauses every chore of the instance (clears the playing flag 1, keeps the time).",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003360",
+  "comment": "Export: pauses chore `choreNum` (clears flag 1).",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100033b0",
+  "comment": "Export: runs chore `choreNum` to its end at once: flags = playing, Chore_AdvanceTime by the rest of its length (every remaining key is applied).",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003430",
+  "comment": "Export: Cos_InstCompleteChore for every playing chore of the instance.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100034c0",
+  "comment": "Export: starts chore `choreNum`: flags 1 (playing), | 2 when `loop`, | 4 (advanced by Cos_InstUpdateChores) unless `manual`. The time is kept (Cos_InstStopChore clears it).",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003530",
+  "comment": "Export: advances chore `choreNum` by `dt` ms when it is playing (Chore_AdvanceTime).",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100035a0",
+  "comment": "Export: advances every playing chore with flag 4 (not manual) by `dt` ms.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003620",
+  "comment": "Export: sets or clears the looping flag 2 of chore `choreNum`.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003690",
+  "comment": "Export: `manual` != 0 clears flag 4 (the chore is no longer advanced by Cos_InstUpdateChores), 0 sets it.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003700",
+  "comment": "Export: the flags of chore `choreNum` (1 playing, 2 looping, 4 auto-advanced), 0 for a bad chore.",
+  "tags": "chore,instance,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003750",
+  "comment": "Export, called first by the EXE (sputCostume): keeps the host service table (g_pSvcChore) and fills the module interface: Cos_Initialize, Cos_Terminate, Cos_Startup, Cos_Shutdown, Cos_Save, Cos_Restore, 0, 0.",
+  "tags": "chore,module,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100037a0",
+  "comment": "Module interface slot 4 / export: writes the costume table into the save game. Hand-written in build/overrides_logic_chore.c.",
+  "tags": "chore,module,savegame,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003890",
+  "comment": "Export: writes a costume instance into the save game: the Save handler (ComponentTag +0x44, slot 6) of every component with save = 1, then flags, chore and time of every chore state.",
+  "tags": "chore,instance,savegame,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003970",
+  "comment": "Module interface slot 5 / export: reloads the costumes of a save game. Hand-written in build/overrides_logic_chore.c.",
+  "tags": "chore,module,savegame,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003b40",
+  "comment": "Export: reads a costume instance back from a save game (Cos_SaveInstance with save = 0).",
+  "tags": "chore,instance,savegame,export"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100053e0",
+  "comment": "Advances chore `choreNum` of the instance by `dt` ms: every key with time in [time, time + dt) is passed to its component's OnKey handler (Chore_ApplyKey); the first update after Cos_InstPlayChore already takes dt (no zero-length first frame). time >= length ends the chore (flags and time cleared); a looping chore carries the remainder over from time 0. Original static name AdvanceChoreTracks2 (libchore.so).",
+  "tags": "chore,keys"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005590",
+  "comment": "Export: installs the save verify hook (g_pfnSaveVerify, asked by Cos_Save for every loaded costume) and returns it.",
+  "tags": "chore,export"
+ }
+]

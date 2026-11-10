@@ -8,7 +8,9 @@
 /* ---- 0x004d5e70  Rle_Decode ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Decodes a number of bytes of a run-length coded stream into a buffer */
+/* Decodes a number of bytes of a run-length coded stream into a buffer
+   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
 
 void Rle_Decode(undefined1 *param_1,undefined4 param_2,int param_3)
 

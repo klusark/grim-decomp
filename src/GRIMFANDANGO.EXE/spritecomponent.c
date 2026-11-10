@@ -190,6 +190,9 @@ undefined4 SpriteComponent_Destroy(undefined4 param_1,undefined4 param_2,int *pa
 /* ---- 0x004985c0  FUN_004985c0 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
+
 undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
 
 {

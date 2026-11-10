@@ -172,6 +172,8 @@ void Walker_ReplanPath(int param_1,int param_2,undefined4 *param_3,undefined4 pa
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_124 */
+/* Ported to C (build/overrides_big_walker_avoid.c): differential test vs stand-ins, 0 differences
+   at -O0 (docs/notes/big_walker_avoid.md). */
 
 uint Walker_AvoidActorPath
                (void *param_1,void *param_2,undefined4 *param_3,uint param_4,float *param_5)
@@ -265,7 +267,7 @@ uint Walker_AvoidActorPath
   Vec3_Copy(local_c,(float *)(iVar12 + 0x78),pfVar9);
   bx1 = *(float *)(*(int *)(*(int *)((int)param_2 + 0xa0) + 4) + 4);
   pfVar9 = Actor_GetFrame(param_2);
-  Vec3_Sub(local_88,(float *)(PUN(int,(float)bx1) + 0x78),pfVar9);
+  Matrix34_TransformPoint(local_88,(float *)(PUN(int,(float)bx1) + 0x78),pfVar9);
   pfVar9 = Actor_GetFrame(param_2);
   Vec3_Copy(&local_e8,(float *)(PUN(int,(float)bx1) + 0x78),pfVar9);
   iVar12 = *(int *)((int)param_2 + 0xa4);
@@ -328,7 +330,7 @@ uint Walker_AvoidActorPath
       local_100 = uVar15;
       if (iVar12 != 0) {
         pfVar9 = Actor_GetFrame(param_2);
-        Vec3_Sub(local_58,(float *)&DAT_008ca320,pfVar9);
+        Matrix34_TransformPoint(local_58,(float *)&DAT_008ca320,pfVar9);
         this = (void *)((code *)SectorList_FindNearestPoint)();
         Sector_SnapToPlane(this,local_58);
         Actor_GetFrame(param_2);

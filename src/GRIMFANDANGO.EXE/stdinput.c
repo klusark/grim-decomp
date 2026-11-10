@@ -529,7 +529,9 @@ void Input_MarkAxisUsed(uint param_1)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Buffered DirectInput key events plus the immediate key state; each key has a 7-dword record {?,
-   lastDown, down, downTime, upTime, pressCount, doubleTap} */
+   lastDown, down, downTime, upTime, pressCount, doubleTap}
+   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
 
 void Input_PollKeyboard(void)
 
@@ -893,6 +895,8 @@ LAB_00477bd5:
 /* WARNING: Removing unreachable block (ram,0x00477d46) */
 /* WARNING: Removing unreachable block (ram,0x00477d4c) */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
 
 void Input_PollMouse(void)
 
@@ -964,6 +968,9 @@ LAB_00477da3:
 /* ---- 0x00477dc0  Input_FlushJoystick ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
+    */
+
 void Input_FlushJoystick(void)
 
 {

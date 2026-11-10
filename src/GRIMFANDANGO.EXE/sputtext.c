@@ -18,7 +18,7 @@ undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2)
   _DAT_008ca144 = param_1;
   *param_2 = sputText_Initialize;
   param_2[1] = sputText_Terminate;
-  param_2[2] = sputText_Start;
+  param_2[2] = sputText_Startup;
   param_2[3] = sputText_Stop;
   param_2[4] = sputText_SaveState;
   param_2[5] = sputText_RestoreState;
@@ -52,12 +52,12 @@ void sputText_Terminate(void)
   return;
 }
 
-/* ---- 0x0048c500  sputText_Start ---- */
+/* ---- 0x0048c500  sputText_Startup ---- */
 /* Module interface slot 2 (sputText): called by Engine_InitSubsystems, returns 0 on success
    (non-zero makes the whole start-up unwind). _Start registers the text Lua API table and the
    field-name refs (fgcolor, justify, ...), creates the 0x260-byte text object pool. */
 
-undefined4 sputText_Start(void)
+undefined4 sputText_Startup(void)
 
 {
   int iVar1;

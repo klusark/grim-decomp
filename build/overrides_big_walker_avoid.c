@@ -91,7 +91,7 @@ uint Walker_AvoidActorPath(void *self, void *other, undefined4 *pts, uint count,
     WAV_F(0x10) = (long double)*(float *)(*(unsigned char **)((unsigned char *)self + 0xa4) + 0x3f4) * *(float *)(c1 + 0x5c);
     Vec3_Copy(WAV_P(0x108), (float *)(c1 + 0x78), Actor_GetFrame(self));
     c2 = *(unsigned char **)(*(unsigned char **)(*(unsigned char **)((unsigned char *)other + 0xa0) + 4) + 4);
-    Vec3_Sub(WAV_P(0x8c), (float *)(c2 + 0x78), Actor_GetFrame(other));
+    Matrix34_TransformPoint(WAV_P(0x8c), (float *)(c2 + 0x78), Actor_GetFrame(other));
     Vec3_Copy(WAV_P(0x2c), (float *)(c2 + 0x78), Actor_GetFrame(other));
     s2 = *(unsigned char **)((unsigned char *)other + 0xa4);
     WAV_U(0x20) = (uint32_t)(uintptr_t)pts + count * 12u - 12u;
@@ -147,7 +147,7 @@ uint Walker_AvoidActorPath(void *self, void *other, undefined4 *pts, uint count,
 hit:
     /* the four corners of the other actor's box (grown by this actor's radius + 0.02) */
     frame = Actor_GetFrame(other);
-    Vec3_Sub(WAV_P(0xbc), (float *)&DAT_008ca320, frame);
+    Matrix34_TransformPoint(WAV_P(0xbc), (float *)&DAT_008ca320, frame);
     Sector_SnapToPlane(SectorList_FindNearestPoint(WAV_P(0xbc), 0xffffffff), WAV_P(0xbc));
     {
         uint32_t z = WAV_U(0xc4);

@@ -79,7 +79,7 @@ undefined4 sputCostume_Start(void)
     ppcVar2 = ppcVar2 + 1;
   }
   local_38[0] = ModelComponent_SetVisibleFlag;
-  local_38[1] = ModelComponent_Create;
+  local_38[1] = ThingRequester;
   local_38[2] = ModelComponent_Destroy;
   local_38[3] = ModelComponent_Stop;
   local_38[4] = ModelComponent_EditParentOffset;
@@ -92,7 +92,7 @@ undefined4 sputCostume_Start(void)
     ppcVar2 = ppcVar2 + 1;
   }
   local_38[0] = Lua_Stub;
-  local_38[1] = CmapComponent_Create;
+  local_38[1] = ColormapRequester;
   local_38[2] = CmapComponent_Destroy;
   local_38[3] = (code *)0x0;
   local_38[4] = (code *)0x0;
@@ -128,10 +128,10 @@ undefined4 sputCostume_Start(void)
     ppcVar2 = ppcVar2 + 1;
   }
   local_38[0] = KeyframeComponent_OnKey;
-  local_38[1] = KeyframeComponent_Create;
+  local_38[1] = KeyframeRequester;
   local_38[2] = KeyframeComponent_Destroy;
   local_38[3] = KeyframeComponent_Stop;
-  local_38[4] = KeyframeComponent_EditKey;
+  local_38[4] = KeyframeAdjuster;
   local_38[5] = KeyframeComponent_NewInstance;
   local_38[6] = (code *)0x0;
   Cos_NewStateBasedTag(0x4659454b,IMG_ADDR(0x004ea334),0,(int *)local_38,2);
@@ -141,7 +141,7 @@ undefined4 sputCostume_Start(void)
     ppcVar2 = ppcVar2 + 1;
   }
   local_38[0] = Component_SetBitmapFrame;
-  local_38[1] = BitmapComponent_Create;
+  local_38[1] = BitmapRequester;
   local_38[2] = BitmapComponent_Destroy;
   local_38[3] = (code *)0x0;
   local_38[4] = (code *)0x0;

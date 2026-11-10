@@ -220,12 +220,12 @@ int * __cdecl KeyframeComponent_NewInstance(int inst,int component,int create)
 #endif
 
 
-/* ---- 0x00497e10  KeyframeComponent_Create ---- */
+/* ---- 0x00497e10  KeyframeRequester ---- */
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a key from 'name priority tagged' text or
    asks for a .key file and loads it as a Keyframe resource. */
 
-int KeyframeComponent_Create(uint param_1,int param_2,int param_3,int param_4,uint param_5)
+int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -313,12 +313,12 @@ int KeyframeComponent_Create(uint param_1,int param_2,int param_3,int param_4,ui
 #undef local_2c
 
 
-/* ---- 0x00498000  KeyframeComponent_EditKey ---- */
+/* ---- 0x00498000  KeyframeAdjuster ---- */
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the Normal/Tagged priority of a
    keyframe key. */
 
-undefined4 KeyframeComponent_EditKey(int *param_1,undefined4 param_2)
+undefined4 KeyframeAdjuster(int *param_1,undefined4 param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

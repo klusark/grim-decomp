@@ -175,7 +175,7 @@ int __cdecl stdBitmap_SaveByExtension(char *filename,void *bitmap)
   }
   iVar4 = _stricmp(local_8,&DAT_004dded8);
   if (iVar4 == 0) {
-    iVar4 = stdLbm_Save(filename,bitmap);
+    iVar4 = stdLbm_Write(filename,bitmap);
     return (uint)(iVar4 != 0);
   }
   iVar4 = _stricmp(local_8,&DAT_004dded4);

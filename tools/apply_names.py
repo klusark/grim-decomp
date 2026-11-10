@@ -31,13 +31,20 @@ def apply(entries, log):
         if "global" in e:
             r = g.set_global(prog, addr, e["global"], e.get("type", "undefined4"),
                              e.get("comment", ""), e.get("array_length", 0))
-            if isinstance(r, dict) and r.get("error") == "name_quality":
+            if isinstance(r, dict) and r.get("error") in ("name_quality", "prefix_type_mismatch"):
                 # the bridge's Hungarian-prefix policy rejected the name: apply the pieces directly
-                r1 = g.post("apply_data_type", program=prog, address=addr, type_name=e.get("type", "undefined4"))
+                t = e.get("type", "undefined4")
+                if e.get("array_length"):
+                    t = f"{t}[{e['array_length']}]"
+                r1 = g.post("apply_data_type", program=prog, address=addr, type_name=t)
                 r2 = g.rename_or_label(prog, addr, e["global"])
                 if not g.ok(r2):
                     r2 = g.post("create_label", program=prog, address=addr, name=e["global"])
-                r3 = g.set_plate_comment(prog, addr, e.get("comment", "")) if e.get("comment") else {"status": "success"}
+                    if "already exists" in str(r2):   # re-applying a batch: the name is already there
+                        r2 = {"status": "success"}
+                # (set_plate_comment only takes function addresses)
+                r3 = (g.post("set_comment", program=prog, address=addr, comment=e["comment"], comment_type="plate")
+                      if e.get("comment") else {"status": "success"})
                 r = r2 if not g.ok(r2) else (r1 if not g.ok(r1) else r3)
             results.append(("global", r))
         elif "comment" in e:
