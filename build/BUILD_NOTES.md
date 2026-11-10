@@ -1030,8 +1030,10 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   to 4 decimals, stops at the same points and fails with the same message. It is autorun drift: ar_nav_door_hot lists
   every hot sector of the door object, sh.lua maps both ladderup_box and ladderdn_box (the top of the ladder, z 2.95)
   to sh.te_ladder, and ar_w_in_goal_hot is 2-D, so the walk ends in ladderdn_box's floor footprint 0.11 m short of
-  ladderup_box and the climb never starts. The fix belongs in grim_tools/autorun (the height check ar_w_hot_zok in
-  ar_w_in_goal_hot, or no other-level hot sectors in ar_nav_door_hot). Also found: the install's GRIMFANDANGO.exe is
+  ladderup_box and the climb never starts. Fixed in grim_tools abc5620 (ar_w_in_goal_hot checks the height of Manny's
+  real position with ar_w_hot_zok); with it the rebuilt engine (da70a81 binaries) plays ch54 from its checkpoint
+  through ch65: `AUTORUN RESULT PASSED`, no crash on exit. So the whole game passes again (ch01-ch53 in the full run,
+  ch54-ch65 from grim54.gsv). Also found: the install's GRIMFANDANGO.exe is
   gfupd/v101_clean.exe (no grimdlg.dll: no log, no F12), so resume_original.sh runs an original that never logs; t1's
   working recipe (grimlaunch.exe with its own patch.dll, CRLF grimrun.lua) is in docs/notes/t1.md.
 * Seen once: access violation in Render_BuildActorDrawList (`fsubs (%eax)`, eax = g_pCameraSetup) on the first frame
