@@ -2168,15 +2168,15 @@ undefined4 __cdecl Im_MixerInit(undefined4 *param_1)
     } while (local_4 < 0x11);
     iVar2 = iVar2 + 1;
   } while (iVar2 < 0x11);
-  DAT_1002df18 = *param_1;
+  g_dwOutChannelCount = *param_1;
   DAT_1002df24 = param_1[2] << 1;
-  PTR_1002df5c = (int *)(**(code **)(g_dwSounds_pHS + 0x20))
-                                  (param_1[2] << 1,s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8,0x7a);
+  g_pMixBuf = (int *)(**(code **)(g_dwSounds_pHS + 0x20))
+                               (param_1[2] << 1,s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8,0x7a);
   _DAT_1002df28 = param_1[3];
   puVar1 = (undefined2 *)
            (**(code **)(g_dwSounds_pHS + 0x20))
                      (g_dwImWaveMixCount << 0x10,s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8,0x7f);
-  DAT_1002df20 = puVar1;
+  g_dwSoftLTable = puVar1;
   if (puVar1 == (undefined2 *)0x0) {
     return 0xffffffff;
   }
@@ -2202,8 +2202,8 @@ undefined4 __cdecl Im_MixerInit(undefined4 *param_1)
 undefined4 Im_MixerReset(void)
 
 {
-  (**(code **)(g_dwSounds_pHS + 0x24))(DAT_1002df20);
-  (**(code **)(g_dwSounds_pHS + 0x24))(PTR_1002df5c);
+  (**(code **)(g_dwSounds_pHS + 0x24))(g_dwSoftLTable);
+  (**(code **)(g_dwSounds_pHS + 0x24))(g_pMixBuf);
   return 0;
 }
 
@@ -2218,7 +2218,7 @@ undefined4 Im_MixerHeartbeat(void)
   int *piVar3;
   
   uVar2 = DAT_1002df24;
-  piVar3 = PTR_1002df5c;
+  piVar3 = g_pMixBuf;
   for (uVar1 = DAT_1002df24 >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
     *piVar3 = 0;
     piVar3 = piVar3 + 1;
@@ -2241,9 +2241,9 @@ Im_MixSamples(short *param_1,int param_2,int param_3,int param_4,int param_5,uin
   uint uVar1;
   int iVar2;
   
-  if ((((PTR_1002df5c != (int *)0x0) && (param_1 != (short *)0x0)) && (param_2 != 0)) &&
+  if ((((g_pMixBuf != (int *)0x0) && (param_1 != (short *)0x0)) && (param_2 != 0)) &&
      ((param_3 == 0x10 && (0 < param_8)))) {
-    if ((param_4 == 1) && (DAT_1002df18 == 2)) {
+    if ((param_4 == 1) && (g_dwOutChannelCount == 2)) {
       uVar1 = param_8 >> 3;
       if (param_8 != 0) {
         uVar1 = uVar1 + 1;
@@ -2274,10 +2274,13 @@ Im_MixSamples(short *param_1,int param_2,int param_3,int param_4,int param_5,uin
   return;
 }
 
-/* ---- 0x10005610  Im_ReadSoundData ---- */
-/* Reads and decodes the next block of a sound through the file layer */
+/* ---- 0x10005610  MxEndMix ---- */
+/* Reads and decodes the next block of a sound through the file layer Original name MxEndMix (the
+   remaster's GrimFandango (Linux): converts the mix buffer to 16-bit output through the soft
+   limiter table (mixBuf, outChannelCount, softLTable) and feeds the recorder (recordState), as the
+   remaster's MxEndMix); was Im_ReadSoundData. */
 
-undefined4 __cdecl Im_ReadSoundData(int *param_1,int param_2)
+undefined4 __cdecl MxEndMix(int *param_1,int param_2)
 
 {
   int *piVar1;
@@ -2286,20 +2289,20 @@ undefined4 __cdecl Im_ReadSoundData(int *param_1,int param_2)
   int iVar4;
   int *piVar5;
   
-  if (((PTR_1002df5c != (int *)0x0) && (param_1 != (int *)0x0)) && (param_2 != 0)) {
+  if (((g_pMixBuf != (int *)0x0) && (param_1 != (int *)0x0)) && (param_2 != 0)) {
     piVar5 = param_1;
     iVar3 = param_2;
-    piVar1 = PTR_1002df5c;
-    if (DAT_1002df18 == 2) {
+    piVar1 = g_pMixBuf;
+    if (g_dwOutChannelCount == 2) {
       iVar3 = param_2 << 1;
     }
     for (; iVar3 != 0; iVar3 = iVar3 + -1) {
       iVar4 = *piVar1 >> 7;
       if (iVar4 < 0) {
-        sVar2 = -*(short *)(DAT_1002df20 - (iVar4 * 2 + 2));
+        sVar2 = -*(short *)(g_dwSoftLTable - (iVar4 * 2 + 2));
       }
       else {
-        sVar2 = *(short *)(DAT_1002df20 + iVar4 * 2);
+        sVar2 = *(short *)(g_dwSoftLTable + iVar4 * 2);
       }
       *(short *)piVar5 = sVar2;
       piVar5 = (int *)((int)piVar5 + 2);
@@ -2363,7 +2366,7 @@ Im_MixLoopA(short *param_1,int param_2,uint param_3,uint param_4,int param_5,int
   uint uVar4;
   uint uVar5;
   
-  piVar3 = PTR_1002df5c + param_4 * 2;
+  piVar3 = g_pMixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -2436,7 +2439,7 @@ void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,in
   uint uVar5;
   int iVar6;
   
-  piVar4 = PTR_1002df5c + param_4 * 2;
+  piVar4 = g_pMixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -2514,7 +2517,7 @@ Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5
   uint uVar6;
   uint uVar7;
   
-  piVar4 = PTR_1002df5c + param_4 * 2;
+  piVar4 = g_pMixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -2601,7 +2604,7 @@ void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param
   uint uVar8;
   uint uVar9;
   
-  piVar4 = PTR_1002df5c + param_4 * 2;
+  piVar4 = g_pMixBuf + param_4 * 2;
   uVar3 = (uint)(param_2 << 0x10) / param_3;
   if (uVar3 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -4804,7 +4807,7 @@ void Im_HeartbeatBody(void)
           piVar2 = piVar1;
         }
       }
-      Im_ReadSoundData(DAT_10032314,DAT_10032304);
+      MxEndMix(DAT_10032314,DAT_10032304);
       Im_DSoundHeartbeat(&DAT_10032314,&DAT_10032304,(int *)0x0);
     }
   } while (DAT_10032310 != 0);

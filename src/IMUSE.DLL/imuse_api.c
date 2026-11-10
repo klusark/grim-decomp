@@ -1630,7 +1630,7 @@ undefined4 sounds_startup(void)
     DAT_100336a4 = FUN_10007a60;
     DAT_100336b4 = FUN_10007a80;
     DAT_100336ac = FUN_10007bc0;
-    DAT_100336b0 = FUN_10007ca0;
+    DAT_100336b0 = ihost_read;
     ImInitialize();
     SoundsAllocateBuffer(2,_g_dwImMusicBufferSize,_g_dwImMusicGulpSize,_g_dwImMusicCriticalSize);
     SoundsAllocateBuffer(1,_g_dwImVoiceBufferSize,_g_dwImVoiceGulpSize,_g_dwImVoiceCriticalSize);
@@ -1796,11 +1796,14 @@ int FUN_10007bc0(int param_1,int param_2,int param_3)
   return 0;
 }
 
-/* ---- 0x10007ca0  FUN_10007ca0 ---- */
+/* ---- 0x10007ca0  ihost_read ---- */
 /* WARNING: Type propagation algorithm not settling */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name ihost_read (the remaster's GrimFandango (Linux): the iMUSE host read callback:
+   per-sound file handle table, voice sound 10000 with useVoxFx measures the file by seeking to the
+   end, as the remaster's ihost_read); was FUN_10007ca0. */
 
-undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3)
+undefined4 * ihost_read(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -220,13 +220,13 @@ extern undefined4 g_dwRunning50HzCount; /* used by 2 fn(s), first 0x10004aa0 */
 extern uint g_dwRunning10HzCount; /* used by 2 fn(s), first 0x10004aa0 */
 extern undefined4 g_dwIm_initialized; /* used by 2 fn(s), first 0x10004aa0 */
 extern undefined4 g_dwIntFlag; /* used by 2 fn(s), first 0x10004aa0 */
-extern undefined4 DAT_1002df18; /* used by 3 fn(s), first 0x10005360 */
+extern undefined4 g_dwOutChannelCount; /* used by 3 fn(s), first 0x10005360 */
 extern undefined4 g_dwDataSizeInBytes; /* used by 2 fn(s), first 0x10005300 */
-extern undefined4 DAT_1002df20; /* used by 3 fn(s), first 0x10005360 */
+extern undefined4 g_dwSoftLTable; /* used by 3 fn(s), first 0x10005360 */
 extern uint DAT_1002df24; /* used by 2 fn(s), first 0x10005360 */
 extern undefined DAT_1002df28; /* used by 1 fn(s), first 0x10005360 */
 extern undefined DAT_1002df30; /* used by 1 fn(s), first 0x10005610 */
-extern int * PTR_1002df5c; /* used by 9 fn(s), first 0x10005360 */
+extern int * g_pMixBuf; /* used by 9 fn(s), first 0x10005360 */
 extern undefined4 g_dwRecordState; /* used by 3 fn(s), first 0x10005300 */
 extern undefined4 g_dwRecordFile; /* used by 2 fn(s), first 0x10005300 */
 extern undefined DAT_1002df68; /* used by 1 fn(s), first 0x10006360 */

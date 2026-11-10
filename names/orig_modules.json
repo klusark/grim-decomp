@@ -433,6 +433,7 @@
  },
  "IMUSE.DLL": {
   "CacheGetSoundId": "imuse_api",
+  "MxEndMix": "imuse",
   "ScriptCall": "imuse",
   "Script_Callback": "imuse",
   "Script_SetSequence": "imuse",
@@ -441,6 +442,7 @@
   "TgSetTrigger": "imuse",
   "TrPause": "imuse",
   "TrResume": "imuse",
+  "ihost_read": "imuse_api",
   "sounds_shutdown": "imuse_api",
   "sounds_startup": "imuse_api",
   "timer_callback": "imuse"

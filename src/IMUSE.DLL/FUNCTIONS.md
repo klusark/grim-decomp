@@ -1,6 +1,6 @@
 # IMUSE.DLL function index
 
-434 functions, 275 with real names.
+434 functions, 276 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -37,7 +37,7 @@
 | 10005490 | Im_MixerReset | imuse.c | 9 |
 | 100054c0 | Im_MixerHeartbeat | imuse.c | 21 |
 | 100054f0 | Im_MixSamples | imuse.c | 42 |
-| 10005610 | Im_ReadSoundData | imuse.c | 74 |
+| 10005610 | MxEndMix | imuse.c | 77 |
 | 100057a0 | Im_MixLoopA | imuse.c | 71 |
 | 100059a0 | Im_MixLoopB | imuse.c | 72 |
 | 10005b80 | Im_MixLoopC | imuse.c | 1 |
@@ -227,7 +227,7 @@
 | 10007a80 | FUN_10007a80 | imuse_api.c | 1 |
 | 10007a90 | FUN_10007a90 | imuse_api.c | 68 |
 | 10007bc0 | FUN_10007bc0 | imuse_api.c | 33 |
-| 10007ca0 | FUN_10007ca0 | imuse_api.c | 239 |
+| 10007ca0 | ihost_read | imuse_api.c | 242 |
 | 10008140 | sounds_shutdown | imuse_api.c | 41 |
 | 100081f0 | FUN_100081f0 | imuse_api.c | 25 |
 | 10008250 | FUN_10008250 | imuse_api.c | 164 |

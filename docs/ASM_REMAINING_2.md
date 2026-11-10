@@ -175,7 +175,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 10005490 | `Im_MixerReset` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100054c0 | `Im_MixerHeartbeat` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100054f0 | `Im_MixSamples` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10005610 | `Im_ReadSoundData` | imuse.c | not converted yet (no known artifact); see notes below |
+| 10005610 | `MxEndMix` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100057a0 | `Im_MixLoopA` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100059a0 | `Im_MixLoopB` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10005b80 | `Im_MixLoopC` | imuse.c | not converted yet (no known artifact); see notes below |
@@ -231,7 +231,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 10007a70 | `FUN_10007a70` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10007a80 | `FUN_10007a80` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10007bc0 | `FUN_10007bc0` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 10007ca0 | `FUN_10007ca0` | imuse_api.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
+| 10007ca0 | `ihost_read` | imuse_api.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 10008140 | `sounds_shutdown` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 100081f0 | `FUN_100081f0` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10008250 | `FUN_10008250` | imuse_api.c | not converted yet (no known artifact); see notes below |
