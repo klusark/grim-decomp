@@ -1,0 +1,317 @@
+[
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100010d0",
+  "name": "Cos_NewEntry",
+  "comment": "Resets a costume record (Costume, 0x3c bytes) to an empty costume: name '<unnamed>', id (+0x24) = the next serial number (g_nNextCostumeID), no components (+0x28/+0x2c) and no chores (+0x30/+0x34). Original name (libchore.so of the remaster: Cos_NewEntry, with the static Cos_NewEntry.nextID).",
+  "tags": "chore,costume"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10001ed0",
+  "name": "Cos_NewTagEntry",
+  "comment": "Common part of Cos_NewStateBasedTag / Cos_NewIntTag / Cos_NewFloatTag: refuses a tag id that is already registered or a name longer than 31 characters, takes the next component tag record (Cos_AllocTagSlot, ComponentTag 0x5c bytes in g_aComponentTags), stores id (+0), name (+8) and the caller's user data (+0x28) and returns the record through the first argument. Returns 1, 0 when refused. (Inlined in the remaster's libchore.so.)",
+  "tags": "chore,tag"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003c20",
+  "name": "Cos_CollectUsedTags",
+  "comment": "Fills g_aTagLookups with the distinct component tag indices the costume's components use, in order of first use, and returns their number. CosUtil_Write uses it for the 'section tags' of the text costume and to map a component's tag index to its line in that section.",
+  "tags": "chore,costume,cosfile"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003c90",
+  "name": "Cos_AddKey",
+  "comment": "Adds a key at `time` to the track of component `comp` in chore `choreNum` (assert 'pCostume != NULL'): the track (ChoreTrack, 16 bytes) is appended when the chore has none for that component; a key with that time is reused (bsearch with Cos_CompareKeys), otherwise one is appended; the track's last key time (+4) and the chore length (+0x28, at least 1) grow to cover it; the keys are sorted again (msvc_qsort). Returns the key (ChoreKey: time, value), or 0 when the chore has two tracks for the same component. The caller (CosUtil_AddFSKey / AddIntKey / AddFloatKey) stores the value. Original static name AddKey (libchore.so).",
+  "tags": "chore,keys"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003e50",
+  "name": "Cos_CompareKeys",
+  "comment": "qsort / bsearch comparator of two ChoreKey records by time (+0, unsigned): -1 / 0 / 1. Original static name CompareKeys (libchore.so).",
+  "tags": "chore,keys"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10003e70",
+  "name": "Cos_InitComponentStates",
+  "comment": "For a component of a state-based tag (kind 0) copies the state description the EXE passed to Cos_RegisterComponent ({count, values, names, bitmaps, bitmap args}) into the component: +0x30 number of states, +0x34 state values (ints), +0x38 state names (copied strings), +0x3c apStateBitmaps (0x14-byte records: the 16 bytes of the description plus the result of the bitmap munger, CosUtil_RegisterBitmapMunger, at +0x10). Int and float tags have no states. Returns the number of states copied (0 for none).",
+  "tags": "chore,component"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004090",
+  "name": "Cos_InitComponent",
+  "comment": "Fills a new component record (CosComponent, 0x40 bytes): name (+0, at most 31 characters, else nothing is written), tag index (+0x20), the EXE's component data (+0x24), parent component index (+0x2c, -1 for a root) and the hash (+0x28): the number of earlier components with the same tag and name, so that equal names stay distinct. State fields +0x30..+0x3c are cleared.",
+  "tags": "chore,component"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004140",
+  "name": "Cos_InitChore",
+  "comment": "Resets a chore record (Chore, 0x2c bytes): name '<unnamed>', length (+0x28) 15 ms, no tracks (+0x20 count, +0x24 array).",
+  "tags": "chore"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004170",
+  "name": "Cos_FindComponent",
+  "comment": "Index of the component of the costume with tag id `tagId`, hash `hash` and name `name` (_stricmp), or -1.",
+  "tags": "chore,component"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100041e0",
+  "name": "Cos_ReadTagsSection",
+  "comment": "Text costume loader, 'section tags': \" numtags %d\" and one line \" %d '%4c' %s %[^\\n\\r]\" per tag (index, four-character tag id, type fs / int / float = kind 0 / 1 / 2, name); Cos_FindTag gives the registered tag, stored at g_aTagLookups[index]. Hand-written in build/overrides_asm_o2_chore.c.",
+  "tags": "chore,cosfile"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004320",
+  "name": "Cos_FindTag",
+  "comment": "Index into g_aComponentTags of the registered tag with id `tagId`, kind `kind` and name `name` (_stricmp), or -1.",
+  "tags": "chore,tag"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004390",
+  "name": "Cos_ReadComponentsSection",
+  "comment": "Text costume loader, 'section components': \" numcomponents %d\" and one line \" %d %d %d %d %[^\\n\\r]\" per component (index, tag index, hash, parent index, name). The components are created level by level of the parent tree through CosUtil_AddComponent (the tag's Create handler, which calls Cos_RegisterComponent back); g_aComponentLookups maps the file's component index to the costume's. Hand-written in build/overrides_asm_o2_chore.c.",
+  "tags": "chore,cosfile"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004770",
+  "name": "Cos_FindComponentWithParent",
+  "comment": "Like Cos_FindComponent, also matching the parent component index (+0x2c): index or -1. Used by the loader to find a component that an earlier costume already registered.",
+  "tags": "chore,component"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100047f0",
+  "name": "Cos_ReadChoresSection",
+  "comment": "Text costume loader, 'section chores': \" numchores %d\", the chore array (Cos_InitChore each) and one line \" %d %d %d %[^\\n\\r]\" per chore (index, length +0x28, track count +0x20, name); allocates the tracks (assert 'pChore->aChoreTracks != NULL'). Hand-written in build/overrides_asm_o2_chore.c.",
+  "tags": "chore,cosfile"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004970",
+  "name": "Cos_ReadKeysSection",
+  "comment": "Text costume loader, 'section keys': per chore \" chore %d\", per track \" %d %d\" (file component index, translated through g_aComponentLookups, and key count) and per key \" %d %d\" or, for float tags, \" %d %f\" (time, value); assert 'pCTrack->aKeys != NULL'. Hand-written in build/overrides_asm_o2_chore.c.",
+  "tags": "chore,cosfile"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004bb0",
+  "name": "Cos_ReadLine",
+  "comment": "Reads the next meaningful line of a text costume into the buffer (g_szParseLine, 0x400 bytes) with the host's fgets (GrimServices +0x3c): lines starting with ';', '#' or a newline are skipped, a '#' ends the line (comment), g_nLineNum counts the lines read. Returns 1, 0 at the end of the file.",
+  "tags": "chore,cosfile"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004c40",
+  "name": "Cos_InitChoreInstances",
+  "comment": "Initialises the chore states of a new costume instance: ChoreInstance i (12 bytes) = {flags 0, chore i, time 0}. The first argument (the costume's chore array) is not used.",
+  "tags": "chore,instance"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004c70",
+  "name": "Cos_FreeCostume",
+  "comment": "Frees everything a costume owns: each component (Cos_FreeComponent: the tag's Destroy handler and the state arrays), the component array, every chore's track keys and tracks, the chore array; then marks the costume slot free (+0x38 = 1) without changing g_nCostumes (see build/overrides_s1_chore.c). Original static name FreeCostume (libchore.so).",
+  "tags": "chore,costume"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004d70",
+  "name": "Cos_FreeComponent",
+  "comment": "Frees one component: calls the tag's Destroy handler (ComponentTag +0x34, slot 2: (costume handle, tag id, component data +0x24)) and frees the state values, names and bitmaps (+0x34 / +0x38 / +0x3c).",
+  "tags": "chore,component"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004e50",
+  "name": "Cos_AllocCostumeSlot",
+  "comment": "Index of a free costume slot (Costume +0x38 != 0), marked in use; the table g_aCostumes grows by 8 records when none is free. Hand-written in build/overrides_s1_chore.c (the original's growth leaves records undefined after a failed load).",
+  "tags": "chore,costume"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004f30",
+  "name": "Cos_AllocTagSlot",
+  "comment": "Index of the next component tag record (g_dwNumComponentTags++), assert 'numComponentTags + 1 <= maxComponentTags' (32).",
+  "tags": "chore,tag"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10004f70",
+  "name": "Cos_FreeInstanceData",
+  "comment": "Releases a costume instance record (CosInstance, 0x14 bytes) that is in use: calls each component tag's NewInstance handler (ComponentTag +0x40, slot 5) with create = 0, frees the chore states and the instance data array and marks the record free (costume -1, +0x10 = 1).",
+  "tags": "chore,instance"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005090",
+  "name": "Cos_AllocInstanceSlot",
+  "comment": "Index of a free costume instance record (CosInstance +0x10 != 0), marked in use; g_aCostumeInstances grows by 8 records when none is free. Hand-written in build/overrides_s1_chore.c.",
+  "tags": "chore,instance"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005160",
+  "name": "Cos_HandleToIndex",
+  "comment": "Costume handle (1-based, as the EXE sees it) -> index into g_aCostumes, -1 for 0 or a handle above g_nMaxCostumes.",
+  "tags": "chore,costume"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005180",
+  "name": "Cos_IndexToHandle",
+  "comment": "Index into g_aCostumes -> costume handle (index + 1), 0 when out of range.",
+  "tags": "chore,costume"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100051a0",
+  "name": "Cos_InstHandleToIndex",
+  "comment": "Costume instance handle (1-based) -> index into g_aCostumeInstances, -1 for 0 or a handle above g_nMaxInstances.",
+  "tags": "chore,instance"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100051c0",
+  "name": "Cos_InstIndexToHandle",
+  "comment": "Index into g_aCostumeInstances -> instance handle (index + 1), 0 when out of range.",
+  "tags": "chore,instance"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100051e0",
+  "name": "Cos_Terminate",
+  "comment": "Module interface slot 1 (the table Cos_Initialize fills): forgets the host service table and clears g_nCosInitialize. Original name (libchore.so).",
+  "tags": "chore,module"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005200",
+  "name": "Cos_Startup",
+  "comment": "Module interface slot 2: allocates the tables (once, g_nCosStartup): 32 costume slots (g_aCostumes, 0x3c bytes each, all free), 32 component tag records (g_aComponentTags, 0x5c bytes) and 32 costume instance records (g_aCostumeInstances, 0x14 bytes, all free). Returns 0, 1 when already started. Original name (libchore.so).",
+  "tags": "chore,module"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005350",
+  "name": "Cos_Shutdown",
+  "comment": "Module interface slot 3: frees the costume, tag, instance and component lookup tables and clears the counts and g_nCosStartup. The costumes' own memory is not freed. Original name (libchore.so).",
+  "tags": "chore,module"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005530",
+  "name": "Chore_ApplyKey",
+  "comment": "Calls the OnKey handler (ComponentTag +0x2c, slot 0) of the component's tag for one key that Chore_AdvanceTime passed: (tag id, instance data, reason, key value, ms since the key, key value, 0, user parameter). Chore_AdvanceTime passes reason 2 and the same key twice. An unknown tag kind only asserts.",
+  "tags": "chore,keys"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100055a0",
+  "name": "msvc_strncpy",
+  "comment": "MSVC 6 C runtime strncpy, CHORE.DLL's private copy; not compiled: build/link.py binds it to the system strncpy (names/lib_replace.json host + aliases). The msvc_ prefix marks CHORE.DLL's private runtime copies (a plain strncpy would bind the callers to the host's own definition, mingw's for sscanf, and the rebuilt chore.dll would export it).",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100056a0",
+  "name": "msvc_strrchr",
+  "comment": "MSVC 6 C runtime strrchr, CHORE.DLL's private copy; not compiled: build/link.py binds it to the system strrchr (names/lib_replace.json host + aliases). The msvc_ prefix marks CHORE.DLL's private runtime copies (a plain strrchr would bind the callers to the host's own definition, mingw's for sscanf, and the rebuilt chore.dll would export it).",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100056d0",
+  "name": "msvc_fpmath",
+  "comment": "MSVC 6 C runtime _fpmath (fpinit.c), CHORE.DLL's private copy: msvc_cfltcvt_init, _adjust_fdiv = _ms_p5_mp_test_fdiv(), _setdefaultprecision. Reached only from the original start-up code.",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100056f0",
+  "name": "msvc_fpclear",
+  "comment": "MSVC 6 C runtime _fpclear (fpinit.c), private copy: empty on x86. Not referenced.",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005700",
+  "name": "msvc_cfltcvt_init",
+  "comment": "MSVC 6 C runtime _cfltcvt_init (fpinit.c), private copy: fills the floating-point conversion table (_cfltcvt, _cropzeros, _fassign, _forcdecpt, _positive) that printf / scanf use.",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005740",
+  "name": "msvc_stricmp",
+  "comment": "MSVC 6 C runtime _stricmp, CHORE.DLL's private copy (returns -1 / 0 / 1). The msvc_ prefix keeps it out of crt.c (a named C runtime function there is served by the host runtime and not linked) and keeps the rebuilt chore.dll, which exports every symbol, from exporting an _stricmp the EXE would bind to. Hand-written in build/overrides.c (the host _stricmp, sign only).",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005810",
+  "name": "msvc_sscanf",
+  "comment": "MSVC 6 C runtime sscanf, CHORE.DLL's private copy; not compiled: build/link.py binds it to the system sscanf (names/lib_replace.json host + aliases). The msvc_ prefix marks CHORE.DLL's private runtime copies (a plain sscanf would bind the callers to the host's own definition, mingw's for sscanf, and the rebuilt chore.dll would export it).",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005860",
+  "name": "msvc_memmove",
+  "comment": "MSVC 6 C runtime memmove, CHORE.DLL's private copy; not compiled: build/link.py binds it to the system memmove (names/lib_replace.json host + aliases). The msvc_ prefix marks CHORE.DLL's private runtime copies (a plain memmove would bind the callers to the host's own definition, mingw's for sscanf, and the rebuilt chore.dll would export it).",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005ba0",
+  "name": "msvc_qsort",
+  "comment": "MSVC 6 C runtime qsort, CHORE.DLL's private copy, still compiled (Cos_AddKey sorts the keys of a track with it). The msvc_ prefix keeps it out of crt.c (named C runtime functions there are served by the host runtime and not linked) and keeps the rebuilt chore.dll, which exports every symbol, from exporting a qsort that the EXE would bind to.",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005d50",
+  "name": "msvc_shortsort",
+  "comment": "MSVC 6 C runtime (qsort.c, static shortsort): selection sort of a short range for msvc_qsort",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005db0",
+  "name": "msvc_qsort_swap",
+  "comment": "MSVC 6 C runtime (qsort.c, static swap): exchanges two elements byte by byte for msvc_qsort",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005de0",
+  "name": "msvc_bsearch",
+  "comment": "MSVC 6 C runtime bsearch, CHORE.DLL's private copy; not compiled: build/link.py binds it to the system bsearch (names/lib_replace.json host + aliases). The msvc_ prefix marks CHORE.DLL's private runtime copies (a plain bsearch would bind the callers to the host's own definition, mingw's for sscanf, and the rebuilt chore.dll would export it).",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10005e90",
+  "name": "msvc_strchr",
+  "comment": "MSVC 6 C runtime strchr, CHORE.DLL's private copy; not compiled: build/link.py binds it to the system strchr (names/lib_replace.json host + aliases). The msvc_ prefix marks CHORE.DLL's private runtime copies (a plain strchr would bind the callers to the host's own definition, mingw's for sscanf, and the rebuilt chore.dll would export it).",
+  "tags": "crt"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10008520",
+  "name": "msvc_CPtoLCID",
+  "comment": "MSVC 6 C runtime CPtoLCID (mbctype.c, static), private copy: code page -> locale id for the four multibyte code pages (932, 936, 949, 950). Reached only from _setmbcp, which no live code calls.",
+  "tags": "crt"
+ }
+]

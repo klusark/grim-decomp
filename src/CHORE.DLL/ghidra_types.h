@@ -203,3 +203,14 @@ static inline void *img_addr_(unsigned a) {
     if (a >= 0x10010000u && a <= 0x10015afcu) return sect_data + (a - 0x10010000u);
     return (void *)(uintptr_t)a;
 }
+
+/* Ghidra structure types used in prototypes/globals; layouts are not exported,
+ * so they are incomplete here unless a compat header defines them. */
+typedef struct Chore Chore;
+typedef struct ChoreInstance ChoreInstance;
+typedef struct ChoreKey ChoreKey;
+typedef struct ComponentTag ComponentTag;
+typedef struct CosComponent CosComponent;
+typedef struct CosInstance CosInstance;
+typedef struct Costume Costume;
+typedef struct GrimServices GrimServices;

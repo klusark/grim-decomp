@@ -6,822 +6,879 @@
 #include "functions.h"
 
 /* ---- 0x10001110  CosUtil_Write ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+/* Export (costume editor): writes `pCostume` as a text costume file: the save hook
+   (Cos_RegisterSaveHook) may refuse; then the file is created ('wt+'), the costume renamed after
+   the file name, and '# comment', 'costume v0.1', 'section tags' (Cos_CollectUsedTags), 'section
+   components', 'section chores' and 'section keys' written with the host's fprintf (GrimServices
+   +0x54). A chore with two tracks for one component, a refused save or a file that cannot be
+   created return 0; a file name over 32 characters closes the file and returns 0. The result after
+   a complete write is a stack slot that only the error paths set (Ghidra: uStack_18). */
 
-undefined4 CosUtil_Write(char *param_1,int param_2,undefined4 param_3)
+int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  char cVar1;
-  int *piVar2;
+  uint *puVar1;
+  char cVar2;
   uint uVar3;
-  undefined4 uVar4;
-  undefined *puVar5;
+  int iVar4;
+  ComponentTag *pCVar5;
   uint uVar6;
-  int iVar7;
-  int iVar8;
+  uint uVar7;
+  undefined4 uVar8;
   int iVar9;
   int iVar10;
   uint *puVar11;
-  int *piVar12;
+  ChoreTrack *pCVar12;
   char *pcVar13;
-  undefined4 *puVar14;
+  CosComponent *pCVar14;
+  Chore *pCVar15;
+  ChoreKey *pCVar16;
   #define uStack_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define uStack_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define uStack_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define uStack_18 (*(undefined4 *)(_frame + (0x40 - 0x18)))
+  #define iStack_18 (*(int *)(_frame + (0x40 - 0x18)))
   #define iStack_c (*(int *)(_frame + (0x40 - 0xc)))
   #define uStack_8 (*(undefined1 *)(_frame + (0x40 - 0x8)))
   
                     /* 0x1110  24  CosUtil_Write */
-  if (param_2 == 0) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x100101f8),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x14c);
+  if (pCostume == (Costume *)0x0) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x100101f8),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x14c)
+    ;
   }
   uStack_24 = 0;
-  if (*(int *)(param_2 + 0x30) != 0) {
-    puVar11 = (uint *)(*(int *)(param_2 + 0x34) + 0x20);
+  if (pCostume->dwNumChores != 0) {
+    puVar11 = &pCostume->pChores->dwNumTracks;
     do {
-      uVar3 = *puVar11;
+      uVar6 = *puVar11;
       uStack_20 = 0;
-      if (uVar3 != 0) {
+      if (uVar6 != 0) {
         iVar10 = 0;
         do {
-          uVar6 = 0;
-          if (uVar3 != 0) {
-            iVar8 = 0;
+          uVar7 = 0;
+          if (uVar6 != 0) {
+            iVar9 = 0;
             do {
-              if ((uStack_20 != uVar6) &&
-                 (*(int *)(puVar11[1] + iVar10) == *(int *)(puVar11[1] + iVar8))) {
+              if ((uStack_20 != uVar7) &&
+                 (*(int *)((int)&((ChoreTrack *)puVar11[1])->nCompNum + iVar10) ==
+                  *(int *)((int)&((ChoreTrack *)puVar11[1])->nCompNum + iVar9))) {
                 return 0;
               }
-              uVar6 = uVar6 + 1;
-              iVar8 = iVar8 + 0x10;
-            } while (uVar6 < uVar3);
+              uVar7 = uVar7 + 1;
+              iVar9 = iVar9 + 0x10;
+            } while (uVar7 < uVar6);
           }
           uStack_20 = uStack_20 + 1;
           iVar10 = iVar10 + 0x10;
-        } while (uStack_20 < uVar3);
+        } while (uStack_20 < uVar6);
       }
       uStack_24 = uStack_24 + 1;
       puVar11 = puVar11 + 0xb;
-    } while (uStack_24 < *(uint *)(param_2 + 0x30));
+    } while (uStack_24 < pCostume->dwNumChores);
   }
-  uVar3 = FUN_10003c20(param_2);
-  if (_DAT_100143e4 != (code *)0x0) {
-    uVar4 = ((code *)FUN_10005180)((param_2 - DAT_100143b4) / 0x3c,param_3);
-    iVar10 = (*_DAT_100143e4)(param_1,uVar4);
+  uVar6 = Cos_CollectUsedTags(pCostume);
+  if (g_pfnSaveHook != (void *)0x0) {
+    iVar10 = Cos_IndexToHandle(((int)pCostume - (int)g_aCostumes) / 0x3c);
+    iVar10 = (*(code *)g_pfnSaveHook)(fileName,iVar10);
     if (iVar10 == 0) {
       return 0;
     }
   }
-  iVar10 = (**(code **)(DAT_100143a8 + 0x30))(param_1,IMG_ADDR(0x100101f4));
+  iVar10 = (*(code *)g_pSvcChore->pFopen)(fileName,IMG_ADDR(0x100101f4));
   if (iVar10 == 0) {
     return 0;
   }
-  iVar8 = FUN_100056a0(param_1,0x5c);
-  if (iVar8 == 0) {
-    uVar6 = 0xffffffff;
-    pcVar13 = param_1;
+  iVar9 = msvc_strrchr(fileName,0x5c);
+  if (iVar9 == 0) {
+    uVar7 = 0xffffffff;
+    pcVar13 = fileName;
     do {
-      if (uVar6 == 0) break;
-      uVar6 = uVar6 - 1;
-      cVar1 = *pcVar13;
+      if (uVar7 == 0) break;
+      uVar7 = uVar7 - 1;
+      cVar2 = *pcVar13;
       pcVar13 = pcVar13 + 1;
-    } while (cVar1 != '\0');
-    if (0x20 < ~uVar6 - 1) {
-      uStack_18 = 0;
+    } while (cVar2 != '\0');
+    if (0x20 < ~uVar7 - 1) {
+      iStack_18 = 0;
       goto LAB_1000167e;
     }
-    FUN_100055a0(param_2,param_1,0x1f);
-    *(undefined1 *)(param_2 + 0x1f) = 0;
+    msvc_strncpy(pCostume,fileName,0x1f);
+    pCostume->aName[0x1f] = '\0';
   }
   else {
-    uVar6 = 0xffffffff;
-    pcVar13 = (char *)(iVar8 + 1);
+    uVar7 = 0xffffffff;
+    pcVar13 = (char *)(iVar9 + 1);
     do {
-      if (uVar6 == 0) break;
-      uVar6 = uVar6 - 1;
-      cVar1 = *pcVar13;
+      if (uVar7 == 0) break;
+      uVar7 = uVar7 - 1;
+      cVar2 = *pcVar13;
       pcVar13 = pcVar13 + 1;
-    } while (cVar1 != '\0');
-    if (0x20 < ~uVar6 - 1) {
-      uStack_18 = 0;
+    } while (cVar2 != '\0');
+    if (0x20 < ~uVar7 - 1) {
+      iStack_18 = 0;
       goto LAB_1000167e;
     }
-    FUN_100055a0(param_2,(char *)(iVar8 + 1),0x1f);
-    *(undefined1 *)(param_2 + 0x1f) = 0;
+    msvc_strncpy(pCostume,(char *)(iVar9 + 1),0x1f);
+    pCostume->aName[0x1f] = '\0';
   }
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x100101ec),param_3);
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x100101d8),0,1);
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x100101c8));
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x100101b8),uVar3);
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x100101a0));
-  uVar6 = 0;
-  if (uVar3 != 0) {
-    piVar12 = (int *)&DAT_10014210;
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100101ec),comment);
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100101d8),0,1);
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100101c8));
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100101b8),uVar6);
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100101a0));
+  uVar7 = 0;
+  if (uVar6 != 0) {
+    puVar11 = g_aTagLookups;
     do {
-      iVar8 = *piVar12;
-      iStack_c = PTR_100143c0[iVar8 * 0x17];
+      uVar3 = *puVar11;
+      iStack_c = g_aComponentTags[uVar3].nId;
       uStack_8 = 0;
-      if (PTR_100143c0[iVar8 * 0x17 + 1] == 0) {
-        uVar4 = IMG_ADDR(0x1001019c);
+      if (g_aComponentTags[uVar3].nKind == 0) {
+        uVar8 = IMG_ADDR(0x1001019c);
       }
       else {
-        uVar4 = IMG_ADDR(0x10010198);
-        if (PTR_100143c0[iVar8 * 0x17 + 1] != 1) {
-          uVar4 = IMG_ADDR(0x10010190);
+        uVar8 = IMG_ADDR(0x10010198);
+        if (g_aComponentTags[uVar3].nKind != 1) {
+          uVar8 = IMG_ADDR(0x10010190);
         }
       }
-      (**(code **)(DAT_100143a8 + 0x54))
-                (iVar10,IMG_ADDR(0x1001017c),uVar6,&iStack_c,uVar4,PTR_100143c0 + iVar8 * 0x17 + 2);
-      uVar6 = uVar6 + 1;
-      piVar12 = piVar12 + 1;
-    } while (uVar6 < uVar3);
+      (*(code *)g_pSvcChore->pFprintf)
+                (iVar10,IMG_ADDR(0x1001017c),uVar7,&iStack_c,uVar8,g_aComponentTags[uVar3].aName);
+      uVar7 = uVar7 + 1;
+      puVar11 = puVar11 + 1;
+    } while (uVar7 < uVar6);
   }
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x10010164));
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x10010150),*(undefined4 *)(param_2 + 0x28));
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x10010130));
-  iVar8 = *(int *)(param_2 + 0x2c);
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010164));
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010150),pCostume->dwNumComponents);
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010130));
+  pCVar14 = pCostume->pComponents;
   uStack_24 = 0;
-  if (*(int *)(param_2 + 0x28) != 0) {
+  if (pCostume->dwNumComponents != 0) {
     do {
-      uVar6 = 0;
-      if (_DAT_10014210 != *(int *)(iVar8 + 0x20)) {
-        puVar5 = &DAT_10014210;
+      uVar7 = 0;
+      if (g_aTagLookups[0] != pCVar14->nTag) {
+        puVar11 = g_aTagLookups;
         do {
-          if (uVar3 <= uVar6) break;
-          piVar12 = (int *)(puVar5 + 4);
-          puVar5 = puVar5 + 4;
-          uVar6 = uVar6 + 1;
-        } while (*piVar12 != *(int *)(iVar8 + 0x20));
+          if (uVar6 <= uVar7) break;
+          puVar1 = puVar11 + 1;
+          puVar11 = puVar11 + 1;
+          uVar7 = uVar7 + 1;
+        } while (*puVar1 != pCVar14->nTag);
       }
-      if (uVar6 == uVar3) {
-        (**(code **)(DAT_100143a8 + 0x18))
+      if (uVar7 == uVar6) {
+        (*(code *)g_pSvcChore->pAssertFail)
                   (IMG_ADDR(0x10010120),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x1a9);
       }
-      (**(code **)(DAT_100143a8 + 0x54))
-                (iVar10,IMG_ADDR(0x10010108),uStack_24,uVar6,*(undefined4 *)(iVar8 + 0x28));
+      (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010108),uStack_24,uVar7,pCVar14->nHash);
       uStack_24 = uStack_24 + 1;
-      iVar8 = iVar8 + 0x40;
-    } while (uStack_24 < *(uint *)(param_2 + 0x28));
+      pCVar14 = pCVar14 + 1;
+    } while (uStack_24 < pCostume->dwNumComponents);
   }
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x100100f4));
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x100100e4),*(undefined4 *)(param_2 + 0x30));
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x100100c8));
-  uVar3 = 0;
-  iVar8 = *(int *)(param_2 + 0x34);
-  if (*(int *)(param_2 + 0x30) != 0) {
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100100f4));
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100100e4),pCostume->dwNumChores);
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100100c8));
+  uVar6 = 0;
+  pCVar15 = pCostume->pChores;
+  if (pCostume->dwNumChores != 0) {
     do {
-      iVar7 = *(int *)(iVar8 + 0x20);
+      uVar7 = pCVar15->dwNumTracks;
       iVar9 = 0;
-      if (iVar7 != 0) {
-        piVar12 = (int *)(*(int *)(iVar8 + 0x24) + 8);
+      if (uVar7 != 0) {
+        puVar11 = &pCVar15->pChoreTracks->dwNumKeys;
         do {
-          if (*piVar12 != 0) {
+          if (*puVar11 != 0) {
             iVar9 = iVar9 + 1;
           }
-          piVar12 = piVar12 + 4;
-          iVar7 = iVar7 + -1;
-        } while (iVar7 != 0);
+          puVar11 = puVar11 + 4;
+          uVar7 = uVar7 - 1;
+        } while (uVar7 != 0);
       }
-      (**(code **)(DAT_100143a8 + 0x54))
-                (iVar10,IMG_ADDR(0x100100b4),uVar3,*(undefined4 *)(iVar8 + 0x28),iVar9,iVar8);
-      uVar3 = uVar3 + 1;
-      iVar8 = iVar8 + 0x2c;
-    } while (uVar3 < *(uint *)(param_2 + 0x30));
+      (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100100b4),uVar6,pCVar15->dwLength,iVar9,pCVar15);
+      uVar6 = uVar6 + 1;
+      pCVar15 = pCVar15 + 1;
+    } while (uVar6 < pCostume->dwNumChores);
   }
-  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x100100a4));
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100100a4));
   uStack_20 = 0;
-  iVar8 = *(int *)(param_2 + 0x34);
-  if (*(int *)(param_2 + 0x30) != 0) {
+  pCVar15 = pCostume->pChores;
+  if (pCostume->dwNumChores != 0) {
     do {
-      (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x10010094),uStack_20,iVar8);
-      piVar12 = *(int **)(iVar8 + 0x24);
+      (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010094),uStack_20,pCVar15);
+      pCVar12 = pCVar15->pChoreTracks;
       uStack_1c = 0;
-      if (*(int *)(iVar8 + 0x20) != 0) {
+      if (pCVar15->dwNumTracks != 0) {
         do {
-          if (piVar12[2] != 0) {
-            (**(code **)(DAT_100143a8 + 0x54))(iVar10);
-            (**(code **)(DAT_100143a8 + 0x54))(iVar10);
-            (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x10010060),*piVar12,piVar12[2]);
-            piVar2 = PTR_100143c0;
-            puVar14 = (undefined4 *)piVar12[3];
-            iVar7 = *(int *)(*piVar12 * 0x40 + 0x20 + *(int *)(param_2 + 0x2c));
+          if (pCVar12->dwNumKeys != 0) {
+            (*(code *)g_pSvcChore->pFprintf)(iVar10);
+            (*(code *)g_pSvcChore->pFprintf)(iVar10);
+            (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010060),pCVar12->nCompNum,pCVar12->dwNumKeys)
+            ;
+            pCVar5 = g_aComponentTags;
+            pCVar16 = pCVar12->pKeys;
+            iVar9 = pCostume->pComponents[pCVar12->nCompNum].nTag;
             uStack_24 = 0;
-            if (piVar12[2] != 0) {
+            if (pCVar12->dwNumKeys != 0) {
               do {
-                iVar9 = piVar2[iVar7 * 0x17 + 1];
-                if ((iVar9 == 0) || (iVar9 == 1)) {
-                  (**(code **)(DAT_100143a8 + 0x54))(iVar10,IMG_ADDR(0x10010054),*puVar14);
+                iVar4 = pCVar5[iVar9].nKind;
+                if ((iVar4 == 0) || (iVar4 == 1)) {
+                  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010054),pCVar16->dwTime);
                 }
-                else if (iVar9 == 2) {
-                  (**(code **)(DAT_100143a8 + 0x54))
-                            (iVar10,IMG_ADDR(0x10010048),*puVar14,(double)PUN(float,puVar14[1]));
+                else if (iVar4 == 2) {
+                  (*(code *)g_pSvcChore->pFprintf)
+                            (iVar10,IMG_ADDR(0x10010048),pCVar16->dwTime,(double)(float)pCVar16->nValue);
                 }
                 else {
-                  (**(code **)(DAT_100143a8 + 0x18))
+                  (*(code *)g_pSvcChore->pAssertFail)
                             (IMG_ADDR(0x10010040),s_C__grimsrc_libs_chore_Costume_c_1001020c);
                 }
                 uStack_24 = uStack_24 + 1;
-                puVar14 = puVar14 + 2;
-              } while (uStack_24 < (uint)piVar12[2]);
+                pCVar16 = pCVar16 + 1;
+              } while (uStack_24 < pCVar12->dwNumKeys);
             }
-            (**(code **)(DAT_100143a8 + 0x54))();
+            (*(code *)g_pSvcChore->pFprintf)();
           }
           uStack_1c = uStack_1c + 1;
-          piVar12 = piVar12 + 4;
-        } while (uStack_1c < *(uint *)(iVar8 + 0x20));
+          pCVar12 = pCVar12 + 1;
+        } while (uStack_1c < pCVar15->dwNumTracks);
       }
       uStack_20 = uStack_20 + 1;
-      iVar8 = iVar8 + 0x2c;
-    } while (uStack_20 < *(uint *)(param_2 + 0x30));
+      pCVar15 = pCVar15 + 1;
+    } while (uStack_20 < pCostume->dwNumChores);
   }
 LAB_1000167e:
-  (**(code **)(DAT_100143a8 + 0x34))();
-  return uStack_18;
+  (*(code *)g_pSvcChore->pFclose)();
+  return iStack_18;
 }
+#undef iStack_18
 #undef iStack_c
-#undef uStack_18
 #undef uStack_1c
 #undef uStack_20
 #undef uStack_24
 #undef uStack_8
 
+#endif
+
 
 /* ---- 0x10002020  CosUtil_CompPtrFromHandle ---- */
-int CosUtil_CompPtrFromHandle(int param_1,uint param_2)
+/* Export: component `compNum` of the costume, 0 when out of range. */
+
+CosComponent * __cdecl CosUtil_CompPtrFromHandle(Costume *pCostume,uint compNum)
 
 {
                     /* 0x2020  8  CosUtil_CompPtrFromHandle */
-  if (*(uint *)(param_1 + 0x28) <= param_2) {
-    return 0;
+  if (pCostume->dwNumComponents <= compNum) {
+    return (CosComponent *)0x0;
   }
-  return *(int *)(param_1 + 0x2c) + param_2 * 0x40;
+  return pCostume->pComponents + compNum;
 }
 
 /* ---- 0x10002040  CosUtil_PtrFromHandle ---- */
-int CosUtil_PtrFromHandle(undefined4 param_1)
+/* Export: the costume record of a costume handle (no range check beyond Cos_HandleToIndex). */
+
+Costume * __cdecl CosUtil_PtrFromHandle(int hCostume)
 
 {
   int iVar1;
   
                     /* 0x2040  18  CosUtil_PtrFromHandle */
-  iVar1 = FUN_10005160(param_1);
-  return DAT_100143b4 + iVar1 * 0x3c;
+  iVar1 = Cos_HandleToIndex(hCostume);
+  return g_aCostumes + iVar1;
 }
 
 /* ---- 0x10002060  CosUtil_RegisterCompNotifier ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Export: installs the component notifier (g_pfnCompNotifier: (costume, component, index, added))
+   and returns the previous one. */
 
-undefined4 CosUtil_RegisterCompNotifier(undefined4 param_1)
+void * __cdecl CosUtil_RegisterCompNotifier(void *notifier)
 
 {
-  undefined4 uVar1;
+  void *pvVar1;
   
                     /* 0x2060  21  CosUtil_RegisterCompNotifier */
-  uVar1 = _DAT_100143d8;
-  _DAT_100143d8 = param_1;
-  return uVar1;
+  pvVar1 = g_pfnCompNotifier;
+  g_pfnCompNotifier = notifier;
+  return pvVar1;
 }
 
 /* ---- 0x10002070  CosUtil_RegisterBitmapMunger ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Export: installs the state bitmap munger (g_pfnBitmapMunger) and returns the previous one. */
 
-undefined4 CosUtil_RegisterBitmapMunger(undefined4 param_1)
+void * __cdecl CosUtil_RegisterBitmapMunger(void *munger)
 
 {
-  undefined4 uVar1;
+  void *pvVar1;
   
                     /* 0x2070  20  CosUtil_RegisterBitmapMunger */
-  uVar1 = _DAT_100143dc;
-  _DAT_100143dc = param_1;
-  return uVar1;
+  pvVar1 = g_pfnBitmapMunger;
+  g_pfnBitmapMunger = munger;
+  return pvVar1;
 }
 
 /* ---- 0x10002260  CosUtil_DeleteComponent ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+/* Export (costume editor): deletes component `compNum` and all its descendants: the hashes of later
+   components with the same tag and name are renumbered, the component array is compacted and the
+   parent indices remapped, the chore tracks of the deleted components and their keys are freed, and
+   the component notifier is told about each deleted one. Returns 1, 0 for a bad costume or index.
+    */
 
-undefined4 CosUtil_DeleteComponent(uint param_1,uint param_2)
+int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
-  int iVar2;
-  int *piVar3;
-  uint uVar4;
-  uint *puVar5;
-  int iVar6;
-  undefined4 uVar7;
-  uint *puVar8;
-  int *piVar9;
+  Costume *pCostume;
+  int *piVar2;
+  uint uVar3;
+  uint *puVar4;
+  int iVar5;
+  CosComponent *pCVar6;
+  ChoreTrack *pCVar7;
+  int *piVar8;
+  uint *puVar9;
   int iVar10;
   uint uVar11;
-  uint *puVar12;
-  undefined4 *puVar13;
-  int iVar14;
-  int iVar15;
-  undefined4 *puVar16;
-  uint uVar17;
-  int *piVar18;
-  #define piStack_c (*(int **)(_frame + (0x20 - 0xc)))
+  ChoreTrack *pCVar12;
+  int iVar13;
+  char *pcVar14;
+  uint uVar15;
+  ChoreTrack **ppCVar16;
+  uint in_stack_0000000c;
+  #define piStack_8 (*(int **)(_frame + (0x20 - 0x8)))
   
                     /* 0x2260  15  CosUtil_DeleteComponent */
-  iVar2 = CosUtil_PtrFromHandle(param_1);
-  if ((iVar2 == 0) || (*(uint *)(iVar2 + 0x28) <= param_2)) {
+  pCostume = CosUtil_PtrFromHandle(hCostume);
+  if ((pCostume == (Costume *)0x0) || (pCostume->dwNumComponents <= in_stack_0000000c)) {
     return 0;
   }
-  piVar3 = (int *)(**(code **)(DAT_100143a8 + 0x20))
-                            (*(uint *)(iVar2 + 0x28) * 4,s_C__grimsrc_libs_chore_Costume_c_1001020c,
-                             0x539);
-  uVar4 = 0;
-  piVar18 = piVar3;
-  if (*(int *)(iVar2 + 0x28) != 0) {
+  piVar2 = (int *)(*(code *)g_pSvcChore->pAlloc)
+                            (pCostume->dwNumComponents * 4,
+                             s_C__grimsrc_libs_chore_Costume_c_1001020c,0x539);
+  uVar3 = 0;
+  piVar8 = piVar2;
+  if (pCostume->dwNumComponents != 0) {
     do {
-      *piVar18 = 0;
-      uVar4 = uVar4 + 1;
-      piVar18 = piVar18 + 1;
-    } while (uVar4 < *(uint *)(iVar2 + 0x28));
+      *piVar8 = 0;
+      uVar3 = uVar3 + 1;
+      piVar8 = piVar8 + 1;
+    } while (uVar3 < pCostume->dwNumComponents);
   }
-  puVar5 = (uint *)(**(code **)(DAT_100143a8 + 0x20))
-                             (*(int *)(iVar2 + 0x28) << 2,s_C__grimsrc_libs_chore_Costume_c_1001020c
-                              ,0x53e);
-  uVar4 = 0;
-  puVar12 = puVar5;
-  if (*(int *)(iVar2 + 0x28) != 0) {
+  puVar4 = (uint *)(*(code *)g_pSvcChore->pAlloc)
+                             (pCostume->dwNumComponents << 2,
+                              s_C__grimsrc_libs_chore_Costume_c_1001020c,0x53e);
+  uVar3 = 0;
+  puVar9 = puVar4;
+  if (pCostume->dwNumComponents != 0) {
     do {
-      *puVar12 = uVar4;
-      uVar4 = uVar4 + 1;
-      puVar12 = puVar12 + 1;
-    } while (uVar4 < *(uint *)(iVar2 + 0x28));
+      *puVar9 = uVar3;
+      uVar3 = uVar3 + 1;
+      puVar9 = puVar9 + 1;
+    } while (uVar3 < pCostume->dwNumComponents);
   }
-  param_1 = 0;
-  piVar3[param_2] = 1;
-  puVar5[param_2] = 0xffffffff;
-  if (*(int *)(iVar2 + 0x28) != 0) {
-    iVar14 = 0;
-    puVar12 = puVar5;
+  compNum = 0;
+  piVar2[in_stack_0000000c] = 1;
+  puVar4[in_stack_0000000c] = 0xffffffff;
+  if (pCostume->dwNumComponents != 0) {
+    iVar13 = 0;
+    puVar9 = puVar4;
     do {
       bVar1 = false;
-      for (iVar10 = *(int *)(iVar14 + 0x2c + *(int *)(iVar2 + 0x2c)); iVar10 != -1;
-          iVar10 = *(int *)(iVar10 * 0x40 + 0x2c + *(int *)(iVar2 + 0x2c))) {
-        if (piVar3[iVar10] != 0) {
+      for (iVar10 = *(int *)(pCostume->pComponents->aName + iVar13 + 0x2c); iVar10 != -1;
+          iVar10 = pCostume->pComponents[iVar10].nParent) {
+        if (piVar2[iVar10] != 0) {
           bVar1 = true;
           break;
         }
       }
       if (bVar1) {
-        *(undefined4 *)(((int)piVar3 - (int)puVar5) + (int)puVar12) = 1;
-        *puVar12 = 0xffffffff;
+        *(undefined4 *)(((int)piVar2 - (int)puVar4) + (int)puVar9) = 1;
+        *puVar9 = 0xffffffff;
       }
-      param_1 = param_1 + 1;
-      iVar14 = iVar14 + 0x40;
-      puVar12 = puVar12 + 1;
-    } while (param_1 < *(uint *)(iVar2 + 0x28));
+      compNum = compNum + 1;
+      iVar13 = iVar13 + 0x40;
+      puVar9 = puVar9 + 1;
+    } while (compNum < pCostume->dwNumComponents);
   }
-  iVar14 = 0;
-  param_1 = 0;
-  piStack_c = piVar3;
-  if (*(int *)(iVar2 + 0x28) != 0) {
+  iVar13 = 0;
+  compNum = 0;
+  piStack_8 = piVar2;
+  if (pCostume->dwNumComponents != 0) {
     do {
-      if (*piStack_c != 0) {
-        iVar15 = iVar14 + *(int *)(iVar2 + 0x2c);
-        iVar10 = *(int *)(iVar15 + 0x28);
-        iVar6 = FUN_10004170(iVar2,PTR_100143c0[*(int *)(iVar15 + 0x20) * 0x17],iVar10 + 1,iVar15);
+      if (*piStack_8 != 0) {
+        pcVar14 = pCostume->pComponents->aName + iVar13;
+        iVar10 = *(int *)(pcVar14 + 0x28);
+        iVar5 = Cos_FindComponent(pCostume,g_aComponentTags[*(int *)(pcVar14 + 0x20)].nId,iVar10 + 1
+                                  ,pcVar14);
         iVar10 = iVar10 + 2;
-        while (-1 < iVar6) {
-          piVar18 = (int *)(iVar6 * 0x40 + 0x28 + *(int *)(iVar2 + 0x2c));
-          *piVar18 = *piVar18 + -1;
-          iVar6 = FUN_10004170(iVar2,PTR_100143c0[*(int *)(iVar15 + 0x20) * 0x17],iVar10,iVar15);
+        while (-1 < iVar5) {
+          piVar8 = &pCostume->pComponents[iVar5].nHash;
+          *piVar8 = *piVar8 + -1;
+          iVar5 = Cos_FindComponent(pCostume,g_aComponentTags[*(int *)(pcVar14 + 0x20)].nId,iVar10,
+                                    pcVar14);
           iVar10 = iVar10 + 1;
         }
       }
-      param_1 = param_1 + 1;
-      iVar14 = iVar14 + 0x40;
-      piStack_c = piStack_c + 1;
-    } while (param_1 < *(uint *)(iVar2 + 0x28));
+      compNum = compNum + 1;
+      iVar13 = iVar13 + 0x40;
+      piStack_8 = piStack_8 + 1;
+    } while (compNum < pCostume->dwNumComponents);
   }
-  iVar14 = 0;
-  uVar4 = 0;
-  if (*(int *)(iVar2 + 0x28) != 0) {
-    param_1 = 0;
-    piVar18 = piVar3;
+  iVar13 = 0;
+  uVar3 = 0;
+  if (pCostume->dwNumComponents != 0) {
+    compNum = 0;
+    piVar8 = piVar2;
     do {
-      iVar14 = iVar14 + (uint)(*piVar18 != 0);
-      if ((*piVar18 == 0) && (iVar14 != 0)) {
-        *(uint *)(((int)puVar5 - (int)piVar3) + (int)piVar18) = uVar4 - iVar14;
-        puVar16 = (undefined4 *)(param_1 + *(int *)(iVar2 + 0x2c));
-        puVar13 = (undefined4 *)((uVar4 - iVar14) * 0x40 + *(int *)(iVar2 + 0x2c));
+      iVar13 = iVar13 + (uint)(*piVar8 != 0);
+      if ((*piVar8 == 0) && (iVar13 != 0)) {
+        *(uint *)(((int)puVar4 - (int)piVar2) + (int)piVar8) = uVar3 - iVar13;
+        pcVar14 = pCostume->pComponents->aName + compNum;
+        pCVar6 = pCostume->pComponents + (uVar3 - iVar13);
         for (iVar10 = 0x10; iVar10 != 0; iVar10 = iVar10 + -1) {
-          *puVar13 = *puVar16;
-          puVar16 = puVar16 + 1;
-          puVar13 = puVar13 + 1;
+          *(undefined4 *)pCVar6->aName = *(undefined4 *)pcVar14;
+          pcVar14 = pcVar14 + 4;
+          pCVar6 = (CosComponent *)(pCVar6->aName + 4);
         }
       }
-      uVar4 = uVar4 + 1;
-      piVar18 = piVar18 + 1;
-      param_1 = param_1 + 0x40;
-    } while (uVar4 < *(uint *)(iVar2 + 0x28));
+      uVar3 = uVar3 + 1;
+      piVar8 = piVar8 + 1;
+      compNum = compNum + 0x40;
+    } while (uVar3 < pCostume->dwNumComponents);
   }
-  uVar4 = *(uint *)(iVar2 + 0x28);
-  *(uint *)(iVar2 + 0x28) = uVar4 - iVar14;
-  uVar7 = (**(code **)(DAT_100143a8 + 0x28))
-                    (*(undefined4 *)(iVar2 + 0x2c),(uVar4 - iVar14) * 0x40,
-                     s_C__grimsrc_libs_chore_Costume_c_1001020c,0x583);
-  *(undefined4 *)(iVar2 + 0x2c) = uVar7;
-  uVar17 = 0;
-  if (*(int *)(iVar2 + 0x28) != 0) {
-    iVar14 = 0;
+  uVar3 = pCostume->dwNumComponents;
+  pCostume->dwNumComponents = uVar3 - iVar13;
+  pCVar6 = (CosComponent *)
+           (*(code *)g_pSvcChore->pRealloc)
+                     (pCostume->pComponents,(uVar3 - iVar13) * 0x40,
+                      s_C__grimsrc_libs_chore_Costume_c_1001020c,0x583);
+  pCostume->pComponents = pCVar6;
+  uVar15 = 0;
+  if (pCostume->dwNumComponents != 0) {
+    iVar13 = 0;
     do {
-      iVar10 = *(int *)(iVar14 + 0x2c + *(int *)(iVar2 + 0x2c));
+      iVar10 = *(int *)(pCostume->pComponents->aName + iVar13 + 0x2c);
       if (iVar10 != -1) {
-        *(uint *)(iVar14 + 0x2c + *(int *)(iVar2 + 0x2c)) = puVar5[iVar10];
+        *(uint *)(pCostume->pComponents->aName + iVar13 + 0x2c) = puVar4[iVar10];
       }
-      uVar17 = uVar17 + 1;
-      iVar14 = iVar14 + 0x40;
-    } while (uVar17 < *(uint *)(iVar2 + 0x28));
+      uVar15 = uVar15 + 1;
+      iVar13 = iVar13 + 0x40;
+    } while (uVar15 < pCostume->dwNumComponents);
   }
-  uVar17 = 0;
-  if (*(int *)(iVar2 + 0x30) != 0) {
-    puVar12 = (uint *)(*(int *)(iVar2 + 0x34) + 0x20);
+  uVar15 = 0;
+  if (pCostume->dwNumChores != 0) {
+    puVar9 = &pCostume->pChores->dwNumTracks;
     do {
       uVar11 = 0;
-      puVar8 = (uint *)puVar12[1];
-      if (*puVar12 != 0) {
+      pCVar7 = (ChoreTrack *)puVar9[1];
+      if (*puVar9 != 0) {
         do {
           uVar11 = uVar11 + 1;
-          *puVar8 = puVar5[*puVar8];
-          puVar8 = puVar8 + 4;
-        } while (uVar11 < *puVar12);
+          pCVar7->nCompNum = puVar4[pCVar7->nCompNum];
+          pCVar7 = pCVar7 + 1;
+        } while (uVar11 < *puVar9);
       }
-      uVar17 = uVar17 + 1;
-      puVar12 = puVar12 + 0xb;
-    } while (uVar17 < *(uint *)(iVar2 + 0x30));
+      uVar15 = uVar15 + 1;
+      puVar9 = puVar9 + 0xb;
+    } while (uVar15 < pCostume->dwNumChores);
   }
-  param_1 = 0;
-  if (*(int *)(iVar2 + 0x30) != 0) {
-    piVar18 = (int *)(*(int *)(iVar2 + 0x34) + 0x24);
+  compNum = 0;
+  if (pCostume->dwNumChores != 0) {
+    ppCVar16 = &pCostume->pChores->pChoreTracks;
     do {
-      piVar9 = (int *)*piVar18;
-      iVar14 = 0;
-      uVar17 = 0;
-      if (piVar18[-1] != 0) {
-        piStack_c = (int *)0x0;
+      pCVar7 = *ppCVar16;
+      iVar13 = 0;
+      uVar15 = 0;
+      if (ppCVar16[-1] != (ChoreTrack *)0x0) {
+        piStack_8 = (int *)0x0;
         do {
-          iVar14 = iVar14 + (uint)(*piVar9 == -1);
-          if (*piVar9 == -1) {
-            if (piVar9[2] != 0) {
-              (**(code **)(DAT_100143a8 + 0x24))(piVar9[3]);
+          iVar13 = iVar13 + (uint)(pCVar7->nCompNum == -1);
+          if (pCVar7->nCompNum == -1) {
+            if (pCVar7->dwNumKeys != 0) {
+              (*(code *)g_pSvcChore->pFree)(pCVar7->pKeys);
             }
           }
-          else if (iVar14 != 0) {
-            puVar16 = (undefined4 *)(*piVar18 + (int)piStack_c);
-            puVar13 = (undefined4 *)((uVar17 - iVar14) * 0x10 + *piVar18);
-            *puVar13 = *puVar16;
-            puVar13[1] = puVar16[1];
-            puVar13[2] = puVar16[2];
-            puVar13[3] = puVar16[3];
+          else if (iVar13 != 0) {
+            piVar8 = (int *)((int)&(*ppCVar16)->nCompNum + (int)piStack_8);
+            pCVar12 = *ppCVar16 + (uVar15 - iVar13);
+            pCVar12->nCompNum = *piVar8;
+            pCVar12->dwLastKeyTime = piVar8[1];
+            pCVar12->dwNumKeys = piVar8[2];
+            pCVar12->pKeys = (ChoreKey *)piVar8[3];
           }
-          uVar17 = uVar17 + 1;
-          piStack_c = (int *)((int)piStack_c + 0x10);
-          piVar9 = piVar9 + 4;
-        } while (uVar17 < (uint)piVar18[-1]);
+          uVar15 = uVar15 + 1;
+          piStack_8 = (int *)((int)piStack_8 + 0x10);
+          pCVar7 = pCVar7 + 1;
+        } while (uVar15 < ppCVar16[-1]);
       }
-      iVar10 = piVar18[-1];
-      piVar18[-1] = iVar10 - iVar14;
-      iVar14 = (**(code **)(DAT_100143a8 + 0x28))
-                         (*piVar18,(iVar10 - iVar14) * 0x10,
+      uVar15 = (uint)ppCVar16[-1];
+      ppCVar16[-1] = (ChoreTrack *)(uVar15 - iVar13);
+      pCVar7 = (ChoreTrack *)
+               (*(code *)g_pSvcChore->pRealloc)
+                         (*ppCVar16,(uVar15 - iVar13) * 0x10,
                           s_C__grimsrc_libs_chore_Costume_c_1001020c,0x5be);
-      *piVar18 = iVar14;
-      param_1 = param_1 + 1;
-      piVar18 = piVar18 + 0xb;
-    } while (param_1 < *(uint *)(iVar2 + 0x30));
+      *ppCVar16 = pCVar7;
+      compNum = compNum + 1;
+      ppCVar16 = ppCVar16 + 0xb;
+    } while (compNum < pCostume->dwNumChores);
   }
-  if (_DAT_100143d8 != (code *)0x0) {
-    iVar14 = 0;
-    uVar17 = 0;
-    piVar18 = piVar3;
-    if (uVar4 != 0) {
+  if (g_pfnCompNotifier != (void *)0x0) {
+    iVar13 = 0;
+    uVar15 = 0;
+    piVar8 = piVar2;
+    if (uVar3 != 0) {
       do {
-        if (*piVar18 != 0) {
-          (*_DAT_100143d8)(iVar2,0,uVar17 - iVar14,0);
-          iVar14 = iVar14 + 1;
+        if (*piVar8 != 0) {
+          (*(code *)g_pfnCompNotifier)(pCostume,0,uVar15 - iVar13,0);
+          iVar13 = iVar13 + 1;
         }
-        uVar17 = uVar17 + 1;
-        piVar18 = piVar18 + 1;
-      } while (uVar17 < uVar4);
+        uVar15 = uVar15 + 1;
+        piVar8 = piVar8 + 1;
+      } while (uVar15 < uVar3);
     }
   }
-  (**(code **)(DAT_100143a8 + 0x24))(piVar3);
-  (**(code **)(DAT_100143a8 + 0x24))(puVar5);
+  (*(code *)g_pSvcChore->pFree)(piVar2);
+  (*(code *)g_pSvcChore->pFree)(puVar4);
   return 1;
 }
-#undef piStack_c
+#undef piStack_8
+
+#endif
 
 
 /* ---- 0x100026a0  CosUtil_AdjustComponent ---- */
-int CosUtil_AdjustComponent(int param_1,uint param_2)
+/* Export (costume editor): calls the Edit handler (ComponentTag +0x3c, slot 4) of component
+   `compNum` with (&data, name, 32). */
+
+int __cdecl CosUtil_AdjustComponent(Costume *pCostume,uint compNum)
 
 {
   int iVar1;
-  int iVar2;
+  CosComponent *pCVar2;
   int iVar3;
   
                     /* 0x26a0  6  CosUtil_AdjustComponent */
-  if (param_1 == 0) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x5df);
+  if (pCostume == (Costume *)0x0) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x5df)
+    ;
   }
-  if (*(uint *)(param_1 + 0x28) <= param_2) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x10010320),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x5e0);
+  if (pCostume->dwNumComponents <= compNum) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010320),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x5e0)
+    ;
   }
-  iVar2 = *(int *)(param_1 + 0x2c) + param_2 * 0x40;
-  iVar3 = *(int *)(iVar2 + 0x20);
-  iVar1 = PTR_100143c0[iVar3 * 0x17 + 1];
+  pCVar2 = pCostume->pComponents + compNum;
+  iVar3 = pCVar2->nTag;
+  iVar1 = g_aComponentTags[iVar3].nKind;
   if ((iVar1 != 0) && (iVar1 != 1)) {
     if (iVar1 == 2) {
-      iVar3 = (*(code *)PTR_100143c0[iVar3 * 0x17 + 0xf])(iVar2 + 0x24,iVar2,0x20);
+      iVar3 = (*(code *)g_aComponentTags[iVar3].pfnEdit)(&pCVar2->nData,pCVar2,0x20);
       return iVar3;
     }
-    return param_1;
+    return (int)pCostume;
   }
-  iVar3 = (*(code *)PTR_100143c0[iVar3 * 0x17 + 0xf])(iVar2 + 0x24,iVar2,0x20);
+  iVar3 = (*(code *)g_aComponentTags[iVar3].pfnEdit)(&pCVar2->nData,pCVar2,0x20);
   return iVar3;
 }
 
 /* ---- 0x10002740  CosUtil_ComponentHasAdjuster ---- */
-undefined4 CosUtil_ComponentHasAdjuster(int param_1,uint param_2)
+/* Export (costume editor): 1 when the component's tag has an Edit handler (ComponentTag +0x3c). */
+
+int __cdecl CosUtil_ComponentHasAdjuster(Costume *pCostume,uint compNum)
 
 {
   int iVar1;
   int iVar2;
   
                     /* 0x2740  9  CosUtil_ComponentHasAdjuster */
-  if (param_1 == 0) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x604);
+  if (pCostume == (Costume *)0x0) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x604)
+    ;
   }
-  if (*(uint *)(param_1 + 0x28) <= param_2) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x10010320),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x605);
+  if (pCostume->dwNumComponents <= compNum) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010320),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x605)
+    ;
   }
-  iVar1 = *(int *)(*(int *)(param_1 + 0x2c) + 0x20 + param_2 * 0x40);
-  iVar2 = PTR_100143c0[iVar1 * 0x17 + 1];
-  if ((((iVar2 != 0) || (PTR_100143c0[iVar1 * 0x17 + 0xf] == 0)) &&
-      ((iVar2 != 1 || (PTR_100143c0[iVar1 * 0x17 + 0xf] == 0)))) &&
-     ((iVar2 != 2 || (PTR_100143c0[iVar1 * 0x17 + 0xf] == 0)))) {
+  iVar1 = pCostume->pComponents[compNum].nTag;
+  iVar2 = g_aComponentTags[iVar1].nKind;
+  if ((((iVar2 != 0) || (g_aComponentTags[iVar1].pfnEdit == (undefined *)0x0)) &&
+      ((iVar2 != 1 || (g_aComponentTags[iVar1].pfnEdit == (undefined *)0x0)))) &&
+     ((iVar2 != 2 || (g_aComponentTags[iVar1].pfnEdit == (undefined *)0x0)))) {
     return 0;
   }
   return 1;
 }
 
 /* ---- 0x100027e0  CosUtil_AddComponent ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Export: adds a component through the Create handler (ComponentTag +0x30, slot 1) of tag `tagId`:
+   (costume, tag id, parent data, parent tag id, name); the handler builds the EXE's data and calls
+   Cos_RegisterComponent. Returns 1 on success. */
 
-int CosUtil_AddComponent
-               (undefined4 param_1,int param_2,int param_3,undefined4 param_4,undefined4 param_5)
+int __cdecl CosUtil_AddComponent(int hCostume,char *name,int tagId,int parentData,int parentTagId)
 
 {
-  int *piVar1;
+  ComponentTag *pCVar1;
   code *pcVar2;
   int iVar3;
   uint uVar4;
   
                     /* 0x27e0  2  CosUtil_AddComponent */
   uVar4 = 0;
-  piVar1 = PTR_100143c0;
-  if (_DAT_100143b8 != 0) {
+  pCVar1 = g_aComponentTags;
+  if (g_dwNumComponentTags != 0) {
     do {
-      if (*piVar1 == param_3) break;
+      if (pCVar1->nId == tagId) break;
       uVar4 = uVar4 + 1;
-      piVar1 = piVar1 + 0x17;
-    } while (uVar4 < _DAT_100143b8);
+      pCVar1 = pCVar1 + 1;
+    } while (uVar4 < g_dwNumComponentTags);
   }
-  if (uVar4 == _DAT_100143b8) {
-    return false;
+  if (uVar4 == g_dwNumComponentTags) {
+    return 0;
   }
-  iVar3 = piVar1[1];
+  iVar3 = pCVar1->nKind;
   if (iVar3 == 0) {
-    pcVar2 = (code *)piVar1[0xc];
+    pcVar2 = (code *)pCVar1->pfnCreate;
     if (pcVar2 == (code *)0x0) {
-      return false;
+      return 0;
     }
   }
   else {
     if ((iVar3 != 1) && (iVar3 != 2)) {
-      (**(code **)(DAT_100143a8 + 0x18))
+      (*(code *)g_pSvcChore->pAssertFail)
                 (&DAT_10010284,s_C__grimsrc_libs_chore_Costume_c_1001020c,0x652);
-      return param_2 != 0;
+      return (uint)(name != (char *)0x0);
     }
-    pcVar2 = (code *)piVar1[0xc];
+    pcVar2 = (code *)pCVar1->pfnCreate;
     if (pcVar2 == (code *)0x0) {
-      return false;
+      return 0;
     }
   }
-  iVar3 = (*pcVar2)(param_1,param_3,param_4,param_5,param_2);
-  return iVar3 != 0;
+  iVar3 = (*pcVar2)(hCostume,tagId,parentData,parentTagId,name);
+  return (uint)(iVar3 != 0);
 }
 
 /* ---- 0x10002880  CosUtil_AddChore ---- */
-int CosUtil_AddChore(int param_1)
+/* Export (costume editor): appends an empty chore (Cos_InitChore) and returns its index. */
+
+int __cdecl CosUtil_AddChore(Costume *pCostume)
 
 {
-  int iVar1;
+  Chore *pCVar1;
+  uint uVar2;
   
                     /* 0x2880  1  CosUtil_AddChore */
-  if (param_1 == 0) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x668);
+  if (pCostume == (Costume *)0x0) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x668)
+    ;
   }
-  iVar1 = *(int *)(param_1 + 0x30) + 1;
-  *(int *)(param_1 + 0x30) = iVar1;
-  iVar1 = (**(code **)(DAT_100143a8 + 0x28))
-                    (*(undefined4 *)(param_1 + 0x34),iVar1 * 0x2c,
-                     s_C__grimsrc_libs_chore_Costume_c_1001020c,0x66c);
-  *(int *)(param_1 + 0x34) = iVar1;
-  FUN_10004140(iVar1 + -0x2c + *(int *)(param_1 + 0x30) * 0x2c);
-  return *(int *)(param_1 + 0x30) + -1;
+  uVar2 = pCostume->dwNumChores + 1;
+  pCostume->dwNumChores = uVar2;
+  pCVar1 = (Chore *)(*(code *)g_pSvcChore->pRealloc)
+                              (pCostume->pChores,uVar2 * 0x2c,
+                               s_C__grimsrc_libs_chore_Costume_c_1001020c,0x66c);
+  pCostume->pChores = pCVar1;
+  Cos_InitChore(pCVar1 + (pCostume->dwNumChores - 1));
+  return pCostume->dwNumChores - 1;
 }
 
 /* ---- 0x100028f0  CosUtil_DeleteChore ---- */
-undefined4 __cdecl CosUtil_DeleteChore(int param_1,uint param_2)
+/* Export (costume editor): deletes chore `choreNum` with its tracks and keys and shifts the later
+   chores down; returns the reallocated chore array. */
+
+Chore * __cdecl CosUtil_DeleteChore(Costume *pCostume,uint choreNum)
 
 {
-  undefined4 uVar1;
-  int iVar2;
+  Chore *pCVar1;
+  uint uVar2;
   uint uVar3;
   int iVar4;
   
                     /* 0x28f0  14  CosUtil_DeleteChore */
-  if ((param_1 == 0) || (*(uint *)(param_1 + 0x30) <= param_2)) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x10010364),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x67d);
+  if ((pCostume == (Costume *)0x0) || (pCostume->dwNumChores <= choreNum)) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010364),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x67d)
+    ;
   }
-  iVar2 = *(int *)(param_1 + 0x34) + param_2 * 0x2c;
-  iVar4 = *(int *)(*(int *)(param_1 + 0x34) + 0x20 + param_2 * 0x2c);
-  if (iVar4 != 0) {
+  pCVar1 = pCostume->pChores + choreNum;
+  uVar2 = pCostume->pChores[choreNum].dwNumTracks;
+  if (uVar2 != 0) {
     uVar3 = 0;
-    if (iVar4 != 0) {
+    if (uVar2 != 0) {
       iVar4 = 0;
       do {
-        if (*(int *)(*(int *)(iVar2 + 0x24) + 8 + iVar4) != 0) {
-          (**(code **)(DAT_100143a8 + 0x24))(*(undefined4 *)(*(int *)(iVar2 + 0x24) + iVar4 + 0xc));
+        if (*(int *)((int)&pCVar1->pChoreTracks->dwNumKeys + iVar4) != 0) {
+          (*(code *)g_pSvcChore->pFree)(*(undefined4 *)((int)&pCVar1->pChoreTracks->pKeys + iVar4));
         }
         uVar3 = uVar3 + 1;
         iVar4 = iVar4 + 0x10;
-      } while (uVar3 < *(uint *)(iVar2 + 0x20));
+      } while (uVar3 < pCVar1->dwNumTracks);
     }
-    (**(code **)(DAT_100143a8 + 0x24))(*(undefined4 *)(iVar2 + 0x24));
+    (*(code *)g_pSvcChore->pFree)(pCVar1->pChoreTracks);
   }
-  if (param_2 < *(int *)(param_1 + 0x30) - 1U) {
-    FUN_10005860(iVar2,iVar2 + 0x2c,*(int *)(param_1 + 0x30) * 0x2c + (param_2 + 1) * -0x2c);
+  if (choreNum < pCostume->dwNumChores - 1) {
+    msvc_memmove(pCVar1,pCVar1 + 1,pCostume->dwNumChores * 0x2c + (choreNum + 1) * -0x2c);
   }
-  iVar2 = *(int *)(param_1 + 0x30) + -1;
-  *(int *)(param_1 + 0x30) = iVar2;
-  uVar1 = (**(code **)(DAT_100143a8 + 0x28))
-                    (*(undefined4 *)(param_1 + 0x34),iVar2 * 0x2c,
-                     s_C__grimsrc_libs_chore_Costume_c_1001020c,0x697);
-  *(undefined4 *)(param_1 + 0x34) = uVar1;
-  return uVar1;
+  uVar2 = pCostume->dwNumChores - 1;
+  pCostume->dwNumChores = uVar2;
+  pCVar1 = (Chore *)(*(code *)g_pSvcChore->pRealloc)
+                              (pCostume->pChores,uVar2 * 0x2c,
+                               s_C__grimsrc_libs_chore_Costume_c_1001020c,0x697);
+  pCostume->pChores = pCVar1;
+  return pCVar1;
 }
 
 /* ---- 0x100029e0  CosUtil_SetChoreLength ---- */
-int __cdecl CosUtil_SetChoreLength(int param_1,uint param_2,uint param_3)
+/* Export: sets the length of chore `choreNum` (ms); when it shrinks, keys after the old length are
+   dropped from every track. Returns the chore. */
+
+Chore * __cdecl CosUtil_SetChoreLength(Costume *pCostume,uint choreNum,uint length)
 
 {
   uint uVar1;
-  int iVar2;
-  uint *puVar3;
+  Chore *pCVar2;
+  ChoreKey *pCVar3;
   uint uVar4;
-  int iVar5;
-  uint uVar6;
-  uint *puVar7;
+  uint uVar5;
+  uint *puVar6;
   
                     /* 0x29e0  22  CosUtil_SetChoreLength */
-  if ((param_1 == 0) || (*(uint *)(param_1 + 0x30) <= param_2)) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x10010364),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6a3);
+  if ((pCostume == (Costume *)0x0) || (pCostume->dwNumChores <= choreNum)) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010364),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6a3)
+    ;
   }
-  iVar5 = param_2 * 0x2c;
-  iVar2 = *(int *)(param_1 + 0x34) + iVar5;
-  if (param_3 <= *(uint *)(*(int *)(param_1 + 0x34) + 0x28 + iVar5)) {
+  pCVar2 = pCostume->pChores + choreNum;
+  if (length <= pCostume->pChores[choreNum].dwLength) {
     uVar4 = 0;
-    if (*(int *)(iVar2 + 0x20) != 0) {
-      puVar7 = (uint *)(*(int *)(iVar2 + 0x24) + 8);
+    if (pCVar2->dwNumTracks != 0) {
+      puVar6 = &pCVar2->pChoreTracks->dwNumKeys;
       do {
-        uVar1 = *puVar7;
-        uVar6 = 0;
+        uVar1 = *puVar6;
+        uVar5 = 0;
         if (uVar1 != 0) {
-          puVar3 = (uint *)puVar7[1];
+          pCVar3 = (ChoreKey *)puVar6[1];
           do {
-            if (*(uint *)(iVar2 + 0x28) < *puVar3) break;
-            uVar6 = uVar6 + 1;
-            puVar3 = puVar3 + 2;
-          } while (uVar6 < uVar1);
+            if (pCVar2->dwLength < pCVar3->dwTime) break;
+            uVar5 = uVar5 + 1;
+            pCVar3 = pCVar3 + 1;
+          } while (uVar5 < uVar1);
         }
-        if (uVar6 < uVar1) {
-          uVar1 = (**(code **)(DAT_100143a8 + 0x28))
-                            (puVar7[1],uVar6 * 8,s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6b6);
-          puVar7[1] = uVar1;
-          *puVar7 = uVar6;
+        if (uVar5 < uVar1) {
+          pCVar3 = (ChoreKey *)
+                   (*(code *)g_pSvcChore->pRealloc)
+                             ((ChoreKey *)puVar6[1],uVar5 * 8,
+                              s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6b6);
+          puVar6[1] = (uint)pCVar3;
+          *puVar6 = uVar5;
         }
         uVar4 = uVar4 + 1;
-        puVar7 = puVar7 + 4;
-        iVar2 = *(int *)(param_1 + 0x34) + iVar5;
-      } while (uVar4 < *(uint *)(iVar2 + 0x20));
+        puVar6 = puVar6 + 4;
+        pCVar2 = pCostume->pChores + choreNum;
+      } while (uVar4 < pCVar2->dwNumTracks);
     }
   }
-  *(uint *)(*(int *)(param_1 + 0x34) + 0x28 + iVar5) = param_3;
-  return iVar2;
+  pCostume->pChores[choreNum].dwLength = length;
+  return pCVar2;
 }
 
 /* ---- 0x10002ab0  CosUtil_NameChore ---- */
-undefined1 * __cdecl CosUtil_NameChore(int param_1,int param_2,char *param_3)
+/* Export (costume editor): renames chore `choreNum` (at most 31 characters, spaces become '_'). */
+
+char * __cdecl CosUtil_NameChore(Costume *pCostume,int choreNum,char *name)
 
 {
   char cVar1;
-  undefined1 *puVar2;
+  Chore *pCVar2;
   uint uVar3;
   int iVar4;
   int iVar5;
-  int iVar6;
-  int iVar7;
-  char *pcVar8;
+  char *pcVar6;
   
                     /* 0x2ab0  17  CosUtil_NameChore */
-  if (param_1 == 0) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6c6);
+  if (pCostume == (Costume *)0x0) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6c6)
+    ;
   }
   uVar3 = 0xffffffff;
-  puVar2 = (undefined1 *)0x0;
-  pcVar8 = param_3;
+  pCVar2 = (Chore *)0x0;
+  pcVar6 = name;
   do {
     if (uVar3 == 0) break;
     uVar3 = uVar3 - 1;
-    cVar1 = *pcVar8;
-    pcVar8 = pcVar8 + 1;
+    cVar1 = *pcVar6;
+    pcVar6 = pcVar6 + 1;
   } while (cVar1 != '\0');
   iVar4 = ~uVar3 - 1;
   if (iVar4 < 0x20) {
-    iVar7 = param_2 * 0x2c;
-    FUN_100055a0(*(int *)(param_1 + 0x34) + iVar7,param_3,0x1f);
-    puVar2 = *(undefined1 **)(param_1 + 0x34);
+    msvc_strncpy(pCostume->pChores + choreNum,name,0x1f);
+    pCVar2 = pCostume->pChores;
     iVar5 = 0;
-    puVar2[iVar7 + 0x1f] = 0;
+    pCVar2[choreNum].aName[0x1f] = '\0';
     if (0 < iVar4) {
       do {
-        iVar6 = iVar5 + *(int *)(param_1 + 0x34);
-        puVar2 = (undefined1 *)(iVar6 + iVar7);
-        if (*(char *)(iVar6 + iVar7) == ' ') {
-          *puVar2 = 0x5f;
+        pCVar2 = (Chore *)(pCostume->pChores[choreNum].aName + iVar5);
+        if (pCostume->pChores[choreNum].aName[iVar5] == ' ') {
+          pCVar2->aName[0] = '_';
         }
         iVar5 = iVar5 + 1;
       } while (iVar5 < iVar4);
     }
   }
-  return puVar2;
+  return pCVar2->aName;
 }
 
 /* ---- 0x10002b40  CosUtil_DeleteKey ---- */
-undefined4 CosUtil_DeleteKey(int param_1,uint param_2,uint param_3,int param_4)
+/* Export (costume editor): deletes the key at `time` from the track of component `compNum` in chore
+   `choreNum`. Returns 1 when one was deleted. */
+
+int __cdecl CosUtil_DeleteKey(Costume *pCostume,uint choreNum,uint compNum,int time)
 
 {
   uint uVar1;
   uint uVar2;
-  int *piVar3;
-  uint *puVar4;
+  ChoreKey *pCVar3;
+  ChoreTrack *pCVar4;
   
                     /* 0x2b40  16  CosUtil_DeleteKey */
-  if (((param_1 == 0) || (*(uint *)(param_1 + 0x30) <= param_2)) ||
-     (*(uint *)(param_1 + 0x28) <= param_3)) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x100103b0),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6e5);
+  if (((pCostume == (Costume *)0x0) || (pCostume->dwNumChores <= choreNum)) ||
+     (pCostume->dwNumComponents <= compNum)) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x100103b0),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6e5)
+    ;
   }
-  puVar4 = *(uint **)(*(int *)(param_1 + 0x34) + 0x24 + param_2 * 0x2c);
+  pCVar4 = pCostume->pChores[choreNum].pChoreTracks;
   uVar1 = 0;
-  uVar2 = *(uint *)(*(int *)(param_1 + 0x34) + param_2 * 0x2c + 0x20);
+  uVar2 = pCostume->pChores[choreNum].dwNumTracks;
   if (uVar2 != 0) {
     do {
-      if (*puVar4 == param_3) break;
+      if (pCVar4->nCompNum == compNum) break;
       uVar1 = uVar1 + 1;
-      puVar4 = puVar4 + 4;
+      pCVar4 = pCVar4 + 1;
     } while (uVar1 < uVar2);
   }
   if (uVar1 != uVar2) {
-    piVar3 = (int *)puVar4[3];
+    pCVar3 = pCVar4->pKeys;
     uVar2 = 0;
-    if (puVar4[2] != 0) {
+    if (pCVar4->dwNumKeys != 0) {
       do {
-        if (*piVar3 == param_4) {
-          FUN_10005860(piVar3,puVar4[3] + (uVar2 + 1) * 8,((uVar2 + 1) * 0x1fffffff + puVar4[2]) * 8
-                      );
-          uVar2 = puVar4[2] - 1;
-          puVar4[2] = uVar2;
+        if (pCVar3->dwTime == time) {
+          msvc_memmove(pCVar3,pCVar4->pKeys + uVar2 + 1,
+                       ((uVar2 + 1) * 0x1fffffff + pCVar4->dwNumKeys) * 8);
+          uVar2 = pCVar4->dwNumKeys - 1;
+          pCVar4->dwNumKeys = uVar2;
           if (uVar2 == 0) {
-            (**(code **)(DAT_100143a8 + 0x24))(puVar4[3]);
-            puVar4[3] = 0;
+            (*(code *)g_pSvcChore->pFree)(pCVar4->pKeys);
+            pCVar4->pKeys = (ChoreKey *)0x0;
             return 1;
           }
-          uVar2 = (**(code **)(DAT_100143a8 + 0x28))
-                            (puVar4[3],uVar2 * 8,s_C__grimsrc_libs_chore_Costume_c_1001020c,0x704);
-          puVar4[3] = uVar2;
+          pCVar3 = (ChoreKey *)
+                   (*(code *)g_pSvcChore->pRealloc)
+                             (pCVar4->pKeys,uVar2 * 8,s_C__grimsrc_libs_chore_Costume_c_1001020c,
+                              0x704);
+          pCVar4->pKeys = pCVar3;
           return 1;
         }
         uVar2 = uVar2 + 1;
-        piVar3 = piVar3 + 2;
-      } while (uVar2 < puVar4[2]);
+        pCVar3 = pCVar3 + 1;
+      } while (uVar2 < pCVar4->dwNumKeys);
       return 0;
     }
   }
@@ -829,152 +886,185 @@ undefined4 CosUtil_DeleteKey(int param_1,uint param_2,uint param_3,int param_4)
 }
 
 /* ---- 0x10002c50  CosUtil_QueryValueAtTime ---- */
-uint * CosUtil_QueryValueAtTime(int param_1,uint param_2,uint param_3,uint param_4)
+/* Export: the key of component `compNum` in chore `choreNum` that is in effect at `time` (the key
+   at that time, else the last one before it), 0 for none. */
+
+ChoreKey * __cdecl CosUtil_QueryValueAtTime(Costume *pCostume,uint choreNum,uint compNum,uint time)
 
 {
   uint uVar1;
-  uint *puVar2;
+  ChoreKey *pCVar2;
   uint uVar3;
-  uint *puVar4;
+  ChoreKey *pCVar4;
+  ChoreTrack *pCVar5;
   
                     /* 0x2c50  19  CosUtil_QueryValueAtTime */
-  if (((param_1 == 0) || (*(uint *)(param_1 + 0x30) <= param_2)) ||
-     (*(uint *)(param_1 + 0x28) <= param_3)) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x100103b0),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x722);
+  if (((pCostume == (Costume *)0x0) || (pCostume->dwNumChores <= choreNum)) ||
+     (pCostume->dwNumComponents <= compNum)) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x100103b0),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x722)
+    ;
   }
-  puVar4 = *(uint **)(*(int *)(param_1 + 0x34) + 0x24 + param_2 * 0x2c);
+  pCVar5 = pCostume->pChores[choreNum].pChoreTracks;
   uVar3 = 0;
-  uVar1 = *(uint *)(*(int *)(param_1 + 0x34) + param_2 * 0x2c + 0x20);
+  uVar1 = pCostume->pChores[choreNum].dwNumTracks;
   if (uVar1 != 0) {
     do {
-      if (*puVar4 == param_3) break;
+      if (pCVar5->nCompNum == compNum) break;
       uVar3 = uVar3 + 1;
-      puVar4 = puVar4 + 4;
+      pCVar5 = pCVar5 + 1;
     } while (uVar3 < uVar1);
   }
   if (uVar3 != uVar1) {
-    puVar2 = (uint *)puVar4[3];
-    uVar1 = puVar4[2];
+    pCVar2 = pCVar5->pKeys;
+    uVar1 = pCVar5->dwNumKeys;
     uVar3 = 0;
-    puVar4 = puVar2;
+    pCVar4 = pCVar2;
     if (uVar1 != 0) {
       do {
-        if (*puVar4 == param_4) {
-          return puVar4;
+        if (pCVar4->dwTime == time) {
+          return pCVar4;
         }
-        if (param_4 <= *puVar4) {
+        if (time <= pCVar4->dwTime) {
           if (uVar3 == 0) {
-            return (uint *)0x0;
+            return (ChoreKey *)0x0;
           }
-          return puVar2 + uVar3 * 2 + -2;
+          return pCVar2 + (uVar3 - 1);
         }
         uVar3 = uVar3 + 1;
-        puVar4 = puVar4 + 2;
+        pCVar4 = pCVar4 + 1;
       } while (uVar3 < uVar1);
     }
     if (uVar1 != 0) {
-      return puVar2 + uVar1 * 2 + -2;
+      return pCVar2 + (uVar1 - 1);
     }
   }
-  return (uint *)0x0;
+  return (ChoreKey *)0x0;
 }
 
 /* ---- 0x10002cf0  CosUtil_AddFSKey ---- */
-undefined4
-CosUtil_AddFSKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5)
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+/* Export (costume editor): adds or replaces a key of a state-based component (Cos_AddKey); 0 for
+   another tag kind. */
+
+int __cdecl CosUtil_AddFSKey(Costume *pCostume,uint choreNum,int compNum,uint time,int value)
 
 {
-  int iVar1;
+  ChoreKey *pCVar1;
+  int in_stack_00000024;
   
                     /* 0x2cf0  3  CosUtil_AddFSKey */
-  if (PTR_100143c0[*(int *)(*(int *)(param_1 + 0x2c) + 0x20 + param_3 * 0x40) * 0x17 + 1] != 0) {
+  if (g_aComponentTags[pCostume->pComponents[compNum].nTag].nKind != 0) {
     return 0;
   }
-  iVar1 = FUN_10003c90(param_1,param_2,param_3,param_4);
-  if (iVar1 == 0) {
+  pCVar1 = Cos_AddKey(pCostume,choreNum,compNum,time);
+  if (pCVar1 == (ChoreKey *)0x0) {
     return 0;
   }
-  *(undefined4 *)(iVar1 + 4) = param_5;
+  pCVar1->nValue = in_stack_00000024;
   return 1;
 }
+#endif
+
 
 /* ---- 0x10002d50  CosUtil_AddIntKey ---- */
-undefined4
-CosUtil_AddIntKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5)
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+/* Export (costume editor): adds or replaces a key of an int component (Cos_AddKey); 0 for another
+   tag kind. */
+
+int __cdecl CosUtil_AddIntKey(Costume *pCostume,uint choreNum,int compNum,uint time,int value)
 
 {
-  int iVar1;
+  ChoreKey *pCVar1;
+  int in_stack_00000024;
   
                     /* 0x2d50  5  CosUtil_AddIntKey */
-  if (PTR_100143c0[*(int *)(*(int *)(param_1 + 0x2c) + 0x20 + param_3 * 0x40) * 0x17 + 1] != 1) {
+  if (g_aComponentTags[pCostume->pComponents[compNum].nTag].nKind != 1) {
     return 0;
   }
-  iVar1 = FUN_10003c90(param_1,param_2,param_3,param_4);
-  if (iVar1 == 0) {
+  pCVar1 = Cos_AddKey(pCostume,choreNum,compNum,time);
+  if (pCVar1 == (ChoreKey *)0x0) {
     return 0;
   }
-  *(undefined4 *)(iVar1 + 4) = param_5;
+  pCVar1->nValue = in_stack_00000024;
   return 1;
 }
+#endif
+
 
 /* ---- 0x10002db0  CosUtil_AddFloatKey ---- */
-undefined4
-CosUtil_AddFloatKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5
-                   )
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+/* Export (costume editor): adds or replaces a key of a float component (Cos_AddKey; the value is
+   stored as its bits); 0 for another tag kind. */
+
+int __cdecl CosUtil_AddFloatKey(Costume *pCostume,uint choreNum,int compNum,uint time,int value)
 
 {
-  int iVar1;
+  ChoreKey *pCVar1;
+  int in_stack_00000024;
   
                     /* 0x2db0  4  CosUtil_AddFloatKey */
-  if (PTR_100143c0[*(int *)(*(int *)(param_1 + 0x2c) + 0x20 + param_3 * 0x40) * 0x17 + 1] != 2) {
+  if (g_aComponentTags[pCostume->pComponents[compNum].nTag].nKind != 2) {
     return 0;
   }
-  iVar1 = FUN_10003c90(param_1,param_2,param_3,param_4);
-  if (iVar1 == 0) {
+  pCVar1 = Cos_AddKey(pCostume,choreNum,compNum,time);
+  if (pCVar1 == (ChoreKey *)0x0) {
     return 0;
   }
-  *(undefined4 *)(iVar1 + 4) = param_5;
+  pCVar1->nValue = in_stack_00000024;
   return 1;
 }
+#endif
+
 
 /* ---- 0x10002e10  CosUtil_CountComponents ---- */
-undefined4 CosUtil_CountComponents(int param_1)
+/* Export: number of components of the costume. */
+
+uint __cdecl CosUtil_CountComponents(Costume *pCostume)
 
 {
                     /* 0x2e10  12  CosUtil_CountComponents */
-  if (param_1 == 0) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x789);
+  if (pCostume == (Costume *)0x0) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x789)
+    ;
   }
-  return *(undefined4 *)(param_1 + 0x28);
+  return pCostume->dwNumComponents;
 }
 
 /* ---- 0x10002e40  CosUtil_ComponentInfo ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* Export: tag id, component data, parent index and tag kind of component `index`; returns the
+   component record (the EXE uses it). Hand-written in build/overrides_logic_chore.c. */
+
 int __cdecl
 CosUtil_ComponentInfo(int cos,uint index,int *outTag,undefined4 *outA,undefined4 *outB,int *outKind)
 
 {
-  int *piVar1;
+  ComponentTag *pCVar1;
   int iVar2;
   
                     /* 0x2e40  10  CosUtil_ComponentInfo */
   if (cos == 0) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x797);
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x797)
+    ;
   }
   if (*(uint *)(cos + 0x28) <= index) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x10010444),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x798);
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010444),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x798)
+    ;
   }
   iVar2 = *(int *)(cos + 0x2c) + index * 0x40;
-  piVar1 = PTR_100143c0 + *(int *)(iVar2 + 0x20) * 0x17;
+  pCVar1 = g_aComponentTags + *(int *)(iVar2 + 0x20);
   if (outTag != (int *)0x0) {
-    *outTag = *piVar1;
+    *outTag = pCVar1->nId;
   }
   if (outA != (undefined4 *)0x0) {
     *outA = *(undefined4 *)(iVar2 + 0x24);
   }
   if (outKind != (int *)0x0) {
-    *outKind = piVar1[1];
+    *outKind = pCVar1->nKind;
   }
   if (outB != (undefined4 *)0x0) {
     *outB = *(undefined4 *)(iVar2 + 0x2c);
@@ -985,46 +1075,53 @@ CosUtil_ComponentInfo(int cos,uint index,int *outTag,undefined4 *outA,undefined4
 
 
 /* ---- 0x10002fa0  CosUtil_CountChores ---- */
-undefined4 CosUtil_CountChores(int param_1)
+/* Export: number of chores of the costume. */
+
+uint __cdecl CosUtil_CountChores(Costume *pCostume)
 
 {
                     /* 0x2fa0  11  CosUtil_CountChores */
-  return *(undefined4 *)(param_1 + 0x30);
+  return pCostume->dwNumChores;
 }
 
 /* ---- 0x100030b0  CosUtil_ChoreName ---- */
-int CosUtil_ChoreName(int param_1,uint param_2)
+/* Export: name of chore `choreNum` of the costume. */
+
+char * __cdecl CosUtil_ChoreName(Costume *pCostume,uint choreNum)
 
 {
                     /* 0x30b0  7  CosUtil_ChoreName */
-  if (*(uint *)(param_1 + 0x30) <= param_2) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x10010498),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x80d);
+  if (pCostume->dwNumChores <= choreNum) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010498),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x80d)
+    ;
   }
-  return *(int *)(param_1 + 0x34) + param_2 * 0x2c;
+  return pCostume->pChores[choreNum].aName;
 }
 
 /* ---- 0x100030f0  CosUtil_CountTags ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Export: number of registered component tags. */
 
-undefined4 CosUtil_CountTags(void)
+uint __cdecl CosUtil_CountTags(void)
 
 {
                     /* 0x30f0  13  CosUtil_CountTags */
-  return _DAT_100143b8;
+  return g_dwNumComponentTags;
 }
 
 /* ---- 0x10003100  CosUtil_TagInfo ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Export: name of registered tag `whichTag` and its id through outTagId (assert 'whichTag >= 0 &&
+   whichTag < numComponentTags'). */
 
-int * CosUtil_TagInfo(uint param_1,int *param_2)
+char * __cdecl CosUtil_TagInfo(uint whichTag,int *outTagId)
 
 {
                     /* 0x3100  23  CosUtil_TagInfo */
-  if (_DAT_100143b8 <= param_1) {
-    (**(code **)(DAT_100143a8 + 0x18))(IMG_ADDR(0x100104c8),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x81f);
+  if (g_dwNumComponentTags <= whichTag) {
+    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x100104c8),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x81f)
+    ;
   }
-  if (param_2 != (int *)0x0) {
-    *param_2 = PTR_100143c0[param_1 * 0x17];
+  if (outTagId != (int *)0x0) {
+    *outTagId = g_aComponentTags[whichTag].nId;
   }
-  return PTR_100143c0 + param_1 * 0x17 + 2;
+  return g_aComponentTags[whichTag].aName;
 }

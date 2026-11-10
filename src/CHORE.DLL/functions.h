@@ -3,121 +3,124 @@
 #include "ghidra_types.h"
 
 /* ===== costume.c ===== */
-int __cdecl Cos_InstRescue(int param_1,undefined4 param_2); /* 0x10001000 */
-int __cdecl Cos_Free(undefined4 param_1); /* 0x10001040 */
-void FUN_100010d0(int param_1); /* 0x100010d0 */
-undefined4 Cos_New(void); /* 0x100016a0 */
-undefined4 Cos_Load(undefined4 param_1); /* 0x100016e0 */
-undefined4 Cos_LoadEntry(char *param_1,int param_2); /* 0x10001770 */
-int __cdecl Cos_FreeCosInstance(int param_1); /* 0x10001a30 */
-int Cos_CreateCosInstance(uint *param_1,uint param_2); /* 0x10001a80 */
-undefined4 Cos_InstGetInstanceData(int param_1,int param_2,int *param_3); /* 0x10001d70 */
-undefined4 Cos_RegisterInstanceHook(undefined4 param_1); /* 0x10001e00 */
-undefined4 Cos_RegisterSaveHook(undefined4 param_1); /* 0x10001e10 */
-undefined4 Cos_InstGetUserData(int param_1); /* 0x10001e20 */
-int __cdecl Cos_InstSetUserData(int param_1,undefined4 param_2); /* 0x10001e50 */
-undefined4 Cos_NewStateBasedTag (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 *param_4,int param_5); /* 0x10001e80 */
-undefined4 FUN_10001ed0(int *param_1,int param_2,char *param_3,undefined4 param_4,undefined4 param_5); /* 0x10001ed0 */
-undefined4 Cos_NewIntTag(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 *param_4, int param_5); /* 0x10001f80 */
-undefined4 Cos_NewFloatTag(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 *param_4, int param_5); /* 0x10001fd0 */
-undefined4 Cos_RegisterComponent (uint param_1,int param_2,undefined4 param_3,int param_4,int param_5,int param_6, undefined4 param_7); /* 0x10002080 */
-int __cdecl Cos_RemoveComponent(undefined4 param_1,int param_2,int param_3); /* 0x100021f0 */
-undefined4 Cos_InstCountComponents(int param_1); /* 0x10002ee0 */
+int __cdecl Cos_InstRescue(int hInst,int hCostume); /* 0x10001000 */
+int __cdecl Cos_Free(int hCostume); /* 0x10001040 */
+void __cdecl Cos_NewEntry(Costume *pCostume); /* 0x100010d0 */
+int __cdecl Cos_New(void); /* 0x100016a0 */
+int __cdecl Cos_Load(char *fileName); /* 0x100016e0 */
+uint __cdecl Cos_LoadEntry(char *name,int handle); /* 0x10001770 */
+int __cdecl Cos_FreeCosInstance(int hInst); /* 0x10001a30 */
+int __cdecl Cos_CreateCosInstance(int hCostume,int userData); /* 0x10001a80 */
+int __cdecl Cos_InstGetInstanceData(int hInst,int compNum,int *outTagId); /* 0x10001d70 */
+void * __cdecl Cos_RegisterInstanceHook(void *hook); /* 0x10001e00 */
+void * __cdecl Cos_RegisterSaveHook(void *hook); /* 0x10001e10 */
+int __cdecl Cos_InstGetUserData(int hInst); /* 0x10001e20 */
+int __cdecl Cos_InstSetUserData(int hInst,int userData); /* 0x10001e50 */
+uint __cdecl Cos_NewStateBasedTag(uint id,uint name,uint unused,uint *handlers,int extra); /* 0x10001e80 */
+int __cdecl Cos_NewTagEntry(ComponentTag **ppTag,int tagId,char *name,int unused,int userData); /* 0x10001ed0 */
+uint __cdecl Cos_NewIntTag(uint id,uint name,uint unused,uint *handlers,int extra); /* 0x10001f80 */
+uint __cdecl Cos_NewFloatTag(uint id,uint name,uint unused,uint *handlers,int extra); /* 0x10001fd0 */
+int __cdecl Cos_RegisterComponent (uint hCostume,char *name,int data,int tagId,int parentData,int parentTagId,int *pStates); /* 0x10002080 */
+int __cdecl Cos_RemoveComponent(int hCostume,int tagId,int data); /* 0x100021f0 */
+int __cdecl Cos_InstCountComponents(int hInst); /* 0x10002ee0 */
 int __cdecl Cos_InstComponentInfo(int inst,uint index,int *outTag,undefined4 *outA,undefined4 *outB); /* 0x10002f20 */
-undefined4 Cos_InstCountChores(int param_1); /* 0x10002f70 */
-int Cos_GetCostumeName(undefined4 param_1); /* 0x10002fb0 */
-int Cos_InstGetCostume(int param_1,undefined4 *param_2); /* 0x10003000 */
-int Cos_InstChoreName(int param_1,uint param_2); /* 0x10003050 */
-undefined4 Cos_InstStopChores(uint param_1); /* 0x10003160 */
-undefined4 Cos_InstStopChore(int param_1,uint param_2); /* 0x10003240 */
-undefined4 Cos_InstPauseChores(int param_1); /* 0x10003300 */
-undefined4 Cos_InstPauseChore(int param_1,uint param_2); /* 0x10003360 */
-undefined4 Cos_InstCompleteChore(int param_1,uint param_2); /* 0x100033b0 */
-undefined4 Cos_InstCompleteChores(int param_1); /* 0x10003430 */
-undefined4 __cdecl Cos_InstPlayChore(int param_1,uint param_2,int param_3,int param_4); /* 0x100034c0 */
-undefined4 __cdecl Cos_InstUpdateChore(int param_1,uint param_2,int param_3); /* 0x10003530 */
-undefined4 Cos_InstUpdateChores(int param_1,int param_2); /* 0x100035a0 */
-undefined4 Cos_InstSetChoreLoop(int param_1,uint param_2,int param_3); /* 0x10003620 */
-undefined4 Cos_InstSetChoreAdv(int param_1,uint param_2,int param_3); /* 0x10003690 */
-undefined4 Cos_InstChoreStatus(int param_1,uint param_2); /* 0x10003700 */
-undefined4 Cos_Initialize(undefined4 param_1,undefined4 *param_2); /* 0x10003750 */
-undefined4 Cos_Save(code *param_1); /* 0x100037a0 */
-undefined4 Cos_SaveInstance(int param_1,code *param_2); /* 0x10003890 */
-undefined4 Cos_Restore(code *param_1); /* 0x10003970 */
-undefined4 Cos_RestoreInstance(int param_1,code *param_2); /* 0x10003b40 */
-int FUN_10003c20(int param_1); /* 0x10003c20 */
-undefined4 FUN_10003c90(int param_1,uint param_2,int param_3,uint param_4); /* 0x10003c90 */
-uint FUN_10003e50(uint *param_1,uint *param_2); /* 0x10003e50 */
-uint FUN_10003e70(int param_1,int *param_2); /* 0x10003e70 */
-void FUN_10004090(undefined4 param_1,int param_2,char *param_3,int param_4,undefined4 param_5, undefined4 param_6); /* 0x10004090 */
-void FUN_10004140(int param_1); /* 0x10004140 */
-uint FUN_10004170(int param_1,int param_2,int param_3,undefined4 param_4); /* 0x10004170 */
-undefined4 FUN_100041e0(undefined4 param_1,undefined4 param_2,uint param_3); /* 0x100041e0 */
-uint FUN_10004320(int param_1,undefined4 param_2,int param_3); /* 0x10004320 */
-undefined4 FUN_10004390(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x10004390 */
-uint FUN_10004770(int param_1,int param_2,int param_3,undefined4 param_4,int param_5); /* 0x10004770 */
-undefined4 FUN_100047f0(undefined4 param_1,int param_2,undefined4 param_3); /* 0x100047f0 */
-undefined4 FUN_10004970(undefined4 param_1,int param_2); /* 0x10004970 */
-undefined4 FUN_10004bb0(undefined4 param_1,char *param_2,int param_3); /* 0x10004bb0 */
-void FUN_10004c40(undefined4 param_1,int param_2,uint param_3); /* 0x10004c40 */
-void FUN_10004c70(undefined4 param_1); /* 0x10004c70 */
-void FUN_10004d70(undefined4 param_1,undefined4 *param_2,int param_3); /* 0x10004d70 */
-int FUN_10004e50(void); /* 0x10004e50 */
-int FUN_10004f30(void); /* 0x10004f30 */
-void FUN_10004f70(int param_1); /* 0x10004f70 */
-int FUN_10005090(void); /* 0x10005090 */
-int FUN_10005160(int param_1); /* 0x10005160 */
-int FUN_10005180(int param_1); /* 0x10005180 */
-int __cdecl FUN_100051a0(int param_1); /* 0x100051a0 */
-int FUN_100051c0(int param_1); /* 0x100051c0 */
-void FUN_100051e0(void); /* 0x100051e0 */
-undefined4 FUN_10005200(void); /* 0x10005200 */
-void FUN_10005350(void); /* 0x10005350 */
-undefined4 __cdecl Cos_RegisterSaveVerify(undefined4 param_1); /* 0x10005590 */
-uint * FUN_100055a0(uint *param_1,uint *param_2,uint param_3); /* 0x100055a0 */
-char * FUN_100056a0(char *param_1,char param_2); /* 0x100056a0 */
-void FUN_100056d0(void); /* 0x100056d0 */
-void FUN_100056f0(void); /* 0x100056f0 */
-void FUN_10005700(void); /* 0x10005700 */
-int FUN_10005740(byte *param_1,byte *param_2); /* 0x10005740 */
-int __cdecl FUN_10005810(char *param_1,char *param_2,...); /* 0x10005810 */
-undefined4 * FUN_10005860(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x10005860 */
-void FUN_10005ba0(uint param_1,uint param_2,uint param_3,code *param_4); /* 0x10005ba0 */
-void FUN_10005d50(uint param_1,uint param_2,int param_3,code *param_4); /* 0x10005d50 */
-void FUN_10005db0(undefined1 *param_1,undefined1 *param_2,int param_3); /* 0x10005db0 */
-uint FUN_10005de0(undefined4 param_1,uint param_2,uint param_3,int param_4,code *param_5); /* 0x10005de0 */
-uint * FUN_10005e90(uint *param_1,char param_2); /* 0x10005e90 */
-undefined4 __stdcall FUN_10005f50(int a1,int a2,int a3); /* 0x10005f50 */
+int __cdecl Cos_InstCountChores(int hInst); /* 0x10002f70 */
+char * __cdecl Cos_GetCostumeName(int hCostume); /* 0x10002fb0 */
+Costume * __cdecl Cos_InstGetCostume(int hInst,int *outHandle); /* 0x10003000 */
+char * __cdecl Cos_InstChoreName(int hInst,uint choreNum); /* 0x10003050 */
+int __cdecl Cos_InstStopChores(uint hInst); /* 0x10003160 */
+int __cdecl Cos_InstStopChore(int hInst,uint choreNum); /* 0x10003240 */
+int __cdecl Cos_InstPauseChores(int hInst); /* 0x10003300 */
+int __cdecl Cos_InstPauseChore(int hInst,uint choreNum); /* 0x10003360 */
+int __cdecl Cos_InstCompleteChore(int hInst,uint choreNum); /* 0x100033b0 */
+int __cdecl Cos_InstCompleteChores(int hInst); /* 0x10003430 */
+int __cdecl Cos_InstPlayChore(int hInst,uint choreNum,int loop,int manual); /* 0x100034c0 */
+int __cdecl Cos_InstUpdateChore(int hInst,uint choreNum,int dt); /* 0x10003530 */
+int __cdecl Cos_InstUpdateChores(int hInst,int dt); /* 0x100035a0 */
+int __cdecl Cos_InstSetChoreLoop(int hInst,uint choreNum,int loop); /* 0x10003620 */
+int __cdecl Cos_InstSetChoreAdv(int hInst,uint choreNum,int manual); /* 0x10003690 */
+uint __cdecl Cos_InstChoreStatus(int hInst,uint choreNum); /* 0x10003700 */
+int __cdecl Cos_Initialize(GrimServices *svc,void **moduleIface); /* 0x10003750 */
+uint __cdecl Cos_Save(void *io); /* 0x100037a0 */
+int __cdecl Cos_SaveInstance(int hInst,void *io); /* 0x10003890 */
+uint __cdecl Cos_Restore(void *io); /* 0x10003970 */
+int __cdecl Cos_RestoreInstance(int hInst,void *io); /* 0x10003b40 */
+uint __cdecl Cos_CollectUsedTags(Costume *pCostume); /* 0x10003c20 */
+ChoreKey * __cdecl Cos_AddKey(Costume *pCostume,uint choreNum,int compNum,uint time); /* 0x10003c90 */
+int __cdecl Cos_CompareKeys(ChoreKey *a,ChoreKey *b); /* 0x10003e50 */
+uint __cdecl Cos_InitComponentStates(CosComponent *pComponent,int *pStates); /* 0x10003e70 */
+void __cdecl Cos_InitComponent(Costume *pCostume,CosComponent *pComponent,char *name,int tag,int data,int parent); /* 0x10004090 */
+void __cdecl Cos_InitChore(Chore *pChore); /* 0x10004140 */
+int __cdecl Cos_FindComponent(Costume *pCostume,int tagId,int hash,char *name); /* 0x10004170 */
+uint __cdecl Cos_ReadTagsSection(uint file,uint unused2,uint unused3); /* 0x100041e0 */
+int __cdecl Cos_FindTag(int tagId,char *name,int kind); /* 0x10004320 */
+uint __cdecl Cos_ReadComponentsSection(uint file,uint handle,uint unused3,uint unused4); /* 0x10004390 */
+int __cdecl Cos_FindComponentWithParent(Costume *pCostume,int tagId,int hash,char *name,int parent); /* 0x10004770 */
+uint __cdecl Cos_ReadChoresSection(uint file,int costume,uint unused3); /* 0x100047f0 */
+uint __cdecl Cos_ReadKeysSection(uint file,int costume); /* 0x10004970 */
+int __cdecl Cos_ReadLine(int file,char *buf,int size); /* 0x10004bb0 */
+void __cdecl Cos_InitChoreInstances(Chore *pChores,ChoreInstance *pChoreInstances,uint numChores); /* 0x10004c40 */
+void __cdecl Cos_FreeCostume(int hCostume); /* 0x10004c70 */
+void __cdecl Cos_FreeComponent(int hCostume,ComponentTag *pTag,CosComponent *pComponent); /* 0x10004d70 */
+int __cdecl Cos_AllocCostumeSlot(void); /* 0x10004e50 */
+uint __cdecl Cos_AllocTagSlot(void); /* 0x10004f30 */
+void __cdecl Cos_FreeInstanceData(int instIndex); /* 0x10004f70 */
+int __cdecl Cos_AllocInstanceSlot(void); /* 0x10005090 */
+int __cdecl Cos_HandleToIndex(int hCostume); /* 0x10005160 */
+int __cdecl Cos_IndexToHandle(int index); /* 0x10005180 */
+int __cdecl Cos_InstHandleToIndex(int hInst); /* 0x100051a0 */
+int __cdecl Cos_InstIndexToHandle(int index); /* 0x100051c0 */
+void __cdecl Cos_Terminate(void); /* 0x100051e0 */
+int __cdecl Cos_Startup(void); /* 0x10005200 */
+void __cdecl Cos_Shutdown(void); /* 0x10005350 */
+void * __cdecl Cos_RegisterSaveVerify(void *verify); /* 0x10005590 */
 
 /* ===== cosutil.c ===== */
-undefined4 CosUtil_Write(char *param_1,int param_2,undefined4 param_3); /* 0x10001110 */
-int CosUtil_CompPtrFromHandle(int param_1,uint param_2); /* 0x10002020 */
-int CosUtil_PtrFromHandle(undefined4 param_1); /* 0x10002040 */
-undefined4 CosUtil_RegisterCompNotifier(undefined4 param_1); /* 0x10002060 */
-undefined4 CosUtil_RegisterBitmapMunger(undefined4 param_1); /* 0x10002070 */
-undefined4 CosUtil_DeleteComponent(uint param_1,uint param_2); /* 0x10002260 */
-int CosUtil_AdjustComponent(int param_1,uint param_2); /* 0x100026a0 */
-undefined4 CosUtil_ComponentHasAdjuster(int param_1,uint param_2); /* 0x10002740 */
-int CosUtil_AddComponent (undefined4 param_1,int param_2,int param_3,undefined4 param_4,undefined4 param_5); /* 0x100027e0 */
-int CosUtil_AddChore(int param_1); /* 0x10002880 */
-undefined4 __cdecl CosUtil_DeleteChore(int param_1,uint param_2); /* 0x100028f0 */
-int __cdecl CosUtil_SetChoreLength(int param_1,uint param_2,uint param_3); /* 0x100029e0 */
-undefined1 * __cdecl CosUtil_NameChore(int param_1,int param_2,char *param_3); /* 0x10002ab0 */
-undefined4 CosUtil_DeleteKey(int param_1,uint param_2,uint param_3,int param_4); /* 0x10002b40 */
-uint * CosUtil_QueryValueAtTime(int param_1,uint param_2,uint param_3,uint param_4); /* 0x10002c50 */
-undefined4 CosUtil_AddFSKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5); /* 0x10002cf0 */
-undefined4 CosUtil_AddIntKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5); /* 0x10002d50 */
-undefined4 CosUtil_AddFloatKey(int param_1,undefined4 param_2,int param_3,undefined4 param_4,undefined4 param_5 ); /* 0x10002db0 */
-undefined4 CosUtil_CountComponents(int param_1); /* 0x10002e10 */
+int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment); /* 0x10001110 */
+CosComponent * __cdecl CosUtil_CompPtrFromHandle(Costume *pCostume,uint compNum); /* 0x10002020 */
+Costume * __cdecl CosUtil_PtrFromHandle(int hCostume); /* 0x10002040 */
+void * __cdecl CosUtil_RegisterCompNotifier(void *notifier); /* 0x10002060 */
+void * __cdecl CosUtil_RegisterBitmapMunger(void *munger); /* 0x10002070 */
+int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum); /* 0x10002260 */
+int __cdecl CosUtil_AdjustComponent(Costume *pCostume,uint compNum); /* 0x100026a0 */
+int __cdecl CosUtil_ComponentHasAdjuster(Costume *pCostume,uint compNum); /* 0x10002740 */
+int __cdecl CosUtil_AddComponent(int hCostume,char *name,int tagId,int parentData,int parentTagId); /* 0x100027e0 */
+int __cdecl CosUtil_AddChore(Costume *pCostume); /* 0x10002880 */
+Chore * __cdecl CosUtil_DeleteChore(Costume *pCostume,uint choreNum); /* 0x100028f0 */
+Chore * __cdecl CosUtil_SetChoreLength(Costume *pCostume,uint choreNum,uint length); /* 0x100029e0 */
+char * __cdecl CosUtil_NameChore(Costume *pCostume,int choreNum,char *name); /* 0x10002ab0 */
+int __cdecl CosUtil_DeleteKey(Costume *pCostume,uint choreNum,uint compNum,int time); /* 0x10002b40 */
+ChoreKey * __cdecl CosUtil_QueryValueAtTime(Costume *pCostume,uint choreNum,uint compNum,uint time); /* 0x10002c50 */
+int __cdecl CosUtil_AddFSKey(Costume *pCostume,uint choreNum,int compNum,uint time,int value); /* 0x10002cf0 */
+int __cdecl CosUtil_AddIntKey(Costume *pCostume,uint choreNum,int compNum,uint time,int value); /* 0x10002d50 */
+int __cdecl CosUtil_AddFloatKey(Costume *pCostume,uint choreNum,int compNum,uint time,int value); /* 0x10002db0 */
+uint __cdecl CosUtil_CountComponents(Costume *pCostume); /* 0x10002e10 */
 int __cdecl CosUtil_ComponentInfo(int cos,uint index,int *outTag,undefined4 *outA,undefined4 *outB,int *outKind); /* 0x10002e40 */
-undefined4 CosUtil_CountChores(int param_1); /* 0x10002fa0 */
-int CosUtil_ChoreName(int param_1,uint param_2); /* 0x100030b0 */
-undefined4 CosUtil_CountTags(void); /* 0x100030f0 */
-int * CosUtil_TagInfo(uint param_1,int *param_2); /* 0x10003100 */
+uint __cdecl CosUtil_CountChores(Costume *pCostume); /* 0x10002fa0 */
+char * __cdecl CosUtil_ChoreName(Costume *pCostume,uint choreNum); /* 0x100030b0 */
+uint __cdecl CosUtil_CountTags(void); /* 0x100030f0 */
+char * __cdecl CosUtil_TagInfo(uint whichTag,int *outTagId); /* 0x10003100 */
 
 /* ===== chore.c ===== */
-void __cdecl Chore_AdvanceTime(int param_1,int param_2,int param_3,int param_4,undefined4 param_5); /* 0x100053e0 */
-void __cdecl FUN_10005530(undefined4 param_1,undefined4 *param_2,undefined4 param_3,int param_4, undefined4 param_5,int param_6,undefined4 param_7,undefined4 param_8); /* 0x10005530 */
+void __cdecl Chore_AdvanceTime(Costume *pCostume,CosInstance *pInst,int choreNum,int dt,int hInst); /* 0x100053e0 */
+void __cdecl Chore_ApplyKey(int reason,ComponentTag *pTag,int instData,ChoreKey *pKey,int dt,ChoreKey *pKey2, int zero,int user); /* 0x10005530 */
+
+/* ===== msvc.c ===== */
+uint * msvc_strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x100055a0 */
+char * msvc_strrchr(char *param_1,char param_2); /* 0x100056a0 */
+void msvc_fpmath(void); /* 0x100056d0 */
+void msvc_fpclear(void); /* 0x100056f0 */
+void msvc_cfltcvt_init(void); /* 0x10005700 */
+int __cdecl msvc_stricmp(byte *a,byte *b); /* 0x10005740 */
+int __cdecl msvc_sscanf(char *param_1,char *param_2,...); /* 0x10005810 */
+undefined4 * msvc_memmove(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x10005860 */
+void msvc_qsort(uint param_1,uint param_2,uint param_3,code *param_4); /* 0x10005ba0 */
+void msvc_shortsort(uint param_1,uint param_2,int param_3,code *param_4); /* 0x10005d50 */
+void msvc_qsort_swap(undefined1 *param_1,undefined1 *param_2,int param_3); /* 0x10005db0 */
+uint msvc_bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,code *param_5); /* 0x10005de0 */
+uint * msvc_strchr(uint *param_1,char param_2); /* 0x10005e90 */
+undefined4 __stdcall FUN_10005f50(int a1,int a2,int a3); /* 0x10005f50 */
+undefined4 msvc_CPtoLCID(undefined4 param_1); /* 0x10008520 */
 
 /* ===== crt.c ===== */
 undefined4 __stdcall entry(int a1,int a2,int a3); /* 0x10006070 */
@@ -172,7 +175,8 @@ void FUN_10007ff0(void); /* 0x10007ff0 */
 void FUN_10008090(byte *param_1,undefined4 *param_2,byte *param_3,int *param_4,int *param_5); /* 0x10008090 */
 undefined4 FUN_100082a0(undefined4 param_1); /* 0x100082a0 */
 int FUN_100084d0(int param_1); /* 0x100084d0 */
-undefined4 FUN_10008520(undefined4 param_1); /* 0x10008520 */
+
+/* ===== region_10008580.c ===== */
 void FUN_10008580(void); /* 0x10008580 */
 void FUN_100085c0(void); /* 0x100085c0 */
 void FUN_100087a0(void); /* 0x100087a0 */

@@ -1,0 +1,165 @@
+[
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143a0",
+  "global": "g_nCosInitialize",
+  "type": "int",
+  "comment": "1 after Cos_Initialize, cleared by Cos_Terminate (original name bcosInitialize, libchore.so)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143a4",
+  "global": "g_nCosStartup",
+  "type": "int",
+  "comment": "1 after Cos_Startup allocated the tables, cleared by Cos_Shutdown (bcosStartup)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143a8",
+  "global": "g_pSvcChore",
+  "type": "GrimServices *",
+  "comment": "The host's service table (assert, alloc/free/realloc, fopen/fclose/fgets/fprintf), set by Cos_Initialize (pcosHS)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143ac",
+  "global": "g_nCostumes",
+  "type": "int",
+  "comment": "Costume slots counted in use (numCostumes); not lowered when a load fails, see build/overrides_s1_chore.c"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143b0",
+  "global": "g_nMaxCostumes",
+  "type": "int",
+  "comment": "Size of g_aCostumes in records (maxCostumes; 32 at start-up, grows by 8)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143b4",
+  "global": "g_aCostumes",
+  "type": "Costume *",
+  "comment": "The costume table (aCostumes): g_nMaxCostumes records of 0x3c bytes (Costume); a costume handle is index + 1"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143b8",
+  "global": "g_dwNumComponentTags",
+  "type": "uint",
+  "comment": "Registered component tags (numComponentTags)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143bc",
+  "global": "g_dwMaxComponentTags",
+  "type": "uint",
+  "comment": "Size of g_aComponentTags (maxComponentTags, 32)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143c0",
+  "global": "g_aComponentTags",
+  "type": "ComponentTag *",
+  "comment": "The component tag table (aComponentTags): records of 0x5c bytes (ComponentTag: id, kind, name, user data, seven handlers) registered by Cos_NewStateBasedTag / Cos_NewIntTag / Cos_NewFloatTag"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143c4",
+  "global": "g_nInstances",
+  "type": "int",
+  "comment": "Costume instance records counted in use (numInstances)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143c8",
+  "global": "g_nMaxInstances",
+  "type": "int",
+  "comment": "Size of g_aCostumeInstances in records (maxInstances; 32 at start-up, grows by 8)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143cc",
+  "global": "g_aCostumeInstances",
+  "type": "CosInstance *",
+  "comment": "The costume instance table (aCostumeInstances): records of 0x14 bytes (CosInstance); an instance handle is index + 1"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143d0",
+  "global": "g_aComponentLookups",
+  "type": "int *",
+  "comment": "Text costume loader: component index in the file -> component index in the costume (aComponentLookups), grown to the largest component count read"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143d4",
+  "global": "g_dwNumComponentLookups",
+  "type": "uint",
+  "comment": "Size of g_aComponentLookups (numComponentLookups)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143d8",
+  "global": "g_pfnCompNotifier",
+  "type": "void *",
+  "comment": "CosUtil_RegisterCompNotifier: called (costume, component, index, added) when a component is added or deleted (pCompNotifier)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143dc",
+  "global": "g_pfnBitmapMunger",
+  "type": "void *",
+  "comment": "CosUtil_RegisterBitmapMunger: turns a state bitmap description into the value kept at +0x10 of the state bitmap record (pBitmapMunger)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143e0",
+  "global": "g_pfnInstanceHook",
+  "type": "void *",
+  "comment": "Cos_RegisterInstanceHook: called (instance, created) when a costume instance is created (1, may refuse with 0) or freed (0) (instanceHook)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143e4",
+  "global": "g_pfnSaveHook",
+  "type": "void *",
+  "comment": "Cos_RegisterSaveHook: asked (file name, costume handle) before CosUtil_Write writes a costume (saveHook)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143e8",
+  "global": "g_pfnSaveVerify",
+  "type": "void *",
+  "comment": "Cos_RegisterSaveVerify: decides (costume) whether Cos_Save writes a loaded costume into the save game (cosSaveVerify)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143ec",
+  "global": "g_nLineNum",
+  "type": "int",
+  "comment": "Lines read by Cos_ReadLine from the costume file being loaded (LineNum)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "100143f0",
+  "global": "g_nNextCostumeID",
+  "type": "int",
+  "comment": "Serial number for the next costume record, Costume +0x24 (the static Cos_NewEntry.nextID)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10013e10",
+  "global": "g_szParseLine",
+  "type": "char",
+  "array_length": 1024,
+  "comment": "Line buffer of the text costume loader, 0x400 bytes (aParseLine)"
+ },
+ {
+  "program": "/CHORE.DLL",
+  "addr": "10014210",
+  "global": "g_aTagLookups",
+  "type": "uint",
+  "array_length": 100,
+  "comment": "Tag index of the costume file -> index into g_aComponentTags (loader: Cos_ReadTagsSection; writer: Cos_CollectUsedTags), 100 entries (aTagLookups)"
+ }
+]
