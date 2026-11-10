@@ -1,0 +1,1108 @@
+[
+ {
+  "program": "/LUA.DLL",
+  "addr": "100011e0",
+  "old": "lapi__11e0",
+  "name": "luaA_Address",
+  "comment": "Original name luaA_Address (the remaster's libLua.so: stack + o - 1, used as luaA_Address(luaL_nonnullarg(1)) by nextvar / foreach); was lapi__11e0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10001240",
+  "old": "lapi__1240",
+  "name": "luaA_passresults",
+  "comment": "Original name luaA_passresults (the remaster's libLua.so: same body (luaD_checkstack(Cnresults), copies the C results); callers internaldofile / internaldostring); was lapi__1240."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100024a0",
+  "old": "FUN_100024a0",
+  "name": "checkfunc",
+  "comment": "Original name checkfunc (the remaster's libLua.so: static checkfunc(TObject*): luaO_equalObj(o, top), called by lua_getobjname); was FUN_100024a0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002660",
+  "old": "lapi__2660",
+  "name": "luaA_ResetSaveCount",
+  "comment": "Original name luaA_ResetSaveCount (the remaster's libLua.so: clears the saved-bytes counter that LuaSaveWriter adds to); was lapi__2660."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002730",
+  "old": "FUN_10002730",
+  "name": "LuaSaveWriter",
+  "comment": "Original name LuaSaveWriter (the remaster's libLua.so: static LuaSaveWriter(void*, unsigned): lua_totalBytesSaved += size, then the save callback); was FUN_10002730."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002900",
+  "old": "FUN_10002900",
+  "name": "Lua_Terminate",
+  "comment": "Original name Lua_Terminate (the remaster's libLua.so: static Lua_Terminate: service table = 0, initialize flag cleared); was FUN_10002900."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002920",
+  "old": "FUN_10002920",
+  "name": "Lua_Startup",
+  "comment": "Original name Lua_Startup (the remaster's libLua.so: static Lua_Startup: returns the old startup flag and sets it); was FUN_10002920."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002940",
+  "old": "FUN_10002940",
+  "name": "Lua_Shutdown",
+  "comment": "Original name Lua_Shutdown (the remaster's libLua.so: static Lua_Shutdown: lua_close, frees the libraries (lua_closelibs, inlined there), startup flag = 0); was FUN_10002940."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002960",
+  "old": "lauxlib__2960",
+  "name": "luaFGetc",
+  "comment": "Original name luaFGetc (the remaster's libLua.so: reads one char through the service table +0x38, -1 at the end); was lauxlib__2960."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002990",
+  "old": "lauxlib__2990",
+  "name": "luaFUngetc",
+  "comment": "Original name luaFUngetc (the remaster's libLua.so: -1 stays -1, otherwise seeks back one character (service +0x48 / +0x4c)); was lauxlib__2990."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002d10",
+  "old": "lbuiltin__2d10",
+  "name": "luaL_addsize",
+  "comment": "Original name luaL_addsize (the remaster's libLua.so: Mbuffnext += n); was lbuiltin__2d10."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002d30",
+  "old": "lbuiltin__2d30",
+  "name": "luaL_newbuffer",
+  "comment": "Original name luaL_newbuffer (the remaster's libLua.so: returns the old base, opens space, new base = Mbuffer + Mbuffnext); was lbuiltin__2d30."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002d80",
+  "old": "lbuiltin__2d80",
+  "name": "luaL_oldbuffer",
+  "comment": "Original name luaL_oldbuffer (the remaster's libLua.so: restores Mbuffnext and the base); was lbuiltin__2d80."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002da0",
+  "old": "lbuiltin__2da0",
+  "name": "luaL_buffer",
+  "comment": "Original name luaL_buffer (the remaster's libLua.so: returns Mbuffbase); was lbuiltin__2da0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002db0",
+  "old": "FUN_10002db0",
+  "name": "nextvar",
+  "comment": "Original name nextvar (the remaster's libLua.so: int_funcs entry 'nextvar', string 'variable name expected'); was FUN_10002db0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002e70",
+  "old": "FUN_10002e70",
+  "name": "foreachvar",
+  "comment": "Original name foreachvar (the remaster's libLua.so: int_funcs entry 'foreachvar'); was FUN_10002e70."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002f80",
+  "old": "FUN_10002f80",
+  "name": "next",
+  "comment": "Original name next (the remaster's libLua.so: int_funcs entry 'next'); was FUN_10002f80."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002fd0",
+  "old": "FUN_10002fd0",
+  "name": "foreach",
+  "comment": "Original name foreach (the remaster's libLua.so: int_funcs entry 'foreach'); was FUN_10002fd0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100030d0",
+  "old": "FUN_100030d0",
+  "name": "internaldostring",
+  "comment": "Original name internaldostring (the remaster's libLua.so: int_funcs entry 'dostring'); was FUN_100030d0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003120",
+  "old": "FUN_10003120",
+  "name": "internaldofile",
+  "comment": "Original name internaldofile (the remaster's libLua.so: int_funcs entry 'dofile'); was FUN_10003120."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003150",
+  "old": "FUN_10003150",
+  "name": "bi_tostring",
+  "comment": "Original name bi_tostring (the remaster's libLua.so: int_funcs entry 'tostring'); was FUN_10003150."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003170",
+  "old": "luaB_tostring",
+  "name": "to_string",
+  "comment": "lbuiltin.c: userdata: %p / task: %d / table: %p formatting Original name to_string (the remaster's libLua.so: static to_string: the strings 'nil', 'table: %p', 'task: %d', 'internal error', called by bi_tostring); was luaB_tostring."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003260",
+  "old": "lbuiltin__3260",
+  "name": "luaI_startscript",
+  "comment": "Original name luaI_startscript (the remaster's libLua.so: int_funcs entry 'start_script'); was lbuiltin__3260."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003370",
+  "old": "FUN_10003370",
+  "name": "luaI_stopscript",
+  "comment": "Original name luaI_stopscript (the remaster's libLua.so: int_funcs entry 'stop_script', strings 'Argument to stopscript must be a task handle or function!'); was FUN_10003370."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100034c0",
+  "old": "FUN_100034c0",
+  "name": "luaI_findscript",
+  "comment": "Original name luaI_findscript (the remaster's libLua.so: strings 'Too few arguments to findscript! ...'); was FUN_100034c0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003610",
+  "old": "FUN_10003610",
+  "name": "luaI_identifyscript",
+  "comment": "Original name luaI_identifyscript (the remaster's libLua.so: strings 'Too few arguments to identifyscript! ...'); was FUN_10003610."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100036a0",
+  "old": "FUN_100036a0",
+  "name": "luaI_nextscript",
+  "comment": "Original name luaI_nextscript (the remaster's libLua.so: strings 'Too few arguments to nextscript! ...'); was FUN_100036a0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003770",
+  "old": "FUN_10003770",
+  "name": "luaI_breakhere",
+  "comment": "Original name luaI_breakhere (the remaster's libLua.so: the empty 'break_here' builtin (luaI_breakhere is an empty function in the remaster too)); was FUN_10003770."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003780",
+  "old": "FUN_10003780",
+  "name": "luaI_print",
+  "comment": "Original name luaI_print (the remaster's libLua.so: int_funcs entry 'print'); was FUN_10003780."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100037d0",
+  "old": "FUN_100037d0",
+  "name": "luaI_type",
+  "comment": "Original name luaI_type (the remaster's libLua.so: int_funcs entry 'type'); was FUN_100037d0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003820",
+  "old": "FUN_10003820",
+  "name": "tonumber",
+  "comment": "Original name tonumber (the remaster's libLua.so: int_funcs entry 'tonumber', string 'base out of range'); was FUN_10003820."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003910",
+  "old": "FUN_10003910",
+  "name": "luaI_error",
+  "comment": "Original name luaI_error (the remaster's libLua.so: int_funcs entry 'error'); was FUN_10003910."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003930",
+  "old": "FUN_10003930",
+  "name": "luaI_assert",
+  "comment": "Original name luaI_assert (the remaster's libLua.so: int_funcs entry 'assert'); was FUN_10003930."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003970",
+  "old": "FUN_10003970",
+  "name": "setglobal",
+  "comment": "Original name setglobal (the remaster's libLua.so: int_funcs entry 'setglobal'); was FUN_10003970."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100039b0",
+  "old": "FUN_100039b0",
+  "name": "rawsetglobal",
+  "comment": "Original name rawsetglobal (the remaster's libLua.so: int_funcs entry 'rawsetglobal'); was FUN_100039b0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100039f0",
+  "old": "FUN_100039f0",
+  "name": "getglobal",
+  "comment": "Original name getglobal (the remaster's libLua.so: int_funcs entry 'getglobal'); was FUN_100039f0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003a10",
+  "old": "FUN_10003a10",
+  "name": "rawgetglobal",
+  "comment": "Original name rawgetglobal (the remaster's libLua.so: int_funcs entry 'rawgetglobal'); was FUN_10003a10."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003a30",
+  "old": "FUN_10003a30",
+  "name": "luatag",
+  "comment": "Original name luatag (the remaster's libLua.so: int_funcs entry 'tag'); was FUN_10003a30."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003a60",
+  "old": "FUN_10003a60",
+  "name": "luaI_call",
+  "comment": "Original name luaI_call (the remaster's libLua.so: int_funcs entry 'call'); was FUN_10003a60."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003bf0",
+  "old": "FUN_10003bf0",
+  "name": "settag",
+  "comment": "Original name settag (the remaster's libLua.so: int_funcs entry 'settag'); was FUN_10003bf0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003c20",
+  "old": "FUN_10003c20",
+  "name": "newtag",
+  "comment": "Original name newtag (the remaster's libLua.so: int_funcs entry 'newtag'); was FUN_10003c20."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003c40",
+  "old": "FUN_10003c40",
+  "name": "copytagmethods",
+  "comment": "Original name copytagmethods (the remaster's libLua.so: int_funcs entry 'copytagmethods'); was FUN_10003c40."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003c80",
+  "old": "FUN_10003c80",
+  "name": "rawgettable",
+  "comment": "Original name rawgettable (the remaster's libLua.so: int_funcs entry 'rawgettable'); was FUN_10003c80."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003cc0",
+  "old": "luaB_rawsettable",
+  "name": "rawsettable",
+  "comment": "lbuiltin.c (built-in functions) Original name rawsettable (the remaster's libLua.so: int_funcs entry 'rawsettable'); was luaB_rawsettable."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003d10",
+  "old": "FUN_10003d10",
+  "name": "settagmethod",
+  "comment": "Original name settagmethod (the remaster's libLua.so: int_funcs entry 'settagmethod'); was FUN_10003d10."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003d50",
+  "old": "FUN_10003d50",
+  "name": "gettagmethod",
+  "comment": "Original name gettagmethod (the remaster's libLua.so: int_funcs entry 'gettagmethod'); was FUN_10003d50."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003d80",
+  "old": "FUN_10003d80",
+  "name": "seterrormethod",
+  "comment": "Original name seterrormethod (the remaster's libLua.so: int_funcs entry 'seterrormethod'); was FUN_10003d80."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10003db0",
+  "old": "FUN_10003db0",
+  "name": "luaI_collectgarbage",
+  "comment": "Original name luaI_collectgarbage (the remaster's libLua.so: int_funcs entry 'collectgarbage'); was FUN_10003db0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100040c0",
+  "old": "ldo__40c0",
+  "name": "luaD_taskHook",
+  "comment": "Original name luaD_taskHook (the remaster's libLua.so: calls lua_taskhook); was ldo__40c0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10004160",
+  "old": "ldo__4160",
+  "name": "luaD_deletestates",
+  "comment": "Original name luaD_deletestates (the remaster's libLua.so: frees a chain of execution states (next at +0xc, ExecutionState_Delete)); was ldo__4160."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10004600",
+  "old": "ldo__4600",
+  "name": "luaD_travallstacks",
+  "comment": "Original name luaD_travallstacks (the remaster's libLua.so: walks every state (LState_next) and calls the function on each stack slot); was ldo__4600."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100049b0",
+  "old": "luaD_domain",
+  "name": "do_main",
+  "comment": "do_main: parse (text or precompiled) then run, both protected Original name do_main (the remaster's libLua.so: static do_main(ZIO*, int): the only caller of luaD_protectedrun besides lua_dofile / lua_dostring paths); was luaD_domain."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10004a50",
+  "old": "luaD_protectedparser",
+  "name": "protectedparser",
+  "comment": "ldo.c: runs luaU_undump1 or luaY_parser on the open ZIO Original name protectedparser (the remaster's libLua.so: static protectedparser(ZIO*, int): the only caller of luaY_parser / luaU_undump1 / luaV_closure here); was luaD_protectedparser."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10004d40",
+  "old": "lfunc__4d40",
+  "name": "luaC_ref",
+  "comment": "Original name luaC_ref (the remaster's libLua.so: string 'reference table overflow'); was lfunc__4d40."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10004e30",
+  "old": "lfunc__4e30",
+  "name": "luaC_getref",
+  "comment": "Original name luaC_getref (the remaster's libLua.so: -1 gives the nil object, otherwise the ref record if its status is 0 or 1 (same test)); was lfunc__4e30."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005300",
+  "old": "lgc__5300",
+  "name": "luaC_checkGC",
+  "comment": "Original name luaC_checkGC (the remaster's libLua.so: nblocks >= GCthreshold -> lua_collectgarbage(0)); was lgc__5300."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005170",
+  "old": "luaC_markobject",
+  "name": "markobject",
+  "comment": "Original name markobject (the remaster's libLua.so: static markobject(TObject*): switch on the tag (closure, table, proto, string)); was luaC_markobject."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005270",
+  "old": "luaC_protomark",
+  "name": "closuremark",
+  "comment": "Original name closuremark (the remaster's libLua.so: static closuremark(Closure*): marks the closure's nelems + 1 consts (markobject's CLOSURE / CLMARK case)); was luaC_protomark."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100052b0",
+  "old": "luaC_closuremark",
+  "name": "hashmark",
+  "comment": "Original name hashmark (the remaster's libLua.so: static hashmark(Hash*): marks key and value of every node (markobject's ARRAY case)); was luaC_closuremark."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005320",
+  "old": "FUN_10005320",
+  "name": "io_readfrom",
+  "comment": "Original name io_readfrom (the remaster's libLua.so: iolib entry 'readfrom'); was FUN_10005320."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005570",
+  "old": "FUN_10005570",
+  "name": "io_writeto",
+  "comment": "Original name io_writeto (the remaster's libLua.so: iolib entry 'writeto'); was FUN_10005570."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005620",
+  "old": "FUN_10005620",
+  "name": "io_appendto",
+  "comment": "Original name io_appendto (the remaster's libLua.so: iolib entry 'appendto'); was FUN_10005620."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005660",
+  "old": "FUN_10005660",
+  "name": "io_read",
+  "comment": "Original name io_read (the remaster's libLua.so: iolib entry 'read'); was FUN_10005660."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100057d0",
+  "old": "FUN_100057d0",
+  "name": "io_write",
+  "comment": "Original name io_write (the remaster's libLua.so: iolib entry 'write'); was FUN_100057d0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005870",
+  "old": "FUN_10005870",
+  "name": "io_execute",
+  "comment": "Original name io_execute (the remaster's libLua.so: iolib entry 'execute'); was FUN_10005870."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100058a0",
+  "old": "FUN_100058a0",
+  "name": "io_remove",
+  "comment": "Original name io_remove (the remaster's libLua.so: iolib entry 'remove'); was FUN_100058a0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100058d0",
+  "old": "FUN_100058d0",
+  "name": "io_rename",
+  "comment": "Original name io_rename (the remaster's libLua.so: iolib entry 'rename'); was FUN_100058d0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005900",
+  "old": "FUN_10005900",
+  "name": "io_tmpname",
+  "comment": "Original name io_tmpname (the remaster's libLua.so: iolib entry 'tmpname'); was FUN_10005900."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005920",
+  "old": "FUN_10005920",
+  "name": "io_getenv",
+  "comment": "Original name io_getenv (the remaster's libLua.so: iolib entry 'getenv'); was FUN_10005920."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005940",
+  "old": "FUN_10005940",
+  "name": "io_date",
+  "comment": "Original name io_date (the remaster's libLua.so: iolib entry 'date'); was FUN_10005940."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100059c0",
+  "old": "FUN_100059c0",
+  "name": "setloc",
+  "comment": "Original name setloc (the remaster's libLua.so: iolib entry 'setlocale'); was FUN_100059c0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005a20",
+  "old": "FUN_10005a20",
+  "name": "io_exit",
+  "comment": "Original name io_exit (the remaster's libLua.so: iolib entry 'exit'); was FUN_10005a20."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005a50",
+  "old": "FUN_10005a50",
+  "name": "io_debug",
+  "comment": "Original name io_debug (the remaster's libLua.so: iolib entry 'debug'); was FUN_10005a50."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005ad0",
+  "old": "FUN_10005ad0",
+  "name": "errorfb",
+  "comment": "Original name errorfb (the remaster's libLua.so: iolib entry 'print_stack'); was FUN_10005ad0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005cf0",
+  "old": "luaX_save",
+  "name": "luaX_lasttoken",
+  "comment": "save_and_next: appends the current char to the token buffer Original name luaX_lasttoken (the remaster's libLua.so: same body: luaL_addchar(0); return luaL_buffer()); was luaX_save."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005d00",
+  "old": "luaX_lex",
+  "name": "luaY_lex",
+  "comment": "llex.c: main tokenizer; numbers are returned through the float out-parameter Original name luaY_lex (the remaster's libLua.so: string 'ambiguous syntax (decimal point x string concatenation)' (the bison yylex renamed luaY_lex)); was luaX_lex."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10006890",
+  "old": "luaX_pragma",
+  "name": "inclinenumber",
+  "comment": "llex.c: handles the $debug / $nodebug / $if pragmas Original name inclinenumber (the remaster's libLua.so: static inclinenumber(LexState*): the pragma strings ('unknown pragma', 'too many nested $ifs', 'unmatched $else'); the remaster's static table inclinenumber::pragmas); was luaX_pragma."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10006b10",
+  "old": "luaX_inclinenumber",
+  "name": "skipspace",
+  "comment": "Original name skipspace (the remaster's libLua.so: static skipspace(LexState*): skips blanks, tabs and CRs); was luaX_inclinenumber."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10006b60",
+  "old": "luaX_error",
+  "name": "checkcond",
+  "comment": "Original name checkcond (the remaster's libLua.so: the remaster's static table checkcond::opts; string 'invalid $if condition'); was luaX_error."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10006bb0",
+  "old": "llex__6bb0",
+  "name": "readname",
+  "comment": "Original name readname (the remaster's libLua.so: static readname(LexState*, char*): string 'pragma too long'); was llex__6bb0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100075e0",
+  "old": "lstate__75e0",
+  "name": "LState_Construct",
+  "comment": "Original name LState_Construct (the remaster's libLua.so: LState::LState (constructor, __thiscall here): clears the state, serial number, allocates the 0x400-byte stack (assert file lstate.cpp)); was lstate__75e0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10007660",
+  "old": "lstate__7660",
+  "name": "LState_SerialToPtr",
+  "comment": "Original name LState_SerialToPtr (the remaster's libLua.so: LState::SerialToPtr(TObject*): sorts the four pointer tables (qsort with comparePtrIDs) once and bsearches them; assert 'aStringPtrs && aClosurePtrs && aTablePtrs && aProtoPtrs'); was lstate__7660."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10007810",
+  "old": "FUN_10007810",
+  "name": "comparePtrIDs",
+  "comment": "Original name comparePtrIDs (the remaster's libLua.so: static comparePtrIDs: compares the ids at +4); was FUN_10007810."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10007830",
+  "old": "lstate__7830",
+  "name": "LState_SaveObject",
+  "comment": "Original name LState_SaveObject (the remaster's libLua.so: LState::SaveObject(TObject*, writer): writes tag and value, a C function as lua_FuncPtrToID); was lstate__7830."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10007880",
+  "old": "lstate__7880",
+  "name": "LState_LoadObject",
+  "comment": "Original name LState_LoadObject (the remaster's libLua.so: LState::LoadObject(TObject*, reader): reads tag and value); was lstate__7880."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100078b0",
+  "old": "lstate__78b0",
+  "name": "LState_ResolveObject",
+  "comment": "Original name LState_ResolveObject (the remaster's libLua.so: LState::ResolveObject(TObject*): C functions through lua_IDToFuncPtr, other pointers through SerialToPtr); was lstate__78b0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10007910",
+  "old": "lstate__7910",
+  "name": "LState_LoadResolvedObject",
+  "comment": "Original name LState_LoadResolvedObject (the remaster's libLua.so: LState::LoadResolvedObject: LoadObject + ResolveObject); was lstate__7910."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10007930",
+  "old": "lstate__7930",
+  "name": "LState_GlobalEndRestore",
+  "comment": "Original name LState_GlobalEndRestore (the remaster's libLua.so: LState::GlobalEndRestore: frees the four pointer tables, clears the sorted flag (same body)); was lstate__7930."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100079d0",
+  "old": "lstate__79d0",
+  "name": "LState_GlobalBeginRestore",
+  "comment": "Original name LState_GlobalBeginRestore (the remaster's libLua.so: LState::GlobalBeginRestore: assert 'pTString'); was lstate__79d0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100081c0",
+  "old": "lstate__81c0",
+  "name": "LState_SaveGlobals",
+  "comment": "Original name LState_SaveGlobals (the remaster's libLua.so: LState::SaveGlobals(writer): luaA_ResetSaveCount, luaS_writestrings, luaH_save, SaveObject (caller lua_Save)); was lstate__81c0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10008640",
+  "old": "lstate__8640",
+  "name": "LState_Save",
+  "comment": "Original name LState_Save (the remaster's libLua.so: LState::Save(writer): assert 'pExecutionState || !pPreviousState'); was lstate__8640."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100087f0",
+  "old": "lstate__87f0",
+  "name": "LState_Restore",
+  "comment": "Original name LState_Restore (the remaster's libLua.so: LState::Restore(reader): caller lua_Restore, restores the execution states (ExecutionState_Restore / _New)); was lstate__87f0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10008a00",
+  "old": "lua_initstate",
+  "name": "LState_initglobals",
+  "comment": "Grim lstate.c: creates the global state (string table, lexer, tag methods) Original name LState_initglobals (the remaster's libLua.so: LState::initglobals: luaS_init, luaX_init, luaT_init (callers lua_newstate, lua_Restore)); was lua_initstate."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10008ad0",
+  "old": "lstate__8ad0",
+  "name": "lua_newstate",
+  "comment": "Original name lua_newstate (the remaster's libLua.so: lua_newstate(): new LState (0xd4 bytes), initglobals; only callee of lua_open); was lstate__8ad0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10008b70",
+  "old": "lstate__8b70",
+  "name": "LState_attach",
+  "comment": "Original name LState_attach (the remaster's libLua.so: LState::attach(LState*): links the state after another (+0xcc next, +0xd0 prev)); was lstate__8b70."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10008bb0",
+  "old": "lstate__8bb0",
+  "name": "LState_detach",
+  "comment": "Original name LState_detach (the remaster's libLua.so: LState::detach: unlinks the state); was lstate__8bb0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10008bf0",
+  "old": "lstate__8bf0",
+  "name": "LState_next",
+  "comment": "Original name LState_next (the remaster's libLua.so: LState::next: returns +0xcc); was lstate__8bf0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10008c00",
+  "old": "lstate__8c00",
+  "name": "LState_Destruct",
+  "comment": "Original name LState_Destruct (the remaster's libLua.so: LState::~LState: detach, luaD_deletestates, frees the stack); was lstate__8c00."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10008d90",
+  "old": "luaS_hash",
+  "name": "luaS_createudata",
+  "comment": "Original name luaS_createudata (the remaster's libLua.so: luaS_createudata: callers lua_pushusertag and GlobalBeginRestore, calls insert); was luaS_hash."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10008dc0",
+  "old": "lstring__8dc0",
+  "name": "insert",
+  "comment": "Original name insert (the remaster's libLua.so: static insert(char*, int, stringtable*): callers luaS_new and luaS_createudata); was lstring__8dc0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009180",
+  "old": "lstring__9180",
+  "name": "luaS_writestrings",
+  "comment": "Original name luaS_writestrings (the remaster's libLua.so: callee SaveObject, caller SaveGlobals); was lstring__9180."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009290",
+  "old": "lstring__9290",
+  "name": "luaS_resolvestrings",
+  "comment": "Original name luaS_resolvestrings (the remaster's libLua.so: callee ResolveObject, caller GlobalBeginRestore); was lstring__9290."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100092e0",
+  "old": "lstring__92e0",
+  "name": "luaS_count",
+  "comment": "Original name luaS_count (the remaster's libLua.so: caller SaveGlobals (string count for the save file)); was lstring__92e0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009370",
+  "old": "lstring__9370",
+  "name": "luaS_collector",
+  "comment": "Original name luaS_collector (the remaster's libLua.so: caller lua_collectgarbage); was lstring__9370."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009410",
+  "old": "lstring__9410",
+  "name": "luaS_collectudata",
+  "comment": "Original name luaS_collectudata (the remaster's libLua.so: caller lua_close (its result goes to luaS_free)); was lstring__9410."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009470",
+  "old": "lstring__9470",
+  "name": "luaS_freeall",
+  "comment": "Original name luaS_freeall (the remaster's libLua.so: caller lua_close, after luaS_free); was lstring__9470."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100094e0",
+  "old": "lstring__94e0",
+  "name": "luaS_rawsetglobal",
+  "comment": "Original name luaS_rawsetglobal (the remaster's libLua.so: callers luaV_setglobal, lua_rawsetglobal); was lstring__94e0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009510",
+  "old": "lstring__9510",
+  "name": "luaS_travsymbol",
+  "comment": "Original name luaS_travsymbol (the remaster's libLua.so: caller lua_getobjname); was lstring__9510."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009550",
+  "old": "lstring__9550",
+  "name": "luaS_globaldefined",
+  "comment": "Original name luaS_globaldefined (the remaster's libLua.so: luaS_new(name)->value != nil (the $ifnot pragma test)); was lstring__9550."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009570",
+  "old": "FUN_10009570",
+  "name": "str_len",
+  "comment": "Original name str_len (the remaster's libLua.so: strlib entry 'strlen'); was FUN_10009570."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100096a0",
+  "old": "FUN_100096a0",
+  "name": "str_lower",
+  "comment": "Original name str_lower (the remaster's libLua.so: strlib entry 'strlower'); was FUN_100096a0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100096e0",
+  "old": "FUN_100096e0",
+  "name": "str_upper",
+  "comment": "Original name str_upper (the remaster's libLua.so: strlib entry 'strupper'); was FUN_100096e0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009720",
+  "old": "FUN_10009720",
+  "name": "str_rep",
+  "comment": "Original name str_rep (the remaster's libLua.so: strlib entry 'strrep'); was FUN_10009720."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009780",
+  "old": "FUN_10009780",
+  "name": "str_ascii",
+  "comment": "Original name str_ascii (the remaster's libLua.so: strlib entry 'ascii'); was FUN_10009780."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100097f0",
+  "old": "str_singlematch",
+  "name": "luaI_singlematch",
+  "comment": "luaI_singlematch: one pattern item against one char Original name luaI_singlematch (the remaster's libLua.so: strings \"incorrect pattern (ends with `%c')\", \"incorrect pattern (missing `]')\"); was str_singlematch."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009a10",
+  "old": "str_matchclass",
+  "name": "matchclass",
+  "comment": "%a %d %s ... character classes Original name matchclass (the remaster's libLua.so: static matchclass: the only callee of luaI_singlematch (character classes)); was str_matchclass."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009cb0",
+  "old": "FUN_10009cb0",
+  "name": "str_find",
+  "comment": "Original name str_find (the remaster's libLua.so: strlib entry 'strfind'); was FUN_10009cb0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009ea0",
+  "old": "str_match",
+  "name": "match",
+  "comment": "recursive pattern matcher; errors 'too many captures' Original name match (the remaster's libLua.so: static match: string 'too many captures'); was str_match."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a1d0",
+  "old": "FUN_1000a1d0",
+  "name": "str_gsub",
+  "comment": "Original name str_gsub (the remaster's libLua.so: strlib entry 'gsub'); was FUN_1000a1d0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a440",
+  "old": "FUN_1000a440",
+  "name": "str_format",
+  "comment": "Original name str_format (the remaster's libLua.so: strlib entry 'format'); was FUN_1000a440."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a750",
+  "old": "luaY_code_word",
+  "name": "luaY_codedebugline",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Original name luaY_codedebugline (the remaster's libLua.so: if lua_debug and the line changed: SETLINE (0x7c) with the line, remembered in the func state +0x10 (same body); called by luaY_lex); was luaY_code_word."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000abd0",
+  "old": "yyparse",
+  "name": "luaY_parse",
+  "comment": "lua.stx: generated LALR parser from lua.stx Original name luaY_parse (the remaster's libLua.so: strings 'parser stack overflow', 'invalid constructor syntax' (the bison yyparse, prefix luaY_)); was yyparse."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ba90",
+  "old": "lparser__ba90",
+  "name": "add_varbuffer",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Original name add_varbuffer (the remaster's libLua.so: static add_varbuffer: string 'variable buffer overflow (limit=32)'); was lparser__ba90."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c390",
+  "old": "luaH_free",
+  "name": "luaH_hashnodecreate",
+  "comment": "Named luaH_hashnodecreate (not in the remaster: inlined there) Lua 3.1's static hashnodecreate(nhash): allocates nhash nodes and sets each key to nil; the name luaH_free belongs to 1000c190; was luaH_free."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c190",
+  "old": "ltable__c190",
+  "name": "luaH_free",
+  "comment": "Original name luaH_free (the remaster's libLua.so: same body: frees a list of tables (nblocks -= 1 + size / 16), callers lua_close, lua_collectgarbage); was ltable__c190."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c2e0",
+  "old": "luaH_new",
+  "name": "luaH_load",
+  "comment": "Original name luaH_load (the remaster's libLua.so: luaH_load: callee LoadObject, caller GlobalBeginRestore); was luaH_new."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c3d0",
+  "old": "luaH_init",
+  "name": "luaH_new",
+  "comment": "Original name luaH_new (the remaster's libLua.so: luaH_new: callers lua_createtable, luaV_pack, the VM); was luaH_init."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c450",
+  "old": "ltable__c450",
+  "name": "luaH_forcerehash",
+  "comment": "Original name luaH_forcerehash (the remaster's libLua.so: luaH_forcerehash: caller GlobalBeginRestore, callee present); was ltable__c450."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c4d0",
+  "old": "luaH_present",
+  "name": "present",
+  "comment": "Original name present (the remaster's libLua.so: static present(Hash*, TObject*): callers luaH_get / luaH_set / luaH_next / luaH_forcerehash); was luaH_present."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c9f0",
+  "old": "luaT_realtag",
+  "name": "luaT_checktag",
+  "comment": "ltm.c: %d is not a valid tag Named luaT_checktag (not in the remaster: inlined there) Lua 3.1's static checktag: '%d is not a valid tag'; the name luaT_realtag belongs to 1000c920; was luaT_realtag."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c920",
+  "old": "luaT_checktag",
+  "name": "luaT_realtag",
+  "comment": "ltm.c: not result of `newtag' Original name luaT_realtag (the remaster's libLua.so: string \"tag %d is not result of `newtag'\", callers lua_pushusertag, lua_settag); was luaT_checktag."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ca20",
+  "old": "luaT_effectivetag",
+  "name": "luaT_efectivetag",
+  "comment": "Original name luaT_efectivetag (the remaster's libLua.so: the original spelling; callers luaD_call, luaD_gcIM, luaV_gettable / settable / getglobal / setglobal, call_binTM); was luaT_effectivetag."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ca60",
+  "old": "ltm__ca60",
+  "name": "luaT_gettagmethod",
+  "comment": "Original name luaT_gettagmethod (the remaster's libLua.so: caller lua_gettagmethod); was ltm__ca60."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000cae0",
+  "old": "ltm__cae0",
+  "name": "luaT_settagmethod",
+  "comment": "Original name luaT_settagmethod (the remaster's libLua.so: string \"settagmethod: cannot change internal method `%.20s' for tag %d\"); was ltm__cae0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000cb80",
+  "old": "ltm__cb80",
+  "name": "luaT_travtagmethods",
+  "comment": "Original name luaT_travtagmethods (the remaster's libLua.so: string 'error', callers lua_collectgarbage (luaC_markall) and lua_getobjname); was ltm__cb80."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000cbf0",
+  "old": "FUN_1000cbf0",
+  "name": "errorFB",
+  "comment": "Original name errorFB (the remaster's libLua.so: fallback table entry '  errorFB'); was FUN_1000cbf0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000cc10",
+  "old": "FUN_1000cc10",
+  "name": "nilFB",
+  "comment": "Original name nilFB (the remaster's libLua.so: fallback table entry '  nilFB' (an empty function in ltm.c; MSVC folded lstate's identical empty stderrorim into it: the 'stderrorim' entry points here too)); was FUN_1000cc10."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000cc20",
+  "old": "FUN_1000cc20",
+  "name": "typeFB",
+  "comment": "Original name typeFB (the remaster's libLua.so: fallback table entry '  typeFB', string 'unexpected type'); was FUN_1000cc20."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000cc30",
+  "old": "FUN_1000cc30",
+  "name": "luaT_setfallback",
+  "comment": "Original name luaT_setfallback (the remaster's libLua.so: string \"`%.50s' is not a valid fallback name\"); was FUN_1000cc30."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000cf30",
+  "old": "luaU_LoadFunction",
+  "name": "LoadFunction",
+  "comment": "Original name LoadFunction (the remaster's libLua.so: static LoadFunction(ZIO*): luaF_newproto, the code, locals, constants and nested functions (caller luaU_undump1's chunk loader)); was luaU_LoadFunction."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d0d0",
+  "old": "luaU_LoadString",
+  "name": "LoadTString",
+  "comment": "Original name LoadTString (the remaster's libLua.so: static LoadTString(ZIO*): the string (luaL_openspace + read) through luaS_new); was luaU_LoadString."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d5c0",
+  "old": "luaU_str2number",
+  "name": "luaV_tonumber",
+  "comment": "lundump.c: parses %lf %c Original name luaV_tonumber (the remaster's libLua.so: sscanf '%lf %c', callers lua_getnumber / lua_isnumber / the VM); was luaU_str2number."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d620",
+  "old": "lundump__d620",
+  "name": "luaV_tostring",
+  "comment": "Original name luaV_tostring (the remaster's libLua.so: sprintf of the number, luaS_new; caller lua_getstring); was lundump__d620."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000db10",
+  "old": "lvm__db10",
+  "name": "ExecutionState_CleanUp",
+  "comment": "Original name ExecutionState_CleanUp (the remaster's libLua.so: ExecutionState::CleanUp: frees the free list of states (same body)); was lvm__db10."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000db40",
+  "old": "lvm__db40",
+  "name": "ExecutionState_Save",
+  "comment": "Original name ExecutionState_Save (the remaster's libLua.so: ExecutionState::Save(writer): the previous state first (+0xc), then the fields (caller LState::Save)); was lvm__db40."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000dbd0",
+  "old": "lvm__dbd0",
+  "name": "ExecutionState_Restore",
+  "comment": "Original name ExecutionState_Restore (the remaster's libLua.so: ExecutionState::Restore: caller LState::Restore, callees ResolveObject, new); was lvm__dbd0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000dd10",
+  "old": "lvm__dd10",
+  "name": "ExecutionState_New",
+  "comment": "Original name ExecutionState_New (the remaster's libLua.so: ExecutionState::operator new: takes a state from the free list or allocates one); was lvm__dd10."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000dd90",
+  "old": "lvm__dd90",
+  "name": "ExecutionState_Delete",
+  "comment": "Original name ExecutionState_Delete (the remaster's libLua.so: ExecutionState::operator delete: puts the state on the free list (+0xc)); was lvm__dd90."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ddb0",
+  "old": "lvm__ddb0",
+  "name": "ExecutionState_Construct",
+  "comment": "Original name ExecutionState_Construct (the remaster's libLua.so: ExecutionState::ExecutionState(ExecutionState*, int, int): +0xc, +0x10, +0x14, clears +0x18 / +0x28 (same body)); was lvm__ddb0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000dde0",
+  "old": "lvm__dde0",
+  "name": "ExecutionState_getaux",
+  "comment": "Original name ExecutionState_getaux (the remaster's libLua.so: ExecutionState::getaux: returns +0x24); was lvm__dde0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ddf0",
+  "old": "lvm__ddf0",
+  "name": "ExecutionState_setvalues",
+  "comment": "Original name ExecutionState_setvalues (the remaster's libLua.so: ExecutionState::setvalues(Closure*, TProtoFunc*, int) (same body)); was lvm__ddf0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000de20",
+  "old": "lvm__de20",
+  "name": "ExecutionState_resetcounter",
+  "comment": "Original name ExecutionState_resetcounter (the remaster's libLua.so: ExecutionState::resetcounter: +0x28 = 0); was lvm__de20."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000de30",
+  "old": "lvm__de30",
+  "name": "ExecutionState_execute",
+  "comment": "Original name ExecutionState_execute (the remaster's libLua.so: ExecutionState::execute: checkstack, adjust varargs, call hook, CrunchOpcodes (caller luaD_call)); was lvm__de30."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000df40",
+  "old": "luaV_execute",
+  "name": "ExecutionState_CrunchOpcodes",
+  "comment": "lvm.c: opcode interpreter loop Original name ExecutionState_CrunchOpcodes (the remaster's libLua.so: ExecutionState::CrunchOpcodes, the VM loop: strings 'WARNING: Killing Lua script that ran without a break_here() ...', 'WARNING: Lua nesting level now %d inside breakable section!'); was luaV_execute."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ec50",
+  "old": "luaV_call_binTM",
+  "name": "call_binTM",
+  "comment": "call_binTM(event, msg): binary tag-method dispatch on the two top stack slots (was mislabelled luaV_gettable) Original name call_binTM (the remaster's libLua.so: static call_binTM(int, char*): caller of luaT_efectivetag from the VM's arithmetic); was luaV_call_binTM."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000edf0",
+  "old": "FUN_1000edf0",
+  "name": "zmfilbuf",
+  "comment": "Original name zmfilbuf (the remaster's libLua.so: static zmfilbuf: returns EOZ (-1)); was FUN_1000edf0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ee60",
+  "old": "FUN_1000ee60",
+  "name": "zffilbuf",
+  "comment": "Original name zffilbuf (the remaster's libLua.so: static zffilbuf: refills 256 bytes through the service table +0x38); was FUN_1000ee60."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100051f0",
+  "old": "luaC_hashmark",
+  "name": "luaC_protomark",
+  "comment": "Named luaC_protomark (not in the remaster: inlined into markobject there) Lua 3.1's static protomark: marks the source name, the constants and the local names of a prototype (markobject's PROTO / PMARK case); was misnamed luaC_hashmark; was luaC_hashmark."
+ }
+]

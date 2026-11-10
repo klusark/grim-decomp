@@ -127,8 +127,10 @@ void __cdecl io_setfilebyname(byte *param_1,byte *param_2,uint param_3)
   return;
 }
 
-/* ---- 0x10005570  FUN_10005570 ---- */
-void FUN_10005570(void)
+/* ---- 0x10005570  io_writeto ---- */
+/* Original name io_writeto (the remaster's libLua.so: iolib entry 'writeto'); was FUN_10005570. */
+
+void io_writeto(void)
 
 {
   int iVar1;
@@ -165,8 +167,11 @@ void FUN_10005570(void)
   return;
 }
 
-/* ---- 0x10005620  FUN_10005620 ---- */
-void FUN_10005620(void)
+/* ---- 0x10005620  io_appendto ---- */
+/* Original name io_appendto (the remaster's libLua.so: iolib entry 'appendto'); was FUN_10005620.
+    */
+
+void io_appendto(void)
 
 {
   undefined4 uVar1;
@@ -182,8 +187,10 @@ void FUN_10005620(void)
   return;
 }
 
-/* ---- 0x10005660  FUN_10005660 ---- */
-void FUN_10005660(void)
+/* ---- 0x10005660  io_read ---- */
+/* Original name io_read (the remaster's libLua.so: iolib entry 'read'); was FUN_10005660. */
+
+void io_read(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -219,7 +226,7 @@ void FUN_10005660(void)
     }
     else {
       if (iVar5 == -2) {
-        iVar5 = lauxlib__2960(iStack_8);
+        iVar5 = luaFGetc(iStack_8);
       }
       if (iVar5 == -1) {
         uVar3 = 0;
@@ -227,7 +234,7 @@ void FUN_10005660(void)
       else {
         uVar3 = (uint)(char)iVar5;
       }
-      uVar3 = str_singlematch(uVar3,pcVar2,(int *)&pcStack_4);
+      uVar3 = luaI_singlematch(uVar3,pcVar2,(int *)&pcStack_4);
       if (uVar3 != 0) {
         if (iVar6 == 0) {
           luaL_addchar((char)iVar5);
@@ -251,10 +258,10 @@ LAB_10005731:
     cVar1 = *pcVar7;
   }
   if (-1 < iVar5) {
-    lauxlib__2990(iVar5,iStack_8);
+    luaFUngetc(iVar5,iStack_8);
   }
   luaL_addchar(0);
-  pbVar4 = (byte *)lbuiltin__2da0();
+  pbVar4 = (byte *)luaL_buffer();
   if ((*pbVar4 != 0) || (*pcVar2 == '\0')) {
     lua_pushstring(pbVar4);
   }
@@ -286,8 +293,10 @@ int __cdecl io_getfileparam(byte *param_1,int *param_2)
   return iVar2;
 }
 
-/* ---- 0x100057d0  FUN_100057d0 ---- */
-void FUN_100057d0(void)
+/* ---- 0x100057d0  io_write ---- */
+/* Original name io_write (the remaster's libLua.so: iolib entry 'write'); was FUN_100057d0. */
+
+void io_write(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -336,8 +345,10 @@ LAB_1000583c:
 #undef iStack_4
 
 
-/* ---- 0x10005870  FUN_10005870 ---- */
-void FUN_10005870(void)
+/* ---- 0x10005870  io_execute ---- */
+/* Original name io_execute (the remaster's libLua.so: iolib entry 'execute'); was FUN_10005870. */
+
+void io_execute(void)
 
 {
   int iVar1;
@@ -349,8 +360,10 @@ void FUN_10005870(void)
   return;
 }
 
-/* ---- 0x100058a0  FUN_100058a0 ---- */
-void FUN_100058a0(void)
+/* ---- 0x100058a0  io_remove ---- */
+/* Original name io_remove (the remaster's libLua.so: iolib entry 'remove'); was FUN_100058a0. */
+
+void io_remove(void)
 
 {
   undefined4 uVar1;
@@ -362,8 +375,10 @@ void FUN_100058a0(void)
   return;
 }
 
-/* ---- 0x100058d0  FUN_100058d0 ---- */
-void FUN_100058d0(void)
+/* ---- 0x100058d0  io_rename ---- */
+/* Original name io_rename (the remaster's libLua.so: iolib entry 'rename'); was FUN_100058d0. */
+
+void io_rename(void)
 
 {
   undefined4 uVar1;
@@ -377,8 +392,10 @@ void FUN_100058d0(void)
   return;
 }
 
-/* ---- 0x10005900  FUN_10005900 ---- */
-void FUN_10005900(void)
+/* ---- 0x10005900  io_tmpname ---- */
+/* Original name io_tmpname (the remaster's libLua.so: iolib entry 'tmpname'); was FUN_10005900. */
+
+void io_tmpname(void)
 
 {
   byte *pbVar1;
@@ -388,8 +405,10 @@ void FUN_10005900(void)
   return;
 }
 
-/* ---- 0x10005920  FUN_10005920 ---- */
-void FUN_10005920(void)
+/* ---- 0x10005920  io_getenv ---- */
+/* Original name io_getenv (the remaster's libLua.so: iolib entry 'getenv'); was FUN_10005920. */
+
+void io_getenv(void)
 
 {
   byte *pbVar1;
@@ -400,8 +419,10 @@ void FUN_10005920(void)
   return;
 }
 
-/* ---- 0x10005940  FUN_10005940 ---- */
-void FUN_10005940(void)
+/* ---- 0x10005940  io_date ---- */
+/* Original name io_date (the remaster's libLua.so: iolib entry 'date'); was FUN_10005940. */
+
+void io_date(void)
 
 {
   unsigned char _frame[0x220] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -426,8 +447,10 @@ void FUN_10005940(void)
 #undef iStack_204
 
 
-/* ---- 0x100059c0  FUN_100059c0 ---- */
-void FUN_100059c0(void)
+/* ---- 0x100059c0  setloc ---- */
+/* Original name setloc (the remaster's libLua.so: iolib entry 'setlocale'); was FUN_100059c0. */
+
+void setloc(void)
 
 {
   int iVar1;
@@ -446,8 +469,10 @@ void FUN_100059c0(void)
   return;
 }
 
-/* ---- 0x10005a20  FUN_10005a20 ---- */
-void FUN_10005a20(void)
+/* ---- 0x10005a20  io_exit ---- */
+/* Original name io_exit (the remaster's libLua.so: iolib entry 'exit'); was FUN_10005a20. */
+
+void io_exit(void)
 
 {
   lua_lua2C(1);
@@ -456,8 +481,10 @@ void FUN_10005a20(void)
   return;
 }
 
-/* ---- 0x10005a50  FUN_10005a50 ---- */
-void FUN_10005a50(void)
+/* ---- 0x10005a50  io_debug ---- */
+/* Original name io_debug (the remaster's libLua.so: iolib entry 'debug'); was FUN_10005a50. */
+
+void io_debug(void)
 
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -501,8 +528,10 @@ LAB_10005aad:
 #undef abStack_fc
 
 
-/* ---- 0x10005ad0  FUN_10005ad0 ---- */
-void FUN_10005ad0(void)
+/* ---- 0x10005ad0  errorfb ---- */
+/* Original name errorfb (the remaster's libLua.so: iolib entry 'print_stack'); was FUN_10005ad0. */
+
+void errorfb(void)
 
 {
   lua_printstack(0);

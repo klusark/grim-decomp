@@ -41,9 +41,9 @@ void Setup_DrawDebugCamera(int param_1)
   local_c[1] = local_18[1];
   rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                      UINT_008c97cc & 0xffff,0xffffffff);
-  iVar1 = Actor_FromHandle(g_nCameraActor);
+  iVar1 = sputActor_ActorDeref(g_nCameraActor);
   if (*(int *)(iVar1 + 0xa0) != 0) {
-    iVar1 = ((code *)Actor_FromHandle)(g_nCameraActor,param_1 + 0x50);
+    iVar1 = ((code *)sputActor_ActorDeref)(g_nCameraActor,param_1 + 0x50);
     ((code *)Actor_DrawCostumes)(*(undefined4 *)(iVar1 + 0xa0));
   }
   return;
@@ -74,14 +74,14 @@ void * __cdecl Setup_GetBackgroundBitmap(void *set,int setupIdx)
   if (*(int *)(iVar1 + 0xc0) == 0) {
     iVar3 = _stricmp((char *)(iVar1 + 0x80),&DAT_004ec60c);
     if (iVar3 != 0) {
-      pvVar4 = Resource_Load(0x444e4b42,(char *)(iVar1 + 0x80));
+      pvVar4 = sputResource_Alloc(0x444e4b42,(char *)(iVar1 + 0x80));
       if (pvVar4 != (void *)0x0) {
-        ResRef_Add(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa2);
+        Res_SetReference(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa2);
       }
     }
     if (*ref != 0) goto LAB_004a3eb6;
-    pvVar4 = Resource_Load(0x444e4b42,s_dfltroom_bm_004ec5d4);
-    ResRef_Add(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xaa);
+    pvVar4 = sputResource_Alloc(0x444e4b42,s_dfltroom_bm_004ec5d4);
+    Res_SetReference(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xaa);
     if (*ref == 0) {
       return (void *)0x0;
     }
@@ -163,9 +163,9 @@ LAB_004a3f61:
       iVar4 = 0;
 LAB_004a3f66:
       if (iVar4 != 0) {
-        data = Resource_Load(0x4655425a,(char *)(iVar1 + 0xa0));
+        data = sputResource_Alloc(0x4655425a,(char *)(iVar1 + 0xa0));
         if (data != (void *)0x0) {
-          ResRef_Add(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xcf);
+          Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xcf);
         }
       }
     }

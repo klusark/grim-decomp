@@ -22,7 +22,7 @@
    "cc": "__thiscall"
   },
   "004a9d00": {
-   "proto": "void SectorList_ShrinkWalkSectors(float radius)",
+   "proto": "void ShrinkBoxes(float radius)",
    "cc": "__cdecl"
   },
   "00490f50": {
@@ -38,7 +38,7 @@
    "cc": "__cdecl"
   },
   "004971a0": {
-   "proto": "void ImuseSoundComponent_OnKey(int tag, int snd, undefined4 param_3, int slot, uint param_5, uint param_6, uint param_7, uint inst)",
+   "proto": "void SoundChanger(int tag, int snd, undefined4 param_3, int slot, uint param_5, uint param_6, uint param_7, uint inst)",
    "cc": "__cdecl"
   }
  },

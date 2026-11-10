@@ -26,7 +26,7 @@ int * __cdecl CmapComponent_NewInstance(int inst,int component,int create)
   
   if (create == 0) {
     iVar1 = Cos_InstGetInstanceData(inst,component,(int *)0x0);
-    ResRef_Remove((void *)(iVar1 + 4));
+    Res_RemoveReference((void *)(iVar1 + 4));
     (*g_pSvcCostume->pFree)(iVar1);
     return (int *)0x0;
   }
@@ -42,7 +42,8 @@ int * __cdecl CmapComponent_NewInstance(int inst,int component,int create)
     (*g_pSvcMain->pAssertFail)
               (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
   }
-  ResRef_Add(piVar2 + 1,*(void **)(iVar1 + 4),s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x8ff);
+  Res_SetReference(piVar2 + 1,*(void **)(iVar1 + 4),s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,
+                   0x8ff);
   iVar1 = Cos_InstGetInstanceData(inst,iStack_8,(int *)0x0);
   *piVar2 = iVar1;
   return piVar2;
@@ -88,7 +89,7 @@ int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *par
     param_5 = Str_Basename(g_szDialogFileName);
     name = g_szDialogFileName;
   }
-  data = Resource_Load(0x50414d43,name);
+  data = sputResource_Alloc(0x50414d43,name);
   if (data != (void *)0x0) {
     ref = (undefined4 *)
           (*g_pSvcCostume->pAlloc)(0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x938);
@@ -97,7 +98,7 @@ int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *par
       *puVar4 = 0;
       puVar4 = puVar4 + 1;
     }
-    ResRef_Add(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x93a);
+    Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x93a);
     if (pcVar2 == (char *)0x0) {
       pcVar2 = param_5;
     }
@@ -111,7 +112,7 @@ int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *par
 undefined4 CmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3)
 
 {
-  ResRef_Remove(param_3);
+  Res_RemoveReference(param_3);
   (*g_pSvcCostume->pFree)(param_3);
   return 1;
 }

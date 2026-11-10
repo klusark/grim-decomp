@@ -5,11 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00480000  Res_GetMemoryUsed ---- */
+/* ---- 0x00480000  daTotalAllocated ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
-/* Total bytes held by loaded resources */
+/* Total bytes held by loaded resources Original name daTotalAllocated (the remaster's GrimFandango
+   (Linux): the only unmatched callee of Lua_GetMemoryUsage; the only unmatched callee of
+   Lua_ResReport; 3 matched neighbours agree, 0 disagree); was Res_GetMemoryUsed. */
 
-int Res_GetMemoryUsed(void)
+int daTotalAllocated(void)
 
 {
   return UINT_00825e7c;
@@ -187,10 +189,12 @@ LAB_0048065f:
 #undef local_8
 
 
-/* ---- 0x00480680  Res_WriteReport ---- */
-/* Dumps 'Resource %12s size %7ld REFERENCED' lines for every loaded resource */
+/* ---- 0x00480680  Res_Dump ---- */
+/* Dumps 'Resource %12s size %7ld REFERENCED' lines for every loaded resource Original name Res_Dump
+   (the remaster's GrimFandango (Linux): strings: 'REFERENCED' | 'Total: %d items, %d bytes\n' |
+   'Resource %-12s,\t\tsize = %7ld\t%s\n'); was Res_WriteReport. */
 
-int __cdecl Res_WriteReport(char *filename,int type)
+int __cdecl Res_Dump(char *filename,int type)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -835,10 +839,13 @@ void Res_SetCacheSizeMB(int param_1)
   return;
 }
 
-/* ---- 0x0048e230  Res_PrintReport ---- */
-void Res_PrintReport(void)
+/* ---- 0x0048e230  sputResource_ReportAllocations ---- */
+/* Original name sputResource_ReportAllocations (the remaster's GrimFandango (Linux): strings:
+   'Grim.res'); was Res_PrintReport. */
+
+void sputResource_ReportAllocations(void)
 
 {
-  Res_WriteReport(s_Grim_res_004e9c74,0);
+  Res_Dump(s_Grim_res_004e9c74,0);
   return;
 }

@@ -16,7 +16,7 @@ undefined4 sputSmush_Initialize(undefined4 param_1,undefined4 *param_2)
   _DAT_008c9ca8 = param_1;
   *param_2 = sputSmush_Initialize;
   param_2[1] = &DAT_004891a0;
-  param_2[2] = sputSmush_Start;
+  param_2[2] = sputSmush_Startup;
   param_2[3] = sputSmush_Stop;
   param_2[4] = Movie_SaveState;
   param_2[5] = Movie_RestoreState;
@@ -29,11 +29,13 @@ undefined4 sputSmush_Initialize(undefined4 param_1,undefined4 *param_2)
   return 0;
 }
 
-/* ---- 0x00489130  sputSmush_Start ---- */
+/* ---- 0x00489130  sputSmush_Startup ---- */
 /* Module slot 2 of sputSmush: honours the StartSmush registry value (FALSE disables movies),
-   otherwise initialises the Smush player through the LecShare table and sets g_nMovieAvailable. */
+   otherwise initialises the Smush player through the LecShare table and sets g_nMovieAvailable.
+   Original name sputSmush_Startup (the remaster's GrimFandango (Linux): strings: 'StartSmush'); was
+   sputSmush_Start. */
 
-undefined4 sputSmush_Start(void)
+undefined4 sputSmush_Startup(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

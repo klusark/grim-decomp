@@ -42,13 +42,17 @@ void DsndDriver_Unregister(void)
 #endif
 
 
-/* ---- 0x004d24b0  DsndDriver_Init ---- */
+/* ---- 0x004d24b0  DsndDriver_module_startup ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
-/* Gets the TIMER clock interface and allocates the mixer table */
+/* Gets the TIMER clock interface and allocates the mixer table Original name
+   DsndDriver_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the
+   DsndDriver module (the remaster has one per module file, hence the prefix); strings:
+   'MEMORY.mixertable' | 'DirectSoundDriver Module: Cannot allocate timer services.' |
+   'TIMER=clock'); was DsndDriver_Init. */
 
-int DsndDriver_Init(void)
+int DsndDriver_module_startup(void)
 
 {
   g_pDsndClock = (int *)(*(code *)g_pDsndServices[2])(s_TIMER_clock_004f4054,UINT_008db430);

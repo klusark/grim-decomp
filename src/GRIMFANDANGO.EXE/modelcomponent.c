@@ -5,12 +5,14 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00496890  ModelComponent_EditParentOffset ---- */
+/* ---- 0x00496890  ThingAdjuster ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Editor dialog 'Resolve parent offset' */
+/* Editor dialog 'Resolve parent offset' Original name ThingAdjuster (the remaster's GrimFandango
+   (Linux): strings: '%s,%d' | 'Resolve parent offset (0 = off)'); was
+   ModelComponent_EditParentOffset. */
 
-undefined4 ModelComponent_EditParentOffset(int *param_1,undefined4 param_2)
+undefined4 ThingAdjuster(int *param_1,undefined4 param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -49,16 +51,17 @@ void ModelComponent_SetVisibleFlag(undefined4 param_1,int param_2,undefined4 par
   return;
 }
 
-/* ---- 0x00496950  ModelComponent_NewInstance ---- */
+/* ---- 0x00496950  ThingInstancer ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* 0x194-byte instance {ResRef model, ..., +0x38 isRoot, +0x40 rdThing, +0x44 parentInstance, +0x48
    parentNode, +0x4c colormap, +0x50 refCount, +0x190 next}; shared with an identical component of
    the actor's current costume
    Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   Original name ThingInstancer (the remaster's GrimFandango (Linux): the only unmatched caller of
+   rdPuppet_New; 3 matched neighbours agree, 0 disagree); was ModelComponent_NewInstance. */
 
-void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int create)
+void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -82,7 +85,7 @@ void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int cre
     iVar2 = *(int *)((int)pvVar1 + 0x50) + -1;
     *(int *)((int)pvVar1 + 0x50) = iVar2;
     if (iVar2 == 0) {
-      ResRef_Remove(pvVar1);
+      Res_RemoveReference(pvVar1);
       rdThing_Free(*(undefined4 *)((int)pvVar1 + 0x40));
       (*g_pSvcCostume->pFree)(pvVar1);
     }
@@ -121,7 +124,7 @@ void * __cdecl ModelComponent_NewInstance(void *cosInst,int componentIdx,int cre
     *puVar6 = 0;
     puVar6 = puVar6 + 1;
   }
-  ResRef_Add(ref,pvVar1,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa91);
+  Res_SetReference(ref,pvVar1,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa91);
   thing = (void *)rdThing_New(0);
   rdThing_SetModel(thing,pvVar1);
   uVar5 = rdPuppet_New(thing);
@@ -210,14 +213,14 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
     ((code *)strncpy)(&DAT_008ca9b8,uVar2);
     DAT_008caa37 = 0;
     param_5 = Str_Basename(g_szDialogFileName);
-    data = Resource_Load(0x4c444f4d,g_szDialogFileName);
+    data = sputResource_Alloc(0x4c444f4d,g_szDialogFileName);
   }
   else {
     strncpy(&local_20,param_5,0x1f);
     local_1 = 0;
     name = (char *)strtok(&local_20,&DAT_004ea52c);
     uVar1 = strtok(0,&DAT_004ea52c);
-    data = Resource_Load(0x4c444f4d,name);
+    data = sputResource_Alloc(0x4c444f4d,name);
     if (uVar1 != 0) {
       local_24 = (uint)atoi(uVar1);
     }
@@ -232,7 +235,7 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
     *puVar5 = 0;
     puVar5 = puVar5 + 1;
   }
-  ResRef_Add(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xafc);
+  Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xafc);
   ref[0xd] = local_24;
   if (pcVar4 == (char *)0x0) {
     pcVar4 = param_5;
@@ -250,7 +253,7 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
 undefined4 ModelComponent_Destroy(undefined4 param_1,undefined4 param_2,void *param_3)
 
 {
-  ResRef_Remove(param_3);
+  Res_RemoveReference(param_3);
   (*g_pSvcCostume->pFree)(param_3);
   return 1;
 }

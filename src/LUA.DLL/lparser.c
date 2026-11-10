@@ -28,15 +28,18 @@ void __cdecl lparser__a730(char *msg)
 {
   char *token;
   
-  token = (char *)luaX_save();
+  token = (char *)luaX_lasttoken();
   luaY_error(msg,token);
   return;
 }
 
-/* ---- 0x1000a750  luaY_code_word ---- */
-/* Unidentified function of lua.stx (yacc parser) and code generation */
+/* ---- 0x1000a750  luaY_codedebugline ---- */
+/* Unidentified function of lua.stx (yacc parser) and code generation Original name
+   luaY_codedebugline (the remaster's libLua.so: if lua_debug and the line changed: SETLINE (0x7c)
+   with the line, remembered in the func state +0x10 (same body); called by luaY_lex); was
+   luaY_code_word. */
 
-void __cdecl luaY_code_word(uint param_1)
+void __cdecl luaY_codedebugline(uint param_1)
 
 {
   if ((lua_debug != 0) && (param_1 != *(uint *)(PTR_1002bf6c[0x10] + 0x10))) {
@@ -149,7 +152,7 @@ int __cdecl luaY_parser(int param_1)
   luaX_setinput(param_1);
   uVar1 = luaS_new(*(byte **)(param_1 + 0x10));
   lparser__a980(uVar1);
-  iVar2 = yyparse();
+  iVar2 = luaY_parse();
   if (iVar2 != 0) {
     lua_error((byte *)s_parse_error_10027b58);
   }
@@ -282,10 +285,12 @@ void __cdecl luaY_growvector(undefined4 param_1,undefined4 param_2)
   return;
 }
 
-/* ---- 0x1000abd0  yyparse ---- */
-/* lua.stx: generated LALR parser from lua.stx */
+/* ---- 0x1000abd0  luaY_parse ---- */
+/* lua.stx: generated LALR parser from lua.stx Original name luaY_parse (the remaster's libLua.so:
+   strings 'parser stack overflow', 'invalid constructor syntax' (the bison yyparse, prefix luaY_));
+   was yyparse. */
 
-undefined4 yyparse(void)
+undefined4 luaY_parse(void)
 
 {
   unsigned char _frame[0xbf0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -701,10 +706,10 @@ switchD_1000acd8_caseD_1f:
       break;
     case 0x61:
       fVar9 = 1;
-      lparser__ba90(*pfVar9,0);
+      add_varbuffer(*pfVar9,0);
       break;
     case 0x62:
-      lparser__ba90(*pfVar9,pfVar9[-2]);
+      add_varbuffer(*pfVar9,pfVar9[-2]);
       fVar9 = pfVar9[-2] + 1;
       break;
     case 99:
@@ -732,7 +737,7 @@ switchD_1000acd8_caseD_1f:
   }
   else {
     if (local_be0 == 0xfffffffe) {
-      local_be0 = luaX_lex((float *)&local_bd0);
+      local_be0 = luaY_lex((float *)&local_bd0);
     }
     if ((int)local_be0 < 1) {
       iVar4 = 0;
@@ -1027,10 +1032,12 @@ void __cdecl lparser__ba70(undefined4 param_1)
   return;
 }
 
-/* ---- 0x1000ba90  lparser__ba90 ---- */
-/* Unidentified function of lua.stx (yacc parser) and code generation */
+/* ---- 0x1000ba90  add_varbuffer ---- */
+/* Unidentified function of lua.stx (yacc parser) and code generation Original name add_varbuffer
+   (the remaster's libLua.so: static add_varbuffer: string 'variable buffer overflow (limit=32)');
+   was lparser__ba90. */
 
-void __cdecl lparser__ba90(int param_1,int param_2)
+void __cdecl add_varbuffer(int param_1,int param_2)
 
 {
   int iVar1;
@@ -1425,7 +1432,7 @@ void lparser__c100(void)
   }
   PTR_1002bf6c[0xf] = PTR_1002bf6c[0xf] + 0x168;
   lparser__a980(*(undefined4 *)(*(int *)PTR_1002bf6c[0xe] + 0x18));
-  luaY_code_word(*(uint *)(PTR_1002bf6c[0x10] + 8));
+  luaY_codedebugline(*(uint *)(PTR_1002bf6c[0x10] + 8));
   *(undefined4 *)(*(int *)PTR_1002bf6c[0xf] + 0x14) = *(undefined4 *)(PTR_1002bf6c[0x10] + 8);
   return;
 }

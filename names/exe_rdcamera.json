@@ -2,7 +2,7 @@
  {"addr": "00409580", "name": "rdModel_ComputeMeshLighting", "comment": "Rdcamera.c: picks the light level of a mesh from the current geometry/lighting/texture modes (gouraud, flat, per-vertex) and hands it to the mesh draw callback at +0x14", "tags": "rdroid"},
  {"addr": "00409fb0", "name": "rdCamera_Init", "proto": "int rdCamera_Init(void * camera, float fov, int a, int b, int c, float zoom)", "comment": "Allocates the 0x34-byte projection block (camera+0x48), clamps the FOV to 5..179 and selects perspective projection", "tags": "rdroid"},
  {"addr": "0040a150", "name": "rdCamera_SetProjectType", "proto": "int rdCamera_SetProjectType(void * camera, int type)", "comment": "0 orthographic, 1 perspective; installs the project/unproject function pointers (+0x4c/+0x50) and rebuilds the frustum", "tags": "rdroid"},
- {"addr": "0040a280", "name": "rdCamera_BuildProjection", "comment": "Computes the projection scale from FOV and canvas size and the frustum planes", "tags": "rdroid"},
+ {"addr": "0040a280", "name": "rdCamera_BuildFOV", "comment": "Computes the projection scale from FOV and canvas size and the frustum planes", "tags": "rdroid"},
  {"addr": "0040a7d0", "name": "rdCamera_ClearCanvas", "tags": "rdroid"},
  {"addr": "0040a860", "name": "rdCamera_ResetStats", "tags": "rdroid"}
 ]

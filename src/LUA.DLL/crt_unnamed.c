@@ -4157,7 +4157,7 @@ void FUN_10021fd0(void)
 {
   int unaff_EBP;
   
-  lvm__dd90(*(int *)(unaff_EBP + 8));
+  ExecutionState_Delete(*(int *)(unaff_EBP + 8));
   return;
 }
 #endif
@@ -4171,7 +4171,7 @@ void FUN_10021fdb(void)
 {
   int unaff_EBP;
   
-  lvm__dd90(*(int *)(unaff_EBP + 4));
+  ExecutionState_Delete(*(int *)(unaff_EBP + 4));
   return;
 }
 #endif
@@ -4197,7 +4197,7 @@ void FUN_10021ff0(void)
 {
   int unaff_EBP;
   
-  lvm__dd90(*(int *)(unaff_EBP + -0x10));
+  ExecutionState_Delete(*(int *)(unaff_EBP + -0x10));
   return;
 }
 #endif
@@ -4251,7 +4251,7 @@ void FUN_10022030(void)
 {
   int unaff_EBP;
   
-  lvm__dd90(*(int *)(unaff_EBP + 8));
+  ExecutionState_Delete(*(int *)(unaff_EBP + 8));
   return;
 }
 #endif

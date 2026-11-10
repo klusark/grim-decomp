@@ -88,7 +88,7 @@ void __cdecl rdCamera_SetCanvas(void *camera,void *canvas)
 
 {
   *(void **)((int)camera + 4) = canvas;
-  rdCamera_BuildProjection(camera);
+  rdCamera_BuildFOV(camera);
   return;
 }
 
@@ -113,7 +113,7 @@ void __cdecl rdCamera_SetFov(void *camera,float fov)
     fov = 179.0;
   }
   *(float *)((int)camera + 0x38) = fov;
-  rdCamera_BuildProjection(camera);
+  rdCamera_BuildFOV(camera);
   return;
 }
 
@@ -146,7 +146,7 @@ int __cdecl rdCamera_SetProjectType(void *camera,int type)
     }
   }
   if (*(int *)((int)camera + 4) != 0) {
-    rdCamera_BuildProjection(camera);
+    rdCamera_BuildFOV(camera);
   }
   return 1;
 }
@@ -160,7 +160,7 @@ void __cdecl rdCamera_SetZoom(void *camera,float zoom)
     if (zoom == 1.0) {
       *(code **)((int)camera + 0x4c) = rdCamera_OrthoProjectSquare;
       *(code **)((int)camera + 0x50) = rdCamera_OrthoProjectSquareLst;
-      rdCamera_BuildProjection(camera);
+      rdCamera_BuildFOV(camera);
       return;
     }
     *(code **)((int)camera + 0x4c) = rdCamera_OrthoProject;
@@ -170,25 +170,28 @@ void __cdecl rdCamera_SetZoom(void *camera,float zoom)
     if (zoom == 1.0) {
       *(code **)((int)camera + 0x4c) = rdCamera_PerspProjectSquare;
       *(code **)((int)camera + 0x50) = rdCamera_PerspProjectSquareLst;
-      rdCamera_BuildProjection(camera);
+      rdCamera_BuildFOV(camera);
       return;
     }
     *(code **)((int)camera + 0x4c) = rdCamera_PerspProject;
     *(code **)((int)camera + 0x50) = rdCamera_PerspProjectLst;
-    rdCamera_BuildProjection(camera);
+    rdCamera_BuildFOV(camera);
     return;
   }
-  rdCamera_BuildProjection(camera);
+  rdCamera_BuildFOV(camera);
   return;
 }
 
-/* ---- 0x0040a280  rdCamera_BuildProjection ---- */
+/* ---- 0x0040a280  rdCamera_BuildFOV ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_14 */
-/* Computes the projection scale from FOV and canvas size and the frustum planes */
+/* Computes the projection scale from FOV and canvas size and the frustum planes Original name
+   rdCamera_BuildFOV (the remaster's GrimFandango (Linux): the only unmatched callee of
+   rdCamera_SetCanvas; the only unmatched callee of rdCamera_SetProjectType; 2 matched neighbours
+   agree, 0 disagree); was rdCamera_BuildProjection. */
 
-undefined4 rdCamera_BuildProjection(int *param_1)
+undefined4 rdCamera_BuildFOV(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -543,12 +546,14 @@ void rdCamera_ResetStats(void)
   return;
 }
 
-/* ---- 0x0040dc30  rdCamera_ProjectPoint ---- */
+/* ---- 0x0040dc30  rdPrimit3_GetScreenCoord ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua WorldToScreen; returns 0 when the point is behind the camera */
+/* Lua WorldToScreen; returns 0 when the point is behind the camera Original name
+   rdPrimit3_GetScreenCoord (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_WorldToScreen; 1 matched neighbours agree, 0 disagree); was rdCamera_ProjectPoint. */
 
-int __cdecl rdCamera_ProjectPoint(float *world,float *outScreen)
+int __cdecl rdPrimit3_GetScreenCoord(float *world,float *outScreen)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

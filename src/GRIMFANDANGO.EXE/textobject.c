@@ -117,7 +117,7 @@ void __cdecl TextObject_Draw(void *obj,int invalidate)
     g_wTextColors[2] =
          (ushort)((uVar3 >> 10 & 0x3f | ((int)uVar3 >> 3) << 6) << 5) |
          (ushort)(uVar3 >> 0x13) & 0x1f;
-    Render_RemapPixels(g_wTextColors,3);
+    sputRender_ColorCorrect(g_wTextColors,3);
     *(undefined4 *)((int)obj + 0x21c) = 0;
     *(undefined4 *)((int)obj + 0x220) = 1;
     *(undefined4 *)((int)obj + 0x224) = 2;

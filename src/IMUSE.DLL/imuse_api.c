@@ -537,7 +537,7 @@ int ImPause(void)
   bVar2 = DAT_1002df00 == 0;
   DAT_1002df00 = iVar1;
   if (bVar2) {
-    Im_PauseImpl();
+    TrPause();
   }
   return DAT_1002df00;
 }
@@ -549,7 +549,7 @@ int ImResume(void)
                     /* 0x4b60  27  ImResume */
   DAT_1002df00 = DAT_1002df00 + -1;
   if (DAT_1002df00 == 0) {
-    Im_ResumeImpl();
+    TrResume();
     return DAT_1002df00;
   }
   if (DAT_1002df00 < 0) {
@@ -758,7 +758,7 @@ ImSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,i
   undefined4 uVar1;
   
                     /* 0x4de0  38  ImSetTrigger */
-  uVar1 = Im_SetTriggerImpl(sound,marker,cmd,p9,p9,p9,p9,p9,p9,p9,p9,p9,p9);
+  uVar1 = TgSetTrigger(sound,marker,cmd,p9,p9,p9,p9,p9,p9,p9,p9,p9,p9);
   return uVar1;
 }
 
@@ -793,7 +793,7 @@ ImDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6
   undefined4 uVar1;
   
                     /* 0x4e50  5  ImDeferCommand */
-  uVar1 = Im_DeferCommandImpl(time,cmd,p9,p9,p9,p9,p9,p9,p9,p9,p9,p9);
+  uVar1 = TgDeferCommand(time,cmd,p9,p9,p9,p9,p9,p9,p9,p9,p9,p9);
   return uVar1;
 }
 
@@ -954,7 +954,7 @@ undefined4 __cdecl ImInitializeScript(int a1,int a2,int a3,int a4,int a5,int a6,
   undefined4 uVar1;
   
                     /* 0x7130  16  ImInitializeScript */
-  uVar1 = FUN_10006070(0,&DAT_100336a0,a1,a2,a3,a4,a5,a6,a7);
+  uVar1 = ScriptCall(0,&DAT_100336a0,a1,a2,a3,a4,a5,a6,a7);
   return uVar1;
 }
 
@@ -965,7 +965,7 @@ undefined4 __cdecl ImTerminateScript(void)
   undefined4 uVar1;
   
                     /* 0x7170  47  ImTerminateScript */
-  uVar1 = FUN_10006070(1);
+  uVar1 = ScriptCall(1);
   return uVar1;
 }
 
@@ -976,7 +976,7 @@ undefined4 __cdecl ImSaveScript(int a1,int a2)
   undefined4 uVar1;
   
                     /* 0x7180  30  ImSaveScript */
-  uVar1 = FUN_10006070(2,a1,a2);
+  uVar1 = ScriptCall(2,a1,a2);
   return uVar1;
 }
 
@@ -987,7 +987,7 @@ undefined4 __cdecl ImRestoreScript(int a1)
   undefined4 uVar1;
   
                     /* 0x71a0  26  ImRestoreScript */
-  uVar1 = FUN_10006070(3,a1);
+  uVar1 = ScriptCall(3,a1);
   return uVar1;
 }
 
@@ -998,7 +998,7 @@ undefined4 __cdecl ImRefreshScript(void)
   undefined4 uVar1;
   
                     /* 0x71b0  23  ImRefreshScript */
-  uVar1 = FUN_10006070(4);
+  uVar1 = ScriptCall(4);
   return uVar1;
 }
 
@@ -1009,7 +1009,7 @@ undefined4 __cdecl ImSetState(int a1)
   undefined4 uVar1;
   
                     /* 0x71c0  37  ImSetState */
-  uVar1 = FUN_10006070(5,a1);
+  uVar1 = ScriptCall(5,a1);
   return uVar1;
 }
 
@@ -1020,7 +1020,7 @@ undefined4 __cdecl ImSetSequence(int a1)
   undefined4 uVar1;
   
                     /* 0x71d0  36  ImSetSequence */
-  uVar1 = FUN_10006070(6,a1);
+  uVar1 = ScriptCall(6,a1);
   return uVar1;
 }
 
@@ -1031,7 +1031,7 @@ undefined4 __cdecl ImSetCuePoint(int a1)
   undefined4 uVar1;
   
                     /* 0x71e0  32  ImSetCuePoint */
-  uVar1 = FUN_10006070(7,a1);
+  uVar1 = ScriptCall(7,a1);
   return uVar1;
 }
 
@@ -1042,7 +1042,7 @@ undefined4 __cdecl ImSetAttribute(int a1,int a2)
   undefined4 uVar1;
   
                     /* 0x71f0  31  ImSetAttribute */
-  uVar1 = FUN_10006070(8,a1,a2);
+  uVar1 = ScriptCall(8,a1,a2);
   return uVar1;
 }
 
@@ -1210,7 +1210,7 @@ undefined4 __cdecl SoundsLoadStartSound(uint *param_1,int param_2,uint param_3)
   uint uVar1;
   
                     /* 0x7410  64  SoundsLoadStartSound */
-  uVar1 = Sounds_ResolveName_LoadIfNeeded(param_1);
+  uVar1 = CacheGetSoundId(param_1);
   if (uVar1 == 0) {
     return 0;
   }
@@ -1230,7 +1230,7 @@ undefined4 __cdecl SoundsLoadProcessStartSound(uint *param_1,int param_2,uint pa
   uint uVar1;
   
                     /* 0x7470  63  SoundsLoadProcessStartSound */
-  uVar1 = Sounds_ResolveName_LoadIfNeeded(param_1);
+  uVar1 = CacheGetSoundId(param_1);
   if (uVar1 == 0) {
     return 0;
   }
@@ -1257,7 +1257,7 @@ undefined4 __cdecl SoundsStopSound(uint *param_1)
   undefined4 uVar2;
   
                     /* 0x7500  71  SoundsStopSound */
-  iVar1 = Sounds_ResolveName_LoadIfNeeded(param_1);
+  iVar1 = CacheGetSoundId(param_1);
   uVar2 = 0;
   if (iVar1 != 0) {
     uVar2 = ImStopSound(iVar1);
@@ -1273,7 +1273,7 @@ uint __cdecl SoundsGetParam(uint *param_1,int param_2)
   uint uVar2;
   
                     /* 0x7520  59  SoundsGetParam */
-  iVar1 = Sounds_ResolveName_LoadIfNeeded(param_1);
+  iVar1 = CacheGetSoundId(param_1);
   if (iVar1 == 0) {
     return 1;
   }
@@ -1289,7 +1289,7 @@ undefined4 __cdecl SoundsSetParam(uint *param_1,int param_2,uint param_3)
   undefined4 uVar2;
   
                     /* 0x7550  70  SoundsSetParam */
-  iVar1 = Sounds_ResolveName_LoadIfNeeded(param_1);
+  iVar1 = CacheGetSoundId(param_1);
   uVar2 = 0;
   if (iVar1 != 0) {
     uVar2 = ImSetParam(iVar1,param_2,param_3);
@@ -1305,7 +1305,7 @@ undefined4 SoundsFadeParam(uint *param_1,int param_2,uint param_3,int param_4)
   undefined4 uVar2;
   
                     /* 0x7580  55  SoundsFadeParam */
-  iVar1 = Sounds_ResolveName_LoadIfNeeded(param_1);
+  iVar1 = CacheGetSoundId(param_1);
   if (iVar1 == 0) {
     return 1;
   }
@@ -1322,7 +1322,7 @@ int __cdecl SoundsIsSoundInUse(uint *param_1)
   int iVar3;
   
                     /* 0x75d0  61  SoundsIsSoundInUse */
-  iVar1 = Sounds_ResolveName_LoadIfNeeded(param_1);
+  iVar1 = CacheGetSoundId(param_1);
   iVar3 = iVar1 + -100;
   if ((((-1 < iVar3) && (iVar3 < 0x20)) && ((&DAT_10031528)[iVar3 * 0x40] != '\0')) &&
      (*(int *)(&DAT_10031550 + iVar3 * 0x40) != 0)) {
@@ -1344,7 +1344,7 @@ int __cdecl SoundsIsSoundPlaying(uint *param_1)
   uint uVar2;
   
                     /* 0x7640  62  SoundsIsSoundPlaying */
-  iVar1 = Sounds_ResolveName_LoadIfNeeded(param_1);
+  iVar1 = CacheGetSoundId(param_1);
   uVar2 = ImGetParam(iVar1,0x100);
   return 0 < (int)uVar2;
 }
@@ -1583,8 +1583,8 @@ undefined4 SoundsInitialize(undefined4 param_1,undefined4 *param_2)
   DAT_10033510 = param_1;
   *param_2 = SoundsInitialize;
   param_2[1] = 0;
-  param_2[2] = FUN_10007920;
-  param_2[3] = FUN_10008140;
+  param_2[2] = sounds_startup;
+  param_2[3] = sounds_shutdown;
   param_2[4] = FUN_10008250;
   param_2[5] = FUN_10008580;
   param_2[6] = FUN_10008860;
@@ -1592,10 +1592,12 @@ undefined4 SoundsInitialize(undefined4 param_1,undefined4 *param_2)
   return 0;
 }
 
-/* ---- 0x10007920  FUN_10007920 ---- */
+/* ---- 0x10007920  sounds_startup ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name sounds_startup (the remaster's GrimFandango (Linux): the only unmatched caller of
+   ImInitializeScript; 2 matched neighbours agree, 1 disagree); was FUN_10007920. */
 
-undefined4 FUN_10007920(void)
+undefined4 sounds_startup(void)
 
 {
   int iVar1;
@@ -2031,10 +2033,12 @@ undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *pa
 #undef uStack_c
 
 
-/* ---- 0x10008140  FUN_10008140 ---- */
+/* ---- 0x10008140  sounds_shutdown ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name sounds_shutdown (the remaster's GrimFandango (Linux): the only unmatched caller of
+   ImRefreshScript; 3 matched neighbours agree, 0 disagree); was FUN_10008140. */
 
-void FUN_10008140(void)
+void sounds_shutdown(void)
 
 {
   int *piVar1;
@@ -2393,15 +2397,21 @@ undefined4 FUN_100088a0(void)
   return 0;
 }
 
-/* ---- 0x10008ec0  Sounds_ResolveName_LoadIfNeeded ---- */
+/* ---- 0x10008ec0  CacheGetSoundId ---- */
 /* Name (or handle) -> sound slot id (100..131) of the 32-slot sound cache. A name that is not
    cached is LOADED here (a free slot, or Sounds_EvictOldestIdleSlot). A handle (0x457..0x556, the
    number Lua gets from ImStartSound; one per cached SOUND, not per playing instance, reused when
    the slot is) that is not in the cache gives 0. Returns 0 when it cannot load. Callers:
    SoundsGetParam returns 1 (!) for 0, so ImGetParam(name or stale handle, anything) reads 1, i.e.
-   'playing', when the sound is not resolvable (sound_playing loops). */
+   'playing', when the sound is not resolvable (sound_playing loops). Original name CacheGetSoundId
+   (the remaster's GrimFandango (Linux): the only unmatched callee of SoundsFadeParam; the only
+   unmatched callee of SoundsGetParam; the only unmatched callee of SoundsIsSoundInUse; the only
+   unmatched callee of SoundsIsSoundPlaying; the only unmatched callee of SoundsLoadStartSound; the
+   only unmatched callee of SoundsSetParam; the only unmatched callee of SoundsStopSound; the only
+   unmatched callee of iMUSE_GetHook; the only unmatched callee of iMUSE_SetHook; 10 matched
+   neighbours agree, 1 disagree); was Sounds_ResolveName_LoadIfNeeded. */
 
-int __cdecl Sounds_ResolveName_LoadIfNeeded(uint *param_1)
+int __cdecl CacheGetSoundId(uint *param_1)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

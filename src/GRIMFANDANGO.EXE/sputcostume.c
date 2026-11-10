@@ -82,8 +82,8 @@ undefined4 sputCostume_Start(void)
   local_38[1] = ThingRequester;
   local_38[2] = ModelComponent_Destroy;
   local_38[3] = ModelComponent_Stop;
-  local_38[4] = ModelComponent_EditParentOffset;
-  local_38[5] = ModelComponent_NewInstance;
+  local_38[4] = ThingAdjuster;
+  local_38[5] = ThingInstancer;
   Cos_NewStateBasedTag(0x4c444d4d,IMG_ADDR(0x004ea3a0),0,(int *)local_38,2);
   Cos_NewStateBasedTag(0x4c444f4d,IMG_ADDR(0x004ea38c),0,(int *)local_38,2);
   ppcVar2 = local_38;
@@ -104,7 +104,7 @@ undefined4 sputCostume_Start(void)
     ppcVar2 = ppcVar2 + 1;
   }
   local_38[0] = MeshComponent_OnKey;
-  local_38[1] = MeshComponent_Create;
+  local_38[1] = MeshRequester;
   local_38[2] = CostumeTag_Nop;
   local_38[3] = MeshComponent_Stop;
   local_38[5] = MeshComponent_NewInstance;
@@ -116,7 +116,7 @@ undefined4 sputCostume_Start(void)
     ppcVar2 = ppcVar2 + 1;
   }
   local_38[0] = MaterialComponent_OnKey;
-  local_38[1] = MaterialComponent_Create;
+  local_38[1] = MaterialRequester;
   local_38[2] = CostumeTag_Nop;
   local_38[3] = (code *)0x0;
   local_38[5] = MaterialComponent_NewInstance;
@@ -127,7 +127,7 @@ undefined4 sputCostume_Start(void)
     *ppcVar2 = (code *)0x0;
     ppcVar2 = ppcVar2 + 1;
   }
-  local_38[0] = KeyframeComponent_OnKey;
+  local_38[0] = KeyframeChanger;
   local_38[1] = KeyframeRequester;
   local_38[2] = KeyframeComponent_Destroy;
   local_38[3] = KeyframeComponent_Stop;
@@ -153,11 +153,11 @@ undefined4 sputCostume_Start(void)
     *ppcVar2 = (code *)0x0;
     ppcVar2 = ppcVar2 + 1;
   }
-  local_38[0] = ImuseSoundComponent_OnKey;
-  local_38[1] = ImuseSoundComponent_Create;
+  local_38[0] = SoundChanger;
+  local_38[1] = SoundRequester;
   local_38[2] = ImuseSoundComponent_Destroy;
   local_38[3] = ImuseSoundComponent_Stop;
-  local_38[4] = ImuseSoundComponent_EditKey;
+  local_38[4] = SoundAdjuster;
   Cos_NewStateBasedTag(0x73736d69,IMG_ADDR(0x004ea2f0),0,(int *)local_38,2);
   Cos_NewStateBasedTag(0x736c6d69,IMG_ADDR(0x004ea2d8),0,(int *)local_38,2);
   ppcVar2 = local_38;
@@ -165,8 +165,8 @@ undefined4 sputCostume_Start(void)
     *ppcVar2 = (code *)0x0;
     ppcVar2 = ppcVar2 + 1;
   }
-  local_38[0] = SmushComponent_OnKey;
-  local_38[1] = SmushComponent_Create;
+  local_38[0] = SmushChanger;
+  local_38[1] = SmushRequester;
   local_38[2] = SmushComponent_Destroy;
   local_38[3] = (code *)0x0;
   local_38[4] = (code *)0x0;
@@ -178,11 +178,11 @@ undefined4 sputCostume_Start(void)
     ppcVar2 = ppcVar2 + 1;
   }
   local_38[0] = SpriteComponent_OnKey;
-  local_38[1] = SpriteComponent_Create;
-  local_38[2] = SpriteComponent_Destroy;
+  local_38[1] = SpriteRequester;
+  local_38[2] = SpriteFreer;
   local_38[3] = (code *)0x0;
-  local_38[4] = SpriteComponent_EditKey;
-  local_38[5] = FUN_004985c0;
+  local_38[4] = SpriteAdjuster;
+  local_38[5] = SpriteInstancer;
   Cos_NewStateBasedTag(0x74727073,IMG_ADDR(0x004ea2c4),0,(int *)local_38,2);
   local_38[4] = (code *)0x0;
   local_38[7] = Lua_Stub;
@@ -192,10 +192,10 @@ undefined4 sputCostume_Start(void)
   Cos_NewIntTag(0x65736d69,IMG_ADDR(0x004ea2b4),0,(int *)(local_38 + 7),2);
   Cos_NewIntTag(0x74736d69,IMG_ADDR(0x004ea2a8),0,(int *)(local_38 + 7),2);
   local_38[7] = LuaVarComponent_OnKey;
-  local_38[8] = LuaVarComponent_Create;
+  local_38[8] = LuaVarRequester;
   local_38[9] = LuaVarComponent_Destroy;
   local_38[10] = LuaVarComponent_Stop;
-  local_38[0xb] = LuaVarComponent_EditKey;
+  local_38[0xb] = LuaVarAdjuster;
   Cos_NewIntTag(0x7661756c,IMG_ADDR(0x004ea298),0,(int *)(local_38 + 7),1);
   UINT_008ca7ac = Cos_RegisterInstanceHook(((unsigned)(uintptr_t)Costume_InstanceHook));
   UINT_008ca7b0 = Cos_RegisterSaveHook(((unsigned)(uintptr_t)Costume_SaveChoreListFile));

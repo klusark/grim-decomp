@@ -123,7 +123,7 @@ undefined4 PositionedSound_Apply(int param_1)
   #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
-  pvVar2 = Set_GetCurrent();
+  pvVar2 = sputRoom_GetCurrentRoom();
   if (pvVar2 != (void *)0x0) {
     local_c = *(float *)(param_1 + 8) -
               *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300);

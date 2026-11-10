@@ -148,7 +148,7 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
       pcVar3 = Set_GetCurrentName();
       iVar5 = _stricmp((int)actor + 0x7c,pcVar3);
       if (iVar5 == 0) {
-        iVar5 = rdCamera_ProjectPoint((float *)((int)actor + 0xc),local_5c);
+        iVar5 = rdPrimit3_GetScreenCoord((float *)((int)actor + 0xc),local_5c);
         if (iVar5 != 0) {
           local_50[0] = local_5c[0];
           local_50[1] = local_5c[1];
@@ -209,10 +209,12 @@ void * __cdecl Actor_CreateSubtitle(void *actor,char *text,int x,int y)
 #endif
 
 
-/* ---- 0x0048f930  Actor_SetCostume ---- */
-/* Lua SetActorCostume: replaces the whole costume stack with one costume */
+/* ---- 0x0048f930  sputActor_SetCostume ---- */
+/* Lua SetActorCostume: replaces the whole costume stack with one costume Original name
+   sputActor_SetCostume (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_SetActorCostume; 3 matched neighbours agree, 0 disagree); was Actor_SetCostume. */
 
-int __cdecl Actor_SetCostume(void *actor,char *name,int param_3)
+int __cdecl sputActor_SetCostume(void *actor,char *name,int param_3)
 
 {
   void *costumeRes;
@@ -223,7 +225,7 @@ int __cdecl Actor_SetCostume(void *actor,char *name,int param_3)
     pvVar1 = *(void **)((int)actor + 0xa0);
   }
   else {
-    costumeRes = Resource_Load(0x54534f43,name);
+    costumeRes = sputResource_Alloc(0x54534f43,name);
     if (costumeRes == (void *)0x0) {
       return 0;
     }
@@ -265,7 +267,7 @@ Actor_SetHead(void *actor,int joint1,int joint2,int joint3,float maxRoll,float m
       if (maxRoll < 0.0) {
         fVar3 = -maxRoll;
       }
-      Math_SinCosTable(fVar3 * 0.5,&actor,iVar1 + 0x24);
+      stdMath_SinCos(fVar3 * 0.5,&actor,iVar1 + 0x24);
     }
   }
   return;
@@ -301,12 +303,12 @@ int __cdecl Actor_CanSeePoint(void *actor,float *point,float *outDistance)
     local_3c[0] = *point - local_c[0];
     local_3c[1] = point[1] - local_c[1];
     local_3c[2] = point[2] - local_c[2];
-    fVar4 = Vec3_Normalize(local_3c);
+    fVar4 = rdVector_Normalize3Acc(local_3c);
     local_48[0] = local_3c[0];
     *outDistance = fVar4;
     local_48[1] = local_3c[1];
     local_48[2] = 0.0;
-    Vec3_Normalize(local_48);
+    rdVector_Normalize3Acc(local_48);
     pfVar3 = Actor_GetFrame(actor);
     fVar4 = pfVar3[3] * local_48[0];
     pfVar3 = Actor_GetFrame(actor);
@@ -346,14 +348,16 @@ int __cdecl Actor_CanSee(void *viewer,void *target,float *outDistance)
   return 0;
 }
 
-/* ---- 0x0048fbd0  Actor_TurnKey ---- */
+/* ---- 0x0048fbd0  sputActor_Turn ---- */
 /* Actor_TurnKey(actor, dir): the TurnActor builtin. Walker extra struct at actor+0xa4: +0x1c turn
    rate (deg/s, default 135, set by SetActorTurnRate), +0x41c time scale, +0x28 angle still to turn.
    Turn per press = rate * frameSeconds * timescale * dir; the key is accepted (+0x10 = +-1) only
    when |+0x28| <= 2 * that amount, i.e. the visible heading has caught up. Creates the walker
-   (Actor_CreateWalker) if it does not exist. */
+   (Actor_CreateWalker) if it does not exist. Original name sputActor_Turn (the remaster's
+   GrimFandango (Linux): the only unmatched callee of Lua_TurnActor; 2 matched neighbours agree, 0
+   disagree); was Actor_TurnKey. */
 
-void Actor_TurnKey(int param_1,float param_2)
+void sputActor_Turn(int param_1,float param_2)
 
 {
   float fVar1;
@@ -361,10 +365,10 @@ void Actor_TurnKey(int param_1,float param_2)
   float fVar3;
   
   iVar2 = *(int *)(param_1 + 0xa4);
-  fVar3 = Timer_GetFrameSeconds();
+  fVar3 = sputTime_GetFrameTimeFlex();
   fVar3 = *(float *)(iVar2 + 0x1c) * fVar3 * *(float *)(iVar2 + 0x41c) * param_2;
   if (*(int *)(iVar2 + 0x1b4) == 0) {
-    Actor_CreateWalker(param_1,1);
+    sputActor_EnablePuck(param_1,1);
   }
   iVar2 = *(int *)(param_1 + 0xa4);
   fVar1 = *(float *)(iVar2 + 0x28);
@@ -385,16 +389,18 @@ void Actor_TurnKey(int param_1,float param_2)
   return;
 }
 
-/* ---- 0x0048fc80  Actor_WalkForward ---- */
+/* ---- 0x0048fc80  sputActor_Forward ---- */
 /* Actor_WalkForward(actor): creates the walker if missing and sets extra+0xc (walk forward this
-   frame), consumed by Actor_UpdateWalker. */
+   frame), consumed by Actor_UpdateWalker. Original name sputActor_Forward (the remaster's
+   GrimFandango (Linux): the only unmatched callee of Lua_WalkActorForward; 3 matched neighbours
+   agree, 0 disagree); was Actor_WalkForward. */
 
-void Actor_WalkForward(int param_1)
+void sputActor_Forward(int param_1)
 
 {
-  Timer_GetFrameSeconds();
+  sputTime_GetFrameTimeFlex();
   if (*(int *)(*(int *)(param_1 + 0xa4) + 0x1b4) == 0) {
-    Actor_CreateWalker(param_1,1);
+    sputActor_EnablePuck(param_1,1);
   }
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0xc) = 1;
   return;
@@ -434,7 +440,7 @@ void Actor_UpdateMovement(void *param_1,float param_2)
     Actor_UpdateWalker(param_1);
   }
   Actor_UpdateMoveChores(param_1);
-  Costume_UpdateAll(*(void **)((int)param_1 + 0xa0),param_2);
+  sputCostume_Update(*(void **)((int)param_1 + 0xa0),param_2);
   if ((*(byte *)((int)param_1 + 8) & 2) != 0) {
     Actor_UpdateLookAt(param_1,param_2);
   }
@@ -505,10 +511,10 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
     }
     else {
       Matrix34_TransformPoint(afStack_a8,pfVar6,afStack_90);
-      Vec3_Normalize(afStack_a8);
+      rdVector_Normalize3Acc(afStack_a8);
     }
     Vec3_Cross(afStack_9c,local_c0,afStack_a8);
-    Vec3_Normalize(afStack_9c);
+    rdVector_Normalize3Acc(afStack_9c);
     fStack_c8 = *(float *)(iVar1 + 0x18) * dt;
     fVar10 = Vec3_Dot(local_c0,afStack_a8);
     fVar10 = Math_AsinDegrees(fVar10);
@@ -611,7 +617,7 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
      (*(int *)((int)actor + 0xa0) != 0)) {
     iVar3 = iMUSE_GetPhoneme(*(int *)(iVar3 + 0x1c8),0);
     if (iVar3 == 0) {
-      Actor_ShutUp(actor);
+      sputActor_ShutUp(actor);
     }
     else {
       uVar2 = Phoneme_ToTalkChore(actor,iVar3);
@@ -640,18 +646,20 @@ void __cdecl Actor_UpdateTalk(void *actor,float dt)
       return;
     }
   }
-  Actor_ShutUp(actor);
+  sputActor_ShutUp(actor);
   return;
 }
 #endif
 
 
-/* ---- 0x00490320  Actor_SetSelected ---- */
+/* ---- 0x00490320  sputActor_SetSelectedActor ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua SetSelectedActor; returns the handle or -1 */
+/* Lua SetSelectedActor; returns the handle or -1 Original name sputActor_SetSelectedActor (the
+   remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetSelectedActor; 1 matched
+   neighbours agree, 0 disagree); was Actor_SetSelected. */
 
-int __cdecl Actor_SetSelected(int handle)
+int __cdecl sputActor_SetSelectedActor(int handle)
 
 {
   int iVar1;
@@ -659,7 +667,7 @@ int __cdecl Actor_SetSelected(int handle)
   
   iVar1 = -1;
   if (g_pSelectedActor != (void *)0x0) {
-    iVar1 = Actor_GetHandle(g_pSelectedActor,unaff_retaddr);
+    iVar1 = sputActor_GetActorHandle(g_pSelectedActor,unaff_retaddr);
   }
   if ((-1 < handle) && (handle < g_nActorCapacity)) {
     g_pSelectedActor = (void *)((int)g_pActorTable + handle * 0xa8);
@@ -669,25 +677,42 @@ int __cdecl Actor_SetSelected(int handle)
 #endif
 
 
-/* ---- 0x00490360  Actor_FromHandle ---- */
-void * Actor_FromHandle(int param_1)
+/* ---- 0x00490360  sputActor_ActorDeref ---- */
+/* Original name sputActor_ActorDeref (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_ActorVoiceIs3D; the only unmatched callee of Lua_GetActorCostumeDepth; the only
+   unmatched callee of Lua_GetActorLookRate; the only unmatched callee of Lua_GetActorPos; the only
+   unmatched callee of Lua_GetActorRect; the only unmatched callee of Lua_GetActorRot; the only
+   unmatched callee of Lua_GetActorScale; the only unmatched callee of Lua_GetActorTalkColor; the
+   only unmatched callee of Lua_IsActorLooking; the only unmatched callee of Lua_IsActorMoving; the
+   only unmatched callee of Lua_SetActorLookRate; the only unmatched callee of Lua_SetActorPitch;
+   the only unmatched callee of Lua_SetActorRoll; the only unmatched callee of Lua_SetActorScale;
+   the only unmatched callee of Lua_SetActorVisibility; 97 matched neighbours agree, 0 disagree);
+   was Actor_FromHandle. */
+
+void * sputActor_ActorDeref(int param_1)
 
 {
   return (void *)((int)g_pActorTable + param_1 * 0xa8);
 }
 
-/* ---- 0x00490380  Actor_GetHandle ---- */
-int __cdecl Actor_GetHandle(void *actor,int tag)
+/* ---- 0x00490380  sputActor_GetActorHandle ---- */
+/* Original name sputActor_GetActorHandle (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_CallCostumeMarkerHandler; the only unmatched callee of
+   Lua_CallCostumeOverrideHandler; 3 matched neighbours agree, 1 disagree); was Actor_GetHandle. */
+
+int __cdecl sputActor_GetActorHandle(void *actor,int tag)
 
 {
   return ((int)actor - (int)g_pActorTable) / 0xa8;
 }
 
-/* ---- 0x004903a0  Actor_Create ---- */
+/* ---- 0x004903a0  sputActor_AllocateActor ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
-/* Lua LoadActor: allocates an actor record and returns its handle (-1 when full) */
+/* Lua LoadActor: allocates an actor record and returns its handle (-1 when full) Original name
+   sputActor_AllocateActor (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_LoadActor; 1 matched neighbours agree, 0 disagree); was Actor_Create. */
 
-int Actor_Create(void)
+int sputActor_AllocateActor(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -754,7 +779,7 @@ int Actor_Create(void)
     puVar3 = puVar3 + 1;
   }
   puVar5[0xd] = 1;
-  Matrix_Identity((float *)(puVar5 + 0xe));
+  rdMatrix_Identity34((float *)(puVar5 + 0xe));
   puVar5[0xc] = 0x3f800000;
   puVar5[0x28] = 0;
   puVar3 = (undefined4 *)
@@ -772,10 +797,20 @@ int Actor_Create(void)
 #undef local_14
 
 
-/* ---- 0x00490580  Actor_CreateExtra ---- */
-/* Source: Engine/sputActor.cpp (lines 1561-1564, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x00490580  sputActor_AllocateActorExtra ---- */
+/* Source: Engine/sputActor.cpp (lines 1561-1564, from __FILE__/__LINE__ passed to the allocator)
+   Original name sputActor_AllocateActorExtra (the remaster's GrimFandango (Linux): the only
+   unmatched callee of Lua_ActorLookAt; the only unmatched callee of Lua_GetActorPuckVector; the
+   only unmatched callee of Lua_GetActorTimeScale; the only unmatched callee of
+   Lua_GetActorTurnRate; the only unmatched callee of Lua_GetActorWalkRate; the only unmatched
+   callee of Lua_IsActorResting; the only unmatched callee of Lua_IsActorTurning; the only unmatched
+   callee of Lua_SetActorCollisionScale; the only unmatched callee of Lua_SetActorOffsetYaw; the
+   only unmatched callee of Lua_SetActorTalkColor; the only unmatched callee of
+   Lua_SetActorTimeScale; the only unmatched callee of Lua_SetActorTurnRate; the only unmatched
+   callee of Lua_SetActorWalkRate; 20 matched neighbours agree, 1 disagree); was Actor_CreateExtra.
+    */
 
-void Actor_CreateExtra(int param_1)
+void sputActor_AllocateActorExtra(int param_1)
 
 {
   int iVar1;
@@ -812,23 +847,25 @@ void Actor_CreateExtra(int param_1)
   return;
 }
 
-/* ---- 0x004906b0  Actor_SetFollowBoxes ---- */
+/* ---- 0x004906b0  sputActor_EnableWalkSystem ---- */
 /* Actor_SetFollowBoxes(actor, follow): sets extra+0x1b8. Following creates the walker and
    reattaches it to the set; not following clears the walker's sector (+0x5c) but keeps the walker.
-    */
+   Original name sputActor_EnableWalkSystem (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_SetActorFollowBoxes; 1 matched neighbours agree, 1 disagree); was
+   Actor_SetFollowBoxes. */
 
-void Actor_SetFollowBoxes(int param_1,int param_2)
+void sputActor_EnableWalkSystem(int param_1,int param_2)
 
 {
   int iVar1;
   
   if (*(int *)(param_1 + 0xa4) == 0) {
-    Actor_CreateExtra(param_1);
+    sputActor_AllocateActorExtra(param_1);
   }
   if (param_2 != 0) {
     *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x1b8) = 1;
-    Actor_CreateWalker(param_1,1);
-    Walker_ReattachToSet(*(void **)(*(int *)(param_1 + 0xa4) + 0x1b4));
+    sputActor_EnablePuck(param_1,1);
+    Puck_Validate(*(void **)(*(int *)(param_1 + 0xa4) + 0x1b4));
     return;
   }
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x1b8) = 0;
@@ -839,10 +876,13 @@ void Actor_SetFollowBoxes(int param_1,int param_2)
   return;
 }
 
-/* ---- 0x00490730  Actor_CreateWalker ---- */
-/* Source: Engine/sputActor.cpp (line 1637, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x00490730  sputActor_EnablePuck ---- */
+/* Source: Engine/sputActor.cpp (line 1637, from __FILE__/__LINE__ passed to the allocator) Original
+   name sputActor_EnablePuck (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Actor_TurnKey; the only unmatched callee of Actor_WalkForward; 7 matched neighbours agree, 0
+   disagree); was Actor_CreateWalker. */
 
-void Actor_CreateWalker(void *param_1,int param_2)
+void sputActor_EnablePuck(void *param_1,int param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -865,12 +905,12 @@ void Actor_CreateWalker(void *param_1,int param_2)
       p = Walker_Create(pvVar1,*(float *)(*(int *)((int)param_1 + 0xa4) + 0x1c0));
     }
     Mem_CheckAlloc(p,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x665);
-    Walker_SetPosition(p,(float *)((int)param_1 + 0xc));
+    Puck_SetPos(p,(float *)((int)param_1 + 0xc));
     pfVar2 = Actor_GetFrame(param_1);
     local_18[0] = pfVar2[3] + *(float *)((int)param_1 + 0xc);
     local_18[1] = *(float *)((int)param_1 + 0x10) + pfVar2[4];
     local_18[2] = *(float *)((int)param_1 + 0x14) + pfVar2[5];
-    Walker_TurnToPoint(p,local_18,3.4028235e+38);
+    Puck_PointAt(p,local_18,3.4028235e+38);
     *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = p;
   }
   return;
@@ -878,8 +918,12 @@ void Actor_CreateWalker(void *param_1,int param_2)
 #undef local_18
 
 
-/* ---- 0x00490870  Actor_SetPositionClamped ---- */
-void Actor_SetPositionClamped(int param_1,float *param_2)
+/* ---- 0x00490870  sputActor_SetActorPosition ---- */
+/* Original name sputActor_SetActorPosition (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_PutActorAt; the only unmatched callee of Lua_PutActorAtInterest; 2 matched
+   neighbours agree, 1 disagree); was Actor_SetPositionClamped. */
+
+void sputActor_SetActorPosition(int param_1,float *param_2)
 
 {
   undefined4 uVar1;
@@ -892,9 +936,9 @@ void Actor_SetPositionClamped(int param_1,float *param_2)
   }
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
   if (this != (undefined4 *)0x0) {
-    Walker_SetPosition(this,param_2);
+    Puck_SetPos(this,param_2);
     if (*(int *)(*(int *)(param_1 + 0xa4) + 0x1b8) != 0) {
-      Walker_ReattachToSet(this);
+      Puck_Validate(this);
     }
     *(undefined4 *)(param_1 + 0xc) = *this;
     *(undefined4 *)(param_1 + 0x10) = this[1];
@@ -911,16 +955,18 @@ void Actor_SetPositionClamped(int param_1,float *param_2)
   return;
 }
 
-/* ---- 0x00490900  Actor_SetRot ---- */
+/* ---- 0x00490900  sputActor_SetActorRotation ---- */
 /* WARNING: Variable defined which should be unmapped: local_40 */
 /* Actor_SetRot(actor, angles, snap): clears actor+8 bit 0 first, which ends a WalkActorTo path walk
    (Actor_UpdateMovement only calls Actor_FollowPath while it is set). Pitch (+0x24) and roll
    (+0x2c) are always set at once. With a walker, the walker heading is turned to the yaw
    immediately, +0x28 (angle left) is set, and the visible yaw eases there in Walker_UpdateYaw; snap
    (5th Lua arg nil) negates the turn rate so that update jumps in one frame. Without a walker all
-   three angles are set at once. Does not create a walker. */
+   three angles are set at once. Does not create a walker. Original name sputActor_SetActorRotation
+   (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorRot; 2 matched
+   neighbours agree, 0 disagree); was Actor_SetRot. */
 
-void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
+void sputActor_SetActorRotation(int param_1,undefined4 *param_2,int param_3)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -941,8 +987,8 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
     local_24[2] = this[2] + local_24[2];
     Walker_ToLocalSpace(this,local_24);
     local_24[2] = 0.0;
-    Vec3_Normalize(local_24);
-    fVar3 = Math_AsinDegreesSeries(local_24[1]);
+    rdVector_Normalize3Acc(local_24);
+    fVar3 = stdMath_ArcSin3(local_24[1]);
     fVar3 = 90.0 - fVar3;
     local_40 = fVar3;
     if (0.0 < local_24[0]) {
@@ -971,8 +1017,12 @@ void Actor_SetRot(int param_1,undefined4 *param_2,int param_3)
 #undef local_40
 
 
-/* ---- 0x00490a40  Actor_SetReflection ---- */
-void __cdecl Actor_SetReflection(void *actor,float angle)
+/* ---- 0x00490a40  sputActor_SetReflection ---- */
+/* Original name sputActor_SetReflection (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_SetActorReflection; 1 matched neighbours agree, 0 disagree); was
+   Actor_SetReflection. */
+
+void __cdecl sputActor_SetReflection(void *actor,float angle)
 
 {
   int iVar1;
@@ -1067,8 +1117,12 @@ void __cdecl Actor_SetRestChore(void *actor,int chore,void *costume)
   return;
 }
 
-/* ---- 0x00490d30  Actor_PushCostume ---- */
-int __cdecl Actor_PushCostume(void *actor,char *name,int param_3)
+/* ---- 0x00490d30  sputActor_PushCostume ---- */
+/* Original name sputActor_PushCostume (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_PushActorCostume; 2 matched neighbours agree, 0 disagree); was Actor_PushCostume.
+    */
+
+int __cdecl sputActor_PushCostume(void *actor,char *name,int param_3)
 
 {
   void *costumeRes;
@@ -1079,7 +1133,7 @@ int __cdecl Actor_PushCostume(void *actor,char *name,int param_3)
     pvVar1 = *(void **)((int)actor + 0xa0);
   }
   else {
-    costumeRes = Resource_Load(0x54534f43,name);
+    costumeRes = sputResource_Alloc(0x54534f43,name);
     if (costumeRes == (void *)0x0) {
       return 0;
     }
@@ -1093,13 +1147,16 @@ int __cdecl Actor_PushCostume(void *actor,char *name,int param_3)
   return 1;
 }
 
-/* ---- 0x00490dd0  Actor_PopCostume ---- */
-void __cdecl Actor_PopCostume(void *actor,int free)
+/* ---- 0x00490dd0  sputActor_PopCostume ---- */
+/* Original name sputActor_PopCostume (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_PopActorCostume; 2 matched neighbours agree, 0 disagree); was Actor_PopCostume. */
+
+void __cdecl sputActor_PopCostume(void *actor,int free)
 
 {
   void *pvVar1;
   
-  pvVar1 = Costume_Pop(*(void **)((int)actor + 0xa0),free);
+  pvVar1 = sputCostume_PopCostume(*(void **)((int)actor + 0xa0),free);
   *(void **)((int)actor + 0xa0) = pvVar1;
   return;
 }
@@ -1143,14 +1200,14 @@ void __cdecl Actor_PuckOrient(void *actor)
     local_54[1] = *(float *)(iVar4 + 0x28);
     local_54[2] = *(float *)(iVar4 + 0x2c);
     fVar7 = Vec3_Dot2(local_48,local_54);
-    fVar7 = Math_AsinDegreesSeries(fVar7);
+    fVar7 = stdMath_ArcSin3(fVar7);
     pvVar5 = PUN(void *,(float)(90.0 - fVar7));
     pvVar6 = pvVar5;
     if (PUN(float,pvVar5) < 0.0) {
       pvVar6 = PUN(void *,(float)-PUN(float,pvVar5));
     }
     if (2.0 < PUN(float,pvVar6)) {
-      fVar7 = Timer_GetFrameSeconds();
+      fVar7 = sputTime_GetFrameTimeFlex();
       pvVar6 = PUN(void *,(float)(fVar7 * *(float *)(*(int *)((int)actor + 0xa4) + 0x1c)));
       actor = pvVar5;
       if ((0.0 < PUN(float,pvVar5)) && (PUN(float,pvVar6) < PUN(float,pvVar5))) {
@@ -1162,7 +1219,7 @@ void __cdecl Actor_PuckOrient(void *actor)
       local_3c[0] = local_54[2] * local_48[1] - local_54[1] * local_48[2];
       local_3c[1] = local_54[0] * local_48[2] - local_54[2] * local_48[0];
       local_3c[2] = local_54[1] * local_48[0] - local_54[0] * local_48[1];
-      Vec3_Normalize(local_3c);
+      rdVector_Normalize3Acc(local_3c);
       Matrix_AxisAngle(local_30,local_3c,PUN(float,actor));
       Matrix_Multiply(iVar3,local_30);
       Matrix_ToAngles(iVar3,iVar2);
@@ -1197,14 +1254,14 @@ void Actor_UpdateWalker(int param_1)
   puVar1 = *(undefined4 **)(*(int *)(param_1 + 0xa4) + 0x1b4);
   if ((*(int *)(*(int *)(param_1 + 0xa4) + 0x10) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
     iVar2 = *(int *)(param_1 + 0xa4);
-    fVar5 = Timer_GetFrameSeconds();
+    fVar5 = sputTime_GetFrameTimeFlex();
     Walker_TurnHeading(*(void **)(iVar2 + 0x1b4),
                        (float)*(int *)(iVar2 + 0x10) *
                        *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c));
   }
   iVar2 = *(int *)(param_1 + 0xa4);
   if (*(int *)(iVar2 + 0xc) != 0) {
-    fVar5 = Timer_GetFrameSeconds();
+    fVar5 = sputTime_GetFrameTimeFlex();
     if (*(int *)(iVar2 + 0x1bc) == 0) {
       turnRightOk = (uint)(*(int *)(iVar2 + 0x10) != 1);
       turnLeftOk = (uint)(*(int *)(iVar2 + 0x10) != -1);
@@ -1275,12 +1332,12 @@ void Actor_UpdateMoveChores(int param_1)
       if (iVar1 == 0) {
 LAB_00491477:
         if (((uVar2 & 1) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
-          Cos_StopChoreFaded((void *)*piVar4,piVar4[10],g_nChoreFadeMs);
+          FadeOutChore((void *)*piVar4,piVar4[10],g_nChoreFadeMs);
         }
       }
       else if (uVar2 == 0) {
         *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-        Cos_StartChoreFaded(*piVar4,piVar4[10],g_nChoreFadeMs);
+        FadeInChore(*piVar4,piVar4[10],g_nChoreFadeMs);
       }
       else if (iVar1 == 0) goto LAB_00491477;
     }
@@ -1302,12 +1359,12 @@ LAB_00491477:
         if (iVar3 < 1) {
 LAB_00491517:
           if ((uVar2 & 1) != 0) {
-            Cos_StopChoreFaded((void *)*piVar4,piVar4[0xb],g_nChoreFadeMs);
+            FadeOutChore((void *)*piVar4,piVar4[0xb],g_nChoreFadeMs);
           }
         }
         else if (uVar2 == 0) {
           *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-          Cos_StartChoreFaded(*piVar4,piVar4[0xb],g_nChoreFadeMs);
+          FadeInChore(*piVar4,piVar4[0xb],g_nChoreFadeMs);
         }
         else if (iVar3 < 1) goto LAB_00491517;
       }
@@ -1317,14 +1374,14 @@ LAB_00491517:
         if (iVar1 < 0) {
           if (uVar2 == 0) {
             *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-            Cos_StartChoreFaded(*piVar4,piVar4[0xc],g_nChoreFadeMs);
+            FadeInChore(*piVar4,piVar4[0xc],g_nChoreFadeMs);
           }
           else if (-1 < iVar1) goto LAB_0049157a;
         }
         else {
 LAB_0049157a:
           if ((uVar2 & 1) != 0) {
-            Cos_StopChoreFaded((void *)*piVar4,piVar4[0xc],g_nChoreFadeMs);
+            FadeOutChore((void *)*piVar4,piVar4[0xc],g_nChoreFadeMs);
           }
         }
       }
@@ -1346,13 +1403,13 @@ LAB_0049157a:
       iVar1 = *(int *)(*(int *)(param_1 + 0xa4) + 0x14);
       if (iVar1 != 0) {
         if (iVar3 == 0) {
-          Cos_StartChoreFaded(*piVar5,piVar5[0xd],g_nChoreFadeMs);
+          FadeInChore(*piVar5,piVar5[0xd],g_nChoreFadeMs);
           goto LAB_0049162b;
         }
         if (iVar1 != 0) goto LAB_0049162b;
       }
       if (iVar3 != 0) {
-        Cos_StopChoreFaded((void *)*piVar5,piVar5[0xd],g_nChoreFadeMs);
+        FadeOutChore((void *)*piVar5,piVar5[0xd],g_nChoreFadeMs);
       }
     }
   }
@@ -1395,7 +1452,7 @@ void __cdecl Actor_SayLine(void *actor,char *text,int background,int volume,int 
   #define local_24 (*(char (*)[36])(_frame + (0x60 - 0x24)))
   
   if (*(int *)((int)actor + 0xa4) == 0) {
-    Actor_CreateExtra(actor);
+    sputActor_AllocateActorExtra(actor);
   }
   uVar4 = g_dwSpeechMode & 1;
   uVar16 = g_dwSpeechMode & 2;
@@ -1448,7 +1505,7 @@ LAB_00492cab:
         return;
       }
     }
-    Actor_ShutUp(actor);
+    sputActor_ShutUp(actor);
   }
   *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1cc) = 0;
   *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c4) = 1;
@@ -1601,10 +1658,12 @@ LAB_00492fe7:
 #undef local_44
 
 
-/* ---- 0x00493060  Actor_ShutUp ---- */
-/* Lua ShutUpActor: stops the actor's speech and talk chores */
+/* ---- 0x00493060  sputActor_ShutUp ---- */
+/* Lua ShutUpActor: stops the actor's speech and talk chores Original name sputActor_ShutUp (the
+   remaster's GrimFandango (Linux): the only unmatched callee of Lua_ShutUpActor; 1 matched
+   neighbours agree, 1 disagree); was Actor_ShutUp. */
 
-void __cdecl Actor_ShutUp(void *actor)
+void __cdecl sputActor_ShutUp(void *actor)
 
 {
   void *obj;
@@ -1672,18 +1731,21 @@ void __cdecl Actor_ShutUp(void *actor)
   return;
 }
 
-/* ---- 0x004931f0  Actor_PushSectorOppositeEdge ---- */
-/* Lua GetSectorOppositeEdge: pushes the point on the far edge of the sector from the actor */
+/* ---- 0x004931f0  sputActor_LeaveSector ---- */
+/* Lua GetSectorOppositeEdge: pushes the point on the far edge of the sector from the actor Original
+   name sputActor_LeaveSector (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_GetSectorOppositeEdge; 1 matched neighbours agree, 1 disagree); was
+   Actor_PushSectorOppositeEdge. */
 
-void __cdecl Actor_PushSectorOppositeEdge(int a1,int a2)
+void __cdecl sputActor_LeaveSector(int a1,int a2)
 
 {
   float *walker;
   
   if (((a2 != 0) && (a1 != 0)) &&
      (walker = *(float **)(*(int *)(a1 + 0xa4) + 0x1b4), walker != (float *)0x0)) {
-    Sector_MoveWalkerToOppositeEdge((void *)a2,walker);
-    Actor_SetPositionClamped(a1,walker);
+    WalkPlane_JumpOut((void *)a2,walker);
+    sputActor_SetActorPosition(a1,walker);
   }
   return;
 }
@@ -1717,13 +1779,13 @@ void Actor_FollowPath(int param_1)
     fVar2 = -fVar2;
   }
   iVar6 = *(int *)(param_1 + 0xa4);
-  fVar7 = Timer_GetFrameSeconds();
+  fVar7 = sputTime_GetFrameTimeFlex();
   fVar2 = fVar7 * *(float *)(iVar6 + 0x41c) * fVar2 * 1.25;
   if (SQRT(fVar4 * fVar4 + fVar3 * fVar3 + fVar5 * fVar5) < fVar2) {
     do {
       if (*(int *)(iVar6 + 0x44) <= *(int *)(iVar6 + 0x1b0)) break;
       *(int *)(iVar6 + 0x1b0) = *(int *)(iVar6 + 0x1b0) + 1;
-      Actor_SetPositionClamped(param_1,*(int *)(param_1 + 0xa4) + 0x2c);
+      sputActor_SetActorPosition(param_1,*(int *)(param_1 + 0xa4) + 0x2c);
       iVar6 = *(int *)(param_1 + 0xa4);
       puVar1 = (undefined4 *)(iVar6 + (*(int *)(iVar6 + 0x1b0) + 6) * 0xc);
       *(undefined4 *)(iVar6 + 0x2c) = *puVar1;
@@ -1741,8 +1803,8 @@ void Actor_FollowPath(int param_1)
     }
   }
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) | 1;
-  Walker_TurnToPoint(*(void **)(iVar6 + 0x1b4),(float *)(iVar6 + 0x2c),3.4028235e+38);
-  Actor_WalkForward(param_1);
+  Puck_PointAt(*(void **)(iVar6 + 0x1b4),(float *)(iVar6 + 0x2c),3.4028235e+38);
+  sputActor_Forward(param_1);
   return;
 }
 #undef local_10
@@ -1750,23 +1812,31 @@ void Actor_FollowPath(int param_1)
 #undef local_c
 
 
-/* ---- 0x004933c0  Actor_SetWalkDominate ---- */
-void __cdecl Actor_SetWalkDominate(void *actor,int dominate)
+/* ---- 0x004933c0  sputActor_SetWalkDominate ---- */
+/* Original name sputActor_SetWalkDominate (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_SetActorWalkDominate; 1 matched neighbours agree, 0 disagree); was
+   Actor_SetWalkDominate. */
+
+void __cdecl sputActor_SetWalkDominate(void *actor,int dominate)
 
 {
   *(int *)(*(int *)((int)actor + 0xa4) + 0x1bc) = dominate;
   return;
 }
 
-/* ---- 0x004933e0  Actor_SetConstrain ---- */
-void Actor_SetConstrain(int param_1,int param_2)
+/* ---- 0x004933e0  sputActor_SetActorConstrain ---- */
+/* Original name sputActor_SetActorConstrain (the remaster's GrimFandango (Linux): the only
+   unmatched callee of Lua_SetActorConstrain; 1 matched neighbours agree, 0 disagree); was
+   Actor_SetConstrain. */
+
+void sputActor_SetActorConstrain(int param_1,int param_2)
 
 {
   void *this;
   
   if ((((*(byte *)(param_1 + 8) & 1) == 0) || (param_2 == 0)) &&
      (this = *(void **)(*(int *)(param_1 + 0xa4) + 0x1b4), this != (void *)0x0)) {
-    Walker_SetConstraint(this,param_2);
+    Puck_Constrain(this,param_2);
   }
   return;
 }
@@ -1790,8 +1860,11 @@ int __cdecl Actor_IsVoicePlaying(void *actor)
   return (uint)(0 < iVar2);
 }
 
-/* ---- 0x00493510  Actor_HasShadow ---- */
-int __cdecl Actor_HasShadow(void *actor)
+/* ---- 0x00493510  sputActor_ActorHasShadow ---- */
+/* Original name sputActor_ActorHasShadow (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_ActorShadow; 1 matched neighbours agree, 0 disagree); was Actor_HasShadow. */
+
+int __cdecl sputActor_ActorHasShadow(void *actor)
 
 {
   int *piVar1;
@@ -1817,8 +1890,12 @@ void __cdecl Actor_ActivateShadow(void *actor,int shadowIdx,int active)
   return;
 }
 
-/* ---- 0x00493570  Actor_SetShadowPlane ---- */
-void Actor_SetShadowPlane(int param_1,char *param_2)
+/* ---- 0x00493570  sputActor_SetShadowPlane ---- */
+/* Original name sputActor_SetShadowPlane (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_SetActorShadowPlane; 1 matched neighbours agree, 0 disagree); was
+   Actor_SetShadowPlane. */
+
+void sputActor_SetShadowPlane(int param_1,char *param_2)
 
 {
   undefined4 *puVar1;
@@ -1831,7 +1908,7 @@ void Actor_SetShadowPlane(int param_1,char *param_2)
   
   puVar1 = (undefined4 *)
            (*(int *)(param_1 + 0xa4) + (*(int *)(*(int *)(param_1 + 0xa4) + 500) + 6) * 0x54);
-  pvVar7 = Sector_FindByName(param_2);
+  pvVar7 = WalkPlane_PlaneNamed(param_2);
   if (pvVar7 != (void *)0x0) {
     puVar1[2] = *(undefined4 *)((int)pvVar7 + 0x60);
     puVar1[3] = *(undefined4 *)((int)pvVar7 + 100);
@@ -1848,8 +1925,12 @@ void Actor_SetShadowPlane(int param_1,char *param_2)
   return;
 }
 
-/* ---- 0x004935f0  Actor_SetShadowPoint ---- */
-void __cdecl Actor_SetShadowPoint(void *actor,float x,float y,float z)
+/* ---- 0x004935f0  sputActor_SetShadowPoint ---- */
+/* Original name sputActor_SetShadowPoint (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_SetActorShadowPoint; 1 matched neighbours agree, 0 disagree); was
+   Actor_SetShadowPoint. */
+
+void __cdecl sputActor_SetShadowPoint(void *actor,float x,float y,float z)
 
 {
   int iVar1;
@@ -1869,10 +1950,12 @@ void __cdecl Actor_SetShadowValid(void *actor,int shadowIdx,int valid)
   return;
 }
 
-/* ---- 0x00493660  Actor_AddShadowPlane ---- */
-/* Shadow records are 0x54 bytes at extra+(idx+6)*0x54 with the plane equation at +8 */
+/* ---- 0x00493660  sputActor_AddShadowClipPlane ---- */
+/* Shadow records are 0x54 bytes at extra+(idx+6)*0x54 with the plane equation at +8 Original name
+   sputActor_AddShadowClipPlane (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_AddShadowPlane; 1 matched neighbours agree, 0 disagree); was Actor_AddShadowPlane. */
 
-void __cdecl Actor_AddShadowPlane(void *actor,int shadowIdx,char *sectorName)
+void __cdecl sputActor_AddShadowClipPlane(void *actor,int shadowIdx,char *sectorName)
 
 {
   int iVar1;
@@ -1880,7 +1963,7 @@ void __cdecl Actor_AddShadowPlane(void *actor,int shadowIdx,char *sectorName)
   int iVar3;
   int *piVar4;
   
-  pvVar2 = Sector_FindByName(sectorName);
+  pvVar2 = WalkPlane_PlaneNamed(sectorName);
   if (pvVar2 != (void *)0x0) {
     iVar1 = *(int *)((int)actor + 0xa4) + (shadowIdx + 6) * 0x54;
     iVar3 = 0;
@@ -1897,8 +1980,12 @@ void __cdecl Actor_AddShadowPlane(void *actor,int shadowIdx,char *sectorName)
   return;
 }
 
-/* ---- 0x004936b0  Actor_KillShadows ---- */
-void __cdecl Actor_KillShadows(void *actor)
+/* ---- 0x004936b0  sputActor_ResetShadows ---- */
+/* Original name sputActor_ResetShadows (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_KillActorShadows; 1 matched neighbours agree, 0 disagree); was Actor_KillShadows.
+    */
+
+void __cdecl sputActor_ResetShadows(void *actor)
 
 {
   int iVar1;
@@ -1914,14 +2001,16 @@ void __cdecl Actor_KillShadows(void *actor)
   return;
 }
 
-/* ---- 0x004936e0  Actor_DrawShadows ---- */
+/* ---- 0x004936e0  sputCostume_DrawActorShadow ---- */
 /* Draws the shadows of an actor: slots at extra+0x1f8, 0x54 bytes each (+0 active, +4 valid,
    +8..+0x14 plane normal and d, +0x18..0x20 shadow point). valid 0: always; -1: only when pos.n+d
    <= 0; 1: only when >= 0 (pos = actor+0xc). Set by SetActorShadowPlane (Actor_SetShadowPlane
    0x493570, which resets valid to 0) and SetActorShadowValid (Lua_SetActorShadowValid 0x4a1fd0 ->
-   0x493630). */
+   0x493630). Original name sputCostume_DrawActorShadow (the remaster's GrimFandango (Linux): the
+   only unmatched caller of Actor_DrawShadowPlane; 1 matched neighbours agree, 0 disagree); was
+   Actor_DrawShadows. */
 
-void Actor_DrawShadows(int param_1)
+void sputCostume_DrawActorShadow(int param_1)
 
 {
   int iVar1;
@@ -1963,12 +2052,14 @@ float * __cdecl Actor_GetFrame(void *actor)
   return (float *)((int)actor + 0x38);
 }
 
-/* ---- 0x004937c0  Actor_ToClean ---- */
+/* ---- 0x004937c0  sputActor_DrawToClean ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua ActorToClean: marks the actor's rectangle to be restored from the clean background */
+/* Lua ActorToClean: marks the actor's rectangle to be restored from the clean background Original
+   name sputActor_DrawToClean (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_ActorToClean; 3 matched neighbours agree, 0 disagree); was Actor_ToClean. */
 
-void __cdecl Actor_ToClean(void *actor)
+void __cdecl sputActor_DrawToClean(void *actor)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1987,9 +2078,9 @@ void __cdecl Actor_ToClean(void *actor)
   #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
-  pvVar6 = Set_GetCurrent();
+  pvVar6 = sputRoom_GetCurrentRoom();
   iVar2 = *(int *)((int)pvVar6 + 0xb4);
-  pvVar6 = Set_GetCurrent();
+  pvVar6 = sputRoom_GetCurrentRoom();
   iVar1 = *(int *)((int)pvVar6 + 0xac) + iVar2 * 300;
   iVar2 = *(int *)(*(int *)(*(int *)((int)pvVar6 + 0xac) + 0x48 + iVar2 * 300) + 4);
   if (iVar2 != 0) {
@@ -2002,18 +2093,18 @@ void __cdecl Actor_ToClean(void *actor)
     piVar10 = *(int **)actor;
     iVar2 = *piVar10;
     if (iVar2 == 0) {
-      pvVar6 = Set_GetCurrent();
+      pvVar6 = sputRoom_GetCurrentRoom();
       iVar2 = *(int *)((int)pvVar6 + 0x88);
-      pvVar6 = Set_GetCurrent();
+      pvVar6 = sputRoom_GetCurrentRoom();
       iVar5 = *(int *)((int)pvVar6 + 0x80);
       if (*(int *)(iVar5 + iVar2 * 0x34) == 0) {
         (*g_pSvcMain->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
       rdroid_SetColormap(*(undefined4 *)(iVar5 + iVar2 * 0x34 + 4));
-      pvVar6 = Set_GetCurrent();
+      pvVar6 = sputRoom_GetCurrentRoom();
       iVar2 = *(int *)((int)pvVar6 + 0x88);
-      pvVar6 = Set_GetCurrent();
+      pvVar6 = sputRoom_GetCurrentRoom();
       piVar10 = (int *)(*(int *)((int)pvVar6 + 0x80) + iVar2 * 0x34);
       if (*piVar10 == 0) {
         (*g_pSvcMain->pAssertFail)
@@ -2076,14 +2167,18 @@ int Actor_CountCostumes(int param_1)
   return iVar2;
 }
 
-/* ---- 0x004946b0  Actor_SetClipPlane ---- */
-void Actor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3)
+/* ---- 0x004946b0  sputActor_SetClipPlane ---- */
+/* Original name sputActor_SetClipPlane (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_SetActorClipPlane; 1 matched neighbours agree, 1 disagree); was Actor_SetClipPlane.
+    */
+
+void sputActor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3)
 
 {
   int iVar1;
   
   if (*(int *)(param_1 + 0xa4) == 0) {
-    Actor_CreateExtra(param_1);
+    sputActor_AllocateActorExtra(param_1);
   }
   iVar1 = *(int *)(param_1 + 0xa4);
   *(undefined4 *)(iVar1 + 0x400) = *param_2;
@@ -2101,7 +2196,7 @@ void Actor_SetClipActive(int param_1,undefined4 param_2)
 
 {
   if (*(int *)(param_1 + 0xa4) == 0) {
-    Actor_CreateExtra(param_1);
+    sputActor_AllocateActorExtra(param_1);
   }
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x3fc) = param_2;
   return;
@@ -2144,7 +2239,7 @@ void __cdecl Actor_Destroy(void *actor)
   if (*(char *)((int)actor + 0x7c) != '\0') {
     Actor_RemoveFromSet((char *)((int)actor + 0x7c),actor);
   }
-  Actor_KillShadows(actor);
+  sputActor_ResetShadows(actor);
   Costume_FreeList(*(void **)((int)actor + 0xa0),0);
   *(undefined4 *)((int)actor + 0xa0) = 0;
   if (*(int *)((int)actor + 0xa4) != 0) {
@@ -2158,7 +2253,7 @@ void __cdecl Actor_Destroy(void *actor)
     *(undefined4 *)((int)actor + 0xa4) = 0;
   }
   if (*(void **)actor != (void *)0x0) {
-    ResRef_Remove(*(void **)actor);
+    Res_RemoveReference(*(void **)actor);
     (**(code **)(UINT_008ca32c + 0x24))(*(undefined4 *)actor);
     *(undefined4 *)actor = 0;
   }
@@ -2353,7 +2448,7 @@ void Actor_DrawCostumeMeshes(int *param_1,float *param_2)
   iVar5 = param_1[2];
   do {
     if (iVar5 == 0) {
-      Actor_DrawShadows(piVar1);
+      sputCostume_DrawActorShadow(piVar1);
       iVar5 = param_1[1];
       for (piVar4 = param_1; (piVar4 != (int *)0x0 && (piVar4[1] == iVar5));
           piVar4 = (int *)piVar4[0x2c]) {
@@ -2607,10 +2702,14 @@ LAB_004a5fa6:
   return;
 }
 
-/* ---- 0x004a8500  Actor_GetYawToPoint ---- */
+/* ---- 0x004a8500  Puck_GetYawToPoint ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-float __thiscall Actor_GetYawToPoint(void *this,float *point)
+/* Original name Puck_GetYawToPoint (the remaster's GrimFandango (Linux): Puck::GetYawToPoint in the
+   remaster (a C++ method there); the only unmatched callee of Lua_GetActorYawToPoint; 3 matched
+   neighbours agree, 0 disagree); was Actor_GetYawToPoint. */
+
+float __thiscall Puck_GetYawToPoint(void *this,float *point)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2630,8 +2729,8 @@ float __thiscall Actor_GetYawToPoint(void *this,float *point)
     Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_18);
   }
   Walker_ToLocalSpace(this,&local_18);
-  Vec3_Normalize(&local_18);
-  fVar2 = Math_AsinDegreesSeries(local_14);
+  rdVector_Normalize3Acc(&local_18);
+  fVar2 = stdMath_ArcSin3(local_14);
   point = PUN(float *,(float)(90.0 - fVar2));
   if (0.0 < local_18) {
     point = PUN(float *,(float)(PUN(float,point) * -1.0));

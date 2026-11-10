@@ -5,12 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00498280  SpriteComponent_Create ---- */
+/* ---- 0x00498280  SpriteRequester ---- */
 /* Costume tag handler for 'Sprite' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sprite key; asks for a .mat file ('Select
-   mat file for sprite') and creates the polyline. */
+   mat file for sprite') and creates the polyline. Original name SpriteRequester (the remaster's
+   GrimFandango (Linux): strings: 'Select mat file for sprite...'); was SpriteComponent_Create. */
 
-undefined4 SpriteComponent_Create(uint param_1,int param_2,int param_3,float param_4,char *param_5)
+undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,char *param_5)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -104,7 +105,7 @@ undefined4 SpriteComponent_Create(uint param_1,int param_2,int param_3,float par
       local_40[0] = local_50[0];
       local_40[1] = local_50[1];
       local_40[2] = param_4;
-      iVar7 = rdPolyline_New(0,pcVar5,pcVar5,PUN(undefined4,(float)(local_44)),PUN(undefined4,(float)(local_50[2])),5,0,1,0,local_40);
+      iVar7 = rdSprite_New(0,pcVar5,pcVar5,PUN(undefined4,(float)(local_44)),PUN(undefined4,(float)(local_50[2])),5,0,1,0,local_40);
       *piVar6 = iVar7;
       uVar2 = 0xffffffff;
       do {
@@ -174,11 +175,13 @@ void SpriteComponent_OnKey(undefined4 param_1,int param_2,undefined4 param_3,int
   return;
 }
 
-/* ---- 0x00498580  SpriteComponent_Destroy ---- */
+/* ---- 0x00498580  SpriteFreer ---- */
 /* Costume tag handler, slot 2 of the 'Sprite' tag: frees the key data. (Was named
-   KeyframeComponent_Destroy.) */
+   KeyframeComponent_Destroy.) Original name SpriteFreer (the remaster's GrimFandango (Linux): the
+   only unmatched caller of rdMaterial_Free; the only unmatched caller of rdSprite_Free; 2 matched
+   neighbours agree, 0 disagree); was SpriteComponent_Destroy. */
 
-undefined4 SpriteComponent_Destroy(undefined4 param_1,undefined4 param_2,int *param_3)
+undefined4 SpriteFreer(undefined4 param_1,undefined4 param_2,int *param_3)
 
 {
   rdMaterial_Free(*(undefined4 *)(*param_3 + 0x7c));
@@ -187,13 +190,14 @@ undefined4 SpriteComponent_Destroy(undefined4 param_1,undefined4 param_2,int *pa
   return 1;
 }
 
-/* ---- 0x004985c0  FUN_004985c0 ---- */
+/* ---- 0x004985c0  SpriteInstancer ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   Original name SpriteInstancer (the remaster's GrimFandango (Linux): the only unmatched caller of
+   rdThing_New; 2 matched neighbours agree, 1 disagree); was FUN_004985c0. */
 
-undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
+undefined4 * SpriteInstancer(int param_1,undefined4 *param_2,int param_3)
 
 {
   int iVar1;
@@ -242,13 +246,15 @@ undefined4 * FUN_004985c0(int param_1,undefined4 *param_2,int param_3)
 #endif
 
 
-/* ---- 0x004986e0  SpriteComponent_EditKey ---- */
+/* ---- 0x004986e0  SpriteAdjuster ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Costume tag handler for 'Sprite' (registered by sputCostume_Start through
-   Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the sprite's Width and Height. */
+   Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the sprite's Width and Height.
+   Original name SpriteAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d,%d,%d,%d,%d');
+   was SpriteComponent_EditKey. */
 
-undefined4 SpriteComponent_EditKey(undefined4 *param_1,undefined4 param_2)
+undefined4 SpriteAdjuster(undefined4 *param_1,undefined4 param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

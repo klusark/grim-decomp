@@ -60,7 +60,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
     local_1 = 0;
     name = (char *)strtok(local_20,&DAT_004ea52c);
   }
-  data = Resource_Load(0x444e4b42,name);
+  data = sputResource_Alloc(0x444e4b42,name);
   if (data == (char *)0x0) {
     return 0;
   }
@@ -94,7 +94,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
     *puVar10 = 0;
     puVar10 = puVar10 + 1;
   }
-  ResRef_Add(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x881);
+  Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x881);
   local_34 = *(int *)(data + 100) + 1;
   local_30 = 0;
   local_30 = (*g_pSvcCostume->pAlloc)
@@ -165,7 +165,7 @@ undefined4 BitmapComponent_Destroy(undefined4 param_1,undefined4 param_2,void *p
 
 {
   _DAT_008ca7b4 = param_3;
-  ResRef_Remove(param_3);
+  Res_RemoveReference(param_3);
   (*g_pSvcCostume->pFree)(param_3);
   return 1;
 }

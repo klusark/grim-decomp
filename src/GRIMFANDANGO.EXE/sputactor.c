@@ -19,7 +19,7 @@ undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2)
   param_2[2] = sputActor_Start;
   param_2[3] = sputActor_Stop;
   param_2[4] = sputActor_SaveState;
-  param_2[5] = sputActor_RestoreState;
+  param_2[5] = sputActor_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   g_pTalkingActors = (void *)0x0;
@@ -250,9 +250,9 @@ undefined4 sputActor_SaveState(code *param_1)
           (*param_1)(actor[0x29] + 0x418,4);
           (*param_1)(actor[0x29] + 0x41c,4);
           (*param_1)(actor[0x29] + 0x420,4);
-          pvVar3 = Set_GetCurrent();
+          pvVar3 = sputRoom_GetCurrentRoom();
           if (pvVar3 == (void *)0x0) {
-            Actor_KillShadows(actor);
+            sputActor_ResetShadows(actor);
           }
           iStack_a8 = 0x1f8;
           do {
@@ -315,12 +315,14 @@ undefined4 sputActor_SaveState(code *param_1)
 #undef uStack_88
 
 
-/* ---- 0x0048ecd0  sputActor_RestoreState ---- */
+/* ---- 0x0048ecd0  sputActor_Restore ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Module interface slot 5 (sputActor): save-game reader, calls the SaveGame_Read callback it is
-   handed; returns non-zero on a short read. */
+   handed; returns non-zero on a short read. Original name sputActor_Restore (the remaster's
+   GrimFandango (Linux): the only unmatched caller of rdPuppet_AddTrack; 4 matched neighbours agree,
+   2 disagree); was sputActor_RestoreState. */
 
-undefined4 sputActor_RestoreState(code *param_1)
+undefined4 sputActor_Restore(code *param_1)
 
 {
   unsigned char _frame[0x180] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -507,10 +509,10 @@ undefined4 sputActor_RestoreState(code *param_1)
           }
           name = (char *)CosUtil_PtrFromHandle(aiStack_b4[0]);
           if (iStack_164 == 0) {
-            Actor_SetCostume(setName,name,0);
+            sputActor_SetCostume(setName,name,0);
           }
           else {
-            Actor_PushCostume(setName,name,0);
+            sputActor_PushCostume(setName,name,0);
           }
           Cos_RestoreInstance(*(undefined4 *)setName[0x28],param_1);
           *(undefined4 *)(setName[0x28] + 0xc) = uStack_128;
@@ -532,7 +534,7 @@ undefined4 sputActor_RestoreState(code *param_1)
             puVar12 = puVar12 + 1;
           }
           *(undefined4 *)(setName[0x28] + 0x78) = uStack_bc;
-          ResRef_Remove(&iStack_b8);
+          Res_RemoveReference(&iStack_b8);
           iStack_164 = iStack_164 + 1;
         } while (iStack_164 < iStack_148);
       }
@@ -557,7 +559,7 @@ undefined4 sputActor_RestoreState(code *param_1)
               do {
                 pvStack_160 = *(void **)(piVar10[0x10] + 0x14);
                 (*param_1)(acStack_60,0x20);
-                pvVar3 = Resource_Load(0x4659454b,acStack_60);
+                pvVar3 = sputResource_Alloc(0x4659454b,acStack_60);
                 if (pvVar3 != (void *)0x0) {
                   (*param_1)(&uStack_144,4);
                   (*param_1)(&uStack_138,4);
@@ -578,7 +580,7 @@ undefined4 sputActor_RestoreState(code *param_1)
       }
       if (iStack_13c != 0) {
         setName[0x29] = 0;
-        Actor_CreateExtra(setName);
+        sputActor_AllocateActorExtra(setName);
         (*param_1)(setName[0x29],4);
         (*param_1)(setName[0x29] + 4,4);
         (*param_1)(setName[0x29] + 8,4);
@@ -632,9 +634,9 @@ undefined4 sputActor_RestoreState(code *param_1)
         (*param_1)(setName[0x29] + 0x420,4);
         if (*(int *)(setName[0x29] + 0x1b4) != 0) {
           *(undefined4 *)(setName[0x29] + 0x1b4) = 0;
-          Actor_CreateWalker(setName,1);
+          sputActor_EnablePuck(setName,1);
           if (*(int *)(setName[0x29] + 0x1b8) != 0) {
-            Walker_ReattachToSet(*(void **)(setName[0x29] + 0x1b4));
+            Puck_Validate(*(void **)(setName[0x29] + 0x1b4));
           }
         }
         if (*(int *)(setName[0x29] + 0x1c4) != 0) {
@@ -654,7 +656,7 @@ undefined4 sputActor_RestoreState(code *param_1)
           uVar5 = TextObject_FindBySelf(*(int *)(setName[0x29] + 0x1ec));
           *(undefined4 *)(setName[0x29] + 0x1ec) = uVar5;
         }
-        Actor_KillShadows(setName);
+        sputActor_ResetShadows(setName);
         pvStack_160 = (void *)0x1f8;
         do {
           iVar8 = (int)pvStack_160 + setName[0x29];
@@ -680,7 +682,7 @@ undefined4 sputActor_RestoreState(code *param_1)
             do {
               acStack_80[0] = '\0';
               (*param_1)(acStack_80,0x20);
-              pvVar3 = Sector_FindByName(acStack_80);
+              pvVar3 = WalkPlane_PlaneNamed(acStack_80);
               *puVar2 = pvVar3;
               iVar9 = iVar9 + 1;
               puVar2 = puVar2 + 1;
@@ -757,11 +759,11 @@ void __cdecl sputActor_SetWalkChore(void *actor,int chore,void *costume)
           return;
         }
         uVar2 = Cos_InstChoreStatus(*piVar3,piVar3[10]);
-        if ((uVar2 != 0) &&
-           (Cos_StopChoreFaded((void *)*piVar3,piVar3[10],g_nChoreFadeMs), chore != -1)) {
+        if ((uVar2 != 0) && (FadeOutChore((void *)*piVar3,piVar3[10],g_nChoreFadeMs), chore != -1))
+        {
           Cos_InstPlayChore(*piVar3,chore,uVar2 & 2,~uVar2 >> 2 & 1);
           Cos_InstUpdateChore(*piVar3,chore,100);
-          Chore_FadeIn((void *)*piVar3,chore,g_nChoreFadeMs);
+          sputCostume_FadeKeysIn((void *)*piVar3,chore,g_nChoreFadeMs);
         }
         piVar3[10] = -1;
         *(int *)((int)costume + 0x28) = chore;

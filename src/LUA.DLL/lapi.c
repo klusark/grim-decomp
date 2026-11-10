@@ -132,9 +132,9 @@ undefined4 __cdecl lua_Initialize(undefined4 param_1,undefined4 *param_2)
                     /* 0x1190  8  lua_Initialize */
   DAT_1002beb8 = param_1;
   *param_2 = lua_Initialize;
-  param_2[1] = FUN_10002900;
-  param_2[2] = FUN_10002920;
-  param_2[3] = FUN_10002940;
+  param_2[1] = Lua_Terminate;
+  param_2[2] = Lua_Startup;
+  param_2[3] = Lua_Shutdown;
   param_2[4] = lua_Save;
   param_2[5] = lua_Restore;
   param_2[6] = 0;
@@ -143,10 +143,11 @@ undefined4 __cdecl lua_Initialize(undefined4 param_1,undefined4 *param_2)
   return 0;
 }
 
-/* ---- 0x100011e0  lapi__11e0 ---- */
-/* Unidentified function of lapi.c (Lua 3.1 C API) */
+/* ---- 0x100011e0  luaA_Address ---- */
+/* Original name luaA_Address (the remaster's libLua.so: stack + o - 1, used as
+   luaA_Address(luaL_nonnullarg(1)) by nextvar / foreach); was lapi__11e0. */
 
-int __cdecl lapi__11e0(int param_1)
+int __cdecl luaA_Address(int param_1)
 
 {
   return PTR_1002bf6c[8] + -8 + param_1 * 8;
@@ -166,10 +167,11 @@ void luaA_packresults(void)
   return;
 }
 
-/* ---- 0x10001240  lapi__1240 ---- */
-/* Unidentified function of lapi.c (Lua 3.1 C API) */
+/* ---- 0x10001240  luaA_passresults ---- */
+/* Original name luaA_passresults (the remaster's libLua.so: same body (luaD_checkstack(Cnresults),
+   copies the C results); callers internaldofile / internaldostring); was lapi__1240. */
 
-int lapi__1240(void)
+int luaA_passresults(void)
 
 {
   int iVar1;
@@ -311,7 +313,7 @@ undefined4 __cdecl lua_gettagmethod(int param_1,byte *param_2)
   undefined4 uVar2;
   
                     /* 0x1410  36  lua_gettagmethod */
-  puVar1 = (undefined4 *)ltm__ca60(param_1,param_2);
+  puVar1 = (undefined4 *)luaT_gettagmethod(param_1,param_2);
   uVar2 = lapi__1430(puVar1);
   return uVar2;
 }
@@ -342,7 +344,7 @@ undefined4 __cdecl lua_settagmethod(int param_1,byte *param_2)
   
                     /* 0x1490  78  lua_settagmethod */
   ((code *)luaA_checkCparams)(1);
-  ltm__cae0(param_1,param_2,(undefined4 *)(PTR_1002bf6c[7] + -8));
+  luaT_settagmethod(param_1,param_2,(undefined4 *)(PTR_1002bf6c[7] + -8));
   uVar1 = lapi__12e0();
   return uVar1;
 }
@@ -447,8 +449,8 @@ undefined4 __cdecl lua_createtable(void)
   #define local_4 (*(undefined4 **)(_frame + (0x20 - 0x4)))
   
                     /* 0x1610  19  lua_createtable */
-  ((code *)lgc__5300)();
-  local_4 = luaH_init(0);
+  ((code *)luaC_checkGC)();
+  local_4 = luaH_new(0);
   local_8 = 0xfffffffd;
   uVar1 = lapi__1430(&local_8);
   return uVar1;
@@ -511,7 +513,7 @@ undefined4 __cdecl lua_rawsetglobal(byte *param_1)
   piVar1 = (int *)luaS_new(param_1);
   luaA_checkCparams(1);
   PTR_1002bf6c[7] = PTR_1002bf6c[7] + -8;
-  uVar2 = ((code *)lstring__94e0)(piVar1,(int *)PTR_1002bf6c[7]);
+  uVar2 = ((code *)luaS_rawsetglobal)(piVar1,(int *)PTR_1002bf6c[7]);
   return uVar2;
 }
 
@@ -570,7 +572,7 @@ undefined4 __cdecl lua_isnumber(int param_1)
     return 0;
   }
   if ((*(int *)(PTR_1002bf6c[8] + -8 + param_1 * 8) != -1) &&
-     (iVar1 = luaU_str2number((int *)(PTR_1002bf6c[8] + -8 + param_1 * 8)), iVar1 != 0)) {
+     (iVar1 = luaV_tonumber((int *)(PTR_1002bf6c[8] + -8 + param_1 * 8)), iVar1 != 0)) {
     return 0;
   }
   return 1;
@@ -629,7 +631,7 @@ float __cdecl lua_getnumber(int param_1)
   }
   iVar1 = param_1 * 8;
   if (*(int *)(PTR_1002bf6c[8] + -8 + iVar1) != -1) {
-    iVar2 = luaU_str2number((int *)(PTR_1002bf6c[8] + -8 + iVar1));
+    iVar2 = luaV_tonumber((int *)(PTR_1002bf6c[8] + -8 + iVar1));
     if (iVar2 != 0) {
       return 0.0;
     }
@@ -650,7 +652,7 @@ int __cdecl lua_getstring(int param_1)
   }
   iVar1 = param_1 * 8;
   if ((*(int *)(PTR_1002bf6c[8] + -8 + iVar1) != -2) &&
-     (iVar2 = lundump__d620((int *)(PTR_1002bf6c[8] + -8 + iVar1)), iVar2 != 0)) {
+     (iVar2 = luaV_tostring((int *)(PTR_1002bf6c[8] + -8 + iVar1)), iVar2 != 0)) {
     return 0;
   }
   return *(int *)(PTR_1002bf6c[8] + -4 + iVar1) + 0x18;
@@ -783,7 +785,7 @@ undefined4 __cdecl lua_pushstring(byte *param_1)
     luaD_checkstack(1);
   }
   PTR_1002bf6c[7] = PTR_1002bf6c[7] + 8;
-  uVar1 = ((code *)lgc__5300)();
+  uVar1 = ((code *)luaC_checkGC)();
   return uVar1;
 }
 
@@ -816,16 +818,16 @@ undefined4 __cdecl lua_pushusertag(byte *param_1,uint param_2)
   
                     /* 0x1b90  63  lua_pushusertag */
   if (((int)param_2 < 0) && (param_2 != 0xffffffff)) {
-    luaT_checktag(param_2);
+    luaT_realtag(param_2);
   }
-  uVar1 = luaS_hash(param_1,param_2);
+  uVar1 = luaS_createudata(param_1,param_2);
   *(undefined4 *)(PTR_1002bf6c[7] + 4) = uVar1;
   *(undefined4 *)PTR_1002bf6c[7] = 0;
   if ((uint)PTR_1002bf6c[9] <= (uint)PTR_1002bf6c[7]) {
     luaD_checkstack(1);
   }
   PTR_1002bf6c[7] = PTR_1002bf6c[7] + 8;
-  uVar1 = ((code *)lgc__5300)();
+  uVar1 = ((code *)luaC_checkGC)();
   return uVar1;
 }
 
@@ -908,7 +910,7 @@ int * __cdecl lua_settag(int param_1)
   
                     /* 0x1d30  77  lua_settag */
   ((code *)luaA_checkCparams)(1);
-  luaT_checktag(param_1);
+  luaT_realtag(param_1);
   iVar1 = PTR_1002bf6c[7];
   iVar2 = *(int *)(iVar1 + -8);
   if (iVar2 == -3) {
@@ -936,8 +938,8 @@ undefined4 __cdecl lua_pausetasks(void)
   int *piVar1;
   
                     /* 0x1db0  54  lua_pausetasks */
-  for (piVar1 = (int *)lstate__8bf0(DAT_1002bf70); piVar1 != (int *)0x0;
-      piVar1 = (int *)lstate__8bf0((int)piVar1)) {
+  for (piVar1 = (int *)LState_next(DAT_1002bf70); piVar1 != (int *)0x0;
+      piVar1 = (int *)LState_next((int)piVar1)) {
     if (piVar1 != PTR_1002bf6c) {
       piVar1[5] = 1;
     }
@@ -952,7 +954,7 @@ undefined4 __cdecl lua_unpausetasks(void)
   int iVar1;
   
                     /* 0x1de0  83  lua_unpausetasks */
-  for (iVar1 = lstate__8bf0(DAT_1002bf70); iVar1 != 0; iVar1 = lstate__8bf0(iVar1)) {
+  for (iVar1 = LState_next(DAT_1002bf70); iVar1 != 0; iVar1 = LState_next(iVar1)) {
     *(undefined4 *)(iVar1 + 0x14) = 0;
   }
   return 0;
@@ -978,18 +980,18 @@ int __cdecl lua_updatetasks(int param_1)
                     /* 0x1e10  85  lua_updatetasks */
   local_c = PTR_1002bf6c;
 LAB_10001e23:
-  piVar2 = (int *)lstate__8bf0((int)PTR_1002bf6c);
+  piVar2 = (int *)LState_next((int)PTR_1002bf6c);
   piVar4 = local_c;
   while (local_c = piVar4, piVar2 != (int *)0x0) {
     for (iVar3 = *piVar2; iVar3 != 0; iVar3 = *(int *)(iVar3 + 0xc)) {
-      lvm__de20(iVar3);
+      ExecutionState_resetcounter(iVar3);
     }
     piVar2[4] = 0;
-    piVar2 = (int *)lstate__8bf0((int)piVar2);
+    piVar2 = (int *)LState_next((int)piVar2);
     piVar4 = local_c;
   }
   do {
-    piVar2 = (int *)lstate__8bf0((int)PTR_1002bf6c);
+    piVar2 = (int *)LState_next((int)PTR_1002bf6c);
     while (PTR_1002bf6c = piVar2, piVar2 = piVar4, piVar1 = piVar4, PTR_1002bf6c != (int *)0x0) {
       if ((PTR_1002bf6c[4] == 0) && (PTR_1002bf6c[5] == 0)) {
         local_8 = 4;
@@ -1001,13 +1003,13 @@ LAB_10001e23:
             luaD_openstack((PTR_1002bf6c[7] - PTR_1002bf6c[8] >> 3) - iVar3);
             luaA_setnormalized((int *)(PTR_1002bf6c[8] + PTR_1002bf6c[10] * 8),PTR_1002bf6c + 0x31);
             if (lua_taskhook != 0) {
-              ldo__40c0(PTR_1002bf6c[0x30],0);
+              luaD_taskHook(PTR_1002bf6c[0x30],0);
             }
             iVar3 = luaD_call(iVar3 + 1,0xff);
           }
           else {
             if (lua_taskhook != 0) {
-              ldo__40c0(PTR_1002bf6c[0x30],2);
+              luaD_taskHook(PTR_1002bf6c[0x30],2);
             }
             iVar3 = luaD_call(*(undefined4 *)(*PTR_1002bf6c + 0x10),
                               *(undefined4 *)(*PTR_1002bf6c + 0x14));
@@ -1015,7 +1017,7 @@ LAB_10001e23:
         }
         else {
           local_8 = 3;
-          ldo__4160(*PTR_1002bf6c);
+          luaD_deletestates(*PTR_1002bf6c);
           iVar3 = 0;
           *PTR_1002bf6c = 0;
         }
@@ -1027,36 +1029,36 @@ LAB_10001e23:
           }
           if (iVar3 != 0) {
             if (lua_taskhook != 0) {
-              ldo__40c0(PTR_1002bf6c[0x30],1);
+              luaD_taskHook(PTR_1002bf6c[0x30],1);
             }
             PTR_1002bf6c[4] = 1;
             goto LAB_1000201b;
           }
         }
         if (lua_taskhook != 0) {
-          ldo__40c0(PTR_1002bf6c[0x30],local_8);
+          luaD_taskHook(PTR_1002bf6c[0x30],local_8);
         }
-        piVar2 = (int *)lstate__8bf0((int)PTR_1002bf6c);
+        piVar2 = (int *)LState_next((int)PTR_1002bf6c);
         piVar1 = PTR_1002bf6c;
         piVar4 = local_c;
         if (PTR_1002bf6c != (int *)0x0) {
-          lstate__8c00(PTR_1002bf6c);
+          LState_Destruct(PTR_1002bf6c);
           luaM_free(piVar1);
           piVar4 = local_c;
         }
       }
       else {
 LAB_1000201b:
-        piVar2 = (int *)lstate__8bf0((int)PTR_1002bf6c);
+        piVar2 = (int *)LState_next((int)PTR_1002bf6c);
         piVar4 = local_c;
       }
     }
     do {
       PTR_1002bf6c = piVar1;
-      piVar2 = (int *)lstate__8bf0((int)piVar2);
+      piVar2 = (int *)LState_next((int)piVar2);
       if (piVar2 == (int *)0x0) {
-        if ((param_1 == 0) || (iVar3 = lstate__8bf0((int)PTR_1002bf6c), iVar3 == 0)) {
-          iVar3 = lstate__8bf0((int)PTR_1002bf6c);
+        if ((param_1 == 0) || (iVar3 = LState_next((int)PTR_1002bf6c), iVar3 == 0)) {
+          iVar3 = LState_next((int)PTR_1002bf6c);
           return iVar3 != 0;
         }
         goto LAB_10001e23;
@@ -1299,12 +1301,12 @@ char * __cdecl lua_getobjname(int param_1,undefined4 *param_2)
   
                     /* 0x2440  32  lua_getobjname */
   ((code *)luaA_setnormalized)((int *)PTR_1002bf6c[7],(int *)(PTR_1002bf6c[8] + -8 + param_1 * 8));
-  pcVar1 = ltm__cb80(FUN_100024a0);
+  pcVar1 = luaT_travtagmethods(checkfunc);
   *param_2 = pcVar1;
   if (pcVar1 != (char *)0x0) {
     return s_tag_method_100262a4;
   }
-  piVar2 = lstring__9510(FUN_100024a0);
+  piVar2 = luaS_travsymbol(checkfunc);
   *param_2 = piVar2;
   pcVar1 = s_global_1002629c;
   if (piVar2 == (int *)0x0) {
@@ -1313,8 +1315,11 @@ char * __cdecl lua_getobjname(int param_1,undefined4 *param_2)
   return pcVar1;
 }
 
-/* ---- 0x100024a0  FUN_100024a0 ---- */
-void __cdecl FUN_100024a0(int *param_1)
+/* ---- 0x100024a0  checkfunc ---- */
+/* Original name checkfunc (the remaster's libLua.so: static checkfunc(TObject*): luaO_equalObj(o,
+   top), called by lua_getobjname); was FUN_100024a0. */
+
+void __cdecl checkfunc(int *param_1)
 
 {
   luaO_equalObj(param_1,(int *)PTR_1002bf6c[7]);
@@ -1369,7 +1374,7 @@ uint __cdecl lua_ref(int param_1)
   
                     /* 0x2560  69  lua_ref */
   ((code *)luaA_checkCparams)(1);
-  uVar1 = lfunc__4d40((int *)(PTR_1002bf6c[7] + -8),param_1);
+  uVar1 = luaC_ref((int *)(PTR_1002bf6c[7] + -8),param_1);
   PTR_1002bf6c[7] = PTR_1002bf6c[7] + -8;
   return uVar1;
 }
@@ -1382,7 +1387,7 @@ undefined4 __cdecl lua_getref(uint param_1)
   undefined4 uVar2;
   
                     /* 0x2590  33  lua_getref */
-  puVar1 = (undefined4 *)lfunc__4e30(param_1);
+  puVar1 = (undefined4 *)luaC_getref(param_1);
   if (puVar1 != (undefined4 *)0x0) {
     uVar2 = lapi__1430(puVar1);
     return uVar2;
@@ -1402,7 +1407,7 @@ undefined4 __cdecl lua_setfallback(byte *name,int fallback)
                     /* 0x25b0  73  lua_setfallback */
   lua_pushstring(name);
   lua_pushCclosure(in_stack_0000000c,0);
-  luaA_callObject(FUN_1000cc30,2,(void *)0x1);
+  luaA_callObject(luaT_setfallback,2,(void *)0x1);
   uVar1 = lapi__12e0();
   return uVar1;
 }
@@ -1427,10 +1432,11 @@ void __cdecl luaA_callObject(undefined4 param_1,int param_2,void *param_3)
   return;
 }
 
-/* ---- 0x10002660  lapi__2660 ---- */
-/* Unidentified function of lapi.c (Lua 3.1 C API) */
+/* ---- 0x10002660  luaA_ResetSaveCount ---- */
+/* Original name luaA_ResetSaveCount (the remaster's libLua.so: clears the saved-bytes counter that
+   LuaSaveWriter adds to); was lapi__2660. */
 
-void lapi__2660(void)
+void luaA_ResetSaveCount(void)
 
 {
   DAT_1002beb4 = 0;
@@ -1452,9 +1458,9 @@ undefined4 __cdecl lua_Save(undefined *param_1)
   local_4 = (undefined *)0x0;
   DAT_1002beb0 = param_1;
   lua_collectgarbage(0);
-  lstate__81c0(((unsigned)(uintptr_t)FUN_10002730));
-  lapi__2660();
-  for (piVar2 = DAT_1002bf70; piVar2 != (int *)0x0; piVar2 = (int *)lstate__8bf0((int)piVar2)) {
+  LState_SaveGlobals(((unsigned)(uintptr_t)LuaSaveWriter));
+  luaA_ResetSaveCount();
+  for (piVar2 = DAT_1002bf70; piVar2 != (int *)0x0; piVar2 = (int *)LState_next((int)piVar2)) {
     if (piVar2 == PTR_1002bf6c) {
       param_1 = local_4;
     }
@@ -1467,20 +1473,23 @@ undefined4 __cdecl lua_Save(undefined *param_1)
     return 0;
   }
   do {
-    iVar3 = lstate__8640(piVar2,((unsigned)(uintptr_t)FUN_10002730));
+    iVar3 = LState_Save(piVar2,((unsigned)(uintptr_t)LuaSaveWriter));
     if (iVar3 != 0) {
       return 1;
     }
-    lapi__2660();
-    piVar2 = (int *)lstate__8bf0((int)piVar2);
+    luaA_ResetSaveCount();
+    piVar2 = (int *)LState_next((int)piVar2);
   } while (piVar2 != (int *)0x0);
   return 0;
 }
 #undef local_4
 
 
-/* ---- 0x10002730  FUN_10002730 ---- */
-void __cdecl FUN_10002730(undefined4 param_1,int param_2)
+/* ---- 0x10002730  LuaSaveWriter ---- */
+/* Original name LuaSaveWriter (the remaster's libLua.so: static LuaSaveWriter(void*, unsigned):
+   lua_totalBytesSaved += size, then the save callback); was FUN_10002730. */
+
+void __cdecl LuaSaveWriter(undefined4 param_1,int param_2)
 
 {
   DAT_1002beb4 = DAT_1002beb4 + param_2;
@@ -1512,11 +1521,11 @@ undefined4 lua_Restore(code *param_1)
     PTR_1002bf6c = (int *)0x0;
   }
   else {
-    PTR_1002bf6c = lstate__75e0(puStack_10);
+    PTR_1002bf6c = LState_Construct(puStack_10);
   }
   DAT_1002bf70 = PTR_1002bf6c;
-  lua_initstate();
-  lstate__79d0((int)param_1);
+  LState_initglobals();
+  LState_GlobalBeginRestore((int)param_1);
   uVar2 = DAT_1002bf78;
   (*param_1)(&uStack_14,4);
   if (uStack_14 == 0) {
@@ -1524,7 +1533,7 @@ undefined4 lua_Restore(code *param_1)
               (s_numTasks___0_100262f4,s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4,0x499);
   }
   (*param_1)(&iStack_18,4);
-  lstate__87f0(DAT_1002bf70,(int)param_1);
+  LState_Restore(DAT_1002bf70,(int)param_1);
   uVar4 = 1;
   a1 = DAT_1002bf70;
   if (1 < uStack_14) {
@@ -1534,23 +1543,23 @@ undefined4 lua_Restore(code *param_1)
         this = (int *)0x0;
       }
       else {
-        this = lstate__75e0(puStack_10);
+        this = LState_Construct(puStack_10);
       }
-      iVar3 = lstate__87f0(this,(int)param_1);
+      iVar3 = LState_Restore(this,(int)param_1);
       if (iVar3 != 0) {
         (**(code **)(DAT_1002beb8 + 0x18))
                   (s_pNewState__Restore_restoreFunc____100262c8,
                    s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4,0x4a2);
       }
-      lstate__8b70(this,(int)a1);
+      LState_attach(this,(int)a1);
       uVar4 = uVar4 + 1;
       a1 = this;
     } while (uVar4 < uStack_14);
   }
   while (bVar1 = iStack_18 != 0, iStack_18 = iStack_18 + -1, bVar1) {
-    PTR_1002bf6c = (int *)lstate__8bf0((int)PTR_1002bf6c);
+    PTR_1002bf6c = (int *)LState_next((int)PTR_1002bf6c);
   }
-  lstate__7930((int)param_1);
+  LState_GlobalEndRestore((int)param_1);
   DAT_1002bf78 = uVar2;
   return 0;
 }
@@ -1561,8 +1570,11 @@ undefined4 lua_Restore(code *param_1)
 #endif
 
 
-/* ---- 0x10002900  FUN_10002900 ---- */
-void FUN_10002900(void)
+/* ---- 0x10002900  Lua_Terminate ---- */
+/* Original name Lua_Terminate (the remaster's libLua.so: static Lua_Terminate: service table = 0,
+   initialize flag cleared); was FUN_10002900. */
+
+void Lua_Terminate(void)
 
 {
   DAT_1002beb8 = 0;
@@ -1572,8 +1584,11 @@ void FUN_10002900(void)
   return;
 }
 
-/* ---- 0x10002920  FUN_10002920 ---- */
-undefined4 FUN_10002920(void)
+/* ---- 0x10002920  Lua_Startup ---- */
+/* Original name Lua_Startup (the remaster's libLua.so: static Lua_Startup: returns the old startup
+   flag and sets it); was FUN_10002920. */
+
+undefined4 Lua_Startup(void)
 
 {
   if (DAT_1002bec0 != 0) {
@@ -1583,8 +1598,11 @@ undefined4 FUN_10002920(void)
   return 0;
 }
 
-/* ---- 0x10002940  FUN_10002940 ---- */
-void FUN_10002940(void)
+/* ---- 0x10002940  Lua_Shutdown ---- */
+/* Original name Lua_Shutdown (the remaster's libLua.so: static Lua_Shutdown: lua_close, frees the
+   libraries (lua_closelibs, inlined there), startup flag = 0); was FUN_10002940. */
+
+void Lua_Shutdown(void)
 
 {
   lua_close();
@@ -1638,8 +1656,8 @@ int __cdecl lua_dofile(char *param_1)
     if (param_1 == (char *)0x0) {
       param_1 = s__stdin__10026a84;
     }
-    iVar1 = lauxlib__2960(ppuVar3);
-    lauxlib__2990(iVar1,ppuVar3);
+    iVar1 = luaFGetc(ppuVar3);
+    luaFUngetc(iVar1,ppuVar3);
     uVar2 = (uint)(iVar1 == 0x1b);
     if (uVar2 != 0) {
       (**(code **)(DAT_1002beb8 + 0x34))(ppuVar3);
@@ -1661,7 +1679,7 @@ int __cdecl lua_dofile(char *param_1)
     }
   }
   luaZ_Fopen(local_114,(int)ppuVar3,param_1);
-  iVar1 = luaD_domain(local_114,uVar2);
+  iVar1 = do_main(local_114,uVar2);
   if (ppuVar3 != &PTR_DAT_100282d0) {
     (**(code **)(DAT_1002beb8 + 0x34))(ppuVar3);
   }
@@ -1690,7 +1708,7 @@ int __cdecl lua_dostring(char *param_1)
     *(undefined1 *)puVar1 = 0;
   }
   luaZ_sopen(local_114,param_1,local_144);
-  iVar2 = luaD_domain(local_114,0);
+  iVar2 = do_main(local_114,0);
   return iVar2;
 }
 #undef local_114
@@ -1726,7 +1744,7 @@ int __cdecl lua_collectgarbage(int param_1)
   iVar1 = DAT_1002beec;
   luaC_markall();
   lgc__4fc0();
-  puVar2 = (undefined4 *)lstring__9370();
+  puVar2 = (undefined4 *)luaS_collector();
   puVar3 = (undefined4 *)lgc__5070(&DAT_1002bf18);
   puVar4 = (undefined4 *)lgc__5070(&DAT_1002bf38);
   puVar5 = (undefined4 *)lgc__5070(&DAT_1002bf20);
@@ -1734,7 +1752,7 @@ int __cdecl lua_collectgarbage(int param_1)
   luaC_hashcallIM(puVar3);
   luaC_strcallIM(puVar2);
   luaD_gcIM((uint *)&DAT_100270e0);
-  ltable__c190(puVar3);
+  luaH_free(puVar3);
   luaS_free(puVar2);
   luaF_freeclosure(puVar4);
   lfunc__4cc0(puVar5);
@@ -1756,7 +1774,7 @@ undefined4 __cdecl lua_iolibopen(void)
   ((code *)luaL_openlib)(&PTR_s_setlocale_10026b00,10);
   lua_recognizelib(IMG_ADDR(0x10026b50),5);
   lua_ioregister();
-  lua_pushCclosure(((unsigned)(uintptr_t)FUN_10005ad0),0);
+  lua_pushCclosure(((unsigned)(uintptr_t)errorfb),0);
   uVar1 = lua_seterrormethod();
   return uVar1;
 }
@@ -1813,11 +1831,13 @@ undefined4 __cdecl lua_mathlibopen(void)
   return uVar2;
 }
 
-/* ---- 0x10008a00  lua_initstate ---- */
+/* ---- 0x10008a00  LState_initglobals ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Grim lstate.c: creates the global state (string table, lexer, tag methods) */
+/* Grim lstate.c: creates the global state (string table, lexer, tag methods) Original name
+   LState_initglobals (the remaster's libLua.so: LState::initglobals: luaS_init, luaX_init,
+   luaT_init (callers lua_newstate, lua_Restore)); was lua_initstate. */
 
-void lua_initstate(void)
+void LState_initglobals(void)
 
 {
   if (DAT_1002bf74 == 0) {
@@ -1848,7 +1868,7 @@ void lua_initstate(void)
     DAT_1002bef8 = 0;
     DAT_1002bf64 = 0x96;
     DAT_1002bf58 = 0xfffffffb;
-    DAT_1002bf5c = FUN_1000cc10;
+    DAT_1002bf5c = nilFB;
     DAT_1002bf70 = PTR_1002bf6c;
     luaS_init();
     luaX_init();
@@ -1867,7 +1887,7 @@ int * __cdecl lua_open(void)
                     /* 0x8b40  52  lua_open */
   piVar1 = PTR_1002bf6c;
   if (PTR_1002bf6c == (int *)0x0) {
-    PTR_1002bf6c = lstate__8ad0();
+    PTR_1002bf6c = lua_newstate();
     luaB_predefine();
     piVar1 = (int *)lua_recognizelib(IMG_ADDR(0x100277b8),1);
   }
@@ -1884,16 +1904,16 @@ undefined4 __cdecl lua_close(void)
   undefined4 uVar4;
   
                     /* 0x8c30  15  lua_close */
-  puVar2 = lstring__9410();
+  puVar2 = luaS_collectudata();
   DAT_1002bf64 = 0x7ffffffd;
   luaC_hashcallIM(DAT_1002bf18);
   luaC_strcallIM(puVar2);
   luaD_gcIM((uint *)&DAT_100270e0);
-  ltable__c190(DAT_1002bf18);
+  luaH_free(DAT_1002bf18);
   luaF_freeclosure(DAT_1002bf38);
   lfunc__4cc0(DAT_1002bf20);
   luaS_free(puVar2);
-  lstring__9470();
+  luaS_freeall();
   (**(code **)(DAT_1002beb8 + 0x24))(DAT_1002bf48);
   (**(code **)(DAT_1002beb8 + 0x24))(DAT_1002bf34);
   (**(code **)(DAT_1002beb8 + 0x24))(DAT_1002bf40);
@@ -1903,16 +1923,16 @@ undefined4 __cdecl lua_close(void)
   piVar1 = PTR_1002bf6c;
   piVar3 = DAT_1002bf70;
   while (PTR_1002bf6c = piVar3, PTR_1002bf6c != (int *)0x0) {
-    piVar3 = (int *)lstate__8bf0((int)PTR_1002bf6c);
+    piVar3 = (int *)LState_next((int)PTR_1002bf6c);
     piVar1 = PTR_1002bf6c;
     if (PTR_1002bf6c != (int *)0x0) {
-      lstate__8c00(PTR_1002bf6c);
+      LState_Destruct(PTR_1002bf6c);
       luaM_free(piVar1);
       piVar1 = PTR_1002bf6c;
     }
   }
   PTR_1002bf6c = piVar1;
-  uVar4 = ((code *)lvm__db10)();
+  uVar4 = ((code *)ExecutionState_CleanUp)();
   PTR_1002bf6c = (int *)0x0;
   DAT_1002bf70 = (int *)0x0;
   DAT_1002bf74 = 0;
@@ -1953,8 +1973,8 @@ int __cdecl lua_copytagmethods(int param_1,int param_2)
   int iVar3;
   
                     /* 0xc950  18  lua_copytagmethods */
-  ((code *)luaT_realtag)(param_1);
-  luaT_realtag(param_2);
+  ((code *)luaT_checktag)(param_1);
+  luaT_checktag(param_2);
   iVar3 = 0;
   do {
     iVar2 = luaT_gettm(param_1,iVar3);

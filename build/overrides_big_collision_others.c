@@ -57,7 +57,7 @@ static inline void cto_copy3(void *dst, const void *src)
  * and self is pushed back along the centre line to the touching distance.  Other modes: self's centre is taken into the
  * other's model space and tested against the other's bounding box grown by self's radius; when inside, the move from
  * the previous position is slid along the box (Collision_BoxSlide; when that fails, pushed out of it), self is moved, a
- * walking actor replans its path.  Every hit ends with Sector_IntersectSegment(self, other, start, hit point, end) on the
+ * walking actor replans its path.  Every hit ends with sputLua_CollisionHandler(self, other, start, hit point, end) on the
  * vectors 0x008ca348 (position before), 0x008ca320 (hit point), 0x008ca338 (position after).  Always returns 1. */
 undefined4 Collision_TestActorAgainstOthers(void *param_1)
 {
@@ -133,14 +133,14 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             cto_copy3(g348, self + 0xc);
             n[1] = cto_st((ld_t)A[1] - B[1]);
             n[2] = cto_st((ld_t)A[2] - B[2]);
-            (void)Vec3_Normalize(n);
+            (void)rdVector_Normalize3Acc(n);
             t = cto_st(((ld_t)distf - r1f) / r0);
             walking = (*(byte *)(self + 8) & 1) != 0;
             k = cto_st((1.0L - t) * r0);
             np[0] = cto_st(((ld_t)n[0] * k + A[0]) - c0[0]);
             np[1] = cto_st(((ld_t)n[1] * k + A[1]) - c0[1]);
             np[2] = cto_st(((ld_t)n[2] * k + A[2]) - c0[2]);
-            Actor_SetPositionClamped((int)self, np);
+            sputActor_SetActorPosition((int)self, np);
             cto_copy3(g338, self + 0xc);
             cto_copy3(g320, self + 0xc);
             if (walking)
@@ -214,7 +214,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             g320[1] = cto_st((ld_t)g320[1] - c0[1]);
             g320[2] = cto_st((ld_t)g320[2] - c0[2]);
             walking = (*(byte *)(self + 8) & 1) ? 1 : walking;
-            Actor_SetPositionClamped((int)self, out);
+            sputActor_SetActorPosition((int)self, out);
             cto_copy3(g338, self + 0xc);
             if (walking) {
                 char *a4 = CTO_P(self, 0xa4);
@@ -224,7 +224,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
                 Walker_ReplanPath((int)self, (int)goal, (undefined4 *)(a4 + 0x38), (undefined4)other);
             }
         }
-        Sector_IntersectSegment((int)self, (int)other, g348, g320, g338);
+        sputLua_CollisionHandler((int)self, (int)other, g348, g320, g338);
     next:
         i++;
         cursor++;

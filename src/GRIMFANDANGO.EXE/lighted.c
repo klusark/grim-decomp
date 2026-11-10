@@ -979,7 +979,7 @@ void LightEd_SetLightAngle(int param_1,short param_2,uint param_3)
   (&UINT_008d1738)[param_1 * 5 + (int)param_2] = param_3;
   local_8 = 0x3f800000;
   local_4 = 0;
-  Vec3_Rotate(&local_c,(float *)(&UINT_008d1738 + param_1 * 5));
+  rdVector_Rotate3Acc(&local_c,(float *)(&UINT_008d1738 + param_1 * 5));
   uVar1 = (&UINT_008d1730)[param_1 * 5];
   *(float *)(uVar1 + 0x38) = local_c;
   *(uint *)(uVar1 + 0x3c) = local_8;
@@ -1025,8 +1025,9 @@ void LightEd_MoveMarkerActor(void)
 {
   if (((g_pLightEdMarkerActor != (void *)0x0) && (g_pLightEdSet != (void *)0x0)) &&
      (g_nLightEdSelected != -1)) {
-    Actor_SetPositionClamped(g_pLightEdMarkerActor,(&UINT_008d1730)[g_nLightEdSelected * 5] + 0x20);
-    Actor_SetRot(g_pLightEdMarkerActor,&UINT_008d1738 + g_nLightEdSelected * 5,1);
+    sputActor_SetActorPosition
+              (g_pLightEdMarkerActor,(&UINT_008d1730)[g_nLightEdSelected * 5] + 0x20);
+    sputActor_SetActorRotation(g_pLightEdMarkerActor,&UINT_008d1738 + g_nLightEdSelected * 5,1);
     if ((&UINT_008d1734)[g_nLightEdSelected * 5] != 0) {
       *(uint *)((int)g_pLightEdMarkerActor + 4) =
            *(uint *)((int)g_pLightEdMarkerActor + 4) & 0xfffffffd;

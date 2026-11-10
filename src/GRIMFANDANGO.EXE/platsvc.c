@@ -5,12 +5,14 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00477f10  PlatSvc_AssertFail ---- */
+/* ---- 0x00477f10  stdPlatform_Assert ---- */
 /* GrimServices.pAssertFail of the platform table (Services_InitPlatformTable; the default table of
    Svc_* functions has its own Svc_AssertFail): logs 'file(line): message' to an assert file and
-   aborts (DebugBreak + exit(1)); a second failure while handling the first exits immediately. */
+   aborts (DebugBreak + exit(1)); a second failure while handling the first exits immediately.
+   Original name stdPlatform_Assert (the remaster's GrimFandango (Linux): strings: '%s(%d):  %s\n');
+   was PlatSvc_AssertFail. */
 
-void PlatSvc_AssertFail(undefined4 param_1,char *param_2,undefined4 param_3)
+void stdPlatform_Assert(undefined4 param_1,char *param_2,undefined4 param_3)
 
 {
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -1,0 +1,86 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10006070",
+  "old": "FUN_10006070",
+  "name": "ScriptCall",
+  "comment": "Original name ScriptCall (the remaster's GrimFandango (Linux): strings: 'ERROR:unrecognized opcode in script...' | 'ERROR:script not initialized...' | 'ERROR:script already initialized...'); was FUN_10006070."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10006620",
+  "old": "FUN_10006620",
+  "name": "Script_SetSequence",
+  "comment": "Original name Script_SetSequence (the remaster's GrimFandango (Linux): the static SetSequence of the music script module (prefixed: the bridge refuses the bare name next to ImSetSequence); strings: 'SEQ_NULL' | 'ERR: bogus sequence...'); was FUN_10006620."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100068b0",
+  "old": "FUN_100068b0",
+  "name": "Script_Trans",
+  "comment": "Original name Script_Trans (the remaster's GrimFandango (Linux): the static Trans of the music script module (prefixed: the bare name is refused as too generic); strings: \"1001 - Manny's Office\" | 'SCRIPT ERR: failed start stream...' | 'SCRIPT ERR: Unable to open ' | 'and PAN=%lu...'); was FUN_100068b0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100070e0",
+  "old": "FUN_100070e0",
+  "name": "Script_Callback",
+  "comment": "Original name Script_Callback (the remaster's GrimFandango (Linux): the static Callback of the music script module (prefixed: the bare name is refused as too generic); strings: \"ERR:callback got marker != '_end'...\" | 'CALLBACK:'); was FUN_100070e0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10007920",
+  "old": "FUN_10007920",
+  "name": "sounds_startup",
+  "comment": "Original name sounds_startup (the remaster's GrimFandango (Linux): the only unmatched caller of ImInitializeScript; 2 matched neighbours agree, 1 disagree); was FUN_10007920."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10008140",
+  "old": "FUN_10008140",
+  "name": "sounds_shutdown",
+  "comment": "Original name sounds_shutdown (the remaster's GrimFandango (Linux): the only unmatched caller of ImRefreshScript; 3 matched neighbours agree, 0 disagree); was FUN_10008140."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10008e00",
+  "old": "FUN_10008e00",
+  "name": "timer_callback",
+  "comment": "Original name timer_callback (the remaster's GrimFandango (Linux): the only unmatched caller of ImHeartbeat; 1 matched neighbours agree, 0 disagree); was FUN_10008e00."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10008ec0",
+  "old": "Sounds_ResolveName_LoadIfNeeded",
+  "name": "CacheGetSoundId",
+  "comment": "Name (or handle) -> sound slot id (100..131) of the 32-slot sound cache. A name that is not cached is LOADED here (a free slot, or Sounds_EvictOldestIdleSlot). A handle (0x457..0x556, the number Lua gets from ImStartSound; one per cached SOUND, not per playing instance, reused when the slot is) that is not in the cache gives 0. Returns 0 when it cannot load. Callers: SoundsGetParam returns 1 (!) for 0, so ImGetParam(name or stale handle, anything) reads 1, i.e. 'playing', when the sound is not resolvable (sound_playing loops). Original name CacheGetSoundId (the remaster's GrimFandango (Linux): the only unmatched callee of SoundsFadeParam; the only unmatched callee of SoundsGetParam; the only unmatched callee of SoundsIsSoundInUse; the only unmatched callee of SoundsIsSoundPlaying; the only unmatched callee of SoundsLoadStartSound; the only unmatched callee of SoundsSetParam; the only unmatched callee of SoundsStopSound; the only unmatched callee of iMUSE_GetHook; the only unmatched callee of iMUSE_SetHook; 10 matched neighbours agree, 1 disagree); was Sounds_ResolveName_LoadIfNeeded."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1000a8d0",
+  "old": "Im_PauseImpl",
+  "name": "TrPause",
+  "comment": "Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred Original name TrPause (the remaster's GrimFandango (Linux): the only unmatched callee of ImPause; 1 matched neighbours agree, 0 disagree); was Im_PauseImpl."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1000a8f0",
+  "old": "Im_ResumeImpl",
+  "name": "TrResume",
+  "comment": "Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred Original name TrResume (the remaster's GrimFandango (Linux): the only unmatched callee of ImResume; 1 matched neighbours agree, 0 disagree); was Im_ResumeImpl."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1000b220",
+  "old": "Im_SetTriggerImpl",
+  "name": "TgSetTrigger",
+  "comment": "Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred Original name TgSetTrigger (the remaster's GrimFandango (Linux): the only unmatched callee of ImSetTrigger; 1 matched neighbours agree, 0 disagree); was Im_SetTriggerImpl."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1000b570",
+  "old": "Im_DeferCommandImpl",
+  "name": "TgDeferCommand",
+  "comment": "Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred Original name TgDeferCommand (the remaster's GrimFandango (Linux): the only unmatched callee of ImDeferCommand; 1 matched neighbours agree, 0 disagree); was Im_DeferCommandImpl."
+ }
+]

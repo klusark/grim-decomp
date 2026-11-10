@@ -131,7 +131,7 @@ void SoundModule_Unregister(void)
 
 /* Gets the workspace allocator, the external sync clock and the sound driver from the module manager and opens the
  * sound system with the configured buffer sizes. */
-int SoundModule_Init(void)
+int SoundModule_module_startup(void)
 {
     uint driverSize;
 

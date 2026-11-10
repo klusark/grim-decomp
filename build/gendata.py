@@ -189,7 +189,7 @@ def main(prog, src, obj):
         base = s["start"]
         # .rdata is emitted inside the .data output section, directly in front of the .data blob at the
         # original distance: code indexes tables that run from .rdata into .data (the sine/cosine
-        # quadrant tables; Math_SinCosTable reads one entry past the end of the third one)
+        # quadrant tables; stdMath_SinCos reads one entry past the end of the third one)
         out.append("")
         out.append("\t.section .data")
         out.append("\t.p2align 4")

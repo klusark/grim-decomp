@@ -1,4 +1,4 @@
-/* Engine_RenderFrame (GRIMFANDANGO.EXE 1.01, 0x00484260) written by hand from the original machine code.
+/* sputRender_Update (GRIMFANDANGO.EXE 1.01, 0x00484260) written by hand from the original machine code.
  * Notes, verification and the cause of the crash of the earlier (decompiled) C version: docs/notes/big_engine_renderframe.md.
  * Differential test: build/difftest/big_engine_renderframe/.
  * tools/build_src.py puts the decompiled text of this function under `#if 0`. */
@@ -31,7 +31,7 @@ static void er_colormap_assert(void)
  *      frame scaled back), object states (layer 2), primitives (layer 2), debug lights / cameras, the iris and the
  *      text objects.  The pending flag is cleared.
  * Returns nothing (EAX is not used by the callers). */
-void Engine_RenderFrame(void)
+void sputRender_Update(void)
 {
     uint mode = UINT_008a8c40;
     int rect[4];
@@ -58,10 +58,10 @@ void Engine_RenderFrame(void)
                     n++;
                 } while (n < g_nBufferCount);
             }
-            Render_RequestFullRedraw();
+            sputRender_ForceRefresh();
             UINT_008c97f8 = 1;
         }
-        dt = Timer_GetFrameSeconds();
+        dt = sputTime_GetFrameTimeFlex();
         Actors_UpdateTalking(dt);
         Surface_Lock(&g_BackBuffer);
         UINT_008a94b8 = UINT_0090563c;
@@ -73,7 +73,7 @@ void Engine_RenderFrame(void)
 
     if (mode == 4) {
         if (g_nFullRedrawPending != 0) {
-            Engine_CallUserPaint();
+            grimlib_UserPaint();
             g_nFullRedrawPending = 0;
             return;
         }
@@ -83,28 +83,28 @@ void Engine_RenderFrame(void)
 
     if (UINT_008c9804 != 0)
         lua_printstack(0);
-    if (Set_GetCurrent() == 0)
+    if (sputRoom_GetCurrentRoom() == 0)
         return;
 
-    /* the original calls Set_GetCurrent before reading each global it is compared with */
+    /* the original calls sputRoom_GetCurrentRoom before reading each global it is compared with */
     {
         int changed = 0;
-        cur = Set_GetCurrent();
+        cur = sputRoom_GetCurrentRoom();
         if (g_pRenderedSet != cur)
             changed = 1;
         else {
-            cur = Set_GetCurrent();
+            cur = sputRoom_GetCurrentRoom();
             if (*(int *)((byte *)cur + 0xb4) != g_nRenderedSetup || g_nFullRedrawPending != 0)
                 changed = 1;
         }
         if (changed) {
             DirtyRect_Clear();
-            set = (byte *)Set_GetCurrent();
+            set = (byte *)sputRoom_GetCurrentRoom();
             g_pRenderedSet = set;
             setup = *(int *)(set + 0xb4);
             g_nRenderedSetup = setup;
             Set_SwitchSetup(set, setup);
-            Lua_CallPostCamChangeHandler(g_nRenderedSetup);
+            sputLua_PostCameraChange(g_nRenderedSetup);
         }
     }
 
@@ -113,7 +113,7 @@ void Engine_RenderFrame(void)
     setup = g_nRenderedSetup;
     set = (byte *)g_pRenderedSet;
     rec = (byte *)(ER_U32(set, 0xac) + (uint)setup * 300u);
-    Set_ApplySetupCamera(set, setup);
+    sputRender_SyncCamera(set, setup);
 
     for (os = ER_PTR(rec, 0x128); os != 0; os = ER_PTR(os, 0xf8))
         ObjectState_Draw(os, 3, g_pBackgroundSurface, g_pZBufferSurface);
@@ -148,7 +148,7 @@ void Engine_RenderFrame(void)
         if (((byte)g_dwRenderDebugFlags & 1) != 0) {
             Surface_Lock(&g_BackBuffer);
             if (((byte)g_dwRenderDebugFlags & 8) != 0)
-                ((void (__cdecl *)(void *))Sector_DrawAllDebug)(Set_GetCurrent());
+                ((void (__cdecl *)(void *))Sector_DrawAllDebug)(sputRoom_GetCurrentRoom());
             else
                 Render_DrawDebugGrid();
             Surface_Unlock(&g_BackBuffer);
@@ -225,7 +225,7 @@ void Engine_RenderFrame(void)
     Primitives_DrawAll(2);
     Surface_Unlock(&g_BackBuffer);
     if (((byte)g_dwRenderDebugFlags & 1) != 0) {
-        cur = Set_GetCurrent();
+        cur = sputRoom_GetCurrentRoom();
         if (((byte)g_dwRenderDebugFlags & 2) != 0)
             Set_DrawDebugLights((int)cur);
         if (((byte)g_dwRenderDebugFlags & 4) != 0)
@@ -257,7 +257,7 @@ void Engine_RenderFrame(void)
         Render_DrawIris(out, g_nIrisX, g_nIrisY);
         if (!(g_flIrisDurationMs >= 0.0f)) {
             rect[0] = 0; rect[1] = 0; rect[2] = 0x280; rect[3] = 0x1e0;
-            Render_InvalidateRect(rect, 0);
+            MarkDirtyRect(rect, 0);
         }
     }
 

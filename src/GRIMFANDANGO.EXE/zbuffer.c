@@ -25,7 +25,7 @@ undefined4 ZBuffer_LoadFile(char *param_1)
   undefined4 uVar1;
   void *bitmap;
   
-  bitmap = stdBitmap_LoadFile(param_1,0,0);
+  bitmap = stdLoadImageData(param_1,0,0);
   if (bitmap == (void *)0x0) {
     return 0;
   }

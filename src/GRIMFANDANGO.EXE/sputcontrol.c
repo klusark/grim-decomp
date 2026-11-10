@@ -62,7 +62,7 @@ undefined4 sputControl_Start(void)
     }
   }
   Controls_ResetAll();
-  Engine_RegisterShutdownHook(Controls_DebugKeysHook);
+  sputControl_AddCallback(Controls_DebugKeysHook);
   UINT_008ca1c0 = 1;
   return 0;
 }

@@ -5,10 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00401ca0  Lua_Is3DHardwareEnabled ---- */
-/* Lua opcode: Is3DHardwareEnabled */
+/* ---- 0x00401ca0  sputLua_Is3DHardwareEnabledL ---- */
+/* Lua opcode: Is3DHardwareEnabled Original name sputLua_Is3DHardwareEnabledL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'Is3DHardwareEnabled'); was
+   Lua_Is3DHardwareEnabled. */
 
-void Lua_Is3DHardwareEnabled(void)
+void sputLua_Is3DHardwareEnabledL(void)
 
 {
   if (g_pD3dDriver != (void *)0x0) {
@@ -199,37 +201,40 @@ void Lua_EnumerateVideoDevices(void)
 #undef local_1c
 
 
-/* ---- 0x00482880  Lua_NextSetup ---- */
-/* Lua opcode: NextSetup */
+/* ---- 0x00482880  grimlib_NextSetup ---- */
+/* Lua opcode: NextSetup Original name grimlib_NextSetup (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'NextSetup'); was Lua_NextSetup. */
 
-void Lua_NextSetup(void)
+void grimlib_NextSetup(void)
 
 {
   void *pvVar1;
   
-  pvVar1 = Set_GetCurrent();
+  pvVar1 = sputRoom_GetCurrentRoom();
   Set_ChangeSetup((*(int *)((int)pvVar1 + 0xb4) + 1U) % *(uint *)((int)pvVar1 + 0xb0));
   return;
 }
 
-/* ---- 0x004828a0  Lua_PreviousSetup ---- */
-/* Lua opcode: PreviousSetup */
+/* ---- 0x004828a0  grimlib_PreviousSetup ---- */
+/* Lua opcode: PreviousSetup Original name grimlib_PreviousSetup (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'PreviousSetup'); was Lua_PreviousSetup. */
 
-void Lua_PreviousSetup(void)
+void grimlib_PreviousSetup(void)
 
 {
   void *pvVar1;
   
-  pvVar1 = Set_GetCurrent();
+  pvVar1 = sputRoom_GetCurrentRoom();
   Set_ChangeSetup((*(int *)((int)pvVar1 + 0xb4) + -1 + *(uint *)((int)pvVar1 + 0xb0)) %
                   *(uint *)((int)pvVar1 + 0xb0));
   return;
 }
 
-/* ---- 0x00486f50  Lua_IrisClear ---- */
-/* Lua opcode: IrisClear */
+/* ---- 0x00486f50  sputRender_ClearIris ---- */
+/* Lua opcode: IrisClear Original name sputRender_ClearIris (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'IrisClear'); was Lua_IrisClear. */
 
-void Lua_IrisClear(void)
+void sputRender_ClearIris(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -243,7 +248,7 @@ void Lua_IrisClear(void)
   local_4 = 0x1e0;
   local_c = 0;
   local_10 = 0;
-  Render_InvalidateRect((int *)&local_10,0);
+  MarkDirtyRect((int *)&local_10,0);
   return;
 }
 #undef local_10
@@ -252,11 +257,12 @@ void Lua_IrisClear(void)
 #undef local_c
 
 
-/* ---- 0x00489840  Lua_DrawLine ---- */
+/* ---- 0x00489840  sputPrimitive_DrawLine ---- */
 /* WARNING: Variable defined which should be unmapped: local_30 */
-/* Lua opcode: DrawLine */
+/* Lua opcode: DrawLine Original name sputPrimitive_DrawLine (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'DrawLine'); was Lua_DrawLine. */
 
-void Lua_DrawLine(void)
+void sputPrimitive_DrawLine(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -343,11 +349,12 @@ void Lua_DrawLine(void)
 #undef local_c
 
 
-/* ---- 0x00489a80  Lua_DrawPolygon ---- */
+/* ---- 0x00489a80  sputPrimitive_DrawPolygon ---- */
 /* WARNING: Variable defined which should be unmapped: local_38 */
-/* Lua opcode: DrawPolygon */
+/* Lua opcode: DrawPolygon Original name sputPrimitive_DrawPolygon (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'DrawPolygon'); was Lua_DrawPolygon. */
 
-void Lua_DrawPolygon(void)
+void sputPrimitive_DrawPolygon(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -475,11 +482,12 @@ void Lua_DrawPolygon(void)
 #undef local_c
 
 
-/* ---- 0x00489d70  Lua_DrawRectangle ---- */
+/* ---- 0x00489d70  sputPrimitive_DrawRectangle ---- */
 /* WARNING: Variable defined which should be unmapped: local_34 */
-/* Lua opcode: DrawRectangle */
+/* Lua opcode: DrawRectangle Original name sputPrimitive_DrawRectangle (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'DrawRectangle'); was Lua_DrawRectangle. */
 
-void Lua_DrawRectangle(void)
+void sputPrimitive_DrawRectangle(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -565,12 +573,13 @@ void Lua_DrawRectangle(void)
 #undef local_c
 
 
-/* ---- 0x00489fe0  Lua_ChangePrimitive ---- */
+/* ---- 0x00489fe0  sputPrimitive_ChangePrimitive ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua opcode: ChangePrimitive */
+/* Lua opcode: ChangePrimitive Original name sputPrimitive_ChangePrimitive (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'ChangePrimitive'); was Lua_ChangePrimitive. */
 
-void Lua_ChangePrimitive(void)
+void sputPrimitive_ChangePrimitive(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -730,11 +739,12 @@ void Lua_ChangePrimitive(void)
 #endif
 
 
-/* ---- 0x0048a460  Lua_KillPrimitive ---- */
+/* ---- 0x0048a460  sputPrimitive_KillPrimitive ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: KillPrimitive */
+/* Lua opcode: KillPrimitive Original name sputPrimitive_KillPrimitive (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'KillPrimitive'); was Lua_KillPrimitive. */
 
-void __cdecl Lua_KillPrimitive(void)
+void __cdecl sputPrimitive_KillPrimitive(void)
 
 {
   int iVar1;
@@ -750,10 +760,12 @@ void __cdecl Lua_KillPrimitive(void)
   return;
 }
 
-/* ---- 0x0048a4a0  Lua_PurgePrimitiveQueue ---- */
-/* Lua opcode: PurgePrimitiveQueue */
+/* ---- 0x0048a4a0  sputPrimitive_PurgeQueue ---- */
+/* Lua opcode: PurgePrimitiveQueue Original name sputPrimitive_PurgeQueue (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'PurgePrimitiveQueue'); was
+   Lua_PurgePrimitiveQueue. */
 
-void Lua_PurgePrimitiveQueue(void)
+void sputPrimitive_PurgeQueue(void)
 
 {
   PrimitiveList_Clear((int *)&UINT_008ca0a0);
@@ -761,10 +773,12 @@ void Lua_PurgePrimitiveQueue(void)
   return;
 }
 
-/* ---- 0x0048ad60  Lua_SetOffscreenTextPos ---- */
-/* Lua opcode: SetOffscreenTextPos */
+/* ---- 0x0048ad60  sputText_SetOffscreenTextPosL ---- */
+/* Lua opcode: SetOffscreenTextPos Original name sputText_SetOffscreenTextPosL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetOffscreenTextPos'); was
+   Lua_SetOffscreenTextPos. */
 
-void Lua_SetOffscreenTextPos(void)
+void sputText_SetOffscreenTextPosL(void)
 
 {
   int iVar1;
@@ -792,10 +806,11 @@ void Lua_SetOffscreenTextPos(void)
   return;
 }
 
-/* ---- 0x0048ade0  Lua_SetEmergencyFont ---- */
-/* Lua opcode: SetEmergencyFont */
+/* ---- 0x0048ade0  sputText_SetEmergencyFontL ---- */
+/* Lua opcode: SetEmergencyFont Original name sputText_SetEmergencyFontL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetEmergencyFont'); was Lua_SetEmergencyFont. */
 
-void Lua_SetEmergencyFont(void)
+void sputText_SetEmergencyFontL(void)
 
 {
   int iVar1;
@@ -823,10 +838,11 @@ void Lua_SetEmergencyFont(void)
   return;
 }
 
-/* ---- 0x0048ae60  Lua_LocalizeString ---- */
-/* Lua opcode: LocalizeString */
+/* ---- 0x0048ae60  sputText_LocalizeStringL ---- */
+/* Lua opcode: LocalizeString Original name sputText_LocalizeStringL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'LocalizeString'); was Lua_LocalizeString. */
 
-void Lua_LocalizeString(void)
+void sputText_LocalizeStringL(void)
 
 {
   unsigned char _frame[0x2b0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -852,10 +868,11 @@ void Lua_LocalizeString(void)
 #undef local_2a0
 
 
-/* ---- 0x0048aed0  Lua_MakeColor ---- */
-/* Lua opcode: MakeColor */
+/* ---- 0x0048aed0  sputText_MakeColorL ---- */
+/* Lua opcode: MakeColor Original name sputText_MakeColorL (the remaster's GrimFandango (Linux): Lua
+   / module table entry 'MakeColor'); was Lua_MakeColor. */
 
-void Lua_MakeColor(void)
+void sputText_MakeColorL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1006,11 +1023,13 @@ LAB_0048b0c2:
 #undef local_c
 
 
-/* ---- 0x0048b100  Lua_GetColorComponents ---- */
+/* ---- 0x0048b100  sputText_GetColorComponentsL ---- */
 /* WARNING: Variable defined which should be unmapped: local_14 */
-/* Lua opcode: GetColorComponents */
+/* Lua opcode: GetColorComponents Original name sputText_GetColorComponentsL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetColorComponents'); was Lua_GetColorComponents.
+    */
 
-void Lua_GetColorComponents(void)
+void sputText_GetColorComponentsL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1028,10 +1047,12 @@ void Lua_GetColorComponents(void)
 #undef local_14
 
 
-/* ---- 0x0048b190  Lua_SetActorTalkColor ---- */
-/* Lua opcode: SetActorTalkColor */
+/* ---- 0x0048b190  sputText_SetActorTalkColorL ---- */
+/* Lua opcode: SetActorTalkColor Original name sputText_SetActorTalkColorL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorTalkColor'); was Lua_SetActorTalkColor.
+    */
 
-void Lua_SetActorTalkColor(void)
+void sputText_SetActorTalkColorL(void)
 
 {
   int iVar1;
@@ -1045,9 +1066,9 @@ void Lua_SetActorTalkColor(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       iVar3 = lua_isuserdata(iVar2);
       if (iVar3 != 0) {
@@ -1062,10 +1083,12 @@ void Lua_SetActorTalkColor(void)
   return;
 }
 
-/* ---- 0x0048b230  Lua_GetActorTalkColor ---- */
-/* Lua opcode: GetActorTalkColor */
+/* ---- 0x0048b230  sputText_GetActorTalkColorL ---- */
+/* Lua opcode: GetActorTalkColor Original name sputText_GetActorTalkColorL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetActorTalkColor'); was Lua_GetActorTalkColor.
+    */
 
-void Lua_GetActorTalkColor(void)
+void sputText_GetActorTalkColorL(void)
 
 {
   int iVar1;
@@ -1077,7 +1100,7 @@ void Lua_GetActorTalkColor(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) != 0) {
         lua_pushusertag(*(char **)(*(int *)(iVar1 + 0xa4) + 0x418),0x524c4f43);
         return;
@@ -1088,10 +1111,12 @@ void Lua_GetActorTalkColor(void)
   return;
 }
 
-/* ---- 0x0048b2a0  Lua_SetSayLineDefaults ---- */
-/* Lua opcode: SetSayLineDefaults */
+/* ---- 0x0048b2a0  sputText_SetSayLineDefaultsL ---- */
+/* Lua opcode: SetSayLineDefaults Original name sputText_SetSayLineDefaultsL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetSayLineDefaults'); was Lua_SetSayLineDefaults.
+    */
 
-void Lua_SetSayLineDefaults(void)
+void sputText_SetSayLineDefaultsL(void)
 
 {
   void *table;
@@ -1101,16 +1126,17 @@ void Lua_SetSayLineDefaults(void)
   if (table != (void *)0x0) {
     iVar1 = lua_istable((int)table);
     if (iVar1 != 0) {
-      Text_ParseLuaTable(&g_SubtitleTextCtx,table,(void *)0x0);
+      GetTextParamsFromTable(&g_SubtitleTextCtx,table,(void *)0x0);
     }
   }
   return;
 }
 
-/* ---- 0x0048b4c0  Lua_SayLine ---- */
-/* Lua opcode: SayLine */
+/* ---- 0x0048b4c0  sputText_SayLineL ---- */
+/* Lua opcode: SayLine Original name sputText_SayLineL (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'SayLine'); was Lua_SayLine. */
 
-void Lua_SayLine(void)
+void sputText_SayLineL(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1143,7 +1169,7 @@ void Lua_SayLine(void)
     pcVar3 = lua_lua2C_exref;
     if ((iVar2 != 0) && (iVar2 = lua_tag(iVar1), pcVar3 = lua_lua2C_exref, iVar2 == 0x52544341)) {
       iVar1 = lua_getuserdata(iVar1);
-      local_38 = Actor_FromHandle(iVar1);
+      local_38 = sputActor_ActorDeref(iVar1);
       pcVar3 = lua_lua2C_exref;
       iVar4 = 3;
       iVar1 = lua_lua2C(2);
@@ -1250,12 +1276,13 @@ void Lua_ParseSayLineTable
   return;
 }
 
-/* ---- 0x0048b830  Lua_PrintLine ---- */
+/* ---- 0x0048b830  sputText_PrintLineL ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua opcode: PrintLine */
+/* Lua opcode: PrintLine Original name sputText_PrintLineL (the remaster's GrimFandango (Linux): Lua
+   / module table entry 'PrintLine'); was Lua_PrintLine. */
 
-void Lua_PrintLine(void)
+void sputText_PrintLineL(void)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1304,7 +1331,7 @@ void Lua_PrintLine(void)
     }
     iVar4 = lua_istable((int)pvVar3);
     if (iVar4 != 0) {
-      local_58 = Text_ParseLuaTable((void *)local_5c,pvVar3,(void *)0x0);
+      local_58 = GetTextParamsFromTable((void *)local_5c,pvVar3,(void *)0x0);
     }
     iVar4 = lua_isstring(iVar2);
     if (iVar4 != 0) {
@@ -1338,10 +1365,11 @@ void Lua_PrintLine(void)
 #endif
 
 
-/* ---- 0x0048b9a0  Lua_IsMessageGoing ---- */
-/* Lua opcode: IsMessageGoing */
+/* ---- 0x0048b9a0  sputText_IsMessageGoingL ---- */
+/* Lua opcode: IsMessageGoing Original name sputText_IsMessageGoingL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'IsMessageGoing'); was Lua_IsMessageGoing. */
 
-void Lua_IsMessageGoing(void)
+void sputText_IsMessageGoingL(void)
 
 {
   undefined4 *puVar1;
@@ -1355,7 +1383,7 @@ void Lua_IsMessageGoing(void)
     iVar3 = lua_isuserdata(iVar2);
     if ((iVar3 == 0) || (iVar3 = lua_tag(iVar2), iVar3 != 0x52544341)) {
       puVar1 = g_pTextObjectList;
-      iVar2 = Render_GetFrameCounter();
+      iVar2 = sputActor_GetNumActorsTalking();
       if (iVar2 != 0) {
         lua_pushnumber(1.0);
         return;
@@ -1366,7 +1394,7 @@ void Lua_IsMessageGoing(void)
     }
     else {
       iVar2 = lua_getuserdata(iVar2);
-      iVar2 = Actor_FromHandle(iVar2);
+      iVar2 = sputActor_ActorDeref(iVar2);
       if (((iVar2 != 0) && (*(int *)(iVar2 + 0xa4) != 0)) &&
          (*(int *)(*(int *)(iVar2 + 0xa4) + 0x1c4) != 0)) {
 LAB_0048ba30:
@@ -1379,10 +1407,11 @@ LAB_0048ba30:
   return;
 }
 
-/* ---- 0x0048ba90  Lua_ExpireText ---- */
-/* Lua opcode: ExpireText */
+/* ---- 0x0048ba90  sputText_ExpireTextQueueL ---- */
+/* Lua opcode: ExpireText Original name sputText_ExpireTextQueueL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ExpireText'); was Lua_ExpireText. */
 
-void Lua_ExpireText(void)
+void sputText_ExpireTextQueueL(void)
 
 {
   undefined4 *obj;
@@ -1398,10 +1427,11 @@ void Lua_ExpireText(void)
   return;
 }
 
-/* ---- 0x0048baf0  Lua_PurgeText ---- */
-/* Lua opcode: PurgeText */
+/* ---- 0x0048baf0  sputText_PurgeTextQueueL ---- */
+/* Lua opcode: PurgeText Original name sputText_PurgeTextQueueL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'PurgeText'); was Lua_PurgeText. */
 
-void Lua_PurgeText(void)
+void sputText_PurgeTextQueueL(void)
 
 {
   undefined4 *puVar1;
@@ -1413,10 +1443,11 @@ void Lua_PurgeText(void)
   return;
 }
 
-/* ---- 0x0048bb20  Lua_KillTextObject ---- */
-/* Lua opcode: KillTextObject */
+/* ---- 0x0048bb20  sputText_KillTextObjectL ---- */
+/* Lua opcode: KillTextObject Original name sputText_KillTextObjectL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'KillTextObject'); was Lua_KillTextObject. */
 
-void Lua_KillTextObject(void)
+void sputText_KillTextObjectL(void)
 
 {
   int iVar1;
@@ -1436,11 +1467,13 @@ void Lua_KillTextObject(void)
   return;
 }
 
-/* ---- 0x0048bb70  Lua_GetFontDimensions ---- */
+/* ---- 0x0048bb70  sputText_GetFontDimensionsL ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: GetFontDimensions */
+/* Lua opcode: GetFontDimensions Original name sputText_GetFontDimensionsL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetFontDimensions'); was Lua_GetFontDimensions.
+    */
 
-void Lua_GetFontDimensions(void)
+void sputText_GetFontDimensionsL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1457,11 +1490,13 @@ void Lua_GetFontDimensions(void)
 #undef local_c
 
 
-/* ---- 0x0048bbc0  Lua_GetTextObjectDimensions ---- */
+/* ---- 0x0048bbc0  sputText_GetTextObjectDimensionsL ---- */
 /* WARNING: Variable defined which should be unmapped: local_14 */
-/* Lua opcode: GetTextObjectDimensions */
+/* Lua opcode: GetTextObjectDimensions Original name sputText_GetTextObjectDimensionsL (the
+   remaster's GrimFandango (Linux): Lua / module table entry 'GetTextObjectDimensions'); was
+   Lua_GetTextObjectDimensions. */
 
-void Lua_GetTextObjectDimensions(void)
+void sputText_GetTextObjectDimensionsL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1488,11 +1523,13 @@ void Lua_GetTextObjectDimensions(void)
 #undef local_4
 
 
-/* ---- 0x0048bc50  Lua_GetTextCharPosition ---- */
+/* ---- 0x0048bc50  sputText_GetTextCharPositionL ---- */
 /* WARNING: Variable defined which should be unmapped: local_18 */
-/* Lua opcode: GetTextCharPosition */
+/* Lua opcode: GetTextCharPosition Original name sputText_GetTextCharPositionL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetTextCharPosition'); was
+   Lua_GetTextCharPosition. */
 
-void Lua_GetTextCharPosition(void)
+void sputText_GetTextCharPositionL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1531,11 +1568,12 @@ void Lua_GetTextCharPosition(void)
 #undef local_4
 
 
-/* ---- 0x0048bd10  Lua_ChangeTextObject ---- */
+/* ---- 0x0048bd10  sputText_ChangeTextObjectL ---- */
 /* WARNING: Variable defined which should be unmapped: local_18 */
-/* Lua opcode: ChangeTextObject */
+/* Lua opcode: ChangeTextObject Original name sputText_ChangeTextObjectL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'ChangeTextObject'); was Lua_ChangeTextObject. */
 
-void Lua_ChangeTextObject(void)
+void sputText_ChangeTextObjectL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1562,7 +1600,7 @@ void Lua_ChangeTextObject(void)
         if (iVar2 == 0) {
           iVar2 = lua_istable((int)table);
           if (iVar2 == 0) break;
-          Text_ParseLuaTable((void *)((int)textObj + 0x208),table,textObj);
+          GetTextParamsFromTable((void *)((int)textObj + 0x208),table,textObj);
         }
         else {
           pcVar3 = (char *)lua_getstring((int)table);
@@ -1585,11 +1623,12 @@ void Lua_ChangeTextObject(void)
 #undef local_4
 
 
-/* ---- 0x0048be30  Lua_MakeTextObject ---- */
+/* ---- 0x0048be30  sputText_MakeTextObjectL ---- */
 /* WARNING: Variable defined which should be unmapped: local_78 */
-/* Lua opcode: MakeTextObject */
+/* Lua opcode: MakeTextObject Original name sputText_MakeTextObjectL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'MakeTextObject'); was Lua_MakeTextObject. */
 
-void Lua_MakeTextObject(void)
+void sputText_MakeTextObjectL(void)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1631,7 +1670,7 @@ void Lua_MakeTextObject(void)
     if (table != (void *)0x0) {
       iVar1 = lua_istable((int)table);
       if (iVar1 != 0) {
-        Text_ParseLuaTable(&local_30,table,(void *)0x0);
+        GetTextParamsFromTable(&local_30,table,(void *)0x0);
       }
     }
     pcVar3 = Text_ParseLineId(pcVar3,local_50);
@@ -1656,10 +1695,11 @@ void Lua_MakeTextObject(void)
 #undef local_78
 
 
-/* ---- 0x0048bf50  Lua_BlastText ---- */
-/* Lua opcode: BlastText */
+/* ---- 0x0048bf50  sputText_BlastText ---- */
+/* Lua opcode: BlastText Original name sputText_BlastText (the remaster's GrimFandango (Linux): Lua
+   / module table entry 'BlastText'); was Lua_BlastText. */
 
-void Lua_BlastText(void)
+void sputText_BlastText(void)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1704,7 +1744,7 @@ void Lua_BlastText(void)
     if (pvVar4 != (void *)0x0) {
       iVar1 = lua_istable((int)pvVar4);
       if (iVar1 != 0) {
-        Text_ParseLuaTable(&local_30,pvVar4,(void *)0x0);
+        GetTextParamsFromTable(&local_30,pvVar4,(void *)0x0);
       }
     }
     pcVar3 = Text_ParseLineId(pcVar3,local_50);
@@ -1725,11 +1765,13 @@ void Lua_BlastText(void)
 #undef local_60
 
 
-/* ---- 0x0048c960  Lua_GetTranslationMode ---- */
+/* ---- 0x0048c960  sputText_GetTranslationModeL ---- */
 /* WARNING: Variable defined which should be unmapped: local_4 */
-/* Lua opcode: GetTranslationMode */
+/* Lua opcode: GetTranslationMode Original name sputText_GetTranslationModeL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetTranslationMode'); was Lua_GetTranslationMode.
+    */
 
-void Lua_GetTranslationMode(void)
+void sputText_GetTranslationModeL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1741,11 +1783,13 @@ void Lua_GetTranslationMode(void)
 #undef local_4
 
 
-/* ---- 0x0048c980  Lua_SetTranslationMode ---- */
+/* ---- 0x0048c980  sputText_SetTranslationModeL ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: SetTranslationMode */
+/* Lua opcode: SetTranslationMode Original name sputText_SetTranslationModeL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetTranslationMode'); was Lua_SetTranslationMode.
+    */
 
-void Lua_SetTranslationMode(void)
+void sputText_SetTranslationModeL(void)
 
 {
   int iVar1;
@@ -1773,10 +1817,11 @@ void Lua_SetTranslationMode(void)
   return;
 }
 
-/* ---- 0x00495850  Lua_GetKeyLength ---- */
-/* Lua opcode: GetKeyLength */
+/* ---- 0x00495850  sputCostume_GetKeyLengthL ---- */
+/* Lua opcode: GetKeyLength Original name sputCostume_GetKeyLengthL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetKeyLength'); was Lua_GetKeyLength. */
 
-void Lua_GetKeyLength(void)
+void sputCostume_GetKeyLengthL(void)
 
 {
   int iVar1;
@@ -1802,11 +1847,12 @@ void Lua_GetKeyLength(void)
   return;
 }
 
-/* ---- 0x00495900  Lua_GetSmushLength ---- */
+/* ---- 0x00495900  sputCostume_GetSmushLengthL ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: GetSmushLength */
+/* Lua opcode: GetSmushLength Original name sputCostume_GetSmushLengthL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetSmushLength'); was Lua_GetSmushLength. */
 
-void Lua_GetSmushLength(void)
+void sputCostume_GetSmushLengthL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1821,7 +1867,7 @@ void Lua_GetSmushLength(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x534d5348) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Movie_SetFile(iVar1);
+      iVar1 = sputSmush_GetMovieLength(iVar1);
       lua_pushnumber((float)iVar1);
     }
   }
@@ -1843,11 +1889,12 @@ void Lua_Stub(void)
   return;
 }
 
-/* ---- 0x00498d80  Lua_GetMemoryUsage ---- */
+/* ---- 0x00498d80  sputLua_GetMemoryUsageL ---- */
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* Lua opcode: GetMemoryUsage */
+/* Lua opcode: GetMemoryUsage Original name sputLua_GetMemoryUsageL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetMemoryUsage'); was Lua_GetMemoryUsage. */
 
-void Lua_GetMemoryUsage(void)
+void sputLua_GetMemoryUsageL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1855,7 +1902,7 @@ void Lua_GetMemoryUsage(void)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = Res_GetMemoryUsed();
+  iVar1 = daTotalAllocated();
   lua_pushnumber((float)iVar1);
   return;
 }
@@ -1863,12 +1910,13 @@ void Lua_GetMemoryUsage(void)
 #undef local_8
 
 
-/* ---- 0x00498da0  Lua_GetDiskFreeSpace ---- */
+/* ---- 0x00498da0  sputLua_GetDiskFreeSpaceL ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua opcode: GetDiskFreeSpace */
+/* Lua opcode: GetDiskFreeSpace Original name sputLua_GetDiskFreeSpaceL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetDiskFreeSpace'); was Lua_GetDiskFreeSpace. */
 
-void Lua_GetDiskFreeSpace(void)
+void sputLua_GetDiskFreeSpaceL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1886,26 +1934,28 @@ void Lua_GetDiskFreeSpace(void)
 #endif
 
 
-/* ---- 0x00498e20  Lua_TEST ---- */
+/* ---- 0x00498e20  sputLua_Test ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua opcode: TEST */
+/* Lua opcode: TEST Original name sputLua_Test (the remaster's GrimFandango (Linux): Lua / module
+   table entry 'TEST'); was Lua_TEST. */
 
-void __cdecl Lua_TEST(void)
+void __cdecl sputLua_Test(void)
 
 {
-  SectorList_ShrinkWalkSectors(0.005);
+  ShrinkBoxes(0.005);
   return;
 }
 #endif
 
 
-/* ---- 0x00498e50  Lua_ShrinkBoxes ---- */
+/* ---- 0x00498e50  sputLua_ShrinkBoxes ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua opcode: ShrinkBoxes */
+/* Lua opcode: ShrinkBoxes Original name sputLua_ShrinkBoxes (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'ShrinkBoxes'); was Lua_ShrinkBoxes. */
 
-void __cdecl Lua_ShrinkBoxes(void)
+void __cdecl sputLua_ShrinkBoxes(void)
 
 {
   int iVar1;
@@ -1915,22 +1965,23 @@ void __cdecl Lua_ShrinkBoxes(void)
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnil(iVar1);
   if (iVar2 == 0) {
-    Lua_UnShrinkBoxes();
+    sputLua_UnShrinkBoxes();
     SectorList_SaveForShrink();
     radius = lua_getnumber(iVar1);
-    SectorList_ShrinkWalkSectors(radius);
+    ShrinkBoxes(radius);
   }
   return;
 }
 #endif
 
 
-/* ---- 0x00498e90  Lua_UnShrinkBoxes ---- */
+/* ---- 0x00498e90  sputLua_UnShrinkBoxes ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua opcode: UnShrinkBoxes */
+/* Lua opcode: UnShrinkBoxes Original name sputLua_UnShrinkBoxes (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'UnShrinkBoxes'); was Lua_UnShrinkBoxes. */
 
-void Lua_UnShrinkBoxes(void)
+void sputLua_UnShrinkBoxes(void)
 
 {
   SectorList_RestoreAfterShrink();
@@ -1940,12 +1991,13 @@ void Lua_UnShrinkBoxes(void)
 #endif
 
 
-/* ---- 0x00498ea0  Lua_GetShrinkPos ---- */
+/* ---- 0x00498ea0  sputLua_GetShrinkPosition ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua opcode: GetShrinkPos */
+/* Lua opcode: GetShrinkPos Original name sputLua_GetShrinkPosition (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetShrinkPos'); was Lua_GetShrinkPos. */
 
-void __cdecl Lua_GetShrinkPos(void)
+void __cdecl sputLua_GetShrinkPosition(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1985,12 +2037,12 @@ void __cdecl Lua_GetShrinkPos(void)
           local_c[0] = fVar6;
           local_c[1] = fVar7;
           SectorList_SaveForShrink();
-          SectorList_ShrinkWalkSectors(radius);
+          ShrinkBoxes(radius);
           this = (void *)SectorList_FindNearestPoint(local_c,0x1000);
           if (this != (void *)0x0) {
             Sector_ClampPoint(this,(int)local_c);
           }
-          Lua_UnShrinkBoxes();
+          sputLua_UnShrinkBoxes();
           if (this != (void *)0x0) {
             lua_pushnumber(local_c[0]);
             lua_pushnumber(local_c[1]);
@@ -2014,10 +2066,12 @@ void __cdecl Lua_GetShrinkPos(void)
 #endif
 
 
-/* ---- 0x00499000  Lua_SetSoundParameters ---- */
-/* Lua opcode: SetSoundParameters */
+/* ---- 0x00499000  sputLua_SetSoundParametersL ---- */
+/* Lua opcode: SetSoundParameters Original name sputLua_SetSoundParametersL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetSoundParameters'); was Lua_SetSoundParameters.
+    */
 
-void Lua_SetSoundParameters(void)
+void sputLua_SetSoundParametersL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2044,7 +2098,7 @@ void Lua_SetSoundParameters(void)
   iVar3 = lua_lua2C(3);
   iVar4 = lua_lua2C(4);
   iVar5 = lua_lua2C(5);
-  set = Set_GetCurrent();
+  set = sputRoom_GetCurrentRoom();
   if (set != (void *)0x0) {
     iVar6 = lua_isnil(iVar1);
     if (iVar6 != 0) {
@@ -2063,7 +2117,8 @@ void Lua_SetSoundParameters(void)
         }
       }
     }
-    Set_GetSoundParams(set,&local_4,(char *)&local_8,(char *)&local_c,local_14 + 1,local_14);
+    sputRoom_GetSoundParameters
+              (set,&local_4,(char *)&local_8,(char *)&local_c,local_14 + 1,local_14);
     iVar6 = lua_isnil(iVar5);
     if (iVar6 == 0) {
       local_20[1] = lua_getnumber(iVar5);
@@ -2114,11 +2169,13 @@ void Lua_SetSoundParameters(void)
 #undef local_c
 
 
-/* ---- 0x004991c0  Lua_GetSoundParameters ---- */
+/* ---- 0x004991c0  sputLua_GetSoundParametersL ---- */
 /* WARNING: Variable defined which should be unmapped: local_20 */
-/* Lua opcode: GetSoundParameters */
+/* Lua opcode: GetSoundParameters Original name sputLua_GetSoundParametersL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetSoundParameters'); was Lua_GetSoundParameters.
+    */
 
-void Lua_GetSoundParameters(void)
+void sputLua_GetSoundParametersL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2131,9 +2188,9 @@ void Lua_GetSoundParameters(void)
   #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
-  set = Set_GetCurrent();
+  set = sputRoom_GetCurrentRoom();
   if (set != (void *)0x0) {
-    Set_GetSoundParams(set,&local_18,(char *)&local_14,(char *)&local_c,&local_8,&local_4);
+    sputRoom_GetSoundParameters(set,&local_18,(char *)&local_14,(char *)&local_c,&local_8,&local_4);
     lua_pushnumber(local_18);
     local_10 = local_14 & 0xff;
     lua_pushnumber((float)local_10);
@@ -2161,32 +2218,35 @@ void Lua_SetDebugKeysCallback(uint param_1)
   return;
 }
 
-/* ---- 0x00499260  Lua_EnginePause ---- */
-/* Lua opcode: EnginePause */
+/* ---- 0x00499260  sputLua_EnginePause ---- */
+/* Lua opcode: EnginePause Original name sputLua_EnginePause (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'EnginePause'); was Lua_EnginePause. */
 
-void Lua_EnginePause(void)
+void sputLua_EnginePause(void)
 
 {
-  Engine_SetPaused(1);
+  grimlib_SetPause(1);
   return;
 }
 
-/* ---- 0x00499270  Lua_EngineResume ---- */
-/* Lua opcode: EngineResume */
+/* ---- 0x00499270  sputLua_EngineResume ---- */
+/* Lua opcode: EngineResume Original name sputLua_EngineResume (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'EngineResume'); was Lua_EngineResume. */
 
-void Lua_EngineResume(void)
+void sputLua_EngineResume(void)
 
 {
-  Engine_SetPaused(0);
+  grimlib_SetPause(0);
   return;
 }
 
-/* ---- 0x00499280  Lua_EngineDisplay ---- */
+/* ---- 0x00499280  sputLua_EngineDisplay ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua opcode: EngineDisplay */
+/* Lua opcode: EngineDisplay Original name sputLua_EngineDisplay (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'EngineDisplay'); was Lua_EngineDisplay. */
 
-void Lua_EngineDisplay(void)
+void sputLua_EngineDisplay(void)
 
 {
   int iVar1;
@@ -2202,15 +2262,16 @@ void Lua_EngineDisplay(void)
 #endif
 
 
-/* ---- 0x004992b0  Lua_LoadActor ---- */
-/* Lua opcode: LoadActor */
+/* ---- 0x004992b0  sputLua_AllocateActorL ---- */
+/* Lua opcode: LoadActor Original name sputLua_AllocateActorL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'LoadActor'); was Lua_LoadActor. */
 
-void Lua_LoadActor(void)
+void sputLua_AllocateActorL(void)
 
 {
   char *pcVar1;
   
-  pcVar1 = (char *)Actor_Create();
+  pcVar1 = (char *)sputActor_AllocateActor();
   if (-1 < (int)pcVar1) {
     lua_pushusertag(pcVar1,0x52544341);
     return;
@@ -2221,10 +2282,12 @@ void Lua_LoadActor(void)
   return;
 }
 
-/* ---- 0x004992d0  Lua_PutActorAtInterest ---- */
-/* Lua opcode: PutActorAtInterest */
+/* ---- 0x004992d0  sputLua_PutActorAtInterestL ---- */
+/* Lua opcode: PutActorAtInterest Original name sputLua_PutActorAtInterestL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'PutActorAtInterest'); was Lua_PutActorAtInterest.
+    */
 
-void Lua_PutActorAtInterest(void)
+void sputLua_PutActorAtInterestL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2242,15 +2305,15 @@ void Lua_PutActorAtInterest(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      uVar3 = Actor_FromHandle(iVar1);
-      pvVar4 = Set_GetCurrent();
+      uVar3 = sputActor_ActorDeref(iVar1);
+      pvVar4 = sputRoom_GetCurrentRoom();
       if (pvVar4 != (void *)0x0) {
         iVar1 = *(int *)((int)pvVar4 + 0xac) + 0x2c + *(int *)((int)pvVar4 + 0xb4) * 300;
         local_c = *(uint *)(*(int *)((int)pvVar4 + 0xac) + 0x2c + *(int *)((int)pvVar4 + 0xb4) * 300
                            );
         local_8 = *(uint *)(iVar1 + 4);
         local_4 = *(uint *)(iVar1 + 8);
-        Actor_SetPositionClamped(uVar3,&local_c);
+        sputActor_SetActorPosition(uVar3,&local_c);
       }
     }
   }
@@ -2261,10 +2324,11 @@ void Lua_PutActorAtInterest(void)
 #undef local_c
 
 
-/* ---- 0x00499360  Lua_SetSelectedActor ---- */
-/* Lua opcode: SetSelectedActor */
+/* ---- 0x00499360  sputLua_SetSelectedActorL ---- */
+/* Lua opcode: SetSelectedActor Original name sputLua_SetSelectedActorL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetSelectedActor'); was Lua_SetSelectedActor. */
 
-void Lua_SetSelectedActor(void)
+void sputLua_SetSelectedActorL(void)
 
 {
   int iVar1;
@@ -2277,7 +2341,7 @@ void Lua_SetSelectedActor(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      pcVar3 = (char *)Actor_SetSelected(iVar1);
+      pcVar3 = (char *)sputActor_SetSelectedActor(iVar1);
       if (-1 < (int)pcVar3) {
         lua_pushusertag(pcVar3,0x52544341);
         return;
@@ -2288,10 +2352,11 @@ void Lua_SetSelectedActor(void)
   return;
 }
 
-/* ---- 0x004993c0  Lua_PutActorAt ---- */
-/* Lua opcode: PutActorAt */
+/* ---- 0x004993c0  sputLua_PutActorAtL ---- */
+/* Lua opcode: PutActorAt Original name sputLua_PutActorAtL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'PutActorAt'); was Lua_PutActorAt. */
 
-void Lua_PutActorAt(void)
+void sputLua_PutActorAtL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2319,11 +2384,11 @@ void Lua_PutActorAt(void)
           iVar5 = lua_isnumber(iVar4);
           if (iVar5 != 0) {
             iVar1 = lua_getuserdata(iVar1);
-            uVar6 = Actor_FromHandle(iVar1);
+            uVar6 = sputActor_ActorDeref(iVar1);
             local_c[0] = lua_getnumber(iVar2);
             local_c[1] = lua_getnumber(iVar3);
             local_c[2] = lua_getnumber(iVar4);
-            Actor_SetPositionClamped(uVar6,local_c);
+            sputActor_SetActorPosition(uVar6,local_c);
           }
         }
       }
@@ -2335,10 +2400,11 @@ void Lua_PutActorAt(void)
 #undef local_c
 
 
-/* ---- 0x004994a0  Lua_PutActorInSet ---- */
-/* Lua opcode: PutActorInSet */
+/* ---- 0x004994a0  sputLua_PutActorInSetL ---- */
+/* Lua opcode: PutActorInSet Original name sputLua_PutActorInSetL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'PutActorInSet'); was Lua_PutActorInSet. */
 
-void Lua_PutActorInSet(void)
+void sputLua_PutActorInSetL(void)
 
 {
   int iVar1;
@@ -2353,7 +2419,7 @@ void Lua_PutActorInSet(void)
   iVar3 = lua_isuserdata(iVar1);
   if ((iVar3 != 0) && (iVar3 = lua_tag(iVar1), iVar3 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    pcVar4 = (char *)Actor_FromHandle(iVar1);
+    pcVar4 = (char *)sputActor_ActorDeref(iVar1);
     iVar1 = lua_isstring(iVar2);
     if ((iVar1 == 0) && (iVar1 = lua_isnil(iVar2), iVar1 == 0)) {
       return;
@@ -2367,22 +2433,23 @@ void Lua_PutActorInSet(void)
       pcVar6 = (char *)lua_getstring(iVar2);
       pvVar5 = Res_Find(0x20544553,pcVar6);
       if (pvVar5 != (void *)0x0) {
-        Walker_ReattachToSet(*(void **)(*(int *)(pcVar4 + 0xa4) + 0x1b4));
+        Puck_Validate(*(void **)(*(int *)(pcVar4 + 0xa4) + 0x1b4));
       }
     }
   }
   return;
 }
 
-/* ---- 0x00499590  Lua_WalkActorVector ---- */
+/* ---- 0x00499590  sputLua_WalkActorVectorL ---- */
 /* WARNING: Variable defined which should be unmapped: local_78 */
 /* Lua opcode: WalkActorVector(actor, cameraActor, x, y, z [, yawOffset]). Transforms the vector by
    the camera actor's frame, adds the actor position, turns the walker heading toward it by at most
    2 * |rate| * frameSeconds (Walker_TurnToPoint) and, if the point is less than 90 degrees from the
    heading, clears actor+8 bit 0 and calls Actor_WalkForward. Dereferences the walker without
-   creating it. */
+   creating it. Original name sputLua_WalkActorVectorL (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'WalkActorVector'); was Lua_WalkActorVector. */
 
-void Lua_WalkActorVector(void)
+void sputLua_WalkActorVectorL(void)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2428,9 +2495,9 @@ void Lua_WalkActorVector(void)
         iVar8 = lua_tag(iVar3);
         if (iVar8 == 0x52544341) {
           iVar2 = lua_getuserdata(iVar2);
-          iVar2 = Actor_FromHandle(iVar2);
+          iVar2 = sputActor_ActorDeref(iVar2);
           iVar3 = lua_getuserdata(iVar3);
-          actor = (void *)Actor_FromHandle(iVar3);
+          actor = (void *)sputActor_ActorDeref(iVar3);
           local_54[0] = lua_getnumber(iVar4);
           local_54[1] = lua_getnumber(iVar5);
           local_54[2] = lua_getnumber(iVar6);
@@ -2466,18 +2533,18 @@ void Lua_WalkActorVector(void)
           local_48[1] = local_54[1];
           local_48[2] = local_54[2];
           Walker_ToLocalSpace(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),local_48);
-          Vec3_Normalize(local_48);
-          fVar11 = Math_AsinDegreesSeries(local_48[1]);
+          rdVector_Normalize3Acc(local_48);
+          fVar11 = stdMath_ArcSin3(local_48[1]);
           fVar1 = *(float *)(*(int *)(iVar2 + 0xa4) + 0x1c);
           if (*(float *)(*(int *)(iVar2 + 0xa4) + 0x1c) < 0.0) {
             fVar1 = -fVar1;
           }
-          fVar12 = Timer_GetFrameSeconds();
-          Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),local_54,
-                             fVar12 * fVar1 + fVar12 * fVar1);
+          fVar12 = sputTime_GetFrameTimeFlex();
+          Puck_PointAt(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),local_54,
+                       fVar12 * fVar1 + fVar12 * fVar1);
           if (90.0 - fVar11 < 90.0) {
             *(uint *)(iVar2 + 8) = *(uint *)(iVar2 + 8) & 0xfffffffe;
-            Actor_WalkForward(iVar2);
+            sputActor_Forward(iVar2);
           }
         }
       }
@@ -2500,10 +2567,11 @@ void Lua_WalkActorVector(void)
 #undef local_c
 
 
-/* ---- 0x00499800  Lua_WalkActorForward ---- */
-/* Lua opcode: WalkActorForward */
+/* ---- 0x00499800  sputLua_WalkActorForwardL ---- */
+/* Lua opcode: WalkActorForward Original name sputLua_WalkActorForwardL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'WalkActorForward'); was Lua_WalkActorForward. */
 
-void Lua_WalkActorForward(void)
+void sputLua_WalkActorForwardL(void)
 
 {
   int iVar1;
@@ -2515,18 +2583,19 @@ void Lua_WalkActorForward(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       *(uint *)(iVar1 + 8) = *(uint *)(iVar1 + 8) & 0xfffffffe;
-      Actor_WalkForward(iVar1);
+      sputActor_Forward(iVar1);
     }
   }
   return;
 }
 
-/* ---- 0x00499860  Lua_WalkActorTo ---- */
-/* Lua opcode: WalkActorTo */
+/* ---- 0x00499860  sputLua_WalkActorToL ---- */
+/* Lua opcode: WalkActorTo Original name sputLua_WalkActorToL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'WalkActorTo'); was Lua_WalkActorTo. */
 
-void Lua_WalkActorTo(void)
+void sputLua_WalkActorToL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2553,7 +2622,7 @@ void Lua_WalkActorTo(void)
   iVar6 = lua_isuserdata(iVar1);
   if ((iVar6 != 0) && (iVar6 = lua_tag(iVar1), iVar6 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    uVar7 = Actor_FromHandle(iVar1);
+    uVar7 = sputActor_ActorDeref(iVar1);
     iVar1 = lua_isnumber(iVar2);
     if (iVar1 == 0) {
       iVar1 = lua_isuserdata(iVar2);
@@ -2565,7 +2634,7 @@ void Lua_WalkActorTo(void)
         return;
       }
       iVar1 = lua_getuserdata(iVar2);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       local_18[0] = *(float *)(iVar1 + 0xc);
       local_18[1] = *(float *)(iVar1 + 0x10);
       local_18[2] = *(float *)(iVar1 + 0x14);
@@ -2589,10 +2658,12 @@ void Lua_WalkActorTo(void)
 #undef local_c
 
 
-/* ---- 0x004999d0  Lua_WalkActorToAvoiding ---- */
-/* Lua opcode: WalkActorToAvoiding */
+/* ---- 0x004999d0  sputLua_WalkActorToAvoidingL ---- */
+/* Lua opcode: WalkActorToAvoiding Original name sputLua_WalkActorToAvoidingL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'WalkActorToAvoiding'); was
+   Lua_WalkActorToAvoiding. */
 
-void Lua_WalkActorToAvoiding(void)
+void sputLua_WalkActorToAvoidingL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2625,9 +2696,9 @@ void Lua_WalkActorToAvoiding(void)
       (iVar7 = lua_isuserdata(iVar2), iVar7 != 0)) && (iVar7 = lua_tag(iVar2), iVar7 == 0x52544341))
   {
     iVar1 = lua_getuserdata(iVar1);
-    uVar8 = Actor_FromHandle(iVar1);
+    uVar8 = sputActor_ActorDeref(iVar1);
     iVar1 = lua_getuserdata(iVar2);
-    uVar9 = Actor_FromHandle(iVar1);
+    uVar9 = sputActor_ActorDeref(iVar1);
     iVar1 = lua_isnumber(iVar3);
     if (iVar1 == 0) {
       iVar1 = lua_isuserdata(iVar3);
@@ -2639,7 +2710,7 @@ void Lua_WalkActorToAvoiding(void)
         return;
       }
       iVar1 = lua_getuserdata(iVar3);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       local_18[0] = *(float *)(iVar1 + 0xc);
       local_18[1] = *(float *)(iVar1 + 0x10);
       local_18[2] = *(float *)(iVar1 + 0x14);
@@ -2664,10 +2735,11 @@ void Lua_WalkActorToAvoiding(void)
 #undef local_c
 
 
-/* ---- 0x00499b80  Lua_IsActorMoving ---- */
-/* Lua opcode: IsActorMoving */
+/* ---- 0x00499b80  sputLua_IsActorMovingL ---- */
+/* Lua opcode: IsActorMoving Original name sputLua_IsActorMovingL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'IsActorMoving'); was Lua_IsActorMoving. */
 
-void Lua_IsActorMoving(void)
+void sputLua_IsActorMovingL(void)
 
 {
   int iVar1;
@@ -2679,7 +2751,7 @@ void Lua_IsActorMoving(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if ((*(byte *)(iVar1 + 8) & 1) != 0) {
         lua_pushnumber(1.0);
         return;
@@ -2690,12 +2762,14 @@ void Lua_IsActorMoving(void)
   return;
 }
 
-/* ---- 0x00499be0  Lua_IsActorTurning ---- */
+/* ---- 0x00499be0  sputLua_IsActorTurningL ---- */
 /* Lua opcode: IsActorTurning(actor). TRUE while extra+0x28 (angle left between visible yaw and
    walker heading) is not 0. That field is written only by Walker_UpdateYaw (0 once under 0.5
-   degrees) and Actor_SetRot, so an actor without a walker is never turning. */
+   degrees) and Actor_SetRot, so an actor without a walker is never turning. Original name
+   sputLua_IsActorTurningL (the remaster's GrimFandango (Linux): Lua / module table entry
+   'IsActorTurning'); was Lua_IsActorTurning. */
 
-void Lua_IsActorTurning(void)
+void sputLua_IsActorTurningL(void)
 
 {
   int iVar1;
@@ -2707,9 +2781,9 @@ void Lua_IsActorTurning(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       if (*(float *)(*(int *)(iVar1 + 0xa4) + 0x28) != 0.0) {
         lua_pushnumber(1.0);
@@ -2720,10 +2794,12 @@ void Lua_IsActorTurning(void)
   return;
 }
 
-/* ---- 0x00499c70  Lua_SetActorChoreLooping ---- */
-/* Lua opcode: SetActorChoreLooping */
+/* ---- 0x00499c70  sputLua_SetActorChoreLoopingL ---- */
+/* Lua opcode: SetActorChoreLooping Original name sputLua_SetActorChoreLoopingL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorChoreLooping'); was
+   Lua_SetActorChoreLooping. */
 
-void Lua_SetActorChoreLooping(void)
+void sputLua_SetActorChoreLoopingL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2746,8 +2822,8 @@ void Lua_SetActorChoreLooping(void)
     iVar4 = lua_tag(iVar1);
     if (iVar4 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
-      iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
+      iVar1 = sputActor_ActorDeref(iVar1);
+      iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
       if ((iVar1 != 0) && (local_4 != 0)) {
         iVar1 = lua_isnumber(iVar2);
         if (iVar1 != 0) {
@@ -2778,10 +2854,11 @@ void Lua_SetActorChoreLooping(void)
 #undef local_4
 
 
-/* ---- 0x00499da0  Lua_IsActorResting ---- */
-/* Lua opcode: IsActorResting */
+/* ---- 0x00499da0  sputLua_IsActorRestingL ---- */
+/* Lua opcode: IsActorResting Original name sputLua_IsActorRestingL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'IsActorResting'); was Lua_IsActorResting. */
 
-void Lua_IsActorResting(void)
+void sputLua_IsActorRestingL(void)
 
 {
   int iVar1;
@@ -2793,9 +2870,9 @@ void Lua_IsActorResting(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       if (*(int *)(*(int *)(iVar1 + 0xa4) + 0x14) != 0) {
         lua_pushnumber(1.0);
@@ -2807,11 +2884,12 @@ void Lua_IsActorResting(void)
   return;
 }
 
-/* ---- 0x00499e20  Lua_IsActorChoring ---- */
+/* ---- 0x00499e20  sputLua_IsActorChoringL ---- */
 /* WARNING: Variable defined which should be unmapped: local_20 */
-/* Lua opcode: IsActorChoring */
+/* Lua opcode: IsActorChoring Original name sputLua_IsActorChoringL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'IsActorChoring'); was Lua_IsActorChoring. */
 
-void Lua_IsActorChoring(void)
+void sputLua_IsActorChoringL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2837,8 +2915,8 @@ void Lua_IsActorChoring(void)
   iVar4 = lua_isuserdata(iVar1);
   if ((iVar4 != 0) && (iVar4 = lua_tag(iVar1), iVar4 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    iVar1 = Actor_FromHandle(iVar1);
-    iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_c);
+    iVar1 = sputActor_ActorDeref(iVar1);
+    iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_c);
     if (iVar1 != 0) {
       iVar1 = lua_isnil(iVar3);
       if (local_c != 0) {
@@ -2897,13 +2975,14 @@ void Lua_IsActorChoring(void)
 #undef local_c
 
 
-/* ---- 0x00499ff0  Lua_GetActorChores ---- */
+/* ---- 0x00499ff0  sputLua_GetActorChoresL ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
-/* Lua opcode: GetActorChores */
+/* Lua opcode: GetActorChores Original name sputLua_GetActorChoresL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetActorChores'); was Lua_GetActorChores. */
 
-void Lua_GetActorChores(void)
+void sputLua_GetActorChoresL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2922,8 +3001,8 @@ void Lua_GetActorChores(void)
   iVar2 = lua_isuserdata(iVar1);
   if ((iVar2 != 0) && (iVar2 = lua_tag(iVar1), iVar2 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    iVar1 = Actor_FromHandle(iVar1);
-    iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_18);
+    iVar1 = sputActor_ActorDeref(iVar1);
+    iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_18);
     if (iVar1 == 0) {
       return;
     }
@@ -2967,11 +3046,13 @@ void Lua_GetActorChores(void)
 #endif
 
 
-/* ---- 0x0049a160  Lua_GetActorCostumeDepth ---- */
+/* ---- 0x0049a160  sputLua_GetActorCostumeDepthL ---- */
 /* WARNING: Variable defined which should be unmapped: local_10 */
-/* Lua opcode: GetActorCostumeDepth */
+/* Lua opcode: GetActorCostumeDepth Original name sputLua_GetActorCostumeDepthL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetActorCostumeDepth'); was
+   Lua_GetActorCostumeDepth. */
 
-void Lua_GetActorCostumeDepth(void)
+void sputLua_GetActorCostumeDepthL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2986,7 +3067,7 @@ void Lua_GetActorCostumeDepth(void)
   iVar2 = lua_isuserdata(iVar1);
   if ((iVar2 != 0) && (iVar2 = lua_tag(iVar1), iVar2 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    iVar1 = Actor_FromHandle(iVar1);
+    iVar1 = sputActor_ActorDeref(iVar1);
     for (iVar1 = *(int *)(iVar1 + 0xa0); iVar1 != 0; iVar1 = *(int *)(iVar1 + 0xb0)) {
       iVar3 = iVar3 + 1;
     }
@@ -3000,13 +3081,15 @@ void Lua_GetActorCostumeDepth(void)
 #undef local_4
 
 
-/* ---- 0x0049a2a0  Lua_GetActorLoopingChores ---- */
+/* ---- 0x0049a2a0  sputLua_GetActorLoopingChoresL ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
-/* Lua opcode: GetActorLoopingChores */
+/* Lua opcode: GetActorLoopingChores Original name sputLua_GetActorLoopingChoresL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetActorLoopingChores'); was
+   Lua_GetActorLoopingChores. */
 
-void Lua_GetActorLoopingChores(void)
+void sputLua_GetActorLoopingChoresL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3025,8 +3108,8 @@ void Lua_GetActorLoopingChores(void)
   iVar2 = lua_isuserdata(iVar1);
   if ((iVar2 != 0) && (iVar2 = lua_tag(iVar1), iVar2 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    iVar1 = Actor_FromHandle(iVar1);
-    iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_18);
+    iVar1 = sputActor_ActorDeref(iVar1);
+    iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_18);
     if (iVar1 == 0) {
       return;
     }
@@ -3070,10 +3153,12 @@ void Lua_GetActorLoopingChores(void)
 #endif
 
 
-/* ---- 0x0049a410  Lua_SetActorColormap ---- */
-/* Source: Scripts/sputLua.cpp (line 2035, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x0049a410  sputLua_SetActorColormapL ---- */
+/* Source: Scripts/sputLua.cpp (line 2035, from __FILE__/__LINE__ passed to the allocator) Original
+   name sputLua_SetActorColormapL (the remaster's GrimFandango (Linux): Lua / module table entry
+   'SetActorColormap'); was Lua_SetActorColormap. */
 
-void Lua_SetActorColormap(void)
+void sputLua_SetActorColormapL(void)
 
 {
   int *piVar1;
@@ -3089,11 +3174,11 @@ void Lua_SetActorColormap(void)
   iVar4 = lua_isuserdata(iVar2);
   if ((iVar4 != 0) && (iVar4 = lua_tag(iVar2), iVar4 == 0x52544341)) {
     iVar2 = lua_getuserdata(iVar2);
-    piVar5 = (int *)Actor_FromHandle(iVar2);
+    piVar5 = (int *)sputActor_ActorDeref(iVar2);
     iVar2 = lua_isstring(iVar3);
     if (iVar2 != 0) {
       name = (char *)lua_getstring(iVar3);
-      data = Resource_Load(0x50414d43,name);
+      data = sputResource_Alloc(0x50414d43,name);
       piVar1 = (int *)*piVar5;
       iVar2 = *piVar1;
       if (iVar2 != 0) {
@@ -3105,22 +3190,23 @@ void Lua_SetActorColormap(void)
           return;
         }
       }
-      ResRef_Remove((void *)*piVar5);
-      ResRef_Add((void *)*piVar5,data,s_C__grimsrc_libs_grimlib_Scripts__004ec38c,0x7f3);
+      Res_RemoveReference((void *)*piVar5);
+      Res_SetReference((void *)*piVar5,data,s_C__grimsrc_libs_grimlib_Scripts__004ec38c,0x7f3);
       return;
     }
     iVar2 = lua_isnil(iVar3);
     if (iVar2 != 0) {
-      ResRef_Remove((void *)*piVar5);
+      Res_RemoveReference((void *)*piVar5);
     }
   }
   return;
 }
 
-/* ---- 0x0049a500  Lua_SetActorCostume ---- */
-/* Lua opcode: SetActorCostume */
+/* ---- 0x0049a500  sputLua_SetActorCostumeL ---- */
+/* Lua opcode: SetActorCostume Original name sputLua_SetActorCostumeL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetActorCostume'); was Lua_SetActorCostume. */
 
-void Lua_SetActorCostume(void)
+void sputLua_SetActorCostumeL(void)
 
 {
   int iVar1;
@@ -3136,14 +3222,14 @@ void Lua_SetActorCostume(void)
   iVar3 = lua_isuserdata(iVar1);
   if ((iVar3 != 0) && (iVar3 = lua_tag(iVar1), iVar3 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    actor = (void *)Actor_FromHandle(iVar1);
+    actor = (void *)sputActor_ActorDeref(iVar1);
     iVar1 = lua_isstring(iVar2);
     if (iVar1 == 0) {
       iVar1 = lua_isnil(iVar2);
       if (iVar1 != 0) {
         iVar1 = *(int *)((int)actor + 0xa0);
         while (iVar1 != 0) {
-          Actor_PopCostume(actor,1);
+          sputActor_PopCostume(actor,1);
           iVar1 = *(int *)((int)actor + 0xa0);
         }
         iVar4 = 1;
@@ -3152,7 +3238,7 @@ void Lua_SetActorCostume(void)
     else {
       iVar1 = 0;
       name = (char *)lua_getstring(iVar2);
-      iVar4 = Actor_SetCostume(actor,name,iVar1);
+      iVar4 = sputActor_SetCostume(actor,name,iVar1);
     }
     if (iVar4 != 0) {
       lua_pushnumber(1.0);
@@ -3163,10 +3249,12 @@ void Lua_SetActorCostume(void)
   return;
 }
 
-/* ---- 0x0049a5e0  Lua_PrintActorCostumes ---- */
-/* Lua opcode: PrintActorCostumes */
+/* ---- 0x0049a5e0  sputLua_PrintActorCostumesL ---- */
+/* Lua opcode: PrintActorCostumes Original name sputLua_PrintActorCostumesL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'PrintActorCostumes'); was Lua_PrintActorCostumes.
+    */
 
-void Lua_PrintActorCostumes(void)
+void sputLua_PrintActorCostumesL(void)
 
 {
   int iVar1;
@@ -3179,17 +3267,18 @@ void Lua_PrintActorCostumes(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
-      Costume_PrintList(*(void **)(iVar1 + 0xa0));
+      iVar1 = sputActor_ActorDeref(iVar1);
+      sputCostume_PrintCostumeInfo(*(void **)(iVar1 + 0xa0));
     }
   }
   return;
 }
 
-/* ---- 0x0049a640  Lua_PushActorCostume ---- */
-/* Lua opcode: PushActorCostume */
+/* ---- 0x0049a640  sputLua_PushActorCostumeL ---- */
+/* Lua opcode: PushActorCostume Original name sputLua_PushActorCostumeL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'PushActorCostume'); was Lua_PushActorCostume. */
 
-void Lua_PushActorCostume(void)
+void sputLua_PushActorCostumeL(void)
 
 {
   int iVar1;
@@ -3205,22 +3294,23 @@ void Lua_PushActorCostume(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
+      actor = (void *)sputActor_ActorDeref(iVar1);
       iVar1 = lua_isstring(iVar2);
       if (iVar1 != 0) {
         iVar1 = 0;
         name = (char *)lua_getstring(iVar2);
-        Actor_PushCostume(actor,name,iVar1);
+        sputActor_PushCostume(actor,name,iVar1);
       }
     }
   }
   return;
 }
 
-/* ---- 0x0049a6c0  Lua_PopActorCostume ---- */
-/* Lua opcode: PopActorCostume */
+/* ---- 0x0049a6c0  sputLua_PopActorCostumeL ---- */
+/* Lua opcode: PopActorCostume Original name sputLua_PopActorCostumeL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'PopActorCostume'); was Lua_PopActorCostume. */
 
-void Lua_PopActorCostume(void)
+void sputLua_PopActorCostumeL(void)
 
 {
   int iVar1;
@@ -3234,24 +3324,25 @@ void Lua_PopActorCostume(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
+      actor = (void *)sputActor_ActorDeref(iVar1);
       if (*(int **)((int)actor + 0xa0) != (int *)0x0) {
         pcVar3 = (char *)Cos_InstGetCostume(**(int **)((int)actor + 0xa0),(int *)0x0);
         lua_pushstring(pcVar3);
-        Actor_PopCostume(actor,1);
+        sputActor_PopCostume(actor,1);
         return;
       }
       lua_pushnil();
-      Actor_PopCostume(actor,1);
+      sputActor_PopCostume(actor,1);
     }
   }
   return;
 }
 
-/* ---- 0x0049a750  Lua_StopActorChore ---- */
-/* Lua opcode: StopActorChore */
+/* ---- 0x0049a750  sputLua_StopActorChoreL ---- */
+/* Lua opcode: StopActorChore Original name sputLua_StopActorChoreL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'StopActorChore'); was Lua_StopActorChore. */
 
-void Lua_StopActorChore(void)
+void sputLua_StopActorChoreL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3270,8 +3361,8 @@ void Lua_StopActorChore(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
-      iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
+      iVar1 = sputActor_ActorDeref(iVar1);
+      iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
       if ((iVar1 != 0) && (local_4 != 0)) {
         iVar1 = lua_isnumber(iVar2);
         if (iVar1 != 0) {
@@ -3291,10 +3382,11 @@ void Lua_StopActorChore(void)
 #undef local_4
 
 
-/* ---- 0x0049a830  Lua_PlayActorChore ---- */
-/* Lua opcode: PlayActorChore */
+/* ---- 0x0049a830  sputLua_PlayActorChoreL ---- */
+/* Lua opcode: PlayActorChore Original name sputLua_PlayActorChoreL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'PlayActorChore'); was Lua_PlayActorChore. */
 
-void Lua_PlayActorChore(void)
+void sputLua_PlayActorChoreL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3313,8 +3405,8 @@ void Lua_PlayActorChore(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
-      iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
+      iVar1 = sputActor_ActorDeref(iVar1);
+      iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
       if (iVar1 != 0) {
         if (local_4 != 0) {
           iVar1 = lua_isnumber(iVar2);
@@ -3338,10 +3430,12 @@ void Lua_PlayActorChore(void)
 #undef local_4
 
 
-/* ---- 0x0049a910  Lua_CompleteActorChore ---- */
-/* Lua opcode: CompleteActorChore */
+/* ---- 0x0049a910  sputLua_CompleteActorChoreL ---- */
+/* Lua opcode: CompleteActorChore Original name sputLua_CompleteActorChoreL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'CompleteActorChore'); was Lua_CompleteActorChore.
+    */
 
-void Lua_CompleteActorChore(void)
+void sputLua_CompleteActorChoreL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3360,8 +3454,8 @@ void Lua_CompleteActorChore(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
-      iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
+      iVar1 = sputActor_ActorDeref(iVar1);
+      iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
       if (iVar1 != 0) {
         if (local_4 != 0) {
           iVar1 = lua_isnumber(iVar2);
@@ -3383,10 +3477,12 @@ void Lua_CompleteActorChore(void)
 #undef local_4
 
 
-/* ---- 0x0049a9e0  Lua_PlayActorChoreLooping ---- */
-/* Lua opcode: PlayActorChoreLooping */
+/* ---- 0x0049a9e0  sputLua_PlayActorChoreLoopingL ---- */
+/* Lua opcode: PlayActorChoreLooping Original name sputLua_PlayActorChoreLoopingL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'PlayActorChoreLooping'); was
+   Lua_PlayActorChoreLooping. */
 
-void Lua_PlayActorChoreLooping(void)
+void sputLua_PlayActorChoreLoopingL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3405,8 +3501,8 @@ void Lua_PlayActorChoreLooping(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
-      iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
+      iVar1 = sputActor_ActorDeref(iVar1);
+      iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
       if (iVar1 != 0) {
         if (local_4 != 0) {
           iVar1 = lua_isnumber(iVar2);
@@ -3430,10 +3526,11 @@ void Lua_PlayActorChoreLooping(void)
 #undef local_4
 
 
-/* ---- 0x0049aac0  Lua_ActorLookAt ---- */
-/* Lua opcode: ActorLookAt */
+/* ---- 0x0049aac0  sputLua_ActorLookAtL ---- */
+/* Lua opcode: ActorLookAt Original name sputLua_ActorLookAtL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'ActorLookAt'); was Lua_ActorLookAt. */
 
-void Lua_ActorLookAt(void)
+void sputLua_ActorLookAtL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3456,9 +3553,9 @@ void Lua_ActorLookAt(void)
   iVar7 = lua_isuserdata(iVar3);
   if ((iVar7 != 0) && (iVar7 = lua_tag(iVar3), iVar7 == 0x52544341)) {
     iVar3 = lua_getuserdata(iVar3);
-    iVar3 = Actor_FromHandle(iVar3);
+    iVar3 = sputActor_ActorDeref(iVar3);
     if (*(int *)(iVar3 + 0xa4) == 0) {
-      Actor_CreateExtra(iVar3);
+      sputActor_AllocateActorExtra(iVar3);
     }
     if (*(int *)(iVar3 + 0xa0) != 0) {
       iVar7 = lua_isnumber(iVar6);
@@ -3502,7 +3599,7 @@ void Lua_ActorLookAt(void)
           return;
         }
         iVar4 = lua_getuserdata(iVar4);
-        iVar4 = Actor_FromHandle(iVar4);
+        iVar4 = sputActor_ActorDeref(iVar4);
         puVar2 = *(undefined4 **)(iVar3 + 0xa4);
         *puVar2 = *(undefined4 *)(iVar4 + 0xc);
         puVar2[1] = *(undefined4 *)(iVar4 + 0x10);
@@ -3538,10 +3635,11 @@ void Lua_ActorLookAt(void)
 #undef local_8
 
 
-/* ---- 0x0049ad30  Lua_IsActorLooking ---- */
-/* Lua opcode: IsActorLooking */
+/* ---- 0x0049ad30  sputLua_IsActorLookingL ---- */
+/* Lua opcode: IsActorLooking Original name sputLua_IsActorLookingL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'IsActorLooking'); was Lua_IsActorLooking. */
 
-void Lua_IsActorLooking(void)
+void sputLua_IsActorLookingL(void)
 
 {
   int iVar1;
@@ -3553,7 +3651,7 @@ void Lua_IsActorLooking(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if ((*(byte *)(iVar1 + 8) & 2) != 0) {
         lua_pushnumber(1.0);
         return;
@@ -3564,10 +3662,11 @@ void Lua_IsActorLooking(void)
   return;
 }
 
-/* ---- 0x0049ad90  Lua_SetActorLookRate ---- */
-/* Lua opcode: SetActorLookRate */
+/* ---- 0x0049ad90  sputLua_SetActorLookRate ---- */
+/* Lua opcode: SetActorLookRate Original name sputLua_SetActorLookRate (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetActorLookRate'); was Lua_SetActorLookRate. */
 
-void Lua_SetActorLookRate(void)
+void sputLua_SetActorLookRate(void)
 
 {
   int iVar1;
@@ -3584,7 +3683,7 @@ void Lua_SetActorLookRate(void)
       iVar3 = lua_isnumber(iVar2);
       if (iVar3 != 0) {
         iVar1 = lua_getuserdata(iVar1);
-        iVar1 = Actor_FromHandle(iVar1);
+        iVar1 = sputActor_ActorDeref(iVar1);
         if (*(int *)(iVar1 + 0xa0) != 0) {
           fVar4 = lua_getnumber(iVar2);
           *(float *)(*(int *)(iVar1 + 0xa0) + 0x18) = fVar4;
@@ -3595,10 +3694,11 @@ void Lua_SetActorLookRate(void)
   return;
 }
 
-/* ---- 0x0049ae10  Lua_GetActorLookRate ---- */
-/* Lua opcode: GetActorLookRate */
+/* ---- 0x0049ae10  sputLua_GetActorLookRate ---- */
+/* Lua opcode: GetActorLookRate Original name sputLua_GetActorLookRate (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetActorLookRate'); was Lua_GetActorLookRate. */
 
-void Lua_GetActorLookRate(void)
+void sputLua_GetActorLookRate(void)
 
 {
   int iVar1;
@@ -3610,7 +3710,7 @@ void Lua_GetActorLookRate(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa0) != 0) {
         lua_pushnumber(*(float *)(*(int *)(iVar1 + 0xa0) + 0x18));
         return;
@@ -3621,10 +3721,12 @@ void Lua_GetActorLookRate(void)
   return;
 }
 
-/* ---- 0x0049ae80  Lua_SetActorVisibility ---- */
-/* Lua opcode: SetActorVisibility */
+/* ---- 0x0049ae80  sputLua_SetActorVisibilityL ---- */
+/* Lua opcode: SetActorVisibility Original name sputLua_SetActorVisibilityL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorVisibility'); was Lua_SetActorVisibility.
+    */
 
-void Lua_SetActorVisibility(void)
+void sputLua_SetActorVisibilityL(void)
 
 {
   int iVar1;
@@ -3638,7 +3740,7 @@ void Lua_SetActorVisibility(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (iVar2 != 0) {
         iVar2 = lua_isnil(iVar2);
         if (iVar2 == 0) {
@@ -3652,10 +3754,12 @@ void Lua_SetActorVisibility(void)
   return;
 }
 
-/* ---- 0x0049af00  Lua_SetActorFollowBoxes ---- */
-/* Lua opcode: SetActorFollowBoxes */
+/* ---- 0x0049af00  sputLua_SetActorFollowBoxesL ---- */
+/* Lua opcode: SetActorFollowBoxes Original name sputLua_SetActorFollowBoxesL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorFollowBoxes'); was
+   Lua_SetActorFollowBoxes. */
 
-void Lua_SetActorFollowBoxes(void)
+void sputLua_SetActorFollowBoxesL(void)
 
 {
   int iVar1;
@@ -3674,20 +3778,21 @@ void Lua_SetActorFollowBoxes(void)
   iVar3 = lua_tag(iVar1);
   if (iVar3 == 0x52544341) {
     iVar1 = lua_getuserdata(iVar1);
-    uVar4 = Actor_FromHandle(iVar1);
+    uVar4 = sputActor_ActorDeref(iVar1);
     if ((iVar2 == 0) || (iVar1 = lua_isnil(iVar2), iVar1 != 0)) {
       uVar5 = 0;
     }
-    Actor_SetFollowBoxes(uVar4,uVar5);
+    sputActor_EnableWalkSystem(uVar4,uVar5);
     return;
   }
   return;
 }
 
-/* ---- 0x0049af80  Lua_ShutUpActor ---- */
-/* Lua opcode: ShutUpActor */
+/* ---- 0x0049af80  sputLua_ShutUpActorL ---- */
+/* Lua opcode: ShutUpActor Original name sputLua_ShutUpActorL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'ShutUpActor'); was Lua_ShutUpActor. */
 
-void Lua_ShutUpActor(void)
+void sputLua_ShutUpActorL(void)
 
 {
   int iVar1;
@@ -3700,19 +3805,21 @@ void Lua_ShutUpActor(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
+      actor = (void *)sputActor_ActorDeref(iVar1);
       if (actor != (void *)0x0) {
-        Actor_ShutUp(actor);
+        sputActor_ShutUp(actor);
       }
     }
   }
   return;
 }
 
-/* ---- 0x0049afd0  Lua_SetActorFrustrumCull ---- */
-/* Lua opcode: SetActorFrustrumCull */
+/* ---- 0x0049afd0  sputLua_SetActorFrustrumCull ---- */
+/* Lua opcode: SetActorFrustrumCull Original name sputLua_SetActorFrustrumCull (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorFrustrumCull'); was
+   Lua_SetActorFrustrumCull. */
 
-void Lua_SetActorFrustrumCull(void)
+void sputLua_SetActorFrustrumCull(void)
 
 {
   int iVar1;
@@ -3728,7 +3835,7 @@ void Lua_SetActorFrustrumCull(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      uVar4 = Actor_FromHandle(iVar1);
+      uVar4 = sputActor_ActorDeref(iVar1);
       lVar5 = (longlong)lua_getnumber(iVar2);
       Actor_SetFrustumCull(uVar4,(int)lVar5);
     }
@@ -3736,20 +3843,22 @@ void Lua_SetActorFrustrumCull(void)
   return;
 }
 
-/* ---- 0x0049b040  Lua_GetCameraActor ---- */
-/* Lua opcode: GetCameraActor */
+/* ---- 0x0049b040  sputLua_GetCameraActorL ---- */
+/* Lua opcode: GetCameraActor Original name sputLua_GetCameraActorL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetCameraActor'); was Lua_GetCameraActor. */
 
-void Lua_GetCameraActor(void)
+void sputLua_GetCameraActorL(void)
 
 {
   lua_pushusertag((char *)g_nCameraActor,0x52544341);
   return;
 }
 
-/* ---- 0x0049b060  Lua_GetActorWalkRate ---- */
-/* Lua opcode: GetActorWalkRate */
+/* ---- 0x0049b060  sputLua_GetActorWalkRateL ---- */
+/* Lua opcode: GetActorWalkRate Original name sputLua_GetActorWalkRateL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetActorWalkRate'); was Lua_GetActorWalkRate. */
 
-void Lua_GetActorWalkRate(void)
+void sputLua_GetActorWalkRateL(void)
 
 {
   int iVar1;
@@ -3761,9 +3870,9 @@ void Lua_GetActorWalkRate(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       lua_pushnumber(*(float *)(*(int *)(iVar1 + 0xa4) + 0x18));
     }
@@ -3771,10 +3880,11 @@ void Lua_GetActorWalkRate(void)
   return;
 }
 
-/* ---- 0x0049b0d0  Lua_SetActorWalkRate ---- */
-/* Lua opcode: SetActorWalkRate */
+/* ---- 0x0049b0d0  sputLua_SetActorWalkRateL ---- */
+/* Lua opcode: SetActorWalkRate Original name sputLua_SetActorWalkRateL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetActorWalkRate'); was Lua_SetActorWalkRate. */
 
-void Lua_SetActorWalkRate(void)
+void sputLua_SetActorWalkRateL(void)
 
 {
   int iVar1;
@@ -3791,9 +3901,9 @@ void Lua_SetActorWalkRate(void)
       iVar3 = lua_isnumber(iVar2);
       if (iVar3 != 0) {
         iVar1 = lua_getuserdata(iVar1);
-        iVar1 = Actor_FromHandle(iVar1);
+        iVar1 = sputActor_ActorDeref(iVar1);
         if (*(int *)(iVar1 + 0xa4) == 0) {
-          Actor_CreateExtra(iVar1);
+          sputActor_AllocateActorExtra(iVar1);
         }
         fVar4 = lua_getnumber(iVar2);
         *(float *)(*(int *)(iVar1 + 0xa4) + 0x18) = fVar4;
@@ -3803,10 +3913,11 @@ void Lua_SetActorWalkRate(void)
   return;
 }
 
-/* ---- 0x0049b160  Lua_GetActorTurnRate ---- */
-/* Lua opcode: GetActorTurnRate */
+/* ---- 0x0049b160  sputLua_GetActorTurnRateL ---- */
+/* Lua opcode: GetActorTurnRate Original name sputLua_GetActorTurnRateL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetActorTurnRate'); was Lua_GetActorTurnRate. */
 
-void Lua_GetActorTurnRate(void)
+void sputLua_GetActorTurnRateL(void)
 
 {
   int iVar1;
@@ -3818,9 +3929,9 @@ void Lua_GetActorTurnRate(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       lua_pushnumber(*(float *)(*(int *)(iVar1 + 0xa4) + 0x1c));
     }
@@ -3828,12 +3939,13 @@ void Lua_GetActorTurnRate(void)
   return;
 }
 
-/* ---- 0x0049b1d0  Lua_SetActorTurnRate ---- */
+/* ---- 0x0049b1d0  sputLua_SetActorTurnRateL ---- */
 /* Lua opcode: SetActorTurnRate(actor, rate). Stores the rate at extra+0x1c, keeping the sign of the
    current rate (a negative rate is the pending snap flag). The value itself is not made absolute
-   here; readers take |rate|. */
+   here; readers take |rate|. Original name sputLua_SetActorTurnRateL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetActorTurnRate'); was Lua_SetActorTurnRate. */
 
-void Lua_SetActorTurnRate(void)
+void sputLua_SetActorTurnRateL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3853,9 +3965,9 @@ void Lua_SetActorTurnRate(void)
       if (iVar3 != 0) {
         fVar4 = lua_getnumber(iVar2);
         iVar1 = lua_getuserdata(iVar1);
-        iVar1 = Actor_FromHandle(iVar1);
+        iVar1 = sputActor_ActorDeref(iVar1);
         if (*(int *)(iVar1 + 0xa4) == 0) {
-          Actor_CreateExtra(iVar1);
+          sputActor_AllocateActorExtra(iVar1);
         }
         if (*(float *)(*(int *)(iVar1 + 0xa4) + 0x1c) < 0.0) {
           fVar4 = fVar4 * -1.0;
@@ -3869,10 +3981,12 @@ void Lua_SetActorTurnRate(void)
 #undef local_4
 
 
-/* ---- 0x0049b280  Lua_SetActorWalkChore ---- */
-/* Lua opcode: SetActorWalkChore */
+/* ---- 0x0049b280  sputLua_SetActorWalkChoresL ---- */
+/* Lua opcode: SetActorWalkChore Original name sputLua_SetActorWalkChoresL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorWalkChore'); was Lua_SetActorWalkChore.
+    */
 
-void Lua_SetActorWalkChore(void)
+void sputLua_SetActorWalkChoresL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3894,8 +4008,8 @@ void Lua_SetActorWalkChore(void)
       return;
     }
     iVar1 = lua_getuserdata(iVar1);
-    actor = (void *)Actor_FromHandle(iVar1);
-    iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)((int)actor + 0xa0),(void **)&local_4);
+    actor = (void *)sputActor_ActorDeref(iVar1);
+    iVar1 = FindCostumeInStack(luaObj,*(void **)((int)actor + 0xa0),(void **)&local_4);
     if (iVar1 != 0) {
       iVar1 = lua_isnumber(iVar2);
       if (iVar1 == 0) {
@@ -3913,10 +4027,12 @@ void Lua_SetActorWalkChore(void)
 #undef local_4
 
 
-/* ---- 0x0049b350  Lua_SetActorTurnChores ---- */
-/* Lua opcode: SetActorTurnChores */
+/* ---- 0x0049b350  sputLua_SetActorTurnChoresL ---- */
+/* Lua opcode: SetActorTurnChores Original name sputLua_SetActorTurnChoresL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorTurnChores'); was Lua_SetActorTurnChores.
+    */
 
-void Lua_SetActorTurnChores(void)
+void sputLua_SetActorTurnChoresL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3943,8 +4059,8 @@ void Lua_SetActorTurnChores(void)
         iVar4 = lua_isnumber(iVar3);
         if (iVar4 != 0) {
           iVar1 = lua_getuserdata(iVar1);
-          actor = (void *)Actor_FromHandle(iVar1);
-          iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)((int)actor + 0xa0),(void **)&local_4);
+          actor = (void *)sputActor_ActorDeref(iVar1);
+          iVar1 = FindCostumeInStack(luaObj,*(void **)((int)actor + 0xa0),(void **)&local_4);
           if (iVar1 != 0) {
             lVar5 = (longlong)lua_getnumber(iVar3);
             iVar1 = (int)lVar5;
@@ -3961,10 +4077,12 @@ void Lua_SetActorTurnChores(void)
 #undef local_8
 
 
-/* ---- 0x0049b430  Lua_SetActorRestChore ---- */
-/* Lua opcode: SetActorRestChore */
+/* ---- 0x0049b430  sputLua_SetActorRestChoreL ---- */
+/* Lua opcode: SetActorRestChore Original name sputLua_SetActorRestChoreL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorRestChore'); was Lua_SetActorRestChore.
+    */
 
-void Lua_SetActorRestChore(void)
+void sputLua_SetActorRestChoreL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3986,8 +4104,8 @@ void Lua_SetActorRestChore(void)
       return;
     }
     iVar1 = lua_getuserdata(iVar1);
-    actor = (void *)Actor_FromHandle(iVar1);
-    iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)((int)actor + 0xa0),(void **)&local_4);
+    actor = (void *)sputActor_ActorDeref(iVar1);
+    iVar1 = FindCostumeInStack(luaObj,*(void **)((int)actor + 0xa0),(void **)&local_4);
     if (iVar1 != 0) {
       iVar1 = lua_isnil(iVar2);
       if (iVar1 == 0) {
@@ -4005,10 +4123,12 @@ void Lua_SetActorRestChore(void)
 #undef local_4
 
 
-/* ---- 0x0049b500  Lua_SetActorMumblechore ---- */
-/* Lua opcode: SetActorMumblechore */
+/* ---- 0x0049b500  sputLua_SetActorMumbleChoreL ---- */
+/* Lua opcode: SetActorMumblechore Original name sputLua_SetActorMumbleChoreL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorMumblechore'); was
+   Lua_SetActorMumblechore. */
 
-void Lua_SetActorMumblechore(void)
+void sputLua_SetActorMumbleChoreL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4030,8 +4150,8 @@ void Lua_SetActorMumblechore(void)
       if (iVar3 != 0) {
         lVar4 = (longlong)lua_getnumber(iVar2);
         iVar1 = lua_getuserdata(iVar1);
-        iVar1 = Actor_FromHandle(iVar1);
-        iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
+        iVar1 = sputActor_ActorDeref(iVar1);
+        iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
         if ((iVar1 != 0) && (local_4 != 0)) {
           *(int *)(local_4 + 0x78) = (int)lVar4;
         }
@@ -4043,10 +4163,12 @@ void Lua_SetActorMumblechore(void)
 #undef local_4
 
 
-/* ---- 0x0049b5a0  Lua_SetActorTalkChore ---- */
-/* Lua opcode: SetActorTalkChore */
+/* ---- 0x0049b5a0  sputLua_SetActorTalkChoreL ---- */
+/* Lua opcode: SetActorTalkChore Original name sputLua_SetActorTalkChoreL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorTalkChore'); was Lua_SetActorTalkChore.
+    */
 
-void Lua_SetActorTalkChore(void)
+void sputLua_SetActorTalkChoreL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4074,8 +4196,8 @@ void Lua_SetActorTalkChore(void)
     iVar2 = (int)lVar6;
     if ((0 < iVar2) && (iVar2 < 0x11)) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
-      iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
+      iVar1 = sputActor_ActorDeref(iVar1);
+      iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
       if ((iVar1 != 0) && (local_4 != 0)) {
         iVar1 = lua_isnumber(iVar3);
         if (iVar1 == 0) {
@@ -4095,13 +4217,14 @@ void Lua_SetActorTalkChore(void)
 #undef local_4
 
 
-/* ---- 0x0049b6c0  Lua_SetActorHead ---- */
+/* ---- 0x0049b6c0  sputLua_SetActorHeadL ---- */
 /* WARNING: Variable defined which should be unmapped: local_24 */
 /* WARNING: Variable defined which should be unmapped: local_28 */
 /* WARNING: Variable defined which should be unmapped: local_2c */
-/* Lua opcode: SetActorHead */
+/* Lua opcode: SetActorHead Original name sputLua_SetActorHeadL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetActorHead'); was Lua_SetActorHead. */
 
-void Lua_SetActorHead(void)
+void sputLua_SetActorHeadL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4150,7 +4273,7 @@ void Lua_SetActorHead(void)
                 iVar8 = lua_isnumber(iVar7);
                 if (iVar8 != 0) {
                   iVar1 = lua_getuserdata(iVar1);
-                  actor = (void *)Actor_FromHandle(iVar1);
+                  actor = (void *)sputActor_ActorDeref(iVar1);
                   maxYaw = lua_getnumber(iVar7);
                   maxPitch = lua_getnumber(iVar6);
                   maxRoll = lua_getnumber(iVar5);
@@ -4179,10 +4302,11 @@ void Lua_SetActorHead(void)
 #undef local_c
 
 
-/* ---- 0x0049b830  Lua_CanActorSee ---- */
-/* Lua opcode: CanActorSee */
+/* ---- 0x0049b830  sputLua_CanActorSeeL ---- */
+/* Lua opcode: CanActorSee Original name sputLua_CanActorSeeL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'CanActorSee'); was Lua_CanActorSee. */
 
-void Lua_CanActorSee(void)
+void sputLua_CanActorSeeL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4206,7 +4330,7 @@ void Lua_CanActorSee(void)
     return;
   }
   iVar1 = lua_getuserdata(iVar1);
-  target = (void *)Actor_FromHandle(iVar1);
+  target = (void *)sputActor_ActorDeref(iVar1);
   local_10 = (uint)target;
   iVar1 = lua_isnumber(iVar2);
   if (iVar1 == 0) {
@@ -4227,7 +4351,7 @@ void Lua_CanActorSee(void)
     }
     else {
       iVar1 = lua_getuserdata(iVar2);
-      target_00 = (void *)Actor_FromHandle(iVar1);
+      target_00 = (void *)sputActor_ActorDeref(iVar1);
       iVar1 = Actor_CanSee(target,target_00,&local_14);
       if (iVar1 != 0) {
         lua_pushnumber(local_14);
@@ -4267,10 +4391,11 @@ void Lua_CanActorSee(void)
 #undef local_c
 
 
-/* ---- 0x0049b9e0  Lua_GetVisibleThings ---- */
-/* Lua opcode: GetVisibleThings */
+/* ---- 0x0049b9e0  sputLua_GetVisibleThingsL ---- */
+/* Lua opcode: GetVisibleThings Original name sputLua_GetVisibleThingsL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetVisibleThings'); was Lua_GetVisibleThings. */
 
-void Lua_GetVisibleThings(void)
+void sputLua_GetVisibleThingsL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4289,7 +4414,7 @@ void Lua_GetVisibleThings(void)
     iVar2 = lua_isuserdata(iVar1);
     if ((iVar2 != 0) && (iVar2 = lua_tag(iVar1), iVar2 == 0x52544341)) {
       iVar1 = lua_getuserdata(iVar1);
-      local_8 = Actor_FromHandle(iVar1);
+      local_8 = sputActor_ActorDeref(iVar1);
     }
   }
   else {
@@ -4310,7 +4435,7 @@ void Lua_GetVisibleThings(void)
        (iVar2 = Actor_CanSee((void *)local_8,target,&local_4), iVar2 != 0)) {
       lua_pushobject(iVar1);
       uVar5 = 0x52544341;
-      pcVar4 = (char *)Actor_GetHandle(target,0x52544341);
+      pcVar4 = (char *)sputActor_GetActorHandle(target,0x52544341);
       lua_pushusertag(pcVar4,uVar5);
       lua_pushnumber(1.0);
       lua_settable();
@@ -4323,11 +4448,12 @@ void Lua_GetVisibleThings(void)
 #undef local_8
 
 
-/* ---- 0x0049bb10  Lua_GetActorRect ---- */
+/* ---- 0x0049bb10  sputLua_GetActorRectL ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: GetActorRect */
+/* Lua opcode: GetActorRect Original name sputLua_GetActorRectL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetActorRect'); was Lua_GetActorRect. */
 
-void Lua_GetActorRect(void)
+void sputLua_GetActorRectL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4341,7 +4467,7 @@ void Lua_GetActorRect(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if ((iVar1 != 0) && (*(int *)(iVar1 + 0x68) != 0)) {
         lua_pushnumber((float)*(int *)(iVar1 + 0x6c));
         lua_pushnumber((float)*(int *)(iVar1 + 0x70));
@@ -4357,10 +4483,12 @@ void Lua_GetActorRect(void)
 #undef local_c
 
 
-/* ---- 0x0049bba0  Lua_GetActorPuckVector ---- */
-/* Lua opcode: GetActorPuckVector */
+/* ---- 0x0049bba0  sputLua_GetActorPuckVectorL ---- */
+/* Lua opcode: GetActorPuckVector Original name sputLua_GetActorPuckVectorL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetActorPuckVector'); was Lua_GetActorPuckVector.
+    */
 
-void Lua_GetActorPuckVector(void)
+void sputLua_GetActorPuckVectorL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4376,9 +4504,9 @@ void Lua_GetActorPuckVector(void)
   if ((iVar4 != 0) && (iVar4 = lua_tag(iVar2), iVar4 == 0x52544341)) {
     iVar3 = lua_isnil(iVar3);
     iVar2 = lua_getuserdata(iVar2);
-    iVar2 = Actor_FromHandle(iVar2);
+    iVar2 = sputActor_ActorDeref(iVar2);
     if (*(int *)(iVar2 + 0xa4) == 0) {
-      Actor_CreateExtra(iVar2);
+      sputActor_AllocateActorExtra(iVar2);
     }
     if ((iVar2 != 0) &&
        (pfVar1 = *(float **)(*(int *)(iVar2 + 0xa4) + 0x1b4), pfVar1 != (float *)0x0)) {
@@ -4402,11 +4530,13 @@ void Lua_GetActorPuckVector(void)
 #undef local_c
 
 
-/* ---- 0x0049bcc0  Lua_GetActorYawToPoint ---- */
+/* ---- 0x0049bcc0  sputLua_GetActorYawToPoint ---- */
 /* Lua opcode: GetActorYawToPoint(actor, x, y, z | {x, y, z}). Creates the extra and the walker if
-   missing, then returns Actor_GetYawToPoint. */
+   missing, then returns Actor_GetYawToPoint. Original name sputLua_GetActorYawToPoint (the
+   remaster's GrimFandango (Linux): Lua / module table entry 'GetActorYawToPoint'); was
+   Lua_GetActorYawToPoint. */
 
-void Lua_GetActorYawToPoint(void)
+void sputLua_GetActorYawToPoint(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4428,7 +4558,7 @@ void Lua_GetActorYawToPoint(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       iVar3 = lua_istable(iVar2);
       if (iVar3 == 0) {
         iVar3 = lua_lua2C(3);
@@ -4450,12 +4580,12 @@ void Lua_GetActorYawToPoint(void)
       local_c[1] = lua_getnumber(iVar3);
       local_c[2] = lua_getnumber(iVar5);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       if (*(int *)(*(int *)(iVar1 + 0xa4) + 0x1b4) == 0) {
-        Actor_CreateWalker(iVar1,1);
+        sputActor_EnablePuck(iVar1,1);
       }
-      n = Actor_GetYawToPoint(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),local_c);
+      n = Puck_GetYawToPoint(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),local_c);
       lua_pushnumber(n);
       return;
     }
@@ -4469,11 +4599,13 @@ void Lua_GetActorYawToPoint(void)
 #undef local_c
 
 
-/* ---- 0x0049be40  Lua_SetActorReflection ---- */
+/* ---- 0x0049be40  sputLua_SetActorReflection ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: SetActorReflection */
+/* Lua opcode: SetActorReflection Original name sputLua_SetActorReflection (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorReflection'); was Lua_SetActorReflection.
+    */
 
-void Lua_SetActorReflection(void)
+void sputLua_SetActorReflection(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4491,9 +4623,9 @@ void Lua_SetActorReflection(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
+      actor = (void *)sputActor_ActorDeref(iVar1);
       angle = lua_getnumber(iVar2);
-      Actor_SetReflection(actor,angle);
+      sputActor_SetReflection(actor,angle);
       return;
     }
   }
@@ -4503,10 +4635,11 @@ void Lua_SetActorReflection(void)
 #undef local_c
 
 
-/* ---- 0x0049bec0  Lua_GetActorPos ---- */
-/* Lua opcode: GetActorPos */
+/* ---- 0x0049bec0  sputLua_GetActorPosL ---- */
+/* Lua opcode: GetActorPos Original name sputLua_GetActorPosL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'GetActorPos'); was Lua_GetActorPos. */
 
-void Lua_GetActorPos(void)
+void sputLua_GetActorPosL(void)
 
 {
   int iVar1;
@@ -4518,7 +4651,7 @@ void Lua_GetActorPos(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       lua_pushnumber(*(float *)(iVar1 + 0xc));
       lua_pushnumber(*(float *)(iVar1 + 0x10));
       lua_pushnumber(*(float *)(iVar1 + 0x14));
@@ -4527,10 +4660,11 @@ void Lua_GetActorPos(void)
   return;
 }
 
-/* ---- 0x0049bf30  Lua_GetActorRot ---- */
-/* Lua opcode: GetActorRot */
+/* ---- 0x0049bf30  sputLua_GetActorRotL ---- */
+/* Lua opcode: GetActorRot Original name sputLua_GetActorRotL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'GetActorRot'); was Lua_GetActorRot. */
 
-void Lua_GetActorRot(void)
+void sputLua_GetActorRotL(void)
 
 {
   int iVar1;
@@ -4542,7 +4676,7 @@ void Lua_GetActorRot(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       lua_pushnumber(*(float *)(iVar1 + 0x24));
       lua_pushnumber(*(float *)(iVar1 + 0x28));
       lua_pushnumber(*(float *)(iVar1 + 0x2c));
@@ -4551,10 +4685,11 @@ void Lua_GetActorRot(void)
   return;
 }
 
-/* ---- 0x0049bfa0  Lua_SetActorRot ---- */
-/* Lua opcode: SetActorRot */
+/* ---- 0x0049bfa0  sputLua_SetActorRotL ---- */
+/* Lua opcode: SetActorRot Original name sputLua_SetActorRotL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'SetActorRot'); was Lua_SetActorRot. */
 
-void Lua_SetActorRot(void)
+void sputLua_SetActorRotL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4585,12 +4720,12 @@ void Lua_SetActorRot(void)
           iVar6 = lua_isnumber(iVar4);
           if (iVar6 != 0) {
             iVar1 = lua_getuserdata(iVar1);
-            uVar7 = Actor_FromHandle(iVar1);
+            uVar7 = sputActor_ActorDeref(iVar1);
             local_c[0] = lua_getnumber(iVar2);
             local_c[1] = lua_getnumber(iVar3);
             local_c[2] = lua_getnumber(iVar4);
             iVar1 = lua_isnil(iVar5);
-            Actor_SetRot(uVar7,local_c,iVar1);
+            sputActor_SetActorRotation(uVar7,local_c,iVar1);
           }
         }
       }
@@ -4603,10 +4738,11 @@ void Lua_SetActorRot(void)
 #undef local_c
 
 
-/* ---- 0x0049c0a0  Lua_SetActorPitch ---- */
-/* Lua opcode: SetActorPitch */
+/* ---- 0x0049c0a0  sputLua_SetActorPitch ---- */
+/* Lua opcode: SetActorPitch Original name sputLua_SetActorPitch (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetActorPitch'); was Lua_SetActorPitch. */
 
-void Lua_SetActorPitch(void)
+void sputLua_SetActorPitch(void)
 
 {
   int iVar1;
@@ -4621,7 +4757,7 @@ void Lua_SetActorPitch(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       fVar4 = lua_getnumber(iVar2);
       *(float *)(iVar1 + 0x24) = fVar4;
       *(undefined4 *)(iVar1 + 0x34) = 0;
@@ -4630,10 +4766,11 @@ void Lua_SetActorPitch(void)
   return;
 }
 
-/* ---- 0x0049c110  Lua_SetActorRoll ---- */
-/* Lua opcode: SetActorRoll */
+/* ---- 0x0049c110  sputLua_SetActorRoll ---- */
+/* Lua opcode: SetActorRoll Original name sputLua_SetActorRoll (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'SetActorRoll'); was Lua_SetActorRoll. */
 
-void Lua_SetActorRoll(void)
+void sputLua_SetActorRoll(void)
 
 {
   int iVar1;
@@ -4648,7 +4785,7 @@ void Lua_SetActorRoll(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       fVar4 = lua_getnumber(iVar2);
       *(float *)(iVar1 + 0x2c) = fVar4;
       *(undefined4 *)(iVar1 + 0x34) = 0;
@@ -4657,11 +4794,12 @@ void Lua_SetActorRoll(void)
   return;
 }
 
-/* ---- 0x0049c180  Lua_TurnActor ---- */
+/* ---- 0x0049c180  sputLua_TurnActorL ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: TurnActor */
+/* Lua opcode: TurnActor Original name sputLua_TurnActorL (the remaster's GrimFandango (Linux): Lua
+   / module table entry 'TurnActor'); was Lua_TurnActor. */
 
-void Lua_TurnActor(void)
+void sputLua_TurnActorL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4680,10 +4818,10 @@ void Lua_TurnActor(void)
       iVar3 = lua_isnumber(iVar2);
       if (iVar3 != 0) {
         iVar1 = lua_getuserdata(iVar1);
-        iVar1 = Actor_FromHandle(iVar1);
+        iVar1 = sputActor_ActorDeref(iVar1);
         *(uint *)(iVar1 + 8) = *(uint *)(iVar1 + 8) & 0xfffffffe;
         fVar4 = lua_getnumber(iVar2);
-        Actor_TurnKey(iVar1,fVar4);
+        sputActor_Turn(iVar1,fVar4);
       }
     }
   }
@@ -4692,11 +4830,12 @@ void Lua_TurnActor(void)
 #undef local_c
 
 
-/* ---- 0x0049c200  Lua_GetActorSector ---- */
+/* ---- 0x0049c200  sputLua_GetActorSectorL ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: GetActorSector */
+/* Lua opcode: GetActorSector Original name sputLua_GetActorSectorL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetActorSector'); was Lua_GetActorSector. */
 
-void Lua_GetActorSector(void)
+void sputLua_GetActorSectorL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4716,7 +4855,7 @@ void Lua_GetActorSector(void)
       iVar3 = lua_isnumber(iVar2);
       if (iVar3 != 0) {
         iVar1 = lua_getuserdata(iVar1);
-        iVar1 = Actor_FromHandle(iVar1);
+        iVar1 = sputActor_ActorDeref(iVar1);
         lVar5 = (longlong)lua_getnumber(iVar2);
         pcVar4 = (char *)SectorList_FindByPoint(iVar1 + 0xc,(int)lVar5);
         if (pcVar4 != (char *)0x0) {
@@ -4734,11 +4873,12 @@ void Lua_GetActorSector(void)
 #undef local_c
 
 
-/* ---- 0x0049c2c0  Lua_IsActorInSector ---- */
+/* ---- 0x0049c2c0  sputLua_IsActorInSector ---- */
 /* WARNING: Variable defined which should be unmapped: local_10 */
-/* Lua opcode: IsActorInSector */
+/* Lua opcode: IsActorInSector Original name sputLua_IsActorInSector (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'IsActorInSector'); was Lua_IsActorInSector. */
 
-void Lua_IsActorInSector(void)
+void sputLua_IsActorInSector(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4757,7 +4897,7 @@ void Lua_IsActorInSector(void)
       iVar3 = lua_isstring(iVar2);
       if (iVar3 != 0) {
         iVar1 = lua_getuserdata(iVar1);
-        iVar1 = Actor_FromHandle(iVar1);
+        iVar1 = sputActor_ActorDeref(iVar1);
         iVar2 = lua_getstring(iVar2);
         this = g_pSectorList;
         if (g_pSectorList != (void *)0x0) {
@@ -4786,11 +4926,12 @@ void Lua_IsActorInSector(void)
 #undef local_10
 
 
-/* ---- 0x0049c4c0  Lua_IsPointInSector ---- */
+/* ---- 0x0049c4c0  sputLua_IsPointInSector ---- */
 /* WARNING: Variable defined which should be unmapped: local_20 */
-/* Lua opcode: IsPointInSector */
+/* Lua opcode: IsPointInSector Original name sputLua_IsPointInSector (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'IsPointInSector'); was Lua_IsPointInSector. */
 
-void Lua_IsPointInSector(void)
+void sputLua_IsPointInSector(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4904,11 +5045,12 @@ void __cdecl Lua_CallCamChangeHandler(int fromSetup,int toSetup)
 #undef local_c
 
 
-/* ---- 0x0049c6e0  Lua_CallPostCamChangeHandler ---- */
+/* ---- 0x0049c6e0  sputLua_PostCameraChange ---- */
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* system.postCamChangeHandler(setup) */
+/* system.postCamChangeHandler(setup) Original name sputLua_PostCameraChange (the remaster's
+   GrimFandango (Linux): strings: 'postCamChangeHandler'); was Lua_CallPostCamChangeHandler. */
 
-void __cdecl Lua_CallPostCamChangeHandler(int setup)
+void __cdecl sputLua_PostCameraChange(int setup)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4942,15 +5084,16 @@ void Lua_OpenEngineLib(int *param_1,int param_2)
   return;
 }
 
-/* ---- 0x0049ca80  Lua_JustLoaded ---- */
-/* Lua opcode: JustLoaded */
+/* ---- 0x0049ca80  sputLua_JustLoadedL ---- */
+/* Lua opcode: JustLoaded Original name sputLua_JustLoadedL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'JustLoaded'); was Lua_JustLoaded. */
 
-void Lua_JustLoaded(void)
+void sputLua_JustLoadedL(void)
 
 {
   int iVar1;
   
-  iVar1 = Engine_TakeRestoreFlag();
+  iVar1 = grimlib_JustLoaded();
   if (iVar1 != 0) {
     lua_pushnumber(1.0);
     return;
@@ -4961,10 +5104,11 @@ void Lua_JustLoaded(void)
   return;
 }
 
-/* ---- 0x0049caa0  Lua_ActorVoiceIs3D ---- */
-/* Lua opcode: ActorVoiceIs3D */
+/* ---- 0x0049caa0  sputLua_ActorVoiceIs3DL ---- */
+/* Lua opcode: ActorVoiceIs3D Original name sputLua_ActorVoiceIs3DL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ActorVoiceIs3D'); was Lua_ActorVoiceIs3D. */
 
-void Lua_ActorVoiceIs3D(void)
+void sputLua_ActorVoiceIs3DL(void)
 
 {
   int iVar1;
@@ -4978,7 +5122,7 @@ void Lua_ActorVoiceIs3D(void)
     lua_tag(iVar1);
   }
   iVar1 = lua_getuserdata(iVar1);
-  iVar1 = Actor_FromHandle(iVar1);
+  iVar1 = sputActor_ActorDeref(iVar1);
   iVar2 = lua_isnil(iVar2);
   if (iVar2 != 0) {
     *(uint *)(iVar1 + 4) = *(uint *)(iVar1 + 4) & 0xfffffff7;
@@ -4988,11 +5132,14 @@ void Lua_ActorVoiceIs3D(void)
   return;
 }
 
-/* ---- 0x0049cb10  Lua_ResolveCostumeArg ---- */
+/* ---- 0x0049cb10  FindCostumeInStack ---- */
 /* Turns the optional costume argument of the chore opcodes (nil, index or name) into the costume
-   record in the actor's list */
+   record in the actor's list Original name FindCostumeInStack (the remaster's GrimFandango (Linux):
+   the only unmatched callee of Lua_GetActorChores; the only unmatched callee of
+   Lua_GetActorLoopingChores; 15 matched neighbours agree, 0 disagree); was Lua_ResolveCostumeArg.
+    */
 
-int __cdecl Lua_ResolveCostumeArg(void *luaObj,void *costumeList,void **outCostume)
+int __cdecl FindCostumeInStack(void *luaObj,void *costumeList,void **outCostume)
 
 {
   void *pvVar1;
@@ -5040,10 +5187,11 @@ int __cdecl Lua_ResolveCostumeArg(void *luaObj,void *costumeList,void **outCostu
   return (uint)(*outCostume != (void *)0x0);
 }
 
-/* ---- 0x0049cca0  Lua_CheckForFile ---- */
-/* Lua opcode: CheckForFile */
+/* ---- 0x0049cca0  sputLua_CheckForFileL ---- */
+/* Lua opcode: CheckForFile Original name sputLua_CheckForFileL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'CheckForFile'); was Lua_CheckForFile. */
 
-void Lua_CheckForFile(void)
+void sputLua_CheckForFileL(void)
 
 {
   void **ppvVar1;
@@ -5068,23 +5216,26 @@ void Lua_CheckForFile(void)
   return;
 }
 
-/* ---- 0x0049cd10  Lua_NukeResources ---- */
-/* Lua opcode: NukeResources */
+/* ---- 0x0049cd10  sputLua_NukeResourcesL ---- */
+/* Lua opcode: NukeResources Original name sputLua_NukeResourcesL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'NukeResources'); was Lua_NukeResources. */
 
-void Lua_NukeResources(void)
+void sputLua_NukeResourcesL(void)
 
 {
-  Set_SetCurrent((void *)0x0,0);
-  Actors_FreeAllCostumes();
+  sputRoom_SetCurrentRoom((void *)0x0,0);
+  sputActor_NukeCostumeStacks();
   Engine_ResetState();
   g_pShadowMaterial = (void *)0x0;
   return;
 }
 
-/* ---- 0x0049cd40  Lua_DetachFromResources ---- */
-/* Lua opcode: DetachFromResources */
+/* ---- 0x0049cd40  sputLua_DetachFromResourcesL ---- */
+/* Lua opcode: DetachFromResources Original name sputLua_DetachFromResourcesL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'DetachFromResources'); was
+   Lua_DetachFromResources. */
 
-void Lua_DetachFromResources(void)
+void sputLua_DetachFromResourcesL(void)
 
 {
   Movie_Stop();
@@ -5093,10 +5244,12 @@ void Lua_DetachFromResources(void)
   return;
 }
 
-/* ---- 0x0049cd50  Lua_AttachToResources ---- */
-/* Lua opcode: AttachToResources */
+/* ---- 0x0049cd50  sputLua_AttachToResourcesL ---- */
+/* Lua opcode: AttachToResources Original name sputLua_AttachToResourcesL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'AttachToResources'); was Lua_AttachToResources.
+    */
 
-void Lua_AttachToResources(void)
+void sputLua_AttachToResourcesL(void)
 
 {
   Resource_CloseArchives();
@@ -5104,10 +5257,12 @@ void Lua_AttachToResources(void)
   return;
 }
 
-/* ---- 0x0049cd60  Lua_SearchForFileOrSwapCDs ---- */
-/* Lua opcode: SearchForFileOrSwapCDs */
+/* ---- 0x0049cd60  sputLua_SearchForFileOrSwapCDsL ---- */
+/* Lua opcode: SearchForFileOrSwapCDs Original name sputLua_SearchForFileOrSwapCDsL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SearchForFileOrSwapCDs'); was
+   Lua_SearchForFileOrSwapCDs. */
 
-void Lua_SearchForFileOrSwapCDs(void)
+void sputLua_SearchForFileOrSwapCDsL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5143,7 +5298,7 @@ void Lua_SearchForFileOrSwapCDs(void)
             flags = 1;
             caption = (char *)lua_getstring(iVar3);
             text = (char *)lua_getstring(iVar2);
-            iVar5 = Plat_MessageBox(text,caption,flags);
+            iVar5 = grimPlat_QueryDialog(text,caption,flags);
             if (iVar5 == 2) {
               lua_pushnil();
               lua_pushnil();
@@ -5172,10 +5327,11 @@ void Lua_SearchForFileOrSwapCDs(void)
 #undef local_4
 
 
-/* ---- 0x0049cea0  Lua_Load ---- */
-/* Lua opcode: Load */
+/* ---- 0x0049cea0  sputLua_LoadL ---- */
+/* Lua opcode: Load Original name sputLua_LoadL (the remaster's GrimFandango (Linux): Lua / module
+   table entry 'Load'); was Lua_Load. */
 
-void Lua_Load(void)
+void sputLua_LoadL(void)
 
 {
   int iVar1;
@@ -5184,21 +5340,22 @@ void Lua_Load(void)
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnil(iVar1);
   if (iVar2 != 0) {
-    Engine_RequestLoad(0);
+    grimlib_Load(0);
     return;
   }
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
     iVar1 = lua_getstring(iVar1);
-    Engine_RequestLoad(iVar1);
+    grimlib_Load(iVar1);
   }
   return;
 }
 
-/* ---- 0x0049cef0  Lua_Save ---- */
-/* Lua opcode: Save */
+/* ---- 0x0049cef0  sputLua_SaveL ---- */
+/* Lua opcode: Save Original name sputLua_SaveL (the remaster's GrimFandango (Linux): Lua / module
+   table entry 'Save'); was Lua_Save. */
 
-void Lua_Save(void)
+void sputLua_SaveL(void)
 
 {
   int iVar1;
@@ -5218,10 +5375,11 @@ void Lua_Save(void)
   return;
 }
 
-/* ---- 0x0049cf40  Lua_EnableDebugKeys ---- */
-/* Lua opcode: EnableDebugKeys */
+/* ---- 0x0049cf40  sputLua_EnableDebugKeysL ---- */
+/* Lua opcode: EnableDebugKeys Original name sputLua_EnableDebugKeysL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'EnableDebugKeys'); was Lua_EnableDebugKeys. */
 
-void Lua_EnableDebugKeys(void)
+void sputLua_EnableDebugKeysL(void)
 
 {
   g_nDebugKeysEnabled = 1;
@@ -5231,13 +5389,14 @@ void Lua_EnableDebugKeys(void)
   return;
 }
 
-/* ---- 0x0049cf60  Lua_WorldToScreen ---- */
+/* ---- 0x0049cf60  sputLua_WorldToScreenL ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
-/* Lua opcode: WorldToScreen */
+/* Lua opcode: WorldToScreen Original name sputLua_WorldToScreenL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'WorldToScreen'); was Lua_WorldToScreen. */
 
-void Lua_WorldToScreen(void)
+void sputLua_WorldToScreenL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5262,7 +5421,7 @@ void Lua_WorldToScreen(void)
         local_18[0] = lua_getnumber(iVar1);
         local_18[1] = lua_getnumber(iVar2);
         local_18[2] = lua_getnumber(iVar3);
-        iVar1 = rdCamera_ProjectPoint(local_18,&local_c);
+        iVar1 = rdPrimit3_GetScreenCoord(local_18,&local_c);
         if (iVar1 != 0) {
           lua_pushnumber((float)PUN(int,(float)local_c));
           lua_pushnumber((float)(int)local_8);
@@ -5283,10 +5442,11 @@ void Lua_WorldToScreen(void)
 #endif
 
 
-/* ---- 0x0049d030  Lua_ScreenToWorld ---- */
-/* Lua opcode: ScreenToWorld */
+/* ---- 0x0049d030  sputLua_ScreenToWorldL ---- */
+/* Lua opcode: ScreenToWorld Original name sputLua_ScreenToWorldL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ScreenToWorld'); was Lua_ScreenToWorld. */
 
-void Lua_ScreenToWorld(void)
+void sputLua_ScreenToWorldL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5341,10 +5501,11 @@ void Lua_ScreenToWorld(void)
 #undef local_c
 
 
-/* ---- 0x0049d220  Lua_ConcatFallback ---- */
-/* Lua opcode: Lua_ConcatFallback */
+/* ---- 0x0049d220  sputLua_ConcatFallback ---- */
+/* Lua opcode: Lua_ConcatFallback Original name sputLua_ConcatFallback (the remaster's GrimFandango
+   (Linux): Lua / module table entry '  concatfallback'); was Lua_ConcatFallback. */
 
-void Lua_ConcatFallback(void)
+void sputLua_ConcatFallback(void)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5402,7 +5563,7 @@ LAB_0049d34b:
           return;
         }
         iVar3 = lua_getuserdata(uVar2);
-        iVar4 = Actor_FromHandle(iVar3);
+        iVar4 = sputActor_ActorDeref(iVar3);
         if ((*(int *)(iVar4 + 0xa0) == 0) ||
            (iVar4 = *(int *)(*(int *)(iVar4 + 0xa0) + 4), iVar4 == 0)) {
           puVar5 = &DAT_004f5a98;
@@ -5433,11 +5594,12 @@ LAB_0049d34b:
 #undef local_88
 
 
-/* ---- 0x0049d3a0  Lua_exit ---- */
+/* ---- 0x0049d3a0  sputLua_ExitL ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: exit */
+/* Lua opcode: exit Original name sputLua_ExitL (the remaster's GrimFandango (Linux): Lua / module
+   table entry 'exit'); was Lua_exit. */
 
-void Lua_exit(void)
+void sputLua_ExitL(void)
 
 {
   int iVar1;
@@ -5455,11 +5617,12 @@ void Lua_exit(void)
   return;
 }
 
-/* ---- 0x0049d3f0  Lua_EnableControl ---- */
+/* ---- 0x0049d3f0  sputLua_EnableControlL ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: EnableControl */
+/* Lua opcode: EnableControl Original name sputLua_EnableControlL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'EnableControl'); was Lua_EnableControl. */
 
-void Lua_EnableControl(void)
+void sputLua_EnableControlL(void)
 
 {
   int iVar1;
@@ -5477,11 +5640,12 @@ void Lua_EnableControl(void)
   return;
 }
 
-/* ---- 0x0049d430  Lua_DisableControl ---- */
+/* ---- 0x0049d430  sputLua_DisableControlL ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: DisableControl */
+/* Lua opcode: DisableControl Original name sputLua_DisableControlL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'DisableControl'); was Lua_DisableControl. */
 
-void Lua_DisableControl(void)
+void sputLua_DisableControlL(void)
 
 {
   int iVar1;
@@ -5499,10 +5663,11 @@ void Lua_DisableControl(void)
   return;
 }
 
-/* ---- 0x0049d470  Lua_GetControlState ---- */
-/* Lua opcode: GetControlState */
+/* ---- 0x0049d470  sputLua_GetControlStateL ---- */
+/* Lua opcode: GetControlState Original name sputLua_GetControlStateL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetControlState'); was Lua_GetControlState. */
 
-void Lua_GetControlState(void)
+void sputLua_GetControlStateL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5550,8 +5715,11 @@ void Lua_GetControlState(void)
 #undef local_c
 
 
-/* ---- 0x0049d550  Lua_CallCostumeOverrideHandler ---- */
-void __cdecl Lua_CallCostumeOverrideHandler(void *actor,int flag)
+/* ---- 0x0049d550  sputLua_DoCostumeOverrideCallback ---- */
+/* Original name sputLua_DoCostumeOverrideCallback (the remaster's GrimFandango (Linux): strings:
+   'costumeOverrideHandler'); was Lua_CallCostumeOverrideHandler. */
+
+void __cdecl sputLua_DoCostumeOverrideCallback(void *actor,int flag)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5567,7 +5735,7 @@ void __cdecl Lua_CallCostumeOverrideHandler(void *actor,int flag)
   bVar1 = false;
   bVar2 = false;
   lua_beginblock();
-  pcVar3 = (char *)Actor_GetHandle(actor,unaff_EDI);
+  pcVar3 = (char *)sputActor_GetActorHandle(actor,unaff_EDI);
   iVar4 = lua_getref(g_nLuaSystemTableRef);
   lua_pushobject(iVar4);
   lua_pushstring(s_costumeOverrideHandler_004ec4ac);
@@ -5614,11 +5782,13 @@ void __cdecl Lua_CallCostumeOverrideHandler(void *actor,int flag)
 #undef local_4
 
 
-/* ---- 0x0049d670  Lua_CallCostumeMarkerHandler ---- */
+/* ---- 0x0049d670  sputLua_DoCostumeMarkerCallback ---- */
 /* WARNING: Variable defined which should be unmapped: local_1c */
-/* system.costumeMarkerHandler(actor, marker) from keyframe markers */
+/* system.costumeMarkerHandler(actor, marker) from keyframe markers Original name
+   sputLua_DoCostumeMarkerCallback (the remaster's GrimFandango (Linux): strings:
+   'costumeMarkerHandler'); was Lua_CallCostumeMarkerHandler. */
 
-void __cdecl Lua_CallCostumeMarkerHandler(void *actor,uint marker)
+void __cdecl sputLua_DoCostumeMarkerCallback(void *actor,uint marker)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5634,7 +5804,7 @@ void __cdecl Lua_CallCostumeMarkerHandler(void *actor,uint marker)
   bVar1 = false;
   bVar2 = false;
   if (marker != 0) {
-    pcVar3 = (char *)Actor_GetHandle(actor,unaff_EBX);
+    pcVar3 = (char *)sputActor_GetActorHandle(actor,unaff_EBX);
     lua_beginblock();
     iVar4 = lua_getref(g_nLuaSystemTableRef);
     lua_pushobject(iVar4);
@@ -5678,10 +5848,11 @@ void __cdecl Lua_CallCostumeMarkerHandler(void *actor,uint marker)
 #undef local_1c
 
 
-/* ---- 0x0049d7b0  Lua_CallUserPaintHandler ---- */
-/* system.userPaintHandler() after a restore */
+/* ---- 0x0049d7b0  sputLua_DoUserPaintCallback ---- */
+/* system.userPaintHandler() after a restore Original name sputLua_DoUserPaintCallback (the
+   remaster's GrimFandango (Linux): strings: 'userPaintHandler'); was Lua_CallUserPaintHandler. */
 
-void Lua_CallUserPaintHandler(void)
+void sputLua_DoUserPaintCallback(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5734,10 +5905,11 @@ void Lua_CallUserPaintHandler(void)
 #undef local_4
 
 
-/* ---- 0x0049d890  Lua_CallExitHandler ---- */
-/* system.exitHandler(); returns 1 when a handler existed */
+/* ---- 0x0049d890  sputLua_DoExitCallback ---- */
+/* system.exitHandler(); returns 1 when a handler existed Original name sputLua_DoExitCallback (the
+   remaster's GrimFandango (Linux): strings: 'exitHandler'); was Lua_CallExitHandler. */
 
-uint Lua_CallExitHandler(void)
+uint sputLua_DoExitCallback(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5789,10 +5961,11 @@ uint Lua_CallExitHandler(void)
 #undef local_4
 
 
-/* ---- 0x0049d970  Lua_CallPauseHandler ---- */
-/* system.pauseHandler() (Pause key) */
+/* ---- 0x0049d970  sputLua_DoPauseCallback ---- */
+/* system.pauseHandler() (Pause key) Original name sputLua_DoPauseCallback (the remaster's
+   GrimFandango (Linux): strings: 'pauseHandler'); was Lua_CallPauseHandler. */
 
-uint Lua_CallPauseHandler(void)
+uint sputLua_DoPauseCallback(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5844,10 +6017,12 @@ uint Lua_CallPauseHandler(void)
 #undef local_4
 
 
-/* ---- 0x0049da50  Lua_CallCharacterHandler ---- */
-/* system.characterHandler(char); true when the script consumed it */
+/* ---- 0x0049da50  sputLua_DoCharacterCallback ---- */
+/* system.characterHandler(char); true when the script consumed it Original name
+   sputLua_DoCharacterCallback (the remaster's GrimFandango (Linux): strings: 'characterHandler');
+   was Lua_CallCharacterHandler. */
 
-int __cdecl Lua_CallCharacterHandler(int ch)
+int __cdecl sputLua_DoCharacterCallback(int ch)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5908,13 +6083,14 @@ int __cdecl Lua_CallCharacterHandler(int ch)
 #undef local_6
 
 
-/* ---- 0x0049db70  Lua_MakeCurrentSetup ---- */
+/* ---- 0x0049db70  sputLua_MakeCurrentSetupL ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: MakeCurrentSetup */
+/* Lua opcode: MakeCurrentSetup Original name sputLua_MakeCurrentSetupL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'MakeCurrentSetup'); was Lua_MakeCurrentSetup. */
 
-void Lua_MakeCurrentSetup(void)
+void sputLua_MakeCurrentSetupL(void)
 
 {
   int iVar1;
@@ -5933,11 +6109,12 @@ void Lua_MakeCurrentSetup(void)
 #endif
 
 
-/* ---- 0x0049dbb0  Lua_GetCurrentSetup ---- */
+/* ---- 0x0049dbb0  sputLua_GetCurrentSetupL ---- */
 /* WARNING: Variable defined which should be unmapped: local_10 */
-/* Lua opcode: GetCurrentSetup */
+/* Lua opcode: GetCurrentSetup Original name sputLua_GetCurrentSetupL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetCurrentSetup'); was Lua_GetCurrentSetup. */
 
-void Lua_GetCurrentSetup(void)
+void sputLua_GetCurrentSetupL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5955,9 +6132,9 @@ void Lua_GetCurrentSetup(void)
     iVar2 = lua_getstring(iVar1);
     iVar2 = _stricmp(iVar2,pcVar3);
     if (iVar2 == 0) {
-      pvVar4 = Set_GetCurrent();
+      pvVar4 = sputRoom_GetCurrentRoom();
       if (pvVar4 != (void *)0x0) {
-        pvVar4 = Set_GetCurrent();
+        pvVar4 = sputRoom_GetCurrentRoom();
         lua_pushnumber((float)*(int *)((int)pvVar4 + 0xb4));
         return;
       }
@@ -5968,7 +6145,7 @@ void Lua_GetCurrentSetup(void)
     pvVar4 = Res_Find(0x20544553,pcVar3);
     if (pvVar4 != (void *)0x0) {
       pcVar3 = (char *)lua_getstring(iVar1);
-      pvVar4 = Resource_Load(0x20544553,pcVar3);
+      pvVar4 = sputResource_Alloc(0x20544553,pcVar3);
       lua_pushnumber((float)*(int *)((int)pvVar4 + 0xb4));
     }
   }
@@ -5978,10 +6155,11 @@ void Lua_GetCurrentSetup(void)
 #undef local_4
 
 
-/* ---- 0x0049dc70  Lua_MakeCurrentSet ---- */
-/* Lua opcode: MakeCurrentSet */
+/* ---- 0x0049dc70  sputLua_MakeCurrentSetL ---- */
+/* Lua opcode: MakeCurrentSet Original name sputLua_MakeCurrentSetL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'MakeCurrentSet'); was Lua_MakeCurrentSet. */
 
-void Lua_MakeCurrentSet(void)
+void sputLua_MakeCurrentSetL(void)
 
 {
   int iVar1;
@@ -5999,10 +6177,12 @@ void Lua_MakeCurrentSet(void)
   return;
 }
 
-/* ---- 0x0049dcb0  Lua_LockSet ---- */
-/* Source: Scripts/sputLua.cpp (line 5305, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x0049dcb0  sputLua_LockSet ---- */
+/* Source: Scripts/sputLua.cpp (line 5305, from __FILE__/__LINE__ passed to the allocator) Original
+   name sputLua_LockSet (the remaster's GrimFandango (Linux): Lua / module table entry 'LockSet');
+   was Lua_LockSet. */
 
-void Lua_LockSet(void)
+void sputLua_LockSet(void)
 
 {
   int iVar1;
@@ -6014,19 +6194,20 @@ void Lua_LockSet(void)
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
     name = (char *)lua_getstring(iVar1);
-    data = Resource_Load(0x20544553,name);
+    data = sputResource_Alloc(0x20544553,name);
     if ((data != (void *)0x0) && (*(int *)((int)data + 0x1ac0) == 0)) {
-      ResRef_Add((void *)((int)data + 0x1ac0),data,s_C__grimsrc_libs_grimlib_Scripts__004ec38c,
-                 0x14b9);
+      Res_SetReference((void *)((int)data + 0x1ac0),data,s_C__grimsrc_libs_grimlib_Scripts__004ec38c
+                       ,0x14b9);
     }
   }
   return;
 }
 
-/* ---- 0x0049dd10  Lua_UnLockSet ---- */
-/* Lua opcode: UnLockSet */
+/* ---- 0x0049dd10  sputLua_UnLockSet ---- */
+/* Lua opcode: UnLockSet Original name sputLua_UnLockSet (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'UnLockSet'); was Lua_UnLockSet. */
 
-void Lua_UnLockSet(void)
+void sputLua_UnLockSet(void)
 
 {
   int iVar1;
@@ -6038,18 +6219,19 @@ void Lua_UnLockSet(void)
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
     name = (char *)lua_getstring(iVar1);
-    pvVar3 = Resource_Load(0x20544553,name);
+    pvVar3 = sputResource_Alloc(0x20544553,name);
     if ((pvVar3 != (void *)0x0) && (*(int *)((int)pvVar3 + 0x1ac0) != 0)) {
-      ResRef_Remove((void *)((int)pvVar3 + 0x1ac0));
+      Res_RemoveReference((void *)((int)pvVar3 + 0x1ac0));
     }
   }
   return;
 }
 
-/* ---- 0x0049dd70  Lua_PrintMessage ---- */
-/* Lua opcode: PrintMessage */
+/* ---- 0x0049dd70  sputLua_MessagePrintL ---- */
+/* Lua opcode: PrintMessage Original name sputLua_MessagePrintL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'PrintMessage'); was Lua_PrintMessage. */
 
-void Lua_PrintMessage(void)
+void sputLua_MessagePrintL(void)
 
 {
   void **ppvVar1;
@@ -6093,13 +6275,14 @@ void Lua_Print_NoOp(void)
 #endif
 
 
-/* ---- 0x0049de00  Lua_InitGameLibs ---- */
+/* ---- 0x0049de00  sputLua_Startup ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   Original name sputLua_Startup (the remaster's GrimFandango (Linux): strings: 'concat' | 'WALK' |
+   'SPECIAL' | 'HOT'); was Lua_InitGameLibs. */
 
-undefined4 Lua_InitGameLibs(void)
+undefined4 sputLua_Startup(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6136,12 +6319,12 @@ undefined4 Lua_InitGameLibs(void)
   lua_setglobal(s_SPECIAL_004ec52c);
   lua_pushnumber(32768.0);
   lua_setglobal(&DAT_004ec528);
-  iVar1 = lua_setfallback(s_concat_004ec520,Lua_ConcatFallback);
+  iVar1 = lua_setfallback(s_concat_004ec520,sputLua_ConcatFallback);
   lua_pushobject(iVar1);
   UINT_008cab44 = lua_ref(1);
   *(code **)lua_savehook_exref = Lua_SaveUserdataHook;
   *(code **)lua_restorehook_exref = Lua_RestoreUserdataHook;
-  Engine_RegisterShutdownHook(Lua_DispatchControlHandlers);
+  sputControl_AddCallback(Lua_DispatchControlHandlers);
   return 0;
 }
 #undef acStack_20
@@ -6164,7 +6347,7 @@ uint Lua_SaveUserdataHook(int param_1,uint param_2)
   if (param_1 != 0x54415453) {
     return param_2;
   }
-  pvVar2 = Set_GetCurrent();
+  pvVar2 = sputRoom_GetCurrentRoom();
   if (pvVar2 != (void *)0x0) {
     uVar5 = 0;
     if (*(uint *)((int)pvVar2 + 0xb0) != 0) {
@@ -6201,7 +6384,7 @@ void * Lua_RestoreUserdataHook(int param_1,void *param_2)
     }
     else {
       uVar2 = (uint)param_2 & 0xffff;
-      pvVar1 = Set_GetCurrent();
+      pvVar1 = sputRoom_GetCurrentRoom();
       param_2 = *(void **)(*(int *)((int)pvVar1 + 0xac) + 0x128 + ((uint)param_2 >> 0x10) * 300);
       if (uVar2 != 0) {
         do {
@@ -6447,10 +6630,11 @@ void Lua_CreateControlsTable(uint param_1)
 #undef local_1c
 
 
-/* ---- 0x0049e590  Lua_SetSoundPosition ---- */
-/* Lua opcode: SetSoundPosition */
+/* ---- 0x0049e590  sputLua_SetSoundPosition ---- */
+/* Lua opcode: SetSoundPosition Original name sputLua_SetSoundPosition (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetSoundPosition'); was Lua_SetSoundPosition. */
 
-void Lua_SetSoundPosition(void)
+void sputLua_SetSoundPosition(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6469,14 +6653,15 @@ void Lua_SetSoundPosition(void)
   #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  set = Set_GetCurrent();
+  set = sputRoom_GetCurrentRoom();
   local_20[0] = 8.0;
   local_20[1] = 1.0;
   local_24 = CONCAT31(PIECE(local_24,1,3),10);
   local_28 = CONCAT31(PIECE(local_28,1,3),0x7f);
   local_20[2] = 1.5;
   if (set != (void *)0x0) {
-    Set_GetSoundParams(set,local_20,(char *)&local_24,(char *)&local_28,local_20 + 2,local_20 + 1);
+    sputRoom_GetSoundParameters
+              (set,local_20,(char *)&local_24,(char *)&local_28,local_20 + 2,local_20 + 1);
   }
   iVar2 = lua_lua2C(1);
   iVar3 = lua_isnumber(iVar2);
@@ -6499,7 +6684,7 @@ void Lua_SetSoundPosition(void)
   }
   else {
     iVar3 = lua_getuserdata(iVar3);
-    iVar3 = Actor_FromHandle(iVar3);
+    iVar3 = sputActor_ActorDeref(iVar3);
     if (iVar3 == 0) {
       return;
     }
@@ -6555,10 +6740,12 @@ void Lua_SetSoundPosition(void)
 #undef local_c
 
 
-/* ---- 0x0049e7e0  Lua_StartFullscreenMovie ---- */
-/* Lua opcode: StartFullscreenMovie */
+/* ---- 0x0049e7e0  sputLua_StartFullScreenMovieL ---- */
+/* Lua opcode: StartFullscreenMovie Original name sputLua_StartFullScreenMovieL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'StartFullscreenMovie'); was
+   Lua_StartFullscreenMovie. */
 
-void Lua_StartFullscreenMovie(void)
+void sputLua_StartFullScreenMovieL(void)
 
 {
   int iVar1;
@@ -6579,7 +6766,7 @@ void Lua_StartFullscreenMovie(void)
     uVar5 = (uint)(iVar2 == 0);
     uVar4 = 1;
     iVar1 = lua_getstring(iVar1);
-    iVar1 = Engine_BlitToBackBuffer(iVar1,uVar4,uVar5,uVar6,uVar7);
+    iVar1 = grimlib_PlayMovie(iVar1,uVar4,uVar5,uVar6,uVar7);
     if (iVar1 == 1) {
       lua_pushnumber(1.0);
       return;
@@ -6589,17 +6776,18 @@ void Lua_StartFullscreenMovie(void)
   return;
 }
 
-/* ---- 0x0049e860  Lua_PauseMovie ---- */
-/* Lua opcode: PauseMovie */
+/* ---- 0x0049e860  sputLua_PauseMovieL ---- */
+/* Lua opcode: PauseMovie Original name sputLua_PauseMovieL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'PauseMovie'); was Lua_PauseMovie. */
 
-void Lua_PauseMovie(void)
+void sputLua_PauseMovieL(void)
 
 {
   int iVar1;
   
   iVar1 = lua_lua2C(1);
   iVar1 = lua_isnil(iVar1);
-  Movie_SetPaused(iVar1);
+  sputSmush_Pause(iVar1);
   return;
 }
 
@@ -6623,10 +6811,11 @@ void Lua_IsMoviePlaying(void)
   return;
 }
 
-/* ---- 0x0049e980  Lua_FileFindFirst ---- */
-/* Lua opcode: FileFindFirst */
+/* ---- 0x0049e980  sputLua_FileFindFirst ---- */
+/* Lua opcode: FileFindFirst Original name sputLua_FileFindFirst (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'FileFindFirst'); was Lua_FileFindFirst. */
 
-void __fastcall Lua_FileFindFirst(char *param_1)
+void __fastcall sputLua_FileFindFirst(char *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6646,14 +6835,14 @@ void __fastcall Lua_FileFindFirst(char *param_1)
       local_4 = lua_getstring(iVar2);
     }
     ext = (char *)lua_getstring(iVar1);
-    Lua_FileFindDispose();
+    sputLua_FileFindDispose();
     iVar1 = lua_isnil(iVar2);
     if (iVar1 != 0) {
       local_4 = (uint)&DAT_004f5a98;
     }
     g_pLuaFileFind = stdFileUtil_NewFind((char *)local_4,3,ext);
     if (g_pLuaFileFind != (void *)0x0) {
-      Lua_FileFindNext();
+      sputLua_FileFindNext();
       return;
     }
   }
@@ -6663,10 +6852,11 @@ void __fastcall Lua_FileFindFirst(char *param_1)
 #undef local_4
 
 
-/* ---- 0x0049ea20  Lua_FileFindNext ---- */
-/* Lua opcode: FileFindNext */
+/* ---- 0x0049ea20  sputLua_FileFindNext ---- */
+/* Lua opcode: FileFindNext Original name sputLua_FileFindNext (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'FileFindNext'); was Lua_FileFindNext. */
 
-void Lua_FileFindNext(void)
+void sputLua_FileFindNext(void)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6695,10 +6885,11 @@ void Lua_FileFindNext(void)
 #undef local_8
 
 
-/* ---- 0x0049ea90  Lua_FileFindDispose ---- */
-/* Lua opcode: FileFindDispose */
+/* ---- 0x0049ea90  sputLua_FileFindDispose ---- */
+/* Lua opcode: FileFindDispose Original name sputLua_FileFindDispose (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'FileFindDispose'); was Lua_FileFindDispose. */
 
-void Lua_FileFindDispose(void)
+void sputLua_FileFindDispose(void)
 
 {
   if (g_pLuaFileFind != (void *)0x0) {
@@ -6708,10 +6899,11 @@ void Lua_FileFindDispose(void)
   return;
 }
 
-/* ---- 0x0049eab0  Lua_QueryDialog ---- */
-/* Lua opcode: QueryDialog */
+/* ---- 0x0049eab0  sputLua_QueryDialog ---- */
+/* Lua opcode: QueryDialog Original name sputLua_QueryDialog (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'QueryDialog'); was Lua_QueryDialog. */
 
-void Lua_QueryDialog(void)
+void sputLua_QueryDialog(void)
 
 {
   int iVar1;
@@ -6731,7 +6923,7 @@ void Lua_QueryDialog(void)
       text = (char *)lua_getstring(iVar1);
       caption = (char *)lua_getstring(iVar2);
       iVar1 = lua_isnil(iVar3);
-      iVar1 = Plat_MessageBox(text,caption,(iVar1 != 0) + 3);
+      iVar1 = grimPlat_QueryDialog(text,caption,(iVar1 != 0) + 3);
       if (iVar1 == 2) {
         lua_pushnumber(0.0);
         return;
@@ -6746,10 +6938,11 @@ void Lua_QueryDialog(void)
   return;
 }
 
-/* ---- 0x0049eb60  Lua_InputDialog ---- */
-/* Lua opcode: InputDialog */
+/* ---- 0x0049eb60  sputLua_InputDialog ---- */
+/* Lua opcode: InputDialog Original name sputLua_InputDialog (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'InputDialog'); was Lua_InputDialog. */
 
-void Lua_InputDialog(void)
+void sputLua_InputDialog(void)
 
 {
   unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6794,7 +6987,7 @@ void Lua_InputDialog(void)
         pcVar5 = pcVar5 + 4;
       }
       *pcVar5 = '\0';
-      iVar1 = Plat_InputDialog(title,prompt,local_68,0x65,defaultText);
+      iVar1 = grimPlat_InputDialog(title,prompt,local_68,0x65,defaultText);
       if (iVar1 != 0) {
         lua_pushstring(local_68);
         return;
@@ -6809,10 +7002,12 @@ LAB_0049ec38:
 #undef local_6c
 
 
-/* ---- 0x0049ec50  Lua_WriteRegistryValue ---- */
-/* Lua opcode: WriteRegistryValue */
+/* ---- 0x0049ec50  sputLua_WriteRegistryValue ---- */
+/* Lua opcode: WriteRegistryValue Original name sputLua_WriteRegistryValue (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'WriteRegistryValue'); was Lua_WriteRegistryValue.
+    */
 
-void Lua_WriteRegistryValue(void)
+void sputLua_WriteRegistryValue(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6845,10 +7040,12 @@ void Lua_WriteRegistryValue(void)
 #undef local_4
 
 
-/* ---- 0x0049ece0  Lua_ReadRegistryValue ---- */
-/* Lua opcode: ReadRegistryValue */
+/* ---- 0x0049ece0  sputLua_ReadRegistryValue ---- */
+/* Lua opcode: ReadRegistryValue Original name sputLua_ReadRegistryValue (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'ReadRegistryValue'); was Lua_ReadRegistryValue.
+    */
 
-void Lua_ReadRegistryValue(void)
+void sputLua_ReadRegistryValue(void)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6882,10 +7079,12 @@ void Lua_ReadRegistryValue(void)
 #undef local_104
 
 
-/* ---- 0x0049ed90  Lua_GetSectorOppositeEdge ---- */
-/* Lua opcode: GetSectorOppositeEdge */
+/* ---- 0x0049ed90  sputLua_GetSectorOppositeEdge ---- */
+/* Lua opcode: GetSectorOppositeEdge Original name sputLua_GetSectorOppositeEdge (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetSectorOppositeEdge'); was
+   Lua_GetSectorOppositeEdge. */
 
-void Lua_GetSectorOppositeEdge(void)
+void sputLua_GetSectorOppositeEdge(void)
 
 {
   int iVar1;
@@ -6900,14 +7099,14 @@ void Lua_GetSectorOppositeEdge(void)
     iVar2 = lua_tag(iVar1);
     if ((iVar2 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       iVar2 = lua_lua2C(2);
       iVar3 = lua_isstring(iVar2);
       if (iVar3 != 0) {
         name = (char *)lua_getstring(iVar2);
-        a2 = Sector_FindByName(name);
+        a2 = WalkPlane_PlaneNamed(name);
         if (a2 != (void *)0x0) {
-          Actor_PushSectorOppositeEdge(iVar1,(int)a2);
+          sputActor_LeaveSector(iVar1,(int)a2);
           return;
         }
       }
@@ -6917,10 +7116,11 @@ void Lua_GetSectorOppositeEdge(void)
   return;
 }
 
-/* ---- 0x0049ee20  Lua_IsSectorActive ---- */
-/* Lua opcode: IsSectorActive */
+/* ---- 0x0049ee20  sputLua_IsSectorActiveL ---- */
+/* Lua opcode: IsSectorActive Original name sputLua_IsSectorActiveL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'IsSectorActive'); was Lua_IsSectorActive. */
 
-void Lua_IsSectorActive(void)
+void sputLua_IsSectorActiveL(void)
 
 {
   int iVar1;
@@ -6935,7 +7135,7 @@ void Lua_IsSectorActive(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_0049eea2;
   }
-  pvVar3 = Set_GetCurrent();
+  pvVar3 = sputRoom_GetCurrentRoom();
   if (pvVar3 != (void *)0x0) {
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) {
@@ -6944,7 +7144,7 @@ void Lua_IsSectorActive(void)
     }
     else {
       name = (char *)lua_getstring(iVar1);
-      pvVar3 = Sector_FindByName(name);
+      pvVar3 = WalkPlane_PlaneNamed(name);
     }
     if ((pvVar3 != (void *)0x0) && (*(int *)((int)pvVar3 + 0x28) != 0)) {
       lua_pushnumber(1.0);
@@ -6955,10 +7155,11 @@ LAB_0049eea2:
   return;
 }
 
-/* ---- 0x0049eeb0  Lua_MakeSectorActive ---- */
-/* Lua opcode: MakeSectorActive */
+/* ---- 0x0049eeb0  sputLua_MakeSectorActiveL ---- */
+/* Lua opcode: MakeSectorActive Original name sputLua_MakeSectorActiveL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'MakeSectorActive'); was Lua_MakeSectorActive. */
 
-void Lua_MakeSectorActive(void)
+void sputLua_MakeSectorActiveL(void)
 
 {
   int iVar1;
@@ -6981,7 +7182,7 @@ void Lua_MakeSectorActive(void)
   }
   else {
     name = (char *)lua_getstring(iVar1);
-    pvVar4 = Sector_FindByName(name);
+    pvVar4 = WalkPlane_PlaneNamed(name);
   }
   if (pvVar4 != (void *)0x0) {
     iVar1 = lua_isnil(iVar2);
@@ -6994,10 +7195,11 @@ void Lua_MakeSectorActive(void)
   return;
 }
 
-/* ---- 0x0049ef50  Lua_PreRender ---- */
-/* Lua opcode: PreRender */
+/* ---- 0x0049ef50  sputLua_PreRender ---- */
+/* Lua opcode: PreRender Original name sputLua_PreRender (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'PreRender'); was Lua_PreRender. */
 
-void Lua_PreRender(void)
+void sputLua_PreRender(void)
 
 {
   int iVar1;
@@ -7009,14 +7211,15 @@ void Lua_PreRender(void)
   iVar2 = lua_isnil(iVar2);
   redrawDepth = (uint)(iVar2 == 0);
   iVar1 = lua_isnil(iVar1);
-  Render_InvalidateBackground((uint)(iVar1 == 0),redrawDepth);
+  sputRender_PreRendered((uint)(iVar1 == 0),redrawDepth);
   return;
 }
 
-/* ---- 0x0049efc0  Lua_GetCurrentScript ---- */
-/* Lua opcode: GetCurrentScript */
+/* ---- 0x0049efc0  sputLua_GetCurrentScript ---- */
+/* Lua opcode: GetCurrentScript Original name sputLua_GetCurrentScript (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetCurrentScript'); was Lua_GetCurrentScript. */
 
-void Lua_GetCurrentScript(void)
+void sputLua_GetCurrentScript(void)
 
 {
   int iVar1;
@@ -7026,10 +7229,11 @@ void Lua_GetCurrentScript(void)
   return;
 }
 
-/* ---- 0x0049efe0  Lua_LockFont ---- */
-/* Lua opcode: LockFont */
+/* ---- 0x0049efe0  sputLua_LockFontL ---- */
+/* Lua opcode: LockFont Original name sputLua_LockFontL (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'LockFont'); was Lua_LockFont. */
 
-void Lua_LockFont(void)
+void sputLua_LockFontL(void)
 
 {
   int iVar1;
@@ -7043,7 +7247,7 @@ void Lua_LockFont(void)
     return;
   }
   pcVar3 = (char *)lua_getstring(iVar1);
-  pcVar3 = Resource_Load(0x544e4f46,pcVar3);
+  pcVar3 = sputResource_Alloc(0x544e4f46,pcVar3);
   if (pcVar3 == (char *)0x0) {
     lua_pushnil();
     return;
@@ -7052,10 +7256,11 @@ void Lua_LockFont(void)
   return;
 }
 
-/* ---- 0x0049f040  Lua_LoadCostume ---- */
-/* Lua opcode: LoadCostume */
+/* ---- 0x0049f040  sputLua_LoadCostumeL ---- */
+/* Lua opcode: LoadCostume Original name sputLua_LoadCostumeL (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'LoadCostume'); was Lua_LoadCostume. */
 
-void Lua_LoadCostume(void)
+void sputLua_LoadCostumeL(void)
 
 {
   int iVar1;
@@ -7069,16 +7274,17 @@ void Lua_LoadCostume(void)
     return;
   }
   name = (char *)lua_getstring(iVar1);
-  Resource_Load(0x54534f43,name);
+  sputResource_Alloc(0x54534f43,name);
   return;
 }
 
-/* ---- 0x0049f080  Lua_GetPhysicalBytes ---- */
+/* ---- 0x0049f080  sputLua_GetPhysicalBytes ---- */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* Lua opcode: GetPhysicalBytes */
+/* Lua opcode: GetPhysicalBytes Original name sputLua_GetPhysicalBytes (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetPhysicalBytes'); was Lua_GetPhysicalBytes. */
 
-void __fastcall Lua_GetPhysicalBytes(undefined4 param_1)
+void __fastcall sputLua_GetPhysicalBytes(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7086,7 +7292,7 @@ void __fastcall Lua_GetPhysicalBytes(undefined4 param_1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = ((code *)Plat_GetPhysicalMemory)(param_1);
+  iVar1 = ((code *)stdPlatform_GetPhysicalRam)(param_1);
   lua_pushnumber((float)iVar1);
   return;
 }
@@ -7094,10 +7300,11 @@ void __fastcall Lua_GetPhysicalBytes(undefined4 param_1)
 #undef local_8
 
 
-/* ---- 0x0049f0a0  Lua_SetMemoryUsage ---- */
-/* Lua opcode: SetMemoryUsage */
+/* ---- 0x0049f0a0  sputLua_SetMemoryUsage ---- */
+/* Lua opcode: SetMemoryUsage Original name sputLua_SetMemoryUsage (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetMemoryUsage'); was Lua_SetMemoryUsage. */
 
-void Lua_SetMemoryUsage(void)
+void sputLua_SetMemoryUsage(void)
 
 {
   int iVar1;
@@ -7113,10 +7320,12 @@ void Lua_SetMemoryUsage(void)
   return;
 }
 
-/* ---- 0x0049f2b0  Lua_GetCameraPosition ---- */
-/* Lua opcode: GetCameraPosition */
+/* ---- 0x0049f2b0  sputLua_GetCameraPositionL ---- */
+/* Lua opcode: GetCameraPosition Original name sputLua_GetCameraPositionL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetCameraPosition'); was Lua_GetCameraPosition.
+    */
 
-void Lua_GetCameraPosition(void)
+void sputLua_GetCameraPositionL(void)
 
 {
   if (g_pCameraSetup == (float *)0x0) {
@@ -7128,10 +7337,12 @@ void Lua_GetCameraPosition(void)
   return;
 }
 
-/* ---- 0x0049f300  Lua_GetCameraInterest ---- */
-/* Lua opcode: GetCameraInterest */
+/* ---- 0x0049f300  sputLua_GetCameraInterestL ---- */
+/* Lua opcode: GetCameraInterest Original name sputLua_GetCameraInterestL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetCameraInterest'); was Lua_GetCameraInterest.
+    */
 
-void Lua_GetCameraInterest(void)
+void sputLua_GetCameraInterestL(void)
 
 {
   if (g_pCameraSetup == (float *)0x0) {
@@ -7143,10 +7354,11 @@ void Lua_GetCameraInterest(void)
   return;
 }
 
-/* ---- 0x0049f350  Lua_GetCameraFOV ---- */
-/* Lua opcode: GetCameraFOV */
+/* ---- 0x0049f350  sputLua_GetCameraFOVL ---- */
+/* Lua opcode: GetCameraFOV Original name sputLua_GetCameraFOVL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetCameraFOV'); was Lua_GetCameraFOV. */
 
-void Lua_GetCameraFOV(void)
+void sputLua_GetCameraFOVL(void)
 
 {
   if (g_pCameraSetup == (float *)0x0) {
@@ -7156,10 +7368,11 @@ void Lua_GetCameraFOV(void)
   return;
 }
 
-/* ---- 0x0049f380  Lua_GetCameraRoll ---- */
-/* Lua opcode: GetCameraRoll */
+/* ---- 0x0049f380  sputLua_GetCameraRollL ---- */
+/* Lua opcode: GetCameraRoll Original name sputLua_GetCameraRollL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetCameraRoll'); was Lua_GetCameraRoll. */
 
-void Lua_GetCameraRoll(void)
+void sputLua_GetCameraRollL(void)
 
 {
   if (g_pCameraSetup == (float *)0x0) {
@@ -7169,11 +7382,13 @@ void Lua_GetCameraRoll(void)
   return;
 }
 
-/* ---- 0x0049f3b0  Lua_SetCameraPosition ---- */
+/* ---- 0x0049f3b0  sputLua_SetCameraPositionL ---- */
 /* WARNING: Variable defined which should be unmapped: local_14 */
-/* Lua opcode: SetCameraPosition */
+/* Lua opcode: SetCameraPosition Original name sputLua_SetCameraPositionL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetCameraPosition'); was Lua_SetCameraPosition.
+    */
 
-void Lua_SetCameraPosition(void)
+void sputLua_SetCameraPositionL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7213,11 +7428,13 @@ LAB_0049f40e:
 #undef local_14
 
 
-/* ---- 0x0049f480  Lua_SetCameraInterest ---- */
+/* ---- 0x0049f480  sputLua_SetCameraInterestL ---- */
 /* WARNING: Variable defined which should be unmapped: local_14 */
-/* Lua opcode: SetCameraInterest */
+/* Lua opcode: SetCameraInterest Original name sputLua_SetCameraInterestL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetCameraInterest'); was Lua_SetCameraInterest.
+    */
 
-void Lua_SetCameraInterest(void)
+void sputLua_SetCameraInterestL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7257,10 +7474,11 @@ LAB_0049f4de:
 #undef local_14
 
 
-/* ---- 0x0049f550  Lua_SetActorScale ---- */
-/* Lua opcode: SetActorScale */
+/* ---- 0x0049f550  sputLua_SetActorScaleL ---- */
+/* Lua opcode: SetActorScale Original name sputLua_SetActorScaleL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetActorScale'); was Lua_SetActorScale. */
 
-void Lua_SetActorScale(void)
+void sputLua_SetActorScaleL(void)
 
 {
   int iVar1;
@@ -7275,7 +7493,7 @@ void Lua_SetActorScale(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       iVar3 = lua_isnumber(iVar2);
       if (iVar3 != 0) {
         fVar4 = lua_getnumber(iVar2);
@@ -7288,10 +7506,12 @@ void Lua_SetActorScale(void)
   return;
 }
 
-/* ---- 0x0049f5d0  Lua_SetActorTimeScale ---- */
-/* Lua opcode: SetActorTimeScale */
+/* ---- 0x0049f5d0  sputLua_SetActorTimeScaleL ---- */
+/* Lua opcode: SetActorTimeScale Original name sputLua_SetActorTimeScaleL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorTimeScale'); was Lua_SetActorTimeScale.
+    */
 
-void Lua_SetActorTimeScale(void)
+void sputLua_SetActorTimeScaleL(void)
 
 {
   int iVar1;
@@ -7306,9 +7526,9 @@ void Lua_SetActorTimeScale(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       iVar3 = lua_isnumber(iVar2);
       if (iVar3 == 0) {
@@ -7329,10 +7549,12 @@ void Lua_SetActorTimeScale(void)
   return;
 }
 
-/* ---- 0x0049f690  Lua_GetActorNodeLocation ---- */
-/* Lua opcode: GetActorNodeLocation */
+/* ---- 0x0049f690  sputLua_GetActorNodeLocationL ---- */
+/* Lua opcode: GetActorNodeLocation Original name sputLua_GetActorNodeLocationL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetActorNodeLocation'); was
+   Lua_GetActorNodeLocation. */
 
-void Lua_GetActorNodeLocation(void)
+void sputLua_GetActorNodeLocationL(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7358,7 +7580,7 @@ void Lua_GetActorNodeLocation(void)
       iVar3 = lua_isnumber(iVar2);
       if (iVar3 != 0) {
         iVar1 = lua_getuserdata(iVar1);
-        actor = (void *)Actor_FromHandle(iVar1);
+        actor = (void *)sputActor_ActorDeref(iVar1);
         if ((*(int *)((int)actor + 0xa0) != 0) && (*(int *)(*(int *)((int)actor + 0xa0) + 4) != 0))
         {
           if (*(int *)((int)actor + 0x68) == 0) {
@@ -7396,10 +7618,11 @@ void Lua_GetActorNodeLocation(void)
 #undef local_c
 
 
-/* ---- 0x0049f810  Lua_GetActorScale ---- */
-/* Lua opcode: GetActorScale */
+/* ---- 0x0049f810  sputLua_GetActorScaleL ---- */
+/* Lua opcode: GetActorScale Original name sputLua_GetActorScaleL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetActorScale'); was Lua_GetActorScale. */
 
-void Lua_GetActorScale(void)
+void sputLua_GetActorScaleL(void)
 
 {
   int iVar1;
@@ -7411,17 +7634,19 @@ void Lua_GetActorScale(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       lua_pushnumber(*(float *)(iVar1 + 0x30));
     }
   }
   return;
 }
 
-/* ---- 0x0049f860  Lua_GetActorTimeScale ---- */
-/* Lua opcode: GetActorTimeScale */
+/* ---- 0x0049f860  sputLua_GetActorTimeScaleL ---- */
+/* Lua opcode: GetActorTimeScale Original name sputLua_GetActorTimeScaleL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetActorTimeScale'); was Lua_GetActorTimeScale.
+    */
 
-void Lua_GetActorTimeScale(void)
+void sputLua_GetActorTimeScaleL(void)
 
 {
   int iVar1;
@@ -7433,9 +7658,9 @@ void Lua_GetActorTimeScale(void)
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       lua_pushnumber(*(float *)(*(int *)(iVar1 + 0xa4) + 0x41c));
     }
@@ -7443,12 +7668,13 @@ void Lua_GetActorTimeScale(void)
   return;
 }
 
-/* ---- 0x0049f8d0  Lua_SetCameraFOV ---- */
+/* ---- 0x0049f8d0  sputLua_SetCameraFOVL ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Lua opcode: SetCameraFOV */
+/* Lua opcode: SetCameraFOV Original name sputLua_SetCameraFOVL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetCameraFOV'); was Lua_SetCameraFOV. */
 
-void Lua_SetCameraFOV(void)
+void sputLua_SetCameraFOVL(void)
 
 {
   int iVar1;
@@ -7471,11 +7697,12 @@ void Lua_SetCameraFOV(void)
 #endif
 
 
-/* ---- 0x0049f930  Lua_SetCameraRoll ---- */
+/* ---- 0x0049f930  sputLua_SetCameraRollL ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: SetCameraRoll */
+/* Lua opcode: SetCameraRoll Original name sputLua_SetCameraRollL (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetCameraRoll'); was Lua_SetCameraRoll. */
 
-void Lua_SetCameraRoll(void)
+void sputLua_SetCameraRollL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7501,10 +7728,12 @@ void Lua_SetCameraRoll(void)
 #undef local_c
 
 
-/* ---- 0x0049f9b0  Lua_GetCameraLookVector ---- */
-/* Lua opcode: GetCameraLookVector */
+/* ---- 0x0049f9b0  sputLua_GetCameraLookVectorL ---- */
+/* Lua opcode: GetCameraLookVector Original name sputLua_GetCameraLookVectorL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetCameraLookVector'); was
+   Lua_GetCameraLookVector. */
 
-void Lua_GetCameraLookVector(void)
+void sputLua_GetCameraLookVectorL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7516,7 +7745,7 @@ void Lua_GetCameraLookVector(void)
   #define local_8 (*(float (*)[2])(_frame + (0x20 - 0x8)))
   
   iVar1 = lua_lua2C(1);
-  pvVar2 = Set_GetCurrent();
+  pvVar2 = sputRoom_GetCurrentRoom();
   if (pvVar2 == (void *)0x0) {
     lua_pushnil();
     return;
@@ -7535,7 +7764,7 @@ void Lua_GetCameraLookVector(void)
             *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x2c + iVar1);
   local_8[0] = *(float *)(iVar3 + 4) - *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x30 + iVar1);
   local_8[1] = *(float *)(iVar3 + 8) - *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x34 + iVar1);
-  Vec3_Normalize(&local_c);
+  rdVector_Normalize3Acc(&local_c);
   iVar1 = lua_createtable();
   lua_pushobject(iVar1);
   lua_pushstring(&DAT_004e8454);
@@ -7556,13 +7785,14 @@ void Lua_GetCameraLookVector(void)
 #undef local_c
 
 
-/* ---- 0x0049fb00  Lua_PointActorAt ---- */
+/* ---- 0x0049fb00  sputLua_PointActorAtL ---- */
 /* Lua opcode: PointActorAt(actor, x, y, z | actor). Creates the walker if missing, turns the walker
    heading all the way to the point (Walker_TurnToPoint with FLT_MAX) and negates the turn rate so
    Walker_UpdateYaw snaps the visible yaw next frame. Only the yaw changes; pitch and roll are not
-   touched. */
+   touched. Original name sputLua_PointActorAtL (the remaster's GrimFandango (Linux): Lua / module
+   table entry 'PointActorAt'); was Lua_PointActorAt. */
 
-void Lua_PointActorAt(void)
+void sputLua_PointActorAtL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7585,7 +7815,7 @@ void Lua_PointActorAt(void)
     return;
   }
   iVar1 = lua_getuserdata(iVar1);
-  iVar1 = Actor_FromHandle(iVar1);
+  iVar1 = sputActor_ActorDeref(iVar1);
   iVar5 = lua_isuserdata(iVar2);
   if ((iVar5 == 0) || (iVar5 = lua_tag(iVar2), iVar5 != 0x52544341)) {
     local_c[0] = lua_getnumber(iVar2);
@@ -7594,15 +7824,15 @@ void Lua_PointActorAt(void)
   }
   else {
     iVar2 = lua_getuserdata(iVar2);
-    iVar2 = Actor_FromHandle(iVar2);
+    iVar2 = sputActor_ActorDeref(iVar2);
     local_c[0] = *(float *)(iVar2 + 0xc);
     local_c[1] = *(float *)(iVar2 + 0x10);
     local_c[2] = *(float *)(iVar2 + 0x14);
   }
   if (*(int *)(*(int *)(iVar1 + 0xa4) + 0x1b4) == 0) {
-    Actor_CreateWalker(iVar1,1);
+    sputActor_EnablePuck(iVar1,1);
   }
-  Walker_TurnToPoint(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),local_c,3.4028235e+38);
+  Puck_PointAt(*(void **)(*(int *)(iVar1 + 0xa4) + 0x1b4),local_c,3.4028235e+38);
   iVar1 = *(int *)(iVar1 + 0xa4);
   if (*(float *)(iVar1 + 0x1c) <= 0.0) {
     return;
@@ -7615,13 +7845,14 @@ void Lua_PointActorAt(void)
 #undef local_c
 
 
-/* ---- 0x0049fc60  Lua_TurnActorTo ---- */
+/* ---- 0x0049fc60  sputLua_TurnActorTo ---- */
 /* Lua opcode: TurnActorTo(actor, x, y, z | actor). Creates the walker if missing, turns the heading
    by at most |rate| * frameSeconds (no time scale) and returns TRUE while a whole step was taken
    (angle left >= step), nil once done. With a turn rate of 0 the step is 0 and it returns TRUE
-   forever. */
+   forever. Original name sputLua_TurnActorTo (the remaster's GrimFandango (Linux): Lua / module
+   table entry 'TurnActorTo'); was Lua_TurnActorTo. */
 
-void Lua_TurnActorTo(void)
+void sputLua_TurnActorTo(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7646,7 +7877,7 @@ void Lua_TurnActorTo(void)
   iVar6 = lua_tag(iVar2);
   if ((iVar6 != 0x52544341) || (iVar2 == 0)) goto LAB_0049fde2;
   iVar2 = lua_getuserdata(iVar2);
-  iVar2 = Actor_FromHandle(iVar2);
+  iVar2 = sputActor_ActorDeref(iVar2);
   iVar6 = lua_isuserdata(iVar3);
   if (iVar6 == 0) {
 LAB_0049fd1e:
@@ -7658,20 +7889,20 @@ LAB_0049fd1e:
     iVar6 = lua_tag(iVar3);
     if (iVar6 != 0x52544341) goto LAB_0049fd1e;
     iVar3 = lua_getuserdata(iVar3);
-    iVar3 = Actor_FromHandle(iVar3);
+    iVar3 = sputActor_ActorDeref(iVar3);
     local_c[0] = *(float *)(iVar3 + 0xc);
     local_c[1] = *(float *)(iVar3 + 0x10);
     local_c[2] = *(float *)(iVar3 + 0x14);
   }
   if (*(int *)(*(int *)(iVar2 + 0xa4) + 0x1b4) == 0) {
-    Actor_CreateWalker(iVar2,1);
+    sputActor_EnablePuck(iVar2,1);
   }
   fVar1 = *(float *)(*(int *)(iVar2 + 0xa4) + 0x1c);
   if (*(float *)(*(int *)(iVar2 + 0xa4) + 0x1c) < 0.0) {
     fVar1 = -fVar1;
   }
-  fVar7 = Timer_GetFrameSeconds();
-  fVar8 = Walker_TurnToPoint(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),local_c,fVar7 * fVar1);
+  fVar7 = sputTime_GetFrameTimeFlex();
+  fVar8 = Puck_PointAt(*(void **)(*(int *)(iVar2 + 0xa4) + 0x1b4),local_c,fVar7 * fVar1);
   if (fVar8 < 0.0) {
     fVar8 = -fVar8;
   }
@@ -7688,11 +7919,12 @@ LAB_0049fde2:
 #undef local_c
 
 
-/* ---- 0x0049fdf0  Lua_PerSecond ---- */
+/* ---- 0x0049fdf0  sputLua_PerSecondL ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: PerSecond */
+/* Lua opcode: PerSecond Original name sputLua_PerSecondL (the remaster's GrimFandango (Linux): Lua
+   / module table entry 'PerSecond'); was Lua_PerSecond. */
 
-void Lua_PerSecond(void)
+void sputLua_PerSecondL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7706,7 +7938,7 @@ void Lua_PerSecond(void)
   if (lua_isnumber_exref == (code *)0x0) {
     lua_pushnil();
   }
-  fVar2 = Timer_GetFrameSeconds();
+  fVar2 = sputTime_GetFrameTimeFlex();
   fVar3 = lua_getnumber(iVar1);
   lua_pushnumber(fVar3 * fVar2);
   return;
@@ -7715,10 +7947,11 @@ void Lua_PerSecond(void)
 #undef local_c
 
 
-/* ---- 0x0049fe40  Lua_SnapToPlane ---- */
-/* Lua opcode: SnapToPlane */
+/* ---- 0x0049fe40  sputLua_SnapToPlane ---- */
+/* Lua opcode: SnapToPlane Original name sputLua_SnapToPlane (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'SnapToPlane'); was Lua_SnapToPlane. */
 
-void Lua_SnapToPlane(void)
+void sputLua_SnapToPlane(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7736,7 +7969,7 @@ void Lua_SnapToPlane(void)
   iVar3 = lua_lua2C(3);
   iVar4 = lua_lua2C(4);
   name = (char *)lua_getstring(iVar1);
-  this = Sector_FindByName(name);
+  this = WalkPlane_PlaneNamed(name);
   if (this == (void *)0x0) {
     lua_pushnil();
     return;
@@ -7744,7 +7977,7 @@ void Lua_SnapToPlane(void)
   local_c[0] = lua_getnumber(iVar2);
   local_c[1] = lua_getnumber(iVar3);
   local_c[2] = lua_getnumber(iVar4);
-  Sector_SnapToPlane(this,local_c);
+  WalkPlane_SnapTo(this,local_c);
   lua_pushnumber(local_c[0]);
   lua_pushnumber(local_c[1]);
   lua_pushnumber(local_c[2]);
@@ -7754,11 +7987,13 @@ void Lua_SnapToPlane(void)
 #undef local_c
 
 
-/* ---- 0x0049ff00  Lua_GetAngleBetweenVectors ---- */
+/* ---- 0x0049ff00  sputLua_GetAngleBetweenVectorsL ---- */
 /* WARNING: Variable defined which should be unmapped: local_30 */
-/* Lua opcode: GetAngleBetweenVectors */
+/* Lua opcode: GetAngleBetweenVectors Original name sputLua_GetAngleBetweenVectorsL (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetAngleBetweenVectors'); was
+   Lua_GetAngleBetweenVectors. */
 
-void Lua_GetAngleBetweenVectors(void)
+void sputLua_GetAngleBetweenVectorsL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7801,11 +8036,10 @@ void Lua_GetAngleBetweenVectors(void)
       lua_pushstring(&DAT_004ec3b8);
       iVar1 = lua_gettable();
       local_18[2] = lua_getnumber(iVar1);
-      Vec3_Normalize(local_c);
-      Vec3_Normalize(local_18);
-      fVar4 = Math_AsinDegreesSeries
-                        (local_18[2] * local_c[2] +
-                         local_18[1] * local_c[1] + local_18[0] * local_c[0]);
+      rdVector_Normalize3Acc(local_c);
+      rdVector_Normalize3Acc(local_18);
+      fVar4 = stdMath_ArcSin3(local_18[2] * local_c[2] +
+                              local_18[1] * local_c[1] + local_18[0] * local_c[0]);
       lua_pushnumber(90.0 - fVar4);
       return;
     }
@@ -7819,11 +8053,16 @@ void Lua_GetAngleBetweenVectors(void)
 #undef local_c
 
 
-/* ---- 0x004a00a0  Lua_GetAngleBetweenActors ---- */
+/* ---- 0x004a00a0  sputLua_GetAngleBetweenActorsL ---- */
 /* WARNING: Variable defined which should be unmapped: local_30 */
-/* Lua opcode: GetAngleBetweenActors */
+/* Lua opcode GetAngleBetweenActors(a, b) (Grim). forward = walker heading axis (walker+0x18..0x20,
+   not the eased visible yaw); delta = b.pos - a.pos normalized in 3D; returns 90 -
+   asin(dot(forward, delta)) = unsigned angle between them, in degrees. (The z of delta in the
+   decompile reads forward.z - a.z, probably a decompiler slot mix-up.) Original name
+   sputLua_GetAngleBetweenActorsL (the remaster's GrimFandango (Linux): Lua / module table entry
+   'GetAngleBetweenActors'); was Lua_GetAngleBetweenActors. */
 
-void Lua_GetAngleBetweenActors(void)
+void sputLua_GetAngleBetweenActorsL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7851,9 +8090,9 @@ void Lua_GetAngleBetweenActors(void)
         iVar3 = lua_tag(iVar2);
         if (iVar3 == 0x52544341) {
           iVar1 = lua_getuserdata(iVar1);
-          iVar1 = Actor_FromHandle(iVar1);
+          iVar1 = sputActor_ActorDeref(iVar1);
           iVar2 = lua_getuserdata(iVar2);
-          iVar2 = Actor_FromHandle(iVar2);
+          iVar2 = sputActor_ActorDeref(iVar2);
           if (((iVar1 != 0) && (iVar2 != 0)) &&
              (iVar3 = *(int *)(*(int *)(iVar1 + 0xa4) + 0x1b4), iVar3 != 0)) {
             local_c = *(float *)(iVar3 + 0x18);
@@ -7862,10 +8101,9 @@ void Lua_GetAngleBetweenActors(void)
             local_18 = *(float *)(iVar2 + 0xc) - *(float *)(iVar1 + 0xc);
             local_14 = *(float *)(iVar2 + 0x10) - *(float *)(iVar1 + 0x10);
             local_10 = local_4 - *(float *)(iVar1 + 0x14);
-            Vec3_Normalize(&local_c);
-            Vec3_Normalize(&local_18);
-            fVar4 = Math_AsinDegreesSeries
-                              (local_10 * local_4 + local_14 * local_8 + local_18 * local_c);
+            rdVector_Normalize3Acc(&local_c);
+            rdVector_Normalize3Acc(&local_18);
+            fVar4 = stdMath_ArcSin3(local_10 * local_4 + local_14 * local_8 + local_18 * local_c);
             lua_pushnumber(90.0 - fVar4);
             return;
           }
@@ -7886,11 +8124,12 @@ void Lua_GetAngleBetweenActors(void)
 #undef local_c
 
 
-/* ---- 0x004a0230  Lua_SetAmbientLight ---- */
+/* ---- 0x004a0230  sputLua_SetAmbientLight ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: SetAmbientLight */
+/* Lua opcode: SetAmbientLight Original name sputLua_SetAmbientLight (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetAmbientLight'); was Lua_SetAmbientLight. */
 
-void Lua_SetAmbientLight(void)
+void sputLua_SetAmbientLight(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7903,7 +8142,7 @@ void Lua_SetAmbientLight(void)
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    pvVar3 = Set_GetCurrent();
+    pvVar3 = sputRoom_GetCurrentRoom();
     if (pvVar3 != (void *)0x0) {
       ambient = lua_getnumber(iVar1);
       rdCamera_SetAmbientLight
@@ -7916,11 +8155,12 @@ void Lua_SetAmbientLight(void)
 #undef local_c
 
 
-/* ---- 0x004a0290  Lua_FindLight ---- */
+/* ---- 0x004a0290  sputLua_FindLight ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: FindLight */
+/* Lua opcode: FindLight Original name sputLua_FindLight (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'FindLight'); was Lua_FindLight. */
 
-void Lua_FindLight(void)
+void sputLua_FindLight(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7934,7 +8174,7 @@ void Lua_FindLight(void)
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
     name = (char *)lua_getstring(iVar1);
-    iVar1 = Light_FindByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
     if (iVar1 != -1) {
       lua_pushnumber((float)iVar1);
       return;
@@ -7947,10 +8187,11 @@ void Lua_FindLight(void)
 #undef local_c
 
 
-/* ---- 0x004a02f0  Lua_TurnLightOn ---- */
-/* Lua opcode: TurnLightOn */
+/* ---- 0x004a02f0  sputLua_TurnLightOn ---- */
+/* Lua opcode: TurnLightOn Original name sputLua_TurnLightOn (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'TurnLightOn'); was Lua_TurnLightOn. */
 
-void Lua_TurnLightOn(void)
+void sputLua_TurnLightOn(void)
 
 {
   int iVar1;
@@ -7969,7 +8210,7 @@ void Lua_TurnLightOn(void)
       return;
     }
     name = (char *)lua_getstring(iVar1);
-    iVar1 = Light_FindByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar5 = (longlong)lua_getnumber(iVar1);
@@ -7983,11 +8224,12 @@ void Lua_TurnLightOn(void)
   return;
 }
 
-/* ---- 0x004a0380  Lua_IsLightOn ---- */
+/* ---- 0x004a0380  sputLua_IsLightOn ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: IsLightOn */
+/* Lua opcode: IsLightOn Original name sputLua_IsLightOn (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'IsLightOn'); was Lua_IsLightOn. */
 
-void Lua_IsLightOn(void)
+void sputLua_IsLightOn(void)
 
 {
   int iVar1;
@@ -8002,7 +8244,7 @@ void Lua_IsLightOn(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a03f5;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = Light_FindByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar4 = (longlong)lua_getnumber(iVar1);
@@ -8018,10 +8260,11 @@ LAB_004a03f5:
   return;
 }
 
-/* ---- 0x004a0400  Lua_SetLightType ---- */
-/* Lua opcode: SetLightType */
+/* ---- 0x004a0400  sputLua_SetLightType ---- */
+/* Lua opcode: SetLightType Original name sputLua_SetLightType (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'SetLightType'); was Lua_SetLightType. */
 
-void Lua_SetLightType(void)
+void sputLua_SetLightType(void)
 
 {
   int *piVar1;
@@ -8036,7 +8279,7 @@ void Lua_SetLightType(void)
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
-  pvVar4 = Set_GetCurrent();
+  pvVar4 = sputRoom_GetCurrentRoom();
   iVar5 = lua_isnumber(iVar2);
   if (iVar5 == 0) {
     iVar5 = lua_isstring(iVar2);
@@ -8044,7 +8287,7 @@ void Lua_SetLightType(void)
       return;
     }
     name = (char *)lua_getstring(iVar2);
-    iVar2 = Light_FindByName((void *)0x0,name);
+    iVar2 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar8 = (longlong)lua_getnumber(iVar2);
@@ -8086,11 +8329,12 @@ void Lua_SetLightType(void)
   return;
 }
 
-/* ---- 0x004a0530  Lua_GetLightType ---- */
+/* ---- 0x004a0530  sputLua_GetLightType ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: GetLightType */
+/* Lua opcode: GetLightType Original name sputLua_GetLightType (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'GetLightType'); was Lua_GetLightType. */
 
-void Lua_GetLightType(void)
+void sputLua_GetLightType(void)
 
 {
   int iVar1;
@@ -8105,7 +8349,7 @@ void Lua_GetLightType(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a05d0;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = Light_FindByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar4 = (longlong)lua_getnumber(iVar1);
@@ -8132,10 +8376,11 @@ LAB_004a05d0:
   return;
 }
 
-/* ---- 0x004a05e0  Lua_SetLightPosition ---- */
-/* Lua opcode: SetLightPosition */
+/* ---- 0x004a05e0  sputLua_SetLightPosition ---- */
+/* Lua opcode: SetLightPosition Original name sputLua_SetLightPosition (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetLightPosition'); was Lua_SetLightPosition. */
 
-void Lua_SetLightPosition(void)
+void sputLua_SetLightPosition(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8171,13 +8416,13 @@ void Lua_SetLightPosition(void)
       return;
     }
     name = (char *)lua_getstring(iVar2);
-    iVar2 = Light_FindByName((void *)0x0,name);
+    iVar2 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar11 = (longlong)lua_getnumber(iVar2);
     iVar2 = (int)lVar11;
   }
-  pvVar7 = Set_GetCurrent();
+  pvVar7 = sputRoom_GetCurrentRoom();
   if ((((pvVar7 != (void *)0x0) && (pvVar8 = Light_Get((void *)0x0,iVar2), pvVar8 != (void *)0x0))
       && (iVar6 = lua_isnumber(iVar3), iVar6 != 0)) &&
      ((iVar6 = lua_isnumber(iVar4), iVar6 != 0 && (iVar6 = lua_isnumber(iVar5), iVar6 != 0)))) {
@@ -8210,10 +8455,11 @@ void Lua_SetLightPosition(void)
 #undef local_c
 
 
-/* ---- 0x004a0760  Lua_GetLightPosition ---- */
-/* Lua opcode: GetLightPosition */
+/* ---- 0x004a0760  sputLua_GetLightPosition ---- */
+/* Lua opcode: GetLightPosition Original name sputLua_GetLightPosition (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetLightPosition'); was Lua_GetLightPosition. */
 
-void Lua_GetLightPosition(void)
+void sputLua_GetLightPosition(void)
 
 {
   int iVar1;
@@ -8228,13 +8474,13 @@ void Lua_GetLightPosition(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a07f0;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = Light_FindByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar4 = (longlong)lua_getnumber(iVar1);
     iVar1 = (int)lVar4;
   }
-  pvVar3 = Set_GetCurrent();
+  pvVar3 = sputRoom_GetCurrentRoom();
   if (pvVar3 != (void *)0x0) {
     pvVar3 = Light_Get((void *)0x0,iVar1);
     if (pvVar3 != (void *)0x0) {
@@ -8249,10 +8495,11 @@ LAB_004a07f0:
   return;
 }
 
-/* ---- 0x004a0800  Lua_SetLightRotation ---- */
-/* Lua opcode: SetLightRotation */
+/* ---- 0x004a0800  sputLua_SetLightRotation ---- */
+/* Lua opcode: SetLightRotation Original name sputLua_SetLightRotation (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetLightRotation'); was Lua_SetLightRotation. */
 
-void Lua_SetLightRotation(void)
+void sputLua_SetLightRotation(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8281,7 +8528,7 @@ void Lua_SetLightRotation(void)
   iVar3 = lua_lua2C(2);
   iVar4 = lua_lua2C(3);
   iVar5 = lua_lua2C(4);
-  pvVar6 = Set_GetCurrent();
+  pvVar6 = sputRoom_GetCurrentRoom();
   iVar7 = lua_isnumber(iVar2);
   if (iVar7 == 0) {
     iVar7 = lua_isstring(iVar2);
@@ -8289,7 +8536,7 @@ void Lua_SetLightRotation(void)
       return;
     }
     name = (char *)lua_getstring(iVar2);
-    iVar2 = Light_FindByName((void *)0x0,name);
+    iVar2 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar10 = (longlong)lua_getnumber(iVar2);
@@ -8321,7 +8568,7 @@ void Lua_SetLightRotation(void)
     local_18 = 0.0;
     local_14 = 0x3f800000;
     local_10 = 0;
-    Vec3_Rotate(&local_18,&local_c);
+    rdVector_Rotate3Acc(&local_18,&local_c);
     *(float *)((int)pvVar8 + 0x38) = local_18;
     *(uint *)((int)pvVar8 + 0x3c) = local_14;
     uVar9 = 0;
@@ -8352,11 +8599,12 @@ void Lua_SetLightRotation(void)
 #undef local_c
 
 
-/* ---- 0x004a09a0  Lua_GetLightRotation ---- */
+/* ---- 0x004a09a0  sputLua_GetLightRotation ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: GetLightRotation */
+/* Lua opcode: GetLightRotation Original name sputLua_GetLightRotation (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetLightRotation'); was Lua_GetLightRotation. */
 
-void Lua_GetLightRotation(void)
+void sputLua_GetLightRotation(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8375,7 +8623,7 @@ void Lua_GetLightRotation(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a0a3b;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = Light_FindByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar4 = (longlong)lua_getnumber(iVar1);
@@ -8398,10 +8646,11 @@ LAB_004a0a3b:
 #undef local_c
 
 
-/* ---- 0x004a0a50  Lua_SetLightAngles ---- */
-/* Lua opcode: SetLightAngles */
+/* ---- 0x004a0a50  sputLua_SetLightAngles ---- */
+/* Lua opcode: SetLightAngles Original name sputLua_SetLightAngles (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetLightAngles'); was Lua_SetLightAngles. */
 
-void Lua_SetLightAngles(void)
+void sputLua_SetLightAngles(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8425,7 +8674,7 @@ void Lua_SetLightAngles(void)
       return;
     }
     name = (char *)lua_getstring(iVar1);
-    iVar1 = Light_FindByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar6 = (longlong)lua_getnumber(iVar1);
@@ -8455,10 +8704,11 @@ void Lua_SetLightAngles(void)
 #undef local_8
 
 
-/* ---- 0x004a0b40  Lua_GetLightAngles ---- */
-/* Lua opcode: GetLightAngles */
+/* ---- 0x004a0b40  sputLua_GetLightAngles ---- */
+/* Lua opcode: GetLightAngles Original name sputLua_GetLightAngles (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetLightAngles'); was Lua_GetLightAngles. */
 
-void Lua_GetLightAngles(void)
+void sputLua_GetLightAngles(void)
 
 {
   int iVar1;
@@ -8473,7 +8723,7 @@ void Lua_GetLightAngles(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a0bbc;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = Light_FindByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar4 = (longlong)lua_getnumber(iVar1);
@@ -8490,10 +8740,11 @@ LAB_004a0bbc:
   return;
 }
 
-/* ---- 0x004a0bd0  Lua_PointLightAt ---- */
-/* Lua opcode: PointLightAt */
+/* ---- 0x004a0bd0  sputLua_PointLightAt ---- */
+/* Lua opcode: PointLightAt Original name sputLua_PointLightAt (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'PointLightAt'); was Lua_PointLightAt. */
 
-void Lua_PointLightAt(void)
+void sputLua_PointLightAt(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8525,7 +8776,7 @@ void Lua_PointLightAt(void)
       return;
     }
     name = (char *)lua_getstring(iVar1);
-    iVar1 = Light_FindByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar7 = (longlong)lua_getnumber(iVar1);
@@ -8558,7 +8809,7 @@ void Lua_PointLightAt(void)
     }
     else {
       iVar1 = lua_getuserdata(iVar2);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       local_18 = *(float *)(iVar1 + 0xc);
       local_14 = *(float *)(iVar1 + 0x10);
       local_10 = *(float *)(iVar1 + 0x14);
@@ -8566,7 +8817,7 @@ void Lua_PointLightAt(void)
     local_c = local_18 - *(float *)((int)pvVar6 + 0x20);
     local_8 = local_14 - *(float *)((int)pvVar6 + 0x24);
     local_4 = local_10 - *(float *)((int)pvVar6 + 0x28);
-    Vec3_Normalize(&local_c);
+    rdVector_Normalize3Acc(&local_c);
     *(float *)((int)pvVar6 + 0x38) = local_c;
     *(float *)((int)pvVar6 + 0x3c) = local_8;
     *(float *)((int)pvVar6 + 0x40) = local_4;
@@ -8584,10 +8835,12 @@ void Lua_PointLightAt(void)
 #undef local_c
 
 
-/* ---- 0x004a0da0  Lua_SetLightIntensity ---- */
-/* Lua opcode: SetLightIntensity */
+/* ---- 0x004a0da0  sputLua_SetLightIntensity ---- */
+/* Lua opcode: SetLightIntensity Original name sputLua_SetLightIntensity (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetLightIntensity'); was Lua_SetLightIntensity.
+    */
 
-void Lua_SetLightIntensity(void)
+void sputLua_SetLightIntensity(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8605,7 +8858,7 @@ void Lua_SetLightIntensity(void)
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
-  pvVar4 = Set_GetCurrent();
+  pvVar4 = sputRoom_GetCurrentRoom();
   iVar5 = lua_isnumber(iVar2);
   if (iVar5 == 0) {
     iVar5 = lua_isstring(iVar2);
@@ -8613,7 +8866,7 @@ void Lua_SetLightIntensity(void)
       return;
     }
     name = (char *)lua_getstring(iVar2);
-    iVar2 = Light_FindByName((void *)0x0,name);
+    iVar2 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar8 = (longlong)lua_getnumber(iVar2);
@@ -8640,10 +8893,12 @@ void Lua_SetLightIntensity(void)
 #undef local_4
 
 
-/* ---- 0x004a0e90  Lua_GetLightIntensity ---- */
-/* Lua opcode: GetLightIntensity */
+/* ---- 0x004a0e90  sputLua_GetLightIntensity ---- */
+/* Lua opcode: GetLightIntensity Original name sputLua_GetLightIntensity (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'GetLightIntensity'); was Lua_GetLightIntensity.
+    */
 
-void Lua_GetLightIntensity(void)
+void sputLua_GetLightIntensity(void)
 
 {
   int iVar1;
@@ -8659,7 +8914,7 @@ void Lua_GetLightIntensity(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a0f08;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = Light_FindByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
     lVar4 = (longlong)lua_getnumber(iVar1);
@@ -8675,11 +8930,12 @@ LAB_004a0f08:
   return;
 }
 
-/* ---- 0x004a13d0  Lua_ImGetMasterVol ---- */
+/* ---- 0x004a13d0  sputLua_ImGetMasterVol ---- */
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* Lua opcode: ImGetMasterVol */
+/* Lua opcode: ImGetMasterVol Original name sputLua_ImGetMasterVol (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ImGetMasterVol'); was Lua_ImGetMasterVol. */
 
-void __fastcall Lua_ImGetMasterVol(undefined4 param_1)
+void __fastcall sputLua_ImGetMasterVol(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8695,11 +8951,12 @@ void __fastcall Lua_ImGetMasterVol(undefined4 param_1)
 #undef local_8
 
 
-/* ---- 0x004a1400  Lua_ImSetMasterVol ---- */
+/* ---- 0x004a1400  sputLua_ImSetMasterVol ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: ImSetMasterVol */
+/* Lua opcode: ImSetMasterVol Original name sputLua_ImSetMasterVol (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ImSetMasterVol'); was Lua_ImSetMasterVol. */
 
-void Lua_ImSetMasterVol(void)
+void sputLua_ImSetMasterVol(void)
 
 {
   int iVar1;
@@ -8715,11 +8972,12 @@ void Lua_ImSetMasterVol(void)
   return;
 }
 
-/* ---- 0x004a1440  Lua_ImGetSfxVol ---- */
+/* ---- 0x004a1440  sputLua_ImGetSfxVol ---- */
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* Lua opcode: ImGetSfxVol */
+/* Lua opcode: ImGetSfxVol Original name sputLua_ImGetSfxVol (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'ImGetSfxVol'); was Lua_ImGetSfxVol. */
 
-void __fastcall Lua_ImGetSfxVol(undefined4 param_1)
+void __fastcall sputLua_ImGetSfxVol(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8735,11 +8993,12 @@ void __fastcall Lua_ImGetSfxVol(undefined4 param_1)
 #undef local_8
 
 
-/* ---- 0x004a1470  Lua_ImSetSfxVol ---- */
+/* ---- 0x004a1470  sputLua_ImSetSfxVol ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: ImSetSfxVol */
+/* Lua opcode: ImSetSfxVol Original name sputLua_ImSetSfxVol (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'ImSetSfxVol'); was Lua_ImSetSfxVol. */
 
-void Lua_ImSetSfxVol(void)
+void sputLua_ImSetSfxVol(void)
 
 {
   int iVar1;
@@ -8755,11 +9014,12 @@ void Lua_ImSetSfxVol(void)
   return;
 }
 
-/* ---- 0x004a14b0  Lua_ImGetVoiceVol ---- */
+/* ---- 0x004a14b0  sputLua_ImGetVoiceVol ---- */
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* Lua opcode: ImGetVoiceVol */
+/* Lua opcode: ImGetVoiceVol Original name sputLua_ImGetVoiceVol (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ImGetVoiceVol'); was Lua_ImGetVoiceVol. */
 
-void __fastcall Lua_ImGetVoiceVol(undefined4 param_1)
+void __fastcall sputLua_ImGetVoiceVol(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8775,11 +9035,12 @@ void __fastcall Lua_ImGetVoiceVol(undefined4 param_1)
 #undef local_8
 
 
-/* ---- 0x004a14e0  Lua_ImSetVoiceVol ---- */
+/* ---- 0x004a14e0  sputLua_ImSetVoiceVol ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: ImSetVoiceVol */
+/* Lua opcode: ImSetVoiceVol Original name sputLua_ImSetVoiceVol (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ImSetVoiceVol'); was Lua_ImSetVoiceVol. */
 
-void Lua_ImSetVoiceVol(void)
+void sputLua_ImSetVoiceVol(void)
 
 {
   int iVar1;
@@ -8795,11 +9056,12 @@ void Lua_ImSetVoiceVol(void)
   return;
 }
 
-/* ---- 0x004a1520  Lua_ImGetMusicVol ---- */
+/* ---- 0x004a1520  sputLua_ImGetMusicVol ---- */
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* Lua opcode: ImGetMusicVol */
+/* Lua opcode: ImGetMusicVol Original name sputLua_ImGetMusicVol (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ImGetMusicVol'); was Lua_ImGetMusicVol. */
 
-void __fastcall Lua_ImGetMusicVol(undefined4 param_1)
+void __fastcall sputLua_ImGetMusicVol(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8815,11 +9077,12 @@ void __fastcall Lua_ImGetMusicVol(undefined4 param_1)
 #undef local_8
 
 
-/* ---- 0x004a1550  Lua_ImSetMusicVol ---- */
+/* ---- 0x004a1550  sputLua_ImSetMusicVol ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: ImSetMusicVol */
+/* Lua opcode: ImSetMusicVol Original name sputLua_ImSetMusicVol (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ImSetMusicVol'); was Lua_ImSetMusicVol. */
 
-void Lua_ImSetMusicVol(void)
+void sputLua_ImSetMusicVol(void)
 
 {
   int iVar1;
@@ -8835,11 +9098,12 @@ void Lua_ImSetMusicVol(void)
   return;
 }
 
-/* ---- 0x004a1640  Lua_ImSetState ---- */
+/* ---- 0x004a1640  sputLua_ImSetState ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: ImSetState */
+/* Lua opcode: ImSetState Original name sputLua_ImSetState (the remaster's GrimFandango (Linux): Lua
+   / module table entry 'ImSetState'); was Lua_ImSetState. */
 
-void Lua_ImSetState(void)
+void sputLua_ImSetState(void)
 
 {
   int iVar1;
@@ -8855,11 +9119,12 @@ void Lua_ImSetState(void)
   return;
 }
 
-/* ---- 0x004a16d0  Lua_ImSetCuePoint ---- */
+/* ---- 0x004a16d0  sputLua_ImSetCuePoint ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: ImSetCuePoint */
+/* Lua opcode: ImSetCuePoint Original name sputLua_ImSetCuePoint (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ImSetCuePoint'); was Lua_ImSetCuePoint. */
 
-void Lua_ImSetCuePoint(void)
+void sputLua_ImSetCuePoint(void)
 
 {
   int iVar1;
@@ -8875,11 +9140,13 @@ void Lua_ImSetCuePoint(void)
   return;
 }
 
-/* ---- 0x004a17f0  Lua_ImGetMemoryFootprint ---- */
+/* ---- 0x004a17f0  sputLua_ImGetMemoryFootprint ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: ImGetMemoryFootprint */
+/* Lua opcode: ImGetMemoryFootprint Original name sputLua_ImGetMemoryFootprint (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'ImGetMemoryFootprint'); was
+   Lua_ImGetMemoryFootprint. */
 
-void Lua_ImGetMemoryFootprint(void)
+void sputLua_ImGetMemoryFootprint(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8893,11 +9160,13 @@ void Lua_ImGetMemoryFootprint(void)
 #undef local_c
 
 
-/* ---- 0x004a1820  Lua_ImGetSoundCacheSize ---- */
+/* ---- 0x004a1820  sputLua_ImGetSoundCacheSize ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: ImGetSoundCacheSize */
+/* Lua opcode: ImGetSoundCacheSize Original name sputLua_ImGetSoundCacheSize (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'ImGetSoundCacheSize'); was
+   Lua_ImGetSoundCacheSize. */
 
-void Lua_ImGetSoundCacheSize(void)
+void sputLua_ImGetSoundCacheSize(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8911,11 +9180,12 @@ void Lua_ImGetSoundCacheSize(void)
 #undef local_c
 
 
-/* ---- 0x004a1850  Lua_SetGamma ---- */
+/* ---- 0x004a1850  sputLua_SetGamma ---- */
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* Lua opcode: SetGamma */
+/* Lua opcode: SetGamma Original name sputLua_SetGamma (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'SetGamma'); was Lua_SetGamma. */
 
-void Lua_SetGamma(void)
+void sputLua_SetGamma(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8928,17 +9198,19 @@ void Lua_SetGamma(void)
   iVar2 = lua_isnumber(iVar1);
   if ((iVar2 != 0) && (UINT_008a8c40 != 4)) {
     gamma = lua_getnumber(iVar1);
-    Render_SetGamma(gamma);
+    sputRender_SetGamma(gamma);
   }
   return;
 }
 #undef local_8
 
 
-/* ---- 0x004a1890  Lua_SetActorWalkDominate ---- */
-/* Lua opcode: SetActorWalkDominate */
+/* ---- 0x004a1890  sputLua_SetActorWalkDominate ---- */
+/* Lua opcode: SetActorWalkDominate Original name sputLua_SetActorWalkDominate (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorWalkDominate'); was
+   Lua_SetActorWalkDominate. */
 
-void Lua_SetActorWalkDominate(void)
+void sputLua_SetActorWalkDominate(void)
 
 {
   int iVar1;
@@ -8954,17 +9226,19 @@ void Lua_SetActorWalkDominate(void)
     if (iVar3 == 0x52544341) {
       iVar2 = lua_isnil(iVar2);
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
-      Actor_SetWalkDominate(actor,iVar2);
+      actor = (void *)sputActor_ActorDeref(iVar1);
+      sputActor_SetWalkDominate(actor,iVar2);
     }
   }
   return;
 }
 
-/* ---- 0x004a1900  Lua_SetActorConstrain ---- */
-/* Lua opcode: SetActorConstrain */
+/* ---- 0x004a1900  sputLua_SetActorConstrain ---- */
+/* Lua opcode: SetActorConstrain Original name sputLua_SetActorConstrain (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorConstrain'); was Lua_SetActorConstrain.
+    */
 
-void Lua_SetActorConstrain(void)
+void sputLua_SetActorConstrain(void)
 
 {
   int iVar1;
@@ -8980,17 +9254,18 @@ void Lua_SetActorConstrain(void)
     if (iVar3 == 0x52544341) {
       iVar2 = lua_isnil(iVar2);
       iVar1 = lua_getuserdata(iVar1);
-      uVar4 = Actor_FromHandle(iVar1);
-      Actor_SetConstrain(uVar4,iVar2 == 0);
+      uVar4 = sputActor_ActorDeref(iVar1);
+      sputActor_SetActorConstrain(uVar4,iVar2 == 0);
     }
   }
   return;
 }
 
-/* ---- 0x004a1970  Lua_RenderModeUser ---- */
-/* Lua opcode: RenderModeUser */
+/* ---- 0x004a1970  sputLua_RenderModeUser ---- */
+/* Lua opcode: RenderModeUser Original name sputLua_RenderModeUser (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'RenderModeUser'); was Lua_RenderModeUser. */
 
-void Lua_RenderModeUser(void)
+void sputLua_RenderModeUser(void)
 
 {
   int iVar1;
@@ -8999,31 +9274,32 @@ void Lua_RenderModeUser(void)
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnil(iVar1);
   if ((iVar2 != 0) && (UINT_008a8c40 == 4)) {
-    Movie_SetPaused(0);
-    Render_RequestFullRedraw();
+    sputSmush_Pause(0);
+    sputRender_ForceRefresh();
     UINT_008a8c40 = Engine_GetSavedValue();
     return;
   }
   iVar1 = lua_isnil(iVar1);
   if ((iVar1 == 0) && (UINT_008a8c40 != 4)) {
     Engine_SetSavedValue(UINT_008a8c40);
-    Movie_SetPaused(1);
+    sputSmush_Pause(1);
     UINT_008a8c40 = 4;
   }
   return;
 }
 
-/* ---- 0x004a19f0  Lua_DimScreen ---- */
-/* Lua opcode: DimScreen */
+/* ---- 0x004a19f0  sputLua_DimScreen ---- */
+/* Lua opcode: DimScreen Original name sputLua_DimScreen (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'DimScreen'); was Lua_DimScreen. */
 
-void Lua_DimScreen(void)
+void sputLua_DimScreen(void)
 
 {
-  Render_DimBackground(0,2);
+  sputRender_Dim(0,2);
   return;
 }
 
-/* ---- 0x004a1a00  Lua_DimRegion ---- */
+/* ---- 0x004a1a00  sputLua_DimRegion ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
@@ -9031,9 +9307,10 @@ void Lua_DimScreen(void)
 /* WARNING: Variable defined which should be unmapped: local_34 */
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* WARNING: Variable defined which should be unmapped: local_2c */
-/* Lua opcode: DimRegion */
+/* Lua opcode: DimRegion Original name sputLua_DimRegion (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'DimRegion'); was Lua_DimRegion. */
 
-void Lua_DimRegion(void)
+void sputLua_DimRegion(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9079,11 +9356,12 @@ void Lua_DimRegion(void)
 #endif
 
 
-/* ---- 0x004a1ae0  Lua_SetSpeechMode ---- */
+/* ---- 0x004a1ae0  sputLua_SetSpeechMode ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: SetSpeechMode */
+/* Lua opcode: SetSpeechMode Original name sputLua_SetSpeechMode (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetSpeechMode'); was Lua_SetSpeechMode. */
 
-void Lua_SetSpeechMode(void)
+void sputLua_SetSpeechMode(void)
 
 {
   int iVar1;
@@ -9112,15 +9390,16 @@ void Lua_SetSpeechMode(void)
   return;
 }
 
-/* ---- 0x004a1b40  Lua_GetSpeechMode ---- */
-/* Lua opcode: GetSpeechMode */
+/* ---- 0x004a1b40  sputLua_GetSpeechMode ---- */
+/* Lua opcode: GetSpeechMode Original name sputLua_GetSpeechMode (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetSpeechMode'); was Lua_GetSpeechMode. */
 
-void Lua_GetSpeechMode(void)
+void sputLua_GetSpeechMode(void)
 
 {
   byte bVar1;
   
-  bVar1 = Speech_GetMode();
+  bVar1 = sputActor_GetSpeechMode();
   if ((bVar1 & 2) == 0) {
     if ((bVar1 & 1) != 0) {
       lua_pushnumber(1.0);
@@ -9135,10 +9414,11 @@ void Lua_GetSpeechMode(void)
   return;
 }
 
-/* ---- 0x004a1b80  Lua_ActorShadow ---- */
-/* Lua opcode: ActorShadow */
+/* ---- 0x004a1b80  sputLua_ActorShadow ---- */
+/* Lua opcode: ActorShadow Original name sputLua_ActorShadow (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'ActorShadow'); was Lua_ActorShadow. */
 
-void Lua_ActorShadow(void)
+void sputLua_ActorShadow(void)
 
 {
   int iVar1;
@@ -9151,8 +9431,8 @@ void Lua_ActorShadow(void)
     iVar2 = lua_tag(iVar1);
     if ((iVar2 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
-      iVar1 = Actor_HasShadow(actor);
+      actor = (void *)sputActor_ActorDeref(iVar1);
+      iVar1 = sputActor_ActorHasShadow(actor);
       if (iVar1 != 0) {
         lua_pushnumber(1.0);
         return;
@@ -9163,10 +9443,12 @@ void Lua_ActorShadow(void)
   return;
 }
 
-/* ---- 0x004a1bf0  Lua_ActivateActorShadow ---- */
-/* Lua opcode: ActivateActorShadow */
+/* ---- 0x004a1bf0  sputLua_ActivateActorShadow ---- */
+/* Lua opcode: ActivateActorShadow Original name sputLua_ActivateActorShadow (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'ActivateActorShadow'); was
+   Lua_ActivateActorShadow. */
 
-void Lua_ActivateActorShadow(void)
+void sputLua_ActivateActorShadow(void)
 
 {
   int iVar1;
@@ -9185,7 +9467,7 @@ void Lua_ActivateActorShadow(void)
     iVar4 = lua_tag(iVar1);
     if ((iVar4 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
+      actor = (void *)sputActor_ActorDeref(iVar1);
       iVar1 = lua_isnil(iVar3);
       active = (uint)(iVar1 == 0);
       lVar5 = (longlong)lua_getnumber(iVar2);
@@ -9197,10 +9479,12 @@ void Lua_ActivateActorShadow(void)
   return;
 }
 
-/* ---- 0x004a1c90  Lua_SetActorShadowPlane ---- */
-/* Lua opcode: SetActorShadowPlane */
+/* ---- 0x004a1c90  sputLua_SetActorShadowPlane ---- */
+/* Lua opcode: SetActorShadowPlane Original name sputLua_SetActorShadowPlane (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorShadowPlane'); was
+   Lua_SetActorShadowPlane. */
 
-void Lua_SetActorShadowPlane(void)
+void sputLua_SetActorShadowPlane(void)
 
 {
   int iVar1;
@@ -9215,9 +9499,9 @@ void Lua_SetActorShadowPlane(void)
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      uVar4 = Actor_FromHandle(iVar1);
+      uVar4 = sputActor_ActorDeref(iVar1);
       iVar1 = lua_getstring(iVar2);
-      Actor_SetShadowPlane(uVar4,iVar1);
+      sputActor_SetShadowPlane(uVar4,iVar1);
       return;
     }
   }
@@ -9225,13 +9509,15 @@ void Lua_SetActorShadowPlane(void)
   return;
 }
 
-/* ---- 0x004a1d10  Lua_SetActorShadowPoint ---- */
+/* ---- 0x004a1d10  sputLua_SetActorShadowPoint ---- */
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* WARNING: Variable defined which should be unmapped: local_20 */
-/* Lua opcode: SetActorShadowPoint */
+/* Lua opcode: SetActorShadowPoint Original name sputLua_SetActorShadowPoint (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorShadowPoint'); was
+   Lua_SetActorShadowPoint. */
 
-void Lua_SetActorShadowPoint(void)
+void sputLua_SetActorShadowPoint(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9258,11 +9544,11 @@ void Lua_SetActorShadowPoint(void)
     iVar5 = lua_tag(iVar1);
     if ((iVar5 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
+      actor = (void *)sputActor_ActorDeref(iVar1);
       z = lua_getnumber(iVar4);
       y = lua_getnumber(iVar3);
       x = lua_getnumber(iVar2);
-      Actor_SetShadowPoint(actor,x,y,z);
+      sputActor_SetShadowPoint(actor,x,y,z);
       return;
     }
   }
@@ -9275,10 +9561,11 @@ void Lua_SetActorShadowPoint(void)
 #undef local_4
 
 
-/* ---- 0x004a1dc0  Lua_SetActiveShadow ---- */
-/* Lua opcode: SetActiveShadow */
+/* ---- 0x004a1dc0  sputLua_SetActiveShadow ---- */
+/* Lua opcode: SetActiveShadow Original name sputLua_SetActiveShadow (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetActiveShadow'); was Lua_SetActiveShadow. */
 
-void Lua_SetActiveShadow(void)
+void sputLua_SetActiveShadow(void)
 
 {
   int iVar1;
@@ -9293,9 +9580,9 @@ void Lua_SetActiveShadow(void)
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       lVar4 = (longlong)lua_getnumber(iVar2);
       *(int *)(*(int *)(iVar1 + 0xa4) + 500) = (int)lVar4;
@@ -9306,10 +9593,12 @@ void Lua_SetActiveShadow(void)
   return;
 }
 
-/* ---- 0x004a1e50  Lua_ActorDistToShadowPlane ---- */
-/* Lua opcode: ActorDistToShadowPlane */
+/* ---- 0x004a1e50  sputLua_ActorDistToShadowPlane ---- */
+/* Lua opcode: ActorDistToShadowPlane Original name sputLua_ActorDistToShadowPlane (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'ActorDistToShadowPlane'); was
+   Lua_ActorDistToShadowPlane. */
 
-void Lua_ActorDistToShadowPlane(void)
+void sputLua_ActorDistToShadowPlane(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9329,9 +9618,9 @@ void Lua_ActorDistToShadowPlane(void)
     iVar4 = lua_tag(iVar3);
     if ((iVar4 == 0x52544341) && (iVar3 != 0)) {
       iVar3 = lua_getuserdata(iVar3);
-      iVar3 = Actor_FromHandle(iVar3);
+      iVar3 = sputActor_ActorDeref(iVar3);
       if (*(int *)(iVar3 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar3);
+        sputActor_AllocateActorExtra(iVar3);
       }
       iVar4 = (int)lVar5 + 6;
       iVar2 = *(int *)(iVar3 + 0xa4);
@@ -9352,10 +9641,11 @@ void Lua_ActorDistToShadowPlane(void)
 #undef local_4
 
 
-/* ---- 0x004a1f30  Lua_AddShadowPlane ---- */
-/* Lua opcode: AddShadowPlane */
+/* ---- 0x004a1f30  sputLua_AddShadowClipPlane ---- */
+/* Lua opcode: AddShadowPlane Original name sputLua_AddShadowClipPlane (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'AddShadowPlane'); was Lua_AddShadowPlane. */
 
-void Lua_AddShadowPlane(void)
+void sputLua_AddShadowClipPlane(void)
 
 {
   int iVar1;
@@ -9371,12 +9661,12 @@ void Lua_AddShadowPlane(void)
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
+      actor = (void *)sputActor_ActorDeref(iVar1);
       if (*(int *)((int)actor + 0xa4) == 0) {
-        Actor_CreateExtra(actor);
+        sputActor_AllocateActorExtra(actor);
       }
       sectorName = (char *)lua_getstring(iVar2);
-      Actor_AddShadowPlane(actor,*(int *)(*(int *)((int)actor + 0xa4) + 500),sectorName);
+      sputActor_AddShadowClipPlane(actor,*(int *)(*(int *)((int)actor + 0xa4) + 500),sectorName);
       return;
     }
   }
@@ -9384,10 +9674,12 @@ void Lua_AddShadowPlane(void)
   return;
 }
 
-/* ---- 0x004a1fd0  Lua_SetActorShadowValid ---- */
-/* Lua opcode: SetActorShadowValid */
+/* ---- 0x004a1fd0  sputLua_SetActorShadowValid ---- */
+/* Lua opcode: SetActorShadowValid Original name sputLua_SetActorShadowValid (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorShadowValid'); was
+   Lua_SetActorShadowValid. */
 
-void Lua_SetActorShadowValid(void)
+void sputLua_SetActorShadowValid(void)
 
 {
   int iVar1;
@@ -9403,9 +9695,9 @@ void Lua_SetActorShadowValid(void)
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
+      actor = (void *)sputActor_ActorDeref(iVar1);
       if (*(int *)((int)actor + 0xa4) == 0) {
-        Actor_CreateExtra(actor);
+        sputActor_AllocateActorExtra(actor);
       }
       lVar4 = (longlong)lua_getnumber(iVar2);
       Actor_SetShadowValid(actor,*(int *)(*(int *)((int)actor + 0xa4) + 500),(int)lVar4);
@@ -9416,10 +9708,11 @@ void Lua_SetActorShadowValid(void)
   return;
 }
 
-/* ---- 0x004a2070  Lua_KillActorShadows ---- */
-/* Lua opcode: KillActorShadows */
+/* ---- 0x004a2070  sputLua_KillActorShadows ---- */
+/* Lua opcode: KillActorShadows Original name sputLua_KillActorShadows (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'KillActorShadows'); was Lua_KillActorShadows. */
 
-void Lua_KillActorShadows(void)
+void sputLua_KillActorShadows(void)
 
 {
   int iVar1;
@@ -9432,8 +9725,8 @@ void Lua_KillActorShadows(void)
     iVar2 = lua_tag(iVar1);
     if ((iVar2 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
-      Actor_KillShadows(actor);
+      actor = (void *)sputActor_ActorDeref(iVar1);
+      sputActor_ResetShadows(actor);
       return;
     }
   }
@@ -9441,10 +9734,11 @@ void Lua_KillActorShadows(void)
   return;
 }
 
-/* ---- 0x004a20d0  Lua_SetShadowColor ---- */
-/* Lua opcode: SetShadowColor */
+/* ---- 0x004a20d0  sputLua_SetShadowColor ---- */
+/* Lua opcode: SetShadowColor Original name sputLua_SetShadowColor (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetShadowColor'); was Lua_SetShadowColor. */
 
-void Lua_SetShadowColor(void)
+void sputLua_SetShadowColor(void)
 
 {
   int iVar1;
@@ -9460,14 +9754,15 @@ void Lua_SetShadowColor(void)
   lVar4 = (longlong)lua_getnumber(iVar2);
   iVar2 = (int)lVar4;
   lVar4 = (longlong)lua_getnumber(iVar1);
-  Shadow_SetColor((int)lVar4,iVar2,iVar3);
+  sputCostume_SetShadowColor((int)lVar4,iVar2,iVar3);
   return;
 }
 
-/* ---- 0x004a2130  Lua_NewObjectState ---- */
-/* Lua opcode: NewObjectState */
+/* ---- 0x004a2130  sputLua_NewObjectState ---- */
+/* Lua opcode: NewObjectState Original name sputLua_NewObjectState (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'NewObjectState'); was Lua_NewObjectState. */
 
-void Lua_NewObjectState(void)
+void sputLua_NewObjectState(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9508,10 +9803,11 @@ void Lua_NewObjectState(void)
 #undef local_8
 
 
-/* ---- 0x004a21f0  Lua_FreeObjectState ---- */
-/* Lua opcode: FreeObjectState */
+/* ---- 0x004a21f0  sputLua_FreeObjectState ---- */
+/* Lua opcode: FreeObjectState Original name sputLua_FreeObjectState (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'FreeObjectState'); was Lua_FreeObjectState. */
 
-void Lua_FreeObjectState(void)
+void sputLua_FreeObjectState(void)
 
 {
   int iVar1;
@@ -9525,17 +9821,18 @@ void Lua_FreeObjectState(void)
     if (iVar2 == 0x54415453) {
       state = (void *)lua_getuserdata(iVar1);
       if (state != (void *)0x0) {
-        ObjectState_Free(state);
+        sputRoom_RemoveObjectState(state);
       }
     }
   }
   return;
 }
 
-/* ---- 0x004a2240  Lua_SendObjectToBack ---- */
-/* Lua opcode: SendObjectToBack */
+/* ---- 0x004a2240  sputLua_SendObjectToBack ---- */
+/* Lua opcode: SendObjectToBack Original name sputLua_SendObjectToBack (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SendObjectToBack'); was Lua_SendObjectToBack. */
 
-void Lua_SendObjectToBack(void)
+void sputLua_SendObjectToBack(void)
 
 {
   int iVar1;
@@ -9551,9 +9848,9 @@ void Lua_SendObjectToBack(void)
       pvVar3 = (void *)lua_getuserdata(iVar1);
       if (pvVar3 != (void *)0x0) {
         iVar1 = *(int *)((int)pvVar3 + 8);
-        pvVar4 = Set_GetCurrent();
+        pvVar4 = sputRoom_GetCurrentRoom();
         iVar2 = *(int *)((int)pvVar4 + 0xac);
-        pvVar3 = ObjectState_SendToBack(pvVar3,*(void **)(iVar2 + 0x128 + iVar1 * 300));
+        pvVar3 = ObjectState_MoveToBack(pvVar3,*(void **)(iVar2 + 0x128 + iVar1 * 300));
         *(void **)(iVar2 + iVar1 * 300 + 0x128) = pvVar3;
       }
     }
@@ -9561,10 +9858,12 @@ void Lua_SendObjectToBack(void)
   return;
 }
 
-/* ---- 0x004a22b0  Lua_SendObjectToFront ---- */
-/* Lua opcode: SendObjectToFront */
+/* ---- 0x004a22b0  sputLua_SendObjectToFront ---- */
+/* Lua opcode: SendObjectToFront Original name sputLua_SendObjectToFront (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SendObjectToFront'); was Lua_SendObjectToFront.
+    */
 
-void Lua_SendObjectToFront(void)
+void sputLua_SendObjectToFront(void)
 
 {
   int iVar1;
@@ -9580,9 +9879,9 @@ void Lua_SendObjectToFront(void)
       pvVar3 = (void *)lua_getuserdata(iVar1);
       if (pvVar3 != (void *)0x0) {
         iVar1 = *(int *)((int)pvVar3 + 8);
-        pvVar4 = Set_GetCurrent();
+        pvVar4 = sputRoom_GetCurrentRoom();
         iVar2 = *(int *)((int)pvVar4 + 0xac);
-        pvVar3 = ObjectState_SendToFront(pvVar3,*(void **)(iVar2 + 0x128 + iVar1 * 300));
+        pvVar3 = ObjectState_MoveToFront(pvVar3,*(void **)(iVar2 + 0x128 + iVar1 * 300));
         *(void **)(iVar2 + iVar1 * 300 + 0x128) = pvVar3;
       }
     }
@@ -9590,10 +9889,11 @@ void Lua_SendObjectToFront(void)
   return;
 }
 
-/* ---- 0x004a2320  Lua_SetObjectType ---- */
-/* Lua opcode: SetObjectType */
+/* ---- 0x004a2320  sputLua_SetObjectType ---- */
+/* Lua opcode: SetObjectType Original name sputLua_SetObjectType (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'SetObjectType'); was Lua_SetObjectType. */
 
-void Lua_SetObjectType(void)
+void sputLua_SetObjectType(void)
 
 {
   int iVar1;
@@ -9617,10 +9917,11 @@ void Lua_SetObjectType(void)
   return;
 }
 
-/* ---- 0x004a2380  Lua_ActorToClean ---- */
-/* Lua opcode: ActorToClean */
+/* ---- 0x004a2380  sputLua_ActorToClean ---- */
+/* Lua opcode: ActorToClean Original name sputLua_ActorToClean (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'ActorToClean'); was Lua_ActorToClean. */
 
-void Lua_ActorToClean(void)
+void sputLua_ActorToClean(void)
 
 {
   int iVar1;
@@ -9633,8 +9934,8 @@ void Lua_ActorToClean(void)
     iVar2 = lua_tag(iVar1);
     if ((iVar2 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      actor = (void *)Actor_FromHandle(iVar1);
-      Actor_ToClean(actor);
+      actor = (void *)sputActor_ActorDeref(iVar1);
+      sputActor_DrawToClean(actor);
       return;
     }
   }
@@ -9642,10 +9943,12 @@ void Lua_ActorToClean(void)
   return;
 }
 
-/* ---- 0x004a23e0  Lua_SetActorCollisionMode ---- */
-/* Lua opcode: SetActorCollisionMode */
+/* ---- 0x004a23e0  sputLua_SetActorCollisionMode ---- */
+/* Lua opcode: SetActorCollisionMode Original name sputLua_SetActorCollisionMode (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorCollisionMode'); was
+   Lua_SetActorCollisionMode. */
 
-void Lua_SetActorCollisionMode(void)
+void sputLua_SetActorCollisionMode(void)
 
 {
   int iVar1;
@@ -9660,9 +9963,9 @@ void Lua_SetActorCollisionMode(void)
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       lVar4 = (longlong)lua_getnumber(iVar2);
       *(int *)(*(int *)(iVar1 + 0xa4) + 0x3f0) = (int)lVar4;
@@ -9673,10 +9976,12 @@ void Lua_SetActorCollisionMode(void)
   return;
 }
 
-/* ---- 0x004a2470  Lua_SetActorCollisionScale ---- */
-/* Lua opcode: SetActorCollisionScale */
+/* ---- 0x004a2470  sputLua_SetActorCollisionScale ---- */
+/* Lua opcode: SetActorCollisionScale Original name sputLua_SetActorCollisionScale (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorCollisionScale'); was
+   Lua_SetActorCollisionScale. */
 
-void Lua_SetActorCollisionScale(void)
+void sputLua_SetActorCollisionScale(void)
 
 {
   int iVar1;
@@ -9691,9 +9996,9 @@ void Lua_SetActorCollisionScale(void)
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       fVar4 = lua_getnumber(iVar2);
       *(float *)(*(int *)(iVar1 + 0xa4) + 0x3f4) = fVar4;
@@ -9704,10 +10009,12 @@ void Lua_SetActorCollisionScale(void)
   return;
 }
 
-/* ---- 0x004a2500  Lua_SetActorOffsetYaw ---- */
-/* Lua opcode: SetActorOffsetYaw */
+/* ---- 0x004a2500  sputLua_SetActorOffsetYaw ---- */
+/* Lua opcode: SetActorOffsetYaw Original name sputLua_SetActorOffsetYaw (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorOffsetYaw'); was Lua_SetActorOffsetYaw.
+    */
 
-void Lua_SetActorOffsetYaw(void)
+void sputLua_SetActorOffsetYaw(void)
 
 {
   int iVar1;
@@ -9722,9 +10029,9 @@ void Lua_SetActorOffsetYaw(void)
     iVar3 = lua_tag(iVar1);
     if ((iVar3 == 0x52544341) && (iVar1 != 0)) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       fVar4 = lua_getnumber(iVar2);
       *(float *)(*(int *)(iVar1 + 0xa4) + 0x24) = fVar4;
@@ -9735,14 +10042,15 @@ void Lua_SetActorOffsetYaw(void)
   return;
 }
 
-/* ---- 0x004a2590  Lua_CacheRect ---- */
+/* ---- 0x004a2590  sputLua_CacheRect ---- */
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* WARNING: Variable defined which should be unmapped: local_24 */
 /* WARNING: Variable defined which should be unmapped: local_20 */
 /* WARNING: Variable defined which should be unmapped: local_1c */
-/* Lua opcode: CacheRect */
+/* Lua opcode: CacheRect Original name sputLua_CacheRect (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'CacheRect'); was Lua_CacheRect. */
 
-void Lua_CacheRect(void)
+void sputLua_CacheRect(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9768,7 +10076,7 @@ void Lua_CacheRect(void)
     iVar5 = lua_tag(iVar1);
     if (iVar5 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (((*(int *)(iVar1 + 0x68) == 0) || (*(int *)(iVar1 + 0x74) < 1)) ||
          (*(int *)(iVar1 + 0x78) < 1)) {
         lua_pushnil();
@@ -9801,13 +10109,14 @@ LAB_004a268a:
 #undef local_4
 
 
-/* ---- 0x004a26b0  Lua_RestoreCacheRect ---- */
+/* ---- 0x004a26b0  sputLua_RestoreCacheRect ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: RestoreCacheRect */
+/* Lua opcode: RestoreCacheRect Original name sputLua_RestoreCacheRect (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'RestoreCacheRect'); was Lua_RestoreCacheRect. */
 
-void Lua_RestoreCacheRect(void)
+void sputLua_RestoreCacheRect(void)
 
 {
   int iVar1;
@@ -9826,12 +10135,13 @@ void Lua_RestoreCacheRect(void)
 #endif
 
 
-/* ---- 0x004a26f0  Lua_ResReport ---- */
+/* ---- 0x004a26f0  sputLua_ResReport ---- */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* Lua opcode: ResReport */
+/* Lua opcode: ResReport Original name sputLua_ResReport (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'ResReport'); was Lua_ResReport. */
 
-void __fastcall Lua_ResReport(undefined4 param_1)
+void __fastcall sputLua_ResReport(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9839,8 +10149,8 @@ void __fastcall Lua_ResReport(undefined4 param_1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  ((code *)Res_PrintReport)(param_1);
-  iVar1 = Res_GetMemoryUsed();
+  ((code *)sputResource_ReportAllocations)(param_1);
+  iVar1 = daTotalAllocated();
   lua_pushnumber((float)iVar1);
   return;
 }
@@ -9848,10 +10158,12 @@ void __fastcall Lua_ResReport(undefined4 param_1)
 #undef local_8
 
 
-/* ---- 0x004a2720  Lua_HardwareAccelerated ---- */
-/* Lua opcode: HardwareAccelerated */
+/* ---- 0x004a2720  sputLua_HardwareAccelerated ---- */
+/* Lua opcode: HardwareAccelerated Original name sputLua_HardwareAccelerated (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'HardwareAccelerated'); was
+   Lua_HardwareAccelerated. */
 
-void Lua_HardwareAccelerated(void)
+void sputLua_HardwareAccelerated(void)
 
 {
   if (g_nZBufferEnabled != 0) {
@@ -9862,10 +10174,12 @@ void Lua_HardwareAccelerated(void)
   return;
 }
 
-/* ---- 0x004a2750  Lua_SetActorClipActive ---- */
-/* Lua opcode: SetActorClipActive */
+/* ---- 0x004a2750  sputLua_SetActorClipActive ---- */
+/* Lua opcode: SetActorClipActive Original name sputLua_SetActorClipActive (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorClipActive'); was Lua_SetActorClipActive.
+    */
 
-void Lua_SetActorClipActive(void)
+void sputLua_SetActorClipActive(void)
 
 {
   int iVar1;
@@ -9875,7 +10189,7 @@ void Lua_SetActorClipActive(void)
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
   iVar1 = lua_getuserdata(iVar1);
-  iVar1 = Actor_FromHandle(iVar1);
+  iVar1 = sputActor_ActorDeref(iVar1);
   if (iVar1 != 0) {
     lVar3 = (longlong)lua_getnumber(iVar2);
     Actor_SetClipActive(iVar1,(int)lVar3);
@@ -9883,10 +10197,12 @@ void Lua_SetActorClipActive(void)
   return;
 }
 
-/* ---- 0x004a27b0  Lua_SetActorClipPlane ---- */
-/* Lua opcode: SetActorClipPlane */
+/* ---- 0x004a27b0  sputLua_SetActorClipPlane ---- */
+/* Lua opcode: SetActorClipPlane Original name sputLua_SetActorClipPlane (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorClipPlane'); was Lua_SetActorClipPlane.
+    */
 
-void Lua_SetActorClipPlane(void)
+void sputLua_SetActorClipPlane(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9917,7 +10233,7 @@ void Lua_SetActorClipPlane(void)
   iVar6 = lua_lua2C(6);
   iVar7 = lua_lua2C(7);
   iVar1 = lua_getuserdata(iVar1);
-  iVar1 = Actor_FromHandle(iVar1);
+  iVar1 = sputActor_ActorDeref(iVar1);
   if (iVar1 != 0) {
     iVar8 = lua_isnumber(iVar2);
     if (iVar8 != 0) {
@@ -9934,11 +10250,11 @@ void Lua_SetActorClipPlane(void)
                 local_18 = lua_getnumber(iVar2);
                 local_14 = lua_getnumber(iVar3);
                 local_10 = lua_getnumber(iVar4);
-                Vec3_Normalize(&local_18);
+                rdVector_Normalize3Acc(&local_18);
                 local_c = lua_getnumber(iVar5);
                 local_8 = lua_getnumber(iVar6);
                 local_4 = lua_getnumber(iVar7);
-                Actor_SetClipPlane(iVar1,&local_18,&local_c);
+                sputActor_SetClipPlane(iVar1,&local_18,&local_c);
               }
             }
           }
@@ -9960,10 +10276,11 @@ void Lua_SetActorClipPlane(void)
 #undef local_c
 
 
-/* ---- 0x004a2920  Lua_MarkDirtyRect ---- */
-/* Lua opcode: MarkDirtyRect */
+/* ---- 0x004a2920  sputLua_MarkDirtyRect ---- */
+/* Lua opcode: MarkDirtyRect Original name sputLua_MarkDirtyRect (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'MarkDirtyRect'); was Lua_MarkDirtyRect. */
 
-void Lua_MarkDirtyRect(void)
+void sputLua_MarkDirtyRect(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9987,7 +10304,7 @@ void Lua_MarkDirtyRect(void)
     iVar5 = lua_tag(iVar1);
     if (iVar5 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (((*(int *)(iVar1 + 0x68) != 0) && (0 < *(int *)(iVar1 + 0x74))) &&
          (0 < *(int *)(iVar1 + 0x78))) {
         Render_InvalidateRectLastBuffer((int *)(iVar1 + 0x6c),1);
@@ -10014,10 +10331,11 @@ void Lua_MarkDirtyRect(void)
 #undef local_c
 
 
-/* ---- 0x004a2a20  Lua_FadeOutChore ---- */
-/* Lua opcode: FadeOutChore */
+/* ---- 0x004a2a20  sputLua_FadeOutChore ---- */
+/* Lua opcode: FadeOutChore Original name sputLua_FadeOutChore (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'FadeOutChore'); was Lua_FadeOutChore. */
 
-void Lua_FadeOutChore(void)
+void sputLua_FadeOutChore(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10037,16 +10355,16 @@ void Lua_FadeOutChore(void)
   iVar4 = lua_isuserdata(iVar1);
   if ((iVar4 != 0) && (iVar4 = lua_tag(iVar1), iVar4 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    iVar1 = Actor_FromHandle(iVar1);
+    iVar1 = sputActor_ActorDeref(iVar1);
     lVar5 = (longlong)lua_getnumber(iVar2);
     lVar6 = (longlong)lua_getnumber(iVar3);
     iVar2 = lua_isstring((int)luaObj);
     if ((iVar2 == 0) && (iVar2 = lua_isnumber((int)luaObj), iVar2 == 0)) {
       return;
     }
-    iVar1 = Lua_ResolveCostumeArg(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
+    iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_4);
     if (iVar1 != 0) {
-      Chore_FadeOut(*(void **)local_4,(int)lVar5,(int)lVar6);
+      sputCostume_FadeKeysOut(*(void **)local_4,(int)lVar5,(int)lVar6);
     }
   }
   return;
@@ -10054,10 +10372,11 @@ void Lua_FadeOutChore(void)
 #undef local_4
 
 
-/* ---- 0x004a2c10  Lua_IrisDown ---- */
-/* Lua opcode: IrisDown */
+/* ---- 0x004a2c10  sputLua_IrisDown ---- */
+/* Lua opcode: IrisDown Original name sputLua_IrisDown (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'IrisDown'); was Lua_IrisDown. */
 
-void Lua_IrisDown(void)
+void sputLua_IrisDown(void)
 
 {
   int iVar1;
@@ -10077,10 +10396,11 @@ void Lua_IrisDown(void)
   return;
 }
 
-/* ---- 0x004a2c70  Lua_IrisUp ---- */
-/* Lua opcode: IrisUp */
+/* ---- 0x004a2c70  sputLua_IrisUp ---- */
+/* Lua opcode: IrisUp Original name sputLua_IrisUp (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'IrisUp'); was Lua_IrisUp. */
 
-void Lua_IrisUp(void)
+void sputLua_IrisUp(void)
 
 {
   int iVar1;
@@ -10100,12 +10420,13 @@ void Lua_IrisUp(void)
   return;
 }
 
-/* ---- 0x004a2cd0  Lua_IrisComplete ---- */
+/* ---- 0x004a2cd0  sputLua_IrisComplete ---- */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* Lua opcode: IrisComplete */
+/* Lua opcode: IrisComplete Original name sputLua_IrisComplete (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'IrisComplete'); was Lua_IrisComplete. */
 
-void __fastcall Lua_IrisComplete(undefined4 param_1)
+void __fastcall sputLua_IrisComplete(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10113,7 +10434,7 @@ void __fastcall Lua_IrisComplete(undefined4 param_1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = ((code *)Render_IsIrisDone)(param_1);
+  iVar1 = ((code *)sputRender_IrisComplete)(param_1);
   lua_pushnumber((float)(iVar1 != 0));
   return;
 }
@@ -10219,10 +10540,11 @@ void Lua_TextFileGetLine(void)
 #undef local_200
 
 
-/* ---- 0x004a2ee0  Lua_ScreenShot ---- */
-/* Lua opcode: ScreenShot */
+/* ---- 0x004a2ee0  sputLua_ScreenShot ---- */
+/* Lua opcode: ScreenShot Original name sputLua_ScreenShot (the remaster's GrimFandango (Linux): Lua
+   / module table entry 'ScreenShot'); was Lua_ScreenShot. */
 
-void Lua_ScreenShot(void)
+void sputLua_ScreenShot(void)
 
 {
   int iVar1;
@@ -10255,7 +10577,7 @@ LAB_004a2f2f:
   }
   iVar2 = 0x1e0;
 LAB_004a2f5e:
-  pcVar4 = Render_CaptureThumbnail(iVar1,iVar2);
+  pcVar4 = sputRender_ScreenShot(iVar1,iVar2);
   if (pcVar4 != (char *)0x0) {
     lua_pushusertag(pcVar4,0x46554256);
     return;
@@ -10264,10 +10586,11 @@ LAB_004a2f5e:
   return;
 }
 
-/* ---- 0x004a2f90  Lua_SaveScreen ---- */
-/* Lua opcode: SaveScreen */
+/* ---- 0x004a2f90  sputLua_SaveScreen ---- */
+/* Lua opcode: SaveScreen Original name sputLua_SaveScreen (the remaster's GrimFandango (Linux): Lua
+   / module table entry 'SaveScreen'); was Lua_SaveScreen. */
 
-void Lua_SaveScreen(void)
+void sputLua_SaveScreen(void)
 
 {
   int iVar1;
@@ -10280,16 +10603,17 @@ void Lua_SaveScreen(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 != 0) {
       filename = (char *)lua_getstring(iVar1);
-      Render_SaveScreen(filename);
+      sputRender_SaveScreen(filename);
     }
   }
   return;
 }
 
-/* ---- 0x004a2fd0  Lua_GetSaveGameImage ---- */
-/* Lua opcode: GetSaveGameImage */
+/* ---- 0x004a2fd0  sputLua_GetSaveGameImage ---- */
+/* Lua opcode: GetSaveGameImage Original name sputLua_GetSaveGameImage (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetSaveGameImage'); was Lua_GetSaveGameImage. */
 
-void Lua_GetSaveGameImage(void)
+void sputLua_GetSaveGameImage(void)
 
 {
   int iVar1;
@@ -10308,15 +10632,17 @@ void Lua_GetSaveGameImage(void)
     lua_pushnil();
     return;
   }
-  Render_RemapPixels(*(ushort **)(pcVar3 + 0x5c),*(int *)(pcVar3 + 0x10) * *(int *)(pcVar3 + 0xc));
+  sputRender_ColorCorrect
+            (*(ushort **)(pcVar3 + 0x5c),*(int *)(pcVar3 + 0x10) * *(int *)(pcVar3 + 0xc));
   lua_pushusertag(pcVar3,0x46554256);
   return;
 }
 
-/* ---- 0x004a3040  Lua_GetImage ---- */
-/* Lua opcode: GetImage */
+/* ---- 0x004a3040  sputLua_GetImage ---- */
+/* Lua opcode: GetImage Original name sputLua_GetImage (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'GetImage'); was Lua_GetImage. */
 
-void Lua_GetImage(void)
+void sputLua_GetImage(void)
 
 {
   int iVar1;
@@ -10340,9 +10666,9 @@ void Lua_GetImage(void)
       pcVar3[99] = '\0';
       **(undefined4 **)((int)bitmap + 0x78) = 0;
       stdBitmap_Free(bitmap);
-      Render_RemapPixels(*(ushort **)(pcVar3 + 0x5c),
-                         *(int *)(pcVar3 + 0x10) * *(int *)(pcVar3 + 0xc));
-      Render_RemapPixels((ushort *)(pcVar3 + 0x60),1);
+      sputRender_ColorCorrect
+                (*(ushort **)(pcVar3 + 0x5c),*(int *)(pcVar3 + 0x10) * *(int *)(pcVar3 + 0xc));
+      sputRender_ColorCorrect((ushort *)(pcVar3 + 0x60),1);
       lua_pushusertag(pcVar3,0x46554256);
       return;
     }
@@ -10351,10 +10677,11 @@ void Lua_GetImage(void)
   return;
 }
 
-/* ---- 0x004a30e0  Lua_FreeImage ---- */
-/* Lua opcode: FreeImage */
+/* ---- 0x004a30e0  sputLua_FreeImage ---- */
+/* Lua opcode: FreeImage Original name sputLua_FreeImage (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'FreeImage'); was Lua_FreeImage. */
 
-void Lua_FreeImage(void)
+void sputLua_FreeImage(void)
 
 {
   int iVar1;
@@ -10373,10 +10700,11 @@ void Lua_FreeImage(void)
   return;
 }
 
-/* ---- 0x004a3130  Lua_BlastImage ---- */
-/* Lua opcode: BlastImage */
+/* ---- 0x004a3130  sputLua_BlastImage ---- */
+/* Lua opcode: BlastImage Original name sputLua_BlastImage (the remaster's GrimFandango (Linux): Lua
+   / module table entry 'BlastImage'); was Lua_BlastImage. */
 
-void Lua_BlastImage(void)
+void sputLua_BlastImage(void)
 
 {
   int iVar1;
@@ -10418,10 +10746,11 @@ void Lua_BlastImage(void)
   return;
 }
 
-/* ---- 0x004a31f0  Lua_BlastRect ---- */
-/* Lua opcode: BlastRect */
+/* ---- 0x004a31f0  sputLua_BlastRect ---- */
+/* Lua opcode: BlastRect Original name sputLua_BlastRect (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'BlastRect'); was Lua_BlastRect. */
 
-void Lua_BlastRect(void)
+void sputLua_BlastRect(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10472,7 +10801,7 @@ void Lua_BlastRect(void)
       if ((iVar5 != 0) && (iVar5 = lua_tag(local_c), iVar5 == 0x524c4f43)) {
         uVar6 = lua_getuserdata(local_c);
         local_14 = ((uVar6 >> 3) << 6 | uVar6 >> 10 & 0x3f) << 5 | uVar6 >> 0x13 & 0x1f;
-        Render_RemapPixels((ushort *)&local_14,1);
+        sputRender_ColorCorrect((ushort *)&local_14,1);
       }
       lua_pushobject(iVar3);
       lua_pushstring(s_filled_004e8430);
@@ -10538,10 +10867,12 @@ void Lua_BlastRect(void)
 #undef local_c
 
 
-/* ---- 0x004a34c0  Lua_CallSaveGameCallback ---- */
-/* system.saveGameCallback(); the script answers with SubmitSaveGameData */
+/* ---- 0x004a34c0  sputLua_SaveGameCallback ---- */
+/* system.saveGameCallback(); the script answers with SubmitSaveGameData Original name
+   sputLua_SaveGameCallback (the remaster's GrimFandango (Linux): strings: 'saveGameCallback'); was
+   Lua_CallSaveGameCallback. */
 
-void __cdecl Lua_CallSaveGameCallback(void *writeFn)
+void __cdecl sputLua_SaveGameCallback(void *writeFn)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10599,10 +10930,11 @@ void __cdecl Lua_CallSaveGameCallback(void *writeFn)
 #undef local_4
 
 
-/* ---- 0x004a3720  Lua_GetSaveGameData ---- */
-/* Lua opcode: GetSaveGameData */
+/* ---- 0x004a3720  sputLua_GetSaveGameData ---- */
+/* Lua opcode: GetSaveGameData Original name sputLua_GetSaveGameData (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'GetSaveGameData'); was Lua_GetSaveGameData. */
 
-void Lua_GetSaveGameData(void)
+void sputLua_GetSaveGameData(void)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10650,12 +10982,13 @@ void Lua_GetSaveGameData(void)
 #undef local_90
 
 
-/* ---- 0x004a3830  Lua_GetTextSpeed ---- */
+/* ---- 0x004a3830  sputLua_GetTextSpeed ---- */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
-/* Lua opcode: GetTextSpeed */
+/* Lua opcode: GetTextSpeed Original name sputLua_GetTextSpeed (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'GetTextSpeed'); was Lua_GetTextSpeed. */
 
-void __fastcall Lua_GetTextSpeed(undefined4 param_1)
+void __fastcall sputLua_GetTextSpeed(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10663,7 +10996,7 @@ void __fastcall Lua_GetTextSpeed(undefined4 param_1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = ((code *)Text_GetSpeed)(param_1);
+  iVar1 = ((code *)sputActor_GetActorTextRate)(param_1);
   lua_pushnumber((float)iVar1);
   return;
 }
@@ -10671,11 +11004,12 @@ void __fastcall Lua_GetTextSpeed(undefined4 param_1)
 #undef local_8
 
 
-/* ---- 0x004a3850  Lua_SetTextSpeed ---- */
+/* ---- 0x004a3850  sputLua_SetTextSpeed ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: SetTextSpeed */
+/* Lua opcode: SetTextSpeed Original name sputLua_SetTextSpeed (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'SetTextSpeed'); was Lua_SetTextSpeed. */
 
-void Lua_SetTextSpeed(void)
+void sputLua_SetTextSpeed(void)
 
 {
   int iVar1;
@@ -10691,10 +11025,11 @@ void Lua_SetTextSpeed(void)
   return;
 }
 
-/* ---- 0x004a3890  Lua_FindFileOnAnyCD ---- */
-/* Lua opcode: FindFileOnAnyCD */
+/* ---- 0x004a3890  sputLua_FindFileOnAnyCD ---- */
+/* Lua opcode: FindFileOnAnyCD Original name sputLua_FindFileOnAnyCD (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'FindFileOnAnyCD'); was Lua_FindFileOnAnyCD. */
 
-void Lua_FindFileOnAnyCD(void)
+void sputLua_FindFileOnAnyCD(void)
 
 {
   unsigned char _frame[0x190] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10816,10 +11151,11 @@ void Lua_FindFileOnAnyCD(void)
 #undef local_180
 
 
-/* ---- 0x004a3a10  Lua_ActorPuckOrient ---- */
-/* Lua opcode: ActorPuckOrient */
+/* ---- 0x004a3a10  sputLua_ActorPuckOrient ---- */
+/* Lua opcode: ActorPuckOrient Original name sputLua_ActorPuckOrient (the remaster's GrimFandango
+   (Linux): Lua / module table entry 'ActorPuckOrient'); was Lua_ActorPuckOrient. */
 
-void Lua_ActorPuckOrient(void)
+void sputLua_ActorPuckOrient(void)
 
 {
   int iVar1;
@@ -10834,7 +11170,7 @@ void Lua_ActorPuckOrient(void)
     iVar3 = lua_tag(iVar1);
     if (iVar3 == 0x52544341) {
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       iVar3 = lua_isnil(iVar2);
       if (iVar3 == 0) {
         lVar4 = (longlong)lua_getnumber(iVar2);
@@ -10849,11 +11185,12 @@ void Lua_ActorPuckOrient(void)
   return;
 }
 
-/* ---- 0x004a3aa0  Lua_GetTickCount ---- */
+/* ---- 0x004a3aa0  sputLua_GetTickCount ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* Lua opcode: GetTickCount */
+/* Lua opcode: GetTickCount Original name sputLua_GetTickCount (the remaster's GrimFandango (Linux):
+   Lua / module table entry 'GetTickCount'); was Lua_GetTickCount. */
 
-void Lua_GetTickCount(void)
+void sputLua_GetTickCount(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10867,10 +11204,12 @@ void Lua_GetTickCount(void)
 #undef local_c
 
 
-/* ---- 0x004a3ae0  Lua_SetActorInvClipNode ---- */
-/* Lua opcode: SetActorInvClipNode */
+/* ---- 0x004a3ae0  sputLua_SetActorInvClipNode ---- */
+/* Lua opcode: SetActorInvClipNode Original name sputLua_SetActorInvClipNode (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetActorInvClipNode'); was
+   Lua_SetActorInvClipNode. */
 
-void Lua_SetActorInvClipNode(void)
+void sputLua_SetActorInvClipNode(void)
 
 {
   int iVar1;
@@ -10894,9 +11233,9 @@ void Lua_SetActorInvClipNode(void)
         uVar4 = 0xffffffff;
       }
       iVar1 = lua_getuserdata(iVar1);
-      iVar1 = Actor_FromHandle(iVar1);
+      iVar1 = sputActor_ActorDeref(iVar1);
       if (*(int *)(iVar1 + 0xa4) == 0) {
-        Actor_CreateExtra(iVar1);
+        sputActor_AllocateActorExtra(iVar1);
       }
       *(undefined4 *)(*(int *)(iVar1 + 0xa4) + 0x420) = uVar4;
     }
@@ -10904,11 +11243,13 @@ void Lua_SetActorInvClipNode(void)
   return;
 }
 
-/* ---- 0x004a3b80  Lua_SetWalkSystemFadeTime ---- */
+/* ---- 0x004a3b80  sputLua_SetWalkSystemFadeTime ---- */
 /* WARNING: This function may have set the stack pointer */
-/* Lua opcode: SetWalkSystemFadeTime */
+/* Lua opcode: SetWalkSystemFadeTime Original name sputLua_SetWalkSystemFadeTime (the remaster's
+   GrimFandango (Linux): Lua / module table entry 'SetWalkSystemFadeTime'); was
+   Lua_SetWalkSystemFadeTime. */
 
-void Lua_SetWalkSystemFadeTime(void)
+void sputLua_SetWalkSystemFadeTime(void)
 
 {
   int iVar1;
@@ -10958,13 +11299,13 @@ void Lua_LightMgrStartup(void)
       g_hLightEdHook = (void *)SetWindowsHookExA(2,((unsigned)(uintptr_t)LightEd_KeyboardProc),iVar1,iVar2);
     }
     if (UINT_004f0d0c == 0xffffffff) {
-      UINT_004f0d0c = Actor_Create();
+      UINT_004f0d0c = sputActor_AllocateActor();
     }
-    g_pLightEdMarkerActor = (void *)Actor_FromHandle(UINT_004f0d0c);
-    Actor_SetCostume(g_pLightEdMarkerActor,s_x_spot_cos_004f0d28,0);
+    g_pLightEdMarkerActor = (void *)sputActor_ActorDeref(UINT_004f0d0c);
+    sputActor_SetCostume(g_pLightEdMarkerActor,s_x_spot_cos_004f0d28,0);
     actor = Set_GetCurrentName();
     Actor_PutInSet(actor,g_pLightEdMarkerActor);
-    Actor_SetFollowBoxes(g_pLightEdMarkerActor,0);
+    sputActor_EnableWalkSystem(g_pLightEdMarkerActor,0);
     *(uint *)((int)g_pLightEdMarkerActor + 4) = *(uint *)((int)g_pLightEdMarkerActor + 4) | 2;
     Lua_LightMgrSetChange();
     return;
@@ -10982,7 +11323,7 @@ void Lua_LightMgrSetChange(void)
   char *actor;
   
   if (g_hLightEdDialog != (void *)0x0) {
-    g_pLightEdSet = Set_GetCurrent();
+    g_pLightEdSet = sputRoom_GetCurrentRoom();
     actor = Set_GetCurrentName();
     if (g_pLightEdMarkerActor != (void *)0x0) {
       Actor_PutInSet(actor,g_pLightEdMarkerActor);

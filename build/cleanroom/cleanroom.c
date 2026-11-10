@@ -62,7 +62,7 @@ extern int __real_Reg_SetFloat(char *name, float value);
 extern int __real_Reg_SetBinary(char *name, void *data, int size);
 extern void __real_Reg_SetString(char *name, char *value);
 extern void __real_Lua_Print_NoOp(void);
-extern void Render_SaveScreenshotBmp(char *filename);
+extern void sputRender_SaveDrawBuffer(char *filename);
 
 /* ---- GRIM_INI: the settings in a file (the format of grimlaunch's grim.ini) ----
  * One `name=value` per line; [sections] and lines starting with ; or # are ignored; names are not case sensitive:
@@ -379,7 +379,7 @@ int __wrap_Reg_SetBinary(char *name, void *data, int size)
     return 1;
 }
 
-/* ---- PrintDebug("CRSNAP:<file>"): a picture of the screen (Render_SaveScreenshotBmp, the Backspace+S debug key) ---- */
+/* ---- PrintDebug("CRSNAP:<file>"): a picture of the screen (sputRender_SaveDrawBuffer, the Backspace+S debug key) ---- */
 
 void __wrap_Lua_Print_NoOp(void)
 {
@@ -388,7 +388,7 @@ void __wrap_Lua_Print_NoOp(void)
         if (lua_isstring(arg)) {
             char *s = lua_getstring(arg);
             if (!strncmp(s, "CRSNAP:", 7)) {
-                Render_SaveScreenshotBmp(s + 7);
+                sputRender_SaveDrawBuffer(s + 7);
                 return;
             }
         }

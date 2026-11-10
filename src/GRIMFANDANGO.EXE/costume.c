@@ -5,24 +5,28 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00493410  Cos_StartChoreFaded ---- */
+/* ---- 0x00493410  FadeInChore ---- */
 /* Cos_StartChoreFaded(inst, chore, ms): play the chore, advance it 70 ms, fade its keyframes in
-   over ms (130 for the move chores). */
+   over ms (130 for the move chores). Original name FadeInChore (the remaster's GrimFandango
+   (Linux): the only unmatched caller of Chore_FadeIn; 1 matched neighbours agree, 0 disagree); was
+   Cos_StartChoreFaded. */
 
-void Cos_StartChoreFaded(void *param_1,uint param_2,int param_3)
+void FadeInChore(void *param_1,uint param_2,int param_3)
 
 {
   Cos_InstPlayChore((int)param_1,param_2,1,0);
   Cos_InstUpdateChore((int)param_1,param_2,0x46);
-  Chore_FadeIn(param_1,param_2,param_3);
+  sputCostume_FadeKeysIn(param_1,param_2,param_3);
   return;
 }
 
-/* ---- 0x00493450  Cos_StopChoreFaded ---- */
+/* ---- 0x00493450  FadeOutChore ---- */
 /* Cos_StopChoreFaded(inst, chore, ms): fade the chore's keyframes out over ms, then stop the chore
-   (chore -1: all). */
+   (chore -1: all). Original name FadeOutChore (the remaster's GrimFandango (Linux): the only
+   unmatched callee of sputActor_SetWalkChore; the only unmatched caller of Chore_FadeOut; 2 matched
+   neighbours agree, 0 disagree); was Cos_StopChoreFaded. */
 
-undefined * __cdecl Cos_StopChoreFaded(void *param_1,int param_2,int param_3)
+undefined * __cdecl FadeOutChore(void *param_1,int param_2,int param_3)
 
 {
   undefined *puVar1;
@@ -34,21 +38,25 @@ undefined * __cdecl Cos_StopChoreFaded(void *param_1,int param_2,int param_3)
     iVar3 = 0;
     if (0 < (int)puVar1) {
       do {
-        puVar2 = Cos_StopChoreFaded(param_1,iVar3,param_3);
+        puVar2 = FadeOutChore(param_1,iVar3,param_3);
         iVar3 = iVar3 + 1;
       } while (iVar3 < (int)puVar1);
       return puVar2;
     }
   }
   else {
-    Chore_FadeOut(param_1,param_2,param_3);
+    sputCostume_FadeKeysOut(param_1,param_2,param_3);
     puVar1 = (undefined *)Cos_InstStopChore((int)param_1,param_2);
   }
   return puVar1;
 }
 
-/* ---- 0x00494d10  Costume_PrintList ---- */
-void __cdecl Costume_PrintList(void *costume)
+/* ---- 0x00494d10  sputCostume_PrintCostumeInfo ---- */
+/* Original name sputCostume_PrintCostumeInfo (the remaster's GrimFandango (Linux): the only
+   unmatched callee of Lua_PrintActorCostumes; 1 matched neighbours agree, 0 disagree); was
+   Costume_PrintList. */
+
+void __cdecl sputCostume_PrintCostumeInfo(void *costume)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -106,7 +114,7 @@ void __cdecl Costume_FreeList(void *list,int free)
       Cos_FreeCosInstance(*(int *)list);
     }
     if (*(int *)((int)list + 0x7c) != 0) {
-      ResRef_Remove((int *)((int)list + 0x7c));
+      Res_RemoveReference((int *)((int)list + 0x7c));
     }
     Pool_Free(list);
     list = piVar1;
@@ -114,8 +122,11 @@ void __cdecl Costume_FreeList(void *list,int free)
   return;
 }
 
-/* ---- 0x00494e10  Costume_Pop ---- */
-void * __cdecl Costume_Pop(void *list,int free)
+/* ---- 0x00494e10  sputCostume_PopCostume ---- */
+/* Original name sputCostume_PopCostume (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Actor_PopCostume; 1 matched neighbours agree, 0 disagree); was Costume_Pop. */
+
+void * __cdecl sputCostume_PopCostume(void *list,int free)
 
 {
   void *pvVar1;
@@ -136,7 +147,7 @@ void * __cdecl Costume_ReplaceTop(void *list,void *costumeRes,int flags)
 {
   void *pvVar1;
   
-  pvVar1 = Costume_Pop(list,1);
+  pvVar1 = sputCostume_PopCostume(list,1);
   pvVar1 = Costume_Push(pvVar1,costumeRes,flags);
   return pvVar1;
 }
@@ -166,7 +177,7 @@ void * __cdecl Costume_Push(void *list,void *costumeRes,int flags)
     }
     iVar2 = Cos_CreateCosInstance(costumeRes,uVar4);
     *piVar1 = iVar2;
-    ResRef_Add(piVar1 + 0x1f,costumeRes,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x47a);
+    Res_SetReference(piVar1 + 0x1f,costumeRes,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x47a);
   }
   else {
     *piVar1 = flags;
@@ -415,7 +426,7 @@ void Costume_TouchComponents(int param_1)
   int iVar2;
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
-  Set_GetCurrent();
+  sputRoom_GetCurrentRoom();
   iVar1 = Cos_InstCountComponents(param_1);
   iVar2 = 0;
   if (0 < iVar1) {
@@ -429,10 +440,13 @@ void Costume_TouchComponents(int param_1)
 #undef local_4
 
 
-/* ---- 0x00495730  Costume_UpdateAll ---- */
+/* ---- 0x00495730  sputCostume_Update ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl Costume_UpdateAll(void *costumeList,float dt)
+/* Original name sputCostume_Update (the remaster's GrimFandango (Linux): the only unmatched caller
+   of rdPuppet_Advance; 1 matched neighbours agree, 0 disagree); was Costume_UpdateAll. */
+
+void __cdecl sputCostume_Update(void *costumeList,float dt)
 
 {
   int iVar1;
@@ -454,7 +468,7 @@ void __cdecl Costume_UpdateAll(void *costumeList,float dt)
     for (iVar1 = *(int *)((int)costumeList + 8); iVar1 != 0; iVar1 = *(int *)(iVar1 + 400)) {
       puppet = *(void **)(*(int *)(iVar1 + 0x40) + 0x14);
       if (puppet != (void *)0x0) {
-        rdPuppet_Advance(puppet,(float)(uVar3 & 0xffffffff) * 0.001);
+        rdPuppet_UpdateTracks(puppet,(float)(uVar3 & 0xffffffff) * 0.001);
       }
     }
   }
@@ -547,7 +561,7 @@ undefined4 Costume_SaveChoreListFile(char *param_1,uint *param_2,undefined4 para
     Cos_FreeCosInstance(iVar5);
     return 1;
   }
-  Plat_MessageBox(s_File_Error__004ea3f0,s_Unable_to_open_chore_list_file__C_004ea3fc,0);
+  grimPlat_QueryDialog(s_File_Error__004ea3f0,s_Unable_to_open_chore_list_file__C_004ea3fc,0);
   return 0;
 }
 #undef acStack_20

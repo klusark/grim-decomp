@@ -1,0 +1,1332 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004016a0",
+  "old": "Game_FrameUpdate",
+  "name": "Main_Service",
+  "comment": "Per-frame function of the main loop. Passes the one-shot global DAT_004f5a48 (\"fixed frame time\", ms) to Engine_UpdateFrame and zeroes it. The load of that global at 0x401721 is what tools/patch_simtime.py replaces with `mov eax,17` to run on a fixed 17 ms frame. The call at 0x401753 (timeGetTime) is the hook of the frame limiter (grimdlg.dll GrimFrameLimit). Original name Main_Service (the remaster's GrimFandango (Linux): strings: '%02.3f' | '%s %02.3f'); was Game_FrameUpdate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403610",
+  "old": "Svc_Warning",
+  "name": "defaultWarningPrint",
+  "comment": "Default GrimServices.warning: prints 'WARNING: %s' Original name defaultWarningPrint (the remaster's GrimFandango (Linux): strings: 'WARNING: %s'); was Svc_Warning."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403640",
+  "old": "Svc_Error",
+  "name": "defaultErrorPrint",
+  "comment": "Default GrimServices.error: prints 'ERROR: %s' Original name defaultErrorPrint (the remaster's GrimFandango (Linux): strings: 'ERROR: %s'); was Svc_Error."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00403670",
+  "old": "Svc_Debug",
+  "name": "defaultDebugPrint",
+  "comment": "Default GrimServices.debug: prints 'DEBUG: %s' Original name defaultDebugPrint (the remaster's GrimFandango (Linux): strings: 'DEBUG: %s'); was Svc_Debug."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004036a0",
+  "old": "Svc_AssertFail",
+  "name": "defaultAssert",
+  "comment": "Default GrimServices.assertFail: prints 'ASSERT: %s, %d: %s' and exit(1) Original name defaultAssert (the remaster's GrimFandango (Linux): strings: 'ASSERT! (%s:%d) %s'); was Svc_AssertFail."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040a280",
+  "old": "rdCamera_BuildProjection",
+  "name": "rdCamera_BuildFOV",
+  "comment": "Computes the projection scale from FOV and canvas size and the frustum planes Original name rdCamera_BuildFOV (the remaster's GrimFandango (Linux): the only unmatched callee of rdCamera_SetCanvas; the only unmatched callee of rdCamera_SetProjectType; 2 matched neighbours agree, 0 disagree); was rdCamera_BuildProjection."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040b8e0",
+  "old": "rdModel3_LoadBinary",
+  "name": "rdModel3_LoadEntryBinary",
+  "comment": "Reader of the binary 'MODL' model format (materials, geometry sets, meshes, hierarchy nodes). Source file Rdmodel3.c (C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdmodel3.c). Original name rdModel3_LoadEntryBinary (the remaster's GrimFandango (Linux): the only unmatched callee of rdModel3_Load; 2 matched neighbours agree, 1 disagree); was rdModel3_LoadBinary."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040c710",
+  "old": "rdModel3_AccumulateNodeBounds",
+  "name": "rdModel3_CalcModelBoundingBox",
+  "comment": "Recursively composes the node matrices (angles, offset, pivot) and accumulates the transformed mesh boxes into the model bounds. Source file Rdmodel3.c (C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdmodel3.c). Original name rdModel3_CalcModelBoundingBox (the remaster's GrimFandango (Linux): the only unmatched callee of rdModel3_CalcBoundingBoxes; 1 matched neighbours agree, 0 disagree); was rdModel3_AccumulateNodeBounds."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040c970",
+  "old": "rdModel3_AccumulateNodeRadius",
+  "name": "rdModel3_BuildExpandedRadius",
+  "comment": "Recursive helper of rdModel3_CalcRadii: composes node matrices and updates the radius. Source file Rdmodel3.c (C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdmodel3.c). Original name rdModel3_BuildExpandedRadius (the remaster's GrimFandango (Linux): the only unmatched callee of rdModel3_CalcRadii; 1 matched neighbours agree, 0 disagree); was rdModel3_AccumulateNodeRadius."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040d230",
+  "old": "rdModel_DrawMesh",
+  "name": "rdModel3_DrawMeshImpl",
+  "comment": "Original name rdModel3_DrawMeshImpl (the remaster's GrimFandango (Linux): the only unmatched caller of rdLight_CalcVertexIntensities; 1 matched neighbours agree, 0 disagree); was rdModel_DrawMesh."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040d880",
+  "old": "rdModel_AddMeshToCache",
+  "name": "rdModel3_DrawFace",
+  "comment": "Original name rdModel3_DrawFace (the remaster's GrimFandango (Linux): the only unmatched caller of rdLight_CalcFaceIntensity; 3 matched neighbours agree, 0 disagree); was rdModel_AddMeshToCache."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0040dc30",
+  "old": "rdCamera_ProjectPoint",
+  "name": "rdPrimit3_GetScreenCoord",
+  "comment": "Lua WorldToScreen; returns 0 when the point is behind the camera Original name rdPrimit3_GetScreenCoord (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_WorldToScreen; 1 matched neighbours agree, 0 disagree); was rdCamera_ProjectPoint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00417f30",
+  "old": "rdMaterial_LoadFile",
+  "name": "rdMaterial_LoadEntry",
+  "comment": "Reads a 'MAT ' material file: header, colour table, per-cel texture surfaces (type 2 colour-keyed / type 0 solid) Original name rdMaterial_LoadEntry (the remaster's GrimFandango (Linux): strings: 'MAT '); was rdMaterial_LoadFile."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004469a0",
+  "old": "Vec3_Normalize",
+  "name": "rdVector_Normalize3Acc",
+  "comment": "Original name rdVector_Normalize3Acc (the remaster's GrimFandango (Linux): the only unmatched callee of rdLight_CalcFaceIntensity; the only unmatched callee of rdLight_CalcVertexIntensities; the only unmatched callee of rdModel3_CalcVertexNormals; 11 matched neighbours agree, 0 disagree); was Vec3_Normalize."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00446ba0",
+  "old": "Vec3_Rotate",
+  "name": "rdVector_Rotate3Acc",
+  "comment": "Lua RotateVector: rotates a vector by pitch/yaw/roll angles Original name rdVector_Rotate3Acc (the remaster's GrimFandango (Linux): the only unmatched callee of sputLua_RotateVectorL; 2 matched neighbours agree, 0 disagree); was Vec3_Rotate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0044f880",
+  "old": "Matrix_Identity",
+  "name": "rdMatrix_Identity34",
+  "comment": "Original name rdMatrix_Identity34 (the remaster's GrimFandango (Linux): the only unmatched callee of Actor_Create; 1 matched neighbours agree, 0 disagree); was Matrix_Identity."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00450560",
+  "old": "rdPuppet_Init",
+  "name": "rdPuppet_NewEntry",
+  "comment": "Six tracks of 0x134 bytes starting at +8; all stopped Original name rdPuppet_NewEntry (the remaster's GrimFandango (Linux): the only unmatched callee of rdPuppet_New; 1 matched neighbours agree, 0 disagree); was rdPuppet_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00450a90",
+  "old": "rdPuppet_Advance",
+  "name": "rdPuppet_UpdateTracks",
+  "comment": "Ported to C (build/overrides_asm_s4.c): read against the assembly only, NOT differentially tested (docs/notes/asm_s*.md). Original name rdPuppet_UpdateTracks (the remaster's GrimFandango (Linux): the only unmatched caller of rdPuppet_AdvanceTrack; 1 matched neighbours agree, 0 disagree); was rdPuppet_Advance."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004728a0",
+  "old": "rdPolyline_New",
+  "name": "rdSprite_New",
+  "comment": "Allocates a 0xb8-byte polyline (RDroid Primitiv*.c) and initialises it Original name rdSprite_New (the remaster's GrimFandango (Linux): the only unmatched caller of rdPolyline_Init; 2 matched neighbours agree, 0 disagree); was rdPolyline_New."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00472910",
+  "old": "rdPolyline_Init",
+  "name": "rdSprite_NewEntry",
+  "comment": "Copies the 31-char name and builds the vertex ring for the given radius/segment counts Original name rdSprite_NewEntry (the remaster's GrimFandango (Linux): the only unmatched caller of rdMaterial_Load; 1 matched neighbours agree, 0 disagree); was rdPolyline_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00473660",
+  "old": "stdBitmap_LoadFile",
+  "name": "stdLoadImageData",
+  "comment": "Original name stdLoadImageData (the remaster's GrimFandango (Linux): strings: '.bm' | '.pic' | '.zbm' | '.gif'); was stdBitmap_LoadFile."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00473810",
+  "old": "stdBitmap_SaveByExtension",
+  "name": "stdWriteImage",
+  "comment": "Picks the writer from the file extension: .bm/.zbm (stdBitmap_SaveBM, zbm marks format 5), .bmp, .gif, .pcx, .lbm Original name stdWriteImage (the remaster's GrimFandango (Linux): strings: 'lbm' | 'pcx' | 'zbm' | 'bmp'); was stdBitmap_SaveByExtension."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00473a40",
+  "old": "Display_EnumDevices",
+  "name": "stdDisplay_Startup",
+  "comment": "Adds the 'Window Display Device' (DIBsection windowed) entry then DirectDrawEnumerate adds the DirectDraw devices Original name stdDisplay_Startup (the remaster's GrimFandango (Linux): strings: 'Window Display Device' | 'DIBsection windowed display'); was Display_EnumDevices."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00477f10",
+  "old": "PlatSvc_AssertFail",
+  "name": "stdPlatform_Assert",
+  "comment": "GrimServices.pAssertFail of the platform table (Services_InitPlatformTable; the default table of Svc_* functions has its own Svc_AssertFail): logs 'file(line): message' to an assert file and aborts (DebugBreak + exit(1)); a second failure while handling the first exits immediately. Original name stdPlatform_Assert (the remaster's GrimFandango (Linux): strings: '%s(%d):  %s\\n'); was PlatSvc_AssertFail."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00478150",
+  "old": "Plat_GetPhysicalMemory",
+  "name": "stdPlatform_GetPhysicalRam",
+  "comment": "Lua GetPhysicalBytes Original name stdPlatform_GetPhysicalRam (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_GetPhysicalBytes; 1 matched neighbours agree, 0 disagree); was Plat_GetPhysicalMemory."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047bd20",
+  "old": "Math_SinCosTable",
+  "name": "stdMath_SinCos",
+  "comment": "Math_SinCosTable(deg, &sin, &cos): 4096-entry quarter table, interpolated, per quadrant. Some quadrant indexes are one entry (90/4096 = 0.022 deg) off: a walker heading turned by a small negative angle turns 0.022 deg less (TurnActorTo right: 1.4229 instead of 1.445 at rate 85, 17 ms). Original name stdMath_SinCos (the remaster's GrimFandango (Linux): the only unmatched callee of rdLight_SetAngles; 2 matched neighbours agree, 0 disagree); was Math_SinCosTable."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047c4a0",
+  "old": "Math_AsinDegreesSeries",
+  "name": "stdMath_ArcSin3",
+  "comment": "Original name stdMath_ArcSin3 (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_GetAngleBetweenActors; the only unmatched callee of Lua_GetAngleBetweenVectors; 5 matched neighbours agree, 0 disagree); was Math_AsinDegreesSeries."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047c7c0",
+  "old": "stdConffile_OpenRead",
+  "name": "stdConffile_Open",
+  "comment": "Opens a text configuration file for reading (stdConffile_OpenMode with mode \"r\"). Source file Stdconffile.c (C:\\grimjedi\\Libs\\Std\\General\\Stdconffile.c). Original name stdConffile_Open (the remaster's GrimFandango (Linux): the only unmatched caller of stdConffile_OpenMode; 4 matched neighbours agree, 0 disagree); was stdConffile_OpenRead."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047cb70",
+  "old": "stdBmp_LoadInto",
+  "name": "stdBmp_LoadEntry",
+  "comment": "Reads BITMAPFILEHEADER/BITMAPINFOHEADER; 8-bit paletted or 24-bit sources Original name stdBmp_LoadEntry (the remaster's GrimFandango (Linux): strings: '16 bit-per-pixel BMP not yet supported.' | 'Unable to read all the data from your BMP file.  It may be  | 'This BMP file uses a bit-depth which I do not support yet.' | 'Unable to read the palette.  Your file is corrupted.'); was stdBmp_LoadInto."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0047d2d0",
+  "old": "stdPic_LoadInto",
+  "name": "stdPic_LoadEntry",
+  "comment": "Decoder of '.pic' files (allocation string stdPic.c)\nPorted to C (build/overrides_big_stdpic_loadinto.c): differential test on generated inputs, 0 differences (docs/notes/big_stdpic_loadinto.md). Original name stdPic_LoadEntry (the remaster's GrimFandango (Linux): the only unmatched callee of stdPic_Load; 1 matched neighbours agree, 0 disagree); was stdPic_LoadInto."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480000",
+  "old": "Res_GetMemoryUsed",
+  "name": "daTotalAllocated",
+  "comment": "Total bytes held by loaded resources Original name daTotalAllocated (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_GetMemoryUsage; the only unmatched callee of Lua_ResReport; 3 matched neighbours agree, 0 disagree); was Res_GetMemoryUsed."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480010",
+  "old": "Resource_RegisterFilioModule",
+  "name": "Res_SysInitialize",
+  "comment": "Registers the resource file io as a LecShare module and fills the caller's vtable Original name Res_SysInitialize (the remaster's GrimFandango (Linux): the only unmatched callee of sputResource_Initialize; 1 matched neighbours agree, 0 disagree); was Resource_RegisterFilioModule."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480680",
+  "old": "Res_WriteReport",
+  "name": "Res_Dump",
+  "comment": "Dumps 'Resource %12s size %7ld REFERENCED' lines for every loaded resource Original name Res_Dump (the remaster's GrimFandango (Linux): strings: 'REFERENCED' | 'Total: %d items, %d bytes\\n' | 'Resource %-12s,\\t\\tsize = %7ld\\t%s\\n'); was Res_WriteReport."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482070",
+  "old": "ResRef_Add",
+  "name": "Res_SetReference",
+  "comment": "Registers a 0x34-byte reference {valid, data, tag[0x20], line, prev, next} on the resource so it cannot be freed Original name Res_SetReference (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_LockSet; 10 matched neighbours agree, 0 disagree); was ResRef_Add."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482110",
+  "old": "ResRef_Remove",
+  "name": "Res_RemoveReference",
+  "comment": "Original name Res_RemoveReference (the remaster's GrimFandango (Linux): the only unmatched callee of KeyframeComponent_TrackCallback; the only unmatched callee of Lua_UnLockSet; 5 matched neighbours agree, 0 disagree); was ResRef_Remove."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482260",
+  "old": "Resource_Filio_SaveState",
+  "name": "Res_SysSave",
+  "comment": "Module interface slot 4 (Resource_Filio): save-game writer, calls the SaveGame_Write callback it is handed for every field. Original name Res_SysSave (the remaster's GrimFandango (Linux): strings: 'TEMP'); was Resource_Filio_SaveState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004825c0",
+  "old": "Engine_PushSelectedActorCostume",
+  "name": "grimlib_OverrideSelectedActorCostume",
+  "comment": "Original name grimlib_OverrideSelectedActorCostume (the remaster's GrimFandango (Linux): the only unmatched caller of Actor_PushCostume; 2 matched neighbours agree, 0 disagree); was Engine_PushSelectedActorCostume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004825f0",
+  "old": "Engine_PopSelectedActorCostume",
+  "name": "grimlib_RestoreSelectedActorCostume",
+  "comment": "Original name grimlib_RestoreSelectedActorCostume (the remaster's GrimFandango (Linux): the only unmatched caller of Actor_PopCostume; 2 matched neighbours agree, 0 disagree); was Engine_PopSelectedActorCostume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482620",
+  "old": "Engine_OpenRenderer",
+  "name": "grimlib_SetDisplay",
+  "comment": "Original name grimlib_SetDisplay (the remaster's GrimFandango (Linux): the only unmatched caller of Render_Open; 2 matched neighbours agree, 0 disagree); was Engine_OpenRenderer."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004828d0",
+  "old": "Engine_CallExitHandler",
+  "name": "grimlib_ConfirmClose",
+  "comment": "Original name grimlib_ConfirmClose (the remaster's GrimFandango (Linux): the only unmatched caller of Lua_CallExitHandler; 1 matched neighbours agree, 0 disagree); was Engine_CallExitHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482900",
+  "old": "Engine_SetPaused",
+  "name": "grimlib_SetPause",
+  "comment": "Lua EnginePause/EngineResume and WM_ACTIVATEAPP use this to freeze the engine clock Original name grimlib_SetPause (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_EnginePause; the only unmatched callee of Lua_EngineResume; 2 matched neighbours agree, 0 disagree); was Engine_SetPaused."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482ba0",
+  "old": "EngineModule_Start",
+  "name": "grimlib_GameStartup",
+  "comment": "Module interface slot 2 (EngineModule): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). Original name grimlib_GameStartup (the remaster's GrimFandango (Linux): the only unmatched caller of Plat_GetPhysicalMemory; 1 matched neighbours agree, 0 disagree); was EngineModule_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482f00",
+  "old": "Engine_BlitToBackBuffer",
+  "name": "grimlib_PlayMovie",
+  "comment": "Original name grimlib_PlayMovie (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_StartFullscreenMovie; 2 matched neighbours agree, 0 disagree); was Engine_BlitToBackBuffer."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482f80",
+  "old": "Engine_CallUserPaint",
+  "name": "grimlib_UserPaint",
+  "comment": "Original name grimlib_UserPaint (the remaster's GrimFandango (Linux): the only unmatched caller of Lua_CallUserPaintHandler; 2 matched neighbours agree, 0 disagree); was Engine_CallUserPaint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482fb0",
+  "old": "Engine_RequestLoad",
+  "name": "grimlib_Load",
+  "comment": "Original name grimlib_Load (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_Load; 1 matched neighbours agree, 0 disagree); was Engine_RequestLoad."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00482fd0",
+  "old": "Engine_TakeRestoreFlag",
+  "name": "grimlib_JustLoaded",
+  "comment": "Original name grimlib_JustLoaded (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_JustLoaded; 1 matched neighbours agree, 0 disagree); was Engine_TakeRestoreFlag."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00483aa0",
+  "old": "Set_ApplySetupCamera",
+  "name": "sputRender_SyncCamera",
+  "comment": "Selects the setup's colormap, binds the rdCamera (setup+0x48) to the canvas, sets zoom 1.0 and updates it from the camera frame at setup+0x50 (300-byte setup records start at set+0xac) Original name sputRender_SyncCamera (the remaster's GrimFandango (Linux): the only unmatched caller of rdCamera_SetCanvas; the only unmatched caller of rdCamera_SetCurrent; 2 matched neighbours agree, 0 disagree); was Set_ApplySetupCamera."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00483eb0",
+  "old": "Render_SetBufferCount",
+  "name": "sputRender_PageCountIs",
+  "comment": "Original name sputRender_PageCountIs (the remaster's GrimFandango (Linux): the only unmatched callee of Engine_OpenRenderer; 1 matched neighbours agree, 0 disagree); was Render_SetBufferCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00483f60",
+  "old": "Render_InvalidateRect",
+  "name": "MarkDirtyRect",
+  "comment": "Aligns x/width to 4 pixels and marks the rectangle dirty on every buffer Original name MarkDirtyRect (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_IrisClear; 2 matched neighbours agree, 0 disagree); was Render_InvalidateRect."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00484030",
+  "old": "Render_Open",
+  "name": "sputRender_SetDisplay",
+  "comment": "Creates the rdCanvas, the background, temp and z-buffer surfaces, programs the pixel format into RDroid and draws the current set Original name sputRender_SetDisplay (the remaster's GrimFandango (Linux): the only unmatched caller of rdCamera_SetAmbientLight; the only unmatched caller of rdCanvas_New; 3 matched neighbours agree, 1 disagree); was Render_Open."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004841f0",
+  "old": "Render_Close",
+  "name": "sputRender_Close",
+  "comment": "Original name sputRender_Close (the remaster's GrimFandango (Linux): the only unmatched caller of rdCanvas_Free; 1 matched neighbours agree, 1 disagree); was Render_Close."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00484260",
+  "old": "Engine_RenderFrame",
+  "name": "sputRender_Update",
+  "comment": "sputRender.cpp: draws one frame. Mode 3 polls the movie; otherwise re-prepares the set when it changed, draws object states, actors (profile slots 4-7), overlays, the iris/fade (flag 4 of g_dwRenderFlags) and text\nPorted to C (build/overrides_big_engine_renderframe.c): differential test vs recorder stand-ins, 0 differences (docs/notes/big_engine_renderframe.md). Original name sputRender_Update (the remaster's GrimFandango (Linux): the only unmatched caller of Lua_CallPostCamChangeHandler; 6 matched neighbours agree, 1 disagree); was Engine_RenderFrame."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004863b0",
+  "old": "Render_InvalidateBackground",
+  "name": "sputRender_PreRendered",
+  "comment": "Original name sputRender_PreRendered (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_PreRender; 1 matched neighbours agree, 0 disagree); was Render_InvalidateBackground."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486620",
+  "old": "Render_RemapPixels",
+  "name": "sputRender_ColorCorrect",
+  "comment": "Original name sputRender_ColorCorrect (the remaster's GrimFandango (Linux): the only unmatched callee of Shadow_SetColor; 5 matched neighbours agree, 0 disagree); was Render_RemapPixels."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486710",
+  "old": "Render_SetGamma",
+  "name": "sputRender_SetGamma",
+  "comment": "Rebuilds the colour constants and redraws the current setup when the gamma changes Original name sputRender_SetGamma (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetGamma; 2 matched neighbours agree, 0 disagree); was Render_SetGamma."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004867d0",
+  "old": "Render_DimBackground",
+  "name": "sputRender_Dim",
+  "comment": "Renders a frame, copies it to the background and darkens every pixel by the given shift (used while menus are up) Original name sputRender_Dim (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_DimScreen; 2 matched neighbours agree, 1 disagree); was Render_DimBackground."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486f30",
+  "old": "Render_IsIrisDone",
+  "name": "sputRender_IrisComplete",
+  "comment": "Original name sputRender_IrisComplete (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_IrisComplete; 1 matched neighbours agree, 0 disagree); was Render_IsIrisDone."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00486f90",
+  "old": "Render_CaptureThumbnail",
+  "name": "sputRender_ScreenShot",
+  "comment": "Renders a dimmed frame and scales the background down into a new w x h bitmap (save game thumbnail) Original name sputRender_ScreenShot (the remaster's GrimFandango (Linux): the only unmatched caller of Render_DimBackground; 2 matched neighbours agree, 0 disagree); was Render_CaptureThumbnail."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00487260",
+  "old": "Render_SaveScreen",
+  "name": "sputRender_SaveScreen",
+  "comment": "Lua SaveScreen Original name sputRender_SaveScreen (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SaveScreen; 3 matched neighbours agree, 0 disagree); was Render_SaveScreen."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00487340",
+  "old": "Render_SaveScreenshotBmp",
+  "name": "sputRender_SaveDrawBuffer",
+  "comment": "Debug key S: writes the back buffer as a 24-bit .bmp Original name sputRender_SaveDrawBuffer (the remaster's GrimFandango (Linux): the only unmatched caller of stdBitmap_SaveByExtension; 2 matched neighbours agree, 0 disagree); was Render_SaveScreenshotBmp."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00487650",
+  "old": "Plat_MessageBox",
+  "name": "grimPlat_QueryDialog",
+  "comment": "Win95/grimplat.cpp: MessageBoxA on the game window; returns the IDxxx button code (2 = cancel, 7 = no) Original name grimPlat_QueryDialog (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_QueryDialog; 3 matched neighbours agree, 0 disagree); was Plat_MessageBox."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00487e30",
+  "old": "Plat_InputDialog",
+  "name": "grimPlat_InputDialog",
+  "comment": "Lua InputDialog: modal text entry dialog Original name grimPlat_InputDialog (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_InputDialog; 3 matched neighbours agree, 0 disagree); was Plat_InputDialog."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489130",
+  "old": "sputSmush_Start",
+  "name": "sputSmush_Startup",
+  "comment": "Module slot 2 of sputSmush: honours the StartSmush registry value (FALSE disables movies), otherwise initialises the Smush player through the LecShare table and sets g_nMovieAvailable. Original name sputSmush_Startup (the remaster's GrimFandango (Linux): strings: 'StartSmush'); was sputSmush_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00489390",
+  "old": "Movie_SetFile",
+  "name": "sputSmush_GetMovieLength",
+  "comment": "Resolves the movie name through the resource system and hands the path to the SMUSH player Original name sputSmush_GetMovieLength (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_GetSmushLength; 1 matched neighbours agree, 0 disagree); was Movie_SetFile."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004894f0",
+  "old": "Movie_SetPaused",
+  "name": "sputSmush_Pause",
+  "comment": "Original name sputSmush_Pause (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_PauseMovie; 3 matched neighbours agree, 0 disagree); was Movie_SetPaused."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048c050",
+  "old": "Text_ParseLuaTable",
+  "name": "GetTextParamsFromTable",
+  "comment": "Reads x, y, font, width, height, fgcolor, bgcolor, ... keys from a Lua table into a text context Original name GetTextParamsFromTable (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetSayLineDefaults; 5 matched neighbours agree, 0 disagree); was Text_ParseLuaTable."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d1a0",
+  "old": "Engine_RegisterShutdownHook",
+  "name": "sputControl_AddCallback",
+  "comment": "Appends fn to the 9-slot hook array g_pShutdownHooks Original name sputControl_AddCallback (the remaster's GrimFandango (Linux): the only unmatched callee of sputRender_Initialize; 2 matched neighbours agree, 0 disagree); was Engine_RegisterShutdownHook."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048d350",
+  "old": "Resource_Load",
+  "name": "sputResource_Alloc",
+  "comment": "sputresource.cpp: Res_Load plus the memory budget check that frees unreferenced resources above g_nResMemoryBudget Original name sputResource_Alloc (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_LoadCostume; 11 matched neighbours agree, 1 disagree); was Resource_Load."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048dab0",
+  "old": "ResType_ColormapHandler",
+  "name": "sputResource_ColormapHandler",
+  "comment": "Resource type handler for 'CMAP' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports the size. Load = rdColormap_Load + 16-bit tables + pixel remap. Original name sputResource_ColormapHandler (the remaster's GrimFandango (Linux): the only unmatched caller of rdColormap_Free; 2 matched neighbours agree, 0 disagree); was ResType_ColormapHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048dc60",
+  "old": "ResType_KeyframeHandler",
+  "name": "sputResource_KeyframeHandler",
+  "comment": "Resource type handler for 'KEYF' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports the size. Load = rdKeyframe_Load (default 15 fps). Original name sputResource_KeyframeHandler (the remaster's GrimFandango (Linux): the only unmatched caller of rdKeyframe_Free; the only unmatched caller of rdKeyframe_Load; 2 matched neighbours agree, 0 disagree); was ResType_KeyframeHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048dd20",
+  "old": "ResType_MaterialHandler",
+  "name": "sputResource_MaterialHandler",
+  "comment": "Resource type handler for 'MAT ' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports the size. Load = rdMaterial_LoadFile, falls back to dflt.mat. Original name sputResource_MaterialHandler (the remaster's GrimFandango (Linux): strings: 'dflt.mat'); was ResType_MaterialHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048e230",
+  "old": "Res_PrintReport",
+  "name": "sputResource_ReportAllocations",
+  "comment": "Original name sputResource_ReportAllocations (the remaster's GrimFandango (Linux): strings: 'Grim.res'); was Res_PrintReport."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048e240",
+  "old": "Actors_FreeAllCostumes",
+  "name": "sputActor_NukeCostumeStacks",
+  "comment": "Lua NukeResources: drops every actor's costume list Original name sputActor_NukeCostumeStacks (the remaster's GrimFandango (Linux): the only unmatched caller of Costume_PrintList; 1 matched neighbours agree, 1 disagree); was Actors_FreeAllCostumes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048ecd0",
+  "old": "sputActor_RestoreState",
+  "name": "sputActor_Restore",
+  "comment": "Module interface slot 5 (sputActor): save-game reader, calls the SaveGame_Read callback it is handed; returns non-zero on a short read. Original name sputActor_Restore (the remaster's GrimFandango (Linux): the only unmatched caller of rdPuppet_AddTrack; 4 matched neighbours agree, 2 disagree); was sputActor_RestoreState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048f920",
+  "old": "Render_GetFrameCounter",
+  "name": "sputActor_GetNumActorsTalking",
+  "comment": "Original name sputActor_GetNumActorsTalking (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_IsMessageGoing; 1 matched neighbours agree, 0 disagree); was Render_GetFrameCounter."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048f930",
+  "old": "Actor_SetCostume",
+  "name": "sputActor_SetCostume",
+  "comment": "Lua SetActorCostume: replaces the whole costume stack with one costume Original name sputActor_SetCostume (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorCostume; 3 matched neighbours agree, 0 disagree); was Actor_SetCostume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048fbd0",
+  "old": "Actor_TurnKey",
+  "name": "sputActor_Turn",
+  "comment": "Actor_TurnKey(actor, dir): the TurnActor builtin. Walker extra struct at actor+0xa4: +0x1c turn rate (deg/s, default 135, set by SetActorTurnRate), +0x41c time scale, +0x28 angle still to turn. Turn per press = rate * frameSeconds * timescale * dir; the key is accepted (+0x10 = +-1) only when |+0x28| <= 2 * that amount, i.e. the visible heading has caught up. Creates the walker (Actor_CreateWalker) if it does not exist. Original name sputActor_Turn (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_TurnActor; 2 matched neighbours agree, 0 disagree); was Actor_TurnKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0048fc80",
+  "old": "Actor_WalkForward",
+  "name": "sputActor_Forward",
+  "comment": "Actor_WalkForward(actor): creates the walker if missing and sets extra+0xc (walk forward this frame), consumed by Actor_UpdateWalker. Original name sputActor_Forward (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_WalkActorForward; 3 matched neighbours agree, 0 disagree); was Actor_WalkForward."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490320",
+  "old": "Actor_SetSelected",
+  "name": "sputActor_SetSelectedActor",
+  "comment": "Lua SetSelectedActor; returns the handle or -1 Original name sputActor_SetSelectedActor (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetSelectedActor; 1 matched neighbours agree, 0 disagree); was Actor_SetSelected."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490360",
+  "old": "Actor_FromHandle",
+  "name": "sputActor_ActorDeref",
+  "comment": "Original name sputActor_ActorDeref (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_ActorVoiceIs3D; the only unmatched callee of Lua_GetActorCostumeDepth; the only unmatched callee of Lua_GetActorLookRate; the only unmatched callee of Lua_GetActorPos; the only unmatched callee of Lua_GetActorRect; the only unmatched callee of Lua_GetActorRot; the only unmatched callee of Lua_GetActorScale; the only unmatched callee of Lua_GetActorTalkColor; the only unmatched callee of Lua_IsActorLooking; the only unmatched callee of Lua_IsActorMoving; the only unmatched callee of Lua_SetActorLookRate; the only unmatched callee of Lua_SetActorPitch; the only unmatched callee of Lua_SetActorRoll; the only unmatched callee of Lua_SetActorScale; the only unmatched callee of Lua_SetActorVisibility; 97 matched neighbours agree, 0 disagree); was Actor_FromHandle."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490380",
+  "old": "Actor_GetHandle",
+  "name": "sputActor_GetActorHandle",
+  "comment": "Original name sputActor_GetActorHandle (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_CallCostumeMarkerHandler; the only unmatched callee of Lua_CallCostumeOverrideHandler; 3 matched neighbours agree, 1 disagree); was Actor_GetHandle."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004903a0",
+  "old": "Actor_Create",
+  "name": "sputActor_AllocateActor",
+  "comment": "Lua LoadActor: allocates an actor record and returns its handle (-1 when full) Original name sputActor_AllocateActor (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_LoadActor; 1 matched neighbours agree, 0 disagree); was Actor_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490580",
+  "old": "Actor_CreateExtra",
+  "name": "sputActor_AllocateActorExtra",
+  "comment": "Source: Engine/sputActor.cpp (lines 1561-1564, from __FILE__/__LINE__ passed to the allocator) Original name sputActor_AllocateActorExtra (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_ActorLookAt; the only unmatched callee of Lua_GetActorPuckVector; the only unmatched callee of Lua_GetActorTimeScale; the only unmatched callee of Lua_GetActorTurnRate; the only unmatched callee of Lua_GetActorWalkRate; the only unmatched callee of Lua_IsActorResting; the only unmatched callee of Lua_IsActorTurning; the only unmatched callee of Lua_SetActorCollisionScale; the only unmatched callee of Lua_SetActorOffsetYaw; the only unmatched callee of Lua_SetActorTalkColor; the only unmatched callee of Lua_SetActorTimeScale; the only unmatched callee of Lua_SetActorTurnRate; the only unmatched callee of Lua_SetActorWalkRate; 20 matched neighbours agree, 1 disagree); was Actor_CreateExtra."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004906b0",
+  "old": "Actor_SetFollowBoxes",
+  "name": "sputActor_EnableWalkSystem",
+  "comment": "Actor_SetFollowBoxes(actor, follow): sets extra+0x1b8. Following creates the walker and reattaches it to the set; not following clears the walker's sector (+0x5c) but keeps the walker. Original name sputActor_EnableWalkSystem (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorFollowBoxes; 1 matched neighbours agree, 1 disagree); was Actor_SetFollowBoxes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490730",
+  "old": "Actor_CreateWalker",
+  "name": "sputActor_EnablePuck",
+  "comment": "Source: Engine/sputActor.cpp (line 1637, from __FILE__/__LINE__ passed to the allocator) Original name sputActor_EnablePuck (the remaster's GrimFandango (Linux): the only unmatched callee of Actor_TurnKey; the only unmatched callee of Actor_WalkForward; 7 matched neighbours agree, 0 disagree); was Actor_CreateWalker."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490870",
+  "old": "Actor_SetPositionClamped",
+  "name": "sputActor_SetActorPosition",
+  "comment": "Original name sputActor_SetActorPosition (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_PutActorAt; the only unmatched callee of Lua_PutActorAtInterest; 2 matched neighbours agree, 1 disagree); was Actor_SetPositionClamped."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490900",
+  "old": "Actor_SetRot",
+  "name": "sputActor_SetActorRotation",
+  "comment": "Actor_SetRot(actor, angles, snap): clears actor+8 bit 0 first, which ends a WalkActorTo path walk (Actor_UpdateMovement only calls Actor_FollowPath while it is set). Pitch (+0x24) and roll (+0x2c) are always set at once. With a walker, the walker heading is turned to the yaw immediately, +0x28 (angle left) is set, and the visible yaw eases there in Walker_UpdateYaw; snap (5th Lua arg nil) negates the turn rate so that update jumps in one frame. Without a walker all three angles are set at once. Does not create a walker. Original name sputActor_SetActorRotation (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorRot; 2 matched neighbours agree, 0 disagree); was Actor_SetRot."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490a40",
+  "old": "Actor_SetReflection",
+  "name": "sputActor_SetReflection",
+  "comment": "Original name sputActor_SetReflection (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorReflection; 1 matched neighbours agree, 0 disagree); was Actor_SetReflection."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490d30",
+  "old": "Actor_PushCostume",
+  "name": "sputActor_PushCostume",
+  "comment": "Original name sputActor_PushCostume (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_PushActorCostume; 2 matched neighbours agree, 0 disagree); was Actor_PushCostume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00490dd0",
+  "old": "Actor_PopCostume",
+  "name": "sputActor_PopCostume",
+  "comment": "Original name sputActor_PopCostume (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_PopActorCostume; 2 matched neighbours agree, 0 disagree); was Actor_PopCostume."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00493060",
+  "old": "Actor_ShutUp",
+  "name": "sputActor_ShutUp",
+  "comment": "Lua ShutUpActor: stops the actor's speech and talk chores Original name sputActor_ShutUp (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_ShutUpActor; 1 matched neighbours agree, 1 disagree); was Actor_ShutUp."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004931e0",
+  "old": "Speech_GetMode",
+  "name": "sputActor_GetSpeechMode",
+  "comment": "Returns bits: 1 text, 2 voice Original name sputActor_GetSpeechMode (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_GetSpeechMode; 1 matched neighbours agree, 0 disagree); was Speech_GetMode."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004931f0",
+  "old": "Actor_PushSectorOppositeEdge",
+  "name": "sputActor_LeaveSector",
+  "comment": "Lua GetSectorOppositeEdge: pushes the point on the far edge of the sector from the actor Original name sputActor_LeaveSector (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_GetSectorOppositeEdge; 1 matched neighbours agree, 1 disagree); was Actor_PushSectorOppositeEdge."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004933c0",
+  "old": "Actor_SetWalkDominate",
+  "name": "sputActor_SetWalkDominate",
+  "comment": "Original name sputActor_SetWalkDominate (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorWalkDominate; 1 matched neighbours agree, 0 disagree); was Actor_SetWalkDominate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004933e0",
+  "old": "Actor_SetConstrain",
+  "name": "sputActor_SetActorConstrain",
+  "comment": "Original name sputActor_SetActorConstrain (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorConstrain; 1 matched neighbours agree, 0 disagree); was Actor_SetConstrain."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00493410",
+  "old": "Cos_StartChoreFaded",
+  "name": "FadeInChore",
+  "comment": "Cos_StartChoreFaded(inst, chore, ms): play the chore, advance it 70 ms, fade its keyframes in over ms (130 for the move chores). Original name FadeInChore (the remaster's GrimFandango (Linux): the only unmatched caller of Chore_FadeIn; 1 matched neighbours agree, 0 disagree); was Cos_StartChoreFaded."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00493450",
+  "old": "Cos_StopChoreFaded",
+  "name": "FadeOutChore",
+  "comment": "Cos_StopChoreFaded(inst, chore, ms): fade the chore's keyframes out over ms, then stop the chore (chore -1: all). Original name FadeOutChore (the remaster's GrimFandango (Linux): the only unmatched callee of sputActor_SetWalkChore; the only unmatched caller of Chore_FadeOut; 2 matched neighbours agree, 0 disagree); was Cos_StopChoreFaded."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00493510",
+  "old": "Actor_HasShadow",
+  "name": "sputActor_ActorHasShadow",
+  "comment": "Original name sputActor_ActorHasShadow (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_ActorShadow; 1 matched neighbours agree, 0 disagree); was Actor_HasShadow."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00493570",
+  "old": "Actor_SetShadowPlane",
+  "name": "sputActor_SetShadowPlane",
+  "comment": "Original name sputActor_SetShadowPlane (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorShadowPlane; 1 matched neighbours agree, 0 disagree); was Actor_SetShadowPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004935f0",
+  "old": "Actor_SetShadowPoint",
+  "name": "sputActor_SetShadowPoint",
+  "comment": "Original name sputActor_SetShadowPoint (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorShadowPoint; 1 matched neighbours agree, 0 disagree); was Actor_SetShadowPoint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00493660",
+  "old": "Actor_AddShadowPlane",
+  "name": "sputActor_AddShadowClipPlane",
+  "comment": "Shadow records are 0x54 bytes at extra+(idx+6)*0x54 with the plane equation at +8 Original name sputActor_AddShadowClipPlane (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_AddShadowPlane; 1 matched neighbours agree, 0 disagree); was Actor_AddShadowPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004936b0",
+  "old": "Actor_KillShadows",
+  "name": "sputActor_ResetShadows",
+  "comment": "Original name sputActor_ResetShadows (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_KillActorShadows; 1 matched neighbours agree, 0 disagree); was Actor_KillShadows."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004936e0",
+  "old": "Actor_DrawShadows",
+  "name": "sputCostume_DrawActorShadow",
+  "comment": "Draws the shadows of an actor: slots at extra+0x1f8, 0x54 bytes each (+0 active, +4 valid, +8..+0x14 plane normal and d, +0x18..0x20 shadow point). valid 0: always; -1: only when pos.n+d <= 0; 1: only when >= 0 (pos = actor+0xc). Set by SetActorShadowPlane (Actor_SetShadowPlane 0x493570, which resets valid to 0) and SetActorShadowValid (Lua_SetActorShadowValid 0x4a1fd0 -> 0x493630). Original name sputCostume_DrawActorShadow (the remaster's GrimFandango (Linux): the only unmatched caller of Actor_DrawShadowPlane; 1 matched neighbours agree, 0 disagree); was Actor_DrawShadows."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004937c0",
+  "old": "Actor_ToClean",
+  "name": "sputActor_DrawToClean",
+  "comment": "Lua ActorToClean: marks the actor's rectangle to be restored from the clean background Original name sputActor_DrawToClean (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_ActorToClean; 3 matched neighbours agree, 0 disagree); was Actor_ToClean."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004946b0",
+  "old": "Actor_SetClipPlane",
+  "name": "sputActor_SetClipPlane",
+  "comment": "Original name sputActor_SetClipPlane (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorClipPlane; 1 matched neighbours agree, 1 disagree); was Actor_SetClipPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494740",
+  "old": "Text_GetSpeed",
+  "name": "sputActor_GetActorTextRate",
+  "comment": "Original name sputActor_GetActorTextRate (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_GetTextSpeed; 1 matched neighbours agree, 0 disagree); was Text_GetSpeed."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494890",
+  "old": "Shadow_SetColor",
+  "name": "sputCostume_SetShadowColor",
+  "comment": "Lua SetShadowColor Original name sputCostume_SetShadowColor (the remaster's GrimFandango (Linux): the only unmatched caller of rdColormap_Load; 2 matched neighbours agree, 0 disagree); was Shadow_SetColor."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494d10",
+  "old": "Costume_PrintList",
+  "name": "sputCostume_PrintCostumeInfo",
+  "comment": "Original name sputCostume_PrintCostumeInfo (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_PrintActorCostumes; 1 matched neighbours agree, 0 disagree); was Costume_PrintList."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00494e10",
+  "old": "Costume_Pop",
+  "name": "sputCostume_PopCostume",
+  "comment": "Original name sputCostume_PopCostume (the remaster's GrimFandango (Linux): the only unmatched callee of Actor_PopCostume; 1 matched neighbours agree, 0 disagree); was Costume_Pop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00495730",
+  "old": "Costume_UpdateAll",
+  "name": "sputCostume_Update",
+  "comment": "Original name sputCostume_Update (the remaster's GrimFandango (Linux): the only unmatched caller of rdPuppet_Advance; 1 matched neighbours agree, 0 disagree); was Costume_UpdateAll."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496670",
+  "old": "MaterialComponent_Create",
+  "name": "MaterialRequester",
+  "comment": "Costume tag handler for 'RDroid Animated Material' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, parses a key or asks for a .mat file ('Select mat file to animate...') for a model/sprite component. Original name MaterialRequester (the remaster's GrimFandango (Linux): strings: 'Select mat file to animate...'); was MaterialComponent_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496890",
+  "old": "ModelComponent_EditParentOffset",
+  "name": "ThingAdjuster",
+  "comment": "Editor dialog 'Resolve parent offset' Original name ThingAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d' | 'Resolve parent offset (0 = off)'); was ModelComponent_EditParentOffset."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496950",
+  "old": "ModelComponent_NewInstance",
+  "name": "ThingInstancer",
+  "comment": "0x194-byte instance {ResRef model, ..., +0x38 isRoot, +0x40 rdThing, +0x44 parentInstance, +0x48 parentNode, +0x4c colormap, +0x50 refCount, +0x190 next}; shared with an identical component of the actor's current costume\nPorted to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md). Original name ThingInstancer (the remaster's GrimFandango (Linux): the only unmatched caller of rdPuppet_New; 3 matched neighbours agree, 0 disagree); was ModelComponent_NewInstance."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00496e20",
+  "old": "MeshComponent_Create",
+  "name": "MeshRequester",
+  "comment": "Registers a MODL/MMDL component attached to a mesh node ('Mesh N: name'); with no node name the editor shows 'Select mesh node to add' Original name MeshRequester (the remaster's GrimFandango (Linux): strings: 'Mesh %d (%s)' | 'Select mesh node to add...'); was MeshComponent_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004971a0",
+  "old": "ImuseSoundComponent_OnKey",
+  "name": "SoundChanger",
+  "comment": "Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, starts the sound (SoundStartVoiceStream for streamed, SoundsLoadStartSound + positional parameters from the current set for resident sounds) unless it already plays. Original name SoundChanger (the remaster's GrimFandango (Linux): the only unmatched caller of Set_GetSoundParams; 2 matched neighbours agree, 0 disagree); was ImuseSoundComponent_OnKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497320",
+  "old": "ImuseSoundComponent_EditKey",
+  "name": "SoundAdjuster",
+  "comment": "Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for Maximum Volume / Priority / Minimum Volume. Original name SoundAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d,%d,%d,%d'); was ImuseSoundComponent_EditKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497460",
+  "old": "ImuseSoundComponent_Create",
+  "name": "SoundRequester",
+  "comment": "Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sound key or asks for an .imu/.imc/.wvc file. Original name SoundRequester (the remaster's GrimFandango (Linux): strings: 'Select sound file to add...' | 'Sound files (*.imu, *.imc, *.wvc, *.wav)'); was ImuseSoundComponent_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004976a0",
+  "old": "LuaVarComponent_EditKey",
+  "name": "LuaVarAdjuster",
+  "comment": "Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog 'Change variable properties'. Original name LuaVarAdjuster (the remaster's GrimFandango (Linux): strings: 'Change variable properties'); was LuaVarComponent_EditKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497710",
+  "old": "LuaVarComponent_Create",
+  "name": "LuaVarRequester",
+  "comment": "Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for the variable name ('Name of variable') in the editor. Original name LuaVarRequester (the remaster's GrimFandango (Linux): strings: 'Name of variable'); was LuaVarComponent_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497890",
+  "old": "KeyframeComponent_OnKey",
+  "name": "KeyframeChanger",
+  "comment": "Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, applies a keyframe key to the actor's puppet: finds or adds the track (rdPuppet_AddTrack) and plays/loops/stops/fades it according to the key type 0..14. Original name KeyframeChanger (the remaster's GrimFandango (Linux): the only unmatched caller of rdPuppet_PlayTrack; 5 matched neighbours agree, 0 disagree); was KeyframeComponent_OnKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00497cb0",
+  "old": "KeyframeComponent_TrackCallback",
+  "name": "sputCostume_PuppetHook",
+  "comment": "Track user-data callback installed by KeyframeComponent_OnKey (rdPuppet_SetTrackUserData): forwards track markers of the playing animation to Lua_CallCostumeMarkerHandler for the actor and drops the keyframe ResRef when the track ends. Original name sputCostume_PuppetHook (the remaster's GrimFandango (Linux): the only unmatched caller of Lua_CallCostumeMarkerHandler; 1 matched neighbours agree, 0 disagree); was KeyframeComponent_TrackCallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498160",
+  "old": "SmushComponent_OnKey",
+  "name": "SmushChanger",
+  "comment": "Costume tag handler for 'Smush Movie' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, blits the current movie frame to the back buffer when the key is 0. Original name SmushChanger (the remaster's GrimFandango (Linux): the only unmatched caller of Engine_BlitToBackBuffer; 1 matched neighbours agree, 0 disagree); was SmushComponent_OnKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498190",
+  "old": "SmushComponent_Create",
+  "name": "SmushRequester",
+  "comment": "Costume tag handler for 'Smush Movie' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for a .snm file ('Select smush file') in the editor and stores its name. Original name SmushRequester (the remaster's GrimFandango (Linux): strings: 'Select smush file...' | 'Smush files (*.snm)'); was SmushComponent_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498280",
+  "old": "SpriteComponent_Create",
+  "name": "SpriteRequester",
+  "comment": "Costume tag handler for 'Sprite' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sprite key; asks for a .mat file ('Select mat file for sprite') and creates the polyline. Original name SpriteRequester (the remaster's GrimFandango (Linux): strings: 'Select mat file for sprite...'); was SpriteComponent_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498580",
+  "old": "SpriteComponent_Destroy",
+  "name": "SpriteFreer",
+  "comment": "Costume tag handler, slot 2 of the 'Sprite' tag: frees the key data. (Was named KeyframeComponent_Destroy.) Original name SpriteFreer (the remaster's GrimFandango (Linux): the only unmatched caller of rdMaterial_Free; the only unmatched caller of rdSprite_Free; 2 matched neighbours agree, 0 disagree); was SpriteComponent_Destroy."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004985c0",
+  "old": "FUN_004985c0",
+  "name": "SpriteInstancer",
+  "comment": "Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md). Original name SpriteInstancer (the remaster's GrimFandango (Linux): the only unmatched caller of rdThing_New; 2 matched neighbours agree, 1 disagree); was FUN_004985c0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004986e0",
+  "old": "SpriteComponent_EditKey",
+  "name": "SpriteAdjuster",
+  "comment": "Costume tag handler for 'Sprite' (registered by sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the sprite's Width and Height. Original name SpriteAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d,%d,%d,%d,%d'); was SpriteComponent_EditKey."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498990",
+  "old": "Chore_FadeIn",
+  "name": "sputCostume_FadeKeysIn",
+  "comment": "Original name sputCostume_FadeKeysIn (the remaster's GrimFandango (Linux): the only unmatched caller of rdPuppet_FadeInTrack; 3 matched neighbours agree, 0 disagree); was Chore_FadeIn."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00498ad0",
+  "old": "Chore_FadeOut",
+  "name": "sputCostume_FadeKeysOut",
+  "comment": "Original name sputCostume_FadeKeysOut (the remaster's GrimFandango (Linux): the only unmatched caller of rdPuppet_FadeOutTrack; 2 matched neighbours agree, 0 disagree); was Chore_FadeOut."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049c6e0",
+  "old": "Lua_CallPostCamChangeHandler",
+  "name": "sputLua_PostCameraChange",
+  "comment": "system.postCamChangeHandler(setup) Original name sputLua_PostCameraChange (the remaster's GrimFandango (Linux): strings: 'postCamChangeHandler'); was Lua_CallPostCamChangeHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049c750",
+  "old": "Sector_IntersectSegment",
+  "name": "sputLua_CollisionHandler",
+  "comment": "Tests a segment against a sector's edges, returning the entry/exit points Original name sputLua_CollisionHandler (the remaster's GrimFandango (Linux): strings: 'collisionHandler'); was Sector_IntersectSegment."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049cb10",
+  "old": "Lua_ResolveCostumeArg",
+  "name": "FindCostumeInStack",
+  "comment": "Turns the optional costume argument of the chore opcodes (nil, index or name) into the costume record in the actor's list Original name FindCostumeInStack (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_GetActorChores; the only unmatched callee of Lua_GetActorLoopingChores; 15 matched neighbours agree, 0 disagree); was Lua_ResolveCostumeArg."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049d550",
+  "old": "Lua_CallCostumeOverrideHandler",
+  "name": "sputLua_DoCostumeOverrideCallback",
+  "comment": "Original name sputLua_DoCostumeOverrideCallback (the remaster's GrimFandango (Linux): strings: 'costumeOverrideHandler'); was Lua_CallCostumeOverrideHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049d670",
+  "old": "Lua_CallCostumeMarkerHandler",
+  "name": "sputLua_DoCostumeMarkerCallback",
+  "comment": "system.costumeMarkerHandler(actor, marker) from keyframe markers Original name sputLua_DoCostumeMarkerCallback (the remaster's GrimFandango (Linux): strings: 'costumeMarkerHandler'); was Lua_CallCostumeMarkerHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049d7b0",
+  "old": "Lua_CallUserPaintHandler",
+  "name": "sputLua_DoUserPaintCallback",
+  "comment": "system.userPaintHandler() after a restore Original name sputLua_DoUserPaintCallback (the remaster's GrimFandango (Linux): strings: 'userPaintHandler'); was Lua_CallUserPaintHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049d890",
+  "old": "Lua_CallExitHandler",
+  "name": "sputLua_DoExitCallback",
+  "comment": "system.exitHandler(); returns 1 when a handler existed Original name sputLua_DoExitCallback (the remaster's GrimFandango (Linux): strings: 'exitHandler'); was Lua_CallExitHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049d970",
+  "old": "Lua_CallPauseHandler",
+  "name": "sputLua_DoPauseCallback",
+  "comment": "system.pauseHandler() (Pause key) Original name sputLua_DoPauseCallback (the remaster's GrimFandango (Linux): strings: 'pauseHandler'); was Lua_CallPauseHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049da50",
+  "old": "Lua_CallCharacterHandler",
+  "name": "sputLua_DoCharacterCallback",
+  "comment": "system.characterHandler(char); true when the script consumed it Original name sputLua_DoCharacterCallback (the remaster's GrimFandango (Linux): strings: 'characterHandler'); was Lua_CallCharacterHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049de00",
+  "old": "Lua_InitGameLibs",
+  "name": "sputLua_Startup",
+  "comment": "Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md). Original name sputLua_Startup (the remaster's GrimFandango (Linux): strings: 'concat' | 'WALK' | 'SPECIAL' | 'HOT'); was Lua_InitGameLibs."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "0049e530",
+  "old": "sputLua_Stop",
+  "name": "sputLua_Shutdown",
+  "comment": "Module slot 3 of sputLua: disposes the Lua file finder, unrefs the system table, clears the save/restore hooks and closes the Lua libs. Original name sputLua_Shutdown (the remaster's GrimFandango (Linux): the only unmatched caller of stdFileUtil_DisposeFind; 1 matched neighbours agree, 0 disagree); was sputLua_Stop."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a34c0",
+  "old": "Lua_CallSaveGameCallback",
+  "name": "sputLua_SaveGameCallback",
+  "comment": "system.saveGameCallback(); the script answers with SubmitSaveGameData Original name sputLua_SaveGameCallback (the remaster's GrimFandango (Linux): strings: 'saveGameCallback'); was Lua_CallSaveGameCallback."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a3c00",
+  "old": "Timer_GetFrameSeconds",
+  "name": "sputTime_GetFrameTimeFlex",
+  "comment": "Original name sputTime_GetFrameTimeFlex (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_PerSecond; 3 matched neighbours agree, 0 disagree); was Timer_GetFrameSeconds."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a4050",
+  "old": "Set_GetSoundParams",
+  "name": "sputRoom_GetSoundParameters",
+  "comment": "Fills the default 3D sound parameters (min distance, volume, pan...) from the set Original name sputRoom_GetSoundParameters (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_GetSoundParameters; 3 matched neighbours agree, 0 disagree); was Set_GetSoundParams."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a40f0",
+  "old": "Set_SetCurrent",
+  "name": "sputRoom_SetCurrentRoom",
+  "comment": "Releases the previous set's resources (unless locked), references the new one, loads its resources and resets the sound parameters Original name sputRoom_SetCurrentRoom (the remaster's GrimFandango (Linux): the only unmatched caller of Set_LoadResources; 4 matched neighbours agree, 1 disagree); was Set_SetCurrent."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a41b0",
+  "old": "Set_GetCurrent",
+  "name": "sputRoom_GetCurrentRoom",
+  "comment": "Original name sputRoom_GetCurrentRoom (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetAmbientLight; 18 matched neighbours agree, 0 disagree); was Set_GetCurrent."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a44e0",
+  "old": "Set_RestoreState",
+  "name": "sputRoom_Restore",
+  "comment": "Source: Engine/sputRoom.cpp (lines 528-535, from __FILE__/__LINE__ passed to the allocator) Original name sputRoom_Restore (the remaster's GrimFandango (Linux): the only unmatched caller of ObjectState_SendToBack; 4 matched neighbours agree, 0 disagree); was Set_RestoreState."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a49a0",
+  "old": "Set_LoadFile",
+  "name": "sputResource_SetHandler",
+  "comment": "Resource type 'SET ' loader (ResType_SetHandler op 1): allocates the 0x1b08-byte set record, initialises it, parses the .set file, links it to the set-name entry and re-attaches the walkers of the actors already in that set. Original name sputResource_SetHandler (the remaster's GrimFandango (Linux): the only unmatched caller of SetFile_Parse; 1 matched neighbours agree, 0 disagree); was Set_LoadFile."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a4b00",
+  "old": "SetFile_Parse",
+  "name": "sputRoom_LoadRoom",
+  "comment": "Remembers the set being parsed (UINT_008cb0a8), stores its base file name (+0, 0x7f chars) and parses the sections with SetFile_ParseSections. Original name sputRoom_LoadRoom (the remaster's GrimFandango (Linux): the only unmatched caller of SetFile_ParseSections; 1 matched neighbours agree, 0 disagree); was SetFile_Parse."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a4fe0",
+  "old": "Set_LoadResources",
+  "name": "sputRoom_LoadResources",
+  "comment": "Loads colormaps (set+0x80, 0x34 each), each setup's background/depth bitmaps, creates the rdCamera (setup+0x48) and rdThing (+0x4c), builds the camera basis and adds the set's lights Original name sputRoom_LoadResources (the remaster's GrimFandango (Linux): strings: 'dfltcmp.cmp'); was Set_LoadResources."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a53b0",
+  "old": "sputRoom_Start",
+  "name": "sputRoom_Startup",
+  "comment": "Module interface slot 2 (sputRoom): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). _Start registers the set-file chunk handlers (colormaps, setups, lights, sectors) and creates the positioned-sound pool. Original name sputRoom_Startup (the remaster's GrimFandango (Linux): strings: 'setups' | 'colormaps' | 'sectors'); was sputRoom_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a5b40",
+  "old": "SetFile_ParseColormaps",
+  "name": "sputRoom_ParseColormaps",
+  "comment": "Section handler 'colormaps' registered by sputRoom_Start: reads 'numcolormaps' and the colormap names (0x34-byte entries at set+0x80). Original name sputRoom_ParseColormaps (the remaster's GrimFandango (Linux): strings: ' colormap %s' | ' numcolormaps %d\\n'); was SetFile_ParseColormaps."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a5c90",
+  "old": "SetFile_SectorsSectionHandler",
+  "name": "sputRoom_ParseSectors",
+  "comment": "Section handler 'sectors' registered by sputRoom_Start: runs SetFile_ParseSectors for the set being parsed. Original name sputRoom_ParseSectors (the remaster's GrimFandango (Linux): the only unmatched caller of SetFile_ParseSectors; 1 matched neighbours agree, 0 disagree); was SetFile_SectorsSectionHandler."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a5cf0",
+  "old": "Light_FindByName",
+  "name": "sputRoom_FindLightByName",
+  "comment": "Returns the light index in the current set or -1 Original name sputRoom_FindLightByName (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_FindLight; 14 matched neighbours agree, 1 disagree); was Light_FindByName."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a5e50",
+  "old": "ObjectState_Free",
+  "name": "sputRoom_RemoveObjectState",
+  "comment": "Original name sputRoom_RemoveObjectState (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_FreeObjectState; 1 matched neighbours agree, 1 disagree); was ObjectState_Free."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a6d10",
+  "old": "Sector_FindExitPoint",
+  "name": "WalkPlane_Intersection",
+  "comment": "Original name WalkPlane_Intersection (the remaster's GrimFandango (Linux): WalkPlane::Intersection in the remaster (a C++ method there); the only unmatched callee of Sector_MoveWalkerToOppositeEdge; 3 matched neighbours agree, 1 disagree); was Sector_FindExitPoint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a6fa0",
+  "old": "Sector_SnapToPlane",
+  "name": "WalkPlane_SnapTo",
+  "comment": "Lua SnapToPlane: projects the point onto the plane of the sector found by Sector_FindByName Original name WalkPlane_SnapTo (the remaster's GrimFandango (Linux): WalkPlane::SnapTo in the remaster (a C++ method there); the only unmatched callee of Lua_SnapToPlane; 1 matched neighbours agree, 0 disagree); was Sector_SnapToPlane."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a7230",
+  "old": "Sector_FindByName",
+  "name": "WalkPlane_PlaneNamed",
+  "comment": "Original name WalkPlane_PlaneNamed (the remaster's GrimFandango (Linux): WalkPlane::PlaneNamed in the remaster (a C++ method there); the only unmatched callee of Actor_SetShadowPlane; 7 matched neighbours agree, 0 disagree); was Sector_FindByName."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a7390",
+  "old": "Sector_MoveWalkerToOppositeEdge",
+  "name": "WalkPlane_JumpOut",
+  "comment": "Original name WalkPlane_JumpOut (the remaster's GrimFandango (Linux): WalkPlane::JumpOut in the remaster (a C++ method there); the only unmatched callee of Actor_PushSectorOppositeEdge; 1 matched neighbours agree, 1 disagree); was Sector_MoveWalkerToOppositeEdge."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a82c0",
+  "old": "Walker_ReattachToSet",
+  "name": "Puck_Validate",
+  "comment": "Called after Actor_PutInSet when the actor has a walker so it picks up the new set's sectors Original name Puck_Validate (the remaster's GrimFandango (Linux): Puck::Validate in the remaster (a C++ method there); the only unmatched callee of Actor_SetFollowBoxes; 4 matched neighbours agree, 1 disagree); was Walker_ReattachToSet."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a8310",
+  "old": "Walker_SetPosition",
+  "name": "Puck_SetPos",
+  "comment": "Original name Puck_SetPos (the remaster's GrimFandango (Linux): Puck::SetPos in the remaster (a C++ method there); the only unmatched callee of Actor_SetPositionClamped; 2 matched neighbours agree, 1 disagree); was Walker_SetPosition."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a8450",
+  "old": "Walker_TurnToPoint",
+  "name": "Puck_PointAt",
+  "comment": "Original name Puck_PointAt (the remaster's GrimFandango (Linux): Puck::PointAt in the remaster (a C++ method there); the only unmatched callee of Lua_PointActorAt; the only unmatched callee of Lua_TurnActorTo; 6 matched neighbours agree, 0 disagree); was Walker_TurnToPoint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a8500",
+  "old": "Actor_GetYawToPoint",
+  "name": "Puck_GetYawToPoint",
+  "comment": "Original name Puck_GetYawToPoint (the remaster's GrimFandango (Linux): Puck::GetYawToPoint in the remaster (a C++ method there); the only unmatched callee of Lua_GetActorYawToPoint; 3 matched neighbours agree, 0 disagree); was Actor_GetYawToPoint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a85b0",
+  "old": "Walker_SetConstraint",
+  "name": "Puck_Constrain",
+  "comment": "Original name Puck_Constrain (the remaster's GrimFandango (Linux): Puck::Constrain in the remaster (a C++ method there); the only unmatched callee of Actor_SetConstrain; 1 matched neighbours agree, 0 disagree); was Walker_SetConstraint."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004a9d00",
+  "old": "SectorList_ShrinkWalkSectors",
+  "name": "ShrinkBoxes",
+  "comment": "SectorList_ShrinkWalkSectors(radius), called by Lua ShrinkBoxes after SectorList_SaveForShrink. For every active walk sector (type & 0x1000, flag +0x28): for each vertex take the bisector of the directions to its neighbours, move it inward by radius / sin(half angle) (Math_SinCosTable, Math_AsinDegreesSeries); the move is valid when the new point is inside the sector (Sector_ContainsPoint) and at least radius - 0.001 from the line of every edge (Sector_EdgeDistance). Not valid: Sector_CollapseShortestEdge and retry; cannot collapse: the sector is switched off (+0x28 = 0). The shifts are summed per pool vertex (shared by the sectors) and the pool vertex moves by the mean, so all sectors that share it move together. Undone by SectorList_RestoreAfterShrink. Original name ShrinkBoxes (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_TEST; 3 matched neighbours agree, 0 disagree); was SectorList_ShrinkWalkSectors."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aa6c0",
+  "old": "ObjectState_SendToBack",
+  "name": "ObjectState_MoveToBack",
+  "comment": "Returns the new head of the setup's object state list Original name ObjectState_MoveToBack (the remaster's GrimFandango (Linux): ObjectState::MoveToBack in the remaster (a C++ method there); the only unmatched callee of Lua_SendObjectToBack; 1 matched neighbours agree, 0 disagree); was ObjectState_SendToBack."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004aa720",
+  "old": "ObjectState_SendToFront",
+  "name": "ObjectState_MoveToFront",
+  "comment": "Original name ObjectState_MoveToFront (the remaster's GrimFandango (Linux): ObjectState::MoveToFront in the remaster (a C++ method there); the only unmatched callee of Lua_SendObjectToFront; 1 matched neighbours agree, 0 disagree); was ObjectState_SendToFront."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd430",
+  "old": "Insane_Terminate",
+  "name": "SmushPlay_SysShutdown",
+  "comment": "Module interface slot 1 (Insane): called by Engine_ResetSubsystems / when registration fails; drops the service table pointer and clears the initialised flag. Original name SmushPlay_SysShutdown (the remaster's GrimFandango (Linux): the only unmatched caller of LecShare_Shutdown; 1 matched neighbours agree, 0 disagree); was Insane_Terminate."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004bd440",
+  "old": "Insane_Start",
+  "name": "SmushPlay_SysStartup",
+  "comment": "Module interface slot 2 (Insane): called by Engine_InitSubsystems, returns 0 on success (non-zero makes the whole start-up unwind). _Start starts the LecShare module chain of the INSANE/Smush player. Original name SmushPlay_SysStartup (the remaster's GrimFandango (Linux): strings: '.SNM' | '.gz' | '.GZ'); was Insane_Start."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1850",
+  "old": "LecShare_BatchSubscribe",
+  "name": "BatchSubscribe",
+  "comment": "Resolves a null-terminated list of {out, name} subscriptions Original name BatchSubscribe (the remaster's GrimFandango (Linux): strings: \"LecShare:BatchSubscribe Couldn't subscribe to %s interface.); was LecShare_BatchSubscribe."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1900",
+  "old": "FUN_004c1900",
+  "name": "BatchUnsubscribe",
+  "comment": "Original name BatchUnsubscribe (the remaster's GrimFandango (Linux): strings: \"LecShare:BatchUnsubscribe Couldn't unsubscribe from %s inte); was FUN_004c1900."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c1ff0",
+  "old": "FUN_004c1ff0",
+  "name": "AnimPlay_module_startup",
+  "comment": "Original name AnimPlay_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the AnimPlay module (the remaster has one per module file, hence the prefix); strings: 'AnimPlay Module: Cannot allocate bitmap services.' | 'AnimPlay Module: Cannot allocate animframe services.' | 'STREAMER.spooler' | 'AnimPlay Module: Cannot allocate streamer services.'); was FUN_004c1ff0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c21e0",
+  "old": "FUN_004c21e0",
+  "name": "anm_EasyPlay",
+  "comment": "Original name anm_EasyPlay (the remaster's GrimFandango (Linux): strings: 'Cannot allocate render bitmap.'); was FUN_004c21e0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c23c0",
+  "old": "AnimPlay_Create",
+  "name": "anm_Start",
+  "comment": "Creates the AnimPlay frame player: allocates it, opens the streamer and the file, starts the clock and frame timers; returns 0 or -1 Original name anm_Start (the remaster's GrimFandango (Linux): strings: 'AnimPlay Module: Cannot open file %s' | 'AnimPlay Module: Cannot init Animation module' | 'AnimPlay Module: Cannot allocate sync timer' | 'AnimPlay Module: Cannot allocate frame timer'); was AnimPlay_Create."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c27a0",
+  "old": "AnimPlay_Update",
+  "name": "anm_Render",
+  "comment": "One step of the AnimPlay frame player: shows the next frame if due and adjusts the frame delay to keep sound and picture in sync Original name anm_Render (the remaster's GrimFandango (Linux): strings: 'Sync Ticks:  %ld    \\n' | 'State:       %d    \\n' | 'Frame Delay: %ld (%ld target)     \\n' | 'Buffer:      %ld%%    \\n'); was AnimPlay_Update."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2be0",
+  "old": "FUN_004c2be0",
+  "name": "AnimFrame_module_startup",
+  "comment": "Original name AnimFrame_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the AnimFrame module (the remaster has one per module file, hence the prefix); strings: 'AnimFrame Module: Cannot allocate memory services.' | 'FLOBDEC.temp' | 'AnimFrame Module: Cannot allocate bitmap services.' | \"AnimFrame Module: Can't allocate overlay buffer (%ld bytes)); was FUN_004c2be0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c2fa0",
+  "old": "FUN_004c2fa0",
+  "name": "anm_DecodeBody",
+  "comment": "Original name anm_DecodeBody (the remaster's GrimFandango (Linux): strings: \"Parsing Block '%c%c%c%c' (%ld)\\n\" | \"Bad Header Found '%c%c%c%c'\\n\" | \"Found Unknown Block '%c%c%c%c'\\n\"); was FUN_004c2fa0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c36f0",
+  "old": "FUN_004c36f0",
+  "name": "anm_animator_Render",
+  "comment": "Original name anm_animator_Render (the remaster's GrimFandango (Linux): strings: 'Read invalid frame header %c%c%c%c -- CD may be dirty or da); was FUN_004c36f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c4b90",
+  "old": "FUN_004c4b90",
+  "name": "Streamer_module_startup",
+  "comment": "Original name Streamer_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the Streamer module (the remaster has one per module file, hence the prefix); strings: 'Streamer Module: Cannot allocate filio services.' | 'FILIO.io' | 'Streamer Module: Cannot allocate memory services.'); was FUN_004c4b90."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c50a0",
+  "old": "FUN_004c50a0",
+  "name": "fle_StreamerDispense",
+  "comment": "Original name fle_StreamerDispense (the remaster's GrimFandango (Linux): strings: 'File Streamer:  Invalid frame size %ld'); was FUN_004c50a0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c52f0",
+  "old": "FUN_004c52f0",
+  "name": "Directory_module_startup",
+  "comment": "Original name Directory_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the Directory module (the remaster has one per module file, hence the prefix); strings: 'FILE.io' | 'Directory Module: Cannot allocate file services.'); was FUN_004c52f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c57d0",
+  "old": "deflateParams_or_SetDictionary",
+  "name": "fle_zfilio_config",
+  "comment": "zlib deflate.c helper taking the stream only; exact identity not confirmed Original name fle_zfilio_config (the remaster's GrimFandango (Linux): strings: 'Too many zfilio extension set'); was deflateParams_or_SetDictionary."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5870",
+  "old": "FUN_004c5870",
+  "name": "Zfile_module_startup",
+  "comment": "Original name Zfile_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the Zfile module (the remaster has one per module file, hence the prefix); strings: 'Zfile Module: Cannot allocate memory services.' | 'MEMORY.buffers' | 'Zfile Module: Cannot allocate filio services.'); was FUN_004c5870."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5950",
+  "old": "FUN_004c5950",
+  "name": "Zfile_fle_Open",
+  "comment": "Original name Zfile_fle_Open (the remaster's GrimFandango (Linux): the Zfile module's static fle_Open (two in the remaster, hence the prefix); strings: 'Zfile Memory Alloc fail'); was FUN_004c5950."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004c5d50",
+  "old": "FUN_004c5d50",
+  "name": "StdFile_module_startup",
+  "comment": "Original name StdFile_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the StdFile module (the remaster has one per module file, hence the prefix); strings: 'StdFile Module: Cannot allocate filio services.'); was FUN_004c5d50."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cbaa0",
+  "old": "FUN_004cbaa0",
+  "name": "DWave_module_startup",
+  "comment": "Original name DWave_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the DWave module (the remaster has one per module file, hence the prefix); strings: 'MEMORY' | 'D_WAVE: Cannot allocate sound services.' | 'SOUND' | 'D_WAVE: Cannot allocate memory services.'); was FUN_004cbaa0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cc2c0",
+  "old": "Blocky16_Init",
+  "name": "Blocky16_module_startup",
+  "comment": "Asks the module manager for the BITMAP clear service and the MEMORY workspace service of the decoder; -1 if one is missing Original name Blocky16_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the Blocky16 module (the remaster has one per module file, hence the prefix); strings: 'FlobDec-Blocky16 Module: Cannot allocate bitmap services.' | 'BITMAP.clear' | 'FlobDec-Blocky16 Module: Cannot allocate memory services.'); was Blocky16_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004cdd10",
+  "old": "InsaneTimer_Init",
+  "name": "InsaneTimer_module_startup",
+  "comment": "Allocates the timer workspace and starts the timer thread Original name InsaneTimer_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the InsaneTimer module (the remaster has one per module file, hence the prefix); strings: 'Timer Module: Cannot allocate memory services.'); was InsaneTimer_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ce350",
+  "old": "FUN_004ce350",
+  "name": "Video_module_startup",
+  "comment": "Original name Video_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the Video module (the remaster has one per module file, hence the prefix); strings: 'Video Module: Cannot allocate memory services.' | 'VIDEO.getbm'); was FUN_004ce350."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d03d0",
+  "old": "SoundModule_Init",
+  "name": "SoundModule_module_startup",
+  "comment": "Original name SoundModule_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the SoundModule module (the remaster has one per module file, hence the prefix); strings: 'Sound Module: Cannot allocate memory services.' | 'TIMER.external_sync' | 'Sound Module: Cannot allocate timer services.' | 'SNDDRIVER.driver'); was SoundModule_Init."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d24b0",
+  "old": "DsndDriver_Init",
+  "name": "DsndDriver_module_startup",
+  "comment": "Gets the TIMER clock interface and allocates the mixer table Original name DsndDriver_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the DsndDriver module (the remaster has one per module file, hence the prefix); strings: 'MEMORY.mixertable' | 'DirectSoundDriver Module: Cannot allocate timer services.' | 'TIMER=clock'); was DsndDriver_Init."
+ }
+]

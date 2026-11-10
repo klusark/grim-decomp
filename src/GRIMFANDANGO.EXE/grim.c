@@ -204,7 +204,7 @@ undefined4 Grim_Init(char *param_1)
     ((code *)Grim_FatalMessageBox)(uVar7);
     return 0;
   }
-  iVar5 = Display_EnumDevices();
+  iVar5 = stdDisplay_Startup();
   if (iVar5 == 0) {
     return 0;
   }
@@ -690,8 +690,9 @@ void Grim_ShowSplash(void)
     iVar1 = 0;
     if (0 < *(int *)((int)src + 0x10)) {
       do {
-        Render_RemapPixels((ushort *)(iVar1 * *(int *)((int)src + 0x18) + *(int *)((int)src + 0x5c))
-                           ,*(uint *)((int)src + 0xc));
+        sputRender_ColorCorrect
+                  ((ushort *)(iVar1 * *(int *)((int)src + 0x18) + *(int *)((int)src + 0x5c)),
+                   *(uint *)((int)src + 0xc));
         iVar1 = iVar1 + 1;
       } while (iVar1 < *(int *)((int)src + 0x10));
     }

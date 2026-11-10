@@ -1474,13 +1474,13 @@ void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,undefined4 param_4
        (param_2 - iVar2 <= *(int *)((int)param_1 + 0x20))) &&
       (*(int *)((int)param_1 + 0x1c) <= iVar2 + param_3)) &&
      (param_3 - iVar2 <= *(int *)((int)param_1 + 0x24))) {
-    Math_SinCosTable(0,&local_4,&local_8);
+    stdMath_SinCos(0,&local_4,&local_8);
     lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     iVar2 = (int)lVar3 + param_2;
     y1 = (int)lVar4 + param_3;
     for (fVar1 = param_5; fVar1 <= 360.0; fVar1 = fVar1 + param_5) {
-      Math_SinCosTable(fVar1,&local_4,&local_8);
+      stdMath_SinCos(fVar1,&local_4,&local_8);
       lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
       x2 = (int)lVar3 + param_2;
       lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));

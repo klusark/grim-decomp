@@ -698,10 +698,12 @@ undefined4 zlibVersion(void)
   return 0;
 }
 
-/* ---- 0x004c57d0  deflateParams_or_SetDictionary ---- */
-/* zlib deflate.c helper taking the stream only; exact identity not confirmed */
+/* ---- 0x004c57d0  fle_zfilio_config ---- */
+/* zlib deflate.c helper taking the stream only; exact identity not confirmed Original name
+   fle_zfilio_config (the remaster's GrimFandango (Linux): strings: 'Too many zfilio extension
+   set'); was deflateParams_or_SetDictionary. */
 
-undefined4 deflateParams_or_SetDictionary(int param_1)
+undefined4 fle_zfilio_config(int param_1)
 
 {
   undefined *puVar1;

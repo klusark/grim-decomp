@@ -33,16 +33,16 @@ void __cdecl Set_MakeCurrent(char *name)
   void *pvVar1;
   
   if (name == (char *)0x0) {
-    Set_SetCurrent((void *)0x0,0);
+    sputRoom_SetCurrentRoom((void *)0x0,0);
     return;
   }
-  set = Resource_Load(0x20544553,name);
+  set = sputResource_Alloc(0x20544553,name);
   if ((set != (void *)0x0) && (*(int *)((int)set + 0x80) != 0)) {
-    pvVar1 = Set_GetCurrent();
+    pvVar1 = sputRoom_GetCurrentRoom();
     if (set != pvVar1) {
-      Set_SetCurrent(set,(int)name);
+      sputRoom_SetCurrentRoom(set,(int)name);
       Set_ActivateSectors(set);
-      Set_ApplySetupCamera(set,*(int *)((int)set + 0xb4));
+      sputRender_SyncCamera(set,*(int *)((int)set + 0xb4));
     }
   }
   return;
@@ -60,7 +60,7 @@ void * Set_ChangeSetup(uint param_1)
   void *pvVar2;
   void *pvVar3;
   
-  pvVar2 = Set_GetCurrent();
+  pvVar2 = sputRoom_GetCurrentRoom();
   uVar1 = *(uint *)((int)pvVar2 + 0xb0);
   pvVar3 = pvVar2;
   if (uVar1 <= param_1) {
@@ -77,11 +77,14 @@ void * Set_ChangeSetup(uint param_1)
   return pvVar3;
 }
 
-/* ---- 0x00483aa0  Set_ApplySetupCamera ---- */
+/* ---- 0x00483aa0  sputRender_SyncCamera ---- */
 /* Selects the setup's colormap, binds the rdCamera (setup+0x48) to the canvas, sets zoom 1.0 and
-   updates it from the camera frame at setup+0x50 (300-byte setup records start at set+0xac) */
+   updates it from the camera frame at setup+0x50 (300-byte setup records start at set+0xac)
+   Original name sputRender_SyncCamera (the remaster's GrimFandango (Linux): the only unmatched
+   caller of rdCamera_SetCanvas; the only unmatched caller of rdCamera_SetCurrent; 2 matched
+   neighbours agree, 0 disagree); was Set_ApplySetupCamera. */
 
-void __cdecl Set_ApplySetupCamera(void *set,int setupIdx)
+void __cdecl sputRender_SyncCamera(void *set,int setupIdx)
 
 {
   int iVar1;
@@ -130,10 +133,10 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
   if (set != (void *)0x0) {
     iVar1 = *(int *)((int)set + 0xac) + setupIdx * 300;
     CacheRect_FreeAll();
-    Set_ApplySetupCamera(set,setupIdx);
+    sputRender_SyncCamera(set,setupIdx);
     g_dwRenderFlags = g_dwRenderFlags & 0xfffffffc;
     g_pCameraSetup = (float *)(iVar1 + 0x20);
-    pvVar2 = (void *)Actor_FromHandle(g_nCameraActor);
+    pvVar2 = (void *)sputActor_ActorDeref(g_nCameraActor);
     pfVar3 = Actor_GetFrame(pvVar2);
     pfVar6 = (float *)(iVar1 + 0x50);
     for (iVar5 = 0xc; iVar5 != 0; iVar5 = iVar5 + -1) {
@@ -186,7 +189,7 @@ void __cdecl Set_SwitchSetup(void *set,int setupIdx)
     local_c = *(uint *)((int)g_pCanvas + 0x1c);
     local_8 = (*(int *)((int)g_pCanvas + 0x20) - *(int *)((int)g_pCanvas + 0x18)) + 1;
     local_4 = (*(int *)((int)g_pCanvas + 0x24) - *(int *)((int)g_pCanvas + 0x1c)) + 1;
-    Render_InvalidateRect((int *)&local_10,1);
+    MarkDirtyRect((int *)&local_10,1);
   }
   return;
 }
@@ -331,10 +334,13 @@ void Set_SetSoundParams(int param_1,undefined4 param_2,undefined1 param_3,undefi
   return;
 }
 
-/* ---- 0x004a4050  Set_GetSoundParams ---- */
-/* Fills the default 3D sound parameters (min distance, volume, pan...) from the set */
+/* ---- 0x004a4050  sputRoom_GetSoundParameters ---- */
+/* Fills the default 3D sound parameters (min distance, volume, pan...) from the set Original name
+   sputRoom_GetSoundParameters (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_GetSoundParameters; 3 matched neighbours agree, 0 disagree); was Set_GetSoundParams. */
 
-void __cdecl Set_GetSoundParams(void *set,float *minVol,char *maxVol,char *c,float *d,float *e)
+void __cdecl
+sputRoom_GetSoundParameters(void *set,float *minVol,char *maxVol,char *c,float *d,float *e)
 
 {
   *minVol = *(float *)((int)set + 0x1afc);
@@ -345,26 +351,28 @@ void __cdecl Set_GetSoundParams(void *set,float *minVol,char *maxVol,char *c,flo
   return;
 }
 
-/* ---- 0x004a40f0  Set_SetCurrent ---- */
+/* ---- 0x004a40f0  sputRoom_SetCurrentRoom ---- */
 /* Releases the previous set's resources (unless locked), references the new one, loads its
-   resources and resets the sound parameters */
+   resources and resets the sound parameters Original name sputRoom_SetCurrentRoom (the remaster's
+   GrimFandango (Linux): the only unmatched caller of Set_LoadResources; 4 matched neighbours agree,
+   1 disagree); was Set_SetCurrent. */
 
-void __cdecl Set_SetCurrent(void *set,int param_2)
+void __cdecl sputRoom_SetCurrentRoom(void *set,int param_2)
 
 {
   if ((g_CurrentSetRef == 0) || (g_pCurrentSet != set)) {
     if (g_CurrentSetRef != 0) {
       Set_ReleaseResources(g_pCurrentSet);
-      ResRef_Remove(&g_CurrentSetRef);
+      Res_RemoveReference(&g_CurrentSetRef);
       g_szCurrentSetName[0] = '\0';
     }
     if (set != (void *)0x0) {
-      ResRef_Add(&g_CurrentSetRef,set,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x15d);
+      Res_SetReference(&g_CurrentSetRef,set,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x15d);
       if (g_CurrentSetRef == 0) {
         (*g_pSvcMain->pAssertFail)
                   (s_Bad_room_Reference_004ec62c,s_main_sputResource_h_004e80a8,0xa4);
       }
-      Set_LoadResources(g_pCurrentSet);
+      sputRoom_LoadResources(g_pCurrentSet);
       strncpy(g_szCurrentSetName,set,0x20);
       Set_SetSoundParams(set,0x41000000,0x14,0x7f,0x3fc00000,0x3f4ccccd);
     }
@@ -372,10 +380,12 @@ void __cdecl Set_SetCurrent(void *set,int param_2)
   return;
 }
 
-/* ---- 0x004a41b0  Set_GetCurrent ---- */
+/* ---- 0x004a41b0  sputRoom_GetCurrentRoom ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
+/* Original name sputRoom_GetCurrentRoom (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_SetAmbientLight; 18 matched neighbours agree, 0 disagree); was Set_GetCurrent. */
 
-void * Set_GetCurrent(void)
+void * sputRoom_GetCurrentRoom(void)
 
 {
   return (void *)(-(uint)(g_CurrentSetRef != 0) & (uint)g_pCurrentSet);
@@ -427,7 +437,7 @@ int __cdecl Set_SaveState(void *writeFn)
     uVar3 = local_10;
     do {
       if (local_14 == 0) {
-        pvStack_c = Set_GetCurrent();
+        pvStack_c = sputRoom_GetCurrentRoom();
         (*pcVar2)(&pvStack_c,4);
         if (pvStack_c != (void *)0x0) {
           (*pcVar2)((int)pvStack_c + 0x1af8,1);
@@ -500,10 +510,12 @@ int __cdecl Set_SaveState(void *writeFn)
 #undef pvStack_c
 
 
-/* ---- 0x004a44e0  Set_RestoreState ---- */
-/* Source: Engine/sputRoom.cpp (lines 528-535, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x004a44e0  sputRoom_Restore ---- */
+/* Source: Engine/sputRoom.cpp (lines 528-535, from __FILE__/__LINE__ passed to the allocator)
+   Original name sputRoom_Restore (the remaster's GrimFandango (Linux): the only unmatched caller of
+   ObjectState_SendToBack; 4 matched neighbours agree, 0 disagree); was Set_RestoreState. */
 
-int __cdecl Set_RestoreState(void *readFn)
+int __cdecl sputRoom_Restore(void *readFn)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -543,19 +555,19 @@ int __cdecl Set_RestoreState(void *readFn)
       }
       (*(code *)readFn)((int)pvVar4 + 0xb4,4);
       if (g_CurrentSetRef != 0) {
-        ResRef_Remove(&g_CurrentSetRef);
+        Res_RemoveReference(&g_CurrentSetRef);
       }
-      ResRef_Add(&g_CurrentSetRef,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x210);
+      Res_SetReference(&g_CurrentSetRef,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x210);
       if (g_CurrentSetRef == 0) {
         (*g_pSvcMain->pAssertFail)
                   (s_Bad_room_Reference_004ec62c,s_main_sputResource_h_004e80a8,0xa4);
       }
-      Set_LoadResources(g_pCurrentSet);
+      sputRoom_LoadResources(g_pCurrentSet);
       strncpy(g_szCurrentSetName,pvVar4,0x20);
       (*(code *)readFn)(&iStack_58,4);
       if (iStack_58 != 0) {
-        ResRef_Add((void *)((int)pvVar4 + 0x1ac0),pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0
-                   ,0x217);
+        Res_SetReference((void *)((int)pvVar4 + 0x1ac0),pvVar4,
+                         s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x217);
       }
       iStack_70 = 0;
       if (0 < *(int *)((int)pvVar4 + 0xb0)) {
@@ -597,7 +609,7 @@ int __cdecl Set_RestoreState(void *readFn)
           iVar6 = 0;
           if (0 < (int)uStack_74) {
             do {
-              pvVar5 = ObjectState_SendToBack(*(void **)(iVar3 + 0x128),*(void **)(iVar3 + 0x128));
+              pvVar5 = ObjectState_MoveToBack(*(void **)(iVar3 + 0x128),*(void **)(iVar3 + 0x128));
               *(void **)(iVar3 + 0x128) = pvVar5;
               iVar6 = iVar6 + 1;
             } while (iVar6 < (int)uStack_74);
@@ -611,7 +623,7 @@ int __cdecl Set_RestoreState(void *readFn)
   }
   (*(code *)readFn)(&pvStack_44,4);
   pvVar4 = Res_DataFromHandle(pvStack_44);
-  Set_SetCurrent(pvVar4,(int)pvVar4);
+  sputRoom_SetCurrentRoom(pvVar4,(int)pvVar4);
   if (pvVar4 != (void *)0x0) {
     Set_ChangeSetup(*(undefined4 *)((int)pvVar4 + 0xb4));
     Set_ActivateSectors(pvVar4);
@@ -657,12 +669,14 @@ int __cdecl Set_RestoreState(void *readFn)
 #undef uStack_74
 
 
-/* ---- 0x004a49a0  Set_LoadFile ---- */
+/* ---- 0x004a49a0  sputResource_SetHandler ---- */
 /* Resource type 'SET ' loader (ResType_SetHandler op 1): allocates the 0x1b08-byte set record,
    initialises it, parses the .set file, links it to the set-name entry and re-attaches the walkers
-   of the actors already in that set. */
+   of the actors already in that set. Original name sputResource_SetHandler (the remaster's
+   GrimFandango (Linux): the only unmatched caller of SetFile_Parse; 1 matched neighbours agree, 0
+   disagree); was Set_LoadFile. */
 
-undefined4 * Set_LoadFile(char *param_1)
+undefined4 * sputResource_SetHandler(char *param_1)
 
 {
   int *piVar1;
@@ -680,7 +694,7 @@ undefined4 * Set_LoadFile(char *param_1)
       puVar5 = puVar5 + 1;
     }
     Set_InitRecord(puVar2);
-    iVar4 = SetFile_Parse(param_1,puVar2);
+    iVar4 = sputRoom_LoadRoom(param_1,puVar2);
     if (iVar4 != 0) {
       pvVar3 = (void *)Set_FindNameInList(param_1);
       if (pvVar3 == (void *)0x0) {
@@ -692,7 +706,7 @@ undefined4 * Set_LoadFile(char *param_1)
         iVar4 = *(int *)((int)g_pActorTable + *piVar1 * 0xa8 + 0xa4);
         if (((iVar4 != 0) && (*(void **)(iVar4 + 0x1b4) != (void *)0x0)) &&
            (*(int *)(iVar4 + 0x1b8) != 0)) {
-          Walker_ReattachToSet(*(void **)(iVar4 + 0x1b4));
+          Puck_Validate(*(void **)(iVar4 + 0x1b4));
         }
       }
       return puVar2;
@@ -748,7 +762,7 @@ void __cdecl Set_ReleaseResources(void *set)
     if ((*(int *)((int)set + 0x80) != 0) && (iVar3 = 0, 0 < *(int *)((int)set + 0x84))) {
       iVar4 = 0;
       do {
-        ResRef_Remove((void *)(*(int *)((int)set + 0x80) + iVar4));
+        Res_RemoveReference((void *)(*(int *)((int)set + 0x80) + iVar4));
         iVar3 = iVar3 + 1;
         iVar4 = iVar4 + 0x34;
       } while (iVar3 < *(int *)((int)set + 0x84));
@@ -757,8 +771,8 @@ void __cdecl Set_ReleaseResources(void *set)
     if (0 < *(int *)((int)set + 0xb0)) {
       iVar4 = 0;
       do {
-        ResRef_Remove((void *)(*(int *)((int)set + 0xac) + 0xc0 + iVar4));
-        ResRef_Remove((void *)(*(int *)((int)set + 0xac) + 0xf4 + iVar4));
+        Res_RemoveReference((void *)(*(int *)((int)set + 0xac) + 0xc0 + iVar4));
+        Res_RemoveReference((void *)(*(int *)((int)set + 0xac) + 0xf4 + iVar4));
         iVar1 = *(int *)((int)set + 0xac);
         iVar2 = *(int *)(iVar4 + 0x128 + iVar1);
         while (iVar2 != 0) {
@@ -811,7 +825,7 @@ void Set_FreeContents(char *param_1)
   if (iVar1 != 0) {
     piVar2 = *(int **)(iVar1 + 0x80);
     while (piVar2 != (int *)0x0) {
-      Actor_KillShadows((void *)((int)g_pActorTable + *piVar2 * 0xa8));
+      sputActor_ResetShadows((void *)((int)g_pActorTable + *piVar2 * 0xa8));
       Actor_RemoveFromSet(param_1,(void *)((int)g_pActorTable + **(int **)(iVar1 + 0x80) * 0xa8));
       piVar2 = *(int **)(iVar1 + 0x80);
     }
@@ -868,11 +882,13 @@ void Set_FreeSetup(undefined4 param_1,int param_2)
   return;
 }
 
-/* ---- 0x004a4fe0  Set_LoadResources ---- */
+/* ---- 0x004a4fe0  sputRoom_LoadResources ---- */
 /* Loads colormaps (set+0x80, 0x34 each), each setup's background/depth bitmaps, creates the
-   rdCamera (setup+0x48) and rdThing (+0x4c), builds the camera basis and adds the set's lights */
+   rdCamera (setup+0x48) and rdThing (+0x4c), builds the camera basis and adds the set's lights
+   Original name sputRoom_LoadResources (the remaster's GrimFandango (Linux): strings:
+   'dfltcmp.cmp'); was Set_LoadResources. */
 
-int __cdecl Set_LoadResources(void *set)
+int __cdecl sputRoom_LoadResources(void *set)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -904,14 +920,14 @@ int __cdecl Set_LoadResources(void *set)
       if (*(int *)(iVar8 + *(int *)((int)set + 0x80)) == 0) {
         iVar3 = _stricmp((char *)((int)set + 0x8c),&DAT_004ec60c);
         if (iVar3 != 0) {
-          pvVar4 = Resource_Load(0x50414d43,(char *)((int)set + 0x8c));
-          ResRef_Add((void *)(iVar8 + *(int *)((int)set + 0x80)),pvVar4,
-                     s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x6dc);
+          pvVar4 = sputResource_Alloc(0x50414d43,(char *)((int)set + 0x8c));
+          Res_SetReference((void *)(iVar8 + *(int *)((int)set + 0x80)),pvVar4,
+                           s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x6dc);
         }
         if (*(int *)(iVar8 + *(int *)((int)set + 0x80)) == 0) {
-          pvVar4 = Resource_Load(0x50414d43,s_dfltcmp_cmp_004ec710);
-          ResRef_Add((void *)(iVar8 + *(int *)((int)set + 0x80)),pvVar4,
-                     s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x6e3);
+          pvVar4 = sputResource_Alloc(0x50414d43,s_dfltcmp_cmp_004ec710);
+          Res_SetReference((void *)(iVar8 + *(int *)((int)set + 0x80)),pvVar4,
+                           s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x6e3);
           if (*(int *)(iVar8 + *(int *)((int)set + 0x80)) == 0) {
             return 0;
           }
@@ -934,12 +950,12 @@ int __cdecl Set_LoadResources(void *set)
       if (*ref == 0) {
         iVar5 = _stricmp(ref + -0x10,&DAT_004ec60c);
         if (iVar5 != 0) {
-          pvVar4 = Resource_Load(0x444e4b42,(char *)(ref + -0x10));
-          ResRef_Add(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x702);
+          pvVar4 = sputResource_Alloc(0x444e4b42,(char *)(ref + -0x10));
+          Res_SetReference(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x702);
         }
         if (*ref == 0) {
-          pvVar4 = Resource_Load(0x444e4b42,s_dfltroom_bm_004ec5d4);
-          ResRef_Add(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x708);
+          pvVar4 = sputResource_Alloc(0x444e4b42,s_dfltroom_bm_004ec5d4);
+          Res_SetReference(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x708);
           if (*ref == 0) {
             return 0;
           }
@@ -982,8 +998,8 @@ LAB_004a51bd:
       if ((char)ref[-8] != '\0') {
         piVar9 = ref + 0xd;
         if ((ref[0xd] == 0) &&
-           (pvVar4 = Resource_Load(0x4655425a,(char *)(ref + -8)), pvVar4 != (void *)0x0)) {
-          ResRef_Add(piVar9,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x720);
+           (pvVar4 = sputResource_Alloc(0x4655425a,(char *)(ref + -8)), pvVar4 != (void *)0x0)) {
+          Res_SetReference(piVar9,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x720);
         }
         if ((*piVar9 != 0) && (Res_TouchByData((void *)ref[0xe]), *piVar9 == 0)) {
           (*g_pSvcMain->pAssertFail)

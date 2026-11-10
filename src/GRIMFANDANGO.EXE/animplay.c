@@ -5,13 +5,16 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004c23c0  AnimPlay_Create ---- */
+/* ---- 0x004c23c0  anm_Start ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Creates the AnimPlay frame player: allocates it, opens the streamer and the file, starts the
-   clock and frame timers; returns 0 or -1 */
+   clock and frame timers; returns 0 or -1 Original name anm_Start (the remaster's GrimFandango
+   (Linux): strings: 'AnimPlay Module: Cannot open file %s' | 'AnimPlay Module: Cannot init
+   Animation module' | 'AnimPlay Module: Cannot allocate sync timer' | 'AnimPlay Module: Cannot
+   allocate frame timer'); was AnimPlay_Create. */
 
-int __cdecl AnimPlay_Create(void **out,char *name,int fps,int streamArg1,int streamArg2,uint flags)
+int __cdecl anm_Start(void **out,char *name,int fps,int streamArg1,int streamArg2,uint flags)
 
 {
   int *p;
@@ -106,13 +109,15 @@ void __cdecl AnimPlay_Destroy(void **pp)
 #endif
 
 
-/* ---- 0x004c27a0  AnimPlay_Update ---- */
+/* ---- 0x004c27a0  anm_Render ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* One step of the AnimPlay frame player: shows the next frame if due and adjusts the frame delay to
-   keep sound and picture in sync */
+   keep sound and picture in sync Original name anm_Render (the remaster's GrimFandango (Linux):
+   strings: 'Sync Ticks:  %ld    \n' | 'State:       %d    \n' | 'Frame Delay: %ld (%ld target)
+   \n' | 'Buffer:      %ld%%    \n'); was AnimPlay_Update. */
 
-int __cdecl AnimPlay_Update(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10)
+int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10)
 
 {
   int *piVar1;
@@ -127,7 +132,7 @@ int __cdecl AnimPlay_Update(void *p,int a2,int a3,int a4,int a5,int a6,int a7,in
   longlong lVar8;
   
   if (*(int *)((int)p + 0x68) == 5) {
-    iVar2 = FUN_004c36f0(p,a2,a3,a4,a5,a6,a7,a8,*(undefined4 *)((int)p + 8),a9,a10);
+    iVar2 = anm_animator_Render(p,a2,a3,a4,a5,a6,a7,a8,*(undefined4 *)((int)p + 8),a9,a10);
     *(int *)((int)p + 0x68) = iVar2;
     if (iVar2 < 0) {
       *(undefined4 *)((int)p + 0x10) = 1;
@@ -205,7 +210,7 @@ int __cdecl AnimPlay_Update(void *p,int a2,int a3,int a4,int a5,int a6,int a7,in
     else {
       uVar6 = *(uint *)((int)p + 8) | 0x8000;
     }
-    uVar7 = FUN_004c36f0(p,a2,a3,a4,a5,a6,a7,a8,uVar6,a9,a10);
+    uVar7 = anm_animator_Render(p,a2,a3,a4,a5,a6,a7,a8,uVar6,a9,a10);
     *(undefined4 *)((int)p + 0x68) = uVar7;
     if ((g_pAnimDebug != (int *)0x0) && ((UINT_008d6f20 & 0xc0000000) != 0)) {
       piVar1 = g_pAnimDebug + 5;

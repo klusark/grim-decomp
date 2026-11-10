@@ -46,13 +46,13 @@ void sputLua_Update(void)
     lua_updatetasks(0);
 }
 
-/* ==== Lua_SetCameraFOV (0x0049f8d0) ====
+/* ==== sputLua_SetCameraFOVL (0x0049f8d0) ====
  * SetCameraFOV(fov): stores the field of view in the camera setup (float at +0x1c) and in the rdCamera object the
  * setup points to (pointer at +0x28, float at +0x38).  By hand because Ghidra types g_pCameraSetup as float *, so the
  * pointer field at +0x28 came out as `(int)g_pCameraSetup[10]` (a float -> int conversion of the pointer bits).
  * The original has no `return` after the two lua_pushnil() calls (missing early-outs: it carries on and dereferences
  * a null setup); kept as it is. */
-void Lua_SetCameraFOV(void)
+void sputLua_SetCameraFOVL(void)
 {
     int arg;
     float *setup;
@@ -83,14 +83,14 @@ float Math_Floor(float x)
 
 extern int GRIM_SimTime(void);   /* overrides.c: GRIM_SIMTIME=<ms> test knob (fixed frame time), 0 = off */
 
-/* ==== Game_FrameUpdate (0x004016a0) ====
+/* ==== Main_Service (0x004016a0) ====
  * One pass of the main loop: re-selects the display after a mode change, runs the engine for one frame (the frame time
  * in ms is the one-shot global g_fixedFrameMs, 0 = measure it from the wall clock), counts frames, updates the FPS
  * counter once a second, draws the optional FPS / profile overlays and presents.  Written by hand: Ghidra lost the
- * second argument of Engine_UpdateFrame / Engine_InvalidateRect / Render_DimBackground and the second Win_RemoveMessageHook
+ * second argument of Engine_UpdateFrame / Engine_InvalidateRect / sputRender_Dim and the second Win_RemoveMessageHook
  * argument is a function pointer; and the GRIM_SIMTIME hook (names/asm_patches.json used to patch the assembled copy)
  * is just a line here. */
-void Game_FrameUpdate(void)
+void Main_Service(void)
 {
     int rect[4] = { 0, 0, 0x50, 0x1e };          /* x, y, width, height of the overlay text box */
     int savedMode = UINT_008a8c40;
@@ -104,7 +104,7 @@ void Game_FrameUpdate(void)
     if (UINT_004f5a50 != 0) {                    /* display change pending: reselect it and dim the back buffer */
         Display_Select(UINT_004dd340, UINT_004dd344, UINT_004dd348);
         UINT_008a8c40 = 2;
-        ((void (*)(int, int))Render_DimBackground)(1, 2);
+        ((void (*)(int, int))sputRender_Dim)(1, 2);
         UINT_004f5a50 = 0;
     }
     _DAT_004dd384 = 300;
@@ -205,39 +205,39 @@ float Math_NormalizeAngle360(float degrees)
     return result;
 }
 
-/* ==== walk-box shrinking: Lua_TEST, Lua_ShrinkBoxes, Lua_UnShrinkBoxes, Lua_GetShrinkPos (0x00498e20-0x00498fe1) ====
+/* ==== walk-box shrinking: sputLua_Test, sputLua_ShrinkBoxes, sputLua_UnShrinkBoxes, sputLua_GetShrinkPosition (0x00498e20-0x00498fe1) ====
  * ShrinkBoxes(amount) pulls the edges of the walk sectors in by `amount` metres (so a bigger actor does not clip the
  * walls), UnShrinkBoxes() restores them, GetShrinkPos(x, y, z, amount) returns the point of the shrunken sectors nearest
- * to (x, y, z).  By hand because Ghidra gave SectorList_ShrinkWalkSectors (0x004a9d00, outside this range) a prototype
+ * to (x, y, z).  By hand because Ghidra gave ShrinkBoxes (0x004a9d00, outside this range) a prototype
  * with 14 parameters; the code pushes just one float. */
-extern void SectorList_ShrinkWalkSectors_amount(float amount) __asm__("_SectorList_ShrinkWalkSectors");
+extern void SectorList_ShrinkWalkSectors_amount(float amount) __asm__("_ShrinkBoxes");
 
 /* TEST(): the developer test hook of the original, shrinks the boxes by 0.005 */
-void Lua_TEST(void)
+void sputLua_Test(void)
 {
     SectorList_ShrinkWalkSectors_amount(0.005f);
 }
 
 /* UnShrinkBoxes(): undo the last shrink and forget the saved geometry */
-void Lua_UnShrinkBoxes(void)
+void sputLua_UnShrinkBoxes(void)
 {
     SectorList_RestoreAfterShrink();
     SectorList_FreeShrinkSave();
 }
 
 /* ShrinkBoxes(amount): unshrink, save the sectors, shrink by amount; nothing for a nil amount */
-void Lua_ShrinkBoxes(void)
+void sputLua_ShrinkBoxes(void)
 {
     int amount = lua_lua2C(1);
     if (lua_isnil(amount) == 0) {
-        Lua_UnShrinkBoxes();
+        sputLua_UnShrinkBoxes();
         SectorList_SaveForShrink();
         SectorList_ShrinkWalkSectors_amount(lua_getnumber(amount));
     }
 }
 
 /* GetShrinkPos(x, y, z, amount) -> x, y, z of the nearest point of the shrunken walk sectors (nil if there is none) */
-void Lua_GetShrinkPos(void)
+void sputLua_GetShrinkPosition(void)
 {
     int a1 = lua_lua2C(1), a2 = lua_lua2C(2), a3 = lua_lua2C(3), a4 = lua_lua2C(4);
     float pos[3];
@@ -255,7 +255,7 @@ void Lua_GetShrinkPos(void)
     sector = SectorList_FindNearestPoint(pos, 0x1000);
     if (sector != 0)
         Sector_ClampPoint(sector, (int)pos);
-    Lua_UnShrinkBoxes();
+    sputLua_UnShrinkBoxes();
     if (sector == 0) {
         lua_pushnil();
         return;
@@ -265,16 +265,16 @@ void Lua_GetShrinkPos(void)
     lua_pushnumber(pos[2]);
 }
 
-/* ==== Lua_EngineDisplay (0x00499280), Lua_MakeCurrentSetup (0x0049db70) ====
+/* ==== sputLua_EngineDisplay (0x00499280), sputLua_MakeCurrentSetupL (0x0049db70) ====
  * EngineDisplay(n): switch drawing of the 3D scene on/off.  MakeCurrentSetup(n): select camera setup n of the current set.
  * Both convert the Lua number with the CRT _ftol (the float stays in ST(0) between lua_getnumber and _ftol, which the
  * decompiler cannot follow): a C `(int)` cast does the same truncation. */
-void Lua_EngineDisplay(void)
+void sputLua_EngineDisplay(void)
 {
     Render_SetDrawEnabled((int)lua_getnumber(lua_lua2C(1)));
 }
 
-void Lua_MakeCurrentSetup(void)
+void sputLua_MakeCurrentSetupL(void)
 {
     int arg = lua_lua2C(1);
     if (lua_isnumber(arg))
@@ -297,7 +297,7 @@ int *KeyframeComponent_NewInstance(int inst, int component, int create)
 
     if (create == 0) {
         int d = Cos_InstGetInstanceData(inst, component, (int *)0);
-        ResRef_Remove((void *)(d + 4));
+        Res_RemoveReference((void *)(d + 4));
         (*g_pSvcCostume->pFree)(d);
         return (int *)0;
     }
@@ -308,7 +308,7 @@ int *KeyframeComponent_NewInstance(int inst, int component, int create)
     data = (int *)(*g_pSvcCostume->pAlloc)(0x40, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xed8);
     for (i = 0; i < 0x10; i++)
         data[i] = 0;
-    ResRef_Add(data + 1, res, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xeda);
+    Res_SetReference(data + 1, res, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0xeda);
     data[0xe] = info[0xd];
     data[0xf] = info[0xe];
     data[0] = Cos_InstGetInstanceData(inst, parent, (int *)0);
@@ -322,7 +322,7 @@ int *CmapComponent_NewInstance(int inst, int component, int create)
 
     if (create == 0) {
         int d = Cos_InstGetInstanceData(inst, component, (int *)0);
-        ResRef_Remove((void *)(d + 4));
+        Res_RemoveReference((void *)(d + 4));
         (*g_pSvcCostume->pFree)(d);
         return (int *)0;
     }
@@ -332,7 +332,7 @@ int *CmapComponent_NewInstance(int inst, int component, int create)
         data[i] = 0;
     if (*info == 0)
         (*g_pSvcMain->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
-    ResRef_Add(data + 1, (void *)info[1], s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0x8ff);
+    Res_SetReference(data + 1, (void *)info[1], s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0x8ff);
     data[0] = Cos_InstGetInstanceData(inst, parent, (int *)0);
     return data;
 }
@@ -354,7 +354,7 @@ int *MeshComponent_NewInstance(int inst, int component, int create)
     return data;
 }
 
-/* ==== file / save-game helpers: stdFile_ReadByte, stdFile_WriteByte, SaveFile_CheckFUTBHeader, Resource_Filio_SaveState,
+/* ==== file / save-game helpers: stdFile_ReadByte, stdFile_WriteByte, SaveFile_CheckFUTBHeader, Res_SysSave,
  *      sputPrimitive_SaveState, sputPrimitive_RestoreState (0x004735f0 ... 0x004896b0) ====
  * The save-game code hands every module a callback (`write(buf, n)` / `read(buf, n)`, non-zero result = failure) and
  * each module streams its own state through it.  By hand because all of them pass the address of one of their own
@@ -395,7 +395,7 @@ undefined4 SaveFile_CheckFUTBHeader(code *readFn)
 /* Resource_Filio module, save-game writer: the list of loaded files (PTR_008a85d4) -> count, then per saved file its name
  * (length + bytes), its flags word and its "loaded" word.  A file is saved when it has a handle (+0x24) and its name
  * does not contain the temporary-file marker, or when bit 3 of its flags is set. */
-undefined4 Resource_Filio_SaveState(code *writeFn)
+undefined4 Res_SysSave(code *writeFn)
 {
     SaveIO write = (SaveIO)writeFn;
     int count = 0, len;

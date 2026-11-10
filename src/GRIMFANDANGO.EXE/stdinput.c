@@ -81,10 +81,11 @@ undefined4 Input_Disable(void)
   return 1;
 }
 
-/* ---- 0x00477010  Input_Flush ---- */
-/* Lua FlushControls: resets keyboard and joystick state */
+/* ---- 0x00477010  stdControl_Flush ---- */
+/* Lua FlushControls: resets keyboard and joystick state Original name stdControl_Flush (the
+   remaster's GrimFandango (Linux): Lua / module table entry 'FlushControls'); was Input_Flush. */
 
-void Input_Flush(void)
+void stdControl_Flush(void)
 
 {
   UINT_00805fbc = timeGetTime();

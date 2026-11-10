@@ -9,7 +9,7 @@
  {"addr": "004735d0", "name": "Math_Log2Int", "proto": "int Math_Log2Int(int n)", "tags": "math"},
  {"addr": "004735f0", "name": "stdFile_ReadByte", "tags": "jedi"},
  {"addr": "00473610", "name": "stdFile_WriteByte", "tags": "jedi"},
- {"addr": "00473810", "name": "stdBitmap_SaveByExtension", "proto": "int stdBitmap_SaveByExtension(char * filename, void * bitmap)", "comment": "Picks the writer from the file extension: .bm/.zbm (stdBitmap_SaveBM, zbm marks format 5), .bmp, .gif, .pcx, .lbm", "tags": "jedi,bitmap"},
+ {"addr": "00473810", "name": "stdWriteImage", "proto": "int stdWriteImage(char * filename, void * bitmap)", "comment": "Picks the writer from the file extension: .bm/.zbm (stdBitmap_SaveBM, zbm marks format 5), .bmp, .gif, .pcx, .lbm", "tags": "jedi,bitmap"},
  {"addr": "0047fd50", "name": "Str_FileExtension", "proto": "char * Str_FileExtension(char * path)", "tags": "string"},
  {"addr": "0047b250", "name": "stdBitmap_SaveBM", "proto": "int stdBitmap_SaveBM(char * filename, void * bitmap)", "tags": "jedi,bitmap"},
  {"addr": "0047f720", "name": "stdLbm_Write", "tags": "jedi,bitmap"},

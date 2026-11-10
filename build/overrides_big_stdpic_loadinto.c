@@ -1,4 +1,4 @@
-/* stdPic_LoadInto (0x0047d2d0), Libs/Std/General/stdPic.c: loader of Softimage .pic images, written by hand from the
+/* stdPic_LoadEntry (0x0047d2d0), Libs/Std/General/stdPic.c: loader of Softimage .pic images, written by hand from the
  * machine code of GRIMFANDANGO.EXE 1.01 (see docs/notes/big_stdpic_loadinto.md; verified by the differential test in
  * build/difftest/big_stdpic_loadinto/).
  *
@@ -42,8 +42,8 @@ static uint pic_bswap(uint v)
     return (v << 24) | ((v & 0xff00) << 8) | ((v >> 8) & 0xff00) | (v >> 24);
 }
 
-/* OVERRIDES: stdPic_LoadInto */
-undefined4 stdPic_LoadInto(char *path, undefined4 *bm_, int videoMem, int sysMem)
+/* OVERRIDES: stdPic_LoadEntry */
+undefined4 stdPic_LoadEntry(char *path, undefined4 *bm_, int videoMem, int sysMem)
 {
     byte *bm = (byte *)bm_;
     uint fr[FR_N + 1];

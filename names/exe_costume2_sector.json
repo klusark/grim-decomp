@@ -14,7 +14,7 @@
  {"addr": "004a6790", "name": "Sector_SetType", "proto": "void __thiscall Sector_SetType(void * this, uint type)", "comment": "Stores the type bits (+0x24); 0x1000 sets a small shrink tolerance, 0x100 (edge sector) needs 4 vertices and picks the long axis (+0x78)", "tags": "sector"},
  {"addr": "004a70a0", "name": "Sector_DrawOutline", "proto": "void __thiscall Sector_DrawOutline(void * this, int color)", "tags": "sector,debug"},
  {"addr": "004a7150", "name": "SectorList_SelectForSet", "proto": "void SectorList_SelectForSet(char * setName)", "comment": "Points g_pSectorList at the sector list cached for the named set (table of 0x28-byte {list, name} entries)", "tags": "sector"},
- {"addr": "004a7390", "name": "Sector_MoveWalkerToOppositeEdge", "proto": "void __thiscall Sector_MoveWalkerToOppositeEdge(void * this, float * walker)", "tags": "sector,walker"},
+ {"addr": "004a7390", "name": "WalkPlane_JumpOut", "proto": "void __thiscall WalkPlane_JumpOut(void * this, float * walker)", "tags": "sector,walker"},
  {"addr": "004a7520", "name": "Sector_EdgeFollowDirection", "proto": "float * __thiscall Sector_EdgeFollowDirection(void * this, float * walker)", "comment": "For a 4-vertex edge sector: direction along the edge the walker should follow (g_vEdgeFollowDir), stepping the current edge index when the walker reaches a corner", "tags": "sector,walker"},
  {"addr": "008cf260", "global": "g_vEdgeFollowDir", "type": "float", "comment": "Direction returned by Sector_EdgeFollowDirection (3 floats)", "array_length": 3},
  {"addr": "004a82a0", "name": "Walker_GetAngles", "comment": "Converts the walker's 3x3 frame to pitch/yaw/roll in g_vWalkerAngles", "tags": "walker", "cc": "__fastcall"},

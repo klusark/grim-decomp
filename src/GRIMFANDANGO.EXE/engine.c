@@ -44,35 +44,47 @@ void Engine_OpenResourceLog(undefined4 param_1)
   return;
 }
 
-/* ---- 0x004825c0  Engine_PushSelectedActorCostume ---- */
-void Engine_PushSelectedActorCostume(int param_1)
+/* ---- 0x004825c0  grimlib_OverrideSelectedActorCostume ---- */
+/* Original name grimlib_OverrideSelectedActorCostume (the remaster's GrimFandango (Linux): the only
+   unmatched caller of Actor_PushCostume; 2 matched neighbours agree, 0 disagree); was
+   Engine_PushSelectedActorCostume. */
+
+void grimlib_OverrideSelectedActorCostume(int param_1)
 
 {
   if (g_pSelectedActor != (void *)0x0) {
-    Lua_CallCostumeOverrideHandler(g_pSelectedActor,1);
-    Actor_PushCostume(g_pSelectedActor,(char *)0x0,param_1);
+    sputLua_DoCostumeOverrideCallback(g_pSelectedActor,1);
+    sputActor_PushCostume(g_pSelectedActor,(char *)0x0,param_1);
   }
   return;
 }
 
-/* ---- 0x004825f0  Engine_PopSelectedActorCostume ---- */
-void Engine_PopSelectedActorCostume(void)
+/* ---- 0x004825f0  grimlib_RestoreSelectedActorCostume ---- */
+/* Original name grimlib_RestoreSelectedActorCostume (the remaster's GrimFandango (Linux): the only
+   unmatched caller of Actor_PopCostume; 2 matched neighbours agree, 0 disagree); was
+   Engine_PopSelectedActorCostume. */
+
+void grimlib_RestoreSelectedActorCostume(void)
 
 {
   if (g_pSelectedActor != (void *)0x0) {
-    Lua_CallCostumeOverrideHandler(g_pSelectedActor,0);
-    Actor_PopCostume(g_pSelectedActor,0);
+    sputLua_DoCostumeOverrideCallback(g_pSelectedActor,0);
+    sputActor_PopCostume(g_pSelectedActor,0);
   }
   return;
 }
 
-/* ---- 0x00482620  Engine_OpenRenderer ---- */
-int __cdecl Engine_OpenRenderer(void *mode,int flags)
+/* ---- 0x00482620  grimlib_SetDisplay ---- */
+/* Original name grimlib_SetDisplay (the remaster's GrimFandango (Linux): the only unmatched caller
+   of Render_Open; 2 matched neighbours agree, 0 disagree); was Engine_OpenRenderer. */
+
+int __cdecl grimlib_SetDisplay(void *mode,int flags)
 
 {
-  Render_SetBufferCount(UINT_00803fa0);
-  Render_Open(mode,flags,0,0,*(int *)((int)mode + 0xc) + -1,*(int *)((int)mode + 0x10) + -1,
-              &DAT_004e7da0);
+  sputRender_PageCountIs(UINT_00803fa0);
+  sputRender_SetDisplay
+            (mode,flags,0,0,*(int *)((int)mode + 0xc) + -1,*(int *)((int)mode + 0x10) + -1,
+             &DAT_004e7da0);
   return 0;
 }
 
@@ -80,7 +92,7 @@ int __cdecl Engine_OpenRenderer(void *mode,int flags)
 undefined4 Engine_CloseRenderer(void)
 
 {
-  Render_Close();
+  sputRender_Close();
   return 0;
 }
 
@@ -93,8 +105,8 @@ void Engine_ShutdownGame(void)
   if (UINT_008a8c78 != 0) {
     UINT_008a8c40 = 0;
     Control_Release();
-    Render_Close();
-    Set_SetCurrent((void *)0x0,0);
+    sputRender_Close();
+    sputRoom_SetCurrentRoom((void *)0x0,0);
     UINT_008a8c78 = 0;
   }
   return;
@@ -190,13 +202,17 @@ void Engine_InvalidateRect(int *param_1,int param_2)
   return;
 }
 
-/* ---- 0x004828d0  Engine_CallExitHandler ---- */
-int Engine_CallExitHandler(void)
+/* ---- 0x004828d0  grimlib_ConfirmClose ---- */
+/* Original name grimlib_ConfirmClose (the remaster's GrimFandango (Linux): the only unmatched
+   caller of Lua_CallExitHandler; 1 matched neighbours agree, 0 disagree); was
+   Engine_CallExitHandler. */
+
+int grimlib_ConfirmClose(void)
 
 {
   int iVar1;
   
-  iVar1 = Lua_CallExitHandler();
+  iVar1 = sputLua_DoExitCallback();
   return iVar1 == 0;
 }
 
@@ -212,10 +228,13 @@ void __cdecl Engine_Quit(int exitCode)
   return;
 }
 
-/* ---- 0x00482900  Engine_SetPaused ---- */
-/* Lua EnginePause/EngineResume and WM_ACTIVATEAPP use this to freeze the engine clock */
+/* ---- 0x00482900  grimlib_SetPause ---- */
+/* Lua EnginePause/EngineResume and WM_ACTIVATEAPP use this to freeze the engine clock Original name
+   grimlib_SetPause (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_EnginePause; the only unmatched callee of Lua_EngineResume; 2 matched neighbours agree, 0
+   disagree); was Engine_SetPaused. */
 
-void __cdecl Engine_SetPaused(int paused)
+void __cdecl grimlib_SetPause(int paused)
 
 {
   if (UINT_008a8c40 != 0) {
@@ -225,7 +244,7 @@ void __cdecl Engine_SetPaused(int paused)
         UINT_008a8c94 = UINT_008a8c44;
         UINT_008a8c40 = 1;
         ImPause();
-        Movie_SetPaused(1);
+        sputSmush_Pause(1);
         return;
       }
       if (paused != 0) {
@@ -236,7 +255,7 @@ void __cdecl Engine_SetPaused(int paused)
       UINT_008a8c40 = UINT_008a8c90;
       UINT_008a8c44 = UINT_008a8c94;
       ImResume();
-      Movie_SetPaused(0);
+      sputSmush_Pause(0);
     }
   }
   return;
@@ -248,7 +267,7 @@ undefined * __cdecl Engine_CallCharacterHandler(int param_1)
 {
   undefined *puVar1;
   
-  puVar1 = (undefined *)Lua_CallCharacterHandler(param_1);
+  puVar1 = (undefined *)sputLua_DoCharacterCallback(param_1);
   return puVar1;
 }
 
@@ -281,7 +300,7 @@ void Engine_UpdateFrame(int param_1,int param_2)
   if (UINT_008a8c40 != 0) {
     Profile_Begin(1);
     uVar1 = Timer_GetFrameMs();
-    fVar2 = Timer_GetFrameSeconds();
+    fVar2 = sputTime_GetFrameTimeFlex();
     Engine_RunShutdownHooks(PUN(undefined4,(float)(fVar2)),uVar1);
     Profile_End(1);
     if ((UINT_008a8c40 != 1) || (param_2 != 0)) {
@@ -299,13 +318,13 @@ void Engine_UpdateFrame(int param_1,int param_2)
       }
       if ((UINT_008a8c40 != 3) && (UINT_008a8c40 != 4)) {
         Profile_Begin(3);
-        fVar2 = Timer_GetFrameSeconds();
+        fVar2 = sputTime_GetFrameTimeFlex();
         Actors_UpdateAll(fVar2);
         Profile_End(3);
       }
     }
     if ((param_1 != 0) && ((UINT_008a8c40 != 1 || (param_2 != 0)))) {
-      Engine_RenderFrame();
+      sputRender_Update();
       UINT_008a8c60 = 1;
     }
     Profile_End(0);
@@ -541,10 +560,14 @@ undefined * __cdecl Profile_End(int param_1)
 #endif
 
 
-/* ---- 0x00482f00  Engine_BlitToBackBuffer ---- */
+/* ---- 0x00482f00  grimlib_PlayMovie ---- */
+/* Original name grimlib_PlayMovie (the remaster's GrimFandango (Linux): the only unmatched callee
+   of Lua_StartFullscreenMovie; 2 matched neighbours agree, 0 disagree); was
+   Engine_BlitToBackBuffer. */
+
 undefined4
-Engine_BlitToBackBuffer
-          (undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5)
+grimlib_PlayMovie(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4,
+                 undefined4 param_5)
 
 {
   int iVar1;
@@ -571,12 +594,16 @@ Engine_BlitToBackBuffer
   return 0;
 }
 
-/* ---- 0x00482f80  Engine_CallUserPaint ---- */
-void Engine_CallUserPaint(void)
+/* ---- 0x00482f80  grimlib_UserPaint ---- */
+/* Original name grimlib_UserPaint (the remaster's GrimFandango (Linux): the only unmatched caller
+   of Lua_CallUserPaintHandler; 2 matched neighbours agree, 0 disagree); was Engine_CallUserPaint.
+    */
+
+void grimlib_UserPaint(void)
 
 {
   if (UINT_008a8c40 == 4) {
-    Lua_CallUserPaintHandler();
+    sputLua_DoUserPaintCallback();
     return;
   }
   return;
@@ -593,8 +620,11 @@ void Engine_RequestSave(char *param_1)
   return;
 }
 
-/* ---- 0x00482fb0  Engine_RequestLoad ---- */
-void Engine_RequestLoad(char *param_1)
+/* ---- 0x00482fb0  grimlib_Load ---- */
+/* Original name grimlib_Load (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_Load; 1 matched neighbours agree, 0 disagree); was Engine_RequestLoad. */
+
+void grimlib_Load(char *param_1)
 
 {
   UINT_008a8c80 = 1;
@@ -602,8 +632,11 @@ void Engine_RequestLoad(char *param_1)
   return;
 }
 
-/* ---- 0x00482fd0  Engine_TakeRestoreFlag ---- */
-uint Engine_TakeRestoreFlag(void)
+/* ---- 0x00482fd0  grimlib_JustLoaded ---- */
+/* Original name grimlib_JustLoaded (the remaster's GrimFandango (Linux): the only unmatched callee
+   of Lua_JustLoaded; 1 matched neighbours agree, 0 disagree); was Engine_TakeRestoreFlag. */
+
+uint grimlib_JustLoaded(void)
 
 {
   uint uVar1;
@@ -660,8 +693,8 @@ void Engine_SaveGame(void)
   }
   UINT_008a8770 = (uint)SaveFile_Open(name,&DAT_004ddd78);
   if ((void *)UINT_008a8770 != (void *)0x0) {
-    Lua_CallSaveGameCallback(SaveGame_Write);
-    pvVar1 = Render_CaptureThumbnail(0xfa,0xbc);
+    sputLua_SaveGameCallback(SaveGame_Write);
+    pvVar1 = sputRender_ScreenShot(0xfa,0xbc);
     pvVar1 = (void *)Surface_CreateFromBitmap(&local_38,pvVar1);
     SaveGame_Write((int *)((int)pvVar1 + 0x14),4);
     SaveGame_Write(*(void **)((int)pvVar1 + 0x5c),*(int *)((int)pvVar1 + 0x14));
@@ -759,7 +792,7 @@ void Engine_LoadGame(void)
       (*(code *)g_pfnIMuseRestoreHook)(SaveGame_Read);
     }
     Resource_SetNoPurge(0);
-    set = Set_GetCurrent();
+    set = sputRoom_GetCurrentRoom();
     if (set == (void *)0x0) {
       setupIdx = 0;
     }
@@ -775,7 +808,7 @@ void Engine_LoadGame(void)
     aiStack_10[1] = 0;
     aiStack_10[2] = 0x280;
     aiStack_10[3] = 0x1e0;
-    Render_InvalidateRect(aiStack_10,1);
+    MarkDirtyRect(aiStack_10,1);
   }
   return;
 }
@@ -811,22 +844,24 @@ undefined4 Engine_CreateCameraActor(void)
 {
   int iVar1;
   
-  g_nCameraActor = Actor_Create();
-  iVar1 = Actor_FromHandle(g_nCameraActor);
+  g_nCameraActor = sputActor_AllocateActor();
+  iVar1 = sputActor_ActorDeref(g_nCameraActor);
   *(uint *)(iVar1 + 4) = *(uint *)(iVar1 + 4) | 1;
   return 1;
 }
 
-/* ---- 0x00484260  Engine_RenderFrame ---- */
+/* ---- 0x00484260  sputRender_Update ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* sputRender.cpp: draws one frame. Mode 3 polls the movie; otherwise re-prepares the set when it
    changed, draws object states, actors (profile slots 4-7), overlays, the iris/fade (flag 4 of
    g_dwRenderFlags) and text
    Ported to C (build/overrides_big_engine_renderframe.c): differential test vs recorder stand-ins,
-   0 differences (docs/notes/big_engine_renderframe.md). */
+   0 differences (docs/notes/big_engine_renderframe.md). Original name sputRender_Update (the
+   remaster's GrimFandango (Linux): the only unmatched caller of Lua_CallPostCamChangeHandler; 6
+   matched neighbours agree, 1 disagree); was Engine_RenderFrame. */
 
-void Engine_RenderFrame(void)
+void sputRender_Update(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -862,10 +897,10 @@ void Engine_RenderFrame(void)
             iVar4 = iVar4 + 1;
           } while (iVar4 < g_nBufferCount);
         }
-        Render_RequestFullRedraw();
+        sputRender_ForceRefresh();
         UINT_008c97f8 = 1;
       }
-      local_1c[0] = Timer_GetFrameSeconds();
+      local_1c[0] = sputTime_GetFrameTimeFlex();
       Actors_UpdateTalking(local_1c[0]);
       Surface_Lock(&g_BackBuffer);
       UINT_008a94b8 = UINT_0090563c;
@@ -876,7 +911,7 @@ void Engine_RenderFrame(void)
     }
     if (UINT_008a8c40 == 4) {
       if (g_nFullRedrawPending != 0) {
-        Engine_CallUserPaint();
+        grimlib_UserPaint();
         g_nFullRedrawPending = 0;
         return;
       }
@@ -885,23 +920,23 @@ void Engine_RenderFrame(void)
       if (UINT_008c9804 != 0) {
         lua_printstack(0);
       }
-      pvVar5 = Set_GetCurrent();
+      pvVar5 = sputRoom_GetCurrentRoom();
       if (pvVar5 == (void *)0x0) {
         return;
       }
-      pvVar5 = Set_GetCurrent();
+      pvVar5 = sputRoom_GetCurrentRoom();
       if (((g_pRenderedSet != pvVar5) ||
-          (pvVar5 = Set_GetCurrent(), *(int *)((int)pvVar5 + 0xb4) != g_nRenderedSetup)) ||
+          (pvVar5 = sputRoom_GetCurrentRoom(), *(int *)((int)pvVar5 + 0xb4) != g_nRenderedSetup)) ||
          (g_nFullRedrawPending != 0)) {
         DirtyRect_Clear();
-        g_pRenderedSet = Set_GetCurrent();
+        g_pRenderedSet = sputRoom_GetCurrentRoom();
         g_nRenderedSetup = *(int *)((int)g_pRenderedSet + 0xb4);
         Set_SwitchSetup(g_pRenderedSet,g_nRenderedSetup);
-        Lua_CallPostCamChangeHandler(g_nRenderedSetup);
+        sputLua_PostCameraChange(g_nRenderedSetup);
       }
       fVar8 = (float)(*(int *)((int)g_pRenderedSet + 0xac) + g_nRenderedSetup * 300);
       local_1c[0] = fVar8;
-      Set_ApplySetupCamera(g_pRenderedSet,g_nRenderedSetup);
+      sputRender_SyncCamera(g_pRenderedSet,g_nRenderedSetup);
       for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
           pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
         ObjectState_Draw(pvVar5,3,g_pBackgroundSurface,g_pZBufferSurface);
@@ -944,7 +979,7 @@ void Engine_RenderFrame(void)
             Render_DrawDebugGrid();
           }
           else {
-            Set_GetCurrent();
+            sputRoom_GetCurrentRoom();
             Sector_DrawAllDebug();
           }
           Surface_Unlock(&g_BackBuffer);
@@ -1038,7 +1073,7 @@ void Engine_RenderFrame(void)
       Primitives_DrawAll(2);
       Surface_Unlock(&g_BackBuffer);
       if (((byte)g_dwRenderDebugFlags & 1) != 0) {
-        pvVar5 = Set_GetCurrent();
+        pvVar5 = sputRoom_GetCurrentRoom();
         if (((byte)g_dwRenderDebugFlags & 2) != 0) {
           Set_DrawDebugLights(pvVar5);
         }
@@ -1073,7 +1108,7 @@ void Engine_RenderFrame(void)
           local_1c[1] = 0.0;
           local_1c[0] = 0.0;
           local_1c[2] = 8.96831e-43;
-          Render_InvalidateRect((int *)local_1c,0);
+          MarkDirtyRect((int *)local_1c,0);
         }
       }
       Surface_Lock(&g_BackBuffer);
@@ -1094,10 +1129,12 @@ void Engine_RenderFrame(void)
 #endif
 
 
-/* ---- 0x0048d1a0  Engine_RegisterShutdownHook ---- */
-/* Appends fn to the 9-slot hook array g_pShutdownHooks */
+/* ---- 0x0048d1a0  sputControl_AddCallback ---- */
+/* Appends fn to the 9-slot hook array g_pShutdownHooks Original name sputControl_AddCallback (the
+   remaster's GrimFandango (Linux): the only unmatched callee of sputRender_Initialize; 2 matched
+   neighbours agree, 0 disagree); was Engine_RegisterShutdownHook. */
 
-void __cdecl Engine_RegisterShutdownHook(void *fn)
+void __cdecl sputControl_AddCallback(void *fn)
 
 {
   if (g_nShutdownHookCount < 9) {

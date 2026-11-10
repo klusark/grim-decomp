@@ -39,13 +39,16 @@ void InsaneTimer_Unregister(void)
 #endif
 
 
-/* ---- 0x004cdd10  InsaneTimer_Init ---- */
+/* ---- 0x004cdd10  InsaneTimer_module_startup ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
-/* Allocates the timer workspace and starts the timer thread */
+/* Allocates the timer workspace and starts the timer thread Original name
+   InsaneTimer_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the
+   InsaneTimer module (the remaster has one per module file, hence the prefix); strings: 'Timer
+   Module: Cannot allocate memory services.'); was InsaneTimer_Init. */
 
-int InsaneTimer_Init(void)
+int InsaneTimer_module_startup(void)
 
 {
   int iVar1;

@@ -429,9 +429,9 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             *(float *)&DAT_008ca348 = *pfVar6;
             _DAT_008ca34c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca350 = *(undefined4 *)((int)param_1 + 0x14);
-            Vec3_Normalize(local_2c + 2);
+            rdVector_Normalize3Acc(local_2c + 2);
             bVar1 = *(byte *)((int)param_1 + 8);
-            ((code *)Actor_SetPositionClamped)();
+            ((code *)sputActor_SetActorPosition)();
             *(float *)&DAT_008ca338 = *pfVar6;
             _DAT_008ca33c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca340 = *(undefined4 *)((int)param_1 + 0x14);
@@ -510,7 +510,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             *(float *)&DAT_008ca324 = *(float *)&DAT_008ca324 - local_98[1];
             *(float *)&DAT_008ca328 = *(float *)&DAT_008ca328 - local_98[2];
             bVar1 = *(byte *)((int)param_1 + 8);
-            ((code *)Actor_SetPositionClamped)();
+            ((code *)sputActor_SetActorPosition)();
             *(float *)&DAT_008ca338 = *(float *)((int)param_1 + 0xc);
             _DAT_008ca33c = *(undefined4 *)((int)param_1 + 0x10);
             _DAT_008ca340 = *(undefined4 *)((int)param_1 + 0x14);
@@ -524,7 +524,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
           pvStack_d4 = param_1;
           afStack_dc[1] = 6.727223e-39;
           pvStack_d0 = actor;
-          ((code *)Sector_IntersectSegment)();
+          ((code *)sputLua_CollisionHandler)();
         }
       }
 LAB_004940c6:
@@ -761,16 +761,16 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
     fVar5 = -fVar5;
   }
   local_44[1] = fVar3 * fVar5;
-  fVar10 = Vec3_Normalize(&local_48);
+  fVar10 = rdVector_Normalize3Acc(&local_48);
   fVar11 = Vec3_Dot2(&local_48,&local_3c);
-  fVar11 = Math_AsinDegreesSeries(fVar11);
+  fVar11 = stdMath_ArcSin3(fVar11);
   if (90.0 - fVar11 < 90.0) {
     return 0;
   }
   param_3 = local_38[1] * local_44[0] - local_38[0] * local_44[1];
   param_4 = local_3c * local_44[1] - local_38[1] * local_48;
   param_5 = local_38[0] * local_48 - local_3c * local_44[0];
-  Vec3_Normalize(&param_3);
+  rdVector_Normalize3Acc(&param_3);
   Matrix_AxisAngle(local_30,&param_3,(90.0 - fVar11) - 90.0);
   Vec3_Transform(&local_48,local_30);
   *pfVar8 = fVar10 * local_48 + *pfVar8;

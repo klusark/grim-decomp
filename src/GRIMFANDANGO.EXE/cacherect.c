@@ -86,7 +86,7 @@ void CacheRect_Restore(void)
                *(int *)((int)g_pCacheRectList + 4),*(int *)((int)g_pCacheRectList + 8),(int *)0x0,0)
   ;
   Surface_Blit(g_pZBufferSurface,*(void **)((int)pvVar2 + 0x18),*rect,*piVar1,(int *)0x0,0);
-  Render_InvalidateRect(rect,1);
+  MarkDirtyRect(rect,1);
   return;
 }
 

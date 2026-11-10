@@ -5,8 +5,11 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00498990  Chore_FadeIn ---- */
-void __cdecl Chore_FadeIn(void *cosInst,int chore,int ms)
+/* ---- 0x00498990  sputCostume_FadeKeysIn ---- */
+/* Original name sputCostume_FadeKeysIn (the remaster's GrimFandango (Linux): the only unmatched
+   caller of rdPuppet_FadeInTrack; 3 matched neighbours agree, 0 disagree); was Chore_FadeIn. */
+
+void __cdecl sputCostume_FadeKeysIn(void *cosInst,int chore,int ms)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -65,8 +68,11 @@ void __cdecl Chore_FadeIn(void *cosInst,int chore,int ms)
 #undef local_c
 
 
-/* ---- 0x00498ad0  Chore_FadeOut ---- */
-void __cdecl Chore_FadeOut(void *cosInst,int chore,int ms)
+/* ---- 0x00498ad0  sputCostume_FadeKeysOut ---- */
+/* Original name sputCostume_FadeKeysOut (the remaster's GrimFandango (Linux): the only unmatched
+   caller of rdPuppet_FadeOutTrack; 2 matched neighbours agree, 0 disagree); was Chore_FadeOut. */
+
+void __cdecl sputCostume_FadeKeysOut(void *cosInst,int chore,int ms)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

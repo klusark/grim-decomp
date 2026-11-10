@@ -13,15 +13,18 @@ void * __cdecl stdBitmap_Load(char *filename,int param_2,int param_3)
 {
   void *pvVar1;
   
-  pvVar1 = stdBitmap_LoadFile(filename,param_2,param_3);
+  pvVar1 = stdLoadImageData(filename,param_2,param_3);
   if (pvVar1 != (void *)0x0) {
     stdBitmap_DecompressAll(pvVar1);
   }
   return pvVar1;
 }
 
-/* ---- 0x00473660  stdBitmap_LoadFile ---- */
-void * __cdecl stdBitmap_LoadFile(char *name,int a,int b)
+/* ---- 0x00473660  stdLoadImageData ---- */
+/* Original name stdLoadImageData (the remaster's GrimFandango (Linux): strings: '.bm' | '.pic' |
+   '.zbm' | '.gif'); was stdBitmap_LoadFile. */
+
+void * __cdecl stdLoadImageData(char *name,int a,int b)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -112,11 +115,12 @@ void * __cdecl stdBitmap_LoadFile(char *name,int a,int b)
 #undef local_8
 
 
-/* ---- 0x00473810  stdBitmap_SaveByExtension ---- */
+/* ---- 0x00473810  stdWriteImage ---- */
 /* Picks the writer from the file extension: .bm/.zbm (stdBitmap_SaveBM, zbm marks format 5), .bmp,
-   .gif, .pcx, .lbm */
+   .gif, .pcx, .lbm Original name stdWriteImage (the remaster's GrimFandango (Linux): strings: 'lbm'
+   | 'pcx' | 'zbm' | 'bmp'); was stdBitmap_SaveByExtension. */
 
-int __cdecl stdBitmap_SaveByExtension(char *filename,void *bitmap)
+int __cdecl stdWriteImage(char *filename,void *bitmap)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

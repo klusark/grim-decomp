@@ -41,25 +41,25 @@ void __cdecl Im_MixLoopA(short *param_1,int param_2,uint param_3,uint param_4,in
 void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,int param_5); /* 0x100059a0 */
 void __cdecl Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5,int param_6); /* 0x10005b80 */
 void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param_4,int param_5); /* 0x10005db0 */
-undefined4 __cdecl FUN_10006070(int cmd,...); /* 0x10006070 */
+undefined4 __cdecl ScriptCall(int cmd,...); /* 0x10006070 */
 undefined4 __cdecl FUN_10006360(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5 ,undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x10006360 */
 undefined4 FUN_100063d0(void); /* 0x100063d0 */
 int __cdecl FUN_10006400(undefined4 *param_1,int param_2); /* 0x10006400 */
 int __cdecl FUN_10006470(undefined4 *param_1); /* 0x10006470 */
 undefined4 FUN_100064d0(void); /* 0x100064d0 */
 undefined4 __cdecl FUN_10006560(int param_1); /* 0x10006560 */
-undefined4 __cdecl FUN_10006620(int param_1); /* 0x10006620 */
+undefined4 __cdecl Script_SetSequence(int param_1); /* 0x10006620 */
 undefined4 FUN_100067a0(void); /* 0x100067a0 */
 undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2); /* 0x100067b0 */
-void __cdecl FUN_100068b0(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uint param_6, uint param_7,uint param_8); /* 0x100068b0 */
-void __cdecl FUN_100070e0(char *marker); /* 0x100070e0 */
+void __cdecl Script_Trans(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uint param_6, uint param_7,uint param_8); /* 0x100068b0 */
+void __cdecl Script_Callback(char *marker); /* 0x100070e0 */
 void FUN_10007110(void); /* 0x10007110 */
 undefined4 __cdecl Im_SoundsFindByName(undefined4 param_1,char *param_2); /* 0x100089b0 */
 void __cdecl Im_SoundsFreeSlot(int param_1); /* 0x10008b60 */
 int iMUSE_GetPhoneme(int param_1,int param_2); /* 0x10008bb0 */
 int __cdecl FUN_10008c40(int param_1,int param_2); /* 0x10008c40 */
 int FUN_10008ce0(void); /* 0x10008ce0 */
-undefined4 __stdcall FUN_10008e00(int a1,int a2,int a3,int a4,int a5); /* 0x10008e00 */
+undefined4 __stdcall timer_callback(int a1,int a2,int a3,int a4,int a5); /* 0x10008e00 */
 void FUN_10008e30(void); /* 0x10008e30 */
 void FUN_10008e60(void); /* 0x10008e60 */
 void __cdecl Im_SoundsPrepare(uint param_1); /* 0x100093d0 */
@@ -85,8 +85,8 @@ undefined4 __cdecl Im_FeedStreamTrack(int param_1,undefined4 *param_2,uint param
 undefined4 __cdecl Im_RefillStreamTrack(uint *param_1); /* 0x1000a6d0 */
 undefined4 Im_InitSubsystems(void); /* 0x1000a7e0 */
 int Im_ShutdownSubsystems(void); /* 0x1000a8a0 */
-void Im_PauseImpl(void); /* 0x1000a8d0 */
-void Im_ResumeImpl(void); /* 0x1000a8f0 */
+void TrPause(void); /* 0x1000a8d0 */
+void TrResume(void); /* 0x1000a8f0 */
 int __cdecl Im_SaveImpl(undefined4 *param_1,uint param_2); /* 0x1000a910 */
 int __cdecl Im_RestoreImpl(undefined4 *param_1); /* 0x1000a970 */
 undefined4 Im_UpdateGroupVolumes(void); /* 0x1000aa00 */
@@ -106,11 +106,11 @@ int * __cdecl Im_AllocTrackOrSteal(int param_1); /* 0x1000b110 */
 undefined4 Im_TriggersInit(void); /* 0x1000b170 */
 undefined4 __cdecl Im_TriggersSave(undefined4 *param_1,int param_2); /* 0x1000b1a0 */
 undefined4 __cdecl Im_TriggersRestore(undefined4 *param_1); /* 0x1000b1e0 */
-undefined4 __cdecl Im_SetTriggerImpl(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6, int p7,int p8,int p9); /* 0x1000b220 */
+undefined4 __cdecl TgSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7, int p8,int p9); /* 0x1000b220 */
 int __cdecl Im_CheckTriggerImpl(int param_1,byte *param_2,int param_3); /* 0x1000b2e0 */
 undefined4 __cdecl Im_ClearTriggerImpl(int param_1,byte *param_2,int param_3); /* 0x1000b380 */
 undefined4 * __cdecl Im_FireTriggers(int param_1,char *param_2); /* 0x1000b430 */
-undefined4 __cdecl Im_DeferCommandImpl(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8, int p9); /* 0x1000b570 */
+undefined4 __cdecl TgDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8, int p9); /* 0x1000b570 */
 void Im_ProcessDeferred(void); /* 0x1000b5e0 */
 int __cdecl Im_GetTriggerParam(int param_1); /* 0x1000b630 */
 void __cdecl Im_RunTriggerCommand(undefined4 *param_1,undefined4 param_2); /* 0x1000b6a0 */
@@ -225,7 +225,7 @@ undefined4 __cdecl SoundsSetMuscriptLocal(undefined4 param_1); /* 0x100078a0 */
 undefined4 __cdecl SoundsSetMuscriptRemote(undefined4 param_1); /* 0x100078b0 */
 undefined4 __cdecl Sounds_PlatformDevice(undefined4 param_1); /* 0x100078c0 */
 undefined4 SoundsInitialize(undefined4 param_1,undefined4 *param_2); /* 0x100078d0 */
-undefined4 FUN_10007920(void); /* 0x10007920 */
+undefined4 sounds_startup(void); /* 0x10007920 */
 void FUN_10007a20(void); /* 0x10007a20 */
 void FUN_10007a60(undefined4 param_1); /* 0x10007a60 */
 void FUN_10007a70(undefined4 param_1); /* 0x10007a70 */
@@ -233,13 +233,13 @@ int FUN_10007a80(int param_1); /* 0x10007a80 */
 int FUN_10007a90(uint *param_1,int param_2); /* 0x10007a90 */
 int FUN_10007bc0(int param_1,int param_2,int param_3); /* 0x10007bc0 */
 undefined4 * FUN_10007ca0(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3); /* 0x10007ca0 */
-void FUN_10008140(void); /* 0x10008140 */
+void sounds_shutdown(void); /* 0x10008140 */
 void FUN_100081f0(void); /* 0x100081f0 */
 undefined4 FUN_10008250(code *param_1); /* 0x10008250 */
 undefined4 FUN_10008580(code *param_1,uint param_2); /* 0x10008580 */
 undefined4 FUN_10008860(void); /* 0x10008860 */
 undefined4 FUN_100088a0(void); /* 0x100088a0 */
-int __cdecl Sounds_ResolveName_LoadIfNeeded(uint *param_1); /* 0x10008ec0 */
+int __cdecl CacheGetSoundId(uint *param_1); /* 0x10008ec0 */
 int Sounds_EvictOldestIdleSlot(void); /* 0x100092f0 */
 int __cdecl ImFile_Read(int *param_1,int param_2,int param_3); /* 0x1000b940 */
 int __cdecl ImFile_ReadImpl(int *param_1,int param_2,int param_3); /* 0x1000b980 */

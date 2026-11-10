@@ -16,26 +16,29 @@ undefined4 SmushComponent_Destroy(undefined4 param_1,undefined4 param_2,undefine
   return 1;
 }
 
-/* ---- 0x00498160  SmushComponent_OnKey ---- */
+/* ---- 0x00498160  SmushChanger ---- */
 /* Costume tag handler for 'Smush Movie' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, blits the current movie frame to the back buffer
-   when the key is 0. */
+   when the key is 0. Original name SmushChanger (the remaster's GrimFandango (Linux): the only
+   unmatched caller of Engine_BlitToBackBuffer; 1 matched neighbours agree, 0 disagree); was
+   SmushComponent_OnKey. */
 
-void SmushComponent_OnKey(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
+void SmushChanger(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
 
 {
   if (param_4 == 0) {
-    Engine_BlitToBackBuffer(param_2,0,0,0xffffffff,0xffffffff);
+    grimlib_PlayMovie(param_2,0,0,0xffffffff,0xffffffff);
   }
   return;
 }
 
-/* ---- 0x00498190  SmushComponent_Create ---- */
+/* ---- 0x00498190  SmushRequester ---- */
 /* Costume tag handler for 'Smush Movie' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for a .snm file ('Select smush file') in the
-   editor and stores its name. */
+   editor and stores its name. Original name SmushRequester (the remaster's GrimFandango (Linux):
+   strings: 'Select smush file...' | 'Smush files (*.snm)'); was SmushComponent_Create. */
 
-int SmushComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   char cVar1;

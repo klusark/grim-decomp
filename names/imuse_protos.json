@@ -13,7 +13,7 @@
   "__cdecl"
  ],
  "1000b220": [
-  "undefined4 Im_SetTriggerImpl(int sound, char *marker, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)",
+  "undefined4 TgSetTrigger(int sound, char *marker, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)",
   "__cdecl"
  ],
  "10004e50": [
@@ -21,7 +21,7 @@
   "__cdecl"
  ],
  "1000b570": [
-  "undefined4 Im_DeferCommandImpl(int time, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)",
+  "undefined4 TgDeferCommand(int time, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)",
   "__cdecl"
  ],
  "10004f70": [
@@ -29,7 +29,7 @@
   "__cdecl"
  ],
  "100070e0": [
-  "void FUN_100070e0(char *marker)",
+  "void Script_Callback(char *marker)",
   "__cdecl"
  ]
 }

@@ -699,8 +699,8 @@ void rdPrimit3_CopyFaceVerts(undefined4 param_1,int param_2,undefined4 param_3,u
                                                              (int)*(short *)&DAT_004ddb84 + (k))
 #define P1_FREE(p)  ((void (*)(int))g_pSvcRdroid->pFree)((int)(p))
 
-/* OVERRIDES: rdModel3_LoadBinary */
-/* ==== rdModel3_LoadBinary (0x0040b8e0) ====
+/* OVERRIDES: rdModel3_LoadEntryBinary */
+/* ==== rdModel3_LoadEntryBinary (0x0040b8e0) ====
  * Reads a binary model (param_1: the open file, param_2: the model record, reset by rdModel3_NewEntry) through the
  * g_pSvcRdroid file services: the material names (0x20 bytes each, +0x4c of them), the name (0x20) and +0x20, the
  * geometry sets (+0x44 of them at +0x24, 8 bytes each: mesh count and a zeroed 0x7c-byte mesh array), each mesh with
@@ -710,7 +710,7 @@ void rdPrimit3_CopyFaceVerts(undefined4 param_1,int param_2,undefined4 param_3,u
  * sibling indexes at +0x54 / +0x5c / +0x60 turned into pointers), the tail fields, and loads the materials
  * (rdMaterial_Load) into the +0x48 table; the face material indexes become material pointers (negative: 0).
  * Every count and pointer is re-read from the record where the original re-reads it.  Returns 1. */
-undefined4 rdModel3_LoadBinary(int param_1,int param_2)
+undefined4 rdModel3_LoadEntryBinary(int param_1,int param_2)
 {
     int fp = param_1, m = param_2;
     int names = 0, tmp, g, i, k, f;
@@ -988,20 +988,20 @@ static void p1_light_dir(int light, float *mt, int slot)
     ((uint *)mt)[11] = t2;
 }
 
-/* OVERRIDES: rdModel_DrawMesh */
-/* ==== rdModel_DrawMesh (0x0040d230) ====
+/* OVERRIDES: rdModel3_DrawMeshImpl */
+/* ==== rdModel3_DrawMeshImpl (0x0040d230) ====
  * Draws one mesh of a model with the model matrix (12 floats, translation at +9).  The mesh (PTR_007f30a0) is
  * frustum tested (UINT_007f1898: 0 inside, 1 crossing, 2 outside, which returns), culled against the clip plane of
  * UINT_007f3204, its vertices are transformed into the camera frame (DAT_007f18a0), the geometry / texture / light
  * modes are clamped to the renderer limits, and by the light mode: 2 or 3 collect the lights that reach the mesh
  * (UINT_007f30e0 list, positions DAT_007f1598 and directions DAT_007f1168 in the model frame); 3 also computes the
  * vertex intensities; 6 copies the mesh intensity into every face.  Last, every face whose plane faces the eye (the
- * eye in the model frame at DAT_007f0fd8) goes to rdModel_AddMeshToCache with flag 0; back faces go with flag 1 if
+ * eye in the model frame at DAT_007f0fd8) goes to rdModel3_DrawFace with flag 0; back faces go with flag 1 if
  * the face is two-sided (+0x04 bit 0) or culling is off (g_dwRdroidFlags bit 0).
  * The distance tests are x87 expressions with the original's precision: mode 2 compares sqrt(dx*dx + dy*(float)dy +
  * (float)dz*(float)dz) against range + mesh radius (the original spills dy and dz to float slots); mode 3 compares
  * the squared distance in extended precision (NaN counts as "inside"). */
-void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
+void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
 {
     float rel[3];
     float mt[12];       /* transposed matrix */
@@ -1119,9 +1119,9 @@ void __cdecl rdModel_DrawMesh(void *mesh,float *matrix)
             long double dot = dz * P1_F(face + 0x48) + dx * P1_F(face + 0x40);
             dot = dy * P1_F(face + 0x44) + dot;
             if (dot > 0.0L)
-                rdModel_AddMeshToCache(face, 0);
+                rdModel3_DrawFace(face, 0);
             else if ((P1_U8(face + 4) & 1) != 0 || (P1_U8(&g_dwRdroidFlags) & 1) == 0)
-                rdModel_AddMeshToCache(face, 1);
+                rdModel3_DrawFace(face, 1);
         }
     }
 }

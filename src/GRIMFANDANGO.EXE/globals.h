@@ -1037,7 +1037,7 @@ extern char s_LecShare_Startup__Failed_with_mo_004f1230[]; /* used by 1 fn(s), f
 extern char s_LecShare_BatchSubscribe_Couldn_t_004f125c[]; /* used by 1 fn(s), first 0x004c1850 */
 extern char s_LecShare_BatchUnsubscribe_Couldn_004f1298[]; /* used by 1 fn(s), first 0x004c1900 */
 extern undefined *PTR_FUN_004f12e0; /* used by 1 fn(s), first 0x004c1f40 */
-extern undefined *PTR_FUN_004f12f0; /* used by 1 fn(s), first 0x004c1f40 */
+extern undefined *PTR_anm_EasyPlay_004f12f0; /* used by 1 fn(s), first 0x004c1f40 */
 extern undefined *PTR_FUN_004f1318; /* used by 1 fn(s), first 0x004c3c90 */
 extern undefined *PTR_FUN_004f131c; /* used by 2 fn(s), first 0x004c3c00 */
 extern undefined *PTR_FUN_004f1328; /* used by 1 fn(s), first 0x004c1f40 */
@@ -1119,7 +1119,7 @@ extern uint UINT_004f1c20; /* used by 2 fn(s), first 0x004c57d0 */
 extern undefined *PTR_DAT_004f1c28; /* used by 2 fn(s), first 0x004c57d0 */
 extern undefined DAT_004f1cf0; /* used by 1 fn(s), first 0x004c5950 */
 extern undefined *PTR_FUN_004f1cf8; /* used by 1 fn(s), first 0x004c5790 */
-extern undefined *PTR_FUN_004f1d08; /* used by 1 fn(s), first 0x004c5790 */
+extern undefined *PTR_Zfile_fle_Open_004f1d08; /* used by 1 fn(s), first 0x004c5790 */
 extern char s_LECMODULE_insane_zfilio_004f1d24[]; /* used by 2 fn(s), first 0x004c5790 */
 extern char s_Too_many_zfilio_extension_set_004f1d3c[]; /* used by 1 fn(s), first 0x004c57d0 */
 extern char s_Zfile_Module__Cannot_allocate_me_004f1d5c[]; /* used by 1 fn(s), first 0x004c5870 */

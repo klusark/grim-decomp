@@ -5,18 +5,19 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004971a0  ImuseSoundComponent_OnKey ---- */
+/* ---- 0x004971a0  SoundChanger ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, starts the sound (SoundStartVoiceStream for
    streamed, SoundsLoadStartSound + positional parameters from the current set for resident sounds)
-   unless it already plays. */
+   unless it already plays. Original name SoundChanger (the remaster's GrimFandango (Linux): the
+   only unmatched caller of Set_GetSoundParams; 2 matched neighbours agree, 0 disagree); was
+   ImuseSoundComponent_OnKey. */
 
 void __cdecl
-ImuseSoundComponent_OnKey
-          (int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param_6,uint param_7,
-          uint inst)
+SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param_6,uint param_7,
+            uint inst)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -45,12 +46,13 @@ ImuseSoundComponent_OnKey
       SoundsSetParam(iVar2,0x500,*(uint *)(iVar2 + 0x24));
       return;
     }
-    set = Set_GetCurrent();
+    set = sputRoom_GetCurrentRoom();
     iVar6 = SoundsLoadStartSound(iVar2,*(int *)(iVar2 + 0x24),1);
     if (set == (void *)0x0) {
       return;
     }
-    Set_GetSoundParams(set,(float *)&snd,(char *)&inst,(char *)&tag,&local_4,(float *)&slot);
+    sputRoom_GetSoundParameters
+              (set,(float *)&snd,(char *)&inst,(char *)&tag,&local_4,(float *)&slot);
     bVar3 = *(byte *)(iVar2 + 0x20);
     if ((byte)tag < *(byte *)(iVar2 + 0x20)) {
       bVar3 = (byte)tag;
@@ -82,12 +84,13 @@ ImuseSoundComponent_OnKey
 #endif
 
 
-/* ---- 0x00497320  ImuseSoundComponent_EditKey ---- */
+/* ---- 0x00497320  SoundAdjuster ---- */
 /* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for Maximum Volume / Priority
-   / Minimum Volume. */
+   / Minimum Volume. Original name SoundAdjuster (the remaster's GrimFandango (Linux): strings:
+   '%s,%d,%d,%d,%d'); was ImuseSoundComponent_EditKey. */
 
-undefined4 ImuseSoundComponent_EditKey(int *param_1,undefined4 param_2)
+undefined4 SoundAdjuster(int *param_1,undefined4 param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -177,12 +180,14 @@ undefined4 ImuseSoundComponent_EditKey(int *param_1,undefined4 param_2)
 #undef local_40
 
 
-/* ---- 0x00497460  ImuseSoundComponent_Create ---- */
+/* ---- 0x00497460  SoundRequester ---- */
 /* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sound key or asks for an
-   .imu/.imc/.wvc file. */
+   .imu/.imc/.wvc file. Original name SoundRequester (the remaster's GrimFandango (Linux): strings:
+   'Select sound file to add...' | 'Sound files (*.imu, *.imc, *.wvc, *.wav)'); was
+   ImuseSoundComponent_Create. */
 
-int ImuseSoundComponent_Create(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -195,7 +195,7 @@ def convert(ctx, addr, lines):
                     name = ctx.slots[h]
                     return imp_ref(ctx, name)
                 # `[idx*4+0x4d3600]` with the base inside .text (or anywhere outside the dumped sections) is
-                # a biased table base: the index brings it back into .data (Math_SinCosTable's quadrant
+                # a biased table base: the index brings it back into .data (stdMath_SinCos's quadrant
                 # tables). Express it relative to the .data blob so the relocation keeps the distance.
                 before = mm.string[:mm.start()]
                 if before.count("[") > before.count("]") and "*" in before[before.rfind("["):] \

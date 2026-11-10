@@ -42,8 +42,8 @@ undefined4 Walker_UpdateYaw(void *param_1,float *param_2)
   local_48[2] = param_2[2] + local_48[2];
   Walker_ToLocalSpace(param_2,local_48);
   local_48[2] = 0.0;
-  Vec3_Normalize(local_48);
-  fVar4 = Math_AsinDegreesSeries(local_48[1]);
+  rdVector_Normalize3Acc(local_48);
+  fVar4 = stdMath_ArcSin3(local_48[1]);
   fVar4 = 90.0 - fVar4;
   if (fVar4 < 0.5) {
     *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x28) = 0;
@@ -56,7 +56,7 @@ undefined4 Walker_UpdateYaw(void *param_1,float *param_2)
     *(float *)(iVar1 + 0x1c) = *(float *)(iVar1 + 0x1c) * -1.0;
   }
   else {
-    fVar5 = Timer_GetFrameSeconds();
+    fVar5 = sputTime_GetFrameTimeFlex();
     fVar5 = fVar5 * *(float *)(iVar1 + 0x41c) * *(float *)(iVar1 + 0x1c);
   }
   param_1 = PUN(void *,(float)fVar4);
@@ -332,7 +332,7 @@ uint Walker_AvoidActorPath
         pfVar9 = Actor_GetFrame(param_2);
         Matrix34_TransformPoint(local_58,(float *)&DAT_008ca320,pfVar9);
         this = (void *)((code *)SectorList_FindNearestPoint)();
-        Sector_SnapToPlane(this,local_58);
+        WalkPlane_SnapTo(this,local_58);
         Actor_GetFrame(param_2);
         bz0 = 6.713914e-39;
         ((code *)Collision_BoxCorners)();
@@ -680,10 +680,13 @@ undefined * __fastcall Walker_GetAngles(int param_1)
   return &DAT_008cf250;
 }
 
-/* ---- 0x004a82c0  Walker_ReattachToSet ---- */
-/* Called after Actor_PutInSet when the actor has a walker so it picks up the new set's sectors */
+/* ---- 0x004a82c0  Puck_Validate ---- */
+/* Called after Actor_PutInSet when the actor has a walker so it picks up the new set's sectors
+   Original name Puck_Validate (the remaster's GrimFandango (Linux): Puck::Validate in the remaster
+   (a C++ method there); the only unmatched callee of Actor_SetFollowBoxes; 4 matched neighbours
+   agree, 1 disagree); was Walker_ReattachToSet. */
 
-void __fastcall Walker_ReattachToSet(void *param_1)
+void __fastcall Puck_Validate(void *param_1)
 
 {
   void *this;
@@ -695,15 +698,19 @@ void __fastcall Walker_ReattachToSet(void *param_1)
     iVar1 = Sector_ContainsPoint(this,param_1,1);
     if (iVar1 == 0) {
       Sector_ClampPoint(*(void **)((int)param_1 + 0x5c),(int)param_1);
-      Walker_SetPosition(param_1,param_1);
+      Puck_SetPos(param_1,param_1);
     }
     Walker_SetSectorFrame(param_1,*(int *)((int)param_1 + 0x5c));
   }
   return;
 }
 
-/* ---- 0x004a8310  Walker_SetPosition ---- */
-void __thiscall Walker_SetPosition(void *this,float *pos)
+/* ---- 0x004a8310  Puck_SetPos ---- */
+/* Original name Puck_SetPos (the remaster's GrimFandango (Linux): Puck::SetPos in the remaster (a
+   C++ method there); the only unmatched callee of Actor_SetPositionClamped; 2 matched neighbours
+   agree, 1 disagree); was Walker_SetPosition. */
+
+void __thiscall Puck_SetPos(void *this,float *pos)
 
 {
   *(float *)this = *pos;
@@ -763,7 +770,7 @@ void __thiscall Walker_TurnHeading(void *this,float angle)
   *(float *)((int)this + 0x1c) = *(float *)((int)this + 0x34) + *(float *)((int)this + 0x1c);
   *(float *)((int)this + 0x20) = *(float *)((int)this + 0x38) + *(float *)((int)this + 0x20);
   if (*(void **)((int)this + 0x5c) != (void *)0x0) {
-    Sector_SnapToPlane(*(void **)((int)this + 0x5c),vec);
+    WalkPlane_SnapTo(*(void **)((int)this + 0x5c),vec);
   }
   *vec = *vec - *(float *)((int)this + 0x30);
   *(float *)((int)this + 0x1c) = *(float *)((int)this + 0x1c) - *(float *)((int)this + 0x34);
@@ -774,10 +781,14 @@ void __thiscall Walker_TurnHeading(void *this,float angle)
 #undef local_30
 
 
-/* ---- 0x004a8450  Walker_TurnToPoint ---- */
+/* ---- 0x004a8450  Puck_PointAt ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn)
+/* Original name Puck_PointAt (the remaster's GrimFandango (Linux): Puck::PointAt in the remaster (a
+   C++ method there); the only unmatched callee of Lua_PointActorAt; the only unmatched callee of
+   Lua_TurnActorTo; 6 matched neighbours agree, 0 disagree); was Walker_TurnToPoint. */
+
+float __thiscall Puck_PointAt(void *this,float *point,float maxTurn)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -793,8 +804,8 @@ float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn)
     Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_c);
   }
   Walker_ToLocalSpace(this,&local_c);
-  Vec3_Normalize(&local_c);
-  fVar1 = Math_AsinDegreesSeries(local_8);
+  rdVector_Normalize3Acc(&local_c);
+  fVar1 = stdMath_ArcSin3(local_8);
   point = PUN(float *,(float)(90.0 - fVar1));
   if (maxTurn < PUN(float,point)) {
     point = PUN(float *,(float)maxTurn);
@@ -812,8 +823,12 @@ float __thiscall Walker_TurnToPoint(void *this,float *point,float maxTurn)
 #endif
 
 
-/* ---- 0x004a85b0  Walker_SetConstraint ---- */
-void __thiscall Walker_SetConstraint(void *this,int a1)
+/* ---- 0x004a85b0  Puck_Constrain ---- */
+/* Original name Puck_Constrain (the remaster's GrimFandango (Linux): Puck::Constrain in the
+   remaster (a C++ method there); the only unmatched callee of Actor_SetConstrain; 1 matched
+   neighbours agree, 0 disagree); was Walker_SetConstraint. */
+
+void __thiscall Puck_Constrain(void *this,int a1)
 
 {
   float *pfVar1;
@@ -872,7 +887,7 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
   UINT_008d0870 = UINT_008d0870 + 1;
   if (*(int *)((int)this + 0x50) != 0) {
     fVar3 = Vec3_Dot2((float *)((int)this + 0xc),(float *)((int)this + 0x44));
-    fVar3 = Math_AsinDegreesSeries(fVar3);
+    fVar3 = stdMath_ArcSin3(fVar3);
     local_48 = (90.0 - fVar3) - 90.0;
     fVar3 = local_48;
     if (local_48 < 0.0) {
@@ -894,7 +909,7 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
   if ((*(void **)((int)this + 0x5c) == (void *)0x0) ||
      (iVar1 = Sector_ContainsPoint(*(void **)((int)this + 0x5c),&local_30,1), iVar1 != 0)) {
     local_48 = PUN(float,&local_30);
-    Walker_SetPosition(this,PUN(float *,(float)local_48));
+    Puck_SetPos(this,PUN(float *,(float)local_48));
     UINT_008d0870 = 0;
     return (undefined *)0x1;
   }
@@ -903,7 +918,7 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
     return (undefined *)0x0;
   }
   this_00 = *(void **)((int)this + 0x5c);
-  local_34 = Sector_FindExitPoint(this_00,(int)this,(int)&local_30,(int)&local_24);
+  local_34 = WalkPlane_Intersection(this_00,(int)this,(int)&local_30,(int)&local_24);
   *(undefined4 *)(*(int *)((int)this + 0x5c) + 0x2c) = 0;
   local_18 = local_24;
   local_14 = local_20;
@@ -912,7 +927,7 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
   step = step - local_14;
   iVar1 = SectorList_FindByPoint(&local_24,0x1000);
   if (iVar1 == 0) {
-    Walker_SetPosition(this,&local_24);
+    Puck_SetPos(this,&local_24);
     iVar1 = *(int *)((int)this + 0x5c);
     if ((*(uint *)(iVar1 + 0x24) & 0x100) == 0) {
       fVar3 = local_34;
@@ -959,7 +974,7 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
     }
     return (undefined *)0x0;
   }
-  Walker_SetPosition(this,&local_24);
+  Puck_SetPos(this,&local_24);
   *(int *)((int)this + 0x5c) = iVar1;
   Walker_SetSectorFrame(this,iVar1);
   if (0.02 <= step) {
@@ -1006,14 +1021,14 @@ void __thiscall Walker_SetSectorFrame(void *this,int a1)
        *(float *)((int)this + 0x2c) * *(float *)((int)this + 0x18);
   *(float *)((int)this + 0x14) =
        *(float *)((int)this + 0x28) * *pfVar2 - *pfVar1 * *(float *)((int)this + 0x1c);
-  Vec3_Normalize(pfVar3);
+  rdVector_Normalize3Acc(pfVar3);
   *pfVar2 = *(float *)((int)this + 0x28) * *(float *)((int)this + 0x14) -
             *(float *)((int)this + 0x2c) * *(float *)((int)this + 0x10);
   *(float *)((int)this + 0x1c) =
        *pfVar3 * *(float *)((int)this + 0x2c) - *pfVar1 * *(float *)((int)this + 0x14);
   *(float *)((int)this + 0x20) =
        *(float *)((int)this + 0x10) * *pfVar1 - *(float *)((int)this + 0x28) * *pfVar3;
-  Vec3_Normalize(pfVar2);
+  rdVector_Normalize3Acc(pfVar2);
   return;
 }
 
@@ -1024,7 +1039,7 @@ void __fastcall Walker_RebuildRightVector(int param_1)
   float *pfVar1;
   
   pfVar1 = (float *)(param_1 + 0x18);
-  Vec3_Normalize(pfVar1);
+  rdVector_Normalize3Acc(pfVar1);
   *(float *)(param_1 + 0xc) =
        *(float *)(param_1 + 0x1c) * *(float *)(param_1 + 0x2c) -
        *(float *)(param_1 + 0x28) * *(float *)(param_1 + 0x20);
@@ -1034,7 +1049,7 @@ void __fastcall Walker_RebuildRightVector(int param_1)
   *(float *)(param_1 + 0x14) =
        *pfVar1 * *(float *)(param_1 + 0x28) -
        *(float *)(param_1 + 0x1c) * *(float *)(param_1 + 0x24);
-  Vec3_Normalize((float *)(param_1 + 0xc));
+  rdVector_Normalize3Acc((float *)(param_1 + 0xc));
   return;
 }
 
@@ -1181,7 +1196,7 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
       return 1;
     }
     local_1e8 = UINT_008cf248;
-    Sector_FindExitPoint(param_3,(int)param_1,(int)param_2,(int)&local_1f4);
+    WalkPlane_Intersection(param_3,(int)param_1,(int)param_2,(int)&local_1f4);
     *(undefined4 *)((int)param_3 + 0x2c) = 0;
     if ((local_1f4 - *param_1) * (local_1f4 - *param_1) +
         (local_1ec - param_1[2]) * (local_1ec - param_1[2]) +
@@ -1469,7 +1484,7 @@ undefined4 Planner_SmoothPath(void)
       if (iVar3 == 0) {
         return 1;
       }
-      Sector_FindExitPoint(this,(int)a1,(int)puVar6,(int)&local_c);
+      WalkPlane_Intersection(this,(int)a1,(int)puVar6,(int)&local_c);
       iVar3 = Planner_SharedSector(&local_c,a1);
       iVar4 = Planner_SharedSector(&local_c,puVar6);
       if (((iVar4 != 0) && (iVar3 != 0)) &&

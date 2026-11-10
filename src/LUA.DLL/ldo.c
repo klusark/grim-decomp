@@ -157,10 +157,10 @@ void __cdecl luaD_callHook(int param_1,int param_2,int param_3)
   return;
 }
 
-/* ---- 0x100040c0  ldo__40c0 ---- */
-/* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
+/* ---- 0x100040c0  luaD_taskHook ---- */
+/* Original name luaD_taskHook (the remaster's libLua.so: calls lua_taskhook); was ldo__40c0. */
 
-void __cdecl ldo__40c0(undefined4 param_1,undefined4 param_2)
+void __cdecl luaD_taskHook(undefined4 param_1,undefined4 param_2)
 
 {
   (*lua_taskhook)(param_1,param_2);
@@ -187,17 +187,18 @@ void __cdecl luaD_callTM(undefined4 *param_1,int param_2,void *param_3)
   return;
 }
 
-/* ---- 0x10004160  ldo__4160 ---- */
-/* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
+/* ---- 0x10004160  luaD_deletestates ---- */
+/* Original name luaD_deletestates (the remaster's libLua.so: frees a chain of execution states
+   (next at +0xc, ExecutionState_Delete)); was ldo__4160. */
 
-void __cdecl ldo__4160(int param_1)
+void __cdecl luaD_deletestates(int param_1)
 
 {
   int iVar1;
   
   while (param_1 != 0) {
     iVar1 = *(int *)(param_1 + 0xc);
-    lvm__dd90(param_1);
+    ExecutionState_Delete(param_1);
     param_1 = iVar1;
   }
   return;
@@ -229,12 +230,12 @@ undefined4 luaD_call(code *param_1,void *param_2)
   a3 = param_2;
   iStack_14 = *PTR_1002bf6c;
   if ((iStack_14 == 0) || (PTR_1002bf6c[6] != 0)) {
-    pvVar3 = lvm__dd10(0x30);
+    pvVar3 = ExecutionState_New(0x30);
     if (pvVar3 == (void *)0x0) {
       iVar4 = 0;
     }
     else {
-      iVar4 = lvm__ddb0(pvVar3,*PTR_1002bf6c,(int)param_1,(int)param_2);
+      iVar4 = ExecutionState_Construct(pvVar3,*PTR_1002bf6c,(int)param_1,(int)param_2);
     }
     *PTR_1002bf6c = iVar4;
     param_2 = pvVar3;
@@ -257,7 +258,7 @@ undefined4 luaD_call(code *param_1,void *param_2)
       if (piVar9[6] != 0) goto LAB_100042fe;
     default:
 switchD_1000422b_caseD_fffffff9:
-      uVar6 = luaT_effectivetag(puVar1);
+      uVar6 = luaT_efectivetag(puVar1);
       piVar9 = (int *)(DAT_1002bf48 + uVar6 * -0x90 + 0x88);
       if (*piVar9 == -7) {
         lua_error((byte *)s_call_expression_not_a_function_10026a30);
@@ -273,7 +274,7 @@ switchD_1000422b_caseD_fffffff9:
       a1 = (code *)puVar1[1];
       *puVar1 = 0xfffffff7;
       if (*(int *)(a1 + 0xc) != -5) {
-        lvm__ddf0((void *)*PTR_1002bf6c,(int)a1,*(int *)(a1 + 0x10),iVar4);
+        ExecutionState_setvalues((void *)*PTR_1002bf6c,(int)a1,*(int *)(a1 + 0x10),iVar4);
         piVar9 = (int *)*PTR_1002bf6c;
         goto LAB_100042fe;
       }
@@ -289,21 +290,21 @@ switchD_1000422b_caseD_fffffff9:
       break;
     case 0xfffffffc:
       *puVar1 = 0xfffffff6;
-      lvm__ddf0((void *)*PTR_1002bf6c,0,puVar1[1],iVar4);
+      ExecutionState_setvalues((void *)*PTR_1002bf6c,0,puVar1[1],iVar4);
       piVar9 = (int *)*PTR_1002bf6c;
 LAB_100042fe:
-      pvVar3 = (void *)lvm__de30(piVar9);
+      pvVar3 = (void *)ExecutionState_execute(piVar9);
       param_2 = pvVar3;
     }
     if ((int)pvVar3 < 1) {
       iVar4 = -(int)pvVar3;
-      a3 = (void *)lvm__dde0(*PTR_1002bf6c);
-      pvVar8 = lvm__dd10(0x30);
+      a3 = (void *)ExecutionState_getaux(*PTR_1002bf6c);
+      pvVar8 = ExecutionState_New(0x30);
       if (pvVar8 == (void *)0x0) {
         iVar5 = 0;
       }
       else {
-        iVar5 = lvm__ddb0(pvVar8,*PTR_1002bf6c,iVar4,(int)a3);
+        iVar5 = ExecutionState_Construct(pvVar8,*PTR_1002bf6c,iVar4,(int)a3);
       }
       *PTR_1002bf6c = iVar5;
     }
@@ -332,13 +333,13 @@ LAB_100042fe:
       PTR_1002bf6c[7] = PTR_1002bf6c[7] + (iVar4 - (int)pvVar3) * 8;
       iVar5 = *PTR_1002bf6c;
       *PTR_1002bf6c = *(int *)(iVar5 + 0xc);
-      lvm__dd90(iVar5);
+      ExecutionState_Delete(iVar5);
       iVar5 = *PTR_1002bf6c;
       if (iVar5 != 0) {
         iVar4 = *(int *)(iVar5 + 0x10);
         a3 = *(void **)(iVar5 + 0x14);
       }
-      if ((param_1 == FUN_10003770) && (PTR_1002bf6c[2] == 0)) {
+      if ((param_1 == luaI_breakhere) && (PTR_1002bf6c[2] == 0)) {
         PTR_1002bf6c[1] = iStack_14;
         return 1;
       }
@@ -423,16 +424,17 @@ int __cdecl luaD_callC(int param_1,undefined *param_2,int param_3)
   return iVar2;
 }
 
-/* ---- 0x10004600  ldo__4600 ---- */
-/* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
+/* ---- 0x10004600  luaD_travallstacks ---- */
+/* Original name luaD_travallstacks (the remaster's libLua.so: walks every state (LState_next) and
+   calls the function on each stack slot); was ldo__4600. */
 
-void __cdecl ldo__4600(undefined *param_1)
+void __cdecl luaD_travallstacks(undefined *param_1)
 
 {
   int iVar1;
   int iVar2;
   
-  for (iVar1 = DAT_1002bf70; iVar1 != 0; iVar1 = lstate__8bf0(iVar1)) {
+  for (iVar1 = DAT_1002bf70; iVar1 != 0; iVar1 = LState_next(iVar1)) {
     for (iVar2 = (*(int *)(iVar1 + 0x1c) - *(int *)(iVar1 + 0x20)) + -8 >> 3; -1 < iVar2;
         iVar2 = iVar2 + -1) {
       (*(code *)param_1)(*(int *)(iVar1 + 0x20) + iVar2 * 8);
@@ -505,7 +507,7 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
     iVar1 = *PTR_1002bf6c;
     while (iVar1 != iVar5) {
       *PTR_1002bf6c = *(int *)(iVar1 + 0xc);
-      lvm__dd90(iVar1);
+      ExecutionState_Delete(iVar1);
       iVar1 = *PTR_1002bf6c;
     }
     uVar8 = 1;
@@ -543,7 +545,7 @@ void __cdecl luaD_gcIM(uint *param_1)
   uint uVar2;
   int iVar3;
   
-  uVar2 = luaT_effectivetag(param_1);
+  uVar2 = luaT_efectivetag(param_1);
   iVar3 = DAT_1002bf48 + uVar2 * -0x90;
   if (*(int *)(iVar3 + 0x80) != -7) {
     puVar1 = (uint *)PTR_1002bf6c[7];
@@ -558,18 +560,20 @@ void __cdecl luaD_gcIM(uint *param_1)
   return;
 }
 
-/* ---- 0x100049b0  luaD_domain ---- */
-/* do_main: parse (text or precompiled) then run, both protected */
+/* ---- 0x100049b0  do_main ---- */
+/* do_main: parse (text or precompiled) then run, both protected Original name do_main (the
+   remaster's libLua.so: static do_main(ZIO*, int): the only caller of luaD_protectedrun besides
+   lua_dofile / lua_dostring paths); was luaD_domain. */
 
-int __cdecl luaD_domain(int *param_1,int param_2)
+int __cdecl do_main(int *param_1,int param_2)
 
 {
   int iVar1;
   int iVar2;
   
-  lgc__5300();
+  luaC_checkGC();
   iVar2 = DAT_1002beec;
-  iVar1 = luaD_protectedparser(param_1,param_2);
+  iVar1 = protectedparser(param_1,param_2);
   while( true ) {
     if (iVar1 == 1) {
       return 1;
@@ -585,19 +589,21 @@ int __cdecl luaD_domain(int *param_1,int param_2)
       return iVar1;
     }
     if (iVar1 != 0) break;
-    lgc__5300();
+    luaC_checkGC();
     iVar2 = DAT_1002beec;
-    iVar1 = luaD_protectedparser(param_1,param_2);
+    iVar1 = protectedparser(param_1,param_2);
   }
   return iVar1;
 }
 
-/* ---- 0x10004a50  luaD_protectedparser ---- */
+/* ---- 0x10004a50  protectedparser ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* ldo.c: runs luaU_undump1 or luaY_parser on the open ZIO */
+/* ldo.c: runs luaU_undump1 or luaY_parser on the open ZIO Original name protectedparser (the
+   remaster's libLua.so: static protectedparser(ZIO*, int): the only caller of luaY_parser /
+   luaU_undump1 / luaV_closure here); was luaD_protectedparser. */
 
-undefined4 __cdecl luaD_protectedparser(int *param_1,int param_2)
+undefined4 __cdecl protectedparser(int *param_1,int param_2)
 
 {
   unsigned char _stkneg[96] __attribute__((aligned(16)));  /* the original frame below the return address */

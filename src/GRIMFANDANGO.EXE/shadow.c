@@ -5,10 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00494890  Shadow_SetColor ---- */
-/* Lua SetShadowColor */
+/* ---- 0x00494890  sputCostume_SetShadowColor ---- */
+/* Lua SetShadowColor Original name sputCostume_SetShadowColor (the remaster's GrimFandango (Linux):
+   the only unmatched caller of rdColormap_Load; 2 matched neighbours agree, 0 disagree); was
+   Shadow_SetColor. */
 
-void __cdecl Shadow_SetColor(int r,int g,int b)
+void __cdecl sputCostume_SetShadowColor(int r,int g,int b)
 
 {
   int iVar1;
@@ -16,7 +18,7 @@ void __cdecl Shadow_SetColor(int r,int g,int b)
   
   iVar1 = g;
   g = (g >> 2 | (r >> 3) << 6) << 5 | b >> 3;
-  Render_RemapPixels((ushort *)&g,1);
+  sputRender_ColorCorrect((ushort *)&g,1);
   if (g_pShadowColormap == (void *)0x0) {
     g_pShadowColormap = rdColormap_Load(s_shadow_cmp_004ea190);
   }

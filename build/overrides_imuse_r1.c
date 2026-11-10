@@ -1,28 +1,28 @@
 /* IMUSE.DLL, last assembled functions (agent r1): the script layer's music state / sequence transitions.
- *   FUN_10006560 (state), FUN_10006620 (sequence), FUN_100068b0 (the transition itself), FUN_100064d0 (end-of-sequence check,
+ *   FUN_10006560 (state), Script_SetSequence (sequence), Script_Trans (the transition itself), FUN_100064d0 (end-of-sequence check,
  *   compiled from the decompiler's C before; written here because it is the one caller that passes another frame word).
  * Written from the disassembly (git show 85dd22f:src/IMUSE.DLL/asm_funcs.s).  Notes: docs/notes/imuse_r1.md.
  *
- * The "five garbage parameters" of FUN_100068b0.  Ghidra declared FUN_100068b0 with 8 parameters and showed parameters 4..8
+ * The "five garbage parameters" of Script_Trans.  Ghidra declared Script_Trans with 8 parameters and showed parameters 4..8
  * (the words above the 3 pushed arguments: the caller's saved EDI / ESI, the caller's return address, the caller's argument,
  * a word of the dispatcher's frame) as the fade time of ImSwitchStream and the hook values of ImSetHook.  That is the
  * decompiler's mistake about MSVC's deferred pops (`mov eax,[esp+0x2c]` right after a call whose 5 pushes are still on the
  * stack is the function's own stack slot 0x18, not 0x2c): the function reads only its 3 arguments, and it reuses the slots
- * of arguments 1 and 2 as locals (slot 1 = the hook value, slot 2 = the fade time).  Measured in the game (FUN_100068b0's
+ * of arguments 1 and 2 as locals (slot 1 = the hook value, slot 2 = the fade time).  Measured in the game (Script_Trans's
  * calls logged under gdb, build/difftest/imuse_r1/frametrace.py, scenarios 3 and 9): the original DLL and the rebuilt DLL
  * make the same calls with the same arguments although words 4..8 differ (original: EDI, 0xffffffff, return address,
  * state id, ...; rebuilt with the gcc dispatcher: 1, 0x11, ...).
  *
  * What really reads the stack beyond the pushed arguments is ImSetTrigger: it stores its 13th argument word (p9) in all ten
- * parameter words of the trigger (build/overrides_imuse.c), and FUN_100068b0 pushes only 3..8 of the 13.  The 13th word
- * then lies in FUN_100068b0's own frame or above it, at a place fixed by the number of pushed words n:
- *     n = 3  [entry+0x14] the caller's saved ESI = the ESI register of the caller's caller (FUN_10006560 / FUN_10006620
- *            push ESI first): 0xffffffff when called from the dispatcher FUN_10006070 (`or esi,-1` in its prologue;
+ * parameter words of the trigger (build/overrides_imuse.c), and Script_Trans pushes only 3..8 of the 13.  The 13th word
+ * then lies in Script_Trans's own frame or above it, at a place fixed by the number of pushed words n:
+ *     n = 3  [entry+0x14] the caller's saved ESI = the ESI register of the caller's caller (FUN_10006560 / Script_SetSequence
+ *            push ESI first): 0xffffffff when called from the dispatcher ScriptCall (`or esi,-1` in its prologue;
  *            FUN_100064d0 does not touch ESI before its first call either), 0 at FUN_100064d0's second call
  *     n = 5  [entry+0x0c] argument 3                   n = 6  [entry+0x08] slot 2 = the fade time
- *     n = 7  [entry+0x04] slot 1 = the hook value      n = 8  [entry]      FUN_100068b0's return address (in the original
+ *     n = 7  [entry+0x04] slot 1 = the hook value      n = 8  [entry]      Script_Trans's return address (in the original
  *            image, which loads at its preferred base 0x10000000: 0x100065f3, 0x100066eb, 0x1000672c or 0x10006778)
- * The C passes those values explicitly (parameters caller_esi and ret_word of FUN_100068b0), so the triggers store what the
+ * The C passes those values explicitly (parameters caller_esi and ret_word of Script_Trans), so the triggers store what the
  * original stored, independent of the compiler's frames.  The words between the pushed arguments and p9 are not read by
  * ImSetTrigger; the C passes 0 for them.
  * These triggers belong to transition types 4, 6, 9, 10, 11 and 12.  The shipped tables have only types 0, 2 and 3 (state
@@ -33,9 +33,9 @@
 
 #ifdef GRIM_IMUSE
 #include "globals.h"
-#define FUN_100068b0 FUN_100068b0__ghidra
+#define Script_Trans Script_Trans__ghidra
 #include "functions.h"
-#undef FUN_100068b0
+#undef Script_Trans
 
 /* data of the original image (0x10017000.. = .data) */
 #define IMB(a)   ((char *)IMG_ADDR(a))
@@ -47,15 +47,15 @@
 #define CUR_SEQ      0x1002e308   /* index of the current sequence */
 #define PENDING_SEQ  0x1002e30c   /* sequence to start when the current one (type 4 / 6) ends */
 #define SEQ_PLAYED   0x1002e25c   /* int[41] */
-#define SEQ_ENDED    0x1002e304   /* set by the trigger callback FUN_100070e0 */
+#define SEQ_ENDED    0x1002e304   /* set by the trigger callback Script_Callback */
 #define COUNTERS     0x1002df84   /* int[]: hook counters */
 #define SND_NAME     0x1002e310   /* char[]: the sound file name being opened */
 #define NAME_ALIAS   0x1001bbc8   /* records of 0x40 bytes {char from[0x20]; char to[0x20]}, up to an empty `from` */
 #define STR_NL       0x100171b0   /* "\n" */
 
-void FUN_100068b0(char *entry, int index, int no_attr, uint caller_esi, uint ret_word);
+void Script_Trans(char *entry, int index, int no_attr, uint caller_esi, uint ret_word);
 
-/* ==== FUN_100068b0 (0x100068b0): the transition to a state / sequence table entry ====
+/* ==== Script_Trans (0x100068b0): the transition to a state / sequence table entry ====
  * entry = the table entry (NULL: no music), index = state index (0 for a sequence: no hook counter), no_attr = 1 from the
  * sequence layer (0: a state change may switch to an attribute-matching stream in place).  caller_esi / ret_word: the two
  * stack words of the original that ImSetTrigger reads (header comment).
@@ -64,8 +64,8 @@ void FUN_100068b0(char *entry, int index, int no_attr, uint caller_esi, uint ret
  * music stream (param 0x1800 set and 0x1900 == 2), then act by the transition type field20 (jump table of 13 entries,
  * unsigned compare: > 12 = "bogus trans type").  Step of the volume / pan fades = fade * 3 / 50 (32-bit wrap of fade * 3,
  * signed division: the imul 0x51eb851f / sar 4 / +sign sequence). */
-/* OVERRIDES: FUN_100068b0 */
-void FUN_100068b0(char *entry, int index, int no_attr, uint caller_esi, uint ret_word)
+/* OVERRIDES: Script_Trans */
+void Script_Trans(char *entry, int index, int no_attr, uint caller_esi, uint ret_word)
 {
     char *name = IMB(SND_NAME);
     char *rec, *src;
@@ -238,7 +238,7 @@ void FUN_100068b0(char *entry, int index, int no_attr, uint caller_esi, uint ret
 /* ==== FUN_10006560 (0x10006560): ImSetState through the dispatcher (command 5) ====
  * id = state id (-1: return the current state's id).  Unknown id: 0.  Prints the state's name; a different state starts the
  * transition unless a sequence is playing (then only the current state changes).  Returns the id of the current state.
- * Called only by the dispatcher FUN_10006070, whose ESI is 0xffffffff: the word ImSetTrigger reads for n = 3. */
+ * Called only by the dispatcher ScriptCall, whose ESI is 0xffffffff: the word ImSetTrigger reads for n = 3. */
 /* OVERRIDES: FUN_10006560 */
 undefined4 FUN_10006560(int id)
 {
@@ -253,13 +253,13 @@ undefined4 FUN_10006560(int id)
     ImPrintf(IMB(STR_NL));
     if (i != IMW(CUR_STATE)) {
         if (IMW(CUR_SEQ) == 0)
-            FUN_100068b0(i != 0 ? IMB(STATE_TAB + i * ENT_SIZE) : 0, i, 0, 0xffffffffu, 0x100065f3u);
+            Script_Trans(i != 0 ? IMB(STATE_TAB + i * ENT_SIZE) : 0, i, 0, 0xffffffffu, 0x100065f3u);
         IMW(CUR_STATE) = i;
     }
     return IMW(STATE_TAB + 0x24 + IMW(CUR_STATE) * ENT_SIZE);
 }
 
-/* ==== FUN_10006620 (0x10006620): ImSetSequence (command 5 of the dispatcher, and FUN_100064d0) ====
+/* ==== Script_SetSequence (0x10006620): ImSetSequence (command 5 of the dispatcher, and FUN_100064d0) ====
  * id = sequence id (-1: return the current one's id; 0 = 2000 = no sequence).  Unknown id: prints an error, returns -1.
  * Starting a sequence while the current one is of type 4 or 6 only queues it (PENDING_SEQ).  Sequence 0 ends the sequence:
  * the queued one starts, or the music of the current state comes back.  Returns the id of the current sequence.
@@ -290,12 +290,12 @@ static undefined4 Im_SetSequence(int id, uint caller_esi)
                 return IMW(SEQ_TAB + 0x24 + cur * ENT_SIZE);
             }
         }
-        FUN_100068b0(IMB(SEQ_TAB + i * ENT_SIZE), 0, 1, caller_esi, 0x100066ebu);
+        Script_Trans(IMB(SEQ_TAB + i * ENT_SIZE), 0, 1, caller_esi, 0x100066ebu);
         IMW(PENDING_SEQ) = 0;
         ((int *)IMB(SEQ_PLAYED))[i] = 1;
         cur = i;
     } else if (IMW(PENDING_SEQ) != 0) {
-        FUN_100068b0(IMB(SEQ_TAB + IMW(PENDING_SEQ) * ENT_SIZE), 0, 1, caller_esi, 0x1000672cu);
+        Script_Trans(IMB(SEQ_TAB + IMW(PENDING_SEQ) * ENT_SIZE), 0, 1, caller_esi, 0x1000672cu);
         cur = IMW(PENDING_SEQ);
         IMW(CUR_SEQ) = cur;
         IMW(PENDING_SEQ) = 0;
@@ -303,21 +303,21 @@ static undefined4 Im_SetSequence(int id, uint caller_esi)
         return IMW(SEQ_TAB + 0x24 + cur * ENT_SIZE);
     } else {
         int st = IMW(CUR_STATE);
-        FUN_100068b0(st != 0 ? IMB(STATE_TAB + st * ENT_SIZE) : 0, st, 1, caller_esi, 0x10006778u);
+        Script_Trans(st != 0 ? IMB(STATE_TAB + st * ENT_SIZE) : 0, st, 1, caller_esi, 0x10006778u);
         cur = 0;
     }
     IMW(CUR_SEQ) = cur;
     return IMW(SEQ_TAB + 0x24 + cur * ENT_SIZE);
 }
 
-/* OVERRIDES: FUN_10006620 */
-undefined4 FUN_10006620(int id)
+/* OVERRIDES: Script_SetSequence */
+undefined4 Script_SetSequence(int id)
 {
     return Im_SetSequence(id, 0xffffffffu);   /* the dispatcher's ESI */
 }
 
 /* ==== FUN_100064d0 (0x100064d0): dispatcher command 4, run once per frame by the game ====
- * If the trigger callback flagged the end of a sequence: end it (FUN_10006620(0)).  Then if no music stream is playing
+ * If the trigger callback flagged the end of a sequence: end it (Script_SetSequence(0)).  Then if no music stream is playing
  * (param 0x1800 set and 0x1900 == 2) while a sequence is current, end the sequence too.  ImFlushSounds, return 0.
  * Its ESI is the dispatcher's (0xffffffff) at the first call and the loop variable (0: no stream found) at the second. */
 /* OVERRIDES: FUN_100064d0 */

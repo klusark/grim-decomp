@@ -1,5 +1,5 @@
 /* CHORE.DLL slot allocators, round s (agent s1, docs/notes/s1.md): the fix of the intermittent clean-room crash in
- * save_load (ResRef_Remove <- ModelComponent_Destroy <- Cos_FreeComponent <- Cos_FreeCostume <- Cos_Free <- Cos_Restore).
+ * save_load (Res_RemoveReference <- ModelComponent_Destroy <- Cos_FreeComponent <- Cos_FreeCostume <- Cos_Free <- Cos_Restore).
  *
  * Both functions hand out a free record of a table that grows by 8 records: the costume slots (0x3c bytes, +0x38 = 1 when
  * free; size 0x100143b0, table 0x100143b4, records in use 0x100143ac) and the costume instance records (0x14 bytes, +0x10
@@ -11,7 +11,7 @@
  * clean-room suite one costume fails before the table grows from 32 to 40 slots (used 33), so slot 32 (handle 0x21) is
  * such a record: when the heap gives the realloc a block that held zeros it reads as an empty costume in use (harmless),
  * when it gives a reused block it reads as a costume in use with a stale component array, and the next Cos_Restore
- * (Engine_LoadGame) frees those components: ResRef_Remove(NULL) on a zeroed record whose type index 0 is MMDL.  Which
+ * (Engine_LoadGame) frees those components: Res_RemoveReference(NULL) on a zeroed record whose type index 0 is MMDL.  Which
  * block the heap returns depends on the other threads' allocations (iMUSE, sound), hence 0 to 50 % of the runs.
  *
  * The C below is the original with the new records marked free from the OLD size on (the ones below the count were

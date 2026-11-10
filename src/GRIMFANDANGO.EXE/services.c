@@ -29,10 +29,11 @@ undefined4 Svc_Printf2(undefined4 param_1)
   return uVar1;
 }
 
-/* ---- 0x00403610  Svc_Warning ---- */
-/* Default GrimServices.warning: prints 'WARNING: %s' */
+/* ---- 0x00403610  defaultWarningPrint ---- */
+/* Default GrimServices.warning: prints 'WARNING: %s' Original name defaultWarningPrint (the
+   remaster's GrimFandango (Linux): strings: 'WARNING: %s'); was Svc_Warning. */
 
-undefined4 Svc_Warning(undefined4 param_1)
+undefined4 defaultWarningPrint(undefined4 param_1)
 
 {
   undefined4 uVar1;
@@ -42,10 +43,11 @@ undefined4 Svc_Warning(undefined4 param_1)
   return uVar1;
 }
 
-/* ---- 0x00403640  Svc_Error ---- */
-/* Default GrimServices.error: prints 'ERROR: %s' */
+/* ---- 0x00403640  defaultErrorPrint ---- */
+/* Default GrimServices.error: prints 'ERROR: %s' Original name defaultErrorPrint (the remaster's
+   GrimFandango (Linux): strings: 'ERROR: %s'); was Svc_Error. */
 
-undefined4 Svc_Error(undefined4 param_1)
+undefined4 defaultErrorPrint(undefined4 param_1)
 
 {
   undefined4 uVar1;
@@ -55,10 +57,11 @@ undefined4 Svc_Error(undefined4 param_1)
   return uVar1;
 }
 
-/* ---- 0x00403670  Svc_Debug ---- */
-/* Default GrimServices.debug: prints 'DEBUG: %s' */
+/* ---- 0x00403670  defaultDebugPrint ---- */
+/* Default GrimServices.debug: prints 'DEBUG: %s' Original name defaultDebugPrint (the remaster's
+   GrimFandango (Linux): strings: 'DEBUG: %s'); was Svc_Debug. */
 
-undefined4 Svc_Debug(undefined4 param_1)
+undefined4 defaultDebugPrint(undefined4 param_1)
 
 {
   undefined4 uVar1;
@@ -68,10 +71,12 @@ undefined4 Svc_Debug(undefined4 param_1)
   return uVar1;
 }
 
-/* ---- 0x004036a0  Svc_AssertFail ---- */
-/* Default GrimServices.assertFail: prints 'ASSERT: %s, %d: %s' and exit(1) */
+/* ---- 0x004036a0  defaultAssert ---- */
+/* Default GrimServices.assertFail: prints 'ASSERT: %s, %d: %s' and exit(1) Original name
+   defaultAssert (the remaster's GrimFandango (Linux): strings: 'ASSERT! (%s:%d) %s'); was
+   Svc_AssertFail. */
 
-void __cdecl Svc_AssertFail(char *expr,char *file,int line)
+void __cdecl defaultAssert(char *expr,char *file,int line)
 
 {
   printf(s_ASSERT____s__d___s_004dda40,file,line,expr);
@@ -312,7 +317,7 @@ void __cdecl Services_InitPlatformTable(GrimServices *svc)
   svc->pError = Svc_DebugPrintf;
   svc->flVersion = 1000.0;
   svc->pDebug = (void *)0x0;
-  svc->pAssertFail = PlatSvc_AssertFail;
+  svc->pAssertFail = stdPlatform_Assert;
   svc->pFn_1c = (void *)0x0;
   svc->pAlloc = stdMemory_Alloc;
   svc->pFree = stdMemory_Free;

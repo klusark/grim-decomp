@@ -56,8 +56,13 @@ void __cdecl Vec3_NormalizeTo(float *param_1,float *param_2)
 #endif
 
 
-/* ---- 0x004469a0  Vec3_Normalize ---- */
-float __cdecl Vec3_Normalize(float *param_1)
+/* ---- 0x004469a0  rdVector_Normalize3Acc ---- */
+/* Original name rdVector_Normalize3Acc (the remaster's GrimFandango (Linux): the only unmatched
+   callee of rdLight_CalcFaceIntensity; the only unmatched callee of rdLight_CalcVertexIntensities;
+   the only unmatched callee of rdModel3_CalcVertexNormals; 11 matched neighbours agree, 0
+   disagree); was Vec3_Normalize. */
+
+float __cdecl rdVector_Normalize3Acc(float *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -148,10 +153,12 @@ float __cdecl Vec3_NormalizeApprox(float *param_1)
 #undef local_c
 
 
-/* ---- 0x00446ba0  Vec3_Rotate ---- */
-/* Lua RotateVector: rotates a vector by pitch/yaw/roll angles */
+/* ---- 0x00446ba0  rdVector_Rotate3Acc ---- */
+/* Lua RotateVector: rotates a vector by pitch/yaw/roll angles Original name rdVector_Rotate3Acc
+   (the remaster's GrimFandango (Linux): the only unmatched callee of sputLua_RotateVectorL; 2
+   matched neighbours agree, 0 disagree); was Vec3_Rotate. */
 
-void __cdecl Vec3_Rotate(float *vec,float *rot)
+void __cdecl rdVector_Rotate3Acc(float *vec,float *rot)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -171,7 +178,7 @@ void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
   float fVar1;
   
   outAngles[2] = 0.0;
-  fVar1 = Math_AsinDegreesSeries(matrix[2]);
+  fVar1 = stdMath_ArcSin3(matrix[2]);
   *outAngles = fVar1;
   fVar1 = Math_Atan2Deg(matrix[1],*matrix);
   outAngles[1] = fVar1;
@@ -476,9 +483,9 @@ void Angles_ToMatrix(float *param_1,undefined4 *param_2,float *param_3)
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   puVar1 = param_2;
-  Math_SinCosTable(*param_2,&param_2,local_1c);
-  Math_SinCosTable(PUN(float,puVar1[1]),local_1c + 2,local_10);
-  Math_SinCosTable(PUN(float,puVar1[2]),local_1c + 1,local_10 + 1);
+  stdMath_SinCos(*param_2,&param_2,local_1c);
+  stdMath_SinCos(PUN(float,puVar1[1]),local_1c + 2,local_10);
+  stdMath_SinCos(PUN(float,puVar1[2]),local_1c + 1,local_10 + 1);
   *param_1 = -(local_1c[1] * local_1c[2]) * PUN(float,param_2) + local_10[1] * local_10[0];
   param_1[1] = local_1c[1] * local_10[0] * PUN(float,param_2) + local_10[1] * local_1c[2];
   param_1[2] = -local_1c[1] * local_1c[0];
@@ -542,9 +549,9 @@ void Angles_ToMatrixNoPos(float *param_1,undefined4 *param_2)
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   puVar1 = param_2;
-  Math_SinCosTable(*param_2,&param_2,local_1c);
-  Math_SinCosTable(PUN(float,puVar1[1]),local_1c + 2,local_10);
-  Math_SinCosTable(PUN(float,puVar1[2]),local_1c + 1,local_10 + 1);
+  stdMath_SinCos(*param_2,&param_2,local_1c);
+  stdMath_SinCos(PUN(float,puVar1[1]),local_1c + 2,local_10);
+  stdMath_SinCos(PUN(float,puVar1[2]),local_1c + 1,local_10 + 1);
   *param_1 = -(local_1c[1] * local_1c[2]) * PUN(float,param_2) + local_10[1] * local_10[0];
   param_1[1] = local_1c[1] * local_10[0] * PUN(float,param_2) + local_10[1] * local_1c[2];
   param_1[2] = -local_1c[1] * local_1c[0];
@@ -636,7 +643,7 @@ void Matrix_AxisAngle(float *param_1,float *param_2,float param_3)
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  Math_SinCosTable(param_3,local_28,&param_3);
+  stdMath_SinCos(param_3,local_28,&param_3);
   fVar1 = 1.0 - param_2[2];
   fVar2 = fVar1;
   if (fVar1 < 0.0) {
@@ -738,7 +745,7 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
   *pfVar1 = *param_3 - *param_2;
   param_1[4] = param_3[1] - param_2[1];
   param_1[5] = param_3[2] - param_2[2];
-  Vec3_Normalize(pfVar1);
+  rdVector_Normalize3Acc(pfVar1);
   Matrix_AxisAngle(local_30,pfVar1,PUN(float,param_4));
   fVar2 = *pfVar1 * 0.0 + param_1[4] * 0.0 + param_1[5] * 1.0;
   if (fVar2 < 0.0) {
@@ -760,11 +767,11 @@ void Camera_BuildBasis(float *param_1,float *param_2,float *param_3,undefined4 p
   *param_1 = param_1[4] * local_44[1] - param_1[5] * local_44[0];
   param_1[1] = param_1[5] * local_48 - *pfVar1 * local_44[1];
   param_1[2] = *pfVar1 * local_44[0] - param_1[4] * local_48;
-  Vec3_Normalize(param_1);
+  rdVector_Normalize3Acc(param_1);
   param_1[6] = param_1[5] * param_1[1] - param_1[4] * param_1[2];
   param_1[7] = param_1[2] * *pfVar1 - param_1[5] * *param_1;
   param_1[8] = param_1[4] * *param_1 - param_1[1] * *pfVar1;
-  Vec3_Normalize(param_1 + 6);
+  rdVector_Normalize3Acc(param_1 + 6);
   param_1[9] = *param_2;
   param_1[10] = param_2[1];
   param_1[0xb] = param_2[2];
@@ -811,7 +818,7 @@ void Matrix_ToAngles(float *param_1,float *param_2)
   fVar5 = SQRT(fVar8);
   fVar6 = -param_1[1];
   if (0.001 <= fVar5) {
-    fVar7 = Math_AsinDegreesSeries(fVar4 / fVar5);
+    fVar7 = stdMath_ArcSin3(fVar4 / fVar5);
     fVar7 = 90.0 - fVar7;
     if (0.0 < fVar3) {
       fVar7 = -fVar7;
@@ -819,7 +826,7 @@ void Matrix_ToAngles(float *param_1,float *param_2)
     param_2[1] = fVar7;
   }
   else {
-    fVar7 = Math_AsinDegreesSeries(--fVar9);
+    fVar7 = stdMath_ArcSin3(--fVar9);
     fVar7 = 90.0 - fVar7;
     if (((0.0 < fVar6) && (0.0 < fVar2)) || ((fVar6 < 0.0 && (fVar2 < 0.0)))) {
       fVar7 = -fVar7;
@@ -830,7 +837,7 @@ void Matrix_ToAngles(float *param_1,float *param_2)
   if (0.001 <= fVar5) {
     fVar8 = fVar8 / fVar5;
     if (fVar8 < 1.0) {
-      fVar8 = Math_AsinDegreesSeries(fVar8);
+      fVar8 = stdMath_ArcSin3(fVar8);
       *param_2 = 90.0 - fVar8;
     }
     else {
@@ -848,7 +855,7 @@ void Matrix_ToAngles(float *param_1,float *param_2)
     fVar9 = (fVar6 * fVar3 + fVar4 * -fVar9) / SQRT(fVar4 * fVar4 + fVar3 * fVar3);
     if (fVar9 < 1.0) {
       if (-1.0 < fVar9) {
-        fVar9 = Math_AsinDegreesSeries(fVar9);
+        fVar9 = stdMath_ArcSin3(fVar9);
         param_2[2] = 90.0 - fVar9;
       }
       else {
@@ -876,8 +883,11 @@ void Matrix_ToAngles(float *param_1,float *param_2)
 #undef local_c
 
 
-/* ---- 0x0044f880  Matrix_Identity ---- */
-void __cdecl Matrix_Identity(float *m)
+/* ---- 0x0044f880  rdMatrix_Identity34 ---- */
+/* Original name rdMatrix_Identity34 (the remaster's GrimFandango (Linux): the only unmatched callee
+   of Actor_Create; 1 matched neighbours agree, 0 disagree); was Matrix_Identity. */
+
+void __cdecl rdMatrix_Identity34(float *m)
 
 {
   int iVar1;
@@ -1234,12 +1244,12 @@ void Math3D_TriangleNormal(float *param_1,float *param_2,float *param_3,float *p
   local_8[1] = param_3[2] - param_2[2];
   local_14[0] = param_4[1] - param_2[1];
   local_14[1] = param_4[2] - param_2[2];
-  Vec3_Normalize(&local_c);
-  Vec3_Normalize(&local_18);
+  rdVector_Normalize3Acc(&local_c);
+  rdVector_Normalize3Acc(&local_18);
   *param_1 = local_14[1] * local_8[0] - local_14[0] * local_8[1];
   param_1[1] = local_18 * local_8[1] - local_14[1] * local_c;
   param_1[2] = local_14[0] * local_c - local_18 * local_8[0];
-  Vec3_Normalize(param_1);
+  rdVector_Normalize3Acc(param_1);
   Vec3_ZeroSmallComponents(param_1,FBITS(0x358637bd));
   return;
 }
@@ -1310,8 +1320,8 @@ undefined4 Math3D_PointsCollinear(float *param_1,float *param_2,float *param_3)
   local_8[1] = param_2[2] - param_1[2];
   local_14[0] = param_3[1] - param_1[1];
   local_14[1] = param_3[2] - param_1[2];
-  Vec3_Normalize(&local_c);
-  Vec3_Normalize(&local_18);
+  rdVector_Normalize3Acc(&local_c);
+  rdVector_Normalize3Acc(&local_18);
   fVar1 = local_14[1] * local_8[1] + local_14[0] * local_8[0] + local_18 * local_c;
   if (fVar1 < 0.0) {
     fVar1 = -fVar1;

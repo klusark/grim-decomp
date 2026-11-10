@@ -73,7 +73,7 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   local_94[1] = local_88[1] - local_54[0];
   fVar2 = local_7c - local_54[2];
   fVar3 = SQRT(fVar2 * fVar2 + local_94[1] * local_94[1]);
-  local_9c = Math_AsinDegreesSeries(-local_94[1] / fVar3);
+  local_9c = stdMath_ArcSin3(-local_94[1] / fVar3);
   if (fVar2 < 0.0) {
     if (local_94[1] <= 0.0) {
       local_9c = -(local_9c - -180.0);
@@ -82,7 +82,7 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
       local_9c = 180.0 - local_9c;
     }
   }
-  Math_SinCosTable(local_9c,local_88,local_94);
+  stdMath_SinCos(local_9c,local_88,local_94);
   *(float *)&DAT_007f4e84 = local_88[2];
   *(float *)&DAT_007f4e80 = (*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_54[0];
   *(float *)&DAT_007f4e88 = *(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_54[2];
@@ -373,12 +373,14 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
 #endif
 
 
-/* ---- 0x004728a0  rdPolyline_New ---- */
-/* Allocates a 0xb8-byte polyline (RDroid Primitiv*.c) and initialises it */
+/* ---- 0x004728a0  rdSprite_New ---- */
+/* Allocates a 0xb8-byte polyline (RDroid Primitiv*.c) and initialises it Original name rdSprite_New
+   (the remaster's GrimFandango (Linux): the only unmatched caller of rdPolyline_Init; 2 matched
+   neighbours agree, 0 disagree); was rdPolyline_New. */
 
-int rdPolyline_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-                  undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8,
-                  undefined4 param_9,undefined4 param_10)
+int rdSprite_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
+                undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8,
+                undefined4 param_9,undefined4 param_10)
 
 {
   int iVar1;
@@ -388,18 +390,20 @@ int rdPolyline_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,unde
   if (iVar1 == 0) {
     return 0;
   }
-  rdPolyline_Init(iVar1,param_2,param_1,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
-                  param_10);
+  rdSprite_NewEntry(iVar1,param_2,param_1,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
+                    param_10);
   return iVar1;
 }
 
-/* ---- 0x00472910  rdPolyline_Init ---- */
-/* Copies the 31-char name and builds the vertex ring for the given radius/segment counts */
+/* ---- 0x00472910  rdSprite_NewEntry ---- */
+/* Copies the 31-char name and builds the vertex ring for the given radius/segment counts Original
+   name rdSprite_NewEntry (the remaster's GrimFandango (Linux): the only unmatched caller of
+   rdMaterial_Load; 1 matched neighbours agree, 0 disagree); was rdPolyline_Init. */
 
 undefined4
-rdPolyline_Init(int param_1,int param_2,undefined4 param_3,char *param_4,undefined4 param_5,
-               undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9,
-               undefined4 param_10,undefined4 *param_11)
+rdSprite_NewEntry(int param_1,int param_2,undefined4 param_3,char *param_4,undefined4 param_5,
+                 undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9,
+                 undefined4 param_10,undefined4 *param_11)
 
 {
   float fVar1;

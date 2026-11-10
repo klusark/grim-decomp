@@ -5,16 +5,18 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004016a0  Game_FrameUpdate ---- */
+/* ---- 0x004016a0  Main_Service ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Per-frame function of the main loop. Passes the one-shot global DAT_004f5a48 ("fixed frame time",
    ms) to Engine_UpdateFrame and zeroes it. The load of that global at 0x401721 is what
    tools/patch_simtime.py replaces with `mov eax,17` to run on a fixed 17 ms frame. The call at
-   0x401753 (timeGetTime) is the hook of the frame limiter (grimdlg.dll GrimFrameLimit). */
+   0x401753 (timeGetTime) is the hook of the frame limiter (grimdlg.dll GrimFrameLimit). Original
+   name Main_Service (the remaster's GrimFandango (Linux): strings: '%02.3f' | '%s %02.3f'); was
+   Game_FrameUpdate. */
 
-void Game_FrameUpdate(void)
+void Main_Service(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -37,7 +39,7 @@ void Game_FrameUpdate(void)
     if (UINT_004f5a50 != 0) {
       Display_Select(UINT_004dd340,UINT_004dd344,UINT_004dd348);
       UINT_008a8c40 = 2;
-      ((code *)Render_DimBackground)(1);
+      ((code *)sputRender_Dim)(1);
       UINT_004f5a50 = 0;
     }
     _DAT_004dd384 = 300;

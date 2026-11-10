@@ -144,7 +144,7 @@ undefined4 Im_MixerInit(undefined4 *param_1)
  *    text), and Im_Run*Command pass the last stored word for all ten again, so a command runs with the same word in every
  *    argument: ImSetHook(w, w), ImFadeParam(w, w, w, w).  Dispatch uses a different one of those equal arguments per call,
  *    which is the same.  The commands therefore only do something useful when the word happens to be meaningful; the script
- *    layer (FUN_100068b0) sets such triggers with garbage in the unused words.  Kept as it is: the behaviour of the game
+ *    layer (Script_Trans) sets such triggers with garbage in the unused words.  Kept as it is: the behaviour of the game
  *    depends on it.
  *  - Im_DispatchCommand reads the word at [esp+0x3c] (argument 15, four words beyond what the callers push) for commands
  *    0x11 (set trigger) and 0x14 (defer): garbage in the original.  Here: the last argument, a11 (identical to every other
@@ -152,7 +152,7 @@ undefined4 Im_MixerInit(undefined4 *param_1)
  * Trigger slots: 8 of 0x4d dwords at DAT_10032320 {0 owner sound, 1..0x40 marker string (256 bytes), 0x41 command,
  * 0x42..0x4b parameters, 0x4c kept-after-fire flag}.  Deferred slots: 8 of 12 dwords at DAT_10032cc0 {0 time, 1 command,
  * 2..11 parameters}. */
-undefined4 Im_SetTriggerImpl(int sound, char *marker, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)
+undefined4 TgSetTrigger(int sound, char *marker, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)
 {
     int *slot = (int *)&DAT_10032320;
     int n, len;
@@ -183,7 +183,7 @@ undefined4 Im_SetTriggerImpl(int sound, char *marker, int cmd, int p0, int p1, i
     return 0;
 }
 
-undefined4 Im_DeferCommandImpl(int time, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)
+undefined4 TgDeferCommand(int time, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)
 {
     int *e = (int *)&DAT_10032cc0;
     int i;
@@ -298,11 +298,11 @@ int SoundStartVoiceStream(undefined4 param_1, uint volume, uint pan)
     return 0;
 }
 
-/* ==== FUN_100070e0 (0x100070e0) ====
+/* ==== Script_Callback (0x100070e0) ====
  * Trigger callback (stored by FUN_10006360, run by Im_RunTriggerCommand with the marker name as its first argument): when the
  * marker is "_..." the script layer's end-of-sequence flag DAT_1002e304 is set.  The decompiler read the marker from the
  * second argument (the code reads [esp+8] while the pop of the ImPrintf argument is still pending, that is argument 1). */
-void FUN_100070e0(char *marker)
+void Script_Callback(char *marker)
 {
     ImPrintf(s_CALLBACK__1001e898);
     if (*marker == '_') {

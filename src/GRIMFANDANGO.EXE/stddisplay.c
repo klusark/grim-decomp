@@ -76,7 +76,7 @@ LAB_00402747:
       else {
         UINT_004f5a34 = (uint)&DAT_00901400;
       }
-      Engine_OpenRenderer(&g_BackBuffer,UINT_004f5a34);
+      grimlib_SetDisplay(&g_BackBuffer,UINT_004f5a34);
       Win_SetWindowedSize((uint)(*(int *)((int)g_pDisplayDevice + 0x110) != 0),
                           *(int *)((int)g_pVideoMode + 8),*(int *)((int)g_pVideoMode + 0xc));
       Reg_SetBinary(s_LastDisplayDevice_004dd738,(void *)((int)g_pDisplayDevice + 0x288),0x10);
@@ -620,12 +620,13 @@ undefined4 Palette_SwapRedBlue(int param_1,undefined1 *param_2)
 #undef uStack_808
 
 
-/* ---- 0x00473a40  Display_EnumDevices ---- */
+/* ---- 0x00473a40  stdDisplay_Startup ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Adds the 'Window Display Device' (DIBsection windowed) entry then DirectDrawEnumerate adds the
-   DirectDraw devices */
+   DirectDraw devices Original name stdDisplay_Startup (the remaster's GrimFandango (Linux):
+   strings: 'Window Display Device' | 'DIBsection windowed display'); was Display_EnumDevices. */
 
-int Display_EnumDevices(void)
+int stdDisplay_Startup(void)
 
 {
   int iVar1;

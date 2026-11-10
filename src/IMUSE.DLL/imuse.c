@@ -2671,10 +2671,13 @@ void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param
 #endif
 
 
-/* ---- 0x10006070  FUN_10006070 ---- */
+/* ---- 0x10006070  ScriptCall ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name ScriptCall (the remaster's GrimFandango (Linux): strings: 'ERROR:unrecognized
+   opcode in script...' | 'ERROR:script not initialized...' | 'ERROR:script already
+   initialized...'); was FUN_10006070. */
 
-undefined4 __cdecl FUN_10006070(int cmd,...)
+undefined4 __cdecl ScriptCall(int cmd,...)
 
 {
   unsigned char _frame[0x40];  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2722,7 +2725,7 @@ undefined4 __cdecl FUN_10006070(int cmd,...)
     uVar2 = FUN_10006560((int)local_28[0]);
     return uVar2;
   case 6:
-    uVar2 = FUN_10006620((int)local_28[0]);
+    uVar2 = Script_SetSequence((int)local_28[0]);
     return uVar2;
   case 7:
     uVar2 = FUN_100067a0();
@@ -2761,7 +2764,7 @@ FUN_10006360(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_
   int iVar1;
   undefined4 *puVar2;
   
-  *(code **)(param_1 + 8) = FUN_100070e0;
+  *(code **)(param_1 + 8) = Script_Callback;
   DAT_1001e688 = param_8;
   ImInitFilelist(param_2,param_3,param_4,param_5);
   _DAT_1002df68 = param_6;
@@ -2863,7 +2866,7 @@ undefined4 FUN_100064d0(void)
   uint uVar2;
   
   if (DAT_1002e304 != 0) {
-    FUN_10006620(0);
+    Script_SetSequence(0);
     DAT_1002e304 = 0;
   }
   uVar1 = ImGetNextSound(0);
@@ -2879,7 +2882,7 @@ undefined4 FUN_100064d0(void)
     if (uVar1 != 0) goto LAB_10006549;
   }
   if (DAT_1002e308 != 0) {
-    FUN_10006620(0);
+    Script_SetSequence(0);
   }
 LAB_10006549:
   ImFlushSounds();
@@ -2920,7 +2923,7 @@ undefined4 __cdecl FUN_10006560(int param_1)
         else {
           pcVar3 = &DAT_100172e8 + uVar4 * 0x54;
         }
-        FUN_100068b0(pcVar3,uVar4,0,unaff_retaddr,param_1,in_stack_00000008,in_stack_0000000c,
+        Script_Trans(pcVar3,uVar4,0,unaff_retaddr,param_1,in_stack_00000008,in_stack_0000000c,
                      in_stack_00000010);
       }
       DAT_1002df70 = uVar1;
@@ -2934,10 +2937,14 @@ undefined4 __cdecl FUN_10006560(int param_1)
 #endif
 
 
-/* ---- 0x10006620  FUN_10006620 ---- */
+/* ---- 0x10006620  Script_SetSequence ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-undefined4 __cdecl FUN_10006620(int param_1)
+/* Original name Script_SetSequence (the remaster's GrimFandango (Linux): the static SetSequence of
+   the music script module (prefixed: the bridge refuses the bare name next to ImSetSequence);
+   strings: 'SEQ_NULL' | 'ERR: bogus sequence...'); was FUN_10006620. */
+
+undefined4 __cdecl Script_SetSequence(int param_1)
 
 {
   int iVar1;
@@ -2974,14 +2981,14 @@ undefined4 __cdecl FUN_10006620(int param_1)
             else {
               pcVar3 = &DAT_100172e8 + DAT_1002df70 * 0x54;
             }
-            FUN_100068b0(pcVar3,DAT_1002df70,1,unaff_retaddr,param_1,in_stack_00000008,
+            Script_Trans(pcVar3,DAT_1002df70,1,unaff_retaddr,param_1,in_stack_00000008,
                          in_stack_0000000c,in_stack_00000010);
             DAT_1002e308 = 0;
             iVar4 = DAT_1002e308;
             iVar1 = DAT_1002e30c;
           }
           else {
-            FUN_100068b0(&DAT_1001ae50 + DAT_1002e30c * 0x54,0,1,unaff_retaddr,param_1,
+            Script_Trans(&DAT_1001ae50 + DAT_1002e30c * 0x54,0,1,unaff_retaddr,param_1,
                          in_stack_00000008,in_stack_0000000c,in_stack_00000010);
             iVar4 = DAT_1002e30c;
             DAT_1002e308 = DAT_1002e30c;
@@ -2993,7 +3000,7 @@ undefined4 __cdecl FUN_10006620(int param_1)
         else if ((DAT_1002e308 == 0) ||
                 ((iVar1 = iVar5, *(int *)(&DAT_1001ae70 + DAT_1002e308 * 0x54) != 4 &&
                  (*(int *)(&DAT_1001ae70 + DAT_1002e308 * 0x54) != 6)))) {
-          FUN_100068b0(&DAT_1001ae50 + iVar5 * 0x54,0,1,unaff_retaddr,param_1,in_stack_00000008,
+          Script_Trans(&DAT_1001ae50 + iVar5 * 0x54,0,1,unaff_retaddr,param_1,in_stack_00000008,
                        in_stack_0000000c,in_stack_00000010);
           DAT_1002e30c = 0;
           (&DAT_1002e25c)[iVar5] = 1;
@@ -3093,11 +3100,16 @@ undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
   return 0;
 }
 
-/* ---- 0x100068b0  FUN_100068b0 ---- */
+/* ---- 0x100068b0  Script_Trans ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* Original name Script_Trans (the remaster's GrimFandango (Linux): the static Trans of the music
+   script module (prefixed: the bare name is refused as too generic); strings: "1001 - Manny's
+   Office" | 'SCRIPT ERR: failed start stream...' | 'SCRIPT ERR: Unable to open ' | 'and
+   PAN=%lu...'); was FUN_100068b0. */
+
 void __cdecl
-FUN_100068b0(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uint param_6,
+Script_Trans(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uint param_6,
             uint param_7,uint param_8)
 
 {
@@ -3383,10 +3395,14 @@ LAB_1000692f:
 #endif
 
 
-/* ---- 0x100070e0  FUN_100070e0 ---- */
+/* ---- 0x100070e0  Script_Callback ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl FUN_100070e0(char *marker)
+/* Original name Script_Callback (the remaster's GrimFandango (Linux): the static Callback of the
+   music script module (prefixed: the bare name is refused as too generic); strings: "ERR:callback
+   got marker != '_end'..." | 'CALLBACK:'); was FUN_100070e0. */
+
+void __cdecl Script_Callback(char *marker)
 
 {
   char *in_stack_00000008;
@@ -3634,7 +3650,7 @@ int FUN_10008ce0(void)
     _DAT_1002e338 = (int)(1000 / (ulonglong)unaff_ESI);
     _DAT_10031520 = unaff_ESI;
     timeBeginPeriod(unaff_ESI);
-    _DAT_10031d28 = timeSetEvent(_DAT_1002e338,0,((unsigned)(uintptr_t)FUN_10008e00),0xf,1);
+    _DAT_10031d28 = timeSetEvent(_DAT_1002e338,0,((unsigned)(uintptr_t)timer_callback),0xf,1);
     iVar3 = timeGetTime();
     _DAT_10031e84 = 0;
     iVar1 = 2;
@@ -3653,7 +3669,7 @@ int FUN_10008ce0(void)
         timeKillEvent(_DAT_10031d28);
         timeEndPeriod(_DAT_10031520);
         timeBeginPeriod(_DAT_10031520);
-        _DAT_10031d28 = timeSetEvent(_DAT_1002e338,0,((unsigned)(uintptr_t)FUN_10008e00),0xf,1);
+        _DAT_10031d28 = timeSetEvent(_DAT_1002e338,0,((unsigned)(uintptr_t)timer_callback),0xf,1);
         iVar3 = timeGetTime();
       }
 LAB_10008de9:
@@ -3671,10 +3687,12 @@ LAB_10008de9:
 #endif
 
 
-/* ---- 0x10008e00  FUN_10008e00 ---- */
+/* ---- 0x10008e00  timer_callback ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name timer_callback (the remaster's GrimFandango (Linux): the only unmatched caller of
+   ImHeartbeat; 1 matched neighbours agree, 0 disagree); was FUN_10008e00. */
 
-undefined4 __stdcall FUN_10008e00(int a1,int a2,int a3,int a4,int a5)
+undefined4 __stdcall timer_callback(int a1,int a2,int a3,int a4,int a5)
 
 {
   undefined4 uVar1;
@@ -3694,7 +3712,7 @@ void FUN_10008e30(void)
 {
   timeKillEvent(_DAT_10031d28);
   timeEndPeriod(_DAT_10031520);
-  FUN_10008e00(1,2,3,4,5);
+  timer_callback(1,2,3,4,5);
   return;
 }
 
@@ -4246,7 +4264,7 @@ undefined4 iMUSE_SetHook(uint *param_1,uint param_2)
   undefined4 uVar2;
   
                     /* 0xa110  80  iMUSE_SetHook */
-  iVar1 = Sounds_ResolveName_LoadIfNeeded(param_1);
+  iVar1 = CacheGetSoundId(param_1);
   if (iVar1 == 0) {
     return 0xffffffff;
   }
@@ -4262,7 +4280,7 @@ undefined4 iMUSE_GetHook(uint *param_1)
   undefined4 uVar2;
   
                     /* 0xa140  76  iMUSE_GetHook */
-  iVar1 = Sounds_ResolveName_LoadIfNeeded(param_1);
+  iVar1 = CacheGetSoundId(param_1);
   if (iVar1 == 0) {
     return 0xffffffff;
   }
@@ -4622,11 +4640,12 @@ int Im_ShutdownSubsystems(void)
   return -(uint)(iVar1 != 0);
 }
 
-/* ---- 0x1000a8d0  Im_PauseImpl ---- */
+/* ---- 0x1000a8d0  TrPause ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TrPause (the remaster's GrimFandango (Linux): the only unmatched callee of ImPause;
+   1 matched neighbours agree, 0 disagree); was Im_PauseImpl. */
 
-void Im_PauseImpl(void)
+void TrPause(void)
 
 {
   Im_GuardEnter();
@@ -4635,11 +4654,12 @@ void Im_PauseImpl(void)
   return;
 }
 
-/* ---- 0x1000a8f0  Im_ResumeImpl ---- */
+/* ---- 0x1000a8f0  TrResume ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TrResume (the remaster's GrimFandango (Linux): the only unmatched callee of
+   ImResume; 1 matched neighbours agree, 0 disagree); was Im_ResumeImpl. */
 
-void Im_ResumeImpl(void)
+void TrResume(void)
 
 {
   Im_GuardEnter();
@@ -5338,15 +5358,16 @@ undefined4 __cdecl Im_TriggersRestore(undefined4 *param_1)
   return 0xb20;
 }
 
-/* ---- 0x1000b220  Im_SetTriggerImpl ---- */
+/* ---- 0x1000b220  TgSetTrigger ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TgSetTrigger (the remaster's GrimFandango (Linux): the only unmatched callee of
+   ImSetTrigger; 1 matched neighbours agree, 0 disagree); was Im_SetTriggerImpl. */
 
 undefined4 __cdecl
-Im_SetTriggerImpl(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,
-                 int p7,int p8,int p9)
+TgSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,
+            int p8,int p9)
 
 {
   char cVar1;
@@ -5671,15 +5692,16 @@ LAB_1000b52c:
 #undef local_100
 
 
-/* ---- 0x1000b570  Im_DeferCommandImpl ---- */
+/* ---- 0x1000b570  TgDeferCommand ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+   Original name TgDeferCommand (the remaster's GrimFandango (Linux): the only unmatched callee of
+   ImDeferCommand; 1 matched neighbours agree, 0 disagree); was Im_DeferCommandImpl. */
 
 undefined4 __cdecl
-Im_DeferCommandImpl(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8,
-                   int p9)
+TgDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8,
+              int p9)
 
 {
   int *piVar1;

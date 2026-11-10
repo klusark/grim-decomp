@@ -24,11 +24,13 @@ void LuaVarComponent_OnKey(undefined4 param_1,char *param_2,undefined4 param_3,i
 #undef local_4
 
 
-/* ---- 0x004976a0  LuaVarComponent_EditKey ---- */
+/* ---- 0x004976a0  LuaVarAdjuster ---- */
 /* Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through
-   Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog 'Change variable properties'. */
+   Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog 'Change variable properties'. Original
+   name LuaVarAdjuster (the remaster's GrimFandango (Linux): strings: 'Change variable properties');
+   was LuaVarComponent_EditKey. */
 
-undefined4 LuaVarComponent_EditKey(undefined4 *param_1,int param_2,int param_3)
+undefined4 LuaVarAdjuster(undefined4 *param_1,int param_2,int param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -37,8 +39,9 @@ undefined4 LuaVarComponent_EditKey(undefined4 *param_1,int param_2,int param_3)
   #define local_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
   defaultText = (char *)*param_1;
-  iVar1 = Plat_InputDialog(s_Change_variable_properties_004ea72c,s_Variable_name_004ea748,local_20,
-                           0x20,defaultText);
+  iVar1 = grimPlat_InputDialog
+                    (s_Change_variable_properties_004ea72c,s_Variable_name_004ea748,local_20,0x20,
+                     defaultText);
   if (iVar1 != 0) {
     strncpy(defaultText,local_20,0x1f);
     defaultText[0x1f] = '\0';
@@ -51,12 +54,13 @@ undefined4 LuaVarComponent_EditKey(undefined4 *param_1,int param_2,int param_3)
 #undef local_20
 
 
-/* ---- 0x00497710  LuaVarComponent_Create ---- */
+/* ---- 0x00497710  LuaVarRequester ---- */
 /* Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for the variable name ('Name of variable') in
-   the editor. */
+   the editor. Original name LuaVarRequester (the remaster's GrimFandango (Linux): strings: 'Name of
+   variable'); was LuaVarComponent_Create. */
 
-int LuaVarComponent_Create(uint param_1,int param_2,int param_3,int param_4,int param_5)
+int LuaVarRequester(uint param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -78,8 +82,9 @@ int LuaVarComponent_Create(uint param_1,int param_2,int param_3,int param_4,int 
     return false;
   }
   if (param_5 == 0) {
-    iVar1 = Plat_InputDialog(s_Name_of_variable_004ea758,s_Variable_name_004ea748,&local_20,0x20,
-                             &local_20);
+    iVar1 = grimPlat_InputDialog
+                      (s_Name_of_variable_004ea758,s_Variable_name_004ea748,&local_20,0x20,&local_20
+                      );
     if (iVar1 == 0) {
       return false;
     }

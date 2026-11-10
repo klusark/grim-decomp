@@ -43,7 +43,7 @@ void * __cdecl rdMaterial_Load(char *name,int a,int b)
   pvVar1 = (void *)(*g_pSvcRdroid->pAlloc)
                              (0xb0,s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,DAT_004ddd7c + 10);
   if (pvVar1 != (void *)0x0) {
-    iVar2 = rdMaterial_LoadFile(name,pvVar1,a,b);
+    iVar2 = rdMaterial_LoadEntry(name,pvVar1,a,b);
     if (iVar2 != 0) {
       return pvVar1;
     }
@@ -52,11 +52,12 @@ void * __cdecl rdMaterial_Load(char *name,int a,int b)
   return (void *)0x0;
 }
 
-/* ---- 0x00417f30  rdMaterial_LoadFile ---- */
+/* ---- 0x00417f30  rdMaterial_LoadEntry ---- */
 /* Reads a 'MAT ' material file: header, colour table, per-cel texture surfaces (type 2 colour-keyed
-   / type 0 solid) */
+   / type 0 solid) Original name rdMaterial_LoadEntry (the remaster's GrimFandango (Linux): strings:
+   'MAT '); was rdMaterial_LoadFile. */
 
-int __cdecl rdMaterial_LoadFile(char *filename,void *material,int a,int b)
+int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
 
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

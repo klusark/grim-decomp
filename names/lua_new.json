@@ -100,7 +100,7 @@
 {
 "program": "/LUA.DLL",
 "addr": "100097f0",
-"name": "str_singlematch",
+"name": "luaI_singlematch",
 "comment": "luaI_singlematch: one pattern item against one char",
 "tags": "lstrlib"
 },
@@ -113,7 +113,7 @@
 {
 "program": "/LUA.DLL",
 "addr": "10009a10",
-"name": "str_matchclass",
+"name": "matchclass",
 "comment": "%a %d %s ... character classes",
 "tags": "lstrlib"
 },
@@ -127,7 +127,7 @@
 {
 "program": "/LUA.DLL",
 "addr": "10009ea0",
-"name": "str_match",
+"name": "match",
 "comment": "recursive pattern matcher; errors 'too many captures'",
 "tags": "lstrlib"
 },

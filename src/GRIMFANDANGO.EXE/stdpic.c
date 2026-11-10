@@ -18,18 +18,20 @@ uint stdPic_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3)
   if (uVar1 == 0) {
     return 0;
   }
-  iVar2 = stdPic_LoadInto(param_1,uVar1,param_2,param_3);
+  iVar2 = stdPic_LoadEntry(param_1,uVar1,param_2,param_3);
   return -(uint)(iVar2 != 0) & uVar1;
 }
 
-/* ---- 0x0047d2d0  stdPic_LoadInto ---- */
+/* ---- 0x0047d2d0  stdPic_LoadEntry ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Decoder of '.pic' files (allocation string stdPic.c)
    Ported to C (build/overrides_big_stdpic_loadinto.c): differential test on generated inputs, 0
-   differences (docs/notes/big_stdpic_loadinto.md). */
+   differences (docs/notes/big_stdpic_loadinto.md). Original name stdPic_LoadEntry (the remaster's
+   GrimFandango (Linux): the only unmatched callee of stdPic_Load; 1 matched neighbours agree, 0
+   disagree); was stdPic_LoadInto. */
 
-undefined4 stdPic_LoadInto(char *param_1,undefined4 *param_2,int param_3,int param_4)
+undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

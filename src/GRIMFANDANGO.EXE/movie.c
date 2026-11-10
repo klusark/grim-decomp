@@ -74,7 +74,7 @@ undefined4 Movie_PollPlayback(void)
     g_nMoviePlaying = 0;
     Smush_Close();
     Smush_GetFrameRect(aiStack_10,0);
-    Render_InvalidateRect(aiStack_10,0);
+    MarkDirtyRect(aiStack_10,0);
   }
 LAB_00489259:
   Smush_Idle(0);
@@ -139,10 +139,12 @@ void Movie_Stop(void)
   return;
 }
 
-/* ---- 0x00489390  Movie_SetFile ---- */
-/* Resolves the movie name through the resource system and hands the path to the SMUSH player */
+/* ---- 0x00489390  sputSmush_GetMovieLength ---- */
+/* Resolves the movie name through the resource system and hands the path to the SMUSH player
+   Original name sputSmush_GetMovieLength (the remaster's GrimFandango (Linux): the only unmatched
+   callee of Lua_GetSmushLength; 1 matched neighbours agree, 0 disagree); was Movie_SetFile. */
 
-int Movie_SetFile(char *param_1)
+int sputSmush_GetMovieLength(char *param_1)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -231,8 +233,11 @@ int Movie_IsPlaying(void)
   return g_nMoviePlaying;
 }
 
-/* ---- 0x004894f0  Movie_SetPaused ---- */
-void Movie_SetPaused(int paused)
+/* ---- 0x004894f0  sputSmush_Pause ---- */
+/* Original name sputSmush_Pause (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_PauseMovie; 3 matched neighbours agree, 0 disagree); was Movie_SetPaused. */
+
+void sputSmush_Pause(int paused)
 
 {
   g_nMoviePaused = paused;

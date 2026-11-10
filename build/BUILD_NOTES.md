@@ -1072,3 +1072,21 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   not undo the renames), tools and docs; build_src.PREFIX_MAP keeps Matrix34_* in math3d.c and the costume tag handlers
   in their component files.
 * Clean-room (`run.py decomp`): 5118 of 5118 the same (the suite has 5118 tests now).
+
+## Original names from the remaster's Linux build (2026-11-10, agent orig-names, lead)
+
+* The remaster's `GrimFandango` (9428 symbols, iMUSE linked in) and `libLua.so` (797) are not stripped; both are in
+  the Ghidra project under /linux. 625 functions renamed to their original names: LUA.DLL 158, EXE 455 (265 Lua
+  bindings matched through the registration tables, `Lua_X` -> `sputLua_XL` etc.; 190 engine / LEC library), IMUSE 12.
+  477 of them replace existing names (several were wrong: `luaU_str2number` is luaV_tonumber, `luaV_execute` is
+  ExecutionState_CrunchOpcodes, luaT_realtag / luaT_checktag were swapped); each plate comment keeps "was X" and the
+  evidence, each batch entry an "old" field. Batches names/orig_{lua,exe_lua,exe_engine,imuse}.json; matcher
+  tools/orig_dump.py / orig_match.py / orig_batch.py; tools/rename_refs.py carries a rename into the hand-written code
+  (overrides, build/cleanroom, the other batches, tools, docs; respects the #ifdef GRIM_* guards).
+* names/orig_modules.json pins renamed functions to their old module file (build_src reads it before PREFIX_MAP).
+  build_src.fix_stdcall no longer edits a plate comment that contains `Name (`.
+* Names and comments only (no prototypes). Regenerated src is the old src after the renames; stubs unchanged (EXE 42,
+  LUA 58, IMUSE 9, CHORE 16). Clean-room 5118 of 5118 the same.
+* Left: globals (the remaster names them: pLuaHS, LState::refArray, ...), the 351 generated rdRaster_* names, most iMUSE
+  internals (92 pair up), ~29 doubtful candidates (docs/notes/orig_names.md), build/difftest harnesses still use old
+  names.

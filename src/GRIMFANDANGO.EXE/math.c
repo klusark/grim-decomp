@@ -102,16 +102,17 @@ float __cdecl Math_NormalizeAngle180(float param_1)
 #endif
 
 
-/* ---- 0x0047bd20  Math_SinCosTable ---- */
+/* ---- 0x0047bd20  stdMath_SinCos ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_30 */
 /* Math_SinCosTable(deg, &sin, &cos): 4096-entry quarter table, interpolated, per quadrant. Some
    quadrant indexes are one entry (90/4096 = 0.022 deg) off: a walker heading turned by a small
    negative angle turns 0.022 deg less (TurnActorTo right: 1.4229 instead of 1.445 at rate 85, 17
-   ms). */
+   ms). Original name stdMath_SinCos (the remaster's GrimFandango (Linux): the only unmatched callee
+   of rdLight_SetAngles; 2 matched neighbours agree, 0 disagree); was Math_SinCosTable. */
 
-void Math_SinCosTable(float param_1,float *param_2,float *param_3)
+void stdMath_SinCos(float param_1,float *param_2,float *param_3)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -425,12 +426,15 @@ float __cdecl Math_Sqrt(float param_1)
 #endif
 
 
-/* ---- 0x0047c4a0  Math_AsinDegreesSeries ---- */
+/* ---- 0x0047c4a0  stdMath_ArcSin3 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
+/* Original name stdMath_ArcSin3 (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_GetAngleBetweenActors; the only unmatched callee of Lua_GetAngleBetweenVectors; 5 matched
+   neighbours agree, 0 disagree); was Math_AsinDegreesSeries. */
 
-float __cdecl Math_AsinDegreesSeries(float param_1)
+float __cdecl stdMath_ArcSin3(float param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -13,7 +13,7 @@ void * __cdecl Light_Get(void *set,int index)
 
 {
   if (set == (void *)0x0) {
-    set = Set_GetCurrent();
+    set = sputRoom_GetCurrentRoom();
   }
   if ((-1 < index) && (index < *(int *)((int)set + 0xb8))) {
     return (void *)((int)set + index * 0x68 + 0xbc);
@@ -21,10 +21,12 @@ void * __cdecl Light_Get(void *set,int index)
   return (void *)0x0;
 }
 
-/* ---- 0x004a5cf0  Light_FindByName ---- */
-/* Returns the light index in the current set or -1 */
+/* ---- 0x004a5cf0  sputRoom_FindLightByName ---- */
+/* Returns the light index in the current set or -1 Original name sputRoom_FindLightByName (the
+   remaster's GrimFandango (Linux): the only unmatched callee of Lua_FindLight; 14 matched
+   neighbours agree, 1 disagree); was Light_FindByName. */
 
-int __cdecl Light_FindByName(void *set,char *name)
+int __cdecl sputRoom_FindLightByName(void *set,char *name)
 
 {
   int iVar1;
@@ -32,7 +34,7 @@ int __cdecl Light_FindByName(void *set,char *name)
   int iVar3;
   
   if (set == (void *)0x0) {
-    set = Set_GetCurrent();
+    set = sputRoom_GetCurrentRoom();
   }
   iVar2 = 0;
   if (0 < *(int *)((int)set + 0xb8)) {
