@@ -1,6 +1,6 @@
 import gdb, threading, time, os
 DUR=float(os.environ.get('DUR','10'))
-funcs=os.environ.get('FUNCS','Engine_RenderFrame,Display_Flip').split(',')
+funcs=os.environ.get('FUNCS','Engine_RenderFrame,stdDisplay_Update').split(',')
 cnt={}
 class B(gdb.Breakpoint):
     def __init__(s,f):
