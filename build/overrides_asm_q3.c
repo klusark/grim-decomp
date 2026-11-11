@@ -164,15 +164,15 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet, int track, float dt)
  *  2. for each joint, every track that plays (flag 0x2) an animation node for it (joint+0x44 < node count, node keys
  *     non-zero) gives a position and rotation: the key's value, plus velocity * (time - key time) when key flag 1 / 2
  *     (dt extended, 0.0 when anim flag 0x100); minus the joint's rest position / rotation (joint+0x70 / +0x7c), the
- *     rotations through Math_NormalizeAngle180, scaled by the track weight when the weight is < 1 (or NaN).
+ *     rotations through stdMath_NormalizeAngleAcute, scaled by the track weight when the weight is < 1 (or NaN).
  *     The two highest priorities are blended: equal priority adds (position, rotation, weight), a higher priority
  *     moves the best one to the second; a track below the best is only taken while the best weight is < 1 (or NaN).
  *     Then: best weight < 1 (or NaN) and second weight > 0: second scaled by 1/weight when its weight > 1, and best +=
  *     second * (1 - best weight) (product and 1-w extended); otherwise the best is scaled by 1/weight when > 1.
- *     Rotations through Math_NormalizeAngle180, rest position / rotation added back, rdMatrix_Build34, then
+ *     Rotations through stdMath_NormalizeAngleAcute, rest position / rotation added back, rdMatrix_Build34, then
  *     Matrix_BuildTransform with the joint's scale (thing+0x24, 12 bytes per node) when one component is ordered
  *     non-zero.
- * Then rdThing_BuildNodeMatrix(thing, joints, frame) and thing+0x1c = g_dwRdroid_frameTrue.
+ * Then rdThing_AccumulateMatrices(thing, joints, frame) and thing+0x1c = g_dwRdroid_frameTrue.
  * x87: the rotation y / z of a key with velocity stay extended until the rest rotation is subtracted (the position and
  * the rotation x are stored as floats first), every other step is stored as a float as in the original. */
 /* OVERRIDES: rdPuppet_UpdateFrame */
@@ -307,9 +307,9 @@ void __cdecl rdPuppet_UpdateFrame(void *model, float *frame)
                 ra = q3_f((long double)r[0] - (long double)Q3F(j, 0x38));
                 r[1] = q3_f(ry - (long double)Q3F(j, 0x3c));
                 r[2] = q3_f(rz - (long double)Q3F(j, 0x40));
-                r[0] = q3_f(Math_NormalizeAngle180(ra));
-                r[1] = q3_f(Math_NormalizeAngle180(r[1]));
-                r[2] = q3_f(Math_NormalizeAngle180(r[2]));
+                r[0] = q3_f(stdMath_NormalizeAngleAcute(ra));
+                r[1] = q3_f(stdMath_NormalizeAngleAcute(r[1]));
+                r[2] = q3_f(stdMath_NormalizeAngleAcute(r[2]));
                 if (!((long double)Q3F(rec, 0x18) >= 1.0L)) {
                     for (c = 0; c < 3; c++)
                         p[c] = q3_f((long double)Q3F(rec, 0x18) * (long double)p[c]);
@@ -370,9 +370,9 @@ void __cdecl rdPuppet_UpdateFrame(void *model, float *frame)
                     R0[c] = q3_f((long double)R0[c] * inv);
                 }
             }
-            R0[0] = q3_f(Math_NormalizeAngle180(R0[0]));
-            R0[1] = q3_f(Math_NormalizeAngle180(R0[1]));
-            nz = q3_f(Math_NormalizeAngle180(R0[2]));
+            R0[0] = q3_f(stdMath_NormalizeAngleAcute(R0[0]));
+            R0[1] = q3_f(stdMath_NormalizeAngleAcute(R0[1]));
+            nz = q3_f(stdMath_NormalizeAngleAcute(R0[2]));
             for (c = 0; c < 3; c++)
                 P0[c] = q3_f((long double)Q3F(j, 0x2c + c * 4) + (long double)P0[c]);
             R0[0] = q3_f((long double)Q3F(j, 0x38) + (long double)R0[0]);
@@ -391,7 +391,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model, float *frame)
     }
 
 done:
-    rdThing_BuildNodeMatrix((int)thing, (int)Q3P(mdl, 0x58), frame);
+    rdThing_AccumulateMatrices((int)thing, (int)Q3P(mdl, 0x58), frame);
     Q3U(thing, 0x1c) = g_dwRdroid_frameTrue;
 }
 

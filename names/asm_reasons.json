@@ -7,7 +7,7 @@
  "004939f0": "C version crashes at start-up (Collision_UpdateMovedActors); needs a hand port, float structs behind int pointers",
  "00489fe0": "C version crashes when ChangePrimitive runs (colour packing through PIECE(); found with build/difftest/t7.lua)",
  "0048a4b0": "C version crashes (primitive constructor, __thiscall with SEH frame)",
- "0048a670": "SEH frame (fs:[0]) and extraout_EAX results of Primitive_Construct",
+ "0048a670": "SEH frame (fs:[0]) and extraout_EAX results of PrimitiveObject_Construct",
  "00490730": "SEH frame (fs:[0]) and registers across the walker constructor call",
  "00490320": "sputActor_SetSelectedActor: register value (ECX) crosses the call to sputActor_GetActorHandle",
  "00490210": "lip-sync timer: float -> int through _ftol of a product the decompiler lost (dt * 1000 added to the talk timer)",

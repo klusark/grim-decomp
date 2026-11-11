@@ -1,8 +1,8 @@
 /* Differential test of Walker_AvoidActorPath (build/overrides_big_walker_avoid.c) against the original machine code
  * (orig_Walker_AvoidActorPath, sliced from src/GRIMFANDANGO.EXE/asm_funcs.s).
  *
- * Every callee (sputActor_GetOrientMatrix, rdMatrix_TransformVector34, Vec3_Sub, Collision_PushOutOfBox, SectorList_FindByPoint,
- * Collision_SegmentHitsBox, SectorList_FindNearestPoint, WalkPlane_SnapTo, Collision_BoxCorners, Planner_PlanPath,
+ * Every callee (sputActor_GetOrientMatrix, rdMatrix_TransformVector34, Vec3_Sub, GetOuttaTheBox, WalkPlane_PlaneAt,
+ * TestCollision, WalkPlane_PlaneClosest, WalkPlane_SnapTo, FindObjectCorners, BuildPath,
  * Collision_PickDetour, GetPath, Collision_PointInBox) is a recorder defined here.  Each call logs:
  *   - every argument: pointers into the test's own buffers absolutely, pointers into (or computed from) the caller's
  *     frame relative to the frame base, plus the dwords they point to (3, 6 or 16);
@@ -141,7 +141,7 @@ void Vec3_Sub(float *out, float *a, float *b)
     rand_pt(out);
     ev_end(e, 0);
 }
-void Collision_PushOutOfBox(uint32_t pt, uint32_t b0, uint32_t b1, uint32_t b2, uint32_t b3, uint32_t b4, uint32_t b5,
+void GetOuttaTheBox(uint32_t pt, uint32_t b0, uint32_t b1, uint32_t b2, uint32_t b3, uint32_t b4, uint32_t b5,
                             uint32_t frame, uint32_t pos)
 {
     uint32_t ar[9] = {pt, b0, b1, b2, b3, b4, b5, frame, pos}; static const int k[9] = {3, 0, 0, 0, 0, 0, 0, 12, 3};
@@ -149,20 +149,20 @@ void Collision_PushOutOfBox(uint32_t pt, uint32_t b0, uint32_t b1, uint32_t b2, 
     if (R() % 100 < pct_push && in_regions(pt, 12)) rand_pt((float *)(uintptr_t)pt);
     ev_end(e, 0);
 }
-void *SectorList_FindByPoint(uint32_t p, uint32_t f)
+void *WalkPlane_PlaneAt(uint32_t p, uint32_t f)
 {
     uint32_t ar[2] = {p, f}; static const int k[2] = {3, 0};
     Ev *e = ev_begin(5, 2, ar, k);
     return (void *)(uintptr_t)ev_end(e, R() % 100 < pct_found ? (int)(uintptr_t)sector_dummy : 0);
 }
-int Collision_SegmentHitsBox(uint32_t a, uint32_t b, uint32_t c, uint32_t b0, uint32_t b1, uint32_t b2, uint32_t b3,
+int TestCollision(uint32_t a, uint32_t b, uint32_t c, uint32_t b0, uint32_t b1, uint32_t b2, uint32_t b3,
                              uint32_t b4, uint32_t b5, uint32_t frame)
 {
     uint32_t ar[10] = {a, b, c, b0, b1, b2, b3, b4, b5, frame}; static const int k[10] = {3, 3, 3, 0, 0, 0, 0, 0, 0, 12};
     Ev *e = ev_begin(6, 10, ar, k);
     return ev_end(e, budget_over ? 1 : (R() % 100 < pct_hit ? (int)(R() % 3) + 1 : 0));
 }
-void *SectorList_FindNearestPoint(uint32_t p, uint32_t f)
+void *WalkPlane_PlaneClosest(uint32_t p, uint32_t f)
 {
     uint32_t ar[2] = {p, f}; static const int k[2] = {3, 0};
     Ev *e = ev_begin(7, 2, ar, k);
@@ -175,7 +175,7 @@ void __attribute__((thiscall)) WalkPlane_SnapTo(void *self, float *pos)
     if (R() % 2) pos[1] = rfl();
     ev_end(e, 0);
 }
-void Collision_BoxCorners(uint32_t cos, uint32_t r, uint32_t frame, uint32_t z, uint32_t corners)
+void FindObjectCorners(uint32_t cos, uint32_t r, uint32_t frame, uint32_t z, uint32_t corners)
 {
     uint32_t ar[5] = {cos, r, frame, z, corners}; static const int k[5] = {0, 0, 12, 0, 3};
     Ev *e = ev_begin(9, 5, ar, k);
@@ -195,7 +195,7 @@ void Collision_BoxCorners(uint32_t cos, uint32_t r, uint32_t frame, uint32_t z, 
             }
     ev_end(e, 0);
 }
-int Planner_PlanPath(uint32_t a, uint32_t b, uint32_t f)
+int BuildPath(uint32_t a, uint32_t b, uint32_t f)
 {
     uint32_t ar[3] = {a, b, f}; static const int k[3] = {3, -3, 0};
     Ev *e = ev_begin(10, 3, ar, k);

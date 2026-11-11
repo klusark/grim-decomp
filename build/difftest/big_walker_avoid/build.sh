@@ -33,7 +33,7 @@ done
 test -f $W/wav_test.exe || { head -20 $W/link.log; exit 1; }
 if grep -E '^_(g_|DAT_|UINT_|PTR_|s_|_DAT|_g_)' $W/stubs.s | grep -v '\.globl'; then echo "data symbols were stubbed (stale data_s.o?)"; rm -f $W/wav_test.exe; exit 1; fi
 # the recorders must be the ones the two versions call
-for s in sputActor_GetOrientMatrix rdMatrix_TransformVector34 Vec3_Sub Collision_PushOutOfBox SectorList_FindByPoint Collision_SegmentHitsBox SectorList_FindNearestPoint WalkPlane_SnapTo Collision_BoxCorners Planner_PlanPath Collision_PickDetour GetPath Collision_PointInBox; do
+for s in sputActor_GetOrientMatrix rdMatrix_TransformVector34 Vec3_Sub GetOuttaTheBox WalkPlane_PlaneAt TestCollision WalkPlane_PlaneClosest WalkPlane_SnapTo FindObjectCorners BuildPath Collision_PickDetour GetPath Collision_PointInBox; do
   grep -q "^_$s:" $W/stubs.s && { echo "recorder $s not linked"; rm -f $W/wav_test.exe; exit 1; }
 done
 true

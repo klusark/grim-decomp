@@ -260,12 +260,12 @@ static void run_tests(void)
             int axis = (int)(rnd() % 4), mn = (int)(rnd() % 20001) - 10000, mx = mn + (int)(rnd() % 40000);
             float dz = (n & 3) == 0 ? 0.0f : rndf(0.0f, 1.0f);
             byte ra[24], rb[24];
-            memset((char *)&UINT_00901500 + axis * 0x18, 0, 24);
+            memset((char *)&g_dwStdControl_aAxes + axis * 0x18, 0, 24);
             Input_SetAxisRange__orig(axis, mn, mx, dz);
-            memcpy(ra, (char *)&UINT_00901500 + axis * 0x18, 24);
-            memset((char *)&UINT_00901500 + axis * 0x18, 0, 24);
+            memcpy(ra, (char *)&g_dwStdControl_aAxes + axis * 0x18, 24);
+            memset((char *)&g_dwStdControl_aAxes + axis * 0x18, 0, 24);
             Input_SetAxisRange(axis, mn, mx, dz);
-            memcpy(rb, (char *)&UINT_00901500 + axis * 0x18, 24);
+            memcpy(rb, (char *)&g_dwStdControl_aAxes + axis * 0x18, 24);
             if (memcmp(ra, rb, 24) != 0) {
                 bad++;
                 if (!first[0])

@@ -21,7 +21,7 @@ void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int col
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  iVar2 = rdClip_Line2D(canvas,&x1,&y1,&x2,&y2);
+  iVar2 = rdClip_Line2(canvas,&x1,&y1,&x2,&y2);
   if (iVar2 != 0) {
     iVar2 = *(int *)((int)canvas + 4);
     local_10 = 0x80000000;
@@ -112,8 +112,12 @@ void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int col
 #undef local_c
 
 
-/* ---- 0x00451f20  rdPrimit2_DrawRect ---- */
-void __cdecl rdPrimit2_DrawRect(void *canvas,int x1,int y1,int x2,int y2,int color,int mask)
+/* ---- 0x00451f20  rdPrimit2_DrawRectangle ---- */
+/* Original name rdPrimit2_DrawRectangle (the remaster's GrimFandango (Linux): same parameters
+   (canvas, x1, y1, x2, y2, colour, mask) and body (the four edges as lines)); was
+   rdPrimit2_DrawRect. */
+
+void __cdecl rdPrimit2_DrawRectangle(void *canvas,int x1,int y1,int x2,int y2,int color,int mask)
 
 {
   rdPrimit2_DrawLine(canvas,x1,y1,x2,y1,color,mask);

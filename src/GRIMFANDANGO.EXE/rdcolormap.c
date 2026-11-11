@@ -86,7 +86,7 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
   iVar9 = strncmp(auStack_40,&DAT_004ddb10,4);
   if (iVar9 != 0) {
     (*g_pRdroid_HS->pFclose)(iVar7);
-    rdColormap_BuildGreyRamp(cmp);
+    rdColormap_BuildGrayRamp(cmp);
     return 1;
   }
   puVar1 = (ushort *)((int)cmp + 0x30);
@@ -146,7 +146,7 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
     if (uVar11 == 0) {
 LAB_00404659:
       (*g_pRdroid_HS->pFclose)(iVar7);
-      rdColormap_BuildGreyRamp(cmp);
+      rdColormap_BuildGrayRamp(cmp);
       return 1;
     }
     *(uint *)((int)cmp + 0x338) = uVar11;
@@ -314,10 +314,12 @@ rdColormap_BuildRGB16
 #endif
 
 
-/* ---- 0x00404a40  rdColormap_BuildGreyRamp ---- */
-/* Fills the colormap with the synthetic GREYRAMP.CMP palette and 64 light levels */
+/* ---- 0x00404a40  rdColormap_BuildGrayRamp ---- */
+/* Fills the colormap with the synthetic GREYRAMP.CMP palette and 64 light levels Original name
+   rdColormap_BuildGrayRamp (the remaster's GrimFandango (Linux): same body (name "GREYRAMP.CMP",
+   the tint 1.0 / 1.0 / 1.0, the ramp)); was rdColormap_BuildGreyRamp. */
 
-undefined4 rdColormap_BuildGreyRamp(undefined4 *param_1)
+undefined4 rdColormap_BuildGrayRamp(undefined4 *param_1)
 
 {
   int iVar1;

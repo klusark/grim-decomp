@@ -95,10 +95,12 @@ void Reg_CacheValueNames(void)
 #undef local_c
 
 
-/* ---- 0x00403b20  Reg_Close ---- */
+/* ---- 0x00403b20  wuRegistry_Shutdown ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name wuRegistry_Shutdown (the remaster's GrimFandango (Linux): the registry shutdown
+   after the cursor in Main_Shutdown in both builds (the remaster's is empty)); was Reg_Close. */
 
-void Reg_Close(void)
+void wuRegistry_Shutdown(void)
 
 {
   Reg_FreeValueNames();

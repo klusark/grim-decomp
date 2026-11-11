@@ -26,7 +26,7 @@ void __cdecl grimdemo_EnableDebugging(int enable)
         return;
       }
       if (UINT_004f5a1c != 0) {
-        Engine_OpenResourceLog(s_resource_log_004dd414);
+        grimlib_LogResources(s_resource_log_004dd414);
       }
       UINT_004f5a08 = DebugLog_Load();
       _DAT_008ddda8 = grimdemo_MessagePrint;

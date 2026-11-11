@@ -119,7 +119,7 @@ int __cdecl dsn_initialize(int rate,int unused,void *mix)
   if (iVar1 != 0) {
     return -1;
   }
-  iVar1 = Mixer_Init((int *)g_dwDsndDriver_memory_services,4,0x400);
+  iVar1 = sou_mixer_initialize((int *)g_dwDsndDriver_memory_services,4,0x400);
   if (iVar1 != 0) {
     return -1;
   }
@@ -127,7 +127,7 @@ int __cdecl dsn_initialize(int rate,int unused,void *mix)
   g_dwStreamRate = rate;
   g_nStreamTimerId =
        (*(code *)*g_pDsndDriver_timer_services)
-                 (DSound_FillStreamBuffer,
+                 (dsn_fill_thread,
                   (int)(0x1234dc / (longlong)((int)(rate + (rate >> 0x1f & 0x3ffU)) >> 10)),2,0);
   return 0;
 }

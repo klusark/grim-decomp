@@ -1,6 +1,6 @@
 [
  {"addr": "0048c470", "name": "sputText_AddToQueue", "proto": "void sputText_AddToQueue(void * obj, int durationMs, int flags)", "comment": "Links a new text object into g_pTextQueue with its lifetime (ms, -1 = until killed) and flags (1 keep, 2 hidden, 4 speech, 8 always draw)", "tags": "text"},
- {"addr": "0048cba0", "name": "TextObject_FindBySelf", "tags": "text"},
+ {"addr": "0048cba0", "name": "sputText_FindSerialNumber", "tags": "text"},
  {"addr": "008ca154", "global": "g_pTextEventPool", "type": "Pool *", "comment": "Pool of 0x260-byte text object records"},
  {"addr": "008ca140", "global": "g_nTranslationType", "type": "int", "comment": "Lua SetTranslationMode: 0 translate ids, 1 show the id, 2 show the raw line"},
  {"addr": "008c97c0", "global": "g_abSputRender_colorMap", "type": "ushort", "comment": "16-bit foreground, background and shadow colours of the text object being drawn", "array_length": 3},

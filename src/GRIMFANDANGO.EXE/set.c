@@ -46,7 +46,7 @@ void __cdecl grimlib_MakeCurrentSet(char *name)
     pvVar1 = sputRoom_GetCurrentRoom();
     if (set != pvVar1) {
       sputRoom_SetCurrentRoom(set,(int)name);
-      Set_ActivateSectors(set);
+      WalkPlane_SetCollection(set);
       sputRender_SyncCamera(set,*(int *)((int)set + 0xb4));
     }
   }
@@ -191,8 +191,8 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx)
     }
     for (pvVar2 = *(void **)(iVar1 + 0x128); pvVar2 != (void *)0x0;
         pvVar2 = *(void **)((int)pvVar2 + 0xf8)) {
-      ObjectState_LoadImages((int)pvVar2);
-      ObjectState_CaptureBackground(pvVar2,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
+      ObjectState_LoadResources((int)pvVar2);
+      ObjectState_Reset(pvVar2,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
     }
     local_10 = *(uint *)((int)g_pSputRender_Canvas + 0x18);
     local_c = *(uint *)((int)g_pSputRender_Canvas + 0x1c);
@@ -647,7 +647,7 @@ int __cdecl sputRoom_Restore(void *readFn)
   sputRoom_SetCurrentRoom(pvVar4,(int)pvVar4);
   if (pvVar4 != (void *)0x0) {
     grimlib_MakeCurrentSetup(*(undefined4 *)((int)pvVar4 + 0xb4));
-    Set_ActivateSectors(pvVar4);
+    WalkPlane_SetCollection(pvVar4);
     (*(code *)readFn)((int)pvVar4 + 0x1af8,1);
     (*(code *)readFn)((int)pvVar4 + 0x1af9,1);
     (*(code *)readFn)((int)pvVar4 + 0x1afc,4);
@@ -660,7 +660,7 @@ int __cdecl sputRoom_Restore(void *readFn)
         (*(code *)readFn)(&uStack_74,4);
         *(uint *)((int)pvVar4 + 0x28) = uStack_74;
         (*(code *)readFn)(&uStack_74,4);
-        Sector_SetSavedType(pvVar4,uStack_74);
+        WalkPlane_SetType(pvVar4,uStack_74);
         (*(code *)readFn)(&uStack_74,4);
         *(uint *)((int)pvVar4 + 0x2c) = uStack_74;
         (*(code *)readFn)(&fStack_64,4);
@@ -804,7 +804,7 @@ void __cdecl sputRoom_UnReference(void *set)
         while (iVar2 != 0) {
           p = *(void **)(iVar4 + 0x128 + iVar1);
           *(undefined4 *)(iVar4 + 0x128 + iVar1) = *(undefined4 *)((int)p + 0xf8);
-          ObjectState_UnloadBitmaps((int)p);
+          ObjectState_UnLoadResources((int)p);
           if (p != (void *)0x0) {
             ObjectState_Destruct((int)p);
             Plat_Free(p);
@@ -850,7 +850,7 @@ void sputRoom_FreeRoomEntry(char *param_1)
     (*g_pSputRoomHS->pFree)(*(int *)(param_1 + 0x80));
   }
   Set_FreeSetups(param_1);
-  Set_FreeSectors(param_1);
+  WalkPlane_KillCollection(param_1);
   iVar1 = *(int *)(param_1 + 0x1abc);
   if (iVar1 != 0) {
     piVar2 = *(int **)(iVar1 + 0x80);
@@ -1024,7 +1024,7 @@ LAB_004a51bd:
                     (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
         }
       }
-      stdBitmap_ConvertToDisplay((void *)ref[1]);
+      stdBitmap_MemUsage((void *)ref[1]);
       if ((char)ref[-8] != '\0') {
         piVar9 = ref + 0xd;
         if ((ref[0xd] == 0) &&
@@ -1136,10 +1136,13 @@ int Set_IsHandleValid(char *param_1)
   return iVar1 != 0;
 }
 
-/* ---- 0x004a60a0  Set_GetActorListByName ---- */
-/* Returns the {actorIndex, ?, next} list of actors placed in the named set */
+/* ---- 0x004a60a0  GetRoomActors ---- */
+/* Returns the {actorIndex, ?, next} list of actors placed in the named set Original name
+   GetRoomActors (the remaster's GrimFandango (Linux): same role and slot (the actor list of the
+   named set, or 0); called by sputLua_GetVisibleThingsL in both builds; the remaster inlined
+   Set_FindNameInList); was Set_GetActorListByName. */
 
-void * __cdecl Set_GetActorListByName(char *setName)
+void * __cdecl GetRoomActors(char *setName)
 
 {
   int iVar1;
@@ -1223,25 +1226,27 @@ void * __cdecl Set_NormalizeName(char *setName)
   return pcVar2;
 }
 
-/* ---- 0x004a7100  Set_FreeSectors ---- */
+/* ---- 0x004a7100  WalkPlane_KillCollection ---- */
 /* Deactivates the set's sectors and frees every sector in g_pWalkPlane_wp_head (Sector_Unlink +
-   Plat_Free), then restores the previous list head. */
+   Plat_Free), then restores the previous list head. Original name WalkPlane_KillCollection (the
+   remaster's GrimFandango (Linux): same body (select the named collection like SetCollection,
+   unlink and free all its planes, restore the previous wp_head)); was Set_FreeSectors. */
 
-void Set_FreeSectors(void *param_1)
+void WalkPlane_KillCollection(void *param_1)
 
 {
   void *p;
   void *pvVar1;
   
   pvVar1 = g_pWalkPlane_wp_head;
-  Set_ActivateSectors(param_1);
+  WalkPlane_SetCollection(param_1);
   p = g_pWalkPlane_wp_head;
   if (pvVar1 == g_pWalkPlane_wp_head) {
     pvVar1 = (void *)0x0;
   }
   while (p != (void *)0x0) {
     g_pWalkPlane_wp_head = p;
-    Sector_Unlink(p);
+    WalkPlane_Destruct(p);
     Plat_Free(p);
     p = g_pWalkPlane_wp_head;
   }
@@ -1249,12 +1254,14 @@ void Set_FreeSectors(void *param_1)
   return;
 }
 
-/* ---- 0x004a7150  Set_ActivateSectors ---- */
+/* ---- 0x004a7150  WalkPlane_SetCollection ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Points g_pWalkPlane_wp_head at the sector list cached for the named set (table of 0x28-byte
-   {list, name} entries) */
+   {list, name} entries) Original name WalkPlane_SetCollection (the remaster's GrimFandango (Linux):
+   same body (find the collection name among 0x8c slots of 0x28 bytes, wp_head = its list)); was
+   Set_ActivateSectors. */
 
-void __cdecl Set_ActivateSectors(void *set)
+void __cdecl WalkPlane_SetCollection(void *set)
 
 {
   byte bVar1;
@@ -1300,7 +1307,7 @@ LAB_004a719c:
         _DAT_008cf284 = (undefined1 *)0x0;
         return;
       }
-      g_pWalkPlane_wp_head = (void *)(&UINT_008cf288)[iVar3 * 10];
+      g_pWalkPlane_wp_head = (void *)(&g_dwWalkPlane_Collection)[iVar3 * 10];
       _DAT_008cf284 = &DAT_008cf28c + iVar3 * 0x28;
       return;
     }

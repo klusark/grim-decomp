@@ -1183,3 +1183,25 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   the two logs 1 (ims_cache|keep_after "1" for main, "0" here). Run alone (`--only ims_cache`, three times each) both
   builds give "0": a timing-dependent new test, not the names. The others are the other session's new tests and
   sound_fade timing noise, the same for both builds.
+
+## Original names, round 6 (2026-11-11, agent orig-6, lead)
+
+* Hand-made names replaced where the remaster has a symbol: EXE 593 -> 402 hand-made (194 renames: 191 hand-made, 2
+  FUN_, and a correction: 0x473630 `stdBitmap_Load` is stdLoadImage, the remaster's stdBitmap_Load is 0x47aa50). From
+  a call-sequence alignment and the remaster's C++ classes (methods in the same file order as v1.01): WalkPlane_* x23,
+  Puck_* x9, the path planner (BuildPath, Planner_FindPath, FindExitPoints, TightenPath), PrimitiveQueue_* x21,
+  ObjectState* x15, the Main_Shutdown chain, stdFile* x11, stdGif / stdBitmap / stdPlatform / stdMath, the rdroid
+  setters; in the LEC library the mixer (sou_mixer_*, dsn_fill_thread), the video converters (gra_*), blocky16 and the
+  timer. EXE globals 764 -> 775 (+10 hand-made g_ names replaced). IMUSE.DLL: iRes_FTELL / iRes_FSEEK, iMUSE_Malloc /
+  iMUSE_Free, mlEntries / mlEntryCount / mlListSize (settles the contested one). LUA.DLL: lgc.c's markall, globalmark,
+  travlock, strmark. Batches names/orig6_*.json, notes docs/notes/orig_6.md.
+* `Video_CopyRectDstFirst` stays (it is gra_CopyRect): with the shorter name the generated call lost its `(code *)`
+  cast and .text changed.
+* Left: 402 EXE hand-made names (131 platform layer, 176 helpers the remaster inlined, 61 LEC helpers, 24 light editor,
+  10 import thunks); IMUSE.DLL 29 hand-made, 14 generated, 23 FUN_; LUA.DLL 65 hand-made, 56 of them Lua-3.1-style
+  names that the Lua 3.1 sources could still check.
+* The agent's commit carried 18 build outputs of build/mixdiff/out (executables, objects); the lead dropped them from
+  the commit and ignores the folder. Code and data of the four binaries are byte-identical to main's (rdata: the build
+  time).
+* Clean-room (5322 tests, the other session's uncommitted expected/ files): 6 differ for this build and 6 for main's
+  (run right after); compare of the two logs: 0 of 5324 differ.

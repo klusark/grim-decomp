@@ -18,7 +18,7 @@
  * windows. */
 
 #ifdef GRIM_EXE
-/* WRAPS: Reg_Open Reg_Close Reg_HasValue Reg_GetInt wuRegistry_GetFloat Reg_GetBinary wuRegistry_GetStr wuRegistry_QueryType */
+/* WRAPS: Reg_Open wuRegistry_Shutdown Reg_HasValue Reg_GetInt wuRegistry_GetFloat Reg_GetBinary wuRegistry_GetStr wuRegistry_QueryType */
 /* WRAPS: Reg_SetInt wuRegistry_SaveFloat Reg_SetBinary wuRegistry_SaveStr Lua_Print_NoOp */
 
 /* the host C runtime (msvcrt); no system headers: compat.h and the decompiled code define their own names */
@@ -50,7 +50,7 @@ extern char *lua_getstring(int);
 
 /* the decompiled functions (the originals of the wrappers below) */
 extern void __real_Reg_Open(void *root, unsigned subkey, char *version);
-extern void __real_Reg_Close(void);
+extern void __real_wuRegistry_Shutdown(void);
 extern int __real_Reg_HasValue(char *name);
 extern int __real_Reg_GetInt(char *name, int def);
 extern float __real_wuRegistry_GetFloat(char *name, float def);
@@ -238,10 +238,10 @@ void __wrap_Reg_Open(void *root, unsigned subkey, char *version)
     ini_opened = 1;
 }
 
-void __wrap_Reg_Close(void)
+void __wrap_wuRegistry_Shutdown(void)
 {
     if (!ini_on()) {
-        __real_Reg_Close();
+        __real_wuRegistry_Shutdown();
         return;
     }
     ini_opened = 0;

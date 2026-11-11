@@ -1,5 +1,5 @@
 /* Readable C for assembled GRIMFANDANGO.EXE functions, assembly-to-C round "q" (agent q1; see docs/notes/asm_q1.md):
- * rdClip_Line2D and five of the rdClip_Face3_* frustum clippers (Pos, PosB, Pos_2, PosB_2, PosUv).
+ * rdClip_Line2 and five of the rdClip_Face3_* frustum clippers (Pos, PosB, Pos_2, PosB_2, PosUv).
  *
  * Every function here was written by hand from the original 1.01 machine code (src/GRIMFANDANGO.EXE/asm_funcs.s as of
  * 2df265d) and checked against it with a differential test in build/difftest/asm_q1/ (original bytes and this C on the
@@ -15,7 +15,7 @@
  *   - A float that the original copies with MOV (no FLD/FSTP) is copied as a dword (Q1_U32), so a signalling NaN keeps
  *     its bits; a float that goes through FLD/FSTP is stored with q1_st_f (a signalling NaN becomes quiet).
  *
- * Not reproduced (no effect on callers): the originals use their own parameter slots as scratch (rdClip_Line2D keeps x0
+ * Not reproduced (no effect on callers): the originals use their own parameter slots as scratch (rdClip_Line2 keeps x0
  * in the canvas slot, the Face3 clippers keep plane bounds / loop counters / DY in the frustum, count or position
  * slots).  The C uses locals. */
 #include "ghidra_types.h"
@@ -48,9 +48,9 @@ static inline int q1_ftol(long double x)
     return (int)(long long)x;
 }
 
-/* ==== rdClip_Line2D (0x00446c10) ====
+/* ==== rdClip_Line2 (0x00446c10) ====
  * Cohen-Sutherland clip of the integer line (*x0, *y0) - (*x1, *y1) against the canvas rectangle (canvas+0x18 left,
- * +0x1c top, +0x20 right, +0x24 bottom, ints; outcodes from rdClip_Outcode2D: 1 left, 0x10 right, 0x1000 top,
+ * +0x1c top, +0x20 right, +0x24 bottom, ints; outcodes from rdClip_CalcOutcode2: 1 left, 0x10 right, 0x1000 top,
  * 0x100 bottom).  Returns 1 with the clipped end points written back (each truncated from its float), 0 when the line is
  * outside.  Both end points inside: returns 1 without writing anything.
  * x87 details kept:
@@ -62,8 +62,8 @@ static inline int q1_ftol(long double x)
  *     line), the new x the integer edge.  The outcode of the new point is taken from _ftol of these unrounded values,
  *     while the stored end point is their float.
  *   - the final write-back truncates the floats with _ftol (64-bit conversion, low dword). */
-/* OVERRIDES: rdClip_Line2D */
-undefined4 rdClip_Line2D(undefined4 param_1, undefined4 *param_2, undefined4 *param_3, undefined4 *param_4,
+/* OVERRIDES: rdClip_Line2 */
+undefined4 rdClip_Line2(undefined4 param_1, undefined4 *param_2, undefined4 *param_3, undefined4 *param_4,
                          undefined4 *param_5)
 {
     int canvas = (int)param_1;
@@ -71,8 +71,8 @@ undefined4 rdClip_Line2D(undefined4 param_1, undefined4 *param_2, undefined4 *pa
     float x0, y0, x1, y1, tmp;
     int vert, horz, ix0;
 
-    o0 = rdClip_Outcode2D(canvas, *param_2, *param_3);
-    o1 = rdClip_Outcode2D(canvas, *param_4, *param_5);
+    o0 = rdClip_CalcOutcode2(canvas, *param_2, *param_3);
+    o1 = rdClip_CalcOutcode2(canvas, *param_4, *param_5);
     if (o0 == 0 && o1 == 0)
         return 1;
     if ((o0 & o1) != 0)
@@ -106,11 +106,11 @@ undefined4 rdClip_Line2D(undefined4 param_1, undefined4 *param_2, undefined4 *pa
         if (o == o0) {
             x0 = q1_st_f(nx);
             y0 = q1_st_f(ny);
-            o0 = rdClip_Outcode2D(canvas, q1_ftol(nx), q1_ftol(ny));
+            o0 = rdClip_CalcOutcode2(canvas, q1_ftol(nx), q1_ftol(ny));
         } else {
             x1 = q1_st_f(nx);
             y1 = q1_st_f(ny);
-            o1 = rdClip_Outcode2D(canvas, q1_ftol(nx), q1_ftol(ny));
+            o1 = rdClip_CalcOutcode2(canvas, q1_ftol(nx), q1_ftol(ny));
         }
         if (o0 == 0 && o1 == 0)
             break;

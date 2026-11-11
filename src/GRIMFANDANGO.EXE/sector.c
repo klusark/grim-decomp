@@ -33,7 +33,7 @@ void __cdecl Sector_DrawAllDebug(void)
     if ((uVar1 & 0x4000) != 0) {
       color = (uint)PIECE(UINT_008c97cc,2,2);
     }
-    uVar2 = UINT_008d086c;
+    uVar2 = g_dwPuck_p_head;
     if ((uVar1 & 0x8000) != 0) {
       color = (uint)PIECE(UINT_008c97c8,2,2);
     }
@@ -43,7 +43,7 @@ void __cdecl Sector_DrawAllDebug(void)
         break;
       }
     }
-    Sector_DrawOutline(this,color);
+    WalkPlane_Draw(this,color);
     this = *(void **)((int)this + 0x70);
   } while( true );
 }
@@ -271,8 +271,13 @@ undefined4 sputRoom_ParseSectors(void)
   return 1;
 }
 
-/* ---- 0x004a61c0  SectorList_SaveForShrink ---- */
-void SectorList_SaveForShrink(void)
+/* ---- 0x004a61c0  WalkPlane_BuildCache ---- */
+/* Original name WalkPlane_BuildCache (the remaster's GrimFandango (Linux): the same cache of all
+   planes and vertices before the shrink (count planes and vertices of wp_head, allocate and copy);
+   the free at its start is WalkPlane::DestroyCache, inlined in the remaster); was
+   SectorList_SaveForShrink. */
+
+void WalkPlane_BuildCache(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -286,15 +291,15 @@ void SectorList_SaveForShrink(void)
   int iVar8;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  SectorList_FreeShrinkSave();
-  g_nShrinkVertexCount = 0;
-  g_nShrinkSectorCount = 0;
+  WalkPlane_DestroyCache();
+  g_nVertexCacheSize = 0;
+  g_nWalkPlaneCacheSize = 0;
   for (pvVar4 = g_pWalkPlane_wp_head; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)
       ) {
-    g_nShrinkVertexCount = g_nShrinkVertexCount + *(int *)((int)pvVar4 + 0x34);
-    g_nShrinkSectorCount = g_nShrinkSectorCount + 1;
+    g_nVertexCacheSize = g_nVertexCacheSize + *(int *)((int)pvVar4 + 0x34);
+    g_nWalkPlaneCacheSize = g_nWalkPlaneCacheSize + 1;
   }
-  g_pShrinkVertexSave = Plat_Alloc(g_nShrinkVertexCount * 0x14);
+  g_pVertexCache = Plat_Alloc(g_nVertexCacheSize * 0x14);
   local_4 = 0;
   for (pvVar4 = g_pWalkPlane_wp_head; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)
       ) {
@@ -304,12 +309,12 @@ void SectorList_SaveForShrink(void)
       piVar5 = (int *)((int)pvVar4 + 0x38);
       do {
         puVar2 = (undefined4 *)*piVar5;
-        puVar1 = (undefined4 *)((int)g_pShrinkVertexSave + iVar8 + 4);
+        puVar1 = (undefined4 *)((int)g_pVertexCache + iVar8 + 4);
         *puVar1 = *puVar2;
         puVar1[1] = puVar2[1];
         puVar1[2] = puVar2[2];
         puVar1[3] = puVar2[3];
-        *(int *)((int)g_pShrinkVertexSave + iVar8) = *piVar5 - (int)IMG_ADDR(0x008cb0b0) >> 4;
+        *(int *)((int)g_pVertexCache + iVar8) = *piVar5 - (int)IMG_ADDR(0x008cb0b0) >> 4;
         local_4 = local_4 + 1;
         iVar6 = iVar6 + 1;
         iVar8 = iVar8 + 0x14;
@@ -317,23 +322,22 @@ void SectorList_SaveForShrink(void)
       } while (iVar6 < *(int *)((int)pvVar4 + 0x34));
     }
   }
-  g_pShrinkSectorSave = Plat_Alloc(g_nShrinkSectorCount * 0x34);
+  g_pWalkPlaneCache = Plat_Alloc(g_nWalkPlaneCacheSize * 0x34);
   if (g_pWalkPlane_wp_head != (void *)0x0) {
     iVar6 = 0;
     pvVar4 = g_pWalkPlane_wp_head;
     do {
       iVar8 = 0;
-      *(void **)((int)g_pShrinkSectorSave + iVar6) = pvVar4;
-      *(undefined4 *)((int)g_pShrinkSectorSave + iVar6 + 4) = *(undefined4 *)((int)pvVar4 + 0x34);
-      *(undefined4 *)((int)g_pShrinkSectorSave + iVar6 + 0x30) = *(undefined4 *)((int)pvVar4 + 0x28)
-      ;
+      *(void **)((int)g_pWalkPlaneCache + iVar6) = pvVar4;
+      *(undefined4 *)((int)g_pWalkPlaneCache + iVar6 + 4) = *(undefined4 *)((int)pvVar4 + 0x34);
+      *(undefined4 *)((int)g_pWalkPlaneCache + iVar6 + 0x30) = *(undefined4 *)((int)pvVar4 + 0x28);
       if (0 < *(int *)((int)pvVar4 + 0x34)) {
         iVar7 = iVar6 + 8;
         piVar5 = (int *)((int)pvVar4 + 0x38);
         do {
           iVar3 = *piVar5;
           piVar5 = piVar5 + 1;
-          *(int *)((int)g_pShrinkSectorSave + iVar7) = iVar3 - (int)IMG_ADDR(0x008cb0b0) >> 4;
+          *(int *)((int)g_pWalkPlaneCache + iVar7) = iVar3 - (int)IMG_ADDR(0x008cb0b0) >> 4;
           iVar8 = iVar8 + 1;
           iVar7 = iVar7 + 4;
         } while (iVar8 < *(int *)((int)pvVar4 + 0x34));
@@ -342,32 +346,40 @@ void SectorList_SaveForShrink(void)
       iVar6 = iVar6 + 0x34;
     } while (pvVar4 != (void *)0x0);
   }
-  UINT_008d0868 = 1;
+  g_dwWpCacheBuilt = 1;
   return;
 }
 #undef local_4
 
 
-/* ---- 0x004a6330  SectorList_FreeShrinkSave ---- */
-void SectorList_FreeShrinkSave(void)
+/* ---- 0x004a6330  WalkPlane_DestroyCache ---- */
+/* Original name WalkPlane_DestroyCache (the remaster's GrimFandango (Linux): same body (clear the
+   cache-built flag, free the vertex and plane caches, zero both sizes)); was
+   SectorList_FreeShrinkSave. */
+
+void WalkPlane_DestroyCache(void)
 
 {
-  UINT_008d0868 = 0;
-  if (g_pShrinkVertexSave != (void *)0x0) {
-    Plat_Free(g_pShrinkVertexSave);
+  g_dwWpCacheBuilt = 0;
+  if (g_pVertexCache != (void *)0x0) {
+    Plat_Free(g_pVertexCache);
   }
-  if (g_pShrinkSectorSave != (void *)0x0) {
-    Plat_Free(g_pShrinkSectorSave);
+  if (g_pWalkPlaneCache != (void *)0x0) {
+    Plat_Free(g_pWalkPlaneCache);
   }
-  g_pShrinkVertexSave = (void *)0x0;
-  g_pShrinkSectorSave = (void *)0x0;
-  g_nShrinkSectorCount = 0;
-  g_nShrinkVertexCount = 0;
+  g_pVertexCache = (void *)0x0;
+  g_pWalkPlaneCache = (void *)0x0;
+  g_nWalkPlaneCacheSize = 0;
+  g_nVertexCacheSize = 0;
   return;
 }
 
-/* ---- 0x004a6380  SectorList_RestoreAfterShrink ---- */
-void SectorList_RestoreAfterShrink(void)
+/* ---- 0x004a6380  WalkPlane_RestoreCache ---- */
+/* Original name WalkPlane_RestoreCache (the remaster's GrimFandango (Linux): same body (if the
+   cache is built: release the planes' vertices, copy the cached planes and vertices back)); was
+   SectorList_RestoreAfterShrink. */
+
+void WalkPlane_RestoreCache(void)
 
 {
   int iVar1;
@@ -381,22 +393,22 @@ void SectorList_RestoreAfterShrink(void)
   int iVar9;
   
   pvVar2 = g_pWalkPlane_wp_head;
-  piVar3 = g_pShrinkVertexSave;
-  iVar8 = g_nShrinkVertexCount;
-  if (UINT_008d0868 != 0) {
-    for (; g_nShrinkVertexCount = iVar8, g_pShrinkVertexSave = piVar3, pvVar2 != (void *)0x0;
+  piVar3 = g_pVertexCache;
+  iVar8 = g_nVertexCacheSize;
+  if (g_dwWpCacheBuilt != 0) {
+    for (; g_nVertexCacheSize = iVar8, g_pVertexCache = piVar3, pvVar2 != (void *)0x0;
         pvVar2 = *(void **)((int)pvVar2 + 0x70)) {
       iVar8 = 0;
       if (0 < *(int *)((int)pvVar2 + 0x34)) {
         puVar7 = (undefined4 *)((int)pvVar2 + 0x38);
         do {
-          SectorVertexPool_Release(*puVar7);
+          WalkPlane_RemoveVertex(*puVar7);
           iVar8 = iVar8 + 1;
           puVar7 = puVar7 + 1;
         } while (iVar8 < *(int *)((int)pvVar2 + 0x34));
       }
-      piVar3 = g_pShrinkVertexSave;
-      iVar8 = g_nShrinkVertexCount;
+      piVar3 = g_pVertexCache;
+      iVar8 = g_nVertexCacheSize;
     }
     if (0 < iVar8) {
       do {
@@ -410,11 +422,11 @@ void SectorList_RestoreAfterShrink(void)
       } while (iVar8 != 0);
     }
     iVar8 = 0;
-    if (0 < g_nShrinkSectorCount) {
+    if (0 < g_nWalkPlaneCacheSize) {
       iVar9 = 0;
       do {
-        iVar1 = *(int *)((int)g_pShrinkSectorSave + iVar9);
-        iVar6 = *(int *)((int)g_pShrinkSectorSave + iVar9 + 4);
+        iVar1 = *(int *)((int)g_pWalkPlaneCache + iVar9);
+        iVar6 = *(int *)((int)g_pWalkPlaneCache + iVar9 + 4);
         iVar5 = 0;
         *(int *)(iVar1 + 0x34) = iVar6;
         if (0 < iVar6) {
@@ -422,7 +434,7 @@ void SectorList_RestoreAfterShrink(void)
           puVar7 = (undefined4 *)(iVar1 + 0x38);
           do {
             iVar5 = iVar5 + 1;
-            *puVar7 = &FLOAT_008cb0b0 + *(int *)((int)g_pShrinkSectorSave + iVar6) * 4;
+            *puVar7 = &FLOAT_008cb0b0 + *(int *)((int)g_pWalkPlaneCache + iVar6) * 4;
             iVar6 = iVar6 + 4;
             puVar7 = puVar7 + 1;
           } while (iVar5 < *(int *)(iVar1 + 0x34));
@@ -430,14 +442,14 @@ void SectorList_RestoreAfterShrink(void)
         iVar8 = iVar8 + 1;
         iVar6 = iVar9 + 0x30;
         iVar9 = iVar9 + 0x34;
-        *(undefined4 *)(iVar1 + 0x28) = *(undefined4 *)((int)g_pShrinkSectorSave + iVar6);
-      } while (iVar8 < g_nShrinkSectorCount);
+        *(undefined4 *)(iVar1 + 0x28) = *(undefined4 *)((int)g_pWalkPlaneCache + iVar6);
+      } while (iVar8 < g_nWalkPlaneCacheSize);
     }
-    UINT_008cf26c = 0;
+    g_dwWalkPlane_tot_verts = 0;
     pfVar4 = &FLOAT_008cb0b0;
     do {
       if (0 < PUN(int,(float)*pfVar4)) {
-        UINT_008cf26c = UINT_008cf26c + 1;
+        g_dwWalkPlane_tot_verts = g_dwWalkPlane_tot_verts + 1;
       }
       pfVar4 = pfVar4 + 4;
     } while ((int)pfVar4 < IMG_ADDR(0x008cf0b0));
@@ -445,15 +457,19 @@ void SectorList_RestoreAfterShrink(void)
   return;
 }
 
-/* ---- 0x004a6490  Sector_Construct ---- */
+/* ---- 0x004a6490  WalkPlane_Construct ---- */
 /* Sector_Construct(sector, vertices, count, group name): vertices go through
    SectorVertexPool_GetOrAdd (welded to an earlier vertex closer than 1e-4); Newell normal
    (+0x60..+0x68) normalized with Vec3_Normalize; the two axes (+0x7c, +0x80) are chosen by the
    largest component compared as it is (not abs): x -> (2,1), y -> (0,2), else (1,0). Default height
    +0x30 = 0.005. The sector is pushed on the head of its group's chain (+0x70 next) and
-   DAT_008cf280 = newest: searches start with the last sector that was loaded. */
+   DAT_008cf280 = newest: searches start with the last sector that was loaded. Original name
+   WalkPlane_Construct (the remaster's GrimFandango (Linux): WalkPlane.cpp constructor (vertices,
+   count, name): the same field initialisation (+0x28 / +0x2c = 1, +0x30 = 0.005f, the vertices
+   through the vertex database) as the remaster's first WalkPlane::WalkPlane; its second one is a
+   copy constructor v1.01 does not have); was Sector_Construct. */
 
-undefined1 * __thiscall Sector_Construct(void *this,int a1,int a2,int a3)
+undefined1 * __thiscall WalkPlane_Construct(void *this,int a1,int a2,int a3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -496,7 +512,7 @@ undefined1 * __thiscall Sector_Construct(void *this,int a1,int a2,int a3)
   }
   if (0 < a2) {
     do {
-      uVar5 = SectorVertexPool_GetOrAdd(this,a1);
+      uVar5 = WalkPlane_AddVertex(this,a1);
       *puVar13 = uVar5;
       puVar13 = puVar13 + 1;
       a1 = a1 + 0xc;
@@ -615,22 +631,24 @@ code_r0x004a6694:
     pcVar16 = pcVar16 + 1;
   }
 LAB_004a66ac:
-  *(uint *)((int)this + 0x70) = (&UINT_008cf288)[iVar7 * 10];
-  if ((&UINT_008cf288)[iVar7 * 10] != 0) {
-    *(void **)((&UINT_008cf288)[iVar7 * 10] + 0x6c) = this;
+  *(uint *)((int)this + 0x70) = (&g_dwWalkPlane_Collection)[iVar7 * 10];
+  if ((&g_dwWalkPlane_Collection)[iVar7 * 10] != 0) {
+    *(void **)((&g_dwWalkPlane_Collection)[iVar7 * 10] + 0x6c) = this;
   }
-  (&UINT_008cf288)[iVar7 * 10] = (uint)this;
+  (&g_dwWalkPlane_Collection)[iVar7 * 10] = (uint)this;
   g_pWalkPlane_wp_head = this;
   return this;
 }
 #undef local_2
 
 
-/* ---- 0x004a66e0  Sector_Unlink ---- */
+/* ---- 0x004a66e0  WalkPlane_Destruct ---- */
 /* __fastcall: unlinks a sector from g_pWalkPlane_wp_head and the per-type sector lists and releases
-   its vertex pool entries. */
+   its vertex pool entries. Original name WalkPlane_Destruct (the remaster's GrimFandango (Linux):
+   same body (unlink from wp_head and the Collection lists, release the vertices, unlink from the
+   neighbours)); was Sector_Unlink. */
 
-void __fastcall Sector_Unlink(void *param_1)
+void __fastcall WalkPlane_Destruct(void *param_1)
 
 {
   uint *puVar1;
@@ -641,10 +659,10 @@ void __fastcall Sector_Unlink(void *param_1)
     g_pWalkPlane_wp_head = *(void **)((int)param_1 + 0x70);
   }
   iVar2 = 0;
-  puVar1 = &UINT_008cf288;
+  puVar1 = &g_dwWalkPlane_Collection;
   do {
     if ((void *)*puVar1 == param_1) {
-      (&UINT_008cf288)[iVar2 * 10] = *(uint *)((int)param_1 + 0x70);
+      (&g_dwWalkPlane_Collection)[iVar2 * 10] = *(uint *)((int)param_1 + 0x70);
       break;
     }
     puVar1 = puVar1 + 10;
@@ -654,7 +672,7 @@ void __fastcall Sector_Unlink(void *param_1)
   if (0 < *(int *)((int)param_1 + 0x34)) {
     puVar3 = (undefined4 *)((int)param_1 + 0x38);
     do {
-      SectorVertexPool_Release(*puVar3);
+      WalkPlane_RemoveVertex(*puVar3);
       iVar2 = iVar2 + 1;
       puVar3 = puVar3 + 1;
     } while (iVar2 < *(int *)((int)param_1 + 0x34));
@@ -668,8 +686,11 @@ void __fastcall Sector_Unlink(void *param_1)
   return;
 }
 
-/* ---- 0x004a6760  Sector_SetName ---- */
-void __thiscall Sector_SetName(void *this,char *name)
+/* ---- 0x004a6760  WalkPlane_SetName ---- */
+/* Original name WalkPlane_SetName (the remaster's GrimFandango (Linux): same body (strcpy of a
+   non-null name into the record)); was Sector_SetName. */
+
+void __thiscall WalkPlane_SetName(void *this,char *name)
 
 {
   char cVar1;
@@ -703,11 +724,13 @@ void __thiscall Sector_SetName(void *this,char *name)
   return;
 }
 
-/* ---- 0x004a6790  Sector_SetSavedType ---- */
+/* ---- 0x004a6790  WalkPlane_SetType ---- */
 /* Stores the type bits (+0x24); 0x1000 sets a small shrink tolerance, 0x100 (edge sector) needs 4
-   vertices and picks the long axis (+0x78) */
+   vertices and picks the long axis (+0x78) Original name WalkPlane_SetType (the remaster's
+   GrimFandango (Linux): same body (type at +0x24, the 0.005f / 9999 tolerance by bit 0x1000, the
+   0x100 case for 4-vertex planes)); was Sector_SetSavedType. */
 
-void __thiscall Sector_SetSavedType(void *this,uint type)
+void __thiscall WalkPlane_SetType(void *this,uint type)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -802,7 +825,7 @@ void __thiscall Sector_SetSavedType(void *this,uint type)
 #undef local_c
 
 
-/* ---- 0x004a6980  Sector_ContainsPoint ---- */
+/* ---- 0x004a6980  WalkPlane_Within ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Sector_ContainsPoint(sector, point, checkActive). With checkActive, an inactive sector (+0x28 or
@@ -813,9 +836,11 @@ void __thiscall Sector_SetSavedType(void *this,uint type)
    = outside. So a point up to 2e-5 (cross-product units, i.e. 2e-5 / edge length) outside an edge
    is inside.
    Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   Original name WalkPlane_Within (the remaster's GrimFandango (Linux): same body (optional active /
+   visible check, the plane distance test against the first vertex, then the edge tests)); was
+   Sector_ContainsPoint. */
 
-int __thiscall Sector_ContainsPoint(void *this,float *point,int checkActive)
+int __thiscall WalkPlane_Within(void *this,float *point,int checkActive)
 
 {
   int iVar1;
@@ -906,10 +931,14 @@ int __thiscall Sector_ContainsPoint(void *this,float *point,int checkActive)
 #endif
 
 
-/* ---- 0x004a6b30  Sector_ClampPoint ---- */
+/* ---- 0x004a6b30  WalkPlane_ClosestPoint ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __thiscall Sector_ClampPoint(void *this,int a1)
+/* Original name WalkPlane_ClosestPoint (the remaster's GrimFandango (Linux): same body (projects
+   the point onto the plane, then clamps it to the nearest edge); the remaster inlined Project at
+   its start); was Sector_ClampPoint. */
+
+int __thiscall WalkPlane_ClosestPoint(void *this,int a1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -928,7 +957,7 @@ int __thiscall Sector_ClampPoint(void *this,int a1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  Sector_FixPlaneCoordinate(this,a1);
+  WalkPlane_Project(this,a1);
   iVar7 = *(int *)((int)this + 0x34);
   iVar9 = 0;
   if (0 < iVar7) {
@@ -974,7 +1003,7 @@ int __thiscall Sector_ClampPoint(void *this,int a1)
           }
           if ((iVar9 != *(int *)((int)this + 0x34) + -1) || (fVar2 <= 1.0)) {
             if (0.0 <= fVar2) {
-              Sector_FixPlaneCoordinate(this,a1);
+              WalkPlane_Project(this,a1);
             }
             else {
               *(float *)a1 = *pfVar8;
@@ -1043,7 +1072,7 @@ float __thiscall WalkPlane_Intersection(void *this,int a1,int a2,int a3)
   
   local_1c = 0;
   *(undefined4 *)((int)this + 0x74) = 0xffffffff;
-  iVar8 = Sector_ContainsPoint(this,(float *)a2,1);
+  iVar8 = WalkPlane_Within(this,(float *)a2,1);
   if (iVar8 == 0) {
     local_28 = 0;
     *(undefined4 *)a3 = *(undefined4 *)a2;
@@ -1099,7 +1128,7 @@ float __thiscall WalkPlane_Intersection(void *this,int a1,int a2,int a3)
         pfVar10 = pfVar11;
       } while ((int)local_28 < *(int *)((int)this + 0x34));
     }
-    Sector_FixPlaneCoordinate(this,a3);
+    WalkPlane_Project(this,a3);
     if (local_1c != 0) {
       local_18 = *(float *)a1 - *(float *)a2;
       local_14 = *(float *)(a1 + 4) - *(float *)(a2 + 4);
@@ -1152,8 +1181,12 @@ void __thiscall WalkPlane_SnapTo(void *this,float *pos)
   return;
 }
 
-/* ---- 0x004a7000  Sector_FixPlaneCoordinate ---- */
-int __thiscall Sector_FixPlaneCoordinate(void *this,int a1)
+/* ---- 0x004a7000  WalkPlane_Project ---- */
+/* Original name WalkPlane_Project (the remaster's GrimFandango (Linux): same body (solves the plane
+   equation for the axis the two dominant-axis fields at +0x7c / +0x80 leave out)); was
+   Sector_FixPlaneCoordinate. */
+
+int __thiscall WalkPlane_Project(void *this,int a1)
 
 {
   int iVar1;
@@ -1181,8 +1214,11 @@ int __thiscall Sector_FixPlaneCoordinate(void *this,int a1)
   return iVar3;
 }
 
-/* ---- 0x004a70a0  Sector_DrawOutline ---- */
-void __thiscall Sector_DrawOutline(void *this,int color)
+/* ---- 0x004a70a0  WalkPlane_Draw ---- */
+/* Original name WalkPlane_Draw (the remaster's GrimFandango (Linux): same body (if visible:
+   rdPrimit3_DrawLine along every edge in the colour)); was Sector_DrawOutline. */
+
+void __thiscall WalkPlane_Draw(void *this,int color)
 
 {
   int iVar1;
@@ -1208,8 +1244,11 @@ void __thiscall Sector_DrawOutline(void *this,int color)
   return;
 }
 
-/* ---- 0x004a71e0  SectorList_FindByPoint ---- */
-void * SectorList_FindByPoint(float *param_1,uint param_2)
+/* ---- 0x004a71e0  WalkPlane_PlaneAt ---- */
+/* Original name WalkPlane_PlaneAt (the remaster's GrimFandango (Linux): same body (the first plane
+   of wp_head with a type bit of the mask that contains the point)); was SectorList_FindByPoint. */
+
+void * WalkPlane_PlaneAt(float *param_1,uint param_2)
 
 {
   int *piVar1;
@@ -1221,7 +1260,7 @@ void * SectorList_FindByPoint(float *param_1,uint param_2)
     return (void *)0x0;
   }
   while (((*(uint *)((int)this + 0x24) & param_2) == 0 ||
-         (iVar2 = Sector_ContainsPoint(this,param_1,1), iVar2 == 0))) {
+         (iVar2 = WalkPlane_Within(this,param_1,1), iVar2 == 0))) {
     piVar1 = (int *)((int)this + 0x70);
     this = (void *)*piVar1;
     if ((void *)*piVar1 == (void *)0x0) {
@@ -1277,8 +1316,11 @@ LAB_004a7273:
   } while( true );
 }
 
-/* ---- 0x004a7290  Sector_FindById ---- */
-void * __cdecl Sector_FindById(int id)
+/* ---- 0x004a7290  WalkPlane_PlaneNumbered ---- */
+/* Original name WalkPlane_PlaneNumbered (the remaster's GrimFandango (Linux): same body (the plane
+   of wp_head whose number at +0x20 is the id)); was Sector_FindById. */
+
+void * __cdecl WalkPlane_PlaneNumbered(int id)
 
 {
   void *pvVar1;
@@ -1290,13 +1332,15 @@ void * __cdecl Sector_FindById(int id)
   return pvVar1;
 }
 
-/* ---- 0x004a72b0  SectorList_FindNearestPoint ---- */
+/* ---- 0x004a72b0  WalkPlane_PlaneClosest ---- */
 /* SectorList_FindNearestPoint(point, mask): the sector with the mask that contains the point
    (SectorList_FindByPoint), else the active sector whose Sector_ClampPoint of the point is nearest.
    Used by Lua GetShrinkPos, which then clamps the point in it (so (x, y) stay and only the height
-   is made right when the point is inside). */
+   is made right when the point is inside). Original name WalkPlane_PlaneClosest (the remaster's
+   GrimFandango (Linux): same body (the plane containing the point, else the plane whose clamped
+   point is nearest; FLT_MAX start)); was SectorList_FindNearestPoint. */
 
-void * SectorList_FindNearestPoint(float *param_1,uint param_2)
+void * WalkPlane_PlaneClosest(float *param_1,uint param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1310,7 +1354,7 @@ void * SectorList_FindNearestPoint(float *param_1,uint param_2)
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   local_10 = 3.4028235e+38;
-  pvVar3 = (void *)SectorList_FindByPoint(param_1,param_2);
+  pvVar3 = (void *)WalkPlane_PlaneAt(param_1,param_2);
   pvVar2 = (void *)0x0;
   this = g_pWalkPlane_wp_head;
   if (pvVar3 == (void *)0x0) {
@@ -1320,7 +1364,7 @@ void * SectorList_FindNearestPoint(float *param_1,uint param_2)
         local_c = *param_1;
         local_8 = param_1[1];
         local_4 = param_1[2];
-        Sector_ClampPoint(this,(int)&local_c);
+        WalkPlane_ClosestPoint(this,(int)&local_c);
         fVar1 = (local_c - *param_1) * (local_c - *param_1) +
                 (local_4 - param_1[2]) * (local_4 - param_1[2]) +
                 (local_8 - param_1[1]) * (local_8 - param_1[1]);
@@ -1426,12 +1470,15 @@ void __thiscall WalkPlane_JumpOut(void *this,float *walker)
 #undef local_c
 
 
-/* ---- 0x004a7520  Sector_EdgeFollowDirection ---- */
+/* ---- 0x004a7520  WalkPlane_GetConstraintVector ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* For a 4-vertex edge sector: direction along the edge the walker should follow (g_vEdgeFollowDir),
-   stepping the current edge index when the walker reaches a corner */
+   stepping the current edge index when the walker reaches a corner Original name
+   WalkPlane_GetConstraintVector (the remaster's GrimFandango (Linux): same body (the walker's
+   position and the +0x40 turn sign as +-100 steps along the blocking edge)); was
+   Sector_EdgeFollowDirection. */
 
-float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
+float * __thiscall WalkPlane_GetConstraintVector(void *this,float *walker)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1635,8 +1682,11 @@ float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker)
 #undef local_8
 
 
-/* ---- 0x004a7a90  SectorList_ResetFree ---- */
-void SectorList_ResetFree(void)
+/* ---- 0x004a7a90  WalkPlane_AllActive ---- */
+/* Original name WalkPlane_AllActive (the remaster's GrimFandango (Linux): same body (+0x2c = 1 for
+   every plane of wp_head)); was SectorList_ResetFree. */
+
+void WalkPlane_AllActive(void)
 
 {
   void *pvVar1;
@@ -1648,10 +1698,13 @@ void SectorList_ResetFree(void)
   return;
 }
 
-/* ---- 0x004a7ab0  SectorVertexPool_GetOrAdd ---- */
-/* Source: Engine/WalkPlane.cpp (line 974, from __FILE__/__LINE__ passed to the allocator) */
+/* ---- 0x004a7ab0  WalkPlane_AddVertex ---- */
+/* Source: Engine/WalkPlane.cpp (line 974, from __FILE__/__LINE__ passed to the allocator) Original
+   name WalkPlane_AddVertex (the remaster's GrimFandango (Linux): same body (assert "tot_verts <
+   MAX_DB_VERTS - 2", WalkPlane.cpp; find an equal vertex in vert_db or take a free one, count the
+   references)); was SectorVertexPool_GetOrAdd. */
 
-float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2)
+float * WalkPlane_AddVertex(undefined4 param_1,float *param_2)
 
 {
   float *pfVar1;
@@ -1660,7 +1713,7 @@ float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2)
   float *pfVar4;
   
   pfVar4 = (float *)0x0;
-  if (0x3fd < (int)UINT_008cf26c) {
+  if (0x3fd < (int)g_dwWalkPlane_tot_verts) {
     (*g_pStd_HS->pAssertFail)
               (s_tot_verts___MAX_DB_VERTS___2_004ec8a8,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,
                0x3ce);
@@ -1690,21 +1743,24 @@ float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2)
     iVar3 = iVar3 + 1;
   } while ((int)pfVar1 < IMG_ADDR(0x008cf0b0));
   *pfVar4 = 1.4013e-45;
-  UINT_008cf26c = UINT_008cf26c + 1;
+  g_dwWalkPlane_tot_verts = g_dwWalkPlane_tot_verts + 1;
   pfVar4[1] = *param_2;
   pfVar4[2] = param_2[1];
   pfVar4[3] = param_2[2];
   return pfVar4;
 }
 
-/* ---- 0x004a7ba0  SectorVertexPool_Release ---- */
-void SectorVertexPool_Release(int *param_1)
+/* ---- 0x004a7ba0  WalkPlane_RemoveVertex ---- */
+/* Original name WalkPlane_RemoveVertex (the remaster's GrimFandango (Linux): same body (decrement
+   the reference count, tot_verts - 1 when it reaches 0)); was SectorVertexPool_Release. */
+
+void WalkPlane_RemoveVertex(int *param_1)
 
 {
   int iVar1;
   
   if ((0 < *param_1) && (iVar1 = *param_1 + -1, *param_1 = iVar1, iVar1 == 0)) {
-    UINT_008cf26c = UINT_008cf26c - 1;
+    g_dwWalkPlane_tot_verts = g_dwWalkPlane_tot_verts - 1;
   }
   return;
 }
@@ -1765,14 +1821,14 @@ undefined * ParseCollection(int param_1)
           puVar5 = (undefined1 *)0x0;
         }
         else {
-          puVar5 = Sector_Construct(pvVar4,(int)local_184,local_1fc,param_1);
+          puVar5 = WalkPlane_Construct(pvVar4,(int)local_184,local_1fc,param_1);
         }
         if (puVar5 != (undefined1 *)0x0) {
           Mem_CheckAlloc(puVar5,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x4a0);
-          Sector_SetName(puVar5,(char *)local_1b4);
+          WalkPlane_SetName(puVar5,(char *)local_1b4);
           *(uint *)(puVar5 + 0x20) = local_1ec;
           *(uint *)(puVar5 + 0x28) = local_1f0;
-          Sector_SetSavedType(puVar5,local_200);
+          WalkPlane_SetType(puVar5,local_200);
         }
       }
       puVar8 = (undefined *)0x0;
@@ -1810,14 +1866,14 @@ LAB_004a8147:
           puVar5 = (undefined1 *)0x0;
         }
         else {
-          puVar5 = Sector_Construct(pvVar4,(int)local_184,local_1fc,param_1);
+          puVar5 = WalkPlane_Construct(pvVar4,(int)local_184,local_1fc,param_1);
         }
         if (puVar5 != (undefined1 *)0x0) {
           Mem_CheckAlloc(puVar5,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x42e);
-          Sector_SetName(puVar5,(char *)local_1b4);
+          WalkPlane_SetName(puVar5,(char *)local_1b4);
           *(uint *)(puVar5 + 0x20) = local_1ec;
           *(uint *)(puVar5 + 0x28) = local_1f0;
-          Sector_SetSavedType(puVar5,local_200);
+          WalkPlane_SetType(puVar5,local_200);
         }
       }
       puVar8 = &DAT_008cf218;
@@ -1833,14 +1889,14 @@ LAB_004a8147:
             puVar5 = (undefined1 *)0x0;
           }
           else {
-            puVar5 = Sector_Construct(pvVar4,(int)local_184,local_1fc,param_1);
+            puVar5 = WalkPlane_Construct(pvVar4,(int)local_184,local_1fc,param_1);
           }
           if (puVar5 != (undefined1 *)0x0) {
             Mem_CheckAlloc(puVar5,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x445);
-            Sector_SetName(puVar5,(char *)local_1b4);
+            WalkPlane_SetName(puVar5,(char *)local_1b4);
             *(uint *)(puVar5 + 0x28) = local_1f0;
             *(uint *)(puVar5 + 0x20) = local_1ec;
-            Sector_SetSavedType(puVar5,local_200);
+            WalkPlane_SetType(puVar5,local_200);
             if (local_1f4 != 12345.0) {
               if (local_200 == 0x1000) {
                 local_1f4 = 0.005;
@@ -2078,11 +2134,13 @@ LAB_004a80a5:
 #undef local_200
 
 
-/* ---- 0x004a8cb0  Sector_ClipPolygon ---- */
+/* ---- 0x004a8cb0  WalkPlane_ClipPoly ---- */
 /* Sutherland-Hodgman clip of a polygon against the sector's edges in its projection plane; returns
-   the vertex count */
+   the vertex count Original name WalkPlane_ClipPoly (the remaster's GrimFandango (Linux): same
+   parameters (vertices, count, out) and body (copy the polygon, clip it against every edge of the
+   plane)); was Sector_ClipPolygon. */
 
-int __thiscall Sector_ClipPolygon(void *this,float *verts,int count,float *out)
+int __thiscall WalkPlane_ClipPoly(void *this,float *verts,int count,float *out)
 
 {
   unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2249,7 +2307,7 @@ LAB_004a903f:
       *out = *pfVar19;
       out[1] = pfVar19[1];
       out[2] = pfVar19[2];
-      Sector_FixPlaneCoordinate(this,(int)out);
+      WalkPlane_Project(this,(int)out);
       out = out + 3;
       count = count - 1;
     } while (count != 0);
@@ -2277,12 +2335,14 @@ LAB_004a903f:
 #undef local_90
 
 
-/* ---- 0x004a9070  Sector_EdgeDistance ---- */
+/* ---- 0x004a9070  WalkPlane_DistToEdge ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Source: Engine/WalkPlane.cpp (line 1736, from __FILE__/__LINE__ passed to the allocator) */
+/* Source: Engine/WalkPlane.cpp (line 1736, from __FILE__/__LINE__ passed to the allocator) Original
+   name WalkPlane_DistToEdge (the remaster's GrimFandango (Linux): same body (assert "edge_index <
+   num_verts", WalkPlane.cpp; the distance of the point to the edge)); was Sector_EdgeDistance. */
 
-float __thiscall Sector_EdgeDistance(void *this,int edge,float *point)
+float __thiscall WalkPlane_DistToEdge(void *this,int edge,float *point)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2317,8 +2377,8 @@ float __thiscall Sector_EdgeDistance(void *this,int edge,float *point)
   fStack_24 = *point - *(float *)(iVar1 + 4);
   fStack_20 = point[1] - *(float *)(iVar1 + 8);
   fStack_1c = point[2] - *(float *)(iVar1 + 0xc);
-  Vec3_NormalizeTo(&local_c,&local_30);
-  Vec3_NormalizeTo(&fStack_18,&fStack_24);
+  rdVector_Normalize3(&local_c,&local_30);
+  rdVector_Normalize3(&fStack_18,&fStack_24);
   fVar3 = stdMath_ArcSin3(fStack_10 * fStack_4 + fStack_14 * fStack_8 + fStack_18 * local_c);
   stdMath_SinCos(90.0 - fVar3,&fStack_38,auStack_34);
   return fStack_38 * (float)extraout_ST0;
@@ -2341,14 +2401,17 @@ float __thiscall Sector_EdgeDistance(void *this,int edge,float *point)
 #endif
 
 
-/* ---- 0x004a9180  Sector_CollapseShortestEdge ---- */
+/* ---- 0x004a9180  WalkPlane_RemoveShortEdge ---- */
 /* Sector_CollapseShortestEdge: for a sector of 4 or more vertices, finds the shortest edge a -
    (a+1) and replaces its two ends by the point where the line of the edge before it (a-1 -> a)
    meets the line of the edge after it ((a+1) -> (a+2)), computed on the two dominant axes (+0x7c,
    +0x80) with Sector_FixPlaneCoordinate for the third; fails (0) when those lines are parallel
-   (|cross| <= 1e-5). The new vertex goes through SectorVertexPool_GetOrAdd. */
+   (|cross| <= 1e-5). The new vertex goes through SectorVertexPool_GetOrAdd. Original name
+   WalkPlane_RemoveShortEdge (the remaster's GrimFandango (Linux): same body (for more than 3
+   vertices: find the shortest edge from FLT_MAX and merge its vertices)); was
+   Sector_CollapseShortestEdge. */
 
-undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1)
+undefined4 __fastcall WalkPlane_RemoveShortEdge(void *param_1)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2443,8 +2506,8 @@ undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1)
       if (fVar5 != 0.0) {
         *pfVar1 = fVar3 * (fVar2 / fVar4) + *pfVar1;
         *pfVar8 = fVar7 * (fVar2 / fVar4) + *pfVar8;
-        Sector_FixPlaneCoordinate(param_1,(int)&local_40);
-        local_28 = SectorVertexPool_GetOrAdd(0,&local_40);
+        WalkPlane_Project(param_1,(int)&local_40);
+        local_28 = WalkPlane_AddVertex(0,&local_40);
         iVar9 = *(int *)((int)param_1 + 0x34);
         iVar12 = iVar9 + -2;
         if (0 < iVar12) {
@@ -2457,8 +2520,8 @@ undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1)
             puVar13 = puVar13 + 1;
           } while (iVar12 != 0);
         }
-        SectorVertexPool_Release(*(undefined4 *)((int)param_1 + local_4c * 4 + 0x38));
-        SectorVertexPool_Release
+        WalkPlane_RemoveVertex(*(undefined4 *)((int)param_1 + local_4c * 4 + 0x38));
+        WalkPlane_RemoveVertex
                   (*(undefined4 *)
                     ((int)param_1 + ((int)(local_4c + 1) % *(int *)((int)param_1 + 0x34)) * 4 + 0x38
                     ));
@@ -2622,7 +2685,7 @@ LAB_004a9d6a:
           in_stack_00000028 = fVar3 * local_4 + *pfVar11;
           in_stack_0000002c = fVar3 * fVar1 + pfVar11[1];
           in_stack_00000030 = fVar3 * fVar2 + pfVar11[2];
-          iVar7 = Sector_ContainsPoint(this,&STACK0X(0x00000028),1);
+          iVar7 = WalkPlane_Within(this,&STACK0X(0x00000028),1);
           if (iVar7 == 0) {
 LAB_004a9f32:
             bVar4 = false;
@@ -2632,7 +2695,7 @@ LAB_004a9f32:
             if (0 < *(int *)((int)this + 0x34)) {
               in_stack_00000038 = (double)(fVar2 - 0.001);
               do {
-                fVar13 = Sector_EdgeDistance(this,iStack00000010,&STACK0X(0x00000028));
+                fVar13 = WalkPlane_DistToEdge(this,iStack00000010,&STACK0X(0x00000028));
                 if (fVar13 < (float)in_stack_00000038) goto LAB_004a9f32;
                 iStack00000010 = iStack00000010 + 1;
               } while (iStack00000010 < *(int *)((int)this + 0x34));
@@ -2669,7 +2732,7 @@ LAB_004aa005:
   }
   return;
 LAB_004a9f7e:
-  iVar6 = Sector_CollapseShortestEdge(this);
+  iVar6 = WalkPlane_RemoveShortEdge(this);
   if (iVar6 == 0) goto code_r0x004a9f8d;
   goto LAB_004a9d6a;
 code_r0x004a9f8d:

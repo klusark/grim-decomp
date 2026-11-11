@@ -66,7 +66,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
         INT_004dd38c = 1;
         Input_SetAcquired(1);
         sputRender_ForceRefresh();
-        Input_ShowCursor(g_bWindowedMode);
+        stdControl_ShowMouseCursor(g_bWindowedMode);
         return (undefined *)0x0;
       }
       if (param_2 == 0x14) {
@@ -160,7 +160,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
           }
           break;
         case 0x102:
-          puVar4 = Engine_CallCharacterHandler(param_3);
+          puVar4 = grimlib_CharacterCallback(param_3);
           return puVar4;
         case 0x104:
           return (undefined *)0x1;
@@ -196,7 +196,7 @@ switchD_0040336f_caseD_105:
     Input_SetAcquired((uint)(sVar5 != 0));
     if (sVar5 == 0) goto LAB_0040303f;
     stdControl_Flush();
-    Input_ShowCursor(g_bWindowedMode);
+    stdControl_ShowMouseCursor(g_bWindowedMode);
   }
   if (sVar5 != 0) {
     return (undefined *)0x0;
@@ -523,7 +523,7 @@ undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4)
     break;
   case 2:
     UINT_008d0a8c = 0;
-    Grim_Shutdown();
+    Main_Shutdown();
     PostQuitMessage(0);
     bVar1 = false;
     break;

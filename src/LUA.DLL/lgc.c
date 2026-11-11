@@ -121,23 +121,26 @@ int __cdecl listcollect(undefined4 *param_1)
   return (int)puVar3;
 }
 
-/* ---- 0x100050b0  luaC_markall ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x100050b0  markall ---- */
+/* Named markall (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c static
+   markall: the stacks with markobject, globalmark, travlock, luaT_travtagmethods(markobject), in
+   that order; called by lua_collectgarbage); was luaC_markall. */
 
-void luaC_markall(void)
+void markall(void)
 
 {
   luaD_travallstacks(markobject);
-  luaC_travglobal();
-  luaC_travstack();
+  globalmark();
+  travlock();
   luaT_travtagmethods(markobject);
   return;
 }
 
-/* ---- 0x100050e0  luaC_travstack ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x100050e0  travlock ---- */
+/* Named travlock (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c static
+   travlock: markobject of every locked entry of LState refArray / refSize); was luaC_travstack. */
 
-void luaC_travstack(void)
+void travlock(void)
 
 {
   int iVar1;
@@ -157,10 +160,12 @@ void luaC_travstack(void)
   return;
 }
 
-/* ---- 0x10005120  luaC_travglobal ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x10005120  globalmark ---- */
+/* Named globalmark (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c static
+   globalmark: for every global of rootglobal that is not nil, markobject of its value and strmark
+   of its name); was luaC_travglobal. */
 
-void luaC_travglobal(void)
+void globalmark(void)
 
 {
   undefined4 *puVar1;
@@ -169,16 +174,17 @@ void luaC_travglobal(void)
   {
     if (puVar1[4] != -7) {
       markobject(puVar1 + 4);
-      luaC_strmark((int)puVar1);
+      strmark((int)puVar1);
     }
   }
   return;
 }
 
-/* ---- 0x10005150  luaC_strmark ---- */
-/* Unidentified function of lgc.c (garbage collector) */
+/* ---- 0x10005150  strmark ---- */
+/* Named strmark (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c static
+   strmark: marks a string, marked = 1); was luaC_strmark. */
 
-void __cdecl luaC_strmark(int param_1)
+void __cdecl strmark(int param_1)
 
 {
   if ((param_1 != 0) && (*(int *)(param_1 + 4) == 0)) {
@@ -208,7 +214,7 @@ undefined4 __cdecl markobject(undefined4 *param_1)
     return 0;
   case 0xfffffffe:
   case 0:
-    luaC_strmark(param_1[1]);
+    strmark(param_1[1]);
     return 0;
   }
   return 0;
@@ -231,7 +237,7 @@ void __cdecl luaC_protomark(int param_1)
     piVar4 = *(int **)(param_1 + 0x1c);
     *(undefined4 *)(param_1 + 4) = 1;
     if (*(int *)(param_1 + 0x18) != 0) {
-      luaC_strmark(*(int *)(param_1 + 0x18));
+      strmark(*(int *)(param_1 + 0x18));
     }
     uVar3 = 0;
     if (*(int *)(param_1 + 0xc) != 0) {
@@ -244,7 +250,7 @@ void __cdecl luaC_protomark(int param_1)
       iVar2 = piVar4[1];
       while (iVar2 != -1) {
         if (*piVar4 != 0) {
-          luaC_strmark(*piVar4);
+          strmark(*piVar4);
         }
         piVar1 = piVar4 + 3;
         piVar4 = piVar4 + 2;

@@ -2,7 +2,7 @@
 
 Inside a function Ghidra infers `__fastcall(int *param_1)` from the code, but the
 stored signature keeps zero parameters, so every caller decompiles as `F()` and the
-ECX (EDX) value is lost (FUN_00489820 -> PrimitiveList_Clear()). Setting the printed
+ECX (EDX) value is lost (FUN_00489820 -> PrimitiveQueue_purge()). Setting the printed
 header as the real prototype fixes the call sites. Only functions whose disassembly
 reads ECX at entry (verify_ecx.entry_reads_ecx) are touched.
 

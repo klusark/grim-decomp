@@ -319,10 +319,12 @@ void __cdecl stdStartup(GrimServices *svc)
 #endif
 
 
-/* ---- 0x00473400  Services_Clear ---- */
+/* ---- 0x00473400  stdShutdown ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name stdShutdown (the remaster's GrimFandango (Linux): the last call of Main_Shutdown in
+   both builds; clears the services pointer stdStartup sets); was Services_Clear. */
 
-void Services_Clear(void)
+void stdShutdown(void)
 
 {
   _DAT_007f6490 = 0;
@@ -336,7 +338,7 @@ void Services_Clear(void)
 void stdInitServices(GrimServices *param_1)
 
 {
-  Services_InitPlatformTable(param_1);
+  stdPlatform_InitServices(param_1);
   return;
 }
 
@@ -353,11 +355,13 @@ undefined4 __cdecl stdPlatform_Printf(char *fmt,...)
   return 1;
 }
 
-/* ---- 0x00478080  Services_InitPlatformTable ---- */
+/* ---- 0x00478080  stdPlatform_InitServices ---- */
 /* Win95 platform service table: debug printf, stdMemory alloc/free/realloc, timeGetTime, stdFile
-   I/O, handle memory stubs */
+   I/O, handle memory stubs Original name stdPlatform_InitServices (the remaster's GrimFandango
+   (Linux): same body (the four print services stdPlatform_Printf, version 1000.0,
+   stdPlatform_Assert, the memory and time services)); was Services_InitPlatformTable. */
 
-void __cdecl Services_InitPlatformTable(GrimServices *svc)
+void __cdecl stdPlatform_InitServices(GrimServices *svc)
 
 {
   svc->pPrintf2 = stdPlatform_Printf;
@@ -372,21 +376,21 @@ void __cdecl Services_InitPlatformTable(GrimServices *svc)
   svc->pFree = stdMemory_Free;
   svc->pRealloc = stdMemory_Realloc;
   svc->pGetTimeMs = timeGetTime;
-  svc->pFopen = stdFile_Open;
-  svc->pFclose = stdFile_Close;
-  svc->pFread = stdFile_Read;
-  svc->pFgets = stdFile_Gets;
-  svc->pFwrite = stdFile_Write;
-  svc->pFeof = stdFile_Eof;
-  svc->pFtell = stdFile_Tell;
-  svc->pFseek = stdFile_Seek;
-  svc->pFileSize = stdFile_Size;
-  svc->pFprintf = stdFile_Printf;
-  svc->pFn_58 = FUN_004734c0;
-  svc->pHAlloc = PlatSvc_HAlloc;
-  svc->pHFree = PlatSvc_HFree;
-  svc->pHRealloc = PlatSvc_HRealloc;
-  svc->pHLock = PlatSvc_HLock;
+  svc->pFopen = stdFileOpen;
+  svc->pFclose = stdFileClose;
+  svc->pFread = stdFileRead;
+  svc->pFgets = stdFileGets;
+  svc->pFwrite = stdFileWrite;
+  svc->pFeof = stdFeof;
+  svc->pFtell = stdFtell;
+  svc->pFseek = stdFseek;
+  svc->pFileSize = stdFileSize;
+  svc->pFprintf = stdFilePrintf;
+  svc->pFn_58 = stdFileGetws;
+  svc->pHAlloc = stdPlatform_AllocHandle;
+  svc->pHFree = stdPlatform_FreeHandle;
+  svc->pHRealloc = stdPlatform_ReallocHandle;
+  svc->pHLock = stdPlatform_LockHandle;
   svc->pHUnlock = Mem_DumpLog;
   return;
 }

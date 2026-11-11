@@ -128,7 +128,7 @@ void __cdecl TextObject_Draw(void *obj,int invalidate)
     *(int *)((int)obj + 0x218) =
          *(int *)(**(int **)((int)obj + 0x210) + 8) + *(int *)((int)obj + 0x23c);
     if (invalidate != 0) {
-      Render_InvalidateRectLastBuffer((int *)&local_10,0);
+      sputRender_MarkDirtyRect((int *)&local_10,0);
     }
     *(uint *)((int)obj + 0x224) = uVar3;
     *(uint *)((int)obj + 0x220) = uVar2;
@@ -142,8 +142,12 @@ void __cdecl TextObject_Draw(void *obj,int invalidate)
 #undef local_c
 
 
-/* ---- 0x0048cba0  TextObject_FindBySelf ---- */
-undefined4 * TextObject_FindBySelf(int param_1)
+/* ---- 0x0048cba0  sputText_FindSerialNumber ---- */
+/* Original name sputText_FindSerialNumber (the remaster's GrimFandango (Linux): the text object of
+   the text queue with the serial number; called by sputActor_Restore and sputLua_RestoreIndirector
+   in both builds (the remaster also compares a second field)); was TextObject_FindBySelf. */
+
+undefined4 * sputText_FindSerialNumber(int param_1)
 
 {
   undefined4 *puVar1;

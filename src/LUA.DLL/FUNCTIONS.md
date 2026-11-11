@@ -184,10 +184,10 @@
 | 10004fc0 | invalidaterefs | lgc.c | 24 |
 | 10005010 | ismarked | lgc.c | 19 |
 | 10005070 | listcollect | lgc.c | 23 |
-| 100050b0 | luaC_markall | lgc.c | 11 |
-| 100050e0 | luaC_travstack | lgc.c | 21 |
-| 10005120 | luaC_travglobal | lgc.c | 16 |
-| 10005150 | luaC_strmark | lgc.c | 10 |
+| 100050b0 | markall | lgc.c | 13 |
+| 100050e0 | travlock | lgc.c | 22 |
+| 10005120 | globalmark | lgc.c | 18 |
+| 10005150 | strmark | lgc.c | 11 |
 | 10005170 | markobject | lgc.c | 25 |
 | 100051f0 | luaC_protomark | lgc.c | 39 |
 | 10005270 | closuremark | lgc.c | 24 |

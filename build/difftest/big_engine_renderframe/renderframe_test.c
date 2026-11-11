@@ -126,8 +126,8 @@ void __stdcall os_draw(unsigned char *self, int type, void *dst, void *z)
     if (mode_effects && E(10) == 0) *(void **)(self + 0xf8) = E(2) ? 0 : objs[E(NOS)];  /* chain read again each step */
     if (mode_effects && E(12) == 0) FXU32(0x8c97a4) = E(1000);
 }
-/* __thiscall ObjectState_Draw(this = ECX, type, dst, zdst): forward to the stdcall recorder with ECX as first argument */
-__asm__(".globl _ObjectState_Draw\n_ObjectState_Draw:\n\tpopl %eax\n\tpushl %ecx\n\tpushl %eax\n\tjmp _os_draw@16\n");
+/* __thiscall ObjectState_Update(this = ECX, type, dst, zdst): forward to the stdcall recorder with ECX as first argument */
+__asm__(".globl _ObjectState_Update\n_ObjectState_Update:\n\tpopl %eax\n\tpushl %ecx\n\tpushl %eax\n\tjmp _os_draw@16\n");
 void PerfBegin(int a) { ev(T_PBEGIN, 1, a, 0, 0, 0); }
 void *PerfEnd(int a) { ev(T_PEND, 1, a, 0, 0, 0); return 0; }
 void DirtyRect_Flush(void *d, void *z) { ev(T_DRFLUSH, 2, U(d), U(z), 0, 0); }
@@ -162,7 +162,7 @@ void Actor_ComputeScreenBox(unsigned char *a)
     if (mode_effects && E(4) == 0) *(unsigned *)(a + 0x30) = E(2) ? 0x3f800000 : eseed;
     if (mode_effects && E(6) == 0) FXI32(0x8c9784) ^= 1;                   /* g_nSputRender_b3DAcceleration reread */
 }
-void Render_InvalidateRectLastBuffer(int *r, int f) { ev(T_INVLAST, 2, U(r), f, 0, 0); }
+void sputRender_MarkDirtyRect(int *r, int f) { ev(T_INVLAST, 2, U(r), f, 0, 0); }
 unsigned rdroid_SetColormap(unsigned c)
 {
     ev(T_SETCMAP, 1, c, 0, 0, 0);
@@ -183,7 +183,7 @@ void sputCostume_Draw3D(unsigned c, unsigned f)
     if (mode_effects && E(8) == 0) FXU32(0x4e8078) = E(16);               /* debug flags reread */
 }
 void Actor_DrawDebugWalker(void *a) { ev(T_DBGWALKER, 1, U(a), 0, 0, 0); }
-void rdroid_EndFrame(void) { ev(T_END, 0, 0, 0, 0, 0); }
+void rdFinishFrame(void) { ev(T_END, 0, 0, 0, 0, 0); }
 void Set_DrawDebugLights(void *s) { ev(T_LIGHTS, 1, U(s), 0, 0, 0); if (mode_effects && E(3) == 0) FXU32(0x4e8078) ^= 4; }
 void Set_DrawDebugCameras(void *s, unsigned k) { ev(T_CAMS, 2, U(s), k, 0, 0); }
 unsigned sputTime_GetGameTime(void) { ev(T_TOTALMS, 0, 0, 0, 0, 0); return total_ms; }

@@ -251,8 +251,12 @@ void std3D_StartScene(void)
   return;
 }
 
-/* ---- 0x00478750  D3D_EndScene ---- */
-void D3D_EndScene(void)
+/* ---- 0x00478750  std3D_EndScene ---- */
+/* Original name std3D_EndScene (the remaster's GrimFandango (Linux): the only call of
+   rdCache_FinishFrame (with acceleration) in both builds; the remaster's is a stub of its platform
+   layer, named by the slot as orig-4 did for std3D_StartScene); was D3D_EndScene. */
+
+void std3D_EndScene(void)
 
 {
   if (UINT_00806974 != 0) {

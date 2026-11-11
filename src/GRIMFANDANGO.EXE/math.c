@@ -21,10 +21,13 @@ int __cdecl stdCalcBitPos(int n)
   return iVar1;
 }
 
-/* ---- 0x0047bbe0  Math_PowInt ---- */
+/* ---- 0x0047bbe0  stdMath_FlexPower ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-float __cdecl Math_PowInt(float x,int n)
+/* Original name stdMath_FlexPower (the remaster's GrimFandango (Linux): same body (x multiplied n -
+   1 times)); was Math_PowInt. */
+
+float __cdecl stdMath_FlexPower(float x,int n)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -43,12 +46,14 @@ float __cdecl Math_PowInt(float x,int n)
 #endif
 
 
-/* ---- 0x0047bc20  Math_NormalizeAngle360 ---- */
+/* ---- 0x0047bc20  stdMath_NormalizeAngle ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
+/* Original name stdMath_NormalizeAngle (the remaster's GrimFandango (Linux): same body (angle into
+   0 .. 360 with floor(angle / 360))); was Math_NormalizeAngle360. */
 
-float __cdecl Math_NormalizeAngle360(float degrees)
+float __cdecl stdMath_NormalizeAngle(float degrees)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -85,16 +90,19 @@ float __cdecl Math_NormalizeAngle360(float degrees)
 #endif
 
 
-/* ---- 0x0047bce0  Math_NormalizeAngle180 ---- */
+/* ---- 0x0047bce0  stdMath_NormalizeAngleAcute ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-float __cdecl Math_NormalizeAngle180(float param_1)
+/* Original name stdMath_NormalizeAngleAcute (the remaster's GrimFandango (Linux): same body
+   (normalised to 0 .. 360, then above 180 to -(360 - a))); was Math_NormalizeAngle180. */
+
+float __cdecl stdMath_NormalizeAngleAcute(float param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
   
-  local_8 = Math_NormalizeAngle360(param_1);
+  local_8 = stdMath_NormalizeAngle(param_1);
   if (180.0 < local_8) {
     local_8 = -(360.0 - local_8);
   }
@@ -136,7 +144,7 @@ void stdMath_SinCos(float param_1,float *param_2,float *param_3)
   #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
   #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   
-  fVar4 = Math_NormalizeAngle360(param_1);
+  fVar4 = stdMath_NormalizeAngle(param_1);
   if (90.0 <= fVar4) {
     if (180.0 <= fVar4) {
       if (270.0 <= fVar4) {
@@ -298,7 +306,7 @@ float10 stdMath_Tan(float param_1)
   #define local_10 (*(float (*)[2])(_frame + (0x40 - 0x10)))
   #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   
-  fVar4 = Math_NormalizeAngle360(param_1);
+  fVar4 = stdMath_NormalizeAngle(param_1);
   if (90.0 <= fVar4) {
     if (180.0 <= fVar4) {
       if (270.0 <= fVar4) {
@@ -378,12 +386,15 @@ float10 stdMath_Tan(float param_1)
 #endif
 
 
-/* ---- 0x0047c3b0  Math_AsinDegrees ---- */
+/* ---- 0x0047c3b0  stdMath_ArcSin1 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
+/* Original name stdMath_ArcSin1 (the remaster's GrimFandango (Linux): same body (|x| <= 0.70710677:
+   (x^3 * 0.212749 + x) * 57.295784, else 90 minus that of sqrt(1 - x^2); the sign); the first of
+   the three arcsin precisions); was Math_AsinDegrees. */
 
-float __cdecl Math_AsinDegrees(float x)
+float __cdecl stdMath_ArcSin1(float x)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -400,12 +411,12 @@ float __cdecl Math_AsinDegrees(float x)
     local_14[0] = -x;
   }
   if (local_14[0] <= 0.70710677) {
-    fVar1 = Math_PowInt(local_14[0],3);
+    fVar1 = stdMath_FlexPower(local_14[0],3);
     local_8 = (fVar1 * 0.212749 + local_14[0]) * 57.295784;
   }
   else {
     fVar1 = Math_Sqrt(1.0 - local_14[0] * local_14[0]);
-    fVar2 = Math_PowInt(fVar1,3);
+    fVar2 = stdMath_FlexPower(fVar1,3);
     local_8 = 90.0 - (fVar2 * 0.212749 + fVar1) * 57.295784;
   }
   if (0.0 > x) {
@@ -462,16 +473,16 @@ float __cdecl stdMath_ArcSin3(float param_1)
     local_14[0] = -param_1;
   }
   if (local_14[0] <= 0.70710677) {
-    fVar1 = Math_PowInt(local_14[0],3);
-    fVar2 = Math_PowInt(local_14[0],5);
-    fVar3 = Math_PowInt(local_14[0],7);
+    fVar1 = stdMath_FlexPower(local_14[0],3);
+    fVar2 = stdMath_FlexPower(local_14[0],5);
+    fVar3 = stdMath_FlexPower(local_14[0],7);
     local_8 = (fVar3 * 0.066797 + fVar2 * 0.075 + fVar1 / 6.0 + local_14[0]) * 57.295784;
   }
   else {
     fVar1 = Math_Sqrt(1.0 - local_14[0] * local_14[0]);
-    fVar2 = Math_PowInt(fVar1,3);
-    fVar3 = Math_PowInt(fVar1,5);
-    fVar4 = Math_PowInt(fVar1,7);
+    fVar2 = stdMath_FlexPower(fVar1,3);
+    fVar3 = stdMath_FlexPower(fVar1,5);
+    fVar4 = stdMath_FlexPower(fVar1,7);
     local_8 = 90.0 - (fVar4 * 0.066797 + fVar3 * 0.075 + fVar2 / 6.0 + fVar1) * 57.295784;
   }
   if (0.0 > param_1) {
@@ -490,10 +501,14 @@ float __cdecl stdMath_ArcSin3(float param_1)
 #endif
 
 
-/* ---- 0x0047c5f0  Math_Atan2Deg ---- */
+/* ---- 0x0047c5f0  stdMath_ArcTan4 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-float __cdecl Math_Atan2Deg(float y,float x)
+/* Original name stdMath_ArcTan4 (the remaster's GrimFandango (Linux): same body (0 for (0, 0), the
+   octant reduction with the ratio of the smaller to the larger absolute value and the cubic
+   series); called by rdVector_ExtractAngles in both builds); was Math_Atan2Deg. */
+
+float __cdecl stdMath_ArcTan4(float y,float x)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -540,10 +555,10 @@ float __cdecl Math_Atan2Deg(float y,float x)
     else {
       local_28 = -local_8;
     }
-    fVar1 = Math_PowInt(local_28,3);
-    fVar2 = Math_PowInt(local_28,5);
-    fVar3 = Math_PowInt(local_28,7);
-    fVar4 = Math_PowInt(local_28,9);
+    fVar1 = stdMath_FlexPower(local_28,3);
+    fVar2 = stdMath_FlexPower(local_28,5);
+    fVar3 = stdMath_FlexPower(local_28,7);
+    fVar4 = stdMath_FlexPower(local_28,9);
     local_c = (fVar4 * 0.063235 + ((fVar2 / 5.0 + (local_28 - fVar1 / 3.0)) - fVar3 / 7.0)) *
               57.295784;
     if (local_24[0] <= local_24[2]) {

@@ -18,7 +18,7 @@
    "cc": "__cdecl"
   },
   "0048a4b0": {
-   "proto": "void * Primitive_Construct(void *this, int id, int unused)",
+   "proto": "void * PrimitiveObject_Construct(void *this, int id, int unused)",
    "cc": "__thiscall"
   },
   "004a9d00": {
@@ -30,7 +30,7 @@
    "cc": "__cdecl"
   },
   "004a8b00": {
-   "proto": "void Walker_DrawDebugAxes(void *this, int color)",
+   "proto": "void Puck_Draw(void *this, int color)",
    "cc": "__thiscall"
   },
   "00492510": {

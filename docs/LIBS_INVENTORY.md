@@ -120,7 +120,7 @@ system library implements the same thing.
 | PCX decoder | `stdpcx.c` 0x47b710-0x47ef10, 5 fns | none in Windows (WIC has no PCX) | - | no |
 | BMP loader | `stdbmp.c` 0x47cb20, 3 fns; `stdbitmap.c` 0x473630-0x47b5f0, 17 fns (format dispatch, colour maps) | GDI `LoadImage` / WIC | palette order, bottom-up rows, the game's own `.bm` format is not BMP | medium |
 | ILBM/LBM decoder | `stdlbm.c` 0x47f120-0x47fc80, 5 fns | none | - | no |
-| `stdCompress` LZSS | `stdfileutil.c` 0x473a00 `stdCompress_Decompress/DecompressLoop`, 2 fns | none (not zlib, not LZNT1) | LucasArts' own LZ variant; the intermittent write-past-end after Load was seen here | no (do not replace) |
+| `stdCompress` LZSS | `stdfileutil.c` 0x473a00 `LzssDecompress/DecompressLoop`, 2 fns | none (not zlib, not LZNT1) | LucasArts' own LZ variant; the intermittent write-past-end after Load was seen here | no (do not replace) |
 | LAB archive reader | `lab.c` 0x480120-0x482020, 12 fns; `labdir.c` | none | custom container (`LABN`); uses CRT stdio | no |
 | Smush/Insane movie player + codecs | EXE `smush.c`, `insane.c`, `sputsmush.c`, `smushcomponent.c`, LecShare module chain, ~30 fns (5 asm), `Insane_Blit*` | Media Foundation / DirectShow | `.snm` is a proprietary stream (video codecs 1/2/..., VIMA audio), timing is driven by the engine | no |
 | VIMA ADPCM + iMUSE mixer | IMUSE.DLL `AudioLib_ParseWaveFileHeader`, `AudioLib_DetectRawFormat`, `AudioLib_ResetCompressor`, `AudioLib_UncompressBlock`, `Im_MixLoopA-D`, 0x10001000-0x10006000, ~40 fns | Windows ACM IMA-ADPCM (`imaadp32.acm`) | VIMA is a variable-bit-width IMA variant, not ACM-compatible | no |

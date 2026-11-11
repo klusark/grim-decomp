@@ -35,7 +35,7 @@ undefined4 Main_Startup(char *param_1); /* 0x004012b0 */
 void __cdecl Grim_DecodeRegKeyName(char *s); /* 0x00401640 */
 int Grim_FatalMessageBox(int param_1,int param_2,int param_3,int param_4); /* 0x004018b0 */
 void Grim_ShutdownDisplay(void); /* 0x00401900 */
-void Grim_Shutdown(void); /* 0x00401950 */
+void Main_Shutdown(void); /* 0x00401950 */
 void Grim_EnumDisplayModes(void); /* 0x00401a50 */
 void grimdemo_PleaseShutdown(void); /* 0x00402050 */
 undefined4 grimdemo_SetPalette(void *param_1,int param_2); /* 0x00402060 */
@@ -346,11 +346,11 @@ void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param
 undefined * __cdecl DIB_CreateSection565(uint param_1,uint param_2,int param_3,uint param_4); /* 0x004731f0 */
 undefined4 Palette_SwapRedBlue(int param_1,undefined1 *param_2); /* 0x00473270 */
 int stdDisplay_Startup(void); /* 0x00473a40 */
-void Display_RestoreMode(void); /* 0x00473b30 */
+void stdDisplay_Shutdown(void); /* 0x00473b30 */
 int __cdecl Display_SelectDevice(int deviceIdx); /* 0x00473c80 */
-void Display_CloseDevice(void); /* 0x00474100 */
+void stdDisplay_Close(void); /* 0x00474100 */
 int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D); /* 0x00474140 */
-void Display_CloseMode(void); /* 0x00474310 */
+void stdDisplay_ClearMode(void); /* 0x00474310 */
 void Display_SuspendForDialog(void); /* 0x00474380 */
 void Display_ResumeAfterDialog(void); /* 0x004743d0 */
 int stdDisplay_Update(void); /* 0x00474420 */
@@ -420,15 +420,15 @@ void __cdecl Svc_Free(void *p); /* 0x00403860 */
 undefined4 defaultLockHandle(undefined4 param_1); /* 0x00403870 */
 void __cdecl HostServicesInitialize(GrimServices *svc); /* 0x00403880 */
 void __cdecl stdStartup(GrimServices *svc); /* 0x004733a0 */
-void Services_Clear(void); /* 0x00473400 */
+void stdShutdown(void); /* 0x00473400 */
 void stdInitServices(GrimServices *param_1); /* 0x00473420 */
 undefined4 __cdecl stdPlatform_Printf(char *fmt,...); /* 0x00478000 */
-void __cdecl Services_InitPlatformTable(GrimServices *svc); /* 0x00478080 */
+void __cdecl stdPlatform_InitServices(GrimServices *svc); /* 0x00478080 */
 
 /* ===== reg.c ===== */
 void Reg_Open(void *param_1,uint param_2,char *param_3); /* 0x004038a0 */
 void Reg_CacheValueNames(void); /* 0x004039a0 */
-void Reg_Close(void); /* 0x00403b20 */
+void wuRegistry_Shutdown(void); /* 0x00403b20 */
 void Reg_FreeValueNames(void); /* 0x00403b30 */
 int __cdecl Reg_SetInt(char *name,int value); /* 0x00403b80 */
 int __cdecl Reg_AddValueName(char *name); /* 0x00403bf0 */
@@ -460,18 +460,18 @@ int Str_CompareNoCaseN(char *param_1,char *param_2,int param_3); /* 0x004c1ee0 *
 
 /* ===== rdroid.c ===== */
 int __cdecl rdStartup(GrimServices *svc); /* 0x00404180 */
-void rdroid_Shutdown(void); /* 0x004041c0 */
+void rdShutdown(void); /* 0x004041c0 */
 int __cdecl rdOpen(int flags); /* 0x004041e0 */
 void rdClose(void); /* 0x00404270 */
-void rdroid_SetRenderFlags(uint param_1); /* 0x00404290 */
-void rdroid_SetGeometryMode(int param_1); /* 0x004042a0 */
-void rdroid_SetLightingMode(int param_1); /* 0x004042b0 */
-void rdroid_SetTextureMode(int param_1); /* 0x004042c0 */
-void rdroid_SetSortMode(int param_1); /* 0x004042d0 */
-void rdroid_SetOcclusionMode(int param_1); /* 0x004042e0 */
-void rdroid_SetZBufferMode(int param_1); /* 0x004042f0 */
+void rdSetRenderOptions(uint param_1); /* 0x00404290 */
+void rdSetGeometryMode(int param_1); /* 0x004042a0 */
+void rdSetLightingMode(int param_1); /* 0x004042b0 */
+void rdSetTextureMode(int param_1); /* 0x004042c0 */
+void rdSetSortingMethod(int param_1); /* 0x004042d0 */
+void rdSetOcclusionMethod(int param_1); /* 0x004042e0 */
+void rdSetZBufferMethod(int param_1); /* 0x004042f0 */
 void rdAdvanceFrame(void); /* 0x00404300 */
-void rdroid_EndFrame(void); /* 0x00404320 */
+void rdFinishFrame(void); /* 0x00404320 */
 void rdClearPreStatistics(void); /* 0x00404330 */
 undefined4 rdroid_SetColormap(uint param_1); /* 0x00404350 */
 void rdRaster_Startup(void); /* 0x00404b80 */
@@ -483,7 +483,7 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp); /* 0x00404420 */
 void rdColormap_Free(undefined4 param_1); /* 0x00404730 */
 void rdColormap_FreeEntry(int param_1); /* 0x00404750 */
 undefined8 __cdecl rdColormap_BuildRGB16 (undefined2 *param_1,ushort *param_2,uint param_3,uint param_4,uint param_5,int param_6); /* 0x004047e0 */
-undefined4 rdColormap_BuildGreyRamp(undefined4 *param_1); /* 0x00404a40 */
+undefined4 rdColormap_BuildGrayRamp(undefined4 *param_1); /* 0x00404a40 */
 int rdColormap_Size(int param_1); /* 0x00404b30 */
 
 /* ===== rdcanvas.c ===== */
@@ -497,12 +497,12 @@ undefined4 rdActive_AddActiveFace(byte *param_1); /* 0x00405770 */
 void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort color,uint pattern); /* 0x00451950 */
 void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,undefined4 param_4,float param_5, int param_6,int param_7); /* 0x00451dd0 */
 uint * rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6, uint param_7,uint param_8); /* 0x004c04f0 */
-int __cdecl rdCanvas_Init(uint *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0,uint x1,uint y1, uint extra); /* 0x004c0550 */
+int __cdecl rdCanvas_NewEntry(uint *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0,uint x1,uint y1 ,uint extra); /* 0x004c0550 */
 void rdCanvas_Free(int param_1); /* 0x004c0610 */
 
 /* ===== rdcache.c ===== */
 void rdCache_AdvanceFrame(void); /* 0x00406650 */
-void rdCache_EndScene3D(void); /* 0x00406660 */
+void rdCache_FinishFrame(void); /* 0x00406660 */
 void rdCache_Reset(void); /* 0x00406670 */
 void rdCache_ClearFrameCounters(void); /* 0x00406690 */
 undefined1 * rdCache_GetProcEntry(void); /* 0x004066a0 */
@@ -524,7 +524,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix); /* 0x0040d230 */
 undefined4 rdModel3_DrawFace(int param_1,int param_2); /* 0x0040d880 */
 
 /* ===== rdprimit3.c ===== */
-void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material); /* 0x00409d50 */
+void * __cdecl rdCache_InsertFace(float *verts,int count,void *material); /* 0x00409d50 */
 undefined4 __cdecl rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,uint color, uint pattern); /* 0x0040dcc0 */
 void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint a5); /* 0x0040dde0 */
 void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4, uint *param_5,undefined4 *param_6,float *param_7); /* 0x0040deb0 */
@@ -532,12 +532,12 @@ void rdPrimit3_NoClipFace (undefined4 param_1,int param_2,undefined4 param_3,uin
 
 /* ===== rdcamera.c ===== */
 void * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float zoom); /* 0x00409f50 */
-int __cdecl rdCamera_Init(void *camera,float fov,int projType,float aspectX,float aspectY,float zoom); /* 0x00409fb0 */
+int __cdecl rdCamera_NewEntry(void *camera,float fov,int projType,float aspectX,float aspectY,float zoom); /* 0x00409fb0 */
 void rdCamera_Free(int param_1); /* 0x0040a080 */
-void rdCamera_FreeProjection(int param_1); /* 0x0040a0a0 */
+void rdCamera_FreeEntry(int param_1); /* 0x0040a0a0 */
 void __cdecl rdCamera_SetCanvas(void *camera,void *canvas); /* 0x0040a0c0 */
 undefined4 rdCamera_SetCurrent(void *param_1); /* 0x0040a0e0 */
-void __cdecl rdCamera_SetFov(void *camera,float fov); /* 0x0040a100 */
+void __cdecl rdCamera_SetFOV(void *camera,float fov); /* 0x0040a100 */
 int __cdecl rdCamera_SetProjectType(void *camera,int type); /* 0x0040a150 */
 void __cdecl rdCamera_SetAspectRatio(void *camera,float zoom); /* 0x0040a1d0 */
 undefined4 rdCamera_BuildFOV(int *param_1); /* 0x0040a280 */
@@ -603,14 +603,14 @@ void rdKeyframe_FreeEntry(int param_1); /* 0x004c0e70 */
 /* ===== rdthing.c ===== */
 int __cdecl rdModel3_Draw(void *thing,float *position); /* 0x0040cf20 */
 uint rdThing_New(undefined4 param_1); /* 0x00471a40 */
-undefined4 rdThing_Init(undefined4 *param_1,undefined4 param_2); /* 0x00471a80 */
+undefined4 rdThing_NewEntry(undefined4 *param_1,undefined4 param_2); /* 0x00471a80 */
 void rdThing_Free(int param_1); /* 0x00471af0 */
 void rdThing_FreeEntry(int *param_1); /* 0x00471b10 */
 void __cdecl rdThing_SetModel3(void *thing,void *model); /* 0x00471bd0 */
 undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2); /* 0x00471d40 */
 undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2); /* 0x00471d60 */
 int __cdecl rdThing_Draw(void *thing,float *frame); /* 0x00471d80 */
-void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3); /* 0x00471e00 */
+void rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3); /* 0x00471e00 */
 
 /* ===== rdraster.c ===== */
 void rdAFRaster_CalcAffineGradients(float *param_1,int param_2); /* 0x0040ea50 */
@@ -992,18 +992,18 @@ uint rdMaterial_RegisterUnloader(uint param_1); /* 0x00417ea0 */
 void * __cdecl rdMaterial_Load(char *name,int a,int b); /* 0x00417eb0 */
 int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b); /* 0x00417f30 */
 void rdMaterial_Free(undefined4 param_1); /* 0x00418360 */
-void rdMaterial_FreeContents(int param_1); /* 0x004183a0 */
+void rdMaterial_FreeEntry(int param_1); /* 0x004183a0 */
 int __cdecl rdMaterial_AddToTextureCache(void *a,uint *material,int cel,int alt); /* 0x004184a0 */
 
 /* ===== math3d.c ===== */
-float __cdecl Vec3_Dot(float *a,float *b); /* 0x00446880 */
+float __cdecl rdVector_Dot2(float *a,float *b); /* 0x00446880 */
 float __cdecl rdVector_Dot3(float *a,float *b); /* 0x004468a0 */
-void __cdecl Vec3_Cross(float *out,float *a,float *b); /* 0x004468d0 */
-void __cdecl Vec3_NormalizeTo(float *param_1,float *param_2); /* 0x00446920 */
+void __cdecl rdVector_Cross3(float *out,float *a,float *b); /* 0x004468d0 */
+void __cdecl rdVector_Normalize3(float *param_1,float *param_2); /* 0x00446920 */
 float __cdecl rdVector_Normalize3Acc(float *param_1); /* 0x004469a0 */
 float __cdecl rdVector_Normalize3QuickAcc(float *param_1); /* 0x00446a10 */
 void __cdecl rdVector_Rotate3Acc(float *vec,float *rot); /* 0x00446ba0 */
-void __cdecl Matrix_GetAngles(float *matrix,float *outAngles); /* 0x00446bd0 */
+void __cdecl rdVector_ExtractAngles(float *matrix,float *outAngles); /* 0x00446bd0 */
 uint rdClip_SphereInFrustrum(int *param_1,float *param_2,float param_3); /* 0x0044e7d0 */
 uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 *param_4, float *param_5,uint *param_6); /* 0x0044ea50 */
 void rdMatrix_Build34(float *param_1,undefined4 *param_2,float *param_3); /* 0x0044eeb0 */
@@ -1022,20 +1022,20 @@ void Matrix_BuildTransform(float *param_1,undefined4 param_2); /* 0x0044fe50 */
 void rdMatrix_PostTranslate34(int param_1,float *param_2); /* 0x0044fe80 */
 void rdMatrix_PreScale34(float *param_1,undefined4 param_2); /* 0x0044feb0 */
 void __cdecl rdMatrix_TransformVector34(float *out,float *v,float *param_3); /* 0x0044fee0 */
-void __cdecl Vec3_TransformTo(float *out,float *v,float *m); /* 0x0044ff50 */
+void __cdecl rdMatrix_TransformVectorOrtho34(float *out,float *v,float *m); /* 0x0044ff50 */
 void __cdecl rdMatrix_TransformVector34Acc(float *vec,float *m); /* 0x0044ffc0 */
 void __cdecl rdMatrix_TransformPoint34(float *out,float *a,float *b); /* 0x00450060 */
 void __cdecl rdMatrix_TransformPoint34Acc(float *vec,float *m); /* 0x004500d0 */
 void __cdecl rdMatrix_TransformPointLst34(float *m,float *in,float *out,int count); /* 0x00450170 */
 undefined4 FUN_00450220(undefined4 *param_1); /* 0x00450220 */
 void rdFace_FreeEntry(int param_1); /* 0x00450260 */
-void Math3D_TriangleNormal(float *param_1,float *param_2,float *param_3,float *param_4); /* 0x00450290 */
-void Vec3_ZeroSmallComponents(float *param_1,float param_2); /* 0x00450380 */
+void rdMath_CalcSurfaceNormal(float *param_1,float *param_2,float *param_3,float *param_4); /* 0x00450290 */
+void rdMath_ClampVector(float *param_1,float param_2); /* 0x00450380 */
 undefined4 rdMath_PointsCollinear(float *param_1,float *param_2,float *param_3); /* 0x00450410 */
 
 /* ===== rdclip.c ===== */
-undefined4 rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4, undefined4 *param_5); /* 0x00446c10 */
-uint rdClip_Outcode2D(int param_1,int param_2,int param_3); /* 0x00446e80 */
+undefined4 rdClip_Line2(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4, undefined4 *param_5); /* 0x00446c10 */
+uint rdClip_CalcOutcode2(int param_1,int param_2,int param_3); /* 0x00446e80 */
 int __cdecl rdClip_Point3(void *frustum,float *point); /* 0x00446ec0 */
 int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *clipped1); /* 0x00446f80 */
 uint rdClip_Face3W(int *param_1,float *param_2,uint param_3); /* 0x004478c0 */
@@ -1057,7 +1057,7 @@ float __cdecl rdLight_CalcFaceIntensity (int *param_1,int param_2,uint param_3,u
 
 /* ===== rdprimit2.c ===== */
 void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int color,int mask); /* 0x00451b80 */
-void __cdecl rdPrimit2_DrawRect(void *canvas,int x1,int y1,int x2,int y2,int color,int mask); /* 0x00451f20 */
+void __cdecl rdPrimit2_DrawRectangle(void *canvas,int x1,int y1,int x2,int y2,int color,int mask); /* 0x00451f20 */
 
 /* ===== memory.c ===== */
 void Mem_DumpLog(void); /* 0x0045ff00 */
@@ -1080,24 +1080,24 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite); /* 0x00472640 */
 int rdSprite_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10); /* 0x004728a0 */
 undefined4 rdSprite_NewEntry(int param_1,int param_2,undefined4 param_3,char *param_4,undefined4 param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9, undefined4 param_10,undefined4 *param_11); /* 0x00472910 */
 void rdSprite_Free(int param_1); /* 0x00472b50 */
-void rdSprite_FreeContents(int param_1); /* 0x00472b70 */
+void rdSprite_FreeEntry(int param_1); /* 0x00472b70 */
 undefined4 rdSprite_Draw(int param_1,float *param_2); /* 0x00472bd0 */
 
 /* ===== stdfileutil.c ===== */
-undefined * __cdecl stdFile_Open(uint param_1,uint param_2); /* 0x00473430 */
-void stdFile_Close(undefined4 param_1); /* 0x00473450 */
-void stdFile_Read(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473460 */
-void stdFile_Write(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473480 */
-void stdFile_Gets(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004734a0 */
-void FUN_004734c0(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004734c0 */
-uint stdFile_Eof(int param_1); /* 0x004734e0 */
-undefined * __cdecl stdFile_Tell(uint param_1); /* 0x004734f0 */
-void stdFile_Seek(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473500 */
-undefined * stdFile_Size(uint param_1); /* 0x00473520 */
-undefined4 stdFile_Printf(undefined4 param_1,char *param_2); /* 0x00473570 */
+undefined * __cdecl stdFileOpen(uint param_1,uint param_2); /* 0x00473430 */
+void stdFileClose(undefined4 param_1); /* 0x00473450 */
+void stdFileRead(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473460 */
+void stdFileWrite(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473480 */
+void stdFileGets(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004734a0 */
+void stdFileGetws(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004734c0 */
+uint stdFeof(int param_1); /* 0x004734e0 */
+undefined * __cdecl stdFtell(uint param_1); /* 0x004734f0 */
+void stdFseek(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473500 */
+undefined * stdFileSize(uint param_1); /* 0x00473520 */
+undefined4 stdFilePrintf(undefined4 param_1,char *param_2); /* 0x00473570 */
 uint stdFGetc(uint param_1); /* 0x004735f0 */
 void stdFPutc(undefined4 param_1,undefined4 param_2); /* 0x00473610 */
-int __cdecl stdCompress_Decompress(void *dst,void *src,int srcSize); /* 0x00473a00 */
+int __cdecl LzssDecompress(void *dst,void *src,int srcSize); /* 0x00473a00 */
 void stdCompress_DecompressLoop(void); /* 0x00473b60 */
 void * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext); /* 0x004c1170 */
 void stdFileUtil_DisposeFind(int param_1); /* 0x004c12a0 */
@@ -1105,33 +1105,33 @@ int __cdecl stdFileUtil_FindNext(void *find,void *outEntry); /* 0x004c12d0 */
 
 /* ===== math.c ===== */
 int __cdecl stdCalcBitPos(int n); /* 0x004735d0 */
-float __cdecl Math_PowInt(float x,int n); /* 0x0047bbe0 */
-float __cdecl Math_NormalizeAngle360(float degrees); /* 0x0047bc20 */
-float __cdecl Math_NormalizeAngle180(float param_1); /* 0x0047bce0 */
+float __cdecl stdMath_FlexPower(float x,int n); /* 0x0047bbe0 */
+float __cdecl stdMath_NormalizeAngle(float degrees); /* 0x0047bc20 */
+float __cdecl stdMath_NormalizeAngleAcute(float param_1); /* 0x0047bce0 */
 void stdMath_SinCos(float param_1,float *param_2,float *param_3); /* 0x0047bd20 */
 float __cdecl Math_Floor(float param_1); /* 0x0047c100 */
 float10 stdMath_Tan(float param_1); /* 0x0047c120 */
-float __cdecl Math_AsinDegrees(float x); /* 0x0047c3b0 */
+float __cdecl stdMath_ArcSin1(float x); /* 0x0047c3b0 */
 float __cdecl Math_Sqrt(float param_1); /* 0x0047c490 */
 float __cdecl stdMath_ArcSin3(float param_1); /* 0x0047c4a0 */
-float __cdecl Math_Atan2Deg(float y,float x); /* 0x0047c5f0 */
+float __cdecl stdMath_ArcTan4(float y,float x); /* 0x0047c5f0 */
 
 /* ===== stdbitmap.c ===== */
-void * __cdecl stdBitmap_Load(char *filename,int param_2,int param_3); /* 0x00473630 */
+void * __cdecl stdLoadImage(char *filename,int param_2,int param_3); /* 0x00473630 */
 void * __cdecl stdLoadImageData(char *name,int a,int b); /* 0x00473660 */
 int __cdecl stdWriteImage(char *filename,void *bitmap); /* 0x00473810 */
-void * __cdecl stdBitmap_LoadResource(char *name,int a,int b); /* 0x0047aa50 */
+void * __cdecl stdBitmap_Load(char *name,int a,int b); /* 0x0047aa50 */
 void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c); /* 0x0047aab0 */
-undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param_4); /* 0x0047ab20 */
+undefined4 stdBitmap_LoadEntryFromFile(undefined4 param_1,int param_2,int param_3,int param_4); /* 0x0047ab20 */
 void __cdecl stdBitmap_Free(void *bitmap); /* 0x0047ae70 */
-void stdBitmap_FreeSurfaces(int param_1); /* 0x0047ae90 */
-undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2); /* 0x0047aef0 */
-int __cdecl stdBitmap_SaveBM(char *filename,void *bitmap); /* 0x0047b250 */
+void stdBitmap_FreeEntry(int param_1); /* 0x0047ae90 */
+undefined4 stdBitmap_AppendToFile(undefined4 param_1,int param_2); /* 0x0047aef0 */
+int __cdecl stdBitmap_Write(char *filename,void *bitmap); /* 0x0047b250 */
 void stdBitmap_ConvertColorFormat(int *param_1,int param_2); /* 0x0047b2b0 */
 int __cdecl stdBitmap_VBufferToBitmap(void *bitmap,int format,int flags); /* 0x0047b380 */
-undefined4 stdBitmap_Init(undefined4 *param_1,uint param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 *param_6); /* 0x0047b4b0 */
+undefined4 stdBitmap_NewEntry(undefined4 *param_1,uint param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 *param_6); /* 0x0047b4b0 */
 void stdBitmap_SetSurface(int param_1,int param_2,undefined4 param_3); /* 0x0047b540 */
-int __cdecl stdBitmap_ConvertToDisplay(void *bitmap); /* 0x0047b560 */
+int __cdecl stdBitmap_MemUsage(void *bitmap); /* 0x0047b560 */
 void stdBitmap_DeCompress(int param_1); /* 0x0047b590 */
 void stdPalEffects_ResetEffect(undefined4 *param_1); /* 0x0047b5f0 */
 
@@ -1139,15 +1139,15 @@ void stdPalEffects_ResetEffect(undefined4 *param_1); /* 0x0047b5f0 */
 undefined * stdControl_Startup(void); /* 0x00476f10 */
 void stdControl_Shutdown(void); /* 0x00476f70 */
 undefined4 stdControl_Open(void); /* 0x00476fc0 */
-undefined4 Input_Disable(void); /* 0x00476fe0 */
+undefined4 stdControl_Close(void); /* 0x00476fe0 */
 void stdControl_Flush(void); /* 0x00477010 */
-void Input_ResetState(void); /* 0x00477040 */
-int __cdecl Input_EnableAxis(uint axis); /* 0x00477090 */
+void stdControl_Reset(void); /* 0x00477040 */
+int __cdecl stdControl_EnableAxis(uint axis); /* 0x00477090 */
 void stdControl_ReadControls(void); /* 0x004770d0 */
 float __cdecl stdControl_ReadAxis(int inputId); /* 0x00477160 */
 int __cdecl stdControl_ReadKey(int inputId,int *down,int *justPressed); /* 0x00477230 */
 void __cdecl Input_SetAcquired(int acquire); /* 0x00477300 */
-void Input_ShowCursor(int param_1); /* 0x00477380 */
+void stdControl_ShowMouseCursor(int param_1); /* 0x00477380 */
 void Input_InitJoysticks(void); /* 0x00477390 */
 void Input_CreateKeyboard(void); /* 0x00477530 */
 void Input_CreateMouse(void); /* 0x004775a0 */
@@ -1178,10 +1178,10 @@ void __cdecl Plat_Free(void *p); /* 0x00488820 */
 
 /* ===== platsvc.c ===== */
 void stdPlatform_Assert(undefined4 param_1,char *param_2,undefined4 param_3); /* 0x00477f10 */
-void PlatSvc_HAlloc(uint param_1); /* 0x00478030 */
-void PlatSvc_HFree(undefined4 param_1); /* 0x00478040 */
-void PlatSvc_HRealloc(undefined4 param_1,undefined4 param_2); /* 0x00478050 */
-undefined4 PlatSvc_HLock(undefined4 param_1); /* 0x00478070 */
+void stdPlatform_AllocHandle(uint param_1); /* 0x00478030 */
+void stdPlatform_FreeHandle(undefined4 param_1); /* 0x00478040 */
+void stdPlatform_ReallocHandle(undefined4 param_1,undefined4 param_2); /* 0x00478050 */
+undefined4 stdPlatform_LockHandle(undefined4 param_1); /* 0x00478070 */
 
 /* ===== std3d.c ===== */
 undefined4 D3D_Enumerate(void); /* 0x00478230 */
@@ -1191,7 +1191,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer); /* 0x004782e0 */
 void D3D_ReleaseDriver(void); /* 0x00478660 */
 void __cdecl D3D_SetTextureLimits(int minW,int minH,int maxSize,int d); /* 0x00478700 */
 void std3D_StartScene(void); /* 0x00478730 */
-void D3D_EndScene(void); /* 0x00478750 */
+void std3D_EndScene(void); /* 0x00478750 */
 undefined4 D3D_BeginExecuteBuffer(void); /* 0x00478770 */
 int __cdecl std3D_AddRenderListVertices(void *verts,uint count); /* 0x004787d0 */
 undefined4 std3D_RenderListVerticesFinish(void); /* 0x00478840 */
@@ -1246,13 +1246,13 @@ undefined4 stdPic_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
 
 /* ===== stdgif.c ===== */
 void * stdGif_Load(char *param_1,int param_2,int param_3); /* 0x0047db00 */
-undefined4 stdGif_Save(undefined4 param_1,int param_2); /* 0x0047e060 */
+undefined4 stdGif_Write(undefined4 param_1,int param_2); /* 0x0047e060 */
 uint stdGif_LzwInitDecoder(short param_1); /* 0x0047e3c0 */
 uint stdGif_LzwDecodeNext(undefined4 param_1); /* 0x0047e470 */
-uint stdGif_LzwReadCode(undefined4 param_1); /* 0x0047e600 */
+uint getcode(undefined4 param_1); /* 0x0047e600 */
 uint stdGif_ReadByte(undefined4 param_1); /* 0x0047e770 */
 uint stdGif_LzwInitEncoder(undefined4 param_1,undefined4 param_2); /* 0x0047e7f0 */
-void stdGif_LzwWriteCode(undefined4 param_1,short param_2); /* 0x0047e8b0 */
+void putcode(undefined4 param_1,short param_2); /* 0x0047e8b0 */
 uint stdGif_LzwEncodePixel(undefined4 param_1,byte param_2); /* 0x0047ea30 */
 void stdGif_LzwClearTable(undefined4 param_1); /* 0x0047eba0 */
 undefined4 stdGif_LzwFinishEncode(undefined4 param_1); /* 0x0047ebe0 */
@@ -1283,16 +1283,16 @@ void * __cdecl Res_Load(int type,char *name); /* 0x00480520 */
 uint __cdecl Res_SetPurgable(void *data,int unlock); /* 0x00480560 */
 int __cdecl Res_SysPurgeBySize(uint bytesWanted,uint *bytesFreed); /* 0x004805b0 */
 int __cdecl Res_Dump(char *filename,int type); /* 0x00480680 */
-int __cdecl Res_OpenLog(char *filename); /* 0x00480740 */
+int __cdecl Res_Log(char *filename); /* 0x00480740 */
 void __cdecl Res_OverrideFileCalls(GrimServices *svc); /* 0x00480790 */
-void __cdecl Res_RestoreFileServices(GrimServices *svc); /* 0x00480800 */
+void __cdecl Res_RestoreFileCalls(GrimServices *svc); /* 0x00480800 */
 void * __cdecl Res_FindByData(void *data); /* 0x004810e0 */
 void * __cdecl Res_HandleFromSerialNumber(void *handle); /* 0x00481100 */
 void * __cdecl Res_FindByHandle(void *handle); /* 0x00481120 */
 void * __cdecl Res_Loaded(int type,char *name); /* 0x00481140 */
 void * __cdecl Res_FindByName(int type,char *name); /* 0x00481160 */
 void * __cdecl res_Load(int type,char *name,int *status); /* 0x00481210 */
-undefined * __cdecl Res_FindByNameFrom(uint param_1,uint param_2); /* 0x00481300 */
+undefined * __cdecl res_LocateResByName(uint param_1,uint param_2); /* 0x00481300 */
 int * Res_FindByNameInList(int param_1,char *param_2,int *param_3); /* 0x00481320 */
 void * __cdecl Res_CreateRecord(int type,char *name,void *data); /* 0x00481400 */
 void __cdecl Res_CallUnload(void *res); /* 0x00481510 */
@@ -1319,8 +1319,8 @@ void __cdecl Resource_SetNoPurge(int noPurge); /* 0x0048d340 */
 void * __cdecl sputResource_Alloc(int fourcc,char *name); /* 0x0048d350 */
 undefined4 sputResource_CloseResources(void); /* 0x0048d3e0 */
 undefined4 grimlib_FindResources(void); /* 0x0048d3f0 */
-int __cdecl Resource_SetExtraDataDir(char *dir); /* 0x0048d4b0 */
-int Resource_OpenLog(char *param_1); /* 0x0048d550 */
+int __cdecl sputResource_AddResourcePath(char *dir); /* 0x0048d4b0 */
+int sputResource_LogToFile(char *param_1); /* 0x0048d550 */
 int __cdecl AddResourcePath(char *dir); /* 0x0048d570 */
 void Resource_CountCostumeRefs(undefined4 param_1); /* 0x0048d810 */
 undefined4 Resource_RegisterTypes(void); /* 0x0048d870 */
@@ -1347,7 +1347,7 @@ int __cdecl Lab_ReadRaw(void *entry,void *buf,int offset,int n); /* 0x00482020 *
 /* ===== restype.c ===== */
 int __cdecl Res_SysRegisterHandler(int fourcc,void *handler); /* 0x004801a0 */
 void * __cdecl ResType_Find(int fourcc); /* 0x00481050 */
-int __cdecl ResType_DefaultHandler(void *msg); /* 0x00481e10 */
+int __cdecl res_DefaultHandler(void *msg); /* 0x00481e10 */
 void * sputResource_LipSyncHandler(int *param_1); /* 0x0048d8c0 */
 int __cdecl sputResource_BackgroundHandler(void *msg); /* 0x0048d930 */
 int __cdecl sputResource_CostumeHandler(void *msg); /* 0x0048da40 */
@@ -1384,25 +1384,25 @@ void Res_ResolveToSerialNumber(undefined4 *param_1); /* 0x00482220 */
 
 /* ===== engine.c ===== */
 void Res_FreeAll(void); /* 0x00482460 */
-void Engine_OpenResourceLog(undefined4 param_1); /* 0x00482530 */
+void grimlib_LogResources(undefined4 param_1); /* 0x00482530 */
 void grimlib_OverrideSelectedActorCostume(int param_1); /* 0x004825c0 */
 void grimlib_RestoreSelectedActorCostume(void); /* 0x004825f0 */
 int __cdecl grimlib_SetDisplay(void *mode,int flags); /* 0x00482620 */
-undefined4 Engine_CloseRenderer(void); /* 0x00482660 */
-void Engine_ShutdownGame(void); /* 0x004826e0 */
+undefined4 grimlib_UnsetDisplay(void); /* 0x00482660 */
+void grimlib_Close(void); /* 0x004826e0 */
 void grimlib_SetDebugToggleCallback(undefined4 param_1); /* 0x00482720 */
 void grimlib_SetPaletteCallback(undefined4 param_1); /* 0x00482730 */
 void grimlib_SetShutdownCallback(uint param_1); /* 0x00482740 */
 void grimlib_SetPageFlipCallback(undefined4 param_1); /* 0x00482750 */
-void Engine_SetZBufferEnabled(undefined4 param_1); /* 0x00482760 */
-void Engine_SetExtraDataDir(char *param_1); /* 0x00482770 */
+void grimlib_Using3DHardware(undefined4 param_1); /* 0x00482760 */
+void grimlib_AddResourcePath(char *param_1); /* 0x00482770 */
 int grimlib_FindSystemFiles(void); /* 0x00482790 */
 undefined4 grimlib_Open(int param_1,char *param_2); /* 0x004827a0 */
 void grimlib_MarkDirtyRect(int *param_1,int param_2); /* 0x00482800 */
 int grimlib_ConfirmClose(void); /* 0x004828d0 */
-void __cdecl Engine_Quit(int exitCode); /* 0x004828e0 */
+void __cdecl grimlib_RequestShutdown(int exitCode); /* 0x004828e0 */
 void __cdecl grimlib_SetPause(int paused); /* 0x00482900 */
-undefined * __cdecl Engine_CallCharacterHandler(int param_1); /* 0x00482980 */
+undefined * __cdecl grimlib_CharacterCallback(int param_1); /* 0x00482980 */
 void grimlib_UpdateManual(int param_1,int param_2); /* 0x00482990 */
 void __cdecl gimlib_SetImuseState(int state); /* 0x00482ae0 */
 void grimlib_Display(void); /* 0x00482af0 */
@@ -1414,13 +1414,13 @@ void PerfBegin(int param_1); /* 0x00482e30 */
 undefined * __cdecl PerfEnd(int param_1); /* 0x00482e80 */
 undefined4 grimlib_PlayMovie(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5); /* 0x00482f00 */
 void grimlib_UserPaint(void); /* 0x00482f80 */
-void Engine_RequestSave(char *param_1); /* 0x00482f90 */
+void grimlib_Save(char *param_1); /* 0x00482f90 */
 void grimlib_Load(char *param_1); /* 0x00482fb0 */
 uint grimlib_JustLoaded(void); /* 0x00482fd0 */
 void Engine_SaveGame(void); /* 0x00482fe0 */
 void Engine_LoadGame(void); /* 0x00483240 */
 void SetPrevMode(uint param_1); /* 0x004835f0 */
-uint Engine_GetSavedValue(void); /* 0x00483600 */
+uint GetPrevMode(void); /* 0x00483600 */
 undefined4 sputRender_Open(void); /* 0x00484000 */
 void sputRender_Update(void); /* 0x00484260 */
 void __cdecl sputControl_AddCallback(void *fn); /* 0x0048d1a0 */
@@ -1452,11 +1452,11 @@ int __cdecl sputRoom_LoadResources(void *set); /* 0x004a4fe0 */
 int __cdecl Set_RegisterHandle(char *name,void *fn); /* 0x004a54a0 */
 int Set_FindHandle(char *name); /* 0x004a5500 */
 int Set_IsHandleValid(char *param_1); /* 0x004a55d0 */
-void * __cdecl Set_GetActorListByName(char *setName); /* 0x004a60a0 */
+void * __cdecl GetRoomActors(char *setName); /* 0x004a60a0 */
 void * Set_FindNameInList(int param_1); /* 0x004a60c0 */
 void * __cdecl Set_NormalizeName(char *setName); /* 0x004a6100 */
-void Set_FreeSectors(void *param_1); /* 0x004a7100 */
-void __cdecl Set_ActivateSectors(void *set); /* 0x004a7150 */
+void WalkPlane_KillCollection(void *param_1); /* 0x004a7100 */
+void __cdecl WalkPlane_SetCollection(void *set); /* 0x004a7150 */
 
 /* ===== enginemodule.c ===== */
 undefined * __cdecl grimlib_GameInitialize(GrimServices *param_1,undefined **param_2); /* 0x00482540 */
@@ -1483,14 +1483,14 @@ char * __cdecl PolyglotGetString(char *textId); /* 0x004838e0 */
 
 /* ===== render.c ===== */
 uint * Render_GetBackBuffer(void); /* 0x004839f0 */
-void Render_ToggleDebugOverlay(void); /* 0x00483a00 */
+void sputRender_DrawDebuggingToggle(void); /* 0x00483a00 */
 void sputRender_SetPaletteCallback(uint param_1); /* 0x00483a80 */
 void sputRender_SetPageFlipCallback(void *param_1); /* 0x00483a90 */
 int __cdecl sputRender_Save(void *writeFn); /* 0x00483da0 */
 int __cdecl sputRender_Restore(void *readFn); /* 0x00483e20 */
-void Render_SetZBufferEnabled(int param_1); /* 0x00483ea0 */
+void sputRender_Using3DHardware(int param_1); /* 0x00483ea0 */
 void __cdecl sputRender_PageCountIs(int n); /* 0x00483eb0 */
-void __cdecl Render_InvalidateRectLastBuffer(int *rect,int flag); /* 0x00483ed0 */
+void __cdecl sputRender_MarkDirtyRect(int *rect,int flag); /* 0x00483ed0 */
 void __cdecl MarkDirtyRect(int *rect,int flag); /* 0x00483f60 */
 undefined4 sputRender_SetDisplay (uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5, undefined4 param_6,int param_7); /* 0x00484030 */
 void sputRender_Close(void); /* 0x004841f0 */
@@ -1513,7 +1513,7 @@ void Render_CleanBuffer(void); /* 0x004869b0 */
 void sputRender_ForceRefresh(void); /* 0x00486a00 */
 void * sputRender_CleanArtBuffer(void); /* 0x00486b00 */
 void * sputRender_CleanZBuffer(void); /* 0x00486b10 */
-uint Render_GetUserCallback(void); /* 0x00486b20 */
+uint sputRender_SetPaletteFunc(void); /* 0x00486b20 */
 void sputRender_SetPageFlip(int param_1); /* 0x00486b30 */
 void __cdecl sputRender_DrawIrisEffect(float percent,int x,int y); /* 0x00486d00 */
 void __cdecl sputRender_IrisDown(int x,int y,int durationMs); /* 0x00486eb0 */
@@ -1558,7 +1558,7 @@ void sputActor_EnablePuck(void *param_1,int param_2); /* 0x00490730 */
 void sputActor_SetActorPosition(int param_1,float *param_2); /* 0x00490870 */
 void sputActor_SetActorRotation(int param_1,undefined4 *param_2,int param_3); /* 0x00490900 */
 void __cdecl sputActor_SetReflection(void *actor,float angle); /* 0x00490a40 */
-void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *costume); /* 0x00490b50 */
+void __cdecl sputActor_SetTurnChores(void *actor,int leftChore,int rightChore,void *costume); /* 0x00490b50 */
 void __cdecl sputActor_SetRestChore(void *actor,int chore,void *costume); /* 0x00490c80 */
 int __cdecl sputActor_PushCostume(void *actor,char *name,int param_3); /* 0x00490d30 */
 void __cdecl sputActor_PopCostume(void *actor,int free); /* 0x00490dd0 */
@@ -1576,7 +1576,7 @@ int __cdecl sputActor_ActorHasShadow(void *actor); /* 0x00493510 */
 void __cdecl sputActor_ActivateActorShadow(void *actor,int shadowIdx,int active); /* 0x00493540 */
 void sputActor_SetShadowPlane(int param_1,char *param_2); /* 0x00493570 */
 void __cdecl sputActor_SetShadowPoint(void *actor,float x,float y,float z); /* 0x004935f0 */
-void __cdecl Actor_SetShadowValid(void *actor,int shadowIdx,int valid); /* 0x00493630 */
+void __cdecl sputActor_SetShadowValid(void *actor,int shadowIdx,int valid); /* 0x00493630 */
 void __cdecl sputActor_AddShadowClipPlane(void *actor,int shadowIdx,char *sectorName); /* 0x00493660 */
 void __cdecl sputActor_ResetShadows(void *actor); /* 0x004936b0 */
 void sputCostume_DrawActorShadow(int param_1); /* 0x004936e0 */
@@ -1611,32 +1611,32 @@ int SetFile_Parse(char *param_1,uint param_2); /* 0x004a4b00 */
 undefined4 sputRoom_LoadRoomEntry(undefined4 param_1); /* 0x004a5550 */
 undefined4 sputRoom_ParseColormaps(void); /* 0x004a5b40 */
 undefined4 sputRoom_ParseSectors(void); /* 0x004a5c90 */
-void SectorList_SaveForShrink(void); /* 0x004a61c0 */
-void SectorList_FreeShrinkSave(void); /* 0x004a6330 */
-void SectorList_RestoreAfterShrink(void); /* 0x004a6380 */
-undefined1 * __thiscall Sector_Construct(void *this,int a1,int a2,int a3); /* 0x004a6490 */
-void __fastcall Sector_Unlink(void *param_1); /* 0x004a66e0 */
-void __thiscall Sector_SetName(void *this,char *name); /* 0x004a6760 */
-void __thiscall Sector_SetSavedType(void *this,uint type); /* 0x004a6790 */
-int __thiscall Sector_ContainsPoint(void *this,float *point,int checkActive); /* 0x004a6980 */
-int __thiscall Sector_ClampPoint(void *this,int a1); /* 0x004a6b30 */
+void WalkPlane_BuildCache(void); /* 0x004a61c0 */
+void WalkPlane_DestroyCache(void); /* 0x004a6330 */
+void WalkPlane_RestoreCache(void); /* 0x004a6380 */
+undefined1 * __thiscall WalkPlane_Construct(void *this,int a1,int a2,int a3); /* 0x004a6490 */
+void __fastcall WalkPlane_Destruct(void *param_1); /* 0x004a66e0 */
+void __thiscall WalkPlane_SetName(void *this,char *name); /* 0x004a6760 */
+void __thiscall WalkPlane_SetType(void *this,uint type); /* 0x004a6790 */
+int __thiscall WalkPlane_Within(void *this,float *point,int checkActive); /* 0x004a6980 */
+int __thiscall WalkPlane_ClosestPoint(void *this,int a1); /* 0x004a6b30 */
 float __thiscall WalkPlane_Intersection(void *this,int a1,int a2,int a3); /* 0x004a6d10 */
 void __thiscall WalkPlane_SnapTo(void *this,float *pos); /* 0x004a6fa0 */
-int __thiscall Sector_FixPlaneCoordinate(void *this,int a1); /* 0x004a7000 */
-void __thiscall Sector_DrawOutline(void *this,int color); /* 0x004a70a0 */
-void * SectorList_FindByPoint(float *param_1,uint param_2); /* 0x004a71e0 */
+int __thiscall WalkPlane_Project(void *this,int a1); /* 0x004a7000 */
+void __thiscall WalkPlane_Draw(void *this,int color); /* 0x004a70a0 */
+void * WalkPlane_PlaneAt(float *param_1,uint param_2); /* 0x004a71e0 */
 void * __cdecl WalkPlane_PlaneNamed(char *name); /* 0x004a7230 */
-void * __cdecl Sector_FindById(int id); /* 0x004a7290 */
-void * SectorList_FindNearestPoint(float *param_1,uint param_2); /* 0x004a72b0 */
+void * __cdecl WalkPlane_PlaneNumbered(int id); /* 0x004a7290 */
+void * WalkPlane_PlaneClosest(float *param_1,uint param_2); /* 0x004a72b0 */
 void __thiscall WalkPlane_JumpOut(void *this,float *walker); /* 0x004a7390 */
-float * __thiscall Sector_EdgeFollowDirection(void *this,float *walker); /* 0x004a7520 */
-void SectorList_ResetFree(void); /* 0x004a7a90 */
-float * SectorVertexPool_GetOrAdd(undefined4 param_1,float *param_2); /* 0x004a7ab0 */
-void SectorVertexPool_Release(int *param_1); /* 0x004a7ba0 */
+float * __thiscall WalkPlane_GetConstraintVector(void *this,float *walker); /* 0x004a7520 */
+void WalkPlane_AllActive(void); /* 0x004a7a90 */
+float * WalkPlane_AddVertex(undefined4 param_1,float *param_2); /* 0x004a7ab0 */
+void WalkPlane_RemoveVertex(int *param_1); /* 0x004a7ba0 */
 undefined * ParseCollection(int param_1); /* 0x004a7bc0 */
-int __thiscall Sector_ClipPolygon(void *this,float *verts,int count,float *out); /* 0x004a8cb0 */
-float __thiscall Sector_EdgeDistance(void *this,int edge,float *point); /* 0x004a9070 */
-undefined4 __fastcall Sector_CollapseShortestEdge(void *param_1); /* 0x004a9180 */
+int __thiscall WalkPlane_ClipPoly(void *this,float *verts,int count,float *out); /* 0x004a8cb0 */
+float __thiscall WalkPlane_DistToEdge(void *this,int edge,float *point); /* 0x004a9070 */
+undefined4 __fastcall WalkPlane_RemoveShortEdge(void *param_1); /* 0x004a9180 */
 void __cdecl ShrinkBoxes(float radius); /* 0x004a9d00 */
 
 /* ===== drawlist.c ===== */
@@ -1648,7 +1648,7 @@ undefined4 FUN_004862b0(int *param_1,int *param_2); /* 0x004862b0 */
 int __cdecl sputRender_SegmentPlaneIntersect(float *out,float *p1,float *p2,float a,float b,float c,float d); /* 0x00486a10 */
 
 /* ===== cacherect.c ===== */
-void * __cdecl CacheRect_Create(int x,int y,int w,int h); /* 0x00486b40 */
+void * __cdecl sputRender_CreateCacheRect(int x,int y,int w,int h); /* 0x00486b40 */
 void sputRender_RestoreCacheRect(void); /* 0x00486c50 */
 void CacheRect_FreeAll(void); /* 0x00486cb0 */
 
@@ -1658,7 +1658,7 @@ uint * Dlg_MakeDialogTemplate (undefined4 *param_1,undefined2 param_2,undefined2
 
 /* ===== spew.c ===== */
 void Spew_Startup(void); /* 0x00488840 */
-void Spew_Shutdown(void); /* 0x00488860 */
+void grimDebug_Shutdown(void); /* 0x00488860 */
 void Spew_LoadDll(void); /* 0x00488890 */
 
 /* ===== fileutil.c ===== */
@@ -1704,31 +1704,31 @@ void PrimitiveList_StaticConstruct(void); /* 0x00489510 */
 void PrimitiveList_InitGlobal(void); /* 0x00489520 */
 void PrimitiveList_RegisterAtExit(void); /* 0x00489530 */
 void PrimitiveList_AtExitClear(void); /* 0x00489540 */
-void __fastcall PrimitiveList_Init(undefined4 *param_1); /* 0x0048a500 */
-void __fastcall PrimitiveList_Clear(int *param_1); /* 0x0048a520 */
-void * __thiscall PrimitiveList_Append(void *this,int id,int layer); /* 0x0048a670 */
-void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask); /* 0x0048a9f0 */
-undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1); /* 0x0048ab20 */
-void * __thiscall PrimitiveList_FindById(void *this,int id,void *after); /* 0x0048abd0 */
+void __fastcall PrimitiveQueue_Construct(undefined4 *param_1); /* 0x0048a500 */
+void __fastcall PrimitiveQueue_purge(int *param_1); /* 0x0048a520 */
+void * __thiscall PrimitiveQueue_addObject(void *this,int id,int layer); /* 0x0048a670 */
+void __thiscall PrimitiveQueue_draw(void *this,void *canvas,uint layerMask); /* 0x0048a9f0 */
+undefined * __thiscall PrimitiveQueue_markAllDirty(void *this,int a1); /* 0x0048ab20 */
+void * __thiscall PrimitiveQueue_findPrimitive(void *this,int id,void *after); /* 0x0048abd0 */
 
 /* ===== primitives.c ===== */
 void __cdecl sputPrimitive_Update(uint layerMask); /* 0x00489550 */
 void sputPrimitive_Pause(void); /* 0x004895d0 */
 void sputPrimitive_Resume(void); /* 0x004895f0 */
-void * __thiscall Primitive_Construct(void *this,int id,int unused); /* 0x0048a4b0 */
-int __thiscall Primitive_AddLine(void *this,int x1,int y1,int x2,int y2,int color,int layer); /* 0x0048a560 */
-int __thiscall Primitive_AddRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,int layer); /* 0x0048a5b0 */
-int __thiscall Primitive_AddPolyline(void *this,int count,int *points,int color,int layer); /* 0x0048a600 */
-void __thiscall Primitive_Kill(void *this,int id); /* 0x0048a740 */
-int __thiscall Primitive_SetColor(void *this,int id,int color); /* 0x0048a7b0 */
-int __thiscall Primitive_SetLayer(void *this,int id,int layer); /* 0x0048a7e0 */
-int __thiscall Primitive_Offset(void *this,int id,int dx,int dy); /* 0x0048a830 */
-int __thiscall Primitive_MoveTo(void *this,int id,int x,int y); /* 0x0048a8a0 */
-int __thiscall Primitive_SetEnd(void *this,int id,int x,int y); /* 0x0048a960 */
-int __thiscall Primitive_SetSize(void *this,int id,int w,int h); /* 0x0048a9a0 */
-void __stdcall Primitive_Draw(void *prim,void *canvas); /* 0x0048aa20 */
-int __thiscall Primitive_Invalidate(void *this,void *prim); /* 0x0048ab50 */
-void Primitive_ResetIds(void); /* 0x0048abc0 */
+void * __thiscall PrimitiveObject_Construct(void *this,int id,int unused); /* 0x0048a4b0 */
+int __thiscall PrimitiveQueue_addLine(void *this,int x1,int y1,int x2,int y2,int color,int layer); /* 0x0048a560 */
+int __thiscall PrimitiveQueue_addRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,int layer); /* 0x0048a5b0 */
+int __thiscall PrimitiveQueue_addPolygon(void *this,int count,int *points,int color,int layer); /* 0x0048a600 */
+void __thiscall PrimitiveQueue_deletePrimitive(void *this,int id); /* 0x0048a740 */
+int __thiscall PrimitiveQueue_changeColor(void *this,int id,int color); /* 0x0048a7b0 */
+int __thiscall PrimitiveQueue_changeLayer(void *this,int id,int layer); /* 0x0048a7e0 */
+int __thiscall PrimitiveQueue_move(void *this,int id,int dx,int dy); /* 0x0048a830 */
+int __thiscall PrimitiveQueue_moveTo(void *this,int id,int x,int y); /* 0x0048a8a0 */
+int __thiscall PrimitiveQueue_moveEndpoint(void *this,int id,int x,int y); /* 0x0048a960 */
+int __thiscall PrimitiveQueue_changeDimensions(void *this,int id,int w,int h); /* 0x0048a9a0 */
+void __stdcall PrimitiveQueue_drawPrimitive(void *prim,void *canvas); /* 0x0048aa20 */
+int __thiscall PrimitiveQueue_markDirty(void *this,void *prim); /* 0x0048ab50 */
+void PrimitiveQueue_resetId(void); /* 0x0048abc0 */
 
 /* ===== sputprimitive.c ===== */
 undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2); /* 0x00489580 */
@@ -1780,17 +1780,17 @@ void __cdecl Text_DrawChar(void *ctx,void *font,int ch); /* 0x004ab710 */
 void __cdecl sputText_AddToQueue(void *obj,int durationMs,int flags); /* 0x0048c470 */
 void * __cdecl TextObject_New(void *ctx,char *text,int durationMs,int flags); /* 0x0048c7e0 */
 void __cdecl TextObject_Draw(void *obj,int invalidate); /* 0x0048c9f0 */
-undefined4 * TextObject_FindBySelf(int param_1); /* 0x0048cba0 */
+undefined4 * sputText_FindSerialNumber(int param_1); /* 0x0048cba0 */
 
 /* ===== controls.c ===== */
 int Controls_DebugKeysHook(undefined4 param_1); /* 0x0048d030 */
-void Controls_ResetAll(void); /* 0x0048d050 */
+void sputControl_Reset(void); /* 0x0048d050 */
 
 /* ===== control.c ===== */
-void __cdecl Control_Enable(int control); /* 0x0048d090 */
-void __cdecl Control_Disable(int control); /* 0x0048d0d0 */
+void __cdecl sputControl_EnableControl(int control); /* 0x0048d090 */
+void __cdecl sputControl_DisableControl(int control); /* 0x0048d0d0 */
 undefined * sputControl_Open(void); /* 0x0048d150 */
-undefined4 Control_Release(void); /* 0x0048d170 */
+undefined4 sputControl_Close(void); /* 0x0048d170 */
 
 /* ===== sputcontrol.c ===== */
 undefined4 sputControl_Initialize(undefined4 param_1,undefined4 *param_2); /* 0x0048d100 */
@@ -1799,7 +1799,7 @@ undefined4 sputControl_Startup(void); /* 0x0048d2e0 */
 void sputControl_Shutdown(void); /* 0x0048d330 */
 
 /* ===== debug.c ===== */
-undefined4 Debug_CameraFovKeys(void); /* 0x0048d210 */
+undefined4 sputControl_StandardHandler(void); /* 0x0048d210 */
 
 /* ===== sputresource.c ===== */
 undefined * __cdecl sputResource_Initialize(uint param_1,undefined **param_2); /* 0x0048d4e0 */
@@ -1826,37 +1826,37 @@ uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme); /* 0x00490e00 */
 int ComparePhonemes(int *param_1,int *param_2); /* 0x00490e50 */
 
 /* ===== walker.c ===== */
-undefined4 Walker_UpdateYaw(void *param_1,float *param_2); /* 0x00491230 */
+undefined4 sputActor_AlignToPuck(void *param_1,float *param_2); /* 0x00491230 */
 void sputActor_ActorWalkTo(int param_1,int param_2,undefined4 *param_3,undefined4 param_4); /* 0x00491650 */
 uint Walker_AvoidActorPath (void *param_1,void *param_2,undefined4 *param_3,uint param_4,float *param_5); /* 0x004917e0 */
 void __cdecl sputActor_SetWalkSystemFadeTime(int ms); /* 0x00494880 */
-void * __thiscall Walker_Create(void *this,float radius); /* 0x004a8200 */
-void __fastcall Walker_Destroy(int param_1); /* 0x004a8270 */
-undefined * __fastcall Walker_GetAngles(int param_1); /* 0x004a82a0 */
+void * __thiscall Puck_Construct(void *this,float radius); /* 0x004a8200 */
+void __fastcall Puck_Destruct(int param_1); /* 0x004a8270 */
+undefined * __fastcall Puck_Rot(int param_1); /* 0x004a82a0 */
 void __fastcall Puck_Validate(void *param_1); /* 0x004a82c0 */
 void __thiscall Puck_SetPos(void *this,float *pos); /* 0x004a8310 */
-void __thiscall Walker_RotateVector(void *this,float *vec); /* 0x004a8350 */
-void __thiscall Walker_ToLocalSpace(void *this,float *vec); /* 0x004a8370 */
+void __thiscall Puck_Xform(void *this,float *vec); /* 0x004a8350 */
+void __thiscall Puck_InvXform(void *this,float *vec); /* 0x004a8370 */
 void __thiscall Puck_Rotate(void *this,float angle); /* 0x004a83c0 */
 float __thiscall Puck_PointAt(void *this,float *point,float maxTurn); /* 0x004a8450 */
 void __thiscall Puck_Constrain(void *this,int a1); /* 0x004a85b0 */
-undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,int turnRightOk); /* 0x004a8610 */
-void __thiscall Walker_SetSectorFrame(void *this,int a1); /* 0x004a89b0 */
-void __fastcall Walker_RebuildRightVector(int param_1); /* 0x004a8a90 */
-void __thiscall Walker_DrawDebugAxes(void *this,int color); /* 0x004a8b00 */
+undefined * __thiscall Puck_Forward(void *this,float step,int turnLeftOk,int turnRightOk); /* 0x004a8610 */
+void __thiscall Puck_OrientToPlane(void *this,int a1); /* 0x004a89b0 */
+void __fastcall Puck_Normalize(int param_1); /* 0x004a8a90 */
+void __thiscall Puck_Draw(void *this,int color); /* 0x004a8b00 */
 uint GetPath(undefined4 *param_1); /* 0x004a9420 */
-undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3); /* 0x004a9430 */
-undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3); /* 0x004a94d0 */
-uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3); /* 0x004a96f0 */
+undefined4 BuildPath(undefined4 param_1,uint *param_2,int param_3); /* 0x004a9430 */
+undefined4 Planner_FindPath(float *param_1,float *param_2,void *param_3); /* 0x004a94d0 */
+uint FindExitPoints(void *param_1,float *param_2,uint *param_3); /* 0x004a96f0 */
 undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefined4 *param_4); /* 0x004a9920 */
-undefined4 Planner_SmoothPath(void); /* 0x004a9aa0 */
+undefined4 TightenPath(void); /* 0x004a9aa0 */
 void * Planner_SharedSector(undefined4 param_1,float *param_2); /* 0x004a9ca0 */
 
 /* ===== collision.c ===== */
-void Collision_PushOutOfBox (float *param_1,float param_2,float param_3,float param_4,float param_5,float param_6 ,float param_7,float *param_8,float *param_9); /* 0x004922d0 */
+void GetOuttaTheBox(float *param_1,float param_2,float param_3,float param_4,float param_5, float param_6,float param_7,float *param_8,float *param_9); /* 0x004922d0 */
 undefined4 __cdecl Collision_PointInBox (float *a,float *b,float *p3,float bx0,float by0,float bz0,float bx1,float by1,float bz1, float *p10,float *offset); /* 0x00492510 */
-void Collision_BoxCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5); /* 0x004925c0 */
-undefined4 Collision_SegmentHitsBox (float *param_1,float *param_2,float *param_3,float param_4,float param_5, undefined4 param_6,float param_7,float param_8,undefined4 param_9,float *param_10); /* 0x00492680 */
+void FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5); /* 0x004925c0 */
+undefined4 TestCollision(float *param_1,float *param_2,float *param_3,float param_4,float param_5, undefined4 param_6,float param_7,float param_8,undefined4 param_9,float *param_10); /* 0x00492680 */
 int Collision_PickDetour(float *param_1,float *param_2,int param_3); /* 0x00492a50 */
 undefined4 Collision_UpdateMovedActors(void); /* 0x004939a0 */
 undefined4 Collision_TestActorAgainstOthers(void *param_1); /* 0x004939f0 */
@@ -2045,21 +2045,21 @@ int __cdecl sputRoom_FindLightByName(void *set,char *name); /* 0x004a5cf0 */
 /* ===== objstate.c ===== */
 void * __cdecl sputRoom_AddObjectState(int setupIdx,int type,char *bitmap,char *zbitmap,int visible); /* 0x004a5d50 */
 void __cdecl sputRoom_RemoveObjectState(void *state); /* 0x004a5e50 */
-undefined4 * __fastcall StateImage_Construct(undefined4 *param_1); /* 0x004aa070 */
-void __fastcall StateImage_Release(int param_1); /* 0x004aa0b0 */
-void __thiscall StateImage_Init(void *this,char *name); /* 0x004aa100 */
-void __thiscall StateImage_Load(void *this,int load); /* 0x004aa130 */
-undefined4 __fastcall StateImage_GetFrameSurface(int param_1); /* 0x004aa1f0 */
-void __thiscall StateImage_CaptureFrom(void *this,void *surface); /* 0x004aa290 */
-void __thiscall StateImage_Draw(void *this,void *dst); /* 0x004aa310 */
-int __fastcall StateImage_IsCurrentFrame(int param_1); /* 0x004aa3e0 */
+undefined4 * __fastcall ObjectStateImage_Construct(undefined4 *param_1); /* 0x004aa070 */
+void __fastcall ObjectStateImage_Clear(int param_1); /* 0x004aa0b0 */
+void __thiscall ObjectStateImage_SetFile(void *this,char *name); /* 0x004aa100 */
+void __thiscall ObjectStateImage_Load(void *this,int load); /* 0x004aa130 */
+undefined4 __fastcall ObjectStateImage_VBuffer(int param_1); /* 0x004aa1f0 */
+void __thiscall ObjectStateImage_SetClean(void *this,void *surface); /* 0x004aa290 */
+void __thiscall ObjectStateImage_Draw(void *this,void *dst); /* 0x004aa310 */
+int __fastcall ObjectStateImage_InSync(int param_1); /* 0x004aa3e0 */
 void * __thiscall ObjectState_Construct(void *this,int type,char *bitmapName,char *zbufName,int setupIdx); /* 0x004aa410 */
 void __fastcall ObjectState_Destruct(int param_1); /* 0x004aa4c0 */
-void __fastcall ObjectState_LoadImages(int param_1); /* 0x004aa540 */
-void __fastcall ObjectState_UnloadBitmaps(int param_1); /* 0x004aa560 */
-void __thiscall ObjectState_CaptureBackground(void *this,void *bg,void *zbuf); /* 0x004aa580 */
-void __thiscall ObjectState_Draw(void *this,int type,void *dst,void *zdst); /* 0x004aa5c0 */
-int __thiscall ObjectState_SetFrame(void *this,int a1); /* 0x004aa6b0 */
+void __fastcall ObjectState_LoadResources(int param_1); /* 0x004aa540 */
+void __fastcall ObjectState_UnLoadResources(int param_1); /* 0x004aa560 */
+void __thiscall ObjectState_Reset(void *this,void *bg,void *zbuf); /* 0x004aa580 */
+void __thiscall ObjectState_Update(void *this,int type,void *dst,void *zdst); /* 0x004aa5c0 */
+int __thiscall ObjectState_SetCopyMode(void *this,int a1); /* 0x004aa6b0 */
 void * __thiscall ObjectState_MoveToBack(void *this,void *list); /* 0x004aa6c0 */
 void * __thiscall ObjectState_MoveToFront(void *this,void *list); /* 0x004aa720 */
 
@@ -2585,7 +2585,7 @@ void Video_module_shutdown(void); /* 0x004ce3b0 */
 undefined4 bmp_bitmap_AllocRaw(int *param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6, undefined4 *param_7); /* 0x004ce840 */
 void bmp_bitmap_Free(int *param_1); /* 0x004ce980 */
 void gra_SetBitmap(undefined4 *param_1,undefined4 param_2); /* 0x004ce9b0 */
-undefined4 FUN_004ced70(int param_1,void *param_2,void *param_3,byte *param_4); /* 0x004ced70 */
+undefined4 gra_ConvertMakeLookup(int param_1,void *param_2,void *param_3,byte *param_4); /* 0x004ced70 */
 void sou_mixer_terminate(int *param_1); /* 0x004d2d70 */
 float10 FUN_004d54b4(void); /* 0x004d54b4 */
 int FUN_004d56f0(void); /* 0x004d56f0 */
@@ -2679,14 +2679,14 @@ int __stdcall LightEd_KeyboardProc(int code,uint wParam,uint lParam); /* 0x004bf
 undefined4 DSound_Init(void); /* 0x004c0ed0 */
 void DSound_Shutdown(void); /* 0x004c1090 */
 void __cdecl DSound_SetPrimaryVolume(int volume); /* 0x004c1110 */
-void DSound_FillStreamBuffer(void); /* 0x004d27d0 */
+void dsn_fill_thread(void); /* 0x004d27d0 */
 int DSound_GetPlayBlock(void); /* 0x004d2c60 */
-int __cdecl Mixer_Init(int *services,uint tableUnits,int frames); /* 0x004d2d40 */
-void __cdecl Mixer_MixVoiceByFormat (byte *data,int accumOffset,uint outFrames,int srcBytes,int unused,int volume,int pan, int format); /* 0x004d2d90 */
-void __cdecl Mixer_Output(short *dst,int frames); /* 0x004d2e60 */
+int __cdecl sou_mixer_initialize(int *services,uint tableUnits,int frames); /* 0x004d2d40 */
+void __cdecl sou_mixer_mix(byte *data,int accumOffset,uint outFrames,int srcBytes,int unused,int volume,int pan, int format); /* 0x004d2d90 */
+void __cdecl sou_mixer_end(short *dst,int frames); /* 0x004d2e60 */
 int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused); /* 0x004d2e80 */
 int __cdecl Mixer_Free(int *services); /* 0x004d2fb0 */
-int Mixer_ClearAccumulator(void); /* 0x004d3010 */
+int sou_mixer_start(void); /* 0x004d3010 */
 void __cdecl Mixer_MixVoice(byte *data,int count,int bits,int channels,uint outFrames,int accumOffset,int volume, int pan,int offsetBinary,int byteSwapped); /* 0x004d3040 */
 int __cdecl Mixer_ConvertTo16(short *dst,int frames); /* 0x004d31d0 */
 void __cdecl Mixer_Mix8MonoLR(byte *src,int count,uint rateFrac,int accumOffset,int volL,int volR); /* 0x004d3240 */
@@ -2790,7 +2790,7 @@ int AllocBuffers(int param_1,int param_2,int param_3); /* 0x004cc410 */
 void Blocky16_flobdec_Reset(void); /* 0x004cc590 */
 void Blocky16_flobdec_DecodeBody (void *param_1,uint *param_2,int param_3,int param_4,int param_5,byte *param_6, undefined4 param_7,byte param_8); /* 0x004cc620 */
 undefined4 Blocky16_flobdec_GetVal (short *param_1,int param_2,int *param_3,int *param_4,int *param_5,int *param_6); /* 0x004cc650 */
-void Blocky16_BuildPixelOffsets(uint param_1); /* 0x004cc6a0 */
+void fob_blk16_configure(uint param_1); /* 0x004cc6a0 */
 void __cdecl fob_block_maketiles(int size); /* 0x004cc7d0 */
 int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,byte *hdr,byte flags); /* 0x004ccd00 */
 void Blocky16_BuildExpandTable(void *param_1); /* 0x004cd1e0 */
@@ -2798,8 +2798,8 @@ void Blocky16_DecodeHalfRows16(void *param_1,ushort *param_2,int param_3,int par
 void Blocky16_DecodeHalfRows8(void *param_1,byte *param_2,int param_3,int param_4,int param_5); /* 0x004cd450 */
 void __cdecl Blocky16_DecodeBlocks (byte *dst,byte *src,int prevOffset,int prev2Offset,int width,short *motion,short *colors, int height,int unused,byte *split4,byte *split8,ushort *pairColors); /* 0x004cd550 */
 byte * __cdecl Blocky16_DecodeBlock8(byte *src,byte *dst,int pitch); /* 0x004cd610 */
-byte * __cdecl Blocky16_DecodeBlock4(byte *src,byte *dst,int pitch); /* 0x004cd9b0 */
-byte * __cdecl Blocky16_DecodeBlock2(byte *src,byte *dst,int pitch); /* 0x004cdb80 */
+byte * __cdecl block16_RenderBlock4(byte *src,byte *dst,int pitch); /* 0x004cd9b0 */
+byte * __cdecl block16_RenderBlock2(byte *src,byte *dst,int pitch); /* 0x004cdb80 */
 
 /* ===== insanetimer.c ===== */
 int __cdecl sys_timer_module(int *services,uint workspaceSize); /* 0x004cdc90 */
@@ -2807,7 +2807,7 @@ void InsaneTimer_module_terminate(void); /* 0x004cdce0 */
 int InsaneTimer_module_startup(void); /* 0x004cdd10 */
 void InsaneTimer_module_shutdown(void); /* 0x004cdd60 */
 int InsaneTimer_StartThread(void); /* 0x004cdd80 */
-undefined * __stdcall InsaneTimer_ThreadProc(int a1); /* 0x004cddf0 */
+undefined * __stdcall timer_thread(int a1); /* 0x004cddf0 */
 void InsaneTimer_StopThread(void); /* 0x004cde80 */
 void sys_Disable(void); /* 0x004cdef0 */
 void sys_Enable(void); /* 0x004cdf00 */
@@ -2817,17 +2817,17 @@ void __cdecl sys_Reset(int slot,int period); /* 0x004cdfa0 */
 void __cdecl sys_Delay(int ticks); /* 0x004cdfd0 */
 int sys_GetTime(void); /* 0x004ce000 */
 void InsaneTimer_Tick(void); /* 0x004ce060 */
-void InsaneTimer_ServiceDeferred(void); /* 0x004ce1d0 */
+void sys_timer_dispatcher(void); /* 0x004ce1d0 */
 void InsaneTimer_RunDeferred(void); /* 0x004ce260 */
 
 /* ===== videobitmap.c ===== */
 int __cdecl bmp_bitmap_Alloc(void *out,int width,int height,int format); /* 0x004ce3e0 */
-int __cdecl VideoBitmap_ConvertPixels (byte *src,void *srcFmt,int count,byte *palette,byte *dst,void *dstFmt,byte *expandTable); /* 0x004cedc0 */
+int __cdecl gra_ConvertCopy(byte *src,void *srcFmt,int count,byte *palette,byte *dst,void *dstFmt, byte *expandTable); /* 0x004cedc0 */
 
 /* ===== video.c ===== */
-void Video_BlitConvert(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,byte *param_6 ,byte *param_7); /* 0x004cea30 */
+void gra_BlitRectLookup(int *param_1,uint *param_2,int param_3,int param_4,int *param_5, byte *param_6,byte *param_7); /* 0x004cea30 */
 void gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4); /* 0x004cec40 */
-int __cdecl Video_PixelsToRgba(void *src,void *fmt,int count,byte *palette,byte *dst); /* 0x004cf010 */
+int __cdecl gra_ConvertToLecColor(void *src,void *fmt,int count,byte *palette,byte *dst); /* 0x004cf010 */
 int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byte *src); /* 0x004cf520 */
 void __cdecl Video_CopyRectDstFirst (byte *dst,byte *src,int dstX,uint dstY,int srcX,uint srcY,uint width,int rows, uint dstPitch,uint srcPitch); /* 0x004cfdb0 */
 void __cdecl Video_ExpandIndexed8(byte *dst,byte *src,int count,int bytesPerPixel,byte *table); /* 0x004cfdf0 */

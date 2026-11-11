@@ -237,8 +237,12 @@ LAB_0047e02f:
 #undef uStack_51
 
 
-/* ---- 0x0047e060  stdGif_Save ---- */
-undefined4 stdGif_Save(undefined4 param_1,int param_2)
+/* ---- 0x0047e060  stdGif_Write ---- */
+/* Original name stdGif_Write (the remaster's GrimFandango (Linux): same body (open, "GIF" "89a",
+   the screen descriptor from the first frame, the LZW image data); stdWriteImage's "gif" case in
+   both builds); was stdGif_Save. */
+
+undefined4 stdGif_Write(undefined4 param_1,int param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -437,7 +441,7 @@ uint stdGif_LzwDecodeNext(undefined4 param_1)
     PTR_00812ec0 = (int *)((int)PTR_00812ec0 + -1);
     return (uint)*(byte *)PTR_00812ec0;
   }
-  uVar2 = stdGif_LzwReadCode(param_1);
+  uVar2 = getcode(param_1);
   if (-1 < (short)uVar2) {
     if ((short)uVar2 == _DAT_00811b2c) {
       puVar5 = (undefined4 *)PTR_UINT_004e7874;
@@ -447,7 +451,7 @@ uint stdGif_LzwDecodeNext(undefined4 param_1)
       }
       UINT_00812ecc = 1;
       _DAT_0080cbec = CONCAT22(DAT_0080cbec_2,(short)_DAT_0080cbe8 + -1);
-      uVar2 = stdGif_LzwReadCode(param_1);
+      uVar2 = getcode(param_1);
       if ((short)uVar2 == -1) {
         return uVar2;
       }
@@ -488,10 +492,13 @@ uint stdGif_LzwDecodeNext(undefined4 param_1)
   return 0xffff;
 }
 
-/* ---- 0x0047e600  stdGif_LzwReadCode ---- */
+/* ---- 0x0047e600  getcode ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name getcode (the remaster's GrimFandango (Linux): same body (code width grows with
+   maxcode up to 12 bits, the clear flag resets it, data sub-blocks read through the std file
+   service); the LZW code reader of stdGif_Load in both builds); was stdGif_LzwReadCode. */
 
-uint stdGif_LzwReadCode(undefined4 param_1)
+uint getcode(undefined4 param_1)
 
 {
   char cVar1;
@@ -616,16 +623,19 @@ uint stdGif_LzwInitEncoder(undefined4 param_1,undefined4 param_2)
   if (iVar1 != 1) {
     return 1;
   }
-  stdGif_LzwWriteCode(param_1,CONCAT22(extraout_var,DAT_00811b2c));
+  putcode(param_1,CONCAT22(extraout_var,DAT_00811b2c));
   return _DAT_008155f8 & 0xffff;
 }
 #endif
 
 
-/* ---- 0x0047e8b0  stdGif_LzwWriteCode ---- */
+/* ---- 0x0047e8b0  putcode ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name putcode (the remaster's GrimFandango (Linux): same body (packs the code into the
+   output buffer at the bit offset with the lmask / rmask tables); the LZW code writer of
+   stdGif_Write in both builds); was stdGif_LzwWriteCode. */
 
-void stdGif_LzwWriteCode(undefined4 param_1,short param_2)
+void putcode(undefined4 param_1,short param_2)
 
 {
   undefined4 uVar1;
@@ -741,7 +751,7 @@ uint stdGif_LzwEncodePixel(undefined4 param_1,byte param_2)
         }
       } while (0 < (int)uVar2);
     }
-    stdGif_LzwWriteCode(param_1,CONCAT22((short)(uVar2 >> 0x10),DAT_00811b24));
+    putcode(param_1,CONCAT22((short)(uVar2 >> 0x10),DAT_00811b24));
     uVar2 = UINT_0081560c;
     _DAT_00811b24 = CONCAT22(DAT_00811b24_2,(short)uVar4);
     if (DAT_004e7800 <= DAT_0080cbec) {
@@ -773,7 +783,7 @@ void stdGif_LzwClearTable(undefined4 param_1)
     puVar2 = puVar2 + 1;
   }
   DAT_0080cbec = DAT_0080cbe8;
-  stdGif_LzwWriteCode(param_1,DAT_00811b2c);
+  putcode(param_1,DAT_00811b2c);
   return;
 }
 
@@ -790,8 +800,8 @@ undefined4 stdGif_LzwFinishEncode(undefined4 param_1)
   undefined2 uVar2;
   
   _DAT_008155f8 = 0;
-  stdGif_LzwWriteCode(param_1,DAT_00811b24);
-  stdGif_LzwWriteCode(param_1,CONCAT22(extraout_var_01,DAT_00812ebc));
+  putcode(param_1,DAT_00811b24);
+  putcode(param_1,CONCAT22(extraout_var_01,DAT_00812ebc));
   uVar2 = extraout_var;
   if (DAT_00812ed0 != 1) {
     stdGif_WriteSubBlock(param_1,DAT_00812ed0 + 7 >> 3);

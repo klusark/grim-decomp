@@ -18,7 +18,7 @@
  {"addr": "00409f50", "name": "rdCamera_New", "proto": "void * rdCamera_New(float fov, int type, float aspectX, float aspectY, float zoom)", "tags": "rdroid"},
  {"addr": "00471d40", "name": "rdThing_SetCamera", "tags": "rdroid"},
  {"addr": "0040a760", "name": "rdCamera_AddLight", "proto": "void rdCamera_AddLight(void * camera, void * light, float * pos)", "tags": "rdroid"},
- {"addr": "0047b560", "name": "stdBitmap_ConvertToDisplay", "tags": "jedi,bitmap"},
+ {"addr": "0047b560", "name": "stdBitmap_MemUsage", "tags": "jedi,bitmap"},
  {"addr": "008cb0a0", "global": "g_nSkipSetupBitmaps", "type": "int", "comment": "When set, sputRoom_LoadResources does not load background and depth bitmaps"},
  {"addr": "008cb088", "global": "g_pSoundPool", "type": "Pool *", "comment": "Pool of 0x24-byte positioned sound records"},
  {"addr": "008cb08c", "global": "g_pSoundEventList", "type": "void *", "comment": "Sounds that follow a world position {next, id, pos, min, max, scale, near}"},
@@ -35,6 +35,6 @@
  {"addr": "004a6100", "name": "SetActorList_Create", "proto": "void * SetActorList_Create(char * setName)", "tags": "set"},
  {"addr": "008cb0ac", "global": "g_pRoomList", "type": "void *", "comment": "Per set name list of the actors placed in it"},
  {"addr": "008cb090", "global": "g_pSputRoomHS", "type": "GrimServices *", "comment": "Service table pointer used by Engine/sputRoom.cpp"},
- {"addr": "004a6790", "name": "Sector_SetSavedType", "tags": "sector"},
- {"addr": "004a7150", "name": "Set_ActivateSectors", "proto": "void Set_ActivateSectors(void * set)", "tags": "set,sector"}
+ {"addr": "004a6790", "name": "WalkPlane_SetType", "tags": "sector"},
+ {"addr": "004a7150", "name": "WalkPlane_SetCollection", "proto": "void WalkPlane_SetCollection(void * set)", "tags": "set,sector"}
 ]

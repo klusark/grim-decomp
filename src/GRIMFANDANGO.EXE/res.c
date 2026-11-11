@@ -244,8 +244,11 @@ int __cdecl Res_Dump(char *filename,int type)
 #undef local_4
 
 
-/* ---- 0x00480740  Res_OpenLog ---- */
-int __cdecl Res_OpenLog(char *filename)
+/* ---- 0x00480740  Res_Log ---- */
+/* Original name Res_Log (the remaster's GrimFandango (Linux): same body (open the log file for
+   writing when a name is given, else close it)); was Res_OpenLog. */
+
+int __cdecl Res_Log(char *filename)
 
 {
   if (filename != (char *)0x0) {
@@ -293,8 +296,12 @@ void __cdecl Res_OverrideFileCalls(GrimServices *svc)
   return;
 }
 
-/* ---- 0x00480800  Res_RestoreFileServices ---- */
-void __cdecl Res_RestoreFileServices(GrimServices *svc)
+/* ---- 0x00480800  Res_RestoreFileCalls ---- */
+/* Original name Res_RestoreFileCalls (the remaster's GrimFandango (Linux): same body (copies the
+   ten file entries +0x30..+0x54 of the low-level services back, pLowLevelHS = pResHS); called by
+   sputResource_Shutdown in both builds); was Res_RestoreFileServices. */
+
+void __cdecl Res_RestoreFileCalls(GrimServices *svc)
 
 {
   svc->pFopen = *(void **)(g_dwLowLevelHS + 0x30);
@@ -462,7 +469,7 @@ void * __cdecl res_Load(int type,char *name,int *status)
   local_c = type;
   sputRender_DrawLoadingImage();
   if (pvVar1 == (void *)0x0) {
-    iVar2 = (*(code *)PTR_ResType_DefaultHandler_004e79ac)(&local_14);
+    iVar2 = (*(code *)PTR_res_DefaultHandler_004e79ac)(&local_14);
     *status = iVar2;
   }
   else {
@@ -474,7 +481,7 @@ void * __cdecl res_Load(int type,char *name,int *status)
   }
   puVar3 = (undefined *)0x0;
   if (*status == 1) {
-    puVar3 = Res_FindByNameFrom(type,(uint)name);
+    puVar3 = res_LocateResByName(type,(uint)name);
     if (puVar3 != (undefined *)0x0) {
       uStack_24 = *(undefined4 *)(puVar3 + 8);
       uStack_20 = *(undefined4 *)(puVar3 + 0x10);
@@ -497,8 +504,12 @@ void * __cdecl res_Load(int type,char *name,int *status)
 #undef uStack_28
 
 
-/* ---- 0x00481300  Res_FindByNameFrom ---- */
-undefined * __cdecl Res_FindByNameFrom(uint param_1,uint param_2)
+/* ---- 0x00481300  res_LocateResByName ---- */
+/* Original name res_LocateResByName (the remaster's GrimFandango (Linux): the lookup res_Load makes
+   after a successful load in both builds (hash the name, walk from pNewestResNode for type and
+   hash); the remaster inlined Res_FindByNameInList into it); was Res_FindByNameFrom. */
+
+undefined * __cdecl res_LocateResByName(uint param_1,uint param_2)
 
 {
   undefined *puVar1;
@@ -846,7 +857,7 @@ int Res_CountChildren(uint param_1,uint param_2)
   int iVar3;
   
   iVar3 = 0;
-  puVar2 = Res_FindByNameFrom(param_1,param_2);
+  puVar2 = res_LocateResByName(param_1,param_2);
   if (puVar2 != (undefined *)0x0) {
     for (iVar1 = *(int *)(puVar2 + 0x24); iVar1 != 0; iVar1 = *(int *)(iVar1 + 0x30)) {
       iVar3 = iVar3 + 1;

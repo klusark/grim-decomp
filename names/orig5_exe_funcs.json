@@ -1411,7 +1411,7 @@
   "addr": "004d2550",
   "old": "DsndDriver_Open",
   "name": "dsn_initialize",
-  "comment": "Opens DirectSound and the mixer and starts the periodic DSound_FillStreamBuffer timer Original name dsn_initialize (the remaster's GrimFandango (Linux): slot 0 of the \"SNDDRIVER=insane_dsnd\" service table); was DsndDriver_Open."
+  "comment": "Opens DirectSound and the mixer and starts the periodic dsn_fill_thread timer Original name dsn_initialize (the remaster's GrimFandango (Linux): slot 0 of the \"SNDDRIVER=insane_dsnd\" service table); was DsndDriver_Open."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

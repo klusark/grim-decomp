@@ -3904,9 +3904,9 @@ uint * grimSound_LipSyncLoad(uint *param_1)
   }
   Im_MemCopy(puVar2,param_1,0x1f);
   *(undefined1 *)((int)puVar2 + 0x1f) = 0;
-  iMUSE_sounds__9e40((undefined *)piVar1,0,2);
-  uVar3 = iMUSE_sounds__9e10((undefined *)piVar1);
-  iMUSE_sounds__9e40((undefined *)piVar1,0,0);
+  iRes_FSEEK((undefined *)piVar1,0,2);
+  uVar3 = iRes_FTELL((undefined *)piVar1);
+  iRes_FSEEK((undefined *)piVar1,0,0);
   puVar2[8] = uVar3;
   puVar4 = (undefined4 *)
            (**(code **)(g_dwSounds_pHS + 0x20))

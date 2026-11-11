@@ -154,13 +154,16 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
 #endif
 
 
-/* ---- 0x004d27d0  DSound_FillStreamBuffer ---- */
+/* ---- 0x004d27d0  dsn_fill_thread ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Locks the next 0x1800-byte block(s) of the streaming buffer behind the play cursor and fills them
-   from the mixer */
+   from the mixer Original name dsn_fill_thread (the remaster's GrimFandango (Linux): the fill
+   routine dsn_initialize starts (a timer callback here, a thread in the remaster's platform layer):
+   sou_mixer_start, dsn_fill_func(0x600, sou_mixer_mix), sou_mixer_end into the 0x1800-byte block);
+   was DSound_FillStreamBuffer. */
 
-void DSound_FillStreamBuffer(void)
+void dsn_fill_thread(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -194,9 +197,9 @@ void DSound_FillStreamBuffer(void)
           iVar1 = 0x600;
           puVar3 = &UINT_008db438;
         }
-        Mixer_ClearAccumulator();
-        (*(code_std *)g_pfnStreamMix)(iVar1,Mixer_MixVoiceByFormat);
-        Mixer_Output((short *)puVar3,iVar1);
+        sou_mixer_start();
+        (*(code_std *)g_pfnStreamMix)(iVar1,sou_mixer_mix);
+        sou_mixer_end((short *)puVar3,iVar1);
         if ((local_c != (undefined4 *)0x0) && (local_10 != 0)) {
           puVar3 = &UINT_008db438;
           puVar5 = local_4;
@@ -265,31 +268,39 @@ int DSound_GetPlayBlock(void)
 #endif
 
 
-/* ---- 0x004d2d40  Mixer_Init ---- */
+/* ---- 0x004d2d40  sou_mixer_initialize ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __cdecl Mixer_Init(int *services,uint tableUnits,int frames)
+/* Original name sou_mixer_initialize (the remaster's GrimFandango (Linux): dsn_initialize calls it
+   with (memory_services, 4, frames) right after the driver set-up in both builds; it sets the table
+   count (waveMixCount) and builds the mix tables (Mixer.c), the remaster inlined Mixer_InitTables
+   into it); was Mixer_Init. */
+
+int __cdecl sou_mixer_initialize(int *services,uint tableUnits,int frames)
 
 {
   int iVar1;
   
-  g_dwMixTableUnits = tableUnits;
+  g_dwWaveMixCount = tableUnits;
   iVar1 = Mixer_InitTables(services,2,frames * 4,0);
   return iVar1;
 }
 #endif
 
 
-/* ---- 0x004d2d90  Mixer_MixVoiceByFormat ---- */
+/* ---- 0x004d2d90  sou_mixer_mix ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Callback handed to the driver: format code 0..5 (8/16 bit, mono/stereo, offset binary) to
-   Mixer_MixVoice parameters */
+   Mixer_MixVoice parameters Original name sou_mixer_mix (the remaster's GrimFandango (Linux): the
+   mix function the fill routine passes to the fill callback in both builds; the same format switch
+   0..5 (8/16 bit, mono/stereo, signed) and parameters (data, offset, frames, bytes, -, volume, pan,
+   format); the remaster inlined Mixer_MixVoice and the per-format mixers); was
+   Mixer_MixVoiceByFormat. */
 
 void __cdecl
-Mixer_MixVoiceByFormat
-          (byte *data,int accumOffset,uint outFrames,int srcBytes,int unused,int volume,int pan,
-          int format)
+sou_mixer_mix(byte *data,int accumOffset,uint outFrames,int srcBytes,int unused,int volume,int pan,
+             int format)
 
 {
   int bits;
@@ -335,10 +346,14 @@ Mixer_MixVoiceByFormat
 #endif
 
 
-/* ---- 0x004d2e60  Mixer_Output ---- */
+/* ---- 0x004d2e60  sou_mixer_end ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl Mixer_Output(short *dst,int frames)
+/* Original name sou_mixer_end (the remaster's GrimFandango (Linux): the fill routine's last call
+   (dst, frames) in both builds: clamps the accumulator (>> 7) to 16-bit output; the remaster
+   inlined Mixer_ConvertTo16); was Mixer_Output. */
+
+void __cdecl sou_mixer_end(short *dst,int frames)
 
 {
   Mixer_ConvertTo16(dst,frames);
@@ -378,30 +393,30 @@ int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused)
     } while ((int)local_4 < 0x11);
     iVar2 = iVar2 + 1;
   } while (iVar2 < 0x11);
-  g_dwMixChannels = channels;
-  g_dwMixAccumBytes = frames4 * 4;
-  g_pMixAccum = (int *)(*(code_std *)*services)
-                                 (g_dwMixAccumBytes,s_C__grimsrc_libs_lecsmush_insane__004f4158,
-                                  0x356);
-  if (g_pMixAccum == (int *)0x0) {
+  g_dwMixer_outChannelCount = channels;
+  g_dwMixer_mixBufSize = frames4 * 4;
+  g_pMixer_mixBuf =
+       (int *)(*(code_std *)*services)
+                        (g_dwMixer_mixBufSize,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x356);
+  if (g_pMixer_mixBuf == (int *)0x0) {
     return -1;
   }
   _DAT_008dcda0 = unused;
   puVar1 = (undefined2 *)
            (*(code_std *)*services)
-                     (g_dwMixTableUnits << 0x10,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x35c);
-  g_pMixCompanderTable = puVar1;
+                     (g_dwWaveMixCount << 0x10,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x35c);
+  g_pMixer_softLTable = puVar1;
   if (puVar1 == (undefined2 *)0x0) {
     return -1;
   }
   iVar2 = 0;
-  if (0 < (int)(g_dwMixTableUnits << 0xf)) {
+  if (0 < (int)(g_dwWaveMixCount << 0xf)) {
     do {
       lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
       *puVar1 = (short)lVar4;
       puVar1 = puVar1 + 1;
       iVar2 = iVar2 + 1;
-    } while (iVar2 < (int)(g_dwMixTableUnits * 0x8000));
+    } while (iVar2 < (int)(g_dwWaveMixCount * 0x8000));
   }
   return 0;
 }
@@ -416,35 +431,38 @@ int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused)
 int __cdecl Mixer_Free(int *services)
 
 {
-  if (g_pMixCompanderTable != (void *)0x0) {
-    (*(code_std *)services[1])(g_pMixCompanderTable,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x379);
+  if (g_pMixer_softLTable != (void *)0x0) {
+    (*(code_std *)services[1])(g_pMixer_softLTable,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x379);
   }
-  g_pMixCompanderTable = (void *)0x0;
-  if (g_pMixAccum != (int *)0x0) {
-    (*(code_std *)services[1])(g_pMixAccum,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x37a);
+  g_pMixer_softLTable = (void *)0x0;
+  if (g_pMixer_mixBuf != (int *)0x0) {
+    (*(code_std *)services[1])(g_pMixer_mixBuf,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x37a);
   }
-  g_pMixAccum = (int *)0x0;
+  g_pMixer_mixBuf = (int *)0x0;
   return 0;
 }
 #endif
 
 
-/* ---- 0x004d3010  Mixer_ClearAccumulator ---- */
+/* ---- 0x004d3010  sou_mixer_start ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
-/* Zeroes the 32-bit mix accumulator at g_pMixAccum */
+/* Zeroes the 32-bit mix accumulator at g_pMixer_mixBuf Original name sou_mixer_start (the
+   remaster's GrimFandango (Linux): the fill routine's first call in both builds (dsn_fill_thread:
+   sou_mixer_start, fill callback, sou_mixer_end): clears the mix accumulator (mixBuf, mixBufSize
+   bytes)); was Mixer_ClearAccumulator. */
 
-int Mixer_ClearAccumulator(void)
+int sou_mixer_start(void)
 
 {
   uint uVar1;
   uint uVar2;
   int *piVar3;
   
-  uVar2 = g_dwMixAccumBytes;
-  piVar3 = g_pMixAccum;
-  for (uVar1 = g_dwMixAccumBytes >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
+  uVar2 = g_dwMixer_mixBufSize;
+  piVar3 = g_pMixer_mixBuf;
+  for (uVar1 = g_dwMixer_mixBufSize >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
     *piVar3 = 0;
     piVar3 = piVar3 + 1;
   }
@@ -471,7 +489,7 @@ Mixer_MixVoice(byte *data,int count,int bits,int channels,uint outFrames,int acc
   uint uVar2;
   uint volL;
   
-  if (((g_pMixAccum != (int *)0x0) && (data != (byte *)0x0)) && (count != 0)) {
+  if (((g_pMixer_mixBuf != (int *)0x0) && (data != (byte *)0x0)) && (count != 0)) {
     if (channels == 1) {
       uVar2 = volume >> 3;
       if (volume != 0) {
@@ -531,9 +549,9 @@ int __cdecl Mixer_ConvertTo16(short *dst,int frames)
   int *piVar1;
   int iVar2;
   
-  if (((g_pMixAccum != (int *)0x0) && (dst != (short *)0x0)) && (frames != 0)) {
-    piVar1 = g_pMixAccum;
-    if (g_dwMixChannels == 2) {
+  if (((g_pMixer_mixBuf != (int *)0x0) && (dst != (short *)0x0)) && (frames != 0)) {
+    piVar1 = g_pMixer_mixBuf;
+    if (g_dwMixer_outChannelCount == 2) {
       frames = frames << 1;
     }
     for (; frames != 0; frames = frames + -1) {
@@ -569,7 +587,7 @@ void __cdecl Mixer_Mix8MonoLR(byte *src,int count,uint rateFrac,int accumOffset,
   int *piVar4;
   uint uVar5;
   
-  piVar4 = g_pMixAccum + accumOffset * 2;
+  piVar4 = g_pMixer_mixBuf + accumOffset * 2;
   uVar3 = (uint)(count << 0x10) / rateFrac;
   if (uVar3 == 0x8000) {
     while (count = count + -1, count != 0) {
@@ -646,7 +664,7 @@ void Mixer_Mix8Mono(byte *param_1,int param_2,uint param_3,int param_4,int param
   uint uVar6;
   int iVar7;
   
-  piVar5 = g_pMixAccum + param_4 * 2;
+  piVar5 = g_pMixer_mixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -721,7 +739,7 @@ void Mixer_Mix16MonoLR(short *param_1,int param_2,uint param_3,int param_4,int p
   uint uVar3;
   uint uVar4;
   
-  piVar2 = g_pMixAccum + param_4 * 2;
+  piVar2 = g_pMixer_mixBuf + param_4 * 2;
   uVar1 = (uint)(param_2 << 0x10) / param_3;
   if (uVar1 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -794,7 +812,7 @@ void Mixer_Mix16Mono(short *param_1,int param_2,uint param_3,int param_4,int par
   uint uVar5;
   int iVar6;
   
-  piVar3 = g_pMixAccum + param_4 * 2;
+  piVar3 = g_pMixer_mixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -871,7 +889,7 @@ void Mixer_MixStereoLR_A(ushort *param_1,int param_2,uint param_3,uint param_4,i
   uint uVar5;
   uint uVar6;
   
-  piVar3 = g_pMixAccum + param_4 * 2;
+  piVar3 = g_pMixer_mixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -956,7 +974,7 @@ void Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int
   uint uVar8;
   uint uVar9;
   
-  piVar6 = g_pMixAccum + param_4 * 2;
+  piVar6 = g_pMixer_mixBuf + param_4 * 2;
   uVar5 = (uint)(param_2 << 0x10) / param_3;
   if (uVar5 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -1043,7 +1061,7 @@ void Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,i
   uint uVar5;
   uint uVar6;
   
-  piVar4 = g_pMixAccum + param_4 * 2;
+  piVar4 = g_pMixer_mixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
@@ -1125,7 +1143,7 @@ void Mixer_MixStereo_B(ushort *param_1,int param_2,uint param_3,uint param_4,int
   uint uVar5;
   uint uVar6;
   
-  piVar2 = g_pMixAccum + param_4 * 2;
+  piVar2 = g_pMixer_mixBuf + param_4 * 2;
   uVar1 = (uint)(param_2 << 0x10) / param_3;
   if (uVar1 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {

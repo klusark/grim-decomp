@@ -13,7 +13,7 @@ void __cdecl sputPrimitive_Update(uint layerMask)
 
 {
   if (g_nSputPrimitive_Paused == 0) {
-    PrimitiveList_Draw(&g_dwPrimitiveQ,*(void **)((int)g_pRdCamera_CurCamera + 4),layerMask);
+    PrimitiveQueue_draw(&g_dwPrimitiveQ,*(void **)((int)g_pRdCamera_CurCamera + 4),layerMask);
   }
   return;
 }
@@ -26,7 +26,7 @@ void __cdecl sputPrimitive_Update(uint layerMask)
 void sputPrimitive_Pause(void)
 
 {
-  PrimitiveList_Invalidate(&g_dwPrimitiveQ,3);
+  PrimitiveQueue_markAllDirty(&g_dwPrimitiveQ,3);
   g_nSputPrimitive_Paused = 1;
   return;
 }
@@ -42,11 +42,13 @@ void sputPrimitive_Resume(void)
   return;
 }
 
-/* ---- 0x0048a4b0  Primitive_Construct ---- */
+/* ---- 0x0048a4b0  PrimitiveObject_Construct ---- */
 /* 0x30-byte primitive {next, prev, type (0 line, 1 rect, 2 polyline segment), id, layer, x1, y1,
-   x2, y2, color, ?, filled} */
+   x2, y2, color, ?, filled} Original name PrimitiveObject_Construct (the remaster's GrimFandango
+   (Linux): same body (links 0, id at +0xc, +8 = the second argument, colour 0, +0x28 / +0x30 = -1,
+   rectangle 0)); was Primitive_Construct. */
 
-void * __thiscall Primitive_Construct(void *this,int id,int unused)
+void * __thiscall PrimitiveObject_Construct(void *this,int id,int unused)
 
 {
   *(undefined4 *)((int)this + 0x14) = 0;
@@ -67,16 +69,20 @@ void * __thiscall Primitive_Construct(void *this,int id,int unused)
   return this;
 }
 
-/* ---- 0x0048a560  Primitive_AddLine ---- */
-int __thiscall Primitive_AddLine(void *this,int x1,int y1,int x2,int y2,int color,int layer)
+/* ---- 0x0048a560  PrimitiveQueue_addLine ---- */
+/* Original name PrimitiveQueue_addLine (the remaster's GrimFandango (Linux): same body (id =
+   nextId++, new primitive, the two end points and the colour, returns the id)); was
+   Primitive_AddLine. */
+
+int __thiscall PrimitiveQueue_addLine(void *this,int x1,int y1,int x2,int y2,int color,int layer)
 
 {
   int id;
   void *pvVar1;
   
-  id = g_nNextPrimitiveId;
-  g_nNextPrimitiveId = g_nNextPrimitiveId + 1;
-  pvVar1 = PrimitiveList_Append(this,id,layer);
+  id = g_nPrimitiveQueue_nextId;
+  g_nPrimitiveQueue_nextId = g_nPrimitiveQueue_nextId + 1;
+  pvVar1 = PrimitiveQueue_addObject(this,id,layer);
   *(int *)((int)pvVar1 + 0x14) = x1;
   *(int *)((int)pvVar1 + 0x18) = y1;
   *(int *)((int)pvVar1 + 0x1c) = x2;
@@ -85,17 +91,21 @@ int __thiscall Primitive_AddLine(void *this,int x1,int y1,int x2,int y2,int colo
   return *(int *)((int)pvVar1 + 0xc);
 }
 
-/* ---- 0x0048a5b0  Primitive_AddRect ---- */
+/* ---- 0x0048a5b0  PrimitiveQueue_addRect ---- */
+/* Original name PrimitiveQueue_addRect (the remaster's GrimFandango (Linux): the rectangle
+   counterpart of PrimitiveQueue_addLine (id = nextId++, new primitive, rectangle and colour)); was
+   Primitive_AddRect. */
+
 int __thiscall
-Primitive_AddRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,int layer)
+PrimitiveQueue_addRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,int layer)
 
 {
   int id;
   void *pvVar1;
   
-  id = g_nNextPrimitiveId;
-  g_nNextPrimitiveId = g_nNextPrimitiveId + 1;
-  pvVar1 = PrimitiveList_Append(this,id,layer);
+  id = g_nPrimitiveQueue_nextId;
+  g_nPrimitiveQueue_nextId = g_nPrimitiveQueue_nextId + 1;
+  pvVar1 = PrimitiveQueue_addObject(this,id,layer);
   *(undefined4 *)((int)pvVar1 + 8) = 1;
   *(int *)((int)pvVar1 + 0x14) = x1;
   *(int *)((int)pvVar1 + 0x18) = y1;
@@ -106,8 +116,12 @@ Primitive_AddRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,in
   return *(int *)((int)pvVar1 + 0xc);
 }
 
-/* ---- 0x0048a600  Primitive_AddPolyline ---- */
-int __thiscall Primitive_AddPolyline(void *this,int count,int *points,int color,int layer)
+/* ---- 0x0048a600  PrimitiveQueue_addPolygon ---- */
+/* Original name PrimitiveQueue_addPolygon (the remaster's GrimFandango (Linux): the polygon
+   counterpart of PrimitiveQueue_addLine (id = nextId++, the points); called by
+   sputPrimitive_DrawPolygon in both builds); was Primitive_AddPolyline. */
+
+int __thiscall PrimitiveQueue_addPolygon(void *this,int count,int *points,int color,int layer)
 
 {
   int *piVar1;
@@ -116,13 +130,13 @@ int __thiscall Primitive_AddPolyline(void *this,int count,int *points,int color,
   int *piVar3;
   int iVar4;
   
-  id = g_nNextPrimitiveId;
-  g_nNextPrimitiveId = g_nNextPrimitiveId + 1;
+  id = g_nPrimitiveQueue_nextId;
+  g_nPrimitiveQueue_nextId = g_nPrimitiveQueue_nextId + 1;
   iVar4 = count + -1;
   if (0 < iVar4) {
     piVar3 = points + 1;
     do {
-      pvVar2 = PrimitiveList_Append(this,id,layer);
+      pvVar2 = PrimitiveQueue_addObject(this,id,layer);
       *(undefined4 *)((int)pvVar2 + 8) = 2;
       *(int *)((int)pvVar2 + 0x14) = piVar3[-1];
       *(int *)((int)pvVar2 + 0x18) = *piVar3;
@@ -137,8 +151,11 @@ int __thiscall Primitive_AddPolyline(void *this,int count,int *points,int color,
   return id;
 }
 
-/* ---- 0x0048a740  Primitive_Kill ---- */
-void __thiscall Primitive_Kill(void *this,int id)
+/* ---- 0x0048a740  PrimitiveQueue_deletePrimitive ---- */
+/* Original name PrimitiveQueue_deletePrimitive (the remaster's GrimFandango (Linux): same body
+   (unlink the primitive with the id, fix the tail, mark dirty and free)); was Primitive_Kill. */
+
+void __thiscall PrimitiveQueue_deletePrimitive(void *this,int id)
 
 {
   int *piVar1;
@@ -160,7 +177,7 @@ void __thiscall Primitive_Kill(void *this,int id)
         *(int *)this = **(int **)this;
       }
       piVar1 = (int *)*prim;
-      Primitive_Invalidate(this,prim);
+      PrimitiveQueue_markDirty(this,prim);
       Plat_Free(prim);
       prim = piVar1;
     }
@@ -171,28 +188,34 @@ void __thiscall Primitive_Kill(void *this,int id)
   return;
 }
 
-/* ---- 0x0048a7b0  Primitive_SetColor ---- */
-int __thiscall Primitive_SetColor(void *this,int id,int color)
+/* ---- 0x0048a7b0  PrimitiveQueue_changeColor ---- */
+/* Original name PrimitiveQueue_changeColor (the remaster's GrimFandango (Linux): the colour store
+   at +0x24 for every primitive with the id in both builds); was Primitive_SetColor. */
+
+int __thiscall PrimitiveQueue_changeColor(void *this,int id,int color)
 
 {
   void *after;
   
-  for (after = PrimitiveList_FindById(this,id,(void *)0x0); after != (void *)0x0;
-      after = PrimitiveList_FindById(this,id,after)) {
+  for (after = PrimitiveQueue_findPrimitive(this,id,(void *)0x0); after != (void *)0x0;
+      after = PrimitiveQueue_findPrimitive(this,id,after)) {
     *(int *)((int)after + 0x24) = color;
   }
   return 0;
 }
 
-/* ---- 0x0048a7e0  Primitive_SetLayer ---- */
-int __thiscall Primitive_SetLayer(void *this,int id,int layer)
+/* ---- 0x0048a7e0  PrimitiveQueue_changeLayer ---- */
+/* Original name PrimitiveQueue_changeLayer (the remaster's GrimFandango (Linux): same body (for
+   every primitive with the id: mark dirty, layer 1 or 2 at +0x10)); was Primitive_SetLayer. */
+
+int __thiscall PrimitiveQueue_changeLayer(void *this,int id,int layer)
 
 {
   void *prim;
   
-  for (prim = PrimitiveList_FindById(this,id,(void *)0x0); prim != (void *)0x0;
-      prim = PrimitiveList_FindById(this,id,prim)) {
-    Primitive_Invalidate(this,prim);
+  for (prim = PrimitiveQueue_findPrimitive(this,id,(void *)0x0); prim != (void *)0x0;
+      prim = PrimitiveQueue_findPrimitive(this,id,prim)) {
+    PrimitiveQueue_markDirty(this,prim);
     if ((layer != 2) && (layer != 1)) {
       layer = 2;
     }
@@ -201,15 +224,18 @@ int __thiscall Primitive_SetLayer(void *this,int id,int layer)
   return 0;
 }
 
-/* ---- 0x0048a830  Primitive_Offset ---- */
-int __thiscall Primitive_Offset(void *this,int id,int dx,int dy)
+/* ---- 0x0048a830  PrimitiveQueue_move ---- */
+/* Original name PrimitiveQueue_move (the remaster's GrimFandango (Linux): same body (for every
+   primitive with the id: mark dirty, add dx / dy to both corners)); was Primitive_Offset. */
+
+int __thiscall PrimitiveQueue_move(void *this,int id,int dx,int dy)
 
 {
   void *prim;
   
-  for (prim = PrimitiveList_FindById(this,id,(void *)0x0); prim != (void *)0x0;
-      prim = PrimitiveList_FindById(this,id,prim)) {
-    Primitive_Invalidate(this,prim);
+  for (prim = PrimitiveQueue_findPrimitive(this,id,(void *)0x0); prim != (void *)0x0;
+      prim = PrimitiveQueue_findPrimitive(this,id,prim)) {
+    PrimitiveQueue_markDirty(this,prim);
     *(int *)((int)prim + 0x14) = *(int *)((int)prim + 0x14) + dx;
     *(int *)((int)prim + 0x20) = *(int *)((int)prim + 0x20) + dy;
     *(int *)((int)prim + 0x18) = *(int *)((int)prim + 0x18) + dy;
@@ -218,8 +244,12 @@ int __thiscall Primitive_Offset(void *this,int id,int dx,int dy)
   return 0;
 }
 
-/* ---- 0x0048a8a0  Primitive_MoveTo ---- */
-int __thiscall Primitive_MoveTo(void *this,int id,int x,int y)
+/* ---- 0x0048a8a0  PrimitiveQueue_moveTo ---- */
+/* Original name PrimitiveQueue_moveTo (the remaster's GrimFandango (Linux): the absolute
+   counterpart of PrimitiveQueue_move; called by sputPrimitive_ChangePrimitive in both builds); was
+   Primitive_MoveTo. */
+
+int __thiscall PrimitiveQueue_moveTo(void *this,int id,int x,int y)
 
 {
   void *pvVar1;
@@ -228,9 +258,9 @@ int __thiscall Primitive_MoveTo(void *this,int id,int x,int y)
   
   iVar2 = 0;
   iVar3 = 0;
-  pvVar1 = PrimitiveList_FindById(this,id,(void *)0x0);
+  pvVar1 = PrimitiveQueue_findPrimitive(this,id,(void *)0x0);
   if (pvVar1 != (void *)0x0) {
-    Primitive_Invalidate(this,pvVar1);
+    PrimitiveQueue_markDirty(this,pvVar1);
     if (x != -1) {
       iVar3 = x - *(int *)((int)pvVar1 + 0x14);
       *(int *)((int)pvVar1 + 0x14) = x;
@@ -241,9 +271,9 @@ int __thiscall Primitive_MoveTo(void *this,int id,int x,int y)
     }
     *(int *)((int)pvVar1 + 0x20) = *(int *)((int)pvVar1 + 0x20) + iVar2;
     *(int *)((int)pvVar1 + 0x1c) = *(int *)((int)pvVar1 + 0x1c) + iVar3;
-    for (pvVar1 = PrimitiveList_FindById(this,id,pvVar1); pvVar1 != (void *)0x0;
-        pvVar1 = PrimitiveList_FindById(this,id,pvVar1)) {
-      Primitive_Invalidate(this,pvVar1);
+    for (pvVar1 = PrimitiveQueue_findPrimitive(this,id,pvVar1); pvVar1 != (void *)0x0;
+        pvVar1 = PrimitiveQueue_findPrimitive(this,id,pvVar1)) {
+      PrimitiveQueue_markDirty(this,pvVar1);
       *(int *)((int)pvVar1 + 0x14) = *(int *)((int)pvVar1 + 0x14) + iVar3;
       *(int *)((int)pvVar1 + 0x18) = *(int *)((int)pvVar1 + 0x18) + iVar2;
       *(int *)((int)pvVar1 + 0x1c) = *(int *)((int)pvVar1 + 0x1c) + iVar3;
@@ -253,17 +283,20 @@ int __thiscall Primitive_MoveTo(void *this,int id,int x,int y)
   return 0;
 }
 
-/* ---- 0x0048a960  Primitive_SetEnd ---- */
-int __thiscall Primitive_SetEnd(void *this,int id,int x,int y)
+/* ---- 0x0048a960  PrimitiveQueue_moveEndpoint ---- */
+/* Original name PrimitiveQueue_moveEndpoint (the remaster's GrimFandango (Linux): same body (the
+   first primitive with the id: mark dirty, the second point unless -1)); was Primitive_SetEnd. */
+
+int __thiscall PrimitiveQueue_moveEndpoint(void *this,int id,int x,int y)
 
 {
   void *prim;
   int iVar1;
   
-  prim = PrimitiveList_FindById(this,id,(void *)0x0);
+  prim = PrimitiveQueue_findPrimitive(this,id,(void *)0x0);
   iVar1 = 0;
   if (prim != (void *)0x0) {
-    Primitive_Invalidate(this,prim);
+    PrimitiveQueue_markDirty(this,prim);
     if (x != -1) {
       *(int *)((int)prim + 0x1c) = x;
     }
@@ -275,17 +308,21 @@ int __thiscall Primitive_SetEnd(void *this,int id,int x,int y)
   return iVar1;
 }
 
-/* ---- 0x0048a9a0  Primitive_SetSize ---- */
-int __thiscall Primitive_SetSize(void *this,int id,int w,int h)
+/* ---- 0x0048a9a0  PrimitiveQueue_changeDimensions ---- */
+/* Original name PrimitiveQueue_changeDimensions (the remaster's GrimFandango (Linux): same body
+   (the first primitive with the id: mark dirty, the second corner = the first + width / height
+   unless -1)); was Primitive_SetSize. */
+
+int __thiscall PrimitiveQueue_changeDimensions(void *this,int id,int w,int h)
 
 {
   void *prim;
   int iVar1;
   
-  prim = PrimitiveList_FindById(this,id,(void *)0x0);
+  prim = PrimitiveQueue_findPrimitive(this,id,(void *)0x0);
   iVar1 = 0;
   if (prim != (void *)0x0) {
-    Primitive_Invalidate(this,prim);
+    PrimitiveQueue_markDirty(this,prim);
     if (w != -1) {
       *(int *)((int)prim + 0x1c) = *(int *)((int)prim + 0x14) + w;
     }
@@ -297,8 +334,11 @@ int __thiscall Primitive_SetSize(void *this,int id,int w,int h)
   return iVar1;
 }
 
-/* ---- 0x0048aa20  Primitive_Draw ---- */
-void __stdcall Primitive_Draw(void *prim,void *canvas)
+/* ---- 0x0048aa20  PrimitiveQueue_drawPrimitive ---- */
+/* Original name PrimitiveQueue_drawPrimitive (the remaster's GrimFandango (Linux): the
+   per-primitive draw PrimitiveQueue_draw calls in both builds); was Primitive_Draw. */
+
+void __stdcall PrimitiveQueue_drawPrimitive(void *prim,void *canvas)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -313,9 +353,10 @@ void __stdcall Primitive_Draw(void *prim,void *canvas)
   if (iVar1 != 0) {
     if (iVar1 == 1) {
       if (*(int *)((int)prim + 0x2c) == 0) {
-        rdPrimit2_DrawRect(canvas,*(int *)((int)prim + 0x14),*(int *)((int)prim + 0x18),
-                           *(int *)((int)prim + 0x1c),*(int *)((int)prim + 0x20),
-                           *(int *)((int)prim + 0x24),*(int *)((int)prim + 0x28));
+        rdPrimit2_DrawRectangle
+                  (canvas,*(int *)((int)prim + 0x14),*(int *)((int)prim + 0x18),
+                   *(int *)((int)prim + 0x1c),*(int *)((int)prim + 0x20),*(int *)((int)prim + 0x24),
+                   *(int *)((int)prim + 0x28));
         return;
       }
       local_10 = *(uint *)((int)prim + 0x14);
@@ -359,10 +400,13 @@ void __stdcall Primitive_Draw(void *prim,void *canvas)
 #undef local_8
 
 
-/* ---- 0x0048ab50  Primitive_Invalidate ---- */
-/* Marks the primitive's bounding rectangle dirty on the last buffer */
+/* ---- 0x0048ab50  PrimitiveQueue_markDirty ---- */
+/* Marks the primitive's bounding rectangle dirty on the last buffer Original name
+   PrimitiveQueue_markDirty (the remaster's GrimFandango (Linux): same body as the remaster's
+   markDirty(PrimitiveObject *) (the primitive's rectangle, normalised, to
+   sputRender_MarkDirtyRect)); was Primitive_Invalidate. */
 
-int __thiscall Primitive_Invalidate(void *this,void *prim)
+int __thiscall PrimitiveQueue_markDirty(void *this,void *prim)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -396,7 +440,7 @@ int __thiscall Primitive_Invalidate(void *this,void *prim)
     uVar4 = uVar2;
   }
   local_4 = (uVar4 - local_c) + 1;
-  Render_InvalidateRectLastBuffer((int *)&local_10,0);
+  sputRender_MarkDirtyRect((int *)&local_10,0);
   return extraout_EAX;
 }
 #undef local_10
@@ -405,10 +449,13 @@ int __thiscall Primitive_Invalidate(void *this,void *prim)
 #undef local_c
 
 
-/* ---- 0x0048abc0  Primitive_ResetIds ---- */
-void Primitive_ResetIds(void)
+/* ---- 0x0048abc0  PrimitiveQueue_resetId ---- */
+/* Original name PrimitiveQueue_resetId (the remaster's GrimFandango (Linux): same body (nextId =
+   1)); was Primitive_ResetIds. */
+
+void PrimitiveQueue_resetId(void)
 
 {
-  g_nNextPrimitiveId = 1;
+  g_nPrimitiveQueue_nextId = 1;
   return;
 }

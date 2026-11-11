@@ -5,10 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004922d0  Collision_PushOutOfBox ---- */
-void Collision_PushOutOfBox
-               (float *param_1,float param_2,float param_3,float param_4,float param_5,float param_6
-               ,float param_7,float *param_8,float *param_9)
+/* ---- 0x004922d0  GetOuttaTheBox ---- */
+/* Original name GetOuttaTheBox (the remaster's GrimFandango (Linux): same body (the point into box
+   space; if inside, move it out through the nearest face from FLT_MAX)); was
+   Collision_PushOutOfBox. */
+
+void GetOuttaTheBox(float *param_1,float param_2,float param_3,float param_4,float param_5,
+                   float param_6,float param_7,float *param_8,float *param_9)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -23,7 +26,7 @@ void Collision_PushOutOfBox
   local_c = *param_1 - *param_9;
   local_8 = param_1[1] - param_9[1];
   local_4 = param_1[2] - param_9[2];
-  Vec3_TransformTo(&local_18,&local_c,param_8);
+  rdMatrix_TransformVectorOrtho34(&local_18,&local_c,param_8);
   if ((((param_4 < local_14[1]) && (param_3 < local_14[0])) && (local_14[0] < param_6)) &&
      (((param_2 < local_18 && (local_18 < param_5)) && (local_14[1] < param_7)))) {
     fVar1 = 3.4028235e+38;
@@ -120,12 +123,12 @@ Collision_PointInBox
     pfVar3 = pfVar3 + 1;
     pfVar4 = pfVar4 + 1;
   }
-  pfStack_20 = (float *)((code *)Collision_SegmentHitsBox)(local_c,&bx0,p3);
+  pfStack_20 = (float *)((code *)TestCollision)(local_c,&bx0,p3);
   if (pfStack_20 == (float *)0x0) {
     pfStack_24 = b;
     pfStack_28 = a;
     afStack_38[3] = 6.717497e-39;
-    uVar1 = ((code *)Planner_PlanPath)();
+    uVar1 = ((code *)BuildPath)();
     return uVar1;
   }
   return 0;
@@ -139,10 +142,13 @@ Collision_PointInBox
 #endif
 
 
-/* ---- 0x004925c0  Collision_BoxCorners ---- */
-/* Computes the four detour points around an actor's collision box */
+/* ---- 0x004925c0  FindObjectCorners ---- */
+/* Computes the four detour points around an actor's collision box Original name FindObjectCorners
+   (the remaster's GrimFandango (Linux): same body (with an upright actor (m[8] >= 0.999) the four
+   corners of the box +0x60 .. +0x70 grown by the radius, transformed by the matrix)); was
+   Collision_BoxCorners. */
 
-void Collision_BoxCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5)
+void FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5)
 
 {
   int iVar1;
@@ -175,14 +181,16 @@ void Collision_BoxCorners(int param_1,float param_2,float *param_3,float param_4
   return;
 }
 
-/* ---- 0x00492680  Collision_SegmentHitsBox ---- */
+/* ---- 0x00492680  TestCollision ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Walker_AvoidActorPath: does the path segment pass through the other actor's collision box */
+/* Walker_AvoidActorPath: does the path segment pass through the other actor's collision box
+   Original name TestCollision (the remaster's GrimFandango (Linux): same parameters and body (both
+   segment ends into box space with rdMatrix_TransformVectorOrtho34, the slab tests against the box
+   faces)); was Collision_SegmentHitsBox. */
 
 undefined4
-Collision_SegmentHitsBox
-          (float *param_1,float *param_2,float *param_3,float param_4,float param_5,
-          undefined4 param_6,float param_7,float param_8,undefined4 param_9,float *param_10)
+TestCollision(float *param_1,float *param_2,float *param_3,float param_4,float param_5,
+             undefined4 param_6,float param_7,float param_8,undefined4 param_9,float *param_10)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -203,11 +211,11 @@ Collision_SegmentHitsBox
   local_18[0] = *param_1 - *param_3;
   local_18[1] = param_1[1] - param_3[1];
   local_18[2] = param_1[2] - param_3[2];
-  Vec3_TransformTo(local_24,local_18,param_10);
+  rdMatrix_TransformVectorOrtho34(local_24,local_18,param_10);
   local_18[0] = *param_2 - *param_3;
   local_18[1] = param_2[1] - param_3[1];
   local_18[2] = param_2[2] - param_3[2];
-  Vec3_TransformTo(local_c,local_18,param_10);
+  rdMatrix_TransformVectorOrtho34(local_c,local_18,param_10);
   fVar2 = local_c[0] - local_24[0];
   fVar3 = local_c[1] - local_24[1];
   fVar4 = local_c[2] - local_24[2];
@@ -448,7 +456,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             local_80[0] = fVar5;
             pfVar7 = sputActor_GetOrientMatrix(actor);
             pvStack_d0 = (void *)0x493d0d;
-            Vec3_TransformTo(local_a4,local_8c + 1,pfVar7);
+            rdMatrix_TransformVectorOrtho34(local_a4,local_8c + 1,pfVar7);
             local_a4[0] = local_a4[0] + *pfVar6;
             local_a4[1] = local_a4[1] + *(float *)(iVar8 + 0x7c);
             local_a4[2] = local_a4[2] + *(float *)(iVar8 + 0x80);
@@ -471,7 +479,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             local_80[0] = (*(float *)((int)param_1 + 0x20) + local_98[2]) - local_5c[1];
             pfVar7 = sputActor_GetOrientMatrix(actor);
             pvStack_d0 = (void *)0x493ee1;
-            Vec3_TransformTo(local_50 + 2,local_8c + 1,pfVar7);
+            rdMatrix_TransformVectorOrtho34(local_50 + 2,local_8c + 1,pfVar7);
             local_50[2] = local_50[2] + *pfVar6;
             local_44[0] = local_44[0] + *(float *)(iVar8 + 0x7c);
             local_44[1] = local_44[1] + *(float *)(iVar8 + 0x80);
@@ -493,7 +501,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
                 pfVar6 = pfVar6 + 1;
                 ppfVar9 = ppfVar9 + 1;
               }
-              ((code *)Collision_PushOutOfBox)(local_a4);
+              ((code *)GetOuttaTheBox)(local_a4);
               local_80[1] = local_a4[0];
               local_80[2] = local_a4[1];
             }

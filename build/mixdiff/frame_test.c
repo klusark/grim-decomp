@@ -32,7 +32,7 @@ int Blocky16_flobdec_Reset(void) { return CALL0(T_FREE); }
 int FUN_004cc410(int a, int b, int c) { return CALLN(T_ALLOC, (int, int, int), a, b, c); }
 int AllocBuffers(int a, int b, int c) { return CALLN(T_ALLOC, (int, int, int), a, b, c); }
 int FUN_004cc6a0(int a) { return CALLN(T_OFFS, (int), a); }
-int Blocky16_BuildPixelOffsets(int a) { return CALLN(T_OFFS, (int), a); }
+int fob_blk16_configure(int a) { return CALLN(T_OFFS, (int), a); }
 int FUN_004cd1e0(void *a) { return CALLN(T_EXPAND, (void *), a); }
 int Blocky16_BuildExpandTable(void *a) { return CALLN(T_EXPAND, (void *), a); }
 int FUN_004cd300(void *a, void *b, int c, int d) { return CALLN(T_HALF16, (void *, void *, int, int), a, b, c, d); }
@@ -40,7 +40,7 @@ int Blocky16_DecodeHalfRows16(void *a, void *b, int c, int d) { return CALLN(T_H
 int FUN_004cd450(void *a, void *b, int c, int d, int e) { return CALLN(T_HALF8, (void *, void *, int, int, int), a, b, c, d, e); }
 int Blocky16_DecodeHalfRows8(void *a, void *b, int c, int d, int e) { return CALLN(T_HALF8, (void *, void *, int, int, int), a, b, c, d, e); }
 int FUN_004cea30(void *a, void *b, int c, int d, void *e, void *f, void *g) { return CALLN(T_BLIT, (void *, void *, int, int, void *, void *, void *), a, b, c, d, e, f, g); }
-int Video_BlitConvert(void *a, void *b, int c, int d, void *e, void *f, void *g) { return CALLN(T_BLIT, (void *, void *, int, int, void *, void *, void *), a, b, c, d, e, f, g); }
+int gra_BlitRectLookup(void *a, void *b, int c, int d, void *e, void *f, void *g) { return CALLN(T_BLIT, (void *, void *, int, int, void *, void *, void *), a, b, c, d, e, f, g); }
 int FUN_004cec40(void *a, void *b, int c, void *d) { return CALLN(T_FILL, (void *, void *, int, void *), a, b, c, d); }
 int gra_SetBuffer(void *a, void *b, int c, void *d) { return CALLN(T_FILL, (void *, void *, int, void *), a, b, c, d); }
 int FUN_004d5e70(void *a, void *b, int c) { return CALLN(T_RLEDEC, (void *, void *, int), a, b, c); }

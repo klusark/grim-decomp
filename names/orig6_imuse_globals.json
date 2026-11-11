@@ -1,0 +1,29 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10031d38",
+  "old": "DAT_10031d38",
+  "global": "g_dwMlEntries",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name mlEntries (the remaster's GrimFandango (Linux): iMUSE_Malloc / iMUSE_Free: the memory list (entries[mlListSize++] = p, realloc to double size), as in the remaster); was DAT_10031d38."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002ec10",
+  "old": "DAT_1002ec10",
+  "global": "g_dwMlEntryCount",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name mlEntryCount (the remaster's GrimFandango (Linux): iMUSE_Malloc: the list capacity (doubled when full; 0x14 at start), as in the remaster); was DAT_1002ec10."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002ebd8",
+  "old": "DAT_1002ebd8",
+  "global": "g_dwMlListSize",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name mlListSize (the remaster's GrimFandango (Linux): iMUSE_Malloc / iMUSE_Free: the used entry count (append while below mlEntryCount, the search bound of iMUSE_Free), as in the remaster); was DAT_1002ebd8."
+ }
+]

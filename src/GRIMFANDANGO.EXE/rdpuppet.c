@@ -635,9 +635,9 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
                 local_24[2] = local_24[2] - PUN(float,puVar14[0xd]);
                 fVar2 = PUN(float,puVar14[0xf]);
                 fVar3 = PUN(float,puVar14[0x10]);
-                local_30[0] = Math_NormalizeAngle180(local_30[0] - PUN(float,puVar14[0xe]));
-                local_30[1] = Math_NormalizeAngle180(fVar6 - fVar2);
-                local_30[2] = Math_NormalizeAngle180(fVar7 - fVar3);
+                local_30[0] = stdMath_NormalizeAngleAcute(local_30[0] - PUN(float,puVar14[0xe]));
+                local_30[1] = stdMath_NormalizeAngleAcute(fVar6 - fVar2);
+                local_30[2] = stdMath_NormalizeAngleAcute(fVar7 - fVar3);
                 if (*(float *)(pbVar16 + 0x18) < 1.0) {
                   local_24[0] = *(float *)(pbVar16 + 0x18) * local_24[0];
                   local_24[1] = *(float *)(pbVar16 + 0x18) * local_24[1];
@@ -726,9 +726,9 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
             local_48[1] = local_c[1] * fVar20 + local_48[1];
             local_48[2] = local_c[2] * fVar20 + local_48[2];
           }
-          local_48[0] = Math_NormalizeAngle180(local_48[0]);
-          local_48[1] = Math_NormalizeAngle180(local_48[1]);
-          fVar20 = Math_NormalizeAngle180(local_48[2]);
+          local_48[0] = stdMath_NormalizeAngleAcute(local_48[0]);
+          local_48[1] = stdMath_NormalizeAngleAcute(local_48[1]);
+          fVar20 = stdMath_NormalizeAngleAcute(local_48[2]);
           local_3c[0] = PUN(float,puVar14[0xb]) + local_3c[0];
           local_3c[1] = PUN(float,puVar14[0xc]) + local_3c[1];
           local_3c[2] = PUN(float,puVar14[0xd]) + local_3c[2];
@@ -748,7 +748,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
         } while (PUN(uint,(float)local_5c[2]) < PUN(uint,(float)*(float *)(iVar4 + 0x54)));
       }
     }
-    rdThing_BuildNodeMatrix(model,*(undefined4 *)(iVar4 + 0x58),frame);
+    rdThing_AccumulateMatrices(model,*(undefined4 *)(iVar4 + 0x58),frame);
     *(uint *)((int)model + 0x1c) = g_dwRdroid_frameTrue;
   }
   return;

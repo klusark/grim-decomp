@@ -60,10 +60,9 @@ sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,vo
     if ((void *)*puVar3 == (void *)0x0) {
       return;
     }
-    count_00 = Sector_ClipPolygon((void *)*puVar3,verts,count,local_90);
+    count_00 = WalkPlane_ClipPoly((void *)*puVar3,verts,count,local_90);
     if ((2 < count_00) &&
-       (pvVar2 = rdPrimit3_DrawPolygon(local_90,count_00,g_pShadowMaterial), pvVar2 != (void *)0x0))
-    {
+       (pvVar2 = rdCache_InsertFace(local_90,count_00,g_pShadowMaterial), pvVar2 != (void *)0x0)) {
       fVar1 = (float)*(uint *)((int)pvVar2 + 0x54);
       if (*minXY < fVar1) {
         fVar1 = *minXY;

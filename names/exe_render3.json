@@ -1,10 +1,10 @@
 [
  {"addr": "00486b00", "name": "sputRender_CleanArtBuffer", "tags": "render"},
  {"addr": "00486b10", "name": "sputRender_CleanZBuffer", "tags": "render"},
- {"addr": "00486b20", "name": "Render_GetUserCallback", "tags": "render"},
+ {"addr": "00486b20", "name": "sputRender_SetPaletteFunc", "tags": "render"},
  {"addr": "00486b30", "name": "sputRender_SetPageFlip", "tags": "render"},
  {"addr": "004e8080", "global": "g_nDoTheFlip", "type": "int", "comment": "Scene drawing and presenting are enabled"},
- {"addr": "00486b40", "name": "CacheRect_Create", "proto": "void * CacheRect_Create(int x, int y, int w, int h)",
+ {"addr": "00486b40", "name": "sputRender_CreateCacheRect", "proto": "void * sputRender_CreateCacheRect(int x, int y, int w, int h)",
   "comment": "Lua CacheRect: copies a rectangle of the background and depth images into a 0x20-byte record {magic, x, y, w, h, bgCopy, zCopy, next} on g_pCacheRectList", "tags": "render"},
  {"addr": "00486c50", "name": "sputRender_RestoreCacheRect", "comment": "Lua RestoreCacheRect: copies the most recent cached rectangle back and invalidates it", "tags": "render"},
  {"addr": "00486cb0", "name": "CacheRect_FreeAll", "tags": "render"},

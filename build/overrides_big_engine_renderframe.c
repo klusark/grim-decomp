@@ -116,7 +116,7 @@ void sputRender_Update(void)
     sputRender_SyncCamera(set, setup);
 
     for (os = ER_PTR(rec, 0x128); os != 0; os = ER_PTR(os, 0xf8))
-        ObjectState_Draw(os, 3, g_pSputRender_CleanBuffer, g_pSputRender_CleanZBuffer);
+        ObjectState_Update(os, 3, g_pSputRender_CleanBuffer, g_pSputRender_CleanZBuffer);
 
     PerfBegin(4);
     if (g_nDoTheFlip != 0)
@@ -128,7 +128,7 @@ void sputRender_Update(void)
     sputPrimitive_Update(1);
     stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
     for (os = ER_PTR(rec, 0x128); os != 0; os = ER_PTR(os, 0xf8))
-        ObjectState_Draw(os, 1, &g_dwStdDisplay_backBuffer, (void *)UINT_008c97a4);
+        ObjectState_Update(os, 1, &g_dwStdDisplay_backBuffer, (void *)UINT_008c97a4);
     rdAdvanceFrame();
     Render_BuildActorDrawList();
 
@@ -200,7 +200,7 @@ void sputRender_Update(void)
                 Actor_ComputeScreenBox(actor);
                 if (g_nSputRender_b3DAcceleration == 0)
                     stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
-                Render_InvalidateRectLastBuffer((int *)(actor + 0x6c), 1);
+                sputRender_MarkDirtyRect((int *)(actor + 0x6c), 1);
                 break;
             }
             if (ER_U32(actor, 0x30) != 0x3f800000) {
@@ -215,10 +215,10 @@ void sputRender_Update(void)
         }
         PerfEnd(6);
         PerfBegin(7);
-        rdroid_EndFrame();
+        rdFinishFrame();
         PerfEnd(7);
         for (os = ER_PTR(rec, 0x128); os != 0; os = ER_PTR(os, 0xf8))
-            ObjectState_Draw(os, 2, &g_dwStdDisplay_backBuffer, (void *)UINT_008c97a4);
+            ObjectState_Update(os, 2, &g_dwStdDisplay_backBuffer, (void *)UINT_008c97a4);
     }
 
     stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);

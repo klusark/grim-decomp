@@ -5,14 +5,17 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00491230  Walker_UpdateYaw ---- */
+/* ---- 0x00491230  sputActor_AlignToPuck ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Walker_UpdateYaw(actor, pos): eases the visible yaw (actor+0x28) toward the walker heading. Done
    (returns 1) when under 0.5 deg. step = rate*frameSec*timescale; if remaining > step, step =
-   (remaining - step)*0.1 + step. Rate <= 0 (snap) jumps the whole way and re-negates the rate. */
+   (remaining - step)*0.1 + step. Rate <= 0 (snap) jumps the whole way and re-negates the rate.
+   Original name sputActor_AlignToPuck (the remaster's GrimFandango (Linux): same body (the actor's
+   orientation vector, rotated by the costume's +0x24 angle with rdMatrix_BuildFromVectorAngle34,
+   offset by the puck position, into the puck's space with Puck_InvXform)); was Walker_UpdateYaw. */
 
-undefined4 Walker_UpdateYaw(void *param_1,float *param_2)
+undefined4 sputActor_AlignToPuck(void *param_1,float *param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -40,7 +43,7 @@ undefined4 Walker_UpdateYaw(void *param_1,float *param_2)
   local_48[0] = local_48[0] + *param_2;
   local_48[1] = param_2[1] + local_48[1];
   local_48[2] = param_2[2] + local_48[2];
-  Walker_ToLocalSpace(param_2,local_48);
+  Puck_InvXform(param_2,local_48);
   local_48[2] = 0.0;
   rdVector_Normalize3Acc(local_48);
   fVar4 = stdMath_ArcSin3(local_48[1]);
@@ -110,11 +113,11 @@ void sputActor_ActorWalkTo(int param_1,int param_2,undefined4 *param_3,undefined
   *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
   iVar2 = *(int *)(*(int *)(param_1 + 0xa4) + 0x1b4);
   if ((iVar2 != 0) && (g_pWalkPlane_wp_head != (void *)0x0)) {
-    this = (void *)SectorList_FindNearestPoint(param_2,0x1000);
+    this = (void *)WalkPlane_PlaneClosest(param_2,0x1000);
     if (this != (void *)0x0) {
-      Sector_ClampPoint(this,param_2);
+      WalkPlane_ClosestPoint(this,param_2);
     }
-    iVar2 = Planner_PlanPath(iVar2,param_2,1);
+    iVar2 = BuildPath(iVar2,param_2,1);
     if (iVar2 != 0) {
       iVar2 = GetPath(&local_2d4);
       if (0 < iVar2) {
@@ -286,7 +289,7 @@ uint Walker_AvoidActorPath
     pfVar14 = pfVar14 + 1;
     pfVar19 = pfVar19 + 1;
   }
-  ((code *)Collision_PushOutOfBox)(pfVar9);
+  ((code *)GetOuttaTheBox)(pfVar9);
   sputActor_GetOrientMatrix(param_2);
   pfVar14 = local_7c;
   pfVar19 = (float *)(_stkneg + 28);
@@ -295,11 +298,11 @@ uint Walker_AvoidActorPath
     pfVar14 = pfVar14 + 1;
     pfVar19 = pfVar19 + 1;
   }
-  ((code *)Collision_PushOutOfBox)(param_3);
+  ((code *)GetOuttaTheBox)(param_3);
   local_d0 = *pfVar9;
   local_cc[0] = pfVar9[1];
   local_cc[1] = pfVar9[2];
-  iVar12 = ((code *)SectorList_FindByPoint)();
+  iVar12 = ((code *)WalkPlane_PlaneAt)();
   if (iVar12 == 0) {
     return 0;
   }
@@ -329,16 +332,16 @@ uint Walker_AvoidActorPath
         pfVar9 = pfVar9 + 1;
         pfVar19 = pfVar19 + 1;
       }
-      iVar12 = ((code *)Collision_SegmentHitsBox)(local_64,local_a0);
+      iVar12 = ((code *)TestCollision)(local_64,local_a0);
       local_100 = uVar15;
       if (iVar12 != 0) {
         pfVar9 = sputActor_GetOrientMatrix(param_2);
         rdMatrix_TransformPoint34(local_58,(float *)&DAT_008ca320,pfVar9);
-        this = (void *)((code *)SectorList_FindNearestPoint)();
+        this = (void *)((code *)WalkPlane_PlaneClosest)();
         WalkPlane_SnapTo(this,local_58);
         sputActor_GetOrientMatrix(param_2);
         bz0 = 6.713914e-39;
-        ((code *)Collision_BoxCorners)();
+        ((code *)FindObjectCorners)();
         puVar18 = &local_1c;
         pfVar9 = &local_4c;
         local_f4 = 5.60519e-45;
@@ -356,8 +359,8 @@ uint Walker_AvoidActorPath
             pfVar19 = pfVar19 + 1;
             pfVar20 = pfVar20 + 1;
           }
-          iVar12 = ((code *)Collision_SegmentHitsBox)(local_64,local_a0);
-          if ((iVar12 == 0) && (iVar12 = ((code *)Planner_PlanPath)(), iVar12 != 0)) {
+          iVar12 = ((code *)TestCollision)(local_64,local_a0);
+          if ((iVar12 == 0) && (iVar12 = ((code *)BuildPath)(), iVar12 != 0)) {
             *puVar18 = 1;
           }
           pfVar9 = pfVar9 + 3;
@@ -368,7 +371,7 @@ uint Walker_AvoidActorPath
         if (fVar10 == -NAN) {
           return uVar15;
         }
-        ((code *)Planner_PlanPath)();
+        ((code *)BuildPath)();
         iVar12 = ((code *)GetPath)();
         if (0 < iVar12) {
           local_100 = uVar15 + iVar12;
@@ -419,8 +422,8 @@ uint Walker_AvoidActorPath
         fVar23 = PUN(float,(((PUN(int,(float)fVar10) + 3U ^ uVar15) - uVar15 & 3 ^ uVar15) - uVar15));
         uVar15 = (int)(PUN(int,(float)fVar10) + 5U) >> 0x1f;
         fVar21 = PUN(float,(((PUN(int,(float)fVar10) + 5U ^ uVar15) - uVar15 & 3 ^ uVar15) - uVar15));
-        local_f0 = ((code *)Planner_PlanPath)();
-        iVar12 = ((code *)Planner_PlanPath)();
+        local_f0 = ((code *)BuildPath)();
+        iVar12 = ((code *)BuildPath)();
         if (iVar12 != 0) {
           if (local_f0 == 0) goto LAB_00491fa5;
           local_104 = *pfVar9 - (&local_4c)[PUN(int,(float)fVar23) * 3];
@@ -462,7 +465,7 @@ LAB_00491fa5:
           return local_100;
         }
         while( true ) {
-          ((code *)Planner_PlanPath)();
+          ((code *)BuildPath)();
           pfVar9 = (float *)((code *)GetPath)();
           iVar12 = 0;
           if (0 < (int)pfVar9 + -1) {
@@ -483,7 +486,7 @@ LAB_00491fa5:
                 pfVar19 = pfVar19 + 1;
               }
               pfVar14 = local_88;
-              iVar13 = ((code *)Collision_SegmentHitsBox)(local_ac,local_94);
+              iVar13 = ((code *)TestCollision)(local_ac,local_94);
               if (iVar13 != 0) {
                 return 0;
               }
@@ -545,7 +548,7 @@ LAB_00491fa5:
               pfVar14 = pfVar14 + 1;
               pfVar19 = pfVar19 + 1;
             }
-            iVar13 = ((code *)Collision_SegmentHitsBox)(local_94,local_ac);
+            iVar13 = ((code *)TestCollision)(local_94,local_ac);
             if (iVar13 != 0) {
               return 0;
             }
@@ -631,10 +634,12 @@ void __cdecl sputActor_SetWalkSystemFadeTime(int ms)
   return;
 }
 
-/* ---- 0x004a8200  Walker_Create ---- */
-/* Allocates the 0x60-byte walker record */
+/* ---- 0x004a8200  Puck_Construct ---- */
+/* Allocates the 0x60-byte walker record Original name Puck_Construct (the remaster's GrimFandango
+   (Linux): same body (position 0, rdMatrix_Build34, the radius at +0x3c, +0x48 = 1.0f, the rest
+   cleared)); was Walker_Create. */
 
-void * __thiscall Walker_Create(void *this,float radius)
+void * __thiscall Puck_Construct(void *this,float radius)
 
 {
   *(undefined4 *)this = 0;
@@ -650,20 +655,23 @@ void * __thiscall Walker_Create(void *this,float radius)
   *(undefined4 *)((int)this + 0x4c) = 0;
   *(undefined4 *)((int)this + 0x58) = 0;
   *(undefined4 *)((int)this + 0x54) = 0;
-  *(uint *)((int)this + 0x58) = UINT_008d086c;
-  if (UINT_008d086c != 0) {
-    *(void **)(UINT_008d086c + 0x54) = this;
+  *(uint *)((int)this + 0x58) = g_dwPuck_p_head;
+  if (g_dwPuck_p_head != 0) {
+    *(void **)(g_dwPuck_p_head + 0x54) = this;
   }
-  UINT_008d086c = (uint)this;
+  g_dwPuck_p_head = (uint)this;
   return this;
 }
 
-/* ---- 0x004a8270  Walker_Destroy ---- */
-void __fastcall Walker_Destroy(int param_1)
+/* ---- 0x004a8270  Puck_Destruct ---- */
+/* Original name Puck_Destruct (the remaster's GrimFandango (Linux): same body (unlink from p_head
+   and the neighbours +0x54 / +0x58)); was Walker_Destroy. */
+
+void __fastcall Puck_Destruct(int param_1)
 
 {
-  if (param_1 == UINT_008d086c) {
-    UINT_008d086c = *(uint *)(param_1 + 0x58);
+  if (param_1 == g_dwPuck_p_head) {
+    g_dwPuck_p_head = *(uint *)(param_1 + 0x58);
   }
   if (*(int *)(param_1 + 0x54) != 0) {
     *(undefined4 *)(*(int *)(param_1 + 0x54) + 0x58) = *(undefined4 *)(param_1 + 0x58);
@@ -674,14 +682,16 @@ void __fastcall Walker_Destroy(int param_1)
   return;
 }
 
-/* ---- 0x004a82a0  Walker_GetAngles ---- */
-/* Converts the walker's 3x3 frame to pitch/yaw/roll in g_vWalkerAngles */
+/* ---- 0x004a82a0  Puck_Rot ---- */
+/* Converts the walker's 3x3 frame to pitch/yaw/roll in g_vWalkerAngles Original name Puck_Rot (the
+   remaster's GrimFandango (Linux): same body (rdMatrix_ExtractAngles34 of the orientation into the
+   static Rot()::ret, returned)); was Walker_GetAngles. */
 
-undefined * __fastcall Walker_GetAngles(int param_1)
+undefined * __fastcall Puck_Rot(int param_1)
 
 {
-  rdMatrix_ExtractAngles34(param_1 + 0xc,&DAT_008cf250);
-  return &DAT_008cf250;
+  rdMatrix_ExtractAngles34(param_1 + 0xc,&g_aPuck_Rot_ret);
+  return &g_aPuck_Rot_ret;
 }
 
 /* ---- 0x004a82c0  Puck_Validate ---- */
@@ -696,15 +706,15 @@ void __fastcall Puck_Validate(void *param_1)
   void *this;
   int iVar1;
   
-  this = (void *)SectorList_FindNearestPoint(param_1,0x1000);
+  this = (void *)WalkPlane_PlaneClosest(param_1,0x1000);
   *(void **)((int)param_1 + 0x5c) = this;
   if (this != (void *)0x0) {
-    iVar1 = Sector_ContainsPoint(this,param_1,1);
+    iVar1 = WalkPlane_Within(this,param_1,1);
     if (iVar1 == 0) {
-      Sector_ClampPoint(*(void **)((int)param_1 + 0x5c),(int)param_1);
+      WalkPlane_ClosestPoint(*(void **)((int)param_1 + 0x5c),(int)param_1);
       Puck_SetPos(param_1,param_1);
     }
-    Walker_SetSectorFrame(param_1,*(int *)((int)param_1 + 0x5c));
+    Puck_OrientToPlane(param_1,*(int *)((int)param_1 + 0x5c));
   }
   return;
 }
@@ -726,18 +736,24 @@ void __thiscall Puck_SetPos(void *this,float *pos)
   return;
 }
 
-/* ---- 0x004a8350  Walker_RotateVector ---- */
-void __thiscall Walker_RotateVector(void *this,float *vec)
+/* ---- 0x004a8350  Puck_Xform ---- */
+/* Original name Puck_Xform (the remaster's GrimFandango (Linux): same body
+   (rdMatrix_TransformPoint34Acc of the vector by the orientation at +0xc)); was
+   Walker_RotateVector. */
+
+void __thiscall Puck_Xform(void *this,float *vec)
 
 {
   rdMatrix_TransformPoint34Acc(vec,(float *)((int)this + 0xc));
   return;
 }
 
-/* ---- 0x004a8370  Walker_ToLocalSpace ---- */
-/* Rotates a world vector into the current walker's frame */
+/* ---- 0x004a8370  Puck_InvXform ---- */
+/* Rotates a world vector into the current walker's frame Original name Puck_InvXform (the
+   remaster's GrimFandango (Linux): same body (subtract the position, rotate by the transposed
+   orientation)); was Walker_ToLocalSpace. */
 
-void __thiscall Walker_ToLocalSpace(void *this,float *vec)
+void __thiscall Puck_InvXform(void *this,float *vec)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -748,7 +764,7 @@ void __thiscall Walker_ToLocalSpace(void *this,float *vec)
   *vec = *vec - *(float *)this;
   vec[1] = vec[1] - *(float *)((int)this + 4);
   vec[2] = vec[2] - *(float *)((int)this + 8);
-  Vec3_TransformTo(&local_c,vec,(float *)((int)this + 0xc));
+  rdMatrix_TransformVectorOrtho34(&local_c,vec,(float *)((int)this + 0xc));
   *vec = local_c;
   vec[1] = local_8;
   vec[2] = local_4;
@@ -782,7 +798,7 @@ void __thiscall Puck_Rotate(void *this,float angle)
   *vec = *vec - *(float *)((int)this + 0x30);
   *(float *)((int)this + 0x1c) = *(float *)((int)this + 0x1c) - *(float *)((int)this + 0x34);
   *(float *)((int)this + 0x20) = *(float *)((int)this + 0x20) - *(float *)((int)this + 0x38);
-  Walker_RebuildRightVector((int)this);
+  Puck_Normalize((int)this);
   return;
 }
 #undef local_30
@@ -808,9 +824,9 @@ float __thiscall Puck_PointAt(void *this,float *point,float maxTurn)
   local_8 = point[1];
   local_4 = PUN(uint,(float)point[2]);
   if (*(void **)((int)this + 0x5c) != (void *)0x0) {
-    Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_c);
+    WalkPlane_Project(*(void **)((int)this + 0x5c),(int)&local_c);
   }
-  Walker_ToLocalSpace(this,&local_c);
+  Puck_InvXform(this,&local_c);
   rdVector_Normalize3Acc(&local_c);
   fVar1 = stdMath_ArcSin3(local_8);
   point = PUN(float *,(float)(90.0 - fVar1));
@@ -842,7 +858,7 @@ void __thiscall Puck_Constrain(void *this,int a1)
   
   *(undefined4 *)((int)this + 0x50) = 0;
   if ((*(void **)((int)this + 0x5c) != (void *)0x0) && (a1 != 0)) {
-    pfVar1 = Sector_EdgeFollowDirection(*(void **)((int)this + 0x5c),this);
+    pfVar1 = WalkPlane_GetConstraintVector(*(void **)((int)this + 0x5c),this);
     if (pfVar1 != (float *)0x0) {
       *(float *)((int)this + 0x44) = *pfVar1;
       *(float *)((int)this + 0x48) = pfVar1[1];
@@ -850,21 +866,23 @@ void __thiscall Puck_Constrain(void *this,int a1)
       *(float *)((int)this + 0x18) = *pfVar1;
       *(float *)((int)this + 0x1c) = pfVar1[1];
       *(float *)((int)this + 0x20) = pfVar1[2];
-      Walker_RebuildRightVector((int)this);
+      Puck_Normalize((int)this);
       *(undefined4 *)((int)this + 0x50) = 1;
     }
   }
   return;
 }
 
-/* ---- 0x004a8610  Walker_WalkSectors ---- */
+/* ---- 0x004a8610  Puck_Forward ---- */
 /* WARNING: Variable defined which should be unmapped: local_48 */
 /* Walker_WalkSectors: the per-frame walk of an actor over the walk sectors (target-inside test with
    tolerance, exit point of the edge, neighbour lookup with the current sector deactivated, 0.02 cap
    into the new sector, reflection turn only when |angle| < reflect and not against a held turn
-   key). See autorun/NAV_PLAN.md and COLLISION_FIX_PLAN.md. */
+   key). See autorun/NAV_PLAN.md and COLLISION_FIX_PLAN.md. Original name Puck_Forward (the
+   remaster's GrimFandango (Linux): same body (the recursion counter static, the step at +0x40, the
+   plane slope by stdMath_ArcSin3 of the dot product, the plane walk)); was Walker_WalkSectors. */
 
-undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,int turnRightOk)
+undefined * __thiscall Puck_Forward(void *this,float step,int turnLeftOk,int turnRightOk)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -888,10 +906,10 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
   #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
   
   puVar2 = (undefined *)0x0;
-  if (UINT_008d0870 == 0) {
+  if (g_dwPuck_Forward_recursion_level == 0) {
     *(float *)((int)this + 0x40) = step;
   }
-  UINT_008d0870 = UINT_008d0870 + 1;
+  g_dwPuck_Forward_recursion_level = g_dwPuck_Forward_recursion_level + 1;
   if (*(int *)((int)this + 0x50) != 0) {
     fVar3 = rdVector_Dot3((float *)((int)this + 0xc),(float *)((int)this + 0x44));
     fVar3 = stdMath_ArcSin3(fVar3);
@@ -912,16 +930,16 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
   local_30 = 0.0;
   local_2c = PUN(uint,(float)step);
   local_28 = 0;
-  Walker_RotateVector(this,&local_30);
+  Puck_Xform(this,&local_30);
   if ((*(void **)((int)this + 0x5c) == (void *)0x0) ||
-     (iVar1 = Sector_ContainsPoint(*(void **)((int)this + 0x5c),&local_30,1), iVar1 != 0)) {
+     (iVar1 = WalkPlane_Within(*(void **)((int)this + 0x5c),&local_30,1), iVar1 != 0)) {
     local_48 = PUN(float,&local_30);
     Puck_SetPos(this,PUN(float *,(float)local_48));
-    UINT_008d0870 = 0;
+    g_dwPuck_Forward_recursion_level = 0;
     return (undefined *)0x1;
   }
-  if (8 < (int)UINT_008d0870) {
-    UINT_008d0870 = 0;
+  if (8 < (int)g_dwPuck_Forward_recursion_level) {
+    g_dwPuck_Forward_recursion_level = 0;
     return (undefined *)0x0;
   }
   this_00 = *(void **)((int)this + 0x5c);
@@ -930,9 +948,9 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
   local_18 = local_24;
   local_14 = local_20;
   local_10 = local_1c;
-  Walker_ToLocalSpace(this,&local_18);
+  Puck_InvXform(this,&local_18);
   step = step - local_14;
-  iVar1 = SectorList_FindByPoint(&local_24,0x1000);
+  iVar1 = WalkPlane_PlaneAt(&local_24,0x1000);
   if (iVar1 == 0) {
     Puck_SetPos(this,&local_24);
     iVar1 = *(int *)((int)this + 0x5c);
@@ -948,7 +966,7 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
       {
         Puck_Rotate(this,local_34);
         *(undefined4 *)((int)this_00 + 0x2c) = 1;
-        puVar2 = Walker_WalkSectors(this,step,1,1);
+        puVar2 = Puck_Forward(this,step,1,1);
       }
       if (*(int *)((int)this + 0x50) != 0) {
         Puck_Rotate(this,local_34);
@@ -965,7 +983,7 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
       local_c = *(float *)(iVar1 + 4);
       local_8 = *(uint *)(iVar1 + 8);
       local_4 = *(uint *)(iVar1 + 0xc);
-      Walker_ToLocalSpace(this,&local_c);
+      Puck_InvXform(this,&local_c);
       if (local_c <= 0.0) {
         if (local_34 < 3.0) {
           local_34 = (local_34 - -90.0) - -90.2;
@@ -975,7 +993,7 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
         local_34 = -90.2 - (90.0 - local_34);
       }
       Puck_Rotate(this,local_34);
-      puVar2 = Walker_WalkSectors(this,step,1,1);
+      puVar2 = Puck_Forward(this,step,1,1);
       *(undefined4 *)((int)this_00 + 0x2c) = 1;
       return puVar2;
     }
@@ -983,11 +1001,11 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
   }
   Puck_SetPos(this,&local_24);
   *(int *)((int)this + 0x5c) = iVar1;
-  Walker_SetSectorFrame(this,iVar1);
+  Puck_OrientToPlane(this,iVar1);
   if (0.02 <= step) {
     step = 0.02;
   }
-  puVar2 = Walker_WalkSectors(this,step,1,1);
+  puVar2 = Puck_Forward(this,step,1,1);
   *(undefined4 *)((int)this_00 + 0x2c) = 1;
   return puVar2;
 }
@@ -1007,8 +1025,12 @@ undefined * __thiscall Walker_WalkSectors(void *this,float step,int turnLeftOk,i
 #undef local_c
 
 
-/* ---- 0x004a89b0  Walker_SetSectorFrame ---- */
-void __thiscall Walker_SetSectorFrame(void *this,int a1)
+/* ---- 0x004a89b0  Puck_OrientToPlane ---- */
+/* Original name Puck_OrientToPlane (the remaster's GrimFandango (Linux): same body (the up vector
+   from the plane normal +0x60, then the right / forward vectors by cross products)); was
+   Walker_SetSectorFrame. */
+
+void __thiscall Puck_OrientToPlane(void *this,int a1)
 
 {
   float *pfVar1;
@@ -1039,8 +1061,12 @@ void __thiscall Walker_SetSectorFrame(void *this,int a1)
   return;
 }
 
-/* ---- 0x004a8a90  Walker_RebuildRightVector ---- */
-void __fastcall Walker_RebuildRightVector(int param_1)
+/* ---- 0x004a8a90  Puck_Normalize ---- */
+/* Original name Puck_Normalize (the remaster's GrimFandango (Linux): same body (normalise the
+   forward vector, the right vector as its cross product with up, normalised)); was
+   Walker_RebuildRightVector. */
+
+void __fastcall Puck_Normalize(int param_1)
 
 {
   float *pfVar1;
@@ -1060,8 +1086,12 @@ void __fastcall Walker_RebuildRightVector(int param_1)
   return;
 }
 
-/* ---- 0x004a8b00  Walker_DrawDebugAxes ---- */
-void __thiscall Walker_DrawDebugAxes(void *this,int color)
+/* ---- 0x004a8b00  Puck_Draw ---- */
+/* Original name Puck_Draw (the remaster's GrimFandango (Linux): same body (three short axis lines
+   (0.1 / 0.05) transformed by the orientation, rdPrimit3_DrawLine in the colour)); was
+   Walker_DrawDebugAxes. */
+
+void __thiscall Puck_Draw(void *this,int color)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1078,8 +1108,8 @@ void __thiscall Walker_DrawDebugAxes(void *this,int color)
   local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(this,&local_c);
-  Walker_RotateVector(this,&local_18);
+  Puck_Xform(this,&local_c);
+  Puck_Xform(this,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
                     );
   local_c = 0.05;
@@ -1088,8 +1118,8 @@ void __thiscall Walker_DrawDebugAxes(void *this,int color)
   local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(this,&local_c);
-  Walker_RotateVector(this,&local_18);
+  Puck_Xform(this,&local_c);
+  Puck_Xform(this,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
                     );
   local_c = -0.05;
@@ -1098,8 +1128,8 @@ void __thiscall Walker_DrawDebugAxes(void *this,int color)
   local_18 = 0.0;
   local_14 = 0x3dcccccd;
   local_10 = 0;
-  Walker_RotateVector(this,&local_c);
-  Walker_RotateVector(this,&local_18);
+  Puck_Xform(this,&local_c);
+  Puck_Xform(this,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
                     );
   local_c = 0.0;
@@ -1108,8 +1138,8 @@ void __thiscall Walker_DrawDebugAxes(void *this,int color)
   local_18 = 0.0;
   local_14 = 0;
   local_10 = 0;
-  Walker_RotateVector(this,&local_c);
-  Walker_RotateVector(this,&local_18);
+  Puck_Xform(this,&local_c);
+  Puck_Xform(this,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
                     );
   return;
@@ -1133,8 +1163,13 @@ uint GetPath(undefined4 *param_1)
   return g_dwTotWorkingPathPoints;
 }
 
-/* ---- 0x004a9430  Planner_PlanPath ---- */
-undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
+/* ---- 0x004a9430  BuildPath ---- */
+/* Original name BuildPath (the remaster's GrimFandango (Linux): the walk path planner of
+   sputActor_ActorWalkTo in both builds; the remaster's first tries its new PathFinder, its fallback
+   is this body (all planes active, find the start and end planes, FindPath, append the end point,
+   TightenPath)); was Planner_PlanPath. */
+
+undefined4 BuildPath(undefined4 param_1,uint *param_2,int param_3)
 
 {
   uint uVar1;
@@ -1142,17 +1177,17 @@ undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
   undefined4 uVar3;
   
   uVar3 = 0;
-  SectorList_ResetFree();
+  WalkPlane_AllActive();
   g_dwTotWorkingPathPoints = 0;
-  iVar2 = SectorList_FindByPoint(param_1,0x1000);
+  iVar2 = WalkPlane_PlaneAt(param_1,0x1000);
   if (iVar2 == 0) {
     return 0;
   }
-  iVar2 = SectorList_FindByPoint(param_2,0x1000);
+  iVar2 = WalkPlane_PlaneAt(param_2,0x1000);
   if (iVar2 == 0) {
     return 0;
   }
-  iVar2 = Planner_SearchSectors(param_1,param_2,0);
+  iVar2 = Planner_FindPath(param_1,param_2,0);
   uVar1 = g_dwTotWorkingPathPoints;
   if (iVar2 != 0) {
     iVar2 = g_dwTotWorkingPathPoints * 3;
@@ -1161,16 +1196,21 @@ undefined4 Planner_PlanPath(undefined4 param_1,uint *param_2,int param_3)
     (&UINT_008cf0b4)[uVar1 * 3] = param_2[1];
     (&UINT_008cf0b8)[uVar1 * 3] = param_2[2];
     if (param_3 != 0) {
-      Planner_SmoothPath();
+      TightenPath();
     }
     uVar3 = 1;
   }
-  SectorList_ResetFree();
+  WalkPlane_AllActive();
   return uVar3;
 }
 
-/* ---- 0x004a94d0  Planner_SearchSectors ---- */
-undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
+/* ---- 0x004a94d0  Planner_FindPath ---- */
+/* Original name Planner_FindPath (the remaster's GrimFandango (Linux): the recursive plane search
+   in both builds (Within, WalkPlane::Intersection, the exit points, recursion into the next plane);
+   FindPath is a static two remaster files have, so it keeps the module prefix); was
+   Planner_SearchSectors. */
+
+undefined4 Planner_FindPath(float *param_1,float *param_2,void *param_3)
 
 {
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1192,7 +1232,7 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
     return 1;
   }
   if (param_3 == (void *)0x0) {
-    param_3 = (void *)SectorList_FindByPoint(param_1,0x1000);
+    param_3 = (void *)WalkPlane_PlaneAt(param_1,0x1000);
   }
   uVar1 = g_dwTotWorkingPathPoints;
   if (param_3 != (void *)0x0) {
@@ -1201,7 +1241,7 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
     (&g_dwWorkingPath)[iVar2] = PUN(uint,(float)*param_1);
     (&UINT_008cf0b4)[uVar1 * 3] = PUN(uint,(float)param_1[1]);
     (&UINT_008cf0b8)[uVar1 * 3] = PUN(uint,(float)param_1[2]);
-    iVar2 = Sector_ContainsPoint(param_3,param_2,1);
+    iVar2 = WalkPlane_Within(param_3,param_2,1);
     if (iVar2 != 0) {
       return 1;
     }
@@ -1214,10 +1254,10 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
       local_1f8 = 0;
     }
     else {
-      local_1f8 = SectorList_FindByPoint(&local_1f4,0x1000);
+      local_1f8 = WalkPlane_PlaneAt(&local_1f4,0x1000);
     }
     if (local_1f8 != 0) {
-      iVar2 = Planner_SearchSectors(&local_1f4,param_2,local_1f8);
+      iVar2 = Planner_FindPath(&local_1f4,param_2,local_1f8);
       if (iVar2 != 0) {
         return 1;
       }
@@ -1225,17 +1265,16 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
         *(undefined4 *)(local_1f8 + 0x2c) = 0;
       }
     }
-    local_1e4 = Planner_CollectSharedCorners(param_3,param_2,local_1e0);
+    local_1e4 = FindExitPoints(param_3,param_2,local_1e0);
     local_1fc = 0;
     if (0 < (int)local_1e4) {
       puVar4 = local_1e0;
       do {
-        iVar2 = SectorList_FindByPoint(puVar4,0x1000);
+        iVar2 = WalkPlane_PlaneAt(puVar4,0x1000);
         if (iVar2 != 0) {
           g_dwTotWorkingPathPoints = local_1e8;
           iVar3 = Planner_PortalPoint(param_3,iVar2,param_2,&local_1f4);
-          if ((iVar3 != 0) && (iVar2 = Planner_SearchSectors(&local_1f4,param_2,iVar2), iVar2 != 0))
-          {
+          if ((iVar3 != 0) && (iVar2 = Planner_FindPath(&local_1f4,param_2,iVar2), iVar2 != 0)) {
             return 1;
           }
         }
@@ -1260,8 +1299,12 @@ undefined4 Planner_SearchSectors(float *param_1,float *param_2,void *param_3)
 #undef local_1fc
 
 
-/* ---- 0x004a96f0  Planner_CollectSharedCorners ---- */
-uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
+/* ---- 0x004a96f0  FindExitPoints ---- */
+/* Original name FindExitPoints (the remaster's GrimFandango (Linux): same body (for every other
+   active walkable plane the vertices inside the current plane, without duplicates); called by
+   FindPath in both builds); was Planner_CollectSharedCorners. */
+
+uint FindExitPoints(void *param_1,float *param_2,uint *param_3)
 
 {
   unsigned char _frame[0x200] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1299,7 +1342,7 @@ uint Planner_CollectSharedCorners(void *param_1,float *param_2,uint *param_3)
        (local_1ec = 0, 0 < *(int *)((int)pvVar4 + 0x34))) {
       piVar9 = (int *)((int)pvVar4 + 0x38);
       do {
-        iVar5 = Sector_ContainsPoint(param_1,(float *)(*piVar9 + 4),0);
+        iVar5 = WalkPlane_Within(param_1,(float *)(*piVar9 + 4),0);
         if (iVar5 != 0) {
           uVar6 = 0;
           if (0 < (int)uVar10) {
@@ -1411,7 +1454,7 @@ undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefi
   if (0 < *(int *)((int)param_1 + 0x34)) {
     piVar6 = (int *)((int)param_1 + 0x38);
     do {
-      iVar4 = Sector_ContainsPoint(param_2,(float *)(*piVar6 + 4),0);
+      iVar4 = WalkPlane_Within(param_2,(float *)(*piVar6 + 4),0);
       if (iVar4 != 0) {
         iVar4 = *piVar6;
         fVar3 = *(float *)(iVar4 + 8) - param_3[1];
@@ -1433,7 +1476,7 @@ undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefi
   if (0 < *(int *)((int)param_2 + 0x34)) {
     piVar6 = (int *)((int)param_2 + 0x38);
     do {
-      iVar4 = Sector_ContainsPoint(param_1,(float *)(*piVar6 + 4),0);
+      iVar4 = WalkPlane_Within(param_1,(float *)(*piVar6 + 4),0);
       if (iVar4 != 0) {
         iVar4 = *piVar6;
         fVar3 = *(float *)(iVar4 + 8) - param_3[1];
@@ -1459,8 +1502,12 @@ undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefi
 #undef local_4
 
 
-/* ---- 0x004a9aa0  Planner_SmoothPath ---- */
-undefined4 Planner_SmoothPath(void)
+/* ---- 0x004a9aa0  TightenPath ---- */
+/* Original name TightenPath (the remaster's GrimFandango (Linux): same body (for more than 3
+   working-path points drop the middle point where the direct segment stays on the planes); called
+   by BuildPath in both builds); was Planner_SmoothPath. */
+
+undefined4 TightenPath(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1543,7 +1590,7 @@ undefined4 Planner_SmoothPath(void)
     } while (bVar1);
   }
   if (bVar2) {
-    Planner_SmoothPath();
+    TightenPath();
   }
   return 1;
 }
@@ -1562,11 +1609,11 @@ void * Planner_SharedSector(undefined4 param_1,float *param_2)
   void *this;
   int iVar1;
   
-  this = (void *)SectorList_FindByPoint(param_1,0x1000);
-  while ((this != (void *)0x0 && (iVar1 = Sector_ContainsPoint(this,param_2,1), iVar1 == 0))) {
+  this = (void *)WalkPlane_PlaneAt(param_1,0x1000);
+  while ((this != (void *)0x0 && (iVar1 = WalkPlane_Within(this,param_2,1), iVar1 == 0))) {
     *(undefined4 *)((int)this + 0x2c) = 0;
-    this = (void *)SectorList_FindByPoint(param_1,0x1000);
+    this = (void *)WalkPlane_PlaneAt(param_1,0x1000);
   }
-  SectorList_ResetFree();
+  WalkPlane_AllActive();
   return this;
 }

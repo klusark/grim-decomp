@@ -11,7 +11,7 @@
  * The callees are models defined here (both implementations call the same ones): the Vec3 helpers compute what the
  * originals compute (decompiled formulas), rdVector_Normalize3Acc returns the length in ST0, sputActor_SetActorPosition moves the
  * actor (sometimes clamped, sometimes flips actor flags: the order of the flag reads is observable), Collision_BoxSlide
- * returns 0/1 and writes its output and the hit point 0x008ca320, Collision_PushOutOfBox moves its point, the others
+ * returns 0/1 and writes its output and the hit point 0x008ca320, GetOuttaTheBox moves its point, the others
  * only record.  Every call is logged with the CONTENTS of its pointer arguments (stack addresses differ) and global
  * pointers by value.  Compared after each run: return value, call log, all actor / walker / model / costume memory and
  * the data block 0x008ca300..0x008ca3a0.  Precision control 24, 53 and 64 bits in turn.
@@ -99,7 +99,7 @@ void Vec3_Sub(float *out, float *a, float *b)
     out[1] = b[1] * x + b[4] * y + z * b[7] + b[10];
     out[2] = b[2] * x + b[8] * z + y * b[5] + b[11];
 }
-void Vec3_TransformTo(float *out, float *v, float *m)
+void rdMatrix_TransformVectorOrtho34(float *out, float *v, float *m)
 {
     Ev *e = ev(4); put3(e, 1, v); e->v[5] = (unsigned)(uintptr_t)m;
     float x = v[0], y = v[1], z = v[2];
@@ -146,7 +146,7 @@ int Collision_BoxSlide(float *a, float *b, float x0, float y0, float z0, float x
     hit[0] = a[0] + y1; hit[1] = b[1]; hit[2] = z0 * a[2];
     return 1;
 }
-void Collision_PushOutOfBox(float *p, float x0, float y0, float z0, float x1, float y1, float z1, float *frame, float *pos)
+void GetOuttaTheBox(float *p, float x0, float y0, float z0, float x1, float y1, float z1, float *frame, float *pos)
 {
     Ev *e = ev(9); put3(e, 1, p);
     e->v[4] = fb(x0); e->v[5] = fb(y0); e->v[6] = fb(z0); e->v[7] = fb(x1); e->v[8] = fb(y1); e->v[9] = fb(z1);

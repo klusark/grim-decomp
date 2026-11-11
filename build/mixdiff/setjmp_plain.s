@@ -1,5 +1,5 @@
 # Plain register save / restore setjmp and longjmp for the differential tests.  msvcrt's longjmp raises STATUS_LONGJUMP
-# through RtlUnwind, which nothing handles in a test process; for a jump inside one function (InsaneTimer_ServiceDeferred)
+# through RtlUnwind, which nothing handles in a test process; for a jump inside one function (sys_timer_dispatcher)
 # this does the same thing.
 	.intel_syntax noprefix
 	.text

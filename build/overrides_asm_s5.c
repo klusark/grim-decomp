@@ -5,7 +5,7 @@
  * numbers and EAX/stack return values are not clear enough to port from the dumps alone), the stdPic / stdGif codecs,
  * sputLua_Startup (unnamed lua_* globals and indirect calls), msc_rle_DecompressBlock (ECX carried between calls), the exception-
  * handler stubs (EBP-frame cleanup funnels), and sputRender_Update / Walker_AvoidActorPath / Collision_TestActorAgainstOthers /
- * Sector_ContainsPoint, which are already left assembled elsewhere.  Each of those stays in src/GRIMFANDANGO.EXE/asm_funcs.s.
+ * WalkPlane_Within, which are already left assembled elsewhere.  Each of those stays in src/GRIMFANDANGO.EXE/asm_funcs.s.
  *
  * Functions added here later need an OVERRIDES marker line before the definition and a block header with the address. */
 #include "ghidra_types.h"

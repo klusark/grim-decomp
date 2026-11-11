@@ -11,7 +11,7 @@
  * that land exactly on the frame count; the control word of DAT_00900526 with each rounding mode.
  * The stand-ins: rdPuppet_FadeOutTrack / rdPuppet_RemoveTrack change the track flags as the real ones do; the marker
  * callback sometimes changes the track's times, the marker count, the animation or the callback itself (the original
- * reads them again after each call); Math_NormalizeAngle180 returns an extended value (not a float) from a per-case
+ * reads them again after each call); stdMath_NormalizeAngleAcute returns an extended value (not a float) from a per-case
  * stream; rdMatrix_Build34 logs the angles and position it gets and writes the matrix.
  * usage: puppet_test.exe [cases per function]   (P3_NAN=1: no signalling NaN inputs) */
 #include <windows.h>
@@ -101,7 +101,7 @@ void __cdecl rdPuppet_RemoveTrack(void *p, int track)
     U(rec, 0) = 0;
     U(rec, 0x120) = snext();
 }
-long double __cdecl Math_NormalizeAngle180(uint bits)
+long double __cdecl stdMath_NormalizeAngleAcute(uint bits)
 {
     long double r;
     uint k = snext() % 8;
@@ -124,7 +124,7 @@ void __cdecl Matrix_BuildTransform(uint *m, uint *v)
     L(0xb7000000); L((uint)m); L((uint)v); L(v[0]); L(v[1]); L(v[2]);
     m[0] ^= snext();
 }
-void __cdecl rdThing_BuildNodeMatrix(uint a, uint b, uint c) { L(0xb0de0000); L(a); L(b); L(c); }
+void __cdecl rdThing_AccumulateMatrices(uint a, uint b, uint c) { L(0xb0de0000); L(a); L(b); L(c); }
 
 static uint get_sw(void) { unsigned short sw; __asm__ volatile("fnstsw %0" : "=m"(sw)); return sw; }
 static uint get_cw(void) { unsigned short cw; __asm__ volatile("fnstcw %0" : "=m"(cw)); return cw; }

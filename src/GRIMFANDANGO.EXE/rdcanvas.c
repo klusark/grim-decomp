@@ -1527,16 +1527,18 @@ uint * rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint par
   if (canvas == (uint *)0x0) {
     return (uint *)0x0;
   }
-  rdCanvas_Init(canvas,param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8);
+  rdCanvas_NewEntry(canvas,param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8);
   return canvas;
 }
 
-/* ---- 0x004c0550  rdCanvas_Init ---- */
-/* flags bit 0: explicit clip rect, otherwise the whole surface */
+/* ---- 0x004c0550  rdCanvas_NewEntry ---- */
+/* flags bit 0: explicit clip rect, otherwise the whole surface Original name rdCanvas_NewEntry (the
+   remaster's GrimFandango (Linux): same parameters (canvas, flags, surface, z surface, the
+   rectangle, extra) and body); was rdCanvas_Init. */
 
 int __cdecl
-rdCanvas_Init(uint *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0,uint x1,uint y1,
-             uint extra)
+rdCanvas_NewEntry(uint *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0,uint x1,uint y1
+                 ,uint extra)
 
 {
   canvas[4] = zSurface;

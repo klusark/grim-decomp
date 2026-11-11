@@ -22,7 +22,7 @@ PROGS = {
         rdata=0x4d7000, data=0x4dd000,
         # original table address -> what it is (parent, how the parent reached it)
         tables={0x4dac00: "scope table of FUN_004d5de0 (push 0x4dac00 / _except_handler3), funclets 4d5e1c 4d5e30",
-                0x4dac10: "FuncInfo of PrimitiveList_Append (thunk 4d6046), funclets 4d6030 4d603b",
+                0x4dac10: "FuncInfo of PrimitiveQueue_addObject (thunk 4d6046), funclets 4d6030 4d603b",
                 0x4dac40: "FuncInfo of sputActor_EnablePuck (thunk 4d605b), funclet 4d6050",
                 0x4dac68: "FuncInfo of sputRoom_AddObjectState (thunk 4d607b), funclet 4d6070",
                 0x4dac90: "FuncInfo of ParseCollection (thunk 4d60ba), funclets 4d60ac 4d6090 4d609e",

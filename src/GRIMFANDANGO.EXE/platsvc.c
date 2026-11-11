@@ -59,40 +59,48 @@ void stdPlatform_Assert(undefined4 param_1,char *param_2,undefined4 param_3)
 #undef acStack_200
 
 
-/* ---- 0x00478030  PlatSvc_HAlloc ---- */
-/* GrimServices.pHAlloc of the platform table: malloc. */
+/* ---- 0x00478030  stdPlatform_AllocHandle ---- */
+/* GrimServices.pHAlloc of the platform table: malloc. Original name stdPlatform_AllocHandle (the
+   remaster's GrimFandango (Linux): same body (malloc); the platform handle service set in both
+   builds); was PlatSvc_HAlloc. */
 
-void PlatSvc_HAlloc(uint param_1)
+void stdPlatform_AllocHandle(uint param_1)
 
 {
   malloc(param_1);
   return;
 }
 
-/* ---- 0x00478040  PlatSvc_HFree ---- */
-/* GrimServices.pHFree of the platform table: free. */
+/* ---- 0x00478040  stdPlatform_FreeHandle ---- */
+/* GrimServices.pHFree of the platform table: free. Original name stdPlatform_FreeHandle (the
+   remaster's GrimFandango (Linux): same body (free); after stdPlatform_AllocHandle in both builds);
+   was PlatSvc_HFree. */
 
-void PlatSvc_HFree(undefined4 param_1)
+void stdPlatform_FreeHandle(undefined4 param_1)
 
 {
   free(param_1);
   return;
 }
 
-/* ---- 0x00478050  PlatSvc_HRealloc ---- */
-/* GrimServices.pHRealloc of the platform table: realloc. */
+/* ---- 0x00478050  stdPlatform_ReallocHandle ---- */
+/* GrimServices.pHRealloc of the platform table: realloc. Original name stdPlatform_ReallocHandle
+   (the remaster's GrimFandango (Linux): same body (realloc); after stdPlatform_FreeHandle in both
+   builds); was PlatSvc_HRealloc. */
 
-void PlatSvc_HRealloc(undefined4 param_1,undefined4 param_2)
+void stdPlatform_ReallocHandle(undefined4 param_1,undefined4 param_2)
 
 {
   realloc(param_1,param_2);
   return;
 }
 
-/* ---- 0x00478070  PlatSvc_HLock ---- */
-/* GrimServices.pHLock of the platform table: handles are plain pointers, returns its argument. */
+/* ---- 0x00478070  stdPlatform_LockHandle ---- */
+/* GrimServices.pHLock of the platform table: handles are plain pointers, returns its argument.
+   Original name stdPlatform_LockHandle (the remaster's GrimFandango (Linux): same body (returns the
+   handle); after stdPlatform_ReallocHandle in both builds); was PlatSvc_HLock. */
 
-undefined4 PlatSvc_HLock(undefined4 param_1)
+undefined4 stdPlatform_LockHandle(undefined4 param_1)
 
 {
   return param_1;

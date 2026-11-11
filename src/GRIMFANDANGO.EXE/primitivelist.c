@@ -22,7 +22,7 @@ void PrimitiveList_StaticConstruct(void)
 void PrimitiveList_InitGlobal(void)
 
 {
-  PrimitiveList_Init(&g_dwPrimitiveQ);
+  PrimitiveQueue_Construct(&g_dwPrimitiveQ);
   return;
 }
 
@@ -42,14 +42,15 @@ void PrimitiveList_RegisterAtExit(void)
 void PrimitiveList_AtExitClear(void)
 
 {
-  PrimitiveList_Clear((int *)&g_dwPrimitiveQ);
+  PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);
   return;
 }
 
-/* ---- 0x0048a500  PrimitiveList_Init ---- */
-/* __fastcall: clears the head and tail of a primitive list. */
+/* ---- 0x0048a500  PrimitiveQueue_Construct ---- */
+/* __fastcall: clears the head and tail of a primitive list. Original name PrimitiveQueue_Construct
+   (the remaster's GrimFandango (Linux): same body (head and tail 0)); was PrimitiveList_Init. */
 
-void __fastcall PrimitiveList_Init(undefined4 *param_1)
+void __fastcall PrimitiveQueue_Construct(undefined4 *param_1)
 
 {
   *param_1 = 0;
@@ -57,8 +58,13 @@ void __fastcall PrimitiveList_Init(undefined4 *param_1)
   return;
 }
 
-/* ---- 0x0048a520  PrimitiveList_Clear ---- */
-void __fastcall PrimitiveList_Clear(int *param_1)
+/* ---- 0x0048a520  PrimitiveQueue_purge ---- */
+/* Original name PrimitiveQueue_purge (the remaster's GrimFandango (Linux): same body (free every
+   primitive after marking its rectangle dirty, tail 0); called by sputPrimitive_PurgeQueue /
+   _Restore / _Shutdown and the at-exit destructor of the queue in both builds); was
+   PrimitiveList_Clear. */
+
+void __fastcall PrimitiveQueue_purge(int *param_1)
 
 {
   int iVar1;
@@ -66,7 +72,7 @@ void __fastcall PrimitiveList_Clear(int *param_1)
   iVar1 = *param_1;
   while (iVar1 != 0) {
     iVar1 = *(int *)*param_1;
-    Primitive_Invalidate(param_1,(int *)*param_1);
+    PrimitiveQueue_markDirty(param_1,(int *)*param_1);
     Plat_Free((void *)*param_1);
     *param_1 = iVar1;
   }
@@ -74,8 +80,11 @@ void __fastcall PrimitiveList_Clear(int *param_1)
   return;
 }
 
-/* ---- 0x0048a670  PrimitiveList_Append ---- */
-void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
+/* ---- 0x0048a670  PrimitiveQueue_addObject ---- */
+/* Original name PrimitiveQueue_addObject (the remaster's GrimFandango (Linux): same body (new
+   primitive record (id, layer) linked at the tail)); was PrimitiveList_Append. */
+
+void * __thiscall PrimitiveQueue_addObject(void *this,int id,int layer)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -89,7 +98,7 @@ void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
       *(undefined4 *)this = 0;
     }
     else {
-      pvVar1 = Primitive_Construct(pvVar1,id,0);
+      pvVar1 = PrimitiveObject_Construct(pvVar1,id,0);
       *(void **)((int)this + 4) = pvVar1;
       *(void **)this = pvVar1;
     }
@@ -100,7 +109,7 @@ void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
       pvVar1 = (void *)0x0;
     }
     else {
-      pvVar1 = Primitive_Construct(pvVar1,id,0);
+      pvVar1 = PrimitiveObject_Construct(pvVar1,id,0);
     }
     **(undefined4 **)((int)this + 4) = pvVar1;
     *(int **)(**(int **)((int)this + 4) + 4) = *(int **)((int)this + 4);
@@ -116,22 +125,29 @@ void * __thiscall PrimitiveList_Append(void *this,int id,int layer)
 #undef local_10
 
 
-/* ---- 0x0048a9f0  PrimitiveList_Draw ---- */
-void __thiscall PrimitiveList_Draw(void *this,void *canvas,uint layerMask)
+/* ---- 0x0048a9f0  PrimitiveQueue_draw ---- */
+/* Original name PrimitiveQueue_draw (the remaster's GrimFandango (Linux): same body (drawPrimitive
+   for every primitive whose layer +0x10 is in the mask)); was PrimitiveList_Draw. */
+
+void __thiscall PrimitiveQueue_draw(void *this,void *canvas,uint layerMask)
 
 {
   undefined4 *prim;
   
   for (prim = *(undefined4 **)this; prim != (undefined4 *)0x0; prim = (undefined4 *)*prim) {
     if ((prim[4] & layerMask) != 0) {
-      Primitive_Draw(prim,canvas);
+      PrimitiveQueue_drawPrimitive(prim,canvas);
     }
   }
   return;
 }
 
-/* ---- 0x0048ab20  PrimitiveList_Invalidate ---- */
-undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1)
+/* ---- 0x0048ab20  PrimitiveQueue_markAllDirty ---- */
+/* Original name PrimitiveQueue_markAllDirty (the remaster's GrimFandango (Linux): same body (mark
+   the rectangle of every primitive whose layer is in the mask dirty)); was
+   PrimitiveList_Invalidate. */
+
+undefined * __thiscall PrimitiveQueue_markAllDirty(void *this,int a1)
 
 {
   undefined4 *prim;
@@ -139,14 +155,18 @@ undefined * __thiscall PrimitiveList_Invalidate(void *this,int a1)
   
   for (prim = *(undefined4 **)this; prim != (undefined4 *)0x0; prim = (undefined4 *)*prim) {
     if ((prim[4] & a1) != 0) {
-      in_EAX = (undefined *)Primitive_Invalidate(this,prim);
+      in_EAX = (undefined *)PrimitiveQueue_markDirty(this,prim);
     }
   }
   return in_EAX;
 }
 
-/* ---- 0x0048abd0  PrimitiveList_FindById ---- */
-void * __thiscall PrimitiveList_FindById(void *this,int id,void *after)
+/* ---- 0x0048abd0  PrimitiveQueue_findPrimitive ---- */
+/* Original name PrimitiveQueue_findPrimitive (the remaster's GrimFandango (Linux): same body (the
+   next primitive with the id after the given one, or from the head)); was PrimitiveList_FindById.
+    */
+
+void * __thiscall PrimitiveQueue_findPrimitive(void *this,int id,void *after)
 
 {
   undefined4 *puVar1;

@@ -10660,8 +10660,12 @@ void gra_SetBitmap(undefined4 *param_1,undefined4 param_2)
 #undef local_14
 
 
-/* ---- 0x004ced70  FUN_004ced70 ---- */
-undefined4 FUN_004ced70(int param_1,void *param_2,void *param_3,byte *param_4)
+/* ---- 0x004ced70  gra_ConvertMakeLookup ---- */
+/* Original name gra_ConvertMakeLookup (the remaster's GrimFandango (Linux): same body (8-bit
+   source, non-indexed destination: gra_ConvertFromLecColor of 0x100 palette entries into the
+   lookup); called by gra_BlitRectLookup in both builds); was FUN_004ced70. */
+
+undefined4 gra_ConvertMakeLookup(int param_1,void *param_2,void *param_3,byte *param_4)
 
 {
   byte *src;
@@ -11226,7 +11230,7 @@ void FUN_004d60d0(void)
 {
   int unaff_EBP;
   
-  StateImage_Release(*(int *)(unaff_EBP + -0x10) + 0xc);
+  ObjectStateImage_Clear(*(int *)(unaff_EBP + -0x10) + 0xc);
   return;
 }
 #endif
@@ -11240,7 +11244,7 @@ void FUN_004d60db(void)
 {
   int unaff_EBP;
   
-  StateImage_Release(*(int *)(unaff_EBP + -0x10) + 0x80);
+  ObjectStateImage_Clear(*(int *)(unaff_EBP + -0x10) + 0x80);
   return;
 }
 #endif
@@ -11266,7 +11270,7 @@ void FUN_004d6100(void)
 {
   int unaff_EBP;
   
-  StateImage_Release(*(int *)(unaff_EBP + -0x10) + 0xc);
+  ObjectStateImage_Clear(*(int *)(unaff_EBP + -0x10) + 0xc);
   return;
 }
 #endif

@@ -22,10 +22,10 @@ extern void orig_FUN_004d0260(unsigned char *, unsigned char *, int, unsigned, i
 extern void Video_CopyRect(unsigned char *, unsigned char *, int, unsigned, int, unsigned, unsigned, int, unsigned, unsigned);
 extern void orig_FUN_004cfdb0(unsigned char *, unsigned char *, int, unsigned, int, unsigned, unsigned, int, unsigned, unsigned);
 extern void Video_CopyRectDstFirst(unsigned char *, unsigned char *, int, unsigned, int, unsigned, unsigned, int, unsigned, unsigned);
-extern int orig_FUN_004cf010(void *, void *, int, unsigned char *, unsigned char *), Video_PixelsToRgba(void *, void *, int, unsigned char *, unsigned char *);
+extern int orig_FUN_004cf010(void *, void *, int, unsigned char *, unsigned char *), gra_ConvertToLecColor(void *, void *, int, unsigned char *, unsigned char *);
 extern int orig_FUN_004cf520(void *, void *, int, int, unsigned char *), gra_ConvertFromLecColor(void *, void *, int, int, unsigned char *);
 extern int orig_FUN_004cedc0(unsigned char *, void *, int, unsigned char *, unsigned char *, void *, unsigned char *);
-extern int VideoBitmap_ConvertPixels(unsigned char *, void *, int, unsigned char *, unsigned char *, void *, unsigned char *);
+extern int gra_ConvertCopy(unsigned char *, void *, int, unsigned char *, unsigned char *, void *, unsigned char *);
 extern int orig_FUN_004ce3e0(void *, int, int, int), bmp_bitmap_Alloc(void *, int, int, int);
 
 enum { T_ALLOC = 1, T_DISPFMT, T_LOG };
@@ -147,7 +147,7 @@ int main(int argc, char **argv)
             dbg1 = (int)(sf - fmts); dbg2 = count; dbg3 = pal != 0;
             if (sf->type == 0 && R(2)) { sf->bR = (int)(intptr_t)table; }
             fx_save();
-            if (f == 5) { int so = (int)R(2); RUN(orig_FUN_004cf010(srcb + so, sf, count, pal, dstb), Video_PixelsToRgba(srcb + so, sf, count, pal, dstb)); }
+            if (f == 5) { int so = (int)R(2); RUN(orig_FUN_004cf010(srcb + so, sf, count, pal, dstb), gra_ConvertToLecColor(srcb + so, sf, count, pal, dstb)); }
             else if (f == 6) RUN(orig_FUN_004cf520(dstb + 3, df, count, 0, srcb), gra_ConvertFromLecColor(dstb + 3, df, count, 0, srcb));
             else {
                 unsigned char *tab = R(3) ? 0 : table;
@@ -156,7 +156,7 @@ int main(int argc, char **argv)
                    3 byte per pixel expanders read a growing index */
                 if (tab && sf->bpp == 2 && df->type != 0) tab = 0;
                 if (tab && sf->type == 0 && sf->bpp == 1 && df->bpp == 3 && cnt > 4) cnt = 4;
-                RUN(orig_FUN_004cedc0(srcb + 1, sf, cnt, pal, dstb + 2, df, tab), VideoBitmap_ConvertPixels(srcb + 1, sf, cnt, pal, dstb + 2, df, tab));
+                RUN(orig_FUN_004cedc0(srcb + 1, sf, cnt, pal, dstb + 2, df, tab), gra_ConvertCopy(srcb + 1, sf, cnt, pal, dstb + 2, df, tab));
             }
             break; }
         default: { /* Create */

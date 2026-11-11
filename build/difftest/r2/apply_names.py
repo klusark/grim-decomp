@@ -48,7 +48,7 @@ why_funclet = ("no longer built (round r2): {kind} of {parent}; reached only thr
 EXE_PARENT = {
     "004d5e1c": ("SEH filter funclet", "FUN_004d5de0 (the CRT longjmp's frame probe, dead)", "the _except_handler3 scope table 0x004dac00"),
     "004d5e30": ("SEH handler funclet", "FUN_004d5de0 (the CRT longjmp's frame probe, dead)", "the _except_handler3 scope table 0x004dac00"),
-    "004d6030": ("C++ unwind funclet", "PrimitiveList_Append", "the FuncInfo 0x004dac10"),
+    "004d6030": ("C++ unwind funclet", "PrimitiveQueue_addObject", "the FuncInfo 0x004dac10"),
     "004d6050": ("C++ unwind funclet", "sputActor_EnablePuck", "the FuncInfo 0x004dac40"),
     "004d6070": ("C++ unwind funclet", "sputRoom_AddObjectState", "the FuncInfo 0x004dac68"),
     "004d6090": ("C++ unwind funclet", "ParseCollection", "the FuncInfo 0x004dac90"),

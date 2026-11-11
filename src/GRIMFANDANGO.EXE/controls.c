@@ -13,14 +13,17 @@ int Controls_DebugKeysHook(undefined4 param_1)
 {
   int iVar1;
   
-  iVar1 = ((code *)Debug_CameraFovKeys)(param_1);
+  iVar1 = ((code *)sputControl_StandardHandler)(param_1);
   return iVar1 != 0;
 }
 
-/* ---- 0x0048d050  Controls_ResetAll ---- */
-/* Clears the enabled/pressed bits of every control and resets the input devices */
+/* ---- 0x0048d050  sputControl_Reset ---- */
+/* Clears the enabled/pressed bits of every control and resets the input devices Original name
+   sputControl_Reset (the remaster's GrimFandango (Linux): same body (clears bits 0 / 3 and the +8
+   field of every control symbol, then stdControl_Reset); called by sputControl_Startup in both
+   builds); was Controls_ResetAll. */
 
-void Controls_ResetAll(void)
+void sputControl_Reset(void)
 
 {
   uint *puVar1;
@@ -32,6 +35,6 @@ void Controls_ResetAll(void)
     puVar1[2] = 0;
     puVar1 = puVar1 + 4;
   }
-  Input_ResetState();
+  stdControl_Reset();
   return;
 }

@@ -82,7 +82,7 @@ void sputResource_Shutdown(void)
   (*(code *)UINT_008ca1e4)();
   rdMaterial_RegisterLoader(g_dwPrdMatLoader);
   rdMaterial_RegisterUnloader(g_dwPrdMatUnloader);
-  Res_RestoreFileServices((GrimServices *)g_dwSputResHS);
+  Res_RestoreFileCalls((GrimServices *)g_dwSputResHS);
   g_dwSputResStartup = 0;
   return;
 }

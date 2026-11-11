@@ -19,3 +19,4 @@ build/perf/trial.mk
 build/perf/*.log
 build/difftest/out/
 build/difftest/*/out/
+build/mixdiff/out/

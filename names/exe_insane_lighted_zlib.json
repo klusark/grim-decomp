@@ -31,7 +31,7 @@
  {"addr": "008d3638", "global": "g_pLightEdMarkerActor", "type": "void *", "comment": "Actor used as the visible marker of the selected light"},
  {"addr": "004f0d10", "global": "g_nLightEdSelected", "type": "int", "comment": "List box index of the light selected in the light editor"},
  {"addr": "004c04f0", "name": "rdCanvas_New", "comment": "Rdcanvas.c: allocates a 0x28-byte canvas and initialises it", "tags": "rdroid,canvas"},
- {"addr": "004c0550", "name": "rdCanvas_Init", "proto": "int rdCanvas_Init(uint * canvas, uint flags, uint surface, uint zSurface, uint x0, uint y0, uint x1, uint y1, uint extra)", "comment": "flags bit 0: explicit clip rect, otherwise the whole surface", "tags": "rdroid,canvas"},
+ {"addr": "004c0550", "name": "rdCanvas_NewEntry", "proto": "int rdCanvas_NewEntry(uint * canvas, uint flags, uint surface, uint zSurface, uint x0, uint y0, uint x1, uint y1, uint extra)", "comment": "flags bit 0: explicit clip rect, otherwise the whole surface", "tags": "rdroid,canvas"},
  {"addr": "004c0610", "name": "rdCanvas_Free", "tags": "rdroid,canvas"},
  {"addr": "004c0ed0", "name": "DSound_Init", "comment": "Creates the DirectSound object, sets the cooperative level on the main window and creates the primary buffer", "tags": "sound"},
  {"addr": "004c1090", "name": "DSound_Shutdown", "tags": "sound"},

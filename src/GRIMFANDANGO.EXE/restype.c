@@ -17,7 +17,7 @@ int __cdecl Res_SysRegisterHandler(int fourcc,void *handler)
   uint *puVar2;
   
   if (fourcc == 0x44454648) {
-    PTR_ResType_DefaultHandler_004e79ac = handler;
+    PTR_res_DefaultHandler_004e79ac = handler;
     return 1;
   }
   piVar1 = (int *)g_dwResTypeList;
@@ -64,11 +64,14 @@ void * __cdecl ResType_Find(int fourcc)
   return puVar1;
 }
 
-/* ---- 0x00481e10  ResType_DefaultHandler ---- */
+/* ---- 0x00481e10  res_DefaultHandler ---- */
 /* Handler for plain file resources: op 1 opens the file and reads it into a handle allocation
-   (hAlloc/hLock), op 2 frees it */
+   (hAlloc/hLock), op 2 frees it Original name res_DefaultHandler (the remaster's GrimFandango
+   (Linux): same body (message 1: open, size, alloc, read and Res_SysAddHandle a non-'RESF' file;
+   message 2: free the handle); res_Load's handler when no type matches in both builds); was
+   ResType_DefaultHandler. */
 
-int __cdecl ResType_DefaultHandler(void *msg)
+int __cdecl res_DefaultHandler(void *msg)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -198,7 +201,7 @@ int __cdecl sputResource_BackgroundHandler(void *msg)
       return 1;
     }
     if (iVar1 == 3) {
-      iVar1 = stdBitmap_ConvertToDisplay(*(void **)((int)msg + 0xc));
+      iVar1 = stdBitmap_MemUsage(*(void **)((int)msg + 0xc));
       *(int *)((int)msg + 0x10) = iVar1;
       return 1;
     }
@@ -449,7 +452,7 @@ void * sputResource_MaterialHandler(int *param_1)
     if (iVar1 == 0) {
       iVar1 = rdMaterial_LoadEntry(s_dflt_mat_004e9c68,material,0,0);
       if (iVar1 == 0) {
-        rdMaterial_FreeContents(material);
+        rdMaterial_FreeEntry(material);
         (**(code **)(g_dwSputResHS + 0x24))(material);
         return (void *)0x0;
       }
@@ -459,7 +462,7 @@ void * sputResource_MaterialHandler(int *param_1)
   }
   else {
     if (iVar1 == 2) {
-      rdMaterial_FreeContents(param_1[3]);
+      rdMaterial_FreeEntry(param_1[3]);
       (**(code **)(g_dwSputResHS + 0x24))(param_1[3]);
       return (void *)0x1;
     }

@@ -155,13 +155,13 @@ void Main_Service(void)
     }
 }
 
-/* ==== Vec3_NormalizeTo (0x00446920) ====
+/* ==== rdVector_Normalize3 (0x00446920) ====
  * out = v / |v|, or a plain copy of v when |v| is zero (or NaN).  Ghidra shows a void function, but the original leaves
- * the length |v| unrounded in ST0 and Sector_EdgeDistance (assembled) reads it from there, so
+ * the length |v| unrounded in ST0 and WalkPlane_DistToEdge (assembled) reads it from there, so
  * the C pushes the length back on the x87 stack before it returns.  The original keeps the sum of squares, the length
  * and the quotients in extended precision and rounds to float only on the stores; the walk code is sensitive to that last
  * bit, so the C uses long double and the same order of additions (x^2 + (y^2 + z^2)). */
-void Vec3_NormalizeTo(float *out, float *v)
+void rdVector_Normalize3(float *out, float *v)
 {
     long double x = v[0], y = v[1], z = v[2];
     long double len = x * x + (y * y + z * z);
@@ -179,13 +179,13 @@ void Vec3_NormalizeTo(float *out, float *v)
     __asm__ volatile("fldt %0" : : "m"(len));           /* the hidden return value: ST0 = |v| */
 }
 
-/* ==== Math_NormalizeAngle360 (0x0047bc20) ====
+/* ==== stdMath_NormalizeAngle (0x0047bc20) ====
  * Angle in degrees brought into [0, 360).  By hand because of the test at the end: the original stores the result in a
  * float local and compares *that* with 360.0 (a value that rounds to 360.0f is turned into 0).  Compiled from Ghidra's
  * text, gcc -O2 compares the 80-bit register value instead, 360 comes through unchanged for angles just below a
  * multiple of 360 and the walker was "held up" on stairs.  The volatile store is the rounding to float.
  * A NaN input takes the negative branch (the x87 compare is unordered), as in the original. */
-float Math_NormalizeAngle360(float degrees)
+float stdMath_NormalizeAngle(float degrees)
 {
     volatile float result;
     float t;
@@ -221,8 +221,8 @@ void sputLua_Test(void)
 /* UnShrinkBoxes(): undo the last shrink and forget the saved geometry */
 void sputLua_UnShrinkBoxes(void)
 {
-    SectorList_RestoreAfterShrink();
-    SectorList_FreeShrinkSave();
+    WalkPlane_RestoreCache();
+    WalkPlane_DestroyCache();
 }
 
 /* ShrinkBoxes(amount): unshrink, save the sectors, shrink by amount; nothing for a nil amount */
@@ -231,7 +231,7 @@ void sputLua_ShrinkBoxes(void)
     int amount = lua_lua2C(1);
     if (lua_isnil(amount) == 0) {
         sputLua_UnShrinkBoxes();
-        SectorList_SaveForShrink();
+        WalkPlane_BuildCache();
         SectorList_ShrinkWalkSectors_amount(lua_getnumber(amount));
     }
 }
@@ -250,11 +250,11 @@ void sputLua_GetShrinkPosition(void)
     pos[1] = lua_getnumber(a2);
     pos[2] = lua_getnumber(a3);
     amount = lua_getnumber(a4);
-    SectorList_SaveForShrink();
+    WalkPlane_BuildCache();
     SectorList_ShrinkWalkSectors_amount(amount);
-    sector = SectorList_FindNearestPoint(pos, 0x1000);
+    sector = WalkPlane_PlaneClosest(pos, 0x1000);
     if (sector != 0)
-        Sector_ClampPoint(sector, (int)pos);
+        WalkPlane_ClosestPoint(sector, (int)pos);
     sputLua_UnShrinkBoxes();
     if (sector == 0) {
         lua_pushnil();
@@ -445,7 +445,7 @@ undefined4 sputPrimitive_Save(code *writeFn)
     return 0;
 }
 
-/* ... and the reader: clears the list, re-creates every primitive (PrimitiveList_Append) and fills in its fields */
+/* ... and the reader: clears the list, re-creates every primitive (PrimitiveQueue_addObject) and fills in its fields */
 undefined4 sputPrimitive_Restore(code *readFn)
 {
     SaveIO read = (SaveIO)readFn;
@@ -453,7 +453,7 @@ undefined4 sputPrimitive_Restore(code *readFn)
     int rect[4];
     int *prim;
 
-    PrimitiveList_Clear((int *)&g_dwPrimitiveQ);
+    PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);
     read(&count, 4);
     while (count != 0) {
         count--;
@@ -466,7 +466,7 @@ undefined4 sputPrimitive_Restore(code *readFn)
         read(&color, 4);
         read(&f28, 4);
         read(&f2c, 4);
-        prim = (int *)PrimitiveList_Append(&g_dwPrimitiveQ, id, layer);
+        prim = (int *)PrimitiveQueue_addObject(&g_dwPrimitiveQ, id, layer);
         if (prim != 0) {
             prim[2] = kind;
             prim[5] = rect[0];
@@ -477,7 +477,7 @@ undefined4 sputPrimitive_Restore(code *readFn)
             prim[10] = f28;
             prim[11] = f2c;
         }
-        g_nNextPrimitiveId = id + 1;
+        g_nPrimitiveQueue_nextId = id + 1;
     }
     return 0;
 }

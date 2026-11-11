@@ -193,10 +193,10 @@ void __cdecl luaC_strcallIM(undefined4 *param_1); /* 0x10004ea0 */
 void invalidaterefs(void); /* 0x10004fc0 */
 undefined4 __cdecl ismarked(undefined4 *param_1); /* 0x10005010 */
 int __cdecl listcollect(undefined4 *param_1); /* 0x10005070 */
-void luaC_markall(void); /* 0x100050b0 */
-void luaC_travstack(void); /* 0x100050e0 */
-void luaC_travglobal(void); /* 0x10005120 */
-void __cdecl luaC_strmark(int param_1); /* 0x10005150 */
+void markall(void); /* 0x100050b0 */
+void travlock(void); /* 0x100050e0 */
+void globalmark(void); /* 0x10005120 */
+void __cdecl strmark(int param_1); /* 0x10005150 */
 undefined4 __cdecl markobject(undefined4 *param_1); /* 0x10005170 */
 void __cdecl luaC_protomark(int param_1); /* 0x100051f0 */
 void __cdecl closuremark(int param_1); /* 0x10005270 */

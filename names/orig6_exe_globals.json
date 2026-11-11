@@ -1,0 +1,227 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f38e4",
+  "old": "UINT_004f38e4",
+  "global": "g_dwFob_blk16_configure_old_mod",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name fob_blk16_configure.old_mod (the remaster's GrimFandango (Linux): fob_blk16_configure: the width the tables were last built for (skip when equal, then store), as in the remaster); was UINT_004f38e4."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f3da0",
+  "old": "DAT_004f3da0",
+  "global": "g_aConvert_bitmask",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name convert_bitmask (the remaster's GrimFandango (Linux): gra_ConvertToLecColor: the channel mask table indexed by the format's bit counts, as in the remaster); was DAT_004f3da0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004f40f8",
+  "old": "g_dwMixTableUnits",
+  "global": "g_dwWaveMixCount",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Size parameter of the compander table (Mixer_Init) Original name waveMixCount (the remaster's GrimFandango (Linux): sou_mixer_initialize: the table count stored from its second argument, as in the remaster); was g_dwMixTableUnits."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dcdb0",
+  "old": "g_pMixAccum",
+  "global": "g_pMixer_mixBuf",
+  "oldtype": "int *",
+  "names_only": true,
+  "comment": "32-bit per-sample accumulator the software mixer sums voices into Original name mixBuf (the remaster's GrimFandango (Linux): sou_mixer_start / sou_mixer_end / sou_mixer_terminate: the mix accumulator (cleared, clamped to the output, freed at Mixer.c line 0x37a), as in the remaster; mixBuf is a static the iMUSE mixer has too, so the module prefix); was g_pMixAccum."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dcd9c",
+  "old": "g_dwMixAccumBytes",
+  "global": "g_dwMixer_mixBufSize",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Size in bytes of the mixer accumulator g_pMixAccum Original name mixBufSize (the remaster's GrimFandango (Linux): sou_mixer_start: the accumulator's byte size it clears, as in the remaster (memset(mixBuf, 0, mixBufSize))); was g_dwMixAccumBytes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dcc64",
+  "old": "g_pMixCompanderTable",
+  "global": "g_pMixer_softLTable",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Table of g_nMixTableUnits*0x8000 shorts built by Mixer_InitTables Original name softLTable (the remaster's GrimFandango (Linux): sou_mixer_terminate: the table freed first (Mixer.c line 0x379), as in the remaster); was g_pMixCompanderTable."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008dcc60",
+  "old": "g_dwMixChannels",
+  "global": "g_dwMixer_outChannelCount",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "1 = mono mix, 2 = stereo (Mixer_ConvertTo16 converts twice the frame count) Original name outChannelCount (the remaster's GrimFandango (Linux): sou_mixer_end: frames doubled when it is 2, as in the remaster); was g_dwMixChannels."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008da864",
+  "old": "UINT_008da864",
+  "global": "g_dwTimer_thread_lastTime",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name timer_thread.lastTime (the remaster's GrimFandango (Linux): timer_thread: the time of the last 16 ms tick (start value, += 0x10), as in the remaster); was UINT_008da864."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cf270",
+  "old": "g_nShrinkVertexCount",
+  "global": "g_nVertexCacheSize",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Number of sector vertices saved by SectorList_SaveForShrink Original name VertexCacheSize (the remaster's GrimFandango (Linux): WalkPlane_BuildCache / _DestroyCache: the cached vertex count (zeroed with the cache), as in the remaster); was g_nShrinkVertexCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cf274",
+  "old": "g_pShrinkVertexSave",
+  "global": "g_pVertexCache",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Saved sector vertices (20 bytes each) for UnShrinkBoxes Original name VertexCache (the remaster's GrimFandango (Linux): WalkPlane_BuildCache / _DestroyCache / _RestoreCache: the cached vertices (freed first), as in the remaster); was g_pShrinkVertexSave."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cf278",
+  "old": "g_nShrinkSectorCount",
+  "global": "g_nWalkPlaneCacheSize",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Number of sectors saved by SectorList_SaveForShrink Original name WalkPlaneCacheSize (the remaster's GrimFandango (Linux): WalkPlane_BuildCache / _DestroyCache: the cached plane count, as in the remaster); was g_nShrinkSectorCount."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cf27c",
+  "old": "g_pShrinkSectorSave",
+  "global": "g_pWalkPlaneCache",
+  "oldtype": "void *",
+  "names_only": true,
+  "comment": "Saved per-sector vertex lists (0x34 bytes each) for UnShrinkBoxes Original name WalkPlaneCache (the remaster's GrimFandango (Linux): WalkPlane_BuildCache / _DestroyCache / _RestoreCache: the cached planes (freed second), as in the remaster); was g_pShrinkSectorSave."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d0868",
+  "old": "UINT_008d0868",
+  "global": "g_dwWpCacheBuilt",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name wpCacheBuilt (the remaster's GrimFandango (Linux): WalkPlane_DestroyCache (cleared) / _RestoreCache (tested), as in the remaster); was UINT_008d0868."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cf26c",
+  "old": "UINT_008cf26c",
+  "global": "g_dwWalkPlane_tot_verts",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name WalkPlane::tot_verts (the remaster's GrimFandango (Linux): WalkPlane_AddVertex (assert \"tot_verts < MAX_DB_VERTS - 2\") / _RemoveVertex (- 1), as in the remaster); was UINT_008cf26c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cf288",
+  "old": "UINT_008cf288",
+  "global": "g_dwWalkPlane_Collection",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name WalkPlane::Collection (the remaster's GrimFandango (Linux): WalkPlane_Destruct / _SetCollection: the 0x8c collection slots of 0x28 bytes (list head, name at +4), as in the remaster); was UINT_008cf288."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d086c",
+  "old": "UINT_008d086c",
+  "global": "g_dwPuck_p_head",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name Puck::p_head (the remaster's GrimFandango (Linux): Puck_Destruct: the puck list head, as in the remaster); was UINT_008d086c."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008d0870",
+  "old": "UINT_008d0870",
+  "global": "g_dwPuck_Forward_recursion_level",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name Puck::Forward::recursion_level (the remaster's GrimFandango (Linux): Puck_Forward (static recursion_level of Puck::Forward(float, float *, unsigned int, unsigned int)): the recursion counter (the step is stored at level 0), as in the remaster); was UINT_008d0870."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cf250",
+  "old": "DAT_008cf250",
+  "global": "g_aPuck_Rot_ret",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name Puck::Rot::ret (the remaster's GrimFandango (Linux): Puck_Rot (static ret of Puck::Rot()): the static angles returned, as in the remaster); was DAT_008cf250."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cf248",
+  "old": "g_dwTotWorkingPathPoints",
+  "global": "g_dwTotWorkingPathPoints",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name TotWorkingPathPoints (the remaster's GrimFandango (Linux): BuildPath / TightenPath: the working-path point count, as in the remaster)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008cf0b0",
+  "old": "g_dwWorkingPath",
+  "global": "g_dwWorkingPath",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name WorkingPath (the remaster's GrimFandango (Linux): BuildPath / TightenPath: the working path (12 bytes per point), as in the remaster)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8394",
+  "old": "g_nNextPrimitiveId",
+  "global": "g_nPrimitiveQueue_nextId",
+  "oldtype": "int",
+  "names_only": true,
+  "comment": "Id handed to the next debug primitive Original name PrimitiveQueue::nextId (the remaster's GrimFandango (Linux): PrimitiveQueue_addLine (nextId++) / _resetId (= 1), as in the remaster); was g_nNextPrimitiveId."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a92b8",
+  "old": "DAT_008a92b8",
+  "global": "g_aSputRender_MarkDirtyRect_trect",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name sputRender_MarkDirtyRect::trect (the remaster's GrimFandango (Linux): sputRender_MarkDirtyRect: the static copy of the rectangle (rounded to multiples of 4), as in the remaster); was DAT_008a92b8."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00901500",
+  "old": "UINT_00901500",
+  "global": "g_dwStdControl_aAxes",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name stdControl_aAxes (the remaster's GrimFandango (Linux): stdControl_EnableAxis / stdControl_Reset: the 15 axis records of 0x18 bytes (bit 0 available, bit 1 enabled), as in the remaster); was UINT_00901500."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e8078",
+  "old": "g_dwDebugFlags",
+  "global": "g_dwDebugFlags",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Debug overlay bits: 1 overlay on, 2 draw sectors, 4 draw actor boxes Original name debugFlags (the remaster's GrimFandango (Linux): sputRender_DrawDebuggingToggle: bit 0 toggled, as in the remaster)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "008a85e4",
+  "old": "g_dwLogFile",
+  "global": "g_dwLogFile",
+  "oldtype": "uint",
+  "names_only": true,
+  "comment": "Original name logFile (the remaster's GrimFandango (Linux): Res_Log: the resource log file (opened \"w\", closed), as in the remaster)."
+ }
+]

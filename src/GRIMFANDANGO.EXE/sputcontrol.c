@@ -63,7 +63,7 @@ undefined4 sputControl_Startup(void)
       return 1;
     }
   }
-  Controls_ResetAll();
+  sputControl_Reset();
   sputControl_AddCallback(Controls_DebugKeysHook);
   g_dwSputConStartup = 1;
   return 0;

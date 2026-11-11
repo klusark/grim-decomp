@@ -244,8 +244,8 @@ extern undefined DAT_1002e330; /* used by 1 fn(s), first 0x10006070 */
 extern undefined DAT_1002e338; /* used by 1 fn(s), first 0x10008ce0 */
 extern undefined g_aLipSfx1Data; /* used by 2 fn(s), first 0x100089b0 */
 extern undefined g_aStreamID; /* used by 5 fn(s), first 0x10007250 */
-extern undefined DAT_1002ebd8; /* used by 3 fn(s), first 0x10007a20 */
-extern undefined DAT_1002ec10; /* used by 3 fn(s), first 0x10007a20 */
+extern undefined g_dwMlListSize; /* used by 3 fn(s), first 0x10007a20 */
+extern undefined g_dwMlEntryCount; /* used by 3 fn(s), first 0x10007a20 */
 extern undefined g_aLipSfx2Data; /* used by 2 fn(s), first 0x100089b0 */
 extern undefined g_bLipStreamData; /* used by 2 fn(s), first 0x100089b0 */
 extern undefined g_aLipSfx3Data; /* used by 2 fn(s), first 0x100089b0 */
@@ -274,7 +274,7 @@ extern undefined DAT_10031d28; /* used by 2 fn(s), first 0x10008ce0 */
 extern undefined g_iMuseMasterVolHold; /* used by 2 fn(s), first 0x10008860 */
 extern undefined4 g_dwUseVoxFx; /* used by 5 fn(s), first 0x10007470 */
 extern undefined DAT_10031d34; /* used by 1 fn(s), first 0x100072b0 */
-extern undefined DAT_10031d38; /* used by 4 fn(s), first 0x10007a20 */
+extern undefined g_dwMlEntries; /* used by 4 fn(s), first 0x10007a20 */
 extern undefined4 g_dwNextHandle; /* used by 3 fn(s), first 0x10008580 */
 extern undefined g_bImuseInitialized; /* used by 5 fn(s), first 0x10007670 */
 extern undefined DAT_10031d48; /* used by 1 fn(s), first 0x1000a100 */
@@ -455,13 +455,13 @@ extern undefined DAT_10034808; /* used by 1 fn(s), first 0x1000c350 */
 #define _DAT_1002e330 (*(undefined4 *)&DAT_1002e330) /* same address as DAT_1002e330, other width */
 #define _DAT_1002e338 (*(undefined4 *)&DAT_1002e338) /* same address as DAT_1002e338, other width */
 #define _g_aStreamID (*(undefined4 *)&g_aStreamID) /* same address as g_aStreamID, other width */
-#define _DAT_1002ebd8 (*(undefined4 *)&DAT_1002ebd8) /* same address as DAT_1002ebd8, other width */
-#define _DAT_1002ec10 (*(undefined4 *)&DAT_1002ec10) /* same address as DAT_1002ec10, other width */
+#define _g_dwMlListSize (*(undefined4 *)&g_dwMlListSize) /* same address as g_dwMlListSize, other width */
+#define _g_dwMlEntryCount (*(undefined4 *)&g_dwMlEntryCount) /* same address as g_dwMlEntryCount, other width */
 #define _DAT_10031520 (*(undefined4 *)&DAT_10031520) /* same address as DAT_10031520, other width */
 #define _DAT_10031d28 (*(undefined4 *)&DAT_10031d28) /* same address as DAT_10031d28, other width */
 #define _g_iMuseMasterVolHold (*(undefined4 *)&g_iMuseMasterVolHold) /* same address as g_iMuseMasterVolHold, other width */
 #define _DAT_10031d34 (*(undefined4 *)&DAT_10031d34) /* same address as DAT_10031d34, other width */
-#define _DAT_10031d38 (*(int * *)&DAT_10031d38) /* same address as DAT_10031d38, other width */
+#define _g_dwMlEntries (*(int * *)&g_dwMlEntries) /* same address as g_dwMlEntries, other width */
 #define _g_bImuseInitialized (*(undefined4 *)&g_bImuseInitialized) /* same address as g_bImuseInitialized, other width */
 #define _DAT_10031d48 (*(undefined4 *)&DAT_10031d48) /* same address as DAT_10031d48, other width */
 #define _DAT_10031d4c (*(undefined4 *)&DAT_10031d4c) /* same address as DAT_10031d4c, other width */

@@ -77,12 +77,17 @@ LAB_004ce7b5:
 #endif
 
 
-/* ---- 0x004cedc0  VideoBitmap_ConvertPixels ---- */
+/* ---- 0x004cedc0  gra_ConvertCopy ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* Original name gra_ConvertCopy (the remaster's GrimFandango (Linux): same parameters (src, srcFmt,
+   count, palette, dst, dstFmt, lookup) and body (memcpy when the formats agree, the lookup
+   expansion, then gra_ConvertToLecColor / gra_ConvertFromLecColor in chunks); called after the
+   0..0xffff translation table fill in both blocky16 decoders); was VideoBitmap_ConvertPixels. */
+
 int __cdecl
-VideoBitmap_ConvertPixels
-          (byte *src,void *srcFmt,int count,byte *palette,byte *dst,void *dstFmt,byte *expandTable)
+gra_ConvertCopy(byte *src,void *srcFmt,int count,byte *palette,byte *dst,void *dstFmt,
+               byte *expandTable)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -137,12 +142,12 @@ VideoBitmap_ConvertPixels
       iVar3 = gra_ConvertFromLecColor(dst,dstFmt,iVar5,(int)palette,src);
     }
     else if (bVar2) {
-      iVar3 = Video_PixelsToRgba(src,srcFmt,iVar5,palette,dst);
+      iVar3 = gra_ConvertToLecColor(src,srcFmt,iVar5,palette,dst);
     }
     else {
       UINT_008da8a0 = UINT_008da8a0 + 1;
       uVar4 = UINT_008da8a0 & 1;
-      iVar3 = Video_PixelsToRgba(src,srcFmt,iVar5,palette,&DAT_009272a0 + uVar4 * 0x1400);
+      iVar3 = gra_ConvertToLecColor(src,srcFmt,iVar5,palette,&DAT_009272a0 + uVar4 * 0x1400);
       if (iVar3 != 0) {
         return -1;
       }

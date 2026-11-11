@@ -291,15 +291,18 @@ void rdMaterial_Free(undefined4 param_1)
     (*(code_std *)g_dwMaterialsUnloader)(param_1);
     return;
   }
-  rdMaterial_FreeContents(param_1);
+  rdMaterial_FreeEntry(param_1);
   (*g_pRdroid_HS->pFree)(param_1);
   return;
 }
 
-/* ---- 0x004183a0  rdMaterial_FreeContents ---- */
-/* Frees the cel bitmaps, their mip surfaces and Direct3D textures */
+/* ---- 0x004183a0  rdMaterial_FreeEntry ---- */
+/* Frees the cel bitmaps, their mip surfaces and Direct3D textures Original name
+   rdMaterial_FreeEntry (the remaster's GrimFandango (Linux): same body (frees the +0x68 colormap
+   entries, the texture VBuffers of every cel, then the +0xac array); called by the material
+   resource handler's free message in both builds); was rdMaterial_FreeContents. */
 
-void rdMaterial_FreeContents(int param_1)
+void rdMaterial_FreeEntry(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

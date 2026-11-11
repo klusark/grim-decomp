@@ -42,9 +42,9 @@ FUN_10009530
 FUN_10009560
 FUN_10009700
 FUN_10009ef0
-FUN_10009f10
+iMUSE_Malloc
 FUN_10009f40
-FUN_1000a010
+iMUSE_Free
 FUN_1000a030
 FUN_1000b8d0
 FUN_1000ba20
@@ -340,8 +340,8 @@ iMUSE_GetPhoneme
 iMUSE_GetSoundCacheSize
 iMUSE_SetHook
 iMUSE_SetVoiceEffect
-iMUSE_sounds__9e10
-iMUSE_sounds__9e40
+iRes_FTELL
+iRes_FSEEK
 iMUSE_sounds__9eb0
 iMUSE_stream__a210
 iMUSE_stream__a2d0

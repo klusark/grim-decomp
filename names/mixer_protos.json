@@ -1,7 +1,7 @@
 [
  {
   "addr": "004d3010",
-  "proto": "int Mixer_ClearAccumulator(void)"
+  "proto": "int sou_mixer_start(void)"
  },
  {
   "addr": "004d3040",
@@ -13,11 +13,11 @@
  },
  {
   "addr": "004d2e60",
-  "proto": "void Mixer_Output(short * dst, int frames)"
+  "proto": "void sou_mixer_end(short * dst, int frames)"
  },
  {
   "addr": "004d2d90",
-  "proto": "void Mixer_MixVoiceByFormat(byte * data, int accumOffset, uint outFrames, int srcBytes, int unused, int volume, int pan, int format)"
+  "proto": "void sou_mixer_mix(byte * data, int accumOffset, uint outFrames, int srcBytes, int unused, int volume, int pan, int format)"
  },
  {
   "addr": "004d2e80",
@@ -25,7 +25,7 @@
  },
  {
   "addr": "004d2d40",
-  "proto": "int Mixer_Init(int * services, uint tableUnits, int frames)"
+  "proto": "int sou_mixer_initialize(int * services, uint tableUnits, int frames)"
  },
  {
   "addr": "004d2fb0",
@@ -280,11 +280,11 @@
  },
  {
   "addr": "004cedc0",
-  "proto": "int VideoBitmap_ConvertPixels(byte * src, void * srcFmt, int count, byte * palette, byte * dst, void * dstFmt, byte * expandTable)"
+  "proto": "int gra_ConvertCopy(byte * src, void * srcFmt, int count, byte * palette, byte * dst, void * dstFmt, byte * expandTable)"
  },
  {
   "addr": "004cf010",
-  "proto": "int Video_PixelsToRgba(void * src, void * fmt, int count, byte * palette, byte * dst)"
+  "proto": "int gra_ConvertToLecColor(void * src, void * fmt, int count, byte * palette, byte * dst)"
  },
  {
   "addr": "004cf520",
@@ -366,12 +366,12 @@
  },
  {
   "addr": "004cd9b0",
-  "proto": "byte * Blocky16_DecodeBlock4(byte * src, byte * dst, int pitch)",
+  "proto": "byte * block16_RenderBlock4(byte * src, byte * dst, int pitch)",
   "cc": "__cdecl"
  },
  {
   "addr": "004cdb80",
-  "proto": "byte * Blocky16_DecodeBlock2(byte * src, byte * dst, int pitch)",
+  "proto": "byte * block16_RenderBlock2(byte * src, byte * dst, int pitch)",
   "cc": "__cdecl"
  },
  {

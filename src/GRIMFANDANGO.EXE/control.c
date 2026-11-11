@@ -5,10 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x0048d090  Control_Enable ---- */
-/* Lua EnableControl */
+/* ---- 0x0048d090  sputControl_EnableControl ---- */
+/* Lua EnableControl Original name sputControl_EnableControl (the remaster's GrimFandango (Linux):
+   same body (range check, stdControl_EnableAxis for axis controls, set bit 0); called by
+   sputLua_EnableControlL in both builds); was Control_Enable. */
 
-void __cdecl Control_Enable(int control)
+void __cdecl sputControl_EnableControl(int control)
 
 {
   uint *puVar1;
@@ -16,7 +18,7 @@ void __cdecl Control_Enable(int control)
   if ((uint)control <= g_nSputControl_numControlSymbols - 1U) {
     puVar1 = &g_dwSputControl_aControlSymbols + control * 4;
     if ((*puVar1 & 2) != 0) {
-      Input_EnableAxis(*(uint *)(&DAT_004e87cc + control * 0x10));
+      stdControl_EnableAxis(*(uint *)(&DAT_004e87cc + control * 0x10));
     }
     if ((*puVar1 & 1) == 0) {
       *puVar1 = *puVar1 | 1;
@@ -25,10 +27,12 @@ void __cdecl Control_Enable(int control)
   return;
 }
 
-/* ---- 0x0048d0d0  Control_Disable ---- */
-/* Lua DisableControl */
+/* ---- 0x0048d0d0  sputControl_DisableControl ---- */
+/* Lua DisableControl Original name sputControl_DisableControl (the remaster's GrimFandango (Linux):
+   same body (range check, clear bit 0); called by sputLua_DisableControlL in both builds); was
+   Control_Disable. */
 
-void __cdecl Control_Disable(int control)
+void __cdecl sputControl_DisableControl(int control)
 
 {
   uint uVar1;
@@ -60,8 +64,12 @@ undefined * sputControl_Open(void)
   return (undefined *)0x1;
 }
 
-/* ---- 0x0048d170  Control_Release ---- */
-undefined4 Control_Release(void)
+/* ---- 0x0048d170  sputControl_Close ---- */
+/* Original name sputControl_Close (the remaster's GrimFandango (Linux): same body (if open:
+   stdControl_Close, clear the flag); called by grimlib_Close in both builds); was Control_Release.
+    */
+
+undefined4 sputControl_Close(void)
 
 {
   int iVar1;
@@ -69,7 +77,7 @@ undefined4 Control_Release(void)
   if (g_nControlOpen == 0) {
     return 0;
   }
-  iVar1 = Input_Disable();
+  iVar1 = stdControl_Close();
   if (iVar1 == 0) {
     return 0;
   }

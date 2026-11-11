@@ -301,7 +301,7 @@ int Grim_FatalMessageBox(int param_1,int param_2,int param_3,int param_4)
   iVar1 = MessageBoxA(param_1,param_2,param_3,param_4);
   Grim_ShutdownDisplay();
   CloseWindow(param_1);
-  Input_ShowCursor(1);
+  stdControl_ShowMouseCursor(1);
   UINT_004e814c = 1;
   return iVar1;
 }
@@ -311,7 +311,7 @@ void Grim_ShutdownDisplay(void)
 
 {
   if (g_nDisplayDeviceOpen != 0) {
-    Engine_CloseRenderer();
+    grimlib_UnsetDisplay();
     if (g_pStd3D_CurDevice == (void *)0x0) {
       stdDisplay_VBufferFree((void *)UINT_004f5a34);
     }
@@ -319,18 +319,21 @@ void Grim_ShutdownDisplay(void)
       Display_Shutdown3D();
     }
     UINT_004f5a34 = 0;
-    Display_CloseMode();
-    Display_CloseDevice();
+    stdDisplay_ClearMode();
+    stdDisplay_Close();
     Reg_SetInt(s_ExperimentalDisplay_004dd5e4,0);
   }
   return;
 }
 
-/* ---- 0x00401950  Grim_Shutdown ---- */
+/* ---- 0x00401950  Main_Shutdown ---- */
 /* grimdemo.c: frees the display-mode tables, closes resources, Lua, window, iMUSE, memory services
-    */
+   Original name Main_Shutdown (the remaster's GrimFandango (Linux): the same shutdown sequence:
+   free the display-mode lists, debug shutdown, grimlib_Close, the two service shutdowns, rdClose,
+   rdShutdown, display close, mouse cursor, registry, polyglot shutdowns, std shutdown); was
+   Grim_Shutdown. */
 
-void Grim_Shutdown(void)
+void Main_Shutdown(void)
 
 {
   int iVar1;
@@ -361,25 +364,25 @@ void Grim_Shutdown(void)
   if (g_pDisplayModes != (void *)0x0) {
     (*g_pStd_HS->pFree)(g_pDisplayModes);
   }
-  Spew_Shutdown();
-  Engine_ShutdownGame();
+  grimDebug_Shutdown();
+  grimlib_Close();
   (*(code *)UINT_008dde2c)();
   (*(code *)UINT_008dde24)();
   rdClose();
-  rdroid_Shutdown();
+  rdShutdown();
   Grim_ShutdownDisplay();
-  Display_RestoreMode();
+  stdDisplay_Shutdown();
   if (g_bWindowedMode == 0) {
-    Input_ShowCursor(1);
+    stdControl_ShowMouseCursor(1);
   }
-  Reg_Close();
+  wuRegistry_Shutdown();
   if (UINT_008ddd8c != 0) {
     (*(code *)UINT_008ddd8c)();
   }
   if (UINT_008ddd84 != 0) {
     (*(code *)UINT_008ddd84)();
   }
-  Services_Clear();
+  stdShutdown();
   grimdemo_EnableDebugging(0);
   return;
 }
@@ -511,7 +514,7 @@ void Grim_EnumDisplayModes(void)
         }
         D3D_Release();
       }
-      Display_CloseDevice();
+      stdDisplay_Close();
       uVar5 = uVar5 + 1;
       iVar4 = iVar4 + 0x10;
     } while (uVar5 < g_dwStdDisplay_numDevices);
@@ -636,7 +639,7 @@ LAB_00402f60:
       iVar2 = _stricmp(iVar1,&DAT_004dd8cc);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8c8), iVar2 == 0)) {
         uVar4 = strtok(0,&DAT_004dd918);
-        Engine_SetExtraDataDir(uVar4);
+        grimlib_AddResourcePath(uVar4);
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8c4);
@@ -693,7 +696,7 @@ void Grim_ShowSplash(void)
   void *bitmap;
   int iVar1;
   
-  bitmap = stdBitmap_LoadResource(s_splash_bm_004dd99c,0,0);
+  bitmap = stdBitmap_Load(s_splash_bm_004dd99c,0,0);
   if ((bitmap != (void *)0x0) &&
      (src = (void *)**(undefined4 **)((int)bitmap + 0x78), src != (void *)0x0)) {
     iVar1 = 0;

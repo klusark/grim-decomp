@@ -5,11 +5,15 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x0048d210  Debug_CameraFovKeys ---- */
+/* ---- 0x0048d210  sputControl_StandardHandler ---- */
 /* WARNING: Variable defined which should be unmapped: local_4 */
-/* With debug keys on, Ctrl+N / Ctrl+J change the current camera's field of view by 0.5 */
+/* With debug keys on, Ctrl+N / Ctrl+J change the current camera's field of view by 0.5 Original
+   name sputControl_StandardHandler (the remaster's GrimFandango (Linux): same body (with
+   grimlib_bDebugKeys and a modifier key: the two keys move the current setup's camera FOV by 0.5
+   via rdCamera_SetFOV); the control callback sputControl_Startup registers (here through
+   Controls_DebugKeysHook)); was Debug_CameraFovKeys. */
 
-undefined4 Debug_CameraFovKeys(void)
+undefined4 sputControl_StandardHandler(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -35,7 +39,7 @@ undefined4 Debug_CameraFovKeys(void)
       pvVar2 = *(void **)(*(int *)((int)pvVar2 + 0xac) + 0x48 + *(int *)((int)pvVar2 + 0xb4) * 300);
       fov = *(float *)((int)pvVar2 + 0x38) - -0.5;
     }
-    rdCamera_SetFov(pvVar2,fov);
+    rdCamera_SetFOV(pvVar2,fov);
     return 1;
   }
   return 0;

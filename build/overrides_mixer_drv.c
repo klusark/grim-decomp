@@ -2,7 +2,7 @@
  * 0x004c0ed0 - 0x004d2fb0): the two LEC modules "insane_timer" and "insane_dsnd" of the Smush movie player.
  *
  *   InsaneTimer_*   a thread that wakes every 16 ms and runs up to 19 periodic callbacks ("TIMER insane")
- *   DsndDriver_*    DirectSound output: a looping stream buffer of 0x1800 byte blocks that DSound_FillStreamBuffer
+ *   DsndDriver_*    DirectSound output: a looping stream buffer of 0x1800 byte blocks that dsn_fill_thread
  *                   (a timer callback) refills from the software mixer behind the play cursor ("SNDDRIVER insane_dsnd")
  *   Mixer_*         the software mixer itself is in overrides_mixer.c
  *
@@ -57,7 +57,7 @@ typedef struct TimerSlot {
 
 extern TimerSlot g_aTimerSlots[20] __asm__("_DAT_008da5d8");
 
-extern int g_nTimerLastTime __asm__("_UINT_008da864");     /* timeGetTime() of the last tick (advanced by 16 per tick) */
+extern int g_nTimerLastTime __asm__("_g_dwTimer_thread_lastTime");     /* timeGetTime() of the last tick (advanced by 16 per tick) */
 extern int g_nTimerSavedBusy __asm__("_UINT_008da868");
 extern int g_nTimerInTick __asm__("_DAT_008da86c");
 extern int g_nTimerSavedBusy2 __asm__("_UINT_008da870");
@@ -93,7 +93,7 @@ void InsaneTimer_module_terminate(void)
 
 /* The thread: ticks every 16 ms of timeGetTime, sleeps (an event that is never set) for the time to the next tick,
  * at most 10 ms at a time. */
-undefined * __stdcall InsaneTimer_ThreadProc(int unused)
+undefined * __stdcall timer_thread(int unused)
 {
     int event = CreateEventA(0, 1, 0, 0);
     int wait;
@@ -128,7 +128,7 @@ int InsaneTimer_StartThread(void)
         for (i = 1; i < 20; i++)
             g_aTimerSlots[i].callback = 0;
         g_dwSys_timer_count = 0x4dae;
-        g_nTimerThread = CreateThread(0, 0, InsaneTimer_ThreadProc, 0, 0, &id);
+        g_nTimerThread = CreateThread(0, 0, timer_thread, 0, 0, &id);
         SetThreadPriority(g_nTimerThread, 2);
         _DAT_004f3c2c = 0xffffffff;
     }
@@ -239,7 +239,7 @@ static void timer_run_due(TimerSlot *t, int i)
 }
 
 /* One step of the clock (g_dwSys_timer_count ticks): first the flag-1 timers, then the plain ones, then the deferred ones are
- * scheduled (InsaneTimer_ServiceDeferred).  Does nothing while sys_Disable is active. */
+ * scheduled (sys_timer_dispatcher).  Does nothing while sys_Disable is active. */
 void InsaneTimer_Tick(void)
 {
     int i;
@@ -272,7 +272,7 @@ void InsaneTimer_Tick(void)
     g_nTimerInTick = 0;
     if (g_nTimerBusyB == 0 && g_nTimerBusyA == 0) {
         g_nTimerBusyB = 1;
-        InsaneTimer_ServiceDeferred();
+        sys_timer_dispatcher();
         g_nTimerBusyB = 0;
     }
 }
@@ -281,7 +281,7 @@ void InsaneTimer_Tick(void)
  * its own (DAT_008da548 and DAT_008da588); nothing else ever jumps to them, so the only effect is the final
  * `g_nTimerSavedBusy = 0`; the longjmp to the second buffer is only reached when g_nTimerDeferredFlag is set, which
  * nothing does. */
-void InsaneTimer_ServiceDeferred(void)
+void sys_timer_dispatcher(void)
 {
     if (g_nTimerSkip == 0 || --g_nTimerSkip == 0) {
         g_nTimerDeferredFlag = 0;
@@ -311,7 +311,7 @@ void InsaneTimer_RunDeferred(void)
  *  DirectSound stream driver
  * =================================================================================================================== */
 
-extern int *g_pDsndMemSvc __asm__("_g_dwDsndDriver_memory_services");              /* "MEMORY mixertable": allocator for Mixer_Init */
+extern int *g_pDsndMemSvc __asm__("_g_dwDsndDriver_memory_services");              /* "MEMORY mixertable": allocator for sou_mixer_initialize */
 extern uint g_dwDsndModuleSize __asm__("_g_dwDsndDriver_share_config");
 extern int g_aiStreamVolumeTable[128] __asm__("_UINT_008db210");  /* DirectSound volume (1/100 dB) for 0..127 */
 extern byte g_abStreamScratch[0x1800] __asm__("_UINT_008db438");  /* mixes a block that wraps around the buffer end */
@@ -370,7 +370,7 @@ void DsndDriver_module_shutdown(void)
     ((void (*)(void *))g_pDsndDriver_share_services[3])(g_pDsndMemSvc);
 }
 
-/* rate: sample rate (at least 22050); mix: callback (frames, Mixer_MixVoiceByFormat) that mixes into the accumulator.
+/* rate: sample rate (at least 22050); mix: callback (frames, sou_mixer_mix) that mixes into the accumulator.
  * Returns 0 or -1. */
 int dsn_initialize(int rate, int unused, void *mix)
 {
@@ -381,12 +381,12 @@ int dsn_initialize(int rate, int unused, void *mix)
         rate = 0x5622;
     if (DsndDriver_InitDirectSound() != 0)
         return 0xffffffff;
-    if (Mixer_Init(g_pDsndMemSvc, 4, 0x400) != 0)
+    if (sou_mixer_initialize(g_pDsndMemSvc, 4, 0x400) != 0)
         return 0xffffffff;
     g_pfnStreamMix = mix;
     g_dwStreamRate = rate;
     clock = (DsndClock *)g_pDsndDriver_timer_services;
-    g_nStreamTimerId = clock->addTimer(DSound_FillStreamBuffer, 0x1234dc / ((rate + ((rate >> 31) & 0x3ff)) >> 10), 2, 0);
+    g_nStreamTimerId = clock->addTimer(dsn_fill_thread, 0x1234dc / ((rate + ((rate >> 31) & 0x3ff)) >> 10), 2, 0);
     return 0;
 }
 
@@ -533,7 +533,7 @@ int DSound_GetPlayBlock(void)
 /* The timer callback that keeps the stream buffer filled: if the play cursor has left the block behind the one written
  * last, locks the next block, mixes into it (through the scratch buffer when the lock wraps around the end of the
  * buffer) and unlocks it.  Finally re-arms the timer. */
-void DSound_FillStreamBuffer(void)
+void dsn_fill_thread(void)
 {
     int block = DSound_GetPlayBlock();
 
@@ -556,9 +556,9 @@ void DSound_FillStreamBuffer(void)
                 frames = ((int)n1 + (((int)n1 >> 31) & 3)) >> 2;
                 out = p1;
             }
-            Mixer_ClearAccumulator();
-            ((void (*)(int, void *))g_pfnStreamMix)(frames, Mixer_MixVoiceByFormat);
-            Mixer_Output(out, frames);
+            sou_mixer_start();
+            ((void (*)(int, void *))g_pfnStreamMix)(frames, sou_mixer_mix);
+            sou_mixer_end(out, frames);
             if (wraps) {
                 memcpy(p1, g_abStreamScratch, n1);
                 memcpy(p2, g_abStreamScratch + n1, n2);

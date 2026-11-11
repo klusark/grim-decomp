@@ -1,5 +1,5 @@
 /* Differential test of build/overrides_asm_q1.c against the original 1.01 machine code (sliced from the assembly of
- * 2df265d): rdClip_Line2D, rdClip_Face3W, rdClip_Face3WOrtho, rdClip_Face3S, rdClip_Face3SOrtho,
+ * 2df265d): rdClip_Line2, rdClip_Face3W, rdClip_Face3WOrtho, rdClip_Face3S, rdClip_Face3SOrtho,
  * rdClip_Face3GSOrtho.  Build: build/difftest/asm_q1/build.sh <exe>; run: <exe> [cases per function] [function index].
  *
  * Each case runs the original and the C on the same addresses and the same start state (the state is restored between
@@ -9,7 +9,7 @@
  *   - the data image from 0x7f4600 to 0x7f5400: the static clip buffers 0x7f47c0 (intensities) and 0x7f48c0
  *     (positions), the pointer globals 0x7f4618 / 0x7f46ac / 0x7f46b0 / 0x7f47b8 and the clip flags 0x7f4ac4, and what
  *     follows (an overflowing polygon writes past the position buffer in both versions),
- *   - the call log of the rdClip_Outcode2D stand-in (canvas, x, y),
+ *   - the call log of the rdClip_CalcOutcode2 stand-in (canvas, x, y),
  *   - the x87 control word and the x87 stack top.
  * Inputs: Face3 polygons of 0..16 vertices (and negative counts), convex fans or random points around the frustum,
  * vertices snapped onto planes (x = float(slope * y), y = near / far, x = bound), duplicated vertices, special values
@@ -26,7 +26,7 @@
 #include <stdint.h>
 
 typedef unsigned uint;
-extern uint orig_rdClip_Line2D(int, int *, int *, int *, int *), rdClip_Line2D(int, int *, int *, int *, int *);
+extern uint orig_rdClip_Line2(int, int *, int *, int *, int *), rdClip_Line2(int, int *, int *, int *, int *);
 extern uint orig_rdClip_Face3W(uint *, float *, int), rdClip_Face3W(uint *, float *, int);
 extern uint orig_rdClip_Face3WOrtho(uint *, float *, int), rdClip_Face3WOrtho(uint *, float *, int);
 extern uint orig_rdClip_Face3S(uint *, float *, int), rdClip_Face3S(uint *, float *, int);
@@ -53,9 +53,9 @@ static uint special(void)
 }
 static float U(float lo, float hi) { return lo + (hi - lo) * (float)(rnd() & 0xffffff) / 16777216.0f; }
 
-/* ---- rdClip_Outcode2D stand-in: the real outcode, logged; after 64 calls it returns 0 (ends any loop) ---- */
+/* ---- rdClip_CalcOutcode2 stand-in: the real outcode, logged; after 64 calls it returns 0 (ends any loop) ---- */
 static uint lg[2][256]; static int nlg[2], side;
-uint rdClip_Outcode2D(int c, int x, int y)
+uint rdClip_CalcOutcode2(int c, int x, int y)
 {
     uint r = 0;
     int *cv = (int *)c;
@@ -83,7 +83,7 @@ static struct st {
 } s0, s;
 static struct res { uint ret; uint16_t cw, sw; struct st st; int nlg; } r[2];
 
-static const char *fname[6] = {"rdClip_Line2D", "rdClip_Face3W", "rdClip_Face3WOrtho", "rdClip_Face3S",
+static const char *fname[6] = {"rdClip_Line2", "rdClip_Face3W", "rdClip_Face3WOrtho", "rdClip_Face3S",
                                "rdClip_Face3SOrtho", "rdClip_Face3GSOrtho"};
 
 static void run(int f, int n, uint16_t cw, int sd)
@@ -94,7 +94,7 @@ static void run(int f, int n, uint16_t cw, int sd)
     side = sd; nlg[sd] = 0;
     set_cw(cw);
     switch (f) {
-    case 0: ret = (sd ? rdClip_Line2D : orig_rdClip_Line2D)((int)s.canvas, &s.pt[0], &s.pt[1], &s.pt[2], &s.pt[3]); break;
+    case 0: ret = (sd ? rdClip_Line2 : orig_rdClip_Line2)((int)s.canvas, &s.pt[0], &s.pt[1], &s.pt[2], &s.pt[3]); break;
     case 1: ret = (sd ? rdClip_Face3W : orig_rdClip_Face3W)(s.fr, s.pos, n); break;
     case 2: ret = (sd ? rdClip_Face3WOrtho : orig_rdClip_Face3WOrtho)(s.fr, s.pos, n); break;
     case 3: ret = (sd ? rdClip_Face3S : orig_rdClip_Face3S)(s.fr, s.pos, n); break;
@@ -331,7 +331,7 @@ int main(int argc, char **argv)
                     fail(f, i, "data image 0x7f4600..0x7f5400", n);
                     if (fails <= 20) printf("   first difference at 0x%x\n", REG_LO + j);
                 }
-                else if (r[0].nlg != r[1].nlg || memcmp(lg[0], lg[1], r[0].nlg * 4)) fail(f, i, "rdClip_Outcode2D calls", n);
+                else if (r[0].nlg != r[1].nlg || memcmp(lg[0], lg[1], r[0].nlg * 4)) fail(f, i, "rdClip_CalcOutcode2 calls", n);
                 else if (r[0].cw != r[1].cw) fail(f, i, "x87 control word", n);
                 else if (((r[0].sw >> 11) & 7) != ((r[1].sw >> 11) & 7)) fail(f, i, "x87 stack top", n);
                 else if (knan) {

@@ -5,10 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x10009e10  iMUSE_sounds__9e10 ---- */
-/* Unidentified function of iMUSE_sounds.c (sound resource slots) */
+/* ---- 0x10009e10  iRes_FTELL ---- */
+/* Original name iRes_FTELL (the remaster's GrimFandango (Linux): same body (for a handle inside the
+   MCMP handle array the position at +8, else the host ftell service +0x48); the counterpart of
+   iRes_FSEEK; called by ihost_fseek / ihost_read here (the remaster inlined it)); was
+   iMUSE_sounds__9e10. */
 
-undefined4 __cdecl iMUSE_sounds__9e10(undefined *param_1)
+undefined4 __cdecl iRes_FTELL(undefined *param_1)
 
 {
   undefined4 uVar1;
@@ -20,10 +23,12 @@ undefined4 __cdecl iMUSE_sounds__9e10(undefined *param_1)
   return uVar1;
 }
 
-/* ---- 0x10009e40  iMUSE_sounds__9e40 ---- */
-/* Unidentified function of iMUSE_sounds.c (sound resource slots) */
+/* ---- 0x10009e40  iRes_FSEEK ---- */
+/* Original name iRes_FSEEK (the remaster's GrimFandango (Linux): same body (for a handle outside
+   the MCMP handle array the host fseek service +0x4c, else the position at +8 by whence 0 / 1 / 2
+   with the size at +4)); was iMUSE_sounds__9e40. */
 
-undefined4 __cdecl iMUSE_sounds__9e40(undefined *param_1,int param_2,int param_3)
+undefined4 __cdecl iRes_FSEEK(undefined *param_1,int param_2,int param_3)
 
 {
   undefined4 uVar1;
@@ -74,8 +79,12 @@ int __cdecl FUN_10009ef0(uint param_1,uint *param_2)
   return (-(uint)(param_1 < *param_2) & 0xfffffffe) + 1;
 }
 
-/* ---- 0x10009f10  FUN_10009f10 ---- */
-undefined4 FUN_10009f10(undefined4 param_1)
+/* ---- 0x10009f10  iMUSE_Malloc ---- */
+/* Original name iMUSE_Malloc (the remaster's GrimFandango (Linux): same body (the host alloc
+   service in sounds.c, then the pointer into the memory list mlEntries, which doubles when full);
+   the remaster inlined FUN_10009f40 into it); was FUN_10009f10. */
+
+undefined4 iMUSE_Malloc(undefined4 param_1)
 
 {
   undefined4 uVar1;
@@ -96,30 +105,30 @@ void FUN_10009f40(int param_1)
   uint uVar2;
   int *piVar3;
   
-  if (_DAT_10031d38 != (int *)0x0) {
-    if (_DAT_1002ebd8 < _DAT_1002ec10) {
-      _DAT_10031d38[_DAT_1002ebd8] = param_1;
-      _DAT_1002ebd8 = _DAT_1002ebd8 + 1;
+  if (_g_dwMlEntries != (int *)0x0) {
+    if (_g_dwMlListSize < _g_dwMlEntryCount) {
+      _g_dwMlEntries[_g_dwMlListSize] = param_1;
+      _g_dwMlListSize = _g_dwMlListSize + 1;
       return;
     }
     iVar1 = 0;
-    piVar3 = _DAT_10031d38;
-    if (0 < _DAT_1002ec10) {
+    piVar3 = _g_dwMlEntries;
+    if (0 < _g_dwMlEntryCount) {
       do {
         if (*piVar3 == 0) break;
         piVar3 = piVar3 + 1;
         iVar1 = iVar1 + 1;
-      } while (iVar1 < _DAT_1002ec10);
+      } while (iVar1 < _g_dwMlEntryCount);
     }
-    if (iVar1 < _DAT_1002ec10) {
-      iVar1 = _DAT_1002ec10 * 8;
-      _DAT_1002ec10 = _DAT_1002ec10 * 2;
-      _DAT_10031d38 =
+    if (iVar1 < _g_dwMlEntryCount) {
+      iVar1 = _g_dwMlEntryCount * 8;
+      _g_dwMlEntryCount = _g_dwMlEntryCount * 2;
+      _g_dwMlEntries =
            (int *)(**(code **)(g_dwSounds_pHS + 0x28))
-                            (_DAT_10031d38,iVar1,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x9e);
-      if (_DAT_10031d38 != (int *)0x0) {
-        piVar3 = _DAT_10031d38 + _DAT_1002ec10 / 2;
-        for (uVar2 = _DAT_1002ec10 / 2 & 0x3fffffff; uVar2 != 0; uVar2 = uVar2 - 1) {
+                            (_g_dwMlEntries,iVar1,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x9e);
+      if (_g_dwMlEntries != (int *)0x0) {
+        piVar3 = _g_dwMlEntries + _g_dwMlEntryCount / 2;
+        for (uVar2 = _g_dwMlEntryCount / 2 & 0x3fffffff; uVar2 != 0; uVar2 = uVar2 - 1) {
           *piVar3 = 0;
           piVar3 = piVar3 + 1;
         }
@@ -127,8 +136,8 @@ void FUN_10009f40(int param_1)
           *(undefined1 *)piVar3 = 0;
           piVar3 = (int *)((int)piVar3 + 1);
         }
-        _DAT_10031d38[_DAT_1002ebd8] = param_1;
-        _DAT_1002ebd8 = _DAT_1002ebd8 + 1;
+        _g_dwMlEntries[_g_dwMlListSize] = param_1;
+        _g_dwMlListSize = _g_dwMlListSize + 1;
         return;
       }
     }
@@ -139,8 +148,12 @@ void FUN_10009f40(int param_1)
   return;
 }
 
-/* ---- 0x1000a010  FUN_1000a010 ---- */
-void FUN_1000a010(undefined4 param_1)
+/* ---- 0x1000a010  iMUSE_Free ---- */
+/* Original name iMUSE_Free (the remaster's GrimFandango (Linux): same body (clear the pointer's
+   slot in the memory list mlEntries, then the host free service); the remaster inlined FUN_1000a030
+   into it); was FUN_1000a010. */
+
+void iMUSE_Free(undefined4 param_1)
 
 {
   FUN_1000a030(param_1);
@@ -157,17 +170,17 @@ void FUN_1000a030(int param_1)
   int iVar1;
   int *piVar2;
   
-  if (_DAT_10031d38 != (int *)0x0) {
+  if (_g_dwMlEntries != (int *)0x0) {
     iVar1 = 0;
-    piVar2 = _DAT_10031d38;
-    if (0 < _DAT_1002ebd8) {
+    piVar2 = _g_dwMlEntries;
+    if (0 < _g_dwMlListSize) {
       do {
         if (*piVar2 == param_1) break;
         piVar2 = piVar2 + 1;
         iVar1 = iVar1 + 1;
-      } while (iVar1 < _DAT_1002ebd8);
+      } while (iVar1 < _g_dwMlListSize);
     }
-    if (iVar1 < _DAT_1002ebd8) {
+    if (iVar1 < _g_dwMlListSize) {
       *piVar2 = 0;
     }
   }

@@ -501,14 +501,17 @@ void rdSprite_Free(int param_1)
 
 {
   if (param_1 != 0) {
-    rdSprite_FreeContents(param_1);
+    rdSprite_FreeEntry(param_1);
     (*g_pRdroid_HS->pFree)(param_1);
   }
   return;
 }
 
-/* ---- 0x00472b70  rdSprite_FreeContents ---- */
-void rdSprite_FreeContents(int param_1)
+/* ---- 0x00472b70  rdSprite_FreeEntry ---- */
+/* Original name rdSprite_FreeEntry (the remaster's GrimFandango (Linux): same body (frees the +0xa8
+   and +0x74 arrays through rdroid_pHS)); was rdSprite_FreeContents. */
+
+void rdSprite_FreeEntry(int param_1)
 
 {
   if (*(int *)(param_1 + 0xa8) != 0) {
