@@ -1,8 +1,8 @@
 [
  {"addr": "00487260", "name": "sputRender_SaveScreen", "proto": "void sputRender_SaveScreen(char * filename)", "comment": "Lua SaveScreen", "tags": "render"},
- {"addr": "00473630", "name": "stdBitmap_Load", "proto": "void * stdBitmap_Load(char * filename)", "comment": "Loads a .bm bitmap file; the frame surfaces hang off +0x78", "tags": "jedi,bitmap"},
+ {"addr": "00473630", "name": "stdLoadImage", "proto": "void * stdLoadImage(char * filename)", "comment": "Loads a .bm bitmap file; the frame surfaces hang off +0x78", "tags": "jedi,bitmap"},
  {"addr": "0047ae70", "name": "stdBitmap_Free", "proto": "void stdBitmap_Free(void * bitmap)", "tags": "jedi,bitmap"},
- {"addr": "0047aa50", "name": "stdBitmap_LoadResource", "proto": "void * stdBitmap_LoadResource(char * name, int a, int b)", "comment": "Grim_ShowSplash loads splash.bm through this", "tags": "jedi,bitmap"},
+ {"addr": "0047aa50", "name": "stdBitmap_Load", "proto": "void * stdBitmap_Load(char * name, int a, int b)", "comment": "Grim_ShowSplash loads splash.bm through this", "tags": "jedi,bitmap"},
  {"addr": "004746d0", "name": "stdDisplay_VBufferFree", "proto": "void stdDisplay_VBufferFree(void * surface)", "tags": "display"},
  {"addr": "00474480", "name": "stdDisplay_VBufferNew", "proto": "void * stdDisplay_VBufferNew(void * info, int videoMem, int b, int c)", "comment": "Std/Win95/Stddisplay.c: creates a surface record (0xd8 bytes) from a 19-dword format/size description", "tags": "display"},
  {"addr": "00474a60", "name": "Surface_Blit", "proto": "int Surface_Blit(void * dst, void * src, int x, int y, int * srcRect, int colorKey)", "tags": "display"},
@@ -22,9 +22,9 @@
  {"addr": "0045ff00", "name": "Mem_DumpLog", "comment": "Lua DumpMemoryLog", "tags": "memory"},
  {"addr": "0048e240", "name": "Res_NukeAll", "comment": "Lua NukeResources: frees every loaded resource", "tags": "resource"},
  {"addr": "00482460", "name": "Res_FreeAll", "comment": "Called when nuking resources and before a restore", "tags": "engine"},
- {"addr": "008cf270", "global": "g_nShrinkVertexCount", "type": "int", "comment": "Number of sector vertices saved by SectorList_SaveForShrink"},
- {"addr": "008cf274", "global": "g_pShrinkVertexSave", "type": "void *", "comment": "Saved sector vertices (20 bytes each) for UnShrinkBoxes"},
- {"addr": "008cf278", "global": "g_nShrinkSectorCount", "type": "int", "comment": "Number of sectors saved by SectorList_SaveForShrink"},
- {"addr": "008cf27c", "global": "g_pShrinkSectorSave", "type": "void *", "comment": "Saved per-sector vertex lists (0x34 bytes each) for UnShrinkBoxes"},
+ {"addr": "008cf270", "global": "g_nVertexCacheSize", "type": "int", "comment": "Number of sector vertices saved by WalkPlane_BuildCache"},
+ {"addr": "008cf274", "global": "g_pVertexCache", "type": "void *", "comment": "Saved sector vertices (20 bytes each) for UnShrinkBoxes"},
+ {"addr": "008cf278", "global": "g_nWalkPlaneCacheSize", "type": "int", "comment": "Number of sectors saved by WalkPlane_BuildCache"},
+ {"addr": "008cf27c", "global": "g_pWalkPlaneCache", "type": "void *", "comment": "Saved per-sector vertex lists (0x34 bytes each) for UnShrinkBoxes"},
  {"addr": "008cb0b0", "global": "g_SectorVertexPool", "type": "float", "comment": "Shared pool of 16-byte sector vertices referenced by index"}
 ]

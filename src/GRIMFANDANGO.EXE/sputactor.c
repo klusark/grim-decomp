@@ -653,7 +653,7 @@ undefined4 sputActor_Restore(code *param_1)
           } while ((int)ppvVar4 < IMG_ADDR(0x008ca320));
         }
         if (*(int *)(setName[0x29] + 0x1ec) != 0) {
-          uVar5 = TextObject_FindBySelf(*(int *)(setName[0x29] + 0x1ec));
+          uVar5 = sputText_FindSerialNumber(*(int *)(setName[0x29] + 0x1ec));
           *(undefined4 *)(setName[0x29] + 0x1ec) = uVar5;
         }
         sputActor_ResetShadows(setName);

@@ -17,16 +17,18 @@ void * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float
   if (camera == (void *)0x0) {
     return (void *)0x0;
   }
-  iVar1 = rdCamera_Init(camera,fov,type,aspectX,aspectY,zoom);
+  iVar1 = rdCamera_NewEntry(camera,fov,type,aspectX,aspectY,zoom);
   return (void *)(-(uint)(iVar1 != 0) & (uint)camera);
 }
 
-/* ---- 0x00409fb0  rdCamera_Init ---- */
+/* ---- 0x00409fb0  rdCamera_NewEntry ---- */
 /* Allocates the 0x34-byte projection block (camera+0x48), clamps the FOV to 5..179 and selects
-   perspective projection */
+   perspective projection Original name rdCamera_NewEntry (the remaster's GrimFandango (Linux): same
+   parameters (camera, fov, projection type, aspect x / y, zoom) and body (allocates the 0x34-byte
+   projection record in Rdcamera.c, fov clamped to >= 5)); was rdCamera_Init. */
 
 int __cdecl
-rdCamera_Init(void *camera,float fov,int projType,float aspectX,float aspectY,float zoom)
+rdCamera_NewEntry(void *camera,float fov,int projType,float aspectX,float aspectY,float zoom)
 
 {
   int *piVar1;
@@ -65,16 +67,18 @@ void rdCamera_Free(int param_1)
 
 {
   if (param_1 != 0) {
-    rdCamera_FreeProjection(param_1);
+    rdCamera_FreeEntry(param_1);
     (*g_pRdroid_HS->pFree)(param_1);
   }
   return;
 }
 
-/* ---- 0x0040a0a0  rdCamera_FreeProjection ---- */
-/* Frees the 0x34-byte projection block (camera+0x48) allocated by rdCamera_Init. */
+/* ---- 0x0040a0a0  rdCamera_FreeEntry ---- */
+/* Frees the 0x34-byte projection block (camera+0x48) allocated by rdCamera_Init. Original name
+   rdCamera_FreeEntry (the remaster's GrimFandango (Linux): same body (frees the projection record
+   at +0x48)); was rdCamera_FreeProjection. */
 
-void rdCamera_FreeProjection(int param_1)
+void rdCamera_FreeEntry(int param_1)
 
 {
   if (*(int *)(param_1 + 0x48) != 0) {
@@ -102,8 +106,12 @@ undefined4 rdCamera_SetCurrent(void *param_1)
   return 1;
 }
 
-/* ---- 0x0040a100  rdCamera_SetFov ---- */
-void __cdecl rdCamera_SetFov(void *camera,float fov)
+/* ---- 0x0040a100  rdCamera_SetFOV ---- */
+/* Original name rdCamera_SetFOV (the remaster's GrimFandango (Linux): the remaster's name differs
+   only in case; called by sputControl_StandardHandler in both builds (the same FOV store)); was
+   rdCamera_SetFov. */
+
+void __cdecl rdCamera_SetFOV(void *camera,float fov)
 
 {
   if (fov < 5.0) {

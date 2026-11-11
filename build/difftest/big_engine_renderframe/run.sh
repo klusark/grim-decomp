@@ -31,7 +31,7 @@ for i in 1 2 3; do
 done
 test -f $W/renderframe_test.exe || { head -20 $W/link.log; exit 1; }
 # the data image references many functions (stubbed); none of the callees of sputRender_Update may be a stub
-for c in $(grep -oE 'call _[A-Za-z_0-9]+' $W/orig.s | cut -c7- | sort -u) _ObjectState_Draw _lua_printstack; do
+for c in $(grep -oE 'call _[A-Za-z_0-9]+' $W/orig.s | cut -c7- | sort -u) _ObjectState_Update _lua_printstack; do
   if grep -q "^$c:" $W/stubs.s; then echo "callee $c was stubbed"; exit 1; fi
 done
 $W/renderframe_test.exe ${1:-200000}

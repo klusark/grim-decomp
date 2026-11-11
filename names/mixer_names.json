@@ -24,12 +24,12 @@
  {
   "addr": "004cdd80",
   "name": "InsaneTimer_StartThread",
-  "comment": "First caller clears the 20 timer slots and creates the high priority thread InsaneTimer_ThreadProc",
+  "comment": "First caller clears the 20 timer slots and creates the high priority thread timer_thread",
   "tags": "smush,timer"
  },
  {
   "addr": "004cddf0",
-  "name": "InsaneTimer_ThreadProc",
+  "name": "timer_thread",
   "comment": "Timer thread: wakes every 16 ms of timeGetTime and runs InsaneTimer_Tick",
   "tags": "smush,timer"
  },
@@ -84,7 +84,7 @@
  },
  {
   "addr": "004ce1d0",
-  "name": "InsaneTimer_ServiceDeferred",
+  "name": "sys_timer_dispatcher",
   "tags": "smush,timer"
  },
  {
@@ -117,7 +117,7 @@
  {
   "addr": "004d2550",
   "name": "dsn_initialize",
-  "comment": "Opens DirectSound and the mixer and starts the periodic DSound_FillStreamBuffer timer",
+  "comment": "Opens DirectSound and the mixer and starts the periodic dsn_fill_thread timer",
   "tags": "smush,dsound"
  },
  {
@@ -192,7 +192,7 @@
  },
  {
   "addr": "004d2d40",
-  "name": "Mixer_Init",
+  "name": "sou_mixer_initialize",
   "tags": "smush,mixer"
  },
  {
@@ -208,7 +208,7 @@
  },
  {
   "addr": "004d2d90",
-  "name": "Mixer_MixVoiceByFormat",
+  "name": "sou_mixer_mix",
   "comment": "Callback handed to the driver: format code 0..5 (8/16 bit, mono/stereo, offset binary) to Mixer_MixVoice parameters",
   "tags": "smush,mixer"
  },
@@ -353,7 +353,7 @@
  {
   "addr": "004d16a0",
   "name": "sou_engine_fill",
-  "comment": "Mixes all active tracks into the driver buffer (called by DSound_FillStreamBuffer through the driver)",
+  "comment": "Mixes all active tracks into the driver buffer (called by dsn_fill_thread through the driver)",
   "tags": "smush,sound"
  },
  {
@@ -363,27 +363,27 @@
  },
  {
   "addr": "008dcd9c",
-  "global": "g_dwMixAccumBytes",
+  "global": "g_dwMixer_mixBufSize",
   "type": "uint",
-  "comment": "Size in bytes of the mixer accumulator g_pMixAccum"
+  "comment": "Size in bytes of the mixer accumulator g_pMixer_mixBuf"
  },
  {
   "addr": "008dcc60",
-  "global": "g_dwMixChannels",
+  "global": "g_dwMixer_outChannelCount",
   "type": "uint",
   "comment": "1 = mono mix, 2 = stereo (Mixer_ConvertTo16 converts twice the frame count)"
  },
  {
   "addr": "008dcc64",
-  "global": "g_pMixCompanderTable",
+  "global": "g_pMixer_softLTable",
   "type": "void *",
   "comment": "Table of g_nMixTableUnits*0x8000 shorts built by Mixer_InitTables"
  },
  {
   "addr": "004f40f8",
-  "global": "g_dwMixTableUnits",
+  "global": "g_dwWaveMixCount",
   "type": "uint",
-  "comment": "Size parameter of the compander table (Mixer_Init)"
+  "comment": "Size parameter of the compander table (sou_mixer_initialize)"
  },
  {
   "addr": "008dcc40",
@@ -413,7 +413,7 @@
   "addr": "004f3f94",
   "global": "g_nStreamLastBlock",
   "type": "int",
-  "comment": "Index of the block DSound_FillStreamBuffer wrote last (-1 = none)"
+  "comment": "Index of the block dsn_fill_thread wrote last (-1 = none)"
  },
  {
   "addr": "004f3f98",
@@ -437,13 +437,13 @@
   "addr": "008db410",
   "global": "g_pfnStreamMix",
   "type": "void *",
-  "comment": "Mixer callback (count, Mixer_MixVoiceByFormat) given to dsn_initialize"
+  "comment": "Mixer callback (count, sou_mixer_mix) given to dsn_initialize"
  },
  {
   "addr": "008dcc54",
   "global": "g_nStreamTimerId",
   "type": "int",
-  "comment": "Timer id of the periodic DSound_FillStreamBuffer call"
+  "comment": "Timer id of the periodic dsn_fill_thread call"
  },
  {
   "addr": "008db41c",
@@ -527,12 +527,12 @@
  },
  {
   "addr": "004cedc0",
-  "name": "VideoBitmap_ConvertPixels",
+  "name": "gra_ConvertCopy",
   "tags": "smush,video"
  },
  {
   "addr": "004cf010",
-  "name": "Video_PixelsToRgba",
+  "name": "gra_ConvertToLecColor",
   "tags": "smush,video"
  },
  {
@@ -658,7 +658,7 @@
  },
  {
   "addr": "004cc6a0",
-  "name": "Blocky16_BuildPixelOffsets",
+  "name": "fob_blk16_configure",
   "comment": "Makes the pixel offsets of the split masks and the motion vectors for a frame width, once per width",
   "tags": "smush,blocky16"
  },
@@ -682,8 +682,8 @@
  },
  {
   "addr": "004cea30",
-  "name": "Video_BlitConvert",
-  "comment": "Copies or converts a clipped rectangle from one bitmap to another through VideoBitmap_ConvertPixels",
+  "name": "gra_BlitRectLookup",
+  "comment": "Copies or converts a clipped rectangle from one bitmap to another through gra_ConvertCopy",
   "tags": "smush,video"
  },
  {
@@ -742,13 +742,13 @@
  },
  {
   "addr": "004cd9b0",
-  "name": "Blocky16_DecodeBlock4",
+  "name": "block16_RenderBlock4",
   "comment": "Decodes one 4x4 block (register convention in the original: ESI stream, EDI destination, EBP pitch)",
   "tags": "smush,blocky16"
  },
  {
   "addr": "004cdb80",
-  "name": "Blocky16_DecodeBlock2",
+  "name": "block16_RenderBlock2",
   "comment": "Decodes one 2x2 block (register convention in the original: ESI stream, EDI destination, EBP pitch)",
   "tags": "smush,blocky16"
  },

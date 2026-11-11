@@ -282,11 +282,14 @@ Blocky16_flobdec_GetVal
   return 0;
 }
 
-/* ---- 0x004cc6a0  Blocky16_BuildPixelOffsets ---- */
+/* ---- 0x004cc6a0  fob_blk16_configure ---- */
 /* Makes the pixel offsets of the split masks and the motion vectors for a frame width, once per
-   width */
+   width Original name fob_blk16_configure (the remaster's GrimFandango (Linux): same body (skips
+   when the width equals the static old_mod, rebuilds the motion offsets and the 4x4 / 8x8 tile
+   tables for the width); the same call in the decoder when header +0x10 is 0, before the two
+   gra_SetBuffer calls); was Blocky16_BuildPixelOffsets. */
 
-void Blocky16_BuildPixelOffsets(uint param_1)
+void fob_blk16_configure(uint param_1)
 
 {
   int iVar1;
@@ -299,8 +302,8 @@ void Blocky16_BuildPixelOffsets(uint param_1)
   short sVar8;
   byte *pbVar9;
   
-  if (param_1 != UINT_004f38e4) {
-    UINT_004f38e4 = param_1;
+  if (param_1 != g_dwFob_blk16_configure_old_mod) {
+    g_dwFob_blk16_configure_old_mod = param_1;
     psVar2 = &DAT_004f34e8;
     psVar4 = &g_asBlockyMotion;
     do {
@@ -736,7 +739,7 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
     Blocky16_BuildExpandTable(dst);
   }
   if (*(short *)(hdr + 0x10) == 0) {
-    Blocky16_BuildPixelOffsets(uVar8);
+    fob_blk16_configure(uVar8);
     gra_SetBuffer(g_pFob_blk16_key_buffer,g_pBlkBitmap0,g_pBlkBitmap0[1] * g_pBlkBitmap0[2],
                   hdr + 0x20);
     gra_SetBuffer(g_pFob_blk16_delta_buffer,g_pBlkBitmap0,g_pBlkBitmap0[1] * g_pBlkBitmap0[2],
@@ -828,7 +831,7 @@ LAB_004ccf67:
       if (((g_pbBlkOutput == (byte *)*g_pBlkBitmap0) ||
           (piVar9 = g_pBlkBitmap1, g_pbBlkOutput == (byte *)*g_pBlkBitmap1)) ||
          (piVar9 = g_pBlkBitmap2, g_pbBlkOutput == (byte *)*g_pBlkBitmap2)) {
-        Video_BlitConvert(dst,clip,x,y,piVar9,palette,pbVar5);
+        gra_BlitRectLookup(dst,clip,x,y,piVar9,palette,pbVar5);
       }
       palette = 1;
     }
@@ -891,8 +894,8 @@ void Blocky16_BuildExpandTable(void *param_1)
     for (local_8 = 0; (int)local_8 < 0x10000; local_8 = local_8 + 1) {
       *(undefined2 *)(g_pbBlkExpand + local_8 * 2) = (undefined2)local_8;
     }
-    VideoBitmap_ConvertPixels
-              (g_pbBlkExpand,g_pBlkBitmap0,0x10000,(byte *)0x0,g_pbBlkExpand,param_1,(byte *)0x0);
+    gra_ConvertCopy(g_pbBlkExpand,g_pBlkBitmap0,0x10000,(byte *)0x0,g_pbBlkExpand,param_1,
+                    (byte *)0x0);
   }
   return;
 }
@@ -1185,10 +1188,10 @@ byte * __cdecl Blocky16_DecodeBlock8(byte *src,byte *dst,int pitch)
     return pbVar12;
   }
   if (bVar1 == 0xff) {
-    Blocky16_DecodeBlock4(unaff_EDI,unaff_retaddr,(int)src);
-    Blocky16_DecodeBlock4(unaff_EDI,unaff_retaddr,(int)src);
-    Blocky16_DecodeBlock4(unaff_EDI,unaff_retaddr,(int)src);
-    pbVar11 = Blocky16_DecodeBlock4(unaff_EDI,unaff_retaddr,(int)src);
+    block16_RenderBlock4(unaff_EDI,unaff_retaddr,(int)src);
+    block16_RenderBlock4(unaff_EDI,unaff_retaddr,(int)src);
+    block16_RenderBlock4(unaff_EDI,unaff_retaddr,(int)src);
+    pbVar11 = block16_RenderBlock4(unaff_EDI,unaff_retaddr,(int)src);
     return pbVar11;
   }
   if (bVar1 < 0xfe) {
@@ -1342,14 +1345,17 @@ byte * __cdecl Blocky16_DecodeBlock8(byte *src,byte *dst,int pitch)
 #endif
 
 
-/* ---- 0x004cd9b0  Blocky16_DecodeBlock4 ---- */
+/* ---- 0x004cd9b0  block16_RenderBlock4 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Decodes one 4x4 block (register convention in the original: ESI stream, EDI destination, EBP
-   pitch) */
+   pitch) Original name block16_RenderBlock4 (the remaster's GrimFandango (Linux): the 4x4 level of
+   the blocky16 opcode decoder in both builds (0xf5 motion copy with a 16-bit offset, 0xff splits
+   into four 2x2 blocks via block16_RenderBlock2, colour / fill opcodes)); was
+   Blocky16_DecodeBlock4. */
 
-byte * __cdecl Blocky16_DecodeBlock4(byte *src,byte *dst,int pitch)
+byte * __cdecl block16_RenderBlock4(byte *src,byte *dst,int pitch)
 
 {
   byte bVar1;
@@ -1399,10 +1405,10 @@ byte * __cdecl Blocky16_DecodeBlock4(byte *src,byte *dst,int pitch)
     return pbVar13;
   }
   if (bVar1 == 0xff) {
-    Blocky16_DecodeBlock2(unaff_EDI,unaff_retaddr,(int)src);
-    Blocky16_DecodeBlock2(unaff_EDI,unaff_retaddr,(int)src);
-    Blocky16_DecodeBlock2(unaff_EDI,unaff_retaddr,(int)src);
-    pbVar11 = Blocky16_DecodeBlock2(unaff_EDI,unaff_retaddr,(int)src);
+    block16_RenderBlock2(unaff_EDI,unaff_retaddr,(int)src);
+    block16_RenderBlock2(unaff_EDI,unaff_retaddr,(int)src);
+    block16_RenderBlock2(unaff_EDI,unaff_retaddr,(int)src);
+    pbVar11 = block16_RenderBlock2(unaff_EDI,unaff_retaddr,(int)src);
     return pbVar11;
   }
   if (bVar1 < 0xfe) {
@@ -1486,14 +1492,15 @@ byte * __cdecl Blocky16_DecodeBlock4(byte *src,byte *dst,int pitch)
 #endif
 
 
-/* ---- 0x004cdb80  Blocky16_DecodeBlock2 ---- */
+/* ---- 0x004cdb80  block16_RenderBlock2 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Decodes one 2x2 block (register convention in the original: ESI stream, EDI destination, EBP
-   pitch) */
+   pitch) Original name block16_RenderBlock2 (the remaster's GrimFandango (Linux): the 2x2 level the
+   4x4 decoder calls for opcode 0xff in both builds); was Blocky16_DecodeBlock2. */
 
-byte * __cdecl Blocky16_DecodeBlock2(byte *src,byte *dst,int pitch)
+byte * __cdecl block16_RenderBlock2(byte *src,byte *dst,int pitch)
 
 {
   byte bVar1;

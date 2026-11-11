@@ -22,7 +22,7 @@ typedef struct SndVoice {           /* 0x34 bytes, array at 0x008dad58 */
     signed char volume;             /* +14 -128..127 (0x7f = full) */
     signed char pan;                /* +15 */
     byte state;                     /* +16 0 free, 1 playing, 2 started (not yet picked up by the mixer), 3 stalled */
-    byte format;                    /* +17 sample format 0..5 (see Mixer_MixVoiceByFormat) */
+    byte format;                    /* +17 sample format 0..5 (see sou_mixer_mix) */
     uint flags;                     /* +18 bits 6,7: class (0 = effects, 1 = voice-over, 2 = music), low bits: priority */
     uint id;                        /* +1c sound id (0xffffff01 = none) */
     int age;                        /* +20 grows with every new sound, reset for the newest */
@@ -840,8 +840,8 @@ void sou_engine_start_stream(byte *data, int size, int id, int volume, int pan, 
 
 typedef void (*SndMixFn)(void *data, int accumOffset, int outFrames, int srcBytes, int unused, int volume, int pan, int format);
 
-/* Called by the driver (DSound_FillStreamBuffer) for every block it needs: `frames` output frames at the driver's rate.
- * Every voice contributes the samples that belong to this time slice through mix() (Mixer_MixVoiceByFormat), after its
+/* Called by the driver (dsn_fill_thread) for every block it needs: `frames` output frames at the driver's rate.
+ * Every voice contributes the samples that belong to this time slice through mix() (sou_mixer_mix), after its
  * command stream has been run up to the next sample run. */
 void sou_engine_fill(int frames, void *mixFn)
 {

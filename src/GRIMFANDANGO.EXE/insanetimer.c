@@ -116,7 +116,7 @@ int InsaneTimer_StartThread(void)
       puVar2 = puVar2 + 8;
     } while ((int)puVar2 < IMG_ADDR(0x008da858));
     g_dwSys_timer_count = 0x4dae;
-    UINT_008da858 = CreateThread(0,0,((unsigned)(uintptr_t)InsaneTimer_ThreadProc),0,0,(int)local_4);
+    UINT_008da858 = CreateThread(0,0,((unsigned)(uintptr_t)timer_thread),0,0,(int)local_4);
     SetThreadPriority(UINT_008da858,2);
     _DAT_004f3c2c = 0xffffffff;
   }
@@ -127,26 +127,29 @@ int InsaneTimer_StartThread(void)
 #endif
 
 
-/* ---- 0x004cddf0  InsaneTimer_ThreadProc ---- */
+/* ---- 0x004cddf0  timer_thread ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Timer thread: wakes every 16 ms of timeGetTime and runs InsaneTimer_Tick */
+/* Timer thread: wakes every 16 ms of timeGetTime and runs InsaneTimer_Tick Original name
+   timer_thread (the remaster's GrimFandango (Linux): the timer thread: the 16 ms tick loop
+   (lastTime += 0x10, wait up to 10 ms) in both builds; the remaster inlined the tick
+   (InsaneTimer_Tick) into it); was InsaneTimer_ThreadProc. */
 
-undefined * __stdcall InsaneTimer_ThreadProc(int a1)
+undefined * __stdcall timer_thread(int a1)
 
 {
   int a1_00;
   int iVar1;
   
   a1_00 = CreateEventA(0,1,0,0);
-  UINT_008da864 = timeGetTime();
+  g_dwTimer_thread_lastTime = timeGetTime();
   while (UINT_008da874 != 0) {
     iVar1 = timeGetTime();
-    if ((int)(iVar1 - UINT_008da864) < 0x11) {
-      iVar1 = 0x10 - (iVar1 - UINT_008da864);
+    if ((int)(iVar1 - g_dwTimer_thread_lastTime) < 0x11) {
+      iVar1 = 0x10 - (iVar1 - g_dwTimer_thread_lastTime);
     }
     else {
-      UINT_008da864 = UINT_008da864 + 0x10;
+      g_dwTimer_thread_lastTime = g_dwTimer_thread_lastTime + 0x10;
       InsaneTimer_Tick();
       iVar1 = 10;
     }
@@ -408,7 +411,7 @@ void InsaneTimer_Tick(void)
     _DAT_008da86c = 0;
     if ((UINT_008da880 == 0) && (UINT_008da87c == 0)) {
       UINT_008da880 = 1;
-      InsaneTimer_ServiceDeferred();
+      sys_timer_dispatcher();
       UINT_008da880 = 0;
     }
   }
@@ -417,13 +420,16 @@ void InsaneTimer_Tick(void)
 #endif
 
 
-/* ---- 0x004ce1d0  InsaneTimer_ServiceDeferred ---- */
+/* ---- 0x004ce1d0  sys_timer_dispatcher ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* setjmp-protected per-tick voice servicing */
+/* setjmp-protected per-tick voice servicing Original name sys_timer_dispatcher (the remaster's
+   GrimFandango (Linux): the deferred-timer dispatcher at the end of the tick in both builds:
+   setjmp, run the timers with flags & 5 == 4, longjmp(state, 2); the remaster inlined
+   InsaneTimer_RunDeferred into it); was InsaneTimer_ServiceDeferred. */
 
-void InsaneTimer_ServiceDeferred(void)
+void sys_timer_dispatcher(void)
 
 {
   int iVar1;

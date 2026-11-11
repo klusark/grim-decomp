@@ -23,8 +23,12 @@ void Spew_Startup(void)
   return;
 }
 
-/* ---- 0x00488860  Spew_Shutdown ---- */
-void Spew_Shutdown(void)
+/* ---- 0x00488860  grimDebug_Shutdown ---- */
+/* Original name grimDebug_Shutdown (the remaster's GrimFandango (Linux): the call before
+   grimlib_Close in Main_Shutdown in both builds: the debug module's shutdown (here it unloads the
+   spew DLL; the remaster's is empty)); was Spew_Shutdown. */
+
+void grimDebug_Shutdown(void)
 
 {
   if (g_hSpewDll != (void *)0x0) {

@@ -5,8 +5,11 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00446880  Vec3_Dot ---- */
-float __cdecl Vec3_Dot(float *a,float *b)
+/* ---- 0x00446880  rdVector_Dot2 ---- */
+/* Original name rdVector_Dot2 (the remaster's GrimFandango (Linux): same body (a.x * b.x + a.y *
+   b.y: the 2D dot product)); was Vec3_Dot. */
+
+float __cdecl rdVector_Dot2(float *a,float *b)
 
 {
   return *a * *b + a[1] * b[1];
@@ -22,8 +25,11 @@ float __cdecl rdVector_Dot3(float *a,float *b)
   return *a * *b + b[2] * a[2] + a[1] * b[1];
 }
 
-/* ---- 0x004468d0  Vec3_Cross ---- */
-void __cdecl Vec3_Cross(float *out,float *a,float *b)
+/* ---- 0x004468d0  rdVector_Cross3 ---- */
+/* Original name rdVector_Cross3 (the remaster's GrimFandango (Linux): same body (out = a x b)); was
+   Vec3_Cross. */
+
+void __cdecl rdVector_Cross3(float *out,float *a,float *b)
 
 {
   *out = a[1] * b[2] - a[2] * b[1];
@@ -32,10 +38,13 @@ void __cdecl Vec3_Cross(float *out,float *a,float *b)
   return;
 }
 
-/* ---- 0x00446920  Vec3_NormalizeTo ---- */
+/* ---- 0x00446920  rdVector_Normalize3 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl Vec3_NormalizeTo(float *param_1,float *param_2)
+/* Original name rdVector_Normalize3 (the remaster's GrimFandango (Linux): same body (out = v / |v|,
+   or a copy of v when the length is 0); the remaster returns the length); was Vec3_NormalizeTo. */
+
+void __cdecl rdVector_Normalize3(float *param_1,float *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -176,8 +185,12 @@ void __cdecl rdVector_Rotate3Acc(float *vec,float *rot)
 #undef local_30
 
 
-/* ---- 0x00446bd0  Matrix_GetAngles ---- */
-void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
+/* ---- 0x00446bd0  rdVector_ExtractAngles ---- */
+/* Original name rdVector_ExtractAngles (the remaster's GrimFandango (Linux): same body (z = 0, x =
+   stdMath_ArcSin3(m[2]), y = stdMath_ArcTan4(m[1], m[0])); called by sputLua_GetLightRotation in
+   both builds); was Matrix_GetAngles. */
+
+void __cdecl rdVector_ExtractAngles(float *matrix,float *outAngles)
 
 {
   float fVar1;
@@ -185,7 +198,7 @@ void __cdecl Matrix_GetAngles(float *matrix,float *outAngles)
   outAngles[2] = 0.0;
   fVar1 = stdMath_ArcSin3(matrix[2]);
   *outAngles = fVar1;
-  fVar1 = Math_Atan2Deg(matrix[1],*matrix);
+  fVar1 = stdMath_ArcTan4(matrix[1],*matrix);
   outAngles[1] = fVar1;
   return;
 }
@@ -1120,8 +1133,12 @@ void __cdecl rdMatrix_TransformVector34(float *out,float *v,float *param_3)
   return;
 }
 
-/* ---- 0x0044ff50  Vec3_TransformTo ---- */
-void __cdecl Vec3_TransformTo(float *out,float *v,float *m)
+/* ---- 0x0044ff50  rdMatrix_TransformVectorOrtho34 ---- */
+/* Original name rdMatrix_TransformVectorOrtho34 (the remaster's GrimFandango (Linux): same body
+   (the vector times the transposed 3x3 part); called by Puck::InvXform and the collision box tests
+   in both builds); was Vec3_TransformTo. */
+
+void __cdecl rdMatrix_TransformVectorOrtho34(float *out,float *v,float *m)
 
 {
   *out = *v * *m + v[1] * m[1] + v[2] * m[2];
@@ -1285,11 +1302,13 @@ void rdFace_FreeEntry(int param_1)
   return;
 }
 
-/* ---- 0x00450290  Math3D_TriangleNormal ---- */
+/* ---- 0x00450290  rdMath_CalcSurfaceNormal ---- */
 /* Normal of the triangle (p0,p1,p2) from the normalised edges p1-p0 and p2-p0, with tiny components
-   zeroed. */
+   zeroed. Original name rdMath_CalcSurfaceNormal (the remaster's GrimFandango (Linux): same body
+   (two edge vectors from the first point, normalised, cross product, normalised, components below
+   1e-6 cleared); called by rdModel3_CalcFaceNormals in both builds); was Math3D_TriangleNormal. */
 
-void Math3D_TriangleNormal(float *param_1,float *param_2,float *param_3,float *param_4)
+void rdMath_CalcSurfaceNormal(float *param_1,float *param_2,float *param_3,float *param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1310,7 +1329,7 @@ void Math3D_TriangleNormal(float *param_1,float *param_2,float *param_3,float *p
   param_1[1] = local_18 * local_8[1] - local_14[1] * local_c;
   param_1[2] = local_14[0] * local_c - local_18 * local_8[0];
   rdVector_Normalize3Acc(param_1);
-  Vec3_ZeroSmallComponents(param_1,FBITS(0x358637bd));
+  rdMath_ClampVector(param_1,FBITS(0x358637bd));
   return;
 }
 #undef local_14
@@ -1319,10 +1338,13 @@ void Math3D_TriangleNormal(float *param_1,float *param_2,float *param_3,float *p
 #undef local_c
 
 
-/* ---- 0x00450380  Vec3_ZeroSmallComponents ---- */
-/* Sets every component whose magnitude is below the epsilon argument to 0. */
+/* ---- 0x00450380  rdMath_ClampVector ---- */
+/* Sets every component whose magnitude is below the epsilon argument to 0. Original name
+   rdMath_ClampVector (the remaster's GrimFandango (Linux): same body (every component whose
+   absolute value is below the threshold becomes 0); the remaster inlined it into
+   rdMath_CalcSurfaceNormal); was Vec3_ZeroSmallComponents. */
 
-void Vec3_ZeroSmallComponents(float *param_1,float param_2)
+void rdMath_ClampVector(float *param_1,float param_2)
 
 {
   float fVar1;

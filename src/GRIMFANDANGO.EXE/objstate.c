@@ -30,12 +30,12 @@ void * __cdecl sputRoom_AddObjectState(int setupIdx,int type,char *bitmap,char *
     return (void *)0x0;
   }
   Mem_CheckAlloc(pvVar2,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x992);
-  ObjectState_LoadImages(*(int *)(iVar1 + 0x128));
+  ObjectState_LoadResources(*(int *)(iVar1 + 0x128));
   *(int *)(*(int *)(iVar1 + 0x128) + 8) = setupIdx;
   if (visible < 0) {
     visible = (int)(type == 3);
   }
-  ObjectState_SetFrame(*(void **)(iVar1 + 0x128),visible);
+  ObjectState_SetCopyMode(*(void **)(iVar1 + 0x128),visible);
   pvVar2 = *(void **)(iVar1 + 0x128);
   return pvVar2;
 }
@@ -66,8 +66,11 @@ void __cdecl sputRoom_RemoveObjectState(void *state)
   return;
 }
 
-/* ---- 0x004aa070  StateImage_Construct ---- */
-undefined4 * __fastcall StateImage_Construct(undefined4 *param_1)
+/* ---- 0x004aa070  ObjectStateImage_Construct ---- */
+/* Original name ObjectStateImage_Construct (the remaster's GrimFandango (Linux): same body (the
+   record cleared, +0x6c = -1)); was StateImage_Construct. */
+
+undefined4 * __fastcall ObjectStateImage_Construct(undefined4 *param_1)
 
 {
   int iVar1;
@@ -86,11 +89,14 @@ undefined4 * __fastcall StateImage_Construct(undefined4 *param_1)
   return param_1;
 }
 
-/* ---- 0x004aa0b0  StateImage_Release ---- */
+/* ---- 0x004aa0b0  ObjectStateImage_Clear ---- */
 /* ObjectState.cpp: C++ image member (0x74 bytes: +4 rect, +0x14 name, +0x34 ResRef, +0x68 surface,
-   +0x6c frame, +0x70 drawn). Drops the bitmap reference and surface */
+   +0x6c frame, +0x70 drawn). Drops the bitmap reference and surface Original name
+   ObjectStateImage_Clear (the remaster's GrimFandango (Linux): same body (release the bitmap
+   reference +0x34, free the VBuffer +0x68, frame -1, empty name); SetFile and Load inline it in the
+   remaster); was StateImage_Release. */
 
-void __fastcall StateImage_Release(int param_1)
+void __fastcall ObjectStateImage_Clear(int param_1)
 
 {
   if (*(int *)(param_1 + 0x34) != 0) {
@@ -106,21 +112,26 @@ void __fastcall StateImage_Release(int param_1)
   return;
 }
 
-/* ---- 0x004aa100  StateImage_Init ---- */
-void __thiscall StateImage_Init(void *this,char *name)
+/* ---- 0x004aa100  ObjectStateImage_SetFile ---- */
+/* Original name ObjectStateImage_SetFile (the remaster's GrimFandango (Linux): same body (Clear,
+   then strncpy of the file name, 0x20 chars, to +0x14)); was StateImage_Init. */
+
+void __thiscall ObjectStateImage_SetFile(void *this,char *name)
 
 {
-  StateImage_Release((int)this);
+  ObjectStateImage_Clear((int)this);
   if (name != (char *)0x0) {
     strncpy((int)this + 0x14,name,0x20);
   }
   return;
 }
 
-/* ---- 0x004aa130  StateImage_Load ---- */
-/* Loads (or releases) the BKND bitmap named in the image and takes its position and size */
+/* ---- 0x004aa130  ObjectStateImage_Load ---- */
+/* Loads (or releases) the BKND bitmap named in the image and takes its position and size Original
+   name ObjectStateImage_Load (the remaster's GrimFandango (Linux): same body (unload, or load the
+   named bitmap into +0x34 when not loaded yet)); was StateImage_Load. */
 
-void __thiscall StateImage_Load(void *this,int load)
+void __thiscall ObjectStateImage_Load(void *this,int load)
 
 {
   void *data;
@@ -145,7 +156,7 @@ void __thiscall StateImage_Load(void *this,int load)
       *(undefined4 *)((int)this + 0xc) = *(undefined4 *)(**(int **)((int)data + 0x78) + 0xc);
       *(undefined4 *)((int)this + 0x10) = *(undefined4 *)(**(int **)((int)data + 0x78) + 0x10);
       *(undefined4 *)((int)data + 0x68) = *(undefined4 *)((int)this + 0x6c);
-      iVar1 = stdBitmap_ConvertToDisplay(data);
+      iVar1 = stdBitmap_MemUsage(data);
       *(int *)this = *(int *)this + iVar1;
       return;
     }
@@ -153,8 +164,12 @@ void __thiscall StateImage_Load(void *this,int load)
   return;
 }
 
-/* ---- 0x004aa1f0  StateImage_GetFrameSurface ---- */
-undefined4 __fastcall StateImage_GetFrameSurface(int param_1)
+/* ---- 0x004aa1f0  ObjectStateImage_VBuffer ---- */
+/* Original name ObjectStateImage_VBuffer (the remaster's GrimFandango (Linux): same body (the
+   current frame's VBuffer of the bitmap, "Bad Bitmap Reference" assert of sputResource.h, or the
+   clean copy at +0x68)); was StateImage_GetFrameSurface. */
+
+undefined4 __fastcall ObjectStateImage_VBuffer(int param_1)
 
 {
   if (-1 < *(int *)(param_1 + 0x6c)) {
@@ -179,10 +194,13 @@ undefined4 __fastcall StateImage_GetFrameSurface(int param_1)
   return *(undefined4 *)(param_1 + 0x68);
 }
 
-/* ---- 0x004aa290  StateImage_CaptureFrom ---- */
-/* Copies the image rectangle out of a surface into a private surface */
+/* ---- 0x004aa290  ObjectStateImage_SetClean ---- */
+/* Copies the image rectangle out of a surface into a private surface Original name
+   ObjectStateImage_SetClean (the remaster's GrimFandango (Linux): same body (free +0x68, a new
+   VBuffer of the bitmap's format, copy the rectangle of the given buffer into it)); was
+   StateImage_CaptureFrom. */
 
-void __thiscall StateImage_CaptureFrom(void *this,void *surface)
+void __thiscall ObjectStateImage_SetClean(void *this,void *surface)
 
 {
   void *dst;
@@ -205,8 +223,12 @@ void __thiscall StateImage_CaptureFrom(void *this,void *surface)
   return;
 }
 
-/* ---- 0x004aa310  StateImage_Draw ---- */
-void __thiscall StateImage_Draw(void *this,void *dst)
+/* ---- 0x004aa310  ObjectStateImage_Draw ---- */
+/* Original name ObjectStateImage_Draw (the remaster's GrimFandango (Linux): the image draw
+   ObjectState_Update calls in both builds (the frame, the copy into the destination, the dirty
+   rectangle); the remaster split the set-up into SetupDraw); was StateImage_Draw. */
+
+void __thiscall ObjectStateImage_Draw(void *this,void *dst)
 
 {
   int iVar1;
@@ -230,12 +252,12 @@ void __thiscall StateImage_Draw(void *this,void *dst)
       if (iVar1 == -1) {
         iVar4 = 0;
       }
-      iVar1 = StateImage_GetFrameSurface((int)this);
+      iVar1 = ObjectStateImage_VBuffer((int)this);
       if (iVar1 != 0) {
-        piVar2 = (int *)StateImage_GetFrameSurface((int)this);
+        piVar2 = (int *)ObjectStateImage_VBuffer((int)this);
         iVar1 = iVar4;
         if (*piVar2 == 2) {
-          uVar3 = StateImage_GetFrameSurface((int)this);
+          uVar3 = ObjectStateImage_VBuffer((int)this);
           sputRender_Decompress(uVar3);
           y = *(int *)(iVar5 + 0x70);
           iVar5 = *(int *)(iVar5 + 0x6c);
@@ -246,11 +268,11 @@ void __thiscall StateImage_Draw(void *this,void *dst)
           y = *(int *)(iVar5 + 0x70);
           iVar5 = *(int *)(iVar5 + 0x6c);
           piVar2 = (int *)0x0;
-          src = (void *)StateImage_GetFrameSurface((int)this);
+          src = (void *)ObjectStateImage_VBuffer((int)this);
         }
         Surface_Blit(dst,src,iVar5,y,piVar2,iVar1);
         if (iVar4 != 0) {
-          Render_InvalidateRectLastBuffer((int *)((int)this + 4),1);
+          sputRender_MarkDirtyRect((int *)((int)this + 4),1);
         }
       }
     }
@@ -258,8 +280,11 @@ void __thiscall StateImage_Draw(void *this,void *dst)
   return;
 }
 
-/* ---- 0x004aa3e0  StateImage_IsCurrentFrame ---- */
-int __fastcall StateImage_IsCurrentFrame(int param_1)
+/* ---- 0x004aa3e0  ObjectStateImage_InSync ---- */
+/* Original name ObjectStateImage_InSync (the remaster's GrimFandango (Linux): same body (the
+   bitmap's current frame +0x68 equals the drawn frame +0x6c)); was StateImage_IsCurrentFrame. */
+
+int __fastcall ObjectStateImage_InSync(int param_1)
 
 {
   if (*(char *)(param_1 + 0x14) == '\0') {
@@ -281,12 +306,12 @@ ObjectState_Construct(void *this,int type,char *bitmapName,char *zbufName,int se
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   
-  StateImage_Construct((undefined4 *)((int)this + 0xc));
-  StateImage_Construct((undefined4 *)((int)this + 0x80));
+  ObjectStateImage_Construct((undefined4 *)((int)this + 0xc));
+  ObjectStateImage_Construct((undefined4 *)((int)this + 0x80));
   *(undefined4 *)((int)this + 8) = 0xffffffff;
   *(int *)((int)this + 4) = setupIdx;
-  StateImage_Init((undefined4 *)((int)this + 0xc),bitmapName);
-  StateImage_Init((undefined4 *)((int)this + 0x80),zbufName);
+  ObjectStateImage_SetFile((undefined4 *)((int)this + 0xc),bitmapName);
+  ObjectStateImage_SetFile((undefined4 *)((int)this + 0x80),zbufName);
   *(undefined4 *)((int)this + 0xf8) = 0;
   *(undefined4 *)((int)this + 0xf4) = 0;
   if (type != 0) {
@@ -310,49 +335,62 @@ void __fastcall ObjectState_Destruct(int param_1)
   if (*(int *)(param_1 + 0xf8) != 0) {
     *(undefined4 *)(*(int *)(param_1 + 0xf8) + 0xf4) = *(undefined4 *)(param_1 + 0xf4);
   }
-  StateImage_Release(param_1 + 0x80);
-  StateImage_Release(param_1 + 0xc);
+  ObjectStateImage_Clear(param_1 + 0x80);
+  ObjectStateImage_Clear(param_1 + 0xc);
   return;
 }
 
-/* ---- 0x004aa540  ObjectState_LoadImages ---- */
-void __fastcall ObjectState_LoadImages(int param_1)
+/* ---- 0x004aa540  ObjectState_LoadResources ---- */
+/* Original name ObjectState_LoadResources (the remaster's GrimFandango (Linux): same body
+   (ObjectStateImage_Load(1) of the image +0xc and the z image +0x80)); was ObjectState_LoadImages.
+    */
+
+void __fastcall ObjectState_LoadResources(int param_1)
 
 {
-  StateImage_Load((void *)(param_1 + 0xc),1);
-  StateImage_Load((void *)(param_1 + 0x80),1);
+  ObjectStateImage_Load((void *)(param_1 + 0xc),1);
+  ObjectStateImage_Load((void *)(param_1 + 0x80),1);
   return;
 }
 
-/* ---- 0x004aa560  ObjectState_UnloadBitmaps ---- */
-void __fastcall ObjectState_UnloadBitmaps(int param_1)
+/* ---- 0x004aa560  ObjectState_UnLoadResources ---- */
+/* Original name ObjectState_UnLoadResources (the remaster's GrimFandango (Linux): the unload
+   counterpart (ObjectStateImage_Load(0) of both images; the remaster inlined it)); was
+   ObjectState_UnloadBitmaps. */
+
+void __fastcall ObjectState_UnLoadResources(int param_1)
 
 {
-  StateImage_Load((void *)(param_1 + 0xc),0);
-  StateImage_Load((void *)(param_1 + 0x80),0);
+  ObjectStateImage_Load((void *)(param_1 + 0xc),0);
+  ObjectStateImage_Load((void *)(param_1 + 0x80),0);
   return;
 }
 
-/* ---- 0x004aa580  ObjectState_CaptureBackground ---- */
-/* Type 3 states keep a copy of the background and depth under them */
+/* ---- 0x004aa580  ObjectState_Reset ---- */
+/* Type 3 states keep a copy of the background and depth under them Original name ObjectState_Reset
+   (the remaster's GrimFandango (Linux): same body (for type 3: SetClean of both images from the
+   background and the z buffer, frames -1); called by sputRender_UseSetup in both builds); was
+   ObjectState_CaptureBackground. */
 
-void __thiscall ObjectState_CaptureBackground(void *this,void *bg,void *zbuf)
+void __thiscall ObjectState_Reset(void *this,void *bg,void *zbuf)
 
 {
   if (*(int *)((int)this + 4) == 3) {
-    StateImage_CaptureFrom((void *)((int)this + 0xc),bg);
+    ObjectStateImage_SetClean((void *)((int)this + 0xc),bg);
     *(undefined4 *)((int)this + 0x78) = 0xffffffff;
-    StateImage_CaptureFrom((void *)((int)this + 0x80),zbuf);
+    ObjectStateImage_SetClean((void *)((int)this + 0x80),zbuf);
     *(undefined4 *)((int)this + 0xec) = 0xffffffff;
   }
   return;
 }
 
-/* ---- 0x004aa5c0  ObjectState_Draw ---- */
+/* ---- 0x004aa5c0  ObjectState_Update ---- */
 /* Draws the state when its type matches; type 3 only when the frame changed, invalidating its
-   rectangle */
+   rectangle Original name ObjectState_Update (the remaster's GrimFandango (Linux): same parameters
+   (type, buffer, z buffer) and body (for the matching type 3 state not in sync: draw the image and
+   the z image, mark dirty); called by sputRender_Update in both builds); was ObjectState_Draw. */
 
-void __thiscall ObjectState_Draw(void *this,int type,void *dst,void *zdst)
+void __thiscall ObjectState_Update(void *this,int type,void *dst,void *zdst)
 
 {
   bool bVar1;
@@ -362,16 +400,16 @@ void __thiscall ObjectState_Draw(void *this,int type,void *dst,void *zdst)
   if (*(int *)((int)this + 4) == type) {
     if (*(int *)((int)this + 4) == 3) {
       iVar2 = 0;
-      bVar1 = StateImage_IsCurrentFrame((int)this + 0xc);
+      bVar1 = ObjectStateImage_InSync((int)this + 0xc);
       if (((uint)(bVar1)) == 0) {
-        StateImage_Draw((void *)((int)this + 0xc),dst);
+        ObjectStateImage_Draw((void *)((int)this + 0xc),dst);
         if ((*(int *)((int)this + 0xb4) != 0) && (zdst != (void *)0x0)) {
           if (*(int *)((int)this + 0xb4) == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
           }
           *(undefined4 *)(*(int *)((int)this + 0xb8) + 0x68) = *(undefined4 *)((int)this + 0x78);
-          StateImage_Draw((void *)((int)this + 0x80),zdst);
+          ObjectStateImage_Draw((void *)((int)this + 0x80),zdst);
           iVar2 = 1;
         }
         MarkDirtyRect((int *)((int)this + 0x10),iVar2);
@@ -388,17 +426,19 @@ void __thiscall ObjectState_Draw(void *this,int type,void *dst,void *zdst)
       if ((iVar2 == -1) && (*(int *)((int)this + 0x78) != -1)) {
         MarkDirtyRect((int *)((int)this + 0x10),1);
       }
-      StateImage_Draw((void *)((int)this + 0xc),dst);
-      StateImage_Draw((void *)((int)this + 0x80),zdst);
+      ObjectStateImage_Draw((void *)((int)this + 0xc),dst);
+      ObjectStateImage_Draw((void *)((int)this + 0x80),zdst);
     }
   }
   return;
 }
 
-/* ---- 0x004aa6b0  ObjectState_SetFrame ---- */
-/* Stores the frame index into both StateImages */
+/* ---- 0x004aa6b0  ObjectState_SetCopyMode ---- */
+/* Stores the frame index into both StateImages Original name ObjectState_SetCopyMode (the
+   remaster's GrimFandango (Linux): same body (the value into +0x7c and +0xf0); called by
+   sputRoom_AddObjectState in both builds); was ObjectState_SetFrame. */
 
-int __thiscall ObjectState_SetFrame(void *this,int a1)
+int __thiscall ObjectState_SetCopyMode(void *this,int a1)
 
 {
   *(int *)((int)this + 0x7c) = a1;

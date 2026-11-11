@@ -15,7 +15,7 @@ extern uint g_dwDebugFlags; /* 0x004e8078 */
 extern float g_flAmbientLight; /* 0x004e807c */
 extern int g_nDoTheFlip; /* 0x004e8080 */
 extern int g_nSputRender_Update_RenderSetup; /* 0x004e8084 */
-extern int g_nNextPrimitiveId; /* 0x004e8394 */
+extern int g_nPrimitiveQueue_nextId; /* 0x004e8394 */
 extern int g_nSubtitleDefaultX; /* 0x004e8488 */
 extern int g_nSubtitleDefaultY; /* 0x004e848c */
 extern undefined4 g_PrintLineTextCtx; /* 0x004e8498, undefined4 in Ghidra */
@@ -52,7 +52,7 @@ extern int g_nStreamLastBlock; /* 0x004f3f94 */
 extern uint g_dwStreamRate; /* 0x004f3f98 */
 extern uint g_dwCurrentVol; /* 0x004f3f9c */
 extern int g_nStreamSavedVolume; /* 0x004f3fa0 */
-extern uint g_dwMixTableUnits; /* 0x004f40f8 */
+extern uint g_dwWaveMixCount; /* 0x004f40f8 */
 extern float g_flMain_Service_frameRate; /* 0x004f44e4 */
 extern int g_nQuitApp; /* 0x004f5a0c */
 extern int g_bWindowedMode; /* 0x004f5a20 */
@@ -183,10 +183,10 @@ extern GrimServices * g_pSputRoomHS; /* 0x008cb090 */
 extern int g_nSkipSetupBitmaps; /* 0x008cb0a0 */
 extern void * g_pRoomList; /* 0x008cb0ac */
 extern float g_vEdgeFollowDir; /* 0x008cf260 */
-extern int g_nShrinkVertexCount; /* 0x008cf270 */
-extern void * g_pShrinkVertexSave; /* 0x008cf274 */
-extern int g_nShrinkSectorCount; /* 0x008cf278 */
-extern void * g_pShrinkSectorSave; /* 0x008cf27c */
+extern int g_nVertexCacheSize; /* 0x008cf270 */
+extern void * g_pVertexCache; /* 0x008cf274 */
+extern int g_nWalkPlaneCacheSize; /* 0x008cf278 */
+extern void * g_pWalkPlaneCache; /* 0x008cf27c */
 extern void * g_pWalkPlane_wp_head; /* 0x008cf280 */
 extern GrimServices * g_pTextHS; /* 0x008d0878 */
 extern void * g_pDefaultFont; /* 0x008d0988 */
@@ -235,10 +235,10 @@ extern void * g_pStreamDS; /* 0x008dcc40 */
 extern void * g_pStreamDSPrimary; /* 0x008dcc44 */
 extern void * g_pStreamDSBuffer; /* 0x008dcc48 */
 extern int g_nStreamTimerId; /* 0x008dcc54 */
-extern uint g_dwMixChannels; /* 0x008dcc60 */
-extern void * g_pMixCompanderTable; /* 0x008dcc64 */
-extern uint g_dwMixAccumBytes; /* 0x008dcd9c */
-extern int * g_pMixAccum; /* 0x008dcdb0 */
+extern uint g_dwMixer_outChannelCount; /* 0x008dcc60 */
+extern void * g_pMixer_softLTable; /* 0x008dcc64 */
+extern uint g_dwMixer_mixBufSize; /* 0x008dcd9c */
+extern int * g_pMixer_mixBuf; /* 0x008dcdb0 */
 extern int g_nRdCache_ulcExtent; /* 0x008ddf90 */
 extern int g_nDrawBoxMinY; /* 0x008ddf94 */
 extern int g_nRdCache_lrcExtent; /* 0x008ddf98 */
@@ -575,7 +575,7 @@ extern undefined2 DAT_004e7944; /* used by 1 fn(s), first 0x0047fe50 */
 extern char s_allocation__magic____0x12345678_004e7948[]; /* used by 1 fn(s), first 0x0047fe20 */
 extern char s_C__grimjedi_Libs_Std_General_Std_004e7968[]; /* used by 2 fn(s), first 0x0047fe20 */
 extern char s_allocation_004e7994[]; /* used by 1 fn(s), first 0x0047fe50 */
-extern undefined *PTR_ResType_DefaultHandler_004e79ac; /* used by 2 fn(s), first 0x004801a0 */
+extern undefined *PTR_res_DefaultHandler_004e79ac; /* used by 2 fn(s), first 0x004801a0 */
 extern char s_Resource____12s__allocated___8ld_004e79f4[]; /* used by 1 fn(s), first 0x00480230 */
 extern char s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c[]; /* used by 15 fn(s), first 0x004803a0 */
 extern char s_Total___d_items___d_bytes_004e7a40[]; /* used by 1 fn(s), first 0x00480680 */
@@ -1184,7 +1184,7 @@ extern undefined4 UINT_004f34b0; /* used by 1 fn(s), first 0x004cbc00 */
 extern undefined *PTR_fob_flobdec_blocky16_module_004f34b8; /* used by 1 fn(s), first 0x004cc210 */
 extern undefined *g_pBlock16_flobdec_services; /* used by 1 fn(s), first 0x004cc210 */
 extern undefined2 DAT_004f34e8; /* used by 1 fn(s), first 0x004cc6a0 */
-extern uint UINT_004f38e4; /* used by 1 fn(s), first 0x004cc6a0 */
+extern uint g_dwFob_blk16_configure_old_mod; /* used by 1 fn(s), first 0x004cc6a0 */
 extern char s_FLOBDEC_insane_blocky16_004f39ec[]; /* used by 2 fn(s), first 0x004cc210 */
 extern char s_LECMODULE_insane_blocky16_flobde_004f3a04[]; /* used by 2 fn(s), first 0x004cc210 */
 extern char s_FlobDec_Blocky16_Module__Cannot_a_004f3a28[]; /* used by 1 fn(s), first 0x004cc2c0 */
@@ -1205,7 +1205,7 @@ extern char s_LECMODULE_insane_bitmap_004f3cec[]; /* used by 2 fn(s), first 0x00
 extern char s_Video_Module__Cannot_allocate_me_004f3d04[]; /* used by 1 fn(s), first 0x004ce350 */
 extern char s_VIDEO_getbm_004f3d34[]; /* used by 1 fn(s), first 0x004ce350 */
 extern char s_C__grimsrc_libs_lecsmush_insane__004f3d64[]; /* used by 3 fn(s), first 0x004ce3e0 */
-extern undefined DAT_004f3da0; /* used by 2 fn(s), first 0x004cf010 */
+extern undefined g_aConvert_bitmask; /* used by 2 fn(s), first 0x004cf010 */
 extern undefined g_aSou_samplesize; /* used by 1 fn(s), first 0x004d16a0 */
 extern uint g_dwSou_chans; /* used by 13 fn(s), first 0x004d0550 */
 extern uint g_dwSou_global_volume; /* used by 6 fn(s), first 0x004d0550 */
@@ -1737,7 +1737,7 @@ extern undefined DAT_008a92a8; /* used by 1 fn(s), first 0x00483f60 */
 extern undefined DAT_008a92ac; /* used by 1 fn(s), first 0x00483f60 */
 extern undefined DAT_008a92b0; /* used by 1 fn(s), first 0x00483f60 */
 extern undefined DAT_008a92b4; /* used by 1 fn(s), first 0x00483f60 */
-extern undefined DAT_008a92b8; /* used by 1 fn(s), first 0x00483ed0 */
+extern undefined g_aSputRender_MarkDirtyRect_trect; /* used by 1 fn(s), first 0x00483ed0 */
 extern undefined DAT_008a92bc; /* used by 1 fn(s), first 0x00483ed0 */
 extern undefined DAT_008a92c0; /* used by 1 fn(s), first 0x00483ed0 */
 extern undefined DAT_008a92c4; /* used by 1 fn(s), first 0x00483ed0 */
@@ -1930,16 +1930,16 @@ extern undefined4 UINT_008cf0b8; /* used by 2 fn(s), first 0x004a9430 */
 extern undefined4 UINT_008cf0c8; /* used by 1 fn(s), first 0x004a9aa0 */
 extern undefined DAT_008cf218; /* used by 1 fn(s), first 0x004a7bc0 */
 extern uint g_dwTotWorkingPathPoints; /* used by 4 fn(s), first 0x004a9420 */
-extern undefined DAT_008cf250; /* used by 1 fn(s), first 0x004a82a0 */
+extern undefined g_aPuck_Rot_ret; /* used by 1 fn(s), first 0x004a82a0 */
 extern undefined DAT_008cf264; /* used by 1 fn(s), first 0x004a7520 */
 extern undefined DAT_008cf268; /* used by 1 fn(s), first 0x004a7520 */
-extern undefined4 UINT_008cf26c; /* used by 3 fn(s), first 0x004a6380 */
+extern undefined4 g_dwWalkPlane_tot_verts; /* used by 3 fn(s), first 0x004a6380 */
 extern undefined DAT_008cf284; /* used by 1 fn(s), first 0x004a7150 */
-extern undefined4 UINT_008cf288; /* used by 3 fn(s), first 0x004a6490 */
+extern undefined4 g_dwWalkPlane_Collection; /* used by 3 fn(s), first 0x004a6490 */
 extern undefined DAT_008cf28c; /* used by 2 fn(s), first 0x004a6490 */
-extern undefined4 UINT_008d0868; /* used by 3 fn(s), first 0x004a61c0 */
-extern uint UINT_008d086c; /* used by 3 fn(s), first 0x00485dc0 */
-extern undefined4 UINT_008d0870; /* used by 1 fn(s), first 0x004a8610 */
+extern undefined4 g_dwWpCacheBuilt; /* used by 3 fn(s), first 0x004a61c0 */
+extern uint g_dwPuck_p_head; /* used by 3 fn(s), first 0x00485dc0 */
+extern undefined4 g_dwPuck_Forward_recursion_level; /* used by 1 fn(s), first 0x004a8610 */
 extern undefined g_bLookup; /* used by 6 fn(s), first 0x004aa820 */
 extern undefined DAT_008d0900; /* used by 1 fn(s), first 0x004ab5d0 */
 extern undefined DAT_008d097f; /* used by 1 fn(s), first 0x004ab5d0 */
@@ -2207,7 +2207,7 @@ extern undefined4 UINT_008da5f8; /* used by 2 fn(s), first 0x004cdd80 */
 extern undefined4 UINT_008da60c; /* used by 3 fn(s), first 0x004ce020 */
 extern undefined4 UINT_008da858; /* used by 2 fn(s), first 0x004cdd80 */
 extern uint g_dwInsaneTimer_share_config; /* used by 2 fn(s), first 0x004cdc90 */
-extern undefined4 UINT_008da864; /* used by 1 fn(s), first 0x004cddf0 */
+extern undefined4 g_dwTimer_thread_lastTime; /* used by 1 fn(s), first 0x004cddf0 */
 extern undefined4 UINT_008da868; /* used by 2 fn(s), first 0x004ce060 */
 extern undefined DAT_008da86c; /* used by 1 fn(s), first 0x004ce060 */
 extern undefined4 UINT_008da870; /* used by 1 fn(s), first 0x004ce060 */
@@ -2534,7 +2534,7 @@ extern undefined4 UINT_009014e0; /* used by 1 fn(s), first 0x00477390 */
 extern undefined DAT_009014e4; /* used by 1 fn(s), first 0x00477390 */
 extern undefined4 UINT_009014e8; /* used by 2 fn(s), first 0x00477390 */
 extern undefined DAT_009014ec; /* used by 1 fn(s), first 0x00477390 */
-extern undefined4 UINT_00901500; /* used by 5 fn(s), first 0x00476f10 */
+extern undefined4 g_dwStdControl_aAxes; /* used by 5 fn(s), first 0x00476f10 */
 extern undefined4 UINT_00901504; /* used by 1 fn(s), first 0x00477e70 */
 extern undefined DAT_00901508; /* used by 1 fn(s), first 0x00477e70 */
 extern undefined DAT_0090150c; /* used by 2 fn(s), first 0x00477160 */
@@ -2861,7 +2861,7 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_008a92ac (*(undefined4 *)&DAT_008a92ac) /* same address as DAT_008a92ac, other width */
 #define _DAT_008a92b0 (*(undefined4 *)&DAT_008a92b0) /* same address as DAT_008a92b0, other width */
 #define _DAT_008a92b4 (*(undefined4 *)&DAT_008a92b4) /* same address as DAT_008a92b4, other width */
-#define _DAT_008a92b8 (*(undefined4 *)&DAT_008a92b8) /* same address as DAT_008a92b8, other width */
+#define _g_aSputRender_MarkDirtyRect_trect (*(undefined4 *)&g_aSputRender_MarkDirtyRect_trect) /* same address as g_aSputRender_MarkDirtyRect_trect, other width */
 #define _DAT_008a92bc (*(undefined4 *)&DAT_008a92bc) /* same address as DAT_008a92bc, other width */
 #define _DAT_008a92c0 (*(undefined4 *)&DAT_008a92c0) /* same address as DAT_008a92c0, other width */
 #define _DAT_008a92c4 (*(undefined4 *)&DAT_008a92c4) /* same address as DAT_008a92c4, other width */

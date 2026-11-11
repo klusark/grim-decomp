@@ -277,13 +277,13 @@ undefined4 __cdecl SoundStopVoiceStream(void); /* 0x10008970 */
 uint SoundGetVoiceTime(void); /* 0x10008990 */
 
 /* ===== imuse_sounds.c ===== */
-undefined4 __cdecl iMUSE_sounds__9e10(undefined *param_1); /* 0x10009e10 */
-undefined4 __cdecl iMUSE_sounds__9e40(undefined *param_1,int param_2,int param_3); /* 0x10009e40 */
+undefined4 __cdecl iRes_FTELL(undefined *param_1); /* 0x10009e10 */
+undefined4 __cdecl iRes_FSEEK(undefined *param_1,int param_2,int param_3); /* 0x10009e40 */
 int __cdecl iMUSE_sounds__9eb0(int param_1,uint param_2); /* 0x10009eb0 */
 int __cdecl FUN_10009ef0(uint param_1,uint *param_2); /* 0x10009ef0 */
-undefined4 FUN_10009f10(undefined4 param_1); /* 0x10009f10 */
+undefined4 iMUSE_Malloc(undefined4 param_1); /* 0x10009f10 */
 void FUN_10009f40(int param_1); /* 0x10009f40 */
-void FUN_1000a010(undefined4 param_1); /* 0x1000a010 */
+void iMUSE_Free(undefined4 param_1); /* 0x1000a010 */
 void FUN_1000a030(int param_1); /* 0x1000a030 */
 
 /* ===== imuse_stream.c ===== */

@@ -5,10 +5,14 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00409d50  rdPrimit3_DrawPolygon ---- */
+/* ---- 0x00409d50  rdCache_InsertFace ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
+/* Original name rdCache_InsertFace (the remaster's GrimFandango (Linux): same body (the vertices
+   through the current camera, their centre, a new proc face of the material, the face normal from a
+   cross product, rdCache_AddProcFace)); was rdPrimit3_DrawPolygon. */
+
+void * __cdecl rdCache_InsertFace(float *verts,int count,void *material)
 
 {
   unsigned char _frame[0x340] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -92,7 +96,7 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts,int count,void *material)
   fStack_30c = fStack_2e8 - fStack_2f4;
   fStack_308 = fStack_2e4 - fStack_2f0;
   fStack_304 = fStack_2e0 - fStack_2ec;
-  Vec3_Cross(&fStack_318,&fStack_324,&fStack_30c);
+  rdVector_Cross3(&fStack_318,&fStack_324,&fStack_30c);
   puVar2[0x14] = (uint)(0.0 < fStack_310 * (local_330[2] / fVar1) +
                               fStack_314 * (local_330[1] / fVar1) +
                               fStack_318 * (local_330[0] / fVar1));

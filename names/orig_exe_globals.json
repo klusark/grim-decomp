@@ -2358,7 +2358,7 @@
   "global": "g_dwRdroid_curRenderOptions",
   "oldtype": "uint",
   "names_only": true,
-  "comment": "Renderer option bits set by rdroid_SetRenderFlags Original name rdroid_curRenderOptions (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in rdModel3_DrawMeshImpl, rdModel3_DrawFace, rdSprite_Draw); was g_dwRdroidFlags."
+  "comment": "Renderer option bits set by rdSetRenderOptions Original name rdroid_curRenderOptions (the remaster's GrimFandango (Linux): 4/4 aligned uses (of 4 for the symbol) in rdModel3_DrawMeshImpl, rdModel3_DrawFace, rdSprite_Draw); was g_dwRdroidFlags."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

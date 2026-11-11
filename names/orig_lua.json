@@ -942,7 +942,7 @@
   "addr": "1000cb80",
   "old": "ltm__cb80",
   "name": "luaT_travtagmethods",
-  "comment": "Original name luaT_travtagmethods (the remaster's libLua.so: string 'error', callers lua_collectgarbage (luaC_markall) and lua_getobjname); was ltm__cb80."
+  "comment": "Original name luaT_travtagmethods (the remaster's libLua.so: string 'error', callers lua_collectgarbage (markall) and lua_getobjname); was ltm__cb80."
  },
  {
   "program": "/LUA.DLL",

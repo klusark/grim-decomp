@@ -21,9 +21,9 @@ static inline float cr_st_f(long double x)
     return f;
 }
 
-/* Math_PowInt's result as the x87 register it is returned in (not rounded to float by the caller) */
-extern long double cr_PowInt(float x, int n) __asm__("_Math_PowInt");
-extern long double cr_NormalizeAngle360(float a) __asm__("_Math_NormalizeAngle360");
+/* stdMath_FlexPower's result as the x87 register it is returned in (not rounded to float by the caller) */
+extern long double cr_PowInt(float x, int n) __asm__("_stdMath_FlexPower");
+extern long double cr_NormalizeAngle360(float a) __asm__("_stdMath_NormalizeAngle");
 
 /* FSQRT of a float argument, the x87 result as it is */
 static inline long double cr_fsqrt(float x)
@@ -49,8 +49,8 @@ __asm__(".text\n"
         "    fsqrt\n"
         "    ret\n");
 
-/* Math_PowInt (0x47bbe0): x^n by n - 1 multiplications, each stored to the float result (the first is x's dword) */
-float Math_PowInt(float x, int n)
+/* stdMath_FlexPower (0x47bbe0): x^n by n - 1 multiplications, each stored to the float result (the first is x's dword) */
+float stdMath_FlexPower(float x, int n)
 {
     float r;
     int i;
@@ -60,8 +60,8 @@ float Math_PowInt(float x, int n)
     return r;
 }
 
-/* Math_AsinDegrees (0x47c3b0): asin(x) in degrees, x - x^3 series near 0, through sqrt(1 - x^2) near 1 */
-float Math_AsinDegrees(float x)
+/* stdMath_ArcSin1 (0x47c3b0): asin(x) in degrees, x - x^3 series near 0, through sqrt(1 - x^2) near 1 */
+float stdMath_ArcSin1(float x)
 {
     float ax, v;
     int neg = CR_LT_U(x, CR_FLT(0x004d872c));
@@ -100,9 +100,9 @@ float stdMath_ArcSin3(float x)
     return neg ? -v : v;
 }
 
-/* Math_NormalizeAngle180 (0x47bce0): the angle in (-180, 180]; the compare uses Math_NormalizeAngle360's x87 result,
+/* stdMath_NormalizeAngleAcute (0x47bce0): the angle in (-180, 180]; the compare uses stdMath_NormalizeAngle's x87 result,
  * the arithmetic its float copy */
-float Math_NormalizeAngle180(float a)
+float stdMath_NormalizeAngleAcute(float a)
 {
     long double r = cr_NormalizeAngle360(a);
     float v = cr_st_f(r);
@@ -111,13 +111,13 @@ float Math_NormalizeAngle180(float a)
     return v;
 }
 
-/* Math_Atan2Deg (0x47c5f0): atan2 in degrees from a series, with the original's sign convention (0 is +y, the result
+/* stdMath_ArcTan4 (0x47c5f0): atan2 in degrees from a series, with the original's sign convention (0 is +y, the result
  * negated for x >= 0). Every compare of the original is FCOMP + TEST AH: the decompiled C read them as ordinary C
  * compares, which are false for a NaN where the original's are true. With NaN coordinates (the look-at of a head whose
  * target is straight ahead or behind: Actor_UpdateLookAt rotates about a zero axis) the original takes the "x == 0 and
  * y == 0" branch and returns 0, and the head stays at rest; the C went on and turned the head (grim_tools/cleanroom
  * head_look_front, head_look_behind). Written from the machine code, with its stores to float slots. */
-float Math_Atan2Deg(float y, float x)
+float stdMath_ArcTan4(float y, float x)
 {
     float ay, ax, q, t28, t2c, t30, c;
     int negY, negX;
@@ -155,9 +155,9 @@ float Math_Atan2Deg(float y, float x)
 }
 
 /* sputActor_DrawToClean (0x4937c0, Lua ActorToClean): draws the actor's costumes into the clean background with the colormap of
- * the actor (or of the set). The original pushes (colormap + 0x30, 0) for Render_GetUserCallback, which takes no
+ * the actor (or of the set). The original pushes (colormap + 0x30, 0) for sputRender_SetPaletteFunc, which takes no
  * arguments and returns the palette callback (0x8c97b8), then calls that callback with the same two words still on the
- * stack (CALL EAX; ADD ESP,8). The decompiled C passed the two words to Render_GetUserCallback and called the callback
+ * stack (CALL EAX; ADD ESP,8). The decompiled C passed the two words to sputRender_SetPaletteFunc and called the callback
  * with none, so it read whatever was on the stack. */
 void __cdecl sputActor_DrawToClean(void *actor)
 {
@@ -193,7 +193,7 @@ void __cdecl sputActor_DrawToClean(void *actor)
             (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
     }
     cmap = pal[1];
-    ((void (*)(int, int))Render_GetUserCallback())(cmap + 0x30, 0);
+    ((void (*)(int, int))sputRender_SetPaletteFunc())(cmap + 0x30, 0);
     if (*(int *)((int)actor + 0x30) != 0x3f800000) {
         scale[0] = scale[1] = scale[2] = *(int *)((int)actor + 0x30);
         rdMatrix_PreScale34(sputActor_GetOrientMatrix(actor), (undefined4)scale);
@@ -265,20 +265,20 @@ int __cdecl res_FindInternalFile(char *name, void *outEntry)
     return found;
 }
 
-/* Sector_ClampPoint (0x4a6b30, __thiscall sector, point): moves `pt` onto the sector's edge it is outside of (for each
+/* WalkPlane_ClosestPoint (0x4a6b30, __thiscall sector, point): moves `pt` onto the sector's edge it is outside of (for each
  * edge prev -> cur with the point on its outer side, the foot of the perpendicular; clamped to the edge's ends). The
  * decompiled C rounded every intermediate to float and used C compares; the original keeps the distance, the edge
  * length and the new x on the x87 stack, rounds only where it stores (n0 = -dy, n1 = dx, d, the new y), compares
  * unordered-aware, and copies an end vertex as three dwords. With huge coordinates (GetShrinkPos(0, 1e30, 0)) the values
  * overflow to inf / NaN and only that order gives the original's point (grim_tools/cleanroom args_GetShrinkPos_p1_big). */
-int __thiscall Sector_ClampPoint(void *this, int a1)
+int __thiscall WalkPlane_ClosestPoint(void *this, int a1)
 {
     float *pt = (float *)a1, *prev, *cur;
     float n0, n1, d, sy, e24;
     long double dist, L, sel, t, nx, ny, ex, r;
     int i;
 
-    Sector_FixPlaneCoordinate(this, a1);
+    WalkPlane_Project(this, a1);
     prev = (float *)(*(int *)((int)this + *(int *)((int)this + 0x34) * 4 + 0x34) + 4);
     for (i = 0; i < *(int *)((int)this + 0x34); i++, prev = cur) {
         cur = (float *)(*(int *)((int)this + 0x38 + i * 4) + 4);
@@ -314,7 +314,7 @@ int __thiscall Sector_ClampPoint(void *this, int a1)
             ((uint *)pt)[1] = ((uint *)prev)[1];
             ((uint *)pt)[2] = ((uint *)prev)[2];
         } else {
-            Sector_FixPlaneCoordinate(this, a1);
+            WalkPlane_Project(this, a1);
         }
     }
     return *(int *)((int)this + 0x34);

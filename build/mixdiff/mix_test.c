@@ -5,7 +5,7 @@
 #include <string.h>
 #include <stdint.h>
 
-extern int *g_pMixAccum;
+extern int *g_pMixer_mixBuf;
 #define DECL(name, srct, ...) \
     extern void orig_##name(srct *, int, unsigned, int, __VA_ARGS__); \
     extern void name(srct *, int, unsigned, int, __VA_ARGS__);
@@ -46,7 +46,7 @@ int main(int argc, char **argv)
         for (int i = 0; i < SRCB + 64; i++) srcbuf[i] = (unsigned char)((rnd() & 7) == 0 ? (rnd() & 1 ? 0x80 : 0x7f) : rnd());
         for (unsigned i = 0; i < sizeof accA / 4; i++) accA[i] = accB[i] = (int)rnd();
         unsigned char *src = srcbuf + sh;
-        g_pMixAccum = accA; int *ga = accA;
+        g_pMixer_mixBuf = accA; int *ga = accA;
         switch (f) {
         case 0: orig_Mixer_Mix8MonoLR(src, count, rate, off, volL, volR); break;
         case 1: orig_Mixer_Mix8Mono(src, count, rate, off, volL); break;
@@ -57,7 +57,7 @@ int main(int argc, char **argv)
         case 6: orig_Mixer_MixStereoLR_B((unsigned short *)src, count, rate, off, volL, volR); break;
         case 7: orig_Mixer_MixStereo_B((unsigned short *)src, count, rate, off, volL); break;
         }
-        g_pMixAccum = accB; (void)ga; if (neg) volL += 1;
+        g_pMixer_mixBuf = accB; (void)ga; if (neg) volL += 1;
         switch (f) {
         case 0: Mixer_Mix8MonoLR(src, count, rate, off, volL, volR); break;
         case 1: Mixer_Mix8Mono(src, count, rate, off, volL); break;

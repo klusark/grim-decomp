@@ -1744,7 +1744,7 @@ int __cdecl lua_collectgarbage(int param_1)
   
                     /* 0x4ee0  17  lua_collectgarbage */
   iVar1 = g_dwLState_nblocks;
-  luaC_markall();
+  markall();
   invalidaterefs();
   puVar2 = (undefined4 *)luaS_collector();
   puVar3 = (undefined4 *)listcollect(&g_dwLState_roottable);

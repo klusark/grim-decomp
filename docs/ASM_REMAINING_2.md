@@ -23,11 +23,11 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 004a26b0 | `sputLua_RestoreCacheRect` | lua.c | register-passed value or callee-saved register used across a call (unaff_ESI) |
 | 004a4e80 | `SetSoundPosition` | sound.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: unaff_EBP,unaff_ESI,_ftol(); register-passed value or callee-saved register used across a call (unaff_EBP,unaff_ESI) |
 | 004a5d50 | `sputRoom_AddObjectState` | objstate.c | C++ exception frame (SEH registration) around allocations |
-| 004a7bc0 | `ParseCollection` | sector.c | C++ exception frame (SEH registration) around allocations; calls a function whose result Ghidra does not see (Sector_SetSavedType) |
+| 004a7bc0 | `ParseCollection` | sector.c | C++ exception frame (SEH registration) around allocations; calls a function whose result Ghidra does not see (WalkPlane_SetType) |
 | 004a83c0 | `Puck_Rotate` | walker.c | not converted yet (no known artifact); see notes below |
 | 004a85b0 | `Puck_Constrain` | walker.c | not converted yet (no known artifact); see notes below |
-| 004a89b0 | `Walker_SetSectorFrame` | walker.c | not converted yet (no known artifact); see notes below |
-| 004a8b00 | `Walker_DrawDebugAxes` | walker.c | register-passed value or callee-saved register used across a call (in_ECX) |
+| 004a89b0 | `Puck_OrientToPlane` | walker.c | not converted yet (no known artifact); see notes below |
+| 004a8b00 | `Puck_Draw` | walker.c | register-passed value or callee-saved register used across a call (in_ECX) |
 | 004a9d00 | `ShrinkBoxes` | sector.c | address of a parameter slot is taken (scanf-style outputs / reused slots); address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 004aa410 | `ObjectState_Construct` | objstate.c | C++ exception frame (SEH registration) around allocations |
 | 004aa4c0 | `ObjectState_Destruct` | objstate.c | C++ exception frame (SEH registration) around allocations |
@@ -46,10 +46,10 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 004ce1d0 | `Mixer_ServiceVoices` | mixer.c | not converted yet (no known artifact); see notes below |
 | 004ce260 | `Mixer_ScheduleVoices` | mixer.c | not converted yet (no known artifact); see notes below |
 | 004d0cf0 | `sou_engine_QueryTime` | sound.c | x87 value crosses an instruction/call boundary (Ghidra loses ST0: _ftol(); a parameter slot is reused for a float |
-| 004d27d0 | `DSound_FillStreamBuffer` | mixer.c | not converted yet (no known artifact); see notes below |
+| 004d27d0 | `dsn_fill_thread` | mixer.c | not converted yet (no known artifact); see notes below |
 | 004d2c60 | `DSound_GetPlayBlock` | mixer.c | not converted yet (no known artifact); see notes below |
-| 004d2e60 | `Mixer_Output` | mixer.c | not converted yet (no known artifact); see notes below |
-| 004d3010 | `Mixer_ClearAccumulator` | mixer.c | not converted yet (no known artifact); see notes below |
+| 004d2e60 | `sou_mixer_end` | mixer.c | not converted yet (no known artifact); see notes below |
+| 004d3010 | `sou_mixer_start` | mixer.c | not converted yet (no known artifact); see notes below |
 | 004d3040 | `Mixer_MixVoice` | mixer.c | not converted yet (no known artifact); see notes below |
 | 004d31d0 | `Mixer_ConvertTo16` | mixer.c | not converted yet (no known artifact); see notes below |
 | 004d3240 | `Mixer_Mix8MonoLR` | mixer.c | not converted yet (no known artifact); see notes below |
@@ -259,13 +259,13 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 10009710 | `iRes_FOPEN` | imuse.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
 | 10009b20 | `iRes_FCLOSE` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10009b90 | `iRes_FREAD` | imuse.c | not converted yet (no known artifact); see notes below |
-| 10009e10 | `iMUSE_sounds__9e10` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
-| 10009e40 | `iMUSE_sounds__9e40` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
+| 10009e10 | `iRes_FTELL` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
+| 10009e40 | `iRes_FSEEK` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
 | 10009eb0 | `iMUSE_sounds__9eb0` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
 | 10009ef0 | `FUN_10009ef0` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
-| 10009f10 | `FUN_10009f10` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
+| 10009f10 | `iMUSE_Malloc` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
 | 10009f40 | `FUN_10009f40` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
-| 1000a010 | `FUN_1000a010` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
+| 1000a010 | `iMUSE_Free` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
 | 1000a030 | `FUN_1000a030` | imuse_sounds.c | not converted yet (no known artifact); see notes below |
 | 1000a070 | `iMUSE_DeclareBufferSizes` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000a0f0 | `iMUSE_GetMemoryFootprint` | imuse.c | not converted yet (no known artifact); see notes below |
@@ -406,7 +406,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 - IMUSE.DLL stays fully assembled (280).  Converting its functions to C passes the iMUSE API trace but makes the scripted `unit`
   tier crash in the engine (an out-of-bounds write while a set loads); even the 191-function subset that an earlier, flawed bisect
   accepted fails it.  The cause was not found (the engine also has latent use-after-free crashes under a debugger, in
-  Sector_ClipPolygon, with the all-assembly build), so no IMUSE function was converted.
+  WalkPlane_ClipPoly, with the all-assembly build), so no IMUSE function was converted.
 - LUA.DLL: the 7 former exception-frame functions (luaD_call, lua_Restore, LState_Restore, lua_newstate, ExecutionState_Restore, ExecutionState_New,
   luaI_startscript), luaY_lex, luaY_parse, match, string.format, tostring, the undump helpers and lua_printstack are C now
   (hand-written ones are in build/overrides.c, blocks marked `agentJ`).  Remaining: setjmp users (lua_updatetasks,

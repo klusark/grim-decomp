@@ -37,7 +37,7 @@ GROUPS = {
         ("Update: scale test != (NaN calls)", "if (Q3_NE_ORD(v[0], 0.0f) ||", "if (v[0] != 0.0f ||"),
         ("Update: second priority after demotion", "                    pri1 = pri0;\n                    pri0 = pri;", "                    pri1 = pri;\n                    pri0 = pri;"),
         ("Update: lower priority test <=", "                if (pri < pri1)\n", "                if (pri <= pri1)\n"),
-        ("Update: Normalize result not rounded", "r[1] = q3_f(Math_NormalizeAngle180(r[1]));", "r[1] = q3_f((long double)Math_NormalizeAngle180(r[1]) + 0.0L);"),
+        ("Update: Normalize result not rounded", "r[1] = q3_f(stdMath_NormalizeAngleAcute(r[1]));", "r[1] = q3_f((long double)stdMath_NormalizeAngleAcute(r[1]) + 0.0L);"),
     ]),
     "model": ("build/difftest/asm_q3/model_test.c", ["rdModel3_LoadText", "FUN_004addf0"], [
         ("Load: +0x3c cleared for 4 bytes per vertex", "for (i = 0; i < nv; i++)    /* nv bytes", "for (i = 0; i < nv * 4; i++)    /* nv bytes"),

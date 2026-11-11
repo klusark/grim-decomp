@@ -57,7 +57,7 @@ void Actor_DrawDebugWalker(void *param_1)
   if (*(int *)((int)param_1 + 0xa4) != 0) {
     this = *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4);
     if (this != (void *)0x0) {
-      Walker_DrawDebugAxes(this,UINT_008c97e0 & 0xffff);
+      Puck_Draw(this,UINT_008c97e0 & 0xffff);
     }
     if ((*(byte *)((int)param_1 + 8) & 1) != 0) {
       iVar1 = *(int *)((int)param_1 + 0xa4);
@@ -519,11 +519,11 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
       rdMatrix_TransformPoint34(afStack_a8,pfVar6,afStack_90);
       rdVector_Normalize3Acc(afStack_a8);
     }
-    Vec3_Cross(afStack_9c,local_c0,afStack_a8);
+    rdVector_Cross3(afStack_9c,local_c0,afStack_a8);
     rdVector_Normalize3Acc(afStack_9c);
     fStack_c8 = *(float *)(iVar1 + 0x18) * dt;
-    fVar10 = Vec3_Dot(local_c0,afStack_a8);
-    fVar10 = Math_AsinDegrees(fVar10);
+    fVar10 = rdVector_Dot2(local_c0,afStack_a8);
+    fVar10 = stdMath_ArcSin1(fVar10);
     fVar10 = 90.0 - fVar10;
     fVar3 = fVar10;
     if (fVar10 < 0.0) {
@@ -540,7 +540,7 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
     }
     rdMatrix_BuildFromVectorAngle34(afStack_30,afStack_9c,fStack_c8);
     rdMatrix_TransformPoint34Acc(local_c0,afStack_30);
-    Matrix_GetAngles(local_c0,&fStack_b4);
+    rdVector_ExtractAngles(local_c0,&fStack_b4);
     if ((*(byte *)((int)actor + 8) & 2) == 0) {
       iVar9 = 3;
       do {
@@ -900,7 +900,7 @@ void sputActor_EnablePuck(void *param_1,int param_2)
   p = (void *)0x0;
   if ((param_2 == 0) &&
      (pvVar1 = *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4), pvVar1 != (void *)0x0)) {
-    Walker_Destroy((int)pvVar1);
+    Puck_Destruct((int)pvVar1);
     Plat_Free(pvVar1);
     *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = 0;
     return;
@@ -908,7 +908,7 @@ void sputActor_EnablePuck(void *param_1,int param_2)
   if (*(int *)(*(int *)((int)param_1 + 0xa4) + 0x1b4) == 0) {
     pvVar1 = Plat_Alloc(0x60);
     if (pvVar1 != (void *)0x0) {
-      p = Walker_Create(pvVar1,*(float *)(*(int *)((int)param_1 + 0xa4) + 0x1c0));
+      p = Puck_Construct(pvVar1,*(float *)(*(int *)((int)param_1 + 0xa4) + 0x1c0));
     }
     Mem_CheckAlloc(p,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x665);
     Puck_SetPos(p,(float *)((int)param_1 + 0xc));
@@ -991,7 +991,7 @@ void sputActor_SetActorRotation(int param_1,undefined4 *param_2,int param_3)
     local_24[0] = local_24[0] + *this;
     local_24[1] = this[1] + local_24[1];
     local_24[2] = this[2] + local_24[2];
-    Walker_ToLocalSpace(this,local_24);
+    Puck_InvXform(this,local_24);
     local_24[2] = 0.0;
     rdVector_Normalize3Acc(local_24);
     fVar3 = stdMath_ArcSin3(local_24[1]);
@@ -1040,8 +1040,13 @@ void __cdecl sputActor_SetReflection(void *actor,float angle)
   return;
 }
 
-/* ---- 0x00490b50  Actor_SetTurnChores ---- */
-void __cdecl Actor_SetTurnChores(void *actor,int leftChore,int rightChore,void *costume)
+/* ---- 0x00490b50  sputActor_SetTurnChores ---- */
+/* Original name sputActor_SetTurnChores (the remaster's GrimFandango (Linux): same body (stop the
+   old left / right turn chores of the costume and keep their play state, store the new ones at
+   +0x2c / +0x30); called by sputLua_SetActorTurnChoresL in both builds); was Actor_SetTurnChores.
+    */
+
+void __cdecl sputActor_SetTurnChores(void *actor,int leftChore,int rightChore,void *costume)
 
 {
   int *piVar1;
@@ -1279,12 +1284,12 @@ void Actor_UpdateWalker(int param_1)
       turnRightOk = 1;
       turnLeftOk = 1;
     }
-    puVar3 = Walker_WalkSectors(*(void **)(iVar2 + 0x1b4),
-                                fVar5 * *(float *)(iVar2 + 0x41c) * *(float *)(iVar2 + 0x18),
-                                turnLeftOk,turnRightOk);
+    puVar3 = Puck_Forward(*(void **)(iVar2 + 0x1b4),
+                          fVar5 * *(float *)(iVar2 + 0x41c) * *(float *)(iVar2 + 0x18),turnLeftOk,
+                          turnRightOk);
     *(undefined **)(*(int *)(param_1 + 0xa4) + 0xc) = puVar3;
   }
-  uVar4 = Walker_UpdateYaw(param_1,puVar1);
+  uVar4 = sputActor_AlignToPuck(param_1,puVar1);
   *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x20) = uVar4;
   iVar2 = *(int *)(param_1 + 0xa4);
   if ((*(int *)(iVar2 + 0x10) == 0) && (*(int *)(iVar2 + 0x20) == 0)) {
@@ -1955,8 +1960,12 @@ void __cdecl sputActor_SetShadowPoint(void *actor,float x,float y,float z)
   return;
 }
 
-/* ---- 0x00493630  Actor_SetShadowValid ---- */
-void __cdecl Actor_SetShadowValid(void *actor,int shadowIdx,int valid)
+/* ---- 0x00493630  sputActor_SetShadowValid ---- */
+/* Original name sputActor_SetShadowValid (the remaster's GrimFandango (Linux): same body (stores
+   the flag into the actor's shadow record shadowIdx * 0x54); called by sputLua_SetActorShadowValid
+   in both builds); was Actor_SetShadowValid. */
+
+void __cdecl sputActor_SetShadowValid(void *actor,int shadowIdx,int valid)
 
 {
   *(int *)(*(int *)((int)actor + 0xa4) + 0x1fc + shadowIdx * 0x54) = valid;
@@ -2139,7 +2148,7 @@ void __cdecl sputActor_DrawToClean(void *actor)
       }
       iVar2 = piVar10[1];
     }
-    pcVar8 = (code *)((code *)Render_GetUserCallback)(iVar2 + 0x30,0);
+    pcVar8 = (code *)((code *)sputRender_SetPaletteFunc)(iVar2 + 0x30,0);
     (*pcVar8)();
     iVar2 = *(int *)((int)actor + 0x30);
     if (iVar2 != 0x3f800000) {
@@ -2267,7 +2276,7 @@ void __cdecl sputActor_FreeActor(void *actor)
   if (*(int *)((int)actor + 0xa4) != 0) {
     p = *(void **)(*(int *)((int)actor + 0xa4) + 0x1b4);
     if (p != (void *)0x0) {
-      Walker_Destroy((int)p);
+      Puck_Destruct((int)p);
       Plat_Free(p);
       *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1b4) = 0;
     }
@@ -2392,7 +2401,7 @@ void sputCostume_DrawMeshShadow(void *costumeList,void *shadow)
       local_c8 = (uint)lVar8;
       lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
       local_c4 = (uint)lVar8;
-      Render_InvalidateRectLastBuffer((int *)&local_d0,1);
+      sputRender_MarkDirtyRect((int *)&local_d0,1);
     }
   }
   return;
@@ -2595,7 +2604,7 @@ LAB_004951b3:
       iStack_8 = g_nRdCache_lrcExtent - g_nRdCache_ulcExtent;
       iStack_c = g_nDrawBoxMinY;
       iStack_4 = g_nDrawBoxMaxY - g_nDrawBoxMinY;
-      Render_InvalidateRectLastBuffer(&iStack_10,1);
+      sputRender_MarkDirtyRect(&iStack_10,1);
       if ((*(int *)(iVar5 + 0x40) == param_1[1]) && (piVar1 != (int *)0x0)) {
         piVar1[0x1b] = iStack_10;
         piVar1[0x1c] = iStack_c;
@@ -2761,16 +2770,16 @@ float __thiscall Puck_GetYawToPoint(void *this,float *point)
   local_14 = point[1];
   local_10 = PUN(uint,(float)point[2]);
   if (*(void **)((int)this + 0x5c) != (void *)0x0) {
-    Sector_FixPlaneCoordinate(*(void **)((int)this + 0x5c),(int)&local_18);
+    WalkPlane_Project(*(void **)((int)this + 0x5c),(int)&local_18);
   }
-  Walker_ToLocalSpace(this,&local_18);
+  Puck_InvXform(this,&local_18);
   rdVector_Normalize3Acc(&local_18);
   fVar2 = stdMath_ArcSin3(local_14);
   point = PUN(float *,(float)(90.0 - fVar2));
   if (0.0 < local_18) {
     point = PUN(float *,(float)(PUN(float,point) * -1.0));
   }
-  puVar1 = Walker_GetAngles((int)this);
+  puVar1 = Puck_Rot((int)this);
   return *(float *)(puVar1 + 4) + PUN(float,point);
 }
 #undef local_10

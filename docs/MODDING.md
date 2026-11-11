@@ -205,7 +205,7 @@ the archive list and are opened directly.
 **ends up in front of the ones before it**:
 
 1. the registry value `GrimDataDir` of the game key (here `C:\GOG Games\GRIMDATA\`) - skipped if equal to the working directory;
-2. the "extra data directory" (`Engine_SetExtraDataDir`, normally unset);
+2. the "extra data directory" (`grimlib_AddResourcePath`, normally unset);
 3. the **working directory** of the process.
 
 For each directory `AddResourcePath` opens every `*.LAB` in alphabetical order (later = in front: a
@@ -387,7 +387,7 @@ Names below are Ghidra names (see README for the naming conventions); `src/<PROG
 | **Sound (iMUSE)** | **`IMUSE.DLL`** (iMUSE core, `hmi.c` HMI SOS audio, streams, DirectSound), EXE `imuse.c`/`imusemodule.c`/`mixer.c`/`sound.c` (positioned sounds), Lua `Im*` | HMI libraries come from the working directory (6). |
 | **Movies (Smush)** | `movie.c` (`Movie_*`), `smush.c`, `insane.c` + `lecshare.c` (the LecShare module registry and the INSANE player), `sputsmush.c` | `GRIM_NOMOVIE=1` skips them; Lua: `StartMovie`, `StartFullscreenMovie`. |
 | **Text, fonts, localisation** | `text.c` (`Text_*`, `Text_LoadNativeFont`), `textobject.c` (`TextObject_*`, 0x260-byte text objects), `sputtext.c`, `glyph.c` (`Glyph_Blit*`), `polyglot.c` (`GRIM.TAB`, `/sytx123/` string ids) | Lua: `SayLine`, `MakeTextObject`, `PrintLine`, ... |
-| **Input** | `stdinput.c` (DirectInput: `Input_*`), `control.c`/`controls.c`/`sputcontrol.c` (control table, `Controls_ResetAll`), Lua `EnableControl`, `GetControlState` | the keyboard is read through DirectInput with a cooperative level set in `Input_CreateKeyboard` (`overrides.c`); `_controls.lua` maps keys to game verbs. |
+| **Input** | `stdinput.c` (DirectInput: `Input_*`), `control.c`/`controls.c`/`sputcontrol.c` (control table, `sputControl_Reset`), Lua `EnableControl`, `GetControlState` | the keyboard is read through DirectInput with a cooperative level set in `Input_CreateKeyboard` (`overrides.c`); `_controls.lua` maps keys to game verbs. |
 | **Save / load** | `savegame.c` (`SaveGame_Write/Read`), `savefile.c` + zlib in `crt_unnamed.c` (`gzopen`...), `engine.c` (`Engine_SaveGame/LoadGame`), the `<Module>_SaveState/_RestoreState` slots, Lua `Save`/`Load`/`lua_Save`..., `JustLoaded` | saves of the rebuilt game load fine; saves of the original game do not (iMUSE pointers). |
 
 ## 10. Example mods
@@ -399,14 +399,14 @@ All four were built, run and measured on this machine. The "clean" runs use a mo
 
 *Where the speed comes from.* `Actor_UpdateWalker` (0x491110) computes the step of every walking actor as
 `frameSeconds x actor time scale (extra+0x41c) x walk rate (extra+0x18)` and hands it, as float bits, to
-`Walker_WalkSectors`; Lua's `SetActorWalkRate` only stores the rate. The function is assembled, so the mod rewrites it
-in `build/overrides.c` from the disassembly (float arguments of `Puck_Rotate`/`Walker_WalkSectors` travel in
+`Puck_Forward`; Lua's `SetActorWalkRate` only stores the rate. The function is assembled, so the mod rewrites it
+in `build/overrides.c` from the disassembly (float arguments of `Puck_Rotate`/`Puck_Forward` travel in
 integer slots, hence `float_bits()`) and multiplies the step by a global:
 
 ```c
 static float g_fWalkSpeedScale = 1.0f;                  // GRIM_WALK_SCALE=<float> sets the start value
 ...
-ACT_I(ACT_I(actor, 0xa4), 0xc) = (int)Walker_WalkSectors(walker,
+ACT_I(ACT_I(actor, 0xa4), 0xc) = (int)Puck_Forward(walker,
         float_bits(dt * ACT_F(extra, 0x41c) * ACT_F(extra, 0x18) * g_fWalkSpeedScale), a2, a3);
 ```
 
@@ -571,7 +571,7 @@ Batch format: `[{"addr": "0048d570", "name": "AddResourcePath", "proto": "...", 
 * Saves of the original game contain pointers into the original `IMUSE.DLL` and crash the rebuilt iMUSE restore.
 * `GRIM_LUA_FILE` hooks each line once; after a `Load()` the Lua state is new, so the hook re-defines `grimlog` before
   every command, but your own globals are gone unless they are in the save.
-* Read-mode `fopen` of the engine's file services opens files in **binary** mode (`stdFile_Open` in `overrides.c`): the
+* Read-mode `fopen` of the engine's file services opens files in **binary** mode (`stdFileOpen` in `overrides.c`): the
   host `msvcrt` reports `ftell() == 0` after a one-byte `fread` in text mode, which made Lua lose the first character
   of every text script.
 * Only `grimfandango.exe` plus the three DLLs are rebuilt; `HMIFXLIB.DLL`/`HMIFXFP.DLL` (audio) are the originals.

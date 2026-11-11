@@ -92,7 +92,7 @@ void sputLua_GetPointSectorL(void)
         local_c[0] = lua_getnumber(iVar1);
         local_c[1] = lua_getnumber(iVar2);
         local_c[2] = lua_getnumber(iVar3);
-        pcVar6 = (char *)SectorList_FindByPoint(local_c,uVar7);
+        pcVar6 = (char *)WalkPlane_PlaneAt(local_c,uVar7);
         if (pcVar6 != (char *)0x0) {
           lua_pushnumber((float)*(int *)(pcVar6 + 0x20));
           lua_pushstring(pcVar6);

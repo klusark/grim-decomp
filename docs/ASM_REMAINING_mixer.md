@@ -18,12 +18,12 @@ with a differential test, see the notes), so there is no list of reasons.
 
 | address | name |
 |---|---|
-| 004d2d40 | `Mixer_Init` |
-| 004d2d90 | `Mixer_MixVoiceByFormat` |
-| 004d2e60 | `Mixer_Output` |
+| 004d2d40 | `sou_mixer_initialize` |
+| 004d2d90 | `sou_mixer_mix` |
+| 004d2e60 | `sou_mixer_end` |
 | 004d2e80 | `Mixer_InitTables` |
 | 004d2fb0 | `Mixer_Free` |
-| 004d3010 | `Mixer_ClearAccumulator` |
+| 004d3010 | `sou_mixer_start` |
 | 004d3040 | `Mixer_MixVoice` |
 | 004d31d0 | `Mixer_ConvertTo16` |
 | 004d3240 | `Mixer_Mix8MonoLR` |
@@ -44,8 +44,8 @@ with a differential test, see the notes), so there is no list of reasons.
 | 004ccd00 | `Blocky16_DecodeFrame` |
 | 004cd550 | `Blocky16_DecodeBlocks` |
 | 004cd610 | `Blocky16_DecodeBlock8` |
-| 004cd9b0 | `Blocky16_DecodeBlock4` |
-| 004cdb80 | `Blocky16_DecodeBlock2` |
+| 004cd9b0 | `block16_RenderBlock4` |
+| 004cdb80 | `block16_RenderBlock2` |
 
 ### build/overrides_mixer_drv.c (38)
 
@@ -60,7 +60,7 @@ with a differential test, see the notes), so there is no list of reasons.
 | 004cdd10 | `InsaneTimer_module_startup` |
 | 004cdd60 | `InsaneTimer_module_shutdown` |
 | 004cdd80 | `InsaneTimer_StartThread` |
-| 004cddf0 | `InsaneTimer_ThreadProc` |
+| 004cddf0 | `timer_thread` |
 | 004cde80 | `InsaneTimer_StopThread` |
 | 004cdef0 | `sys_Disable` |
 | 004cdf00 | `sys_Enable` |
@@ -69,7 +69,7 @@ with a differential test, see the notes), so there is no list of reasons.
 | 004cdfa0 | `sys_Reset` |
 | 004cdfd0 | `sys_Delay` |
 | 004ce060 | `InsaneTimer_Tick` |
-| 004ce1d0 | `InsaneTimer_ServiceDeferred` |
+| 004ce1d0 | `sys_timer_dispatcher` |
 | 004ce260 | `InsaneTimer_RunDeferred` |
 | 004d23e0 | `Dsnd_MemCopyCdecl` |
 | 004d2400 | `Dsnd_MemFillCdecl` |
@@ -82,7 +82,7 @@ with a differential test, see the notes), so there is no list of reasons.
 | 004d2630 | `dsn_setvol` |
 | 004d27b0 | `dsn_getvol` |
 | 004d27c0 | `dsn_getrate` |
-| 004d27d0 | `DSound_FillStreamBuffer` |
+| 004d27d0 | `dsn_fill_thread` |
 | 004d2940 | `DsndDriver_InitDirectSound` |
 | 004d2aa0 | `DsndDriver_CreateStreamBuffer` |
 | 004d2bf0 | `DsndDriver_ReleaseDirectSound` |
@@ -149,8 +149,8 @@ with a differential test, see the notes), so there is no list of reasons.
 | address | name |
 |---|---|
 | 004ce3e0 | `bmp_bitmap_Alloc` |
-| 004cedc0 | `VideoBitmap_ConvertPixels` |
-| 004cf010 | `Video_PixelsToRgba` |
+| 004cedc0 | `gra_ConvertCopy` |
+| 004cf010 | `gra_ConvertToLecColor` |
 | 004cf520 | `gra_ConvertFromLecColor` |
 | 004cfdb0 | `Video_CopyRectDstFirst` |
 | 004cfdf0 | `Video_ExpandIndexed8` |

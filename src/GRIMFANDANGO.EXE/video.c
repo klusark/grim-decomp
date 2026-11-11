@@ -5,12 +5,15 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x004cea30  Video_BlitConvert ---- */
+/* ---- 0x004cea30  gra_BlitRectLookup ---- */
 /* Copies or converts a clipped rectangle from one bitmap to another through
-   VideoBitmap_ConvertPixels */
+   VideoBitmap_ConvertPixels Original name gra_BlitRectLookup (the remaster's GrimFandango (Linux):
+   same body: clips the source rectangle, gra_CopyRect when the formats agree, else
+   gra_ConvertMakeLookup for 8-bit sources and gra_ConvertCopy row by row); was Video_BlitConvert.
+    */
 
-void Video_BlitConvert(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,byte *param_6
-                      ,byte *param_7)
+void gra_BlitRectLookup(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,
+                       byte *param_6,byte *param_7)
 
 {
   unsigned char _frame[0x430] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -72,12 +75,12 @@ void Video_BlitConvert(int *param_1,uint *param_2,int param_3,int param_4,int *p
     }
     local_420 = local_418;
     if ((param_7 == (byte *)0x0) && (param_5[3] == 1)) {
-      FUN_004ced70(param_5,param_1,local_400,param_6);
+      gra_ConvertMakeLookup(param_5,param_1,local_400,param_6);
       param_7 = local_400;
     }
     do {
       local_420 = local_420 - 1;
-      iVar1 = VideoBitmap_ConvertPixels(src,param_5,local_41c,param_6,dst,param_1,param_7);
+      iVar1 = gra_ConvertCopy(src,param_5,local_41c,param_6,dst,param_1,param_7);
       if (iVar1 != 0) {
         return;
       }
@@ -160,10 +163,15 @@ void gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4)
   return;
 }
 
-/* ---- 0x004cf010  Video_PixelsToRgba ---- */
+/* ---- 0x004cf010  gra_ConvertToLecColor ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __cdecl Video_PixelsToRgba(void *src,void *fmt,int count,byte *palette,byte *dst)
+/* Original name gra_ConvertToLecColor (the remaster's GrimFandango (Linux): the counterpart of
+   gra_ConvertFromLecColor: unpacks 16 / 32-bit pixels by the format's shifts and the
+   convert_bitmask table into 4-byte colours; called from gra_ConvertCopy in both builds); was
+   Video_PixelsToRgba. */
+
+int __cdecl gra_ConvertToLecColor(void *src,void *fmt,int count,byte *palette,byte *dst)
 
 {
   byte bVar1;
@@ -209,9 +217,9 @@ int __cdecl Video_PixelsToRgba(void *src,void *fmt,int count,byte *palette,byte 
     return 0;
   }
   if (iVar14 == 1) {
-    bVar1 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x28) * 4];
-    bVar2 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x24) * 4];
-    bVar3 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x2c) * 4];
+    bVar1 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x28) * 4];
+    bVar2 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x24) * 4];
+    bVar3 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x2c) * 4];
     bVar4 = *(byte *)((int)fmt + 0x30);
     bVar5 = *(byte *)((int)fmt + 0x34);
     bVar6 = *(byte *)((int)fmt + 0x38);
@@ -273,10 +281,10 @@ int __cdecl Video_PixelsToRgba(void *src,void *fmt,int count,byte *palette,byte 
     if (iVar14 != 2) {
       return -1;
     }
-    bVar1 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x28) * 4];
-    bVar2 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x24) * 4];
-    bVar3 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x2c) * 4];
-    bVar4 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x48) * 4];
+    bVar1 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x28) * 4];
+    bVar2 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x24) * 4];
+    bVar3 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x2c) * 4];
+    bVar4 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x48) * 4];
     bVar5 = *(byte *)((int)fmt + 0x30);
     bVar6 = *(byte *)((int)fmt + 0x34);
     bVar7 = *(byte *)((int)fmt + 0x38);
@@ -393,9 +401,9 @@ int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byt
       }
     }
     bVar1 = *(byte *)((int)fmt + 0x34);
-    bVar2 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x24) * 4];
-    bVar3 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x28) * 4];
-    bVar4 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x2c) * 4];
+    bVar2 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x24) * 4];
+    bVar3 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x28) * 4];
+    bVar4 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x2c) * 4];
     bVar5 = *(byte *)((int)fmt + 0x30);
     bVar6 = *(byte *)((int)fmt + 0x38);
     bVar7 = *(byte *)((int)fmt + 0x3c);
@@ -475,10 +483,10 @@ int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byt
       return -1;
     }
     bVar1 = *(byte *)((int)fmt + 0x34);
-    bVar2 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x24) * 4];
-    bVar3 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x28) * 4];
-    bVar4 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x2c) * 4];
-    bVar5 = (&DAT_004f3da0)[*(int *)((int)fmt + 0x48) * 4];
+    bVar2 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x24) * 4];
+    bVar3 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x28) * 4];
+    bVar4 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x2c) * 4];
+    bVar5 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x48) * 4];
     bVar6 = *(byte *)((int)fmt + 0x38);
     bVar7 = *(byte *)((int)fmt + 0x4c);
     bVar8 = *(byte *)((int)fmt + 0x3c);
@@ -559,6 +567,12 @@ int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byt
 /* ---- 0x004cfdb0  Video_CopyRectDstFirst ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* The remaster calls this function gra_CopyRect (GrimFandango (Linux): the same-format copy of
+   gra_BlitRectLookup (dst, src, 0, 0, 0, 0, width * bpp, rows, dst pitch, src pitch) in both
+   builds; here it calls the assembler copy Video_CopyRect, the remaster msc_MemCopy per row). Not
+   renamed: with the shorter name Ghidra wraps the call in gra_BlitRectLookup differently, build_src
+   then drops its (code *) cast and the generated code changes. */
+
 void __cdecl
 Video_CopyRectDstFirst
           (byte *dst,byte *src,int dstX,uint dstY,int srcX,uint srcY,uint width,int rows,

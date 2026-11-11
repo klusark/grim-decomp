@@ -150,9 +150,9 @@ undefined4 FUN_10004660(undefined4 param_1)
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  _DAT_1002dd58 = FUN_10009f10;
+  _DAT_1002dd58 = iMUSE_Malloc;
   _DAT_1002dd50 = param_1;
-  _DAT_1002dd5c = FUN_1000a010;
+  _DAT_1002dd5c = iMUSE_Free;
   iVar1 = hmiFXInitSystem(IMG_ADDR(0x1002dd48));
   if (iVar1 != 0) {
     return 0;

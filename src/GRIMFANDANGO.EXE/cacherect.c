@@ -5,11 +5,14 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00486b40  CacheRect_Create ---- */
+/* ---- 0x00486b40  sputRender_CreateCacheRect ---- */
 /* Lua CacheRect: copies a rectangle of the background and depth images into a 0x20-byte record
-   {magic, x, y, w, h, bgCopy, zCopy, next} on g_pCacheRectList */
+   {magic, x, y, w, h, bgCopy, zCopy, next} on g_pCacheRectList Original name
+   sputRender_CreateCacheRect (the remaster's GrimFandango (Linux): same body (allocates the
+   0x20-byte record in sputRender.cpp, tag 0x11111111, the rectangle, copies the clean buffer's
+   format); called by sputLua_CacheRect in both builds); was CacheRect_Create. */
 
-void * __cdecl CacheRect_Create(int x,int y,int w,int h)
+void * __cdecl sputRender_CreateCacheRect(int x,int y,int w,int h)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

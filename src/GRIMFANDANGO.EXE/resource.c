@@ -354,8 +354,11 @@ undefined4 grimlib_FindResources(void)
 #undef local_80
 
 
-/* ---- 0x0048d4b0  Resource_SetExtraDataDir ---- */
-int __cdecl Resource_SetExtraDataDir(char *dir)
+/* ---- 0x0048d4b0  sputResource_AddResourcePath ---- */
+/* Original name sputResource_AddResourcePath (the remaster's GrimFandango (Linux): same body
+   (copies the directory into sputResource_ExtraDataPath)); was Resource_SetExtraDataDir. */
+
+int __cdecl sputResource_AddResourcePath(char *dir)
 
 {
   char cVar1;
@@ -389,13 +392,16 @@ int __cdecl Resource_SetExtraDataDir(char *dir)
   return 1;
 }
 
-/* ---- 0x0048d550  Resource_OpenLog ---- */
-int Resource_OpenLog(char *param_1)
+/* ---- 0x0048d550  sputResource_LogToFile ---- */
+/* Original name sputResource_LogToFile (the remaster's GrimFandango (Linux): same body
+   (Res_Log(file) == 1)); was Resource_OpenLog. */
+
+int sputResource_LogToFile(char *param_1)
 
 {
   int iVar1;
   
-  iVar1 = Res_OpenLog(param_1);
+  iVar1 = Res_Log(param_1);
   return iVar1 == 1;
 }
 

@@ -143,7 +143,7 @@ uint stdGif_LzwInitEncoder(undefined4 file, undefined4 bits)
     W16(DAT_0080cbf0) = 1;
     if ((*g_pStd_HS->pFwrite)(file, &bits, 1) != 1)
         return 1;
-    stdGif_LzwWriteCode(file, S16(DAT_00811b2c));
+    putcode(file, S16(DAT_00811b2c));
     return W16(DAT_008155f8);
 }
 
@@ -205,7 +205,7 @@ uint stdGif_LzwEncodePixel(undefined4 file, byte pixel)
                 break;
         }
     }
-    stdGif_LzwWriteCode(file, S16(DAT_00811b24));
+    putcode(file, S16(DAT_00811b24));
     next = S16(DAT_0080cbec);
     W16(DAT_00811b24) = pixel;
     if (next >= S16(DAT_004e7800)) {
@@ -924,7 +924,7 @@ undefined4 DDraw_CreateSurfaces(undefined4 hwnd, int *mode, byte *palette)
 }
 
 
-/* ==== Sector_ContainsPoint (0x004a6980) ====
+/* ==== WalkPlane_Within (0x004a6980) ====
  * __thiscall (sector, point, checkActive).  With checkActive the sector must be visible (+0x2c) and active (+0x28).
  * The point must be within the sector's height tolerance (+0x30) of its plane (normal +0x60, first vertex record
  * +0x3c, coordinates at +4) and on the inner side of every edge in the projection on the axes +0x7c / +0x80 (vertex
@@ -941,7 +941,7 @@ static long double sector_snap(long double x)
     return x;
 }
 
-int __thiscall Sector_ContainsPoint(void *this, float *point, int checkActive)
+int __thiscall WalkPlane_Within(void *this, float *point, int checkActive)
 {
     byte *sec = (byte *)this;
     float *v;

@@ -1042,7 +1042,7 @@ void LightEd_MoveMarkerActor(void)
 void LightEd_GetLightAngles(int param_1,float *param_2)
 
 {
-  Matrix_GetAngles((float *)(param_1 + 0xc),param_2);
+  rdVector_ExtractAngles((float *)(param_1 + 0xc),param_2);
   return;
 }
 

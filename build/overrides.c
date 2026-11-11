@@ -37,12 +37,12 @@ int msvc_stricmp(unsigned char *a, unsigned char *b)
 extern int lua_dostring(const char *);   /* LUA.DLL */
 extern char *GRIM_getenv(const char *) __asm__("_getenv");   /* host C runtime */
 #include "globals.h"
-/* (stdFile_Read / stdFile_Gets return the C runtime's result here; Ghidra's prototypes say void) */
-#define stdFile_Read stdFile_Read__ghidra
-#define stdFile_Gets stdFile_Gets__ghidra
+/* (stdFileRead / stdFileGets return the C runtime's result here; Ghidra's prototypes say void) */
+#define stdFileRead stdFileRead__ghidra
+#define stdFileGets stdFileGets__ghidra
 #include "functions.h"
-#undef stdFile_Read
-#undef stdFile_Gets
+#undef stdFileRead
+#undef stdFileGets
 
 
 /* Test hook: run Lua statements in the game without any keyboard or mouse events. If the environment
@@ -319,12 +319,12 @@ void __cdecl Costume_ApplyScale(void *actor, void *componentList)
         *(float *)((char *)actor + 0x30) = 1.0f;
 }
 
-/* stdFile_Open (0x473430): fopen for the engine's file services. The original binary used its own MSVC 6 C runtime;
+/* stdFileOpen (0x473430): fopen for the engine's file services. The original binary used its own MSVC 6 C runtime;
  * this build links the host msvcrt, whose text-mode ftell() returns 0 after a one-byte fread() (checked with a
  * stand-alone program). Lua's dofile reads the first character of a script, calls ftell and seeks back by one, so
  * every *text* script (a loose _system.lua, mod.lua ...; TextAllowed=TRUE) lost its first character and silently
- * failed to parse. Read-mode opens are therefore done in binary mode, and the reads of such a file (stdFile_Read,
- * stdFile_Gets below) turn "\r\n" into "\n" themselves, as the original's text mode did: the costume reader of
+ * failed to parse. Read-mode opens are therefore done in binary mode, and the reads of such a file (stdFileRead,
+ * stdFileGets below) turn "\r\n" into "\n" themselves, as the original's text mode did: the costume reader of
  * CHORE.DLL skips a line that starts with '\n' and rejects "\r" (a text costume with Windows line ends did not load,
  * found by grim_tools/cleanroom). ftell / fseek keep the raw file offsets, as the original's text mode did. */
 extern void *GRIM_host_fopen(const char *, const char *) __asm__("_fopen");
@@ -344,7 +344,7 @@ static int grim_is_text(void *f)
     return 0;
 }
 
-undefined * __cdecl stdFile_Open(uint param_1, uint param_2)
+undefined * __cdecl stdFileOpen(uint param_1, uint param_2)
 {
     const char *name = (const char *)param_1, *mode = (const char *)param_2;
     char m[8];
@@ -368,8 +368,8 @@ undefined * __cdecl stdFile_Open(uint param_1, uint param_2)
     return (undefined *)f;
 }
 
-/* stdFile_Close (0x473450): fclose */
-void stdFile_Close(undefined4 param_1)
+/* stdFileClose (0x473450): fclose */
+void stdFileClose(undefined4 param_1)
 {
     int i;
     for (i = 0; i < 128; i++)
@@ -378,9 +378,9 @@ void stdFile_Close(undefined4 param_1)
     GRIM_host_fclose((void *)param_1);
 }
 
-/* stdFile_Read (0x473460): fread(buf, 1, n, file); "\r\n" read as "\n" in a text file. Returns fread's count (the
+/* stdFileRead (0x473460): fread(buf, 1, n, file); "\r\n" read as "\n" in a text file. Returns fread's count (the
  * original returned what fread left in EAX). */
-uint stdFile_Read(undefined4 param_1, undefined4 param_2, undefined4 param_3)
+uint stdFileRead(undefined4 param_1, undefined4 param_2, undefined4 param_3)
 {
     void *f = (void *)param_1;
     unsigned char *out = (unsigned char *)param_2;
@@ -402,9 +402,9 @@ uint stdFile_Read(undefined4 param_1, undefined4 param_2, undefined4 param_3)
     return k;
 }
 
-/* stdFile_Gets (0x4734a0): fgets; "\r\n" read as "\n" in a text file. Returns fgets's result (the original left it
+/* stdFileGets (0x4734a0): fgets; "\r\n" read as "\n" in a text file. Returns fgets's result (the original left it
  * in EAX; Res_FGets passes it on). */
-char *stdFile_Gets(undefined4 param_1, undefined4 param_2, undefined4 param_3)
+char *stdFileGets(undefined4 param_1, undefined4 param_2, undefined4 param_3)
 {
     void *f = (void *)param_1;
     char *buf = (char *)param_2;
@@ -486,9 +486,9 @@ void Actor_UpdateWalker(int actor)
             a2 = 1;
         }
         ACT_I(ACT_I(actor, 0xa4), 0xc) =
-            (int)Walker_WalkSectors(walker, dt * ACT_F(extra, 0x41c) * ACT_F(extra, 0x18) * g_fWalkSpeedScale, a2, a3);
+            (int)Puck_Forward(walker, dt * ACT_F(extra, 0x41c) * ACT_F(extra, 0x18) * g_fWalkSpeedScale, a2, a3);
     }
-    ACT_I(ACT_I(actor, 0xa4), 0x20) = Walker_UpdateYaw((void *)actor, walker);
+    ACT_I(ACT_I(actor, 0xa4), 0x20) = sputActor_AlignToPuck((void *)actor, walker);
     extra = ACT_I(actor, 0xa4);
     if (ACT_I(extra, 0x10) == 0 && ACT_I(extra, 0x20) == 0)
         ACT_I(extra, 0x10) = (ACT_F(extra, 0x28) <= 0.0f) ? 1 : -1;
@@ -569,11 +569,11 @@ void GRIM_RegisterModApi(void)
 
 /* ==== agentJ: walker / sector functions whose decompilation reuses a parameter slot as a float local ====
  * Ghidra types `a1` of Puck_PointAt (a pointer on entry, the turn angle later), of Puck_GetYawToPoint and the
- * x87 result of Vec3_NormalizeTo (a float in ST0 that the code keeps across calls) in ways that compile to garbage, so
+ * x87 result of rdVector_Normalize3 (a float in ST0 that the code keeps across calls) in ways that compile to garbage, so
  * these three are written out in C (same operations in the same order as the machine code). */
 
-/* Vec3_NormalizeTo (0x446920) normalises src into dst and returns the original length in ST(0); Ghidra has it as void */
-#define Vec3_NormalizeToLen ((float (*)(float *, float *))Vec3_NormalizeTo)
+/* rdVector_Normalize3 (0x446920) normalises src into dst and returns the original length in ST(0); Ghidra has it as void */
+#define Vec3_NormalizeToLen ((float (*)(float *, float *))rdVector_Normalize3)
 
 /* Puck_PointAt (0x4a8450): turns the walker towards a point (in set coordinates) by at most maxTurn degrees.
  * Returns the signed turn angle that was applied (positive = the point is on the right of the heading). */
@@ -587,8 +587,8 @@ float __thiscall Puck_PointAt(void *this, float *point, float maxTurn)
     v[1] = point[1];
     v[2] = point[2];
     if (sector != 0)
-        Sector_FixPlaneCoordinate(sector, (int)v);   /* keeps the point on the plane of the walker's sector */
-    Walker_ToLocalSpace(this, v);
+        WalkPlane_Project(sector, (int)v);   /* keeps the point on the plane of the walker's sector */
+    Puck_InvXform(this, v);
     rdVector_Normalize3Acc(v);
     angle = 90.0f - stdMath_ArcSin3(v[1]);
     if (maxTurn < angle)
@@ -610,19 +610,19 @@ float __thiscall Puck_GetYawToPoint(void *this, float *point)
     v[1] = point[1];
     v[2] = point[2];
     if (sector != 0)
-        Sector_FixPlaneCoordinate(sector, (int)v);
-    Walker_ToLocalSpace(this, v);
+        WalkPlane_Project(sector, (int)v);
+    Puck_InvXform(this, v);
     rdVector_Normalize3Acc(v);
     angle = 90.0f - stdMath_ArcSin3(v[1]);
     if (0.0f < v[0])
         angle = angle * -1.0f;
-    return *(float *)(Walker_GetAngles((int)this) + 4) + angle;
+    return *(float *)(Puck_Rot((int)this) + 4) + angle;
 }
 
-/* Sector_EdgeDistance (0x4a9070): distance of a point from the line through edge `edge` of a sector polygon
+/* WalkPlane_DistToEdge (0x4a9070): distance of a point from the line through edge `edge` of a sector polygon
  * (sin of the angle between the edge and the direction to the point, times the distance to the edge's start vertex).
  * Vertex records hold the position at +4. */
-float __thiscall Sector_EdgeDistance(void *this, int edge, float *point)
+float __thiscall WalkPlane_DistToEdge(void *this, int edge, float *point)
 {
     int numVerts = *(int *)((int)this + 0x34);
     float *v0, *v1;
@@ -1168,7 +1168,7 @@ int __cdecl SaveGame_Read(void *buf, int n)
  * saved: the original game (heap addresses differ from run to run, and sputActor_AllocateActor reallocs the table) loaded such a save
  * with a stale pointer and sputText_ExpireTextQueueL then zeroed a word of some other heap block; in the rebuilt engine the same stale
  * pointer is a different address and the write faults. What the save does keep consistent is the other direction: the
- * actor's extra data +0x1ec holds the text object, which sputActor_Restore maps through TextObject_FindBySelf. So after
+ * actor's extra data +0x1ec holds the text object, which sputActor_Restore maps through sputText_FindSerialNumber. So after
  * the restore hooks, link every text object back to the actor that points at it, and drop the speech flag of text objects
  * no actor points at (they would be dereferenced by sputText_ExpireTextQueueL). */
 static void GRIM_FixTextActors(void)

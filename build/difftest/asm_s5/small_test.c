@@ -1,6 +1,6 @@
 /* Differential test of the small functions of build/overrides_asm_o2.c against the original machine code:
  * FUN_004d5fd0 / msc_MemSet (memset), msc_error_SaveString (log ring vsprintf), msc_rle_DecompressBlock, MaterialInstanceSaveLoad (callback),
- * stdGif_LzwInitEncoder / stdGif_LzwEncodePixel (whole encode runs with the compiled C stdGif_LzwWriteCode /
+ * stdGif_LzwInitEncoder / stdGif_LzwEncodePixel (whole encode runs with the compiled C putcode /
  * ClearTable / FinishEncode of the current build and a recorder fwrite).
  * Build: EXTRA_OBJ="build/obj/GRIMFANDANGO.EXE/rle.o build/obj/GRIMFANDANGO.EXE/stdgif.o" build/difftest/asm_s5/build.sh \
  *   build/difftest/asm_s5/small_test.c build/difftest/asm_s5/out/small_test.exe FUN_004d5fd0 msc_MemSet msc_error_SaveString \

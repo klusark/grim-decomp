@@ -11,7 +11,7 @@
 #include "functions.h"
 
 /* =====================================================================================================
- * The mixing loops.  The mixer adds every voice into a 32-bit accumulator (g_pMixAccum, interleaved left/right
+ * The mixing loops.  The mixer adds every voice into a 32-bit accumulator (g_pMixer_mixBuf, interleaved left/right
  * pairs).  A voice block is resampled on the fly:
  *      ratio = (srcCount << 16) / outCount            (16.16 fixed point, source frames per output frame)
  *   ratio 0x8000   source is played at half speed: two output frames per source frame (second one interpolated)
@@ -39,7 +39,7 @@
 /* 8-bit unsigned MONO source, left/right volume */
 void Mixer_Mix8MonoLR(byte *src, int count, uint rateFrac, int accumOffset, int volL, int volR)
 {
-    int *out = g_pMixAccum + accumOffset * 2;
+    int *out = g_pMixer_mixBuf + accumOffset * 2;
     uint ratio = MIX_RATIO(count, rateFrac);
 
     if (ratio == 0x8000) {
@@ -91,7 +91,7 @@ void Mixer_Mix8MonoLR(byte *src, int count, uint rateFrac, int accumOffset, int 
 /* 8-bit unsigned STEREO source (interleaved), one volume */
 void Mixer_Mix8Mono(byte *src, int count, uint rateFrac, int accumOffset, int vol)
 {
-    int *out = g_pMixAccum + accumOffset * 2;
+    int *out = g_pMixer_mixBuf + accumOffset * 2;
     uint ratio = MIX_RATIO(count, rateFrac);
 
     if (ratio == 0x8000) {
@@ -139,7 +139,7 @@ void Mixer_Mix8Mono(byte *src, int count, uint rateFrac, int accumOffset, int vo
 /* 16-bit signed MONO source, left/right volume */
 void Mixer_Mix16MonoLR(short *src, int count, uint rateFrac, int accumOffset, int volL, int volR)
 {
-    int *out = g_pMixAccum + accumOffset * 2;
+    int *out = g_pMixer_mixBuf + accumOffset * 2;
     uint ratio = MIX_RATIO(count, rateFrac);
 
     if (ratio == 0x8000) {
@@ -190,7 +190,7 @@ void Mixer_Mix16MonoLR(short *src, int count, uint rateFrac, int accumOffset, in
 /* 16-bit signed STEREO source, one volume */
 void Mixer_Mix16Mono(short *src, int count, uint rateFrac, int accumOffset, int vol)
 {
-    int *out = g_pMixAccum + accumOffset * 2;
+    int *out = g_pMixer_mixBuf + accumOffset * 2;
     uint ratio = MIX_RATIO(count, rateFrac);
 
     if (ratio == 0x8000) {
@@ -239,7 +239,7 @@ void Mixer_Mix16Mono(short *src, int count, uint rateFrac, int accumOffset, int 
 /* "A" format (offset binary 16 bit) MONO source, left/right volume */
 void Mixer_MixStereoLR_A(ushort *src, int count, uint rateFrac, uint accumOffset, int volL, int volR)
 {
-    int *out = g_pMixAccum + accumOffset * 2;
+    int *out = g_pMixer_mixBuf + accumOffset * 2;
     uint ratio = MIX_RATIO(count, rateFrac);
 
     if (ratio == 0x8000) {
@@ -297,7 +297,7 @@ void Mixer_MixStereoLR_A(ushort *src, int count, uint rateFrac, uint accumOffset
 /* "A" format STEREO source, one volume */
 void Mixer_MixStereo_A(ushort *src, int count, uint rateFrac, uint accumOffset, int vol)
 {
-    int *out = g_pMixAccum + accumOffset * 2;
+    int *out = g_pMixer_mixBuf + accumOffset * 2;
     uint ratio = MIX_RATIO(count, rateFrac);
 
     if (ratio == 0x8000) {
@@ -354,7 +354,7 @@ void Mixer_MixStereo_A(ushort *src, int count, uint rateFrac, uint accumOffset, 
 /* "B" format (byte-swapped 16 bit, zero-extended) MONO source, left/right volume */
 void Mixer_MixStereoLR_B(ushort *src, int count, uint rateFrac, uint accumOffset, int volL, int volR)
 {
-    int *out = g_pMixAccum + accumOffset * 2;
+    int *out = g_pMixer_mixBuf + accumOffset * 2;
     uint ratio = MIX_RATIO(count, rateFrac);
 
     if (ratio == 0x8000) {
@@ -412,7 +412,7 @@ void Mixer_MixStereoLR_B(ushort *src, int count, uint rateFrac, uint accumOffset
 /* "B" format STEREO source, one volume */
 void Mixer_MixStereo_B(ushort *src, int count, uint rateFrac, uint accumOffset, int vol)
 {
-    int *out = g_pMixAccum + accumOffset * 2;
+    int *out = g_pMixer_mixBuf + accumOffset * 2;
     uint ratio = MIX_RATIO(count, rateFrac);
 
     if (ratio == 0x8000) {
@@ -478,9 +478,9 @@ static inline long double x87_sin(long double x)
 extern byte g_MixVolPanTable[17 * 17] __asm__("_DAT_008dcc70");
 
 /* Zeroes the accumulator. */
-int Mixer_ClearAccumulator(void)
+int sou_mixer_start(void)
 {
-    memset(g_pMixAccum, 0, g_dwMixAccumBytes);
+    memset(g_pMixer_mixBuf, 0, g_dwMixer_mixBufSize);
     return 0;
 }
 
@@ -490,7 +490,7 @@ int Mixer_ClearAccumulator(void)
 void Mixer_MixVoice(byte *data, int count, int bits, int channels, uint outFrames, int accumOffset,
                     int volume, int pan, int offsetBinary, int byteSwapped)
 {
-    if (g_pMixAccum == 0 || data == 0 || count == 0)
+    if (g_pMixer_mixBuf == 0 || data == 0 || count == 0)
         return;
     if (channels == 1) {
         /* mono source: left/right volumes from the volume/pan table */
@@ -531,12 +531,12 @@ void Mixer_MixVoice(byte *data, int count, int bits, int channels, uint outFrame
  * Returns 0, or -1 when there is no accumulator, no buffer or no frames. */
 int Mixer_ConvertTo16(short *dst, int frames)
 {
-    int *src = g_pMixAccum;
+    int *src = g_pMixer_mixBuf;
     int n;
 
     if (src == 0 || dst == 0 || frames == 0)
         return 0xffffffff;
-    n = (g_dwMixChannels == 2) ? frames * 2 : frames;
+    n = (g_dwMixer_outChannelCount == 2) ? frames * 2 : frames;
     for (; n != 0; n--) {
         int v = *src++ >> 7;
         if (v < -0x8000)
@@ -548,7 +548,7 @@ int Mixer_ConvertTo16(short *dst, int frames)
     return 0;
 }
 
-void Mixer_Output(short *dst, int frames)
+void sou_mixer_end(short *dst, int frames)
 {
     Mixer_ConvertTo16(dst, frames);
 }
@@ -557,7 +557,7 @@ void Mixer_Output(short *dst, int frames)
  * format: 0 = 8 bit mono, 1 = 8 bit stereo, 2 = 16 bit mono, 3 = 16 bit stereo (both signed, "offset binary"
  * flag clear), 4 / 5 = 16 bit mono / stereo with the flag set; anything else passes the code itself for bits,
  * channels and flag (an error the original does not catch). */
-void Mixer_MixVoiceByFormat(byte *data, int accumOffset, uint outFrames, int srcBytes,
+void sou_mixer_mix(byte *data, int accumOffset, uint outFrames, int srcBytes,
                             int unused, int volume, int pan, int format)
 {
     int bits = format, channels = format, flag = format;
@@ -589,20 +589,20 @@ int Mixer_InitTables(int *services, uint channels, int frames4, int unused)
             *tab++ = (byte)(int)(v * 8.0);
         }
     }
-    g_dwMixChannels = channels;
-    g_dwMixAccumBytes = frames4 * 4;
-    g_pMixAccum = (int *)((int (*)(int, const char *, int))services[0])(g_dwMixAccumBytes,
+    g_dwMixer_outChannelCount = channels;
+    g_dwMixer_mixBufSize = frames4 * 4;
+    g_pMixer_mixBuf = (int *)((int (*)(int, const char *, int))services[0])(g_dwMixer_mixBufSize,
                                                                         s_C__grimsrc_libs_lecsmush_insane__004f4158, 0x356);
-    if (g_pMixAccum == 0)
+    if (g_pMixer_mixBuf == 0)
         return 0xffffffff;
     _DAT_008dcda0 = unused;
-    comp = (short *)((int (*)(int, const char *, int))services[0])(g_dwMixTableUnits << 16,
+    comp = (short *)((int (*)(int, const char *, int))services[0])(g_dwWaveMixCount << 16,
                                                                   s_C__grimsrc_libs_lecsmush_insane__004f4158, 0x35c);
-    g_pMixCompanderTable = comp;
+    g_pMixer_softLTable = comp;
     if (comp == 0)
         return 0xffffffff;
     /* companding curve: ((524272 i) / (262136 + 7 i) + 1) / 2 */
-    for (i = 0; i < (int)(g_dwMixTableUnits << 15); i++) {
+    for (i = 0; i < (int)(g_dwWaveMixCount << 15); i++) {
         long double x = (long double)i;
         long double num = x * 524272.0;
         long double den = 262136.0 - x * -7.0;
@@ -611,21 +611,21 @@ int Mixer_InitTables(int *services, uint channels, int frames4, int unused)
     return 0;
 }
 
-int Mixer_Init(int *services, uint tableUnits, int frames)
+int sou_mixer_initialize(int *services, uint tableUnits, int frames)
 {
-    g_dwMixTableUnits = tableUnits;
+    g_dwWaveMixCount = tableUnits;
     return Mixer_InitTables(services, 2, frames * 4, 0);
 }
 
 /* Frees the compander table and the accumulator through services[1](ptr, file, line). */
 int Mixer_Free(int *services)
 {
-    if (g_pMixCompanderTable != 0)
-        ((void (*)(void *, const char *, int))services[1])(g_pMixCompanderTable, s_C__grimsrc_libs_lecsmush_insane__004f4158, 0x379);
-    g_pMixCompanderTable = 0;
-    if (g_pMixAccum != 0)
-        ((void (*)(void *, const char *, int))services[1])(g_pMixAccum, s_C__grimsrc_libs_lecsmush_insane__004f4158, 0x37a);
-    g_pMixAccum = 0;
+    if (g_pMixer_softLTable != 0)
+        ((void (*)(void *, const char *, int))services[1])(g_pMixer_softLTable, s_C__grimsrc_libs_lecsmush_insane__004f4158, 0x379);
+    g_pMixer_softLTable = 0;
+    if (g_pMixer_mixBuf != 0)
+        ((void (*)(void *, const char *, int))services[1])(g_pMixer_mixBuf, s_C__grimsrc_libs_lecsmush_insane__004f4158, 0x37a);
+    g_pMixer_mixBuf = 0;
     return 0;
 }
 

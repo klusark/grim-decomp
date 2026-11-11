@@ -6,7 +6,7 @@
  {"addr": "004f5a0c", "global": "g_bQuitRequested", "type": "int", "comment": "Set when the main loop should shut the game down"},
  {"addr": "008c9a6c", "global": "g_pSpewDll", "type": "void *", "comment": "Module handle of spew.dll, zero when not loaded"},
  {"addr": "008c9a64", "global": "g_pfnSpewStartup", "type": "void *", "comment": "Function pointer to the Spew_Startup export of spew.dll"},
- {"addr": "008c9a68", "global": "g_pfnSpewShutdown", "type": "void *", "comment": "Function pointer to the Spew_Shutdown export of spew.dll"},
+ {"addr": "008c9a68", "global": "g_pfnSpewShutdown", "type": "void *", "comment": "Function pointer to the grimDebug_Shutdown export of spew.dll"},
 
  {"addr": "00402c80", "name": "Grim_ParseCommandLine", "proto": "int Grim_ParseCommandLine(char * cmdline)",
   "comment": "grimdemo.c: strtok loop over the command line. Options set g_bAlwaysLog, g_bDevMode, g_bWindowedStart etc., a bad option shows the 'GRIME: Grim Fandango Executable Usage' box.", "tags": "startup"},
@@ -39,7 +39,7 @@
  {"addr": "004038a0", "name": "Reg_Open", "proto": "void Reg_Open(HKEY root, char * subkey)",
   "comment": "W32Util/wuregistry: creates/opens the game key; if its Version value differs from ours the key is deleted and recreated. Then caches all value names.", "tags": "registry"},
  {"addr": "004039a0", "name": "Reg_CacheValueNames", "comment": "RegEnumValue into g_ppRegValueNames (lower-cased, qsorted) so Reg_HasValue can bsearch", "tags": "registry"},
- {"addr": "00403b20", "name": "Reg_Close", "tags": "registry"},
+ {"addr": "00403b20", "name": "wuRegistry_Shutdown", "tags": "registry"},
  {"addr": "00403b30", "name": "Reg_FreeValueNames", "tags": "registry"},
  {"addr": "00403bf0", "name": "Reg_AddValueName", "proto": "int Reg_AddValueName(char * name)", "tags": "registry"},
  {"addr": "00403cf0", "name": "Reg_HasValue", "proto": "int Reg_HasValue(char * name)", "tags": "registry"},

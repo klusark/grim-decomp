@@ -38,11 +38,15 @@ void Res_FreeAll(void)
   return;
 }
 
-/* ---- 0x00482530  Engine_OpenResourceLog ---- */
-void Engine_OpenResourceLog(undefined4 param_1)
+/* ---- 0x00482530  grimlib_LogResources ---- */
+/* Original name grimlib_LogResources (the remaster's GrimFandango (Linux): the grimlib wrapper of
+   sputResource_LogToFile in both builds (the remaster's is a jump to it); called by
+   grimdemo_EnableDebugging); was Engine_OpenResourceLog. */
+
+void grimlib_LogResources(undefined4 param_1)
 
 {
-  Resource_OpenLog(param_1);
+  sputResource_LogToFile(param_1);
   return;
 }
 
@@ -90,23 +94,30 @@ int __cdecl grimlib_SetDisplay(void *mode,int flags)
   return 0;
 }
 
-/* ---- 0x00482660  Engine_CloseRenderer ---- */
-undefined4 Engine_CloseRenderer(void)
+/* ---- 0x00482660  grimlib_UnsetDisplay ---- */
+/* Original name grimlib_UnsetDisplay (the remaster's GrimFandango (Linux): same body
+   (sputRender_Close); the first call of the display shutdown in both builds); was
+   Engine_CloseRenderer. */
+
+undefined4 grimlib_UnsetDisplay(void)
 
 {
   sputRender_Close();
   return 0;
 }
 
-/* ---- 0x004826e0  Engine_ShutdownGame ---- */
-/* Releases input, the renderer and the current set */
+/* ---- 0x004826e0  grimlib_Close ---- */
+/* Releases input, the renderer and the current set Original name grimlib_Close (the remaster's
+   GrimFandango (Linux): same body (if bSputmOpen: grimlib_mode = 0, sputControl_Close,
+   sputRender_Close, sputRoom_SetCurrentRoom(0, 0), clear the flag); called by Main_Shutdown in both
+   builds); was Engine_ShutdownGame. */
 
-void Engine_ShutdownGame(void)
+void grimlib_Close(void)
 
 {
   if (g_dwSputmOpen != 0) {
     g_dwGrimlib_mode = 0;
-    Control_Release();
+    sputControl_Close();
     sputRender_Close();
     sputRoom_SetCurrentRoom((void *)0x0,0);
     g_dwSputmOpen = 0;
@@ -162,19 +173,27 @@ void grimlib_SetPageFlipCallback(undefined4 param_1)
   return;
 }
 
-/* ---- 0x00482760  Engine_SetZBufferEnabled ---- */
-void Engine_SetZBufferEnabled(undefined4 param_1)
+/* ---- 0x00482760  grimlib_Using3DHardware ---- */
+/* Original name grimlib_Using3DHardware (the remaster's GrimFandango (Linux): the grimlib wrapper
+   of sputRender_Using3DHardware in both builds (the remaster's is a jump to it)); was
+   Engine_SetZBufferEnabled. */
+
+void grimlib_Using3DHardware(undefined4 param_1)
 
 {
-  Render_SetZBufferEnabled(param_1);
+  sputRender_Using3DHardware(param_1);
   return;
 }
 
-/* ---- 0x00482770  Engine_SetExtraDataDir ---- */
-void Engine_SetExtraDataDir(char *param_1)
+/* ---- 0x00482770  grimlib_AddResourcePath ---- */
+/* Original name grimlib_AddResourcePath (the remaster's GrimFandango (Linux): the grimlib wrapper
+   of sputResource_AddResourcePath in both builds (the remaster's is a jump to it), called with the
+   command-line data directory); was Engine_SetExtraDataDir. */
+
+void grimlib_AddResourcePath(char *param_1)
 
 {
-  Resource_SetExtraDataDir(param_1);
+  sputResource_AddResourcePath(param_1);
   return;
 }
 
@@ -226,7 +245,7 @@ undefined4 grimlib_Open(int param_1,char *param_2)
 void grimlib_MarkDirtyRect(int *param_1,int param_2)
 
 {
-  Render_InvalidateRectLastBuffer(param_1,param_2);
+  sputRender_MarkDirtyRect(param_1,param_2);
   return;
 }
 
@@ -244,10 +263,12 @@ int grimlib_ConfirmClose(void)
   return iVar1 == 0;
 }
 
-/* ---- 0x004828e0  Engine_Quit ---- */
-/* Lua exit() */
+/* ---- 0x004828e0  grimlib_RequestShutdown ---- */
+/* Lua exit() Original name grimlib_RequestShutdown (the remaster's GrimFandango (Linux): same body
+   (calls grimlib_shutdownCallback when set); called by sputLua_ExitL in both builds); was
+   Engine_Quit. */
 
-void __cdecl Engine_Quit(int exitCode)
+void __cdecl grimlib_RequestShutdown(int exitCode)
 
 {
   if (g_dwGrimlib_shutdownCallback != 0) {
@@ -289,8 +310,12 @@ void __cdecl grimlib_SetPause(int paused)
   return;
 }
 
-/* ---- 0x00482980  Engine_CallCharacterHandler ---- */
-undefined * __cdecl Engine_CallCharacterHandler(int param_1)
+/* ---- 0x00482980  grimlib_CharacterCallback ---- */
+/* Original name grimlib_CharacterCallback (the remaster's GrimFandango (Linux): the grimlib wrapper
+   of sputLua_DoCharacterCallback in both builds (the remaster's is a jump to it), after the pause
+   callback in the same grimlib order); was Engine_CallCharacterHandler. */
+
+undefined * __cdecl grimlib_CharacterCallback(int param_1)
 
 {
   undefined *puVar1;
@@ -645,10 +670,13 @@ void grimlib_UserPaint(void)
   return;
 }
 
-/* ---- 0x00482f90  Engine_RequestSave ---- */
-/* Sets the pending-save flag and the file name; the save happens at the next safe point */
+/* ---- 0x00482f90  grimlib_Save ---- */
+/* Sets the pending-save flag and the file name; the save happens at the next safe point Original
+   name grimlib_Save (the remaster's GrimFandango (Linux): sets the save request (doSave = 1 and
+   what to save) for the next frame; the only call of sputLua_SaveL in both builds (the remaster
+   saves to a slot, v1.01 to a file name)); was Engine_RequestSave. */
 
-void Engine_RequestSave(char *param_1)
+void grimlib_Save(char *param_1)
 
 {
   UINT_008a8c7c = 1;
@@ -867,8 +895,11 @@ void SetPrevMode(uint param_1)
   return;
 }
 
-/* ---- 0x00483600  Engine_GetSavedValue ---- */
-uint Engine_GetSavedValue(void)
+/* ---- 0x00483600  GetPrevMode ---- */
+/* Original name GetPrevMode (the remaster's GrimFandango (Linux): same body (returns one global,
+   prevMode); called by sputLua_RenderModeUser in both builds); was Engine_GetSavedValue. */
+
+uint GetPrevMode(void)
 
 {
   return g_dwGrimlib_prevmode;
@@ -981,7 +1012,7 @@ void sputRender_Update(void)
       sputRender_SyncCamera(g_pRenderedSet,g_nSputRender_Update_RenderSetup);
       for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
           pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-        ObjectState_Draw(pvVar5,3,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
+        ObjectState_Update(pvVar5,3,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
       }
       PerfBegin(4);
       if (g_nDoTheFlip != 0) {
@@ -995,7 +1026,7 @@ void sputRender_Update(void)
       stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
       for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
           pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-        ObjectState_Draw(pvVar5,1,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
+        ObjectState_Update(pvVar5,1,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
       }
       rdAdvanceFrame();
       Render_BuildActorDrawList();
@@ -1086,7 +1117,7 @@ void sputRender_Update(void)
               if (g_nSputRender_b3DAcceleration == 0) {
                 stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
               }
-              Render_InvalidateRectLastBuffer(actor + 0x1b,1);
+              sputRender_MarkDirtyRect(actor + 0x1b,1);
             }
             if (actor[0xc] != 0x3f800000) {
               fStack_c = 1.0 / (float)actor[0xc];
@@ -1103,11 +1134,11 @@ void sputRender_Update(void)
         }
         PerfEnd(6);
         PerfBegin(7);
-        rdroid_EndFrame();
+        rdFinishFrame();
         PerfEnd(7);
         for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
             pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-          ObjectState_Draw(pvVar5,2,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
+          ObjectState_Update(pvVar5,2,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
         }
       }
       stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);

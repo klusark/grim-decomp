@@ -4,9 +4,9 @@
 /* defaultGetTimerTick @ 0x00403700 */
 __asm__(".text\n.globl _defaultGetTimerTick\n_defaultGetTimerTick:\n\tjmp _Clock_ElapsedMs\n");
 /* sputLua_BuildCache @ 0x00498e30 */
-__asm__(".text\n.globl _sputLua_BuildCache\n_sputLua_BuildCache:\n\tjmp _SectorList_SaveForShrink\n");
+__asm__(".text\n.globl _sputLua_BuildCache\n_sputLua_BuildCache:\n\tjmp _WalkPlane_BuildCache\n");
 /* sputLua_RevertCache @ 0x00498e40 */
-__asm__(".text\n.globl _sputLua_RevertCache\n_sputLua_RevertCache:\n\tjmp _SectorList_RestoreAfterShrink\n");
+__asm__(".text\n.globl _sputLua_RevertCache\n_sputLua_RevertCache:\n\tjmp _WalkPlane_RestoreCache\n");
 /* sputLua_DumpMemoryLogL @ 0x00498ff0 */
 __asm__(".text\n.globl _sputLua_DumpMemoryLogL\n_sputLua_DumpMemoryLogL:\n\tjmp _Mem_DumpLog\n");
 /* sputLua_StopMovieL @ 0x0049e850 */
@@ -14,7 +14,7 @@ __asm__(".text\n.globl _sputLua_StopMovieL\n_sputLua_StopMovieL:\n\tjmp _sputSmu
 /* sputLua_SpewStartup @ 0x0049efa0 */
 __asm__(".text\n.globl _sputLua_SpewStartup\n_sputLua_SpewStartup:\n\tjmp _Spew_Startup\n");
 /* sputLua_SpewShutdown @ 0x0049efb0 */
-__asm__(".text\n.globl _sputLua_SpewShutdown\n_sputLua_SpewShutdown:\n\tjmp _Spew_Shutdown\n");
+__asm__(".text\n.globl _sputLua_SpewShutdown\n_sputLua_SpewShutdown:\n\tjmp _grimDebug_Shutdown\n");
 /* sputLua_ImStopRecording @ 0x004a0f70 */
 __asm__(".text\n.globl _sputLua_ImStopRecording\n_sputLua_ImStopRecording:\n\tjmp _ImStopRecording\n");
 /* sputLua_ImStopAllSounds @ 0x004a1080 */

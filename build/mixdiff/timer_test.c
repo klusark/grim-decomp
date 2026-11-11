@@ -11,7 +11,7 @@ typedef struct { void *cb; int period; unsigned flags; int user, busy, elapsed, 
 
 /* ---- functions under test ---- */
 extern void orig_Mixer_Update(void), InsaneTimer_Tick(void);
-extern void orig_Mixer_ServiceVoices(void), InsaneTimer_ServiceDeferred(void);
+extern void orig_Mixer_ServiceVoices(void), sys_timer_dispatcher(void);
 extern void orig_Mixer_ScheduleVoices(void), InsaneTimer_RunDeferred(void);
 extern int orig_FUN_004cdf10(void *, int, unsigned, int), sys_Alloc(void *, int, unsigned, int);
 extern void orig_FUN_004cdf80(int), sys_Free(int);
@@ -20,7 +20,7 @@ extern void orig_FUN_004cdfd0(int), sys_Delay(int);
 extern void orig_FUN_004cdef0(void), sys_Disable(void), orig_FUN_004cdf00(void), sys_Enable(void);
 extern int orig_FUN_004cdd80(void), InsaneTimer_StartThread(void);
 extern void orig_FUN_004cde80(void), InsaneTimer_StopThread(void);
-extern int __stdcall orig_Mixer_TimerThread(int), InsaneTimer_ThreadProc(int);
+extern int __stdcall orig_Mixer_TimerThread(int), timer_thread(int);
 extern int orig_FUN_004cdc90(int *, unsigned), sys_timer_module(int *, unsigned);
 extern void orig_FUN_004cdce0(void), InsaneTimer_module_terminate(void);
 extern int orig_FUN_004cdd10(void), InsaneTimer_Init(void);
@@ -172,7 +172,7 @@ int main(int argc, char **argv)
             fx_restore(); fx_reset(); effseed = cseed | 1; waits = 0; fake_time = (unsigned)cseed; rb = (CALL_M) + neg; } while (0)
         switch (f) {
         case 0: case 1: RUN((orig_Mixer_Update(), 0), (InsaneTimer_Tick(), 0)); break;
-        case 2: RUN((orig_Mixer_ServiceVoices(), 0), (InsaneTimer_ServiceDeferred(), 0)); break;
+        case 2: RUN((orig_Mixer_ServiceVoices(), 0), (sys_timer_dispatcher(), 0)); break;
         case 3: RUN((orig_Mixer_ScheduleVoices(), 0), (InsaneTimer_RunDeferred(), 0)); break;
         case 4: RUN(orig_FUN_004cdf10(th_cbs[1], a1, (unsigned)a2, a1 ^ a2), sys_Alloc(th_cbs[1], a1, (unsigned)a2, a1 ^ a2)); break;
         case 5: RUN((orig_FUN_004cdf80(a1 % 24 - 2), 0), (sys_Free(a1 % 24 - 2), 0)); break;
@@ -183,7 +183,7 @@ int main(int argc, char **argv)
         case 10: RUN((orig_FUN_004cdce0(), orig_FUN_004cdd10(), orig_FUN_004cdd60(), 0), (InsaneTimer_module_terminate(), InsaneTimer_Init(), InsaneTimer_module_shutdown(), 0)); break;
         case 11: RUN(orig_FUN_004cdd80(), InsaneTimer_StartThread()); break;
         case 12: RUN((orig_FUN_004cde80(), 0), (InsaneTimer_StopThread(), 0)); break;
-        case 13: RUN(orig_Mixer_TimerThread(0), InsaneTimer_ThreadProc(0)); break;
+        case 13: RUN(orig_Mixer_TimerThread(0), timer_thread(0)); break;
         }
         fx_cases++;
         if (ra != rb) fx_fail("return value", it * 100 + f);

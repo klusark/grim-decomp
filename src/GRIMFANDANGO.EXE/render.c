@@ -14,10 +14,13 @@ uint * Render_GetBackBuffer(void)
   return &g_dwStdDisplay_backBuffer;
 }
 
-/* ---- 0x00483a00  Render_ToggleDebugOverlay ---- */
-/* Flips debug flag 1 and, when turning it off, invalidates the whole canvas on every buffer */
+/* ---- 0x00483a00  sputRender_DrawDebuggingToggle ---- */
+/* Flips debug flag 1 and, when turning it off, invalidates the whole canvas on every buffer
+   Original name sputRender_DrawDebuggingToggle (the remaster's GrimFandango (Linux): same body
+   (toggles bit 0 of debugFlags; when off, marks the camera's viewport dirty); called by
+   sputRender_ControlHandler in both builds); was Render_ToggleDebugOverlay. */
 
-void Render_ToggleDebugOverlay(void)
+void sputRender_DrawDebuggingToggle(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -119,8 +122,11 @@ int __cdecl sputRender_Restore(void *readFn)
   return 0;
 }
 
-/* ---- 0x00483ea0  Render_SetZBufferEnabled ---- */
-void Render_SetZBufferEnabled(int param_1)
+/* ---- 0x00483ea0  sputRender_Using3DHardware ---- */
+/* Original name sputRender_Using3DHardware (the remaster's GrimFandango (Linux): same body
+   (sputRender_b3DAcceleration = flag)); was Render_SetZBufferEnabled. */
+
+void sputRender_Using3DHardware(int param_1)
 
 {
   g_nSputRender_b3DAcceleration = param_1;
@@ -142,30 +148,33 @@ void __cdecl sputRender_PageCountIs(int n)
   return;
 }
 
-/* ---- 0x00483ed0  Render_InvalidateRectLastBuffer ---- */
+/* ---- 0x00483ed0  sputRender_MarkDirtyRect ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name sputRender_MarkDirtyRect (the remaster's GrimFandango (Linux): same body (the
+   rectangle into the static trect, x rounded down and the width up to multiples of 4, MarkDirtyRect
+   for the last page)); was Render_InvalidateRectLastBuffer. */
 
-void __cdecl Render_InvalidateRectLastBuffer(int *rect,int flag)
+void __cdecl sputRender_MarkDirtyRect(int *rect,int flag)
 
 {
   int iVar1;
   uint uVar2;
   
-  _DAT_008a92b8 = *rect;
+  _g_aSputRender_MarkDirtyRect_trect = *rect;
   _DAT_008a92bc = rect[1];
   _DAT_008a92c0 = rect[2];
   _DAT_008a92c4 = rect[3];
   if ((0 < (int)_DAT_008a92c0) && (0 < _DAT_008a92c4)) {
-    uVar2 = (int)_DAT_008a92b8 >> 0x1f;
-    iVar1 = ((_DAT_008a92b8 ^ uVar2) - uVar2 & 3 ^ uVar2) - uVar2;
+    uVar2 = (int)_g_aSputRender_MarkDirtyRect_trect >> 0x1f;
+    iVar1 = ((_g_aSputRender_MarkDirtyRect_trect ^ uVar2) - uVar2 & 3 ^ uVar2) - uVar2;
     _DAT_008a92c0 = _DAT_008a92c0 + iVar1;
-    _DAT_008a92b8 = _DAT_008a92b8 - iVar1;
+    _g_aSputRender_MarkDirtyRect_trect = _g_aSputRender_MarkDirtyRect_trect - iVar1;
     uVar2 = (int)_DAT_008a92c0 >> 0x1f;
     iVar1 = ((_DAT_008a92c0 ^ uVar2) - uVar2 & 3 ^ uVar2) - uVar2;
     if (iVar1 != 0) {
       _DAT_008a92c0 = _DAT_008a92c0 + (4 - iVar1);
     }
-    DirtyRect_Add((int *)&DAT_008a92b8,flag,g_nNumPages + -1);
+    DirtyRect_Add((int *)&g_aSputRender_MarkDirtyRect_trect,flag,g_nNumPages + -1);
   }
   return;
 }
@@ -340,13 +349,13 @@ void Render_SetPixelFormat(uint *param_1)
     param_1 = param_1 + 1;
     puVar2 = puVar2 + 1;
   }
-  rdroid_SetGeometryMode(g_dwRenderVars);
-  rdroid_SetLightingMode(UINT_008a9514);
-  rdroid_SetTextureMode(UINT_008a9518);
-  rdroid_SetRenderFlags(UINT_008a951c);
-  rdroid_SetSortMode(UINT_008a9520);
-  rdroid_SetOcclusionMode(UINT_008a9524);
-  rdroid_SetZBufferMode(UINT_008a9528);
+  rdSetGeometryMode(g_dwRenderVars);
+  rdSetLightingMode(UINT_008a9514);
+  rdSetTextureMode(UINT_008a9518);
+  rdSetRenderOptions(UINT_008a951c);
+  rdSetSortingMethod(UINT_008a9520);
+  rdSetOcclusionMethod(UINT_008a9524);
+  rdSetZBufferMethod(UINT_008a9528);
   return;
 }
 
@@ -374,7 +383,7 @@ undefined4 sputRender_ControlHandler(void)
         g_dwSputRender_ControlHandler_bLastSpace = 0;
       }
       else if (g_dwSputRender_ControlHandler_bLastSpace == 0) {
-        Render_ToggleDebugOverlay();
+        sputRender_DrawDebuggingToggle();
         g_dwSputRender_ControlHandler_bLastSpace = 1;
       }
       if ((g_dwDebugFlags & 1) != 0) {
@@ -723,7 +732,7 @@ void Render_BuildActorDrawList(void)
       local_18 = *(float *)((int)pvVar2 + 0xc) - *g_pSputRender_Camera;
       local_14[0] = *(float *)((int)pvVar2 + 0x10) - g_pSputRender_Camera[1];
       local_14[1] = *(float *)((int)pvVar2 + 0x14) - g_pSputRender_Camera[2];
-      Vec3_TransformTo(&local_c,&local_18,g_pSputRender_Camera + 0xc);
+      rdMatrix_TransformVectorOrtho34(&local_c,&local_18,g_pSputRender_Camera + 0xc);
       *(uint *)(puVar3 + 4) = local_8;
       if (*(int *)((int)pvVar2 + 0xa0) == 0) {
         *(int *)(puVar3 + 8) = ((int)pvVar2 - (int)g_pActors) / 0xa8;
@@ -1043,7 +1052,7 @@ void sputRender_Dim(ushort *param_1,byte param_2)
       sputPrimitive_Pause();
       sputTime_AdvanceManual(0);
       sputRender_Update();
-      rdroid_EndFrame();
+      rdFinishFrame();
       sputText_Resume();
       sputPrimitive_Resume();
     }
@@ -1178,8 +1187,12 @@ void * sputRender_CleanZBuffer(void)
   return g_pSputRender_CleanZBuffer;
 }
 
-/* ---- 0x00486b20  Render_GetUserCallback ---- */
-uint Render_GetUserCallback(void)
+/* ---- 0x00486b20  sputRender_SetPaletteFunc ---- */
+/* Original name sputRender_SetPaletteFunc (the remaster's GrimFandango (Linux): same body (returns
+   the palette callback global); the call after the colormap set-up in sputActor_DrawToClean in both
+   builds); was Render_GetUserCallback. */
+
+uint sputRender_SetPaletteFunc(void)
 
 {
   return g_dwSputRender_pSetPaletteFunc;
@@ -1564,7 +1577,7 @@ void __cdecl Render_SaveZBufferBmp(char *filename)
   stdDisplay_VBufferLock((void *)UINT_008c97a4);
   stdDisplay_VBufferUnlock((void *)UINT_008c97a4);
   bitmap = (void *)stdBitmap_VBufferToBitmap((void *)UINT_008c97a4,0,0);
-  stdBitmap_SaveBM(filename,bitmap);
+  stdBitmap_Write(filename,bitmap);
   stdBitmap_Free(bitmap);
   return;
 }

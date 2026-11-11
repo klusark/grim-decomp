@@ -5,14 +5,17 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00446c10  rdClip_Line2D ---- */
+/* ---- 0x00446c10  rdClip_Line2 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Cohen-Sutherland line clip against a rectangle using rdClip_Outcode2D */
+/* Cohen-Sutherland line clip against a rectangle using rdClip_Outcode2D Original name rdClip_Line2
+   (the remaster's GrimFandango (Linux): the 2D line clip against the canvas rectangle (+0x18 ..
+   +0x24) with the outcodes 1 / 0x10 / 0x1000 / 0x100 in both builds; the remaster inlined
+   rdClip_CalcOutcode2); was rdClip_Line2D. */
 
 undefined4
-rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4,
-             undefined4 *param_5)
+rdClip_Line2(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4,
+            undefined4 *param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -28,8 +31,8 @@ rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefin
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  uVar1 = rdClip_Outcode2D(param_1,*param_2,*param_3);
-  uVar2 = rdClip_Outcode2D(param_1,*param_4,*param_5);
+  uVar1 = rdClip_CalcOutcode2(param_1,*param_2,*param_3);
+  uVar2 = rdClip_CalcOutcode2(param_1,*param_4,*param_5);
   if ((uVar1 == 0) && (uVar2 == 0)) {
     return 1;
   }
@@ -45,12 +48,12 @@ rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefin
     if (uVar3 == uVar1) {
       lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
       lVar4 = _ftol((double)CONCAT44(unaff_EDI,(int)lVar4));
-      uVar1 = ((code *)rdClip_Outcode2D)(param_1,(int)lVar4);
+      uVar1 = ((code *)rdClip_CalcOutcode2)(param_1,(int)lVar4);
     }
     else {
       lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
       lVar4 = _ftol((double)CONCAT44(unaff_EDI,(int)lVar4));
-      uVar2 = ((code *)rdClip_Outcode2D)(param_1,(int)lVar4);
+      uVar2 = ((code *)rdClip_CalcOutcode2)(param_1,(int)lVar4);
     }
     if ((uVar1 == 0) && (uVar2 == 0)) break;
     uVar3 = uVar1 & uVar2;
@@ -74,8 +77,11 @@ rdClip_Line2D(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefin
 #endif
 
 
-/* ---- 0x00446e80  rdClip_Outcode2D ---- */
-uint rdClip_Outcode2D(int param_1,int param_2,int param_3)
+/* ---- 0x00446e80  rdClip_CalcOutcode2 ---- */
+/* Original name rdClip_CalcOutcode2 (the remaster's GrimFandango (Linux): same body (outcode 1 /
+   0x10 for x left / right of +0x18 / +0x20, 0x1000 / 0x100 for y)); was rdClip_Outcode2D. */
+
+uint rdClip_CalcOutcode2(int param_1,int param_2,int param_3)
 
 {
   uint uVar1;

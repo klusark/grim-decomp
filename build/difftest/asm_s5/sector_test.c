@@ -1,7 +1,7 @@
-/* Differential test of Sector_ContainsPoint (build/overrides_asm_o2.c) against the original machine code, on random
+/* Differential test of WalkPlane_Within (build/overrides_asm_o2.c) against the original machine code, on random
  * sectors (2..8 vertices on a plane, random axes, tolerances) and points on, near and off the plane and the edges, with
  * special values (0, -0, 1e-5 neighbours, inf, NaN) mixed in, under the x87 precision controls 24, 53 and 64 bits.
- * Build: build/difftest/asm_s5/build.sh build/difftest/asm_s5/sector_test.c build/difftest/asm_s5/out/sector_test.exe Sector_ContainsPoint */
+ * Build: build/difftest/asm_s5/build.sh build/difftest/asm_s5/sector_test.c build/difftest/asm_s5/out/sector_test.exe WalkPlane_Within */
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +11,7 @@
 #include "fx.h"
 static long ninside;
 
-extern int __thiscall orig_Sector_ContainsPoint(void *, float *, int), Sector_ContainsPoint(void *, float *, int);
+extern int __thiscall orig_WalkPlane_Within(void *, float *, int), WalkPlane_Within(void *, float *, int);
 static unsigned R(unsigned n) { return (unsigned)(fx_rnd() % n); }
 static float rf(float s) { return (float)((double)(int)(fx_rnd() % 2000001 - 1000000) / 1000000.0 * s); }
 static float special(float x)
@@ -70,8 +70,8 @@ int main(int argc, char **argv)
         } else if (R(2)) { float *v = &vrec[R(8)][1]; p[0] = v[0] + special(rf(1e-4f)); p[1] = v[1] + special(rf(1e-4f)); p[2] = v[2] + special(rf(1e-4f)); }
         else { p[0] = special(rf(10)); p[1] = special(rf(10)); p[2] = special(rf(10)); }
         _controlfp(pc, _MCW_PC);
-        ra = orig_Sector_ContainsPoint(sec, p, chk);
-        rb = Sector_ContainsPoint(sec, p, chk);
+        ra = orig_WalkPlane_Within(sec, p, chk);
+        rb = WalkPlane_Within(sec, p, chk);
         _controlfp(_PC_64, _MCW_PC);
         if (ra != rb) fx_fail("ret", i);
         fx_cases++;

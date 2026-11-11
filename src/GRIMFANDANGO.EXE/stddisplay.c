@@ -16,7 +16,7 @@ void Display_Shutdown3D(void)
     D3D_ReleaseDriver();
     D3D_Release();
     g_nRdroid_curAcceleration = g_nRdroid_curAcceleration & 0xfffffffe;
-    Engine_SetZBufferEnabled(0);
+    grimlib_Using3DHardware(0);
   }
   return;
 }
@@ -45,7 +45,7 @@ int __cdecl Display_Select(int deviceIdx,int modeIdx,int threeDIdx)
   if (g_nDisplayDeviceOpen != 0) {
     return 0;
   }
-  Input_ShowCursor((&UINT_00902d70)[deviceIdx * 0xa6] == 0);
+  stdControl_ShowMouseCursor((&UINT_00902d70)[deviceIdx * 0xa6] == 0);
   Reg_SetInt(s_ExperimentalDisplay_004dd5e4,1);
   iVar1 = Display_SelectDevice(deviceIdx);
   if ((iVar1 != 0) && (iVar1 = Display_OpenMode(modeIdx,&DAT_004f41e0,1), iVar1 != 0)) {
@@ -80,7 +80,7 @@ LAB_00402747:
       Win_SetWindowedSize((uint)(*(int *)((int)g_pDisplayDevice + 0x110) != 0),
                           *(int *)((int)g_pVideoMode + 8),*(int *)((int)g_pVideoMode + 0xc));
       Reg_SetBinary(s_LastDisplayDevice_004dd738,(void *)((int)g_pDisplayDevice + 0x288),0x10);
-      Input_ShowCursor(0);
+      stdControl_ShowMouseCursor(0);
       g_bWindowedMode = (uint)(*(int *)((int)g_pDisplayDevice + 0x110) == 0);
       UINT_004e814c = 1;
       return 1;
@@ -156,7 +156,7 @@ int __cdecl Display_Select3DDevice(int threeDNum)
       iVar1 = D3D_SelectDriver(threeDNum,1);
       if (iVar1 != 0) {
         g_nRdroid_curAcceleration = g_nRdroid_curAcceleration | 1;
-        Engine_SetZBufferEnabled(1);
+        grimlib_Using3DHardware(1);
         Reg_SetBinary(s_Last3DDevice_004dd794,(void *)((int)g_pStd3D_CurDevice + 0x21c),0x10);
         return 1;
       }
@@ -654,11 +654,14 @@ int stdDisplay_Startup(void)
   return iVar1 == 0;
 }
 
-/* ---- 0x00473b30  Display_RestoreMode ---- */
+/* ---- 0x00473b30  stdDisplay_Shutdown ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* IDirectDraw::RestoreDisplayMode when a DirectDraw device is active */
+/* IDirectDraw::RestoreDisplayMode when a DirectDraw device is active Original name
+   stdDisplay_Shutdown (the remaster's GrimFandango (Linux): the call after the display close in
+   Main_Shutdown in both builds; clears the stdDisplay startup flag (the remaster's is empty)); was
+   Display_RestoreMode. */
 
-void Display_RestoreMode(void)
+void stdDisplay_Shutdown(void)
 
 {
   _g_bStdDisplay_Startup = 0;
@@ -838,13 +841,17 @@ int __cdecl Display_SelectDevice(int deviceIdx)
   return 1;
 }
 
-/* ---- 0x00474100  Display_CloseDevice ---- */
-void Display_CloseDevice(void)
+/* ---- 0x00474100  stdDisplay_Close ---- */
+/* Original name stdDisplay_Close (the remaster's GrimFandango (Linux): the device close after
+   stdDisplay_ClearMode in both builds (if open: clear the mode if set, clear the open flag)); was
+   Display_CloseDevice. */
+
+void stdDisplay_Close(void)
 
 {
   if (g_nDisplayDeviceOpen != 0) {
     if (g_nDisplayModeOpen != 0) {
-      Display_CloseMode();
+      stdDisplay_ClearMode();
     }
     if (*(int *)((int)g_pDisplayDevice + 0x100) == 1) {
       DDraw_Release();
@@ -872,7 +879,7 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
     return 0;
   }
   if (g_nDisplayModeOpen != 0) {
-    Display_CloseMode();
+    stdDisplay_ClearMode();
   }
   UINT_00803f9c = use3D;
   _DAT_0090175c = modeIdx;
@@ -921,8 +928,12 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
   return 1;
 }
 
-/* ---- 0x00474310  Display_CloseMode ---- */
-void Display_CloseMode(void)
+/* ---- 0x00474310  stdDisplay_ClearMode ---- */
+/* Original name stdDisplay_ClearMode (the remaster's GrimFandango (Linux): the mode close of the
+   display shutdown in both builds (if a mode is set and the device type at +0x100 is 0, release the
+   front / back buffers; clear the mode flag)); was Display_CloseMode. */
+
+void stdDisplay_ClearMode(void)
 
 {
   if (g_nDisplayModeOpen != 0) {
@@ -1435,8 +1446,7 @@ void __cdecl stdDisplay_VBufferDeCompress(void *surface)
                             (*(int *)((int)surface + 0x18) * *(int *)((int)surface + 0x10),
                              s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18,DAT_004de1d8 + 0xc);
     if (dst != (void *)0x0) {
-      iVar1 = stdCompress_Decompress
-                        (dst,*(void **)((int)surface + 0x5c),*(int *)((int)surface + 0x14));
+      iVar1 = LzssDecompress(dst,*(void **)((int)surface + 0x5c),*(int *)((int)surface + 0x14));
       (*g_pStd_HS->pFree)(*(undefined4 *)((int)surface + 0x5c));
       *(int *)((int)surface + 0x14) = iVar1;
       *(undefined4 *)surface = 0;
@@ -1456,8 +1466,7 @@ int __cdecl stdDisplay_VBufferDeCompressTo(void *src,void *dst)
   int iVar1;
   
   stdDisplay_VBufferLock(dst);
-  stdCompress_Decompress
-            (*(void **)((int)dst + 0x5c),*(void **)((int)src + 0x5c),*(int *)((int)src + 0x14));
+  LzssDecompress(*(void **)((int)dst + 0x5c),*(void **)((int)src + 0x5c),*(int *)((int)src + 0x14));
   iVar1 = stdDisplay_VBufferUnlock(dst);
   return iVar1;
 }

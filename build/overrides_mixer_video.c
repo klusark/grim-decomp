@@ -3,7 +3,7 @@
  *
  * A VideoBitmap is a small header (0x54 bytes) in front of the pixels with the description of the pixel format:
  * type 0 = palettised, 1 = RGB, 2 = RGB with alpha; per channel the number of bits, the shift of the channel in the pixel
- * and the loss (8 - bits).  VideoBitmap_ConvertPixels converts rows of pixels between two formats through a 32 bit RGBA
+ * and the loss (8 - bits).  gra_ConvertCopy converts rows of pixels between two formats through a 32 bit RGBA
  * scratch buffer (the "to RGBA" and "from RGBA" converters use the format description), with hand-written fast paths for
  * the common 15 / 16 bit layouts.
  *
@@ -32,7 +32,7 @@ typedef struct VideoBitmap {
     int bitsA, shiftA, lossA;       /* 48 4c 50 */
 } VideoBitmap;
 
-extern uint g_adwVideoMask[9] __asm__("_DAT_004f3da0");     /* mask of the top n bits of a byte (n = 0..8) */
+extern uint g_adwVideoMask[9] __asm__("_g_aConvert_bitmask");     /* mask of the top n bits of a byte (n = 0..8) */
 extern int *g_pVideoMemory __asm__("_g_pVideo_memory_services");        /* "MEMORY workspace" services: [0] allocate(size, file, line) */
 extern int *g_pVideoDisplayFormat __asm__("_g_dwVideo_video_services"); /* [1]() returns the VideoBitmap of the display */
 extern uint g_nVideoScratchFlip __asm__("_UINT_008da8a0");
@@ -306,7 +306,7 @@ void Video_CopyRectDstFirst(byte *dst, byte *src, int dstX, uint dstY, int srcX,
 
 /* pixels in the format `fmt` -> RGBA bytes (R, G, B, A).  Returns 0, or -1 for a format it cannot handle.
  * palette: used for palettised pixels when the format has none. */
-int Video_PixelsToRgba(void *src, void *fmt_, int count, byte *palette, byte *dst)
+int gra_ConvertToLecColor(void *src, void *fmt_, int count, byte *palette, byte *dst)
 {
     VideoBitmap *fmt = (VideoBitmap *)fmt_;
     int type = fmt->type;
@@ -418,8 +418,8 @@ int gra_ConvertFromLecColor(void *dst, void *fmt_, int count, int unused, byte *
 
 /* Converts `count` pixels from the format `srcFmt` (src) to `dstFmt` (dst), in pieces of at most 0x500 pixels through the
  * RGBA scratch rows.  Same format: a copy.  `expandTable`: a precomputed table (palette expanded to the destination
- * format, or 16 bit index -> pixel) for the indexed sources.  `palette`: see Video_PixelsToRgba.  Returns 0 or -1. */
-int VideoBitmap_ConvertPixels(byte *src, void *srcFmt_, int count, byte *palette, byte *dst, void *dstFmt_,
+ * format, or 16 bit index -> pixel) for the indexed sources.  `palette`: see gra_ConvertToLecColor.  Returns 0 or -1. */
+int gra_ConvertCopy(byte *src, void *srcFmt_, int count, byte *palette, byte *dst, void *dstFmt_,
                               byte *expandTable)
 {
     VideoBitmap *srcFmt = (VideoBitmap *)srcFmt_, *dstFmt = (VideoBitmap *)dstFmt_;
@@ -454,13 +454,13 @@ int VideoBitmap_ConvertPixels(byte *src, void *srcFmt_, int count, byte *palette
         if (srcRgba) {
             rc = gra_ConvertFromLecColor(dst, dstFmt, piece, (int)palette, src);
         } else if (dstRgba) {
-            rc = Video_PixelsToRgba(src, srcFmt, piece, palette, dst);
+            rc = gra_ConvertToLecColor(src, srcFmt, piece, palette, dst);
         } else {
             byte *tmp;
 
             g_nVideoScratchFlip++;
             tmp = g_abVideoScratch + (g_nVideoScratchFlip & 1) * 0x1400;
-            if (Video_PixelsToRgba(src, srcFmt, piece, palette, tmp) != 0)
+            if (gra_ConvertToLecColor(src, srcFmt, piece, palette, tmp) != 0)
                 return -1;
             rc = gra_ConvertFromLecColor(dst, dstFmt, piece, (int)palette, tmp);
         }

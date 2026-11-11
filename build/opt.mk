@@ -10,7 +10,7 @@
 # store to a later load of the first (Render_SetPixelFormat set the geometry mode from the 7th dword: wireframe actors)
 # NOT -fexcess-precision=standard: tried; it rounds every Ghidra temporary (fVarN) to a float although the original keeps it
 # in an 80-bit x87 register, which moves results in the 4th digit (t3 oracle). Where the original really stores to a float
-# local and tests the stored value (Math_NormalizeAngle360 == 360.0), the function is written by hand with a volatile.
+# local and tests the stored value (stdMath_NormalizeAngle == 360.0), the function is written by hand with a volatile.
 OPT_FAST := -O2 -fno-omit-frame-pointer -fno-delete-null-pointer-checks -fno-tree-fre -fno-tree-pre -fno-tree-dominator-opts -fno-tree-dse
 OPT_LUA.DLL/getlcidfromcountryonly := $(OPT_FAST)
 OPT_LUA.DLL/getlcidfromdefault := $(OPT_FAST)

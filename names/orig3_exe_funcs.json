@@ -662,7 +662,7 @@
   "addr": "0047b590",
   "old": "stdBitmap_DecompressAll",
   "name": "stdBitmap_DeCompress",
-  "comment": "Original name stdBitmap_DeCompress (the remaster's GrimFandango (Linux): aligned call in stdBitmap_Load, stdWriteImage); was stdBitmap_DecompressAll."
+  "comment": "Original name stdBitmap_DeCompress (the remaster's GrimFandango (Linux): aligned call in stdLoadImage, stdWriteImage); was stdBitmap_DecompressAll."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -2237,7 +2237,7 @@
   "addr": "004d16a0",
   "old": "SoundModule_MixCallback",
   "name": "sou_engine_fill",
-  "comment": "Mixes all active tracks into the driver buffer (called by DSound_FillStreamBuffer through the driver) Original name sou_engine_fill (the remaster's GrimFandango (Linux): aligned call in engine_Initialize); was SoundModule_MixCallback."
+  "comment": "Mixes all active tracks into the driver buffer (called by dsn_fill_thread through the driver) Original name sou_engine_fill (the remaster's GrimFandango (Linux): aligned call in engine_Initialize); was SoundModule_MixCallback."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

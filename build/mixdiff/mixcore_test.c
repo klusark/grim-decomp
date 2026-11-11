@@ -7,20 +7,20 @@
 #include <stdint.h>
 #include <float.h>
 
-extern int *g_pMixAccum;
-extern unsigned g_dwMixAccumBytes, g_dwMixChannels, g_dwMixTableUnits;
-extern void *g_pMixCompanderTable;
+extern int *g_pMixer_mixBuf;
+extern unsigned g_dwMixer_mixBufSize, g_dwMixer_outChannelCount, g_dwWaveMixCount;
+extern void *g_pMixer_softLTable;
 extern unsigned char DAT_008dcc70[289];
 extern unsigned DAT_008dcda0;
 
-extern int orig_Mixer_ClearAccumulator(void), Mixer_ClearAccumulator(void);
+extern int orig_sou_mixer_start(void), sou_mixer_start(void);
 extern int orig_Mixer_ConvertTo16(short *, int), Mixer_ConvertTo16(short *, int);
 extern void orig_Mixer_MixVoice(unsigned char *, int, int, int, unsigned, int, int, int, int, int);
 extern void Mixer_MixVoice(unsigned char *, int, int, int, unsigned, int, int, int, int, int);
 extern void orig_FUN_004d2d90(unsigned char *, int, unsigned, int, int, int, int, int);
-extern void Mixer_MixVoiceByFormat(unsigned char *, int, unsigned, int, int, int, int, int);
+extern void sou_mixer_mix(unsigned char *, int, unsigned, int, int, int, int, int);
 extern int orig_FUN_004d2e80(int *, unsigned, int, int), Mixer_InitTables(int *, unsigned, int, int);
-extern int orig_FUN_004d2d40(int *, unsigned, int), Mixer_Init(int *, unsigned, int);
+extern int orig_FUN_004d2d40(int *, unsigned, int), sou_mixer_initialize(int *, unsigned, int);
 extern int orig_FUN_004d2fb0(int *), Mixer_Free(int *);
 
 static uint64_t rng = 88172645463325252ull;
@@ -68,18 +68,18 @@ int main(int argc, char **argv)
             ALog lA[64], lB[64];
             unsigned bytesA, chA, ptrA, argA, bytesB, chB, ptrB, argB;
             memset(compA, 0x55, sizeof compA); memset(compB, 0x55, sizeof compB);
-            memset(DAT_008dcc70, 0xee, 289); g_dwMixTableUnits = units; nalog = 0; nallocs = 0; fail_alloc = failing;
-            g_pMixAccum = 0; g_pMixCompanderTable = 0; DAT_008dcda0 = 0; g_dwMixAccumBytes = 0; g_dwMixChannels = 0;
+            memset(DAT_008dcc70, 0xee, 289); g_dwWaveMixCount = units; nalog = 0; nallocs = 0; fail_alloc = failing;
+            g_pMixer_mixBuf = 0; g_pMixer_softLTable = 0; DAT_008dcda0 = 0; g_dwMixer_mixBufSize = 0; g_dwMixer_outChannelCount = 0;
             ra = orig_FUN_004d2e80(svc, ch, 40 + units, 77);
             memcpy(tabA, DAT_008dcc70, 289); nA = nalog; memcpy(lA, alog, sizeof lA);
-            bytesA = g_dwMixAccumBytes; chA = g_dwMixChannels; ptrA = (unsigned)(intptr_t)g_pMixCompanderTable; argA = DAT_008dcda0;
-            if (g_pMixCompanderTable) memcpy(compA, g_pMixCompanderTable, (size_t)units << 16);
-            memset(DAT_008dcc70, 0xee, 289); g_dwMixTableUnits = units; nalog = 0; nallocs = 0; fail_alloc = failing;
-            g_pMixAccum = 0; g_pMixCompanderTable = 0; DAT_008dcda0 = 0; g_dwMixAccumBytes = 0; g_dwMixChannels = 0;
+            bytesA = g_dwMixer_mixBufSize; chA = g_dwMixer_outChannelCount; ptrA = (unsigned)(intptr_t)g_pMixer_softLTable; argA = DAT_008dcda0;
+            if (g_pMixer_softLTable) memcpy(compA, g_pMixer_softLTable, (size_t)units << 16);
+            memset(DAT_008dcc70, 0xee, 289); g_dwWaveMixCount = units; nalog = 0; nallocs = 0; fail_alloc = failing;
+            g_pMixer_mixBuf = 0; g_pMixer_softLTable = 0; DAT_008dcda0 = 0; g_dwMixer_mixBufSize = 0; g_dwMixer_outChannelCount = 0;
             rb = Mixer_InitTables(svc, ch, 40 + units, 77);
             memcpy(tabB, DAT_008dcc70, 289); nB = nalog; memcpy(lB, alog, sizeof lB);
-            bytesB = g_dwMixAccumBytes; chB = g_dwMixChannels; ptrB = (unsigned)(intptr_t)g_pMixCompanderTable; argB = DAT_008dcda0;
-            if (g_pMixCompanderTable) memcpy(compB, g_pMixCompanderTable, (size_t)units << 16);
+            bytesB = g_dwMixer_mixBufSize; chB = g_dwMixer_outChannelCount; ptrB = (unsigned)(intptr_t)g_pMixer_softLTable; argB = DAT_008dcda0;
+            if (g_pMixer_softLTable) memcpy(compB, g_pMixer_softLTable, (size_t)units << 16);
             cases[0]++;
             if (ra != rb || memcmp(tabA, tabB, 289) || nA != nB || memcmp(lA, lB, nA * sizeof lA[0]) || bytesA != bytesB || chA != chB
                 || ptrA != ptrB || argA != argB || memcmp(compA, compB, (size_t)units << 16)) {
@@ -96,19 +96,19 @@ int main(int argc, char **argv)
         int nA;
         unsigned bytesA, chA, uA;
         fail_alloc = 0;
-        nalog = 0; nallocs = 0; ra = orig_FUN_004d2d40(svc, 2, 50); pa = (unsigned long)g_pMixCompanderTable; nA = nalog;
-        bytesA = g_dwMixAccumBytes; chA = g_dwMixChannels; uA = g_dwMixTableUnits;
-        nalog = 0; nallocs = 0; rb = Mixer_Init(svc, 2, 50); pb = (unsigned long)g_pMixCompanderTable;
-        if (ra != rb || pa != pb || nA != nalog || bytesA != g_dwMixAccumBytes || chA != g_dwMixChannels || uA != g_dwMixTableUnits) fail("Init", 0);
+        nalog = 0; nallocs = 0; ra = orig_FUN_004d2d40(svc, 2, 50); pa = (unsigned long)g_pMixer_softLTable; nA = nalog;
+        bytesA = g_dwMixer_mixBufSize; chA = g_dwMixer_outChannelCount; uA = g_dwWaveMixCount;
+        nalog = 0; nallocs = 0; rb = sou_mixer_initialize(svc, 2, 50); pb = (unsigned long)g_pMixer_softLTable;
+        if (ra != rb || pa != pb || nA != nalog || bytesA != g_dwMixer_mixBufSize || chA != g_dwMixer_outChannelCount || uA != g_dwWaveMixCount) fail("Init", 0);
         cases[1]++;
         for (int k = 0; k < 2; k++) {
             void *cA, *aA;
             int la;
             nalog = 0; ra = orig_FUN_004d2fb0(svc); la = nalog; memcpy(lA, alog, sizeof lA);
-            cA = g_pMixCompanderTable; aA = g_pMixAccum;
+            cA = g_pMixer_softLTable; aA = g_pMixer_mixBuf;
             nallocs = 0; orig_FUN_004d2e80(svc, 2, 100, 0);       /* allocated again (k == 0) / still allocated */
             nalog = 0; rb = Mixer_Free(svc);
-            if (ra != rb || la != nalog || memcmp(lA, alog, la * sizeof lA[0]) || cA != g_pMixCompanderTable || aA != g_pMixAccum) fail("Free", k);
+            if (ra != rb || la != nalog || memcmp(lA, alog, la * sizeof lA[0]) || cA != g_pMixer_softLTable || aA != g_pMixer_mixBuf) fail("Free", k);
             cases[1]++;
             nallocs = 0; nalog = 0; orig_FUN_004d2e80(svc, 2, 100, 0);   /* leave valid tables for the mixing tests */
         }
@@ -121,8 +121,8 @@ int main(int argc, char **argv)
         case 2: {   /* ClearAccumulator */
             unsigned nb = rnd() % 200;
             int ra, rb;
-            g_pMixAccum = accA; g_dwMixAccumBytes = nb; ra = orig_Mixer_ClearAccumulator();
-            g_pMixAccum = accB; rb = Mixer_ClearAccumulator();
+            g_pMixer_mixBuf = accA; g_dwMixer_mixBufSize = nb; ra = orig_sou_mixer_start();
+            g_pMixer_mixBuf = accB; rb = sou_mixer_start();
             if (ra != rb || memcmp(accA, accB, sizeof accA)) fail("ClearAccumulator", it);
             cases[2]++; break; }
         case 3: {   /* ConvertTo16 */
@@ -130,10 +130,10 @@ int main(int argc, char **argv)
             int frames = (rnd() & 15) == 0 ? 0 : 1 + rnd() % MAXFR, ra, rb;
             int nullacc = (rnd() & 31) == 0, nulldst = (rnd() & 31) == 0;
             for (unsigned i = 0; i < sizeof dA / 2; i++) dA[i] = dB[i] = (short)rnd();
-            g_dwMixChannels = 1 + (rnd() & 1);
+            g_dwMixer_outChannelCount = 1 + (rnd() & 1);
             if ((rnd() & 3) == 0) for (unsigned i = 0; i < sizeof accA / 4; i++) accA[i] = accB[i] = (int)(rnd() % 70000) * 128 - 4500000;   /* around the clamp limits */
-            g_pMixAccum = nullacc ? 0 : accA; ra = orig_Mixer_ConvertTo16(nulldst ? 0 : dA, frames);
-            g_pMixAccum = nullacc ? 0 : accB; rb = Mixer_ConvertTo16(nulldst ? 0 : dB, frames);
+            g_pMixer_mixBuf = nullacc ? 0 : accA; ra = orig_Mixer_ConvertTo16(nulldst ? 0 : dA, frames);
+            g_pMixer_mixBuf = nullacc ? 0 : accB; rb = Mixer_ConvertTo16(nulldst ? 0 : dB, frames);
             if (ra != rb || memcmp(dA, dB, sizeof dA) || memcmp(accA, accB, sizeof accA)) fail("ConvertTo16", it);
             cases[3]++; break; }
         case 4: case 5: case 6: {   /* MixVoice (4, 5) / MixVoiceByFormat (6) */
@@ -148,16 +148,16 @@ int main(int argc, char **argv)
             pan = (rnd() & 7) ? (int)(rnd() % 129) : (int)(rnd() % 300) - 20;
             if (f == 6) {
                 int format = rnd() % 6, srcBytes = 1 + rnd() % 1000;
-                g_pMixAccum = accA; orig_FUN_004d2d90(src, off, rate, srcBytes, 0, volume, pan, format);
-                g_pMixAccum = accB; Mixer_MixVoiceByFormat(src, off, rate, srcBytes, 0, volume + neg, pan, format);
+                g_pMixer_mixBuf = accA; orig_FUN_004d2d90(src, off, rate, srcBytes, 0, volume, pan, format);
+                g_pMixer_mixBuf = accB; sou_mixer_mix(src, off, rate, srcBytes, 0, volume + neg, pan, format);
                 if (memcmp(accA, accB, sizeof accA)) fail("MixVoiceByFormat", it);
                 cases[6]++;
             } else {
                 int bits = (rnd() & 1) ? 8 : 16, ch = 1 + (rnd() & 1), ob = rnd() & 1, sw = rnd() & 1;
                 int nullacc = (rnd() & 63) == 0, nullsrc = (rnd() & 63) == 0;
                 if ((rnd() & 31) == 0) count = 0;
-                g_pMixAccum = nullacc ? 0 : accA; orig_Mixer_MixVoice(nullsrc ? 0 : src, count, bits, ch, rate, off, volume, pan, ob, sw);
-                g_pMixAccum = nullacc ? 0 : accB; Mixer_MixVoice(nullsrc ? 0 : src, count, bits, ch, rate, off, volume + neg, pan, ob, sw);
+                g_pMixer_mixBuf = nullacc ? 0 : accA; orig_Mixer_MixVoice(nullsrc ? 0 : src, count, bits, ch, rate, off, volume, pan, ob, sw);
+                g_pMixer_mixBuf = nullacc ? 0 : accB; Mixer_MixVoice(nullsrc ? 0 : src, count, bits, ch, rate, off, volume + neg, pan, ob, sw);
                 if (memcmp(accA, accB, sizeof accA)) fail("MixVoice", it);
                 cases[4]++;
             }

@@ -158,7 +158,7 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
             D[1] = dyf;
             D[2] = dzf;
             frame = sputActor_GetOrientMatrix(other);
-            Vec3_TransformTo(P, D, frame);
+            rdMatrix_TransformVectorOrtho34(P, D, frame);
             P[0] = cto_st((ld_t)P[0] + CTO_F(omodel, 0x78));
             P[1] = cto_st((ld_t)P[1] + CTO_F(omodel, 0x7c));
             P[2] = cto_st((ld_t)P[2] + CTO_F(omodel, 0x80));
@@ -191,14 +191,14 @@ undefined4 Collision_TestActorAgainstOthers(void *param_1)
                 D[2] = cto_st((ld_t)D[2] - B[2]);
             }
             frame = sputActor_GetOrientMatrix(other);
-            Vec3_TransformTo(Q, D, frame);
+            rdMatrix_TransformVectorOrtho34(Q, D, frame);
             Q[0] = cto_st((ld_t)Q[0] + CTO_F(omodel, 0x78));
             Q[1] = cto_st((ld_t)Q[1] + CTO_F(omodel, 0x7c));
             Q[2] = cto_st((ld_t)Q[2] + CTO_F(omodel, 0x80));
             slid = Collision_BoxSlide(P, Q, box[0], box[1], box[2], box[3], box[4], box[5], out);
             if (slid == 0) {
                 frame = sputActor_GetOrientMatrix(other);
-                Collision_PushOutOfBox(P, box[0], box[1], box[2], box[3], box[4], box[5], frame,
+                GetOuttaTheBox(P, box[0], box[1], box[2], box[3], box[4], box[5], frame,
                                        (float *)(other + 0xc));
                 cto_copy3(out, P);
             }

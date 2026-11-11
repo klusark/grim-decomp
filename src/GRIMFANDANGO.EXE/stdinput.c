@@ -20,7 +20,7 @@ undefined * stdControl_Startup(void)
   void **a3;
   int a4;
   
-  puVar2 = &UINT_00901500;
+  puVar2 = &g_dwStdControl_aAxes;
   for (iVar1 = 0x5a; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
@@ -38,7 +38,7 @@ undefined * stdControl_Startup(void)
   Input_CreateKeyboard();
   Input_InitJoysticks();
   Input_CreateMouse();
-  Input_ResetState();
+  stdControl_Reset();
   g_dwStdControl_bStartup = 1;
   return (undefined *)0x1;
 }
@@ -77,8 +77,11 @@ undefined4 stdControl_Open(void)
   return 1;
 }
 
-/* ---- 0x00476fe0  Input_Disable ---- */
-undefined4 Input_Disable(void)
+/* ---- 0x00476fe0  stdControl_Close ---- */
+/* Original name stdControl_Close (the remaster's GrimFandango (Linux): called by sputControl_Close
+   in both builds; clears stdControl_bOpen and returns whether it was open); was Input_Disable. */
+
+undefined4 stdControl_Close(void)
 
 {
   if (g_nStdControl_bOpen == 0) {
@@ -107,10 +110,13 @@ void stdControl_Flush(void)
   return;
 }
 
-/* ---- 0x00477040  Input_ResetState ---- */
+/* ---- 0x00477040  stdControl_Reset ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Original name stdControl_Reset (the remaster's GrimFandango (Linux): same body (clears the mouse
+   / joystick read flags, the two 0x680 joystick flags, bit 1 of every axis); called by
+   sputControl_Reset in both builds); was Input_ResetState. */
 
-void Input_ResetState(void)
+void stdControl_Reset(void)
 
 {
   uint *puVar1;
@@ -122,7 +128,7 @@ void Input_ResetState(void)
   UINT_00804010 = 0x680;
   _DAT_00803fcc = 0;
   _DAT_00804014 = 0x680;
-  puVar1 = &UINT_00901500;
+  puVar1 = &g_dwStdControl_aAxes;
   do {
     puVar2 = puVar1 + 6;
     *puVar1 = *puVar1 & 0xfffffffd;
@@ -131,19 +137,22 @@ void Input_ResetState(void)
   return;
 }
 
-/* ---- 0x00477090  Input_EnableAxis ---- */
-/* Axes 0-11 belong to the two joysticks, 12-14 to the mouse */
+/* ---- 0x00477090  stdControl_EnableAxis ---- */
+/* Axes 0-11 belong to the two joysticks, 12-14 to the mouse Original name stdControl_EnableAxis
+   (the remaster's GrimFandango (Linux): same body (axis < 0xf, only an available axis (bit 0) gets
+   bit 1, then the mouse / joystick read flags; the remaster inlined Input_MarkAxisUsed); called by
+   sputControl_EnableControl in both builds); was Input_EnableAxis. */
 
-int __cdecl Input_EnableAxis(uint axis)
+int __cdecl stdControl_EnableAxis(uint axis)
 
 {
   if (0xe < axis) {
     return 0;
   }
-  if (((&UINT_00901500)[axis * 6] & 1) == 0) {
+  if (((&g_dwStdControl_aAxes)[axis * 6] & 1) == 0) {
     return 0;
   }
-  (&UINT_00901500)[axis * 6] = (&UINT_00901500)[axis * 6] | 2;
+  (&g_dwStdControl_aAxes)[axis * 6] = (&g_dwStdControl_aAxes)[axis * 6] | 2;
   Input_MarkAxisUsed(axis);
   return 1;
 }
@@ -202,14 +211,14 @@ float __cdecl stdControl_ReadAxis(int inputId)
     return 0.0;
   }
   iVar5 = inputId * 0x18;
-  if (((&UINT_00901500)[inputId * 6] & 2) == 0) {
+  if (((&g_dwStdControl_aAxes)[inputId * 6] & 2) == 0) {
     return 0.0;
   }
   iVar3 = (&UINT_00803fd0)[inputId] - *(int *)(&DAT_0090150c + iVar5);
   if (iVar3 == 0) {
     return 0.0;
   }
-  if ((((&UINT_00901500)[inputId * 6] & 8) == 0) && (*(int *)(&DAT_00901510 + iVar5) != 0)) {
+  if ((((&g_dwStdControl_aAxes)[inputId * 6] & 8) == 0) && (*(int *)(&DAT_00901510 + iVar5) != 0)) {
     iVar4 = iVar3;
     if (iVar3 < 0) {
       iVar4 = -iVar3;
@@ -289,8 +298,12 @@ void __cdecl Input_SetAcquired(int acquire)
   return;
 }
 
-/* ---- 0x00477380  Input_ShowCursor ---- */
-void Input_ShowCursor(int param_1)
+/* ---- 0x00477380  stdControl_ShowMouseCursor ---- */
+/* Original name stdControl_ShowMouseCursor (the remaster's GrimFandango (Linux): the windowed /
+   full-screen mouse cursor call of Main_Shutdown (ShowCursor(1)) in both builds; the remaster's is
+   a stub); was Input_ShowCursor. */
+
+void stdControl_ShowMouseCursor(int param_1)
 
 {
   ShowCursor(param_1);
@@ -1053,7 +1066,7 @@ void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone)
   
   iVar1 = ((max - min) + 1) / 2 + min;
   iVar2 = axis * 0x18;
-  (&UINT_00901500)[axis * 6] = (&UINT_00901500)[axis * 6] | 1;
+  (&g_dwStdControl_aAxes)[axis * 6] = (&g_dwStdControl_aAxes)[axis * 6] | 1;
   (&UINT_00901504)[axis * 6] = min;
   *(int *)(&DAT_00901508 + iVar2) = max;
   *(int *)(&DAT_0090150c + iVar2) = iVar1;

@@ -920,13 +920,13 @@ undefined4 rdModel3_LoadEntry(int name, undefined4 model)
     (*g_pRdroid_HS->pFclose)(file);
     return ((undefined4 (*)(int, undefined4))rdModel3_LoadEntryText)(name, model);
 }
-/* ==== rdPrimit3_DrawPolygon (0x00409d50) ====
+/* ==== rdCache_InsertFace (0x00409d50) ====
  * Draws a world-space polygon with the 3D primitives: the vertices are moved into camera space (up to 32 on the stack), clipped
  * against the frustum with the position-only clipper, projected through the camera's function (+0x50) into a cache entry,
  * which gets the material and a back-face flag from the plane through the first three camera-space vertices (dot of its
  * normal with the centroid > 0).  The decompiler printed the stack arrays as separate locals that the C compiler does not lay
  * out one after the other (the vertex array ran over the neighbouring variables). */
-void * __cdecl rdPrimit3_DrawPolygon(float *verts, int count, void *material)
+void * __cdecl rdCache_InsertFace(float *verts, int count, void *material)
 {
     float cv[96], proj[96], cen[3], e1[3], e2[3], n[3], avg[3];
     char *cam = (char *)g_pRdCamera_CurCamera;
@@ -967,7 +967,7 @@ void * __cdecl rdPrimit3_DrawPolygon(float *verts, int count, void *material)
     e2[0] = cv[6] - cv[3];
     e2[1] = cv[7] - cv[4];
     e2[2] = cv[8] - cv[5];
-    Vec3_Cross(n, e1, e2);
+    rdVector_Cross3(n, e1, e2);
     avg[0] = (float)((long double)cen[0] / count);
     avg[1] = (float)((long double)cen[1] / count);
     avg[2] = (float)((long double)cen[2] / count);
@@ -1164,7 +1164,7 @@ void stdMath_SinCos(float deg, float *outSin, float *outCos)
     int q, i1, i2;
     float v0, v1;
 
-    a = Math_NormalizeAngle360(deg);
+    a = stdMath_NormalizeAngle(deg);
     q = (a < 90.0f) ? 0 : (a < 180.0f) ? 1 : (a < 270.0f) ? 2 : 3;
     t = a * 45.511112f;
     frac = t - Math_Floor(t);
@@ -1213,7 +1213,7 @@ float10 stdMath_Tan(float deg)
     int q, i1, i2;
     float v0, v1;
 
-    a = Math_NormalizeAngle360(deg);
+    a = stdMath_NormalizeAngle(deg);
     q = (a < 90.0f) ? 0 : (a < 180.0f) ? 1 : (a < 270.0f) ? 2 : 3;
     t = (float)(((long double)a / 360.0f) * 16384.0f);
     frac = t - Math_Floor(t);
@@ -1329,7 +1329,7 @@ undefined4 rdPrimit3_DrawLine(float *a, float *b, int *outA, int *outB, int *cli
  * units, truncated by _ftol; 0 when the dead zone is 0.0 or NaN) and the reciprocal of the half range. */
 void Input_SetAxisRange(int axis, int min, int max, float deadZone)
 {
-    uint *ax = (uint *)((char *)&UINT_00901500 + axis * 0x18);
+    uint *ax = (uint *)((char *)&g_dwStdControl_aAxes + axis * 0x18);
     int mid = ((max - min) + 1) / 2 + min;
 
     ax[0] |= 1;
@@ -1899,7 +1899,7 @@ void sputPrimitive_ChangePrimitive(void)
     if ((iVar4 != 0) && (iVar4 = lua_tag(iVar3), iVar4 == 0x524c4f43)) {
       uVar5 = lua_getuserdata(iVar3);
       /* the Lua colour is 0x00BBGGRR-style bytes; each channel loses its low bits and moves to the display's channel position */
-      Primitive_SetColor(&g_dwPrimitiveQ,iVar1,
+      PrimitiveQueue_changeColor(&g_dwPrimitiveQ,iVar1,
                          ((((uVar5 >> 16) & 0xff) >> (UINT_004ddac8 & 0x1f)) << (UINT_004ddabc & 0x1f) & 0xffff) |
                          ((((uVar5 >> 8) & 0xff) >> (UINT_004ddac4 & 0x1f)) << (UINT_004ddab8 & 0x1f) & 0xffff) |
                          (((uVar5 & 0xff) >> (UINT_004ddac0 & 0x1f)) << (UINT_004ddab4 & 0x1f) & 0xffff));
@@ -1910,7 +1910,7 @@ void sputPrimitive_ChangePrimitive(void)
     iVar4 = lua_isnumber(iVar3);
     if (iVar4 != 0) {
       lVar7 = (longlong)lua_getnumber(iVar3);
-      Primitive_SetLayer(&g_dwPrimitiveQ,iVar1,(int)lVar7);
+      PrimitiveQueue_changeLayer(&g_dwPrimitiveQ,iVar1,(int)lVar7);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_xoffset_004e836c);
@@ -1934,7 +1934,7 @@ void sputPrimitive_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      Primitive_Offset(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
+      PrimitiveQueue_move(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_DAT_004e8374);
@@ -1958,7 +1958,7 @@ void sputPrimitive_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      Primitive_MoveTo(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
+      PrimitiveQueue_moveTo(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_DAT_004e837c);
@@ -1982,7 +1982,7 @@ void sputPrimitive_ChangePrimitive(void)
         lVar7 = (longlong)lua_getnumber(iVar4);
         iVar3 = (int)lVar7;
       }
-      Primitive_SetEnd(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
+      PrimitiveQueue_moveEndpoint(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_width_004e8384);
@@ -2008,7 +2008,7 @@ void sputPrimitive_ChangePrimitive(void)
       lVar7 = (longlong)lua_getnumber(iVar2);
       iVar6 = (int)lVar7;
     }
-    Primitive_SetSize(&g_dwPrimitiveQ,iVar1,iVar3,iVar6);
+    PrimitiveQueue_changeDimensions(&g_dwPrimitiveQ,iVar1,iVar3,iVar6);
     return;
   }
   return;
@@ -2168,18 +2168,18 @@ void sputCostume_DrawMeshShadow(void *costumeList, void *shadow)
         rect[1] = (int)(long long)minXY[1];
         rect[2] = (int)(long long)((long double)maxXY[0] - minXY[0]);
         rect[3] = (int)(long long)((long double)maxXY[1] - minXY[1]);
-        Render_InvalidateRectLastBuffer(rect, 1);
+        sputRender_MarkDirtyRect(rect, 1);
     }
 }
 /* ==== ShrinkBoxes (0x004a9d00) ====
- * ShrinkBoxes(radius), called by Lua ShrinkBoxes after SectorList_SaveForShrink.  For every active walk
+ * ShrinkBoxes(radius), called by Lua ShrinkBoxes after WalkPlane_BuildCache.  For every active walk
  * sector (type & 0x1000, flag +0x28) each vertex is moved inward along the bisector of its two edges by radius / sin(a),
  * a = 90 - asin(bisector . next edge) degrees.  The move is valid when the new point is inside the sector
- * (Sector_ContainsPoint) and at least radius - 0.001 from the line of every edge (Sector_EdgeDistance); when it is not,
- * Sector_CollapseShortestEdge is tried and the sector is processed again, and when nothing can be collapsed the sector is
+ * (WalkPlane_Within) and at least radius - 0.001 from the line of every edge (WalkPlane_DistToEdge); when it is not,
+ * WalkPlane_RemoveShortEdge is tried and the sector is processed again, and when nothing can be collapsed the sector is
  * switched off (+0x28 = 0).  The shifts are summed per pool vertex (the pool at 0x008cb0b0 has 16 byte records, the
  * vertices of the sectors share them) and every pool vertex moves by the mean of its shifts, so all sectors that share it
- * move together.  Undone by SectorList_RestoreAfterShrink.
+ * move together.  Undone by WalkPlane_RestoreCache.
  * Rewritten from the instructions: the Ghidra prototype had 14 parameters because the decompiler took the 16 KB frame of
  * the function (shift sums, counts, a table of 10 shifts) for stack arguments.  The new point uses the extended precision
  * scale for x and the scale rounded to float for y and z, as the x87 code does. */
@@ -2233,11 +2233,11 @@ void __cdecl ShrinkBoxes(float radius)
                 P[0] = (float)(sc_ext * A[0] + cur[0]);
                 P[1] = (float)((long double)sc * A[1] + cur[1]);
                 P[2] = (float)((long double)sc * A[2] + cur[2]);
-                ok = Sector_ContainsPoint(s, P, 1) != 0;
+                ok = WalkPlane_Within(s, P, 1) != 0;
                 if (ok) {
                     double thr = (double)((long double)radius - (long double)0.001);
                     for (k = 0; k < *(int *)(s + 0x34); k++) {
-                        if (!((long double)Sector_EdgeDistance(s, k, P) >= (long double)thr)) {
+                        if (!((long double)WalkPlane_DistToEdge(s, k, P) >= (long double)thr)) {
                             ok = 0;
                             break;
                         }
@@ -2254,7 +2254,7 @@ void __cdecl ShrinkBoxes(float radius)
                 cur = next;
             }
             if (!valid) {
-                if (Sector_CollapseShortestEdge(s) != 0)
+                if (WalkPlane_RemoveShortEdge(s) != 0)
                     continue;                   /* an edge was collapsed: shift the smaller sector again */
                 *(int *)(s + 0x28) = 0;         /* nothing to collapse: the sector is switched off */
                 break;
@@ -2806,14 +2806,14 @@ void * __cdecl stdDisplay_VBufferNew(void *info, int videoMem, int b, int palett
         return (void *)0;
     return s;
 }
-/* ==== Walker_UpdateYaw (0x00491230) ====
- * Walker_UpdateYaw(actor, pos): eases the visible yaw (actor+0x28) toward the walker heading.  Done (returns 1) when under
+/* ==== sputActor_AlignToPuck (0x00491230) ====
+ * sputActor_AlignToPuck(actor, pos): eases the visible yaw (actor+0x28) toward the walker heading.  Done (returns 1) when under
  * 0.5 degrees.  step = rate * frame seconds * time scale; if the remaining angle is larger than the step it becomes
  * (remaining - step) * 0.1 + step.  A rate <= 0 (snap) jumps the whole way and negates the rate.  The x87 code takes the
  * unordered result of a compare (NaN, e.g. an actor with scale 0) the same way as "equal" / "less or equal", which is why
  * the first and last tests are written as they are: this is the behaviour the decompiled C missed.  The step stays in
  * extended precision, the remaining angle is a float. */
-undefined4 Walker_UpdateYaw(void *actor, float *pos)
+undefined4 sputActor_AlignToPuck(void *actor, float *pos)
 {
     char *a = (char *)actor;
     char *st;
@@ -2833,7 +2833,7 @@ undefined4 Walker_UpdateYaw(void *actor, float *pos)
     v[0] = v[0] + pos[0];
     v[1] = pos[1] + v[1];
     v[2] = pos[2] + v[2];
-    Walker_ToLocalSpace(pos, v);
+    Puck_InvXform(pos, v);
     v[2] = 0.0f;
     rdVector_Normalize3Acc(v);
     angx = 90.0L - (long double)stdMath_ArcSin3(v[1]);
@@ -3024,7 +3024,7 @@ void __cdecl SoundChanger(int tag, int snd, undefined4 p3, int slot, uint p5, ui
 }
 /* ==== Collision_PointInBox (0x00492510) ====
  * True when the segment from `a` to `b` (both moved by `offset`) does not hit the box (xmin, ymin, zmin, xmax, ymax, zmax
- * passed by value, then one more pointer for Collision_SegmentHitsBox) and Planner_PlanPath accepts a plan between the two
+ * passed by value, then one more pointer for TestCollision) and BuildPath accepts a plan between the two
  * points.  The Ghidra prototype took the box as six unsigned integers; they are floats. */
 undefined4 __cdecl Collision_PointInBox(float *a, float *b, float *p3, float bx0, float by0, float bz0, float bx1, float by1,
                                         float bz1, float *p10, float *offset)
@@ -3037,10 +3037,10 @@ undefined4 __cdecl Collision_PointInBox(float *a, float *b, float *p3, float bx0
     pb[0] = offset[0] + b[0];
     pb[1] = b[1] + offset[1];
     pb[2] = b[2] + offset[2];
-    if (((int (*)(float *, float *, float *, float, float, float, float, float, float, float *))Collision_SegmentHitsBox)(
+    if (((int (*)(float *, float *, float *, float, float, float, float, float, float, float *))TestCollision)(
             pa, pb, p3, bx0, by0, bz0, bx1, by1, bz1, p10) != 0)
         return 0;
-    return Planner_PlanPath(a, b, 0);
+    return BuildPath(a, b, 0);
 }
 /* OVERRIDES: Collision_BoxSlide */
 /* ==== Collision_BoxSlide (0x00494100) ====

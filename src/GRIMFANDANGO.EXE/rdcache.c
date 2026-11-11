@@ -19,12 +19,16 @@ void rdCache_AdvanceFrame(void)
   return;
 }
 
-/* ---- 0x00406660  rdCache_EndScene3D ---- */
-void rdCache_EndScene3D(void)
+/* ---- 0x00406660  rdCache_FinishFrame ---- */
+/* Original name rdCache_FinishFrame (the remaster's GrimFandango (Linux): same body (if
+   rdroid_curAcceleration > 0: std3D_EndScene); called by rdFinishFrame in both builds); was
+   rdCache_EndScene3D. */
+
+void rdCache_FinishFrame(void)
 
 {
   if (0 < g_nRdroid_curAcceleration) {
-    D3D_EndScene();
+    std3D_EndScene();
     return;
   }
   return;

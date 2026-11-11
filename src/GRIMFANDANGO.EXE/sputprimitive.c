@@ -92,7 +92,7 @@ undefined4 sputPrimitive_Restore(code *param_1)
   #define uStack_8 (*(undefined4 *)(_frame + (0x40 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x40 - 0x4)))
   
-  PrimitiveList_Clear((int *)&g_dwPrimitiveQ);
+  PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);
   pcVar1 = param_1;
   (*param_1)(&local_28,4);
   while (local_28 != 0) {
@@ -109,7 +109,7 @@ undefined4 sputPrimitive_Restore(code *param_1)
     (*pcVar1)(&uStack_1c,4);
     (*pcVar1)(&uStack_18,4);
     (*pcVar1)(&uStack_14,4);
-    pvVar2 = PrimitiveList_Append(&g_dwPrimitiveQ,(int)param_1,iStack_24);
+    pvVar2 = PrimitiveQueue_addObject(&g_dwPrimitiveQ,(int)param_1,iStack_24);
     if (pvVar2 != (void *)0x0) {
       *(undefined4 *)((int)pvVar2 + 8) = uStack_20;
       *(undefined4 *)((int)pvVar2 + 0x14) = uStack_10;
@@ -120,7 +120,7 @@ undefined4 sputPrimitive_Restore(code *param_1)
       *(undefined4 *)((int)pvVar2 + 0x28) = uStack_18;
       *(undefined4 *)((int)pvVar2 + 0x2c) = uStack_14;
     }
-    g_nNextPrimitiveId = (int)(param_1 + 1);
+    g_nPrimitiveQueue_nextId = (int)(param_1 + 1);
   }
   return 0;
 }
@@ -178,7 +178,7 @@ undefined4 sputPrimitive_Startup(void)
 void sputPrimitive_Shutdown(void)
 
 {
-  PrimitiveList_Clear((int *)&g_dwPrimitiveQ);
+  PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);
   g_dwSputPrimitiveStartup = 0;
   return;
 }

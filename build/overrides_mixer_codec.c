@@ -12,8 +12,8 @@
  *     f9..fc  fill with one of the four colours of the header
  *     fd      fill with a colour of the 256 entry colour table
  *     fe      fill with a 16 bit pixel
- *     ff      the block is cut into four 4x4 blocks, which are coded the same way (opcode set of Blocky16_DecodeBlock4)
- * and the 4x4 blocks again can be cut into four 2x2 blocks (Blocky16_DecodeBlock2: raw pixels instead of the splits).
+ *     ff      the block is cut into four 4x4 blocks, which are coded the same way (opcode set of block16_RenderBlock4)
+ * and the 4x4 blocks again can be cut into four 2x2 blocks (block16_RenderBlock2: raw pixels instead of the splits).
  * The three block decoders are hand-written assembly with a register convention in the original (ESI = stream, EDI =
  * destination, EBP = pitch in bytes, state in the globals of g_BlkDec); here they take the stream and destination as
  * parameters and return the advanced stream pointer.  Rows are copied as 32 bit words in the same order as the original so
@@ -166,7 +166,7 @@ static const byte kSplitFill[5][5] = {
  * from one to the other cuts the block in two).  The cells of the line, and everything between the line and the edge in the
  * direction given by kSplitFill, are "ones"; the other cells "zeros".  Both lists are stored as cell numbers
  * (Blocky8Split / Blocky4Split of g_aBlkSplit8 / g_aBlkSplit4, entry first * 16 + second), in descending order; the pixel
- * offsets the decoder needs are made from them by Blocky16_BuildPixelOffsets when the frame width is known. */
+ * offsets the decoder needs are made from them by fob_blk16_configure when the frame width is known. */
 void fob_block_maketiles(int size)
 {
     int grid[64];
@@ -299,7 +299,7 @@ static void split_fill(ushort *dst, const ushort *onesPixel, int numOnes, const 
 }
 
 /* 2x2 block: copy (displaced), four raw pixels (ff, f8), four colours of the table (f7), fill, copy from two frames back */
-byte *Blocky16_DecodeBlock2(byte *src, byte *dst, int pitch)
+byte *block16_RenderBlock2(byte *src, byte *dst, int pitch)
 {
     byte op = *src;
     int disp;
@@ -355,7 +355,7 @@ byte *Blocky16_DecodeBlock2(byte *src, byte *dst, int pitch)
 }
 
 /* 4x4 block (opcode set in the file header comment; ff cuts it into four 2x2 blocks) */
-byte *Blocky16_DecodeBlock4(byte *src, byte *dst, int pitch)
+byte *block16_RenderBlock4(byte *src, byte *dst, int pitch)
 {
     byte op = *src;
     int disp;
@@ -373,10 +373,10 @@ byte *Blocky16_DecodeBlock4(byte *src, byte *dst, int pitch)
         return src;
     }
     if (op == 0xff) {
-        src = Blocky16_DecodeBlock2(src + 1, dst, pitch);
-        src = Blocky16_DecodeBlock2(src, dst + 4, pitch);
-        src = Blocky16_DecodeBlock2(src, dst + pitch * 2, pitch);
-        return Blocky16_DecodeBlock2(src, dst + pitch * 2 + 4, pitch);
+        src = block16_RenderBlock2(src + 1, dst, pitch);
+        src = block16_RenderBlock2(src, dst + 4, pitch);
+        src = block16_RenderBlock2(src, dst + pitch * 2, pitch);
+        return block16_RenderBlock2(src, dst + pitch * 2 + 4, pitch);
     }
     if (op == 0xf8 || op == 0xf7) {
         uint colors;
@@ -433,10 +433,10 @@ byte *Blocky16_DecodeBlock8(byte *src, byte *dst, int pitch)
         return src;
     }
     if (op == 0xff) {
-        src = Blocky16_DecodeBlock4(src + 1, dst, pitch);
-        src = Blocky16_DecodeBlock4(src, dst + 8, pitch);
-        src = Blocky16_DecodeBlock4(src, dst + pitch * 4, pitch);
-        return Blocky16_DecodeBlock4(src, dst + pitch * 4 + 8, pitch);
+        src = block16_RenderBlock4(src + 1, dst, pitch);
+        src = block16_RenderBlock4(src, dst + 8, pitch);
+        src = block16_RenderBlock4(src, dst + pitch * 4, pitch);
+        return block16_RenderBlock4(src, dst + pitch * 4 + 8, pitch);
     }
     if (op == 0xf8 || op == 0xf7) {
         uint colors;
@@ -549,7 +549,7 @@ int Blocky16_DecodeFrame(void *dst, uint *clip, int x, int y, int palette, byte 
     if (dst != 0)
         Blocky16_BuildExpandTable(dst);
     if (hdr->seq == 0) {
-        Blocky16_BuildPixelOffsets(width);
+        fob_blk16_configure(width);
         gra_SetBuffer((char *)vPrev2, (int)vBitmap0, vBitmap0[1] * vBitmap0[2], (char *)hdr->fillPixel);
         gra_SetBuffer((char *)vPrev, (int)vBitmap0, vBitmap0[1] * vBitmap0[2], (char *)hdr->fillPixel);
         vLastSeq = -1;
@@ -625,7 +625,7 @@ int Blocky16_DecodeFrame(void *dst, uint *clip, int x, int y, int palette, byte 
 
             if ((uint)vOutput == (uint)bm[0] || ((bm = vBitmap1), (uint)vOutput == (uint)bm[0]) ||
                 ((bm = vBitmap2), (uint)vOutput == (uint)bm[0]))
-                Video_BlitConvert((int *)dst, clip, x, y, bm, (byte *)palette, expand);
+                gra_BlitRectLookup((int *)dst, clip, x, y, bm, (byte *)palette, expand);
             result = 1;
         } else if ((uint)vOutput == (uint)vBitmap0[0]) {
             result = ((BlkOutputFn)vOutputFn)(dst, clip, x, y, vBitmap0, palette, expand);

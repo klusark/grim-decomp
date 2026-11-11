@@ -1,0 +1,30 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10009e10",
+  "old": "iMUSE_sounds__9e10",
+  "name": "iRes_FTELL",
+  "comment": "Original name iRes_FTELL (the remaster's GrimFandango (Linux): same body (for a handle inside the MCMP handle array the position at +8, else the host ftell service +0x48); the counterpart of iRes_FSEEK; called by ihost_fseek / ihost_read here (the remaster inlined it)); was iMUSE_sounds__9e10."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10009e40",
+  "old": "iMUSE_sounds__9e40",
+  "name": "iRes_FSEEK",
+  "comment": "Original name iRes_FSEEK (the remaster's GrimFandango (Linux): same body (for a handle outside the MCMP handle array the host fseek service +0x4c, else the position at +8 by whence 0 / 1 / 2 with the size at +4)); was iMUSE_sounds__9e40."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10009f10",
+  "old": "FUN_10009f10",
+  "name": "iMUSE_Malloc",
+  "comment": "Original name iMUSE_Malloc (the remaster's GrimFandango (Linux): same body (the host alloc service in sounds.c, then the pointer into the memory list mlEntries, which doubles when full); the remaster inlined FUN_10009f40 into it); was FUN_10009f10."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1000a010",
+  "old": "FUN_1000a010",
+  "name": "iMUSE_Free",
+  "comment": "Original name iMUSE_Free (the remaster's GrimFandango (Linux): same body (clear the pointer's slot in the memory list mlEntries, then the host free service); the remaster inlined FUN_1000a030 into it); was FUN_1000a010."
+ }
+]

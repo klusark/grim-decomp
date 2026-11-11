@@ -1,6 +1,6 @@
 # IMUSE.DLL function index
 
-434 functions, 285 with real names.
+434 functions, 287 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -264,13 +264,13 @@
 | 100088d0 | SoundStartVoiceStream | soundstartvoicestream.c | 1 |
 | 10008970 | SoundStopVoiceStream | soundstopvoicestream.c | 10 |
 | 10008990 | SoundGetVoiceTime | soundgetvoicetime.c | 11 |
-| 10009e10 | iMUSE_sounds__9e10 | imuse_sounds.c | 13 |
-| 10009e40 | iMUSE_sounds__9e40 | imuse_sounds.c | 25 |
+| 10009e10 | iRes_FTELL | imuse_sounds.c | 16 |
+| 10009e40 | iRes_FSEEK | imuse_sounds.c | 27 |
 | 10009eb0 | iMUSE_sounds__9eb0 | imuse_sounds.c | 15 |
 | 10009ef0 | FUN_10009ef0 | imuse_sounds.c | 8 |
-| 10009f10 | FUN_10009f10 | imuse_sounds.c | 10 |
+| 10009f10 | iMUSE_Malloc | imuse_sounds.c | 14 |
 | 10009f40 | FUN_10009f40 | imuse_sounds.c | 51 |
-| 1000a010 | FUN_1000a010 | imuse_sounds.c | 7 |
+| 1000a010 | iMUSE_Free | imuse_sounds.c | 11 |
 | 1000a030 | FUN_1000a030 | imuse_sounds.c | 24 |
 | 1000a210 | StStartStream | imuse_stream.c | 50 |
 | 1000a2d0 | StStopStream | imuse_stream.c | 13 |

@@ -1446,7 +1446,7 @@ void rdModel3_CalcFaceNormals(uint param_1)
               if ((int)uVar7 < (int)*puVar8) {
                 uVar4 = puVar8[1];
                 iVar3 = *piVar6;
-                Math3D_TriangleNormal
+                rdMath_CalcSurfaceNormal
                           (puVar8 + 0xb,iVar3 + *(int *)(uVar4 + uVar7 * 4) * 0xc,
                            iVar3 + *(int *)(uVar4 + uVar5 * 4) * 0xc,
                            iVar3 + *(int *)(uVar4 + local_18 * 4) * 0xc);

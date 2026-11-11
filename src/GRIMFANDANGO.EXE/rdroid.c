@@ -24,8 +24,11 @@ int __cdecl rdStartup(GrimServices *svc)
   return 1;
 }
 
-/* ---- 0x004041c0  rdroid_Shutdown ---- */
-void rdroid_Shutdown(void)
+/* ---- 0x004041c0  rdShutdown ---- */
+/* Original name rdShutdown (the remaster's GrimFandango (Linux): same body (clears bRDroidStartup);
+   the call after rdClose in Main_Shutdown in both builds); was rdroid_Shutdown. */
+
+void rdShutdown(void)
 
 {
   if (g_dwRDroidStartup == 1) {
@@ -75,66 +78,84 @@ void rdClose(void)
   return;
 }
 
-/* ---- 0x00404290  rdroid_SetRenderFlags ---- */
-/* Sets g_dwRdroid_curRenderOptions (bit 1: apply camera fog/attenuation at +0x54) */
+/* ---- 0x00404290  rdSetRenderOptions ---- */
+/* Sets g_dwRdroid_curRenderOptions (bit 1: apply camera fog/attenuation at +0x54) Original name
+   rdSetRenderOptions (the remaster's GrimFandango (Linux): same body (rdroid_curRenderOptions =
+   flags)); was rdroid_SetRenderFlags. */
 
-void rdroid_SetRenderFlags(uint param_1)
+void rdSetRenderOptions(uint param_1)
 
 {
   g_dwRdroid_curRenderOptions = param_1;
   return;
 }
 
-/* ---- 0x004042a0  rdroid_SetGeometryMode ---- */
-/* Upper limit for the per-mesh geometry mode (0 none .. 4 textured) */
+/* ---- 0x004042a0  rdSetGeometryMode ---- */
+/* Upper limit for the per-mesh geometry mode (0 none .. 4 textured) Original name rdSetGeometryMode
+   (the remaster's GrimFandango (Linux): same body (rdroid_curGeometryMode = mode)); was
+   rdroid_SetGeometryMode. */
 
-void rdroid_SetGeometryMode(int param_1)
+void rdSetGeometryMode(int param_1)
 
 {
   g_nRdroid_curGeometryMode = param_1;
   return;
 }
 
-/* ---- 0x004042b0  rdroid_SetLightingMode ---- */
-void rdroid_SetLightingMode(int param_1)
+/* ---- 0x004042b0  rdSetLightingMode ---- */
+/* Original name rdSetLightingMode (the remaster's GrimFandango (Linux): same body
+   (rdroid_curLightingMode = mode); between rdSetGeometryMode and rdSetTextureMode in both builds);
+   was rdroid_SetLightingMode. */
+
+void rdSetLightingMode(int param_1)
 
 {
   g_nRdroid_curLightingMode = param_1;
   return;
 }
 
-/* ---- 0x004042c0  rdroid_SetTextureMode ---- */
-void rdroid_SetTextureMode(int param_1)
+/* ---- 0x004042c0  rdSetTextureMode ---- */
+/* Original name rdSetTextureMode (the remaster's GrimFandango (Linux): same body
+   (rdroid_curTextureMode = mode); after rdSetLightingMode in both builds); was
+   rdroid_SetTextureMode. */
+
+void rdSetTextureMode(int param_1)
 
 {
   g_nRdroid_curTextureMode = param_1;
   return;
 }
 
-/* ---- 0x004042d0  rdroid_SetSortMode ---- */
-/* 2 = qsort the cached mesh list by depth before drawing */
+/* ---- 0x004042d0  rdSetSortingMethod ---- */
+/* 2 = qsort the cached mesh list by depth before drawing Original name rdSetSortingMethod (the
+   remaster's GrimFandango (Linux): same body (rdroid_curSortingMethod = method)); was
+   rdroid_SetSortMode. */
 
-void rdroid_SetSortMode(int param_1)
+void rdSetSortingMethod(int param_1)
 
 {
   g_nRdroid_curSortingMethod = param_1;
   return;
 }
 
-/* ---- 0x004042e0  rdroid_SetOcclusionMode ---- */
-/* 0 selects the plain software path in rdCache_Flush */
+/* ---- 0x004042e0  rdSetOcclusionMethod ---- */
+/* 0 selects the plain software path in rdCache_Flush Original name rdSetOcclusionMethod (the
+   remaster's GrimFandango (Linux): same body (rdroid_curOcclusionMethod = method); after
+   rdSetSortingMethod in both builds); was rdroid_SetOcclusionMode. */
 
-void rdroid_SetOcclusionMode(int param_1)
+void rdSetOcclusionMethod(int param_1)
 
 {
   g_nRdroid_curOcclusionMethod = param_1;
   return;
 }
 
-/* ---- 0x004042f0  rdroid_SetZBufferMode ---- */
-/* 2 selects the z-buffered software path (rdCache_DrawMeshZ) */
+/* ---- 0x004042f0  rdSetZBufferMethod ---- */
+/* 2 selects the z-buffered software path (rdCache_DrawMeshZ) Original name rdSetZBufferMethod (the
+   remaster's GrimFandango (Linux): same body (rdroid_curZBufferMethod = method); after
+   rdSetOcclusionMethod in both builds); was rdroid_SetZBufferMode. */
 
-void rdroid_SetZBufferMode(int param_1)
+void rdSetZBufferMethod(int param_1)
 
 {
   g_nRdroid_curZBufferMethod = param_1;
@@ -157,14 +178,16 @@ void rdAdvanceFrame(void)
   return;
 }
 
-/* ---- 0x00404320  rdroid_EndFrame ---- */
-/* Flushes the mesh cache, ends the 3D scene and dumps the memory log */
+/* ---- 0x00404320  rdFinishFrame ---- */
+/* Flushes the mesh cache, ends the 3D scene and dumps the memory log Original name rdFinishFrame
+   (the remaster's GrimFandango (Linux): same body (rdCache_Flush, rdCache_FinishFrame, the frame
+   counters' clear); called by sputRender_Dim in both builds); was rdroid_EndFrame. */
 
-void rdroid_EndFrame(void)
+void rdFinishFrame(void)
 
 {
   rdCache_Flush();
-  rdCache_EndScene3D();
+  rdCache_FinishFrame();
   Mem_DumpLog();
   return;
 }

@@ -116,14 +116,16 @@ uint rdThing_New(undefined4 param_1)
   if (uVar1 == 0) {
     return 0;
   }
-  iVar2 = rdThing_Init(uVar1,param_1);
+  iVar2 = rdThing_NewEntry(uVar1,param_1);
   return -(uint)(iVar2 != 0) & uVar1;
 }
 
-/* ---- 0x00471a80  rdThing_Init ---- */
-/* Default thing: geometry mode 4, lighting 3, texture 2, no model, both sprite indices -1 */
+/* ---- 0x00471a80  rdThing_NewEntry ---- */
+/* Default thing: geometry mode 4, lighting 3, texture 2, no model, both sprite indices -1 Original
+   name rdThing_NewEntry (the remaster's GrimFandango (Linux): same body (the same field defaults 4
+   / 3 / 2, 4 / 3 / 2, 1, -1 / -1, the owner at +0x48)); was rdThing_Init. */
 
-undefined4 rdThing_Init(undefined4 *param_1,undefined4 param_2)
+undefined4 rdThing_NewEntry(undefined4 *param_1,undefined4 param_2)
 
 {
   param_1[0xd] = 0xffffffff;
@@ -334,10 +336,14 @@ int __cdecl rdThing_Draw(void *thing,float *frame)
   return 0;
 }
 
-/* ---- 0x00471e00  rdThing_BuildNodeMatrix ---- */
-/* Node matrix = node pivot/offset transform times the parent's matrix */
+/* ---- 0x00471e00  rdThing_AccumulateMatrices ---- */
+/* Node matrix = node pivot/offset transform times the parent's matrix Original name
+   rdThing_AccumulateMatrices (the remaster's GrimFandango (Linux): same recursive body
+   (BuildTranslate34 of the pivot, PostMultiply34, PostTranslate34 by the negated parent pivot,
+   Multiply34 into the node matrix, recurse into the children not yet done)); was
+   rdThing_BuildNodeMatrix. */
 
-void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3)
+void rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -363,7 +369,7 @@ void rdThing_BuildNodeMatrix(int param_1,int param_2,float *param_3)
     if (*(int *)(param_2 + 0x58) != 0) {
       do {
         if (*(int *)(*(int *)(param_1 + 0x28) + *(int *)(iVar2 + 0x44) * 4) == 0) {
-          rdThing_BuildNodeMatrix
+          rdThing_AccumulateMatrices
                     (param_1,iVar2,*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20));
         }
         iVar2 = *(int *)(iVar2 + 0x60);

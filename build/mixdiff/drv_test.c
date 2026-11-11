@@ -10,7 +10,7 @@
 /* ---- functions under test ---- */
 extern void orig_DSound_Shutdown(void), DSound_Shutdown(void);
 extern void orig_DSound_SetPrimaryVolume(int), DSound_SetPrimaryVolume(int);
-extern void orig_DSound_FillStreamBuffer(void), DSound_FillStreamBuffer(void);
+extern void orig_dsn_fill_thread(void), dsn_fill_thread(void);
 extern int orig_DSound_GetPlayBlock(void), DSound_GetPlayBlock(void);
 extern int orig_FUN_004d2420(int *, unsigned), sou_dsnd_module(int *, unsigned);
 extern void orig_FUN_004d2480(void), DsndDriver_module_terminate(void);
@@ -40,13 +40,13 @@ static void *th_lua, *th_hwnd, *th_mixinit, *th_mixfree, *th_clear, *th_output, 
 void Lua_Stub(const char *fmt, int a) { ((void (*)(const char *, int))th_lua)(fmt, a); }
 void *Win_GetMainHwnd(void) { return ((void *(*)(void))th_hwnd)(); }
 int FUN_004d2d40(int *svc, unsigned units, int frames) { return ((int (*)(int *, unsigned, int))th_mixinit)(svc, units, frames); }
-int Mixer_Init(int *svc, unsigned units, int frames) { return ((int (*)(int *, unsigned, int))th_mixinit)(svc, units, frames); }
+int sou_mixer_initialize(int *svc, unsigned units, int frames) { return ((int (*)(int *, unsigned, int))th_mixinit)(svc, units, frames); }
 int sou_mixer_terminate(int *svc) { return ((int (*)(int *))th_mixfree)(svc); }
 int Mixer_Free(int *svc) { return ((int (*)(int *))th_mixfree)(svc); }
-int Mixer_ClearAccumulator(void) { return ((int (*)(void))th_clear)(); }
-void Mixer_Output(void *dst, int frames) { ((void (*)(void *, int))th_output)(dst, frames); }
+int sou_mixer_start(void) { return ((int (*)(void))th_clear)(); }
+void sou_mixer_end(void *dst, int frames) { ((void (*)(void *, int))th_output)(dst, frames); }
 void FUN_004d2d90(void) {}                       /* address only (callback argument) */
-void Mixer_MixVoiceByFormat(void) {}
+void sou_mixer_mix(void) {}
 
 void *imp_DirectSoundCreate __asm__("__imp__DirectSoundCreate@12");
 __asm__(".globl _DirectSoundCreate@12\n_DirectSoundCreate@12: jmp *__imp__DirectSoundCreate@12\n");
@@ -224,7 +224,7 @@ int main(int argc, char **argv)
         switch (f) {
         case 0: RUN((orig_DSound_Shutdown(), 0), (DSound_Shutdown(), 0)); break;
         case 1: RUN((orig_DSound_SetPrimaryVolume(a1), 0), (DSound_SetPrimaryVolume(a1), 0)); break;
-        case 2: case 3: case 4: RUN((orig_DSound_FillStreamBuffer(), 0), (DSound_FillStreamBuffer(), 0)); break;
+        case 2: case 3: case 4: RUN((orig_dsn_fill_thread(), 0), (dsn_fill_thread(), 0)); break;
         case 5: RUN(orig_DSound_GetPlayBlock(), DSound_GetPlayBlock()); break;
         case 6: RUN(orig_FUN_004d2420(svc, a2), sou_dsnd_module(svc, a2)); break;
         case 7: RUN((orig_FUN_004d2480(), 0), (DsndDriver_module_terminate(), 0)); break;
@@ -244,7 +244,7 @@ int main(int argc, char **argv)
         case 21: { unsigned c = ((unsigned)a2 % 260) & ~3u; RUN((orig_FUN_004d2400(dstA + 2, a2 >> 8, c), 0), (Dsnd_MemFillCdecl(dstA + 2, a2 >> 8, c), 0)); break; }
         case 22: { unsigned c = (unsigned)a2 % 260; RUN((orig_FUN_004c3df0(dstA + 1, src1 + 2, c), 0), (Insane_MemCopyCdecl(dstA + 1, src1 + 2, c), 0)); break; }
         case 23: { unsigned c = (unsigned)a2 % 260; RUN((orig_FUN_004c3e10(dstA + 3, src1 + 3, c), 0), (Insane_MemCopy(dstA + 3, src1 + 3, c), 0)); break; }
-        default: RUN((orig_DSound_FillStreamBuffer(), 0), (DSound_FillStreamBuffer(), 0)); break;
+        default: RUN((orig_dsn_fill_thread(), 0), (dsn_fill_thread(), 0)); break;
         }
         fx_cases++;
         if (ra != rb) fx_fail("return value", it * 100 + f);

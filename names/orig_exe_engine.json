@@ -151,7 +151,7 @@
   "addr": "00473810",
   "old": "stdBitmap_SaveByExtension",
   "name": "stdWriteImage",
-  "comment": "Picks the writer from the file extension: .bm/.zbm (stdBitmap_SaveBM, zbm marks format 5), .bmp, .gif, .pcx, .lbm Original name stdWriteImage (the remaster's GrimFandango (Linux): strings: 'lbm' | 'pcx' | 'zbm' | 'bmp'); was stdBitmap_SaveByExtension."
+  "comment": "Picks the writer from the file extension: .bm/.zbm (stdBitmap_Write, zbm marks format 5), .bmp, .gif, .pcx, .lbm Original name stdWriteImage (the remaster's GrimFandango (Linux): strings: 'lbm' | 'pcx' | 'zbm' | 'bmp'); was stdBitmap_SaveByExtension."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -165,7 +165,7 @@
   "addr": "00477f10",
   "old": "PlatSvc_AssertFail",
   "name": "stdPlatform_Assert",
-  "comment": "GrimServices.pAssertFail of the platform table (Services_InitPlatformTable; the default table of Svc_* functions has its own Svc_AssertFail): logs 'file(line): message' to an assert file and aborts (DebugBreak + exit(1)); a second failure while handling the first exits immediately. Original name stdPlatform_Assert (the remaster's GrimFandango (Linux): strings: '%s(%d):  %s\\n'); was PlatSvc_AssertFail."
+  "comment": "GrimServices.pAssertFail of the platform table (stdPlatform_InitServices; the default table of Svc_* functions has its own Svc_AssertFail): logs 'file(line): message' to an assert file and aborts (DebugBreak + exit(1)); a second failure while handling the first exits immediately. Original name stdPlatform_Assert (the remaster's GrimFandango (Linux): strings: '%s(%d):  %s\\n'); was PlatSvc_AssertFail."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -606,7 +606,7 @@
   "addr": "00490900",
   "old": "Actor_SetRot",
   "name": "sputActor_SetActorRotation",
-  "comment": "Actor_SetRot(actor, angles, snap): clears actor+8 bit 0 first, which ends a WalkActorTo path walk (Actor_UpdateMovement only calls Actor_FollowPath while it is set). Pitch (+0x24) and roll (+0x2c) are always set at once. With a walker, the walker heading is turned to the yaw immediately, +0x28 (angle left) is set, and the visible yaw eases there in Walker_UpdateYaw; snap (5th Lua arg nil) negates the turn rate so that update jumps in one frame. Without a walker all three angles are set at once. Does not create a walker. Original name sputActor_SetActorRotation (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorRot; 2 matched neighbours agree, 0 disagree); was Actor_SetRot."
+  "comment": "Actor_SetRot(actor, angles, snap): clears actor+8 bit 0 first, which ends a WalkActorTo path walk (Actor_UpdateMovement only calls Actor_FollowPath while it is set). Pitch (+0x24) and roll (+0x2c) are always set at once. With a walker, the walker heading is turned to the yaw immediately, +0x28 (angle left) is set, and the visible yaw eases there in sputActor_AlignToPuck; snap (5th Lua arg nil) negates the turn rate so that update jumps in one frame. Without a walker all three angles are set at once. Does not create a walker. Original name sputActor_SetActorRotation (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorRot; 2 matched neighbours agree, 0 disagree); was Actor_SetRot."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",
@@ -1145,7 +1145,7 @@
   "addr": "004a9d00",
   "old": "SectorList_ShrinkWalkSectors",
   "name": "ShrinkBoxes",
-  "comment": "SectorList_ShrinkWalkSectors(radius), called by Lua ShrinkBoxes after SectorList_SaveForShrink. For every active walk sector (type & 0x1000, flag +0x28): for each vertex take the bisector of the directions to its neighbours, move it inward by radius / sin(half angle) (Math_SinCosTable, Math_AsinDegreesSeries); the move is valid when the new point is inside the sector (Sector_ContainsPoint) and at least radius - 0.001 from the line of every edge (Sector_EdgeDistance). Not valid: Sector_CollapseShortestEdge and retry; cannot collapse: the sector is switched off (+0x28 = 0). The shifts are summed per pool vertex (shared by the sectors) and the pool vertex moves by the mean, so all sectors that share it move together. Undone by SectorList_RestoreAfterShrink. Original name ShrinkBoxes (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_TEST; 3 matched neighbours agree, 0 disagree); was SectorList_ShrinkWalkSectors."
+  "comment": "SectorList_ShrinkWalkSectors(radius), called by Lua ShrinkBoxes after WalkPlane_BuildCache. For every active walk sector (type & 0x1000, flag +0x28): for each vertex take the bisector of the directions to its neighbours, move it inward by radius / sin(half angle) (Math_SinCosTable, Math_AsinDegreesSeries); the move is valid when the new point is inside the sector (WalkPlane_Within) and at least radius - 0.001 from the line of every edge (WalkPlane_DistToEdge). Not valid: WalkPlane_RemoveShortEdge and retry; cannot collapse: the sector is switched off (+0x28 = 0). The shifts are summed per pool vertex (shared by the sectors) and the pool vertex moves by the mean, so all sectors that share it move together. Undone by WalkPlane_RestoreCache. Original name ShrinkBoxes (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_TEST; 3 matched neighbours agree, 0 disagree); was SectorList_ShrinkWalkSectors."
  },
  {
   "program": "/v101/GRIMFANDANGO.EXE",

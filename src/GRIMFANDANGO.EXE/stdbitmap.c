@@ -5,10 +5,13 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x00473630  stdBitmap_Load ---- */
-/* Loads a .bm bitmap file; the frame surfaces hang off +0x78 */
+/* ---- 0x00473630  stdLoadImage ---- */
+/* Loads a .bm bitmap file; the frame surfaces hang off +0x78 Original name stdLoadImage (the
+   remaster's GrimFandango (Linux): same body (stdLoadImageData, then stdBitmap_DeCompress); the
+   std.c service between stdFPutc and stdLoadImageData in both builds; the earlier hand-made name
+   stdBitmap_Load is the remaster's name of 0x47aa50); was stdBitmap_Load. */
 
-void * __cdecl stdBitmap_Load(char *filename,int param_2,int param_3)
+void * __cdecl stdLoadImage(char *filename,int param_2,int param_3)
 
 {
   void *pvVar1;
@@ -108,7 +111,7 @@ void * __cdecl stdLoadImageData(char *name,int a,int b)
     pvVar3 = (void *)stdBmp_Load(name,a,b);
     return pvVar3;
   }
-  pvVar3 = stdBitmap_LoadResource(name,a,b);
+  pvVar3 = stdBitmap_Load(name,a,b);
   return pvVar3;
 }
 #undef local_4
@@ -191,7 +194,7 @@ int __cdecl stdWriteImage(char *filename,void *bitmap)
   if (iVar4 != 0) {
     iVar4 = _stricmp(local_8,&DAT_004ddee0);
     if (iVar4 == 0) {
-      iVar4 = stdBitmap_SaveBM(filename,bitmap);
+      iVar4 = stdBitmap_Write(filename,bitmap);
       return (uint)(iVar4 != 0);
     }
     iVar4 = _stricmp(local_8,&DAT_004ddedc);
@@ -211,20 +214,22 @@ int __cdecl stdWriteImage(char *filename,void *bitmap)
         *(undefined4 *)(*(int *)(*(int *)((int)bitmap + 0x78) + -4 + iVar4 * 4) + 0x20) = 5;
       } while (iVar4 < *(int *)((int)bitmap + 100));
     }
-    iVar4 = stdBitmap_SaveBM(filename,bitmap);
+    iVar4 = stdBitmap_Write(filename,bitmap);
     return (uint)(iVar4 != 0);
   }
-  iVar4 = stdGif_Save(filename,bitmap);
+  iVar4 = stdGif_Write(filename,bitmap);
   return (uint)(iVar4 != 0);
 }
 #undef local_4
 #undef local_8
 
 
-/* ---- 0x0047aa50  stdBitmap_LoadResource ---- */
-/* Grim_ShowSplash loads splash.bm through this */
+/* ---- 0x0047aa50  stdBitmap_Load ---- */
+/* Grim_ShowSplash loads splash.bm through this Original name stdBitmap_Load (the remaster's
+   GrimFandango (Linux): same body (allocate the 0x7c-byte bitmap in Stdbitmap.c, load it from the
+   file, free it on failure)); was stdBitmap_LoadResource. */
 
-void * __cdecl stdBitmap_LoadResource(char *name,int a,int b)
+void * __cdecl stdBitmap_Load(char *name,int a,int b)
 
 {
   void *a_00;
@@ -257,7 +262,7 @@ void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c)
   if (iVar1 == 0) {
     return (void *)0x0;
   }
-  pvVar2 = (void *)stdBitmap_LoadBM(iVar1,a,b,c);
+  pvVar2 = (void *)stdBitmap_LoadEntryFromFile(iVar1,a,b,c);
   uVar4 = 0x1f;
   pcVar3 = stdFileFromPath(filename);
   strncpy(a,pcVar3,uVar4);
@@ -266,10 +271,13 @@ void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c)
   return pvVar2;
 }
 
-/* ---- 0x0047ab20  stdBitmap_LoadBM ---- */
-/* Reads the 'BM  ' header, palette/colour key and the per-mip surfaces (compressed or raw) */
+/* ---- 0x0047ab20  stdBitmap_LoadEntryFromFile ---- */
+/* Reads the 'BM  ' header, palette/colour key and the per-mip surfaces (compressed or raw) Original
+   name stdBitmap_LoadEntryFromFile (the remaster's GrimFandango (Linux): same body (reads the
+   0x80-byte header, magic 'BM  ', version 0x46, then the frames); called by stdBitmap_LoadFromFile
+   in both builds); was stdBitmap_LoadBM. */
 
-undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param_4)
+undefined4 stdBitmap_LoadEntryFromFile(undefined4 param_1,int param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0xf0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -308,7 +316,7 @@ undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param
     return 0;
   }
   if (iStack_c8 == 0x46) {
-    stdBitmap_Init(param_2,uStack_bc,0,uStack_c4,uStack_c0,auStack_ac);
+    stdBitmap_NewEntry(param_2,uStack_bc,0,uStack_c4,uStack_c0,auStack_ac);
     *(undefined4 *)(param_2 + 0x6c) = uStack_b8;
     *(undefined4 *)(param_2 + 0x74) = uStack_b0;
     puVar10 = auStack_4c;
@@ -433,15 +441,17 @@ undefined4 stdBitmap_LoadBM(undefined4 param_1,int param_2,int param_3,int param
 void __cdecl stdBitmap_Free(void *bitmap)
 
 {
-  stdBitmap_FreeSurfaces(bitmap);
+  stdBitmap_FreeEntry(bitmap);
   (*g_pStd_HS->pFree)(bitmap);
   return;
 }
 
-/* ---- 0x0047ae90  stdBitmap_FreeSurfaces ---- */
-/* Frees the surface array at +0x78 (+0x64 count) */
+/* ---- 0x0047ae90  stdBitmap_FreeEntry ---- */
+/* Frees the surface array at +0x78 (+0x64 count) Original name stdBitmap_FreeEntry (the remaster's
+   GrimFandango (Linux): same body (stdDisplay_VBufferFree of every frame, free the frame array at
+   +0x78)); was stdBitmap_FreeSurfaces. */
 
-void stdBitmap_FreeSurfaces(int param_1)
+void stdBitmap_FreeEntry(int param_1)
 
 {
   void *surface;
@@ -466,10 +476,12 @@ void stdBitmap_FreeSurfaces(int param_1)
   return;
 }
 
-/* ---- 0x0047aef0  stdBitmap_WriteBM ---- */
-/* Writes a BM bitmap (header, palette, surfaces) via stdFile */
+/* ---- 0x0047aef0  stdBitmap_AppendToFile ---- */
+/* Writes a BM bitmap (header, palette, surfaces) via stdFile Original name stdBitmap_AppendToFile
+   (the remaster's GrimFandango (Linux): same body (the 0x80-byte "BM  " version 0x46 header, then
+   the frames); called by stdBitmap_Write in both builds); was stdBitmap_WriteBM. */
 
-undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
+undefined4 stdBitmap_AppendToFile(undefined4 param_1,int param_2)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -640,8 +652,12 @@ undefined4 stdBitmap_WriteBM(undefined4 param_1,int param_2)
 #undef uStack_a4
 
 
-/* ---- 0x0047b250  stdBitmap_SaveBM ---- */
-int __cdecl stdBitmap_SaveBM(char *filename,void *bitmap)
+/* ---- 0x0047b250  stdBitmap_Write ---- */
+/* Original name stdBitmap_Write (the remaster's GrimFandango (Linux): same body (open the file for
+   writing, stdBitmap_AppendToFile, close); stdWriteImage's "bm" case in both builds); was
+   stdBitmap_SaveBM. */
+
+int __cdecl stdBitmap_Write(char *filename,void *bitmap)
 
 {
   int iVar1;
@@ -651,7 +667,7 @@ int __cdecl stdBitmap_SaveBM(char *filename,void *bitmap)
   if (iVar1 == 0) {
     return 0;
   }
-  iVar2 = stdBitmap_WriteBM(iVar1,bitmap);
+  iVar2 = stdBitmap_AppendToFile(iVar1,bitmap);
   if (iVar2 == 0) {
     (*g_pStd_HS->pFclose)();
     return 0;
@@ -789,12 +805,15 @@ int __cdecl stdBitmap_VBufferToBitmap(void *bitmap,int format,int flags)
   return iVar2;
 }
 
-/* ---- 0x0047b4b0  stdBitmap_Init ---- */
-/* Zeroes the 0x7c-byte record and stores the format/size/surface count */
+/* ---- 0x0047b4b0  stdBitmap_NewEntry ---- */
+/* Zeroes the 0x7c-byte record and stores the format/size/surface count Original name
+   stdBitmap_NewEntry (the remaster's GrimFandango (Linux): same parameters (bitmap, frame count,
+   ...) and body (clear the 0x7c-byte record, allocate the frame array in Stdbitmap.c)); was
+   stdBitmap_Init. */
 
 undefined4
-stdBitmap_Init(undefined4 *param_1,uint param_2,undefined4 param_3,undefined4 param_4,
-              undefined4 param_5,undefined4 *param_6)
+stdBitmap_NewEntry(undefined4 *param_1,uint param_2,undefined4 param_3,undefined4 param_4,
+                  undefined4 param_5,undefined4 *param_6)
 
 {
   undefined4 *puVar1;
@@ -842,8 +861,13 @@ void stdBitmap_SetSurface(int param_1,int param_2,undefined4 param_3)
   return;
 }
 
-/* ---- 0x0047b560  stdBitmap_ConvertToDisplay ---- */
-int __cdecl stdBitmap_ConvertToDisplay(void *bitmap)
+/* ---- 0x0047b560  stdBitmap_MemUsage ---- */
+/* Original name stdBitmap_MemUsage (the remaster's GrimFandango (Linux): same body (0x7c plus the
+   size +0x14 of every frame whose +8 is 0): the bitmap's memory use, not a conversion; called by
+   the background handler, sputRoom_LoadResources and ObjectStateImage_Load in both builds); was
+   stdBitmap_ConvertToDisplay. */
+
+int __cdecl stdBitmap_MemUsage(void *bitmap)
 
 {
   int *piVar1;
@@ -867,7 +891,7 @@ int __cdecl stdBitmap_ConvertToDisplay(void *bitmap)
 
 /* ---- 0x0047b590  stdBitmap_DeCompress ---- */
 /* Original name stdBitmap_DeCompress (the remaster's GrimFandango (Linux): aligned call in
-   stdBitmap_Load, stdWriteImage); was stdBitmap_DecompressAll. */
+   stdLoadImage, stdWriteImage); was stdBitmap_DecompressAll. */
 
 void stdBitmap_DeCompress(int param_1)
 

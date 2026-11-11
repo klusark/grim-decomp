@@ -1,0 +1,30 @@
+[
+ {
+  "program": "/LUA.DLL",
+  "addr": "100050b0",
+  "old": "luaC_markall",
+  "name": "markall",
+  "comment": "Named markall (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c static markall: the stacks with markobject, globalmark, travlock, luaT_travtagmethods(markobject), in that order; called by lua_collectgarbage); was luaC_markall."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005120",
+  "old": "luaC_travglobal",
+  "name": "globalmark",
+  "comment": "Named globalmark (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c static globalmark: for every global of rootglobal that is not nil, markobject of its value and strmark of its name); was luaC_travglobal."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100050e0",
+  "old": "luaC_travstack",
+  "name": "travlock",
+  "comment": "Named travlock (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c static travlock: markobject of every locked entry of LState refArray / refSize); was luaC_travstack."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005150",
+  "old": "luaC_strmark",
+  "name": "strmark",
+  "comment": "Named strmark (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c static strmark: marks a string, marked = 1); was luaC_strmark."
+ }
+]
