@@ -345,15 +345,15 @@ void io_readfrom(void)
   
   iVar1 = lua_lua2C(3);
   if (iVar1 == 0) {
-    io_setfile((byte *)s__INPUT_10026c00);
-    io_setreturn((byte *)&PTR_DAT_100282d0,(byte *)s__INPUT_10026c00);
+    closefile((byte *)s__INPUT_10026c00);
+    setreturn((byte *)&PTR_DAT_100282d0,(byte *)s__INPUT_10026c00);
     return;
   }
   iVar2 = lua_tag(iVar1);
-  lVar5 = io_getint(1);
+  lVar5 = gettag(1);
   if (iVar2 == (int)lVar5) {
     pbVar3 = (byte *)lua_getuserdata(iVar1);
-    io_setreturn(pbVar3,(byte *)s__INPUT_10026c00);
+    setreturn(pbVar3,(byte *)s__INPUT_10026c00);
     return;
   }
   pcVar4 = (char *)luaL_check_string(3);
@@ -364,9 +364,9 @@ void io_readfrom(void)
     pbVar3 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(pcVar4,&DAT_10026a80);
   }
   if (pbVar3 == (byte *)0x0) {
-    io_pushresult(0);
+    pushresult(0);
     return;
   }
-  io_setreturn(pbVar3,(byte *)s__INPUT_10026c00);
+  setreturn(pbVar3,(byte *)s__INPUT_10026c00);
   return;
 }

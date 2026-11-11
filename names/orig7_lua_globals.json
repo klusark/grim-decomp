@@ -1,0 +1,40 @@
+[
+ {
+  "program": "/LUA.DLL",
+  "addr": "10027db0",
+  "old": "DAT_10027db0",
+  "global": "g_aValidevents",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name validevents (the remaster's libLua.so: ltm.c static validevents[NUM_TAGS][IM_N] (0x90 bytes in libLua.so, 8 tags x 18 events; also the Lua 3.1 source name), read by validevent as [-t][e]); was DAT_10027db0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10026b50",
+  "old": "PTR_s_readfrom_10026b50",
+  "global": "g_pIolibtag",
+  "oldtype": "pointer",
+  "names_only": true,
+  "comment": "Original name iolibtag (the remaster's libLua.so: liolib.c static iolibtag (0x28 bytes in libLua.so: the five {name, function} pairs readfrom, writeto, appendto, read, write), registered by openwithtags as closures with the two tags; iolib (0x50 bytes) precedes it at 0x10026b00 as in the remaster); was PTR_s_readfrom_10026b50.",
+  "strict_mode": "warn"
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10026d90",
+  "old": "PTR_DAT_10026d90",
+  "global": "g_pCheckcond_opts",
+  "oldtype": "pointer",
+  "names_only": true,
+  "comment": "Original name checkcond::opts (the remaster's libLua.so: llex.c checkcond's static opts {\"nil\", \"1\", NULL} (0xc bytes in libLua.so), the luaO_findstring list of checkcond; it follows reserved (0x80 bytes, 16 {name, token} pairs at 0x10026d10) as in the remaster); was PTR_DAT_10026d90.",
+  "strict_mode": "warn"
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100271ac",
+  "old": "DAT_100271ac",
+  "global": "g_aOpcodeDirectory",
+  "oldtype": "undefined",
+  "names_only": true,
+  "comment": "Original name opcodeDirectory (the remaster's libLua.so: the remaster's global opcodeDirectory (0x60c bytes, 0x81 entries of 0xc), indexed by the opcode in lstate__85e0 under the assert \"op < (sizeof(opcodeDirectory) ...\"; stateFuncs follows at 0x100277b8 as in the remaster); was DAT_100271ac."
+ }
+]

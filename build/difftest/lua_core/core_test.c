@@ -74,7 +74,7 @@ void __cdecl luaD_openstack(int n)
     L(0x3f40); L(n);
     if (S(3) == 0) { g_pLuaState[10] = (int)S(8); g_pLuaState[7] = (int)snext(); }
 }
-void __cdecl luaA_setnormalized(int *a, int *b) { L(0x13c0); L((uint32_t)a); L((uint32_t)b); }
+void __cdecl set_normalized(int *a, int *b) { L(0x13c0); L((uint32_t)a); L((uint32_t)b); }
 void __cdecl luaD_adjusttop(int n) { L(0x3ee0); L(n); }
 void __cdecl luaV_closure(int n) { L(0xd6d0); L(n); }
 static void __cdecl assert_fn(char *a, char *b, int line) { L(0xA55E); L((uint32_t)a); L((uint32_t)b); L(line); }
@@ -100,7 +100,7 @@ static int lua_work(void)
     return ncalls > 60 ? 0 : (S(3) == 0 ? 0 : (int)S(5));
 }
 int __cdecl luaD_call(int a, int b) { L(0x4180); L(a); L(b); return lua_work(); }
-void __cdecl luaD_callinc(void *n) { L(0x47c0); L((uint32_t)n); lua_work(); }
+void __cdecl do_callinc(void *n) { L(0x47c0); L((uint32_t)n); lua_work(); }
 int __cdecl luaU_undump1(int *z) { L(0xcea0); L((uint32_t)z); if (S(5) == 0) raise_error(); return S(4) ? (int)snext() : 0; }
 int __cdecl luaY_parser(int z) { L(0xa900); L(z); if (S(5) == 0) raise_error(); return S(4) ? (int)snext() : 0; }
 

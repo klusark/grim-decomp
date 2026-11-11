@@ -599,7 +599,7 @@ switchD_1000acd8_caseD_1f:
       fVar9 = 0;
       break;
     case 0x32:
-      luaY_code_number(PUN(float,PUN(float,*pfVar9)));
+      code_number(PUN(float,PUN(float,*pfVar9)));
       fVar9 = 0;
       break;
     case 0x33:
@@ -633,7 +633,7 @@ switchD_1000acd8_caseD_1f:
       fVar9 = 0;
       break;
     case 0x3f:
-      iVar4 = luaY_string_constant(*pfVar9,(int *)g_pLuaState[0xf]);
+      iVar4 = string_constant(*pfVar9,(int *)g_pLuaState[0xf]);
       fVar9 = -1 - iVar4;
       break;
     case 0x40:
@@ -650,7 +650,7 @@ switchD_1000acd8_caseD_1f:
       break;
     case 0x44:
       iVar4 = 1;
-      uVar7 = luaY_string_constant(*pfVar9,(int *)g_pLuaState[0xf]);
+      uVar7 = string_constant(*pfVar9,(int *)g_pLuaState[0xf]);
       code_oparg('3',8,uVar7,iVar4);
       fVar9 = 1;
       break;
@@ -868,10 +868,13 @@ void __cdecl code_pop(undefined1 param_1)
   return;
 }
 
-/* ---- 0x1000b810  luaY_string_constant ---- */
-/* Unidentified function of lua.stx (yacc parser) and code generation */
+/* ---- 0x1000b810  string_constant ---- */
+/* Unidentified function of lua.stx (yacc parser) and code generation Named string_constant (not in
+   the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx static string_constant: reuses
+   the string's constindex when consts[i] is that string, else next_constant and stores it); was
+   luaY_string_constant. */
 
-uint __cdecl luaY_string_constant(int param_1,int *param_2)
+uint __cdecl string_constant(int param_1,int *param_2)
 
 {
   int iVar1;
@@ -881,7 +884,7 @@ uint __cdecl luaY_string_constant(int param_1,int *param_2)
   uVar2 = *(uint *)(param_1 + 8);
   if (((*(uint *)(iVar1 + 0xc) <= uVar2) || (*(int *)(*(int *)(iVar1 + 8) + uVar2 * 8) != -2)) ||
      (*(int *)(*(int *)(iVar1 + 8) + uVar2 * 8 + 4) != param_1)) {
-    uVar2 = luaY_next_constant(param_2);
+    uVar2 = next_constant(param_2);
     *(undefined4 *)(*(int *)(iVar1 + 8) + uVar2 * 8) = 0xfffffffe;
     *(int *)(*(int *)(iVar1 + 8) + 4 + uVar2 * 8) = param_1;
     *(uint *)(param_1 + 8) = uVar2;
@@ -889,10 +892,12 @@ uint __cdecl luaY_string_constant(int param_1,int *param_2)
   return uVar2;
 }
 
-/* ---- 0x1000b860  luaY_next_constant ---- */
-/* lua.stx: constant table overflow */
+/* ---- 0x1000b860  next_constant ---- */
+/* lua.stx: constant table overflow Named next_constant (not in the remaster, gcc inlined it there):
+   Lua 3.1 source name (lua.stx static next_constant: luaM_growvector of consts, error "constant
+   table overflow"); was luaY_next_constant. */
 
-int __cdecl luaY_next_constant(int *param_1)
+int __cdecl next_constant(int *param_1)
 
 {
   int iVar1;
@@ -920,7 +925,7 @@ void __cdecl code_string(int param_1)
 {
   uint uVar1;
   
-  uVar1 = luaY_string_constant(param_1,(int *)g_pLuaState[0xf]);
+  uVar1 = string_constant(param_1,(int *)g_pLuaState[0xf]);
   code_constant(uVar1);
   return;
 }
@@ -937,12 +942,15 @@ void __cdecl code_constant(uint param_1)
   return;
 }
 
-/* ---- 0x1000b8e0  luaY_code_number ---- */
+/* ---- 0x1000b8e0  code_number ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of lua.stx (yacc parser) and code generation */
+/* Unidentified function of lua.stx (yacc parser) and code generation Named code_number (not in the
+   remaster, gcc inlined it there): Lua 3.1 source name (lua.stx static code_number: PUSHNUMBER for
+   an integer in 0..65534 (code_oparg), else code_constant(real_constant(f))); was luaY_code_number.
+    */
 
-void __cdecl luaY_code_number(float param_1)
+void __cdecl code_number(float param_1)
 
 {
   uint uVar1;
@@ -955,17 +963,20 @@ void __cdecl luaY_code_number(float param_1)
       return;
     }
   }
-  uVar1 = luaY_real_constant(param_1);
+  uVar1 = real_constant(param_1);
   code_constant(uVar1);
   return;
 }
 #endif
 
 
-/* ---- 0x1000b950  luaY_real_constant ---- */
-/* Unidentified function of lua.stx (yacc parser) and code generation */
+/* ---- 0x1000b950  real_constant ---- */
+/* Unidentified function of lua.stx (yacc parser) and code generation Named real_constant (not in
+   the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx static real_constant: searches
+   the last 20 constants for the number (LOOKBACKNUMS), else next_constant); was luaY_real_constant.
+    */
 
-int __cdecl luaY_real_constant(float param_1)
+int __cdecl real_constant(float param_1)
 
 {
   int iVar1;
@@ -992,7 +1003,7 @@ int __cdecl luaY_real_constant(float param_1)
       piVar3 = piVar3 + -2;
     } while (iVar4 <= iVar2);
   }
-  iVar2 = luaY_next_constant((int *)g_pLuaState[0xf]);
+  iVar2 = next_constant((int *)g_pLuaState[0xf]);
   iVar1 = *(int *)(*(int *)g_pLuaState[0xf] + 8);
   *(undefined4 *)(iVar1 + iVar2 * 8) = 0xffffffff;
   *(float *)(iVar1 + 4 + iVar2 * 8) = param_1;
@@ -1135,7 +1146,7 @@ int __cdecl singlevar(int param_1,int *param_2)
       piVar1 = piVar1 + -0x5a;
     } while (iVar2 <= ((int)param_2 - g_pLuaState[0xe]) / 0x168);
   }
-  iVar2 = luaY_string_constant(param_1,param_2);
+  iVar2 = string_constant(param_1,param_2);
   return iVar2 + 0x21;
 }
 
@@ -1477,7 +1488,7 @@ void func_onstack(void)
   uint uVar4;
   
   uVar1 = ((int *)g_pLuaState[0xf])[0x7f];
-  uVar2 = luaY_next_constant((int *)g_pLuaState[0xf]);
+  uVar2 = next_constant((int *)g_pLuaState[0xf]);
   *(undefined4 *)(*(int *)(*(int *)g_pLuaState[0xf] + 8) + uVar2 * 8) = 0xfffffffc;
   *(int *)(*(int *)(*(int *)g_pLuaState[0xf] + 8) + 4 + uVar2 * 8) = ((int *)g_pLuaState[0xf])[0x5a]
   ;

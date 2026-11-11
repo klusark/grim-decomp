@@ -42,18 +42,19 @@ void str_sub(void)
   }
   if (((0 < iVar3) && (iVar3 <= iVar4)) && (iVar4 <= iVar6)) {
     luaL_resetbuffer();
-    str_addnchar((uint *)(pcVar2 + iVar3 + -1),(iVar4 - iVar3) + 1);
-    str_closeandpush();
+    addnchar((uint *)(pcVar2 + iVar3 + -1),(iVar4 - iVar3) + 1);
+    closeandpush();
     return;
   }
   lua_pushstring(&DAT_1002bedc);
   return;
 }
 
-/* ---- 0x10009650  str_addnchar ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x10009650  addnchar ---- */
+/* Named addnchar (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static
+   addnchar: luaL_openspace, strncpy, luaL_addsize); was str_addnchar. */
 
-void __cdecl str_addnchar(uint *param_1,uint param_2)
+void __cdecl addnchar(uint *param_1,uint param_2)
 
 {
   uint *puVar1;
@@ -64,10 +65,11 @@ void __cdecl str_addnchar(uint *param_1,uint param_2)
   return;
 }
 
-/* ---- 0x10009680  str_closeandpush ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x10009680  closeandpush ---- */
+/* Named closeandpush (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c
+   static closeandpush: luaL_addchar(0), lua_pushstring(luaL_buffer())); was str_closeandpush. */
 
-void str_closeandpush(void)
+void closeandpush(void)
 
 {
   byte *pbVar1;
@@ -99,7 +101,7 @@ void str_lower(void)
     pbVar3 = pbVar3 + 1;
     bVar2 = *pbVar1;
   }
-  str_closeandpush();
+  closeandpush();
   return;
 }
 
@@ -124,7 +126,7 @@ void str_upper(void)
     pbVar3 = pbVar3 + 1;
     bVar2 = *pbVar1;
   }
-  str_closeandpush();
+  closeandpush();
   return;
 }
 
@@ -144,18 +146,19 @@ void str_rep(void)
   luaL_resetbuffer();
   if (0 < iVar2) {
     do {
-      str_addstr(puVar1);
+      addstr(puVar1);
       iVar2 = iVar2 + -1;
     } while (iVar2 != 0);
   }
-  str_closeandpush();
+  closeandpush();
   return;
 }
 
-/* ---- 0x10009760  str_addstr ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x10009760  addstr ---- */
+/* Named addstr (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static
+   addstr: addnchar(s, strlen(s))); was str_addstr. */
 
-void __cdecl str_addstr(uint *param_1)
+void __cdecl addstr(uint *param_1)
 
 {
   uint uVar1;
@@ -170,7 +173,7 @@ void __cdecl str_addstr(uint *param_1)
     uVar1 = *puVar3;
     puVar3 = (uint *)((int)puVar3 + 1);
   } while ((char)uVar1 != '\0');
-  str_addnchar(param_1,~uVar2 - 1);
+  addnchar(param_1,~uVar2 - 1);
   return;
 }
 
@@ -244,7 +247,7 @@ uint __cdecl luaI_singlematch(uint param_1,char *param_2,int *param_3)
     break;
   }
   pcVar1 = param_2 + 1;
-  puVar2 = str_bracket_end(pcVar1);
+  puVar2 = bracket_end(pcVar1);
   pcVar5 = param_2;
   if (*pcVar1 == '^') {
     pcVar5 = pcVar1;
@@ -294,10 +297,12 @@ uint __cdecl luaI_singlematch(uint param_1,char *param_2,int *param_3)
   return 0;
 }
 
-/* ---- 0x100099e0  str_bracket_end ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x100099e0  bracket_end ---- */
+/* Named bracket_end (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c
+   static bracket_end: strchr for the closing bracket, skipping a leading ^); was str_bracket_end.
+    */
 
-uint * __cdecl str_bracket_end(char *param_1)
+uint * __cdecl bracket_end(char *param_1)
 
 {
   uint *puVar1;
@@ -459,7 +464,7 @@ LAB_10009d07:
       if (pcVar7 != (char *)0x0) {
         lua_pushnumber((float)(int)(pcVar11 + (1 - (int)pcVar3)));
         lua_pushnumber((float)((int)pcVar7 - (int)pcVar3));
-        str_push_captures(aiStack_4c);
+        push_captures(aiStack_4c);
         return;
       }
       cVar1 = *pcVar11;
@@ -488,12 +493,14 @@ LAB_10009d07:
 #undef aiStack_4c
 
 
-/* ---- 0x10009e40  str_push_captures ---- */
+/* ---- 0x10009e40  push_captures ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* errors 'unfinished capture' */
+/* errors 'unfinished capture' Named push_captures (not in the remaster, gcc inlined it there): Lua
+   3.1 source name (lstrlib.c static push_captures: each capture as a string, error "unfinished
+   capture"); was str_push_captures. */
 
-void __cdecl str_push_captures(int *ms)
+void __cdecl push_captures(int *ms)
 
 {
   uint uVar1;
@@ -563,7 +570,7 @@ char * __cdecl match(char *param_1,int *param_2,int *param_3)
         *piVar2 = *piVar2 + -1;
         return (char *)0x0;
       case ')':
-        iVar5 = str_capture_to_close(piVar2);
+        iVar5 = capture_to_close(piVar2);
         piVar2[iVar5 * 2 + 2] = (int)param_1 - piVar2[iVar5 * 2 + 1];
         pcVar3 = match(param_1,(int *)((int)param_2 + 1),piVar2);
         if (pcVar3 != (char *)0x0) {
@@ -572,7 +579,7 @@ char * __cdecl match(char *param_1,int *param_2,int *param_3)
         piVar2[iVar5 * 2 + 2] = -1;
         return (char *)0x0;
       }
-      pcVar3 = str_matchbalance(param_1,(char *)param_2,piVar2,(int *)&param_3);
+      pcVar3 = matchitem(param_1,(char *)param_2,piVar2,(int *)&param_3);
       cVar1 = (char)*param_3;
       if (cVar1 != '*') break;
       if (pcVar3 != (char *)0x0) {
@@ -610,10 +617,12 @@ LAB_10009f5e:
 #endif
 
 
-/* ---- 0x1000a030  str_capture_to_close ---- */
-/* Unidentified function of lstrlib.c (string library) */
+/* ---- 0x1000a030  capture_to_close ---- */
+/* Named capture_to_close (not in the remaster, gcc inlined it there): Lua 3.1 source name
+   (lstrlib.c static capture_to_close: the last open capture (len -1), error "invalid pattern
+   capture"); was str_capture_to_close. */
 
-int __cdecl str_capture_to_close(int *param_1)
+int __cdecl capture_to_close(int *param_1)
 
 {
   int iVar1;
@@ -634,10 +643,12 @@ int __cdecl str_capture_to_close(int *param_1)
   return 0;
 }
 
-/* ---- 0x1000a060  str_matchbalance ---- */
-/* errors 'unbalanced pattern' */
+/* ---- 0x1000a060  matchitem ---- */
+/* errors 'unbalanced pattern' Named matchitem (not in the remaster, gcc inlined it there): Lua 3.1
+   source name (lstrlib.c static matchitem: %digit compares a capture (check_cap), %b calls
+   matchbalance with error "unbalanced pattern", else luaI_singlematch); was str_matchbalance. */
 
-char * __cdecl str_matchbalance(char *param_1,char *param_2,int *param_3,int *param_4)
+char * __cdecl matchitem(char *param_1,char *param_2,int *param_3,int *param_4)
 
 {
   uint uVar1;
@@ -654,7 +665,7 @@ char * __cdecl str_matchbalance(char *param_1,char *param_2,int *param_3,int *pa
       uVar1 = _isctype((uint)*pbVar4,4);
     }
     if (uVar1 != 0) {
-      iVar2 = str_check_capture((int)(char)*pbVar4,param_3);
+      iVar2 = check_cap((int)(char)*pbVar4,param_3);
       *param_4 = (int)(param_2 + 2);
       uVar1 = strncmp((char *)param_3[iVar2 * 2 + 1],param_1,param_3[iVar2 * 2 + 2]);
       if (uVar1 != 0) {
@@ -667,7 +678,7 @@ char * __cdecl str_matchbalance(char *param_1,char *param_2,int *param_3,int *pa
         lua_error((byte *)s_unbalanced_pattern_10027a10);
       }
       *param_4 = (int)(param_2 + 4);
-      pcVar3 = str_expand(param_1,(int)param_2[2],(int)param_2[3]);
+      pcVar3 = matchbalance(param_1,(int)param_2[2],(int)param_2[3]);
       return pcVar3;
     }
   }
@@ -678,10 +689,12 @@ char * __cdecl str_matchbalance(char *param_1,char *param_2,int *param_3,int *pa
   return param_1 + 1;
 }
 
-/* ---- 0x1000a150  str_check_capture ---- */
-/* errors 'invalid capture index' */
+/* ---- 0x1000a150  check_cap ---- */
+/* errors 'invalid capture index' Named check_cap (not in the remaster, gcc inlined it there): Lua
+   3.1 source name (lstrlib.c static check_cap: l = c - '1', error "invalid capture index"); was
+   str_check_capture. */
 
-int __cdecl str_check_capture(int param_1,int *param_2)
+int __cdecl check_cap(int param_1,int *param_2)
 
 {
   int iVar1;
@@ -693,10 +706,12 @@ int __cdecl str_check_capture(int param_1,int *param_2)
   return iVar1;
 }
 
-/* ---- 0x1000a180  str_expand ---- */
-/* max/min expansion of a repeated pattern item */
+/* ---- 0x1000a180  matchbalance ---- */
+/* max/min expansion of a repeated pattern item Named matchbalance (not in the remaster, gcc inlined
+   it there): Lua 3.1 source name (lstrlib.c static matchbalance(s, b, e): counts nested b / e and
+   returns the position after the balancing e; called by matchitem for %b); was str_expand. */
 
-char * __cdecl str_expand(char *param_1,int param_2,int param_3)
+char * __cdecl matchbalance(char *param_1,int param_2,int param_3)
 
 {
   char cVar1;
@@ -763,8 +778,8 @@ void str_gsub(void)
   luaL_resetbuffer();
   if ((int)lVar8 < 1) {
 LAB_1000a2b7:
-    str_addstr(puVar2);
-    str_closeandpush();
+    addstr(puVar2);
+    closeandpush();
     lua_pushnumber((float)iStack_60);
     return;
   }
@@ -779,7 +794,7 @@ LAB_1000a291:
     }
     else {
       iStack_60 = iStack_60 + 1;
-      str_add_value(iVar4,aiStack_4c);
+      add_s(iVar4,aiStack_4c);
       if ((puVar5 == (uint *)0x0) || (puVar5 <= puVar2)) goto LAB_1000a291;
     }
     puVar2 = puVar5;
@@ -790,10 +805,13 @@ LAB_1000a291:
 #undef iStack_60
 
 
-/* ---- 0x1000a2e0  str_add_value ---- */
-/* gsub replacement: string or function result */
+/* ---- 0x1000a2e0  add_s ---- */
+/* gsub replacement: string or function result Named add_s (not in the remaster, gcc inlined it
+   there): Lua 3.1 source name (lstrlib.c static add_s(newp, cap): gsub's replacement, a string with
+   %n captures or a function called with push_captures; error "string or function expected"); was
+   str_add_value. */
 
-void __cdecl str_add_value(int param_1,int *param_2)
+void __cdecl add_s(int param_1,int *param_2)
 
 {
   char cVar1;
@@ -809,7 +827,7 @@ void __cdecl str_add_value(int param_1,int *param_2)
     iVar2 = lua_isfunction(param_1);
     if (iVar2 != 0) {
       lua_beginblock();
-      str_push_captures(param_2);
+      push_captures(param_2);
       iVar2 = luaL_newbuffer(0);
       iVar5 = lua_callfunction(param_1);
       luaL_oldbuffer(iVar2);
@@ -820,12 +838,12 @@ void __cdecl str_add_value(int param_1,int *param_2)
       iVar2 = lua_lua2C(1);
       iVar5 = lua_isstring(iVar2);
       if (iVar5 == 0) {
-        str_addstr((uint *)&DAT_1002bedc);
+        addstr((uint *)&DAT_1002bedc);
         lua_endblock();
         return;
       }
       puVar6 = (uint *)lua_getstring(iVar2);
-      str_addstr(puVar6);
+      addstr(puVar6);
       lua_endblock();
       return;
     }
@@ -847,8 +865,8 @@ void __cdecl str_add_value(int param_1,int *param_2)
           pcVar7 = pcVar3 + 1;
           if (uVar4 == 0) goto LAB_1000a36b;
           pcVar3 = pcVar3 + 2;
-          iVar2 = str_check_capture((int)*pcVar7,param_2);
-          str_addnchar((uint *)param_2[iVar2 * 2 + 1],param_2[iVar2 * 2 + 2]);
+          iVar2 = check_cap((int)*pcVar7,param_2);
+          addnchar((uint *)param_2[iVar2 * 2 + 1],param_2[iVar2 * 2 + 2]);
         }
         else {
 LAB_1000a36b:
@@ -894,7 +912,7 @@ void str_format(void)
   cVar1 = *pcVar2;
   do {
     if (cVar1 == '\0') {
-      str_closeandpush();
+      closeandpush();
       return;
     }
     if (cVar1 == '%') {
@@ -950,7 +968,7 @@ void str_format(void)
           break;
         case 'q':
           pcVar3 = (char *)luaL_check_string(iVar5);
-          str_add_s(pcVar3);
+          luaI_addquoted(pcVar3);
           goto LAB_1000a5fe;
         case 's':
           pcVar3 = (char *)luaL_check_string(iVar5);
@@ -991,10 +1009,12 @@ LAB_1000a5fe:
 #endif
 
 
-/* ---- 0x1000a680  str_add_s ---- */
-/* gsub replacement string with %n captures */
+/* ---- 0x1000a680  luaI_addquoted ---- */
+/* gsub replacement string with %n captures Named luaI_addquoted (not in the remaster, gcc inlined
+   it there): Lua 3.1 source name (lstrlib.c luaI_addquoted: format %q, the string in double quotes
+   with a backslash before the special characters; called by str_format); was str_add_s. */
 
-void __cdecl str_add_s(char *param_1)
+void __cdecl luaI_addquoted(char *param_1)
 
 {
   char *pcVar1;

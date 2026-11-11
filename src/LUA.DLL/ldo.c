@@ -278,7 +278,7 @@ switchD_1000422b_caseD_fffffff9:
         piVar9 = (int *)*g_pLuaState;
         goto LAB_100042fe;
       }
-      pvVar3 = (void *)luaD_callC((int)a1,*(undefined **)(a1 + 0x10),iVar4);
+      pvVar3 = (void *)callCclosure((int)a1,*(undefined **)(a1 + 0x10),iVar4);
       param_1 = a1;
       param_2 = pvVar3;
       break;
@@ -357,7 +357,7 @@ LAB_10004474:
 
 /* ---- 0x100044e0  callC ---- */
 /* Named callC (not in the remaster, gcc inlined it there): Lua 3.1 source name (ldo.c: saves the C
-   stack frame, runs the call hook, calls the C function, used by luaD_call / luaD_callC); was
+   stack frame, runs the call hook, calls the C function, used by luaD_call / callCclosure); was
    ldo__44e0. */
 
 int __cdecl callC(undefined *param_1,int param_2)
@@ -395,10 +395,12 @@ int __cdecl callC(undefined *param_1,int param_2)
   return iVar6;
 }
 
-/* ---- 0x10004580  luaD_callC ---- */
-/* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
+/* ---- 0x10004580  callCclosure ---- */
+/* Named callCclosure (not in the remaster, gcc inlined it there): Lua 3.1 source name (ldo.c static
+   callCclosure: checkstack(nelems), moves the arguments up, copies the closure's upvalues
+   (consts+1) below them, then callC; called by luaD_call); was luaD_callC. */
 
-int __cdecl luaD_callC(int param_1,undefined *param_2,int param_3)
+int __cdecl callCclosure(int param_1,undefined *param_2,int param_3)
 
 {
   uint uVar1;
@@ -445,12 +447,14 @@ void __cdecl luaD_travallstacks(undefined *param_1)
   return;
 }
 
-/* ---- 0x100046a0  luaD_message ---- */
+/* ---- 0x100046a0  message ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* ldo.c message(): pushes the string and calls the error tag method */
+/* ldo.c message(): pushes the string and calls the error tag method Named message (not in the
+   remaster, gcc inlined it there): Lua 3.1 source name (ldo.c static message: if errorim is not
+   nil, pushstring and luaD_callTM(errorim, 1, 0); called by lua_error); was luaD_message. */
 
-void __cdecl luaD_message(byte *param_1)
+void __cdecl message(byte *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -498,7 +502,7 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
   iVar7 = _setjmp3((undefined4 *)(_stkneg + 24),0,in_stack_ffffffa8,in_stack_ffffffac);
   piVar6 = g_pLuaState;
   if (iVar7 == 0) {
-    luaD_callinc(param_1);
+    do_callinc(param_1);
     uVar8 = 0;
   }
   else {
@@ -521,10 +525,12 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
 #endif
 
 
-/* ---- 0x100047c0  luaD_callinc ---- */
-/* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
+/* ---- 0x100047c0  do_callinc ---- */
+/* Named do_callinc (not in the remaster, gcc inlined it there): Lua 3.1 source name (ldo.c static
+   do_callinc: luaD_call(base+1, nResults), then Cstack.lua2C / num / base from the new top); was
+   luaD_callinc. */
 
-void __cdecl luaD_callinc(void *param_1)
+void __cdecl do_callinc(void *param_1)
 
 {
   int iVar1;

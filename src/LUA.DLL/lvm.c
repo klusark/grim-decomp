@@ -506,17 +506,19 @@ int __fastcall ExecutionState_execute(int *param_1)
     luaC_checkGC();
     bVar1 = *(byte *)param_1[8];
     param_1[8] = (int)((byte *)param_1[8] + 1);
-    luaV_adjust_varargs(param_1[2] + -0x40 + (uint)bVar1);
+    adjust_varargs(param_1[2] + -0x40 + (uint)bVar1);
     param_1[6] = 1;
   }
   iVar2 = ExecutionState_CrunchOpcodes(param_1);
   return iVar2;
 }
 
-/* ---- 0x1000dee0  luaV_adjust_varargs ---- */
-/* Unidentified function of lvm.c (virtual machine) */
+/* ---- 0x1000dee0  adjust_varargs ---- */
+/* Named adjust_varargs (not in the remaster, gcc inlined it there): Lua 3.1 source name (lvm.c
+   static adjust_varargs: luaV_pack of the extra arguments into a table, luaD_adjusttop, push the
+   table); was luaV_adjust_varargs. */
 
-void __cdecl luaV_adjust_varargs(int param_1)
+void __cdecl adjust_varargs(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -879,16 +881,16 @@ LAB_1000e37f:
     *(undefined4 *)(*(int *)param_1[7] + -4) = 0x3f800000;
     goto switchD_1000dfaf_default;
   case 0x5d:
-    luaV_comparison(0xffffffff,0xfffffff9,0xfffffff9,0xb);
+    comparison(0xffffffff,0xfffffff9,0xfffffff9,0xb);
     goto switchD_1000dfaf_default;
   case 0x5e:
-    luaV_comparison(0xffffffff,0xffffffff,0xfffffff9,0xc);
+    comparison(0xffffffff,0xffffffff,0xfffffff9,0xc);
     goto switchD_1000dfaf_default;
   case 0x5f:
-    luaV_comparison(0xfffffff9,0xfffffff9,0xffffffff,0xd);
+    comparison(0xfffffff9,0xfffffff9,0xffffffff,0xd);
     goto switchD_1000dfaf_default;
   case 0x60:
-    luaV_comparison(0xfffffff9,0xffffffff,0xffffffff,0xe);
+    comparison(0xfffffff9,0xffffffff,0xffffffff,0xe);
     goto switchD_1000dfaf_default;
   case 0x61:
     iVar13 = *(int *)param_1[7];
@@ -900,7 +902,7 @@ LAB_1000e37f:
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
     else {
-      luaV_call_arith(5);
+      call_arith(5);
     }
     goto switchD_1000dfaf_default;
   case 0x62:
@@ -913,7 +915,7 @@ LAB_1000e37f:
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
     else {
-      luaV_call_arith(6);
+      call_arith(6);
     }
     goto switchD_1000dfaf_default;
   case 99:
@@ -926,7 +928,7 @@ LAB_1000e37f:
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
     else {
-      luaV_call_arith(7);
+      call_arith(7);
     }
     goto switchD_1000dfaf_default;
   case 100:
@@ -939,11 +941,11 @@ LAB_1000e37f:
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
     else {
-      luaV_call_arith(8);
+      call_arith(8);
     }
     goto switchD_1000dfaf_default;
   case 0x65:
-    luaV_call_arith(9);
+    call_arith(9);
     goto switchD_1000dfaf_default;
   case 0x66:
     iVar13 = *(int *)param_1[7];
@@ -951,8 +953,8 @@ LAB_1000e37f:
         (iVar11 = luaV_tostring((int *)(iVar13 + -0x10)), iVar11 == 0)) &&
        ((*(int *)(iVar13 + -8) == -2 || (iVar11 = luaV_tostring((int *)(iVar13 + -8)), iVar11 == 0))
        )) {
-      uVar12 = luaV_strconc((char *)(*(int *)(iVar13 + -0xc) + 0x18),
-                            (char *)(*(int *)(iVar13 + -4) + 0x18));
+      uVar12 = strconc((char *)(*(int *)(iVar13 + -0xc) + 0x18),
+                       (char *)(*(int *)(iVar13 + -4) + 0x18));
       *(undefined4 *)(iVar13 + -0xc) = uVar12;
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
       luaC_checkGC();
@@ -970,7 +972,7 @@ LAB_1000e37f:
     else {
       **(undefined4 **)param_1[7] = 0xfffffff9;
       *(int *)param_1[7] = *(int *)param_1[7] + 8;
-      luaV_call_arith(10);
+      call_arith(10);
     }
     goto switchD_1000dfaf_default;
   case 0x68:
@@ -1141,10 +1143,12 @@ LAB_1000e9fd:
   return iVar13;
 }
 
-/* ---- 0x1000ebc0  luaV_strconc ---- */
-/* lvm.c: string concatenation */
+/* ---- 0x1000ebc0  strconc ---- */
+/* lvm.c: string concatenation Named strconc (not in the remaster, gcc inlined it there): Lua 3.1
+   source name (lvm.c static strconc(l, r): luaL_openspace(strlen(l) + strlen(r) + 1), strcpy,
+   strcat); was luaV_strconc. */
 
-undefined4 __cdecl luaV_strconc(char *param_1,char *param_2)
+undefined4 __cdecl strconc(char *param_1,char *param_2)
 
 {
   char cVar1;
@@ -1252,20 +1256,24 @@ void __cdecl call_binTM(int param_1,byte *param_2)
   return;
 }
 
-/* ---- 0x1000ecf0  luaV_call_arith ---- */
-/* Unidentified function of lvm.c (virtual machine) */
+/* ---- 0x1000ecf0  call_arith ---- */
+/* Named call_arith (not in the remaster, gcc inlined it there): Lua 3.1 source name (lvm.c static
+   call_arith: call_binTM(event, "unexpected type in arithmetic operation")); was luaV_call_arith.
+    */
 
-void __cdecl luaV_call_arith(int param_1)
+void __cdecl call_arith(int param_1)
 
 {
   call_binTM(param_1,s_unexpected_type_in_arithmetic_op_1002825c);
   return;
 }
 
-/* ---- 0x1000ed10  luaV_comparison ---- */
-/* Unidentified function of lvm.c (virtual machine) */
+/* ---- 0x1000ed10  comparison ---- */
+/* Named comparison (not in the remaster, gcc inlined it there): Lua 3.1 source name (lvm.c static
+   comparison(ltue, equl, gtue, event): numbers or strings (strcoll), else call_binTM "unexpected
+   type in comparison"); was luaV_comparison. */
 
-void __cdecl luaV_comparison(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
+void __cdecl comparison(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
 
 {
   int *piVar1;

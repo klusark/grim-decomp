@@ -202,15 +202,17 @@ undefined4 lua_pop(void)
   undefined4 uVar1;
   
                     /* 0x12a0  55  lua_pop */
-  ((code *)luaA_checkCparams)(1);
+  ((code *)checkCparams)(1);
   uVar1 = put_luaObjectonTop();
   return uVar1;
 }
 
-/* ---- 0x100012b0  luaA_checkCparams ---- */
-/* Unidentified function of lapi.c (Lua 3.1 C API) */
+/* ---- 0x100012b0  checkCparams ---- */
+/* Named checkCparams (not in the remaster, gcc inlined it there): Lua 3.1 source name (lapi.c
+   static checkCparams: error "API error - wrong number of arguments in C2lua stack" when top -
+   stack < Cstack.num + nParams); was luaA_checkCparams. */
 
-void __cdecl luaA_checkCparams(int param_1)
+void __cdecl checkCparams(int param_1)
 
 {
   if (g_pLuaState[7] - g_pLuaState[8] >> 3 < g_pLuaState[10] + param_1) {
@@ -263,30 +265,34 @@ undefined4 __cdecl lua_callfunction(int param_1)
     return 1;
   }
   luaD_openstack((g_pLuaState[7] - g_pLuaState[8] >> 3) - g_pLuaState[10]);
-  luaA_setnormalized((int *)(g_pLuaState[8] + g_pLuaState[10] * 8),
-                     (int *)(g_pLuaState[8] + -8 + param_1 * 8));
+  set_normalized((int *)(g_pLuaState[8] + g_pLuaState[10] * 8),
+                 (int *)(g_pLuaState[8] + -8 + param_1 * 8));
   uVar1 = luaD_protectedrun((void *)0xff);
   return uVar1;
 }
 
-/* ---- 0x100013c0  luaA_setnormalized ---- */
-/* Unidentified function of lapi.c (Lua 3.1 C API) */
+/* ---- 0x100013c0  set_normalized ---- */
+/* Named set_normalized (not in the remaster, gcc inlined it there): Lua 3.1 source name (lapi.c
+   static set_normalized: copies the value, the tag through normalized_type); was
+   luaA_setnormalized. */
 
-void __cdecl luaA_setnormalized(int *param_1,int *param_2)
+void __cdecl set_normalized(int *param_1,int *param_2)
 
 {
   int iVar1;
   
   param_1[1] = param_2[1];
-  iVar1 = luaA_normalizedtype(param_2);
+  iVar1 = normalized_type(param_2);
   *param_1 = iVar1;
   return;
 }
 
-/* ---- 0x100013e0  luaA_normalizedtype ---- */
-/* Maps closure/mark tags back to the user-visible type */
+/* ---- 0x100013e0  normalized_type ---- */
+/* Maps closure/mark tags back to the user-visible type Named normalized_type (not in the remaster,
+   gcc inlined it there): Lua 3.1 source name (lapi.c static normalized_type: CMARK -> CPROTO, PMARK
+   -> PROTO, CLMARK -> CLOSURE); was luaA_normalizedtype. */
 
-int __cdecl luaA_normalizedtype(int *param_1)
+int __cdecl normalized_type(int *param_1)
 
 {
   int iVar1;
@@ -345,7 +351,7 @@ undefined4 __cdecl lua_settagmethod(int param_1,byte *param_2)
   undefined4 uVar1;
   
                     /* 0x1490  78  lua_settagmethod */
-  ((code *)luaA_checkCparams)(1);
+  ((code *)checkCparams)(1);
   luaT_settagmethod(param_1,param_2,(undefined4 *)(g_pLuaState[7] + -8));
   uVar1 = put_luaObjectonTop();
   return uVar1;
@@ -363,7 +369,7 @@ undefined4 __cdecl lua_seterrormethod(void)
                     /* 0x14c0  72  lua_seterrormethod */
   local_8 = g_dwLState_errorim;
   local_4 = DAT_1002bf5c;
-  luaA_checkCparams(1);
+  checkCparams(1);
   g_pLuaState[7] = g_pLuaState[7] + -8;
   g_dwLState_errorim = *(undefined4 *)g_pLuaState[7];
   DAT_1002bf5c = ((undefined4 *)g_pLuaState[7])[1];
@@ -381,7 +387,7 @@ undefined4 __cdecl lua_gettable(void)
   undefined4 uVar1;
   
                     /* 0x1520  35  lua_gettable */
-  ((code *)luaA_checkCparams)(2);
+  ((code *)checkCparams)(2);
   luaV_gettable();
   uVar1 = put_luaObjectonTop();
   return uVar1;
@@ -396,7 +402,7 @@ undefined4 lua_rawgettable(void)
   undefined4 uVar3;
   
                     /* 0x1540  65  lua_rawgettable */
-  ((code *)luaA_checkCparams)(2);
+  ((code *)checkCparams)(2);
   iVar1 = g_pLuaState[7];
   if (*(int *)(iVar1 + -0x10) == -3) {
     piVar2 = luaH_get(*(int *)(iVar1 + -0xc),(int *)(iVar1 + -8));
@@ -424,7 +430,7 @@ undefined4 __cdecl lua_settable(void)
   undefined4 uVar1;
   
                     /* 0x15b0  76  lua_settable */
-  ((code *)luaA_checkCparams)(3);
+  ((code *)checkCparams)(3);
   uVar1 = ((code *)luaV_settable)((uint *)(g_pLuaState[7] + -0x18),1);
   return uVar1;
 }
@@ -436,7 +442,7 @@ undefined4 __cdecl lua_rawsettable(void)
   undefined4 uVar1;
   
                     /* 0x15e0  67  lua_rawsettable */
-  ((code *)luaA_checkCparams)(3);
+  ((code *)checkCparams)(3);
   uVar1 = ((code *)luaV_settable)((uint *)(g_pLuaState[7] + -0x18),0);
   return uVar1;
 }
@@ -497,7 +503,7 @@ undefined4 __cdecl lua_setglobal(byte *param_1)
   undefined4 uVar2;
   
                     /* 0x1690  74  lua_setglobal */
-  ((code *)luaA_checkCparams)(1);
+  ((code *)checkCparams)(1);
   luaD_checkstack(2);
   piVar1 = (int *)luaS_new(param_1);
   uVar2 = ((code *)luaV_setglobal)(piVar1);
@@ -513,7 +519,7 @@ undefined4 __cdecl lua_rawsetglobal(byte *param_1)
   
                     /* 0x16c0  66  lua_rawsetglobal */
   piVar1 = (int *)luaS_new(param_1);
-  luaA_checkCparams(1);
+  checkCparams(1);
   g_pLuaState[7] = g_pLuaState[7] + -8;
   uVar2 = ((code *)luaS_rawsetglobal)(piVar1,(int *)g_pLuaState[7]);
   return uVar2;
@@ -684,19 +690,21 @@ int __cdecl lua_getcfunction(int param_1)
   if (((uint)(bVar1)) == 0) {
     return 0;
   }
-  piVar2 = luaA_normalizeObj((int *)(g_pLuaState[8] + -8 + param_1 * 8));
+  piVar2 = luaA_protovalue((int *)(g_pLuaState[8] + -8 + param_1 * 8));
   return piVar2[1];
 }
 
-/* ---- 0x10001970  luaA_normalizeObj ---- */
-/* Unidentified function of lapi.c (Lua 3.1 C API) */
+/* ---- 0x10001970  luaA_protovalue ---- */
+/* Named luaA_protovalue (not in the remaster, gcc inlined it there): Lua 3.1 source name (lapi.c
+   luaA_protovalue: a closure (normalized_type) gives its function consts[0], anything else itself;
+   used by lua_getcfunction / lua_getlocal); was luaA_normalizeObj. */
 
-int * __cdecl luaA_normalizeObj(int *param_1)
+int * __cdecl luaA_protovalue(int *param_1)
 
 {
   int iVar1;
   
-  iVar1 = luaA_normalizedtype(param_1);
+  iVar1 = normalized_type(param_1);
   if (iVar1 == -8) {
     return (int *)(param_1[1] + 0xc);
   }
@@ -801,7 +809,7 @@ undefined4 __cdecl lua_pushCclosure(int param_1,uint param_2)
   if (param_1 == 0) {
     lua_error((byte *)s_API_error___attempt_to_push_a_NU_10026160);
   }
-  luaA_checkCparams(param_2);
+  checkCparams(param_2);
   *(undefined4 *)g_pLuaState[7] = 0xfffffffb;
   *(int *)(g_pLuaState[7] + 4) = param_1;
   if ((uint)g_pLuaState[9] <= (uint)g_pLuaState[7]) {
@@ -863,7 +871,7 @@ undefined4 __cdecl lua_pushobject(int param_1)
     uVar2 = lua_error((byte *)s_API_error___attempt_to_push_a_NO_10026190);
     return uVar2;
   }
-  luaA_setnormalized((int *)g_pLuaState[7],(int *)(g_pLuaState[8] + -8 + param_1 * 8));
+  set_normalized((int *)g_pLuaState[7],(int *)(g_pLuaState[8] + -8 + param_1 * 8));
   if ((uint)g_pLuaState[9] <= (uint)g_pLuaState[7]) {
     luaD_checkstack(1);
   }
@@ -911,7 +919,7 @@ int * __cdecl lua_settag(int param_1)
   int *piVar3;
   
                     /* 0x1d30  77  lua_settag */
-  ((code *)luaA_checkCparams)(1);
+  ((code *)checkCparams)(1);
   luaT_realtag(param_1);
   iVar1 = g_pLuaState[7];
   iVar2 = *(int *)(iVar1 + -8);
@@ -1003,7 +1011,7 @@ LAB_10001e23:
           if (*g_pLuaState == 0) {
             iVar3 = g_pLuaState[10];
             luaD_openstack((g_pLuaState[7] - g_pLuaState[8] >> 3) - iVar3);
-            luaA_setnormalized((int *)(g_pLuaState[8] + g_pLuaState[10] * 8),g_pLuaState + 0x31);
+            set_normalized((int *)(g_pLuaState[8] + g_pLuaState[10] * 8),g_pLuaState + 0x31);
             if (lua_taskhook != 0) {
               luaD_taskHook(g_pLuaState[0x30],0);
             }
@@ -1226,7 +1234,7 @@ int __cdecl lua_getlocal(int param_1,int param_2,int *param_3)
   iVar2 = lua_tag(param_1);
   if (iVar2 == -4) {
     piVar1 = (int *)(g_pLuaState[8] + -8 + param_1 * 8);
-    piVar3 = luaA_normalizeObj(piVar1);
+    piVar3 = luaA_protovalue(piVar1);
     iVar2 = piVar3[1];
     uVar4 = lua_currentline(param_1);
     iVar2 = luaF_getlocalname(iVar2,param_2,uVar4);
@@ -1251,11 +1259,11 @@ undefined4 __cdecl lua_setlocal(int param_1,int param_2)
   iVar2 = lua_tag(param_1);
   if (iVar2 == -4) {
     piVar1 = (int *)(g_pLuaState[8] + -8 + param_1 * 8);
-    piVar3 = luaA_normalizeObj(piVar1);
+    piVar3 = luaA_protovalue(piVar1);
     iVar2 = piVar3[1];
     uVar4 = lua_currentline(param_1);
     iVar2 = luaF_getlocalname(iVar2,param_2,uVar4);
-    luaA_checkCparams(1);
+    checkCparams(1);
     g_pLuaState[7] = g_pLuaState[7] + -8;
     if (iVar2 != 0) {
       piVar3 = (int *)g_pLuaState[7];
@@ -1281,8 +1289,8 @@ undefined4 __cdecl lua_funcinfo(int param_1,int *param_2,undefined4 *param_3)
     uVar2 = lua_error((byte *)s_API____funcinfo__called_with_a_n_10026268);
     return uVar2;
   }
-  piVar3 = luaA_normalizeObj((int *)(g_pLuaState[8] + -8 + param_1 * 8));
-  iVar1 = luaA_normalizedtype(piVar3);
+  piVar3 = luaA_protovalue((int *)(g_pLuaState[8] + -8 + param_1 * 8));
+  iVar1 = normalized_type(piVar3);
   if (iVar1 == -4) {
     *param_2 = *(int *)(piVar3[1] + 0x18) + 0x18;
     iVar1 = piVar3[1];
@@ -1302,7 +1310,7 @@ char * __cdecl lua_getobjname(int param_1,undefined4 *param_2)
   int *piVar2;
   
                     /* 0x2440  32  lua_getobjname */
-  ((code *)luaA_setnormalized)((int *)g_pLuaState[7],(int *)(g_pLuaState[8] + -8 + param_1 * 8));
+  ((code *)set_normalized)((int *)g_pLuaState[7],(int *)(g_pLuaState[8] + -8 + param_1 * 8));
   pcVar1 = luaT_travtagmethods(checkfunc);
   *param_2 = pcVar1;
   if (pcVar1 != (char *)0x0) {
@@ -1375,7 +1383,7 @@ uint __cdecl lua_ref(int param_1)
   uint uVar1;
   
                     /* 0x2560  69  lua_ref */
-  ((code *)luaA_checkCparams)(1);
+  ((code *)checkCparams)(1);
   uVar1 = luaC_ref((int *)(g_pLuaState[7] + -8),param_1);
   g_pLuaState[7] = g_pLuaState[7] + -8;
   return uVar1;
@@ -1409,17 +1417,20 @@ undefined4 __cdecl lua_setfallback(byte *name,int fallback)
                     /* 0x25b0  73  lua_setfallback */
   lua_pushstring(name);
   lua_pushCclosure(in_stack_0000000c,0);
-  luaA_callObject(luaT_setfallback,2,(void *)0x1);
+  do_unprotectedrun(luaT_setfallback,2,(void *)0x1);
   uVar1 = put_luaObjectonTop();
   return uVar1;
 }
 #endif
 
 
-/* ---- 0x100025f0  luaA_callObject ---- */
-/* Opens stack space and runs luaD_call for the C API */
+/* ---- 0x100025f0  do_unprotectedrun ---- */
+/* Opens stack space and runs luaD_call for the C API Named do_unprotectedrun (not in the remaster,
+   gcc inlined it there): Lua 3.1 source name (lapi.c static do_unprotectedrun of the fallback
+   compatibility code: luaD_openstack(nParams), a CPROTO in the base slot, luaD_call; its only
+   caller is lua_setfallback with luaT_setfallback, 2, 1); was luaA_callObject. */
 
-void __cdecl luaA_callObject(undefined4 param_1,int param_2,void *param_3)
+void __cdecl do_unprotectedrun(undefined4 param_1,int param_2,void *param_3)
 
 {
   int iVar1;
@@ -1621,7 +1632,7 @@ undefined4 __cdecl lua_error(byte *param_1)
   
                     /* 0x4650  26  lua_error */
   if (param_1 != (byte *)0x0) {
-    luaD_message(param_1);
+    message(param_1);
   }
   if (g_pLuaState[0xd] != 0) {
     uVar1 = ((code *)longjmp)(g_pLuaState[0xd]);
@@ -1775,16 +1786,19 @@ undefined4 __cdecl lua_iolibopen(void)
                     /* 0x5ae0  39  lua_iolibopen */
   ((code *)luaL_openlib)(&g_pIolib,10);
   lua_recognizelib(IMG_ADDR(0x10026b50),5);
-  lua_ioregister();
+  openwithtags();
   lua_pushCclosure(((unsigned)(uintptr_t)errorfb),0);
   uVar1 = lua_seterrormethod();
   return uVar1;
 }
 
-/* ---- 0x10005b20  lua_ioregister ---- */
-/* Registers readfrom/writeto/... and the _INPUT/_OUTPUT globals */
+/* ---- 0x10005b20  openwithtags ---- */
+/* Registers readfrom/writeto/... and the _INPUT/_OUTPUT globals Named openwithtags (not in the
+   remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static openwithtags: two newtags,
+   each iolibtag function as a closure with both, then setfile of _INPUT, _OUTPUT, _STDIN, _STDOUT,
+   _STDERR); was lua_ioregister. */
 
-void lua_ioregister(void)
+void openwithtags(void)
 
 {
   uint uVar1;
@@ -1793,7 +1807,7 @@ void lua_ioregister(void)
   
   uVar1 = lua_newtag();
   iVar2 = lua_newtag();
-  ppuVar3 = &PTR_s_readfrom_10026b50;
+  ppuVar3 = &g_pIolibtag;
   do {
     lua_pushnumber((float)(int)uVar1);
     lua_pushnumber((float)iVar2);
@@ -1801,11 +1815,11 @@ void lua_ioregister(void)
     lua_setglobal(*ppuVar3);
     ppuVar3 = ppuVar3 + 2;
   } while (ppuVar3 < s_write_10026b78);
-  io_setfilebyname((byte *)&PTR_DAT_100282d0,(byte *)s__INPUT_10026c00,uVar1);
-  io_setfilebyname(&DAT_100282f0,(byte *)s__OUTPUT_10026c58,uVar1);
-  io_setfilebyname((byte *)&PTR_DAT_100282d0,(byte *)s__STDIN_10026d04,uVar1);
-  io_setfilebyname(&DAT_100282f0,(byte *)s__STDOUT_10026cfc,uVar1);
-  io_setfilebyname(&DAT_10028310,(byte *)s__STDERR_10026cf4,uVar1);
+  setfile((byte *)&PTR_DAT_100282d0,(byte *)s__INPUT_10026c00,uVar1);
+  setfile(&DAT_100282f0,(byte *)s__OUTPUT_10026c58,uVar1);
+  setfile((byte *)&PTR_DAT_100282d0,(byte *)s__STDIN_10026d04,uVar1);
+  setfile(&DAT_100282f0,(byte *)s__STDOUT_10026cfc,uVar1);
+  setfile(&DAT_10028310,(byte *)s__STDERR_10026cf4,uVar1);
   return;
 }
 
@@ -1980,7 +1994,7 @@ int __cdecl lua_copytagmethods(int param_1,int param_2)
   luaT_checktag(param_2);
   iVar3 = 0;
   do {
-    iVar2 = luaT_gettm(param_1,iVar3);
+    iVar2 = validevent(param_1,iVar3);
     if (iVar2 != 0) {
       puVar1 = (undefined4 *)(g_dwLState_IMtable + (iVar3 + param_2 * -0x12) * 8);
       iVar2 = iVar3 + param_1 * -0x12;

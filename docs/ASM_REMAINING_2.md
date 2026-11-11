@@ -79,7 +79,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 |---|---|---|---|
 | 10001000 | `AudioLib_DetectRawFormat` | imuse.c | not converted yet (no known artifact); see notes below |
 | 100013c0 | `AudioLib_ParseWaveFileHeader` | imuse.c | not converted yet (no known artifact); see notes below |
-| 100017e0 | `Im_DecodeSoundBlock` | imuse.c | not converted yet (no known artifact); see notes below |
+| 100017e0 | `AudioLib_CreateWaveFileHeader` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10001ba0 | `AudioLib_ResetCompressor` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10001bc0 | `AudioLib_UncompressBlock` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10001c30 | `Im_ConvertBlockImpl` | imuse.c | not converted yet (no known artifact); see notes below |
@@ -96,7 +96,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 10002a00 | `DpPredictStreams` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 10002a60 | `GoToNextRegion` | imuse.c | not converted yet (no known artifact); see notes below |
 | 10002d30 | `Im_DispatchFetchNext` | imuse.c | address of a parameter slot is taken (scanf-style outputs / reused slots) |
-| 10002fe0 | `iMUSE_Dispatch__2fe0` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
+| 10002fe0 | `ConvertMap` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 100030d0 | `iMUSE_Dispatch__30d0` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 10003130 | `PredictStream` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
 | 100031d0 | `iMUSE_Dispatch__31d0` | imuse_dispatch.c | not converted yet (no known artifact); see notes below |
@@ -202,7 +202,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 100071e0 | `ImSetCuePoint` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 100071f0 | `ImSetAttribute` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 10007210 | `SoundsAllocateBuffer` | imuse_api.c | not converted yet (no known artifact); see notes below |
-| 10007250 | `FUN_10007250` | imuse_api.c | not converted yet (no known artifact); see notes below |
+| 10007250 | `ihost_close_sound` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 100072b0 | `SoundsRegisterVoice` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 100073c0 | `SoundsCloseVoiceFile` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 100073f0 | `SoundsReOpenVoiceFile` | imuse_api.c | not converted yet (no known artifact); see notes below |
@@ -278,7 +278,7 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 1000a2d0 | `StStopStream` | imuse_stream.c | not converted yet (no known artifact); see notes below |
 | 1000a300 | `StProcessStreams` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000a420 | `StReadData` | imuse_stream.c | not converted yet (no known artifact); see notes below |
-| 1000a490 | `iMUSE_stream__a490` | imuse_stream.c | not converted yet (no known artifact); see notes below |
+| 1000a490 | `StViewData` | imuse_stream.c | not converted yet (no known artifact); see notes below |
 | 1000a500 | `StEraseFromFront` | imuse_stream.c | not converted yet (no known artifact); see notes below |
 | 1000a540 | `StEraseFromMid` | imuse_stream.c | not converted yet (no known artifact); see notes below |
 | 1000a580 | `StGetValidSize` | imuse.c | not converted yet (no known artifact); see notes below |
@@ -320,8 +320,8 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 | 1000b710 | `Im_RunDeferredCommand` | imuse.c | not converted yet (no known artifact); see notes below |
 | 1000b760 | `UtAddToList` | imuse_stream.c | not converted yet (no known artifact); see notes below |
 | 1000b7a0 | `UtRemoveFromList` | imuse_stream.c | not converted yet (no known artifact); see notes below |
-| 1000b810 | `iMUSE_stream__b810` | imuse_stream.c | not converted yet (no known artifact); see notes below |
-| 1000b840 | `iMUSE_stream__b840` | imuse_stream.c | not converted yet (no known artifact); see notes below |
+| 1000b810 | `UtReadLongHilo` | imuse_stream.c | not converted yet (no known artifact); see notes below |
+| 1000b840 | `UtCheckHook` | imuse_stream.c | not converted yet (no known artifact); see notes below |
 | 1000b8d0 | `FUN_1000b8d0` | imuse_stream.c | not converted yet (no known artifact); see notes below |
 | 1000b940 | `ImFile_Read` | imuse_api.c | not converted yet (no known artifact); see notes below |
 | 1000b980 | `ImFile_ReadImpl` | imuse_api.c | not converted yet (no known artifact); see notes below |
@@ -414,5 +414,5 @@ Scope: GRIMFANDANGO.EXE >= 0x004a0000, all of LUA.DLL, IMUSE.DLL and CHORE.DLL. 
 - EXE >= 0x4a0000: hand-written C for sputLua_DimRegion, sputLua_RestoreCacheRect, SetSoundPosition, Smush_SetFile,
   DSound_SetPrimaryVolume (build/jtmp/ov_exe_h.c) and for CHORE Cos_New*Tag, Cos_Save, Cos_Restore, FUN_100041e0
   (build/jtmp/ov_chore_j.c) were written but NOT enabled: not verified before the wrap-up.  Ghidra return types of
-  Puck_Rotate/SetConstraint/SetSectorFrame (void), Text_NextChar (int) and luaD_callC (int) were fixed, so those
+  Puck_Rotate/SetConstraint/SetSectorFrame (void), Text_NextChar (int) and callCclosure (int) were fixed, so those
   can be switched to C by adding them to names/asm_exclude_agentJ.json and testing.

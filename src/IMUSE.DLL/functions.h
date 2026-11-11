@@ -5,7 +5,7 @@
 /* ===== imuse.c ===== */
 void __cdecl AudioLib_DetectRawFormat (ushort *param_1,uint param_2,undefined4 *param_3,undefined4 *param_4,undefined4 *param_5); /* 0x10001000 */
 uint * __cdecl AudioLib_ParseWaveFileHeader (uint *param_1,int *param_2,uint *param_3,uint *param_4,uint *param_5,int *param_6, uint *param_7); /* 0x100013c0 */
-int __cdecl Im_DecodeSoundBlock(undefined4 *param_1,int param_2,uint param_3,uint param_4,uint param_5, uint param_6); /* 0x100017e0 */
+int __cdecl AudioLib_CreateWaveFileHeader (undefined4 *param_1,int param_2,uint param_3,uint param_4,uint param_5,uint param_6); /* 0x100017e0 */
 void __cdecl AudioLib_ResetCompressor(undefined1 *param_1); /* 0x10001ba0 */
 void __cdecl AudioLib_UncompressBlock(byte *param_1,undefined2 *param_2,byte *param_3,uint param_4); /* 0x10001bc0 */
 void __cdecl Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4,uint param_5, int param_6); /* 0x10001c30 */
@@ -128,7 +128,7 @@ undefined4 DpConcludeRestore(void); /* 0x100020c0 */
 undefined4 __cdecl DpStartSound(int param_1,uint param_2); /* 0x10002170 */
 undefined4 __cdecl DpStopTrack(int param_1); /* 0x10002200 */
 void DpPredictStreams(void); /* 0x10002a00 */
-int __cdecl iMUSE_Dispatch__2fe0(undefined4 *param_1,undefined4 *param_2); /* 0x10002fe0 */
+int __cdecl ConvertMap(undefined4 *param_1,undefined4 *param_2); /* 0x10002fe0 */
 uint __cdecl iMUSE_Dispatch__30d0(int param_1,int param_2,int param_3); /* 0x100030d0 */
 void __cdecl PredictStream(int *param_1); /* 0x10003130 */
 int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *param_3); /* 0x100031d0 */
@@ -202,7 +202,7 @@ undefined4 __cdecl ImSetSequence(int a1); /* 0x100071d0 */
 undefined4 __cdecl ImSetCuePoint(int a1); /* 0x100071e0 */
 undefined4 __cdecl ImSetAttribute(int a1,int a2); /* 0x100071f0 */
 undefined4 __cdecl SoundsAllocateBuffer(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x10007210 */
-undefined4 __cdecl FUN_10007250(int param_1); /* 0x10007250 */
+undefined4 __cdecl ihost_close_sound(int param_1); /* 0x10007250 */
 int * SoundsRegisterVoice(char *param_1); /* 0x100072b0 */
 undefined4 __cdecl SoundsCloseVoiceFile(void); /* 0x100073c0 */
 undefined4 __cdecl SoundsReOpenVoiceFile(void); /* 0x100073f0 */
@@ -290,14 +290,14 @@ void FUN_1000a030(int param_1); /* 0x1000a030 */
 uint * __cdecl StStartStream(uint param_1,uint param_2,uint param_3); /* 0x1000a210 */
 undefined4 __cdecl StStopStream(undefined4 *param_1); /* 0x1000a2d0 */
 int __cdecl StReadData(int param_1,uint param_2); /* 0x1000a420 */
-int __cdecl iMUSE_stream__a490(int param_1,int param_2,uint param_3); /* 0x1000a490 */
+int __cdecl StViewData(int param_1,int param_2,uint param_3); /* 0x1000a490 */
 undefined4 __cdecl StEraseFromFront(int param_1,uint param_2); /* 0x1000a500 */
 undefined4 __cdecl StEraseFromMid(int param_1,uint param_2); /* 0x1000a540 */
 undefined4 __cdecl StSpliceStream(undefined4 *param_1,undefined4 param_2,undefined4 param_3); /* 0x1000a5a0 */
 undefined4 __cdecl UtAddToList(int *param_1,int *param_2); /* 0x1000b760 */
 undefined4 __cdecl UtRemoveFromList(int *param_1,int *param_2); /* 0x1000b7a0 */
-undefined4 __cdecl iMUSE_stream__b810(undefined1 *param_1); /* 0x1000b810 */
-undefined4 __cdecl iMUSE_stream__b840(int *param_1,int param_2); /* 0x1000b840 */
+undefined4 __cdecl UtReadLongHilo(undefined1 *param_1); /* 0x1000b810 */
+undefined4 __cdecl UtCheckHook(int *param_1,int param_2); /* 0x1000b840 */
 int __cdecl FUN_1000b8d0(undefined1 *param_1,char *param_2,undefined4 *param_3); /* 0x1000b8d0 */
 
 /* ===== hmi.c ===== */

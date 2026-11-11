@@ -503,14 +503,18 @@ AudioLib_ParseWaveFileHeader
   return (uint *)0x0;
 }
 
-/* ---- 0x100017e0  Im_DecodeSoundBlock ---- */
+/* ---- 0x100017e0  AudioLib_CreateWaveFileHeader ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Unidentified function of compressed audio decoding (VIMA/ADPCM style tables) - module name
-   inferred */
+/* Original name AudioLib_CreateWaveFileHeader (the remaster's GrimFandango (Linux): same body
+   (buffer, type, rate, bits, channels, size: type 3 the iMUS header with MAP / FRMT / REGN / STOP /
+   DATA and big-endian sizes, type 5 RIFF / WAVEfmt / data, type 7 FORM / AIFF / COMM with the
+   0x2b11 / 0xac44 rate words and SSND; returns the header length); callers agree (the region fetch
+   inlined in the remaster's GoToNextRegion, CacheGetSoundId, MxEndMix)); was Im_DecodeSoundBlock.
+    */
 
 int __cdecl
-Im_DecodeSoundBlock(undefined4 *param_1,int param_2,uint param_3,uint param_4,uint param_5,
-                   uint param_6)
+AudioLib_CreateWaveFileHeader
+          (undefined4 *param_1,int param_2,uint param_3,uint param_4,uint param_5,uint param_6)
 
 {
   uint uVar1;
@@ -1160,7 +1164,7 @@ int __cdecl GoToNextRegion(int *param_1)
           iVar3 = *piVar7;
           if (0x4a554d50 < iVar3) break;
           if (iVar3 == 0x4a554d50) {
-            iVar3 = iMUSE_stream__b840((int *)(*param_1 + 0x38),piVar7[4]);
+            iVar3 = UtCheckHook((int *)(*param_1 + 0x38),piVar7[4]);
             if (iVar3 == 0) {
               param_1[5] = piVar7[3];
               if (param_1[0x207] != 0) {
@@ -1295,17 +1299,17 @@ int __cdecl Im_DispatchFetchNext(int *param_1)
     if (puVar5 == (undefined1 *)0x0) {
       return -1;
     }
-    iVar6 = iMUSE_stream__b810(puVar5);
+    iVar6 = UtReadLongHilo(puVar5);
     if (iVar6 != 0x694d5553) {
       return -1;
     }
-    iVar6 = iMUSE_stream__b810(puVar5 + 8);
+    iVar6 = UtReadLongHilo(puVar5 + 8);
     if (iVar6 != 0x4d415020) {
       return -1;
     }
-    iVar6 = iMUSE_stream__b810(puVar5 + 0xc);
+    iVar6 = UtReadLongHilo(puVar5 + 0xc);
     piVar4[5] = iVar6 + 0x18;
-    iVar6 = iMUSE_Dispatch__2fe0((undefined4 *)(puVar5 + 8),piVar1);
+    iVar6 = ConvertMap((undefined4 *)(puVar5 + 8),piVar1);
     if (iVar6 != 0) {
       return -1;
     }
@@ -1315,7 +1319,7 @@ int __cdecl Im_DispatchFetchNext(int *param_1)
     return -(uint)(piVar4[5] != piVar4[0xb]);
   }
   param_1 = (int *)0x0;
-  puVar7 = (uint *)iMUSE_stream__a490(*piVar3,0,0x40);
+  puVar7 = (uint *)StViewData(*piVar3,0,0x40);
   if (puVar7 == (uint *)0x0) {
     return -3;
   }
@@ -1351,7 +1355,7 @@ int __cdecl Im_DispatchFetchNext(int *param_1)
       if (iVar6 == 0) {
         return -1;
       }
-      Im_DecodeSoundBlock(local_50,3,local_54,0x10,local_58,(uint)param_1);
+      AudioLib_CreateWaveFileHeader(local_50,3,local_54,0x10,local_58,(uint)param_1);
       local_31 = 1;
       puVar9 = local_50;
       goto LAB_10002f3c;
@@ -1385,9 +1389,9 @@ int __cdecl Im_DispatchFetchNext(int *param_1)
   if (!bVar11) {
     return -1;
   }
-  iVar6 = iMUSE_stream__b810((undefined1 *)(puVar7 + 3));
+  iVar6 = UtReadLongHilo((undefined1 *)(puVar7 + 3));
   uVar2 = iVar6 + 0x18;
-  iVar6 = iMUSE_stream__a490(piVar4[0x207],0,uVar2);
+  iVar6 = StViewData(piVar4[0x207],0,uVar2);
   if (iVar6 == 0) {
     return -3;
   }
@@ -1397,7 +1401,7 @@ int __cdecl Im_DispatchFetchNext(int *param_1)
   }
   piVar4[5] = uVar2;
 LAB_10002f3c:
-  iVar6 = iMUSE_Dispatch__2fe0(puVar9 + 2,piVar4 + 7);
+  iVar6 = ConvertMap(puVar9 + 2,piVar4 + 7);
   if (iVar6 == 0) {
     if (param_1 != (int *)0x0) {
       piVar4[0xb] = piVar4[5];
@@ -2374,8 +2378,8 @@ undefined4 __cdecl MxEndMix(int *param_1,int param_2)
           if (iVar3 == 0) {
             if (g_dwRecordFile != (int *)0x0) {
               ImFile_Read(g_dwRecordFile,0,0);
-              Im_DecodeSoundBlock((undefined4 *)&g_aMxEndMix_wavHeader,5,0x5622,0x10,2,
-                                  g_dwDataSizeInBytes);
+              AudioLib_CreateWaveFileHeader
+                        ((undefined4 *)&g_aMxEndMix_wavHeader,5,0x5622,0x10,2,g_dwDataSizeInBytes);
               ImFile_Open(&g_aMxEndMix_wavHeader,0x2c,1,g_dwRecordFile);
               ImFile_Close(g_dwRecordFile);
               g_dwRecordFile = (int *)0x0;
@@ -3837,7 +3841,8 @@ void __cdecl Im_SoundsPrepare(uint param_1)
             param_1 = param_1 << 1;
           }
           *(uint *)(puVar4 + 0x34) = param_1;
-          Im_DecodeSoundBlock((undefined4 *)(param_1 + (int)puVar1),3,0x5622,0x10,uVar2,param_1);
+          AudioLib_CreateWaveFileHeader
+                    ((undefined4 *)(param_1 + (int)puVar1),3,0x5622,0x10,uVar2,param_1);
           *(uint *)(puVar4 + 0x30) = param_1 + *(int *)(puVar4 + 0x28);
           *(undefined1 *)(param_1 + *(int *)(puVar4 + 0x28) + 0x1f) = 1;
           *(undefined4 *)(puVar4 + 0x38) = 1;

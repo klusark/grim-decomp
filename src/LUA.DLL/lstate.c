@@ -748,7 +748,7 @@ byte * __cdecl lstate__85e0(int param_1)
                 (s_op____sizeof_opcodeDirectory__si_10027834,
                  s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0xef);
     }
-    pbVar3 = pbVar3 + *(int *)(&DAT_100271ac + uVar1 * 0xc);
+    pbVar3 = pbVar3 + *(int *)(&g_aOpcodeDirectory + uVar1 * 0xc);
   } while (uVar1 != 0);
   return pbVar3 + (2 - (int)pbVar2);
 }

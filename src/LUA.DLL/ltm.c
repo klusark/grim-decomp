@@ -55,16 +55,17 @@ void __cdecl luaT_realtag(int param_1)
   return;
 }
 
-/* ---- 0x1000c9c0  luaT_gettm ---- */
-/* Unidentified function of ltm.c (tag methods) */
+/* ---- 0x1000c9c0  validevent ---- */
+/* Named validevent (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltm.c static
+   validevent(t, e): 1 for tags below LUA_T_NIL, else validevents[-t][e]); was luaT_gettm. */
 
-int __cdecl luaT_gettm(int param_1,int param_2)
+int __cdecl validevent(int param_1,int param_2)
 
 {
   if (param_1 < -7) {
     return 1;
   }
-  return (int)(char)(&DAT_10027db0)[param_2 + param_1 * -0x12];
+  return (int)(char)(&g_aValidevents)[param_2 + param_1 * -0x12];
 }
 
 /* ---- 0x1000c9f0  luaT_checktag ---- */
@@ -118,7 +119,7 @@ undefined * __cdecl luaT_gettagmethod(int param_1,byte *param_2)
   
   iVar1 = luaI_checkevent(param_2,&g_pLuaT_eventname);
   luaT_checktag(param_1);
-  iVar2 = luaT_gettm(param_1,iVar1);
+  iVar2 = validevent(param_1,iVar1);
   if (iVar2 != 0) {
     return (undefined *)(g_dwLState_IMtable + (iVar1 + param_1 * -0x12) * 8);
   }
@@ -157,7 +158,7 @@ void __cdecl luaT_settagmethod(int param_1,byte *param_2,undefined4 *param_3)
   uVar2 = *param_3;
   iVar3 = luaI_checkevent(param_2,&g_pLuaT_eventname);
   luaT_checktag(param_1);
-  iVar4 = luaT_gettm(param_1,iVar3);
+  iVar4 = validevent(param_1,iVar3);
   if (iVar4 == 0) {
     luaL_verror(s_settagmethod__cannot_change_inte_10027f54,(&g_pLuaT_eventname)[iVar3],param_1);
   }
@@ -294,7 +295,7 @@ void luaT_setfallback(void)
     local_4 = *(int *)(g_dwLState_IMtable + 0xdc);
     do {
       puVar5 = (undefined4 *)luaA_Address(iVar2);
-      luaT_gettmbyObj(iVar3,puVar5);
+      fillvalids(iVar3,puVar5);
       iVar3 = iVar3 + 1;
     } while (iVar3 < 0xb);
     pcVar6 = typeFB;
@@ -305,7 +306,7 @@ void luaT_setfallback(void)
     local_4 = *(int *)(g_dwLState_IMtable + 0x44c);
     do {
       puVar5 = (undefined4 *)luaA_Address(iVar2);
-      luaT_gettmbyObj(iVar3,puVar5);
+      fillvalids(iVar3,puVar5);
       iVar3 = iVar3 + 1;
     } while (iVar3 < 0xf);
     pcVar6 = typeFB;
@@ -320,7 +321,7 @@ void luaT_setfallback(void)
       local_8 = *(int *)(g_dwLState_IMtable + 0x3f0 + iVar3 * 8);
       local_4 = *(int *)(g_dwLState_IMtable + 0x3f4 + iVar3 * 8);
       puVar5 = (undefined4 *)luaA_Address(iVar2);
-      luaT_gettmbyObj(iVar3,puVar5);
+      fillvalids(iVar3,puVar5);
       if ((iVar3 == 0x10) || (iVar3 == 2)) {
         pcVar6 = nilFB;
       }
@@ -340,10 +341,12 @@ void luaT_setfallback(void)
 #undef local_8
 
 
-/* ---- 0x1000ce50  luaT_gettmbyObj ---- */
-/* Unidentified function of ltm.c (tag methods) */
+/* ---- 0x1000ce50  fillvalids ---- */
+/* Named fillvalids (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltm.c static
+   fillvalids(e, func): for each tag from LUA_T_NIL to LUA_T_USERDATA that validevent allows, stores
+   func as its method e; called by luaT_setfallback); was luaT_gettmbyObj. */
 
-void __cdecl luaT_gettmbyObj(int param_1,undefined4 *param_2)
+void __cdecl fillvalids(int param_1,undefined4 *param_2)
 
 {
   int iVar1;
@@ -353,7 +356,7 @@ void __cdecl luaT_gettmbyObj(int param_1,undefined4 *param_2)
   iVar2 = -7;
   iVar3 = param_1 * 8 + 0x3f0;
   do {
-    iVar1 = luaT_gettm(iVar2,param_1);
+    iVar1 = validevent(iVar2,param_1);
     if (iVar1 != 0) {
       *(undefined4 *)(g_dwLState_IMtable + iVar3) = *param_2;
       *(undefined4 *)(g_dwLState_IMtable + 4 + iVar3) = param_2[1];

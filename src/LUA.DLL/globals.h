@@ -125,7 +125,7 @@ extern char s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4[]; /* used by 2 fn(s), f
 extern char s_reference_table_overflow_10026ac8[]; /* used by 1 fn(s), first 0x10004d40 */
 extern undefined g_aSetloc_cat; /* used by 1 fn(s), first 0x100059c0 */
 extern undefined *g_pIolib; /* used by 1 fn(s), first 0x10005ae0 */
-extern undefined *PTR_s_readfrom_10026b50; /* used by 1 fn(s), first 0x10005b20 */
+extern undefined *g_pIolibtag; /* used by 1 fn(s), first 0x10005b20 */
 extern char s_write_10026b78[]; /* used by 1 fn(s), first 0x10005b20 */
 extern char s__INPUT_10026c00[]; /* used by 3 fn(s), first 0x10005320 */
 extern char s_global_variable____50s__is_not_a_10026c08[]; /* used by 1 fn(s), first 0x10005480 */
@@ -144,7 +144,7 @@ extern char s__STDERR_10026cf4[]; /* used by 1 fn(s), first 0x10005b20 */
 extern char s__STDOUT_10026cfc[]; /* used by 1 fn(s), first 0x10005b20 */
 extern char s__STDIN_10026d04[]; /* used by 1 fn(s), first 0x10005b20 */
 extern undefined4 DAT_10026d14; /* used by 1 fn(s), first 0x10005c00 */
-extern undefined *PTR_DAT_10026d90; /* used by 1 fn(s), first 0x10006b60 */
+extern undefined *g_pCheckcond_opts; /* used by 1 fn(s), first 0x10006b60 */
 extern undefined *PTR_DAT_10026d94; /* used by 1 fn(s), first 0x10005c00 */
 extern undefined *g_pInclinenumber_pragmas; /* used by 1 fn(s), first 0x10006890 */
 extern char s_input_ends_inside_a__if_10026e44[]; /* used by 2 fn(s), first 0x10005d00 */
@@ -169,7 +169,7 @@ extern undefined *g_pLuaO_typenames; /* used by 2 fn(s), first 0x10001d30 */
 extern undefined g_LuaO_nilobject; /* used by 4 fn(s), first 0x10004e30 */
 extern int g_dwDimensions; /* used by 1 fn(s), first 0x10007450 */
 extern char s_internal_error_in__lua_equalObj__10027180[]; /* used by 1 fn(s), first 0x100074b0 */
-extern undefined DAT_100271ac; /* used by 1 fn(s), first 0x100085e0 */
+extern undefined g_aOpcodeDirectory; /* used by 1 fn(s), first 0x100085e0 */
 extern char s_C__grimsrc_libs_lua_src_lstate_c_100277cc[]; /* used by 6 fn(s), first 0x100075e0 */
 extern char s_aStringPtrs____aClosurePtrs____a_100277f0[]; /* used by 1 fn(s), first 0x10007660 */
 extern char s_pTString_10027828[]; /* used by 1 fn(s), first 0x100079d0 */
@@ -213,7 +213,7 @@ extern char s_writtenItems____numItems_10027cd8[]; /* used by 1 fn(s), first 0x1
 extern char s_C__grimsrc_libs_lua_src_ltable_c_10027cf4[]; /* used by 4 fn(s), first 0x1000c200 */
 extern char s_unexpected_type_to_index_table_10027d18[]; /* used by 1 fn(s), first 0x1000c580 */
 extern undefined *g_pLuaT_eventname; /* used by 5 fn(s), first 0x1000ca60 */
-extern undefined DAT_10027db0; /* used by 1 fn(s), first 0x1000c9c0 */
+extern undefined g_aValidevents; /* used by 1 fn(s), first 0x1000c9c0 */
 extern undefined *g_pLuaT_setfallback_oldnames; /* used by 1 fn(s), first 0x1000cc30 */
 extern char s_C__grimsrc_libs_lua_src_ltm_cpp_10027ed4[]; /* used by 1 fn(s), first 0x1000c850 */
 extern char s_tag__d_is_not_result_of__newtag__10027ef4[]; /* used by 1 fn(s), first 0x1000c920 */

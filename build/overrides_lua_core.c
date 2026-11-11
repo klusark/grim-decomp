@@ -65,7 +65,7 @@ int __cdecl lua_updatetasks(int param_1)
                         if (GL[0] == 0) {
                             int base = GL[10];
                             luaD_openstack(((GL[7] - GL[8]) >> 3) - base);
-                            luaA_setnormalized((int *)(GL[8] + GL[10] * 8), GL + 0x31);
+                            set_normalized((int *)(GL[8] + GL[10] * 8), GL + 0x31);
                             if (lua_taskhook != 0)
                                 luaD_taskHook(GL[0x30], 0);
                             res = luaD_call((code *)(base + 1), (void *)0xff);
@@ -117,7 +117,7 @@ int __cdecl lua_updatetasks(int param_1)
 }
 
 /* OVERRIDES: luaD_protectedrun */
-/* Calls the function on the C stack (luaD_callinc(nResults)) under a setjmp.  On an error (longjmp) it restores the
+/* Calls the function on the C stack (do_callinc(nResults)) under a setjmp.  On an error (longjmp) it restores the
  * C stack frame (+0x28..+0x30), sets top = base + cbase * 8 and unlinks and frees (ExecutionState_Delete) every entry of the
  * call chain (+0x00, linked through +0x0c) above the one at entry.  The previous errorJmp is put back and the call
  * depth (+0x08, incremented before the setjmp) decremented on both paths.  Returns 0, or 1 after an error. */
@@ -135,7 +135,7 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
     GL[0xd] = (int)buf;
     GL[2] = GL[2] + 1;
     if (_setjmp3(buf, 0) == 0) {
-        luaD_callinc(param_1);
+        do_callinc(param_1);
         status = 0;
     } else {
         GL[10] = s0;
