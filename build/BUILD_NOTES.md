@@ -1205,3 +1205,22 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   time).
 * Clean-room (5322 tests, the other session's uncommitted expected/ files): 6 differ for this build and 6 for main's
   (run right after); compare of the two logs: 0 of 5324 differ.
+
+## Original names, round 7 (2026-11-11, agent orig-7, lead)
+
+* LUA.DLL: 52 hand-made names replaced by Lua 3.1 source names (lapi, lbuffer, ldo, liolib, lstring, lstrlib,
+  lua.stx, ltable, ltm, lundump, lvm), several of them wrong before (`str_matchbalance` is matchitem, `str_expand`
+  matchbalance, `luaT_gettm` validevent, `luaU_LoadCode` LoadSize, `lua_ioregister` openwithtags); hand-made 65 -> 13
+  (runtime and thunks, luaM_malloc / luaM_free, luaU_LoadNumber). Globals 69 -> 73 (validevents, iolibtag,
+  checkcond::opts, opcodeDirectory). No Lua 3.1 source is on the machine: the names were checked against libLua.so
+  and ScummVM's port of Grim's Lua (names only).
+* IMUSE.DLL: UtReadLongHilo, UtCheckHook, StViewData, ConvertMap, ihost_close_sound, and `Im_DecodeSoundBlock` is
+  AudioLib_CreateWaveFileHeader (it builds the header). EXE: no pairs for the light editor (the remaster registers its
+  Lua functions as DoNothing) or the LEC leftovers.
+* docs/notes/orig_summary.md sums up the seven rounds: per program what has an original name, what is hand-made /
+  FUN_ / generated, and why the rest stays (platform layer, inlined helpers, v1.01-only code, runtime).
+* build/perf/imuse/imuse_diff_codec.c looks a function up by export name; like the earlier renames there it needs an
+  imuse_a.dll assembled with the current names. Code and data of the four binaries are byte-identical to main's.
+* Clean-room (5322 tests): 5 differ for this build, 7 for main's (run right after); compare of the two logs: 2
+  (sound_fade, ims_cache: ids -225 vs 31, keep_after). Run alone three times per build, both give the same values
+  (sound_fade "120 67" every time, keep_after flipping alike, ids as the reference): timing, not the names.
