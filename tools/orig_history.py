@@ -3,7 +3,8 @@ name (for text older than all the rounds, such as build/difftest: python -I rena
 
 Usage: python -I orig_history.py <out.json>      (run from tools/; current names from raw/<prog>/functions.json and
 globals.json)
-The rounds in the order they were applied: orig-names, orig-globals, orig-3, orig-4, orig-5, orig-6 (names/orig*.json)."""
+The rounds in the order they were applied: orig-names, orig-globals, orig-3, orig-4, orig-5, orig-6, orig-7
+(names/orig*.json)."""
 import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -13,7 +14,8 @@ ORDER = ["orig_lua", "orig_exe_lua", "orig_exe_engine", "orig_imuse", "orig_lua_
          "orig3_lua_funcs", "orig4_exe_funcs", "orig4_exe_globals", "orig4_exe_funcs2", "orig4_exe_funcs3",
          "orig4_exe_funcs4", "orig4_exe_funcs5", "orig4_exe_globals2", "orig4_exe_globals3", "orig4_exe_globals4",
          "orig4_imuse_funcs", "orig4_imuse_globals", "orig5_exe_funcs", "orig5_exe_globals", "orig5_imuse_funcs",
-         "orig6_exe_funcs", "orig6_exe_globals", "orig6_imuse_funcs", "orig6_imuse_globals", "orig6_lua_funcs"]
+         "orig6_exe_funcs", "orig6_exe_globals", "orig6_imuse_funcs", "orig6_imuse_globals", "orig6_lua_funcs",
+         "orig7_lua_funcs", "orig7_lua_globals", "orig7_imuse_funcs", "orig7_imuse_funcs2"]
 PATH_PROG = {"/v101/GRIMFANDANGO.EXE": "GRIMFANDANGO.EXE", "/LUA.DLL": "LUA.DLL", "/v101/IMUSE.DLL": "IMUSE.DLL",
              "/CHORE.DLL": "CHORE.DLL"}
 

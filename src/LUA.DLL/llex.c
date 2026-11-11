@@ -807,7 +807,7 @@ uint __cdecl checkcond(byte *param_1)
   uint uVar2;
   undefined3 extraout_var;
   
-  uVar2 = luaO_findstring(param_1,&PTR_DAT_10026d90);
+  uVar2 = luaO_findstring(param_1,&g_pCheckcond_opts);
   if ((int)uVar2 < 0) {
     uVar2 = FUN_1000f5c0((uint)*param_1);
     if ((uVar2 == 0) && (*param_1 != 0x5f)) {

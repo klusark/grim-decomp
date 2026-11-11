@@ -118,11 +118,13 @@ int __cdecl StReadData(int param_1,uint param_2)
   return iVar2;
 }
 
-/* ---- 0x1000a490  iMUSE_stream__a490 ---- */
-/* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+/* ---- 0x1000a490  StViewData ---- */
+/* Original name StViewData (the remaster's GrimFandango (Linux): same body (offset + size within
+   StGetValidSize and the view size +0x20, the ring-buffer wrap copied to the end of the buffer,
+   returns buffer + offset); called by the region fetch as in the remaster's GoToNextRegion); was
+   iMUSE_stream__a490. */
 
-int __cdecl iMUSE_stream__a490(int param_1,int param_2,uint param_3)
+int __cdecl StViewData(int param_1,int param_2,uint param_3)
 
 {
   int iVar1;
@@ -280,21 +282,24 @@ undefined4 __cdecl UtRemoveFromList(int *param_1,int *param_2)
   return 0;
 }
 
-/* ---- 0x1000b810  iMUSE_stream__b810 ---- */
-/* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+/* ---- 0x1000b810  UtReadLongHilo ---- */
+/* Original name UtReadLongHilo (the remaster's GrimFandango (Linux): same body (the big-endian
+   32-bit read *p << 24 | p[1] << 16 | p[2] << 8 | p[3]); called by the MAP converter (ConvertMap)
+   and the region code in both builds); was iMUSE_stream__b810. */
 
-undefined4 __cdecl iMUSE_stream__b810(undefined1 *param_1)
+undefined4 __cdecl UtReadLongHilo(undefined1 *param_1)
 
 {
   return CONCAT31(CONCAT21(CONCAT11(*param_1,param_1[1]),param_1[2]),param_1[3]);
 }
 
-/* ---- 0x1000b840  iMUSE_stream__b840 ---- */
-/* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
-    */
+/* ---- 0x1000b840  UtCheckHook ---- */
+/* Original name UtCheckHook (the remaster's GrimFandango (Linux): same body (hook 0 matches 0x80
+   and clears it, else a hook equal to *p clears it); called by the JUMP search under the jump hook
+   (PredictStream in the remaster, inlined there) and GoToNextRegion in both builds); was
+   iMUSE_stream__b840. */
 
-undefined4 __cdecl iMUSE_stream__b840(int *param_1,int param_2)
+undefined4 __cdecl UtCheckHook(int *param_1,int param_2)
 
 {
   if (param_2 == 0) {

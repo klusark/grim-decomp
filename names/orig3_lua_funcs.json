@@ -95,7 +95,7 @@
   "addr": "100044e0",
   "old": "ldo__44e0",
   "name": "callC",
-  "comment": "Named callC (not in the remaster, gcc inlined it there): Lua 3.1 source name (ldo.c: saves the C stack frame, runs the call hook, calls the C function, used by luaD_call / luaD_callC); was ldo__44e0."
+  "comment": "Named callC (not in the remaster, gcc inlined it there): Lua 3.1 source name (ldo.c: saves the C stack frame, runs the call hook, calls the C function, used by luaD_call / callCclosure); was ldo__44e0."
  },
  {
   "program": "/LUA.DLL",

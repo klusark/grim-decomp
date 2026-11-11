@@ -232,7 +232,7 @@ int __cdecl present(int param_1,int *param_2)
   int iVar6;
   
   iVar1 = *(int *)(param_1 + 0xc);
-  iVar3 = luaH_hashindex(param_2);
+  iVar3 = hashindex(param_2);
   iVar5 = iVar3 % iVar1;
   iVar6 = iVar5 * 0x10;
   piVar4 = (int *)(*(int *)(param_1 + 8) + iVar6);
@@ -253,12 +253,14 @@ int __cdecl present(int param_1,int *param_2)
   return iVar5;
 }
 
-/* ---- 0x1000c580  luaH_hashindex ---- */
+/* ---- 0x1000c580  hashindex ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of ltable.c (hash tables, with Grim save support) */
+/* Named hashindex (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltable.c static
+   hashindex: the key's hash by type, error "unexpected type to index table", negative values
+   mirrored); was luaH_hashindex. */
 
-int __cdecl luaH_hashindex(undefined4 *param_1)
+int __cdecl hashindex(undefined4 *param_1)
 
 {
   int iVar1;
@@ -323,7 +325,7 @@ int * __cdecl luaH_set(int param_1,int *param_2)
     uVar2 = *(int *)(param_1 + 0x10) + 1;
     *(uint *)(param_1 + 0x10) = uVar2;
     if ((double)*(uint *)(param_1 + 0xc) * 0.7 < (double)uVar2) {
-      luaH_rehash(param_1);
+      rehash(param_1);
       iVar1 = present(param_1,param_2);
       piVar3 = (int *)(iVar1 * 0x10 + *(int *)(param_1 + 8));
     }
@@ -334,10 +336,12 @@ int * __cdecl luaH_set(int param_1,int *param_2)
   return piVar3 + 2;
 }
 
-/* ---- 0x1000c6b0  luaH_rehash ---- */
-/* Unidentified function of ltable.c (hash tables, with Grim save support) */
+/* ---- 0x1000c6b0  rehash ---- */
+/* Named rehash (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltable.c static
+   rehash: grows by luaO_redimension unless emptyslots, hashnodecreate, re-inserts the live nodes
+   with present, nblocks adjusted); was luaH_rehash. */
 
-void __cdecl luaH_rehash(int param_1)
+void __cdecl rehash(int param_1)
 
 {
   int iVar1;
@@ -350,7 +354,7 @@ void __cdecl luaH_rehash(int param_1)
   
   iVar1 = *(int *)(param_1 + 0xc);
   piVar2 = *(int **)(param_1 + 8);
-  iVar3 = luaH_nuse(param_1);
+  iVar3 = emptyslots(param_1);
   if (iVar3 == 0) {
     uVar4 = luaO_redimension(*(int *)(param_1 + 0xc));
     *(undefined4 *)(param_1 + 0xc) = uVar4;
@@ -380,10 +384,12 @@ void __cdecl luaH_rehash(int param_1)
   return;
 }
 
-/* ---- 0x1000c770  luaH_nuse ---- */
-/* Unidentified function of ltable.c (hash tables, with Grim save support) */
+/* ---- 0x1000c770  emptyslots ---- */
+/* Named emptyslots (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltable.c
+   static emptyslots: 1 when a node has a key and a nil value (a deleted slot rehash can reuse));
+   was luaH_nuse. */
 
-undefined4 __cdecl luaH_nuse(int param_1)
+undefined4 __cdecl emptyslots(int param_1)
 
 {
   int *piVar1;

@@ -122,7 +122,7 @@ Output of `tools/stats.py` (regenerate after changes):
 |---|---|---|---|---|
 | GRIMFANDANGO.EXE | 2671 | 2464 | 119 | 207 |
 | LUA.DLL | 852 | 689 | 43 | 163 |
-| IMUSE.DLL | 451 | 304 | 26 | 147 |
+| IMUSE.DLL | 451 | 305 | 22 | 146 |
 | CHORE.DLL | 264 | 112 | 0 | 152 (all of them dead MSVC runtime copies) |
 
 Files in src/: 214
@@ -148,8 +148,9 @@ Files in src/: 214
   `libLua.so`) replace FUN_ and guessed names where the match is clear
   (docs/notes/orig_names.md): the Lua bindings are `sputLua_*`, LUA.DLL's VM
   is `ExecutionState_CrunchOpcodes`, ... Each renamed function's plate comment
-  says "was X". Globals too: EXE 775 of 2274 named, LUA.DLL 69 of 367,
-  IMUSE.DLL 103 of 366 (docs/notes/orig_globals.md, orig_3.md .. orig_6.md).
+  says "was X". Globals too: EXE 775 of 2274 named, LUA.DLL 73 of 367,
+  IMUSE.DLL 103 of 366 (docs/notes/orig_globals.md, orig_3.md .. orig_7.md;
+  docs/notes/orig_summary.md sums up the series).
   The software rasteriser has its original `rdNRaster_*` / `rdZRaster_*` /
   `rdAFRaster_*` names, paired through the dispatch tables (260 of 351); the
   91 generated `rdRaster_*` names left are span fillers only v1.01 has. Of
@@ -158,7 +159,8 @@ Files in src/: 214
   402 EXE functions keep hand-made names: the platform layer (DirectX /
   Win32), helpers the remaster inlined, LEC helpers and the light editor.
   The remaster's ELFs carry no DWARF, so no struct or field names come from
-  them.
+  them. LUA.DLL's Lua code carries the Lua 3.1 source names (13 hand-made
+  names left, mostly runtime).
 * CHORE.DLL is fully named (names from the remaster's unstripped `libchore.so`,
   docs/notes/chore_naming.md) and its costume / chore / key records are typed;
   the 152 `FUN_` left are dead copies of the C runtime.

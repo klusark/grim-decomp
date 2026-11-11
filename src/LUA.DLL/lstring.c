@@ -62,7 +62,7 @@ undefined * __cdecl insert(byte *param_1,uint param_2,uint *param_3)
   uVar5 = *param_3;
   local_8 = 0xffffffff;
   if ((int)(uVar5 * 2) <= (int)(param_3[1] * 3)) {
-    luaS_grow(param_3);
+    grow(param_3);
     uVar5 = *param_3;
   }
   uVar7 = (uint)pbVar3 % uVar5;
@@ -74,7 +74,7 @@ undefined * __cdecl insert(byte *param_1,uint param_2,uint *param_3)
         param_3[1] = param_3[1] + 1;
         uVar8 = uVar7;
       }
-      iVar4 = luaS_newlstr((char *)param_1,param_2,pbVar3);
+      iVar4 = newone((char *)param_1,param_2,pbVar3);
       *(int *)(param_3[2] + uVar8 * 4) = iVar4;
       return *(undefined **)(param_3[2] + uVar8 * 4);
     }
@@ -156,10 +156,12 @@ byte * __cdecl hash(byte *param_1,int param_2)
   return param_1;
 }
 
-/* ---- 0x10008f50  luaS_grow ---- */
-/* Unidentified function of lstring.c (string table) */
+/* ---- 0x10008f50  grow ---- */
+/* Named grow (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstring.c static
+   grow: luaO_redimension of the size, rehash every string that is neither NULL nor EMPTY, free the
+   old array); was luaS_grow. */
 
-void __cdecl luaS_grow(uint *param_1)
+void __cdecl grow(uint *param_1)
 
 {
   undefined *puVar1;
@@ -206,10 +208,13 @@ void __cdecl luaS_grow(uint *param_1)
   return;
 }
 
-/* ---- 0x10009000  luaS_newlstr ---- */
-/* lstring.c (string table) */
+/* ---- 0x10009000  newone ---- */
+/* lstring.c (string table) Named newone (not in the remaster, gcc inlined it there): Lua 3.1 source
+   name (lstring.c static newone(buff, tag, h): a string copy for LUA_T_STRING (globalval nil,
+   constindex 0, nblocks by length), else a userdata record (tag, constindex -1)); was luaS_newlstr.
+    */
 
-int __cdecl luaS_newlstr(char *param_1,uint param_2,undefined4 param_3)
+int __cdecl newone(char *param_1,uint param_2,undefined4 param_3)
 
 {
   char cVar1;

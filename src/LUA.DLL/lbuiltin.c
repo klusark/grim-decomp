@@ -26,7 +26,7 @@ int __cdecl luaL_newbuffer(int param_1)
   
   iVar1 = g_dwLState_Mbuffbase - g_dwLState_Mbuffer;
   if (g_dwLState_Mbuffsize < (uint)(param_1 + g_dwLState_Mbuffnext)) {
-    luaL_growbuffer(param_1);
+    Lbuffer_Openspace(param_1);
   }
   g_dwLState_Mbuffbase = g_dwLState_Mbuffnext + g_dwLState_Mbuffer;
   return iVar1;

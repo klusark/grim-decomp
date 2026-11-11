@@ -226,15 +226,19 @@ int __cdecl luaL_openspace(int param_1)
 
 {
   if (g_dwLState_Mbuffsize < (uint)(param_1 + g_dwLState_Mbuffnext)) {
-    luaL_growbuffer(param_1);
+    Lbuffer_Openspace(param_1);
   }
   return g_dwLState_Mbuffer + g_dwLState_Mbuffnext;
 }
 
-/* ---- 0x10002c50  luaL_growbuffer ---- */
-/* lbuffer.c: doubles the shared string buffer through the realloc service */
+/* ---- 0x10002c50  Lbuffer_Openspace ---- */
+/* lbuffer.c: doubles the shared string buffer through the realloc service Named Lbuffer_Openspace
+   (not in the remaster, gcc inlined it there): Lua 3.1 source name Openspace, with the module as
+   prefix because the bridge refuses the one-token name (lbuffer.c static Openspace: doubles
+   Mbuffsize, at least Mbuffnext + size, reallocs Mbuffer and moves Mbuffbase; called by
+   luaL_openspace / luaL_addchar / luaL_newbuffer); was luaL_growbuffer. */
 
-void __cdecl luaL_growbuffer(int param_1)
+void __cdecl Lbuffer_Openspace(int param_1)
 
 {
   int iVar1;
@@ -259,7 +263,7 @@ void __cdecl luaL_addchar(undefined1 param_1)
 
 {
   if (g_dwLState_Mbuffsize < g_dwLState_Mbuffnext + 0x20U) {
-    luaL_growbuffer(0x20);
+    Lbuffer_Openspace(0x20);
   }
   *(undefined1 *)(g_dwLState_Mbuffnext + g_dwLState_Mbuffer) = param_1;
   g_dwLState_Mbuffnext = g_dwLState_Mbuffnext + 1;

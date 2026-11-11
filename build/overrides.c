@@ -1389,9 +1389,9 @@ void math_randomseed(void)
     srand((unsigned)(int)luaL_check_number(1));
 }
 
-/* luaD_message (ldo.c): calls the error tag method (the global tag-method object, tag + value) with the message.
+/* message (ldo.c): calls the error tag method (the global tag-method object, tag + value) with the message.
  * The object is copied to the stack first, Ghidra only shows its value half. */
-void __cdecl luaD_message(byte *msg)
+void __cdecl message(byte *msg)
 {
     undefined4 tm[2];
     tm[0] = g_dwLState_errorim;
@@ -1402,9 +1402,9 @@ void __cdecl luaD_message(byte *msg)
     }
 }
 
-/* str_push_captures (lstrlib.c push_captures): pushes the captures of a pattern match; ms = {level, {start, len} x 32}.
+/* push_captures (lstrlib.c push_captures): pushes the captures of a pattern match; ms = {level, {start, len} x 32}.
  * (Ghidra gives it a phantom second parameter.) */
-void __cdecl str_push_captures(int *ms)
+void __cdecl push_captures(int *ms)
 {
     int i;
     for (i = 0; i < ms[0]; i++) {
@@ -1424,7 +1424,7 @@ undefined4 __cdecl lua_setfallback(byte *name, int fallback)
 {
     lua_pushstring(name);
     lua_pushCclosure(fallback, 0);
-    luaA_callObject(luaT_setfallback, 2, (void *)1);
+    do_unprotectedrun(luaT_setfallback, 2, (void *)1);
     return put_luaObjectonTop();
 }
 
@@ -1457,7 +1457,7 @@ int __cdecl luaO_equalObj(int *a, int *b)
 }
 
 /* hash of a table key: pointer-like values hash as themselves, numbers by their integer part; always >= 0 */
-int __cdecl luaH_hashindex(undefined4 *key)
+int __cdecl hashindex(undefined4 *key)
 {
     int h;
     switch ((int)key[0]) {
@@ -1490,7 +1490,7 @@ undefined4 * __cdecl luaH_new(int size)
 }
 
 /* code generator: a number constant that is a small non-negative integer becomes a PUSHINT instruction, others a constant */
-void __cdecl luaY_code_number(float f)
+void __cdecl code_number(float f)
 {
     if (f >= 0.0f && f <= 65534.0f) {
         int n = (int)(long long)f;   /* like _ftol */
@@ -1499,7 +1499,7 @@ void __cdecl luaY_code_number(float f)
             return;
         }
     }
-    code_constant(luaY_real_constant(f));
+    code_constant(real_constant(f));
 }
 
 /* lua_gettask(obj): the task id (a float stored in a task object) or -1 */
@@ -1585,7 +1585,7 @@ void str_format(void)
         fmt = conv + 1;
         switch (*conv) {
         case 'q':                           /* quoted string: appended directly */
-            str_add_s((char *)luaL_check_string(arg));
+            luaI_addquoted((char *)luaL_check_string(arg));
             continue;
         case 's': {
             const char *str = (const char *)luaL_check_string(arg);
@@ -1605,7 +1605,7 @@ void str_format(void)
         }
         luaL_addsize((int)strlen(buf));    /* the formatted text is now part of the result */
     }
-    str_closeandpush();
+    closeandpush();
 }
 
 /* ---- agentJ: small LUA.DLL helpers whose decompilation lost x87 values or reused argument slots ---- */
@@ -1616,13 +1616,13 @@ float __cdecl luaU_LoadNumber(undefined4 *ld)
 {
     if (ld[2] != 0) {
         float f;
-        luaU_LoadBlock((uint *)ld[0], (undefined4 *)&f, 4);
+        ezread((uint *)ld[0], (undefined4 *)&f, 4);
         if (ld[1] != 0)
             lundump__d360((undefined1 *)&f);
         return f;
     } else {
         double d;
-        luaU_LoadBlock((uint *)ld[0], (undefined4 *)&d, 8);
+        ezread((uint *)ld[0], (undefined4 *)&d, 8);
         if (ld[1] != 0)
             lundump__d380((undefined1 *)&d);
         return (float)d;
@@ -1696,11 +1696,11 @@ int __cdecl luaFGetc(undefined4 stream)
 
 /* chunk header: signature, version, size of a number (4 or 8) and a test number; `ld[1]` is set when numbers need byte swapping,
  * `ld[2]` when they are 4-byte floats (otherwise 8-byte doubles) */
-void __cdecl luaU_loadheader(undefined4 *ld)
+void __cdecl LoadHeader(undefined4 *ld)
 {
     uint *z = (uint *)ld[0];                /* the stream; z[4] is its name for error messages */
     int version, size;
-    luaU_LoadSignature((int *)z);
+    LoadSignature((int *)z);
     version = (int)ezgetc((int *)z);
     if (version > 0x31)
         luaL_verror(s_binary_file__s_too_new__version__1002810c, z[4], version, 0x31);
@@ -1709,7 +1709,7 @@ void __cdecl luaU_loadheader(undefined4 *ld)
     size = (int)ezgetc((int *)z);
     if (size == 4) {
         float f;
-        luaU_LoadBlock(z, (undefined4 *)&f, 4);
+        ezread(z, (undefined4 *)&f, 4);
         if (f != LUA_TEST_NUMBER) {
             lundump__d360((undefined1 *)&f);        /* try the other byte order */
             if (f != LUA_TEST_NUMBER)
@@ -1719,7 +1719,7 @@ void __cdecl luaU_loadheader(undefined4 *ld)
         ld[2] = 1;
     } else if (size == 8) {
         double d;
-        luaU_LoadBlock(z, (undefined4 *)&d, 8);
+        ezread(z, (undefined4 *)&d, 8);
         if (d != (double)LUA_TEST_NUMBER) {
             lundump__d380((undefined1 *)&d);
             if (d != (double)LUA_TEST_NUMBER)
@@ -1734,7 +1734,7 @@ void __cdecl luaU_loadheader(undefined4 *ld)
 
 /* the constants of a function: a count, then per constant a type letter (N number, S string, F function) and its value;
  * `fn` is the function prototype being filled in (constants at +8, count at +0xc) */
-void __cdecl luaU_LoadConstants(int fn, undefined4 *ld)
+void __cdecl LoadConstants(int fn, undefined4 *ld)
 {
     uint n = LoadWord((int *)ld[0]);
     int i;
@@ -1855,7 +1855,7 @@ undefined4 __cdecl lua_printstack(int out)
 /* ---- agentJ: match (LUA.DLL 0x10009ea0) ----
  * Lua 3.1 pattern matcher: match the pattern `pat` against the text at `s` and return the end of the match, or NULL.
  * `cap` is the capture table {level, 9 x {start pointer, length (-1 while open)}}.  Single items are matched by
- * str_matchbalance, which returns the text after one match of the item (or NULL) and sets the end of the item. */
+ * matchitem, which returns the text after one match of the item (or NULL) and sets the end of the item. */
 char * __cdecl match(char *s, int *pat, int *cap)
 {
     char *p = (char *)pat;
@@ -1880,7 +1880,7 @@ char * __cdecl match(char *s, int *pat, int *cap)
                 cap[0]--;                   /* failed: forget the capture */
             return r;
         case ')': {                         /* end of a capture */
-            int l = str_capture_to_close(cap);
+            int l = capture_to_close(cap);
             cap[l * 2 + 2] = (int)s - cap[l * 2 + 1];
             r = match(s, (int *)(p + 1), cap);
             if (r == (char *)0)
@@ -1888,7 +1888,7 @@ char * __cdecl match(char *s, int *pat, int *cap)
             return r;
         }
         }
-        next = str_matchbalance(s, p, cap, &epi);
+        next = matchitem(s, p, cap, &epi);
         ep = (char *)epi;
         switch (*ep) {
         case '*':                           /* any number of repetitions, as many as possible first */
@@ -2363,7 +2363,7 @@ undefined4 luaD_call(code *param_1, void *param_2)
                 res = ExecutionState_execute((int *)*g_pLuaState);
             } else {                                    /* a C function */
                 fn = obj[1];
-                res = luaD_callC(fn, (undefined *)*(int *)(fn + 0x10), pos);
+                res = callCclosure(fn, (undefined *)*(int *)(fn + 0x10), pos);
             }
             break;
         case -5:

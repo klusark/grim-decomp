@@ -12,16 +12,16 @@ int main(void) { setvbuf(stdout, NULL, _IONBF, 0);
     HMODULE m[2] = { LoadLibraryA("imuse_a.dll"), LoadLibraryA("imuse_c.dll") };
     if (!m[0] || !m[1]) { printf("load fail\n"); return 1; }
     int bad;
-    /* Im_DecodeSoundBlock */
+    /* AudioLib_CreateWaveFileHeader */
     bad = 0;
     for (int it = 0; it < 30000; it++) {
         int mode = (int[]){3, 5, 7, 1, 4}[it % 5];
         unsigned rate = (unsigned[]){0x5622, 0x2b11, 0xac44, 8000, rnd()}[rnd() % 5], bits = (unsigned[]){8, 16, 8 + (rnd() & 63)}[rnd() % 3], ch = 1 + rnd() % 3, size = rnd() % 100000;
         unsigned char buf[2][400]; int r[2];
-        for (int d = 0; d < 2; d++) { memset(buf[d], 0xAA, 400); dsb_t f = (dsb_t)GetProcAddress(m[d], "Im_DecodeSoundBlock"); r[d] = f((unsigned*)buf[d], mode, rate, bits, ch, size); }
+        for (int d = 0; d < 2; d++) { memset(buf[d], 0xAA, 400); dsb_t f = (dsb_t)GetProcAddress(m[d], "AudioLib_CreateWaveFileHeader"); r[d] = f((unsigned*)buf[d], mode, rate, bits, ch, size); }
         if (r[0] != r[1] || memcmp(buf[0], buf[1], 400)) { bad++; if (bad < 3) printf("DecodeSoundBlock DIFF mode %d rate %u bits %u ch %u size %u: ret %d vs %d\n", mode, rate, bits, ch, size, r[0], r[1]); }
     }
-    printf("Im_DecodeSoundBlock: %d differ\n", bad);
+    printf("AudioLib_CreateWaveFileHeader: %d differ\n", bad);
     /* Im_ConvertBlock */
     bad = 0;
     for (int it = 0; it < 4000; it++) {

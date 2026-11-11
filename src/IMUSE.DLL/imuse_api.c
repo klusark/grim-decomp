@@ -1069,8 +1069,14 @@ SoundsAllocateBuffer(int param_1,undefined4 param_2,undefined4 param_3,undefined
   return uVar1;
 }
 
-/* ---- 0x10007250  FUN_10007250 ---- */
-undefined4 __cdecl FUN_10007250(int param_1)
+/* ---- 0x10007250  ihost_close_sound ---- */
+/* Original name ihost_close_sound (the remaster's GrimFandango (Linux): the fourth function
+   sounds_startup passes to ImInitializeScript in both builds (ihost_load_sound, ihost_unload_sound,
+   ihost_open_sound, ihost_close_sound); same body (sound id - 10000 indexes streamID, the file is
+   closed when the use count is below 2, else the count drops); also SoundStopVoiceStream's call
+   (inlined there in the remaster)); was FUN_10007250. */
+
+undefined4 __cdecl ihost_close_sound(int param_1)
 
 {
   int iVar1;
@@ -1634,7 +1640,7 @@ undefined4 sounds_startup(void)
     ImInitialize();
     SoundsAllocateBuffer(2,_g_dwImMusicBufferSize,_g_dwImMusicGulpSize,_g_dwImMusicCriticalSize);
     SoundsAllocateBuffer(1,_g_dwImVoiceBufferSize,_g_dwImVoiceGulpSize,_g_dwImVoiceCriticalSize);
-    ImInitializeScript(((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)ihost_open_sound),((unsigned)(uintptr_t)FUN_10007250),0,0,_g_bMuscriptLocal);
+    ImInitializeScript(((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)ihost_open_sound),((unsigned)(uintptr_t)ihost_close_sound),0,0,_g_bMuscriptLocal);
     _g_bImuseInitialized = 1;
   }
   return 0;
@@ -2635,8 +2641,8 @@ LAB_10009063:
     iStack_38 = 0;
   }
   if (iStack_38 != 3) {
-    Im_DecodeSoundBlock((undefined4 *)(puVar9[10] + puVar9[0xd]),3,uStack_24,0x10,uStack_28,
-                        uStack_40);
+    AudioLib_CreateWaveFileHeader
+              ((undefined4 *)(puVar9[10] + puVar9[0xd]),3,uStack_24,0x10,uStack_28,uStack_40);
     puVar9[0xc] = puVar9[10] + puVar9[0xd];
     puVar9[0xb] = (uint)(puVar8 + -0x14);
     *(undefined1 *)(puVar9[10] + puVar9[0xd] + 0x1f) = (undefined1)iStack_34;

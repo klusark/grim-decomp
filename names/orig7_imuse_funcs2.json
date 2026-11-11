@@ -1,0 +1,9 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100017e0",
+  "old": "Im_DecodeSoundBlock",
+  "name": "AudioLib_CreateWaveFileHeader",
+  "comment": "Original name AudioLib_CreateWaveFileHeader (the remaster's GrimFandango (Linux): same body (buffer, type, rate, bits, channels, size: type 3 the iMUS header with MAP / FRMT / REGN / STOP / DATA and big-endian sizes, type 5 RIFF / WAVEfmt / data, type 7 FORM / AIFF / COMM with the 0x2b11 / 0xac44 rate words and SSND; returns the header length); callers agree (the region fetch inlined in the remaster's GoToNextRegion, CacheGetSoundId, MxEndMix)); was Im_DecodeSoundBlock."
+ }
+]

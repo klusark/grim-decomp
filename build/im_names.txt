@@ -16,7 +16,7 @@ FUN_100067b0
 FUN_100068b0
 FUN_100070e0
 FUN_10007110
-FUN_10007250
+ihost_close_sound
 FUN_100076b0
 FUN_10007700
 FUN_100077c0
@@ -171,7 +171,7 @@ Im_ClearTriggerImpl
 Im_CodecInit
 Im_ConvertBlock
 Im_ConvertBlockImpl
-Im_DecodeSoundBlock
+AudioLib_CreateWaveFileHeader
 Im_DeferCommandImpl
 Im_DispatchAllocBuffers
 Im_DispatchCommand
@@ -316,7 +316,7 @@ iMUSE_Dispatch__20c0
 iMUSE_Dispatch__2170
 iMUSE_Dispatch__2200
 iMUSE_Dispatch__2a00
-iMUSE_Dispatch__2fe0
+ConvertMap
 iMUSE_Dispatch__30d0
 iMUSE_Dispatch__3130
 iMUSE_Dispatch__31d0
@@ -346,14 +346,14 @@ iMUSE_sounds__9eb0
 iMUSE_stream__a210
 iMUSE_stream__a2d0
 iMUSE_stream__a420
-iMUSE_stream__a490
+StViewData
 iMUSE_stream__a500
 iMUSE_stream__a540
 iMUSE_stream__a5a0
 iMUSE_stream__b760
 iMUSE_stream__b7a0
-iMUSE_stream__b810
-iMUSE_stream__b840
+UtReadLongHilo
+UtCheckHook
 SoundGetVoiceTime
 Sounds_EvictOldestIdleSlot
 Sounds_PlatformDevice

@@ -2,67 +2,67 @@
 {
 "program": "/LUA.DLL",
 "addr": "10001970",
-"name": "luaA_normalizeObj",
+"name": "luaA_protovalue",
 "tags": "lapi"
 },
 {
 "program": "/LUA.DLL",
 "addr": "100025f0",
-"name": "luaA_callObject",
+"name": "do_unprotectedrun",
 "comment": "Opens stack space and runs luaD_call for the C API",
 "tags": "lapi"
 },
 {
 "program": "/LUA.DLL",
 "addr": "100053d0",
-"name": "io_getint",
+"name": "gettag",
 "comment": "liolib.c helper: numeric argument through lua2C",
 "tags": "liolib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "100053f0",
-"name": "io_pushresult",
+"name": "pushresult",
 "comment": "Pushes userdata/nil plus strerror(errno) like Lua 3.1 pushresult",
 "tags": "liolib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "10005430",
-"name": "io_setfile",
+"name": "closefile",
 "comment": "Stores a file handle in a global (_INPUT/_OUTPUT) with the file tag",
 "tags": "liolib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "10005480",
-"name": "io_getfilebyname",
+"name": "getfile",
 "comment": "errors '%s is not a file'",
 "tags": "liolib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "100054c0",
-"name": "io_gethandle",
+"name": "ishandler",
 "comment": "checks the userdata tag and errors 'a closed file'",
 "tags": "liolib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "10005520",
-"name": "io_setreturn",
+"name": "setreturn",
 "tags": "liolib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "10005550",
-"name": "io_setfilebyname",
+"name": "setfile",
 "tags": "liolib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "10005780",
-"name": "io_getfileparam",
+"name": "getfileparam",
 "tags": "liolib"
 },
 {
@@ -82,19 +82,19 @@
 {
 "program": "/LUA.DLL",
 "addr": "10009650",
-"name": "str_addnchar",
+"name": "addnchar",
 "tags": "lstrlib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "10009680",
-"name": "str_closeandpush",
+"name": "closeandpush",
 "tags": "lstrlib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "10009760",
-"name": "str_addstr",
+"name": "addstr",
 "tags": "lstrlib"
 },
 {
@@ -107,7 +107,7 @@
 {
 "program": "/LUA.DLL",
 "addr": "100099e0",
-"name": "str_bracket_end",
+"name": "bracket_end",
 "tags": "lstrlib"
 },
 {
@@ -120,7 +120,7 @@
 {
 "program": "/LUA.DLL",
 "addr": "10009e40",
-"name": "str_push_captures",
+"name": "push_captures",
 "comment": "errors 'unfinished capture'",
 "tags": "lstrlib"
 },
@@ -134,41 +134,41 @@
 {
 "program": "/LUA.DLL",
 "addr": "1000a030",
-"name": "str_capture_to_close",
+"name": "capture_to_close",
 "tags": "lstrlib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "1000a060",
-"name": "str_matchbalance",
+"name": "matchitem",
 "comment": "errors 'unbalanced pattern'",
 "tags": "lstrlib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "1000a150",
-"name": "str_check_capture",
+"name": "check_cap",
 "comment": "errors 'invalid capture index'",
 "tags": "lstrlib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "1000a180",
-"name": "str_expand",
+"name": "matchbalance",
 "comment": "max/min expansion of a repeated pattern item",
 "tags": "lstrlib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "1000a2e0",
-"name": "str_add_value",
+"name": "add_s",
 "comment": "gsub replacement: string or function result",
 "tags": "lstrlib"
 },
 {
 "program": "/LUA.DLL",
 "addr": "1000a680",
-"name": "str_add_s",
+"name": "luaI_addquoted",
 "comment": "gsub replacement string with %n captures",
 "tags": "lstrlib"
 },

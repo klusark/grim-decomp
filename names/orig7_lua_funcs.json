@@ -1,0 +1,366 @@
+[
+ {
+  "program": "/LUA.DLL",
+  "addr": "100012b0",
+  "old": "luaA_checkCparams",
+  "name": "checkCparams",
+  "comment": "Named checkCparams (not in the remaster, gcc inlined it there): Lua 3.1 source name (lapi.c static checkCparams: error \"API error - wrong number of arguments in C2lua stack\" when top - stack < Cstack.num + nParams); was luaA_checkCparams."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100013c0",
+  "old": "luaA_setnormalized",
+  "name": "set_normalized",
+  "comment": "Named set_normalized (not in the remaster, gcc inlined it there): Lua 3.1 source name (lapi.c static set_normalized: copies the value, the tag through normalized_type); was luaA_setnormalized."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100013e0",
+  "old": "luaA_normalizedtype",
+  "name": "normalized_type",
+  "comment": "Maps closure/mark tags back to the user-visible type Named normalized_type (not in the remaster, gcc inlined it there): Lua 3.1 source name (lapi.c static normalized_type: CMARK -> CPROTO, PMARK -> PROTO, CLMARK -> CLOSURE); was luaA_normalizedtype."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10001970",
+  "old": "luaA_normalizeObj",
+  "name": "luaA_protovalue",
+  "comment": "Named luaA_protovalue (not in the remaster, gcc inlined it there): Lua 3.1 source name (lapi.c luaA_protovalue: a closure (normalized_type) gives its function consts[0], anything else itself; used by lua_getcfunction / lua_getlocal); was luaA_normalizeObj."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100025f0",
+  "old": "luaA_callObject",
+  "name": "do_unprotectedrun",
+  "comment": "Opens stack space and runs luaD_call for the C API Named do_unprotectedrun (not in the remaster, gcc inlined it there): Lua 3.1 source name (lapi.c static do_unprotectedrun of the fallback compatibility code: luaD_openstack(nParams), a CPROTO in the base slot, luaD_call; its only caller is lua_setfallback with luaT_setfallback, 2, 1); was luaA_callObject."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10002c50",
+  "old": "luaL_growbuffer",
+  "name": "Lbuffer_Openspace",
+  "comment": "lbuffer.c: doubles the shared string buffer through the realloc service Named Lbuffer_Openspace (not in the remaster, gcc inlined it there): Lua 3.1 source name Openspace, with the module as prefix because the bridge refuses the one-token name (lbuffer.c static Openspace: doubles Mbuffsize, at least Mbuffnext + size, reallocs Mbuffer and moves Mbuffbase; called by luaL_openspace / luaL_addchar / luaL_newbuffer); was luaL_growbuffer."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10004580",
+  "old": "luaD_callC",
+  "name": "callCclosure",
+  "comment": "Named callCclosure (not in the remaster, gcc inlined it there): Lua 3.1 source name (ldo.c static callCclosure: checkstack(nelems), moves the arguments up, copies the closure's upvalues (consts+1) below them, then callC; called by luaD_call); was luaD_callC."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100046a0",
+  "old": "luaD_message",
+  "name": "message",
+  "comment": "ldo.c message(): pushes the string and calls the error tag method Named message (not in the remaster, gcc inlined it there): Lua 3.1 source name (ldo.c static message: if errorim is not nil, pushstring and luaD_callTM(errorim, 1, 0); called by lua_error); was luaD_message."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100047c0",
+  "old": "luaD_callinc",
+  "name": "do_callinc",
+  "comment": "Named do_callinc (not in the remaster, gcc inlined it there): Lua 3.1 source name (ldo.c static do_callinc: luaD_call(base+1, nResults), then Cstack.lua2C / num / base from the new top); was luaD_callinc."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100053d0",
+  "old": "io_getint",
+  "name": "gettag",
+  "comment": "liolib.c helper: numeric argument through lua2C Named gettag (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static gettag: the number of upvalue i, called with IOTAG 1 and CLOSEDTAG 2); was io_getint."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100053f0",
+  "old": "io_pushresult",
+  "name": "pushresult",
+  "comment": "Pushes userdata/nil plus strerror(errno) like Lua 3.1 pushresult Named pushresult (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static pushresult: a user value on success, else nil and strerror(errno)); was io_pushresult."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005430",
+  "old": "io_setfile",
+  "name": "closefile",
+  "comment": "Stores a file handle in a global (_INPUT/_OUTPUT) with the file tag Named closefile (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static closefile(name): getfile(name), not stdin / stdout, close, then settag(gettag(CLOSEDTAG)) on the global); was io_setfile."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005480",
+  "old": "io_getfilebyname",
+  "name": "getfile",
+  "comment": "errors '%s is not a file' Named getfile (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static getfile(name): the global must be ishandler, error \"global variable `%.50s' is not a file handle\"); was io_getfilebyname."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100054c0",
+  "old": "io_gethandle",
+  "name": "ishandler",
+  "comment": "checks the userdata tag and errors 'a closed file' Named ishandler (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static ishandler: a userdata with the CLOSEDTAG errors \"cannot access a closed file\", true when the tag is IOTAG); was io_gethandle."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005520",
+  "old": "io_setreturn",
+  "name": "setreturn",
+  "comment": "Named setreturn (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static setreturn(f, name): setfile with gettag(IOTAG), then pushusertag); was io_setreturn."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005550",
+  "old": "io_setfilebyname",
+  "name": "setfile",
+  "comment": "Named setfile (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static setfile(f, name, tag): pushusertag, setglobal); was io_setfilebyname."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005780",
+  "old": "io_getfileparam",
+  "name": "getfileparam",
+  "comment": "Named getfileparam (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static getfileparam(name, arg): the parameter if ishandler (and arg++), else getfile(name)); was io_getfileparam."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10005b20",
+  "old": "lua_ioregister",
+  "name": "openwithtags",
+  "comment": "Registers readfrom/writeto/... and the _INPUT/_OUTPUT globals Named openwithtags (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static openwithtags: two newtags, each iolibtag function as a closure with both, then setfile of _INPUT, _OUTPUT, _STDIN, _STDOUT, _STDERR); was lua_ioregister."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10008f50",
+  "old": "luaS_grow",
+  "name": "grow",
+  "comment": "Named grow (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstring.c static grow: luaO_redimension of the size, rehash every string that is neither NULL nor EMPTY, free the old array); was luaS_grow."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009000",
+  "old": "luaS_newlstr",
+  "name": "newone",
+  "comment": "lstring.c (string table) Named newone (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstring.c static newone(buff, tag, h): a string copy for LUA_T_STRING (globalval nil, constindex 0, nblocks by length), else a userdata record (tag, constindex -1)); was luaS_newlstr."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009650",
+  "old": "str_addnchar",
+  "name": "addnchar",
+  "comment": "Named addnchar (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static addnchar: luaL_openspace, strncpy, luaL_addsize); was str_addnchar."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009680",
+  "old": "str_closeandpush",
+  "name": "closeandpush",
+  "comment": "Named closeandpush (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static closeandpush: luaL_addchar(0), lua_pushstring(luaL_buffer())); was str_closeandpush."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009760",
+  "old": "str_addstr",
+  "name": "addstr",
+  "comment": "Named addstr (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static addstr: addnchar(s, strlen(s))); was str_addstr."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100099e0",
+  "old": "str_bracket_end",
+  "name": "bracket_end",
+  "comment": "Named bracket_end (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static bracket_end: strchr for the closing bracket, skipping a leading ^); was str_bracket_end."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "10009e40",
+  "old": "str_push_captures",
+  "name": "push_captures",
+  "comment": "errors 'unfinished capture' Named push_captures (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static push_captures: each capture as a string, error \"unfinished capture\"); was str_push_captures."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a030",
+  "old": "str_capture_to_close",
+  "name": "capture_to_close",
+  "comment": "Named capture_to_close (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static capture_to_close: the last open capture (len -1), error \"invalid pattern capture\"); was str_capture_to_close."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a060",
+  "old": "str_matchbalance",
+  "name": "matchitem",
+  "comment": "errors 'unbalanced pattern' Named matchitem (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static matchitem: %digit compares a capture (check_cap), %b calls matchbalance with error \"unbalanced pattern\", else luaI_singlematch); was str_matchbalance."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a150",
+  "old": "str_check_capture",
+  "name": "check_cap",
+  "comment": "errors 'invalid capture index' Named check_cap (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static check_cap: l = c - '1', error \"invalid capture index\"); was str_check_capture."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a180",
+  "old": "str_expand",
+  "name": "matchbalance",
+  "comment": "max/min expansion of a repeated pattern item Named matchbalance (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static matchbalance(s, b, e): counts nested b / e and returns the position after the balancing e; called by matchitem for %b); was str_expand."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a2e0",
+  "old": "str_add_value",
+  "name": "add_s",
+  "comment": "gsub replacement: string or function result Named add_s (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static add_s(newp, cap): gsub's replacement, a string with %n captures or a function called with push_captures; error \"string or function expected\"); was str_add_value."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000a680",
+  "old": "str_add_s",
+  "name": "luaI_addquoted",
+  "comment": "gsub replacement string with %n captures Named luaI_addquoted (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c luaI_addquoted: format %q, the string in double quotes with a backslash before the special characters; called by str_format); was str_add_s."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000b810",
+  "old": "luaY_string_constant",
+  "name": "string_constant",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named string_constant (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx static string_constant: reuses the string's constindex when consts[i] is that string, else next_constant and stores it); was luaY_string_constant."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000b860",
+  "old": "luaY_next_constant",
+  "name": "next_constant",
+  "comment": "lua.stx: constant table overflow Named next_constant (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx static next_constant: luaM_growvector of consts, error \"constant table overflow\"); was luaY_next_constant."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000b8e0",
+  "old": "luaY_code_number",
+  "name": "code_number",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named code_number (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx static code_number: PUSHNUMBER for an integer in 0..65534 (code_oparg), else code_constant(real_constant(f))); was luaY_code_number."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000b950",
+  "old": "luaY_real_constant",
+  "name": "real_constant",
+  "comment": "Unidentified function of lua.stx (yacc parser) and code generation Named real_constant (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx static real_constant: searches the last 20 constants for the number (LOOKBACKNUMS), else next_constant); was luaY_real_constant."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c580",
+  "old": "luaH_hashindex",
+  "name": "hashindex",
+  "comment": "Named hashindex (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltable.c static hashindex: the key's hash by type, error \"unexpected type to index table\", negative values mirrored); was luaH_hashindex."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c6b0",
+  "old": "luaH_rehash",
+  "name": "rehash",
+  "comment": "Named rehash (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltable.c static rehash: grows by luaO_redimension unless emptyslots, hashnodecreate, re-inserts the live nodes with present, nblocks adjusted); was luaH_rehash."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c770",
+  "old": "luaH_nuse",
+  "name": "emptyslots",
+  "comment": "Named emptyslots (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltable.c static emptyslots: 1 when a node has a key and a nil value (a deleted slot rehash can reuse)); was luaH_nuse."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000c9c0",
+  "old": "luaT_gettm",
+  "name": "validevent",
+  "comment": "Named validevent (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltm.c static validevent(t, e): 1 for tags below LUA_T_NIL, else validevents[-t][e]); was luaT_gettm."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ce50",
+  "old": "luaT_gettmbyObj",
+  "name": "fillvalids",
+  "comment": "Named fillvalids (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltm.c static fillvalids(e, func): for each tag from LUA_T_NIL to LUA_T_USERDATA that validevent allows, stores func as its method e; called by luaT_setfallback); was luaT_gettmbyObj."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000cf10",
+  "old": "luaU_LoadChunk",
+  "name": "LoadChunk",
+  "comment": "Named LoadChunk (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c static LoadChunk: LoadHeader, then LoadFunction); was luaU_LoadChunk."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d010",
+  "old": "luaU_unexpectedEOZ",
+  "name": "unexpectedEOZ",
+  "comment": "Named unexpectedEOZ (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c static unexpectedEOZ: error \"unexpected end of binary file %s\"); was luaU_unexpectedEOZ."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d060",
+  "old": "luaU_LoadBlock",
+  "name": "ezread",
+  "comment": "Named ezread (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c static ezread: zread, unexpectedEOZ when bytes are missing); was luaU_LoadBlock."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d090",
+  "old": "luaU_LoadCode",
+  "name": "LoadSize",
+  "comment": "Named LoadSize (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c static LoadSize: two LoadWord as hi << 16 | lo, error \"code too long (%ld bytes)\"; called by LoadFunction for the code size); was luaU_LoadCode."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d1a0",
+  "old": "luaU_LoadLocals",
+  "name": "LoadLocals",
+  "comment": "Named LoadLocals (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c static LoadLocals: n = LoadWord, then n (line, LoadTString) pairs and a terminator with line -1); was luaU_LoadLocals."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d230",
+  "old": "luaU_LoadConstants",
+  "name": "LoadConstants",
+  "comment": "Named LoadConstants (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c static LoadConstants: n = LoadWord, each by its type byte 'N' number, 'S' string, 'F' function); was luaU_LoadConstants."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d420",
+  "old": "luaU_loadheader",
+  "name": "LoadHeader",
+  "comment": "lundump.c: binary file %s too new/old version Named LoadHeader (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c static LoadHeader: LoadSignature, the version 0x31 (\"too new\" / \"too old\"), the float size and test number \"unknown float representation\"); was luaU_loadheader."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d570",
+  "old": "luaU_LoadSignature",
+  "name": "LoadSignature",
+  "comment": "Named LoadSignature (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c static LoadSignature: compares the signature bytes, error \"bad signature in binary file %s\"); was luaU_LoadSignature."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000dee0",
+  "old": "luaV_adjust_varargs",
+  "name": "adjust_varargs",
+  "comment": "Named adjust_varargs (not in the remaster, gcc inlined it there): Lua 3.1 source name (lvm.c static adjust_varargs: luaV_pack of the extra arguments into a table, luaD_adjusttop, push the table); was luaV_adjust_varargs."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ebc0",
+  "old": "luaV_strconc",
+  "name": "strconc",
+  "comment": "lvm.c: string concatenation Named strconc (not in the remaster, gcc inlined it there): Lua 3.1 source name (lvm.c static strconc(l, r): luaL_openspace(strlen(l) + strlen(r) + 1), strcpy, strcat); was luaV_strconc."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ecf0",
+  "old": "luaV_call_arith",
+  "name": "call_arith",
+  "comment": "Named call_arith (not in the remaster, gcc inlined it there): Lua 3.1 source name (lvm.c static call_arith: call_binTM(event, \"unexpected type in arithmetic operation\")); was luaV_call_arith."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ed10",
+  "old": "luaV_comparison",
+  "name": "comparison",
+  "comment": "Named comparison (not in the remaster, gcc inlined it there): Lua 3.1 source name (lvm.c static comparison(ltue, equl, gtue, event): numbers or strings (strcoll), else call_binTM \"unexpected type in comparison\"); was luaV_comparison."
+ }
+]

@@ -13,6 +13,6 @@ undefined4 __cdecl SoundStopVoiceStream(void)
   
                     /* 0x8970  52  SoundStopVoiceStream */
   ImStopSound(10000);
-  uVar1 = FUN_10007250(10000);
+  uVar1 = ihost_close_sound(10000);
   return uVar1;
 }

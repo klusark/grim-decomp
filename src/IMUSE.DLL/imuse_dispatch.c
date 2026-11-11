@@ -221,10 +221,13 @@ void DpPredictStreams(void)
   return;
 }
 
-/* ---- 0x10002fe0  iMUSE_Dispatch__2fe0 ---- */
-/* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
+/* ---- 0x10002fe0  ConvertMap ---- */
+/* Original name ConvertMap (the remaster's GrimFandango (Linux): same body ('MAP ' tag 0x4d415020
+   checked, size + 8 at most 0x800 copied, every record converted with UtReadLongHilo, 'TEXT'
+   records skipped as strings); called by the region fetch (GoToNextRegion in the remaster, which
+   inlined v1.01's Im_DispatchFetchNext)); was iMUSE_Dispatch__2fe0. */
 
-int __cdecl iMUSE_Dispatch__2fe0(undefined4 *param_1,undefined4 *param_2)
+int __cdecl ConvertMap(undefined4 *param_1,undefined4 *param_2)
 
 {
   int *piVar1;
@@ -237,11 +240,11 @@ int __cdecl iMUSE_Dispatch__2fe0(undefined4 *param_1,undefined4 *param_2)
   int *piVar8;
   undefined4 *puVar9;
   
-  iVar3 = iMUSE_stream__b810((undefined1 *)param_1);
+  iVar3 = UtReadLongHilo((undefined1 *)param_1);
   if (iVar3 != 0x4d415020) {
     return -1;
   }
-  iVar3 = iMUSE_stream__b810((undefined1 *)(param_1 + 1));
+  iVar3 = UtReadLongHilo((undefined1 *)(param_1 + 1));
   uVar6 = iVar3 + 8;
   if (uVar6 < 0x801) {
     puVar9 = param_2;
@@ -255,20 +258,20 @@ int __cdecl iMUSE_Dispatch__2fe0(undefined4 *param_1,undefined4 *param_2)
       param_1 = (undefined4 *)((int)param_1 + 1);
       puVar9 = (undefined4 *)((int)puVar9 + 1);
     }
-    uVar4 = iMUSE_stream__b810((undefined1 *)param_2);
+    uVar4 = UtReadLongHilo((undefined1 *)param_2);
     *param_2 = uVar4;
-    uVar4 = iMUSE_stream__b810((undefined1 *)(param_2 + 1));
+    uVar4 = UtReadLongHilo((undefined1 *)(param_2 + 1));
     param_2[1] = uVar4;
     piVar8 = param_2 + 2;
     piVar1 = (int *)(iVar3 + 8 + (int)param_2);
     while (piVar8 < piVar1) {
-      iVar3 = iMUSE_stream__b810((undefined1 *)piVar8);
+      iVar3 = UtReadLongHilo((undefined1 *)piVar8);
       *piVar8 = iVar3;
-      uVar6 = iMUSE_stream__b810((undefined1 *)(piVar8 + 1));
+      uVar6 = UtReadLongHilo((undefined1 *)(piVar8 + 1));
       piVar8[1] = uVar6;
       piVar7 = piVar8 + 2;
       if (iVar3 == 0x54455854) {
-        iVar3 = iMUSE_stream__b810((undefined1 *)piVar7);
+        iVar3 = UtReadLongHilo((undefined1 *)piVar7);
         *piVar7 = iVar3;
         piVar7 = piVar8 + 3;
         piVar8 = (int *)((int)piVar8 + 0xd);
@@ -282,7 +285,7 @@ int __cdecl iMUSE_Dispatch__2fe0(undefined4 *param_1,undefined4 *param_2)
       else {
         piVar8 = piVar7;
         for (uVar6 = uVar6 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-          iVar3 = iMUSE_stream__b810((undefined1 *)piVar8);
+          iVar3 = UtReadLongHilo((undefined1 *)piVar8);
           *piVar8 = iVar3;
           piVar8 = piVar8 + 1;
         }
@@ -381,8 +384,8 @@ int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *param_3)
       return (int *)0x0;
     }
     if ((((*piVar5 == 0x4a554d50) && (uVar1 < (uint)piVar5[2])) &&
-        ((uint)piVar5[2] <= iVar3 + uVar1)) &&
-       (iVar4 = iMUSE_stream__b840(param_3,piVar5[4]), iVar4 == 0)) break;
+        ((uint)piVar5[2] <= iVar3 + uVar1)) && (iVar4 = UtCheckHook(param_3,piVar5[4]), iVar4 == 0))
+    break;
     piVar5 = (int *)((int)piVar5 + piVar5[1] + 8);
   }
   return piVar5;

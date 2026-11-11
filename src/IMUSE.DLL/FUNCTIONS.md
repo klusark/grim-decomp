@@ -1,12 +1,12 @@
 # IMUSE.DLL function index
 
-434 functions, 287 with real names.
+434 functions, 288 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
 | 10001000 | AudioLib_DetectRawFormat | imuse.c | 223 |
 | 100013c0 | AudioLib_ParseWaveFileHeader | imuse.c | 271 |
-| 100017e0 | Im_DecodeSoundBlock | imuse.c | 98 |
+| 100017e0 | AudioLib_CreateWaveFileHeader | imuse.c | 102 |
 | 10001ba0 | AudioLib_ResetCompressor | imuse.c | 13 |
 | 10001bc0 | AudioLib_UncompressBlock | imuse.c | 32 |
 | 10001c30 | Im_ConvertBlockImpl | imuse.c | 140 |
@@ -63,7 +63,7 @@
 | 10008e00 | timer_callback | imuse.c | 15 |
 | 10008e30 | FUN_10008e30 | imuse.c | 10 |
 | 10008e60 | FUN_10008e60 | imuse.c | 27 |
-| 100093d0 | Im_SoundsPrepare | imuse.c | 60 |
+| 100093d0 | Im_SoundsPrepare | imuse.c | 61 |
 | 10009530 | FUN_10009530 | imuse.c | 8 |
 | 10009560 | FUN_10009560 | imuse.c | 8 |
 | 100095d0 | grimSound_LipSyncLoad | imuse.c | 40 |
@@ -127,7 +127,7 @@
 | 10002170 | DpStartSound | imuse_dispatch.c | 35 |
 | 10002200 | DpStopTrack | imuse_dispatch.c | 26 |
 | 10002a00 | DpPredictStreams | imuse_dispatch.c | 24 |
-| 10002fe0 | iMUSE_Dispatch__2fe0 | imuse_dispatch.c | 70 |
+| 10002fe0 | ConvertMap | imuse_dispatch.c | 73 |
 | 100030d0 | iMUSE_Dispatch__30d0 | imuse_dispatch.c | 24 |
 | 10003130 | PredictStream | imuse_dispatch.c | 38 |
 | 100031d0 | iMUSE_Dispatch__31d0 | imuse_dispatch.c | 27 |
@@ -197,7 +197,7 @@
 | 100071e0 | ImSetCuePoint | imuse_api.c | 9 |
 | 100071f0 | ImSetAttribute | imuse_api.c | 9 |
 | 10007210 | SoundsAllocateBuffer | imuse_api.c | 17 |
-| 10007250 | FUN_10007250 | imuse_api.c | 19 |
+| 10007250 | ihost_close_sound | imuse_api.c | 25 |
 | 100072b0 | SoundsRegisterVoice | imuse_api.c | 82 |
 | 100073c0 | SoundsCloseVoiceFile | imuse_api.c | 16 |
 | 100073f0 | SoundsReOpenVoiceFile | imuse_api.c | 13 |
@@ -275,14 +275,14 @@
 | 1000a210 | StStartStream | imuse_stream.c | 50 |
 | 1000a2d0 | StStopStream | imuse_stream.c | 13 |
 | 1000a420 | StReadData | imuse_stream.c | 44 |
-| 1000a490 | iMUSE_stream__a490 | imuse_stream.c | 39 |
+| 1000a490 | StViewData | imuse_stream.c | 41 |
 | 1000a500 | StEraseFromFront | imuse_stream.c | 21 |
 | 1000a540 | StEraseFromMid | imuse_stream.c | 21 |
 | 1000a5a0 | StSpliceStream | imuse_stream.c | 17 |
 | 1000b760 | UtAddToList | imuse_stream.c | 18 |
 | 1000b7a0 | UtRemoveFromList | imuse_stream.c | 34 |
-| 1000b810 | iMUSE_stream__b810 | imuse_stream.c | 8 |
-| 1000b840 | iMUSE_stream__b840 | imuse_stream.c | 18 |
+| 1000b810 | UtReadLongHilo | imuse_stream.c | 9 |
+| 1000b840 | UtCheckHook | imuse_stream.c | 20 |
 | 1000b8d0 | FUN_1000b8d0 | imuse_stream.c | 1 |
 | 1000bae0 | hmi__bae0 | hmi.c | 1 |
 | 1000bf50 | atol | crt.c | 47 |

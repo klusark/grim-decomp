@@ -5,10 +5,12 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ---- 0x100053d0  io_getint ---- */
-/* liolib.c helper: numeric argument through lua2C */
+/* ---- 0x100053d0  gettag ---- */
+/* liolib.c helper: numeric argument through lua2C Named gettag (not in the remaster, gcc inlined it
+   there): Lua 3.1 source name (liolib.c static gettag: the number of upvalue i, called with IOTAG 1
+   and CLOSEDTAG 2); was io_getint. */
 
-longlong __cdecl io_getint(int param_1)
+longlong __cdecl gettag(int param_1)
 
 {
   int iVar1;
@@ -19,10 +21,12 @@ longlong __cdecl io_getint(int param_1)
   return lVar2;
 }
 
-/* ---- 0x100053f0  io_pushresult ---- */
-/* Pushes userdata/nil plus strerror(errno) like Lua 3.1 pushresult */
+/* ---- 0x100053f0  pushresult ---- */
+/* Pushes userdata/nil plus strerror(errno) like Lua 3.1 pushresult Named pushresult (not in the
+   remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static pushresult: a user value on
+   success, else nil and strerror(errno)); was io_pushresult. */
 
-void __cdecl io_pushresult(int param_1)
+void __cdecl pushresult(int param_1)
 
 {
   int *piVar1;
@@ -39,31 +43,36 @@ void __cdecl io_pushresult(int param_1)
   return;
 }
 
-/* ---- 0x10005430  io_setfile ---- */
-/* Stores a file handle in a global (_INPUT/_OUTPUT) with the file tag */
+/* ---- 0x10005430  closefile ---- */
+/* Stores a file handle in a global (_INPUT/_OUTPUT) with the file tag Named closefile (not in the
+   remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static closefile(name):
+   getfile(name), not stdin / stdout, close, then settag(gettag(CLOSEDTAG)) on the global); was
+   io_setfile. */
 
-void __cdecl io_setfile(byte *param_1)
+void __cdecl closefile(byte *param_1)
 
 {
   undefined **ppuVar1;
   int iVar2;
   longlong lVar3;
   
-  ppuVar1 = (undefined **)io_getfilebyname(param_1);
+  ppuVar1 = (undefined **)getfile(param_1);
   if ((ppuVar1 != &PTR_DAT_100282d0) && (ppuVar1 != (undefined **)&DAT_100282f0)) {
     (**(code **)(g_dwLuaHS + 0x34))(ppuVar1);
     iVar2 = lua_getglobal(param_1);
     lua_pushobject(iVar2);
-    lVar3 = io_getint(2);
+    lVar3 = gettag(2);
     lua_settag((int)lVar3);
   }
   return;
 }
 
-/* ---- 0x10005480  io_getfilebyname ---- */
-/* errors '%s is not a file' */
+/* ---- 0x10005480  getfile ---- */
+/* errors '%s is not a file' Named getfile (not in the remaster, gcc inlined it there): Lua 3.1
+   source name (liolib.c static getfile(name): the global must be ishandler, error "global variable
+   `%.50s' is not a file handle"); was io_getfilebyname. */
 
-int __cdecl io_getfilebyname(byte *param_1)
+int __cdecl getfile(byte *param_1)
 
 {
   bool bVar1;
@@ -71,7 +80,7 @@ int __cdecl io_getfilebyname(byte *param_1)
   undefined3 extraout_var;
   
   iVar2 = lua_getglobal(param_1);
-  bVar1 = io_gethandle(iVar2);
+  bVar1 = ishandler(iVar2);
   if (((uint)(bVar1)) == 0) {
     luaL_verror(s_global_variable____50s__is_not_a_10026c08,param_1);
   }
@@ -79,10 +88,12 @@ int __cdecl io_getfilebyname(byte *param_1)
   return iVar2;
 }
 
-/* ---- 0x100054c0  io_gethandle ---- */
-/* checks the userdata tag and errors 'a closed file' */
+/* ---- 0x100054c0  ishandler ---- */
+/* checks the userdata tag and errors 'a closed file' Named ishandler (not in the remaster, gcc
+   inlined it there): Lua 3.1 source name (liolib.c static ishandler: a userdata with the CLOSEDTAG
+   errors "cannot access a closed file", true when the tag is IOTAG); was io_gethandle. */
 
-int __cdecl io_gethandle(int param_1)
+int __cdecl ishandler(int param_1)
 
 {
   int iVar1;
@@ -91,35 +102,37 @@ int __cdecl io_gethandle(int param_1)
   iVar1 = lua_isuserdata(param_1);
   if (iVar1 != 0) {
     iVar1 = lua_tag(param_1);
-    lVar2 = io_getint(2);
+    lVar2 = gettag(2);
     if (iVar1 == (int)lVar2) {
       lua_error((byte *)s_cannot_access_a_closed_file_10026c38);
     }
     iVar1 = lua_tag(param_1);
-    lVar2 = io_getint(1);
+    lVar2 = gettag(1);
     return iVar1 == (int)lVar2;
   }
   return false;
 }
 
-/* ---- 0x10005520  io_setreturn ---- */
-/* Unidentified function of liolib.c (file/system library) */
+/* ---- 0x10005520  setreturn ---- */
+/* Named setreturn (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static
+   setreturn(f, name): setfile with gettag(IOTAG), then pushusertag); was io_setreturn. */
 
-void __cdecl io_setreturn(byte *param_1,byte *param_2)
+void __cdecl setreturn(byte *param_1,byte *param_2)
 
 {
   longlong lVar1;
   
-  lVar1 = io_getint(1);
-  io_setfilebyname(param_1,param_2,(uint)lVar1);
+  lVar1 = gettag(1);
+  setfile(param_1,param_2,(uint)lVar1);
   lua_pushusertag(param_1,(uint)lVar1);
   return;
 }
 
-/* ---- 0x10005550  io_setfilebyname ---- */
-/* Unidentified function of liolib.c (file/system library) */
+/* ---- 0x10005550  setfile ---- */
+/* Named setfile (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c static
+   setfile(f, name, tag): pushusertag, setglobal); was io_setfilebyname. */
 
-void __cdecl io_setfilebyname(byte *param_1,byte *param_2,uint param_3)
+void __cdecl setfile(byte *param_1,byte *param_2,uint param_3)
 
 {
   lua_pushusertag(param_1,param_3);
@@ -141,15 +154,15 @@ void io_writeto(void)
   
   iVar1 = lua_lua2C(3);
   if (iVar1 == 0) {
-    io_setfile((byte *)s__OUTPUT_10026c58);
-    io_setreturn(&DAT_100282f0,(byte *)s__OUTPUT_10026c58);
+    closefile((byte *)s__OUTPUT_10026c58);
+    setreturn(&DAT_100282f0,(byte *)s__OUTPUT_10026c58);
     return;
   }
   iVar2 = lua_tag(iVar1);
-  lVar5 = io_getint(1);
+  lVar5 = gettag(1);
   if (iVar2 == (int)lVar5) {
     pbVar3 = (byte *)lua_getuserdata(iVar1);
-    io_setreturn(pbVar3,(byte *)s__OUTPUT_10026c58);
+    setreturn(pbVar3,(byte *)s__OUTPUT_10026c58);
     return;
   }
   pcVar4 = (char *)luaL_check_string(3);
@@ -160,10 +173,10 @@ void io_writeto(void)
     pbVar3 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(pcVar4,&DAT_10026c54);
   }
   if (pbVar3 == (byte *)0x0) {
-    io_pushresult(0);
+    pushresult(0);
     return;
   }
-  io_setreturn(pbVar3,(byte *)s__OUTPUT_10026c58);
+  setreturn(pbVar3,(byte *)s__OUTPUT_10026c58);
   return;
 }
 
@@ -180,10 +193,10 @@ void io_appendto(void)
   uVar1 = luaL_check_string(3);
   pbVar2 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(uVar1,&DAT_10026c60);
   if (pbVar2 != (byte *)0x0) {
-    io_setreturn(pbVar2,(byte *)s__OUTPUT_10026c58);
+    setreturn(pbVar2,(byte *)s__OUTPUT_10026c58);
     return;
   }
-  io_pushresult(0);
+  pushresult(0);
   return;
 }
 
@@ -206,7 +219,7 @@ void io_read(void)
   #define pcStack_4 (*(char **)(_frame + (0x20 - 0x4)))
   
   iStack_c = 3;
-  iStack_8 = io_getfileparam((byte *)s__INPUT_10026c00,&iStack_c);
+  iStack_8 = getfileparam((byte *)s__INPUT_10026c00,&iStack_c);
   pcVar2 = (char *)luaL_opt_string(iStack_c,s__________10026c88);
   iVar6 = 0;
   iVar5 = -2;
@@ -272,10 +285,12 @@ LAB_10005731:
 #undef pcStack_4
 
 
-/* ---- 0x10005780  io_getfileparam ---- */
-/* Unidentified function of liolib.c (file/system library) */
+/* ---- 0x10005780  getfileparam ---- */
+/* Named getfileparam (not in the remaster, gcc inlined it there): Lua 3.1 source name (liolib.c
+   static getfileparam(name, arg): the parameter if ishandler (and arg++), else getfile(name)); was
+   io_getfileparam. */
 
-int __cdecl io_getfileparam(byte *param_1,int *param_2)
+int __cdecl getfileparam(byte *param_1,int *param_2)
 
 {
   bool bVar1;
@@ -283,13 +298,13 @@ int __cdecl io_getfileparam(byte *param_1,int *param_2)
   undefined3 extraout_var;
   
   iVar2 = lua_lua2C(*param_2);
-  bVar1 = io_gethandle(iVar2);
+  bVar1 = ishandler(iVar2);
   if (((uint)(bVar1)) != 0) {
     *param_2 = *param_2 + 1;
     iVar2 = lua_getuserdata(iVar2);
     return iVar2;
   }
-  iVar2 = io_getfilebyname(param_1);
+  iVar2 = getfile(param_1);
   return iVar2;
 }
 
@@ -310,14 +325,14 @@ void io_write(void)
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   iStack_4 = 3;
-  iVar3 = io_getfileparam((byte *)s__OUTPUT_10026c58,&iStack_4);
+  iVar3 = getfileparam((byte *)s__OUTPUT_10026c58,&iStack_4);
   iVar2 = iStack_4;
   iStack_4 = iStack_4 + 1;
   iVar6 = 1;
   pcVar4 = (char *)luaL_opt_string(iVar2,0);
   do {
     if (pcVar4 == (char *)0x0) {
-      io_pushresult(iVar6);
+      pushresult(iVar6);
       return;
     }
     if (iVar6 == 0) {
@@ -371,7 +386,7 @@ void io_remove(void)
   
   uVar1 = luaL_check_string(1);
   iVar2 = remove(uVar1);
-  io_pushresult((uint)(iVar2 == 0));
+  pushresult((uint)(iVar2 == 0));
   return;
 }
 
@@ -388,7 +403,7 @@ void io_rename(void)
   uVar1 = luaL_check_string(2);
   uVar2 = luaL_check_string(1);
   iVar3 = rename(uVar2,uVar1);
-  io_pushresult((uint)(iVar3 == 0));
+  pushresult((uint)(iVar3 == 0));
   return;
 }
 

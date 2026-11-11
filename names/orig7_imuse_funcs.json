@@ -1,0 +1,37 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1000b810",
+  "old": "iMUSE_stream__b810",
+  "name": "UtReadLongHilo",
+  "comment": "Original name UtReadLongHilo (the remaster's GrimFandango (Linux): same body (the big-endian 32-bit read *p << 24 | p[1] << 16 | p[2] << 8 | p[3]); called by the MAP converter (ConvertMap) and the region code in both builds); was iMUSE_stream__b810."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1000b840",
+  "old": "iMUSE_stream__b840",
+  "name": "UtCheckHook",
+  "comment": "Original name UtCheckHook (the remaster's GrimFandango (Linux): same body (hook 0 matches 0x80 and clears it, else a hook equal to *p clears it); called by the JUMP search under the jump hook (PredictStream in the remaster, inlined there) and GoToNextRegion in both builds); was iMUSE_stream__b840."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10002fe0",
+  "old": "iMUSE_Dispatch__2fe0",
+  "name": "ConvertMap",
+  "comment": "Original name ConvertMap (the remaster's GrimFandango (Linux): same body ('MAP ' tag 0x4d415020 checked, size + 8 at most 0x800 copied, every record converted with UtReadLongHilo, 'TEXT' records skipped as strings); called by the region fetch (GoToNextRegion in the remaster, which inlined v1.01's Im_DispatchFetchNext)); was iMUSE_Dispatch__2fe0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1000a490",
+  "old": "iMUSE_stream__a490",
+  "name": "StViewData",
+  "comment": "Original name StViewData (the remaster's GrimFandango (Linux): same body (offset + size within StGetValidSize and the view size +0x20, the ring-buffer wrap copied to the end of the buffer, returns buffer + offset); called by the region fetch as in the remaster's GoToNextRegion); was iMUSE_stream__a490."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10007250",
+  "old": "FUN_10007250",
+  "name": "ihost_close_sound",
+  "comment": "Original name ihost_close_sound (the remaster's GrimFandango (Linux): the fourth function sounds_startup passes to ImInitializeScript in both builds (ihost_load_sound, ihost_unload_sound, ihost_open_sound, ihost_close_sound); same body (sound id - 10000 indexes streamID, the file is closed when the use count is below 2, else the count drops); also SoundStopVoiceStream's call (inlined there in the remaster)); was FUN_10007250."
+ }
+]

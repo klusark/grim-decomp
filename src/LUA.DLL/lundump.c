@@ -31,7 +31,7 @@ undefined4 __cdecl luaU_undump1(int *param_1)
   local_8 = 0;
   local_4 = 1;
   if (uVar2 == 0x1b) {
-    uVar3 = luaU_LoadChunk((int *)&local_c);
+    uVar3 = LoadChunk((int *)&local_c);
     return uVar3;
   }
   if (uVar2 != 0xffffffff) {
@@ -44,15 +44,16 @@ undefined4 __cdecl luaU_undump1(int *param_1)
 #undef local_c
 
 
-/* ---- 0x1000cf10  luaU_LoadChunk ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000cf10  LoadChunk ---- */
+/* Named LoadChunk (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c
+   static LoadChunk: LoadHeader, then LoadFunction); was luaU_LoadChunk. */
 
-undefined4 * __cdecl luaU_LoadChunk(int *param_1)
+undefined4 * __cdecl LoadChunk(int *param_1)
 
 {
   undefined4 *puVar1;
   
-  luaU_loadheader(param_1);
+  LoadHeader(param_1);
   puVar1 = LoadFunction(param_1);
   return puVar1;
 }
@@ -79,11 +80,11 @@ undefined4 * __cdecl LoadFunction(int *param_1)
   uVar4 = LoadTString(puVar1);
   puVar2[6] = uVar4;
   puVar6 = puVar1;
-  uVar3 = luaU_LoadCode((int *)puVar1);
+  uVar3 = LoadSize((int *)puVar1);
   puVar5 = lundump__d030(uVar3,puVar6);
   puVar2[4] = puVar5;
-  luaU_LoadConstants((int)puVar2,param_1);
-  luaU_LoadLocals((int)puVar2,puVar1);
+  LoadConstants((int)puVar2,param_1);
+  LoadLocals((int)puVar2,puVar1);
   lundump__d3c0((int)puVar2,param_1);
   return puVar2;
 }
@@ -123,15 +124,16 @@ uint __cdecl ezgetc(int *param_1)
     param_1[1] = (int)((byte *)param_1[1] + 1);
   }
   if (uVar2 == 0xffffffff) {
-    luaU_unexpectedEOZ((int)param_1);
+    unexpectedEOZ((int)param_1);
   }
   return uVar2;
 }
 
-/* ---- 0x1000d010  luaU_unexpectedEOZ ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d010  unexpectedEOZ ---- */
+/* Named unexpectedEOZ (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c
+   static unexpectedEOZ: error "unexpected end of binary file %s"); was luaU_unexpectedEOZ. */
 
-void __cdecl luaU_unexpectedEOZ(int param_1)
+void __cdecl unexpectedEOZ(int param_1)
 
 {
   luaL_verror(s_unexpected_end_of_binary_file__s_10027fe8,*(undefined4 *)(param_1 + 0x10));
@@ -149,29 +151,32 @@ undefined4 * __cdecl lundump__d030(uint param_1,uint *param_2)
   puVar1 = (undefined4 *)
            (**(code **)(g_dwLuaHS + 0x20))(param_1,s_C__grimsrc_libs_lua_src_lundump__1002800c,0x31)
   ;
-  luaU_LoadBlock(param_2,puVar1,param_1);
+  ezread(param_2,puVar1,param_1);
   return puVar1;
 }
 
-/* ---- 0x1000d060  luaU_LoadBlock ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d060  ezread ---- */
+/* Named ezread (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c static
+   ezread: zread, unexpectedEOZ when bytes are missing); was luaU_LoadBlock. */
 
-uint __cdecl luaU_LoadBlock(uint *param_1,undefined4 *param_2,uint param_3)
+uint __cdecl ezread(uint *param_1,undefined4 *param_2,uint param_3)
 
 {
   uint uVar1;
   
   uVar1 = luaZ_read(param_1,param_2,param_3);
   if (uVar1 != 0) {
-    luaU_unexpectedEOZ((int)param_1);
+    unexpectedEOZ((int)param_1);
   }
   return uVar1;
 }
 
-/* ---- 0x1000d090  luaU_LoadCode ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d090  LoadSize ---- */
+/* Named LoadSize (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c static
+   LoadSize: two LoadWord as hi << 16 | lo, error "code too long (%ld bytes)"; called by
+   LoadFunction for the code size); was luaU_LoadCode. */
 
-uint __cdecl luaU_LoadCode(int *param_1)
+uint __cdecl LoadSize(int *param_1)
 
 {
   uint uVar1;
@@ -221,7 +226,7 @@ uint * __cdecl Undump_LoadString(uint *param_1)
     return (uint *)0x0;
   }
   puVar2 = (uint *)luaL_openspace(uVar1);
-  luaU_LoadBlock(param_1,puVar2,uVar1);
+  ezread(param_1,puVar2,uVar1);
   lundump__d130(puVar2,uVar1);
   return puVar2;
 }
@@ -260,10 +265,12 @@ void __cdecl lundump__d130(uint *param_1,uint param_2)
   return;
 }
 
-/* ---- 0x1000d1a0  luaU_LoadLocals ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d1a0  LoadLocals ---- */
+/* Named LoadLocals (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c
+   static LoadLocals: n = LoadWord, then n (line, LoadTString) pairs and a terminator with line -1);
+   was luaU_LoadLocals. */
 
-void __cdecl luaU_LoadLocals(int param_1,uint *param_2)
+void __cdecl LoadLocals(int param_1,uint *param_2)
 
 {
   uint uVar1;
@@ -292,12 +299,14 @@ void __cdecl luaU_LoadLocals(int param_1,uint *param_2)
   return;
 }
 
-/* ---- 0x1000d230  luaU_LoadConstants ---- */
+/* ---- 0x1000d230  LoadConstants ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* Named LoadConstants (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c
+   static LoadConstants: n = LoadWord, each by its type byte 'N' number, 'S' string, 'F' function);
+   was luaU_LoadConstants. */
 
-void __cdecl luaU_LoadConstants(int param_1,undefined4 *param_2)
+void __cdecl LoadConstants(int param_1,undefined4 *param_2)
 
 {
   undefined4 *puVar1;
@@ -355,13 +364,13 @@ float __cdecl luaU_LoadNumber(undefined4 *param_1)
   
   puVar1 = param_1;
   if (param_1[2] != 0) {
-    luaU_LoadBlock((uint *)*param_1,&param_1,4);
+    ezread((uint *)*param_1,&param_1,4);
     if (puVar1[1] != 0) {
       lundump__d360((undefined1 *)&param_1);
     }
     return PUN(float,param_1);
   }
-  luaU_LoadBlock((uint *)*param_1,(undefined4 *)&local_8,8);
+  ezread((uint *)*param_1,(undefined4 *)&local_8,8);
   if (puVar1[1] != 0) {
     lundump__d380((undefined1 *)&local_8);
   }
@@ -440,12 +449,15 @@ void __cdecl lundump__d3c0(int param_1,int *param_2)
   return;
 }
 
-/* ---- 0x1000d420  luaU_loadheader ---- */
+/* ---- 0x1000d420  LoadHeader ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* lundump.c: binary file %s too new/old version */
+/* lundump.c: binary file %s too new/old version Named LoadHeader (not in the remaster, gcc inlined
+   it there): Lua 3.1 source name (lundump.c static LoadHeader: LoadSignature, the version 0x31
+   ("too new" / "too old"), the float size and test number "unknown float representation"); was
+   luaU_loadheader. */
 
-void __cdecl luaU_loadheader(undefined4 *param_1)
+void __cdecl LoadHeader(undefined4 *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -456,7 +468,7 @@ void __cdecl luaU_loadheader(undefined4 *param_1)
   
   puVar2 = param_1;
   puVar1 = (uint *)*param_1;
-  luaU_LoadSignature((int *)puVar1);
+  LoadSignature((int *)puVar1);
   uVar3 = ezgetc((int *)puVar1);
   if (0x31 < (int)uVar3) {
     luaL_verror(s_binary_file__s_too_new__version__1002810c,puVar1[4],uVar3,0x31);
@@ -466,7 +478,7 @@ void __cdecl luaU_loadheader(undefined4 *param_1)
   }
   uVar3 = ezgetc((int *)puVar1);
   if (uVar3 == 4) {
-    luaU_LoadBlock(puVar1,&param_1,4);
+    ezread(puVar1,&param_1,4);
     if (PUN(float,param_1) != 1.2345679e-24) {
       lundump__d360((undefined1 *)&param_1);
       if (PUN(float,param_1) != 1.2345679e-24) {
@@ -478,7 +490,7 @@ void __cdecl luaU_loadheader(undefined4 *param_1)
     return;
   }
   if (uVar3 == 8) {
-    luaU_LoadBlock(puVar1,(undefined4 *)&local_8,8);
+    ezread(puVar1,(undefined4 *)&local_8,8);
     if (local_8 != 1.2345679083165624e-24) {
       lundump__d380((undefined1 *)&local_8);
       if (local_8 != 1.2345679083165624e-24) {
@@ -497,10 +509,12 @@ void __cdecl luaU_loadheader(undefined4 *param_1)
 #endif
 
 
-/* ---- 0x1000d570  luaU_LoadSignature ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d570  LoadSignature ---- */
+/* Named LoadSignature (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c
+   static LoadSignature: compares the signature bytes, error "bad signature in binary file %s"); was
+   luaU_LoadSignature. */
 
-void __cdecl luaU_LoadSignature(int *param_1)
+void __cdecl LoadSignature(int *param_1)
 
 {
   char cVar1;
