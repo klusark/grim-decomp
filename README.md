@@ -21,7 +21,7 @@ read **[docs/MODDING.md](docs/MODDING.md)**; the 319 Lua functions the engine re
 |---|---|
 | `names/*.json` | Curated symbol batches (functions, prototypes, globals, comments, tags). Re-applying is idempotent. |
 | `tools/apply_names.py` | Applies one or more batches to Ghidra over the HTTP bridge (`127.0.0.1:8089`). |
-| `names/types_*.json`, `tools/apply_types.py` | Types batches (structures, parameter / return / global types) and the tool that applies them; field comments come from the batches (docs/notes/types_1.md to types_8.md). |
+| `names/types_*.json`, `tools/apply_types.py` | Types batches (structures, parameter / return / global types) and the tool that applies them; field comments come from the batches (docs/notes/types_1.md to types_9.md). |
 | `tools/export_raw.py` | Full dump of every function's decompilation plus imports/exports/strings/segments/globals into `raw/<program>/`. |
 | `tools/export_changed.py` | Incremental dump: only the functions the journaled Ghidra edits invalidated. |
 | `tools/build_src.py` | Organises `raw/` into `src/<program>/<module>.c` with `functions.h`, `globals.h`, `imports.h`, `ghidra_types.h`, `FUNCTIONS.md`. |
@@ -177,7 +177,8 @@ Files in src/: 214
   with offset checks. Typed so far: `Actor` (0xa8, docs/notes/types_1.md) and its 51 parameters and globals, `ActorExtra` (0x4a0)
   and its six `ActorShadow` slots (docs/notes/types_2.md), `Puck`, `CostumeNode`, `TextContext` and `TextObject`
   (docs/notes/types_3.md), Lua 3.1's objects in LUA.DLL (`TObject`, `TaggedString`, `Hash`, `Node`, `TProtoFunc`,
-  `Closure`, `LocVar`, `StringTable`, and 50 functions of the GC, strings, tables, functions, VM and API; docs/notes/types_8.md), plus
+  `Closure`, `LocVar`, `StringTable`, and 50 functions of the GC, strings, tables, functions, VM and API; docs/notes/types_8.md) and its state,
+  `LState` (one per Lua task: stack, C stack, parser, task list; `g_pLuaState`; docs/notes/types_9.md), plus
   the hand-made GrimServices and CHORE.DLL records. Most parameters are still Ghidra's inferred `int`/`undefined4`.
 * Data types: `src/<prog>/data.c` gives values to every span typed as a scalar, a structure or an array of either.
   Typed so far: the EXE's sine, tangent and CRC-32 tables, LUA.DLL's parser tables and hash sizes

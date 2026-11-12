@@ -53,7 +53,7 @@ int __cdecl luaO_equalObj(TObject *t1,TObject *t2)
       return 1;
     case -6:
     case -1:
-      if ((float)t2->dwValue == (float)t1->dwValue) {
+      if (PUN(float,t2->dwValue) == PUN(float,t1->dwValue)) {
         return 1;
       }
       break;

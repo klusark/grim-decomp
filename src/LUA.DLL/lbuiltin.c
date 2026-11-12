@@ -126,28 +126,28 @@ void foreachvar(void)
   piVar3 = (int *)luaA_Address(iVar2);
   TStack_8.nTtype = *piVar3;
   TStack_8.dwValue = piVar3[1];
-  iVar2 = g_pLuaState[10] * 8;
-  g_pLuaState[10] = g_pLuaState[10] + 1;
-  *(undefined4 *)(g_pLuaState[8] + iVar2) = 0xfffffff9;
-  g_pLuaState[7] = g_pLuaState[7] + 8;
+  iVar2 = (g_pLuaState->Cstack).nBase;
+  (g_pLuaState->Cstack).nBase = iVar2 + 1;
+  g_pLuaState->pStack[iVar2].nTtype = -7;
+  g_pLuaState->pTop = g_pLuaState->pTop + 1;
   puVar1 = g_dwLState_rootglobal;
   do {
     if (puVar1 == (undefined4 *)0x0) {
       return;
     }
     if (puVar1[4] != -7) {
-      *(undefined4 *)(g_pLuaState[8] + iVar2) = 0xfffffffe;
-      *(undefined4 **)(g_pLuaState[8] + 4 + iVar2) = puVar1;
+      g_pLuaState->pStack[iVar2].nTtype = -2;
+      g_pLuaState->pStack[iVar2].dwValue = (uint)puVar1;
       luaA_pushobject(&TStack_8);
       pushstring(puVar1);
       luaA_pushobject((TObject *)(puVar1 + 4));
-      g_pLuaState[2] = g_pLuaState[2] + 1;
-      luaD_call((g_pLuaState[7] - g_pLuaState[8] >> 3) + -2,1);
-      g_pLuaState[2] = g_pLuaState[2] + -1;
-      if (*(int *)(g_pLuaState[7] + -8) != -7) {
+      g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + 1;
+      luaD_call(((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) + -2,1);
+      g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + -1;
+      if (g_pLuaState->pTop[-1].nTtype != -7) {
         return;
       }
-      g_pLuaState[7] = g_pLuaState[7] + -8;
+      g_pLuaState->pTop = g_pLuaState->pTop + -1;
     }
     puVar1 = (undefined4 *)*puVar1;
   } while( true );
@@ -209,13 +209,13 @@ void foreach(void)
         luaA_pushobject(&TStack_8);
         luaA_pushobject(o);
         luaA_pushobject(o + 1);
-        g_pLuaState[2] = g_pLuaState[2] + 1;
-        luaD_call((g_pLuaState[7] - g_pLuaState[8] >> 3) + -2,1);
-        g_pLuaState[2] = g_pLuaState[2] + -1;
-        if (*(int *)(g_pLuaState[7] + -8) != -7) {
+        g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + 1;
+        luaD_call(((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) + -2,1);
+        g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + -1;
+        if (g_pLuaState->pTop[-1].nTtype != -7) {
           return;
         }
-        g_pLuaState[7] = g_pLuaState[7] + -8;
+        g_pLuaState->pTop = g_pLuaState->pTop + -1;
       }
       uStack_10 = uStack_10 + 1;
       iVar2 = iVar2 + 0x10;
@@ -352,40 +352,40 @@ undefined1 * __cdecl to_string(int param_1)
 void luaI_startscript(void)
 
 {
-  int *piVar1;
-  int *piVar2;
-  int iVar3;
+  TObject **ppTVar1;
+  TObject *pTVar2;
+  LState *pLVar3;
   int iVar4;
-  undefined4 *puVar5;
-  int *this;
+  int iVar5;
+  LState *pLVar6;
   
-  iVar3 = lua_lua2C(1);
-  iVar4 = lua_isfunction(iVar3);
-  if (iVar4 != 0) {
-    puVar5 = luaM_malloc(0xd4);
-    if (puVar5 == (undefined4 *)0x0) {
-      this = (int *)0x0;
+  iVar4 = lua_lua2C(1);
+  iVar5 = lua_isfunction(iVar4);
+  if (iVar5 != 0) {
+    pLVar6 = luaM_malloc(0xd4);
+    if (pLVar6 == (LState *)0x0) {
+      pLVar6 = (LState *)0x0;
     }
     else {
-      this = LState_Construct(puVar5);
+      pLVar6 = LState_Construct(pLVar6);
     }
-    this[3] = 0;
-    LState_attach(this,(int)g_pLuaState);
-    iVar4 = g_pLuaState[8];
-    this[0x31] = *(int *)(iVar4 + -8 + iVar3 * 8);
-    this[0x32] = *(int *)(iVar4 + -4 + iVar3 * 8);
-    piVar2 = g_pLuaState;
-    iVar4 = lua_lua2C(2);
-    iVar3 = 3;
-    while (iVar4 != 0) {
-      piVar1 = g_pLuaState + 8;
-      g_pLuaState = this;
-      luaA_pushobject((TObject *)(*piVar1 + -8 + iVar4 * 8));
-      g_pLuaState = piVar2;
-      iVar4 = lua_lua2C(iVar3);
-      iVar3 = iVar3 + 1;
+    pLVar6->nUnread = 0;
+    LState_attach(pLVar6,(int)g_pLuaState);
+    pTVar2 = g_pLuaState->pStack;
+    (pLVar6->taskFunc).nTtype = pTVar2[iVar4 + -1].nTtype;
+    (pLVar6->taskFunc).dwValue = pTVar2[iVar4 + -1].dwValue;
+    pLVar3 = g_pLuaState;
+    iVar5 = lua_lua2C(2);
+    iVar4 = 3;
+    while (iVar5 != 0) {
+      ppTVar1 = &g_pLuaState->pStack;
+      g_pLuaState = pLVar6;
+      luaA_pushobject(*ppTVar1 + iVar5 + -1);
+      g_pLuaState = pLVar3;
+      iVar5 = lua_lua2C(iVar4);
+      iVar4 = iVar4 + 1;
     }
-    lua_pushtask(this[0x30]);
+    lua_pushtask(pLVar6->nTaskId);
   }
   return;
 }
@@ -400,14 +400,15 @@ void luaI_stopscript(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *block;
+  LState *L;
   int iVar1;
   int iVar2;
-  int *piVar3;
-  char *pcVar4;
-  bool bVar5;
-  #define uStack_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
-  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  LState *pLVar3;
+  TObject *pTVar4;
+  int *piVar5;
+  bool bVar6;
+  #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
+  #define uStack_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar1 = lua_lua2C(1);
   if (iVar1 == 0) {
@@ -421,57 +422,57 @@ void luaI_stopscript(void)
   if (iVar2 == 0) {
     iVar2 = lua_isfunction(iVar1);
     if (iVar2 != 0) {
-      uStack_8 = *(undefined4 *)(g_pLuaState[8] + -8 + iVar1 * 8);
-      uStack_4 = *(undefined4 *)(g_pLuaState[8] + -4 + iVar1 * 8);
-      piVar3 = (int *)LState_next(g_dwL_Main);
-      while (block = piVar3, block != (int *)0x0) {
+      iStack_8 = g_pLuaState->pStack[iVar1 + -1].nTtype;
+      uStack_4 = g_pLuaState->pStack[iVar1 + -1].dwValue;
+      pLVar3 = LState_next(g_dwL_Main);
+      while (L = pLVar3, L != (LState *)0x0) {
         iVar1 = 8;
-        bVar5 = true;
-        piVar3 = block + 0x31;
-        pcVar4 = (char *)&uStack_8;
+        bVar6 = true;
+        pTVar4 = &L->taskFunc;
+        piVar5 = &iStack_8;
         do {
           if (iVar1 == 0) break;
           iVar1 = iVar1 + -1;
-          bVar5 = (char)*piVar3 == *pcVar4;
-          piVar3 = (int *)((int)piVar3 + 1);
-          pcVar4 = pcVar4 + 1;
-        } while (bVar5);
-        if ((bVar5) && (block != g_pLuaState)) {
-          piVar3 = (int *)LState_next((int)block);
-          if (block != (int *)0x0) {
-            LState_Destruct(block);
-            luaM_free(block);
+          bVar6 = (char)pTVar4->nTtype == (char)*piVar5;
+          pTVar4 = (TObject *)((int)&pTVar4->nTtype + 1);
+          piVar5 = (int *)((int)piVar5 + 1);
+        } while (bVar6);
+        if ((bVar6) && (L != g_pLuaState)) {
+          pLVar3 = LState_next(L);
+          if (L != (LState *)0x0) {
+            LState_Destruct(L);
+            luaM_free(L);
           }
         }
         else {
-          piVar3 = (int *)LState_next((int)block);
+          pLVar3 = LState_next(L);
         }
       }
     }
   }
   else {
     iVar1 = lua_gettask(iVar1);
-    piVar3 = (int *)LState_next(g_dwL_Main);
-    if (piVar3 != (int *)0x0) {
+    pLVar3 = LState_next(g_dwL_Main);
+    if (pLVar3 != (LState *)0x0) {
       do {
-        if (piVar3[0x30] == iVar1) break;
-        piVar3 = (int *)LState_next((int)piVar3);
-      } while (piVar3 != (int *)0x0);
-      if (piVar3 != (int *)0x0) {
-        if (piVar3 == g_pLuaState) {
+        if (pLVar3->nTaskId == iVar1) break;
+        pLVar3 = LState_next(pLVar3);
+      } while (pLVar3 != (LState *)0x0);
+      if (pLVar3 != (LState *)0x0) {
+        if (pLVar3 == g_pLuaState) {
           lua_error((byte *)s_Current_task_is_committing_suici_10026734);
           return;
         }
-        LState_Destruct(piVar3);
-        luaM_free(piVar3);
+        LState_Destruct(pLVar3);
+        luaM_free(pLVar3);
         return;
       }
     }
   }
   return;
 }
+#undef iStack_8
 #undef uStack_4
-#undef uStack_8
 
 
 /* ---- 0x100034c0  luaI_findscript ---- */
@@ -484,13 +485,13 @@ void luaI_findscript(void)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  int iVar3;
+  LState *pLVar3;
   int iVar4;
-  char *pcVar5;
-  char *pcVar6;
+  TObject *pTVar5;
+  int *piVar6;
   bool bVar7;
-  #define uStack_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
-  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
+  #define uStack_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar4 = 0;
   iVar1 = lua_lua2C(1);
@@ -505,24 +506,24 @@ void luaI_findscript(void)
   if (iVar2 == 0) {
     iVar2 = lua_isfunction(iVar1);
     if (iVar2 != 0) {
-      uStack_8 = *(undefined4 *)(g_pLuaState[8] + -8 + iVar1 * 8);
-      uStack_4 = *(undefined4 *)(g_pLuaState[8] + -4 + iVar1 * 8);
-      iVar2 = LState_next(g_dwL_Main);
+      iStack_8 = g_pLuaState->pStack[iVar1 + -1].nTtype;
+      uStack_4 = g_pLuaState->pStack[iVar1 + -1].dwValue;
+      pLVar3 = LState_next(g_dwL_Main);
       iVar1 = 0;
-      for (; iVar2 != 0; iVar2 = LState_next(iVar2)) {
-        iVar3 = 8;
+      for (; pLVar3 != (LState *)0x0; pLVar3 = LState_next(pLVar3)) {
+        iVar2 = 8;
         bVar7 = true;
-        pcVar5 = (char *)(iVar2 + 0xc4);
-        pcVar6 = (char *)&uStack_8;
+        pTVar5 = &pLVar3->taskFunc;
+        piVar6 = &iStack_8;
         do {
-          if (iVar3 == 0) break;
-          iVar3 = iVar3 + -1;
-          bVar7 = *pcVar5 == *pcVar6;
-          pcVar5 = pcVar5 + 1;
-          pcVar6 = pcVar6 + 1;
+          if (iVar2 == 0) break;
+          iVar2 = iVar2 + -1;
+          bVar7 = (char)pTVar5->nTtype == (char)*piVar6;
+          pTVar5 = (TObject *)((int)&pTVar5->nTtype + 1);
+          piVar6 = (int *)((int)piVar6 + 1);
         } while (bVar7);
         if (bVar7) {
-          iVar1 = *(int *)(iVar2 + 0xc0);
+          iVar1 = pLVar3->nTaskId;
           iVar4 = iVar4 + 1;
         }
       }
@@ -534,9 +535,9 @@ void luaI_findscript(void)
     }
   }
   else {
-    iVar2 = lua_gettask(iVar1);
-    for (iVar4 = LState_next(g_dwL_Main); iVar4 != 0; iVar4 = LState_next(iVar4)) {
-      if (*(int *)(iVar4 + 0xc0) == iVar2) {
+    iVar4 = lua_gettask(iVar1);
+    for (pLVar3 = LState_next(g_dwL_Main); pLVar3 != (LState *)0x0; pLVar3 = LState_next(pLVar3)) {
+      if (pLVar3->nTaskId == iVar4) {
         lua_pushobject(iVar1);
         lua_pushnumber(1.0);
         return;
@@ -547,8 +548,8 @@ void luaI_findscript(void)
   lua_pushnumber(0.0);
   return;
 }
+#undef iStack_8
 #undef uStack_4
-#undef uStack_8
 
 
 /* ---- 0x10003610  luaI_identifyscript ---- */
@@ -560,6 +561,7 @@ void luaI_identifyscript(void)
 {
   int iVar1;
   int iVar2;
+  LState *L;
   
   iVar1 = lua_lua2C(1);
   if (iVar1 == 0) {
@@ -570,15 +572,15 @@ void luaI_identifyscript(void)
     lua_error((byte *)s_Argument_to_identifyscript_must_b_10026870);
   }
   iVar1 = lua_gettask(iVar1);
-  iVar2 = LState_next(g_dwL_Main);
-  if (iVar2 != 0) {
+  L = LState_next(g_dwL_Main);
+  if (L != (LState *)0x0) {
     do {
-      if (*(int *)(iVar2 + 0xc0) == iVar1) {
-        luaA_pushobject((TObject *)(iVar2 + 0xc4));
+      if (L->nTaskId == iVar1) {
+        luaA_pushobject(&L->taskFunc);
         return;
       }
-      iVar2 = LState_next(iVar2);
-    } while (iVar2 != 0);
+      L = LState_next(L);
+    } while (L != (LState *)0x0);
     lua_pushnil();
     return;
   }
@@ -595,6 +597,7 @@ void luaI_nextscript(void)
 {
   int iVar1;
   int iVar2;
+  LState *pLVar3;
   
   iVar1 = lua_lua2C(1);
   if (iVar1 == 0) {
@@ -606,21 +609,21 @@ void luaI_nextscript(void)
   }
   iVar2 = lua_istask(iVar1);
   if (iVar2 != 0) {
-    iVar2 = lua_gettask(iVar1);
-    for (iVar1 = LState_next(g_dwL_Main); iVar1 != 0; iVar1 = LState_next(iVar1)) {
-      if (*(int *)(iVar1 + 0xc0) == iVar2) {
-        iVar1 = LState_next(iVar1);
-        if (iVar1 != 0) {
-          lua_pushtask(*(int *)(iVar1 + 0xc0));
+    iVar1 = lua_gettask(iVar1);
+    for (pLVar3 = LState_next(g_dwL_Main); pLVar3 != (LState *)0x0; pLVar3 = LState_next(pLVar3)) {
+      if (pLVar3->nTaskId == iVar1) {
+        pLVar3 = LState_next(pLVar3);
+        if (pLVar3 != (LState *)0x0) {
+          lua_pushtask(pLVar3->nTaskId);
           return;
         }
         goto LAB_10003741;
       }
     }
   }
-  iVar1 = LState_next(g_dwL_Main);
-  if (iVar1 != 0) {
-    lua_pushtask(*(int *)(iVar1 + 0xc0));
+  pLVar3 = LState_next(g_dwL_Main);
+  if (pLVar3 != (LState *)0x0) {
+    lua_pushtask(pLVar3->nTaskId);
     return;
   }
 LAB_10003741:

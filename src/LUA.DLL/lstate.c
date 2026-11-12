@@ -10,32 +10,33 @@
    here): clears the state, serial number, allocates the 0x400-byte stack (assert file lstate.cpp));
    was lstate__75e0. */
 
-undefined4 * __fastcall LState_Construct(undefined4 *param_1)
+LState * __fastcall LState_Construct(LState *L)
 
 {
-  int iVar1;
+  TObject *pTVar1;
   
-  param_1[0x2f] = 0;
-  param_1[10] = 0;
-  param_1[0xb] = 0;
-  param_1[0xc] = 0;
-  param_1[0xd] = 0;
-  param_1[6] = 0;
-  param_1[2] = 0;
-  param_1[3] = 1;
-  param_1[4] = 0;
-  param_1[5] = 0;
-  *param_1 = 0;
-  param_1[1] = 0;
-  param_1[0x33] = 0;
-  param_1[0x34] = 0;
-  param_1[0x30] = g_dwLState_numThreads;
+  L->nNumCblocks = 0;
+  (L->Cstack).nBase = 0;
+  (L->Cstack).nLua2C = 0;
+  (L->Cstack).nNum = 0;
+  L->pErrorJmp = (void *)0x0;
+  L->nNestingLevel = 0;
+  L->nPreventBreak = 0;
+  L->nUnread = 1;
+  L->nUpdated = 0;
+  L->nPaused = 0;
+  L->pExecutionState = (void *)0x0;
+  L->pResumeState = (void *)0x0;
+  L->pNext = (LState *)0x0;
+  L->pPrev = (LState *)0x0;
+  L->nTaskId = g_dwLState_numThreads;
   g_dwLState_numThreads = g_dwLState_numThreads + 1;
-  iVar1 = (**(code **)(g_dwLuaHS + 0x20))(0x400,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x10e);
-  param_1[8] = iVar1;
-  param_1[7] = iVar1;
-  param_1[9] = iVar1 + 0x3f8;
-  return param_1;
+  pTVar1 = (TObject *)
+           (**(code **)(g_dwLuaHS + 0x20))(0x400,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x10e);
+  L->pStack = pTVar1;
+  L->pTop = pTVar1;
+  L->pLast = pTVar1 + 0x7f;
+  return L;
 }
 
 /* ---- 0x10007660  LState_SerialToPtr ---- */
@@ -937,20 +938,20 @@ undefined4 __thiscall LState_Restore(void *this,int a1)
 undefined4 * lua_newstate(void)
 
 {
-  int *piVar1;
-  undefined4 *puVar2;
-  int *piVar3;
+  LState *pLVar1;
+  LState *L;
+  LState *pLVar2;
   
-  piVar1 = g_pLuaState;
-  puVar2 = luaM_malloc(0xd4);
-  piVar3 = (int *)0x0;
-  if (puVar2 != (undefined4 *)0x0) {
-    piVar3 = LState_Construct(puVar2);
+  pLVar1 = g_pLuaState;
+  L = luaM_malloc(0xd4);
+  pLVar2 = (LState *)0x0;
+  if (L != (LState *)0x0) {
+    pLVar2 = LState_Construct(L);
   }
-  g_pLuaState = piVar3;
+  g_pLuaState = pLVar2;
   LState_initglobals();
-  g_pLuaState = piVar1;
-  return piVar3;
+  g_pLuaState = pLVar1;
+  return &pLVar2->pExecutionState;
 }
 #endif
 
@@ -967,7 +968,7 @@ int __thiscall LState_attach(void *this,int a1)
   int extraout_EAX;
   int iVar1;
   
-  LState_detach((int)this);
+  LState_detach(this);
   iVar1 = extraout_EAX;
   if (a1 != 0) {
     iVar1 = *(int *)(a1 + 0xcc);
@@ -987,17 +988,17 @@ int __thiscall LState_attach(void *this,int a1)
 /* Original name LState_detach (the remaster's libLua.so: LState::detach: unlinks the state); was
    lstate__8bb0. */
 
-void __fastcall LState_detach(int param_1)
+void __fastcall LState_detach(LState *L)
 
 {
-  if (*(int *)(param_1 + 0xd0) != 0) {
-    *(undefined4 *)(*(int *)(param_1 + 0xd0) + 0xcc) = *(undefined4 *)(param_1 + 0xcc);
+  if (L->pPrev != (LState *)0x0) {
+    L->pPrev->pNext = L->pNext;
   }
-  if (*(int *)(param_1 + 0xcc) != 0) {
-    *(undefined4 *)(*(int *)(param_1 + 0xcc) + 0xd0) = *(undefined4 *)(param_1 + 0xd0);
+  if (L->pNext != (LState *)0x0) {
+    L->pNext->pPrev = L->pPrev;
   }
-  *(undefined4 *)(param_1 + 0xcc) = 0;
-  *(undefined4 *)(param_1 + 0xd0) = 0;
+  L->pNext = (LState *)0x0;
+  L->pPrev = (LState *)0x0;
   return;
 }
 
@@ -1005,23 +1006,23 @@ void __fastcall LState_detach(int param_1)
 /* Original name LState_next (the remaster's libLua.so: LState::next: returns +0xcc); was
    lstate__8bf0. */
 
-undefined4 __fastcall LState_next(int param_1)
+LState * __fastcall LState_next(LState *L)
 
 {
-  return *(undefined4 *)(param_1 + 0xcc);
+  return L->pNext;
 }
 
 /* ---- 0x10008c00  LState_Destruct ---- */
 /* Original name LState_Destruct (the remaster's libLua.so: LState::~LState: detach,
    luaD_deletestates, frees the stack); was lstate__8c00. */
 
-void __fastcall LState_Destruct(int *param_1)
+void __fastcall LState_Destruct(LState *L)
 
 {
-  LState_detach((int)param_1);
-  if (*param_1 != 0) {
-    luaD_deletestates(*param_1);
+  LState_detach(L);
+  if (L->pExecutionState != (void *)0x0) {
+    luaD_deletestates((int)L->pExecutionState);
   }
-  (**(code **)(g_dwLuaHS + 0x24))(param_1[8]);
+  (**(code **)(g_dwLuaHS + 0x24))(L->pStack);
   return;
 }

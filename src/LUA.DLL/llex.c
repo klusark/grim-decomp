@@ -33,7 +33,7 @@ void __cdecl luaX_setinput(undefined4 param_1)
 {
   undefined4 *puVar1;
   
-  puVar1 = (undefined4 *)g_pLuaState[0x10];
+  puVar1 = g_pLuaState->pLexState;
   puVar1[3] = 0;
   puVar1[2] = 0;
   puVar1[5] = 0;
@@ -122,7 +122,7 @@ uint __cdecl luaY_lex(float *param_1)
   #define local_10 (*(double *)(_frame + (0x20 - 0x10)))
   #define local_8 (*(double *)(_frame + (0x20 - 0x8)))
   
-  puVar2 = (uint *)g_pLuaState[0x10];
+  puVar2 = g_pLuaState->pLexState;
   luaL_resetbuffer();
   if (lua_debug != 0) {
     luaY_codedebugline(puVar2[3]);

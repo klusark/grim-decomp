@@ -7,8 +7,8 @@
  * is volatile (msvcrt's longjmp restores EBX/ESI/EDI/EBP/ESP of the setjmp, not values that lived in registers).
  *
  * Offsets in the lua_State (the global L = g_pLuaState, Grim's Lua 3.1 with tasks): +0x00 the root of the C call
- * chain of this task (the "execution state" list linked through +0x0c), +0x08 call depth, +0x10 / +0x14 the "paused" /
- * "running elsewhere" flags of a task, +0x1c stack top, +0x20 stack base, +0x28 / +0x2c / +0x30 the C stack frame
+ * chain of this task (the "execution state" list linked through +0x0c), +0x08 call depth, +0x10 "updated" (the task ran
+ * in this round) and +0x14 "paused" (lua_pausetasks) of a task, +0x1c stack top, +0x20 stack base, +0x28 / +0x2c / +0x30 the C stack frame
  * (base, lua2C, num), +0x34 errorJmp, +0xc0 the task id passed to the task hook, +0xc4 the task's function. */
 #ifdef GRIM_LUA
 #include "ghidra_types.h"
@@ -44,7 +44,7 @@ int __cdecl lua_updatetasks(int param_1)
     int buf[16];
 
     for (;;) {
-        /* 1e23: mark every task's call chain, clear its paused flag */
+        /* 1e23: mark every task's call chain, clear its updated flag */
         for (t = (int *)LState_next((int)g_pLuaState); t != 0; t = (int *)LState_next((int)t)) {
             for (c = (int *)t[0]; c != 0; c = (int *)c[3])
                 ExecutionState_resetcounter((int)c);
@@ -53,7 +53,7 @@ int __cdecl lua_updatetasks(int param_1)
         /* 1e5b: the runnable tasks after the current one */
     restart:
         nx = (int *)LState_next((int)g_pLuaState);
-        g_pLuaState = nx;
+        g_pLuaState = (LState *)nx;
         if (nx != 0) {
             do {
                 if (GL[4] != 0 || GL[5] != 0) {
@@ -100,11 +100,11 @@ int __cdecl lua_updatetasks(int param_1)
                         }
                     }
                 }
-                g_pLuaState = nx;                                          /* 2020 */
+                g_pLuaState = (LState *)nx;                                          /* 2020 */
             } while (nx != 0);
         }
         /* 2030: back at the start; if any later task can run, scan again from the saved L */
-        g_pLuaState = saved;
+        g_pLuaState = (LState *)saved;
         for (t = (int *)LState_next((int)saved); t != 0; t = (int *)LState_next((int)t)) {
             if (t[4] == 0 && t[5] == 0)
                 goto restart;
