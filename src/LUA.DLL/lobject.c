@@ -12,22 +12,22 @@ undefined4 __cdecl luaO_redimension(int param_1)
 
 {
   int iVar1;
-  undefined4 *puVar2;
+  int *piVar2;
   int iVar3;
   
   iVar3 = 0;
-  if (0x7ffffffc < g_dwDimensions) {
+  if (0x7ffffffc < g_dwDimensions[0]) {
     lua_error((byte *)s_table_overflow_100269c8);
     return 0;
   }
-  puVar2 = &g_dwDimensions;
-  iVar1 = g_dwDimensions;
+  piVar2 = g_dwDimensions;
+  iVar1 = g_dwDimensions[0];
   do {
     if (param_1 < iVar1) {
-      return (&g_dwDimensions)[iVar3];
+      return g_dwDimensions[iVar3];
     }
-    iVar1 = puVar2[1];
-    puVar2 = puVar2 + 1;
+    iVar1 = piVar2[1];
+    piVar2 = piVar2 + 1;
     iVar3 = iVar3 + 1;
   } while (iVar1 < 0x7ffffffd);
   lua_error((byte *)s_table_overflow_100269c8);

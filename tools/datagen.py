@@ -3,11 +3,17 @@
 Each program's .rdata and .data (raw/<prog>/sections/*.bin, dumped from Ghidra by tools/export_data.py) are split into
 spans. A span starts at:
 * the section start;
-* every global the decompiled code declares (globals.h / functions.h);
+* every global the decompiled code declares (globals.h / functions.h), and every array of scalars Ghidra types
+  (raw/<prog>/globals.json), named by the code or not;
 * every address the code used as a number (`IMG_ADDR(0x...)`, which build_src rewrites into the span's name);
 * every address a pointer in the data points at.
+A point inside a declared array of N scalars that names no typed global of its own (a biased base the code indexes
+from, a pointer into the table) starts no span: its names become aliases at their offset.
 
-Each span becomes one C definition with its bytes as the initialiser, in the original order. The layout is pinned:
+Each span becomes one C definition with its bytes as the initialiser, in the original order. A span declared as a
+scalar or an array of scalars gets values (floats as the shortest decimal that reads back as the same bits); when the
+span is longer than the type, the rest follows as a static `<name>__tail` byte array in the same section run. The
+layout is pinned:
 * every span is placed in a section `.data$grim_<key>`, and the i686 ld script sorts `*(SORT(.data$*))` by name, so
   the spans keep the original order whatever file they are in;
 * a key is the address of the 4-aligned span that opens a run, because an input section is at least 4-aligned and
@@ -61,16 +67,17 @@ SCALARS = {
     "short": ("short", 2, "d"), "ushort": ("unsigned short", 2, "x"), "word": ("unsigned short", 2, "x"),
     "undefined2": ("unsigned short", 2, "x"), "char": ("char", 1, "d"), "byte": ("unsigned char", 1, "x"),
     "uchar": ("unsigned char", 1, "x"), "undefined": ("unsigned char", 1, "x"), "undefined1": ("unsigned char", 1, "x"),
-    "bool": ("unsigned char", 1, "x"),
+    "bool": ("unsigned char", 1, "x"), "sbyte": ("signed char", 1, "d"), "schar": ("signed char", 1, "d"),
 }
 
 
 class Span:
-    __slots__ = ("start", "end", "name", "aliases", "sec", "island", "relocs", "decl")
+    __slots__ = ("start", "end", "name", "aliases", "inner", "sec", "island", "relocs", "decl")
 
     def __init__(self, start, end, name, sec, island=False):
         self.start, self.end, self.name, self.sec, self.island = start, end, name, sec, island
         self.aliases = []
+        self.inner = []  # (name, offset): labels inside a declared array (build_model)
         self.relocs = {}  # offset in span -> ("data", address) | ("func", asm name)
         self.decl = None  # declared C type in globals.h: (base, is_array)
 
@@ -94,11 +101,14 @@ def load_raw(prog):
             lo, hi = line.split(":", 1)[1].strip().split(" - ")
             text = (int(lo, 16), int(hi, 16))
     funcs = {int(f["address"], 16): f for f in json.load(open(os.path.join(raw, "functions.json")))}
-    named = {}
+    named, typed_arrays = {}, {}
     for line in open(os.path.join(raw, "globals.json"), encoding="utf-8", errors="replace"):
         m = re.match(r"^(\S+) @ ([0-9a-f]{8}) ", line)
         if m:
             named[m.group(1)] = int(m.group(2), 16)
+            t = re.match(r"^\S+ @ [0-9a-f]{8} \[Label\] \((\w+)\[(\d+)\]\)", line)
+            if t and IDENT.fullmatch(m.group(1)):
+                typed_arrays[m.group(1)] = (t.group(1), True, int(t.group(2)))
     tb = None
     tbp = os.path.join(raw, "textblob.json")
     if os.path.exists(tbp):
@@ -120,11 +130,24 @@ def load_raw(prog):
         dr = json.load(open(os.path.join(ROOT, "names", "data_relocs.json"))).get(prog, {})
     except (OSError, ValueError):
         dr = {}
-    return secs, text, funcs, named, tb, item_names, strings, dr
+    return secs, text, funcs, named, tb, item_names, strings, dr, typed_arrays
+
+
+def placeholder_decl(d):
+    """A declaration that says nothing about the bytes: none, or Ghidra's `undefined*` (a label the code only addresses)."""
+    return d is None or d[0].replace("const ", "").strip().startswith("undefined")
+
+
+def array_extent(d):
+    """Bytes a declared array of N scalars covers (0 for anything else)."""
+    if d is None or not d[1] or not d[2]:
+        return 0
+    sc = SCALARS.get(d[0].replace("const ", "").strip())
+    return d[2] * sc[1] if sc and not placeholder_decl(d) else 0
 
 
 def declared(srcdir, prog):
-    """name -> (base type, is array) for every `extern T name;` of globals.h / functions.h."""
+    """name -> (base type, is array, element count or None) for every `extern T name;` of globals.h / functions.h."""
     out = {}
     for hdr in ("globals.h", "functions.h"):
         p = os.path.join(srcdir, prog, hdr)
@@ -138,20 +161,26 @@ def declared(srcdir, prog):
             if "(" in d:  # function pointer declarator: name inside the parens
                 mm = re.search(r"\(\s*(?:STDCALL\s*)?\*\s*([A-Za-z_]\w*)\s*\)", d)
                 if mm:
-                    out[mm.group(1)] = ("code *", False)
+                    out[mm.group(1)] = ("code *", False, None)
                 continue
-            mm = re.search(r"([A-Za-z_]\w*)\s*(\[[^\]]*\])?$", d)
+            mm = re.search(r"([A-Za-z_]\w*)\s*(\[\s*(\d*)\s*\])?$", d)
             if mm:
-                out[mm.group(1)] = (d[:mm.start()].strip(), bool(mm.group(2)))
+                count = int(mm.group(3)) if mm.group(3) else None
+                out[mm.group(1)] = (d[:mm.start()].strip(), bool(mm.group(2)), count)
     return out
 
 
 # ---------------------------------------------------------------------------------------------- the model
 
 def build_model(prog, srcdir, img_targets=()):
-    secs, (text_lo, text_hi), funcs, named, tb, item_names, string_addrs, dr = load_raw(prog)
+    secs, (text_lo, text_hi), funcs, named, tb, item_names, string_addrs, dr, typed_arrays = load_raw(prog)
     std = dll_std()
     decls = declared(srcdir, prog)
+    # arrays of scalars that Ghidra types but no code names (a table the code reaches only through a biased base, as
+    # yacc's yypgoto): their own span all the same, so the bytes take the type
+    for n, d in typed_arrays.items():
+        if n not in decls and array_extent(d):
+            decls[n] = d
 
     def section_of(addr):
         for s in secs:
@@ -291,6 +320,18 @@ def build_model(prog, srcdir, img_targets=()):
         pts |= {v for k, v in relocs.values() if k == "data" and base <= v < base + size}
         pts |= {mem for _, _, mem in code_stubs if base <= mem < base + size}
         pts = sorted(p for p in pts if p in placed or p == base or not inside_reloc(p))
+        # a declared array of N scalars covers its whole extent: a point inside it that names no typed global of its
+        # own (a biased base the code indexes from, as yacc's `yypgoto - YYNTBASE`, a pointer or IMG_ADDR into it)
+        # stays inside, its names aliases at their offset
+        inner, kept, cover = {}, [], None
+        for p in pts:
+            if cover is not None and p < cover[1] and all(placeholder_decl(decls.get(n)) for n in placed.get(p, [])):
+                inner.setdefault(cover[0], []).extend((n, p - cover[0]) for n in placed.get(p, []))
+                continue
+            kept.append(p)
+            ext = max((array_extent(decls.get(n)) for n in placed.get(p, [])), default=0)
+            cover = (p, p + ext) if ext else (cover if cover is not None and p < cover[1] else None)
+        pts = kept
         for i, p in enumerate(pts):
             end = pts[i + 1] if i + 1 < len(pts) else base + size
             names = placed.get(p, [])
@@ -304,6 +345,7 @@ def build_model(prog, srcdir, img_targets=()):
             used_names.add(name)
             sp = Span(p, end, name, s)
             sp.aliases = aliases
+            sp.inner = inner.get(p, [])
             spans.append(sp)
         # the gap from the end of .rdata up to the next section, at the original distance
         nxt = next((t for t in secs if t["start"] > base), None)
@@ -408,20 +450,68 @@ def byte_list(b, indent="    "):
 def scalar_value(fmt, ctype, size, b):
     if fmt == "f":
         v = struct.unpack("<f" if size == 4 else "<d", b)[0]
-        if math.isnan(v) or math.isinf(v):
-            return None
+        if math.isnan(v):
+            return None  # (the payload and sign of a NaN have no portable literal: the caller keeps the bytes)
+        if math.isinf(v):
+            return ("-" if v < 0 else "") + ("__builtin_inff()" if size == 4 else "__builtin_inf()")
         if v == 0 and b != bytes(size):
-            return None  # negative zero
+            return "-0.0" + ("f" if size == 4 else "")
         if v == int(v) and abs(v) < 1e15:
             lit = "%d.0" % int(v)
+        elif size == 8:
+            lit = repr(v)  # (the shortest decimal that reads back as the same double)
         else:
-            lit = float.hex(v)
+            # the shortest decimal that reads back as the same float (gcc rounds a decimal constant correctly)
+            lit = next(t for t in ("%.*g" % (p, v) for p in range(1, 10)) if struct.pack("<f", float(t)) == b)
+        if not any(c in lit for c in ".en"):
+            lit += ".0"
         return lit + ("f" if size == 4 else "")
     u = int.from_bytes(b, "little")
     if fmt == "d":
         s = int.from_bytes(b, "little", signed=True)
         return str(s) if s != -(1 << (8 * size - 1)) else "(%s)0x%x" % (ctype, u)
     return "0x%x" % u
+
+
+def typed_value(base, is_arr, count, start, b):
+    """(declarator, initialiser, bytes covered) for a span declared as a scalar or an array of scalars, or None when
+    the bytes stay a byte list: no such type, misaligned, a NaN among floats, or a placeholder type (`undefined`,
+    `undefined4`, ...) that only fits the span exactly. A declared array of N covers N elements, an array without a
+    size as many whole elements as the span holds, a scalar one element; the caller puts the rest in a tail. A char
+    array is text (the caller's string) unless it holds control bytes, as yacc's yytranslate of small numbers does."""
+    sc = SCALARS.get(base)
+    if sc is None:
+        return None
+    if is_arr and base == "char":
+        body = b[:count or len(b)].rstrip(b"\0")
+        if not count or all(c >= 32 or c in (9, 10, 13) for c in body):
+            return None
+    ctype, esz, fmt = sc
+    n = len(b)
+    if start % min(esz, 4):
+        return None
+    placeholder = base.startswith("undefined")
+    if is_arr:
+        if placeholder:
+            return None
+        k = count if count else n // esz
+    else:
+        k = 1
+        if placeholder and n != esz:
+            return None
+    if k == 0 or k * esz > n:
+        return None
+    vals = [scalar_value(fmt, ctype, esz, b[i * esz:(i + 1) * esz]) for i in range(k)]
+    if any(v is None for v in vals):
+        return None
+    if not is_arr:
+        return "%s %%s" % ctype, vals[0], esz
+    while vals and vals[-1] in ("0", "0x0", "0.0", "0.0f"):
+        vals.pop()  # (C zero-fills the rest of the array)
+    per = 8 if esz >= 4 else 16
+    rows = [", ".join(vals[i:i + per]) for i in range(0, len(vals), per)]
+    init = "{0}" if not rows else "{ %s }" % rows[0] if len(rows) == 1 else "{\n" + ",\n".join("    " + r for r in rows) + "\n}"
+    return "%s %%s[%d]" % (ctype, k), init, k * esz
 
 
 def emit(model, srcdir):
@@ -461,17 +551,28 @@ def emit(model, srcdir):
         if sp.sec is not None and sp.sec["name"] not in first_of_sec:
             first_of_sec[sp.sec["name"]] = sp
         relocs = sp.relocs
-        base, is_arr = sp.decl if sp.decl else ("", False)
+        base, is_arr, count = sp.decl if sp.decl else ("", False, None)
         base = base.replace("const ", "").strip()
-        sc = SCALARS.get(base) if not is_arr else None
         where = "/* 0x%08x, %d bytes */" % (sp.start, n)
-        if not relocs:
-            if sc and sc[1] == n and sp.start % min(sc[1], 4) == 0 and scalar_value(sc[2], sc[0], n, b) is not None:
-                ctype, val = sc[0], scalar_value(sc[2], sc[0], n, b)
-                decl = "%s %s" % (ctype, sp.name)
-                init = val
-                stats["typed"] += 1
-            elif sp.name.startswith(("s_", "u_")) or (is_arr and base == "char"):
+        typed = None if relocs else typed_value(base, is_arr, count, sp.start, b)
+        if typed:
+            decl, init, head = typed
+            decl = decl % sp.name
+            stats["typed"] += 1
+            if head < n:
+                # the span runs past the declared type (an undeclared neighbour, or a table read past its end): the
+                # rest goes right behind it, in the same run of the section, so the layout does not move
+                rest = b[head:]
+                tname = "%s__tail" % sp.name
+                decls.append("extern %s;" % decl)
+                defs.append("%s %s %s = %s;" % (where, attr, decl, init))
+                where = "/* 0x%08x, %d bytes: the rest of %s's span */" % (sp.start + head, n - head, sp.name)
+                # (static: no code names it, and the DLLs export every global symbol)
+                decl, init = "static unsigned char %s[%d] __attribute__((used))" % (tname, n - head), byte_list(rest)
+                if rest.strip(b"\0"):
+                    stats["bytes_untyped"] += n - head
+        elif not relocs:
+            if sp.name.startswith(("s_", "u_")) or (is_arr and base == "char"):
                 decl = "char %s[%d]" % (sp.name, n)
                 init = c_string(b.rstrip(b"\0"))
                 stats["string"] += 1
@@ -516,10 +617,13 @@ def emit(model, srcdir):
             init = "{\n" + ",\n".join("    " + v.replace("\n", "\n    ") for v in vals) + "\n}"
             stats["struct"] += 1
             stats["bytes_untyped"] += n - 4 * len(relocs)
-        decls.append("extern %s;" % decl)
+        if not decl.startswith("static "):
+            decls.append("extern %s;" % decl)
         defs.append("%s %s %s = %s;" % (where, attr, decl, init))
         for al in sp.aliases:
             tail.append('__asm__(".globl _%s\\n\\t.set _%s, _%s\\n");' % (al, al, sp.name))
+        for al, off in sp.inner:
+            tail.append('__asm__(".globl _%s\\n\\t.set _%s, _%s + %d\\n");' % (al, al, sp.name, off))
     for a, n, mem in model.code_stubs:
         sp, off = resolve(model, mem)
         tail.append('__asm__(".text\\n\\t.def _%s; .scl 2; .type 32; .endef\\n\\t.globl _%s\\n_%s:\\tjmp *_%s + 0x%x\\n");'
@@ -599,7 +703,7 @@ def generate(prog, srcdir):
         for name in sorted(new_names, key=lambda n: new_names[n].start):
             add.append("extern unsigned char %s[]; /* 0x%08x */" % (name, new_names[name].start))
         open(gp, "w", encoding="utf-8", newline="").write(g.rstrip("\n") + "\n" + "\n".join(add) + "\n")
-        model.decls.update({n: ("unsigned char", True) for n in new_names})
+        model.decls.update({n: ("unsigned char", True, None) for n in new_names})
     stats = emit(model, srcdir)
     stats["img_addr"] = n_img
     write_exports(prog, srcdir)
