@@ -58,7 +58,7 @@ The export mis-decoded 0x0048483d-0x0048484b: `src/GRIMFANDANGO.EXE/asm_funcs.s`
 writes a byte to a random address and calls `Set_DrawDebugLights` with no argument.  Only the debug overlay path is affected.
 The C port has the 1.01 behaviour.  The test corrects the slice with `fix_orig.sed`, and `check_slice.py` compares the corrected
 slice instruction by instruction (registers and mnemonics; immediates masked) with a disassembly of the real bytes
-(`orig_bytes.hex`, read from the Ghidra program `/v101/GRIMFANDANGO.EXE`; note that `/GRIMFANDANGO.EXE` in that project
+(0x735 bytes at 0x484260 of the 1.01 text section, which `run.sh` cuts from your own copy, `raw/GRIMFANDANGO.EXE/sections/text.bin`; note that `/GRIMFANDANGO.EXE` in that project
 holds other bytes at this address): 528 instructions, identical.  This check is the only reason to believe the reference
 is 1.01 and not the export.
 

@@ -1,5 +1,5 @@
 """check_slice.py <orig.bin> <slice.o>: compares the instruction sequence of the sliced (re-assembled) function with a
-disassembly of the original 1.01 bytes (orig_bytes.hex, read from Ghidra /v101/GRIMFANDANGO.EXE).  Immediates and
+disassembly of the original 1.01 bytes (cut by run.sh from your own copy's text section).  Immediates and
 displacements are replaced by N (addresses differ after relocation; GAS picks other encodings), registers and mnemonics
 must match.  Prints a unified diff; empty = same instructions."""
 import difflib, re, subprocess, sys

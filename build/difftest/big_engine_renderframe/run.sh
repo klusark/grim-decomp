@@ -3,8 +3,9 @@
 # Differential test of sputRender_Update (build/overrides_big_engine_renderframe.c) against the original 1.01 code.
 # The original is sliced from $BASE_ASM (default src/GRIMFANDANGO.EXE/asm_funcs.s, where the function is still assembled;
 # after the port is applied by the build, point BASE_ASM at an older copy), corrected with fix_orig.sed (the export
-# mis-decoded 0x0048483d), and its instruction sequence is checked against the real bytes (orig_bytes.hex, read from the
-# Ghidra program /v101/GRIMFANDANGO.EXE) by check_slice.py before the test is built.
+# mis-decoded 0x0048483d), and its instruction sequence is checked against the real bytes (0x735 bytes at 0x484260, read
+# from your own copy's text section, $ORIG_TEXT, default raw/GRIMFANDANGO.EXE/sections/text.bin; not in the repository)
+# by check_slice.py before the test is built.
 # Same tool chain as build/difftest/asm_s5/build.sh; outputs in build/difftest/big_engine_renderframe/out/.
 set -e
 cd "$(dirname "$0")/../../.."
@@ -14,7 +15,8 @@ DATA_O=${DATA_O:-build/obj/GRIMFANDANGO.EXE/data_s.o}
 python -I build/mixdiff/slice_orig.py $BASE_ASM $W/orig_raw.s sputRender_Update >/dev/null
 sed -E -f $T/fix_orig.sed $W/orig_raw.s > $W/orig.s
 /ucrt64/bin/gcc -m32 -c $W/orig.s -o $W/orig.o
-python3 -c "import binascii,sys; open(sys.argv[2],'wb').write(binascii.unhexlify(open(sys.argv[1]).read().strip()))" $T/orig_bytes.hex $W/orig.bin
+ORIG_TEXT=${ORIG_TEXT:-raw/GRIMFANDANGO.EXE/sections/text.bin}
+python3 -c "import sys; t=open(sys.argv[1],'rb').read(); open(sys.argv[2],'wb').write(t[0x484260-0x401000:][:0x735])" $ORIG_TEXT $W/orig.bin
 python3 $T/check_slice.py $W/orig.bin $W/orig.o | tee $W/check_slice.txt
 grep -q '^same instruction sequence' $W/check_slice.txt || { echo "slice differs from the 1.01 bytes"; exit 1; }
 CF="-O0 -m32 -march=i686 -std=gnu11 -fpermissive -w -fno-builtin -fno-strict-aliasing -fwrapv -fsingle-precision-constant -fno-common -ffreestanding -include build/compat.h -Ibuild -Isrc/GRIMFANDANGO.EXE -DGRIM_EXE"
