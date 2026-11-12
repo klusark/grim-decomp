@@ -535,7 +535,12 @@ def emit(model, srcdir):
         return "(void *)&%s" % sp.name if off == 0 else "(void *)((unsigned char *)&%s + 0x%x)" % (sp.name, off)
 
     stats = {"spans": 0, "typed": 0, "string": 0, "pointer": 0, "table": 0, "bytes": 0, "struct": 0,
-             "bytes_untyped": 0, "zero": 0}
+             "bytes_untyped": 0, "zero": 0, "unused": 0, "unused_bytes": 0}
+    unused = {}
+    up = os.path.join(ROOT, "names", "data_unused.json")
+    if os.path.exists(up):
+        for r in json.load(open(up)).get(prog, []):
+            unused[(int(r["addr"], 16), r["name"])] = r["reader"]
     first_of_sec = {}
     run_key = None
     for sp in model.spans:
@@ -554,6 +559,19 @@ def emit(model, srcdir):
         base, is_arr, count = sp.decl if sp.decl else ("", False, None)
         base = base.replace("const ", "").strip()
         where = "/* 0x%08x, %d bytes */" % (sp.start, n)
+        reader = unused.get((sp.start, sp.name))
+        if reader is not None:
+            # nothing in the rebuilt program reads it (tools/data_unused.py): zero bytes, the same size, so the layout
+            # stays the original's
+            decls.append("extern unsigned char %s[%d];" % (sp.name, n))
+            defs.append("/* 0x%08x, %d bytes, unused (%s) */ %s unsigned char %s[%d];" % (sp.start, n, reader, attr, sp.name, n))
+            stats["unused"] += 1
+            stats["unused_bytes"] += n
+            for al in sp.aliases:
+                tail.append('__asm__(".globl _%s\\n\\t.set _%s, _%s\\n");' % (al, al, sp.name))
+            for al, off in sp.inner:
+                tail.append('__asm__(".globl _%s\\n\\t.set _%s, _%s + %d\\n");' % (al, al, sp.name, off))
+            continue
         typed = None if relocs else typed_value(base, is_arr, count, sp.start, b)
         if typed:
             decl, init, head = typed
@@ -754,6 +772,7 @@ def report(prog, srcdir):
     print("  scalars %(typed)d, strings %(string)d, pointers %(pointer)d, pointer tables %(table)d, "
           "mixed structs %(struct)d, byte arrays %(bytes)d, zero arrays %(zero)d" % stats)
     print("  untyped initialised bytes: %d" % stats["bytes_untyped"])
+    print("  unused spans emitted as zeros (names/data_unused.json): %d, %d bytes" % (stats["unused"], stats["unused_bytes"]))
     print("  scalars longer than their declared type, with data after it: %d" % len(big))
     for sp in big[:8]:
         print("    %s (%s) 0x%08x: %d bytes" % (sp.name, sp.decl[0], sp.start, sp.end - sp.start))

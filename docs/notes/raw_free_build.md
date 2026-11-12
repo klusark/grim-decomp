@@ -60,7 +60,8 @@ What was done differently from the steps below:
   `build/overrides_hmifx.c` (build/BUILD_NOTES.md, "The HMI effects library in C").
 
 Step 7 (typing the data in Ghidra) has started: types_4.md types the first tables and teaches datagen.py arrays,
-tails and Ghidra-typed tables the code does not name. Step 8 (releasing the layout) is open. Every typed table turns a byte array of
+tails and Ghidra-typed tables the code does not name. The data only removed code reads is zero (data_unused.md).
+Step 8 (releasing the layout) is open. Every typed table turns a byte array of
 `data.c` into values, and `datacmp.py` proves it unchanged.
 
 ## The plan
