@@ -122,5 +122,17 @@ errors:
 link: objs
 	@$(PYTHON) link.py "$(CC32LINK)" "$(SRC)" "$(OBJ)" $(PROGS)
 
+# Native Linux build (i386 ELF on SDL2; see linux/README.md): obj-linux/grimfandango
+#   needs gcc-multilib and the i386 SDL2 / zlib development packages
+LINUX_OBJ    ?= obj-linux
+LINUX_CFLAGS := -fleading-underscore -fno-pic -fno-stack-protector -fcf-protection=none -fno-asynchronous-unwind-tables
+# the flags build/link.py compiles overrides*.c, fastpaths.c and link_data.c with
+LINUX_LINK_CFLAGS := $(ARCH) -std=gnu11 -fpermissive -w -fno-builtin -ffreestanding -fno-common -include compat.h -I. $(LINUX_CFLAGS) -D_MM_MALLOC_H_INCLUDED
+.PHONY: linux linux-objs
+linux-objs:
+	@$(MAKE) --no-print-directory objs CC=linux/cc.sh OBJ=$(LINUX_OBJ) EXTRA_CFLAGS="$(LINUX_CFLAGS) $(EXTRA_CFLAGS)"
+linux: linux-objs
+	@$(PYTHON) linux/link_linux.py "$(SRC)" "$(LINUX_OBJ)" linux/cc.sh $(LINUX_LINK_CFLAGS)
+
 clean:
-	rm -rf $(OBJ)
+	rm -rf $(OBJ) $(LINUX_OBJ)

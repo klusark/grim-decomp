@@ -35,6 +35,9 @@ fallback), `SRC=`/`OBJ=` (build another tree, e.g. one written with
   libz-mingw-w64-dev`; Ubuntu 24.04 ships GCC 13). The Makefile selects `i686-w64-mingw32-gcc`
   when the host `gcc -dumpmachine` is not a mingw target (`CROSS=<prefix>-` to choose another),
   and `python3` when there is no `python`. The output matches the MSYS2 build's link summary.
+* Native Linux: `make linux` (gcc-multilib, i386 SDL2 and zlib) compiles the same tree as i386 ELF objects
+  (`obj-linux/`, `-fleading-underscore`, `linux/cc.sh`) and links one executable with the platform layer in
+  `linux/platform/` (Win32, DirectX and MSVC runtime on SDL2 and libc). See `linux/README.md`.
 * Flags: `-std=gnu11 -fpermissive -w -fno-builtin -fno-strict-aliasing -fwrapv
   -fno-common -ffreestanding -include compat.h`. `-fpermissive` makes GCC >= 14
   accept int/pointer conversions and implicit declarations again; gnu11 keeps

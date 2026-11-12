@@ -51,7 +51,7 @@ jobs:
 
   # The same build cross-compiled on Linux with the MinGW-w64 i686 toolchain (build/Makefile picks it up when the host
   # gcc does not target Windows).
-  build-linux:
+  build-windows-on-linux:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -67,3 +67,28 @@ jobs:
 
       - name: Link
         run: make -C build link
+
+  # The native Linux executable (i386 ELF on SDL2, build/linux/README.md) and its headless smoke test.
+  build-linux-native:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install gcc-multilib and the i386 SDL2 / zlib
+        run: |
+          sudo dpkg --add-architecture i386
+          sudo apt-get update
+          sudo apt-get install -y gcc-multilib libsdl2-dev:i386 zlib1g-dev:i386 pkg-config
+
+      - name: Build
+        run: make -C build linux -j4
+
+      - name: Smoke test (no game data)
+        run: python3 -I build/linux/smoke_test.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: grim-decomp-linux
+          path: |
+            build/obj-linux/grimfandango
+            build/obj-linux/stubs.txt
