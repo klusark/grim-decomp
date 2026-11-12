@@ -205,3 +205,113 @@ static inline void *img_addr_(unsigned a) {
     if (a >= 0x10026000u && a <= 0x1002d724u) return sect_data + (a - 0x10026000u);
     return (void *)(uintptr_t)a;
 }
+
+/* Ghidra's structures (raw/<prog>/structs.json). Those build/compat.h defines by hand
+ * are only declared here: none. */
+typedef struct Closure Closure;
+typedef struct Hash Hash;
+typedef struct LocVar LocVar;
+typedef struct Node Node;
+typedef struct StringTable StringTable;
+typedef struct TObject TObject;
+typedef struct TProtoFunc TProtoFunc;
+typedef struct TaggedString TaggedString;
+
+/* TObject: A Lua value: its type tag (Grim's numbering, build/overrides.c: -1 number, -2 string, -3 table, -4 Lua function, -5 C function, -6 task, -7 nil, -8 userdata, 0 and up user tags) and the value. */
+struct TObject {  /* 0x8 */
+    int nTtype;  /* 0x00: the type tag (lua_Type) */
+    uint dwValue;  /* 0x04: the value: a float for a number, else a pointer (TaggedString *, Hash *, TProtoFunc *, Closure *) or a C function */
+};
+_Static_assert(__builtin_offsetof(TObject, nTtype) == 0x0, "TObject.nTtype");
+_Static_assert(__builtin_offsetof(TObject, dwValue) == 0x4, "TObject.dwValue");
+_Static_assert(sizeof(TObject) == 0x8, "sizeof TObject");
+/* Closure: A function closure (lfunc.c luaF_newclosure): the function (aConsts[0]) and its nelems upvalues after it. */
+struct Closure {  /* 0x14 */
+    Closure *pNext;  /* 0x00: GCnode: the next of rootcl */
+    int nMarked;  /* 0x04: GCnode: GC mark */
+    int nNelems;  /* 0x08: upvalues */
+    TObject aConsts[1];  /* 0x0c: nelems + 1 values: the function, then the upvalues */
+};
+_Static_assert(__builtin_offsetof(Closure, pNext) == 0x0, "Closure.pNext");
+_Static_assert(__builtin_offsetof(Closure, nMarked) == 0x4, "Closure.nMarked");
+_Static_assert(__builtin_offsetof(Closure, nNelems) == 0x8, "Closure.nNelems");
+_Static_assert(__builtin_offsetof(Closure, aConsts) == 0xc, "Closure.aConsts");
+_Static_assert(sizeof(Closure) == 0x14, "sizeof Closure");
+/* Hash: A Lua table (ltable.c): open-addressed slots, rehashed at 70% use. */
+struct Hash {  /* 0x18 */
+    Hash *pNext;  /* 0x00: GCnode: the next table of roottable */
+    int nMarked;  /* 0x04: GCnode: GC mark */
+    Node *pNode;  /* 0x08: the slots */
+    int nNhash;  /* 0x0c: slots (a size of lobject.c's dimensions) */
+    int nNuse;  /* 0x10: slots in use */
+    int nHtag;  /* 0x14: the table's tag */
+};
+_Static_assert(__builtin_offsetof(Hash, pNext) == 0x0, "Hash.pNext");
+_Static_assert(__builtin_offsetof(Hash, nMarked) == 0x4, "Hash.nMarked");
+_Static_assert(__builtin_offsetof(Hash, pNode) == 0x8, "Hash.pNode");
+_Static_assert(__builtin_offsetof(Hash, nNhash) == 0xc, "Hash.nNhash");
+_Static_assert(__builtin_offsetof(Hash, nNuse) == 0x10, "Hash.nNuse");
+_Static_assert(__builtin_offsetof(Hash, nHtag) == 0x14, "Hash.nHtag");
+_Static_assert(sizeof(Hash) == 0x18, "sizeof Hash");
+/* LocVar: A local variable of a function's debug information: its name (NULL: a block end) and the line from which it is in scope; line -1 ends the list. */
+struct LocVar {  /* 0x8 */
+    TaggedString *pVarname;  /* 0x00 */
+    int nLine;  /* 0x04 */
+};
+_Static_assert(__builtin_offsetof(LocVar, pVarname) == 0x0, "LocVar.pVarname");
+_Static_assert(__builtin_offsetof(LocVar, nLine) == 0x4, "LocVar.nLine");
+_Static_assert(sizeof(LocVar) == 0x8, "sizeof LocVar");
+/* Node: One slot of a table's hash part (ltable.c): key and value; a nil key is an empty slot. */
+struct Node {  /* 0x10 */
+    TObject ref;  /* 0x00: the key */
+    TObject val;  /* 0x08: the value */
+};
+_Static_assert(__builtin_offsetof(Node, ref) == 0x0, "Node.ref");
+_Static_assert(__builtin_offsetof(Node, val) == 0x8, "Node.val");
+_Static_assert(sizeof(Node) == 0x10, "sizeof Node");
+/* StringTable: One of the hashed string tables (lstring.c stringtable; the state's string_root holds 61). */
+struct StringTable {  /* 0xc */
+    int nSize;  /* 0x00: slots */
+    int nUse;  /* 0x04: strings in it (grow() doubles the slots at 2 / 3 full) */
+    TaggedString **ppHash;  /* 0x08: the slots */
+};
+_Static_assert(__builtin_offsetof(StringTable, nSize) == 0x0, "StringTable.nSize");
+_Static_assert(__builtin_offsetof(StringTable, nUse) == 0x4, "StringTable.nUse");
+_Static_assert(__builtin_offsetof(StringTable, ppHash) == 0x8, "StringTable.ppHash");
+_Static_assert(sizeof(StringTable) == 0xc, "sizeof StringTable");
+/* TProtoFunc: A Lua function prototype (lfunc.c luaF_newproto). Grim's order: the constants first. */
+struct TProtoFunc {  /* 0x20 */
+    TProtoFunc *pNext;  /* 0x00: GCnode: the next of rootproto */
+    int nMarked;  /* 0x04: GCnode: GC mark */
+    TObject *pConsts;  /* 0x08: the constants */
+    int nNconsts;  /* 0x0c */
+    byte *pCode;  /* 0x10: the byte code */
+    int nLineDefined;  /* 0x14 */
+    TaggedString *pFileName;  /* 0x18: the source's name */
+    LocVar *pLocvars;  /* 0x1c: debug information, NULL without */
+};
+_Static_assert(__builtin_offsetof(TProtoFunc, pNext) == 0x0, "TProtoFunc.pNext");
+_Static_assert(__builtin_offsetof(TProtoFunc, nMarked) == 0x4, "TProtoFunc.nMarked");
+_Static_assert(__builtin_offsetof(TProtoFunc, pConsts) == 0x8, "TProtoFunc.pConsts");
+_Static_assert(__builtin_offsetof(TProtoFunc, nNconsts) == 0xc, "TProtoFunc.nNconsts");
+_Static_assert(__builtin_offsetof(TProtoFunc, pCode) == 0x10, "TProtoFunc.pCode");
+_Static_assert(__builtin_offsetof(TProtoFunc, nLineDefined) == 0x14, "TProtoFunc.nLineDefined");
+_Static_assert(__builtin_offsetof(TProtoFunc, pFileName) == 0x18, "TProtoFunc.pFileName");
+_Static_assert(__builtin_offsetof(TProtoFunc, pLocvars) == 0x1c, "TProtoFunc.pLocvars");
+_Static_assert(sizeof(TProtoFunc) == 0x20, "sizeof TProtoFunc");
+/* TaggedString: A string or a userdata of the string table (lstring.c). Grim's order: constindex before the hash (Lua 3.1 has them the other way). */
+struct TaggedString {  /* 0x1c */
+    TaggedString *pNext;  /* 0x00: GCnode: the next of its list (itself when new) */
+    int nMarked;  /* 0x04: GCnode: GC mark */
+    int nConstIndex;  /* 0x08: 0 for a string, -1 for a userdata */
+    uint dwHash;  /* 0x0c: the hash the string table files it under */
+    TObject globalval;  /* 0x10: a string: the global of that name (nil when undefined); a userdata: its tag (nTtype) and pointer (dwValue) */
+    char aStr[4];  /* 0x18: the characters of a string, NUL-terminated, as long as the string */
+};
+_Static_assert(__builtin_offsetof(TaggedString, pNext) == 0x0, "TaggedString.pNext");
+_Static_assert(__builtin_offsetof(TaggedString, nMarked) == 0x4, "TaggedString.nMarked");
+_Static_assert(__builtin_offsetof(TaggedString, nConstIndex) == 0x8, "TaggedString.nConstIndex");
+_Static_assert(__builtin_offsetof(TaggedString, dwHash) == 0xc, "TaggedString.dwHash");
+_Static_assert(__builtin_offsetof(TaggedString, globalval) == 0x10, "TaggedString.globalval");
+_Static_assert(__builtin_offsetof(TaggedString, aStr) == 0x18, "TaggedString.aStr");
+_Static_assert(sizeof(TaggedString) == 0x1c, "sizeof TaggedString");

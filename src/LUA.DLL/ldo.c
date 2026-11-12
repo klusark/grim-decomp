@@ -170,18 +170,18 @@ void __cdecl luaD_taskHook(undefined4 param_1,undefined4 param_2)
 /* ---- 0x100040e0  luaD_callTM ---- */
 /* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
 
-void __cdecl luaD_callTM(undefined4 *param_1,int param_2,void *param_3)
+void __cdecl luaD_callTM(TObject *f,int nParams,int nResults)
 
 {
-  undefined4 *puVar1;
+  int *piVar1;
   
-  luaD_openstack(param_2);
-  puVar1 = (undefined4 *)(g_pLuaState[7] - (param_2 * 8 + 8));
-  *puVar1 = *param_1;
-  puVar1[1] = param_1[1];
+  luaD_openstack(nParams);
+  piVar1 = (int *)(g_pLuaState[7] - (nParams * 8 + 8));
+  *piVar1 = f->nTtype;
+  piVar1[1] = f->dwValue;
   g_pLuaState[2] = g_pLuaState[2] + 1;
   g_pLuaState[6] = g_pLuaState[6] + 1;
-  luaD_call((g_pLuaState[7] - g_pLuaState[8] >> 3) - param_2,param_3);
+  luaD_call((g_pLuaState[7] - g_pLuaState[8] >> 3) - nParams,nResults);
   g_pLuaState[6] = g_pLuaState[6] + -1;
   g_pLuaState[2] = g_pLuaState[2] + -1;
   return;
@@ -214,130 +214,129 @@ undefined4 luaD_call(code *param_1,void *param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint *puVar1;
   code *a1;
-  int iVar2;
-  void *pvVar3;
+  int iVar1;
+  void *pvVar2;
+  int iVar3;
   int iVar4;
-  int iVar5;
-  uint uVar6;
-  int iVar7;
-  void *a3;
-  void *pvVar8;
-  int *piVar9;
+  int *piVar5;
+  int iVar6;
+  void *nResults;
+  void *pvVar7;
+  TObject *pTVar8;
   #define iStack_14 (*(int *)(_frame + (0x30 - 0x14)))
   
-  a3 = param_2;
+  nResults = param_2;
   iStack_14 = *g_pLuaState;
   if ((iStack_14 == 0) || (g_pLuaState[6] != 0)) {
-    pvVar3 = ExecutionState_New(0x30);
-    if (pvVar3 == (void *)0x0) {
-      iVar4 = 0;
+    pvVar2 = ExecutionState_New(0x30);
+    if (pvVar2 == (void *)0x0) {
+      iVar3 = 0;
     }
     else {
-      iVar4 = ExecutionState_Construct(pvVar3,*g_pLuaState,(int)param_1,(int)param_2);
+      iVar3 = ExecutionState_Construct(pvVar2,*g_pLuaState,(int)param_1,(int)param_2);
     }
-    *g_pLuaState = iVar4;
-    param_2 = pvVar3;
+    *g_pLuaState = iVar3;
+    param_2 = pvVar2;
   }
   else {
     iStack_14 = g_pLuaState[1];
   }
-  pvVar3 = param_2;
-  iVar4 = (int)param_1;
+  pvVar2 = param_2;
+  iVar3 = (int)param_1;
   do {
     param_1 = (code *)0x0;
-    puVar1 = (uint *)(g_pLuaState[8] + -8 + iVar4 * 8);
-    switch(*(undefined4 *)(g_pLuaState[8] + -8 + iVar4 * 8)) {
+    pTVar8 = (TObject *)(g_pLuaState[8] + -8 + iVar3 * 8);
+    switch(*(undefined4 *)(g_pLuaState[8] + -8 + iVar3 * 8)) {
     case 0xfffffff5:
-      printf(s_unexpected_cmark_at__d_10026a50,iVar4);
+      printf(s_unexpected_cmark_at__d_10026a50,iVar3);
       if (*(int *)(*g_pLuaState + 0x18) == 0) goto switchD_1000422b_caseD_fffffff9;
       break;
     case 0xfffffff6:
-      piVar9 = (int *)*g_pLuaState;
-      if (piVar9[6] != 0) goto LAB_100042fe;
+      piVar5 = (int *)*g_pLuaState;
+      if (piVar5[6] != 0) goto LAB_100042fe;
     default:
 switchD_1000422b_caseD_fffffff9:
-      uVar6 = luaT_efectivetag(puVar1);
-      piVar9 = (int *)(g_dwLState_IMtable + uVar6 * -0x90 + 0x88);
-      if (*piVar9 == -7) {
+      iVar4 = luaT_efectivetag(pTVar8);
+      pTVar8 = (TObject *)(g_dwLState_IMtable + iVar4 * -0x90 + 0x88);
+      if (pTVar8->nTtype == -7) {
         lua_error((byte *)s_call_expression_not_a_function_10026a30);
       }
-      luaD_callTM(piVar9,((g_pLuaState[7] - g_pLuaState[8] >> 3) - iVar4) + 1,a3);
+      luaD_callTM(pTVar8,((g_pLuaState[7] - g_pLuaState[8] >> 3) - iVar3) + 1,(int)nResults);
       goto LAB_10004474;
     case 0xfffffff7:
-      piVar9 = (int *)*g_pLuaState;
-      if (piVar9[6] == 0) goto switchD_1000422b_caseD_fffffff9;
-      if (*(int *)(puVar1[1] + 0xc) != -5) goto LAB_100042fe;
+      piVar5 = (int *)*g_pLuaState;
+      if (piVar5[6] == 0) goto switchD_1000422b_caseD_fffffff9;
+      if (*(int *)(pTVar8->dwValue + 0xc) != -5) goto LAB_100042fe;
       break;
     case 0xfffffff8:
-      a1 = (code *)puVar1[1];
-      *puVar1 = 0xfffffff7;
+      a1 = (code *)pTVar8->dwValue;
+      pTVar8->nTtype = -9;
       if (*(int *)(a1 + 0xc) != -5) {
-        ExecutionState_setvalues((void *)*g_pLuaState,(int)a1,*(int *)(a1 + 0x10),iVar4);
-        piVar9 = (int *)*g_pLuaState;
+        ExecutionState_setvalues((void *)*g_pLuaState,(int)a1,*(int *)(a1 + 0x10),iVar3);
+        piVar5 = (int *)*g_pLuaState;
         goto LAB_100042fe;
       }
-      pvVar3 = (void *)callCclosure((int)a1,*(undefined **)(a1 + 0x10),iVar4);
+      pvVar2 = (void *)callCclosure((int)a1,*(undefined **)(a1 + 0x10),iVar3);
       param_1 = a1;
-      param_2 = pvVar3;
+      param_2 = pvVar2;
       break;
     case 0xfffffffb:
-      *puVar1 = 0xfffffff5;
-      param_1 = (code *)puVar1[1];
-      pvVar3 = (void *)callC(param_1,iVar4);
-      param_2 = pvVar3;
+      pTVar8->nTtype = -0xb;
+      param_1 = (code *)pTVar8->dwValue;
+      pvVar2 = (void *)callC(param_1,iVar3);
+      param_2 = pvVar2;
       break;
     case 0xfffffffc:
-      *puVar1 = 0xfffffff6;
-      ExecutionState_setvalues((void *)*g_pLuaState,0,puVar1[1],iVar4);
-      piVar9 = (int *)*g_pLuaState;
+      pTVar8->nTtype = -10;
+      ExecutionState_setvalues((void *)*g_pLuaState,0,pTVar8->dwValue,iVar3);
+      piVar5 = (int *)*g_pLuaState;
 LAB_100042fe:
-      pvVar3 = (void *)ExecutionState_execute(piVar9);
-      param_2 = pvVar3;
+      pvVar2 = (void *)ExecutionState_execute(piVar5);
+      param_2 = pvVar2;
     }
-    if ((int)pvVar3 < 1) {
-      iVar4 = -(int)pvVar3;
-      a3 = (void *)ExecutionState_getaux(*g_pLuaState);
-      pvVar8 = ExecutionState_New(0x30);
-      if (pvVar8 == (void *)0x0) {
-        iVar5 = 0;
+    if ((int)pvVar2 < 1) {
+      iVar3 = -(int)pvVar2;
+      nResults = (void *)ExecutionState_getaux(*g_pLuaState);
+      pvVar7 = ExecutionState_New(0x30);
+      if (pvVar7 == (void *)0x0) {
+        iVar4 = 0;
       }
       else {
-        iVar5 = ExecutionState_Construct(pvVar8,*g_pLuaState,iVar4,(int)a3);
+        iVar4 = ExecutionState_Construct(pvVar7,*g_pLuaState,iVar3,(int)nResults);
       }
-      *g_pLuaState = iVar5;
+      *g_pLuaState = iVar4;
     }
     else {
-      iVar4 = *(int *)(*g_pLuaState + 0x10);
-      iVar5 = *(int *)(*g_pLuaState + 0x14);
-      if (iVar5 != 0xff) {
-        luaD_adjusttop((int)pvVar3 + iVar5);
+      iVar3 = *(int *)(*g_pLuaState + 0x10);
+      iVar4 = *(int *)(*g_pLuaState + 0x14);
+      if (iVar4 != 0xff) {
+        luaD_adjusttop((int)pvVar2 + iVar4);
       }
-      iVar4 = iVar4 + -1;
-      a3 = (void *)((g_pLuaState[7] - g_pLuaState[8]) + (int)pvVar3 * -8 >> 3);
-      if (0 < (int)a3) {
-        iVar5 = (int)pvVar3 * 8;
-        iVar7 = iVar4 * 8;
-        pvVar8 = a3;
+      iVar3 = iVar3 + -1;
+      nResults = (void *)((g_pLuaState[7] - g_pLuaState[8]) + (int)pvVar2 * -8 >> 3);
+      if (0 < (int)nResults) {
+        iVar4 = (int)pvVar2 * 8;
+        iVar6 = iVar3 * 8;
+        pvVar7 = nResults;
         do {
-          iVar2 = g_pLuaState[8];
-          pvVar8 = (void *)((int)pvVar8 + -1);
-          *(undefined4 *)(iVar7 + iVar2) = *(undefined4 *)(iVar5 + iVar2);
-          *(undefined4 *)(iVar7 + 4 + iVar2) = *(undefined4 *)(iVar5 + 4 + iVar2);
-          iVar5 = iVar5 + 8;
-          iVar7 = iVar7 + 8;
-          pvVar3 = param_2;
-        } while (pvVar8 != (void *)0x0);
+          iVar1 = g_pLuaState[8];
+          pvVar7 = (void *)((int)pvVar7 + -1);
+          *(undefined4 *)(iVar6 + iVar1) = *(undefined4 *)(iVar4 + iVar1);
+          *(undefined4 *)(iVar6 + 4 + iVar1) = *(undefined4 *)(iVar4 + 4 + iVar1);
+          iVar4 = iVar4 + 8;
+          iVar6 = iVar6 + 8;
+          pvVar2 = param_2;
+        } while (pvVar7 != (void *)0x0);
       }
-      g_pLuaState[7] = g_pLuaState[7] + (iVar4 - (int)pvVar3) * 8;
-      iVar5 = *g_pLuaState;
-      *g_pLuaState = *(int *)(iVar5 + 0xc);
-      ExecutionState_Delete(iVar5);
-      iVar5 = *g_pLuaState;
-      if (iVar5 != 0) {
-        iVar4 = *(int *)(iVar5 + 0x10);
-        a3 = *(void **)(iVar5 + 0x14);
+      g_pLuaState[7] = g_pLuaState[7] + (iVar3 - (int)pvVar2) * 8;
+      iVar4 = *g_pLuaState;
+      *g_pLuaState = *(int *)(iVar4 + 0xc);
+      ExecutionState_Delete(iVar4);
+      iVar4 = *g_pLuaState;
+      if (iVar4 != 0) {
+        iVar3 = *(int *)(iVar4 + 0x10);
+        nResults = *(void **)(iVar4 + 0x14);
       }
       if ((param_1 == luaI_breakhere) && (g_pLuaState[2] == 0)) {
         g_pLuaState[1] = iStack_14;
@@ -458,12 +457,12 @@ void __cdecl message(byte *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   local_4 = DAT_1002bf5c;
   if (g_dwLState_errorim != -7) {
     lua_pushstring(param_1);
-    luaD_callTM(&local_4,1,(void *)0x0);
+    luaD_callTM((TObject *)&local_4,1,0);
   }
   return;
 }
@@ -546,24 +545,23 @@ void __cdecl do_callinc(void *param_1)
 /* ---- 0x10004810  luaD_gcIM ---- */
 /* Calls the garbage-collection tag method of an object */
 
-void __cdecl luaD_gcIM(uint *param_1)
+void __cdecl luaD_gcIM(TObject *o)
 
 {
-  uint *puVar1;
-  uint uVar2;
-  int iVar3;
+  int *piVar1;
+  int iVar2;
   
-  uVar2 = luaT_efectivetag(param_1);
-  iVar3 = g_dwLState_IMtable + uVar2 * -0x90;
-  if (*(int *)(iVar3 + 0x80) != -7) {
-    puVar1 = (uint *)g_pLuaState[7];
-    *puVar1 = *param_1;
-    puVar1[1] = param_1[1];
+  iVar2 = luaT_efectivetag(o);
+  iVar2 = g_dwLState_IMtable + iVar2 * -0x90;
+  if (*(int *)(iVar2 + 0x80) != -7) {
+    piVar1 = (int *)g_pLuaState[7];
+    *piVar1 = o->nTtype;
+    piVar1[1] = o->dwValue;
     if ((uint)g_pLuaState[9] <= (uint)g_pLuaState[7]) {
       luaD_checkstack(1);
     }
     g_pLuaState[7] = g_pLuaState[7] + 8;
-    luaD_callTM((undefined4 *)(iVar3 + 0x80),1,(void *)0x0);
+    luaD_callTM((TObject *)(iVar2 + 0x80),1,0);
   }
   return;
 }

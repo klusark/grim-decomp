@@ -152,7 +152,7 @@ int __cdecl luaY_parser(int param_1)
 
 {
   unsigned char _frame[0x8e0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  TaggedString *pTVar1;
   int iVar2;
   #define local_8c4 (*(undefined1 (*)[84])(_frame + (0x8e0 - 0x8c4)))
   #define local_870 (*(undefined1 (*)[2160])(_frame + (0x8e0 - 0x870)))
@@ -162,8 +162,8 @@ int __cdecl luaY_parser(int param_1)
   g_pLuaState[0xf] = g_pLuaState[0xe];
   g_pLuaState[0x10] = (int)local_8c4;
   luaX_setinput(param_1);
-  uVar1 = luaS_new(*(byte **)(param_1 + 0x10));
-  init_state(uVar1);
+  pTVar1 = luaS_new(*(char **)(param_1 + 0x10));
+  init_state(pTVar1);
   iVar2 = luaY_parse();
   if (iVar2 != 0) {
     lua_error((byte *)s_parse_error_10027b58);
@@ -180,23 +180,23 @@ int __cdecl luaY_parser(int param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: a new prototype and a fresh
    FuncState, locvars only with lua_debug); was lparser__a980. */
 
-void __cdecl init_state(undefined4 param_1)
+void __cdecl init_state(TaggedString *param_1)
 
 {
   undefined4 *puVar1;
-  undefined4 *puVar2;
+  TProtoFunc *pTVar2;
   
-  puVar2 = luaF_newclosure();
+  pTVar2 = luaF_newproto();
   puVar1 = (undefined4 *)g_pLuaState[0xf];
   puVar1[0x22] = 0;
   puVar1[0x23] = 0;
   puVar1[0x24] = 0;
   puVar1[0x25] = 0;
-  *puVar1 = puVar2;
-  puVar2[6] = param_1;
+  *puVar1 = pTVar2;
+  pTVar2->pFileName = param_1;
   puVar1[1] = 0;
   puVar1[0x27] = 0;
-  puVar2[4] = 0;
+  pTVar2->pCode = (byte *)0x0;
   puVar1[0x29] = 0;
   if (lua_debug == 0) {
     puVar1[0x28] = 0xffffffff;
@@ -322,7 +322,7 @@ undefined4 luaY_parse(void)
   int *piVar2;
   int *piVar3;
   int iVar4;
-  undefined4 uVar5;
+  TaggedString *pTVar5;
   uint uVar6;
   uint uVar7;
   int *pfVar9;
@@ -482,8 +482,8 @@ LAB_1000acaa:
     case 0x12:
       fVar9 = 0;
       init_func();
-      uVar5 = luaS_new(&DAT_10027ba0);
-      add_localvar(uVar5);
+      pTVar5 = luaS_new(&DAT_10027ba0);
+      add_localvar(pTVar5);
       break;
     case 0x13:
       lua_pushvar(*pfVar9);
@@ -1311,7 +1311,7 @@ void __cdecl code_args(int param_1,int param_2)
 {
   int *piVar1;
   int iVar2;
-  undefined4 uVar3;
+  TaggedString *pTVar3;
   
   *(int *)(g_pLuaState[0xf] + 0x90) = *(int *)(g_pLuaState[0xf] + 0x90) + param_1;
   piVar1 = (int *)g_pLuaState[0xf];
@@ -1323,8 +1323,8 @@ void __cdecl code_args(int param_1,int param_2)
   }
   *(char *)(*(int *)(*piVar1 + 0x10) + 1) = (char)iVar2 + '@';
   deltastack(iVar2 + 1);
-  uVar3 = luaS_new(&DAT_10027cb0);
-  add_localvar(uVar3);
+  pTVar3 = luaS_new(&DAT_10027cb0);
+  add_localvar(pTVar3);
   return;
 }
 

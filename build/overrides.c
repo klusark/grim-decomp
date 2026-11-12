@@ -1400,7 +1400,7 @@ void __cdecl message(byte *msg)
     tm[1] = DAT_1002bf5c;
     if (tm[0] != (undefined4)-7) {
         lua_pushstring(msg);
-        luaD_callTM(tm, 1, 0);
+        luaD_callTM((TObject *)tm, 1, 0);
     }
 }
 
@@ -1437,8 +1437,9 @@ undefined4 __cdecl lua_setfallback(byte *name, int fallback)
 #define LUA_T_NIL (-7)
 
 /* a == b for two stack objects {tag, value}; numbers compare as floats (an unordered compare counts as equal, like the fcompp test) */
-int __cdecl luaO_equalObj(int *a, int *b)
+int __cdecl luaO_equalObj(TObject *ta, TObject *tb)
 {
+    int *a = (int *)ta, *b = (int *)tb;   /* {nTtype, dwValue} as words */
     if (a[0] != b[0])
         return 0;
     switch (a[0]) {
@@ -1459,8 +1460,9 @@ int __cdecl luaO_equalObj(int *a, int *b)
 }
 
 /* hash of a table key: pointer-like values hash as themselves, numbers by their integer part; always >= 0 */
-int __cdecl hashindex(undefined4 *key)
+int __cdecl hashindex(TObject *ref)
 {
+    undefined4 *key = (undefined4 *)ref;   /* {nTtype, dwValue} as words */
     int h;
     switch ((int)key[0]) {
     case -8: case -5: case -4: case -3: case -2: case 0:
@@ -1478,7 +1480,7 @@ int __cdecl hashindex(undefined4 *key)
 }
 
 /* new hash table with room for about size / 0.7 nodes */
-undefined4 * __cdecl luaH_new(int size)
+Hash * __cdecl luaH_new(int size)
 {
     undefined4 *t = (undefined4 *)(*(code **)(g_dwLuaHS + 0x20))(0x18, s_C__grimsrc_libs_lua_src_ltable_c_10027cf4, 0xa4);
     int nnodes = luaO_redimension((int)(long long)((double)size * 1.4285714285714286));
@@ -1488,7 +1490,7 @@ undefined4 * __cdecl luaH_new(int size)
     t[5] = (undefined4)-3;   /* tag: a table */
     luaO_insertlist(&g_dwLState_roottable, t);
     g_dwLState_nblocks = g_dwLState_nblocks + 1 + ((nnodes + ((nnodes >> 31) & 15)) >> 4);
-    return t;
+    return (Hash *)t;
 }
 
 /* code generator: a number constant that is a small non-negative integer becomes a PUSHINT instruction, others a constant */
@@ -1646,8 +1648,9 @@ undefined4 __cdecl luaV_tonumber(int *o)
 }
 
 /* pack the n stack values starting at slot `first` into a table {[1]=v1 ... [n]=vn, n=n}; result is the object that receives it */
-void __cdecl luaV_pack(int first, int n, undefined4 *result)
+void __cdecl luaV_pack(int first, int n, TObject *tab)
 {
+    undefined4 *result = (undefined4 *)tab;   /* {nTtype, dwValue} as words */
     int *src = (int *)(g_pLuaState[8] + first * 8);
     int key[2];
     int *slot;
@@ -1660,13 +1663,13 @@ void __cdecl luaV_pack(int first, int n, undefined4 *result)
         int tag = src[0], val = src[1];     /* read before luaH_set, which may touch the stack */
         key[0] = -1;                        /* number key i + 1 */
         *(float *)&key[1] = (float)i - -1.0f;
-        slot = luaH_set((int)result[1], key);
+        slot = (int *)luaH_set((Hash *)result[1], (TObject *)key);
         slot[0] = tag;
         slot[1] = val;
     }
     key[0] = -2;                            /* string key "n" */
-    key[1] = (int)luaS_new((byte *)&DAT_10026994);
-    slot = luaH_set((int)result[1], key);
+    key[1] = (int)luaS_new((char *)&DAT_10026994);
+    slot = (int *)luaH_set((Hash *)result[1], (TObject *)key);
     slot[0] = -1;
     *(float *)&slot[1] = (float)n;
 }
@@ -1774,7 +1777,7 @@ undefined4 __cdecl luaV_tostring(int *o)
         sprintf(buf, (char *)&DAT_1002817c, n);
     else
         sprintf(buf, (char *)&DAT_10028178, (double)f);
-    o[1] = (int)luaS_new((byte *)buf);
+    o[1] = (int)luaS_new((char *)buf);
     o[0] = -2;
     return 0;
 }
@@ -1965,7 +1968,7 @@ uint __cdecl luaY_lex(float *value)
             } while (FUN_1000f650((int)ls[0]) != 0 || ls[0] == '_');
             luaL_addchar(0);
             {
-                uint *ts = (uint *)luaS_new((byte *)g_dwLState_Mbuffbase);
+                uint *ts = (uint *)luaS_new((char *)g_dwLState_Mbuffbase);
                 if ((int)ts[1] < 0x100) {                        /* a plain name */
                     *(uint *)value = (uint)ts;
                     return LX_NAME;
@@ -1986,7 +1989,7 @@ uint __cdecl luaY_lex(float *value)
                 if (ls[0] == del) {
                     LX_NEXT();
                     luaL_addchar(0);
-                    *(uint *)value = (uint)luaS_new((byte *)(g_dwLState_Mbuffbase + 1));   /* without the opening quote */
+                    *(uint *)value = (uint)luaS_new((char *)(g_dwLState_Mbuffbase + 1));   /* without the opening quote */
                     *(char *)(g_dwLState_Mbuffnext - 1 + g_dwLState_Mbuffer) = (char)del;           /* put the closing quote back */
                     return LX_STRING;
                 }
@@ -2267,7 +2270,7 @@ void luaI_startscript(void)
         for (n = 3; arg != 0; n++) {
             int *stack = g_pLuaState + 8;
             g_pLuaState = task;                       /* push the argument onto the new task's stack */
-            luaA_pushobject((undefined4 *)(*stack - 8 + arg * 8));
+            luaA_pushobject((TObject *)(*stack - 8 + arg * 8));
             g_pLuaState = cur;
             arg = lua_lua2C(n);
         }
@@ -2380,11 +2383,11 @@ undefined4 luaD_call(code *param_1, void *param_2)
             break;
         default:
         call_tag_method: {                              /* not a function: call its "function" tag method */
-                uint tag = luaT_efectivetag((uint *)obj);
+                uint tag = luaT_efectivetag((TObject *)obj);
                 undefined4 *tm = (undefined4 *)(g_dwLState_IMtable - tag * 0x90 + 0x88);
                 if ((int)*tm == -7)
                     lua_error((byte *)s_call_expression_not_a_function_10026a30);
-                luaD_callTM(tm, ((g_pLuaState[7] - g_pLuaState[8]) >> 3) - pos + 1, (void *)nres);
+                luaD_callTM((TObject *)tm, ((g_pLuaState[7] - g_pLuaState[8]) >> 3) - pos + 1, nres);
             }
             goto next;
         }

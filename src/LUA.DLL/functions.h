@@ -17,19 +17,19 @@ void __cdecl checkCparams(int param_1); /* 0x100012b0 */
 int put_luaObjectonTop(void); /* 0x100012e0 */
 int __cdecl lua_lua2C(int param_1); /* 0x10001340 */
 undefined4 __cdecl lua_callfunction(int param_1); /* 0x10001360 */
-void __cdecl set_normalized(int *param_1,int *param_2); /* 0x100013c0 */
-int __cdecl normalized_type(int *param_1); /* 0x100013e0 */
-undefined4 __cdecl lua_gettagmethod(int param_1,byte *param_2); /* 0x10001410 */
-int __cdecl put_luaObject(undefined4 *param_1); /* 0x10001430 */
+void __cdecl set_normalized(TObject *d,TObject *s); /* 0x100013c0 */
+int __cdecl normalized_type(TObject *o); /* 0x100013e0 */
+int __cdecl lua_gettagmethod(int param_1,byte *param_2); /* 0x10001410 */
+int __cdecl put_luaObject(TObject *o); /* 0x10001430 */
 undefined4 __cdecl lua_settagmethod(int param_1,byte *param_2); /* 0x10001490 */
-undefined4 __cdecl lua_seterrormethod(void); /* 0x100014c0 */
+int __cdecl lua_seterrormethod(void); /* 0x100014c0 */
 undefined4 __cdecl lua_gettable(void); /* 0x10001520 */
 undefined4 lua_rawgettable(void); /* 0x10001540 */
 undefined4 __cdecl lua_settable(void); /* 0x100015b0 */
 undefined4 __cdecl lua_rawsettable(void); /* 0x100015e0 */
-undefined4 __cdecl lua_createtable(void); /* 0x10001610 */
+int __cdecl lua_createtable(void); /* 0x10001610 */
 undefined4 __cdecl lua_getglobal(byte *param_1); /* 0x10001640 */
-undefined4 __cdecl lua_rawgetglobal(byte *param_1); /* 0x10001670 */
+int __cdecl lua_rawgetglobal(byte *param_1); /* 0x10001670 */
 undefined4 __cdecl lua_setglobal(byte *param_1); /* 0x10001690 */
 undefined4 __cdecl lua_rawsetglobal(byte *param_1); /* 0x100016c0 */
 undefined4 __cdecl lua_isnil(int param_1); /* 0x10001700 */
@@ -44,7 +44,7 @@ float __cdecl lua_getnumber(int param_1); /* 0x10001860 */
 int __cdecl lua_getstring(int param_1); /* 0x100018c0 */
 undefined4 __cdecl lua_getuserdata(int param_1); /* 0x10001910 */
 int __cdecl lua_getcfunction(int param_1); /* 0x10001940 */
-int * __cdecl luaA_protovalue(int *param_1); /* 0x10001970 */
+TObject * __cdecl luaA_protovalue(TObject *o); /* 0x10001970 */
 int __cdecl lua_gettask(int obj); /* 0x10001990 */
 undefined4 __cdecl lua_pushtask(int param_1); /* 0x100019c0 */
 undefined4 __cdecl lua_pushnil(void); /* 0x10001a10 */
@@ -52,7 +52,7 @@ void __cdecl lua_pushnumber(float n); /* 0x10001a50 */
 undefined4 __cdecl lua_pushstring(byte *param_1); /* 0x10001aa0 */
 undefined4 __cdecl lua_pushCclosure(int param_1,uint param_2); /* 0x10001b10 */
 undefined4 __cdecl lua_pushusertag(byte *param_1,uint param_2); /* 0x10001b90 */
-void __cdecl luaA_pushobject(undefined4 *param_1); /* 0x10001c00 */
+void __cdecl luaA_pushobject(TObject *o); /* 0x10001c00 */
 undefined4 __cdecl lua_pushobject(int param_1); /* 0x10001c40 */
 undefined4 __cdecl lua_tag(int param_1); /* 0x10001ca0 */
 int * __cdecl lua_settag(int param_1); /* 0x10001d30 */
@@ -67,11 +67,11 @@ int __cdecl lua_getlocal(int param_1,int param_2,int *param_3); /* 0x100022c0 */
 undefined4 __cdecl lua_setlocal(int param_1,int param_2); /* 0x10002330 */
 undefined4 __cdecl lua_funcinfo(int param_1,int *param_2,undefined4 *param_3); /* 0x100023c0 */
 char * __cdecl lua_getobjname(int param_1,undefined4 *param_2); /* 0x10002440 */
-void __cdecl checkfunc(int *param_1); /* 0x100024a0 */
+void __cdecl checkfunc(TObject *o); /* 0x100024a0 */
 int * __cdecl lua_beginblock(void); /* 0x100024c0 */
 undefined4 __cdecl lua_endblock(void); /* 0x10002510 */
 uint __cdecl lua_ref(int param_1); /* 0x10002560 */
-undefined4 __cdecl lua_getref(uint param_1); /* 0x10002590 */
+int __cdecl lua_getref(uint param_1); /* 0x10002590 */
 undefined4 __cdecl lua_setfallback(byte *name,int fallback); /* 0x100025b0 */
 void __cdecl do_unprotectedrun(undefined4 param_1,int param_2,void *param_3); /* 0x100025f0 */
 void luaA_ResetSaveCount(void); /* 0x10002660 */
@@ -120,7 +120,7 @@ int __cdecl luaL_newbuffer(int param_1); /* 0x10002d30 */
 void __cdecl luaL_oldbuffer(int param_1); /* 0x10002d80 */
 undefined4 luaL_buffer(void); /* 0x10002da0 */
 void nextvar(void); /* 0x10002db0 */
-void __cdecl pushstring(undefined4 param_1); /* 0x10002e40 */
+void __cdecl pushstring(uint param_1); /* 0x10002e40 */
 void foreachvar(void); /* 0x10002e70 */
 void next(void); /* 0x10002f80 */
 void foreach(void); /* 0x10002fd0 */
@@ -164,7 +164,7 @@ void __cdecl luaD_openstack(int param_1); /* 0x10003f40 */
 void __cdecl luaD_lineHook(undefined4 param_1); /* 0x10003f90 */
 void __cdecl luaD_callHook(int param_1,int param_2,int param_3); /* 0x10004000 */
 void __cdecl luaD_taskHook(undefined4 param_1,undefined4 param_2); /* 0x100040c0 */
-void __cdecl luaD_callTM(undefined4 *param_1,int param_2,void *param_3); /* 0x100040e0 */
+void __cdecl luaD_callTM(TObject *f,int nParams,int nResults); /* 0x100040e0 */
 void __cdecl luaD_deletestates(int param_1); /* 0x10004160 */
 undefined4 luaD_call(code *param_1,void *param_2); /* 0x10004180 */
 int __cdecl callC(undefined *param_1,int param_2); /* 0x100044e0 */
@@ -173,34 +173,34 @@ void __cdecl luaD_travallstacks(undefined *param_1); /* 0x10004600 */
 void __cdecl message(byte *param_1); /* 0x100046a0 */
 undefined4 __cdecl luaD_protectedrun(void *param_1); /* 0x100046e0 */
 void __cdecl do_callinc(void *param_1); /* 0x100047c0 */
-void __cdecl luaD_gcIM(uint *param_1); /* 0x10004810 */
+void __cdecl luaD_gcIM(TObject *o); /* 0x10004810 */
 int __cdecl do_main(int *param_1,int param_2); /* 0x100049b0 */
 undefined4 __cdecl protectedparser(int *param_1,int param_2); /* 0x10004a50 */
 
 /* ===== lfunc.c ===== */
-undefined4 * __cdecl luaF_newproto(int param_1); /* 0x10004ba0 */
-undefined4 * luaF_newclosure(void); /* 0x10004bf0 */
-void __cdecl luaF_freeproto(undefined4 *param_1); /* 0x10004c40 */
-void __cdecl freefunc(int param_1); /* 0x10004c70 */
-void __cdecl luaF_freeclosure(undefined4 *param_1); /* 0x10004cc0 */
-int __cdecl luaF_getlocalname(int param_1,int param_2,uint param_3); /* 0x10004cf0 */
+Closure * __cdecl luaF_newclosure(int nelems); /* 0x10004ba0 */
+TProtoFunc * __cdecl luaF_newproto(void); /* 0x10004bf0 */
+void __cdecl luaF_freeproto(TProtoFunc *l); /* 0x10004c40 */
+void __cdecl freefunc(TProtoFunc *f); /* 0x10004c70 */
+void __cdecl luaF_freeclosure(Closure *l); /* 0x10004cc0 */
+char * __cdecl luaF_getlocalname(TProtoFunc *func,int local_number,int line); /* 0x10004cf0 */
 uint __cdecl luaC_ref(int *param_1,int param_2); /* 0x10004d40 */
-undefined * __cdecl luaC_getref(uint param_1); /* 0x10004e30 */
+TObject * __cdecl luaC_getref(int ref); /* 0x10004e30 */
 
 /* ===== lgc.c ===== */
-void __cdecl luaC_hashcallIM(undefined4 *param_1); /* 0x10004e70 */
-void __cdecl luaC_strcallIM(undefined4 *param_1); /* 0x10004ea0 */
+void __cdecl luaC_hashcallIM(Hash *l); /* 0x10004e70 */
+void __cdecl luaC_strcallIM(TaggedString *l); /* 0x10004ea0 */
 void invalidaterefs(void); /* 0x10004fc0 */
-undefined4 __cdecl ismarked(undefined4 *param_1); /* 0x10005010 */
+int __cdecl ismarked(TObject *o); /* 0x10005010 */
 int __cdecl listcollect(undefined4 *param_1); /* 0x10005070 */
 void markall(void); /* 0x100050b0 */
 void travlock(void); /* 0x100050e0 */
 void globalmark(void); /* 0x10005120 */
-void __cdecl strmark(int param_1); /* 0x10005150 */
-undefined4 __cdecl markobject(undefined4 *param_1); /* 0x10005170 */
-void __cdecl luaC_protomark(int param_1); /* 0x100051f0 */
-void __cdecl closuremark(int param_1); /* 0x10005270 */
-void __cdecl hashmark(int param_1); /* 0x100052b0 */
+void __cdecl strmark(TaggedString *s); /* 0x10005150 */
+int __cdecl markobject(TObject *o); /* 0x10005170 */
+void __cdecl luaC_protomark(TProtoFunc *f); /* 0x100051f0 */
+void __cdecl closuremark(Closure *f); /* 0x10005270 */
+void __cdecl hashmark(Hash *h); /* 0x100052b0 */
 void luaC_checkGC(void); /* 0x10005300 */
 void io_readfrom(void); /* 0x10005320 */
 
@@ -272,7 +272,7 @@ uint __cdecl luaM_growaux(undefined4 *param_1,uint param_2,int param_3,byte *par
 
 /* ===== lobject.c ===== */
 undefined4 __cdecl luaO_redimension(int param_1); /* 0x10007450 */
-int __cdecl luaO_equalObj(int *param_1,int *param_2); /* 0x100074b0 */
+int __cdecl luaO_equalObj(TObject *t1,TObject *t2); /* 0x100074b0 */
 int __cdecl luaO_findstring(byte *param_1,undefined4 *param_2); /* 0x10007550 */
 void __cdecl luaO_insertlist(undefined4 *param_1,undefined4 *param_2); /* 0x100075c0 */
 
@@ -298,14 +298,14 @@ void __fastcall LState_Destruct(int *param_1); /* 0x10008c00 */
 
 /* ===== lstring.c ===== */
 void luaS_init(void); /* 0x10008d40 */
-undefined * __cdecl luaS_createudata(byte *param_1,uint param_2); /* 0x10008d90 */
-undefined * __cdecl insert(byte *param_1,uint param_2,uint *param_3); /* 0x10008dc0 */
+TaggedString * __cdecl luaS_createudata(void *udata,int tag); /* 0x10008d90 */
+TaggedString * __cdecl insert(char *buff,int tag,StringTable *tb); /* 0x10008dc0 */
 byte * __cdecl hash(byte *param_1,int param_2); /* 0x10008f10 */
-void __cdecl grow(uint *param_1); /* 0x10008f50 */
-int __cdecl newone(char *param_1,uint param_2,undefined4 param_3); /* 0x10009000 */
-undefined * __cdecl luaS_new(byte *param_1); /* 0x100090e0 */
+void __cdecl grow(StringTable *tb); /* 0x10008f50 */
+TaggedString * __cdecl newone(char *buff,int tag,uint h); /* 0x10009000 */
+TaggedString * __cdecl luaS_new(char *str); /* 0x100090e0 */
 void __cdecl luaS_newfixedstring(byte *param_1); /* 0x10009110 */
-void __cdecl luaS_free(undefined4 *param_1); /* 0x10009130 */
+void __cdecl luaS_free(TaggedString *l); /* 0x10009130 */
 void __cdecl luaS_writestrings(undefined *param_1,int *param_2); /* 0x10009180 */
 void __cdecl luaS_resolvestrings(int *param_1); /* 0x10009290 */
 int __cdecl luaS_count(int *param_1,uint *param_2); /* 0x100092e0 */
@@ -313,9 +313,9 @@ int luaS_collector(void); /* 0x10009370 */
 void __cdecl remove_from_list(undefined4 *param_1); /* 0x100093e0 */
 uint * luaS_collectudata(void); /* 0x10009410 */
 void luaS_freeall(void); /* 0x10009470 */
-void __cdecl luaS_rawsetglobal(int *param_1,int *param_2); /* 0x100094e0 */
+void __cdecl luaS_rawsetglobal(TaggedString *ts,TObject *newval); /* 0x100094e0 */
 int * __cdecl luaS_travsymbol(undefined *param_1); /* 0x10009510 */
-int __cdecl luaS_globaldefined(byte *param_1); /* 0x10009550 */
+int __cdecl luaS_globaldefined(char *name); /* 0x10009550 */
 void str_len(void); /* 0x10009570 */
 
 /* ===== str.c ===== */
@@ -351,7 +351,7 @@ void __cdecl check_pc(int param_1); /* 0x1000a7d0 */
 undefined4 __cdecl code_oparg_at(int param_1,char param_2,int param_3,uint param_4,int param_5); /* 0x1000a810 */
 void __cdecl deltastack(int param_1); /* 0x1000a8b0 */
 int __cdecl luaY_parser(int param_1); /* 0x1000a900 */
-void __cdecl init_state(undefined4 param_1); /* 0x1000a980 */
+void __cdecl init_state(TaggedString *param_1); /* 0x1000a980 */
 void __cdecl code_byte(undefined1 param_1); /* 0x1000aa10 */
 int close_func(void); /* 0x1000aa40 */
 void __cdecl code_neutralop(undefined1 param_1); /* 0x1000ab20 */
@@ -393,21 +393,21 @@ void func_onstack(void); /* 0x1000c060 */
 void init_func(void); /* 0x1000c100 */
 
 /* ===== ltable.c ===== */
-void __cdecl luaH_free(undefined4 *param_1); /* 0x1000c190 */
-void __cdecl freeHash(int param_1); /* 0x1000c1d0 */
+void __cdecl luaH_free(Hash *frees); /* 0x1000c190 */
+void __cdecl freeHash(Hash *t); /* 0x1000c1d0 */
 void __cdecl luaH_save(undefined *param_1,int param_2); /* 0x1000c200 */
 undefined4 * __cdecl luaH_load(undefined *param_1); /* 0x1000c2e0 */
-undefined4 * __cdecl luaH_hashnodecreate(int param_1); /* 0x1000c390 */
-undefined4 * __cdecl luaH_new(int a1); /* 0x1000c3d0 */
-void __cdecl luaH_forcerehash(int param_1); /* 0x1000c450 */
-int __cdecl present(int param_1,int *param_2); /* 0x1000c4d0 */
-int __cdecl hashindex(undefined4 *param_1); /* 0x1000c580 */
-int * __cdecl luaH_get(int param_1,int *param_2); /* 0x1000c5f0 */
-int * __cdecl luaH_set(int param_1,int *param_2); /* 0x1000c620 */
-void __cdecl rehash(int param_1); /* 0x1000c6b0 */
-undefined4 __cdecl emptyslots(int param_1); /* 0x1000c770 */
-int __cdecl luaH_next(int param_1,int *param_2); /* 0x1000c7b0 */
-int __cdecl hashnext(int param_1,int param_2); /* 0x1000c810 */
+Node * __cdecl luaH_hashnodecreate(int nhash); /* 0x1000c390 */
+Hash * __cdecl luaH_new(int nhash); /* 0x1000c3d0 */
+void __cdecl luaH_forcerehash(Hash *t); /* 0x1000c450 */
+int __cdecl present(Hash *t,TObject *key); /* 0x1000c4d0 */
+int __cdecl hashindex(TObject *ref); /* 0x1000c580 */
+TObject * __cdecl luaH_get(Hash *t,TObject *ref); /* 0x1000c5f0 */
+TObject * __cdecl luaH_set(Hash *t,TObject *ref); /* 0x1000c620 */
+void __cdecl rehash(Hash *t); /* 0x1000c6b0 */
+int __cdecl emptyslots(Hash *t); /* 0x1000c770 */
+Node * __cdecl luaH_next(TObject *o,TObject *r); /* 0x1000c7b0 */
+Node * __cdecl hashnext(Hash *t,int i); /* 0x1000c810 */
 
 /* ===== ltm.c ===== */
 void luaT_init(void); /* 0x1000c850 */
@@ -415,7 +415,7 @@ void __cdecl init_entry(int param_1); /* 0x1000c8a0 */
 void __cdecl luaT_realtag(int param_1); /* 0x1000c920 */
 int __cdecl validevent(int param_1,int param_2); /* 0x1000c9c0 */
 void __cdecl luaT_checktag(int param_1); /* 0x1000c9f0 */
-uint __cdecl luaT_efectivetag(uint *param_1); /* 0x1000ca20 */
+int __cdecl luaT_efectivetag(TObject *o); /* 0x1000ca20 */
 undefined * __cdecl luaT_gettagmethod(int param_1,byte *param_2); /* 0x1000ca60 */
 int __cdecl luaI_checkevent(byte *param_1,undefined4 *param_2); /* 0x1000cab0 */
 void __cdecl luaT_settagmethod(int param_1,byte *param_2,undefined4 *param_3); /* 0x1000cae0 */
@@ -453,10 +453,10 @@ undefined4 __cdecl luaV_tostring(int *param_1); /* 0x1000d620 */
 /* ===== lvm.c ===== */
 void __cdecl luaV_closure(uint param_1); /* 0x1000d6d0 */
 void luaV_gettable(void); /* 0x1000d740 */
-void __cdecl luaV_settable(uint *param_1,int param_2); /* 0x1000d810 */
-void __cdecl luaV_getglobal(int param_1); /* 0x1000d900 */
-void __cdecl luaV_setglobal(int *param_1); /* 0x1000d990 */
-void __cdecl luaV_pack(int param_1,int param_2,undefined4 *param_3); /* 0x1000da30 */
+void __cdecl luaV_settable(TObject *t,int mode); /* 0x1000d810 */
+void __cdecl luaV_getglobal(TaggedString *ts); /* 0x1000d900 */
+void __cdecl luaV_setglobal(TaggedString *ts); /* 0x1000d990 */
+void __cdecl luaV_pack(int firstel,int nvararg,TObject *tab); /* 0x1000da30 */
 void ExecutionState_CleanUp(void); /* 0x1000db10 */
 undefined4 __thiscall ExecutionState_Save(void *this,int a1); /* 0x1000db40 */
 undefined4 __thiscall ExecutionState_Restore(void *this,int a1,int a2,int a3); /* 0x1000dbd0 */
@@ -469,7 +469,7 @@ void __fastcall ExecutionState_resetcounter(int param_1); /* 0x1000de20 */
 int __fastcall ExecutionState_execute(int *param_1); /* 0x1000de30 */
 void __cdecl adjust_varargs(int param_1); /* 0x1000dee0 */
 int __fastcall ExecutionState_CrunchOpcodes(int *param_1); /* 0x1000df40 */
-undefined4 __cdecl strconc(char *param_1,char *param_2); /* 0x1000ebc0 */
+TaggedString * __cdecl strconc(char *param_1,char *param_2); /* 0x1000ebc0 */
 void __cdecl call_binTM(int param_1,byte *param_2); /* 0x1000ec50 */
 void __cdecl call_arith(int param_1); /* 0x1000ecf0 */
 void __cdecl comparison(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4); /* 0x1000ed10 */

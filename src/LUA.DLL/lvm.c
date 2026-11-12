@@ -12,33 +12,33 @@ void __cdecl luaV_closure(uint param_1)
 
 {
   int *piVar1;
-  undefined4 *puVar2;
+  Closure *pCVar2;
   int iVar3;
   undefined4 *puVar4;
-  undefined4 *puVar5;
+  Closure *pCVar5;
   
   if (0 < (int)param_1) {
     piVar1 = g_pLuaState + 7;
-    puVar2 = luaF_newproto(param_1);
+    pCVar2 = luaF_newclosure(param_1);
     iVar3 = *piVar1;
-    puVar2[3] = *(undefined4 *)(iVar3 + -8);
-    puVar2[4] = *(undefined4 *)(iVar3 + -4);
+    pCVar2->aConsts[0].nTtype = *(int *)(iVar3 + -8);
+    pCVar2->aConsts[0].dwValue = *(uint *)(iVar3 + -4);
     puVar4 = (undefined4 *)(*piVar1 - (param_1 * 8 + 8));
-    puVar5 = puVar2 + 5;
+    pCVar5 = pCVar2 + 1;
     for (iVar3 = (param_1 & 0x1fffffff) << 1; iVar3 != 0; iVar3 = iVar3 + -1) {
-      *puVar5 = *puVar4;
+      pCVar5->pNext = (Closure *)*puVar4;
       puVar4 = puVar4 + 1;
-      puVar5 = puVar5 + 1;
+      pCVar5 = (Closure *)&pCVar5->nMarked;
     }
     for (iVar3 = 0; iVar3 != 0; iVar3 = iVar3 + -1) {
-      *(undefined1 *)puVar5 = *(undefined1 *)puVar4;
+      *(undefined1 *)&pCVar5->pNext = *(undefined1 *)puVar4;
       puVar4 = (undefined4 *)((int)puVar4 + 1);
-      puVar5 = (undefined4 *)((int)puVar5 + 1);
+      pCVar5 = (Closure *)((int)&pCVar5->pNext + 1);
     }
     iVar3 = *piVar1 + param_1 * -8;
     *piVar1 = iVar3;
     *(undefined4 *)(iVar3 + -8) = 0xfffffff8;
-    *(undefined4 **)(*piVar1 + -4) = puVar2;
+    *(Closure **)(*piVar1 + -4) = pCVar2;
   }
   return;
 }
@@ -52,40 +52,39 @@ void luaV_gettable(void)
   int *piVar1;
   int iVar2;
   int iVar3;
-  uint uVar4;
-  int *piVar5;
+  TObject *pTVar4;
   
-  iVar2 = g_pLuaState[7];
+  iVar3 = g_pLuaState[7];
   piVar1 = g_pLuaState + 7;
-  if (*(int *)(iVar2 + -0x10) == -3) {
-    iVar3 = *(int *)(*(int *)(iVar2 + -0xc) + 0x14);
-    piVar5 = (int *)(g_dwLState_IMtable + iVar3 * -0x90);
-    if (*piVar5 == -7) {
-      piVar5 = luaH_get(*(int *)(iVar2 + -0xc),(int *)(iVar2 + -8));
-      if ((piVar5 != (int *)0x0) && (*piVar5 != -7)) {
-        iVar2 = *piVar1;
-        *piVar1 = iVar2 + -8;
-        *(int *)(iVar2 + -0x10) = *piVar5;
-        *(int *)(iVar2 + -0xc) = piVar5[1];
+  if (*(int *)(iVar3 + -0x10) == -3) {
+    iVar2 = (*(Hash **)(iVar3 + -0xc))->nHtag;
+    pTVar4 = (TObject *)(g_dwLState_IMtable + iVar2 * -0x90);
+    if (pTVar4->nTtype == -7) {
+      pTVar4 = luaH_get(*(Hash **)(iVar3 + -0xc),(TObject *)(iVar3 + -8));
+      if ((pTVar4 != (TObject *)0x0) && (pTVar4->nTtype != -7)) {
+        iVar3 = *piVar1;
+        *piVar1 = iVar3 + -8;
+        *(int *)(iVar3 + -0x10) = pTVar4->nTtype;
+        *(uint *)(iVar3 + -0xc) = pTVar4->dwValue;
         return;
       }
-      piVar5 = (int *)(g_dwLState_IMtable + iVar3 * -0x90 + 0x10);
-      if (*piVar5 != -7) {
-        luaD_callTM(piVar5,2,(void *)0x1);
+      pTVar4 = (TObject *)(g_dwLState_IMtable + iVar2 * -0x90 + 0x10);
+      if (pTVar4->nTtype != -7) {
+        luaD_callTM(pTVar4,2,1);
         return;
       }
-      iVar2 = *piVar1;
-      *piVar1 = iVar2 + -8;
-      *(undefined4 *)(iVar2 + -0x10) = 0xfffffff9;
+      iVar3 = *piVar1;
+      *piVar1 = iVar3 + -8;
+      *(undefined4 *)(iVar3 + -0x10) = 0xfffffff9;
       return;
     }
   }
   else {
-    uVar4 = luaT_efectivetag((uint *)(iVar2 + -0x10));
-    piVar5 = (int *)(g_dwLState_IMtable + uVar4 * -0x90);
+    iVar3 = luaT_efectivetag((TObject *)(iVar3 + -0x10));
+    pTVar4 = (TObject *)(g_dwLState_IMtable + iVar3 * -0x90);
   }
-  if (*piVar5 != -7) {
-    luaD_callTM(piVar5,2,(void *)0x1);
+  if (pTVar4->nTtype != -7) {
+    luaD_callTM(pTVar4,2,1);
     return;
   }
   lua_error((byte *)s_indexed_expression_not_a_table_10028180);
@@ -95,47 +94,46 @@ void luaV_gettable(void)
 /* ---- 0x1000d810  luaV_settable ---- */
 /* Unidentified function of lvm.c (virtual machine) */
 
-void __cdecl luaV_settable(uint *param_1,int param_2)
+void __cdecl luaV_settable(TObject *t,int mode)
 
 {
   int *piVar1;
   int iVar2;
-  int iVar3;
-  uint *puVar4;
-  int *piVar5;
-  uint uVar6;
+  int *piVar3;
+  TObject *pTVar4;
+  int iVar5;
   
   piVar1 = g_pLuaState + 7;
-  if (param_2 == 0) {
-    piVar5 = (int *)0x0;
+  if (mode == 0) {
+    pTVar4 = (TObject *)0x0;
   }
   else {
-    uVar6 = luaT_efectivetag(param_1);
-    piVar5 = (int *)(g_dwLState_IMtable + uVar6 * -0x90 + 8);
+    iVar5 = luaT_efectivetag(t);
+    pTVar4 = (TObject *)(g_dwLState_IMtable + iVar5 * -0x90 + 8);
   }
-  if ((*param_1 == 0xfffffffd) && ((piVar5 == (int *)0x0 || (*piVar5 == -7)))) {
-    piVar5 = luaH_set(param_1[1],(int *)(param_1 + 2));
-    iVar2 = *piVar1;
-    *piVar5 = *(int *)(iVar2 + -8);
-    piVar5[1] = *(int *)(iVar2 + -4);
-    *piVar1 = *piVar1 + ((-(uint)(param_2 != 2) & 2) + 1) * -8;
+  if ((t->nTtype == -3) && ((pTVar4 == (TObject *)0x0 || (pTVar4->nTtype == -7)))) {
+    pTVar4 = luaH_set((Hash *)t->dwValue,t + 1);
+    iVar5 = *piVar1;
+    pTVar4->nTtype = *(int *)(iVar5 + -8);
+    pTVar4->dwValue = *(uint *)(iVar5 + -4);
+    *piVar1 = *piVar1 + ((-(uint)(mode != 2) & 2) + 1) * -8;
     return;
   }
-  if ((piVar5 != (int *)0x0) && (*piVar5 != -7)) {
-    if (param_2 == 2) {
-      iVar2 = g_pLuaState[7];
-      iVar3 = *piVar1;
-      *(undefined4 *)(iVar3 + 8) = *(undefined4 *)(iVar2 + -8);
-      *(undefined4 *)(iVar3 + 0xc) = *(undefined4 *)(iVar2 + -4);
-      puVar4 = (uint *)*piVar1;
-      *puVar4 = param_1[2];
-      puVar4[1] = param_1[3];
+  if ((pTVar4 != (TObject *)0x0) && (pTVar4->nTtype != -7)) {
+    if (mode == 2) {
+      iVar5 = g_pLuaState[7];
       iVar2 = *piVar1;
-      *(uint *)(iVar2 + -8) = *param_1;
-      *(uint *)(iVar2 + -4) = param_1[1];
+      *(undefined4 *)(iVar2 + 8) = *(undefined4 *)(iVar5 + -8);
+      *(undefined4 *)(iVar2 + 0xc) = *(undefined4 *)(iVar5 + -4);
+      piVar3 = (int *)*piVar1;
+      *piVar3 = t[1].nTtype;
+      piVar3[1] = t[1].dwValue;
+      iVar5 = *piVar1;
+      *(int *)(iVar5 + -8) = t->nTtype;
+      *(uint *)(iVar5 + -4) = t->dwValue;
       *piVar1 = *piVar1 + 0x10;
     }
-    luaD_callTM(piVar5,3,(void *)0x0);
+    luaD_callTM(pTVar4,3,0);
     return;
   }
   lua_error((byte *)s_indexed_expression_not_a_table_10028180);
@@ -145,59 +143,57 @@ void __cdecl luaV_settable(uint *param_1,int param_2)
 /* ---- 0x1000d900  luaV_getglobal ---- */
 /* Unidentified function of lvm.c (virtual machine) */
 
-void __cdecl luaV_getglobal(int param_1)
+void __cdecl luaV_getglobal(TaggedString *ts)
 
 {
-  uint *puVar1;
-  int *piVar2;
+  TObject *o;
+  int *piVar1;
+  int iVar2;
   int iVar3;
-  uint uVar4;
-  int iVar5;
-  uint *puVar6;
+  int *piVar4;
   
-  puVar1 = (uint *)(param_1 + 0x10);
-  uVar4 = luaT_efectivetag(puVar1);
-  iVar5 = g_dwLState_IMtable + uVar4 * -0x90;
-  if (*(int *)(iVar5 + 0x18) == -7) {
-    puVar6 = (uint *)g_pLuaState[7];
-    *puVar6 = *puVar1;
-    puVar6[1] = *(uint *)(param_1 + 0x14);
+  o = &ts->globalval;
+  iVar3 = luaT_efectivetag(o);
+  iVar3 = g_dwLState_IMtable + iVar3 * -0x90;
+  if (*(int *)(iVar3 + 0x18) == -7) {
+    piVar1 = (int *)g_pLuaState[7];
+    *piVar1 = o->nTtype;
+    piVar1[1] = (ts->globalval).dwValue;
     g_pLuaState[7] = g_pLuaState[7] + 8;
     return;
   }
-  piVar2 = g_pLuaState + 7;
+  piVar1 = g_pLuaState + 7;
   *(undefined4 *)g_pLuaState[7] = 0xfffffffe;
-  *(int *)(*piVar2 + 4) = param_1;
-  iVar3 = *piVar2;
-  puVar6 = (uint *)(iVar3 + 8);
-  *piVar2 = (int)puVar6;
-  *puVar6 = *puVar1;
-  *(undefined4 *)(iVar3 + 0xc) = *(undefined4 *)(param_1 + 0x14);
-  *piVar2 = *piVar2 + 8;
-  luaD_callTM((undefined4 *)(iVar5 + 0x18),2,(void *)0x1);
+  *(TaggedString **)(*piVar1 + 4) = ts;
+  iVar2 = *piVar1;
+  piVar4 = (int *)(iVar2 + 8);
+  *piVar1 = (int)piVar4;
+  *piVar4 = o->nTtype;
+  *(uint *)(iVar2 + 0xc) = (ts->globalval).dwValue;
+  *piVar1 = *piVar1 + 8;
+  luaD_callTM((TObject *)(iVar3 + 0x18),2,1);
   return;
 }
 
 /* ---- 0x1000d990  luaV_setglobal ---- */
 /* Unidentified function of lvm.c (virtual machine) */
 
-void __cdecl luaV_setglobal(int *param_1)
+void __cdecl luaV_setglobal(TaggedString *ts)
 
 {
   int iVar1;
   undefined4 uVar2;
   undefined4 uVar3;
-  uint *puVar4;
-  uint uVar5;
+  int *piVar4;
+  int iVar5;
   int *piVar6;
-  int iVar7;
-  undefined4 *puVar8;
+  undefined4 *puVar7;
   
-  uVar5 = luaT_efectivetag((uint *)(param_1 + 4));
-  iVar7 = g_dwLState_IMtable + uVar5 * -0x90;
-  if (*(int *)(iVar7 + 0x20) == -7) {
+  iVar5 = luaT_efectivetag(&ts->globalval);
+  iVar5 = g_dwLState_IMtable + iVar5 * -0x90;
+  if (*(int *)(iVar5 + 0x20) == -7) {
     g_pLuaState[7] = g_pLuaState[7] + -8;
-    luaS_rawsetglobal(param_1,(int *)g_pLuaState[7]);
+    luaS_rawsetglobal(ts,(TObject *)g_pLuaState[7]);
     return;
   }
   piVar6 = g_pLuaState + 7;
@@ -205,17 +201,17 @@ void __cdecl luaV_setglobal(int *param_1)
   uVar2 = *(undefined4 *)(iVar1 + -8);
   uVar3 = *(undefined4 *)(iVar1 + -4);
   *(undefined4 *)(iVar1 + -8) = 0xfffffffe;
-  *(int **)(*piVar6 + -4) = param_1;
-  puVar4 = (uint *)*piVar6;
-  *puVar4 = param_1[4];
-  puVar4[1] = param_1[5];
+  *(TaggedString **)(*piVar6 + -4) = ts;
+  piVar4 = (int *)*piVar6;
+  *piVar4 = (ts->globalval).nTtype;
+  piVar4[1] = (ts->globalval).dwValue;
   iVar1 = *piVar6;
-  puVar8 = (undefined4 *)(iVar1 + 8);
-  *piVar6 = (int)puVar8;
-  *puVar8 = uVar2;
+  puVar7 = (undefined4 *)(iVar1 + 8);
+  *piVar6 = (int)puVar7;
+  *puVar7 = uVar2;
   *(undefined4 *)(iVar1 + 0xc) = uVar3;
   *piVar6 = *piVar6 + 8;
-  luaD_callTM((undefined4 *)(iVar7 + 0x20),3,(void *)0x0);
+  luaD_callTM((TObject *)(iVar5 + 0x20),3,0);
   return;
 }
 
@@ -224,51 +220,49 @@ void __cdecl luaV_setglobal(int *param_1)
 #if 0
 /* Unidentified function of lvm.c (virtual machine) */
 
-void __cdecl luaV_pack(int param_1,int param_2,undefined4 *param_3)
+void __cdecl luaV_pack(int firstel,int nvararg,TObject *tab)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
-  undefined4 *puVar3;
-  int *piVar4;
+  uint uVar2;
+  Hash *pHVar3;
+  TObject *pTVar4;
   int *piVar5;
-  #define local_10 (*(int *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
+  #define local_10 (*(TObject *)(_frame + (0x20 - 0x10)))
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  piVar5 = (int *)(g_pLuaState[8] + param_1 * 8);
-  if (param_2 < 0) {
-    param_2 = 0;
+  piVar5 = (int *)(g_pLuaState[8] + firstel * 8);
+  if (nvararg < 0) {
+    nvararg = 0;
   }
-  puVar3 = luaH_new(param_2 + 1);
-  param_3[1] = puVar3;
-  *param_3 = 0xfffffffd;
-  param_1 = 0;
-  if (0 < param_2) {
+  pHVar3 = luaH_new(nvararg + 1);
+  tab->dwValue = (uint)pHVar3;
+  tab->nTtype = -3;
+  firstel = 0;
+  if (0 < nvararg) {
     do {
       iVar1 = *piVar5;
-      local_c = (float)param_1 - -1.0;
-      iVar2 = piVar5[1];
-      local_10 = -1;
-      piVar4 = luaH_set(param_3[1],&local_10);
-      *piVar4 = iVar1;
-      param_1 = param_1 + 1;
+      local_10.dwValue = PUN(uint,(float)((float)firstel - -1.0));
+      uVar2 = piVar5[1];
+      local_10.nTtype = -1;
+      pTVar4 = luaH_set((Hash *)tab->dwValue,&local_10);
+      pTVar4->nTtype = iVar1;
+      firstel = firstel + 1;
       piVar5 = piVar5 + 2;
-      piVar4[1] = iVar2;
-    } while (param_1 < param_2);
+      pTVar4->dwValue = uVar2;
+    } while (firstel < nvararg);
   }
-  local_10 = -2;
-  local_c = PUN(float,luaS_new(&DAT_10026994));
-  local_4 = (float)param_2;
-  piVar5 = luaH_set(param_3[1],&local_10);
-  *piVar5 = -1;
-  piVar5[1] = PUN(int,(float)local_4);
+  local_10.nTtype = -2;
+  local_10.dwValue = (uint)luaS_new(&DAT_10026994);
+  local_4 = (float)nvararg;
+  pTVar4 = luaH_set((Hash *)tab->dwValue,&local_10);
+  pTVar4->nTtype = -1;
+  pTVar4->dwValue = PUN(uint,(float)local_4);
   return;
 }
 #undef local_10
 #undef local_4
-#undef local_c
 
 #endif
 
@@ -522,19 +516,17 @@ void __cdecl adjust_varargs(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 *puVar1;
-  #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  int *piVar1;
+  #define local_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
   luaV_pack(param_1,(g_pLuaState[7] - g_pLuaState[8] >> 3) - param_1,&local_8);
   luaD_adjusttop(param_1);
-  puVar1 = (undefined4 *)g_pLuaState[7];
-  *puVar1 = local_8;
-  puVar1[1] = local_4;
+  piVar1 = (int *)g_pLuaState[7];
+  *piVar1 = local_8.nTtype;
+  piVar1[1] = local_8.dwValue;
   g_pLuaState[7] = g_pLuaState[7] + 8;
   return;
 }
-#undef local_4
 #undef local_8
 
 
@@ -550,28 +542,28 @@ int __fastcall ExecutionState_CrunchOpcodes(int *param_1)
   byte bVar1;
   byte *pbVar2;
   undefined4 uVar3;
-  int iVar4;
-  int iVar5;
+  undefined4 *puVar4;
+  uint uVar5;
   int iVar6;
-  bool bVar7;
+  int iVar7;
   byte *pbVar8;
-  int *piVar9;
-  undefined4 *puVar10;
-  undefined3 extraout_var;
+  TObject *pTVar9;
+  Hash *pHVar10;
   int iVar11;
   undefined4 uVar12;
-  int iVar13;
-  int *piVar14;
-  uint uVar15;
+  int *piVar13;
+  int iVar14;
+  int *piVar15;
+  uint uVar16;
   
   if ((g_pLuaState[6] != 0) && (g_pLuaState[2] == 0)) {
     printf(s_WARNING__Lua_nesting_level_now___1002821c,g_pLuaState[6]);
   }
   g_pLuaState[6] = g_pLuaState[6] + 1;
 switchD_1000dfaf_default:
-  iVar13 = param_1[10];
-  param_1[10] = iVar13 + 1;
-  if (9999999 < iVar13) {
+  iVar14 = param_1[10];
+  param_1[10] = iVar14 + 1;
+  if (9999999 < iVar14) {
     lua_error((byte *)s_WARNING__Killing_Lua_script_that_100281c4);
   }
   pbVar2 = (byte *)param_1[8];
@@ -588,9 +580,9 @@ switchD_1000dfaf_default:
     do {
       **(undefined4 **)param_1[7] = 0xfffffff9;
       *(int *)param_1[7] = *(int *)param_1[7] + 8;
-      iVar13 = param_1[9];
-      param_1[9] = iVar13 + -1;
-    } while (iVar13 != 0);
+      iVar14 = param_1[9];
+      param_1[9] = iVar14 + -1;
+    } while (iVar14 != 0);
     goto switchD_1000dfaf_default;
   case 2:
     **(undefined4 **)param_1[7] = 0xfffffff9;
@@ -627,11 +619,11 @@ switchD_1000dfaf_default:
     param_1[8] = (int)(pbVar2 + 3);
     param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e1a7:
-    iVar13 = param_1[9];
+    iVar14 = param_1[9];
     iVar11 = param_1[0xb];
-    puVar10 = *(undefined4 **)param_1[7];
-    *puVar10 = *(undefined4 *)(iVar11 + iVar13 * 8);
-    puVar10[1] = *(undefined4 *)(iVar11 + 4 + iVar13 * 8);
+    puVar4 = *(undefined4 **)param_1[7];
+    *puVar4 = *(undefined4 *)(iVar11 + iVar14 * 8);
+    puVar4[1] = *(undefined4 *)(iVar11 + 4 + iVar14 * 8);
     *(int *)param_1[7] = *(int *)param_1[7] + 8;
     goto switchD_1000dfaf_default;
   case 0x12:
@@ -642,11 +634,11 @@ LAB_1000e1a7:
   case 0x14:
     param_1[9] = param_1[9] + -0x13;
 LAB_1000e1da:
-    iVar13 = param_1[9];
+    iVar14 = param_1[9];
     iVar11 = *param_1;
-    puVar10 = *(undefined4 **)param_1[7];
-    *puVar10 = *(undefined4 *)(iVar11 + 0x14 + iVar13 * 8);
-    puVar10[1] = *(undefined4 *)(iVar11 + 0x18 + iVar13 * 8);
+    puVar4 = *(undefined4 **)param_1[7];
+    *puVar4 = *(undefined4 *)(iVar11 + 0x14 + iVar14 * 8);
+    puVar4[1] = *(undefined4 *)(iVar11 + 0x18 + iVar14 * 8);
     *(int *)param_1[7] = *(int *)param_1[7] + 8;
     goto switchD_1000dfaf_default;
   case 0x15:
@@ -663,12 +655,12 @@ LAB_1000e1da:
   case 0x1d:
     param_1[9] = param_1[9] + -0x16;
 LAB_1000e058:
-    iVar13 = param_1[2];
+    iVar14 = param_1[2];
     iVar11 = param_1[9];
-    iVar4 = ((int *)param_1[7])[1];
-    puVar10 = *(undefined4 **)param_1[7];
-    *puVar10 = *(undefined4 *)(iVar4 + (iVar13 + iVar11) * 8);
-    puVar10[1] = *(undefined4 *)(iVar4 + 4 + (iVar13 + iVar11) * 8);
+    iVar6 = ((int *)param_1[7])[1];
+    puVar4 = *(undefined4 **)param_1[7];
+    *puVar4 = *(undefined4 *)(iVar6 + (iVar14 + iVar11) * 8);
+    puVar4[1] = *(undefined4 *)(iVar6 + 4 + (iVar14 + iVar11) * 8);
     *(int *)param_1[7] = *(int *)param_1[7] + 8;
     goto switchD_1000dfaf_default;
   case 0x1e:
@@ -689,7 +681,7 @@ LAB_1000e058:
     param_1[8] = (int)(pbVar2 + 3);
     param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e0aa:
-    luaV_getglobal(*(int *)(param_1[0xb] + 4 + param_1[9] * 8));
+    luaV_getglobal(*(TaggedString **)(param_1[0xb] + 4 + param_1[9] * 8));
     goto switchD_1000dfaf_default;
   case 0x28:
     goto switchD_1000dfaf_caseD_28;
@@ -711,11 +703,11 @@ LAB_1000e0aa:
     param_1[8] = (int)(pbVar2 + 3);
     param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e0ed:
-    iVar13 = param_1[9];
+    iVar14 = param_1[9];
     iVar11 = param_1[0xb];
-    puVar10 = *(undefined4 **)param_1[7];
-    *puVar10 = *(undefined4 *)(iVar11 + iVar13 * 8);
-    puVar10[1] = *(undefined4 *)(iVar11 + 4 + iVar13 * 8);
+    puVar4 = *(undefined4 **)param_1[7];
+    *puVar4 = *(undefined4 *)(iVar11 + iVar14 * 8);
+    puVar4[1] = *(undefined4 *)(iVar11 + 4 + iVar14 * 8);
     *(int *)param_1[7] = *(int *)param_1[7] + 8;
 switchD_1000dfaf_caseD_28:
     luaV_gettable();
@@ -738,18 +730,18 @@ switchD_1000dfaf_caseD_28:
     param_1[8] = (int)(pbVar2 + 3);
     param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e13f:
-    iVar13 = param_1[9];
-    puVar10 = *(undefined4 **)param_1[7];
+    iVar14 = param_1[9];
+    puVar4 = *(undefined4 **)param_1[7];
     iVar11 = param_1[0xb];
-    uVar12 = puVar10[-2];
-    uVar3 = puVar10[-1];
-    *puVar10 = *(undefined4 *)(iVar11 + iVar13 * 8);
-    puVar10[1] = *(undefined4 *)(iVar11 + 4 + iVar13 * 8);
+    uVar12 = puVar4[-2];
+    uVar3 = puVar4[-1];
+    *puVar4 = *(undefined4 *)(iVar11 + iVar14 * 8);
+    puVar4[1] = *(undefined4 *)(iVar11 + 4 + iVar14 * 8);
     *(int *)param_1[7] = *(int *)param_1[7] + 8;
     luaV_gettable();
-    puVar10 = *(undefined4 **)param_1[7];
-    *puVar10 = uVar12;
-    puVar10[1] = uVar3;
+    puVar4 = *(undefined4 **)param_1[7];
+    *puVar4 = uVar12;
+    puVar4[1] = uVar3;
     *(int *)param_1[7] = *(int *)param_1[7] + 8;
     goto switchD_1000dfaf_default;
   case 0x3d:
@@ -765,8 +757,8 @@ LAB_1000e13f:
     param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e420:
     luaC_checkGC();
-    puVar10 = luaH_new(param_1[9]);
-    *(undefined4 **)(*(int *)param_1[7] + 4) = puVar10;
+    pHVar10 = luaH_new(param_1[9]);
+    *(Hash **)(*(int *)param_1[7] + 4) = pHVar10;
     **(undefined4 **)param_1[7] = 0xfffffffd;
     *(int *)param_1[7] = *(int *)param_1[7] + 8;
     goto switchD_1000dfaf_default;
@@ -785,12 +777,12 @@ LAB_1000e420:
     param_1[9] = param_1[9] + -0x42;
 LAB_1000e20d:
     *(int *)param_1[7] = *(int *)param_1[7] + -8;
-    iVar13 = param_1[2];
+    iVar14 = param_1[2];
     iVar11 = param_1[9];
-    puVar10 = *(undefined4 **)param_1[7];
-    iVar4 = ((int *)param_1[7])[1];
-    *(undefined4 *)(iVar4 + (iVar13 + iVar11) * 8) = *puVar10;
-    *(undefined4 *)(iVar4 + 4 + (iVar13 + iVar11) * 8) = puVar10[1];
+    puVar4 = *(undefined4 **)param_1[7];
+    iVar6 = ((int *)param_1[7])[1];
+    *(undefined4 *)(iVar6 + (iVar14 + iVar11) * 8) = *puVar4;
+    *(undefined4 *)(iVar6 + 4 + (iVar14 + iVar11) * 8) = puVar4[1];
     goto switchD_1000dfaf_default;
   case 0x4a:
     param_1[9] = (uint)*pbVar8;
@@ -810,16 +802,16 @@ LAB_1000e20d:
     param_1[8] = (int)(pbVar2 + 3);
     param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e263:
-    luaV_setglobal(*(int **)(param_1[0xb] + 4 + param_1[9] * 8));
+    luaV_setglobal(*(TaggedString **)(param_1[0xb] + 4 + param_1[9] * 8));
     goto switchD_1000dfaf_default;
   case 0x54:
-    luaV_settable((uint *)(*(int *)param_1[7] + -0x18),1);
+    luaV_settable((TObject *)(*(int *)param_1[7] + -0x18),1);
     goto switchD_1000dfaf_default;
   case 0x55:
     bVar1 = *pbVar8;
-    iVar13 = *(int *)param_1[7];
+    iVar14 = *(int *)param_1[7];
     param_1[8] = (int)(pbVar2 + 2);
-    luaV_settable((uint *)(iVar13 - ((uint)bVar1 * 8 + 0x18)),2);
+    luaV_settable((TObject *)(iVar14 - ((uint)bVar1 * 8 + 0x18)),2);
     goto switchD_1000dfaf_default;
   case 0x56:
     param_1[9] = (uint)*pbVar8 << 6;
@@ -832,19 +824,19 @@ LAB_1000e263:
     param_1[8] = (int)(pbVar2 + 3);
     param_1[9] = ((uint)pbVar2[1] + (uint)pbVar2[2] * 0x100) * 0x40;
 LAB_1000e2ed:
-    uVar15 = (uint)*(byte *)param_1[8];
+    uVar16 = (uint)*(byte *)param_1[8];
     param_1[8] = (int)((byte *)param_1[8] + 1);
     iVar11 = *(int *)param_1[7];
-    iVar13 = uVar15 * 8;
-    for (; uVar15 != 0; uVar15 = uVar15 - 1) {
+    iVar14 = uVar16 * 8;
+    for (; uVar16 != 0; uVar16 = uVar16 - 1) {
       **(undefined4 **)param_1[7] = 0xffffffff;
-      *(float *)(*(int *)param_1[7] + 4) = (float)(int)uVar15 + (float)param_1[9];
-      piVar9 = *(int **)param_1[7];
-      iVar4 = piVar9[-2];
-      iVar5 = piVar9[-1];
-      piVar9 = luaH_set(*(int *)((iVar11 - (iVar13 + 8)) + 4),piVar9);
-      *piVar9 = iVar4;
-      piVar9[1] = iVar5;
+      *(float *)(*(int *)param_1[7] + 4) = (float)(int)uVar16 + (float)param_1[9];
+      pTVar9 = *(TObject **)param_1[7];
+      iVar6 = pTVar9[-1].nTtype;
+      uVar5 = pTVar9[-1].dwValue;
+      pTVar9 = luaH_set(*(Hash **)((iVar11 - (iVar14 + 8)) + 4),pTVar9);
+      pTVar9->nTtype = iVar6;
+      pTVar9->dwValue = uVar5;
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
     goto switchD_1000dfaf_default;
@@ -855,29 +847,29 @@ LAB_1000e2ed:
   case 0x5a:
     param_1[9] = 0;
 LAB_1000e37f:
-    iVar13 = param_1[9];
+    iVar14 = param_1[9];
     iVar11 = *(int *)param_1[7];
     do {
-      iVar4 = *(int *)param_1[7];
-      iVar5 = *(int *)(iVar4 + -8);
-      iVar6 = *(int *)(iVar4 + -4);
-      piVar9 = luaH_set(*(int *)(iVar11 + iVar13 * -0x10 + -0x14),(int *)(iVar4 + -0x10));
-      *piVar9 = iVar5;
-      piVar9[1] = iVar6;
+      iVar6 = *(int *)param_1[7];
+      iVar7 = *(int *)(iVar6 + -8);
+      uVar16 = *(uint *)(iVar6 + -4);
+      pTVar9 = luaH_set(*(Hash **)(iVar11 + iVar14 * -0x10 + -0x14),(TObject *)(iVar6 + -0x10));
+      pTVar9->nTtype = iVar7;
+      pTVar9->dwValue = uVar16;
       *(int *)param_1[7] = *(int *)param_1[7] + -0x10;
-      iVar4 = param_1[9];
-      param_1[9] = iVar4 + -1;
-    } while (iVar4 != 0);
+      iVar6 = param_1[9];
+      param_1[9] = iVar6 + -1;
+    } while (iVar6 != 0);
     goto switchD_1000dfaf_default;
   case 0x5b:
   case 0x5c:
-    bVar7 = luaO_equalObj((int *)(*(int *)param_1[7] + -0x10),(int *)(*(int *)param_1[7] + -8));
-    uVar15 = ((uint)(bVar7));
+    uVar16 = luaO_equalObj((TObject *)(*(int *)param_1[7] + -0x10),
+                           (TObject *)(*(int *)param_1[7] + -8));
     *(int *)param_1[7] = *(int *)param_1[7] + -8;
     if (param_1[9] == 0x5c) {
-      uVar15 = (uint)(uVar15 == 0);
+      uVar16 = (uint)(uVar16 == 0);
     }
-    *(uint *)(*(int *)param_1[7] + -8) = (-(uint)(uVar15 != 0) & 6) - 7;
+    *(uint *)(*(int *)param_1[7] + -8) = (-(uint)(uVar16 != 0) & 6) - 7;
     *(undefined4 *)(*(int *)param_1[7] + -4) = 0x3f800000;
     goto switchD_1000dfaf_default;
   case 0x5d:
@@ -893,12 +885,12 @@ LAB_1000e37f:
     comparison(0xfffffff9,0xffffffff,0xffffffff,0xe);
     goto switchD_1000dfaf_default;
   case 0x61:
-    iVar13 = *(int *)param_1[7];
-    if (((*(int *)(iVar13 + -8) == -1) ||
-        (iVar11 = luaV_tonumber((int *)(iVar13 + -8)), iVar11 == 0)) &&
-       ((*(int *)(iVar13 + -0x10) == -1 ||
-        (iVar11 = luaV_tonumber((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
-      *(float *)(iVar13 + -0xc) = *(float *)(iVar13 + -4) + *(float *)(iVar13 + -0xc);
+    iVar14 = *(int *)param_1[7];
+    if (((*(int *)(iVar14 + -8) == -1) ||
+        (iVar11 = luaV_tonumber((int *)(iVar14 + -8)), iVar11 == 0)) &&
+       ((*(int *)(iVar14 + -0x10) == -1 ||
+        (iVar11 = luaV_tonumber((int *)(iVar14 + -0x10)), iVar11 == 0)))) {
+      *(float *)(iVar14 + -0xc) = *(float *)(iVar14 + -4) + *(float *)(iVar14 + -0xc);
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
     else {
@@ -906,12 +898,12 @@ LAB_1000e37f:
     }
     goto switchD_1000dfaf_default;
   case 0x62:
-    iVar13 = *(int *)param_1[7];
-    if (((*(int *)(iVar13 + -8) == -1) ||
-        (iVar11 = luaV_tonumber((int *)(iVar13 + -8)), iVar11 == 0)) &&
-       ((*(int *)(iVar13 + -0x10) == -1 ||
-        (iVar11 = luaV_tonumber((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
-      *(float *)(iVar13 + -0xc) = *(float *)(iVar13 + -0xc) - *(float *)(iVar13 + -4);
+    iVar14 = *(int *)param_1[7];
+    if (((*(int *)(iVar14 + -8) == -1) ||
+        (iVar11 = luaV_tonumber((int *)(iVar14 + -8)), iVar11 == 0)) &&
+       ((*(int *)(iVar14 + -0x10) == -1 ||
+        (iVar11 = luaV_tonumber((int *)(iVar14 + -0x10)), iVar11 == 0)))) {
+      *(float *)(iVar14 + -0xc) = *(float *)(iVar14 + -0xc) - *(float *)(iVar14 + -4);
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
     else {
@@ -919,12 +911,12 @@ LAB_1000e37f:
     }
     goto switchD_1000dfaf_default;
   case 99:
-    iVar13 = *(int *)param_1[7];
-    if (((*(int *)(iVar13 + -8) == -1) ||
-        (iVar11 = luaV_tonumber((int *)(iVar13 + -8)), iVar11 == 0)) &&
-       ((*(int *)(iVar13 + -0x10) == -1 ||
-        (iVar11 = luaV_tonumber((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
-      *(float *)(iVar13 + -0xc) = *(float *)(iVar13 + -4) * *(float *)(iVar13 + -0xc);
+    iVar14 = *(int *)param_1[7];
+    if (((*(int *)(iVar14 + -8) == -1) ||
+        (iVar11 = luaV_tonumber((int *)(iVar14 + -8)), iVar11 == 0)) &&
+       ((*(int *)(iVar14 + -0x10) == -1 ||
+        (iVar11 = luaV_tonumber((int *)(iVar14 + -0x10)), iVar11 == 0)))) {
+      *(float *)(iVar14 + -0xc) = *(float *)(iVar14 + -4) * *(float *)(iVar14 + -0xc);
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
     else {
@@ -932,12 +924,12 @@ LAB_1000e37f:
     }
     goto switchD_1000dfaf_default;
   case 100:
-    iVar13 = *(int *)param_1[7];
-    if (((*(int *)(iVar13 + -8) == -1) ||
-        (iVar11 = luaV_tonumber((int *)(iVar13 + -8)), iVar11 == 0)) &&
-       ((*(int *)(iVar13 + -0x10) == -1 ||
-        (iVar11 = luaV_tonumber((int *)(iVar13 + -0x10)), iVar11 == 0)))) {
-      *(float *)(iVar13 + -0xc) = *(float *)(iVar13 + -0xc) / *(float *)(iVar13 + -4);
+    iVar14 = *(int *)param_1[7];
+    if (((*(int *)(iVar14 + -8) == -1) ||
+        (iVar11 = luaV_tonumber((int *)(iVar14 + -8)), iVar11 == 0)) &&
+       ((*(int *)(iVar14 + -0x10) == -1 ||
+        (iVar11 = luaV_tonumber((int *)(iVar14 + -0x10)), iVar11 == 0)))) {
+      *(float *)(iVar14 + -0xc) = *(float *)(iVar14 + -0xc) / *(float *)(iVar14 + -4);
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
     }
     else {
@@ -948,14 +940,14 @@ LAB_1000e37f:
     call_arith(9);
     goto switchD_1000dfaf_default;
   case 0x66:
-    iVar13 = *(int *)param_1[7];
-    if (((*(int *)(iVar13 + -0x10) == -2) ||
-        (iVar11 = luaV_tostring((int *)(iVar13 + -0x10)), iVar11 == 0)) &&
-       ((*(int *)(iVar13 + -8) == -2 || (iVar11 = luaV_tostring((int *)(iVar13 + -8)), iVar11 == 0))
+    iVar14 = *(int *)param_1[7];
+    if (((*(int *)(iVar14 + -0x10) == -2) ||
+        (iVar11 = luaV_tostring((int *)(iVar14 + -0x10)), iVar11 == 0)) &&
+       ((*(int *)(iVar14 + -8) == -2 || (iVar11 = luaV_tostring((int *)(iVar14 + -8)), iVar11 == 0))
        )) {
-      uVar12 = strconc((char *)(*(int *)(iVar13 + -0xc) + 0x18),
-                       (char *)(*(int *)(iVar13 + -4) + 0x18));
-      *(undefined4 *)(iVar13 + -0xc) = uVar12;
+      uVar12 = strconc((char *)(*(int *)(iVar14 + -0xc) + 0x18),
+                       (char *)(*(int *)(iVar14 + -4) + 0x18));
+      *(undefined4 *)(iVar14 + -0xc) = uVar12;
       *(int *)param_1[7] = *(int *)param_1[7] + -8;
       luaC_checkGC();
     }
@@ -966,7 +958,7 @@ LAB_1000e37f:
     goto switchD_1000dfaf_default;
   case 0x67:
     if ((*(int *)(*(int *)param_1[7] + -8) == -1) ||
-       (iVar13 = luaV_tonumber((int *)(*(int *)param_1[7] + -8)), iVar13 == 0)) {
+       (iVar14 = luaV_tonumber((int *)(*(int *)param_1[7] + -8)), iVar14 == 0)) {
       *(float *)(*(int *)param_1[7] + -4) = -*(float *)(*(int *)param_1[7] + -4);
     }
     else {
@@ -988,11 +980,11 @@ LAB_1000e37f:
     param_1[8] = (int)(pbVar2 + 3);
     param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e756:
-    piVar9 = (int *)param_1[7];
-    piVar14 = (int *)(*piVar9 + -8);
-    if (*piVar14 == -7) {
+    piVar13 = (int *)param_1[7];
+    piVar15 = (int *)(*piVar13 + -8);
+    if (*piVar15 == -7) {
 LAB_1000e7b5:
-      *piVar9 = (int)piVar14;
+      *piVar13 = (int)piVar15;
     }
     else {
       param_1[8] = param_1[8] + param_1[9];
@@ -1006,9 +998,9 @@ LAB_1000e7b5:
     param_1[8] = (int)(pbVar2 + 3);
     param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e798:
-    piVar9 = (int *)param_1[7];
-    piVar14 = (int *)(*piVar9 + -8);
-    if (*piVar14 != -7) goto LAB_1000e7b5;
+    piVar13 = (int *)param_1[7];
+    piVar15 = (int *)(*piVar13 + -8);
+    if (*piVar15 != -7) goto LAB_1000e7b5;
     param_1[8] = param_1[8] + param_1[9];
     goto switchD_1000dfaf_default;
   case 0x6d:
@@ -1019,9 +1011,9 @@ LAB_1000e798:
     goto switchD_1000dfaf_default;
   case 0x6e:
     param_1[8] = (int)(pbVar2 + 3);
-    iVar13 = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
-    param_1[9] = iVar13;
-    param_1[8] = (int)(pbVar2 + 3 + iVar13);
+    iVar14 = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    param_1[9] = iVar14;
+    param_1[8] = (int)(pbVar2 + 3 + iVar14);
     goto switchD_1000dfaf_default;
   case 0x6f:
     param_1[9] = (uint)*pbVar8;
@@ -1081,11 +1073,11 @@ LAB_1000e8ef:
   case 0x7a:
     param_1[9] = param_1[9] + -0x79;
 LAB_1000e9a0:
-    iVar13 = *(int *)param_1[7];
+    iVar14 = *(int *)param_1[7];
     iVar11 = ((int *)param_1[7])[1];
     bVar1 = *(byte *)param_1[8];
     param_1[8] = (int)((byte *)param_1[8] + 1);
-    iVar13 = -((iVar13 - iVar11 >> 3) - (uint)bVar1);
+    iVar14 = -((iVar14 - iVar11 >> 3) - (uint)bVar1);
     goto LAB_1000e9fd;
   case 0x7b:
     goto switchD_1000dfaf_caseD_7b;
@@ -1097,12 +1089,12 @@ LAB_1000e9a0:
     param_1[8] = (int)(pbVar2 + 3);
     param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e92a:
-    iVar13 = ((int *)param_1[7])[1];
-    if (*(int *)(iVar13 + -8 + param_1[2] * 8) != -0xc) {
-      luaD_openstack((*(int *)param_1[7] - iVar13 >> 3) - param_1[2]);
-      iVar13 = param_1[2];
-      param_1[2] = iVar13 + 1;
-      *(undefined4 *)(*(int *)(param_1[7] + 4) + -8 + (iVar13 + 1) * 8) = 0xfffffff4;
+    iVar14 = ((int *)param_1[7])[1];
+    if (*(int *)(iVar14 + -8 + param_1[2] * 8) != -0xc) {
+      luaD_openstack((*(int *)param_1[7] - iVar14 >> 3) - param_1[2]);
+      iVar14 = param_1[2];
+      param_1[2] = iVar14 + 1;
+      *(undefined4 *)(*(int *)(param_1[7] + 4) + -8 + (iVar14 + 1) * 8) = 0xfffffff4;
     }
     *(int *)(*(int *)(param_1[7] + 4) + -4 + param_1[2] * 8) = param_1[9];
     if (lua_linehook != 0) {
@@ -1132,15 +1124,15 @@ switchD_1000dfaf_caseD_7b:
     luaD_callHook(param_1[2],0,1);
   }
   if (param_1[9] == 0x7b) {
-    uVar15 = (uint)*(byte *)param_1[8];
+    uVar16 = (uint)*(byte *)param_1[8];
   }
   else {
-    uVar15 = 0;
+    uVar16 = 0;
   }
-  iVar13 = param_1[2] + uVar15;
+  iVar14 = param_1[2] + uVar16;
 LAB_1000e9fd:
   g_pLuaState[6] = g_pLuaState[6] + -1;
-  return iVar13;
+  return iVar14;
 }
 
 /* ---- 0x1000ebc0  strconc ---- */
@@ -1148,82 +1140,81 @@ LAB_1000e9fd:
    source name (lvm.c static strconc(l, r): luaL_openspace(strlen(l) + strlen(r) + 1), strcpy,
    strcat); was luaV_strconc. */
 
-undefined4 __cdecl strconc(char *param_1,char *param_2)
+TaggedString * __cdecl strconc(char *param_1,char *param_2)
 
 {
   char cVar1;
-  byte *pbVar2;
-  undefined4 uVar3;
+  char *pcVar2;
+  TaggedString *pTVar3;
   uint uVar4;
   uint uVar5;
   uint uVar6;
-  byte *pbVar7;
+  char *pcVar7;
   char *pcVar8;
-  byte *pbVar9;
   
   uVar4 = 0xffffffff;
-  pcVar8 = param_1;
+  pcVar2 = param_1;
   do {
     if (uVar4 == 0) break;
     uVar4 = uVar4 - 1;
-    cVar1 = *pcVar8;
-    pcVar8 = pcVar8 + 1;
+    cVar1 = *pcVar2;
+    pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
   uVar5 = 0xffffffff;
-  pcVar8 = param_2;
+  pcVar2 = param_2;
   do {
     if (uVar5 == 0) break;
     uVar5 = uVar5 - 1;
-    cVar1 = *pcVar8;
-    pcVar8 = pcVar8 + 1;
+    cVar1 = *pcVar2;
+    pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
-  pbVar2 = (byte *)luaL_openspace(~uVar5 + (~uVar4 - 1));
+  pcVar2 = (char *)luaL_openspace(~uVar5 + (~uVar4 - 1));
   uVar5 = 0xffffffff;
   do {
-    pcVar8 = param_1;
+    pcVar7 = param_1;
     if (uVar5 == 0) break;
     uVar5 = uVar5 - 1;
-    pcVar8 = param_1 + 1;
+    pcVar7 = param_1 + 1;
     cVar1 = *param_1;
-    param_1 = pcVar8;
+    param_1 = pcVar7;
   } while (cVar1 != '\0');
   uVar5 = ~uVar5;
-  pbVar7 = (byte *)(pcVar8 + -uVar5);
-  pbVar9 = pbVar2;
+  pcVar7 = pcVar7 + -uVar5;
+  pcVar8 = pcVar2;
   for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-    *(undefined4 *)pbVar9 = *(undefined4 *)pbVar7;
-    pbVar7 = pbVar7 + 4;
-    pbVar9 = pbVar9 + 4;
+    *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
+    pcVar7 = pcVar7 + 4;
+    pcVar8 = pcVar8 + 4;
   }
   for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-    *pbVar9 = *pbVar7;
-    pbVar7 = pbVar7 + 1;
-    pbVar9 = pbVar9 + 1;
+    *pcVar8 = *pcVar7;
+    pcVar7 = pcVar7 + 1;
+    pcVar8 = pcVar8 + 1;
   }
   uVar5 = 0xffffffff;
   do {
-    pcVar8 = param_2;
+    pcVar7 = param_2;
     if (uVar5 == 0) break;
     uVar5 = uVar5 - 1;
-    pcVar8 = param_2 + 1;
+    pcVar7 = param_2 + 1;
     cVar1 = *param_2;
-    param_2 = pcVar8;
+    param_2 = pcVar7;
   } while (cVar1 != '\0');
   uVar5 = ~uVar5;
-  pbVar7 = (byte *)(pcVar8 + -uVar5);
-  pbVar9 = pbVar2 + (~uVar4 - 1);
+  pcVar7 = pcVar7 + -uVar5;
+  pcVar8 = pcVar2 + (~uVar4 - 1);
   for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-    *(undefined4 *)pbVar9 = *(undefined4 *)pbVar7;
-    pbVar7 = pbVar7 + 4;
-    pbVar9 = pbVar9 + 4;
+    *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
+    pcVar7 = pcVar7 + 4;
+    pcVar8 = pcVar8 + 4;
   }
   for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-    *pbVar9 = *pbVar7;
-    pbVar7 = pbVar7 + 1;
-    pbVar9 = pbVar9 + 1;
+    *pcVar8 = *pcVar7;
+    pcVar7 = pcVar7 + 1;
+    pcVar8 = pcVar8 + 1;
   }
-  uVar3 = luaS_new(pbVar2);
-  return uVar3;
+  pTVar3 = luaS_new(pcVar2);
+  return pTVar3;
 }
 
 /* ---- 0x1000ec50  call_binTM ---- */
@@ -1234,25 +1225,24 @@ undefined4 __cdecl strconc(char *param_1,char *param_2)
 void __cdecl call_binTM(int param_1,byte *param_2)
 
 {
-  uint uVar1;
-  int iVar2;
-  undefined4 *puVar3;
+  int iVar1;
+  TObject *f;
   
-  uVar1 = luaT_efectivetag((uint *)(g_pLuaState[7] + -0x10));
-  iVar2 = param_1 + uVar1 * -0x12;
-  puVar3 = (undefined4 *)(g_dwLState_IMtable + iVar2 * 8);
-  if (*(int *)(g_dwLState_IMtable + iVar2 * 8) == -7) {
-    uVar1 = luaT_efectivetag((uint *)(g_pLuaState[7] + -8));
-    iVar2 = param_1 + uVar1 * -0x12;
-    puVar3 = (undefined4 *)(g_dwLState_IMtable + iVar2 * 8);
-    if ((*(int *)(g_dwLState_IMtable + iVar2 * 8) == -7) &&
-       (puVar3 = (undefined4 *)(g_dwLState_IMtable + param_1 * 8),
+  iVar1 = luaT_efectivetag((TObject *)(g_pLuaState[7] + -0x10));
+  iVar1 = param_1 + iVar1 * -0x12;
+  f = (TObject *)(g_dwLState_IMtable + iVar1 * 8);
+  if (*(int *)(g_dwLState_IMtable + iVar1 * 8) == -7) {
+    iVar1 = luaT_efectivetag((TObject *)(g_pLuaState[7] + -8));
+    iVar1 = param_1 + iVar1 * -0x12;
+    f = (TObject *)(g_dwLState_IMtable + iVar1 * 8);
+    if ((*(int *)(g_dwLState_IMtable + iVar1 * 8) == -7) &&
+       (f = (TObject *)(g_dwLState_IMtable + param_1 * 8),
        *(int *)(g_dwLState_IMtable + param_1 * 8) == -7)) {
       lua_error(param_2);
     }
   }
   lua_pushstring((&g_pLuaT_eventname)[param_1]);
-  luaD_callTM(puVar3,3,(void *)0x1);
+  luaD_callTM(f,3,1);
   return;
 }
 
