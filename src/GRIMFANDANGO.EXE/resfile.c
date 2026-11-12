@@ -39,7 +39,7 @@ int __cdecl Res_FOpen(char *name,char *mode)
     if (*puVar3 == 0) break;
     puVar3 = puVar3 + 0x40b;
     iVar7 = iVar7 + 1;
-  } while ((int)puVar3 < IMG_ADDR(0x008a7540));
+  } while ((int)puVar3 < ((unsigned)(uintptr_t)&DAT_008a7540));
   if (iVar7 != 0x80) {
     iVar1 = iVar7 * 0x102c;
     puVar3 = &UINT_00825f40 + iVar7 * 0x40b;
@@ -49,7 +49,7 @@ int __cdecl Res_FOpen(char *name,char *mode)
       puVar9 = puVar9 + 1;
     }
     uVar5 = 0xffffffff;
-    *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f60)) = 0x1000;
+    *(undefined4 *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f60)) = 0x1000;
     pcVar8 = mode;
     do {
       pcVar10 = pcVar8;
@@ -61,7 +61,7 @@ int __cdecl Res_FOpen(char *name,char *mode)
     } while (cVar2 != '\0');
     uVar5 = ~uVar5;
     pcVar8 = pcVar10 + -uVar5;
-    pcVar10 = (char *)(iVar1 + IMG_ADDR(0x00825f64));
+    pcVar10 = (char *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f64));
     for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
       *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
       pcVar8 = pcVar8 + 4;
@@ -77,9 +77,9 @@ int __cdecl Res_FOpen(char *name,char *mode)
        (iVar4 = res_FindInternalFile(name,local_218), iVar4 != 0)) {
       if (local_208 != 0) {
         *puVar3 = local_214;
-        *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f5c)) = 0;
-        *(uint *)(iVar1 + IMG_ADDR(0x00825f50)) = local_210;
-        *(uint *)(iVar1 + IMG_ADDR(0x00825f54)) = local_20c;
+        *(undefined4 *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f5c)) = 0;
+        *(uint *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f50)) = local_210;
+        *(uint *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f54)) = local_20c;
         return iVar7 + 1;
       }
       uVar5 = (**(code **)(g_dwLowLevelHS + 0x30))(local_103,mode);
@@ -87,13 +87,13 @@ int __cdecl Res_FOpen(char *name,char *mode)
       if (uVar5 == 0) {
         return 0;
       }
-      *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f5c)) = 1;
+      *(undefined4 *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f5c)) = 1;
       return iVar7 + 1;
     }
     uVar5 = (**(code **)(g_dwLowLevelHS + 0x30))(name,mode);
     *puVar3 = uVar5;
     if (uVar5 != 0) {
-      *(undefined4 *)(iVar1 + IMG_ADDR(0x00825f5c)) = 1;
+      *(undefined4 *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f5c)) = 1;
       return iVar7 + 1;
     }
   }
@@ -177,7 +177,7 @@ uint __cdecl Res_FRead(int fh,void *buf,uint n)
   }
   uVar3 = *(uint *)(&DAT_00824f20 + iVar1);
   if (n <= uVar3) {
-    puVar6 = (undefined4 *)(iVar1 + IMG_ADDR(0x00824f40) + *(int *)(&DAT_00824f1c + iVar1));
+    puVar6 = (undefined4 *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00824f40) + *(int *)(&DAT_00824f1c + iVar1));
     for (uVar3 = n >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
       *(undefined4 *)buf = *puVar6;
       puVar6 = puVar6 + 1;
@@ -255,7 +255,7 @@ char * Res_FGets(int param_1,char *param_2,uint param_3)
   if (*(uint *)(&DAT_00824f20 + iVar1) < param_3) {
     param_3 = *(uint *)(&DAT_00824f20 + iVar1) + 1;
   }
-  pcVar3 = (char *)(iVar1 + IMG_ADDR(0x00824f40) + *(int *)(&DAT_00824f1c + iVar1));
+  pcVar3 = (char *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00824f40) + *(int *)(&DAT_00824f1c + iVar1));
   pcVar5 = param_2;
   while (param_3 = param_3 - 1, 0 < (int)param_3) {
     cVar4 = *pcVar3;

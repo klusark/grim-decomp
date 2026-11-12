@@ -476,7 +476,7 @@ void setloc(void)
   lVar4 = FTOL(luaL_opt_number(2,0.0));
   iVar1 = (int)lVar4;
   if ((iVar1 < 0) || (5 < iVar1)) {
-    luaL_argerror(2,IMG_ADDR(0x10026cb0));
+    luaL_argerror(2,((unsigned)(uintptr_t)&s_invalid_option_10026cb0));
   }
   puVar2 = (uint *)luaL_check_string(1);
   pbVar3 = (byte *)setlocale(*(int *)(&g_aSetloc_cat + iVar1 * 4),puVar2);

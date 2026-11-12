@@ -246,7 +246,7 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
   if (pcVar4 == (char *)0x0) {
     pcVar4 = param_5;
   }
-  iVar3 = Cos_RegisterComponent(param_1,(int)pcVar4,(int)ref,param_2,param_3,param_4,IMG_ADDR(0x004e9f08));
+  iVar3 = Cos_RegisterComponent(param_1,(int)pcVar4,(int)ref,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004e9f08));
   return iVar3 != 0;
 }
 #undef local_1

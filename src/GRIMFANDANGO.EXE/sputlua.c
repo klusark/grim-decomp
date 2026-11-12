@@ -14,35 +14,36 @@ void sputLua_GetActorCostumeL(void)
   int iVar1;
   int iVar2;
   int iVar3;
-  char *pcVar4;
-  int *piVar5;
-  longlong lVar6;
+  Actor *pAVar4;
+  char *pcVar5;
+  CostumeNode *pCVar6;
+  longlong lVar7;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
   iVar3 = lua_isuserdata(iVar1);
   if ((iVar3 != 0) && (iVar3 = lua_tag(iVar1), iVar3 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    iVar1 = sputActor_ActorDeref(iVar1);
-    piVar5 = *(int **)(iVar1 + 0xa0);
+    pAVar4 = sputActor_ActorDeref(iVar1);
+    pCVar6 = pAVar4->pCostumes;
     iVar1 = lua_isnil(iVar2);
     if (iVar1 == 0) {
       iVar1 = lua_isnumber(iVar2);
       if (iVar1 == 0) {
         return;
       }
-      lVar6 = (longlong)lua_getnumber(iVar2);
-      iVar1 = (int)lVar6;
-      if (piVar5 == (int *)0x0) goto LAB_0049a295;
+      lVar7 = (longlong)lua_getnumber(iVar2);
+      iVar1 = (int)lVar7;
+      if (pCVar6 == (CostumeNode *)0x0) goto LAB_0049a295;
       do {
         if (iVar1 < 1) break;
-        piVar5 = (int *)piVar5[0x2c];
+        pCVar6 = pCVar6->pNext;
         iVar1 = iVar1 + -1;
-      } while (piVar5 != (int *)0x0);
+      } while (pCVar6 != (CostumeNode *)0x0);
     }
-    if (piVar5 != (int *)0x0) {
-      pcVar4 = (char *)Cos_InstGetCostume(*piVar5,(int *)0x0);
-      lua_pushstring(pcVar4);
+    if (pCVar6 != (CostumeNode *)0x0) {
+      pcVar5 = (char *)Cos_InstGetCostume(pCVar6->dwInstance,(int *)0x0);
+      lua_pushstring(pcVar5);
       return;
     }
   }
@@ -833,8 +834,9 @@ void sputLua_FadeInChore(void)
   void *luaObj;
   int iVar2;
   int iVar3;
+  Actor *pAVar4;
   uint chore;
-  longlong lVar4;
+  longlong lVar5;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -845,19 +847,19 @@ void sputLua_FadeInChore(void)
   iVar3 = lua_isuserdata(iVar1);
   if ((iVar3 != 0) && (iVar3 = lua_tag(iVar1), iVar3 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
-    iVar1 = sputActor_ActorDeref(iVar1);
-    lVar4 = (longlong)lua_getnumber(iVar2);
-    chore = (uint)lVar4;
-    lVar4 = (longlong)lua_getnumber(local_4);
-    iVar2 = lua_isstring((int)luaObj);
-    if ((iVar2 == 0) && (iVar2 = lua_isnumber((int)luaObj), iVar2 == 0)) {
+    pAVar4 = sputActor_ActorDeref(iVar1);
+    lVar5 = (longlong)lua_getnumber(iVar2);
+    chore = (uint)lVar5;
+    lVar5 = (longlong)lua_getnumber(local_4);
+    iVar1 = lua_isstring((int)luaObj);
+    if ((iVar1 == 0) && (iVar1 = lua_isnumber((int)luaObj), iVar1 == 0)) {
       return;
     }
-    iVar1 = FindCostumeInStack(luaObj,*(void **)(iVar1 + 0xa0),(void **)&local_8);
+    iVar1 = FindCostumeInStack(luaObj,pAVar4->pCostumes,(CostumeNode **)&local_8);
     if (iVar1 != 0) {
       Cos_InstPlayChore(*(int *)local_8,chore,0,0);
       Cos_InstUpdateChore(*(int *)local_8,chore,100);
-      sputCostume_FadeKeysIn(*(void **)local_8,chore,(int)lVar4);
+      sputCostume_FadeKeysIn(*(void **)local_8,chore,(int)lVar5);
     }
   }
   return;

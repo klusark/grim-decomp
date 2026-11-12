@@ -492,7 +492,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   }
   *puVar6 = 0;
   (*(code *)a2)(&g_dwLState_lstate_class_initialized,4);
-  LState_LoadResolvedObject(IMG_ADDR(0x1002bf58),a2);
+  LState_LoadResolvedObject(((unsigned)(uintptr_t)&g_dwLState_errorim),a2);
   (*(code *)a2)(&g_dwLState_IMtable_size,4);
   g_dwLState_IMtable =
        (**(code **)(g_dwLuaHS + 0x20))
@@ -677,7 +677,7 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
   _DAT_1002bf0c = puVar1;
   luaA_ResetSaveCount();
   (*(code *)a2)(&g_dwLState_lstate_class_initialized,4);
-  LState_SaveObject(IMG_ADDR(0x1002bf58),a2);
+  LState_SaveObject(((unsigned)(uintptr_t)&g_dwLState_errorim),a2);
   (*(code *)a2)(&g_dwLState_IMtable_size,4);
   uVar4 = 0;
   iVar5 = g_dwLState_IMtable;

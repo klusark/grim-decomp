@@ -627,7 +627,7 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
           } while (local_a8 < g_dwNumGeoLights);
         }
         fVar13 = rdLight_CalcVertexIntensities
-                           ((int *)&UINT_007f30e0,(float *)&g_aLocalLightPos,IMG_ADDR(0x007f1168),uVar10,
+                           ((int *)&UINT_007f30e0,(float *)&g_aLocalLightPos,((unsigned)(uintptr_t)&g_aLocalLightDir),uVar10,
                             *(int **)((int)pvVar11 + 0x44),*(uint *)((int)pvVar11 + 0x30),
                             *(float **)((int)pvVar11 + 0x38),*(float **)((int)pvVar11 + 0x3c),
                             *(uint *)((int)pvVar11 + 0x48),*(float *)((int)pvVar9 + 0x45c));
@@ -784,7 +784,7 @@ undefined4 rdModel3_DrawFace(int param_1,int param_2)
       pfVar4 = &local_24;
     }
     fVar7 = rdLight_CalcFaceIntensity
-                      ((int *)&UINT_007f30e0,IMG_ADDR(0x007f1598),IMG_ADDR(0x007f1168),g_dwNumMeshLights,param_1,pfVar4,
+                      ((int *)&UINT_007f30e0,((unsigned)(uintptr_t)&g_aLocalLightPos),((unsigned)(uintptr_t)&g_aLocalLightDir),g_dwNumMeshLights,param_1,pfVar4,
                        iVar5,fVar7);
     *(float *)(iVar2 + 0x44) = fVar7;
   }

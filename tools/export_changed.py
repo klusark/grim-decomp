@@ -107,7 +107,8 @@ def export_changed(prog_name, prog_path, touched, dry=False):
                 f.write(fn().replace("\r\n", "\n"))
         except Exception as e:
             print("  aux failed", name, e)
-    print(f"{prog_name}: done ({len(todo)} functions)")
+    export_raw.dump_structs(prog_name, prog_path)
+    print(prog_name + ": done (" + str(len(todo)) + " functions)")
 
 
 def main(argv):

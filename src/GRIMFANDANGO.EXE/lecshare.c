@@ -128,7 +128,7 @@ undefined4 LecShare_Shutdown(void)
   }
   piVar1 = PTR_008d56f4 + 3;
   piVar4 = PTR_008d56f4;
-  for (iVar5 = (int)((int *)((char *)PTR_008d56f4 - IMG_ADDR(0x008d56f0))) / 0xc; PTR_008d56f4 = piVar1, iVar5 != 0;
+  for (iVar5 = (int)((int *)((char *)PTR_008d56f4 - ((unsigned)(uintptr_t)&UINT_008d56f0))) / 0xc; PTR_008d56f4 = piVar1, iVar5 != 0;
       iVar5 = iVar5 + -1) {
     if ((*piVar4 != 0) && (iVar2 = Str_ModuleNameLength(*piVar4), iVar2 == 9)) {
       uVar3 = Str_ModuleNameLength(*piVar4);

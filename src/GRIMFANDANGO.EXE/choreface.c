@@ -35,14 +35,14 @@ int __cdecl ChoreFace_Toggle(int show)
     return 0;
   }
   if (UINT_004f5a6c == 0) {
-    UINT_004f4530 = LoadLibraryA(IMG_ADDR(0x004dd728));
+    UINT_004f4530 = LoadLibraryA(((unsigned)(uintptr_t)&DAT_004dd728));
     if (UINT_004f4530 == 0) {
       return 0;
     }
-    UINT_004f5a70 = GetProcAddress(UINT_004f4530,IMG_ADDR(0x004dd718));
-    UINT_004f5a74 = GetProcAddress(UINT_004f4530,IMG_ADDR(0x004dd708));
-    UINT_004f5a78 = GetProcAddress(UINT_004f4530,IMG_ADDR(0x004dd6ec));
-    _DAT_004f5a7c = (code *)GetProcAddress(UINT_004f4530,IMG_ADDR(0x004dd6d4));
+    UINT_004f5a70 = GetProcAddress(UINT_004f4530,((unsigned)(uintptr_t)&s__ShowChoreFace_004dd718));
+    UINT_004f5a74 = GetProcAddress(UINT_004f4530,((unsigned)(uintptr_t)&s__HideChoreFace_004dd708));
+    UINT_004f5a78 = GetProcAddress(UINT_004f4530,((unsigned)(uintptr_t)&s__RegisterCommandCallback_004dd6ec));
+    _DAT_004f5a7c = (code *)GetProcAddress(UINT_004f4530,((unsigned)(uintptr_t)&s__choreface_Initialize_004dd6d4));
     if ((((UINT_004f5a70 != 0) && (UINT_004f5a74 != 0)) && (UINT_004f5a78 != 0)) &&
        (_DAT_004f5a7c != (code *)0x0)) {
       iVar1 = (*_DAT_004f5a7c)(PTR_g_aHs_004dd040,&DAT_004f4d90);

@@ -69,11 +69,11 @@ void nextvar(void)
   piVar3 = g_dwLState_rootglobal;
   if (*piVar2 != -7) {
     if (*piVar2 != -2) {
-      luaL_argerror(1,IMG_ADDR(0x100266a0));
+      luaL_argerror(1,((unsigned)(uintptr_t)&s_variable_name_expected_100266a0));
     }
     piVar3 = (int *)piVar2[1];
     if (piVar3 == (int *)*piVar3) {
-      luaL_argerror(1,IMG_ADDR(0x100266a0));
+      luaL_argerror(1,((unsigned)(uintptr_t)&s_variable_name_expected_100266a0));
     }
     piVar3 = (int *)*piVar3;
   }
@@ -714,7 +714,7 @@ void tonumber(void)
   else {
     pbStack_c = (byte *)luaL_check_string(1);
     if (((int)uVar3 < 0) || (0x24 < (int)uVar3)) {
-      luaL_argerror(2,IMG_ADDR(0x10026964));
+      luaL_argerror(2,((unsigned)(uintptr_t)&s_base_out_of_range_10026964));
     }
     uVar3 = ((code *)strtol)(pbStack_c,&pbStack_c,uVar3);
     uVar4 = FUN_1000f620((int)(char)*pbStack_c);

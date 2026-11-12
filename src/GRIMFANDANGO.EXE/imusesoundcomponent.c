@@ -21,7 +21,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
+  Actor *pAVar1;
   int iVar2;
   byte bVar3;
   int iVar4;
@@ -34,7 +34,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
   iVar4 = Cos_InstGetUserData(inst);
   iVar6 = slot;
   iVar2 = snd;
-  pvVar1 = g_pActors;
+  pAVar1 = g_pActors;
   if ((*(int *)(&g_aSoundCommands + slot * 4) == 0) &&
      (iVar5 = SoundsIsSoundPlaying(snd), iVar5 == 0)) {
     if (tag != 0x736c6d69) {
@@ -61,7 +61,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
     if ((int)(inst & 0xff) <= (int)*(uint *)(iVar2 + 0x28)) {
       uVar7 = *(uint *)(iVar2 + 0x28);
     }
-    sputRoom_SetSoundPosition(iVar6,(int)pvVar1 + iVar4 * 0xa8 + 0xc,uVar7,bVar3,snd,slot);
+    sputRoom_SetSoundPosition(iVar6,pAVar1[iVar4].aPos,uVar7,bVar3,snd,slot);
     return;
   }
   if (*(int *)(&g_aSoundCommands + iVar6 * 4) == 1) {
@@ -265,7 +265,7 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
   *(undefined1 *)(iVar4 + 0x1f) = 0;
   *(undefined1 *)(iVar4 + 0x20) = uVar5;
   *(undefined **)(iVar4 + 0x24) = puVar6;
-  iVar4 = Cos_RegisterComponent(param_1,(int)param_5,iVar4,param_2,0,param_4,IMG_ADDR(0x004ea018));
+  iVar4 = Cos_RegisterComponent(param_1,(int)param_5,iVar4,param_2,0,param_4,((unsigned)(uintptr_t)&DAT_004ea018));
   return iVar4 != 0;
 }
 #undef local_1

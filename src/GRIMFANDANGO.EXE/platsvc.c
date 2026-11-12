@@ -46,12 +46,12 @@ void stdPlatform_Assert(undefined4 param_1,char *param_2,undefined4 param_3)
     iVar5 = iVar5 + 1;
   }
   ((code *)_vsnprintf)(acStack_200,0x200,s__s__d____s_004dee38,param_2 + iVar5,param_3,param_1);
-  fp = fopen(IMG_ADDR(0x004dee28),IMG_ADDR(0x004dee34));
+  fp = fopen(((unsigned)(uintptr_t)&DAT_004dee28),((unsigned)(uintptr_t)&DAT_004dee34));
   if (fp != (undefined *)0x0) {
     fprintf(fp,acStack_200);
     fclose(fp);
   }
-  MessageBoxA(0,(int)acStack_200,IMG_ADDR(0x004dee18),0x2000);
+  MessageBoxA(0,(int)acStack_200,((unsigned)(uintptr_t)&s_Assert_Handler_004dee18),0x2000);
   DebugBreak();
   exit(1);
   return;

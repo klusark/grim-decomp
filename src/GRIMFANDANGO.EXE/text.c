@@ -11,165 +11,167 @@
    callee of Lua_SetSayLineDefaults; 5 matched neighbours agree, 0 disagree); was
    Text_ParseLuaTable. */
 
-int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj)
+int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *textObj)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  int *piVar1;
   int iVar2;
   int iVar3;
-  longlong lVar4;
+  void *pvVar4;
+  uint uVar5;
+  longlong lVar6;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar3 = *(int *)((int)ctx + 4);
+  piVar1 = ctx->pClipRect;
   lua_pushobject((int)table);
-  iVar1 = lua_getref(g_dwLrX);
-  lua_pushobject(iVar1);
-  iVar1 = lua_gettable();
-  if (iVar1 != 0) {
-    iVar2 = lua_isnumber(iVar1);
-    if (iVar2 != 0) {
-      lVar4 = (longlong)lua_getnumber(iVar1);
-      *(int *)((int)ctx + 0xc) = (int)lVar4;
-      if (textObj != (void *)0x0) {
-        lVar4 = (longlong)lua_getnumber(iVar1);
-        *(int *)((int)textObj + 0x238) = (int)lVar4;
+  iVar2 = lua_getref(g_dwLrX);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar3 = lua_isnumber(iVar2);
+    if (iVar3 != 0) {
+      lVar6 = (longlong)lua_getnumber(iVar2);
+      ctx->nX = (int)lVar6;
+      if (textObj != (TextObject *)0x0) {
+        lVar6 = (longlong)lua_getnumber(iVar2);
+        textObj->nX = (int)lVar6;
       }
     }
   }
   lua_pushobject((int)table);
-  iVar1 = lua_getref(g_dwLrY);
-  lua_pushobject(iVar1);
-  iVar1 = lua_gettable();
-  if (iVar1 != 0) {
-    iVar2 = lua_isnumber(iVar1);
-    if (iVar2 != 0) {
-      lVar4 = (longlong)lua_getnumber(iVar1);
-      *(int *)((int)ctx + 0x10) = (int)lVar4 + *(int *)(**(int **)((int)ctx + 8) + 8);
-      if (textObj != (void *)0x0) {
-        lVar4 = (longlong)lua_getnumber(iVar1);
-        *(int *)((int)textObj + 0x23c) = (int)lVar4;
+  iVar2 = lua_getref(g_dwLrY);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar3 = lua_isnumber(iVar2);
+    if (iVar3 != 0) {
+      lVar6 = (longlong)lua_getnumber(iVar2);
+      ctx->nY = (int)lVar6 + *(int *)(*(int *)ctx->pFont + 8);
+      if (textObj != (TextObject *)0x0) {
+        lVar6 = (longlong)lua_getnumber(iVar2);
+        textObj->nY = (int)lVar6;
       }
     }
   }
   lua_pushobject((int)table);
-  iVar1 = lua_getref(g_dwLrFont);
-  lua_pushobject(iVar1);
-  iVar1 = lua_gettable();
-  if (iVar1 != 0) {
-    iVar2 = lua_isuserdata(iVar1);
-    if (iVar2 != 0) {
-      iVar2 = lua_tag(iVar1);
-      if ((iVar2 == 0x544e4f46) && (g_hEmergencyFont == (void *)0x0)) {
-        iVar1 = lua_getuserdata(iVar1);
-        *(int *)((int)ctx + 8) = iVar1;
+  iVar2 = lua_getref(g_dwLrFont);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar3 = lua_isuserdata(iVar2);
+    if (iVar3 != 0) {
+      iVar3 = lua_tag(iVar2);
+      if ((iVar3 == 0x544e4f46) && (g_hEmergencyFont == (void *)0x0)) {
+        pvVar4 = (void *)lua_getuserdata(iVar2);
+        ctx->pFont = pvVar4;
       }
     }
   }
   lua_pushobject((int)table);
-  iVar1 = lua_getref(g_dwLrWidth);
-  lua_pushobject(iVar1);
-  iVar1 = lua_gettable();
-  if (iVar1 != 0) {
-    iVar2 = lua_isnumber(iVar1);
-    if ((iVar2 != 0) && (iVar3 != 0)) {
-      lVar4 = (longlong)lua_getnumber(iVar1);
-      *(int *)(iVar3 + 8) = (int)lVar4;
+  iVar2 = lua_getref(g_dwLrWidth);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar3 = lua_isnumber(iVar2);
+    if ((iVar3 != 0) && (piVar1 != (int *)0x0)) {
+      lVar6 = (longlong)lua_getnumber(iVar2);
+      piVar1[2] = (int)lVar6;
     }
   }
   lua_pushobject((int)table);
-  iVar1 = lua_getref(g_dwLrHeight);
-  lua_pushobject(iVar1);
-  iVar1 = lua_gettable();
-  if (iVar1 != 0) {
-    iVar2 = lua_isnumber(iVar1);
-    if ((iVar2 != 0) && (iVar3 != 0)) {
-      lVar4 = (longlong)lua_getnumber(iVar1);
-      *(int *)(iVar3 + 0xc) = (int)lVar4;
+  iVar2 = lua_getref(g_dwLrHeight);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar3 = lua_isnumber(iVar2);
+    if ((iVar3 != 0) && (piVar1 != (int *)0x0)) {
+      lVar6 = (longlong)lua_getnumber(iVar2);
+      piVar1[3] = (int)lVar6;
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(g_dwLrFGColor);
-  lua_pushobject(iVar3);
-  iVar3 = lua_gettable();
-  if (iVar3 != 0) {
-    iVar1 = lua_isuserdata(iVar3);
-    if (iVar1 != 0) {
-      iVar1 = lua_tag(iVar3);
-      if (iVar1 == 0x524c4f43) {
-        iVar3 = lua_getuserdata(iVar3);
-        *(int *)((int)ctx + 0x14) = iVar3;
+  iVar2 = lua_getref(g_dwLrFGColor);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar3 = lua_isuserdata(iVar2);
+    if (iVar3 != 0) {
+      iVar3 = lua_tag(iVar2);
+      if (iVar3 == 0x524c4f43) {
+        uVar5 = lua_getuserdata(iVar2);
+        ctx->dwFgColor = uVar5;
       }
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(g_dwLrBGColor);
-  lua_pushobject(iVar3);
-  iVar3 = lua_gettable();
-  if (iVar3 != 0) {
-    iVar1 = lua_isuserdata(iVar3);
-    if (iVar1 != 0) {
-      iVar1 = lua_tag(iVar3);
-      if (iVar1 == 0x524c4f43) {
-        iVar3 = lua_getuserdata(iVar3);
-        *(int *)((int)ctx + 0x18) = iVar3;
+  iVar2 = lua_getref(g_dwLrBGColor);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar3 = lua_isuserdata(iVar2);
+    if (iVar3 != 0) {
+      iVar3 = lua_tag(iVar2);
+      if (iVar3 == 0x524c4f43) {
+        uVar5 = lua_getuserdata(iVar2);
+        ctx->dwBgColor = uVar5;
       }
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(g_dwLrFXColor);
-  lua_pushobject(iVar3);
-  iVar3 = lua_gettable();
-  if (iVar3 != 0) {
-    iVar1 = lua_isuserdata(iVar3);
-    if (iVar1 != 0) {
-      iVar1 = lua_tag(iVar3);
-      if (iVar1 == 0x524c4f43) {
-        iVar3 = lua_getuserdata(iVar3);
-        *(int *)((int)ctx + 0x1c) = iVar3;
+  iVar2 = lua_getref(g_dwLrFXColor);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar3 = lua_isuserdata(iVar2);
+    if (iVar3 != 0) {
+      iVar3 = lua_tag(iVar2);
+      if (iVar3 == 0x524c4f43) {
+        uVar5 = lua_getuserdata(iVar2);
+        ctx->dwFxColor = uVar5;
       }
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(g_dwLrCenter);
-  lua_pushobject(iVar3);
-  iVar3 = lua_gettable();
-  if (iVar3 != 0) {
-    iVar3 = lua_isnil(iVar3);
-    if (iVar3 == 0) {
-      *(undefined4 *)((int)ctx + 0x28) = 5;
+  iVar2 = lua_getref(g_dwLrCenter);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar2 = lua_isnil(iVar2);
+    if (iVar2 == 0) {
+      ctx->dwFlags = 5;
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(g_dwLrLJustify);
-  lua_pushobject(iVar3);
-  iVar3 = lua_gettable();
-  if (iVar3 != 0) {
-    iVar3 = lua_isnil(iVar3);
-    if (iVar3 == 0) {
-      *(undefined4 *)((int)ctx + 0x28) = 4;
+  iVar2 = lua_getref(g_dwLrLJustify);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar2 = lua_isnil(iVar2);
+    if (iVar2 == 0) {
+      ctx->dwFlags = 4;
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(g_dwLrRJustify);
-  lua_pushobject(iVar3);
-  iVar3 = lua_gettable();
-  if (iVar3 != 0) {
-    iVar3 = lua_isnil(iVar3);
-    if (iVar3 == 0) {
-      *(undefined4 *)((int)ctx + 0x28) = 6;
+  iVar2 = lua_getref(g_dwLrRJustify);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar2 = lua_isnil(iVar2);
+    if (iVar2 == 0) {
+      ctx->dwFlags = 6;
     }
   }
   lua_pushobject((int)table);
-  iVar3 = lua_getref(g_dwLrDuration);
-  lua_pushobject(iVar3);
-  iVar3 = lua_gettable();
-  if (iVar3 != 0) {
-    iVar1 = lua_isnumber(iVar3);
-    if (iVar1 != 0) {
-      lVar4 = (longlong)lua_getnumber(iVar3);
-      return (int)lVar4;
+  iVar2 = lua_getref(g_dwLrDuration);
+  lua_pushobject(iVar2);
+  iVar2 = lua_gettable();
+  if (iVar2 != 0) {
+    iVar3 = lua_isnumber(iVar2);
+    if (iVar3 != 0) {
+      lVar6 = (longlong)lua_getnumber(iVar2);
+      return (int)lVar6;
     }
   }
   return -1;
@@ -312,20 +314,20 @@ int __cdecl Text_NextChar(char **pText)
    Text_GetCharKernedWidth (the remaster's GrimFandango (Linux): aligned call in
    sputText_GetTextCharPositionL); was Text_CharWidth. */
 
-int __cdecl Text_GetCharKernedWidth(void *ctx,int ch)
+int __cdecl Text_GetCharKernedWidth(TextContext *ctx,int ch)
 
 {
-  int iVar1;
+  void *pvVar1;
   undefined4 uVar2;
   int iVar3;
   
-  iVar1 = *(int *)((int)ctx + 8);
-  if (iVar1 == 0) {
+  pvVar1 = ctx->pFont;
+  if (pvVar1 == (void *)0x0) {
     (*g_pTextHS->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x270);
   }
-  uVar2 = (*g_pTextHS->pHLock)(iVar1);
+  uVar2 = (*g_pTextHS->pHLock)(pvVar1);
   iVar3 = Font_GlyphWidth(ctx,uVar2,ch);
-  (*g_pTextHS->pHUnlock)(iVar1);
+  (*g_pTextHS->pHUnlock)(pvVar1);
   return iVar3;
 }
 
@@ -334,82 +336,81 @@ int __cdecl Text_GetCharKernedWidth(void *ctx,int ch)
    (Linux): aligned call in sputText_ChangeTextObjectL, sputText_GetTextObjectDimensionsL,
    sputText_MakeTextObjectL); was Text_MeasureWidth. */
 
-int __cdecl Text_GetStringWidth(void *ctx,char *text)
+int __cdecl Text_GetStringWidth(TextContext *ctx,char *text)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  int iVar2;
-  uint uVar3;
-  undefined4 *puVar4;
-  undefined4 *puVar5;
+  void *pvVar1;
+  undefined4 uVar2;
+  int iVar3;
+  uint uVar4;
+  TextContext *pTVar5;
+  undefined4 *puVar6;
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(undefined4 (*)[12])(_frame + (0x50 - 0x30)))
   
-  uVar3 = 0;
-  puVar4 = ctx;
-  puVar5 = local_30;
-  for (iVar2 = 0xc; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar5 = *puVar4;
-    puVar4 = puVar4 + 1;
-    puVar5 = puVar5 + 1;
+  uVar4 = 0;
+  pTVar5 = ctx;
+  puVar6 = local_30;
+  for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
+    *puVar6 = *(undefined4 *)pTVar5;
+    pTVar5 = (TextContext *)&pTVar5->pClipRect;
+    puVar6 = puVar6 + 1;
   }
-  iVar2 = *(int *)((int)ctx + 8);
+  pvVar1 = ctx->pFont;
   local_34 = 0;
-  if (iVar2 == 0) {
+  if (pvVar1 == (void *)0x0) {
     (*g_pTextHS->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x28d);
   }
-  uVar1 = (*g_pTextHS->pHLock)(iVar2);
+  uVar2 = (*g_pTextHS->pHLock)(pvVar1);
   do {
-    text = (char *)text_FindNextBreak(local_30,uVar1,text,&local_34,0,1);
-    if ((int)uVar3 <= (int)local_34) {
-      uVar3 = local_34;
+    text = (char *)text_FindNextBreak(local_30,uVar2,text,&local_34,0,1);
+    if ((int)uVar4 <= (int)local_34) {
+      uVar4 = local_34;
     }
   } while (text != (char *)0x0);
-  (*g_pTextHS->pHUnlock)(iVar2);
-  return uVar3;
+  (*g_pTextHS->pHUnlock)(pvVar1);
+  return uVar4;
 }
 #undef local_30
 #undef local_34
 
 
 /* ---- 0x004aab10  Text_GetStringHeight ---- */
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Source: Temp/Text.c (line 688, from __FILE__/__LINE__ passed to the allocator) Original name
    Text_GetStringHeight (the remaster's GrimFandango (Linux): aligned call in
    sputText_ChangeTextObjectL, sputText_GetTextObjectDimensionsL, sputText_MakeTextObjectL); was
    Text_MeasureHeight. */
 
-int Text_GetStringHeight(void *ctx,char *text)
+int __cdecl Text_GetStringHeight(TextContext *ctx,char *text)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  void *pvVar1;
   undefined4 uVar2;
   int iVar3;
-  undefined4 *puVar4;
+  TextContext *pTVar4;
   undefined4 *puVar5;
   #define local_30 (*(undefined4 (*)[12])(_frame + (0x40 - 0x30)))
   
-  iVar1 = *(int *)((int)ctx + 8);
-  puVar4 = ctx;
+  pvVar1 = ctx->pFont;
+  pTVar4 = ctx;
   puVar5 = local_30;
   for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar5 = *puVar4;
-    puVar4 = puVar4 + 1;
+    *puVar5 = *(undefined4 *)pTVar4;
+    pTVar4 = (TextContext *)&pTVar4->pClipRect;
     puVar5 = puVar5 + 1;
   }
   iVar3 = 0;
-  if (iVar1 == 0) {
+  if (pvVar1 == (void *)0x0) {
     (*g_pTextHS->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x2b0);
   }
-  uVar2 = (*g_pTextHS->pHLock)(iVar1);
+  uVar2 = (*g_pTextHS->pHLock)(pvVar1);
   do {
     text = (char *)text_FindNextBreak(local_30,uVar2,text,0,0,1);
-    iVar3 = iVar3 + (*(int *)(**(int **)((int)ctx + 8) + 4) * *(int *)((int)ctx + 0x24) + 0xffffU >>
-                    0x10);
+    iVar3 = iVar3 + (*(int *)(*(int *)ctx->pFont + 4) * ctx->nScaleY + 0xffffU >> 0x10);
   } while (text != (char *)0x0);
-  (*g_pTextHS->pHUnlock)(iVar1);
+  (*g_pTextHS->pHUnlock)(pvVar1);
   return iVar3;
 }
 #undef local_30
@@ -418,11 +419,11 @@ int Text_GetStringHeight(void *ctx,char *text)
 /* ---- 0x004aabb0  Text_DrawFormatted ---- */
 /* Formats into a 1000-byte buffer and draws it with the default font */
 
-undefined4 Text_DrawFormatted(void *param_1,int param_2)
+undefined4 Text_DrawFormatted(TextContext *param_1,int param_2)
 
 {
   unsigned char _frame[0x400];  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  void *pvVar1;
   undefined4 uVar2;
   void *font;
   #define local_3ec (*(char (*)[1004])(_frame + (0x400 - 0x3ec)))
@@ -431,13 +432,13 @@ undefined4 Text_DrawFormatted(void *param_1,int param_2)
     return 0;
   }
   uVar2 = vsprintf(local_3ec,param_2,&STACK0X(0x0000000c));
-  iVar1 = *(int *)((int)param_1 + 8);
-  if (iVar1 == 0) {
+  pvVar1 = param_1->pFont;
+  if (pvVar1 == (void *)0x0) {
     (*g_pTextHS->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x2fa);
   }
-  font = (void *)(*g_pTextHS->pHLock)(iVar1);
+  font = (void *)(*g_pTextHS->pHLock)(pvVar1);
   Text_DrawString(param_1,font,local_3ec);
-  (*g_pTextHS->pHUnlock)(iVar1);
+  (*g_pTextHS->pHUnlock)(pvVar1);
   return uVar2;
 }
 #undef local_3ec
@@ -802,13 +803,13 @@ undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
    Original name text_FindNextBreak (the remaster's GrimFandango (Linux): aligned call in
    Text_GetStringHeight, Text_GetStringWidth); was Text_LayoutString. */
 
-char * text_FindNextBreak(void *param_1,void *param_2,char *param_3,int *param_4,uint *param_5,
-                         int param_6)
+char * text_FindNextBreak(TextContext *param_1,void *param_2,char *param_3,int *param_4,
+                         uint *param_5,int param_6)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  void *ctx;
+  TextContext *ctx;
   char *pcVar2;
   uint uVar3;
   int iVar4;
@@ -825,10 +826,10 @@ char * text_FindNextBreak(void *param_1,void *param_2,char *param_3,int *param_4
   
   local_c = (uint)param_3;
   ctx = param_1;
-  uVar1 = *(uint *)((int)param_1 + 0x28);
-  iVar7 = **(int **)((int)param_1 + 4);
-  local_10 = *(int *)((int)param_1 + 0xc) - iVar7;
-  uVar3 = ((*(int **)((int)param_1 + 4))[2] + iVar7) - *(int *)((int)param_1 + 0xc);
+  uVar1 = param_1->dwFlags;
+  iVar7 = *param_1->pClipRect;
+  local_10 = param_1->nX - iVar7;
+  uVar3 = (param_1->pClipRect[2] + iVar7) - param_1->nX;
   if ((uVar1 & 1) == 0) {
     if ((uVar1 & 2) != 0) goto LAB_004ab257;
   }
@@ -843,13 +844,13 @@ LAB_004ab257:
   iVar7 = 0;
   uVar3 = 0;
   local_14 = 0;
-  param_1 = (void *)0x0;
+  param_1 = (TextContext *)0x0;
   local_18 = 0;
   local_1c = 0;
   iVar4 = Text_NextChar(&param_3);
   iVar6 = (int)param_1;
   do {
-    param_1 = (void *)iVar6;
+    param_1 = (TextContext *)iVar6;
     pcVar2 = param_3;
     if (iVar4 == 0) {
 LAB_004ab425:
@@ -861,13 +862,13 @@ LAB_004ab425:
           if (local_1c == 0) {
             local_1c = iVar7 + local_18;
             param_3 = (char *)0x0;
-            param_1 = (void *)iVar4;
+            param_1 = (TextContext *)iVar4;
           }
         }
         else {
           local_1c = local_1c + iVar7 + local_18;
           param_3 = (char *)0x0;
-          param_1 = (void *)iVar4;
+          param_1 = (TextContext *)iVar4;
         }
       }
       if (param_6 != 0) {
@@ -877,16 +878,14 @@ LAB_004ab425:
             if ((uVar1 & 2) != 0) {
               iVar7 = -(int)param_1;
             }
-            *(int *)((int)ctx + 0xc) = *(int *)((int)ctx + 0xc) + iVar7;
+            ctx->nX = ctx->nX + iVar7;
           }
           else {
-            *(int *)((int)ctx + 0xc) = (int)param_1 / 2 + *(int *)((int)ctx + 0xc);
+            ctx->nX = (int)param_1 / 2 + ctx->nX;
           }
         }
         else {
-          *(uint *)((int)ctx + 0x10) =
-               (*(int *)((int)ctx + 0x24) * *(int *)(**(int **)((int)ctx + 8) + 4) + 0xffffU >> 0x10
-               ) + *(int *)((int)ctx + 0x10);
+          ctx->nY = (ctx->nScaleY * *(int *)(*(int *)ctx->pFont + 4) + 0xffffU >> 0x10) + ctx->nY;
         }
       }
       if (param_5 != (uint *)0x0) {
@@ -898,13 +897,13 @@ LAB_004ab425:
       return param_3;
     }
     if (((iVar4 == 0x20) || (iVar4 == 0xfe)) && ((uVar1 & 4) != 0)) {
-      param_1 = (void *)(iVar6 + uVar3 + local_14);
+      param_1 = (TextContext *)(iVar6 + uVar3 + local_14);
       if ((int)local_10 < (int)param_1) {
-        param_1 = (void *)iVar6;
+        param_1 = (TextContext *)iVar6;
         pcVar2 = (char *)local_c;
         if (local_1c == 0) {
           local_1c = iVar7 + local_18;
-          param_1 = (void *)(iVar6 + uVar3 + local_14);
+          param_1 = (TextContext *)(iVar6 + uVar3 + local_14);
           pcVar2 = param_3;
         }
       }
@@ -928,7 +927,7 @@ LAB_004ab425:
           if (iVar4 != 0) goto LAB_004ab344;
         }
         local_1c = local_1c + iVar7;
-        param_1 = (void *)((int)param_1 + uVar3);
+        param_1 = (TextContext *)((int)param_1 + uVar3);
         pcVar2 = param_3;
       }
       goto LAB_004ab425;
@@ -942,7 +941,7 @@ LAB_004ab344:
       }
       else {
         local_1c = local_1c + iVar7 + local_18;
-        param_1 = (void *)iVar6;
+        param_1 = (TextContext *)iVar6;
         pcVar2 = param_3;
         if ((iVar4 == 0xd) && (*param_3 == '\n')) {
           pcVar2 = param_3 + 1;
@@ -967,7 +966,7 @@ LAB_004ab344:
 
 
 /* ---- 0x004ab510  Font_GlyphAdvance ---- */
-uint __cdecl Font_GlyphAdvance(void *ctx,void *font,int ch)
+uint __cdecl Font_GlyphAdvance(TextContext *ctx,void *font,int ch)
 
 {
   int iVar1;
@@ -987,7 +986,7 @@ uint __cdecl Font_GlyphAdvance(void *ctx,void *font,int ch)
     if ((uint)(int)*(char *)(iVar1 + 4) <= *(uint *)(iVar1 + 0xc)) {
       uVar2 = *(uint *)(iVar1 + 0xc);
     }
-    return *(int *)((int)ctx + 0x20) * uVar2 + 0xffff >> 0x10;
+    return ctx->nScaleX * uVar2 + 0xffff >> 0x10;
   }
   return 0;
 }
@@ -1012,14 +1011,14 @@ uint Font_GlyphWidth(int param_1,int param_2,uint param_3)
 }
 
 /* ---- 0x004ab5d0  Text_DrawString ---- */
-void __cdecl Text_DrawString(void *ctx,void *font,char *text)
+void __cdecl Text_DrawString(TextContext *ctx,void *font,char *text)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  void *ctx_00;
+  TextContext *ctx_00;
   int iVar2;
-  void *pvVar3;
+  TextContext *pTVar3;
   int ch;
   uint uVar4;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
@@ -1031,33 +1030,33 @@ void __cdecl Text_DrawString(void *ctx,void *font,char *text)
   
   ctx_00 = ctx;
   ch = 0;
-  local_10 = *(uint *)((int)ctx + 0x28);
-  g_bLookup = *(undefined1 *)((int)ctx + 0x18);
-  *(uint *)((int)ctx + 0x28) = local_10 & 0xfffffff7;
-  DAT_008d0900 = *(undefined1 *)((int)ctx + 0x1c);
-  DAT_008d097f = *(undefined1 *)((int)ctx + 0x14);
+  local_10 = ctx->dwFlags;
+  g_bLookup = (undefined1)ctx->dwBgColor;
+  ctx->dwFlags = local_10 & 0xfffffff7;
+  DAT_008d0900 = (undefined1)ctx->dwFxColor;
+  DAT_008d097f = (undefined1)ctx->dwFgColor;
   if (text == (char *)0x0) {
 LAB_004ab6fb:
-    *(uint *)((int)ctx_00 + 0x28) = local_10;
+    ctx_00->dwFlags = local_10;
     return;
   }
   uVar4 = local_10 & 1;
   local_8 = uVar4;
   do {
     local_c = text_FindNextBreak(ctx_00,font,text,&ctx,&local_14,0);
-    iVar1 = *(int *)((int)ctx_00 + 0xc);
-    local_4 = *(uint *)((int)ctx_00 + 0x10);
+    iVar1 = ctx_00->nX;
+    local_4 = ctx_00->nY;
     if (uVar4 == 0) {
       iVar2 = iVar1;
-      pvVar3 = ctx;
+      pTVar3 = ctx;
       if ((local_10 & 2) != 0) goto LAB_004ab66a;
     }
     else {
-      pvVar3 = (void *)((int)ctx / 2);
+      pTVar3 = (TextContext *)((int)ctx / 2);
 LAB_004ab66a:
-      iVar2 = iVar1 - (int)pvVar3;
+      iVar2 = iVar1 - (int)pTVar3;
     }
-    *(int *)((int)ctx_00 + 0xc) = iVar2;
+    ctx_00->nX = iVar2;
     local_18 = 0;
     iVar2 = ch;
     if (0 < (int)local_14) {
@@ -1072,10 +1071,9 @@ LAB_004ab66a:
       } while ((int)local_18 < (int)local_14);
     }
     if (local_c == 0) goto LAB_004ab6fb;
-    *(int *)((int)ctx_00 + 0xc) = iVar1;
-    *(uint *)((int)ctx_00 + 0x10) =
-         (*(int *)(**(int **)((int)ctx_00 + 8) + 4) * *(int *)((int)ctx_00 + 0x24) + 0xffffU >> 0x10
-         ) + local_4;
+    ctx_00->nX = iVar1;
+    ctx_00->nY = (*(int *)(*(int *)ctx_00->pFont + 4) * ctx_00->nScaleY + 0xffffU >> 0x10) + local_4
+    ;
     text = (char *)local_c;
   } while( true );
 }

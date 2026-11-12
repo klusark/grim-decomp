@@ -219,7 +219,7 @@ LAB_004970d4:
   }
   iVar6 = Cos_RegisterComponent
                     (param_1,(int)buf,(int)puVar4 << 0x10 | (uint)param_3 & 0xffff,param_2,
-                     (int)param_3,param_4,IMG_ADDR(0x004e9f48));
+                     (int)param_3,param_4,((unsigned)(uintptr_t)&DAT_004e9f48));
   if (iVar6 == 0) {
     (*g_pSputCosHS->pFree)();
     return 0;

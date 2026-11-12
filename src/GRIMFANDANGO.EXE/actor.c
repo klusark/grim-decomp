@@ -9,7 +9,7 @@
 /* Projects the actor's model through its frame and stores the covering screen rectangle at
    actor+0x6c (valid flag at +0x68) */
 
-void __cdecl Actor_ComputeScreenBox(void *actor)
+void __cdecl Actor_ComputeScreenBox(Actor *actor)
 
 {
   int iVar1;
@@ -20,20 +20,20 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
   g_nDrawBoxMinY = *(int *)(UINT_008c97a0 + 0x10);
   g_nRdCache_lrcExtent = 0;
   g_nDrawBoxMaxY = 0;
-  *(undefined4 *)((int)actor + 0x6c) = 0;
-  *(undefined4 *)((int)actor + 0x70) = 0;
-  *(undefined4 *)((int)actor + 0x74) = 0;
-  *(undefined4 *)((int)actor + 0x78) = 0;
+  actor->aScreenBox[0] = 0;
+  actor->aScreenBox[1] = 0;
+  actor->aScreenBox[2] = 0;
+  actor->aScreenBox[3] = 0;
   frame = sputActor_GetOrientMatrix(actor);
-  iVar2 = rdThing_Draw(*(void **)(*(int *)((int)actor + 0xa0) + 4),frame);
+  iVar2 = rdThing_Draw(actor->pCostumes->pMainModel,frame);
   if (iVar2 != 0) {
-    *(undefined4 *)((int)actor + 0x68) = 1;
+    actor->nScreenBoxValid = 1;
     iVar2 = g_nRdCache_ulcExtent;
-    *(int *)((int)actor + 0x6c) = g_nRdCache_ulcExtent;
+    actor->aScreenBox[0] = g_nRdCache_ulcExtent;
     iVar1 = g_nDrawBoxMinY;
-    *(int *)((int)actor + 0x70) = g_nDrawBoxMinY;
-    *(int *)((int)actor + 0x74) = g_nRdCache_lrcExtent - iVar2;
-    *(int *)((int)actor + 0x78) = g_nDrawBoxMaxY - iVar1;
+    actor->aScreenBox[1] = g_nDrawBoxMinY;
+    actor->aScreenBox[2] = g_nRdCache_lrcExtent - iVar2;
+    actor->aScreenBox[3] = g_nDrawBoxMaxY - iVar1;
   }
   return;
 }
@@ -42,44 +42,44 @@ void __cdecl Actor_ComputeScreenBox(void *actor)
 /* WARNING: Variable defined which should be unmapped: local_28 */
 /* Debug overlay: the walker's path segments, its sector outline and the look-at circle */
 
-void Actor_DrawDebugWalker(void *param_1)
+void __cdecl Actor_DrawDebugWalker(Actor *actor)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *this;
-  int iVar1;
+  Puck *this;
+  ActorExtra *pAVar1;
   float *b;
   int iVar2;
   int iVar3;
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  if (*(int *)((int)param_1 + 0xa4) != 0) {
-    this = *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4);
-    if (this != (void *)0x0) {
+  if (actor->pExtra != (ActorExtra *)0x0) {
+    this = actor->pExtra->pPuck;
+    if (this != (Puck *)0x0) {
       Puck_Draw(this,UINT_008c97e0 & 0xffff);
     }
-    if ((*(byte *)((int)param_1 + 8) & 1) != 0) {
-      iVar1 = *(int *)((int)param_1 + 0xa4);
+    if ((actor->dwMoveFlags & 1) != 0) {
+      pAVar1 = actor->pExtra;
       iVar3 = 0;
-      if (*(int *)(iVar1 + 0x44) != 1 && -1 < *(int *)(iVar1 + 0x44) + -1) {
+      if (pAVar1->nPathNodes != 1 && -1 < pAVar1->nPathNodes + -1) {
         iVar2 = 0x48;
         do {
-          rdPrimit3_DrawLine((float *)(iVar2 + iVar1),(float *)(iVar2 + 0xc + iVar1),(int *)0x0,
-                             (int *)0x0,(int *)0x0,(int *)0x0,UINT_008c97d4 & 0xffff,0xffffffff);
-          iVar1 = *(int *)((int)param_1 + 0xa4);
+          rdPrimit3_DrawLine((float *)((int)pAVar1->aLookAt + iVar2),
+                             (float *)((int)pAVar1->aLookAt + iVar2 + 0xc),(int *)0x0,(int *)0x0,
+                             (int *)0x0,(int *)0x0,UINT_008c97d4 & 0xffff,0xffffffff);
+          pAVar1 = actor->pExtra;
           iVar3 = iVar3 + 1;
           iVar2 = iVar2 + 0xc;
-        } while (iVar3 < *(int *)(iVar1 + 0x44) + -1);
+        } while (iVar3 < pAVar1->nPathNodes + -1);
       }
     }
-    if (*(int *)(*(int *)((int)param_1 + 0xa4) + 0x3f8) != 0) {
-      iVar1 = *(int *)(*(int *)(*(int *)((int)param_1 + 0xa0) + 4) + 4);
-      b = sputActor_GetOrientMatrix(param_1);
-      rdMatrix_TransformPoint34(local_c,(float *)(iVar1 + 0x78),b);
-      rdPrimit3_DrawPoint(local_c,*(float *)(iVar1 + 0x5c) *
-                                  *(float *)(*(int *)((int)param_1 + 0xa4) + 0x3f4),0x41200000,
-                          0xffff,0xffffffff);
+    if (actor->pExtra->nCollided != 0) {
+      iVar3 = *(int *)((int)actor->pCostumes->pMainModel + 4);
+      b = sputActor_GetOrientMatrix(actor);
+      rdMatrix_TransformPoint34(local_c,(float *)(iVar3 + 0x78),b);
+      rdPrimit3_DrawPoint(local_c,*(float *)(iVar3 + 0x5c) * actor->pExtra->flCollisionScale,
+                          0x41200000,0xffff,0xffffffff);
     }
   }
   return;
@@ -95,19 +95,19 @@ void Actor_DrawDebugWalker(void *param_1)
    to the screen edges Original name sputText_CreateActorText (the remaster's GrimFandango (Linux):
    aligned call in sputActor_SayLine); was Actor_CreateSubtitle. */
 
-void * __cdecl sputText_CreateActorText(void *actor,char *text,int x,int y)
+TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int y)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
-  float *pfVar2;
+  Actor *pAVar1;
+  Actor *pAVar2;
   char *pcVar3;
-  void *pvVar4;
+  TextObject *pTVar4;
   int iVar5;
   int unaff_ESI;
-  uint *puVar6;
+  TextContext *pTVar6;
   int unaff_EDI;
-  uint *puVar7;
+  undefined4 *puVar7;
   #define local_5c (*(float (*)[2])(_frame + (0x70 - 0x5c)))
   #define local_50 (*(float (*)[3])(_frame + (0x70 - 0x50)))
   #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
@@ -115,7 +115,6 @@ void * __cdecl sputText_CreateActorText(void *actor,char *text,int x,int y)
   #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
   #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
@@ -124,32 +123,32 @@ void * __cdecl sputText_CreateActorText(void *actor,char *text,int x,int y)
   #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
   
-  pvVar1 = actor;
+  pAVar1 = actor;
   local_38 = UINT_008a94bc;
   local_50[0] = PUN(float,g_nSubtitleDefaultX);
   local_50[2] = (float)UINT_004e8490;
   local_34 = UINT_008a94c0;
-  puVar6 = &g_SubtitleTextCtx;
-  puVar7 = &local_30;
+  pTVar6 = &g_SubtitleTextCtx;
+  puVar7 = (undefined4 *)(_frame + (0x70 - 0x30));
   for (iVar5 = 0xc; iVar5 != 0; iVar5 = iVar5 + -1) {
-    *puVar7 = *puVar6;
-    puVar6 = puVar6 + 1;
+    *puVar7 = *(undefined4 *)pTVar6;
+    pTVar6 = (TextContext *)&pTVar6->pClipRect;
     puVar7 = puVar7 + 1;
   }
   local_50[1] = PUN(float,g_nSubtitleDefaultY);
   local_2c = (uint)&local_40;
   local_40 = 0;
   local_3c = 0;
-  local_1c = *(uint *)(*(int *)((int)actor + 0xa4) + 0x418);
+  local_1c = actor->pExtra->dwTalkColor;
   local_18 = 0;
   local_14 = 0;
-  if ((*(int *)((int)actor + 0x68) == 0) || (g_dwGrimlib_mode == 3)) {
-    pfVar2 = local_50;
-    if ((*(int *)((int)actor + 0xa0) == 0) || ((*(byte *)((int)actor + 4) & 2) != 0)) {
+  if ((actor->nScreenBoxValid == 0) || (g_dwGrimlib_mode == 3)) {
+    pAVar2 = (Actor *)local_50;
+    if ((actor->pCostumes == (CostumeNode *)0x0) || ((actor->dwFlags & 2) != 0)) {
       pcVar3 = sputRoom_GetCurrentRoomName();
-      iVar5 = _stricmp((int)actor + 0x7c,pcVar3);
+      iVar5 = _stricmp(actor->aSetName,pcVar3);
       if (iVar5 == 0) {
-        iVar5 = rdPrimit3_GetScreenCoord((float *)((int)actor + 0xc),local_5c);
+        iVar5 = rdPrimit3_GetScreenCoord(actor->aPos,local_5c);
         if (iVar5 != 0) {
           local_50[0] = local_5c[0];
           local_50[1] = local_5c[1];
@@ -158,13 +157,13 @@ void * __cdecl sputText_CreateActorText(void *actor,char *text,int x,int y)
     }
   }
   else {
-    pfVar2 = (void *)((int)actor + 0x6c);
+    pAVar2 = (Actor *)actor->aScreenBox;
   }
-  actor = pfVar2;
-  iVar5 = Text_GetStringWidth(&local_30,text);
+  actor = pAVar2;
+  iVar5 = Text_GetStringWidth((TextContext *)(_frame + (0x70 - 0x30)),text);
   iVar5 = iVar5 / 2;
   if (x == -1) {
-    x = *(int *)((int)actor + 8) / 2 + *(int *)actor;
+    x = (int)actor->dwMoveFlags / 2 + (int)actor->pColormapRef;
   }
   if (x - iVar5 < 0x28) {
     x = iVar5 + 0x28;
@@ -174,9 +173,9 @@ void * __cdecl sputText_CreateActorText(void *actor,char *text,int x,int y)
   }
   local_20 = *(uint *)(*(int *)local_28 + 8);
   local_24 = x;
-  iVar5 = Text_GetStringHeight(&local_30,text);
+  iVar5 = Text_GetStringHeight((TextContext *)(_frame + (0x70 - 0x30)),text);
   if (y == -1) {
-    y = *(int *)((int)actor + 4) - iVar5;
+    y = actor->dwFlags - iVar5;
   }
   if (y < 10) {
     y = 10;
@@ -186,10 +185,10 @@ void * __cdecl sputText_CreateActorText(void *actor,char *text,int x,int y)
   }
   local_20 = *(int *)(*(int *)local_28 + 8) + y;
   local_24 = x;
-  pvVar4 = TextObject_New(&local_30,text,unaff_EDI,unaff_ESI);
-  *(void **)((int)pvVar4 + 0x254) = pvVar1;
-  *(uint *)((int)pvVar1 + 4) = *(uint *)((int)pvVar1 + 4) | 4;
-  return pvVar4;
+  pTVar4 = TextObject_New((TextContext *)(_frame + (0x70 - 0x30)),text,unaff_EDI,unaff_ESI);
+  pTVar4->pActor = pAVar1;
+  pAVar1->dwFlags = pAVar1->dwFlags | 4;
+  return pTVar4;
 }
 #undef local_14
 #undef local_18
@@ -198,7 +197,6 @@ void * __cdecl sputText_CreateActorText(void *actor,char *text,int x,int y)
 #undef local_24
 #undef local_28
 #undef local_2c
-#undef local_30
 #undef local_34
 #undef local_38
 #undef local_3c
@@ -215,15 +213,15 @@ void * __cdecl sputText_CreateActorText(void *actor,char *text,int x,int y)
    sputActor_SetCostume (the remaster's GrimFandango (Linux): the only unmatched callee of
    Lua_SetActorCostume; 3 matched neighbours agree, 0 disagree); was Actor_SetCostume. */
 
-int __cdecl sputActor_SetCostume(void *actor,char *name,int param_3)
+int __cdecl sputActor_SetCostume(Actor *actor,char *name,int param_3)
 
 {
   void *costumeRes;
-  void *pvVar1;
+  CostumeNode *pCVar1;
   
   if ((name == (char *)0x0) || (param_3 != 0)) {
     costumeRes = (void *)0x0;
-    pvVar1 = *(void **)((int)actor + 0xa0);
+    pCVar1 = actor->pCostumes;
   }
   else {
     costumeRes = sputResource_Alloc(0x54534f43,name);
@@ -231,12 +229,12 @@ int __cdecl sputActor_SetCostume(void *actor,char *name,int param_3)
       return 0;
     }
     param_3 = 0;
-    pvVar1 = *(void **)((int)actor + 0xa0);
+    pCVar1 = actor->pCostumes;
   }
-  pvVar1 = sputCostume_SetCostume(pvVar1,costumeRes,param_3);
-  *(void **)((int)actor + 0xa0) = pvVar1;
-  Cos_InstSetUserData(**(int **)((int)actor + 0xa0),((int)actor - (int)g_pActors) / 0xa8);
-  sputActor_SetFrustrumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
+  pCVar1 = sputCostume_SetCostume(pCVar1,costumeRes,param_3);
+  actor->pCostumes = pCVar1;
+  Cos_InstSetUserData(actor->pCostumes->dwInstance,((int)actor - (int)g_pActors) / 0xa8);
+  sputActor_SetFrustrumCull(actor,~actor->dwFlags >> 2 & 1);
   return 1;
 }
 
@@ -283,11 +281,11 @@ sputActor_SetActorHead
    same body (actor +0xa0 joint, normalised direction, the distance out-parameter), called from
    sputActor_CanActorSeeActor and sputLua_CanActorSeeL on both sides); was Actor_CanSeePoint. */
 
-int __cdecl sputActor_CanActorSeePoint(void *actor,float *point,float *outDistance)
+int __cdecl sputActor_CanActorSeePoint(Actor *actor,float *point,float *outDistance)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  CostumeNode *pCVar1;
   float fVar2;
   float *frame;
   float *pfVar3;
@@ -298,12 +296,12 @@ int __cdecl sputActor_CanActorSeePoint(void *actor,float *point,float *outDistan
   #define local_30 (*(float (*)[9])(_frame + (0x60 - 0x30)))
   #define local_c (*(float (*)[3])(_frame + (0x60 - 0xc)))
   
-  iVar1 = *(int *)((int)actor + 0xa0);
-  if (((iVar1 != 0) && (index = *(uint *)(iVar1 + 0xc), -1 < (int)index)) &&
-     (*(int *)(iVar1 + 4) != 0)) {
+  pCVar1 = actor->pCostumes;
+  if (((pCVar1 != (CostumeNode *)0x0) && (index = pCVar1->aHeadJoints[0], -1 < (int)index)) &&
+     (pCVar1->pMainModel != (void *)0x0)) {
     pfVar3 = local_30;
     frame = sputActor_GetOrientMatrix(actor);
-    rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),frame,index,pfVar3);
+    rdPuppet_BuildJointMatrices(pCVar1->pMainModel,frame,index,pfVar3);
     local_3c[0] = *point - local_c[0];
     local_3c[1] = point[1] - local_c[1];
     local_3c[2] = point[2] - local_c[2];
@@ -318,7 +316,7 @@ int __cdecl sputActor_CanActorSeePoint(void *actor,float *point,float *outDistan
     pfVar3 = sputActor_GetOrientMatrix(actor);
     fVar2 = pfVar3[4] * local_48[1];
     pfVar3 = sputActor_GetOrientMatrix(actor);
-    if (*(float *)(iVar1 + 0x24) <= pfVar3[5] * local_48[2] + fVar2 + fVar4) {
+    if (pCVar1->flViewCos <= pfVar3[5] * local_48[2] + fVar2 + fVar4) {
       return 1;
     }
   }
@@ -335,15 +333,15 @@ int __cdecl sputActor_CanActorSeePoint(void *actor,float *point,float *outDistan
    (the remaster's GrimFandango (Linux): aligned call in sputLua_CanActorSeeL,
    sputLua_GetVisibleThingsL); was Actor_CanSee. */
 
-int __cdecl sputActor_CanActorSeeActor(void *viewer,void *target,float *outDistance)
+int __cdecl sputActor_CanActorSeeActor(Actor *viewer,Actor *target,float *outDistance)
 
 {
   int iVar1;
   float *pfVar2;
   
-  if (*(char *)((int)target + 0x7c) != '\0') {
-    if (*(char *)((int)viewer + 0x7c) != '\0') {
-      iVar1 = _stricmp((int)target + 0x7c,(int)viewer + 0x7c);
+  if (target->aSetName[0] != '\0') {
+    if (viewer->aSetName[0] != '\0') {
+      iVar1 = _stricmp(target->aSetName,viewer->aSetName);
       if (iVar1 == 0) {
         pfVar2 = sputActor_GetOrientMatrix(target);
         iVar1 = sputActor_CanActorSeePoint(viewer,pfVar2 + 9,outDistance);
@@ -363,22 +361,22 @@ int __cdecl sputActor_CanActorSeeActor(void *viewer,void *target,float *outDista
    GrimFandango (Linux): the only unmatched callee of Lua_TurnActor; 2 matched neighbours agree, 0
    disagree); was Actor_TurnKey. */
 
-void sputActor_Turn(int param_1,float param_2)
+void __cdecl sputActor_Turn(Actor *actor,float param_2)
 
 {
   float fVar1;
-  int iVar2;
+  ActorExtra *pAVar2;
   float fVar3;
   
-  iVar2 = *(int *)(param_1 + 0xa4);
+  pAVar2 = actor->pExtra;
   fVar3 = sputTime_GetFrameTimeFlex();
-  fVar3 = *(float *)(iVar2 + 0x1c) * fVar3 * *(float *)(iVar2 + 0x41c) * param_2;
-  if (*(int *)(iVar2 + 0x1b4) == 0) {
-    sputActor_EnablePuck(param_1,1);
+  fVar3 = pAVar2->flTurnRate * fVar3 * pAVar2->flTimeScale * param_2;
+  if (pAVar2->pPuck == (Puck *)0x0) {
+    sputActor_EnablePuck(actor,1);
   }
-  iVar2 = *(int *)(param_1 + 0xa4);
-  fVar1 = *(float *)(iVar2 + 0x28);
-  if (*(float *)(iVar2 + 0x28) < 0.0) {
+  pAVar2 = actor->pExtra;
+  fVar1 = pAVar2->flYawLeft;
+  if (pAVar2->flYawLeft < 0.0) {
     fVar1 = -fVar1;
   }
   fVar3 = fVar3 + fVar3;
@@ -387,10 +385,10 @@ void sputActor_Turn(int param_1,float param_2)
   }
   if (fVar1 <= fVar3) {
     if (0.0 < param_2) {
-      *(undefined4 *)(iVar2 + 0x10) = 1;
+      pAVar2->nTurning = 1;
       return;
     }
-    *(undefined4 *)(iVar2 + 0x10) = 0xffffffff;
+    pAVar2->nTurning = -1;
   }
   return;
 }
@@ -401,14 +399,14 @@ void sputActor_Turn(int param_1,float param_2)
    GrimFandango (Linux): the only unmatched callee of Lua_WalkActorForward; 3 matched neighbours
    agree, 0 disagree); was Actor_WalkForward. */
 
-void sputActor_Forward(int param_1)
+void __cdecl sputActor_Forward(Actor *actor)
 
 {
   sputTime_GetFrameTimeFlex();
-  if (*(int *)(*(int *)(param_1 + 0xa4) + 0x1b4) == 0) {
-    sputActor_EnablePuck(param_1,1);
+  if (actor->pExtra->pPuck == (Puck *)0x0) {
+    sputActor_EnablePuck(actor,1);
   }
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0xc) = 1;
+  actor->pExtra->nWalking = 1;
   return;
 }
 
@@ -419,39 +417,38 @@ void sputActor_Forward(int param_1)
    Actor_UpdateWalker, Actor_UpdateMoveChores, costume update with dt * time scale, Actor_PuckOrient
    when actor+4 & 0x10. */
 
-void Actor_UpdateMovement(void *param_1,float param_2)
+void __cdecl Actor_UpdateMovement(Actor *actor,float param_2)
 
 {
-  int iVar1;
+  CostumeNode *pCVar1;
   
-  if (*(int *)((int)param_1 + 0xa4) != 0) {
-    param_2 = *(float *)(*(int *)((int)param_1 + 0xa4) + 0x41c) * param_2;
+  if (actor->pExtra != (ActorExtra *)0x0) {
+    param_2 = actor->pExtra->flTimeScale * param_2;
   }
-  iVar1 = *(int *)((int)param_1 + 0xa0);
-  *(undefined4 *)((int)param_1 + 0x18) = *(undefined4 *)((int)param_1 + 0xc);
-  *(undefined4 *)((int)param_1 + 0x1c) = *(undefined4 *)((int)param_1 + 0x10);
-  *(undefined4 *)((int)param_1 + 0x20) = *(undefined4 *)((int)param_1 + 0x14);
-  if ((iVar1 != 0) && (*(int *)(iVar1 + 0x7c) != 0)) {
-    if (*(int *)(iVar1 + 0x7c) == 0) {
+  pCVar1 = actor->pCostumes;
+  actor->aPrevPos[0] = actor->aPos[0];
+  actor->aPrevPos[1] = actor->aPos[1];
+  actor->aPrevPos[2] = actor->aPos[2];
+  if ((pCVar1 != (CostumeNode *)0x0) && (pCVar1->aCostumeRef[0] != 0)) {
+    if (pCVar1->aCostumeRef[0] == 0) {
       (*g_pStd_HS->pAssertFail)
                 (s_Bad_costume_Reference_004e9e90,s_main_sputResource_h_004e80a8,0xb8);
     }
-    Cos_InstRescue(**(int **)((int)param_1 + 0xa0),*(int *)(iVar1 + 0x80));
+    Cos_InstRescue(actor->pCostumes->dwInstance,pCVar1->aCostumeRef[1]);
   }
-  if ((*(byte *)((int)param_1 + 8) & 1) != 0) {
-    Actor_FollowPath(param_1);
+  if ((actor->dwMoveFlags & 1) != 0) {
+    Actor_FollowPath(actor);
   }
-  if ((*(int *)((int)param_1 + 0xa4) != 0) && (*(int *)(*(int *)((int)param_1 + 0xa4) + 0x1b4) != 0)
-     ) {
-    Actor_UpdateWalker(param_1);
+  if ((actor->pExtra != (ActorExtra *)0x0) && (actor->pExtra->pPuck != (Puck *)0x0)) {
+    Actor_UpdateWalker(actor);
   }
-  Actor_UpdateMoveChores(param_1);
-  sputCostume_Update(*(void **)((int)param_1 + 0xa0),param_2);
-  if ((*(byte *)((int)param_1 + 8) & 2) != 0) {
-    Actor_UpdateLookAt(param_1,param_2);
+  Actor_UpdateMoveChores(actor);
+  sputCostume_Update(actor->pCostumes,param_2);
+  if ((actor->dwMoveFlags & 2) != 0) {
+    Actor_UpdateLookAt(actor,param_2);
   }
-  if ((*(byte *)((int)param_1 + 4) & 0x10) != 0) {
-    Actor_PuckOrient(param_1);
+  if ((actor->dwFlags & 0x10) != 0) {
+    Actor_PuckOrient(actor);
   }
   return;
 }
@@ -462,11 +459,12 @@ void Actor_UpdateMovement(void *param_1,float param_2)
 /* Head tracking: turns the three head joints toward the look-at point (extra+0) limited by the look
    rate and the yaw/pitch limits */
 
-void __cdecl Actor_UpdateLookAt(void *actor,float dt)
+void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
 
 {
   unsigned char _frame[0xe0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  CostumeNode *pCVar1;
+  ActorExtra *a;
   int iVar2;
   float fVar3;
   float fVar4;
@@ -489,39 +487,39 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
   #define afStack_30 (*(float (*)[12])(_frame + (0xe0 - 0x30)))
   
   bVar5 = false;
-  iVar1 = *(int *)((int)actor + 0xa0);
-  if (*(int *)((int)actor + 0xa4) == 0) {
+  pCVar1 = actor->pCostumes;
+  if (actor->pExtra == (ActorExtra *)0x0) {
     (**(code **)(g_dwSputActHS + 0x18))
               (s_pActor__pExtra_004e9ea8,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x47a);
   }
-  if (((iVar1 != 0) && (piVar8 = (int *)(iVar1 + 0xc), -1 < *(int *)(iVar1 + 0xc))) &&
-     (*(int *)(iVar1 + 4) != 0)) {
+  if (((pCVar1 != (CostumeNode *)0x0) && (piVar8 = pCVar1->aHeadJoints, -1 < pCVar1->aHeadJoints[0])
+      ) && (pCVar1->pMainModel != (void *)0x0)) {
     local_c0[0] = 0.0;
     local_c0[1] = 1.0;
     local_c0[2] = 0.0;
-    if (*(int *)((int)actor + 0x68) == 0) {
+    if (actor->nScreenBoxValid == 0) {
       pfVar6 = sputActor_GetOrientMatrix(actor);
-      rdPuppet_UpdateFrame(*(void **)(iVar1 + 4),pfVar6);
+      rdPuppet_UpdateFrame(pCVar1->pMainModel,pfVar6);
     }
-    index = *(uint *)(iVar1 + 0x14);
+    index = pCVar1->aHeadJoints[2];
     pfVar6 = afStack_60;
     pfVar7 = sputActor_GetOrientMatrix(actor);
-    rdPuppet_BuildJointMatrices(*(void **)(iVar1 + 4),pfVar7,index,pfVar6);
+    rdPuppet_BuildJointMatrices(pCVar1->pMainModel,pfVar7,index,pfVar6);
     rdMatrix_InvertOrtho34(afStack_90,afStack_60);
-    pfVar6 = *(float **)((int)actor + 0xa4);
-    if (((*pfVar6 == 0.0) && (pfVar6[1] == 0.0)) && (pfVar6[2] == 0.0)) {
+    a = actor->pExtra;
+    if (((a->aLookAt[0] == 0.0) && (a->aLookAt[1] == 0.0)) && (a->aLookAt[2] == 0.0)) {
       pfVar6 = afStack_90;
       bVar5 = true;
       pfVar7 = sputActor_GetOrientMatrix(actor);
       rdMatrix_TransformVector34(afStack_a8,pfVar7 + 3,pfVar6);
     }
     else {
-      rdMatrix_TransformPoint34(afStack_a8,pfVar6,afStack_90);
+      rdMatrix_TransformPoint34(afStack_a8,a->aLookAt,afStack_90);
       rdVector_Normalize3Acc(afStack_a8);
     }
     rdVector_Cross3(afStack_9c,local_c0,afStack_a8);
     rdVector_Normalize3Acc(afStack_9c);
-    fStack_c8 = *(float *)(iVar1 + 0x18) * dt;
+    fStack_c8 = pCVar1->flLookRate * dt;
     fVar10 = rdVector_Dot2(local_c0,afStack_a8);
     fVar10 = stdMath_ArcSin1(fVar10);
     fVar10 = 90.0 - fVar10;
@@ -531,7 +529,7 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
     }
     if (fVar3 < fStack_c8) {
       if (bVar5) {
-        *(uint *)((int)actor + 8) = *(uint *)((int)actor + 8) & 0xfffffffd;
+        actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffd;
       }
       fStack_c8 = fVar10;
       if (fVar10 <= 0.0) {
@@ -541,37 +539,37 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
     rdMatrix_BuildFromVectorAngle34(afStack_30,afStack_9c,fStack_c8);
     rdMatrix_TransformPoint34Acc(local_c0,afStack_30);
     rdVector_ExtractAngles(local_c0,&fStack_b4);
-    if ((*(byte *)((int)actor + 8) & 2) == 0) {
+    if ((actor->dwMoveFlags & 2) == 0) {
       iVar9 = 3;
       do {
         iVar9 = iVar9 + -1;
-        *(undefined4 *)(*(int *)(*(int *)(iVar1 + 4) + 0x24) + 4 + *piVar8 * 0xc) = 0;
-        *(undefined4 *)(*(int *)(*(int *)(iVar1 + 4) + 0x24) + *piVar8 * 0xc) = 0;
-        *(undefined4 *)(*(int *)(*(int *)(iVar1 + 4) + 0x24) + 8 + *piVar8 * 0xc) = 0;
+        *(undefined4 *)(*(int *)((int)pCVar1->pMainModel + 0x24) + 4 + *piVar8 * 0xc) = 0;
+        *(undefined4 *)(*(int *)((int)pCVar1->pMainModel + 0x24) + *piVar8 * 0xc) = 0;
+        *(undefined4 *)(*(int *)((int)pCVar1->pMainModel + 0x24) + 8 + *piVar8 * 0xc) = 0;
         piVar8 = piVar8 + 1;
       } while (iVar9 != 0);
-      *(undefined4 *)(*(int *)(iVar1 + 4) + 0x1c) = 0;
+      *(undefined4 *)((int)pCVar1->pMainModel + 0x1c) = 0;
       return;
     }
     iVar9 = 3;
-    fVar3 = *(float *)(iVar1 + 0x20) * 0.33333334;
-    fVar10 = *(float *)(iVar1 + 0x1c) * 0.33333334;
+    fVar3 = pCVar1->flMaxYaw * 0.33333334;
+    fVar10 = pCVar1->flMaxPitch * 0.33333334;
     do {
-      iVar2 = *(int *)(*(int *)(iVar1 + 4) + 0x24);
+      iVar2 = *(int *)((int)pCVar1->pMainModel + 0x24);
       *(float *)(iVar2 + 4 + *piVar8 * 0xc) =
            fStack_b0 * 0.33333334 + *(float *)(iVar2 + 4 + *piVar8 * 0xc);
-      iVar2 = *(int *)(*(int *)(iVar1 + 4) + 0x24);
+      iVar2 = *(int *)((int)pCVar1->pMainModel + 0x24);
       *(float *)(iVar2 + *piVar8 * 0xc) = fStack_b4 * 0.33333334 + *(float *)(iVar2 + *piVar8 * 0xc)
       ;
-      *(undefined4 *)(*(int *)(*(int *)(iVar1 + 4) + 0x24) + 8 + *piVar8 * 0xc) = 0;
-      iVar2 = *(int *)(*(int *)(iVar1 + 4) + 0x24);
+      *(undefined4 *)(*(int *)((int)pCVar1->pMainModel + 0x24) + 8 + *piVar8 * 0xc) = 0;
+      iVar2 = *(int *)((int)pCVar1->pMainModel + 0x24);
       pfVar6 = (float *)(iVar2 + 4 + *piVar8 * 0xc);
       fVar4 = -fVar3;
       if ((-fVar3 <= *(float *)(iVar2 + 4 + *piVar8 * 0xc)) && (fVar4 = fVar3, *pfVar6 <= fVar3)) {
         fVar4 = *pfVar6;
       }
       *pfVar6 = fVar4;
-      iVar2 = *(int *)(*(int *)(iVar1 + 4) + 0x24);
+      iVar2 = *(int *)((int)pCVar1->pMainModel + 0x24);
       pfVar6 = (float *)(iVar2 + *piVar8 * 0xc);
       fVar4 = -fVar10;
       if ((-fVar10 <= *(float *)(iVar2 + *piVar8 * 0xc)) && (fVar4 = fVar10, *pfVar6 <= fVar10)) {
@@ -581,7 +579,7 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
       piVar8 = piVar8 + 1;
       iVar9 = iVar9 + -1;
     } while (iVar9 != 0);
-    *(undefined4 *)(*(int *)(iVar1 + 4) + 0x1c) = 0;
+    *(undefined4 *)((int)pCVar1->pMainModel + 0x1c) = 0;
   }
   return;
 }
@@ -604,52 +602,54 @@ void __cdecl Actor_UpdateLookAt(void *actor,float dt)
    the voice or the text timer runs out Original name sputActor_UpdateActorSpeech (the remaster's
    GrimFandango (Linux): aligned call in sputActor_UpdateSpeechOnly); was Actor_UpdateTalk. */
 
-void __cdecl sputActor_UpdateActorSpeech(void *actor,float dt)
+void __cdecl sputActor_UpdateActorSpeech(Actor *actor,float dt)
 
 {
-  int *piVar1;
-  ushort uVar2;
-  int iVar3;
+  void **ppvVar1;
+  ActorExtra *pAVar2;
+  ushort uVar3;
+  int iVar4;
   undefined2 extraout_var;
-  int *piVar4;
+  CostumeNode *pCVar5;
   undefined4 unaff_ESI;
   undefined4 unaff_EDI;
-  longlong lVar5;
+  longlong lVar6;
   
-  iVar3 = *(int *)((int)actor + 0xa4);
-  if (*(int *)(iVar3 + 0x1c4) == 0) {
+  pAVar2 = actor->pExtra;
+  if (pAVar2->nTalking == 0) {
     return;
   }
-  if (((*(char *)(iVar3 + 0x1dc) != '\0') && (*(int *)(iVar3 + 0x1f0) != 0)) &&
-     (*(int *)((int)actor + 0xa0) != 0)) {
-    iVar3 = iMUSE_GetPhoneme(*(int *)(iVar3 + 0x1c8),0);
-    if (iVar3 == 0) {
+  if (((pAVar2->aVoiceFile[0] != '\0') && (pAVar2->nLipSync != 0)) &&
+     (actor->pCostumes != (CostumeNode *)0x0)) {
+    iVar4 = iMUSE_GetPhoneme(pAVar2->nVoiceSound,0);
+    if (iVar4 == 0) {
       sputActor_ShutUp(actor);
     }
     else {
-      uVar2 = Phoneme_ToTalkChore(actor,iVar3);
-      piVar4 = *(int **)((int)actor + 0xa0);
-      piVar1 = piVar4 + 1;
-      if (piVar4 != (int *)0x0) {
+      uVar3 = Phoneme_ToTalkChore(actor,iVar4);
+      pCVar5 = actor->pCostumes;
+      ppvVar1 = &pCVar5->pMainModel;
+      if (pCVar5 != (CostumeNode *)0x0) {
         do {
-          if ((piVar4[1] != *piVar1) || (-1 < piVar4[CONCAT22(extraout_var,uVar2) + 0xe])) break;
-          piVar4 = (int *)piVar4[0x2c];
-        } while (piVar4 != (int *)0x0);
-        if ((piVar4 != (int *)0x0) && (piVar4[1] == *piVar1)) {
-          Cos_InstCompleteChore(*piVar4,piVar4[CONCAT22(extraout_var,uVar2) + 0xe]);
+          if ((pCVar5->pMainModel != *ppvVar1) ||
+             (-1 < pCVar5->aTalkChores[CONCAT22(extraout_var,uVar3)])) break;
+          pCVar5 = pCVar5->pNext;
+        } while (pCVar5 != (CostumeNode *)0x0);
+        if ((pCVar5 != (CostumeNode *)0x0) && (pCVar5->pMainModel == *ppvVar1)) {
+          Cos_InstCompleteChore
+                    (pCVar5->dwInstance,pCVar5->aTalkChores[CONCAT22(extraout_var,uVar3)]);
         }
       }
     }
   }
-  iVar3 = *(int *)((int)actor + 0xa4);
-  lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  *(int *)(iVar3 + 0x1cc) = *(int *)(iVar3 + 0x1cc) + (int)lVar5;
-  if ((*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0') ||
-     (iVar3 = Actor_IsVoicePlaying(actor), iVar3 != 0)) {
-    if (*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) != '\0') {
+  pAVar2 = actor->pExtra;
+  lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  pAVar2->nTalkTime = pAVar2->nTalkTime + (int)lVar6;
+  if ((actor->pExtra->aVoiceFile[0] == '\0') || (iVar4 = Actor_IsVoicePlaying(actor), iVar4 != 0)) {
+    if (actor->pExtra->aVoiceFile[0] != '\0') {
       return;
     }
-    if (-1 < *(int *)(*(int *)((int)actor + 0xa4) + 0x1cc)) {
+    if (-1 < actor->pExtra->nTalkTime) {
       return;
     }
   }
@@ -673,11 +673,11 @@ int __cdecl sputActor_SetSelectedActor(int handle)
   int unaff_retaddr;
   
   iVar1 = -1;
-  if (g_pSelectedActor != (void *)0x0) {
+  if (g_pSelectedActor != (Actor *)0x0) {
     iVar1 = sputActor_GetActorHandle(g_pSelectedActor,unaff_retaddr);
   }
   if ((-1 < handle) && (handle < g_nMaxActors)) {
-    g_pSelectedActor = (void *)((int)g_pActors + handle * 0xa8);
+    g_pSelectedActor = g_pActors + handle;
   }
   return iVar1;
 }
@@ -696,10 +696,10 @@ int __cdecl sputActor_SetSelectedActor(int handle)
    the only unmatched callee of Lua_SetActorVisibility; 97 matched neighbours agree, 0 disagree);
    was Actor_FromHandle. */
 
-void * sputActor_ActorDeref(int param_1)
+Actor * __cdecl sputActor_ActorDeref(int handle)
 
 {
-  return (void *)((int)g_pActors + param_1 * 0xa8);
+  return g_pActors + handle;
 }
 
 /* ---- 0x00490380  sputActor_GetActorHandle ---- */
@@ -707,7 +707,7 @@ void * sputActor_ActorDeref(int param_1)
    callee of Lua_CallCostumeMarkerHandler; the only unmatched callee of
    Lua_CallCostumeOverrideHandler; 3 matched neighbours agree, 1 disagree); was Actor_GetHandle. */
 
-int __cdecl sputActor_GetActorHandle(void *actor,int tag)
+int __cdecl sputActor_GetActorHandle(Actor *actor,int tag)
 
 {
   return ((int)actor - (int)g_pActors) / 0xa8;
@@ -723,81 +723,80 @@ int sputActor_AllocateActor(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
-  int iVar2;
-  undefined4 *puVar3;
-  int *piVar4;
-  undefined4 *puVar5;
+  int iVar1;
+  undefined4 *puVar2;
+  int *piVar3;
+  Actor *pAVar4;
+  Actor *pAVar5;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define aiStack_10 (*(int (*)[4])(_frame + (0x30 - 0x10)))
   
-  iVar2 = 0;
-  puVar5 = (undefined4 *)0x0;
+  iVar1 = 0;
+  pAVar4 = (Actor *)0x0;
   if (0 < g_nMaxActors) {
-    piVar4 = (int *)((int)g_pActors + 0x9c);
+    piVar3 = &g_pActors->nInUse;
     do {
-      if (*piVar4 == 0) {
-        puVar5 = (undefined4 *)((int)g_pActors + iVar2 * 0xa8);
+      if (*piVar3 == 0) {
+        pAVar4 = g_pActors + iVar1;
         break;
       }
-      iVar2 = iVar2 + 1;
-      piVar4 = piVar4 + 0x2a;
-    } while (iVar2 < g_nMaxActors);
+      iVar1 = iVar1 + 1;
+      piVar3 = piVar3 + 0x2a;
+    } while (iVar1 < g_nMaxActors);
   }
-  if (puVar5 == (undefined4 *)0x0) {
-    iVar2 = 0;
+  if (pAVar4 == (Actor *)0x0) {
+    iVar1 = 0;
     do {
-      if (*(int *)((int)&g_pTalkingActors + iVar2) != 0) {
-        *(int *)((int)aiStack_10 + iVar2) =
-             (*(int *)((int)&g_pTalkingActors + iVar2) - (int)g_pActors) / 0xa8;
+      if (*(int *)((int)g_pTalkingActors + iVar1) != 0) {
+        *(int *)((int)aiStack_10 + iVar1) =
+             (*(int *)((int)g_pTalkingActors + iVar1) - (int)g_pActors) / 0xa8;
       }
-      iVar2 = iVar2 + 4;
-    } while (iVar2 < 0x10);
-    if (g_pSelectedActor != (void *)0x0) {
+      iVar1 = iVar1 + 4;
+    } while (iVar1 < 0x10);
+    if (g_pSelectedActor != (Actor *)0x0) {
       local_14 = ((int)g_pSelectedActor - (int)g_pActors) / 0xa8;
     }
-    g_pActors = (void *)(**(code **)(g_dwSputActHS + 0x28))
-                                  (g_pActors,(g_nMaxActors + 0x20) * 0xa8,
-                                   s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x5f6);
-    puVar5 = (undefined4 *)((int)g_pActors + g_nMaxActors * 0xa8);
-    for (iVar2 = 0x540; pvVar1 = g_pActors, iVar2 != 0; iVar2 = iVar2 + -1) {
-      *puVar5 = 0;
-      puVar5 = puVar5 + 1;
+    g_pActors = (Actor *)(**(code **)(g_dwSputActHS + 0x28))
+                                   (g_pActors,(g_nMaxActors + 0x20) * 0xa8,
+                                    s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x5f6);
+    pAVar4 = g_pActors + g_nMaxActors;
+    for (iVar1 = 0x540; pAVar5 = g_pActors, iVar1 != 0; iVar1 = iVar1 + -1) {
+      pAVar4->pColormapRef = (void *)0x0;
+      pAVar4 = (Actor *)&pAVar4->dwFlags;
     }
-    iVar2 = 0;
-    puVar5 = (undefined4 *)((int)g_pActors + g_nMaxActors * 0xa8);
+    iVar1 = 0;
+    pAVar4 = g_pActors + g_nMaxActors;
     g_nMaxActors = g_nMaxActors + 0x20;
     do {
-      if (*(int *)((int)&g_pTalkingActors + iVar2) != 0) {
-        *(void **)((int)&g_pTalkingActors + iVar2) =
-             (void *)((int)pvVar1 + *(int *)((int)aiStack_10 + iVar2) * 0xa8);
+      if (*(int *)((int)g_pTalkingActors + iVar1) != 0) {
+        *(Actor **)((int)g_pTalkingActors + iVar1) = pAVar5 + *(int *)((int)aiStack_10 + iVar1);
       }
-      iVar2 = iVar2 + 4;
-    } while (iVar2 < 0x10);
-    if (g_pSelectedActor != (void *)0x0) {
-      g_pSelectedActor = (void *)((int)pvVar1 + local_14 * 0xa8);
+      iVar1 = iVar1 + 4;
+    } while (iVar1 < 0x10);
+    if (g_pSelectedActor != (Actor *)0x0) {
+      g_pSelectedActor = pAVar5 + local_14;
     }
   }
   g_nNumActors = g_nNumActors + 1;
-  puVar3 = puVar5;
-  for (iVar2 = 0x2a; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar3 = 0;
-    puVar3 = puVar3 + 1;
+  pAVar5 = pAVar4;
+  for (iVar1 = 0x2a; iVar1 != 0; iVar1 = iVar1 + -1) {
+    pAVar5->pColormapRef = (void *)0x0;
+    pAVar5 = (Actor *)&pAVar5->dwFlags;
   }
-  puVar5[0xd] = 1;
-  rdMatrix_Identity34((float *)(puVar5 + 0xe));
-  puVar5[0xc] = 0x3f800000;
-  puVar5[0x28] = 0;
-  puVar3 = (undefined4 *)
+  pAVar4->nMatrixDirty = 1;
+  rdMatrix_Identity34(pAVar4->aOrient);
+  pAVar4->flScale = 1.0;
+  pAVar4->pCostumes = (CostumeNode *)0x0;
+  puVar2 = (undefined4 *)
            (**(code **)(g_dwSputActHS + 0x20))
                      (0x34,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x60e);
-  *puVar5 = puVar3;
-  for (iVar2 = 0xd; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar3 = 0;
-    puVar3 = puVar3 + 1;
+  pAVar4->pColormapRef = puVar2;
+  for (iVar1 = 0xd; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *puVar2 = 0;
+    puVar2 = puVar2 + 1;
   }
-  puVar5[0x27] = 1;
-  return ((int)puVar5 - (int)g_pActors) / 0xa8;
+  pAVar4->nInUse = 1;
+  return ((int)pAVar4 - (int)g_pActors) / 0xa8;
 }
 #undef aiStack_10
 #undef local_14
@@ -816,40 +815,41 @@ int sputActor_AllocateActor(void)
    callee of Lua_SetActorWalkRate; 20 matched neighbours agree, 1 disagree); was Actor_CreateExtra.
     */
 
-void sputActor_AllocateActorExtra(int param_1)
+void __cdecl sputActor_AllocateActorExtra(Actor *actor)
 
 {
-  int iVar1;
-  undefined4 *puVar2;
+  ActorExtra *pAVar1;
+  int iVar2;
   
-  if ((param_1 == 0) || (*(int *)(param_1 + 0xa4) != 0)) {
+  if ((actor == (Actor *)0x0) || (actor->pExtra != (ActorExtra *)0x0)) {
     (**(code **)(g_dwSputActHS + 0x18))
               (s_pActor_____pActor__pExtra_004e9eb8,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,
                0x619);
   }
-  iVar1 = (**(code **)(g_dwSputActHS + 0x20))
-                    (0x4a0,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x61b);
-  *(int *)(param_1 + 0xa4) = iVar1;
-  if (iVar1 == 0) {
+  pAVar1 = (ActorExtra *)
+           (**(code **)(g_dwSputActHS + 0x20))
+                     (0x4a0,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x61b);
+  actor->pExtra = pAVar1;
+  if (pAVar1 == (ActorExtra *)0x0) {
     (**(code **)(g_dwSputActHS + 0x18))
               (s_pActor__pExtra_004e9ea8,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x61c);
   }
-  puVar2 = *(undefined4 **)(param_1 + 0xa4);
-  for (iVar1 = 0x128; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = 0;
-    puVar2 = puVar2 + 1;
+  pAVar1 = actor->pExtra;
+  for (iVar2 = 0x128; iVar2 != 0; iVar2 = iVar2 + -1) {
+    pAVar1->aLookAt[0] = 0.0;
+    pAVar1 = (ActorExtra *)(pAVar1->aLookAt + 1);
   }
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x18) = 0x3ecccccd;
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x1c) = 0x43070000;
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x1bc) = 0;
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x1c0) = 0x42700000;
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x3f4) = 0x3f800000;
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x41c) = 0x3f800000;
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x418) = 0xffffff;
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x420) = 0xffffffff;
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x400) = 0;
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x404) = 0;
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x408) = 0x3f800000;
+  actor->pExtra->flWalkRate = 0.4;
+  actor->pExtra->flTurnRate = 135.0;
+  actor->pExtra->nWalkDominate = 0;
+  actor->pExtra->flPuckRadius = 60.0;
+  actor->pExtra->flCollisionScale = 1.0;
+  actor->pExtra->flTimeScale = 1.0;
+  actor->pExtra->dwTalkColor = 0xffffff;
+  actor->pExtra->nInvClipNode = -1;
+  actor->pExtra->aClipNormal[0] = 0.0;
+  actor->pExtra->aClipNormal[1] = 0.0;
+  actor->pExtra->aClipNormal[2] = 1.0;
   return;
 }
 
@@ -860,24 +860,24 @@ void sputActor_AllocateActorExtra(int param_1)
    callee of Lua_SetActorFollowBoxes; 1 matched neighbours agree, 1 disagree); was
    Actor_SetFollowBoxes. */
 
-void sputActor_EnableWalkSystem(int param_1,int param_2)
+void __cdecl sputActor_EnableWalkSystem(Actor *actor,int param_2)
 
 {
-  int iVar1;
+  Puck *pPVar1;
   
-  if (*(int *)(param_1 + 0xa4) == 0) {
-    sputActor_AllocateActorExtra(param_1);
+  if (actor->pExtra == (ActorExtra *)0x0) {
+    sputActor_AllocateActorExtra(actor);
   }
   if (param_2 != 0) {
-    *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x1b8) = 1;
-    sputActor_EnablePuck(param_1,1);
-    Puck_Validate(*(void **)(*(int *)(param_1 + 0xa4) + 0x1b4));
+    actor->pExtra->nFollowBoxes = 1;
+    sputActor_EnablePuck(actor,1);
+    Puck_Validate(actor->pExtra->pPuck);
     return;
   }
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x1b8) = 0;
-  iVar1 = *(int *)(*(int *)(param_1 + 0xa4) + 0x1b4);
-  if (iVar1 != 0) {
-    *(undefined4 *)(iVar1 + 0x5c) = 0;
+  actor->pExtra->nFollowBoxes = 0;
+  pPVar1 = actor->pExtra->pPuck;
+  if (pPVar1 != (Puck *)0x0) {
+    pPVar1->pSector = (void *)0x0;
   }
   return;
 }
@@ -888,36 +888,35 @@ void sputActor_EnableWalkSystem(int param_1,int param_2)
    Actor_TurnKey; the only unmatched callee of Actor_WalkForward; 7 matched neighbours agree, 0
    disagree); was Actor_CreateWalker. */
 
-void sputActor_EnablePuck(void *param_1,int param_2)
+void __cdecl sputActor_EnablePuck(Actor *actor,int param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
+  Puck *pPVar1;
   float *pfVar2;
-  void *p;
+  Puck *this;
   #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   
-  p = (void *)0x0;
-  if ((param_2 == 0) &&
-     (pvVar1 = *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4), pvVar1 != (void *)0x0)) {
-    Puck_Destruct((int)pvVar1);
-    Plat_Free(pvVar1);
-    *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = 0;
+  this = (Puck *)0x0;
+  if ((param_2 == 0) && (pPVar1 = actor->pExtra->pPuck, pPVar1 != (Puck *)0x0)) {
+    Puck_Destruct(pPVar1);
+    Plat_Free(pPVar1);
+    actor->pExtra->pPuck = (Puck *)0x0;
     return;
   }
-  if (*(int *)(*(int *)((int)param_1 + 0xa4) + 0x1b4) == 0) {
-    pvVar1 = Plat_Alloc(0x60);
-    if (pvVar1 != (void *)0x0) {
-      p = Puck_Construct(pvVar1,*(float *)(*(int *)((int)param_1 + 0xa4) + 0x1c0));
+  if (actor->pExtra->pPuck == (Puck *)0x0) {
+    pPVar1 = Plat_Alloc(0x60);
+    if (pPVar1 != (Puck *)0x0) {
+      this = Puck_Construct(pPVar1,actor->pExtra->flPuckRadius);
     }
-    Mem_CheckAlloc(p,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x665);
-    Puck_SetPos(p,(float *)((int)param_1 + 0xc));
-    pfVar2 = sputActor_GetOrientMatrix(param_1);
-    local_18[0] = pfVar2[3] + *(float *)((int)param_1 + 0xc);
-    local_18[1] = *(float *)((int)param_1 + 0x10) + pfVar2[4];
-    local_18[2] = *(float *)((int)param_1 + 0x14) + pfVar2[5];
-    Puck_PointAt(p,local_18,3.4028235e+38);
-    *(void **)(*(int *)((int)param_1 + 0xa4) + 0x1b4) = p;
+    Mem_CheckAlloc(this,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x665);
+    Puck_SetPos(this,actor->aPos);
+    pfVar2 = sputActor_GetOrientMatrix(actor);
+    local_18[0] = pfVar2[3] + actor->aPos[0];
+    local_18[1] = actor->aPos[1] + pfVar2[4];
+    local_18[2] = actor->aPos[2] + pfVar2[5];
+    Puck_PointAt(this,local_18,3.4028235e+38);
+    actor->pExtra->pPuck = this;
   }
   return;
 }
@@ -929,35 +928,34 @@ void sputActor_EnablePuck(void *param_1,int param_2)
    callee of Lua_PutActorAt; the only unmatched callee of Lua_PutActorAtInterest; 2 matched
    neighbours agree, 1 disagree); was Actor_SetPositionClamped. */
 
-void sputActor_SetActorPosition(int param_1,float *param_2)
+void __cdecl sputActor_SetActorPosition(Actor *actor,float *param_2)
 
 {
-  undefined4 uVar1;
-  float fVar2;
-  undefined4 *this;
+  float fVar1;
+  Puck *this;
   
-  this = (undefined4 *)0x0;
-  if (*(int *)(param_1 + 0xa4) != 0) {
-    this = *(undefined4 **)(*(int *)(param_1 + 0xa4) + 0x1b4);
+  this = (Puck *)0x0;
+  if (actor->pExtra != (ActorExtra *)0x0) {
+    this = actor->pExtra->pPuck;
   }
-  *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
-  if (this != (undefined4 *)0x0) {
+  actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
+  if (this != (Puck *)0x0) {
     Puck_SetPos(this,param_2);
-    if (*(int *)(*(int *)(param_1 + 0xa4) + 0x1b8) != 0) {
+    if (actor->pExtra->nFollowBoxes != 0) {
       Puck_Validate(this);
     }
-    *(undefined4 *)(param_1 + 0xc) = *this;
-    *(undefined4 *)(param_1 + 0x10) = this[1];
-    uVar1 = this[2];
-    *(undefined4 *)(param_1 + 0x34) = 0;
-    *(undefined4 *)(param_1 + 0x14) = uVar1;
+    actor->aPos[0] = this->aPos[0];
+    actor->aPos[1] = this->aPos[1];
+    fVar1 = this->aPos[2];
+    actor->nMatrixDirty = 0;
+    actor->aPos[2] = fVar1;
     return;
   }
-  *(float *)(param_1 + 0xc) = *param_2;
-  *(float *)(param_1 + 0x10) = param_2[1];
-  fVar2 = param_2[2];
-  *(undefined4 *)(param_1 + 0x34) = 0;
-  *(float *)(param_1 + 0x14) = fVar2;
+  actor->aPos[0] = *param_2;
+  actor->aPos[1] = param_2[1];
+  fVar1 = param_2[2];
+  actor->nMatrixDirty = 0;
+  actor->aPos[2] = fVar1;
   return;
 }
 
@@ -972,50 +970,48 @@ void sputActor_SetActorPosition(int param_1,float *param_2)
    (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorRot; 2 matched
    neighbours agree, 0 disagree); was Actor_SetRot. */
 
-void sputActor_SetActorRotation(int param_1,undefined4 *param_2,int param_3)
+void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *param_2,int param_3)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float *this;
-  int iVar1;
-  undefined4 uVar2;
-  float fVar3;
+  Puck *this;
+  ActorExtra *pAVar1;
+  float fVar2;
   #define local_40 (*(float *)(_frame + (0x50 - 0x40)))
   #define local_30 (*(undefined1 (*)[12])(_frame + (0x50 - 0x30)))
   #define local_24 (*(float (*)[3])(_frame + (0x50 - 0x24)))
   
-  *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
-  if ((*(int *)(param_1 + 0xa4) != 0) &&
-     (this = *(float **)(*(int *)(param_1 + 0xa4) + 0x1b4), this != (float *)0x0)) {
+  actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
+  if ((actor->pExtra != (ActorExtra *)0x0) && (this = actor->pExtra->pPuck, this != (Puck *)0x0)) {
     rdMatrix_BuildRotate34(local_30,param_2);
-    local_24[0] = local_24[0] + *this;
-    local_24[1] = this[1] + local_24[1];
-    local_24[2] = this[2] + local_24[2];
+    local_24[0] = local_24[0] + this->aPos[0];
+    local_24[1] = this->aPos[1] + local_24[1];
+    local_24[2] = this->aPos[2] + local_24[2];
     Puck_InvXform(this,local_24);
     local_24[2] = 0.0;
     rdVector_Normalize3Acc(local_24);
-    fVar3 = stdMath_ArcSin3(local_24[1]);
-    fVar3 = 90.0 - fVar3;
-    local_40 = fVar3;
+    fVar2 = stdMath_ArcSin3(local_24[1]);
+    fVar2 = 90.0 - fVar2;
+    local_40 = fVar2;
     if (0.0 < local_24[0]) {
-      local_40 = -fVar3;
+      local_40 = -fVar2;
     }
     Puck_Rotate(this,local_40);
-    iVar1 = *(int *)(param_1 + 0xa4);
-    if ((0.0 < *(float *)(iVar1 + 0x1c)) && (param_3 != 0)) {
-      *(float *)(iVar1 + 0x1c) = *(float *)(iVar1 + 0x1c) * -1.0;
+    pAVar1 = actor->pExtra;
+    if ((0.0 < pAVar1->flTurnRate) && (param_3 != 0)) {
+      pAVar1->flTurnRate = pAVar1->flTurnRate * -1.0;
     }
-    *(float *)(*(int *)(param_1 + 0xa4) + 0x28) = fVar3;
-    *(undefined4 *)(param_1 + 0x2c) = param_2[2];
-    *(undefined4 *)(param_1 + 0x24) = *param_2;
-    *(undefined4 *)(param_1 + 0x34) = 0;
+    actor->pExtra->flYawLeft = fVar2;
+    actor->aRot[2] = PUN(float,param_2[2]);
+    actor->aRot[0] = PUN(float,*param_2);
+    actor->nMatrixDirty = 0;
     return;
   }
-  *(undefined4 *)(param_1 + 0x24) = *param_2;
-  *(undefined4 *)(param_1 + 0x28) = param_2[1];
-  uVar2 = param_2[2];
-  *(undefined4 *)(param_1 + 0x34) = 0;
-  *(undefined4 *)(param_1 + 0x2c) = uVar2;
+  actor->aRot[0] = PUN(float,*param_2);
+  actor->aRot[1] = PUN(float,param_2[1]);
+  fVar2 = PUN(float,param_2[2]);
+  actor->nMatrixDirty = 0;
+  actor->aRot[2] = fVar2;
   return;
 }
 #undef local_24
@@ -1028,14 +1024,14 @@ void sputActor_SetActorRotation(int param_1,undefined4 *param_2,int param_3)
    callee of Lua_SetActorReflection; 1 matched neighbours agree, 0 disagree); was
    Actor_SetReflection. */
 
-void __cdecl sputActor_SetReflection(void *actor,float angle)
+void __cdecl sputActor_SetReflection(Actor *actor,float angle)
 
 {
-  int iVar1;
+  Puck *pPVar1;
   
-  iVar1 = *(int *)(*(int *)((int)actor + 0xa4) + 0x1b4);
-  if (iVar1 != 0) {
-    *(float *)(iVar1 + 0x3c) = angle;
+  pPVar1 = actor->pExtra->pPuck;
+  if (pPVar1 != (Puck *)0x0) {
+    pPVar1->flRadius = angle;
   }
   return;
 }
@@ -1046,47 +1042,49 @@ void __cdecl sputActor_SetReflection(void *actor,float angle)
    +0x2c / +0x30); called by sputLua_SetActorTurnChoresL in both builds); was Actor_SetTurnChores.
     */
 
-void __cdecl sputActor_SetTurnChores(void *actor,int leftChore,int rightChore,void *costume)
+void __cdecl sputActor_SetTurnChores(Actor *actor,int leftChore,int rightChore,CostumeNode *costume)
 
 {
-  int *piVar1;
+  void **ppvVar1;
   uint uVar2;
-  int *piVar3;
+  CostumeNode *pCVar3;
   
-  piVar3 = *(int **)((int)actor + 0xa0);
-  if (piVar3 != (int *)0x0) {
-    if (costume == (void *)0x0) {
-      costume = piVar3;
+  pCVar3 = actor->pCostumes;
+  if (pCVar3 != (CostumeNode *)0x0) {
+    if (costume == (CostumeNode *)0x0) {
+      costume = pCVar3;
     }
-    piVar1 = piVar3 + 1;
-    if (piVar3 != (int *)0x0) {
+    ppvVar1 = &pCVar3->pMainModel;
+    if (pCVar3 != (CostumeNode *)0x0) {
       do {
-        if ((piVar3[1] != *piVar1) || (-1 < piVar3[0xb])) break;
-        piVar3 = (int *)piVar3[0x2c];
-      } while (piVar3 != (int *)0x0);
-      if ((piVar3 != (int *)0x0) && (piVar3[1] == *piVar1)) {
-        if (leftChore != piVar3[0xb]) {
-          uVar2 = Cos_InstChoreStatus(*piVar3,piVar3[0xb]);
-          if ((uVar2 != 0) && (Cos_InstStopChore(*piVar3,piVar3[0xb]), leftChore != -1)) {
-            Cos_InstPlayChore(*piVar3,leftChore,uVar2 & 2,~uVar2 >> 2 & 1);
+        if ((pCVar3->pMainModel != *ppvVar1) || (-1 < pCVar3->nTurnLeftChore)) break;
+        pCVar3 = pCVar3->pNext;
+      } while (pCVar3 != (CostumeNode *)0x0);
+      if ((pCVar3 != (CostumeNode *)0x0) && (pCVar3->pMainModel == *ppvVar1)) {
+        if (leftChore != pCVar3->nTurnLeftChore) {
+          uVar2 = Cos_InstChoreStatus(pCVar3->dwInstance,pCVar3->nTurnLeftChore);
+          if ((uVar2 != 0) &&
+             (Cos_InstStopChore(pCVar3->dwInstance,pCVar3->nTurnLeftChore), leftChore != -1)) {
+            Cos_InstPlayChore(pCVar3->dwInstance,leftChore,uVar2 & 2,~uVar2 >> 2 & 1);
           }
-          piVar3[0xb] = -1;
-          *(int *)((int)costume + 0x2c) = leftChore;
+          pCVar3->nTurnLeftChore = -1;
+          costume->nTurnLeftChore = leftChore;
         }
-        if (rightChore == piVar3[0xc]) {
+        if (rightChore == pCVar3->nTurnRightChore) {
           return;
         }
-        uVar2 = Cos_InstChoreStatus(*piVar3,piVar3[0xc]);
-        if ((uVar2 != 0) && (Cos_InstStopChore(*piVar3,piVar3[0xc]), leftChore != -1)) {
-          Cos_InstPlayChore(*piVar3,rightChore,uVar2 & 2,~uVar2 >> 2 & 1);
+        uVar2 = Cos_InstChoreStatus(pCVar3->dwInstance,pCVar3->nTurnRightChore);
+        if ((uVar2 != 0) &&
+           (Cos_InstStopChore(pCVar3->dwInstance,pCVar3->nTurnRightChore), leftChore != -1)) {
+          Cos_InstPlayChore(pCVar3->dwInstance,rightChore,uVar2 & 2,~uVar2 >> 2 & 1);
         }
-        piVar3[0xc] = -1;
-        *(int *)((int)costume + 0x30) = rightChore;
+        pCVar3->nTurnRightChore = -1;
+        costume->nTurnRightChore = rightChore;
         return;
       }
     }
-    *(int *)((int)costume + 0x2c) = leftChore;
-    *(int *)((int)costume + 0x30) = rightChore;
+    costume->nTurnLeftChore = leftChore;
+    costume->nTurnRightChore = rightChore;
   }
   return;
 }
@@ -1095,38 +1093,39 @@ void __cdecl sputActor_SetTurnChores(void *actor,int leftChore,int rightChore,vo
 /* Original name sputActor_SetRestChore (the remaster's GrimFandango (Linux): aligned call in
    sputLua_SetActorRestChoreL); was Actor_SetRestChore. */
 
-void __cdecl sputActor_SetRestChore(void *actor,int chore,void *costume)
+void __cdecl sputActor_SetRestChore(Actor *actor,int chore,CostumeNode *costume)
 
 {
-  int *piVar1;
+  void **ppvVar1;
   uint uVar2;
-  int *piVar3;
+  CostumeNode *pCVar3;
   
-  piVar3 = *(int **)((int)actor + 0xa0);
-  if (piVar3 != (int *)0x0) {
-    if (costume == (void *)0x0) {
-      costume = piVar3;
+  pCVar3 = actor->pCostumes;
+  if (pCVar3 != (CostumeNode *)0x0) {
+    if (costume == (CostumeNode *)0x0) {
+      costume = pCVar3;
     }
-    piVar1 = piVar3 + 1;
-    if (piVar3 != (int *)0x0) {
+    ppvVar1 = &pCVar3->pMainModel;
+    if (pCVar3 != (CostumeNode *)0x0) {
       do {
-        if ((piVar3[1] != *piVar1) || (-1 < piVar3[0xd])) break;
-        piVar3 = (int *)piVar3[0x2c];
-      } while (piVar3 != (int *)0x0);
-      if ((piVar3 != (int *)0x0) && (piVar3[1] == *piVar1)) {
-        if (chore == piVar3[0xd]) {
+        if ((pCVar3->pMainModel != *ppvVar1) || (-1 < pCVar3->nRestChore)) break;
+        pCVar3 = pCVar3->pNext;
+      } while (pCVar3 != (CostumeNode *)0x0);
+      if ((pCVar3 != (CostumeNode *)0x0) && (pCVar3->pMainModel == *ppvVar1)) {
+        if (chore == pCVar3->nRestChore) {
           return;
         }
-        uVar2 = Cos_InstChoreStatus(*piVar3,piVar3[0xd]);
-        if ((uVar2 != 0) && (Cos_InstStopChore(*piVar3,piVar3[0xd]), chore != -1)) {
-          Cos_InstPlayChore(*piVar3,chore,uVar2 & 2,~uVar2 >> 2 & 1);
+        uVar2 = Cos_InstChoreStatus(pCVar3->dwInstance,pCVar3->nRestChore);
+        if ((uVar2 != 0) && (Cos_InstStopChore(pCVar3->dwInstance,pCVar3->nRestChore), chore != -1))
+        {
+          Cos_InstPlayChore(pCVar3->dwInstance,chore,uVar2 & 2,~uVar2 >> 2 & 1);
         }
-        piVar3[0xd] = -1;
-        *(int *)((int)costume + 0x34) = chore;
+        pCVar3->nRestChore = -1;
+        costume->nRestChore = chore;
         return;
       }
     }
-    *(int *)((int)costume + 0x34) = chore;
+    costume->nRestChore = chore;
   }
   return;
 }
@@ -1136,15 +1135,15 @@ void __cdecl sputActor_SetRestChore(void *actor,int chore,void *costume)
    callee of Lua_PushActorCostume; 2 matched neighbours agree, 0 disagree); was Actor_PushCostume.
     */
 
-int __cdecl sputActor_PushCostume(void *actor,char *name,int param_3)
+int __cdecl sputActor_PushCostume(Actor *actor,char *name,int param_3)
 
 {
   void *costumeRes;
-  void *pvVar1;
+  CostumeNode *pCVar1;
   
   if ((name == (char *)0x0) || (param_3 != 0)) {
     costumeRes = (void *)0x0;
-    pvVar1 = *(void **)((int)actor + 0xa0);
+    pCVar1 = actor->pCostumes;
   }
   else {
     costumeRes = sputResource_Alloc(0x54534f43,name);
@@ -1152,12 +1151,12 @@ int __cdecl sputActor_PushCostume(void *actor,char *name,int param_3)
       return 0;
     }
     param_3 = 0;
-    pvVar1 = *(void **)((int)actor + 0xa0);
+    pCVar1 = actor->pCostumes;
   }
-  pvVar1 = sputCostume_PushCostume(pvVar1,costumeRes,param_3);
-  *(void **)((int)actor + 0xa0) = pvVar1;
-  Cos_InstSetUserData(**(int **)((int)actor + 0xa0),((int)actor - (int)g_pActors) / 0xa8);
-  sputActor_SetFrustrumCull(actor,~*(uint *)((int)actor + 4) >> 2 & 1);
+  pCVar1 = sputCostume_PushCostume(pCVar1,costumeRes,param_3);
+  actor->pCostumes = pCVar1;
+  Cos_InstSetUserData(actor->pCostumes->dwInstance,((int)actor - (int)g_pActors) / 0xa8);
+  sputActor_SetFrustrumCull(actor,~actor->dwFlags >> 2 & 1);
   return 1;
 }
 
@@ -1165,13 +1164,13 @@ int __cdecl sputActor_PushCostume(void *actor,char *name,int param_3)
 /* Original name sputActor_PopCostume (the remaster's GrimFandango (Linux): the only unmatched
    callee of Lua_PopActorCostume; 2 matched neighbours agree, 0 disagree); was Actor_PopCostume. */
 
-void __cdecl sputActor_PopCostume(void *actor,int free)
+void __cdecl sputActor_PopCostume(Actor *actor,int free)
 
 {
-  void *pvVar1;
+  CostumeNode *pCVar1;
   
-  pvVar1 = sputCostume_PopCostume(*(void **)((int)actor + 0xa0),free);
-  *(void **)((int)actor + 0xa0) = pvVar1;
+  pCVar1 = sputCostume_PopCostume(actor->pCostumes,free);
+  actor->pCostumes = pCVar1;
   return;
 }
 
@@ -1184,16 +1183,16 @@ void __cdecl sputActor_PopCostume(void *actor,int free)
    2 degrees it turns about up x normal by min(angle, frame seconds * turn rate), multiplies
    (Matrix_Multiply) and sets the three angles from the matrix (Matrix_ToAngles). */
 
-void __cdecl Actor_PuckOrient(void *actor)
+void __cdecl Actor_PuckOrient(Actor *actor)
 
 {
   unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
-  int iVar3;
-  int iVar4;
-  void *pvVar5;
-  void *pvVar6;
+  float *pfVar1;
+  float *pfVar2;
+  float *pfVar3;
+  Puck *pPVar4;
+  Actor *pAVar5;
+  Actor *pAVar6;
   float fVar7;
   #define local_68 (*(uint *)(_frame + (0x80 - 0x68)))
   #define local_54 (*(float (*)[3])(_frame + (0x80 - 0x54)))
@@ -1201,43 +1200,43 @@ void __cdecl Actor_PuckOrient(void *actor)
   #define local_3c (*(float (*)[3])(_frame + (0x80 - 0x3c)))
   #define local_30 (*(undefined1 (*)[48])(_frame + (0x80 - 0x30)))
   
-  if (((actor != (void *)0x0) && (*(int *)((int)actor + 0xa4) != 0)) &&
-     (iVar4 = *(int *)(*(int *)((int)actor + 0xa4) + 0x1b4), iVar4 != 0)) {
-    iVar1 = (int)actor + 0xc;
-    iVar2 = (int)actor + 0x24;
-    iVar3 = (int)actor + 0x38;
-    rdMatrix_Build34(iVar3,iVar2,iVar1);
-    local_48[0] = *(float *)((int)actor + 0x50);
-    local_48[1] = *(float *)((int)actor + 0x54);
-    local_48[2] = *(float *)((int)actor + 0x58);
-    local_54[0] = *(float *)(iVar4 + 0x24);
-    local_54[1] = *(float *)(iVar4 + 0x28);
-    local_54[2] = *(float *)(iVar4 + 0x2c);
+  if (((actor != (Actor *)0x0) && (actor->pExtra != (ActorExtra *)0x0)) &&
+     (pPVar4 = actor->pExtra->pPuck, pPVar4 != (Puck *)0x0)) {
+    pfVar1 = actor->aPos;
+    pfVar2 = actor->aRot;
+    pfVar3 = actor->aOrient;
+    rdMatrix_Build34(pfVar3,pfVar2,pfVar1);
+    local_48[0] = actor->aOrient[6];
+    local_48[1] = actor->aOrient[7];
+    local_48[2] = actor->aOrient[8];
+    local_54[0] = pPVar4->aFrame[6];
+    local_54[1] = pPVar4->aFrame[7];
+    local_54[2] = pPVar4->aFrame[8];
     fVar7 = rdVector_Dot3(local_48,local_54);
     fVar7 = stdMath_ArcSin3(fVar7);
-    pvVar5 = PUN(void *,(float)(90.0 - fVar7));
-    pvVar6 = pvVar5;
-    if (PUN(float,pvVar5) < 0.0) {
-      pvVar6 = PUN(void *,(float)-PUN(float,pvVar5));
+    pAVar5 = PUN(Actor *,(float)(90.0 - fVar7));
+    pAVar6 = pAVar5;
+    if (PUN(float,pAVar5) < 0.0) {
+      pAVar6 = PUN(Actor *,(float)-PUN(float,pAVar5));
     }
-    if (2.0 < PUN(float,pvVar6)) {
+    if (2.0 < PUN(float,pAVar6)) {
       fVar7 = sputTime_GetFrameTimeFlex();
-      pvVar6 = PUN(void *,(float)(fVar7 * *(float *)(*(int *)((int)actor + 0xa4) + 0x1c)));
-      actor = pvVar5;
-      if ((0.0 < PUN(float,pvVar5)) && (PUN(float,pvVar6) < PUN(float,pvVar5))) {
-        actor = pvVar6;
+      pAVar6 = PUN(Actor *,(float)(fVar7 * actor->pExtra->flTurnRate));
+      actor = pAVar5;
+      if ((0.0 < PUN(float,pAVar5)) && (PUN(float,pAVar6) < PUN(float,pAVar5))) {
+        actor = pAVar6;
       }
-      if ((PUN(float,actor) < 0.0) && (PUN(float,actor) < -PUN(float,pvVar6))) {
-        actor = PUN(void *,(float)-PUN(float,pvVar6));
+      if ((PUN(float,actor) < 0.0) && (PUN(float,actor) < -PUN(float,pAVar6))) {
+        actor = PUN(Actor *,(float)-PUN(float,pAVar6));
       }
       local_3c[0] = local_54[2] * local_48[1] - local_54[1] * local_48[2];
       local_3c[1] = local_54[0] * local_48[2] - local_54[2] * local_48[0];
       local_3c[2] = local_54[1] * local_48[0] - local_54[0] * local_48[1];
       rdVector_Normalize3Acc(local_3c);
       rdMatrix_BuildFromVectorAngle34(local_30,local_3c,PUN(float,actor));
-      rdMatrix_PostMultiply34(iVar3,local_30);
-      rdMatrix_ExtractAngles34(iVar3,iVar2);
-      rdMatrix_Build34(iVar3,iVar2,iVar1);
+      rdMatrix_PostMultiply34(pfVar3,local_30);
+      rdMatrix_ExtractAngles34(pfVar3,pfVar2);
+      rdMatrix_Build34(pfVar3,pfVar2,pfVar1);
     }
   }
   return;
@@ -1254,58 +1253,56 @@ void __cdecl Actor_PuckOrient(void *actor)
 /* ---- 0x00491110  Actor_UpdateWalker ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Actor_UpdateWalker(int param_1)
+void __cdecl Actor_UpdateWalker(Actor *actor)
 
 {
-  undefined4 *puVar1;
-  int iVar2;
+  Puck *pPVar1;
+  ActorExtra *pAVar2;
   undefined *puVar3;
-  undefined4 uVar4;
+  int iVar4;
   float fVar5;
   uint turnLeftOk;
   uint turnRightOk;
   
-  puVar1 = *(undefined4 **)(*(int *)(param_1 + 0xa4) + 0x1b4);
-  if ((*(int *)(*(int *)(param_1 + 0xa4) + 0x10) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
-    iVar2 = *(int *)(param_1 + 0xa4);
+  pPVar1 = actor->pExtra->pPuck;
+  if ((actor->pExtra->nTurning != 0) && ((actor->dwMoveFlags & 1) == 0)) {
+    pAVar2 = actor->pExtra;
     fVar5 = sputTime_GetFrameTimeFlex();
-    Puck_Rotate(*(void **)(iVar2 + 0x1b4),
-                (float)*(int *)(iVar2 + 0x10) *
-                *(float *)(iVar2 + 0x1c) * fVar5 * *(float *)(iVar2 + 0x41c));
+    Puck_Rotate(pAVar2->pPuck,
+                      (float)pAVar2->nTurning * pAVar2->flTurnRate * fVar5 * pAVar2->flTimeScale);
   }
-  iVar2 = *(int *)(param_1 + 0xa4);
-  if (*(int *)(iVar2 + 0xc) != 0) {
+  pAVar2 = actor->pExtra;
+  if (pAVar2->nWalking != 0) {
     fVar5 = sputTime_GetFrameTimeFlex();
-    if (*(int *)(iVar2 + 0x1bc) == 0) {
-      turnRightOk = (uint)(*(int *)(iVar2 + 0x10) != 1);
-      turnLeftOk = (uint)(*(int *)(iVar2 + 0x10) != -1);
+    if (pAVar2->nWalkDominate == 0) {
+      turnRightOk = (uint)(pAVar2->nTurning != 1);
+      turnLeftOk = (uint)(pAVar2->nTurning != -1);
     }
     else {
       turnRightOk = 1;
       turnLeftOk = 1;
     }
-    puVar3 = Puck_Forward(*(void **)(iVar2 + 0x1b4),
-                          fVar5 * *(float *)(iVar2 + 0x41c) * *(float *)(iVar2 + 0x18),turnLeftOk,
-                          turnRightOk);
-    *(undefined **)(*(int *)(param_1 + 0xa4) + 0xc) = puVar3;
+    puVar3 = Puck_Forward(pAVar2->pPuck,fVar5 * pAVar2->flTimeScale * pAVar2->flWalkRate,
+                                turnLeftOk,turnRightOk);
+    actor->pExtra->nWalking = (int)puVar3;
   }
-  uVar4 = sputActor_AlignToPuck(param_1,puVar1);
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x20) = uVar4;
-  iVar2 = *(int *)(param_1 + 0xa4);
-  if ((*(int *)(iVar2 + 0x10) == 0) && (*(int *)(iVar2 + 0x20) == 0)) {
-    if (*(float *)(iVar2 + 0x28) <= 0.0) {
-      uVar4 = 1;
+  iVar4 = sputActor_AlignToPuck(actor,pPVar1->aPos);
+  actor->pExtra->nAlignTurn = iVar4;
+  pAVar2 = actor->pExtra;
+  if ((pAVar2->nTurning == 0) && (pAVar2->nAlignTurn == 0)) {
+    if (pAVar2->flYawLeft <= 0.0) {
+      iVar4 = 1;
     }
     else {
-      uVar4 = 0xffffffff;
+      iVar4 = -1;
     }
-    *(undefined4 *)(iVar2 + 0x10) = uVar4;
+    pAVar2->nTurning = iVar4;
   }
-  *(undefined4 *)(param_1 + 0xc) = *puVar1;
-  *(undefined4 *)(param_1 + 0x10) = puVar1[1];
-  uVar4 = puVar1[2];
-  *(undefined4 *)(param_1 + 0x34) = 0;
-  *(undefined4 *)(param_1 + 0x14) = uVar4;
+  actor->aPos[0] = pPVar1->aPos[0];
+  actor->aPos[1] = pPVar1->aPos[1];
+  fVar5 = pPVar1->aPos[2];
+  actor->nMatrixDirty = 0;
+  actor->aPos[2] = fVar5;
   return;
 }
 #endif
@@ -1318,118 +1315,123 @@ void Actor_UpdateWalker(int param_1)
    right chore); starting one clears +0x14. Not walking and +0x10 == 0 sets +0x14 = 1; rest plays
    while +0x14 else stops. Clears +0xc and +0x10. Start/stop fade 130 ms (DAT_004e9e04). */
 
-void Actor_UpdateMoveChores(int param_1)
+void __cdecl Actor_UpdateMoveChores(Actor *actor)
 
 {
-  int iVar1;
-  uint uVar2;
-  int iVar3;
-  int *piVar4;
-  int *piVar5;
+  void **ppvVar1;
+  int iVar2;
+  void *pvVar3;
+  ActorExtra *pAVar4;
+  uint uVar5;
+  int iVar6;
+  CostumeNode *pCVar7;
   
-  if (*(int *)(param_1 + 0xa4) == 0) {
+  if (actor->pExtra == (ActorExtra *)0x0) {
     return;
   }
-  piVar4 = *(int **)(param_1 + 0xa0);
-  if (piVar4 == (int *)0x0) {
+  pCVar7 = actor->pCostumes;
+  if (pCVar7 == (CostumeNode *)0x0) {
     return;
   }
-  piVar5 = piVar4 + 1;
-  if (piVar4 != (int *)0x0) {
+  ppvVar1 = &pCVar7->pMainModel;
+  if (pCVar7 != (CostumeNode *)0x0) {
     do {
-      if ((piVar4[1] != *piVar5) || (-1 < piVar4[10])) break;
-      piVar4 = (int *)piVar4[0x2c];
-    } while (piVar4 != (int *)0x0);
-    if ((piVar4 != (int *)0x0) && (piVar4[1] == *piVar5)) {
-      uVar2 = Cos_InstChoreStatus(*piVar4,piVar4[10]);
-      iVar1 = *(int *)(*(int *)(param_1 + 0xa4) + 0xc);
-      if (iVar1 == 0) {
+      if ((pCVar7->pMainModel != *ppvVar1) || (-1 < pCVar7->nWalkChore)) break;
+      pCVar7 = pCVar7->pNext;
+    } while (pCVar7 != (CostumeNode *)0x0);
+    if ((pCVar7 != (CostumeNode *)0x0) && (pCVar7->pMainModel == *ppvVar1)) {
+      uVar5 = Cos_InstChoreStatus(pCVar7->dwInstance,pCVar7->nWalkChore);
+      iVar2 = actor->pExtra->nWalking;
+      if (iVar2 == 0) {
 LAB_00491477:
-        if (((uVar2 & 1) != 0) && ((*(byte *)(param_1 + 8) & 1) == 0)) {
-          FadeOutChore((void *)*piVar4,piVar4[10],g_nWALKSYSTEM_FADE_TIME);
+        if (((uVar5 & 1) != 0) && ((actor->dwMoveFlags & 1) == 0)) {
+          FadeOutChore((void *)pCVar7->dwInstance,pCVar7->nWalkChore,g_nWALKSYSTEM_FADE_TIME);
         }
       }
-      else if (uVar2 == 0) {
-        *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-        FadeInChore(*piVar4,piVar4[10],g_nWALKSYSTEM_FADE_TIME);
+      else if (uVar5 == 0) {
+        actor->pExtra->nResting = 0;
+        FadeInChore(pCVar7->dwInstance,pCVar7->nWalkChore,g_nWALKSYSTEM_FADE_TIME);
       }
-      else if (iVar1 == 0) goto LAB_00491477;
+      else if (iVar2 == 0) goto LAB_00491477;
     }
   }
-  if (*(int *)(*(int *)(param_1 + 0xa4) + 0xc) != 0) {
-    *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x10) = 0;
+  if (actor->pExtra->nWalking != 0) {
+    actor->pExtra->nTurning = 0;
   }
-  piVar4 = *(int **)(param_1 + 0xa0);
-  iVar1 = piVar4[1];
-  if (piVar4 != (int *)0x0) {
+  pCVar7 = actor->pCostumes;
+  pvVar3 = pCVar7->pMainModel;
+  if (pCVar7 != (CostumeNode *)0x0) {
     do {
-      if ((piVar4[1] != iVar1) || (-1 < piVar4[0xb])) break;
-      piVar4 = (int *)piVar4[0x2c];
-    } while (piVar4 != (int *)0x0);
-    if (piVar4 != (int *)0x0) {
-      if ((piVar4[1] == iVar1) && (-1 < piVar4[0xb])) {
-        uVar2 = Cos_InstChoreStatus(*piVar4,piVar4[0xb]);
-        iVar3 = *(int *)(*(int *)(param_1 + 0xa4) + 0x10);
-        if (iVar3 < 1) {
+      if ((pCVar7->pMainModel != pvVar3) || (-1 < pCVar7->nTurnLeftChore)) break;
+      pCVar7 = pCVar7->pNext;
+    } while (pCVar7 != (CostumeNode *)0x0);
+    if (pCVar7 != (CostumeNode *)0x0) {
+      if ((pCVar7->pMainModel == pvVar3) && (-1 < pCVar7->nTurnLeftChore)) {
+        uVar5 = Cos_InstChoreStatus(pCVar7->dwInstance,pCVar7->nTurnLeftChore);
+        iVar2 = actor->pExtra->nTurning;
+        if (iVar2 < 1) {
 LAB_00491517:
-          if ((uVar2 & 1) != 0) {
-            FadeOutChore((void *)*piVar4,piVar4[0xb],g_nWALKSYSTEM_FADE_TIME);
+          if ((uVar5 & 1) != 0) {
+            FadeOutChore((void *)pCVar7->dwInstance,pCVar7->nTurnLeftChore,g_nWALKSYSTEM_FADE_TIME);
           }
         }
-        else if (uVar2 == 0) {
-          *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-          FadeInChore(*piVar4,piVar4[0xb],g_nWALKSYSTEM_FADE_TIME);
+        else if (uVar5 == 0) {
+          actor->pExtra->nResting = 0;
+          FadeInChore(pCVar7->dwInstance,pCVar7->nTurnLeftChore,g_nWALKSYSTEM_FADE_TIME);
         }
-        else if (iVar3 < 1) goto LAB_00491517;
+        else if (iVar2 < 1) goto LAB_00491517;
       }
-      if (((piVar4 != (int *)0x0) && (piVar4[1] == iVar1)) && (-1 < piVar4[0xc])) {
-        uVar2 = Cos_InstChoreStatus(*piVar4,piVar4[0xc]);
-        iVar1 = *(int *)(*(int *)(param_1 + 0xa4) + 0x10);
-        if (iVar1 < 0) {
-          if (uVar2 == 0) {
-            *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x14) = 0;
-            FadeInChore(*piVar4,piVar4[0xc],g_nWALKSYSTEM_FADE_TIME);
+      if (((pCVar7 != (CostumeNode *)0x0) && (pCVar7->pMainModel == pvVar3)) &&
+         (-1 < pCVar7->nTurnRightChore)) {
+        uVar5 = Cos_InstChoreStatus(pCVar7->dwInstance,pCVar7->nTurnRightChore);
+        iVar2 = actor->pExtra->nTurning;
+        if (iVar2 < 0) {
+          if (uVar5 == 0) {
+            actor->pExtra->nResting = 0;
+            FadeInChore(pCVar7->dwInstance,pCVar7->nTurnRightChore,g_nWALKSYSTEM_FADE_TIME);
           }
-          else if (-1 < iVar1) goto LAB_0049157a;
+          else if (-1 < iVar2) goto LAB_0049157a;
         }
         else {
 LAB_0049157a:
-          if ((uVar2 & 1) != 0) {
-            FadeOutChore((void *)*piVar4,piVar4[0xc],g_nWALKSYSTEM_FADE_TIME);
+          if ((uVar5 & 1) != 0) {
+            FadeOutChore((void *)pCVar7->dwInstance,pCVar7->nTurnRightChore,g_nWALKSYSTEM_FADE_TIME)
+            ;
           }
         }
       }
     }
   }
-  iVar1 = *(int *)(param_1 + 0xa4);
-  if ((*(int *)(iVar1 + 0xc) == 0) && (*(int *)(iVar1 + 0x10) == 0)) {
-    *(undefined4 *)(iVar1 + 0x14) = 1;
+  pAVar4 = actor->pExtra;
+  if ((pAVar4->nWalking == 0) && (pAVar4->nTurning == 0)) {
+    pAVar4->nResting = 1;
   }
-  piVar5 = *(int **)(param_1 + 0xa0);
-  piVar4 = piVar5 + 1;
-  if (piVar5 != (int *)0x0) {
+  pCVar7 = actor->pCostumes;
+  ppvVar1 = &pCVar7->pMainModel;
+  if (pCVar7 != (CostumeNode *)0x0) {
     do {
-      if ((piVar5[1] != *piVar4) || (-1 < piVar5[0xd])) break;
-      piVar5 = (int *)piVar5[0x2c];
-    } while (piVar5 != (int *)0x0);
-    if (((piVar5 != (int *)0x0) && (piVar5[1] == *piVar4)) && (-1 < piVar5[0xd])) {
-      iVar3 = Cos_InstChoreStatus(*piVar5,piVar5[0xd]);
-      iVar1 = *(int *)(*(int *)(param_1 + 0xa4) + 0x14);
-      if (iVar1 != 0) {
-        if (iVar3 == 0) {
-          FadeInChore(*piVar5,piVar5[0xd],g_nWALKSYSTEM_FADE_TIME);
+      if ((pCVar7->pMainModel != *ppvVar1) || (-1 < pCVar7->nRestChore)) break;
+      pCVar7 = pCVar7->pNext;
+    } while (pCVar7 != (CostumeNode *)0x0);
+    if (((pCVar7 != (CostumeNode *)0x0) && (pCVar7->pMainModel == *ppvVar1)) &&
+       (-1 < pCVar7->nRestChore)) {
+      iVar6 = Cos_InstChoreStatus(pCVar7->dwInstance,pCVar7->nRestChore);
+      iVar2 = actor->pExtra->nResting;
+      if (iVar2 != 0) {
+        if (iVar6 == 0) {
+          FadeInChore(pCVar7->dwInstance,pCVar7->nRestChore,g_nWALKSYSTEM_FADE_TIME);
           goto LAB_0049162b;
         }
-        if (iVar1 != 0) goto LAB_0049162b;
+        if (iVar2 != 0) goto LAB_0049162b;
       }
-      if (iVar3 != 0) {
-        FadeOutChore((void *)*piVar5,piVar5[0xd],g_nWALKSYSTEM_FADE_TIME);
+      if (iVar6 != 0) {
+        FadeOutChore((void *)pCVar7->dwInstance,pCVar7->nRestChore,g_nWALKSYSTEM_FADE_TIME);
       }
     }
   }
 LAB_0049162b:
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0xc) = 0;
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x10) = 0;
+  actor->pExtra->nWalking = 0;
+  actor->pExtra->nTurning = 0;
   return;
 }
 
@@ -1439,232 +1441,231 @@ LAB_0049162b:
    the talk chore Original name sputActor_SayLine (the remaster's GrimFandango (Linux): aligned call
    in sputText_SayLineL); was Actor_SayLine. */
 
-void __cdecl sputActor_SayLine(void *actor,char *text,int background,int volume,int pan,int x,int y)
+void __cdecl
+sputActor_SayLine(Actor *actor,char *text,int background,int volume,int pan,int x,int y)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint *puVar1;
-  char cVar2;
-  byte bVar3;
-  uint uVar4;
+  void **ppvVar1;
+  uint *puVar2;
+  char cVar3;
+  byte bVar4;
+  Actor *pAVar5;
+  ActorExtra *pAVar6;
+  uint uVar7;
   char *text_00;
-  int iVar5;
-  byte *pbVar6;
-  void **ppvVar7;
-  void *pvVar8;
-  int iVar9;
-  int *piVar10;
-  uint uVar11;
-  int *piVar12;
-  int iVar13;
-  byte *pbVar14;
-  char *pcVar15;
+  int iVar8;
+  char *pcVar9;
+  Actor **ppAVar10;
+  TextObject *pTVar11;
+  CostumeNode *pCVar12;
+  uint uVar13;
+  int *piVar14;
+  byte *pbVar15;
   uint uVar16;
   char *pcVar17;
   bool bVar18;
-  undefined4 uVar19;
   #define local_44 (*(byte (*)[32])(_frame + (0x60 - 0x44)))
   #define local_24 (*(char (*)[36])(_frame + (0x60 - 0x24)))
   
-  if (*(int *)((int)actor + 0xa4) == 0) {
+  if (actor->pExtra == (ActorExtra *)0x0) {
     sputActor_AllocateActorExtra(actor);
   }
-  uVar4 = g_dwSmSpeechMode & 1;
+  uVar7 = g_dwSmSpeechMode & 1;
   uVar16 = g_dwSmSpeechMode & 2;
   text_00 = sputText_ExtractSayLineData(text,(char *)local_44);
   local_24[0] = '\0';
   if (local_44[0] != 0) {
     sprintf(local_24,s__s_wvc_004e9eec,local_44);
-    iVar5 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
-    if (iVar5 == 0) {
+    iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
+    if (iVar8 == 0) {
       sprintf(local_24,s__s_wav_004e9ee4,local_44);
-      iVar5 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
-      if (iVar5 == 0) {
+      iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
+      if (iVar8 == 0) {
         sprintf(local_24,s__s_imc_004e9edc,local_44);
-        iVar5 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
-        if (iVar5 == 0) {
+        iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
+        if (iVar8 == 0) {
           sprintf(local_24,s__s_imu_004e9ed4,local_44);
-          iVar5 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
-          if (iVar5 == 0) {
+          iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
+          if (iVar8 == 0) {
             local_24[0] = '\0';
             goto LAB_00492c61;
           }
         }
       }
     }
-    (**(code **)(g_dwSputActHS + 0x34))(iVar5);
+    (**(code **)(g_dwSputActHS + 0x34))(iVar8);
   }
 LAB_00492c61:
-  if (*(int *)(*(int *)((int)actor + 0xa4) + 0x1c4) != 0) {
+  if (actor->pExtra->nTalking != 0) {
     if (local_44[0] != 0) {
-      pbVar14 = local_44;
-      pbVar6 = (byte *)(*(int *)((int)actor + 0xa4) + 0x1d0);
+      pbVar15 = local_44;
+      pcVar9 = actor->pExtra->aMsgId;
       do {
-        bVar3 = *pbVar6;
-        bVar18 = bVar3 < *pbVar14;
-        if (bVar3 != *pbVar14) {
+        bVar4 = *pcVar9;
+        bVar18 = bVar4 < *pbVar15;
+        if (bVar4 != *pbVar15) {
 LAB_00492ca6:
-          iVar5 = (1 - (uint)bVar18) - (uint)(bVar18 != 0);
+          iVar8 = (1 - (uint)bVar18) - (uint)(bVar18 != 0);
           goto LAB_00492cab;
         }
-        if (bVar3 == 0) break;
-        bVar3 = pbVar6[1];
-        bVar18 = bVar3 < pbVar14[1];
-        if (bVar3 != pbVar14[1]) goto LAB_00492ca6;
-        pbVar6 = pbVar6 + 2;
-        pbVar14 = pbVar14 + 2;
-      } while (bVar3 != 0);
-      iVar5 = 0;
+        if (bVar4 == 0) break;
+        bVar4 = pcVar9[1];
+        bVar18 = bVar4 < pbVar15[1];
+        if (bVar4 != pbVar15[1]) goto LAB_00492ca6;
+        pcVar9 = pcVar9 + 2;
+        pbVar15 = pbVar15 + 2;
+      } while (bVar4 != 0);
+      iVar8 = 0;
 LAB_00492cab:
-      if (iVar5 == 0) {
+      if (iVar8 == 0) {
         return;
       }
     }
     sputActor_ShutUp(actor);
   }
-  *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1cc) = 0;
-  *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c4) = 1;
-  strncpy(*(int *)((int)actor + 0xa4) + 0x1d0,local_44,0xc);
+  actor->pExtra->nTalkTime = 0;
+  actor->pExtra->nTalking = 1;
+  strncpy(actor->pExtra->aMsgId,local_44,0xc);
   g_nNumActorsTalking = g_nNumActorsTalking + 1;
-  iVar5 = 0;
-  ppvVar7 = &g_pTalkingActors;
+  iVar8 = 0;
+  ppAVar10 = g_pTalkingActors;
   do {
-    if (*ppvVar7 == (void *)0x0) {
-      (&g_pTalkingActors)[iVar5] = actor;
+    if (*ppAVar10 == (Actor *)0x0) {
+      g_pTalkingActors[iVar8] = actor;
       break;
     }
-    ppvVar7 = ppvVar7 + 1;
-    iVar5 = iVar5 + 1;
-  } while ((int)ppvVar7 < IMG_ADDR(0x008ca320));
+    ppAVar10 = ppAVar10 + 1;
+    iVar8 = iVar8 + 1;
+  } while ((int)ppAVar10 < ((unsigned)(uintptr_t)&DAT_008ca320));
   if (uVar16 != 0) {
     if (local_24[0] == '\0') {
 LAB_00492e5e:
-      *(undefined1 *)(*(int *)((int)actor + 0xa4) + 0x1dc) = 0;
+      actor->pExtra->aVoiceFile[0] = '\0';
     }
     else {
       if (background == 0) {
-        iVar5 = SoundsLoadProcessStartSound((int)local_24,0x7f,2);
-        *(int *)(*(int *)((int)actor + 0xa4) + 0x1c8) = iVar5;
-        iVar5 = *(int *)(*(int *)((int)actor + 0xa4) + 0x1c8);
-        if (iVar5 == 0) {
-          *(undefined1 *)(*(int *)((int)actor + 0xa4) + 0x1dc) = 0;
+        iVar8 = SoundsLoadProcessStartSound((int)local_24,0x7f,2);
+        actor->pExtra->nVoiceSound = iVar8;
+        iVar8 = actor->pExtra->nVoiceSound;
+        if (iVar8 == 0) {
+          actor->pExtra->aVoiceFile[0] = '\0';
           goto LAB_00492e6b;
         }
-        SoundsSetParam(iVar5,0x600,volume);
-        if ((*(byte *)((int)actor + 4) & 8) != 0) {
-          uVar19 = *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c8);
+        SoundsSetParam(iVar8,0x600,volume);
+        if ((actor->dwFlags & 8) != 0) {
+          iVar8 = actor->pExtra->nVoiceSound;
           goto LAB_00492dfb;
         }
       }
       else {
-        iVar5 = SoundStartVoiceStream((int)local_24,volume,pan);
-        if (iVar5 != 0) goto LAB_00492e5e;
-        *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c8) = 10000;
-        if ((*(byte *)((int)actor + 4) & 8) != 0) {
-          uVar19 = 10000;
+        iVar8 = SoundStartVoiceStream((int)local_24,volume,pan);
+        if (iVar8 != 0) goto LAB_00492e5e;
+        actor->pExtra->nVoiceSound = 10000;
+        if ((actor->dwFlags & 8) != 0) {
+          iVar8 = 10000;
 LAB_00492dfb:
-          sputRoom_SetSoundPosition(uVar19,(int)actor + 0xc,0x14,0x7f,0x41000000,0x3f4ccccd);
+          sputRoom_SetSoundPosition(iVar8,actor->aPos,0x14,0x7f,0x41000000,0x3f4ccccd);
         }
       }
       uVar16 = 0xffffffff;
-      pcVar15 = local_24;
+      pcVar9 = local_24;
       do {
-        pcVar17 = pcVar15;
+        pcVar17 = pcVar9;
         if (uVar16 == 0) break;
         uVar16 = uVar16 - 1;
-        pcVar17 = pcVar15 + 1;
-        cVar2 = *pcVar15;
-        pcVar15 = pcVar17;
-      } while (cVar2 != '\0');
+        pcVar17 = pcVar9 + 1;
+        cVar3 = *pcVar9;
+        pcVar9 = pcVar17;
+      } while (cVar3 != '\0');
       uVar16 = ~uVar16;
-      pcVar15 = pcVar17 + -uVar16;
-      pcVar17 = (char *)(*(int *)((int)actor + 0xa4) + 0x1dc);
-      for (uVar11 = uVar16 >> 2; uVar11 != 0; uVar11 = uVar11 - 1) {
-        *(undefined4 *)pcVar17 = *(undefined4 *)pcVar15;
-        pcVar15 = pcVar15 + 4;
+      pcVar9 = pcVar17 + -uVar16;
+      pcVar17 = actor->pExtra->aVoiceFile;
+      for (uVar13 = uVar16 >> 2; uVar13 != 0; uVar13 = uVar13 - 1) {
+        *(undefined4 *)pcVar17 = *(undefined4 *)pcVar9;
+        pcVar9 = pcVar9 + 4;
         pcVar17 = pcVar17 + 4;
       }
       for (uVar16 = uVar16 & 3; uVar16 != 0; uVar16 = uVar16 - 1) {
-        *pcVar17 = *pcVar15;
-        pcVar15 = pcVar15 + 1;
+        *pcVar17 = *pcVar9;
+        pcVar9 = pcVar9 + 1;
         pcVar17 = pcVar17 + 1;
       }
-      iVar5 = iMUSE_GetPhoneme(*(int *)(*(int *)((int)actor + 0xa4) + 0x1c8),0);
-      *(int *)(*(int *)((int)actor + 0xa4) + 0x1f0) = iVar5;
+      iVar8 = iMUSE_GetPhoneme(actor->pExtra->nVoiceSound,0);
+      actor->pExtra->nLipSync = iVar8;
     }
 LAB_00492e6b:
-    *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1cc) = 0xffffffff;
+    actor->pExtra->nTalkTime = -1;
   }
-  if ((uVar4 != 0) || (*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0')) {
-    pvVar8 = sputText_CreateActorText(actor,text_00,x,y);
-    *(void **)(*(int *)((int)actor + 0xa4) + 0x1ec) = pvVar8;
-    if (*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0') {
-      uVar4 = 0xffffffff;
+  if ((uVar7 != 0) || (actor->pExtra->aVoiceFile[0] == '\0')) {
+    pTVar11 = sputText_CreateActorText(actor,text_00,x,y);
+    actor->pExtra->pText = pTVar11;
+    if (actor->pExtra->aVoiceFile[0] == '\0') {
+      uVar7 = 0xffffffff;
       do {
-        if (uVar4 == 0) break;
-        uVar4 = uVar4 - 1;
-        cVar2 = *text_00;
+        if (uVar7 == 0) break;
+        uVar7 = uVar7 - 1;
+        cVar3 = *text_00;
         text_00 = text_00 + 1;
-      } while (cVar2 != '\0');
-      *(uint *)(*(int *)((int)actor + 0xa4) + 0x1cc) =
-           (~uVar4 - 1) * (0xb - g_nTextRate) * 0xf + 0x280;
+      } while (cVar3 != '\0');
+      actor->pExtra->nTalkTime = (~uVar7 - 1) * (0xb - g_nTextRate) * 0xf + 0x280;
     }
-    sputText_AddToQueue(pvVar8,-1,0xd);
-    ppvVar7 = &g_pTalkingActors;
+    sputText_AddToQueue(pTVar11,-1,0xd);
+    ppAVar10 = g_pTalkingActors;
     if (background == 0) {
       do {
-        pvVar8 = *ppvVar7;
-        if ((((pvVar8 != (void *)0x0) && (pvVar8 != actor)) &&
-            (*(int *)(*(int *)((int)pvVar8 + 0xa4) + 0x1ec) != 0)) &&
-           (*(int *)(*(int *)((int)pvVar8 + 0xa4) + 0x1c8) == 10000)) {
-          puVar1 = (uint *)(*(int *)(*(int *)((int)actor + 0xa4) + 0x1ec) + 600);
-          *puVar1 = *puVar1 | 2;
+        pAVar5 = *ppAVar10;
+        if ((((pAVar5 != (Actor *)0x0) && (pAVar5 != actor)) &&
+            (pAVar5->pExtra->pText != (TextObject *)0x0)) && (pAVar5->pExtra->nVoiceSound == 10000))
+        {
+          puVar2 = &actor->pExtra->pText->dwFlags;
+          *puVar2 = *puVar2 | 2;
           break;
         }
-        ppvVar7 = ppvVar7 + 1;
-      } while ((int)ppvVar7 < IMG_ADDR(0x008ca320));
+        ppAVar10 = ppAVar10 + 1;
+      } while ((int)ppAVar10 < ((unsigned)(uintptr_t)&DAT_008ca320));
     }
     else {
       do {
-        pvVar8 = *ppvVar7;
-        if (((pvVar8 != (void *)0x0) && (pvVar8 != actor)) &&
-           (iVar5 = *(int *)(*(int *)((int)pvVar8 + 0xa4) + 0x1ec), iVar5 != 0)) {
-          puVar1 = (uint *)(iVar5 + 600);
-          *puVar1 = *puVar1 | 2;
+        pAVar5 = *ppAVar10;
+        if (((pAVar5 != (Actor *)0x0) && (pAVar5 != actor)) &&
+           (pTVar11 = pAVar5->pExtra->pText, pTVar11 != (TextObject *)0x0)) {
+          puVar2 = &pTVar11->dwFlags;
+          *puVar2 = *puVar2 | 2;
         }
-        ppvVar7 = ppvVar7 + 1;
-      } while ((int)ppvVar7 < IMG_ADDR(0x008ca320));
+        ppAVar10 = ppAVar10 + 1;
+      } while ((int)ppAVar10 < ((unsigned)(uintptr_t)&DAT_008ca320));
     }
   }
-  if (((actor != (void *)0x0) && (iVar5 = *(int *)((int)actor + 0xa4), iVar5 != 0)) &&
-     ((iVar13 = *(int *)((int)actor + 0xa0), iVar13 != 0 && (*(int *)(iVar5 + 0x1f0) != 0)))) {
-    piVar10 = (int *)(iVar13 + 4);
-    if (iVar13 != 0) {
-      while (*(int *)(iVar13 + 4) == *piVar10) {
-        iVar9 = 1;
-        piVar12 = (int *)(iVar13 + 0x3c);
+  if (((actor != (Actor *)0x0) && (pAVar6 = actor->pExtra, pAVar6 != (ActorExtra *)0x0)) &&
+     ((pCVar12 = actor->pCostumes, pCVar12 != (CostumeNode *)0x0 && (pAVar6->nLipSync != 0)))) {
+    ppvVar1 = &pCVar12->pMainModel;
+    if (pCVar12 != (CostumeNode *)0x0) {
+      while (pCVar12->pMainModel == *ppvVar1) {
+        iVar8 = 1;
+        piVar14 = pCVar12->aTalkChores;
         do {
-          if (-1 < *piVar12) break;
-          iVar9 = iVar9 + 1;
-          piVar12 = piVar12 + 1;
-        } while (iVar9 < 10);
-        if ((iVar9 < 10) || (iVar13 = *(int *)(iVar13 + 0xb0), iVar13 == 0)) break;
+          piVar14 = piVar14 + 1;
+          if (-1 < *piVar14) break;
+          iVar8 = iVar8 + 1;
+        } while (iVar8 < 10);
+        if ((iVar8 < 10) || (pCVar12 = pCVar12->pNext, pCVar12 == (CostumeNode *)0x0)) break;
       }
-      if ((iVar13 != 0) && (*(int *)(iVar13 + 4) == *piVar10)) goto LAB_00492fe7;
+      if ((pCVar12 != (CostumeNode *)0x0) && (pCVar12->pMainModel == *ppvVar1)) goto LAB_00492fe7;
     }
-    *(undefined4 *)(iVar5 + 0x1f0) = 0;
+    pAVar6->nLipSync = 0;
   }
 LAB_00492fe7:
-  if (((*(char *)(*(int *)((int)actor + 0xa4) + 0x1dc) == '\0') ||
-      (*(int *)(*(int *)((int)actor + 0xa4) + 0x1f0) == 0)) &&
-     (piVar10 = *(int **)((int)actor + 0xa0), piVar10 != (int *)0x0)) {
-    piVar12 = piVar10 + 1;
+  if (((actor->pExtra->aVoiceFile[0] == '\0') || (actor->pExtra->nLipSync == 0)) &&
+     (pCVar12 = actor->pCostumes, pCVar12 != (CostumeNode *)0x0)) {
+    ppvVar1 = &pCVar12->pMainModel;
     do {
-      if ((piVar10[1] != *piVar12) || (-1 < piVar10[0x1e])) break;
-      piVar10 = (int *)piVar10[0x2c];
-    } while (piVar10 != (int *)0x0);
-    if (((piVar10 != (int *)0x0) && (piVar10[1] == *piVar12)) && (-1 < piVar10[0x1e])) {
-      Cos_InstPlayChore(*piVar10,piVar10[0x1e],1,0);
+      if ((pCVar12->pMainModel != *ppvVar1) || (-1 < pCVar12->nMumbleChore)) break;
+      pCVar12 = pCVar12->pNext;
+    } while (pCVar12 != (CostumeNode *)0x0);
+    if (((pCVar12 != (CostumeNode *)0x0) && (pCVar12->pMainModel == *ppvVar1)) &&
+       (-1 < pCVar12->nMumbleChore)) {
+      Cos_InstPlayChore(pCVar12->dwInstance,pCVar12->nMumbleChore,1,0);
     }
   }
   return;
@@ -1678,67 +1679,70 @@ LAB_00492fe7:
    remaster's GrimFandango (Linux): the only unmatched callee of Lua_ShutUpActor; 1 matched
    neighbours agree, 1 disagree); was Actor_ShutUp. */
 
-void __cdecl sputActor_ShutUp(void *actor)
+void __cdecl sputActor_ShutUp(Actor *actor)
 
 {
-  void *obj;
-  int iVar1;
-  int *piVar2;
-  void **ppvVar3;
-  int *piVar4;
+  void **ppvVar1;
+  ActorExtra *pAVar2;
+  TextObject *obj;
+  int iVar3;
+  CostumeNode *pCVar4;
+  Actor **ppAVar5;
   
-  if ((actor != (void *)0x0) && (iVar1 = *(int *)((int)actor + 0xa4), iVar1 != 0)) {
-    if (*(char *)(iVar1 + 0x1dc) != '\0') {
-      if (*(int *)(iVar1 + 0x1c8) == 10000) {
+  if ((actor != (Actor *)0x0) && (pAVar2 = actor->pExtra, pAVar2 != (ActorExtra *)0x0)) {
+    if (pAVar2->aVoiceFile[0] != '\0') {
+      if (pAVar2->nVoiceSound == 10000) {
         SoundStopVoiceStream();
       }
       else {
-        SoundsStopSound(*(int *)(iVar1 + 0x1c8));
+        SoundsStopSound(pAVar2->nVoiceSound);
       }
     }
-    obj = *(void **)(*(int *)((int)actor + 0xa4) + 0x1ec);
-    if (obj != (void *)0x0) {
+    obj = actor->pExtra->pText;
+    if (obj != (TextObject *)0x0) {
       List_Unlink(obj);
     }
-    piVar4 = *(int **)((int)actor + 0xa0);
-    if (piVar4 != (int *)0x0) {
-      piVar2 = piVar4 + 1;
-      if (piVar4 != (int *)0x0) {
+    pCVar4 = actor->pCostumes;
+    if (pCVar4 != (CostumeNode *)0x0) {
+      ppvVar1 = &pCVar4->pMainModel;
+      if (pCVar4 != (CostumeNode *)0x0) {
         do {
-          if ((piVar4[1] != *piVar2) || (-1 < piVar4[0x1e])) break;
-          piVar4 = (int *)piVar4[0x2c];
-        } while (piVar4 != (int *)0x0);
-        if (((piVar4 != (int *)0x0) && (piVar4[1] == *piVar2)) && (-1 < piVar4[0x1e])) {
-          iVar1 = Cos_InstChoreStatus(*piVar4,piVar4[0x1e]);
-          if (iVar1 != 0) {
-            Cos_InstStopChore(*piVar4,piVar4[0x1e]);
+          if ((pCVar4->pMainModel != *ppvVar1) || (-1 < pCVar4->nMumbleChore)) break;
+          pCVar4 = pCVar4->pNext;
+        } while (pCVar4 != (CostumeNode *)0x0);
+        if (((pCVar4 != (CostumeNode *)0x0) && (pCVar4->pMainModel == *ppvVar1)) &&
+           (-1 < pCVar4->nMumbleChore)) {
+          iVar3 = Cos_InstChoreStatus(pCVar4->dwInstance,pCVar4->nMumbleChore);
+          if (iVar3 != 0) {
+            Cos_InstStopChore(pCVar4->dwInstance,pCVar4->nMumbleChore);
           }
         }
       }
-      piVar2 = *(int **)((int)actor + 0xa0);
-      piVar4 = piVar2 + 1;
-      if (piVar2 != (int *)0x0) {
+      pCVar4 = actor->pCostumes;
+      ppvVar1 = &pCVar4->pMainModel;
+      if (pCVar4 != (CostumeNode *)0x0) {
         do {
-          if ((piVar2[1] != *piVar4) || (-1 < piVar2[0xe])) break;
-          piVar2 = (int *)piVar2[0x2c];
-        } while (piVar2 != (int *)0x0);
-        if (((piVar2 != (int *)0x0) && (piVar2[1] == *piVar4)) && (-1 < piVar2[0xe])) {
-          Cos_InstCompleteChore(*piVar2,piVar2[0xe]);
+          if ((pCVar4->pMainModel != *ppvVar1) || (-1 < pCVar4->aTalkChores[0])) break;
+          pCVar4 = pCVar4->pNext;
+        } while (pCVar4 != (CostumeNode *)0x0);
+        if (((pCVar4 != (CostumeNode *)0x0) && (pCVar4->pMainModel == *ppvVar1)) &&
+           (-1 < pCVar4->aTalkChores[0])) {
+          Cos_InstCompleteChore(pCVar4->dwInstance,pCVar4->aTalkChores[0]);
         }
       }
     }
-    ppvVar3 = &g_pTalkingActors;
+    ppAVar5 = g_pTalkingActors;
     do {
-      if (*ppvVar3 == actor) {
-        *ppvVar3 = (void *)0x0;
+      if (*ppAVar5 == actor) {
+        *ppAVar5 = (Actor *)0x0;
       }
-      ppvVar3 = ppvVar3 + 1;
-    } while ((int)ppvVar3 < IMG_ADDR(0x008ca320));
-    *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1f0) = 0;
-    *(undefined1 *)(*(int *)((int)actor + 0xa4) + 0x1dc) = 0;
-    *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1ec) = 0;
-    *(undefined1 *)(*(int *)((int)actor + 0xa4) + 0x1d0) = 0;
-    *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1c4) = 0;
+      ppAVar5 = ppAVar5 + 1;
+    } while ((int)ppAVar5 < ((unsigned)(uintptr_t)&DAT_008ca320));
+    actor->pExtra->nLipSync = 0;
+    actor->pExtra->aVoiceFile[0] = '\0';
+    actor->pExtra->pText = (TextObject *)0x0;
+    actor->pExtra->aMsgId[0] = '\0';
+    actor->pExtra->nTalking = 0;
     if (0 < g_nNumActorsTalking) {
       g_nNumActorsTalking = g_nNumActorsTalking + -1;
     }
@@ -1760,7 +1764,7 @@ void __cdecl sputActor_LeaveSector(int a1,int a2)
   if (((a2 != 0) && (a1 != 0)) &&
      (walker = *(float **)(*(int *)(a1 + 0xa4) + 0x1b4), walker != (float *)0x0)) {
     WalkPlane_JumpOut((void *)a2,walker);
-    sputActor_SetActorPosition(a1,walker);
+    sputActor_SetActorPosition((Actor *)a1,walker);
   }
   return;
 }
@@ -1770,56 +1774,56 @@ void __cdecl sputActor_LeaveSector(int a1,int a2)
    actor+8 bit 0 while the path lasts, clears it at the end. TurnActor and SetActorRot clear bit 0,
    ending the walk. */
 
-void Actor_FollowPath(int param_1)
+void __cdecl Actor_FollowPath(Actor *actor)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 *puVar1;
+  float (*pafVar1) [3];
   float fVar2;
   float fVar3;
   float fVar4;
   float fVar5;
-  int iVar6;
+  ActorExtra *pAVar6;
   float fVar7;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
-  iVar6 = *(int *)(param_1 + 0xa4);
-  fVar5 = *(float *)(param_1 + 0xc) - *(float *)(iVar6 + 0x2c);
-  fVar3 = *(float *)(param_1 + 0x10) - *(float *)(iVar6 + 0x30);
-  fVar4 = *(float *)(param_1 + 0x14) - *(float *)(iVar6 + 0x34);
-  fVar2 = *(float *)(iVar6 + 0x18);
-  if (*(float *)(iVar6 + 0x18) < 0.0) {
+  pAVar6 = actor->pExtra;
+  fVar5 = actor->aPos[0] - pAVar6->aWaypoint[0];
+  fVar3 = actor->aPos[1] - pAVar6->aWaypoint[1];
+  fVar4 = actor->aPos[2] - pAVar6->aWaypoint[2];
+  fVar2 = pAVar6->flWalkRate;
+  if (pAVar6->flWalkRate < 0.0) {
     fVar2 = -fVar2;
   }
-  iVar6 = *(int *)(param_1 + 0xa4);
+  pAVar6 = actor->pExtra;
   fVar7 = sputTime_GetFrameTimeFlex();
-  fVar2 = fVar7 * *(float *)(iVar6 + 0x41c) * fVar2 * 1.25;
+  fVar2 = fVar7 * pAVar6->flTimeScale * fVar2 * 1.25;
   if (SQRT(fVar4 * fVar4 + fVar3 * fVar3 + fVar5 * fVar5) < fVar2) {
     do {
-      if (*(int *)(iVar6 + 0x44) <= *(int *)(iVar6 + 0x1b0)) break;
-      *(int *)(iVar6 + 0x1b0) = *(int *)(iVar6 + 0x1b0) + 1;
-      sputActor_SetActorPosition(param_1,*(int *)(param_1 + 0xa4) + 0x2c);
-      iVar6 = *(int *)(param_1 + 0xa4);
-      puVar1 = (undefined4 *)(iVar6 + (*(int *)(iVar6 + 0x1b0) + 6) * 0xc);
-      *(undefined4 *)(iVar6 + 0x2c) = *puVar1;
-      *(undefined4 *)(iVar6 + 0x30) = puVar1[1];
-      *(undefined4 *)(iVar6 + 0x34) = puVar1[2];
-      iVar6 = *(int *)(param_1 + 0xa4);
-      fVar5 = *(float *)(param_1 + 0xc) - *(float *)(iVar6 + 0x2c);
-      fVar3 = *(float *)(param_1 + 0x10) - *(float *)(iVar6 + 0x30);
-      fVar4 = *(float *)(param_1 + 0x14) - *(float *)(iVar6 + 0x34);
+      if (pAVar6->nPathNodes <= pAVar6->nPathIndex) break;
+      pAVar6->nPathIndex = pAVar6->nPathIndex + 1;
+      sputActor_SetActorPosition(actor,actor->pExtra->aWaypoint);
+      pAVar6 = actor->pExtra;
+      pafVar1 = pAVar6->aPath + pAVar6->nPathIndex;
+      pAVar6->aWaypoint[0] = (*pafVar1)[0];
+      pAVar6->aWaypoint[1] = (*pafVar1)[1];
+      pAVar6->aWaypoint[2] = (*pafVar1)[2];
+      pAVar6 = actor->pExtra;
+      fVar5 = actor->aPos[0] - pAVar6->aWaypoint[0];
+      fVar3 = actor->aPos[1] - pAVar6->aWaypoint[1];
+      fVar4 = actor->aPos[2] - pAVar6->aWaypoint[2];
     } while (SQRT(fVar4 * fVar4 + fVar3 * fVar3 + fVar5 * fVar5) < fVar2);
-    iVar6 = *(int *)(param_1 + 0xa4);
-    if (*(int *)(iVar6 + 0x1b0) == *(int *)(iVar6 + 0x44)) {
-      *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
+    pAVar6 = actor->pExtra;
+    if (pAVar6->nPathIndex == pAVar6->nPathNodes) {
+      actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
       return;
     }
   }
-  *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) | 1;
-  Puck_PointAt(*(void **)(iVar6 + 0x1b4),(float *)(iVar6 + 0x2c),3.4028235e+38);
-  sputActor_Forward(param_1);
+  actor->dwMoveFlags = actor->dwMoveFlags | 1;
+  Puck_PointAt(pAVar6->pPuck,pAVar6->aWaypoint,3.4028235e+38);
+  sputActor_Forward(actor);
   return;
 }
 #undef local_10
@@ -1832,10 +1836,10 @@ void Actor_FollowPath(int param_1)
    callee of Lua_SetActorWalkDominate; 1 matched neighbours agree, 0 disagree); was
    Actor_SetWalkDominate. */
 
-void __cdecl sputActor_SetWalkDominate(void *actor,int dominate)
+void __cdecl sputActor_SetWalkDominate(Actor *actor,int dominate)
 
 {
-  *(int *)(*(int *)((int)actor + 0xa4) + 0x1bc) = dominate;
+  actor->pExtra->nWalkDominate = dominate;
   return;
 }
 
@@ -1844,55 +1848,56 @@ void __cdecl sputActor_SetWalkDominate(void *actor,int dominate)
    unmatched callee of Lua_SetActorConstrain; 1 matched neighbours agree, 0 disagree); was
    Actor_SetConstrain. */
 
-void sputActor_SetActorConstrain(int param_1,int param_2)
+void __cdecl sputActor_SetActorConstrain(Actor *actor,int param_2)
 
 {
-  void *this;
+  Puck *this;
   
-  if ((((*(byte *)(param_1 + 8) & 1) == 0) || (param_2 == 0)) &&
-     (this = *(void **)(*(int *)(param_1 + 0xa4) + 0x1b4), this != (void *)0x0)) {
+  if ((((actor->dwMoveFlags & 1) == 0) || (param_2 == 0)) &&
+     (this = actor->pExtra->pPuck, this != (Puck *)0x0)) {
     Puck_Constrain(this,param_2);
   }
   return;
 }
 
 /* ---- 0x004934b0  Actor_IsVoicePlaying ---- */
-int __cdecl Actor_IsVoicePlaying(void *actor)
+int __cdecl Actor_IsVoicePlaying(Actor *actor)
 
 {
-  uint uVar1;
-  int iVar2;
+  ActorExtra *pAVar1;
+  uint uVar2;
+  int iVar3;
   
-  iVar2 = *(int *)((int)actor + 0xa4);
-  if (*(char *)(iVar2 + 0x1dc) == '\0') {
+  pAVar1 = actor->pExtra;
+  if (pAVar1->aVoiceFile[0] == '\0') {
     return 0;
   }
-  if (*(int *)(iVar2 + 0x1c8) == 10000) {
-    uVar1 = ImGetParam(10000,0x100);
-    return (uint)(0 < (int)uVar1);
+  if (pAVar1->nVoiceSound == 10000) {
+    uVar2 = ImGetParam(10000,0x100);
+    return (uint)(0 < (int)uVar2);
   }
-  iVar2 = SoundsIsSoundPlaying(iVar2 + 0x1dc);
-  return (uint)(0 < iVar2);
+  iVar3 = SoundsIsSoundPlaying((int)pAVar1->aVoiceFile);
+  return (uint)(0 < iVar3);
 }
 
 /* ---- 0x00493510  sputActor_ActorHasShadow ---- */
 /* Original name sputActor_ActorHasShadow (the remaster's GrimFandango (Linux): the only unmatched
    callee of Lua_ActorShadow; 1 matched neighbours agree, 0 disagree); was Actor_HasShadow. */
 
-int __cdecl sputActor_ActorHasShadow(void *actor)
+int __cdecl sputActor_ActorHasShadow(Actor *actor)
 
 {
-  int *piVar1;
+  ActorShadow *pAVar1;
   int iVar2;
   
   iVar2 = 0;
-  piVar1 = (int *)(*(int *)((int)actor + 0xa4) + 0x1f8);
+  pAVar1 = actor->pExtra->aShadows;
   do {
-    if (*piVar1 != 0) {
+    if (pAVar1->nActive != 0) {
       return 1;
     }
     iVar2 = iVar2 + 1;
-    piVar1 = piVar1 + 0x15;
+    pAVar1 = pAVar1 + 1;
   } while (iVar2 < 6);
   return 0;
 }
@@ -1901,10 +1906,10 @@ int __cdecl sputActor_ActorHasShadow(void *actor)
 /* Original name sputActor_ActivateActorShadow (the remaster's GrimFandango (Linux): aligned call in
    sputLua_ActivateActorShadow); was Actor_ActivateShadow. */
 
-void __cdecl sputActor_ActivateActorShadow(void *actor,int shadowIdx,int active)
+void __cdecl sputActor_ActivateActorShadow(Actor *actor,int shadowIdx,int active)
 
 {
-  *(int *)(*(int *)((int)actor + 0xa4) + (shadowIdx + 6) * 0x54) = active;
+  actor->pExtra->aShadows[shadowIdx].nActive = active;
   return;
 }
 
@@ -1913,32 +1918,33 @@ void __cdecl sputActor_ActivateActorShadow(void *actor,int shadowIdx,int active)
    callee of Lua_SetActorShadowPlane; 1 matched neighbours agree, 0 disagree); was
    Actor_SetShadowPlane. */
 
-void sputActor_SetShadowPlane(int param_1,char *param_2)
+void __cdecl sputActor_SetShadowPlane(Actor *actor,char *param_2)
 
 {
-  undefined4 *puVar1;
+  ActorShadow *pAVar1;
   float fVar2;
   float fVar3;
   float fVar4;
   float fVar5;
-  int iVar6;
-  void *pvVar7;
+  float fVar6;
+  int iVar7;
+  void *pvVar8;
   
-  puVar1 = (undefined4 *)
-           (*(int *)(param_1 + 0xa4) + (*(int *)(*(int *)(param_1 + 0xa4) + 500) + 6) * 0x54);
-  pvVar7 = WalkPlane_PlaneNamed(param_2);
-  if (pvVar7 != (void *)0x0) {
-    puVar1[2] = *(undefined4 *)((int)pvVar7 + 0x60);
-    puVar1[3] = *(undefined4 *)((int)pvVar7 + 100);
-    fVar2 = *(float *)((int)pvVar7 + 0x68);
-    puVar1[4] = PUN(undefined4,(float)(fVar2));
-    iVar6 = *(int *)((int)pvVar7 + 0x38);
-    fVar3 = *(float *)(iVar6 + 8);
-    fVar4 = *(float *)(iVar6 + 0xc);
-    fVar5 = *(float *)(iVar6 + 4);
-    *puVar1 = 1;
-    puVar1[1] = 0;
-    puVar1[5] = PUN(undefined4,(float)(-(fVar5 * PUN(float,puVar1[2]) + fVar3 * PUN(float,puVar1[3]) + fVar4 * fVar2)));
+  pAVar1 = actor->pExtra->aShadows + actor->pExtra->nActiveShadow;
+  pvVar8 = WalkPlane_PlaneNamed(param_2);
+  if (pvVar8 != (void *)0x0) {
+    pAVar1->aPlane[0] = *(float *)((int)pvVar8 + 0x60);
+    pAVar1->aPlane[1] = *(float *)((int)pvVar8 + 100);
+    fVar2 = *(float *)((int)pvVar8 + 0x68);
+    pAVar1->aPlane[2] = fVar2;
+    iVar7 = *(int *)((int)pvVar8 + 0x38);
+    fVar3 = *(float *)(iVar7 + 8);
+    fVar4 = *(float *)(iVar7 + 0xc);
+    fVar5 = *(float *)(iVar7 + 4);
+    fVar6 = pAVar1->aPlane[1];
+    pAVar1->nActive = 1;
+    pAVar1->nValid = 0;
+    pAVar1->aPlane[3] = -(fVar5 * pAVar1->aPlane[0] + fVar3 * fVar6 + fVar4 * fVar2);
   }
   return;
 }
@@ -1948,15 +1954,17 @@ void sputActor_SetShadowPlane(int param_1,char *param_2)
    callee of Lua_SetActorShadowPoint; 1 matched neighbours agree, 0 disagree); was
    Actor_SetShadowPoint. */
 
-void __cdecl sputActor_SetShadowPoint(void *actor,float x,float y,float z)
+void __cdecl sputActor_SetShadowPoint(Actor *actor,float x,float y,float z)
 
 {
-  int iVar1;
+  ActorExtra *pAVar1;
+  int iVar2;
   
-  iVar1 = *(int *)((int)actor + 0xa4) + (*(int *)(*(int *)((int)actor + 0xa4) + 500) + 6) * 0x54;
-  *(float *)(iVar1 + 0x18) = x;
-  *(float *)(iVar1 + 0x1c) = y;
-  *(float *)(iVar1 + 0x20) = z;
+  pAVar1 = actor->pExtra;
+  iVar2 = pAVar1->nActiveShadow;
+  pAVar1->aShadows[iVar2].aPoint[0] = x;
+  pAVar1->aShadows[iVar2].aPoint[1] = y;
+  pAVar1->aShadows[iVar2].aPoint[2] = z;
   return;
 }
 
@@ -1965,10 +1973,10 @@ void __cdecl sputActor_SetShadowPoint(void *actor,float x,float y,float z)
    the flag into the actor's shadow record shadowIdx * 0x54); called by sputLua_SetActorShadowValid
    in both builds); was Actor_SetShadowValid. */
 
-void __cdecl sputActor_SetShadowValid(void *actor,int shadowIdx,int valid)
+void __cdecl sputActor_SetShadowValid(Actor *actor,int shadowIdx,int valid)
 
 {
-  *(int *)(*(int *)((int)actor + 0xa4) + 0x1fc + shadowIdx * 0x54) = valid;
+  actor->pExtra->aShadows[shadowIdx].nValid = valid;
   return;
 }
 
@@ -1977,27 +1985,25 @@ void __cdecl sputActor_SetShadowValid(void *actor,int shadowIdx,int valid)
    sputActor_AddShadowClipPlane (the remaster's GrimFandango (Linux): the only unmatched callee of
    Lua_AddShadowPlane; 1 matched neighbours agree, 0 disagree); was Actor_AddShadowPlane. */
 
-void __cdecl sputActor_AddShadowClipPlane(void *actor,int shadowIdx,char *sectorName)
+void __cdecl sputActor_AddShadowClipPlane(Actor *actor,int shadowIdx,char *sectorName)
 
 {
-  int iVar1;
-  void *pvVar2;
-  int iVar3;
-  int *piVar4;
+  void *pvVar1;
+  int iVar2;
+  void **ppvVar3;
   
-  pvVar2 = WalkPlane_PlaneNamed(sectorName);
-  if (pvVar2 != (void *)0x0) {
-    iVar1 = *(int *)((int)actor + 0xa4) + (shadowIdx + 6) * 0x54;
-    iVar3 = 0;
-    piVar4 = (int *)(iVar1 + 0x24);
-    while (*piVar4 != 0) {
-      iVar3 = iVar3 + 1;
-      piVar4 = piVar4 + 1;
-      if (0xb < iVar3) {
+  pvVar1 = WalkPlane_PlaneNamed(sectorName);
+  if (pvVar1 != (void *)0x0) {
+    iVar2 = 0;
+    ppvVar3 = actor->pExtra->aShadows[shadowIdx].aClipPlanes;
+    while (*ppvVar3 != (void *)0x0) {
+      iVar2 = iVar2 + 1;
+      ppvVar3 = ppvVar3 + 1;
+      if (0xb < iVar2) {
         return;
       }
     }
-    *(void **)(iVar1 + 0x24 + iVar3 * 4) = pvVar2;
+    actor->pExtra->aShadows[shadowIdx].aClipPlanes[iVar2] = pvVar1;
   }
   return;
 }
@@ -2007,17 +2013,17 @@ void __cdecl sputActor_AddShadowClipPlane(void *actor,int shadowIdx,char *sector
    callee of Lua_KillActorShadows; 1 matched neighbours agree, 0 disagree); was Actor_KillShadows.
     */
 
-void __cdecl sputActor_ResetShadows(void *actor)
+void __cdecl sputActor_ResetShadows(Actor *actor)
 
 {
   int iVar1;
-  undefined4 *puVar2;
+  ActorShadow *pAVar2;
   
-  if ((actor != (void *)0x0) && (*(int *)((int)actor + 0xa4) != 0)) {
-    puVar2 = (undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1f8);
+  if ((actor != (Actor *)0x0) && (actor->pExtra != (ActorExtra *)0x0)) {
+    pAVar2 = actor->pExtra->aShadows;
     for (iVar1 = 0x7e; iVar1 != 0; iVar1 = iVar1 + -1) {
-      *puVar2 = 0;
-      puVar2 = puVar2 + 1;
+      pAVar2->nActive = 0;
+      pAVar2 = (ActorShadow *)&pAVar2->nValid;
     }
   }
   return;
@@ -2032,26 +2038,26 @@ void __cdecl sputActor_ResetShadows(void *actor)
    only unmatched caller of Actor_DrawShadowPlane; 1 matched neighbours agree, 0 disagree); was
    Actor_DrawShadows. */
 
-void sputCostume_DrawActorShadow(int param_1)
+void __cdecl sputCostume_DrawActorShadow(Actor *actor)
 
 {
   int iVar1;
   float fVar2;
-  int *shadow;
+  ActorShadow *shadow;
   int iVar3;
   
-  if (*(int *)(param_1 + 0xa4) != 0) {
+  if (actor->pExtra != (ActorExtra *)0x0) {
     PerfBegin(0xb);
     iVar3 = 0x1f8;
     do {
-      shadow = (int *)(*(int *)(param_1 + 0xa4) + iVar3);
-      if ((*shadow != 0) &&
-         ((iVar1 = shadow[1], iVar1 == 0 ||
-          (((fVar2 = *(float *)(param_1 + 0x10) * PUN(float,shadow[3]) +
-                     *(float *)(param_1 + 0x14) * PUN(float,shadow[4]) +
-                     *(float *)(param_1 + 0xc) * PUN(float,shadow[2]) + PUN(float,shadow[5]), iVar1 != -1 ||
-            (fVar2 <= 0.0)) && ((iVar1 != 1 || (0.0 <= fVar2)))))))) {
-        sputCostume_DrawMeshShadow(*(void **)(param_1 + 0xa0),shadow);
+      shadow = (ActorShadow *)((int)actor->pExtra->aLookAt + iVar3);
+      if ((shadow->nActive != 0) &&
+         ((iVar1 = shadow->nValid, iVar1 == 0 ||
+          (((fVar2 = actor->aPos[1] * shadow->aPlane[1] +
+                     actor->aPos[2] * shadow->aPlane[2] + actor->aPos[0] * shadow->aPlane[0] +
+                     shadow->aPlane[3], iVar1 != -1 || (fVar2 <= 0.0)) &&
+           ((iVar1 != 1 || (0.0 <= fVar2)))))))) {
+        sputCostume_DrawMeshShadow(actor->pCostumes,shadow);
       }
       iVar3 = iVar3 + 0x54;
     } while (iVar3 < 0x3f0);
@@ -2065,14 +2071,14 @@ void sputCostume_DrawActorShadow(int param_1)
    dirty Original name sputActor_GetOrientMatrix (the remaster's GrimFandango (Linux): aligned call
    in sputActor_DrawToClean, sputActor_EnablePuck, sputRender_Update); was Actor_GetFrame. */
 
-float * __cdecl sputActor_GetOrientMatrix(void *actor)
+float * __cdecl sputActor_GetOrientMatrix(Actor *actor)
 
 {
-  if (*(int *)((int)actor + 0x34) == 0) {
-    rdMatrix_Build34((int)actor + 0x38,(int)actor + 0x24,(int)actor + 0xc);
-    *(undefined4 *)((int)actor + 0x34) = 1;
+  if (actor->nMatrixDirty == 0) {
+    rdMatrix_Build34(actor->aOrient,actor->aRot,actor->aPos);
+    actor->nMatrixDirty = 1;
   }
-  return (float *)((int)actor + 0x38);
+  return actor->aOrient;
 }
 
 /* ---- 0x004937c0  sputActor_DrawToClean ---- */
@@ -2082,7 +2088,7 @@ float * __cdecl sputActor_GetOrientMatrix(void *actor)
    name sputActor_DrawToClean (the remaster's GrimFandango (Linux): the only unmatched callee of
    Lua_ActorToClean; 3 matched neighbours agree, 0 disagree); was Actor_ToClean. */
 
-void __cdecl sputActor_DrawToClean(void *actor)
+void __cdecl sputActor_DrawToClean(Actor *actor)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2090,101 +2096,103 @@ void __cdecl sputActor_DrawToClean(void *actor)
   int iVar2;
   undefined4 uVar3;
   undefined4 uVar4;
-  int iVar5;
-  void *pvVar6;
-  undefined4 uVar7;
-  code *pcVar8;
-  float *pfVar9;
-  int *piVar10;
+  int *piVar5;
+  int iVar6;
+  float fVar7;
+  void *pvVar8;
+  undefined4 uVar9;
+  code *pcVar10;
+  float *pfVar11;
+  float *pfVar12;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
-  #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
+  #define fStack_c (*(float *)(_frame + (0x20 - 0xc)))
+  #define fStack_8 (*(float *)(_frame + (0x20 - 0x8)))
+  #define fStack_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  pvVar6 = sputRoom_GetCurrentRoom();
-  iVar2 = *(int *)((int)pvVar6 + 0xb4);
-  pvVar6 = sputRoom_GetCurrentRoom();
-  iVar1 = *(int *)((int)pvVar6 + 0xac) + iVar2 * 300;
-  iVar2 = *(int *)(*(int *)(*(int *)((int)pvVar6 + 0xac) + 0x48 + iVar2 * 300) + 4);
+  pvVar8 = sputRoom_GetCurrentRoom();
+  iVar2 = *(int *)((int)pvVar8 + 0xb4);
+  pvVar8 = sputRoom_GetCurrentRoom();
+  iVar1 = *(int *)((int)pvVar8 + 0xac) + iVar2 * 300;
+  iVar2 = *(int *)(*(int *)(*(int *)((int)pvVar8 + 0xac) + 0x48 + iVar2 * 300) + 4);
   if (iVar2 != 0) {
     uVar3 = *(undefined4 *)(iVar2 + 0x10);
     uVar4 = *(undefined4 *)(iVar2 + 4);
-    uVar7 = sputRender_CleanArtBuffer();
-    *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 4) = uVar7;
-    uVar7 = sputRender_CleanZBuffer();
-    *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 0x10) = uVar7;
-    piVar10 = *(int **)actor;
-    iVar2 = *piVar10;
+    uVar9 = sputRender_CleanArtBuffer();
+    *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 4) = uVar9;
+    uVar9 = sputRender_CleanZBuffer();
+    *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 0x10) = uVar9;
+    piVar5 = actor->pColormapRef;
+    iVar2 = *piVar5;
     if (iVar2 == 0) {
-      pvVar6 = sputRoom_GetCurrentRoom();
-      iVar2 = *(int *)((int)pvVar6 + 0x88);
-      pvVar6 = sputRoom_GetCurrentRoom();
-      iVar5 = *(int *)((int)pvVar6 + 0x80);
-      if (*(int *)(iVar5 + iVar2 * 0x34) == 0) {
+      pvVar8 = sputRoom_GetCurrentRoom();
+      iVar2 = *(int *)((int)pvVar8 + 0x88);
+      pvVar8 = sputRoom_GetCurrentRoom();
+      iVar6 = *(int *)((int)pvVar8 + 0x80);
+      if (*(int *)(iVar6 + iVar2 * 0x34) == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      rdroid_SetColormap(*(undefined4 *)(iVar5 + iVar2 * 0x34 + 4));
-      pvVar6 = sputRoom_GetCurrentRoom();
-      iVar2 = *(int *)((int)pvVar6 + 0x88);
-      pvVar6 = sputRoom_GetCurrentRoom();
-      piVar10 = (int *)(*(int *)((int)pvVar6 + 0x80) + iVar2 * 0x34);
-      if (*piVar10 == 0) {
+      rdroid_SetColormap(*(undefined4 *)(iVar6 + iVar2 * 0x34 + 4));
+      pvVar8 = sputRoom_GetCurrentRoom();
+      iVar2 = *(int *)((int)pvVar8 + 0x88);
+      pvVar8 = sputRoom_GetCurrentRoom();
+      piVar5 = (int *)(*(int *)((int)pvVar8 + 0x80) + iVar2 * 0x34);
+      if (*piVar5 == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      iVar2 = piVar10[1];
+      iVar2 = piVar5[1];
     }
     else {
       if (iVar2 == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      rdroid_SetColormap(piVar10[1]);
-      piVar10 = *(int **)actor;
-      if (*piVar10 == 0) {
+      rdroid_SetColormap(piVar5[1]);
+      piVar5 = actor->pColormapRef;
+      if (*piVar5 == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      iVar2 = piVar10[1];
+      iVar2 = piVar5[1];
     }
-    pcVar8 = (code *)((code *)sputRender_SetPaletteFunc)(iVar2 + 0x30,0);
-    (*pcVar8)();
-    iVar2 = *(int *)((int)actor + 0x30);
-    if (iVar2 != 0x3f800000) {
-      piVar10 = &iStack_c;
-      iStack_c = iVar2;
-      iStack_8 = iVar2;
-      iStack_4 = iVar2;
-      pfVar9 = sputActor_GetOrientMatrix(actor);
-      rdMatrix_PreScale34(pfVar9,piVar10);
+    pcVar10 = (code *)((code *)sputRender_SetPaletteFunc)(iVar2 + 0x30,0);
+    (*pcVar10)();
+    fVar7 = actor->flScale;
+    if (fVar7 != 1.0) {
+      pfVar12 = &fStack_c;
+      fStack_c = fVar7;
+      fStack_8 = fVar7;
+      fStack_4 = fVar7;
+      pfVar11 = sputActor_GetOrientMatrix(actor);
+      rdMatrix_PreScale34(pfVar11,pfVar12);
     }
-    pfVar9 = sputActor_GetOrientMatrix(actor);
-    sputCostume_Draw3D(*(undefined4 *)((int)actor + 0xa0),pfVar9);
-    *(undefined4 *)((int)actor + 0x34) = 0;
+    pfVar12 = sputActor_GetOrientMatrix(actor);
+    sputCostume_Draw3D(actor->pCostumes,pfVar12);
+    actor->nMatrixDirty = 0;
     rdCache_Flush();
     *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 4) = uVar4;
     *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 0x10) = uVar3;
   }
   return;
 }
-#undef iStack_4
-#undef iStack_8
-#undef iStack_c
+#undef fStack_4
+#undef fStack_8
+#undef fStack_c
 #undef local_10
 
 #endif
 
 
 /* ---- 0x00494690  Actor_CountCostumes ---- */
-int Actor_CountCostumes(int param_1)
+int __cdecl Actor_CountCostumes(Actor *actor)
 
 {
-  int iVar1;
+  CostumeNode *pCVar1;
   int iVar2;
   
   iVar2 = 0;
-  for (iVar1 = *(int *)(param_1 + 0xa0); iVar1 != 0; iVar1 = *(int *)(iVar1 + 0xb0)) {
+  for (pCVar1 = actor->pCostumes; pCVar1 != (CostumeNode *)0x0; pCVar1 = pCVar1->pNext) {
     iVar2 = iVar2 + 1;
   }
   return iVar2;
@@ -2195,22 +2203,22 @@ int Actor_CountCostumes(int param_1)
    callee of Lua_SetActorClipPlane; 1 matched neighbours agree, 1 disagree); was Actor_SetClipPlane.
     */
 
-void sputActor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3)
+void __cdecl sputActor_SetClipPlane(Actor *actor,undefined4 *param_2,undefined4 *param_3)
 
 {
-  int iVar1;
+  ActorExtra *pAVar1;
   
-  if (*(int *)(param_1 + 0xa4) == 0) {
-    sputActor_AllocateActorExtra(param_1);
+  if (actor->pExtra == (ActorExtra *)0x0) {
+    sputActor_AllocateActorExtra(actor);
   }
-  iVar1 = *(int *)(param_1 + 0xa4);
-  *(undefined4 *)(iVar1 + 0x400) = *param_2;
-  *(undefined4 *)(iVar1 + 0x404) = param_2[1];
-  *(undefined4 *)(iVar1 + 0x408) = param_2[2];
-  iVar1 = *(int *)(param_1 + 0xa4);
-  *(undefined4 *)(iVar1 + 0x40c) = *param_3;
-  *(undefined4 *)(iVar1 + 0x410) = param_3[1];
-  *(undefined4 *)(iVar1 + 0x414) = param_3[2];
+  pAVar1 = actor->pExtra;
+  pAVar1->aClipNormal[0] = PUN(float,*param_2);
+  pAVar1->aClipNormal[1] = PUN(float,param_2[1]);
+  pAVar1->aClipNormal[2] = PUN(float,param_2[2]);
+  pAVar1 = actor->pExtra;
+  pAVar1->aClipPoint[0] = PUN(float,*param_3);
+  pAVar1->aClipPoint[1] = PUN(float,param_3[1]);
+  pAVar1->aClipPoint[2] = PUN(float,param_3[2]);
   return;
 }
 
@@ -2218,13 +2226,13 @@ void sputActor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3)
 /* Original name sputActor_SetClipPlaneActive (the remaster's GrimFandango (Linux): aligned call in
    sputLua_SetActorClipActive); was Actor_SetClipActive. */
 
-void sputActor_SetClipPlaneActive(int param_1,undefined4 param_2)
+void __cdecl sputActor_SetClipPlaneActive(Actor *actor,int param_2)
 
 {
-  if (*(int *)(param_1 + 0xa4) == 0) {
-    sputActor_AllocateActorExtra(param_1);
+  if (actor->pExtra == (ActorExtra *)0x0) {
+    sputActor_AllocateActorExtra(actor);
   }
-  *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x3fc) = param_2;
+  actor->pExtra->nClipPlaneActive = param_2;
   return;
 }
 
@@ -2233,24 +2241,24 @@ void sputActor_SetClipPlaneActive(int param_1,undefined4 param_2)
    sputActor_PushCostume, sputActor_SetCostume, sputLua_SetActorFrustrumCull); was
    Actor_SetFrustumCull. */
 
-void sputActor_SetFrustrumCull(int param_1,int param_2)
+void __cdecl sputActor_SetFrustrumCull(Actor *actor,int param_2)
 
 {
-  int iVar1;
+  void *pvVar1;
   uint uVar2;
   
-  if (param_1 != 0) {
+  if (actor != (Actor *)0x0) {
     if (param_2 == 0) {
-      uVar2 = *(uint *)(param_1 + 4) & 0xfffffffb;
+      uVar2 = actor->dwFlags & 0xfffffffb;
     }
     else {
-      uVar2 = *(uint *)(param_1 + 4) | 4;
+      uVar2 = actor->dwFlags | 4;
     }
-    *(uint *)(param_1 + 4) = uVar2;
-    if (*(int *)(param_1 + 0xa0) != 0) {
-      for (iVar1 = *(int *)(*(int *)(param_1 + 0xa0) + 8); iVar1 != 0; iVar1 = *(int *)(iVar1 + 400)
-          ) {
-        *(int *)(*(int *)(iVar1 + 0x40) + 0x44) = param_2;
+    actor->dwFlags = uVar2;
+    if (actor->pCostumes != (CostumeNode *)0x0) {
+      for (pvVar1 = actor->pCostumes->pComponents; pvVar1 != (void *)0x0;
+          pvVar1 = *(void **)((int)pvVar1 + 400)) {
+        *(int *)(*(int *)((int)pvVar1 + 0x40) + 0x44) = param_2;
       }
     }
   }
@@ -2262,33 +2270,33 @@ void sputActor_SetFrustrumCull(int param_1,int param_2)
    reference Original name sputActor_FreeActor (the remaster's GrimFandango (Linux): aligned call in
    sputActor_Restore, sputActor_Shutdown); was Actor_Destroy. */
 
-void __cdecl sputActor_FreeActor(void *actor)
+void __cdecl sputActor_FreeActor(Actor *actor)
 
 {
-  void *p;
+  Puck *puck;
   
-  if (*(char *)((int)actor + 0x7c) != '\0') {
-    sputRoom_RemoveActor((char *)((int)actor + 0x7c),actor);
+  if (actor->aSetName[0] != '\0') {
+    sputRoom_RemoveActor(actor->aSetName,actor);
   }
   sputActor_ResetShadows(actor);
-  sputCostume_FreeCostumeNodes(*(void **)((int)actor + 0xa0),0);
-  *(undefined4 *)((int)actor + 0xa0) = 0;
-  if (*(int *)((int)actor + 0xa4) != 0) {
-    p = *(void **)(*(int *)((int)actor + 0xa4) + 0x1b4);
-    if (p != (void *)0x0) {
-      Puck_Destruct((int)p);
-      Plat_Free(p);
-      *(undefined4 *)(*(int *)((int)actor + 0xa4) + 0x1b4) = 0;
+  sputCostume_FreeCostumeNodes(actor->pCostumes,0);
+  actor->pCostumes = (CostumeNode *)0x0;
+  if (actor->pExtra != (ActorExtra *)0x0) {
+    puck = actor->pExtra->pPuck;
+    if (puck != (Puck *)0x0) {
+      Puck_Destruct(puck);
+      Plat_Free(puck);
+      actor->pExtra->pPuck = (Puck *)0x0;
     }
-    (**(code **)(g_dwSputActHS + 0x24))(*(undefined4 *)((int)actor + 0xa4));
-    *(undefined4 *)((int)actor + 0xa4) = 0;
+    (**(code **)(g_dwSputActHS + 0x24))(actor->pExtra);
+    actor->pExtra = (ActorExtra *)0x0;
   }
-  if (*(void **)actor != (void *)0x0) {
-    Res_RemoveReference(*(void **)actor);
-    (**(code **)(g_dwSputActHS + 0x24))(*(undefined4 *)actor);
-    *(undefined4 *)actor = 0;
+  if (actor->pColormapRef != (void *)0x0) {
+    Res_RemoveReference(actor->pColormapRef);
+    (**(code **)(g_dwSputActHS + 0x24))(actor->pColormapRef);
+    actor->pColormapRef = (void *)0x0;
   }
-  *(undefined4 *)((int)actor + 0x9c) = 0;
+  actor->nInUse = 0;
   g_nNumActors = g_nNumActors + -1;
   return;
 }
@@ -2296,7 +2304,6 @@ void __cdecl sputActor_FreeActor(void *actor)
 /* ---- 0x00494940  sputCostume_DrawMeshShadow ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Draws the actor's shadow onto one shadow plane: every mesh face of each model is projected
    through the plane, clipped to each of the plane's sectors and drawn with shadow.mat / shadow.cmp
    Original name sputCostume_DrawMeshShadow (the remaster's GrimFandango (Linux): the only function
@@ -2304,12 +2311,12 @@ void __cdecl sputActor_FreeActor(void *actor)
    (TransformPoint34, segment-plane intersection, four shadow polygons) agree); was
    Actor_DrawShadowPlane. */
 
-void sputCostume_DrawMeshShadow(void *costumeList,void *shadow)
+void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *shadow)
 
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *out;
-  int iVar1;
+  void *pvVar1;
   int iVar2;
   int iVar3;
   int iVar4;
@@ -2336,16 +2343,16 @@ void sputCostume_DrawMeshShadow(void *costumeList,void *shadow)
   #define local_60 (*(float (*)[12])(_frame + (0x110 - 0x60)))
   #define local_30 (*(float (*)[12])(_frame + (0x110 - 0x30)))
   
-  if (costumeList != (void *)0x0) {
-    iVar1 = *(int *)((int)costumeList + 8);
+  if (costumeList != (CostumeNode *)0x0) {
+    pvVar1 = costumeList->pComponents;
     local_fc[0] = 640.0;
     local_fc[1] = 480.0;
     local_e4[0] = 0.0;
     local_e4[2] = 0.0;
-    for (; iVar1 != 0; iVar1 = *(int *)(iVar1 + 400)) {
-      iVar2 = *(int *)(iVar1 + 0x40);
+    for (; pvVar1 != (void *)0x0; pvVar1 = *(void **)((int)pvVar1 + 400)) {
+      iVar2 = *(int *)((int)pvVar1 + 0x40);
       iVar3 = *(int *)(iVar2 + 4);
-      if (((*(int *)(iVar1 + 0x38) != 0) && (*(int *)(iVar1 + 0x34) == 0)) &&
+      if (((*(int *)((int)pvVar1 + 0x38) != 0) && (*(int *)((int)pvVar1 + 0x34) == 0)) &&
          (local_d8 = 0, 0 < *(int *)(iVar3 + 0x54))) {
         local_f4 = 0;
         local_ec = 0;
@@ -2361,9 +2368,8 @@ void sputCostume_DrawMeshShadow(void *costumeList,void *shadow)
                         (out,(float *)(iVar7 + *(int *)(iVar5 + iVar4 * 0x7c + 0x58)),
                          (float *)(local_f4 + *(int *)(iVar2 + 0x20)));
               iVar6 = sputRender_SegmentPlaneIntersect
-                                (out,(float *)((int)shadow + 0x18),out,*(float *)((int)shadow + 8),
-                                 *(float *)((int)shadow + 0xc),*(float *)((int)shadow + 0x10),
-                                 *(float *)((int)shadow + 0x14));
+                                (out,shadow->aPoint,out,shadow->aPlane[0],shadow->aPlane[1],
+                                 shadow->aPlane[2],shadow->aPlane[3]);
               if (iVar6 == 0) {
                 return;
               }
@@ -2452,14 +2458,14 @@ void sputCostume_InternalDraw3D(int *param_1,float *param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  Actor *actor;
   int *piVar1;
   int iVar2;
   int iVar3;
-  int *piVar4;
-  int iVar5;
-  void *pvVar6;
+  int iVar4;
+  void *pvVar5;
+  int iVar6;
   int iVar7;
-  int iVar8;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define uStack_1c (*(undefined4 *)(_frame + (0x30 - 0x1c)))
   #define uStack_18 (*(undefined4 *)(_frame + (0x30 - 0x18)))
@@ -2469,135 +2475,137 @@ void sputCostume_InternalDraw3D(int *param_1,float *param_2)
   #define iStack_8 (*(int *)(_frame + (0x30 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x30 - 0x4)))
   
-  iVar5 = param_1[1];
-  for (piVar1 = param_1; (piVar1 != (int *)0x0 && (piVar1[1] == iVar5));
+  iVar4 = param_1[1];
+  for (piVar1 = param_1; (piVar1 != (int *)0x0 && (piVar1[1] == iVar4));
       piVar1 = (int *)piVar1[0x2c]) {
     Costume_ApplyComponentState((void *)*piVar1);
   }
-  iVar5 = Cos_InstGetUserData(*param_1);
-  piVar1 = (int *)((int)g_pActors + iVar5 * 0xa8);
-  if ((piVar1[0x29] == 0) || (*(int *)(piVar1[0x29] + 0x3fc) == 0)) {
+  iVar4 = Cos_InstGetUserData(*param_1);
+  actor = g_pActors + iVar4;
+  if ((actor->pExtra == (ActorExtra *)0x0) || (actor->pExtra->nClipPlaneActive == 0)) {
     rdModel3_ActivateClipPlane(0);
   }
   else {
     rdModel3_ActivateClipPlane(1);
-    rdModel3_SetClipPlane(piVar1[0x29] + 0x400,piVar1[0x29] + 0x40c);
+    rdModel3_SetClipPlane(actor->pExtra->aClipNormal,actor->pExtra->aClipPoint);
   }
-  Costume_ApplyScale(piVar1,(void *)param_1[2]);
-  iVar5 = param_1[2];
+  Costume_ApplyScale(actor,(void *)param_1[2]);
+  iVar4 = param_1[2];
   do {
-    if (iVar5 == 0) {
-      sputCostume_DrawActorShadow(piVar1);
-      iVar5 = param_1[1];
-      for (piVar4 = param_1; (piVar4 != (int *)0x0 && (piVar4[1] == iVar5));
-          piVar4 = (int *)piVar4[0x2c]) {
-        Costume_ApplyComponentState((void *)*piVar4);
+    if (iVar4 == 0) {
+      sputCostume_DrawActorShadow(actor);
+      iVar4 = param_1[1];
+      for (piVar1 = param_1; (piVar1 != (int *)0x0 && (piVar1[1] == iVar4));
+          piVar1 = (int *)piVar1[0x2c]) {
+        Costume_ApplyComponentState((void *)*piVar1);
       }
-      Costume_ApplyScale(piVar1,(void *)param_1[2]);
+      Costume_ApplyScale(actor,(void *)param_1[2]);
       return;
     }
-    if (*(int *)(iVar5 + 0x38) != 0) {
+    if (*(int *)(iVar4 + 0x38) != 0) {
       g_nRdCache_ulcExtent = 0x280;
       g_nDrawBoxMinY = 0x1e0;
       g_nRdCache_lrcExtent = 0;
       g_nDrawBoxMaxY = 0;
-      iVar7 = iVar5;
-      if (*(int *)(iVar5 + 0x44) == 0) {
-        if (*(int *)(iVar5 + 0x4c) == 0) {
+      iVar6 = iVar4;
+      if (*(int *)(iVar4 + 0x44) == 0) {
+        if (*(int *)(iVar4 + 0x4c) == 0) {
 LAB_004951ab:
           if (g_nSputRender_b3DAcceleration == 0) goto LAB_004951b3;
         }
         else {
-          rdroid_SetColormap(*(int *)(iVar5 + 0x4c));
+          rdroid_SetColormap(*(int *)(iVar4 + 0x4c));
           if (g_nSputRender_b3DAcceleration != 0) {
-            std3D_SetCurrentPalette((void *)(*(int *)(iVar5 + 0x4c) + 0x30),0);
+            std3D_SetCurrentPalette((void *)(*(int *)(iVar4 + 0x4c) + 0x30),0);
             goto LAB_004951ab;
           }
 LAB_004951b3:
-          pvVar6 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferLock(pvVar6);
+          pvVar5 = (void *)Render_GetBackBuffer();
+          stdDisplay_VBufferLock(pvVar5);
         }
-        iVar7 = rdThing_Draw(*(void **)(iVar5 + 0x40),param_2);
-        if ((iVar7 == 0) || (piVar1 == (int *)0x0)) {
-          piVar1[0x1a] = 0;
+        iVar6 = rdThing_Draw(*(void **)(iVar4 + 0x40),param_2);
+        if ((iVar6 == 0) || (actor == (Actor *)0x0)) {
+          actor->nScreenBoxValid = 0;
         }
         else {
-          piVar1[0x1a] = 1;
+          actor->nScreenBoxValid = 1;
         }
         if (g_nSputRender_b3DAcceleration == 0) {
-          pvVar6 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferUnlock(pvVar6);
+          pvVar5 = (void *)Render_GetBackBuffer();
+          stdDisplay_VBufferUnlock(pvVar5);
         }
       }
       else {
-        for (; (iVar7 != 0 && (*(int *)(iVar7 + 0x4c) == 0)); iVar7 = *(int *)(iVar7 + 0x44)) {
+        for (; (iVar6 != 0 && (*(int *)(iVar6 + 0x4c) == 0)); iVar6 = *(int *)(iVar6 + 0x44)) {
         }
-        if (((iVar7 != 0) && (*(int *)(iVar7 + 0x4c) != 0)) &&
-           (rdroid_SetColormap(*(int *)(iVar7 + 0x4c)), g_nSputRender_b3DAcceleration != 0)) {
-          std3D_SetCurrentPalette((void *)(*(int *)(iVar7 + 0x4c) + 0x30),0);
+        if (((iVar6 != 0) && (*(int *)(iVar6 + 0x4c) != 0)) &&
+           (rdroid_SetColormap(*(int *)(iVar6 + 0x4c)), g_nSputRender_b3DAcceleration != 0)) {
+          std3D_SetCurrentPalette((void *)(*(int *)(iVar6 + 0x4c) + 0x30),0);
         }
-        sputCostume_BuildThingStateMatrices(*(void **)(iVar5 + 0x44),param_2);
-        iVar8 = *(int *)(*(int *)(iVar5 + 0x44) + 0x40);
-        iVar7 = *(int *)(*(int *)(iVar8 + 4) + 0x58) + *(int *)(iVar5 + 0x48) * 0xb8;
-        iVar2 = *(int *)(*(int *)(*(int *)(iVar5 + 0x40) + 4) + 0x58);
+        sputCostume_BuildThingStateMatrices(*(void **)(iVar4 + 0x44),param_2);
+        iVar7 = *(int *)(*(int *)(iVar4 + 0x44) + 0x40);
+        iVar6 = *(int *)(*(int *)(iVar7 + 4) + 0x58) + *(int *)(iVar4 + 0x48) * 0xb8;
+        iVar2 = *(int *)(*(int *)(*(int *)(iVar4 + 0x40) + 4) + 0x58);
         if (g_nSputRender_b3DAcceleration == 0) {
-          pvVar6 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferLock(pvVar6);
+          pvVar5 = (void *)Render_GetBackBuffer();
+          stdDisplay_VBufferLock(pvVar5);
         }
-        if ((*(int *)(iVar5 + 0x3c) != 0) && (**(int **)(iVar5 + 0x40) != 4)) {
-          iVar3 = (*(int **)(iVar5 + 0x40))[1];
+        if ((*(int *)(iVar4 + 0x3c) != 0) && (**(int **)(iVar4 + 0x40) != 4)) {
+          iVar3 = (*(int **)(iVar4 + 0x40))[1];
           uStack_1c = *(undefined4 *)(iVar3 + 0x84);
           uStack_18 = *(undefined4 *)(iVar3 + 0x88);
           uStack_14 = *(undefined4 *)(iVar3 + 0x8c);
           *(undefined4 *)(iVar3 + 0x84) = 0;
           *(undefined4 *)(iVar3 + 0x88) = 0;
           *(undefined4 *)(iVar3 + 0x8c) = 0;
-          *(float *)(iVar2 + 100) = *(float *)(iVar2 + 100) - *(float *)(iVar7 + 100);
-          *(float *)(iVar2 + 0x68) = *(float *)(iVar2 + 0x68) - *(float *)(iVar7 + 0x68);
-          *(float *)(iVar2 + 0x6c) = *(float *)(iVar2 + 0x6c) - *(float *)(iVar7 + 0x6c);
+          *(float *)(iVar2 + 100) = *(float *)(iVar2 + 100) - *(float *)(iVar6 + 100);
+          *(float *)(iVar2 + 0x68) = *(float *)(iVar2 + 0x68) - *(float *)(iVar6 + 0x68);
+          *(float *)(iVar2 + 0x6c) = *(float *)(iVar2 + 0x6c) - *(float *)(iVar6 + 0x6c);
         }
-        piVar1[0x1a] = 0;
-        if ((piVar1[0x29] != 0) && (*(int *)(piVar1[0x29] + 0x420) == *(int *)(iVar5 + 0x48))) {
+        actor->nScreenBoxValid = 0;
+        if ((actor->pExtra != (ActorExtra *)0x0) &&
+           (actor->pExtra->nInvClipNode == *(int *)(iVar4 + 0x48))) {
           rdModel3_ActivateClipPlane(1);
-          rdModel3_SetClipPlane(piVar1 + 0x11,piVar1 + 3);
+          rdModel3_SetClipPlane(actor->aOrient + 3,actor->aPos);
         }
-        iVar8 = rdThing_Draw(*(void **)(iVar5 + 0x40),
-                             (float *)(*(int *)(iVar8 + 0x20) + *(int *)(iVar5 + 0x48) * 0x30));
-        if ((iVar8 != 0) && (piVar1 != (int *)0x0)) {
-          piVar1[0x1a] = 1;
+        iVar7 = rdThing_Draw(*(void **)(iVar4 + 0x40),
+                             (float *)(*(int *)(iVar7 + 0x20) + *(int *)(iVar4 + 0x48) * 0x30));
+        if ((iVar7 != 0) && (actor != (Actor *)0x0)) {
+          actor->nScreenBoxValid = 1;
         }
-        if ((piVar1[0x29] != 0) && (*(int *)(piVar1[0x29] + 0x420) == *(int *)(iVar5 + 0x48))) {
+        if ((actor->pExtra != (ActorExtra *)0x0) &&
+           (actor->pExtra->nInvClipNode == *(int *)(iVar4 + 0x48))) {
           rdModel3_ActivateClipPlane(0);
         }
-        if ((*(int *)(iVar5 + 0x3c) != 0) && (**(int **)(iVar5 + 0x40) != 4)) {
-          *(float *)(iVar2 + 100) = *(float *)(iVar7 + 100) + *(float *)(iVar2 + 100);
-          *(float *)(iVar2 + 0x68) = *(float *)(iVar7 + 0x68) + *(float *)(iVar2 + 0x68);
-          *(float *)(iVar2 + 0x6c) = *(float *)(iVar7 + 0x6c) + *(float *)(iVar2 + 0x6c);
-          iVar7 = *(int *)(*(int *)(iVar5 + 0x40) + 4);
-          *(undefined4 *)(iVar7 + 0x84) = uStack_1c;
-          *(undefined4 *)(iVar7 + 0x88) = uStack_18;
-          *(undefined4 *)(iVar7 + 0x8c) = uStack_14;
+        if ((*(int *)(iVar4 + 0x3c) != 0) && (**(int **)(iVar4 + 0x40) != 4)) {
+          *(float *)(iVar2 + 100) = *(float *)(iVar6 + 100) + *(float *)(iVar2 + 100);
+          *(float *)(iVar2 + 0x68) = *(float *)(iVar6 + 0x68) + *(float *)(iVar2 + 0x68);
+          *(float *)(iVar2 + 0x6c) = *(float *)(iVar6 + 0x6c) + *(float *)(iVar2 + 0x6c);
+          iVar6 = *(int *)(*(int *)(iVar4 + 0x40) + 4);
+          *(undefined4 *)(iVar6 + 0x84) = uStack_1c;
+          *(undefined4 *)(iVar6 + 0x88) = uStack_18;
+          *(undefined4 *)(iVar6 + 0x8c) = uStack_14;
         }
         if (g_nSputRender_b3DAcceleration == 0) {
-          pvVar6 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferUnlock(pvVar6);
+          pvVar5 = (void *)Render_GetBackBuffer();
+          stdDisplay_VBufferUnlock(pvVar5);
         }
       }
-      piVar4 = (int *)*piVar1;
-      iVar7 = *piVar4;
-      if (iVar7 != 0) {
-        if (iVar7 == 0) {
+      piVar1 = actor->pColormapRef;
+      iVar6 = *piVar1;
+      if (iVar6 != 0) {
+        if (iVar6 == 0) {
           (*g_pStd_HS->pAssertFail)
                     (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
         }
-        rdroid_SetColormap(piVar4[1]);
+        rdroid_SetColormap(piVar1[1]);
         if (g_nSputRender_b3DAcceleration != 0) {
-          piVar4 = (int *)*piVar1;
-          if (*piVar4 == 0) {
+          piVar1 = actor->pColormapRef;
+          if (*piVar1 == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
           }
-          std3D_SetCurrentPalette((void *)(piVar4[1] + 0x30),0);
+          std3D_SetCurrentPalette((void *)(piVar1[1] + 0x30),0);
         }
       }
       iStack_10 = g_nRdCache_ulcExtent;
@@ -2605,14 +2613,14 @@ LAB_004951b3:
       iStack_c = g_nDrawBoxMinY;
       iStack_4 = g_nDrawBoxMaxY - g_nDrawBoxMinY;
       sputRender_MarkDirtyRect(&iStack_10,1);
-      if ((*(int *)(iVar5 + 0x40) == param_1[1]) && (piVar1 != (int *)0x0)) {
-        piVar1[0x1b] = iStack_10;
-        piVar1[0x1c] = iStack_c;
-        piVar1[0x1d] = iStack_8;
-        piVar1[0x1e] = iStack_4;
+      if ((*(int *)(iVar4 + 0x40) == param_1[1]) && (actor != (Actor *)0x0)) {
+        actor->aScreenBox[0] = iStack_10;
+        actor->aScreenBox[1] = iStack_c;
+        actor->aScreenBox[2] = iStack_8;
+        actor->aScreenBox[3] = iStack_4;
       }
     }
-    iVar5 = *(int *)(iVar5 + 400);
+    iVar4 = *(int *)(iVar4 + 400);
   } while( true );
 }
 #undef iStack_10
@@ -2642,7 +2650,7 @@ void __cdecl sputRoom_RemoveActor(char *setName,void *actor)
     piVar3 = *(int **)(iVar2 + 0x80);
     if (piVar3 != (int *)0x0) {
       do {
-        if ((void *)((int)g_pActors + *piVar3 * 0xa8) == actor) break;
+        if (g_pActors + *piVar3 == actor) break;
         piVar3 = (int *)piVar3[2];
       } while (piVar3 != (int *)0x0);
       if (piVar3 != (int *)0x0) {
@@ -2672,22 +2680,22 @@ void __cdecl sputRoom_RemoveActor(char *setName,void *actor)
    Original name sputRoom_AddActor (the remaster's GrimFandango (Linux): aligned call in
    sputActor_Restore, sputLua_PutActorInSetL); was Actor_PutInSet. */
 
-void __cdecl sputRoom_AddActor(void *actor,char *setName)
+void __cdecl sputRoom_AddActor(Actor *actor,char *setName)
 
 {
   char *setName_00;
   byte bVar1;
-  byte *pbVar2;
+  Actor *pAVar2;
   int iVar3;
   void *pvVar4;
   int *piVar5;
   byte *pbVar6;
   bool bVar7;
   
-  if ((actor != (void *)0x0) &&
-     (pbVar6 = (byte *)(setName + 0x7c), pbVar2 = actor, pbVar6 != (byte *)0x0)) {
+  if ((actor != (Actor *)0x0) &&
+     (pbVar6 = (byte *)(setName + 0x7c), pAVar2 = actor, pbVar6 != (byte *)0x0)) {
     do {
-      bVar1 = *pbVar2;
+      bVar1 = *(byte *)&pAVar2->pColormapRef;
       bVar7 = bVar1 < *pbVar6;
       if (bVar1 != *pbVar6) {
 LAB_004a5fa1:
@@ -2695,11 +2703,11 @@ LAB_004a5fa1:
         goto LAB_004a5fa6;
       }
       if (bVar1 == 0) break;
-      bVar1 = pbVar2[1];
+      bVar1 = *(byte *)((int)&pAVar2->pColormapRef + 1);
       bVar7 = bVar1 < pbVar6[1];
       if (bVar1 != pbVar6[1]) goto LAB_004a5fa1;
       pbVar6 = pbVar6 + 2;
-      pbVar2 = pbVar2 + 2;
+      pAVar2 = (Actor *)((int)&pAVar2->pColormapRef + 2);
     } while (bVar1 != 0);
     iVar3 = 0;
 LAB_004a5fa6:
@@ -2708,11 +2716,11 @@ LAB_004a5fa6:
     }
   }
   setName_00 = setName + 0x7c;
-  if ((setName_00 != (char *)0x0) || (actor != (void *)0x0)) {
+  if ((setName_00 != (char *)0x0) || (actor != (Actor *)0x0)) {
     if ((setName != (char *)0x0) && (setName_00 != (char *)0x0)) {
       sputRoom_RemoveActor(setName_00,setName);
     }
-    if (actor == (void *)0x0) {
+    if (actor == (Actor *)0x0) {
       setName[0x68] = '\0';
       setName[0x69] = '\0';
       setName[0x6a] = '\0';
@@ -2721,10 +2729,10 @@ LAB_004a5fa6:
     }
     pvVar4 = (void *)Set_FindNameInList(actor);
     if (pvVar4 == (void *)0x0) {
-      pvVar4 = Set_NormalizeName(actor);
+      pvVar4 = Set_NormalizeName((char *)actor);
     }
     for (piVar5 = *(int **)((int)pvVar4 + 0x80); piVar5 != (int *)0x0; piVar5 = (int *)piVar5[2]) {
-      if ((char *)((int)g_pActors + *piVar5 * 0xa8) == setName) {
+      if (g_pActors + *piVar5 == (Actor *)setName) {
         return;
       }
     }
@@ -2753,7 +2761,7 @@ LAB_004a5fa6:
    remaster (a C++ method there); the only unmatched callee of Lua_GetActorYawToPoint; 3 matched
    neighbours agree, 0 disagree); was Actor_GetYawToPoint. */
 
-float __thiscall Puck_GetYawToPoint(void *this,float *point)
+float __thiscall Puck_GetYawToPoint(Puck *this,float *point)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2769,8 +2777,8 @@ float __thiscall Puck_GetYawToPoint(void *this,float *point)
   local_18 = *point;
   local_14 = point[1];
   local_10 = PUN(uint,(float)point[2]);
-  if (*(void **)((int)this + 0x5c) != (void *)0x0) {
-    WalkPlane_Project(*(void **)((int)this + 0x5c),(int)&local_18);
+  if (this->pSector != (void *)0x0) {
+    WalkPlane_Project(this->pSector,(int)&local_18);
   }
   Puck_InvXform(this,&local_18);
   rdVector_Normalize3Acc(&local_18);
@@ -2779,7 +2787,7 @@ float __thiscall Puck_GetYawToPoint(void *this,float *point)
   if (0.0 < local_18) {
     point = PUN(float *,(float)(PUN(float,point) * -1.0));
   }
-  puVar1 = Puck_Rot((int)this);
+  puVar1 = Puck_Rot(this);
   return *(float *)(puVar1 + 4) + PUN(float,point);
 }
 #undef local_10

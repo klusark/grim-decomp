@@ -1723,10 +1723,10 @@ char * _strupr(char *param_1)
     }
   }
   else {
-    InterlockedIncrement(IMG_ADDR(0x00906c0c));
+    InterlockedIncrement(((unsigned)(uintptr_t)&DAT_00906c0c));
     bVar8 = UINT_00906c08 != 0;
     if (bVar8) {
-      InterlockedDecrement(IMG_ADDR(0x00906c0c));
+      InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
       _lock(0x13);
     }
     if (UINT_008d0b70 == 0) {
@@ -1734,7 +1734,7 @@ char * _strupr(char *param_1)
         _unlock(0x13);
       }
       else {
-        InterlockedDecrement(IMG_ADDR(0x00906c0c));
+        InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
       }
       pcVar5 = param_1;
       if (*param_1 != '\0') {
@@ -1783,7 +1783,7 @@ char * _strupr(char *param_1)
         free(pcVar5);
         return param_1;
       }
-      InterlockedDecrement(IMG_ADDR(0x00906c0c));
+      InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
       free(pcVar5);
     }
   }
@@ -1871,10 +1871,10 @@ int tolower(int param_1)
     }
   }
   else {
-    InterlockedIncrement(IMG_ADDR(0x00906c0c));
+    InterlockedIncrement(((unsigned)(uintptr_t)&DAT_00906c0c));
     bVar1 = UINT_00906c08 != 0;
     if (bVar1) {
-      InterlockedDecrement(IMG_ADDR(0x00906c0c));
+      InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
       _lock(0x13);
     }
     param_1 = _tolower_lk(param_1);
@@ -1882,7 +1882,7 @@ int tolower(int param_1)
       _unlock(0x13);
       return param_1;
     }
-    InterlockedDecrement(IMG_ADDR(0x00906c0c));
+    InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
   }
   return param_1;
 }
@@ -2032,7 +2032,7 @@ LAB_004ae60c:
         if (UINT_008d0a9c != 0) {
           return fVar5;
         }
-        FUN_004b4ce9(IMG_ADDR(0x004ed0c8),0x1d);
+        FUN_004b4ce9(((unsigned)(uintptr_t)&DAT_004ed0c8),0x1d);
         return extraout_ST0_00;
       }
       if ((param_4 & 0x7ff00000) == 0) {
@@ -2117,10 +2117,10 @@ char * _strlwr(char *param_1)
     }
   }
   else {
-    InterlockedIncrement(IMG_ADDR(0x00906c0c));
+    InterlockedIncrement(((unsigned)(uintptr_t)&DAT_00906c0c));
     bVar8 = UINT_00906c08 != 0;
     if (bVar8) {
-      InterlockedDecrement(IMG_ADDR(0x00906c0c));
+      InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
       _lock(0x13);
     }
     if (UINT_008d0b70 == 0) {
@@ -2128,7 +2128,7 @@ char * _strlwr(char *param_1)
         _unlock(0x13);
       }
       else {
-        InterlockedDecrement(IMG_ADDR(0x00906c0c));
+        InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
       }
       pcVar5 = param_1;
       if (*param_1 != '\0') {
@@ -2177,7 +2177,7 @@ char * _strlwr(char *param_1)
         free(pcVar5);
         return param_1;
       }
-      InterlockedDecrement(IMG_ADDR(0x00906c0c));
+      InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
       free(pcVar5);
     }
   }
@@ -2198,10 +2198,10 @@ int toupper(int param_1)
     }
   }
   else {
-    InterlockedIncrement(IMG_ADDR(0x00906c0c));
+    InterlockedIncrement(((unsigned)(uintptr_t)&DAT_00906c0c));
     bVar1 = UINT_00906c08 != 0;
     if (bVar1) {
-      InterlockedDecrement(IMG_ADDR(0x00906c0c));
+      InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
       _lock(0x13);
     }
     param_1 = _toupper_lk(param_1);
@@ -2209,7 +2209,7 @@ int toupper(int param_1)
       _unlock(0x13);
       return param_1;
     }
-    InterlockedDecrement(IMG_ADDR(0x00906c0c));
+    InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
   }
   return param_1;
 }
@@ -3096,7 +3096,7 @@ void _unlock(int param_1)
 void _lock_file(uint param_1)
 
 {
-  if ((IMG_ADDR(0x004ed77f) < param_1) && (param_1 < IMG_ADDR(0x004ed9e1))) {
+  if ((((unsigned)(uintptr_t)((unsigned char *)&DAT_004ed6f4 + 0x8b)) < param_1) && (param_1 < ((unsigned)(uintptr_t)&DAT_004ed9e1))) {
     _lock(((int)(param_1 - 0x4ed780) >> 5) + 0x1c);
     return;
   }
@@ -3120,7 +3120,7 @@ void _lock_file2(int param_1,int param_2)
 void _unlock_file(uint param_1)
 
 {
-  if ((IMG_ADDR(0x004ed77f) < param_1) && (param_1 < IMG_ADDR(0x004ed9e1))) {
+  if ((((unsigned)(uintptr_t)((unsigned char *)&DAT_004ed6f4 + 0x8b)) < param_1) && (param_1 < ((unsigned)(uintptr_t)&DAT_004ed9e1))) {
     _unlock(((int)(param_1 - 0x4ed780) >> 5) + 0x1c);
     return;
   }
@@ -3881,7 +3881,7 @@ void _NMSG_WRITE(undefined *param_1)
       if ((PTR_00906b00 == (int *)0x0) || (iVar3 = PTR_00906b00[0x12], iVar3 == -1)) {
         iVar3 = GetStdHandle(-0xc);
       }
-      pcVar6 = *(char **)(iVar7 * 8 + IMG_ADDR(0x004ed6f4));
+      pcVar6 = *(char **)(iVar7 * 8 + ((unsigned)(uintptr_t)&DAT_004ed6f4));
       uVar4 = 0xffffffff;
       pcVar10 = pcVar6;
       do {
@@ -4000,7 +4000,7 @@ void _NMSG_WRITE(undefined *param_1)
         pcVar10 = pcVar10 + 1;
       }
       uVar4 = 0xffffffff;
-      pcVar6 = *(char **)(iVar7 * 8 + IMG_ADDR(0x004ed6f4));
+      pcVar6 = *(char **)(iVar7 * 8 + ((unsigned)(uintptr_t)&DAT_004ed6f4));
       do {
         pcVar10 = pcVar6;
         if (uVar4 == 0) break;
@@ -5250,7 +5250,7 @@ void _dosmaperr(uint param_1)
   do {
     if (param_1 == *puVar1) {
       puVar2 = (undefined4 *)_errno();
-      *puVar2 = *(undefined4 *)(iVar3 * 8 + IMG_ADDR(0x004efa2c));
+      *puVar2 = *(undefined4 *)(iVar3 * 8 + ((unsigned)(uintptr_t)&DAT_004efa2c));
       return;
     }
     puVar1 = puVar1 + 2;
@@ -6117,9 +6117,9 @@ uint __crtLCMapStringA(int param_1,uint param_2,int param_3,undefined *param_4,i
   uint uVar3;
   
   if (UINT_008d0ee4 == 0) {
-    iVar1 = LCMapStringW(0,0x100,IMG_ADDR(0x004d8d8c),1,0,0);
+    iVar1 = LCMapStringW(0,0x100,((unsigned)(uintptr_t)&DAT_004d8d8c),1,0,0);
     if (iVar1 == 0) {
-      iVar1 = LCMapStringA(0,0x100,IMG_ADDR(0x008d0874),1,0,0);
+      iVar1 = LCMapStringA(0,0x100,((unsigned)(uintptr_t)&DAT_008d0874),1,0,0);
       if (iVar1 == 0) {
         return 0;
       }
@@ -7001,15 +7001,15 @@ undefined4 wctomb(undefined4 param_1,undefined4 param_2)
   undefined4 uVar1;
   bool bVar2;
   
-  InterlockedIncrement(IMG_ADDR(0x00906c0c));
+  InterlockedIncrement(((unsigned)(uintptr_t)&DAT_00906c0c));
   bVar2 = UINT_00906c08 != 0;
   if (bVar2) {
-    InterlockedDecrement(IMG_ADDR(0x00906c0c));
+    InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
     _lock(0x13);
   }
   uVar1 = _wctomb_lk(param_1,param_2);
   if (!bVar2) {
-    InterlockedDecrement(IMG_ADDR(0x00906c0c));
+    InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
     return uVar1;
   }
   _unlock(0x13);
@@ -7256,9 +7256,9 @@ uint __crtGetStringTypeA(int param_1,int param_2,int param_3,int param_4,uint pa
   
   a5 = 0;
   if (UINT_008d0f54 == 0) {
-    iVar1 = GetStringTypeW(1,IMG_ADDR(0x004d8d8c),1,(int)local_2);
+    iVar1 = GetStringTypeW(1,((unsigned)(uintptr_t)&DAT_004d8d8c),1,(int)local_2);
     if (iVar1 == 0) {
-      iVar1 = GetStringTypeA(0,1,IMG_ADDR(0x008d0874),1,(int)local_2);
+      iVar1 = GetStringTypeA(0,1,((unsigned)(uintptr_t)&DAT_008d0874),1,(int)local_2);
       if (iVar1 == 0) {
         return 0;
       }
@@ -7377,12 +7377,12 @@ LAB_004b7bd0:
     uVar1 = (*(code *)UINT_008d0f58)(iVar2,param_1,param_2,param_3);
     return uVar1;
   }
-  a1 = LoadLibraryA(IMG_ADDR(0x004d9518));
+  a1 = LoadLibraryA(((unsigned)(uintptr_t)&DAT_004d9518));
   if (a1 != 0) {
-    UINT_008d0f58 = GetProcAddress(a1,IMG_ADDR(0x004d950c));
+    UINT_008d0f58 = GetProcAddress(a1,((unsigned)(uintptr_t)&s_MessageBoxA_004d950c));
     if (UINT_008d0f58 != 0) {
-      UINT_008d0f5c = GetProcAddress(a1,IMG_ADDR(0x004d94fc));
-      UINT_008d0f60 = GetProcAddress(a1,IMG_ADDR(0x004d94e8));
+      UINT_008d0f5c = GetProcAddress(a1,((unsigned)(uintptr_t)&s_GetActiveWindow_004d94fc));
+      UINT_008d0f60 = GetProcAddress(a1,((unsigned)(uintptr_t)&s_GetLastActivePopup_004d94e8));
       goto LAB_004b7bd0;
     }
   }
@@ -7576,7 +7576,7 @@ void _tzset_lk(void)
   pbVar3 = (byte *)getenv(&DAT_004d9568);
   if (pbVar3 == (byte *)0x0) {
     _unlock(0xc);
-    iVar4 = GetTimeZoneInformation(IMG_ADDR(0x008d0f70));
+    iVar4 = GetTimeZoneInformation(((unsigned)(uintptr_t)&UINT_008d0f70));
     if (iVar4 == -1) {
       return;
     }
@@ -8120,7 +8120,7 @@ uint _alloc_osfhnd(void)
     ppiVar3 = ppiVar3 + 1;
     local_4 = local_4 + 1;
     iVar2 = iVar2 + 0x20;
-  } while ((int)ppiVar3 < IMG_ADDR(0x00906c00));
+  } while ((int)ppiVar3 < ((unsigned)(uintptr_t)&UINT_00906c00));
   _unlock(0x12);
   return local_8;
 }
@@ -8255,15 +8255,15 @@ undefined4 mbtowc(undefined4 param_1,undefined4 param_2,undefined4 param_3)
   undefined4 uVar1;
   bool bVar2;
   
-  InterlockedIncrement(IMG_ADDR(0x00906c0c));
+  InterlockedIncrement(((unsigned)(uintptr_t)&DAT_00906c0c));
   bVar2 = UINT_00906c08 != 0;
   if (bVar2) {
-    InterlockedDecrement(IMG_ADDR(0x00906c0c));
+    InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
     _lock(0x13);
   }
   uVar1 = _mbtowc_lk(param_1,param_2,param_3);
   if (!bVar2) {
-    InterlockedDecrement(IMG_ADDR(0x00906c0c));
+    InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
     return uVar1;
   }
   _unlock(0x13);
@@ -9384,15 +9384,15 @@ undefined4 wcstombs(undefined4 param_1,undefined4 param_2,undefined4 param_3)
   undefined4 uVar1;
   bool bVar2;
   
-  InterlockedIncrement(IMG_ADDR(0x00906c0c));
+  InterlockedIncrement(((unsigned)(uintptr_t)&DAT_00906c0c));
   bVar2 = UINT_00906c08 != 0;
   if (bVar2) {
-    InterlockedDecrement(IMG_ADDR(0x00906c0c));
+    InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
     _lock(0x13);
   }
   uVar1 = _wcstombs_lk(param_1,param_2,param_3);
   if (!bVar2) {
-    InterlockedDecrement(IMG_ADDR(0x00906c0c));
+    InterlockedDecrement(((unsigned)(uintptr_t)&DAT_00906c0c));
     return uVar1;
   }
   _unlock(0x13);
@@ -10125,11 +10125,11 @@ void __multtenpow12(undefined2 *param_1,uint param_2,int param_3)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar4 = IMG_ADDR(0x004f0850);
+  iVar4 = ((unsigned)(uintptr_t)&DAT_004f0850);
   if (param_2 != 0) {
     if ((int)param_2 < 0) {
       param_2 = -param_2;
-      iVar4 = IMG_ADDR(0x004f09b0);
+      iVar4 = ((unsigned)(uintptr_t)&DAT_004f09b0);
     }
     if (param_3 == 0) {
       *param_1 = 0;
@@ -10225,9 +10225,9 @@ uint __crtCompareStringA(int param_1,int param_2,byte *param_3,undefined *param_
   #define abStack_e (*(byte (*)[14])(_frame + (0x30 - 0xe)))
   
   if (UINT_008d108c == 0) {
-    iVar1 = CompareStringW(0,0,IMG_ADDR(0x004d8d8c),1,IMG_ADDR(0x004d8d8c),1);
+    iVar1 = CompareStringW(0,0,((unsigned)(uintptr_t)&DAT_004d8d8c),1,((unsigned)(uintptr_t)&DAT_004d8d8c),1);
     if (iVar1 == 0) {
-      iVar1 = CompareStringA(0,0,IMG_ADDR(0x008d0874),1,IMG_ADDR(0x008d0874),1);
+      iVar1 = CompareStringA(0,0,((unsigned)(uintptr_t)&DAT_008d0874),1,((unsigned)(uintptr_t)&DAT_008d0874),1);
       if (iVar1 == 0) {
         return 0;
       }

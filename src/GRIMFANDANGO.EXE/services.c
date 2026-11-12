@@ -217,7 +217,7 @@ int __cdecl defaultFileSize(char *name)
   undefined *puVar1;
   int iVar2;
   
-  puVar1 = fopen((uint)name,IMG_ADDR(0x004dda54));
+  puVar1 = fopen((uint)name,((unsigned)(uintptr_t)&DAT_004dda54));
   if (puVar1 != (undefined *)0x0) {
     fseek(puVar1,0,2);
     iVar2 = ftell(puVar1);
@@ -351,7 +351,7 @@ undefined4 __cdecl stdPlatform_Printf(char *fmt,...)
 
 {
   _snprintf(&g_bStd_genBuffer,0x400,fmt,&STACK0X(0x00000008));
-  OutputDebugStringA(IMG_ADDR(0x009056c0));
+  OutputDebugStringA(((unsigned)(uintptr_t)&g_bStd_genBuffer));
   return 1;
 }
 

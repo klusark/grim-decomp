@@ -23,14 +23,14 @@ void Reg_Open(void *param_1,uint param_2,char *param_3)
   _DAT_004f5ea8 = 1;
   UINT_004f5eac = param_2;
   g_pRegRootKey = param_1;
-  iVar1 = RegCreateKeyExA((int)param_1,param_2,0,IMG_ADDR(0x004f5a98),0,0xf003f,0,(int)&local_88,(int)local_84);
+  iVar1 = RegCreateKeyExA((int)param_1,param_2,0,((unsigned)(uintptr_t)&DAT_004f5a98),0,0xf003f,0,(int)&local_88,(int)local_84);
   if (iVar1 == 0) {
     iVar2 = wuRegistry_GetStr(s_Version_004dda60,acStack_80,0x80,(char *)0x0);
     if (iVar2 != 0) {
       iVar2 = _stricmp(acStack_80,param_3);
       if (iVar2 != 0) {
         RegDeleteKeyA((int)g_pRegRootKey,UINT_004f5eac);
-        iVar1 = RegCreateKeyExA((int)g_pRegRootKey,UINT_004f5eac,0,IMG_ADDR(0x004f5a98),0,0xf003f,0,
+        iVar1 = RegCreateKeyExA((int)g_pRegRootKey,UINT_004f5eac,0,((unsigned)(uintptr_t)&DAT_004f5a98),0,0xf003f,0,
                                 (int)&local_88,(int)local_84);
       }
     }
@@ -62,7 +62,7 @@ void Reg_CacheValueNames(void)
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   RegOpenKeyExA(g_pRegRootKey,(char *)UINT_004f5eac,0,0xf003f,&local_c);
-  RegQueryInfoKeyA((int)local_c,0,0,0,0,0,0,IMG_ADDR(0x004f5ea4),(int)&iStack_8,0,0,0);
+  RegQueryInfoKeyA((int)local_c,0,0,0,0,0,0,((unsigned)(uintptr_t)&g_dwRegValueCount),(int)&iStack_8,0,0,0);
   g_ppRegValueNames =
        (char **)(*g_pStd_HS->pAlloc)
                           (g_dwRegValueCount * 4,s_C__grimjedi_Libs_W32Util_Wuregis_004dda68,

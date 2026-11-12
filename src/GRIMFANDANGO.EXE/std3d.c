@@ -443,7 +443,6 @@ int std3D_DrawRenderList(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  unsigned char _stkneg[80] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
   void **ppvVar2;
   #define pvStack_38 (*(void **)(_frame + (0x50 - 0x38)))
@@ -461,7 +460,7 @@ int std3D_DrawRenderList(void)
   for (iVar1 = 0xc; ppvVar2 = ppvVar2 + 1, iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppvVar2 = (void *)0x0;
   }
-  (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 0x18))(g_pD3dExecuteBuffer,(_stkneg + 28));
+  (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 0x18))(g_pD3dExecuteBuffer,(_frame + (0x50 - 0x34)));
   iVar1 = (**(code_std **)(*(int *)g_pD3dDevice + 0x20))
                     (g_pD3dDevice,g_pD3dExecuteBuffer,PTR_0080660c,2);
   return iVar1 == 0;
@@ -1672,7 +1671,7 @@ undefined * __stdcall D3D_EnumDevicesCallback(int a1,int a2,int a3,int a4,int a5
   if (g_dwD3dDriverCount < 4) {
     iVar1 = g_dwD3dDriverCount * 0x22c;
     iVar4 = g_dwD3dDriverCount * 0x8b;
-    Mem_Copy((void *)(iVar1 + IMG_ADDR(0x00900d5c)),(void *)a1,0x10);
+    Mem_Copy((void *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00900d5c)),(void *)a1,0x10);
     strncpy(iVar1 + 0x900c08,a2,0x7f);
     (&DAT_00900c87)[iVar1] = 0;
     strncpy(iVar1 + 0x900b88,a3,0x7f);
@@ -1684,7 +1683,7 @@ undefined * __stdcall D3D_EnumDevicesCallback(int a1,int a2,int a3,int a4,int a5
     else {
       (&UINT_00900b40)[iVar4] = 1;
     }
-    Mem_Copy((void *)(iVar1 + IMG_ADDR(0x00900c90)),(void *)a4,0xcc);
+    Mem_Copy((void *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00900c90)),(void *)a4,0xcc);
     *(undefined4 *)(&DAT_00900b64 + iVar1) = 0;
     if ((*(uint *)(&DAT_00900c98 + iVar1) & 2) != 0) {
       *(undefined4 *)(&DAT_00900b64 + iVar1) = 2;
@@ -1762,7 +1761,7 @@ undefined * __stdcall D3D_EnumTextureFormatsCallback(int a1,int a2)
   }
   iVar1 = UINT_00806930 * 0xa4;
   puVar2 = (undefined4 *)(&DAT_00900620 + iVar1);
-  Mem_Copy((void *)(iVar1 + IMG_ADDR(0x00900658)),(void *)a1,0x6c);
+  Mem_Copy((void *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00900658)),(void *)a1,0x6c);
   uVar4 = *(uint *)(a1 + 0x4c);
   if ((uVar4 & 0x20) == 0) {
     if ((uVar4 & 8) != 0) {

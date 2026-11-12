@@ -13,7 +13,7 @@ void Setup_DrawDebugCamera(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  Actor *pAVar1;
   #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
@@ -41,10 +41,11 @@ void Setup_DrawDebugCamera(int param_1)
   local_c[1] = local_18[1];
   rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                      UINT_008c97cc & 0xffff,0xffffffff);
-  iVar1 = sputActor_ActorDeref(g_nCamActorIndex);
-  if (*(int *)(iVar1 + 0xa0) != 0) {
-    iVar1 = ((code *)sputActor_ActorDeref)(g_nCamActorIndex,param_1 + 0x50);
-    ((code *)sputCostume_Draw3D)(*(undefined4 *)(iVar1 + 0xa0));
+  pAVar1 = sputActor_ActorDeref(g_nCamActorIndex);
+  if (pAVar1->pCostumes != (CostumeNode *)0x0) {
+    param_1 = param_1 + 0x50;
+    pAVar1 = sputActor_ActorDeref(g_nCamActorIndex);
+    sputCostume_Draw3D(pAVar1->pCostumes,param_1);
   }
   return;
 }

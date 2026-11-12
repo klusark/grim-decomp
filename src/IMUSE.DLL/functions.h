@@ -518,9 +518,9 @@ int STDCALL VirtualAlloc() __asm__("_VirtualAlloc@16"); /* import */
 int STDCALL VirtualFree() __asm__("_VirtualFree@12"); /* import */
 int STDCALL WideCharToMultiByte() __asm__("_WideCharToMultiByte@32"); /* import */
 int STDCALL WriteFile() __asm__("_WriteFile@20"); /* import */
-int STDCALL hmiFXFree() __asm__("_hmiFXFree"); /* import */
+int hmiFXFree(); /* import */
 int STDCALL hmiFXInitSystem() __asm__("_hmiFXInitSystem"); /* import */
-int STDCALL hmiFXMalloc() __asm__("_hmiFXMalloc"); /* import */
+int hmiFXMalloc(); /* import */
 int STDCALL hmiFXPresetFreeLibrary() __asm__("_hmiFXPresetFreeLibrary"); /* import */
 int STDCALL hmiFXPresetLoadLibrary() __asm__("_hmiFXPresetLoadLibrary"); /* import */
 int STDCALL hmiFXPresetLock() __asm__("_hmiFXPresetLock"); /* import */

@@ -13,25 +13,25 @@
 void __cdecl sputText_Update(int drawAll)
 
 {
-  undefined4 *puVar1;
-  undefined4 *obj;
+  TextObject *pTVar1;
+  TextObject *obj;
   int iVar2;
   
   if (g_nSputText_Paused == 0) {
     iVar2 = sputTime_GetFrameTime();
     obj = g_pTextQueue;
-    while (obj != (undefined4 *)0x0) {
-      if (((int)obj[0x94] < 1) && ((*(byte *)(obj + 0x96) & 1) == 0)) {
-        puVar1 = (undefined4 *)*obj;
+    while (obj != (TextObject *)0x0) {
+      if ((obj->nDuration < 1) && ((obj->dwFlags & 1) == 0)) {
+        pTVar1 = obj->pNext;
         List_Unlink(obj);
-        obj = puVar1;
+        obj = pTVar1;
       }
       else {
-        if ((((obj[0x96] & 8) != 0) || (drawAll != 0)) && ((obj[0x96] & 2) == 0)) {
+        if ((((obj->dwFlags & 8) != 0) || (drawAll != 0)) && ((obj->dwFlags & 2) == 0)) {
           TextObject_Draw(obj,1);
         }
-        obj[0x94] = obj[0x94] - iVar2;
-        obj = (undefined4 *)*obj;
+        obj->nDuration = obj->nDuration - iVar2;
+        obj = obj->pNext;
       }
     }
   }

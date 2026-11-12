@@ -139,7 +139,8 @@ Also fixed in `tools/build_src.py` (affects the layout of `src/`):
    uninitialised `unaff_FS_OFFSET`, `STACK0X` assumes a frame pointer, and
    `PUN`/`((code *)F)` reproduce what Ghidra printed, which is wrong wherever
    Ghidra's prototype is wrong.
-2. **Struct layouts are not exported.** Only `GrimServices` exists in Ghidra
+2. *(Fixed by types round 1, docs/notes/types_1.md: `raw/<prog>/structs.json`, emitted into ghidra_types.h.)*
+   **Struct layouts are not exported.** Only `GrimServices` exists in Ghidra
    today and is copied by hand into `compat.h`. When more structs are applied,
    either extend `tools/export_raw.py` to dump layouts (e.g. `get_struct_layout`)
    and emit them from `build_src.py`, or add them to `compat.h`; otherwise
@@ -225,13 +226,13 @@ the 123 code labels and the `unaff_*`/`in_*` register semantics).
   (121 in the EXE, 23 in LUA.DLL, 2 in IMUSE.DLL) was turned into a function
   in Ghidra; the first run showed they are real entry points (e.g. the
   `stdFile_Read` slot of the service table at 0x473460).
-* **HMI audio.** Import libraries for the game's `HMIFXLIB.DLL` and
-  `HMIFXFP.DLL` are generated in `build/hmi/` with `dlltool` from their
-  export tables, so IMUSE.DLL binds to the real DLLs.
+* **HMI audio.** IMUSE.DLL used to bind to the game's real `HMIFXLIB.DLL` /
+  `HMIFXFP.DLL` through import libraries generated in `build/hmi/`; since
+  2026-11-12 `overrides_hmifx.c` is that library in C (section at the end).
 
 Running: copy `obj/GRIMFANDANGO.EXE/grimfandango.exe` and the three rebuilt
 DLLs into one folder (`build/run/`) and start the EXE with the game's data
-folder (`DATA*.LAB`, `GRIM.TAB`, `HMIFX*.DLL`) as the working directory, e.g.
+folder (`DATA*.LAB`, `GRIM.TAB`) as the working directory, e.g.
 under gdb: `cd "C:/GOG Games/GRIMDATA" && gdb -batch -ex run -ex bt --args
 .../build/run/grimfandango.exe`. A `__builtin_trap()` (SIGILL) in a `LAB_`,
 `FUN_` or `stub_` symbol means a stub was reached; `bt` names the caller.
@@ -1224,3 +1225,62 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
 * Clean-room (5322 tests): 5 differ for this build, 7 for main's (run right after); compare of the two logs: 2
   (sound_fade, ims_cache: ids -225 vs 31, keep_after). Run alone three times per build, both give the same values
   (sound_fade "120 67" every time, keep_after flipping alike, ids as the reference): timing, not the names.
+
+## The data as C, no raw/ at build time (2026-11-12)
+
+* `build/gendata.py` and `obj/<prog>/data.s` are gone. `tools/datagen.py` (called by `tools/build_src.py`) writes
+  `src/<prog>/data.c`: one C definition per span of the original's `.rdata` / `.data`, in the original layout (section
+  keys `.data$grim_<address>` sorted by the i686 ld script, `no_reorder` within a 4-aligned run, an empty 16-aligned
+  anchor first). Pointers are `&span + offset` or a function, by gendata's old rules. The 710 `IMG_ADDR` uses of the
+  generated code name the span at their address; the overrides keep `IMG_ADDR` through `sect_rdata` / `sect_data`,
+  now labels on the first span. The code-section copies are dropped; the EXE keeps the DirectInput data formats from
+  it.
+* `link.py` reads no raw/ file: the stub report takes `src/<prog>/imports.h`, the DLLs' exported variables come from
+  `src/<DLL>/exports.json`, and its own definitions go to `obj/<prog>/link_data.c`. (It built the HMI import libraries
+  with the i686 `dlltool`, inside `build/hmi`; those are gone since, see the next section.)
+* `build/datacmp.py` checks the data of two builds span by span (bytes, pointer targets, offsets): against the data.s
+  build, no difference in any of the four programs. `.github/workflows/build.yml` builds from a plain checkout.
+* Details and numbers: docs/notes/raw_free_build.md. Clean-room against grim_tools' knowngood (with run.py decomp): 3 of 5167 differ for
+  this build and for main's (lab_files, lab_dofile, lab_costume); the logs differ only in sound_fade's timing.
+
+## The HMI effects library in C, no original DLL at run time (2026-11-12)
+
+* `build/overrides_hmifx.c` is what IMUSE.DLL imported from HMI's `HMIFXLIB.DLL`, plus the three effects of
+  `HMIFXFP.DLL` that `IMUSE.PSL` names (Reverb 1 = 2101, Filter 1 = 2300, Phasor = 2375). Decompiled with a headless
+  Ghidra in a scratch project (not the shared one) and checked against the x87 instruction order: `long double` where
+  the original keeps a value on the FPU stack, `float` where it stores one, `fptan` / `fcos` / `fyl2x` / `fistp` as
+  the instructions, MSVC's `__ftol` as a truncating 64-bit conversion. The structures keep their offsets (IMUSE.DLL
+  reads a preset's effect list at +0x450 and an effect's routing / link at +0x0c / +0x18 itself). `IMUSE.PSL` is built
+  in; a file of that name in the working directory still wins. `HMILIBS.INI` is not needed (it only named
+  `HMIFXFP.DLL`).
+* The game itself uses one preset: `ImSetVoiceEffect("Intercom Filter")` in the sets cf and nq (and in `_options`),
+  a band-pass at 1326 Hz, 2000 Hz wide. The two reverbs and "Stereo Ring Modulator" are defined but no script calls
+  them. Left out: the other six effects of HMIFXFP.DLL, 8-bit samples, the parameter getters and the fifteen exports
+  IMUSE.DLL does not import.
+* A side effect kept: loading `HMIFXFP.DLL` (in `hmiFXInitSystem`, freed again by `hmiFXUnInitSystem`) sets the x87
+  precision to 53 bits through its C runtime start-up, other control-word bits unchanged (measured: 0x007f -> 0x027f,
+  0x0c7f -> 0x0e7f). `hmiFX_InitSystem` does the same.
+* `hmiFXMalloc` / `hmiFXFree` are cdecl (IMUSE.DLL pops the argument after the call); `tools/build_src.py` had declared
+  all `hmiFX*` imports stdcall, harmless only because the callers have frame pointers. Fixed (`HMI_CDECL`); the other
+  seven are stdcall.
+* `build/link.py` no longer builds or links HMI import libraries; `build/hmi/` and `tools/gen_hmi_libs.py` are gone.
+  The rebuilt `imuse.dll` imports ADVAPI32, KERNEL32, msvcrt and WINMM only. No file of the original install is loaded
+  at run time any more besides the game data (`NULLMUSE.DLL` and `grimdlg.dll` were never loaded by the rebuilt exe).
+* Checks:
+  * `tools/hmifx_check.c` runs both libraries side by side the way IMUSE.DLL does (find, lock, blocks with flags 0x19,
+    the last with its tail 0x9d; and unlocked, flags 0x1e), every preset of IMUSE.PSL plus a test file with the other
+    filter types, a stereo reverb, a pre-delay and chains of two effects, three signals, x87 precision 24 / 53 / 64
+    bits: 234 cases, all identical byte for byte, the control word after init included. Ours also from its built-in
+    IMUSE.PSL.
+  * In the game (`build/perf/imuse/fxtrace.py`, `scn_fx.lua`): the CRC of every `Im_ApplyFXPreset` output while
+    Glottis' lines play through Intercom Filter, Basic Reverb, Stereo Ring Modulator and OFF: the build with the real
+    DLLs and this one give the same 7028 outputs in the same order.
+  * Data: `datacmp.py` against the previous build, no difference. EXE / LUA / CHORE only grow by the compiler ident of
+    one more (empty) object.
+  * Clean-room against grim_tools' knowngood, in a run folder whose `HMIFXLIB.DLL`, `HMIFXFP.DLL`, `HMILIBS.INI`,
+    `NULLMUSE.DLL` and `grimdlg.dll` were empty files: 3 of 5167 differ (lab_files, lab_dofile, lab_costume, as
+    before); against the previous build's log only sound_fade's timing.
+* A trap for the gdb tools: `break <function>` stops after the prologue, so `[esp]` is not the return address there.
+  A first version of the trace set a breakpoint on such a stale stack word, which was the address of the voice's MCMP
+  handle; the `int3` byte then overwrote the handle's file number and `Res_FSeek` asserted. It looked like a crash of
+  the voice-effect path in every build; read the frame through `ebp` instead.

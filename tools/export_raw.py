@@ -43,6 +43,44 @@ def thunk_code(prog_path, fn):
             return f"/* thunk: {fn['name']} @ {addr} -> {int(m.group(1), 16):08x} */\n"
     return f"/* thunk/external: {fn['name']} @ {addr} */\n"
 
+LAYOUT_ROW = re.compile(r"^\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(.+?)\s*\|\s*(\S*)\s*$")
+
+
+def struct_layouts(prog_path, getter=None):
+    """{name: {"size": n, "fields": [[offset, size, type, name], ...]}} for every structure of the
+    program's own data types (the PE / DOS header types of the loader are left out). Read by
+    tools/build_src.py, which emits the layouts into ghidra_types.h."""
+    getter = getter or get
+    listing = getter("/list_data_types", program=prog_path, category="", limit=5000)
+    out = {}
+    for line in listing.replace("\r\n", "\n").splitlines():
+        parts = [p.strip() for p in line.split("|")]
+        if len(parts) < 4 or "*" in parts[0] or "[" in parts[0]:
+            continue
+        name, path = parts[0], parts[3]
+        if path.startswith(("/PE/", "/DOS/")) or name.startswith("IMAGE_") or not re.fullmatch(r"[A-Za-z_]\w*", name):
+            continue
+        txt = getter("/get_struct_layout", program=prog_path, struct_name=name).replace("\r\n", "\n")
+        if not txt.startswith("Structure:"):
+            continue
+        m = re.search(r"^Size:\s*(\d+)", txt, re.M)
+        fields = []
+        for row in txt.split("Layout:", 1)[-1].splitlines():
+            r = LAYOUT_ROW.match(row)
+            if r:
+                fields.append([int(r.group(1)), int(r.group(2)), r.group(3), r.group(4)])
+        out[name] = {"size": int(m.group(1)) if m else 0, "fields": fields}
+    return out
+
+
+def dump_structs(prog_name, prog_path, getter=None):
+    out = os.path.join(ROOT, "raw", prog_name)
+    s = struct_layouts(prog_path, getter)
+    with open(os.path.join(out, "structs.json"), "w", newline="\n") as f:
+        json.dump(s, f, indent=1, sort_keys=True)
+    print(prog_name, len(s), "structures", flush=True)
+
+
 def dump(prog_name, prog_path):
     out = os.path.join(ROOT, "raw", prog_name)
     os.makedirs(os.path.join(out, "functions"), exist_ok=True)
@@ -80,6 +118,7 @@ def dump(prog_name, prog_path):
                 f.write(fn().replace("\r\n", "\n"))
         except Exception as e:
             print("  aux failed", name, e, flush=True)
+    dump_structs(prog_name, prog_path)
     print(prog_name, "done", flush=True)
 
 if __name__ == "__main__":

@@ -312,7 +312,7 @@ void fob_blk16_configure(uint param_1)
       *psVar4 = psVar2[1] * sVar8 + *psVar2;
       psVar2 = psVar3;
       psVar4 = psVar4 + 1;
-    } while ((int)psVar3 < IMG_ADDR(0x004f38e4));
+    } while ((int)psVar3 < ((unsigned)(uintptr_t)&g_dwFob_blk16_configure_old_mod));
     pbVar9 = &DAT_00906e00;
     pbVar5 = &DAT_0091f100;
     do {
@@ -358,7 +358,7 @@ void fob_blk16_configure(uint param_1)
       }
       pbVar5 = pbVar5 + 0x80;
       pbVar9 = pbVar9 + 0x184;
-    } while ((int)pbVar5 < IMG_ADDR(0x00927100));
+    } while ((int)pbVar5 < ((unsigned)(uintptr_t)&DAT_00927100));
   }
   return;
 }
@@ -432,12 +432,12 @@ void __cdecl fob_block_maketiles(int size)
     do {
       *puVar3 = 0;
       puVar3 = puVar3 + 0x184;
-    } while ((int)puVar3 < IMG_ADDR(0x0091f200));
+    } while ((int)puVar3 < ((unsigned)(uintptr_t)&DAT_0091f200));
     puVar3 = &DAT_00906e01;
     do {
       *puVar3 = 0;
       puVar3 = puVar3 + 0x184;
-    } while ((int)puVar3 < IMG_ADDR(0x0091f201));
+    } while ((int)puVar3 < ((unsigned)(uintptr_t)&DAT_0091f201));
   }
   if (size == 4) {
     local_164 = (uint)g_anBlockySplit4Y;
@@ -446,12 +446,12 @@ void __cdecl fob_block_maketiles(int size)
     do {
       *puVar3 = 0;
       puVar3 = puVar3 + 0x80;
-    } while ((int)puVar3 < IMG_ADDR(0x00927100));
+    } while ((int)puVar3 < ((unsigned)(uintptr_t)&DAT_00927100));
     puVar3 = &DAT_0091f101;
     do {
       *puVar3 = 0;
       puVar3 = puVar3 + 0x80;
-    } while ((int)puVar3 < IMG_ADDR(0x00927101));
+    } while ((int)puVar3 < ((unsigned)(uintptr_t)&DAT_00927101));
   }
   iVar4 = size * size;
   iVar18 = local_164 - local_148;

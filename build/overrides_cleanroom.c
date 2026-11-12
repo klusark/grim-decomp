@@ -159,8 +159,10 @@ float stdMath_ArcTan4(float y, float x)
  * arguments and returns the palette callback (0x8c97b8), then calls that callback with the same two words still on the
  * stack (CALL EAX; ADD ESP,8). The decompiled C passed the two words to sputRender_SetPaletteFunc and called the callback
  * with none, so it read whatever was on the stack. */
-void __cdecl sputActor_DrawToClean(void *actor)
+void __cdecl sputActor_DrawToClean(Actor *actor_)
 {
+    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
+    void *actor = (void *)actor_;
     int setup, bg, cmap, scale[3];
     void *set;
     int *pal;

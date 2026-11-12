@@ -13,29 +13,32 @@
 void sputActor_NukeCostumeStacks(void)
 
 {
-  void *costume;
-  void *pvVar1;
-  int iVar2;
+  char *pcVar1;
+  Actor *pAVar2;
   int iVar3;
+  int iVar4;
   
-  iVar3 = 0;
+  iVar4 = 0;
   if (0 < g_nMaxActors) {
-    iVar2 = 0;
-    pvVar1 = g_pActors;
+    iVar3 = 0;
+    pAVar2 = g_pActors;
     do {
-      if (*(int *)((int)pvVar1 + iVar2 + 0x9c) != 0) {
-        costume = *(void **)((int)pvVar1 + iVar2 + 0xa0);
-        if (costume != (void *)0x0) {
-          sputCostume_PrintCostumeInfo(costume);
-          pvVar1 = g_pActors;
+      if (*(int *)(pAVar2->aSetName + iVar3 + 0x20) != 0) {
+        if (*(CostumeNode **)(pAVar2->aSetName + iVar3 + 0x24) != (CostumeNode *)0x0) {
+          sputCostume_PrintCostumeInfo(*(CostumeNode **)(pAVar2->aSetName + iVar3 + 0x24));
+          pAVar2 = g_pActors;
         }
-        sputCostume_FreeCostumeNodes(*(void **)((int)pvVar1 + iVar2 + 0xa0),1);
-        *(undefined4 *)((int)g_pActors + iVar2 + 0xa0) = 0;
-        pvVar1 = g_pActors;
+        sputCostume_FreeCostumeNodes(*(CostumeNode **)(pAVar2->aSetName + iVar3 + 0x24),1);
+        pcVar1 = g_pActors->aSetName + iVar3 + 0x24;
+        pcVar1[0] = '\0';
+        pcVar1[1] = '\0';
+        pcVar1[2] = '\0';
+        pcVar1[3] = '\0';
+        pAVar2 = g_pActors;
       }
-      iVar3 = iVar3 + 1;
-      iVar2 = iVar2 + 0xa8;
-    } while (iVar3 < g_nMaxActors);
+      iVar4 = iVar4 + 1;
+      iVar3 = iVar3 + 0xa8;
+    } while (iVar4 < g_nMaxActors);
   }
   return;
 }
@@ -48,15 +51,15 @@ void sputActor_NukeCostumeStacks(void)
 void __cdecl sputActor_UpdateSpeechOnly(float dt)
 
 {
-  void **ppvVar1;
+  Actor **ppAVar1;
   
-  ppvVar1 = &g_pTalkingActors;
+  ppAVar1 = g_pTalkingActors;
   do {
-    if (*ppvVar1 != (void *)0x0) {
-      sputActor_UpdateActorSpeech(*ppvVar1,dt);
+    if (*ppAVar1 != (Actor *)0x0) {
+      sputActor_UpdateActorSpeech(*ppAVar1,dt);
     }
-    ppvVar1 = ppvVar1 + 1;
-  } while ((int)ppvVar1 < IMG_ADDR(0x008ca320));
+    ppAVar1 = ppAVar1 + 1;
+  } while ((int)ppAVar1 < ((unsigned)(uintptr_t)&DAT_008ca320));
   return;
 }
 
@@ -68,6 +71,7 @@ void __cdecl sputActor_UpdateSpeechOnly(float dt)
 void __cdecl sputActor_UpdateActors(float dt)
 
 {
+  Actor *actor;
   void *pvVar1;
   int *piVar2;
   
@@ -78,17 +82,17 @@ void __cdecl sputActor_UpdateActors(float dt)
     piVar2 = *(int **)(*(int *)((int)pvVar1 + 0x1abc) + 0x80);
     if (piVar2 != (int *)0x0) {
       do {
-        pvVar1 = (void *)((int)g_pActors + *piVar2 * 0xa8);
-        if (pvVar1 != (void *)0x0) {
-          if (*(int *)((int)pvVar1 + 0xa4) != 0) {
-            *(undefined4 *)(*(int *)((int)pvVar1 + 0xa4) + 0x3f8) = 0;
+        actor = g_pActors + *piVar2;
+        if (actor != (Actor *)0x0) {
+          if (actor->pExtra != (ActorExtra *)0x0) {
+            actor->pExtra->nCollided = 0;
           }
-          if ((*(int *)((int)pvVar1 + 0xa0) != 0) &&
-             (*(int *)(*(int *)((int)pvVar1 + 0xa0) + 4) != 0)) {
-            (&g_pDrawableActors)[g_nTotActors] = pvVar1;
+          if ((actor->pCostumes != (CostumeNode *)0x0) &&
+             (actor->pCostumes->pMainModel != (void *)0x0)) {
+            (&g_pDrawableActors)[g_nTotActors] = actor;
             g_nTotActors = g_nTotActors + 1;
           }
-          Actor_UpdateMovement(pvVar1,dt);
+          Actor_UpdateMovement(actor,dt);
         }
         piVar2 = (int *)piVar2[2];
       } while (piVar2 != (int *)0x0);

@@ -1,0 +1,209 @@
+{
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "CostumeNode",
+   "size": 180,
+   "comment": "One costume of an actor's costume stack (Actor::pCostumes, sputCostume.cpp; from the pool g_pCosNodePool): the CHORE.DLL instance and the actor's chores in it. Costume_InitRecord sets the defaults.",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwInstance",
+     "CHORE.DLL costume instance (Cos_CreateCosInstance)"
+    ],
+    [
+     4,
+     "void *",
+     "pMainModel",
+     "Costume_GetMainModel; a pushed costume with the same model takes over the head settings"
+    ],
+    [
+     8,
+     "void *",
+     "pComponents",
+     "model / sprite components drawn with the actor, linked at +0x190"
+    ],
+    [
+     12,
+     "int[3]",
+     "aHeadJoints",
+     "SetActorHead, -1 none"
+    ],
+    [
+     24,
+     "float",
+     "flLookRate",
+     "360 (SetActorLookRate)"
+    ],
+    [
+     28,
+     "float",
+     "flMaxPitch",
+     "30 (SetActorHead)"
+    ],
+    [
+     32,
+     "float",
+     "flMaxYaw",
+     "90"
+    ],
+    [
+     36,
+     "float",
+     "flViewCos",
+     "-0.35: cosine of half the view cone (SetActorHead's first limit), sputActor_CanActorSeePoint"
+    ],
+    [
+     40,
+     "int",
+     "nWalkChore",
+     "-1 none (sputActor_SetWalkChore)"
+    ],
+    [
+     44,
+     "int",
+     "nTurnLeftChore",
+     "sputActor_SetTurnChores"
+    ],
+    [
+     48,
+     "int",
+     "nTurnRightChore",
+     ""
+    ],
+    [
+     52,
+     "int",
+     "nRestChore",
+     "sputActor_SetRestChore"
+    ],
+    [
+     56,
+     "int[16]",
+     "aTalkChores",
+     "mouth shapes; [0] is the closed mouth"
+    ],
+    [
+     120,
+     "int",
+     "nMumbleChore",
+     ""
+    ],
+    [
+     124,
+     "uint[13]",
+     "aCostumeRef",
+     "0x34-byte resource reference of the costume (Res_SetReference)"
+    ],
+    [
+     176,
+     "CostumeNode *",
+     "pNext",
+     "the costume below on the stack"
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "00494dc0",
+   "index": 0,
+   "type": "CostumeNode *",
+   "name": "list"
+  },
+  {
+   "addr": "00494e10",
+   "index": 0,
+   "type": "CostumeNode *",
+   "name": "list"
+  },
+  {
+   "addr": "00494e50",
+   "index": 0,
+   "type": "CostumeNode *",
+   "name": "list"
+  },
+  {
+   "addr": "00494e80",
+   "index": 0,
+   "type": "CostumeNode *",
+   "name": "list"
+  },
+  {
+   "addr": "00494fb0",
+   "index": 0,
+   "type": "CostumeNode *",
+   "name": "node"
+  },
+  {
+   "addr": "00490b50",
+   "index": 3,
+   "type": "CostumeNode *",
+   "name": "costume"
+  },
+  {
+   "addr": "00490c80",
+   "index": 2,
+   "type": "CostumeNode *",
+   "name": "costume"
+  },
+  {
+   "addr": "00490a60",
+   "index": 2,
+   "type": "CostumeNode *",
+   "name": "costume"
+  },
+  {
+   "addr": "00494940",
+   "index": 0,
+   "type": "CostumeNode *",
+   "name": "costumeList"
+  },
+  {
+   "addr": "00495730",
+   "index": 0,
+   "type": "CostumeNode *",
+   "name": "costumeList"
+  },
+  {
+   "addr": "00494d10",
+   "index": 0,
+   "type": "CostumeNode *",
+   "name": "costume"
+  },
+  {
+   "addr": "0049cb10",
+   "index": 1,
+   "type": "CostumeNode *",
+   "name": "costumeList"
+  },
+  {
+   "addr": "0049cb10",
+   "index": 2,
+   "type": "CostumeNode **",
+   "name": "outCostume"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "00494e10",
+   "type": "CostumeNode *"
+  },
+  {
+   "addr": "00494e50",
+   "type": "CostumeNode *"
+  },
+  {
+   "addr": "00494e80",
+   "type": "CostumeNode *"
+  }
+ ],
+ "protos": [
+  {
+   "addr": "00494f90",
+   "proto": "CostumeNode * Costume_AllocRecord(void)",
+   "cc": "__cdecl"
+  }
+ ]
+}

@@ -59,8 +59,10 @@ static inline void cto_copy3(void *dst, const void *src)
  * the previous position is slid along the box (Collision_BoxSlide; when that fails, pushed out of it), self is moved, a
  * walking actor replans its path.  Every hit ends with sputLua_CollisionHandler(self, other, start, hit point, end) on the
  * vectors 0x008ca348 (position before), 0x008ca320 (hit point), 0x008ca338 (position after).  Always returns 1. */
-undefined4 Collision_TestActorAgainstOthers(void *param_1)
+undefined4 Collision_TestActorAgainstOthers(Actor *param_1_)
 {
+    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
+    void *param_1 = (void *)param_1_;
     char *self = (char *)param_1;
     float *g320 = (float *)&DAT_008ca320;   /* hit point */
     float *g338 = (float *)&DAT_008ca338;   /* position after */

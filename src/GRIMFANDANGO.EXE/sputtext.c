@@ -157,46 +157,46 @@ undefined4 sputText_Save(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 *puVar1;
+  TextObject *pTVar1;
   int iVar2;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
-  for (puVar1 = g_pTextQueue; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
+  for (pTVar1 = g_pTextQueue; pTVar1 != (TextObject *)0x0; pTVar1 = pTVar1->pNext) {
     local_4 = local_4 + 1;
   }
   iVar2 = (*param_1)(&local_4,4);
-  puVar1 = g_pTextQueue;
+  pTVar1 = g_pTextQueue;
   if (iVar2 != 0) {
     return 1;
   }
-  for (; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
-    puVar1[0x97] = puVar1;
-    (*param_1)(puVar1 + 2,0x200);
-    (*param_1)(puVar1 + 0x82,4);
-    (*param_1)(puVar1 + 0x83,4);
-    (*param_1)(puVar1 + 0x84,4);
-    (*param_1)(puVar1 + 0x85,4);
-    (*param_1)(puVar1 + 0x86,4);
-    (*param_1)(puVar1 + 0x87,4);
-    (*param_1)(puVar1 + 0x88,4);
-    (*param_1)(puVar1 + 0x89,4);
-    (*param_1)(puVar1 + 0x8a,4);
-    (*param_1)(puVar1 + 0x8b,4);
-    (*param_1)(puVar1 + 0x8c,4);
-    (*param_1)(puVar1 + 0x8e,4);
-    (*param_1)(puVar1 + 0x8f,4);
-    (*param_1)(puVar1 + 0x90,4);
-    (*param_1)(puVar1 + 0x91,4);
-    (*param_1)(puVar1 + 0x92,4);
-    (*param_1)(puVar1 + 0x93,4);
-    (*param_1)(puVar1 + 0x94,4);
-    (*param_1)(puVar1 + 0x95,4);
-    (*param_1)(puVar1 + 0x96,4);
-    (*param_1)(puVar1 + 0x97,4);
+  for (; pTVar1 != (TextObject *)0x0; pTVar1 = pTVar1->pNext) {
+    pTVar1->nSerial = (int)pTVar1;
+    (*param_1)(pTVar1->aText,0x200);
+    (*param_1)(&pTVar1->ctx,4);
+    (*param_1)(&(pTVar1->ctx).pClipRect,4);
+    (*param_1)(&(pTVar1->ctx).pFont,4);
+    (*param_1)(&(pTVar1->ctx).nX,4);
+    (*param_1)(&(pTVar1->ctx).nY,4);
+    (*param_1)(&(pTVar1->ctx).dwFgColor,4);
+    (*param_1)(&(pTVar1->ctx).dwBgColor,4);
+    (*param_1)(&(pTVar1->ctx).dwFxColor,4);
+    (*param_1)(&(pTVar1->ctx).nScaleX,4);
+    (*param_1)(&(pTVar1->ctx).nScaleY,4);
+    (*param_1)(&(pTVar1->ctx).dwFlags,4);
+    (*param_1)(&pTVar1->nX,4);
+    (*param_1)(&pTVar1->nY,4);
+    (*param_1)(pTVar1->aRect,4);
+    (*param_1)(pTVar1->aRect + 1,4);
+    (*param_1)(pTVar1->aRect + 2,4);
+    (*param_1)(pTVar1->aRect + 3,4);
+    (*param_1)(&pTVar1->nDuration,4);
+    (*param_1)(&pTVar1->pActor,4);
+    (*param_1)(&pTVar1->dwFlags,4);
+    (*param_1)(&pTVar1->nSerial,4);
   }
-  (*param_1)(&UINT_004e84a0,4);
-  (*param_1)(&UINT_004e84d0,4);
+  (*param_1)(((unsigned)(uintptr_t)&UINT_004e84a0),4);
+  (*param_1)(((unsigned)(uintptr_t)&UINT_004e84d0),4);
   (*param_1)(&UINT_004e8500,4);
   return 0;
 }
@@ -213,16 +213,16 @@ undefined4 sputText_Restore(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  undefined4 *puVar2;
+  TextContext *pTVar1;
+  void **ppvVar2;
   code *pcVar3;
   int iVar4;
-  undefined4 *puVar5;
+  TextObject *pTVar5;
   void *pvVar6;
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   pcVar3 = param_1;
-  while (g_pTextQueue != (void *)0x0) {
+  while (g_pTextQueue != (TextObject *)0x0) {
     List_Unlink(g_pTextQueue);
   }
   iVar4 = (*param_1)(&local_4,4);
@@ -230,61 +230,61 @@ undefined4 sputText_Restore(code *param_1)
     param_1 = (code *)0x0;
     if (0 < local_4) {
       do {
-        puVar5 = (undefined4 *)Memory_AllocFixed(g_pTextEventPool);
-        (*pcVar3)(puVar5 + 2,0x200);
-        piVar1 = puVar5 + 0x82;
-        (*pcVar3)(piVar1,4);
-        (*pcVar3)(puVar5 + 0x83,4);
-        puVar2 = puVar5 + 0x84;
-        (*pcVar3)(puVar2,4);
-        (*pcVar3)(puVar5 + 0x85,4);
-        (*pcVar3)(puVar5 + 0x86,4);
-        (*pcVar3)(puVar5 + 0x87,4);
-        (*pcVar3)(puVar5 + 0x88,4);
-        (*pcVar3)(puVar5 + 0x89,4);
-        (*pcVar3)(puVar5 + 0x8a,4);
-        (*pcVar3)(puVar5 + 0x8b,4);
-        (*pcVar3)(puVar5 + 0x8c,4);
-        (*pcVar3)(puVar5 + 0x8e,4);
-        (*pcVar3)(puVar5 + 0x8f,4);
-        (*pcVar3)(puVar5 + 0x90,4);
-        (*pcVar3)(puVar5 + 0x91,4);
-        (*pcVar3)(puVar5 + 0x92,4);
-        (*pcVar3)(puVar5 + 0x93,4);
-        (*pcVar3)(puVar5 + 0x94,4);
-        (*pcVar3)(puVar5 + 0x95,4);
-        (*pcVar3)(puVar5 + 0x96,4);
-        (*pcVar3)(puVar5 + 0x97,4);
-        pvVar6 = Res_HandleFromSerialNumber((void *)*puVar2);
-        *puVar2 = pvVar6;
-        if (*piVar1 != 0) {
-          *piVar1 = (int)&UINT_008a94b8;
+        pTVar5 = (TextObject *)Memory_AllocFixed(g_pTextEventPool);
+        (*pcVar3)(pTVar5->aText,0x200);
+        pTVar1 = &pTVar5->ctx;
+        (*pcVar3)(pTVar1,4);
+        (*pcVar3)(&(pTVar5->ctx).pClipRect,4);
+        ppvVar2 = &(pTVar5->ctx).pFont;
+        (*pcVar3)(ppvVar2,4);
+        (*pcVar3)(&(pTVar5->ctx).nX,4);
+        (*pcVar3)(&(pTVar5->ctx).nY,4);
+        (*pcVar3)(&(pTVar5->ctx).dwFgColor,4);
+        (*pcVar3)(&(pTVar5->ctx).dwBgColor,4);
+        (*pcVar3)(&(pTVar5->ctx).dwFxColor,4);
+        (*pcVar3)(&(pTVar5->ctx).nScaleX,4);
+        (*pcVar3)(&(pTVar5->ctx).nScaleY,4);
+        (*pcVar3)(&(pTVar5->ctx).dwFlags,4);
+        (*pcVar3)(&pTVar5->nX,4);
+        (*pcVar3)(&pTVar5->nY,4);
+        (*pcVar3)(pTVar5->aRect,4);
+        (*pcVar3)(pTVar5->aRect + 1,4);
+        (*pcVar3)(pTVar5->aRect + 2,4);
+        (*pcVar3)(pTVar5->aRect + 3,4);
+        (*pcVar3)(&pTVar5->nDuration,4);
+        (*pcVar3)(&pTVar5->pActor,4);
+        (*pcVar3)(&pTVar5->dwFlags,4);
+        (*pcVar3)(&pTVar5->nSerial,4);
+        pvVar6 = Res_HandleFromSerialNumber(*ppvVar2);
+        *ppvVar2 = pvVar6;
+        if (*(int *)pTVar1 != 0) {
+          *(uint **)pTVar1 = &UINT_008a94b8;
         }
-        if (puVar5[0x83] != 0) {
-          puVar5[0x83] = puVar5 + 0x90;
+        if ((pTVar5->ctx).pClipRect != (int *)0x0) {
+          (pTVar5->ctx).pClipRect = pTVar5->aRect;
         }
-        puVar5[0x8d] = g_abSputRender_colorMap;
-        puVar5[1] = 0;
-        *puVar5 = g_pTextQueue;
-        if (g_pTextQueue != (void *)0x0) {
-          *(undefined4 **)((int)g_pTextQueue + 4) = puVar5;
+        (pTVar5->ctx).pColormap = g_abSputRender_colorMap;
+        pTVar5->pPrev = (TextObject *)0x0;
+        pTVar5->pNext = g_pTextQueue;
+        if (g_pTextQueue != (TextObject *)0x0) {
+          g_pTextQueue->pPrev = pTVar5;
         }
         param_1 = (code *)((int)param_1 + 1);
-        g_pTextQueue = puVar5;
+        g_pTextQueue = pTVar5;
       } while ((int)param_1 < local_4);
     }
-    (*pcVar3)(&UINT_004e84a0,4);
-    (*pcVar3)(&UINT_004e84d0,4);
+    (*pcVar3)(((unsigned)(uintptr_t)&UINT_004e84a0),4);
+    (*pcVar3)(((unsigned)(uintptr_t)&UINT_004e84d0),4);
     (*pcVar3)(&UINT_004e8500,4);
     g_hFont = Text_GetSystemFont();
-    UINT_004e84a0 = (uint)Res_HandleFromSerialNumber((void *)UINT_004e84a0);
-    UINT_004e84d0 = (uint)Res_HandleFromSerialNumber((void *)UINT_004e84d0);
+    g_PrintLineTextCtx.pFont = Res_HandleFromSerialNumber(g_PrintLineTextCtx.pFont);
+    g_SubtitleTextCtx.pFont = Res_HandleFromSerialNumber(g_SubtitleTextCtx.pFont);
     UINT_004e8500 = (uint)Res_HandleFromSerialNumber((void *)UINT_004e8500);
-    if (UINT_004e84a0 == 0) {
-      UINT_004e84a0 = g_hFont;
+    if (g_PrintLineTextCtx.pFont == (void *)0x0) {
+      g_PrintLineTextCtx.pFont = (void *)g_hFont;
     }
-    if (UINT_004e84d0 == 0) {
-      UINT_004e84d0 = g_hFont;
+    if (g_SubtitleTextCtx.pFont == (void *)0x0) {
+      g_SubtitleTextCtx.pFont = (void *)g_hFont;
     }
     if ((void *)UINT_004e8500 == (void *)0x0) {
       UINT_004e8500 = g_hFont;

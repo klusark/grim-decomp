@@ -1,0 +1,244 @@
+{
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "TextContext",
+   "size": 48,
+   "comment": "How a text is drawn: font, position, colours, justification (g_SubtitleTextCtx, g_PrintLineTextCtx; GetTextParamsFromTable fills it from a Lua table). A text object holds a copy.",
+   "fields": [
+    [
+     4,
+     "int *",
+     "pClipRect",
+     "x, y, width, height the text is clipped to"
+    ],
+    [
+     8,
+     "void *",
+     "pFont",
+     "font handle (HLock gives the font data)"
+    ],
+    [
+     12,
+     "int",
+     "nX",
+     ""
+    ],
+    [
+     16,
+     "int",
+     "nY",
+     "includes the font's height"
+    ],
+    [
+     20,
+     "uint",
+     "dwFgColor",
+     "0xRRGGBB; while drawing, the index into pColormap"
+    ],
+    [
+     24,
+     "uint",
+     "dwBgColor",
+     ""
+    ],
+    [
+     28,
+     "uint",
+     "dwFxColor",
+     ""
+    ],
+    [
+     32,
+     "int",
+     "nScaleX",
+     "16.16 (Font_GlyphAdvance)"
+    ],
+    [
+     36,
+     "int",
+     "nScaleY",
+     "16.16"
+    ],
+    [
+     40,
+     "uint",
+     "dwFlags",
+     "justification: 4 left, 5 centre, 6 right (bit 0 centres)"
+    ],
+    [
+     44,
+     "void *",
+     "pColormap",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "TextObject",
+   "size": 608,
+   "comment": "A text on screen (sputText.cpp; from the pool g_pTextEventPool, TextObject_New): the queue g_pTextQueue, the string and its own text context.",
+   "fields": [
+    [
+     0,
+     "TextObject *",
+     "pNext",
+     "g_pTextQueue"
+    ],
+    [
+     4,
+     "TextObject *",
+     "pPrev",
+     ""
+    ],
+    [
+     8,
+     "char[512]",
+     "aText",
+     ""
+    ],
+    [
+     520,
+     "TextContext",
+     "ctx",
+     "copy of the context it was made with; ctx.pClipRect points at aRect"
+    ],
+    [
+     568,
+     "int",
+     "nX",
+     "position as given (sputText_AddToQueue re-bases ctx.nY on the font height)"
+    ],
+    [
+     572,
+     "int",
+     "nY",
+     ""
+    ],
+    [
+     576,
+     "int[4]",
+     "aRect",
+     "clip rectangle: the context's or the whole screen"
+    ],
+    [
+     592,
+     "int",
+     "nDuration",
+     "ms, -1 until killed (sputText_AddToQueue)"
+    ],
+    [
+     596,
+     "Actor *",
+     "pActor",
+     "the speaking actor (sputText_CreateActorText)"
+    ],
+    [
+     600,
+     "uint",
+     "dwFlags",
+     "1 keep, 2 hidden, 4 speech, 8 always draw"
+    ],
+    [
+     604,
+     "int",
+     "nSerial",
+     "the object's own address, kept across save games (sputText_FindSerialNumber)"
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "0048c050",
+   "index": 0,
+   "type": "TextContext *",
+   "name": "ctx"
+  },
+  {
+   "addr": "0048c050",
+   "index": 2,
+   "type": "TextObject *",
+   "name": "textObj"
+  },
+  {
+   "addr": "004aaa20",
+   "index": 0,
+   "type": "TextContext *",
+   "name": "ctx"
+  },
+  {
+   "addr": "004aaa80",
+   "index": 0,
+   "type": "TextContext *",
+   "name": "ctx"
+  },
+  {
+   "addr": "004aab10",
+   "index": 0,
+   "type": "TextContext *",
+   "name": "ctx"
+  },
+  {
+   "addr": "004ab510",
+   "index": 0,
+   "type": "TextContext *",
+   "name": "ctx"
+  },
+  {
+   "addr": "004ab5d0",
+   "index": 0,
+   "type": "TextContext *",
+   "name": "ctx"
+  },
+  {
+   "addr": "0048c7e0",
+   "index": 0,
+   "type": "TextContext *",
+   "name": "ctx"
+  },
+  {
+   "addr": "0048c9f0",
+   "index": 0,
+   "type": "TextObject *",
+   "name": "obj"
+  },
+  {
+   "addr": "0048c470",
+   "index": 0,
+   "type": "TextObject *",
+   "name": "obj"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "0048c7e0",
+   "type": "TextObject *"
+  },
+  {
+   "addr": "0048b2e0",
+   "type": "TextObject *"
+  }
+ ],
+ "protos": [
+  {
+   "addr": "0048cba0",
+   "proto": "TextObject * sputText_FindSerialNumber(int serial)",
+   "cc": "__cdecl"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "008ca150",
+   "type": "TextObject *"
+  },
+  {
+   "addr": "004e8498",
+   "type": "TextContext"
+  },
+  {
+   "addr": "004e84c8",
+   "type": "TextContext"
+  }
+ ]
+}

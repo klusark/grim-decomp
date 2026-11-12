@@ -1,0 +1,48 @@
+# Build and link the four programs from a plain checkout: the tracked tree is all the build needs
+# (no raw/; src/<prog>/data.c holds the original's data, see docs/notes/raw_free_build.md).
+name: build
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          # UCRT64 gcc compiles the i386 objects (-m32); the i686 toolchain links them (build/Makefile)
+          install: >-
+            make
+            mingw-w64-ucrt-x86_64-gcc
+            mingw-w64-ucrt-x86_64-python
+            mingw-w64-i686-gcc
+            mingw-w64-i686-zlib
+
+      - name: The build must not need raw/
+        run: test ! -e raw
+
+      - name: Compile
+        run: make -C build -j4
+
+      - name: Link
+        run: make -C build link
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: grim-decomp-binaries
+          path: |
+            build/obj/GRIMFANDANGO.EXE/grimfandango.exe
+            build/obj/LUA.DLL/lua.dll
+            build/obj/IMUSE.DLL/imuse.dll
+            build/obj/CHORE.DLL/chore.dll
+            build/obj/*/stubs.txt

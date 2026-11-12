@@ -85,8 +85,8 @@ undefined4 sputCostume_Startup(void)
   local_38[3] = ThingStopper;
   local_38[4] = ThingAdjuster;
   local_38[5] = ThingInstancer;
-  Cos_NewStateBasedTag(0x4c444d4d,IMG_ADDR(0x004ea3a0),0,(int *)local_38,2);
-  Cos_NewStateBasedTag(0x4c444f4d,IMG_ADDR(0x004ea38c),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x4c444d4d,((unsigned)(uintptr_t)&DAT_004ea3a0),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x4c444f4d,((unsigned)(uintptr_t)&DAT_004ea38c),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -98,7 +98,7 @@ undefined4 sputCostume_Startup(void)
   local_38[3] = (code *)0x0;
   local_38[4] = (code *)0x0;
   local_38[5] = ColormapInstancer;
-  Cos_NewStateBasedTag(0x70616d63,IMG_ADDR(0x004ea37c),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x70616d63,((unsigned)(uintptr_t)&s_RDroid_Colormap_004ea37c),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -110,7 +110,7 @@ undefined4 sputCostume_Startup(void)
   local_38[3] = MeshStopper;
   local_38[5] = MeshInstancer;
   local_38[4] = MeshAdjuster;
-  Cos_NewStateBasedTag(0x4853454d,IMG_ADDR(0x004ea368),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x4853454d,((unsigned)(uintptr_t)&s_RDroid_Thing_Mesh_004ea368),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -122,7 +122,7 @@ undefined4 sputCostume_Startup(void)
   local_38[3] = (code *)0x0;
   local_38[5] = MaterialInstancer;
   local_38[6] = MaterialInstanceSaveLoad;
-  Cos_NewStateBasedTag(0x2054414d,IMG_ADDR(0x004ea34c),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x2054414d,((unsigned)(uintptr_t)&s_RDroid_Animated_Material_004ea34c),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -135,7 +135,7 @@ undefined4 sputCostume_Startup(void)
   local_38[4] = KeyframeAdjuster;
   local_38[5] = KeyframeInstancer;
   local_38[6] = (code *)0x0;
-  Cos_NewStateBasedTag(0x4659454b,IMG_ADDR(0x004ea334),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x4659454b,((unsigned)(uintptr_t)&DAT_004ea334),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -147,8 +147,8 @@ undefined4 sputCostume_Startup(void)
   local_38[3] = (code *)0x0;
   local_38[4] = (code *)0x0;
   local_38[5] = (code *)0x0;
-  Cos_NewStateBasedTag(0x444e4b42,IMG_ADDR(0x004ea324),0,(int *)local_38,1);
-  Cos_NewStateBasedTag(0x6d696e61,IMG_ADDR(0x004ea308),0,(int *)local_38,1);
+  Cos_NewStateBasedTag(0x444e4b42,((unsigned)(uintptr_t)&s_General_Bitmap_004ea324),0,(int *)local_38,1);
+  Cos_NewStateBasedTag(0x6d696e61,((unsigned)(uintptr_t)&DAT_004ea308),0,(int *)local_38,1);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -159,8 +159,8 @@ undefined4 sputCostume_Startup(void)
   local_38[2] = SoundFreer;
   local_38[3] = SoundStopper;
   local_38[4] = SoundAdjuster;
-  Cos_NewStateBasedTag(0x73736d69,IMG_ADDR(0x004ea2f0),0,(int *)local_38,2);
-  Cos_NewStateBasedTag(0x736c6d69,IMG_ADDR(0x004ea2d8),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x73736d69,((unsigned)(uintptr_t)&s_iMuse_Streamed_Sound_FX_004ea2f0),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x736c6d69,((unsigned)(uintptr_t)&s_iMuse_Resident_Sound_FX_004ea2d8),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -172,7 +172,7 @@ undefined4 sputCostume_Startup(void)
   local_38[3] = (code *)0x0;
   local_38[4] = (code *)0x0;
   local_38[6] = CostumeTag_Nop;
-  Cos_NewStateBasedTag(0x534d5348,IMG_ADDR(0x004ea2cc),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x534d5348,((unsigned)(uintptr_t)&s_Smush_Movie_004ea2cc),0,(int *)local_38,2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -184,20 +184,20 @@ undefined4 sputCostume_Startup(void)
   local_38[3] = (code *)0x0;
   local_38[4] = SpriteAdjuster;
   local_38[5] = SpriteInstancer;
-  Cos_NewStateBasedTag(0x74727073,IMG_ADDR(0x004ea2c4),0,(int *)local_38,2);
+  Cos_NewStateBasedTag(0x74727073,((unsigned)(uintptr_t)&s_Sprite_004ea2c4),0,(int *)local_38,2);
   local_38[4] = (code *)0x0;
   local_38[7] = Lua_Stub;
   local_38[8] = IMuseRequester;
   local_38[9] = CostumeTag_Nop;
   local_38[10] = (code *)0x0;
-  Cos_NewIntTag(0x65736d69,IMG_ADDR(0x004ea2b4),0,(int *)(local_38 + 7),2);
-  Cos_NewIntTag(0x74736d69,IMG_ADDR(0x004ea2a8),0,(int *)(local_38 + 7),2);
+  Cos_NewIntTag(0x65736d69,((unsigned)(uintptr_t)&s_iMuse_Sequence_004ea2b4),0,(int *)(local_38 + 7),2);
+  Cos_NewIntTag(0x74736d69,((unsigned)(uintptr_t)&s_iMuse_State_004ea2a8),0,(int *)(local_38 + 7),2);
   local_38[7] = LuaVarChanger;
   local_38[8] = LuaVarRequester;
   local_38[9] = LuaVarFreer;
   local_38[10] = LuaVarStopper;
   local_38[0xb] = LuaVarAdjuster;
-  Cos_NewIntTag(0x7661756c,IMG_ADDR(0x004ea298),0,(int *)(local_38 + 7),1);
+  Cos_NewIntTag(0x7661756c,((unsigned)(uintptr_t)&s_Lua_Variable_004ea298),0,(int *)(local_38 + 7),1);
   g_dwOldInstanceHook = Cos_RegisterInstanceHook(((unsigned)(uintptr_t)Costume_InstanceHook));
   g_dwOldSaveHook = Cos_RegisterSaveHook(((unsigned)(uintptr_t)sputCostume_SaveHook));
   sputLua_RegisterFunctions(&g_pLuaCostumeFuncs,UINT_004ea068);

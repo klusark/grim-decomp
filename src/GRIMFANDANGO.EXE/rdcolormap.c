@@ -137,7 +137,7 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
                         (0x8000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x4b);
     *(undefined2 **)((int)cmp + 0x348) = puVar10;
     if (puVar10 == (undefined2 *)0x0) goto LAB_00404659;
-    rdColormap_BuildRGB16(puVar10,puVar1,0,0,0,IMG_ADDR(0x004ddaa0));
+    rdColormap_BuildRGB16(puVar10,puVar1,0,0,0,((unsigned)(uintptr_t)&g_dwRdColormap_colorInfo));
   }
   if ((*(byte *)((int)cmp + 0x20) & 1) != 0) {
     uVar11 = (*g_pRdroid_HS->pAlloc)

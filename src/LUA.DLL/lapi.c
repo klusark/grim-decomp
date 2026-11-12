@@ -1785,7 +1785,7 @@ undefined4 __cdecl lua_iolibopen(void)
   
                     /* 0x5ae0  39  lua_iolibopen */
   ((code *)luaL_openlib)(&g_pIolib,10);
-  lua_recognizelib(IMG_ADDR(0x10026b50),5);
+  lua_recognizelib(((unsigned)(uintptr_t)&g_pIolibtag),5);
   openwithtags();
   lua_pushCclosure(((unsigned)(uintptr_t)errorfb),0);
   uVar1 = lua_seterrormethod();
@@ -1833,7 +1833,7 @@ undefined4 __cdecl lua_mathlibopen(void)
   
                     /* 0x7320  50  lua_mathlibopen */
   ((code *)luaL_openlib)(&g_pMathlib,0x15);
-  lua_recognizelib(IMG_ADDR(0x10026fd8),1);
+  lua_recognizelib(((unsigned)(uintptr_t)&PTR_s_math_pow_10026fd8),1);
   lua_pushstring(&DAT_10027004);
   lua_setglobal((byte *)s__TRIGMODE_10027074);
   lua_pushCclosure(((unsigned)(uintptr_t)math_pow),0);
@@ -1905,7 +1905,7 @@ int * __cdecl lua_open(void)
   if (g_pLuaState == (int *)0x0) {
     g_pLuaState = lua_newstate();
     luaB_predefine();
-    piVar1 = (int *)lua_recognizelib(IMG_ADDR(0x100277b8),1);
+    piVar1 = (int *)lua_recognizelib(((unsigned)(uintptr_t)&PTR_s_stderrorim_100277b8),1);
   }
   return piVar1;
 }

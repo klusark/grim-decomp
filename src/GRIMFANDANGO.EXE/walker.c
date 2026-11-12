@@ -15,67 +15,68 @@
    orientation vector, rotated by the costume's +0x24 angle with rdMatrix_BuildFromVectorAngle34,
    offset by the puck position, into the puck's space with Puck_InvXform)); was Walker_UpdateYaw. */
 
-undefined4 sputActor_AlignToPuck(void *param_1,float *param_2)
+undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  void *pvVar2;
-  float *pfVar3;
-  float fVar4;
-  float fVar5;
-  undefined4 uVar6;
+  ActorExtra *pAVar1;
+  Actor *pAVar2;
+  float fVar3;
+  Actor *pAVar4;
+  float *pfVar5;
+  float fVar6;
   #define local_48 (*(float (*)[3])(_frame + (0x60 - 0x48)))
   #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
   #define local_30 (*(float (*)[12])(_frame + (0x60 - 0x30)))
   
-  pvVar2 = param_1;
-  pfVar3 = sputActor_GetOrientMatrix(param_1);
-  local_48[0] = pfVar3[3];
-  local_48[1] = pfVar3[4];
-  local_48[2] = pfVar3[5];
-  if (*(float *)(*(int *)((int)param_1 + 0xa4) + 0x24) != 0.0) {
-    uVar6 = *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x24);
-    pfVar3 = sputActor_GetOrientMatrix(param_1);
-    rdMatrix_BuildFromVectorAngle34(local_30,pfVar3 + 6,PUN(float,uVar6));
+  pAVar4 = actor;
+  pfVar5 = sputActor_GetOrientMatrix(actor);
+  local_48[0] = pfVar5[3];
+  local_48[1] = pfVar5[4];
+  local_48[2] = pfVar5[5];
+  if (actor->pExtra->flOffsetYaw != 0.0) {
+    fVar6 = actor->pExtra->flOffsetYaw;
+    pfVar5 = sputActor_GetOrientMatrix(actor);
+    rdMatrix_BuildFromVectorAngle34(local_30,pfVar5 + 6,fVar6);
     rdMatrix_TransformVector34Acc(local_48,local_30);
   }
   local_48[0] = local_48[0] + *param_2;
   local_48[1] = param_2[1] + local_48[1];
   local_48[2] = param_2[2] + local_48[2];
-  Puck_InvXform(param_2,local_48);
+  Puck_InvXform((Puck *)param_2,local_48);
   local_48[2] = 0.0;
   rdVector_Normalize3Acc(local_48);
-  fVar4 = stdMath_ArcSin3(local_48[1]);
-  fVar4 = 90.0 - fVar4;
-  if (fVar4 < 0.5) {
-    *(undefined4 *)(*(int *)((int)param_1 + 0xa4) + 0x28) = 0;
+  fVar6 = stdMath_ArcSin3(local_48[1]);
+  pAVar2 = PUN(Actor *,(float)(90.0 - fVar6));
+  if (PUN(float,pAVar2) < 0.5) {
+    actor->pExtra->flYawLeft = 0.0;
     return 1;
   }
-  *(float *)(*(int *)((int)param_1 + 0xa4) + 0x28) = fVar4;
-  iVar1 = *(int *)((int)param_1 + 0xa4);
-  if (*(float *)(iVar1 + 0x1c) <= 0.0) {
-    fVar5 = 3.4028235e+38;
-    *(float *)(iVar1 + 0x1c) = *(float *)(iVar1 + 0x1c) * -1.0;
+  actor->pExtra->flYawLeft = PUN(float,pAVar2);
+  pAVar1 = actor->pExtra;
+  if (pAVar1->flTurnRate <= 0.0) {
+    fVar6 = 3.4028235e+38;
+    pAVar1->flTurnRate = pAVar1->flTurnRate * -1.0;
   }
   else {
-    fVar5 = sputTime_GetFrameTimeFlex();
-    fVar5 = fVar5 * *(float *)(iVar1 + 0x41c) * *(float *)(iVar1 + 0x1c);
+    fVar6 = sputTime_GetFrameTimeFlex();
+    fVar6 = fVar6 * pAVar1->flTimeScale * pAVar1->flTurnRate;
   }
-  param_1 = PUN(void *,(float)fVar4);
-  if (fVar5 < fVar4) {
-    param_1 = PUN(void *,(float)((fVar4 - fVar5) * 0.1 + fVar5));
+  actor = pAVar2;
+  if (fVar6 < PUN(float,pAVar2)) {
+    actor = PUN(Actor *,(float)((PUN(float,pAVar2) - fVar6) * 0.1 + fVar6));
   }
+  fVar6 = pAVar4->aRot[2];
   if (local_48[0] <= 0.0) {
-    fVar4 = *(float *)((int)pvVar2 + 0x28) - PUN(float,param_1);
+    fVar3 = pAVar4->aRot[1] - PUN(float,actor);
   }
   else {
-    fVar4 = *(float *)((int)pvVar2 + 0x28) + PUN(float,param_1);
+    fVar3 = pAVar4->aRot[1] + PUN(float,actor);
   }
-  *(undefined4 *)((int)pvVar2 + 0x24) = *(undefined4 *)((int)pvVar2 + 0x24);
-  *(float *)((int)pvVar2 + 0x28) = fVar4;
-  *(undefined4 *)((int)pvVar2 + 0x2c) = *(undefined4 *)((int)pvVar2 + 0x2c);
-  *(undefined4 *)((int)pvVar2 + 0x34) = 0;
+  pAVar4->aRot[0] = pAVar4->aRot[0];
+  pAVar4->aRot[1] = fVar3;
+  pAVar4->aRot[2] = fVar6;
+  pAVar4->nMatrixDirty = 0;
   return 0;
 }
 #undef local_30
@@ -89,17 +90,20 @@ undefined4 sputActor_AlignToPuck(void *param_1,float *param_2)
 /* Original name sputActor_ActorWalkTo (the remaster's GrimFandango (Linux): aligned call in
    sputLua_WalkActorToAvoidingL, sputLua_WalkActorToL); was Walker_ReplanPath. */
 
-void sputActor_ActorWalkTo(int param_1,int param_2,undefined4 *param_3,undefined4 param_4)
+void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *param_3,undefined4 param_4)
 
 {
   unsigned char _frame[0x2f0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint *puVar1;
+  float (*pafVar2) [3];
+  Puck *pPVar3;
+  ActorExtra *pAVar4;
   void *this;
-  int iVar2;
-  uint *puVar3;
-  undefined4 *puVar4;
   int iVar5;
-  int iVar6;
+  uint *puVar6;
+  undefined4 *puVar7;
+  int iVar8;
+  int iVar9;
   #define local_2d8 (*(uint *)(_frame + (0x2f0 - 0x2d8)))
   #define local_2d4 (*(uint *)(_frame + (0x2f0 - 0x2d4)))
   #define local_2d0 (*(uint *)(_frame + (0x2f0 - 0x2d0)))
@@ -110,56 +114,56 @@ void sputActor_ActorWalkTo(int param_1,int param_2,undefined4 *param_3,undefined
   #define local_164 (*(uint *)(_frame + (0x2f0 - 0x164)))
   #define local_160 (*(uint *)(_frame + (0x2f0 - 0x160)))
   
-  *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) & 0xfffffffe;
-  iVar2 = *(int *)(*(int *)(param_1 + 0xa4) + 0x1b4);
-  if ((iVar2 != 0) && (g_pWalkPlane_wp_head != (void *)0x0)) {
+  actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
+  pPVar3 = actor->pExtra->pPuck;
+  if ((pPVar3 != (Puck *)0x0) && (g_pWalkPlane_wp_head != (void *)0x0)) {
     this = (void *)WalkPlane_PlaneClosest(param_2,0x1000);
     if (this != (void *)0x0) {
       WalkPlane_ClosestPoint(this,param_2);
     }
-    iVar2 = BuildPath(iVar2,param_2,1);
-    if (iVar2 != 0) {
-      iVar2 = GetPath(&local_2d4);
-      if (0 < iVar2) {
-        puVar3 = &local_2d0;
-        iVar5 = iVar2;
+    iVar5 = BuildPath(pPVar3,param_2,1);
+    if (iVar5 != 0) {
+      iVar5 = GetPath(&local_2d4);
+      if (0 < iVar5) {
+        puVar6 = &local_2d0;
+        iVar8 = iVar5;
         do {
-          puVar1 = (uint *)((local_2d4 - (int)&local_2d0) + (int)puVar3);
-          iVar5 = iVar5 + -1;
-          *puVar3 = *puVar1;
-          puVar3[1] = puVar1[1];
-          puVar3[2] = puVar1[2];
-          puVar3 = puVar3 + 3;
-        } while (iVar5 != 0);
+          puVar1 = (uint *)((local_2d4 - (int)&local_2d0) + (int)puVar6);
+          iVar8 = iVar8 + -1;
+          *puVar6 = *puVar1;
+          puVar6[1] = puVar1[1];
+          puVar6[2] = puVar1[2];
+          puVar6 = puVar6 + 3;
+        } while (iVar8 != 0);
       }
-      iVar2 = Walker_AvoidActorPath(param_1,param_4,&local_2d0,iVar2,&local_168);
-      *(int *)(*(int *)(param_1 + 0xa4) + 0x44) = iVar2;
-      *(undefined4 *)(*(int *)(param_1 + 0xa4) + 0x1b0) = 1;
-      if (0 < iVar2) {
-        iVar5 = 0x48;
-        iVar6 = iVar2;
+      iVar5 = Walker_AvoidActorPath(actor,param_4,&local_2d0,iVar5,&local_168);
+      actor->pExtra->nPathNodes = iVar5;
+      actor->pExtra->nPathIndex = 1;
+      if (0 < iVar5) {
+        iVar8 = 0x48;
+        iVar9 = iVar5;
         do {
-          puVar4 = (undefined4 *)(*(int *)(param_1 + 0xa4) + iVar5);
-          iVar6 = iVar6 + -1;
-          *puVar4 = *(undefined4 *)((int)auStack_1b0 + iVar5);
-          puVar4[1] = *(undefined4 *)((int)auStack_1b0 + iVar5 + 4);
-          puVar4[2] = *(undefined4 *)((int)auStack_1b0 + iVar5 + 8);
-          iVar5 = iVar5 + 0xc;
-        } while (iVar6 != 0);
+          puVar7 = (undefined4 *)((int)actor->pExtra->aLookAt + iVar8);
+          iVar9 = iVar9 + -1;
+          *puVar7 = *(undefined4 *)((int)auStack_1b0 + iVar8);
+          puVar7[1] = *(undefined4 *)((int)auStack_1b0 + iVar8 + 4);
+          puVar7[2] = *(undefined4 *)((int)auStack_1b0 + iVar8 + 8);
+          iVar8 = iVar8 + 0xc;
+        } while (iVar9 != 0);
       }
-      iVar5 = *(int *)(param_1 + 0xa4);
-      puVar4 = (undefined4 *)(iVar5 + (*(int *)(iVar5 + 0x1b0) + 6) * 0xc);
-      *(undefined4 *)(iVar5 + 0x2c) = *puVar4;
-      *(undefined4 *)(iVar5 + 0x30) = puVar4[1];
-      *(undefined4 *)(iVar5 + 0x34) = puVar4[2];
-      if (1 < iVar2) {
-        *(uint *)(param_1 + 8) = *(uint *)(param_1 + 8) | 1;
+      pAVar4 = actor->pExtra;
+      pafVar2 = pAVar4->aPath + pAVar4->nPathIndex;
+      pAVar4->aWaypoint[0] = (*pafVar2)[0];
+      pAVar4->aWaypoint[1] = (*pafVar2)[1];
+      pAVar4->aWaypoint[2] = (*pafVar2)[2];
+      if (1 < iVar5) {
+        actor->dwMoveFlags = actor->dwMoveFlags | 1;
       }
     }
-    iVar2 = *(int *)(param_1 + 0xa4);
-    *(undefined4 *)(iVar2 + 0x38) = *param_3;
-    *(undefined4 *)(iVar2 + 0x3c) = param_3[1];
-    *(undefined4 *)(iVar2 + 0x40) = param_3[2];
+    pAVar4 = actor->pExtra;
+    pAVar4->aDest[0] = PUN(float,*param_3);
+    pAVar4->aDest[1] = PUN(float,param_3[1]);
+    pAVar4->aDest[2] = PUN(float,param_3[2]);
   }
   return;
 }
@@ -182,39 +186,40 @@ void sputActor_ActorWalkTo(int param_1,int param_2,undefined4 *param_3,undefined
    at -O0 (docs/notes/big_walker_avoid.md). */
 
 uint Walker_AvoidActorPath
-               (void *param_1,void *param_2,undefined4 *param_3,uint param_4,float *param_5)
+               (Actor *param_1,Actor *param_2,undefined4 *param_3,uint param_4,float *param_5)
 
 {
   unsigned char _frame[0x140] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   unsigned char _stkneg[336] __attribute__((aligned(16)));  /* the original frame below the return address */
-  float fVar1;
+  ActorExtra *pAVar1;
   float fVar2;
   float fVar3;
   float fVar4;
   float fVar5;
   float fVar6;
-  undefined4 *puVar7;
+  float fVar7;
   undefined4 *puVar8;
-  float *pfVar9;
+  undefined4 *puVar9;
+  float *pfVar10;
   void *this;
-  float fVar10;
-  float *pfVar11;
-  int iVar12;
+  float fVar11;
+  float *pfVar12;
   int iVar13;
-  float *pfVar14;
-  uint uVar15;
+  int iVar14;
+  float *pfVar15;
   uint uVar16;
-  int iVar17;
-  uint *puVar18;
-  float *pfVar19;
+  uint uVar17;
+  int iVar18;
+  uint *puVar19;
   float *pfVar20;
-  float fVar21;
-  float *pfVar22;
+  float *pfVar21;
+  float fVar22;
+  float *pfVar23;
   float in_stack_fffffed0;
   float bz0;
   float bx1;
   #define local_124 (*(uint *)(_frame + (0x140 - 0x124)))
-  float fVar23;
+  float fVar24;
   #define local_104 (*(float *)(_frame + (0x140 - 0x104)))
   #define local_100 (*(uint *)(_frame + (0x140 - 0x100)))
   #define local_fc (*(float *)(_frame + (0x140 - 0xfc)))
@@ -251,337 +256,337 @@ uint Walker_AvoidActorPath
   #define local_c (*(float (*)[3])(_frame + (0x140 - 0xc)))
   
   local_100 = 0;
-  if (param_2 == (void *)0x0) {
-    puVar7 = param_3;
-    uVar15 = param_4;
+  if (param_2 == (Actor *)0x0) {
+    puVar8 = param_3;
+    uVar16 = param_4;
     if ((int)param_4 < 1) {
       return 0;
     }
     do {
-      puVar8 = puVar7 + 3;
-      uVar15 = uVar15 - 1;
-      *(undefined4 *)((int)param_5 + (-0xc - (int)param_3) + (int)puVar8) = *puVar7;
-      *(undefined4 *)((int)param_5 + (-8 - (int)param_3) + (int)puVar8) = puVar7[1];
-      *(undefined4 *)((int)param_5 + (-4 - (int)param_3) + (int)puVar8) = puVar7[2];
-      puVar7 = puVar8;
-    } while (uVar15 != 0);
+      puVar9 = puVar8 + 3;
+      uVar16 = uVar16 - 1;
+      *(undefined4 *)((int)param_5 + (-0xc - (int)param_3) + (int)puVar9) = *puVar8;
+      *(undefined4 *)((int)param_5 + (-8 - (int)param_3) + (int)puVar9) = puVar8[1];
+      *(undefined4 *)((int)param_5 + (-4 - (int)param_3) + (int)puVar9) = puVar8[2];
+      puVar8 = puVar9;
+    } while (uVar16 != 0);
     return param_4;
   }
-  iVar12 = *(int *)(*(int *)(*(int *)((int)param_1 + 0xa0) + 4) + 4);
-  local_104 = *(float *)(*(int *)((int)param_1 + 0xa4) + 0x3f4) * *(float *)(iVar12 + 0x5c);
-  pfVar9 = sputActor_GetOrientMatrix(param_1);
-  rdMatrix_TransformVector34(local_c,(float *)(iVar12 + 0x78),pfVar9);
-  bx1 = *(float *)(*(int *)(*(int *)((int)param_2 + 0xa0) + 4) + 4);
-  pfVar9 = sputActor_GetOrientMatrix(param_2);
-  rdMatrix_TransformPoint34(local_88,(float *)(PUN(int,(float)bx1) + 0x78),pfVar9);
-  pfVar9 = sputActor_GetOrientMatrix(param_2);
-  rdMatrix_TransformVector34(&local_e8,(float *)(PUN(int,(float)bx1) + 0x78),pfVar9);
-  iVar12 = *(int *)((int)param_2 + 0xa4);
-  local_7c[0] = *(float *)(PUN(int,(float)bx1) + 0x60) * *(float *)(iVar12 + 0x3f4) - local_104;
-  pfVar9 = (float *)(param_3 + param_4 * 3 + -3);
-  local_7c[1] = *(float *)(PUN(int,(float)bx1) + 100) * *(float *)(iVar12 + 0x3f4) - local_104;
-  local_7c[2] = *(float *)(PUN(int,(float)bx1) + 0x68) * *(float *)(iVar12 + 0x3f4) - local_104;
+  iVar13 = *(int *)((int)param_1->pCostumes->pMainModel + 4);
+  local_104 = param_1->pExtra->flCollisionScale * *(float *)(iVar13 + 0x5c);
+  pfVar10 = sputActor_GetOrientMatrix(param_1);
+  rdMatrix_TransformVector34(local_c,(float *)(iVar13 + 0x78),pfVar10);
+  bx1 = *(float *)((int)param_2->pCostumes->pMainModel + 4);
+  pfVar10 = sputActor_GetOrientMatrix(param_2);
+  rdMatrix_TransformPoint34(local_88,(float *)(PUN(int,(float)bx1) + 0x78),pfVar10);
+  pfVar10 = sputActor_GetOrientMatrix(param_2);
+  rdMatrix_TransformVector34(&local_e8,(float *)(PUN(int,(float)bx1) + 0x78),pfVar10);
+  pAVar1 = param_2->pExtra;
+  local_7c[0] = *(float *)(PUN(int,(float)bx1) + 0x60) * pAVar1->flCollisionScale - local_104;
+  pfVar10 = (float *)(param_3 + param_4 * 3 + -3);
+  local_7c[1] = *(float *)(PUN(int,(float)bx1) + 100) * pAVar1->flCollisionScale - local_104;
+  local_7c[2] = *(float *)(PUN(int,(float)bx1) + 0x68) * pAVar1->flCollisionScale - local_104;
   sputActor_GetOrientMatrix(param_2);
-  pfVar14 = local_7c;
-  pfVar19 = (float *)(_stkneg + 28);
-  for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-    *pfVar19 = *pfVar14;
-    pfVar14 = pfVar14 + 1;
-    pfVar19 = pfVar19 + 1;
+  pfVar15 = local_7c;
+  pfVar20 = (float *)(_stkneg + 28);
+  for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
+    *pfVar20 = *pfVar15;
+    pfVar15 = pfVar15 + 1;
+    pfVar20 = pfVar20 + 1;
   }
-  ((code *)GetOuttaTheBox)(pfVar9);
+  ((code *)GetOuttaTheBox)(pfVar10);
   sputActor_GetOrientMatrix(param_2);
-  pfVar14 = local_7c;
-  pfVar19 = (float *)(_stkneg + 28);
-  for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-    *pfVar19 = *pfVar14;
-    pfVar14 = pfVar14 + 1;
-    pfVar19 = pfVar19 + 1;
+  pfVar15 = local_7c;
+  pfVar20 = (float *)(_stkneg + 28);
+  for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
+    *pfVar20 = *pfVar15;
+    pfVar15 = pfVar15 + 1;
+    pfVar20 = pfVar20 + 1;
   }
   ((code *)GetOuttaTheBox)(param_3);
-  local_d0 = *pfVar9;
-  local_cc[0] = pfVar9[1];
-  local_cc[1] = pfVar9[2];
-  iVar12 = ((code *)WalkPlane_PlaneAt)();
-  if (iVar12 == 0) {
+  local_d0 = *pfVar10;
+  local_cc[0] = pfVar10[1];
+  local_cc[1] = pfVar10[2];
+  iVar13 = ((code *)WalkPlane_PlaneAt)();
+  if (iVar13 == 0) {
     return 0;
   }
-  uVar15 = 0;
+  uVar16 = 0;
   local_f8 = PUN(float,(param_4 - 1));
   local_f0 = 0;
   if (0 < PUN(int,(float)local_f8)) {
-    pfVar14 = (float *)(param_3 + 2);
-    pfVar9 = param_5;
+    pfVar15 = (float *)(param_3 + 2);
+    pfVar10 = param_5;
     do {
-      local_64[0] = local_e8 + pfVar14[-2];
-      local_fc = PUN(float,(pfVar9 + 3));
-      uVar15 = local_100 + 1;
-      local_64[1] = pfVar14[-1] + local_e4[0];
-      local_64[2] = local_e4[1] + *pfVar14;
-      local_a0[0] = pfVar14[1] + local_e8;
-      local_a0[1] = pfVar14[2] + local_e4[0];
-      local_a0[2] = pfVar14[3] + local_e4[1];
-      *pfVar9 = pfVar14[-2];
-      pfVar9[1] = pfVar14[-1];
-      pfVar9[2] = *pfVar14;
+      local_64[0] = local_e8 + pfVar15[-2];
+      local_fc = PUN(float,(pfVar10 + 3));
+      uVar16 = local_100 + 1;
+      local_64[1] = pfVar15[-1] + local_e4[0];
+      local_64[2] = local_e4[1] + *pfVar15;
+      local_a0[0] = pfVar15[1] + local_e8;
+      local_a0[1] = pfVar15[2] + local_e4[0];
+      local_a0[2] = pfVar15[3] + local_e4[1];
+      *pfVar10 = pfVar15[-2];
+      pfVar10[1] = pfVar15[-1];
+      pfVar10[2] = *pfVar15;
       sputActor_GetOrientMatrix(param_2);
-      pfVar9 = local_7c;
-      pfVar19 = (float *)(_stkneg + 32);
-      for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-        *pfVar19 = *pfVar9;
-        pfVar9 = pfVar9 + 1;
-        pfVar19 = pfVar19 + 1;
+      pfVar10 = local_7c;
+      pfVar20 = (float *)(_stkneg + 32);
+      for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
+        *pfVar20 = *pfVar10;
+        pfVar10 = pfVar10 + 1;
+        pfVar20 = pfVar20 + 1;
       }
-      iVar12 = ((code *)TestCollision)(local_64,local_a0);
-      local_100 = uVar15;
-      if (iVar12 != 0) {
-        pfVar9 = sputActor_GetOrientMatrix(param_2);
-        rdMatrix_TransformPoint34(local_58,(float *)&DAT_008ca320,pfVar9);
+      iVar13 = ((code *)TestCollision)(local_64,local_a0);
+      local_100 = uVar16;
+      if (iVar13 != 0) {
+        pfVar10 = sputActor_GetOrientMatrix(param_2);
+        rdMatrix_TransformPoint34(local_58,(float *)&DAT_008ca320,pfVar10);
         this = (void *)((code *)WalkPlane_PlaneClosest)();
         WalkPlane_SnapTo(this,local_58);
         sputActor_GetOrientMatrix(param_2);
         bz0 = 6.713914e-39;
         ((code *)FindObjectCorners)();
-        puVar18 = &local_1c;
-        pfVar9 = &local_4c;
+        puVar19 = &local_1c;
+        pfVar10 = &local_4c;
         local_f4 = 5.60519e-45;
         do {
-          *puVar18 = 0;
-          local_a0[0] = local_e8 + *pfVar9;
-          local_a0[1] = pfVar9[1] + local_e4[0];
-          local_a0[2] = local_e4[1] + pfVar9[2];
+          *puVar19 = 0;
+          local_a0[0] = local_e8 + *pfVar10;
+          local_a0[1] = pfVar10[1] + local_e4[0];
+          local_a0[2] = local_e4[1] + pfVar10[2];
           sputActor_GetOrientMatrix(param_2);
-          pfVar14 = local_88;
-          pfVar19 = local_7c;
-          pfVar20 = (float *)(_stkneg + 32);
-          for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-            *pfVar20 = *pfVar19;
-            pfVar19 = pfVar19 + 1;
+          pfVar15 = local_88;
+          pfVar20 = local_7c;
+          pfVar21 = (float *)(_stkneg + 32);
+          for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
+            *pfVar21 = *pfVar20;
             pfVar20 = pfVar20 + 1;
+            pfVar21 = pfVar21 + 1;
           }
-          iVar12 = ((code *)TestCollision)(local_64,local_a0);
-          if ((iVar12 == 0) && (iVar12 = ((code *)BuildPath)(), iVar12 != 0)) {
-            *puVar18 = 1;
+          iVar13 = ((code *)TestCollision)(local_64,local_a0);
+          if ((iVar13 == 0) && (iVar13 = ((code *)BuildPath)(), iVar13 != 0)) {
+            *puVar19 = 1;
           }
-          pfVar9 = pfVar9 + 3;
-          puVar18 = puVar18 + 1;
+          pfVar10 = pfVar10 + 3;
+          puVar19 = puVar19 + 1;
           local_f4 = PUN(float,(PUN(int,(float)local_f4) + -1));
         } while (local_f4 != 0.0);
-        fVar10 = (float)((code *)Collision_PickDetour)();
-        if (fVar10 == -NAN) {
-          return uVar15;
+        fVar11 = (float)((code *)Collision_PickDetour)();
+        if (fVar11 == -NAN) {
+          return uVar16;
         }
         ((code *)BuildPath)();
-        iVar12 = ((code *)GetPath)();
-        if (0 < iVar12) {
-          local_100 = uVar15 + iVar12;
-          pfVar9 = param_5 + uVar15 * 3;
-          pfVar19 = PUN(float *,(float)local_fc);
+        iVar13 = ((code *)GetPath)();
+        if (0 < iVar13) {
+          local_100 = uVar16 + iVar13;
+          pfVar10 = param_5 + uVar16 * 3;
+          pfVar20 = PUN(float *,(float)local_fc);
           do {
-            iVar12 = iVar12 + -1;
-            *pfVar9 = *pfVar19;
-            pfVar9[1] = pfVar19[1];
-            pfVar9[2] = pfVar19[2];
-            pfVar9 = pfVar9 + 3;
-            pfVar19 = pfVar19 + 3;
-          } while (iVar12 != 0);
+            iVar13 = iVar13 + -1;
+            *pfVar10 = *pfVar20;
+            pfVar10[1] = pfVar20[1];
+            pfVar10[2] = pfVar20[2];
+            pfVar10 = pfVar10 + 3;
+            pfVar20 = pfVar20 + 3;
+          } while (iVar13 != 0);
         }
-        pfVar19 = &local_e8;
-        (&local_1c)[PUN(int,(float)fVar10)] = 0;
+        pfVar20 = &local_e8;
+        (&local_1c)[PUN(int,(float)fVar11)] = 0;
         local_f4 = PUN(float,(param_5 + local_100 * 3));
-        pfVar9 = (float *)(PUN(int,(float)local_f4) + -0xc);
-        fVar23 = 6.714508e-39;
-        pfVar11 = sputActor_GetOrientMatrix(param_2);
-        pfVar20 = local_7c;
-        pfVar22 = (float *)(_stkneg + 28);
-        for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-          *pfVar22 = *pfVar20;
-          pfVar20 = pfVar20 + 1;
-          pfVar22 = pfVar22 + 1;
+        pfVar10 = (float *)(PUN(int,(float)local_f4) + -0xc);
+        fVar24 = 6.714508e-39;
+        pfVar12 = sputActor_GetOrientMatrix(param_2);
+        pfVar21 = local_7c;
+        pfVar23 = (float *)(_stkneg + 28);
+        for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
+          *pfVar23 = *pfVar21;
+          pfVar21 = pfVar21 + 1;
+          pfVar23 = pfVar23 + 1;
         }
-        iVar12 = Collision_PointInBox
-                           (pfVar9,&local_d0,local_88,PUN(float,pfVar14),in_stack_fffffed0,bz0,bx1,
-                            6.714319e-39,fVar23,pfVar11,pfVar19);
-        if (iVar12 != 0) {
-          iVar12 = ((code *)GetPath)();
-          if (iVar12 < 1) {
+        iVar13 = Collision_PointInBox
+                           (pfVar10,&local_d0,local_88,PUN(float,pfVar15),in_stack_fffffed0,bz0,bx1,
+                            6.714319e-39,fVar24,pfVar12,pfVar20);
+        if (iVar13 != 0) {
+          iVar13 = ((code *)GetPath)();
+          if (iVar13 < 1) {
             return local_100;
           }
-          uVar15 = local_100 + iVar12;
+          uVar16 = local_100 + iVar13;
           do {
-            iVar12 = iVar12 + -1;
+            iVar13 = iVar13 + -1;
             *PUN(float *,(float)local_f4) = *PUN(float *,(float)local_fc);
             *(float *)(PUN(int,(float)local_f4) + 4) = *(float *)(PUN(int,(float)local_fc) + 4);
             *(float *)(PUN(int,(float)local_f4) + 8) = *(float *)(PUN(int,(float)local_fc) + 8);
             local_f4 = PUN(float,(PUN(int,(float)local_f4) + 0xc));
             local_fc = PUN(float,(PUN(int,(float)local_fc) + 0xc));
-          } while (iVar12 != 0);
-          return uVar15;
+          } while (iVar13 != 0);
+          return uVar16;
         }
-        uVar15 = (int)(PUN(int,(float)fVar10) + 3U) >> 0x1f;
-        fVar23 = PUN(float,(((PUN(int,(float)fVar10) + 3U ^ uVar15) - uVar15 & 3 ^ uVar15) - uVar15));
-        uVar15 = (int)(PUN(int,(float)fVar10) + 5U) >> 0x1f;
-        fVar21 = PUN(float,(((PUN(int,(float)fVar10) + 5U ^ uVar15) - uVar15 & 3 ^ uVar15) - uVar15));
+        uVar16 = (int)(PUN(int,(float)fVar11) + 3U) >> 0x1f;
+        fVar24 = PUN(float,(((PUN(int,(float)fVar11) + 3U ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16));
+        uVar16 = (int)(PUN(int,(float)fVar11) + 5U) >> 0x1f;
+        fVar22 = PUN(float,(((PUN(int,(float)fVar11) + 5U ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16));
         local_f0 = ((code *)BuildPath)();
-        iVar12 = ((code *)BuildPath)();
-        if (iVar12 != 0) {
+        iVar13 = ((code *)BuildPath)();
+        if (iVar13 != 0) {
           if (local_f0 == 0) goto LAB_00491fa5;
-          local_104 = *pfVar9 - (&local_4c)[PUN(int,(float)fVar23) * 3];
-          fVar2 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar23) * 3]);
-          fVar3 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar23) * 3]);
-          fVar4 = PUN(float,(&local_48)[PUN(int,(float)fVar23) * 3]) - local_cc[0];
-          fVar5 = PUN(float,(&local_44)[PUN(int,(float)fVar23) * 3]) - local_cc[1];
-          fVar6 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar21) * 3]);
-          local_f8 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar21) * 3]);
-          local_fc = PUN(float,(&local_48)[PUN(int,(float)fVar21) * 3]) - local_cc[0];
-          fVar1 = PUN(float,(&local_44)[PUN(int,(float)fVar21) * 3]) - local_cc[1];
-          if (fVar1 * fVar1 +
+          local_104 = *pfVar10 - (&local_4c)[PUN(int,(float)fVar24) * 3];
+          fVar3 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar24) * 3]);
+          fVar4 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar24) * 3]);
+          fVar5 = PUN(float,(&local_48)[PUN(int,(float)fVar24) * 3]) - local_cc[0];
+          fVar6 = PUN(float,(&local_44)[PUN(int,(float)fVar24) * 3]) - local_cc[1];
+          fVar7 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar22) * 3]);
+          local_f8 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar22) * 3]);
+          local_fc = PUN(float,(&local_48)[PUN(int,(float)fVar22) * 3]) - local_cc[0];
+          fVar2 = PUN(float,(&local_44)[PUN(int,(float)fVar22) * 3]) - local_cc[1];
+          if (fVar2 * fVar2 +
               local_fc * local_fc +
-              ((&local_4c)[PUN(int,(float)fVar21) * 3] - local_d0) * ((&local_4c)[PUN(int,(float)fVar21) * 3] - local_d0)
+              ((&local_4c)[PUN(int,(float)fVar22) * 3] - local_d0) * ((&local_4c)[PUN(int,(float)fVar22) * 3] - local_d0)
               + local_f8 * local_f8 +
-                fVar6 * fVar6 +
-                (*pfVar9 - (&local_4c)[PUN(int,(float)fVar21) * 3]) * (*pfVar9 - (&local_4c)[PUN(int,(float)fVar21) * 3])
-              <= fVar5 * fVar5 +
-                 fVar4 * fVar4 +
-                 ((&local_4c)[PUN(int,(float)fVar23) * 3] - local_d0) *
-                 ((&local_4c)[PUN(int,(float)fVar23) * 3] - local_d0) +
-                 fVar3 * fVar3 + fVar2 * fVar2 + local_104 * local_104) {
+                fVar7 * fVar7 +
+                (*pfVar10 - (&local_4c)[PUN(int,(float)fVar22) * 3]) *
+                (*pfVar10 - (&local_4c)[PUN(int,(float)fVar22) * 3]) <=
+              fVar6 * fVar6 +
+              fVar5 * fVar5 +
+              ((&local_4c)[PUN(int,(float)fVar24) * 3] - local_d0) * ((&local_4c)[PUN(int,(float)fVar24) * 3] - local_d0)
+              + fVar4 * fVar4 + fVar3 * fVar3 + local_104 * local_104) {
             local_f0 = 0;
           }
           else {
-            iVar12 = 0;
+            iVar13 = 0;
           }
         }
         if (local_f0 != 0) {
           local_f8 = -NAN;
-          local_104 = fVar23;
+          local_104 = fVar24;
         }
 LAB_00491fa5:
-        if (iVar12 != 0) {
+        if (iVar13 != 0) {
           local_f8 = 1.4013e-45;
-          local_104 = fVar21;
+          local_104 = fVar22;
         }
-        if (local_104 == fVar10) {
+        if (local_104 == fVar11) {
           return local_100;
         }
         while( true ) {
           ((code *)BuildPath)();
-          pfVar9 = (float *)((code *)GetPath)();
-          iVar12 = 0;
-          if (0 < (int)pfVar9 + -1) {
-            iVar17 = 0;
+          pfVar10 = (float *)((code *)GetPath)();
+          iVar13 = 0;
+          if (0 < (int)pfVar10 + -1) {
+            iVar18 = 0;
             do {
-              local_ac[0] = local_e8 + *(float *)(PUN(int,(float)local_fc) + iVar17);
-              local_ac[1] = *(float *)(PUN(int,(float)local_fc) + 4 + iVar17) + local_e4[0];
-              local_ac[2] = *(float *)(PUN(int,(float)local_fc) + 8 + iVar17) + local_e4[1];
-              local_94[0] = *(float *)(PUN(int,(float)local_fc) + 0xc + iVar17) + local_e8;
-              local_94[1] = *(float *)(PUN(int,(float)local_fc) + 0x10 + iVar17) + local_e4[0];
-              local_94[2] = *(float *)(PUN(int,(float)local_fc) + 0x14 + iVar17) + local_e4[1];
+              local_ac[0] = local_e8 + *(float *)(PUN(int,(float)local_fc) + iVar18);
+              local_ac[1] = *(float *)(PUN(int,(float)local_fc) + 4 + iVar18) + local_e4[0];
+              local_ac[2] = *(float *)(PUN(int,(float)local_fc) + 8 + iVar18) + local_e4[1];
+              local_94[0] = *(float *)(PUN(int,(float)local_fc) + 0xc + iVar18) + local_e8;
+              local_94[1] = *(float *)(PUN(int,(float)local_fc) + 0x10 + iVar18) + local_e4[0];
+              local_94[2] = *(float *)(PUN(int,(float)local_fc) + 0x14 + iVar18) + local_e4[1];
               sputActor_GetOrientMatrix(param_2);
-              pfVar14 = local_7c;
-              pfVar19 = (float *)(_stkneg + 32);
-              for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
-                *pfVar19 = *pfVar14;
-                pfVar14 = pfVar14 + 1;
-                pfVar19 = pfVar19 + 1;
+              pfVar15 = local_7c;
+              pfVar20 = (float *)(_stkneg + 32);
+              for (iVar14 = 6; iVar14 != 0; iVar14 = iVar14 + -1) {
+                *pfVar20 = *pfVar15;
+                pfVar15 = pfVar15 + 1;
+                pfVar20 = pfVar20 + 1;
               }
-              pfVar14 = local_88;
-              iVar13 = ((code *)TestCollision)(local_ac,local_94);
-              if (iVar13 != 0) {
+              pfVar15 = local_88;
+              iVar14 = ((code *)TestCollision)(local_ac,local_94);
+              if (iVar14 != 0) {
                 return 0;
               }
-              iVar12 = iVar12 + 1;
-              iVar17 = iVar17 + 0xc;
-            } while (iVar12 < (int)pfVar9 + -1);
+              iVar13 = iVar13 + 1;
+              iVar18 = iVar18 + 0xc;
+            } while (iVar13 < (int)pfVar10 + -1);
           }
-          if (0 < (int)pfVar9) {
-            local_100 = local_100 + (int)pfVar9;
-            puVar7 = PUN(undefined4 *,(float)local_fc);
-            pfVar19 = pfVar9;
+          if (0 < (int)pfVar10) {
+            local_100 = local_100 + (int)pfVar10;
+            puVar8 = PUN(undefined4 *,(float)local_fc);
+            pfVar20 = pfVar10;
             do {
-              pfVar19 = (float *)((int)pfVar19 + -1);
-              *PUN(undefined4 *,(float)local_f4) = *puVar7;
-              *(undefined4 *)(PUN(int,(float)local_f4) + 4) = puVar7[1];
-              *(undefined4 *)(PUN(int,(float)local_f4) + 8) = puVar7[2];
+              pfVar20 = (float *)((int)pfVar20 + -1);
+              *PUN(undefined4 *,(float)local_f4) = *puVar8;
+              *(undefined4 *)(PUN(int,(float)local_f4) + 4) = puVar8[1];
+              *(undefined4 *)(PUN(int,(float)local_f4) + 8) = puVar8[2];
               local_f4 = PUN(float,(PUN(int,(float)local_f4) + 0xc));
-              puVar7 = puVar7 + 3;
-            } while (pfVar19 != (float *)0x0);
+              puVar8 = puVar8 + 3;
+            } while (pfVar20 != (float *)0x0);
           }
-          pfVar19 = &local_e8;
+          pfVar20 = &local_e8;
           local_f4 = PUN(float,(param_5 + local_100 * 3));
-          fVar23 = 6.715863e-39;
-          pfVar11 = sputActor_GetOrientMatrix(param_2);
-          pfVar20 = local_7c;
-          pfVar22 = (float *)(_stkneg + 28);
-          for (iVar12 = 6; iVar12 != 0; iVar12 = iVar12 + -1) {
-            *pfVar22 = *pfVar20;
-            pfVar20 = pfVar20 + 1;
-            pfVar22 = pfVar22 + 1;
+          fVar24 = 6.715863e-39;
+          pfVar12 = sputActor_GetOrientMatrix(param_2);
+          pfVar21 = local_7c;
+          pfVar23 = (float *)(_stkneg + 28);
+          for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
+            *pfVar23 = *pfVar21;
+            pfVar21 = pfVar21 + 1;
+            pfVar23 = pfVar23 + 1;
           }
-          iVar12 = Collision_PointInBox
-                             ((float *)(PUN(int,(float)local_f4) + -0xc),&local_d0,local_88,PUN(float,pfVar14),
-                              in_stack_fffffed0,bz0,bx1,6.715423e-39,fVar23,pfVar11,pfVar19);
-          if (iVar12 != 0) break;
-          uVar15 = PUN(int,(float)local_f8) + 4 + PUN(int,(float)local_104);
-          uVar16 = (int)uVar15 >> 0x1f;
-          local_104 = PUN(float,(((uVar15 ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16));
-          if (local_104 == fVar10) {
+          iVar13 = Collision_PointInBox
+                             ((float *)(PUN(int,(float)local_f4) + -0xc),&local_d0,local_88,PUN(float,pfVar15),
+                              in_stack_fffffed0,bz0,bx1,6.715423e-39,fVar24,pfVar12,pfVar20);
+          if (iVar13 != 0) break;
+          uVar16 = PUN(int,(float)local_f8) + 4 + PUN(int,(float)local_104);
+          uVar17 = (int)uVar16 >> 0x1f;
+          local_104 = PUN(float,(((uVar16 ^ uVar17) - uVar17 & 3 ^ uVar17) - uVar17));
+          if (local_104 == fVar11) {
             return local_100;
           }
         }
-        iVar12 = ((code *)GetPath)();
-        iVar17 = 0;
+        iVar13 = ((code *)GetPath)();
+        iVar18 = 0;
         local_f8 = 0.0;
-        if (0 < iVar12 + -1) {
+        if (0 < iVar13 + -1) {
           do {
-            local_94[0] = local_e8 + *(float *)((int)pfVar9 + iVar17);
-            local_94[1] = *(float *)((int)pfVar9 + iVar17 + 4) + local_e4[0];
-            local_94[2] = *(float *)((int)pfVar9 + iVar17 + 8) + local_e4[1];
-            local_ac[0] = *(float *)((int)pfVar9 + iVar17 + 0xc) + local_e8;
-            local_ac[1] = *(float *)((int)pfVar9 + iVar17 + 0x10) + local_e4[0];
-            local_ac[2] = *(float *)((int)pfVar9 + iVar17 + 0x14) + local_e4[1];
+            local_94[0] = local_e8 + *(float *)((int)pfVar10 + iVar18);
+            local_94[1] = *(float *)((int)pfVar10 + iVar18 + 4) + local_e4[0];
+            local_94[2] = *(float *)((int)pfVar10 + iVar18 + 8) + local_e4[1];
+            local_ac[0] = *(float *)((int)pfVar10 + iVar18 + 0xc) + local_e8;
+            local_ac[1] = *(float *)((int)pfVar10 + iVar18 + 0x10) + local_e4[0];
+            local_ac[2] = *(float *)((int)pfVar10 + iVar18 + 0x14) + local_e4[1];
             sputActor_GetOrientMatrix(param_2);
-            pfVar14 = local_7c;
-            pfVar19 = (float *)(_stkneg + 32);
-            for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
-              *pfVar19 = *pfVar14;
-              pfVar14 = pfVar14 + 1;
-              pfVar19 = pfVar19 + 1;
+            pfVar15 = local_7c;
+            pfVar20 = (float *)(_stkneg + 32);
+            for (iVar14 = 6; iVar14 != 0; iVar14 = iVar14 + -1) {
+              *pfVar20 = *pfVar15;
+              pfVar15 = pfVar15 + 1;
+              pfVar20 = pfVar20 + 1;
             }
-            iVar13 = ((code *)TestCollision)(local_94,local_ac);
-            if (iVar13 != 0) {
+            iVar14 = ((code *)TestCollision)(local_94,local_ac);
+            if (iVar14 != 0) {
               return 0;
             }
             local_f8 = PUN(float,(PUN(int,(float)local_f8) + 1));
-            iVar17 = iVar17 + 0xc;
-          } while (PUN(int,(float)local_f8) < iVar12 + -1);
+            iVar18 = iVar18 + 0xc;
+          } while (PUN(int,(float)local_f8) < iVar13 + -1);
         }
-        uVar15 = local_100;
-        if (0 < iVar12) {
-          uVar15 = local_100 + iVar12;
-          pfVar14 = param_5 + local_100 * 3;
+        uVar16 = local_100;
+        if (0 < iVar13) {
+          uVar16 = local_100 + iVar13;
+          pfVar15 = param_5 + local_100 * 3;
           do {
-            iVar12 = iVar12 + -1;
-            *pfVar14 = *pfVar9;
-            pfVar14[1] = pfVar9[1];
-            pfVar14[2] = pfVar9[2];
-            pfVar14 = pfVar14 + 3;
-            pfVar9 = pfVar9 + 3;
-          } while (iVar12 != 0);
+            iVar13 = iVar13 + -1;
+            *pfVar15 = *pfVar10;
+            pfVar15[1] = pfVar10[1];
+            pfVar15[2] = pfVar10[2];
+            pfVar15 = pfVar15 + 3;
+            pfVar10 = pfVar10 + 3;
+          } while (iVar13 != 0);
         }
-        return uVar15;
+        return uVar16;
       }
-      uVar15 = local_f0 + 1;
-      pfVar14 = pfVar14 + 3;
-      pfVar9 = PUN(float *,(float)local_fc);
-      local_f0 = uVar15;
-    } while ((int)uVar15 < PUN(int,(float)local_f8));
+      uVar16 = local_f0 + 1;
+      pfVar15 = pfVar15 + 3;
+      pfVar10 = PUN(float *,(float)local_fc);
+      local_f0 = uVar16;
+    } while ((int)uVar16 < PUN(int,(float)local_f8));
   }
-  pfVar9 = (float *)(param_3 + uVar15 * 3);
+  pfVar10 = (float *)(param_3 + uVar16 * 3);
   param_5 = param_5 + local_100 * 3;
-  *param_5 = *pfVar9;
-  param_5[1] = pfVar9[1];
-  param_5[2] = pfVar9[2];
+  *param_5 = *pfVar10;
+  param_5[1] = pfVar10[1];
+  param_5[2] = pfVar10[2];
   return local_100 + 1;
 }
 #undef local_100
@@ -639,27 +644,27 @@ void __cdecl sputActor_SetWalkSystemFadeTime(int ms)
    (Linux): same body (position 0, rdMatrix_Build34, the radius at +0x3c, +0x48 = 1.0f, the rest
    cleared)); was Walker_Create. */
 
-void * __thiscall Puck_Construct(void *this,float radius)
+Puck * __thiscall Puck_Construct(Puck *this,float radius)
 
 {
-  *(undefined4 *)this = 0;
-  *(undefined4 *)((int)this + 4) = 0;
-  *(undefined4 *)((int)this + 8) = 0;
-  rdMatrix_Build34((int)this + 0xc,this,this);
-  *(undefined4 *)((int)this + 0x48) = 0x3f800000;
-  *(float *)((int)this + 0x3c) = radius;
-  *(undefined4 *)((int)this + 0x5c) = 0;
-  *(undefined4 *)((int)this + 0x40) = 0;
-  *(undefined4 *)((int)this + 0x50) = 0;
-  *(undefined4 *)((int)this + 0x44) = 0;
-  *(undefined4 *)((int)this + 0x4c) = 0;
-  *(undefined4 *)((int)this + 0x58) = 0;
-  *(undefined4 *)((int)this + 0x54) = 0;
-  *(uint *)((int)this + 0x58) = g_dwPuck_p_head;
-  if (g_dwPuck_p_head != 0) {
-    *(void **)(g_dwPuck_p_head + 0x54) = this;
+  this->aPos[0] = 0.0;
+  this->aPos[1] = 0.0;
+  this->aPos[2] = 0.0;
+  rdMatrix_Build34(this->aFrame,this,this);
+  this->aConstraint[1] = 1.0;
+  this->flRadius = radius;
+  this->pSector = (void *)0x0;
+  this->flStep = 0.0;
+  this->nConstrained = 0;
+  this->aConstraint[0] = 0.0;
+  this->aConstraint[2] = 0.0;
+  this->pNext = (Puck *)0x0;
+  this->pPrev = (Puck *)0x0;
+  this->pNext = g_dwPuck_p_head;
+  if (g_dwPuck_p_head != (Puck *)0x0) {
+    g_dwPuck_p_head->pPrev = this;
   }
-  g_dwPuck_p_head = (uint)this;
+  g_dwPuck_p_head = this;
   return this;
 }
 
@@ -667,17 +672,17 @@ void * __thiscall Puck_Construct(void *this,float radius)
 /* Original name Puck_Destruct (the remaster's GrimFandango (Linux): same body (unlink from p_head
    and the neighbours +0x54 / +0x58)); was Walker_Destroy. */
 
-void __fastcall Puck_Destruct(int param_1)
+void __fastcall Puck_Destruct(Puck *puck)
 
 {
-  if (param_1 == g_dwPuck_p_head) {
-    g_dwPuck_p_head = *(uint *)(param_1 + 0x58);
+  if (puck == g_dwPuck_p_head) {
+    g_dwPuck_p_head = puck->pNext;
   }
-  if (*(int *)(param_1 + 0x54) != 0) {
-    *(undefined4 *)(*(int *)(param_1 + 0x54) + 0x58) = *(undefined4 *)(param_1 + 0x58);
+  if (puck->pPrev != (Puck *)0x0) {
+    puck->pPrev->pNext = puck->pNext;
   }
-  if (*(int *)(param_1 + 0x58) != 0) {
-    *(undefined4 *)(*(int *)(param_1 + 0x58) + 0x54) = *(undefined4 *)(param_1 + 0x54);
+  if (puck->pNext != (Puck *)0x0) {
+    puck->pNext->pPrev = puck->pPrev;
   }
   return;
 }
@@ -687,10 +692,10 @@ void __fastcall Puck_Destruct(int param_1)
    remaster's GrimFandango (Linux): same body (rdMatrix_ExtractAngles34 of the orientation into the
    static Rot()::ret, returned)); was Walker_GetAngles. */
 
-undefined * __fastcall Puck_Rot(int param_1)
+undefined * __fastcall Puck_Rot(Puck *puck)
 
 {
-  rdMatrix_ExtractAngles34(param_1 + 0xc,&g_aPuck_Rot_ret);
+  rdMatrix_ExtractAngles34(puck->aFrame,&g_aPuck_Rot_ret);
   return &g_aPuck_Rot_ret;
 }
 
@@ -700,21 +705,21 @@ undefined * __fastcall Puck_Rot(int param_1)
    (a C++ method there); the only unmatched callee of Actor_SetFollowBoxes; 4 matched neighbours
    agree, 1 disagree); was Walker_ReattachToSet. */
 
-void __fastcall Puck_Validate(void *param_1)
+void __fastcall Puck_Validate(Puck *puck)
 
 {
   void *this;
   int iVar1;
   
-  this = (void *)WalkPlane_PlaneClosest(param_1,0x1000);
-  *(void **)((int)param_1 + 0x5c) = this;
+  this = (void *)WalkPlane_PlaneClosest(puck,0x1000);
+  puck->pSector = this;
   if (this != (void *)0x0) {
-    iVar1 = WalkPlane_Within(this,param_1,1);
+    iVar1 = WalkPlane_Within(this,puck->aPos,1);
     if (iVar1 == 0) {
-      WalkPlane_ClosestPoint(*(void **)((int)param_1 + 0x5c),(int)param_1);
-      Puck_SetPos(param_1,param_1);
+      WalkPlane_ClosestPoint(puck->pSector,(int)puck);
+      Puck_SetPos(puck,puck->aPos);
     }
-    Puck_OrientToPlane(param_1,*(int *)((int)param_1 + 0x5c));
+    Puck_OrientToPlane(puck,(int)puck->pSector);
   }
   return;
 }
@@ -724,15 +729,15 @@ void __fastcall Puck_Validate(void *param_1)
    C++ method there); the only unmatched callee of Actor_SetPositionClamped; 2 matched neighbours
    agree, 1 disagree); was Walker_SetPosition. */
 
-void __thiscall Puck_SetPos(void *this,float *pos)
+void __thiscall Puck_SetPos(Puck *this,float *pos)
 
 {
-  *(float *)this = *pos;
-  *(float *)((int)this + 4) = pos[1];
-  *(float *)((int)this + 8) = pos[2];
-  *(float *)((int)this + 0x30) = *pos;
-  *(float *)((int)this + 0x34) = pos[1];
-  *(float *)((int)this + 0x38) = pos[2];
+  this->aPos[0] = *pos;
+  this->aPos[1] = pos[1];
+  this->aPos[2] = pos[2];
+  this->aFrame[9] = *pos;
+  this->aFrame[10] = pos[1];
+  this->aFrame[0xb] = pos[2];
   return;
 }
 
@@ -741,10 +746,10 @@ void __thiscall Puck_SetPos(void *this,float *pos)
    (rdMatrix_TransformPoint34Acc of the vector by the orientation at +0xc)); was
    Walker_RotateVector. */
 
-void __thiscall Puck_Xform(void *this,float *vec)
+void __thiscall Puck_Xform(Puck *this,float *vec)
 
 {
-  rdMatrix_TransformPoint34Acc(vec,(float *)((int)this + 0xc));
+  rdMatrix_TransformPoint34Acc(vec,this->aFrame);
   return;
 }
 
@@ -753,7 +758,7 @@ void __thiscall Puck_Xform(void *this,float *vec)
    remaster's GrimFandango (Linux): same body (subtract the position, rotate by the transposed
    orientation)); was Walker_ToLocalSpace. */
 
-void __thiscall Puck_InvXform(void *this,float *vec)
+void __thiscall Puck_InvXform(Puck *this,float *vec)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -761,10 +766,10 @@ void __thiscall Puck_InvXform(void *this,float *vec)
   #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  *vec = *vec - *(float *)this;
-  vec[1] = vec[1] - *(float *)((int)this + 4);
-  vec[2] = vec[2] - *(float *)((int)this + 8);
-  rdMatrix_TransformVectorOrtho34(&local_c,vec,(float *)((int)this + 0xc));
+  *vec = *vec - this->aPos[0];
+  vec[1] = vec[1] - this->aPos[1];
+  vec[2] = vec[2] - this->aPos[2];
+  rdMatrix_TransformVectorOrtho34(&local_c,vec,this->aFrame);
   *vec = local_c;
   vec[1] = local_8;
   vec[2] = local_4;
@@ -779,26 +784,28 @@ void __thiscall Puck_InvXform(void *this,float *vec)
 /* Original name Puck_Rotate (the remaster's GrimFandango (Linux): Puck::Rotate; aligned call in
    PointAt, sputActor_SetActorRotation); was Walker_TurnHeading. */
 
-void __thiscall Puck_Rotate(void *this,float angle)
+void __thiscall Puck_Rotate(Puck *this,float angle)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *vec;
+  void *this_00;
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
-  rdMatrix_BuildFromVectorAngle34(local_30,(int)this + 0x24,angle);
-  vec = (float *)((int)this + 0x18);
+  rdMatrix_BuildFromVectorAngle34(local_30,this->aFrame + 6,angle);
+  vec = this->aFrame + 3;
   rdMatrix_TransformVector34Acc(vec,local_30);
-  *vec = *vec + *(float *)((int)this + 0x30);
-  *(float *)((int)this + 0x1c) = *(float *)((int)this + 0x34) + *(float *)((int)this + 0x1c);
-  *(float *)((int)this + 0x20) = *(float *)((int)this + 0x38) + *(float *)((int)this + 0x20);
-  if (*(void **)((int)this + 0x5c) != (void *)0x0) {
-    WalkPlane_SnapTo(*(void **)((int)this + 0x5c),vec);
+  this_00 = this->pSector;
+  *vec = *vec + this->aFrame[9];
+  this->aFrame[4] = this->aFrame[10] + this->aFrame[4];
+  this->aFrame[5] = this->aFrame[0xb] + this->aFrame[5];
+  if (this_00 != (void *)0x0) {
+    WalkPlane_SnapTo(this_00,vec);
   }
-  *vec = *vec - *(float *)((int)this + 0x30);
-  *(float *)((int)this + 0x1c) = *(float *)((int)this + 0x1c) - *(float *)((int)this + 0x34);
-  *(float *)((int)this + 0x20) = *(float *)((int)this + 0x20) - *(float *)((int)this + 0x38);
-  Puck_Normalize((int)this);
+  *vec = *vec - this->aFrame[9];
+  this->aFrame[4] = this->aFrame[4] - this->aFrame[10];
+  this->aFrame[5] = this->aFrame[5] - this->aFrame[0xb];
+  Puck_Normalize(this);
   return;
 }
 #undef local_30
@@ -811,7 +818,7 @@ void __thiscall Puck_Rotate(void *this,float angle)
    C++ method there); the only unmatched callee of Lua_PointActorAt; the only unmatched callee of
    Lua_TurnActorTo; 6 matched neighbours agree, 0 disagree); was Walker_TurnToPoint. */
 
-float __thiscall Puck_PointAt(void *this,float *point,float maxTurn)
+float __thiscall Puck_PointAt(Puck *this,float *point,float maxTurn)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -823,8 +830,8 @@ float __thiscall Puck_PointAt(void *this,float *point,float maxTurn)
   local_c = *point;
   local_8 = point[1];
   local_4 = PUN(uint,(float)point[2]);
-  if (*(void **)((int)this + 0x5c) != (void *)0x0) {
-    WalkPlane_Project(*(void **)((int)this + 0x5c),(int)&local_c);
+  if (this->pSector != (void *)0x0) {
+    WalkPlane_Project(this->pSector,(int)&local_c);
   }
   Puck_InvXform(this,&local_c);
   rdVector_Normalize3Acc(&local_c);
@@ -851,23 +858,23 @@ float __thiscall Puck_PointAt(void *this,float *point,float maxTurn)
    remaster (a C++ method there); the only unmatched callee of Actor_SetConstrain; 1 matched
    neighbours agree, 0 disagree); was Walker_SetConstraint. */
 
-void __thiscall Puck_Constrain(void *this,int a1)
+void __thiscall Puck_Constrain(Puck *this,int a1)
 
 {
   float *pfVar1;
   
-  *(undefined4 *)((int)this + 0x50) = 0;
-  if ((*(void **)((int)this + 0x5c) != (void *)0x0) && (a1 != 0)) {
-    pfVar1 = WalkPlane_GetConstraintVector(*(void **)((int)this + 0x5c),this);
+  this->nConstrained = 0;
+  if ((this->pSector != (void *)0x0) && (a1 != 0)) {
+    pfVar1 = WalkPlane_GetConstraintVector(this->pSector,this->aPos);
     if (pfVar1 != (float *)0x0) {
-      *(float *)((int)this + 0x44) = *pfVar1;
-      *(float *)((int)this + 0x48) = pfVar1[1];
-      *(float *)((int)this + 0x4c) = pfVar1[2];
-      *(float *)((int)this + 0x18) = *pfVar1;
-      *(float *)((int)this + 0x1c) = pfVar1[1];
-      *(float *)((int)this + 0x20) = pfVar1[2];
-      Puck_Normalize((int)this);
-      *(undefined4 *)((int)this + 0x50) = 1;
+      this->aConstraint[0] = *pfVar1;
+      this->aConstraint[1] = pfVar1[1];
+      this->aConstraint[2] = pfVar1[2];
+      this->aFrame[3] = *pfVar1;
+      this->aFrame[4] = pfVar1[1];
+      this->aFrame[5] = pfVar1[2];
+      Puck_Normalize(this);
+      this->nConstrained = 1;
     }
   }
   return;
@@ -882,14 +889,15 @@ void __thiscall Puck_Constrain(void *this,int a1)
    remaster's GrimFandango (Linux): same body (the recursion counter static, the step at +0x40, the
    plane slope by stdMath_ArcSin3 of the dot product, the plane walk)); was Walker_WalkSectors. */
 
-undefined * __thiscall Puck_Forward(void *this,float step,int turnLeftOk,int turnRightOk)
+undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int turnRightOk)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *this_00;
   int iVar1;
-  undefined *puVar2;
-  float fVar3;
+  void *pvVar2;
+  undefined *puVar3;
+  float fVar4;
   #define local_48 (*(float *)(_frame + (0x60 - 0x48)))
   #define local_34 (*(float *)(_frame + (0x60 - 0x34)))
   #define local_30 (*(float *)(_frame + (0x60 - 0x30)))
@@ -905,24 +913,24 @@ undefined * __thiscall Puck_Forward(void *this,float step,int turnLeftOk,int tur
   #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
   
-  puVar2 = (undefined *)0x0;
+  puVar3 = (undefined *)0x0;
   if (g_dwPuck_Forward_recursion_level == 0) {
-    *(float *)((int)this + 0x40) = step;
+    this->flStep = step;
   }
   g_dwPuck_Forward_recursion_level = g_dwPuck_Forward_recursion_level + 1;
-  if (*(int *)((int)this + 0x50) != 0) {
-    fVar3 = rdVector_Dot3((float *)((int)this + 0xc),(float *)((int)this + 0x44));
-    fVar3 = stdMath_ArcSin3(fVar3);
-    local_48 = (90.0 - fVar3) - 90.0;
-    fVar3 = local_48;
+  if (this->nConstrained != 0) {
+    fVar4 = rdVector_Dot3(this->aFrame,this->aConstraint);
+    fVar4 = stdMath_ArcSin3(fVar4);
+    local_48 = (90.0 - fVar4) - 90.0;
+    fVar4 = local_48;
     if (local_48 < 0.0) {
-      fVar3 = -local_48;
+      fVar4 = -local_48;
     }
-    if (*(float *)((int)this + 0x3c) < fVar3) {
+    if (this->flRadius < fVar4) {
       return (undefined *)0x0;
     }
-    fVar3 = rdVector_Dot3((float *)((int)this + 0x18),(float *)((int)this + 0x44));
-    if (fVar3 <= 0.0) {
+    fVar4 = rdVector_Dot3(this->aFrame + 3,this->aConstraint);
+    if (fVar4 <= 0.0) {
       local_48 = -local_48;
     }
     Puck_Rotate(this,local_48);
@@ -931,8 +939,8 @@ undefined * __thiscall Puck_Forward(void *this,float step,int turnLeftOk,int tur
   local_2c = PUN(uint,(float)step);
   local_28 = 0;
   Puck_Xform(this,&local_30);
-  if ((*(void **)((int)this + 0x5c) == (void *)0x0) ||
-     (iVar1 = WalkPlane_Within(*(void **)((int)this + 0x5c),&local_30,1), iVar1 != 0)) {
+  if ((this->pSector == (void *)0x0) ||
+     (iVar1 = WalkPlane_Within(this->pSector,&local_30,1), iVar1 != 0)) {
     local_48 = PUN(float,&local_30);
     Puck_SetPos(this,PUN(float *,(float)local_48));
     g_dwPuck_Forward_recursion_level = 0;
@@ -942,44 +950,45 @@ undefined * __thiscall Puck_Forward(void *this,float step,int turnLeftOk,int tur
     g_dwPuck_Forward_recursion_level = 0;
     return (undefined *)0x0;
   }
-  this_00 = *(void **)((int)this + 0x5c);
+  this_00 = this->pSector;
   local_34 = WalkPlane_Intersection(this_00,(int)this,(int)&local_30,(int)&local_24);
-  *(undefined4 *)(*(int *)((int)this + 0x5c) + 0x2c) = 0;
+  *(undefined4 *)((int)this->pSector + 0x2c) = 0;
   local_18 = local_24;
   local_14 = local_20;
   local_10 = local_1c;
   Puck_InvXform(this,&local_18);
   step = step - local_14;
-  iVar1 = WalkPlane_PlaneAt(&local_24,0x1000);
-  if (iVar1 == 0) {
+  pvVar2 = (void *)WalkPlane_PlaneAt(&local_24,0x1000);
+  if (pvVar2 == (void *)0x0) {
     Puck_SetPos(this,&local_24);
-    iVar1 = *(int *)((int)this + 0x5c);
-    if ((*(uint *)(iVar1 + 0x24) & 0x100) == 0) {
-      fVar3 = local_34;
+    pvVar2 = this->pSector;
+    if ((*(uint *)((int)pvVar2 + 0x24) & 0x100) == 0) {
+      fVar4 = local_34;
       if (local_34 < 0.0) {
-        fVar3 = -local_34;
+        fVar4 = -local_34;
       }
-      if ((*(float *)((int)this + 0x3c) <= fVar3) || (*(int *)((int)this + 0x50) != 0)) {
-        *(float *)((int)this + 0x40) = *(float *)((int)this + 0x40) - step;
+      if ((this->flRadius <= fVar4) || (this->nConstrained != 0)) {
+        this->flStep = this->flStep - step;
       }
       else if (((0.0 < local_34) && (turnLeftOk != 0)) || ((local_34 < 0.0 && (turnRightOk != 0))))
       {
         Puck_Rotate(this,local_34);
         *(undefined4 *)((int)this_00 + 0x2c) = 1;
-        puVar2 = Puck_Forward(this,step,1,1);
+        puVar3 = Puck_Forward(this,step,1,1);
       }
-      if (*(int *)((int)this + 0x50) != 0) {
+      if (this->nConstrained != 0) {
         Puck_Rotate(this,local_34);
-        *(undefined4 *)((int)this + 0x50) = 1;
-        *(undefined4 *)((int)this + 0x44) = *(undefined4 *)((int)this + 0x18);
-        *(undefined4 *)((int)this + 0x48) = *(undefined4 *)((int)this + 0x1c);
-        *(undefined4 *)((int)this + 0x4c) = *(undefined4 *)((int)this + 0x20);
+        this->nConstrained = 1;
+        this->aConstraint[0] = this->aFrame[3];
+        this->aConstraint[1] = this->aFrame[4];
+        this->aConstraint[2] = this->aFrame[5];
       }
       *(undefined4 *)((int)this_00 + 0x2c) = 1;
-      return puVar2;
+      return puVar3;
     }
-    if ((*(int *)(iVar1 + 0x78) + 1) % *(int *)(iVar1 + 0x34) != *(int *)(iVar1 + 0x74)) {
-      iVar1 = *(int *)(iVar1 + 0x38 + *(int *)(iVar1 + 0x78) * 4);
+    if ((*(int *)((int)pvVar2 + 0x78) + 1) % *(int *)((int)pvVar2 + 0x34) !=
+        *(int *)((int)pvVar2 + 0x74)) {
+      iVar1 = *(int *)((int)pvVar2 + *(int *)((int)pvVar2 + 0x78) * 4 + 0x38);
       local_c = *(float *)(iVar1 + 4);
       local_8 = *(uint *)(iVar1 + 8);
       local_4 = *(uint *)(iVar1 + 0xc);
@@ -993,21 +1002,21 @@ undefined * __thiscall Puck_Forward(void *this,float step,int turnLeftOk,int tur
         local_34 = -90.2 - (90.0 - local_34);
       }
       Puck_Rotate(this,local_34);
-      puVar2 = Puck_Forward(this,step,1,1);
+      puVar3 = Puck_Forward(this,step,1,1);
       *(undefined4 *)((int)this_00 + 0x2c) = 1;
-      return puVar2;
+      return puVar3;
     }
     return (undefined *)0x0;
   }
   Puck_SetPos(this,&local_24);
-  *(int *)((int)this + 0x5c) = iVar1;
-  Puck_OrientToPlane(this,iVar1);
+  this->pSector = pvVar2;
+  Puck_OrientToPlane(this,(int)pvVar2);
   if (0.02 <= step) {
     step = 0.02;
   }
-  puVar2 = Puck_Forward(this,step,1,1);
+  puVar3 = Puck_Forward(this,step,1,1);
   *(undefined4 *)((int)this_00 + 0x2c) = 1;
-  return puVar2;
+  return puVar3;
 }
 #undef local_10
 #undef local_14
@@ -1030,33 +1039,30 @@ undefined * __thiscall Puck_Forward(void *this,float step,int turnLeftOk,int tur
    from the plane normal +0x60, then the right / forward vectors by cross products)); was
    Walker_SetSectorFrame. */
 
-void __thiscall Puck_OrientToPlane(void *this,int a1)
+void __thiscall Puck_OrientToPlane(Puck *this,int a1)
 
 {
   float *pfVar1;
   float *pfVar2;
   float *pfVar3;
+  float fVar4;
+  float fVar5;
   
-  pfVar1 = (float *)((int)this + 0x24);
-  pfVar2 = (float *)((int)this + 0x18);
-  pfVar3 = (float *)((int)this + 0xc);
+  pfVar1 = this->aFrame + 6;
+  fVar4 = this->aFrame[5];
+  pfVar2 = this->aFrame + 3;
+  pfVar3 = this->aFrame;
   *pfVar1 = *(float *)(a1 + 0x60);
-  *(undefined4 *)((int)this + 0x28) = *(undefined4 *)(a1 + 100);
-  *(undefined4 *)((int)this + 0x2c) = *(undefined4 *)(a1 + 0x68);
-  *pfVar3 = *(float *)((int)this + 0x2c) * *(float *)((int)this + 0x1c) -
-            *(float *)((int)this + 0x28) * *(float *)((int)this + 0x20);
-  *(float *)((int)this + 0x10) =
-       *(float *)((int)this + 0x20) * *pfVar1 -
-       *(float *)((int)this + 0x2c) * *(float *)((int)this + 0x18);
-  *(float *)((int)this + 0x14) =
-       *(float *)((int)this + 0x28) * *pfVar2 - *pfVar1 * *(float *)((int)this + 0x1c);
+  this->aFrame[7] = *(float *)(a1 + 100);
+  this->aFrame[8] = *(float *)(a1 + 0x68);
+  fVar5 = *pfVar1;
+  *pfVar3 = this->aFrame[8] * this->aFrame[4] - this->aFrame[7] * this->aFrame[5];
+  this->aFrame[1] = fVar4 * fVar5 - this->aFrame[8] * this->aFrame[3];
+  this->aFrame[2] = this->aFrame[7] * *pfVar2 - *pfVar1 * this->aFrame[4];
   rdVector_Normalize3Acc(pfVar3);
-  *pfVar2 = *(float *)((int)this + 0x28) * *(float *)((int)this + 0x14) -
-            *(float *)((int)this + 0x2c) * *(float *)((int)this + 0x10);
-  *(float *)((int)this + 0x1c) =
-       *pfVar3 * *(float *)((int)this + 0x2c) - *pfVar1 * *(float *)((int)this + 0x14);
-  *(float *)((int)this + 0x20) =
-       *(float *)((int)this + 0x10) * *pfVar1 - *(float *)((int)this + 0x28) * *pfVar3;
+  *pfVar2 = this->aFrame[7] * this->aFrame[2] - this->aFrame[8] * this->aFrame[1];
+  this->aFrame[4] = *pfVar3 * this->aFrame[8] - *pfVar1 * this->aFrame[2];
+  this->aFrame[5] = this->aFrame[1] * *pfVar1 - this->aFrame[7] * *pfVar3;
   rdVector_Normalize3Acc(pfVar2);
   return;
 }
@@ -1066,23 +1072,19 @@ void __thiscall Puck_OrientToPlane(void *this,int a1)
    forward vector, the right vector as its cross product with up, normalised)); was
    Walker_RebuildRightVector. */
 
-void __fastcall Puck_Normalize(int param_1)
+void __fastcall Puck_Normalize(Puck *puck)
 
 {
   float *pfVar1;
+  float fVar2;
   
-  pfVar1 = (float *)(param_1 + 0x18);
+  pfVar1 = puck->aFrame + 3;
   rdVector_Normalize3Acc(pfVar1);
-  *(float *)(param_1 + 0xc) =
-       *(float *)(param_1 + 0x1c) * *(float *)(param_1 + 0x2c) -
-       *(float *)(param_1 + 0x28) * *(float *)(param_1 + 0x20);
-  *(float *)(param_1 + 0x10) =
-       *(float *)(param_1 + 0x20) * *(float *)(param_1 + 0x24) -
-       *pfVar1 * *(float *)(param_1 + 0x2c);
-  *(float *)(param_1 + 0x14) =
-       *pfVar1 * *(float *)(param_1 + 0x28) -
-       *(float *)(param_1 + 0x1c) * *(float *)(param_1 + 0x24);
-  rdVector_Normalize3Acc((float *)(param_1 + 0xc));
+  fVar2 = puck->aFrame[8];
+  puck->aFrame[0] = puck->aFrame[4] * puck->aFrame[8] - puck->aFrame[7] * puck->aFrame[5];
+  puck->aFrame[1] = puck->aFrame[5] * puck->aFrame[6] - *pfVar1 * fVar2;
+  puck->aFrame[2] = *pfVar1 * puck->aFrame[7] - puck->aFrame[4] * puck->aFrame[6];
+  rdVector_Normalize3Acc(puck->aFrame);
   return;
 }
 
@@ -1091,7 +1093,7 @@ void __fastcall Puck_Normalize(int param_1)
    (0.1 / 0.05) transformed by the orientation, rdPrimit3_DrawLine in the colour)); was
    Walker_DrawDebugAxes. */
 
-void __thiscall Puck_Draw(void *this,int color)
+void __thiscall Puck_Draw(Puck *this,int color)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

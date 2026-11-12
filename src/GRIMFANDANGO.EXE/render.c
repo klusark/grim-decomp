@@ -706,50 +706,50 @@ void Render_BuildActorDrawList(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  void *pvVar2;
-  undefined1 *puVar3;
+  Actor *pAVar1;
+  int *piVar2;
+  void *pvVar3;
+  undefined1 *puVar4;
   #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
   #define local_c (*(float *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   DrawList_Reset();
-  pvVar2 = sputRoom_GetCurrentRoom();
-  piVar1 = *(int **)(*(int *)((int)pvVar2 + 0x1abc) + 0x80);
+  pvVar3 = sputRoom_GetCurrentRoom();
+  piVar2 = *(int **)(*(int *)((int)pvVar3 + 0x1abc) + 0x80);
   do {
-    if (piVar1 == (int *)0x0) {
+    if (piVar2 == (int *)0x0) {
       qsort(&g_dwDrawItems,g_dwTotDrawItems,4,FUN_004862b0);
       return;
     }
-    pvVar2 = (void *)((int)g_pActors + *piVar1 * 0xa8);
-    if ((pvVar2 != (void *)0x0) &&
-       (*(undefined4 *)((int)pvVar2 + 0x68) = 0, (*(byte *)((int)pvVar2 + 4) & 3) == 0)) {
-      puVar3 = (undefined1 *)DrawList_Alloc();
-      if (puVar3 == (undefined1 *)0x0) {
+    pAVar1 = g_pActors + *piVar2;
+    if ((pAVar1 != (Actor *)0x0) && (pAVar1->nScreenBoxValid = 0, (pAVar1->dwFlags & 3) == 0)) {
+      puVar4 = (undefined1 *)DrawList_Alloc();
+      if (puVar4 == (undefined1 *)0x0) {
         return;
       }
-      local_18 = *(float *)((int)pvVar2 + 0xc) - *g_pSputRender_Camera;
-      local_14[0] = *(float *)((int)pvVar2 + 0x10) - g_pSputRender_Camera[1];
-      local_14[1] = *(float *)((int)pvVar2 + 0x14) - g_pSputRender_Camera[2];
+      local_18 = pAVar1->aPos[0] - *g_pSputRender_Camera;
+      local_14[0] = pAVar1->aPos[1] - g_pSputRender_Camera[1];
+      local_14[1] = pAVar1->aPos[2] - g_pSputRender_Camera[2];
       rdMatrix_TransformVectorOrtho34(&local_c,&local_18,g_pSputRender_Camera + 0xc);
-      *(uint *)(puVar3 + 4) = local_8;
-      if (*(int *)((int)pvVar2 + 0xa0) == 0) {
-        *(int *)(puVar3 + 8) = ((int)pvVar2 - (int)g_pActors) / 0xa8;
-        if ((*(int *)((int)pvVar2 + 0xa0) == 0) || (*(int *)(*(int *)((int)pvVar2 + 0xa0) + 4) == 0)
-           ) {
-          *puVar3 = 0xff;
+      *(uint *)(puVar4 + 4) = local_8;
+      if (pAVar1->pCostumes == (CostumeNode *)0x0) {
+        *(int *)(puVar4 + 8) = ((int)pAVar1 - (int)g_pActors) / 0xa8;
+        if ((pAVar1->pCostumes == (CostumeNode *)0x0) ||
+           (pAVar1->pCostumes->pMainModel == (void *)0x0)) {
+          *puVar4 = 0xff;
         }
         else {
-          *puVar3 = 1;
+          *puVar4 = 1;
         }
       }
       else {
-        *puVar3 = 0;
-        *(int *)(puVar3 + 8) = ((int)pvVar2 - (int)g_pActors) / 0xa8;
+        *puVar4 = 0;
+        *(int *)(puVar4 + 8) = ((int)pAVar1 - (int)g_pActors) / 0xa8;
       }
     }
-    piVar1 = (int *)piVar1[2];
+    piVar2 = (int *)piVar2[2];
   } while( true );
 }
 #undef local_14

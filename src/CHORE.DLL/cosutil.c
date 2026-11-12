@@ -45,7 +45,7 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
   
                     /* 0x1110  24  CosUtil_Write */
   if (pCostume == (Costume *)0x0) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x100101f8),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x14c)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_100101f8),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x14c)
     ;
   }
   uStack_24 = 0;
@@ -86,7 +86,7 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
       return 0;
     }
   }
-  iVar10 = (*(code *)g_pSvcChore->pFopen)(fileName,IMG_ADDR(0x100101f4));
+  iVar10 = (*(code *)g_pSvcChore->pFopen)(fileName,((unsigned)(uintptr_t)&DAT_100101f4));
   if (iVar10 == 0) {
     return 0;
   }
@@ -123,11 +123,11 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
     msvc_strncpy(pCostume,(char *)(iVar9 + 1),0x1f);
     pCostume->aName[0x1f] = '\0';
   }
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100101ec),comment);
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100101d8),0,1);
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100101c8));
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100101b8),uVar6);
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100101a0));
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100101ec),comment);
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100101d8),0,1);
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100101c8));
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100101b8),uVar6);
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100101a0));
   uVar7 = 0;
   if (uVar6 != 0) {
     puVar11 = g_aTagLookups;
@@ -136,23 +136,23 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
       iStack_c = g_aComponentTags[uVar3].nId;
       uStack_8 = 0;
       if (g_aComponentTags[uVar3].nKind == 0) {
-        uVar8 = IMG_ADDR(0x1001019c);
+        uVar8 = ((unsigned)(uintptr_t)&DAT_1001019c);
       }
       else {
-        uVar8 = IMG_ADDR(0x10010198);
+        uVar8 = ((unsigned)(uintptr_t)&DAT_10010198);
         if (g_aComponentTags[uVar3].nKind != 1) {
-          uVar8 = IMG_ADDR(0x10010190);
+          uVar8 = ((unsigned)(uintptr_t)&DAT_10010190);
         }
       }
       (*(code *)g_pSvcChore->pFprintf)
-                (iVar10,IMG_ADDR(0x1001017c),uVar7,&iStack_c,uVar8,g_aComponentTags[uVar3].aName);
+                (iVar10,((unsigned)(uintptr_t)&DAT_1001017c),uVar7,&iStack_c,uVar8,g_aComponentTags[uVar3].aName);
       uVar7 = uVar7 + 1;
       puVar11 = puVar11 + 1;
     } while (uVar7 < uVar6);
   }
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010164));
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010150),pCostume->dwNumComponents);
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010130));
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010164));
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010150),pCostume->dwNumComponents);
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010130));
   pCVar14 = pCostume->pComponents;
   uStack_24 = 0;
   if (pCostume->dwNumComponents != 0) {
@@ -169,16 +169,16 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
       }
       if (uVar7 == uVar6) {
         (*(code *)g_pSvcChore->pAssertFail)
-                  (IMG_ADDR(0x10010120),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x1a9);
+                  (((unsigned)(uintptr_t)&DAT_10010120),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x1a9);
       }
-      (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010108),uStack_24,uVar7,pCVar14->nHash);
+      (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010108),uStack_24,uVar7,pCVar14->nHash);
       uStack_24 = uStack_24 + 1;
       pCVar14 = pCVar14 + 1;
     } while (uStack_24 < pCostume->dwNumComponents);
   }
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100100f4));
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100100e4),pCostume->dwNumChores);
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100100c8));
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100f4));
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100e4),pCostume->dwNumChores);
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100c8));
   uVar6 = 0;
   pCVar15 = pCostume->pChores;
   if (pCostume->dwNumChores != 0) {
@@ -195,17 +195,17 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
           uVar7 = uVar7 - 1;
         } while (uVar7 != 0);
       }
-      (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100100b4),uVar6,pCVar15->dwLength,iVar9,pCVar15);
+      (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100b4),uVar6,pCVar15->dwLength,iVar9,pCVar15);
       uVar6 = uVar6 + 1;
       pCVar15 = pCVar15 + 1;
     } while (uVar6 < pCostume->dwNumChores);
   }
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x100100a4));
+  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100a4));
   uStack_20 = 0;
   pCVar15 = pCostume->pChores;
   if (pCostume->dwNumChores != 0) {
     do {
-      (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010094),uStack_20,pCVar15);
+      (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010094),uStack_20,pCVar15);
       pCVar12 = pCVar15->pChoreTracks;
       uStack_1c = 0;
       if (pCVar15->dwNumTracks != 0) {
@@ -213,7 +213,7 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
           if (pCVar12->dwNumKeys != 0) {
             (*(code *)g_pSvcChore->pFprintf)(iVar10);
             (*(code *)g_pSvcChore->pFprintf)(iVar10);
-            (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010060),pCVar12->nCompNum,pCVar12->dwNumKeys)
+            (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010060),pCVar12->nCompNum,pCVar12->dwNumKeys)
             ;
             pCVar5 = g_aComponentTags;
             pCVar16 = pCVar12->pKeys;
@@ -223,15 +223,15 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
               do {
                 iVar4 = pCVar5[iVar9].nKind;
                 if ((iVar4 == 0) || (iVar4 == 1)) {
-                  (*(code *)g_pSvcChore->pFprintf)(iVar10,IMG_ADDR(0x10010054),pCVar16->dwTime);
+                  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010054),pCVar16->dwTime);
                 }
                 else if (iVar4 == 2) {
                   (*(code *)g_pSvcChore->pFprintf)
-                            (iVar10,IMG_ADDR(0x10010048),pCVar16->dwTime,(double)(float)pCVar16->nValue);
+                            (iVar10,((unsigned)(uintptr_t)&DAT_10010048),pCVar16->dwTime,(double)(float)pCVar16->nValue);
                 }
                 else {
                   (*(code *)g_pSvcChore->pAssertFail)
-                            (IMG_ADDR(0x10010040),s_C__grimsrc_libs_chore_Costume_c_1001020c);
+                            (((unsigned)(uintptr_t)&DAT_10010040),s_C__grimsrc_libs_chore_Costume_c_1001020c);
                 }
                 uStack_24 = uStack_24 + 1;
                 pCVar16 = pCVar16 + 1;
@@ -561,11 +561,11 @@ int __cdecl CosUtil_AdjustComponent(Costume *pCostume,uint compNum)
   
                     /* 0x26a0  6  CosUtil_AdjustComponent */
   if (pCostume == (Costume *)0x0) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x5df)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x5df)
     ;
   }
   if (pCostume->dwNumComponents <= compNum) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010320),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x5e0)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_10010320),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x5e0)
     ;
   }
   pCVar2 = pCostume->pComponents + compNum;
@@ -593,11 +593,11 @@ int __cdecl CosUtil_ComponentHasAdjuster(Costume *pCostume,uint compNum)
   
                     /* 0x2740  9  CosUtil_ComponentHasAdjuster */
   if (pCostume == (Costume *)0x0) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x604)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x604)
     ;
   }
   if (pCostume->dwNumComponents <= compNum) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010320),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x605)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_10010320),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x605)
     ;
   }
   iVar1 = pCostume->pComponents[compNum].nTag;
@@ -669,7 +669,7 @@ int __cdecl CosUtil_AddChore(Costume *pCostume)
   
                     /* 0x2880  1  CosUtil_AddChore */
   if (pCostume == (Costume *)0x0) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x668)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x668)
     ;
   }
   uVar2 = pCostume->dwNumChores + 1;
@@ -696,7 +696,7 @@ Chore * __cdecl CosUtil_DeleteChore(Costume *pCostume,uint choreNum)
   
                     /* 0x28f0  14  CosUtil_DeleteChore */
   if ((pCostume == (Costume *)0x0) || (pCostume->dwNumChores <= choreNum)) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010364),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x67d)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_10010364),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x67d)
     ;
   }
   pCVar1 = pCostume->pChores + choreNum;
@@ -743,7 +743,7 @@ Chore * __cdecl CosUtil_SetChoreLength(Costume *pCostume,uint choreNum,uint leng
   
                     /* 0x29e0  22  CosUtil_SetChoreLength */
   if ((pCostume == (Costume *)0x0) || (pCostume->dwNumChores <= choreNum)) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010364),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6a3)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_10010364),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6a3)
     ;
   }
   pCVar2 = pCostume->pChores + choreNum;
@@ -795,7 +795,7 @@ char * __cdecl CosUtil_NameChore(Costume *pCostume,int choreNum,char *name)
   
                     /* 0x2ab0  17  CosUtil_NameChore */
   if (pCostume == (Costume *)0x0) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6c6)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6c6)
     ;
   }
   uVar3 = 0xffffffff;
@@ -841,7 +841,7 @@ int __cdecl CosUtil_DeleteKey(Costume *pCostume,uint choreNum,uint compNum,int t
                     /* 0x2b40  16  CosUtil_DeleteKey */
   if (((pCostume == (Costume *)0x0) || (pCostume->dwNumChores <= choreNum)) ||
      (pCostume->dwNumComponents <= compNum)) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x100103b0),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6e5)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_100103b0),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x6e5)
     ;
   }
   pCVar4 = pCostume->pChores[choreNum].pChoreTracks;
@@ -901,7 +901,7 @@ ChoreKey * __cdecl CosUtil_QueryValueAtTime(Costume *pCostume,uint choreNum,uint
                     /* 0x2c50  19  CosUtil_QueryValueAtTime */
   if (((pCostume == (Costume *)0x0) || (pCostume->dwNumChores <= choreNum)) ||
      (pCostume->dwNumComponents <= compNum)) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x100103b0),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x722)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_100103b0),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x722)
     ;
   }
   pCVar5 = pCostume->pChores[choreNum].pChoreTracks;
@@ -1027,7 +1027,7 @@ uint __cdecl CosUtil_CountComponents(Costume *pCostume)
 {
                     /* 0x2e10  12  CosUtil_CountComponents */
   if (pCostume == (Costume *)0x0) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x789)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x789)
     ;
   }
   return pCostume->dwNumComponents;
@@ -1048,11 +1048,11 @@ CosUtil_ComponentInfo(int cos,uint index,int *outTag,undefined4 *outA,undefined4
   
                     /* 0x2e40  10  CosUtil_ComponentInfo */
   if (cos == 0) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x797)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_1001034c),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x797)
     ;
   }
   if (*(uint *)(cos + 0x28) <= index) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010444),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x798)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_10010444),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x798)
     ;
   }
   iVar2 = *(int *)(cos + 0x2c) + index * 0x40;
@@ -1092,7 +1092,7 @@ char * __cdecl CosUtil_ChoreName(Costume *pCostume,uint choreNum)
 {
                     /* 0x30b0  7  CosUtil_ChoreName */
   if (pCostume->dwNumChores <= choreNum) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x10010498),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x80d)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_10010498),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x80d)
     ;
   }
   return pCostume->pChores[choreNum].aName;
@@ -1117,7 +1117,7 @@ char * __cdecl CosUtil_TagInfo(uint whichTag,int *outTagId)
 {
                     /* 0x3100  23  CosUtil_TagInfo */
   if (g_dwNumComponentTags <= whichTag) {
-    (*(code *)g_pSvcChore->pAssertFail)(IMG_ADDR(0x100104c8),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x81f)
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_100104c8),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x81f)
     ;
   }
   if (outTagId != (int *)0x0) {

@@ -262,14 +262,14 @@ void luaT_setfallback(void)
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   if (DAT_1002bf80 == 0) {
-    lua_recognizelib(IMG_ADDR(0x10027d98),3);
+    lua_recognizelib(((unsigned)(uintptr_t)&PTR_s_typeFB_10027d98),3);
     DAT_1002bf80 = 1;
   }
   pbVar1 = (byte *)luaL_check_string(1);
   iVar2 = lua_lua2C(2);
   iVar3 = lua_isfunction(iVar2);
   if (iVar3 == 0) {
-    luaL_argerror(2,IMG_ADDR(0x10026390));
+    luaL_argerror(2,((unsigned)(uintptr_t)&s_function_expected_10026390));
   }
   iVar3 = luaO_findstring(pbVar1,&g_pLuaT_setfallback_oldnames);
   switch(iVar3) {

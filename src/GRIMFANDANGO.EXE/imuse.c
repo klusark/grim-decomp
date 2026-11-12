@@ -35,7 +35,7 @@ void IMuse_RestoreFromTemp(void)
       (*(code *)g_pfnIMuseRestoreHook)(SaveGame_Read);
     }
     gzclose(UINT_008a8770);
-    DeleteFileA(IMG_ADDR(0x004e8018));
+    DeleteFileA(((unsigned)(uintptr_t)&s_grim_tmp_004e8018));
   }
   return;
 }

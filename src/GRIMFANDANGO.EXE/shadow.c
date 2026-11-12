@@ -43,24 +43,24 @@ void __cdecl sputCostume_SetShadowColor(int r,int g,int b)
    sputCostume_DrawMeshShadow's four polygon calls); was Shadow_DrawClippedPoly. */
 
 void __cdecl
-sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,void *shadow)
+sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,ActorShadow *shadow)
 
 {
   unsigned char _frame[0xd0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   int count_00;
   void *pvVar2;
-  undefined4 *puVar3;
+  void **ppvVar3;
   #define local_b4 (*(uint *)(_frame + (0xd0 - 0xb4)))
   #define local_90 (*(float (*)[36])(_frame + (0xd0 - 0x90)))
   
   local_b4 = 0;
-  puVar3 = (undefined4 *)((int)shadow + 0x24);
+  ppvVar3 = shadow->aClipPlanes;
   do {
-    if ((void *)*puVar3 == (void *)0x0) {
+    if (*ppvVar3 == (void *)0x0) {
       return;
     }
-    count_00 = WalkPlane_ClipPoly((void *)*puVar3,verts,count,local_90);
+    count_00 = WalkPlane_ClipPoly(*ppvVar3,verts,count,local_90);
     if ((2 < count_00) &&
        (pvVar2 = rdCache_InsertFace(local_90,count_00,g_pShadowMaterial), pvVar2 != (void *)0x0)) {
       fVar1 = (float)*(uint *)((int)pvVar2 + 0x54);
@@ -84,7 +84,7 @@ sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,vo
       }
       maxXY[1] = fVar1;
     }
-    puVar3 = puVar3 + 1;
+    ppvVar3 = ppvVar3 + 1;
     local_b4 = local_b4 + 1;
   } while ((int)local_b4 < 0xc);
   return;

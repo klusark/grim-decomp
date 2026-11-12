@@ -204,7 +204,7 @@ void str_ascii(void)
     } while (cVar1 != '\0');
     if (uVar4 < ~uVar3 - 1) goto LAB_100097c8;
   }
-  luaL_argerror(2,IMG_ADDR(0x10027970));
+  luaL_argerror(2,((unsigned)(uintptr_t)&s_out_of_range_10027970));
 LAB_100097c8:
   lua_pushnumber((float)(byte)pcVar2[uVar4]);
   return;
@@ -448,7 +448,7 @@ void str_find(void)
     } while (cVar1 != '\0');
     if (uVar10 <= ~uVar9 - 1) goto LAB_10009d07;
   }
-  luaL_argerror(3,IMG_ADDR(0x10027970));
+  luaL_argerror(3,((unsigned)(uintptr_t)&s_out_of_range_10027970));
 LAB_10009d07:
   iVar5 = lua_lua2C(4);
   if ((iVar5 == 0) && (pbVar6 = strpbrk(pbVar4,(byte *)s___________100279c4), pbVar6 != (byte *)0x0)
@@ -847,7 +847,7 @@ void __cdecl add_s(int param_1,int *param_2)
       lua_endblock();
       return;
     }
-    luaL_argerror(3,IMG_ADDR(0x10027a3c));
+    luaL_argerror(3,((unsigned)(uintptr_t)&s_string_or_function_expected_10027a3c));
   }
   else {
     pcVar3 = (char *)lua_getstring(param_1);

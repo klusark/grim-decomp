@@ -190,7 +190,7 @@ void __cdecl dsn_setvol(uint volume)
       iVar4 = iVar4 + 2000;
       *puVar2 = iVar1 / 0x17 - 4000;
       puVar2 = puVar3;
-    } while ((int)puVar3 < IMG_ADDR(0x008db290));
+    } while ((int)puVar3 < ((unsigned)(uintptr_t)&UINT_008db290));
     iVar4 = 32000;
     puVar2 = &UINT_008db290;
     do {
@@ -199,7 +199,7 @@ void __cdecl dsn_setvol(uint volume)
       iVar4 = iVar4 + 1000;
       *puVar2 = iVar1 / 0x1f - 2000;
       puVar2 = puVar3;
-    } while ((int)puVar3 < IMG_ADDR(0x008db310));
+    } while ((int)puVar3 < ((unsigned)(uintptr_t)&UINT_008db310));
     iVar4 = 64000;
     puVar2 = &UINT_008db310;
     do {
@@ -208,7 +208,7 @@ void __cdecl dsn_setvol(uint volume)
       iVar4 = iVar4 + 1000;
       *puVar2 = iVar1 / 0x3f - 1000;
       puVar2 = puVar3;
-    } while ((int)puVar3 < IMG_ADDR(0x008db410));
+    } while ((int)puVar3 < ((unsigned)(uintptr_t)&g_pfnStreamMix));
     UINT_008dcc58 = 1;
   }
   g_dwCurrentVol = volume & 0x7f;
@@ -266,7 +266,7 @@ int DsndDriver_InitDirectSound(void)
   undefined4 uVar2;
   
   if (g_pStreamDS == (void *)0x0) {
-    iVar1 = DirectSoundCreate(0,IMG_ADDR(0x008dcc40),0);
+    iVar1 = DirectSoundCreate(0,((unsigned)(uintptr_t)&g_pStreamDS),0);
     if (iVar1 != 0) {
       g_pStreamDS = (void *)0x0;
       ((code *)Lua_Stub)(s_Cannot_create_DirectSound_object_004f40d0);
