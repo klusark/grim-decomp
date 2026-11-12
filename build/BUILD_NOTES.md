@@ -1288,3 +1288,37 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   A first version of the trace set a breakpoint on such a stale stack word, which was the address of the voice's MCMP
   handle; the `int3` byte then overwrote the handle's file number and `Res_FSeek` asserted. It looked like a crash of
   the voice-effect path in every build; read the frame through `ebp` instead.
+
+## The C runtime out of the source (2026-11-12)
+
+What the four programs still used of the original's C runtime, from `tools/lib_audit.py` on the linked programs (the
+DLLs with only their original exports as roots, since the rebuilt ones export everything) and a link map:
+* EXE: seven drive / directory functions the LEC file layer calls (`fle_Rename`, `fle_Remove`, `fle_DirectoryGetCWD`
+  and the drive helpers): `_getdrive` (0x4d56f0), `_chdrive` (0x4d5740), `rename` (0x4d57c0), `remove` (0x4d5800),
+  `_getcwd` (0x4d5830) and, behind it, `_getdcwd` (0x4d5860) and `_validdrive` (0x4d5990); and `strpbrk_or_strspn`
+  (0x4ae220), which is `strspn` (it counts the leading characters that are in the set), called by the tree-select
+  dialog. All are host now (`names/lib_replace.json` aliases), `_getdcwd` / `_validdrive` dead.
+* LUA.DLL: the lexer's four ctype wrappers (0x1000f5c0..0x1000f650, `_isctype` with the locale check), kept.
+* CHORE.DLL: `qsort` (msvcrt's orders equal keys differently), kept; `msvc_fpmath`, `msvc_fpclear`,
+  `msvc_cfltcvt_init`, which its runtime's `_cinit` table points at, kept so that no pointer of the data becomes a stub.
+* IMUSE.DLL: nothing (aliases to msvcrt, `heap_alloc` hand-written).
+Also dead and now in the list: LUA.DLL's locale / start-up helpers (`GetLcidFrom*`, `getSystemCP`, `setSBCS`,
+`setSBUpLow`, `parse_cmdline`, `tmpnam_genfname`, `TranslateName`), IMUSE.DLL's 0x1000c130, CHORE.DLL's
+`msvc_CPtoLCID`. Two the audit called unlinked are live (it matches names, and these are only called by name):
+`strpbrk_or_strspn` and LUA's 0x1000f5c0; the stub list caught both.
+
+`tools/build_src.py` no longer writes the C of a function `names/lib_replace.json` takes out (dead runtime, host
+runtime, zlib 1.1.3) or of the `crt` module, which `build/link.py` never linked: only the function's header and a
+one-line note. A hand-written replacement of such a function leaves the same kind of note. `src/` loses about 52,000
+lines (EXE 159.7 -> 140.4 K, LUA 32.8 -> 15.8 K, IMUSE 19.2 -> 10.9 K, CHORE 12.9 -> 5.2 K).
+
+The dropped code addressed data by number (`IMG_ADDR`): those addresses start spans of `data.c`. `build_src.py` now
+hands them to `datagen.generate`, which keeps starting spans there and declares them in `globals.h` as before, so
+`data.c`, `globals.h`, `datacmp.py` and `data_unused.py` see the same spans as without the change. (A first run
+without that merged spans and undid two entries of `names/data_unused.json`, which the stub list showed:
+IMUSE.DLL's `FUN_1000d130` came back through a pointer in `DAT_10017000`.)
+
+Checks: `data.c` and `globals.h` are as on main. `datacmp.py` against main's build: 0 differences, 0 moved, 0 missing,
+every unused span zero. Stubs: no new one; LUA.DLL 41 -> 35 (functions only the dropped code called). Clean-room against
+grim_tools' knowngood (no install file in the run folder, the suite's own `IMUSE.PSL`): the same 3 of 5167 differ from
+the reference as before (`lab_files`, `lab_dofile`, `lab_costume`), 0 of 5167 from the previous build's log.

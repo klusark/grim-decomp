@@ -1,9 +1,9 @@
 """Static reachability audit of a LINKED program (build/obj/<PROG>/<prog>.exe|dll).
 
-Which functions of the rebuilt binary can run at all?  The decompiled source still contains the
-original MSVC C runtime and zlib; most of the runtime start-up/locale/stdio code is only reached
-from the original `entry`, which the rebuilt programs never run (the host CRT start-up calls
-WinMain).  This tool answers "is function F referenced from anything live?" on the final PE image:
+Which functions of the rebuilt binary can run at all?  The original MSVC C runtime and zlib were
+linked in once; most of the runtime start-up/locale/stdio code is only reached from the original
+`entry`, which the rebuilt programs never run (the host CRT start-up calls WinMain).  (Since
+2026-11-12 the source keeps none of what names/lib_replace.json takes out.)  This tool answers "is function F referenced from anything live?" on the final PE image:
 
   * functions = symbols of `nm -n` inside .text (the next symbol ends a function)
   * edges     = every address-sized hex operand in the disassembly of a function that falls

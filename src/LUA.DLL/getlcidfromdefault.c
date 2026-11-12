@@ -6,13 +6,5 @@
 #include "functions.h"
 
 /* ---- 0x100183e0  GetLcidFromDefault ---- */
-/* MSVC 6 C runtime (matched against the EXE runtime by structure) */
+/* not in the source: names/lib_replace.json (dead): original C runtime code that nothing live reaches */
 
-void GetLcidFromDefault(void)
-
-{
-  DAT_1002c234 = DAT_1002c234 | 0x104;
-  DAT_1002c238 = GetUserDefaultLCID();
-  DAT_1002c21c = DAT_1002c238;
-  return;
-}

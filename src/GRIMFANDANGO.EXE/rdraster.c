@@ -10901,39 +10901,7 @@ void rdNRaster_DrawScanLineNGonTGAT_8(uint *param_1,uint *param_2)
 
 
 /* ---- 0x0042003c  FUN_0042003c ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
-void __fastcall FUN_0042003c(int param_1,int param_2)
-
-{
-  byte *in_EAX;
-  int unaff_EBX;
-  int unaff_EBP;
-  uint unaff_ESI;
-  uint unaff_EDI;
-  
-  while( true ) {
-    *(uint *)(unaff_EBP + 8) = param_2 + unaff_ESI;
-    *in_EAX = *(byte *)((uint)*(byte *)(unaff_EDI +
-                                       g_dwRdNRaster_aMonoMap +
-                                       *(byte *)(param_1 + *(int *)(unaff_EBP + 8))) * 0x100 +
-                        g_dwRdNRaster_aAlphaMap + (uint)*in_EAX);
-    g_dwFixU = g_dwFixU + g_dwUStep;
-    g_dwFixV = g_dwFixV + g_dwVStep;
-    in_EAX = g_pDest + 1;
-    g_dwFixI = g_dwFixI + g_dwIStep;
-    unaff_EBX = unaff_EBX + -1;
-    g_pDest = in_EAX;
-    if (unaff_EBX == 0) break;
-    unaff_EDI = (int)g_dwFixI >> 8 & 0x3f00;
-    unaff_ESI = (int)g_dwFixV >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
-                g_dwRdNRaster_vWrap;
-    param_1 = (int)(g_dwRdNRaster_uWrap & g_dwFixU) >> 0x10;
-    param_2 = g_dwRdNRaster_pPixels;
-  }
-  return;
-}
-#endif
+/* not in the source: names/lib_replace.json (dead): original C runtime code that nothing live reaches */
 
 
 /* ---- 0x004200c0  rdNRaster_DrawScanLineNGonTGAT_16 ---- */

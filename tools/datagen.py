@@ -681,9 +681,11 @@ def img_targets_of(texts):
     return out
 
 
-def generate(prog, srcdir):
+def generate(prog, srcdir, extra_img=()):
     """Called by tools/build_src.py once the program's files are written: rewrites IMG_ADDR(0x...) of the generated
-    code into the name of the span at that address, declares the new names in globals.h and writes data.c."""
+    code into the name of the span at that address, declares the new names in globals.h and writes data.c. extra_img:
+    the IMG_ADDR targets of code build_src leaves out of the source (the C runtime it drops), which still start spans,
+    so the data's spans do not depend on what text is kept."""
     out = os.path.join(srcdir, prog)
     files = sorted(f for f in os.listdir(out) if f.endswith(".c") and f != "data.c")
     texts = {f: open(os.path.join(out, f), encoding="utf-8", newline="").read() for f in files}
@@ -693,7 +695,7 @@ def generate(prog, srcdir):
     def mapped(a):  # what img_addr_ relocated: a section, its end included
         return any(lo <= a <= hi for lo, hi in ranges)
 
-    targets = {a for a in img_targets_of(texts.values()) if mapped(a)}
+    targets = {a for a in img_targets_of(texts.values()) if mapped(a)} | {a for a in extra_img if mapped(a)}
     model = build_model(prog, srcdir, targets)
     new_names = {}
 
@@ -707,6 +709,14 @@ def generate(prog, srcdir):
         if off == 0:
             return "((unsigned)(uintptr_t)&%s)" % sp.name
         return "((unsigned)(uintptr_t)((unsigned char *)&%s + 0x%x))" % (sp.name, off)
+
+    # the dropped code's addresses are declared like the rest, so every tool that builds the model from globals.h
+    # (datacmp.py, data_unused.py, the report) sees the same spans as this data.c
+    for a in sorted(extra_img):
+        if mapped(a):
+            sp, off = resolve(model, a)
+            if sp is not None and off == 0 and sp.name not in model.decls:
+                new_names[sp.name] = sp
 
     n_img = 0
     for f, t in texts.items():

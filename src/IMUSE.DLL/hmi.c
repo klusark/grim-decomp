@@ -6,16 +6,5 @@
 #include "functions.h"
 
 /* ---- 0x1000bae0  hmi__bae0 ---- */
-/* NOT COMPILED: names/lib_replace.json (dead): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
-/* Unidentified function of HMI SOS FX hooks and helpers - module name inferred */
-
-longlong hmi__bae0(void)
-
-{
-  float10 in_ST0;
-  
-  return (longlong)ROUND(in_ST0);
-}
-#endif
+/* not in the source: names/lib_replace.json (dead): original C runtime code that nothing live reaches */
 
