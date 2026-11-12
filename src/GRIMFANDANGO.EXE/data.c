@@ -852,12 +852,12 @@ extern unsigned char DAT_004da768[128];
 extern unsigned char DAT_004da7e8[128];
 extern unsigned char DAT_004da868[120];
 extern unsigned char DAT_004da8e0[120];
-extern unsigned char DAT_004da958[8];
-extern unsigned char DAT_004da960[8];
-extern unsigned char DAT_004da968[16];
-extern unsigned char DAT_004da978[32];
-extern unsigned char DAT_004da998[64];
-extern unsigned char DAT_004da9d8[128];
+extern signed char g_abAdpcmIndexAdjust2[4];
+extern signed char g_abAdpcmIndexAdjust3[8];
+extern signed char g_abAdpcmIndexAdjust4[16];
+extern signed char g_abAdpcmIndexAdjust5[32];
+extern signed char g_abAdpcmIndexAdjust6[64];
+extern signed char g_abAdpcmIndexAdjust7[128];
 extern short g_wAdpcmStepTable[89];
 extern unsigned char DAT_004dab0a[6];
 extern unsigned char g_abAdpcmStepBits[89];
@@ -2564,7 +2564,7 @@ extern unsigned char DAT_004f32c8[72];
 extern void *PTR_fob_flobdec_wave_module_004f3310[4];
 extern void *g_pDWave_flobdec_services[8];
 extern unsigned int g_dwDWave_flobdec_DecodeBody_last_id;
-extern void *DAT_004f3348[8];
+extern void *g_apAdpcmIndexAdjust[8];
 extern char s_FLOBDEC_insane_wave_004f3368[20];
 extern char s_LECMODULE_insane_wave_flobdec_004f337c[32];
 extern char s_C__grimsrc_libs_lecsmush_insane__004f339c[60];
@@ -5249,28 +5249,29 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x004da7e8, 128 bytes, unused (zlib) */ GRIM_DATA("004da7e8") unsigned char DAT_004da7e8[128];
 /* 0x004da868, 120 bytes, unused (zlib) */ GRIM_DATA("004da868") unsigned char DAT_004da868[120];
 /* 0x004da8e0, 120 bytes, unused (zlib) */ GRIM_DATA("004da8e0") unsigned char DAT_004da8e0[120];
-/* 0x004da958, 8 bytes */ GRIM_DATA("004da958") unsigned char DAT_004da958[8] = { 0xff, 0x04, 0xff, 0x04 };
-/* 0x004da960, 8 bytes */ GRIM_DATA("004da960") unsigned char DAT_004da960[8] = { 0xff, 0xff, 0x02, 0x06, 0xff, 0xff, 0x02, 0x06 };
-/* 0x004da968, 16 bytes */ GRIM_DATA("004da968") unsigned char DAT_004da968[16] = { 0xff, 0xff, 0xff, 0xff, 0x01, 0x02, 0x04, 0x06, 0xff, 0xff, 0xff, 0xff, 0x01, 0x02, 0x04, 0x06 };
-/* 0x004da978, 32 bytes */ GRIM_DATA("004da978") unsigned char DAT_004da978[32] = {
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01, 0x01, 0x01, 0x02, 0x02, 0x04, 0x05, 0x06,
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0x01, 0x01, 0x01, 0x02, 0x02, 0x04, 0x05, 0x06
+/* 0x004da958, 8 bytes */ GRIM_DATA("004da958") signed char g_abAdpcmIndexAdjust2[4] = { -1, 4, -1, 4 };
+/* 0x004da95c, 4 bytes: the rest of g_abAdpcmIndexAdjust2's span */ GRIM_DATA("004da958") static unsigned char g_abAdpcmIndexAdjust2__tail[4] __attribute__((used)) = {0};
+/* 0x004da960, 8 bytes */ GRIM_DATA("004da960") signed char g_abAdpcmIndexAdjust3[8] = { -1, -1, 2, 6, -1, -1, 2, 6 };
+/* 0x004da968, 16 bytes */ GRIM_DATA("004da968") signed char g_abAdpcmIndexAdjust4[16] = { -1, -1, -1, -1, 1, 2, 4, 6, -1, -1, -1, -1, 1, 2, 4, 6 };
+/* 0x004da978, 32 bytes */ GRIM_DATA("004da978") signed char g_abAdpcmIndexAdjust5[32] = {
+    -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 2, 2, 4, 5, 6,
+    -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 2, 2, 4, 5, 6
 };
-/* 0x004da998, 64 bytes */ GRIM_DATA("004da998") unsigned char DAT_004da998[64] = {
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-    0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x02, 0x02, 0x02, 0x04, 0x04, 0x04, 0x05, 0x05, 0x06, 0x06,
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-    0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x02, 0x02, 0x02, 0x04, 0x04, 0x04, 0x05, 0x05, 0x06, 0x06
+/* 0x004da998, 64 bytes */ GRIM_DATA("004da998") signed char g_abAdpcmIndexAdjust6[64] = {
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 5, 5, 6, 6,
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 5, 5, 6, 6
 };
-/* 0x004da9d8, 128 bytes */ GRIM_DATA("004da9d8") unsigned char DAT_004da9d8[128] = {
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-    0x02, 0x02, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x06, 0x06,
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-    0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
-    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02,
-    0x02, 0x02, 0x04, 0x04, 0x04, 0x04, 0x04, 0x04, 0x05, 0x05, 0x05, 0x05, 0x06, 0x06, 0x06, 0x06
+/* 0x004da9d8, 128 bytes */ GRIM_DATA("004da9d8") signed char g_abAdpcmIndexAdjust7[128] = {
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
+    2, 2, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6,
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
+    2, 2, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6
 };
 /* 0x004daa58, 178 bytes */ GRIM_DATA("004daa58") short g_wAdpcmStepTable[89] = {
     7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 19, 21, 23, 25, 28, 31,
@@ -10568,9 +10569,9 @@ extern grim_span_004d5400 DAT_004d5400;
 };
 /* 0x004f3340, 8 bytes */ GRIM_DATA("004f3340") unsigned int g_dwDWave_flobdec_DecodeBody_last_id = 0xffffffff;
 /* 0x004f3344, 4 bytes: the rest of g_dwDWave_flobdec_DecodeBody_last_id's span */ GRIM_DATA("004f3340") static unsigned char g_dwDWave_flobdec_DecodeBody_last_id__tail[4] __attribute__((used)) = {0};
-/* 0x004f3348, 32 bytes */ GRIM_DATA("004f3348") void *DAT_004f3348[8] = {
-    0, 0, (void *)&DAT_004da958, (void *)&DAT_004da960,
-    (void *)&DAT_004da968, (void *)&DAT_004da978, (void *)&DAT_004da998, (void *)&DAT_004da9d8
+/* 0x004f3348, 32 bytes */ GRIM_DATA("004f3348") void *g_apAdpcmIndexAdjust[8] = {
+    0, 0, (void *)&g_abAdpcmIndexAdjust2, (void *)&g_abAdpcmIndexAdjust3,
+    (void *)&g_abAdpcmIndexAdjust4, (void *)&g_abAdpcmIndexAdjust5, (void *)&g_abAdpcmIndexAdjust6, (void *)&g_abAdpcmIndexAdjust7
 };
 /* 0x004f3368, 20 bytes */ GRIM_DATA("004f3368") char s_FLOBDEC_insane_wave_004f3368[20] = "FLOBDEC=insane_wave";
 /* 0x004f337c, 32 bytes */ GRIM_DATA("004f337c") char s_LECMODULE_insane_wave_flobdec_004f337c[32] = "LECMODULE=insane_wave_flobdec";

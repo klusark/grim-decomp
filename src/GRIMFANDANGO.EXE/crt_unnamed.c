@@ -4238,8 +4238,7 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
           }
           *(short *)local_20 = (short)uVar7;
           local_20 = local_20 + param_4 * 2;
-          param_2 = (undefined1 *)
-                    ((int)param_2 + (int)*(char *)(*(int *)(&DAT_004f3348 + local_10 * 4) + uVar2));
+          param_2 = (undefined1 *)((int)param_2 + (int)g_apAdpcmIndexAdjust[local_10][uVar2]);
           if ((int)param_2 < 0) {
             param_2 = (undefined1 *)0x0;
           }

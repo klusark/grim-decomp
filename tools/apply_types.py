@@ -224,6 +224,26 @@ def apply_global(prog, e, log):
     r = g.post("apply_data_type", program=prog, address=e["addr"], type_name=e["type"])
     if not g.ok(r):
         log.append(f"FAIL global {e['addr']}: {str(r)[:200]}")
+        return
+    if e.get("name"):
+        apply_global_name(prog, e, log)
+
+
+def apply_global_name(prog, e, log):
+    """The global's name. The bridge's naming policy refuses some (no `a` prefix for an array of globals): then, as
+    tools/apply_names.py does, a plain label. A user label of another name at the address is renamed, not doubled."""
+    cur = g.get_json("audit_global", program=prog, address=e["addr"])
+    old = cur.get("name")
+    if old == e["name"]:
+        return
+    if old and not re.match(r"(?:DAT|PTR|UINT|INT|UNK|LAB|BYTE|WORD|DWORD|FLOAT|DOUBLE|SHORT|CHAR|[A-Z]+_ARRAY)_", old):
+        r = g.post("rename_label", program=prog, address=e["addr"], old_name=old, new_name=e["name"])
+    else:
+        r = g.rename_or_label(prog, e["addr"], e["name"])
+        if not g.ok(r):
+            r = g.post("create_label", program=prog, address=e["addr"], name=e["name"])
+    if not g.ok(r) and "already exists" not in str(r):
+        log.append(f"FAIL name {e['addr']} {e['name']}: {str(r)[:200]}")
 
 
 def apply_this(prog, e, log):

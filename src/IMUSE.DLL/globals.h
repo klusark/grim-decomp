@@ -6,14 +6,15 @@
 #include "ghidra_types.h"
 
 /* ---- named globals (type from Ghidra) ---- */
+extern short g_wAdpcmStepTable[89]; /* 0x10015228 */
+extern byte g_abAdpcmStepBits[89]; /* 0x100152e0 */
+extern sbyte * g_apAdpcmIndexAdjust[8]; /* 0x10017030 */
 extern ImMusicEntry g_aImStateTable[181]; /* 0x100172e8 */
 extern ImMusicEntry g_aImSeqTable[41]; /* 0x1001ae50 */
 extern ImNameAlias g_aImNameAlias[171]; /* 0x1001bbc8 */
 
 /* ---- unnamed data (type inferred from use) ---- */
-extern undefined2 DAT_10015228; /* used by 1 fn(s), first 0x10001c30 */
 extern undefined DAT_100152da; /* used by 1 fn(s), first 0x10001c30 */
-extern undefined DAT_100152e0; /* used by 1 fn(s), first 0x10001c30 */
 extern undefined DAT_10015398; /* used by 1 fn(s), first 0x1000c670 */
 extern undefined UNK_100153b8; /* used by 1 fn(s), first 0x1000c670 */
 extern undefined UNK_10015454; /* used by 1 fn(s), first 0x1000db30 */
@@ -24,7 +25,6 @@ extern undefined DAT_10017014; /* used by 1 fn(s), first 0x1000ea40 */
 extern undefined DAT_1001701c; /* used by 1 fn(s), first 0x1000ea40 */
 extern undefined DAT_10017020; /* used by 1 fn(s), first 0x1000ea40 */
 extern undefined DAT_10017024; /* used by 1 fn(s), first 0x1000ea40 */
-extern undefined DAT_10017030; /* used by 1 fn(s), first 0x10001c30 */
 extern undefined4 DAT_10017050; /* used by 2 fn(s), first 0x100013c0 */
 extern undefined4 DAT_10017058; /* used by 2 fn(s), first 0x100013c0 */
 extern undefined4 DAT_1001705c; /* used by 1 fn(s), first 0x100017e0 */

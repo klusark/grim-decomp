@@ -1,0 +1,15 @@
+{
+ "_comment": "IMUSE.DLL data tables. Types round 7 (docs/notes/types_7.md): iMUSE's copy of VIMA, the LucasArts ADPCM (Im_ConvertBlockImpl), the same tables as the EXE's: the index adjustment for each code by bits per sample (2..7), the pointers to them by width, the IMA step table and the bits per sample for each step index.",
+ "program": "/v101/IMUSE.DLL",
+ "globals": [
+  {"addr": "10015128", "type": "sbyte[4]", "name": "g_abAdpcmIndexAdjust2"},
+  {"addr": "10015130", "type": "sbyte[8]", "name": "g_abAdpcmIndexAdjust3"},
+  {"addr": "10015138", "type": "sbyte[16]", "name": "g_abAdpcmIndexAdjust4"},
+  {"addr": "10015148", "type": "sbyte[32]", "name": "g_abAdpcmIndexAdjust5"},
+  {"addr": "10015168", "type": "sbyte[64]", "name": "g_abAdpcmIndexAdjust6"},
+  {"addr": "100151a8", "type": "sbyte[128]", "name": "g_abAdpcmIndexAdjust7"},
+  {"addr": "10017030", "type": "sbyte *[8]", "name": "g_apAdpcmIndexAdjust"},
+  {"addr": "10015228", "type": "short[89]", "name": "g_wAdpcmStepTable"},
+  {"addr": "100152e0", "type": "byte[89]", "name": "g_abAdpcmStepBits"}
+ ]
+}

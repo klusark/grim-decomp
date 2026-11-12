@@ -2327,7 +2327,7 @@
 | 004cbbe0 | DWave_flobdec_DecodeHeader | crt_unnamed.c | 11 |
 | 004cbc00 | DWave_flobdec_DecodeBody | crt_unnamed.c | 97 |
 | 004cbf40 | FUN_004cbf40 | crt_unnamed.c | 5 |
-| 004cbf50 | VbrAdpcm_Uncompress | crt_unnamed.c | 140 |
+| 004cbf50 | VbrAdpcm_Uncompress | crt_unnamed.c | 139 |
 | 004cd3f0 | FUN_004cd3f0 | crt_unnamed.c | 7 |
 | 004ce010 | sys_GetCount | crt_unnamed.c | 8 |
 | 004ce020 | sys_ExtSync | crt_unnamed.c | 20 |

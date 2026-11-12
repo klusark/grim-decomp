@@ -21,8 +21,8 @@
    ]}
  ],
  "globals": [
-  {"addr": "100172e8", "type": "ImMusicEntry[181]"},
-  {"addr": "1001ae50", "type": "ImMusicEntry[41]"},
-  {"addr": "1001bbc8", "type": "ImNameAlias[171]"}
+  {"addr": "100172e8", "type": "ImMusicEntry[181]", "name": "g_aImStateTable"},
+  {"addr": "1001ae50", "type": "ImMusicEntry[41]", "name": "g_aImSeqTable"},
+  {"addr": "1001bbc8", "type": "ImNameAlias[171]", "name": "g_aImNameAlias"}
  ]
 }
