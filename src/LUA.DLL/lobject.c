@@ -39,32 +39,32 @@ undefined4 __cdecl luaO_redimension(int param_1)
 #if 0
 /* Unidentified function of lobject.c */
 
-int __cdecl luaO_equalObj(int *param_1,int *param_2)
+int __cdecl luaO_equalObj(TObject *t1,TObject *t2)
 
 {
-  if (*param_1 == *param_2) {
-    switch(*param_1) {
+  if (t1->nTtype == t2->nTtype) {
+    switch(t1->nTtype) {
     case -8:
     case -5:
     case -4:
     case -3:
-      return param_1[1] == param_2[1];
+      return (uint)(t1->dwValue == t2->dwValue);
     case -7:
-      return true;
+      return 1;
     case -6:
     case -1:
-      if (PUN(float,param_2[1]) == PUN(float,param_1[1])) {
-        return true;
+      if ((float)t2->dwValue == (float)t1->dwValue) {
+        return 1;
       }
       break;
     case -2:
     case 0:
-      return param_1[1] + 0x18 == param_2[1] + 0x18;
+      return (uint)(t1->dwValue + 0x18 == t2->dwValue + 0x18);
     default:
       lua_error((byte *)s_internal_error_in__lua_equalObj__10027180);
     }
   }
-  return false;
+  return 0;
 }
 #endif
 

@@ -84,7 +84,7 @@ void nextvar(void)
     } while (piVar3 != (int *)0x0);
     if (piVar3 != (int *)0x0) {
       pushstring(piVar3);
-      luaA_pushobject(piVar3 + 4);
+      luaA_pushobject((TObject *)(piVar3 + 4));
     }
   }
   return;
@@ -95,19 +95,17 @@ void nextvar(void)
    TObject {LUA_T_STRING, ts} pushed with luaA_pushobject, used by nextvar / foreachvar); was
    lbuiltin__2e40. */
 
-void __cdecl pushstring(undefined4 param_1)
+void __cdecl pushstring(uint param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define local_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
-  local_8 = 0xfffffffe;
-  local_4 = param_1;
+  local_8.nTtype = -2;
+  local_8.dwValue = param_1;
   luaA_pushobject(&local_8);
   return;
 }
-#undef local_4
 #undef local_8
 
 
@@ -119,30 +117,30 @@ void foreachvar(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  undefined4 *puVar2;
-  #define uStack_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
-  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  undefined4 *puVar1;
+  int iVar2;
+  int *piVar3;
+  #define TStack_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
-  iVar1 = luaL_functionarg(1);
-  puVar2 = (undefined4 *)luaA_Address(iVar1);
-  uStack_8 = *puVar2;
-  uStack_4 = puVar2[1];
-  iVar1 = g_pLuaState[10] * 8;
+  iVar2 = luaL_functionarg(1);
+  piVar3 = (int *)luaA_Address(iVar2);
+  TStack_8.nTtype = *piVar3;
+  TStack_8.dwValue = piVar3[1];
+  iVar2 = g_pLuaState[10] * 8;
   g_pLuaState[10] = g_pLuaState[10] + 1;
-  *(undefined4 *)(g_pLuaState[8] + iVar1) = 0xfffffff9;
+  *(undefined4 *)(g_pLuaState[8] + iVar2) = 0xfffffff9;
   g_pLuaState[7] = g_pLuaState[7] + 8;
-  puVar2 = g_dwLState_rootglobal;
+  puVar1 = g_dwLState_rootglobal;
   do {
-    if (puVar2 == (undefined4 *)0x0) {
+    if (puVar1 == (undefined4 *)0x0) {
       return;
     }
-    if (puVar2[4] != -7) {
-      *(undefined4 *)(g_pLuaState[8] + iVar1) = 0xfffffffe;
-      *(undefined4 **)(g_pLuaState[8] + 4 + iVar1) = puVar2;
-      luaA_pushobject(&uStack_8);
-      pushstring(puVar2);
-      luaA_pushobject(puVar2 + 4);
+    if (puVar1[4] != -7) {
+      *(undefined4 *)(g_pLuaState[8] + iVar2) = 0xfffffffe;
+      *(undefined4 **)(g_pLuaState[8] + 4 + iVar2) = puVar1;
+      luaA_pushobject(&TStack_8);
+      pushstring(puVar1);
+      luaA_pushobject((TObject *)(puVar1 + 4));
       g_pLuaState[2] = g_pLuaState[2] + 1;
       luaD_call((g_pLuaState[7] - g_pLuaState[8] >> 3) + -2,1);
       g_pLuaState[2] = g_pLuaState[2] + -1;
@@ -151,11 +149,10 @@ void foreachvar(void)
       }
       g_pLuaState[7] = g_pLuaState[7] + -8;
     }
-    puVar2 = (undefined4 *)*puVar2;
+    puVar1 = (undefined4 *)*puVar1;
   } while( true );
 }
-#undef uStack_4
-#undef uStack_8
+#undef TStack_8
 
 
 /* ---- 0x10002f80  next ---- */
@@ -166,17 +163,18 @@ void next(void)
 {
   int iVar1;
   int iVar2;
-  int *piVar3;
-  undefined4 *puVar4;
+  TObject *r;
+  TObject *o;
+  Node *o_00;
   
   iVar1 = luaL_tablearg(1);
   iVar2 = luaL_nonnullarg(2);
-  piVar3 = (int *)luaA_Address(iVar2);
-  iVar1 = luaA_Address(iVar1);
-  puVar4 = (undefined4 *)luaH_next(iVar1,piVar3);
-  if (puVar4 != (undefined4 *)0x0) {
-    luaA_pushobject(puVar4);
-    luaA_pushobject(puVar4 + 2);
+  r = (TObject *)luaA_Address(iVar2);
+  o = (TObject *)luaA_Address(iVar1);
+  o_00 = luaH_next(o,r);
+  if (o_00 != (Node *)0x0) {
+    luaA_pushobject(&o_00->ref);
+    luaA_pushobject(&o_00->val);
   }
   return;
 }
@@ -190,28 +188,27 @@ void foreach(void)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  undefined4 *puVar3;
-  int *piVar4;
+  int *piVar3;
+  TObject *o;
   #define uStack_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define uStack_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
-  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  #define TStack_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
   iVar1 = luaL_tablearg(1);
   iVar1 = luaA_Address(iVar1);
   iVar1 = *(int *)(iVar1 + 4);
   iVar2 = luaL_functionarg(2);
-  puVar3 = (undefined4 *)luaA_Address(iVar2);
-  uStack_8 = *puVar3;
+  piVar3 = (int *)luaA_Address(iVar2);
+  TStack_8.nTtype = *piVar3;
   iVar2 = 0;
-  uStack_4 = puVar3[1];
+  TStack_8.dwValue = piVar3[1];
   uStack_10 = 0;
   if (*(int *)(iVar1 + 0xc) != 0) {
     do {
-      piVar4 = (int *)(*(int *)(iVar1 + 8) + iVar2);
-      if ((*piVar4 != -7) && (piVar4[2] != -7)) {
-        luaA_pushobject(&uStack_8);
-        luaA_pushobject(piVar4);
-        luaA_pushobject(piVar4 + 2);
+      o = (TObject *)(*(int *)(iVar1 + 8) + iVar2);
+      if ((o->nTtype != -7) && (o[1].nTtype != -7)) {
+        luaA_pushobject(&TStack_8);
+        luaA_pushobject(o);
+        luaA_pushobject(o + 1);
         g_pLuaState[2] = g_pLuaState[2] + 1;
         luaD_call((g_pLuaState[7] - g_pLuaState[8] >> 3) + -2,1);
         g_pLuaState[2] = g_pLuaState[2] + -1;
@@ -226,9 +223,8 @@ void foreach(void)
   }
   return;
 }
+#undef TStack_8
 #undef uStack_10
-#undef uStack_4
-#undef uStack_8
 
 
 /* ---- 0x100030d0  internaldostring ---- */
@@ -384,7 +380,7 @@ void luaI_startscript(void)
     while (iVar4 != 0) {
       piVar1 = g_pLuaState + 8;
       g_pLuaState = this;
-      luaA_pushobject((undefined4 *)(*piVar1 + -8 + iVar4 * 8));
+      luaA_pushobject((TObject *)(*piVar1 + -8 + iVar4 * 8));
       g_pLuaState = piVar2;
       iVar4 = lua_lua2C(iVar3);
       iVar3 = iVar3 + 1;
@@ -578,7 +574,7 @@ void luaI_identifyscript(void)
   if (iVar2 != 0) {
     do {
       if (*(int *)(iVar2 + 0xc0) == iVar1) {
-        luaA_pushobject((undefined4 *)(iVar2 + 0xc4));
+        luaA_pushobject((TObject *)(iVar2 + 0xc4));
         return;
       }
       iVar2 = LState_next(iVar2);

@@ -1,0 +1,115 @@
+{
+ "_comment": "Types round 8 (docs/notes/types_8.md): Lua 3.1's objects in LUA.DLL, as Grim's build lays them out (checked against the code: luaF_newproto / newclosure, newone / insert, luaH_new / get / set, the GC's mark and free functions). Every collectable object starts with Lua's GCnode {next, marked}; here as pNext / nMarked of each structure. A TObject's value is a union (number, string, table, ...): as dwValue, the bits, since ghidra_types.h holds structures only.",
+ "program": "/LUA.DLL",
+ "structs": [
+  {"name": "TObject", "size": 8, "comment": "A Lua value: its type tag (Grim's numbering, build/overrides.c: -1 number, -2 string, -3 table, -4 Lua function, -5 C function, -6 task, -7 nil, -8 userdata, 0 and up user tags) and the value.",
+   "fields": [
+    [0, "int", "nTtype", "the type tag (lua_Type)"],
+    [4, "uint", "dwValue", "the value: a float for a number, else a pointer (TaggedString *, Hash *, TProtoFunc *, Closure *) or a C function"]
+   ]},
+  {"name": "TaggedString", "size": 28, "comment": "A string or a userdata of the string table (lstring.c). Grim's order: constindex before the hash (Lua 3.1 has them the other way).",
+   "fields": [
+    [0, "TaggedString *", "pNext", "GCnode: the next of its list (itself when new)"],
+    [4, "int", "nMarked", "GCnode: GC mark"],
+    [8, "int", "nConstIndex", "0 for a string, -1 for a userdata"],
+    [12, "uint", "dwHash", "the hash the string table files it under"],
+    [16, "TObject", "globalval", "a string: the global of that name (nil when undefined); a userdata: its tag (nTtype) and pointer (dwValue)"],
+    [24, "char[4]", "aStr", "the characters of a string, NUL-terminated, as long as the string"]
+   ]},
+  {"name": "StringTable", "size": 12, "comment": "One of the hashed string tables (lstring.c stringtable; the state's string_root holds 61).",
+   "fields": [
+    [0, "int", "nSize", "slots"],
+    [4, "int", "nUse", "strings in it (grow() doubles the slots at 2 / 3 full)"],
+    [8, "TaggedString * *", "ppHash", "the slots"]
+   ]},
+  {"name": "Node", "size": 16, "comment": "One slot of a table's hash part (ltable.c): key and value; a nil key is an empty slot.",
+   "fields": [
+    [0, "TObject", "ref", "the key"],
+    [8, "TObject", "val", "the value"]
+   ]},
+  {"name": "Hash", "size": 24, "comment": "A Lua table (ltable.c): open-addressed slots, rehashed at 70% use.",
+   "fields": [
+    [0, "Hash *", "pNext", "GCnode: the next table of roottable"],
+    [4, "int", "nMarked", "GCnode: GC mark"],
+    [8, "Node *", "pNode", "the slots"],
+    [12, "int", "nNhash", "slots (a size of lobject.c's dimensions)"],
+    [16, "int", "nNuse", "slots in use"],
+    [20, "int", "nHtag", "the table's tag"]
+   ]},
+  {"name": "LocVar", "size": 8, "comment": "A local variable of a function's debug information: its name (NULL: a block end) and the line from which it is in scope; line -1 ends the list.",
+   "fields": [
+    [0, "TaggedString *", "pVarname", ""],
+    [4, "int", "nLine", ""]
+   ]},
+  {"name": "TProtoFunc", "size": 32, "comment": "A Lua function prototype (lfunc.c luaF_newproto). Grim's order: the constants first.",
+   "fields": [
+    [0, "TProtoFunc *", "pNext", "GCnode: the next of rootproto"],
+    [4, "int", "nMarked", "GCnode: GC mark"],
+    [8, "TObject *", "pConsts", "the constants"],
+    [12, "int", "nNconsts", ""],
+    [16, "byte *", "pCode", "the byte code"],
+    [20, "int", "nLineDefined", ""],
+    [24, "TaggedString *", "pFileName", "the source's name"],
+    [28, "LocVar *", "pLocvars", "debug information, NULL without"]
+   ]},
+  {"name": "Closure", "size": 20, "comment": "A function closure (lfunc.c luaF_newclosure): the function (aConsts[0]) and its nelems upvalues after it.",
+   "fields": [
+    [0, "Closure *", "pNext", "GCnode: the next of rootcl"],
+    [4, "int", "nMarked", "GCnode: GC mark"],
+    [8, "int", "nNelems", "upvalues"],
+    [12, "TObject[1]", "aConsts", "nelems + 1 values: the function, then the upvalues"]
+   ]}
+ ],
+ "protos": [
+  {"addr": "10004ba0", "proto": "Closure * luaF_newclosure(int nelems)", "cc": "__cdecl"},
+  {"addr": "10004bf0", "proto": "TProtoFunc * luaF_newproto(void)", "cc": "__cdecl"},
+  {"addr": "10004c40", "proto": "void luaF_freeproto(TProtoFunc * l)", "cc": "__cdecl"},
+  {"addr": "10004c70", "proto": "void freefunc(TProtoFunc * f)", "cc": "__cdecl"},
+  {"addr": "10004cc0", "proto": "void luaF_freeclosure(Closure * l)", "cc": "__cdecl"},
+  {"addr": "10004cf0", "proto": "char * luaF_getlocalname(TProtoFunc * func, int local_number, int line)", "cc": "__cdecl"},
+  {"addr": "10005150", "proto": "void strmark(TaggedString * s)", "cc": "__cdecl"},
+  {"addr": "100051f0", "proto": "void luaC_protomark(TProtoFunc * f)", "cc": "__cdecl"},
+  {"addr": "10005270", "proto": "void closuremark(Closure * f)", "cc": "__cdecl"},
+  {"addr": "100052b0", "proto": "void hashmark(Hash * h)", "cc": "__cdecl"},
+  {"addr": "10005170", "proto": "int markobject(TObject * o)", "cc": "__cdecl"},
+  {"addr": "10004e30", "proto": "TObject * luaC_getref(int ref)", "cc": "__cdecl"},
+  {"addr": "10004e70", "proto": "void luaC_hashcallIM(Hash * l)", "cc": "__cdecl"},
+  {"addr": "10004ea0", "proto": "void luaC_strcallIM(TaggedString * l)", "cc": "__cdecl"},
+  {"addr": "10005010", "proto": "int ismarked(TObject * o)", "cc": "__cdecl"},
+  {"addr": "100074b0", "proto": "int luaO_equalObj(TObject * t1, TObject * t2)", "cc": "__cdecl"},
+  {"addr": "100090e0", "proto": "TaggedString * luaS_new(char * str)", "cc": "__cdecl"},
+  {"addr": "10009130", "proto": "void luaS_free(TaggedString * l)", "cc": "__cdecl"},
+  {"addr": "10008d90", "proto": "TaggedString * luaS_createudata(void * udata, int tag)", "cc": "__cdecl"},
+  {"addr": "10009000", "proto": "TaggedString * newone(char * buff, int tag, uint h)", "cc": "__cdecl"},
+  {"addr": "10008dc0", "proto": "TaggedString * insert(char * buff, int tag, StringTable * tb)", "cc": "__cdecl"},
+  {"addr": "10008f50", "proto": "void grow(StringTable * tb)", "cc": "__cdecl"},
+  {"addr": "100094e0", "proto": "void luaS_rawsetglobal(TaggedString * ts, TObject * newval)", "cc": "__cdecl"},
+  {"addr": "10009550", "proto": "int luaS_globaldefined(char * name)", "cc": "__cdecl"},
+  {"addr": "1000c3d0", "proto": "Hash * luaH_new(int nhash)", "cc": "__cdecl"},
+  {"addr": "1000c190", "proto": "void luaH_free(Hash * frees)", "cc": "__cdecl"},
+  {"addr": "1000c1d0", "proto": "void freeHash(Hash * t)", "cc": "__cdecl"},
+  {"addr": "1000c5f0", "proto": "TObject * luaH_get(Hash * t, TObject * ref)", "cc": "__cdecl"},
+  {"addr": "1000c620", "proto": "TObject * luaH_set(Hash * t, TObject * ref)", "cc": "__cdecl"},
+  {"addr": "1000c4d0", "proto": "int present(Hash * t, TObject * key)", "cc": "__cdecl"},
+  {"addr": "1000c580", "proto": "int hashindex(TObject * ref)", "cc": "__cdecl"},
+  {"addr": "1000c6b0", "proto": "void rehash(Hash * t)", "cc": "__cdecl"},
+  {"addr": "1000c7b0", "proto": "Node * luaH_next(TObject * o, TObject * r)", "cc": "__cdecl"},
+  {"addr": "1000c810", "proto": "Node * hashnext(Hash * t, int i)", "cc": "__cdecl"},
+  {"addr": "1000c390", "proto": "Node * luaH_hashnodecreate(int nhash)", "cc": "__cdecl"},
+  {"addr": "1000c770", "proto": "int emptyslots(Hash * t)", "cc": "__cdecl"},
+  {"addr": "1000c450", "proto": "void luaH_forcerehash(Hash * t)", "cc": "__cdecl"},
+  {"addr": "10004810", "proto": "void luaD_gcIM(TObject * o)", "cc": "__cdecl"},
+  {"addr": "10001c00", "proto": "void luaA_pushobject(TObject * o)", "cc": "__cdecl"},
+  {"addr": "10001430", "proto": "int put_luaObject(TObject * o)", "cc": "__cdecl"},
+  {"addr": "100013c0", "proto": "void set_normalized(TObject * d, TObject * s)", "cc": "__cdecl"},
+  {"addr": "100013e0", "proto": "int normalized_type(TObject * o)", "cc": "__cdecl"},
+  {"addr": "10001970", "proto": "TObject * luaA_protovalue(TObject * o)", "cc": "__cdecl"},
+  {"addr": "100024a0", "proto": "void checkfunc(TObject * o)", "cc": "__cdecl"},
+  {"addr": "1000d810", "proto": "void luaV_settable(TObject * t, int mode)", "cc": "__cdecl"},
+  {"addr": "1000d900", "proto": "void luaV_getglobal(TaggedString * ts)", "cc": "__cdecl"},
+  {"addr": "1000d990", "proto": "void luaV_setglobal(TaggedString * ts)", "cc": "__cdecl"},
+  {"addr": "1000da30", "proto": "void luaV_pack(int firstel, int nvararg, TObject * tab)", "cc": "__cdecl"},
+  {"addr": "1000ca20", "proto": "int luaT_efectivetag(TObject * o)", "cc": "__cdecl"},
+  {"addr": "100040e0", "proto": "void luaD_callTM(TObject * f, int nParams, int nResults)", "cc": "__cdecl"}
+ ]
+}

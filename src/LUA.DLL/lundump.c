@@ -67,26 +67,26 @@ undefined4 * __cdecl LoadFunction(int *param_1)
 
 {
   uint *puVar1;
-  undefined4 *puVar2;
+  TProtoFunc *pTVar2;
   uint uVar3;
-  undefined4 uVar4;
-  undefined4 *puVar5;
+  TaggedString *pTVar4;
+  byte *pbVar5;
   uint *puVar6;
   
   puVar1 = (uint *)*param_1;
-  puVar2 = luaF_newclosure();
+  pTVar2 = luaF_newproto();
   uVar3 = LoadWord((int *)puVar1);
-  puVar2[5] = uVar3;
-  uVar4 = LoadTString(puVar1);
-  puVar2[6] = uVar4;
+  pTVar2->nLineDefined = uVar3;
+  pTVar4 = (TaggedString *)LoadTString(puVar1);
+  pTVar2->pFileName = pTVar4;
   puVar6 = puVar1;
   uVar3 = LoadSize((int *)puVar1);
-  puVar5 = lundump__d030(uVar3,puVar6);
-  puVar2[4] = puVar5;
-  LoadConstants((int)puVar2,param_1);
-  LoadLocals((int)puVar2,puVar1);
-  lundump__d3c0((int)puVar2,param_1);
-  return puVar2;
+  pbVar5 = (byte *)lundump__d030(uVar3,puVar6);
+  pTVar2->pCode = pbVar5;
+  LoadConstants((int)pTVar2,param_1);
+  LoadLocals((int)pTVar2,puVar1);
+  lundump__d3c0((int)pTVar2,param_1);
+  return &pTVar2->pNext;
 }
 
 /* ---- 0x1000cfa0  LoadWord ---- */
@@ -199,15 +199,15 @@ uint __cdecl LoadSize(int *param_1)
 undefined4 __cdecl LoadTString(uint *param_1)
 
 {
-  uint *puVar1;
-  undefined4 uVar2;
+  uint *str;
+  TaggedString *pTVar1;
   
-  puVar1 = Undump_LoadString(param_1);
-  if (puVar1 == (uint *)0x0) {
+  str = Undump_LoadString(param_1);
+  if (str == (uint *)0x0) {
     return 0;
   }
-  uVar2 = luaS_new((byte *)puVar1);
-  return uVar2;
+  pTVar1 = luaS_new((char *)str);
+  return pTVar1;
 }
 
 /* ---- 0x1000d0f0  Undump_LoadString ---- */
@@ -574,9 +574,9 @@ undefined4 __cdecl luaV_tostring(int *param_1)
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  int iVar2;
+  TaggedString *pTVar2;
   longlong lVar3;
-  #define local_3c (*(byte (*)[60])(_frame + (0x50 - 0x3c)))
+  #define local_3c (*(char (*)[60])(_frame + (0x50 - 0x3c)))
   
   if (*param_1 != -1) {
     return 1;
@@ -585,14 +585,14 @@ undefined4 __cdecl luaV_tostring(int *param_1)
   if ((-2.1474836e+09 <= fVar1) && (fVar1 <= 2.1474836e+09)) {
     lVar3 = _ftol();
     if ((float)(int)lVar3 == fVar1) {
-      sprintf((char *)local_3c,&DAT_1002817c);
+      sprintf(local_3c,&DAT_1002817c);
       goto LAB_1000d6ae;
     }
   }
-  sprintf((char *)local_3c,&DAT_10028178,(double)(float)param_1[1]);
+  sprintf(local_3c,&DAT_10028178,(double)(float)param_1[1]);
 LAB_1000d6ae:
-  iVar2 = luaS_new(local_3c);
-  param_1[1] = iVar2;
+  pTVar2 = luaS_new(local_3c);
+  param_1[1] = (int)pTVar2;
   *param_1 = -2;
   return 0;
 }

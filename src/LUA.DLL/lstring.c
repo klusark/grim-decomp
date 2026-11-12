@@ -29,103 +29,103 @@ void luaS_init(void)
 /* Original name luaS_createudata (the remaster's libLua.so: luaS_createudata: callers
    lua_pushusertag and GlobalBeginRestore, calls insert); was luaS_hash. */
 
-undefined * __cdecl luaS_createudata(byte *param_1,uint param_2)
+TaggedString * __cdecl luaS_createudata(void *udata,int tag)
 
 {
-  undefined *puVar1;
+  TaggedString *pTVar1;
   
-  puVar1 = insert(param_1,param_2,(uint *)(g_dwLState_string_root + ((uint)param_1 % 0x3d) * 0xc));
-  return puVar1;
+  pTVar1 = insert(udata,tag,(StringTable *)(g_dwLState_string_root + ((uint)udata % 0x3d) * 0xc));
+  return pTVar1;
 }
 
 /* ---- 0x10008dc0  insert ---- */
 /* Original name insert (the remaster's libLua.so: static insert(char*, int, stringtable*): callers
    luaS_new and luaS_createudata); was lstring__8dc0. */
 
-undefined * __cdecl insert(byte *param_1,uint param_2,uint *param_3)
+TaggedString * __cdecl insert(char *buff,int tag,StringTable *tb)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
-  undefined *puVar2;
-  byte *pbVar3;
-  int iVar4;
-  uint uVar5;
-  byte *pbVar6;
+  byte *h;
+  TaggedString *pTVar2;
+  uint uVar3;
+  byte *pbVar4;
+  int iVar5;
+  uint uVar6;
   uint uVar7;
-  uint uVar8;
-  byte *pbVar9;
-  bool bVar10;
+  char *pcVar8;
+  bool bVar9;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
-  pbVar3 = hash(param_1,param_2);
-  uVar5 = *param_3;
+  h = hash((byte *)buff,tag);
+  uVar3 = tb->nSize;
   local_8 = 0xffffffff;
-  if ((int)(uVar5 * 2) <= (int)(param_3[1] * 3)) {
-    grow(param_3);
-    uVar5 = *param_3;
+  if ((int)(uVar3 * 2) <= tb->nUse * 3) {
+    grow(tb);
+    uVar3 = tb->nSize;
   }
-  uVar7 = (uint)pbVar3 % uVar5;
-  puVar2 = *(undefined **)(param_3[2] + uVar7 * 4);
-  uVar8 = local_8;
+  uVar6 = (uint)h % uVar3;
+  pTVar2 = tb->ppHash[uVar6];
+  uVar7 = local_8;
   do {
-    if (puVar2 == (undefined *)0x0) {
-      if (uVar8 == 0xffffffff) {
-        param_3[1] = param_3[1] + 1;
-        uVar8 = uVar7;
+    if (pTVar2 == (TaggedString *)0x0) {
+      if (uVar7 == 0xffffffff) {
+        tb->nUse = tb->nUse + 1;
+        uVar7 = uVar6;
       }
-      iVar4 = newone((char *)param_1,param_2,pbVar3);
-      *(int *)(param_3[2] + uVar8 * 4) = iVar4;
-      return *(undefined **)(param_3[2] + uVar8 * 4);
+      pTVar2 = newone(buff,tag,(uint)h);
+      tb->ppHash[uVar7] = pTVar2;
+      return tb->ppHash[uVar7];
     }
-    local_8 = uVar7;
-    if (puVar2 != &g_EMPTY) {
-      if (*(int *)(puVar2 + 8) < 0) {
-        if (((param_2 != *(uint *)(puVar2 + 0x10)) && (param_2 != 0xffffffff)) ||
-           (param_1 != *(byte **)(puVar2 + 0x14))) goto LAB_10008e84;
-        bVar10 = true;
+    local_8 = uVar6;
+    if (pTVar2 != (TaggedString *)&g_EMPTY) {
+      if (pTVar2->nConstIndex < 0) {
+        if (((tag != (pTVar2->globalval).nTtype) && (tag != -1)) ||
+           (buff != (char *)(pTVar2->globalval).dwValue)) goto LAB_10008e84;
+        bVar9 = true;
       }
       else {
-        if (param_2 == 0xfffffffe) {
-          pbVar9 = puVar2 + 0x18;
-          pbVar6 = param_1;
+        if (tag == -2) {
+          pcVar8 = pTVar2->aStr;
+          pbVar4 = (byte *)buff;
           do {
-            bVar1 = *pbVar6;
-            bVar10 = bVar1 < *pbVar9;
-            if (bVar1 != *pbVar9) {
+            bVar1 = *pbVar4;
+            bVar9 = bVar1 < (byte)*pcVar8;
+            if (bVar1 != *pcVar8) {
 LAB_10008e6c:
-              iVar4 = (1 - (uint)bVar10) - (uint)(bVar10 != 0);
+              iVar5 = (1 - (uint)bVar9) - (uint)(bVar9 != 0);
               goto LAB_10008e71;
             }
             if (bVar1 == 0) break;
-            bVar1 = pbVar6[1];
-            bVar10 = bVar1 < pbVar9[1];
-            if (bVar1 != pbVar9[1]) goto LAB_10008e6c;
-            pbVar6 = pbVar6 + 2;
-            pbVar9 = pbVar9 + 2;
+            bVar1 = pbVar4[1];
+            bVar9 = bVar1 < (byte)pcVar8[1];
+            if (bVar1 != pcVar8[1]) goto LAB_10008e6c;
+            pbVar4 = pbVar4 + 2;
+            pcVar8 = pcVar8 + 2;
           } while (bVar1 != 0);
-          iVar4 = 0;
+          iVar5 = 0;
 LAB_10008e71:
-          if (iVar4 == 0) {
-            bVar10 = true;
+          if (iVar5 == 0) {
+            bVar9 = true;
             goto LAB_10008e86;
           }
         }
 LAB_10008e84:
-        bVar10 = false;
+        bVar9 = false;
       }
 LAB_10008e86:
-      local_8 = uVar8;
-      if (bVar10) {
-        return puVar2;
+      local_8 = uVar7;
+      if (bVar9) {
+        return pTVar2;
       }
     }
-    uVar7 = uVar7 + 1;
-    if (uVar7 == uVar5) {
-      uVar7 = 0;
+    uVar6 = uVar6 + 1;
+    if (uVar6 == uVar3) {
+      uVar6 = 0;
     }
-    puVar2 = *(undefined **)(param_3[2] + uVar7 * 4);
-    uVar8 = local_8;
+    pTVar2 = tb->ppHash[uVar6];
+    uVar7 = local_8;
   } while( true );
 }
 #undef local_8
@@ -161,50 +161,50 @@ byte * __cdecl hash(byte *param_1,int param_2)
    grow: luaO_redimension of the size, rehash every string that is neither NULL nor EMPTY, free the
    old array); was luaS_grow. */
 
-void __cdecl grow(uint *param_1)
+void __cdecl grow(StringTable *tb)
 
 {
-  undefined *puVar1;
-  int iVar2;
+  TaggedString *pTVar1;
+  TaggedString *pTVar2;
   uint uVar3;
-  undefined4 *puVar4;
+  TaggedString **ppTVar4;
   uint uVar5;
-  undefined4 *puVar6;
+  TaggedString **ppTVar6;
   int iVar7;
   
-  uVar3 = luaO_redimension(*param_1);
-  puVar4 = (undefined4 *)
-           (**(code **)(g_dwLuaHS + 0x20))
-                     (uVar3 * 4,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x38);
+  uVar3 = luaO_redimension(tb->nSize);
+  ppTVar4 = (TaggedString **)
+            (**(code **)(g_dwLuaHS + 0x20))
+                      (uVar3 * 4,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x38);
   uVar5 = uVar3;
-  puVar6 = puVar4;
+  ppTVar6 = ppTVar4;
   if (0 < (int)uVar3) {
     for (; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *puVar6 = 0;
-      puVar6 = puVar6 + 1;
+      *ppTVar6 = (TaggedString *)0x0;
+      ppTVar6 = ppTVar6 + 1;
     }
   }
   iVar7 = 0;
-  param_1[1] = 0;
-  if (0 < (int)*param_1) {
+  tb->nUse = 0;
+  if (0 < tb->nSize) {
     do {
-      puVar1 = *(undefined **)(param_1[2] + iVar7 * 4);
-      if ((puVar1 != (undefined *)0x0) && (puVar1 != &g_EMPTY)) {
-        uVar5 = *(uint *)(puVar1 + 0xc) % uVar3;
-        iVar2 = puVar4[uVar5];
-        while (iVar2 != 0) {
+      pTVar1 = tb->ppHash[iVar7];
+      if ((pTVar1 != (TaggedString *)0x0) && (pTVar1 != (TaggedString *)&g_EMPTY)) {
+        uVar5 = pTVar1->dwHash % uVar3;
+        pTVar2 = ppTVar4[uVar5];
+        while (pTVar2 != (TaggedString *)0x0) {
           uVar5 = (int)(uVar5 + 1) % (int)uVar3;
-          iVar2 = puVar4[uVar5];
+          pTVar2 = ppTVar4[uVar5];
         }
-        puVar4[uVar5] = puVar1;
-        param_1[1] = param_1[1] + 1;
+        ppTVar4[uVar5] = pTVar1;
+        tb->nUse = tb->nUse + 1;
       }
       iVar7 = iVar7 + 1;
-    } while (iVar7 < (int)*param_1);
+    } while (iVar7 < tb->nSize);
   }
-  (**(code **)(g_dwLuaHS + 0x24))(param_1[2]);
-  param_1[2] = (uint)puVar4;
-  *param_1 = uVar3;
+  (**(code **)(g_dwLuaHS + 0x24))(tb->ppHash);
+  tb->ppHash = ppTVar4;
+  tb->nSize = uVar3;
   return;
 }
 
@@ -214,20 +214,20 @@ void __cdecl grow(uint *param_1)
    constindex 0, nblocks by length), else a userdata record (tag, constindex -1)); was luaS_newlstr.
     */
 
-int __cdecl newone(char *param_1,uint param_2,undefined4 param_3)
+TaggedString * __cdecl newone(char *buff,int tag,uint h)
 
 {
   char cVar1;
-  int iVar2;
+  TaggedString *pTVar2;
   uint uVar3;
   int iVar4;
   uint uVar5;
   char *pcVar6;
   char *pcVar7;
   
-  if (param_2 == 0xfffffffe) {
+  if (tag == -2) {
     uVar3 = 0xffffffff;
-    pcVar6 = param_1;
+    pcVar6 = buff;
     do {
       if (uVar3 == 0) break;
       uVar3 = uVar3 - 1;
@@ -235,20 +235,21 @@ int __cdecl newone(char *param_1,uint param_2,undefined4 param_3)
       pcVar6 = pcVar6 + 1;
     } while (cVar1 != '\0');
     iVar4 = ~uVar3 - 1;
-    iVar2 = (**(code **)(g_dwLuaHS + 0x20))
-                      (~uVar3 + 0x1b,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x52);
+    pTVar2 = (TaggedString *)
+             (**(code **)(g_dwLuaHS + 0x20))
+                       (~uVar3 + 0x1b,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x52);
     uVar3 = 0xffffffff;
     do {
-      pcVar6 = param_1;
+      pcVar6 = buff;
       if (uVar3 == 0) break;
       uVar3 = uVar3 - 1;
-      pcVar6 = param_1 + 1;
-      cVar1 = *param_1;
-      param_1 = pcVar6;
+      pcVar6 = buff + 1;
+      cVar1 = *buff;
+      buff = pcVar6;
     } while (cVar1 != '\0');
     uVar3 = ~uVar3;
     pcVar6 = pcVar6 + -uVar3;
-    pcVar7 = (char *)(iVar2 + 0x18);
+    pcVar7 = pTVar2->aStr;
     for (uVar5 = uVar3 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
       *(undefined4 *)pcVar7 = *(undefined4 *)pcVar6;
       pcVar6 = pcVar6 + 4;
@@ -259,33 +260,33 @@ int __cdecl newone(char *param_1,uint param_2,undefined4 param_3)
       pcVar6 = pcVar6 + 1;
       pcVar7 = pcVar7 + 1;
     }
-    *(undefined4 *)(iVar2 + 0x10) = 0xfffffff9;
-    *(undefined4 *)(iVar2 + 8) = 0;
+    (pTVar2->globalval).nTtype = -7;
+    pTVar2->nConstIndex = 0;
     g_dwLState_nblocks = g_dwLState_nblocks + 1 + ((int)(iVar4 + (iVar4 >> 0x1f & 0x3fU)) >> 6);
   }
   else {
-    iVar2 = (**(code **)(g_dwLuaHS + 0x20))(0x1c,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x59);
-    *(char **)(iVar2 + 0x14) = param_1;
-    *(uint *)(iVar2 + 0x10) = -(uint)(param_2 != 0xffffffff) & param_2;
-    *(undefined4 *)(iVar2 + 8) = 0xffffffff;
+    pTVar2 = (TaggedString *)
+             (**(code **)(g_dwLuaHS + 0x20))(0x1c,s_C__grimsrc_libs_lua_src_lstring__100278b4,0x59);
+    (pTVar2->globalval).dwValue = (uint)buff;
+    (pTVar2->globalval).nTtype = -(uint)(tag != -1) & tag;
+    pTVar2->nConstIndex = -1;
     g_dwLState_nblocks = g_dwLState_nblocks + 1;
   }
-  *(undefined4 *)(iVar2 + 4) = 0;
-  *(undefined4 *)(iVar2 + 0xc) = param_3;
-  *(int *)iVar2 = iVar2;
-  return iVar2;
+  pTVar2->nMarked = 0;
+  pTVar2->dwHash = h;
+  pTVar2->pNext = pTVar2;
+  return pTVar2;
 }
 
 /* ---- 0x100090e0  luaS_new ---- */
-undefined * __cdecl luaS_new(byte *param_1)
+TaggedString * __cdecl luaS_new(char *str)
 
 {
-  undefined *puVar1;
+  TaggedString *pTVar1;
   
                     /* 0x90e0  2  luaS_new */
-  puVar1 = insert(param_1,0xfffffffe,
-                  (uint *)(g_dwLState_string_root + ((uint)(int)(char)*param_1 % 0x3d) * 0xc));
-  return puVar1;
+  pTVar1 = insert(str,-2,(StringTable *)(g_dwLState_string_root + ((uint)(int)*str % 0x3d) * 0xc));
+  return pTVar1;
 }
 
 /* ---- 0x10009110  luaS_newfixedstring ---- */
@@ -294,11 +295,11 @@ undefined * __cdecl luaS_new(byte *param_1)
 void __cdecl luaS_newfixedstring(byte *param_1)
 
 {
-  int iVar1;
+  TaggedString *pTVar1;
   
-  iVar1 = luaS_new(param_1);
-  if (*(int *)(iVar1 + 4) == 0) {
-    *(undefined4 *)(iVar1 + 4) = 2;
+  pTVar1 = luaS_new((char *)param_1);
+  if (pTVar1->nMarked == 0) {
+    pTVar1->nMarked = 2;
   }
   return;
 }
@@ -306,26 +307,26 @@ void __cdecl luaS_newfixedstring(byte *param_1)
 /* ---- 0x10009130  luaS_free ---- */
 /* Unidentified function of lstring.c (string table) */
 
-void __cdecl luaS_free(undefined4 *param_1)
+void __cdecl luaS_free(TaggedString *l)
 
 {
   char cVar1;
-  undefined4 *puVar2;
+  TaggedString *pTVar2;
   int iVar3;
   uint uVar4;
   char *pcVar5;
   
   do {
-    if (param_1 == (undefined4 *)0x0) {
+    if (l == (TaggedString *)0x0) {
       return;
     }
-    puVar2 = (undefined4 *)*param_1;
-    if (param_1[2] == -1) {
+    pTVar2 = l->pNext;
+    if (l->nConstIndex == -1) {
       iVar3 = 1;
     }
     else {
       uVar4 = 0xffffffff;
-      pcVar5 = (char *)(param_1 + 6);
+      pcVar5 = l->aStr;
       do {
         if (uVar4 == 0) break;
         uVar4 = uVar4 - 1;
@@ -335,8 +336,8 @@ void __cdecl luaS_free(undefined4 *param_1)
       iVar3 = (~uVar4 - 1 >> 6) + 1;
     }
     g_dwLState_nblocks = g_dwLState_nblocks - iVar3;
-    (**(code **)(g_dwLuaHS + 0x24))(param_1);
-    param_1 = puVar2;
+    (**(code **)(g_dwLuaHS + 0x24))(l);
+    l = pTVar2;
   } while( true );
 }
 
@@ -626,14 +627,14 @@ void luaS_freeall(void)
 /* Original name luaS_rawsetglobal (the remaster's libLua.so: callers luaV_setglobal,
    lua_rawsetglobal); was lstring__94e0. */
 
-void __cdecl luaS_rawsetglobal(int *param_1,int *param_2)
+void __cdecl luaS_rawsetglobal(TaggedString *ts,TObject *newval)
 
 {
-  param_1[4] = *param_2;
-  param_1[5] = param_2[1];
-  if ((int *)*param_1 == param_1) {
-    *param_1 = (int)g_dwLState_rootglobal;
-    g_dwLState_rootglobal = param_1;
+  (ts->globalval).nTtype = newval->nTtype;
+  (ts->globalval).dwValue = newval->dwValue;
+  if (ts->pNext == ts) {
+    ts->pNext = g_dwLState_rootglobal;
+    g_dwLState_rootglobal = ts;
   }
   return;
 }
@@ -666,13 +667,13 @@ int * __cdecl luaS_travsymbol(undefined *param_1)
 /* Original name luaS_globaldefined (the remaster's libLua.so: luaS_new(name)->value != nil (the
    $ifnot pragma test)); was lstring__9550. */
 
-int __cdecl luaS_globaldefined(byte *param_1)
+int __cdecl luaS_globaldefined(char *name)
 
 {
-  int iVar1;
+  TaggedString *pTVar1;
   
-  iVar1 = luaS_new(param_1);
-  return *(int *)(iVar1 + 0x10) != -7;
+  pTVar1 = luaS_new(name);
+  return (uint)((pTVar1->globalval).nTtype != -7);
 }
 
 /* ---- 0x10009570  str_len ---- */

@@ -12,15 +12,15 @@ void luaX_init(void)
 
 {
   undefined *puVar1;
-  int iVar2;
+  TaggedString *pTVar2;
   undefined **ppuVar3;
   
   ppuVar3 = (undefined **)&DAT_10026d14;
   do {
-    iVar2 = luaS_new(ppuVar3[-1]);
+    pTVar2 = luaS_new(ppuVar3[-1]);
     puVar1 = *ppuVar3;
     ppuVar3 = ppuVar3 + 2;
-    *(undefined **)(iVar2 + 4) = puVar1;
+    pTVar2->nMarked = (int)puVar1;
   } while (ppuVar3 < &PTR_DAT_10026d94);
   return;
 }
@@ -114,7 +114,7 @@ uint __cdecl luaY_lex(float *param_1)
   double dVar3;
   uint uVar4;
   uint uVar5;
-  float fVar6;
+  TaggedString *pTVar6;
   int *piVar7;
   uint uVar8;
   longlong lVar9;
@@ -161,12 +161,12 @@ uint __cdecl luaY_lex(float *param_1)
         uVar4 = FUN_1000f650(uVar4);
       } while ((uVar4 != 0) || (*puVar2 == 0x5f));
       luaL_addchar(0);
-      fVar6 = PUN(float,luaS_new(g_dwLState_Mbuffbase));
-      if ((int)*(uint *)(PUN(int,(float)fVar6) + 4) < 0x100) {
-        *param_1 = fVar6;
+      pTVar6 = luaS_new(g_dwLState_Mbuffbase);
+      if (pTVar6->nMarked < 0x100) {
+        *param_1 = PUN(float,pTVar6);
         return 0x112;
       }
-      return *(uint *)(PUN(int,(float)fVar6) + 4);
+      return pTVar6->nMarked;
     case 9:
     case 0xd:
     case 0x20:
@@ -558,8 +558,8 @@ joined_r0x100060f4:
     }
     *puVar2 = uVar4;
     luaL_addchar(0);
-    fVar6 = PUN(float,luaS_new(g_dwLState_Mbuffbase + 1));
-    *param_1 = fVar6;
+    pTVar6 = luaS_new(g_dwLState_Mbuffbase + 1);
+    *param_1 = PUN(float,pTVar6);
     *(undefined1 *)(g_dwLState_Mbuffnext + -1 + g_dwLState_Mbuffer) = uVar10;
     return 0x113;
   }
@@ -803,21 +803,18 @@ void __cdecl skipspace(uint *param_1)
 uint __cdecl checkcond(byte *param_1)
 
 {
-  bool bVar1;
-  uint uVar2;
-  undefined3 extraout_var;
+  uint uVar1;
   
-  uVar2 = luaO_findstring(param_1,&g_pCheckcond_opts);
-  if ((int)uVar2 < 0) {
-    uVar2 = FUN_1000f5c0((uint)*param_1);
-    if ((uVar2 == 0) && (*param_1 != 0x5f)) {
+  uVar1 = luaO_findstring(param_1,&g_pCheckcond_opts);
+  if ((int)uVar1 < 0) {
+    uVar1 = FUN_1000f5c0((uint)*param_1);
+    if ((uVar1 == 0) && (*param_1 != 0x5f)) {
       luaY_syntaxerror(s_invalid__if_condition_10026f08,(char *)param_1);
       return 0;
     }
-    bVar1 = luaS_globaldefined(param_1);
-    uVar2 = ((uint)(bVar1));
+    uVar1 = luaS_globaldefined((char *)param_1);
   }
-  return uVar2;
+  return uVar1;
 }
 
 /* ---- 0x10006bb0  readname ---- */
@@ -904,7 +901,7 @@ undefined4 __cdecl read_long_string(uint *param_1,undefined4 *param_2)
   byte bVar1;
   int *piVar2;
   uint uVar3;
-  undefined4 uVar4;
+  TaggedString *pTVar4;
   int iVar5;
   
   iVar5 = 0;
@@ -950,8 +947,8 @@ LAB_10006cb8:
     }
     *param_1 = uVar3;
     *(undefined1 *)(g_dwLState_Mbuffnext + -2 + g_dwLState_Mbuffer) = 0;
-    uVar4 = luaS_new((byte *)(g_dwLState_Mbuffbase + 2));
-    *param_2 = uVar4;
+    pTVar4 = luaS_new((char *)(g_dwLState_Mbuffbase + 2));
+    *param_2 = pTVar4;
     *(undefined1 *)(g_dwLState_Mbuffnext + -2 + g_dwLState_Mbuffer) = 0x5d;
     return 0x113;
   }

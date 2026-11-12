@@ -250,21 +250,22 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint *puVar1;
+  Hash *t;
   int a2;
-  int *piVar2;
-  byte *pbVar3;
-  int iVar4;
+  undefined4 *puVar2;
+  char *str;
+  TaggedString *pTVar3;
+  undefined4 *puVar4;
   undefined4 *puVar5;
-  undefined4 *puVar6;
-  undefined4 *puVar7;
-  undefined4 uVar8;
-  uint uVar9;
-  int iVar10;
-  #define piStack_2c (*(int **)(_frame + (0x40 - 0x2c)))
+  undefined4 uVar6;
+  uint uVar7;
+  int iVar8;
+  int iVar9;
+  #define puStack_2c (*(undefined4 **)(_frame + (0x40 - 0x2c)))
   #define puStack_28 (*(undefined4 **)(_frame + (0x40 - 0x28)))
   #define puStack_24 (*(undefined4 **)(_frame + (0x40 - 0x24)))
   #define local_20 (*(int *)(_frame + (0x40 - 0x20)))
-  #define pbStack_1c (*(byte **)(_frame + (0x40 - 0x1c)))
+  #define pvStack_1c (*(void **)(_frame + (0x40 - 0x1c)))
   #define uStack_18 (*(undefined4 *)(_frame + (0x40 - 0x18)))
   #define iStack_14 (*(int *)(_frame + (0x40 - 0x14)))
   #define puStack_10 (*(undefined4 **)(_frame + (0x40 - 0x10)))
@@ -278,49 +279,49 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   (*(code *)a1)(&g_dwLState_tablePtrTotal,4);
   (*(code *)a1)(&g_dwLState_protoPtrTotal,4);
   (*(code *)a1)(&uStack_c,4);
-  piVar2 = (int *)(**(code **)(g_dwLuaHS + 0x20))
-                            (g_dwLState_stringPtrTotal * 8,
-                             s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x1cf);
-  g_dwLState_aStringPtrs = piVar2;
+  puVar2 = (undefined4 *)
+           (**(code **)(g_dwLuaHS + 0x20))
+                     (g_dwLState_stringPtrTotal * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,
+                      0x1cf);
+  g_dwLState_aStringPtrs = puVar2;
   (*(code *)a1)(&iStack_8,4);
-  pbVar3 = (byte *)(**(code **)(g_dwLuaHS + 0x20))
-                             (iStack_8 + 5,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x1d3);
+  str = (char *)(**(code **)(g_dwLuaHS + 0x20))
+                          (iStack_8 + 5,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x1d3);
   a1 = 0;
   if (g_dwLState_stringPtrTotal != 0) {
-    piStack_2c = piVar2 + 1;
+    puStack_2c = puVar2 + 1;
     do {
-      (*(code *)a2)(piStack_2c,4);
+      (*(code *)a2)(puStack_2c,4);
       (*(code *)a2)(&iStack_14,4);
       (*(code *)a2)(&puStack_28,4);
-      (*(code *)a2)(&pbStack_1c,4);
+      (*(code *)a2)(&pvStack_1c,4);
       if (iStack_14 == -1) {
-        puVar6 = puStack_28;
+        puVar4 = puStack_28;
         if (puStack_28 == (undefined4 *)0x0) {
-          puVar6 = (undefined4 *)0xffffffff;
+          puVar4 = (undefined4 *)0xffffffff;
         }
-        iVar4 = luaS_createudata(pbStack_1c,(uint)puVar6);
+        pTVar3 = luaS_createudata(pvStack_1c,(int)puVar4);
         if (lua_restorehook != (code *)0x0) {
-          uVar8 = (*lua_restorehook)(*(undefined4 *)(iVar4 + 0x10),*(undefined4 *)(iVar4 + 0x14),a2)
-          ;
-          *(undefined4 *)(iVar4 + 0x14) = uVar8;
+          uVar7 = (*lua_restorehook)((pTVar3->globalval).nTtype,(pTVar3->globalval).dwValue,a2);
+          (pTVar3->globalval).dwValue = uVar7;
         }
       }
       else {
         (*(code *)a2)(&puStack_24,4);
-        (*(code *)a2)(pbVar3,puStack_24);
-        *(byte *)((int)puStack_24 + (int)pbVar3) = 0;
-        iVar4 = luaS_new(pbVar3);
-        *(byte **)(iVar4 + 0x14) = pbStack_1c;
-        *(undefined4 **)(iVar4 + 0x10) = puStack_28;
+        (*(code *)a2)(str,puStack_24);
+        *(char *)((int)puStack_24 + (int)str) = '\0';
+        pTVar3 = luaS_new(str);
+        (pTVar3->globalval).dwValue = (uint)pvStack_1c;
+        (pTVar3->globalval).nTtype = (int)puStack_28;
       }
-      *(int *)(iVar4 + 8) = iStack_14;
-      *piVar2 = iVar4;
-      piStack_2c = piStack_2c + 2;
+      pTVar3->nConstIndex = iStack_14;
+      *puVar2 = pTVar3;
+      puStack_2c = puStack_2c + 2;
       a1 = a1 + 1;
-      piVar2 = piVar2 + 2;
+      puVar2 = puVar2 + 2;
     } while ((uint)a1 < g_dwLState_stringPtrTotal);
   }
-  (**(code **)(g_dwLuaHS + 0x24))(pbVar3);
+  (**(code **)(g_dwLuaHS + 0x24))(str);
   g_dwLState_aClosurePtrs =
        (undefined4 *)
        (**(code **)(g_dwLuaHS + 0x20))
@@ -328,44 +329,44 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   a1 = 0;
   if (g_dwLState_closurePtrTotal != 0) {
     puStack_28 = g_dwLState_aClosurePtrs + 1;
-    piStack_2c = g_dwLState_aClosurePtrs;
+    puStack_2c = g_dwLState_aClosurePtrs;
     do {
       (*(code *)a2)(puStack_28,4);
       (*(code *)a2)(&iStack_14,4);
-      puVar5 = (undefined4 *)
+      puVar4 = (undefined4 *)
                (**(code **)(g_dwLuaHS + 0x20))
                          (iStack_14 * 8 + 0x14,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x211);
-      luaO_insertlist(&g_dwLState_rootcl,puVar5);
-      puVar5[2] = iStack_14;
-      uVar9 = 0;
-      puVar6 = puVar5 + 3;
+      luaO_insertlist(&g_dwLState_rootcl,puVar4);
+      puVar4[2] = iStack_14;
+      uVar7 = 0;
+      puVar2 = puVar4 + 3;
       do {
-        LState_LoadObject((int)puVar6,a2);
-        uVar9 = uVar9 + 1;
-        puVar6 = puVar6 + 2;
-      } while (uVar9 <= (uint)puVar5[2]);
-      *piStack_2c = (int)puVar5;
-      piStack_2c = piStack_2c + 2;
+        LState_LoadObject((int)puVar2,a2);
+        uVar7 = uVar7 + 1;
+        puVar2 = puVar2 + 2;
+      } while (uVar7 <= (uint)puVar4[2]);
+      *puStack_2c = puVar4;
+      puStack_2c = puStack_2c + 2;
       puStack_28 = puStack_28 + 2;
       a1 = a1 + 1;
     } while ((uint)a1 < g_dwLState_closurePtrTotal);
   }
-  puVar6 = (undefined4 *)
+  puVar2 = (undefined4 *)
            (**(code **)(g_dwLuaHS + 0x20))
                      (g_dwLState_tablePtrTotal * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x220
                      );
-  uVar9 = 0;
-  g_dwLState_aTablePtrs = puVar6;
+  uVar7 = 0;
+  g_dwLState_aTablePtrs = puVar2;
   if (g_dwLState_tablePtrTotal != 0) {
-    puVar5 = puVar6 + 1;
+    puVar4 = puVar2 + 1;
     do {
-      (*(code *)a2)(puVar5,4);
-      puVar7 = luaH_load((undefined *)a2);
-      *puVar6 = puVar7;
-      puVar6 = puVar6 + 2;
-      puVar5 = puVar5 + 2;
-      uVar9 = uVar9 + 1;
-    } while (uVar9 < g_dwLState_tablePtrTotal);
+      (*(code *)a2)(puVar4,4);
+      puVar5 = luaH_load((undefined *)a2);
+      *puVar2 = puVar5;
+      puVar2 = puVar2 + 2;
+      puVar4 = puVar4 + 2;
+      uVar7 = uVar7 + 1;
+    } while (uVar7 < g_dwLState_tablePtrTotal);
   }
   g_dwLState_aProtoPtrs =
        (undefined4 *)
@@ -374,123 +375,123 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   a1 = 0;
   if (g_dwLState_protoPtrTotal != 0) {
     puStack_24 = g_dwLState_aProtoPtrs + 1;
-    piStack_2c = g_dwLState_aProtoPtrs;
+    puStack_2c = g_dwLState_aProtoPtrs;
     do {
       (*(code *)a2)(puStack_24,4);
-      puVar6 = (undefined4 *)
+      puVar2 = (undefined4 *)
                (**(code **)(g_dwLuaHS + 0x20))
                          (0x20,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x235);
-      luaO_insertlist(&g_dwLState_rootproto,puVar6);
-      (*(code *)a2)(puVar6 + 6,4);
-      (*(code *)a2)(puVar6 + 5,4);
-      puVar1 = puVar6 + 3;
+      luaO_insertlist(&g_dwLState_rootproto,puVar2);
+      (*(code *)a2)(puVar2 + 6,4);
+      (*(code *)a2)(puVar2 + 5,4);
+      puVar1 = puVar2 + 3;
       (*(code *)a2)(puVar1,4);
-      uVar8 = (**(code **)(g_dwLuaHS + 0x20))
+      uVar6 = (**(code **)(g_dwLuaHS + 0x20))
                         (*puVar1 << 3,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x23a);
-      puVar6[2] = uVar8;
-      uVar9 = 0;
+      puVar2[2] = uVar6;
+      uVar7 = 0;
       if (*puVar1 != 0) {
         do {
-          LState_LoadObject(puVar6[2] + uVar9 * 8,a2);
-          uVar9 = uVar9 + 1;
-        } while (uVar9 < *puVar1);
+          LState_LoadObject(puVar2[2] + uVar7 * 8,a2);
+          uVar7 = uVar7 + 1;
+        } while (uVar7 < *puVar1);
       }
       (*(code *)a2)(&puStack_28,4);
-      puVar5 = (undefined4 *)0x0;
+      puVar4 = (undefined4 *)0x0;
       if (puStack_28 == (undefined4 *)0x0) {
-        puVar6[7] = 0;
+        puVar2[7] = 0;
       }
       else {
-        uVar8 = (**(code **)(g_dwLuaHS + 0x20))
+        uVar6 = (**(code **)(g_dwLuaHS + 0x20))
                           ((int)puStack_28 * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x244);
-        puVar6[7] = uVar8;
+        puVar2[7] = uVar6;
       }
       if (puStack_28 != (undefined4 *)0x0) {
         do {
-          (*(code *)a2)(puVar6[7] + (int)puVar5 * 8,4);
-          (*(code *)a2)(puVar6[7] + 4 + (int)puVar5 * 8,4);
-          puVar5 = (undefined4 *)((int)puVar5 + 1);
-        } while (puVar5 < puStack_28);
+          (*(code *)a2)(puVar2[7] + (int)puVar4 * 8,4);
+          (*(code *)a2)(puVar2[7] + 4 + (int)puVar4 * 8,4);
+          puVar4 = (undefined4 *)((int)puVar4 + 1);
+        } while (puVar4 < puStack_28);
       }
       (*(code *)a2)(&iStack_14,4);
-      uVar8 = (**(code **)(g_dwLuaHS + 0x20))
+      uVar6 = (**(code **)(g_dwLuaHS + 0x20))
                         (iStack_14,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x250);
-      puVar6[4] = uVar8;
-      (*(code *)a2)(uVar8,iStack_14);
-      *piStack_2c = (int)puVar6;
-      piStack_2c = piStack_2c + 2;
+      puVar2[4] = uVar6;
+      (*(code *)a2)(uVar6,iStack_14);
+      *puStack_2c = puVar2;
+      puStack_2c = puStack_2c + 2;
       puStack_24 = puStack_24 + 2;
       a1 = a1 + 1;
     } while ((uint)a1 < g_dwLState_protoPtrTotal);
   }
   luaS_resolvestrings(g_dwLState_string_root);
-  for (puVar6 = g_dwLState_rootproto; puVar5 = g_dwLState_roottable, puVar6 != (undefined4 *)0x0;
-      puVar6 = (undefined4 *)*puVar6) {
+  for (puVar2 = g_dwLState_rootproto; t = g_dwLState_roottable, puVar2 != (undefined4 *)0x0;
+      puVar2 = (undefined4 *)*puVar2) {
     iStack_14 = -2;
-    puStack_10 = (undefined4 *)puVar6[6];
+    puStack_10 = (undefined4 *)puVar2[6];
     LState_ResolveObject((int)&iStack_14);
-    uVar9 = 0;
-    puVar6[6] = puStack_10;
-    if (puVar6[3] != 0) {
+    uVar7 = 0;
+    puVar2[6] = puStack_10;
+    if (puVar2[3] != 0) {
       do {
-        LState_ResolveObject(puVar6[2] + uVar9 * 8);
-        uVar9 = uVar9 + 1;
-      } while (uVar9 < (uint)puVar6[3]);
+        LState_ResolveObject(puVar2[2] + uVar7 * 8);
+        uVar7 = uVar7 + 1;
+      } while (uVar7 < (uint)puVar2[3]);
     }
-    puVar5 = (undefined4 *)puVar6[7];
-    if ((puVar5 != (undefined4 *)0x0) && (puVar5[1] != -1)) {
-      iVar4 = 0;
+    puVar4 = (undefined4 *)puVar2[7];
+    if ((puVar4 != (undefined4 *)0x0) && (puVar4[1] != -1)) {
+      iVar8 = 0;
       do {
-        pbStack_1c = (byte *)0xfffffffe;
-        uStack_18 = *puVar5;
-        LState_ResolveObject((int)&pbStack_1c);
-        *(undefined4 *)(puVar6[7] + iVar4) = uStack_18;
-        iVar4 = iVar4 + 8;
-        puVar5 = (undefined4 *)(puVar6[7] + iVar4);
-      } while (puVar5[1] != -1);
+        pvStack_1c = (void *)0xfffffffe;
+        uStack_18 = *puVar4;
+        LState_ResolveObject((int)&pvStack_1c);
+        *(undefined4 *)(puVar2[7] + iVar8) = uStack_18;
+        iVar8 = iVar8 + 8;
+        puVar4 = (undefined4 *)(puVar2[7] + iVar8);
+      } while (puVar4[1] != -1);
     }
   }
-  for (; puVar6 = g_dwLState_rootcl, puVar5 != (undefined4 *)0x0; puVar5 = (undefined4 *)*puVar5) {
-    uVar9 = 0;
-    if (puVar5[4] != 0) {
-      iVar4 = 0;
+  for (; puVar2 = g_dwLState_rootcl, t != (Hash *)0x0; t = t->pNext) {
+    uVar7 = 0;
+    if (t->nNuse != 0) {
+      iVar8 = 0;
       do {
-        LState_ResolveObject(puVar5[2] + iVar4);
-        LState_ResolveObject(puVar5[2] + 8 + iVar4);
-        uVar9 = uVar9 + 1;
-        iVar4 = iVar4 + 0x10;
-      } while (uVar9 < (uint)puVar5[4]);
+        LState_ResolveObject((int)&(t->pNode->ref).nTtype + iVar8);
+        LState_ResolveObject((int)&(t->pNode->val).nTtype + iVar8);
+        uVar7 = uVar7 + 1;
+        iVar8 = iVar8 + 0x10;
+      } while (uVar7 < (uint)t->nNuse);
     }
-    luaH_forcerehash((int)puVar5);
+    luaH_forcerehash(t);
   }
-  for (; puVar6 != (undefined4 *)0x0; puVar6 = (undefined4 *)*puVar6) {
-    uVar9 = 0;
-    puVar5 = puVar6 + 3;
+  for (; puVar2 != (undefined4 *)0x0; puVar2 = (undefined4 *)*puVar2) {
+    uVar7 = 0;
+    puVar4 = puVar2 + 3;
     do {
-      LState_ResolveObject((int)puVar5);
-      uVar9 = uVar9 + 1;
-      puVar5 = puVar5 + 2;
-    } while (uVar9 <= (uint)puVar6[2]);
+      LState_ResolveObject((int)puVar4);
+      uVar7 = uVar7 + 1;
+      puVar4 = puVar4 + 2;
+    } while (uVar7 <= (uint)puVar2[2]);
   }
-  uVar9 = 0;
-  puVar6 = &g_dwLState_rootglobal;
-  puVar5 = puVar6;
+  uVar7 = 0;
+  puVar2 = &g_dwLState_rootglobal;
+  puVar4 = puVar2;
   if (uStack_c != 0) {
     do {
       iStack_14 = -2;
       (*(code *)a2)(&puStack_10,4);
       LState_ResolveObject((int)&iStack_14);
-      puVar6 = puStack_10;
+      puVar2 = puStack_10;
       if (puStack_10 == (undefined4 *)0x0) {
         (**(code **)(g_dwLuaHS + 0x18))
                   (s_pTString_10027828,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2aa);
       }
-      *puVar5 = puVar6;
-      uVar9 = uVar9 + 1;
-      puVar5 = puVar6;
-    } while (uVar9 < uStack_c);
+      *puVar4 = puVar2;
+      uVar7 = uVar7 + 1;
+      puVar4 = puVar2;
+    } while (uVar7 < uStack_c);
   }
-  *puVar6 = 0;
+  *puVar2 = 0;
   (*(code *)a2)(&g_dwLState_lstate_class_initialized,4);
   LState_LoadResolvedObject(((unsigned)(uintptr_t)&g_dwLState_errorim),a2);
   (*(code *)a2)(&g_dwLState_IMtable_size,4);
@@ -501,13 +502,13 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   if (g_dwLState_IMtable_size != 0) {
     local_20 = 0;
     do {
-      iVar10 = 0x12;
-      iVar4 = g_dwLState_IMtable + local_20;
+      iVar9 = 0x12;
+      iVar8 = g_dwLState_IMtable + local_20;
       do {
-        LState_LoadResolvedObject(iVar4,a2);
-        iVar4 = iVar4 + 8;
-        iVar10 = iVar10 + -1;
-      } while (iVar10 != 0);
+        LState_LoadResolvedObject(iVar8,a2);
+        iVar8 = iVar8 + 8;
+        iVar9 = iVar9 + -1;
+      } while (iVar9 != 0);
       a1 = a1 + 1;
       local_20 = local_20 + 0x90;
     } while ((uint)a1 < g_dwLState_IMtable_size);
@@ -517,15 +518,15 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   g_dwLState_refArray =
        (**(code **)(g_dwLuaHS + 0x20))
                  (g_dwLState_refSize * 0xc,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2c2);
-  uVar9 = 0;
+  uVar7 = 0;
   if (g_dwLState_refSize != 0) {
-    iVar4 = 0;
+    iVar8 = 0;
     do {
-      LState_LoadResolvedObject(g_dwLState_refArray + iVar4,a2);
-      (*(code *)a2)(g_dwLState_refArray + 8 + iVar4,4);
-      uVar9 = uVar9 + 1;
-      iVar4 = iVar4 + 0xc;
-    } while (uVar9 < g_dwLState_refSize);
+      LState_LoadResolvedObject(g_dwLState_refArray + iVar8,a2);
+      (*(code *)a2)(g_dwLState_refArray + 8 + iVar8,4);
+      uVar7 = uVar7 + 1;
+      iVar8 = iVar8 + 0xc;
+    } while (uVar7 < g_dwLState_refSize);
   }
   (*(code *)a2)(&g_dwLState_GCthreshold,4);
   (*(code *)a2)(&g_dwLState_nblocks,4);
@@ -544,11 +545,11 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
 #undef iStack_4
 #undef iStack_8
 #undef local_20
-#undef pbStack_1c
-#undef piStack_2c
 #undef puStack_10
 #undef puStack_24
 #undef puStack_28
+#undef puStack_2c
+#undef pvStack_1c
 #undef uStack_18
 #undef uStack_c
 

@@ -8,44 +8,40 @@
 /* ---- 0x10004e70  luaC_hashcallIM ---- */
 /* Unidentified function of lgc.c (garbage collector) */
 
-void __cdecl luaC_hashcallIM(undefined4 *param_1)
+void __cdecl luaC_hashcallIM(Hash *l)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined4 **)(_frame + (0x20 - 0x4)))
+  #define local_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
-  local_8 = 0xfffffffd;
-  for (; param_1 != (undefined4 *)0x0; param_1 = (undefined4 *)*param_1) {
-    local_4 = param_1;
+  local_8.nTtype = -3;
+  for (; l != (Hash *)0x0; l = l->pNext) {
+    local_8.dwValue = (uint)l;
     luaD_gcIM(&local_8);
   }
   return;
 }
-#undef local_4
 #undef local_8
 
 
 /* ---- 0x10004ea0  luaC_strcallIM ---- */
 /* Unidentified function of lgc.c (garbage collector) */
 
-void __cdecl luaC_strcallIM(undefined4 *param_1)
+void __cdecl luaC_strcallIM(TaggedString *l)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined4 **)(_frame + (0x20 - 0x4)))
+  #define local_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
-  local_8 = 0;
-  for (; param_1 != (undefined4 *)0x0; param_1 = (undefined4 *)*param_1) {
-    if (param_1[2] == -1) {
-      local_4 = param_1;
+  local_8.nTtype = 0;
+  for (; l != (TaggedString *)0x0; l = l->pNext) {
+    if (l->nConstIndex == -1) {
+      local_8.dwValue = (uint)l;
       luaD_gcIM(&local_8);
     }
   }
   return;
 }
-#undef local_4
 #undef local_8
 
 
@@ -64,8 +60,8 @@ void invalidaterefs(void)
   if (g_dwLState_refSize != 0) {
     iVar2 = 0;
     do {
-      if ((((undefined4 *)(g_dwLState_refArray + iVar2))[2] == 1) &&
-         (iVar1 = ismarked((undefined4 *)(g_dwLState_refArray + iVar2)), iVar1 == 0)) {
+      if ((((TObject *)(g_dwLState_refArray + iVar2))[1].nTtype == 1) &&
+         (iVar1 = ismarked((TObject *)(g_dwLState_refArray + iVar2)), iVar1 == 0)) {
         *(undefined4 *)(g_dwLState_refArray + 8 + iVar2) = 3;
       }
       uVar3 = uVar3 + 1;
@@ -79,20 +75,20 @@ void invalidaterefs(void)
 /* Named ismarked (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c: the mark
    bit by object type, used by invalidaterefs); was lgc__5010. */
 
-undefined4 __cdecl ismarked(undefined4 *param_1)
+int __cdecl ismarked(TObject *o)
 
 {
-  switch(*param_1) {
-  case 0xfffffff8:
-    return *(undefined4 *)(param_1[1] + 4);
+  switch(o->nTtype) {
+  case -8:
+    return *(int *)(o->dwValue + 4);
   default:
     return 1;
-  case 0xfffffffc:
-  case 0xfffffffe:
+  case -4:
+  case -2:
   case 0:
-    return *(undefined4 *)(param_1[1] + 4);
-  case 0xfffffffd:
-    return *(undefined4 *)(param_1[1] + 4);
+    return *(int *)(o->dwValue + 4);
+  case -3:
+    return *(int *)(o->dwValue + 4);
   }
 }
 
@@ -150,8 +146,8 @@ void travlock(void)
   if (g_dwLState_refSize != 0) {
     iVar1 = 0;
     do {
-      if (((undefined4 *)(g_dwLState_refArray + iVar1))[2] == 0) {
-        markobject((undefined4 *)(g_dwLState_refArray + iVar1));
+      if (((TObject *)(g_dwLState_refArray + iVar1))[1].nTtype == 0) {
+        markobject((TObject *)(g_dwLState_refArray + iVar1));
       }
       uVar2 = uVar2 + 1;
       iVar1 = iVar1 + 0xc;
@@ -168,13 +164,12 @@ void travlock(void)
 void globalmark(void)
 
 {
-  undefined4 *puVar1;
+  TaggedString *s;
   
-  for (puVar1 = g_dwLState_rootglobal; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1)
-  {
-    if (puVar1[4] != -7) {
-      markobject(puVar1 + 4);
-      strmark((int)puVar1);
+  for (s = g_dwLState_rootglobal; s != (TaggedString *)0x0; s = s->pNext) {
+    if ((s->globalval).nTtype != -7) {
+      markobject(&s->globalval);
+      strmark(s);
     }
   }
   return;
@@ -184,11 +179,11 @@ void globalmark(void)
 /* Named strmark (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c static
    strmark: marks a string, marked = 1); was luaC_strmark. */
 
-void __cdecl strmark(int param_1)
+void __cdecl strmark(TaggedString *s)
 
 {
-  if ((param_1 != 0) && (*(int *)(param_1 + 4) == 0)) {
-    *(undefined4 *)(param_1 + 4) = 1;
+  if ((s != (TaggedString *)0x0) && (s->nMarked == 0)) {
+    s->nMarked = 1;
   }
   return;
 }
@@ -197,24 +192,24 @@ void __cdecl strmark(int param_1)
 /* Original name markobject (the remaster's libLua.so: static markobject(TObject*): switch on the
    tag (closure, table, proto, string)); was luaC_markobject. */
 
-undefined4 __cdecl markobject(undefined4 *param_1)
+int __cdecl markobject(TObject *o)
 
 {
-  switch(*param_1) {
-  case 0xfffffff6:
-  case 0xfffffffc:
-    luaC_protomark(param_1[1]);
+  switch(o->nTtype) {
+  case -10:
+  case -4:
+    luaC_protomark((TProtoFunc *)o->dwValue);
     break;
-  case 0xfffffff7:
-  case 0xfffffff8:
-    closuremark(param_1[1]);
+  case -9:
+  case -8:
+    closuremark((Closure *)o->dwValue);
     return 0;
-  case 0xfffffffd:
-    hashmark(param_1[1]);
+  case -3:
+    hashmark((Hash *)o->dwValue);
     return 0;
-  case 0xfffffffe:
+  case -2:
   case 0:
-    strmark(param_1[1]);
+    strmark((TaggedString *)o->dwValue);
     return 0;
   }
   return 0;
@@ -225,36 +220,36 @@ undefined4 __cdecl markobject(undefined4 *param_1)
    protomark: marks the source name, the constants and the local names of a prototype (markobject's
    PROTO / PMARK case); was misnamed luaC_hashmark; was luaC_hashmark. */
 
-void __cdecl luaC_protomark(int param_1)
+void __cdecl luaC_protomark(TProtoFunc *f)
 
 {
-  int *piVar1;
-  int iVar2;
+  int iVar1;
+  LocVar *pLVar2;
   uint uVar3;
-  int *piVar4;
+  LocVar *pLVar4;
   
-  if (*(int *)(param_1 + 4) == 0) {
-    piVar4 = *(int **)(param_1 + 0x1c);
-    *(undefined4 *)(param_1 + 4) = 1;
-    if (*(int *)(param_1 + 0x18) != 0) {
-      strmark(*(int *)(param_1 + 0x18));
+  if (f->nMarked == 0) {
+    pLVar4 = f->pLocvars;
+    f->nMarked = 1;
+    if (f->pFileName != (TaggedString *)0x0) {
+      strmark(f->pFileName);
     }
     uVar3 = 0;
-    if (*(int *)(param_1 + 0xc) != 0) {
+    if (f->nNconsts != 0) {
       do {
-        markobject((undefined4 *)(*(int *)(param_1 + 8) + uVar3 * 8));
+        markobject(f->pConsts + uVar3);
         uVar3 = uVar3 + 1;
-      } while (uVar3 < *(uint *)(param_1 + 0xc));
+      } while (uVar3 < (uint)f->nNconsts);
     }
-    if (piVar4 != (int *)0x0) {
-      iVar2 = piVar4[1];
-      while (iVar2 != -1) {
-        if (*piVar4 != 0) {
-          strmark(*piVar4);
+    if (pLVar4 != (LocVar *)0x0) {
+      iVar1 = pLVar4->nLine;
+      while (iVar1 != -1) {
+        if (pLVar4->pVarname != (TaggedString *)0x0) {
+          strmark(pLVar4->pVarname);
         }
-        piVar1 = piVar4 + 3;
-        piVar4 = piVar4 + 2;
-        iVar2 = *piVar1;
+        pLVar2 = pLVar4 + 1;
+        pLVar4 = pLVar4 + 1;
+        iVar1 = pLVar2->nLine;
       }
     }
   }
@@ -265,23 +260,23 @@ void __cdecl luaC_protomark(int param_1)
 /* Original name closuremark (the remaster's libLua.so: static closuremark(Closure*): marks the
    closure's nelems + 1 consts (markobject's CLOSURE / CLMARK case)); was luaC_protomark. */
 
-void __cdecl closuremark(int param_1)
+void __cdecl closuremark(Closure *f)
 
 {
-  undefined4 *puVar1;
-  int iVar2;
+  TObject *o;
+  int iVar1;
   
-  if (*(int *)(param_1 + 4) == 0) {
-    iVar2 = *(int *)(param_1 + 8);
-    *(undefined4 *)(param_1 + 4) = 1;
-    if (-1 < iVar2) {
-      puVar1 = (undefined4 *)(param_1 + 0xc + iVar2 * 8);
-      iVar2 = iVar2 + 1;
+  if (f->nMarked == 0) {
+    iVar1 = f->nNelems;
+    f->nMarked = 1;
+    if (-1 < iVar1) {
+      o = f->aConsts + iVar1;
+      iVar1 = iVar1 + 1;
       do {
-        markobject(puVar1);
-        puVar1 = puVar1 + -2;
-        iVar2 = iVar2 + -1;
-      } while (iVar2 != 0);
+        markobject(o);
+        o = o + -1;
+        iVar1 = iVar1 + -1;
+      } while (iVar1 != 0);
     }
   }
   return;
@@ -291,27 +286,27 @@ void __cdecl closuremark(int param_1)
 /* Original name hashmark (the remaster's libLua.so: static hashmark(Hash*): marks key and value of
    every node (markobject's ARRAY case)); was luaC_closuremark. */
 
-void __cdecl hashmark(int param_1)
+void __cdecl hashmark(Hash *h)
 
 {
   int iVar1;
   uint uVar2;
-  int *piVar3;
+  TObject *o;
   
-  if (*(int *)(param_1 + 4) == 0) {
+  if (h->nMarked == 0) {
     uVar2 = 0;
-    *(undefined4 *)(param_1 + 4) = 1;
-    if (*(int *)(param_1 + 0xc) != 0) {
+    h->nMarked = 1;
+    if (h->nNhash != 0) {
       iVar1 = 0;
       do {
-        piVar3 = (int *)(*(int *)(param_1 + 8) + iVar1);
-        if (*piVar3 != -7) {
-          markobject(piVar3);
-          markobject(piVar3 + 2);
+        o = (TObject *)((int)&(h->pNode->ref).nTtype + iVar1);
+        if (o->nTtype != -7) {
+          markobject(o);
+          markobject(o + 1);
         }
         uVar2 = uVar2 + 1;
         iVar1 = iVar1 + 0x10;
-      } while (uVar2 < *(uint *)(param_1 + 0xc));
+      } while (uVar2 < (uint)h->nNhash);
     }
   }
   return;

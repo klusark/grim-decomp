@@ -1,0 +1,14 @@
+[
+{
+"program": "/LUA.DLL",
+"addr": "10004ba0",
+"name": "luaF_newclosure",
+"comment": "lfunc.c luaF_newclosure(nelems): a closure of nelems + 1 constants (0x14 + 8 * nelems bytes), linked into rootcl; caller luaV_closure. Was named luaF_newproto (the two constructors were swapped; types round 8, docs/notes/types_8.md)."
+},
+{
+"program": "/LUA.DLL",
+"addr": "10004bf0",
+"name": "luaF_newproto",
+"comment": "lfunc.c luaF_newproto(): an empty function prototype (0x20 bytes, code / constants / locals / file name 0), linked into rootproto; callers the parser and lundump's LoadFunction. Was named luaF_newclosure (the two constructors were swapped; types round 8, docs/notes/types_8.md)."
+}
+]
