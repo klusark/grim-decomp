@@ -311,7 +311,7 @@ static undefined4 Im_SetSequence(int id, uint caller_esi)
 }
 
 /* OVERRIDES: Script_SetSequence */
-undefined4 Script_SetSequence(int id)
+int Script_SetSequence(int id)   /* (the record's nId: int since types round 5) */
 {
     return Im_SetSequence(id, 0xffffffffu);   /* the dispatcher's ESI */
 }

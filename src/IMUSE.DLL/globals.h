@@ -5,6 +5,12 @@
 #pragma once
 #include "ghidra_types.h"
 
+/* ---- named globals (type from Ghidra) ---- */
+extern ImMusicEntry g_aImStateTable[181]; /* 0x100172e8 */
+extern ImMusicEntry g_aImSeqTable[41]; /* 0x1001ae50 */
+extern ImNameAlias g_aImNameAlias[171]; /* 0x1001bbc8 */
+
+/* ---- unnamed data (type inferred from use) ---- */
 extern undefined2 DAT_10015228; /* used by 1 fn(s), first 0x10001c30 */
 extern undefined DAT_100152da; /* used by 1 fn(s), first 0x10001c30 */
 extern undefined DAT_100152e0; /* used by 1 fn(s), first 0x10001c30 */
@@ -42,14 +48,8 @@ extern undefined DAT_100171b0; /* used by 7 fn(s), first 0x10003e50 */
 extern uint DAT_100172bc; /* used by 1 fn(s), first 0x10005190 */
 extern undefined4 g_dwWvSlicingHalted; /* used by 4 fn(s), first 0x10004aa0 */
 extern char s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8[]; /* used by 1 fn(s), first 0x10005360 */
-extern undefined DAT_100172e8; /* used by 3 fn(s), first 0x10006560 */
+extern undefined DAT_100172e8; /* used by 1 fn(s), first 0x10006560 */
 extern undefined4 DAT_1001730c; /* used by 1 fn(s), first 0x10006560 */
-extern undefined DAT_10017328; /* used by 1 fn(s), first 0x100068b0 */
-extern undefined DAT_1001ae50; /* used by 2 fn(s), first 0x10006620 */
-extern undefined DAT_1001ae70; /* used by 1 fn(s), first 0x10006620 */
-extern undefined4 DAT_1001ae74; /* used by 1 fn(s), first 0x10006620 */
-extern char s_SEQ_NULL_1001ae78[]; /* used by 1 fn(s), first 0x10006620 */
-extern char DAT_1001bbc8; /* used by 1 fn(s), first 0x100068b0 */
 extern undefined4 g_dwLocalMusic; /* used by 3 fn(s), first 0x10006360 */
 extern char s_SCRIPT_ERR__save_buffer_too_smal_1001e6f8[]; /* used by 1 fn(s), first 0x10006400 */
 extern char s_ERR__bogus_sequence____1001e720[]; /* used by 1 fn(s), first 0x10006620 */
@@ -545,10 +545,8 @@ extern unsigned char DAT_10017268[]; /* 0x10017268 */
 extern unsigned char DAT_10017290[]; /* 0x10017290 */
 extern unsigned char DAT_100172b0[]; /* 0x100172b0 */
 extern unsigned char DAT_100172c4[]; /* 0x100172c4 */
-extern unsigned char DAT_10017310[]; /* 0x10017310 */
 extern unsigned char DAT_1001ae4c[]; /* 0x1001ae4c */
 extern unsigned char DAT_1001bbc4[]; /* 0x1001bbc4 */
-extern unsigned char DAT_1001bbe8[]; /* 0x1001bbe8 */
 extern unsigned char DAT_1001e68c[]; /* 0x1001e68c */
 extern unsigned char DAT_1001e6b4[]; /* 0x1001e6b4 */
 extern unsigned char DAT_1001e6d8[]; /* 0x1001e6d8 */

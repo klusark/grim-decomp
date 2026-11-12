@@ -353,7 +353,7 @@ int __cdecl Text_GetStringWidth(TextContext *ctx,char *text)
   pTVar5 = ctx;
   puVar6 = local_30;
   for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar6 = *(undefined4 *)pTVar5;
+    *puVar6 = pTVar5->pUnused;
     pTVar5 = (TextContext *)&pTVar5->pClipRect;
     puVar6 = puVar6 + 1;
   }
@@ -397,7 +397,7 @@ int __cdecl Text_GetStringHeight(TextContext *ctx,char *text)
   pTVar4 = ctx;
   puVar5 = local_30;
   for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar5 = *(undefined4 *)pTVar4;
+    *puVar5 = pTVar4->pUnused;
     pTVar4 = (TextContext *)&pTVar4->pClipRect;
     puVar5 = puVar5 + 1;
   }

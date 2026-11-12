@@ -205,3 +205,39 @@ static inline void *img_addr_(unsigned a) {
     if (a >= 0x10017000u && a <= 0x1003480cu) return sect_data + (a - 0x10017000u);
     return (void *)(uintptr_t)a;
 }
+
+/* Ghidra's structures (raw/<prog>/structs.json). Those build/compat.h defines by hand
+ * are only declared here: none. */
+typedef struct ImMusicEntry ImMusicEntry;
+typedef struct ImNameAlias ImNameAlias;
+
+/* ImMusicEntry: One record of iMUSE's state table g_aImStateTable or sequence table g_aImSeqTable (Script_Trans). */
+struct ImMusicEntry {  /* 0x54 */
+    char aFilename[32];  /* 0x00: the sound file, renamed through g_aImNameAlias; empty: no music */
+    int nTransType;  /* 0x20: transition type, Script_Trans's jump table (0..12): 0 none, 2, 3 used by the game */
+    int nId;  /* 0x24: state 1000.., sequence 2000.. */
+    char aName[24];  /* 0x28: stateMO, seqClimbRope, ... (ImPrintf) */
+    int nHookSlot;  /* 0x40: hook counter slot (0: the state's index) */
+    int nHookLimit;  /* 0x44: the hook counter cycles up to this */
+    int nFade;  /* 0x48: fade time; the volume / pan step is nFade * 3 / 50 */
+    int nVolume;  /* 0x4c: 127 full */
+    int nPan;  /* 0x50: 0 centre */
+};
+_Static_assert(__builtin_offsetof(ImMusicEntry, aFilename) == 0x0, "ImMusicEntry.aFilename");
+_Static_assert(__builtin_offsetof(ImMusicEntry, nTransType) == 0x20, "ImMusicEntry.nTransType");
+_Static_assert(__builtin_offsetof(ImMusicEntry, nId) == 0x24, "ImMusicEntry.nId");
+_Static_assert(__builtin_offsetof(ImMusicEntry, aName) == 0x28, "ImMusicEntry.aName");
+_Static_assert(__builtin_offsetof(ImMusicEntry, nHookSlot) == 0x40, "ImMusicEntry.nHookSlot");
+_Static_assert(__builtin_offsetof(ImMusicEntry, nHookLimit) == 0x44, "ImMusicEntry.nHookLimit");
+_Static_assert(__builtin_offsetof(ImMusicEntry, nFade) == 0x48, "ImMusicEntry.nFade");
+_Static_assert(__builtin_offsetof(ImMusicEntry, nVolume) == 0x4c, "ImMusicEntry.nVolume");
+_Static_assert(__builtin_offsetof(ImMusicEntry, nPan) == 0x50, "ImMusicEntry.nPan");
+_Static_assert(sizeof(ImMusicEntry) == 0x54, "sizeof ImMusicEntry");
+/* ImNameAlias: One entry of g_aImNameAlias: a sound name and the file it is played from (Script_Trans); an empty aFrom ends the table. */
+struct ImNameAlias {  /* 0x40 */
+    char aFrom[32];  /* 0x00 */
+    char aTo[32];  /* 0x20 */
+};
+_Static_assert(__builtin_offsetof(ImNameAlias, aFrom) == 0x0, "ImNameAlias.aFrom");
+_Static_assert(__builtin_offsetof(ImNameAlias, aTo) == 0x20, "ImNameAlias.aTo");
+_Static_assert(sizeof(ImNameAlias) == 0x40, "sizeof ImNameAlias");

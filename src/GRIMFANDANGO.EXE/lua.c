@@ -1329,7 +1329,7 @@ void sputText_PrintLineL(void)
       pTVar6 = &g_PrintLineTextCtx;
       puVar7 = local_30;
       for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
-        *puVar7 = *(undefined4 *)pTVar6;
+        *puVar7 = pTVar6->pUnused;
         pTVar6 = (TextContext *)&pTVar6->pClipRect;
         puVar7 = puVar7 + 1;
       }
@@ -1647,9 +1647,9 @@ void sputText_MakeTextObjectL(void)
   void *table;
   TextObject *obj;
   int unaff_EBX;
-  uint *puVar4;
+  TextContext *pTVar4;
   int unaff_EDI;
-  uint *puVar5;
+  undefined4 *puVar5;
   #define local_78 (*(uint *)(_frame + (0x90 - 0x78)))
   #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
   #define local_60 (*(uint *)(_frame + (0x90 - 0x60)))
@@ -1667,11 +1667,11 @@ void sputText_MakeTextObjectL(void)
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
     pcVar3 = (char *)lua_getstring(iVar1);
-    puVar4 = &g_TextObjectCtx;
-    puVar5 = (uint *)(_frame + (0x90 - 0x30));
+    pTVar4 = &g_TextObjectCtx;
+    puVar5 = (undefined4 *)(_frame + (0x90 - 0x30));
     for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
-      *puVar5 = *puVar4;
-      puVar4 = puVar4 + 1;
+      *puVar5 = pTVar4->pUnused;
+      pTVar4 = (TextContext *)&pTVar4->pClipRect;
       puVar5 = puVar5 + 1;
     }
     local_2c = (uint)&local_60;
@@ -1717,7 +1717,7 @@ void sputText_BlastText(void)
   void *pvVar4;
   TextObject *obj;
   int unaff_EBP;
-  uint *puVar5;
+  TextContext *pTVar5;
   int unaff_EDI;
   uint *puVar6;
   #define local_60 (*(uint *)(_frame + (0x70 - 0x60)))
@@ -1738,11 +1738,11 @@ void sputText_BlastText(void)
     pcVar3 = (char *)lua_getstring(iVar1);
     pvVar4 = (void *)Render_GetBackBuffer();
     stdDisplay_VBufferLock(pvVar4);
-    puVar5 = &g_TextObjectCtx;
+    pTVar5 = &g_TextObjectCtx;
     puVar6 = &local_30;
     for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
-      *puVar6 = *puVar5;
-      puVar5 = puVar5 + 1;
+      *puVar6 = (uint)pTVar5->pUnused;
+      pTVar5 = (TextContext *)&pTVar5->pClipRect;
       puVar6 = puVar6 + 1;
     }
     iVar1 = Render_GetBackBuffer();

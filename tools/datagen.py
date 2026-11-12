@@ -138,11 +138,34 @@ def placeholder_decl(d):
     return d is None or d[0].replace("const ", "").strip().startswith("undefined")
 
 
+STRUCTS = {}  # name -> layout ({"size", "fields": [[off, size, type, name], ...]}) of the program being modelled
+
+
+def load_structs(prog):
+    """Ghidra's structures of the program (raw/<prog>/structs.json), without those build/compat.h defines by hand: the
+    types src/<prog>/ghidra_types.h declares with the same field names (tools/build_src.py's struct_defs)."""
+    path = os.path.join(ROOT, "raw", prog, "structs.json")
+    structs = json.load(open(path)) if os.path.exists(path) else {}
+    try:
+        compat = set(re.findall(r"\b(?:typedef\s+)?struct\s+(\w+)\s*\{",
+                                open(os.path.join(ROOT, "build", "compat.h"), encoding="utf-8").read()))
+    except OSError:
+        compat = set()
+    return {n: s for n, s in structs.items() if n not in compat}
+
+
 def array_extent(d):
-    """Bytes a declared array of N scalars covers (0 for anything else)."""
-    if d is None or not d[1] or not d[2]:
+    """Bytes a declared structure, array of N structures or array of N scalars covers (0 for anything else)."""
+    if d is None:
         return 0
-    sc = SCALARS.get(d[0].replace("const ", "").strip())
+    base = d[0].replace("const ", "").strip()
+    if base in STRUCTS and not d[1]:
+        return STRUCTS[base]["size"]
+    if not d[1] or not d[2]:
+        return 0
+    if base in STRUCTS:
+        return d[2] * STRUCTS[base]["size"]
+    sc = SCALARS.get(base)
     return d[2] * sc[1] if sc and not placeholder_decl(d) else 0
 
 
@@ -174,6 +197,8 @@ def declared(srcdir, prog):
 
 def build_model(prog, srcdir, img_targets=()):
     secs, (text_lo, text_hi), funcs, named, tb, item_names, string_addrs, dr, typed_arrays = load_raw(prog)
+    STRUCTS.clear()
+    STRUCTS.update(load_structs(prog))
     std = dll_std()
     decls = declared(srcdir, prog)
     # arrays of scalars that Ghidra types but no code names (a table the code reaches only through a biased base, as
@@ -514,10 +539,123 @@ def typed_value(base, is_arr, count, start, b):
     return "%s %%s[%d]" % (ctype, k), init, k * esz
 
 
+def struct_fields(name):
+    """[(offset, size, Ghidra type, C field name)] of a structure, named as tools/build_src.py's struct_defs names them
+    in ghidra_types.h (undefined bytes are padding; a repeated name gets its offset), and the padding ranges."""
+    s = STRUCTS[name]
+    out, pads, pos, used = [], [], 0, {}
+    for off, sz, t, fn in sorted(s["fields"]):
+        if t in ("undefined", "undefined1") and re.fullmatch(r"(field_0x[0-9a-f]+|)", fn):
+            continue
+        if off < pos:
+            continue
+        if off > pos:
+            pads.append((pos, off - pos))
+        fname = fn if re.fullmatch(r"[A-Za-z_]\w*", fn) else "field_0x%x" % off
+        used[fname] = used.get(fname, 0) + 1
+        if used[fname] > 1:
+            fname += "_%x" % off
+        out.append((off, sz, t, fname))
+        pos = off + sz
+    if s["size"] > pos:
+        pads.append((pos, s["size"] - pos))
+    return out, pads
+
+
+def looks_like_text(b):
+    body = b.rstrip(b"\0")
+    return bool(body) and all(c >= 32 or c in (9, 10, 13) for c in body)
+
+
+def field_value(t, sz, b, base, relocs, target):
+    """C initialiser of one field (Ghidra type t, size sz, bytes b at offset base of the span), "" when the bytes are
+    zero (left to C's zero fill), or None when it cannot be written exactly."""
+    dims = [int(x) for x in re.findall(r"\[(\d+)\]", t)]
+    elem = re.sub(r"\[\d+\]", "", t).strip()
+    inside = [o for o in relocs if base <= o < base + sz]
+    if len(dims) > 1:
+        return None
+    n = dims[0] if dims else 1
+    esz = sz // n if n else sz
+    if "*" in elem:
+        vals = []
+        for i in range(n):
+            o = base + i * esz
+            if o in relocs:
+                vals.append(target(relocs[o]))
+            elif not b[i * esz:(i + 1) * esz].strip(b"\0"):
+                vals.append("0")
+            else:
+                return None
+        if all(v == "0" for v in vals):
+            return ""
+        return vals[0] if not dims else "{ %s }" % ", ".join(vals)
+    if inside:
+        return None   # a pointer in a field typed as something else
+    if not b.strip(b"\0"):
+        return ""
+    if elem in STRUCTS:
+        if STRUCTS[elem]["size"] != esz:
+            return None
+        parts = [struct_value(elem, b[i * esz:(i + 1) * esz], base + i * esz, relocs, target) for i in range(n)]
+        if any(p is None for p in parts):
+            return None
+        return parts[0] if not dims else "{ %s }" % ", ".join(parts)
+    sc = SCALARS.get(elem)
+    if sc is None or sc[1] != esz:
+        return None
+    if dims and elem == "char" and looks_like_text(b):
+        return c_string(b.rstrip(b"\0"))
+    vals = [scalar_value(sc[2], sc[0], esz, b[i * esz:(i + 1) * esz]) for i in range(n)]
+    if any(v is None for v in vals):
+        return None
+    if not dims:
+        return vals[0]
+    while vals and vals[-1] in ("0", "0x0", "0.0", "0.0f"):
+        vals.pop()
+    return "{ %s }" % ", ".join(vals)
+
+
+def struct_value(name, b, base, relocs, target):
+    """`{ .field = value, ... }` of one structure (bytes b at offset base of the span), or None."""
+    fields, pads = struct_fields(name)
+    parts = []
+    for off, sz, t, fname in fields:
+        v = field_value(t, sz, b[off:off + sz], base + off, relocs, target)
+        if v is None:
+            return None
+        if v:
+            parts.append(".%s = %s" % (fname, v))
+    for pos, n in pads:
+        pb = b[pos:pos + n]
+        if any(base + pos <= o < base + pos + n for o in relocs):
+            return None
+        if pb.strip(b"\0"):
+            parts.append("._pad_%x = { %s }" % (pos, ", ".join("0x%02x" % c for c in pb.rstrip(b"\0"))))
+    return "{ %s }" % ", ".join(parts) if parts else "{0}"
+
+
+def struct_span(base, is_arr, count, start, b, relocs, target):
+    """(declarator, initialiser, bytes covered) for a span declared as a structure or an array of structures, or None."""
+    if base not in STRUCTS:
+        return None
+    size = STRUCTS[base]["size"]
+    k = (count if count else len(b) // size) if is_arr else 1
+    if k == 0 or k * size > len(b) or start % 4 or any(o >= k * size for o in relocs):
+        return None
+    elems = [struct_value(base, b[i * size:(i + 1) * size], i * size, relocs, target) for i in range(k)]
+    if any(e is None for e in elems):
+        return None
+    if not is_arr:
+        return "%s %%s" % base, elems[0], size
+    return "%s %%s[%d]" % (base, k), "{\n" + ",\n".join("    " + e for e in elems) + "\n}", k * size
+
+
 def emit(model, srcdir):
     prog = model.prog
     std = model.std
     lines_head, decls, defs, tail = [], [], [], []
+    uses_structs = False
     fn_ids = {}
 
     def fn_ref(asm):
@@ -572,7 +710,11 @@ def emit(model, srcdir):
             for al, off in sp.inner:
                 tail.append('__asm__(".globl _%s\\n\\t.set _%s, _%s + %d\\n");' % (al, al, sp.name, off))
             continue
-        typed = None if relocs else typed_value(base, is_arr, count, sp.start, b)
+        typed = struct_span(base, is_arr, count, sp.start, b, relocs, target)
+        if typed:
+            uses_structs = True
+        else:
+            typed = None if relocs else typed_value(base, is_arr, count, sp.start, b)
         if typed:
             decl, init, head = typed
             decl = decl % sp.name
@@ -657,6 +799,7 @@ def emit(model, srcdir):
         "",
         '#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))',
         "",
+    ] + (['#include "ghidra_types.h"   /* the structures of the typed spans */', ""] if uses_structs else []) + [
         "/* An empty anchor that sorts first and starts the data 16-aligned, as the original's sections were. It holds",
         " * no bytes: a section ends padded to its alignment, so the alignment cannot go on the first span itself. */",
         'unsigned char grim_data_anchor_%s[0] __attribute__((section(".data$grim_0"), aligned(16)));' % re.sub(r"\W", "_", prog.lower()),

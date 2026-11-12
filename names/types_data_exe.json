@@ -1,9 +1,24 @@
 {
- "_comment": "Types round 4 (docs/notes/types_4.md): the EXE's math and checksum tables. g_aSinTable is a quarter wave of sine at 90/4096 degree steps (stdMath_SinCos; cosine reads it backwards), g_aTanTable the same for tangent (stdMath_Tan), g_aCrc_table zlib 1.1.3's CRC-32 table.",
+ "_comment": "EXE data tables. Types round 4 (docs/notes/types_4.md): the math and checksum tables. g_aSinTable is a quarter wave of sine at 90/4096 degree steps (stdMath_SinCos; cosine reads it backwards), g_aTanTable the same for tangent (stdMath_Tan), g_aCrc_table zlib 1.1.3's CRC-32 table. Round 5 (types_5.md): g_TextObjectCtx, the third text context beside g_PrintLineTextCtx and g_SubtitleTextCtx (sputText_MakeTextObjectL copies its 12 dwords); the phoneme table (46 entries: Phoneme_ToTalkChore's bsearch, sorted at start-up by sputActor); Blocky16's motion vectors (255 x, y pairs; the codec's configure step turns each into y * stride + x in g_asBlockyMotion).",
  "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {"name": "PhonemeEntry", "size": 8, "comment": "One entry of g_aPhonemeTable: a phoneme of the lip-sync data and the talk chore it shows (Phoneme_ToTalkChore).",
+   "fields": [
+    [0, "uint", "dwPhoneme", "the phoneme as its IPA code point (0x5f '_' silence, 0xe6, 0x28c, ...)"],
+    [4, "ushort", "wTalkChore", "index of the costume's talk chore (CostumeNode.aTalkChores)"]
+   ]},
+  {"name": "BlockyMotionVector", "size": 4, "comment": "One motion vector of Blocky16 (SMUSH video codec): a block's source offset in pixels.",
+   "fields": [
+    [0, "short", "nX", ""],
+    [2, "short", "nY", ""]
+   ]}
+ ],
  "globals": [
   {"addr": "004df600", "type": "float[4096]"},
   {"addr": "004e3600", "type": "float[4096]"},
-  {"addr": "004d98a8", "type": "uint[256]"}
+  {"addr": "004d98a8", "type": "uint[256]"},
+  {"addr": "004e84f8", "type": "TextContext"},
+  {"addr": "004e9c88", "type": "PhonemeEntry[46]"},
+  {"addr": "004f34e8", "type": "BlockyMotionVector[255]"}
  ]
 }

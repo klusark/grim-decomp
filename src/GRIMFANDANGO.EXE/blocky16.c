@@ -293,8 +293,8 @@ void fob_blk16_configure(uint param_1)
 
 {
   int iVar1;
-  short *psVar2;
-  short *psVar3;
+  BlockyMotionVector *pBVar2;
+  BlockyMotionVector *pBVar3;
   short *psVar4;
   byte *pbVar5;
   int iVar6;
@@ -304,15 +304,15 @@ void fob_blk16_configure(uint param_1)
   
   if (param_1 != g_dwFob_blk16_configure_old_mod) {
     g_dwFob_blk16_configure_old_mod = param_1;
-    psVar2 = &DAT_004f34e8;
+    pBVar2 = g_aBlockyMotionVectors;
     psVar4 = &g_asBlockyMotion;
     do {
-      psVar3 = psVar2 + 2;
+      pBVar3 = pBVar2 + 1;
       sVar8 = (short)param_1;
-      *psVar4 = psVar2[1] * sVar8 + *psVar2;
-      psVar2 = psVar3;
+      *psVar4 = pBVar2->nY * sVar8 + pBVar2->nX;
+      pBVar2 = pBVar3;
       psVar4 = psVar4 + 1;
-    } while ((int)psVar3 < ((unsigned)(uintptr_t)&g_dwFob_blk16_configure_old_mod));
+    } while ((int)pBVar3 < ((unsigned)(uintptr_t)&g_dwFob_blk16_configure_old_mod));
     pbVar9 = &DAT_00906e00;
     pbVar5 = &DAT_0091f100;
     do {

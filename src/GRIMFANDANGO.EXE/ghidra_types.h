@@ -218,8 +218,10 @@ typedef struct VS_VERSION_INFO VS_VERSION_INFO;
 typedef struct Actor Actor;
 typedef struct ActorExtra ActorExtra;
 typedef struct ActorShadow ActorShadow;
+typedef struct BlockyMotionVector BlockyMotionVector;
 typedef struct CostumeNode CostumeNode;
 typedef struct GrimServices GrimServices;
+typedef struct PhonemeEntry PhonemeEntry;
 typedef struct Puck Puck;
 typedef struct TextContext TextContext;
 typedef struct TextObject TextObject;
@@ -349,6 +351,14 @@ _Static_assert(__builtin_offsetof(ActorExtra, dwTalkColor) == 0x418, "ActorExtra
 _Static_assert(__builtin_offsetof(ActorExtra, flTimeScale) == 0x41c, "ActorExtra.flTimeScale");
 _Static_assert(__builtin_offsetof(ActorExtra, nInvClipNode) == 0x420, "ActorExtra.nInvClipNode");
 _Static_assert(sizeof(ActorExtra) == 0x4a0, "sizeof ActorExtra");
+/* BlockyMotionVector: One motion vector of Blocky16 (SMUSH video codec): a block's source offset in pixels. */
+struct BlockyMotionVector {  /* 0x4 */
+    short nX;  /* 0x00 */
+    short nY;  /* 0x02 */
+};
+_Static_assert(__builtin_offsetof(BlockyMotionVector, nX) == 0x0, "BlockyMotionVector.nX");
+_Static_assert(__builtin_offsetof(BlockyMotionVector, nY) == 0x2, "BlockyMotionVector.nY");
+_Static_assert(sizeof(BlockyMotionVector) == 0x4, "sizeof BlockyMotionVector");
 /* CostumeNode: One costume of an actor's costume stack (Actor::pCostumes, sputCostume.cpp; from the pool g_pCosNodePool): the CHORE.DLL instance and the actor's chores in it. Costume_InitRecord sets the defaults. */
 struct CostumeNode {  /* 0xb4 */
     uint dwInstance;  /* 0x00: CHORE.DLL costume instance (Cos_CreateCosInstance) */
@@ -385,6 +395,15 @@ _Static_assert(__builtin_offsetof(CostumeNode, nMumbleChore) == 0x78, "CostumeNo
 _Static_assert(__builtin_offsetof(CostumeNode, aCostumeRef) == 0x7c, "CostumeNode.aCostumeRef");
 _Static_assert(__builtin_offsetof(CostumeNode, pNext) == 0xb0, "CostumeNode.pNext");
 _Static_assert(sizeof(CostumeNode) == 0xb4, "sizeof CostumeNode");
+/* PhonemeEntry: One entry of g_aPhonemeTable: a phoneme of the lip-sync data and the talk chore it shows (Phoneme_ToTalkChore). */
+struct PhonemeEntry {  /* 0x8 */
+    uint dwPhoneme;  /* 0x00: the phoneme as its IPA code point (0x5f '_' silence, 0xe6, 0x28c, ...) */
+    ushort wTalkChore;  /* 0x04: index of the costume's talk chore (CostumeNode.aTalkChores) */
+    uint8_t _pad_6[0x2];
+};
+_Static_assert(__builtin_offsetof(PhonemeEntry, dwPhoneme) == 0x0, "PhonemeEntry.dwPhoneme");
+_Static_assert(__builtin_offsetof(PhonemeEntry, wTalkChore) == 0x4, "PhonemeEntry.wTalkChore");
+_Static_assert(sizeof(PhonemeEntry) == 0x8, "sizeof PhonemeEntry");
 /* Puck: The walker of an actor (Walker.cpp's Puck, 0x60 bytes, ActorExtra::pPuck): position and frame on the walk sectors. Every puck is on the list g_dwPuck_p_head. */
 struct Puck {  /* 0x60 */
     float aPos[3];  /* 0x00: position (Puck_SetPos) */
@@ -407,9 +426,9 @@ _Static_assert(__builtin_offsetof(Puck, pPrev) == 0x54, "Puck.pPrev");
 _Static_assert(__builtin_offsetof(Puck, pNext) == 0x58, "Puck.pNext");
 _Static_assert(__builtin_offsetof(Puck, pSector) == 0x5c, "Puck.pSector");
 _Static_assert(sizeof(Puck) == 0x60, "sizeof Puck");
-/* TextContext: How a text is drawn: font, position, colours, justification (g_SubtitleTextCtx, g_PrintLineTextCtx; GetTextParamsFromTable fills it from a Lua table). A text object holds a copy. */
+/* TextContext: How a text is drawn: font, position, colours, justification (g_SubtitleTextCtx, g_PrintLineTextCtx, g_TextObjectCtx; GetTextParamsFromTable fills it from a Lua table). A text object holds a copy. */
 struct TextContext {  /* 0x30 */
-    uint8_t _pad_0[0x4];
+    void *pUnused;  /* 0x00: a pointer (0x008a94b8 in all three contexts of the data), copied with the context but never read */
     int *pClipRect;  /* 0x04: x, y, width, height the text is clipped to */
     void *pFont;  /* 0x08: font handle (HLock gives the font data) */
     int nX;  /* 0x0c */
@@ -422,6 +441,7 @@ struct TextContext {  /* 0x30 */
     uint dwFlags;  /* 0x28: justification: 4 left, 5 centre, 6 right (bit 0 centres) */
     void *pColormap;  /* 0x2c */
 };
+_Static_assert(__builtin_offsetof(TextContext, pUnused) == 0x0, "TextContext.pUnused");
 _Static_assert(__builtin_offsetof(TextContext, pClipRect) == 0x4, "TextContext.pClipRect");
 _Static_assert(__builtin_offsetof(TextContext, pFont) == 0x8, "TextContext.pFont");
 _Static_assert(__builtin_offsetof(TextContext, nX) == 0xc, "TextContext.nX");

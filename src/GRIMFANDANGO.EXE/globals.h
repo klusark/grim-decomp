@@ -23,7 +23,7 @@ extern int g_nSubtitleDefaultX; /* 0x004e8488 */
 extern int g_nSubtitleDefaultY; /* 0x004e848c */
 extern TextContext g_PrintLineTextCtx; /* 0x004e8498 */
 extern TextContext g_SubtitleTextCtx; /* 0x004e84c8 */
-extern uint g_TextObjectCtx; /* 0x004e84f8 */
+extern TextContext g_TextObjectCtx; /* 0x004e84f8 */
 extern uint g_dwSputControl_aControlSymbols; /* 0x004e87c8 */
 extern int g_nSputControl_numControlSymbols; /* 0x004e9238 */
 extern char ** g_ppRequiredLabs; /* 0x004e99b0 */
@@ -31,7 +31,7 @@ extern int g_nRequiredLabCount; /* 0x004e9a28 */
 extern int g_nMaxRealMemoryUsage; /* 0x004e9a2c */
 extern uint g_ResTypeTable; /* 0x004e9a38 */
 extern int g_nMaxActors; /* 0x004e9c80 */
-extern uint g_dwPhonemeTable; /* 0x004e9c88 */
+extern PhonemeEntry g_aPhonemeTable[46]; /* 0x004e9c88 */
 extern int g_nPhonemeCount; /* 0x004e9df8 */
 extern uint g_dwSmSpeechMode; /* 0x004e9dfc */
 extern int g_nTextRate; /* 0x004e9e00 */
@@ -40,6 +40,7 @@ extern char g_szConfigKeyPrefix[8]; /* 0x004ea884 */
 extern int g_nLightEdSelected; /* 0x004f0d10 */
 extern float g_flLightEdMoveStep; /* 0x004f0d18 */
 extern float g_flLightEdAngleStep; /* 0x004f0d1c */
+extern BlockyMotionVector g_aBlockyMotionVectors[255]; /* 0x004f34e8 */
 extern int g_anBlockySplit4Y[16]; /* 0x004f38e8 */
 extern int g_anBlockySplit4X[16]; /* 0x004f3928 */
 extern int g_anBlockySplit8Y[16]; /* 0x004f3968 */
@@ -672,9 +673,6 @@ extern char s_color_004e8468[]; /* used by 1 fn(s), first 0x004a31f0 */
 extern undefined4 UINT_004e8480; /* used by 1 fn(s), first 0x0048b830 */
 extern undefined4 UINT_004e8484; /* used by 1 fn(s), first 0x0048b830 */
 extern undefined4 UINT_004e8490; /* used by 1 fn(s), first 0x0048b2e0 */
-extern undefined4 UINT_004e84a0; /* used by 1 fn(s), first 0x0048c500 */
-extern undefined4 UINT_004e84d0; /* used by 1 fn(s), first 0x0048c500 */
-extern undefined4 UINT_004e8500; /* used by 3 fn(s), first 0x0048c500 */
 extern undefined *g_pTextFunctionsToRegister; /* used by 1 fn(s), first 0x0048c500 */
 extern undefined4 UINT_004e85d8; /* used by 1 fn(s), first 0x0048c500 */
 extern char s___s__s_004e8754[]; /* used by 1 fn(s), first 0x0048ae60 */
@@ -1184,7 +1182,6 @@ extern uint UINT_004f34a8; /* used by 1 fn(s), first 0x004cbc00 */
 extern undefined4 UINT_004f34b0; /* used by 1 fn(s), first 0x004cbc00 */
 extern undefined *PTR_fob_flobdec_blocky16_module_004f34b8; /* used by 1 fn(s), first 0x004cc210 */
 extern undefined *g_pBlock16_flobdec_services; /* used by 1 fn(s), first 0x004cc210 */
-extern undefined2 DAT_004f34e8; /* used by 1 fn(s), first 0x004cc6a0 */
 extern uint g_dwFob_blk16_configure_old_mod; /* used by 1 fn(s), first 0x004cc6a0 */
 extern char s_FLOBDEC_insane_blocky16_004f39ec[]; /* used by 2 fn(s), first 0x004cc210 */
 extern char s_LECMODULE_insane_blocky16_flobde_004f3a04[]; /* used by 2 fn(s), first 0x004cc210 */
