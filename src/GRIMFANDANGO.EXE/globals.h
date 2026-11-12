@@ -7,6 +7,9 @@
 
 /* ---- named globals (type from Ghidra) ---- */
 extern float g_flRdroid_identMatrix34[12]; /* 0x004d75a0 */
+extern uint g_aCrc_table[256]; /* 0x004d98a8 */
+extern float g_aSinTable[4096]; /* 0x004df600 */
+extern float g_aTanTable[4096]; /* 0x004e3600 */
 extern int g_nIrisX; /* 0x004e8064 */
 extern int g_nIrisY; /* 0x004e8068 */
 extern float g_flSputRender_GammaCorrection; /* 0x004e8070 */
@@ -306,7 +309,6 @@ extern undefined DAT_004d9832; /* used by 1 fn(s), first 0x004c6d10 */
 extern undefined DAT_004d9834; /* used by 1 fn(s), first 0x004c6d10 */
 extern undefined DAT_004d9836; /* used by 1 fn(s), first 0x004c6d10 */
 extern undefined g_aConfiguration_table; /* used by 1 fn(s), first 0x004c68f0 */
-extern undefined g_aCrc_table; /* used by 1 fn(s), first 0x004c79b0 */
 extern undefined DAT_004d9ca8; /* used by 1 fn(s), first 0x004c7c50 */
 extern undefined DAT_004d9cf8; /* used by 1 fn(s), first 0x004c9fa0 */
 extern undefined DAT_004d9d70; /* used by 1 fn(s), first 0x004c9fa0 */
@@ -531,8 +533,6 @@ extern undefined2 DAT_004df570; /* used by 1 fn(s), first 0x0047b4b0 */
 extern char s_C__grimjedi_Libs_Std_General_Std_004df574[]; /* used by 5 fn(s), first 0x0047aa50 */
 extern undefined DAT_004df5a0; /* used by 2 fn(s), first 0x0047ab20 */
 extern char s_Unable_to_allocate_a_new_frame_w_004df5a8[]; /* used by 1 fn(s), first 0x0047b2b0 */
-extern undefined g_aSinTable; /* used by 1 fn(s), first 0x0047bd20 */
-extern undefined g_aTanTable; /* used by 1 fn(s), first 0x0047c120 */
 extern undefined2 DAT_004e7600; /* used by 1 fn(s), first 0x0047c7e0 */
 extern char s_C__grimjedi_Libs_Std_General_Std_004e7604[]; /* used by 1 fn(s), first 0x0047c7e0 */
 extern undefined DAT_004e7630; /* used by 1 fn(s), first 0x0047c7e0 */

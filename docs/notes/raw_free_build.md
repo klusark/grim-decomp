@@ -59,7 +59,8 @@ What was done differently from the steps below:
   because `dlltool` fails when the output path is long. Since the same day there are none: the HMI library is C,
   `build/overrides_hmifx.c` (build/BUILD_NOTES.md, "The HMI effects library in C").
 
-Steps 7 (typing the data in Ghidra) and 8 (releasing the layout) are open. Every typed table turns a byte array of
+Step 7 (typing the data in Ghidra) has started: types_4.md types the first tables and teaches datagen.py arrays,
+tails and Ghidra-typed tables the code does not name. Step 8 (releasing the layout) is open. Every typed table turns a byte array of
 `data.c` into values, and `datacmp.py` proves it unchanged.
 
 ## The plan

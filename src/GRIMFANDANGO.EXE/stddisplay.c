@@ -3406,11 +3406,11 @@ void __cdecl Palette_FromFloatTable(byte *out,byte *in,int n,double gamma)
   
   if (0 < n) {
     do {
-      lVar1 = FTOL(_CIpow());
+      lVar1 = (longlong)_CIpow();
       *out = (byte)lVar1;
-      lVar1 = FTOL(_CIpow());
+      lVar1 = (longlong)_CIpow();
       out[1] = (byte)lVar1;
-      lVar1 = FTOL(_CIpow());
+      lVar1 = (longlong)_CIpow();
       out[2] = (byte)lVar1;
       out = out + 3;
       n = n + -1;

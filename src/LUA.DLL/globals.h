@@ -6,6 +6,14 @@
 #include "ghidra_types.h"
 
 /* ---- named globals (type from Ghidra) ---- */
+extern sbyte g_aYytranslate[285]; /* 0x10023188 */
+extern short g_aYyr1[103]; /* 0x100232a8 */
+extern short g_aYyr2[103]; /* 0x10023378 */
+extern short g_wYydefact[184]; /* 0x10023448 */
+extern short g_wYypact[184]; /* 0x10023610 */
+extern short g_aYytable[263]; /* 0x100237d8 */
+extern short g_aYycheck[263]; /* 0x100239e8 */
+extern int g_dwDimensions[23]; /* 0x100270e8 */
 extern code *lua_callhook; /* 0x1002bec8, undefined4 in Ghidra */
 extern code *lua_linehook; /* 0x1002becc, undefined4 in Ghidra */
 extern code *lua_taskhook; /* 0x1002bed0, undefined4 in Ghidra */
@@ -17,15 +25,6 @@ extern undefined4 lua_debug; /* 0x1002bee4, undefined4 in Ghidra */
 /* ---- unnamed data (type inferred from use) ---- */
 extern code LAB_1000f3b0;  /* code label (address only) */ /* used by 2 fn(s), first 0x1000f3d2 */
 extern code LAB_1001dec8;  /* code label (address only) */ /* used by 6 fn(s), first 0x10013930 */
-extern undefined g_aYytranslate; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined g_aYyr1; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined g_aYyr2; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined2 g_wYydefact; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined g_aYydefgoto; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined2 g_wYypact; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined g_aYypgoto; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined g_aYytable; /* used by 1 fn(s), first 0x1000abd0 */
-extern undefined g_aYycheck; /* used by 1 fn(s), first 0x1000abd0 */
 extern undefined DAT_10023c40; /* used by 1 fn(s), first 0x1000ffd0 */
 extern undefined DAT_10023d78; /* used by 1 fn(s), first 0x10010c20 */
 extern undefined DAT_10023dc4; /* used by 1 fn(s), first 0x10011290 */
@@ -167,7 +166,6 @@ extern char s__TRIGMODE_10027074[]; /* used by 1 fn(s), first 0x10007320 */
 extern char s_C__grimsrc_libs_lua_src_lmem_cpp_10027080[]; /* used by 2 fn(s), first 0x100073b0 */
 extern undefined *g_pLuaO_typenames; /* used by 2 fn(s), first 0x10001d30 */
 extern undefined g_LuaO_nilobject; /* used by 4 fn(s), first 0x10004e30 */
-extern int g_dwDimensions; /* used by 1 fn(s), first 0x10007450 */
 extern char s_internal_error_in__lua_equalObj__10027180[]; /* used by 1 fn(s), first 0x100074b0 */
 extern undefined g_aOpcodeDirectory; /* used by 1 fn(s), first 0x100085e0 */
 extern char s_C__grimsrc_libs_lua_src_lstate_c_100277cc[]; /* used by 6 fn(s), first 0x100075e0 */

@@ -21,7 +21,7 @@ read **[docs/MODDING.md](docs/MODDING.md)**; the 319 Lua functions the engine re
 |---|---|
 | `names/*.json` | Curated symbol batches (functions, prototypes, globals, comments, tags). Re-applying is idempotent. |
 | `tools/apply_names.py` | Applies one or more batches to Ghidra over the HTTP bridge (`127.0.0.1:8089`). |
-| `names/types_*.json`, `tools/apply_types.py` | Types batches (structures, parameter / return / global types) and the tool that applies them; field comments come from the batches (docs/notes/types_1.md to types_3.md). |
+| `names/types_*.json`, `tools/apply_types.py` | Types batches (structures, parameter / return / global types) and the tool that applies them; field comments come from the batches (docs/notes/types_1.md to types_4.md). |
 | `tools/export_raw.py` | Full dump of every function's decompilation plus imports/exports/strings/segments/globals into `raw/<program>/`. |
 | `tools/export_changed.py` | Incremental dump: only the functions the journaled Ghidra edits invalidated. |
 | `tools/build_src.py` | Organises `raw/` into `src/<program>/<module>.c` with `functions.h`, `globals.h`, `imports.h`, `ghidra_types.h`, `FUNCTIONS.md`. |
@@ -176,3 +176,6 @@ Files in src/: 214
   and its six `ActorShadow` slots (docs/notes/types_2.md), `Puck`, `CostumeNode`, `TextContext` and `TextObject`
   (docs/notes/types_3.md), plus
   the hand-made GrimServices and CHORE.DLL records. Most parameters are still Ghidra's inferred `int`/`undefined4`.
+* Data types: `src/<prog>/data.c` gives values to every span typed as a scalar or an array of scalars. Typed so
+  far: the EXE's sine, tangent and CRC-32 tables, LUA.DLL's parser tables and hash sizes (docs/notes/types_4.md).
+  Untyped initialised bytes left: EXE 58,741, LUA 23,438, IMUSE 47,661, CHORE 20,818.

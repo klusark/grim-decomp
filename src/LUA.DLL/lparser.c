@@ -362,10 +362,10 @@ LAB_1000b47d:
     return 2;
   }
 LAB_1000ac11:
-  sVar1 = (&g_wYypact)[iVar8];
+  sVar1 = g_wYypact[iVar8];
   if (sVar1 == -0x8000) {
 LAB_1000b4fe:
-    local_bd4 = (int)(short)(&g_wYydefact)[iVar8];
+    local_bd4 = (int)g_wYydefact[iVar8];
     if (local_bd4 == 0) {
 LAB_1000b512:
       if (local_bdc == 0) {
@@ -380,10 +380,9 @@ LAB_1000b512:
       }
       local_bdc = 3;
       do {
-        if ((((short)(&g_wYypact)[iVar8] != -0x8000) &&
-            (iVar8 = (short)(&g_wYypact)[iVar8] + 1, -1 < iVar8)) &&
-           ((iVar8 < 0x107 && (*(short *)(&g_aYycheck + iVar8 * 2) == 1)))) {
-          local_bd4 = (int)*(short *)(&g_aYytable + iVar8 * 2);
+        if (((g_wYypact[iVar8] != -0x8000) && (iVar8 = g_wYypact[iVar8] + 1, -1 < iVar8)) &&
+           ((iVar8 < 0x107 && (g_aYycheck[iVar8] == 1)))) {
+          local_bd4 = (int)g_aYytable[iVar8];
           if (local_bd4 < 0) {
             if (local_bd4 != -0x8000) {
               local_bd4 = -local_bd4;
@@ -401,7 +400,7 @@ LAB_1000b512:
       } while( true );
     }
 LAB_1000acaa:
-    iVar8 = (int)*(short *)(&g_aYyr2 + local_bd4 * 2);
+    iVar8 = (int)g_aYyr2[local_bd4];
     if (0 < iVar8) {
       fVar9 = pfVar9[1 - iVar8];
     }
@@ -750,13 +749,12 @@ switchD_1000acd8_caseD_1f:
     local_bd8 = local_bd8 + -iVar8;
     pfVar9 = pfVar9 + (1 - iVar8);
     *pfVar9 = fVar9;
-    iVar8 = (int)*(short *)(&g_aYypgoto + *(short *)(&g_aYyr1 + local_bd4 * 2) * 2) +
-            (int)*local_bd8;
-    if (((iVar8 < 0) || (0x106 < iVar8)) || (*(short *)(&g_aYycheck + iVar8 * 2) != *local_bd8)) {
-      local_bd4 = (int)*(short *)(&g_aYydefgoto + *(short *)(&g_aYyr1 + local_bd4 * 2) * 2);
+    iVar8 = (int)g_wYypact[g_aYyr1[local_bd4] + 0x87] + (int)*local_bd8;
+    if (((iVar8 < 0) || (0x106 < iVar8)) || (g_aYycheck[iVar8] != *local_bd8)) {
+      local_bd4 = (int)g_wYydefact[g_aYyr1[local_bd4] + 0x87];
     }
     else {
-      local_bd4 = (int)*(short *)(&g_aYytable + iVar8 * 2);
+      local_bd4 = (int)g_aYytable[iVar8];
     }
   }
   else {
@@ -768,15 +766,14 @@ switchD_1000acd8_caseD_1f:
       local_be0 = 0;
     }
     else if (local_be0 < 0x11d) {
-      iVar4 = (int)(char)(&g_aYytranslate)[local_be0];
+      iVar4 = (int)g_aYytranslate[local_be0];
     }
     else {
       iVar4 = 0x5d;
     }
     iVar10 = sVar1 + iVar4;
-    if (((iVar10 < 0) || (0x106 < iVar10)) || (*(short *)(&g_aYycheck + iVar10 * 2) != iVar4))
-    goto LAB_1000b4fe;
-    local_bd4 = (int)*(short *)(&g_aYytable + iVar10 * 2);
+    if (((iVar10 < 0) || (0x106 < iVar10)) || (g_aYycheck[iVar10] != iVar4)) goto LAB_1000b4fe;
+    local_bd4 = (int)g_aYytable[iVar10];
     if (local_bd4 < 0) {
       if (local_bd4 == -0x8000) goto LAB_1000b512;
       local_bd4 = -local_bd4;

@@ -330,7 +330,7 @@
 | 1000ab20 | code_neutralop | lparser.c | 10 |
 | 1000ab30 | code_opcode | lparser.c | 11 |
 | 1000ab50 | luaI_registerlocalvar | lparser.c | 23 |
-| 1000abd0 | luaY_parse | lparser.c | 514 |
+| 1000abd0 | luaY_parse | lparser.c | 511 |
 | 1000b770 | fix_opcode | lparser.c | 29 |
 | 1000b800 | code_pop | lparser.c | 10 |
 | 1000b810 | string_constant | lparser.c | 22 |
