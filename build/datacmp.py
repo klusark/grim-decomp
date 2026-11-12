@@ -4,6 +4,7 @@ For every span of tools/datagen.py's model:
 * the bytes of the span in the new build equal those at the same original address in the old build;
 * a dword that is a pointer in either build points at the same original address (data) or at the same function;
 * the span sits at its original distance from the start of its section (`sect_<name>`): the layout is pinned.
+A span in names/data_unused.json (tools/data_unused.py) must be zero in the new build instead.
 
 The old build may be one with the data.s blob (`_sect_rdata` / `_sect_data` / `_sect_text`) or one with data.c.
 Needs raw/ (the model) and nm; it is a check for the export machine, not part of the build.
@@ -11,6 +12,7 @@ Needs raw/ (the model) and nm; it is a check for the export machine, not part of
 usage: python -I build/datacmp.py OLD_DIR NEW_DIR [PROG...]
        (each DIR holds grimfandango.exe, lua.dll, imuse.dll, chore.dll)"""
 import bisect
+import json
 import os
 import shutil
 import struct
@@ -108,6 +110,10 @@ def compare(prog, old, new):
         return x[1] == y[1]
 
     bad, missing, moved, ptrs, nbytes = [], [], [], 0, 0
+    unused, n_unused = set(), 0
+    up = os.path.join(ROOT, "names", "data_unused.json")
+    if os.path.exists(up):
+        unused = {(int(r["addr"], 16), r["name"]) for r in json.load(open(up)).get(prog, [])}
     first = {}
     for a, sp in new_spans:
         if sp.sec is not None and sp.sec["key"] not in first:
@@ -128,6 +134,13 @@ def compare(prog, old, new):
             continue
         ob, nb = old.read(ov, n), new.read(nv, n)
         nbytes += n
+        if (sp.start, sp.name) in unused:
+            # names/data_unused.json: zero in the new build, whatever the old one held
+            if nb.strip(b"\0"):
+                bad.append((sp.name, sp.start, "unused", nb[:4].hex()))
+            else:
+                n_unused += 1
+            continue
         if ob == nb:
             continue
         off = 0
@@ -146,8 +159,8 @@ def compare(prog, old, new):
                     continue
             bad.append((sp.name, sp.start + off, ob[o4:o4 + 4].hex() if o4 >= 0 else "", nb[o4:o4 + 4].hex() if o4 >= 0 else ""))
             off = (o4 + 4) if o4 >= 0 else off + 1
-    print("%s: %d spans, %d bytes compared; %d pointers equal by target; %d differences, %d moved, %d missing"
-          % (prog, len(model.spans), nbytes, ptrs, len(bad), len(moved), len(missing)))
+    print("%s: %d spans, %d bytes compared; %d pointers equal by target; %d unused spans zero; %d differences, %d moved, "
+          "%d missing" % (prog, len(model.spans), nbytes, ptrs, n_unused, len(bad), len(moved), len(missing)))
     for b in bad[:20]:
         print("  DIFF %s at 0x%08x: old %s new %s" % b)
     for m in moved[:10]:

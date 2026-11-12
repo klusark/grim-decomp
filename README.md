@@ -30,6 +30,7 @@ read **[docs/MODDING.md](docs/MODDING.md)**; the 319 Lua functions the engine re
 | `tools/gen_dll_crt_names.py` | C runtime names for the DLLs, matched against the EXE runtime. |
 | `tools/export_data.py` | Dumps the `.rdata`/`.data` contents of each program into `raw/<prog>/sections/`. |
 | `tools/datagen.py` | Writes `src/<prog>/data.c`, the original's data as C in the original layout (called by `build_src.py`); `report` prints the data report. |
+| `tools/data_unused.py`, `names/data_unused.json` | Finds the original's data that nothing in the built programs reads (only code taken out of the build: zlib, the dead C runtime); `datagen.py` emits it as zeros of the same size (docs/notes/data_unused.md). |
 | `build/` | Makefile, `link.py`, `datacmp.py` (compares the data of two builds span by span), `compat.h`, shims, `BUILD_NOTES.md`. |
 | `build/overrides_hmifx.c`, `tools/hmifx_check.c` | HMI's voice-effects library (HMIFXLIB.DLL and the effects of HMIFXFP.DLL that IMUSE.PSL uses) in C, and the check that compares it with the DLLs sample for sample. |
 | `tools/stats.py` | Coverage table (below). |
@@ -178,4 +179,5 @@ Files in src/: 214
   the hand-made GrimServices and CHORE.DLL records. Most parameters are still Ghidra's inferred `int`/`undefined4`.
 * Data types: `src/<prog>/data.c` gives values to every span typed as a scalar or an array of scalars. Typed so
   far: the EXE's sine, tangent and CRC-32 tables, LUA.DLL's parser tables and hash sizes (docs/notes/types_4.md).
-  Untyped initialised bytes left: EXE 58,741, LUA 23,438, IMUSE 47,661, CHORE 20,818.
+  Untyped initialised bytes left: EXE 46,228, LUA 16,430, IMUSE 46,029, CHORE 14,236. The data only zlib and
+  the dead C runtime read (about 32 KB in all) is zero in data.c (docs/notes/data_unused.md).

@@ -11,7 +11,6 @@ unsigned char grim_data_anchor_imuse_dll[0] __attribute__((section(".data$grim_0
 /* functions the data points at */
 extern char f_FUN_10009700[] __asm__("_FUN_10009700");
 extern char f_FUN_1000ba80[] __asm__("_FUN_1000ba80");
-extern char f_FUN_1000d130[] __asm__("_FUN_1000d130");
 extern char f_FUN_1000d1f0[] __asm__("_FUN_1000d1f0");
 extern char f_FUN_1000e500[] __asm__("_FUN_1000e500");
 extern char f_FUN_100114b0[] __asm__("_FUN_100114b0");
@@ -235,7 +234,7 @@ extern unsigned char DAT_10015fa0[4];
 extern unsigned char DAT_10015fa4[4188];
 extern unsigned char DAT_10017000[4];
 extern unsigned char DAT_10017004[4];
-extern void *DAT_10017008[2];
+extern unsigned char DAT_10017008[8];
 extern unsigned char DAT_10017010[4];
 extern void *DAT_10017014[2];
 extern unsigned char DAT_1001701c[4];
@@ -350,17 +349,13 @@ extern unsigned char DAT_1001e9c0[16];
 extern void *DAT_1001e9d0[4];
 extern void *PTR_exit_1001e9e0[2];
 extern unsigned char DAT_1001e9e8[4];
-typedef struct __attribute__((packed)) { void *p0; unsigned char b4[28]; } grim_span_1001e9ec;
-extern grim_span_1001e9ec DAT_1001e9ec;
-typedef struct __attribute__((packed)) { void *p0; unsigned char b4[12]; } grim_span_1001ea0c;
-extern grim_span_1001ea0c DAT_1001ea0c;
-typedef struct __attribute__((packed)) { void *p0; unsigned char b4[12]; } grim_span_1001ea1c;
-extern grim_span_1001ea1c DAT_1001ea1c;
-typedef struct __attribute__((packed)) { void *p0; unsigned char b4[120]; } grim_span_1001ea2c;
-extern grim_span_1001ea2c DAT_1001ea2c;
-extern void *DAT_1001eaa8;
-extern void *DAT_1001eaac;
-extern void *PTR_DAT_1001eab0[4];
+extern unsigned char DAT_1001e9ec[32];
+extern unsigned char DAT_1001ea0c[16];
+extern unsigned char DAT_1001ea1c[16];
+extern unsigned char DAT_1001ea2c[124];
+extern unsigned char DAT_1001eaa8[4];
+extern unsigned char DAT_1001eaac[4];
+extern unsigned char PTR_DAT_1001eab0[16];
 extern unsigned char DAT_1001eac0[16];
 extern unsigned char DAT_1001ead0[32];
 extern unsigned char DAT_1001eaf0[48];
@@ -369,11 +364,11 @@ extern unsigned char DAT_1001ed11[31];
 extern unsigned int DAT_1001ed30;
 extern unsigned char DAT_1001ed34[356];
 extern void *PTR_FUN_1001ee98;
-extern void *PTR_FUN_1001ee9c;
-extern void *PTR_FUN_1001eea0;
-extern void *PTR_FUN_1001eea4;
-extern void *PTR_FUN_1001eea8;
-extern void *PTR_FUN_1001eeac;
+extern unsigned char PTR_FUN_1001ee9c[4];
+extern unsigned char PTR_FUN_1001eea0[4];
+extern unsigned char PTR_FUN_1001eea4[4];
+extern unsigned char PTR_FUN_1001eea8[4];
+extern unsigned char PTR_FUN_1001eeac[4];
 typedef struct __attribute__((packed)) { unsigned char b0[8]; void *p8; unsigned char bc[4]; void *p10; void *p14; void *p18; void *p1c; void *p20; void *p24; void *p28; void *p2c; void *p30; void *p34; void *p38; void *p3c; void *p40; void *p44; void *p48; void *p4c; unsigned char b50[272]; } grim_span_1001eeb0;
 extern grim_span_1001eeb0 DAT_1001eeb0;
 extern void *PTR_DAT_1001f010;
@@ -414,8 +409,7 @@ typedef struct __attribute__((packed)) { void *p0; unsigned char b4[28]; } grim_
 extern grim_span_10021d40 DAT_10021d40;
 extern unsigned char DAT_10021d60[64];
 extern unsigned char DAT_10021da0[8];
-typedef struct __attribute__((packed)) { unsigned char b0[56]; void *p38; void *p3c; unsigned char b40[288]; } grim_span_10021da8;
-extern grim_span_10021da8 DAT_10021da8;
+extern unsigned char DAT_10021da8[352];
 extern unsigned char DAT_10021f08[568];
 extern unsigned char DAT_10022140[128];
 extern unsigned char DAT_100221c0[11264];
@@ -710,7 +704,7 @@ extern unsigned char DAT_100336e4[252];
 extern unsigned int DAT_100337e0;
 extern unsigned int DAT_100337e4;
 extern unsigned char DAT_100337e8[4];
-extern unsigned int DAT_100337ec;
+extern unsigned char DAT_100337ec[4];
 extern unsigned char DAT_100337f0[4];
 extern unsigned char DAT_100337f4[12];
 extern unsigned char DAT_10033800[4096];
@@ -794,27 +788,11 @@ extern unsigned char DAT_10034808[4];
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1c, 0xc0, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xff, 0x0f, 0x41,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x3f
 };
-/* 0x100153b8, 92 bytes */ GRIM_DATA("100153b8") unsigned char UNK_100153b8[92] = {
-    0x06, 0x00, 0x00, 0x06, 0x00, 0x01, 0x00, 0x00, 0x10, 0x00, 0x03, 0x06, 0x00, 0x06, 0x02, 0x10,
-    0x04, 0x45, 0x45, 0x45, 0x05, 0x05, 0x05, 0x05, 0x05, 0x35, 0x30, 0x00, 0x50, 0x00, 0x00, 0x00,
-    0x00, 0x20, 0x28, 0x38, 0x50, 0x58, 0x07, 0x08, 0x00, 0x37, 0x30, 0x30, 0x57, 0x50, 0x07, 0x00,
-    0x00, 0x20, 0x20, 0x08, 0x00, 0x00, 0x00, 0x00, 0x08, 0x60, 0x68, 0x60, 0x60, 0x60, 0x60, 0x00,
-    0x00, 0x70, 0x70, 0x78, 0x78, 0x78, 0x78, 0x08, 0x07, 0x08, 0x00, 0x00, 0x07, 0x00, 0x08, 0x08,
-    0x08, 0x00, 0x00, 0x08, 0x00, 0x08, 0x00, 0x07, 0x08
-};
-/* 0x10015414, 16 bytes */ GRIM_DATA("10015414") unsigned char DAT_10015414[16] = { 0x28, 0x00, 0x6e, 0x00, 0x75, 0x00, 0x6c, 0x00, 0x6c, 0x00, 0x29 };
-/* 0x10015424, 20 bytes */ GRIM_DATA("10015424") unsigned char DAT_10015424[20] = {
-    0x28, 0x6e, 0x75, 0x6c, 0x6c, 0x29, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0xf0, 0x3f
-};
-/* 0x10015438, 28 bytes */ GRIM_DATA("10015438") unsigned char DAT_10015438[28] = {
-    0x49, 0x73, 0x50, 0x72, 0x6f, 0x63, 0x65, 0x73, 0x73, 0x6f, 0x72, 0x46, 0x65, 0x61, 0x74, 0x75,
-    0x72, 0x65, 0x50, 0x72, 0x65, 0x73, 0x65, 0x6e, 0x74
-};
-/* 0x10015454, 28 bytes */ GRIM_DATA("10015454") unsigned char UNK_10015454[28] = {
-    0x4b, 0x45, 0x52, 0x4e, 0x45, 0x4c, 0x33, 0x32, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x65, 0x2b, 0x30, 0x30, 0x30
-};
+/* 0x100153b8, 92 bytes, unused (dead) */ GRIM_DATA("100153b8") unsigned char UNK_100153b8[92];
+/* 0x10015414, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("10015414") unsigned char DAT_10015414[16];
+/* 0x10015424, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("10015424") unsigned char DAT_10015424[20];
+/* 0x10015438, 28 bytes, unused (dead) */ GRIM_DATA("10015438") unsigned char DAT_10015438[28];
+/* 0x10015454, 28 bytes, unused (dead) */ GRIM_DATA("10015454") unsigned char UNK_10015454[28];
 /* 0x10015470, 8 bytes */ GRIM_DATA("10015470") unsigned char DAT_10015470[8] = { 0x4c, 0x43, 0x5f, 0x54, 0x49, 0x4d, 0x45 };
 /* 0x10015478, 12 bytes */ GRIM_DATA("10015478") unsigned char DAT_10015478[12] = { 0x4c, 0x43, 0x5f, 0x4e, 0x55, 0x4d, 0x45, 0x52, 0x49, 0x43 };
 /* 0x10015484, 12 bytes */ GRIM_DATA("10015484") unsigned char DAT_10015484[12] = { 0x4c, 0x43, 0x5f, 0x4d, 0x4f, 0x4e, 0x45, 0x54, 0x41, 0x52, 0x59 };
@@ -1395,10 +1373,8 @@ extern unsigned char DAT_10034808[4];
 };
 /* 0x10017000, 4 bytes */ GRIM_DATA("10017000") unsigned char DAT_10017000[4] = {0};
 /* 0x10017004, 4 bytes */ GRIM_DATA("10017004") unsigned char DAT_10017004[4] = {0};
-/* 0x10017008, 8 bytes */ GRIM_DATA("10017008") void *DAT_10017008[2] = {
-    0, (void *)f_FUN_1000d130
-};
-/* 0x10017010, 4 bytes */ GRIM_DATA("10017010") unsigned char DAT_10017010[4] = {0};
+/* 0x10017008, 8 bytes, unused (dead) */ GRIM_DATA("10017008") unsigned char DAT_10017008[8];
+/* 0x10017010, 4 bytes, unused (dead) */ GRIM_DATA("10017010") unsigned char DAT_10017010[4];
 /* 0x10017014, 8 bytes */ GRIM_DATA("10017014") void *DAT_10017014[2] = {
     0, (void *)f_FUN_1000d1f0
 };
@@ -3209,29 +3185,15 @@ extern unsigned char DAT_10034808[4];
 /* 0x1001e9e0, 8 bytes */ GRIM_DATA("1001e9e0") void *PTR_exit_1001e9e0[2] = {
     (void *)f_exit, 0
 };
-/* 0x1001e9e8, 4 bytes */ GRIM_DATA("1001e9e8") unsigned char DAT_1001e9e8[4] = {0};
-/* 0x1001e9ec, 32 bytes */ GRIM_DATA("1001e9ec") grim_span_1001e9ec DAT_1001e9ec = {
-    (void *)&DAT_10032f68,
-    {0}
-};
-/* 0x1001ea0c, 16 bytes */ GRIM_DATA("1001ea0c") grim_span_1001ea0c DAT_1001ea0c = {
-    (void *)&DAT_10032f98,
-    {0}
-};
-/* 0x1001ea1c, 16 bytes */ GRIM_DATA("1001ea1c") grim_span_1001ea1c DAT_1001ea1c = {
-    (void *)&DAT_10032fb0,
-    {0}
-};
-/* 0x1001ea2c, 124 bytes */ GRIM_DATA("1001ea2c") grim_span_1001ea2c DAT_1001ea2c = {
-    (void *)&DAT_10032f80,
-    {0}
-};
-/* 0x1001eaa8, 4 bytes */ GRIM_DATA("1001eaa8") void *DAT_1001eaa8 = (void *)&DAT_10015424;
-/* 0x1001eaac, 4 bytes */ GRIM_DATA("1001eaac") void *DAT_1001eaac = (void *)&DAT_10015414;
-/* 0x1001eab0, 16 bytes */ GRIM_DATA("1001eab0") void *PTR_DAT_1001eab0[4] = {
-    (void *)&DAT_10033800, 0, (void *)&DAT_10033800, (void *)0x101
-};
-/* 0x1001eac0, 16 bytes */ GRIM_DATA("1001eac0") unsigned char DAT_1001eac0[16] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10 };
+/* 0x1001e9e8, 4 bytes, unused (dead) */ GRIM_DATA("1001e9e8") unsigned char DAT_1001e9e8[4];
+/* 0x1001e9ec, 32 bytes, unused (dead) */ GRIM_DATA("1001e9ec") unsigned char DAT_1001e9ec[32];
+/* 0x1001ea0c, 16 bytes, unused (dead) */ GRIM_DATA("1001ea0c") unsigned char DAT_1001ea0c[16];
+/* 0x1001ea1c, 16 bytes, unused (dead) */ GRIM_DATA("1001ea1c") unsigned char DAT_1001ea1c[16];
+/* 0x1001ea2c, 124 bytes, unused (dead) */ GRIM_DATA("1001ea2c") unsigned char DAT_1001ea2c[124];
+/* 0x1001eaa8, 4 bytes, unused (dead) */ GRIM_DATA("1001eaa8") unsigned char DAT_1001eaa8[4];
+/* 0x1001eaac, 4 bytes, unused (dead) */ GRIM_DATA("1001eaac") unsigned char DAT_1001eaac[4];
+/* 0x1001eab0, 16 bytes, unused (dead) */ GRIM_DATA("1001eab0") unsigned char PTR_DAT_1001eab0[16];
+/* 0x1001eac0, 16 bytes, unused (dead) */ GRIM_DATA("1001eac0") unsigned char DAT_1001eac0[16];
 /* 0x1001ead0, 32 bytes */ GRIM_DATA("1001ead0") unsigned char DAT_1001ead0[32] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
     0x01
@@ -3240,8 +3202,8 @@ extern unsigned char DAT_10034808[4];
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
     0x02
 };
-/* 0x1001eb20, 497 bytes */ GRIM_DATA("1001eb20") unsigned char DAT_1001eb20[497] = {0};
-/* 0x1001ed11, 31 bytes */ GRIM_DATA("1001eb20") unsigned char DAT_1001ed11[31] = {0};
+/* 0x1001eb20, 497 bytes, unused (dead) */ GRIM_DATA("1001eb20") unsigned char DAT_1001eb20[497];
+/* 0x1001ed11, 31 bytes, unused (dead) */ GRIM_DATA("1001eb20") unsigned char DAT_1001ed11[31];
 /* 0x1001ed30, 4 bytes */ GRIM_DATA("1001ed30") unsigned int DAT_1001ed30 = 0x1;
 /* 0x1001ed34, 356 bytes */ GRIM_DATA("1001ed34") unsigned char DAT_1001ed34[356] = {
     0x16, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00,
@@ -3269,11 +3231,11 @@ extern unsigned char DAT_10034808[4];
     0x0c
 };
 /* 0x1001ee98, 4 bytes */ GRIM_DATA("1001ee98") void *PTR_FUN_1001ee98 = (void *)f_FUN_100114b0;
-/* 0x1001ee9c, 4 bytes */ GRIM_DATA("1001ee9c") void *PTR_FUN_1001ee9c = (void *)f_FUN_100114b0;
-/* 0x1001eea0, 4 bytes */ GRIM_DATA("1001eea0") void *PTR_FUN_1001eea0 = (void *)f_FUN_100114b0;
-/* 0x1001eea4, 4 bytes */ GRIM_DATA("1001eea4") void *PTR_FUN_1001eea4 = (void *)f_FUN_100114b0;
-/* 0x1001eea8, 4 bytes */ GRIM_DATA("1001eea8") void *PTR_FUN_1001eea8 = (void *)f_FUN_100114b0;
-/* 0x1001eeac, 4 bytes */ GRIM_DATA("1001eeac") void *PTR_FUN_1001eeac = (void *)f_FUN_100114b0;
+/* 0x1001ee9c, 4 bytes, unused (dead) */ GRIM_DATA("1001ee9c") unsigned char PTR_FUN_1001ee9c[4];
+/* 0x1001eea0, 4 bytes, unused (dead) */ GRIM_DATA("1001eea0") unsigned char PTR_FUN_1001eea0[4];
+/* 0x1001eea4, 4 bytes, unused (dead) */ GRIM_DATA("1001eea4") unsigned char PTR_FUN_1001eea4[4];
+/* 0x1001eea8, 4 bytes, unused (dead) */ GRIM_DATA("1001eea8") unsigned char PTR_FUN_1001eea8[4];
+/* 0x1001eeac, 4 bytes, unused (dead) */ GRIM_DATA("1001eeac") unsigned char PTR_FUN_1001eeac[4];
 /* 0x1001eeb0, 352 bytes */ GRIM_DATA("1001eeb0") grim_span_1001eeb0 DAT_1001eeb0 = {
     { 0x43 },
     (void *)&DAT_100154a8,
@@ -3334,28 +3296,13 @@ extern unsigned char DAT_10034808[4];
 /* 0x1001f224, 12 bytes */ GRIM_DATA("1001f224") unsigned char DAT_1001f224[12] = { 0x01 };
 /* 0x1001f230, 8 bytes */ GRIM_DATA("1001f230") unsigned char DAT_1001f230[8] = { 0xff, 0xff, 0xff, 0xff };
 /* 0x1001f238, 40 bytes */ GRIM_DATA("1001f238") unsigned char DAT_1001f238[40] = { 0xff, 0xff, 0xff, 0xff, 0x00, 0x0a };
-/* 0x1001f260, 8 bytes */ GRIM_DATA("1001f260") unsigned char DAT_1001f260[8] = { 0x01, 0x02, 0x04, 0x08 };
-/* 0x1001f268, 4 bytes */ GRIM_DATA("1001f268") unsigned char DAT_1001f268[4] = { 0xa4, 0x03 };
-/* 0x1001f26c, 4 bytes */ GRIM_DATA("1001f26c") unsigned char DAT_1001f26c[4] = { 0x60, 0x82, 0x79, 0x82 };
-/* 0x1001f270, 4 bytes */ GRIM_DATA("1001f270") unsigned char DAT_1001f270[4] = { 0x21 };
-/* 0x1001f274, 4 bytes */ GRIM_DATA("1001f274") unsigned char DAT_1001f274[4] = {0};
-/* 0x1001f278, 224 bytes */ GRIM_DATA("1001f278") unsigned char DAT_1001f278[224] = {
-    0xa6, 0xdf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xa1, 0xa5, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x81, 0x9f, 0xe0, 0xfc, 0x00, 0x00, 0x00, 0x00, 0x40, 0x7e, 0x80, 0xfc, 0x00, 0x00, 0x00, 0x00,
-    0xa8, 0x03, 0x00, 0x00, 0xc1, 0xa3, 0xda, 0xa3, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x81, 0xfe, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0xfe, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0xb5, 0x03, 0x00, 0x00, 0xc1, 0xa3, 0xda, 0xa3, 0x20, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x81, 0xfe, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x41, 0xfe, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0xb6, 0x03, 0x00, 0x00, 0xcf, 0xa2, 0xe4, 0xa2, 0x1a, 0x00, 0xe5, 0xa2, 0xe8, 0xa2, 0x5b, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x81, 0xfe, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x7e, 0xa1, 0xfe, 0x00, 0x00, 0x00, 0x00,
-    0x51, 0x05, 0x00, 0x00, 0x51, 0xda, 0x5e, 0xda, 0x20, 0x00, 0x5f, 0xda, 0x6a, 0xda, 0x32, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x81, 0xd3, 0xd8, 0xde, 0xe0, 0xf9, 0x00, 0x00, 0x31, 0x7e, 0x81, 0xfe
-};
-/* 0x1001f358, 8 bytes */ GRIM_DATA("1001f358") unsigned char DAT_1001f358[8] = { 0x00, 0x10 };
+/* 0x1001f260, 8 bytes, unused (dead) */ GRIM_DATA("1001f260") unsigned char DAT_1001f260[8];
+/* 0x1001f268, 4 bytes, unused (dead) */ GRIM_DATA("1001f268") unsigned char DAT_1001f268[4];
+/* 0x1001f26c, 4 bytes, unused (dead) */ GRIM_DATA("1001f26c") unsigned char DAT_1001f26c[4];
+/* 0x1001f270, 4 bytes, unused (dead) */ GRIM_DATA("1001f270") unsigned char DAT_1001f270[4];
+/* 0x1001f274, 4 bytes, unused (dead) */ GRIM_DATA("1001f274") unsigned char DAT_1001f274[4];
+/* 0x1001f278, 224 bytes, unused (dead) */ GRIM_DATA("1001f278") unsigned char DAT_1001f278[224];
+/* 0x1001f358, 8 bytes, unused (dead) */ GRIM_DATA("1001f358") unsigned char DAT_1001f358[8];
 /* 0x1001f360, 4 bytes */ GRIM_DATA("1001f360") unsigned int DAT_1001f360 = 0x2;
 /* 0x1001f364, 140 bytes */ GRIM_DATA("1001f364") void *DAT_1001f364[35] = {
     (void *)&DAT_10015720, (void *)0x8, (void *)&DAT_100156f4, (void *)0x9,
@@ -3372,10 +3319,7 @@ extern unsigned char DAT_10034808[4];
     0x00, 0x04, 0x00, 0x00, 0x01, 0xfc, 0xff, 0xff, 0x35, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x00, 0x00,
     0x40, 0x00, 0x00, 0x00, 0xff, 0x03
 };
-/* 0x1001f408, 24 bytes */ GRIM_DATA("1001f408") unsigned char DAT_1001f408[24] = {
-    0x80, 0x00, 0x00, 0x00, 0x81, 0xff, 0xff, 0xff, 0x18, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00,
-    0x20, 0x00, 0x00, 0x00, 0x7f
-};
+/* 0x1001f408, 24 bytes, unused (dead) */ GRIM_DATA("1001f408") unsigned char DAT_1001f408[24];
 /* 0x1001f420, 4 bytes */ GRIM_DATA("1001f420") void *PTR_LOOP_1001f420 = (void *)&PTR_LOOP_1001f420;
 /* 0x1001f424, 12 bytes */ GRIM_DATA("1001f424") void *PTR_LOOP_1001f424[3] = {
     (void *)&PTR_LOOP_1001f420, (void *)&DAT_1001f438, (void *)&DAT_1001f438
@@ -3792,70 +3736,10 @@ extern unsigned char DAT_10034808[4];
             0x01, 0x00, 0x00, 0x00, 0xf0, 0xf1, 0xff, 0xff
     }
 };
-/* 0x10021d60, 64 bytes */ GRIM_DATA("10021d60") unsigned char DAT_10021d60[64] = { 0x50, 0x53, 0x54 };
-/* 0x10021da0, 8 bytes */ GRIM_DATA("10021da0") unsigned char DAT_10021da0[8] = { 0x50, 0x44, 0x54 };
-/* 0x10021da8, 352 bytes */ GRIM_DATA("10021da8") grim_span_10021da8 DAT_10021da8 = {
-    {0},
-    (void *)&DAT_10021d60,
-    (void *)&DAT_10021da0,
-    {
-            0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xa0, 0x02, 0x40, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0xc8, 0x05, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0xfa, 0x08, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x9c, 0x0c, 0x40,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x50, 0xc3, 0x0f, 0x40, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x24, 0xf4, 0x12, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80,
-            0x96, 0x98, 0x16, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0xbc, 0xbe, 0x19, 0x40,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0xbf, 0xc9, 0x1b, 0x8e, 0x34, 0x40, 0x00, 0x00, 0x00, 0xa1,
-            0xed, 0xcc, 0xce, 0x1b, 0xc2, 0xd3, 0x4e, 0x40, 0x20, 0xf0, 0x9e, 0xb5, 0x70, 0x2b, 0xa8, 0xad,
-            0xc5, 0x9d, 0x69, 0x40, 0xd0, 0x5d, 0xfd, 0x25, 0xe5, 0x1a, 0x8e, 0x4f, 0x19, 0xeb, 0x83, 0x40,
-            0x71, 0x96, 0xd7, 0x95, 0x43, 0x0e, 0x05, 0x8d, 0x29, 0xaf, 0x9e, 0x40, 0xf9, 0xbf, 0xa0, 0x44,
-            0xed, 0x81, 0x12, 0x8f, 0x81, 0x82, 0xb9, 0x40, 0xbf, 0x3c, 0xd5, 0xa6, 0xcf, 0xff, 0x49, 0x1f,
-            0x78, 0xc2, 0xd3, 0x40, 0x6f, 0xc6, 0xe0, 0x8c, 0xe9, 0x80, 0xc9, 0x47, 0xba, 0x93, 0xa8, 0x41,
-            0xbc, 0x85, 0x6b, 0x55, 0x27, 0x39, 0x8d, 0xf7, 0x70, 0xe0, 0x7c, 0x42, 0xbc, 0xdd, 0x8e, 0xde,
-            0xf9, 0x9d, 0xfb, 0xeb, 0x7e, 0xaa, 0x51, 0x43, 0xa1, 0xe6, 0x76, 0xe3, 0xcc, 0xf2, 0x29, 0x2f,
-            0x84, 0x81, 0x26, 0x44, 0x28, 0x10, 0x17, 0xaa, 0xf8, 0xae, 0x10, 0xe3, 0xc5, 0xc4, 0xfa, 0x44,
-            0xeb, 0xa7, 0xd4, 0xf3, 0xf7, 0xeb, 0xe1, 0x4a, 0x7a, 0x95, 0xcf, 0x45, 0x65, 0xcc, 0xc7, 0x91
-    }
-};
-/* 0x10021f08, 568 bytes */ GRIM_DATA("10021f08") unsigned char DAT_10021f08[568] = {
-    0x0e, 0xa6, 0xae, 0xa0, 0x19, 0xe3, 0xa3, 0x46, 0x0d, 0x65, 0x17, 0x0c, 0x75, 0x81, 0x86, 0x75,
-    0x76, 0xc9, 0x48, 0x4d, 0x58, 0x42, 0xe4, 0xa7, 0x93, 0x39, 0x3b, 0x35, 0xb8, 0xb2, 0xed, 0x53,
-    0x4d, 0xa7, 0xe5, 0x5d, 0x3d, 0xc5, 0x5d, 0x3b, 0x8b, 0x9e, 0x92, 0x5a, 0xff, 0x5d, 0xa6, 0xf0,
-    0xa1, 0x20, 0xc0, 0x54, 0xa5, 0x8c, 0x37, 0x61, 0xd1, 0xfd, 0x8b, 0x5a, 0x8b, 0xd8, 0x25, 0x5d,
-    0x89, 0xf9, 0xdb, 0x67, 0xaa, 0x95, 0xf8, 0xf3, 0x27, 0xbf, 0xa2, 0xc8, 0x5d, 0xdd, 0x80, 0x6e,
-    0x4c, 0xc9, 0x9b, 0x97, 0x20, 0x8a, 0x02, 0x52, 0x60, 0xc4, 0x25, 0x75, 0x00, 0x00, 0x00, 0x00,
-    0xcd, 0xcc, 0xcd, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xfb, 0x3f, 0x71, 0x3d, 0x0a, 0xd7,
-    0xa3, 0x70, 0x3d, 0x0a, 0xd7, 0xa3, 0xf8, 0x3f, 0x5a, 0x64, 0x3b, 0xdf, 0x4f, 0x8d, 0x97, 0x6e,
-    0x12, 0x83, 0xf5, 0x3f, 0xc3, 0xd3, 0x2c, 0x65, 0x19, 0xe2, 0x58, 0x17, 0xb7, 0xd1, 0xf1, 0x3f,
-    0xd0, 0x0f, 0x23, 0x84, 0x47, 0x1b, 0x47, 0xac, 0xc5, 0xa7, 0xee, 0x3f, 0x40, 0xa6, 0xb6, 0x69,
-    0x6c, 0xaf, 0x05, 0xbd, 0x37, 0x86, 0xeb, 0x3f, 0x33, 0x3d, 0xbc, 0x42, 0x7a, 0xe5, 0xd5, 0x94,
-    0xbf, 0xd6, 0xe7, 0x3f, 0xc2, 0xfd, 0xfd, 0xce, 0x61, 0x84, 0x11, 0x77, 0xcc, 0xab, 0xe4, 0x3f,
-    0x2f, 0x4c, 0x5b, 0xe1, 0x4d, 0xc4, 0xbe, 0x94, 0x95, 0xe6, 0xc9, 0x3f, 0x92, 0xc4, 0x53, 0x3b,
-    0x75, 0x44, 0xcd, 0x14, 0xbe, 0x9a, 0xaf, 0x3f, 0xde, 0x67, 0xba, 0x94, 0x39, 0x45, 0xad, 0x1e,
-    0xb1, 0xcf, 0x94, 0x3f, 0x24, 0x23, 0xc6, 0xe2, 0xbc, 0xba, 0x3b, 0x31, 0x61, 0x8b, 0x7a, 0x3f,
-    0x61, 0x55, 0x59, 0xc1, 0x7e, 0xb1, 0x53, 0x7c, 0x12, 0xbb, 0x5f, 0x3f, 0xd7, 0xee, 0x2f, 0x8d,
-    0x06, 0xbe, 0x92, 0x85, 0x15, 0xfb, 0x44, 0x3f, 0x24, 0x3f, 0xa5, 0xe9, 0x39, 0xa5, 0x27, 0xea,
-    0x7f, 0xa8, 0x2a, 0x3f, 0x7d, 0xac, 0xa1, 0xe4, 0xbc, 0x64, 0x7c, 0x46, 0xd0, 0xdd, 0x55, 0x3e,
-    0x63, 0x7b, 0x06, 0xcc, 0x23, 0x54, 0x77, 0x83, 0xff, 0x91, 0x81, 0x3d, 0x91, 0xfa, 0x3a, 0x19,
-    0x7a, 0x63, 0x25, 0x43, 0x31, 0xc0, 0xac, 0x3c, 0x21, 0x89, 0xd1, 0x38, 0x82, 0x47, 0x97, 0xb8,
-    0x00, 0xfd, 0xd7, 0x3b, 0xdc, 0x88, 0x58, 0x08, 0x1b, 0xb1, 0xe8, 0xe3, 0x86, 0xa6, 0x03, 0x3b,
-    0xc6, 0x84, 0x45, 0x42, 0x07, 0xb6, 0x99, 0x75, 0x37, 0xdb, 0x2e, 0x3a, 0x33, 0x71, 0x1c, 0xd2,
-    0x23, 0xdb, 0x32, 0xee, 0x49, 0x90, 0x5a, 0x39, 0xa6, 0x87, 0xbe, 0xc0, 0x57, 0xda, 0xa5, 0x82,
-    0xa6, 0xa2, 0xb5, 0x32, 0xe2, 0x68, 0xb2, 0x11, 0xa7, 0x52, 0x9f, 0x44, 0x59, 0xb7, 0x10, 0x2c,
-    0x25, 0x49, 0xe4, 0x2d, 0x36, 0x34, 0x4f, 0x53, 0xae, 0xce, 0x6b, 0x25, 0x8f, 0x59, 0x04, 0xa4,
-    0xc0, 0xde, 0xc2, 0x7d, 0xfb, 0xe8, 0xc6, 0x1e, 0x9e, 0xe7, 0x88, 0x5a, 0x57, 0x91, 0x3c, 0xbf,
-    0x50, 0x83, 0x22, 0x18, 0x4e, 0x4b, 0x65, 0x62, 0xfd, 0x83, 0x8f, 0xaf, 0x06, 0x94, 0x7d, 0x11,
-    0xe4, 0x2d, 0xde, 0x9f, 0xce, 0xd2, 0xc8, 0x04, 0xdd, 0xa6, 0xd8, 0x0a, 0x00, 0x00, 0x00, 0x00,
-    0xff, 0xff, 0xff, 0xff, 0x1e, 0x00, 0x00, 0x00, 0x3b, 0x00, 0x00, 0x00, 0x5a, 0x00, 0x00, 0x00,
-    0x78, 0x00, 0x00, 0x00, 0x97, 0x00, 0x00, 0x00, 0xb5, 0x00, 0x00, 0x00, 0xd4, 0x00, 0x00, 0x00,
-    0xf3, 0x00, 0x00, 0x00, 0x11, 0x01, 0x00, 0x00, 0x30, 0x01, 0x00, 0x00, 0x4e, 0x01, 0x00, 0x00,
-    0x6d, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0x1e, 0x00, 0x00, 0x00,
-    0x3a, 0x00, 0x00, 0x00, 0x59, 0x00, 0x00, 0x00, 0x77, 0x00, 0x00, 0x00, 0x96, 0x00, 0x00, 0x00,
-    0xb4, 0x00, 0x00, 0x00, 0xd3, 0x00, 0x00, 0x00, 0xf2, 0x00, 0x00, 0x00, 0x10, 0x01, 0x00, 0x00,
-    0x2f, 0x01, 0x00, 0x00, 0x4d, 0x01, 0x00, 0x00, 0x6c, 0x01
-};
+/* 0x10021d60, 64 bytes, unused (pointed at by unused data) */ GRIM_DATA("10021d60") unsigned char DAT_10021d60[64];
+/* 0x10021da0, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("10021da0") unsigned char DAT_10021da0[8];
+/* 0x10021da8, 352 bytes, unused (dead) */ GRIM_DATA("10021da8") unsigned char DAT_10021da8[352];
+/* 0x10021f08, 568 bytes, unused (dead) */ GRIM_DATA("10021f08") unsigned char DAT_10021f08[568];
 /* 0x10022140, 128 bytes */ GRIM_DATA("10022140") unsigned char DAT_10022140[128] = {0};
 /* 0x100221c0, 11264 bytes */ GRIM_DATA("100221c0") unsigned char DAT_100221c0[11264] = {0};
 /* 0x10024dc0, 8 bytes */ GRIM_DATA("10024dc0") unsigned char DAT_10024dc0[8] = {0};
@@ -4070,10 +3954,10 @@ extern unsigned char DAT_10034808[4];
 /* 0x10032f58, 8 bytes */ GRIM_DATA("10032f58") unsigned char DAT_10032f58[8] = {0};
 /* 0x10032f60, 4 bytes */ GRIM_DATA("10032f60") unsigned int DAT_10032f60 = 0x0;
 /* 0x10032f64, 4 bytes */ GRIM_DATA("10032f64") unsigned int DAT_10032f64 = 0x0;
-/* 0x10032f68, 24 bytes */ GRIM_DATA("10032f68") unsigned char DAT_10032f68[24] = {0};
-/* 0x10032f80, 24 bytes */ GRIM_DATA("10032f80") unsigned char DAT_10032f80[24] = {0};
-/* 0x10032f98, 24 bytes */ GRIM_DATA("10032f98") unsigned char DAT_10032f98[24] = {0};
-/* 0x10032fb0, 32 bytes */ GRIM_DATA("10032fb0") unsigned char DAT_10032fb0[32] = {0};
+/* 0x10032f68, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032f68") unsigned char DAT_10032f68[24];
+/* 0x10032f80, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032f80") unsigned char DAT_10032f80[24];
+/* 0x10032f98, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032f98") unsigned char DAT_10032f98[24];
+/* 0x10032fb0, 32 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032fb0") unsigned char DAT_10032fb0[32];
 /* 0x10032fd0, 16 bytes */ GRIM_DATA("10032fd0") unsigned char DAT_10032fd0[16] = {0};
 /* 0x10032fe0, 4 bytes */ GRIM_DATA("10032fe0") int DAT_10032fe0 = 0;
 /* 0x10032fe4, 4 bytes */ GRIM_DATA("10032fe4") unsigned char DAT_10032fe4[4] = {0};
@@ -4082,53 +3966,53 @@ extern unsigned char DAT_10034808[4];
 /* 0x10032ff0, 20 bytes */ GRIM_DATA("10032ff0") int DAT_10032ff0 = 0;
 /* 0x10032ff4, 16 bytes: the rest of DAT_10032ff0's span */ GRIM_DATA("10032ff0") static unsigned char DAT_10032ff0__tail[16] __attribute__((used)) = {0};
 /* 0x10033004, 4 bytes */ GRIM_DATA("10033004") unsigned int DAT_10033004 = 0x0;
-/* 0x10033008, 4 bytes */ GRIM_DATA("10033008") unsigned char DAT_10033008[4] = {0};
-/* 0x1003300c, 4 bytes */ GRIM_DATA("1003300c") unsigned char DAT_1003300c[4] = {0};
-/* 0x10033010, 4 bytes */ GRIM_DATA("10033010") unsigned char DAT_10033010[4] = {0};
-/* 0x10033014, 4 bytes */ GRIM_DATA("10033014") unsigned char DAT_10033014[4] = {0};
-/* 0x10033018, 4 bytes */ GRIM_DATA("10033018") unsigned char DAT_10033018[4] = {0};
-/* 0x1003301c, 4 bytes */ GRIM_DATA("1003301c") unsigned char DAT_1003301c[4] = {0};
-/* 0x10033020, 8 bytes */ GRIM_DATA("10033020") unsigned char DAT_10033020[8] = {0};
-/* 0x10033028, 16 bytes */ GRIM_DATA("10033028") unsigned char DAT_10033028[16] = {0};
-/* 0x10033038, 8 bytes */ GRIM_DATA("10033038") unsigned char DAT_10033038[8] = {0};
+/* 0x10033008, 4 bytes, unused (dead) */ GRIM_DATA("10033008") unsigned char DAT_10033008[4];
+/* 0x1003300c, 4 bytes, unused (rest of DAT_10033008) */ GRIM_DATA("1003300c") unsigned char DAT_1003300c[4];
+/* 0x10033010, 4 bytes, unused (rest of DAT_1003300c) */ GRIM_DATA("10033010") unsigned char DAT_10033010[4];
+/* 0x10033014, 4 bytes, unused (rest of DAT_10033010) */ GRIM_DATA("10033014") unsigned char DAT_10033014[4];
+/* 0x10033018, 4 bytes, unused (rest of DAT_10033014) */ GRIM_DATA("10033018") unsigned char DAT_10033018[4];
+/* 0x1003301c, 4 bytes, unused (rest of DAT_10033018) */ GRIM_DATA("1003301c") unsigned char DAT_1003301c[4];
+/* 0x10033020, 8 bytes, unused (rest of DAT_1003301c) */ GRIM_DATA("10033020") unsigned char DAT_10033020[8];
+/* 0x10033028, 16 bytes, unused (rest of DAT_10033020) */ GRIM_DATA("10033028") unsigned char DAT_10033028[16];
+/* 0x10033038, 8 bytes, unused (rest of DAT_10033028) */ GRIM_DATA("10033038") unsigned char DAT_10033038[8];
 /* 0x10033040, 4 bytes */ GRIM_DATA("10033040") unsigned char DAT_10033040[4] = {0};
 /* 0x10033044, 4 bytes */ GRIM_DATA("10033044") unsigned char DAT_10033044[4] = {0};
 /* 0x10033048, 8 bytes */ GRIM_DATA("10033048") unsigned char DAT_10033048[8] = {0};
-/* 0x10033050, 264 bytes */ GRIM_DATA("10033050") unsigned char DAT_10033050[264] = {0};
-/* 0x10033158, 1 bytes */ GRIM_DATA("10033158") unsigned char DAT_10033158[1] = {0};
-/* 0x10033159, 263 bytes */ GRIM_DATA("10033158") unsigned char DAT_10033159[263] = {0};
-/* 0x10033260, 256 bytes */ GRIM_DATA("10033260") unsigned char DAT_10033260[256] = {0};
-/* 0x10033360, 4 bytes */ GRIM_DATA("10033360") unsigned char DAT_10033360[4] = {0};
-/* 0x10033364, 4 bytes */ GRIM_DATA("10033364") unsigned char DAT_10033364[4] = {0};
-/* 0x10033368, 4 bytes */ GRIM_DATA("10033368") unsigned char DAT_10033368[4] = {0};
-/* 0x1003336c, 4 bytes */ GRIM_DATA("1003336c") unsigned char DAT_1003336c[4] = {0};
-/* 0x10033370, 4 bytes */ GRIM_DATA("10033370") unsigned char DAT_10033370[4] = {0};
-/* 0x10033374, 8 bytes */ GRIM_DATA("10033374") unsigned char DAT_10033374[8] = {0};
-/* 0x1003337c, 4 bytes */ GRIM_DATA("1003337c") unsigned char DAT_1003337c[4] = {0};
+/* 0x10033050, 264 bytes, unused (dead) */ GRIM_DATA("10033050") unsigned char DAT_10033050[264];
+/* 0x10033158, 1 bytes, unused (dead) */ GRIM_DATA("10033158") unsigned char DAT_10033158[1];
+/* 0x10033159, 263 bytes, unused (dead) */ GRIM_DATA("10033158") unsigned char DAT_10033159[263];
+/* 0x10033260, 256 bytes, unused (dead) */ GRIM_DATA("10033260") unsigned char DAT_10033260[256];
+/* 0x10033360, 4 bytes, unused (rest of DAT_10033260) */ GRIM_DATA("10033360") unsigned char DAT_10033360[4];
+/* 0x10033364, 4 bytes, unused (rest of DAT_10033360) */ GRIM_DATA("10033364") unsigned char DAT_10033364[4];
+/* 0x10033368, 4 bytes, unused (rest of DAT_10033364) */ GRIM_DATA("10033368") unsigned char DAT_10033368[4];
+/* 0x1003336c, 4 bytes, unused (rest of DAT_10033368) */ GRIM_DATA("1003336c") unsigned char DAT_1003336c[4];
+/* 0x10033370, 4 bytes, unused (rest of DAT_1003336c) */ GRIM_DATA("10033370") unsigned char DAT_10033370[4];
+/* 0x10033374, 8 bytes, unused (rest of DAT_10033370) */ GRIM_DATA("10033374") unsigned char DAT_10033374[8];
+/* 0x1003337c, 4 bytes, unused (rest of DAT_10033374) */ GRIM_DATA("1003337c") unsigned char DAT_1003337c[4];
 /* 0x10033380, 4 bytes */ GRIM_DATA("10033380") unsigned char DAT_10033380[4] = {0};
 /* 0x10033384, 4 bytes */ GRIM_DATA("10033384") unsigned char DAT_10033384[4] = {0};
 /* 0x10033388, 4 bytes */ GRIM_DATA("10033388") unsigned int DAT_10033388 = 0x0;
 /* 0x1003338c, 4 bytes */ GRIM_DATA("1003338c") unsigned char DAT_1003338c[4] = {0};
-/* 0x10033390, 4 bytes */ GRIM_DATA("10033390") unsigned char DAT_10033390[4] = {0};
-/* 0x10033394, 4 bytes */ GRIM_DATA("10033394") unsigned char DAT_10033394[4] = {0};
-/* 0x10033398, 4 bytes */ GRIM_DATA("10033398") unsigned char DAT_10033398[4] = {0};
-/* 0x1003339c, 4 bytes */ GRIM_DATA("1003339c") unsigned char DAT_1003339c[4] = {0};
-/* 0x100333a0, 4 bytes */ GRIM_DATA("100333a0") unsigned char DAT_100333a0[4] = {0};
-/* 0x100333a4, 16 bytes */ GRIM_DATA("100333a4") unsigned char DAT_100333a4[16] = {0};
-/* 0x100333b4, 8 bytes */ GRIM_DATA("100333b4") unsigned char DAT_100333b4[8] = {0};
-/* 0x100333bc, 6 bytes */ GRIM_DATA("100333bc") unsigned char DAT_100333bc[6] = {0};
-/* 0x100333c2, 4 bytes */ GRIM_DATA("100333bc") unsigned char DAT_100333c2[4] = {0};
-/* 0x100333c6, 2 bytes */ GRIM_DATA("100333bc") unsigned char DAT_100333c6[2] = {0};
-/* 0x100333c8, 40 bytes */ GRIM_DATA("100333c8") unsigned char DAT_100333c8[40] = {0};
-/* 0x100333f0, 4 bytes */ GRIM_DATA("100333f0") unsigned char DAT_100333f0[4] = {0};
+/* 0x10033390, 4 bytes, unused (dead) */ GRIM_DATA("10033390") unsigned char DAT_10033390[4];
+/* 0x10033394, 4 bytes, unused (dead) */ GRIM_DATA("10033394") unsigned char DAT_10033394[4];
+/* 0x10033398, 4 bytes, unused (dead) */ GRIM_DATA("10033398") unsigned char DAT_10033398[4];
+/* 0x1003339c, 4 bytes, unused (rest of DAT_10033398) */ GRIM_DATA("1003339c") unsigned char DAT_1003339c[4];
+/* 0x100333a0, 4 bytes, unused (rest of DAT_1003339c) */ GRIM_DATA("100333a0") unsigned char DAT_100333a0[4];
+/* 0x100333a4, 16 bytes, unused (rest of DAT_100333a0) */ GRIM_DATA("100333a4") unsigned char DAT_100333a4[16];
+/* 0x100333b4, 8 bytes, unused (rest of DAT_100333a4) */ GRIM_DATA("100333b4") unsigned char DAT_100333b4[8];
+/* 0x100333bc, 6 bytes, unused (rest of DAT_100333b4) */ GRIM_DATA("100333bc") unsigned char DAT_100333bc[6];
+/* 0x100333c2, 4 bytes, unused (rest of DAT_100333bc) */ GRIM_DATA("100333bc") unsigned char DAT_100333c2[4];
+/* 0x100333c6, 2 bytes, unused (rest of DAT_100333c2) */ GRIM_DATA("100333bc") unsigned char DAT_100333c6[2];
+/* 0x100333c8, 40 bytes, unused (rest of DAT_100333c6) */ GRIM_DATA("100333c8") unsigned char DAT_100333c8[40];
+/* 0x100333f0, 4 bytes, unused (rest of DAT_100333c8) */ GRIM_DATA("100333f0") unsigned char DAT_100333f0[4];
 /* 0x100333f4, 4 bytes */ GRIM_DATA("100333f4") int DAT_100333f4 = 0;
 /* 0x100333f8, 4 bytes */ GRIM_DATA("100333f8") unsigned char DAT_100333f8[4] = {0};
 /* 0x100333fc, 4 bytes */ GRIM_DATA("100333fc") unsigned char DAT_100333fc[4] = {0};
 /* 0x10033400, 4 bytes */ GRIM_DATA("10033400") unsigned char DAT_10033400[4] = {0};
 /* 0x10033404, 4 bytes */ GRIM_DATA("10033404") unsigned int DAT_10033404 = 0x0;
 /* 0x10033408, 40 bytes */ GRIM_DATA("10033408") unsigned char DAT_10033408[40] = {0};
-/* 0x10033430, 7 bytes */ GRIM_DATA("10033430") unsigned char DAT_10033430[7] = {0};
-/* 0x10033437, 1 bytes */ GRIM_DATA("10033430") unsigned char DAT_10033437[1] = {0};
+/* 0x10033430, 7 bytes, unused (dead) */ GRIM_DATA("10033430") unsigned char DAT_10033430[7];
+/* 0x10033437, 1 bytes, unused (dead) */ GRIM_DATA("10033430") unsigned char DAT_10033437[1];
 /* 0x10033438, 196 bytes */ GRIM_DATA("10033438") unsigned char DAT_10033438[196] = {0};
 /* 0x100334fc, 4 bytes */ GRIM_DATA("100334fc") unsigned char DAT_100334fc[4] = {0};
 /* 0x10033500, 12 bytes */ GRIM_DATA("10033500") unsigned char DAT_10033500[12] = {0};
@@ -4148,17 +4032,17 @@ extern unsigned char DAT_10034808[4];
 /* 0x100336c0, 4 bytes */ GRIM_DATA("100336c0") unsigned int DAT_100336c0 = 0x0;
 /* 0x100336c4, 28 bytes */ GRIM_DATA("100336c4") unsigned char DAT_100336c4[28] = {0};
 /* 0x100336e0, 4 bytes */ GRIM_DATA("100336e0") unsigned char PTR_100336e0[4] = {0};
-/* 0x100336e4, 252 bytes */ GRIM_DATA("100336e4") unsigned char DAT_100336e4[252] = {0};
+/* 0x100336e4, 252 bytes, unused (dead) */ GRIM_DATA("100336e4") unsigned char DAT_100336e4[252];
 /* 0x100337e0, 4 bytes */ GRIM_DATA("100337e0") unsigned int DAT_100337e0 = 0x0;
 /* 0x100337e4, 4 bytes */ GRIM_DATA("100337e4") unsigned int DAT_100337e4 = 0x0;
 /* 0x100337e8, 4 bytes */ GRIM_DATA("100337e8") unsigned char DAT_100337e8[4] = {0};
-/* 0x100337ec, 4 bytes */ GRIM_DATA("100337ec") unsigned int DAT_100337ec = 0x0;
-/* 0x100337f0, 4 bytes */ GRIM_DATA("100337f0") unsigned char DAT_100337f0[4] = {0};
-/* 0x100337f4, 12 bytes */ GRIM_DATA("100337f4") unsigned char DAT_100337f4[12] = {0};
-/* 0x10033800, 4096 bytes */ GRIM_DATA("10033800") unsigned char DAT_10033800[4096] = {0};
-/* 0x10034800, 4 bytes */ GRIM_DATA("10034800") unsigned char DAT_10034800[4] = {0};
-/* 0x10034804, 4 bytes */ GRIM_DATA("10034804") unsigned char DAT_10034804[4] = {0};
-/* 0x10034808, 4 bytes */ GRIM_DATA("10034808") unsigned char DAT_10034808[4] = {0};
+/* 0x100337ec, 4 bytes, unused (dead+host) */ GRIM_DATA("100337ec") unsigned char DAT_100337ec[4];
+/* 0x100337f0, 4 bytes, unused (dead+host) */ GRIM_DATA("100337f0") unsigned char DAT_100337f0[4];
+/* 0x100337f4, 12 bytes, unused (rest of DAT_100337f0) */ GRIM_DATA("100337f4") unsigned char DAT_100337f4[12];
+/* 0x10033800, 4096 bytes, unused (pointed at by unused data) */ GRIM_DATA("10033800") unsigned char DAT_10033800[4096];
+/* 0x10034800, 4 bytes, unused (rest of DAT_10033800) */ GRIM_DATA("10034800") unsigned char DAT_10034800[4];
+/* 0x10034804, 4 bytes, unused (rest of DAT_10034800) */ GRIM_DATA("10034804") unsigned char DAT_10034804[4];
+/* 0x10034808, 4 bytes, unused (rest of DAT_10034804) */ GRIM_DATA("10034808") unsigned char DAT_10034808[4];
 
 __asm__(".globl _sect_rdata\n\t.set _sect_rdata, _PTR_hmiFXPresetRelease_10015000\n");
 __asm__(".globl _sect_data\n\t.set _sect_data, _DAT_10017000\n");
