@@ -9,7 +9,7 @@
  * of IMUSE.PSL, and of a test file with what IMUSE.PSL leaves out (the other filter types, a stereo reverb, a pre-delay,
  * chains of two effects), through both, the way IMUSE.DLL does: find the preset, lock it, process the input in blocks
  * (flags 0x19), the last one with its tail (0x9d); and once unlocked (each call resets and adds the tail).  Each under
- * three x87 precisions (24, 53, 64 bits).  Ours also runs from its built-in copy of IMUSE.PSL.  Prints the first
+ * three x87 precisions (24, 53, 64 bits).  Both also run with no preset file at all.  Prints the first
  * difference of each case; exit code 1 if there was one. */
 #include <stdio.h>
 #include <stdint.h>
@@ -236,23 +236,25 @@ int main(int argc, char **argv)
                         const char *name = f ? test_presets[i] : imuse_presets[i];
                         Run a = run_case(&orig, psl, name, s, l, cws[c]);
                         Run b = run_case(&ours, psl, name, s, l, cws[c]);
-                        Run d = { 0, 0, 0 };
+                        Run m = { 0, 0, 0 }, d = { 0, 0, 0 };
                         int same = a.len == b.len && memcmp(a.data, b.data, a.len) == 0;
-                        if (!f) {   /* ours again, from its built-in IMUSE.PSL */
+                        if (!f) {   /* both again with no preset file at all */
+                            m = run_case(&orig, "no such file.psl", name, s, l, cws[c]);
                             d = run_case(&ours, "no such file.psl", name, s, l, cws[c]);
-                            same = same && d.len == a.len && memcmp(d.data, a.data, a.len) == 0;
+                            same = same && d.len == m.len && memcmp(d.data, m.data, m.len) == 0;
                         }
                         cases++;
                         if (!same) {
                             uint32_t k = 0, n = a.len < b.len ? a.len : b.len;
                             while (k < n && a.data[k] == b.data[k])
                                 k++;
-                            printf("DIFF %-22s signal %d %s cw %03x: %u / %u bytes (built-in %u), first difference at %u\n",
-                                   name, s, l ? "locked" : "unlocked", cws[c], a.len, b.len, d.len, k);
+                            printf("DIFF %-22s signal %d %s cw %03x: %u / %u bytes (no file: %u / %u), first difference at %u\n",
+                                   name, s, l ? "locked" : "unlocked", cws[c], a.len, b.len, m.len, d.len, k);
                             bad++;
                         }
                         free(a.data);
                         free(b.data);
+                        free(m.data);
                         free(d.data);
                     }
     }

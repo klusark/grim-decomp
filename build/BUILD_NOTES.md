@@ -1250,8 +1250,12 @@ Root causes fixed at the source (Ghidra, then `tools/export_changed.py`)
   Ghidra in a scratch project (not the shared one) and checked against the x87 instruction order: `long double` where
   the original keeps a value on the FPU stack, `float` where it stores one, `fptan` / `fcos` / `fyl2x` / `fistp` as
   the instructions, MSVC's `__ftol` as a truncating 64-bit conversion. The structures keep their offsets (IMUSE.DLL
-  reads a preset's effect list at +0x450 and an effect's routing / link at +0x0c / +0x18 itself). `IMUSE.PSL` is built
-  in; a file of that name in the working directory still wins. `HMILIBS.INI` is not needed (it only named
+  reads a preset's effect list at +0x450 and an effect's routing / link at +0x0c / +0x18 itself). The presets come
+  from `IMUSE.PSL` in the working directory, a data file of the install, as for the original; nothing of it is built
+  in. Without it `hmiFXPresetLoadLibrary` returns the DLL's error 10 (no library), IMUSE.DLL keeps a NULL
+  library, and the first `ImSetVoiceEffect` crashes in `hmiFXPresetProcess`, as the original does (HMI's DLL faults on
+  the NULL library too). `tools/hmifx_check.c` compares the failed load with the DLL. The clean-room suite writes its
+  own `IMUSE.PSL` (one preset of its own, grim_tools `assets.PRESET_LIBRARY`) for every engine. `HMILIBS.INI` is not needed (it only named
   `HMIFXFP.DLL`).
 * The game itself uses one preset: `ImSetVoiceEffect("Intercom Filter")` in the sets cf and nq (and in `_options`),
   a band-pass at 1326 Hz, 2000 Hz wide. The two reverbs and "Stereo Ring Modulator" are defined but no script calls
