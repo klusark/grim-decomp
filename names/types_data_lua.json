@@ -1,5 +1,5 @@
 {
- "_comment": "Types round 4 (docs/notes/types_4.md): LUA.DLL's parser tables (bison 1.x output of Lua 3.1's lua.stx: YYNTBASE 49, YYNRULES 102, YYNSTATES 184, 44 nonterminals, YYLAST 262, tokens up to 284) and lobject.c's table of hash sizes. yydefgoto and yypgoto are indexed by yyr1[n] - YYNTBASE; the compiler folded the subtraction into the base, so the code addresses them 98 bytes early (inside yydefact and yypact), where Ghidra had put the labels.",
+ "_comment": "Types round 4 (docs/notes/types_4.md): LUA.DLL's parser tables (bison 1.x output of Lua 3.1's lua.stx: YYNTBASE 49, YYNRULES 102, YYNSTATES 184, 44 nonterminals, YYLAST 262, tokens up to 284) and lobject.c's table of hash sizes. yydefgoto and yypgoto are indexed by yyr1[n] - YYNTBASE; the compiler folded the subtraction into the base, so the code addresses them 98 bytes early (inside yydefact and yypact), where Ghidra had put the labels. Round 6 (types_6.md): ltm.c's validevents[tag][event] (8 tags by 18 events, 0 or 1: which tag methods a tag allows; indexed with -tag), signed bytes as yytranslate.",
  "program": "/LUA.DLL",
  "globals": [
   {"addr": "10023188", "type": "sbyte[285]"},
@@ -11,6 +11,7 @@
   {"addr": "10023780", "type": "short[44]"},
   {"addr": "100237d8", "type": "short[263]"},
   {"addr": "100239e8", "type": "short[263]"},
-  {"addr": "100270e8", "type": "int[23]"}
+  {"addr": "100270e8", "type": "int[23]"},
+  {"addr": "10027db0", "type": "sbyte[8][18]"}
  ]
 }

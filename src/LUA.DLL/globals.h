@@ -14,6 +14,7 @@ extern short g_wYypact[184]; /* 0x10023610 */
 extern short g_aYytable[263]; /* 0x100237d8 */
 extern short g_aYycheck[263]; /* 0x100239e8 */
 extern int g_dwDimensions[23]; /* 0x100270e8 */
+extern sbyte g_aValidevents[8][18]; /* 0x10027db0 */
 extern code *lua_callhook; /* 0x1002bec8, undefined4 in Ghidra */
 extern code *lua_linehook; /* 0x1002becc, undefined4 in Ghidra */
 extern code *lua_taskhook; /* 0x1002bed0, undefined4 in Ghidra */
@@ -211,7 +212,6 @@ extern char s_writtenItems____numItems_10027cd8[]; /* used by 1 fn(s), first 0x1
 extern char s_C__grimsrc_libs_lua_src_ltable_c_10027cf4[]; /* used by 4 fn(s), first 0x1000c200 */
 extern char s_unexpected_type_to_index_table_10027d18[]; /* used by 1 fn(s), first 0x1000c580 */
 extern undefined *g_pLuaT_eventname; /* used by 5 fn(s), first 0x1000ca60 */
-extern undefined g_aValidevents; /* used by 1 fn(s), first 0x1000c9c0 */
 extern undefined *g_pLuaT_setfallback_oldnames; /* used by 1 fn(s), first 0x1000cc30 */
 extern char s_C__grimsrc_libs_lua_src_ltm_cpp_10027ed4[]; /* used by 1 fn(s), first 0x1000c850 */
 extern char s_tag__d_is_not_result_of__newtag__10027ef4[]; /* used by 1 fn(s), first 0x1000c920 */

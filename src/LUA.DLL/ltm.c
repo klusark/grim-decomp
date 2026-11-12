@@ -65,7 +65,7 @@ int __cdecl validevent(int param_1,int param_2)
   if (param_1 < -7) {
     return 1;
   }
-  return (int)(char)(&g_aValidevents)[param_2 + param_1 * -0x12];
+  return (int)g_aValidevents[-param_1][param_2];
 }
 
 /* ---- 0x1000c9f0  luaT_checktag ---- */

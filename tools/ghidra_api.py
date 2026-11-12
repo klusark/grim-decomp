@@ -105,7 +105,7 @@ def post(path, **body):
 
 
 def ok(resp):
-    if isinstance(resp, dict) and str(resp.get("_raw", "")).lstrip().startswith(("Failed", "Error")):
+    if isinstance(resp, dict) and str(resp.get("_raw", "")).lstrip().lower().startswith(("failed", "error")):
         return False   # some endpoints answer with plain text ("Failed to set function prototype: ...")
     return isinstance(resp, dict) and ("error" not in resp or resp.get("status") == "success")
 

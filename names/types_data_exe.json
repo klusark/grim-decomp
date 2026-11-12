@@ -1,5 +1,5 @@
 {
- "_comment": "EXE data tables. Types round 4 (docs/notes/types_4.md): the math and checksum tables. g_aSinTable is a quarter wave of sine at 90/4096 degree steps (stdMath_SinCos; cosine reads it backwards), g_aTanTable the same for tangent (stdMath_Tan), g_aCrc_table zlib 1.1.3's CRC-32 table. Round 5 (types_5.md): g_TextObjectCtx, the third text context beside g_PrintLineTextCtx and g_SubtitleTextCtx (sputText_MakeTextObjectL copies its 12 dwords); the phoneme table (46 entries: Phoneme_ToTalkChore's bsearch, sorted at start-up by sputActor); Blocky16's motion vectors (255 x, y pairs; the codec's configure step turns each into y * stride + x in g_asBlockyMotion).",
+ "_comment": "EXE data tables. Types round 4 (docs/notes/types_4.md): the math and checksum tables. g_aSinTable is a quarter wave of sine at 90/4096 degree steps (stdMath_SinCos; cosine reads it backwards), g_aTanTable the same for tangent (stdMath_Tan), g_aCrc_table zlib 1.1.3's CRC-32 table. Round 5 (types_5.md): g_TextObjectCtx, the third text context beside g_PrintLineTextCtx and g_SubtitleTextCtx (sputText_MakeTextObjectL copies its 12 dwords); the phoneme table (46 entries: Phoneme_ToTalkChore's bsearch, sorted at start-up by sputActor); Blocky16's motion vectors (255 x, y pairs; the codec's configure step turns each into y * stride + x in g_asBlockyMotion). Round 6 (types_6.md): VbrAdpcm_Uncompress's IMA ADPCM step table (89 steps, 7..32767) and its bits per sample for each step index (4..7); stdColor_ColorConvertOneRow's 4x4 ordered-dither matrix (24 -> 16 bit colour).",
  "program": "/v101/GRIMFANDANGO.EXE",
  "structs": [
   {"name": "PhonemeEntry", "size": 8, "comment": "One entry of g_aPhonemeTable: a phoneme of the lip-sync data and the talk chore it shows (Phoneme_ToTalkChore).",
@@ -19,6 +19,9 @@
   {"addr": "004d98a8", "type": "uint[256]"},
   {"addr": "004e84f8", "type": "TextContext"},
   {"addr": "004e9c88", "type": "PhonemeEntry[46]"},
-  {"addr": "004f34e8", "type": "BlockyMotionVector[255]"}
+  {"addr": "004f34e8", "type": "BlockyMotionVector[255]"},
+  {"addr": "004daa58", "type": "short[89]"},
+  {"addr": "004dab10", "type": "byte[89]"},
+  {"addr": "004d86a0", "type": "int[4][4]"}
  ]
 }

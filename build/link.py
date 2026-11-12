@@ -110,7 +110,7 @@ def data_c(src, prog, in_sections=frozenset()):
                     lines.append(f'extern char {base}__sym __asm__("{asm_name}");')
                     lines.append(f"int (STDCALL *{name})() = (int (STDCALL *)())&{base}__sym;")
             continue
-        name = re.search(r"([A-Za-z_]\w*)\s*(\[[^\]]*\])?$", d).group(1)
+        name = re.search(r"([A-Za-z_]\w*)\s*((?:\[[^\]]*\])*)$", d).group(1)   # (T name, T name[N], T name[A][B])
         if name in names or name in in_sections:
             continue
         names.add(name)
