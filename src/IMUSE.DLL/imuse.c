@@ -674,7 +674,7 @@ Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4
   uint uVar6;
   int iVar7;
   uint uVar8;
-  ushort *puVar9;
+  short *psVar9;
   short *psVar10;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(short **)(_frame + (0x40 - 0x20)))
@@ -688,10 +688,10 @@ Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4
     uVar8 = 0;
     local_20 = &DAT_10022140;
     do {
-      puVar9 = &DAT_10015228;
+      psVar9 = g_wAdpcmStepTable;
       psVar10 = local_20;
       do {
-        uVar2 = *puVar9;
+        uVar2 = *psVar9;
         uVar3 = 0x20;
         sVar5 = 0;
         do {
@@ -702,9 +702,9 @@ Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4
           uVar3 = uVar3 >> 1;
         } while (uVar3 != 0);
         *psVar10 = sVar5;
-        puVar9 = puVar9 + 1;
+        psVar9 = psVar9 + 1;
         psVar10 = psVar10 + 0x40;
-      } while (puVar9 < &DAT_100152da);
+      } while (psVar9 < &DAT_100152da);
       uVar8 = uVar8 + 1;
       local_20 = local_20 + 1;
     } while (local_20 < &DAT_100221c0);
@@ -730,7 +730,7 @@ Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4
       if (param_4 != 0) {
         local_18 = param_4;
         do {
-          bVar1 = (&DAT_100152e0)[param_6];
+          bVar1 = g_abAdpcmStepBits[param_6];
           iVar7 = iVar7 + (uint)bVar1;
           uVar6 = 1 << (bVar1 - 1 & 0x1f);
           local_8 = (uint)(byte)((char)uVar6 - 1);
@@ -757,7 +757,7 @@ Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4
           else {
             uVar4 = (uint)(ushort)(&DAT_10022140)[uVar3 << (7 - bVar1 & 0x1f) | param_6 << 6];
             if (uVar3 != 0) {
-              uVar4 = uVar4 + ((ushort)(&DAT_10015228)[param_6] >> (bVar1 - 1 & 0x1f));
+              uVar4 = uVar4 + ((ushort)g_wAdpcmStepTable[param_6] >> (bVar1 - 1 & 0x1f));
             }
             if (uVar6 != 0) {
               uVar4 = -uVar4;
@@ -772,7 +772,7 @@ Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4
           }
           *local_1c = (short)uVar8;
           local_1c = local_1c + param_5;
-          param_6 = param_6 + *(char *)(*(int *)(&DAT_10017030 + (uint)bVar1 * 4) + uVar3);
+          param_6 = param_6 + g_apAdpcmIndexAdjust[bVar1][uVar3];
           if (param_6 < 0) {
             param_6 = 0;
           }

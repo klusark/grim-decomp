@@ -1,5 +1,5 @@
 {
- "_comment": "EXE data tables. Types round 4 (docs/notes/types_4.md): the math and checksum tables. g_aSinTable is a quarter wave of sine at 90/4096 degree steps (stdMath_SinCos; cosine reads it backwards), g_aTanTable the same for tangent (stdMath_Tan), g_aCrc_table zlib 1.1.3's CRC-32 table. Round 5 (types_5.md): g_TextObjectCtx, the third text context beside g_PrintLineTextCtx and g_SubtitleTextCtx (sputText_MakeTextObjectL copies its 12 dwords); the phoneme table (46 entries: Phoneme_ToTalkChore's bsearch, sorted at start-up by sputActor); Blocky16's motion vectors (255 x, y pairs; the codec's configure step turns each into y * stride + x in g_asBlockyMotion). Round 6 (types_6.md): VbrAdpcm_Uncompress's IMA ADPCM step table (89 steps, 7..32767) and its bits per sample for each step index (4..7); stdColor_ColorConvertOneRow's 4x4 ordered-dither matrix (24 -> 16 bit colour).",
+ "_comment": "EXE data tables. Types round 4 (docs/notes/types_4.md): the math and checksum tables. g_aSinTable is a quarter wave of sine at 90/4096 degree steps (stdMath_SinCos; cosine reads it backwards), g_aTanTable the same for tangent (stdMath_Tan), g_aCrc_table zlib 1.1.3's CRC-32 table. Round 5 (types_5.md): g_TextObjectCtx, the third text context beside g_PrintLineTextCtx and g_SubtitleTextCtx (sputText_MakeTextObjectL copies its 12 dwords); the phoneme table (46 entries: Phoneme_ToTalkChore's bsearch, sorted at start-up by sputActor); Blocky16's motion vectors (255 x, y pairs; the codec's configure step turns each into y * stride + x in g_asBlockyMotion). Round 6 (types_6.md): VbrAdpcm_Uncompress's IMA ADPCM step table (89 steps, 7..32767) and its bits per sample for each step index (4..7); stdColor_ColorConvertOneRow's 4x4 ordered-dither matrix (24 -> 16 bit colour). Round 7 (types_7.md): VIMA, the LucasArts ADPCM of the Smush videos (VbrAdpcm_Uncompress): the index adjustment for each code, one table per bits per sample (2..7: 4..128 entries), and the table of pointers to them by width.",
  "program": "/v101/GRIMFANDANGO.EXE",
  "structs": [
   {"name": "PhonemeEntry", "size": 8, "comment": "One entry of g_aPhonemeTable: a phoneme of the lip-sync data and the talk chore it shows (Phoneme_ToTalkChore).",
@@ -14,14 +14,21 @@
    ]}
  ],
  "globals": [
-  {"addr": "004df600", "type": "float[4096]"},
-  {"addr": "004e3600", "type": "float[4096]"},
-  {"addr": "004d98a8", "type": "uint[256]"},
-  {"addr": "004e84f8", "type": "TextContext"},
-  {"addr": "004e9c88", "type": "PhonemeEntry[46]"},
-  {"addr": "004f34e8", "type": "BlockyMotionVector[255]"},
-  {"addr": "004daa58", "type": "short[89]"},
-  {"addr": "004dab10", "type": "byte[89]"},
-  {"addr": "004d86a0", "type": "int[4][4]"}
+  {"addr": "004df600", "type": "float[4096]", "name": "g_aSinTable"},
+  {"addr": "004e3600", "type": "float[4096]", "name": "g_aTanTable"},
+  {"addr": "004d98a8", "type": "uint[256]", "name": "g_aCrc_table"},
+  {"addr": "004e84f8", "type": "TextContext", "name": "g_TextObjectCtx"},
+  {"addr": "004e9c88", "type": "PhonemeEntry[46]", "name": "g_aPhonemeTable"},
+  {"addr": "004f34e8", "type": "BlockyMotionVector[255]", "name": "g_aBlockyMotionVectors"},
+  {"addr": "004daa58", "type": "short[89]", "name": "g_wAdpcmStepTable"},
+  {"addr": "004dab10", "type": "byte[89]", "name": "g_abAdpcmStepBits"},
+  {"addr": "004d86a0", "type": "int[4][4]", "name": "g_anColorDither"},
+  {"addr": "004da958", "type": "sbyte[4]", "name": "g_abAdpcmIndexAdjust2"},
+  {"addr": "004da960", "type": "sbyte[8]", "name": "g_abAdpcmIndexAdjust3"},
+  {"addr": "004da968", "type": "sbyte[16]", "name": "g_abAdpcmIndexAdjust4"},
+  {"addr": "004da978", "type": "sbyte[32]", "name": "g_abAdpcmIndexAdjust5"},
+  {"addr": "004da998", "type": "sbyte[64]", "name": "g_abAdpcmIndexAdjust6"},
+  {"addr": "004da9d8", "type": "sbyte[128]", "name": "g_abAdpcmIndexAdjust7"},
+  {"addr": "004f3348", "type": "sbyte *[8]", "name": "g_apAdpcmIndexAdjust"}
  ]
 }

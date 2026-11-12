@@ -43,6 +43,7 @@ extern char g_szConfigKeyPrefix[8]; /* 0x004ea884 */
 extern int g_nLightEdSelected; /* 0x004f0d10 */
 extern float g_flLightEdMoveStep; /* 0x004f0d18 */
 extern float g_flLightEdAngleStep; /* 0x004f0d1c */
+extern sbyte * g_apAdpcmIndexAdjust[8]; /* 0x004f3348 */
 extern BlockyMotionVector g_aBlockyMotionVectors[255]; /* 0x004f34e8 */
 extern int g_anBlockySplit4Y[16]; /* 0x004f38e8 */
 extern int g_anBlockySplit4X[16]; /* 0x004f3928 */
@@ -1166,7 +1167,6 @@ extern undefined DAT_004f32c8; /* used by 3 fn(s), first 0x004c7c50 */
 extern undefined *PTR_fob_flobdec_wave_module_004f3310; /* used by 1 fn(s), first 0x004cba30 */
 extern undefined *g_pDWave_flobdec_services; /* used by 1 fn(s), first 0x004cba30 */
 extern uint g_dwDWave_flobdec_DecodeBody_last_id; /* used by 1 fn(s), first 0x004cbc00 */
-extern undefined DAT_004f3348; /* used by 1 fn(s), first 0x004cbf50 */
 extern char s_FLOBDEC_insane_wave_004f3368[]; /* used by 2 fn(s), first 0x004cba30 */
 extern char s_LECMODULE_insane_wave_flobdec_004f337c[]; /* used by 2 fn(s), first 0x004cba30 */
 extern char s_C__grimsrc_libs_lecsmush_insane__004f339c[]; /* used by 2 fn(s), first 0x004cbaa0 */
