@@ -1,7 +1,9 @@
 /* HMI's "Infinite Audio" effects library, rebuilt in C: what IMUSE.DLL imports from HMIFXLIB.DLL, and the three effects of
  * HMIFXFP.DLL that the game's preset file IMUSE.PSL uses (Reverb 1, Filter 1, Phasor).  With it the rebuilt imuse.dll needs
- * neither DLL, nor HMILIBS.INI (which only told HMIFXLIB.DLL to load HMIFXFP.DLL).  IMUSE.PSL is built in; a file of that
- * name in the working directory still wins, as it is the file the original reads.
+ * neither DLL nor HMILIBS.INI (which only told HMIFXLIB.DLL to load HMIFXFP.DLL).  The presets come from IMUSE.PSL in the
+ * working directory, a data file of the install, as for the original; nothing of it is built in.  Without the file the
+ * load fails as the DLL's does (error 10, no library), and the first ImSetVoiceEffect crashes in hmiFXPresetProcess,
+ * as with the DLL (tools/hmifx_check.c compares the failed load; the DLL faults on the NULL library too).
  *
  * What the game uses: ImSetVoiceEffect("Intercom Filter") in the sets cf and nq (and "OFF"); the voice then goes through
  * Filter 1 as a band-pass (1326 Hz, 2000 Hz wide).  The two reverb presets and "Stereo Ring Modulator" (a Phasor) are
@@ -772,9 +774,6 @@ static void query_string(char *out, const char *prefix, uint32_t n)   /* hmiFXGe
     out[4] = 0;
 }
 
-static const char hfx_builtin_psl[] =    /* the text of IMUSE.PSL: not in the repository */
-    "";
-
 static char *read_file(const char *path, uint32_t *len)   /* the whole file, NUL-terminated, or 0 */
 {
     void *h = hfx_CreateFileA(path, 0x80000000, 1, 0, 3, 0x80, 0);   /* GENERIC_READ, share read, OPEN_EXISTING */
@@ -796,16 +795,12 @@ static char *read_file(const char *path, uint32_t *len)   /* the whole file, NUL
     return buf;
 }
 
-static void wavefmt_read(Ini *ini, HmiWaveFmt *f)
+static void wavefmt_set(HmiWaveFmt *f, int32_t rate, int32_t bits, int32_t channels)
 {
-    int32_t v = 0;
     uint32_t x;
-    ini_get_int(ini, "Rate", &v);
-    f->rate = v;
-    ini_get_int(ini, "BitsPerSample", &v);
-    f->bits = (uint16_t)v;
-    ini_get_int(ini, "Channels", &v);
-    f->channels = (uint16_t)v;
+    f->rate = rate;
+    f->bits = (uint16_t)bits;
+    f->channels = (uint16_t)channels;
     f->tag = 1;
     x = (int32_t)(f->bits * f->channels) / 8;
     f->block_align = (uint16_t)x;
@@ -813,26 +808,79 @@ static void wavefmt_read(Ini *ini, HmiWaveFmt *f)
     f->extra = 0;
 }
 
-int HFX_STD hmiFX_PresetLoadLibrary(HmiFxLibrary **out, const char *path) __asm__("_hmiFXPresetLoadLibrary");
-int HFX_STD hmiFX_PresetLoadLibrary(HmiFxLibrary **out, const char *path)
+static void wavefmt_read(Ini *ini, HmiWaveFmt *f)
 {
-    uint32_t len = 0, np = 0;
-    char *file = read_file(path, &len);
-    HmiFxLibrary *lib;
+    int32_t v = 0, rate, bits;   /* (one variable, as in the DLL: a missing key keeps the value before it) */
+    ini_get_int(ini, "Rate", &v);
+    rate = v;
+    ini_get_int(ini, "BitsPerSample", &v);
+    bits = v;
+    ini_get_int(ini, "Channels", &v);
+    wavefmt_set(f, rate, bits, v);
+}
+
+/* A new preset at the head of the library's list (the DLL links them in reverse); the caller sets the name and flags,
+ * then preset_setup. */
+static HmiFxPreset *preset_new(HmiFxPreset *last)
+{
+    HmiFxPreset *p = hmiFX_Malloc(sizeof *p);
+    if (p) {
+        zero(p, sizeof *p);
+        p->next = last;
+    }
+    return p;
+}
+
+static int preset_setup(HmiFxLibrary *lib, HmiFxPreset *p)
+{
+    p->in_fmt = &lib->in_fmt;
+    p->out_fmt = &lib->out_fmt;
+    p->block_ms = 200;
+    return preset_create(p);
+}
+
+/* One effect at the end of the preset's chain: 0, or the DLL's error code (1 no memory, 7 unknown effect, or init's). */
+static int effect_add(HmiFxPreset *p, int32_t id, int32_t chan_in, int32_t routing, int32_t chan_out,
+                      const double *param, uint32_t n)
+{
+    const HmiFxIface *fx = find_iface(id);
+    HmiFxEffect *e, **link;
+    uint32_t i;
+    int rc;
+    if (!fx)
+        return 7;
+    e = hmiFX_Malloc(fx->size);
+    if (!e)
+        return 1;
+    zero(e, fx->size);
+    e->iface = fx;
+    e->chan_in = chan_in;
+    e->routing = (uint32_t)routing;
+    e->chan_out = chan_out;
+    for (i = 0; i < n; i++)
+        fx->set(e, i, (float)param[i]);
+    rc = fx->init(p, e);
+    if (rc)
+        return rc;
+    for (link = &p->effects; *link; link = &(*link)->next)
+        ;
+    *link = e;
+    e->next = 0;
+    p->heap_used = g_heap_cur - g_heap_base;
+    return 0;
+}
+
+static int load_file(HmiFxLibrary *lib, const char *text, uint32_t len)   /* a preset library file, as the DLL reads it */
+{
     HmiFxPreset *last = 0;
-    Ini ini;
+    uint32_t np = 0;
     char key[16];
+    Ini ini;
     int rc = 0;
 
-    ini.text = file ? file : hfx_builtin_psl;
-    ini.end = ini.text + (file ? len : sizeof hfx_builtin_psl - 1);
+    ini.text = text;
+    ini.end = text + len;
     ini.section = ini.value = ini.field = 0;
-    lib = hmiFX_Malloc(sizeof *lib);
-    if (!lib) {
-        rc = 1;
-        goto done;
-    }
-    zero(lib, sizeof *lib);
     if (ini_section(&ini, "LIBRARY")) {
         ini_get_string(&ini, "Description", lib->description, 0x40);
         ini_get_string(&ini, "Author", lib->author, 0x40);
@@ -842,65 +890,54 @@ int HFX_STD hmiFX_PresetLoadLibrary(HmiFxLibrary **out, const char *path)
     if (ini_section(&ini, "OUTPUTFMT"))
         wavefmt_read(&ini, &lib->out_fmt);
     for (query_string(key, "PRESET", np); ini_section(&ini, key); query_string(key, "PRESET", ++np)) {
-        HmiFxPreset *p = hmiFX_Malloc(sizeof *p);
+        HmiFxPreset *p = preset_new(last);
         uint32_t ne = 0;
-        if (!p) {
-            rc = 1;
-            goto done_lib;
-        }
-        zero(p, sizeof *p);
-        p->next = last;
+        if (!p)
+            return 1;
         last = p;
         ini_get_string(&ini, "Description", p->name, 0x40);
         ini_get_int(&ini, "Flags", (int32_t *)&p->flags);
-        p->in_fmt = &lib->in_fmt;
-        p->out_fmt = &lib->out_fmt;
-        p->block_ms = 200;
-        if (preset_create(p)) {
-            rc = 1;
-            goto done_lib;
-        }
+        if (preset_setup(lib, p))
+            return 1;
         for (query_string(key, "Effect", ne); ini_key(&ini, key); query_string(key, "Effect", ++ne)) {
-            int32_t id = 0;
-            const HmiFxIface *fx;
-            HmiFxEffect *e, **link;
+            int32_t id = 0, chan_in = 0, routing = 0, chan_out = 0;
+            double param[32];
             char num[0x40];
-            uint32_t i = 0;
+            uint32_t n = 0;
             ini_int(&ini, &id);
-            fx = find_iface(id);
-            if (!fx) {
-                rc = 7;
-                goto done_lib;
-            }
-            e = hmiFX_Malloc(fx->size);
-            if (!e) {
-                rc = 1;
-                goto done_lib;
-            }
-            zero(e, fx->size);
-            e->iface = fx;
-            ini_int(&ini, &e->chan_in);
-            ini_int(&ini, (int32_t *)&e->routing);
-            ini_int(&ini, &e->chan_out);
-            for (ini_string(&ini, num, 0x40); num[0]; ini_string(&ini, num, 0x40))
-                fx->set(e, i++, (float)hfx_strtod(num, 0));
-            rc = fx->init(p, e);
+            if (!find_iface(id))
+                return 7;
+            ini_int(&ini, &chan_in);
+            ini_int(&ini, &routing);
+            ini_int(&ini, &chan_out);
+            for (ini_string(&ini, num, 0x40); num[0] && n < 32; ini_string(&ini, num, 0x40))
+                param[n++] = hfx_strtod(num, 0);
+            rc = effect_add(p, id, chan_in, routing, chan_out, param, n);
             if (rc)
-                goto done_lib;
-            for (link = &p->effects; *link; link = &(*link)->next)
-                ;
-            *link = e;
-            e->next = 0;
-            p->heap_used = g_heap_cur - g_heap_base;
+                return rc;
         }
     }
-    lib->presets = last;
-    rc = last ? 0 : 0xc;
-done_lib:
-    *out = lib;
-done:
-    if (file)
-        hfx_default_release(file);
+    lib->presets = last;   /* (only now: after an error the DLL leaves the list off the library) */
+    return last ? 0 : 0xc;
+}
+
+int HFX_STD hmiFX_PresetLoadLibrary(HmiFxLibrary **out, const char *path) __asm__("_hmiFXPresetLoadLibrary");
+int HFX_STD hmiFX_PresetLoadLibrary(HmiFxLibrary **out, const char *path)
+{
+    uint32_t len = 0;
+    char *file = read_file(path, &len);
+    HmiFxLibrary *lib;
+    int rc = 1;
+
+    if (!file)
+        return 10;   /* as the DLL: no library, *out untouched (an empty file gives a library without presets, 0xc) */
+    lib = hmiFX_Malloc(sizeof *lib);
+    if (lib) {
+        zero(lib, sizeof *lib);
+        rc = load_file(lib, file, len);
+        *out = lib;
+    }
+    hfx_default_release(file);
     return rc;
 }
 

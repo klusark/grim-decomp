@@ -240,9 +240,10 @@ loose files that only set a marker variable): a file in `<cwd>` wins, one in `<c
 * **What the working directory must contain.** `IMUSE.DLL` imports the HMI audio libraries `HMIFXLIB.DLL` and
   `HMIFXFP.DLL`, and Windows finds them through the working directory: in an empty directory the process exits during
   start-up (tested; with only those two DLLs it boots). `HMILIBS.INI` and `IMUSE.PSL` are the audio configuration and are
-  copied too. `tools/mkmoddir.sh <dir>` copies the four files into a fresh mod directory. The rebuilt game needs none of
-  them: its `imuse.dll` has the HMI effects library built in (`build/overrides_hmifx.c`), with its own copy of
-  `IMUSE.PSL`; an `IMUSE.PSL` in the working directory still replaces the built-in presets. Everything else - all `*.LAB`,
+  copied too. `tools/mkmoddir.sh <dir>` copies the four files into a fresh mod directory. The rebuilt game needs no
+  DLL and no `HMILIBS.INI`: its `imuse.dll` has the HMI effects library built in (`build/overrides_hmifx.c`). It reads
+  `IMUSE.PSL` from the working directory as the original does, so copy that one file (`tools/mkmoddir.sh` does);
+  without it the first voice effect crashes the game, as it crashes the original. Everything else - all `*.LAB`,
   `GRIM.TAB` - comes from `GrimDataDir`, so a mod directory is tiny and leaves your installation untouched.
 
 ### Inspecting and packing archives

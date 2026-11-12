@@ -76,8 +76,9 @@ All four programs compile and link from the tracked tree alone: the build reads 
 `.github/workflows/build.yml` builds them from a plain checkout. The original's data is C, `src/<prog>/data.c`, written by
 `tools/datagen.py` from the section contents dumped from Ghidra (`tools/export_data.py`): one definition per span in
 the original layout, with a pointer for every reference into the image (docs/notes/raw_free_build.md). At run time
-the rebuilt programs load nothing of the original install but its data: the HMI voice-effects library that IMUSE.DLL
-imported is C too (`build/overrides_hmifx.c`). The link uses
+the rebuilt programs load nothing of the original install but its data (the LAB archives, and `IMUSE.PSL`, the voice-effect
+presets, which the game needs as the original does): the HMI voice-effects library that IMUSE.DLL imported is C too
+(`build/overrides_hmifx.c`). The link uses
 the real Win32/DirectX import libraries (`build/stdcall_names.json`). No function of the four programs is built from the original machine code any more (since 2026-11-09;
 `tools/gen_asm.py` and the empty `src/<prog>/asm_funcs.s` remain for the method): everything, the software rasteriser
 included, is compiled C (much of
