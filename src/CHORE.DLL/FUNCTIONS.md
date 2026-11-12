@@ -115,8 +115,8 @@
 | 10005de0 | msvc_bsearch | msvc.c | 1 |
 | 10005e90 | msvc_strchr | msvc.c | 1 |
 | 10005f50 | FUN_10005f50 | msvc.c | 1 |
-| 10008520 | msvc_CPtoLCID | msvc.c | 20 |
-| 10006070 | entry | crt.c | 38 |
+| 10008520 | msvc_CPtoLCID | msvc.c | 1 |
+| 10006070 | entry | crt.c | 1 |
 | 10006120 | FUN_10006120 | region_10006120.c | 1 |
 | 10006160 | FUN_10006160 | region_10006120.c | 1 |
 | 100061d0 | FUN_100061d0 | region_10006120.c | 1 |

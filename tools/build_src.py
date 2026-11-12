@@ -724,6 +724,7 @@ IMG_SECTIONS = []  # [(name, start, size)] of the program being built (raw/<prog
 FUNC_AT = {}       # address int -> C name of every function of the program being built
 ASM_ADDRS = set()  # functions replaced by src/<prog>/asm_funcs.s (tools/gen_asm.py)
 LIB_REPL = {}      # address -> category of the functions taken out of the build (names/lib_replace.json)
+DROPPED_IMG = {}   # prog -> IMG_ADDR targets of the code left out of the source (datagen still starts spans there)
 DATA_ELT = {}   # address -> C type for a Ghidra data item of 2 or 4 bytes (raw/<prog>/data_items.txt)
 ELT_TYPES = {"undefined4": "undefined4", "dword": "undefined4", "int": "undefined4", "uint": "undefined4",
              "undefined2": "undefined2", "word": "undefined2", "short": "undefined2", "ushort": "undefined2",
@@ -1862,12 +1863,24 @@ def build(prog):
                     globals_seen[g].add(f["address"])
             title = f["name"] + (f"  (renamed {renamed[f['address']]}: duplicate name)" if f["address"] in renamed else "")
             lines.append(f"/* ---- 0x{f['address']}  {title} ---- */")
+            if f["address"] in LIB_REPL or mod == "crt":   # (dropped below: its data addresses still start spans)
+                DROPPED_IMG.setdefault(prog, set()).update(
+                    int(x, 16) for x in re.findall(r"IMG_ADDR\(0x([0-9a-fA-F]+)\)", code))
             if f["address"] in LIB_REPL and f["name"] not in prog_ov:
-                lines.append("/* NOT COMPILED: names/lib_replace.json (%s): the system C runtime / zlib (or nothing, for dead "
-                             "code) is used instead; this C text is only for reading */" % LIB_REPL[f["address"]])
-                lines.append("#if 0")
-                lines.append(code)
-                lines.append("#endif")
+                # library code the build does not use (Microsoft's C runtime, zlib 1.1.3): not kept in the source at all
+                lines.append("/* not in the source: names/lib_replace.json (%s): %s */" % (
+                    LIB_REPL[f["address"]], {"host": "the system C runtime (msvcrt.dll) has it",
+                                              "zlib": "the system zlib (libz.a) has it"}.get(
+                        LIB_REPL[f["address"]], "original C runtime code that nothing live reaches")))
+                code = ""
+            elif mod == "crt" and f["name"] not in prog_ov:
+                # the MSVC 6 runtime module: build/link.py leaves it out of every link (the system msvcrt.dll has it)
+                lines.append("/* not in the source: Microsoft's C runtime (module crt, which build/link.py does not link; the "
+                             "system msvcrt.dll has it) */")
+                code = ""
+            elif (mod == "crt" or f["address"] in LIB_REPL) and f["name"] in prog_ov:
+                lines.append("/* replaced by the hand-written version in build/overrides*.c; the original C runtime code is "
+                             "not kept */")
                 code = ""
             elif f["name"] in prog_ov or f["address"] in ASM_ADDRS:
                 if f["name"] in prog_ov:
@@ -2070,7 +2083,7 @@ def build(prog):
                     open(fp, "w", encoding="utf-8", newline="").write(t2)
         print(prog, "renamed globals (built under their old names):", len(GLOBAL_ALIAS))
     if IMG_SECTIONS:
-        print(prog, "data.c:", datagen.generate(prog, SRC))
+        print(prog, "data.c:", datagen.generate(prog, SRC, DROPPED_IMG.get(prog, ())))
     print(prog, "modules:", {m: len(v) for m, v in by_mod.items()})
     if FIXUPS:
         print(prog, "fix-ups:", dict(stats))

@@ -33,6 +33,13 @@ behaviour, number formatting included, stay unchanged.
 * **Not replaced, and why:** `_ftol` (EXE, one `fisttp`, faster than msvcrt's and bit-identical), `_alloca_probe`
   (not exported by msvcrt.dll), CHORE.DLL's qsort (msvcrt's qsort orders equal keys differently, measured), the ctype
   table lookups of the Lua lexer (four 13-line functions), the C++ EH funclets, and everything in section 4.
+* **Since 2026-11-12** the EXE's drive / directory functions (`_getdrive`, `_chdrive`, `rename`, `remove`, `_getcwd`, with
+  `_getdcwd` / `_validdrive` behind it; used by the LEC file layer) and `strspn` (`strpbrk_or_strspn`, the tree-select
+  dialog) are host too, and the source no longer holds the runtime it does not build: `tools/build_src.py` writes
+  only a one-line note for every function of `names/lib_replace.json` and of the `crt` module (about 52,000 lines
+  less in `src/`). Decompiled runtime still built: the Lua lexer's four ctype wrappers, CHORE.DLL's qsort
+  (`msvc_qsort` / `msvc_shortsort` / `msvc_qsort_swap`) and the three floating-point init helpers its `_cinit` table
+  points at (`msvc_fpmath`, `msvc_fpclear`, `msvc_cfltcvt_init`).
 
 ## 1. How library code gets into the binaries
 

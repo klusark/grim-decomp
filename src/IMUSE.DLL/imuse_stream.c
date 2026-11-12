@@ -316,35 +316,5 @@ undefined4 __cdecl UtCheckHook(int *param_1,int param_2)
 }
 
 /* ---- 0x1000b8d0  FUN_1000b8d0 ---- */
-/* NOT COMPILED: names/lib_replace.json (host): the system C runtime / zlib (or nothing, for dead code) is used instead; this C text is only for reading */
-#if 0
-int __cdecl FUN_1000b8d0(undefined1 *param_1,char *param_2,undefined4 *param_3)
-
-{
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  #define local_20 (*(undefined1 **)(_frame + (0x30 - 0x20)))
-  #define local_1c (*(int *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(undefined1 **)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
-  
-  local_18 = param_1;
-  local_20 = param_1;
-  local_14 = 0x42;
-  local_1c = 0x7fffffff;
-  iVar1 = FUN_1000c670(&local_20,param_2,param_3);
-  local_1c = local_1c + -1;
-  if (-1 < local_1c) {
-    *local_20 = 0;
-    return iVar1;
-  }
-  _flsbuf(0,(int *)&local_20);
-  return iVar1;
-}
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-
-#endif
+/* not in the source: names/lib_replace.json (host): the system C runtime (msvcrt.dll) has it */
 
