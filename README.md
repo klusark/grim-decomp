@@ -21,7 +21,7 @@ read **[docs/MODDING.md](docs/MODDING.md)**; the 319 Lua functions the engine re
 |---|---|
 | `names/*.json` | Curated symbol batches (functions, prototypes, globals, comments, tags). Re-applying is idempotent. |
 | `tools/apply_names.py` | Applies one or more batches to Ghidra over the HTTP bridge (`127.0.0.1:8089`). |
-| `names/types_*.json`, `tools/apply_types.py` | Types batches (structures, parameter / return / global types) and the tool that applies them; field comments come from the batches (docs/notes/types_1.md to types_5.md). |
+| `names/types_*.json`, `tools/apply_types.py` | Types batches (structures, parameter / return / global types) and the tool that applies them; field comments come from the batches (docs/notes/types_1.md to types_6.md). |
 | `tools/export_raw.py` | Full dump of every function's decompilation plus imports/exports/strings/segments/globals into `raw/<program>/`. |
 | `tools/export_changed.py` | Incremental dump: only the functions the journaled Ghidra edits invalidated. |
 | `tools/build_src.py` | Organises `raw/` into `src/<program>/<module>.c` with `functions.h`, `globals.h`, `imports.h`, `ghidra_types.h`, `FUNCTIONS.md`. |
@@ -181,6 +181,7 @@ Files in src/: 214
 * Data types: `src/<prog>/data.c` gives values to every span typed as a scalar, a structure or an array of either.
   Typed so far: the EXE's sine, tangent and CRC-32 tables, LUA.DLL's parser tables and hash sizes
   (docs/notes/types_4.md); iMUSE's state, sequence and file-alias tables, the text contexts, the phoneme table and
-  Blocky16's motion vectors (docs/notes/types_5.md). Untyped initialised bytes left: EXE 44,724, LUA 16,430,
+  Blocky16's motion vectors (docs/notes/types_5.md); the ADPCM step tables, the colour dither matrix and Lua's
+  validevents (docs/notes/types_6.md). Untyped initialised bytes left: EXE 44,393, LUA 16,286,
   IMUSE 19,922, CHORE 14,236. The data only zlib and
   the dead C runtime read (about 32 KB in all) is zero in data.c (docs/notes/data_unused.md).

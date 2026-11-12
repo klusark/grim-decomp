@@ -106,9 +106,9 @@ def load_raw(prog):
         m = re.match(r"^(\S+) @ ([0-9a-f]{8}) ", line)
         if m:
             named[m.group(1)] = int(m.group(2), 16)
-            t = re.match(r"^\S+ @ [0-9a-f]{8} \[Label\] \((\w+)\[(\d+)\]\)", line)
+            t = re.match(r"^\S+ @ [0-9a-f]{8} \[Label\] \((\w+)((?:\[\d+\])+)\)", line)
             if t and IDENT.fullmatch(m.group(1)):
-                typed_arrays[m.group(1)] = (t.group(1), True, int(t.group(2)))
+                typed_arrays[m.group(1)] = decl_of(t.group(1), m.group(1), t.group(2))
     tb = None
     tbp = os.path.join(raw, "textblob.json")
     if os.path.exists(tbp):
@@ -186,16 +186,35 @@ def declared(srcdir, prog):
                 if mm:
                     out[mm.group(1)] = ("code *", False, None)
                 continue
-            mm = re.search(r"([A-Za-z_]\w*)\s*(\[\s*(\d*)\s*\])?$", d)
+            mm = re.search(r"([A-Za-z_]\w*)\s*((?:\[\s*\d*\s*\])*)$", d)
             if mm:
-                count = int(mm.group(3)) if mm.group(3) else None
-                out[mm.group(1)] = (d[:mm.start()].strip(), bool(mm.group(2)), count)
+                out[mm.group(1)] = decl_of(d[:mm.start()].strip(), mm.group(1), mm.group(2))
     return out
+
+
+DIMS = {}  # name -> [A, B, ...] of a declared array of more than one dimension (the decl's count is their product)
+
+
+def decl_of(base, name, brackets):
+    """(base, is array, element count or None) of `base name<brackets>`; `T name[A][B]` counts A * B elements and
+    records its dimensions in DIMS."""
+    dims = [int(x) if x else None for x in re.findall(r"\[\s*(\d*)\s*\]", brackets)]
+    if not dims:
+        return (base, False, None)
+    if None in dims:
+        return (base, True, None)
+    if len(dims) > 1:
+        DIMS[name] = dims
+    count = 1
+    for x in dims:
+        count *= x
+    return (base, True, count)
 
 
 # ---------------------------------------------------------------------------------------------- the model
 
 def build_model(prog, srcdir, img_targets=()):
+    DIMS.clear()
     secs, (text_lo, text_hi), funcs, named, tb, item_names, string_addrs, dr, typed_arrays = load_raw(prog)
     STRUCTS.clear()
     STRUCTS.update(load_structs(prog))
@@ -498,7 +517,7 @@ def scalar_value(fmt, ctype, size, b):
     return "0x%x" % u
 
 
-def typed_value(base, is_arr, count, start, b):
+def typed_value(base, is_arr, count, start, b, dims=None):
     """(declarator, initialiser, bytes covered) for a span declared as a scalar or an array of scalars, or None when
     the bytes stay a byte list: no such type, misaligned, a NaN among floats, or a placeholder type (`undefined`,
     `undefined4`, ...) that only fits the span exactly. A declared array of N covers N elements, an array without a
@@ -531,6 +550,18 @@ def typed_value(base, is_arr, count, start, b):
         return None
     if not is_arr:
         return "%s %%s" % ctype, vals[0], esz
+    if dims and len(dims) == 2:
+        # one row of the outer dimension per line (C zero-fills the rest of each row)
+        a, w = dims
+        rows = []
+        for r in range(a):
+            row = vals[r * w:(r + 1) * w]
+            while row and row[-1] in ("0", "0x0", "0.0", "0.0f"):
+                row.pop()
+            rows.append("{ %s }" % ", ".join(row) if row else "{0}")
+        return "%s %%s[%d][%d]" % (ctype, a, w), "{\n" + ",\n".join("    " + r for r in rows) + "\n}", k * esz
+    if dims and len(dims) > 2:
+        return None
     while vals and vals[-1] in ("0", "0x0", "0.0", "0.0f"):
         vals.pop()  # (C zero-fills the rest of the array)
     per = 8 if esz >= 4 else 16
@@ -714,7 +745,7 @@ def emit(model, srcdir):
         if typed:
             uses_structs = True
         else:
-            typed = None if relocs else typed_value(base, is_arr, count, sp.start, b)
+            typed = None if relocs else typed_value(base, is_arr, count, sp.start, b, DIMS.get(sp.name))
         if typed:
             decl, init, head = typed
             decl = decl % sp.name

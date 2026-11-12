@@ -210,6 +210,17 @@ def apply_proto(prog, e, log):
 def apply_global(prog, e, log):
     if DRY:
         return
+    dims = re.findall(r"\[(\d+)\]", e["type"])
+    if len(dims) > 1:
+        # the bridge parses one dimension: build T[B], then T[A][B] (Ghidra names it so), innermost first
+        t = re.sub(r"\[\d+\]", "", e["type"]).strip()
+        for d in reversed(dims):
+            r = g.post("create_array_type", program=prog, base_type=t, length=int(d))
+            if not g.ok(r):
+                log.append(f"FAIL global {e['addr']}: array type {t}[{d}]: {str(r)[:200]}")
+                return
+            t = t + "[" + d + "]" if t == re.sub(r"\[\d+\]", "", e["type"]).strip() else \
+                re.sub(r"^(\w+)", lambda m: m.group(1) + "[" + d + "]", t)
     r = g.post("apply_data_type", program=prog, address=e["addr"], type_name=e["type"])
     if not g.ok(r):
         log.append(f"FAIL global {e['addr']}: {str(r)[:200]}")

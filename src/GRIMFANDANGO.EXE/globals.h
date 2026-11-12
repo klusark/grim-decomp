@@ -7,7 +7,10 @@
 
 /* ---- named globals (type from Ghidra) ---- */
 extern float g_flRdroid_identMatrix34[12]; /* 0x004d75a0 */
+extern int g_anColorDither[4][4]; /* 0x004d86a0 */
 extern uint g_aCrc_table[256]; /* 0x004d98a8 */
+extern short g_wAdpcmStepTable[89]; /* 0x004daa58 */
+extern byte g_abAdpcmStepBits[89]; /* 0x004dab10 */
 extern float g_aSinTable[4096]; /* 0x004df600 */
 extern float g_aTanTable[4096]; /* 0x004e3600 */
 extern int g_nIrisX; /* 0x004e8064 */
@@ -291,7 +294,6 @@ extern undefined DAT_004d8460; /* used by 1 fn(s), first 0x00479a00 */
 extern undefined DAT_004d8510; /* used by 1 fn(s), first 0x004c0ed0 */
 extern undefined DAT_004d8570; /* used by 1 fn(s), first 0x00478230 */
 extern undefined DAT_004d85f0; /* used by 1 fn(s), first 0x00479170 */
-extern undefined DAT_004d86a0; /* used by 1 fn(s), first 0x0047b8a0 */
 extern undefined DAT_004d8998; /* used by 1 fn(s), first 0x004aca30 */
 extern undefined DAT_004d89c8; /* used by 1 fn(s), first 0x004afa90 */
 extern undefined DAT_004d89e8; /* used by 1 fn(s), first 0x004afa90 */
@@ -326,9 +328,7 @@ extern undefined DAT_004da768; /* used by 1 fn(s), first 0x004cb390 */
 extern undefined DAT_004da7e8; /* used by 1 fn(s), first 0x004cb390 */
 extern undefined DAT_004da868; /* used by 1 fn(s), first 0x004cb390 */
 extern undefined DAT_004da8e0; /* used by 1 fn(s), first 0x004cb390 */
-extern undefined2 DAT_004daa58; /* used by 1 fn(s), first 0x004cbf50 */
 extern undefined DAT_004dab0a; /* used by 1 fn(s), first 0x004cbf50 */
-extern undefined DAT_004dab10; /* used by 1 fn(s), first 0x004cbf50 */
 extern undefined DAT_004dac00; /* used by 1 fn(s), first 0x004d5de0 */
 extern undefined DAT_004dd000; /* used by 1 fn(s), first 0x004acd10 */
 extern undefined DAT_004dd008; /* used by 1 fn(s), first 0x004acd10 */

@@ -4142,7 +4142,7 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
   uint uVar5;
   int iVar6;
   uint uVar7;
-  ushort *puVar8;
+  short *psVar8;
   undefined2 *puVar9;
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
@@ -4160,10 +4160,10 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
     uVar7 = 0;
     local_28 = (uint)&g_wDWave_aDeltaTable;
     do {
-      puVar8 = &DAT_004daa58;
+      psVar8 = g_wAdpcmStepTable;
       puVar9 = (undefined2 *)local_28;
       do {
-        local_24 = (uint)*puVar8;
+        local_24 = (uint)(ushort)*psVar8;
         uVar2 = 0x20;
         iVar4 = 0;
         do {
@@ -4174,9 +4174,9 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
           uVar2 = uVar2 >> 1;
         } while (uVar2 != 0);
         *puVar9 = (short)iVar4;
-        puVar8 = puVar8 + 1;
+        psVar8 = psVar8 + 1;
         puVar9 = puVar9 + 0x40;
-      } while (puVar8 < &DAT_004dab0a);
+      } while (psVar8 < &DAT_004dab0a);
       uVar7 = uVar7 + 1;
       local_28 = local_28 + 2;
     } while (local_28 < &DAT_008d78e8);
@@ -4194,7 +4194,7 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
       if (param_3 != 0) {
         local_1c = param_3;
         do {
-          bVar1 = (&DAT_004dab10)[(int)param_2];
+          bVar1 = g_abAdpcmStepBits[(int)param_2];
           local_10 = (uint)bVar1;
           iVar6 = iVar6 + local_10;
           uVar5 = 1 << (bVar1 - 1 & 0x1f);
@@ -4223,7 +4223,7 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
             uVar3 = (uint)(ushort)(&g_wDWave_aDeltaTable)
                                   [uVar2 << (7 - bVar1 & 0x1f) | (int)param_2 << 6];
             if (uVar2 != 0) {
-              uVar3 = uVar3 + ((ushort)(&DAT_004daa58)[(int)param_2] >> (bVar1 - 1 & 0x1f));
+              uVar3 = uVar3 + ((ushort)g_wAdpcmStepTable[(int)param_2] >> (bVar1 - 1 & 0x1f));
             }
             if (uVar5 != 0) {
               uVar3 = -uVar3;

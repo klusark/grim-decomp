@@ -3468,7 +3468,7 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
   if ((*(int *)(srcFormat + 4) == 0x18) && (*(int *)(dstFormat + 4) == 0x10)) {
     uVar9 = g_dwStdColor_ColorConvertOneRow_row & 3;
     do {
-      iVar2 = *(int *)(&DAT_004d86a0 + (count & 3) * 4 + uVar9 * 0x10);
+      iVar2 = g_anColorDither[uVar9][count & 3];
       *dst = (ushort)(((int)((uint)(byte)*src * (int)lVar13 + iVar2) >> 0x10) << (bVar11 & 0x1f)) |
              (ushort)(((int)((uint)*(byte *)((int)src + 1) * (int)lVar14 + iVar2) >> 0x10) <<
                      (bVar12 & 0x1f)) | (ushort)((uint)(byte)src[1] * (int)lVar15 + iVar2 >> 0x10);

@@ -1384,7 +1384,7 @@ void stdColor_ColorConvertOneRow(ushort *dst, int dstFormat, ushort *src, int sr
     }
     if (s[1] == 0x18 && d[1] == 0x10) {
         const byte *p = (const byte *)src;
-        const int *dither = (const int *)&DAT_004d86a0 + (g_dwStdColor_ColorConvertOneRow_row & 3) * 4;
+        const int *dither = g_anColorDither[g_dwStdColor_ColorConvertOneRow_row & 3];   /* the row's 4 offsets */
         do {
             int dv = dither[count & 3];
             *dst = (ushort)((((int)(p[0] * scaleR + dv) >> 16) << (d[5] & 31)) |
