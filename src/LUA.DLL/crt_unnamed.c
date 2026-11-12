@@ -97,7 +97,7 @@ FUN_1000f1b0(undefined4 *param_1,undefined4 param_2,undefined4 param_3,undefined
   #define local_c (*(undefined1 **)(_frame + (0x50 - 0xc)))
   #define local_8 (*(int *)(_frame + (0x50 - 0x8)))
   
-  local_c = (_stkneg + 92);
+  local_c = (_frame + (0x50 - 0x4));
   local_10 = (_stkneg + 28);
   local_28 = FUN_1000f280;
   local_24 = param_5;
@@ -307,9 +307,9 @@ void FUN_1000fde0(void)
     *(undefined ***)((int)_DAT_1002c714 + iVar3) = ppuVar1;
     ppuVar1 = ppuVar1 + 8;
     iVar3 = iVar3 + 4;
-  } while ((int)ppuVar1 < IMG_ADDR(0x10028550));
+  } while ((int)ppuVar1 < ((unsigned)(uintptr_t)&DAT_10028550));
   uVar2 = 0;
-  puVar4 = (undefined4 *)IMG_ADDR(0x100282e0);
+  puVar4 = (undefined4 *)((unsigned)(uintptr_t)&DAT_100282e0);
   do {
     if (((&PTR_1002c600)[(int)uVar2 >> 5][(uVar2 & 0x1f) * 9] == -1) ||
        ((&PTR_1002c600)[(int)uVar2 >> 5][(uVar2 & 0x1f) * 9] == 0)) {
@@ -317,7 +317,7 @@ void FUN_1000fde0(void)
     }
     puVar4 = puVar4 + 8;
     uVar2 = uVar2 + 1;
-  } while ((int)puVar4 < IMG_ADDR(0x10028340));
+  } while ((int)puVar4 < ((unsigned)(uintptr_t)&DAT_10028340));
   return;
 }
 #endif
@@ -444,7 +444,7 @@ float __fastcall FUN_100120fa(undefined4 param_1)
 {
   float10 fVar1;
   
-  fVar1 = (float10)((code *)FUN_10019b30)(param_1,IMG_ADDR(0x100288f0));
+  fVar1 = (float10)((code *)FUN_10019b30)(param_1,((unsigned)(uintptr_t)&DAT_100288f0));
   return (float)fVar1;
 }
 #endif
@@ -654,9 +654,9 @@ undefined4 FUN_10012f30(void)
   code *pcVar1;
   undefined4 uVar2;
   
-  a1 = GetModuleHandleA(IMG_ADDR(0x10023e0c));
+  a1 = GetModuleHandleA(((unsigned)(uintptr_t)&s_KERNEL32_10023e0c));
   if (a1 != 0) {
-    pcVar1 = (code *)GetProcAddress(a1,IMG_ADDR(0x10023df0));
+    pcVar1 = (code *)GetProcAddress(a1,((unsigned)(uintptr_t)&s_IsProcessorFeaturePresent_10023df0));
     if (pcVar1 != (code *)0x0) {
       uVar2 = (*pcVar1)(0);
       return uVar2;
@@ -1237,7 +1237,7 @@ void FUN_1001421e(void)
 void FUN_10014f80(uint param_1)
 
 {
-  if ((IMG_ADDR(0x100282cf) < param_1) && (param_1 < IMG_ADDR(0x10028531))) {
+  if ((((unsigned)(uintptr_t)&DAT_100282cf) < param_1) && (param_1 < ((unsigned)(uintptr_t)&DAT_10028531))) {
     _lock(((int)(param_1 + 0xeffd7d30) >> 5) + 0x1c);
     return;
   }
@@ -1253,7 +1253,7 @@ void FUN_10014f80(uint param_1)
 void FUN_10014ff0(uint param_1)
 
 {
-  if ((IMG_ADDR(0x100282cf) < param_1) && (param_1 < IMG_ADDR(0x10028531))) {
+  if ((((unsigned)(uintptr_t)&DAT_100282cf) < param_1) && (param_1 < ((unsigned)(uintptr_t)&DAT_10028531))) {
     _unlock(((int)(param_1 + 0xeffd7d30) >> 5) + 0x1c);
     return;
   }
@@ -2783,11 +2783,11 @@ undefined4 __cdecl FUN_10019850(int param_1)
   piVar1 = &DAT_100295d0;
   do {
     if (*piVar1 == param_1) {
-      return *(undefined4 *)(iVar2 * 8 + IMG_ADDR(0x100295d4));
+      return *(undefined4 *)(iVar2 * 8 + ((unsigned)(uintptr_t)&DAT_100295d4));
     }
     piVar1 = piVar1 + 2;
     iVar2 = iVar2 + 1;
-  } while ((int)piVar1 < IMG_ADDR(0x100296a8));
+  } while ((int)piVar1 < ((unsigned)(uintptr_t)&DAT_100296a8));
   return 0;
 }
 #endif
@@ -3062,7 +3062,7 @@ FUN_1001a5a6(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint pa
   float10 fVar4;
   
   if ((((((CONCAT22(param_3,PIECE(param_2,2,2)) ^ 0x700) & 0x700) == 0) &&
-       (*(char *)(((PIECE(param_2,2,2) & 0x7800) >> 0xb) + IMG_ADDR(0x1002970c)) != '\0')) &&
+       (*(char *)(((PIECE(param_2,2,2) & 0x7800) >> 0xb) + ((unsigned)(uintptr_t)&DAT_1002970c)) != '\0')) &&
       ((param_3 & 0x7fff) != 0x7fff)) &&
      ((((param_9 & 0x7fff) != 0 && ((param_9 & 0x7fff) != 0x7fff)) &&
       (((param_8 & 0x7fffffff) == 0 && ((param_2 & 0x7fffffff) == 0)))))) {
@@ -3956,7 +3956,7 @@ undefined4 __cdecl FUN_10020090(int param_1,int param_2,int param_3,char *param_
     if (param_1 != 0) {
       return 0xffffffff;
     }
-    iVar4 = __crtGetLocaleInfoA(param_2,param_3,IMG_ADDR(0x1002c5a8),4,0);
+    iVar4 = __crtGetLocaleInfoA(param_2,param_3,((unsigned)(uintptr_t)&DAT_1002c5a8),4,0);
     if (iVar4 != 0) {
       pbVar7 = &DAT_1002c5a8;
       *param_4 = '\0';
@@ -3971,7 +3971,7 @@ undefined4 __cdecl FUN_10020090(int param_1,int param_2,int param_3,char *param_
         if (uVar3 == 0) break;
         pbVar7 = pbVar7 + 2;
         *param_4 = *param_4 * '\n' + bVar1 + -0x30;
-        if (IMG_ADDR(0x1002c5af) < (int)pbVar7) {
+        if (((unsigned)(uintptr_t)&DAT_1002c5af) < (int)pbVar7) {
           return 0;
         }
       }

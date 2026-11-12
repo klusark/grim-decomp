@@ -21,6 +21,7 @@ read **[docs/MODDING.md](docs/MODDING.md)**; the 319 Lua functions the engine re
 |---|---|
 | `names/*.json` | Curated symbol batches (functions, prototypes, globals, comments, tags). Re-applying is idempotent. |
 | `tools/apply_names.py` | Applies one or more batches to Ghidra over the HTTP bridge (`127.0.0.1:8089`). |
+| `names/types_*.json`, `tools/apply_types.py` | Types batches (structures, parameter / return / global types) and the tool that applies them; field comments come from the batches (docs/notes/types_1.md to types_3.md). |
 | `tools/export_raw.py` | Full dump of every function's decompilation plus imports/exports/strings/segments/globals into `raw/<program>/`. |
 | `tools/export_changed.py` | Incremental dump: only the functions the journaled Ghidra edits invalidated. |
 | `tools/build_src.py` | Organises `raw/` into `src/<program>/<module>.c` with `functions.h`, `globals.h`, `imports.h`, `ghidra_types.h`, `FUNCTIONS.md`. |
@@ -28,7 +29,9 @@ read **[docs/MODDING.md](docs/MODDING.md)**; the 319 Lua functions the engine re
 | `tools/gen_dll_module_names.py` | Module-level names for LUA.DLL / IMUSE.DLL internals from their `__FILE__` strings. |
 | `tools/gen_dll_crt_names.py` | C runtime names for the DLLs, matched against the EXE runtime. |
 | `tools/export_data.py` | Dumps the `.rdata`/`.data` contents of each program into `raw/<prog>/sections/`. |
-| `build/` | Makefile, `gendata.py` (data sections with relocations), `link.py`, `compat.h`, shims, `BUILD_NOTES.md`. |
+| `tools/datagen.py` | Writes `src/<prog>/data.c`, the original's data as C in the original layout (called by `build_src.py`); `report` prints the data report. |
+| `build/` | Makefile, `link.py`, `datacmp.py` (compares the data of two builds span by span), `compat.h`, shims, `BUILD_NOTES.md`. |
+| `build/overrides_hmifx.c`, `tools/hmifx_check.c` | HMI's voice-effects library (HMIFXLIB.DLL and the effects of HMIFXFP.DLL that IMUSE.PSL uses) in C, and the check that compares it with the DLLs sample for sample. |
 | `tools/stats.py` | Coverage table (below). |
 | `tools/lab.py`, `tools/luadump.py`, `tools/list_lua_api.py` | List/extract/pack `.LAB` archives; dump precompiled Lua 3.1 scripts; list the Lua API (`docs/LUA_API.md`). |
 | `tools/run_game.sh`, `tools/lua_cmd.sh`, `tools/grim_shot.ps1`, `tools/mkmoddir.sh` | Start the rebuilt game with the test knobs, run Lua in it, screenshot it, create a mod directory. |
@@ -68,9 +71,13 @@ rm -f src/*/*.[ch] src/*/*.md && python -I tools/build_src.py && make -C build -
 make -C build link                                                 # link all four
 ```
 
-All four programs compile and link; the link uses the real section contents dumped from Ghidra
-(`tools/export_data.py`, `build/gendata.py`: labels at the original offsets, relocations for every pointer into the
-image) and the real Win32/DirectX import libraries (`build/stdcall_names.json`). No function of the four programs is built from the original machine code any more (since 2026-11-09;
+All four programs compile and link from the tracked tree alone: the build reads nothing of `raw/`, and
+`.github/workflows/build.yml` builds them from a plain checkout. The original's data is C, `src/<prog>/data.c`, written by
+`tools/datagen.py` from the section contents dumped from Ghidra (`tools/export_data.py`): one definition per span in
+the original layout, with a pointer for every reference into the image (docs/notes/raw_free_build.md). At run time
+the rebuilt programs load nothing of the original install but its data: the HMI voice-effects library that IMUSE.DLL
+imported is C too (`build/overrides_hmifx.c`). The link uses
+the real Win32/DirectX import libraries (`build/stdcall_names.json`). No function of the four programs is built from the original machine code any more (since 2026-11-09;
 `tools/gen_asm.py` and the empty `src/<prog>/asm_funcs.s` remain for the method): everything, the software rasteriser
 included, is compiled C (much of
 it hand-written in `build/overrides*.c` where Ghidra's C is wrong about x87 results, register calling conventions and
@@ -164,5 +171,8 @@ Files in src/: 214
 * CHORE.DLL is fully named (names from the remaster's unstripped `libchore.so`,
   docs/notes/chore_naming.md) and its costume / chore / key records are typed;
   the 152 `FUN_` left are dead copies of the C runtime.
-* Struct types are applied only where a batch set a prototype; most parameters
-  are still Ghidra's inferred `int`/`undefined4`.
+* Struct types: the layouts are exported (`raw/<prog>/structs.json`) and emitted into `ghidra_types.h`
+  with offset checks. Typed so far: `Actor` (0xa8, docs/notes/types_1.md) and its 51 parameters and globals, `ActorExtra` (0x4a0)
+  and its six `ActorShadow` slots (docs/notes/types_2.md), `Puck`, `CostumeNode`, `TextContext` and `TextObject`
+  (docs/notes/types_3.md), plus
+  the hand-made GrimServices and CHORE.DLL records. Most parameters are still Ghidra's inferred `int`/`undefined4`.

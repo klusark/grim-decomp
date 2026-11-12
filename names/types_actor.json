@@ -1,0 +1,707 @@
+{
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "ActorShadow",
+   "size": 84,
+   "comment": "One of ActorExtra's six shadow slots (sputCostume_DrawActorShadow draws each active one with sputCostume_DrawMeshShadow).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nActive",
+     "set by sputActor_SetShadowPlane"
+    ],
+    [
+     4,
+     "int",
+     "nValid",
+     "0 always drawn, -1 only when the actor is on the plane's negative side, 1 only on its positive side (SetActorShadowValid)"
+    ],
+    [
+     8,
+     "float[4]",
+     "aPlane",
+     "shadow plane: normal and d, from the WalkPlane named by SetActorShadowPlane"
+    ],
+    [
+     24,
+     "float[3]",
+     "aPoint",
+     "the light point the shadow is cast from (SetActorShadowPoint)"
+    ],
+    [
+     36,
+     "void *[12]",
+     "aClipPlanes",
+     "WalkPlane sectors the shadow is clipped to (sputActor_AddShadowClipPlane), zero-terminated"
+    ]
+   ]
+  },
+  {
+   "name": "ActorExtra",
+   "size": 1184,
+   "comment": "Actor::pExtra, allocated on first use by sputActor_AllocateActorExtra (sputActor.cpp): look-at, walking and turning, the path, the puck, speech, shadows, collision, clip plane. 0x424-0x49f is never used.",
+   "fields": [
+    [
+     0,
+     "float[3]",
+     "aLookAt",
+     "point the head looks at (sputLua_ActorLookAtL); 0, 0, 0 for none"
+    ],
+    [
+     12,
+     "int",
+     "nWalking",
+     "a walk chore is wanted this frame (sputActor_Forward, Actor_UpdateWalker); Actor_UpdateMoveChores fades the chore in or out"
+    ],
+    [
+     16,
+     "int",
+     "nTurning",
+     "a turn chore is wanted: > 0 left, < 0 right (sputActor_Turn)"
+    ],
+    [
+     20,
+     "int",
+     "nResting",
+     "cleared when a walk or turn chore fades in (sputLua_IsActorRestingL)"
+    ],
+    [
+     24,
+     "float",
+     "flWalkRate",
+     "0.4 (SetActorWalkRate)"
+    ],
+    [
+     28,
+     "float",
+     "flTurnRate",
+     "135 degrees a second (SetActorTurnRate)"
+    ],
+    [
+     32,
+     "int",
+     "nAlignTurn",
+     "sputActor_AlignToPuck's result this frame, read by Actor_UpdateWalker"
+    ],
+    [
+     36,
+     "float",
+     "flOffsetYaw",
+     "SetActorOffsetYaw, added by sputActor_AlignToPuck"
+    ],
+    [
+     40,
+     "float",
+     "flYawLeft",
+     "yaw still to turn (sputActor_Turn, sputLua_IsActorTurningL)"
+    ],
+    [
+     44,
+     "float[3]",
+     "aWaypoint",
+     "the path node being walked to (sputActor_ActorWalkTo, Actor_FollowPath)"
+    ],
+    [
+     56,
+     "float[3]",
+     "aDest",
+     "the destination of the walk"
+    ],
+    [
+     68,
+     "int",
+     "nPathNodes",
+     "nodes in aPath (Walker_AvoidActorPath)"
+    ],
+    [
+     72,
+     "float[30][3]",
+     "aPath",
+     "the path's nodes"
+    ],
+    [
+     432,
+     "int",
+     "nPathIndex",
+     "index of aWaypoint in aPath"
+    ],
+    [
+     436,
+     "Puck *",
+     "pPuck",
+     "the walker's Puck (0x60 bytes, sputActor_EnablePuck)"
+    ],
+    [
+     440,
+     "int",
+     "nFollowBoxes",
+     "SetActorFollowBoxes (sputActor_EnableWalkSystem)"
+    ],
+    [
+     444,
+     "int",
+     "nWalkDominate",
+     "sputActor_SetWalkDominate"
+    ],
+    [
+     448,
+     "float",
+     "flPuckRadius",
+     "60, given to Puck_Construct"
+    ],
+    [
+     452,
+     "int",
+     "nTalking",
+     "a line is being said (sputActor_SayLine, sputActor_ShutUp)"
+    ],
+    [
+     456,
+     "int",
+     "nVoiceSound",
+     "iMUSE sound of the line's voice, 10000 for a voice stream"
+    ],
+    [
+     460,
+     "int",
+     "nTalkTime",
+     "time left of a line without voice, -1 with one"
+    ],
+    [
+     464,
+     "char[12]",
+     "aMsgId",
+     "message id of the line (sputText_ExtractSayLineData)"
+    ],
+    [
+     476,
+     "char[16]",
+     "aVoiceFile",
+     "the line's voice file (<id>.wvc, .wav, .imc or .imu); empty: no voice"
+    ],
+    [
+     492,
+     "TextObject *",
+     "pText",
+     "the line's text object (sputText_CreateActorText)"
+    ],
+    [
+     496,
+     "int",
+     "nLipSync",
+     "iMUSE_GetPhoneme of the voice; 0 without one or without a talk chore"
+    ],
+    [
+     500,
+     "int",
+     "nActiveShadow",
+     "the shadow slot the Lua shadow calls work on (SetActiveShadow)"
+    ],
+    [
+     504,
+     "ActorShadow[6]",
+     "aShadows",
+     ""
+    ],
+    [
+     1008,
+     "int",
+     "nCollisionMode",
+     "SetActorCollisionMode: 0 off, 2 the box test of Collision_TestActorAgainstOthers"
+    ],
+    [
+     1012,
+     "float",
+     "flCollisionScale",
+     "1 (SetActorCollisionScale)"
+    ],
+    [
+     1016,
+     "int",
+     "nCollided",
+     "set by Collision_TestActorAgainstOthers, cleared each frame by sputActor_UpdateActors"
+    ],
+    [
+     1020,
+     "int",
+     "nClipPlaneActive",
+     "sputActor_SetClipPlaneActive, read by sputCostume_InternalDraw3D"
+    ],
+    [
+     1024,
+     "float[3]",
+     "aClipNormal",
+     "0, 0, 1 (sputActor_SetClipPlane)"
+    ],
+    [
+     1036,
+     "float[3]",
+     "aClipPoint",
+     ""
+    ],
+    [
+     1048,
+     "uint",
+     "dwTalkColor",
+     "0xffffff (SetActorTalkColor)"
+    ],
+    [
+     1052,
+     "float",
+     "flTimeScale",
+     "1 (SetActorTimeScale)"
+    ],
+    [
+     1056,
+     "int",
+     "nInvClipNode",
+     "-1 (SetActorInvClipNode)"
+    ]
+   ]
+  },
+  {
+   "name": "Actor",
+   "size": 168,
+   "comment": "One record of g_pActors (sputActor.cpp); a handle is the index (sputActor_AllocateActor, sputActor_GetActorHandle). Grows by 0x20 records.",
+   "fields": [
+    [
+     0,
+     "void *",
+     "pColormapRef",
+     "0x34-byte resource reference of the actor's colormap (Res_RemoveReference in sputActor_FreeActor)"
+    ],
+    [
+     4,
+     "uint",
+     "dwFlags",
+     "2 hidden from the subtitle placement, 4 has a speech text, 8 ..., 0x10 ActorPuckOrient"
+    ],
+    [
+     8,
+     "uint",
+     "dwMoveFlags",
+     "1 path walk (WalkActorTo) active, 2 turning"
+    ],
+    [
+     12,
+     "float[3]",
+     "aPos",
+     "position"
+    ],
+    [
+     24,
+     "float[3]",
+     "aPrevPos",
+     "position at the start of the frame (Actor_UpdateMovement)"
+    ],
+    [
+     36,
+     "float[3]",
+     "aRot",
+     "pitch, yaw, roll in degrees"
+    ],
+    [
+     48,
+     "float",
+     "flScale",
+     "1.0 by default"
+    ],
+    [
+     52,
+     "int",
+     "nMatrixDirty",
+     "aOrient must be rebuilt from aRot / aPos (sputActor_GetOrientMatrix)"
+    ],
+    [
+     56,
+     "float[12]",
+     "aOrient",
+     "rdMatrix34: orientation and position"
+    ],
+    [
+     104,
+     "int",
+     "nScreenBoxValid",
+     "aScreenBox was computed this frame"
+    ],
+    [
+     108,
+     "int[4]",
+     "aScreenBox",
+     "x, y, width, height on screen (Actor_ComputeScreenBox)"
+    ],
+    [
+     124,
+     "char[32]",
+     "aSetName",
+     "name of the set the actor is in, empty when none"
+    ],
+    [
+     156,
+     "int",
+     "nInUse",
+     "record allocated"
+    ],
+    [
+     160,
+     "CostumeNode *",
+     "pCostumes",
+     "costume stack (sputActor_PushCostume / PopCostume)"
+    ],
+    [
+     164,
+     "ActorExtra *",
+     "pExtra",
+     "ActorExtra, allocated on first use (sputActor_AllocateActorExtra)"
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "00485290",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00494690",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00485320",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00493230",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004934b0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490f50",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "0048fe80",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004913f0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "0048fd90",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00491110",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00493540",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00493510",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00491650",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00493660",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00491230",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490580",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "0048fb80",
+   "index": 0,
+   "type": "Actor *",
+   "name": "viewer"
+  },
+  {
+   "addr": "0048fb80",
+   "index": 1,
+   "type": "Actor *",
+   "name": "target"
+  },
+  {
+   "addr": "0048fa60",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004937c0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490730",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004906b0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "0048fc80",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004947c0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490380",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00493790",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490dd0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490d30",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004936b0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00492b30",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004933e0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490870",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490900",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004946b0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00494710",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "0048f930",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00494780",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490a40",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490c80",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00493570",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004935f0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00493630",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490b50",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490a60",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004933c0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00493060",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "0048fbd0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00490210",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004936e0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004a5f60",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "0048b2e0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00494940",
+   "index": 1,
+   "type": "ActorShadow *",
+   "name": "shadow"
+  },
+  {
+   "addr": "00494bf0",
+   "index": 4,
+   "type": "ActorShadow *",
+   "name": "shadow"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "008ca758",
+   "type": "Actor *"
+  },
+  {
+   "addr": "008ca760",
+   "type": "Actor *"
+  },
+  {
+   "addr": "008d3638",
+   "type": "Actor *"
+  },
+  {
+   "addr": "008ca310",
+   "type": "Actor *[4]"
+  }
+ ],
+ "protos": [
+  {
+   "addr": "00490360",
+   "proto": "Actor * sputActor_ActorDeref(int handle)",
+   "cc": "__cdecl"
+  }
+ ]
+}

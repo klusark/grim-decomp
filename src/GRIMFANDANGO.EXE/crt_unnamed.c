@@ -429,7 +429,7 @@ FUN_004af480(undefined4 *param_1,uint param_2,uint param_3,undefined4 param_4,ui
   #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
   
-  local_c = (uint)(_stkneg + 92);
+  local_c = (uint)(_frame + (0x50 - 0x4));
   local_10 = (uint)(_stkneg + 28);
   local_28 = (uint)FUN_004af550;
   local_24 = param_5;
@@ -609,9 +609,9 @@ undefined * FUN_004b05c0(void)
   code *pcVar1;
   undefined *puVar2;
   
-  a1 = GetModuleHandleA(IMG_ADDR(0x004d8a84));
+  a1 = GetModuleHandleA(((unsigned)(uintptr_t)&s_KERNEL32_004d8a84));
   if (a1 != 0) {
-    pcVar1 = (code *)GetProcAddress(a1,IMG_ADDR(0x004d8a68));
+    pcVar1 = (code *)GetProcAddress(a1,((unsigned)(uintptr_t)&s_IsProcessorFeaturePresent_004d8a68));
     if (pcVar1 != (code *)0x0) {
       puVar2 = (undefined *)(*pcVar1)(0);
       return puVar2;
@@ -1301,7 +1301,7 @@ void FUN_004b10d0(void)
   #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
-  GetModuleFileNameA(0,IMG_ADDR(0x008d0b90),0x104);
+  GetModuleFileNameA(0,((unsigned)(uintptr_t)&DAT_008d0b90),0x104);
   _DAT_008d0ae0 = &DAT_008d0b90;
   puVar2 = (undefined *)UINT_00906c18;
   if (*(char *)UINT_00906c18 == '\0') {
@@ -1631,7 +1631,7 @@ undefined4 FUN_004b14e0(undefined4 param_1)
       *(undefined1 *)puVar4 = 0;
       uVar5 = 0;
       iVar8 = iVar8 * 0x30;
-      pbVar9 = (byte *)(iVar8 + IMG_ADDR(0x004ed5e8));
+      pbVar9 = (byte *)(iVar8 + ((unsigned)(uintptr_t)&DAT_004ed5e8));
       do {
         bVar2 = *pbVar9;
         for (pbVar10 = pbVar9; (bVar2 != 0 && (bVar2 = pbVar10[1], bVar2 != 0));
@@ -1653,9 +1653,9 @@ undefined4 FUN_004b14e0(undefined4 param_1)
       _DAT_00906c04 = 1;
       UINT_008d0ea8 = a1;
       UINT_008d0eac = FUN_004b1760(a1);
-      _DAT_008d0eb0 = *(undefined4 *)(iVar8 + IMG_ADDR(0x004ed5dc));
-      _DAT_008d0eb4 = *(undefined4 *)(iVar8 + IMG_ADDR(0x004ed5e0));
-      _DAT_008d0eb8 = *(undefined4 *)(iVar8 + IMG_ADDR(0x004ed5e4));
+      _DAT_008d0eb0 = *(undefined4 *)(iVar8 + ((unsigned)(uintptr_t)&DAT_004ed5dc));
+      _DAT_008d0eb4 = *(undefined4 *)(iVar8 + ((unsigned)(uintptr_t)&DAT_004ed5e0));
+      _DAT_008d0eb8 = *(undefined4 *)(iVar8 + ((unsigned)(uintptr_t)&DAT_004ed5e4));
       goto LAB_004b1632;
     }
     puVar4 = puVar4 + 0xc;
@@ -2078,7 +2078,6 @@ undefined4 FUN_004b1c48(int param_1,int param_2,undefined4 param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  unsigned char _stkneg[32] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
   int extraout_ECX;
   undefined1 *puVar2;
@@ -2086,7 +2085,7 @@ undefined4 FUN_004b1c48(int param_1,int param_2,undefined4 param_3)
   #define local_c (*(int *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
   
-  puVar2 = (_stkneg + 28);
+  puVar2 = (_frame + (0x20 - 0x4));
   if ((*(uint *)(param_1 + 4) & 6) == 0) {
     local_c = param_1;
     local_8 = param_3;
@@ -2113,7 +2112,7 @@ undefined4 FUN_004b1c48(int param_1,int param_2,undefined4 param_3)
     }
   }
   else {
-    ((code *)_local_unwind2)(param_2,0xffffffff,(_stkneg + 28),(_stkneg + 28));
+    ((code *)_local_unwind2)(param_2,0xffffffff,(_frame + (0x20 - 0x4)),(_frame + (0x20 - 0x4)));
   }
   return 1;
 }
@@ -2154,7 +2153,7 @@ void FUN_004b2040(void)
     *(undefined ***)(UINT_00905ac4 + iVar3) = ppuVar1;
     ppuVar1 = ppuVar1 + 8;
     iVar3 = iVar3 + 4;
-  } while ((int)ppuVar1 < IMG_ADDR(0x004eda00));
+  } while ((int)ppuVar1 < ((unsigned)(uintptr_t)&PTR_LOOP_004eda00));
   uVar2 = 0;
   puVar4 = &UINT_004ed790;
   do {
@@ -2164,7 +2163,7 @@ void FUN_004b2040(void)
     }
     puVar4 = puVar4 + 8;
     uVar2 = uVar2 + 1;
-  } while ((int)puVar4 < IMG_ADDR(0x004ed7f0));
+  } while ((int)puVar4 < ((unsigned)(uintptr_t)&DAT_004ed7f0));
   return;
 }
 #endif
@@ -3965,9 +3964,9 @@ uint FUN_004b7800(int param_1,int param_2,int param_3,int param_4,uint param_5,u
   
   a5_00 = (undefined *)0x0;
   if (UINT_008d0f50 == 0) {
-    iVar1 = GetStringTypeW(1,IMG_ADDR(0x004d8d8c),1,(int)&local_4);
+    iVar1 = GetStringTypeW(1,((unsigned)(uintptr_t)&DAT_004d8d8c),1,(int)&local_4);
     if (iVar1 == 0) {
-      iVar1 = GetStringTypeA(0,1,IMG_ADDR(0x008d0874),1,(int)&local_4);
+      iVar1 = GetStringTypeA(0,1,((unsigned)(uintptr_t)&DAT_008d0874),1,(int)&local_4);
       if (iVar1 == 0) {
         return 0;
       }
@@ -4420,7 +4419,7 @@ undefined4 FUN_004ba340(int param_1,undefined4 param_2,undefined4 param_3,char *
         if (uVar3 == 0) break;
         pbVar7 = pbVar7 + 2;
         *param_4 = *param_4 * '\n' + bVar1 + -0x30;
-        if (IMG_ADDR(0x008d103f) < (int)pbVar7) {
+        if (((unsigned)(uintptr_t)&DAT_008d103f) < (int)pbVar7) {
           return 0;
         }
       }
@@ -5267,7 +5266,7 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
         } while (uVar3 < *(uint *)((int)g_pLightEdSet + 0xb8));
       }
       if (uVar3 < *(uint *)((int)g_pLightEdSet + 0xb8)) {
-        MessageBoxA(0,IMG_ADDR(0x004f0e74),IMG_ADDR(0x004f0eb0),0x30);
+        MessageBoxA(0,((unsigned)(uintptr_t)&DAT_004f0e74),((unsigned)(uintptr_t)&s_Duplicate_light_name_004f0eb0),0x30);
       }
       else {
         puVar8 = &local_28;
@@ -10362,7 +10361,7 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
   if (param_4 != 0) {
     local_14 = (uint)&DAT_008d785a;
     do {
-      local_20 = param_1 - (int)IMG_ADDR(0x008d785a) + local_14;
+      local_20 = param_1 - (int)((unsigned)(uintptr_t)&DAT_008d785a) + local_14;
       param_2 = (undefined1 *)(int)(char)(&DAT_008d7858)[local_18];
       uVar7 = (uint)*(short *)local_14;
       if (param_3 != 0) {
@@ -10480,7 +10479,7 @@ void sys_ExtSync(int param_1)
       puVar1[2] = 0;
     }
     puVar1 = puVar1 + 8;
-  } while ((int)puVar1 < IMG_ADDR(0x008da86c));
+  } while ((int)puVar1 < ((unsigned)(uintptr_t)&DAT_008da86c));
   return;
 }
 

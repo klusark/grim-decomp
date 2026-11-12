@@ -40,7 +40,7 @@ int __cdecl sou_sound_module(int *services,uint moduleSize)
     iVar4 = iVar4 + 1;
     *puVar2 = bVar1 - 1 & 100000;
     puVar2 = puVar3;
-  } while ((int)puVar3 < IMG_ADDR(0x008dacf0));
+  } while ((int)puVar3 < ((unsigned)(uintptr_t)&g_pSoundModule_snddriver_services));
   g_dwSound_bufsize = 500000;
   return 0;
 }
@@ -241,29 +241,29 @@ int __cdecl SoundModule_AddTrackBuffer(uint size,int limit)
   (&UINT_008dad74)[uVar1 * 0xd] = 0xffffff01;
   (&UINT_008dad58)[uVar1 * 0xd] = 0;
   (&UINT_008dad5c)[uVar1 * 0xd] = 0;
-  *(uint *)(iVar5 + IMG_ADDR(0x008dad68)) = size & 0xfffffffc;
+  *(uint *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)) = size & 0xfffffffc;
   uVar3 = (*(code *)*piVar2)(0x1800,s_C__grimsrc_libs_lecsmush_insane__004f3f30,0x1cf);
   (&UINT_008dad5c)[uVar1 * 0xd] = uVar3;
   if (uVar3 == 0) {
     return -1;
   }
   uVar3 = (*(code *)*g_pSoundModule_memory_services)
-                    (*(undefined4 *)(iVar5 + IMG_ADDR(0x008dad68)),s_C__grimsrc_libs_lecsmush_insane__004f3f30,
+                    (*(undefined4 *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)),s_C__grimsrc_libs_lecsmush_insane__004f3f30,
                      0x1d1);
   (&UINT_008dad58)[uVar1 * 0xd] = uVar3;
   if (uVar3 == 0) {
-    iVar4 = *(int *)(iVar5 + IMG_ADDR(0x008dad68));
+    iVar4 = *(int *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68));
     while (limit < iVar4) {
       uVar3 = (*(code *)*g_pSoundModule_memory_services)
-                        (*(undefined4 *)(iVar5 + IMG_ADDR(0x008dad68)),
+                        (*(undefined4 *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)),
                          s_C__grimsrc_libs_lecsmush_insane__004f3f30,0x1d7);
       (&UINT_008dad58)[uVar1 * 0xd] = uVar3;
       if (uVar3 != 0) break;
-      iVar4 = *(int *)(iVar5 + IMG_ADDR(0x008dad68)) + -10000;
-      *(int *)(iVar5 + IMG_ADDR(0x008dad68)) = iVar4;
+      iVar4 = *(int *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)) + -10000;
+      *(int *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)) = iVar4;
     }
-    uVar3 = *(uint *)(iVar5 + IMG_ADDR(0x008dad68)) & 0xfffffffc;
-    *(uint *)(iVar5 + IMG_ADDR(0x008dad68)) = uVar3;
+    uVar3 = *(uint *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)) & 0xfffffffc;
+    *(uint *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)) = uVar3;
     if (limit < (int)uVar3) {
       if ((&UINT_008dad58)[uVar1 * 0xd] != 0) {
         (*(code *)g_pSoundModule_memory_services[1])
@@ -271,8 +271,8 @@ int __cdecl SoundModule_AddTrackBuffer(uint size,int limit)
       }
       (&UINT_008dad58)[uVar1 * 0xd] = 0;
       piVar2 = g_pSoundModule_memory_services;
-      iVar4 = *(int *)(iVar5 + IMG_ADDR(0x008dad68)) - limit;
-      *(int *)(iVar5 + IMG_ADDR(0x008dad68)) = iVar4;
+      iVar4 = *(int *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)) - limit;
+      *(int *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)) = iVar4;
       uVar3 = (*(code *)*piVar2)(iVar4,s_C__grimsrc_libs_lecsmush_insane__004f3f30,0x1e5);
       (&UINT_008dad58)[uVar1 * 0xd] = uVar3;
       if (uVar3 != 0) goto LAB_004d0827;
@@ -285,7 +285,7 @@ int __cdecl SoundModule_AddTrackBuffer(uint size,int limit)
     return -2;
   }
 LAB_004d0827:
-  msc_MemSet((&UINT_008dad58)[uVar1 * 0xd],0x7f,*(undefined4 *)(iVar5 + IMG_ADDR(0x008dad68)));
+  msc_MemSet((&UINT_008dad58)[uVar1 * 0xd],0x7f,*(undefined4 *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)));
   g_dwSou_chans = g_dwSou_chans + 1;
   return 0;
 }
@@ -820,7 +820,7 @@ void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,u
   iVar2 = g_dwSou_chans - 1;
   local_44 = 0;
   if (-1 < iVar2) {
-    puVar4 = (uint *)(iVar2 * 0x34 + IMG_ADDR(0x008dad68));
+    puVar4 = (uint *)(iVar2 * 0x34 + ((unsigned)(uintptr_t)&DAT_008dad68));
     uVar6 = g_dwSou_chans;
     do {
       if ((int)local_44 < (int)*puVar4) {
@@ -832,7 +832,7 @@ void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,u
   }
   iVar8 = 10000000;
   if (-1 < iVar2) {
-    puVar4 = (uint *)(iVar2 * 0x34 + IMG_ADDR(0x008dad68));
+    puVar4 = (uint *)(iVar2 * 0x34 + ((unsigned)(uintptr_t)&DAT_008dad68));
     uVar6 = g_dwSou_chans;
     do {
       uVar1 = *puVar4;
@@ -894,7 +894,7 @@ void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,u
   }
   if (-1 < iVar9) {
     if (-1 < iVar2) {
-      piVar3 = (int *)(iVar2 * 0x34 + IMG_ADDR(0x008dad78));
+      piVar3 = (int *)(iVar2 * 0x34 + ((unsigned)(uintptr_t)&DAT_008dad78));
       uVar6 = g_dwSou_chans;
       do {
         if (*piVar3 < 0x100) {
@@ -905,7 +905,7 @@ void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,u
       } while (uVar6 != 0);
     }
     iVar2 = iVar9 * 0x34;
-    *(undefined4 *)(iVar2 + IMG_ADDR(0x008dad78)) = 0;
+    *(undefined4 *)(iVar2 + ((unsigned)(uintptr_t)&DAT_008dad78)) = 0;
     (&DAT_008dad6e)[iVar2] = 0;
     *(undefined1 *)(&UINT_008dad58)[iVar9 * 0xd] = 1;
     *(undefined1 *)((&UINT_008dad58)[iVar9 * 0xd] + 1) = 8;
@@ -924,7 +924,7 @@ void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,u
     msc_MemCopy((void *)((&UINT_008dad58)[iVar9 * 0xd] + 0xc),src,size);
     (&UINT_008dad60)[iVar9 * 0xd] = (&UINT_008dad58)[iVar9 * 0xd];
     (&UINT_008dad64)[iVar9 * 0xd] = (&UINT_008dad58)[iVar9 * 0xd] + 0xc;
-    (&UINT_008dad7c)[iVar9 * 0xd] = *(int *)(iVar2 + IMG_ADDR(0x008dad68)) - 0xc;
+    (&UINT_008dad7c)[iVar9 * 0xd] = *(int *)(iVar2 + ((unsigned)(uintptr_t)&DAT_008dad68)) - 0xc;
     (&UINT_008dad80)[iVar9 * 0xd] = size;
     (&UINT_008dad74)[iVar9 * 0xd] = id;
     (&g_bSou_hooks)[iVar2] = (undefined1)volume;
@@ -982,7 +982,7 @@ sou_engine_start_stream
     iVar11 = 0;
     chunkNo = 0;
     if (-1 < (int)(g_dwSou_chans - 1)) {
-      piVar7 = (int *)((g_dwSou_chans - 1) * 0x34 + IMG_ADDR(0x008dad68));
+      piVar7 = (int *)((g_dwSou_chans - 1) * 0x34 + ((unsigned)(uintptr_t)&DAT_008dad68));
       uVar9 = g_dwSou_chans;
       do {
         if (iVar11 < *piVar7) {
@@ -1001,7 +1001,7 @@ sou_engine_start_stream
     }
     else if (-1 < (int)(g_dwSou_chans - 1)) {
       local_44 = g_dwSou_chans;
-      piVar7 = (int *)((g_dwSou_chans - 1) * 0x34 + IMG_ADDR(0x008dad68));
+      piVar7 = (int *)((g_dwSou_chans - 1) * 0x34 + ((unsigned)(uintptr_t)&DAT_008dad68));
       do {
         iVar13 = *piVar7;
         iVar12 = iVar13 - iVar10;
@@ -1074,7 +1074,7 @@ LAB_004d130e:
     }
     if (-1 < iVar11) {
       if (-1 < iVar10) {
-        piVar7 = (int *)(iVar10 * 0x34 + IMG_ADDR(0x008dad78));
+        piVar7 = (int *)(iVar10 * 0x34 + ((unsigned)(uintptr_t)&DAT_008dad78));
         uVar9 = g_dwSou_chans;
         do {
           if (*piVar7 < 0xff) {
@@ -1088,7 +1088,7 @@ LAB_004d130e:
       g_anSndStreamKind[iVar11] = kind;
       iVar13 = iVar11 * 0x34;
       g_anSndChunkCount[iVar11] = 0;
-      *(undefined4 *)(iVar13 + IMG_ADDR(0x008dad78)) = 0;
+      *(undefined4 *)(iVar13 + ((unsigned)(uintptr_t)&DAT_008dad78)) = 0;
       (&DAT_008dad6e)[iVar13] = 0;
       iVar10 = CONCAT31(CONCAT21(CONCAT11(data[0xc],data[0xd]),data[0xe]),data[0xf]);
       bVar1 = data[iVar10 + 0x15];
@@ -1100,13 +1100,13 @@ LAB_004d130e:
         iVar6 = size;
       }
       else {
-        uVar9 = *(uint *)(iVar13 + IMG_ADDR(0x008dad68));
-        if (size < (int)*(uint *)(iVar13 + IMG_ADDR(0x008dad68))) {
+        uVar9 = *(uint *)(iVar13 + ((unsigned)(uintptr_t)&DAT_008dad68));
+        if (size < (int)*(uint *)(iVar13 + ((unsigned)(uintptr_t)&DAT_008dad68))) {
           uVar9 = size;
         }
         msc_MemCopy((void *)(&UINT_008dad58)[iVar11 * 0xd],data,uVar9);
         (&UINT_008dad60)[iVar11 * 0xd] = (&UINT_008dad58)[iVar11 * 0xd] + 0x10;
-        iVar6 = *(int *)(iVar13 + IMG_ADDR(0x008dad68));
+        iVar6 = *(int *)(iVar13 + ((unsigned)(uintptr_t)&DAT_008dad68));
       }
       (&UINT_008dad7c)[iVar11 * 0xd] = (iVar6 - iVar10) - 0x18;
       (&UINT_008dad64)[iVar11 * 0xd] = iVar10 + 8 + (&UINT_008dad60)[iVar11 * 0xd];
@@ -1264,7 +1264,7 @@ void __cdecl sou_engine_fill(int frames,void *mix)
         puVar7[-4] = 0;
         *puVar7 = 0;
         puVar7 = puVar7 + 0xf;
-      } while ((int)puVar7 < IMG_ADDR(0x008dace8));
+      } while ((int)puVar7 < ((unsigned)(uintptr_t)&UINT_008dace8));
     }
     bVar6 = false;
     local_10 = 0;

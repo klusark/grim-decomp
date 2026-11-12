@@ -167,7 +167,7 @@ void __cdecl sputLua_PostCameraChange(int setup); /* 0x0049c6e0 */
 void sputLua_RegisterFunctions(int *param_1,int param_2); /* 0x0049ca60 */
 void sputLua_JustLoadedL(void); /* 0x0049ca80 */
 void sputLua_ActorVoiceIs3DL(void); /* 0x0049caa0 */
-int __cdecl FindCostumeInStack(void *luaObj,void *costumeList,void **outCostume); /* 0x0049cb10 */
+int __cdecl FindCostumeInStack(void *luaObj,CostumeNode *costumeList,CostumeNode **outCostume); /* 0x0049cb10 */
 void sputLua_CheckForFileL(void); /* 0x0049cca0 */
 void sputLua_NukeResourcesL(void); /* 0x0049cd10 */
 void sputLua_DetachFromResourcesL(void); /* 0x0049cd40 */
@@ -198,7 +198,7 @@ void sputLua_MessagePrintL(void); /* 0x0049dd70 */
 void Lua_Print_NoOp(void); /* 0x0049ddd0 */
 undefined4 sputLua_Startup(void); /* 0x0049de00 */
 uint sputLua_SaveIndirector(int param_1,uint param_2); /* 0x0049dfa0 */
-void * sputLua_RestoreIndirector(int param_1,void *param_2); /* 0x0049e020 */
+TextObject * sputLua_RestoreIndirector(int param_1,TextObject *param_2); /* 0x0049e020 */
 undefined4 sputLua_NotifyControlHandlers(void); /* 0x0049e0b0 */
 uint Lua_CreateSystemTable(void); /* 0x0049e380 */
 void Lua_CreateControlsTable(uint param_1); /* 0x0049e460 */
@@ -1536,63 +1536,63 @@ int sputRender_Startup(void); /* 0x00486070 */
 void sputRender_Shutdown(void); /* 0x004860d0 */
 
 /* ===== actor.c ===== */
-void __cdecl Actor_ComputeScreenBox(void *actor); /* 0x00485290 */
-void Actor_DrawDebugWalker(void *param_1); /* 0x00485320 */
-void * __cdecl sputText_CreateActorText(void *actor,char *text,int x,int y); /* 0x0048b2e0 */
-int __cdecl sputActor_SetCostume(void *actor,char *name,int param_3); /* 0x0048f930 */
+void __cdecl Actor_ComputeScreenBox(Actor *actor); /* 0x00485290 */
+void __cdecl Actor_DrawDebugWalker(Actor *actor); /* 0x00485320 */
+TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int y); /* 0x0048b2e0 */
+int __cdecl sputActor_SetCostume(Actor *actor,char *name,int param_3); /* 0x0048f930 */
 void __cdecl sputActor_SetActorHead (void *actor,int joint1,int joint2,int joint3,float maxRoll,float maxPitch,float maxYaw); /* 0x0048f9d0 */
-int __cdecl sputActor_CanActorSeePoint(void *actor,float *point,float *outDistance); /* 0x0048fa60 */
-int __cdecl sputActor_CanActorSeeActor(void *viewer,void *target,float *outDistance); /* 0x0048fb80 */
-void sputActor_Turn(int param_1,float param_2); /* 0x0048fbd0 */
-void sputActor_Forward(int param_1); /* 0x0048fc80 */
-void Actor_UpdateMovement(void *param_1,float param_2); /* 0x0048fd90 */
-void __cdecl Actor_UpdateLookAt(void *actor,float dt); /* 0x0048fe80 */
-void __cdecl sputActor_UpdateActorSpeech(void *actor,float dt); /* 0x00490210 */
+int __cdecl sputActor_CanActorSeePoint(Actor *actor,float *point,float *outDistance); /* 0x0048fa60 */
+int __cdecl sputActor_CanActorSeeActor(Actor *viewer,Actor *target,float *outDistance); /* 0x0048fb80 */
+void __cdecl sputActor_Turn(Actor *actor,float param_2); /* 0x0048fbd0 */
+void __cdecl sputActor_Forward(Actor *actor); /* 0x0048fc80 */
+void __cdecl Actor_UpdateMovement(Actor *actor,float param_2); /* 0x0048fd90 */
+void __cdecl Actor_UpdateLookAt(Actor *actor,float dt); /* 0x0048fe80 */
+void __cdecl sputActor_UpdateActorSpeech(Actor *actor,float dt); /* 0x00490210 */
 int __cdecl sputActor_SetSelectedActor(int handle); /* 0x00490320 */
-void * sputActor_ActorDeref(int param_1); /* 0x00490360 */
-int __cdecl sputActor_GetActorHandle(void *actor,int tag); /* 0x00490380 */
+Actor * __cdecl sputActor_ActorDeref(int handle); /* 0x00490360 */
+int __cdecl sputActor_GetActorHandle(Actor *actor,int tag); /* 0x00490380 */
 int sputActor_AllocateActor(void); /* 0x004903a0 */
-void sputActor_AllocateActorExtra(int param_1); /* 0x00490580 */
-void sputActor_EnableWalkSystem(int param_1,int param_2); /* 0x004906b0 */
-void sputActor_EnablePuck(void *param_1,int param_2); /* 0x00490730 */
-void sputActor_SetActorPosition(int param_1,float *param_2); /* 0x00490870 */
-void sputActor_SetActorRotation(int param_1,undefined4 *param_2,int param_3); /* 0x00490900 */
-void __cdecl sputActor_SetReflection(void *actor,float angle); /* 0x00490a40 */
-void __cdecl sputActor_SetTurnChores(void *actor,int leftChore,int rightChore,void *costume); /* 0x00490b50 */
-void __cdecl sputActor_SetRestChore(void *actor,int chore,void *costume); /* 0x00490c80 */
-int __cdecl sputActor_PushCostume(void *actor,char *name,int param_3); /* 0x00490d30 */
-void __cdecl sputActor_PopCostume(void *actor,int free); /* 0x00490dd0 */
-void __cdecl Actor_PuckOrient(void *actor); /* 0x00490f50 */
-void Actor_UpdateWalker(int param_1); /* 0x00491110 */
-void Actor_UpdateMoveChores(int param_1); /* 0x004913f0 */
-void __cdecl sputActor_SayLine(void *actor,char *text,int background,int volume,int pan,int x,int y); /* 0x00492b30 */
-void __cdecl sputActor_ShutUp(void *actor); /* 0x00493060 */
+void __cdecl sputActor_AllocateActorExtra(Actor *actor); /* 0x00490580 */
+void __cdecl sputActor_EnableWalkSystem(Actor *actor,int param_2); /* 0x004906b0 */
+void __cdecl sputActor_EnablePuck(Actor *actor,int param_2); /* 0x00490730 */
+void __cdecl sputActor_SetActorPosition(Actor *actor,float *param_2); /* 0x00490870 */
+void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *param_2,int param_3); /* 0x00490900 */
+void __cdecl sputActor_SetReflection(Actor *actor,float angle); /* 0x00490a40 */
+void __cdecl sputActor_SetTurnChores(Actor *actor,int leftChore,int rightChore,CostumeNode *costume); /* 0x00490b50 */
+void __cdecl sputActor_SetRestChore(Actor *actor,int chore,CostumeNode *costume); /* 0x00490c80 */
+int __cdecl sputActor_PushCostume(Actor *actor,char *name,int param_3); /* 0x00490d30 */
+void __cdecl sputActor_PopCostume(Actor *actor,int free); /* 0x00490dd0 */
+void __cdecl Actor_PuckOrient(Actor *actor); /* 0x00490f50 */
+void __cdecl Actor_UpdateWalker(Actor *actor); /* 0x00491110 */
+void __cdecl Actor_UpdateMoveChores(Actor *actor); /* 0x004913f0 */
+void __cdecl sputActor_SayLine(Actor *actor,char *text,int background,int volume,int pan,int x,int y); /* 0x00492b30 */
+void __cdecl sputActor_ShutUp(Actor *actor); /* 0x00493060 */
 void __cdecl sputActor_LeaveSector(int a1,int a2); /* 0x004931f0 */
-void Actor_FollowPath(int param_1); /* 0x00493230 */
-void __cdecl sputActor_SetWalkDominate(void *actor,int dominate); /* 0x004933c0 */
-void sputActor_SetActorConstrain(int param_1,int param_2); /* 0x004933e0 */
-int __cdecl Actor_IsVoicePlaying(void *actor); /* 0x004934b0 */
-int __cdecl sputActor_ActorHasShadow(void *actor); /* 0x00493510 */
-void __cdecl sputActor_ActivateActorShadow(void *actor,int shadowIdx,int active); /* 0x00493540 */
-void sputActor_SetShadowPlane(int param_1,char *param_2); /* 0x00493570 */
-void __cdecl sputActor_SetShadowPoint(void *actor,float x,float y,float z); /* 0x004935f0 */
-void __cdecl sputActor_SetShadowValid(void *actor,int shadowIdx,int valid); /* 0x00493630 */
-void __cdecl sputActor_AddShadowClipPlane(void *actor,int shadowIdx,char *sectorName); /* 0x00493660 */
-void __cdecl sputActor_ResetShadows(void *actor); /* 0x004936b0 */
-void sputCostume_DrawActorShadow(int param_1); /* 0x004936e0 */
-float * __cdecl sputActor_GetOrientMatrix(void *actor); /* 0x00493790 */
-void __cdecl sputActor_DrawToClean(void *actor); /* 0x004937c0 */
-int Actor_CountCostumes(int param_1); /* 0x00494690 */
-void sputActor_SetClipPlane(int param_1,undefined4 *param_2,undefined4 *param_3); /* 0x004946b0 */
-void sputActor_SetClipPlaneActive(int param_1,undefined4 param_2); /* 0x00494710 */
-void sputActor_SetFrustrumCull(int param_1,int param_2); /* 0x00494780 */
-void __cdecl sputActor_FreeActor(void *actor); /* 0x004947c0 */
-void sputCostume_DrawMeshShadow(void *costumeList,void *shadow); /* 0x00494940 */
+void __cdecl Actor_FollowPath(Actor *actor); /* 0x00493230 */
+void __cdecl sputActor_SetWalkDominate(Actor *actor,int dominate); /* 0x004933c0 */
+void __cdecl sputActor_SetActorConstrain(Actor *actor,int param_2); /* 0x004933e0 */
+int __cdecl Actor_IsVoicePlaying(Actor *actor); /* 0x004934b0 */
+int __cdecl sputActor_ActorHasShadow(Actor *actor); /* 0x00493510 */
+void __cdecl sputActor_ActivateActorShadow(Actor *actor,int shadowIdx,int active); /* 0x00493540 */
+void __cdecl sputActor_SetShadowPlane(Actor *actor,char *param_2); /* 0x00493570 */
+void __cdecl sputActor_SetShadowPoint(Actor *actor,float x,float y,float z); /* 0x004935f0 */
+void __cdecl sputActor_SetShadowValid(Actor *actor,int shadowIdx,int valid); /* 0x00493630 */
+void __cdecl sputActor_AddShadowClipPlane(Actor *actor,int shadowIdx,char *sectorName); /* 0x00493660 */
+void __cdecl sputActor_ResetShadows(Actor *actor); /* 0x004936b0 */
+void __cdecl sputCostume_DrawActorShadow(Actor *actor); /* 0x004936e0 */
+float * __cdecl sputActor_GetOrientMatrix(Actor *actor); /* 0x00493790 */
+void __cdecl sputActor_DrawToClean(Actor *actor); /* 0x004937c0 */
+int __cdecl Actor_CountCostumes(Actor *actor); /* 0x00494690 */
+void __cdecl sputActor_SetClipPlane(Actor *actor,undefined4 *param_2,undefined4 *param_3); /* 0x004946b0 */
+void __cdecl sputActor_SetClipPlaneActive(Actor *actor,int param_2); /* 0x00494710 */
+void __cdecl sputActor_SetFrustrumCull(Actor *actor,int param_2); /* 0x00494780 */
+void __cdecl sputActor_FreeActor(Actor *actor); /* 0x004947c0 */
+void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *shadow); /* 0x00494940 */
 void sputCostume_Draw3D(undefined4 param_1,undefined4 param_2); /* 0x00495080 */
 void sputCostume_InternalDraw3D(int *param_1,float *param_2); /* 0x004950a0 */
 void __cdecl sputRoom_RemoveActor(char *setName,void *actor); /* 0x004a5eb0 */
-void __cdecl sputRoom_AddActor(void *actor,char *setName); /* 0x004a5f60 */
-float __thiscall Puck_GetYawToPoint(void *this,float *point); /* 0x004a8500 */
+void __cdecl sputRoom_AddActor(Actor *actor,char *setName); /* 0x004a5f60 */
+float __thiscall Puck_GetYawToPoint(Puck *this,float *point); /* 0x004a8500 */
 
 /* ===== dirtyrect.c ===== */
 void __cdecl DirtyRect_Add(int *rect,int flag,int bufferIdx); /* 0x00485420 */
@@ -1755,7 +1755,7 @@ undefined4 sputText_Save(code *param_1); /* 0x0048cbc0 */
 undefined4 sputText_Restore(code *param_1); /* 0x0048cd80 */
 
 /* ===== text.c ===== */
-int __cdecl GetTextParamsFromTable(void *ctx,void *table,void *textObj); /* 0x0048c050 */
+int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *textObj); /* 0x0048c050 */
 char * __cdecl sputText_ExtractSayLineData(char *line,char *outId); /* 0x0048c8d0 */
 int sputActor_GetActorTextRate(void); /* 0x00494740 */
 void __cdecl sputActor_SetActorTextRate(int speed); /* 0x00494750 */
@@ -1763,24 +1763,24 @@ void * Text_GetSystemFont(void); /* 0x004aa930 */
 int __cdecl Text_LoadNativeFont(char *filename,void **outFont); /* 0x004aa940 */
 void __cdecl Text_FreeFont(void *font); /* 0x004aa990 */
 int __cdecl Text_NextChar(char **pText); /* 0x004aa9b0 */
-int __cdecl Text_GetCharKernedWidth(void *ctx,int ch); /* 0x004aaa20 */
-int __cdecl Text_GetStringWidth(void *ctx,char *text); /* 0x004aaa80 */
-int Text_GetStringHeight(void *ctx,char *text); /* 0x004aab10 */
-undefined4 Text_DrawFormatted(void *param_1,int param_2); /* 0x004aabb0 */
+int __cdecl Text_GetCharKernedWidth(TextContext *ctx,int ch); /* 0x004aaa20 */
+int __cdecl Text_GetStringWidth(TextContext *ctx,char *text); /* 0x004aaa80 */
+int __cdecl Text_GetStringHeight(TextContext *ctx,char *text); /* 0x004aab10 */
+undefined4 Text_DrawFormatted(TextContext *param_1,int param_2); /* 0x004aabb0 */
 undefined4 Text_WrapLines(uint *param_1); /* 0x004aac40 */
 void Text_CopyRunes(byte *param_1,undefined4 *param_2,int param_3,int param_4); /* 0x004aae90 */
 undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2); /* 0x004aaf30 */
-char * text_FindNextBreak(void *param_1,void *param_2,char *param_3,int *param_4,uint *param_5, int param_6); /* 0x004ab210 */
-uint __cdecl Font_GlyphAdvance(void *ctx,void *font,int ch); /* 0x004ab510 */
+char * text_FindNextBreak(TextContext *param_1,void *param_2,char *param_3,int *param_4, uint *param_5,int param_6); /* 0x004ab210 */
+uint __cdecl Font_GlyphAdvance(TextContext *ctx,void *font,int ch); /* 0x004ab510 */
 uint Font_GlyphWidth(int param_1,int param_2,uint param_3); /* 0x004ab570 */
-void __cdecl Text_DrawString(void *ctx,void *font,char *text); /* 0x004ab5d0 */
+void __cdecl Text_DrawString(TextContext *ctx,void *font,char *text); /* 0x004ab5d0 */
 void __cdecl Text_DrawChar(void *ctx,void *font,int ch); /* 0x004ab710 */
 
 /* ===== textobject.c ===== */
-void __cdecl sputText_AddToQueue(void *obj,int durationMs,int flags); /* 0x0048c470 */
-void * __cdecl TextObject_New(void *ctx,char *text,int durationMs,int flags); /* 0x0048c7e0 */
-void __cdecl TextObject_Draw(void *obj,int invalidate); /* 0x0048c9f0 */
-undefined4 * sputText_FindSerialNumber(int param_1); /* 0x0048cba0 */
+void __cdecl sputText_AddToQueue(TextObject *obj,int durationMs,int flags); /* 0x0048c470 */
+TextObject * __cdecl TextObject_New(TextContext *ctx,char *text,int durationMs,int flags); /* 0x0048c7e0 */
+void __cdecl TextObject_Draw(TextObject *obj,int invalidate); /* 0x0048c9f0 */
+TextObject * __cdecl sputText_FindSerialNumber(int serial); /* 0x0048cba0 */
 
 /* ===== controls.c ===== */
 int Controls_DebugKeysHook(undefined4 param_1); /* 0x0048d030 */
@@ -1816,7 +1816,7 @@ void __cdecl sputActor_UpdateActors(float dt); /* 0x0048fcf0 */
 undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2); /* 0x0048e2c0 */
 undefined4 sputActor_Save(code *param_1); /* 0x0048e330 */
 undefined4 sputActor_Restore(code *param_1); /* 0x0048ecd0 */
-void __cdecl sputActor_SetWalkChore(void *actor,int chore,void *costume); /* 0x00490a60 */
+void __cdecl sputActor_SetWalkChore(Actor *actor,int chore,CostumeNode *costume); /* 0x00490a60 */
 void sputActor_Terminate(void); /* 0x00490e60 */
 undefined4 sputActor_Startup(void); /* 0x00490e80 */
 void sputActor_Shutdown(void); /* 0x00490ef0 */
@@ -1826,24 +1826,24 @@ uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme); /* 0x00490e00 */
 int ComparePhonemes(int *param_1,int *param_2); /* 0x00490e50 */
 
 /* ===== walker.c ===== */
-undefined4 sputActor_AlignToPuck(void *param_1,float *param_2); /* 0x00491230 */
-void sputActor_ActorWalkTo(int param_1,int param_2,undefined4 *param_3,undefined4 param_4); /* 0x00491650 */
-uint Walker_AvoidActorPath (void *param_1,void *param_2,undefined4 *param_3,uint param_4,float *param_5); /* 0x004917e0 */
+undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *param_2); /* 0x00491230 */
+void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *param_3,undefined4 param_4); /* 0x00491650 */
+uint Walker_AvoidActorPath (Actor *param_1,Actor *param_2,undefined4 *param_3,uint param_4,float *param_5); /* 0x004917e0 */
 void __cdecl sputActor_SetWalkSystemFadeTime(int ms); /* 0x00494880 */
-void * __thiscall Puck_Construct(void *this,float radius); /* 0x004a8200 */
-void __fastcall Puck_Destruct(int param_1); /* 0x004a8270 */
-undefined * __fastcall Puck_Rot(int param_1); /* 0x004a82a0 */
-void __fastcall Puck_Validate(void *param_1); /* 0x004a82c0 */
-void __thiscall Puck_SetPos(void *this,float *pos); /* 0x004a8310 */
-void __thiscall Puck_Xform(void *this,float *vec); /* 0x004a8350 */
-void __thiscall Puck_InvXform(void *this,float *vec); /* 0x004a8370 */
-void __thiscall Puck_Rotate(void *this,float angle); /* 0x004a83c0 */
-float __thiscall Puck_PointAt(void *this,float *point,float maxTurn); /* 0x004a8450 */
-void __thiscall Puck_Constrain(void *this,int a1); /* 0x004a85b0 */
-undefined * __thiscall Puck_Forward(void *this,float step,int turnLeftOk,int turnRightOk); /* 0x004a8610 */
-void __thiscall Puck_OrientToPlane(void *this,int a1); /* 0x004a89b0 */
-void __fastcall Puck_Normalize(int param_1); /* 0x004a8a90 */
-void __thiscall Puck_Draw(void *this,int color); /* 0x004a8b00 */
+Puck * __thiscall Puck_Construct(Puck *this,float radius); /* 0x004a8200 */
+void __fastcall Puck_Destruct(Puck *puck); /* 0x004a8270 */
+undefined * __fastcall Puck_Rot(Puck *puck); /* 0x004a82a0 */
+void __fastcall Puck_Validate(Puck *puck); /* 0x004a82c0 */
+void __thiscall Puck_SetPos(Puck *this,float *pos); /* 0x004a8310 */
+void __thiscall Puck_Xform(Puck *this,float *vec); /* 0x004a8350 */
+void __thiscall Puck_InvXform(Puck *this,float *vec); /* 0x004a8370 */
+void __thiscall Puck_Rotate(Puck *this,float angle); /* 0x004a83c0 */
+float __thiscall Puck_PointAt(Puck *this,float *point,float maxTurn); /* 0x004a8450 */
+void __thiscall Puck_Constrain(Puck *this,int a1); /* 0x004a85b0 */
+undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int turnRightOk); /* 0x004a8610 */
+void __thiscall Puck_OrientToPlane(Puck *this,int a1); /* 0x004a89b0 */
+void __fastcall Puck_Normalize(Puck *puck); /* 0x004a8a90 */
+void __thiscall Puck_Draw(Puck *this,int color); /* 0x004a8b00 */
 uint GetPath(undefined4 *param_1); /* 0x004a9420 */
 undefined4 BuildPath(undefined4 param_1,uint *param_2,int param_3); /* 0x004a9430 */
 undefined4 Planner_FindPath(float *param_1,float *param_2,void *param_3); /* 0x004a94d0 */
@@ -1859,7 +1859,7 @@ void FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,fl
 undefined4 TestCollision(float *param_1,float *param_2,float *param_3,float param_4,float param_5, undefined4 param_6,float param_7,float param_8,undefined4 param_9,float *param_10); /* 0x00492680 */
 int Collision_PickDetour(float *param_1,float *param_2,int param_3); /* 0x00492a50 */
 undefined4 Collision_UpdateMovedActors(void); /* 0x004939a0 */
-undefined4 Collision_TestActorAgainstOthers(void *param_1); /* 0x004939f0 */
+undefined4 Collision_TestActorAgainstOthers(Actor *param_1); /* 0x004939f0 */
 undefined4 Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,float param_5, float param_6,float param_7,float param_8,float *param_9); /* 0x00494100 */
 
 /* ===== speech.c ===== */
@@ -1869,25 +1869,25 @@ uint sputActor_GetSpeechMode(void); /* 0x004931e0 */
 /* ===== costume.c ===== */
 void FadeInChore(void *param_1,uint param_2,int param_3); /* 0x00493410 */
 undefined * __cdecl FadeOutChore(void *param_1,int param_2,int param_3); /* 0x00493450 */
-void __cdecl sputCostume_PrintCostumeInfo(void *costume); /* 0x00494d10 */
-void __cdecl sputCostume_FreeCostumeNodes(void *list,int free); /* 0x00494dc0 */
-void * __cdecl sputCostume_PopCostume(void *list,int free); /* 0x00494e10 */
-void * __cdecl sputCostume_SetCostume(void *list,void *costumeRes,int flags); /* 0x00494e50 */
-void * __cdecl sputCostume_PushCostume(void *list,void *costumeRes,int flags); /* 0x00494e80 */
-undefined4 Costume_AllocRecord(void); /* 0x00494f90 */
-void Costume_InitRecord(undefined4 *param_1); /* 0x00494fb0 */
+void __cdecl sputCostume_PrintCostumeInfo(CostumeNode *costume); /* 0x00494d10 */
+void __cdecl sputCostume_FreeCostumeNodes(CostumeNode *list,int free); /* 0x00494dc0 */
+CostumeNode * __cdecl sputCostume_PopCostume(CostumeNode *list,int free); /* 0x00494e10 */
+CostumeNode * __cdecl sputCostume_SetCostume(CostumeNode *list,void *costumeRes,int flags); /* 0x00494e50 */
+CostumeNode * __cdecl sputCostume_PushCostume(CostumeNode *list,void *costumeRes,int flags); /* 0x00494e80 */
+CostumeNode * __cdecl Costume_AllocRecord(void); /* 0x00494f90 */
+void __cdecl Costume_InitRecord(CostumeNode *node); /* 0x00494fb0 */
 void * __cdecl Costume_GetMainModel(void *cosInst); /* 0x00495020 */
 void __cdecl Costume_ApplyScale(void *actor,void *componentList); /* 0x00495510 */
 void __cdecl Costume_ApplyComponentState(void *cosInst); /* 0x004955e0 */
 void __cdecl sputCostume_BuildThingStateMatrices(void *component,float *frame); /* 0x004956a0 */
 void sputCostume_Draw2D(int param_1); /* 0x004956f0 */
-void __cdecl sputCostume_Update(void *costumeList,float dt); /* 0x00495730 */
+void __cdecl sputCostume_Update(CostumeNode *costumeList,float dt); /* 0x00495730 */
 undefined4 sputCostume_SaveHook(char *param_1,uint *param_2,undefined4 param_3); /* 0x00495e90 */
 undefined4 Costume_InstanceHook(int param_1,int param_2); /* 0x00496020 */
 
 /* ===== shadow.c ===== */
 void __cdecl sputCostume_SetShadowColor(int r,int g,int b); /* 0x00494890 */
-void __cdecl sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,void *shadow); /* 0x00494bf0 */
+void __cdecl sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,ActorShadow *shadow); /* 0x00494bf0 */
 
 /* ===== sputcostume.c ===== */
 int sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2); /* 0x004957f0 */

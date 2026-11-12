@@ -16,4 +16,5 @@ silently break each other.
 | `argtrace.py` | gdb script: the stack words at the entry of one function (how the garbage arguments of `FUN_100068b0` were measured) |
 | `imbuild.sh` | regenerate + build IMUSE.DLL only (about 25 s), copy it to a run folder |
 | `scn_2` .. `scn_9` | Lua scenarios: sfx / voices / fades / pause / group volumes (2), ten music state changes (3), movie (4), Save + Load (5a, 5b), voices (6, 7), a tour of 17 sets (8: found the MixLoopC/D sign bug), music states and sequences (9) |
+| `fxtrace.py`, `scn_fx.lua` | gdb script: CRC of the input and output of every `Im_ApplyFXPreset` call (`FX_OUT` = output file, set for gdb itself, not the inferior); the scenario plays Glottis' lines through Intercom Filter, Basic Reverb, Stereo Ring Modulator and OFF. Compared the HMI library in C with the real DLLs (build/BUILD_NOTES.md). Breaks after the prologue, so it reads the frame through `ebp` |
 | `rettrace.py`, `rtrun.sh` | gdb script: arguments and return value of every call of one exported function (used for `iMUSE_GetPhoneme` during voice lines) |

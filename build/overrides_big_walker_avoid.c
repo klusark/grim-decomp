@@ -62,8 +62,11 @@ static void wav_copy3(float *dst, const float *src)
  *  0xbc snap point (3)   0xc8 corners (4 x 3)   0xf8 corner flags (4)   0x108 position of `self` (3) */
 
 /* OVERRIDES: Walker_AvoidActorPath */
-uint Walker_AvoidActorPath(void *self, void *other, undefined4 *pts, uint count, float *out)
+uint Walker_AvoidActorPath(Actor *self_, Actor *other_, undefined4 *pts, uint count, float *out)
 {
+    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
+    void *self = (void *)self_;
+    void *other = (void *)other_;
     uint32_t fr[0x104 / 4];
     unsigned char *c1, *c2, *s2;
     float *frame, *lastout, *path, *dst, *cp;

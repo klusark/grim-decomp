@@ -114,7 +114,7 @@ int InsaneTimer_StartThread(void)
     do {
       *puVar2 = 0;
       puVar2 = puVar2 + 8;
-    } while ((int)puVar2 < IMG_ADDR(0x008da858));
+    } while ((int)puVar2 < ((unsigned)(uintptr_t)&UINT_008da858));
     g_dwSys_timer_count = 0x4dae;
     UINT_008da858 = CreateThread(0,0,((unsigned)(uintptr_t)timer_thread),0,0,(int)local_4);
     SetThreadPriority(UINT_008da858,2);
@@ -185,7 +185,7 @@ void InsaneTimer_StopThread(void)
   if (UINT_008da874 == 0) {
     iVar1 = GetExitCodeThread(UINT_008da858,local_4);
     while ((iVar1 != 0 && (unaff_ESI == 0x103))) {
-      OutputDebugStringA(IMG_ADDR(0x004f3c88));
+      OutputDebugStringA(((unsigned)(uintptr_t)&s_Waiting_for_timer_thread_to_exit_004f3c88));
       iVar1 = GetExitCodeThread(UINT_008da858,(_stkneg + 20));
     }
     CloseHandle(UINT_008da858);
@@ -248,19 +248,19 @@ int __cdecl sys_Alloc(void *callback,int period,uint flags,int user)
   do {
     if (*puVar2 == 0) {
       iVar3 = iVar1 * 0x20;
-      *(undefined4 *)(iVar3 + IMG_ADDR(0x008da5e8)) = 0;
+      *(undefined4 *)(iVar3 + ((unsigned)(uintptr_t)&DAT_008da5e8)) = 0;
       *(undefined4 *)(&DAT_008da5ec + iVar3) = 0;
-      *(int *)(iVar3 + IMG_ADDR(0x008da5e4)) = user;
-      *(uint *)(iVar3 + IMG_ADDR(0x008da5e0)) = flags;
+      *(int *)(iVar3 + ((unsigned)(uintptr_t)&DAT_008da5e4)) = user;
+      *(uint *)(iVar3 + ((unsigned)(uintptr_t)&DAT_008da5e0)) = flags;
       *(int *)(&DAT_008da5dc + iVar3) = period;
       *(void **)(&DAT_008da5d8 + iVar3) = callback;
-      *(undefined4 *)(iVar3 + IMG_ADDR(0x008da5f0)) = 0;
-      *(undefined4 *)(iVar3 + IMG_ADDR(0x008da5f4)) = 0;
+      *(undefined4 *)(iVar3 + ((unsigned)(uintptr_t)&DAT_008da5f0)) = 0;
+      *(undefined4 *)(iVar3 + ((unsigned)(uintptr_t)&DAT_008da5f4)) = 0;
       return iVar1;
     }
     puVar2 = puVar2 + 8;
     iVar1 = iVar1 + 1;
-  } while ((int)puVar2 < IMG_ADDR(0x008da858));
+  } while ((int)puVar2 < ((unsigned)(uintptr_t)&UINT_008da858));
   return 0;
 }
 #endif
@@ -380,7 +380,7 @@ void InsaneTimer_Tick(void)
       }
       puVar3 = puVar3 + 8;
       iVar4 = iVar4 + 1;
-    } while ((int)puVar3 < IMG_ADDR(0x008da86c));
+    } while ((int)puVar3 < ((unsigned)(uintptr_t)&DAT_008da86c));
     iVar4 = 1;
     puVar3 = &UINT_008da60c;
     do {
@@ -406,7 +406,7 @@ void InsaneTimer_Tick(void)
       }
       puVar3 = puVar3 + 8;
       iVar4 = iVar4 + 1;
-    } while ((int)puVar3 < IMG_ADDR(0x008da86c));
+    } while ((int)puVar3 < ((unsigned)(uintptr_t)&DAT_008da86c));
     UINT_008da868 = UINT_008da870;
     _DAT_008da86c = 0;
     if ((UINT_008da880 == 0) && (UINT_008da87c == 0)) {
@@ -488,7 +488,7 @@ void InsaneTimer_RunDeferred(void)
     puVar3[1] = 0;
     puVar3 = puVar3 + 8;
     iVar4 = iVar4 + 1;
-    if (IMG_ADDR(0x008da86b) < (int)puVar3) {
+    if (((unsigned)(uintptr_t)&DAT_008da86b) < (int)puVar3) {
       return;
     }
   } while( true );

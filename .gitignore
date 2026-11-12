@@ -5,7 +5,6 @@ build/run/
 __pycache__/
 *.pyc
 build/run_orig*/
-build/hmi/*.a
 *.log
 names/*.out
 build/perf/base/

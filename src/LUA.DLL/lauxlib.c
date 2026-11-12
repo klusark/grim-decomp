@@ -84,7 +84,7 @@ int __cdecl luaL_check_string(int param_1)
   iVar1 = lua_lua2C(param_1);
   iVar2 = lua_isstring(iVar1);
   if (iVar2 == 0) {
-    luaL_argerror(param_1,IMG_ADDR(0x10026360));
+    luaL_argerror(param_1,((unsigned)(uintptr_t)&s_string_expected_10026360));
   }
   iVar1 = lua_getstring(iVar1);
   return iVar1;
@@ -120,7 +120,7 @@ float __cdecl luaL_check_number(int param_1)
   iVar1 = lua_lua2C(param_1);
   iVar2 = lua_isnumber(iVar1);
   if (iVar2 == 0) {
-    luaL_argerror(param_1,IMG_ADDR(0x10026370));
+    luaL_argerror(param_1,((unsigned)(uintptr_t)&s_number_expected_10026370));
   }
   fVar3 = lua_getnumber(iVar1);
   return fVar3;
@@ -155,7 +155,7 @@ int __cdecl luaL_tablearg(int param_1)
   iVar1 = lua_lua2C(param_1);
   iVar2 = lua_istable(iVar1);
   if (iVar2 == 0) {
-    luaL_argerror(param_1,IMG_ADDR(0x10026380));
+    luaL_argerror(param_1,((unsigned)(uintptr_t)&s_table_expected_10026380));
   }
   return iVar1;
 }
@@ -172,7 +172,7 @@ int __cdecl luaL_functionarg(int param_1)
   iVar1 = lua_lua2C(param_1);
   iVar2 = lua_isfunction(iVar1);
   if (iVar2 == 0) {
-    luaL_argerror(param_1,IMG_ADDR(0x10026390));
+    luaL_argerror(param_1,((unsigned)(uintptr_t)&s_function_expected_10026390));
   }
   return iVar1;
 }
@@ -187,7 +187,7 @@ int __cdecl luaL_nonnullarg(int param_1)
   
   iVar1 = lua_lua2C(param_1);
   if (iVar1 == 0) {
-    luaL_argerror(param_1,IMG_ADDR(0x100263a4));
+    luaL_argerror(param_1,((unsigned)(uintptr_t)&s_value_expected_100263a4));
   }
   return iVar1;
 }

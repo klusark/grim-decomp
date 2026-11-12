@@ -64,7 +64,7 @@ parse_cmdline(byte *param_1,undefined4 *param_2,byte *param_3,int *param_4,int *
       bVar2 = *param_1;
       pbVar7 = param_1 + 1;
       param_5 = (int *)(uint)bVar2;
-      if ((*(byte *)((int)param_5 + IMG_ADDR(0x1002c369)) & 4) != 0) {
+      if ((*(byte *)((int)param_5 + ((unsigned)(uintptr_t)&DAT_1002c369)) & 4) != 0) {
         *piVar6 = *piVar6 + 1;
         if (param_3 != (byte *)0x0) {
           *param_3 = *pbVar7;

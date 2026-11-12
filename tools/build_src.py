@@ -11,6 +11,7 @@ from collections import Counter, OrderedDict, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import frame_locals
 import ftol_fold
+import datagen
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, "raw")
@@ -74,8 +75,10 @@ RANGES = {
 IMPORT_NAMES = set()
 # imports that are not Win32 stdcall: the game's own DLLs (cdecl) and the varargs ones
 CDECL_IMPORTS = {"wsprintfA", "wsprintfW"}
-# (hmiFX*: the HMI sound library's exports are __stdcall too, see the stdcall branch in the functions.h writer)
+# (hmiFX*: the HMI sound library's exports are __stdcall too, see the stdcall branch in the functions.h writer, except
+# its allocator, which is cdecl: IMUSE.DLL pops the argument after the call. build/overrides_hmifx.c defines them all.)
 CDECL_IMPORT_PREFIXES = ("lua_", "Im", "Sounds", "Cos", "grimSound_", "iMUSE_", "hmiFX")
+HMI_CDECL = {"hmiFXMalloc", "hmiFXFree"}
 # decorated stdcall names from the mingw import libraries (build/gen_stdcall_names.py)
 try:
     STDCALL_NAMES = json.load(open(os.path.join(ROOT, "build", "stdcall_names.json")))
@@ -124,6 +127,7 @@ def module_for(name):
 
 
 CUR_PROG = None
+STRUCTS = {}       # name -> layout of the program being built (raw/<prog>/structs.json)
 
 
 def read_text(path):
@@ -136,7 +140,13 @@ def read_text(path):
         reason = text.replace("\n", " ").replace("*/", "* /")[:200]
         return (f"/* Ghidra could not decompile this function: {reason} */\n"
                 f"void FUN_{addr}(void)\n\n{{\n  __builtin_trap();\n}}\n")
-    return text
+    # A __thiscall function typed through its class (tools/apply_types.py "this" entries: Ghidra types the
+    # auto-`this` from the class namespace) is shown as `Puck::Puck_SetPos`; C names it Puck_SetPos. Only a
+    # qualifier repeating the function's own prefix is dropped, so "Puck::SetPos" in a comment stays.
+    return CLASS_QUAL_RE.sub(r"\2", text)
+
+
+CLASS_QUAL_RE = re.compile(r"\b([A-Za-z]\w*)::(\1_\w+)\b")
 
 
 # A function returning bool/char/short leaves only AL/AX defined in EAX when gcc compiles it; the original (MSVC) code that
@@ -1249,6 +1259,7 @@ def fix_function(code, ctx, stats):
     body = FLOAT_BITS_RE.sub(lambda m: m.group(1) + "FBITS(" + m.group(2) + ")", body)
     # last: offset-named locals become views into one frame array (keeps Ghidra's layout)
     body, trailer = frame_locals.rewrite(body)
+    body = negative_stack_into_frame(body)
     body = float_frame_locals(body)
     # STACK0X(0x..) is __builtin_frame_address(0) + offset: an aligned local makes gcc realign the
     # stack and move the frame pointer away from the argument area, so those functions get no alignment
@@ -1300,6 +1311,30 @@ def fix_negative_stack(body):
     body = NEG_STACK_RE.sub(rep, body)
     decl = "  unsigned char _stkneg[%d] __attribute__((aligned(16)));  /* the original frame below the return address */\n" % n
     return re.sub(r"^\{\n", "{\n" + decl, body, count=1, flags=re.M)
+
+
+FRAME_LOCAL_RE = re.compile(r"\(_frame \+ \(0x([0-9a-f]+) - 0x([0-9a-f]+)\)\)")
+
+
+def negative_stack_into_frame(body):
+    """A `STACK0X(0xffffffd0)` among the frame's own locals is the same memory as `local_30`: Ghidra prints a
+    stack slot that way when it has no variable there (sputText_MakeTextObjectL after types round 3: its text
+    context lost local_30 while local_2c, the context's clip-rect slot, stayed). Such offsets go into _frame so
+    they alias the locals as in the original; offsets below the deepest local stay in _stkneg."""
+    m = re.search(r"unsigned char _stkneg\[(\d+)\]", body)
+    locs = [(int(a, 16), int(b, 16)) for a, b in FRAME_LOCAL_RE.findall(body)]
+    if not m or not locs:
+        return body
+    n, size, deepest = int(m.group(1)), locs[0][0], max(b for _, b in locs)
+
+    def rep(mm):
+        k = n - int(mm.group(1))
+        return "(_frame + (0x%x - 0x%x))" % (size, k) if k <= deepest else mm.group(0)
+
+    body = re.sub(r"\(_stkneg \+ (\d+)\)", rep, body)
+    if "(_stkneg + " not in body:
+        body = re.sub(r"\n  unsigned char _stkneg\[\d+\][^\n]*", "", body, count=1)
+    return body
 
 
 # -- globals: infer a C type for each Ghidra data symbol ----------------------
@@ -1480,6 +1515,121 @@ PROG_PATHS = {"GRIMFANDANGO.EXE": "/v101/GRIMFANDANGO.EXE", "LUA.DLL": "/LUA.DLL
               "CHORE.DLL": "/CHORE.DLL"}
 
 
+COMPAT_H = os.path.join(ROOT, "build", "compat.h")
+C_SCALAR = {"pointer": "void *", "string": "char", "ImageBaseOffset32": "uint32_t"}
+
+
+def compat_structs():
+    """Structures build/compat.h defines by hand (they win over the Ghidra layout)."""
+    try:
+        t = open(COMPAT_H, encoding="utf-8").read()
+    except FileNotFoundError:
+        return set()
+    return set(re.findall(r"\b(?:typedef\s+)?struct\s+(\w+)\s*\{", t))
+
+
+def c_field(gtype, name, size, structs):
+    """Declaration of one field from Ghidra's type text ("char[32]", "Actor * *", "float[3]")."""
+    dims = re.findall(r"\[(\d+)\]", gtype)
+    base = re.sub(r"\[\d+\]", "", gtype).strip()
+    stars = base.count("*")
+    base = base.replace("*", "").strip()
+    base = C_SCALAR.get(base, base)
+    if base not in PRIM_TYPES and base not in structs and not base.endswith("*"):
+        if stars:
+            base = "void"   # pointer to a type the export does not know (a function definition, ...)
+        else:
+            n = 1
+            for d in dims:
+                n *= int(d)
+            elem = size // n if n else size
+            base, dims = "undefined1", [str(size)] if elem not in (1, 2, 4, 8) else dims
+            if elem in (2, 4, 8):
+                base = f"undefined{elem}"
+    decl = base + " " + "*" * stars + name + "".join(f"[{d}]" for d in dims)
+    return decl.replace("* *", "**")
+
+
+def struct_comments(prog):
+    """{struct: {"": struct comment, offset: field comment}} from the types batches (names/types_*.json):
+    Ghidra's layout export carries no comments."""
+    out = {}
+    for p in sorted(glob.glob(os.path.join(ROOT, "names", "types_*.json"))):
+        b = json.load(open(p))
+        if os.path.basename(b.get("program", "/v101/GRIMFANDANGO.EXE")) != prog:
+            continue
+        for s in b.get("structs", []):
+            c = out.setdefault(s["name"], {})
+            if s.get("comment"):
+                c[""] = s["comment"]
+            for f in s["fields"]:
+                if len(f) > 3 and f[3]:
+                    c[f[0]] = f[3]
+    return out
+
+
+def struct_defs(structs, skip, comments=None):
+    """C definitions for Ghidra's structures, in an order where a structure held by value comes
+    first. Gaps become `_pad_<off>` bytes; every offset and the size are checked by
+    _Static_assert, so a wrong export cannot silently move a field."""
+    names = sorted(n for n in structs if n not in skip)
+    deps = {}
+    for n in names:
+        deps[n] = set()
+        for off, sz, t, fn in structs[n]["fields"]:
+            if "*" not in t:
+                b = re.sub(r"\[\d+\]", "", t).strip()
+                if b in structs and b != n and b not in skip:
+                    deps[n].add(b)
+    order, done = [], set()
+
+    def visit(n, stack=()):
+        if n in done or n in stack:
+            return
+        for d in sorted(deps.get(n, ())):
+            visit(d, stack + (n,))
+        done.add(n)
+        order.append(n)
+    for n in names:
+        visit(n)
+    out = []
+    for n in order:
+        s = structs[n]
+        body, asserts, pos, used = [], [], 0, Counter()
+        packed = False
+        for off, sz, t, fn in sorted(s["fields"]):
+            if t in ("undefined", "undefined1") and re.fullmatch(r"(field_0x[0-9a-f]+|)", fn):
+                continue   # an undefined byte of the layout: padding
+            if off < pos:
+                continue   # overlapping component (should not happen in a structure)
+            if off > pos:
+                body.append(f"    uint8_t _pad_{pos:x}[0x{off - pos:x}];")
+            fname = fn if re.fullmatch(r"[A-Za-z_]\w*", fn) else f"field_0x{off:x}"
+            used[fname] += 1
+            if used[fname] > 1:
+                fname += f"_{off:x}"
+            note = (comments or {}).get(n, {}).get(off)
+            body.append(f"    {c_field(t, fname, sz, structs)};  /* 0x{off:02x}" + (f": {note}" if note else "") + " */")
+            asserts.append(f"_Static_assert(__builtin_offsetof({n}, {fname}) == 0x{off:x}, \"{n}.{fname}\");")
+            prim = re.sub(r"\[\d+\]", "", t).strip()
+            al = 4 if "*" in t or prim in ("float", "int", "uint", "undefined4", "dword", "long", "ulong", "double",
+                                          "undefined8", "longlong", "ulonglong", "qword") else (
+                 2 if prim in ("short", "ushort", "undefined2", "word") else 1)
+            if off % al:
+                packed = True
+            pos = off + sz
+        if s["size"] > pos:
+            body.append(f"    uint8_t _pad_{pos:x}[0x{s['size'] - pos:x}];")
+        attr = " __attribute__((packed))" if packed else ""
+        head = (comments or {}).get(n, {}).get("")
+        if head:
+            out.append(f"/* {n}: {head} */")
+        out.append(f"struct{attr} {n} {{  /* 0x{s['size']:x} */\n" + "\n".join(body) + "\n};")
+        out.extend(asserts)
+        out.append(f"_Static_assert(sizeof({n}) == 0x{s['size']:x}, \"sizeof {n}\");")
+    return out
+
+
 def build(prog):
     prog_ov = OVERRIDES_BY_PROG.get(prog, OVERRIDES)   # hand-written functions of this program
     rawdir = os.path.join(RAW, prog)
@@ -1489,7 +1639,10 @@ def build(prog):
         # (name, start, initialised bytes): only literals inside the file-backed part of a
         # section are addresses; masks such as 0x7fff00 fall in the zero tail of .data
         IMG_SECTIONS = [(s["name"], int(s["start"], 16), s["size"]) for s in json.load(open(os.path.join(rawdir, "sections.json")))]
-    global CUR_PROG
+    global CUR_PROG, STRUCTS
+    STRUCTS = {}
+    if os.path.exists(os.path.join(rawdir, "structs.json")):
+        STRUCTS = json.load(open(os.path.join(rawdir, "structs.json")))
     funcs = json.load(open(os.path.join(rawdir, "functions.json")))
     CUR_PROG = prog
     global ASM_ADDRS
@@ -1597,6 +1750,7 @@ def build(prog):
     alias_in = alias_re(GLOBAL_ALIAS)
     ctx = Ctx()
     ctx.import_ints = {i["name"] for i in imports}
+    ctx.known_types |= set(STRUCTS)   # casts to a structure are casts
     named_globals = {}
     try:
         for line in read_text(os.path.join(rawdir, "globals.json")).splitlines():
@@ -1787,7 +1941,8 @@ def build(prog):
             w.write("/* ===== referenced, not decompiled here (thunks, imports, unknown FUN_) ===== */\n")
             for n in extra:
                 why = "import" if n in imp_names else ("thunk" if n in thunk_names else "no function at this address")
-                if n in imp_names and (n in DLL_STDCALL or n.startswith("hmiFX") or (not n.startswith(CDECL_IMPORT_PREFIXES) and n not in CDECL_IMPORTS)):
+                if n in imp_names and (n in DLL_STDCALL or (n.startswith("hmiFX") and n not in HMI_CDECL)
+                                       or (not n.startswith(CDECL_IMPORT_PREFIXES) and n not in CDECL_IMPORTS)):
                     # Win32/DirectX: stdcall, callee pops. Unprototyped on purpose: the
                     # decompiled call sites carry Ghidra's argument lists.
                     # the asm label keeps the symbol undecorated (`_f`, not `_f@0`) so the
@@ -1863,8 +2018,10 @@ def build(prog):
     with open(os.path.join(out, "ghidra_types.h"), "w", newline="\n") as w:
         w.write(GHIDRA_TYPES)
         if IMG_SECTIONS:
-            w.write("\n/* The original data sections, rebuilt from the Ghidra memory dump by build/gendata.py.\n"
-                    " * IMG_ADDR() relocates an address literal Ghidra printed as a number. */\n")
+            w.write("\n/* The original data sections: src/<prog>/data.c (tools/datagen.py) defines every global in the\n"
+                    " * original layout, and sect_<name> labels the first one of each section. The generated code names\n"
+                    " * its data; IMG_ADDR() is for the hand-written overrides (build/overrides*.c), which compute data\n"
+                    " * addresses from the original's. */\n")
             for name, start, size in IMG_SECTIONS:
                 w.write(f"extern unsigned char sect_{name.strip('.')}[];  /* {name}: 0x{start:08x}, {size} bytes */\n")
             w.write("#define IMG_ADDR(a) ((unsigned)(uintptr_t)img_addr_(a))  /* integer, like the literal it replaces */\n")
@@ -1872,12 +2029,22 @@ def build(prog):
             for name, start, size in IMG_SECTIONS:
                 w.write(f"    if (a >= 0x{start:08x}u && a <= 0x{start + size:08x}u) return sect_{name.strip('.')} + (a - 0x{start:08x}u);\n")
             w.write("    return (void *)(uintptr_t)a;\n}\n")
-        unknown = sorted(t for t in ctx.known_types - PRIM_TYPES if re.fullmatch(r"[A-Za-z_]\w*", t))
+        unknown = sorted(t for t in ctx.known_types - PRIM_TYPES - set(STRUCTS)
+                         if re.fullmatch(r"[A-Za-z_]\w*", t))
         if unknown:
-            w.write("\n/* Ghidra structure types used in prototypes/globals; layouts are not exported,\n"
-                    " * so they are incomplete here unless a compat header defines them. */\n")
+            w.write("\n/* Ghidra types used in prototypes/globals with no exported layout: incomplete here\n"
+                    " * unless a compat header defines them. */\n")
             for t in unknown:
                 w.write(f"typedef struct {t} {t};\n")
+        if STRUCTS:
+            skip = compat_structs()
+            w.write("\n/* Ghidra's structures (raw/<prog>/structs.json). Those build/compat.h defines by hand\n"
+                    " * are only declared here: " + (", ".join(sorted(skip & set(STRUCTS))) or "none") + ". */\n")
+            for t in sorted(STRUCTS):
+                w.write(f"typedef struct {t} {t};\n")
+            defs = struct_defs(STRUCTS, skip, struct_comments(prog))
+            if defs:
+                w.write("\n" + "\n".join(defs) + "\n")
     with open(os.path.join(out, "imports.h"), "w", newline="\n") as w:
         w.write(f"/* {prog}: imported symbols (from the PE import table) */\n#pragma once\n")
         for imp in imports:
@@ -1902,6 +2069,8 @@ def build(prog):
                 if t2 != t:
                     open(fp, "w", encoding="utf-8", newline="").write(t2)
         print(prog, "renamed globals (built under their old names):", len(GLOBAL_ALIAS))
+    if IMG_SECTIONS:
+        print(prog, "data.c:", datagen.generate(prog, SRC))
     print(prog, "modules:", {m: len(v) for m, v in by_mod.items()})
     if FIXUPS:
         print(prog, "fix-ups:", dict(stats))

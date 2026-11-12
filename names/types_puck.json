@@ -1,0 +1,150 @@
+{
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "Puck",
+   "size": 96,
+   "comment": "The walker of an actor (Walker.cpp's Puck, 0x60 bytes, ActorExtra::pPuck): position and frame on the walk sectors. Every puck is on the list g_dwPuck_p_head.",
+   "fields": [
+    [
+     0,
+     "float[3]",
+     "aPos",
+     "position (Puck_SetPos)"
+    ],
+    [
+     12,
+     "float[12]",
+     "aFrame",
+     "rdMatrix34: right, forward (+0x18), up (+0x24), position (+0x30)"
+    ],
+    [
+     60,
+     "float",
+     "flRadius",
+     "60 for an actor (ActorExtra::flPuckRadius); Puck_Forward stops this far from a sector edge"
+    ],
+    [
+     64,
+     "float",
+     "flStep",
+     "the last step of Puck_Forward"
+    ],
+    [
+     68,
+     "float[3]",
+     "aConstraint",
+     "constraint vector of the sector (Puck_Constrain), 0, 1, 0 at first"
+    ],
+    [
+     80,
+     "int",
+     "nConstrained",
+     "aConstraint holds (Puck_Constrain)"
+    ],
+    [
+     84,
+     "Puck *",
+     "pPrev",
+     "list g_dwPuck_p_head"
+    ],
+    [
+     88,
+     "Puck *",
+     "pNext",
+     ""
+    ],
+    [
+     92,
+     "void *",
+     "pSector",
+     "the WalkPlane sector the puck is on (Puck_Validate), 0 off the sectors"
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "004a8270",
+   "index": 0,
+   "type": "Puck *",
+   "name": "puck"
+  },
+  {
+   "addr": "004a82a0",
+   "index": 0,
+   "type": "Puck *",
+   "name": "puck"
+  },
+  {
+   "addr": "004a82c0",
+   "index": 0,
+   "type": "Puck *",
+   "name": "puck"
+  },
+  {
+   "addr": "004a8a90",
+   "index": 0,
+   "type": "Puck *",
+   "name": "puck"
+  }
+ ],
+ "this": [
+  {
+   "addr": "004a8200",
+   "type": "Puck *"
+  },
+  {
+   "addr": "004a8310",
+   "type": "Puck *"
+  },
+  {
+   "addr": "004a8350",
+   "type": "Puck *"
+  },
+  {
+   "addr": "004a8370",
+   "type": "Puck *"
+  },
+  {
+   "addr": "004a83c0",
+   "type": "Puck *"
+  },
+  {
+   "addr": "004a8450",
+   "type": "Puck *"
+  },
+  {
+   "addr": "004a85b0",
+   "type": "Puck *"
+  },
+  {
+   "addr": "004a8610",
+   "type": "Puck *"
+  },
+  {
+   "addr": "004a89b0",
+   "type": "Puck *"
+  },
+  {
+   "addr": "004a8b00",
+   "type": "Puck *"
+  },
+  {
+   "addr": "004a8500",
+   "type": "Puck *"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "004a8200",
+   "type": "Puck *"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "008d086c",
+   "type": "Puck *"
+  }
+ ]
+}

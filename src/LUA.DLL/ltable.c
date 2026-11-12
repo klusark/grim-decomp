@@ -428,7 +428,7 @@ int __cdecl luaH_next(int param_1,int *param_2)
   iVar2 = present(iVar1,param_2);
   piVar3 = (int *)(*(int *)(iVar1 + 8) + iVar2 * 0x10);
   if ((*piVar3 == -7) || (piVar3[2] == -7)) {
-    luaL_argerror(2,IMG_ADDR(0x10027d38));
+    luaL_argerror(2,((unsigned)(uintptr_t)&s_key_not_found_10027d38));
   }
   iVar1 = hashnext(iVar1,iVar2 + 1);
   return iVar1;

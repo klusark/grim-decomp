@@ -193,8 +193,10 @@ typedef struct __attribute__((packed)) { uint64_t v; } ghidra_piece8;
 #define SCARRY8(a,b) (((int64_t)((uint64_t)(a) + (uint64_t)(b)) < 0) != (((int64_t)(a) < 0) && ((int64_t)(b) < 0)) && (((int64_t)(a) < 0) == ((int64_t)(b) < 0)))
 #define SBORROW8(a,b) ((((int64_t)(a) ^ (int64_t)(b)) & ((int64_t)(a) ^ (int64_t)((uint64_t)(a) - (uint64_t)(b)))) < 0)
 
-/* The original data sections, rebuilt from the Ghidra memory dump by build/gendata.py.
- * IMG_ADDR() relocates an address literal Ghidra printed as a number. */
+/* The original data sections: src/<prog>/data.c (tools/datagen.py) defines every global in the
+ * original layout, and sect_<name> labels the first one of each section. The generated code names
+ * its data; IMG_ADDR() is for the hand-written overrides (build/overrides*.c), which compute data
+ * addresses from the original's. */
 extern unsigned char sect_rdata[];  /* .rdata: 0x10015000, 8192 bytes */
 extern unsigned char sect_data[];  /* .data: 0x10017000, 120844 bytes */
 #define IMG_ADDR(a) ((unsigned)(uintptr_t)img_addr_(a))  /* integer, like the literal it replaces */

@@ -169,7 +169,7 @@ void sputCostume_PuppetHook(int param_1,int param_2,uint param_3)
   
   if (param_1 != 0) {
     iVar1 = Cos_InstGetUserData(*(int *)(param_1 + 0x18c));
-    sputLua_DoCostumeMarkerCallback((void *)((int)g_pActors + iVar1 * 0xa8),param_3);
+    sputLua_DoCostumeMarkerCallback(g_pActors + iVar1,param_3);
     if (param_3 == 0) {
       Res_RemoveReference((void *)(param_1 + 0x54 + param_2 * 0x34));
     }
@@ -305,7 +305,7 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
       if (param_5 == 0) {
         param_5 = local_24;
       }
-      iVar3 = Cos_RegisterComponent(param_1,param_5,(int)ref,param_2,param_3,param_4,IMG_ADDR(0x004e9fe0));
+      iVar3 = Cos_RegisterComponent(param_1,param_5,(int)ref,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004e9fe0));
       return iVar3 != 0;
     }
   }

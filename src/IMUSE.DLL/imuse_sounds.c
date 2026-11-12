@@ -16,7 +16,7 @@ undefined4 __cdecl iRes_FTELL(undefined *param_1)
 {
   undefined4 uVar1;
   
-  if (((undefined *)IMG_ADDR(0x1003039f) < param_1) && (param_1 < &DAT_10031520)) {
+  if (((undefined *)((unsigned)(uintptr_t)&DAT_1003039f) < param_1) && (param_1 < &DAT_10031520)) {
     return *(undefined4 *)(param_1 + 8);
   }
   uVar1 = (**(code **)(g_dwSounds_pHS + 0x48))(param_1);
@@ -33,7 +33,7 @@ undefined4 __cdecl iRes_FSEEK(undefined *param_1,int param_2,int param_3)
 {
   undefined4 uVar1;
   
-  if ((param_1 < &g_aMcmpFileHandles) || ((undefined *)IMG_ADDR(0x1003151f) < param_1)) {
+  if ((param_1 < &g_aMcmpFileHandles) || ((undefined *)((unsigned)(uintptr_t)&DAT_1003151f) < param_1)) {
     uVar1 = (**(code **)(g_dwSounds_pHS + 0x4c))(param_1,param_2,param_3);
     return uVar1;
   }

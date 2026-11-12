@@ -136,7 +136,7 @@ undefined * stdFileSize(uint param_1)
   undefined *puVar1;
   undefined *puVar2;
   
-  puVar1 = stdFileOpen(param_1,IMG_ADDR(0x004ddb18));
+  puVar1 = stdFileOpen(param_1,((unsigned)(uintptr_t)&DAT_004ddb18));
   if (puVar1 == (undefined *)0x0) {
     return (undefined *)0x0;
   }

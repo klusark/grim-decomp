@@ -90,7 +90,7 @@ int grimlib_GameStartup(void)
       iMUSE_DeclareBufferSizes(88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,9);
       iVar1 = stdPlatform_GetPhysicalRam();
       budget = g_dwMax_ram;
-      if (iVar1 - (int)IMG_ADDR(0x00800000) <= (int)g_dwMax_ram) {
+      if (iVar1 - (int)((unsigned)(uintptr_t)&DAT_00800000) <= (int)g_dwMax_ram) {
         iVar1 = stdPlatform_GetPhysicalRam();
         budget = iVar1 - 0x800000;
       }

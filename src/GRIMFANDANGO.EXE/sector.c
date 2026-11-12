@@ -14,7 +14,7 @@ void __cdecl Sector_DrawAllDebug(void)
 {
   uint uVar1;
   void *this;
-  uint uVar2;
+  Puck *pPVar2;
   uint color;
   
   this = g_pWalkPlane_wp_head;
@@ -33,12 +33,12 @@ void __cdecl Sector_DrawAllDebug(void)
     if ((uVar1 & 0x4000) != 0) {
       color = (uint)PIECE(UINT_008c97cc,2,2);
     }
-    uVar2 = g_dwPuck_p_head;
+    pPVar2 = g_dwPuck_p_head;
     if ((uVar1 & 0x8000) != 0) {
       color = (uint)PIECE(UINT_008c97c8,2,2);
     }
-    for (; uVar2 != 0; uVar2 = *(uint *)(uVar2 + 0x58)) {
-      if (this == *(void **)(uVar2 + 0x5c)) {
+    for (; pPVar2 != (Puck *)0x0; pPVar2 = pPVar2->pNext) {
+      if (this == pPVar2->pSector) {
         color = UINT_008c97e8 & 0xffff;
         break;
       }
@@ -314,7 +314,7 @@ void WalkPlane_BuildCache(void)
         puVar1[1] = puVar2[1];
         puVar1[2] = puVar2[2];
         puVar1[3] = puVar2[3];
-        *(int *)((int)g_pVertexCache + iVar8) = *piVar5 - (int)IMG_ADDR(0x008cb0b0) >> 4;
+        *(int *)((int)g_pVertexCache + iVar8) = *piVar5 - (int)((unsigned)(uintptr_t)&FLOAT_008cb0b0) >> 4;
         local_4 = local_4 + 1;
         iVar6 = iVar6 + 1;
         iVar8 = iVar8 + 0x14;
@@ -337,7 +337,7 @@ void WalkPlane_BuildCache(void)
         do {
           iVar3 = *piVar5;
           piVar5 = piVar5 + 1;
-          *(int *)((int)g_pWalkPlaneCache + iVar7) = iVar3 - (int)IMG_ADDR(0x008cb0b0) >> 4;
+          *(int *)((int)g_pWalkPlaneCache + iVar7) = iVar3 - (int)((unsigned)(uintptr_t)&FLOAT_008cb0b0) >> 4;
           iVar8 = iVar8 + 1;
           iVar7 = iVar7 + 4;
         } while (iVar8 < *(int *)((int)pvVar4 + 0x34));
@@ -452,7 +452,7 @@ void WalkPlane_RestoreCache(void)
         g_dwWalkPlane_tot_verts = g_dwWalkPlane_tot_verts + 1;
       }
       pfVar4 = pfVar4 + 4;
-    } while ((int)pfVar4 < IMG_ADDR(0x008cf0b0));
+    } while ((int)pfVar4 < ((unsigned)(uintptr_t)&g_dwWorkingPath));
   }
   return;
 }
@@ -605,7 +605,7 @@ LAB_004a665a:
     iVar7 = iVar7 + 1;
     pbVar10 = (byte *)a3;
     pbVar15 = pbVar14;
-  } while ((int)pbVar14 < IMG_ADDR(0x008d086c));
+  } while ((int)pbVar14 < ((unsigned)(uintptr_t)&g_dwPuck_p_head));
   goto LAB_004a66ac;
   while( true ) {
     uVar8 = uVar8 - 1;
@@ -667,7 +667,7 @@ void __fastcall WalkPlane_Destruct(void *param_1)
     }
     puVar1 = puVar1 + 10;
     iVar2 = iVar2 + 1;
-  } while ((int)puVar1 < IMG_ADDR(0x008d0868));
+  } while ((int)puVar1 < ((unsigned)(uintptr_t)&g_dwWpCacheBuilt));
   iVar2 = 0;
   if (0 < *(int *)((int)param_1 + 0x34)) {
     puVar3 = (undefined4 *)((int)param_1 + 0x38);
@@ -1454,7 +1454,7 @@ void __thiscall WalkPlane_JumpOut(void *this,float *walker)
       local_8 = (*(float *)(iVar7 + 8) - *(float *)(iVar1 + 8)) * fVar3 + *(float *)(iVar1 + 8);
       local_4 = (*(float *)(iVar7 + 0xc) - *(float *)(iVar1 + 0xc)) * fVar3 +
                 *(float *)(iVar1 + 0xc);
-      Puck_SetPos(walker,&local_c);
+      Puck_SetPos((Puck *)walker,&local_c);
     }
   }
   return;
@@ -1532,7 +1532,7 @@ float * __thiscall WalkPlane_GetConstraintVector(void *this,float *walker)
   local_30 = walker[6] * fVar12 + local_18;
   local_2c = walker[7] * fVar4 + local_14;
   local_28 = walker[8] * fVar5 + local_10;
-  WalkPlane_Intersection(this,(int)&local_18,(int)&local_30,IMG_ADDR(0x008cf260));
+  WalkPlane_Intersection(this,(int)&local_18,(int)&local_30,((unsigned)(uintptr_t)&g_vEdgeFollowDir));
   iVar1 = *(int *)((int)this + 0x74);
   if (iVar1 != -1) {
     iVar2 = *(int *)((int)this + iVar1 * 4 + 0x38);
@@ -1731,7 +1731,7 @@ float * WalkPlane_AddVertex(undefined4 param_1,float *param_2)
     }
     puVar2 = puVar2 + 4;
     iVar3 = iVar3 + 1;
-  } while ((int)puVar2 < IMG_ADDR(0x008cf0b4));
+  } while ((int)puVar2 < ((unsigned)(uintptr_t)&UINT_008cf0b4));
   iVar3 = 0;
   pfVar1 = &FLOAT_008cb0b0;
   do {
@@ -1741,7 +1741,7 @@ float * WalkPlane_AddVertex(undefined4 param_1,float *param_2)
     }
     pfVar1 = pfVar1 + 4;
     iVar3 = iVar3 + 1;
-  } while ((int)pfVar1 < IMG_ADDR(0x008cf0b0));
+  } while ((int)pfVar1 < ((unsigned)(uintptr_t)&g_dwWorkingPath));
   *pfVar4 = 1.4013e-45;
   g_dwWalkPlane_tot_verts = g_dwWalkPlane_tot_verts + 1;
   pfVar4[1] = *param_2;
@@ -2646,7 +2646,7 @@ LAB_004a9d6a:
               do {
                 iVar7 = *piVar10;
                 piVar10 = piVar10 + 1;
-                iVar7 = iVar7 - (int)IMG_ADDR(0x008cb0b0) >> 4;
+                iVar7 = iVar7 - (int)((unsigned)(uintptr_t)&FLOAT_008cb0b0) >> 4;
                 iVar9 = iVar7 * 0xc;
                 *(float *)(&STACK0X(0x000010b8) + iVar9) =
                      pfVar8[-1] + *(float *)(&STACK0X(0x000010b8) + iVar9);
@@ -2728,7 +2728,7 @@ LAB_004aa005:
       puVar5 = puVar5 + 4;
       piVar10 = piVar10 + 1;
       pfVar8 = pfVar8 + 3;
-    } while ((int)puVar5 < IMG_ADDR(0x008cf0b8));
+    } while ((int)puVar5 < ((unsigned)(uintptr_t)&UINT_008cf0b8));
   }
   return;
 LAB_004a9f7e:

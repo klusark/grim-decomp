@@ -53,8 +53,8 @@ def dump(raw, prog):
         fn = name.strip(".") + ".bin"
         open(os.path.join(out, fn), "wb").write(stripped)
         if name == ".text":
-            # the code bytes are kept as a data blob too (build/gendata.py _sect_text): the code section
-            # holds data islands (DirectInput's c_dfDIKeyboard, switch tables) that code addresses
+            # the code section holds data islands (DirectInput's c_dfDIKeyboard) that code addresses:
+            # tools/datagen.py takes those items (and what they point at) from it
             json.dump({"start": "%08x" % lo, "size": size, "file": fn}, open(os.path.join(ROOT, "raw", raw, "textblob.json"), "w"))
             continue
         secs.append({"name": name, "start": "%08x" % lo, "size": size, "file": fn, "initialised": len(stripped)})

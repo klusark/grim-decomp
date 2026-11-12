@@ -48,7 +48,7 @@ names/*.json           curated symbol batches (function names, prototypes, comme
 tools/                 Python: export_raw / export_changed (Ghidra -> raw/), build_src (raw/ -> src/), gen_asm
                        (assembly mode), apply_names, lab.py (LAB archives), luadump.py (Lua bytecode),
                        list_lua_api.py, run_game.sh, lua_cmd.sh, grim_shot.ps1, mkmoddir.sh, many audit scripts
-build/                 Makefile, link.py + gendata.py (linker, data sections), compat.h (force-included header),
+build/                 Makefile, link.py (linker), datacmp.py (data check), compat.h (force-included header),
                        overrides.c (hand-written C that replaces decompiled functions), startup.c (WinMain),
                        win32_shims.c, run/ (git-ignored: the 4 binaries you run), obj/ (git-ignored build output),
                        BUILD_NOTES.md (history of every bug class met on the way to a running game)
@@ -240,7 +240,9 @@ loose files that only set a marker variable): a file in `<cwd>` wins, one in `<c
 * **What the working directory must contain.** `IMUSE.DLL` imports the HMI audio libraries `HMIFXLIB.DLL` and
   `HMIFXFP.DLL`, and Windows finds them through the working directory: in an empty directory the process exits during
   start-up (tested; with only those two DLLs it boots). `HMILIBS.INI` and `IMUSE.PSL` are the audio configuration and are
-  copied too. `tools/mkmoddir.sh <dir>` copies the four files into a fresh mod directory. Everything else - all `*.LAB`,
+  copied too. `tools/mkmoddir.sh <dir>` copies the four files into a fresh mod directory. The rebuilt game needs none of
+  them: its `imuse.dll` has the HMI effects library built in (`build/overrides_hmifx.c`), with its own copy of
+  `IMUSE.PSL`; an `IMUSE.PSL` in the working directory still replaces the built-in presets. Everything else - all `*.LAB`,
   `GRIM.TAB` - comes from `GrimDataDir`, so a mod directory is tiny and leaves your installation untouched.
 
 ### Inspecting and packing archives
@@ -574,4 +576,5 @@ Batch format: `[{"addr": "0048d570", "name": "AddResourcePath", "proto": "...", 
 * Read-mode `fopen` of the engine's file services opens files in **binary** mode (`stdFileOpen` in `overrides.c`): the
   host `msvcrt` reports `ftell() == 0` after a one-byte `fread` in text mode, which made Lua lose the first character
   of every text script.
-* Only `grimfandango.exe` plus the three DLLs are rebuilt; `HMIFXLIB.DLL`/`HMIFXFP.DLL` (audio) are the originals.
+* `grimfandango.exe` and the three DLLs are rebuilt; HMI's `HMIFXLIB.DLL`/`HMIFXFP.DLL` (voice effects) are C inside
+  `imuse.dll` (`build/overrides_hmifx.c`), so no program file of the original install is loaded.

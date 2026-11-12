@@ -127,13 +127,14 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  void *pvVar2;
-  float *pfVar3;
-  int *piVar4;
-  int iVar5;
-  float *pfVar6;
+  void *this;
+  Actor *actor;
+  float *pfVar2;
+  int *piVar3;
+  int iVar4;
+  float *pfVar5;
+  undefined4 *puVar6;
   undefined4 *puVar7;
-  undefined4 *puVar8;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
@@ -145,54 +146,54 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx)
     sputRender_SyncCamera(set,setupIdx);
     g_dwRenderFlags = g_dwRenderFlags & 0xfffffffc;
     g_pSputRender_Camera = (float *)(iVar1 + 0x20);
-    pvVar2 = (void *)sputActor_ActorDeref(g_nCamActorIndex);
-    pfVar3 = sputActor_GetOrientMatrix(pvVar2);
-    pfVar6 = (float *)(iVar1 + 0x50);
-    for (iVar5 = 0xc; iVar5 != 0; iVar5 = iVar5 + -1) {
-      *pfVar3 = *pfVar6;
-      pfVar6 = pfVar6 + 1;
-      pfVar3 = pfVar3 + 1;
+    actor = sputActor_ActorDeref(g_nCamActorIndex);
+    pfVar2 = sputActor_GetOrientMatrix(actor);
+    pfVar5 = (float *)(iVar1 + 0x50);
+    for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
+      *pfVar2 = *pfVar5;
+      pfVar5 = pfVar5 + 1;
+      pfVar2 = pfVar2 + 1;
     }
-    piVar4 = sputRoom_GetSetupBackground(set,setupIdx);
-    if (piVar4 != (int *)0x0) {
-      if (*piVar4 == 2) {
-        sputRender_Decompress(piVar4);
-        piVar4 = g_pSputRender_DecompressionBuffer;
+    piVar3 = sputRoom_GetSetupBackground(set,setupIdx);
+    if (piVar3 != (int *)0x0) {
+      if (*piVar3 == 2) {
+        sputRender_Decompress(piVar3);
+        piVar3 = g_pSputRender_DecompressionBuffer;
       }
-      Surface_Blit(g_pSputRender_CleanBuffer,piVar4,0,0,(int *)0x0,0);
+      Surface_Blit(g_pSputRender_CleanBuffer,piVar3,0,0,(int *)0x0,0);
     }
-    piVar4 = sputRoom_GetSetupZBackground(set,setupIdx);
-    if (piVar4 == (int *)0x0) {
-      puVar7 = *(undefined4 **)((int)g_pSputRender_CleanZBuffer + 0x5c);
-      for (iVar5 = 0x25800; iVar5 != 0; iVar5 = iVar5 + -1) {
-        *puVar7 = 0;
-        puVar7 = puVar7 + 1;
+    piVar3 = sputRoom_GetSetupZBackground(set,setupIdx);
+    if (piVar3 == (int *)0x0) {
+      puVar6 = *(undefined4 **)((int)g_pSputRender_CleanZBuffer + 0x5c);
+      for (iVar4 = 0x25800; iVar4 != 0; iVar4 = iVar4 + -1) {
+        *puVar6 = 0;
+        puVar6 = puVar6 + 1;
       }
       g_dwRenderFlags = g_dwRenderFlags | 2;
     }
-    else if (*piVar4 == 2) {
-      puVar7 = (undefined4 *)((int)g_pSputRender_CleanZBuffer + 0xc);
-      puVar8 = (undefined4 *)((int)g_pSputRender_DecompressionBuffer + 0xc);
-      for (iVar5 = 0x13; iVar5 != 0; iVar5 = iVar5 + -1) {
-        *puVar8 = *puVar7;
+    else if (*piVar3 == 2) {
+      puVar6 = (undefined4 *)((int)g_pSputRender_CleanZBuffer + 0xc);
+      puVar7 = (undefined4 *)((int)g_pSputRender_DecompressionBuffer + 0xc);
+      for (iVar4 = 0x13; iVar4 != 0; iVar4 = iVar4 + -1) {
+        *puVar7 = *puVar6;
+        puVar6 = puVar6 + 1;
         puVar7 = puVar7 + 1;
-        puVar8 = puVar8 + 1;
       }
       if (*(int *)((int)g_pSputRender_CleanZBuffer + 8) == 0) {
-        stdDisplay_VBufferDeCompressTo(piVar4,g_pSputRender_CleanZBuffer);
+        stdDisplay_VBufferDeCompressTo(piVar3,g_pSputRender_CleanZBuffer);
       }
       else {
-        stdDisplay_VBufferDeCompressTo(piVar4,g_pSputRender_DecompressionBuffer);
+        stdDisplay_VBufferDeCompressTo(piVar3,g_pSputRender_DecompressionBuffer);
         Surface_Blit(g_pSputRender_CleanZBuffer,g_pSputRender_DecompressionBuffer,0,0,(int *)0x0,0);
       }
     }
     else {
-      Surface_Blit(g_pSputRender_CleanZBuffer,piVar4,0,0,(int *)0x0,0);
+      Surface_Blit(g_pSputRender_CleanZBuffer,piVar3,0,0,(int *)0x0,0);
     }
-    for (pvVar2 = *(void **)(iVar1 + 0x128); pvVar2 != (void *)0x0;
-        pvVar2 = *(void **)((int)pvVar2 + 0xf8)) {
-      ObjectState_LoadResources((int)pvVar2);
-      ObjectState_Reset(pvVar2,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
+    for (this = *(void **)(iVar1 + 0x128); this != (void *)0x0; this = *(void **)((int)this + 0xf8))
+    {
+      ObjectState_LoadResources((int)this);
+      ObjectState_Reset(this,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
     }
     local_10 = *(uint *)((int)g_pSputRender_Canvas + 0x18);
     local_c = *(uint *)((int)g_pSputRender_Canvas + 0x1c);
@@ -704,39 +705,40 @@ undefined4 * sputRoom_LoadRoom(char *param_1)
 
 {
   int *piVar1;
-  undefined4 *puVar2;
-  void *pvVar3;
-  int iVar4;
-  undefined4 *puVar5;
+  ActorExtra *pAVar2;
+  undefined4 *puVar3;
+  void *pvVar4;
+  int iVar5;
+  undefined4 *puVar6;
   
-  puVar2 = (undefined4 *)
+  puVar3 = (undefined4 *)
            (*g_pSputRoomHS->pAlloc)(0x1b08,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x306);
-  if (puVar2 != (undefined4 *)0x0) {
-    puVar5 = puVar2;
-    for (iVar4 = 0x6c2; iVar4 != 0; iVar4 = iVar4 + -1) {
-      *puVar5 = 0;
-      puVar5 = puVar5 + 1;
+  if (puVar3 != (undefined4 *)0x0) {
+    puVar6 = puVar3;
+    for (iVar5 = 0x6c2; iVar5 != 0; iVar5 = iVar5 + -1) {
+      *puVar6 = 0;
+      puVar6 = puVar6 + 1;
     }
-    Set_InitRecord(puVar2);
-    iVar4 = SetFile_Parse(param_1,puVar2);
-    if (iVar4 != 0) {
-      pvVar3 = (void *)Set_FindNameInList(param_1);
-      if (pvVar3 == (void *)0x0) {
-        pvVar3 = Set_NormalizeName(param_1);
+    Set_InitRecord(puVar3);
+    iVar5 = SetFile_Parse(param_1,puVar3);
+    if (iVar5 != 0) {
+      pvVar4 = (void *)Set_FindNameInList(param_1);
+      if (pvVar4 == (void *)0x0) {
+        pvVar4 = Set_NormalizeName(param_1);
       }
-      puVar2[0x6af] = pvVar3;
-      for (piVar1 = *(int **)((int)pvVar3 + 0x80); piVar1 != (int *)0x0; piVar1 = (int *)piVar1[2])
+      puVar3[0x6af] = pvVar4;
+      for (piVar1 = *(int **)((int)pvVar4 + 0x80); piVar1 != (int *)0x0; piVar1 = (int *)piVar1[2])
       {
-        iVar4 = *(int *)((int)g_pActors + *piVar1 * 0xa8 + 0xa4);
-        if (((iVar4 != 0) && (*(void **)(iVar4 + 0x1b4) != (void *)0x0)) &&
-           (*(int *)(iVar4 + 0x1b8) != 0)) {
-          Puck_Validate(*(void **)(iVar4 + 0x1b4));
+        pAVar2 = g_pActors[*piVar1].pExtra;
+        if (((pAVar2 != (ActorExtra *)0x0) && (pAVar2->pPuck != (Puck *)0x0)) &&
+           (pAVar2->nFollowBoxes != 0)) {
+          Puck_Validate(pAVar2->pPuck);
         }
       }
-      return puVar2;
+      return puVar3;
     }
   }
-  sputRoom_FreeRoom(puVar2);
+  sputRoom_FreeRoom(puVar3);
   return (undefined4 *)0x0;
 }
 
@@ -855,8 +857,8 @@ void sputRoom_FreeRoomEntry(char *param_1)
   if (iVar1 != 0) {
     piVar2 = *(int **)(iVar1 + 0x80);
     while (piVar2 != (int *)0x0) {
-      sputActor_ResetShadows((void *)((int)g_pActors + *piVar2 * 0xa8));
-      sputRoom_RemoveActor(param_1,(void *)((int)g_pActors + **(int **)(iVar1 + 0x80) * 0xa8));
+      sputActor_ResetShadows(g_pActors + *piVar2);
+      sputRoom_RemoveActor(param_1,g_pActors + **(int **)(iVar1 + 0x80));
       piVar2 = *(int **)(iVar1 + 0x80);
     }
     SetActorList_Free(iVar1);
@@ -1300,7 +1302,7 @@ LAB_004a7187:
     iVar3 = iVar3 + 1;
     pbVar4 = set;
     pbVar6 = pbVar5;
-    if (IMG_ADDR(0x008d086b) < (int)pbVar5) {
+    if (((unsigned)(uintptr_t)&DAT_008d086b) < (int)pbVar5) {
 LAB_004a719c:
       if (0x8b < iVar3) {
         g_pWalkPlane_wp_head = (void *)0x0;

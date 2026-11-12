@@ -43,10 +43,10 @@ void grimDebug_Shutdown(void)
 void Spew_LoadDll(void)
 
 {
-  g_hSpewDll = (void *)LoadLibraryA(IMG_ADDR(0x004e8238));
+  g_hSpewDll = (void *)LoadLibraryA(((unsigned)(uintptr_t)&DAT_004e8238));
   if (g_hSpewDll != (void *)0x0) {
-    g_pfnSpewStartup = (void *)GetProcAddress((int)g_hSpewDll,IMG_ADDR(0x004e8228));
-    g_pfnSpewShutdown = (void *)GetProcAddress((int)g_hSpewDll,IMG_ADDR(0x004e8218));
+    g_pfnSpewStartup = (void *)GetProcAddress((int)g_hSpewDll,((unsigned)(uintptr_t)&s_Spew_Startup_004e8228));
+    g_pfnSpewShutdown = (void *)GetProcAddress((int)g_hSpewDll,((unsigned)(uintptr_t)&s_Spew_Shutdown_004e8218));
   }
   return;
 }

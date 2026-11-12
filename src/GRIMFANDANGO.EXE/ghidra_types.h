@@ -193,8 +193,10 @@ typedef struct __attribute__((packed)) { uint64_t v; } ghidra_piece8;
 #define SCARRY8(a,b) (((int64_t)((uint64_t)(a) + (uint64_t)(b)) < 0) != (((int64_t)(a) < 0) && ((int64_t)(b) < 0)) && (((int64_t)(a) < 0) == ((int64_t)(b) < 0)))
 #define SBORROW8(a,b) ((((int64_t)(a) ^ (int64_t)(b)) & ((int64_t)(a) ^ (int64_t)((uint64_t)(a) - (uint64_t)(b)))) < 0)
 
-/* The original data sections, rebuilt from the Ghidra memory dump by build/gendata.py.
- * IMG_ADDR() relocates an address literal Ghidra printed as a number. */
+/* The original data sections: src/<prog>/data.c (tools/datagen.py) defines every global in the
+ * original layout, and sect_<name> labels the first one of each section. The generated code names
+ * its data; IMG_ADDR() is for the hand-written overrides (build/overrides*.c), which compute data
+ * addresses from the original's. */
 extern unsigned char sect_rdata[];  /* .rdata: 0x004d7000, 23040 bytes */
 extern unsigned char sect_data[];  /* .data: 0x004dd000, 4508320 bytes */
 #define IMG_ADDR(a) ((unsigned)(uintptr_t)img_addr_(a))  /* integer, like the literal it replaces */
@@ -204,10 +206,257 @@ static inline void *img_addr_(unsigned a) {
     return (void *)(uintptr_t)a;
 }
 
-/* Ghidra structure types used in prototypes/globals; layouts are not exported,
- * so they are incomplete here unless a compat header defines them. */
+/* Ghidra types used in prototypes/globals with no exported layout: incomplete here
+ * unless a compat header defines them. */
 typedef struct DialogResource DialogResource;
-typedef struct GrimServices GrimServices;
 typedef struct GroupIconResource GroupIconResource;
 typedef struct IconResource IconResource;
 typedef struct VS_VERSION_INFO VS_VERSION_INFO;
+
+/* Ghidra's structures (raw/<prog>/structs.json). Those build/compat.h defines by hand
+ * are only declared here: GrimServices. */
+typedef struct Actor Actor;
+typedef struct ActorExtra ActorExtra;
+typedef struct ActorShadow ActorShadow;
+typedef struct CostumeNode CostumeNode;
+typedef struct GrimServices GrimServices;
+typedef struct Puck Puck;
+typedef struct TextContext TextContext;
+typedef struct TextObject TextObject;
+
+/* Actor: One record of g_pActors (sputActor.cpp); a handle is the index (sputActor_AllocateActor, sputActor_GetActorHandle). Grows by 0x20 records. */
+struct Actor {  /* 0xa8 */
+    void *pColormapRef;  /* 0x00: 0x34-byte resource reference of the actor's colormap (Res_RemoveReference in sputActor_FreeActor) */
+    uint dwFlags;  /* 0x04: 2 hidden from the subtitle placement, 4 has a speech text, 8 ..., 0x10 ActorPuckOrient */
+    uint dwMoveFlags;  /* 0x08: 1 path walk (WalkActorTo) active, 2 turning */
+    float aPos[3];  /* 0x0c: position */
+    float aPrevPos[3];  /* 0x18: position at the start of the frame (Actor_UpdateMovement) */
+    float aRot[3];  /* 0x24: pitch, yaw, roll in degrees */
+    float flScale;  /* 0x30: 1.0 by default */
+    int nMatrixDirty;  /* 0x34: aOrient must be rebuilt from aRot / aPos (sputActor_GetOrientMatrix) */
+    float aOrient[12];  /* 0x38: rdMatrix34: orientation and position */
+    int nScreenBoxValid;  /* 0x68: aScreenBox was computed this frame */
+    int aScreenBox[4];  /* 0x6c: x, y, width, height on screen (Actor_ComputeScreenBox) */
+    char aSetName[32];  /* 0x7c: name of the set the actor is in, empty when none */
+    int nInUse;  /* 0x9c: record allocated */
+    CostumeNode *pCostumes;  /* 0xa0: costume stack (sputActor_PushCostume / PopCostume) */
+    ActorExtra *pExtra;  /* 0xa4: ActorExtra, allocated on first use (sputActor_AllocateActorExtra) */
+};
+_Static_assert(__builtin_offsetof(Actor, pColormapRef) == 0x0, "Actor.pColormapRef");
+_Static_assert(__builtin_offsetof(Actor, dwFlags) == 0x4, "Actor.dwFlags");
+_Static_assert(__builtin_offsetof(Actor, dwMoveFlags) == 0x8, "Actor.dwMoveFlags");
+_Static_assert(__builtin_offsetof(Actor, aPos) == 0xc, "Actor.aPos");
+_Static_assert(__builtin_offsetof(Actor, aPrevPos) == 0x18, "Actor.aPrevPos");
+_Static_assert(__builtin_offsetof(Actor, aRot) == 0x24, "Actor.aRot");
+_Static_assert(__builtin_offsetof(Actor, flScale) == 0x30, "Actor.flScale");
+_Static_assert(__builtin_offsetof(Actor, nMatrixDirty) == 0x34, "Actor.nMatrixDirty");
+_Static_assert(__builtin_offsetof(Actor, aOrient) == 0x38, "Actor.aOrient");
+_Static_assert(__builtin_offsetof(Actor, nScreenBoxValid) == 0x68, "Actor.nScreenBoxValid");
+_Static_assert(__builtin_offsetof(Actor, aScreenBox) == 0x6c, "Actor.aScreenBox");
+_Static_assert(__builtin_offsetof(Actor, aSetName) == 0x7c, "Actor.aSetName");
+_Static_assert(__builtin_offsetof(Actor, nInUse) == 0x9c, "Actor.nInUse");
+_Static_assert(__builtin_offsetof(Actor, pCostumes) == 0xa0, "Actor.pCostumes");
+_Static_assert(__builtin_offsetof(Actor, pExtra) == 0xa4, "Actor.pExtra");
+_Static_assert(sizeof(Actor) == 0xa8, "sizeof Actor");
+/* ActorShadow: One of ActorExtra's six shadow slots (sputCostume_DrawActorShadow draws each active one with sputCostume_DrawMeshShadow). */
+struct ActorShadow {  /* 0x54 */
+    int nActive;  /* 0x00: set by sputActor_SetShadowPlane */
+    int nValid;  /* 0x04: 0 always drawn, -1 only when the actor is on the plane's negative side, 1 only on its positive side (SetActorShadowValid) */
+    float aPlane[4];  /* 0x08: shadow plane: normal and d, from the WalkPlane named by SetActorShadowPlane */
+    float aPoint[3];  /* 0x18: the light point the shadow is cast from (SetActorShadowPoint) */
+    void *aClipPlanes[12];  /* 0x24: WalkPlane sectors the shadow is clipped to (sputActor_AddShadowClipPlane), zero-terminated */
+};
+_Static_assert(__builtin_offsetof(ActorShadow, nActive) == 0x0, "ActorShadow.nActive");
+_Static_assert(__builtin_offsetof(ActorShadow, nValid) == 0x4, "ActorShadow.nValid");
+_Static_assert(__builtin_offsetof(ActorShadow, aPlane) == 0x8, "ActorShadow.aPlane");
+_Static_assert(__builtin_offsetof(ActorShadow, aPoint) == 0x18, "ActorShadow.aPoint");
+_Static_assert(__builtin_offsetof(ActorShadow, aClipPlanes) == 0x24, "ActorShadow.aClipPlanes");
+_Static_assert(sizeof(ActorShadow) == 0x54, "sizeof ActorShadow");
+/* ActorExtra: Actor::pExtra, allocated on first use by sputActor_AllocateActorExtra (sputActor.cpp): look-at, walking and turning, the path, the puck, speech, shadows, collision, clip plane. 0x424-0x49f is never used. */
+struct ActorExtra {  /* 0x4a0 */
+    float aLookAt[3];  /* 0x00: point the head looks at (sputLua_ActorLookAtL); 0, 0, 0 for none */
+    int nWalking;  /* 0x0c: a walk chore is wanted this frame (sputActor_Forward, Actor_UpdateWalker); Actor_UpdateMoveChores fades the chore in or out */
+    int nTurning;  /* 0x10: a turn chore is wanted: > 0 left, < 0 right (sputActor_Turn) */
+    int nResting;  /* 0x14: cleared when a walk or turn chore fades in (sputLua_IsActorRestingL) */
+    float flWalkRate;  /* 0x18: 0.4 (SetActorWalkRate) */
+    float flTurnRate;  /* 0x1c: 135 degrees a second (SetActorTurnRate) */
+    int nAlignTurn;  /* 0x20: sputActor_AlignToPuck's result this frame, read by Actor_UpdateWalker */
+    float flOffsetYaw;  /* 0x24: SetActorOffsetYaw, added by sputActor_AlignToPuck */
+    float flYawLeft;  /* 0x28: yaw still to turn (sputActor_Turn, sputLua_IsActorTurningL) */
+    float aWaypoint[3];  /* 0x2c: the path node being walked to (sputActor_ActorWalkTo, Actor_FollowPath) */
+    float aDest[3];  /* 0x38: the destination of the walk */
+    int nPathNodes;  /* 0x44: nodes in aPath (Walker_AvoidActorPath) */
+    float aPath[30][3];  /* 0x48: the path's nodes */
+    int nPathIndex;  /* 0x1b0: index of aWaypoint in aPath */
+    Puck *pPuck;  /* 0x1b4: the walker's Puck (0x60 bytes, sputActor_EnablePuck) */
+    int nFollowBoxes;  /* 0x1b8: SetActorFollowBoxes (sputActor_EnableWalkSystem) */
+    int nWalkDominate;  /* 0x1bc: sputActor_SetWalkDominate */
+    float flPuckRadius;  /* 0x1c0: 60, given to Puck_Construct */
+    int nTalking;  /* 0x1c4: a line is being said (sputActor_SayLine, sputActor_ShutUp) */
+    int nVoiceSound;  /* 0x1c8: iMUSE sound of the line's voice, 10000 for a voice stream */
+    int nTalkTime;  /* 0x1cc: time left of a line without voice, -1 with one */
+    char aMsgId[12];  /* 0x1d0: message id of the line (sputText_ExtractSayLineData) */
+    char aVoiceFile[16];  /* 0x1dc: the line's voice file (<id>.wvc, .wav, .imc or .imu); empty: no voice */
+    TextObject *pText;  /* 0x1ec: the line's text object (sputText_CreateActorText) */
+    int nLipSync;  /* 0x1f0: iMUSE_GetPhoneme of the voice; 0 without one or without a talk chore */
+    int nActiveShadow;  /* 0x1f4: the shadow slot the Lua shadow calls work on (SetActiveShadow) */
+    ActorShadow aShadows[6];  /* 0x1f8 */
+    int nCollisionMode;  /* 0x3f0: SetActorCollisionMode: 0 off, 2 the box test of Collision_TestActorAgainstOthers */
+    float flCollisionScale;  /* 0x3f4: 1 (SetActorCollisionScale) */
+    int nCollided;  /* 0x3f8: set by Collision_TestActorAgainstOthers, cleared each frame by sputActor_UpdateActors */
+    int nClipPlaneActive;  /* 0x3fc: sputActor_SetClipPlaneActive, read by sputCostume_InternalDraw3D */
+    float aClipNormal[3];  /* 0x400: 0, 0, 1 (sputActor_SetClipPlane) */
+    float aClipPoint[3];  /* 0x40c */
+    uint dwTalkColor;  /* 0x418: 0xffffff (SetActorTalkColor) */
+    float flTimeScale;  /* 0x41c: 1 (SetActorTimeScale) */
+    int nInvClipNode;  /* 0x420: -1 (SetActorInvClipNode) */
+    uint8_t _pad_424[0x7c];
+};
+_Static_assert(__builtin_offsetof(ActorExtra, aLookAt) == 0x0, "ActorExtra.aLookAt");
+_Static_assert(__builtin_offsetof(ActorExtra, nWalking) == 0xc, "ActorExtra.nWalking");
+_Static_assert(__builtin_offsetof(ActorExtra, nTurning) == 0x10, "ActorExtra.nTurning");
+_Static_assert(__builtin_offsetof(ActorExtra, nResting) == 0x14, "ActorExtra.nResting");
+_Static_assert(__builtin_offsetof(ActorExtra, flWalkRate) == 0x18, "ActorExtra.flWalkRate");
+_Static_assert(__builtin_offsetof(ActorExtra, flTurnRate) == 0x1c, "ActorExtra.flTurnRate");
+_Static_assert(__builtin_offsetof(ActorExtra, nAlignTurn) == 0x20, "ActorExtra.nAlignTurn");
+_Static_assert(__builtin_offsetof(ActorExtra, flOffsetYaw) == 0x24, "ActorExtra.flOffsetYaw");
+_Static_assert(__builtin_offsetof(ActorExtra, flYawLeft) == 0x28, "ActorExtra.flYawLeft");
+_Static_assert(__builtin_offsetof(ActorExtra, aWaypoint) == 0x2c, "ActorExtra.aWaypoint");
+_Static_assert(__builtin_offsetof(ActorExtra, aDest) == 0x38, "ActorExtra.aDest");
+_Static_assert(__builtin_offsetof(ActorExtra, nPathNodes) == 0x44, "ActorExtra.nPathNodes");
+_Static_assert(__builtin_offsetof(ActorExtra, aPath) == 0x48, "ActorExtra.aPath");
+_Static_assert(__builtin_offsetof(ActorExtra, nPathIndex) == 0x1b0, "ActorExtra.nPathIndex");
+_Static_assert(__builtin_offsetof(ActorExtra, pPuck) == 0x1b4, "ActorExtra.pPuck");
+_Static_assert(__builtin_offsetof(ActorExtra, nFollowBoxes) == 0x1b8, "ActorExtra.nFollowBoxes");
+_Static_assert(__builtin_offsetof(ActorExtra, nWalkDominate) == 0x1bc, "ActorExtra.nWalkDominate");
+_Static_assert(__builtin_offsetof(ActorExtra, flPuckRadius) == 0x1c0, "ActorExtra.flPuckRadius");
+_Static_assert(__builtin_offsetof(ActorExtra, nTalking) == 0x1c4, "ActorExtra.nTalking");
+_Static_assert(__builtin_offsetof(ActorExtra, nVoiceSound) == 0x1c8, "ActorExtra.nVoiceSound");
+_Static_assert(__builtin_offsetof(ActorExtra, nTalkTime) == 0x1cc, "ActorExtra.nTalkTime");
+_Static_assert(__builtin_offsetof(ActorExtra, aMsgId) == 0x1d0, "ActorExtra.aMsgId");
+_Static_assert(__builtin_offsetof(ActorExtra, aVoiceFile) == 0x1dc, "ActorExtra.aVoiceFile");
+_Static_assert(__builtin_offsetof(ActorExtra, pText) == 0x1ec, "ActorExtra.pText");
+_Static_assert(__builtin_offsetof(ActorExtra, nLipSync) == 0x1f0, "ActorExtra.nLipSync");
+_Static_assert(__builtin_offsetof(ActorExtra, nActiveShadow) == 0x1f4, "ActorExtra.nActiveShadow");
+_Static_assert(__builtin_offsetof(ActorExtra, aShadows) == 0x1f8, "ActorExtra.aShadows");
+_Static_assert(__builtin_offsetof(ActorExtra, nCollisionMode) == 0x3f0, "ActorExtra.nCollisionMode");
+_Static_assert(__builtin_offsetof(ActorExtra, flCollisionScale) == 0x3f4, "ActorExtra.flCollisionScale");
+_Static_assert(__builtin_offsetof(ActorExtra, nCollided) == 0x3f8, "ActorExtra.nCollided");
+_Static_assert(__builtin_offsetof(ActorExtra, nClipPlaneActive) == 0x3fc, "ActorExtra.nClipPlaneActive");
+_Static_assert(__builtin_offsetof(ActorExtra, aClipNormal) == 0x400, "ActorExtra.aClipNormal");
+_Static_assert(__builtin_offsetof(ActorExtra, aClipPoint) == 0x40c, "ActorExtra.aClipPoint");
+_Static_assert(__builtin_offsetof(ActorExtra, dwTalkColor) == 0x418, "ActorExtra.dwTalkColor");
+_Static_assert(__builtin_offsetof(ActorExtra, flTimeScale) == 0x41c, "ActorExtra.flTimeScale");
+_Static_assert(__builtin_offsetof(ActorExtra, nInvClipNode) == 0x420, "ActorExtra.nInvClipNode");
+_Static_assert(sizeof(ActorExtra) == 0x4a0, "sizeof ActorExtra");
+/* CostumeNode: One costume of an actor's costume stack (Actor::pCostumes, sputCostume.cpp; from the pool g_pCosNodePool): the CHORE.DLL instance and the actor's chores in it. Costume_InitRecord sets the defaults. */
+struct CostumeNode {  /* 0xb4 */
+    uint dwInstance;  /* 0x00: CHORE.DLL costume instance (Cos_CreateCosInstance) */
+    void *pMainModel;  /* 0x04: Costume_GetMainModel; a pushed costume with the same model takes over the head settings */
+    void *pComponents;  /* 0x08: model / sprite components drawn with the actor, linked at +0x190 */
+    int aHeadJoints[3];  /* 0x0c: SetActorHead, -1 none */
+    float flLookRate;  /* 0x18: 360 (SetActorLookRate) */
+    float flMaxPitch;  /* 0x1c: 30 (SetActorHead) */
+    float flMaxYaw;  /* 0x20: 90 */
+    float flViewCos;  /* 0x24: -0.35: cosine of half the view cone (SetActorHead's first limit), sputActor_CanActorSeePoint */
+    int nWalkChore;  /* 0x28: -1 none (sputActor_SetWalkChore) */
+    int nTurnLeftChore;  /* 0x2c: sputActor_SetTurnChores */
+    int nTurnRightChore;  /* 0x30 */
+    int nRestChore;  /* 0x34: sputActor_SetRestChore */
+    int aTalkChores[16];  /* 0x38: mouth shapes; [0] is the closed mouth */
+    int nMumbleChore;  /* 0x78 */
+    uint aCostumeRef[13];  /* 0x7c: 0x34-byte resource reference of the costume (Res_SetReference) */
+    CostumeNode *pNext;  /* 0xb0: the costume below on the stack */
+};
+_Static_assert(__builtin_offsetof(CostumeNode, dwInstance) == 0x0, "CostumeNode.dwInstance");
+_Static_assert(__builtin_offsetof(CostumeNode, pMainModel) == 0x4, "CostumeNode.pMainModel");
+_Static_assert(__builtin_offsetof(CostumeNode, pComponents) == 0x8, "CostumeNode.pComponents");
+_Static_assert(__builtin_offsetof(CostumeNode, aHeadJoints) == 0xc, "CostumeNode.aHeadJoints");
+_Static_assert(__builtin_offsetof(CostumeNode, flLookRate) == 0x18, "CostumeNode.flLookRate");
+_Static_assert(__builtin_offsetof(CostumeNode, flMaxPitch) == 0x1c, "CostumeNode.flMaxPitch");
+_Static_assert(__builtin_offsetof(CostumeNode, flMaxYaw) == 0x20, "CostumeNode.flMaxYaw");
+_Static_assert(__builtin_offsetof(CostumeNode, flViewCos) == 0x24, "CostumeNode.flViewCos");
+_Static_assert(__builtin_offsetof(CostumeNode, nWalkChore) == 0x28, "CostumeNode.nWalkChore");
+_Static_assert(__builtin_offsetof(CostumeNode, nTurnLeftChore) == 0x2c, "CostumeNode.nTurnLeftChore");
+_Static_assert(__builtin_offsetof(CostumeNode, nTurnRightChore) == 0x30, "CostumeNode.nTurnRightChore");
+_Static_assert(__builtin_offsetof(CostumeNode, nRestChore) == 0x34, "CostumeNode.nRestChore");
+_Static_assert(__builtin_offsetof(CostumeNode, aTalkChores) == 0x38, "CostumeNode.aTalkChores");
+_Static_assert(__builtin_offsetof(CostumeNode, nMumbleChore) == 0x78, "CostumeNode.nMumbleChore");
+_Static_assert(__builtin_offsetof(CostumeNode, aCostumeRef) == 0x7c, "CostumeNode.aCostumeRef");
+_Static_assert(__builtin_offsetof(CostumeNode, pNext) == 0xb0, "CostumeNode.pNext");
+_Static_assert(sizeof(CostumeNode) == 0xb4, "sizeof CostumeNode");
+/* Puck: The walker of an actor (Walker.cpp's Puck, 0x60 bytes, ActorExtra::pPuck): position and frame on the walk sectors. Every puck is on the list g_dwPuck_p_head. */
+struct Puck {  /* 0x60 */
+    float aPos[3];  /* 0x00: position (Puck_SetPos) */
+    float aFrame[12];  /* 0x0c: rdMatrix34: right, forward (+0x18), up (+0x24), position (+0x30) */
+    float flRadius;  /* 0x3c: 60 for an actor (ActorExtra::flPuckRadius); Puck_Forward stops this far from a sector edge */
+    float flStep;  /* 0x40: the last step of Puck_Forward */
+    float aConstraint[3];  /* 0x44: constraint vector of the sector (Puck_Constrain), 0, 1, 0 at first */
+    int nConstrained;  /* 0x50: aConstraint holds (Puck_Constrain) */
+    Puck *pPrev;  /* 0x54: list g_dwPuck_p_head */
+    Puck *pNext;  /* 0x58 */
+    void *pSector;  /* 0x5c: the WalkPlane sector the puck is on (Puck_Validate), 0 off the sectors */
+};
+_Static_assert(__builtin_offsetof(Puck, aPos) == 0x0, "Puck.aPos");
+_Static_assert(__builtin_offsetof(Puck, aFrame) == 0xc, "Puck.aFrame");
+_Static_assert(__builtin_offsetof(Puck, flRadius) == 0x3c, "Puck.flRadius");
+_Static_assert(__builtin_offsetof(Puck, flStep) == 0x40, "Puck.flStep");
+_Static_assert(__builtin_offsetof(Puck, aConstraint) == 0x44, "Puck.aConstraint");
+_Static_assert(__builtin_offsetof(Puck, nConstrained) == 0x50, "Puck.nConstrained");
+_Static_assert(__builtin_offsetof(Puck, pPrev) == 0x54, "Puck.pPrev");
+_Static_assert(__builtin_offsetof(Puck, pNext) == 0x58, "Puck.pNext");
+_Static_assert(__builtin_offsetof(Puck, pSector) == 0x5c, "Puck.pSector");
+_Static_assert(sizeof(Puck) == 0x60, "sizeof Puck");
+/* TextContext: How a text is drawn: font, position, colours, justification (g_SubtitleTextCtx, g_PrintLineTextCtx; GetTextParamsFromTable fills it from a Lua table). A text object holds a copy. */
+struct TextContext {  /* 0x30 */
+    uint8_t _pad_0[0x4];
+    int *pClipRect;  /* 0x04: x, y, width, height the text is clipped to */
+    void *pFont;  /* 0x08: font handle (HLock gives the font data) */
+    int nX;  /* 0x0c */
+    int nY;  /* 0x10: includes the font's height */
+    uint dwFgColor;  /* 0x14: 0xRRGGBB; while drawing, the index into pColormap */
+    uint dwBgColor;  /* 0x18 */
+    uint dwFxColor;  /* 0x1c */
+    int nScaleX;  /* 0x20: 16.16 (Font_GlyphAdvance) */
+    int nScaleY;  /* 0x24: 16.16 */
+    uint dwFlags;  /* 0x28: justification: 4 left, 5 centre, 6 right (bit 0 centres) */
+    void *pColormap;  /* 0x2c */
+};
+_Static_assert(__builtin_offsetof(TextContext, pClipRect) == 0x4, "TextContext.pClipRect");
+_Static_assert(__builtin_offsetof(TextContext, pFont) == 0x8, "TextContext.pFont");
+_Static_assert(__builtin_offsetof(TextContext, nX) == 0xc, "TextContext.nX");
+_Static_assert(__builtin_offsetof(TextContext, nY) == 0x10, "TextContext.nY");
+_Static_assert(__builtin_offsetof(TextContext, dwFgColor) == 0x14, "TextContext.dwFgColor");
+_Static_assert(__builtin_offsetof(TextContext, dwBgColor) == 0x18, "TextContext.dwBgColor");
+_Static_assert(__builtin_offsetof(TextContext, dwFxColor) == 0x1c, "TextContext.dwFxColor");
+_Static_assert(__builtin_offsetof(TextContext, nScaleX) == 0x20, "TextContext.nScaleX");
+_Static_assert(__builtin_offsetof(TextContext, nScaleY) == 0x24, "TextContext.nScaleY");
+_Static_assert(__builtin_offsetof(TextContext, dwFlags) == 0x28, "TextContext.dwFlags");
+_Static_assert(__builtin_offsetof(TextContext, pColormap) == 0x2c, "TextContext.pColormap");
+_Static_assert(sizeof(TextContext) == 0x30, "sizeof TextContext");
+/* TextObject: A text on screen (sputText.cpp; from the pool g_pTextEventPool, TextObject_New): the queue g_pTextQueue, the string and its own text context. */
+struct TextObject {  /* 0x260 */
+    TextObject *pNext;  /* 0x00: g_pTextQueue */
+    TextObject *pPrev;  /* 0x04 */
+    char aText[512];  /* 0x08 */
+    TextContext ctx;  /* 0x208: copy of the context it was made with; ctx.pClipRect points at aRect */
+    int nX;  /* 0x238: position as given (sputText_AddToQueue re-bases ctx.nY on the font height) */
+    int nY;  /* 0x23c */
+    int aRect[4];  /* 0x240: clip rectangle: the context's or the whole screen */
+    int nDuration;  /* 0x250: ms, -1 until killed (sputText_AddToQueue) */
+    Actor *pActor;  /* 0x254: the speaking actor (sputText_CreateActorText) */
+    uint dwFlags;  /* 0x258: 1 keep, 2 hidden, 4 speech, 8 always draw */
+    int nSerial;  /* 0x25c: the object's own address, kept across save games (sputText_FindSerialNumber) */
+};
+_Static_assert(__builtin_offsetof(TextObject, pNext) == 0x0, "TextObject.pNext");
+_Static_assert(__builtin_offsetof(TextObject, pPrev) == 0x4, "TextObject.pPrev");
+_Static_assert(__builtin_offsetof(TextObject, aText) == 0x8, "TextObject.aText");
+_Static_assert(__builtin_offsetof(TextObject, ctx) == 0x208, "TextObject.ctx");
+_Static_assert(__builtin_offsetof(TextObject, nX) == 0x238, "TextObject.nX");
+_Static_assert(__builtin_offsetof(TextObject, nY) == 0x23c, "TextObject.nY");
+_Static_assert(__builtin_offsetof(TextObject, aRect) == 0x240, "TextObject.aRect");
+_Static_assert(__builtin_offsetof(TextObject, nDuration) == 0x250, "TextObject.nDuration");
+_Static_assert(__builtin_offsetof(TextObject, pActor) == 0x254, "TextObject.pActor");
+_Static_assert(__builtin_offsetof(TextObject, dwFlags) == 0x258, "TextObject.dwFlags");
+_Static_assert(__builtin_offsetof(TextObject, nSerial) == 0x25c, "TextObject.nSerial");
+_Static_assert(sizeof(TextObject) == 0x260, "sizeof TextObject");

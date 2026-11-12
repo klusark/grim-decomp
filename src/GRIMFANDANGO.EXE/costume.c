@@ -56,43 +56,44 @@ undefined * __cdecl FadeOutChore(void *param_1,int param_2,int param_3)
    unmatched callee of Lua_PrintActorCostumes; 1 matched neighbours agree, 0 disagree); was
    Costume_PrintList. */
 
-void __cdecl sputCostume_PrintCostumeInfo(void *costume)
+void __cdecl sputCostume_PrintCostumeInfo(CostumeNode *costume)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  int iVar2;
+  CostumeNode **ppCVar1;
+  void *pvVar2;
   int iVar3;
   int iVar4;
   uint uVar5;
-  int *piVar6;
+  CostumeNode *pCVar6;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  piVar6 = costume;
-  if (costume != (void *)0x0) {
+  pCVar6 = costume;
+  if (costume != (CostumeNode *)0x0) {
     do {
-      iVar3 = Cos_InstCountChores(*piVar6);
+      iVar3 = Cos_InstCountChores(pCVar6->dwInstance);
       uVar5 = 0;
       if (0 < iVar3) {
         do {
-          Cos_InstChoreStatus(*piVar6,uVar5);
+          Cos_InstChoreStatus(pCVar6->dwInstance,uVar5);
           uVar5 = uVar5 + 1;
         } while ((int)uVar5 < iVar3);
       }
-      piVar1 = piVar6 + 0x2c;
-      piVar6 = (int *)*piVar1;
-    } while ((int *)*piVar1 != (int *)0x0);
-    for (iVar3 = *(int *)((int)costume + 8); iVar3 != 0; iVar3 = *(int *)(iVar3 + 400)) {
-      if (*(int *)(iVar3 + 0x38) != 0) {
+      ppCVar1 = &pCVar6->pNext;
+      pCVar6 = *ppCVar1;
+    } while (*ppCVar1 != (CostumeNode *)0x0);
+    for (pvVar2 = costume->pComponents; pvVar2 != (void *)0x0;
+        pvVar2 = *(void **)((int)pvVar2 + 400)) {
+      if (*(int *)((int)pvVar2 + 0x38) != 0) {
         uVar5 = 0;
-        iVar2 = *(int *)(*(int *)(iVar3 + 0x40) + 4);
-        if (*(int *)(iVar2 + 0x54) != 0) {
+        iVar3 = *(int *)(*(int *)((int)pvVar2 + 0x40) + 4);
+        if (*(int *)(iVar3 + 0x54) != 0) {
           iVar4 = 0;
           do {
-            String_ContainsSubstring(*(int *)(iVar2 + 0x58) + iVar4,s_skirt_004ea1a8);
+            String_ContainsSubstring(*(int *)(iVar3 + 0x58) + iVar4,s_skirt_004ea1a8);
             uVar5 = uVar5 + 1;
             iVar4 = iVar4 + 0xb8;
-          } while (uVar5 < *(uint *)(iVar2 + 0x54));
+          } while (uVar5 < *(uint *)(iVar3 + 0x54));
         }
       }
     }
@@ -106,21 +107,21 @@ void __cdecl sputCostume_PrintCostumeInfo(void *costume)
 /* Original name sputCostume_FreeCostumeNodes (the remaster's GrimFandango (Linux): aligned call in
    sputActor_FreeActor); was Costume_FreeList. */
 
-void __cdecl sputCostume_FreeCostumeNodes(void *list,int free)
+void __cdecl sputCostume_FreeCostumeNodes(CostumeNode *list,int free)
 
 {
-  int *piVar1;
+  CostumeNode *pCVar1;
   
-  while (list != (int *)0x0) {
-    piVar1 = *(int **)((int)list + 0xb0);
+  while (list != (CostumeNode *)0x0) {
+    pCVar1 = list->pNext;
     if (free != 0) {
-      Cos_FreeCosInstance(*(int *)list);
+      Cos_FreeCosInstance(list->dwInstance);
     }
-    if (*(int *)((int)list + 0x7c) != 0) {
-      Res_RemoveReference((int *)((int)list + 0x7c));
+    if (list->aCostumeRef[0] != 0) {
+      Res_RemoveReference(list->aCostumeRef);
     }
     Pool_Free(list);
-    list = piVar1;
+    list = pCVar1;
   }
   return;
 }
@@ -129,33 +130,33 @@ void __cdecl sputCostume_FreeCostumeNodes(void *list,int free)
 /* Original name sputCostume_PopCostume (the remaster's GrimFandango (Linux): the only unmatched
    callee of Actor_PopCostume; 1 matched neighbours agree, 0 disagree); was Costume_Pop. */
 
-void * __cdecl sputCostume_PopCostume(void *list,int free)
+CostumeNode * __cdecl sputCostume_PopCostume(CostumeNode *list,int free)
 
 {
-  void *pvVar1;
+  CostumeNode *pCVar1;
   
-  pvVar1 = (void *)0x0;
-  if (list != (void *)0x0) {
-    pvVar1 = *(void **)((int)list + 0xb0);
-    *(undefined4 *)((int)list + 0xb0) = 0;
-    Cos_InstStopChores(*(uint *)list);
+  pCVar1 = (CostumeNode *)0x0;
+  if (list != (CostumeNode *)0x0) {
+    pCVar1 = list->pNext;
+    list->pNext = (CostumeNode *)0x0;
+    Cos_InstStopChores(list->dwInstance);
     sputCostume_FreeCostumeNodes(list,free);
   }
-  return pvVar1;
+  return pCVar1;
 }
 
 /* ---- 0x00494e50  sputCostume_SetCostume ---- */
 /* Original name sputCostume_SetCostume (the remaster's GrimFandango (Linux): aligned call in
    sputActor_SetCostume); was Costume_ReplaceTop. */
 
-void * __cdecl sputCostume_SetCostume(void *list,void *costumeRes,int flags)
+CostumeNode * __cdecl sputCostume_SetCostume(CostumeNode *list,void *costumeRes,int flags)
 
 {
-  void *pvVar1;
+  CostumeNode *pCVar1;
   
-  pvVar1 = sputCostume_PopCostume(list,1);
-  pvVar1 = sputCostume_PushCostume(pvVar1,costumeRes,flags);
-  return pvVar1;
+  pCVar1 = sputCostume_PopCostume(list,1);
+  pCVar1 = sputCostume_PushCostume(pCVar1,costumeRes,flags);
+  return pCVar1;
 }
 
 /* ---- 0x00494e80  sputCostume_PushCostume ---- */
@@ -163,72 +164,72 @@ void * __cdecl sputCostume_SetCostume(void *list,void *costumeRes,int flags)
    Original name sputCostume_PushCostume (the remaster's GrimFandango (Linux): aligned call in
    sputActor_PushCostume, sputCostume_SetCostume); was Costume_Push. */
 
-void * __cdecl sputCostume_PushCostume(void *list,void *costumeRes,int flags)
+CostumeNode * __cdecl sputCostume_PushCostume(CostumeNode *list,void *costumeRes,int flags)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  int iVar2;
+  CostumeNode *pCVar1;
+  uint uVar2;
   void *pvVar3;
   uint uVar4;
-  uint uVar5;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  piVar1 = (int *)Costume_AllocRecord();
-  piVar1[0x2c] = (int)list;
+  pCVar1 = Costume_AllocRecord();
+  pCVar1->pNext = list;
   if (flags == 0) {
-    if (list == (void *)0x0) {
-      uVar4 = 0;
+    if (list == (CostumeNode *)0x0) {
+      uVar2 = 0;
     }
     else {
-      uVar4 = *(uint *)list;
+      uVar2 = list->dwInstance;
     }
-    iVar2 = Cos_CreateCosInstance(costumeRes,uVar4);
-    *piVar1 = iVar2;
-    Res_SetReference(piVar1 + 0x1f,costumeRes,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x47a);
+    uVar2 = Cos_CreateCosInstance(costumeRes,uVar2);
+    pCVar1->dwInstance = uVar2;
+    Res_SetReference(pCVar1->aCostumeRef,costumeRes,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,
+                     0x47a);
   }
   else {
-    *piVar1 = flags;
+    pCVar1->dwInstance = flags;
   }
-  pvVar3 = Costume_GetMainModel((void *)*piVar1);
-  piVar1[1] = (int)pvVar3;
-  if (((pvVar3 != (void *)0x0) && (list != (void *)0x0)) && (*(void **)((int)list + 4) == pvVar3)) {
-    piVar1[3] = *(int *)((int)list + 0xc);
-    piVar1[4] = *(int *)((int)list + 0x10);
-    piVar1[5] = *(int *)((int)list + 0x14);
-    piVar1[6] = *(int *)((int)list + 0x18);
-    piVar1[7] = *(int *)((int)list + 0x1c);
-    piVar1[8] = *(int *)((int)list + 0x20);
-    piVar1[9] = *(int *)((int)list + 0x24);
-    piVar1[2] = *(int *)((int)list + 8);
+  pvVar3 = Costume_GetMainModel((void *)pCVar1->dwInstance);
+  pCVar1->pMainModel = pvVar3;
+  if (((pvVar3 != (void *)0x0) && (list != (CostumeNode *)0x0)) && (list->pMainModel == pvVar3)) {
+    pCVar1->aHeadJoints[0] = list->aHeadJoints[0];
+    pCVar1->aHeadJoints[1] = list->aHeadJoints[1];
+    pCVar1->aHeadJoints[2] = list->aHeadJoints[2];
+    pCVar1->flLookRate = list->flLookRate;
+    pCVar1->flMaxPitch = list->flMaxPitch;
+    pCVar1->flMaxYaw = list->flMaxYaw;
+    pCVar1->flViewCos = list->flViewCos;
+    pCVar1->pComponents = list->pComponents;
   }
-  uVar4 = Cos_InstCountComponents(*piVar1);
-  uVar5 = 0;
-  if (uVar4 != 0) {
+  uVar2 = Cos_InstCountComponents(pCVar1->dwInstance);
+  uVar4 = 0;
+  if (uVar2 != 0) {
     do {
-      iVar2 = Cos_InstGetInstanceData(*piVar1,uVar5,(int *)&local_4);
+      pvVar3 = (void *)Cos_InstGetInstanceData(pCVar1->dwInstance,uVar4,(int *)&local_4);
       if ((((local_4 == 0x4c444d4d) || (local_4 == 0x4c444f4d)) || (local_4 == 0x74727073)) &&
-         (*(int *)(iVar2 + 0x50) == 1)) {
-        *(int *)(iVar2 + 400) = piVar1[2];
-        piVar1[2] = iVar2;
+         (*(int *)((int)pvVar3 + 0x50) == 1)) {
+        *(void **)((int)pvVar3 + 400) = pCVar1->pComponents;
+        pCVar1->pComponents = pvVar3;
       }
-      uVar5 = uVar5 + 1;
-    } while (uVar5 < uVar4);
+      uVar4 = uVar4 + 1;
+    } while (uVar4 < uVar2);
   }
-  return piVar1;
+  return pCVar1;
 }
 #undef local_4
 
 
 /* ---- 0x00494f90  Costume_AllocRecord ---- */
-undefined4 Costume_AllocRecord(void)
+CostumeNode * __cdecl Costume_AllocRecord(void)
 
 {
-  undefined4 uVar1;
+  CostumeNode *node;
   
-  uVar1 = Memory_AllocFixed(g_pCosNodePool);
-  Costume_InitRecord(uVar1);
-  return uVar1;
+  node = (CostumeNode *)Memory_AllocFixed(g_pCosNodePool);
+  Costume_InitRecord(node);
+  return node;
 }
 
 /* ---- 0x00494fb0  Costume_InitRecord ---- */
@@ -236,37 +237,38 @@ undefined4 Costume_AllocRecord(void)
    head joints, [6-8] head limits, [9] look rate, [10-13] walk/left/right/rest chores, [14-29] talk
    chores, [30] mumble chore, [44] next */
 
-void Costume_InitRecord(undefined4 *param_1)
+void __cdecl Costume_InitRecord(CostumeNode *node)
 
 {
   int iVar1;
-  undefined4 *puVar2;
+  int *piVar2;
+  uint *puVar3;
   
-  *param_1 = 0;
-  param_1[3] = 0xffffffff;
-  param_1[4] = 0xffffffff;
-  param_1[5] = 0xffffffff;
-  param_1[7] = 0x41f00000;
-  param_1[8] = 0x42b40000;
-  param_1[9] = 0xbeb33333;
-  param_1[6] = 0x43b40000;
-  param_1[10] = 0xffffffff;
-  param_1[0xb] = 0xffffffff;
-  param_1[0xc] = 0xffffffff;
-  param_1[0xd] = 0xffffffff;
-  param_1[0x1e] = 0xffffffff;
-  puVar2 = param_1 + 0xe;
+  node->dwInstance = 0;
+  node->aHeadJoints[0] = -1;
+  node->aHeadJoints[1] = -1;
+  node->aHeadJoints[2] = -1;
+  node->flMaxPitch = 30.0;
+  node->flMaxYaw = 90.0;
+  node->flViewCos = -0.35;
+  node->flLookRate = 360.0;
+  node->nWalkChore = -1;
+  node->nTurnLeftChore = -1;
+  node->nTurnRightChore = -1;
+  node->nRestChore = -1;
+  node->nMumbleChore = -1;
+  piVar2 = node->aTalkChores;
   for (iVar1 = 0x10; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = 0xffffffff;
-    puVar2 = puVar2 + 1;
+    *piVar2 = -1;
+    piVar2 = piVar2 + 1;
   }
-  puVar2 = param_1 + 0x1f;
+  puVar3 = node->aCostumeRef;
   for (iVar1 = 0xd; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = 0;
-    puVar2 = puVar2 + 1;
+    *puVar3 = 0;
+    puVar3 = puVar3 + 1;
   }
-  param_1[2] = 0;
-  param_1[0x2c] = 0;
+  node->pComponents = (void *)0x0;
+  node->pNext = (CostumeNode *)0x0;
   return;
 }
 
@@ -459,27 +461,28 @@ void sputCostume_Draw2D(int param_1)
 /* Original name sputCostume_Update (the remaster's GrimFandango (Linux): the only unmatched caller
    of rdPuppet_Advance; 1 matched neighbours agree, 0 disagree); was Costume_UpdateAll. */
 
-void __cdecl sputCostume_Update(void *costumeList,float dt)
+void __cdecl sputCostume_Update(CostumeNode *costumeList,float dt)
 
 {
-  int iVar1;
+  void *pvVar1;
   void *puppet;
   undefined4 unaff_ESI;
-  int *piVar2;
+  CostumeNode *pCVar2;
   undefined4 unaff_EDI;
   ulonglong uVar3;
   
   uVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  if (costumeList != (void *)0x0) {
-    iVar1 = *(int *)((int)costumeList + 4);
-    piVar2 = costumeList;
+  if (costumeList != (CostumeNode *)0x0) {
+    pvVar1 = costumeList->pMainModel;
+    pCVar2 = costumeList;
     do {
-      if (piVar2[1] != iVar1) break;
-      Cos_InstUpdateChores(*piVar2,(int)uVar3);
-      piVar2 = (int *)piVar2[0x2c];
-    } while (piVar2 != (int *)0x0);
-    for (iVar1 = *(int *)((int)costumeList + 8); iVar1 != 0; iVar1 = *(int *)(iVar1 + 400)) {
-      puppet = *(void **)(*(int *)(iVar1 + 0x40) + 0x14);
+      if (pCVar2->pMainModel != pvVar1) break;
+      Cos_InstUpdateChores(pCVar2->dwInstance,(int)uVar3);
+      pCVar2 = pCVar2->pNext;
+    } while (pCVar2 != (CostumeNode *)0x0);
+    for (pvVar1 = costumeList->pComponents; pvVar1 != (void *)0x0;
+        pvVar1 = *(void **)((int)pvVar1 + 400)) {
+      puppet = *(void **)(*(int *)((int)pvVar1 + 0x40) + 0x14);
       if (puppet != (void *)0x0) {
         rdPuppet_UpdateTracks(puppet,(float)(uVar3 & 0xffffffff) * 0.001);
       }

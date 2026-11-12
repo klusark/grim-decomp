@@ -1741,8 +1741,10 @@ undefined * __cdecl PerfEnd(int slot)
  * Lip sync: while the actor speaks (talk flag +0x1dc, voice handle +0x1c8) the current phoneme is read from iMUSE and the
  * matching talk chore is completed; the text timer (+0x1cc) runs down by dt * 1000 (the decompiler lost the operand of
  * that _ftol) and ends the speech with the voice or when it expires. */
-void __cdecl sputActor_UpdateActorSpeech(void *actor, float dt)
+void __cdecl sputActor_UpdateActorSpeech(Actor *actor_, float dt)
 {
+    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
+    void *actor = (void *)actor_;
     char *talk = *(char **)((char *)actor + 0xa4);
     int phoneme;
     uint chore;
@@ -2037,7 +2039,7 @@ void __cdecl stdStartup(GrimServices *svc)
  * Per frame: the frame time in seconds is rounded to whole milliseconds (round half away from zero, as the code does it
  * with +-0.5 and _ftol), every costume of the list gets Cos_InstUpdateChores(cos, ms) and every puppet of the second list
  * advances by ms * 0.001 seconds.  The decompiler lost the operand of the _ftol and the double bias constants. */
-void __cdecl sputCostume_Update(void *costumeList, float dt)
+void __cdecl sputCostume_Update(CostumeNode *costumeList, float dt)
 {
     uint ms = (uint)round_half_away((long double)dt * 1000.0f);
     float seconds = (float)((long double)(unsigned long long)ms * 0.001f);
@@ -2106,7 +2108,7 @@ undefined4 SpriteAdjuster(undefined4 *param_1, undefined4 param_2)
  * (sputCostume_OutputShadowPoly accumulates the screen box in min / max).  Afterwards the touched screen rectangle
  * (x, y, w, h = truncated min and max - min) is invalidated.  The decompiler lost the operands of the four _ftol.
  * Like the original, max.y is never initialised before the first polygon. */
-void sputCostume_DrawMeshShadow(void *costumeList, void *shadow)
+void sputCostume_DrawMeshShadow(CostumeNode *costumeList, ActorShadow *shadow)
 {
     float pts[48];
     float minXY[2], maxXY[3];
@@ -2143,9 +2145,9 @@ void sputCostume_DrawMeshShadow(void *costumeList, void *shadow)
             for (k = 0; k < 0xc0; k += 0xc) {
                 float *out = (float *)((char *)pts + k);
                 rdMatrix_TransformPoint34(out, (float *)(k + *(int *)(rec + node * 0x7c + 0x58)), (float *)(pointOff + *(int *)(model + 0x20)));
-                if (sputRender_SegmentPlaneIntersect(out, (float *)((char *)shadow + 0x18), out, *(float *)((char *)shadow + 8),
-                                           *(float *)((char *)shadow + 0xc), *(float *)((char *)shadow + 0x10),
-                                           *(float *)((char *)shadow + 0x14)) == 0)
+                if (sputRender_SegmentPlaneIntersect(out, shadow->aPoint, out, shadow->aPlane[0],
+                                           shadow->aPlane[1], shadow->aPlane[2],
+                                           shadow->aPlane[3]) == 0)
                     return;
             }
             if (g_pShadowMaterial == (void *)0)
@@ -2509,8 +2511,10 @@ undefined4 sputLua_NotifyControlHandlers(void)
  * Per frame: remembers the position, rescues the costume, follows the path (actor+8 bit 0), updates the walker, the
  * movement chores, the costumes (dt scaled by the actor's time scale), the look-at (bit 1) and the puck orientation
  * (actor+4 bit 4).  Its callee Actor_PuckOrient takes the actor (Ghidra had typed that parameter float). */
-void Actor_UpdateMovement(void *actor, float dt)
+void Actor_UpdateMovement(Actor *actor_, float dt)
 {
+    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
+    void *actor = (void *)actor_;
     char *a = (char *)actor;
     int costume;
 
@@ -2544,8 +2548,10 @@ void Actor_UpdateMovement(void *actor, float dt)
  * up x normal by min(angle, frame seconds * turn rate (actor+0xa4 +0x1c)), multiplies the matrices (rdMatrix_PostMultiply34) and
  * sets the three angles from the matrix (rdMatrix_ExtractAngles34).  The Ghidra prototype typed the actor parameter float, which
  * made the generated code treat the pointer as a number (crash with the original save grim21); it is a pointer. */
-void __cdecl Actor_PuckOrient(void *actor)
+void __cdecl Actor_PuckOrient(Actor *actor_)
 {
+    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
+    void *actor = (void *)actor_;
     char *a = (char *)actor;
     char *state, *walker;
     float up[3], fu[3], axis[3], rot[12];
@@ -2594,8 +2600,10 @@ void __cdecl Actor_PuckOrient(void *actor)
  * the text height; the text box keeps 40 / 10 pixels from the screen edges.  There is no floating point in it: Ghidra typed
  * the integer anchor float, which the cast rewrite then converted.  The text context is a copy of g_SubtitleTextCtx
  * (12 dwords) with the clip rectangle pointer at [1] and the text colour at [5]. */
-void * __cdecl sputText_CreateActorText(void *actor, char *text, int x, int y)
+TextObject * __cdecl sputText_CreateActorText(Actor *actor_, char *text, int x, int y)
 {
+    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
+    void *actor = (void *)actor_;
     char *a = (char *)actor;
     int rect[4], ctx[12], pt[3], proj[3];
     int *anchor, half, h;
@@ -2626,7 +2634,7 @@ void * __cdecl sputText_CreateActorText(void *actor, char *text, int x, int y)
     } else {
         anchor = (int *)(a + 0x6c);
     }
-    half = Text_GetStringWidth(ctx, text) / 2;
+    half = Text_GetStringWidth((TextContext *)ctx, text) / 2;
     if (x == -1)
         x = anchor[2] / 2 + anchor[0];
     if (x - half < 0x28)
@@ -2635,7 +2643,7 @@ void * __cdecl sputText_CreateActorText(void *actor, char *text, int x, int y)
         x = (UINT_008a94bc - half) - 0x28;
     ctx[4] = *(int *)(*(int *)ctx[2] + 8);
     ctx[3] = x;
-    h = Text_GetStringHeight(ctx, text);
+    h = Text_GetStringHeight((TextContext *)ctx, text);
     if (y == -1)
         y = anchor[1] - h;
     if (y < 10)
@@ -2644,7 +2652,7 @@ void * __cdecl sputText_CreateActorText(void *actor, char *text, int x, int y)
         y = (UINT_008a94c0 - h) + -10;
     ctx[4] = *(int *)(*(int *)ctx[2] + 8) + y;
     ctx[3] = x;
-    obj = TextObject_New(ctx, text, 0, 0);   /* (the last two parameters are not read: the prototype has them since agent O's rename)*/
+    obj = TextObject_New((TextContext *)ctx, text, 0, 0);   /* (the last two parameters are not read: the prototype has them since agent O's rename)*/
     *(void **)((char *)obj + 0x254) = actor;
     *(uint *)(a + 4) = *(uint *)(a + 4) | 4;
     return obj;
@@ -2813,8 +2821,10 @@ void * __cdecl stdDisplay_VBufferNew(void *info, int videoMem, int b, int palett
  * unordered result of a compare (NaN, e.g. an actor with scale 0) the same way as "equal" / "less or equal", which is why
  * the first and last tests are written as they are: this is the behaviour the decompiled C missed.  The step stays in
  * extended precision, the remaining angle is a float. */
-undefined4 sputActor_AlignToPuck(void *actor, float *pos)
+undefined4 sputActor_AlignToPuck(Actor *actor_, float *pos)
 {
+    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
+    void *actor = (void *)actor_;
     char *a = (char *)actor;
     char *st;
     float *frame = sputActor_GetOrientMatrix(actor);

@@ -104,6 +104,6 @@ int SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
   if (param_5 != (char *)0x0) {
     pcVar4 = param_5;
   }
-  iVar2 = Cos_RegisterComponent(param_1,(int)pcVar4,(int)pcVar5,param_2,param_3,param_4,IMG_ADDR(0x004ea040));
+  iVar2 = Cos_RegisterComponent(param_1,(int)pcVar4,(int)pcVar5,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004ea040));
   return iVar2 != 0;
 }

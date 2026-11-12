@@ -64,11 +64,11 @@ undefined4 DebugLog_Load(void)
     UINT_004f5a40 = 0;
   }
   else {
-    UINT_004f5a40 = LoadLibraryA(IMG_ADDR(0x004dd6c4));
+    UINT_004f5a40 = LoadLibraryA(((unsigned)(uintptr_t)&DAT_004dd6c4));
   }
   if (UINT_004f5a40 != 0) {
-    UINT_004f5a3c = GetProcAddress(UINT_004f5a40,IMG_ADDR(0x004dd6b8));
-    UINT_004f5a68 = GetProcAddress(UINT_004f5a40,IMG_ADDR(0x004dd6a8));
+    UINT_004f5a3c = GetProcAddress(UINT_004f5a40,((unsigned)(uintptr_t)&s__logPrintf_004dd6b8));
+    UINT_004f5a68 = GetProcAddress(UINT_004f5a40,((unsigned)(uintptr_t)&s__ShowDebugLog_004dd6a8));
     if ((UINT_004f5a3c != 0) && (UINT_004f5a68 != 0)) {
       uVar1 = Win_GetMainHwnd();
       (*(code *)UINT_004f5a68)(s_Grim_Debug_004dd69c,1,uVar1);

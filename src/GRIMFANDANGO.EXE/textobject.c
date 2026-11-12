@@ -11,21 +11,24 @@
    GrimFandango (Linux): aligned call in sputActor_SayLine, sputText_MakeTextObjectL,
    sputText_PrintLineL); was TextObject_Activate. */
 
-void __cdecl sputText_AddToQueue(void *obj,int durationMs,int flags)
+void __cdecl sputText_AddToQueue(TextObject *obj,int durationMs,int flags)
 
 {
-  int iVar1;
+  int *piVar1;
+  int iVar2;
   
-  if (obj != (void *)0x0) {
-    *(int *)((int)obj + 0x250) = durationMs;
-    *(int *)((int)obj + 600) = flags;
-    *(undefined4 *)((int)obj + 0x238) = *(undefined4 *)((int)obj + 0x214);
-    iVar1 = *(int *)((int)obj + 0x218) - *(int *)(**(int **)((int)obj + 0x210) + 8);
-    *(int *)((int)obj + 0x23c) = iVar1;
-    *(int *)((int)obj + 0x218) = iVar1;
-    *(void **)obj = g_pTextQueue;
-    if (g_pTextQueue != (void *)0x0) {
-      *(void **)((int)g_pTextQueue + 4) = obj;
+  if (obj != (TextObject *)0x0) {
+    obj->nDuration = durationMs;
+    iVar2 = (obj->ctx).nX;
+    obj->dwFlags = flags;
+    piVar1 = (obj->ctx).pFont;
+    obj->nX = iVar2;
+    iVar2 = (obj->ctx).nY - *(int *)(*piVar1 + 8);
+    obj->nY = iVar2;
+    (obj->ctx).nY = iVar2;
+    obj->pNext = g_pTextQueue;
+    if (g_pTextQueue != (TextObject *)0x0) {
+      g_pTextQueue->pPrev = obj;
     }
     g_pTextQueue = obj;
   }
@@ -33,106 +36,109 @@ void __cdecl sputText_AddToQueue(void *obj,int durationMs,int flags)
 }
 
 /* ---- 0x0048c7e0  TextObject_New ---- */
-void * __cdecl TextObject_New(void *ctx,char *text,int durationMs,int flags)
+TextObject * __cdecl TextObject_New(TextContext *ctx,char *text,int durationMs,int flags)
 
 {
-  undefined4 *puVar1;
-  int iVar2;
-  undefined4 *puVar3;
-  undefined4 *puVar4;
+  int *piVar1;
+  int *piVar2;
+  TextObject *pTVar3;
+  int iVar4;
+  TextContext *pTVar5;
+  TextContext *pTVar6;
   
-  puVar1 = (undefined4 *)Memory_AllocFixed(g_pTextEventPool);
-  if (puVar1 != (undefined4 *)0x0) {
-    *puVar1 = 0;
-    puVar1[1] = 0;
-    strncpy(puVar1 + 2,text,0x1ff);
-    *(undefined1 *)((int)puVar1 + 0x207) = 0;
-    puVar1[0x8e] = *(undefined4 *)((int)ctx + 0xc);
-    puVar1[0x8f] = *(undefined4 *)((int)ctx + 0x10);
-    puVar3 = ctx;
-    puVar4 = puVar1 + 0x82;
-    for (iVar2 = 0xc; iVar2 != 0; iVar2 = iVar2 + -1) {
-      *puVar4 = *puVar3;
-      puVar3 = puVar3 + 1;
-      puVar4 = puVar4 + 1;
+  pTVar3 = (TextObject *)Memory_AllocFixed(g_pTextEventPool);
+  if (pTVar3 != (TextObject *)0x0) {
+    pTVar3->pNext = (TextObject *)0x0;
+    pTVar3->pPrev = (TextObject *)0x0;
+    strncpy(pTVar3->aText,text,0x1ff);
+    pTVar3->aText[0x1ff] = '\0';
+    pTVar3->nX = ctx->nX;
+    pTVar3->nY = ctx->nY;
+    pTVar5 = ctx;
+    pTVar6 = &pTVar3->ctx;
+    for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
+      *(undefined4 *)pTVar6 = *(undefined4 *)pTVar5;
+      pTVar5 = (TextContext *)&pTVar5->pClipRect;
+      pTVar6 = (TextContext *)&pTVar6->pClipRect;
     }
     if (g_hEmergencyFont != (void *)0x0) {
-      puVar1[0x84] = g_hEmergencyFont;
+      (pTVar3->ctx).pFont = g_hEmergencyFont;
     }
-    puVar3 = puVar1 + 0x90;
-    puVar1[0x8d] = g_abSputRender_colorMap;
-    puVar1[0x83] = puVar3;
-    puVar4 = *(undefined4 **)((int)ctx + 4);
-    if (puVar4 != (undefined4 *)0x0) {
-      *puVar3 = *puVar4;
-      puVar1[0x91] = puVar4[1];
-      puVar1[0x92] = puVar4[2];
-      puVar1[0x93] = puVar4[3];
-      puVar1[0x95] = 0;
-      puVar1[0x97] = puVar1;
-      return puVar1;
+    piVar1 = pTVar3->aRect;
+    (pTVar3->ctx).pColormap = g_abSputRender_colorMap;
+    (pTVar3->ctx).pClipRect = piVar1;
+    piVar2 = ctx->pClipRect;
+    if (piVar2 != (int *)0x0) {
+      *piVar1 = *piVar2;
+      pTVar3->aRect[1] = piVar2[1];
+      pTVar3->aRect[2] = piVar2[2];
+      pTVar3->aRect[3] = piVar2[3];
+      pTVar3->pActor = (Actor *)0x0;
+      pTVar3->nSerial = (int)pTVar3;
+      return pTVar3;
     }
-    *puVar3 = 0;
-    puVar1[0x91] = 0;
-    puVar1[0x92] = UINT_008a94bc;
-    puVar1[0x93] = UINT_008a94c0;
-    puVar1[0x95] = 0;
-    puVar1[0x97] = puVar1;
+    *piVar1 = 0;
+    pTVar3->aRect[1] = 0;
+    pTVar3->aRect[2] = UINT_008a94bc;
+    pTVar3->aRect[3] = UINT_008a94c0;
+    pTVar3->pActor = (Actor *)0x0;
+    pTVar3->nSerial = (int)pTVar3;
   }
-  return puVar1;
+  return pTVar3;
 }
 
 /* ---- 0x0048c9f0  TextObject_Draw ---- */
-void __cdecl TextObject_Draw(void *obj,int invalidate)
+void __cdecl TextObject_Draw(TextObject *obj,int invalidate)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint uVar1;
+  int *piVar1;
   uint uVar2;
   uint uVar3;
-  int iVar4;
+  uint uVar4;
+  int iVar5;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  if (obj != (void *)0x0) {
-    local_10 = *(uint *)((int)obj + 0x238);
-    *(uint *)((int)obj + 0x214) = local_10;
-    iVar4 = *(int *)(**(int **)((int)obj + 0x210) + 8) + *(int *)((int)obj + 0x23c);
-    *(int *)((int)obj + 0x218) = iVar4;
-    local_c = iVar4 - *(int *)(**(int **)((int)obj + 0x210) + 8);
-    local_8 = Text_GetStringWidth((void *)((int)obj + 0x208),(char *)((int)obj + 8));
-    local_4 = Text_GetStringHeight((void *)((int)obj + 0x208),(char *)((int)obj + 8));
-    if ((*(byte *)((int)obj + 0x230) & 1) != 0) {
+  if (obj != (TextObject *)0x0) {
+    local_10 = obj->nX;
+    piVar1 = (obj->ctx).pFont;
+    (obj->ctx).nX = local_10;
+    iVar5 = *(int *)(*piVar1 + 8) + obj->nY;
+    (obj->ctx).nY = iVar5;
+    local_c = iVar5 - *(int *)(*piVar1 + 8);
+    local_8 = Text_GetStringWidth(&obj->ctx,obj->aText);
+    local_4 = Text_GetStringHeight(&obj->ctx,obj->aText);
+    if (((obj->ctx).dwFlags & 1) != 0) {
       local_10 = local_10 - (int)local_8 / 2;
     }
-    uVar1 = *(uint *)((int)obj + 0x21c);
+    uVar2 = (obj->ctx).dwFgColor;
     g_abSputRender_colorMap[0] =
-         (ushort)((uVar1 >> 10 & 0x3f | ((int)uVar1 >> 3) << 6) << 5) |
-         (ushort)(uVar1 >> 0x13) & 0x1f;
-    uVar2 = *(uint *)((int)obj + 0x220);
-    g_abSputRender_colorMap[1] =
          (ushort)((uVar2 >> 10 & 0x3f | ((int)uVar2 >> 3) << 6) << 5) |
          (ushort)(uVar2 >> 0x13) & 0x1f;
-    uVar3 = *(uint *)((int)obj + 0x224);
-    g_abSputRender_colorMap[2] =
+    uVar3 = (obj->ctx).dwBgColor;
+    g_abSputRender_colorMap[1] =
          (ushort)((uVar3 >> 10 & 0x3f | ((int)uVar3 >> 3) << 6) << 5) |
          (ushort)(uVar3 >> 0x13) & 0x1f;
+    uVar4 = (obj->ctx).dwFxColor;
+    g_abSputRender_colorMap[2] =
+         (ushort)((uVar4 >> 10 & 0x3f | ((int)uVar4 >> 3) << 6) << 5) |
+         (ushort)(uVar4 >> 0x13) & 0x1f;
     sputRender_ColorCorrect(g_abSputRender_colorMap,3);
-    *(undefined4 *)((int)obj + 0x21c) = 0;
-    *(undefined4 *)((int)obj + 0x220) = 1;
-    *(undefined4 *)((int)obj + 0x224) = 2;
-    Text_DrawFormatted((int)obj + 0x208,(int)obj + 8);
-    *(undefined4 *)((int)obj + 0x214) = *(undefined4 *)((int)obj + 0x238);
-    *(int *)((int)obj + 0x218) =
-         *(int *)(**(int **)((int)obj + 0x210) + 8) + *(int *)((int)obj + 0x23c);
+    (obj->ctx).dwFgColor = 0;
+    (obj->ctx).dwBgColor = 1;
+    (obj->ctx).dwFxColor = 2;
+    Text_DrawFormatted(&obj->ctx,obj->aText);
+    (obj->ctx).nX = obj->nX;
+    (obj->ctx).nY = *(int *)(*(int *)(obj->ctx).pFont + 8) + obj->nY;
     if (invalidate != 0) {
       sputRender_MarkDirtyRect((int *)&local_10,0);
     }
-    *(uint *)((int)obj + 0x224) = uVar3;
-    *(uint *)((int)obj + 0x220) = uVar2;
-    *(uint *)((int)obj + 0x21c) = uVar1;
+    (obj->ctx).dwFxColor = uVar4;
+    (obj->ctx).dwBgColor = uVar3;
+    (obj->ctx).dwFgColor = uVar2;
   }
   return;
 }
@@ -147,18 +153,18 @@ void __cdecl TextObject_Draw(void *obj,int invalidate)
    the text queue with the serial number; called by sputActor_Restore and sputLua_RestoreIndirector
    in both builds (the remaster also compares a second field)); was TextObject_FindBySelf. */
 
-undefined4 * sputText_FindSerialNumber(int param_1)
+TextObject * __cdecl sputText_FindSerialNumber(int serial)
 
 {
-  undefined4 *puVar1;
+  TextObject *pTVar1;
   
-  puVar1 = g_pTextQueue;
+  pTVar1 = g_pTextQueue;
   while( true ) {
-    if (puVar1 == (undefined4 *)0x0) {
-      return (undefined4 *)0x0;
+    if (pTVar1 == (TextObject *)0x0) {
+      return (TextObject *)0x0;
     }
-    if (puVar1[0x97] == param_1) break;
-    puVar1 = (undefined4 *)*puVar1;
+    if (pTVar1->nSerial == serial) break;
+    pTVar1 = pTVar1->pNext;
   }
-  return puVar1;
+  return pTVar1;
 }

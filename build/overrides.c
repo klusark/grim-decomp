@@ -463,8 +463,10 @@ static void walk_scale_init(void)
  * plate comment of sputActor_AllocateActor): +8 flags (bit 0 = following a path), +0xa4 extra. Extra: +0xc walk-forward flag,
  * +0x10 turn direction (-1/0/1), +0x18 walk rate, +0x1c turn rate, +0x20 yaw done, +0x28 yaw error, +0x1b4 walker,
  * +0x1bc follow-boxes off, +0x41c time scale. */
-void Actor_UpdateWalker(int actor)
+void Actor_UpdateWalker(Actor *actor_)
 {
+    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
+    int actor = (int)actor_;
     int extra = ACT_I(actor, 0xa4);
     float *walker = (float *)ACT_I(extra, 0x1b4);
     float dt;
@@ -577,11 +579,11 @@ void GRIM_RegisterModApi(void)
 
 /* Puck_PointAt (0x4a8450): turns the walker towards a point (in set coordinates) by at most maxTurn degrees.
  * Returns the signed turn angle that was applied (positive = the point is on the right of the heading). */
-float __thiscall Puck_PointAt(void *this, float *point, float maxTurn)
+float __thiscall Puck_PointAt(Puck *this, float *point, float maxTurn)
 {
     float v[3];
     float angle;
-    void *sector = *(void **)((int)this + 0x5c);
+    void *sector = this->pSector;
 
     v[0] = point[0];
     v[1] = point[1];
@@ -600,11 +602,11 @@ float __thiscall Puck_PointAt(void *this, float *point, float maxTurn)
 }
 
 /* Puck_GetYawToPoint (0x4a8500): the yaw (walker heading + the turn needed) that points the walker at a point */
-float __thiscall Puck_GetYawToPoint(void *this, float *point)
+float __thiscall Puck_GetYawToPoint(Puck *this, float *point)
 {
     float v[3];
     float angle;
-    void *sector = *(void **)((int)this + 0x5c);
+    void *sector = this->pSector;
 
     v[0] = point[0];
     v[1] = point[1];
@@ -616,7 +618,7 @@ float __thiscall Puck_GetYawToPoint(void *this, float *point)
     angle = 90.0f - stdMath_ArcSin3(v[1]);
     if (0.0f < v[0])
         angle = angle * -1.0f;
-    return *(float *)(Puck_Rot((int)this) + 4) + angle;
+    return *(float *)(Puck_Rot(this) + 4) + angle;
 }
 
 /* WalkPlane_DistToEdge (0x4a9070): distance of a point from the line through edge `edge` of a sector polygon

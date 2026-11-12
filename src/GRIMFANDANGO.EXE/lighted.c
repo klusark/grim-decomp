@@ -266,7 +266,7 @@ void LightEd_AddLight(void)
   #define local_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
   
   if (0x3f < *(uint *)((int)g_pLightEdSet + 0xb8)) {
-    MessageBoxA((int)g_hLightEdDialog,IMG_ADDR(0x004f0d78),IMG_ADDR(0x004f0db8),0x30);
+    MessageBoxA((int)g_hLightEdDialog,((unsigned)(uintptr_t)&s_Maximum_number_of_lights_already_004f0d78),((unsigned)(uintptr_t)&DAT_004f0db8),0x30);
     return;
   }
   a4 = *(int *)((int)g_pLightEdSet + 0xb8);
@@ -426,7 +426,7 @@ void LightEd_SaveSetFile(void)
     return;
   }
   GetTempPathA(0x104,(int)acStack_30c);
-  iVar3 = GetTempFileNameA((int)acStack_30c,IMG_ADDR(0x004ec490),0,(int)acStack_208);
+  iVar3 = GetTempFileNameA((int)acStack_30c,((unsigned)(uintptr_t)&DAT_004ec490),0,(int)acStack_208);
   if (iVar3 == 0) {
 LAB_004becb0:
     if (file != (void *)0x0) {
@@ -486,7 +486,7 @@ LAB_004becb0:
     }
   }
 LAB_004becb4:
-  MessageBoxA(0,IMG_ADDR(0x004f0de4),(int)PTR_s_Error_004f0d14,0x30);
+  MessageBoxA(0,((unsigned)(uintptr_t)&DAT_004f0de4),(int)PTR_s_Error_004f0d14,0x30);
 LAB_004becd7:
   (*g_pStd_HS->pFclose)(iVar2);
   if (acStack_208[0] == '\0') {
@@ -672,8 +672,8 @@ void LightEd_UpdateDialog(int param_1)
       }
     }
   }
-  if ((g_pLightEdMarkerActor != (void *)0x0) && (!bVar2)) {
-    *(uint *)((int)g_pLightEdMarkerActor + 4) = *(uint *)((int)g_pLightEdMarkerActor + 4) | 2;
+  if ((g_pLightEdMarkerActor != (Actor *)0x0) && (!bVar2)) {
+    g_pLightEdMarkerActor->dwFlags = g_pLightEdMarkerActor->dwFlags | 2;
   }
   return;
 }
@@ -1023,17 +1023,16 @@ void LightEd_SetAllEnabled(int param_1)
 void LightEd_MoveMarkerActor(void)
 
 {
-  if (((g_pLightEdMarkerActor != (void *)0x0) && (g_pLightEdSet != (void *)0x0)) &&
+  if (((g_pLightEdMarkerActor != (Actor *)0x0) && (g_pLightEdSet != (void *)0x0)) &&
      (g_nLightEdSelected != -1)) {
     sputActor_SetActorPosition
-              (g_pLightEdMarkerActor,(&UINT_008d1730)[g_nLightEdSelected * 5] + 0x20);
+              (g_pLightEdMarkerActor,(float *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x20));
     sputActor_SetActorRotation(g_pLightEdMarkerActor,&UINT_008d1738 + g_nLightEdSelected * 5,1);
     if ((&UINT_008d1734)[g_nLightEdSelected * 5] != 0) {
-      *(uint *)((int)g_pLightEdMarkerActor + 4) =
-           *(uint *)((int)g_pLightEdMarkerActor + 4) & 0xfffffffd;
+      g_pLightEdMarkerActor->dwFlags = g_pLightEdMarkerActor->dwFlags & 0xfffffffd;
       return;
     }
-    *(uint *)((int)g_pLightEdMarkerActor + 4) = *(uint *)((int)g_pLightEdMarkerActor + 4) | 2;
+    g_pLightEdMarkerActor->dwFlags = g_pLightEdMarkerActor->dwFlags | 2;
   }
   return;
 }

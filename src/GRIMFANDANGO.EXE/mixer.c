@@ -32,7 +32,7 @@ undefined4 DSound_Init(void)
   }
   UINT_008d3664 = 0;
   uStack_40 = 0x4c0efa;
-  iVar1 = DirectSoundCreate(0,IMG_ADDR(0x008d365c),0);
+  iVar1 = DirectSoundCreate(0,((unsigned)(uintptr_t)&g_pDirectSound),0);
   if (iVar1 < 0) {
     g_pDirectSound = (void *)0x0;
     return 0;

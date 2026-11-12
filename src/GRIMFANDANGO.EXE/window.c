@@ -275,7 +275,7 @@ Win_AbortIfAlreadyRunning
   int iVar1;
   int iVar2;
   
-  iVar1 = FindWindowA(IMG_ADDR(0x004ed080),(int)appName);
+  iVar1 = FindWindowA(((unsigned)(uintptr_t)&s_wKernel_004ed080),(int)appName);
   if (iVar1 != 0) {
     SetForegroundWindow(iVar1);
     ShowWindow(iVar1,9);
@@ -383,7 +383,7 @@ void Win_AddMessageHook(void *param_1)
     if (*piVar1 == 0) break;
     piVar1 = piVar1 + 2;
     iVar2 = iVar2 + 1;
-  } while ((int)piVar1 < IMG_ADDR(0x008d0a6c));
+  } while ((int)piVar1 < ((unsigned)(uintptr_t)&UINT_008d0a6c));
   (&g_pWinMessageHooks)[iVar2 * 2] = param_1;
   (&g_nWinMessageHookOn)[iVar2 * 2] = 1;
   UINT_008d0a7c = UINT_008d0a7c + 1;
@@ -403,7 +403,7 @@ undefined4 Win_RemoveMessageHook(void *param_1)
     if (*ppvVar1 == param_1) break;
     ppvVar1 = ppvVar1 + 2;
     iVar2 = iVar2 + 1;
-  } while ((int)ppvVar1 < IMG_ADDR(0x008d0a68));
+  } while ((int)ppvVar1 < ((unsigned)(uintptr_t)&DAT_008d0a68));
   (&g_pWinMessageHooks)[iVar2 * 2] = (void *)0x0;
   (&g_nWinMessageHookOn)[iVar2 * 2] = 0;
   UINT_008d0a7c = UINT_008d0a7c - 1;
@@ -442,11 +442,11 @@ undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3)
   local_c = 0;
   local_28 = (uint)Win_KernelWndProc;
   local_2c = 3;
-  local_18 = LoadIconA(param_1,IMG_ADDR(0x004ed088));
+  local_18 = LoadIconA(param_1,((unsigned)(uintptr_t)&s_APPICON_004ed088));
   if (local_18 == 0) {
     local_18 = LoadIconA(0,0x7f00);
   }
-  local_4 = LoadIconA(param_1,IMG_ADDR(0x004ed088));
+  local_4 = LoadIconA(param_1,((unsigned)(uintptr_t)&s_APPICON_004ed088));
   if (local_4 == 0) {
     local_4 = LoadIconA(0,0x7f00);
   }
@@ -458,7 +458,7 @@ undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3)
   if ((short)iVar1 == 0) {
     return 0;
   }
-  iVar1 = FindWindowA(IMG_ADDR(0x004ed080),param_3);
+  iVar1 = FindWindowA(((unsigned)(uintptr_t)&s_wKernel_004ed080),param_3);
   if (iVar1 != 0) {
     exit(0xffffffff);
   }
@@ -469,7 +469,7 @@ undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3)
   iVar1 = GetSystemMetrics(1);
   a7 = GetSystemMetrics(0);
   g_pWinMainHwnd =
-       (void *)CreateWindowExA(0x40000,IMG_ADDR(0x004ed080),param_3,-0x70000000,0,0,a7,iVar1,a9,a10,a11,a12);
+       (void *)CreateWindowExA(0x40000,((unsigned)(uintptr_t)&s_wKernel_004ed080),param_3,-0x70000000,0,0,a7,iVar1,a9,a10,a11,a12);
   if (g_pWinMainHwnd == (void *)0x0) {
     return 0;
   }

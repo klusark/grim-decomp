@@ -58,7 +58,7 @@ void grimlib_LogResources(undefined4 param_1)
 void grimlib_OverrideSelectedActorCostume(int param_1)
 
 {
-  if (g_pSelectedActor != (void *)0x0) {
+  if (g_pSelectedActor != (Actor *)0x0) {
     sputLua_DoCostumeOverrideCallback(g_pSelectedActor,1);
     sputActor_PushCostume(g_pSelectedActor,(char *)0x0,param_1);
   }
@@ -73,7 +73,7 @@ void grimlib_OverrideSelectedActorCostume(int param_1)
 void grimlib_RestoreSelectedActorCostume(void)
 
 {
-  if (g_pSelectedActor != (void *)0x0) {
+  if (g_pSelectedActor != (Actor *)0x0) {
     sputLua_DoCostumeOverrideCallback(g_pSelectedActor,0);
     sputActor_PopCostume(g_pSelectedActor,0);
   }
@@ -913,11 +913,11 @@ uint GetPrevMode(void)
 undefined4 sputRender_Open(void)
 
 {
-  int iVar1;
+  Actor *pAVar1;
   
   g_nCamActorIndex = sputActor_AllocateActor();
-  iVar1 = sputActor_ActorDeref(g_nCamActorIndex);
-  *(uint *)(iVar1 + 4) = *(uint *)(iVar1 + 4) | 1;
+  pAVar1 = sputActor_ActorDeref(g_nCamActorIndex);
+  pAVar1->dwFlags = pAVar1->dwFlags | 1;
   return 1;
 }
 
@@ -936,7 +936,7 @@ void sputRender_Update(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *actor;
+  Actor *actor;
   int *piVar1;
   int iVar2;
   int iVar3;
@@ -1037,8 +1037,7 @@ void sputRender_Update(void)
           puVar9 = &g_dwDrawItems;
           do {
             if (*(char *)*puVar9 == '\0') {
-              sputCostume_Draw2D(**(undefined4 **)
-                                   ((int)g_pActors + *(int *)((char *)*puVar9 + 8) * 0xa8 + 0xa0));
+              sputCostume_Draw2D((g_pActors[*(int *)((char *)*puVar9 + 8)].pCostumes)->dwInstance);
             }
             iVar4 = iVar4 + 1;
             puVar9 = puVar9 + 1;
@@ -1060,18 +1059,17 @@ void sputRender_Update(void)
         if (iVar4 != 0) {
           puVar9 = &g_dwDrawItems + iVar4 + -1;
           do {
-            actor = (int *)((int)g_pActors + *(int *)(*puVar9 + 8) * 0xa8);
-            fVar8 = *(float *)((int)g_pActors + *(int *)(*puVar9 + 8) * 0xa8 + 0x30);
-            if (fVar8 != 1.0) {
-              fStack_8 = (float)actor[0xc];
+            actor = g_pActors + *(int *)(*puVar9 + 8);
+            if (g_pActors[*(int *)(*puVar9 + 8)].flScale != 1.0) {
+              fStack_8 = actor->flScale;
               pfVar7 = &fStack_c;
-              fStack_4 = (float)actor[0xc];
-              fStack_c = fVar8;
+              fStack_4 = actor->flScale;
+              fStack_c = g_pActors[*(int *)(*puVar9 + 8)].flScale;
               pfVar6 = sputActor_GetOrientMatrix(actor);
               rdMatrix_PreScale34(pfVar6,pfVar7);
             }
             if (*(char *)*puVar9 == '\0') {
-              piVar1 = (int *)*actor;
+              piVar1 = actor->pColormapRef;
               iVar2 = *piVar1;
               if (iVar2 == 0) {
                 iVar2 = *(int *)((int)g_pRenderedSet + 0x88);
@@ -1095,7 +1093,7 @@ void sputRender_Update(void)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
                 rdroid_SetColormap(piVar1[1]);
-                piVar1 = (int *)*actor;
+                piVar1 = actor->pColormapRef;
                 if (*piVar1 == 0) {
                   (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
@@ -1104,7 +1102,7 @@ void sputRender_Update(void)
               }
               (*(code *)g_dwSputRender_pSetPaletteFunc)(iVar2 + 0x30,0);
               pfVar7 = sputActor_GetOrientMatrix(actor);
-              sputCostume_Draw3D(actor[0x28],pfVar7);
+              sputCostume_Draw3D(actor->pCostumes,pfVar7);
               if (((byte)g_dwDebugFlags & 1) != 0) {
                 Actor_DrawDebugWalker(actor);
               }
@@ -1117,10 +1115,10 @@ void sputRender_Update(void)
               if (g_nSputRender_b3DAcceleration == 0) {
                 stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
               }
-              sputRender_MarkDirtyRect(actor + 0x1b,1);
+              sputRender_MarkDirtyRect(actor->aScreenBox,1);
             }
-            if (actor[0xc] != 0x3f800000) {
-              fStack_c = 1.0 / (float)actor[0xc];
+            if (actor->flScale != 1.0) {
+              fStack_c = 1.0 / actor->flScale;
               pfVar7 = &fStack_c;
               fStack_8 = fStack_c;
               fStack_4 = fStack_c;

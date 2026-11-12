@@ -19,7 +19,7 @@ void DrawList_Reset(void)
     *puVar2 = (uint)puVar1;
     puVar1 = puVar1 + 0xc;
     puVar2 = puVar2 + 1;
-  } while ((int)puVar1 < IMG_ADDR(0x008a92a8));
+  } while ((int)puVar1 < ((unsigned)(uintptr_t)&DAT_008a92a8));
   return;
 }
 

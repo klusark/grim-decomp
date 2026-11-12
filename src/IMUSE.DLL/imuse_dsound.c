@@ -145,7 +145,7 @@ undefined4 FUN_10004660(undefined4 param_1)
   if (_DAT_1002dd78 != 0) {
     return 1;
   }
-  puVar2 = (undefined4 *)IMG_ADDR(0x1002dd48);
+  puVar2 = (undefined4 *)((unsigned)(uintptr_t)&DAT_1002dd48);
   for (iVar1 = 6; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
@@ -153,11 +153,11 @@ undefined4 FUN_10004660(undefined4 param_1)
   _DAT_1002dd58 = iMUSE_Malloc;
   _DAT_1002dd50 = param_1;
   _DAT_1002dd5c = iMUSE_Free;
-  iVar1 = hmiFXInitSystem(IMG_ADDR(0x1002dd48));
+  iVar1 = hmiFXInitSystem(((unsigned)(uintptr_t)&DAT_1002dd48));
   if (iVar1 != 0) {
     return 0;
   }
-  iVar1 = hmiFXPresetLoadLibrary(&DAT_1002dd2c,IMG_ADDR(0x100172b0));
+  iVar1 = hmiFXPresetLoadLibrary(&DAT_1002dd2c,((unsigned)(uintptr_t)&DAT_100172b0));
   if (iVar1 != 0) {
     return 0;
   }

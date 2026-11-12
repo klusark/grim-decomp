@@ -555,3 +555,57 @@ extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x1001dc70 */
 #define _DAT_1002c5d8 (*(undefined4 *)&DAT_1002c5d8) /* same address as DAT_1002c5d8, other width */
 #define _DAT_1002c714 (*(undefined4 *)&DAT_1002c714) /* same address as DAT_1002c714, other width */
 #define _DAT_1002d720 (*(undefined4 *)&DAT_1002d720) /* same address as DAT_1002d720, other width */
+
+/* ---- data the code addressed by number (IMG_ADDR): the span at that address (src/LUA.DLL/data.c) ---- */
+extern unsigned char DAT_10023c2c[]; /* 0x10023c2c */
+extern unsigned char DAT_10023c34[]; /* 0x10023c34 */
+extern unsigned char s_IsProcessorFeaturePresent_10023df0[]; /* 0x10023df0 */
+extern unsigned char s_KERNEL32_10023e0c[]; /* 0x10023e0c */
+extern unsigned char DAT_10024954[]; /* 0x10024954 */
+extern unsigned char DAT_10024958[]; /* 0x10024958 */
+extern unsigned char s_GetLastActivePopup_10024d58[]; /* 0x10024d58 */
+extern unsigned char s_GetActiveWindow_10024d6c[]; /* 0x10024d6c */
+extern unsigned char s_MessageBoxA_10024d7c[]; /* 0x10024d7c */
+extern unsigned char DAT_10024d88[]; /* 0x10024d88 */
+extern unsigned char s_string_expected_10026360[]; /* 0x10026360 */
+extern unsigned char s_number_expected_10026370[]; /* 0x10026370 */
+extern unsigned char s_table_expected_10026380[]; /* 0x10026380 */
+extern unsigned char s_function_expected_10026390[]; /* 0x10026390 */
+extern unsigned char s_value_expected_100263a4[]; /* 0x100263a4 */
+extern unsigned char s_variable_name_expected_100266a0[]; /* 0x100266a0 */
+extern unsigned char s_base_out_of_range_10026964[]; /* 0x10026964 */
+extern unsigned char s_invalid_option_10026cb0[]; /* 0x10026cb0 */
+extern unsigned char PTR_s_math_pow_10026fd8[]; /* 0x10026fd8 */
+extern unsigned char PTR_s_stderrorim_100277b8[]; /* 0x100277b8 */
+extern unsigned char s_out_of_range_10027970[]; /* 0x10027970 */
+extern unsigned char s_string_or_function_expected_10027a3c[]; /* 0x10027a3c */
+extern unsigned char s_key_not_found_10027d38[]; /* 0x10027d38 */
+extern unsigned char PTR_s_typeFB_10027d98[]; /* 0x10027d98 */
+extern unsigned char DAT_100282cf[]; /* 0x100282cf */
+extern unsigned char DAT_100282e0[]; /* 0x100282e0 */
+extern unsigned char DAT_10028340[]; /* 0x10028340 */
+extern unsigned char DAT_10028531[]; /* 0x10028531 */
+extern unsigned char DAT_10028554[]; /* 0x10028554 */
+extern unsigned char DAT_100288f0[]; /* 0x100288f0 */
+extern unsigned char DAT_10028d4f[]; /* 0x10028d4f */
+extern unsigned char PTR_s_american_10028e20[]; /* 0x10028e20 */
+extern unsigned char PTR_s_america_10029028[]; /* 0x10029028 */
+extern unsigned char DAT_100290f8[]; /* 0x100290f8 */
+extern unsigned char DAT_100290fc[]; /* 0x100290fc */
+extern unsigned char DAT_10029104[]; /* 0x10029104 */
+extern unsigned char DAT_10029108[]; /* 0x10029108 */
+extern unsigned char DAT_1002910c[]; /* 0x1002910c */
+extern unsigned char DAT_10029110[]; /* 0x10029110 */
+extern unsigned char DAT_10029114[]; /* 0x10029114 */
+extern unsigned char DAT_1002911c[]; /* 0x1002911c */
+extern unsigned char DAT_100295d4[]; /* 0x100295d4 */
+extern unsigned char DAT_1002970c[]; /* 0x1002970c */
+extern unsigned char DAT_100298c4[]; /* 0x100298c4 */
+extern unsigned char DAT_100298c8[]; /* 0x100298c8 */
+extern unsigned char DAT_100298cc[]; /* 0x100298cc */
+extern unsigned char DAT_100298d0[]; /* 0x100298d0 */
+extern unsigned char DAT_100299bc[]; /* 0x100299bc */
+extern unsigned char DAT_1002bb90[]; /* 0x1002bb90 */
+extern unsigned char DAT_1002bcf0[]; /* 0x1002bcf0 */
+extern unsigned char DAT_1002c369[]; /* 0x1002c369 */
+extern unsigned char DAT_1002c5af[]; /* 0x1002c5af */

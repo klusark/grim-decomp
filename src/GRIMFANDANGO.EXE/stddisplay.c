@@ -243,7 +243,7 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
   
   iVar1 = Reg_GetInt(s_ExperimentalDisplay_004dd5e4,1);
   if (iVar1 != 0) {
-    OutputDebugStringA(IMG_ADDR(0x004dd874));
+    OutputDebugStringA(((unsigned)(uintptr_t)&DAT_004dd874));
     return 0;
   }
   local_10 = 0;
@@ -281,7 +281,7 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
     } while (uVar2 < g_dwStdDisplay_numDevices);
   }
   if (uVar2 == g_dwStdDisplay_numDevices) {
-    OutputDebugStringA(IMG_ADDR(0x004dd838));
+    OutputDebugStringA(((unsigned)(uintptr_t)&DAT_004dd838));
     return 0;
   }
   *deviceIdx = uVar2;
@@ -326,7 +326,7 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
     } while (uVar2 < *(uint *)((int)pvVar4 + 8));
   }
   if (uVar2 == *(uint *)(*deviceIdx * 0x10 + 8 + (int)g_pDisplayModes)) {
-    OutputDebugStringA(IMG_ADDR(0x004dd800));
+    OutputDebugStringA(((unsigned)(uintptr_t)&DAT_004dd800));
     return 0;
   }
   *threeDIdx = uVar2;
@@ -919,7 +919,7 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
   }
   stdDisplay_SetMasterPalette(palette);
   g_pDebugFont = (void *)CreateFontA((-(uint)(*(uint *)((int)g_pVideoMode + 8) < 0x280) & 0xfffffff4
-                                     ) + 0x18,0,0,0,400,0,0,0,0,0,0,0,2,IMG_ADDR(0x004dea10));
+                                     ) + 0x18,0,0,0,400,0,0,0,0,0,0,0,2,((unsigned)(uintptr_t)&s_Arial_004dea10));
   _DAT_007feac8 = 0;
   _DAT_007feacc = 0;
   _DAT_007fead0 = *(undefined4 *)((int)g_pVideoMode + 8);
@@ -2632,7 +2632,7 @@ int DDraw_Create(undefined4 param_1)
   else {
     iVar1 = 0;
   }
-  iVar1 = DirectDrawCreate(iVar1,IMG_ADDR(0x00803fa4),0);
+  iVar1 = DirectDrawCreate(iVar1,((unsigned)(uintptr_t)&g_pDirectDraw),0);
   if (iVar1 != 0) {
     return false;
   }
