@@ -4,8 +4,14 @@
   {
    "name": "TextContext",
    "size": 48,
-   "comment": "How a text is drawn: font, position, colours, justification (g_SubtitleTextCtx, g_PrintLineTextCtx; GetTextParamsFromTable fills it from a Lua table). A text object holds a copy.",
+   "comment": "How a text is drawn: font, position, colours, justification (g_SubtitleTextCtx, g_PrintLineTextCtx, g_TextObjectCtx; GetTextParamsFromTable fills it from a Lua table). A text object holds a copy.",
    "fields": [
+    [
+     0,
+     "void *",
+     "pUnused",
+     "a pointer (0x008a94b8 in all three contexts of the data), copied with the context but never read"
+    ],
     [
      4,
      "int *",

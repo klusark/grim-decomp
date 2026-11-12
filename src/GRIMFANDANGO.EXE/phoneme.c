@@ -19,7 +19,7 @@ uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme)
     return 0;
   }
   local_8 = phoneme;
-  iVar1 = bsearch(&local_8,&g_dwPhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
+  iVar1 = bsearch(&local_8,g_aPhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
   if (iVar1 != 0) {
     return *(ushort *)(iVar1 + 4);
   }

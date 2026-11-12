@@ -815,7 +815,7 @@ undefined4 sputActor_Startup(void)
     pAVar2->pColormapRef = (void *)0x0;
     pAVar2 = (Actor *)&pAVar2->dwFlags;
   }
-  qsort(&g_dwPhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
+  qsort(g_aPhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
   g_dwSputActStartup = 1;
   return 0;
 }

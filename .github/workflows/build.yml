@@ -21,8 +21,10 @@ jobs:
           msystem: UCRT64
           update: true
           # UCRT64 gcc compiles the i386 objects (-m32); the i686 toolchain links them (build/Makefile)
+          # (diffutils: cmp, which build/Makefile uses to rewrite an object's .flags file only when the flags change)
           install: >-
             make
+            diffutils
             mingw-w64-ucrt-x86_64-gcc
             mingw-w64-ucrt-x86_64-python
             mingw-w64-i686-gcc

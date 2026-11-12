@@ -131,7 +131,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int 
   pTVar6 = &g_SubtitleTextCtx;
   puVar7 = (undefined4 *)(_frame + (0x70 - 0x30));
   for (iVar5 = 0xc; iVar5 != 0; iVar5 = iVar5 + -1) {
-    *puVar7 = *(undefined4 *)pTVar6;
+    *puVar7 = pTVar6->pUnused;
     pTVar6 = (TextContext *)&pTVar6->pClipRect;
     puVar7 = puVar7 + 1;
   }

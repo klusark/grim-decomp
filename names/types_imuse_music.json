@@ -1,0 +1,28 @@
+{
+ "_comment": "Types round 5 (docs/notes/types_5.md): iMUSE's music tables. The state table (181 records, ids 1000..1500) and the sequence table (41 records, ids 2000..2399) share one record layout; Script_Trans plays the record's sound file, ImSetState / ImSetSequence find a record by id. The name alias table maps a sound name to its file name (170 entries and an empty one that ends it). The code addresses the columns by number (id at +0x24, name at +0x28, hook slot at +0x40, transition type at +0x20), so Ghidra had labels in the middle of the records.",
+ "program": "/v101/IMUSE.DLL",
+ "structs": [
+  {"name": "ImMusicEntry", "size": 84, "comment": "One record of iMUSE's state table g_aImStateTable or sequence table g_aImSeqTable (Script_Trans).",
+   "fields": [
+    [0, "char[32]", "aFilename", "the sound file, renamed through g_aImNameAlias; empty: no music"],
+    [32, "int", "nTransType", "transition type, Script_Trans's jump table (0..12): 0 none, 2, 3 used by the game"],
+    [36, "int", "nId", "state 1000.., sequence 2000.."],
+    [40, "char[24]", "aName", "stateMO, seqClimbRope, ... (ImPrintf)"],
+    [64, "int", "nHookSlot", "hook counter slot (0: the state's index)"],
+    [68, "int", "nHookLimit", "the hook counter cycles up to this"],
+    [72, "int", "nFade", "fade time; the volume / pan step is nFade * 3 / 50"],
+    [76, "int", "nVolume", "127 full"],
+    [80, "int", "nPan", "0 centre"]
+   ]},
+  {"name": "ImNameAlias", "size": 64, "comment": "One entry of g_aImNameAlias: a sound name and the file it is played from (Script_Trans); an empty aFrom ends the table.",
+   "fields": [
+    [0, "char[32]", "aFrom", ""],
+    [32, "char[32]", "aTo", ""]
+   ]}
+ ],
+ "globals": [
+  {"addr": "100172e8", "type": "ImMusicEntry[181]"},
+  {"addr": "1001ae50", "type": "ImMusicEntry[41]"},
+  {"addr": "1001bbc8", "type": "ImNameAlias[171]"}
+ ]
+}

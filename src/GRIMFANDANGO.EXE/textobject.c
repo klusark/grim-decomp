@@ -57,7 +57,7 @@ TextObject * __cdecl TextObject_New(TextContext *ctx,char *text,int durationMs,i
     pTVar5 = ctx;
     pTVar6 = &pTVar3->ctx;
     for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
-      *(undefined4 *)pTVar6 = *(undefined4 *)pTVar5;
+      pTVar6->pUnused = pTVar5->pUnused;
       pTVar5 = (TextContext *)&pTVar5->pClipRect;
       pTVar6 = (TextContext *)&pTVar6->pClipRect;
     }

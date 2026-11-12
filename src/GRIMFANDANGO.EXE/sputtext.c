@@ -67,10 +67,10 @@ undefined4 sputText_Startup(void)
     if (iVar1 == 0) {
       iVar1 = (*(code *)UINT_008ca0c0)();
       if (iVar1 == 0) {
-        UINT_004e84a0 = Text_GetSystemFont();
-        UINT_004e84d0 = UINT_004e84a0;
-        UINT_004e8500 = UINT_004e84a0;
-        g_hFont = UINT_004e84a0;
+        g_PrintLineTextCtx.pFont = (void *)Text_GetSystemFont();
+        g_SubtitleTextCtx.pFont = g_PrintLineTextCtx.pFont;
+        g_TextObjectCtx.pFont = g_PrintLineTextCtx.pFont;
+        g_hFont = (uint)g_PrintLineTextCtx.pFont;
         sputLua_RegisterFunctions(&g_pTextFunctionsToRegister,UINT_004e85d8);
         lua_pushstring(&DAT_004e8454);
         g_dwLrX = lua_ref(1);
@@ -195,9 +195,9 @@ undefined4 sputText_Save(code *param_1)
     (*param_1)(&pTVar1->dwFlags,4);
     (*param_1)(&pTVar1->nSerial,4);
   }
-  (*param_1)(((unsigned)(uintptr_t)&UINT_004e84a0),4);
-  (*param_1)(((unsigned)(uintptr_t)&UINT_004e84d0),4);
-  (*param_1)(&UINT_004e8500,4);
+  (*param_1)(((unsigned)(uintptr_t)((unsigned char *)&g_PrintLineTextCtx + 0x8)),4);
+  (*param_1)(((unsigned)(uintptr_t)((unsigned char *)&g_SubtitleTextCtx + 0x8)),4);
+  (*param_1)(((unsigned)(uintptr_t)((unsigned char *)&g_TextObjectCtx + 0x8)),4);
   return 0;
 }
 #undef local_4
@@ -257,8 +257,8 @@ undefined4 sputText_Restore(code *param_1)
         (*pcVar3)(&pTVar5->nSerial,4);
         pvVar6 = Res_HandleFromSerialNumber(*ppvVar2);
         *ppvVar2 = pvVar6;
-        if (*(int *)pTVar1 != 0) {
-          *(uint **)pTVar1 = &UINT_008a94b8;
+        if (pTVar1->pUnused != (void *)0x0) {
+          pTVar1->pUnused = &UINT_008a94b8;
         }
         if ((pTVar5->ctx).pClipRect != (int *)0x0) {
           (pTVar5->ctx).pClipRect = pTVar5->aRect;
@@ -273,21 +273,21 @@ undefined4 sputText_Restore(code *param_1)
         g_pTextQueue = pTVar5;
       } while ((int)param_1 < local_4);
     }
-    (*pcVar3)(((unsigned)(uintptr_t)&UINT_004e84a0),4);
-    (*pcVar3)(((unsigned)(uintptr_t)&UINT_004e84d0),4);
-    (*pcVar3)(&UINT_004e8500,4);
+    (*pcVar3)(((unsigned)(uintptr_t)((unsigned char *)&g_PrintLineTextCtx + 0x8)),4);
+    (*pcVar3)(((unsigned)(uintptr_t)((unsigned char *)&g_SubtitleTextCtx + 0x8)),4);
+    (*pcVar3)(((unsigned)(uintptr_t)((unsigned char *)&g_TextObjectCtx + 0x8)),4);
     g_hFont = Text_GetSystemFont();
     g_PrintLineTextCtx.pFont = Res_HandleFromSerialNumber(g_PrintLineTextCtx.pFont);
     g_SubtitleTextCtx.pFont = Res_HandleFromSerialNumber(g_SubtitleTextCtx.pFont);
-    UINT_004e8500 = (uint)Res_HandleFromSerialNumber((void *)UINT_004e8500);
+    g_TextObjectCtx.pFont = Res_HandleFromSerialNumber(g_TextObjectCtx.pFont);
     if (g_PrintLineTextCtx.pFont == (void *)0x0) {
       g_PrintLineTextCtx.pFont = (void *)g_hFont;
     }
     if (g_SubtitleTextCtx.pFont == (void *)0x0) {
       g_SubtitleTextCtx.pFont = (void *)g_hFont;
     }
-    if ((void *)UINT_004e8500 == (void *)0x0) {
-      UINT_004e8500 = g_hFont;
+    if (g_TextObjectCtx.pFont == (void *)0x0) {
+      g_TextObjectCtx.pFont = (void *)g_hFont;
     }
     return 0;
   }

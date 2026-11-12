@@ -2964,7 +2964,7 @@ undefined4 __cdecl FUN_10006560(int param_1)
   piVar2 = &DAT_1001730c;
   do {
     if (param_1 == *piVar2) {
-      ImPrintf((char *)(uVar4 * 0x54 + ((unsigned)(uintptr_t)&DAT_10017310)));
+      ImPrintf((char *)(uVar4 * 0x54 + ((unsigned)(uintptr_t)((unsigned char *)&g_aImStateTable + 0x28))));
       ImPrintf(&DAT_100171b0);
       uVar1 = g_dwCurrentState;
       if ((uVar4 != g_dwCurrentState) && (uVar1 = uVar4, g_dwCurrentSequence == 0)) {
@@ -2982,7 +2982,7 @@ undefined4 __cdecl FUN_10006560(int param_1)
     }
     piVar2 = piVar2 + 0x15;
     uVar4 = uVar4 + 1;
-  } while ((int)piVar2 < ((unsigned)(uintptr_t)&DAT_1001ae70));
+  } while ((int)piVar2 < ((unsigned)(uintptr_t)((unsigned char *)&g_aImSeqTable + 0x20)));
   return 0;
 }
 #endif
@@ -2995,12 +2995,12 @@ undefined4 __cdecl FUN_10006560(int param_1)
    the music script module (prefixed: the bridge refuses the bare name next to ImSetSequence);
    strings: 'SEQ_NULL' | 'ERR: bogus sequence...'); was FUN_10006620. */
 
-undefined4 __cdecl Script_SetSequence(int param_1)
+int __cdecl Script_SetSequence(int param_1)
 
 {
   int iVar1;
   int *piVar2;
-  char *pcVar3;
+  ImMusicEntry *pIVar3;
   int iVar4;
   int iVar5;
   uint unaff_retaddr;
@@ -3009,17 +3009,17 @@ undefined4 __cdecl Script_SetSequence(int param_1)
   uint in_stack_00000010;
   
   if (param_1 == -1) {
-    return (&DAT_1001ae74)[g_dwCurrentSequence * 0x15];
+    return g_aImSeqTable[g_dwCurrentSequence].nId;
   }
   iVar4 = param_1;
   if (param_1 == 0) {
     iVar4 = 2000;
   }
   iVar5 = 0;
-  piVar2 = &DAT_1001ae74;
+  piVar2 = &g_aImSeqTable[0].nId;
   do {
     if (iVar4 == *piVar2) {
-      ImPrintf(s_SEQ_NULL_1001ae78 + iVar5 * 0x54);
+      ImPrintf(g_aImSeqTable[iVar5].aName);
       ImPrintf(&DAT_100171b0);
       iVar4 = g_dwCurrentSequence;
       iVar1 = g_dwCurrentCuePoint;
@@ -3027,19 +3027,19 @@ undefined4 __cdecl Script_SetSequence(int param_1)
         if (iVar5 == 0) {
           if (g_dwCurrentCuePoint == 0) {
             if (g_dwCurrentState == 0) {
-              pcVar3 = (char *)0x0;
+              pIVar3 = (ImMusicEntry *)0x0;
             }
             else {
-              pcVar3 = &DAT_100172e8 + g_dwCurrentState * 0x54;
+              pIVar3 = g_aImStateTable + g_dwCurrentState;
             }
-            Script_Trans(pcVar3,g_dwCurrentState,1,unaff_retaddr,param_1,in_stack_00000008,
-                         in_stack_0000000c,in_stack_00000010);
+            Script_Trans(pIVar3->aFilename,g_dwCurrentState,1,unaff_retaddr,param_1,
+                         in_stack_00000008,in_stack_0000000c,in_stack_00000010);
             g_dwCurrentSequence = 0;
             iVar4 = g_dwCurrentSequence;
             iVar1 = g_dwCurrentCuePoint;
           }
           else {
-            Script_Trans(&DAT_1001ae50 + g_dwCurrentCuePoint * 0x54,0,1,unaff_retaddr,param_1,
+            Script_Trans(g_aImSeqTable[g_dwCurrentCuePoint].aFilename,0,1,unaff_retaddr,param_1,
                          in_stack_00000008,in_stack_0000000c,in_stack_00000010);
             iVar4 = g_dwCurrentCuePoint;
             g_dwCurrentSequence = g_dwCurrentCuePoint;
@@ -3049,9 +3049,9 @@ undefined4 __cdecl Script_SetSequence(int param_1)
           }
         }
         else if ((g_dwCurrentSequence == 0) ||
-                ((iVar1 = iVar5, *(int *)(&DAT_1001ae70 + g_dwCurrentSequence * 0x54) != 4 &&
-                 (*(int *)(&DAT_1001ae70 + g_dwCurrentSequence * 0x54) != 6)))) {
-          Script_Trans(&DAT_1001ae50 + iVar5 * 0x54,0,1,unaff_retaddr,param_1,in_stack_00000008,
+                ((iVar1 = iVar5, g_aImSeqTable[g_dwCurrentSequence].nTransType != 4 &&
+                 (g_aImSeqTable[g_dwCurrentSequence].nTransType != 6)))) {
+          Script_Trans(g_aImSeqTable[iVar5].aFilename,0,1,unaff_retaddr,param_1,in_stack_00000008,
                        in_stack_0000000c,in_stack_00000010);
           g_dwCurrentCuePoint = 0;
           (&DAT_1002e25c)[iVar5] = 1;
@@ -3061,11 +3061,11 @@ undefined4 __cdecl Script_SetSequence(int param_1)
         }
       }
       g_dwCurrentCuePoint = iVar1;
-      return (&DAT_1001ae74)[iVar4 * 0x15];
+      return g_aImSeqTable[iVar4].nId;
     }
     piVar2 = piVar2 + 0x15;
     iVar5 = iVar5 + 1;
-  } while ((int)piVar2 < ((unsigned)(uintptr_t)&DAT_1001bbe8));
+  } while ((int)piVar2 < ((unsigned)(uintptr_t)((unsigned char *)&g_aImNameAlias + 0x20)));
   ImPrintf(s_ERR__bogus_sequence____1001e720);
   return 0xffffffff;
 }
@@ -3085,8 +3085,8 @@ undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
 {
   char cVar1;
   int iVar2;
-  char *pcVar3;
-  char *pcVar4;
+  ImMusicEntry *pIVar3;
+  ImMusicEntry *pIVar4;
   undefined4 *puVar5;
   
   if (param_1 == 0xffffffff) {
@@ -3109,34 +3109,34 @@ undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
   }
   else {
     if (param_1 == 10000) {
-      pcVar4 = &DAT_100172e8;
+      pIVar4 = g_aImStateTable;
       do {
-        cVar1 = *pcVar4;
+        cVar1 = pIVar4->aFilename[0];
         *param_2 = cVar1;
-        pcVar3 = pcVar4;
+        pIVar3 = pIVar4;
         while (param_2 = param_2 + 1, cVar1 != '\0') {
-          pcVar3 = pcVar3 + 1;
-          cVar1 = *pcVar3;
+          pIVar3 = (ImMusicEntry *)(pIVar3->aFilename + 1);
+          cVar1 = pIVar3->aFilename[0];
           *param_2 = cVar1;
         }
-        pcVar4 = pcVar4 + 0x54;
-      } while ((int)pcVar4 < ((unsigned)(uintptr_t)&DAT_1001ae4c));
-      pcVar4 = &DAT_1001ae50;
+        pIVar4 = pIVar4 + 1;
+      } while ((int)pIVar4 < ((unsigned)(uintptr_t)&DAT_1001ae4c));
+      pIVar4 = g_aImSeqTable;
       do {
         iVar2 = 1;
         do {
-          cVar1 = *pcVar4;
+          cVar1 = pIVar4->aFilename[0];
           *param_2 = cVar1;
-          pcVar3 = pcVar4;
+          pIVar3 = pIVar4;
           while (param_2 = param_2 + 1, cVar1 != '\0') {
-            pcVar3 = pcVar3 + 1;
-            cVar1 = *pcVar3;
+            pIVar3 = (ImMusicEntry *)(pIVar3->aFilename + 1);
+            cVar1 = pIVar3->aFilename[0];
             *param_2 = cVar1;
           }
-          pcVar4 = pcVar4 + 0x54;
+          pIVar4 = pIVar4 + 1;
           iVar2 = iVar2 + -1;
         } while (iVar2 != 0);
-      } while ((int)pcVar4 < ((unsigned)(uintptr_t)&DAT_1001bbc4));
+      } while ((int)pIVar4 < ((unsigned)(uintptr_t)&DAT_1001bbc4));
       return 0xde;
     }
     if (param_1 < 0xe4) {
@@ -3170,14 +3170,14 @@ Script_Trans(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uin
   uint uVar4;
   uint uVar5;
   uint uVar6;
-  undefined1 *puVar7;
+  ImNameAlias *pIVar7;
   int iVar8;
   int unaff_EBX;
   int unaff_EBP;
   int iVar9;
   int unaff_ESI;
   int unaff_EDI;
-  undefined1 *puVar10;
+  ImNameAlias *pIVar10;
   char *pcVar11;
   bool bVar12;
   int unaff_retaddr;
@@ -3197,20 +3197,21 @@ Script_Trans(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uin
         pcVar3 = pcVar3 + 1;
       } while (cVar2 != '\0');
     }
-    puVar10 = &DAT_1001bbc8;
-    if (DAT_1001bbc8 != '\0') {
+    pIVar10 = g_aImNameAlias;
+    if (g_aImNameAlias[0].aFrom[0] != '\0') {
       iVar9 = 0x12748;
-      cVar2 = DAT_1001bbc8;
+      cVar2 = g_aImNameAlias[0].aFrom[0];
 LAB_10006904:
       iVar8 = 0;
-      for (puVar7 = puVar10; (cVar2 != '\0' && (puVar7[iVar9] == cVar2)); puVar7 = puVar7 + 1) {
-        cVar2 = puVar7[1];
+      for (pIVar7 = pIVar10; (cVar2 != '\0' && (pIVar7->aFrom[iVar9] == cVar2));
+          pIVar7 = (ImNameAlias *)(pIVar7->aFrom + 1)) {
+        cVar2 = pIVar7->aFrom[1];
         iVar8 = iVar8 + 1;
       }
-      if (((iVar8 == 0) || ((&g_bTrans_name)[iVar8] != '\0')) || (puVar10[iVar8] != '\0'))
+      if (((iVar8 == 0) || ((&g_bTrans_name)[iVar8] != '\0')) || (pIVar10->aFrom[iVar8] != '\0'))
       goto LAB_1000692f;
-      g_bTrans_name = puVar10[0x20];
-      pcVar3 = puVar10 + 0x20;
+      g_bTrans_name = pIVar10->aTo[0];
+      pcVar3 = pIVar10->aTo;
       pcVar11 = &DAT_1002e311;
       cVar2 = g_bTrans_name;
       while (cVar2 != '\0') {
@@ -3335,7 +3336,7 @@ LAB_1000695e:
       goto LAB_10007019;
     }
     if (((param_7 == 0) && (*(int *)(pcVar1 + 0x40) != 0)) &&
-       (*(int *)(pcVar1 + 0x40) == *(int *)(&DAT_10017328 + g_dwCurrentState * 0x54))) {
+       (*(int *)(pcVar1 + 0x40) == g_aImStateTable[g_dwCurrentState].nHookSlot)) {
       ImSwitchStream(uVar5,uVar4,param_6,0,1);
       ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
       ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
@@ -3437,8 +3438,8 @@ LAB_10007019:
   }
   return;
 LAB_1000692f:
-  cVar2 = puVar10[0x40];
-  puVar10 = puVar10 + 0x40;
+  cVar2 = pIVar10[1].aFrom[0];
+  pIVar10 = pIVar10 + 1;
   iVar9 = iVar9 + -0x40;
   if (cVar2 == '\0') goto LAB_1000695e;
   goto LAB_10006904;
