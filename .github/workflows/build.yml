@@ -48,3 +48,22 @@ jobs:
             build/obj/IMUSE.DLL/imuse.dll
             build/obj/CHORE.DLL/chore.dll
             build/obj/*/stubs.txt
+
+  # The same build cross-compiled on Linux with the MinGW-w64 i686 toolchain (build/Makefile picks it up when the host
+  # gcc does not target Windows).
+  build-linux:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install the MinGW-w64 i686 toolchain
+        run: sudo apt-get update && sudo apt-get install -y gcc-mingw-w64-i686 libz-mingw-w64-dev
+
+      - name: The build must not need raw/
+        run: test ! -e raw
+
+      - name: Compile
+        run: make -C build -j4
+
+      - name: Link
+        run: make -C build link

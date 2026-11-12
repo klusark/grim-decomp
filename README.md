@@ -63,7 +63,9 @@ switch it explicitly (`ghidra_api.ensure_current`).
 ## Building
 
 The tree compiles and links with the MSYS2 toolchain (UCRT64 `gcc -m32` for
-objects, the i686 gcc for linking). See `build/BUILD_NOTES.md` for details and
+objects, the i686 gcc for linking), or on Linux with the MinGW-w64 i686 cross compiler
+(Debian/Ubuntu: `apt install gcc-mingw-w64-i686 libz-mingw-w64-dev`), which `build/Makefile`
+uses automatically when the host `gcc` does not target Windows (`CROSS=<prefix>-` picks another). See `build/BUILD_NOTES.md` for details and
 `docs/MODDING.md` for the edit-build-run loop.
 
 ```bash

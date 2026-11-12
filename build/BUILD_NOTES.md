@@ -31,6 +31,10 @@ fallback), `SRC=`/`OBJ=` (build another tree, e.g. one written with
   get past it on a 64-bit target; the code would not be correct).
 * Link: the i686 toolchain in `/mingw32/bin` (`mingw-w64-i686-gcc`), used only
   by `make link`.
+* Linux: the MinGW-w64 i686 cross compiler does both (`apt install gcc-mingw-w64-i686
+  libz-mingw-w64-dev`; Ubuntu 24.04 ships GCC 13). The Makefile selects `i686-w64-mingw32-gcc`
+  when the host `gcc -dumpmachine` is not a mingw target (`CROSS=<prefix>-` to choose another),
+  and `python3` when there is no `python`. The output matches the MSYS2 build's link summary.
 * Flags: `-std=gnu11 -fpermissive -w -fno-builtin -fno-strict-aliasing -fwrapv
   -fno-common -ffreestanding -include compat.h`. `-fpermissive` makes GCC >= 14
   accept int/pointer conversions and implicit declarations again; gnu11 keeps

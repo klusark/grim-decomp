@@ -150,7 +150,10 @@ def link(cc, src, obj, prog, env):
     if not os.path.exists(data_o):
         print(f"{prog}: no obj/{prog}/data.o (src/{prog}/data.c missing, or it did not compile)")
         return
-    in_sections = defined_data(os.path.join(os.path.dirname(cc), "nm") if os.path.dirname(cc) else "nm", data_o)
+    # the nm next to the compiler: <dir>/nm (MSYS2 /mingw32/bin), or <prefix>-nm for a cross compiler <prefix>-gcc
+    ccbase = os.path.basename(cc)
+    nm = ccbase[:-3] + "nm" if ccbase.endswith("-gcc") else "nm"
+    in_sections = defined_data(os.path.join(os.path.dirname(cc), nm) if os.path.dirname(cc) else nm, data_o)
     print(f"{prog}: data.c: {len(in_sections)} data symbols")
     # Win32 entry points the import libraries lack (intrinsics) + mingwex hooks
     fence = ["-DGRIM_FENCE"] if os.environ.get("GRIM_FENCE") and not prog.endswith(".DLL") else []  # debug allocator, see win32_shims.c
@@ -329,7 +332,8 @@ def main(cc, src, obj, progs):
     if ccdir:  # the i686 gcc needs its own bin/ first on PATH (cc1, as, ld)
         env["PATH"] = ccdir + os.pathsep + env.get("PATH", "")
     if not os.path.exists(cc) and not os.path.exists(cc + ".exe"):
-        print(f"no i686 toolchain at {cc}: install mingw-w64-i686-gcc (pacman -S mingw-w64-i686-gcc)")
+        print(f"no i686 toolchain at {cc}: install mingw-w64-i686-gcc (MSYS2: pacman -S mingw-w64-i686-gcc;"
+              " Debian/Ubuntu: apt install gcc-mingw-w64-i686 libz-mingw-w64-dev)")
         return 1
     # link() returns True only when the program linked; an early return (a file that does not compile) gives None and
     # leaves the previous binary in place, so the whole run fails then instead of silently keeping the old program

@@ -22,10 +22,21 @@ PROGS    := GRIMFANDANGO.EXE LUA.DLL IMUSE.DLL CHORE.DLL
 
 # UCRT64 gcc can emit i386 objects with -m32 (it cannot link them: no 32-bit
 # libraries). The i686 toolchain in /mingw32 is used for `make link` if present.
-ifeq ($(origin CC),default)
-CC       := gcc
+#
+# On Linux (or any host whose gcc does not target Windows) the MinGW-w64 i686 cross compiler
+# is used for both steps (Debian/Ubuntu: apt install gcc-mingw-w64-i686 libz-mingw-w64-dev;
+# Fedora: mingw32-gcc mingw32-zlib-static). Override with CROSS=<prefix>- (e.g. CROSS=i686-w64-mingw32-).
+HOST_GCC_TARGET := $(shell gcc -dumpmachine 2>/dev/null)
+ifeq ($(findstring mingw,$(HOST_GCC_TARGET)),)
+CROSS    ?= i686-w64-mingw32-
 endif
-PYTHON   ?= python -I
+ifeq ($(origin CC),default)
+CC       := $(CROSS)gcc
+endif
+ifneq ($(CROSS),)
+CC32LINK ?= $(shell command -v $(CROSS)gcc 2>/dev/null || echo $(CROSS)gcc)
+endif
+PYTHON   ?= $(if $(shell command -v python 2>/dev/null),python,python3) -I
 CC32LINK ?= /mingw32/bin/gcc
 ARCH     := -m32 -march=i686
 
