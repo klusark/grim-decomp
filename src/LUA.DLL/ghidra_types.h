@@ -208,8 +208,10 @@ static inline void *img_addr_(unsigned a) {
 
 /* Ghidra's structures (raw/<prog>/structs.json). Those build/compat.h defines by hand
  * are only declared here: none. */
+typedef struct CLuaStack CLuaStack;
 typedef struct Closure Closure;
 typedef struct Hash Hash;
+typedef struct LState LState;
 typedef struct LocVar LocVar;
 typedef struct Node Node;
 typedef struct StringTable StringTable;
@@ -217,6 +219,16 @@ typedef struct TObject TObject;
 typedef struct TProtoFunc TProtoFunc;
 typedef struct TaggedString TaggedString;
 
+/* CLuaStack: Lua 3.1's C_Lua_Stack: the C function's window on the stack (lapi.c). */
+struct CLuaStack {  /* 0xc */
+    int nBase;  /* 0x00: first slot of the C function's frame */
+    int nLua2C;  /* 0x04: slot before its first argument (lua_lua2C) */
+    int nNum;  /* 0x08: its arguments */
+};
+_Static_assert(__builtin_offsetof(CLuaStack, nBase) == 0x0, "CLuaStack.nBase");
+_Static_assert(__builtin_offsetof(CLuaStack, nLua2C) == 0x4, "CLuaStack.nLua2C");
+_Static_assert(__builtin_offsetof(CLuaStack, nNum) == 0x8, "CLuaStack.nNum");
+_Static_assert(sizeof(CLuaStack) == 0xc, "sizeof CLuaStack");
 /* TObject: A Lua value: its type tag (Grim's numbering, build/overrides.c: -1 number, -2 string, -3 table, -4 Lua function, -5 C function, -6 task, -7 nil, -8 userdata, 0 and up user tags) and the value. */
 struct TObject {  /* 0x8 */
     int nTtype;  /* 0x00: the type tag (lua_Type) */
@@ -253,6 +265,52 @@ _Static_assert(__builtin_offsetof(Hash, nNhash) == 0xc, "Hash.nNhash");
 _Static_assert(__builtin_offsetof(Hash, nNuse) == 0x10, "Hash.nNuse");
 _Static_assert(__builtin_offsetof(Hash, nHtag) == 0x14, "Hash.nHtag");
 _Static_assert(sizeof(Hash) == 0x18, "sizeof Hash");
+/* LState: One Lua task (lstate.c LState): g_pLuaState is the running one, g_dwL_Main the first. */
+struct LState {  /* 0xd4 */
+    void *pExecutionState;  /* 0x00: the task's chain of execution states (call frames), linked through their +0x0c (lapi.cpp's assert names it L->pExecutionState) */
+    void *pResumeState;  /* 0x04: the execution state the task goes on in after luaI_breakhere (luaD_call) */
+    int nPreventBreak;  /* 0x08: luaI_breakhere yields only while 0; protected and C calls raise it */
+    int nUnread;  /* 0x0c: LState_Construct sets it to 1; nothing reads it */
+    int nUpdated;  /* 0x10: the task ran in this lua_updatetasks round (cleared for every task when a round starts) */
+    int nPaused;  /* 0x14: lua_pausetasks sets it on every other task, lua_unpausetasks clears it; the updater skips the task */
+    int nNestingLevel;  /* 0x18: nested luaV_execute calls (warns "Lua nesting level now") */
+    TObject *pTop;  /* 0x1c: stack top */
+    TObject *pStack;  /* 0x20: stack base (0x400 bytes at first) */
+    TObject *pLast;  /* 0x24: end of the stack */
+    CLuaStack Cstack;  /* 0x28: the running C function's frame */
+    void *pErrorJmp;  /* 0x34: the setjmp buffer lua_error leaves through */
+    void *pMainState;  /* 0x38: the parser's main FuncState (0x168 bytes, on luaY_parser's stack) */
+    void *pCurrState;  /* 0x3c: the FuncState being compiled */
+    void *pLexState;  /* 0x40: the lexer's state (build/overrides.c: [0] the current character, [1] the input) */
+    CLuaStack aCblocks[10];  /* 0x44: the C stacks saved by lua_beginblock */
+    int nNumCblocks;  /* 0xbc */
+    int nTaskId;  /* 0xc0: serial number (g_dwLState_numThreads), passed to the task hook */
+    TObject taskFunc;  /* 0xc4: the function the task runs */
+    LState *pNext;  /* 0xcc: the task list (LState_attach / detach) */
+    LState *pPrev;  /* 0xd0 */
+};
+_Static_assert(__builtin_offsetof(LState, pExecutionState) == 0x0, "LState.pExecutionState");
+_Static_assert(__builtin_offsetof(LState, pResumeState) == 0x4, "LState.pResumeState");
+_Static_assert(__builtin_offsetof(LState, nPreventBreak) == 0x8, "LState.nPreventBreak");
+_Static_assert(__builtin_offsetof(LState, nUnread) == 0xc, "LState.nUnread");
+_Static_assert(__builtin_offsetof(LState, nUpdated) == 0x10, "LState.nUpdated");
+_Static_assert(__builtin_offsetof(LState, nPaused) == 0x14, "LState.nPaused");
+_Static_assert(__builtin_offsetof(LState, nNestingLevel) == 0x18, "LState.nNestingLevel");
+_Static_assert(__builtin_offsetof(LState, pTop) == 0x1c, "LState.pTop");
+_Static_assert(__builtin_offsetof(LState, pStack) == 0x20, "LState.pStack");
+_Static_assert(__builtin_offsetof(LState, pLast) == 0x24, "LState.pLast");
+_Static_assert(__builtin_offsetof(LState, Cstack) == 0x28, "LState.Cstack");
+_Static_assert(__builtin_offsetof(LState, pErrorJmp) == 0x34, "LState.pErrorJmp");
+_Static_assert(__builtin_offsetof(LState, pMainState) == 0x38, "LState.pMainState");
+_Static_assert(__builtin_offsetof(LState, pCurrState) == 0x3c, "LState.pCurrState");
+_Static_assert(__builtin_offsetof(LState, pLexState) == 0x40, "LState.pLexState");
+_Static_assert(__builtin_offsetof(LState, aCblocks) == 0x44, "LState.aCblocks");
+_Static_assert(__builtin_offsetof(LState, nNumCblocks) == 0xbc, "LState.nNumCblocks");
+_Static_assert(__builtin_offsetof(LState, nTaskId) == 0xc0, "LState.nTaskId");
+_Static_assert(__builtin_offsetof(LState, taskFunc) == 0xc4, "LState.taskFunc");
+_Static_assert(__builtin_offsetof(LState, pNext) == 0xcc, "LState.pNext");
+_Static_assert(__builtin_offsetof(LState, pPrev) == 0xd0, "LState.pPrev");
+_Static_assert(sizeof(LState) == 0xd4, "sizeof LState");
 /* LocVar: A local variable of a function's debug information: its name (NULL: a block end) and the line from which it is in scope; line -1 ends the list. */
 struct LocVar {  /* 0x8 */
     TaggedString *pVarname;  /* 0x00 */

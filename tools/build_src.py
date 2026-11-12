@@ -540,6 +540,23 @@ def int_float_conversions(addr):
         bool(re.search(r"\bFIST", text)) or " CVTT" in text
 
 
+# Members that hold a float's bits in an integer slot (a union of the original, kept as its bits since ghidra_types.h
+# has structures only). Ghidra's `(float)x.dwValue` / `x.dwValue = (uint)f` reinterpret them; a C cast would convert the
+# value. Every cast between float and int on one of these is a PUN, whatever conversions the function has.
+FLOAT_BITS_MEMBERS = {"dwValue"}   # TObject.dwValue (LUA.DLL, docs/notes/types_9.md)
+FLOAT_BITS_MEMBER_RE = re.compile(r"(?:\.|->)\s*(" + "|".join(FLOAT_BITS_MEMBERS) + r")\s*$")
+
+
+def fix_float_bits_members(body, vt, ctx):
+    """`x.dwValue = (uint)f;` with f a float -> PUN: the member holds the float's bits (FLOAT_BITS_MEMBERS)."""
+    def rep(m):
+        lhs, T, rhs = m.group(2), m.group(3), m.group(4)
+        if not FLOAT_BITS_MEMBER_RE.search(lhs) or type_kind(type_of(rhs, vt, ctx)) != "float":
+            return m.group(0)
+        return "%s%s = PUN(%s,(float)(%s));" % (m.group(1), lhs, " ".join(T.split()), rhs.strip())
+    return re.sub(r"(?m)^([ \t]*)(\S[^=\n]*?)\s*=\s*\(\s*(u?int|undefined4|uint)\s*\)(.+?);[ \t]*$", rep, body)
+
+
 def fix_casts(body, vt, ctx):
     """Ghidra reuses one register for a pointer and a float (`(float)param_2` with
     `float *param_2`, `(float *)((float)x * -1.0)`): C forbids those conversions,
@@ -567,7 +584,9 @@ def fix_casts(body, vt, ctx):
             continue
         operand = body[s:e]
         ok = type_kind(type_of(operand, vt, ctx))
-        if tk == "float" and ok == "int" and (not has_fild or operand.strip() in float_slots) \
+        if tk == "float" and FLOAT_BITS_MEMBER_RE.search(operand.strip()):
+            new = f"PUN({T},{operand.strip()})"  # a member that holds a float's bits (FLOAT_BITS_MEMBERS)
+        elif tk == "float" and ok == "int" and (not has_fild or operand.strip() in float_slots) \
                 and not NUM_RE.fullmatch(operand.strip()) \
                 and CAST_AT_RE.sub("", operand.strip()) != "" and not operand.lstrip().startswith("ROUND"):
             new = f"PUN({T},{operand.strip()})"  # int slot read as float
@@ -1254,6 +1273,7 @@ def fix_function(code, ctx, stats):
     body = fix_call_args(body, vt, ctx, stats)
     body = fix_assign_bits(body, vt, ctx, stats)
     body = fix_switch(body, vt, ctx)
+    body = fix_float_bits_members(body, vt, ctx)
     body = fix_casts(body, vt, ctx)
     body = fix_negative_stack(body)
     body = EXTRAOUT_RE.sub(lambda m: "((uint)(" + m.group(1) + "))", body)

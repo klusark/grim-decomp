@@ -11,34 +11,35 @@
 void __cdecl luaV_closure(uint param_1)
 
 {
-  int *piVar1;
-  Closure *pCVar2;
-  int iVar3;
-  undefined4 *puVar4;
-  Closure *pCVar5;
+  TObject **ppTVar1;
+  TObject *pTVar2;
+  Closure *pCVar3;
+  int iVar4;
+  undefined4 *puVar5;
+  Closure *pCVar6;
   
   if (0 < (int)param_1) {
-    piVar1 = g_pLuaState + 7;
-    pCVar2 = luaF_newclosure(param_1);
-    iVar3 = *piVar1;
-    pCVar2->aConsts[0].nTtype = *(int *)(iVar3 + -8);
-    pCVar2->aConsts[0].dwValue = *(uint *)(iVar3 + -4);
-    puVar4 = (undefined4 *)(*piVar1 - (param_1 * 8 + 8));
-    pCVar5 = pCVar2 + 1;
-    for (iVar3 = (param_1 & 0x1fffffff) << 1; iVar3 != 0; iVar3 = iVar3 + -1) {
-      pCVar5->pNext = (Closure *)*puVar4;
-      puVar4 = puVar4 + 1;
-      pCVar5 = (Closure *)&pCVar5->nMarked;
+    ppTVar1 = &g_pLuaState->pTop;
+    pCVar3 = luaF_newclosure(param_1);
+    pTVar2 = *ppTVar1;
+    pCVar3->aConsts[0].nTtype = pTVar2[-1].nTtype;
+    pCVar3->aConsts[0].dwValue = pTVar2[-1].dwValue;
+    puVar5 = (undefined4 *)((int)*ppTVar1 - (param_1 * 8 + 8));
+    pCVar6 = pCVar3 + 1;
+    for (iVar4 = (param_1 & 0x1fffffff) << 1; iVar4 != 0; iVar4 = iVar4 + -1) {
+      pCVar6->pNext = (Closure *)*puVar5;
+      puVar5 = puVar5 + 1;
+      pCVar6 = (Closure *)&pCVar6->nMarked;
     }
-    for (iVar3 = 0; iVar3 != 0; iVar3 = iVar3 + -1) {
-      *(undefined1 *)&pCVar5->pNext = *(undefined1 *)puVar4;
-      puVar4 = (undefined4 *)((int)puVar4 + 1);
-      pCVar5 = (Closure *)((int)&pCVar5->pNext + 1);
+    for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
+      *(undefined1 *)&pCVar6->pNext = *(undefined1 *)puVar5;
+      puVar5 = (undefined4 *)((int)puVar5 + 1);
+      pCVar6 = (Closure *)((int)&pCVar6->pNext + 1);
     }
-    iVar3 = *piVar1 + param_1 * -8;
-    *piVar1 = iVar3;
-    *(undefined4 *)(iVar3 + -8) = 0xfffffff8;
-    *(Closure **)(*piVar1 + -4) = pCVar2;
+    pTVar2 = *ppTVar1;
+    *ppTVar1 = pTVar2 + -param_1;
+    (pTVar2 + -param_1)[-1].nTtype = -8;
+    (*ppTVar1)[-1].dwValue = (uint)pCVar3;
   }
   return;
 }
@@ -49,23 +50,23 @@ void __cdecl luaV_closure(uint param_1)
 void luaV_gettable(void)
 
 {
-  int *piVar1;
+  TObject **ppTVar1;
   int iVar2;
-  int iVar3;
+  TObject *pTVar3;
   TObject *pTVar4;
   
-  iVar3 = g_pLuaState[7];
-  piVar1 = g_pLuaState + 7;
-  if (*(int *)(iVar3 + -0x10) == -3) {
-    iVar2 = (*(Hash **)(iVar3 + -0xc))->nHtag;
-    pTVar4 = (TObject *)(g_dwLState_IMtable + iVar2 * -0x90);
-    if (pTVar4->nTtype == -7) {
-      pTVar4 = luaH_get(*(Hash **)(iVar3 + -0xc),(TObject *)(iVar3 + -8));
+  pTVar4 = g_pLuaState->pTop;
+  ppTVar1 = &g_pLuaState->pTop;
+  if (pTVar4[-2].nTtype == -3) {
+    iVar2 = ((Hash *)pTVar4[-2].dwValue)->nHtag;
+    pTVar3 = (TObject *)(g_dwLState_IMtable + iVar2 * -0x90);
+    if (pTVar3->nTtype == -7) {
+      pTVar4 = luaH_get((Hash *)pTVar4[-2].dwValue,pTVar4 + -1);
       if ((pTVar4 != (TObject *)0x0) && (pTVar4->nTtype != -7)) {
-        iVar3 = *piVar1;
-        *piVar1 = iVar3 + -8;
-        *(int *)(iVar3 + -0x10) = pTVar4->nTtype;
-        *(uint *)(iVar3 + -0xc) = pTVar4->dwValue;
+        pTVar3 = *ppTVar1;
+        *ppTVar1 = pTVar3 + -1;
+        pTVar3[-2].nTtype = pTVar4->nTtype;
+        pTVar3[-2].dwValue = pTVar4->dwValue;
         return;
       }
       pTVar4 = (TObject *)(g_dwLState_IMtable + iVar2 * -0x90 + 0x10);
@@ -73,18 +74,18 @@ void luaV_gettable(void)
         luaD_callTM(pTVar4,2,1);
         return;
       }
-      iVar3 = *piVar1;
-      *piVar1 = iVar3 + -8;
-      *(undefined4 *)(iVar3 + -0x10) = 0xfffffff9;
+      pTVar4 = *ppTVar1;
+      *ppTVar1 = pTVar4 + -1;
+      pTVar4[-2].nTtype = -7;
       return;
     }
   }
   else {
-    iVar3 = luaT_efectivetag((TObject *)(iVar3 + -0x10));
-    pTVar4 = (TObject *)(g_dwLState_IMtable + iVar3 * -0x90);
+    iVar2 = luaT_efectivetag(pTVar4 + -2);
+    pTVar3 = (TObject *)(g_dwLState_IMtable + iVar2 * -0x90);
   }
-  if (pTVar4->nTtype != -7) {
-    luaD_callTM(pTVar4,2,1);
+  if (pTVar3->nTtype != -7) {
+    luaD_callTM(pTVar3,2,1);
     return;
   }
   lua_error((byte *)s_indexed_expression_not_a_table_10028180);
@@ -97,43 +98,43 @@ void luaV_gettable(void)
 void __cdecl luaV_settable(TObject *t,int mode)
 
 {
-  int *piVar1;
-  int iVar2;
-  int *piVar3;
-  TObject *pTVar4;
-  int iVar5;
+  TObject **ppTVar1;
+  TObject *pTVar2;
+  TObject *pTVar3;
+  int iVar4;
+  TObject *pTVar5;
   
-  piVar1 = g_pLuaState + 7;
+  ppTVar1 = &g_pLuaState->pTop;
   if (mode == 0) {
-    pTVar4 = (TObject *)0x0;
+    pTVar3 = (TObject *)0x0;
   }
   else {
-    iVar5 = luaT_efectivetag(t);
-    pTVar4 = (TObject *)(g_dwLState_IMtable + iVar5 * -0x90 + 8);
+    iVar4 = luaT_efectivetag(t);
+    pTVar3 = (TObject *)(g_dwLState_IMtable + iVar4 * -0x90 + 8);
   }
-  if ((t->nTtype == -3) && ((pTVar4 == (TObject *)0x0 || (pTVar4->nTtype == -7)))) {
-    pTVar4 = luaH_set((Hash *)t->dwValue,t + 1);
-    iVar5 = *piVar1;
-    pTVar4->nTtype = *(int *)(iVar5 + -8);
-    pTVar4->dwValue = *(uint *)(iVar5 + -4);
-    *piVar1 = *piVar1 + ((-(uint)(mode != 2) & 2) + 1) * -8;
+  if ((t->nTtype == -3) && ((pTVar3 == (TObject *)0x0 || (pTVar3->nTtype == -7)))) {
+    pTVar5 = luaH_set((Hash *)t->dwValue,t + 1);
+    pTVar3 = *ppTVar1;
+    pTVar5->nTtype = pTVar3[-1].nTtype;
+    pTVar5->dwValue = pTVar3[-1].dwValue;
+    *ppTVar1 = *ppTVar1 + -((-(uint)(mode != 2) & 2) + 1);
     return;
   }
-  if ((pTVar4 != (TObject *)0x0) && (pTVar4->nTtype != -7)) {
+  if ((pTVar3 != (TObject *)0x0) && (pTVar3->nTtype != -7)) {
     if (mode == 2) {
-      iVar5 = g_pLuaState[7];
-      iVar2 = *piVar1;
-      *(undefined4 *)(iVar2 + 8) = *(undefined4 *)(iVar5 + -8);
-      *(undefined4 *)(iVar2 + 0xc) = *(undefined4 *)(iVar5 + -4);
-      piVar3 = (int *)*piVar1;
-      *piVar3 = t[1].nTtype;
-      piVar3[1] = t[1].dwValue;
-      iVar5 = *piVar1;
-      *(int *)(iVar5 + -8) = t->nTtype;
-      *(uint *)(iVar5 + -4) = t->dwValue;
-      *piVar1 = *piVar1 + 0x10;
+      pTVar5 = g_pLuaState->pTop;
+      pTVar2 = *ppTVar1;
+      pTVar2[1].nTtype = pTVar5[-1].nTtype;
+      pTVar2[1].dwValue = pTVar5[-1].dwValue;
+      pTVar5 = *ppTVar1;
+      pTVar5->nTtype = t[1].nTtype;
+      pTVar5->dwValue = t[1].dwValue;
+      pTVar5 = *ppTVar1;
+      pTVar5[-1].nTtype = t->nTtype;
+      pTVar5[-1].dwValue = t->dwValue;
+      *ppTVar1 = *ppTVar1 + 2;
     }
-    luaD_callTM(pTVar4,3,0);
+    luaD_callTM(pTVar3,3,0);
     return;
   }
   lua_error((byte *)s_indexed_expression_not_a_table_10028180);
@@ -147,30 +148,30 @@ void __cdecl luaV_getglobal(TaggedString *ts)
 
 {
   TObject *o;
-  int *piVar1;
-  int iVar2;
+  TObject **ppTVar1;
+  TObject *pTVar2;
   int iVar3;
-  int *piVar4;
+  TObject *pTVar4;
   
   o = &ts->globalval;
   iVar3 = luaT_efectivetag(o);
   iVar3 = g_dwLState_IMtable + iVar3 * -0x90;
   if (*(int *)(iVar3 + 0x18) == -7) {
-    piVar1 = (int *)g_pLuaState[7];
-    *piVar1 = o->nTtype;
-    piVar1[1] = (ts->globalval).dwValue;
-    g_pLuaState[7] = g_pLuaState[7] + 8;
+    pTVar2 = g_pLuaState->pTop;
+    pTVar2->nTtype = o->nTtype;
+    pTVar2->dwValue = (ts->globalval).dwValue;
+    g_pLuaState->pTop = g_pLuaState->pTop + 1;
     return;
   }
-  piVar1 = g_pLuaState + 7;
-  *(undefined4 *)g_pLuaState[7] = 0xfffffffe;
-  *(TaggedString **)(*piVar1 + 4) = ts;
-  iVar2 = *piVar1;
-  piVar4 = (int *)(iVar2 + 8);
-  *piVar1 = (int)piVar4;
-  *piVar4 = o->nTtype;
-  *(uint *)(iVar2 + 0xc) = (ts->globalval).dwValue;
-  *piVar1 = *piVar1 + 8;
+  ppTVar1 = &g_pLuaState->pTop;
+  g_pLuaState->pTop->nTtype = -2;
+  (*ppTVar1)->dwValue = (uint)ts;
+  pTVar2 = *ppTVar1;
+  pTVar4 = pTVar2 + 1;
+  *ppTVar1 = pTVar4;
+  pTVar4->nTtype = o->nTtype;
+  pTVar2[1].dwValue = (ts->globalval).dwValue;
+  *ppTVar1 = *ppTVar1 + 1;
   luaD_callTM((TObject *)(iVar3 + 0x18),2,1);
   return;
 }
@@ -181,37 +182,36 @@ void __cdecl luaV_getglobal(TaggedString *ts)
 void __cdecl luaV_setglobal(TaggedString *ts)
 
 {
-  int iVar1;
-  undefined4 uVar2;
-  undefined4 uVar3;
-  int *piVar4;
-  int iVar5;
-  int *piVar6;
-  undefined4 *puVar7;
+  TObject *pTVar1;
+  int iVar2;
+  uint uVar3;
+  int iVar4;
+  TObject **ppTVar5;
+  TObject *pTVar6;
   
-  iVar5 = luaT_efectivetag(&ts->globalval);
-  iVar5 = g_dwLState_IMtable + iVar5 * -0x90;
-  if (*(int *)(iVar5 + 0x20) == -7) {
-    g_pLuaState[7] = g_pLuaState[7] + -8;
-    luaS_rawsetglobal(ts,(TObject *)g_pLuaState[7]);
+  iVar4 = luaT_efectivetag(&ts->globalval);
+  iVar4 = g_dwLState_IMtable + iVar4 * -0x90;
+  if (*(int *)(iVar4 + 0x20) == -7) {
+    g_pLuaState->pTop = g_pLuaState->pTop + -1;
+    luaS_rawsetglobal(ts,g_pLuaState->pTop);
     return;
   }
-  piVar6 = g_pLuaState + 7;
-  iVar1 = *piVar6;
-  uVar2 = *(undefined4 *)(iVar1 + -8);
-  uVar3 = *(undefined4 *)(iVar1 + -4);
-  *(undefined4 *)(iVar1 + -8) = 0xfffffffe;
-  *(TaggedString **)(*piVar6 + -4) = ts;
-  piVar4 = (int *)*piVar6;
-  *piVar4 = (ts->globalval).nTtype;
-  piVar4[1] = (ts->globalval).dwValue;
-  iVar1 = *piVar6;
-  puVar7 = (undefined4 *)(iVar1 + 8);
-  *piVar6 = (int)puVar7;
-  *puVar7 = uVar2;
-  *(undefined4 *)(iVar1 + 0xc) = uVar3;
-  *piVar6 = *piVar6 + 8;
-  luaD_callTM((TObject *)(iVar5 + 0x20),3,0);
+  ppTVar5 = &g_pLuaState->pTop;
+  pTVar1 = *ppTVar5;
+  iVar2 = pTVar1[-1].nTtype;
+  uVar3 = pTVar1[-1].dwValue;
+  pTVar1[-1].nTtype = -2;
+  (*ppTVar5)[-1].dwValue = (uint)ts;
+  pTVar1 = *ppTVar5;
+  pTVar1->nTtype = (ts->globalval).nTtype;
+  pTVar1->dwValue = (ts->globalval).dwValue;
+  pTVar1 = *ppTVar5;
+  pTVar6 = pTVar1 + 1;
+  *ppTVar5 = pTVar6;
+  pTVar6->nTtype = iVar2;
+  pTVar1[1].dwValue = uVar3;
+  *ppTVar5 = *ppTVar5 + 1;
+  luaD_callTM((TObject *)(iVar4 + 0x20),3,0);
   return;
 }
 
@@ -228,11 +228,11 @@ void __cdecl luaV_pack(int firstel,int nvararg,TObject *tab)
   uint uVar2;
   Hash *pHVar3;
   TObject *pTVar4;
-  int *piVar5;
+  TObject *pTVar5;
   #define local_10 (*(TObject *)(_frame + (0x20 - 0x10)))
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  piVar5 = (int *)(g_pLuaState[8] + firstel * 8);
+  pTVar5 = g_pLuaState->pStack + firstel;
   if (nvararg < 0) {
     nvararg = 0;
   }
@@ -242,23 +242,23 @@ void __cdecl luaV_pack(int firstel,int nvararg,TObject *tab)
   firstel = 0;
   if (0 < nvararg) {
     do {
-      iVar1 = *piVar5;
-      local_10.dwValue = PUN(uint,(float)((float)firstel - -1.0));
-      uVar2 = piVar5[1];
+      iVar1 = pTVar5->nTtype;
+      local_10.dwValue = PUN(uint,(float)(((float)firstel - -1.0)));
+      uVar2 = pTVar5->dwValue;
       local_10.nTtype = -1;
       pTVar4 = luaH_set((Hash *)tab->dwValue,&local_10);
       pTVar4->nTtype = iVar1;
       firstel = firstel + 1;
-      piVar5 = piVar5 + 2;
+      pTVar5 = pTVar5 + 1;
       pTVar4->dwValue = uVar2;
     } while (firstel < nvararg);
   }
   local_10.nTtype = -2;
   local_10.dwValue = (uint)luaS_new(&DAT_10026994);
   local_4 = (float)nvararg;
-  pTVar4 = luaH_set((Hash *)tab->dwValue,&local_10);
-  pTVar4->nTtype = -1;
-  pTVar4->dwValue = PUN(uint,(float)local_4);
+  pTVar5 = luaH_set((Hash *)tab->dwValue,&local_10);
+  pTVar5->nTtype = -1;
+  pTVar5->dwValue = PUN(uint,(float)(local_4));
   return;
 }
 #undef local_10
@@ -456,7 +456,7 @@ int __thiscall ExecutionState_setvalues(void *this,int a1,int a2,int a3)
   *(undefined4 *)((int)this + 0x20) = *(undefined4 *)(a2 + 0x10);
   iVar1 = *(int *)(a2 + 8);
   *(int *)((int)this + 0x2c) = iVar1;
-  *(int **)((int)this + 0x1c) = g_pLuaState + 7;
+  *(TObject ***)((int)this + 0x1c) = &g_pLuaState->pTop;
   return iVar1;
 }
 
@@ -516,15 +516,15 @@ void __cdecl adjust_varargs(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
+  TObject *pTVar1;
   #define local_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
-  luaV_pack(param_1,(g_pLuaState[7] - g_pLuaState[8] >> 3) - param_1,&local_8);
+  luaV_pack(param_1,((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - param_1,&local_8);
   luaD_adjusttop(param_1);
-  piVar1 = (int *)g_pLuaState[7];
-  *piVar1 = local_8.nTtype;
-  piVar1[1] = local_8.dwValue;
-  g_pLuaState[7] = g_pLuaState[7] + 8;
+  pTVar1 = g_pLuaState->pTop;
+  pTVar1->nTtype = local_8.nTtype;
+  pTVar1->dwValue = local_8.dwValue;
+  g_pLuaState->pTop = g_pLuaState->pTop + 1;
   return;
 }
 #undef local_8
@@ -556,10 +556,10 @@ int __fastcall ExecutionState_CrunchOpcodes(int *param_1)
   int *piVar15;
   uint uVar16;
   
-  if ((g_pLuaState[6] != 0) && (g_pLuaState[2] == 0)) {
-    printf(s_WARNING__Lua_nesting_level_now___1002821c,g_pLuaState[6]);
+  if ((g_pLuaState->nNestingLevel != 0) && (g_pLuaState->nPreventBreak == 0)) {
+    printf(s_WARNING__Lua_nesting_level_now___1002821c,g_pLuaState->nNestingLevel);
   }
-  g_pLuaState[6] = g_pLuaState[6] + 1;
+  g_pLuaState->nNestingLevel = g_pLuaState->nNestingLevel + 1;
 switchD_1000dfaf_default:
   iVar14 = param_1[10];
   param_1[10] = iVar14 + 1;
@@ -1131,7 +1131,7 @@ switchD_1000dfaf_caseD_7b:
   }
   iVar14 = param_1[2] + uVar16;
 LAB_1000e9fd:
-  g_pLuaState[6] = g_pLuaState[6] + -1;
+  g_pLuaState->nNestingLevel = g_pLuaState->nNestingLevel + -1;
   return iVar14;
 }
 
@@ -1228,11 +1228,11 @@ void __cdecl call_binTM(int param_1,byte *param_2)
   int iVar1;
   TObject *f;
   
-  iVar1 = luaT_efectivetag((TObject *)(g_pLuaState[7] + -0x10));
+  iVar1 = luaT_efectivetag(g_pLuaState->pTop + -2);
   iVar1 = param_1 + iVar1 * -0x12;
   f = (TObject *)(g_dwLState_IMtable + iVar1 * 8);
   if (*(int *)(g_dwLState_IMtable + iVar1 * 8) == -7) {
-    iVar1 = luaT_efectivetag((TObject *)(g_pLuaState[7] + -8));
+    iVar1 = luaT_efectivetag(g_pLuaState->pTop + -1);
     iVar1 = param_1 + iVar1 * -0x12;
     f = (TObject *)(g_dwLState_IMtable + iVar1 * 8);
     if ((*(int *)(g_dwLState_IMtable + iVar1 * 8) == -7) &&
@@ -1263,18 +1263,18 @@ void __cdecl call_arith(int param_1)
    comparison(ltue, equl, gtue, event): numbers or strings (strcoll), else call_binTM "unexpected
    type in comparison"); was luaV_comparison. */
 
-void __cdecl comparison(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4)
+void __cdecl comparison(int param_1,int param_2,int param_3,int param_4)
 
 {
-  int *piVar1;
-  int iVar2;
+  TObject **ppTVar1;
+  TObject *pTVar2;
   int iVar3;
   
-  iVar3 = g_pLuaState[7];
-  piVar1 = g_pLuaState + 7;
-  if ((*(int *)(iVar3 + -0x10) == -1) && (*(int *)(iVar3 + -8) == -1)) {
-    if (*(float *)(iVar3 + -4) <= *(float *)(iVar3 + -0xc)) {
-      if (*(float *)(iVar3 + -4) == *(float *)(iVar3 + -0xc)) {
+  pTVar2 = g_pLuaState->pTop;
+  ppTVar1 = &g_pLuaState->pTop;
+  if ((pTVar2[-2].nTtype == -1) && (pTVar2[-1].nTtype == -1)) {
+    if (PUN(float,pTVar2[-1].dwValue) <= PUN(float,pTVar2[-2].dwValue)) {
+      if (PUN(float,pTVar2[-1].dwValue) == PUN(float,pTVar2[-2].dwValue)) {
         iVar3 = 0;
       }
       else {
@@ -1286,22 +1286,22 @@ void __cdecl comparison(undefined4 param_1,undefined4 param_2,undefined4 param_3
     }
   }
   else {
-    if ((*(int *)(iVar3 + -0x10) != -2) || (*(int *)(iVar3 + -8) != -2)) {
+    if ((pTVar2[-2].nTtype != -2) || (pTVar2[-1].nTtype != -2)) {
       call_binTM(param_4,s_unexpected_type_in_comparison_10028284);
       return;
     }
-    iVar3 = strcoll((byte *)(*(int *)(iVar3 + -0xc) + 0x18),(byte *)(*(int *)(iVar3 + -4) + 0x18));
+    iVar3 = strcoll((byte *)(pTVar2[-2].dwValue + 0x18),(byte *)(pTVar2[-1].dwValue + 0x18));
   }
-  iVar2 = *piVar1;
-  *piVar1 = iVar2 + -8;
-  *(undefined4 *)(iVar2 + -0xc) = 0x3f800000;
+  pTVar2 = *ppTVar1;
+  *ppTVar1 = pTVar2 + -1;
+  pTVar2[-2].dwValue = 0x3f800000;
   if (iVar3 < 0) {
-    *(undefined4 *)(*piVar1 + -8) = param_1;
+    (*ppTVar1)[-1].nTtype = param_1;
     return;
   }
   if (iVar3 != 0) {
     param_2 = param_3;
   }
-  *(undefined4 *)(*piVar1 + -8) = param_2;
+  (*ppTVar1)[-1].nTtype = param_2;
   return;
 }

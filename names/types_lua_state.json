@@ -1,0 +1,46 @@
+{
+ "_comment": "Types round 9 (docs/notes/types_9.md): Grim's Lua state, LState (the remaster's LState::LState), one per task: Lua 3.1's lua_State (stack, C stack, error jump, parser states, C blocks) with the task fields Grim adds (the execution-state chain, break and update flags, the task's function, the task list). Each field from the code that uses it (LState_Construct, lua_updatetasks, luaD_call, luaD_protectedrun, lua_beginblock, lua_error, the parser, lua_pausetasks).",
+ "program": "/LUA.DLL",
+ "structs": [
+  {"name": "CLuaStack", "size": 12, "comment": "Lua 3.1's C_Lua_Stack: the C function's window on the stack (lapi.c).",
+   "fields": [
+    [0, "int", "nBase", "first slot of the C function's frame"],
+    [4, "int", "nLua2C", "slot before its first argument (lua_lua2C)"],
+    [8, "int", "nNum", "its arguments"]
+   ]},
+  {"name": "LState", "size": 212, "comment": "One Lua task (lstate.c LState): g_pLuaState is the running one, g_dwL_Main the first.",
+   "fields": [
+    [0, "void *", "pExecutionState", "the task's chain of execution states (call frames), linked through their +0x0c (lapi.cpp's assert names it L->pExecutionState)"],
+    [4, "void *", "pResumeState", "the execution state the task goes on in after luaI_breakhere (luaD_call)"],
+    [8, "int", "nPreventBreak", "luaI_breakhere yields only while 0; protected and C calls raise it"],
+    [12, "int", "nUnread", "LState_Construct sets it to 1; nothing reads it"],
+    [16, "int", "nUpdated", "the task ran in this lua_updatetasks round (cleared for every task when a round starts)"],
+    [20, "int", "nPaused", "lua_pausetasks sets it on every other task, lua_unpausetasks clears it; the updater skips the task"],
+    [24, "int", "nNestingLevel", "nested luaV_execute calls (warns \"Lua nesting level now\")"],
+    [28, "TObject *", "pTop", "stack top"],
+    [32, "TObject *", "pStack", "stack base (0x400 bytes at first)"],
+    [36, "TObject *", "pLast", "end of the stack"],
+    [40, "CLuaStack", "Cstack", "the running C function's frame"],
+    [52, "void *", "pErrorJmp", "the setjmp buffer lua_error leaves through"],
+    [56, "void *", "pMainState", "the parser's main FuncState (0x168 bytes, on luaY_parser's stack)"],
+    [60, "void *", "pCurrState", "the FuncState being compiled"],
+    [64, "void *", "pLexState", "the lexer's state (build/overrides.c: [0] the current character, [1] the input)"],
+    [68, "CLuaStack[10]", "aCblocks", "the C stacks saved by lua_beginblock"],
+    [188, "int", "nNumCblocks", ""],
+    [192, "int", "nTaskId", "serial number (g_dwLState_numThreads), passed to the task hook"],
+    [196, "TObject", "taskFunc", "the function the task runs"],
+    [204, "LState *", "pNext", "the task list (LState_attach / detach)"],
+    [208, "LState *", "pPrev", ""]
+   ]}
+ ],
+ "protos": [
+  {"addr": "100075e0", "proto": "LState * LState_Construct(LState * L)", "cc": "__fastcall"},
+  {"addr": "10008bb0", "proto": "void LState_detach(LState * L)", "cc": "__fastcall"},
+  {"addr": "10008bf0", "proto": "LState * LState_next(LState * L)", "cc": "__fastcall"},
+  {"addr": "10008c00", "proto": "void LState_Destruct(LState * L)", "cc": "__fastcall"}
+ ],
+ "globals": [
+  {"addr": "1002bf6c", "type": "LState *", "name": "g_pLuaState"},
+  {"addr": "1002bf70", "type": "LState *", "name": "g_dwL_Main"}
+ ]
+}

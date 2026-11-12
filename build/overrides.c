@@ -1267,6 +1267,9 @@ void Engine_LoadGame(void)
 
 #ifdef GRIM_LUA
 #include "globals.h"
+/* g_pLuaState is an LState * (types round 9, docs/notes/types_9.md); the code below reads the state as words
+ * (LSW[7] the stack top, LSW[8] the stack base, *LSW the execution-state chain, ...), as written from the original. */
+#define LSW ((int *)g_pLuaState)
 /* ==== agentJ: Lua math library (lmathlib.c) and hand-fixed functions of LUA.DLL ====
  * The original library works on the x87 stack (fsin, fpatan, f2xm1, fscale, the CRT's _CI* helpers); Ghidra cannot express
  * that, so these are written in C with the host C runtime's double precision functions. Lua 3.1 numbers are floats: every
@@ -1511,7 +1514,7 @@ int __cdecl lua_gettask(int obj)
 {
     int *stack;
     if (obj != 0) {
-        stack = (int *)g_pLuaState[8];
+        stack = (int *)LSW[8];
         if (stack[(obj - 1) * 2] == -6)
             return (int)(long long)*(float *)&stack[(obj - 1) * 2 + 1];
     }
@@ -1651,7 +1654,7 @@ undefined4 __cdecl luaV_tonumber(int *o)
 void __cdecl luaV_pack(int first, int n, TObject *tab)
 {
     undefined4 *result = (undefined4 *)tab;   /* {nTtype, dwValue} as words */
-    int *src = (int *)(g_pLuaState[8] + first * 8);
+    int *src = (int *)(LSW[8] + first * 8);
     int key[2];
     int *slot;
     int i;
@@ -1925,7 +1928,7 @@ char * __cdecl match(char *s, int *pat, int *cap)
 }
 
 /* ---- agentJ: luaY_lex (LUA.DLL 0x10005d00), the Lua 3.1 tokenizer ----
- * ls = g_pLuaState[0x10] is the lexer state: ls[0] current character (-1 at the end of input), ls[1] the input stream (a
+ * ls = LSW[0x10] is the lexer state: ls[0] current character (-1 at the end of input), ls[1] the input stream (a
  * zio: {chars left, next char pointer, refill function}), ls[2] current line, ls[3] line of the token being read, ls[5] depth
  * of $if nesting.  Every token's text is collected in the string buffer (luaL_addchar).  The result is the token: a single
  * character stands for itself, the rest are the codes below; names and strings are returned in *value as a TaggedString
@@ -1948,7 +1951,7 @@ static uint lx_zgetc(int *z)
 
 uint __cdecl luaY_lex(float *value)
 {
-    uint *ls = (uint *)g_pLuaState[0x10];
+    uint *ls = (uint *)LSW[0x10];
     luaL_resetbuffer();
     if (lua_debug != 0)
         luaY_codedebugline(ls[3]);
@@ -2244,12 +2247,12 @@ undefined4 __thiscall LState_Restore(void *self, int read)
 /* a new task state, initialised (the current state is left as it was) */
 undefined4 * lua_newstate(void)
 {
-    int *saved = g_pLuaState;
+    int *saved = LSW;
     undefined4 *mem = luaM_malloc(0xd4);
     undefined4 *st = mem != 0 ? LState_Construct(mem) : 0;
-    g_pLuaState = (int *)st;
+    g_pLuaState = (LState *)st;
     LState_initglobals();
-    g_pLuaState = saved;
+    g_pLuaState = (LState *)saved;
     return st;
 }
 
@@ -2263,15 +2266,15 @@ void luaI_startscript(void)
         int *cur, arg, n;
         task[3] = 0;
         LState_attach(task, (int)g_pLuaState);         /* into the task list after the running one */
-        task[0x31] = *(int *)(g_pLuaState[8] - 8 + fn * 8);       /* the function object */
-        task[0x32] = *(int *)(g_pLuaState[8] - 4 + fn * 8);
-        cur = g_pLuaState;
+        task[0x31] = *(int *)(LSW[8] - 8 + fn * 8);       /* the function object */
+        task[0x32] = *(int *)(LSW[8] - 4 + fn * 8);
+        cur = LSW;
         arg = lua_lua2C(2);
         for (n = 3; arg != 0; n++) {
-            int *stack = g_pLuaState + 8;
-            g_pLuaState = task;                       /* push the argument onto the new task's stack */
+            int *stack = LSW + 8;
+            g_pLuaState = (LState *)task;                       /* push the argument onto the new task's stack */
             luaA_pushobject((TObject *)(*stack - 8 + arg * 8));
-            g_pLuaState = cur;
+            g_pLuaState = (LState *)cur;
             arg = lua_lua2C(n);
         }
         lua_pushtask(task[0x30]);
@@ -2290,7 +2293,7 @@ undefined4 lua_Restore(code *param_1)
     int *prev;
     lua_close();
     mem = luaM_malloc(0xd4);
-    g_pLuaState = mem != 0 ? (int *)LState_Construct(mem) : 0;
+    g_pLuaState = mem != 0 ? LState_Construct((LState *)mem) : 0;
     g_dwL_Main = g_pLuaState;
     LState_initglobals();
     LState_GlobalBeginRestore((int)param_1);
@@ -2311,7 +2314,7 @@ undefined4 lua_Restore(code *param_1)
         prev = task;
     }
     while (depth-- != 0)
-        g_pLuaState = (int *)LState_next((int)g_pLuaState);
+        g_pLuaState = LState_next(g_pLuaState);
     LState_GlobalEndRestore((int)param_1);
     g_dwLState_numThreads = saved78;
     return 0;
@@ -2332,40 +2335,40 @@ undefined4 luaD_call(code *param_1, void *param_2)
     int pos = (int)param_1;                             /* stack position of the function to call */
     int nres = (int)param_2;                            /* number of results wanted (0xff: all) */
     int res = nres;                                     /* the last handler's result */
-    int base = *g_pLuaState;                           /* call frame to return at */
-    if (base == 0 || g_pLuaState[6] != 0) {            /* no frame yet, or inside a C call: push a frame for this call */
+    int base = *LSW;                           /* call frame to return at */
+    if (base == 0 || LSW[6] != 0) {            /* no frame yet, or inside a C call: push a frame for this call */
         void *rec = ExecutionState_New(0x30);
-        int frame = rec != 0 ? ExecutionState_Construct(rec, *g_pLuaState, pos, nres) : 0;
-        *g_pLuaState = frame;
+        int frame = rec != 0 ? ExecutionState_Construct(rec, *LSW, pos, nres) : 0;
+        *LSW = frame;
         res = (int)rec;
     } else {
-        base = g_pLuaState[1];
+        base = LSW[1];
     }
     for (;;) {
-        int *obj = (int *)(g_pLuaState[8] + pos * 8 - 8);
+        int *obj = (int *)(LSW[8] + pos * 8 - 8);
         int fn = 0;                                     /* the function that was run, if it was a C function */
         switch (obj[0]) {
         case -11:
             printf(s_unexpected_cmark_at__d_10026a50, pos);
-            if (((int *)*g_pLuaState)[6] == 0)
+            if (((int *)*LSW)[6] == 0)
                 goto call_tag_method;
             break;
         case -10:
-            if (((int *)*g_pLuaState)[6] == 0)
+            if (((int *)*LSW)[6] == 0)
                 goto call_tag_method;
-            res = ExecutionState_execute((int *)*g_pLuaState);
+            res = ExecutionState_execute((int *)*LSW);
             break;
         case -9:
-            if (((int *)*g_pLuaState)[6] == 0)
+            if (((int *)*LSW)[6] == 0)
                 goto call_tag_method;
             if (*(int *)(obj[1] + 0xc) != -5)
-                res = ExecutionState_execute((int *)*g_pLuaState);
+                res = ExecutionState_execute((int *)*LSW);
             break;
         case -8:
             obj[0] = -9;
             if (*(int *)(obj[1] + 0xc) != -5) {         /* a Lua function: enter it */
-                ExecutionState_setvalues((void *)*g_pLuaState, obj[1], *(int *)(obj[1] + 0x10), pos);
-                res = ExecutionState_execute((int *)*g_pLuaState);
+                ExecutionState_setvalues((void *)*LSW, obj[1], *(int *)(obj[1] + 0x10), pos);
+                res = ExecutionState_execute((int *)*LSW);
             } else {                                    /* a C function */
                 fn = obj[1];
                 res = callCclosure(fn, (undefined *)*(int *)(fn + 0x10), pos);
@@ -2378,8 +2381,8 @@ undefined4 luaD_call(code *param_1, void *param_2)
             break;
         case -4:
             obj[0] = -10;
-            ExecutionState_setvalues((void *)*g_pLuaState, 0, obj[1], pos);
-            res = ExecutionState_execute((int *)*g_pLuaState);
+            ExecutionState_setvalues((void *)*LSW, 0, obj[1], pos);
+            res = ExecutionState_execute((int *)*LSW);
             break;
         default:
         call_tag_method: {                              /* not a function: call its "function" tag method */
@@ -2387,44 +2390,44 @@ undefined4 luaD_call(code *param_1, void *param_2)
                 undefined4 *tm = (undefined4 *)(g_dwLState_IMtable - tag * 0x90 + 0x88);
                 if ((int)*tm == -7)
                     lua_error((byte *)s_call_expression_not_a_function_10026a30);
-                luaD_callTM((TObject *)tm, ((g_pLuaState[7] - g_pLuaState[8]) >> 3) - pos + 1, nres);
+                luaD_callTM((TObject *)tm, ((LSW[7] - LSW[8]) >> 3) - pos + 1, nres);
             }
             goto next;
         }
         if (res <= 0) {                                 /* call the function at -res next, in a new frame */
             void *rec;
             pos = -res;
-            nres = (int)ExecutionState_getaux(*g_pLuaState);
+            nres = (int)ExecutionState_getaux(*LSW);
             rec = ExecutionState_New(0x30);
-            *g_pLuaState = rec != 0 ? ExecutionState_Construct(rec, *g_pLuaState, pos, nres) : 0;
+            *LSW = rec != 0 ? ExecutionState_Construct(rec, *LSW, pos, nres) : 0;
         } else {                                        /* finished: move the results down over the function, pop the frame */
-            int *frame = (int *)*g_pLuaState;
+            int *frame = (int *)*LSW;
             int dst = frame[4] - 1;                     /* where the function was (0-based) */
             int count, i;
             int *stack;
             if (frame[5] != 0xff)
                 luaD_adjusttop(res + frame[5]);
-            count = ((g_pLuaState[7] - g_pLuaState[8]) - res * 8) >> 3;
+            count = ((LSW[7] - LSW[8]) - res * 8) >> 3;
             for (i = 0; i < count; i++) {
-                stack = (int *)g_pLuaState[8];
+                stack = (int *)LSW[8];
                 stack[(dst + i) * 2] = stack[(res + i) * 2];
                 stack[(dst + i) * 2 + 1] = stack[(res + i) * 2 + 1];
             }
-            g_pLuaState[7] += (dst - res) * 8;
-            frame = (int *)*g_pLuaState;
-            *g_pLuaState = frame[3];
+            LSW[7] += (dst - res) * 8;
+            frame = (int *)*LSW;
+            *LSW = frame[3];
             ExecutionState_Delete((int)frame);
-            if (*g_pLuaState != 0) {                   /* continue in the frame below */
-                pos = ((int *)*g_pLuaState)[4];
-                nres = ((int *)*g_pLuaState)[5];
+            if (*LSW != 0) {                   /* continue in the frame below */
+                pos = ((int *)*LSW)[4];
+                nres = ((int *)*LSW)[5];
             }
-            if (fn == (int)luaI_breakhere && g_pLuaState[2] == 0) {      /* the task function returned */
-                g_pLuaState[1] = base;
+            if (fn == (int)luaI_breakhere && LSW[2] == 0) {      /* the task function returned */
+                LSW[1] = base;
                 return 1;
             }
         }
     next:
-        if (*g_pLuaState == base)
+        if (*LSW == base)
             return 0;
     }
 }

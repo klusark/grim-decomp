@@ -55,25 +55,25 @@ undefined4 __cdecl lua_pushusertag(byte *param_1,uint param_2); /* 0x10001b90 */
 void __cdecl luaA_pushobject(TObject *o); /* 0x10001c00 */
 undefined4 __cdecl lua_pushobject(int param_1); /* 0x10001c40 */
 undefined4 __cdecl lua_tag(int param_1); /* 0x10001ca0 */
-int * __cdecl lua_settag(int param_1); /* 0x10001d30 */
+LState * __cdecl lua_settag(int param_1); /* 0x10001d30 */
 undefined4 __cdecl lua_pausetasks(void); /* 0x10001db0 */
 undefined4 __cdecl lua_unpausetasks(void); /* 0x10001de0 */
 int __cdecl lua_updatetasks(int param_1); /* 0x10001e10 */
 int __cdecl lua_stackedfunction(int param_1); /* 0x10002090 */
 undefined4 __cdecl lua_printstack(int param_1); /* 0x100020f0 */
-undefined4 __cdecl lua_currentline(int param_1); /* 0x10002280 */
+uint __cdecl lua_currentline(int param_1); /* 0x10002280 */
 int lua_currenttask(void); /* 0x100022b0 */
 int __cdecl lua_getlocal(int param_1,int param_2,int *param_3); /* 0x100022c0 */
 undefined4 __cdecl lua_setlocal(int param_1,int param_2); /* 0x10002330 */
 undefined4 __cdecl lua_funcinfo(int param_1,int *param_2,undefined4 *param_3); /* 0x100023c0 */
 char * __cdecl lua_getobjname(int param_1,undefined4 *param_2); /* 0x10002440 */
 void __cdecl checkfunc(TObject *o); /* 0x100024a0 */
-int * __cdecl lua_beginblock(void); /* 0x100024c0 */
+LState * __cdecl lua_beginblock(void); /* 0x100024c0 */
 undefined4 __cdecl lua_endblock(void); /* 0x10002510 */
 uint __cdecl lua_ref(int param_1); /* 0x10002560 */
 int __cdecl lua_getref(uint param_1); /* 0x10002590 */
 undefined4 __cdecl lua_setfallback(byte *name,int fallback); /* 0x100025b0 */
-void __cdecl do_unprotectedrun(undefined4 param_1,int param_2,void *param_3); /* 0x100025f0 */
+void __cdecl do_unprotectedrun(uint param_1,int param_2,void *param_3); /* 0x100025f0 */
 void luaA_ResetSaveCount(void); /* 0x10002660 */
 undefined4 __cdecl lua_Save(undefined *param_1); /* 0x10002670 */
 void __cdecl LuaSaveWriter(undefined4 param_1,int param_2); /* 0x10002730 */
@@ -90,7 +90,7 @@ undefined4 __cdecl lua_iolibopen(void); /* 0x10005ae0 */
 void openwithtags(void); /* 0x10005b20 */
 undefined4 __cdecl lua_mathlibopen(void); /* 0x10007320 */
 void LState_initglobals(void); /* 0x10008a00 */
-int * __cdecl lua_open(void); /* 0x10008b40 */
+LState * __cdecl lua_open(void); /* 0x10008b40 */
 undefined4 __cdecl lua_close(void); /* 0x10008c30 */
 undefined4 __cdecl lua_strlibopen(void); /* 0x1000a6e0 */
 int lua_newtag(void); /* 0x1000c8d0 */
@@ -277,7 +277,7 @@ int __cdecl luaO_findstring(byte *param_1,undefined4 *param_2); /* 0x10007550 */
 void __cdecl luaO_insertlist(undefined4 *param_1,undefined4 *param_2); /* 0x100075c0 */
 
 /* ===== lstate.c ===== */
-undefined4 * __fastcall LState_Construct(undefined4 *param_1); /* 0x100075e0 */
+LState * __fastcall LState_Construct(LState *L); /* 0x100075e0 */
 undefined4 __stdcall LState_SerialToPtr(int a1); /* 0x10007660 */
 uint __cdecl comparePtrIDs(int param_1,int param_2); /* 0x10007810 */
 undefined4 __stdcall LState_SaveObject(int a1,int a2); /* 0x10007830 */
@@ -292,9 +292,9 @@ undefined4 __thiscall LState_Save(void *this,int a1); /* 0x10008640 */
 undefined4 __thiscall LState_Restore(void *this,int a1); /* 0x100087f0 */
 undefined4 * lua_newstate(void); /* 0x10008ad0 */
 int __thiscall LState_attach(void *this,int a1); /* 0x10008b70 */
-void __fastcall LState_detach(int param_1); /* 0x10008bb0 */
-undefined4 __fastcall LState_next(int param_1); /* 0x10008bf0 */
-void __fastcall LState_Destruct(int *param_1); /* 0x10008c00 */
+void __fastcall LState_detach(LState *L); /* 0x10008bb0 */
+LState * __fastcall LState_next(LState *L); /* 0x10008bf0 */
+void __fastcall LState_Destruct(LState *L); /* 0x10008c00 */
 
 /* ===== lstring.c ===== */
 void luaS_init(void); /* 0x10008d40 */
@@ -472,7 +472,7 @@ int __fastcall ExecutionState_CrunchOpcodes(int *param_1); /* 0x1000df40 */
 TaggedString * __cdecl strconc(char *param_1,char *param_2); /* 0x1000ebc0 */
 void __cdecl call_binTM(int param_1,byte *param_2); /* 0x1000ec50 */
 void __cdecl call_arith(int param_1); /* 0x1000ecf0 */
-void __cdecl comparison(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4); /* 0x1000ed10 */
+void __cdecl comparison(int param_1,int param_2,int param_3,int param_4); /* 0x1000ed10 */
 
 /* ===== lzio.c ===== */
 undefined4 * __cdecl luaZ_mopen(undefined4 *param_1,int param_2,undefined4 param_3,undefined4 param_4); /* 0x1000edc0 */
