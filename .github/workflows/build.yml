@@ -48,3 +48,70 @@ jobs:
             build/obj/IMUSE.DLL/imuse.dll
             build/obj/CHORE.DLL/chore.dll
             build/obj/*/stubs.txt
+
+  # The clean-room tests of grim_tools (github.com/klusark/grim-autorun, cleanroom/run.py decomp) on the programs built
+  # above, compared with the original's log (cleanroom/expected/original.log). The tests make their own data: no game files.
+  # Fails when a test differs from the original or crashes or hangs the rebuilt exe.
+  cleanroom:
+    needs: build
+    runs-on: windows-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: grim-decomp-binaries
+          path: binaries
+
+      - name: The four programs in one folder
+        run: |
+          New-Item -ItemType Directory decomp | Out-Null
+          Get-ChildItem binaries -Recurse -Include *.exe, *.dll | Copy-Item -Destination decomp
+          Get-ChildItem decomp
+
+      - uses: actions/checkout@v4
+        with:
+          repository: klusark/grim-autorun
+          path: grim_tools
+
+      # (a virtual sound card: the runner has none, and without DirectSound the game stops at startup with "could not
+      # initialize your hardware")
+      - name: Audio device
+        uses: LABSN/sound-ci-helpers@v1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # (CR_VISIBLE: the windows on the runner's desktop, no offscreen.exe to build; the runner is slower than a desk machine)
+      - name: Clean-room tests
+        env:
+          GRIM_DECOMP: ${{ github.workspace }}\decomp
+          CR_VISIBLE: "1"
+          CR_STALL: "30"
+          CR_STARTUP: "180"
+        run: |
+          "grim_tools: $(git -C grim_tools rev-parse --short HEAD) $(git -C grim_tools log -1 --format=%s)" | Tee-Object -Append $env:GITHUB_STEP_SUMMARY
+          python grim_tools/cleanroom/run.py decomp 2>&1 | Tee-Object cleanroom.txt
+          $rc = $LASTEXITCODE
+          Add-Content $env:GITHUB_STEP_SUMMARY "### Clean-room tests`n``````"
+          Get-Content cleanroom.txt | Where-Object { $_ -match '^==== |REGRESSION|tests differ|crashed or hung|SUMMARY|^decomp:' } |
+            ForEach-Object { if ($_.Length -gt 400) { $_.Substring(0, 400) + " ..." } else { $_ } } |
+            Add-Content $env:GITHUB_STEP_SUMMARY
+          Add-Content $env:GITHUB_STEP_SUMMARY "``````"
+          exit $rc
+
+      - name: Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cleanroom-logs
+          path: |
+            cleanroom.txt
+            grim_tools/cleanroom/logs/
+            grim_tools/cleanroom/run/decomp*/*.txt
+            grim_tools/cleanroom/run/decomp*/*.log
+            grim_tools/cleanroom/run/decomp*/*.ini
+          if-no-files-found: ignore
