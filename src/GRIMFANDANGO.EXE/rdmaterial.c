@@ -10,7 +10,7 @@
    rdMaterial_RegisterLoader (the remaster's GrimFandango (Linux): swaps pMaterialsLoader); was
    rdMaterial_SetLoadHook. */
 
-uint rdMaterial_RegisterLoader(uint param_1)
+uint __cdecl rdMaterial_RegisterLoader(uint param_1)
 
 {
   uint uVar1;
@@ -24,7 +24,7 @@ uint rdMaterial_RegisterLoader(uint param_1)
 /* Original name rdMaterial_RegisterUnloader (the remaster's GrimFandango (Linux): swaps
    pMaterialsUnloader); was rdMaterial_SetFreeHook. */
 
-uint rdMaterial_RegisterUnloader(uint param_1)
+uint __cdecl rdMaterial_RegisterUnloader(uint param_1)
 
 {
   uint uVar1;
@@ -53,7 +53,7 @@ void * __cdecl rdMaterial_Load(char *name,int a,int b)
       return pvVar1;
     }
   }
-  rdMaterial_Free(pvVar1);
+  rdMaterial_Free((uint)pvVar1);
   return (void *)0x0;
 }
 
@@ -284,7 +284,7 @@ LAB_0041833a:
 
 
 /* ---- 0x00418360  rdMaterial_Free ---- */
-void rdMaterial_Free(undefined4 param_1)
+void __cdecl rdMaterial_Free(uint param_1)
 
 {
   if (g_dwMaterialsUnloader != 0) {
@@ -302,7 +302,7 @@ void rdMaterial_Free(undefined4 param_1)
    entries, the texture VBuffers of every cel, then the +0xac array); called by the material
    resource handler's free message in both builds); was rdMaterial_FreeContents. */
 
-void rdMaterial_FreeEntry(int param_1)
+void __cdecl rdMaterial_FreeEntry(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -10,7 +10,7 @@
 /* W32Util/wuregistry: creates/opens the game key; if its Version value differs from ours the key is
    deleted and recreated. Then caches all value names. */
 
-void Reg_Open(void *param_1,uint param_2,char *param_3)
+void __cdecl Reg_Open(void *param_1,uint param_2,char *param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -50,7 +50,7 @@ void Reg_Open(void *param_1,uint param_2,char *param_3)
 /* ---- 0x004039a0  Reg_CacheValueNames ---- */
 /* RegEnumValue into g_ppRegValueNames (lower-cased, qsorted) so Reg_HasValue can bsearch */
 
-void Reg_CacheValueNames(void)
+void __cdecl Reg_CacheValueNames(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -100,7 +100,7 @@ void Reg_CacheValueNames(void)
 /* Original name wuRegistry_Shutdown (the remaster's GrimFandango (Linux): the registry shutdown
    after the cursor in Main_Shutdown in both builds (the remaster's is empty)); was Reg_Close. */
 
-void wuRegistry_Shutdown(void)
+void __cdecl wuRegistry_Shutdown(void)
 
 {
   Reg_FreeValueNames();
@@ -109,7 +109,7 @@ void wuRegistry_Shutdown(void)
 }
 
 /* ---- 0x00403b30  Reg_FreeValueNames ---- */
-void Reg_FreeValueNames(void)
+void __cdecl Reg_FreeValueNames(void)
 
 {
   uint uVar1;

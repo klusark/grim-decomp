@@ -413,7 +413,6 @@ extern char s__s_d_bmp_004dd928[]; /* used by 1 fn(s), first 0x00402fd0 */
 extern undefined DAT_004dd934; /* used by 1 fn(s), first 0x00402fd0 */
 extern char s_grimpatch_bin_004dd93c[]; /* used by 1 fn(s), first 0x00402fd0 */
 extern char s_GrimDataDir_004dd94c[]; /* used by 3 fn(s), first 0x004034b0 */
-extern char s_SOFTWARE_LucasArts_Entertainment_004dd958[]; /* used by 1 fn(s), first 0x004034b0 */
 extern undefined DAT_004dd998; /* used by 1 fn(s), first 0x004034b0 */
 extern char s_splash_bm_004dd99c[]; /* used by 1 fn(s), first 0x00403520 */
 extern undefined g_aDefaultHostServices; /* used by 1 fn(s), first 0x00403880 */
@@ -1658,7 +1657,7 @@ extern undefined2 DAT_00812ed0; /* used by 5 fn(s), first 0x0047e3c0 */
 extern undefined4 UINT_00812ed8; /* used by 1 fn(s), first 0x0047ea30 */
 extern undefined2 DAT_008155f0; /* used by 2 fn(s), first 0x0047e3c0 */
 extern undefined2 DAT_008155f4; /* used by 4 fn(s), first 0x0047e3c0 */
-extern undefined2 DAT_008155f8; /* used by 1 fn(s), first 0x0047ebe0 */
+extern undefined2 DAT_008155f8; /* used by 3 fn(s), first 0x0047e7f0 */
 extern undefined DAT_00815600; /* used by 1 fn(s), first 0x0047e600 */
 extern undefined DAT_00815608; /* used by 1 fn(s), first 0x0047ea30 */
 extern uint UINT_0081560c; /* used by 1 fn(s), first 0x0047ea30 */
@@ -3194,6 +3193,7 @@ extern unsigned char DAT_004dd728[]; /* 0x004dd728 */
 extern unsigned char DAT_004dd800[]; /* 0x004dd800 */
 extern unsigned char DAT_004dd838[]; /* 0x004dd838 */
 extern unsigned char DAT_004dd874[]; /* 0x004dd874 */
+extern unsigned char DAT_004dd958[]; /* 0x004dd958 */
 extern unsigned char s_Arial_004dea10[]; /* 0x004dea10 */
 extern unsigned char s_Assert_Handler_004dee18[]; /* 0x004dee18 */
 extern unsigned char DAT_004dee28[]; /* 0x004dee28 */

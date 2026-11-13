@@ -678,7 +678,7 @@ Puck * __thiscall Puck_Construct(Puck *this,float radius)
   this->aPos[0] = 0.0;
   this->aPos[1] = 0.0;
   this->aPos[2] = 0.0;
-  rdMatrix_Build34(this->aFrame,this,this);
+  rdMatrix_Build34(this->aFrame,(uint *)this,this->aPos);
   this->aConstraint[1] = 1.0;
   this->flRadius = radius;
   this->pSector = (WalkPlane *)0x0;
@@ -723,7 +723,7 @@ void __fastcall Puck_Destruct(Puck *puck)
 undefined * __fastcall Puck_Rot(Puck *puck)
 
 {
-  rdMatrix_ExtractAngles34(puck->aFrame,&g_aPuck_Rot_ret);
+  rdMatrix_ExtractAngles34(puck->aFrame,(float *)&g_aPuck_Rot_ret);
   return &g_aPuck_Rot_ret;
 }
 

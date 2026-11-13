@@ -156,7 +156,7 @@ undefined4 sputRoom_ParseLights(void)
           iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_light__s_004ec7c4,local_100);
           if (iVar3 == 1) {
             pbVar6 = pbVar8 + 0x68;
-            rdLight_NewEntry(pbVar8 + 0x94);
+            rdLight_NewEntry((int)(pbVar8 + 0x94));
             uVar4 = 0xffffffff;
             pbVar8 = local_100;
             do {

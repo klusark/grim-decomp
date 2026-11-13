@@ -73,7 +73,7 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
   int iVar4;
   undefined4 *ref;
   void *thing;
-  undefined4 uVar5;
+  uint *puVar5;
   undefined4 *puVar6;
   int iVar7;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
@@ -127,8 +127,8 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
   Res_SetReference(ref,pvVar1,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa91);
   thing = (void *)rdThing_New(0);
   rdThing_SetModel3(thing,pvVar1);
-  uVar5 = rdPuppet_New(thing);
-  *(undefined4 *)((int)thing + 0x14) = uVar5;
+  puVar5 = rdPuppet_New(thing);
+  *(uint **)((int)thing + 0x14) = puVar5;
   ref[0x10] = thing;
   ref[0xf] = *(undefined4 *)(componentIdx + 0x34);
   if (-1 < local_4) {

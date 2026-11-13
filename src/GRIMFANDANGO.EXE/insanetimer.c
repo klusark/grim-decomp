@@ -342,7 +342,7 @@ int sys_GetTime(void)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Advances the timer clock by one step and runs the due callbacks */
 
-void InsaneTimer_Tick(void)
+void __cdecl InsaneTimer_Tick(void)
 
 {
   uint uVar1;
@@ -428,7 +428,7 @@ void InsaneTimer_Tick(void)
    setjmp, run the timers with flags & 5 == 4, longjmp(state, 2); the remaster inlined
    InsaneTimer_RunDeferred into it); was InsaneTimer_ServiceDeferred. */
 
-void sys_timer_dispatcher(void)
+void __cdecl sys_timer_dispatcher(void)
 
 {
   int iVar1;
@@ -458,7 +458,7 @@ void sys_timer_dispatcher(void)
 /* ---- 0x004ce260  InsaneTimer_RunDeferred ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void InsaneTimer_RunDeferred(void)
+void __cdecl InsaneTimer_RunDeferred(void)
 
 {
   uint uVar1;

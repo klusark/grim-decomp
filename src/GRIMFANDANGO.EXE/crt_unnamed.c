@@ -4461,25 +4461,25 @@ void bmp_bitmap_Free(int *param_1)
 /* Original name gra_SetBitmap (the remaster's GrimFandango (Linux): same body (memset or convert
    colour + SetBuffer); called from the animator render); was FUN_004ce9b0. */
 
-void gra_SetBitmap(undefined4 *param_1,undefined4 param_2)
+void gra_SetBitmap(uint *param_1,uint param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  undefined4 uVar2;
-  int iVar3;
-  #define local_14 (*(undefined1 (*)[20])(_frame + (0x30 - 0x14)))
+  uint uVar1;
+  char *pcVar2;
+  uint uVar3;
+  #define local_14 (*(char (*)[20])(_frame + (0x30 - 0x14)))
   
   if (0 < (int)param_1[5]) {
     if (param_1[8] == 0) {
       msc_MemSet(*param_1,param_2,param_1[3] * param_1[2] * param_1[5]);
       return;
     }
-    iVar1 = param_1[2];
-    uVar2 = *param_1;
-    iVar3 = param_1[1];
+    uVar1 = param_1[2];
+    pcVar2 = (char *)*param_1;
+    uVar3 = param_1[1];
     gra_ConvertFromLecColor(local_14,param_1,1,0,(byte *)&param_2);
-    gra_SetBuffer(uVar2,param_1,iVar1 * iVar3,local_14);
+    gra_SetBuffer(pcVar2,(int)param_1,uVar1 * uVar3,local_14);
   }
   return;
 }
@@ -4572,10 +4572,10 @@ void sou_mixer_terminate(int *param_1)
    Original name msc_MemSet (the remaster's GrimFandango (Linux): gra_SetBitmap's / AllocBuffers'
    fill call (dst, 0, n)); was FUN_004d5e50. */
 
-void msc_MemSet(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl msc_MemSet(uint param_1,uint param_2,uint param_3)
 
 {
-  ((code *)FUN_004d5fd0)(param_1,param_2,param_3);
+  FUN_004d5fd0((byte *)param_1,param_2,param_3);
   return;
 }
 #endif
@@ -4617,37 +4617,34 @@ int msc_error_SaveString(void)
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
     */
 
-undefined8 __fastcall
-FUN_004d5fd0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4,
-            uint param_5)
+void __cdecl FUN_004d5fd0(byte *dst,int value,int count)
 
 {
-  undefined4 in_EAX;
   undefined4 uVar1;
   int iVar2;
   uint uVar3;
   
-  uVar1 = CONCAT31(CONCAT21(CONCAT11(param_4,param_4),param_4),param_4);
-  if (19999 < (int)param_5) {
+  uVar1 = CONCAT31(CONCAT21(CONCAT11((byte)value,(byte)value),(byte)value),(byte)value);
+  if (19999 < count) {
     do {
       for (iVar2 = 5000; iVar2 != 0; iVar2 = iVar2 + -1) {
-        *param_3 = uVar1;
-        param_3 = param_3 + 1;
+        *(undefined4 *)dst = uVar1;
+        dst = dst + 4;
       }
-      param_5 = param_5 - 20000;
-    } while (20000 < (int)param_5);
+      count = count - 20000;
+    } while (20000 < count);
   }
-  if ((param_5 & 3) != 0) {
-    for (uVar3 = param_5 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-      *(undefined1 *)param_3 = param_4;
-      param_3 = (undefined4 *)((int)param_3 + 1);
+  if ((count & 3U) != 0) {
+    for (uVar3 = count & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+      *dst = (byte)value;
+      dst = dst + 1;
     }
   }
-  for (param_5 = param_5 >> 2; param_5 != 0; param_5 = param_5 - 1) {
-    *param_3 = uVar1;
-    param_3 = param_3 + 1;
+  for (uVar3 = (uint)count >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
+    *(undefined4 *)dst = uVar1;
+    dst = dst + 4;
   }
-  return CONCAT44(param_2,in_EAX);
+  return;
 }
 #endif
 

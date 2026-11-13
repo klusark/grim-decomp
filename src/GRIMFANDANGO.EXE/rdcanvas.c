@@ -11,7 +11,7 @@
    rdActive_AdvanceFrame (the remaster's GrimFandango (Linux): aligned call in rdCache_Flush); was
    rdCanvas_InitEdgeTables. */
 
-void rdActive_AdvanceFrame(void)
+void __cdecl rdActive_AdvanceFrame(void)
 
 {
   uint uVar1;
@@ -59,7 +59,7 @@ void rdActive_AdvanceFrame(void)
    counter reset of rdClearPreStatistics (clears rdActive_drawnFaces, counted in
    rdActive_AddActiveFace)); was rdCanvas_ResetPolyCount. */
 
-void rdActive_ClearFrameCounters(void)
+void __cdecl rdActive_ClearFrameCounters(void)
 
 {
   g_dwRdActive_drawnFaces = 0;
@@ -157,7 +157,7 @@ void rdActive_DrawScene(void)
    z/u/v/light Original name rdActive_BuildSpans (the remaster's GrimFandango (Linux): aligned call
    in rdActive_DrawScene); was rdCanvas_EmitSpans. */
 
-void rdActive_BuildSpans(void)
+void __cdecl rdActive_BuildSpans(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -528,7 +528,7 @@ LAB_004055a9:
    Original name rdActive_FlushSpans (the remaster's GrimFandango (Linux): the only unpaired user of
    numActiveFaces / numActiveSpans on both sides, same body); was rdCanvas_FlushSpans. */
 
-void rdActive_FlushSpans(void)
+void __cdecl rdActive_FlushSpans(void)
 
 {
   uint *puVar1;
@@ -556,7 +556,7 @@ void rdActive_FlushSpans(void)
    the per-scanline buckets Original name rdActive_BuildEdges (the remaster's GrimFandango (Linux):
    aligned call in rdActive_DrawScene); was rdCanvas_BuildEdgeLists. */
 
-void rdActive_BuildEdges(void)
+void __cdecl rdActive_BuildEdges(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -567,18 +567,18 @@ void rdActive_BuildEdges(void)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  undefined1 *puVar8;
+  byte *pbVar8;
   undefined *puVar9;
   uint uVar10;
   uint *puVar11;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar10 = 0;
-  puVar8 = &g_bRdCache_aProcFaces;
+  pbVar8 = &g_bRdCache_aProcFaces;
   if (g_dwRdCache_numProcFaces != 0) {
     do {
-      rdActive_AddActiveFace(puVar8);
-      puVar8 = puVar8 + 0x78;
+      rdActive_AddActiveFace(pbVar8);
+      pbVar8 = pbVar8 + 0x78;
       uVar10 = uVar10 + 1;
     } while (uVar10 < g_dwRdCache_numProcFaces);
   }
@@ -649,12 +649,12 @@ void rdActive_BuildEdges(void)
 /* Original name rdActive_AddActiveFace (the remaster's GrimFandango (Linux): aligned call in
    rdActive_BuildEdges); was rdCanvas_PreparePolygon. */
 
-undefined4 rdActive_AddActiveFace(byte *param_1)
+uint __cdecl rdActive_AddActiveFace(byte *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  uint *puVar2;
+  float *pfVar2;
   float fVar3;
   float fVar4;
   byte *pbVar5;
@@ -687,8 +687,8 @@ undefined4 rdActive_AddActiveFace(byte *param_1)
     return 0;
   }
   iVar1 = g_dwNumActiveFaces * 0x204;
-  puVar2 = &UINT_00565f38 + g_dwNumActiveFaces * 0x81;
-  *puVar2 = (uint)pbVar5;
+  pfVar2 = (float *)(&UINT_00565f38 + g_dwNumActiveFaces * 0x81);
+  *pfVar2 = PUN(float,pbVar5);
   (&UINT_005660f0)[uVar8 * 0x81] = 0;
   (&UINT_005660f4)[uVar8 * 0x81] = 0;
   *(undefined4 *)(&DAT_00566124 + iVar1) = 0;
@@ -736,11 +736,11 @@ LAB_0040585d:
     if ((-1 < (int)param_1) && ((int)param_1 < 5)) {
       if ((*pbVar5 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdAFRaster_SetupNGonLW(puVar2,pbVar9);
+          rdAFRaster_SetupNGonLW(pfVar2,(int)pbVar9);
         }
       }
       else {
-        (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
+        (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
       }
     }
   }
@@ -749,11 +749,11 @@ LAB_0040585d:
     case 0x0:
       if ((*pbVar5 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdAFRaster_SetupNGonLS(puVar2,pbVar9);
+          rdAFRaster_SetupNGonLS(pfVar2,(int)pbVar9);
         }
       }
       else {
-        (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
+        (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
       }
       break;
     case 0x1:
@@ -781,11 +781,11 @@ LAB_0040585d:
       *(float *)(pbVar5 + 0x44) = fVar6;
       if ((*pbVar5 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdAFRaster_SetupNGonFS(puVar2,pbVar9,fVar6);
+          rdAFRaster_SetupNGonFS(pfVar2,(int)pbVar9,fVar6);
         }
       }
       else {
-        (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
+        (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
       }
       break;
     case 0x2:
@@ -814,11 +814,11 @@ LAB_0040585d:
       *(float *)(pbVar5 + 0x44) = fVar6;
       if ((*pbVar5 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdAFRaster_SetupNGonFS(puVar2,pbVar9,fVar6);
+          rdAFRaster_SetupNGonFS(pfVar2,(int)pbVar9,fVar6);
         }
       }
       else {
-        (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
+        (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
       }
       break;
     case 0x3:
@@ -854,11 +854,11 @@ LAB_0040585d:
       }
       if ((*pbVar5 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdAFRaster_SetupNGonGS(puVar2,pbVar9);
+          rdAFRaster_SetupNGonGS(pfVar2,(int)pbVar9);
         }
       }
       else {
-        (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
+        (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
       }
     }
   }
@@ -869,11 +869,11 @@ LAB_0040585d:
         case 0x0:
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonLAT(puVar2,pbVar9);
+              rdAFRaster_SetupNGonLAT((int *)pfVar2,(int)pbVar9);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
+            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
           }
           break;
         case 0x1:
@@ -901,11 +901,11 @@ LAB_0040585d:
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonFAT(puVar2,pbVar9,fVar6);
+              rdAFRaster_SetupNGonFAT((int *)pfVar2,(int)pbVar9,fVar6);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
+            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
           }
           break;
         case 0x2:
@@ -934,11 +934,11 @@ LAB_0040585d:
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonFAT(puVar2,pbVar9,fVar6);
+              rdAFRaster_SetupNGonFAT((int *)pfVar2,(int)pbVar9,fVar6);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
+            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
           }
           break;
         case 0x3:
@@ -974,11 +974,11 @@ LAB_0040585d:
           }
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonGAT(puVar2,pbVar9);
+              rdAFRaster_SetupNGonGAT((int *)pfVar2,(int)pbVar9);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
+            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
           }
         }
       }
@@ -987,11 +987,11 @@ LAB_0040585d:
         case 0x0:
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonLIT(puVar2,pbVar9);
+              rdAFRaster_SetupNGonLIT((int *)pfVar2,(int)pbVar9);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
+            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
           }
           break;
         case 0x1:
@@ -1019,11 +1019,11 @@ LAB_0040585d:
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonFIT(puVar2,pbVar9,fVar6);
+              rdAFRaster_SetupNGonFIT((int *)pfVar2,(int)pbVar9,fVar6);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
+            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
           }
           break;
         case 0x2:
@@ -1052,11 +1052,11 @@ LAB_0040585d:
           *(float *)(pbVar5 + 0x44) = fVar6;
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonFIT(puVar2,pbVar9,fVar6);
+              rdAFRaster_SetupNGonFIT((int *)pfVar2,(int)pbVar9,fVar6);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
+            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
           }
           break;
         case 0x3:
@@ -1092,11 +1092,11 @@ LAB_0040585d:
           }
           if ((*pbVar5 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonGIT(puVar2,pbVar9);
+              rdAFRaster_SetupNGonGIT((int *)pfVar2,(int)pbVar9);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
+            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
           }
         }
       }
@@ -1106,11 +1106,11 @@ LAB_0040585d:
       case 0x0:
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMLAT(puVar2,pbVar9);
+            rdAFRaster_SetupNGonMLAT((int *)pfVar2,(int)pbVar9);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
+          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
         }
         break;
       case 0x1:
@@ -1138,11 +1138,11 @@ LAB_0040585d:
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMFAT(puVar2,pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFAT((int *)pfVar2,(int)pbVar9,fVar6);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
+          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
         }
         break;
       case 0x2:
@@ -1171,11 +1171,11 @@ LAB_0040585d:
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMFAT(puVar2,pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFAT((int *)pfVar2,(int)pbVar9,fVar6);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
+          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
         }
         break;
       case 0x3:
@@ -1211,11 +1211,11 @@ LAB_0040585d:
         }
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMGAT(puVar2,pbVar9);
+            rdAFRaster_SetupNGonMGAT((int *)pfVar2,(int)pbVar9);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
+          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
         }
       }
     }
@@ -1224,11 +1224,11 @@ LAB_0040585d:
       case 0x0:
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMLIT(puVar2,pbVar9);
+            rdAFRaster_SetupNGonMLIT((int *)pfVar2,(int)pbVar9);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
+          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
         }
         break;
       case 0x1:
@@ -1256,11 +1256,11 @@ LAB_0040585d:
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMFIT(puVar2,pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFIT((int *)pfVar2,(int)pbVar9,fVar6);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
+          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
         }
         break;
       case 0x2:
@@ -1289,11 +1289,11 @@ LAB_0040585d:
         *(float *)(pbVar5 + 0x44) = fVar6;
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMFIT(puVar2,pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFIT((int *)pfVar2,(int)pbVar9,fVar6);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,fVar6);
+          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
         }
         break;
       case 0x3:
@@ -1329,11 +1329,11 @@ LAB_0040585d:
         }
         if ((*pbVar5 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMGIT(puVar2,pbVar9);
+            rdAFRaster_SetupNGonMGIT((int *)pfVar2,(int)pbVar9);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(puVar2,pbVar9,0);
+          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
         }
       }
     }
@@ -1464,8 +1464,9 @@ void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort c
 #if 0
 /* Clips a point with radius against the canvas rect and draws it */
 
-void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,undefined4 param_4,float param_5,
-                       int param_6,int param_7)
+void __cdecl
+rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,uint param_4,float param_5,int param_6,
+                  int param_7)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1488,13 +1489,13 @@ void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,undefined4 param_4
        (param_2 - iVar2 <= *(int *)((int)param_1 + 0x20))) &&
       (*(int *)((int)param_1 + 0x1c) <= iVar2 + param_3)) &&
      (param_3 - iVar2 <= *(int *)((int)param_1 + 0x24))) {
-    stdMath_SinCos(0,&local_4,&local_8);
+    stdMath_SinCos(0.0,(float *)&local_4,(float *)&local_8);
     lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
     iVar2 = (int)lVar3 + param_2;
     y1 = (int)lVar4 + param_3;
     for (fVar1 = param_5; fVar1 <= 360.0; fVar1 = fVar1 + param_5) {
-      stdMath_SinCos(fVar1,&local_4,&local_8);
+      stdMath_SinCos(fVar1,(float *)&local_4,(float *)&local_8);
       lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
       x2 = (int)lVar3 + param_2;
       lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));

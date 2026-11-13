@@ -48,7 +48,7 @@ void KeyframeChanger(undefined4 param_1,int *param_2,undefined4 param_3,int para
       Res_SetReference((void *)(*param_2 + 0x54 + track * 0x34),data,
                        s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xe3a);
       *(undefined4 *)(*param_2 + 0x18c) = param_8;
-      rdPuppet_SetCallback(puppet,track,sputCostume_PuppetHook);
+      rdPuppet_SetCallback((int)puppet,track,((unsigned)(uintptr_t)sputCostume_PuppetHook));
       bVar2 = true;
       goto LAB_00497960;
     }
@@ -64,16 +64,16 @@ LAB_00497960:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
     }
-    rdPuppet_ResetTrack(puppet,track);
-    rdPuppet_SetStatus(puppet,track,0x20);
-    rdPuppet_PlayTrack(puppet,track);
+    rdPuppet_ResetTrack((int)puppet,track);
+    rdPuppet_SetStatus((int)puppet,track,0x20);
+    rdPuppet_PlayTrack((int)puppet,track);
     return;
   case 1:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
     }
     if ((*(byte *)((int)puppet + track * 0x134 + 8) & 0xc) == 0) {
-      rdPuppet_PlayTrack(puppet,track);
+      rdPuppet_PlayTrack((int)puppet,track);
       return;
     }
     break;
@@ -81,17 +81,17 @@ LAB_00497960:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
     }
-    rdPuppet_ResetTrack(puppet,track);
-    rdPuppet_SetStatus(puppet,track,0x40);
-    rdPuppet_PlayTrack(puppet,track);
+    rdPuppet_ResetTrack((int)puppet,track);
+    rdPuppet_SetStatus((int)puppet,track,0x40);
+    rdPuppet_PlayTrack((int)puppet,track);
     return;
   case 3:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
     }
-    rdPuppet_ResetTrack(puppet,track);
-    rdPuppet_SetStatus(puppet,track,0x80);
-    rdPuppet_PlayTrack(puppet,track);
+    rdPuppet_ResetTrack((int)puppet,track);
+    rdPuppet_SetStatus((int)puppet,track,0x80);
+    rdPuppet_PlayTrack((int)puppet,track);
     return;
   case 4:
     rdPuppet_FadeInTrack(puppet,track,1.0);
@@ -130,7 +130,7 @@ LAB_00497bc4:
     }
     break;
   case 9:
-    rdPuppet_SetStatus(puppet,track,0x10);
+    rdPuppet_SetStatus((int)puppet,track,0x10);
     return;
   case 10:
     *(uint *)((int)puppet + track * 0x134 + 8) =

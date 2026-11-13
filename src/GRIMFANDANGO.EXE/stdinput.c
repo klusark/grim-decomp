@@ -562,7 +562,7 @@ void Input_MarkAxisUsed(uint param_1)
 /* Buffered DirectInput key events plus the immediate key state; each key has a 7-dword record {?,
    lastDown, down, downTime, upTime, pressCount, doubleTap} */
 
-void Input_PollKeyboard(void)
+void __cdecl Input_PollKeyboard(void)
 
 {
   unsigned char _frame[0x330] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -926,7 +926,7 @@ LAB_00477bd5:
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
     */
 
-void Input_PollMouse(void)
+void __cdecl Input_PollMouse(void)
 
 {
   unsigned char _frame[0x230] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -999,7 +999,7 @@ LAB_00477da3:
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
     */
 
-void Input_FlushJoystick(void)
+void __cdecl Input_FlushJoystick(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -851,7 +851,7 @@ void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
 /* Fills the 65536-entry 16-bit remap table g_wSputRender_ColorLookup for the pixel format and gamma
     */
 
-void Render_BuildColorTable(int param_1,float param_2)
+void __cdecl Render_BuildColorTable(int param_1,float param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

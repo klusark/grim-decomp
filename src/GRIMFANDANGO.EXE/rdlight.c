@@ -9,7 +9,7 @@
 /* Defaults: type 2, on, white (0xffffff), intensity 1.0 Original name rdLight_NewEntry (the
    remaster's GrimFandango (Linux): aligned call in sputRoom_ParseLights); was rdLight_Init. */
 
-undefined4 rdLight_NewEntry(int param_1)
+uint __cdecl rdLight_NewEntry(int param_1)
 
 {
   *(undefined4 *)(param_1 + 4) = 2;
@@ -42,8 +42,8 @@ void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
   local_4 = 0;
   *(float *)((int)light + 0x20) = inner;
   *(float *)((int)light + 0x28) = outer;
-  stdMath_SinCos(inner,&local_4,(float *)((int)light + 0x24));
-  stdMath_SinCos(outer,&local_4,(float *)((int)light + 0x2c));
+  stdMath_SinCos(inner,(float *)&local_4,(float *)((int)light + 0x24));
+  stdMath_SinCos(outer,(float *)&local_4,(float *)((int)light + 0x2c));
   fVar1 = *(float *)((int)light + 0x24) - *(float *)((int)light + 0x2c);
   if (0.0 < fVar1) {
     *(float *)((int)light + 0x30) = 1.0 / fVar1;

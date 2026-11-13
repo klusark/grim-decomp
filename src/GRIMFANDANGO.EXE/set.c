@@ -105,8 +105,8 @@ void __cdecl sputRender_SyncCamera(void *set,int setupIdx)
     (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f)
     ;
   }
-  rdroid_SetColormap(*(undefined4 *)(iVar3 + iVar2 * 0x34 + 4));
-  rdCamera_SetCurrent(*(undefined4 *)(iVar1 + 0x48));
+  rdroid_SetColormap(*(uint *)(iVar3 + iVar2 * 0x34 + 4));
+  rdCamera_SetCurrent(*(void **)(iVar1 + 0x48));
   if (g_pSputRender_Canvas != (void *)0x0) {
     rdCamera_SetCanvas(*(void **)(iVar1 + 0x48),g_pSputRender_Canvas);
   }
@@ -253,7 +253,7 @@ void Set_DrawDebugLights(int param_1)
         local_68 = PUN(uint,(float)(pfVar2[-9] + pfVar2[-0xf]));
         local_64 = PUN(uint,(float)(pfVar2[-8] + pfVar2[-0xe]));
         local_6c = PUN(uint,(float)(pfVar2[-10] + pfVar2[-0x10]));
-        rdMatrix_LookAt(local_30,pfVar2 + -0x10,&local_6c,0);
+        rdMatrix_LookAt(local_30,pfVar2 + -0x10,(float *)&local_6c,0);
         local_5c = pfVar2[-7] * 0.1;
         vec = &local_60;
         local_60 = (1.0 - pfVar2[-2]) * local_5c;
@@ -1047,7 +1047,8 @@ LAB_004a51bd:
       iVar5 = rdThing_New(0);
       ref[-0x1d] = iVar5;
       rdThing_SetCamera(iVar5,ref[-0x1e]);
-      rdMatrix_LookAt(ref + -0x1c,ref + -0x28,ref + -0x25,ref[-0x22]);
+      rdMatrix_LookAt((float *)(ref + -0x1c),(float *)(ref + -0x28),(float *)(ref + -0x25),
+                      ref[-0x22]);
       set = (void *)0x0;
       if (*(int *)((int)pvVar2 + 0xb8) != 0) {
         pvVar4 = (void *)((int)pvVar2 + 0xe8);

@@ -448,7 +448,7 @@ void * sputResource_MaterialHandler(int *param_1)
     if (iVar1 == 0) {
       iVar1 = rdMaterial_LoadEntry(s_dflt_mat_004e9c68,material,0,0);
       if (iVar1 == 0) {
-        rdMaterial_FreeEntry(material);
+        rdMaterial_FreeEntry((int)material);
         (**(code **)(g_dwSputResHS + 0x24))(material);
         return (void *)0x0;
       }
@@ -480,14 +480,15 @@ void * sputResource_ModelHandler(int *param_1)
 
 {
   int iVar1;
+  uint *data;
   void *pvVar2;
   
   if (param_1[2] == 0x4c444f4d) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
-      pvVar2 = (void *)rdModel3_Load(param_1[1]);
-      if (pvVar2 != (void *)0x0) {
-        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
+      data = rdModel3_Load(param_1[1]);
+      if (data != (uint *)0x0) {
+        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],data);
         return pvVar2;
       }
     }

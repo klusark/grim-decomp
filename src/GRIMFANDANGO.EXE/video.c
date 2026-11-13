@@ -106,22 +106,25 @@ void gra_BlitRectLookup(int *param_1,uint *param_2,int param_3,int param_4,int *
    remaster's GrimFandango (Linux): gra_SetBitmap's call (buffer, bitmap, w*h, colour)); was
    Video_FillPixels. */
 
-void gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4)
+void __cdecl gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4)
 
 {
   char cVar1;
   int iVar2;
   undefined3 uVar3;
+  undefined4 in_EDX;
+  undefined3 uVar4;
   
   iVar2 = *(int *)(param_2 + 0xc) + -1;
   uVar3 = (undefined3)((uint)iVar2 >> 8);
+  uVar4 = (undefined3)((uint)in_EDX >> 8);
   switch(iVar2) {
   case 0:
-    msc_MemSet(param_1,CONCAT31(uVar3,*param_4),param_3);
+    msc_MemSet((uint)param_1,CONCAT31(uVar3,*param_4),param_3);
     return;
   case 1:
     if (*param_4 == param_4[1]) {
-      msc_MemSet(param_1,CONCAT31(uVar3,*param_4),param_3 * 2);
+      msc_MemSet((uint)param_1,CONCAT31(uVar3,*param_4),param_3 * 2);
       return;
     }
     if (param_3 != 0) {
@@ -135,7 +138,7 @@ void gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4)
     break;
   case 2:
     if ((*param_4 == param_4[1]) && (param_4[2] == param_4[1])) {
-      msc_MemSet(param_1,*param_4,param_3 * 3);
+      msc_MemSet((uint)param_1,CONCAT31(uVar4,*param_4),param_3 * 3);
       return;
     }
     if (param_3 != 0) {
@@ -152,7 +155,7 @@ void gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4)
   case 3:
     cVar1 = param_4[1];
     if (((*param_4 == cVar1) && (param_4[2] == cVar1)) && (param_4[3] == cVar1)) {
-      msc_MemSet(param_1,*param_4,param_3 * 4);
+      msc_MemSet((uint)param_1,CONCAT31(uVar4,*param_4),param_3 * 4);
       return;
     }
     for (; param_3 != 0; param_3 = param_3 + -1) {

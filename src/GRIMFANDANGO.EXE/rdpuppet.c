@@ -25,29 +25,28 @@ void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint index,flo
 }
 
 /* ---- 0x00450500  rdPuppet_New ---- */
-undefined4 * rdPuppet_New(void *param_1)
+uint * __cdecl rdPuppet_New(void *param_1)
 
 {
-  undefined4 *puppet;
+  uint *puppet;
   int iVar1;
-  undefined4 *puVar2;
+  uint *puVar2;
   
-  puppet = (undefined4 *)
-           (*g_pRdroid_HS->pAlloc)
-                     (0x740,s_C__grimjedi_Libs_RDroid_Engine_R_004ddddc,DAT_004dddd8 + 3);
+  puppet = (uint *)(*g_pRdroid_HS->pAlloc)
+                             (0x740,s_C__grimjedi_Libs_RDroid_Engine_R_004ddddc,DAT_004dddd8 + 3);
   puVar2 = puppet;
   for (iVar1 = 0x1d0; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  if (puppet != (undefined4 *)0x0) {
+  if (puppet != (uint *)0x0) {
     iVar1 = rdPuppet_NewEntry(puppet,param_1);
     if (iVar1 != 0) {
-      *(undefined4 **)((int)param_1 + 0x14) = puppet;
+      *(uint **)((int)param_1 + 0x14) = puppet;
       return puppet;
     }
   }
-  return (undefined4 *)0x0;
+  return (uint *)0x0;
 }
 
 /* ---- 0x00450560  rdPuppet_NewEntry ---- */
@@ -116,7 +115,7 @@ uint __cdecl rdPuppet_AddTrack(void *puppet,uint keyframe,uint lowPri,uint highP
   puVar3[6] = 0;
   puVar3[3] = highPri;
   *puVar3 = *puVar3 | 1;
-  rdPuppet_ResetTrack(puppet,track);
+  rdPuppet_ResetTrack((int)puppet,track);
   return track;
 }
 
@@ -145,7 +144,7 @@ void __cdecl rdPuppet_RemoveTrack(void *puppet,int track)
 /* Original name rdPuppet_SetStatus (the remaster's GrimFandango (Linux): aligned call in
    KeyframeChanger); was rdPuppet_SetTrackFlags. */
 
-undefined4 rdPuppet_SetStatus(int param_1,int param_2,uint param_3)
+uint __cdecl rdPuppet_SetStatus(int param_1,int param_2,uint param_3)
 
 {
   uint *puVar1;
@@ -160,17 +159,17 @@ undefined4 rdPuppet_SetStatus(int param_1,int param_2,uint param_3)
    remaster's GrimFandango (Linux): aligned call in KeyframeChanger); was rdPuppet_SetTrackUserData.
     */
 
-void rdPuppet_SetCallback(int param_1,int param_2,undefined4 param_3)
+void __cdecl rdPuppet_SetCallback(int param_1,int param_2,uint param_3)
 
 {
-  *(undefined4 *)(param_1 + (param_2 + 1) * 0x134) = param_3;
+  *(uint *)(param_1 + (param_2 + 1) * 0x134) = param_3;
   return;
 }
 
 /* ---- 0x004506f0  rdPuppet_PlayTrack ---- */
 /* Status bits: clears 0x10, sets 2, speed 1.0 */
 
-undefined4 rdPuppet_PlayTrack(int param_1,int param_2)
+uint __cdecl rdPuppet_PlayTrack(int param_1,int param_2)
 
 {
   uint *puVar1;
@@ -423,7 +422,7 @@ void __cdecl rdPuppet_UpdateTracks(void *puppet,float seconds)
    (the remaster's GrimFandango (Linux): aligned call in KeyframeChanger, rdPuppet_AddTrack); was
    rdPuppet_ClearTrackNodes. */
 
-void rdPuppet_ResetTrack(int param_1,int param_2)
+void __cdecl rdPuppet_ResetTrack(int param_1,int param_2)
 
 {
   undefined4 *puVar1;
@@ -735,11 +734,12 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
           local_48[0] = PUN(float,puVar14[0xe]) + local_48[0];
           local_48[1] = PUN(float,puVar14[0xf]) + local_48[1];
           local_48[2] = PUN(float,puVar14[0x10]) + fVar20;
-          rdMatrix_Build34(local_50 + *(int *)((int)model + 0x20),local_48,local_3c);
-          iVar13 = *(int *)((int)model + 0x24) + local_60;
+          rdMatrix_Build34((float *)(local_50 + *(int *)((int)model + 0x20)),(uint *)local_48,
+                           local_3c);
+          uVar15 = *(int *)((int)model + 0x24) + local_60;
           if (((*(float *)(*(int *)((int)model + 0x24) + local_60) != 0.0) ||
-              (*(float *)(iVar13 + 4) != 0.0)) || (*(float *)(iVar13 + 8) != 0.0)) {
-            Matrix_BuildTransform(local_50 + *(int *)((int)model + 0x20),iVar13);
+              (*(float *)(uVar15 + 4) != 0.0)) || (*(float *)(uVar15 + 8) != 0.0)) {
+            Matrix_BuildTransform((float *)(local_50 + *(int *)((int)model + 0x20)),uVar15);
           }
           local_5c[2] = PUN(float,(PUN(int,(float)local_5c[2]) + 1));
           local_60 = local_60 + 0xc;

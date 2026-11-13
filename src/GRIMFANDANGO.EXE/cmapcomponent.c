@@ -127,7 +127,7 @@ undefined4 ColormapFreer(undefined4 param_1,undefined4 param_2,void *param_3)
    slot (instancesaveload) of the same costume tag registration in sputCostume_Startup); was
    FUN_004965b0. */
 
-undefined4 MaterialInstanceSaveLoad(void)
+uint __cdecl MaterialInstanceSaveLoad(void)
 
 {
   int in_stack_00000010;

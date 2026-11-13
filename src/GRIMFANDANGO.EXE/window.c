@@ -21,14 +21,14 @@ undefined * __stdcall Win_WinMain(int a1,int a2,int a3,int a4)
    Backspace-chord debug keys (C choreface, F fps, P profile, S screenshot, T reset textures, Z
    z-buffer dump, F12 grimpatch.bin, NumLock spew). */
 
-undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
+byte * __cdecl Win_WndProc(uint param_1,uint param_2,int param_3)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   void *pvVar3;
-  undefined *puVar4;
+  byte *pbVar4;
   short sVar5;
   int iVar6;
   #define local_40 (*(char (*)[64])(_frame + (0x50 - 0x40)))
@@ -48,13 +48,13 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
           }
           Input_SetAcquired(0);
           INT_004dd38c = 0;
-          return (undefined *)0x0;
+          return (byte *)0x0;
         }
         if (param_3 == 0) {
-          return (undefined *)0x0;
+          return (byte *)0x0;
         }
         if (INT_004dd38c != 0) {
-          return (undefined *)0x0;
+          return (byte *)0x0;
         }
         if (g_bWindowedMode == 0) {
           grimlib_SetPause(0);
@@ -67,10 +67,10 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
         Input_SetAcquired(1);
         sputRender_ForceRefresh();
         stdControl_ShowMouseCursor(g_bWindowedMode);
-        return (undefined *)0x0;
+        return (byte *)0x0;
       }
       if (param_2 == 0x14) {
-        return (undefined *)0x1;
+        return (byte *)0x1;
       }
     }
     else if (param_2 < 0x101) {
@@ -79,28 +79,28 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
         case 8:
           if (g_nGrimlib_bDebugKeys != 0) {
             g_bDebugChordHeld = 1;
-            return (undefined *)0x0;
+            return (byte *)0x0;
           }
           break;
         case 0x13:
           sputLua_DoPauseCallback();
-          return (undefined *)0x1;
+          return (byte *)0x1;
         case 0x43:
           if (g_bDebugChordHeld != 0) {
             ChoreFace_Toggle(1);
-            return (undefined *)0x1;
+            return (byte *)0x1;
           }
           break;
         case 0x46:
           if (g_bDebugChordHeld != 0) {
             _g_bDrawFrameRate = (uint)(_g_bDrawFrameRate == 0);
-            return (undefined *)0x1;
+            return (byte *)0x1;
           }
           break;
         case 0x50:
           if (g_bDebugChordHeld != 0) {
             g_nDrawPerfData = (uint)(g_nDrawPerfData == 0);
-            return (undefined *)0x1;
+            return (byte *)0x1;
           }
           break;
         case 0x53:
@@ -108,13 +108,13 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
             UINT_004f5a90 = UINT_004f5a90 + 1;
             sprintf(local_40,s__s_d_bmp_004dd928,&DAT_004dd934,uVar1);
             sputRender_SaveDrawBuffer(local_40);
-            return (undefined *)0x0;
+            return (byte *)0x0;
           }
           break;
         case 0x54:
           if (g_bDebugChordHeld != 0) {
             std3D_PurgeTextureCache();
-            return (undefined *)0x1;
+            return (byte *)0x1;
           }
           break;
         case 0x5a:
@@ -122,30 +122,30 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
             UINT_004f5a94 = UINT_004f5a94 + 1;
             sprintf(local_40,s__s_d_zbm_004dd91c,&DAT_004dd934,uVar2);
             Render_SaveZBufferBmp(local_40);
-            return (undefined *)0x0;
+            return (byte *)0x0;
           }
           break;
         case 0x7b:
           iVar6 = GetKeyState(8);
           if ((short)iVar6 != 0) {
             lua_dofile(s_grimpatch_bin_004dd93c);
-            return (undefined *)0x1;
+            return (byte *)0x1;
           }
           break;
         case 0x90:
           Spew_Startup();
-          return (undefined *)0x1;
+          return (byte *)0x1;
         }
       }
       else if ((param_2 == 0x20) && (g_bWindowedMode == 0)) {
         SetCursor(0);
-        return (undefined *)0x1;
+        return (byte *)0x1;
       }
     }
     else if (param_2 < 0x219) {
       if (param_2 == 0x218) {
         if (param_3 == 0) {
-          return (undefined *)0x0;
+          return (byte *)0x0;
         }
       }
       else {
@@ -153,23 +153,23 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
         case 0x101:
           if (param_3 == 8) {
             g_bDebugChordHeld = 0;
-            return (undefined *)0x0;
+            return (byte *)0x0;
           }
           if ((param_3 == 0x43) && (g_bDebugChordHeld != 0)) {
-            return (undefined *)0x1;
+            return (byte *)0x1;
           }
           break;
         case 0x102:
-          puVar4 = grimlib_CharacterCallback(param_3);
-          return puVar4;
+          pbVar4 = grimlib_CharacterCallback(param_3);
+          return pbVar4;
         case 0x104:
-          return (undefined *)0x1;
+          return (byte *)0x1;
         case 0x105:
           goto switchD_0040336f_caseD_105;
         }
       }
     }
-    return (undefined *)0x0;
+    return (byte *)0x0;
   }
   if (param_2 == 0x10) {
     iVar6 = ChoreFace_Toggle(0);
@@ -177,19 +177,19 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
       pvVar3 = Win_GetMainHwnd();
       iVar6 = IsIconic((int)pvVar3);
       if (iVar6 != 0) {
-        return (undefined *)0x0;
+        return (byte *)0x0;
       }
       iVar6 = grimlib_ConfirmClose();
-      return (undefined *)(uint)(iVar6 == 0);
+      return (byte *)(uint)(iVar6 == 0);
     }
 switchD_0040336f_caseD_105:
-    return (undefined *)0x1;
+    return (byte *)0x1;
   }
   if (param_2 != 6) {
-    return (undefined *)0x0;
+    return (byte *)0x0;
   }
   if (g_dwZg_App_bAppActive == 0) {
-    return (undefined *)0x0;
+    return (byte *)0x0;
   }
   sVar5 = (short)param_3;
   if (g_nStdControl_bOpen != 0) {
@@ -199,16 +199,16 @@ switchD_0040336f_caseD_105:
     stdControl_ShowMouseCursor(g_bWindowedMode);
   }
   if (sVar5 != 0) {
-    return (undefined *)0x0;
+    return (byte *)0x0;
   }
 LAB_0040303f:
   if ((g_bWindowedMode == 0) && (UINT_004e814c != 0)) {
     iVar6 = 6;
     pvVar3 = Win_GetMainHwnd();
     ShowWindow((int)pvVar3,iVar6);
-    return (undefined *)0x0;
+    return (byte *)0x0;
   }
-  return (undefined *)0x0;
+  return (byte *)0x0;
 }
 #undef local_40
 
@@ -274,6 +274,7 @@ Win_AbortIfAlreadyRunning
 {
   int iVar1;
   int iVar2;
+  uint uVar3;
   
   iVar1 = FindWindowA(((unsigned)(uintptr_t)&s_wKernel_004ed080),(int)appName);
   if (iVar1 != 0) {
@@ -296,8 +297,8 @@ Win_AbortIfAlreadyRunning
   iVar1 = GetSystemMetrics(0x20);
   iVar2 = GetSystemMetrics(0xf);
   UINT_008d0a88 = iVar2 + iVar1 * 2;
-  iVar1 = Main_Startup(cmdLine);
-  if (iVar1 != 0) {
+  uVar3 = Main_Startup(cmdLine);
+  if (uVar3 != 0) {
     UINT_008d0a8c = 1;
     do {
       Win_PumpMessages();

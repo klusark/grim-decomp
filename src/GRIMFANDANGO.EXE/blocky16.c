@@ -191,9 +191,9 @@ int AllocBuffers(int param_1,int param_2,int param_3)
         g_pFob_blk16_key_buffer = (byte *)*g_pBlkBitmap0;
         g_pFob_blk16_delta_buffer = (byte *)*g_pBlkBitmap1;
         g_pFob_blk16_render_buffer = (byte *)*g_pBlkBitmap2;
-        msc_MemSet(g_pFob_blk16_key_buffer,0,g_nFob_buffersize * 2);
-        msc_MemSet(g_pFob_blk16_delta_buffer,0,g_nFob_buffersize * 2);
-        msc_MemSet(g_pFob_blk16_render_buffer,0,g_nFob_buffersize * 2);
+        msc_MemSet((uint)g_pFob_blk16_key_buffer,0,g_nFob_buffersize * 2);
+        msc_MemSet((uint)g_pFob_blk16_delta_buffer,0,g_nFob_buffersize * 2);
+        msc_MemSet((uint)g_pFob_blk16_render_buffer,0,g_nFob_buffersize * 2);
         g_pbBlkExpand =
              (byte *)(*(code *)*g_pBlocky16_memory_services)
                                (0x20000,s_C__grimsrc_libs_lecsmush_insane__004f3bbc,0x13e);
@@ -741,10 +741,10 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
   }
   if (*(short *)(hdr + 0x10) == 0) {
     fob_blk16_configure(uVar8);
-    gra_SetBuffer(g_pFob_blk16_key_buffer,g_pBlkBitmap0,g_pBlkBitmap0[1] * g_pBlkBitmap0[2],
-                  hdr + 0x20);
-    gra_SetBuffer(g_pFob_blk16_delta_buffer,g_pBlkBitmap0,g_pBlkBitmap0[1] * g_pBlkBitmap0[2],
-                  hdr + 0x20);
+    gra_SetBuffer((char *)g_pFob_blk16_key_buffer,(int)g_pBlkBitmap0,
+                  g_pBlkBitmap0[1] * g_pBlkBitmap0[2],(char *)(hdr + 0x20));
+    gra_SetBuffer((char *)g_pFob_blk16_delta_buffer,(int)g_pBlkBitmap0,
+                  g_pBlkBitmap0[1] * g_pBlkBitmap0[2],(char *)(hdr + 0x20));
     g_nBlkLastSeq = -1;
   }
   g_nBretsFrameCount = g_nBretsFrameCount + 1;
@@ -787,7 +787,7 @@ LAB_004ccf67:
     g_pbBlkOutput = g_pFob_blk16_render_buffer;
     break;
   case 5:
-    msc_rle_DecompressBlock(g_pFob_blk16_render_buffer,pbVar5,*(undefined4 *)(hdr + 0x24));
+    msc_rle_DecompressBlock(g_pFob_blk16_render_buffer,(uint)pbVar5,*(int *)(hdr + 0x24));
     goto LAB_004ccf67;
   case 6:
     iVar7 = uVar8 * iVar7;

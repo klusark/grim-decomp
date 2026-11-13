@@ -24,7 +24,6 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
   char *pcVar9;
   char *pcVar10;
   char *pcVar11;
-  undefined4 uVar12;
   #define acStack_174 (*(char (*)[52])(_frame + (0x190 - 0x174)))
   #define auStack_140 (*(undefined1 (*)[320])(_frame + (0x190 - 0x140)))
   
@@ -113,11 +112,11 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
     (*g_pStd_HS->pFree)(pcVar4);
   }
   if (!bVar2) {
-    uVar12 = 0;
+    iVar3 = 0;
     pcVar5 = PolyglotGetString(s__engn007_Grim_Fandango_could_not_004dd4dc);
     pcVar4 = PolyglotGetString(s__engn006_Please_make_sure_that_t_004dd47c);
     pvVar6 = Win_GetMainHwnd();
-    Grim_FatalMessageBox(pvVar6,pcVar4,pcVar5,uVar12);
+    Grim_FatalMessageBox((int)pvVar6,(int)pcVar4,(int)pcVar5,iVar3);
     return 0;
   }
   return 1;
@@ -135,7 +134,7 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
    stdDisplay_Startup, the shutdown / palette / page-flip / debug-toggle callbacks,
    grimlib_FindResources)); was Grim_Init. */
 
-undefined4 Main_Startup(char *param_1)
+uint __cdecl Main_Startup(char *param_1)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -146,7 +145,6 @@ undefined4 Main_Startup(char *param_1)
   undefined *puVar5;
   int iVar6;
   undefined4 *puVar7;
-  undefined4 uVar8;
   #define local_80 (*(uint *)(_frame + (0x90 - 0x80)))
   #define local_7c (*(uint *)(_frame + (0x90 - 0x7c)))
   #define local_78 (*(undefined2 *)(_frame + (0x90 - 0x78)))
@@ -203,11 +201,11 @@ undefined4 Main_Startup(char *param_1)
   iVar1 = GetDeviceCaps(iVar6,0xc);
   ReleaseDC(0,iVar6);
   if (iVar1 < 8) {
-    uVar8 = 0;
+    iVar6 = 0;
     pcVar2 = PolyglotGetString(s__engn001_Grim_Fandango_004dd638);
     pcVar3 = PolyglotGetString(s__engn002_System_must_be_in_256_c_004dd5f8);
     pvVar4 = Win_GetMainHwnd();
-    Grim_FatalMessageBox(pvVar4,pcVar3,pcVar2,uVar8);
+    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar6);
     return 0;
   }
   iVar6 = stdDisplay_Startup();
@@ -228,11 +226,11 @@ undefined4 Main_Startup(char *param_1)
   }
   iVar6 = (*(code *)UINT_008dde28)();
   if (iVar6 != 0) {
-    uVar8 = 0;
+    iVar6 = 0;
     pcVar2 = PolyglotGetString(s__engn005_Grim_Fandango_could_not_004dd5a8);
     pcVar3 = PolyglotGetString(s__engn004_Please_make_sure_you_ar_004dd534);
     pvVar4 = Win_GetMainHwnd();
-    Grim_FatalMessageBox(pvVar4,pcVar3,pcVar2,uVar8);
+    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar6);
     return 0;
   }
   lua_openlib((int *)&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
@@ -245,11 +243,11 @@ undefined4 Main_Startup(char *param_1)
   grimdemo_EnableDebugging(1);
   iVar6 = grimlib_FindSystemFiles();
   if (iVar6 != 0) {
-    uVar8 = 0;
+    iVar6 = 0;
     pcVar2 = PolyglotGetString(s__engn007_Grim_Fandango_could_not_004dd4dc);
     pcVar3 = PolyglotGetString(s__engn006_Please_make_sure_that_t_004dd47c);
     pvVar4 = Win_GetMainHwnd();
-    Grim_FatalMessageBox(pvVar4,pcVar3,pcVar2,uVar8);
+    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar6);
     return 0;
   }
   iVar6 = grimlib_Open(UINT_004f5a10,-(uint)(UINT_004f5a14 != 0) & 0x4f59b0);
@@ -294,7 +292,7 @@ void __cdecl Grim_DecodeRegKeyName(char *s)
 /* ---- 0x004018b0  Grim_FatalMessageBox ---- */
 /* MessageBoxA wrapper that first tears down the display so the box is visible */
 
-int Grim_FatalMessageBox(int param_1,int param_2,int param_3,int param_4)
+int __cdecl Grim_FatalMessageBox(int param_1,int param_2,int param_3,int param_4)
 
 {
   int iVar1;
@@ -309,7 +307,7 @@ int Grim_FatalMessageBox(int param_1,int param_2,int param_3,int param_4)
 }
 
 /* ---- 0x00401900  Grim_ShutdownDisplay ---- */
-void Grim_ShutdownDisplay(void)
+void __cdecl Grim_ShutdownDisplay(void)
 
 {
   if (g_nDisplayDeviceOpen != 0) {
@@ -335,7 +333,7 @@ void Grim_ShutdownDisplay(void)
    rdShutdown, display close, mouse cursor, registry, polyglot shutdowns, std shutdown); was
    Grim_Shutdown. */
 
-void Main_Shutdown(void)
+void __cdecl Main_Shutdown(void)
 
 {
   int iVar1;
@@ -394,7 +392,7 @@ void Main_Shutdown(void)
 /* Builds g_displayModes: per display device, copies the 0x54-byte mode records and (when the device
    has 3D hardware) the 0x22c-byte 3D driver records */
 
-void Grim_EnumDisplayModes(void)
+void __cdecl Grim_EnumDisplayModes(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -543,7 +541,7 @@ void Grim_EnumDisplayModes(void)
 /* Sets g_nQuitApp. Original name grimdemo_PleaseShutdown (the remaster's GrimFandango (Linux): sets
    bQuitApp); was Grim_RequestQuit. */
 
-void grimdemo_PleaseShutdown(void)
+void __cdecl grimdemo_PleaseShutdown(void)
 
 {
   g_nQuitApp = 1;
@@ -555,7 +553,7 @@ void grimdemo_PleaseShutdown(void)
    Main_Startup, same body (two display palette calls, std3D_SetCurrentPalette with a device)); was
    Grim_OnDisplayModeChange. */
 
-undefined4 grimdemo_SetPalette(void *param_1,int param_2)
+uint __cdecl grimdemo_SetPalette(void *param_1,int param_2)
 
 {
   stdDisplay_SetPalette(param_1);
@@ -652,10 +650,10 @@ LAB_00402f60:
         if ((iVar2 == 0) || (iVar1 = _stricmp(iVar1,&DAT_004dd8b8), iVar1 == 0)) {
           cmdline = s_Usage_004dd8b0;
         }
-        uVar3 = 0;
+        iVar1 = 0;
         pcVar6 = s_GRIME__Grim_Fandango_Executable_U_004dd048;
         pvVar5 = Win_GetMainHwnd();
-        Grim_FatalMessageBox(pvVar5,pcVar6,cmdline,uVar3);
+        Grim_FatalMessageBox((int)pvVar5,(int)pcVar6,(int)cmdline,iVar1);
         return 0;
       }
       iVar1 = strtok(0,&DAT_004dd918);
@@ -671,14 +669,14 @@ LAB_00402f60:
 /* Opens HKLM\SOFTWARE\LucasArts Entertainment Company LLC\... and seeds GrimDataDir with the
    current directory when it is missing */
 
-void Grim_OpenRegistry(void)
+void __cdecl Grim_OpenRegistry(void)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   #define local_104 (*(char (*)[260])(_frame + (0x120 - 0x104)))
   
-  Reg_Open(0x80000002,s_SOFTWARE_LucasArts_Entertainment_004dd958,&DAT_004dd998);
+  Reg_Open((void *)0x80000002,((unsigned)(uintptr_t)&DAT_004dd958),&DAT_004dd998);
   iVar1 = wuRegistry_GetStr(s_GrimDataDir_004dd94c,local_104,0x104,&DAT_004f5a98);
   if (iVar1 == 0) {
     iVar1 = GetCurrentDirectoryA(0x104,(int)local_104);
@@ -695,7 +693,7 @@ void Grim_OpenRegistry(void)
 /* Loads splash.bm, converts each row to the screen format and flips it onto the primary surface
    twice */
 
-void Grim_ShowSplash(void)
+void __cdecl Grim_ShowSplash(void)
 
 {
   void *src;

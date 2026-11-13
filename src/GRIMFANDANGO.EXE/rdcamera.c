@@ -63,7 +63,7 @@ rdCamera_NewEntry(void *camera,float fov,int projType,float aspectX,float aspect
 /* ---- 0x0040a080  rdCamera_Free ---- */
 /* Frees a camera: its projection block and the camera itself. */
 
-void rdCamera_Free(int param_1)
+void __cdecl rdCamera_Free(int param_1)
 
 {
   if (param_1 != 0) {
@@ -78,7 +78,7 @@ void rdCamera_Free(int param_1)
    rdCamera_FreeEntry (the remaster's GrimFandango (Linux): same body (frees the projection record
    at +0x48)); was rdCamera_FreeProjection. */
 
-void rdCamera_FreeEntry(int param_1)
+void __cdecl rdCamera_FreeEntry(int param_1)
 
 {
   if (*(int *)(param_1 + 0x48) != 0) {
@@ -97,7 +97,7 @@ void __cdecl rdCamera_SetCanvas(void *camera,void *canvas)
 }
 
 /* ---- 0x0040a0e0  rdCamera_SetCurrent ---- */
-undefined4 rdCamera_SetCurrent(void *param_1)
+uint __cdecl rdCamera_SetCurrent(void *param_1)
 
 {
   if (g_pRdCamera_CurCamera != param_1) {
@@ -202,7 +202,7 @@ void __cdecl rdCamera_SetAspectRatio(void *camera,float zoom)
    rdCamera_SetCanvas; the only unmatched callee of rdCamera_SetProjectType; 2 matched neighbours
    agree, 0 disagree); was rdCamera_BuildProjection. */
 
-undefined4 rdCamera_BuildFOV(int *param_1)
+uint __cdecl rdCamera_BuildFOV(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -272,7 +272,7 @@ void __cdecl rdCamera_Update(float *frame)
     frame = frame + 1;
     pfVar2 = pfVar2 + 1;
   }
-  rdMatrix_ExtractAngles34(&UINT_008ddf60,&g_aRdCamera_camPYR);
+  rdMatrix_ExtractAngles34((float *)&UINT_008ddf60,(float *)&g_aRdCamera_camPYR);
   return;
 }
 
@@ -281,7 +281,7 @@ void __cdecl rdCamera_Update(float *frame)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void rdCamera_OrthoProject(float *param_1,float *param_2)
+void __cdecl rdCamera_OrthoProject(float *param_1,float *param_2)
 
 {
   int iVar1;
@@ -299,7 +299,7 @@ void rdCamera_OrthoProject(float *param_1,float *param_2)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
+void __cdecl rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -319,8 +319,8 @@ void rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
     *param_1 = fVar3 * *param_2 + fVar4;
     param_1[1] = fVar2 - param_2[2] * fVar1 * fVar3;
     param_1[2] = param_2[1];
-    param_2 = param_2 + 3;
     param_1 = param_1 + 3;
+    param_2 = param_2 + 3;
   }
   return;
 }
@@ -334,7 +334,7 @@ void rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void rdCamera_OrthoProjectSquare(float *param_1,float *param_2)
+void __cdecl rdCamera_OrthoProjectSquare(float *param_1,float *param_2)
 
 {
   int iVar1;
@@ -351,7 +351,7 @@ void rdCamera_OrthoProjectSquare(float *param_1,float *param_2)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void rdCamera_OrthoProjectSquareLst(float *param_1,float *param_2,int param_3)
+void __cdecl rdCamera_OrthoProjectSquareLst(float *param_1,float *param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -384,7 +384,7 @@ void rdCamera_OrthoProjectSquareLst(float *param_1,float *param_2,int param_3)
    Selected by rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1
    perspective; 'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void rdCamera_PerspProject(float *param_1,float *param_2)
+void __cdecl rdCamera_PerspProject(float *param_1,float *param_2)
 
 {
   float fVar1;
@@ -405,7 +405,7 @@ void rdCamera_PerspProject(float *param_1,float *param_2)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
+void __cdecl rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -438,7 +438,7 @@ void rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void rdCamera_PerspProjectSquare(float *param_1,float *param_2)
+void __cdecl rdCamera_PerspProjectSquare(float *param_1,float *param_2)
 
 {
   int iVar1;
@@ -457,7 +457,7 @@ void rdCamera_PerspProjectSquare(float *param_1,float *param_2)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void rdCamera_PerspProjectSquareLst(float *param_1,float *param_2,int param_3)
+void __cdecl rdCamera_PerspProjectSquareLst(float *param_1,float *param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -521,7 +521,7 @@ void __cdecl rdCamera_AddLight(void *camera,void *light,float *pos)
 /* Original name rdCamera_AdvanceFrame (the remaster's GrimFandango (Linux): the camera call of
    rdAdvanceFrame, same body (z-buffer clear: hardware or fill)); was rdCamera_ClearCanvas. */
 
-void rdCamera_AdvanceFrame(void)
+void __cdecl rdCamera_AdvanceFrame(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -561,7 +561,7 @@ void rdCamera_AdvanceFrame(void)
    reset of rdClearPreStatistics (clears rdModel3_numDrawnModels, counted per model in
    rdModel3_Draw)); was rdCamera_ResetStats. */
 
-void rdModel3_ClearFrameCounters(void)
+void __cdecl rdModel3_ClearFrameCounters(void)
 
 {
   g_dwRdModel3_numDrawnModels = 0;

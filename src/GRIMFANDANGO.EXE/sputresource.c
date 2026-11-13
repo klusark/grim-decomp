@@ -64,8 +64,8 @@ int sputResource_Startup(void)
     g_dwSputResStartup = Resource_RegisterTypes();
   }
   Res_OverrideFileCalls((GrimServices *)g_dwSputResHS);
-  g_dwPrdMatLoader = rdMaterial_RegisterLoader(sputResource_MatLoader);
-  g_dwPrdMatUnloader = rdMaterial_RegisterUnloader(sputResource_MatUnloader);
+  g_dwPrdMatLoader = rdMaterial_RegisterLoader(((unsigned)(uintptr_t)sputResource_MatLoader));
+  g_dwPrdMatUnloader = rdMaterial_RegisterUnloader(((unsigned)(uintptr_t)sputResource_MatUnloader));
   g_dwRes_pPeriodicCallback = (uint)SoundsPeriodic;
   Cos_RegisterSaveVerify(((unsigned)(uintptr_t)Resource_CountCostumeRefs));
   return g_dwSputResStartup == 0;

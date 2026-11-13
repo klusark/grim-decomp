@@ -10,7 +10,7 @@
    GrimFandango (Linux): Lua / module table entry 'Is3DHardwareEnabled'); was
    Lua_Is3DHardwareEnabled. */
 
-void sputLua_Is3DHardwareEnabledL(void)
+void __cdecl sputLua_Is3DHardwareEnabledL(void)
 
 {
   if (g_pStd3D_CurDevice != (void *)0x0) {
@@ -26,7 +26,7 @@ void sputLua_Is3DHardwareEnabledL(void)
 /* ---- 0x00401cc0  Lua_SetHardwareState ---- */
 /* Lua opcode: SetHardwareState */
 
-void Lua_SetHardwareState(void)
+void __cdecl Lua_SetHardwareState(void)
 
 {
   uint uVar1;
@@ -52,7 +52,7 @@ void Lua_SetHardwareState(void)
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* Lua opcode: GetVideoDevices */
 
-void Lua_GetVideoDevices(void)
+void __cdecl Lua_GetVideoDevices(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -72,7 +72,7 @@ void Lua_GetVideoDevices(void)
 /* ---- 0x00401da0  Lua_SetVideoDevices ---- */
 /* Lua opcode: SetVideoDevices */
 
-void Lua_SetVideoDevices(void)
+void __cdecl Lua_SetVideoDevices(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -118,7 +118,7 @@ void Lua_SetVideoDevices(void)
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* Lua opcode: Enumerate3DDevices */
 
-void Lua_Enumerate3DDevices(void)
+void __cdecl Lua_Enumerate3DDevices(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -173,7 +173,7 @@ LAB_00401f9e:
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* Lua opcode: EnumerateVideoDevices */
 
-void Lua_EnumerateVideoDevices(void)
+void __cdecl Lua_EnumerateVideoDevices(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1285,7 +1285,7 @@ void Lua_ParseSayLineTable
 /* Lua opcode: PrintLine Original name sputText_PrintLineL (the remaster's GrimFandango (Linux): Lua
    / module table entry 'PrintLine'); was Lua_PrintLine. */
 
-void sputText_PrintLineL(void)
+void __cdecl sputText_PrintLineL(void)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2503,7 +2503,7 @@ void sputLua_WalkActorVectorL(void)
             local_3c = 0;
             local_38[1] = 0.0;
             local_4 = 0;
-            Matrix_BuildTransform(local_30,&local_3c);
+            Matrix_BuildTransform(local_30,(uint)&local_3c);
           }
           rdMatrix_TransformVector34Acc(local_54,local_30);
           iVar2 = 3;
@@ -2976,7 +2976,7 @@ void sputLua_IsActorChoringL(void)
 /* Lua opcode: GetActorChores Original name sputLua_GetActorChoresL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'GetActorChores'); was Lua_GetActorChores. */
 
-void sputLua_GetActorChoresL(void)
+void __cdecl sputLua_GetActorChoresL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3086,7 +3086,7 @@ void sputLua_GetActorCostumeDepthL(void)
    GrimFandango (Linux): Lua / module table entry 'GetActorLoopingChores'); was
    Lua_GetActorLoopingChores. */
 
-void sputLua_GetActorLoopingChoresL(void)
+void __cdecl sputLua_GetActorLoopingChoresL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5428,7 +5428,7 @@ void sputLua_EnableDebugKeysL(void)
 /* Lua opcode: WorldToScreen Original name sputLua_WorldToScreenL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'WorldToScreen'); was Lua_WorldToScreen. */
 
-void sputLua_WorldToScreenL(void)
+void __cdecl sputLua_WorldToScreenL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6309,7 +6309,7 @@ void Lua_Print_NoOp(void)
    Original name sputLua_Startup (the remaster's GrimFandango (Linux): strings: 'concat' | 'WALK' |
    'SPECIAL' | 'HOT'); was Lua_InitGameLibs. */
 
-undefined4 sputLua_Startup(void)
+uint __cdecl sputLua_Startup(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6449,7 +6449,7 @@ TextObject * sputLua_RestoreIndirector(int param_1,TextObject *param_2)
    (last value kept at control+8) Original name sputLua_NotifyControlHandlers (the remaster's
    GrimFandango (Linux): aligned call in sputLua_Startup); was Lua_DispatchControlHandlers. */
 
-undefined4 sputLua_NotifyControlHandlers(void)
+uint __cdecl sputLua_NotifyControlHandlers(void)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7460,7 +7460,8 @@ LAB_0049f40e:
   g_pSputRender_Camera[1] = fVar5;
   fVar5 = lua_getnumber(iVar3);
   g_pSputRender_Camera[2] = fVar5;
-  rdMatrix_LookAt(g_pSputRender_Camera + 0xc,g_pSputRender_Camera,g_pSputRender_Camera + 3,PUN(undefined4,(float)(g_pSputRender_Camera[6])));
+  rdMatrix_LookAt(g_pSputRender_Camera + 0xc,g_pSputRender_Camera,g_pSputRender_Camera + 3,
+                  PUN(uint,(float)g_pSputRender_Camera[6]));
   rdCamera_Update(g_pSputRender_Camera + 0xc);
   return;
 }
@@ -7506,7 +7507,8 @@ LAB_0049f4de:
   g_pSputRender_Camera[4] = fVar5;
   fVar5 = lua_getnumber(iVar3);
   g_pSputRender_Camera[5] = fVar5;
-  rdMatrix_LookAt(g_pSputRender_Camera + 0xc,g_pSputRender_Camera,g_pSputRender_Camera + 3,PUN(undefined4,(float)(g_pSputRender_Camera[6])));
+  rdMatrix_LookAt(g_pSputRender_Camera + 0xc,g_pSputRender_Camera,g_pSputRender_Camera + 3,
+                  PUN(uint,(float)g_pSputRender_Camera[6]));
   rdCamera_Update(g_pSputRender_Camera + 0xc);
   return;
 }
@@ -7760,7 +7762,8 @@ void sputLua_SetCameraRollL(void)
   }
   fVar3 = lua_getnumber(iVar1);
   g_pSputRender_Camera[6] = fVar3;
-  rdMatrix_LookAt(g_pSputRender_Camera + 0xc,g_pSputRender_Camera,g_pSputRender_Camera + 3,PUN(undefined4,(float)(g_pSputRender_Camera[6])));
+  rdMatrix_LookAt(g_pSputRender_Camera + 0xc,g_pSputRender_Camera,g_pSputRender_Camera + 3,
+                  PUN(uint,(float)g_pSputRender_Camera[6]));
   rdCamera_Update(g_pSputRender_Camera + 0xc);
   return;
 }

@@ -975,7 +975,7 @@ extern char s__s_d_bmp_004dd928[12];
 extern unsigned char DAT_004dd934[8];
 extern char s_grimpatch_bin_004dd93c[16];
 extern char s_GrimDataDir_004dd94c[12];
-extern char s_SOFTWARE_LucasArts_Entertainment_004dd958[64];
+extern unsigned char DAT_004dd958[64];
 extern unsigned char DAT_004dd998[4];
 extern char s_splash_bm_004dd99c[12];
 extern void *g_aDefaultHostServices[28];
@@ -5925,7 +5925,12 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x004dd934, 8 bytes */ GRIM_DATA("004dd934") unsigned char DAT_004dd934[8] = { 0x73, 0x68, 0x6f, 0x74 };
 /* 0x004dd93c, 16 bytes */ GRIM_DATA("004dd93c") char s_grimpatch_bin_004dd93c[16] = "grimpatch.bin";
 /* 0x004dd94c, 12 bytes */ GRIM_DATA("004dd94c") char s_GrimDataDir_004dd94c[12] = "GrimDataDir";
-/* 0x004dd958, 64 bytes */ GRIM_DATA("004dd958") char s_SOFTWARE_LucasArts_Entertainment_004dd958[64] = "SOFTWARE\\LucasArts Entertainment Company LLC\\Grim Fandango\\v1.0";
+/* 0x004dd958, 64 bytes */ GRIM_DATA("004dd958") unsigned char DAT_004dd958[64] = {
+    0x53, 0x4f, 0x46, 0x54, 0x57, 0x41, 0x52, 0x45, 0x5c, 0x4c, 0x75, 0x63, 0x61, 0x73, 0x41, 0x72,
+    0x74, 0x73, 0x20, 0x45, 0x6e, 0x74, 0x65, 0x72, 0x74, 0x61, 0x69, 0x6e, 0x6d, 0x65, 0x6e, 0x74,
+    0x20, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x20, 0x4c, 0x4c, 0x43, 0x5c, 0x47, 0x72, 0x69,
+    0x6d, 0x20, 0x46, 0x61, 0x6e, 0x64, 0x61, 0x6e, 0x67, 0x6f, 0x5c, 0x76, 0x31, 0x2e, 0x30
+};
 /* 0x004dd998, 4 bytes */ GRIM_DATA("004dd998") unsigned char DAT_004dd998[4] = { 0x31, 0x2e, 0x30 };
 /* 0x004dd99c, 12 bytes */ GRIM_DATA("004dd99c") char s_splash_bm_004dd99c[12] = "splash.bm";
 /* 0x004dd9a8, 112 bytes */ GRIM_DATA("004dd9a8") void *g_aDefaultHostServices[28] = {

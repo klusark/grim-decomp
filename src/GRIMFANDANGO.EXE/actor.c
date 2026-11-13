@@ -267,7 +267,7 @@ sputActor_SetActorHead
       if (maxRoll < 0.0) {
         fVar3 = -maxRoll;
       }
-      stdMath_SinCos(fVar3 * 0.5,&actor,iVar1 + 0x24);
+      stdMath_SinCos(fVar3 * 0.5,(float *)&actor,(float *)(iVar1 + 0x24));
     }
   }
   return;
@@ -978,7 +978,7 @@ void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *param_2,int par
   ActorExtra *pAVar1;
   float fVar2;
   #define local_40 (*(float *)(_frame + (0x50 - 0x40)))
-  #define local_30 (*(undefined1 (*)[12])(_frame + (0x50 - 0x30)))
+  #define local_30 (*(float (*)[3])(_frame + (0x50 - 0x30)))
   #define local_24 (*(float (*)[3])(_frame + (0x50 - 0x24)))
   
   actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
@@ -1198,14 +1198,14 @@ void __cdecl Actor_PuckOrient(Actor *actor)
   #define local_54 (*(float (*)[3])(_frame + (0x80 - 0x54)))
   #define local_48 (*(float (*)[3])(_frame + (0x80 - 0x48)))
   #define local_3c (*(float (*)[3])(_frame + (0x80 - 0x3c)))
-  #define local_30 (*(undefined1 (*)[48])(_frame + (0x80 - 0x30)))
+  #define local_30 (*(float (*)[12])(_frame + (0x80 - 0x30)))
   
   if (((actor != (Actor *)0x0) && (actor->pExtra != (ActorExtra *)0x0)) &&
      (pPVar4 = actor->pExtra->pPuck, pPVar4 != (Puck *)0x0)) {
     pfVar1 = actor->aPos;
     pfVar2 = actor->aRot;
     pfVar3 = actor->aOrient;
-    rdMatrix_Build34(pfVar3,pfVar2,pfVar1);
+    rdMatrix_Build34(pfVar3,(uint *)pfVar2,pfVar1);
     local_48[0] = actor->aOrient[6];
     local_48[1] = actor->aOrient[7];
     local_48[2] = actor->aOrient[8];
@@ -1236,7 +1236,7 @@ void __cdecl Actor_PuckOrient(Actor *actor)
       rdMatrix_BuildFromVectorAngle34(local_30,local_3c,PUN(float,actor));
       rdMatrix_PostMultiply34(pfVar3,local_30);
       rdMatrix_ExtractAngles34(pfVar3,pfVar2);
-      rdMatrix_Build34(pfVar3,pfVar2,pfVar1);
+      rdMatrix_Build34(pfVar3,(uint *)pfVar2,pfVar1);
     }
   }
   return;
@@ -2075,7 +2075,7 @@ float * __cdecl sputActor_GetOrientMatrix(Actor *actor)
 
 {
   if (actor->nMatrixDirty == 0) {
-    rdMatrix_Build34(actor->aOrient,actor->aRot,actor->aPos);
+    rdMatrix_Build34(actor->aOrient,(uint *)actor->aRot,actor->aPos);
     actor->nMatrixDirty = 1;
   }
   return actor->aOrient;
@@ -2130,7 +2130,7 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      rdroid_SetColormap(*(undefined4 *)(iVar5 + iVar12 * 0x34 + 4));
+      rdroid_SetColormap(*(uint *)(iVar5 + iVar12 * 0x34 + 4));
       pvVar7 = sputRoom_GetCurrentRoom();
       iVar12 = *(int *)((int)pvVar7 + 0x88);
       pvVar7 = sputRoom_GetCurrentRoom();
@@ -2165,7 +2165,7 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
       fStack_8 = fVar6;
       fStack_4 = fVar6;
       pfVar10 = sputActor_GetOrientMatrix(actor);
-      rdMatrix_PreScale34(pfVar10,pfVar11);
+      rdMatrix_PreScale34(pfVar10,(uint)pfVar11);
     }
     pfVar11 = sputActor_GetOrientMatrix(actor);
     sputCostume_Draw3D(actor->pCostumes,pfVar11);
@@ -2380,7 +2380,7 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
               g_pShadowColormap = rdColormap_Load(s_shadow_cmp_004ea190);
             }
             if (g_pShadowMaterial != (void *)0x0) {
-              rdroid_SetColormap(g_pShadowColormap);
+              rdroid_SetColormap((uint)g_pShadowColormap);
               if (g_nSputRender_b3DAcceleration != 0) {
                 std3D_SetCurrentPalette((void *)((int)g_pShadowColormap + 0x30),0);
               }
@@ -2485,7 +2485,7 @@ void sputCostume_InternalDraw3D(int *param_1,float *param_2)
   }
   else {
     rdModel3_ActivateClipPlane(1);
-    rdModel3_SetClipPlane(actor->pExtra->aClipNormal,actor->pExtra->aClipPoint);
+    rdModel3_SetClipPlane((uint *)actor->pExtra->aClipNormal,(uint *)actor->pExtra->aClipPoint);
   }
   Costume_ApplyScale(actor,(void *)param_1[2]);
   iVar4 = param_1[2];
@@ -2507,12 +2507,12 @@ void sputCostume_InternalDraw3D(int *param_1,float *param_2)
       g_nDrawBoxMaxY = 0;
       iVar6 = iVar4;
       if (*(int *)(iVar4 + 0x44) == 0) {
-        if (*(int *)(iVar4 + 0x4c) == 0) {
+        if (*(uint *)(iVar4 + 0x4c) == 0) {
 LAB_004951ab:
           if (g_nSputRender_b3DAcceleration == 0) goto LAB_004951b3;
         }
         else {
-          rdroid_SetColormap(*(int *)(iVar4 + 0x4c));
+          rdroid_SetColormap(*(uint *)(iVar4 + 0x4c));
           if (g_nSputRender_b3DAcceleration != 0) {
             std3D_SetCurrentPalette((void *)(*(int *)(iVar4 + 0x4c) + 0x30),0);
             goto LAB_004951ab;
@@ -2536,8 +2536,8 @@ LAB_004951b3:
       else {
         for (; (iVar6 != 0 && (*(int *)(iVar6 + 0x4c) == 0)); iVar6 = *(int *)(iVar6 + 0x44)) {
         }
-        if (((iVar6 != 0) && (*(int *)(iVar6 + 0x4c) != 0)) &&
-           (rdroid_SetColormap(*(int *)(iVar6 + 0x4c)), g_nSputRender_b3DAcceleration != 0)) {
+        if (((iVar6 != 0) && (*(uint *)(iVar6 + 0x4c) != 0)) &&
+           (rdroid_SetColormap(*(uint *)(iVar6 + 0x4c)), g_nSputRender_b3DAcceleration != 0)) {
           std3D_SetCurrentPalette((void *)(*(int *)(iVar6 + 0x4c) + 0x30),0);
         }
         sputCostume_BuildThingStateMatrices(*(void **)(iVar4 + 0x44),param_2);
@@ -2564,7 +2564,7 @@ LAB_004951b3:
         if ((actor->pExtra != (ActorExtra *)0x0) &&
            (actor->pExtra->nInvClipNode == *(int *)(iVar4 + 0x48))) {
           rdModel3_ActivateClipPlane(1);
-          rdModel3_SetClipPlane(actor->aOrient + 3,actor->aPos);
+          rdModel3_SetClipPlane((uint *)(actor->aOrient + 3),(uint *)actor->aPos);
         }
         iVar7 = rdThing_Draw(*(void **)(iVar4 + 0x40),
                              (float *)(*(int *)(iVar7 + 0x20) + *(int *)(iVar4 + 0x48) * 0x30));

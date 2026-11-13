@@ -63,8 +63,9 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 *puVar2;
+  uint uVar2;
   undefined4 *puVar3;
+  undefined4 *puVar4;
   #define pvStack_ac (*(void **)(_frame + (0xc0 - 0xac)))
   #define pcStack_a8 (*(code_std **)(_frame + (0xc0 - 0xa8)))
   #define uStack_a4 (*(undefined4 *)(_frame + (0xc0 - 0xa4)))
@@ -121,8 +122,8 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   if (iVar1 == 0) {
     return 0;
   }
-  iVar1 = D3D_InitRenderState();
-  if (iVar1 == 0) {
+  uVar2 = D3D_InitRenderState();
+  if (uVar2 == 0) {
     return 0;
   }
   _DAT_008063fc = *(int *)((int)g_pStd3D_CurDevice + 0x40);
@@ -166,12 +167,12 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
       uStack_74 = 0x20;
       uStack_70 = 0x20;
       UINT_0080693c = (uint)(&DAT_00900620 + _DAT_0090052c * 0xa4);
-      puVar2 = (undefined4 *)UINT_0080693c;
-      puVar3 = auStack_60;
+      puVar3 = (undefined4 *)UINT_0080693c;
+      puVar4 = auStack_60;
       for (iVar1 = 0xe; iVar1 != 0; iVar1 = iVar1 + -1) {
-        *puVar3 = *puVar2;
-        puVar2 = puVar2 + 1;
+        *puVar4 = *puVar3;
         puVar3 = puVar3 + 1;
+        puVar4 = puVar4 + 1;
       }
       UINT_00806950 = (uint)stdDisplay_VBufferNew(&uStack_74,1,0,0);
     }
@@ -439,7 +440,7 @@ int __cdecl std3D_AddRenderListTris(void *tris,uint count)
    call of rdCache_DrawRenderList (the remaster stub shares its address with
    std3D_AddRenderListVertices)); was D3D_ExecuteBuffer. */
 
-int std3D_DrawRenderList(void)
+int __cdecl std3D_DrawRenderList(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -455,7 +456,7 @@ int std3D_DrawRenderList(void)
   ppvVar2 = &pvStack_38;
   iVar1 = (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 0x14))();
   if (iVar1 != 0) {
-    return false;
+    return 0;
   }
   for (iVar1 = 0xc; ppvVar2 = ppvVar2 + 1, iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppvVar2 = (void *)0x0;
@@ -463,7 +464,7 @@ int std3D_DrawRenderList(void)
   (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 0x18))(g_pD3dExecuteBuffer,(_frame + (0x50 - 0x34)));
   iVar1 = (**(code_std **)(*(int *)g_pD3dDevice + 0x20))
                     (g_pD3dDevice,g_pD3dExecuteBuffer,PTR_0080660c,2);
-  return iVar1 == 0;
+  return (uint)(iVar1 == 0);
 }
 #undef pvStack_38
 
@@ -1365,7 +1366,7 @@ void D3D_SetViewportRect(uint *param_1)
 /* Fills an execute buffer with the initial STATERENDER list derived from the driver capability bits
     */
 
-undefined4 D3D_InitRenderState(void)
+uint __cdecl D3D_InitRenderState(void)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -13,7 +13,7 @@
    for the span fillers Original name rdAFRaster_CalcAffineGradients (the remaster's GrimFandango
    (Linux): gradients call of rdAFRaster_SetupNGonLAT); was rdRaster_SetupPoly. */
 
-void rdAFRaster_CalcAffineGradients(float *param_1,int param_2)
+void __cdecl rdAFRaster_CalcAffineGradients(float *param_1,int param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -60,15 +60,15 @@ void rdAFRaster_CalcAffineGradients(float *param_1,int param_2)
     goto LAB_0040ec61;
   }
   local_24 = *(uint *)(PUN(int,(float)fVar5) + 0x6c);
-  local_20 = *(undefined4 *)(PUN(int,(float)fVar5) + 0x70);
+  local_20 = *(uint *)(PUN(int,(float)fVar5) + 0x70);
   uVar16 = local_24 + 1;
   if ((int)uVar16 < 0) {
-    pfVar17 = (float *)(iVar19 + -1);
+    pfVar17 = (float *)(iVar19 - 1);
   }
   else {
     pfVar17 = (float *)((iVar19 + -1 < (int)uVar16) - 1 & uVar16);
   }
-  pfVar21 = (float *)(iVar19 + -1);
+  pfVar21 = (float *)(iVar19 - 1);
   pfVar20 = param_1;
   if (pfVar17 == (float *)local_20) {
     local_1c = 0xffffffff;
@@ -256,14 +256,14 @@ LAB_0040ec61:
    rdAFRaster_CalcPerspGradients (the remaster's GrimFandango (Linux): gradients call of
    rdAFRaster_SetupNGonLIT); was rdRaster_SetupPolyTex. */
 
-void rdAFRaster_CalcPerspGradients(float *param_1,int param_2)
+void __cdecl rdAFRaster_CalcPerspGradients(float *param_1,int param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint uVar1;
-  int iVar2;
+  int iVar1;
+  float *pfVar2;
   float *pfVar3;
-  float *pfVar4;
+  float fVar4;
   float fVar5;
   float fVar6;
   float fVar7;
@@ -279,18 +279,17 @@ void rdAFRaster_CalcPerspGradients(float *param_1,int param_2)
   float fVar17;
   float fVar18;
   float fVar19;
-  float fVar20;
-  float *pfVar21;
+  float *pfVar20;
+  uint uVar21;
   float *pfVar22;
-  uint uVar23;
-  int iVar24;
-  uint uVar25;
-  int iVar26;
+  int iVar23;
+  float *pfVar24;
+  int iVar25;
   undefined4 unaff_ESI;
   undefined4 unaff_EDI;
-  float10 fVar27;
+  float10 fVar26;
   float10 extraout_ST1;
-  longlong lVar28;
+  longlong lVar27;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
@@ -303,211 +302,211 @@ void rdAFRaster_CalcPerspGradients(float *param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  pfVar21 = param_1;
-  fVar13 = *param_1;
-  iVar24 = *(int *)(PUN(int,(float)fVar13) + 0x1c);
-  if (iVar24 == 3) {
+  pfVar20 = param_1;
+  fVar12 = *param_1;
+  iVar23 = *(int *)(PUN(int,(float)fVar12) + 0x1c);
+  if (iVar23 == 3) {
     local_2c = 0;
     param_1 = (float *)0x1;
     local_24 = 2;
   }
   else {
-    local_2c = *(uint *)(PUN(int,(float)fVar13) + 0x6c);
-    param_1 = *(float **)(PUN(int,(float)fVar13) + 0x70);
-    uVar1 = local_2c + 1;
-    if ((int)uVar1 < 0) {
-      uVar23 = iVar24 - 1;
+    local_2c = *(uint *)(PUN(int,(float)fVar12) + 0x6c);
+    param_1 = *(float **)(PUN(int,(float)fVar12) + 0x70);
+    uVar21 = local_2c + 1;
+    if ((int)uVar21 < 0) {
+      pfVar22 = (float *)(iVar23 - 1);
     }
     else {
-      uVar23 = (iVar24 + -1 < (int)uVar1) - 1 & uVar1;
+      pfVar22 = (float *)((iVar23 + -1 < (int)uVar21) - 1 & uVar21);
     }
-    uVar25 = iVar24 - 1;
-    if ((float *)uVar23 == param_1) {
+    pfVar24 = (float *)(iVar23 - 1);
+    if (pfVar22 == param_1) {
       local_28 = 0xffffffff;
     }
     else {
-      uVar23 = uVar25;
+      pfVar22 = pfVar24;
       if (-1 < (int)(local_2c - 1)) {
-        uVar23 = ((int)uVar25 < (int)(local_2c - 1)) - 1 & local_2c - 1;
+        pfVar22 = (float *)(((int)pfVar24 < (int)(local_2c - 1)) - 1 & local_2c - 1);
       }
-      if ((float *)uVar23 == param_1) {
+      if (pfVar22 == param_1) {
         local_28 = 1;
       }
       else {
-        local_24 = uVar25;
-        if (-1 < (int)uVar1) {
-          local_24 = ((int)uVar25 < (int)uVar1) - 1 & uVar1;
+        local_24 = (uint)pfVar24;
+        if (-1 < (int)uVar21) {
+          local_24 = ((int)pfVar24 < (int)uVar21) - 1 & uVar21;
         }
-        iVar24 = *(int *)(PUN(int,(float)fVar13) + 0x20);
-        pfVar3 = (float *)(iVar24 + local_24 * 0xc);
-        pfVar22 = (float *)(iVar24 + (int)param_1 * 0xc);
-        lVar28 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-        iVar26 = (int)lVar28;
-        if (iVar26 < 0) {
-          iVar26 = -iVar26;
+        iVar23 = *(int *)(PUN(int,(float)fVar12) + 0x20);
+        pfVar22 = (float *)(iVar23 + local_24 * 0xc);
+        pfVar2 = (float *)(iVar23 + (int)param_1 * 0xc);
+        lVar27 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        iVar25 = (int)lVar27;
+        if (iVar25 < 0) {
+          iVar25 = -iVar25;
         }
-        if ((float)iVar26 <= 1.0) {
-          lVar28 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-          iVar26 = (int)lVar28;
-          if (iVar26 < 0) {
-            iVar26 = -iVar26;
+        if ((float)iVar25 <= 1.0) {
+          lVar27 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          iVar25 = (int)lVar27;
+          if (iVar25 < 0) {
+            iVar25 = -iVar25;
           }
-          if ((float)iVar26 <= 1.0) {
+          if ((float)iVar25 <= 1.0) {
             local_28 = 0xffffffff;
             goto LAB_0040f132;
           }
         }
-        pfVar4 = (float *)(iVar24 + local_2c * 0xc);
-        fVar5 = pfVar3[1] -
-                ((*pfVar3 - *pfVar4) *
-                 ((pfVar22[1] - *(float *)(iVar24 + 4 + local_2c * 0xc)) /
-                 (*pfVar22 - *(float *)(iVar24 + local_2c * 0xc))) + pfVar4[1]);
-        if (fVar5 < 0.0) {
-          fVar5 = -fVar5;
+        pfVar3 = (float *)(iVar23 + local_2c * 0xc);
+        fVar4 = pfVar22[1] -
+                ((*pfVar22 - *pfVar3) *
+                 ((pfVar2[1] - *(float *)(iVar23 + 4 + local_2c * 0xc)) /
+                 (*pfVar2 - *(float *)(iVar23 + local_2c * 0xc))) + pfVar3[1]);
+        if (fVar4 < 0.0) {
+          fVar4 = -fVar4;
         }
         local_28 = 0xffffffff;
-        if (1.0 <= fVar5) {
+        if (1.0 <= fVar4) {
           local_28 = 1;
         }
       }
     }
 LAB_0040f132:
-    iVar24 = *(int *)(PUN(int,(float)fVar13) + 0x20);
+    iVar23 = *(int *)(PUN(int,(float)fVar12) + 0x20);
     local_18 = 0;
-    uVar23 = local_2c + local_28;
-    uVar1 = uVar25;
-    if (-1 < (int)uVar23) {
-      uVar1 = ((int)uVar25 < (int)uVar23) - 1 & uVar23;
+    uVar21 = local_2c + local_28;
+    pfVar22 = pfVar24;
+    if (-1 < (int)uVar21) {
+      pfVar22 = (float *)(((int)pfVar24 < (int)uVar21) - 1 & uVar21);
     }
-    while ((float *)uVar1 != param_1) {
-      fVar5 = *(float *)(iVar24 + uVar1 * 0xc) -
-              (*(float *)(iVar24 + (int)param_1 * 0xc) + *(float *)(iVar24 + local_2c * 0xc)) * 0.5;
-      if (fVar5 < 0.0) {
-        fVar5 = -fVar5;
+    while (pfVar22 != param_1) {
+      fVar4 = *(float *)(iVar23 + (int)pfVar22 * 0xc) -
+              (*(float *)(iVar23 + (int)param_1 * 0xc) + *(float *)(iVar23 + local_2c * 0xc)) * 0.5;
+      if (fVar4 < 0.0) {
+        fVar4 = -fVar4;
       }
-      if ((float)local_18 < fVar5) {
-        local_24 = uVar1;
-        local_18 = PUN(uint,(float)fVar5);
+      if ((float)local_18 < fVar4) {
+        local_24 = (uint)pfVar22;
+        local_18 = PUN(uint,(float)fVar4);
       }
-      uVar23 = local_28 + uVar1;
-      uVar1 = uVar25;
-      if (-1 < (int)uVar23) {
-        uVar1 = ((int)uVar25 < (int)uVar23) - 1 & uVar23;
+      uVar21 = local_28 + (int)pfVar22;
+      pfVar22 = pfVar24;
+      if (-1 < (int)uVar21) {
+        pfVar22 = (float *)(((int)pfVar24 < (int)uVar21) - 1 & uVar21);
       }
     }
   }
-  iVar24 = 0;
-  if (0 < *(int *)(PUN(int,(float)fVar13) + 0x1c)) {
-    iVar26 = 0;
-    pfVar3 = pfVar21;
+  iVar23 = 0;
+  if (0 < *(int *)(PUN(int,(float)fVar12) + 0x1c)) {
+    iVar25 = 0;
+    pfVar22 = pfVar20;
     do {
-      pfVar22 = pfVar3 + 1;
-      iVar2 = iVar24 * 8;
-      iVar24 = iVar24 + 1;
-      fVar5 = 1.0 / *(float *)(iVar26 + 8 + *(int *)(PUN(int,(float)fVar13) + 0x20));
-      iVar26 = iVar26 + 0xc;
-      *pfVar22 = fVar5;
-      pfVar3[0x21] = *(float *)(iVar2 + *(int *)(PUN(int,(float)fVar13) + 0x24)) * fVar5;
-      pfVar3[0x41] = *(float *)(iVar2 + 4 + *(int *)(PUN(int,(float)fVar13) + 0x24)) * *pfVar22;
-      pfVar3 = pfVar22;
-    } while (iVar24 < *(int *)(PUN(int,(float)fVar13) + 0x1c));
+      pfVar24 = pfVar22 + 1;
+      iVar1 = iVar23 * 8;
+      iVar23 = iVar23 + 1;
+      fVar4 = 1.0 / *(float *)(iVar25 + 8 + *(int *)(PUN(int,(float)fVar12) + 0x20));
+      iVar25 = iVar25 + 0xc;
+      *pfVar24 = fVar4;
+      pfVar22[0x21] = *(float *)(iVar1 + *(int *)(PUN(int,(float)fVar12) + 0x24)) * fVar4;
+      pfVar22[0x41] = *(float *)(iVar1 + 4 + *(int *)(PUN(int,(float)fVar12) + 0x24)) * *pfVar24;
+      pfVar22 = pfVar24;
+    } while (iVar23 < *(int *)(PUN(int,(float)fVar12) + 0x1c));
   }
-  iVar24 = *(int *)(PUN(int,(float)fVar13) + 0x20);
-  fVar14 = *(float *)(iVar24 + 4 + local_2c * 0xc) - *(float *)(iVar24 + 4 + local_24 * 0xc);
-  fVar16 = *(float *)(iVar24 + 4 + (int)param_1 * 0xc) - *(float *)(iVar24 + 4 + local_24 * 0xc);
-  fVar17 = *(float *)(iVar24 + local_2c * 0xc) - *(float *)(iVar24 + local_24 * 0xc);
-  fVar18 = *(float *)(iVar24 + (int)param_1 * 0xc) - *(float *)(iVar24 + local_24 * 0xc);
-  fVar5 = pfVar21[(int)param_1 + 0x21];
-  fVar15 = 1.0 / (fVar14 * fVar18 - fVar16 * fVar17);
-  fVar6 = pfVar21[local_2c + 0x21];
-  fVar7 = pfVar21[(int)param_1 + 0x41];
-  fVar8 = pfVar21[local_2c + 0x41];
-  fVar9 = pfVar21[local_24 + 0x21];
-  fVar10 = pfVar21[local_24 + 0x21];
-  fVar11 = pfVar21[local_24 + 0x41];
-  fVar12 = pfVar21[local_24 + 0x41];
-  fVar20 = -fVar15;
-  fVar19 = ((pfVar21[(int)param_1 + 1] - pfVar21[local_24 + 1]) * fVar17 -
-           (pfVar21[local_2c + 1] - pfVar21[local_24 + 1]) * fVar18) * fVar20;
-  pfVar21[0x61] =
-       ((pfVar21[(int)param_1 + 1] - pfVar21[local_24 + 1]) * fVar14 -
-       (pfVar21[local_2c + 1] - pfVar21[local_24 + 1]) * fVar16) * fVar15;
-  pfVar21[0x62] = fVar19;
-  lVar28 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  pfVar21[0x67] = (float)lVar28;
-  fVar27 = ((float10)(fVar5 - fVar9) * (float10)fVar14 - (float10)(fVar6 - fVar10) * (float10)fVar16
-           ) * (float10)fVar15;
-  pfVar21[99] = (float)fVar27;
-  fVar5 = ((fVar5 - fVar9) * fVar17 - (fVar6 - fVar10) * fVar18) * fVar20;
-  fVar15 = ((fVar7 - fVar11) * fVar14 - (fVar8 - fVar12) * fVar16) * fVar15;
-  pfVar21[100] = fVar5;
-  pfVar21[0x65] = fVar15;
-  fVar20 = ((fVar7 - fVar11) * fVar17 - (fVar8 - fVar12) * fVar18) * fVar20;
-  pfVar21[0x66] = fVar20;
+  iVar23 = *(int *)(PUN(int,(float)fVar12) + 0x20);
+  fVar13 = *(float *)(iVar23 + 4 + local_2c * 0xc) - *(float *)(iVar23 + 4 + local_24 * 0xc);
+  fVar15 = *(float *)(iVar23 + 4 + (int)param_1 * 0xc) - *(float *)(iVar23 + 4 + local_24 * 0xc);
+  fVar16 = *(float *)(iVar23 + local_2c * 0xc) - *(float *)(iVar23 + local_24 * 0xc);
+  fVar17 = *(float *)(iVar23 + (int)param_1 * 0xc) - *(float *)(iVar23 + local_24 * 0xc);
+  fVar4 = pfVar20[(int)param_1 + 0x21];
+  fVar14 = 1.0 / (fVar13 * fVar17 - fVar15 * fVar16);
+  fVar5 = pfVar20[local_2c + 0x21];
+  fVar6 = pfVar20[(int)param_1 + 0x41];
+  fVar7 = pfVar20[local_2c + 0x41];
+  fVar8 = pfVar20[local_24 + 0x21];
+  fVar9 = pfVar20[local_24 + 0x21];
+  fVar10 = pfVar20[local_24 + 0x41];
+  fVar11 = pfVar20[local_24 + 0x41];
+  fVar19 = -fVar14;
+  fVar18 = ((pfVar20[(int)param_1 + 1] - pfVar20[local_24 + 1]) * fVar16 -
+           (pfVar20[local_2c + 1] - pfVar20[local_24 + 1]) * fVar17) * fVar19;
+  pfVar20[0x61] =
+       ((pfVar20[(int)param_1 + 1] - pfVar20[local_24 + 1]) * fVar13 -
+       (pfVar20[local_2c + 1] - pfVar20[local_24 + 1]) * fVar15) * fVar14;
+  pfVar20[0x62] = fVar18;
+  lVar27 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  pfVar20[0x67] = (float)lVar27;
+  fVar26 = ((float10)(fVar4 - fVar8) * (float10)fVar13 - (float10)(fVar5 - fVar9) * (float10)fVar15)
+           * (float10)fVar14;
+  pfVar20[99] = (float)fVar26;
+  fVar4 = ((fVar4 - fVar8) * fVar16 - (fVar5 - fVar9) * fVar17) * fVar19;
+  fVar14 = ((fVar6 - fVar10) * fVar13 - (fVar7 - fVar11) * fVar15) * fVar14;
+  pfVar20[100] = fVar4;
+  pfVar20[0x65] = fVar14;
+  fVar19 = ((fVar6 - fVar10) * fVar16 - (fVar7 - fVar11) * fVar17) * fVar19;
+  pfVar20[0x66] = fVar19;
   if (param_2 == 0) {
-    pfVar21[0x70] = 0.0;
+    pfVar20[0x70] = 0.0;
     goto LAB_0040f4ea;
   }
   if (param_2 == 1) {
-    if (*(float *)(PUN(int,(float)fVar13) + 100) <= _g_aRdroid_MipDistances) {
-      pfVar21[0x70] = 0.0;
+    if (*(float *)(PUN(int,(float)fVar12) + 100) <= _g_aRdroid_MipDistances) {
+      pfVar20[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
   }
   else if (param_2 == 2) {
-    if (*(float *)(PUN(int,(float)fVar13) + 100) <= _DAT_004dda90) {
-      pfVar21[0x70] = 0.0;
+    if (*(float *)(PUN(int,(float)fVar12) + 100) <= _DAT_004dda90) {
+      pfVar20[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
-    if (_g_aRdroid_MipDistances < *(float *)(PUN(int,(float)fVar13) + 100)) {
-      pfVar21[0x70] = 2.8026e-45;
+    if (_g_aRdroid_MipDistances < *(float *)(PUN(int,(float)fVar12) + 100)) {
+      pfVar20[0x70] = 2.8026e-45;
       goto LAB_0040f4ea;
     }
   }
   else {
     if (param_2 != 3) goto LAB_0040f4ea;
-    if (*(float *)(PUN(int,(float)fVar13) + 100) <= _DAT_004dda90) {
-      pfVar21[0x70] = 0.0;
+    if (*(float *)(PUN(int,(float)fVar12) + 100) <= _DAT_004dda90) {
+      pfVar20[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
-    if (_g_aRdroid_MipDistances < *(float *)(PUN(int,(float)fVar13) + 100)) {
-      if (_DAT_004dda98 < *(float *)(PUN(int,(float)fVar13) + 100)) {
-        pfVar21[0x70] = 4.2039e-45;
+    if (_g_aRdroid_MipDistances < *(float *)(PUN(int,(float)fVar12) + 100)) {
+      if (_DAT_004dda98 < *(float *)(PUN(int,(float)fVar12) + 100)) {
+        pfVar20[0x70] = 4.2039e-45;
       }
       else {
-        pfVar21[0x70] = 2.8026e-45;
+        pfVar20[0x70] = 2.8026e-45;
       }
       goto LAB_0040f4ea;
     }
   }
-  pfVar21[0x70] = 1.4013e-45;
+  pfVar20[0x70] = 1.4013e-45;
 LAB_0040f4ea:
-  fVar27 = (float10)pfVar21[local_2c + 1] * fVar27 -
-           (float10)pfVar21[local_2c + 0x21] * extraout_ST1;
-  if (fVar27 <= (float10)0.0) {
-    if ((fVar27 < (float10)0.0) ||
-       (pfVar21[local_2c + 1] * fVar5 - pfVar21[local_2c + 0x21] * fVar19 < 0.0)) {
-      pfVar21[0x68] = 4.59163e-41;
+  fVar26 = (float10)pfVar20[local_2c + 1] * fVar26 -
+           (float10)pfVar20[local_2c + 0x21] * extraout_ST1;
+  if (fVar26 <= (float10)0.0) {
+    if ((fVar26 < (float10)0.0) ||
+       (pfVar20[local_2c + 1] * fVar4 - pfVar20[local_2c + 0x21] * fVar18 < 0.0)) {
+      pfVar20[0x68] = 4.59163e-41;
     }
     else {
-      pfVar21[0x68] = 4.59177e-41;
+      pfVar20[0x68] = 4.59177e-41;
     }
   }
   else {
-    pfVar21[0x68] = 4.59177e-41;
+    pfVar20[0x68] = 4.59177e-41;
   }
-  fVar27 = (float10)pfVar21[local_2c + 1] * (float10)fVar15 -
-           (float10)pfVar21[local_2c + 0x41] * extraout_ST1;
-  if (fVar27 <= (float10)0.0) {
-    if (((float10)0.0 <= fVar27) &&
-       (0.0 <= pfVar21[local_2c + 1] * fVar20 - pfVar21[local_2c + 0x41] * fVar19)) {
-      pfVar21[0x69] = 4.59177e-41;
+  fVar26 = (float10)pfVar20[local_2c + 1] * (float10)fVar14 -
+           (float10)pfVar20[local_2c + 0x41] * extraout_ST1;
+  if (fVar26 <= (float10)0.0) {
+    if (((float10)0.0 <= fVar26) &&
+       (0.0 <= pfVar20[local_2c + 1] * fVar19 - pfVar20[local_2c + 0x41] * fVar18)) {
+      pfVar20[0x69] = 4.59177e-41;
       return;
     }
-    pfVar21[0x69] = 4.59163e-41;
+    pfVar20[0x69] = 4.59163e-41;
     return;
   }
-  pfVar21[0x69] = 4.59177e-41;
+  pfVar20[0x69] = 4.59177e-41;
   return;
 }
 #undef local_10
@@ -535,7 +534,7 @@ LAB_0040f4ea:
    (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Select_Flat. */
 
-void rdAFRaster_SetupNGonLW(float *param_1,int param_2)
+void __cdecl rdAFRaster_SetupNGonLW(float *param_1,int param_2)
 
 {
   float *pfVar1;
@@ -575,21 +574,21 @@ void rdAFRaster_SetupNGonLW(float *param_1,int param_2)
    (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonLW (the remaster's GrimFandango (Linux):
    span-function store of rdAFRaster_SetupNGonLW); was rdRaster_SpanFlatSetup. */
 
-void rdAFRaster_DrawNGonLW(int *param_1)
+void __cdecl rdAFRaster_DrawNGonLW(int *param_1)
 
 {
   int iVar1;
-  int iVar2;
+  int *piVar2;
   
-  iVar2 = param_1[0x6e];
+  piVar2 = (int *)param_1[0x6e];
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 8) {
     g_bRdAFRaster_color = (undefined1)param_1[0x74];
-    if (iVar2 != 0) {
+    if (piVar2 != (int *)0x0) {
       do {
-        rdAFRaster_DrawSpanNGonLW_8(iVar2);
-        iVar2 = *(int *)(iVar2 + 0x28);
-      } while (iVar2 != 0);
+        rdAFRaster_DrawSpanNGonLW_8(piVar2);
+        piVar2 = (int *)piVar2[10];
+      } while (piVar2 != (int *)0x0);
       return;
     }
   }
@@ -598,8 +597,8 @@ void rdAFRaster_DrawNGonLW(int *param_1)
          *(undefined2 *)
           (*(int *)(*(int *)(*param_1 + 0x4c) + 0x348) + 0x7e00 +
           (uint)*(byte *)(param_1 + 0x74) * 2);
-    for (; iVar2 != 0; iVar2 = *(int *)(iVar2 + 0x28)) {
-      rdAFRaster_DrawSpanNGonLW_16(iVar2);
+    for (; piVar2 != (int *)0x0; piVar2 = (int *)piVar2[10]) {
+      rdAFRaster_DrawSpanNGonLW_16(piVar2);
     }
   }
   return;
@@ -616,7 +615,7 @@ void rdAFRaster_DrawNGonLW(int *param_1)
    (Linux): 8-bit span call of rdAFRaster_DrawNGonLW (inlined in the remaster)); was
    rdRaster_SpanOutline8. */
 
-void rdAFRaster_DrawSpanNGonLW_8(int *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonLW_8(int *param_1)
 
 {
   int iVar1;
@@ -641,7 +640,7 @@ void rdAFRaster_DrawSpanNGonLW_8(int *param_1)
    (Linux): 16-bit span call of rdAFRaster_DrawNGonLW (inlined in the remaster)); was
    rdRaster_SpanOutline16. */
 
-void rdAFRaster_DrawSpanNGonLW_16(int *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonLW_16(int *param_1)
 
 {
   undefined2 *puVar1;
@@ -662,7 +661,7 @@ void rdAFRaster_DrawSpanNGonLW_16(int *param_1)
 #if 0
 /* Advances an edge record one scanline (x += dx, attribute += dAttr) */
 
-void rdRaster_EdgeStepFlat(int param_1)
+void __cdecl rdRaster_EdgeStepFlat(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
@@ -680,81 +679,83 @@ void rdRaster_EdgeStepFlat(int param_1)
    rdAFRaster_SetupEdgeNGonLW (the remaster's GrimFandango (Linux): edge-function store of
    rdAFRaster_SetupNGonLW); was rdRaster_EdgeSetup_Flat. */
 
-undefined4 rdAFRaster_SetupEdgeNGonLW(undefined4 *param_1,int *param_2,int param_3,int param_4)
+uint __cdecl rdAFRaster_SetupEdgeNGonLW(uint *param_1,int *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
+  uint uVar1;
+  uint uVar2;
   float fVar3;
   int iVar4;
   float fVar5;
-  undefined4 *puVar6;
-  int iVar7;
+  uint *puVar6;
+  uint *puVar7;
   int iVar8;
-  int iVar9;
+  uint uVar9;
+  int iVar10;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
-  puVar6 = param_1;
+  puVar7 = param_1;
   iVar4 = *param_2;
-  iVar9 = param_3 * 0xc;
-  fVar3 = ROUND(*(float *)(iVar9 + 4 + *(int *)(iVar4 + 0x20)));
-  iVar7 = param_4 * 0xc;
-  fVar5 = ROUND(*(float *)(iVar7 + 4 + *(int *)(iVar4 + 0x20)));
-  iVar1 = (int)ROUND(fVar3);
-  iVar2 = (int)ROUND(fVar5);
-  iVar8 = iVar2 - iVar1;
-  param_1[3] = iVar8;
-  if (iVar8 == 0) {
+  iVar10 = param_3 * 0xc;
+  fVar3 = ROUND(*(float *)(iVar10 + 4 + *(int *)(iVar4 + 0x20)));
+  iVar8 = param_4 * 0xc;
+  fVar5 = ROUND(*(float *)(iVar8 + 4 + *(int *)(iVar4 + 0x20)));
+  uVar1 = (uint)ROUND(fVar3);
+  uVar2 = (uint)ROUND(fVar5);
+  uVar9 = uVar2 - uVar1;
+  param_1[3] = uVar9;
+  if (uVar9 == 0) {
     return 0;
   }
-  if (iVar8 < 1) {
+  if ((int)uVar9 < 1) {
     *param_1 = 0;
-    param_1[2] = iVar2;
-    param_1[3] = -iVar8;
-    param_1[0x12] = rdRaster_EdgeStepFlat;
-    if (-iVar8 < 2) {
-      param_1[10] = (int)ROUND(*(float *)(iVar7 + *(int *)(iVar4 + 0x20)) * 65536.0);
+    param_1[2] = uVar2;
+    param_1[3] = -uVar9;
+    param_1[0x12] = (uint)rdRaster_EdgeStepFlat;
+    if ((int)-uVar9 < 2) {
+      param_1[10] = (int)ROUND(*(float *)(iVar8 + *(int *)(iVar4 + 0x20)) * 65536.0);
       param_1[4] = param_2[param_4 + 1];
       return 1;
     }
-    iVar1 = *(int *)(iVar4 + 0x20);
-    local_8 = (uint)(fVar5 - *(float *)(iVar1 + 4 + iVar7));
-    fVar5 = 1.0 / (*(float *)(iVar1 + 4 + param_3 * 0xc) - *(float *)(iVar1 + 4 + iVar7));
-    fVar3 = (*(float *)(iVar1 + param_3 * 0xc) - *(float *)(iVar1 + iVar7)) * fVar5;
+    iVar10 = *(int *)(iVar4 + 0x20);
+    local_8 = (uint)(fVar5 - *(float *)(iVar10 + 4 + iVar8));
+    puVar6 = PUN(uint *,(float)(1.0 / (*(float *)(iVar10 + 4 + param_3 * 0xc) - *(float *)(iVar10 + 4 + iVar8)
+                            )));
+    fVar3 = (*(float *)(iVar10 + param_3 * 0xc) - *(float *)(iVar10 + iVar8)) * PUN(float,puVar6);
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar7 + *(int *)(iVar4 + 0x20))) *
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar8 + *(int *)(iVar4 + 0x20))) *
                              65536.0);
     fVar3 = PUN(float,param_2[param_3 + 1]);
     param_3 = param_4;
-    param_1 = PUN(undefined4 *,(float)fVar5);
+    param_1 = puVar6;
   }
   else {
     *param_1 = 1;
-    param_1[2] = iVar1;
-    param_1[0x12] = rdRaster_EdgeStepFlat;
-    if (iVar8 < 2) {
-      param_1[10] = (int)ROUND(*(float *)(iVar9 + *(int *)(iVar4 + 0x20)) * 65536.0);
+    param_1[2] = uVar1;
+    param_1[0x12] = (uint)rdRaster_EdgeStepFlat;
+    if ((int)uVar9 < 2) {
+      param_1[10] = (int)ROUND(*(float *)(iVar10 + *(int *)(iVar4 + 0x20)) * 65536.0);
       param_1[4] = param_2[param_3 + 1];
       return 1;
     }
-    local_8 = (uint)(fVar3 - *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar9));
-    fVar5 = 1.0 / (*(float *)(iVar7 + 4 + *(int *)(iVar4 + 0x20)) -
-                  *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar9));
-    fVar3 = (*(float *)(iVar7 + *(int *)(iVar4 + 0x20)) - *(float *)(*(int *)(iVar4 + 0x20) + iVar9)
-            ) * fVar5;
+    local_8 = (uint)(fVar3 - *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar10));
+    puVar6 = PUN(uint *,(float)(1.0 / (*(float *)(iVar8 + 4 + *(int *)(iVar4 + 0x20)) -
+                            *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar10))));
+    fVar3 = (*(float *)(iVar8 + *(int *)(iVar4 + 0x20)) -
+            *(float *)(*(int *)(iVar4 + 0x20) + iVar10)) * PUN(float,puVar6);
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar9 + *(int *)(iVar4 + 0x20))) *
-                             65536.0);
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar10 + *(int *)(iVar4 + 0x20)))
+                             * 65536.0);
     fVar3 = PUN(float,param_2[param_4 + 1]);
-    param_1 = PUN(undefined4 *,(float)fVar5);
+    param_1 = puVar6;
   }
   fVar3 = (fVar3 - PUN(float,param_2[param_3 + 1])) * PUN(float,param_1);
-  puVar6[5] = PUN(undefined4,(float)(fVar3));
-  puVar6[4] = PUN(undefined4,(float)(PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1])));
+  puVar7[5] = (uint)fVar3;
+  puVar7[4] = (uint)(PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1]));
   return 1;
 }
 #undef local_10
@@ -775,7 +776,7 @@ undefined4 rdAFRaster_SetupEdgeNGonLW(undefined4 *param_1,int *param_2,int param
    (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Select_Flat_2. */
 
-void rdAFRaster_SetupNGonLS(float *param_1,int param_2)
+void __cdecl rdAFRaster_SetupNGonLS(float *param_1,int param_2)
 
 {
   float *pfVar1;
@@ -813,7 +814,7 @@ void rdAFRaster_SetupNGonLS(float *param_1,int param_2)
    (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonLS (the remaster's GrimFandango (Linux):
    span-function store of rdAFRaster_SetupNGonLS); was rdRaster_SpanTexSetup. */
 
-void rdAFRaster_DrawNGonLS(int *param_1)
+void __cdecl rdAFRaster_DrawNGonLS(int *param_1)
 
 {
   int *piVar1;
@@ -894,81 +895,83 @@ void rdAFRaster_DrawNGonLS(int *param_1)
    rdAFRaster_SetupEdgeNGonLS (the remaster's GrimFandango (Linux): edge-function store of
    rdAFRaster_SetupNGonLS); was rdRaster_EdgeSetup_Flat_2. */
 
-undefined4 rdAFRaster_SetupEdgeNGonLS(undefined4 *param_1,int *param_2,int param_3,int param_4)
+uint __cdecl rdAFRaster_SetupEdgeNGonLS(uint *param_1,int *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
+  uint uVar1;
+  uint uVar2;
   float fVar3;
   int iVar4;
   float fVar5;
-  undefined4 *puVar6;
-  int iVar7;
+  uint *puVar6;
+  uint *puVar7;
   int iVar8;
-  int iVar9;
+  uint uVar9;
+  int iVar10;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
-  puVar6 = param_1;
+  puVar7 = param_1;
   iVar4 = *param_2;
-  iVar9 = param_3 * 0xc;
-  fVar3 = ROUND(*(float *)(iVar9 + 4 + *(int *)(iVar4 + 0x20)));
-  iVar7 = param_4 * 0xc;
-  fVar5 = ROUND(*(float *)(iVar7 + 4 + *(int *)(iVar4 + 0x20)));
-  iVar1 = (int)ROUND(fVar3);
-  iVar2 = (int)ROUND(fVar5);
-  iVar8 = iVar2 - iVar1;
-  param_1[3] = iVar8;
-  if (iVar8 == 0) {
+  iVar10 = param_3 * 0xc;
+  fVar3 = ROUND(*(float *)(iVar10 + 4 + *(int *)(iVar4 + 0x20)));
+  iVar8 = param_4 * 0xc;
+  fVar5 = ROUND(*(float *)(iVar8 + 4 + *(int *)(iVar4 + 0x20)));
+  uVar1 = (uint)ROUND(fVar3);
+  uVar2 = (uint)ROUND(fVar5);
+  uVar9 = uVar2 - uVar1;
+  param_1[3] = uVar9;
+  if (uVar9 == 0) {
     return 0;
   }
-  if (iVar8 < 1) {
+  if ((int)uVar9 < 1) {
     *param_1 = 0;
-    param_1[2] = iVar2;
-    param_1[3] = -iVar8;
-    param_1[0x12] = rdRaster_EdgeStepFlat;
-    if (-iVar8 < 2) {
-      param_1[10] = (int)ROUND(*(float *)(iVar7 + *(int *)(iVar4 + 0x20)) * 65536.0);
+    param_1[2] = uVar2;
+    param_1[3] = -uVar9;
+    param_1[0x12] = (uint)rdRaster_EdgeStepFlat;
+    if ((int)-uVar9 < 2) {
+      param_1[10] = (int)ROUND(*(float *)(iVar8 + *(int *)(iVar4 + 0x20)) * 65536.0);
       param_1[4] = param_2[param_4 + 1];
       return 1;
     }
-    iVar1 = *(int *)(iVar4 + 0x20);
-    local_8 = (uint)(fVar5 - *(float *)(iVar1 + 4 + iVar7));
-    fVar5 = 1.0 / (*(float *)(iVar1 + 4 + param_3 * 0xc) - *(float *)(iVar1 + 4 + iVar7));
-    fVar3 = (*(float *)(iVar1 + param_3 * 0xc) - *(float *)(iVar1 + iVar7)) * fVar5;
+    iVar10 = *(int *)(iVar4 + 0x20);
+    local_8 = (uint)(fVar5 - *(float *)(iVar10 + 4 + iVar8));
+    puVar6 = PUN(uint *,(float)(1.0 / (*(float *)(iVar10 + 4 + param_3 * 0xc) - *(float *)(iVar10 + 4 + iVar8)
+                            )));
+    fVar3 = (*(float *)(iVar10 + param_3 * 0xc) - *(float *)(iVar10 + iVar8)) * PUN(float,puVar6);
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar7 + *(int *)(iVar4 + 0x20))) *
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar8 + *(int *)(iVar4 + 0x20))) *
                              65536.0);
     fVar3 = PUN(float,param_2[param_3 + 1]);
     param_3 = param_4;
-    param_1 = PUN(undefined4 *,(float)fVar5);
+    param_1 = puVar6;
   }
   else {
     *param_1 = 1;
-    param_1[2] = iVar1;
-    param_1[0x12] = rdRaster_EdgeStepFlat;
-    if (iVar8 < 2) {
-      param_1[10] = (int)ROUND(*(float *)(iVar9 + *(int *)(iVar4 + 0x20)) * 65536.0);
+    param_1[2] = uVar1;
+    param_1[0x12] = (uint)rdRaster_EdgeStepFlat;
+    if ((int)uVar9 < 2) {
+      param_1[10] = (int)ROUND(*(float *)(iVar10 + *(int *)(iVar4 + 0x20)) * 65536.0);
       param_1[4] = param_2[param_3 + 1];
       return 1;
     }
-    local_8 = (uint)(fVar3 - *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar9));
-    fVar5 = 1.0 / (*(float *)(iVar7 + 4 + *(int *)(iVar4 + 0x20)) -
-                  *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar9));
-    fVar3 = (*(float *)(iVar7 + *(int *)(iVar4 + 0x20)) - *(float *)(*(int *)(iVar4 + 0x20) + iVar9)
-            ) * fVar5;
+    local_8 = (uint)(fVar3 - *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar10));
+    puVar6 = PUN(uint *,(float)(1.0 / (*(float *)(iVar8 + 4 + *(int *)(iVar4 + 0x20)) -
+                            *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar10))));
+    fVar3 = (*(float *)(iVar8 + *(int *)(iVar4 + 0x20)) -
+            *(float *)(*(int *)(iVar4 + 0x20) + iVar10)) * PUN(float,puVar6);
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar9 + *(int *)(iVar4 + 0x20))) *
-                             65536.0);
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar10 + *(int *)(iVar4 + 0x20)))
+                             * 65536.0);
     fVar3 = PUN(float,param_2[param_4 + 1]);
-    param_1 = PUN(undefined4 *,(float)fVar5);
+    param_1 = puVar6;
   }
   fVar3 = (fVar3 - PUN(float,param_2[param_3 + 1])) * PUN(float,param_1);
-  puVar6[5] = PUN(undefined4,(float)(fVar3));
-  puVar6[4] = PUN(undefined4,(float)(PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1])));
+  puVar7[5] = (uint)fVar3;
+  puVar7[4] = (uint)(PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1]));
   return 1;
 }
 #undef local_10
@@ -988,7 +991,7 @@ undefined4 rdAFRaster_SetupEdgeNGonLS(undefined4 *param_1,int *param_2,int param
    rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Select_TexLit. */
 
-void rdAFRaster_SetupNGonFS(float *param_1,int param_2,float param_3)
+void __cdecl rdAFRaster_SetupNGonFS(float *param_1,int param_2,float param_3)
 
 {
   float *pfVar1;
@@ -1029,7 +1032,7 @@ void rdAFRaster_SetupNGonFS(float *param_1,int param_2,float param_3)
    (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonFS (the remaster's GrimFandango (Linux):
    span-function store of rdAFRaster_SetupNGonFS); was rdRaster_SpanLitSetup. */
 
-void rdAFRaster_DrawNGonFS(int param_1)
+void __cdecl rdAFRaster_DrawNGonFS(int param_1)
 
 {
   int *piVar1;
@@ -1084,81 +1087,83 @@ void rdAFRaster_DrawNGonFS(int param_1)
    rdAFRaster_SetupEdgeNGonFS (the remaster's GrimFandango (Linux): edge-function store of
    rdAFRaster_SetupNGonFS); was rdRaster_EdgeSetup_Flat_3. */
 
-undefined4 rdAFRaster_SetupEdgeNGonFS(undefined4 *param_1,int *param_2,int param_3,int param_4)
+uint __cdecl rdAFRaster_SetupEdgeNGonFS(uint *param_1,int *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
+  uint uVar1;
+  uint uVar2;
   float fVar3;
   int iVar4;
   float fVar5;
-  undefined4 *puVar6;
-  int iVar7;
+  uint *puVar6;
+  uint *puVar7;
   int iVar8;
-  int iVar9;
+  uint uVar9;
+  int iVar10;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
-  puVar6 = param_1;
+  puVar7 = param_1;
   iVar4 = *param_2;
-  iVar9 = param_3 * 0xc;
-  fVar3 = ROUND(*(float *)(iVar9 + 4 + *(int *)(iVar4 + 0x20)));
-  iVar7 = param_4 * 0xc;
-  fVar5 = ROUND(*(float *)(iVar7 + 4 + *(int *)(iVar4 + 0x20)));
-  iVar1 = (int)ROUND(fVar3);
-  iVar2 = (int)ROUND(fVar5);
-  iVar8 = iVar2 - iVar1;
-  param_1[3] = iVar8;
-  if (iVar8 == 0) {
+  iVar10 = param_3 * 0xc;
+  fVar3 = ROUND(*(float *)(iVar10 + 4 + *(int *)(iVar4 + 0x20)));
+  iVar8 = param_4 * 0xc;
+  fVar5 = ROUND(*(float *)(iVar8 + 4 + *(int *)(iVar4 + 0x20)));
+  uVar1 = (uint)ROUND(fVar3);
+  uVar2 = (uint)ROUND(fVar5);
+  uVar9 = uVar2 - uVar1;
+  param_1[3] = uVar9;
+  if (uVar9 == 0) {
     return 0;
   }
-  if (iVar8 < 1) {
+  if ((int)uVar9 < 1) {
     *param_1 = 0;
-    param_1[2] = iVar2;
-    param_1[3] = -iVar8;
-    param_1[0x12] = rdRaster_EdgeStepFlat;
-    if (-iVar8 < 2) {
-      param_1[10] = (int)ROUND(*(float *)(iVar7 + *(int *)(iVar4 + 0x20)) * 65536.0);
+    param_1[2] = uVar2;
+    param_1[3] = -uVar9;
+    param_1[0x12] = (uint)rdRaster_EdgeStepFlat;
+    if ((int)-uVar9 < 2) {
+      param_1[10] = (int)ROUND(*(float *)(iVar8 + *(int *)(iVar4 + 0x20)) * 65536.0);
       param_1[4] = param_2[param_4 + 1];
       return 1;
     }
-    iVar1 = *(int *)(iVar4 + 0x20);
-    local_8 = (uint)(fVar5 - *(float *)(iVar1 + 4 + iVar7));
-    fVar5 = 1.0 / (*(float *)(iVar1 + 4 + param_3 * 0xc) - *(float *)(iVar1 + 4 + iVar7));
-    fVar3 = (*(float *)(iVar1 + param_3 * 0xc) - *(float *)(iVar1 + iVar7)) * fVar5;
+    iVar10 = *(int *)(iVar4 + 0x20);
+    local_8 = (uint)(fVar5 - *(float *)(iVar10 + 4 + iVar8));
+    puVar6 = PUN(uint *,(float)(1.0 / (*(float *)(iVar10 + 4 + param_3 * 0xc) - *(float *)(iVar10 + 4 + iVar8)
+                            )));
+    fVar3 = (*(float *)(iVar10 + param_3 * 0xc) - *(float *)(iVar10 + iVar8)) * PUN(float,puVar6);
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar7 + *(int *)(iVar4 + 0x20))) *
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar8 + *(int *)(iVar4 + 0x20))) *
                              65536.0);
     fVar3 = PUN(float,param_2[param_3 + 1]);
     param_3 = param_4;
-    param_1 = PUN(undefined4 *,(float)fVar5);
+    param_1 = puVar6;
   }
   else {
     *param_1 = 1;
-    param_1[2] = iVar1;
-    param_1[0x12] = rdRaster_EdgeStepFlat;
-    if (iVar8 < 2) {
-      param_1[10] = (int)ROUND(*(float *)(iVar9 + *(int *)(iVar4 + 0x20)) * 65536.0);
+    param_1[2] = uVar1;
+    param_1[0x12] = (uint)rdRaster_EdgeStepFlat;
+    if ((int)uVar9 < 2) {
+      param_1[10] = (int)ROUND(*(float *)(iVar10 + *(int *)(iVar4 + 0x20)) * 65536.0);
       param_1[4] = param_2[param_3 + 1];
       return 1;
     }
-    local_8 = (uint)(fVar3 - *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar9));
-    fVar5 = 1.0 / (*(float *)(iVar7 + 4 + *(int *)(iVar4 + 0x20)) -
-                  *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar9));
-    fVar3 = (*(float *)(iVar7 + *(int *)(iVar4 + 0x20)) - *(float *)(*(int *)(iVar4 + 0x20) + iVar9)
-            ) * fVar5;
+    local_8 = (uint)(fVar3 - *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar10));
+    puVar6 = PUN(uint *,(float)(1.0 / (*(float *)(iVar8 + 4 + *(int *)(iVar4 + 0x20)) -
+                            *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar10))));
+    fVar3 = (*(float *)(iVar8 + *(int *)(iVar4 + 0x20)) -
+            *(float *)(*(int *)(iVar4 + 0x20) + iVar10)) * PUN(float,puVar6);
     param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar9 + *(int *)(iVar4 + 0x20))) *
-                             65536.0);
+    param_1[10] = (int)ROUND((fVar3 * PUN(float,local_8) + *(float *)(iVar10 + *(int *)(iVar4 + 0x20)))
+                             * 65536.0);
     fVar3 = PUN(float,param_2[param_4 + 1]);
-    param_1 = PUN(undefined4 *,(float)fVar5);
+    param_1 = puVar6;
   }
   fVar3 = (fVar3 - PUN(float,param_2[param_3 + 1])) * PUN(float,param_1);
-  puVar6[5] = PUN(undefined4,(float)(fVar3));
-  puVar6[4] = PUN(undefined4,(float)(PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1])));
+  puVar7[5] = (uint)fVar3;
+  puVar7[4] = (uint)(PUN(float,local_8) * fVar3 + PUN(float,param_2[param_3 + 1]));
   return 1;
 }
 #undef local_10
@@ -1179,7 +1184,7 @@ undefined4 rdAFRaster_SetupEdgeNGonFS(undefined4 *param_1,int *param_2,int param
    (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Select_FlatLit. */
 
-void rdAFRaster_SetupNGonGS(float *param_1,int param_2)
+void __cdecl rdAFRaster_SetupNGonGS(float *param_1,int param_2)
 
 {
   float *pfVar1;
@@ -1223,7 +1228,7 @@ void rdAFRaster_SetupNGonGS(float *param_1,int param_2)
 /* Original name rdAFRaster_DrawNGonGS (the remaster's GrimFandango (Linux): span-function store of
    rdAFRaster_SetupNGonGS); was FUN_00410330. */
 
-void rdAFRaster_DrawNGonGS(int param_1)
+void __cdecl rdAFRaster_DrawNGonGS(int param_1)
 
 {
   int *piVar1;
@@ -1308,7 +1313,7 @@ void rdAFRaster_DrawNGonGS(int param_1)
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
-void FUN_004104b0(int param_1)
+void __cdecl FUN_004104b0(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
@@ -1327,18 +1332,18 @@ void FUN_004104b0(int param_1)
    rdAFRaster_SetupEdgeNGonGS (the remaster's GrimFandango (Linux): edge-function store of
    rdAFRaster_SetupNGonGS); was rdRaster_EdgeSetup_Flat_4. */
 
-undefined4 rdAFRaster_SetupEdgeNGonGS(undefined4 *param_1,int *param_2,int param_3,int param_4)
+uint __cdecl rdAFRaster_SetupEdgeNGonGS(uint *param_1,int *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
-  int iVar2;
-  int iVar3;
+  uint uVar2;
+  uint uVar3;
   int iVar4;
   float fVar5;
   float fVar6;
   float fVar7;
-  int iVar8;
+  uint uVar8;
   int iVar9;
   int iVar10;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -1351,18 +1356,18 @@ undefined4 rdAFRaster_SetupEdgeNGonGS(undefined4 *param_1,int *param_2,int param
   fVar5 = ROUND(*(float *)(iVar10 + 4 + *(int *)(iVar4 + 0x20)));
   iVar9 = param_4 * 0xc;
   fVar6 = ROUND(*(float *)(iVar9 + 4 + *(int *)(iVar4 + 0x20)));
-  iVar2 = (int)ROUND(fVar5);
-  iVar3 = (int)ROUND(fVar6);
-  iVar8 = iVar3 - iVar2;
-  param_1[3] = iVar8;
-  if (iVar8 == 0) {
+  uVar2 = (uint)ROUND(fVar5);
+  uVar3 = (uint)ROUND(fVar6);
+  uVar8 = uVar3 - uVar2;
+  param_1[3] = uVar8;
+  if (uVar8 == 0) {
     return 0;
   }
-  if (0 < iVar8) {
+  if (0 < (int)uVar8) {
     *param_1 = 1;
-    param_1[2] = iVar2;
-    param_1[0x12] = FUN_004104b0;
-    if (iVar8 < 2) {
+    param_1[2] = uVar2;
+    param_1[0x12] = (uint)FUN_004104b0;
+    if ((int)uVar8 < 2) {
       param_1[10] = (int)ROUND(*(float *)(iVar10 + *(int *)(iVar4 + 0x20)) * 65536.0);
       param_1[0x10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4) * 65536.0);
       param_1[4] = param_2[param_3 + 1];
@@ -1382,25 +1387,25 @@ undefined4 rdAFRaster_SetupEdgeNGonGS(undefined4 *param_1,int *param_2,int param
     param_1[0x10] =
          (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4)) * 65536.0);
     fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
-    param_1[5] = PUN(undefined4,(float)(fVar6));
-    param_1[4] = PUN(undefined4,(float)(fVar5 * fVar6 + PUN(float,param_2[param_3 + 1])));
+    param_1[5] = (uint)fVar6;
+    param_1[4] = (uint)(fVar5 * fVar6 + PUN(float,param_2[param_3 + 1]));
     return 1;
   }
   *param_1 = 0;
-  param_1[2] = iVar3;
-  param_1[3] = -iVar8;
-  param_1[0x12] = FUN_004104b0;
-  if (-iVar8 < 2) {
+  param_1[2] = uVar3;
+  param_1[3] = -uVar8;
+  param_1[0x12] = (uint)FUN_004104b0;
+  if ((int)-uVar8 < 2) {
     param_1[10] = (int)ROUND(*(float *)(iVar9 + *(int *)(iVar4 + 0x20)) * 65536.0);
     param_1[0x10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4) * 65536.0);
     param_1[4] = param_2[param_4 + 1];
     return 1;
   }
-  iVar2 = *(int *)(iVar4 + 0x20);
-  fVar6 = fVar6 - *(float *)(iVar2 + 4 + iVar9);
-  pfVar1 = (float *)(iVar2 + param_3 * 0xc);
-  fVar5 = 1.0 / (pfVar1[1] - *(float *)(iVar2 + 4 + iVar9));
-  fVar7 = (*pfVar1 - *(float *)(iVar2 + iVar9)) * fVar5;
+  iVar10 = *(int *)(iVar4 + 0x20);
+  fVar6 = fVar6 - *(float *)(iVar10 + 4 + iVar9);
+  pfVar1 = (float *)(iVar10 + param_3 * 0xc);
+  fVar5 = 1.0 / (pfVar1[1] - *(float *)(iVar10 + 4 + iVar9));
+  fVar7 = (*pfVar1 - *(float *)(iVar10 + iVar9)) * fVar5;
   param_1[0xb] = (int)ROUND(fVar7 * 65536.0);
   param_1[10] = (int)ROUND((fVar7 * fVar6 + *(float *)(iVar9 + *(int *)(iVar4 + 0x20))) * 65536.0);
   fVar7 = (*(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4) -
@@ -1409,8 +1414,8 @@ undefined4 rdAFRaster_SetupEdgeNGonGS(undefined4 *param_1,int *param_2,int param
   param_1[0x10] =
        (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4)) * 65536.0);
   fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
-  param_1[5] = PUN(undefined4,(float)(fVar5));
-  param_1[4] = PUN(undefined4,(float)(fVar6 * fVar5 + PUN(float,param_2[param_4 + 1])));
+  param_1[5] = (uint)fVar5;
+  param_1[4] = (uint)(fVar6 * fVar5 + PUN(float,param_2[param_4 + 1]));
   return 1;
 }
 #undef local_10
@@ -1431,14 +1436,14 @@ undefined4 rdAFRaster_SetupEdgeNGonGS(undefined4 *param_1,int *param_2,int param
    (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Select_FlatLit_2. */
 
-void rdAFRaster_SetupNGonLAT(int *param_1,int param_2)
+void __cdecl rdAFRaster_SetupNGonLAT(int *param_1,int param_2)
 
 {
   int iVar1;
   int iVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcAffineGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcAffineGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x5c);
   param_1[0x73] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x18);
@@ -1464,7 +1469,7 @@ void rdAFRaster_SetupNGonLAT(int *param_1,int param_2)
 /* Original name rdAFRaster_DrawNGonLAT (the remaster's GrimFandango (Linux): span-function store of
    rdAFRaster_SetupNGonLAT); was FUN_00410970. */
 
-void rdAFRaster_DrawNGonLAT(int param_1)
+void __cdecl rdAFRaster_DrawNGonLAT(int param_1)
 
 {
   int iVar1;
@@ -1561,18 +1566,18 @@ void rdAFRaster_DrawNGonLAT(int param_1)
    rdAFRaster_SetupEdgeNGonLAT (the remaster's GrimFandango (Linux): edge-function store of
    rdAFRaster_SetupNGonLAT); was rdRaster_EdgeSetup_Flat_5. */
 
-undefined4 rdAFRaster_SetupEdgeNGonLAT(undefined4 *param_1,int *param_2,int param_3,int param_4)
+uint __cdecl rdAFRaster_SetupEdgeNGonLAT(uint *param_1,int *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
-  int iVar2;
-  int iVar3;
+  uint uVar2;
+  uint uVar3;
   int iVar4;
   float fVar5;
   float fVar6;
   float fVar7;
-  int iVar8;
+  uint uVar8;
   int iVar9;
   int iVar10;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -1585,18 +1590,18 @@ undefined4 rdAFRaster_SetupEdgeNGonLAT(undefined4 *param_1,int *param_2,int para
   fVar5 = ROUND(*(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar10));
   iVar9 = param_4 * 0xc;
   fVar6 = ROUND(*(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar9));
-  iVar2 = (int)ROUND(fVar5);
-  iVar3 = (int)ROUND(fVar6);
-  iVar8 = iVar3 - iVar2;
-  param_1[3] = iVar8;
-  if (iVar8 == 0) {
+  uVar2 = (uint)ROUND(fVar5);
+  uVar3 = (uint)ROUND(fVar6);
+  uVar8 = uVar3 - uVar2;
+  param_1[3] = uVar8;
+  if (uVar8 == 0) {
     return 0;
   }
-  if (0 < iVar8) {
+  if (0 < (int)uVar8) {
     *param_1 = 1;
-    param_1[2] = iVar2;
-    param_1[0x12] = FUN_00411b70;
-    if (iVar8 < 2) {
+    param_1[2] = uVar2;
+    param_1[0x12] = (uint)FUN_00411b70;
+    if ((int)uVar8 < 2) {
       param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar10) * 65536.0);
       param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8) * 65536.0);
       param_1[0xe] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8) * 65536.0);
@@ -1622,26 +1627,26 @@ undefined4 rdAFRaster_SetupEdgeNGonLAT(undefined4 *param_1,int *param_2,int para
     param_1[0xe] = (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8))
                               * 65536.0);
     fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
-    param_1[5] = PUN(undefined4,(float)(fVar6));
-    param_1[4] = PUN(undefined4,(float)(fVar5 * fVar6 + PUN(float,param_2[param_3 + 1])));
+    param_1[5] = (uint)fVar6;
+    param_1[4] = (uint)(fVar5 * fVar6 + PUN(float,param_2[param_3 + 1]));
     return 1;
   }
   *param_1 = 0;
-  param_1[2] = iVar3;
-  param_1[3] = -iVar8;
-  param_1[0x12] = FUN_00411b70;
-  if (-iVar8 < 2) {
+  param_1[2] = uVar3;
+  param_1[3] = -uVar8;
+  param_1[0x12] = (uint)FUN_00411b70;
+  if ((int)-uVar8 < 2) {
     param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar9) * 65536.0);
     param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8) * 65536.0);
     param_1[0xe] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8) * 65536.0);
     param_1[4] = param_2[param_4 + 1];
     return 1;
   }
-  iVar2 = *(int *)(iVar4 + 0x20);
-  fVar6 = fVar6 - *(float *)(iVar2 + 4 + iVar9);
-  pfVar1 = (float *)(iVar2 + param_3 * 0xc);
-  fVar5 = 1.0 / (pfVar1[1] - *(float *)(iVar2 + 4 + iVar9));
-  fVar7 = (*pfVar1 - *(float *)(iVar2 + iVar9)) * fVar5;
+  iVar10 = *(int *)(iVar4 + 0x20);
+  fVar6 = fVar6 - *(float *)(iVar10 + 4 + iVar9);
+  pfVar1 = (float *)(iVar10 + param_3 * 0xc);
+  fVar5 = 1.0 / (pfVar1[1] - *(float *)(iVar10 + 4 + iVar9));
+  fVar7 = (*pfVar1 - *(float *)(iVar10 + iVar9)) * fVar5;
   param_1[0xb] = (int)ROUND(fVar7 * 65536.0);
   param_1[10] = (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x20) + iVar9)) * 65536.0);
   fVar7 = (*(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8) -
@@ -1655,8 +1660,8 @@ undefined4 rdAFRaster_SetupEdgeNGonLAT(undefined4 *param_1,int *param_2,int para
   param_1[0xe] = (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8)) *
                             65536.0);
   fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
-  param_1[5] = PUN(undefined4,(float)(fVar5));
-  param_1[4] = PUN(undefined4,(float)(fVar6 * fVar5 + PUN(float,param_2[param_4 + 1])));
+  param_1[5] = (uint)fVar5;
+  param_1[4] = (uint)(fVar6 * fVar5 + PUN(float,param_2[param_4 + 1]));
   return 1;
 }
 #undef local_10
@@ -1677,14 +1682,14 @@ undefined4 rdAFRaster_SetupEdgeNGonLAT(undefined4 *param_1,int *param_2,int para
    (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Select_FlatLit_3. */
 
-void rdAFRaster_SetupNGonMLAT(int *param_1,int param_2)
+void __cdecl rdAFRaster_SetupNGonMLAT(int *param_1,int param_2)
 
 {
   int iVar1;
   int iVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcAffineGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcAffineGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x5c);
   param_1[0x73] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x18);
@@ -1711,11 +1716,11 @@ void rdAFRaster_SetupNGonMLAT(int *param_1,int param_2)
    (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMLAT (the remaster's GrimFandango
    (Linux): span-function store of rdAFRaster_SetupNGonMLAT); was FUN_00411330. */
 
-void rdAFRaster_DrawNGonMLAT(int param_1)
+void __cdecl rdAFRaster_DrawNGonMLAT(int param_1)
 
 {
   int iVar1;
-  int iVar2;
+  int *piVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
@@ -1728,12 +1733,12 @@ void rdAFRaster_DrawNGonMLAT(int param_1)
   g_dwRdAFRaster_uWrap = *(uint *)(param_1 + 0x1d4);
   g_dwRdAFRaster_vWrap = *(uint *)(param_1 + 0x1d8);
   g_dwRdAFRaster_dOneOverZdXFixed = *(uint *)(param_1 + 0x19c);
-  for (iVar2 = *(int *)(param_1 + 0x1b8); iVar2 != 0; iVar2 = *(int *)(iVar2 + 0x28)) {
+  for (piVar2 = *(int **)(param_1 + 0x1b8); piVar2 != (int *)0x0; piVar2 = (int *)piVar2[10]) {
     if (iVar1 == 8) {
-      rdAFRaster_DrawSpanNGonMLAT_8(iVar2);
+      rdAFRaster_DrawSpanNGonMLAT_8(piVar2);
     }
     else if (iVar1 == 0x10) {
-      rdAFRaster_DrawSpanNGonMLAT_16(iVar2);
+      rdAFRaster_DrawSpanNGonMLAT_16(piVar2);
     }
   }
   return;
@@ -1749,7 +1754,7 @@ void rdAFRaster_DrawNGonMLAT(int param_1)
    rdAFRaster_DrawSpanNGonMLAT_8 (the remaster's GrimFandango (Linux): 8-bit span call of
    rdAFRaster_DrawNGonMLAT (inlined in the remaster)); was rdRaster_SpanR8_TexKey. */
 
-void rdAFRaster_DrawSpanNGonMLAT_8(int *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMLAT_8(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1821,7 +1826,7 @@ void rdAFRaster_DrawSpanNGonMLAT_8(int *param_1)
    rdAFRaster_DrawSpanNGonMLAT_16 (the remaster's GrimFandango (Linux): 16-bit span call of
    rdAFRaster_DrawNGonMLAT); was rdRaster_SpanR16_TexKey. */
 
-void rdAFRaster_DrawSpanNGonMLAT_16(int *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMLAT_16(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1896,14 +1901,14 @@ void rdAFRaster_DrawSpanNGonMLAT_16(int *param_1)
    rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Select_FlatLit_4. */
 
-void rdAFRaster_SetupNGonFAT(int *param_1,int param_2,float param_3)
+void __cdecl rdAFRaster_SetupNGonFAT(int *param_1,int param_2,float param_3)
 
 {
   int iVar1;
   uint uVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcAffineGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcAffineGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + param_1[0x70] * 4) + 0x5c);
   if (iVar1 == 8) {
     param_1[0x77] = *(int *)(*(int *)(*param_1 + 0x4c) + 0x330) + (int)ROUND(param_3) * 0x100;
@@ -1931,7 +1936,7 @@ void rdAFRaster_SetupNGonFAT(int *param_1,int param_2,float param_3)
 /* Original name rdAFRaster_DrawNGonFAT (the remaster's GrimFandango (Linux): span-function store of
    rdAFRaster_SetupNGonFAT); was FUN_00411740. */
 
-void rdAFRaster_DrawNGonFAT(int param_1)
+void __cdecl rdAFRaster_DrawNGonFAT(int param_1)
 
 {
   int iVar1;
@@ -2029,7 +2034,7 @@ void rdAFRaster_DrawNGonFAT(int param_1)
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
-void FUN_00411b70(int param_1)
+void __cdecl FUN_00411b70(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
@@ -2049,18 +2054,18 @@ void FUN_00411b70(int param_1)
    rdAFRaster_SetupEdgeNGonFAT (the remaster's GrimFandango (Linux): edge-function store of
    rdAFRaster_SetupNGonFAT); was rdRaster_EdgeSetup_Flat_6. */
 
-undefined4 rdAFRaster_SetupEdgeNGonFAT(undefined4 *param_1,int *param_2,int param_3,int param_4)
+uint __cdecl rdAFRaster_SetupEdgeNGonFAT(uint *param_1,int *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
-  int iVar2;
-  int iVar3;
+  uint uVar2;
+  uint uVar3;
   int iVar4;
   float fVar5;
   float fVar6;
   float fVar7;
-  int iVar8;
+  uint uVar8;
   int iVar9;
   int iVar10;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -2073,18 +2078,18 @@ undefined4 rdAFRaster_SetupEdgeNGonFAT(undefined4 *param_1,int *param_2,int para
   fVar5 = ROUND(*(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar10));
   iVar9 = param_4 * 0xc;
   fVar6 = ROUND(*(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar9));
-  iVar2 = (int)ROUND(fVar5);
-  iVar3 = (int)ROUND(fVar6);
-  iVar8 = iVar3 - iVar2;
-  param_1[3] = iVar8;
-  if (iVar8 == 0) {
+  uVar2 = (uint)ROUND(fVar5);
+  uVar3 = (uint)ROUND(fVar6);
+  uVar8 = uVar3 - uVar2;
+  param_1[3] = uVar8;
+  if (uVar8 == 0) {
     return 0;
   }
-  if (0 < iVar8) {
+  if (0 < (int)uVar8) {
     *param_1 = 1;
-    param_1[2] = iVar2;
-    param_1[0x12] = FUN_00411b70;
-    if (iVar8 < 2) {
+    param_1[2] = uVar2;
+    param_1[0x12] = (uint)FUN_00411b70;
+    if ((int)uVar8 < 2) {
       param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar10) * 65536.0);
       param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8) * 65536.0);
       param_1[0xe] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8) * 65536.0);
@@ -2110,26 +2115,26 @@ undefined4 rdAFRaster_SetupEdgeNGonFAT(undefined4 *param_1,int *param_2,int para
     param_1[0xe] = (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8))
                               * 65536.0);
     fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
-    param_1[5] = PUN(undefined4,(float)(fVar6));
-    param_1[4] = PUN(undefined4,(float)(fVar5 * fVar6 + PUN(float,param_2[param_3 + 1])));
+    param_1[5] = (uint)fVar6;
+    param_1[4] = (uint)(fVar5 * fVar6 + PUN(float,param_2[param_3 + 1]));
     return 1;
   }
   *param_1 = 0;
-  param_1[2] = iVar3;
-  param_1[3] = -iVar8;
-  param_1[0x12] = FUN_00411b70;
-  if (-iVar8 < 2) {
+  param_1[2] = uVar3;
+  param_1[3] = -uVar8;
+  param_1[0x12] = (uint)FUN_00411b70;
+  if ((int)-uVar8 < 2) {
     param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar9) * 65536.0);
     param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8) * 65536.0);
     param_1[0xe] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8) * 65536.0);
     param_1[4] = param_2[param_4 + 1];
     return 1;
   }
-  iVar2 = *(int *)(iVar4 + 0x20);
-  fVar6 = fVar6 - *(float *)(iVar2 + 4 + iVar9);
-  pfVar1 = (float *)(iVar2 + param_3 * 0xc);
-  fVar5 = 1.0 / (pfVar1[1] - *(float *)(iVar2 + 4 + iVar9));
-  fVar7 = (*pfVar1 - *(float *)(iVar2 + iVar9)) * fVar5;
+  iVar10 = *(int *)(iVar4 + 0x20);
+  fVar6 = fVar6 - *(float *)(iVar10 + 4 + iVar9);
+  pfVar1 = (float *)(iVar10 + param_3 * 0xc);
+  fVar5 = 1.0 / (pfVar1[1] - *(float *)(iVar10 + 4 + iVar9));
+  fVar7 = (*pfVar1 - *(float *)(iVar10 + iVar9)) * fVar5;
   param_1[0xb] = (int)ROUND(fVar7 * 65536.0);
   param_1[10] = (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x20) + iVar9)) * 65536.0);
   fVar7 = (*(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8) -
@@ -2143,8 +2148,8 @@ undefined4 rdAFRaster_SetupEdgeNGonFAT(undefined4 *param_1,int *param_2,int para
   param_1[0xe] = (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8)) *
                             65536.0);
   fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
-  param_1[5] = PUN(undefined4,(float)(fVar5));
-  param_1[4] = PUN(undefined4,(float)(fVar6 * fVar5 + PUN(float,param_2[param_4 + 1])));
+  param_1[5] = (uint)fVar5;
+  param_1[4] = (uint)(fVar6 * fVar5 + PUN(float,param_2[param_4 + 1]));
   return 1;
 }
 #undef local_10
@@ -2164,14 +2169,14 @@ undefined4 rdAFRaster_SetupEdgeNGonFAT(undefined4 *param_1,int *param_2,int para
    rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Select_FlatLit_5. */
 
-void rdAFRaster_SetupNGonMFAT(int *param_1,int param_2,float param_3)
+void __cdecl rdAFRaster_SetupNGonMFAT(int *param_1,int param_2,float param_3)
 
 {
   int iVar1;
   uint uVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcAffineGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcAffineGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + param_1[0x70] * 4) + 0x5c);
   if (iVar1 == 8) {
     param_1[0x77] = *(int *)(*(int *)(*param_1 + 0x4c) + 0x330) + (int)ROUND(param_3) * 0x100;
@@ -2200,11 +2205,11 @@ void rdAFRaster_SetupNGonMFAT(int *param_1,int param_2,float param_3)
    (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMFAT (the remaster's GrimFandango
    (Linux): span-function store of rdAFRaster_SetupNGonMFAT); was FUN_004121a0. */
 
-void rdAFRaster_DrawNGonMFAT(int param_1)
+void __cdecl rdAFRaster_DrawNGonMFAT(int param_1)
 
 {
   int iVar1;
-  int iVar2;
+  int *piVar2;
   
   g_dwRdAFRaster_mipMapNum = *(uint *)(param_1 + 0x1c0);
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
@@ -2222,12 +2227,12 @@ void rdAFRaster_DrawNGonMFAT(int param_1)
   g_dwRdAFRaster_dUdXModifier = *(uint *)(param_1 + 0x1a0);
   g_dwRdAFRaster_dVdXModifier = *(uint *)(param_1 + 0x1a4);
   g_dwRdAFRaster_dOneOverZdXFixed = *(uint *)(param_1 + 0x19c);
-  for (iVar2 = *(int *)(param_1 + 0x1b8); iVar2 != 0; iVar2 = *(int *)(iVar2 + 0x28)) {
+  for (piVar2 = *(int **)(param_1 + 0x1b8); piVar2 != (int *)0x0; piVar2 = (int *)piVar2[10]) {
     if (iVar1 == 8) {
-      rdAFRaster_DrawSpanNGonMFAT_8(iVar2);
+      rdAFRaster_DrawSpanNGonMFAT_8(piVar2);
     }
     else if (iVar1 == 0x10) {
-      rdAFRaster_DrawSpanNGonMFAT_16(iVar2);
+      rdAFRaster_DrawSpanNGonMFAT_16(piVar2);
     }
   }
   return;
@@ -2243,7 +2248,7 @@ void rdAFRaster_DrawNGonMFAT(int param_1)
    rdAFRaster_DrawSpanNGonMFAT_8 (the remaster's GrimFandango (Linux): 8-bit span call of
    rdAFRaster_DrawNGonMFAT (inlined in the remaster)); was rdRaster_SpanR8_TexKey_2. */
 
-void rdAFRaster_DrawSpanNGonMFAT_8(int *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMFAT_8(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2317,7 +2322,7 @@ void rdAFRaster_DrawSpanNGonMFAT_8(int *param_1)
    rdAFRaster_DrawSpanNGonMFAT_16 (the remaster's GrimFandango (Linux): 16-bit span call of
    rdAFRaster_DrawNGonMFAT); was rdRaster_SpanR16_TexKey_2. */
 
-void rdAFRaster_DrawSpanNGonMFAT_16(int *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMFAT_16(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2393,7 +2398,7 @@ void rdAFRaster_DrawSpanNGonMFAT_16(int *param_1)
    (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Select_FlatLit_6. */
 
-void rdAFRaster_SetupNGonGAT(int *param_1,int param_2)
+void __cdecl rdAFRaster_SetupNGonGAT(int *param_1,int param_2)
 
 {
   int iVar1;
@@ -2401,7 +2406,7 @@ void rdAFRaster_SetupNGonGAT(int *param_1,int param_2)
   uint uVar3;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcAffineGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcAffineGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x5c);
   if (iVar1 == 8) {
@@ -2429,7 +2434,7 @@ void rdAFRaster_SetupNGonGAT(int *param_1,int param_2)
 /* Original name rdAFRaster_DrawNGonGAT (the remaster's GrimFandango (Linux): span-function store of
    rdAFRaster_SetupNGonGAT); was FUN_004125c0. */
 
-void rdAFRaster_DrawNGonGAT(int param_1)
+void __cdecl rdAFRaster_DrawNGonGAT(int param_1)
 
 {
   int iVar1;
@@ -2527,7 +2532,7 @@ void rdAFRaster_DrawNGonGAT(int param_1)
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
-void FUN_004129f0(int param_1)
+void __cdecl FUN_004129f0(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
@@ -2548,20 +2553,21 @@ void FUN_004129f0(int param_1)
    rdAFRaster_SetupEdgeNGonGAT (the remaster's GrimFandango (Linux): edge-function store of
    rdAFRaster_SetupNGonGAT); was rdRaster_EdgeSetup_Flat_7. */
 
-undefined4 rdAFRaster_SetupEdgeNGonGAT(undefined4 *param_1,int *param_2,int param_3,int param_4)
+uint __cdecl rdAFRaster_SetupEdgeNGonGAT(uint *param_1,int *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
-  int iVar2;
-  int iVar3;
+  uint uVar2;
+  uint uVar3;
   int iVar4;
-  float fVar5;
+  int iVar5;
   float fVar6;
   float fVar7;
-  int iVar8;
+  float fVar8;
   int iVar9;
-  int iVar10;
+  uint uVar10;
+  int iVar11;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
@@ -2569,92 +2575,92 @@ undefined4 rdAFRaster_SetupEdgeNGonGAT(undefined4 *param_1,int *param_2,int para
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   iVar4 = *param_2;
-  iVar10 = param_3 * 0xc;
-  fVar5 = ROUND(*(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar10));
-  iVar8 = param_4 * 0xc;
-  fVar6 = ROUND(*(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar8));
-  iVar2 = (int)ROUND(fVar5);
-  iVar3 = (int)ROUND(fVar6);
-  iVar9 = iVar3 - iVar2;
-  param_1[3] = iVar9;
-  if (iVar9 == 0) {
+  iVar11 = param_3 * 0xc;
+  fVar6 = ROUND(*(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar11));
+  iVar9 = param_4 * 0xc;
+  fVar7 = ROUND(*(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar9));
+  uVar2 = (uint)ROUND(fVar6);
+  uVar3 = (uint)ROUND(fVar7);
+  uVar10 = uVar3 - uVar2;
+  param_1[3] = uVar10;
+  if (uVar10 == 0) {
     return 0;
   }
-  if (0 < iVar9) {
+  if (0 < (int)uVar10) {
     *param_1 = 1;
-    param_1[2] = iVar2;
-    param_1[0x12] = FUN_004129f0;
-    if (iVar9 < 2) {
-      param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar10) * 65536.0);
+    param_1[2] = uVar2;
+    param_1[0x12] = (uint)FUN_004129f0;
+    if ((int)uVar10 < 2) {
+      param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar11) * 65536.0);
       param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8) * 65536.0);
       param_1[0xe] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8) * 65536.0);
       param_1[0x10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4) * 65536.0);
       param_1[4] = param_2[param_3 + 1];
       return 1;
     }
-    iVar2 = *(int *)(iVar4 + 0x20);
-    fVar5 = fVar5 - *(float *)(iVar2 + 4 + iVar10);
-    fVar6 = 1.0 / (*(float *)(iVar8 + 4 + iVar2) - *(float *)(iVar2 + 4 + iVar10));
-    fVar7 = (*(float *)(iVar8 + iVar2) - *(float *)(iVar2 + iVar10)) * fVar6;
-    param_1[0xb] = (int)ROUND(fVar7 * 65536.0);
-    param_1[10] = (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x20) + iVar10)) * 65536.0
+    iVar5 = *(int *)(iVar4 + 0x20);
+    fVar6 = fVar6 - *(float *)(iVar5 + 4 + iVar11);
+    fVar7 = 1.0 / (*(float *)(iVar9 + 4 + iVar5) - *(float *)(iVar5 + 4 + iVar11));
+    fVar8 = (*(float *)(iVar9 + iVar5) - *(float *)(iVar5 + iVar11)) * fVar7;
+    param_1[0xb] = (int)ROUND(fVar8 * 65536.0);
+    param_1[10] = (int)ROUND((fVar8 * fVar6 + *(float *)(*(int *)(iVar4 + 0x20) + iVar11)) * 65536.0
                             );
-    fVar7 = (*(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8) -
-            *(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8)) * fVar6;
-    param_1[0xd] = (int)ROUND(fVar7 * 65536.0);
-    param_1[0xc] = (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8)) *
+    fVar8 = (*(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8) -
+            *(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8)) * fVar7;
+    param_1[0xd] = (int)ROUND(fVar8 * 65536.0);
+    param_1[0xc] = (int)ROUND((fVar8 * fVar6 + *(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8)) *
                               65536.0);
-    fVar7 = (*(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8) -
-            *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8)) * fVar6;
-    param_1[0xf] = (int)ROUND(fVar7 * 65536.0);
-    param_1[0xe] = (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8))
+    fVar8 = (*(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8) -
+            *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8)) * fVar7;
+    param_1[0xf] = (int)ROUND(fVar8 * 65536.0);
+    param_1[0xe] = (int)ROUND((fVar8 * fVar6 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8))
                               * 65536.0);
-    fVar7 = (*(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4) -
-            *(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4)) * fVar6;
-    param_1[0x11] = (int)ROUND(fVar7 * 65536.0);
+    fVar8 = (*(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4) -
+            *(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4)) * fVar7;
+    param_1[0x11] = (int)ROUND(fVar8 * 65536.0);
     param_1[0x10] =
-         (int)ROUND((fVar7 * fVar5 + *(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4)) * 65536.0);
-    fVar6 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar6;
-    param_1[5] = PUN(undefined4,(float)(fVar6));
-    param_1[4] = PUN(undefined4,(float)(fVar5 * fVar6 + PUN(float,param_2[param_3 + 1])));
+         (int)ROUND((fVar8 * fVar6 + *(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4)) * 65536.0);
+    fVar7 = (PUN(float,param_2[param_4 + 1]) - PUN(float,param_2[param_3 + 1])) * fVar7;
+    param_1[5] = (uint)fVar7;
+    param_1[4] = (uint)(fVar6 * fVar7 + PUN(float,param_2[param_3 + 1]));
     return 1;
   }
   *param_1 = 0;
-  param_1[2] = iVar3;
-  param_1[3] = -iVar9;
-  param_1[0x12] = FUN_004129f0;
-  if (-iVar9 < 2) {
-    param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar8) * 65536.0);
+  param_1[2] = uVar3;
+  param_1[3] = -uVar10;
+  param_1[0x12] = (uint)FUN_004129f0;
+  if ((int)-uVar10 < 2) {
+    param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar9) * 65536.0);
     param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8) * 65536.0);
     param_1[0xe] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8) * 65536.0);
     param_1[0x10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4) * 65536.0);
     param_1[4] = param_2[param_4 + 1];
     return 1;
   }
-  fVar6 = fVar6 - *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar8);
+  fVar7 = fVar7 - *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar9);
   pfVar1 = (float *)(*(int *)(iVar4 + 0x20) + param_3 * 0xc);
-  fVar5 = 1.0 / (pfVar1[1] - *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar8));
-  fVar7 = (*pfVar1 - *(float *)(*(int *)(iVar4 + 0x20) + iVar8)) * fVar5;
-  param_1[0xb] = (int)ROUND(fVar7 * 65536.0);
-  param_1[10] = (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x20) + iVar8)) * 65536.0);
-  fVar7 = (*(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8) -
-          *(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8)) * fVar5;
-  param_1[0xd] = (int)ROUND(fVar7 * 65536.0);
-  param_1[0xc] = (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8)) *
+  fVar6 = 1.0 / (pfVar1[1] - *(float *)(*(int *)(iVar4 + 0x20) + 4 + iVar9));
+  fVar8 = (*pfVar1 - *(float *)(*(int *)(iVar4 + 0x20) + iVar9)) * fVar6;
+  param_1[0xb] = (int)ROUND(fVar8 * 65536.0);
+  param_1[10] = (int)ROUND((fVar8 * fVar7 + *(float *)(*(int *)(iVar4 + 0x20) + iVar9)) * 65536.0);
+  fVar8 = (*(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8) -
+          *(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8)) * fVar6;
+  param_1[0xd] = (int)ROUND(fVar8 * 65536.0);
+  param_1[0xc] = (int)ROUND((fVar8 * fVar7 + *(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8)) *
                             65536.0);
-  fVar7 = (*(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8) -
-          *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8)) * fVar5;
-  param_1[0xf] = (int)ROUND(fVar7 * 65536.0);
-  param_1[0xe] = (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8)) *
+  fVar8 = (*(float *)(*(int *)(iVar4 + 0x24) + 4 + param_3 * 8) -
+          *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8)) * fVar6;
+  param_1[0xf] = (int)ROUND(fVar8 * 65536.0);
+  param_1[0xe] = (int)ROUND((fVar8 * fVar7 + *(float *)(*(int *)(iVar4 + 0x24) + 4 + param_4 * 8)) *
                             65536.0);
-  fVar7 = (*(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4) -
-          *(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4)) * fVar5;
-  param_1[0x11] = (int)ROUND(fVar7 * 65536.0);
+  fVar8 = (*(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4) -
+          *(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4)) * fVar6;
+  param_1[0x11] = (int)ROUND(fVar8 * 65536.0);
   param_1[0x10] =
-       (int)ROUND((fVar7 * fVar6 + *(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4)) * 65536.0);
-  fVar5 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar5;
-  param_1[5] = PUN(undefined4,(float)(fVar5));
-  param_1[4] = PUN(undefined4,(float)(fVar6 * fVar5 + PUN(float,param_2[param_4 + 1])));
+       (int)ROUND((fVar8 * fVar7 + *(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4)) * 65536.0);
+  fVar6 = (PUN(float,param_2[param_3 + 1]) - PUN(float,param_2[param_4 + 1])) * fVar6;
+  param_1[5] = (uint)fVar6;
+  param_1[4] = (uint)(fVar7 * fVar6 + PUN(float,param_2[param_4 + 1]));
   return 1;
 }
 #undef local_10
@@ -2676,7 +2682,7 @@ undefined4 rdAFRaster_SetupEdgeNGonGAT(undefined4 *param_1,int *param_2,int para
    (Linux): dispatch slot in rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Select_FlatLit_7. */
 
-void rdAFRaster_SetupNGonMGAT(int *param_1,int param_2)
+void __cdecl rdAFRaster_SetupNGonMGAT(int *param_1,int param_2)
 
 {
   int iVar1;
@@ -2684,7 +2690,7 @@ void rdAFRaster_SetupNGonMGAT(int *param_1,int param_2)
   uint uVar3;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcAffineGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcAffineGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x71] = *(int *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + iVar2 * 4) + 0x5c);
   if (iVar1 == 8) {
@@ -2713,11 +2719,11 @@ void rdAFRaster_SetupNGonMGAT(int *param_1,int param_2)
    (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMGAT (the remaster's GrimFandango
    (Linux): span-function store of rdAFRaster_SetupNGonMGAT); was FUN_00413110. */
 
-void rdAFRaster_DrawNGonMGAT(int param_1)
+void __cdecl rdAFRaster_DrawNGonMGAT(int param_1)
 
 {
   int iVar1;
-  int iVar2;
+  int *piVar2;
   
   g_dwRdAFRaster_mipMapNum = *(uint *)(param_1 + 0x1c0);
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
@@ -2735,12 +2741,12 @@ void rdAFRaster_DrawNGonMGAT(int param_1)
   g_dwRdAFRaster_dUdXModifier = *(uint *)(param_1 + 0x1a0);
   g_dwRdAFRaster_dVdXModifier = *(uint *)(param_1 + 0x1a4);
   g_dwRdAFRaster_dOneOverZdXFixed = *(uint *)(param_1 + 0x19c);
-  for (iVar2 = *(int *)(param_1 + 0x1b8); iVar2 != 0; iVar2 = *(int *)(iVar2 + 0x28)) {
+  for (piVar2 = *(int **)(param_1 + 0x1b8); piVar2 != (int *)0x0; piVar2 = (int *)piVar2[10]) {
     if (iVar1 == 8) {
-      rdAFRaster_DrawSpanNGonMGAT_8(iVar2);
+      rdAFRaster_DrawSpanNGonMGAT_8(piVar2);
     }
     else if (iVar1 == 0x10) {
-      rdAFRaster_DrawSpanNGonMGAT_16(iVar2);
+      rdAFRaster_DrawSpanNGonMGAT_16(piVar2);
     }
   }
   return;
@@ -2756,7 +2762,7 @@ void rdAFRaster_DrawNGonMGAT(int param_1)
    rdAFRaster_DrawSpanNGonMGAT_8 (the remaster's GrimFandango (Linux): 8-bit span call of
    rdAFRaster_DrawNGonMGAT); was rdRaster_SpanR8_TexKey_3. */
 
-void rdAFRaster_DrawSpanNGonMGAT_8(int *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMGAT_8(int *param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2839,7 +2845,7 @@ void rdAFRaster_DrawSpanNGonMGAT_8(int *param_1)
    rdAFRaster_DrawSpanNGonMGAT_16 (the remaster's GrimFandango (Linux): 16-bit span call of
    rdAFRaster_DrawNGonMGAT); was rdRaster_SpanR16_TexKey_3. */
 
-void rdAFRaster_DrawSpanNGonMGAT_16(int *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMGAT_16(int *param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2924,14 +2930,14 @@ void rdAFRaster_DrawSpanNGonMGAT_16(int *param_1)
    rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Select_FlatLit_8. */
 
-void rdAFRaster_SetupNGonLIT(int *param_1,int param_2)
+void __cdecl rdAFRaster_SetupNGonLIT(int *param_1,int param_2)
 
 {
   int iVar1;
   int iVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcPerspGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcPerspGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
   param_1[0x6b] = PUN(int,(float)(PUN(float,param_1[99]) * 16.0));
@@ -2960,7 +2966,7 @@ void rdAFRaster_SetupNGonLIT(int *param_1,int param_2)
 /* Original name rdAFRaster_DrawNGonLIT (the remaster's GrimFandango (Linux): span-function store of
    rdAFRaster_SetupNGonLIT); was FUN_00413590. */
 
-void rdAFRaster_DrawNGonLIT(int param_1)
+void __cdecl rdAFRaster_DrawNGonLIT(int param_1)
 
 {
   int iVar1;
@@ -3063,82 +3069,85 @@ void rdAFRaster_DrawNGonLIT(int param_1)
    rdAFRaster_SetupEdgeNGonLIT (the remaster's GrimFandango (Linux): edge-function store of
    rdAFRaster_SetupNGonLIT); was rdRaster_EdgeSetup_Flat_8. */
 
-undefined4 rdAFRaster_SetupEdgeNGonLIT(undefined4 *param_1,int *param_2,int param_3,int param_4)
+uint __cdecl rdAFRaster_SetupEdgeNGonLIT(uint *param_1,int *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
-  float fVar3;
+  uint uVar1;
+  uint uVar2;
+  uint *puVar3;
   float fVar4;
   int iVar5;
-  float fVar6;
-  undefined4 *puVar7;
-  int iVar8;
-  int iVar9;
+  int iVar6;
+  float fVar7;
+  float fVar8;
+  uint *puVar9;
+  int iVar10;
+  uint uVar11;
+  int iVar12;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
-  puVar7 = param_1;
+  puVar9 = param_1;
   iVar5 = *param_2;
-  iVar9 = param_3 * 0xc;
-  fVar4 = ROUND(*(float *)(iVar9 + 4 + *(int *)(iVar5 + 0x20)));
-  param_4 = param_4 * 0xc;
-  fVar3 = ROUND(*(float *)(param_4 + 4 + *(int *)(iVar5 + 0x20)));
-  iVar1 = (int)ROUND(fVar4);
-  iVar2 = (int)ROUND(fVar3);
-  iVar8 = iVar2 - iVar1;
-  param_1[3] = iVar8;
-  if (iVar8 == 0) {
+  iVar12 = param_3 * 0xc;
+  fVar4 = ROUND(*(float *)(iVar12 + 4 + *(int *)(iVar5 + 0x20)));
+  iVar10 = param_4 * 0xc;
+  fVar7 = ROUND(*(float *)(iVar10 + 4 + *(int *)(iVar5 + 0x20)));
+  uVar1 = (uint)ROUND(fVar4);
+  uVar2 = (uint)ROUND(fVar7);
+  uVar11 = uVar2 - uVar1;
+  param_1[3] = uVar11;
+  if (uVar11 == 0) {
     return 0;
   }
-  if (0 < iVar8) {
+  if (0 < (int)uVar11) {
     *param_1 = 1;
-    param_1[2] = iVar1;
-    param_1[0x12] = FUN_00415180;
-    fVar4 = fVar4 - *(float *)(*(int *)(iVar5 + 0x20) + 4 + iVar9);
-    if (iVar8 < 2) {
-      fVar3 = *(float *)(*(int *)(iVar5 + 0x20) + iVar9);
-      param_1[10] = (int)ROUND(fVar3 * 65536.0);
-      param_1 = PUN(undefined4 *,(float)fVar3);
+    param_1[2] = uVar1;
+    param_1[0x12] = (uint)FUN_00415180;
+    fVar4 = fVar4 - *(float *)(*(int *)(iVar5 + 0x20) + 4 + iVar12);
+    if ((int)uVar11 < 2) {
+      puVar3 = *(uint **)(*(int *)(iVar5 + 0x20) + iVar12);
+      param_1[10] = (int)ROUND(PUN(float,puVar3) * 65536.0);
+      param_1 = puVar3;
     }
     else {
-      iVar1 = *(int *)(iVar5 + 0x20);
-      fVar3 = (*(float *)(param_4 + iVar1) - *(float *)(iVar1 + iVar9)) /
-              (*(float *)(param_4 + 4 + iVar1) - *(float *)(*(int *)(iVar5 + 0x20) + 4 + iVar9));
-      param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-      fVar6 = fVar3 * fVar4 + *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
-      param_1[10] = (int)ROUND(fVar6 * 65536.0);
-      param_1[5] = PUN(undefined4,(float)(PUN(float,param_2[0x61]) * fVar3 + PUN(float,param_2[0x62])));
-      param_1[7] = PUN(undefined4,(float)(PUN(float,param_2[99]) * fVar3 + PUN(float,param_2[100])));
-      param_1[9] = PUN(undefined4,(float)(PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[0x66])));
-      param_1 = PUN(undefined4 *,(float)fVar6);
+      iVar6 = *(int *)(iVar5 + 0x20);
+      fVar7 = (*(float *)(iVar10 + iVar6) - *(float *)(iVar6 + iVar12)) /
+              (*(float *)(iVar10 + 4 + iVar6) - *(float *)(*(int *)(iVar5 + 0x20) + 4 + iVar12));
+      param_1[0xb] = (int)ROUND(fVar7 * 65536.0);
+      puVar3 = PUN(uint *,(float)(fVar7 * fVar4 + *(float *)(iVar12 + *(int *)(iVar5 + 0x20))));
+      param_1[10] = (int)ROUND(PUN(float,puVar3) * 65536.0);
+      param_1[5] = (uint)(PUN(float,param_2[0x61]) * fVar7 + PUN(float,param_2[0x62]));
+      param_1[7] = (uint)(PUN(float,param_2[99]) * fVar7 + PUN(float,param_2[100]));
+      param_1[9] = (uint)(PUN(float,param_2[0x65]) * fVar7 + PUN(float,param_2[0x66]));
+      param_1 = puVar3;
     }
-    fVar3 = PUN(float,param_1) - *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
-    puVar7[4] = PUN(float,param_2[0x61]) * fVar3 +
-                PUN(float,param_2[0x62]) * fVar4 + PUN(float,param_2[param_3 + 1]);
-    puVar7[6] = PUN(float,param_2[99]) * fVar3 +
-                PUN(float,param_2[100]) * fVar4 + PUN(float,param_2[param_3 + 0x21]);
-    puVar7[8] = PUN(float,param_2[0x66]) * fVar4 +
-                PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[param_3 + 0x41]);
+    fVar7 = PUN(float,param_1) - *(float *)(iVar12 + *(int *)(iVar5 + 0x20));
+    puVar9[4] = (uint)(PUN(float,param_2[0x61]) * fVar7 +
+                      PUN(float,param_2[0x62]) * fVar4 + PUN(float,param_2[param_3 + 1]));
+    puVar9[6] = (uint)(PUN(float,param_2[99]) * fVar7 +
+                      PUN(float,param_2[100]) * fVar4 + PUN(float,param_2[param_3 + 0x21]));
+    puVar9[8] = (uint)(PUN(float,param_2[0x66]) * fVar4 +
+                      PUN(float,param_2[0x65]) * fVar7 + PUN(float,param_2[param_3 + 0x41]));
     return 1;
   }
   *param_1 = 0;
-  param_1[2] = iVar2;
-  param_1[3] = -iVar8;
-  param_1[0x12] = FUN_004151c0;
-  iVar1 = *(int *)(iVar5 + 0x20);
-  if (-iVar8 < 2) {
-    param_1[10] = (int)ROUND(*(float *)(param_4 + iVar1) * 65536.0);
+  param_1[2] = uVar2;
+  param_1[3] = -uVar11;
+  param_1[0x12] = (uint)FUN_004151c0;
+  iVar12 = *(int *)(iVar5 + 0x20);
+  if ((int)-uVar11 < 2) {
+    param_1[10] = (int)ROUND(*(float *)(iVar10 + iVar12) * 65536.0);
     return 1;
   }
-  fVar4 = *(float *)(iVar1 + 4 + param_4);
-  fVar6 = (*(float *)(iVar1 + param_3 * 0xc) - *(float *)(iVar1 + param_4)) /
-          (*(float *)(iVar1 + 4 + param_3 * 0xc) - *(float *)(iVar1 + 4 + param_4));
-  param_1[0xb] = (int)ROUND(fVar6 * 65536.0);
-  param_1[10] = (int)ROUND((fVar6 * (fVar3 - fVar4) + *(float *)(param_4 + *(int *)(iVar5 + 0x20)))
-                           * 65536.0);
+  fVar4 = *(float *)(iVar12 + 4 + iVar10);
+  fVar8 = (*(float *)(iVar12 + param_3 * 0xc) - *(float *)(iVar12 + iVar10)) /
+          (*(float *)(iVar12 + 4 + param_3 * 0xc) - *(float *)(iVar12 + 4 + iVar10));
+  param_1[0xb] = (int)ROUND(fVar8 * 65536.0);
+  param_1[10] = (int)ROUND((fVar8 * (fVar7 - fVar4) + *(float *)(iVar10 + *(int *)(iVar5 + 0x20))) *
+                           65536.0);
   return 1;
 }
 #undef local_10
@@ -3157,14 +3166,14 @@ undefined4 rdAFRaster_SetupEdgeNGonLIT(undefined4 *param_1,int *param_2,int para
    rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Select_FlatLit_9. */
 
-void rdAFRaster_SetupNGonMLIT(int *param_1,int param_2)
+void __cdecl rdAFRaster_SetupNGonMLIT(int *param_1,int param_2)
 
 {
   int iVar1;
   int iVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcPerspGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcPerspGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   iVar2 = param_1[0x70];
   param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
   param_1[0x6b] = PUN(int,(float)(PUN(float,param_1[99]) * 16.0));
@@ -3194,11 +3203,11 @@ void rdAFRaster_SetupNGonMLIT(int *param_1,int param_2)
    (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMLIT (the remaster's GrimFandango
    (Linux): span-function store of rdAFRaster_SetupNGonMLIT); was FUN_00413dd0. */
 
-void rdAFRaster_DrawNGonMLIT(int param_1)
+void __cdecl rdAFRaster_DrawNGonMLIT(int param_1)
 
 {
   int iVar1;
-  int iVar2;
+  uint *puVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   if (iVar1 == 0x10) {
@@ -3219,12 +3228,12 @@ void rdAFRaster_DrawNGonMLIT(int param_1)
   _g_dwRdAFRaster_dVOverZdX = *(undefined4 *)(param_1 + 0x194);
   g_dwRdAFRaster_dUdXModifier = *(uint *)(param_1 + 0x1a0);
   g_dwRdAFRaster_dVdXModifier = *(uint *)(param_1 + 0x1a4);
-  for (iVar2 = *(int *)(param_1 + 0x1b8); iVar2 != 0; iVar2 = *(int *)(iVar2 + 0x28)) {
+  for (puVar2 = *(uint **)(param_1 + 0x1b8); puVar2 != (uint *)0x0; puVar2 = (uint *)puVar2[10]) {
     if (iVar1 == 8) {
-      rdAFRaster_DrawSpanNGonMLIT_8(iVar2);
+      rdAFRaster_DrawSpanNGonMLIT_8(puVar2);
     }
     else if (iVar1 == 0x10) {
-      rdAFRaster_DrawSpanNGonMLIT_16(iVar2);
+      rdAFRaster_DrawSpanNGonMLIT_16(puVar2);
     }
   }
   return;
@@ -3241,7 +3250,7 @@ void rdAFRaster_DrawNGonMLIT(int param_1)
    rdAFRaster_DrawSpanNGonMLIT_8 (the remaster's GrimFandango (Linux): 8-bit span call of
    rdAFRaster_DrawNGonMLIT); was rdRaster_SpanP8_TexKeyZw. */
 
-void rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3257,9 +3266,9 @@ void rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1)
   byte bVar10;
   uint uVar11;
   uint uVar12;
-  undefined2 *puVar13;
+  uint *puVar13;
   int iVar14;
-  undefined2 *puVar15;
+  uint *puVar15;
   char *pcVar16;
   #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
   #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
@@ -3315,11 +3324,10 @@ void rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1)
   iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
   local_18 = (uint)((1.0 / (float)local_30) * fVar2);
   pcVar16 = (char *)(*(int *)(iVar14 + 0x18) * param_1[2] + *(int *)(iVar14 + 0x5c) + *param_1);
-  puVar13 = (undefined2 *)
-            (*(int *)(iVar4 + 0x18) * param_1[2] + *(int *)(iVar4 + 0x5c) + *param_1 * 2);
+  puVar13 = (uint *)(*(int *)(iVar4 + 0x18) * param_1[2] + *(int *)(iVar4 + 0x5c) + *param_1 * 2);
   local_1c = (uint)((1.0 / (float)local_30) * fVar3);
   bVar9 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
-  param_1 = (uint *)puVar13;
+  param_1 = puVar13;
   if (local_40 == 0) {
     local_c = (uint)((float)local_30 + _g_dwRdAFRaster_oneOverZStep);
     local_10 = (uint)(fVar2 + _g_dwRdAFRaster_uOverZStep);
@@ -3340,12 +3348,10 @@ void rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1)
                           * 65536.0) >> (bVar10 & 0x1f);
     local_30 = (int)ROUND((fVar5 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_40]
                           * 65536.0) >> (bVar10 & 0x1f);
-    puVar13 = (undefined2 *)
-              (((int)ROUND((float)local_18 * 65536.0) >> (bVar10 & 0x1f)) +
-              g_dwRdAFRaster_dUdXModifier);
-    puVar15 = (undefined2 *)
-              (((int)ROUND((float)local_1c * 65536.0) >> (bVar10 & 0x1f)) +
-              g_dwRdAFRaster_dVdXModifier);
+    puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar10 & 0x1f)) +
+                      g_dwRdAFRaster_dUdXModifier);
+    puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar10 & 0x1f)) +
+                      g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_40) {
       do {
         cVar1 = *(char *)(((int)((uint)puVar13 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -3357,10 +3363,10 @@ void rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1)
           *(short *)param_1 = (short)((int)local_8 >> (bVar9 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar13 = (undefined2 *)((int)puVar13 + local_2c);
+        puVar13 = (uint *)((int)puVar13 + local_2c);
         local_8 = local_8 + uVar8;
         pcVar16 = pcVar16 + 1;
-        puVar15 = (undefined2 *)((int)puVar15 + local_30);
+        puVar15 = (uint *)((int)puVar15 + local_30);
         local_40 = local_40 - 1;
       } while (local_40 != 0);
     }
@@ -3377,13 +3383,11 @@ void rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1)
       bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
       local_2c = (int)ROUND((fVar3 - (float)local_18) * 0.0625 * 65536.0) >> (bVar10 & 0x1f);
       local_30 = (int)ROUND((fVar2 - (float)local_1c) * 0.0625 * 65536.0) >> (bVar10 & 0x1f);
-      puVar13 = (undefined2 *)
-                (((int)ROUND((float)local_18 * 65536.0) >> (bVar10 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar10 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
       local_40 = 0x10;
-      puVar15 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar10 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar10 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
       do {
         cVar1 = *(char *)(((int)((uint)puVar13 & g_dwRdAFRaster_uWrap) >> 0x10) +
                          g_dwRdAFRaster_pPixels +
@@ -3394,10 +3398,10 @@ void rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1)
           *(short *)param_1 = (short)((int)local_8 >> (bVar9 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar13 = (undefined2 *)((int)puVar13 + local_2c);
+        puVar13 = (uint *)((int)puVar13 + local_2c);
         local_8 = local_8 + uVar8;
         pcVar16 = pcVar16 + 1;
-        puVar15 = (undefined2 *)((int)puVar15 + local_30);
+        puVar15 = (uint *)((int)puVar15 + local_30);
         local_40 = local_40 - 1;
       } while (local_40 != 0);
       local_c = (uint)((float)local_c + _g_dwRdAFRaster_oneOverZStep);
@@ -3423,12 +3427,10 @@ void rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1)
                              (float)local_14) * fVar2 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] * 65536.0) >>
                  (bVar10 & 0x1f);
-      puVar13 = (undefined2 *)
-                (((int)ROUND((float)local_18 * 65536.0) >> (bVar10 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
-      puVar15 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar10 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar10 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
+      puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar10 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar14) {
       local_40 = local_28;
@@ -3442,10 +3444,10 @@ void rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1)
           *(short *)param_1 = (short)((int)local_8 >> (bVar9 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar13 = (undefined2 *)((int)puVar13 + local_2c);
+        puVar13 = (uint *)((int)puVar13 + local_2c);
         local_8 = local_8 + uVar8;
         pcVar16 = pcVar16 + 1;
-        puVar15 = (undefined2 *)((int)puVar15 + local_30);
+        puVar15 = (uint *)((int)puVar15 + local_30);
         local_40 = local_40 - 1;
       } while (local_40 != 0);
     }
@@ -3485,7 +3487,7 @@ void rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1)
    rdAFRaster_DrawSpanNGonMLIT_16 (the remaster's GrimFandango (Linux): 16-bit span call of
    rdAFRaster_DrawNGonMLIT); was rdRaster_SpanP16_TexKeyZw. */
 
-void rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3500,9 +3502,9 @@ void rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1)
   byte bVar9;
   uint uVar10;
   uint uVar11;
-  undefined2 *puVar12;
+  uint *puVar12;
   int iVar13;
-  undefined2 *puVar14;
+  uint *puVar14;
   undefined2 *puVar15;
   #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
   #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
@@ -3556,15 +3558,14 @@ void rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1)
   local_8 = (uint)ROUND((float)local_34 * 65536.0);
   iVar13 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
-  puVar12 = (undefined2 *)
-            (*(int *)(iVar13 + 0x5c) + ((*(uint *)(iVar13 + 0x18) >> 1) * param_1[2] + *param_1) * 2
-            );
+  puVar12 = (uint *)(*(int *)(iVar13 + 0x5c) +
+                    ((*(uint *)(iVar13 + 0x18) >> 1) * param_1[2] + *param_1) * 2);
   local_18 = (uint)((1.0 / (float)local_34) * fVar1);
   local_1c = (uint)((1.0 / (float)local_34) * fVar2);
   puVar15 = (undefined2 *)
             (*(int *)(iVar3 + 0x18) * param_1[2] + *param_1 * 2 + *(int *)(iVar3 + 0x5c));
   bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
-  param_1 = (uint *)puVar12;
+  param_1 = puVar12;
   if (local_44 == 0) {
     local_c = (uint)((float)local_34 + _g_dwRdAFRaster_oneOverZStep);
     local_10 = (uint)(fVar1 + _g_dwRdAFRaster_uOverZStep);
@@ -3585,12 +3586,10 @@ void rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1)
                           * 65536.0) >> (bVar9 & 0x1f);
     local_34 = (int)ROUND((fVar4 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
                           * 65536.0) >> (bVar9 & 0x1f);
-    puVar12 = (undefined2 *)
-              (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
-              g_dwRdAFRaster_dUdXModifier);
-    puVar14 = (undefined2 *)
-              (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-              g_dwRdAFRaster_dVdXModifier);
+    puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
+                      g_dwRdAFRaster_dUdXModifier);
+    puVar14 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                      g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_44) {
       do {
         bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -3603,8 +3602,8 @@ void rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1)
           *puVar15 = (short)((int)local_8 >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_30);
-        puVar14 = (undefined2 *)((int)puVar14 + local_34);
+        puVar12 = (uint *)((int)puVar12 + local_30);
+        puVar14 = (uint *)((int)puVar14 + local_34);
         puVar15 = puVar15 + 1;
         local_8 = local_8 + uVar7;
         local_44 = local_44 - 1;
@@ -3623,13 +3622,11 @@ void rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1)
       bVar9 = (byte)g_dwRdAFRaster_mipMapNum;
       local_30 = (int)ROUND((fVar2 - (float)local_18) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
       local_34 = (int)ROUND((fVar1 - (float)local_1c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-      puVar12 = (undefined2 *)
-                (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
       local_44 = 0x10;
-      puVar14 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
       do {
         bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdAFRaster_uWrap) >> 0x10) +
                          g_dwRdAFRaster_pPixels +
@@ -3641,8 +3638,8 @@ void rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1)
           *puVar15 = (short)((int)local_8 >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_30);
-        puVar14 = (undefined2 *)((int)puVar14 + local_34);
+        puVar12 = (uint *)((int)puVar12 + local_30);
+        puVar14 = (uint *)((int)puVar14 + local_34);
         puVar15 = puVar15 + 1;
         local_8 = local_8 + uVar7;
         local_44 = local_44 - 1;
@@ -3670,12 +3667,10 @@ void rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1)
                              (float)local_14) * fVar1 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] * 65536.0) >>
                  (bVar9 & 0x1f);
-      puVar12 = (undefined2 *)
-                (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
-      puVar14 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar13) {
       local_44 = local_28;
@@ -3690,8 +3685,8 @@ void rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1)
           *puVar15 = (short)((int)local_8 >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_30);
-        puVar14 = (undefined2 *)((int)puVar14 + local_34);
+        puVar12 = (uint *)((int)puVar12 + local_30);
+        puVar14 = (uint *)((int)puVar14 + local_34);
         puVar15 = puVar15 + 1;
         local_8 = local_8 + uVar7;
         local_44 = local_44 - 1;
@@ -3733,14 +3728,14 @@ void rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1)
    rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Select_FlatLit_10. */
 
-void rdAFRaster_SetupNGonFIT(int *param_1,int param_2,float param_3)
+void __cdecl rdAFRaster_SetupNGonFIT(int *param_1,int param_2,float param_3)
 
 {
   int iVar1;
   uint uVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcPerspGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcPerspGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x6a] = (int)(PUN(float,param_1[0x61]) * 16.0);
   param_1[0x6b] = (int)(PUN(float,param_1[99]) * 16.0);
   param_1[0x6c] = (int)(PUN(float,param_1[0x65]) * 16.0);
@@ -3771,7 +3766,7 @@ void rdAFRaster_SetupNGonFIT(int *param_1,int param_2,float param_3)
 /* Original name rdAFRaster_DrawNGonFIT (the remaster's GrimFandango (Linux): span-function store of
    rdAFRaster_SetupNGonFIT); was FUN_00414d20. */
 
-void rdAFRaster_DrawNGonFIT(int param_1)
+void __cdecl rdAFRaster_DrawNGonFIT(int param_1)
 
 {
   int iVar1;
@@ -3875,7 +3870,7 @@ void rdAFRaster_DrawNGonFIT(int param_1)
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
-void FUN_00415180(int param_1)
+void __cdecl FUN_00415180(int param_1)
 
 {
   *(float *)(param_1 + 0x10) = *(float *)(param_1 + 0x14) + *(float *)(param_1 + 0x10);
@@ -3893,7 +3888,7 @@ void FUN_00415180(int param_1)
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
-void FUN_004151c0(int param_1)
+void __cdecl FUN_004151c0(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
@@ -3910,82 +3905,85 @@ void FUN_004151c0(int param_1)
    rdAFRaster_SetupEdgeNGonFIT (the remaster's GrimFandango (Linux): edge-function store of
    rdAFRaster_SetupNGonFIT); was rdRaster_EdgeSetup_Flat_9. */
 
-undefined4 rdAFRaster_SetupEdgeNGonFIT(undefined4 *param_1,int *param_2,int param_3,int param_4)
+uint __cdecl rdAFRaster_SetupEdgeNGonFIT(uint *param_1,int *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
-  float fVar3;
+  uint uVar1;
+  uint uVar2;
+  uint *puVar3;
   float fVar4;
   int iVar5;
-  float fVar6;
-  undefined4 *puVar7;
-  int iVar8;
-  int iVar9;
+  int iVar6;
+  float fVar7;
+  float fVar8;
+  uint *puVar9;
+  int iVar10;
+  uint uVar11;
+  int iVar12;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
-  puVar7 = param_1;
+  puVar9 = param_1;
   iVar5 = *param_2;
-  iVar9 = param_3 * 0xc;
-  fVar4 = ROUND(*(float *)(iVar9 + 4 + *(int *)(iVar5 + 0x20)));
-  param_4 = param_4 * 0xc;
-  fVar3 = ROUND(*(float *)(param_4 + 4 + *(int *)(iVar5 + 0x20)));
-  iVar1 = (int)ROUND(fVar4);
-  iVar2 = (int)ROUND(fVar3);
-  iVar8 = iVar2 - iVar1;
-  param_1[3] = iVar8;
-  if (iVar8 == 0) {
+  iVar12 = param_3 * 0xc;
+  fVar4 = ROUND(*(float *)(iVar12 + 4 + *(int *)(iVar5 + 0x20)));
+  iVar10 = param_4 * 0xc;
+  fVar7 = ROUND(*(float *)(iVar10 + 4 + *(int *)(iVar5 + 0x20)));
+  uVar1 = (uint)ROUND(fVar4);
+  uVar2 = (uint)ROUND(fVar7);
+  uVar11 = uVar2 - uVar1;
+  param_1[3] = uVar11;
+  if (uVar11 == 0) {
     return 0;
   }
-  if (0 < iVar8) {
+  if (0 < (int)uVar11) {
     *param_1 = 1;
-    param_1[2] = iVar1;
-    param_1[0x12] = FUN_00415180;
-    fVar4 = fVar4 - *(float *)(*(int *)(iVar5 + 0x20) + 4 + iVar9);
-    if (iVar8 < 2) {
-      fVar3 = *(float *)(*(int *)(iVar5 + 0x20) + iVar9);
-      param_1[10] = (int)ROUND(fVar3 * 65536.0);
-      param_1 = PUN(undefined4 *,(float)fVar3);
+    param_1[2] = uVar1;
+    param_1[0x12] = (uint)FUN_00415180;
+    fVar4 = fVar4 - *(float *)(*(int *)(iVar5 + 0x20) + 4 + iVar12);
+    if ((int)uVar11 < 2) {
+      puVar3 = *(uint **)(*(int *)(iVar5 + 0x20) + iVar12);
+      param_1[10] = (int)ROUND(PUN(float,puVar3) * 65536.0);
+      param_1 = puVar3;
     }
     else {
-      iVar1 = *(int *)(iVar5 + 0x20);
-      fVar3 = (*(float *)(param_4 + iVar1) - *(float *)(iVar1 + iVar9)) /
-              (*(float *)(param_4 + 4 + iVar1) - *(float *)(*(int *)(iVar5 + 0x20) + 4 + iVar9));
-      param_1[0xb] = (int)ROUND(fVar3 * 65536.0);
-      fVar6 = fVar3 * fVar4 + *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
-      param_1[10] = (int)ROUND(fVar6 * 65536.0);
-      param_1[5] = PUN(undefined4,(float)(PUN(float,param_2[0x61]) * fVar3 + PUN(float,param_2[0x62])));
-      param_1[7] = PUN(undefined4,(float)(PUN(float,param_2[99]) * fVar3 + PUN(float,param_2[100])));
-      param_1[9] = PUN(undefined4,(float)(PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[0x66])));
-      param_1 = PUN(undefined4 *,(float)fVar6);
+      iVar6 = *(int *)(iVar5 + 0x20);
+      fVar7 = (*(float *)(iVar10 + iVar6) - *(float *)(iVar6 + iVar12)) /
+              (*(float *)(iVar10 + 4 + iVar6) - *(float *)(*(int *)(iVar5 + 0x20) + 4 + iVar12));
+      param_1[0xb] = (int)ROUND(fVar7 * 65536.0);
+      puVar3 = PUN(uint *,(float)(fVar7 * fVar4 + *(float *)(iVar12 + *(int *)(iVar5 + 0x20))));
+      param_1[10] = (int)ROUND(PUN(float,puVar3) * 65536.0);
+      param_1[5] = (uint)(PUN(float,param_2[0x61]) * fVar7 + PUN(float,param_2[0x62]));
+      param_1[7] = (uint)(PUN(float,param_2[99]) * fVar7 + PUN(float,param_2[100]));
+      param_1[9] = (uint)(PUN(float,param_2[0x65]) * fVar7 + PUN(float,param_2[0x66]));
+      param_1 = puVar3;
     }
-    fVar3 = PUN(float,param_1) - *(float *)(iVar9 + *(int *)(iVar5 + 0x20));
-    puVar7[4] = PUN(float,param_2[0x61]) * fVar3 +
-                PUN(float,param_2[0x62]) * fVar4 + PUN(float,param_2[param_3 + 1]);
-    puVar7[6] = PUN(float,param_2[99]) * fVar3 +
-                PUN(float,param_2[100]) * fVar4 + PUN(float,param_2[param_3 + 0x21]);
-    puVar7[8] = PUN(float,param_2[0x66]) * fVar4 +
-                PUN(float,param_2[0x65]) * fVar3 + PUN(float,param_2[param_3 + 0x41]);
+    fVar7 = PUN(float,param_1) - *(float *)(iVar12 + *(int *)(iVar5 + 0x20));
+    puVar9[4] = (uint)(PUN(float,param_2[0x61]) * fVar7 +
+                      PUN(float,param_2[0x62]) * fVar4 + PUN(float,param_2[param_3 + 1]));
+    puVar9[6] = (uint)(PUN(float,param_2[99]) * fVar7 +
+                      PUN(float,param_2[100]) * fVar4 + PUN(float,param_2[param_3 + 0x21]));
+    puVar9[8] = (uint)(PUN(float,param_2[0x66]) * fVar4 +
+                      PUN(float,param_2[0x65]) * fVar7 + PUN(float,param_2[param_3 + 0x41]));
     return 1;
   }
   *param_1 = 0;
-  param_1[2] = iVar2;
-  param_1[3] = -iVar8;
-  param_1[0x12] = FUN_004151c0;
-  iVar1 = *(int *)(iVar5 + 0x20);
-  if (-iVar8 < 2) {
-    param_1[10] = (int)ROUND(*(float *)(param_4 + iVar1) * 65536.0);
+  param_1[2] = uVar2;
+  param_1[3] = -uVar11;
+  param_1[0x12] = (uint)FUN_004151c0;
+  iVar12 = *(int *)(iVar5 + 0x20);
+  if ((int)-uVar11 < 2) {
+    param_1[10] = (int)ROUND(*(float *)(iVar10 + iVar12) * 65536.0);
     return 1;
   }
-  fVar4 = *(float *)(iVar1 + 4 + param_4);
-  fVar6 = (*(float *)(iVar1 + param_3 * 0xc) - *(float *)(iVar1 + param_4)) /
-          (*(float *)(iVar1 + 4 + param_3 * 0xc) - *(float *)(iVar1 + 4 + param_4));
-  param_1[0xb] = (int)ROUND(fVar6 * 65536.0);
-  param_1[10] = (int)ROUND((fVar6 * (fVar3 - fVar4) + *(float *)(param_4 + *(int *)(iVar5 + 0x20)))
-                           * 65536.0);
+  fVar4 = *(float *)(iVar12 + 4 + iVar10);
+  fVar8 = (*(float *)(iVar12 + param_3 * 0xc) - *(float *)(iVar12 + iVar10)) /
+          (*(float *)(iVar12 + 4 + param_3 * 0xc) - *(float *)(iVar12 + 4 + iVar10));
+  param_1[0xb] = (int)ROUND(fVar8 * 65536.0);
+  param_1[10] = (int)ROUND((fVar8 * (fVar7 - fVar4) + *(float *)(iVar10 + *(int *)(iVar5 + 0x20))) *
+                           65536.0);
   return 1;
 }
 #undef local_10
@@ -4004,14 +4002,14 @@ undefined4 rdAFRaster_SetupEdgeNGonFIT(undefined4 *param_1,int *param_2,int para
    rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Select_FlatLit_11. */
 
-void rdAFRaster_SetupNGonMFIT(int *param_1,int param_2,float param_3)
+void __cdecl rdAFRaster_SetupNGonMFIT(int *param_1,int param_2,float param_3)
 
 {
   int iVar1;
   uint uVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcPerspGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcPerspGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x6a] = (int)(PUN(float,param_1[0x61]) * 16.0);
   param_1[0x6b] = (int)(PUN(float,param_1[99]) * 16.0);
   param_1[0x6c] = (int)(PUN(float,param_1[0x65]) * 16.0);
@@ -4043,11 +4041,11 @@ void rdAFRaster_SetupNGonMFIT(int *param_1,int param_2,float param_3)
    (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMFIT (the remaster's GrimFandango
    (Linux): span-function store of rdAFRaster_SetupNGonMFIT); was FUN_00415600. */
 
-void rdAFRaster_DrawNGonMFIT(int param_1)
+void __cdecl rdAFRaster_DrawNGonMFIT(int param_1)
 
 {
   int iVar1;
-  int iVar2;
+  uint *puVar2;
   
   g_dwRdAFRaster_mipMapNum = *(uint *)(param_1 + 0x1c0);
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
@@ -4071,12 +4069,12 @@ void rdAFRaster_DrawNGonMFIT(int param_1)
   _g_dwRdAFRaster_dVOverZdX = *(undefined4 *)(param_1 + 0x194);
   g_dwRdAFRaster_dUdXModifier = *(uint *)(param_1 + 0x1a0);
   g_dwRdAFRaster_dVdXModifier = *(uint *)(param_1 + 0x1a4);
-  for (iVar2 = *(int *)(param_1 + 0x1b8); iVar2 != 0; iVar2 = *(int *)(iVar2 + 0x28)) {
+  for (puVar2 = *(uint **)(param_1 + 0x1b8); puVar2 != (uint *)0x0; puVar2 = (uint *)puVar2[10]) {
     if (iVar1 == 8) {
-      rdAFRaster_DrawSpanNGonMFIT_8(iVar2);
+      rdAFRaster_DrawSpanNGonMFIT_8(puVar2);
     }
     else if (iVar1 == 0x10) {
-      rdAFRaster_DrawSpanNGonMFIT_16(iVar2);
+      rdAFRaster_DrawSpanNGonMFIT_16(puVar2);
     }
   }
   return;
@@ -4093,7 +4091,7 @@ void rdAFRaster_DrawNGonMFIT(int param_1)
    rdAFRaster_DrawSpanNGonMFIT_8 (the remaster's GrimFandango (Linux): 8-bit span call of
    rdAFRaster_DrawNGonMFIT); was rdRaster_SpanP8_TexKeyZw_2. */
 
-void rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4108,9 +4106,9 @@ void rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1)
   byte bVar9;
   uint uVar10;
   uint uVar11;
-  undefined2 *puVar12;
+  uint *puVar12;
   int iVar13;
-  undefined2 *puVar14;
+  uint *puVar14;
   undefined1 *puVar15;
   #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
   #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
@@ -4167,11 +4165,10 @@ void rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1)
   local_18 = (uint)((1.0 / (float)local_34) * fVar1);
   puVar15 = (undefined1 *)
             (*(int *)(iVar13 + 0x18) * param_1[2] + *(int *)(iVar13 + 0x5c) + *param_1);
-  puVar12 = (undefined2 *)
-            (*(int *)(iVar3 + 0x18) * param_1[2] + *(int *)(iVar3 + 0x5c) + *param_1 * 2);
+  puVar12 = (uint *)(*(int *)(iVar3 + 0x18) * param_1[2] + *(int *)(iVar3 + 0x5c) + *param_1 * 2);
   local_1c = (uint)((1.0 / (float)local_34) * fVar2);
   bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
-  param_1 = (uint *)puVar12;
+  param_1 = puVar12;
   if (local_44 == 0) {
     local_c = (uint)((float)local_34 + _g_dwRdAFRaster_oneOverZStep);
     local_10 = (uint)(fVar1 + _g_dwRdAFRaster_uOverZStep);
@@ -4192,12 +4189,10 @@ void rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1)
                           * 65536.0) >> (bVar9 & 0x1f);
     local_34 = (int)ROUND((fVar4 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
                           * 65536.0) >> (bVar9 & 0x1f);
-    puVar12 = (undefined2 *)
-              (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
-              g_dwRdAFRaster_dUdXModifier);
-    puVar14 = (undefined2 *)
-              (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-              g_dwRdAFRaster_dVdXModifier);
+    puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
+                      g_dwRdAFRaster_dUdXModifier);
+    puVar14 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                      g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_44) {
       do {
         bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -4210,10 +4205,10 @@ void rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1)
           *(short *)param_1 = (short)((int)local_8 >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_30);
+        puVar12 = (uint *)((int)puVar12 + local_30);
         local_8 = local_8 + uVar7;
         puVar15 = puVar15 + 1;
-        puVar14 = (undefined2 *)((int)puVar14 + local_34);
+        puVar14 = (uint *)((int)puVar14 + local_34);
         local_44 = local_44 - 1;
       } while (local_44 != 0);
     }
@@ -4230,13 +4225,11 @@ void rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1)
       bVar9 = (byte)g_dwRdAFRaster_mipMapNum;
       local_30 = (int)ROUND((fVar2 - (float)local_18) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
       local_34 = (int)ROUND((fVar1 - (float)local_1c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-      puVar12 = (undefined2 *)
-                (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
       local_44 = 0x10;
-      puVar14 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
       do {
         bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdAFRaster_uWrap) >> 0x10) +
                          g_dwRdAFRaster_pPixels +
@@ -4248,10 +4241,10 @@ void rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1)
           *(short *)param_1 = (short)((int)local_8 >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_30);
+        puVar12 = (uint *)((int)puVar12 + local_30);
         local_8 = local_8 + uVar7;
         puVar15 = puVar15 + 1;
-        puVar14 = (undefined2 *)((int)puVar14 + local_34);
+        puVar14 = (uint *)((int)puVar14 + local_34);
         local_44 = local_44 - 1;
       } while (local_44 != 0);
       local_c = (uint)((float)local_c + _g_dwRdAFRaster_oneOverZStep);
@@ -4277,12 +4270,10 @@ void rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1)
                              (float)local_14) * fVar1 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] * 65536.0) >>
                  (bVar9 & 0x1f);
-      puVar12 = (undefined2 *)
-                (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
-      puVar14 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar13) {
       local_44 = local_28;
@@ -4297,10 +4288,10 @@ void rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1)
           *(short *)param_1 = (short)((int)local_8 >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_30);
+        puVar12 = (uint *)((int)puVar12 + local_30);
         local_8 = local_8 + uVar7;
         puVar15 = puVar15 + 1;
-        puVar14 = (undefined2 *)((int)puVar14 + local_34);
+        puVar14 = (uint *)((int)puVar14 + local_34);
         local_44 = local_44 - 1;
       } while (local_44 != 0);
     }
@@ -4340,7 +4331,7 @@ void rdAFRaster_DrawSpanNGonMFIT_8(uint *param_1)
    rdAFRaster_DrawSpanNGonMFIT_16 (the remaster's GrimFandango (Linux): 16-bit span call of
    rdAFRaster_DrawNGonMFIT); was rdRaster_SpanP16_TexKeyZw_2. */
 
-void rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4355,9 +4346,9 @@ void rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1)
   byte bVar9;
   uint uVar10;
   uint uVar11;
-  undefined2 *puVar12;
+  uint *puVar12;
   int iVar13;
-  undefined2 *puVar14;
+  uint *puVar14;
   undefined2 *puVar15;
   #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
   #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
@@ -4411,15 +4402,14 @@ void rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1)
   local_8 = (uint)ROUND((float)local_34 * 65536.0);
   iVar13 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
   iVar3 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x10);
-  puVar12 = (undefined2 *)
-            (*(int *)(iVar13 + 0x5c) + ((*(uint *)(iVar13 + 0x18) >> 1) * param_1[2] + *param_1) * 2
-            );
+  puVar12 = (uint *)(*(int *)(iVar13 + 0x5c) +
+                    ((*(uint *)(iVar13 + 0x18) >> 1) * param_1[2] + *param_1) * 2);
   local_18 = (uint)((1.0 / (float)local_34) * fVar1);
   local_1c = (uint)((1.0 / (float)local_34) * fVar2);
   puVar15 = (undefined2 *)
             (*(int *)(iVar3 + 0x18) * param_1[2] + *param_1 * 2 + *(int *)(iVar3 + 0x5c));
   bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
-  param_1 = (uint *)puVar12;
+  param_1 = puVar12;
   if (local_44 == 0) {
     local_c = (uint)((float)local_34 + _g_dwRdAFRaster_oneOverZStep);
     local_10 = (uint)(fVar1 + _g_dwRdAFRaster_uOverZStep);
@@ -4440,12 +4430,10 @@ void rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1)
                           * 65536.0) >> (bVar9 & 0x1f);
     local_34 = (int)ROUND((fVar4 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
                           * 65536.0) >> (bVar9 & 0x1f);
-    puVar12 = (undefined2 *)
-              (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
-              g_dwRdAFRaster_dUdXModifier);
-    puVar14 = (undefined2 *)
-              (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-              g_dwRdAFRaster_dVdXModifier);
+    puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
+                      g_dwRdAFRaster_dUdXModifier);
+    puVar14 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                      g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_44) {
       do {
         bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -4458,8 +4446,8 @@ void rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1)
           *puVar15 = (short)((int)local_8 >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_30);
-        puVar14 = (undefined2 *)((int)puVar14 + local_34);
+        puVar12 = (uint *)((int)puVar12 + local_30);
+        puVar14 = (uint *)((int)puVar14 + local_34);
         puVar15 = puVar15 + 1;
         local_8 = local_8 + uVar7;
         local_44 = local_44 - 1;
@@ -4478,13 +4466,11 @@ void rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1)
       bVar9 = (byte)g_dwRdAFRaster_mipMapNum;
       local_30 = (int)ROUND((fVar2 - (float)local_18) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
       local_34 = (int)ROUND((fVar1 - (float)local_1c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-      puVar12 = (undefined2 *)
-                (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
       local_44 = 0x10;
-      puVar14 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
       do {
         bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdAFRaster_uWrap) >> 0x10) +
                          g_dwRdAFRaster_pPixels +
@@ -4496,8 +4482,8 @@ void rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1)
           *puVar15 = (short)((int)local_8 >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_30);
-        puVar14 = (undefined2 *)((int)puVar14 + local_34);
+        puVar12 = (uint *)((int)puVar12 + local_30);
+        puVar14 = (uint *)((int)puVar14 + local_34);
         puVar15 = puVar15 + 1;
         local_8 = local_8 + uVar7;
         local_44 = local_44 - 1;
@@ -4525,12 +4511,10 @@ void rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1)
                              (float)local_14) * fVar1 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] * 65536.0) >>
                  (bVar9 & 0x1f);
-      puVar12 = (undefined2 *)
-                (((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
-      puVar14 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar13) {
       local_44 = local_28;
@@ -4545,8 +4529,8 @@ void rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1)
           *puVar15 = (short)((int)local_8 >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_30);
-        puVar14 = (undefined2 *)((int)puVar14 + local_34);
+        puVar12 = (uint *)((int)puVar12 + local_30);
+        puVar14 = (uint *)((int)puVar14 + local_34);
         puVar15 = puVar15 + 1;
         local_8 = local_8 + uVar7;
         local_44 = local_44 - 1;
@@ -4588,14 +4572,14 @@ void rdAFRaster_DrawSpanNGonMFIT_16(uint *param_1)
    rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Select_FlatLit_12. */
 
-void rdAFRaster_SetupNGonGIT(int *param_1,int param_2)
+void __cdecl rdAFRaster_SetupNGonGIT(int *param_1,int param_2)
 
 {
   int iVar1;
   uint uVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcPerspGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcPerspGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
   param_1[0x6b] = PUN(int,(float)(PUN(float,param_1[99]) * 16.0));
   param_1[0x6c] = PUN(int,(float)(PUN(float,param_1[0x65]) * 16.0));
@@ -4626,7 +4610,7 @@ void rdAFRaster_SetupNGonGIT(int *param_1,int param_2)
 /* Original name rdAFRaster_DrawNGonGIT (the remaster's GrimFandango (Linux): span-function store of
    rdAFRaster_SetupNGonGIT); was FUN_00416580. */
 
-void rdAFRaster_DrawNGonGIT(int param_1)
+void __cdecl rdAFRaster_DrawNGonGIT(int param_1)
 
 {
   int iVar1;
@@ -4732,7 +4716,7 @@ void rdAFRaster_DrawNGonGIT(int param_1)
    GrimFandango (Linux): the edge function rdAFRaster_SetupEdgeNGonGIT stores with side flag 1); was
    FUN_004169f0. */
 
-void rdAFRaster_AdvanceLeftEdgeNGonGIT(int param_1)
+void __cdecl rdAFRaster_AdvanceLeftEdgeNGonGIT(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
@@ -4753,7 +4737,7 @@ void rdAFRaster_AdvanceLeftEdgeNGonGIT(int param_1)
    GrimFandango (Linux): the edge function rdAFRaster_SetupEdgeNGonGIT stores with side flag 0); was
    FUN_00416a30. */
 
-void rdAFRaster_AdvanceRightEdgeNGonGIT(int param_1)
+void __cdecl rdAFRaster_AdvanceRightEdgeNGonGIT(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
@@ -4771,17 +4755,17 @@ void rdAFRaster_AdvanceRightEdgeNGonGIT(int param_1)
    rdAFRaster_SetupEdgeNGonGIT (the remaster's GrimFandango (Linux): edge-function store of
    rdAFRaster_SetupNGonGIT); was rdRaster_EdgeSetup_Flat_10. */
 
-undefined4 rdAFRaster_SetupEdgeNGonGIT(undefined4 *param_1,int *param_2,int param_3,int param_4)
+uint __cdecl rdAFRaster_SetupEdgeNGonGIT(uint *param_1,int *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
+  uint uVar1;
+  uint uVar2;
   int iVar3;
   float fVar4;
   float fVar5;
   float fVar6;
-  int iVar7;
+  uint uVar7;
   int iVar8;
   int iVar9;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -4794,19 +4778,19 @@ undefined4 rdAFRaster_SetupEdgeNGonGIT(undefined4 *param_1,int *param_2,int para
   fVar4 = ROUND(*(float *)(*(int *)(iVar3 + 0x20) + 4 + iVar9));
   iVar8 = param_4 * 0xc;
   fVar5 = ROUND(*(float *)(*(int *)(iVar3 + 0x20) + 4 + iVar8));
-  iVar1 = (int)ROUND(fVar4);
-  iVar2 = (int)ROUND(fVar5);
-  iVar7 = iVar2 - iVar1;
-  param_1[3] = iVar7;
-  if (iVar7 == 0) {
+  uVar1 = (uint)ROUND(fVar4);
+  uVar2 = (uint)ROUND(fVar5);
+  uVar7 = uVar2 - uVar1;
+  param_1[3] = uVar7;
+  if (uVar7 == 0) {
     return 0;
   }
-  if (0 < iVar7) {
+  if (0 < (int)uVar7) {
     *param_1 = 1;
-    param_1[2] = iVar1;
-    param_1[0x12] = rdAFRaster_AdvanceLeftEdgeNGonGIT;
+    param_1[2] = uVar1;
+    param_1[0x12] = (uint)rdAFRaster_AdvanceLeftEdgeNGonGIT;
     fVar4 = fVar4 - *(float *)(*(int *)(iVar3 + 0x20) + 4 + iVar9);
-    if (iVar7 < 2) {
+    if ((int)uVar7 < 2) {
       local_c = *(uint *)(*(int *)(iVar3 + 0x20) + iVar9);
       param_1[10] = (int)ROUND(PUN(float,local_c) * 65536.0);
       param_1[0x10] = (int)ROUND(*(float *)(*(int *)(iVar3 + 0x28) + param_3 * 4) * 65536.0);
@@ -4819,9 +4803,9 @@ undefined4 rdAFRaster_SetupEdgeNGonGIT(undefined4 *param_1,int *param_2,int para
       param_1[0xb] = (int)ROUND(fVar6 * 65536.0);
       local_c = (uint)(fVar6 * fVar4 + *(float *)(*(int *)(iVar3 + 0x20) + iVar9));
       param_1[10] = (int)ROUND(PUN(float,local_c) * 65536.0);
-      param_1[5] = PUN(undefined4,(float)(PUN(float,param_2[0x61]) * fVar6 + PUN(float,param_2[0x62])));
-      param_1[7] = PUN(undefined4,(float)(PUN(float,param_2[99]) * fVar6 + PUN(float,param_2[100])));
-      param_1[9] = PUN(undefined4,(float)(PUN(float,param_2[0x65]) * fVar6 + PUN(float,param_2[0x66])));
+      param_1[5] = (uint)(PUN(float,param_2[0x61]) * fVar6 + PUN(float,param_2[0x62]));
+      param_1[7] = (uint)(PUN(float,param_2[99]) * fVar6 + PUN(float,param_2[100]));
+      param_1[9] = (uint)(PUN(float,param_2[0x65]) * fVar6 + PUN(float,param_2[0x66]));
       fVar5 = (*(float *)(*(int *)(iVar3 + 0x28) + param_4 * 4) -
               *(float *)(*(int *)(iVar3 + 0x28) + param_3 * 4)) * fVar5;
       param_1[0x11] = (int)ROUND(fVar5 * 65536.0);
@@ -4829,27 +4813,27 @@ undefined4 rdAFRaster_SetupEdgeNGonGIT(undefined4 *param_1,int *param_2,int para
            (int)ROUND((fVar5 * fVar4 + *(float *)(*(int *)(iVar3 + 0x28) + param_3 * 4)) * 65536.0);
     }
     fVar5 = PUN(float,local_c) - *(float *)(*(int *)(iVar3 + 0x20) + iVar9);
-    param_1[4] = PUN(float,param_2[0x61]) * fVar5 +
-                 PUN(float,param_2[0x62]) * fVar4 + PUN(float,param_2[param_3 + 1]);
-    param_1[6] = PUN(float,param_2[99]) * fVar5 +
-                 PUN(float,param_2[100]) * fVar4 + PUN(float,param_2[param_3 + 0x21]);
-    param_1[8] = PUN(float,param_2[0x66]) * fVar4 +
-                 PUN(float,param_2[0x65]) * fVar5 + PUN(float,param_2[param_3 + 0x41]);
+    param_1[4] = (uint)(PUN(float,param_2[0x61]) * fVar5 +
+                       PUN(float,param_2[0x62]) * fVar4 + PUN(float,param_2[param_3 + 1]));
+    param_1[6] = (uint)(PUN(float,param_2[99]) * fVar5 +
+                       PUN(float,param_2[100]) * fVar4 + PUN(float,param_2[param_3 + 0x21]));
+    param_1[8] = (uint)(PUN(float,param_2[0x66]) * fVar4 +
+                       PUN(float,param_2[0x65]) * fVar5 + PUN(float,param_2[param_3 + 0x41]));
     return 1;
   }
   *param_1 = 0;
-  param_1[2] = iVar2;
-  param_1[3] = -iVar7;
-  param_1[0x12] = rdAFRaster_AdvanceRightEdgeNGonGIT;
-  iVar1 = *(int *)(iVar3 + 0x20);
-  if (-iVar7 < 2) {
-    param_1[10] = (int)ROUND(*(float *)(iVar1 + iVar8) * 65536.0);
+  param_1[2] = uVar2;
+  param_1[3] = -uVar7;
+  param_1[0x12] = (uint)rdAFRaster_AdvanceRightEdgeNGonGIT;
+  iVar9 = *(int *)(iVar3 + 0x20);
+  if ((int)-uVar7 < 2) {
+    param_1[10] = (int)ROUND(*(float *)(iVar9 + iVar8) * 65536.0);
     param_1[0x10] = (int)ROUND(*(float *)(*(int *)(iVar3 + 0x28) + param_4 * 4) * 65536.0);
     return 1;
   }
-  fVar5 = fVar5 - *(float *)(iVar1 + 4 + iVar8);
-  fVar4 = 1.0 / (*(float *)(iVar1 + 4 + param_3 * 0xc) - *(float *)(iVar1 + 4 + iVar8));
-  fVar6 = (*(float *)(iVar1 + param_3 * 0xc) - *(float *)(iVar1 + iVar8)) * fVar4;
+  fVar5 = fVar5 - *(float *)(iVar9 + 4 + iVar8);
+  fVar4 = 1.0 / (*(float *)(iVar9 + 4 + param_3 * 0xc) - *(float *)(iVar9 + 4 + iVar8));
+  fVar6 = (*(float *)(iVar9 + param_3 * 0xc) - *(float *)(iVar9 + iVar8)) * fVar4;
   param_1[0xb] = (int)ROUND(fVar6 * 65536.0);
   param_1[10] = (int)ROUND((fVar6 * fVar5 + *(float *)(*(int *)(iVar3 + 0x20) + iVar8)) * 65536.0);
   fVar4 = (*(float *)(*(int *)(iVar3 + 0x28) + param_3 * 4) -
@@ -4876,14 +4860,14 @@ undefined4 rdAFRaster_SetupEdgeNGonGIT(undefined4 *param_1,int *param_2,int para
    rdActive_AddActiveFace (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Select_FlatLit_13. */
 
-undefined4 rdAFRaster_SetupNGonMGIT(int *param_1,int param_2)
+uint __cdecl rdAFRaster_SetupNGonMGIT(int *param_1,int param_2)
 
 {
   int iVar1;
   uint uVar2;
   
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  rdAFRaster_CalcPerspGradients(param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
+  rdAFRaster_CalcPerspGradients((float *)param_1,*(int *)(*(int *)(param_2 + 0x1c) + 0x18) + -1);
   param_1[0x6a] = PUN(int,(float)(PUN(float,param_1[0x61]) * 16.0));
   param_1[0x6b] = PUN(int,(float)(PUN(float,param_1[99]) * 16.0));
   param_1[0x6c] = PUN(int,(float)(PUN(float,param_1[0x65]) * 16.0));
@@ -4915,11 +4899,11 @@ undefined4 rdAFRaster_SetupNGonMGIT(int *param_1,int param_2)
    (docs/notes/asm_s*.md). Original name rdAFRaster_DrawNGonMGIT (the remaster's GrimFandango
    (Linux): span-function store of rdAFRaster_SetupNGonMGIT); was FUN_00416f80. */
 
-void rdAFRaster_DrawNGonMGIT(int param_1)
+void __cdecl rdAFRaster_DrawNGonMGIT(int param_1)
 
 {
   int iVar1;
-  int iVar2;
+  uint *puVar2;
   
   g_dwRdAFRaster_mipMapNum = *(uint *)(param_1 + 0x1c0);
   iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
@@ -4943,12 +4927,12 @@ void rdAFRaster_DrawNGonMGIT(int param_1)
   _g_dwRdAFRaster_dVOverZdX = *(undefined4 *)(param_1 + 0x194);
   g_dwRdAFRaster_dUdXModifier = *(uint *)(param_1 + 0x1a0);
   g_dwRdAFRaster_dVdXModifier = *(uint *)(param_1 + 0x1a4);
-  for (iVar2 = *(int *)(param_1 + 0x1b8); iVar2 != 0; iVar2 = *(int *)(iVar2 + 0x28)) {
+  for (puVar2 = *(uint **)(param_1 + 0x1b8); puVar2 != (uint *)0x0; puVar2 = (uint *)puVar2[10]) {
     if (iVar1 == 8) {
-      rdAFRaster_DrawSpanNGonMGIT_8(iVar2);
+      rdAFRaster_DrawSpanNGonMGIT_8(puVar2);
     }
     else if (iVar1 == 0x10) {
-      rdAFRaster_DrawSpanNGonMGIT_16(iVar2);
+      rdAFRaster_DrawSpanNGonMGIT_16(puVar2);
     }
   }
   return;
@@ -4965,7 +4949,7 @@ void rdAFRaster_DrawNGonMGIT(int param_1)
    rdAFRaster_DrawSpanNGonMGIT_8 (the remaster's GrimFandango (Linux): 8-bit span call of
    rdAFRaster_DrawNGonMGIT); was rdRaster_SpanP8_TexKeyZw_3. */
 
-void rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4978,11 +4962,11 @@ void rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1)
   uint uVar7;
   byte bVar8;
   byte bVar9;
-  undefined2 *puVar10;
+  uint *puVar10;
   uint uVar11;
   uint uVar12;
   int iVar13;
-  undefined2 *puVar14;
+  uint *puVar14;
   undefined1 *puVar15;
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
@@ -5043,11 +5027,10 @@ void rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1)
   local_1c = (uint)((1.0 / (float)local_38) * fVar1);
   puVar15 = (undefined1 *)
             (*(int *)(iVar13 + 0x18) * param_1[2] + *(int *)(iVar13 + 0x5c) + *param_1);
-  puVar10 = (undefined2 *)
-            (*(int *)(iVar3 + 0x18) * param_1[2] + *param_1 * 2 + *(int *)(iVar3 + 0x5c));
+  puVar10 = (uint *)(*(int *)(iVar3 + 0x18) * param_1[2] + *param_1 * 2 + *(int *)(iVar3 + 0x5c));
   local_20 = (uint)((1.0 / (float)local_38) * fVar2);
   bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
-  param_1 = (uint *)puVar10;
+  param_1 = puVar10;
   if (local_4c == 0) {
     local_10 = (uint)((float)local_38 + _g_dwRdAFRaster_oneOverZStep);
     local_14 = (uint)(fVar1 + _g_dwRdAFRaster_uOverZStep);
@@ -5068,12 +5051,10 @@ void rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1)
                           * 65536.0) >> (bVar9 & 0x1f);
     local_38 = (int)ROUND((fVar4 - (float)local_20) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
                           * 65536.0) >> (bVar9 & 0x1f);
-    puVar10 = (undefined2 *)
-              (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-              g_dwRdAFRaster_dUdXModifier);
-    puVar14 = (undefined2 *)
-              (((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
-              g_dwRdAFRaster_dVdXModifier);
+    puVar10 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                      g_dwRdAFRaster_dUdXModifier);
+    puVar14 = (uint *)(((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
+                      g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_4c) {
       do {
         bVar9 = *(byte *)(((int)((uint)puVar10 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -5087,9 +5068,9 @@ void rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1)
           *(short *)param_1 = (short)((int)local_c >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar10 = (undefined2 *)((int)puVar10 + local_34);
+        puVar10 = (uint *)((int)puVar10 + local_34);
         local_8 = local_8 + uVar11;
-        puVar14 = (undefined2 *)((int)puVar14 + local_38);
+        puVar14 = (uint *)((int)puVar14 + local_38);
         puVar15 = puVar15 + 1;
         local_c = local_c + uVar7;
         local_4c = local_4c - 1;
@@ -5108,13 +5089,11 @@ void rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1)
       bVar9 = (byte)g_dwRdAFRaster_mipMapNum;
       local_34 = (int)ROUND((fVar2 - (float)local_1c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
       local_38 = (int)ROUND((fVar1 - (float)local_20) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-      puVar10 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
+      puVar10 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
       local_4c = 0x10;
-      puVar14 = (undefined2 *)
-                (((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
       do {
         bVar9 = *(byte *)(((int)((uint)puVar10 & g_dwRdAFRaster_uWrap) >> 0x10) +
                          g_dwRdAFRaster_pPixels +
@@ -5127,9 +5106,9 @@ void rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1)
           *(short *)param_1 = (short)((int)local_c >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar10 = (undefined2 *)((int)puVar10 + local_34);
+        puVar10 = (uint *)((int)puVar10 + local_34);
         local_8 = local_8 + uVar11;
-        puVar14 = (undefined2 *)((int)puVar14 + local_38);
+        puVar14 = (uint *)((int)puVar14 + local_38);
         puVar15 = puVar15 + 1;
         local_c = local_c + uVar7;
         local_4c = local_4c - 1;
@@ -5157,12 +5136,10 @@ void rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1)
                              (float)local_18) * fVar1 - (float)local_20) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] * 65536.0) >>
                  (bVar9 & 0x1f);
-      puVar10 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
-      puVar14 = (undefined2 *)
-                (((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar10 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar13) {
       local_4c = local_2c;
@@ -5178,9 +5155,9 @@ void rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1)
           *(short *)param_1 = (short)((int)local_c >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar10 = (undefined2 *)((int)puVar10 + local_34);
+        puVar10 = (uint *)((int)puVar10 + local_34);
         local_8 = local_8 + uVar11;
-        puVar14 = (undefined2 *)((int)puVar14 + local_38);
+        puVar14 = (uint *)((int)puVar14 + local_38);
         puVar15 = puVar15 + 1;
         local_c = local_c + uVar7;
         local_4c = local_4c - 1;
@@ -5224,7 +5201,7 @@ void rdAFRaster_DrawSpanNGonMGIT_8(uint *param_1)
    rdAFRaster_DrawSpanNGonMGIT_16 (the remaster's GrimFandango (Linux): 16-bit span call of
    rdAFRaster_DrawNGonMGIT); was rdRaster_SpanP16_TexKeyZw_3. */
 
-void rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1)
+void __cdecl rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5239,9 +5216,9 @@ void rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1)
   byte bVar9;
   uint uVar10;
   uint uVar11;
-  undefined2 *puVar12;
+  uint *puVar12;
   int iVar13;
-  undefined2 *puVar14;
+  uint *puVar14;
   undefined2 *puVar15;
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
@@ -5304,10 +5281,9 @@ void rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1)
             );
   local_1c = (uint)((1.0 / (float)local_38) * fVar1);
   local_20 = (uint)((1.0 / (float)local_38) * fVar2);
-  puVar12 = (undefined2 *)
-            (*(int *)(iVar3 + 0x18) * param_1[2] + *(int *)(iVar3 + 0x5c) + *param_1 * 2);
+  puVar12 = (uint *)(*(int *)(iVar3 + 0x18) * param_1[2] + *(int *)(iVar3 + 0x5c) + *param_1 * 2);
   bVar8 = (byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14);
-  param_1 = (uint *)puVar12;
+  param_1 = puVar12;
   if (local_4c == 0) {
     local_10 = (uint)((float)local_38 + _g_dwRdAFRaster_oneOverZStep);
     local_14 = (uint)(fVar1 + _g_dwRdAFRaster_uOverZStep);
@@ -5328,12 +5304,10 @@ void rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1)
                           * 65536.0) >> (bVar9 & 0x1f);
     local_38 = (int)ROUND((fVar4 - (float)local_20) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
                           * 65536.0) >> (bVar9 & 0x1f);
-    puVar12 = (undefined2 *)
-              (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-              g_dwRdAFRaster_dUdXModifier);
-    puVar14 = (undefined2 *)
-              (((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
-              g_dwRdAFRaster_dVdXModifier);
+    puVar12 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                      g_dwRdAFRaster_dUdXModifier);
+    puVar14 = (uint *)(((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
+                      g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_4c) {
       do {
         bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -5348,9 +5322,9 @@ void rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1)
           *(short *)param_1 = (short)((int)local_c >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_34);
+        puVar12 = (uint *)((int)puVar12 + local_34);
         local_8 = local_8 + uVar10;
-        puVar14 = (undefined2 *)((int)puVar14 + local_38);
+        puVar14 = (uint *)((int)puVar14 + local_38);
         puVar15 = puVar15 + 1;
         local_c = local_c + uVar7;
         local_4c = local_4c - 1;
@@ -5369,13 +5343,11 @@ void rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1)
       bVar9 = (byte)g_dwRdAFRaster_mipMapNum;
       local_34 = (int)ROUND((fVar2 - (float)local_1c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
       local_38 = (int)ROUND((fVar1 - (float)local_20) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-      puVar12 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
       local_4c = 0x10;
-      puVar14 = (undefined2 *)
-                (((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
       do {
         bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdAFRaster_uWrap) >> 0x10) +
                          g_dwRdAFRaster_pPixels +
@@ -5389,9 +5361,9 @@ void rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1)
           *(short *)param_1 = (short)((int)local_c >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_34);
+        puVar12 = (uint *)((int)puVar12 + local_34);
         local_8 = local_8 + uVar10;
-        puVar14 = (undefined2 *)((int)puVar14 + local_38);
+        puVar14 = (uint *)((int)puVar14 + local_38);
         puVar15 = puVar15 + 1;
         local_c = local_c + uVar7;
         local_4c = local_4c - 1;
@@ -5419,12 +5391,10 @@ void rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1)
                              (float)local_18) * fVar1 - (float)local_20) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar13] * 65536.0) >>
                  (bVar9 & 0x1f);
-      puVar12 = (undefined2 *)
-                (((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dUdXModifier);
-      puVar14 = (undefined2 *)
-                (((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdAFRaster_dVdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_1c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dUdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_20 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar13) {
       local_4c = local_2c;
@@ -5441,9 +5411,9 @@ void rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1)
           *(short *)param_1 = (short)((int)local_c >> (bVar8 & 0x1f));
         }
         param_1 = (uint *)((int)param_1 + 2);
-        puVar12 = (undefined2 *)((int)puVar12 + local_34);
+        puVar12 = (uint *)((int)puVar12 + local_34);
         local_8 = local_8 + uVar10;
-        puVar14 = (undefined2 *)((int)puVar14 + local_38);
+        puVar14 = (uint *)((int)puVar14 + local_38);
         puVar15 = puVar15 + 1;
         local_c = local_c + uVar7;
         local_4c = local_4c - 1;
@@ -5487,7 +5457,7 @@ void rdAFRaster_DrawSpanNGonMGIT_16(uint *param_1)
    rdNRaster_CalcAffineGradients (the remaster's GrimFandango (Linux): gradients call of
    rdNRaster_DrawNGonLAT); was rdRaster_Grad_Flat. */
 
-void rdNRaster_CalcAffineGradients(float param_1)
+void __cdecl rdNRaster_CalcAffineGradients(float param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5706,7 +5676,7 @@ LAB_0041894c:
    rdNRaster_CalcPerspGradients (the remaster's GrimFandango (Linux): gradients call of
    rdNRaster_DrawNGonLIT); was rdRaster_Grad_Flat_2. */
 
-void rdNRaster_CalcPerspGradients(float param_1)
+void __cdecl rdNRaster_CalcPerspGradients(float param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -5965,7 +5935,7 @@ LAB_00418ede:
    (the remaster's GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry,
    lighting, texture-mode, mask and translucency tests)); was rdRaster_DrawPoints. */
 
-void rdNRaster_DrawNGonLV(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonLV(int param_1,int param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6032,7 +6002,7 @@ void rdNRaster_DrawNGonLV(int param_1,int param_2)
    GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode,
    mask and translucency tests)); was rdRaster_DrawWireframe. */
 
-void rdNRaster_DrawNGonLW(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonLW(int param_1,int param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6125,12 +6095,12 @@ void rdNRaster_DrawNGonLW(int param_1,int param_2)
    (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Draw16_FlatLit. */
 
-void rdNRaster_DrawNGonLS(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonLS(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -6164,11 +6134,11 @@ void rdNRaster_DrawNGonLS(int param_1,int param_2)
     g_nRdNRaster_rightVertexStep = 1;
   }
   local_7c = g_nRdNRaster_yMinVert;
-  iVar2 = rdNRaster_SetupLeftEdgeNGonLS(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonLS((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonLS(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonLS((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdRaster_Span_Flat(&local_88,&local_44);
@@ -6178,8 +6148,8 @@ void rdNRaster_DrawNGonLS(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonLS(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonLS((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -6192,7 +6162,7 @@ void rdNRaster_DrawNGonLS(int param_1,int param_2)
         local_44 = local_44 + local_40;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonLS(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonLS((int *)&local_44);
     }
   }
   return;
@@ -6221,7 +6191,7 @@ void rdNRaster_DrawNGonLS(int param_1,int param_2)
    GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonLS (inlined in the remaster));
    was rdRaster_Span16_Flat. */
 
-void rdNRaster_DrawScanLineNGonLS_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonLS_16(uint *param_1,uint *param_2)
 
 {
   int iVar1;
@@ -6261,7 +6231,7 @@ void rdNRaster_DrawScanLineNGonLS_16(uint *param_1,uint *param_2)
    rdNRaster_SetupLeftEdgeNGonLS (the remaster's GrimFandango (Linux): first edge-setup call of
    rdNRaster_DrawNGonLS); was rdRaster_Edge_Flat. */
 
-undefined4 rdNRaster_SetupLeftEdgeNGonLS(int *param_1)
+uint __cdecl rdNRaster_SetupLeftEdgeNGonLS(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6330,7 +6300,7 @@ undefined4 rdNRaster_SetupLeftEdgeNGonLS(int *param_1)
    rdNRaster_SetupRightEdgeNGonLS (the remaster's GrimFandango (Linux): second edge-setup call of
    rdNRaster_DrawNGonLS); was rdRaster_Edge_Flat_2. */
 
-undefined4 rdNRaster_SetupRightEdgeNGonLS(int *param_1)
+uint __cdecl rdNRaster_SetupRightEdgeNGonLS(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6400,12 +6370,12 @@ undefined4 rdNRaster_SetupRightEdgeNGonLS(int *param_1)
    (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Draw16_TexLit. */
 
-void rdNRaster_DrawNGonTLS(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonTLS(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -6443,11 +6413,11 @@ void rdNRaster_DrawNGonTLS(int param_1,int param_2)
     g_nRdNRaster_rightVertexStep = 1;
   }
   local_7c = g_nRdNRaster_yMinVert;
-  iVar2 = rdNRaster_SetupLeftEdgeNGonLS(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonLS((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonLS(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonLS((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdRaster_Span_Tex(&local_88,&local_44);
@@ -6457,8 +6427,8 @@ void rdNRaster_DrawNGonTLS(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonLS(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonLS((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -6471,7 +6441,7 @@ void rdNRaster_DrawNGonTLS(int param_1,int param_2)
         local_44 = local_44 + local_40;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonLS(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonLS((int *)&local_44);
     }
   }
   return;
@@ -6498,7 +6468,7 @@ void rdNRaster_DrawNGonTLS(int param_1,int param_2)
    rdNRaster_DrawScanLineNGonTLS_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonTLS (inlined in the remaster)); was rdRaster_Span16_Tex. */
 
-void rdNRaster_DrawScanLineNGonTLS_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTLS_16(uint *param_1,uint *param_2)
 
 {
   int iVar1;
@@ -6544,12 +6514,12 @@ void rdNRaster_DrawScanLineNGonTLS_16(uint *param_1,uint *param_2)
    (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Draw16_FlatLit_2. */
 
-void rdNRaster_DrawNGonFS(int param_1,int param_2,float param_3)
+void __cdecl rdNRaster_DrawNGonFS(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -6587,11 +6557,11 @@ void rdNRaster_DrawNGonFS(int param_1,int param_2,float param_3)
     g_nRdNRaster_rightVertexStep = 1;
   }
   local_3c = g_nRdNRaster_yMinVert;
-  iVar2 = rdNRaster_SetupLeftEdgeNGonFS(&local_48);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonFS((int *)&local_48);
+  if (uVar2 == 0) {
     local_80 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonFS(&local_8c);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonFS((int *)&local_8c);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdRaster_Span_Flat(&local_48,&local_8c);
@@ -6601,8 +6571,8 @@ void rdNRaster_DrawNGonFS(int param_1,int param_2,float param_3)
         }
         local_40 = local_40 - 1;
         if (local_40 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonFS(&local_48);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonFS((int *)&local_48);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -6615,7 +6585,7 @@ void rdNRaster_DrawNGonFS(int param_1,int param_2,float param_3)
         local_8c = local_8c + local_88;
         local_4c = local_4c + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonFS(&local_8c);
+      uVar2 = rdNRaster_SetupRightEdgeNGonFS((int *)&local_8c);
     }
   }
   return;
@@ -6640,7 +6610,7 @@ void rdNRaster_DrawNGonFS(int param_1,int param_2,float param_3)
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span_Flat(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span_Flat(uint *param_1,uint *param_2)
 
 {
   int iVar1;
@@ -6690,7 +6660,7 @@ void rdRaster_Span_Flat(uint *param_1,uint *param_2)
    GrimFandango (Linux): 16-bit scan-line call of rdNRaster_DrawNGonFS (inlined in the remaster));
    was rdRaster_Span16_Flat_2. */
 
-void rdNRaster_DrawScanLineNGonFS_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonFS_16(uint *param_1,uint *param_2)
 
 {
   int iVar1;
@@ -6730,7 +6700,7 @@ void rdNRaster_DrawScanLineNGonFS_16(uint *param_1,uint *param_2)
    rdNRaster_SetupLeftEdgeNGonFS (the remaster's GrimFandango (Linux): first edge-setup call of
    rdNRaster_DrawNGonFS); was rdRaster_Edge_Flat_3. */
 
-undefined4 rdNRaster_SetupLeftEdgeNGonFS(int *param_1)
+uint __cdecl rdNRaster_SetupLeftEdgeNGonFS(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6800,7 +6770,7 @@ undefined4 rdNRaster_SetupLeftEdgeNGonFS(int *param_1)
    Original name rdNRaster_SetupRightEdgeNGonFS (the remaster's GrimFandango (Linux): second
    edge-setup call of rdNRaster_DrawNGonFS); was rdRaster_Edge_Flat_4. */
 
-undefined4 rdNRaster_SetupRightEdgeNGonFS(int *param_1)
+uint __cdecl rdNRaster_SetupRightEdgeNGonFS(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -6872,12 +6842,12 @@ undefined4 rdNRaster_SetupRightEdgeNGonFS(int *param_1)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLit_2. */
 
-void rdNRaster_DrawNGonTFS(int param_1,int param_2,float param_3)
+void __cdecl rdNRaster_DrawNGonTFS(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -6919,11 +6889,11 @@ void rdNRaster_DrawNGonTFS(int param_1,int param_2,float param_3)
     g_nRdNRaster_rightVertexStep = 1;
   }
   local_3c = g_nRdNRaster_yMinVert;
-  iVar2 = rdNRaster_SetupLeftEdgeNGonFS(&local_48);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonFS((int *)&local_48);
+  if (uVar2 == 0) {
     local_80 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonFS(&local_8c);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonFS((int *)&local_8c);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdRaster_Span_Tex(&local_48,&local_8c);
@@ -6933,8 +6903,8 @@ void rdNRaster_DrawNGonTFS(int param_1,int param_2,float param_3)
         }
         local_40 = local_40 - 1;
         if (local_40 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonFS(&local_48);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonFS((int *)&local_48);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -6947,7 +6917,7 @@ void rdNRaster_DrawNGonTFS(int param_1,int param_2,float param_3)
         local_8c = local_8c + local_88;
         local_4c = local_4c + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonFS(&local_8c);
+      uVar2 = rdNRaster_SetupRightEdgeNGonFS((int *)&local_8c);
     }
   }
   return;
@@ -6972,7 +6942,7 @@ void rdNRaster_DrawNGonTFS(int param_1,int param_2,float param_3)
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
    Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span_Tex(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span_Tex(uint *param_1,uint *param_2)
 
 {
   int iVar1;
@@ -7015,7 +6985,7 @@ void rdRaster_Span_Tex(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonTFS_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonTFS (inlined in the remaster)); was rdRaster_Span16_Tex_2. */
 
-void rdNRaster_DrawScanLineNGonTFS_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTFS_16(uint *param_1,uint *param_2)
 
 {
   int iVar1;
@@ -7063,12 +7033,12 @@ void rdNRaster_DrawScanLineNGonTFS_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw_FlatLit. */
 
-void rdNRaster_DrawNGonGS(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonGS(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -7106,11 +7076,11 @@ void rdNRaster_DrawNGonGS(int param_1,int param_2)
     g_nRdNRaster_rightVertexStep = 1;
   }
   local_7c = g_nRdNRaster_yMinVert;
-  iVar2 = rdNRaster_SetupLeftEdgeNGonGS(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonGS((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonGS(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonGS((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonGS_8(&local_88,&local_44);
@@ -7120,8 +7090,8 @@ void rdNRaster_DrawNGonGS(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonGS(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonGS((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -7136,7 +7106,7 @@ void rdNRaster_DrawNGonGS(int param_1,int param_2)
         local_c = local_c + local_8;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonGS(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonGS((int *)&local_44);
     }
   }
   return;
@@ -7168,7 +7138,7 @@ void rdNRaster_DrawNGonGS(int param_1,int param_2)
    Original name rdNRaster_DrawScanLineNGonGS_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonGS); was rdRaster_Span8_Flat. */
 
-void rdNRaster_DrawScanLineNGonGS_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonGS_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7232,7 +7202,7 @@ void rdNRaster_DrawScanLineNGonGS_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonGS_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonGS); was rdRaster_Span16_Flat_3. */
 
-void rdNRaster_DrawScanLineNGonGS_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonGS_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7295,7 +7265,7 @@ void rdNRaster_DrawScanLineNGonGS_16(uint *param_1,uint *param_2)
    Original name rdNRaster_SetupLeftEdgeNGonGS (the remaster's GrimFandango (Linux): first
    edge-setup call of rdNRaster_DrawNGonGS); was rdRaster_Edge_Flat_5. */
 
-undefined4 rdNRaster_SetupLeftEdgeNGonGS(int *param_1)
+uint __cdecl rdNRaster_SetupLeftEdgeNGonGS(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7370,7 +7340,7 @@ undefined4 rdNRaster_SetupLeftEdgeNGonGS(int *param_1)
    Original name rdNRaster_SetupRightEdgeNGonGS (the remaster's GrimFandango (Linux): second
    edge-setup call of rdNRaster_DrawNGonGS); was rdRaster_Edge_Flat_6. */
 
-undefined4 rdNRaster_SetupRightEdgeNGonGS(int *param_1)
+uint __cdecl rdNRaster_SetupRightEdgeNGonGS(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7445,12 +7415,12 @@ undefined4 rdNRaster_SetupRightEdgeNGonGS(int *param_1)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLit_3. */
 
-void rdNRaster_DrawNGonTGS(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonTGS(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -7494,11 +7464,11 @@ void rdNRaster_DrawNGonTGS(int param_1,int param_2)
     g_nRdNRaster_rightVertexStep = 1;
   }
   local_7c = g_nRdNRaster_yMinVert;
-  iVar2 = rdNRaster_SetupLeftEdgeNGonGS(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonGS((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonGS(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonGS((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonTGS_8(&local_88,&local_44);
@@ -7508,8 +7478,8 @@ void rdNRaster_DrawNGonTGS(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonGS(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonGS((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -7524,7 +7494,7 @@ void rdNRaster_DrawNGonTGS(int param_1,int param_2)
         local_44 = local_44 + local_40;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonGS(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonGS((int *)&local_44);
     }
   }
   return;
@@ -7556,7 +7526,7 @@ void rdNRaster_DrawNGonTGS(int param_1,int param_2)
    Original name rdNRaster_DrawScanLineNGonTGS_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonTGS); was rdRaster_Span_Tex_2. */
 
-void rdNRaster_DrawScanLineNGonTGS_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTGS_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7566,7 +7536,7 @@ void rdNRaster_DrawScanLineNGonTGS_8(uint *param_1,uint *param_2)
   int iVar4;
   byte *pbVar5;
   uint uVar6;
-  int iVar7;
+  uint *puVar7;
   uint uVar8;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
@@ -7580,10 +7550,10 @@ void rdNRaster_DrawScanLineNGonTGS_8(uint *param_1,uint *param_2)
   if ((uVar6 & 0xffff) != 0) {
     uVar6 = uVar6 + 0x10000 & 0xffff0000;
   }
-  iVar7 = ((int)uVar6 >> 0x10) - ((int)uVar3 >> 0x10);
-  if (0 < iVar7) {
+  puVar7 = (uint *)(((int)uVar6 >> 0x10) - ((int)uVar3 >> 0x10));
+  if (0 < (int)puVar7) {
     lVar2 = (longlong)(int)(param_2[0xe] - param_1[0xe]) *
-            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + iVar7 * 4);
+            (longlong)*(int *)(&g_aRdRaster_OneOverNFixed + (int)puVar7 * 4);
     param_2 = (uint *)((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     if (((int)param_2 < 0) && (-0x51e < (int)param_2)) {
       param_2 = (uint *)0x0;
@@ -7593,7 +7563,7 @@ void rdNRaster_DrawScanLineNGonTGS_8(uint *param_1,uint *param_2)
     iVar1 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     pbVar5 = (byte *)(param_1[0x10] * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c) +
                      ((int)uVar3 >> 0x10));
-    param_1 = (uint *)iVar7;
+    param_1 = puVar7;
     do {
       uVar8 = iVar4 >> 8;
       iVar4 = iVar4 + (int)param_2;
@@ -7622,7 +7592,7 @@ void rdNRaster_DrawScanLineNGonTGS_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonTGS_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonTGS); was rdRaster_Span16_Tex_3. */
 
-void rdNRaster_DrawScanLineNGonTGS_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTGS_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7691,12 +7661,12 @@ void rdNRaster_DrawScanLineNGonTGS_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLit_4. */
 
-void rdNRaster_DrawNGonLAT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonLAT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -7734,7 +7704,7 @@ void rdNRaster_DrawNGonLAT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -7747,11 +7717,11 @@ void rdNRaster_DrawNGonLAT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonLAT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonLAT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonLAT(&local_44);
-    if (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonLAT((int *)&local_44);
+    if (uVar2 == 0) {
       if (iVar1 == 8) {
         switch(g_dwRdNRaster_texPitch) {
         case 8:
@@ -7789,8 +7759,8 @@ void rdNRaster_DrawNGonLAT(int param_1,int param_2)
           }
           local_80 = local_80 - 1;
           if (local_80 == 0) {
-            iVar2 = rdNRaster_SetupLeftEdgeNGonLAT(&local_88);
-            if (iVar2 != 0) {
+            uVar2 = rdNRaster_SetupLeftEdgeNGonLAT((int *)&local_88);
+            if (uVar2 != 0) {
               return;
             }
           }
@@ -7807,8 +7777,8 @@ void rdNRaster_DrawNGonLAT(int param_1,int param_2)
           local_14 = local_14 + local_10;
           local_4 = local_4 + 1;
         }
-        iVar2 = rdNRaster_SetupRightEdgeNGonLAT(&local_44);
-      } while (iVar2 == 0);
+        uVar2 = rdNRaster_SetupRightEdgeNGonLAT((int *)&local_44);
+      } while (uVar2 == 0);
     }
   }
   return;
@@ -7844,7 +7814,7 @@ void rdNRaster_DrawNGonLAT(int param_1,int param_2)
    Original name rdNRaster_DrawScanLineNGonLAT_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonLAT); was rdRaster_Span_Flat_2. */
 
-void rdNRaster_DrawScanLineNGonLAT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonLAT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7916,7 +7886,7 @@ void rdNRaster_DrawScanLineNGonLAT_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonLAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonLAT); was rdRaster_Span16_Tex_4. */
 
-void rdNRaster_DrawScanLineNGonLAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonLAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -7991,7 +7961,7 @@ void rdNRaster_DrawScanLineNGonLAT_16(uint *param_1,uint *param_2)
    Original name rdNRaster_SetupLeftEdgeNGonLAT (the remaster's GrimFandango (Linux): first
    edge-setup call of rdNRaster_DrawNGonLAT); was rdRaster_Edge_Flat_7. */
 
-undefined4 rdNRaster_SetupLeftEdgeNGonLAT(int *param_1)
+uint __cdecl rdNRaster_SetupLeftEdgeNGonLAT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8073,7 +8043,7 @@ undefined4 rdNRaster_SetupLeftEdgeNGonLAT(int *param_1)
    Original name rdNRaster_SetupRightEdgeNGonLAT (the remaster's GrimFandango (Linux): second
    edge-setup call of rdNRaster_DrawNGonLAT); was rdRaster_Edge_Flat_8. */
 
-undefined4 rdNRaster_SetupRightEdgeNGonLAT(int *param_1)
+uint __cdecl rdNRaster_SetupRightEdgeNGonLAT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8157,12 +8127,12 @@ undefined4 rdNRaster_SetupRightEdgeNGonLAT(int *param_1)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLit_5. */
 
-void rdNRaster_DrawNGonTLAT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonTLAT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -8202,7 +8172,7 @@ void rdNRaster_DrawNGonTLAT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -8213,11 +8183,11 @@ void rdNRaster_DrawNGonTLAT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonLAT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonLAT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonLAT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonLAT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonTLAT_8(&local_88,&local_44);
@@ -8227,8 +8197,8 @@ void rdNRaster_DrawNGonTLAT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonLAT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonLAT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -8245,7 +8215,7 @@ void rdNRaster_DrawNGonTLAT(int param_1,int param_2)
         local_1c = local_1c + local_18;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonLAT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonLAT((int *)&local_44);
     }
   }
   return;
@@ -8281,7 +8251,7 @@ void rdNRaster_DrawNGonTLAT(int param_1,int param_2)
    Original name rdNRaster_DrawScanLineNGonTLAT_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonTLAT); was rdRaster_Span_Tex_3. */
 
-void rdNRaster_DrawScanLineNGonTLAT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTLAT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8355,7 +8325,7 @@ void rdNRaster_DrawScanLineNGonTLAT_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonTLAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonTLAT); was rdRaster_Span16_Tex_5. */
 
-void rdNRaster_DrawScanLineNGonTLAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTLAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8435,12 +8405,12 @@ void rdNRaster_DrawScanLineNGonTLAT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLitKey. */
 
-void rdNRaster_DrawNGonMLAT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonMLAT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -8478,7 +8448,7 @@ void rdNRaster_DrawNGonMLAT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -8489,11 +8459,11 @@ void rdNRaster_DrawNGonMLAT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonLAT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonLAT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonLAT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonLAT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMLAT_8(&local_88,&local_44);
@@ -8503,8 +8473,8 @@ void rdNRaster_DrawNGonMLAT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonLAT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonLAT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -8521,7 +8491,7 @@ void rdNRaster_DrawNGonMLAT(int param_1,int param_2)
         local_1c = local_1c + local_18;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonLAT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonLAT((int *)&local_44);
     }
   }
   return;
@@ -8557,7 +8527,7 @@ void rdNRaster_DrawNGonMLAT(int param_1,int param_2)
    Original name rdNRaster_DrawScanLineNGonMLAT_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonMLAT); was rdRaster_Span_FlatKey. */
 
-void rdNRaster_DrawScanLineNGonMLAT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMLAT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8632,7 +8602,7 @@ void rdNRaster_DrawScanLineNGonMLAT_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonMLAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonMLAT); was rdRaster_Span16_TexKey. */
 
-void rdNRaster_DrawScanLineNGonMLAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMLAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8710,12 +8680,12 @@ void rdNRaster_DrawScanLineNGonMLAT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLitKey_2. */
 
-void rdNRaster_DrawNGonMTLAT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonMTLAT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -8755,7 +8725,7 @@ void rdNRaster_DrawNGonMTLAT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -8766,11 +8736,11 @@ void rdNRaster_DrawNGonMTLAT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonLAT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonLAT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonLAT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonLAT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMTLAT_8(&local_88,&local_44);
@@ -8780,8 +8750,8 @@ void rdNRaster_DrawNGonMTLAT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonLAT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonLAT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -8798,7 +8768,7 @@ void rdNRaster_DrawNGonMTLAT(int param_1,int param_2)
         local_1c = local_1c + local_18;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonLAT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonLAT((int *)&local_44);
     }
   }
   return;
@@ -8834,7 +8804,7 @@ void rdNRaster_DrawNGonMTLAT(int param_1,int param_2)
    Original name rdNRaster_DrawScanLineNGonMTLAT_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonMTLAT); was rdRaster_Span_TexKey. */
 
-void rdNRaster_DrawScanLineNGonMTLAT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTLAT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8909,7 +8879,7 @@ void rdNRaster_DrawScanLineNGonMTLAT_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonMTLAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonMTLAT); was rdRaster_Span16_TexKey_2. */
 
-void rdNRaster_DrawScanLineNGonMTLAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTLAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -8991,12 +8961,12 @@ void rdNRaster_DrawScanLineNGonMTLAT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw_FlatLit_2. */
 
-void rdNRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
+void __cdecl rdNRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -9016,15 +8986,15 @@ void rdNRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
   #define local_14 (*(uint *)(_frame + (0xa0 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   g_dwRdNRaster_maxMipMap = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdNRaster_aVertices = *(float **)(param_1 + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(param_1 + 0x24);
-  if (iVar2 == 8) {
+  if (iVar1 == 8) {
     g_dwRdNRaster_aMonoMap =
          *(int *)(*(int *)(param_1 + 0x4c) + 0x330) + (int)ROUND(param_3) * 0x100;
   }
-  else if (iVar2 == 0x10) {
+  else if (iVar1 == 0x10) {
     g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + (int)ROUND(param_3) * 0x200
     ;
   }
@@ -9039,7 +9009,7 @@ void rdNRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -9052,12 +9022,12 @@ void rdNRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar1 = rdNRaster_SetupLeftEdgeNGonFAT(&local_48);
-  if (iVar1 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonFAT((int *)&local_48);
+  if (uVar2 == 0) {
     local_80 = g_nRdNRaster_yMinVert;
-    iVar1 = rdNRaster_SetupRightEdgeNGonFAT(&local_8c);
-    if (iVar1 == 0) {
-      if (iVar2 == 8) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonFAT((int *)&local_8c);
+    if (uVar2 == 0) {
+      if (iVar1 == 8) {
         switch(g_dwRdNRaster_texPitch) {
         case 8:
           UINT_007f42f8 = (uint)Mem_DumpLog;
@@ -9081,7 +9051,7 @@ void rdNRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
           UINT_007f42f8 = (uint)Mem_DumpLog;
         }
       }
-      else if (iVar2 == 0x10) {
+      else if (iVar1 == 0x10) {
         UINT_007f42f8 = (uint)rdNRaster_DrawScanLineNGonFAT_16;
       }
       do {
@@ -9089,8 +9059,8 @@ void rdNRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
           (*(code *)UINT_007f42f8)(&local_48,&local_8c);
           local_40 = local_40 - 1;
           if (local_40 == 0) {
-            iVar2 = rdNRaster_SetupLeftEdgeNGonFAT(&local_48);
-            if (iVar2 != 0) {
+            uVar2 = rdNRaster_SetupLeftEdgeNGonFAT((int *)&local_48);
+            if (uVar2 != 0) {
               return;
             }
           }
@@ -9107,8 +9077,8 @@ void rdNRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
           local_5c = local_5c + local_58;
           local_4c = local_4c + 1;
         }
-        iVar2 = rdNRaster_SetupRightEdgeNGonFAT(&local_8c);
-      } while (iVar2 == 0);
+        uVar2 = rdNRaster_SetupRightEdgeNGonFAT((int *)&local_8c);
+      } while (uVar2 == 0);
     }
   }
   return;
@@ -9144,7 +9114,7 @@ void rdNRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
    Original name rdNRaster_DrawScanLineNGonFAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonFAT); was rdRaster_Span16_Tex_6. */
 
-void rdNRaster_DrawScanLineNGonFAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonFAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9219,7 +9189,7 @@ void rdNRaster_DrawScanLineNGonFAT_16(uint *param_1,uint *param_2)
    Original name rdNRaster_SetupLeftEdgeNGonFAT (the remaster's GrimFandango (Linux): first
    edge-setup call of rdNRaster_DrawNGonFAT); was rdRaster_Edge_Flat_9. */
 
-undefined4 rdNRaster_SetupLeftEdgeNGonFAT(int *param_1)
+uint __cdecl rdNRaster_SetupLeftEdgeNGonFAT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9301,7 +9271,7 @@ undefined4 rdNRaster_SetupLeftEdgeNGonFAT(int *param_1)
    Original name rdNRaster_SetupRightEdgeNGonFAT (the remaster's GrimFandango (Linux): second
    edge-setup call of rdNRaster_DrawNGonFAT); was rdRaster_Edge_Flat_10. */
 
-undefined4 rdNRaster_SetupRightEdgeNGonFAT(int *param_1)
+uint __cdecl rdNRaster_SetupRightEdgeNGonFAT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9385,12 +9355,12 @@ undefined4 rdNRaster_SetupRightEdgeNGonFAT(int *param_1)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLit_6. */
 
-void rdNRaster_DrawNGonTFAT(int param_1,int param_2,float param_3)
+void __cdecl rdNRaster_DrawNGonTFAT(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -9435,7 +9405,7 @@ void rdNRaster_DrawNGonTFAT(int param_1,int param_2,float param_3)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -9446,11 +9416,11 @@ void rdNRaster_DrawNGonTFAT(int param_1,int param_2,float param_3)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonFAT(&local_48);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonFAT((int *)&local_48);
+  if (uVar2 == 0) {
     local_80 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonFAT(&local_8c);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonFAT((int *)&local_8c);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonTFAT_8(&local_48,&local_8c);
@@ -9460,8 +9430,8 @@ void rdNRaster_DrawNGonTFAT(int param_1,int param_2,float param_3)
         }
         local_40 = local_40 - 1;
         if (local_40 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonFAT(&local_48);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonFAT((int *)&local_48);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -9478,7 +9448,7 @@ void rdNRaster_DrawNGonTFAT(int param_1,int param_2,float param_3)
         local_5c = local_5c + local_58;
         local_4c = local_4c + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonFAT(&local_8c);
+      uVar2 = rdNRaster_SetupRightEdgeNGonFAT((int *)&local_8c);
     }
   }
   return;
@@ -9514,7 +9484,7 @@ void rdNRaster_DrawNGonTFAT(int param_1,int param_2,float param_3)
    Original name rdNRaster_DrawScanLineNGonTFAT_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonTFAT); was rdRaster_Span_Tex_4. */
 
-void rdNRaster_DrawScanLineNGonTFAT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTFAT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9589,7 +9559,7 @@ void rdNRaster_DrawScanLineNGonTFAT_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonTFAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonTFAT); was rdRaster_Span16_Tex_7. */
 
-void rdNRaster_DrawScanLineNGonTFAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTFAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9673,12 +9643,12 @@ void rdNRaster_DrawScanLineNGonTFAT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw_TexLitKey. */
 
-void rdNRaster_DrawNGonMFAT(int param_1,int param_2,float param_3)
+void __cdecl rdNRaster_DrawNGonMFAT(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -9721,7 +9691,7 @@ void rdNRaster_DrawNGonMFAT(int param_1,int param_2,float param_3)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -9732,11 +9702,11 @@ void rdNRaster_DrawNGonMFAT(int param_1,int param_2,float param_3)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonFAT(&local_48);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonFAT((int *)&local_48);
+  if (uVar2 == 0) {
     local_80 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonFAT(&local_8c);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonFAT((int *)&local_8c);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMFAT_8(&local_48,&local_8c);
@@ -9746,8 +9716,8 @@ void rdNRaster_DrawNGonMFAT(int param_1,int param_2,float param_3)
         }
         local_40 = local_40 - 1;
         if (local_40 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonFAT(&local_48);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonFAT((int *)&local_48);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -9764,7 +9734,7 @@ void rdNRaster_DrawNGonMFAT(int param_1,int param_2,float param_3)
         local_64 = local_64 + local_60;
         local_4c = local_4c + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonFAT(&local_8c);
+      uVar2 = rdNRaster_SetupRightEdgeNGonFAT((int *)&local_8c);
     }
   }
   return;
@@ -9800,7 +9770,7 @@ void rdNRaster_DrawNGonMFAT(int param_1,int param_2,float param_3)
    Original name rdNRaster_DrawScanLineNGonMFAT_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonMFAT); was rdRaster_Span8_TexKey. */
 
-void rdNRaster_DrawScanLineNGonMFAT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMFAT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9876,7 +9846,7 @@ void rdNRaster_DrawScanLineNGonMFAT_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonMFAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonMFAT); was rdRaster_Span16_TexKey_3. */
 
-void rdNRaster_DrawScanLineNGonMFAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMFAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -9954,12 +9924,12 @@ void rdNRaster_DrawScanLineNGonMFAT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw_TexLitKey_2. */
 
-void rdNRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3)
+void __cdecl rdNRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -10004,7 +9974,7 @@ void rdNRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -10015,11 +9985,11 @@ void rdNRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonFAT(&local_48);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonFAT((int *)&local_48);
+  if (uVar2 == 0) {
     local_80 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonFAT(&local_8c);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonFAT((int *)&local_8c);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMTFAT_8(&local_48,&local_8c);
@@ -10029,8 +9999,8 @@ void rdNRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3)
         }
         local_40 = local_40 - 1;
         if (local_40 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonFAT(&local_48);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonFAT((int *)&local_48);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -10047,7 +10017,7 @@ void rdNRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3)
         local_5c = local_5c + local_58;
         local_4c = local_4c + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonFAT(&local_8c);
+      uVar2 = rdNRaster_SetupRightEdgeNGonFAT((int *)&local_8c);
     }
   }
   return;
@@ -10083,7 +10053,7 @@ void rdNRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3)
    Original name rdNRaster_DrawScanLineNGonMTFAT_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonMTFAT); was rdRaster_Span_TexKey_2. */
 
-void rdNRaster_DrawScanLineNGonMTFAT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTFAT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10160,7 +10130,7 @@ void rdNRaster_DrawScanLineNGonMTFAT_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonMTFAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonMTFAT); was rdRaster_Span_TexKey_3. */
 
-void rdNRaster_DrawScanLineNGonMTFAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTFAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10246,12 +10216,12 @@ void rdNRaster_DrawScanLineNGonMTFAT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw_FlatLit_3. */
 
-void rdNRaster_DrawNGonGAT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonGAT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -10275,15 +10245,15 @@ void rdNRaster_DrawNGonGAT(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   g_dwRdNRaster_maxMipMap = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdNRaster_aVertices = *(float **)(param_1 + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(param_1 + 0x24);
   g_dwRdNRaster_aIntensities = *(uint *)(param_1 + 0x28);
-  if (iVar2 == 8) {
+  if (iVar1 == 8) {
     g_dwRdNRaster_aMonoMap = *(uint *)(*(int *)(param_1 + 0x4c) + 0x330);
   }
-  else if (iVar2 == 0x10) {
+  else if (iVar1 == 0x10) {
     g_dwRdNRaster_aRGBMap = *(uint *)(*(int *)(param_1 + 0x4c) + 0x348);
   }
   g_nRdNRaster_numVertices = *(int *)(param_1 + 0x1c);
@@ -10297,7 +10267,7 @@ void rdNRaster_DrawNGonGAT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -10310,12 +10280,12 @@ void rdNRaster_DrawNGonGAT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar1 = rdNRaster_SetupLeftEdgeNGonGAT(&local_88);
-  if (iVar1 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonGAT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar1 = rdNRaster_SetupRightEdgeNGonGAT(&local_44);
-    if (iVar1 == 0) {
-      if (iVar2 == 8) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonGAT((int *)&local_44);
+    if (uVar2 == 0) {
+      if (iVar1 == 8) {
         switch(g_dwRdNRaster_texPitch) {
         case 8:
           UINT_007f42f8 = (uint)Mem_DumpLog;
@@ -10339,7 +10309,7 @@ void rdNRaster_DrawNGonGAT(int param_1,int param_2)
           UINT_007f42f8 = (uint)Mem_DumpLog;
         }
       }
-      else if (iVar2 == 0x10) {
+      else if (iVar1 == 0x10) {
         UINT_007f42f8 = (uint)rdNRaster_DrawScanLineNGonGAT_16;
       }
       do {
@@ -10347,8 +10317,8 @@ void rdNRaster_DrawNGonGAT(int param_1,int param_2)
           (*(code *)UINT_007f42f8)(&local_88,&local_44);
           local_80 = local_80 - 1;
           if (local_80 == 0) {
-            iVar2 = rdNRaster_SetupLeftEdgeNGonGAT(&local_88);
-            if (iVar2 != 0) {
+            uVar2 = rdNRaster_SetupLeftEdgeNGonGAT((int *)&local_88);
+            if (uVar2 != 0) {
               return;
             }
           }
@@ -10367,8 +10337,8 @@ void rdNRaster_DrawNGonGAT(int param_1,int param_2)
           local_c = local_c + local_8;
           local_4 = local_4 + 1;
         }
-        iVar2 = rdNRaster_SetupRightEdgeNGonGAT(&local_44);
-      } while (iVar2 == 0);
+        uVar2 = rdNRaster_SetupRightEdgeNGonGAT((int *)&local_44);
+      } while (uVar2 == 0);
     }
   }
   return;
@@ -10408,7 +10378,7 @@ void rdNRaster_DrawNGonGAT(int param_1,int param_2)
    Original name rdNRaster_DrawScanLineNGonGAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonGAT); was rdRaster_Span16_Tex_8. */
 
-void rdNRaster_DrawScanLineNGonGAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonGAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10496,7 +10466,7 @@ void rdNRaster_DrawScanLineNGonGAT_16(uint *param_1,uint *param_2)
    Original name rdNRaster_SetupLeftEdgeNGonGAT (the remaster's GrimFandango (Linux): first
    edge-setup call of rdNRaster_DrawNGonGAT); was rdRaster_Edge_Flat_11. */
 
-undefined4 rdNRaster_SetupLeftEdgeNGonGAT(int *param_1)
+uint __cdecl rdNRaster_SetupLeftEdgeNGonGAT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10585,7 +10555,7 @@ undefined4 rdNRaster_SetupLeftEdgeNGonGAT(int *param_1)
    Original name rdNRaster_SetupRightEdgeNGonGAT (the remaster's GrimFandango (Linux): second
    edge-setup call of rdNRaster_DrawNGonGAT); was rdRaster_Edge_Flat_12. */
 
-undefined4 rdNRaster_SetupRightEdgeNGonGAT(int *param_1)
+uint __cdecl rdNRaster_SetupRightEdgeNGonGAT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10676,12 +10646,12 @@ undefined4 rdNRaster_SetupRightEdgeNGonGAT(int *param_1)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLit_7. */
 
-void rdNRaster_DrawNGonTGAT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonTGAT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -10729,7 +10699,7 @@ void rdNRaster_DrawNGonTGAT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -10740,11 +10710,11 @@ void rdNRaster_DrawNGonTGAT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonGAT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonGAT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonGAT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonGAT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonTGAT_8(&local_88,&local_44);
@@ -10754,8 +10724,8 @@ void rdNRaster_DrawNGonTGAT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonGAT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonGAT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -10774,7 +10744,7 @@ void rdNRaster_DrawNGonTGAT(int param_1,int param_2)
         local_c = local_c + local_8;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonGAT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonGAT((int *)&local_44);
     }
   }
   return;
@@ -10814,7 +10784,7 @@ void rdNRaster_DrawNGonTGAT(int param_1,int param_2)
    Original name rdNRaster_DrawScanLineNGonTGAT_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonTGAT); was rdRaster_Span_Tex_5. */
 
-void rdNRaster_DrawScanLineNGonTGAT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTGAT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -10907,7 +10877,7 @@ void rdNRaster_DrawScanLineNGonTGAT_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonTGAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonTGAT); was rdRaster_Span16_Tex_9. */
 
-void rdNRaster_DrawScanLineNGonTGAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTGAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -11001,12 +10971,12 @@ void rdNRaster_DrawScanLineNGonTGAT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw_TexLitKey_3. */
 
-void rdNRaster_DrawNGonMGAT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonMGAT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -11052,7 +11022,7 @@ void rdNRaster_DrawNGonMGAT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -11063,11 +11033,11 @@ void rdNRaster_DrawNGonMGAT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonGAT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonGAT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonGAT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonGAT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMGAT_8(&local_88,&local_44);
@@ -11077,8 +11047,8 @@ void rdNRaster_DrawNGonMGAT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonGAT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonGAT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -11097,7 +11067,7 @@ void rdNRaster_DrawNGonMGAT(int param_1,int param_2)
         local_c = local_c + local_8;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonGAT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonGAT((int *)&local_44);
     }
   }
   return;
@@ -11137,7 +11107,7 @@ void rdNRaster_DrawNGonMGAT(int param_1,int param_2)
    Original name rdNRaster_DrawScanLineNGonMGAT_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonMGAT); was rdRaster_Span8_TexKey_2. */
 
-void rdNRaster_DrawScanLineNGonMGAT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMGAT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -11225,7 +11195,7 @@ void rdNRaster_DrawScanLineNGonMGAT_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonMGAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonMGAT); was rdRaster_Span16_TexKey_4. */
 
-void rdNRaster_DrawScanLineNGonMGAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMGAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -11288,8 +11258,7 @@ void rdNRaster_DrawScanLineNGonMGAT_16(uint *param_1,uint *param_2)
       if (bVar8 != 0) {
         *(undefined2 *)g_pWDest =
              *(undefined2 *)
-              (g_dwRdNRaster_aRGBMap + (((int)g_dwFixI >> 0x10 & 0x3fU) * 0x100 + (int)param_1) * 2)
-        ;
+              (g_dwRdNRaster_aRGBMap + (int)(param_1 + ((int)g_dwFixI >> 0x10 & 0x3fU) * 0x40) * 2);
       }
       g_pWDest = (int *)((int)g_pWDest + 2);
       g_dwFixU = g_dwFixU + g_dwUStep;
@@ -11317,12 +11286,12 @@ void rdNRaster_DrawScanLineNGonMGAT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLitKey_3. */
 
-void rdNRaster_DrawNGonMTGAT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonMTGAT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -11370,7 +11339,7 @@ void rdNRaster_DrawNGonMTGAT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
   g_dwRdNRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdNRaster_mipMapNum;
@@ -11381,11 +11350,11 @@ void rdNRaster_DrawNGonMTGAT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonGAT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonGAT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonGAT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonGAT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMTGAT_8(&local_88,&local_44);
@@ -11395,8 +11364,8 @@ void rdNRaster_DrawNGonMTGAT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonGAT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonGAT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -11415,7 +11384,7 @@ void rdNRaster_DrawNGonMTGAT(int param_1,int param_2)
         local_c = local_c + local_8;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonGAT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonGAT((int *)&local_44);
     }
   }
   return;
@@ -11455,7 +11424,7 @@ void rdNRaster_DrawNGonMTGAT(int param_1,int param_2)
    Original name rdNRaster_DrawScanLineNGonMTGAT_8 (the remaster's GrimFandango (Linux): 8-bit
    scan-line call of rdNRaster_DrawNGonMTGAT); was rdRaster_Span_TexKey_4. */
 
-void rdNRaster_DrawScanLineNGonMTGAT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTGAT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -11545,7 +11514,7 @@ void rdNRaster_DrawScanLineNGonMTGAT_8(uint *param_1,uint *param_2)
    Original name rdNRaster_DrawScanLineNGonMTGAT_16 (the remaster's GrimFandango (Linux): 16-bit
    scan-line call of rdNRaster_DrawNGonMTGAT); was rdRaster_Span16_TexKey_5. */
 
-void rdNRaster_DrawScanLineNGonMTGAT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTGAT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -11641,12 +11610,12 @@ void rdNRaster_DrawScanLineNGonMTGAT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw_FlatLit_4. */
 
-void rdNRaster_DrawNGonLIT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonLIT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -11664,8 +11633,8 @@ void rdNRaster_DrawNGonLIT(int param_1,int param_2)
   #define local_38 (*(uint *)(_frame + (0xa0 - 0x38)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
-  if (iVar2 == 0x10) {
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
+  if (iVar1 == 0x10) {
     g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + 0x7e00;
   }
   g_dwRdNRaster_maxMipMap = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
@@ -11682,7 +11651,7 @@ void rdNRaster_DrawNGonLIT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -11698,12 +11667,12 @@ void rdNRaster_DrawNGonLIT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar1 = rdNRaster_SetupLeftEdgeNGonLIT(&local_88);
-  if (iVar1 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonLIT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar1 = rdNRaster_SetupRightEdgeNGonLIT(&local_44);
-    if (iVar1 == 0) {
-      if (iVar2 == 8) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonLIT((int *)&local_44);
+    if (uVar2 == 0) {
+      if (iVar1 == 8) {
         switch(g_dwRdNRaster_texPitch) {
         case 8:
           UINT_007f42f8 = (uint)Mem_DumpLog;
@@ -11727,7 +11696,7 @@ void rdNRaster_DrawNGonLIT(int param_1,int param_2)
           UINT_007f42f8 = (uint)Mem_DumpLog;
         }
       }
-      else if (iVar2 == 0x10) {
+      else if (iVar1 == 0x10) {
         UINT_007f42f8 = (uint)rdNRaster_DrawScanLineNGonLIT_16;
       }
       do {
@@ -11735,8 +11704,8 @@ void rdNRaster_DrawNGonLIT(int param_1,int param_2)
           (*(code *)UINT_007f42f8)(&local_88,&local_44);
           local_80 = local_80 - 1;
           if (local_80 == 0) {
-            iVar2 = rdNRaster_SetupLeftEdgeNGonLIT(&local_88);
-            if (iVar2 != 0) {
+            uVar2 = rdNRaster_SetupLeftEdgeNGonLIT((int *)&local_88);
+            if (uVar2 != 0) {
               return;
             }
           }
@@ -11752,8 +11721,8 @@ void rdNRaster_DrawNGonLIT(int param_1,int param_2)
           local_44 = local_44 + local_40;
           local_4 = local_4 + 1;
         }
-        iVar2 = rdNRaster_SetupRightEdgeNGonLIT(&local_44);
-      } while (iVar2 == 0);
+        uVar2 = rdNRaster_SetupRightEdgeNGonLIT((int *)&local_44);
+      } while (uVar2 == 0);
     }
   }
   return;
@@ -11787,7 +11756,7 @@ void rdNRaster_DrawNGonLIT(int param_1,int param_2)
    rdNRaster_DrawScanLineNGonLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonLIT); was rdRaster_Span16_Tex_10. */
 
-void rdNRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -11801,10 +11770,10 @@ void rdNRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2)
   byte bVar8;
   uint uVar9;
   uint uVar10;
-  float fVar11;
+  uint *puVar11;
   uint uVar12;
-  float fVar13;
-  float fVar14;
+  uint *puVar13;
+  uint *puVar14;
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
@@ -11866,45 +11835,45 @@ void rdNRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2)
                       (param_1[0x10] * (*(uint *)(iVar7 + 0x18) >> 1) + uVar9) * 2);
     local_10 = (uint)((1.0 / fVar4) * fVar1);
     if (local_28 == 0) {
-      fVar11 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar11 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_20 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar1 + _g_dwRdNRaster_vOverZStep);
-      fVar13 = fVar11;
-      fVar14 = fVar11;
-      param_1 = PUN(uint *,(float)fVar11);
+      puVar13 = puVar11;
+      puVar14 = puVar11;
+      param_1 = puVar11;
     }
     else {
-      fVar11 = (float)(int)local_28;
-      fVar4 = fVar11 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar11 * _g_dwRdNRaster_dUOverZdX + (float)local_20;
-      fVar1 = fVar11 * _g_dwRdNRaster_dVOverZdX + fVar1;
+      fVar2 = (float)(int)local_28;
+      fVar4 = fVar2 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar2 * _g_dwRdNRaster_dUOverZdX + (float)local_20;
+      fVar1 = fVar2 * _g_dwRdNRaster_dVOverZdX + fVar1;
       fVar2 = 1.0 / fVar4;
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
       bVar8 = (byte)g_dwRdNRaster_mipMapNum;
-      fVar14 = (float)((int)ROUND((fVar3 - (float)local_c) *
-                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
-                      (bVar8 & 0x1f));
+      puVar14 = (uint *)((int)ROUND((fVar3 - (float)local_c) *
+                                    (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                        (bVar8 & 0x1f));
       local_20 = (int)ROUND((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
                  (bVar8 & 0x1f);
-      fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_28) {
         do {
-          uVar12 = (uint)fVar11 & g_dwRdNRaster_uWrap;
-          fVar11 = (float)((int)fVar11 + (int)fVar14);
+          uVar12 = (uint)puVar11 & g_dwRdNRaster_uWrap;
+          puVar11 = (uint *)((int)puVar11 + (int)puVar14);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
                 (uint)*(byte *)(((int)uVar12 >> 0x10) +
                                g_dwRdNRaster_pPixels +
-                               ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                               ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                g_dwRdNRaster_vWrap)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar13 = (float)((int)fVar13 + local_20);
+          puVar13 = (uint *)((int)puVar13 + local_20);
           local_28 = local_28 - 1;
         } while (local_28 != 0);
       }
@@ -11919,25 +11888,26 @@ void rdNRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2)
         fVar4 = (1.0 / PUN(float,param_1)) * PUN(float,param_2);
         fVar1 = (1.0 / PUN(float,param_1)) * (float)local_8;
         bVar8 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar14 = (float)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar8 & 0x1f));
+        puVar14 = (uint *)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar8 & 0x1f)
+                          );
         local_20 = (int)ROUND((fVar1 - (float)local_10) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
-        fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_28 = 0x10;
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          uVar12 = (uint)fVar11 & g_dwRdNRaster_uWrap;
-          fVar11 = (float)((int)fVar11 + (int)fVar14);
+          uVar12 = (uint)puVar11 & g_dwRdNRaster_uWrap;
+          puVar11 = (uint *)((int)puVar11 + (int)puVar14);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
                 (uint)*(byte *)(((int)uVar12 >> 0x10) +
                                g_dwRdNRaster_pPixels +
-                               ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                               ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                g_dwRdNRaster_vWrap)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar13 = (float)((int)fVar13 + local_20);
+          puVar13 = (uint *)((int)puVar13 + local_20);
           local_28 = local_28 - 1;
         } while (local_28 != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -11955,32 +11925,32 @@ void rdNRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2)
         fVar4 = 1.0 / (((float)iVar7 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
         bVar8 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar14 = (float)((int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep
-                                       ) + PUN(float,param_2)) * fVar4 - (float)local_c) / fVar1) *
-                                    65536.0) >> (bVar8 & 0x1f));
+        puVar14 = (uint *)((int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX -
+                                         _g_dwRdNRaster_uOverZStep) + PUN(float,param_2)) * fVar4 -
+                                       (float)local_c) / fVar1) * 65536.0) >> (bVar8 & 0x1f));
         local_20 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar4 - (float)local_10) / fVar1) * 65536.0) >>
                    (bVar8 & 0x1f);
-        fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       param_1 = (uint *)local_1c;
       if (-1 < iVar7) {
         do {
-          uVar12 = (uint)fVar11 & g_dwRdNRaster_uWrap;
-          fVar11 = (float)((int)fVar11 + (int)fVar14);
+          uVar12 = (uint)puVar11 & g_dwRdNRaster_uWrap;
+          puVar11 = (uint *)((int)puVar11 + (int)puVar14);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
                 (uint)*(byte *)(((int)uVar12 >> 0x10) +
                                g_dwRdNRaster_pPixels +
-                               ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                               ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                g_dwRdNRaster_vWrap)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar13 = (float)((int)fVar13 + local_20);
-          param_1 = (uint *)((int)param_1 - 1);
+          puVar13 = (uint *)((int)puVar13 + local_20);
+          param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
     }
@@ -12015,7 +11985,7 @@ void rdNRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2)
    Original name rdNRaster_SetupLeftEdgeNGonLIT (the remaster's GrimFandango (Linux): first
    edge-setup call of rdNRaster_DrawNGonLIT); was rdRaster_Edge_Flat_13. */
 
-undefined4 rdNRaster_SetupLeftEdgeNGonLIT(int *param_1)
+uint __cdecl rdNRaster_SetupLeftEdgeNGonLIT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -12096,7 +12066,7 @@ undefined4 rdNRaster_SetupLeftEdgeNGonLIT(int *param_1)
    Original name rdNRaster_SetupRightEdgeNGonLIT (the remaster's GrimFandango (Linux): second
    edge-setup call of rdNRaster_DrawNGonLIT); was rdRaster_Edge_Flat_14. */
 
-undefined4 rdNRaster_SetupRightEdgeNGonLIT(int *param_1)
+uint __cdecl rdNRaster_SetupRightEdgeNGonLIT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -12169,12 +12139,12 @@ undefined4 rdNRaster_SetupRightEdgeNGonLIT(int *param_1)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLit_8. */
 
-void rdNRaster_DrawNGonTLIT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonTLIT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -12212,7 +12182,7 @@ void rdNRaster_DrawNGonTLIT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -12226,11 +12196,11 @@ void rdNRaster_DrawNGonTLIT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonLIT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonLIT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonLIT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonLIT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonTLIT_8(&local_88,&local_44);
@@ -12240,8 +12210,8 @@ void rdNRaster_DrawNGonTLIT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonLIT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonLIT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -12257,7 +12227,7 @@ void rdNRaster_DrawNGonTLIT(int param_1,int param_2)
         local_44 = local_44 + local_40;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonLIT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonLIT((int *)&local_44);
     }
   }
   return;
@@ -12291,7 +12261,7 @@ void rdNRaster_DrawNGonTLIT(int param_1,int param_2)
    rdNRaster_DrawScanLineNGonTLIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of
    rdNRaster_DrawNGonTLIT); was rdRaster_Span_Tex_6. */
 
-void rdNRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -12307,9 +12277,9 @@ void rdNRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2)
   byte *pbVar10;
   byte *pbVar11;
   uint uVar12;
-  float fVar13;
+  uint *puVar13;
   uint uVar14;
-  float fVar15;
+  uint *puVar15;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
@@ -12371,17 +12341,17 @@ void rdNRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2)
     pbVar10 = (byte *)(param_1[0x10] * *(int *)(iVar7 + 0x18) + *(int *)(iVar7 + 0x5c) + uVar14);
     local_10 = (uint)((1.0 / fVar4) * fVar1);
     if (local_2c == 0) {
-      fVar13 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar13 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar1 + _g_dwRdNRaster_vOverZStep);
-      fVar15 = fVar13;
-      param_1 = PUN(uint *,(float)fVar13);
+      puVar15 = puVar13;
+      param_1 = puVar13;
     }
     else {
-      fVar13 = (float)(int)local_2c;
-      fVar4 = fVar13 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar13 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar1 = fVar13 * _g_dwRdNRaster_dVOverZdX + fVar1;
+      fVar2 = (float)(int)local_2c;
+      fVar4 = fVar2 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar2 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar1 = fVar2 * _g_dwRdNRaster_dVOverZdX + fVar1;
       fVar2 = 1.0 / fVar4;
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
@@ -12392,23 +12362,23 @@ void rdNRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2)
       local_24 = (int)ROUND((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
                  (bVar8 & 0x1f);
-      fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar15 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       pbVar11 = pbVar10;
       if (0 < (int)local_2c) {
         do {
           pbVar11 = pbVar10 + 1;
           *pbVar10 = *(byte *)((uint)*pbVar10 +
                               g_dwRdNRaster_aAlphaMap +
-                              (uint)*(byte *)(((int)((uint)fVar13 & g_dwRdNRaster_uWrap) >> 0x10) +
+                              (uint)*(byte *)(((int)((uint)puVar13 & g_dwRdNRaster_uWrap) >> 0x10) +
                                              g_dwRdNRaster_pPixels +
-                                             ((int)fVar15 >>
+                                             ((int)puVar15 >>
                                               (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                              g_dwRdNRaster_vWrap)) * 0x100);
-          fVar13 = (float)((int)fVar13 + local_20);
-          fVar15 = (float)((int)fVar15 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_20);
+          puVar15 = (uint *)((int)puVar15 + local_24);
           local_2c = local_2c - 1;
           pbVar10 = pbVar11;
         } while (local_2c != 0);
@@ -12427,23 +12397,23 @@ void rdNRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2)
         bVar8 = (byte)g_dwRdNRaster_mipMapNum;
         local_20 = (int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
         local_24 = (int)ROUND((fVar1 - (float)local_10) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
-        fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        fVar15 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         pbVar11 = pbVar10;
         do {
           pbVar10 = pbVar11 + 1;
           *pbVar11 = *(byte *)((uint)*pbVar11 +
                               g_dwRdNRaster_aAlphaMap +
-                              (uint)*(byte *)(((int)((uint)fVar13 & g_dwRdNRaster_uWrap) >> 0x10) +
+                              (uint)*(byte *)(((int)((uint)puVar13 & g_dwRdNRaster_uWrap) >> 0x10) +
                                              g_dwRdNRaster_pPixels +
-                                             ((int)fVar15 >>
+                                             ((int)puVar15 >>
                                               (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                              g_dwRdNRaster_vWrap)) * 0x100);
-          fVar13 = (float)((int)fVar13 + local_20);
-          fVar15 = (float)((int)fVar15 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_20);
+          puVar15 = (uint *)((int)puVar15 + local_24);
           local_2c = local_2c - 1;
           pbVar11 = pbVar10;
         } while (local_2c != 0);
@@ -12468,24 +12438,24 @@ void rdNRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2)
         local_24 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar4 - (float)local_10) / fVar1) * 65536.0) >>
                    (bVar8 & 0x1f);
-        fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar15 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       param_1 = (uint *)local_1c;
       if (-1 < iVar7) {
         do {
           *pbVar10 = *(byte *)((uint)*pbVar10 +
                               g_dwRdNRaster_aAlphaMap +
-                              (uint)*(byte *)(((int)((uint)fVar13 & g_dwRdNRaster_uWrap) >> 0x10) +
+                              (uint)*(byte *)(((int)((uint)puVar13 & g_dwRdNRaster_uWrap) >> 0x10) +
                                              g_dwRdNRaster_pPixels +
-                                             ((int)fVar15 >>
+                                             ((int)puVar15 >>
                                               (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                              g_dwRdNRaster_vWrap)) * 0x100);
-          fVar13 = (float)((int)fVar13 + local_20);
-          fVar15 = (float)((int)fVar15 + local_24);
-          param_1 = (uint *)((int)param_1 - 1);
+          puVar13 = (uint *)((int)puVar13 + local_20);
+          puVar15 = (uint *)((int)puVar15 + local_24);
+          param_1 = (uint *)((int)param_1 + -1);
           pbVar10 = pbVar10 + 1;
         } while (param_1 != (uint *)0x0);
       }
@@ -12521,7 +12491,7 @@ void rdNRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2)
    rdNRaster_DrawScanLineNGonTLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonTLIT); was rdRaster_Span16_Tex_11. */
 
-void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -12532,13 +12502,13 @@ void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
   float fVar5;
   uint uVar6;
   int iVar7;
-  int iVar8;
+  uint *puVar8;
   byte bVar9;
   uint uVar10;
   uint uVar11;
   uint uVar12;
-  float fVar13;
-  float fVar14;
+  uint *puVar13;
+  uint *puVar14;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
@@ -12579,39 +12549,39 @@ void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
     }
     uVar6 = uVar6 - local_2c;
     if (uVar6 == 0) {
-      iVar7 = 0;
+      puVar8 = (uint *)0x0;
       local_28 = 0;
     }
     else {
       uVar12 = (int)uVar6 >> 0x1f;
       local_28 = (int)(uVar6 + (uVar12 & 0xf)) >> 4;
-      iVar7 = ((uVar6 ^ uVar12) - uVar12 & 0xf ^ uVar12) - uVar12;
-      if (iVar7 == 0) {
+      puVar8 = (uint *)(((uVar6 ^ uVar12) - uVar12 & 0xf ^ uVar12) - uVar12);
+      if (puVar8 == (uint *)0x0) {
         local_28 = local_28 - 1;
-        iVar7 = 0x10;
+        puVar8 = (uint *)0x10;
       }
     }
     fVar1 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar1 * _g_dwRdNRaster_dOneOverZdX + (float)param_1[4];
     local_24 = (uint)(fVar1 * _g_dwRdNRaster_dUOverZdX + (float)param_1[6]);
     fVar1 = fVar1 * _g_dwRdNRaster_dVOverZdX + (float)param_1[8];
     local_c = (uint)((1.0 / fVar4) * (float)local_24);
-    g_pWDest = (int *)(*(int *)(iVar8 + 0x5c) +
-                      (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar11) * 2);
+    g_pWDest = (int *)(*(int *)(iVar7 + 0x5c) +
+                      (param_1[0x10] * (*(uint *)(iVar7 + 0x18) >> 1) + uVar11) * 2);
     local_10 = (uint)((1.0 / fVar4) * fVar1);
     if (local_2c == 0) {
-      fVar13 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar13 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar1 + _g_dwRdNRaster_vOverZStep);
-      fVar14 = fVar13;
-      param_1 = PUN(uint *,(float)fVar13);
+      puVar14 = puVar13;
+      param_1 = puVar13;
     }
     else {
-      fVar13 = (float)(int)local_2c;
-      fVar4 = fVar13 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar13 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar1 = fVar13 * _g_dwRdNRaster_dVOverZdX + fVar1;
+      fVar2 = (float)(int)local_2c;
+      fVar4 = fVar2 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar2 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar1 = fVar2 * _g_dwRdNRaster_dVOverZdX + fVar1;
       fVar2 = 1.0 / fVar4;
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
@@ -12622,14 +12592,14 @@ void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
       local_24 = (int)ROUND((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
                  (bVar9 & 0x1f);
-      fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
-          uVar10 = (uint)fVar13 & g_dwRdNRaster_uWrap;
-          fVar13 = (float)((int)fVar13 + local_20);
+          uVar10 = (uint)puVar13 & g_dwRdNRaster_uWrap;
+          puVar13 = (uint *)((int)puVar13 + local_20);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
@@ -12637,11 +12607,11 @@ void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
                                g_dwRdNRaster_aAlphaMap +
                                (uint)*(byte *)(((int)uVar10 >> 0x10) +
                                               g_dwRdNRaster_pPixels +
-                                              ((int)fVar14 >>
+                                              ((int)puVar14 >>
                                                (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                               g_dwRdNRaster_vWrap)) * 0x100) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar14 = (float)((int)fVar14 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
       }
@@ -12658,14 +12628,14 @@ void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
         local_20 = (int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
         local_24 = (int)ROUND((fVar1 - (float)local_10) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-        fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          uVar10 = (uint)fVar13 & g_dwRdNRaster_uWrap;
-          fVar13 = (float)((int)fVar13 + local_20);
+          uVar10 = (uint)puVar13 & g_dwRdNRaster_uWrap;
+          puVar13 = (uint *)((int)puVar13 + local_20);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
@@ -12673,11 +12643,11 @@ void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
                                g_dwRdNRaster_aAlphaMap +
                                (uint)*(byte *)(((int)uVar10 >> 0x10) +
                                               g_dwRdNRaster_pPixels +
-                                              ((int)fVar14 >>
+                                              ((int)puVar14 >>
                                                (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                               g_dwRdNRaster_vWrap)) * 0x100) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar14 = (float)((int)fVar14 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -12688,11 +12658,11 @@ void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
         local_c = (uint)fVar4;
       } while (local_28 != 0);
     }
-    if (iVar7 != 0) {
-      iVar8 = iVar7 + -1;
-      if (iVar8 != 0) {
-        fVar1 = (float)iVar8;
-        fVar4 = 1.0 / (((float)iVar8 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
+    if (puVar8 != (uint *)0x0) {
+      iVar7 = (int)puVar8 + -1;
+      if (iVar7 != 0) {
+        fVar1 = (float)iVar7;
+        fVar4 = 1.0 / (((float)iVar7 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
         local_20 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
@@ -12701,16 +12671,16 @@ void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
         local_24 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar4 - (float)local_10) / fVar1) * 65536.0) >>
                    (bVar9 & 0x1f);
-        fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
-      param_1 = (uint *)iVar7;
-      if (-1 < iVar8) {
+      param_1 = puVar8;
+      if (-1 < iVar7) {
         do {
-          uVar10 = (uint)fVar13 & g_dwRdNRaster_uWrap;
-          fVar13 = (float)((int)fVar13 + local_20);
+          uVar10 = (uint)puVar13 & g_dwRdNRaster_uWrap;
+          puVar13 = (uint *)((int)puVar13 + local_20);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
@@ -12718,11 +12688,11 @@ void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
                                g_dwRdNRaster_aAlphaMap +
                                (uint)*(byte *)(((int)uVar10 >> 0x10) +
                                               g_dwRdNRaster_pPixels +
-                                              ((int)fVar14 >>
+                                              ((int)puVar14 >>
                                                (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                               g_dwRdNRaster_vWrap)) * 0x100) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar14 = (float)((int)fVar14 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_24);
           param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
@@ -12761,12 +12731,12 @@ void rdNRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLitKey_4. */
 
-void rdNRaster_DrawNGonMLIT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonMLIT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -12802,7 +12772,7 @@ void rdNRaster_DrawNGonMLIT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -12816,11 +12786,11 @@ void rdNRaster_DrawNGonMLIT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonLIT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonLIT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonLIT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonLIT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMLIT_8(&local_88,&local_44);
@@ -12830,8 +12800,8 @@ void rdNRaster_DrawNGonMLIT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonLIT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonLIT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -12847,7 +12817,7 @@ void rdNRaster_DrawNGonMLIT(int param_1,int param_2)
         local_44 = local_44 + local_40;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonLIT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonLIT((int *)&local_44);
     }
   }
   return;
@@ -12881,7 +12851,7 @@ void rdNRaster_DrawNGonMLIT(int param_1,int param_2)
    rdNRaster_DrawScanLineNGonMLIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of
    rdNRaster_DrawNGonMLIT); was rdRaster_Span_FlatKey_2. */
 
-void rdNRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -12893,12 +12863,12 @@ void rdNRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2)
   float fVar6;
   uint uVar7;
   int iVar8;
-  int iVar9;
+  uint *puVar9;
   byte bVar10;
   uint uVar11;
-  float fVar12;
+  uint *puVar12;
   uint uVar13;
-  float fVar14;
+  uint *puVar14;
   uint uVar15;
   char *pcVar16;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
@@ -12941,38 +12911,38 @@ void rdNRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2)
     }
     uVar7 = uVar7 - local_2c;
     if (uVar7 == 0) {
-      iVar8 = 0;
+      puVar9 = (uint *)0x0;
       local_28 = 0;
     }
     else {
       uVar11 = (int)uVar7 >> 0x1f;
       local_28 = (int)(uVar7 + (uVar11 & 0xf)) >> 4;
-      iVar8 = ((uVar7 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11;
-      if (iVar8 == 0) {
+      puVar9 = (uint *)(((uVar7 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11);
+      if (puVar9 == (uint *)0x0) {
         local_28 = local_28 - 1;
-        iVar8 = 0x10;
+        puVar9 = (uint *)0x10;
       }
     }
     fVar1 = (float)(int)(uVar15 - *param_1) * 1.5258789e-05;
-    iVar9 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar5 = fVar1 * _g_dwRdNRaster_dOneOverZdX + (float)param_1[4];
     local_24 = (uint)(fVar1 * _g_dwRdNRaster_dUOverZdX + (float)param_1[6]);
     fVar1 = fVar1 * _g_dwRdNRaster_dVOverZdX + (float)param_1[8];
-    pcVar16 = (char *)(param_1[0x10] * *(int *)(iVar9 + 0x18) + *(int *)(iVar9 + 0x5c) + uVar13);
+    pcVar16 = (char *)(param_1[0x10] * *(int *)(iVar8 + 0x18) + *(int *)(iVar8 + 0x5c) + uVar13);
     local_c = (uint)((1.0 / fVar5) * (float)local_24);
     local_10 = (uint)((1.0 / fVar5) * fVar1);
     if (local_2c == 0) {
-      fVar12 = fVar5 + _g_dwRdNRaster_oneOverZStep;
+      puVar12 = PUN(uint *,(float)(fVar5 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar1 + _g_dwRdNRaster_vOverZStep);
-      fVar14 = fVar12;
-      param_1 = PUN(uint *,(float)fVar12);
+      puVar14 = puVar12;
+      param_1 = puVar12;
     }
     else {
-      fVar12 = (float)(int)local_2c;
-      fVar5 = fVar12 * _g_dwRdNRaster_dOneOverZdX + fVar5;
-      fVar6 = fVar12 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar1 = fVar12 * _g_dwRdNRaster_dVOverZdX + fVar1;
+      fVar3 = (float)(int)local_2c;
+      fVar5 = fVar3 * _g_dwRdNRaster_dOneOverZdX + fVar5;
+      fVar6 = fVar3 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar1 = fVar3 * _g_dwRdNRaster_dVOverZdX + fVar1;
       fVar3 = 1.0 / fVar5;
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar1;
@@ -12983,22 +12953,22 @@ void rdNRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2)
       local_24 = (int)ROUND((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
                  (bVar10 & 0x1f);
-      fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
-          cVar2 = *(char *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          cVar2 = *(char *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           if (cVar2 != '\0') {
             *pcVar16 = cVar2;
           }
           pcVar16 = pcVar16 + 1;
-          fVar12 = (float)((int)fVar12 + local_20);
-          fVar14 = (float)((int)fVar14 + local_24);
+          puVar12 = (uint *)((int)puVar12 + local_20);
+          puVar14 = (uint *)((int)puVar14 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
       }
@@ -13015,22 +12985,22 @@ void rdNRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2)
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
         local_20 = (int)ROUND((fVar5 - (float)local_c) * 0.0625 * 65536.0) >> (bVar10 & 0x1f);
         local_24 = (int)ROUND((fVar1 - (float)local_10) * 0.0625 * 65536.0) >> (bVar10 & 0x1f);
-        fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          cVar2 = *(char *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          cVar2 = *(char *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           if (cVar2 != '\0') {
             *pcVar16 = cVar2;
           }
           pcVar16 = pcVar16 + 1;
-          fVar12 = (float)((int)fVar12 + local_20);
-          fVar14 = (float)((int)fVar14 + local_24);
+          puVar12 = (uint *)((int)puVar12 + local_20);
+          puVar14 = (uint *)((int)puVar14 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -13041,11 +13011,11 @@ void rdNRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2)
         local_c = (uint)fVar5;
       } while (local_28 != 0);
     }
-    if (iVar8 != 0) {
-      iVar9 = iVar8 + -1;
-      if (iVar9 != 0) {
-        fVar1 = (float)iVar9;
-        fVar5 = 1.0 / (((float)iVar9 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
+    if (puVar9 != (uint *)0x0) {
+      iVar8 = (int)puVar9 + -1;
+      if (iVar8 != 0) {
+        fVar1 = (float)iVar8;
+        fVar5 = 1.0 / (((float)iVar8 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
         local_20 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
@@ -13054,24 +13024,24 @@ void rdNRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2)
         local_24 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar5 - (float)local_10) / fVar1) * 65536.0) >>
                    (bVar10 & 0x1f);
-        fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
-      param_1 = (uint *)iVar8;
-      if (-1 < iVar9) {
+      param_1 = puVar9;
+      if (-1 < iVar8) {
         do {
-          cVar2 = *(char *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          cVar2 = *(char *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           if (cVar2 != '\0') {
             *pcVar16 = cVar2;
           }
           pcVar16 = pcVar16 + 1;
-          fVar12 = (float)((int)fVar12 + local_20);
-          fVar14 = (float)((int)fVar14 + local_24);
+          puVar12 = (uint *)((int)puVar12 + local_20);
+          puVar14 = (uint *)((int)puVar14 + local_24);
           param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
@@ -13107,7 +13077,7 @@ void rdNRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2)
    rdNRaster_DrawScanLineNGonMLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonMLIT); was rdRaster_Span16_TexKey_6. */
 
-void rdNRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -13118,14 +13088,14 @@ void rdNRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2)
   float fVar5;
   uint uVar6;
   int iVar7;
-  int iVar8;
+  uint *puVar8;
   byte bVar9;
   uint uVar10;
   uint uVar11;
-  float fVar12;
-  float fVar13;
+  uint *puVar12;
+  uint *puVar13;
   uint uVar14;
-  float fVar15;
+  uint *puVar15;
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
@@ -13166,67 +13136,67 @@ void rdNRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2)
     }
     uVar6 = uVar6 - local_2c;
     if (uVar6 == 0) {
-      iVar7 = 0;
+      puVar8 = (uint *)0x0;
       local_28 = 0;
     }
     else {
       uVar11 = (int)uVar6 >> 0x1f;
       local_28 = (int)(uVar6 + (uVar11 & 0xf)) >> 4;
-      iVar7 = ((uVar6 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11;
-      if (iVar7 == 0) {
+      puVar8 = (uint *)(((uVar6 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11);
+      if (puVar8 == (uint *)0x0) {
         local_28 = local_28 - 1;
-        iVar7 = 0x10;
+        puVar8 = (uint *)0x10;
       }
     }
     fVar1 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar1 * _g_dwRdNRaster_dOneOverZdX + (float)param_1[4];
     local_24 = (uint)(fVar1 * _g_dwRdNRaster_dUOverZdX + (float)param_1[6]);
     fVar1 = fVar1 * _g_dwRdNRaster_dVOverZdX + (float)param_1[8];
     local_c = (uint)((1.0 / fVar4) * (float)local_24);
-    g_pWDest = (int *)(*(int *)(iVar8 + 0x5c) +
-                      (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar14) * 2);
+    g_pWDest = (int *)(*(int *)(iVar7 + 0x5c) +
+                      (param_1[0x10] * (*(uint *)(iVar7 + 0x18) >> 1) + uVar14) * 2);
     local_10 = (uint)((1.0 / fVar4) * fVar1);
     if (local_2c == 0) {
-      fVar12 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar12 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar1 + _g_dwRdNRaster_vOverZStep);
-      fVar13 = fVar12;
-      fVar15 = fVar12;
-      param_1 = PUN(uint *,(float)fVar12);
+      puVar13 = puVar12;
+      puVar15 = puVar12;
+      param_1 = puVar12;
     }
     else {
-      fVar12 = (float)(int)local_2c;
-      fVar4 = fVar12 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar12 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar1 = fVar12 * _g_dwRdNRaster_dVOverZdX + fVar1;
+      fVar2 = (float)(int)local_2c;
+      fVar4 = fVar2 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar2 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar1 = fVar2 * _g_dwRdNRaster_dVOverZdX + fVar1;
       fVar2 = 1.0 / fVar4;
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
       bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-      fVar15 = (float)((int)ROUND((fVar3 - (float)local_c) *
-                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
-                      (bVar9 & 0x1f));
+      puVar15 = (uint *)((int)ROUND((fVar3 - (float)local_c) *
+                                    (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                        (bVar9 & 0x1f));
       local_24 = (int)ROUND((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
                  (bVar9 & 0x1f);
-      fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
             *(undefined2 *)g_pWDest = *(undefined2 *)(g_dwRdNRaster_aRGBMap + local_20 * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
       }
@@ -13241,25 +13211,26 @@ void rdNRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2)
         fVar4 = (1.0 / PUN(float,param_1)) * PUN(float,param_2);
         fVar1 = (1.0 / PUN(float,param_1)) * (float)local_8;
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar15 = (float)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f));
+        puVar15 = (uint *)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f)
+                          );
         local_24 = (int)ROUND((fVar1 - (float)local_10) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-        fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
             *(undefined2 *)g_pWDest = *(undefined2 *)(g_dwRdNRaster_aRGBMap + local_20 * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -13270,38 +13241,38 @@ void rdNRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2)
         local_c = (uint)fVar4;
       } while (local_28 != 0);
     }
-    if (iVar7 != 0) {
-      iVar8 = iVar7 + -1;
-      if (iVar8 != 0) {
-        fVar1 = (float)iVar8;
-        fVar4 = 1.0 / (((float)iVar8 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
+    if (puVar8 != (uint *)0x0) {
+      iVar7 = (int)puVar8 + -1;
+      if (iVar7 != 0) {
+        fVar1 = (float)iVar7;
+        fVar4 = 1.0 / (((float)iVar7 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar15 = (float)((int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep
-                                       ) + PUN(float,param_2)) * fVar4 - (float)local_c) / fVar1) *
-                                    65536.0) >> (bVar9 & 0x1f));
+        puVar15 = (uint *)((int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX -
+                                         _g_dwRdNRaster_uOverZStep) + PUN(float,param_2)) * fVar4 -
+                                       (float)local_c) / fVar1) * 65536.0) >> (bVar9 & 0x1f));
         local_24 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar4 - (float)local_10) / fVar1) * 65536.0) >>
                    (bVar9 & 0x1f);
-        fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
-      param_1 = (uint *)iVar7;
-      if (-1 < iVar8) {
+      param_1 = puVar8;
+      if (-1 < iVar7) {
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
             *(undefined2 *)g_pWDest = *(undefined2 *)(g_dwRdNRaster_aRGBMap + local_20 * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
@@ -13339,12 +13310,12 @@ void rdNRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLitKey_5. */
 
-void rdNRaster_DrawNGonMTLIT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonMTLIT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -13382,7 +13353,7 @@ void rdNRaster_DrawNGonMTLIT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -13396,11 +13367,11 @@ void rdNRaster_DrawNGonMTLIT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonLIT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonLIT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonLIT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonLIT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMTLIT_8(&local_88,&local_44);
@@ -13410,8 +13381,8 @@ void rdNRaster_DrawNGonMTLIT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonLIT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonLIT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -13427,7 +13398,7 @@ void rdNRaster_DrawNGonMTLIT(int param_1,int param_2)
         local_44 = local_44 + local_40;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonLIT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonLIT((int *)&local_44);
     }
   }
   return;
@@ -13461,7 +13432,7 @@ void rdNRaster_DrawNGonMTLIT(int param_1,int param_2)
    rdNRaster_DrawScanLineNGonMTLIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of
    rdNRaster_DrawNGonMTLIT); was rdRaster_Span_TexKey_5. */
 
-void rdNRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -13475,9 +13446,9 @@ void rdNRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2)
   byte bVar8;
   uint uVar9;
   uint uVar10;
-  float fVar11;
+  uint *puVar11;
   uint uVar12;
-  float fVar13;
+  uint *puVar13;
   byte *pbVar14;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
@@ -13540,17 +13511,17 @@ void rdNRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2)
     pbVar14 = (byte *)(param_1[0x10] * *(int *)(iVar7 + 0x18) + *(int *)(iVar7 + 0x5c) + uVar9);
     local_10 = (uint)((1.0 / fVar4) * fVar1);
     if (local_30 == 0) {
-      fVar11 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar11 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_28 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar1 + _g_dwRdNRaster_vOverZStep);
-      fVar13 = fVar11;
-      param_1 = PUN(uint *,(float)fVar11);
+      puVar13 = puVar11;
+      param_1 = puVar11;
     }
     else {
-      fVar11 = (float)(int)local_30;
-      fVar4 = fVar11 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar11 * _g_dwRdNRaster_dUOverZdX + (float)local_28;
-      fVar1 = fVar11 * _g_dwRdNRaster_dVOverZdX + fVar1;
+      fVar2 = (float)(int)local_30;
+      fVar4 = fVar2 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar2 * _g_dwRdNRaster_dUOverZdX + (float)local_28;
+      fVar1 = fVar2 * _g_dwRdNRaster_dVOverZdX + fVar1;
       fVar2 = 1.0 / fVar4;
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
@@ -13561,23 +13532,23 @@ void rdNRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2)
       local_28 = (int)ROUND((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0) >>
                  (bVar8 & 0x1f);
-      fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_30) {
         do {
-          bVar8 = *(byte *)(((int)((uint)fVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar8 = *(byte *)(((int)((uint)puVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar8;
           if (bVar8 != 0) {
             *pbVar14 = *(byte *)((uint)*pbVar14 + g_dwRdNRaster_aAlphaMap + local_20 * 0x100);
           }
           pbVar14 = pbVar14 + 1;
-          fVar11 = (float)((int)fVar11 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
+          puVar11 = (uint *)((int)puVar11 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
           local_30 = local_30 - 1;
         } while (local_30 != 0);
       }
@@ -13594,23 +13565,23 @@ void rdNRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2)
         bVar8 = (byte)g_dwRdNRaster_mipMapNum;
         local_24 = (int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
         local_28 = (int)ROUND((fVar1 - (float)local_10) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
-        fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_30 = 0x10;
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          bVar8 = *(byte *)(((int)((uint)fVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar8 = *(byte *)(((int)((uint)puVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar8;
           if (bVar8 != 0) {
             *pbVar14 = *(byte *)((uint)*pbVar14 + g_dwRdNRaster_aAlphaMap + local_20 * 0x100);
           }
           pbVar14 = pbVar14 + 1;
-          fVar11 = (float)((int)fVar11 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
+          puVar11 = (uint *)((int)puVar11 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
           local_30 = local_30 - 1;
         } while (local_30 != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -13634,26 +13605,26 @@ void rdNRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2)
         local_28 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar4 - (float)local_10) / fVar1) * 65536.0) >>
                    (bVar8 & 0x1f);
-        fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       param_1 = (uint *)local_1c;
       if (-1 < iVar7) {
         do {
-          bVar8 = *(byte *)(((int)((uint)fVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar8 = *(byte *)(((int)((uint)puVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar8;
           if (bVar8 != 0) {
             *pbVar14 = *(byte *)((uint)*pbVar14 + g_dwRdNRaster_aAlphaMap + local_20 * 0x100);
           }
           pbVar14 = pbVar14 + 1;
-          fVar11 = (float)((int)fVar11 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
-          param_1 = (uint *)((int)param_1 - 1);
+          puVar11 = (uint *)((int)puVar11 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
+          param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
     }
@@ -13688,7 +13659,7 @@ void rdNRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2)
    rdNRaster_DrawScanLineNGonMTLIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonMTLIT); was rdRaster_Span16_TexKey_7. */
 
-void rdNRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -13699,14 +13670,14 @@ void rdNRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)
   float fVar5;
   uint uVar6;
   int iVar7;
-  int iVar8;
+  uint *puVar8;
   byte bVar9;
   uint uVar10;
   uint uVar11;
-  float fVar12;
-  float fVar13;
+  uint *puVar12;
+  uint *puVar13;
   uint uVar14;
-  float fVar15;
+  uint *puVar15;
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
@@ -13747,59 +13718,59 @@ void rdNRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)
     }
     uVar6 = uVar6 - local_2c;
     if (uVar6 == 0) {
-      iVar7 = 0;
+      puVar8 = (uint *)0x0;
       local_28 = 0;
     }
     else {
       uVar11 = (int)uVar6 >> 0x1f;
       local_28 = (int)(uVar6 + (uVar11 & 0xf)) >> 4;
-      iVar7 = ((uVar6 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11;
-      if (iVar7 == 0) {
+      puVar8 = (uint *)(((uVar6 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11);
+      if (puVar8 == (uint *)0x0) {
         local_28 = local_28 - 1;
-        iVar7 = 0x10;
+        puVar8 = (uint *)0x10;
       }
     }
     fVar1 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar1 * _g_dwRdNRaster_dOneOverZdX + (float)param_1[4];
     local_24 = (uint)(fVar1 * _g_dwRdNRaster_dUOverZdX + (float)param_1[6]);
     fVar1 = fVar1 * _g_dwRdNRaster_dVOverZdX + (float)param_1[8];
     local_c = (uint)((1.0 / fVar4) * (float)local_24);
-    g_pWDest = (int *)(*(int *)(iVar8 + 0x5c) +
-                      (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar14) * 2);
+    g_pWDest = (int *)(*(int *)(iVar7 + 0x5c) +
+                      (param_1[0x10] * (*(uint *)(iVar7 + 0x18) >> 1) + uVar14) * 2);
     local_10 = (uint)((1.0 / fVar4) * fVar1);
     if (local_2c == 0) {
-      fVar12 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar12 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar1 + _g_dwRdNRaster_vOverZStep);
-      fVar13 = fVar12;
-      fVar15 = fVar12;
-      param_1 = PUN(uint *,(float)fVar12);
+      puVar13 = puVar12;
+      puVar15 = puVar12;
+      param_1 = puVar12;
     }
     else {
-      fVar12 = (float)(int)local_2c;
-      fVar4 = fVar12 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar12 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar1 = fVar12 * _g_dwRdNRaster_dVOverZdX + fVar1;
+      fVar2 = (float)(int)local_2c;
+      fVar4 = fVar2 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar2 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar1 = fVar2 * _g_dwRdNRaster_dVOverZdX + fVar1;
       fVar2 = 1.0 / fVar4;
       fVar3 = fVar2 * fVar5;
       fVar2 = fVar2 * fVar1;
       bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-      fVar15 = (float)((int)ROUND((fVar3 - (float)local_c) *
-                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
-                      (bVar9 & 0x1f));
+      puVar15 = (uint *)((int)ROUND((fVar3 - (float)local_c) *
+                                    (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                        (bVar9 & 0x1f));
       local_24 = (int)ROUND((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
                  (bVar9 & 0x1f);
-      fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
@@ -13811,8 +13782,8 @@ void rdNRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)
                                  *(byte *)(g_dwRdNRaster_aRGBToPalette + *g_pDest)) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
       }
@@ -13827,17 +13798,18 @@ void rdNRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)
         fVar4 = (1.0 / PUN(float,param_1)) * PUN(float,param_2);
         fVar1 = (1.0 / PUN(float,param_1)) * (float)local_8;
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar15 = (float)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f));
+        puVar15 = (uint *)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f)
+                          );
         local_24 = (int)ROUND((fVar1 - (float)local_10) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-        fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
@@ -13849,8 +13821,8 @@ void rdNRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)
                                  *(byte *)(g_dwRdNRaster_aRGBToPalette + *g_pDest)) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -13861,30 +13833,30 @@ void rdNRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)
         local_c = (uint)fVar4;
       } while (local_28 != 0);
     }
-    if (iVar7 != 0) {
-      iVar8 = iVar7 + -1;
-      if (iVar8 != 0) {
-        fVar1 = (float)iVar8;
-        fVar4 = 1.0 / (((float)iVar8 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
+    if (puVar8 != (uint *)0x0) {
+      iVar7 = (int)puVar8 + -1;
+      if (iVar7 != 0) {
+        fVar1 = (float)iVar7;
+        fVar4 = 1.0 / (((float)iVar7 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar15 = (float)((int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep
-                                       ) + PUN(float,param_2)) * fVar4 - (float)local_c) / fVar1) *
-                                    65536.0) >> (bVar9 & 0x1f));
+        puVar15 = (uint *)((int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX -
+                                         _g_dwRdNRaster_uOverZStep) + PUN(float,param_2)) * fVar4 -
+                                       (float)local_c) / fVar1) * 65536.0) >> (bVar9 & 0x1f));
         local_24 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar4 - (float)local_10) / fVar1) * 65536.0) >>
                    (bVar9 & 0x1f);
-        fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
-      param_1 = (uint *)iVar7;
-      if (-1 < iVar8) {
+      param_1 = puVar8;
+      if (-1 < iVar7) {
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
@@ -13896,8 +13868,8 @@ void rdNRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)
                                  *(byte *)(g_dwRdNRaster_aRGBToPalette + *g_pDest)) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
@@ -13935,12 +13907,12 @@ void rdNRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw_FlatLit_5. */
 
-void rdNRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
+void __cdecl rdNRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -13958,15 +13930,15 @@ void rdNRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
   #define local_24 (*(uint *)(_frame + (0xa0 - 0x24)))
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   g_dwRdNRaster_maxMipMap = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdNRaster_aVertices = *(float **)(param_1 + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(param_1 + 0x24);
-  if (iVar2 == 8) {
+  if (iVar1 == 8) {
     g_dwRdNRaster_aMonoMap =
          *(int *)(*(int *)(param_1 + 0x4c) + 0x330) + (int)ROUND(param_3) * 0x100;
   }
-  else if (iVar2 == 0x10) {
+  else if (iVar1 == 0x10) {
     g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(param_1 + 0x4c) + 0x348) + (int)ROUND(param_3) * 0x200
     ;
   }
@@ -13981,7 +13953,7 @@ void rdNRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -13997,12 +13969,12 @@ void rdNRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar1 = rdNRaster_SetupLeftEdgeNGonFIT(&local_48);
-  if (iVar1 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonFIT((int *)&local_48);
+  if (uVar2 == 0) {
     local_80 = g_nRdNRaster_yMinVert;
-    iVar1 = rdNRaster_SetupRightEdgeNGonFIT(&local_8c);
-    if (iVar1 == 0) {
-      if (iVar2 == 8) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonFIT((int *)&local_8c);
+    if (uVar2 == 0) {
+      if (iVar1 == 8) {
         switch(g_dwRdNRaster_texPitch) {
         case 8:
           UINT_007f42f8 = (uint)Mem_DumpLog;
@@ -14026,7 +13998,7 @@ void rdNRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
           UINT_007f42f8 = (uint)Mem_DumpLog;
         }
       }
-      else if (iVar2 == 0x10) {
+      else if (iVar1 == 0x10) {
         UINT_007f42f8 = (uint)rdNRaster_DrawScanLineNGonFIT_16;
       }
       do {
@@ -14034,8 +14006,8 @@ void rdNRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
           (*(code *)UINT_007f42f8)(&local_48,&local_8c);
           local_40 = local_40 - 1;
           if (local_40 == 0) {
-            iVar2 = rdNRaster_SetupLeftEdgeNGonFIT(&local_48);
-            if (iVar2 != 0) {
+            uVar2 = rdNRaster_SetupLeftEdgeNGonFIT((int *)&local_48);
+            if (uVar2 != 0) {
               return;
             }
           }
@@ -14051,8 +14023,8 @@ void rdNRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
           local_8c = local_8c + local_88;
           local_4c = local_4c + 1;
         }
-        iVar2 = rdNRaster_SetupRightEdgeNGonFIT(&local_8c);
-      } while (iVar2 == 0);
+        uVar2 = rdNRaster_SetupRightEdgeNGonFIT((int *)&local_8c);
+      } while (uVar2 == 0);
     }
   }
   return;
@@ -14086,7 +14058,7 @@ void rdNRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
    rdNRaster_DrawScanLineNGonFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonFIT); was rdRaster_Span16_Tex_12. */
 
-void rdNRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -14100,10 +14072,10 @@ void rdNRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2)
   byte bVar8;
   uint uVar9;
   uint uVar10;
-  float fVar11;
+  uint *puVar11;
   uint uVar12;
-  float fVar13;
-  float fVar14;
+  uint *puVar13;
+  uint *puVar14;
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
@@ -14165,45 +14137,45 @@ void rdNRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2)
                       (param_1[0x10] * (*(uint *)(iVar7 + 0x18) >> 1) + uVar9) * 2);
     local_10 = (uint)((1.0 / fVar4) * fVar3);
     if (local_28 == 0) {
-      fVar11 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar11 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_20 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar3 + _g_dwRdNRaster_vOverZStep);
-      fVar13 = fVar11;
-      fVar14 = fVar11;
-      param_1 = PUN(uint *,(float)fVar11);
+      puVar13 = puVar11;
+      puVar14 = puVar11;
+      param_1 = puVar11;
     }
     else {
-      fVar11 = (float)(int)local_28;
-      fVar4 = fVar11 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar11 * _g_dwRdNRaster_dUOverZdX + (float)local_20;
-      fVar3 = fVar11 * _g_dwRdNRaster_dVOverZdX + fVar3;
+      fVar1 = (float)(int)local_28;
+      fVar4 = fVar1 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar1 * _g_dwRdNRaster_dUOverZdX + (float)local_20;
+      fVar3 = fVar1 * _g_dwRdNRaster_dVOverZdX + fVar3;
       fVar1 = 1.0 / fVar4;
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar8 = (byte)g_dwRdNRaster_mipMapNum;
-      fVar14 = (float)((int)ROUND((fVar2 - (float)local_c) *
-                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
-                      (bVar8 & 0x1f));
+      puVar14 = (uint *)((int)ROUND((fVar2 - (float)local_c) *
+                                    (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
+                        (bVar8 & 0x1f));
       local_20 = (int)ROUND((fVar1 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0) >>
                  (bVar8 & 0x1f);
-      fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_28) {
         do {
-          uVar12 = (uint)fVar11 & g_dwRdNRaster_uWrap;
-          fVar11 = (float)((int)fVar11 + (int)fVar14);
+          uVar12 = (uint)puVar11 & g_dwRdNRaster_uWrap;
+          puVar11 = (uint *)((int)puVar11 + (int)puVar14);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
                 (uint)*(byte *)(((int)uVar12 >> 0x10) +
                                g_dwRdNRaster_pPixels +
-                               ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                               ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                g_dwRdNRaster_vWrap)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar13 = (float)((int)fVar13 + local_20);
+          puVar13 = (uint *)((int)puVar13 + local_20);
           local_28 = local_28 - 1;
         } while (local_28 != 0);
       }
@@ -14218,25 +14190,26 @@ void rdNRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2)
         fVar4 = (1.0 / PUN(float,param_1)) * PUN(float,param_2);
         fVar3 = (1.0 / PUN(float,param_1)) * (float)local_8;
         bVar8 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar14 = (float)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar8 & 0x1f));
+        puVar14 = (uint *)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar8 & 0x1f)
+                          );
         local_20 = (int)ROUND((fVar3 - (float)local_10) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
-        fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_28 = 0x10;
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          uVar12 = (uint)fVar11 & g_dwRdNRaster_uWrap;
-          fVar11 = (float)((int)fVar11 + (int)fVar14);
+          uVar12 = (uint)puVar11 & g_dwRdNRaster_uWrap;
+          puVar11 = (uint *)((int)puVar11 + (int)puVar14);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
                 (uint)*(byte *)(((int)uVar12 >> 0x10) +
                                g_dwRdNRaster_pPixels +
-                               ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                               ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                g_dwRdNRaster_vWrap)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar13 = (float)((int)fVar13 + local_20);
+          puVar13 = (uint *)((int)puVar13 + local_20);
           local_28 = local_28 - 1;
         } while (local_28 != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -14254,34 +14227,34 @@ void rdNRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2)
         fVar3 = 1.0 / ((fVar4 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
         bVar8 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar14 = (float)((int)ROUND((((fVar4 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep)
-                                     + PUN(float,param_2)) * fVar3 - (float)local_c) *
-                                    (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] * 65536.0) >>
-                        (bVar8 & 0x1f));
+        puVar14 = (uint *)((int)ROUND((((fVar4 * _g_dwRdNRaster_dUOverZdX -
+                                        _g_dwRdNRaster_uOverZStep) + PUN(float,param_2)) * fVar3 -
+                                      (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7]
+                                      * 65536.0) >> (bVar8 & 0x1f));
         local_20 = (int)ROUND((((fVar4 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar3 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] * 65536.0) >>
                    (bVar8 & 0x1f);
-        fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       param_1 = (uint *)local_1c;
       if (-1 < iVar7) {
         do {
-          uVar12 = (uint)fVar11 & g_dwRdNRaster_uWrap;
-          fVar11 = (float)((int)fVar11 + (int)fVar14);
+          uVar12 = (uint)puVar11 & g_dwRdNRaster_uWrap;
+          puVar11 = (uint *)((int)puVar11 + (int)puVar14);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
                 (uint)*(byte *)(((int)uVar12 >> 0x10) +
                                g_dwRdNRaster_pPixels +
-                               ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                               ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                                g_dwRdNRaster_vWrap)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar13 = (float)((int)fVar13 + local_20);
-          param_1 = (uint *)((int)param_1 - 1);
+          puVar13 = (uint *)((int)puVar13 + local_20);
+          param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
     }
@@ -14316,7 +14289,7 @@ void rdNRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2)
    Original name rdNRaster_SetupLeftEdgeNGonFIT (the remaster's GrimFandango (Linux): first
    edge-setup call of rdNRaster_DrawNGonFIT); was rdRaster_Edge_Flat_15. */
 
-undefined4 rdNRaster_SetupLeftEdgeNGonFIT(int *param_1)
+uint __cdecl rdNRaster_SetupLeftEdgeNGonFIT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -14397,7 +14370,7 @@ undefined4 rdNRaster_SetupLeftEdgeNGonFIT(int *param_1)
    Original name rdNRaster_SetupRightEdgeNGonFIT (the remaster's GrimFandango (Linux): second
    edge-setup call of rdNRaster_DrawNGonFIT); was rdRaster_Edge_Flat_16. */
 
-undefined4 rdNRaster_SetupRightEdgeNGonFIT(int *param_1)
+uint __cdecl rdNRaster_SetupRightEdgeNGonFIT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -14470,12 +14443,12 @@ undefined4 rdNRaster_SetupRightEdgeNGonFIT(int *param_1)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLit_9. */
 
-void rdNRaster_DrawNGonTFIT(int param_1,int param_2,float param_3)
+void __cdecl rdNRaster_DrawNGonTFIT(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -14518,7 +14491,7 @@ void rdNRaster_DrawNGonTFIT(int param_1,int param_2,float param_3)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -14532,11 +14505,11 @@ void rdNRaster_DrawNGonTFIT(int param_1,int param_2,float param_3)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonFIT(&local_48);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonFIT((int *)&local_48);
+  if (uVar2 == 0) {
     local_80 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonFIT(&local_8c);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonFIT((int *)&local_8c);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonTFIT_8(&local_48,&local_8c);
@@ -14546,8 +14519,8 @@ void rdNRaster_DrawNGonTFIT(int param_1,int param_2,float param_3)
         }
         local_40 = local_40 - 1;
         if (local_40 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonFIT(&local_48);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonFIT((int *)&local_48);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -14563,7 +14536,7 @@ void rdNRaster_DrawNGonTFIT(int param_1,int param_2,float param_3)
         local_8c = local_8c + local_88;
         local_4c = local_4c + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonFIT(&local_8c);
+      uVar2 = rdNRaster_SetupRightEdgeNGonFIT((int *)&local_8c);
     }
   }
   return;
@@ -14597,7 +14570,7 @@ void rdNRaster_DrawNGonTFIT(int param_1,int param_2,float param_3)
    rdNRaster_DrawScanLineNGonTFIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of
    rdNRaster_DrawNGonTFIT); was rdRaster_Span_Tex_7. */
 
-void rdNRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -14613,9 +14586,9 @@ void rdNRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2)
   byte *pbVar10;
   byte *pbVar11;
   uint uVar12;
-  float fVar13;
+  uint *puVar13;
   uint uVar14;
-  float fVar15;
+  uint *puVar15;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
@@ -14677,17 +14650,17 @@ void rdNRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2)
     pbVar10 = (byte *)(param_1[0x10] * *(int *)(iVar7 + 0x18) + *(int *)(iVar7 + 0x5c) + uVar14);
     local_10 = (uint)((1.0 / fVar4) * fVar3);
     if (local_2c == 0) {
-      fVar13 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar13 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar3 + _g_dwRdNRaster_vOverZStep);
-      fVar15 = fVar13;
-      param_1 = PUN(uint *,(float)fVar13);
+      puVar15 = puVar13;
+      param_1 = puVar13;
     }
     else {
-      fVar13 = (float)(int)local_2c;
-      fVar4 = fVar13 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar13 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar3 = fVar13 * _g_dwRdNRaster_dVOverZdX + fVar3;
+      fVar1 = (float)(int)local_2c;
+      fVar4 = fVar1 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar1 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar3 = fVar1 * _g_dwRdNRaster_dVOverZdX + fVar3;
       fVar1 = 1.0 / fVar4;
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
@@ -14698,25 +14671,25 @@ void rdNRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2)
       local_24 = (int)ROUND((fVar1 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
                  (bVar8 & 0x1f);
-      fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar15 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       pbVar11 = pbVar10;
       if (0 < (int)local_2c) {
         do {
           pbVar11 = pbVar10 + 1;
           *pbVar10 = *(byte *)((uint)*pbVar10 +
                               g_dwRdNRaster_aAlphaMap +
-                              (uint)*(byte *)(*(byte *)(((int)((uint)fVar13 & g_dwRdNRaster_uWrap)
+                              (uint)*(byte *)(*(byte *)(((int)((uint)puVar13 & g_dwRdNRaster_uWrap)
                                                         >> 0x10) +
                                                        g_dwRdNRaster_pPixels +
-                                                       ((int)fVar15 >>
+                                                       ((int)puVar15 >>
                                                         (0x10U - (char)g_dwRdNRaster_texRowShift &
                                                         0x1f) & g_dwRdNRaster_vWrap)) +
                                              g_dwRdNRaster_aMonoMap) * 0x100);
-          fVar13 = (float)((int)fVar13 + local_20);
-          fVar15 = (float)((int)fVar15 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_20);
+          puVar15 = (uint *)((int)puVar15 + local_24);
           local_2c = local_2c - 1;
           pbVar10 = pbVar11;
         } while (local_2c != 0);
@@ -14735,25 +14708,25 @@ void rdNRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2)
         bVar8 = (byte)g_dwRdNRaster_mipMapNum;
         local_20 = (int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
         local_24 = (int)ROUND((fVar3 - (float)local_10) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
-        fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        fVar15 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         pbVar11 = pbVar10;
         do {
           pbVar10 = pbVar11 + 1;
           *pbVar11 = *(byte *)((uint)*pbVar11 +
                               g_dwRdNRaster_aAlphaMap +
-                              (uint)*(byte *)(*(byte *)(((int)((uint)fVar13 & g_dwRdNRaster_uWrap)
+                              (uint)*(byte *)(*(byte *)(((int)((uint)puVar13 & g_dwRdNRaster_uWrap)
                                                         >> 0x10) +
                                                        g_dwRdNRaster_pPixels +
-                                                       ((int)fVar15 >>
+                                                       ((int)puVar15 >>
                                                         (0x10U - (char)g_dwRdNRaster_texRowShift &
                                                         0x1f) & g_dwRdNRaster_vWrap)) +
                                              g_dwRdNRaster_aMonoMap) * 0x100);
-          fVar13 = (float)((int)fVar13 + local_20);
-          fVar15 = (float)((int)fVar15 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_20);
+          puVar15 = (uint *)((int)puVar15 + local_24);
           local_2c = local_2c - 1;
           pbVar11 = pbVar10;
         } while (local_2c != 0);
@@ -14780,26 +14753,26 @@ void rdNRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2)
                                (float)local_8) * fVar3 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] * 65536.0) >>
                    (bVar8 & 0x1f);
-        fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar15 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       param_1 = (uint *)local_1c;
       if (-1 < iVar7) {
         do {
           *pbVar10 = *(byte *)((uint)*pbVar10 +
                               g_dwRdNRaster_aAlphaMap +
-                              (uint)*(byte *)(*(byte *)(((int)((uint)fVar13 & g_dwRdNRaster_uWrap)
+                              (uint)*(byte *)(*(byte *)(((int)((uint)puVar13 & g_dwRdNRaster_uWrap)
                                                         >> 0x10) +
                                                        g_dwRdNRaster_pPixels +
-                                                       ((int)fVar15 >>
+                                                       ((int)puVar15 >>
                                                         (0x10U - (char)g_dwRdNRaster_texRowShift &
                                                         0x1f) & g_dwRdNRaster_vWrap)) +
                                              g_dwRdNRaster_aMonoMap) * 0x100);
-          fVar13 = (float)((int)fVar13 + local_20);
-          fVar15 = (float)((int)fVar15 + local_24);
-          param_1 = (uint *)((int)param_1 - 1);
+          puVar13 = (uint *)((int)puVar13 + local_20);
+          puVar15 = (uint *)((int)puVar15 + local_24);
+          param_1 = (uint *)((int)param_1 + -1);
           pbVar10 = pbVar10 + 1;
         } while (param_1 != (uint *)0x0);
       }
@@ -14835,7 +14808,7 @@ void rdNRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2)
    rdNRaster_DrawScanLineNGonTFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonTFIT); was rdRaster_Span16_Tex_13. */
 
-void rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -14846,13 +14819,13 @@ void rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)
   float fVar5;
   uint uVar6;
   int iVar7;
-  int iVar8;
+  uint *puVar8;
   byte bVar9;
   uint uVar10;
   uint uVar11;
   uint uVar12;
-  float fVar13;
-  float fVar14;
+  uint *puVar13;
+  uint *puVar14;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
@@ -14893,39 +14866,39 @@ void rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)
     }
     uVar6 = uVar6 - local_2c;
     if (uVar6 == 0) {
-      iVar7 = 0;
+      puVar8 = (uint *)0x0;
       local_28 = 0;
     }
     else {
       uVar12 = (int)uVar6 >> 0x1f;
       local_28 = (int)(uVar6 + (uVar12 & 0xf)) >> 4;
-      iVar7 = ((uVar6 ^ uVar12) - uVar12 & 0xf ^ uVar12) - uVar12;
-      if (iVar7 == 0) {
+      puVar8 = (uint *)(((uVar6 ^ uVar12) - uVar12 & 0xf ^ uVar12) - uVar12);
+      if (puVar8 == (uint *)0x0) {
         local_28 = local_28 - 1;
-        iVar7 = 0x10;
+        puVar8 = (uint *)0x10;
       }
     }
     fVar3 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar3 * _g_dwRdNRaster_dOneOverZdX + (float)param_1[4];
     local_24 = (uint)(fVar3 * _g_dwRdNRaster_dUOverZdX + (float)param_1[6]);
     fVar3 = fVar3 * _g_dwRdNRaster_dVOverZdX + (float)param_1[8];
     local_c = (uint)((1.0 / fVar4) * (float)local_24);
-    g_pWDest = (int *)(*(int *)(iVar8 + 0x5c) +
-                      (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar11) * 2);
+    g_pWDest = (int *)(*(int *)(iVar7 + 0x5c) +
+                      (param_1[0x10] * (*(uint *)(iVar7 + 0x18) >> 1) + uVar11) * 2);
     local_10 = (uint)((1.0 / fVar4) * fVar3);
     if (local_2c == 0) {
-      fVar13 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar13 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar3 + _g_dwRdNRaster_vOverZStep);
-      fVar14 = fVar13;
-      param_1 = PUN(uint *,(float)fVar13);
+      puVar14 = puVar13;
+      param_1 = puVar13;
     }
     else {
-      fVar13 = (float)(int)local_2c;
-      fVar4 = fVar13 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar13 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar3 = fVar13 * _g_dwRdNRaster_dVOverZdX + fVar3;
+      fVar1 = (float)(int)local_2c;
+      fVar4 = fVar1 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar1 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar3 = fVar1 * _g_dwRdNRaster_dVOverZdX + fVar3;
       fVar1 = 1.0 / fVar4;
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
@@ -14936,14 +14909,14 @@ void rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)
       local_24 = (int)ROUND((fVar1 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
                  (bVar9 & 0x1f);
-      fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
-          uVar10 = (uint)fVar13 & g_dwRdNRaster_uWrap;
-          fVar13 = (float)((int)fVar13 + local_20);
+          uVar10 = (uint)puVar13 & g_dwRdNRaster_uWrap;
+          puVar13 = (uint *)((int)puVar13 + local_20);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
@@ -14953,13 +14926,13 @@ void rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)
                                                 (g_dwRdNRaster_aRGBMap +
                                                 (uint)*(byte *)(((int)uVar10 >> 0x10) +
                                                                g_dwRdNRaster_pPixels +
-                                                               ((int)fVar14 >>
+                                                               ((int)puVar14 >>
                                                                 (0x10U - (char)
                                                   g_dwRdNRaster_texRowShift & 0x1f) &
                                                   g_dwRdNRaster_vWrap)) * 2) * 0x100 +
                                         g_dwRdNRaster_aRGBToPalette)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar14 = (float)((int)fVar14 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
       }
@@ -14976,14 +14949,14 @@ void rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
         local_20 = (int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
         local_24 = (int)ROUND((fVar3 - (float)local_10) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-        fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          uVar10 = (uint)fVar13 & g_dwRdNRaster_uWrap;
-          fVar13 = (float)((int)fVar13 + local_20);
+          uVar10 = (uint)puVar13 & g_dwRdNRaster_uWrap;
+          puVar13 = (uint *)((int)puVar13 + local_20);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
@@ -14993,13 +14966,13 @@ void rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)
                                                 (g_dwRdNRaster_aRGBMap +
                                                 (uint)*(byte *)(((int)uVar10 >> 0x10) +
                                                                g_dwRdNRaster_pPixels +
-                                                               ((int)fVar14 >>
+                                                               ((int)puVar14 >>
                                                                 (0x10U - (char)
                                                   g_dwRdNRaster_texRowShift & 0x1f) &
                                                   g_dwRdNRaster_vWrap)) * 2) * 0x100 +
                                         g_dwRdNRaster_aRGBToPalette)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar14 = (float)((int)fVar14 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -15010,31 +14983,31 @@ void rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)
         local_c = (uint)fVar4;
       } while (local_28 != 0);
     }
-    if (iVar7 != 0) {
-      iVar8 = iVar7 + -1;
-      if (iVar8 != 0) {
-        fVar4 = (float)iVar8;
+    if (puVar8 != (uint *)0x0) {
+      iVar7 = (int)puVar8 + -1;
+      if (iVar7 != 0) {
+        fVar4 = (float)iVar7;
         fVar3 = 1.0 / ((fVar4 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
         local_20 = (int)ROUND((((fVar4 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                PUN(float,param_2)) * fVar3 - (float)local_c) *
-                              (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
+                              (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] * 65536.0) >>
                    (bVar9 & 0x1f);
         local_24 = (int)ROUND((((fVar4 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar3 - (float)local_10) *
-                              (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
+                              (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] * 65536.0) >>
                    (bVar9 & 0x1f);
-        fVar13 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
-      param_1 = (uint *)iVar7;
-      if (-1 < iVar8) {
+      param_1 = puVar8;
+      if (-1 < iVar7) {
         do {
-          uVar10 = (uint)fVar13 & g_dwRdNRaster_uWrap;
-          fVar13 = (float)((int)fVar13 + local_20);
+          uVar10 = (uint)puVar13 & g_dwRdNRaster_uWrap;
+          puVar13 = (uint *)((int)puVar13 + local_20);
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
                 (g_dwRdNRaster_aRGBMap +
@@ -15044,13 +15017,13 @@ void rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)
                                                 (g_dwRdNRaster_aRGBMap +
                                                 (uint)*(byte *)(((int)uVar10 >> 0x10) +
                                                                g_dwRdNRaster_pPixels +
-                                                               ((int)fVar14 >>
+                                                               ((int)puVar14 >>
                                                                 (0x10U - (char)
                                                   g_dwRdNRaster_texRowShift & 0x1f) &
                                                   g_dwRdNRaster_vWrap)) * 2) * 0x100 +
                                         g_dwRdNRaster_aRGBToPalette)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar14 = (float)((int)fVar14 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_24);
           param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
@@ -15089,12 +15062,12 @@ void rdNRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw_TexLitKey_4. */
 
-void rdNRaster_DrawNGonMFIT(int param_1,int param_2,float param_3)
+void __cdecl rdNRaster_DrawNGonMFIT(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -15135,7 +15108,7 @@ void rdNRaster_DrawNGonMFIT(int param_1,int param_2,float param_3)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -15149,11 +15122,11 @@ void rdNRaster_DrawNGonMFIT(int param_1,int param_2,float param_3)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonFIT(&local_48);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonFIT((int *)&local_48);
+  if (uVar2 == 0) {
     local_80 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonFIT(&local_8c);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonFIT((int *)&local_8c);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMFIT_8(&local_48,&local_8c);
@@ -15163,8 +15136,8 @@ void rdNRaster_DrawNGonMFIT(int param_1,int param_2,float param_3)
         }
         local_40 = local_40 - 1;
         if (local_40 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonFIT(&local_48);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonFIT((int *)&local_48);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -15180,7 +15153,7 @@ void rdNRaster_DrawNGonMFIT(int param_1,int param_2,float param_3)
         local_8c = local_8c + local_88;
         local_4c = local_4c + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonFIT(&local_8c);
+      uVar2 = rdNRaster_SetupRightEdgeNGonFIT((int *)&local_8c);
     }
   }
   return;
@@ -15214,7 +15187,7 @@ void rdNRaster_DrawNGonMFIT(int param_1,int param_2,float param_3)
    rdNRaster_DrawScanLineNGonMFIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of
    rdNRaster_DrawNGonMFIT); was rdRaster_Span8_TexKey_3. */
 
-void rdNRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -15228,9 +15201,9 @@ void rdNRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2)
   byte bVar8;
   uint uVar9;
   uint uVar10;
-  float fVar11;
+  uint *puVar11;
   uint uVar12;
-  float fVar13;
+  uint *puVar13;
   undefined1 *puVar14;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
@@ -15294,17 +15267,17 @@ void rdNRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2)
               (param_1[0x10] * *(int *)(iVar7 + 0x18) + *(int *)(iVar7 + 0x5c) + uVar9);
     local_10 = (uint)((1.0 / fVar4) * fVar3);
     if (local_30 == 0) {
-      fVar11 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar11 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_28 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar3 + _g_dwRdNRaster_vOverZStep);
-      fVar13 = fVar11;
-      param_1 = PUN(uint *,(float)fVar11);
+      puVar13 = puVar11;
+      param_1 = puVar11;
     }
     else {
-      fVar11 = (float)(int)local_30;
-      fVar4 = fVar11 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar11 * _g_dwRdNRaster_dUOverZdX + (float)local_28;
-      fVar3 = fVar11 * _g_dwRdNRaster_dVOverZdX + fVar3;
+      fVar1 = (float)(int)local_30;
+      fVar4 = fVar1 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar1 * _g_dwRdNRaster_dUOverZdX + (float)local_28;
+      fVar3 = fVar1 * _g_dwRdNRaster_dVOverZdX + fVar3;
       fVar1 = 1.0 / fVar4;
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
@@ -15315,23 +15288,23 @@ void rdNRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2)
       local_28 = (int)ROUND((fVar1 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0) >>
                  (bVar8 & 0x1f);
-      fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_30) {
         do {
-          bVar8 = *(byte *)(((int)((uint)fVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar8 = *(byte *)(((int)((uint)puVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar8;
           if (bVar8 != 0) {
             *puVar14 = *(undefined1 *)(local_20 + g_dwRdNRaster_aMonoMap);
           }
           puVar14 = puVar14 + 1;
-          fVar11 = (float)((int)fVar11 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
+          puVar11 = (uint *)((int)puVar11 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
           local_30 = local_30 - 1;
         } while (local_30 != 0);
       }
@@ -15348,23 +15321,23 @@ void rdNRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2)
         bVar8 = (byte)g_dwRdNRaster_mipMapNum;
         local_24 = (int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
         local_28 = (int)ROUND((fVar3 - (float)local_10) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
-        fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_30 = 0x10;
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          bVar8 = *(byte *)(((int)((uint)fVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar8 = *(byte *)(((int)((uint)puVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar8;
           if (bVar8 != 0) {
             *puVar14 = *(undefined1 *)(local_20 + g_dwRdNRaster_aMonoMap);
           }
           puVar14 = puVar14 + 1;
-          fVar11 = (float)((int)fVar11 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
+          puVar11 = (uint *)((int)puVar11 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
           local_30 = local_30 - 1;
         } while (local_30 != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -15390,26 +15363,26 @@ void rdNRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2)
                                (float)local_8) * fVar3 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] * 65536.0) >>
                    (bVar8 & 0x1f);
-        fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       param_1 = (uint *)local_1c;
       if (-1 < iVar7) {
         do {
-          bVar8 = *(byte *)(((int)((uint)fVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar8 = *(byte *)(((int)((uint)puVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar8;
           if (bVar8 != 0) {
             *puVar14 = *(undefined1 *)(local_20 + g_dwRdNRaster_aMonoMap);
           }
           puVar14 = puVar14 + 1;
-          fVar11 = (float)((int)fVar11 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
-          param_1 = (uint *)((int)param_1 - 1);
+          puVar11 = (uint *)((int)puVar11 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
+          param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
     }
@@ -15444,7 +15417,7 @@ void rdNRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2)
    rdNRaster_DrawScanLineNGonMFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonMFIT); was rdRaster_Span16_TexKey_8. */
 
-void rdNRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -15455,14 +15428,14 @@ void rdNRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2)
   float fVar5;
   uint uVar6;
   int iVar7;
-  int iVar8;
+  uint *puVar8;
   byte bVar9;
   uint uVar10;
   uint uVar11;
-  float fVar12;
-  float fVar13;
+  uint *puVar12;
+  uint *puVar13;
   uint uVar14;
-  float fVar15;
+  uint *puVar15;
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
@@ -15503,67 +15476,67 @@ void rdNRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2)
     }
     uVar6 = uVar6 - local_2c;
     if (uVar6 == 0) {
-      iVar7 = 0;
+      puVar8 = (uint *)0x0;
       local_28 = 0;
     }
     else {
       uVar11 = (int)uVar6 >> 0x1f;
       local_28 = (int)(uVar6 + (uVar11 & 0xf)) >> 4;
-      iVar7 = ((uVar6 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11;
-      if (iVar7 == 0) {
+      puVar8 = (uint *)(((uVar6 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11);
+      if (puVar8 == (uint *)0x0) {
         local_28 = local_28 - 1;
-        iVar7 = 0x10;
+        puVar8 = (uint *)0x10;
       }
     }
     fVar3 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar3 * _g_dwRdNRaster_dOneOverZdX + (float)param_1[4];
     local_24 = (uint)(fVar3 * _g_dwRdNRaster_dUOverZdX + (float)param_1[6]);
     fVar3 = fVar3 * _g_dwRdNRaster_dVOverZdX + (float)param_1[8];
     local_c = (uint)((1.0 / fVar4) * (float)local_24);
-    g_pWDest = (int *)(*(int *)(iVar8 + 0x5c) +
-                      (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar14) * 2);
+    g_pWDest = (int *)(*(int *)(iVar7 + 0x5c) +
+                      (param_1[0x10] * (*(uint *)(iVar7 + 0x18) >> 1) + uVar14) * 2);
     local_10 = (uint)((1.0 / fVar4) * fVar3);
     if (local_2c == 0) {
-      fVar12 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar12 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar3 + _g_dwRdNRaster_vOverZStep);
-      fVar13 = fVar12;
-      fVar15 = fVar12;
-      param_1 = PUN(uint *,(float)fVar12);
+      puVar13 = puVar12;
+      puVar15 = puVar12;
+      param_1 = puVar12;
     }
     else {
-      fVar12 = (float)(int)local_2c;
-      fVar4 = fVar12 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar12 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar3 = fVar12 * _g_dwRdNRaster_dVOverZdX + fVar3;
+      fVar1 = (float)(int)local_2c;
+      fVar4 = fVar1 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar1 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar3 = fVar1 * _g_dwRdNRaster_dVOverZdX + fVar3;
       fVar1 = 1.0 / fVar4;
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-      fVar15 = (float)((int)ROUND((fVar2 - (float)local_c) *
-                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
-                      (bVar9 & 0x1f));
+      puVar15 = (uint *)((int)ROUND((fVar2 - (float)local_c) *
+                                    (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                        (bVar9 & 0x1f));
       local_24 = (int)ROUND((fVar1 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
                  (bVar9 & 0x1f);
-      fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
             *(undefined2 *)g_pWDest = *(undefined2 *)(g_dwRdNRaster_aRGBMap + local_20 * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
       }
@@ -15578,25 +15551,26 @@ void rdNRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2)
         fVar4 = (1.0 / PUN(float,param_1)) * PUN(float,param_2);
         fVar3 = (1.0 / PUN(float,param_1)) * (float)local_8;
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar15 = (float)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f));
+        puVar15 = (uint *)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f)
+                          );
         local_24 = (int)ROUND((fVar3 - (float)local_10) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-        fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
             *(undefined2 *)g_pWDest = *(undefined2 *)(g_dwRdNRaster_aRGBMap + local_20 * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -15607,40 +15581,40 @@ void rdNRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2)
         local_c = (uint)fVar4;
       } while (local_28 != 0);
     }
-    if (iVar7 != 0) {
-      iVar8 = iVar7 + -1;
-      if (iVar8 != 0) {
-        fVar4 = (float)iVar8;
+    if (puVar8 != (uint *)0x0) {
+      iVar7 = (int)puVar8 + -1;
+      if (iVar7 != 0) {
+        fVar4 = (float)iVar7;
         fVar3 = 1.0 / ((fVar4 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar15 = (float)((int)ROUND((((fVar4 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep)
-                                     + PUN(float,param_2)) * fVar3 - (float)local_c) *
-                                    (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
-                        (bVar9 & 0x1f));
+        puVar15 = (uint *)((int)ROUND((((fVar4 * _g_dwRdNRaster_dUOverZdX -
+                                        _g_dwRdNRaster_uOverZStep) + PUN(float,param_2)) * fVar3 -
+                                      (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7]
+                                      * 65536.0) >> (bVar9 & 0x1f));
         local_24 = (int)ROUND((((fVar4 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar3 - (float)local_10) *
-                              (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
+                              (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] * 65536.0) >>
                    (bVar9 & 0x1f);
-        fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
-      param_1 = (uint *)iVar7;
-      if (-1 < iVar8) {
+      param_1 = puVar8;
+      if (-1 < iVar7) {
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
             *(undefined2 *)g_pWDest = *(undefined2 *)(g_dwRdNRaster_aRGBMap + local_20 * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
@@ -15678,12 +15652,12 @@ void rdNRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLitKey_6. */
 
-void rdNRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3)
+void __cdecl rdNRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -15726,7 +15700,7 @@ void rdNRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -15740,11 +15714,11 @@ void rdNRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonFIT(&local_48);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonFIT((int *)&local_48);
+  if (uVar2 == 0) {
     local_80 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonFIT(&local_8c);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonFIT((int *)&local_8c);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMTFIT_8(&local_48,&local_8c);
@@ -15754,8 +15728,8 @@ void rdNRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3)
         }
         local_40 = local_40 - 1;
         if (local_40 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonFIT(&local_48);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonFIT((int *)&local_48);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -15771,7 +15745,7 @@ void rdNRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3)
         local_8c = local_8c + local_88;
         local_4c = local_4c + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonFIT(&local_8c);
+      uVar2 = rdNRaster_SetupRightEdgeNGonFIT((int *)&local_8c);
     }
   }
   return;
@@ -15805,7 +15779,7 @@ void rdNRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3)
    rdNRaster_DrawScanLineNGonMTFIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of
    rdNRaster_DrawNGonMTFIT); was rdRaster_Span_TexKey_6. */
 
-void rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -15819,9 +15793,9 @@ void rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)
   byte bVar8;
   uint uVar9;
   uint uVar10;
-  float fVar11;
+  uint *puVar11;
   uint uVar12;
-  float fVar13;
+  uint *puVar13;
   byte *pbVar14;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
@@ -15884,17 +15858,17 @@ void rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)
     pbVar14 = (byte *)(param_1[0x10] * *(int *)(iVar7 + 0x18) + *(int *)(iVar7 + 0x5c) + uVar9);
     local_10 = (uint)((1.0 / fVar4) * fVar3);
     if (local_30 == 0) {
-      fVar11 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar11 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_28 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar3 + _g_dwRdNRaster_vOverZStep);
-      fVar13 = fVar11;
-      param_1 = PUN(uint *,(float)fVar11);
+      puVar13 = puVar11;
+      param_1 = puVar11;
     }
     else {
-      fVar11 = (float)(int)local_30;
-      fVar4 = fVar11 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar11 * _g_dwRdNRaster_dUOverZdX + (float)local_28;
-      fVar3 = fVar11 * _g_dwRdNRaster_dVOverZdX + fVar3;
+      fVar1 = (float)(int)local_30;
+      fVar4 = fVar1 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar1 * _g_dwRdNRaster_dUOverZdX + (float)local_28;
+      fVar3 = fVar1 * _g_dwRdNRaster_dVOverZdX + fVar3;
       fVar1 = 1.0 / fVar4;
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
@@ -15905,15 +15879,15 @@ void rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)
       local_28 = (int)ROUND((fVar1 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0) >>
                  (bVar8 & 0x1f);
-      fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_30) {
         do {
-          bVar8 = *(byte *)(((int)((uint)fVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar8 = *(byte *)(((int)((uint)puVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar8;
           if (bVar8 != 0) {
@@ -15922,8 +15896,8 @@ void rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)
                                 g_dwRdNRaster_aMonoMap);
           }
           pbVar14 = pbVar14 + 1;
-          fVar11 = (float)((int)fVar11 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
+          puVar11 = (uint *)((int)puVar11 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
           local_30 = local_30 - 1;
         } while (local_30 != 0);
       }
@@ -15940,15 +15914,15 @@ void rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)
         bVar8 = (byte)g_dwRdNRaster_mipMapNum;
         local_24 = (int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
         local_28 = (int)ROUND((fVar3 - (float)local_10) * 0.0625 * 65536.0) >> (bVar8 & 0x1f);
-        fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_30 = 0x10;
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          bVar8 = *(byte *)(((int)((uint)fVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar8 = *(byte *)(((int)((uint)puVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar8;
           if (bVar8 != 0) {
@@ -15957,8 +15931,8 @@ void rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)
                                 g_dwRdNRaster_aMonoMap);
           }
           pbVar14 = pbVar14 + 1;
-          fVar11 = (float)((int)fVar11 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
+          puVar11 = (uint *)((int)puVar11 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
           local_30 = local_30 - 1;
         } while (local_30 != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -15984,17 +15958,17 @@ void rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)
                                (float)local_8) * fVar3 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] * 65536.0) >>
                    (bVar8 & 0x1f);
-        fVar11 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar11 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar8 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       param_1 = (uint *)local_1c;
       if (-1 < iVar7) {
         do {
-          bVar8 = *(byte *)(((int)((uint)fVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar8 = *(byte *)(((int)((uint)puVar11 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar8;
           if (bVar8 != 0) {
@@ -16003,9 +15977,9 @@ void rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)
                                 g_dwRdNRaster_aMonoMap);
           }
           pbVar14 = pbVar14 + 1;
-          fVar11 = (float)((int)fVar11 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
-          param_1 = (uint *)((int)param_1 - 1);
+          puVar11 = (uint *)((int)puVar11 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
+          param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
     }
@@ -16040,7 +16014,7 @@ void rdNRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)
    rdNRaster_DrawScanLineNGonMTFIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonMTFIT); was rdRaster_Span16_TexKey_9. */
 
-void rdNRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -16051,14 +16025,14 @@ void rdNRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)
   float fVar5;
   uint uVar6;
   int iVar7;
-  int iVar8;
+  uint *puVar8;
   byte bVar9;
   uint uVar10;
   uint uVar11;
-  float fVar12;
-  float fVar13;
+  uint *puVar12;
+  uint *puVar13;
   uint uVar14;
-  float fVar15;
+  uint *puVar15;
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
@@ -16099,59 +16073,59 @@ void rdNRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)
     }
     uVar6 = uVar6 - local_2c;
     if (uVar6 == 0) {
-      iVar7 = 0;
+      puVar8 = (uint *)0x0;
       local_28 = 0;
     }
     else {
       uVar11 = (int)uVar6 >> 0x1f;
       local_28 = (int)(uVar6 + (uVar11 & 0xf)) >> 4;
-      iVar7 = ((uVar6 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11;
-      if (iVar7 == 0) {
+      puVar8 = (uint *)(((uVar6 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11);
+      if (puVar8 == (uint *)0x0) {
         local_28 = local_28 - 1;
-        iVar7 = 0x10;
+        puVar8 = (uint *)0x10;
       }
     }
     fVar3 = (float)(int)(uVar10 - *param_1) * 1.5258789e-05;
-    iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
+    iVar7 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     fVar4 = fVar3 * _g_dwRdNRaster_dOneOverZdX + (float)param_1[4];
     local_24 = (uint)(fVar3 * _g_dwRdNRaster_dUOverZdX + (float)param_1[6]);
     fVar3 = fVar3 * _g_dwRdNRaster_dVOverZdX + (float)param_1[8];
     local_c = (uint)((1.0 / fVar4) * (float)local_24);
-    g_pWDest = (int *)(*(int *)(iVar8 + 0x5c) +
-                      (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar14) * 2);
+    g_pWDest = (int *)(*(int *)(iVar7 + 0x5c) +
+                      (param_1[0x10] * (*(uint *)(iVar7 + 0x18) >> 1) + uVar14) * 2);
     local_10 = (uint)((1.0 / fVar4) * fVar3);
     if (local_2c == 0) {
-      fVar12 = fVar4 + _g_dwRdNRaster_oneOverZStep;
+      puVar12 = PUN(uint *,(float)(fVar4 + _g_dwRdNRaster_oneOverZStep));
       param_2 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar3 + _g_dwRdNRaster_vOverZStep);
-      fVar13 = fVar12;
-      fVar15 = fVar12;
-      param_1 = PUN(uint *,(float)fVar12);
+      puVar13 = puVar12;
+      puVar15 = puVar12;
+      param_1 = puVar12;
     }
     else {
-      fVar12 = (float)(int)local_2c;
-      fVar4 = fVar12 * _g_dwRdNRaster_dOneOverZdX + fVar4;
-      fVar5 = fVar12 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar3 = fVar12 * _g_dwRdNRaster_dVOverZdX + fVar3;
+      fVar1 = (float)(int)local_2c;
+      fVar4 = fVar1 * _g_dwRdNRaster_dOneOverZdX + fVar4;
+      fVar5 = fVar1 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar3 = fVar1 * _g_dwRdNRaster_dVOverZdX + fVar3;
       fVar1 = 1.0 / fVar4;
       fVar2 = fVar1 * fVar5;
       fVar1 = fVar1 * fVar3;
       bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-      fVar15 = (float)((int)ROUND((fVar2 - (float)local_c) *
-                                  (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
-                      (bVar9 & 0x1f));
+      puVar15 = (uint *)((int)ROUND((fVar2 - (float)local_c) *
+                                    (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
+                        (bVar9 & 0x1f));
       local_24 = (int)ROUND((fVar1 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0) >>
                  (bVar9 & 0x1f);
-      fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
@@ -16163,8 +16137,8 @@ void rdNRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)
                                  *(byte *)(g_dwRdNRaster_aRGBToPalette + *g_pDest)) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
       }
@@ -16179,17 +16153,18 @@ void rdNRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)
         fVar4 = (1.0 / PUN(float,param_1)) * PUN(float,param_2);
         fVar3 = (1.0 / PUN(float,param_1)) * (float)local_8;
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar15 = (float)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f));
+        puVar15 = (uint *)((int)ROUND((fVar4 - (float)local_c) * 0.0625 * 65536.0) >> (bVar9 & 0x1f)
+                          );
         local_24 = (int)ROUND((fVar3 - (float)local_10) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-        fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
@@ -16201,8 +16176,8 @@ void rdNRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)
                                  *(byte *)(g_dwRdNRaster_aRGBToPalette + *g_pDest)) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           local_2c = local_2c - 1;
         } while (local_2c != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -16213,32 +16188,32 @@ void rdNRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)
         local_c = (uint)fVar4;
       } while (local_28 != 0);
     }
-    if (iVar7 != 0) {
-      iVar8 = iVar7 + -1;
-      if (iVar8 != 0) {
-        fVar4 = (float)iVar8;
+    if (puVar8 != (uint *)0x0) {
+      iVar7 = (int)puVar8 + -1;
+      if (iVar7 != 0) {
+        fVar4 = (float)iVar7;
         fVar3 = 1.0 / ((fVar4 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        fVar15 = (float)((int)ROUND((((fVar4 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep)
-                                     + PUN(float,param_2)) * fVar3 - (float)local_c) *
-                                    (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
-                        (bVar9 & 0x1f));
+        puVar15 = (uint *)((int)ROUND((((fVar4 * _g_dwRdNRaster_dUOverZdX -
+                                        _g_dwRdNRaster_uOverZStep) + PUN(float,param_2)) * fVar3 -
+                                      (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7]
+                                      * 65536.0) >> (bVar9 & 0x1f));
         local_24 = (int)ROUND((((fVar4 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar3 - (float)local_10) *
-                              (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
+                              (float)(&g_dwRdRaster_aOneOverNFlex)[iVar7] * 65536.0) >>
                    (bVar9 & 0x1f);
-        fVar12 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
-      param_1 = (uint *)iVar7;
-      if (-1 < iVar8) {
+      param_1 = puVar8;
+      if (-1 < iVar7) {
         do {
-          bVar9 = *(byte *)(((int)((uint)fVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
                            g_dwRdNRaster_pPixels +
-                           ((int)fVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                           ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                            g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar9;
           if (bVar9 != 0) {
@@ -16250,8 +16225,8 @@ void rdNRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)
                                  *(byte *)(g_dwRdNRaster_aRGBToPalette + *g_pDest)) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar12 = (float)((int)fVar12 + (int)fVar15);
-          fVar13 = (float)((int)fVar13 + local_24);
+          puVar12 = (uint *)((int)puVar12 + (int)puVar15);
+          puVar13 = (uint *)((int)puVar13 + local_24);
           param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
@@ -16289,12 +16264,12 @@ void rdNRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw_FlatLit_6. */
 
-void rdNRaster_DrawNGonGIT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonGIT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -16316,15 +16291,15 @@ void rdNRaster_DrawNGonGIT(int param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0xa0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xa0 - 0x4)))
   
-  iVar2 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
+  iVar1 = *(int *)(*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4) + 0x24);
   g_dwRdNRaster_maxMipMap = *(int *)(*(int *)(param_2 + 0x1c) + 0x18) - 1;
   g_pRdNRaster_aVertices = *(float **)(param_1 + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(param_1 + 0x24);
   g_dwRdNRaster_aIntensities = *(uint *)(param_1 + 0x28);
-  if (iVar2 == 8) {
+  if (iVar1 == 8) {
     g_dwRdNRaster_aMonoMap = *(uint *)(*(int *)(param_1 + 0x4c) + 0x330);
   }
-  else if (iVar2 == 0x10) {
+  else if (iVar1 == 0x10) {
     g_dwRdNRaster_aRGBMap = *(uint *)(*(int *)(param_1 + 0x4c) + 0x348);
   }
   g_nRdNRaster_numVertices = *(int *)(param_1 + 0x1c);
@@ -16338,7 +16313,7 @@ void rdNRaster_DrawNGonGIT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -16354,12 +16329,12 @@ void rdNRaster_DrawNGonGIT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar1 = rdNRaster_SetupLeftEdgeNGonGIT(&local_88);
-  if (iVar1 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonGIT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar1 = rdNRaster_SetupRightEdgeNGonGIT(&local_44);
-    if (iVar1 == 0) {
-      if (iVar2 == 8) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonGIT((int *)&local_44);
+    if (uVar2 == 0) {
+      if (iVar1 == 8) {
         switch(g_dwRdNRaster_texPitch) {
         case 8:
           UINT_007f42f8 = (uint)Mem_DumpLog;
@@ -16383,7 +16358,7 @@ void rdNRaster_DrawNGonGIT(int param_1,int param_2)
           UINT_007f42f8 = (uint)Mem_DumpLog;
         }
       }
-      else if (iVar2 == 0x10) {
+      else if (iVar1 == 0x10) {
         UINT_007f42f8 = (uint)rdNRaster_DrawScanLineNGonGIT_16;
       }
       do {
@@ -16391,8 +16366,8 @@ void rdNRaster_DrawNGonGIT(int param_1,int param_2)
           (*(code *)UINT_007f42f8)(&local_88,&local_44);
           local_80 = local_80 - 1;
           if (local_80 == 0) {
-            iVar2 = rdNRaster_SetupLeftEdgeNGonGIT(&local_88);
-            if (iVar2 != 0) {
+            uVar2 = rdNRaster_SetupLeftEdgeNGonGIT((int *)&local_88);
+            if (uVar2 != 0) {
               return;
             }
           }
@@ -16410,8 +16385,8 @@ void rdNRaster_DrawNGonGIT(int param_1,int param_2)
           local_c = local_c + local_8;
           local_4 = local_4 + 1;
         }
-        iVar2 = rdNRaster_SetupRightEdgeNGonGIT(&local_44);
-      } while (iVar2 == 0);
+        uVar2 = rdNRaster_SetupRightEdgeNGonGIT((int *)&local_44);
+      } while (uVar2 == 0);
     }
   }
   return;
@@ -16449,7 +16424,7 @@ void rdNRaster_DrawNGonGIT(int param_1,int param_2)
    rdNRaster_DrawScanLineNGonGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonGIT); was rdRaster_Span16_Tex_14. */
 
-void rdNRaster_DrawScanLineNGonGIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonGIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -16665,7 +16640,7 @@ void rdNRaster_DrawScanLineNGonGIT_16(uint *param_1,uint *param_2)
    Original name rdNRaster_SetupLeftEdgeNGonGIT (the remaster's GrimFandango (Linux): first
    edge-setup call of rdNRaster_DrawNGonGIT); was rdRaster_Edge_Flat_17. */
 
-undefined4 rdNRaster_SetupLeftEdgeNGonGIT(int *param_1)
+uint __cdecl rdNRaster_SetupLeftEdgeNGonGIT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -16753,7 +16728,7 @@ undefined4 rdNRaster_SetupLeftEdgeNGonGIT(int *param_1)
    Original name rdNRaster_SetupRightEdgeNGonGIT (the remaster's GrimFandango (Linux): second
    edge-setup call of rdNRaster_DrawNGonGIT); was rdRaster_Edge_Flat_18. */
 
-undefined4 rdNRaster_SetupRightEdgeNGonGIT(int *param_1)
+uint __cdecl rdNRaster_SetupRightEdgeNGonGIT(int *param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -16831,12 +16806,12 @@ undefined4 rdNRaster_SetupRightEdgeNGonGIT(int *param_1)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw16_TexLit_10. */
 
-void rdNRaster_DrawNGonTGIT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonTGIT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -16882,7 +16857,7 @@ void rdNRaster_DrawNGonTGIT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -16896,11 +16871,11 @@ void rdNRaster_DrawNGonTGIT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonGIT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonGIT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonGIT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonGIT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonTGIT_8(&local_88,&local_44);
@@ -16910,8 +16885,8 @@ void rdNRaster_DrawNGonTGIT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonGIT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonGIT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -16929,7 +16904,7 @@ void rdNRaster_DrawNGonTGIT(int param_1,int param_2)
         local_c = local_c + local_8;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonGIT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonGIT((int *)&local_44);
     }
   }
   return;
@@ -16967,7 +16942,7 @@ void rdNRaster_DrawNGonTGIT(int param_1,int param_2)
    rdNRaster_DrawScanLineNGonTGIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of
    rdNRaster_DrawNGonTGIT); was rdRaster_Span_Tex_8. */
 
-void rdNRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -16979,13 +16954,15 @@ void rdNRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2)
   float fVar6;
   uint uVar7;
   int iVar8;
-  byte *pbVar9;
+  uint *puVar9;
   byte *pbVar10;
-  byte bVar11;
-  uint uVar12;
+  byte *pbVar11;
+  byte bVar12;
   uint uVar13;
   uint uVar14;
   uint uVar15;
+  uint uVar16;
+  uint *puVar17;
   #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
   #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
   #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
@@ -17004,19 +16981,19 @@ void rdNRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2)
   #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
   
-  uVar14 = *param_1;
-  if ((uVar14 & 0xffff) != 0) {
-    uVar14 = uVar14 + 0x10000 & 0xffff0000;
+  uVar15 = *param_1;
+  if ((uVar15 & 0xffff) != 0) {
+    uVar15 = uVar15 + 0x10000 & 0xffff0000;
   }
   uVar7 = *param_2;
   if ((uVar7 & 0xffff) != 0) {
     uVar7 = uVar7 + 0x10000 & 0xffff0000;
   }
-  uVar15 = (int)uVar14 >> 0x10;
-  uVar7 = ((int)uVar7 >> 0x10) - uVar15;
+  uVar16 = (int)uVar15 >> 0x10;
+  uVar7 = ((int)uVar7 >> 0x10) - uVar16;
   if (0 < (int)uVar7) {
-    uVar12 = (int)uVar14 >> 0x1f;
-    iVar8 = ((uVar15 ^ uVar12) - uVar12 & 0xf ^ uVar12) - uVar12;
+    uVar13 = (int)uVar15 >> 0x1f;
+    iVar8 = ((uVar16 ^ uVar13) - uVar13 & 0xf ^ uVar13) - uVar13;
     if (iVar8 == 0) {
       local_34 = 0;
     }
@@ -17026,21 +17003,21 @@ void rdNRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2)
         local_34 = uVar7;
       }
     }
-    uVar12 = uVar7 - local_34;
-    if (uVar12 == 0) {
+    uVar13 = uVar7 - local_34;
+    if (uVar13 == 0) {
       local_30 = 0;
       local_20 = 0;
     }
     else {
-      uVar13 = (int)uVar12 >> 0x1f;
-      local_30 = (int)(uVar12 + (uVar13 & 0xf)) >> 4;
-      local_20 = ((uVar12 ^ uVar13) - uVar13 & 0xf ^ uVar13) - uVar13;
+      uVar14 = (int)uVar13 >> 0x1f;
+      local_30 = (int)(uVar13 + (uVar14 & 0xf)) >> 4;
+      local_20 = ((uVar13 ^ uVar14) - uVar14 & 0xf ^ uVar14) - uVar14;
       if (local_20 == 0) {
         local_20 = 0x10;
         local_30 = local_30 - 1;
       }
     }
-    fVar4 = (float)(int)(uVar14 - *param_1) * 1.5258789e-05;
+    fVar4 = (float)(int)(uVar15 - *param_1) * 1.5258789e-05;
     fVar5 = fVar4 * _g_dwRdNRaster_dOneOverZdX + (float)param_1[4];
     local_24 = (uint)(fVar4 * _g_dwRdNRaster_dUOverZdX + (float)param_1[6]);
     fVar4 = fVar4 * _g_dwRdNRaster_dVOverZdX + (float)param_1[8];
@@ -17050,19 +17027,20 @@ void rdNRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2)
     if (((int)local_2c < 0) && (-0x51e < (int)local_2c)) {
       local_2c = 0;
     }
-    lVar1 = (longlong)(int)(uVar14 - *param_1) * (longlong)(int)local_2c;
-    uVar14 = ((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe];
+    lVar1 = (longlong)(int)(uVar15 - *param_1) * (longlong)(int)local_2c;
+    puVar9 = (uint *)(((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe]
+                     );
     iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     local_10 = (uint)((1.0 / fVar5) * (float)local_24);
-    pbVar9 = (byte *)(param_1[0x10] * *(int *)(iVar8 + 0x18) + *(int *)(iVar8 + 0x5c) + uVar15);
+    pbVar10 = (byte *)(param_1[0x10] * *(int *)(iVar8 + 0x18) + *(int *)(iVar8 + 0x5c) + uVar16);
     local_14 = (uint)((1.0 / fVar5) * fVar4);
-    param_2 = (uint *)uVar14;
+    param_2 = puVar9;
     if (local_34 == 0) {
       param_1 = PUN(uint *,(float)(fVar5 + _g_dwRdNRaster_oneOverZStep));
       local_8 = (uint)((float)local_24 + _g_dwRdNRaster_uOverZStep);
       local_c = (uint)(fVar4 + _g_dwRdNRaster_vOverZStep);
       local_28 = 0;
-      uVar7 = uVar14;
+      puVar17 = puVar9;
     }
     else {
       fVar2 = (float)(int)local_34;
@@ -17072,34 +17050,35 @@ void rdNRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2)
       fVar2 = 1.0 / fVar5;
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
-      bVar11 = (byte)g_dwRdNRaster_mipMapNum;
+      bVar12 = (byte)g_dwRdNRaster_mipMapNum;
       local_24 = (int)ROUND((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
-                 (bVar11 & 0x1f);
+                 (bVar12 & 0x1f);
       local_28 = (int)ROUND((fVar2 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
-                 (bVar11 & 0x1f);
-      uVar14 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
-               g_dwRdNRaster_dUdXModifier;
-      uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) +
-              g_dwRdNRaster_dVdXModifier;
-      pbVar10 = pbVar9;
+                 (bVar12 & 0x1f);
+      puVar9 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar12 & 0x1f)) +
+                       g_dwRdNRaster_dUdXModifier);
+      puVar17 = (uint *)(((int)ROUND((float)local_14 * 65536.0) >> (bVar12 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
+      pbVar11 = pbVar10;
       if (0 < (int)local_34) {
         do {
-          uVar15 = (int)uVar7 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f);
-          pbVar9 = pbVar10 + 1;
-          uVar7 = uVar7 + local_28;
-          *pbVar10 = *(byte *)((uint)*pbVar10 +
+          uVar15 = (int)puVar17 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f);
+          pbVar10 = pbVar11 + 1;
+          puVar17 = (uint *)((int)puVar17 + local_28);
+          *pbVar11 = *(byte *)((uint)*pbVar11 +
                               g_dwRdNRaster_aAlphaMap +
                               (uint)*(byte *)(((int)param_2 >> 8 & 0x3f00U) +
                                              g_dwRdNRaster_aMonoMap +
-                                             *(byte *)(((int)(uVar14 & g_dwRdNRaster_uWrap) >> 0x10)
-                                                      + g_dwRdNRaster_pPixels +
-                                                        (uVar15 & g_dwRdNRaster_vWrap))) * 0x100);
-          uVar14 = uVar14 + local_24;
+                                             *(byte *)(((int)((uint)puVar9 & g_dwRdNRaster_uWrap) >>
+                                                       0x10) + g_dwRdNRaster_pPixels +
+                                                               (uVar15 & g_dwRdNRaster_vWrap))) *
+                              0x100);
+          puVar9 = (uint *)((int)puVar9 + local_24);
           param_2 = (uint *)((int)param_2 + local_2c);
           local_34 = local_34 - 1;
-          pbVar10 = pbVar9;
+          pbVar11 = pbVar10;
         } while (local_34 != 0);
       }
       param_1 = PUN(uint *,(float)(fVar5 + _g_dwRdNRaster_oneOverZStep));
@@ -17112,30 +17091,31 @@ void rdNRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2)
       do {
         fVar5 = (1.0 / PUN(float,param_1)) * (float)local_8;
         fVar4 = (1.0 / PUN(float,param_1)) * (float)local_c;
-        bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((fVar5 - (float)local_10) * 0.0625 * 65536.0) >> (bVar11 & 0x1f);
-        local_28 = (int)ROUND((fVar4 - (float)local_14) * 0.0625 * 65536.0) >> (bVar11 & 0x1f);
-        uVar14 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
-                 g_dwRdNRaster_dUdXModifier;
+        bVar12 = (byte)g_dwRdNRaster_mipMapNum;
+        local_24 = (int)ROUND((fVar5 - (float)local_10) * 0.0625 * 65536.0) >> (bVar12 & 0x1f);
+        local_28 = (int)ROUND((fVar4 - (float)local_14) * 0.0625 * 65536.0) >> (bVar12 & 0x1f);
+        puVar9 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar12 & 0x1f)) +
+                         g_dwRdNRaster_dUdXModifier);
         local_34 = 0x10;
-        uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) +
-                g_dwRdNRaster_dVdXModifier;
-        pbVar10 = pbVar9;
+        puVar17 = (uint *)(((int)ROUND((float)local_14 * 65536.0) >> (bVar12 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
+        pbVar11 = pbVar10;
         do {
-          uVar15 = (int)uVar7 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f);
-          pbVar9 = pbVar10 + 1;
-          uVar7 = uVar7 + local_28;
-          *pbVar10 = *(byte *)((uint)*pbVar10 +
+          uVar15 = (int)puVar17 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f);
+          pbVar10 = pbVar11 + 1;
+          puVar17 = (uint *)((int)puVar17 + local_28);
+          *pbVar11 = *(byte *)((uint)*pbVar11 +
                               g_dwRdNRaster_aAlphaMap +
                               (uint)*(byte *)(((int)param_2 >> 8 & 0x3f00U) +
                                              g_dwRdNRaster_aMonoMap +
-                                             *(byte *)(((int)(uVar14 & g_dwRdNRaster_uWrap) >> 0x10)
-                                                      + g_dwRdNRaster_pPixels +
-                                                        (uVar15 & g_dwRdNRaster_vWrap))) * 0x100);
-          uVar14 = uVar14 + local_24;
+                                             *(byte *)(((int)((uint)puVar9 & g_dwRdNRaster_uWrap) >>
+                                                       0x10) + g_dwRdNRaster_pPixels +
+                                                               (uVar15 & g_dwRdNRaster_vWrap))) *
+                              0x100);
+          puVar9 = (uint *)((int)puVar9 + local_24);
           param_2 = (uint *)((int)param_2 + local_2c);
           local_34 = local_34 - 1;
-          pbVar10 = pbVar9;
+          pbVar11 = pbVar10;
         } while (local_34 != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
         local_8 = (uint)((float)local_8 + _g_dwRdNRaster_uOverZStep);
@@ -17151,36 +17131,37 @@ void rdNRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2)
         fVar5 = (float)iVar8;
         fVar4 = 1.0 / ((fVar5 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
-        bVar11 = (byte)g_dwRdNRaster_mipMapNum;
+        bVar12 = (byte)g_dwRdNRaster_mipMapNum;
         local_24 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
-                   (bVar11 & 0x1f);
+                   (bVar12 & 0x1f);
         local_28 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_c) * fVar4 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
-                   (bVar11 & 0x1f);
-        uVar14 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
-                 g_dwRdNRaster_dUdXModifier;
-        uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar11 & 0x1f)) +
-                g_dwRdNRaster_dVdXModifier;
+                   (bVar12 & 0x1f);
+        puVar9 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar12 & 0x1f)) +
+                         g_dwRdNRaster_dUdXModifier);
+        puVar17 = (uint *)(((int)ROUND((float)local_14 * 65536.0) >> (bVar12 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar8) {
         param_1 = (uint *)local_20;
         do {
-          uVar15 = (int)uVar7 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f);
-          uVar7 = uVar7 + local_28;
-          *pbVar9 = *(byte *)((uint)*pbVar9 +
-                             g_dwRdNRaster_aAlphaMap +
-                             (uint)*(byte *)(((int)param_2 >> 8 & 0x3f00U) +
-                                            g_dwRdNRaster_aMonoMap +
-                                            *(byte *)(((int)(uVar14 & g_dwRdNRaster_uWrap) >> 0x10)
-                                                     + g_dwRdNRaster_pPixels +
-                                                       (uVar15 & g_dwRdNRaster_vWrap))) * 0x100);
-          uVar14 = uVar14 + local_24;
+          uVar15 = (int)puVar17 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f);
+          puVar17 = (uint *)((int)puVar17 + local_28);
+          *pbVar10 = *(byte *)((uint)*pbVar10 +
+                              g_dwRdNRaster_aAlphaMap +
+                              (uint)*(byte *)(((int)param_2 >> 8 & 0x3f00U) +
+                                             g_dwRdNRaster_aMonoMap +
+                                             *(byte *)(((int)((uint)puVar9 & g_dwRdNRaster_uWrap) >>
+                                                       0x10) + g_dwRdNRaster_pPixels +
+                                                               (uVar15 & g_dwRdNRaster_vWrap))) *
+                              0x100);
+          puVar9 = (uint *)((int)puVar9 + local_24);
           param_2 = (uint *)((int)param_2 + local_2c);
-          param_1 = (uint *)((int)param_1 - 1);
-          pbVar9 = pbVar9 + 1;
+          param_1 = (uint *)((int)param_1 + -1);
+          pbVar10 = pbVar10 + 1;
         } while (param_1 != (uint *)0x0);
       }
     }
@@ -17217,7 +17198,7 @@ void rdNRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2)
    rdNRaster_DrawScanLineNGonTGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonTGIT); was rdRaster_Span16_Tex_15. */
 
-void rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -17229,11 +17210,11 @@ void rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)
   float fVar6;
   uint uVar7;
   int iVar8;
-  float fVar9;
+  uint *puVar9;
   byte bVar10;
   uint uVar11;
   uint uVar12;
-  float fVar13;
+  uint *puVar13;
   uint uVar14;
   uint uVar15;
   #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
@@ -17308,18 +17289,18 @@ void rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)
                       (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar15) * 2);
     local_10 = (uint)((1.0 / fVar5) * fVar4);
     if (local_34 == 0) {
-      fVar9 = fVar5 + _g_dwRdNRaster_oneOverZStep;
+      puVar9 = PUN(uint *,(float)(fVar5 + _g_dwRdNRaster_oneOverZStep));
       param_1 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar4 + _g_dwRdNRaster_vOverZStep);
       local_28 = 0;
-      fVar13 = fVar9;
-      param_2 = PUN(uint *,(float)fVar9);
+      puVar13 = puVar9;
+      param_2 = puVar9;
     }
     else {
-      fVar9 = (float)(int)local_34;
-      fVar5 = fVar9 * _g_dwRdNRaster_dOneOverZdX + fVar5;
-      fVar6 = fVar9 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar4 = fVar9 * _g_dwRdNRaster_dVOverZdX + fVar4;
+      fVar2 = (float)(int)local_34;
+      fVar5 = fVar2 * _g_dwRdNRaster_dOneOverZdX + fVar5;
+      fVar6 = fVar2 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar4 = fVar2 * _g_dwRdNRaster_dVOverZdX + fVar4;
       fVar2 = 1.0 / fVar5;
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
@@ -17330,10 +17311,10 @@ void rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)
       local_28 = (int)ROUND((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
                  (bVar10 & 0x1f);
-      fVar9 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
-                     g_dwRdNRaster_dUdXModifier);
-      fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar9 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
+                       g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_34) {
         do {
           *(undefined2 *)g_pWDest =
@@ -17343,18 +17324,18 @@ void rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)
                                g_dwRdNRaster_aAlphaMap +
                                *(byte *)((uint)*(ushort *)
                                                 (g_dwRdNRaster_aRGBMap +
-                                                ((uint)*(byte *)(((int)((uint)fVar9 &
+                                                ((uint)*(byte *)(((int)((uint)puVar9 &
                                                                        g_dwRdNRaster_uWrap) >> 0x10)
                                                                 + g_dwRdNRaster_pPixels +
-                                                                  ((int)fVar13 >>
+                                                                  ((int)puVar13 >>
                                                                    (0x10U - (char)
                                                   g_dwRdNRaster_texRowShift & 0x1f) &
                                                   g_dwRdNRaster_vWrap)) +
                                                 ((int)local_1c >> 0x10 & 0x3fU) * 0x100) * 2) *
                                          0x100 + g_dwRdNRaster_aRGBToPalette)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar9 = (float)((int)fVar9 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
+          puVar9 = (uint *)((int)puVar9 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
           local_1c = local_1c + local_2c;
           local_34 = local_34 - 1;
         } while (local_34 != 0);
@@ -17372,11 +17353,11 @@ void rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
         local_24 = (int)ROUND((fVar5 - (float)local_c) * 0.0625 * 65536.0) >> (bVar10 & 0x1f);
         local_28 = (int)ROUND((fVar4 - (float)local_10) * 0.0625 * 65536.0) >> (bVar10 & 0x1f);
-        fVar9 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
-                       g_dwRdNRaster_dUdXModifier);
+        puVar9 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
+                         g_dwRdNRaster_dUdXModifier);
         local_34 = 0x10;
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
           *(undefined2 *)g_pWDest =
                *(undefined2 *)
@@ -17385,18 +17366,18 @@ void rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)
                                g_dwRdNRaster_aAlphaMap +
                                *(byte *)((uint)*(ushort *)
                                                 (g_dwRdNRaster_aRGBMap +
-                                                ((uint)*(byte *)(((int)((uint)fVar9 &
+                                                ((uint)*(byte *)(((int)((uint)puVar9 &
                                                                        g_dwRdNRaster_uWrap) >> 0x10)
                                                                 + g_dwRdNRaster_pPixels +
-                                                                  ((int)fVar13 >>
+                                                                  ((int)puVar13 >>
                                                                    (0x10U - (char)
                                                   g_dwRdNRaster_texRowShift & 0x1f) &
                                                   g_dwRdNRaster_vWrap)) +
                                                 ((int)local_1c >> 0x10 & 0x3fU) * 0x100) * 2) *
                                          0x100 + g_dwRdNRaster_aRGBToPalette)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar9 = (float)((int)fVar9 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
+          puVar9 = (uint *)((int)puVar9 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
           local_1c = local_1c + local_2c;
           local_34 = local_34 - 1;
         } while (local_34 != 0);
@@ -17423,10 +17404,10 @@ void rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
                    (bVar10 & 0x1f);
-        fVar9 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
-                       g_dwRdNRaster_dUdXModifier);
-        fVar13 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar9 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar10 & 0x1f)) +
+                         g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar8) {
         param_2 = (uint *)local_20;
@@ -17438,20 +17419,20 @@ void rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)
                                g_dwRdNRaster_aAlphaMap +
                                *(byte *)((uint)*(ushort *)
                                                 (g_dwRdNRaster_aRGBMap +
-                                                ((uint)*(byte *)(((int)((uint)fVar9 &
+                                                ((uint)*(byte *)(((int)((uint)puVar9 &
                                                                        g_dwRdNRaster_uWrap) >> 0x10)
                                                                 + g_dwRdNRaster_pPixels +
-                                                                  ((int)fVar13 >>
+                                                                  ((int)puVar13 >>
                                                                    (0x10U - (char)
                                                   g_dwRdNRaster_texRowShift & 0x1f) &
                                                   g_dwRdNRaster_vWrap)) +
                                                 ((int)local_1c >> 0x10 & 0x3fU) * 0x100) * 2) *
                                          0x100 + g_dwRdNRaster_aRGBToPalette)) * 2);
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar9 = (float)((int)fVar9 + local_24);
-          fVar13 = (float)((int)fVar13 + local_28);
+          puVar9 = (uint *)((int)puVar9 + local_24);
+          puVar13 = (uint *)((int)puVar13 + local_28);
           local_1c = local_1c + local_2c;
-          param_2 = (uint *)((int)param_2 - 1);
+          param_2 = (uint *)((int)param_2 + -1);
         } while (param_2 != (uint *)0x0);
       }
     }
@@ -17491,12 +17472,12 @@ void rdNRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)
    rdCache_DrawFaceN (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_Draw_TexLitKey_5. */
 
-void rdNRaster_DrawNGonMGIT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonMGIT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -17540,7 +17521,7 @@ void rdNRaster_DrawNGonMGIT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -17554,11 +17535,11 @@ void rdNRaster_DrawNGonMGIT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonGIT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonGIT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonGIT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonGIT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMGIT_8(&local_88,&local_44);
@@ -17568,8 +17549,8 @@ void rdNRaster_DrawNGonMGIT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonGIT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonGIT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -17587,7 +17568,7 @@ void rdNRaster_DrawNGonMGIT(int param_1,int param_2)
         local_c = local_c + local_8;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonGIT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonGIT((int *)&local_44);
     }
   }
   return;
@@ -17625,7 +17606,7 @@ void rdNRaster_DrawNGonMGIT(int param_1,int param_2)
    rdNRaster_DrawScanLineNGonMGIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of
    rdNRaster_DrawNGonMGIT); was rdRaster_Span8_TexKey_4. */
 
-void rdNRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -17637,12 +17618,14 @@ void rdNRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2)
   float fVar6;
   uint uVar7;
   int iVar8;
-  byte bVar9;
-  uint uVar10;
+  uint *puVar9;
+  byte bVar10;
   uint uVar11;
   uint uVar12;
-  uint uVar13;
-  undefined1 *puVar14;
+  uint *puVar13;
+  uint uVar14;
+  uint uVar15;
+  undefined1 *puVar16;
   #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
   #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
   #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
@@ -17661,19 +17644,19 @@ void rdNRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2)
   #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
   
-  uVar12 = *param_1;
-  if ((uVar12 & 0xffff) != 0) {
-    uVar12 = uVar12 + 0x10000 & 0xffff0000;
+  uVar14 = *param_1;
+  if ((uVar14 & 0xffff) != 0) {
+    uVar14 = uVar14 + 0x10000 & 0xffff0000;
   }
   uVar7 = *param_2;
   if ((uVar7 & 0xffff) != 0) {
     uVar7 = uVar7 + 0x10000 & 0xffff0000;
   }
-  uVar13 = (int)uVar12 >> 0x10;
-  uVar7 = ((int)uVar7 >> 0x10) - uVar13;
+  uVar15 = (int)uVar14 >> 0x10;
+  uVar7 = ((int)uVar7 >> 0x10) - uVar15;
   if (0 < (int)uVar7) {
-    uVar10 = (int)uVar12 >> 0x1f;
-    iVar8 = ((uVar13 ^ uVar10) - uVar10 & 0xf ^ uVar10) - uVar10;
+    uVar11 = (int)uVar14 >> 0x1f;
+    iVar8 = ((uVar15 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11;
     if (iVar8 == 0) {
       local_38 = 0;
     }
@@ -17683,21 +17666,21 @@ void rdNRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2)
         local_38 = uVar7;
       }
     }
-    uVar10 = uVar7 - local_38;
-    if (uVar10 == 0) {
+    uVar11 = uVar7 - local_38;
+    if (uVar11 == 0) {
       local_34 = 0;
       local_20 = 0;
     }
     else {
-      uVar11 = (int)uVar10 >> 0x1f;
-      local_34 = (int)(uVar10 + (uVar11 & 0xf)) >> 4;
-      local_20 = ((uVar10 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11;
+      uVar12 = (int)uVar11 >> 0x1f;
+      local_34 = (int)(uVar11 + (uVar12 & 0xf)) >> 4;
+      local_20 = ((uVar11 ^ uVar12) - uVar12 & 0xf ^ uVar12) - uVar12;
       if (local_20 == 0) {
         local_20 = 0x10;
         local_34 = local_34 - 1;
       }
     }
-    fVar4 = (float)(int)(uVar12 - *param_1) * 1.5258789e-05;
+    fVar4 = (float)(int)(uVar14 - *param_1) * 1.5258789e-05;
     fVar5 = fVar4 * _g_dwRdNRaster_dOneOverZdX + (float)param_1[4];
     local_28 = (uint)(fVar4 * _g_dwRdNRaster_dUOverZdX + (float)param_1[6]);
     fVar4 = fVar4 * _g_dwRdNRaster_dVOverZdX + (float)param_1[8];
@@ -17707,20 +17690,21 @@ void rdNRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2)
     if (((int)local_30 < 0) && (-0x51e < (int)local_30)) {
       local_30 = 0;
     }
-    lVar1 = (longlong)(int)(uVar12 - *param_1) * (longlong)(int)local_30;
-    uVar12 = ((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe];
+    lVar1 = (longlong)(int)(uVar14 - *param_1) * (longlong)(int)local_30;
+    puVar9 = (uint *)(((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe]
+                     );
     iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     local_10 = (uint)((1.0 / fVar5) * (float)local_28);
-    puVar14 = (undefined1 *)
-              (param_1[0x10] * *(int *)(iVar8 + 0x18) + *(int *)(iVar8 + 0x5c) + uVar13);
+    puVar16 = (undefined1 *)
+              (param_1[0x10] * *(int *)(iVar8 + 0x18) + *(int *)(iVar8 + 0x5c) + uVar15);
     local_14 = (uint)((1.0 / fVar5) * fVar4);
-    param_2 = (uint *)uVar12;
+    param_2 = puVar9;
     if (local_38 == 0) {
       param_1 = PUN(uint *,(float)(fVar5 + _g_dwRdNRaster_oneOverZStep));
       local_8 = (uint)((float)local_28 + _g_dwRdNRaster_uOverZStep);
       local_c = (uint)(fVar4 + _g_dwRdNRaster_vOverZStep);
       local_2c = 0;
-      uVar7 = uVar12;
+      puVar13 = puVar9;
     }
     else {
       fVar2 = (float)(int)local_38;
@@ -17730,32 +17714,32 @@ void rdNRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2)
       fVar2 = 1.0 / fVar5;
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
-      bVar9 = (byte)g_dwRdNRaster_mipMapNum;
+      bVar10 = (byte)g_dwRdNRaster_mipMapNum;
       local_28 = (int)ROUND((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                 (bVar10 & 0x1f);
       local_2c = (int)ROUND((fVar2 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0) >>
-                 (bVar9 & 0x1f);
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-               g_dwRdNRaster_dUdXModifier;
-      uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + g_dwRdNRaster_dVdXModifier
-      ;
+                 (bVar10 & 0x1f);
+      puVar9 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                       g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_38) {
         do {
-          bVar9 = *(byte *)(((int)(uVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
-                           g_dwRdNRaster_pPixels +
-                           ((int)uVar7 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
-                           g_dwRdNRaster_vWrap));
-          local_24 = (uint)bVar9;
-          if (bVar9 != 0) {
-            *puVar14 = *(undefined1 *)
+          bVar10 = *(byte *)(((int)((uint)puVar9 & g_dwRdNRaster_uWrap) >> 0x10) +
+                            g_dwRdNRaster_pPixels +
+                            ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            g_dwRdNRaster_vWrap));
+          local_24 = (uint)bVar10;
+          if (bVar10 != 0) {
+            *puVar16 = *(undefined1 *)
                         (local_24 + g_dwRdNRaster_aMonoMap + ((int)param_2 >> 8 & 0x3f00U));
           }
-          uVar12 = uVar12 + local_28;
-          puVar14 = puVar14 + 1;
+          puVar9 = (uint *)((int)puVar9 + local_28);
+          puVar16 = puVar16 + 1;
           param_2 = (uint *)((int)param_2 + local_30);
-          uVar7 = uVar7 + local_2c;
+          puVar13 = (uint *)((int)puVar13 + local_2c);
           local_38 = local_38 - 1;
         } while (local_38 != 0);
       }
@@ -17769,28 +17753,28 @@ void rdNRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2)
       do {
         fVar5 = (1.0 / PUN(float,param_1)) * (float)local_8;
         fVar4 = (1.0 / PUN(float,param_1)) * (float)local_c;
-        bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_28 = (int)ROUND((fVar5 - (float)local_10) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-        local_2c = (int)ROUND((fVar4 - (float)local_14) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-        uVar12 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                 g_dwRdNRaster_dUdXModifier;
+        bVar10 = (byte)g_dwRdNRaster_mipMapNum;
+        local_28 = (int)ROUND((fVar5 - (float)local_10) * 0.0625 * 65536.0) >> (bVar10 & 0x1f);
+        local_2c = (int)ROUND((fVar4 - (float)local_14) * 0.0625 * 65536.0) >> (bVar10 & 0x1f);
+        puVar9 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                         g_dwRdNRaster_dUdXModifier);
         local_38 = 0x10;
-        uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdNRaster_dVdXModifier;
+        puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          bVar9 = *(byte *)(((int)(uVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
-                           g_dwRdNRaster_pPixels +
-                           ((int)uVar7 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
-                           g_dwRdNRaster_vWrap));
-          local_24 = (uint)bVar9;
-          if (bVar9 != 0) {
-            *puVar14 = *(undefined1 *)
+          bVar10 = *(byte *)(((int)((uint)puVar9 & g_dwRdNRaster_uWrap) >> 0x10) +
+                            g_dwRdNRaster_pPixels +
+                            ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            g_dwRdNRaster_vWrap));
+          local_24 = (uint)bVar10;
+          if (bVar10 != 0) {
+            *puVar16 = *(undefined1 *)
                         (local_24 + g_dwRdNRaster_aMonoMap + ((int)param_2 >> 8 & 0x3f00U));
           }
-          uVar12 = uVar12 + local_28;
-          puVar14 = puVar14 + 1;
+          puVar9 = (uint *)((int)puVar9 + local_28);
+          puVar16 = puVar16 + 1;
           param_2 = (uint *)((int)param_2 + local_30);
-          uVar7 = uVar7 + local_2c;
+          puVar13 = (uint *)((int)puVar13 + local_2c);
           local_38 = local_38 - 1;
         } while (local_38 != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -17807,37 +17791,37 @@ void rdNRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2)
         fVar5 = (float)iVar8;
         fVar4 = 1.0 / ((fVar5 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
-        bVar9 = (byte)g_dwRdNRaster_mipMapNum;
+        bVar10 = (byte)g_dwRdNRaster_mipMapNum;
         local_28 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                   (bVar10 & 0x1f);
         local_2c = (int)ROUND((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_c) * fVar4 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
-        uVar12 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                 g_dwRdNRaster_dUdXModifier;
-        uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdNRaster_dVdXModifier;
+                   (bVar10 & 0x1f);
+        puVar9 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                         g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar8) {
         param_1 = (uint *)local_20;
         do {
-          bVar9 = *(byte *)(((int)(uVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
-                           g_dwRdNRaster_pPixels +
-                           ((int)uVar7 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
-                           g_dwRdNRaster_vWrap));
-          local_24 = (uint)bVar9;
-          if (bVar9 != 0) {
-            *puVar14 = *(undefined1 *)
+          bVar10 = *(byte *)(((int)((uint)puVar9 & g_dwRdNRaster_uWrap) >> 0x10) +
+                            g_dwRdNRaster_pPixels +
+                            ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            g_dwRdNRaster_vWrap));
+          local_24 = (uint)bVar10;
+          if (bVar10 != 0) {
+            *puVar16 = *(undefined1 *)
                         (local_24 + g_dwRdNRaster_aMonoMap + ((int)param_2 >> 8 & 0x3f00U));
           }
-          uVar12 = uVar12 + local_28;
-          puVar14 = puVar14 + 1;
+          puVar9 = (uint *)((int)puVar9 + local_28);
+          puVar16 = puVar16 + 1;
           param_2 = (uint *)((int)param_2 + local_30);
-          uVar7 = uVar7 + local_2c;
-          param_1 = (uint *)((int)param_1 - 1);
+          puVar13 = (uint *)((int)puVar13 + local_2c);
+          param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
     }
@@ -17874,7 +17858,7 @@ void rdNRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2)
    rdNRaster_DrawScanLineNGonMGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonMGIT); was rdRaster_Span16_TexKey_10. */
 
-void rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -17887,11 +17871,11 @@ void rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)
   uint uVar7;
   int iVar8;
   int iVar9;
-  float fVar10;
+  uint *puVar10;
   byte bVar11;
   uint uVar12;
   uint uVar13;
-  float fVar14;
+  uint *puVar14;
   uint uVar15;
   uint uVar16;
   #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
@@ -17965,18 +17949,18 @@ void rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)
                       (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar16) * 2);
     local_10 = (uint)((1.0 / fVar5) * fVar4);
     if (local_34 == 0) {
-      fVar10 = fVar5 + _g_dwRdNRaster_oneOverZStep;
+      puVar10 = PUN(uint *,(float)(fVar5 + _g_dwRdNRaster_oneOverZStep));
       param_1 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar4 + _g_dwRdNRaster_vOverZStep);
       local_28 = 0;
-      fVar14 = fVar10;
-      param_2 = PUN(uint *,(float)fVar10);
+      puVar14 = puVar10;
+      param_2 = puVar10;
     }
     else {
-      fVar10 = (float)(int)local_34;
-      fVar5 = fVar10 * _g_dwRdNRaster_dOneOverZdX + fVar5;
-      fVar6 = fVar10 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar4 = fVar10 * _g_dwRdNRaster_dVOverZdX + fVar4;
+      fVar2 = (float)(int)local_34;
+      fVar5 = fVar2 * _g_dwRdNRaster_dOneOverZdX + fVar5;
+      fVar6 = fVar2 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar4 = fVar2 * _g_dwRdNRaster_dVOverZdX + fVar4;
       fVar2 = 1.0 / fVar5;
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
@@ -17987,15 +17971,15 @@ void rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)
       local_28 = (int)ROUND((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
                  (bVar11 & 0x1f);
-      fVar10 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_34) {
         do {
-          bVar11 = *(byte *)(((int)((uint)fVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar11 = *(byte *)(((int)((uint)puVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
                             g_dwRdNRaster_pPixels +
-                            ((int)fVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            ((int)puVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                             g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar11;
           if (bVar11 != 0) {
@@ -18004,8 +17988,8 @@ void rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)
                   (g_dwRdNRaster_aRGBMap + ((iVar9 >> 0x10 & 0x3fU) * 0x100 + local_20) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar10 = (float)((int)fVar10 + local_24);
-          fVar14 = (float)((int)fVar14 + local_28);
+          puVar10 = (uint *)((int)puVar10 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_28);
           iVar9 = iVar9 + local_2c;
           local_34 = local_34 - 1;
         } while (local_34 != 0);
@@ -18023,15 +18007,15 @@ void rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
         local_24 = (int)ROUND((fVar5 - (float)local_c) * 0.0625 * 65536.0) >> (bVar11 & 0x1f);
         local_28 = (int)ROUND((fVar4 - (float)local_10) * 0.0625 * 65536.0) >> (bVar11 & 0x1f);
-        fVar10 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_34 = 0x10;
-        fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          bVar11 = *(byte *)(((int)((uint)fVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar11 = *(byte *)(((int)((uint)puVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
                             g_dwRdNRaster_pPixels +
-                            ((int)fVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            ((int)puVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                             g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar11;
           if (bVar11 != 0) {
@@ -18040,8 +18024,8 @@ void rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)
                   (g_dwRdNRaster_aRGBMap + ((iVar9 >> 0x10 & 0x3fU) * 0x100 + local_20) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar10 = (float)((int)fVar10 + local_24);
-          fVar14 = (float)((int)fVar14 + local_28);
+          puVar10 = (uint *)((int)puVar10 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_28);
           iVar9 = iVar9 + local_2c;
           local_34 = local_34 - 1;
         } while (local_34 != 0);
@@ -18068,17 +18052,17 @@ void rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
                    (bVar11 & 0x1f);
-        fVar10 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar8) {
         param_2 = (uint *)local_1c;
         do {
-          bVar11 = *(byte *)(((int)((uint)fVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar11 = *(byte *)(((int)((uint)puVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
                             g_dwRdNRaster_pPixels +
-                            ((int)fVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            ((int)puVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                             g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar11;
           if (bVar11 != 0) {
@@ -18087,10 +18071,10 @@ void rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)
                   (g_dwRdNRaster_aRGBMap + ((iVar9 >> 0x10 & 0x3fU) * 0x100 + local_20) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar10 = (float)((int)fVar10 + local_24);
-          fVar14 = (float)((int)fVar14 + local_28);
+          puVar10 = (uint *)((int)puVar10 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_28);
           iVar9 = iVar9 + local_2c;
-          param_2 = (uint *)((int)param_2 - 1);
+          param_2 = (uint *)((int)param_2 + -1);
         } while (param_2 != (uint *)0x0);
       }
     }
@@ -18127,12 +18111,12 @@ void rdNRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)
    GrimFandango (Linux): dispatch slot in rdCache_DrawFaceN (same geometry, lighting, texture-mode,
    mask and translucency tests)); was rdRaster_Draw16_TexLitKey_7. */
 
-void rdNRaster_DrawNGonMTGIT(int param_1,int param_2)
+void __cdecl rdNRaster_DrawNGonMTGIT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  uint uVar2;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -18178,7 +18162,7 @@ void rdNRaster_DrawNGonMTGIT(int param_1,int param_2)
     g_nRdNRaster_leftVertexStep = -1;
     g_nRdNRaster_rightVertexStep = 1;
   }
-  rdNRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdNRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdNRaster_oneOverZStep = _g_dwRdNRaster_dOneOverZdX * 16.0;
   g_dwRdNRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdNRaster_mipMapNum * 4) + 0x5c);
@@ -18192,11 +18176,11 @@ void rdNRaster_DrawNGonMTGIT(int param_1,int param_2)
   g_dwRdNRaster_vWrap =
        (*(uint *)(*(int *)(param_2 + 0x1c) + 0x14) >> ((byte)g_dwRdNRaster_mipMapNum & 0x1f)) <<
        ((byte)g_dwRdNRaster_texRowShift & 0x1f);
-  iVar2 = rdNRaster_SetupLeftEdgeNGonGIT(&local_88);
-  if (iVar2 == 0) {
+  uVar2 = rdNRaster_SetupLeftEdgeNGonGIT((int *)&local_88);
+  if (uVar2 == 0) {
     local_38 = g_nRdNRaster_yMinVert;
-    iVar2 = rdNRaster_SetupRightEdgeNGonGIT(&local_44);
-    while (iVar2 == 0) {
+    uVar2 = rdNRaster_SetupRightEdgeNGonGIT((int *)&local_44);
+    while (uVar2 == 0) {
       while( true ) {
         if (iVar1 == 8) {
           rdNRaster_DrawScanLineNGonMTGIT_8(&local_88,&local_44);
@@ -18206,8 +18190,8 @@ void rdNRaster_DrawNGonMTGIT(int param_1,int param_2)
         }
         local_80 = local_80 - 1;
         if (local_80 == 0) {
-          iVar2 = rdNRaster_SetupLeftEdgeNGonGIT(&local_88);
-          if (iVar2 != 0) {
+          uVar2 = rdNRaster_SetupLeftEdgeNGonGIT((int *)&local_88);
+          if (uVar2 != 0) {
             return;
           }
         }
@@ -18225,7 +18209,7 @@ void rdNRaster_DrawNGonMTGIT(int param_1,int param_2)
         local_c = local_c + local_8;
         local_4 = local_4 + 1;
       }
-      iVar2 = rdNRaster_SetupRightEdgeNGonGIT(&local_44);
+      uVar2 = rdNRaster_SetupRightEdgeNGonGIT((int *)&local_44);
     }
   }
   return;
@@ -18263,7 +18247,7 @@ void rdNRaster_DrawNGonMTGIT(int param_1,int param_2)
    rdNRaster_DrawScanLineNGonMTGIT_8 (the remaster's GrimFandango (Linux): 8-bit scan-line call of
    rdNRaster_DrawNGonMTGIT); was rdRaster_Span_TexKey_7. */
 
-void rdNRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -18275,12 +18259,14 @@ void rdNRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2)
   float fVar6;
   uint uVar7;
   int iVar8;
-  byte bVar9;
-  uint uVar10;
+  uint *puVar9;
+  byte bVar10;
   uint uVar11;
   uint uVar12;
-  uint uVar13;
-  byte *pbVar14;
+  uint *puVar13;
+  uint uVar14;
+  uint uVar15;
+  byte *pbVar16;
   #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
   #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
   #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
@@ -18299,19 +18285,19 @@ void rdNRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2)
   #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
   
-  uVar12 = *param_1;
-  if ((uVar12 & 0xffff) != 0) {
-    uVar12 = uVar12 + 0x10000 & 0xffff0000;
+  uVar14 = *param_1;
+  if ((uVar14 & 0xffff) != 0) {
+    uVar14 = uVar14 + 0x10000 & 0xffff0000;
   }
   uVar7 = *param_2;
   if ((uVar7 & 0xffff) != 0) {
     uVar7 = uVar7 + 0x10000 & 0xffff0000;
   }
-  uVar13 = (int)uVar12 >> 0x10;
-  uVar7 = ((int)uVar7 >> 0x10) - uVar13;
+  uVar15 = (int)uVar14 >> 0x10;
+  uVar7 = ((int)uVar7 >> 0x10) - uVar15;
   if (0 < (int)uVar7) {
-    uVar10 = (int)uVar12 >> 0x1f;
-    iVar8 = ((uVar13 ^ uVar10) - uVar10 & 0xf ^ uVar10) - uVar10;
+    uVar11 = (int)uVar14 >> 0x1f;
+    iVar8 = ((uVar15 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11;
     if (iVar8 == 0) {
       local_38 = 0;
     }
@@ -18321,21 +18307,21 @@ void rdNRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2)
         local_38 = uVar7;
       }
     }
-    uVar10 = uVar7 - local_38;
-    if (uVar10 == 0) {
+    uVar11 = uVar7 - local_38;
+    if (uVar11 == 0) {
       local_34 = 0;
       local_20 = 0;
     }
     else {
-      uVar11 = (int)uVar10 >> 0x1f;
-      local_34 = (int)(uVar10 + (uVar11 & 0xf)) >> 4;
-      local_20 = ((uVar10 ^ uVar11) - uVar11 & 0xf ^ uVar11) - uVar11;
+      uVar12 = (int)uVar11 >> 0x1f;
+      local_34 = (int)(uVar11 + (uVar12 & 0xf)) >> 4;
+      local_20 = ((uVar11 ^ uVar12) - uVar12 & 0xf ^ uVar12) - uVar12;
       if (local_20 == 0) {
         local_20 = 0x10;
         local_34 = local_34 - 1;
       }
     }
-    fVar4 = (float)(int)(uVar12 - *param_1) * 1.5258789e-05;
+    fVar4 = (float)(int)(uVar14 - *param_1) * 1.5258789e-05;
     fVar5 = fVar4 * _g_dwRdNRaster_dOneOverZdX + (float)param_1[4];
     local_28 = (uint)(fVar4 * _g_dwRdNRaster_dUOverZdX + (float)param_1[6]);
     fVar4 = fVar4 * _g_dwRdNRaster_dVOverZdX + (float)param_1[8];
@@ -18345,19 +18331,20 @@ void rdNRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2)
     if (((int)local_30 < 0) && (-0x51e < (int)local_30)) {
       local_30 = 0;
     }
-    lVar1 = (longlong)(int)(uVar12 - *param_1) * (longlong)(int)local_30;
-    uVar12 = ((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe];
+    lVar1 = (longlong)(int)(uVar14 - *param_1) * (longlong)(int)local_30;
+    puVar9 = (uint *)(((uint)lVar1 >> 0x10 | (int)((ulonglong)lVar1 >> 0x20) << 0x10) + param_1[0xe]
+                     );
     iVar8 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 4);
     local_10 = (uint)((1.0 / fVar5) * (float)local_28);
-    pbVar14 = (byte *)(param_1[0x10] * *(int *)(iVar8 + 0x18) + *(int *)(iVar8 + 0x5c) + uVar13);
+    pbVar16 = (byte *)(param_1[0x10] * *(int *)(iVar8 + 0x18) + *(int *)(iVar8 + 0x5c) + uVar15);
     local_14 = (uint)((1.0 / fVar5) * fVar4);
-    param_2 = (uint *)uVar12;
+    param_2 = puVar9;
     if (local_38 == 0) {
       param_1 = PUN(uint *,(float)(fVar5 + _g_dwRdNRaster_oneOverZStep));
       local_8 = (uint)((float)local_28 + _g_dwRdNRaster_uOverZStep);
       local_c = (uint)(fVar4 + _g_dwRdNRaster_vOverZStep);
       local_2c = 0;
-      uVar7 = uVar12;
+      puVar13 = puVar9;
     }
     else {
       fVar2 = (float)(int)local_38;
@@ -18367,34 +18354,34 @@ void rdNRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2)
       fVar2 = 1.0 / fVar5;
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
-      bVar9 = (byte)g_dwRdNRaster_mipMapNum;
+      bVar10 = (byte)g_dwRdNRaster_mipMapNum;
       local_28 = (int)ROUND((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0) >>
-                 (bVar9 & 0x1f);
+                 (bVar10 & 0x1f);
       local_2c = (int)ROUND((fVar2 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0) >>
-                 (bVar9 & 0x1f);
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-               g_dwRdNRaster_dUdXModifier;
-      uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) + g_dwRdNRaster_dVdXModifier
-      ;
+                 (bVar10 & 0x1f);
+      puVar9 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                       g_dwRdNRaster_dUdXModifier);
+      puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_38) {
         do {
-          bVar9 = *(byte *)(((int)(uVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
-                           g_dwRdNRaster_pPixels +
-                           ((int)uVar7 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
-                           g_dwRdNRaster_vWrap));
-          local_24 = (uint)bVar9;
-          if (bVar9 != 0) {
-            *pbVar14 = *(byte *)(((int)param_2 >> 8 & 0x3f00U) +
+          bVar10 = *(byte *)(((int)((uint)puVar9 & g_dwRdNRaster_uWrap) >> 0x10) +
+                            g_dwRdNRaster_pPixels +
+                            ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            g_dwRdNRaster_vWrap));
+          local_24 = (uint)bVar10;
+          if (bVar10 != 0) {
+            *pbVar16 = *(byte *)(((int)param_2 >> 8 & 0x3f00U) +
                                 g_dwRdNRaster_aMonoMap +
-                                *(byte *)((uint)*pbVar14 +
+                                *(byte *)((uint)*pbVar16 +
                                          g_dwRdNRaster_aAlphaMap + local_24 * 0x100));
           }
-          uVar12 = uVar12 + local_28;
-          pbVar14 = pbVar14 + 1;
+          puVar9 = (uint *)((int)puVar9 + local_28);
+          pbVar16 = pbVar16 + 1;
           param_2 = (uint *)((int)param_2 + local_30);
-          uVar7 = uVar7 + local_2c;
+          puVar13 = (uint *)((int)puVar13 + local_2c);
           local_38 = local_38 - 1;
         } while (local_38 != 0);
       }
@@ -18408,30 +18395,30 @@ void rdNRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2)
       do {
         fVar5 = (1.0 / PUN(float,param_1)) * (float)local_8;
         fVar4 = (1.0 / PUN(float,param_1)) * (float)local_c;
-        bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_28 = (int)ROUND((fVar5 - (float)local_10) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-        local_2c = (int)ROUND((fVar4 - (float)local_14) * 0.0625 * 65536.0) >> (bVar9 & 0x1f);
-        uVar12 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                 g_dwRdNRaster_dUdXModifier;
+        bVar10 = (byte)g_dwRdNRaster_mipMapNum;
+        local_28 = (int)ROUND((fVar5 - (float)local_10) * 0.0625 * 65536.0) >> (bVar10 & 0x1f);
+        local_2c = (int)ROUND((fVar4 - (float)local_14) * 0.0625 * 65536.0) >> (bVar10 & 0x1f);
+        puVar9 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                         g_dwRdNRaster_dUdXModifier);
         local_38 = 0x10;
-        uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdNRaster_dVdXModifier;
+        puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          bVar9 = *(byte *)(((int)(uVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
-                           g_dwRdNRaster_pPixels +
-                           ((int)uVar7 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
-                           g_dwRdNRaster_vWrap));
-          local_24 = (uint)bVar9;
-          if (bVar9 != 0) {
-            *pbVar14 = *(byte *)(((int)param_2 >> 8 & 0x3f00U) +
+          bVar10 = *(byte *)(((int)((uint)puVar9 & g_dwRdNRaster_uWrap) >> 0x10) +
+                            g_dwRdNRaster_pPixels +
+                            ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            g_dwRdNRaster_vWrap));
+          local_24 = (uint)bVar10;
+          if (bVar10 != 0) {
+            *pbVar16 = *(byte *)(((int)param_2 >> 8 & 0x3f00U) +
                                 g_dwRdNRaster_aMonoMap +
-                                *(byte *)((uint)*pbVar14 +
+                                *(byte *)((uint)*pbVar16 +
                                          g_dwRdNRaster_aAlphaMap + local_24 * 0x100));
           }
-          uVar12 = uVar12 + local_28;
-          pbVar14 = pbVar14 + 1;
+          puVar9 = (uint *)((int)puVar9 + local_28);
+          pbVar16 = pbVar16 + 1;
           param_2 = (uint *)((int)param_2 + local_30);
-          uVar7 = uVar7 + local_2c;
+          puVar13 = (uint *)((int)puVar13 + local_2c);
           local_38 = local_38 - 1;
         } while (local_38 != 0);
         param_1 = PUN(uint *,(float)(PUN(float,param_1) + _g_dwRdNRaster_oneOverZStep));
@@ -18448,39 +18435,39 @@ void rdNRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2)
         fVar5 = (float)iVar8;
         fVar4 = 1.0 / ((fVar5 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,param_1));
-        bVar9 = (byte)g_dwRdNRaster_mipMapNum;
+        bVar10 = (byte)g_dwRdNRaster_mipMapNum;
         local_28 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
+                   (bVar10 & 0x1f);
         local_2c = (int)ROUND((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_c) * fVar4 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
-                   (bVar9 & 0x1f);
-        uVar12 = ((int)ROUND((float)local_10 * 65536.0) >> (bVar9 & 0x1f)) +
-                 g_dwRdNRaster_dUdXModifier;
-        uVar7 = ((int)ROUND((float)local_14 * 65536.0) >> (bVar9 & 0x1f)) +
-                g_dwRdNRaster_dVdXModifier;
+                   (bVar10 & 0x1f);
+        puVar9 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar10 & 0x1f)) +
+                         g_dwRdNRaster_dUdXModifier);
+        puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0) >> (bVar10 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar8) {
         param_1 = (uint *)local_20;
         do {
-          bVar9 = *(byte *)(((int)(uVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
-                           g_dwRdNRaster_pPixels +
-                           ((int)uVar7 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
-                           g_dwRdNRaster_vWrap));
-          local_24 = (uint)bVar9;
-          if (bVar9 != 0) {
-            *pbVar14 = *(byte *)(((int)param_2 >> 8 & 0x3f00U) +
+          bVar10 = *(byte *)(((int)((uint)puVar9 & g_dwRdNRaster_uWrap) >> 0x10) +
+                            g_dwRdNRaster_pPixels +
+                            ((int)puVar13 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            g_dwRdNRaster_vWrap));
+          local_24 = (uint)bVar10;
+          if (bVar10 != 0) {
+            *pbVar16 = *(byte *)(((int)param_2 >> 8 & 0x3f00U) +
                                 g_dwRdNRaster_aMonoMap +
-                                *(byte *)((uint)*pbVar14 +
+                                *(byte *)((uint)*pbVar16 +
                                          g_dwRdNRaster_aAlphaMap + local_24 * 0x100));
           }
-          uVar12 = uVar12 + local_28;
-          pbVar14 = pbVar14 + 1;
+          puVar9 = (uint *)((int)puVar9 + local_28);
+          pbVar16 = pbVar16 + 1;
           param_2 = (uint *)((int)param_2 + local_30);
-          uVar7 = uVar7 + local_2c;
-          param_1 = (uint *)((int)param_1 - 1);
+          puVar13 = (uint *)((int)puVar13 + local_2c);
+          param_1 = (uint *)((int)param_1 + -1);
         } while (param_1 != (uint *)0x0);
       }
     }
@@ -18517,7 +18504,7 @@ void rdNRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2)
    rdNRaster_DrawScanLineNGonMTGIT_16 (the remaster's GrimFandango (Linux): 16-bit scan-line call of
    rdNRaster_DrawNGonMTGIT); was rdRaster_Span16_TexKey_11. */
 
-void rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)
+void __cdecl rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -18530,11 +18517,11 @@ void rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)
   uint uVar7;
   int iVar8;
   int iVar9;
-  float fVar10;
+  uint *puVar10;
   byte bVar11;
   uint uVar12;
   uint uVar13;
-  float fVar14;
+  uint *puVar14;
   uint uVar15;
   uint uVar16;
   #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
@@ -18608,18 +18595,18 @@ void rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)
                       (param_1[0x10] * (*(uint *)(iVar8 + 0x18) >> 1) + uVar16) * 2);
     local_10 = (uint)((1.0 / fVar5) * fVar4);
     if (local_34 == 0) {
-      fVar10 = fVar5 + _g_dwRdNRaster_oneOverZStep;
+      puVar10 = PUN(uint *,(float)(fVar5 + _g_dwRdNRaster_oneOverZStep));
       param_1 = PUN(uint *,(float)((float)local_24 + _g_dwRdNRaster_uOverZStep));
       local_8 = (uint)(fVar4 + _g_dwRdNRaster_vOverZStep);
       local_28 = 0;
-      fVar14 = fVar10;
-      param_2 = PUN(uint *,(float)fVar10);
+      puVar14 = puVar10;
+      param_2 = puVar10;
     }
     else {
-      fVar10 = (float)(int)local_34;
-      fVar5 = fVar10 * _g_dwRdNRaster_dOneOverZdX + fVar5;
-      fVar6 = fVar10 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
-      fVar4 = fVar10 * _g_dwRdNRaster_dVOverZdX + fVar4;
+      fVar2 = (float)(int)local_34;
+      fVar5 = fVar2 * _g_dwRdNRaster_dOneOverZdX + fVar5;
+      fVar6 = fVar2 * _g_dwRdNRaster_dUOverZdX + (float)local_24;
+      fVar4 = fVar2 * _g_dwRdNRaster_dVOverZdX + fVar4;
       fVar2 = 1.0 / fVar5;
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
@@ -18630,15 +18617,15 @@ void rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)
       local_28 = (int)ROUND((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0) >>
                  (bVar11 & 0x1f);
-      fVar10 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
-                      g_dwRdNRaster_dUdXModifier);
-      fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
-                      g_dwRdNRaster_dVdXModifier);
+      puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
+                        g_dwRdNRaster_dUdXModifier);
+      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
+                        g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_34) {
         do {
-          bVar11 = *(byte *)(((int)((uint)fVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar11 = *(byte *)(((int)((uint)puVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
                             g_dwRdNRaster_pPixels +
-                            ((int)fVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            ((int)puVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                             g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar11;
           if (bVar11 != 0) {
@@ -18651,8 +18638,8 @@ void rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)
                   (iVar9 >> 0x10 & 0x3fU) * 0x100) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar10 = (float)((int)fVar10 + local_24);
-          fVar14 = (float)((int)fVar14 + local_28);
+          puVar10 = (uint *)((int)puVar10 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_28);
           iVar9 = iVar9 + local_2c;
           local_34 = local_34 - 1;
         } while (local_34 != 0);
@@ -18670,15 +18657,15 @@ void rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
         local_24 = (int)ROUND((fVar5 - (float)local_c) * 0.0625 * 65536.0) >> (bVar11 & 0x1f);
         local_28 = (int)ROUND((fVar4 - (float)local_10) * 0.0625 * 65536.0) >> (bVar11 & 0x1f);
-        fVar10 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
+        puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
         local_34 = 0x10;
-        fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
         do {
-          bVar11 = *(byte *)(((int)((uint)fVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar11 = *(byte *)(((int)((uint)puVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
                             g_dwRdNRaster_pPixels +
-                            ((int)fVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            ((int)puVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                             g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar11;
           if (bVar11 != 0) {
@@ -18691,8 +18678,8 @@ void rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)
                   (iVar9 >> 0x10 & 0x3fU) * 0x100) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar10 = (float)((int)fVar10 + local_24);
-          fVar14 = (float)((int)fVar14 + local_28);
+          puVar10 = (uint *)((int)puVar10 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_28);
           iVar9 = iVar9 + local_2c;
           local_34 = local_34 - 1;
         } while (local_34 != 0);
@@ -18719,17 +18706,17 @@ void rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0) >>
                    (bVar11 & 0x1f);
-        fVar10 = (float)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
-                        g_dwRdNRaster_dUdXModifier);
-        fVar14 = (float)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
-                        g_dwRdNRaster_dVdXModifier);
+        puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0) >> (bVar11 & 0x1f)) +
+                          g_dwRdNRaster_dUdXModifier);
+        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0) >> (bVar11 & 0x1f)) +
+                          g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar8) {
         param_2 = (uint *)local_1c;
         do {
-          bVar11 = *(byte *)(((int)((uint)fVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
+          bVar11 = *(byte *)(((int)((uint)puVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
                             g_dwRdNRaster_pPixels +
-                            ((int)fVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
+                            ((int)puVar14 >> (0x10U - (char)g_dwRdNRaster_texRowShift & 0x1f) &
                             g_dwRdNRaster_vWrap));
           local_20 = (uint)bVar11;
           if (bVar11 != 0) {
@@ -18742,10 +18729,10 @@ void rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)
                   (iVar9 >> 0x10 & 0x3fU) * 0x100) * 2);
           }
           g_pWDest = (int *)((int)g_pWDest + 2);
-          fVar10 = (float)((int)fVar10 + local_24);
-          fVar14 = (float)((int)fVar14 + local_28);
+          puVar10 = (uint *)((int)puVar10 + local_24);
+          puVar14 = (uint *)((int)puVar14 + local_28);
           iVar9 = iVar9 + local_2c;
-          param_2 = (uint *)((int)param_2 - 1);
+          param_2 = (uint *)((int)param_2 + -1);
         } while (param_2 != (uint *)0x0);
       }
     }
@@ -18781,7 +18768,7 @@ void rdNRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)
    rdZRaster_CalcAffineGradients (the remaster's GrimFandango (Linux): gradients call of
    rdZRaster_DrawNGonLAT); was rdRaster_Grad_Flat_3. */
 
-void rdZRaster_CalcAffineGradients(float param_1)
+void __cdecl rdZRaster_CalcAffineGradients(float param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -18993,7 +18980,7 @@ LAB_0042d542:
    rdZRaster_CalcPerspGradients (the remaster's GrimFandango (Linux): gradients call of
    rdZRaster_DrawNGonLIT); was rdRaster_Grad_Flat_4. */
 
-void rdZRaster_CalcPerspGradients(float param_1)
+void __cdecl rdZRaster_CalcPerspGradients(float param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -19249,7 +19236,7 @@ LAB_0042da90:
    dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency
    tests)); was rdRaster_DrawPointsZ. */
 
-void rdZRaster_DrawNGonLV(int param_1,int param_2)
+void __cdecl rdZRaster_DrawNGonLV(int param_1,int param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -19316,7 +19303,7 @@ void rdZRaster_DrawNGonLV(int param_1,int param_2)
    rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency tests)); was
    rdRaster_DrawWireframeZ. */
 
-void rdZRaster_DrawNGonLW(int param_1,int param_2)
+void __cdecl rdZRaster_DrawNGonLW(int param_1,int param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -19409,7 +19396,7 @@ void rdZRaster_DrawNGonLW(int param_1,int param_2)
    (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Draw_FlatLitZ. */
 
-void rdZRaster_DrawNGonLS(int param_1,int param_2)
+void __cdecl rdZRaster_DrawNGonLS(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -19819,7 +19806,7 @@ undefined4 rdZRaster_SetupRightEdgeNGonLS(int *param_1)
    (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Draw_TexLitZ. */
 
-void rdZRaster_DrawNGonTLS(int param_1,int param_2)
+void __cdecl rdZRaster_DrawNGonTLS(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -20085,7 +20072,7 @@ void rdZRaster_DrawScanLineNGonTLS_16(uint *param_1,uint *param_2)
    (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Draw_FlatLitZ_2. */
 
-void rdZRaster_DrawNGonFS(int param_1,int param_2,float param_3)
+void __cdecl rdZRaster_DrawNGonFS(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -20499,7 +20486,7 @@ undefined4 rdZRaster_SetupRightEdgeNGonFS(int *param_1)
    (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Draw_TexLitZ_2. */
 
-void rdZRaster_DrawNGonTFS(int param_1,int param_2,float param_3)
+void __cdecl rdZRaster_DrawNGonTFS(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -20769,7 +20756,7 @@ void rdZRaster_DrawScanLineNGonTFS_16(uint *param_1,uint *param_2)
    (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Draw_FlatLitZ_3. */
 
-void rdZRaster_DrawNGonGS(int param_1,int param_2)
+void __cdecl rdZRaster_DrawNGonGS(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -21229,7 +21216,7 @@ undefined4 rdZRaster_SetupRightEdgeNGonGS(int *param_1)
    (Linux): dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and
    translucency tests)); was rdRaster_Draw_TexLitZ_3. */
 
-void rdZRaster_DrawNGonTGS(int param_1,int param_2)
+void __cdecl rdZRaster_DrawNGonTGS(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -21549,7 +21536,7 @@ void rdZRaster_DrawScanLineNGonTGS_16(uint *param_1,uint *param_2)
    dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency
    tests)); was rdRaster_Draw_FlatLit_7. */
 
-void rdZRaster_DrawNGonLAT(int param_1,int param_2)
+void __cdecl rdZRaster_DrawNGonLAT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -21597,7 +21584,7 @@ void rdZRaster_DrawNGonLAT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -22158,7 +22145,7 @@ void rdZRaster_DrawNGonTLAT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -22493,7 +22480,7 @@ void rdZRaster_DrawNGonMLAT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -22821,7 +22808,7 @@ void rdZRaster_DrawNGonMTLAT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -23106,7 +23093,7 @@ void rdZRaster_DrawScanLineNGonMTLAT_16(uint *param_1,uint *param_2)
    dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency
    tests)); was rdRaster_Draw_FlatLit_8. */
 
-void rdZRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
+void __cdecl rdZRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -23159,7 +23146,7 @@ void rdZRaster_DrawNGonFAT(int param_1,int param_2,float param_3)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -23730,7 +23717,7 @@ void rdZRaster_DrawNGonTFAT(int param_1,int param_2,float param_3)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -24076,7 +24063,7 @@ void rdZRaster_DrawNGonMFAT(int param_1,int param_2,float param_3)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -24412,7 +24399,7 @@ void rdZRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -24698,7 +24685,7 @@ void rdZRaster_DrawScanLineNGonMTFAT_16(uint *param_1,uint *param_2)
    dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency
    tests)); was rdRaster_Draw_FlatLit_9. */
 
-void rdZRaster_DrawNGonGAT(int param_1,int param_2)
+void __cdecl rdZRaster_DrawNGonGAT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -24754,7 +24741,7 @@ void rdZRaster_DrawNGonGAT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -25405,7 +25392,7 @@ void rdZRaster_DrawNGonTGAT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -25786,7 +25773,7 @@ void rdZRaster_DrawNGonMGAT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -26163,7 +26150,7 @@ void rdZRaster_DrawNGonMTGAT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcAffineGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcAffineGradients(*(float *)(param_1 + 100));
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
   g_dwRdZRaster_texRowShift = *(int *)(*(int *)(param_2 + 0x1c) + 0xc) - g_dwRdZRaster_mipMapNum;
@@ -26487,7 +26474,7 @@ void rdZRaster_DrawScanLineNGonMTGAT_16(uint *param_1,uint *param_2)
    dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency
    tests)); was rdRaster_Draw_FlatLit_10. */
 
-void rdZRaster_DrawNGonLIT(int param_1,int param_2)
+void __cdecl rdZRaster_DrawNGonLIT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -26529,7 +26516,7 @@ void rdZRaster_DrawNGonLIT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -27385,7 +27372,7 @@ void rdZRaster_DrawNGonTLIT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -28034,7 +28021,7 @@ void rdZRaster_DrawNGonMLIT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -28677,7 +28664,7 @@ void rdZRaster_DrawNGonMTLIT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -29293,7 +29280,7 @@ void rdZRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)
    dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency
    tests)); was rdRaster_Draw_FlatLit_11. */
 
-void rdZRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
+void __cdecl rdZRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -29340,7 +29327,7 @@ void rdZRaster_DrawNGonFIT(int param_1,int param_2,float param_3)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -30201,7 +30188,7 @@ void rdZRaster_DrawNGonTFIT(int param_1,int param_2,float param_3)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -30873,7 +30860,7 @@ void rdZRaster_DrawNGonMFIT(int param_1,int param_2,float param_3)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -31529,7 +31516,7 @@ void rdZRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -32151,7 +32138,7 @@ void rdZRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)
    dispatch slot in rdCache_DrawFaceZ (same geometry, lighting, texture-mode, mask and translucency
    tests)); was rdRaster_Draw_FlatLit_12. */
 
-void rdZRaster_DrawNGonGIT(int param_1,int param_2)
+void __cdecl rdZRaster_DrawNGonGIT(int param_1,int param_2)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -32201,7 +32188,7 @@ void rdZRaster_DrawNGonGIT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -33130,7 +33117,7 @@ void rdZRaster_DrawNGonTGIT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -33857,7 +33844,7 @@ void rdZRaster_DrawNGonMGIT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -34566,7 +34553,7 @@ void rdZRaster_DrawNGonMTGIT(int param_1,int param_2)
     g_dwRdZRaster_leftVertexStep = 0xffffffff;
     g_dwRdZRaster_rightVertexStep = 1;
   }
-  rdZRaster_CalcPerspGradients(PUN(float,*(undefined4 *)(param_1 + 100)));
+  rdZRaster_CalcPerspGradients(*(float *)(param_1 + 100));
   *(float *)&g_dwRdZRaster_oneOverZStep = _g_dwRdZRaster_dOneOverZdX * 16.0;
   g_dwRdZRaster_pPixels =
        *(uint *)(*(int *)(*(int *)(param_2 + 0x1c) + 0x1c + g_dwRdZRaster_mipMapNum * 4) + 0x5c);
@@ -41021,7 +41008,7 @@ void rdRaster_SpanP16_TexLit_9(uint *param_1)
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -41130,7 +41117,7 @@ void rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2)
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_2(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_2(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -41253,7 +41240,7 @@ LAB_004605e4:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_3(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_3(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -41376,7 +41363,7 @@ LAB_00460994:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_4(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_4(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -41499,7 +41486,7 @@ LAB_00460d44:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_5(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_5(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -41622,7 +41609,7 @@ LAB_004610f4:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_6(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_6(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -41745,7 +41732,7 @@ LAB_004614a4:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_7(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_7(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -41868,7 +41855,7 @@ LAB_00461854:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_8(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_8(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -44159,7 +44146,7 @@ LAB_0046689a:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_15(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_15(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -44257,7 +44244,7 @@ void rdRaster_Span16_TexLitZw_15(uint *param_1,uint *param_2)
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_16(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_16(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -44366,7 +44353,7 @@ LAB_00466ec0:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_17(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_17(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -44475,7 +44462,7 @@ LAB_004671c0:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_18(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_18(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -44584,7 +44571,7 @@ LAB_004674c0:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_19(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_19(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -44693,7 +44680,7 @@ LAB_004677c0:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_20(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_20(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -44802,7 +44789,7 @@ LAB_00467ac0:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_21(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_21(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -44911,7 +44898,7 @@ LAB_00467dc0:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_22(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_22(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -47040,7 +47027,7 @@ LAB_0046c2c4:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_24(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_24(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -47138,7 +47125,7 @@ void rdRaster_Span16_TexLitZw_24(uint *param_1,uint *param_2)
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_25(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_25(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -47247,7 +47234,7 @@ LAB_0046c8d0:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_26(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_26(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -47356,7 +47343,7 @@ LAB_0046cbd0:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_27(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_27(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -47465,7 +47452,7 @@ LAB_0046ced0:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_28(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_28(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -47574,7 +47561,7 @@ LAB_0046d1d0:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_29(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_29(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -47683,7 +47670,7 @@ LAB_0046d4d0:
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
    RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
-void rdRaster_Span16_TexLitZw_30(uint *param_1,uint *param_2)
+void __cdecl rdRaster_Span16_TexLitZw_30(uint *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

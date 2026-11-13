@@ -118,7 +118,7 @@ void sputLua_GetPointSectorL(void)
 /* Per frame: stores system.frameTime and system.movieTime, collects garbage every 10 s, runs
    lua_updatetasks */
 
-void sputLua_Update(void)
+void __cdecl sputLua_Update(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

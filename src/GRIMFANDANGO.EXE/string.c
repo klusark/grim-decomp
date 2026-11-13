@@ -8,7 +8,7 @@
 /* ---- 0x00403ae0  Str_ComparePtrs ---- */
 /* qsort/bsearch comparator for arrays of char *: compares the strings the two entries point to. */
 
-int Str_ComparePtrs(undefined4 *param_1,undefined4 *param_2)
+int __cdecl Str_ComparePtrs(uint *param_1,uint *param_2)
 
 {
   byte bVar1;

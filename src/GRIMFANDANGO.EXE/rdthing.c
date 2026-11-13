@@ -35,7 +35,8 @@ int __cdecl rdModel3_Draw(void *thing,float *position)
   else {
     g_dwThingFrustrumCull =
          rdClip_SphereInFrustrum
-                   (*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_c,PUN(float,*(undefined4 *)((int)g_pCurModel3 + 0x5c)));
+                   (*(int **)((int)g_pRdCamera_CurCamera + 0x48),local_c,
+                    *(float *)((int)g_pCurModel3 + 0x5c));
   }
   if (g_dwThingFrustrumCull != 2) {
     g_dwThingFrustrumCull = 1;
@@ -95,7 +96,7 @@ int __cdecl rdModel3_Draw(void *thing,float *position)
         } while (uVar7 < *(uint *)((int)pvVar4 + 0x58));
       }
     }
-    rdModel3_DrawHNode(*(undefined4 *)((int)g_pCurModel3 + 0x58));
+    rdModel3_DrawHNode(*(int *)((int)g_pCurModel3 + 0x58));
     g_dwRdModel3_numDrawnModels = g_dwRdModel3_numDrawnModels + 1;
     return 1;
   }
@@ -216,6 +217,7 @@ void __cdecl rdThing_SetModel3(void *thing,void *model)
   undefined4 *puVar2;
   uint uVar3;
   int iVar4;
+  uint *puVar5;
   
   *(undefined4 *)thing = 1;
   *(void **)((int)thing + 4) = model;
@@ -266,10 +268,10 @@ void __cdecl rdThing_SetModel3(void *thing,void *model)
         }
         uVar3 = 0;
         if (*(int *)((int)model + 0x54) != 0) {
-          iVar4 = *(int *)((int)model + 0x58) + 0x7c;
+          puVar5 = (uint *)(*(int *)((int)model + 0x58) + 0x7c);
           do {
-            rdMatrix_Build34(iVar4 + 0xc,iVar4,iVar4 + -0xc);
-            iVar4 = iVar4 + 0xb8;
+            rdMatrix_Build34((float *)(puVar5 + 3),puVar5,(float *)(puVar5 + -3));
+            puVar5 = puVar5 + 0x2e;
             uVar3 = uVar3 + 1;
           } while (uVar3 < *(uint *)((int)model + 0x54));
         }
@@ -353,13 +355,14 @@ void rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3)
   #define local_30 (*(float (*)[12])(_frame + (0x50 - 0x30)))
   
   rdMatrix_BuildTranslate34(local_30,(float *)(param_2 + 100));
-  rdMatrix_PostMultiply34(local_30,*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20));
+  rdMatrix_PostMultiply34
+            (local_30,(float *)(*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20)));
   iVar2 = *(int *)(param_2 + 0x54);
   if (iVar2 != 0) {
     local_3c[0] = -*(float *)(iVar2 + 100);
     local_3c[1] = -*(float *)(iVar2 + 0x68);
     local_3c[2] = -*(float *)(iVar2 + 0x6c);
-    rdMatrix_PostTranslate34(local_30,local_3c);
+    rdMatrix_PostTranslate34((int)local_30,local_3c);
   }
   rdMatrix_Multiply34((float *)(*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20)),param_3,
                       local_30);

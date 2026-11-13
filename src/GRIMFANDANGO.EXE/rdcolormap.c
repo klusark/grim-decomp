@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00404380  rdColormap_SetCurrent ---- */
-undefined4 rdColormap_SetCurrent(uint param_1)
+uint __cdecl rdColormap_SetCurrent(uint param_1)
 
 {
   if ((g_dwRdColormap_pCurMap != param_1) &&
@@ -40,7 +40,7 @@ void * __cdecl rdColormap_Load(char *name)
       return cmp;
     }
   }
-  rdColormap_Free(cmp);
+  rdColormap_Free((uint)cmp);
   return (void *)0x0;
 }
 
@@ -189,7 +189,7 @@ LAB_00404659:
 
 
 /* ---- 0x00404730  rdColormap_Free ---- */
-void rdColormap_Free(undefined4 param_1)
+void __cdecl rdColormap_Free(uint param_1)
 
 {
   rdColormap_FreeEntry(param_1);
@@ -198,7 +198,7 @@ void rdColormap_Free(undefined4 param_1)
 }
 
 /* ---- 0x00404750  rdColormap_FreeEntry ---- */
-void rdColormap_FreeEntry(int param_1)
+void __cdecl rdColormap_FreeEntry(int param_1)
 
 {
   if (*(int *)(param_1 + 0x334) != 0) {
@@ -319,7 +319,7 @@ rdColormap_BuildRGB16
    rdColormap_BuildGrayRamp (the remaster's GrimFandango (Linux): same body (name "GREYRAMP.CMP",
    the tint 1.0 / 1.0 / 1.0, the ramp)); was rdColormap_BuildGreyRamp. */
 
-undefined4 rdColormap_BuildGrayRamp(undefined4 *param_1)
+uint __cdecl rdColormap_BuildGrayRamp(uint *param_1)
 
 {
   int iVar1;
@@ -371,7 +371,7 @@ undefined4 rdColormap_BuildGrayRamp(undefined4 *param_1)
    0x10100 / 0x8000 / 0x10000 by the table flags); sputResource_ColormapHandler's size query); was
    FUN_00404b30. */
 
-int rdColormap_Size(int param_1)
+int __cdecl rdColormap_Size(int param_1)
 
 {
   int iVar1;

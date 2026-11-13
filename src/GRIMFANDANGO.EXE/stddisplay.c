@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00402580  Display_Shutdown3D ---- */
-void Display_Shutdown3D(void)
+void __cdecl Display_Shutdown3D(void)
 
 {
   int iVar1;

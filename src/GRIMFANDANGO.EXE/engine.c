@@ -935,7 +935,7 @@ undefined4 sputRender_Open(void)
    remaster's GrimFandango (Linux): the only unmatched caller of Lua_CallPostCamChangeHandler; 6
    matched neighbours agree, 1 disagree); was Engine_RenderFrame. */
 
-void sputRender_Update(void)
+void __cdecl sputRender_Update(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1069,7 +1069,7 @@ void sputRender_Update(void)
               fStack_4 = actor->flScale;
               fStack_c = g_pActors[*(int *)(*puVar9 + 8)].flScale;
               pfVar6 = sputActor_GetOrientMatrix(actor);
-              rdMatrix_PreScale34(pfVar6,pfVar7);
+              rdMatrix_PreScale34(pfVar6,(uint)pfVar7);
             }
             if (*(char *)*puVar9 == '\0') {
               piVar1 = actor->pColormapRef;
@@ -1081,7 +1081,7 @@ void sputRender_Update(void)
                   (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                rdroid_SetColormap(*(undefined4 *)(iVar3 + iVar2 * 0x34 + 4));
+                rdroid_SetColormap(*(uint *)(iVar3 + iVar2 * 0x34 + 4));
                 iVar2 = *(int *)((int)g_pRenderedSet + 0x88);
                 iVar3 = *(int *)((int)g_pRenderedSet + 0x80);
                 if (*(int *)(iVar3 + iVar2 * 0x34) == 0) {
@@ -1126,7 +1126,7 @@ void sputRender_Update(void)
               fStack_8 = fStack_c;
               fStack_4 = fStack_c;
               pfVar6 = sputActor_GetOrientMatrix(actor);
-              rdMatrix_PreScale34(pfVar6,pfVar7);
+              rdMatrix_PreScale34(pfVar6,(uint)pfVar7);
             }
             iVar4 = iVar4 + -1;
             puVar9 = puVar9 + -1;

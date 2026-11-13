@@ -121,147 +121,193 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
 /* ---- 0x00472360  rdPolyline_DrawFace ---- */
 /* Allocates a cache mesh for one polyline face, clips and adds it */
 
-void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,undefined4 *param_4)
+void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,uint *param_4)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float fVar2;
   byte flags;
-  int iVar3;
+  byte *pbVar3;
   int iVar4;
   uint uVar5;
-  int iVar6;
-  float *pfVar7;
-  int iVar8;
-  bool bVar9;
+  uint uVar6;
+  uint uVar7;
+  float *pfVar8;
+  int iVar9;
+  uint uVar10;
+  bool bVar11;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  iVar3 = rdCache_GetProcEntry();
-  if (iVar3 != 0) {
+  pbVar3 = rdCache_GetProcEntry();
+  if (pbVar3 != (byte *)0x0) {
     local_20 = (uint)&DAT_007f4d00;
-    local_4 = *(uint *)(iVar3 + 0x20);
-    local_1c = *(uint *)(iVar3 + 0x24);
-    local_18 = *(uint *)(iVar3 + 0x28);
-    *param_4 = *(undefined4 *)(param_2 + 0x14);
-    param_4[1] = *(undefined4 *)(param_2 + 0x18);
-    param_4[2] = *(undefined4 *)(param_2 + 0x1c);
-    iVar1 = *(int *)(param_2 + 8);
-    iVar8 = g_nRdroid_curGeometryMode;
-    if (iVar1 <= g_nRdroid_curGeometryMode) {
-      iVar8 = iVar1;
+    local_4 = *(uint *)(pbVar3 + 0x20);
+    local_1c = *(uint *)(pbVar3 + 0x24);
+    local_18 = *(uint *)(pbVar3 + 0x28);
+    *param_4 = *(uint *)(param_2 + 0x14);
+    param_4[1] = *(uint *)(param_2 + 0x18);
+    param_4[2] = *(uint *)(param_2 + 0x1c);
+    uVar6 = *(uint *)(param_2 + 8);
+    uVar10 = g_nRdroid_curGeometryMode;
+    if ((int)uVar6 <= g_nRdroid_curGeometryMode) {
+      uVar10 = uVar6;
     }
-    iVar6 = *(int *)(param_1 + 0x38);
-    if ((iVar8 < *(int *)(param_1 + 0x38)) && (iVar6 = iVar1, g_nRdroid_curGeometryMode < iVar1)) {
-      iVar6 = g_nRdroid_curGeometryMode;
+    uVar7 = *(uint *)(param_1 + 0x38);
+    if (((int)uVar10 < (int)*(uint *)(param_1 + 0x38)) &&
+       (uVar7 = uVar6, g_nRdroid_curGeometryMode < (int)uVar6)) {
+      uVar7 = g_nRdroid_curGeometryMode;
     }
-    *(int *)(iVar3 + 8) = iVar6;
+    *(uint *)(pbVar3 + 8) = uVar7;
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
        (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
       iVar1 = *(int *)(param_2 + 0xc);
-      iVar8 = g_nRdroid_curLightingMode;
+      iVar9 = g_nRdroid_curLightingMode;
       if (iVar1 <= g_nRdroid_curLightingMode) {
-        iVar8 = iVar1;
+        iVar9 = iVar1;
       }
       iVar4 = *(int *)(param_1 + 0x3c);
-      if ((iVar8 < iVar4) && (iVar4 = iVar1, g_nRdroid_curLightingMode < iVar1)) {
+      if ((iVar9 < iVar4) && (iVar4 = iVar1, g_nRdroid_curLightingMode < iVar1)) {
         iVar4 = g_nRdroid_curLightingMode;
       }
-      *(int *)(iVar3 + 0xc) = iVar4;
+      *(int *)(pbVar3 + 0xc) = iVar4;
     }
     else {
-      *(undefined4 *)(iVar3 + 0xc) = 0;
+      pbVar3[0xc] = 0;
+      pbVar3[0xd] = 0;
+      pbVar3[0xe] = 0;
+      pbVar3[0xf] = 0;
     }
-    iVar1 = *(int *)(param_2 + 0x10);
-    iVar8 = g_nRdroid_curTextureMode;
-    if (iVar1 <= g_nRdroid_curTextureMode) {
-      iVar8 = iVar1;
+    uVar6 = *(uint *)(param_2 + 0x10);
+    uVar10 = g_nRdroid_curTextureMode;
+    if ((int)uVar6 <= g_nRdroid_curTextureMode) {
+      uVar10 = uVar6;
     }
-    iVar4 = *(int *)(param_1 + 0x40);
-    if ((iVar8 < *(int *)(param_1 + 0x40)) && (iVar4 = iVar1, g_nRdroid_curTextureMode < iVar1)) {
-      iVar4 = g_nRdroid_curTextureMode;
+    uVar5 = *(uint *)(param_1 + 0x40);
+    if (((int)uVar10 < (int)*(uint *)(param_1 + 0x40)) &&
+       (uVar5 = uVar6, g_nRdroid_curTextureMode < (int)uVar6)) {
+      uVar5 = g_nRdroid_curTextureMode;
     }
-    *(int *)(iVar3 + 0x10) = iVar4;
-    rdPrimit3_ClipFace(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),iVar6,
-                       *(undefined4 *)(iVar3 + 0xc),iVar4,param_4,&local_2c,param_2 + 0x28);
+    *(uint *)(pbVar3 + 0x10) = uVar5;
+    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),uVar7,*(int *)(pbVar3 + 0xc),
+                       uVar5,param_4,&local_2c,(float *)(param_2 + 0x28));
     if (2 < local_2c) {
       (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_4,local_20,local_2c);
       if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
-        *(undefined4 *)(iVar3 + 0x40) = 0;
+        pbVar3[0x40] = 0;
+        pbVar3[0x41] = 0;
+        pbVar3[0x42] = 0;
+        pbVar3[0x43] = 0;
       }
       else {
-        *(undefined4 *)(iVar3 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
+        *(undefined4 *)(pbVar3 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
       }
-      iVar1 = *(int *)(iVar3 + 0xc);
+      iVar1 = *(int *)(pbVar3 + 0xc);
       if (iVar1 != 0) {
-        bVar9 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
-        if (*(float *)(iVar3 + 0x40) < 1.0) {
+        bVar11 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
+        if (*(float *)(pbVar3 + 0x40) < 1.0) {
           if (iVar1 == 2) {
-            if ((*(float *)(iVar3 + 0x44) < 1.0) || (bVar9)) {
-              if (*(float *)(iVar3 + 0x44) <= 0.0) {
-                *(undefined4 *)(iVar3 + 0xc) = 1;
+            if ((*(float *)(pbVar3 + 0x44) < 1.0) || (bVar11)) {
+              if (*(float *)(pbVar3 + 0x44) <= 0.0) {
+                pbVar3[0xc] = 1;
+                pbVar3[0xd] = 0;
+                pbVar3[0xe] = 0;
+                pbVar3[0xf] = 0;
               }
             }
             else {
-              *(undefined4 *)(iVar3 + 0xc) = 0;
+              pbVar3[0xc] = 0;
+              pbVar3[0xd] = 0;
+              pbVar3[0xe] = 0;
+              pbVar3[0xf] = 0;
             }
           }
           else if (iVar1 == 3) {
-            pfVar7 = *(float **)(iVar3 + 0x28);
-            fVar2 = *pfVar7;
-            uVar5 = 1;
+            pfVar8 = *(float **)(pbVar3 + 0x28);
+            fVar2 = *pfVar8;
+            uVar6 = 1;
             if (1 < local_2c) {
               do {
-                pfVar7 = pfVar7 + 1;
-                if (*pfVar7 != fVar2) break;
-                uVar5 = uVar5 + 1;
-              } while (uVar5 < local_2c);
+                pfVar8 = pfVar8 + 1;
+                if (*pfVar8 != fVar2) break;
+                uVar6 = uVar6 + 1;
+              } while (uVar6 < local_2c);
             }
-            if (uVar5 == local_2c) {
+            if (uVar6 == local_2c) {
               if (fVar2 == 1.0) {
-                if (bVar9) {
-                  *(undefined4 *)(iVar3 + 0xc) = 2;
-                  *(undefined4 *)(iVar3 + 0x44) = 0x3f800000;
+                if (bVar11) {
+                  pbVar3[0xc] = 2;
+                  pbVar3[0xd] = 0;
+                  pbVar3[0xe] = 0;
+                  pbVar3[0xf] = 0;
+                  pbVar3[0x44] = 0;
+                  pbVar3[0x45] = 0;
+                  pbVar3[0x46] = 0x80;
+                  pbVar3[0x47] = 0x3f;
                 }
                 else {
-                  *(undefined4 *)(iVar3 + 0xc) = 0;
+                  pbVar3[0xc] = 0;
+                  pbVar3[0xd] = 0;
+                  pbVar3[0xe] = 0;
+                  pbVar3[0xf] = 0;
                 }
               }
               else if (fVar2 == 0.0) {
-                *(undefined4 *)(iVar3 + 0xc) = 1;
-                *(undefined4 *)(iVar3 + 0x44) = 0;
+                pbVar3[0xc] = 1;
+                pbVar3[0xd] = 0;
+                pbVar3[0xe] = 0;
+                pbVar3[0xf] = 0;
+                pbVar3[0x44] = 0;
+                pbVar3[0x45] = 0;
+                pbVar3[0x46] = 0;
+                pbVar3[0x47] = 0;
               }
               else {
-                *(undefined4 *)(iVar3 + 0xc) = 2;
-                *(float *)(iVar3 + 0x44) = fVar2;
+                pbVar3[0xc] = 2;
+                pbVar3[0xd] = 0;
+                pbVar3[0xe] = 0;
+                pbVar3[0xf] = 0;
+                *(float *)(pbVar3 + 0x44) = fVar2;
               }
             }
           }
         }
-        else if (bVar9) {
-          *(undefined4 *)(iVar3 + 0xc) = 2;
-          *(undefined4 *)(iVar3 + 0x44) = 0x3f800000;
+        else if (bVar11) {
+          pbVar3[0xc] = 2;
+          pbVar3[0xd] = 0;
+          pbVar3[0xe] = 0;
+          pbVar3[0xf] = 0;
+          pbVar3[0x44] = 0;
+          pbVar3[0x45] = 0;
+          pbVar3[0x46] = 0x80;
+          pbVar3[0x47] = 0x3f;
         }
         else {
-          *(undefined4 *)(iVar3 + 0xc) = 0;
+          pbVar3[0xc] = 0;
+          pbVar3[0xd] = 0;
+          pbVar3[0xe] = 0;
+          pbVar3[0xf] = 0;
         }
       }
       flags = 1;
-      if (3 < *(int *)(iVar3 + 8)) {
+      if (3 < *(int *)(pbVar3 + 8)) {
         flags = 3;
       }
-      if (2 < *(int *)(iVar3 + 0xc)) {
+      if (2 < *(int *)(pbVar3 + 0xc)) {
         flags = flags | 4;
       }
-      *(undefined4 *)(iVar3 + 0x3c) = *(undefined4 *)(param_1 + 0x30);
-      *(undefined4 *)(iVar3 + 0x50) = 0;
-      *(undefined4 *)(iVar3 + 4) = *(undefined4 *)(param_2 + 4);
-      *(undefined4 *)(iVar3 + 0x48) = *(undefined4 *)(param_2 + 0x30);
-      *(undefined4 *)(iVar3 + 0x38) = *(undefined4 *)(param_2 + 0x20);
+      *(undefined4 *)(pbVar3 + 0x3c) = *(undefined4 *)(param_1 + 0x30);
+      pbVar3[0x50] = 0;
+      pbVar3[0x51] = 0;
+      pbVar3[0x52] = 0;
+      pbVar3[0x53] = 0;
+      *(undefined4 *)(pbVar3 + 4) = *(undefined4 *)(param_2 + 4);
+      *(undefined4 *)(pbVar3 + 0x48) = *(undefined4 *)(param_2 + 0x30);
+      *(undefined4 *)(pbVar3 + 0x38) = *(undefined4 *)(param_2 + 0x20);
       rdCache_AddProcFace((void *)0x0,local_2c,flags);
     }
   }
@@ -285,9 +331,9 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
-  uint vertexCount;
-  uint *puVar3;
+  uint uVar2;
+  byte *pbVar3;
+  uint *puVar4;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(float (*)[3])(_frame + (0x50 - 0x3c)))
   #define local_30 (*(float (*)[12])(_frame + (0x50 - 0x30)))
@@ -296,13 +342,14 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
   rdMatrix_TransformPoint34
             (local_3c,(float *)((int)sprite + 0x24),(float *)((int)g_pRdCamera_CurCamera + 8));
   if ((g_bRdroid_curCullFlags & 2) == 0) {
-    iVar2 = *(int *)((int)thing + 0x44);
+    uVar2 = *(uint *)((int)thing + 0x44);
   }
   else {
-    iVar2 = rdClip_SphereInFrustrum
-                      (*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),local_3c,PUN(float,*(undefined4 *)(iVar1 + 0x3c)));
+    uVar2 = rdClip_SphereInFrustrum
+                      (*(int **)((int)g_pRdCamera_CurCamera + 0x48),local_3c,
+                       *(float *)(iVar1 + 0x3c));
   }
-  if (iVar2 == 2) {
+  if (uVar2 == 2) {
     return 0;
   }
   rdMatrix_Multiply34(local_30,(float *)((int)g_pRdCamera_CurCamera + 8),sprite);
@@ -330,40 +377,48 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
             (local_30,*(float **)(iVar1 + 0x28),(float *)&UINT_007f5180,*(int *)(iVar1 + 0x24));
   local_40 = 0;
   if (*(int *)(iVar1 + 0x24) != 0) {
-    puVar3 = &UINT_007f5184;
+    puVar4 = &UINT_007f5184;
     do {
-      iVar2 = rdCache_GetProcEntry();
-      if (iVar2 == 0) {
+      pbVar3 = rdCache_GetProcEntry();
+      if (pbVar3 == (byte *)0x0) {
         return 0;
       }
-      *(float *)&DAT_007f5000 = PUN(float,puVar3[-1]) - *(float *)(iVar1 + 0x34);
-      _DAT_007f5004 = *puVar3;
-      *(float *)&DAT_007f5008 = PUN(float,puVar3[1]) - *(float *)(iVar1 + 0x34);
-      _DAT_007f5010 = *puVar3;
-      *(float *)&DAT_007f500c = PUN(float,puVar3[-1]) + *(float *)(iVar1 + 0x34);
-      _DAT_007f501c = *puVar3;
-      *(float *)&DAT_007f5014 = PUN(float,puVar3[1]) - *(float *)(iVar1 + 0x34);
-      _DAT_007f5028 = *puVar3;
-      *(float *)&DAT_007f5018 = PUN(float,puVar3[-1]) + *(float *)(iVar1 + 0x34);
-      *(float *)&DAT_007f5020 = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
-      *(float *)&DAT_007f5024 = PUN(float,puVar3[-1]) - *(float *)(iVar1 + 0x34);
-      *(float *)&DAT_007f502c = PUN(float,puVar3[1]) + *(float *)(iVar1 + 0x34);
-      vertexCount = rdClip_Face3S(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),&DAT_007f5000,4
-                                 );
-      if (2 < vertexCount) {
+      *(float *)&DAT_007f5000 = PUN(float,puVar4[-1]) - *(float *)(iVar1 + 0x34);
+      _DAT_007f5004 = *puVar4;
+      *(float *)&DAT_007f5008 = PUN(float,puVar4[1]) - *(float *)(iVar1 + 0x34);
+      _DAT_007f5010 = *puVar4;
+      *(float *)&DAT_007f500c = PUN(float,puVar4[-1]) + *(float *)(iVar1 + 0x34);
+      _DAT_007f501c = *puVar4;
+      *(float *)&DAT_007f5014 = PUN(float,puVar4[1]) - *(float *)(iVar1 + 0x34);
+      _DAT_007f5028 = *puVar4;
+      *(float *)&DAT_007f5018 = PUN(float,puVar4[-1]) + *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5020 = PUN(float,puVar4[1]) + *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5024 = PUN(float,puVar4[-1]) - *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f502c = PUN(float,puVar4[1]) + *(float *)(iVar1 + 0x34);
+      uVar2 = rdClip_Face3S(*(int **)((int)g_pRdCamera_CurCamera + 0x48),(float *)&DAT_007f5000,4);
+      if (2 < uVar2) {
         (**(code **)((int)g_pRdCamera_CurCamera + 0x50))
-                  (*(undefined4 *)(iVar2 + 0x20),&DAT_007f5000,vertexCount);
-        *(void **)(iVar2 + 0xc) = thing;
-        *(void **)(iVar2 + 0x40) = sprite;
-        *(undefined4 *)(iVar2 + 8) = 3;
-        *(undefined4 *)(iVar2 + 4) = 0;
-        *(undefined4 *)(iVar2 + 0x38) = *(undefined4 *)(iVar1 + 0x38);
-        *(undefined4 *)(iVar2 + 0x3c) = *(undefined4 *)(*(int *)(iVar1 + 0x2c) + local_40 * 4);
-        *(undefined4 *)(iVar2 + 0x50) = 0;
-        rdCache_AddProcFace((void *)0x0,vertexCount,1);
+                  (*(undefined4 *)(pbVar3 + 0x20),&DAT_007f5000,uVar2);
+        *(void **)(pbVar3 + 0xc) = thing;
+        *(void **)(pbVar3 + 0x40) = sprite;
+        pbVar3[8] = 3;
+        pbVar3[9] = 0;
+        pbVar3[10] = 0;
+        pbVar3[0xb] = 0;
+        pbVar3[4] = 0;
+        pbVar3[5] = 0;
+        pbVar3[6] = 0;
+        pbVar3[7] = 0;
+        *(undefined4 *)(pbVar3 + 0x38) = *(undefined4 *)(iVar1 + 0x38);
+        *(undefined4 *)(pbVar3 + 0x3c) = *(undefined4 *)(*(int *)(iVar1 + 0x2c) + local_40 * 4);
+        pbVar3[0x50] = 0;
+        pbVar3[0x51] = 0;
+        pbVar3[0x52] = 0;
+        pbVar3[0x53] = 0;
+        rdCache_AddProcFace((void *)0x0,uVar2,1);
       }
       local_40 = local_40 + 1;
-      puVar3 = puVar3 + 3;
+      puVar4 = puVar4 + 3;
     } while (local_40 < *(uint *)(iVar1 + 0x24));
   }
   return 1;
@@ -540,14 +595,16 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
   int iVar1;
   int iVar2;
   float fVar3;
-  int iVar4;
-  int iVar5;
+  uint uVar4;
+  byte *pbVar5;
+  int iVar6;
+  uint uVar7;
   byte flags;
-  uint uVar6;
-  int iVar7;
-  float *pfVar8;
-  int iVar9;
-  bool bVar10;
+  uint uVar8;
+  float *pfVar9;
+  int iVar10;
+  uint uVar11;
+  bool bVar12;
   #define local_7c (*(uint *)(_frame + (0x90 - 0x7c)))
   #define local_78 (*(float (*)[2])(_frame + (0x90 - 0x78)))
   #define local_70 (*(float *)(_frame + (0x90 - 0x70)))
@@ -578,13 +635,14 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
     local_78[0] = *(float *)(iVar1 + 0x54);
   }
   if ((g_bRdroid_curCullFlags & 2) == 0) {
-    iVar4 = *(int *)(param_1 + 0x44);
+    uVar4 = *(uint *)(param_1 + 0x44);
   }
   else {
-    iVar4 = rdClip_SphereInFrustrum
-                      (*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),&local_64,PUN(float,*(undefined4 *)(iVar1 + 0x24)));
+    uVar4 = rdClip_SphereInFrustrum
+                      (*(int **)((int)g_pRdCamera_CurCamera + 0x48),&local_64,
+                       *(float *)(iVar1 + 0x24));
   }
-  if ((iVar4 != 2) && (iVar4 = rdCache_GetProcEntry(), iVar4 != 0)) {
+  if ((uVar4 != 2) && (pbVar5 = rdCache_GetProcEntry(), pbVar5 != (byte *)0x0)) {
     *(float *)&DAT_007f5f0c = local_6c[0] + local_60[0];
     *(float *)&DAT_007f5f10 = local_6c[1] + local_60[1];
     *(float *)&DAT_007f5f08 = local_64 + (local_70 - local_78[0]);
@@ -601,121 +659,153 @@ undefined4 rdSprite_Draw(int param_1,float *param_2)
     local_18 = 0;
     local_14 = 0;
     local_4c = (uint)&g_aRdSprite_FaceVerts;
-    local_30 = *(uint *)(iVar4 + 0x20);
-    local_48 = *(uint *)(iVar4 + 0x24);
-    local_44 = *(uint *)(iVar4 + 0x28);
-    iVar2 = *(int *)(iVar1 + 100);
-    iVar9 = g_nRdroid_curGeometryMode;
-    if (iVar2 <= g_nRdroid_curGeometryMode) {
-      iVar9 = iVar2;
+    local_30 = *(uint *)(pbVar5 + 0x20);
+    local_48 = *(uint *)(pbVar5 + 0x24);
+    local_44 = *(uint *)(pbVar5 + 0x28);
+    uVar4 = *(uint *)(iVar1 + 100);
+    uVar11 = g_nRdroid_curGeometryMode;
+    if ((int)uVar4 <= g_nRdroid_curGeometryMode) {
+      uVar11 = uVar4;
     }
-    iVar7 = *(int *)(param_1 + 0x38);
-    if ((iVar9 < *(int *)(param_1 + 0x38)) && (iVar7 = iVar2, g_nRdroid_curGeometryMode < iVar2)) {
-      iVar7 = g_nRdroid_curGeometryMode;
+    uVar8 = *(uint *)(param_1 + 0x38);
+    if (((int)uVar11 < (int)*(uint *)(param_1 + 0x38)) &&
+       (uVar8 = uVar4, g_nRdroid_curGeometryMode < (int)uVar4)) {
+      uVar8 = g_nRdroid_curGeometryMode;
     }
     *(float *)&DAT_007f5f18 = *(float *)&DAT_007f5f0c;
     *(float *)&DAT_007f5f1c = *(float *)&DAT_007f5f10;
     *(float *)&DAT_007f5f24 = *(float *)&DAT_007f5f0c;
     *(float *)&DAT_007f5f30 = *(float *)&DAT_007f5f0c;
-    *(int *)(iVar4 + 8) = iVar7;
+    *(uint *)(pbVar5 + 8) = uVar8;
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
        (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
       iVar2 = *(int *)(iVar1 + 0x68);
-      iVar9 = g_nRdroid_curLightingMode;
+      iVar10 = g_nRdroid_curLightingMode;
       if (iVar2 <= g_nRdroid_curLightingMode) {
-        iVar9 = iVar2;
+        iVar10 = iVar2;
       }
-      iVar5 = *(int *)(param_1 + 0x3c);
-      if ((iVar9 < iVar5) && (iVar5 = iVar2, g_nRdroid_curLightingMode < iVar2)) {
-        iVar5 = g_nRdroid_curLightingMode;
+      iVar6 = *(int *)(param_1 + 0x3c);
+      if ((iVar10 < iVar6) && (iVar6 = iVar2, g_nRdroid_curLightingMode < iVar2)) {
+        iVar6 = g_nRdroid_curLightingMode;
       }
-      *(int *)(iVar4 + 0xc) = iVar5;
+      *(int *)(pbVar5 + 0xc) = iVar6;
     }
     else {
-      *(undefined4 *)(iVar4 + 0xc) = 0;
+      pbVar5[0xc] = 0;
+      pbVar5[0xd] = 0;
+      pbVar5[0xe] = 0;
+      pbVar5[0xf] = 0;
     }
-    iVar2 = *(int *)(iVar1 + 0x6c);
-    iVar9 = g_nRdroid_curTextureMode;
-    if (iVar2 <= g_nRdroid_curTextureMode) {
-      iVar9 = iVar2;
+    uVar4 = *(uint *)(iVar1 + 0x6c);
+    uVar11 = g_nRdroid_curTextureMode;
+    if ((int)uVar4 <= g_nRdroid_curTextureMode) {
+      uVar11 = uVar4;
     }
-    iVar5 = *(int *)(param_1 + 0x40);
-    if ((iVar9 < *(int *)(param_1 + 0x40)) && (iVar5 = iVar2, g_nRdroid_curTextureMode < iVar2)) {
-      iVar5 = g_nRdroid_curTextureMode;
+    uVar7 = *(uint *)(param_1 + 0x40);
+    if (((int)uVar11 < (int)*(uint *)(param_1 + 0x40)) &&
+       (uVar7 = uVar4, g_nRdroid_curTextureMode < (int)uVar4)) {
+      uVar7 = g_nRdroid_curTextureMode;
     }
-    *(int *)(iVar4 + 0x10) = iVar5;
-    rdPrimit3_ClipFace(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),iVar7,
-                       *(undefined4 *)(iVar4 + 0xc),iVar5,&local_2c,&local_58,iVar1 + 0x84);
+    *(uint *)(pbVar5 + 0x10) = uVar7;
+    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),uVar8,*(int *)(pbVar5 + 0xc),
+                       uVar7,&local_2c,&local_58,(float *)(iVar1 + 0x84));
     if (2 < local_58) {
       (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_30,local_4c,local_58);
       if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
-        *(undefined4 *)(iVar4 + 0x40) = 0;
+        pbVar5[0x40] = 0;
+        pbVar5[0x41] = 0;
+        pbVar5[0x42] = 0;
+        pbVar5[0x43] = 0;
       }
       else {
-        *(undefined4 *)(iVar4 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
+        *(undefined4 *)(pbVar5 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
       }
-      iVar2 = *(int *)(iVar4 + 0xc);
+      iVar2 = *(int *)(pbVar5 + 0xc);
       if (iVar2 != 0) {
-        bVar10 = g_dwRdColormap_pIdentityMap == g_dwRdColormap_pCurMap;
-        if (*(float *)(iVar4 + 0x40) < 1.0) {
+        bVar12 = g_dwRdColormap_pIdentityMap == g_dwRdColormap_pCurMap;
+        if (*(float *)(pbVar5 + 0x40) < 1.0) {
           if (iVar2 == 2) {
-            if ((*(float *)(iVar4 + 0x44) < 1.0) || (!bVar10)) {
-              if (*(float *)(iVar4 + 0x44) <= 0.0) {
-                *(undefined4 *)(iVar4 + 0xc) = 1;
+            if ((*(float *)(pbVar5 + 0x44) < 1.0) || (!bVar12)) {
+              if (*(float *)(pbVar5 + 0x44) <= 0.0) {
+                pbVar5[0xc] = 1;
+                pbVar5[0xd] = 0;
+                pbVar5[0xe] = 0;
+                pbVar5[0xf] = 0;
               }
             }
             else {
-              *(undefined4 *)(iVar4 + 0xc) = 0;
+              pbVar5[0xc] = 0;
+              pbVar5[0xd] = 0;
+              pbVar5[0xe] = 0;
+              pbVar5[0xf] = 0;
             }
           }
           else if (iVar2 == 3) {
-            pfVar8 = *(float **)(iVar4 + 0x28);
-            fVar3 = *pfVar8;
-            uVar6 = 1;
+            pfVar9 = *(float **)(pbVar5 + 0x28);
+            fVar3 = *pfVar9;
+            uVar4 = 1;
             if (1 < local_58) {
               do {
-                pfVar8 = pfVar8 + 1;
-                if (*pfVar8 != fVar3) break;
-                uVar6 = uVar6 + 1;
-              } while (uVar6 < local_58);
+                pfVar9 = pfVar9 + 1;
+                if (*pfVar9 != fVar3) break;
+                uVar4 = uVar4 + 1;
+              } while (uVar4 < local_58);
             }
-            if (uVar6 == local_58) {
+            if (uVar4 == local_58) {
               if (fVar3 == 1.0) {
-                if (bVar10) {
-                  *(undefined4 *)(iVar4 + 0xc) = 0;
+                if (bVar12) {
+                  pbVar5[0xc] = 0;
+                  pbVar5[0xd] = 0;
+                  pbVar5[0xe] = 0;
+                  pbVar5[0xf] = 0;
                 }
                 else {
-                  *(undefined4 *)(iVar4 + 0xc) = 2;
-                  *(undefined4 *)(iVar4 + 0x44) = 0x3f800000;
+                  pbVar5[0xc] = 2;
+                  pbVar5[0xd] = 0;
+                  pbVar5[0xe] = 0;
+                  pbVar5[0xf] = 0;
+                  pbVar5[0x44] = 0;
+                  pbVar5[0x45] = 0;
+                  pbVar5[0x46] = 0x80;
+                  pbVar5[0x47] = 0x3f;
                 }
               }
               else if (fVar3 == 0.0) {
-                *(undefined4 *)(iVar4 + 0xc) = 1;
-                *(undefined4 *)(iVar4 + 0x44) = 0;
+                pbVar5[0xc] = 1;
+                pbVar5[0xd] = 0;
+                pbVar5[0xe] = 0;
+                pbVar5[0xf] = 0;
+                pbVar5[0x44] = 0;
+                pbVar5[0x45] = 0;
+                pbVar5[0x46] = 0;
+                pbVar5[0x47] = 0;
               }
               else {
-                *(undefined4 *)(iVar4 + 0xc) = 2;
-                *(float *)(iVar4 + 0x44) = fVar3;
+                pbVar5[0xc] = 2;
+                pbVar5[0xd] = 0;
+                pbVar5[0xe] = 0;
+                pbVar5[0xf] = 0;
+                *(float *)(pbVar5 + 0x44) = fVar3;
               }
             }
           }
         }
         else {
-          *(uint *)(iVar4 + 0xc) = (-(uint)bVar10 & 0xfffffffe) + 2;
+          *(uint *)(pbVar5 + 0xc) = (-(uint)bVar12 & 0xfffffffe) + 2;
         }
       }
       flags = 1;
-      if (3 < *(int *)(iVar4 + 8)) {
+      if (3 < *(int *)(pbVar5 + 8)) {
         flags = 3;
       }
-      if (2 < *(int *)(iVar4 + 0xc)) {
+      if (2 < *(int *)(pbVar5 + 0xc)) {
         flags = flags | 4;
       }
-      *(undefined4 *)(iVar4 + 0x3c) = *(undefined4 *)(param_1 + 0x30);
-      *(uint *)(iVar4 + 0x50) = (uint)(local_78[0] < 0.0);
-      *(undefined4 *)(iVar4 + 4) = *(undefined4 *)(iVar1 + 0x60);
-      *(undefined4 *)(iVar4 + 0x48) = *(undefined4 *)(iVar1 + 0x8c);
-      *(undefined4 *)(iVar4 + 0x38) = *(undefined4 *)(iVar1 + 0x7c);
+      *(undefined4 *)(pbVar5 + 0x3c) = *(undefined4 *)(param_1 + 0x30);
+      *(uint *)(pbVar5 + 0x50) = (uint)(local_78[0] < 0.0);
+      *(undefined4 *)(pbVar5 + 4) = *(undefined4 *)(iVar1 + 0x60);
+      *(undefined4 *)(pbVar5 + 0x48) = *(undefined4 *)(iVar1 + 0x8c);
+      *(undefined4 *)(pbVar5 + 0x38) = *(undefined4 *)(iVar1 + 0x7c);
       rdCache_AddProcFace((void *)0x0,local_58,flags);
       return 1;
     }

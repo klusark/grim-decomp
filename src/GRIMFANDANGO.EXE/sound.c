@@ -16,7 +16,7 @@ void sputRoom_RelocateSounds(void)
   
   PositionedSounds_DropFinished();
   for (puVar1 = g_pSoundEventList; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
-    SetSoundPosition(puVar1);
+    SetSoundPosition((int)puVar1);
   }
   return;
 }
@@ -38,7 +38,7 @@ void sputRoom_SetSoundPosition
     return;
   }
   puVar2 = PositionedSound_Add(param_1,param_2,param_3,param_4,param_5,param_6);
-  SetSoundPosition(puVar2);
+  SetSoundPosition((int)puVar2);
   return;
 }
 
@@ -112,7 +112,7 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
    param 0x700. Original name SetSoundPosition (the remaster's GrimFandango (Linux): aligned call in
    sputRoom_RelocateSounds, sputRoom_SetSoundPosition); was PositionedSound_Apply. */
 
-undefined4 SetSoundPosition(int param_1)
+uint __cdecl SetSoundPosition(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

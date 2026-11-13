@@ -9,7 +9,7 @@
 /* Original name rdModel3_ActivateClipPlane (the remaster's GrimFandango (Linux): aligned call in
    sputCostume_InternalDraw3D); was Renderer_EnableClipPlane. */
 
-void rdModel3_ActivateClipPlane(uint param_1)
+void __cdecl rdModel3_ActivateClipPlane(uint param_1)
 
 {
   g_dwClipPlaneActive = param_1;
@@ -21,7 +21,7 @@ void rdModel3_ActivateClipPlane(uint param_1)
 /* Original name rdModel3_SetClipPlane (the remaster's GrimFandango (Linux): aligned call in
    sputCostume_InternalDraw3D); was Renderer_SetClipPlane. */
 
-void rdModel3_SetClipPlane(undefined4 *param_1,undefined4 *param_2)
+void __cdecl rdModel3_SetClipPlane(uint *param_1,uint *param_2)
 
 {
   _DAT_004ddb70 = *param_1;

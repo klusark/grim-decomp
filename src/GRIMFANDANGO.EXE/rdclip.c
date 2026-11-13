@@ -506,7 +506,7 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
    remaster's GrimFandango (Linux): the matching branch of the rdPrimit3_ClipFace switch
    (geometry/lighting mode, perspective or ortho camera)); was rdClip_Face3_Pos. */
 
-uint rdClip_Face3W(int *param_1,float *param_2,uint param_3)
+uint __cdecl rdClip_Face3W(int *param_1,float *param_2,uint param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -908,7 +908,7 @@ uint rdClip_Face3W(int *param_1,float *param_2,uint param_3)
    rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
    rdClip_Face3_PosB. */
 
-int rdClip_Face3WOrtho(int *param_1,float *param_2,int param_3)
+int __cdecl rdClip_Face3WOrtho(int *param_1,float *param_2,int param_3)
 
 {
   float fVar1;
@@ -1221,7 +1221,7 @@ int rdClip_Face3WOrtho(int *param_1,float *param_2,int param_3)
    rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
    rdClip_Face3_Pos_2. */
 
-uint rdClip_Face3S(int *param_1,float *param_2,uint param_3)
+uint __cdecl rdClip_Face3S(int *param_1,float *param_2,uint param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1622,7 +1622,7 @@ uint rdClip_Face3S(int *param_1,float *param_2,uint param_3)
    rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
    rdClip_Face3_PosB_2. */
 
-int rdClip_Face3SOrtho(int *param_1,float *param_2,int param_3)
+int __cdecl rdClip_Face3SOrtho(int *param_1,float *param_2,int param_3)
 
 {
   float fVar1;
@@ -1936,7 +1936,7 @@ int rdClip_Face3SOrtho(int *param_1,float *param_2,int param_3)
    rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
    rdClip_Face3_PosUvLit. */
 
-float rdClip_Face3GS(int *param_1,float *param_2,float *param_3,float *param_4)
+float __cdecl rdClip_Face3GS(int *param_1,float *param_2,float *param_3,float *param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1958,6 +1958,7 @@ float rdClip_Face3GS(int *param_1,float *param_2,float *param_3,float *param_4)
   float *pfVar16;
   uint uVar17;
   float *pfVar18;
+  float10 in_ST0;
   #define local_10 (*(float (*)[3])(_frame + (0x20 - 0x10)))
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
@@ -2110,68 +2111,67 @@ float rdClip_Face3GS(int *param_1,float *param_2,float *param_3,float *param_4)
     }
     g_dwSourceVert = (uint)pfVar15;
     g_dwDestIVert = uVar9;
-    fVar11 = fVar12;
     pfVar15 = (float *)g_dwDestIVert;
-    if (2 < PUN(int,(float)fVar11)) {
+    if (2 < PUN(int,(float)fVar12)) {
       g_dwDestIVert = g_dwSourceIVert;
-      fVar12 = 0.0;
+      fVar11 = 0.0;
       g_dwDestVert = g_dwSourceVert;
-      pfVar16 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar11) * 0xc);
+      pfVar16 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar12) * 0xc);
       g_dwSourceIVert = (uint)pfVar15;
       uVar9 = g_dwSourceVert;
-      if (0 < PUN(int,(float)fVar11)) {
+      if (0 < PUN(int,(float)fVar12)) {
         iVar7 = 0;
         pfVar18 = (float *)(uVar17 + 8);
         g_dwSourceVert = uVar17;
-        local_10[0] = PUN(float,(((int)pfVar15 - 4U) + PUN(int,(float)fVar11) * 4));
-        local_4 = fVar11;
+        local_10[0] = PUN(float,(((int)pfVar15 - 4U) + PUN(int,(float)fVar12) * 4));
+        local_4 = fVar12;
         do {
           pfVar10 = pfVar15;
-          fVar11 = PUN(float,param_1[0xb]) * pfVar16[1];
+          fVar12 = PUN(float,param_1[0xb]) * pfVar16[1];
           fVar2 = pfVar18[-1] * PUN(float,param_1[0xb]);
-          if ((pfVar16[2] <= fVar11) || (*pfVar18 <= fVar2)) {
-            if (((pfVar16[2] != fVar11) && (fVar2 != *pfVar18)) &&
-               ((fVar11 < pfVar16[2] || (fVar2 < *pfVar18)))) {
-              fVar11 = pfVar18[-1] - pfVar16[1];
+          if ((pfVar16[2] <= fVar12) || (*pfVar18 <= fVar2)) {
+            if (((pfVar16[2] != fVar12) && (fVar2 != *pfVar18)) &&
+               ((fVar12 < pfVar16[2] || (fVar2 < *pfVar18)))) {
+              fVar12 = pfVar18[-1] - pfVar16[1];
               fVar3 = *pfVar18 - pfVar16[2];
-              fVar1 = PUN(float,param_1[0xb]) * fVar11 - fVar3;
+              fVar1 = PUN(float,param_1[0xb]) * fVar12 - fVar3;
               fVar4 = pfVar16[2] * pfVar18[-1] - pfVar16[1] * *pfVar18;
               if (fVar1 != 0.0) {
                 fVar4 = fVar4 / fVar1;
               }
               fVar1 = PUN(float,param_1[0xb]);
-              fVar5 = fVar11;
-              if (fVar11 < 0.0) {
-                fVar5 = -fVar11;
+              fVar5 = fVar12;
+              if (fVar12 < 0.0) {
+                fVar5 = -fVar12;
               }
               fVar6 = fVar3;
               if (fVar3 < 0.0) {
                 fVar6 = -fVar3;
               }
               if (fVar5 <= fVar6) {
-                fVar11 = (fVar1 * fVar4 - pfVar16[2]) / fVar3;
+                fVar12 = (fVar1 * fVar4 - pfVar16[2]) / fVar3;
               }
               else {
-                fVar11 = (fVar4 - pfVar16[1]) / fVar11;
+                fVar12 = (fVar4 - pfVar16[1]) / fVar12;
               }
               iVar7 = iVar7 + 0xc;
-              fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
-              *(float *)((uVar9 - 0xc) + iVar7) = (pfVar18[-2] - *pfVar16) * fVar11 + *pfVar16;
+              fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
+              *(float *)((uVar9 - 0xc) + iVar7) = (pfVar18[-2] - *pfVar16) * fVar12 + *pfVar16;
               *(float *)((g_dwDestVert - 8) + iVar7) = fVar4;
               *(float *)((g_dwDestVert - 4) + iVar7) = fVar1 * fVar4;
-              *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) =
-                   (*pfVar10 - *PUN(float *,(float)local_10[0])) * fVar11 + *PUN(float *,(float)local_10[0]);
+              *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) =
+                   (*pfVar10 - *PUN(float *,(float)local_10[0])) * fVar12 + *PUN(float *,(float)local_10[0]);
               g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
               uVar9 = g_dwDestVert;
             }
             if (*pfVar18 <= fVar2) {
               pfVar15 = (float *)(uVar9 + iVar7);
-              fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
+              fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
               iVar7 = iVar7 + 0xc;
               *pfVar15 = pfVar18[-2];
               pfVar15[1] = pfVar18[-1];
               pfVar15[2] = *pfVar18;
-              *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) = *pfVar10;
+              *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) = *pfVar10;
               uVar9 = g_dwDestVert;
             }
           }
@@ -2184,7 +2184,6 @@ float rdClip_Face3GS(int *param_1,float *param_2,float *param_3,float *param_4)
         } while (local_4 != 0.0);
       }
       g_dwSourceVert = uVar17;
-      fVar11 = fVar12;
       pfVar15 = (float *)g_dwDestIVert;
       if (2 < PUN(int,(float)fVar11)) {
         g_dwDestIVert = g_dwSourceIVert;
@@ -2258,46 +2257,45 @@ float rdClip_Face3GS(int *param_1,float *param_2,float *param_3,float *param_4)
           } while (local_4 != 0.0);
         }
         g_dwSourceVert = uVar9;
-        fVar11 = fVar12;
         param_4 = (float *)g_dwDestIVert;
-        if (2 < PUN(int,(float)fVar11)) {
+        if (2 < PUN(int,(float)fVar12)) {
           g_dwDestIVert = g_dwSourceIVert;
-          fVar12 = 0.0;
-          local_10[0] = PUN(float,(((int)param_4 - 4U) + PUN(int,(float)fVar11) * 4));
+          fVar11 = 0.0;
+          local_10[0] = PUN(float,(((int)param_4 - 4U) + PUN(int,(float)fVar12) * 4));
           g_dwDestVert = g_dwSourceVert;
           g_dwSourceIVert = (uint)param_4;
-          pfVar15 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar11) * 0xc);
+          pfVar15 = (float *)((uVar17 - 0xc) + PUN(int,(float)fVar12) * 0xc);
           pfVar16 = (float *)g_dwSourceVert;
-          if (0 < PUN(int,(float)fVar11)) {
+          if (0 < PUN(int,(float)fVar12)) {
             iVar7 = 0;
             pfVar18 = (float *)(uVar17 + 4);
             g_dwSourceVert = uVar17;
-            local_4 = fVar11;
+            local_4 = fVar12;
             do {
               if ((PUN(float,param_1[1]) <= pfVar15[1]) || (PUN(float,param_1[1]) <= *pfVar18)) {
                 if (((pfVar15[1] != PUN(float,param_1[1])) && (*pfVar18 != PUN(float,param_1[1]))) &&
                    ((pfVar15[1] < PUN(float,param_1[1]) || (*pfVar18 < PUN(float,param_1[1]))))) {
-                  fVar11 = (PUN(float,param_1[1]) - pfVar15[1]) / (*pfVar18 - pfVar15[1]);
+                  fVar12 = (PUN(float,param_1[1]) - pfVar15[1]) / (*pfVar18 - pfVar15[1]);
                   *(int *)((int)pfVar16 + iVar7 + 4) = param_1[1];
                   iVar7 = iVar7 + 0xc;
-                  fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
+                  fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
                   *(float *)((g_dwDestVert - 4) + iVar7) =
-                       (pfVar18[1] - pfVar15[2]) * fVar11 + pfVar15[2];
+                       (pfVar18[1] - pfVar15[2]) * fVar12 + pfVar15[2];
                   *(float *)((g_dwDestVert - 0xc) + iVar7) =
-                       (pfVar18[-1] - *pfVar15) * fVar11 + *pfVar15;
-                  *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) =
-                       (*param_4 - *PUN(float *,(float)local_10[0])) * fVar11 + *PUN(float *,(float)local_10[0]);
+                       (pfVar18[-1] - *pfVar15) * fVar12 + *pfVar15;
+                  *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) =
+                       (*param_4 - *PUN(float *,(float)local_10[0])) * fVar12 + *PUN(float *,(float)local_10[0]);
                   g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
                   pfVar16 = (float *)g_dwDestVert;
                 }
                 if (PUN(float,param_1[1]) <= *pfVar18) {
                   pfVar16 = (float *)((int)pfVar16 + iVar7);
-                  fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
+                  fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
                   iVar7 = iVar7 + 0xc;
                   *pfVar16 = pfVar18[-1];
                   pfVar16[1] = *pfVar18;
                   pfVar16[2] = pfVar18[1];
-                  *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) = *param_4;
+                  *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) = *param_4;
                   pfVar16 = (float *)g_dwDestVert;
                 }
               }
@@ -2311,50 +2309,50 @@ float rdClip_Face3GS(int *param_1,float *param_2,float *param_3,float *param_4)
           }
           g_dwSourceVert = uVar17;
           param_4 = (float *)g_dwDestIVert;
-          if (PUN(int,(float)fVar12) < 3) {
+          if (PUN(int,(float)fVar11) < 3) {
             g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
-            return fVar12;
+            return (float)in_ST0;
           }
-          fVar11 = fVar12;
+          fVar12 = fVar11;
           pfVar15 = pfVar16;
           if (*param_1 != 0) {
             g_dwDestIVert = g_dwSourceIVert;
-            fVar11 = 0.0;
-            local_10[0] = PUN(float,(((int)param_4 - 4U) + PUN(int,(float)fVar12) * 4));
+            fVar12 = 0.0;
+            local_10[0] = PUN(float,(((int)param_4 - 4U) + PUN(int,(float)fVar11) * 4));
             g_dwDestVert = g_dwSourceVert;
             g_dwSourceIVert = (uint)param_4;
-            pfVar18 = pfVar16 + PUN(int,(float)fVar12) * 3 + -3;
+            pfVar18 = pfVar16 + PUN(int,(float)fVar11) * 3 + -3;
             pfVar15 = (float *)g_dwSourceVert;
-            if (0 < PUN(int,(float)fVar12)) {
+            if (0 < PUN(int,(float)fVar11)) {
               iVar7 = 0;
               pfVar10 = pfVar16 + 1;
               g_dwSourceVert = (uint)pfVar16;
-              local_4 = fVar12;
+              local_4 = fVar11;
               do {
                 if ((pfVar18[1] <= PUN(float,param_1[2])) || (*pfVar10 <= PUN(float,param_1[2]))) {
                   if (((pfVar18[1] != PUN(float,param_1[2])) && (*pfVar10 != PUN(float,param_1[2]))) &&
                      ((PUN(float,param_1[2]) < pfVar18[1] || (PUN(float,param_1[2]) < *pfVar10)))) {
-                    fVar12 = (PUN(float,param_1[2]) - pfVar18[1]) / (*pfVar10 - pfVar18[1]);
+                    fVar11 = (PUN(float,param_1[2]) - pfVar18[1]) / (*pfVar10 - pfVar18[1]);
                     *(int *)((int)pfVar15 + iVar7 + 4) = param_1[2];
                     iVar7 = iVar7 + 0xc;
-                    fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
+                    fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
                     *(float *)((g_dwDestVert - 4) + iVar7) =
-                         (pfVar10[1] - pfVar18[2]) * fVar12 + pfVar18[2];
+                         (pfVar10[1] - pfVar18[2]) * fVar11 + pfVar18[2];
                     *(float *)((g_dwDestVert - 0xc) + iVar7) =
-                         (pfVar10[-1] - *pfVar18) * fVar12 + *pfVar18;
-                    *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) =
-                         (*param_4 - *PUN(float *,(float)local_10[0])) * fVar12 + *PUN(float *,(float)local_10[0]);
+                         (pfVar10[-1] - *pfVar18) * fVar11 + *pfVar18;
+                    *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) =
+                         (*param_4 - *PUN(float *,(float)local_10[0])) * fVar11 + *PUN(float *,(float)local_10[0]);
                     g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
                     pfVar15 = (float *)g_dwDestVert;
                   }
                   if (*pfVar10 <= PUN(float,param_1[2])) {
                     pfVar15 = (float *)((int)pfVar15 + iVar7);
-                    fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
+                    fVar12 = PUN(float,(PUN(int,(float)fVar12) + 1));
                     iVar7 = iVar7 + 0xc;
                     *pfVar15 = pfVar10[-1];
                     pfVar15[1] = *pfVar10;
                     pfVar15[2] = pfVar10[1];
-                    *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar11) * 4) = *param_4;
+                    *(float *)((g_dwDestIVert - 4) + PUN(int,(float)fVar12) * 4) = *param_4;
                     pfVar15 = (float *)g_dwDestVert;
                   }
                 }
@@ -2367,18 +2365,15 @@ float rdClip_Face3GS(int *param_1,float *param_2,float *param_3,float *param_4)
               } while (local_4 != 0.0);
             }
             g_dwSourceVert = (uint)pfVar16;
-            if (PUN(int,(float)fVar11) < 3) {
-              return fVar11;
-            }
+            if (PUN(int,(float)fVar12) < 3) goto LAB_0044a6ba;
           }
           if (pfVar15 != param_2) {
-            for (uVar9 = PUN(int,(float)fVar11) * 3 & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1) {
+            for (uVar9 = PUN(int,(float)fVar12) * 3 & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1) {
               *param_2 = *pfVar15;
               pfVar15 = pfVar15 + 1;
               param_2 = param_2 + 1;
             }
-            for (iVar7 = 0; fVar12 = fVar11, pfVar16 = (float *)g_dwDestIVert, iVar7 != 0;
-                iVar7 = iVar7 + -1) {
+            for (iVar7 = 0; pfVar16 = (float *)g_dwDestIVert, iVar7 != 0; iVar7 = iVar7 + -1) {
               *(undefined1 *)param_2 = *(undefined1 *)pfVar15;
               pfVar15 = (float *)((int)pfVar15 + 1);
               param_2 = (float *)((int)param_2 + 1);
@@ -2393,7 +2388,8 @@ float rdClip_Face3GS(int *param_1,float *param_2,float *param_3,float *param_4)
       }
     }
   }
-  return fVar11;
+LAB_0044a6ba:
+  return (float)in_ST0;
 }
 #undef local_10
 #undef local_4
@@ -2408,7 +2404,7 @@ float rdClip_Face3GS(int *param_1,float *param_2,float *param_3,float *param_4)
    the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
    rdClip_Face3_PosUv. */
 
-uint rdClip_Face3GSOrtho(int *param_1,float *param_2,float *param_3,uint param_4)
+uint __cdecl rdClip_Face3GSOrtho(int *param_1,float *param_2,float *param_3,uint param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2442,7 +2438,7 @@ uint rdClip_Face3GSOrtho(int *param_1,float *param_2,float *param_3,uint param_4
     pfVar9 = param_2 + param_4 * 3 + -3;
     pfVar12 = param_2;
     pfVar4 = param_3;
-    local_8 = PUN(float,(param_3 + param_4 + -1));
+    local_8 = PUN(float,(param_3 + (param_4 - 1)));
     do {
       pfVar6 = pfVar4;
       fVar2 = PUN(float,param_1[3]);
@@ -2474,7 +2470,7 @@ uint rdClip_Face3GSOrtho(int *param_1,float *param_2,float *param_3,uint param_4
           puVar8 = (uint *)g_dwDestVert;
         }
       }
-      param_4 = param_4 + -1;
+      param_4 = param_4 - 1;
       pfVar9 = pfVar12;
       pfVar12 = pfVar12 + 3;
       pfVar4 = pfVar6 + 1;
@@ -2802,7 +2798,7 @@ uint rdClip_Face3GSOrtho(int *param_1,float *param_2,float *param_3,uint param_4
    rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
    rdClip_Face3_PosUvLit_2. */
 
-float rdClip_Face3T(int *param_1,float *param_2,float *param_3,float *param_4)
+float __cdecl rdClip_Face3T(int *param_1,float *param_2,float *param_3,float *param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2811,18 +2807,20 @@ float rdClip_Face3T(int *param_1,float *param_2,float *param_3,float *param_4)
   float fVar3;
   float fVar4;
   float fVar5;
-  int iVar6;
-  int iVar7;
-  float *pfVar8;
-  uint uVar9;
+  float fVar6;
+  float fVar7;
+  int iVar8;
+  int iVar9;
   float fVar10;
-  float fVar11;
-  float *pfVar12;
+  float *pfVar11;
+  uint uVar12;
   float *pfVar13;
-  uint *puVar14;
-  float *pfVar15;
+  float *pfVar14;
+  uint *puVar15;
   float *pfVar16;
-  uint uVar17;
+  float *pfVar17;
+  uint uVar18;
+  float10 in_ST0;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
@@ -2830,454 +2828,453 @@ float rdClip_Face3T(int *param_1,float *param_2,float *param_3,float *param_4)
   
   g_dwRdClip_faceStatus = 0;
   local_10 = 0;
-  puVar14 = &g_dwWorkVerts;
+  puVar15 = &g_dwWorkVerts;
   g_dwSourceVert = (uint)param_2;
   g_dwDestVert = (uint)&g_dwWorkVerts;
   g_dwSourceTVert = (uint)param_3;
   g_dwDestTVert = (uint)&g_dwWorkTVerts;
   if (0 < (int)param_4) {
-    iVar6 = 0;
+    iVar8 = 0;
     local_4 = PUN(float,param_4);
-    pfVar15 = param_3 + (int)param_4 * 2 + -2;
-    pfVar16 = param_3;
-    pfVar8 = param_2 + (int)param_4 * 3 + -3;
-    pfVar12 = param_2;
+    pfVar16 = param_3 + (int)param_4 * 2 + -2;
+    pfVar17 = param_3;
+    pfVar11 = param_2 + (int)param_4 * 3 + -3;
+    pfVar13 = param_2;
     do {
-      fVar10 = pfVar8[1] * PUN(float,param_1[0xc]);
-      fVar11 = PUN(float,param_1[0xc]) * pfVar12[1];
-      if ((fVar10 <= *pfVar8) || (fVar11 <= *pfVar12)) {
-        if (((*pfVar8 != fVar10) && (fVar11 != *pfVar12)) &&
-           ((*pfVar8 < fVar10 || (*pfVar12 < fVar11)))) {
-          fVar10 = pfVar12[1] - pfVar8[1];
-          fVar2 = *pfVar12 - *pfVar8;
-          fVar1 = PUN(float,param_1[0xc]) * fVar10 - fVar2;
-          fVar3 = pfVar12[1] * *pfVar8 - pfVar8[1] * *pfVar12;
-          if (fVar1 != 0.0) {
-            fVar3 = fVar3 / fVar1;
+      fVar7 = pfVar11[1] * PUN(float,param_1[0xc]);
+      fVar10 = PUN(float,param_1[0xc]) * pfVar13[1];
+      if ((fVar7 <= *pfVar11) || (fVar10 <= *pfVar13)) {
+        if (((*pfVar11 != fVar7) && (fVar10 != *pfVar13)) &&
+           ((*pfVar11 < fVar7 || (*pfVar13 < fVar10)))) {
+          fVar7 = pfVar13[1] - pfVar11[1];
+          fVar2 = *pfVar13 - *pfVar11;
+          fVar3 = PUN(float,param_1[0xc]) * fVar7 - fVar2;
+          fVar1 = pfVar13[1] * *pfVar11 - pfVar11[1] * *pfVar13;
+          if (fVar3 != 0.0) {
+            fVar1 = fVar1 / fVar3;
           }
-          fVar1 = fVar10;
-          if (fVar10 < 0.0) {
-            fVar1 = -fVar10;
+          fVar3 = fVar7;
+          if (fVar7 < 0.0) {
+            fVar3 = -fVar7;
           }
           fVar4 = fVar2;
           if (fVar2 < 0.0) {
             fVar4 = -fVar2;
           }
-          if (fVar1 <= fVar4) {
-            fVar10 = (PUN(float,param_1[0xc]) * fVar3 - *pfVar8) / fVar2;
+          if (fVar3 <= fVar4) {
+            fVar7 = (PUN(float,param_1[0xc]) * fVar1 - *pfVar11) / fVar2;
           }
           else {
-            fVar10 = (fVar3 - pfVar8[1]) / fVar10;
+            fVar7 = (fVar1 - pfVar11[1]) / fVar7;
           }
-          *(float *)((int)puVar14 + iVar6) = PUN(float,param_1[0xc]) * fVar3;
-          *(float *)(g_dwDestVert + 4 + iVar6) = fVar3;
-          iVar7 = local_10 * 8;
+          *(float *)((int)puVar15 + iVar8) = PUN(float,param_1[0xc]) * fVar1;
+          *(float *)(g_dwDestVert + 4 + iVar8) = fVar1;
+          iVar9 = local_10 * 8;
           local_10 = local_10 + 1;
-          iVar6 = iVar6 + 0xc;
-          *(float *)((g_dwDestVert - 4) + iVar6) = (pfVar12[2] - pfVar8[2]) * fVar10 + pfVar8[2];
-          *(float *)(g_dwDestTVert + iVar7) = (*pfVar16 - *pfVar15) * fVar10 + *pfVar15;
-          *(float *)(g_dwDestTVert + 4 + iVar7) = (pfVar16[1] - pfVar15[1]) * fVar10 + pfVar15[1];
+          iVar8 = iVar8 + 0xc;
+          *(float *)((g_dwDestVert - 4) + iVar8) = (pfVar13[2] - pfVar11[2]) * fVar7 + pfVar11[2];
+          *(float *)(g_dwDestTVert + iVar9) = (*pfVar17 - *pfVar16) * fVar7 + *pfVar16;
+          *(float *)(g_dwDestTVert + 4 + iVar9) = (pfVar17[1] - pfVar16[1]) * fVar7 + pfVar16[1];
           g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
-          puVar14 = (uint *)g_dwDestVert;
+          puVar15 = (uint *)g_dwDestVert;
         }
-        if (fVar11 <= *pfVar12) {
-          pfVar15 = (float *)((int)puVar14 + iVar6);
-          *pfVar15 = *pfVar12;
-          pfVar15[1] = pfVar12[1];
-          pfVar15[2] = pfVar12[2];
+        if (fVar10 <= *pfVar13) {
+          pfVar16 = (float *)((int)puVar15 + iVar8);
+          *pfVar16 = *pfVar13;
+          pfVar16[1] = pfVar13[1];
+          pfVar16[2] = pfVar13[2];
+          *(float *)(g_dwDestTVert + local_10 * 8) = *pfVar17;
+          *(float *)(g_dwDestTVert + 4 + local_10 * 8) = pfVar17[1];
+          local_10 = local_10 + 1;
+          iVar8 = iVar8 + 0xc;
+          puVar15 = (uint *)g_dwDestVert;
+        }
+      }
+      local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
+      pfVar16 = pfVar17;
+      pfVar17 = pfVar17 + 2;
+      pfVar11 = pfVar13;
+      pfVar13 = pfVar13 + 3;
+    } while (local_4 != 0.0);
+  }
+  local_4 = PUN(float,local_10);
+  uVar12 = g_dwSourceTVert;
+  if ((int)local_10 < 3) {
+    return (float)in_ST0;
+  }
+  g_dwSourceTVert = g_dwDestTVert;
+  iVar8 = local_10 * 8;
+  local_10 = 0;
+  uVar18 = g_dwSourceVert;
+  g_dwDestVert = g_dwSourceVert;
+  pfVar16 = (float *)puVar15;
+  if (0 < PUN(int,(float)local_4)) {
+    iVar9 = 0;
+    pfVar17 = (float *)((g_dwDestTVert - 8) + iVar8);
+    pfVar11 = (float *)g_dwDestTVert;
+    pfVar13 = (float *)(puVar15 + PUN(int,(float)local_4) * 3 + -3);
+    g_dwDestTVert = uVar12;
+    g_dwSourceVert = (uint)puVar15;
+    do {
+      pfVar16 = (float *)puVar15;
+      fVar7 = PUN(float,param_1[10]) * pfVar13[1];
+      fVar10 = PUN(float,param_1[10]) * pfVar16[1];
+      if ((*pfVar13 <= fVar7) || (*pfVar16 <= fVar10)) {
+        if (((*pfVar13 != fVar7) && (fVar10 != *pfVar16)) &&
+           ((fVar7 < *pfVar13 || (fVar10 < *pfVar16)))) {
+          fVar7 = pfVar16[1] - pfVar13[1];
+          fVar2 = *pfVar16 - *pfVar13;
+          fVar3 = PUN(float,param_1[10]) * fVar7 - fVar2;
+          fVar1 = pfVar16[1] * *pfVar13 - pfVar13[1] * *pfVar16;
+          if (fVar3 != 0.0) {
+            fVar1 = fVar1 / fVar3;
+          }
+          fVar3 = fVar7;
+          if (fVar7 < 0.0) {
+            fVar3 = -fVar7;
+          }
+          fVar4 = fVar2;
+          if (fVar2 < 0.0) {
+            fVar4 = -fVar2;
+          }
+          if (fVar3 <= fVar4) {
+            fVar7 = (PUN(float,param_1[10]) * fVar1 - *pfVar13) / fVar2;
+          }
+          else {
+            fVar7 = (fVar1 - pfVar13[1]) / fVar7;
+          }
+          *(float *)(uVar18 + iVar9) = PUN(float,param_1[10]) * fVar1;
+          *(float *)(g_dwDestVert + 4 + iVar9) = fVar1;
+          iVar8 = local_10 * 8;
+          local_10 = local_10 + 1;
+          iVar9 = iVar9 + 0xc;
+          *(float *)((g_dwDestVert - 4) + iVar9) = (pfVar16[2] - pfVar13[2]) * fVar7 + pfVar13[2];
+          *(float *)(g_dwDestTVert + iVar8) = (*pfVar11 - *pfVar17) * fVar7 + *pfVar17;
+          *(float *)(g_dwDestTVert + 4 + iVar8) = (pfVar11[1] - pfVar17[1]) * fVar7 + pfVar17[1];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
+          uVar18 = g_dwDestVert;
+        }
+        if (*pfVar16 <= fVar10) {
+          pfVar17 = (float *)(uVar18 + iVar9);
+          *pfVar17 = *pfVar16;
+          pfVar17[1] = pfVar16[1];
+          pfVar17[2] = pfVar16[2];
+          *(float *)(g_dwDestTVert + local_10 * 8) = *pfVar11;
+          *(float *)(g_dwDestTVert + 4 + local_10 * 8) = pfVar11[1];
+          local_10 = local_10 + 1;
+          iVar9 = iVar9 + 0xc;
+          uVar18 = g_dwDestVert;
+        }
+      }
+      local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
+      pfVar17 = pfVar11;
+      puVar15 = (uint *)(pfVar16 + 3);
+      pfVar11 = pfVar11 + 2;
+      pfVar13 = pfVar16;
+      uVar12 = g_dwDestTVert;
+      pfVar16 = (float *)g_dwSourceVert;
+    } while (local_4 != 0.0);
+  }
+  g_dwSourceVert = (uint)pfVar16;
+  g_dwDestTVert = uVar12;
+  local_4 = PUN(float,local_10);
+  pfVar16 = (float *)g_dwDestTVert;
+  if ((int)local_10 < 3) {
+    return (float)in_ST0;
+  }
+  g_dwDestTVert = g_dwSourceTVert;
+  fVar10 = 0.0;
+  g_dwDestVert = g_dwSourceVert;
+  pfVar17 = (float *)((uVar18 - 0xc) + local_10 * 0xc);
+  g_dwSourceTVert = (uint)pfVar16;
+  local_10 = 0;
+  fVar7 = fVar10;
+  uVar12 = g_dwSourceVert;
+  if (0 < PUN(int,(float)local_4)) {
+    pfVar13 = (float *)(uVar18 + 8);
+    pfVar11 = (float *)(((int)pfVar16 - 8U) + PUN(int,(float)local_4) * 8);
+    g_dwSourceVert = uVar18;
+    do {
+      fVar7 = PUN(float,param_1[0xb]) * pfVar17[1];
+      fVar2 = pfVar13[-1] * PUN(float,param_1[0xb]);
+      if ((pfVar17[2] <= fVar7) || (*pfVar13 <= fVar2)) {
+        if (((pfVar17[2] != fVar7) && (fVar2 != *pfVar13)) &&
+           ((fVar7 < pfVar17[2] || (fVar2 < *pfVar13)))) {
+          fVar7 = pfVar13[-1] - pfVar17[1];
+          fVar3 = *pfVar13 - pfVar17[2];
+          fVar1 = PUN(float,param_1[0xb]) * fVar7 - fVar3;
+          fVar4 = pfVar17[2] * pfVar13[-1] - pfVar17[1] * *pfVar13;
+          if (fVar1 != 0.0) {
+            fVar4 = fVar4 / fVar1;
+          }
+          fVar1 = PUN(float,param_1[0xb]);
+          fVar5 = fVar7;
+          if (fVar7 < 0.0) {
+            fVar5 = -fVar7;
+          }
+          fVar6 = fVar3;
+          if (fVar3 < 0.0) {
+            fVar6 = -fVar3;
+          }
+          if (fVar5 <= fVar6) {
+            fVar7 = (fVar1 * fVar4 - pfVar17[2]) / fVar3;
+          }
+          else {
+            fVar7 = (fVar4 - pfVar17[1]) / fVar7;
+          }
+          fVar10 = PUN(float,(PUN(int,(float)fVar10) + 0xc));
+          iVar8 = local_10 * 8;
+          local_10 = local_10 + 1;
+          *(float *)((uVar12 - 0xc) + PUN(int,(float)fVar10)) = (pfVar13[-2] - *pfVar17) * fVar7 + *pfVar17;
+          *(float *)((g_dwDestVert - 8) + PUN(int,(float)fVar10)) = fVar4;
+          *(float *)((g_dwDestVert - 4) + PUN(int,(float)fVar10)) = fVar1 * fVar4;
+          *(float *)(g_dwDestTVert + iVar8) = (*pfVar16 - *pfVar11) * fVar7 + *pfVar11;
+          *(float *)(g_dwDestTVert + 4 + iVar8) = (pfVar16[1] - pfVar11[1]) * fVar7 + pfVar11[1];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
+          uVar12 = g_dwDestVert;
+        }
+        if (*pfVar13 <= fVar2) {
+          pfVar17 = (float *)(uVar12 + PUN(int,(float)fVar10));
+          *pfVar17 = pfVar13[-2];
+          pfVar17[1] = pfVar13[-1];
+          pfVar17[2] = *pfVar13;
           *(float *)(g_dwDestTVert + local_10 * 8) = *pfVar16;
           *(float *)(g_dwDestTVert + 4 + local_10 * 8) = pfVar16[1];
           local_10 = local_10 + 1;
-          iVar6 = iVar6 + 0xc;
-          puVar14 = (uint *)g_dwDestVert;
+          fVar10 = PUN(float,(PUN(int,(float)fVar10) + 0xc));
+          uVar12 = g_dwDestVert;
         }
       }
+      pfVar17 = pfVar13 + -2;
+      pfVar13 = pfVar13 + 3;
       local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
-      pfVar15 = pfVar16;
+      fVar7 = PUN(float,local_10);
+      pfVar11 = pfVar16;
       pfVar16 = pfVar16 + 2;
-      pfVar8 = pfVar12;
-      pfVar12 = pfVar12 + 3;
+      uVar18 = g_dwSourceVert;
     } while (local_4 != 0.0);
   }
-  local_4 = PUN(float,local_10);
-  uVar9 = g_dwSourceTVert;
-  if ((int)local_10 < 3) {
-    return PUN(float,local_10);
-  }
-  g_dwSourceTVert = g_dwDestTVert;
-  iVar6 = local_10 * 8;
-  local_10 = 0;
-  uVar17 = g_dwSourceVert;
-  g_dwDestVert = g_dwSourceVert;
-  pfVar15 = (float *)puVar14;
-  if (0 < PUN(int,(float)local_4)) {
-    iVar7 = 0;
-    pfVar16 = (float *)((g_dwDestTVert - 8) + iVar6);
-    pfVar8 = (float *)g_dwDestTVert;
-    pfVar12 = (float *)(puVar14 + PUN(int,(float)local_4) * 3 + -3);
-    g_dwDestTVert = uVar9;
-    g_dwSourceVert = (uint)puVar14;
-    do {
-      pfVar15 = (float *)puVar14;
-      fVar10 = PUN(float,param_1[10]) * pfVar12[1];
-      fVar11 = PUN(float,param_1[10]) * pfVar15[1];
-      if ((*pfVar12 <= fVar10) || (*pfVar15 <= fVar11)) {
-        if (((*pfVar12 != fVar10) && (fVar11 != *pfVar15)) &&
-           ((fVar10 < *pfVar12 || (fVar11 < *pfVar15)))) {
-          fVar10 = pfVar15[1] - pfVar12[1];
-          fVar2 = *pfVar15 - *pfVar12;
-          fVar1 = PUN(float,param_1[10]) * fVar10 - fVar2;
-          fVar3 = pfVar15[1] * *pfVar12 - pfVar12[1] * *pfVar15;
-          if (fVar1 != 0.0) {
-            fVar3 = fVar3 / fVar1;
-          }
-          fVar1 = fVar10;
-          if (fVar10 < 0.0) {
-            fVar1 = -fVar10;
-          }
-          fVar4 = fVar2;
-          if (fVar2 < 0.0) {
-            fVar4 = -fVar2;
-          }
-          if (fVar1 <= fVar4) {
-            fVar10 = (PUN(float,param_1[10]) * fVar3 - *pfVar12) / fVar2;
-          }
-          else {
-            fVar10 = (fVar3 - pfVar12[1]) / fVar10;
-          }
-          *(float *)(uVar17 + iVar7) = PUN(float,param_1[10]) * fVar3;
-          *(float *)(g_dwDestVert + 4 + iVar7) = fVar3;
-          iVar6 = local_10 * 8;
-          local_10 = local_10 + 1;
-          iVar7 = iVar7 + 0xc;
-          *(float *)((g_dwDestVert - 4) + iVar7) = (pfVar15[2] - pfVar12[2]) * fVar10 + pfVar12[2];
-          *(float *)(g_dwDestTVert + iVar6) = (*pfVar8 - *pfVar16) * fVar10 + *pfVar16;
-          *(float *)(g_dwDestTVert + 4 + iVar6) = (pfVar8[1] - pfVar16[1]) * fVar10 + pfVar16[1];
-          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x20;
-          uVar17 = g_dwDestVert;
-        }
-        if (*pfVar15 <= fVar11) {
-          pfVar16 = (float *)(uVar17 + iVar7);
-          *pfVar16 = *pfVar15;
-          pfVar16[1] = pfVar15[1];
-          pfVar16[2] = pfVar15[2];
-          *(float *)(g_dwDestTVert + local_10 * 8) = *pfVar8;
-          *(float *)(g_dwDestTVert + 4 + local_10 * 8) = pfVar8[1];
-          local_10 = local_10 + 1;
-          iVar7 = iVar7 + 0xc;
-          uVar17 = g_dwDestVert;
-        }
-      }
-      local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
-      pfVar16 = pfVar8;
-      puVar14 = (uint *)(pfVar15 + 3);
-      pfVar8 = pfVar8 + 2;
-      pfVar12 = pfVar15;
-      uVar9 = g_dwDestTVert;
-      pfVar15 = (float *)g_dwSourceVert;
-    } while (local_4 != 0.0);
-  }
-  g_dwSourceVert = (uint)pfVar15;
-  g_dwDestTVert = uVar9;
-  local_4 = PUN(float,local_10);
-  pfVar15 = (float *)g_dwDestTVert;
-  if ((int)local_10 < 3) {
-    return PUN(float,local_10);
+  g_dwSourceVert = uVar18;
+  pfVar16 = (float *)g_dwDestTVert;
+  if (PUN(int,(float)fVar7) < 3) {
+    return (float)in_ST0;
   }
   g_dwDestTVert = g_dwSourceTVert;
-  iVar6 = 0;
+  fVar10 = 0.0;
   g_dwDestVert = g_dwSourceVert;
-  pfVar16 = (float *)((uVar17 - 0xc) + local_10 * 0xc);
-  g_dwSourceTVert = (uint)pfVar15;
+  pfVar17 = (float *)((uVar12 - 0xc) + PUN(int,(float)fVar7) * 0xc);
+  g_dwSourceTVert = (uint)pfVar16;
   local_10 = 0;
-  uVar9 = g_dwSourceVert;
-  if (0 < PUN(int,(float)local_4)) {
-    pfVar12 = (float *)(uVar17 + 8);
-    pfVar8 = (float *)(((int)pfVar15 - 8U) + PUN(int,(float)local_4) * 8);
-    g_dwSourceVert = uVar17;
+  local_4 = fVar10;
+  uVar18 = g_dwSourceVert;
+  if (0 < PUN(int,(float)fVar7)) {
+    pfVar13 = (float *)(uVar12 + 8);
+    pfVar11 = (float *)(((int)pfVar16 - 8U) + PUN(int,(float)fVar7) * 8);
+    g_dwSourceVert = uVar12;
     do {
-      fVar10 = PUN(float,param_1[0xb]) * pfVar16[1];
-      fVar11 = pfVar12[-1] * PUN(float,param_1[0xb]);
-      if ((pfVar16[2] <= fVar10) || (*pfVar12 <= fVar11)) {
-        if (((pfVar16[2] != fVar10) && (fVar11 != *pfVar12)) &&
-           ((fVar10 < pfVar16[2] || (fVar11 < *pfVar12)))) {
-          fVar10 = pfVar12[-1] - pfVar16[1];
-          fVar2 = *pfVar12 - pfVar16[2];
-          fVar1 = PUN(float,param_1[0xb]) * fVar10 - fVar2;
-          fVar3 = pfVar16[2] * pfVar12[-1] - pfVar16[1] * *pfVar12;
+      local_4 = fVar7;
+      fVar7 = PUN(float,param_1[8]) * pfVar17[1];
+      fVar2 = pfVar13[-1] * PUN(float,param_1[8]);
+      if ((fVar7 <= pfVar17[2]) || (fVar2 <= *pfVar13)) {
+        if (((pfVar17[2] != fVar7) && (fVar2 != *pfVar13)) &&
+           ((pfVar17[2] < fVar7 || (*pfVar13 < fVar2)))) {
+          fVar7 = pfVar13[-1] - pfVar17[1];
+          fVar3 = *pfVar13 - pfVar17[2];
+          fVar1 = PUN(float,param_1[8]) * fVar7 - fVar3;
+          fVar4 = pfVar17[2] * pfVar13[-1] - pfVar17[1] * *pfVar13;
           if (fVar1 != 0.0) {
-            fVar3 = fVar3 / fVar1;
-          }
-          fVar1 = PUN(float,param_1[0xb]);
-          fVar4 = fVar10;
-          if (fVar10 < 0.0) {
-            fVar4 = -fVar10;
-          }
-          fVar5 = fVar2;
-          if (fVar2 < 0.0) {
-            fVar5 = -fVar2;
-          }
-          if (fVar4 <= fVar5) {
-            fVar10 = (fVar1 * fVar3 - pfVar16[2]) / fVar2;
-          }
-          else {
-            fVar10 = (fVar3 - pfVar16[1]) / fVar10;
-          }
-          iVar6 = iVar6 + 0xc;
-          iVar7 = local_10 * 8;
-          local_10 = local_10 + 1;
-          *(float *)((uVar9 - 0xc) + iVar6) = (pfVar12[-2] - *pfVar16) * fVar10 + *pfVar16;
-          *(float *)((g_dwDestVert - 8) + iVar6) = fVar3;
-          *(float *)((g_dwDestVert - 4) + iVar6) = fVar1 * fVar3;
-          *(float *)(g_dwDestTVert + iVar7) = (*pfVar15 - *pfVar8) * fVar10 + *pfVar8;
-          *(float *)(g_dwDestTVert + 4 + iVar7) = (pfVar15[1] - pfVar8[1]) * fVar10 + pfVar8[1];
-          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 4;
-          uVar9 = g_dwDestVert;
-        }
-        if (*pfVar12 <= fVar11) {
-          pfVar16 = (float *)(uVar9 + iVar6);
-          *pfVar16 = pfVar12[-2];
-          pfVar16[1] = pfVar12[-1];
-          pfVar16[2] = *pfVar12;
-          *(float *)(g_dwDestTVert + local_10 * 8) = *pfVar15;
-          *(float *)(g_dwDestTVert + 4 + local_10 * 8) = pfVar15[1];
-          local_10 = local_10 + 1;
-          iVar6 = iVar6 + 0xc;
-          uVar9 = g_dwDestVert;
-        }
-      }
-      pfVar16 = pfVar12 + -2;
-      pfVar12 = pfVar12 + 3;
-      local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
-      pfVar8 = pfVar15;
-      pfVar15 = pfVar15 + 2;
-      uVar17 = g_dwSourceVert;
-    } while (local_4 != 0.0);
-  }
-  g_dwSourceVert = uVar17;
-  local_4 = PUN(float,local_10);
-  pfVar15 = (float *)g_dwDestTVert;
-  if ((int)local_10 < 3) {
-    return PUN(float,local_10);
-  }
-  g_dwDestTVert = g_dwSourceTVert;
-  iVar6 = 0;
-  g_dwDestVert = g_dwSourceVert;
-  pfVar16 = (float *)((uVar9 - 0xc) + local_10 * 0xc);
-  g_dwSourceTVert = (uint)pfVar15;
-  local_10 = 0;
-  uVar17 = g_dwSourceVert;
-  if (0 < PUN(int,(float)local_4)) {
-    pfVar12 = (float *)(uVar9 + 8);
-    pfVar8 = (float *)(((int)pfVar15 - 8U) + PUN(int,(float)local_4) * 8);
-    g_dwSourceVert = uVar9;
-    do {
-      fVar10 = PUN(float,param_1[8]) * pfVar16[1];
-      fVar11 = pfVar12[-1] * PUN(float,param_1[8]);
-      if ((fVar10 <= pfVar16[2]) || (fVar11 <= *pfVar12)) {
-        if (((pfVar16[2] != fVar10) && (fVar11 != *pfVar12)) &&
-           ((pfVar16[2] < fVar10 || (*pfVar12 < fVar11)))) {
-          fVar10 = pfVar12[-1] - pfVar16[1];
-          fVar2 = *pfVar12 - pfVar16[2];
-          fVar1 = PUN(float,param_1[8]) * fVar10 - fVar2;
-          fVar3 = pfVar16[2] * pfVar12[-1] - pfVar16[1] * *pfVar12;
-          if (fVar1 != 0.0) {
-            fVar3 = fVar3 / fVar1;
+            fVar4 = fVar4 / fVar1;
           }
           fVar1 = PUN(float,param_1[8]);
-          fVar4 = fVar10;
-          if (fVar10 < 0.0) {
-            fVar4 = -fVar10;
+          fVar5 = fVar7;
+          if (fVar7 < 0.0) {
+            fVar5 = -fVar7;
           }
-          fVar5 = fVar2;
-          if (fVar2 < 0.0) {
-            fVar5 = -fVar2;
+          fVar6 = fVar3;
+          if (fVar3 < 0.0) {
+            fVar6 = -fVar3;
           }
-          if (fVar4 <= fVar5) {
-            fVar10 = (fVar1 * fVar3 - pfVar16[2]) / fVar2;
+          if (fVar5 <= fVar6) {
+            fVar7 = (fVar1 * fVar4 - pfVar17[2]) / fVar3;
           }
           else {
-            fVar10 = (fVar3 - pfVar16[1]) / fVar10;
+            fVar7 = (fVar4 - pfVar17[1]) / fVar7;
           }
-          iVar6 = iVar6 + 0xc;
-          iVar7 = local_10 * 8;
+          fVar10 = PUN(float,(PUN(int,(float)fVar10) + 0xc));
+          iVar8 = local_10 * 8;
           local_10 = local_10 + 1;
-          *(float *)((uVar17 - 0xc) + iVar6) = (pfVar12[-2] - *pfVar16) * fVar10 + *pfVar16;
-          *(float *)((g_dwDestVert - 8) + iVar6) = fVar3;
-          *(float *)((g_dwDestVert - 4) + iVar6) = fVar1 * fVar3;
-          *(float *)(g_dwDestTVert + iVar7) = (*pfVar15 - *pfVar8) * fVar10 + *pfVar8;
-          *(float *)(g_dwDestTVert + 4 + iVar7) = (pfVar15[1] - pfVar8[1]) * fVar10 + pfVar8[1];
+          *(float *)((uVar18 - 0xc) + PUN(int,(float)fVar10)) = (pfVar13[-2] - *pfVar17) * fVar7 + *pfVar17;
+          *(float *)((g_dwDestVert - 8) + PUN(int,(float)fVar10)) = fVar4;
+          *(float *)((g_dwDestVert - 4) + PUN(int,(float)fVar10)) = fVar1 * fVar4;
+          *(float *)(g_dwDestTVert + iVar8) = (*pfVar16 - *pfVar11) * fVar7 + *pfVar11;
+          *(float *)(g_dwDestTVert + 4 + iVar8) = (pfVar16[1] - pfVar11[1]) * fVar7 + pfVar11[1];
           g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 8;
-          uVar17 = g_dwDestVert;
+          uVar18 = g_dwDestVert;
         }
-        if (fVar11 <= *pfVar12) {
-          pfVar16 = (float *)(uVar17 + iVar6);
-          *pfVar16 = pfVar12[-2];
-          pfVar16[1] = pfVar12[-1];
-          pfVar16[2] = *pfVar12;
-          *(float *)(g_dwDestTVert + local_10 * 8) = *pfVar15;
-          *(float *)(g_dwDestTVert + 4 + local_10 * 8) = pfVar15[1];
+        if (fVar2 <= *pfVar13) {
+          pfVar17 = (float *)(uVar18 + PUN(int,(float)fVar10));
+          *pfVar17 = pfVar13[-2];
+          pfVar17[1] = pfVar13[-1];
+          pfVar17[2] = *pfVar13;
+          *(float *)(g_dwDestTVert + local_10 * 8) = *pfVar16;
+          *(float *)(g_dwDestTVert + 4 + local_10 * 8) = pfVar16[1];
           local_10 = local_10 + 1;
-          iVar6 = iVar6 + 0xc;
-          uVar17 = g_dwDestVert;
+          fVar10 = PUN(float,(PUN(int,(float)fVar10) + 0xc));
+          uVar18 = g_dwDestVert;
         }
       }
-      pfVar16 = pfVar12 + -2;
-      pfVar12 = pfVar12 + 3;
+      pfVar17 = pfVar13 + -2;
+      pfVar13 = pfVar13 + 3;
+      fVar7 = PUN(float,(PUN(int,(float)local_4) + -1));
+      local_4 = PUN(float,local_10);
+      pfVar11 = pfVar16;
+      pfVar16 = pfVar16 + 2;
+      uVar12 = g_dwSourceVert;
+    } while (fVar7 != 0.0);
+  }
+  g_dwSourceVert = uVar12;
+  param_4 = (float *)g_dwDestTVert;
+  if (PUN(int,(float)local_4) < 3) {
+    return (float)in_ST0;
+  }
+  g_dwDestTVert = g_dwSourceTVert;
+  fVar7 = 0.0;
+  g_dwDestVert = g_dwSourceVert;
+  g_dwSourceTVert = (uint)param_4;
+  pfVar16 = (float *)((uVar18 - 0xc) + PUN(int,(float)local_4) * 0xc);
+  pfVar17 = (float *)g_dwSourceVert;
+  if (0 < PUN(int,(float)local_4)) {
+    pfVar13 = (float *)(uVar18 + 4);
+    pfVar11 = (float *)(((int)param_4 - 8U) + PUN(int,(float)local_4) * 8);
+    iVar8 = 0;
+    g_dwSourceVert = uVar18;
+    do {
+      iVar9 = iVar8;
+      if ((PUN(float,param_1[1]) <= pfVar16[1]) || (PUN(float,param_1[1]) <= *pfVar13)) {
+        if (((pfVar16[1] != PUN(float,param_1[1])) && (*pfVar13 != PUN(float,param_1[1]))) &&
+           ((pfVar16[1] < PUN(float,param_1[1]) || (*pfVar13 < PUN(float,param_1[1]))))) {
+          iVar9 = iVar8 + 0xc;
+          fVar10 = (PUN(float,param_1[1]) - pfVar16[1]) / (*pfVar13 - pfVar16[1]);
+          *(int *)((int)pfVar17 + iVar8 + 4) = param_1[1];
+          iVar8 = PUN(int,(float)fVar7) * 8;
+          fVar7 = PUN(float,(PUN(int,(float)fVar7) + 1));
+          *(float *)((g_dwDestVert - 4) + iVar9) = (pfVar13[1] - pfVar16[2]) * fVar10 + pfVar16[2];
+          *(float *)((g_dwDestVert - 0xc) + iVar9) = (pfVar13[-1] - *pfVar16) * fVar10 + *pfVar16;
+          *(float *)(g_dwDestTVert + iVar8) = (*param_4 - *pfVar11) * fVar10 + *pfVar11;
+          *(float *)(g_dwDestTVert + 4 + iVar8) = (param_4[1] - pfVar11[1]) * fVar10 + pfVar11[1];
+          g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+          pfVar17 = (float *)g_dwDestVert;
+        }
+        if (PUN(float,param_1[1]) <= *pfVar13) {
+          pfVar17 = (float *)((int)pfVar17 + iVar9);
+          fVar7 = PUN(float,(PUN(int,(float)fVar7) + 1));
+          iVar9 = iVar9 + 0xc;
+          *pfVar17 = pfVar13[-1];
+          pfVar17[1] = *pfVar13;
+          pfVar17[2] = pfVar13[1];
+          *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar7) * 8) = *param_4;
+          *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar7) * 8) = param_4[1];
+          pfVar17 = (float *)g_dwDestVert;
+        }
+      }
+      pfVar16 = pfVar13 + -1;
+      pfVar13 = pfVar13 + 3;
       local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
-      pfVar8 = pfVar15;
-      pfVar15 = pfVar15 + 2;
-      uVar9 = g_dwSourceVert;
+      pfVar11 = param_4;
+      iVar8 = iVar9;
+      uVar18 = g_dwSourceVert;
+      param_4 = param_4 + 2;
     } while (local_4 != 0.0);
   }
-  g_dwSourceVert = uVar9;
-  param_4 = (float *)g_dwDestTVert;
-  if (2 < (int)local_10) {
-    g_dwDestTVert = g_dwSourceTVert;
+  g_dwSourceVert = uVar18;
+  uVar12 = g_dwSourceTVert;
+  if (PUN(int,(float)fVar7) < 3) {
+    g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
+    return (float)in_ST0;
+  }
+  fVar10 = fVar7;
+  pfVar16 = pfVar17;
+  if (*param_1 != 0) {
     fVar10 = 0.0;
-    g_dwDestVert = g_dwSourceVert;
-    g_dwSourceTVert = (uint)param_4;
-    pfVar15 = (float *)((uVar17 - 0xc) + local_10 * 0xc);
+    g_dwSourceTVert = g_dwDestTVert;
+    pfVar11 = pfVar17 + PUN(int,(float)fVar7) * 3 + -3;
+    iVar8 = g_dwDestTVert - 8;
+    param_4 = (float *)g_dwDestTVert;
     pfVar16 = (float *)g_dwSourceVert;
-    if (0 < (int)local_10) {
-      pfVar12 = (float *)(uVar17 + 4);
-      pfVar8 = (float *)(((int)param_4 - 8U) + local_10 * 8);
-      iVar6 = 0;
-      g_dwSourceVert = uVar17;
-      local_4 = PUN(float,local_10);
+    g_dwDestTVert = uVar12;
+    g_dwDestVert = g_dwSourceVert;
+    if (0 < PUN(int,(float)fVar7)) {
+      pfVar14 = pfVar17 + 1;
+      pfVar13 = (float *)(iVar8 + PUN(int,(float)fVar7) * 8);
+      iVar8 = 0;
+      g_dwSourceVert = (uint)pfVar17;
+      local_4 = fVar7;
       do {
-        iVar7 = iVar6;
-        if ((PUN(float,param_1[1]) <= pfVar15[1]) || (PUN(float,param_1[1]) <= *pfVar12)) {
-          if (((pfVar15[1] != PUN(float,param_1[1])) && (*pfVar12 != PUN(float,param_1[1]))) &&
-             ((pfVar15[1] < PUN(float,param_1[1]) || (*pfVar12 < PUN(float,param_1[1]))))) {
-            iVar7 = iVar6 + 0xc;
-            fVar11 = (PUN(float,param_1[1]) - pfVar15[1]) / (*pfVar12 - pfVar15[1]);
-            *(int *)((int)pfVar16 + iVar6 + 4) = param_1[1];
-            iVar6 = PUN(int,(float)fVar10) * 8;
+        iVar9 = iVar8;
+        if ((pfVar11[1] <= PUN(float,param_1[2])) || (*pfVar14 <= PUN(float,param_1[2]))) {
+          if (((pfVar11[1] != PUN(float,param_1[2])) && (*pfVar14 != PUN(float,param_1[2]))) &&
+             ((PUN(float,param_1[2]) < pfVar11[1] || (PUN(float,param_1[2]) < *pfVar14)))) {
+            iVar9 = iVar8 + 0xc;
+            fVar7 = (PUN(float,param_1[2]) - pfVar11[1]) / (*pfVar14 - pfVar11[1]);
+            *(int *)((int)pfVar16 + iVar8 + 4) = param_1[2];
+            iVar8 = PUN(int,(float)fVar10) * 8;
             fVar10 = PUN(float,(PUN(int,(float)fVar10) + 1));
-            *(float *)((g_dwDestVert - 4) + iVar7) = (pfVar12[1] - pfVar15[2]) * fVar11 + pfVar15[2]
-            ;
-            *(float *)((g_dwDestVert - 0xc) + iVar7) = (pfVar12[-1] - *pfVar15) * fVar11 + *pfVar15;
-            *(float *)(g_dwDestTVert + iVar6) = (*param_4 - *pfVar8) * fVar11 + *pfVar8;
-            *(float *)(g_dwDestTVert + 4 + iVar6) = (param_4[1] - pfVar8[1]) * fVar11 + pfVar8[1];
-            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
+            *(float *)((g_dwDestVert - 4) + iVar9) = (pfVar14[1] - pfVar11[2]) * fVar7 + pfVar11[2];
+            *(float *)((g_dwDestVert - 0xc) + iVar9) = (pfVar14[-1] - *pfVar11) * fVar7 + *pfVar11;
+            *(float *)(g_dwDestTVert + iVar8) = (*param_4 - *pfVar13) * fVar7 + *pfVar13;
+            *(float *)(g_dwDestTVert + 4 + iVar8) = (param_4[1] - pfVar13[1]) * fVar7 + pfVar13[1];
+            g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
             pfVar16 = (float *)g_dwDestVert;
           }
-          if (PUN(float,param_1[1]) <= *pfVar12) {
-            pfVar16 = (float *)((int)pfVar16 + iVar7);
+          if (*pfVar14 <= PUN(float,param_1[2])) {
+            pfVar16 = (float *)((int)pfVar16 + iVar9);
             fVar10 = PUN(float,(PUN(int,(float)fVar10) + 1));
-            iVar7 = iVar7 + 0xc;
-            *pfVar16 = pfVar12[-1];
-            pfVar16[1] = *pfVar12;
-            pfVar16[2] = pfVar12[1];
+            iVar9 = iVar9 + 0xc;
+            *pfVar16 = pfVar14[-1];
+            pfVar16[1] = *pfVar14;
+            pfVar16[2] = pfVar14[1];
             *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar10) * 8) = *param_4;
             *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar10) * 8) = param_4[1];
             pfVar16 = (float *)g_dwDestVert;
           }
         }
-        pfVar15 = pfVar12 + -1;
-        pfVar12 = pfVar12 + 3;
+        pfVar11 = pfVar14 + -1;
+        pfVar14 = pfVar14 + 3;
         local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
-        pfVar8 = param_4;
-        iVar6 = iVar7;
-        uVar17 = g_dwSourceVert;
+        pfVar13 = param_4;
+        iVar8 = iVar9;
+        pfVar17 = (float *)g_dwSourceVert;
         param_4 = param_4 + 2;
       } while (local_4 != 0.0);
     }
-    g_dwSourceVert = uVar17;
-    uVar9 = g_dwSourceTVert;
-    if (PUN(int,(float)fVar10) < 3) {
-      g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
-      return fVar10;
-    }
-    fVar11 = fVar10;
-    pfVar15 = pfVar16;
-    if (*param_1 != 0) {
-      fVar11 = 0.0;
-      g_dwSourceTVert = g_dwDestTVert;
-      pfVar8 = pfVar16 + PUN(int,(float)fVar10) * 3 + -3;
-      iVar6 = g_dwDestTVert - 8;
-      param_4 = (float *)g_dwDestTVert;
-      pfVar15 = (float *)g_dwSourceVert;
-      g_dwDestTVert = uVar9;
-      g_dwDestVert = g_dwSourceVert;
-      if (0 < PUN(int,(float)fVar10)) {
-        pfVar13 = pfVar16 + 1;
-        pfVar12 = (float *)(iVar6 + PUN(int,(float)fVar10) * 8);
-        iVar6 = 0;
-        g_dwSourceVert = (uint)pfVar16;
-        local_4 = fVar10;
-        do {
-          iVar7 = iVar6;
-          if ((pfVar8[1] <= PUN(float,param_1[2])) || (*pfVar13 <= PUN(float,param_1[2]))) {
-            if (((pfVar8[1] != PUN(float,param_1[2])) && (*pfVar13 != PUN(float,param_1[2]))) &&
-               ((PUN(float,param_1[2]) < pfVar8[1] || (PUN(float,param_1[2]) < *pfVar13)))) {
-              iVar7 = iVar6 + 0xc;
-              fVar10 = (PUN(float,param_1[2]) - pfVar8[1]) / (*pfVar13 - pfVar8[1]);
-              *(int *)((int)pfVar15 + iVar6 + 4) = param_1[2];
-              iVar6 = PUN(int,(float)fVar11) * 8;
-              fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
-              *(float *)((g_dwDestVert - 4) + iVar7) = (pfVar13[1] - pfVar8[2]) * fVar10 + pfVar8[2]
-              ;
-              *(float *)((g_dwDestVert - 0xc) + iVar7) = (pfVar13[-1] - *pfVar8) * fVar10 + *pfVar8;
-              *(float *)(g_dwDestTVert + iVar6) = (*param_4 - *pfVar12) * fVar10 + *pfVar12;
-              *(float *)(g_dwDestTVert + 4 + iVar6) =
-                   (param_4[1] - pfVar12[1]) * fVar10 + pfVar12[1];
-              g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
-              pfVar15 = (float *)g_dwDestVert;
-            }
-            if (*pfVar13 <= PUN(float,param_1[2])) {
-              pfVar15 = (float *)((int)pfVar15 + iVar7);
-              fVar11 = PUN(float,(PUN(int,(float)fVar11) + 1));
-              iVar7 = iVar7 + 0xc;
-              *pfVar15 = pfVar13[-1];
-              pfVar15[1] = *pfVar13;
-              pfVar15[2] = pfVar13[1];
-              *(float *)((g_dwDestTVert - 8) + PUN(int,(float)fVar11) * 8) = *param_4;
-              *(float *)((g_dwDestTVert - 4) + PUN(int,(float)fVar11) * 8) = param_4[1];
-              pfVar15 = (float *)g_dwDestVert;
-            }
-          }
-          pfVar8 = pfVar13 + -1;
-          pfVar13 = pfVar13 + 3;
-          local_4 = PUN(float,(PUN(int,(float)local_4) + -1));
-          pfVar12 = param_4;
-          iVar6 = iVar7;
-          pfVar16 = (float *)g_dwSourceVert;
-          param_4 = param_4 + 2;
-        } while (local_4 != 0.0);
-      }
-      g_dwSourceVert = (uint)pfVar16;
-      if (PUN(int,(float)fVar11) < 3) {
-        return fVar11;
-      }
-    }
-    if (pfVar15 != param_2) {
-      for (uVar9 = PUN(int,(float)fVar11) * 3 & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1) {
-        *param_2 = *pfVar15;
-        pfVar15 = pfVar15 + 1;
-        param_2 = param_2 + 1;
-      }
-      for (iVar6 = 0; iVar6 != 0; iVar6 = iVar6 + -1) {
-        *(undefined1 *)param_2 = *(undefined1 *)pfVar15;
-        pfVar15 = (float *)((int)pfVar15 + 1);
-        param_2 = (float *)((int)param_2 + 1);
-      }
-      pfVar15 = (float *)g_dwDestTVert;
-      for (iVar6 = (PUN(uint,(float)fVar11) & 0x1fffffff) << 1; iVar6 != 0; iVar6 = iVar6 + -1) {
-        *param_3 = *pfVar15;
-        pfVar15 = pfVar15 + 1;
-        param_3 = param_3 + 1;
-      }
-      for (iVar6 = 0; iVar6 != 0; iVar6 = iVar6 + -1) {
-        *(undefined1 *)param_3 = *(undefined1 *)pfVar15;
-        pfVar15 = (float *)((int)pfVar15 + 1);
-        param_3 = (float *)((int)param_3 + 1);
-      }
-    }
-    return fVar11;
+    g_dwSourceVert = (uint)pfVar17;
+    if (PUN(int,(float)fVar10) < 3) goto LAB_0044be69;
   }
-  return PUN(float,local_10);
+  if (pfVar16 != param_2) {
+    for (uVar12 = PUN(int,(float)fVar10) * 3 & 0x3fffffff; uVar12 != 0; uVar12 = uVar12 - 1) {
+      *param_2 = *pfVar16;
+      pfVar16 = pfVar16 + 1;
+      param_2 = param_2 + 1;
+    }
+    for (iVar8 = 0; iVar8 != 0; iVar8 = iVar8 + -1) {
+      *(undefined1 *)param_2 = *(undefined1 *)pfVar16;
+      pfVar16 = (float *)((int)pfVar16 + 1);
+      param_2 = (float *)((int)param_2 + 1);
+    }
+    pfVar16 = (float *)g_dwDestTVert;
+    for (iVar8 = (PUN(uint,(float)fVar10) & 0x1fffffff) << 1; iVar8 != 0; iVar8 = iVar8 + -1) {
+      *param_3 = *pfVar16;
+      pfVar16 = pfVar16 + 1;
+      param_3 = param_3 + 1;
+    }
+    for (iVar8 = 0; iVar8 != 0; iVar8 = iVar8 + -1) {
+      *(undefined1 *)param_3 = *(undefined1 *)pfVar16;
+      pfVar16 = (float *)((int)pfVar16 + 1);
+      param_3 = (float *)((int)param_3 + 1);
+    }
+  }
+LAB_0044be69:
+  return (float)in_ST0;
 }
 #undef local_10
 #undef local_4
@@ -3294,7 +3291,7 @@ float rdClip_Face3T(int *param_1,float *param_2,float *param_3,float *param_4)
    rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
    rdClip_Face3_PosUvFlags. */
 
-uint rdClip_Face3TOrtho(int *param_1,float *param_2,float *param_3,uint param_4)
+uint __cdecl rdClip_Face3TOrtho(int *param_1,float *param_2,float *param_3,uint param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3713,7 +3710,8 @@ uint rdClip_Face3TOrtho(int *param_1,float *param_2,float *param_3,uint param_4)
    rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
    rdClip_Face3_PosUvLitColor. */
 
-float rdClip_Face3GT(int *param_1,float *param_2,float *param_3,undefined4 *param_4,float *param_5)
+float __cdecl
+rdClip_Face3GT(int *param_1,float *param_2,float *param_3,uint *param_4,float *param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3736,6 +3734,7 @@ float rdClip_Face3GT(int *param_1,float *param_2,float *param_3,undefined4 *para
   uint uVar17;
   int iVar18;
   float *pfVar19;
+  float10 in_ST0;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
@@ -3828,7 +3827,7 @@ float rdClip_Face3GT(int *param_1,float *param_2,float *param_3,undefined4 *para
   local_18 = g_dwDestIVert;
   uVar9 = g_dwSourceTVert;
   if (PUN(int,(float)fVar7) < 3) {
-    return fVar7;
+    return (float)in_ST0;
   }
   g_dwSourceTVert = g_dwDestTVert;
   g_dwDestIVert = g_dwSourceIVert;
@@ -4005,7 +4004,7 @@ float rdClip_Face3GT(int *param_1,float *param_2,float *param_3,undefined4 *para
     local_18 = g_dwDestIVert;
     pfVar14 = (float *)g_dwDestTVert;
     if (PUN(int,(float)fVar7) < 3) {
-      return fVar7;
+      return (float)in_ST0;
     }
     g_dwDestTVert = g_dwSourceTVert;
     g_dwDestIVert = g_dwSourceIVert;
@@ -4093,7 +4092,7 @@ float rdClip_Face3GT(int *param_1,float *param_2,float *param_3,undefined4 *para
     local_18 = g_dwDestIVert;
     param_5 = (float *)g_dwDestTVert;
     if (PUN(int,(float)fVar11) < 3) {
-      return fVar11;
+      return (float)in_ST0;
     }
     g_dwDestTVert = g_dwSourceTVert;
     g_dwDestIVert = g_dwSourceIVert;
@@ -4161,7 +4160,7 @@ float rdClip_Face3GT(int *param_1,float *param_2,float *param_3,undefined4 *para
     uVar9 = g_dwSourceIVert;
     if (PUN(int,(float)fVar7) < 3) {
       g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x40;
-      return fVar7;
+      return (float)in_ST0;
     }
     fVar11 = fVar7;
     pfVar14 = pfVar15;
@@ -4230,9 +4229,7 @@ float rdClip_Face3GT(int *param_1,float *param_2,float *param_3,undefined4 *para
         } while (local_4 != 0.0);
       }
       g_dwSourceVert = (uint)pfVar15;
-      if (PUN(int,(float)fVar11) < 3) {
-        return fVar11;
-      }
+      if (PUN(int,(float)fVar11) < 3) goto LAB_0044da30;
     }
     if (pfVar14 != param_2) {
       for (uVar9 = PUN(int,(float)fVar11) * 3 & 0x3fffffff; uVar9 != 0; uVar9 = uVar9 - 1) {
@@ -4251,20 +4248,20 @@ float rdClip_Face3GT(int *param_1,float *param_2,float *param_3,undefined4 *para
         pfVar14 = pfVar14 + 1;
         param_3 = param_3 + 1;
       }
-      for (iVar10 = 0; fVar7 = fVar11, puVar16 = (undefined4 *)g_dwDestIVert, iVar10 != 0;
-          iVar10 = iVar10 + -1) {
+      for (iVar10 = 0; puVar13 = (uint *)g_dwDestIVert, iVar10 != 0; iVar10 = iVar10 + -1) {
         *(undefined1 *)param_3 = *(undefined1 *)pfVar14;
         pfVar14 = (float *)((int)pfVar14 + 1);
         param_3 = (float *)((int)param_3 + 1);
       }
-      for (; fVar7 != 0.0; fVar7 = PUN(float,(PUN(int,(float)fVar7) - 1))) {
-        *param_4 = *puVar16;
-        puVar16 = puVar16 + 1;
+      for (; fVar11 != 0.0; fVar11 = PUN(float,(PUN(int,(float)fVar11) - 1))) {
+        *param_4 = *puVar13;
+        puVar13 = puVar13 + 1;
         param_4 = param_4 + 1;
       }
     }
   }
-  return fVar11;
+LAB_0044da30:
+  return (float)in_ST0;
 }
 #undef local_14
 #undef local_18
@@ -4282,8 +4279,8 @@ float rdClip_Face3GT(int *param_1,float *param_2,float *param_3,undefined4 *para
    the rdPrimit3_ClipFace switch (geometry/lighting mode, perspective or ortho camera)); was
    rdClip_Face3_PosUvLitFlags. */
 
-uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefined4 *param_4,
-                        uint param_5)
+uint __cdecl
+rdClip_Face3GTOrtho(int *param_1,float *param_2,uint *param_3,uint *param_4,uint param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4302,10 +4299,9 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
   float *pfVar13;
   uint uVar14;
   float *pfVar15;
-  undefined4 *puVar16;
-  undefined4 *puVar17;
+  uint *puVar16;
+  int iVar17;
   int iVar18;
-  int iVar19;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
@@ -4316,7 +4312,7 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
   g_dwSourceVert = (uint)param_2;
   uVar7 = 0;
   puVar12 = &g_dwWorkVerts;
-  local_c = (uint)(param_4 + param_5 + -1);
+  local_c = (uint)(param_4 + (param_5 - 1));
   local_10 = (uint)param_3;
   local_14 = (uint)param_4;
   g_dwRdClip_faceStatus = 0;
@@ -4325,7 +4321,7 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
   g_dwDestTVert = (uint)&g_dwWorkTVerts;
   g_dwDestIVert = (uint)&g_dwWorkIVerts;
   if (0 < (int)param_5) {
-    iVar18 = 0;
+    iVar17 = 0;
     pfVar13 = param_2 + param_5 * 3 + -3;
     pfVar15 = param_2;
     pfVar5 = (float *)(param_3 + param_5 * 2 + -2);
@@ -4336,11 +4332,11 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
         if (((*pfVar13 != fVar2) && (fVar1 != *pfVar15)) &&
            ((*pfVar13 < fVar2 || (*pfVar15 < fVar1)))) {
           fVar3 = (fVar2 - *pfVar13) / (*pfVar15 - *pfVar13);
-          iVar19 = iVar18 + 0xc;
+          iVar18 = iVar17 + 0xc;
           uVar7 = uVar7 + 1;
-          *(float *)((int)puVar12 + iVar18) = fVar2;
-          *(float *)((g_dwDestVert - 8) + iVar19) = (pfVar15[1] - pfVar13[1]) * fVar3 + pfVar13[1];
-          *(float *)((g_dwDestVert - 4) + iVar19) = (pfVar15[2] - pfVar13[2]) * fVar3 + pfVar13[2];
+          *(float *)((int)puVar12 + iVar17) = fVar2;
+          *(float *)((g_dwDestVert - 8) + iVar18) = (pfVar15[1] - pfVar13[1]) * fVar3 + pfVar13[1];
+          *(float *)((g_dwDestVert - 4) + iVar18) = (pfVar15[2] - pfVar13[2]) * fVar3 + pfVar13[2];
           *(float *)((g_dwDestTVert - 8) + uVar7 * 8) =
                (*(float *)local_10 - *pfVar5) * fVar3 + *pfVar5;
           *(float *)((g_dwDestTVert - 4) + uVar7 * 8) =
@@ -4349,12 +4345,12 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
                (*(float *)local_14 - *(float *)local_c) * fVar3 + *(float *)local_c;
           g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 0x10;
           puVar12 = (uint *)g_dwDestVert;
-          iVar18 = iVar19;
+          iVar17 = iVar18;
         }
         if (fVar1 <= *pfVar15) {
-          pfVar13 = (float *)((int)puVar12 + iVar18);
+          pfVar13 = (float *)((int)puVar12 + iVar17);
           uVar7 = uVar7 + 1;
-          iVar18 = iVar18 + 0xc;
+          iVar17 = iVar17 + 0xc;
           *pfVar13 = *pfVar15;
           pfVar13[1] = pfVar15[1];
           pfVar13[2] = pfVar15[2];
@@ -4366,7 +4362,7 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
       }
       local_c = local_14;
       local_14 = local_14 + 4;
-      param_5 = param_5 + -1;
+      param_5 = param_5 - 1;
       pfVar13 = pfVar15;
       pfVar15 = pfVar15 + 3;
       pfVar5 = (float *)local_10;
@@ -4376,7 +4372,7 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
   uVar4 = g_dwSourceTVert;
   uVar6 = g_dwSourceIVert;
   if (2 < (int)uVar7) {
-    iVar18 = g_dwDestTVert - 8;
+    iVar17 = g_dwDestTVert - 8;
     local_c = (g_dwDestIVert - 4) + uVar7 * 4;
     uVar9 = 0;
     g_dwSourceTVert = g_dwDestTVert;
@@ -4389,9 +4385,9 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
     g_dwDestIVert = uVar6;
     pfVar13 = (float *)puVar12;
     if (0 < (int)uVar7) {
-      iVar19 = 0;
+      iVar18 = 0;
       pfVar15 = (float *)(puVar12 + uVar7 * 3 + -3);
-      pfVar5 = (float *)(iVar18 + uVar7 * 8);
+      pfVar5 = (float *)(iVar17 + uVar7 * 8);
       g_dwSourceVert = (uint)puVar12;
       param_5 = uVar7;
       do {
@@ -4401,12 +4397,12 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
           if (((*pfVar15 != fVar2) && (fVar1 != PUN(float,*puVar12))) &&
              ((fVar2 < *pfVar15 || (fVar1 < PUN(float,*puVar12))))) {
             fVar3 = (fVar2 - *pfVar15) / (PUN(float,*puVar12) - *pfVar15);
-            iVar19 = iVar19 + 0xc;
+            iVar18 = iVar18 + 0xc;
             uVar9 = uVar9 + 1;
-            *(float *)((uVar8 - 0xc) + iVar19) = fVar2;
-            *(float *)((g_dwDestVert - 8) + iVar19) =
+            *(float *)((uVar8 - 0xc) + iVar18) = fVar2;
+            *(float *)((g_dwDestVert - 8) + iVar18) =
                  (PUN(float,puVar12[1]) - pfVar15[1]) * fVar3 + pfVar15[1];
-            *(float *)((g_dwDestVert - 4) + iVar19) =
+            *(float *)((g_dwDestVert - 4) + iVar18) =
                  (PUN(float,puVar12[2]) - pfVar15[2]) * fVar3 + pfVar15[2];
             *(float *)((g_dwDestTVert - 8) + uVar9 * 8) =
                  (*(float *)local_10 - *pfVar5) * fVar3 + *pfVar5;
@@ -4418,9 +4414,9 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
             uVar8 = g_dwDestVert;
           }
           if (PUN(float,*puVar12) <= fVar1) {
-            pfVar13 = (float *)(uVar8 + iVar19);
+            pfVar13 = (float *)(uVar8 + iVar18);
             uVar9 = uVar9 + 1;
-            iVar19 = iVar19 + 0xc;
+            iVar18 = iVar18 + 0xc;
             *pfVar13 = PUN(float,*puVar12);
             pfVar13[1] = PUN(float,puVar12[1]);
             pfVar13[2] = PUN(float,puVar12[2]);
@@ -4447,7 +4443,7 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
       return uVar9;
     }
     pfVar13 = (float *)((uVar8 - 0xc) + uVar9 * 0xc);
-    iVar18 = g_dwDestTVert - 8;
+    iVar17 = g_dwDestTVert - 8;
     local_c = (g_dwDestIVert - 4) + uVar9 * 4;
     uVar7 = 0;
     g_dwDestVert = g_dwSourceVert;
@@ -4459,9 +4455,9 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
     g_dwDestTVert = uVar4;
     g_dwDestIVert = uVar6;
     if (0 < (int)uVar9) {
-      iVar19 = 0;
+      iVar18 = 0;
       pfVar15 = (float *)(uVar8 + 8);
-      pfVar5 = (float *)(iVar18 + uVar9 * 8);
+      pfVar5 = (float *)(iVar17 + uVar9 * 8);
       g_dwSourceVert = uVar8;
       param_5 = uVar9;
       do {
@@ -4471,12 +4467,12 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
           if (((pfVar13[2] != fVar2) && (fVar1 != *pfVar15)) &&
              ((fVar2 < pfVar13[2] || (fVar1 < *pfVar15)))) {
             fVar3 = (fVar2 - pfVar13[2]) / (*pfVar15 - pfVar13[2]);
-            iVar19 = iVar19 + 0xc;
+            iVar18 = iVar18 + 0xc;
             uVar7 = uVar7 + 1;
-            *(float *)((uVar14 - 0xc) + iVar19) = (pfVar15[-2] - *pfVar13) * fVar3 + *pfVar13;
-            *(float *)((g_dwDestVert - 8) + iVar19) =
+            *(float *)((uVar14 - 0xc) + iVar18) = (pfVar15[-2] - *pfVar13) * fVar3 + *pfVar13;
+            *(float *)((g_dwDestVert - 8) + iVar18) =
                  (pfVar15[-1] - pfVar13[1]) * fVar3 + pfVar13[1];
-            *(float *)((g_dwDestVert - 4) + iVar19) = fVar2;
+            *(float *)((g_dwDestVert - 4) + iVar18) = fVar2;
             *(float *)((g_dwDestTVert - 8) + uVar7 * 8) =
                  (*(float *)local_10 - *pfVar5) * fVar3 + *pfVar5;
             *(float *)((g_dwDestTVert - 4) + uVar7 * 8) =
@@ -4487,9 +4483,9 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
             uVar14 = g_dwDestVert;
           }
           if (*pfVar15 <= fVar1) {
-            pfVar13 = (float *)(uVar14 + iVar19);
+            pfVar13 = (float *)(uVar14 + iVar18);
             uVar7 = uVar7 + 1;
-            iVar19 = iVar19 + 0xc;
+            iVar18 = iVar18 + 0xc;
             *pfVar13 = pfVar15[-2];
             pfVar13[1] = pfVar15[-1];
             pfVar13[2] = *pfVar15;
@@ -4520,15 +4516,15 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
       local_10 = g_dwDestTVert;
       local_14 = g_dwDestIVert;
       pfVar13 = (float *)((uVar14 - 0xc) + uVar7 * 0xc);
-      iVar18 = g_dwDestTVert - 8;
+      iVar17 = g_dwDestTVert - 8;
       local_c = (g_dwDestIVert - 4) + uVar7 * 4;
       uVar9 = g_dwSourceVert;
       g_dwDestTVert = uVar4;
       g_dwDestIVert = uVar6;
       if (0 < (int)uVar7) {
-        iVar19 = 0;
+        iVar18 = 0;
         pfVar15 = (float *)(uVar14 + 8);
-        pfVar5 = (float *)(iVar18 + uVar7 * 8);
+        pfVar5 = (float *)(iVar17 + uVar7 * 8);
         g_dwSourceVert = uVar14;
         param_5 = uVar7;
         do {
@@ -4538,12 +4534,12 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
             if (((pfVar13[2] != fVar2) && (fVar1 != *pfVar15)) &&
                ((pfVar13[2] < fVar2 || (*pfVar15 < fVar1)))) {
               fVar3 = (fVar2 - pfVar13[2]) / (*pfVar15 - pfVar13[2]);
-              iVar19 = iVar19 + 0xc;
+              iVar18 = iVar18 + 0xc;
               uVar8 = uVar8 + 1;
-              *(float *)((uVar9 - 0xc) + iVar19) = (pfVar15[-2] - *pfVar13) * fVar3 + *pfVar13;
-              *(float *)((g_dwDestVert - 8) + iVar19) =
+              *(float *)((uVar9 - 0xc) + iVar18) = (pfVar15[-2] - *pfVar13) * fVar3 + *pfVar13;
+              *(float *)((g_dwDestVert - 8) + iVar18) =
                    (pfVar15[-1] - pfVar13[1]) * fVar3 + pfVar13[1];
-              *(float *)((g_dwDestVert - 4) + iVar19) = fVar2;
+              *(float *)((g_dwDestVert - 4) + iVar18) = fVar2;
               *(float *)((g_dwDestTVert - 8) + uVar8 * 8) =
                    (*(float *)local_10 - *pfVar5) * fVar3 + *pfVar5;
               *(float *)((g_dwDestTVert - 4) + uVar8 * 8) =
@@ -4554,9 +4550,9 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
               uVar9 = g_dwDestVert;
             }
             if (fVar1 <= *pfVar15) {
-              pfVar13 = (float *)(uVar9 + iVar19);
+              pfVar13 = (float *)(uVar9 + iVar18);
               uVar8 = uVar8 + 1;
-              iVar19 = iVar19 + 0xc;
+              iVar18 = iVar18 + 0xc;
               *pfVar13 = pfVar15[-2];
               pfVar13[1] = pfVar15[-1];
               pfVar13[2] = *pfVar15;
@@ -4588,28 +4584,28 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
         local_10 = g_dwDestTVert;
         local_14 = g_dwDestIVert;
         pfVar13 = (float *)((uVar9 - 0xc) + uVar7 * 0xc);
-        iVar18 = g_dwDestTVert - 8;
+        iVar17 = g_dwDestTVert - 8;
         local_c = (g_dwDestIVert - 4) + uVar7 * 4;
         pfVar15 = (float *)g_dwSourceVert;
         g_dwDestTVert = uVar4;
         g_dwDestIVert = uVar6;
         if (0 < (int)uVar7) {
-          iVar19 = 0;
+          iVar18 = 0;
           pfVar5 = (float *)(uVar9 + 4);
-          pfVar11 = (float *)(iVar18 + uVar7 * 8);
+          pfVar11 = (float *)(iVar17 + uVar7 * 8);
           g_dwSourceVert = uVar9;
           param_5 = uVar7;
           do {
             if ((PUN(float,param_1[1]) <= pfVar13[1]) || (PUN(float,param_1[1]) <= *pfVar5)) {
               if (((pfVar13[1] != PUN(float,param_1[1])) && (*pfVar5 != PUN(float,param_1[1]))) &&
                  ((pfVar13[1] < PUN(float,param_1[1]) || (*pfVar5 < PUN(float,param_1[1]))))) {
-                iVar18 = iVar19 + 0xc;
+                iVar17 = iVar18 + 0xc;
                 uVar8 = uVar8 + 1;
                 fVar1 = (PUN(float,param_1[1]) - pfVar13[1]) / (*pfVar5 - pfVar13[1]);
-                *(int *)((int)pfVar15 + iVar19 + 4) = param_1[1];
-                *(float *)((g_dwDestVert - 4) + iVar18) =
+                *(int *)((int)pfVar15 + iVar18 + 4) = param_1[1];
+                *(float *)((g_dwDestVert - 4) + iVar17) =
                      (pfVar5[1] - pfVar13[2]) * fVar1 + pfVar13[2];
-                *(float *)((g_dwDestVert - 0xc) + iVar18) =
+                *(float *)((g_dwDestVert - 0xc) + iVar17) =
                      (pfVar5[-1] - *pfVar13) * fVar1 + *pfVar13;
                 *(float *)((g_dwDestTVert - 8) + uVar8 * 8) =
                      (*(float *)local_10 - *pfVar11) * fVar1 + *pfVar11;
@@ -4619,12 +4615,12 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
                      (*(float *)local_14 - *(float *)local_c) * fVar1 + *(float *)local_c;
                 g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 1;
                 pfVar15 = (float *)g_dwDestVert;
-                iVar19 = iVar18;
+                iVar18 = iVar17;
               }
               if (PUN(float,param_1[1]) <= *pfVar5) {
-                pfVar15 = (float *)((int)pfVar15 + iVar19);
+                pfVar15 = (float *)((int)pfVar15 + iVar18);
                 uVar8 = uVar8 + 1;
-                iVar19 = iVar19 + 0xc;
+                iVar18 = iVar18 + 0xc;
                 *pfVar15 = pfVar5[-1];
                 pfVar15[1] = *pfVar5;
                 pfVar15[2] = pfVar5[1];
@@ -4661,28 +4657,28 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
           g_dwSourceTVert = g_dwDestTVert;
           local_10 = g_dwDestTVert;
           pfVar5 = pfVar15 + uVar8 * 3 + -3;
-          iVar18 = g_dwDestTVert - 8;
+          iVar17 = g_dwDestTVert - 8;
           local_c = (g_dwDestIVert - 4) + uVar8 * 4;
           pfVar13 = (float *)g_dwSourceVert;
           g_dwDestTVert = uVar4;
           g_dwDestIVert = uVar6;
           if (0 < (int)uVar8) {
-            iVar19 = 0;
+            iVar18 = 0;
             pfVar10 = pfVar15 + 1;
-            pfVar11 = (float *)(iVar18 + uVar8 * 8);
+            pfVar11 = (float *)(iVar17 + uVar8 * 8);
             g_dwSourceVert = (uint)pfVar15;
             param_5 = uVar8;
             do {
               if ((pfVar5[1] <= PUN(float,param_1[2])) || (*pfVar10 <= PUN(float,param_1[2]))) {
                 if (((pfVar5[1] != PUN(float,param_1[2])) && (*pfVar10 != PUN(float,param_1[2]))) &&
                    ((PUN(float,param_1[2]) < pfVar5[1] || (PUN(float,param_1[2]) < *pfVar10)))) {
-                  iVar18 = iVar19 + 0xc;
+                  iVar17 = iVar18 + 0xc;
                   uVar7 = uVar7 + 1;
                   fVar1 = (PUN(float,param_1[2]) - pfVar5[1]) / (*pfVar10 - pfVar5[1]);
-                  *(int *)((int)pfVar13 + iVar19 + 4) = param_1[2];
-                  *(float *)((g_dwDestVert - 4) + iVar18) =
+                  *(int *)((int)pfVar13 + iVar18 + 4) = param_1[2];
+                  *(float *)((g_dwDestVert - 4) + iVar17) =
                        (pfVar10[1] - pfVar5[2]) * fVar1 + pfVar5[2];
-                  *(float *)((g_dwDestVert - 0xc) + iVar18) =
+                  *(float *)((g_dwDestVert - 0xc) + iVar17) =
                        (pfVar10[-1] - *pfVar5) * fVar1 + *pfVar5;
                   *(float *)((g_dwDestTVert - 8) + uVar7 * 8) =
                        (*(float *)local_10 - *pfVar11) * fVar1 + *pfVar11;
@@ -4692,12 +4688,12 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
                        (*(float *)local_14 - *(float *)local_c) * fVar1 + *(float *)local_c;
                   g_dwRdClip_faceStatus = g_dwRdClip_faceStatus | 2;
                   pfVar13 = (float *)g_dwDestVert;
-                  iVar19 = iVar18;
+                  iVar18 = iVar17;
                 }
                 if (*pfVar10 <= PUN(float,param_1[2])) {
-                  pfVar13 = (float *)((int)pfVar13 + iVar19);
+                  pfVar13 = (float *)((int)pfVar13 + iVar18);
                   uVar7 = uVar7 + 1;
-                  iVar19 = iVar19 + 0xc;
+                  iVar18 = iVar18 + 0xc;
                   *pfVar13 = pfVar10[-1];
                   pfVar13[1] = *pfVar10;
                   pfVar13[2] = pfVar10[1];
@@ -4728,26 +4724,26 @@ uint rdClip_Face3GTOrtho(int *param_1,float *param_2,undefined4 *param_3,undefin
             pfVar13 = pfVar13 + 1;
             param_2 = param_2 + 1;
           }
-          for (iVar18 = 0; iVar18 != 0; iVar18 = iVar18 + -1) {
+          for (iVar17 = 0; iVar17 != 0; iVar17 = iVar17 + -1) {
             *(undefined1 *)param_2 = *(undefined1 *)pfVar13;
             pfVar13 = (float *)((int)pfVar13 + 1);
             param_2 = (float *)((int)param_2 + 1);
           }
-          puVar16 = (undefined4 *)g_dwDestTVert;
-          for (iVar18 = (uVar7 & 0x1fffffff) << 1; iVar18 != 0; iVar18 = iVar18 + -1) {
-            *param_3 = *puVar16;
-            puVar16 = puVar16 + 1;
+          puVar12 = (uint *)g_dwDestTVert;
+          for (iVar17 = (uVar7 & 0x1fffffff) << 1; iVar17 != 0; iVar17 = iVar17 + -1) {
+            *param_3 = *puVar12;
+            puVar12 = puVar12 + 1;
             param_3 = param_3 + 1;
           }
-          for (iVar18 = 0; uVar6 = uVar7, puVar17 = (undefined4 *)g_dwDestIVert, iVar18 != 0;
-              iVar18 = iVar18 + -1) {
-            *(undefined1 *)param_3 = *(undefined1 *)puVar16;
-            puVar16 = (undefined4 *)((int)puVar16 + 1);
-            param_3 = (undefined4 *)((int)param_3 + 1);
+          for (iVar17 = 0; uVar6 = uVar7, puVar16 = (uint *)g_dwDestIVert, iVar17 != 0;
+              iVar17 = iVar17 + -1) {
+            *(char *)param_3 = (char)*puVar12;
+            puVar12 = (uint *)((int)puVar12 + 1);
+            param_3 = (uint *)((int)param_3 + 1);
           }
           for (; uVar6 != 0; uVar6 = uVar6 - 1) {
-            *param_4 = *puVar17;
-            puVar17 = puVar17 + 1;
+            *param_4 = *puVar16;
+            puVar16 = puVar16 + 1;
             param_4 = param_4 + 1;
           }
         }

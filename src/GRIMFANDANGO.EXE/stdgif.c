@@ -246,17 +246,15 @@ undefined4 stdGif_Write(undefined4 param_1,int param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  short sVar1;
+  uint uVar1;
   int iVar2;
-  int iVar3;
-  undefined4 *puVar4;
-  int iVar5;
-  uint uVar6;
-  uint uVar7;
-  int iVar8;
+  undefined4 *puVar3;
+  int iVar4;
+  uint uVar5;
+  int iVar6;
+  undefined4 *puVar7;
+  uint uVar8;
   undefined4 *puVar9;
-  int iVar10;
-  undefined4 *puVar11;
   #define auStack_1c (*(undefined1 (*)[2])(_frame + (0x30 - 0x1c)))
   #define uStack_1a (*(undefined2 *)(_frame + (0x30 - 0x1a)))
   #define uStack_18 (*(undefined2 *)(_frame + (0x30 - 0x18)))
@@ -271,105 +269,105 @@ undefined4 stdGif_Write(undefined4 param_1,int param_2)
   #define uStack_5 (*(undefined1 *)(_frame + (0x30 - 0x5)))
   #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x30 - 0x4)))
   
-  iVar5 = param_2;
-  iVar2 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddd78);
-  if (iVar2 != 0) {
+  iVar4 = param_2;
+  uVar1 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddd78);
+  if (uVar1 != 0) {
     strncpy(auStack_10,&DAT_004e78b0,3);
-    (*g_pStd_HS->pFwrite)(iVar2,auStack_10,3);
+    (*g_pStd_HS->pFwrite)(uVar1,auStack_10,3);
     strncpy(auStack_d,&DAT_004e78ac,3);
-    (*g_pStd_HS->pFwrite)(iVar2,auStack_d,3);
+    (*g_pStd_HS->pFwrite)(uVar1,auStack_d,3);
     uStack_a = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0xc);
     uStack_8 = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0x10);
     uStack_6 = 0xf7;
     uStack_5 = 0;
     auStack_4[0] = 0;
-    (*g_pStd_HS->pFwrite)(iVar2,&uStack_a,2);
-    (*g_pStd_HS->pFwrite)(iVar2,&uStack_8,2);
-    (*g_pStd_HS->pFwrite)(iVar2,&uStack_6,1);
-    (*g_pStd_HS->pFwrite)(iVar2,&uStack_5,1);
-    (*g_pStd_HS->pFwrite)(iVar2,auStack_4,1);
-    (*g_pStd_HS->pFwrite)(iVar2,*(undefined4 *)(param_2 + 0x60),0x300);
+    (*g_pStd_HS->pFwrite)(uVar1,&uStack_a,2);
+    (*g_pStd_HS->pFwrite)(uVar1,&uStack_8,2);
+    (*g_pStd_HS->pFwrite)(uVar1,&uStack_6,1);
+    (*g_pStd_HS->pFwrite)(uVar1,&uStack_5,1);
+    (*g_pStd_HS->pFwrite)(uVar1,auStack_4,1);
+    (*g_pStd_HS->pFwrite)(uVar1,*(undefined4 *)(param_2 + 0x60),0x300);
     auStack_1c[0] = 0x2c;
     uStack_1a = 0;
     uStack_18 = 0;
     uStack_16 = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0xc);
     uStack_14 = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0x10);
     abStack_12[0] = 0;
-    (*g_pStd_HS->pFwrite)(iVar2,auStack_1c,1);
-    (*g_pStd_HS->pFwrite)(iVar2,&uStack_1a,2);
-    (*g_pStd_HS->pFwrite)(iVar2,&uStack_18,2);
-    (*g_pStd_HS->pFwrite)(iVar2,&uStack_16,2);
-    (*g_pStd_HS->pFwrite)(iVar2,&uStack_14,2);
-    (*g_pStd_HS->pFwrite)(iVar2,abStack_12,1);
-    iVar8 = 1;
-    iVar10 = 0;
-    iVar3 = 1 << (abStack_12[0] & 7) + 1;
-    if (1 < iVar3) {
+    (*g_pStd_HS->pFwrite)(uVar1,auStack_1c,1);
+    (*g_pStd_HS->pFwrite)(uVar1,&uStack_1a,2);
+    (*g_pStd_HS->pFwrite)(uVar1,&uStack_18,2);
+    (*g_pStd_HS->pFwrite)(uVar1,&uStack_16,2);
+    (*g_pStd_HS->pFwrite)(uVar1,&uStack_14,2);
+    (*g_pStd_HS->pFwrite)(uVar1,abStack_12,1);
+    iVar6 = 1;
+    uVar8 = 0;
+    iVar2 = 1 << (abStack_12[0] & 7) + 1;
+    if (1 < iVar2) {
       do {
-        iVar8 = iVar8 * 2;
-        iVar10 = iVar10 + 1;
-      } while (iVar8 < iVar3);
+        iVar6 = iVar6 * 2;
+        uVar8 = uVar8 + 1;
+      } while (iVar6 < iVar2);
     }
-    if (iVar10 == 1) {
-      iVar10 = 2;
+    if (uVar8 == 1) {
+      uVar8 = 2;
     }
-    sVar1 = stdGif_LzwInitEncoder(iVar2,iVar10);
-    if ((sVar1 == 0) &&
-       (puVar4 = (undefined4 *)
+    uVar8 = stdGif_LzwInitEncoder(uVar1,uVar8);
+    if (((short)uVar8 == 0) &&
+       (puVar3 = (undefined4 *)
                  (*g_pStd_HS->pAlloc)
                            (*(undefined4 *)(**(int **)(param_2 + 0x78) + 0xc),
                             s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e7880 + 0x55),
-       puVar4 != (undefined4 *)0x0)) {
+       puVar3 != (undefined4 *)0x0)) {
       stdDisplay_VBufferLock((void *)**(undefined4 **)(param_2 + 0x78));
-      iVar3 = **(int **)(param_2 + 0x78);
+      iVar2 = **(int **)(param_2 + 0x78);
       param_2 = 0;
-      if (0 < *(int *)(iVar3 + 0x10)) {
+      if (0 < *(int *)(iVar2 + 0x10)) {
         do {
-          uVar7 = *(uint *)(iVar3 + 0xc);
-          puVar9 = (undefined4 *)(param_2 * uVar7 + *(int *)(iVar3 + 0x5c));
-          puVar11 = puVar4;
-          for (uVar6 = uVar7 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-            *puVar11 = *puVar9;
+          uVar8 = *(uint *)(iVar2 + 0xc);
+          puVar7 = (undefined4 *)(param_2 * uVar8 + *(int *)(iVar2 + 0x5c));
+          puVar9 = puVar3;
+          for (uVar5 = uVar8 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
+            *puVar9 = *puVar7;
+            puVar7 = puVar7 + 1;
             puVar9 = puVar9 + 1;
-            puVar11 = puVar11 + 1;
           }
-          for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
-            *(undefined1 *)puVar11 = *(undefined1 *)puVar9;
+          for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
+            *(undefined1 *)puVar9 = *(undefined1 *)puVar7;
+            puVar7 = (undefined4 *)((int)puVar7 + 1);
             puVar9 = (undefined4 *)((int)puVar9 + 1);
-            puVar11 = (undefined4 *)((int)puVar11 + 1);
           }
-          iVar3 = 0;
-          if (0 < *(int *)(**(int **)(iVar5 + 0x78) + 0xc)) {
+          iVar2 = 0;
+          if (0 < *(int *)(**(int **)(iVar4 + 0x78) + 0xc)) {
             do {
-              sVar1 = stdGif_LzwEncodePixel(iVar2,*(undefined1 *)((int)puVar4 + iVar3));
-              if (sVar1 != 0) {
-                (*g_pStd_HS->pFree)(puVar4);
-                (*g_pStd_HS->pFclose)(iVar2);
+              uVar8 = stdGif_LzwEncodePixel(uVar1,*(byte *)((int)puVar3 + iVar2));
+              if ((short)uVar8 != 0) {
+                (*g_pStd_HS->pFree)(puVar3);
+                (*g_pStd_HS->pFclose)(uVar1);
                 return 0;
               }
-              iVar3 = iVar3 + 1;
-            } while (iVar3 < *(int *)(**(int **)(iVar5 + 0x78) + 0xc));
+              iVar2 = iVar2 + 1;
+            } while (iVar2 < *(int *)(**(int **)(iVar4 + 0x78) + 0xc));
           }
           param_2 = param_2 + 1;
-          iVar3 = **(int **)(iVar5 + 0x78);
-        } while (param_2 < *(int *)(iVar3 + 0x10));
+          iVar2 = **(int **)(iVar4 + 0x78);
+        } while (param_2 < *(int *)(iVar2 + 0x10));
       }
-      stdDisplay_VBufferUnlock((void *)**(undefined4 **)(iVar5 + 0x78));
-      stdGif_LzwFinishEncode(iVar2);
-      *(undefined1 *)puVar4 = 0;
-      iVar5 = (*g_pStd_HS->pFwrite)(iVar2,puVar4,1);
-      if (iVar5 == 1) {
-        *(undefined1 *)puVar4 = 0x3b;
-        iVar5 = (*g_pStd_HS->pFwrite)(iVar2,puVar4,1);
-        if (iVar5 == 1) {
-          (*g_pStd_HS->pFree)(puVar4);
-          (*g_pStd_HS->pFclose)(iVar2);
+      stdDisplay_VBufferUnlock((void *)**(undefined4 **)(iVar4 + 0x78));
+      stdGif_LzwFinishEncode(uVar1);
+      *(undefined1 *)puVar3 = 0;
+      iVar4 = (*g_pStd_HS->pFwrite)(uVar1,puVar3,1);
+      if (iVar4 == 1) {
+        *(undefined1 *)puVar3 = 0x3b;
+        iVar4 = (*g_pStd_HS->pFwrite)(uVar1,puVar3,1);
+        if (iVar4 == 1) {
+          (*g_pStd_HS->pFree)(puVar3);
+          (*g_pStd_HS->pFclose)(uVar1);
           return 1;
         }
       }
     }
   }
-  (*g_pStd_HS->pFclose)(iVar2);
+  (*g_pStd_HS->pFclose)(uVar1);
   return 0;
 }
 #undef abStack_12
@@ -596,12 +594,14 @@ uint stdGif_ReadByte(undefined4 param_1)
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
     */
 
-uint stdGif_LzwInitEncoder(undefined4 param_1,undefined4 param_2)
+uint __cdecl stdGif_LzwInitEncoder(uint param_1,uint param_2)
 
 {
-  int iVar1;
   undefined2 extraout_var;
-  uint *puVar2;
+  uint uVar1;
+  int iVar2;
+  undefined2 extraout_var_00;
+  uint *puVar3;
   
   _DAT_008155f8 = 0;
   DAT_00812ed0 = 0;
@@ -612,19 +612,20 @@ uint stdGif_LzwInitEncoder(undefined4 param_1,undefined4 param_2)
   _DAT_0080cbe8 = _DAT_00811b2c + 2;
   DAT_008155f4 = (short)(1 << ((byte)UINT_0080cbe4 & 0x1f)) + -1;
   DAT_0080cbec = (undefined2)_DAT_0080cbe8;
-  puVar2 = &UINT_0080ccf8;
+  puVar3 = &UINT_0080ccf8;
   _DAT_00812ec4 = (short)UINT_0080cbe4;
-  for (iVar1 = 0x138b; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = 0xffffffff;
-    puVar2 = puVar2 + 1;
+  for (iVar2 = 0x138b; iVar2 != 0; iVar2 = iVar2 + -1) {
+    *puVar3 = 0xffffffff;
+    puVar3 = puVar3 + 1;
   }
   DAT_0080cbf0 = 1;
-  iVar1 = (*g_pStd_HS->pFwrite)(param_1,&param_2,1);
-  if (iVar1 != 1) {
-    return 1;
+  iVar2 = (*g_pStd_HS->pFwrite)(param_1,&param_2,1);
+  if (iVar2 != 1) {
+    return CONCAT22((short)((uint)iVar2 >> 0x10),1);
   }
-  putcode(param_1,CONCAT22(extraout_var,DAT_00811b2c));
-  return _DAT_008155f8 & 0xffff;
+  putcode(param_1,CONCAT22(extraout_var_00,DAT_00811b2c));
+  uVar1 = CONCAT22(extraout_var,DAT_008155f8);
+  return uVar1;
 }
 #endif
 
@@ -704,67 +705,72 @@ void putcode(undefined4 param_1,short param_2)
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
     */
 
-uint stdGif_LzwEncodePixel(undefined4 param_1,byte param_2)
+uint __cdecl stdGif_LzwEncodePixel(uint param_1,byte param_2)
 
 {
-  short sVar1;
-  uint uVar2;
-  int iVar3;
+  ushort uVar2;
+  uint uVar1;
+  undefined2 extraout_var;
+  short sVar3;
+  int iVar4;
   undefined4 unaff_EBX;
-  uint uVar4;
   uint uVar5;
+  uint uVar6;
   
   _DAT_008155f8 = 0;
   if (DAT_0080cbf0 != 0) {
     _DAT_00811b24 = CONCAT22(DAT_00811b24_2,(ushort)param_2);
-    sVar1 = 0;
+    sVar3 = 0;
     UINT_0081560c = 0x138b;
     do {
       UINT_0081560c = UINT_0081560c * 2;
-      sVar1 = sVar1 + 1;
+      sVar3 = sVar3 + 1;
     } while ((int)UINT_0081560c < 0x10000);
     DAT_0080cbf0 = 0;
-    _DAT_00815608 = CONCAT22(DAT_00815608_2,8 - sVar1);
-    return 0;
+    _DAT_00815608 = CONCAT22(DAT_00815608_2,8 - sVar3);
+    return (uint)DAT_00815608_2 << 0x10;
   }
-  uVar4 = CONCAT31((int3)((uint)unaff_EBX >> 8),param_2) & 0xffff00ff;
+  uVar5 = CONCAT31((int3)((uint)unaff_EBX >> 8),param_2) & 0xffff00ff;
   UINT_0081560c = (uint)param_2 * 0x1000 + (_DAT_00811b24 & 0xffff);
-  uVar5 = uVar4 << (DAT_00815608 & 0x1f) ^ _DAT_00811b24;
-  sVar1 = (short)uVar5;
-  uVar2 = (&UINT_0080ccf8)[sVar1];
-  if (uVar2 != UINT_0081560c) {
-    if (-1 < (int)uVar2) {
-      iVar3 = 0x138b - uVar5;
-      if (sVar1 == 0) {
-        iVar3 = 1;
+  uVar6 = uVar5 << (DAT_00815608 & 0x1f) ^ _DAT_00811b24;
+  sVar3 = (short)uVar6;
+  uVar1 = (&UINT_0080ccf8)[sVar3];
+  uVar2 = (ushort)(UINT_0081560c >> 0x10);
+  if (uVar1 != UINT_0081560c) {
+    if (-1 < (int)uVar1) {
+      iVar4 = 0x138b - uVar6;
+      if (sVar3 == 0) {
+        iVar4 = 1;
       }
       do {
-        uVar5 = uVar5 - iVar3;
-        if ((short)uVar5 < 0) {
-          uVar5 = uVar5 + 0x138b;
+        uVar6 = uVar6 - iVar4;
+        if ((short)uVar6 < 0) {
+          uVar6 = uVar6 + 0x138b;
         }
-        sVar1 = (short)uVar5;
-        uVar2 = (&UINT_0080ccf8)[sVar1];
-        if (uVar2 == UINT_0081560c) {
-          _DAT_00811b24 = CONCAT22(DAT_00811b24_2,*(undefined2 *)((int)&UINT_00812ed8 + sVar1 * 2));
-          return 0;
+        sVar3 = (short)uVar6;
+        uVar1 = (&UINT_0080ccf8)[sVar3];
+        if (uVar1 == UINT_0081560c) {
+          _DAT_00811b24 = CONCAT22(DAT_00811b24_2,*(undefined2 *)((int)&UINT_00812ed8 + sVar3 * 2));
+          return (uint)uVar2 << 0x10;
         }
-      } while (0 < (int)uVar2);
+      } while (0 < (int)uVar1);
     }
-    putcode(param_1,CONCAT22((short)(uVar2 >> 0x10),DAT_00811b24));
-    uVar2 = UINT_0081560c;
-    _DAT_00811b24 = CONCAT22(DAT_00811b24_2,(short)uVar4);
+    putcode(param_1,CONCAT22((short)(uVar1 >> 0x10),DAT_00811b24));
+    uVar1 = UINT_0081560c;
+    _DAT_00811b24 = CONCAT22(DAT_00811b24_2,(short)uVar5);
     if (DAT_004e7800 <= DAT_0080cbec) {
       stdGif_LzwClearTable(param_1);
-      return _DAT_008155f8 & 0xffff;
+      uVar1 = CONCAT22(extraout_var,DAT_008155f8);
+      return uVar1;
     }
-    *(short *)((int)&UINT_00812ed8 + sVar1 * 2) = DAT_0080cbec;
-    (&UINT_0080ccf8)[sVar1] = uVar2;
+    *(short *)((int)&UINT_00812ed8 + sVar3 * 2) = DAT_0080cbec;
+    (&UINT_0080ccf8)[sVar3] = uVar1;
+    uVar1 = CONCAT22(sVar3 >> 0xf,DAT_008155f8);
     DAT_0080cbec = DAT_0080cbec + 1;
-    return _DAT_008155f8 & 0xffff;
+    return uVar1;
   }
-  _DAT_00811b24 = CONCAT22(DAT_00811b24_2,*(undefined2 *)((int)&UINT_00812ed8 + sVar1 * 2));
-  return 0;
+  _DAT_00811b24 = CONCAT22(DAT_00811b24_2,*(undefined2 *)((int)&UINT_00812ed8 + sVar3 * 2));
+  return (uint)uVar2 << 0x10;
 }
 #endif
 

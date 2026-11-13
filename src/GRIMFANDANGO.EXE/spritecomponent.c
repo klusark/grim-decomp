@@ -187,7 +187,7 @@ void SpriteChanger(undefined4 param_1,int param_2,undefined4 param_3,int param_4
 undefined4 SpriteFreer(undefined4 param_1,undefined4 param_2,int *param_3)
 
 {
-  rdMaterial_Free(*(undefined4 *)(*param_3 + 0x7c));
+  rdMaterial_Free(*(uint *)(*param_3 + 0x7c));
   rdSprite_Free(*param_3);
   (*g_pSputCosHS->pFree)(param_3);
   return 1;
@@ -200,13 +200,14 @@ undefined4 SpriteFreer(undefined4 param_1,undefined4 param_2,int *param_3)
    Original name SpriteInstancer (the remaster's GrimFandango (Linux): the only unmatched caller of
    rdThing_New; 2 matched neighbours agree, 1 disagree); was FUN_004985c0. */
 
-undefined4 * SpriteInstancer(int param_1,undefined4 *param_2,int param_3)
+uint * __cdecl SpriteInstancer(int param_1,uint *param_2,int param_3)
 
 {
   int iVar1;
   int iVar2;
-  undefined4 *puVar3;
-  undefined4 *puVar4;
+  uint *puVar3;
+  uint uVar4;
+  uint *puVar5;
   
   iVar1 = param_1;
   if (param_3 == 0) {
@@ -217,25 +218,25 @@ undefined4 * SpriteInstancer(int param_1,undefined4 *param_2,int param_3)
       rdThing_Free(*(undefined4 *)(iVar1 + 0x40));
       (*g_pSputCosHS->pFree)(iVar1);
     }
-    return (undefined4 *)0x0;
+    return (uint *)0x0;
   }
   Cos_InstComponentInfo(param_1,(int)param_2,(int)&param_3,(int)&param_2,(int)&param_1);
-  puVar3 = (undefined4 *)
-           (*g_pSputCosHS->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1070);
-  puVar4 = puVar3;
+  puVar3 = (uint *)(*g_pSputCosHS->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1070)
+  ;
+  puVar5 = puVar3;
   for (iVar2 = 0x65; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar4 = 0;
-    puVar4 = puVar4 + 1;
+    *puVar5 = 0;
+    puVar5 = puVar5 + 1;
   }
   puVar3[0xd] = *param_2;
-  iVar2 = rdThing_New(0);
-  puVar3[0x10] = iVar2;
-  *(undefined4 *)(iVar2 + 0x30) = 0;
+  uVar4 = rdThing_New(0);
+  puVar3[0x10] = uVar4;
+  *(undefined4 *)(uVar4 + 0x30) = 0;
   rdThing_SetPolyline(puVar3[0x10],*param_2);
   if (-1 < param_1) {
-    puVar4 = (undefined4 *)Cos_InstGetInstanceData(iVar1,param_1,(int *)0x0);
-    puVar3[0x11] = *puVar4;
-    puVar3[0x12] = puVar4[1];
+    puVar5 = (uint *)Cos_InstGetInstanceData(iVar1,param_1,(int *)0x0);
+    puVar3[0x11] = *puVar5;
+    puVar3[0x12] = puVar5[1];
     puVar3[0x14] = puVar3[0x14] + 1;
     puVar3[0xe] = 0;
     return puVar3;
@@ -257,7 +258,7 @@ undefined4 * SpriteInstancer(int param_1,undefined4 *param_2,int param_3)
    Original name SpriteAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d,%d,%d,%d,%d');
    was SpriteComponent_EditKey. */
 
-undefined4 SpriteAdjuster(undefined4 *param_1,undefined4 param_2)
+uint __cdecl SpriteAdjuster(uint *param_1,uint param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
