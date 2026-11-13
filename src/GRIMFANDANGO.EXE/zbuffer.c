@@ -18,7 +18,7 @@ void sputRoom_LoadZBuffer(undefined4 param_1)
 }
 
 /* ---- 0x004a4930  ZBuffer_LoadFile ---- */
-/* Loads a z-buffer .zbm through stdBitmap_LoadFile and detaches the pixel plane (bitmap+0x78) from
+/* Loads a z-buffer .zbm through stdLoadImageData and detaches the pixel plane (bitmap+0x78) from
    the bitmap, returning it. */
 
 undefined4 ZBuffer_LoadFile(char *param_1)
@@ -52,7 +52,7 @@ void sputRoom_FreeZBuffer(undefined4 param_1)
 }
 
 /* ---- 0x004a4990  ZBuffer_FreeData ---- */
-/* Surface_Free of the z-buffer surface. */
+/* stdDisplay_VBufferFree of the z-buffer surface. */
 
 void ZBuffer_FreeData(void *param_1)
 

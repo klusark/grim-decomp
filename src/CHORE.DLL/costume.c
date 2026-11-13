@@ -24,7 +24,7 @@ int __cdecl Cos_InstRescue(int hInst,int hCostume)
   pCVar2 = (CosInstance *)Cos_HandleToIndex(hCostume);
   pCVar3 = pCVar2;
   if (-1 < (int)pCVar2) {
-    pCVar3 = (CosInstance *)Cos_InstHandleToIndex(hCostume);
+    pCVar3 = (CosInstance *)Cos_InstHandleToIndex(hInst);
     pCVar1 = g_aCostumeInstances;
     if ((-1 < (int)pCVar3) && ((int)pCVar3 < g_nMaxInstances)) {
       g_aCostumeInstances[(int)pCVar3].nCostume = (int)pCVar2;
@@ -163,111 +163,117 @@ int __cdecl Cos_Load(char *fileName)
 uint __cdecl Cos_LoadEntry(char *name,int handle)
 
 {
-  unsigned char _stkneg[160] __attribute__((aligned(16)));  /* the original frame below the return address */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   Costume *pCostume;
-  char *pcVar2;
-  int iVar3;
-  uint uVar4;
-  uint uVar5;
-  int iVar6;
+  int iVar2;
+  uint file;
+  uint uVar3;
+  char *pcVar4;
+  int iVar5;
+  uint unaff_EDI;
+  char *pcVar6;
   uint *puVar7;
-  char *in_stack_0000000c;
-  uint uStack00000018;
-  uint in_stack_ffffff9c;
+  #define uStack_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define auStack_8 (*(undefined1 (*)[4])(_frame + (0x20 - 0x8)))
+  #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
   
                     /* 0x1770  52  Cos_LoadEntry */
   pCostume = CosUtil_PtrFromHandle(handle);
   Cos_NewEntry(pCostume);
-  pcVar2 = (char *)((code *)msvc_strrchr)();
-  if (pcVar2 == (char *)0x0) {
-    uVar5 = 0xffffffff;
-    pcVar2 = in_stack_0000000c;
+  iVar2 = msvc_strrchr(name,0x5c);
+  if (iVar2 == 0) {
+    uVar3 = 0xffffffff;
+    pcVar6 = name;
     do {
-      if (uVar5 == 0) break;
-      uVar5 = uVar5 - 1;
-      cVar1 = *pcVar2;
-      pcVar2 = pcVar2 + 1;
+      pcVar4 = name;
+      if (uVar3 == 0) break;
+      uVar3 = uVar3 - 1;
+      cVar1 = *pcVar6;
+      pcVar6 = pcVar6 + 1;
     } while (cVar1 != '\0');
   }
   else {
-    uVar5 = 0xffffffff;
+    pcVar4 = (char *)(iVar2 + 1);
+    uVar3 = 0xffffffff;
+    pcVar6 = pcVar4;
     do {
-      pcVar2 = pcVar2 + 1;
-      if (uVar5 == 0) break;
-      uVar5 = uVar5 - 1;
-    } while (*pcVar2 != '\0');
+      if (uVar3 == 0) break;
+      uVar3 = uVar3 - 1;
+      cVar1 = *pcVar6;
+      pcVar6 = pcVar6 + 1;
+    } while (cVar1 != '\0');
   }
-  if (~uVar5 - 1 < 0x21) {
-    ((code *)msvc_strncpy)();
+  file = handle;
+  if (~uVar3 - 1 < 0x21) {
+    msvc_strncpy(pCostume,pcVar4,0x1f);
     pCostume->aName[0x1f] = '\0';
-    uVar5 = (*(code *)g_pSvcChore->pFopen)();
-    if (uVar5 == 0) {
+    file = (*(code *)g_pSvcChore->pFopen)(name,((unsigned)(uintptr_t)&DAT_10010280));
+    if (file == 0) {
       pCostume->nFree = 1;
       return 0;
     }
     g_nLineNum = 0;
-    iVar3 = Cos_ReadLine(uVar5,g_szParseLine,0x400);
-    if (iVar3 != 0) {
-      msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010270),(_stkneg + 28),(_stkneg + 24));
-      iVar3 = Cos_ReadLine(uVar5,g_szParseLine,0x400);
-      if (((((((iVar3 != 0) && (iVar3 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010260)), iVar3 == 0))
-             && (uVar4 = Cos_ReadTagsSection(uVar5,(uint)pCostume,(uint)in_stack_0000000c),
-                uVar4 != 0)) &&
-            ((iVar3 = Cos_ReadLine(uVar5,g_szParseLine,0x400), iVar3 != 0 &&
-             (iVar3 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001024c)), iVar3 == 0)))) &&
-           ((uVar4 = Cos_ReadComponentsSection
-                               (uVar5,handle,(uint)in_stack_0000000c,in_stack_ffffff9c), uVar4 != 0
-            && ((iVar3 = Cos_ReadLine(uVar5,g_szParseLine,0x400), iVar3 != 0 &&
-                (iVar3 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001023c)), iVar3 == 0)))))) &&
-          (uVar4 = Cos_ReadChoresSection(uVar5,(int)pCostume,(uint)in_stack_0000000c), uVar4 != 0))
-         && (((iVar3 = Cos_ReadLine(uVar5,g_szParseLine,0x400), iVar3 != 0 &&
-              (iVar3 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001022c)), iVar3 == 0)) &&
-             ((pCostume->dwNumChores == 0 ||
-              (uVar5 = Cos_ReadKeysSection(uVar5,(int)pCostume), uVar5 != 0)))))) {
-        pcVar2 = (char *)0x0;
+    iVar2 = Cos_ReadLine(file,g_szParseLine,0x400);
+    if (iVar2 != 0) {
+      msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010270),auStack_4,auStack_8);
+      iVar2 = Cos_ReadLine(file,g_szParseLine,0x400);
+      if (((((((iVar2 != 0) && (iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010260)), iVar2 == 0))
+             && (uVar3 = Cos_ReadTagsSection(file,(uint)pCostume,(uint)name), uVar3 != 0)) &&
+            ((iVar2 = Cos_ReadLine(file,g_szParseLine,0x400), iVar2 != 0 &&
+             (iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001024c)), iVar2 == 0)))) &&
+           ((uVar3 = Cos_ReadComponentsSection(file,handle,(uint)name,unaff_EDI), uVar3 != 0 &&
+            ((iVar2 = Cos_ReadLine(file,g_szParseLine,0x400), iVar2 != 0 &&
+             (iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001023c)), iVar2 == 0)))))) &&
+          (uVar3 = Cos_ReadChoresSection(file,(int)pCostume,(uint)name), uVar3 != 0)) &&
+         (((iVar2 = Cos_ReadLine(file,g_szParseLine,0x400), iVar2 != 0 &&
+           (iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001022c)), iVar2 == 0)) &&
+          ((pCostume->dwNumChores == 0 ||
+           (uVar3 = Cos_ReadKeysSection(file,(int)pCostume), uVar3 != 0)))))) {
+        uStack_10 = 0;
         if (pCostume->dwNumChores != 0) {
           puVar7 = &pCostume->pChores->dwNumTracks;
           do {
-            CosUtil_SetChoreLength(pCostume,(uint)pcVar2,puVar7[2]);
-            uVar5 = *puVar7;
-            uStack00000018 = 0;
-            if (uVar5 != 0) {
-              iVar3 = 0;
+            CosUtil_SetChoreLength(pCostume,uStack_10,puVar7[2]);
+            pcVar6 = (char *)*puVar7;
+            name = (char *)0x0;
+            if (pcVar6 != (char *)0x0) {
+              iVar2 = 0;
               do {
-                uVar4 = 0;
-                if (uVar5 != 0) {
-                  iVar6 = 0;
+                pcVar4 = (char *)0x0;
+                if (pcVar6 != (char *)0x0) {
+                  iVar5 = 0;
                   do {
-                    if ((uStack00000018 != uVar4) &&
-                       (pCostume = (Costume *)handle,
-                       *(int *)((int)&((ChoreTrack *)puVar7[1])->nCompNum + iVar3) ==
-                       *(int *)((int)&((ChoreTrack *)puVar7[1])->nCompNum + iVar6)))
+                    if ((name != pcVar4) &&
+                       (*(int *)((int)&((ChoreTrack *)puVar7[1])->nCompNum + iVar2) ==
+                        *(int *)((int)&((ChoreTrack *)puVar7[1])->nCompNum + iVar5)))
                     goto LAB_10001a10;
-                    uVar4 = uVar4 + 1;
-                    iVar6 = iVar6 + 0x10;
-                  } while (uVar4 < uVar5);
+                    pcVar4 = pcVar4 + 1;
+                    iVar5 = iVar5 + 0x10;
+                  } while (pcVar4 < pcVar6);
                 }
-                uStack00000018 = uStack00000018 + 1;
-                iVar3 = iVar3 + 0x10;
-                pcVar2 = name;
-              } while (uStack00000018 < uVar5);
+                name = name + 1;
+                iVar2 = iVar2 + 0x10;
+              } while (name < pcVar6);
             }
-            pcVar2 = pcVar2 + 1;
+            uStack_10 = uStack_10 + 1;
             puVar7 = puVar7 + 0xb;
-            name = pcVar2;
-          } while (pcVar2 < (char *)pCostume->dwNumChores);
+          } while (uStack_10 < pCostume->dwNumChores);
         }
-        (*(code *)g_pSvcChore->pFclose)();
+        (*(code *)g_pSvcChore->pFclose)(file);
         return 1;
       }
     }
   }
 LAB_10001a10:
   pCostume->nFree = 1;
-  (*(code *)g_pSvcChore->pFclose)();
+  (*(code *)g_pSvcChore->pFclose)(file);
   return 0;
 }
+#undef auStack_4
+#undef auStack_8
+#undef uStack_10
+
 #endif
 
 
@@ -305,6 +311,7 @@ int __cdecl Cos_FreeCosInstance(int hInst)
 int __cdecl Cos_CreateCosInstance(int hCostume,int userData)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   CosInstance *pCVar1;
   int iVar2;
   code *pcVar3;
@@ -318,9 +325,7 @@ int __cdecl Cos_CreateCosInstance(int hCostume,int userData)
   uint *puVar11;
   uint uVar12;
   int iVar13;
-  int in_stack_00000010;
-  uint *in_stack_00000018;
-  uint uStack0000001c;
+  #define uStack_c (*(uint *)(_frame + (0x20 - 0xc)))
   
                     /* 0x1a80  25  Cos_CreateCosInstance */
   iVar5 = Cos_HandleToIndex(hCostume);
@@ -370,26 +375,25 @@ int __cdecl Cos_CreateCosInstance(int hCostume,int userData)
       } while (uVar9 < pCVar4[iVar5].dwNumComponents);
     }
   }
-  pCVar1->nUserData = (int)in_stack_00000018;
+  pCVar1->nUserData = userData;
   iVar6 = Cos_InstIndexToHandle(iVar6);
   uVar12 = 0;
   if (pCVar4[iVar5].dwNumComponents == 0) {
-    in_stack_00000018 = (uint *)0x0;
+    hCostume = 0;
   }
   else {
-    in_stack_00000018 =
-         (uint *)(*(code *)g_pSvcChore->pAlloc)
-                           (pCVar4[iVar5].dwNumComponents * 4,
-                            s_C__grimsrc_libs_chore_Costume_c_1001020c,0x369);
-    if (in_stack_00000018 == (uint *)0x0) {
+    hCostume = (*(code *)g_pSvcChore->pAlloc)
+                         (pCVar4[iVar5].dwNumComponents * 4,
+                          s_C__grimsrc_libs_chore_Costume_c_1001020c,0x369);
+    if (hCostume == 0) {
       (*(code *)g_pSvcChore->pAssertFail)
                 (((unsigned)(uintptr_t)&DAT_10010288),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x36a);
     }
   }
-  userData = 0;
+  uStack_c = 0;
   if (pCVar4[iVar5].dwNumComponents != 0) {
     piVar8 = &(pCVar4[iVar5].pComponents)->nParent;
-    puVar11 = in_stack_00000018;
+    puVar11 = (uint *)hCostume;
     do {
       iVar10 = *piVar8;
       *puVar11 = 0;
@@ -397,21 +401,21 @@ int __cdecl Cos_CreateCosInstance(int hCostume,int userData)
         iVar10 = pCVar4[iVar5].pComponents[iVar10].nParent;
         *puVar11 = *puVar11 + 1;
       }
-      if ((uint)userData <= *puVar11) {
-        userData = *puVar11;
+      if (uStack_c <= *puVar11) {
+        uStack_c = *puVar11;
       }
       uVar12 = uVar12 + 1;
       puVar11 = puVar11 + 1;
       piVar8 = piVar8 + 0x10;
     } while (uVar12 < pCVar4[iVar5].dwNumComponents);
   }
-  uStack0000001c = 0;
+  userData = 0;
   do {
     uVar12 = 0;
     if (pCVar4[iVar5].dwNumComponents != 0) {
       piVar8 = &(pCVar4[iVar5].pComponents)->nTag;
       do {
-        if (in_stack_00000018[uVar12] == uStack0000001c) {
+        if (*(int *)(hCostume + uVar12 * 4) == userData) {
           iVar10 = *piVar8;
           iVar13 = 0;
           iVar2 = g_aComponentTags[iVar10].nKind;
@@ -431,18 +435,18 @@ joined_r0x10001cd0:
                       (&DAT_10010284,s_C__grimsrc_libs_chore_Costume_c_1001020c,0x3a3);
           }
           if (iVar13 != 0) {
-            *(int *)(*(int *)(in_stack_00000010 + 0xc) + uVar12 * 4) = iVar13;
+            pCVar1->pInstanceData[uVar12] = iVar13;
           }
         }
         uVar12 = uVar12 + 1;
         piVar8 = piVar8 + 0x10;
       } while (uVar12 < pCVar4[iVar5].dwNumComponents);
     }
-    uStack0000001c = uStack0000001c + 1;
-    if ((uint)userData < uStack0000001c) {
-      (*(code *)g_pSvcChore->pFree)(in_stack_00000018);
+    userData = userData + 1;
+    if (uStack_c < (uint)userData) {
+      (*(code *)g_pSvcChore->pFree)(hCostume);
       if (g_pfnInstanceHook == (void *)0x0) {
-        *(undefined4 *)(in_stack_00000010 + 8) = 0;
+        pCVar1->nUserData = 0;
       }
       else {
         iVar5 = (*(code *)g_pfnInstanceHook)(iVar6,1);
@@ -455,6 +459,8 @@ joined_r0x10001cd0:
     }
   } while( true );
 }
+#undef uStack_c
+
 #endif
 
 
@@ -549,8 +555,6 @@ int __cdecl Cos_InstSetUserData(int hInst,int userData)
 /* ---- 0x10001e80  Cos_NewStateBasedTag ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Variable defined which should be unmapped: unused */
-/* WARNING: Variable defined which should be unmapped: handlers */
 /* Export: registers a state-based component tag (kind 0): id, name, user data and the seven
    handlers (ComponentTag +0x2c). Hand-written in build/overrides_logic_chore.c. */
 
@@ -558,18 +562,16 @@ uint __cdecl Cos_NewStateBasedTag(uint id,uint name,uint unused,uint *handlers,i
 
 {
   int iVar1;
-  undefined4 *puVar2;
-  undefined4 *in_stack_00000024;
-  int in_stack_00000028;
+  uint *puVar2;
   
                     /* 0x1e80  56  Cos_NewStateBasedTag */
   iVar1 = Cos_NewTagEntry((ComponentTag **)&extra,id,(char *)name,unused,extra);
   if (iVar1 != 0) {
-    *(undefined4 *)(in_stack_00000028 + 4) = 0;
-    puVar2 = (undefined4 *)(in_stack_00000028 + 0x2c);
+    *(undefined4 *)(extra + 4) = 0;
+    puVar2 = (uint *)(extra + 0x2c);
     for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-      *puVar2 = *in_stack_00000024;
-      in_stack_00000024 = in_stack_00000024 + 1;
+      *puVar2 = *handlers;
+      handlers = handlers + 1;
       puVar2 = puVar2 + 1;
     }
     return 1;
@@ -633,8 +635,6 @@ int __cdecl Cos_NewTagEntry(ComponentTag **ppTag,int tagId,char *name,int unused
 /* ---- 0x10001f80  Cos_NewIntTag ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Variable defined which should be unmapped: unused */
-/* WARNING: Variable defined which should be unmapped: handlers */
 /* Export: registers an int component tag (kind 1), see Cos_NewStateBasedTag. Hand-written in
    build/overrides_logic_chore.c. */
 
@@ -642,18 +642,16 @@ uint __cdecl Cos_NewIntTag(uint id,uint name,uint unused,uint *handlers,int extr
 
 {
   int iVar1;
-  undefined4 *puVar2;
-  undefined4 *in_stack_00000024;
-  int in_stack_00000028;
+  uint *puVar2;
   
                     /* 0x1f80  55  Cos_NewIntTag */
   iVar1 = Cos_NewTagEntry((ComponentTag **)&extra,id,(char *)name,unused,extra);
   if (iVar1 != 0) {
-    *(undefined4 *)(in_stack_00000028 + 4) = 1;
-    puVar2 = (undefined4 *)(in_stack_00000028 + 0x2c);
+    *(undefined4 *)(extra + 4) = 1;
+    puVar2 = (uint *)(extra + 0x2c);
     for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-      *puVar2 = *in_stack_00000024;
-      in_stack_00000024 = in_stack_00000024 + 1;
+      *puVar2 = *handlers;
+      handlers = handlers + 1;
       puVar2 = puVar2 + 1;
     }
     return 1;
@@ -666,8 +664,6 @@ uint __cdecl Cos_NewIntTag(uint id,uint name,uint unused,uint *handlers,int extr
 /* ---- 0x10001fd0  Cos_NewFloatTag ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Variable defined which should be unmapped: unused */
-/* WARNING: Variable defined which should be unmapped: handlers */
 /* Export: registers a float component tag (kind 2), see Cos_NewStateBasedTag. Hand-written in
    build/overrides_logic_chore.c. */
 
@@ -675,18 +671,16 @@ uint __cdecl Cos_NewFloatTag(uint id,uint name,uint unused,uint *handlers,int ex
 
 {
   int iVar1;
-  undefined4 *puVar2;
-  undefined4 *in_stack_00000024;
-  int in_stack_00000028;
+  uint *puVar2;
   
                     /* 0x1fd0  54  Cos_NewFloatTag */
   iVar1 = Cos_NewTagEntry((ComponentTag **)&extra,id,(char *)name,unused,extra);
   if (iVar1 != 0) {
-    *(undefined4 *)(in_stack_00000028 + 4) = 2;
-    puVar2 = (undefined4 *)(in_stack_00000028 + 0x2c);
+    *(undefined4 *)(extra + 4) = 2;
+    puVar2 = (uint *)(extra + 0x2c);
     for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-      *puVar2 = *in_stack_00000024;
-      in_stack_00000024 = in_stack_00000024 + 1;
+      *puVar2 = *handlers;
+      handlers = handlers + 1;
       puVar2 = puVar2 + 1;
     }
     return 1;
@@ -711,72 +705,69 @@ Cos_RegisterComponent
 
 {
   Costume *pCostume;
-  char *pcVar1;
+  int iVar1;
   uint uVar2;
-  int iVar3;
-  uint uVar4;
-  ComponentTag *pCVar5;
-  CosComponent *pCVar6;
-  int *piVar7;
-  int *in_stack_00000038;
+  ComponentTag *pCVar3;
+  CosComponent *pCVar4;
+  int *piVar5;
   
                     /* 0x2080  57  Cos_RegisterComponent */
-  iVar3 = Cos_HandleToIndex(hCostume);
-  if (data == 0) {
+  iVar1 = Cos_HandleToIndex(hCostume);
+  if (name == (char *)0x0) {
     return 0;
   }
-  pCostume = g_aCostumes + iVar3;
-  if (parentTagId != 0) {
-    uVar4 = 0;
-    pCVar5 = g_aComponentTags;
+  pCostume = g_aCostumes + iVar1;
+  if (parentData != 0) {
+    uVar2 = 0;
+    pCVar3 = g_aComponentTags;
     if (g_dwNumComponentTags != 0) {
       do {
-        if ((int *)pCVar5->nId == pStates) break;
-        uVar4 = uVar4 + 1;
-        pCVar5 = pCVar5 + 1;
-      } while (uVar4 < g_dwNumComponentTags);
+        if (pCVar3->nId == parentTagId) break;
+        uVar2 = uVar2 + 1;
+        pCVar3 = pCVar3 + 1;
+      } while (uVar2 < g_dwNumComponentTags);
     }
-    if (uVar4 == g_dwNumComponentTags) {
+    if (uVar2 == g_dwNumComponentTags) {
       return 0;
     }
-    pcVar1 = (char *)pCostume->dwNumComponents;
-    name = (char *)0x0;
-    if (pcVar1 != (char *)0x0) {
-      piVar7 = &pCostume->pComponents->nData;
+    uVar2 = pCostume->dwNumComponents;
+    hCostume = 0;
+    if (uVar2 != 0) {
+      piVar5 = &pCostume->pComponents->nData;
       do {
-        if (((int *)g_aComponentTags[piVar7[-1]].nId == pStates) && (*piVar7 == parentTagId)) break;
-        piVar7 = piVar7 + 0x10;
-        name = name + 1;
-      } while (name < pcVar1);
+        if ((g_aComponentTags[piVar5[-1]].nId == parentTagId) && (*piVar5 == parentData)) break;
+        piVar5 = piVar5 + 0x10;
+        hCostume = hCostume + 1;
+      } while (hCostume < uVar2);
     }
-    if (name == pcVar1) {
+    if (hCostume == uVar2) {
       return 0;
     }
   }
-  uVar4 = 0;
-  pCVar5 = g_aComponentTags;
+  uVar2 = 0;
+  pCVar3 = g_aComponentTags;
   if (g_dwNumComponentTags != 0) {
     do {
-      if (pCVar5->nId == parentData) break;
-      uVar4 = uVar4 + 1;
-      pCVar5 = pCVar5 + 1;
-    } while (uVar4 < g_dwNumComponentTags);
+      if (pCVar3->nId == tagId) break;
+      uVar2 = uVar2 + 1;
+      pCVar3 = pCVar3 + 1;
+    } while (uVar2 < g_dwNumComponentTags);
   }
-  if (uVar4 != g_dwNumComponentTags) {
-    pCVar6 = (CosComponent *)
+  if (uVar2 != g_dwNumComponentTags) {
+    pCVar4 = (CosComponent *)
              (*(code *)g_pSvcChore->pRealloc)
                        (pCostume->pComponents,(pCostume->dwNumComponents + 1) * 0x40,
                         s_C__grimsrc_libs_chore_Costume_c_1001020c,0x4ef);
-    uVar2 = pCostume->dwNumComponents;
-    pCostume->pComponents = pCVar6;
-    if (parentTagId == 0) {
-      name = (char *)0xffffffff;
+    pCostume->pComponents = pCVar4;
+    pCVar4 = pCVar4 + pCostume->dwNumComponents;
+    if (parentData == 0) {
+      hCostume = 0xffffffff;
     }
-    Cos_InitComponent(pCostume,pCVar6 + uVar2,(char *)data,uVar4,tagId,(int)name);
+    Cos_InitComponent(pCostume,pCVar4,name,uVar2,data,hCostume);
     pCostume->dwNumComponents = pCostume->dwNumComponents + 1;
-    Cos_InitComponentStates(pCVar6 + uVar2,in_stack_00000038);
+    Cos_InitComponentStates(pCVar4,pStates);
     if (g_pfnCompNotifier != (void *)0x0) {
-      (*(code *)g_pfnCompNotifier)();
+      (*(code *)g_pfnCompNotifier)(pCostume,pCVar4,pCostume->dwNumComponents - 1,1);
     }
     return 1;
   }
@@ -798,7 +789,6 @@ int __cdecl Cos_RemoveComponent(int hCostume,int tagId,int data)
   int iVar2;
   int *piVar3;
   uint compNum;
-  int in_stack_00000010;
   
                     /* 0x21f0  61  Cos_RemoveComponent */
   pCVar1 = CosUtil_PtrFromHandle(hCostume);
@@ -806,15 +796,15 @@ int __cdecl Cos_RemoveComponent(int hCostume,int tagId,int data)
     compNum = 0;
     if (pCVar1->dwNumComponents != 0) {
       piVar3 = &pCVar1->pComponents->nTag;
-      while ((iVar2 = piVar3[1], iVar2 != in_stack_00000010 ||
-             (iVar2 = *piVar3, g_aComponentTags[iVar2].nId != data))) {
+      while ((iVar2 = piVar3[1], iVar2 != data ||
+             (iVar2 = *piVar3, g_aComponentTags[iVar2].nId != tagId))) {
         compNum = compNum + 1;
         piVar3 = piVar3 + 0x10;
         if (pCVar1->dwNumComponents <= compNum) {
           return iVar2;
         }
       }
-      pCVar1 = (Costume *)CosUtil_DeleteComponent(tagId,compNum);
+      pCVar1 = (Costume *)CosUtil_DeleteComponent(hCostume,compNum);
     }
   }
   return (int)pCVar1;
@@ -1310,52 +1300,53 @@ int __cdecl Cos_Initialize(GrimServices *svc,void **moduleIface)
 uint __cdecl Cos_Save(void *io)
 
 {
-  unsigned char _frame[0x20];  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  void *pvVar1;
   int iVar2;
   int iVar3;
-  int in_stack_00000008;
+  int iVar4;
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
                     /* 0x37a0  64  Cos_Save */
+  pvVar1 = io;
   iStack_4 = 0;
   (*(code *)io)(&g_nMaxCostumes,4);
-  iVar3 = 0;
+  iVar4 = 0;
   if (0 < g_nMaxCostumes) {
-    iVar2 = 0;
+    iVar3 = 0;
     do {
-      if (*(int *)(g_aCostumes->aName + iVar2 + 0x38) == 0) {
+      if (*(int *)(g_aCostumes->aName + iVar3 + 0x38) == 0) {
         if (g_pfnSaveVerify != (void *)0x0) {
-          iVar1 = (*(code *)g_pfnSaveVerify)(g_aCostumes->aName + iVar2);
-          if (iVar1 == 0) goto LAB_100037ef;
+          iVar2 = (*(code *)g_pfnSaveVerify)(g_aCostumes->aName + iVar3);
+          if (iVar2 == 0) goto LAB_100037ef;
         }
         iStack_4 = iStack_4 + 1;
       }
 LAB_100037ef:
-      iVar3 = iVar3 + 1;
-      iVar2 = iVar2 + 0x3c;
-    } while (iVar3 < g_nMaxCostumes);
+      iVar4 = iVar4 + 1;
+      iVar3 = iVar3 + 0x3c;
+    } while (iVar4 < g_nMaxCostumes);
   }
-  (*(code *)io)(&iStack_4,4);
-  iVar3 = 0;
+  (*(code *)pvVar1)(&iStack_4,4);
+  iVar4 = 0;
   if (0 < g_nMaxCostumes) {
-    iVar2 = 0;
+    iVar3 = 0;
     do {
-      if (*(int *)(g_aCostumes->aName + iVar2 + 0x38) == 0) {
+      if (*(int *)(g_aCostumes->aName + iVar3 + 0x38) == 0) {
         if (g_pfnSaveVerify != (void *)0x0) {
-          iVar1 = (*(code *)g_pfnSaveVerify)(g_aCostumes->aName + iVar2);
-          if (iVar1 == 0) goto LAB_10003863;
+          iVar2 = (*(code *)g_pfnSaveVerify)(g_aCostumes->aName + iVar3);
+          if (iVar2 == 0) goto LAB_10003863;
         }
-        in_stack_00000008 = Cos_IndexToHandle(iVar3);
-        (*(code *)io)(&STACK0X(0x00000008),4);
-        (*(code *)io)(g_aCostumes->aName + iVar2,0x20);
+        io = (void *)Cos_IndexToHandle(iVar4);
+        (*(code *)pvVar1)(&io,4);
+        (*(code *)pvVar1)(g_aCostumes->aName + iVar3,0x20);
       }
 LAB_10003863:
-      iVar3 = iVar3 + 1;
-      iVar2 = iVar2 + 0x3c;
-    } while (iVar3 < g_nMaxCostumes);
+      iVar4 = iVar4 + 1;
+      iVar3 = iVar3 + 0x3c;
+    } while (iVar4 < g_nMaxCostumes);
   }
-  (*(code *)io)(&g_nMaxInstances,4);
+  (*(code *)pvVar1)(&g_nMaxInstances,4);
   return 0;
 }
 #undef iStack_4
@@ -1420,18 +1411,15 @@ uint __cdecl Cos_Restore(void *io)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  unsigned char _stkneg[64] __attribute__((aligned(16)));  /* the original frame below the return address */
   char *pcVar1;
   void *pvVar2;
   int hCostume;
   int iVar3;
   undefined4 *puVar4;
   int iVar5;
-  int unaff_retaddr;
   #define iStack_28 (*(int *)(_frame + (0x40 - 0x28)))
   #define iStack_24 (*(int *)(_frame + (0x40 - 0x24)))
-  #define auStack_20 (*(undefined1 (*)[24])(_frame + (0x40 - 0x20)))
-  #define iStack_8 (*(int *)(_frame + (0x40 - 0x8)))
+  #define acStack_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
   
                     /* 0x3970  62  Cos_Restore */
   iVar3 = 0;
@@ -1472,9 +1460,9 @@ uint __cdecl Cos_Restore(void *io)
   if (0 < iStack_24) {
     do {
       (*(code *)pvVar2)(&io,4);
-      (*(code *)pvVar2)(auStack_20,0x20);
-      Cos_LoadEntry((_stkneg + 20),iStack_8);
-      iVar5 = Cos_HandleToIndex(unaff_retaddr);
+      (*(code *)pvVar2)(acStack_20,0x20);
+      Cos_LoadEntry(acStack_20,(int)io);
+      iVar5 = Cos_HandleToIndex((int)io);
       g_aCostumes[iVar5].nFree = 0;
       g_nCostumes = g_nCostumes + 1;
       iVar3 = iVar3 + 1;
@@ -1507,10 +1495,9 @@ uint __cdecl Cos_Restore(void *io)
   g_nMaxInstances = iStack_28;
   return 0;
 }
-#undef auStack_20
+#undef acStack_20
 #undef iStack_24
 #undef iStack_28
-#undef iStack_8
 
 #endif
 
@@ -1955,27 +1942,28 @@ int __cdecl Cos_FindComponent(Costume *pCostume,int tagId,int hash,char *name)
 uint __cdecl Cos_ReadTagsSection(uint file,uint unused2,uint unused3)
 
 {
-  unsigned char _stkneg[48];  /* the original frame below the return address */
+  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint file_00;
   int iVar1;
   int iVar2;
   uint uVar3;
   uint uVar4;
-  int in_stack_00000018;
-  int in_stack_0000001c;
-  uint in_stack_00000050;
+  #define iStack_34 (*(int *)(_frame + (0x50 - 0x34)))
+  #define iStack_30 (*(int *)(_frame + (0x50 - 0x30)))
+  #define abStack_2c (*(byte (*)[12])(_frame + (0x50 - 0x2c)))
+  #define acStack_20 (*(char (*)[32])(_frame + (0x50 - 0x20)))
   
   file_00 = file;
   iVar1 = Cos_ReadLine(file,g_szParseLine,0x400);
   if (iVar1 == 0) {
     return 0;
   }
-  iVar1 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010538),&STACK0X(0x00000010));
+  iVar1 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010538),&file);
   if (iVar1 != 1) {
     return 0;
   }
   uVar4 = 0;
-  if (in_stack_00000018 == 0) {
+  if (file == 0) {
     return 1;
   }
   do {
@@ -1983,32 +1971,37 @@ uint __cdecl Cos_ReadTagsSection(uint file,uint unused2,uint unused3)
     if (iVar1 == 0) {
       return 0;
     }
-    iVar1 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010524),(_stkneg + 32),(_stkneg + 28),
-                        (_stkneg + 36),&STACK0X(0x00000000));
+    iVar1 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010524),&iStack_30,&iStack_34,abStack_2c,acStack_20
+                       );
     if (iVar1 != 4) {
       return 0;
     }
-    iVar2 = msvc_stricmp((_stkneg + 44),(byte *)((unsigned)(uintptr_t)&DAT_1001019c));
+    iVar2 = msvc_stricmp(abStack_2c,(byte *)((unsigned)(uintptr_t)&DAT_1001019c));
     iVar1 = 0;
     if (iVar2 != 0) {
-      iVar1 = msvc_stricmp((byte *)&file,(byte *)((unsigned)(uintptr_t)&DAT_10010198));
+      iVar1 = msvc_stricmp(abStack_2c,(byte *)((unsigned)(uintptr_t)&DAT_10010198));
       if (iVar1 == 0) {
         iVar1 = 1;
       }
       else {
-        iVar1 = msvc_stricmp((byte *)&unused3,(byte *)((unsigned)(uintptr_t)&DAT_10010190));
+        iVar1 = msvc_stricmp(abStack_2c,(byte *)((unsigned)(uintptr_t)&DAT_10010190));
         if (iVar1 != 0) {
           return 0;
         }
         iVar1 = 2;
       }
     }
-    uVar3 = Cos_FindTag(unused3,&STACK0X(0x00000020),iVar1);
+    uVar3 = Cos_FindTag(iStack_34,acStack_20,iVar1);
     uVar4 = uVar4 + 1;
-    g_aTagLookups[in_stack_0000001c] = uVar3;
-  } while (uVar4 < in_stack_00000050);
+    g_aTagLookups[iStack_30] = uVar3;
+  } while (uVar4 < file);
   return 1;
 }
+#undef abStack_2c
+#undef acStack_20
+#undef iStack_30
+#undef iStack_34
+
 #endif
 
 
@@ -2053,178 +2046,169 @@ int __cdecl Cos_FindTag(int tagId,char *name,int kind)
 uint __cdecl Cos_ReadComponentsSection(uint file,uint handle,uint unused3,uint unused4)
 
 {
-  unsigned char _stkneg[32];  /* the original frame below the return address */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *name;
   Costume *pCostume;
   int iVar1;
   int iVar2;
   uint *puVar3;
   char *name_00;
-  uint uVar4;
-  int *piVar5;
+  int *piVar4;
+  uint uVar5;
   uint uVar6;
   uint uVar7;
-  uint *puVar8;
-  int iStack0000001c;
-  uint in_stack_00000024;
-  int in_stack_0000002c;
-  int in_stack_00000030;
-  uint in_stack_00000034;
-  int in_stack_00000038;
-  int in_stack_00000044;
-  uint in_stack_fffffffc;
+  #define uStack_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define puStack_18 (*(uint **)(_frame + (0x30 - 0x18)))
+  #define uStack_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define iStack_10 (*(int *)(_frame + (0x30 - 0x10)))
+  #define uStack_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define iStack_8 (*(int *)(_frame + (0x30 - 0x8)))
+  #define iStack_4 (*(int *)(_frame + (0x30 - 0x4)))
   
+  uVar6 = file;
   pCostume = CosUtil_PtrFromHandle(handle);
-  iVar1 = Cos_ReadLine(handle,g_szParseLine,0x400);
+  iVar1 = Cos_ReadLine(file,g_szParseLine,0x400);
   if (iVar1 == 0) {
     return 0;
   }
-  iVar1 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010574),(_stkneg + 20));
+  iVar1 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010574),&uStack_1c);
   if (iVar1 != 1) {
     return 0;
   }
   uVar7 = 0;
-  if (in_stack_fffffffc == 0) {
-    iStack0000001c = 0;
-    iVar1 = 0;
+  if (uStack_1c == 0) {
+    file = 0;
   }
   else {
-    iVar1 = (*(code *)g_pSvcChore->pAlloc)
-                      (in_stack_fffffffc << 6,s_C__grimsrc_libs_chore_Costume_c_1001020c,0xbdf);
-    iStack0000001c = iVar1;
-    if (iVar1 == 0) {
+    file = (*(code *)g_pSvcChore->pAlloc)
+                     (uStack_1c << 6,s_C__grimsrc_libs_chore_Costume_c_1001020c,0xbdf);
+    if (file == 0) {
       (*(code *)g_pSvcChore->pAssertFail)
                 (((unsigned)(uintptr_t)&DAT_10010558),s_C__grimsrc_libs_chore_Costume_c_1001020c,0xbe0);
     }
   }
-  if (iVar1 == 0) {
+  if (file == 0) {
     return 0;
   }
-  if (g_dwNumComponentLookups < in_stack_fffffffc) {
+  if (g_dwNumComponentLookups < uStack_1c) {
     g_aComponentLookups =
          (int *)(*(code *)g_pSvcChore->pRealloc)
-                          (g_aComponentLookups,in_stack_fffffffc * 4,
+                          (g_aComponentLookups,uStack_1c * 4,
                            s_C__grimsrc_libs_chore_Costume_c_1001020c,0xbeb);
-    g_dwNumComponentLookups = in_stack_fffffffc;
-    in_stack_fffffffc = g_dwNumComponentLookups;
+    g_dwNumComponentLookups = uStack_1c;
   }
-  uVar4 = 0;
-  if (in_stack_fffffffc != 0) {
-    iVar1 = iVar1 + 0x28;
+  if (uStack_1c != 0) {
+    iVar1 = file + 0x28;
     do {
-      iVar2 = Cos_ReadLine(handle,g_szParseLine,0x400);
+      iVar2 = Cos_ReadLine(uVar6,g_szParseLine,0x400);
       if ((iVar2 == 0) ||
-         (iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010544),&STACK0X(0x00000014),&STACK0X(0x0000001c),
-                              iVar1,iVar1 + 4), iVar2 != 5)) {
+         (iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010544),&iStack_10,&iStack_8,iVar1,iVar1 + 4,
+                              iVar1 + -0x28), iVar2 != 5)) {
         return 0;
       }
       uVar7 = uVar7 + 1;
-      *(uint *)(iVar1 + -8) = g_aTagLookups[in_stack_00000024];
-      uVar4 = unused4;
+      *(uint *)(iVar1 + -8) = g_aTagLookups[iStack_8];
       iVar1 = iVar1 + 0x40;
-    } while (uVar7 < unused4);
+    } while (uVar7 < uStack_1c);
   }
-  if (uVar4 == 0) {
+  if (uStack_1c == 0) {
+    puStack_18 = (uint *)0x0;
     puVar3 = (uint *)0x0;
-    uVar7 = 0;
-    puVar8 = (uint *)0x0;
   }
   else {
-    uVar7 = in_stack_fffffffc;
     puVar3 = (uint *)(*(code *)g_pSvcChore->pAlloc)
-                               (uVar4 * 4,s_C__grimsrc_libs_chore_Costume_c_1001020c,0xc02);
-    puVar8 = puVar3;
-    in_stack_fffffffc = uVar7;
+                               (uStack_1c * 4,s_C__grimsrc_libs_chore_Costume_c_1001020c,0xc02);
+    puStack_18 = puVar3;
     if (puVar3 == (uint *)0x0) {
       (*(code *)g_pSvcChore->pAssertFail)
                 (((unsigned)(uintptr_t)&DAT_10010288),s_C__grimsrc_libs_chore_Costume_c_1001020c,0xc03);
-      in_stack_fffffffc = uVar7;
     }
   }
   uVar6 = 0;
-  file = 0;
-  uVar4 = 0;
-  if (uVar7 != 0) {
-    piVar5 = (int *)(iStack0000001c + 0x2c);
+  uStack_14 = 0;
+  if (uStack_1c != 0) {
+    piVar4 = (int *)(file + 0x2c);
     do {
-      iVar1 = *piVar5;
+      iVar1 = *piVar4;
       *puVar3 = 0;
       while (iVar1 != -1) {
-        iVar1 = *(int *)(iVar1 * 0x40 + 0x2c + iStack0000001c);
+        iVar1 = *(int *)(iVar1 * 0x40 + 0x2c + file);
         *puVar3 = *puVar3 + 1;
       }
-      if (file <= *puVar3) {
-        file = *puVar3;
+      if (uStack_14 <= *puVar3) {
+        uStack_14 = *puVar3;
       }
       uVar6 = uVar6 + 1;
       puVar3 = puVar3 + 1;
-      piVar5 = piVar5 + 0x10;
-      uVar4 = in_stack_fffffffc;
-    } while (uVar6 < in_stack_fffffffc);
+      piVar4 = piVar4 + 0x10;
+    } while (uVar6 < uStack_1c);
   }
-  unused3 = 0;
-  iVar1 = iStack0000001c;
+  uStack_c = 0;
+  uVar6 = uStack_1c;
   do {
-    uVar7 = 0;
-    if (uVar4 != 0) {
-      piVar5 = (int *)(iVar1 + 0x2c);
+    uVar5 = 0;
+    uVar7 = uStack_c;
+    if (uVar6 != 0) {
+      piVar4 = (int *)(file + 0x2c);
       do {
-        if (puVar8[uVar7] == unused3) {
-          name = piVar5 + -0xb;
-          iStack0000001c =
-               Cos_FindComponentWithParent
-                         (pCostume,g_aComponentTags[piVar5[-3]].nId,piVar5[-1],(char *)name,*piVar5)
-          ;
-          uVar4 = in_stack_00000024;
-          unused3 = in_stack_00000034;
-          if (iStack0000001c < 0) {
-            if (*piVar5 < 0) {
-              iVar1 = CosUtil_AddComponent
-                                (in_stack_00000034,(char *)name,g_aComponentTags[piVar5[-3]].nId,0,0
-                                );
+        if (puStack_18[uVar5] == uVar7) {
+          name = piVar4 + -0xb;
+          iStack_10 = Cos_FindComponentWithParent
+                                (pCostume,g_aComponentTags[piVar4[-3]].nId,piVar4[-1],(char *)name,
+                                 *piVar4);
+          uVar6 = uStack_1c;
+          uVar7 = uStack_c;
+          if (iStack_10 < 0) {
+            if (*piVar4 < 0) {
+              iVar1 = CosUtil_AddComponent(handle,(char *)name,g_aComponentTags[piVar4[-3]].nId,0,0)
+              ;
             }
             else {
-              name_00 = (char *)(*piVar5 * 0x40 + in_stack_00000030);
-              in_stack_0000002c =
-                   Cos_FindComponent(pCostume,g_aComponentTags[*(int *)(name_00 + 0x20)].nId,
-                                     *(int *)(name_00 + 0x28),name_00);
-              if (in_stack_0000002c < 0) goto LAB_1000470a;
-              iVar1 = pCostume->pComponents[in_stack_0000002c].nTag;
-              in_stack_00000038 = iVar1 * 0x17;
+              name_00 = (char *)(*piVar4 * 0x40 + file);
+              iStack_10 = Cos_FindComponent(pCostume,g_aComponentTags[*(int *)(name_00 + 0x20)].nId,
+                                            *(int *)(name_00 + 0x28),name_00);
+              if (iStack_10 < 0) goto LAB_1000470a;
+              iVar1 = pCostume->pComponents[iStack_10].nTag;
+              iStack_4 = iVar1 * 0x17;
               iVar1 = CosUtil_AddComponent
-                                (in_stack_00000044,(char *)name,g_aComponentTags[piVar5[-3]].nId,
-                                 pCostume->pComponents[in_stack_0000002c].nData,
-                                 g_aComponentTags[iVar1].nId);
+                                (handle,(char *)name,g_aComponentTags[piVar4[-3]].nId,
+                                 pCostume->pComponents[iStack_10].nData,g_aComponentTags[iVar1].nId)
+              ;
             }
             if (iVar1 == 0) {
 LAB_1000470a:
-              (*(code *)g_pSvcChore->pFree)();
-              (*(code *)g_pSvcChore->pFree)();
+              (*(code *)g_pSvcChore->pFree)(file);
+              (*(code *)g_pSvcChore->pFree)(puStack_18);
               return 0;
             }
-            puVar8 = (uint *)0x100046c7;
-            iVar1 = Cos_FindComponent(pCostume,g_aComponentTags[piVar5[-3]].nId,piVar5[-1],
+            iVar1 = Cos_FindComponent(pCostume,g_aComponentTags[piVar4[-3]].nId,piVar4[-1],
                                       (char *)name);
-            g_aComponentLookups[uVar7] = iVar1;
-            uVar4 = in_stack_00000024;
-            unused3 = in_stack_00000034;
-            file = (uint)pCostume;
-            if (g_aComponentLookups[uVar7] < 0) goto LAB_1000470a;
+            g_aComponentLookups[uVar5] = iVar1;
+            uVar6 = uStack_1c;
+            uVar7 = uStack_c;
+            if (g_aComponentLookups[uVar5] < 0) goto LAB_1000470a;
           }
         }
-        uVar7 = uVar7 + 1;
-        piVar5 = piVar5 + 0x10;
-        iVar1 = iStack0000001c;
-      } while (uVar7 < uVar4);
+        uVar5 = uVar5 + 1;
+        piVar4 = piVar4 + 0x10;
+      } while (uVar5 < uVar6);
     }
-    unused3 = unused3 + 1;
-    if (file < unused3) {
-      (*(code *)g_pSvcChore->pFree)(iVar1);
-      (*(code *)g_pSvcChore->pFree)(puVar8);
+    uStack_c = uVar7 + 1;
+    if (uStack_14 < uStack_c) {
+      (*(code *)g_pSvcChore->pFree)(file);
+      (*(code *)g_pSvcChore->pFree)(puStack_18);
       return 1;
     }
   } while( true );
 }
+#undef iStack_10
+#undef iStack_4
+#undef iStack_8
+#undef puStack_18
+#undef uStack_14
+#undef uStack_1c
+#undef uStack_c
+
 #endif
 
 
@@ -2266,69 +2250,72 @@ int __cdecl Cos_FindComponentWithParent(Costume *pCostume,int tagId,int hash,cha
 uint __cdecl Cos_ReadChoresSection(uint file,int costume,uint unused3)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint *puVar1;
   int iVar2;
-  uint uVar3;
-  int *piVar4;
+  int iVar3;
+  uint uVar4;
+  int *piVar5;
   Chore *pChore;
-  int in_stack_00000014;
-  int in_stack_00000018;
-  uint uStack0000001c;
+  #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
   
   iVar2 = Cos_ReadLine(file,g_szParseLine,0x400);
   if (iVar2 == 0) {
     return 0;
   }
-  puVar1 = (uint *)(in_stack_00000014 + 0x30);
+  puVar1 = (uint *)(costume + 0x30);
   iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_100105c0),puVar1);
   if (iVar2 != 1) {
     return 0;
   }
-  uVar3 = 0;
+  uVar4 = 0;
   if (*puVar1 == 0) {
-    *(undefined4 *)(in_stack_00000014 + 0x34) = 0;
+    *(undefined4 *)(costume + 0x34) = 0;
   }
   else {
     iVar2 = (*(code *)g_pSvcChore->pAlloc)
                       (*puVar1 * 0x2c,s_C__grimsrc_libs_chore_Costume_c_1001020c,0xc7e);
-    *(int *)(in_stack_00000014 + 0x34) = iVar2;
+    *(int *)(costume + 0x34) = iVar2;
     if (iVar2 == 0) {
       *puVar1 = 0;
       return 0;
     }
   }
-  pChore = *(Chore **)(in_stack_00000014 + 0x34);
+  pChore = *(Chore **)(costume + 0x34);
   if (*puVar1 != 0) {
     do {
       Cos_InitChore(pChore);
-      uVar3 = uVar3 + 1;
+      uVar4 = uVar4 + 1;
       pChore = pChore + 1;
-    } while (uVar3 < *puVar1);
+    } while (uVar4 < *puVar1);
   }
-  uStack0000001c = 0;
+  iVar2 = *(int *)(costume + 0x34);
+  costume = 0;
   if (*puVar1 != 0) {
-    piVar4 = (int *)(*(int *)(in_stack_00000014 + 0x34) + 0x20);
+    piVar5 = (int *)(iVar2 + 0x20);
     while( true ) {
-      iVar2 = Cos_ReadLine(in_stack_00000018,g_szParseLine,0x400);
-      if (iVar2 == 0) {
+      iVar3 = Cos_ReadLine(file,g_szParseLine,0x400);
+      if (iVar3 == 0) {
         return 0;
       }
-      iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_100105ac),&STACK0X(0x0000001c));
-      if (iVar2 != 4) break;
-      if (*piVar4 == 0) {
-        piVar4[1] = 0;
+      iVar3 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_100105ac),auStack_4,piVar5 + 2,piVar5,iVar2);
+      if (iVar3 != 4) break;
+      if (*piVar5 == 0) {
+        piVar5[1] = 0;
       }
       else {
-        iVar2 = (*(code *)g_pSvcChore->pAlloc)();
-        piVar4[1] = iVar2;
-        if (iVar2 == 0) {
+        iVar3 = (*(code *)g_pSvcChore->pAlloc)
+                          (*piVar5 << 4,s_C__grimsrc_libs_chore_Costume_c_1001020c,0xca1);
+        piVar5[1] = iVar3;
+        if (iVar3 == 0) {
           (*(code *)g_pSvcChore->pAssertFail)
                     (((unsigned)(uintptr_t)&DAT_10010588),s_C__grimsrc_libs_chore_Costume_c_1001020c,0xca2);
         }
       }
-      uStack0000001c = uStack0000001c + 1;
-      piVar4 = piVar4 + 0xb;
-      if (*puVar1 <= uStack0000001c) {
+      costume = costume + 1;
+      iVar2 = iVar2 + 0x2c;
+      piVar5 = piVar5 + 0xb;
+      if (*puVar1 <= (uint)costume) {
         return 1;
       }
     }
@@ -2336,6 +2323,8 @@ uint __cdecl Cos_ReadChoresSection(uint file,int costume,uint unused3)
   }
   return 1;
 }
+#undef auStack_4
+
 #endif
 
 
@@ -2350,90 +2339,79 @@ uint __cdecl Cos_ReadChoresSection(uint file,int costume,uint unused3)
 uint __cdecl Cos_ReadKeysSection(uint file,int costume)
 
 {
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
-  uint uVar3;
+  uint uVar2;
+  int iVar3;
   int *piVar4;
   uint uVar5;
   uint *puVar6;
-  int in_stack_00000018;
-  int in_stack_0000001c;
-  int *in_stack_00000028;
-  int in_stack_0000002c;
-  int *piVar7;
-  char *pcVar8;
+  #define uStack_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define uStack_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define iStack_c (*(int *)(_frame + (0x30 - 0xc)))
+  #define pCStack_8 (*(ComponentTag **)(_frame + (0x30 - 0x8)))
+  #define iStack_4 (*(int *)(_frame + (0x30 - 0x4)))
   
-  piVar7 = (int *)0x0;
-  iVar2 = costume;
+  uStack_10 = 0;
   if (*(int *)(costume + 0x30) == 0) {
     return 1;
   }
   do {
     iVar1 = Cos_ReadLine(file,g_szParseLine,0x400);
     if ((iVar1 == 0) ||
-       (iVar1 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010600),&STACK0X(0x00000000)), iVar1 != 1)) {
+       (iVar1 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010600),&iStack_c), iVar1 != 1)) {
       return 0;
     }
-    pcVar8 = (char *)0x0;
-    piVar4 = *(int **)(*(int *)(iVar2 + 0x34) + 0x24 + costume * 0x2c);
-    iVar1 = *(int *)(iVar2 + 0x34) + costume * 0x2c;
-    if (*(int *)(iVar1 + 0x20) != 0) {
+    uStack_18 = 0;
+    piVar4 = *(int **)(*(int *)(costume + 0x34) + 0x24 + iStack_c * 0x2c);
+    iStack_4 = *(int *)(costume + 0x34) + iStack_c * 0x2c;
+    if (*(int *)(iStack_4 + 0x20) != 0) {
       puVar6 = (uint *)(piVar4 + 2);
       do {
         uVar5 = 0;
-        iVar2 = Cos_ReadLine(in_stack_00000018,g_szParseLine,0x400);
-        if (iVar2 == 0) {
+        iVar1 = Cos_ReadLine(file,g_szParseLine,0x400);
+        if (iVar1 == 0) {
           return 0;
         }
-        piVar7 = piVar4;
-        iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_100105f8),piVar4,puVar6);
-        if (iVar2 != 2) {
+        iVar1 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_100105f8),piVar4,puVar6);
+        if (iVar1 != 2) {
           return 0;
         }
-        uVar3 = *puVar6;
+        uVar2 = *puVar6;
         *piVar4 = g_aComponentLookups[*piVar4];
-        if (uVar3 == 0) {
+        if (uVar2 == 0) {
           puVar6[1] = 0;
         }
         else {
-          pcVar8 = (char *)0xcda;
-          piVar7 = (int *)0x10004a5d;
-          uVar3 = (*(code *)g_pSvcChore->pAlloc)
-                            (uVar3 << 3,s_C__grimsrc_libs_chore_Costume_c_1001020c);
-          puVar6[1] = uVar3;
-          if (uVar3 == 0) {
-            pcVar8 = (char *)0xcdb;
-            piVar7 = (int *)0x10004a7f;
+          uVar2 = (*(code *)g_pSvcChore->pAlloc)
+                            (uVar2 << 3,s_C__grimsrc_libs_chore_Costume_c_1001020c,0xcda);
+          puVar6[1] = uVar2;
+          if (uVar2 == 0) {
             (*(code *)g_pSvcChore->pAssertFail)
-                      (((unsigned)(uintptr_t)&DAT_100105d8),s_C__grimsrc_libs_chore_Costume_c_1001020c);
+                      (((unsigned)(uintptr_t)&DAT_100105d8),s_C__grimsrc_libs_chore_Costume_c_1001020c,0xcdb);
           }
         }
+        uVar2 = puVar6[1];
+        pCStack_8 = g_aComponentTags + *(int *)(*(int *)(costume + 0x2c) + 0x20 + *piVar4 * 0x40);
         if (*puVar6 != 0) {
-          iVar2 = puVar6[1] + 4;
-          uVar3 = puVar6[1];
+          iVar1 = uVar2 + 4;
           do {
-            file = uVar3;
-            costume = iVar2;
-            piVar7 = (int *)0x10004ac7;
-            iVar2 = Cos_ReadLine(in_stack_0000002c,g_szParseLine,0x400);
-            if (iVar2 == 0) {
+            iVar3 = Cos_ReadLine(file,g_szParseLine,0x400);
+            if (iVar3 == 0) {
               return 0;
             }
-            if ((*(int *)(in_stack_0000002c + 4) == 0) || (*(int *)(in_stack_0000002c + 4) == 1)) {
-              pcVar8 = g_szParseLine;
-              iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_100105f8));
+            if ((pCStack_8->nKind == 0) || (pCStack_8->nKind == 1)) {
+              iVar3 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_100105f8),uVar2,iVar1);
             }
             else {
-              pcVar8 = g_szParseLine;
-              iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_100105d0));
+              iVar3 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_100105d0),uVar2,iVar1);
             }
-            if (iVar2 != 2) {
+            if (iVar3 != 2) {
               return 0;
             }
             uVar5 = uVar5 + 1;
-            piVar4 = in_stack_00000028;
-            iVar2 = costume + 8;
-            uVar3 = file + 8;
+            uVar2 = uVar2 + 8;
+            iVar1 = iVar1 + 8;
           } while (uVar5 < *puVar6);
         }
         if (*puVar6 == 0) {
@@ -2443,18 +2421,23 @@ uint __cdecl Cos_ReadKeysSection(uint file,int costume)
           uVar5 = *(uint *)((puVar6[1] - 8) + *puVar6 * 8);
         }
         puVar6[-1] = uVar5;
-        pcVar8 = pcVar8 + 1;
+        uStack_18 = uStack_18 + 1;
         piVar4 = piVar4 + 4;
         puVar6 = puVar6 + 4;
-        iVar2 = in_stack_0000001c;
-      } while (pcVar8 < *(char **)(iVar1 + 0x20));
+      } while (uStack_18 < *(uint *)(iStack_4 + 0x20));
     }
-    piVar7 = (int *)((int)piVar7 + 1);
-    if (*(int **)(iVar2 + 0x30) <= piVar7) {
+    uStack_10 = uStack_10 + 1;
+    if (*(uint *)(costume + 0x30) <= uStack_10) {
       return 1;
     }
   } while( true );
 }
+#undef iStack_4
+#undef iStack_c
+#undef pCStack_8
+#undef uStack_10
+#undef uStack_18
+
 #endif
 
 
@@ -2532,54 +2515,55 @@ void __cdecl Cos_InitChoreInstances(Chore *pChores,ChoreInstance *pChoreInstance
 void __cdecl Cos_FreeCostume(int hCostume)
 
 {
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Costume *pCVar1;
   CosComponent *pComponent;
   char *pcVar2;
   uint uVar3;
-  uint uVar4;
+  int iVar4;
   int iVar5;
-  int iVar6;
-  int in_stack_00000008;
+  #define uStack_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   pCVar1 = CosUtil_PtrFromHandle(hCostume);
   uVar3 = 0;
   if (pCVar1->dwNumComponents != 0) {
-    iVar5 = 0;
+    iVar4 = 0;
     do {
-      pComponent = (CosComponent *)(pCVar1->pComponents->aName + iVar5);
+      pComponent = (CosComponent *)(pCVar1->pComponents->aName + iVar4);
       Cos_FreeComponent(hCostume,g_aComponentTags + pComponent->nTag,pComponent);
       uVar3 = uVar3 + 1;
-      iVar5 = iVar5 + 0x40;
+      iVar4 = iVar4 + 0x40;
     } while (uVar3 < pCVar1->dwNumComponents);
   }
   (*(code *)g_pSvcChore->pFree)(pCVar1->pComponents);
-  iVar5 = 0;
-  uVar3 = 0;
+  iVar4 = 0;
+  uStack_4 = 0;
   if (pCVar1->dwNumChores != 0) {
     do {
-      uVar4 = 0;
-      pcVar2 = pCVar1->pChores->aName + iVar5;
+      uVar3 = 0;
+      pcVar2 = pCVar1->pChores->aName + iVar4;
       if (*(uint *)(pcVar2 + 0x20) != 0) {
-        iVar6 = 0;
+        iVar5 = 0;
         do {
           (*(code *)g_pSvcChore->pFree)
-                    (*(undefined4 *)((int)&(*(ChoreTrack **)(pcVar2 + 0x24))->pKeys + iVar6));
-          uVar4 = uVar4 + 1;
-          iVar6 = iVar6 + 0x10;
-          pcVar2 = pCVar1->pChores->aName + iVar5;
-          hCostume = in_stack_00000008;
-        } while (uVar4 < *(uint *)(pCVar1->pChores->aName + iVar5 + 0x20));
+                    (*(undefined4 *)((int)&(*(ChoreTrack **)(pcVar2 + 0x24))->pKeys + iVar5));
+          uVar3 = uVar3 + 1;
+          iVar5 = iVar5 + 0x10;
+          pcVar2 = pCVar1->pChores->aName + iVar4;
+        } while (uVar3 < *(uint *)(pCVar1->pChores->aName + iVar4 + 0x20));
       }
-      (*(code *)g_pSvcChore->pFree)(*(undefined4 *)(pCVar1->pChores->aName + iVar5 + 0x24));
-      uVar3 = uVar3 + 1;
-      iVar5 = iVar5 + 0x2c;
-    } while (uVar3 < pCVar1->dwNumChores);
+      (*(code *)g_pSvcChore->pFree)(*(undefined4 *)(pCVar1->pChores->aName + iVar4 + 0x24));
+      uStack_4 = uStack_4 + 1;
+      iVar4 = iVar4 + 0x2c;
+    } while (uStack_4 < pCVar1->dwNumChores);
   }
   (*(code *)g_pSvcChore->pFree)(pCVar1->pChores);
-  iVar5 = Cos_HandleToIndex(hCostume);
-  g_aCostumes[iVar5].nFree = 1;
+  iVar4 = Cos_HandleToIndex(hCostume);
+  g_aCostumes[iVar4].nFree = 1;
   return;
 }
+#undef uStack_4
+
 #endif
 
 
@@ -2721,66 +2705,64 @@ uint __cdecl Cos_AllocTagSlot(void)
 void __cdecl Cos_FreeInstanceData(int instIndex)
 
 {
-  int iVar1;
+  CosInstance *pCVar1;
   int iVar2;
-  code *pcVar3;
-  Costume *pCVar4;
-  int iVar5;
-  int *piVar6;
+  int iVar3;
+  int iVar4;
+  code *pcVar5;
+  Costume *pCVar6;
   int iVar7;
-  CosInstance *pCVar8;
-  uint uVar9;
-  int unaff_retaddr;
-  CosInstance *in_stack_00000008;
+  int *piVar8;
+  int iVar9;
+  uint uVar10;
   
-  pCVar4 = g_aCostumes;
-  pCVar8 = g_aCostumeInstances + instIndex;
-  iVar1 = pCVar8->nCostume;
-  iVar5 = Cos_InstIndexToHandle(instIndex);
-  if (pCVar8->nFree == 0) {
-    uVar9 = 0;
-    if (pCVar4[iVar1].dwNumComponents != 0) {
-      piVar6 = &(pCVar4[iVar1].pComponents)->nTag;
+  pCVar6 = g_aCostumes;
+  pCVar1 = g_aCostumeInstances + instIndex;
+  iVar2 = pCVar1->nCostume;
+  iVar7 = Cos_InstIndexToHandle(instIndex);
+  if (pCVar1->nFree == 0) {
+    uVar10 = 0;
+    if (pCVar6[iVar2].dwNumComponents != 0) {
+      piVar8 = &(pCVar6[iVar2].pComponents)->nTag;
       do {
-        iVar1 = *piVar6;
-        iVar7 = 0;
-        iVar2 = g_aComponentTags[iVar1].nKind;
-        if (iVar2 == 0) {
-          pcVar3 = (code *)g_aComponentTags[iVar1].pfnNewInstance;
+        iVar3 = *piVar8;
+        iVar9 = 0;
+        iVar4 = g_aComponentTags[iVar3].nKind;
+        if (iVar4 == 0) {
+          pcVar5 = (code *)g_aComponentTags[iVar3].pfnNewInstance;
 joined_r0x10005011:
-          if (pcVar3 != (code *)0x0) {
-            iVar7 = (*pcVar3)(iVar5,uVar9,0);
+          if (pcVar5 != (code *)0x0) {
+            iVar9 = (*pcVar5)(iVar7,uVar10,0);
           }
         }
         else {
-          if ((iVar2 == 1) || (iVar2 == 2)) {
-            pcVar3 = (code *)g_aComponentTags[iVar1].pfnNewInstance;
+          if ((iVar4 == 1) || (iVar4 == 2)) {
+            pcVar5 = (code *)g_aComponentTags[iVar3].pfnNewInstance;
             goto joined_r0x10005011;
           }
           (*(code *)g_pSvcChore->pAssertFail)
                     (&DAT_10010284,s_C__grimsrc_libs_chore_Costume_c_1001020c,0xf13);
         }
-        if (iVar7 != 0) {
-          in_stack_00000008->pInstanceData[uVar9] = iVar7;
+        if (iVar9 != 0) {
+          pCVar1->pInstanceData[uVar10] = iVar9;
         }
-        uVar9 = uVar9 + 1;
-        piVar6 = piVar6 + 0x10;
-        pCVar8 = in_stack_00000008;
-      } while (uVar9 < *(uint *)(unaff_retaddr + 0x28));
+        uVar10 = uVar10 + 1;
+        piVar8 = piVar8 + 0x10;
+      } while (uVar10 < pCVar6[iVar2].dwNumComponents);
     }
-    if (pCVar8->pChoreInstances != (ChoreInstance *)0x0) {
-      (*(code *)g_pSvcChore->pFree)(pCVar8->pChoreInstances);
+    if (pCVar1->pChoreInstances != (ChoreInstance *)0x0) {
+      (*(code *)g_pSvcChore->pFree)(pCVar1->pChoreInstances);
     }
-    if (pCVar8->pInstanceData != (int *)0x0) {
-      (*(code *)g_pSvcChore->pFree)(pCVar8->pInstanceData);
+    if (pCVar1->pInstanceData != (int *)0x0) {
+      (*(code *)g_pSvcChore->pFree)(pCVar1->pInstanceData);
     }
-    pCVar8->nCostume = 0;
-    pCVar8->pChoreInstances = (ChoreInstance *)0x0;
-    pCVar8->nUserData = 0;
-    pCVar8->pInstanceData = (int *)0x0;
-    pCVar8->nFree = 0;
-    pCVar8->nCostume = -1;
-    pCVar8->nFree = 1;
+    pCVar1->nCostume = 0;
+    pCVar1->pChoreInstances = (ChoreInstance *)0x0;
+    pCVar1->nUserData = 0;
+    pCVar1->pInstanceData = (int *)0x0;
+    pCVar1->nFree = 0;
+    pCVar1->nCostume = -1;
+    pCVar1->nFree = 1;
   }
   return;
 }

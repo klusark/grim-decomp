@@ -1223,8 +1223,8 @@ void SoundModule_SyncClock(void)
 /* ---- 0x004d16a0  sou_engine_fill ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Mixes all active tracks into the driver buffer (called by DSound_FillStreamBuffer through the
-   driver) Original name sou_engine_fill (the remaster's GrimFandango (Linux): aligned call in
+/* Mixes all active tracks into the driver buffer (called by dsn_fill_thread through the driver)
+   Original name sou_engine_fill (the remaster's GrimFandango (Linux): aligned call in
    engine_Initialize); was SoundModule_MixCallback. */
 
 void __cdecl sou_engine_fill(int frames,void *mix)

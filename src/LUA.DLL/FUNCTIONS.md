@@ -82,7 +82,7 @@
 | 10002900 | Lua_Terminate | lapi.c | 12 |
 | 10002920 | Lua_Startup | lapi.c | 12 |
 | 10002940 | Lua_Shutdown | lapi.c | 11 |
-| 10004650 | lua_error | lapi.c | 18 |
+| 10004650 | lua_error | lapi.c | 19 |
 | 10004890 | lua_dofile | lapi.c | 55 |
 | 10004b20 | lua_dostring | lapi.c | 25 |
 | 10004e00 | lua_unref | lapi.c | 13 |

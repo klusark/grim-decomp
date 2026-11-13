@@ -48,8 +48,6 @@ extern undefined DAT_100171b0; /* used by 7 fn(s), first 0x10003e50 */
 extern uint DAT_100172bc; /* used by 1 fn(s), first 0x10005190 */
 extern undefined4 g_dwWvSlicingHalted; /* used by 4 fn(s), first 0x10004aa0 */
 extern char s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8[]; /* used by 1 fn(s), first 0x10005360 */
-extern undefined DAT_100172e8; /* used by 1 fn(s), first 0x10006560 */
-extern undefined4 DAT_1001730c; /* used by 1 fn(s), first 0x10006560 */
 extern undefined4 g_dwLocalMusic; /* used by 3 fn(s), first 0x10006360 */
 extern char s_SCRIPT_ERR__save_buffer_too_smal_1001e6f8[]; /* used by 1 fn(s), first 0x10006400 */
 extern char s_ERR__bogus_sequence____1001e720[]; /* used by 1 fn(s), first 0x10006620 */

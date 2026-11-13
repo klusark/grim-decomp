@@ -2302,30 +2302,42 @@ undefined4 sounds_save(code *param_1)
 /* ---- 0x10008580  sounds_restore ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name sounds_restore (the remaster's GrimFandango (Linux): aligned call in
    SoundsInitialize); was FUN_10008580. */
 
 undefined4 sounds_restore(code *param_1,uint param_2)
 
 {
-  unsigned char _frame[0x40];  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  code *pcVar1;
+  undefined uVar2;
   int *a1;
-  int iVar1;
-  uint uVar2;
+  undefined3 extraout_var;
   int iVar3;
-  #define iStack_28 (*(int *)(_frame + (0x40 - 0x28)))
-  #define uStack_24 (*(undefined4 *)(_frame + (0x40 - 0x24)))
-  #define puStack_20 (*(uint **)(_frame + (0x40 - 0x20)))
-  #define auStack_1c (*(uint (*)[6])(_frame + (0x40 - 0x1c)))
-  #define uStack_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  uint uVar4;
+  undefined3 extraout_var_00;
+  undefined3 extraout_var_01;
+  undefined3 extraout_var_02;
+  undefined3 extraout_var_03;
+  undefined3 extraout_var_04;
+  undefined3 extraout_var_05;
+  undefined3 extraout_var_06;
+  undefined3 extraout_var_07;
+  undefined3 extraout_var_08;
+  #define iStack_2c (*(int *)(_frame + (0x40 - 0x2c)))
+  #define uStack_28 (*(undefined4 *)(_frame + (0x40 - 0x28)))
+  #define puStack_24 (*(uint **)(_frame + (0x40 - 0x24)))
+  #define auStack_20 (*(uint (*)[8])(_frame + (0x40 - 0x20)))
   
   a1 = (int *)(**(code **)(g_dwSounds_pHS + 0x20))
                         (0x20000,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x46a);
+  pcVar1 = param_1;
   if (a1 == (int *)0x0) {
     return 1;
   }
-  iVar1 = (*param_1)(&g_aVoxFxName,0x28);
-  if (iVar1 != 0) {
+  uVar2 = (*param_1)(&g_aVoxFxName,0x28);
+  if (((uint)(uVar2)) != 0) {
     return 1;
   }
   ((code *)FUN_10009700)(((unsigned)(uintptr_t)&DAT_1001e98c));
@@ -2339,57 +2351,62 @@ undefined4 sounds_restore(code *param_1,uint param_2)
   ((code *)FUN_10009700)(((unsigned)(uintptr_t)&DAT_1001e944));
   iMUSE_SetVoiceEffect((uint *)&g_aVoxFxName);
   g_aLastVoiceFilename = 0;
-  (*param_1)(&uStack_24,4);
-  (*param_1)(a1,uStack_24);
-  iVar1 = ImRestore(a1);
-  if (iVar1 != 0) {
+  (*pcVar1)(&uStack_28,4);
+  (*pcVar1)(a1,uStack_28);
+  iVar3 = ImRestore(a1);
+  if (iVar3 != 0) {
     ((code *)FUN_10009700)(((unsigned)(uintptr_t)&DAT_1001e930));
-    (*param_1)(&uStack_24,4);
-    (*param_1)(a1,uStack_24);
-    iVar1 = ImRestoreScript((int)a1);
-    if (iVar1 != 0) {
+    (*pcVar1)(&uStack_28,4);
+    (*pcVar1)(a1,uStack_28);
+    iVar3 = ImRestoreScript((int)a1);
+    if (iVar3 != 0) {
       ((code *)FUN_10009700)(((unsigned)(uintptr_t)&DAT_1001e910));
-      for (uVar2 = ImGetNextSound(0); uVar2 != 0; uVar2 = ImGetNextSound(uVar2)) {
-        if ((int)uVar2 < 0x2711) {
-          ImStopSound(uVar2);
+      for (uVar4 = ImGetNextSound(0); uVar4 != 0; uVar4 = ImGetNextSound(uVar4)) {
+        if ((int)uVar4 < 0x2711) {
+          ImStopSound(uVar4);
         }
       }
       SoundsCloseVoiceFile();
       ((code *)FUN_10009700)(((unsigned)(uintptr_t)&DAT_1001e958));
-      iVar1 = (*param_1)(&iStack_28,4);
-      if ((iVar1 == 0) && (iStack_28 != 0)) {
-        iVar1 = 0;
-        if (0 < iStack_28) {
+      uVar2 = (*pcVar1)(&iStack_2c,4);
+      if ((((uint)(uVar2)) == 0) && (iStack_2c != 0)) {
+        iVar3 = 0;
+        if (0 < iStack_2c) {
           do {
-            iVar3 = (*param_1)(auStack_1c,0x20);
-            if ((iVar3 != 0) || (iVar3 = (*param_1)(&param_2,4), iVar3 != 0)) goto LAB_1000883c;
-            g_dwNextHandle = param_2 - 0x457;
-            iVar3 = (*param_1)(&param_2,4);
-            if (iVar3 != 0) goto LAB_1000883c;
-            SoundsLoadStartSound(auStack_1c,param_2,1);
-            iVar1 = iVar1 + 1;
-          } while (iVar1 < iStack_28);
+            uVar2 = (*pcVar1)(auStack_20,0x20);
+            if ((((uint)(uVar2)) != 0) ||
+               (uVar2 = (*pcVar1)(&param_1,4), ((uint)(uVar2)) != 0))
+            goto LAB_1000883c;
+            g_dwNextHandle = param_1 + -0x457;
+            uVar2 = (*pcVar1)(&param_1,4);
+            if (((uint)(uVar2)) != 0) goto LAB_1000883c;
+            SoundsLoadStartSound(auStack_20,(int)param_1,1);
+            iVar3 = iVar3 + 1;
+          } while (iVar3 < iStack_2c);
         }
-        iVar1 = 0;
-        if (0 < iStack_28) {
+        iVar3 = 0;
+        if (0 < iStack_2c) {
           do {
-            iVar3 = (*param_1)(&puStack_20,4);
-            if ((iVar3 != 0) || (iVar3 = (*param_1)(&param_2,4), iVar3 != 0)) goto LAB_1000883c;
-            SoundsSetParam(puStack_20,0x600,param_2);
-            iVar3 = (*param_1)(&STACK0X(0x00000014));
-            if (iVar3 != 0) goto LAB_1000883c;
-            SoundsSetParam((uint *)0x4,0x700,uStack_4);
-            iVar1 = iVar1 + 1;
-          } while (iVar1 < iStack_28);
+            uVar2 = (*pcVar1)(&puStack_24,4);
+            if ((((uint)(uVar2)) != 0) ||
+               (uVar2 = (*pcVar1)(&param_1,4), ((uint)(uVar2)) != 0))
+            goto LAB_1000883c;
+            SoundsSetParam(puStack_24,0x600,(uint)param_1);
+            uVar2 = (*pcVar1)(&param_1,4);
+            if (((uint)(uVar2)) != 0) goto LAB_1000883c;
+            SoundsSetParam(puStack_24,0x700,(uint)param_1);
+            iVar3 = iVar3 + 1;
+          } while (iVar3 < iStack_2c);
         }
-        iVar1 = 0;
-        if (0 < iStack_28) {
+        iVar3 = 0;
+        if (0 < iStack_2c) {
           do {
-            iVar3 = (*param_1)(&puStack_20,4);
-            if ((iVar3 != 0) || (iVar3 = (*param_1)(&param_2,4), iVar3 != 0)) break;
-            iMUSE_SetHook(puStack_20,param_2);
-            iVar1 = iVar1 + 1;
-          } while (iVar1 < iStack_28);
+            uVar2 = (*pcVar1)(&puStack_24,4);
+            if ((((uint)(uVar2)) != 0) ||
+               (uVar2 = (*pcVar1)(&param_1,4), ((uint)(uVar2)) != 0)) break;
+            iMUSE_SetHook(puStack_24,param_1);
+            iVar3 = iVar3 + 1;
+          } while (iVar3 < iStack_2c);
         }
       }
 LAB_1000883c:
@@ -2400,11 +2417,10 @@ LAB_1000883c:
   (**(code **)(g_dwSounds_pHS + 0x24))(a1);
   return 1;
 }
-#undef auStack_1c
-#undef iStack_28
-#undef puStack_20
-#undef uStack_24
-#undef uStack_4
+#undef auStack_20
+#undef iStack_2c
+#undef puStack_24
+#undef uStack_28
 
 #endif
 
@@ -2440,7 +2456,7 @@ undefined4 sounds_resume(void)
 
 /* ---- 0x10008ec0  CacheGetSoundId ---- */
 /* Name (or handle) -> sound slot id (100..131) of the 32-slot sound cache. A name that is not
-   cached is LOADED here (a free slot, or Sounds_EvictOldestIdleSlot). A handle (0x457..0x556, the
+   cached is LOADED here (a free slot, or CachePurgeOldestStoppedSound). A handle (0x457..0x556, the
    number Lua gets from ImStartSound; one per cached SOUND, not per playing instance, reused when
    the slot is) that is not in the cache gives 0. Returns 0 when it cannot load. Callers:
    SoundsGetParam returns 1 (!) for 0, so ImGetParam(name or stale handle, anything) reads 1, i.e.

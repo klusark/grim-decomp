@@ -47,7 +47,7 @@ undefined4 FUN_100063d0(void); /* 0x100063d0 */
 int __cdecl FUN_10006400(undefined4 *param_1,int param_2); /* 0x10006400 */
 int __cdecl FUN_10006470(undefined4 *param_1); /* 0x10006470 */
 undefined4 FUN_100064d0(void); /* 0x100064d0 */
-undefined4 __cdecl FUN_10006560(int param_1); /* 0x10006560 */
+int __cdecl FUN_10006560(int param_1); /* 0x10006560 */
 int __cdecl Script_SetSequence(int param_1); /* 0x10006620 */
 undefined4 FUN_100067a0(void); /* 0x100067a0 */
 undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2); /* 0x100067b0 */

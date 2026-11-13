@@ -587,7 +587,7 @@ LAB_0040b8c4:
 /* Reader of the binary 'MODL' model format (materials, geometry sets, meshes, hierarchy nodes).
    Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). Original name
    rdModel3_LoadEntryBinary (the remaster's GrimFandango (Linux): the only unmatched callee of
-   rdModel3_Load; 2 matched neighbours agree, 1 disagree); was rdModel3_LoadBinary. */
+   rdModel3_LoadEntry; 2 matched neighbours agree, 1 disagree); was rdModel3_LoadBinary. */
 
 undefined4 rdModel3_LoadEntryBinary(int param_1,int param_2)
 
@@ -1089,7 +1089,7 @@ void rdModel3_BuildShadowModel(int param_1)
 
 /* ---- 0x0040c520  rdModel3_CalcBoundingBoxes ---- */
 /* Computes the min/max box of every mesh, of the whole model (through
-   rdModel3_AccumulateNodeBounds), and the model's center and radius. Source file Rdmodel3.c
+   rdModel3_CalcModelBoundingBox), and the model's center and radius. Source file Rdmodel3.c
    (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
 void rdModel3_CalcBoundingBoxes(uint param_1)
@@ -1389,8 +1389,8 @@ void rdModel3_BuildExpandedRadius(int param_1,int param_2,float *param_3)
 
 
 /* ---- 0x0040cad0  rdModel3_CalcFaceNormals ---- */
-/* Computes the normal of every face from three non-collinear vertices (Math3D_TriangleNormal,
-   Math3D_PointsCollinear). Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c).
+/* Computes the normal of every face from three non-collinear vertices (rdMath_CalcSurfaceNormal,
+   rdMath_PointsCollinear). Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c).
     */
 
 void rdModel3_CalcFaceNormals(uint param_1)

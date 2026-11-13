@@ -240,7 +240,7 @@ void Script_Trans(char *entry, int index, int no_attr, uint caller_esi, uint ret
  * transition unless a sequence is playing (then only the current state changes).  Returns the id of the current state.
  * Called only by the dispatcher ScriptCall, whose ESI is 0xffffffff: the word ImSetTrigger reads for n = 3. */
 /* OVERRIDES: FUN_10006560 */
-undefined4 FUN_10006560(int id)
+int FUN_10006560(int id)
 {
     int i;
 

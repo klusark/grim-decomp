@@ -700,7 +700,7 @@ undefined * __fastcall Puck_Rot(Puck *puck)
 }
 
 /* ---- 0x004a82c0  Puck_Validate ---- */
-/* Called after Actor_PutInSet when the actor has a walker so it picks up the new set's sectors
+/* Called after sputRoom_AddActor when the actor has a walker so it picks up the new set's sectors
    Original name Puck_Validate (the remaster's GrimFandango (Linux): Puck::Validate in the remaster
    (a C++ method there); the only unmatched callee of Actor_SetFollowBoxes; 4 matched neighbours
    agree, 1 disagree); was Walker_ReattachToSet. */

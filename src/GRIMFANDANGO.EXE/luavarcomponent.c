@@ -27,7 +27,7 @@ void LuaVarChanger(undefined4 param_1,char *param_2,undefined4 param_3,int param
 
 
 /* ---- 0x004976a0  LuaVarAdjuster ---- */
-/* Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through
+/* Costume tag handler for 'Lua Variable' (registered by sputCostume_Startup through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog 'Change variable properties'. Original
    name LuaVarAdjuster (the remaster's GrimFandango (Linux): strings: 'Change variable properties');
    was LuaVarComponent_EditKey. */
@@ -57,7 +57,7 @@ undefined4 LuaVarAdjuster(undefined4 *param_1,int param_2,int param_3)
 
 
 /* ---- 0x00497710  LuaVarRequester ---- */
-/* Costume tag handler for 'Lua Variable' (registered by sputCostume_Start through
+/* Costume tag handler for 'Lua Variable' (registered by sputCostume_Startup through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, asks for the variable name ('Name of variable') in
    the editor. Original name LuaVarRequester (the remaster's GrimFandango (Linux): strings: 'Name of
    variable'); was LuaVarComponent_Create. */

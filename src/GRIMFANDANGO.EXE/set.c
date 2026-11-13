@@ -1124,6 +1124,8 @@ int Set_FindHandle(char *name)
 }
 
 /* ---- 0x004a55d0  Set_IsHandleValid ---- */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
+
 int Set_IsHandleValid(char *param_1)
 
 {
@@ -1131,10 +1133,10 @@ int Set_IsHandleValid(char *param_1)
   
   iVar1 = Set_FindHandle(param_1);
   if (iVar1 == -1) {
-    return true;
+    return 1;
   }
   iVar1 = (**(code **)(&DAT_008cac28 + iVar1 * 0x24))();
-  return iVar1 != 0;
+  return (uint)(iVar1 != 0);
 }
 
 /* ---- 0x004a60a0  GetRoomActors ---- */

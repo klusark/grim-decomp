@@ -229,7 +229,7 @@ LAB_004a5767:
         }
       }
       else {
-        iVar3 = Set_IsHandleValid(local_100);
+        iVar3 = Set_IsHandleValid((char *)local_100);
         if (iVar3 == 0) {
           return 0;
         }
@@ -250,8 +250,8 @@ LAB_004a5767:
 
 
 /* ---- 0x004a5890  sputRoom_ParseSetups ---- */
-/* Section handler 'setups' registered by sputRoom_Start: reads 'numsetups', and per setup its name,
-   background, zbuffer, position, interest, roll, fov, nclip, fclip (300-byte setup records at
+/* Section handler 'setups' registered by sputRoom_Startup: reads 'numsetups', and per setup its
+   name, background, zbuffer, position, interest, roll, fov, nclip, fclip (300-byte setup records at
    set+0xac). */
 
 undefined4 sputRoom_ParseSetups(void)

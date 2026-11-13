@@ -711,7 +711,8 @@ uint grimlib_JustLoaded(void)
 }
 
 /* ---- 0x00482fe0  Engine_SaveGame ---- */
-/* sputmain.cpp: opens the gzip save file and writes the header, set, actors, Lua state */
+/* Writes grim.sav (or the requested name): 250x188 thumbnail, costumes, each registered module's
+   save hook, game mode, Lua state */
 
 void Engine_SaveGame(void)
 
@@ -806,6 +807,8 @@ void Engine_SaveGame(void)
 /* ---- 0x00483240  Engine_LoadGame ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* Reads a save in the same order Engine_SaveGame wrote it, then runs patch05.bin */
+
 void Engine_LoadGame(void)
 
 {

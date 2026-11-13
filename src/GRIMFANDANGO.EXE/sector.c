@@ -145,14 +145,14 @@ int SetFile_Parse(char *param_1,uint param_2)
 /* Opens the .set file with stdConffile and calls Set_IsHandleValid (the registered section handler
    dispatcher) for every 'section: <name>' line; returns 0 if a handler rejects its section.
    Original name sputRoom_LoadRoomEntry (the remaster's GrimFandango (Linux): aligned call in
-   sputRoom_LoadRoom); was SetFile_ParseSections. */
+   SetFile_Parse); was SetFile_ParseSections. */
 
 undefined4 sputRoom_LoadRoomEntry(undefined4 param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_20 (*(undefined1 (*)[32])(_frame + (0x30 - 0x20)))
+  #define local_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
   iVar1 = ((code *)stdConffile_Open)(param_1);
   if (iVar1 == 0) {
@@ -196,7 +196,7 @@ undefined4 sputRoom_ParseColormaps(void)
   int iVar4;
   undefined4 *puVar5;
   uint uVar6;
-  #define local_100 (*(undefined1 (*)[256])(_frame + (0x110 - 0x100)))
+  #define local_100 (*(char (*)[256])(_frame + (0x110 - 0x100)))
   
   uVar3 = g_dwLoadingRoom;
   piVar1 = (int *)(g_dwLoadingRoom + 0x80);
@@ -211,7 +211,7 @@ undefined4 sputRoom_ParseColormaps(void)
   }
   do {
     if (*(char *)g_dwStdConffile_aLine != '\0') {
-      local_100[0] = 0;
+      local_100[0] = '\0';
       iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ec7e0,local_100);
       if (iVar4 == 0) {
         piVar2 = (int *)(uVar3 + 0x84);
@@ -254,19 +254,19 @@ LAB_004a5c4e:
 
 
 /* ---- 0x004a5c90  sputRoom_ParseSectors ---- */
-/* Section handler 'sectors' registered by sputRoom_Start: runs SetFile_ParseSectors for the set
-   being parsed. Original name sputRoom_ParseSectors (the remaster's GrimFandango (Linux): the only
-   unmatched caller of SetFile_ParseSectors; 1 matched neighbours agree, 0 disagree); was
+/* Section handler 'sectors' registered by sputRoom_Start: runs ParseCollection for the set being
+   parsed. Original name sputRoom_ParseSectors (the remaster's GrimFandango (Linux): the only
+   unmatched caller of ParseCollection; 1 matched neighbours agree, 0 disagree); was
    SetFile_SectorsSectionHandler. */
 
 undefined4 sputRoom_ParseSectors(void)
 
 {
-  int iVar1;
+  char *pcVar1;
   
-  iVar1 = ParseCollection(g_dwLoadingRoom);
-  if (iVar1 != 0) {
-    Set_IsHandleValid(iVar1);
+  pcVar1 = (char *)ParseCollection(g_dwLoadingRoom);
+  if (pcVar1 != (char *)0x0) {
+    Set_IsHandleValid(pcVar1);
   }
   return 1;
 }
@@ -2537,16 +2537,16 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_18 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
-/* SectorList_ShrinkWalkSectors(radius), called by Lua ShrinkBoxes after SectorList_SaveForShrink.
-   For every active walk sector (type & 0x1000, flag +0x28): for each vertex take the bisector of
-   the directions to its neighbours, move it inward by radius / sin(half angle) (Math_SinCosTable,
+/* SectorList_ShrinkWalkSectors(radius), called by Lua ShrinkBoxes after WalkPlane_BuildCache. For
+   every active walk sector (type & 0x1000, flag +0x28): for each vertex take the bisector of the
+   directions to its neighbours, move it inward by radius / sin(half angle) (Math_SinCosTable,
    Math_AsinDegreesSeries); the move is valid when the new point is inside the sector
-   (Sector_ContainsPoint) and at least radius - 0.001 from the line of every edge
-   (Sector_EdgeDistance). Not valid: Sector_CollapseShortestEdge and retry; cannot collapse: the
+   (WalkPlane_Within) and at least radius - 0.001 from the line of every edge
+   (WalkPlane_DistToEdge). Not valid: WalkPlane_RemoveShortEdge and retry; cannot collapse: the
    sector is switched off (+0x28 = 0). The shifts are summed per pool vertex (shared by the sectors)
    and the pool vertex moves by the mean, so all sectors that share it move together. Undone by
-   SectorList_RestoreAfterShrink. Original name ShrinkBoxes (the remaster's GrimFandango (Linux):
-   the only unmatched callee of Lua_TEST; 3 matched neighbours agree, 0 disagree); was
+   WalkPlane_RestoreCache. Original name ShrinkBoxes (the remaster's GrimFandango (Linux): the only
+   unmatched callee of Lua_TEST; 3 matched neighbours agree, 0 disagree); was
    SectorList_ShrinkWalkSectors. */
 
 void __cdecl ShrinkBoxes(float radius)

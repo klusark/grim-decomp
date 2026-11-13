@@ -286,27 +286,27 @@ void __cdecl Text_FreeFont(void *font)
 }
 
 /* ---- 0x004aa9b0  Text_NextChar ---- */
-/* Text.c: returns the next character of the text cursor (asserts *ppText) */
+/* Returns the next character and advances; the pointer becomes NULL at the end of the string */
 
 int __cdecl Text_NextChar(char **pText)
 
 {
-  uint uVar1;
+  char cVar1;
   char *pcVar2;
   
   if (*pText == (char *)0x0) {
     (*g_pTextHS->pAssertFail)
               (s__ppText______void___0__004ed03c,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x1fc);
   }
-  uVar1 = (uint)(byte)**pText;
-  pcVar2 = (char *)(-(uint)(uVar1 != 0) & (uint)(*pText + 1));
+  cVar1 = **pText;
+  pcVar2 = (char *)(-(uint)(cVar1 != '\0') & (uint)(*pText + 1));
   *pText = pcVar2;
-  if ((uVar1 == 0) && (pcVar2 != (char *)0x0)) {
+  if ((cVar1 == '\0') && (pcVar2 != (char *)0x0)) {
     (*g_pTextHS->pAssertFail)
               (s_c_____0______c______0______ppTex_004ed008,
                s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x20a);
   }
-  return uVar1;
+  return cVar1;
 }
 
 /* ---- 0x004aaa20  Text_GetCharKernedWidth ---- */
@@ -445,7 +445,7 @@ undefined4 Text_DrawFormatted(TextContext *param_1,int param_2)
 
 
 /* ---- 0x004aac40  Text_WrapLines ---- */
-/* Splits a text object's string into lines at the wrap width */
+/* Builds the default font from the packed glyph table at g_BuiltinFontData */
 
 undefined4 Text_WrapLines(uint *param_1)
 
@@ -670,6 +670,10 @@ void Text_CopyRunes(byte *param_1,undefined4 *param_2,int param_3,int param_4)
 
 
 /* ---- 0x004aaf30  Text_BuildLineTable ---- */
+/* Reads a .LAF font: header (data size, ..., first/last char), the char index table, 0x5c-byte
+   glyph records {dataOffset, advance, xoff, yoff, ?, dataPtr, width, height} and the glyph bitmaps
+    */
+
 undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2)
 
 {
@@ -811,11 +815,16 @@ char * text_FindNextBreak(TextContext *param_1,void *param_2,char *param_3,int *
   uint uVar1;
   TextContext *ctx;
   char *pcVar2;
-  uint uVar3;
-  int iVar4;
+  char cVar3;
+  uint uVar4;
+  undefined3 extraout_var;
+  undefined3 extraout_var_00;
   uint uVar5;
+  undefined3 extraout_var_01;
+  undefined3 extraout_var_02;
   int iVar6;
   int iVar7;
+  int iVar8;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -827,58 +836,59 @@ char * text_FindNextBreak(TextContext *param_1,void *param_2,char *param_3,int *
   local_c = (uint)param_3;
   ctx = param_1;
   uVar1 = param_1->dwFlags;
-  iVar7 = *param_1->pClipRect;
-  local_10 = param_1->nX - iVar7;
-  uVar3 = (param_1->pClipRect[2] + iVar7) - param_1->nX;
+  iVar8 = *param_1->pClipRect;
+  local_10 = param_1->nX - iVar8;
+  uVar4 = (param_1->pClipRect[2] + iVar8) - param_1->nX;
   if ((uVar1 & 1) == 0) {
     if ((uVar1 & 2) != 0) goto LAB_004ab257;
   }
   else {
-    if ((int)local_10 < (int)uVar3) {
-      uVar3 = local_10;
+    if ((int)local_10 < (int)uVar4) {
+      uVar4 = local_10;
     }
-    uVar3 = uVar3 * 2;
+    uVar4 = uVar4 * 2;
   }
-  local_10 = uVar3;
+  local_10 = uVar4;
 LAB_004ab257:
-  iVar7 = 0;
-  uVar3 = 0;
+  iVar8 = 0;
+  uVar4 = 0;
   local_14 = 0;
   param_1 = (TextContext *)0x0;
   local_18 = 0;
   local_1c = 0;
-  iVar4 = Text_NextChar(&param_3);
-  iVar6 = (int)param_1;
+  cVar3 = Text_NextChar(&param_3);
+  iVar6 = ((uint)(cVar3));
+  iVar7 = (int)param_1;
   do {
-    param_1 = (TextContext *)iVar6;
+    param_1 = (TextContext *)iVar7;
     pcVar2 = param_3;
-    if (iVar4 == 0) {
+    if (iVar6 == 0) {
 LAB_004ab425:
       param_3 = pcVar2;
-      if (iVar4 == 0) {
-        iVar4 = (int)param_1 + uVar3 + local_14;
-        if (((int)local_10 < iVar4) && ((uVar1 & 4) != 0)) {
+      if (iVar6 == 0) {
+        iVar6 = (int)param_1 + uVar4 + local_14;
+        if (((int)local_10 < iVar6) && ((uVar1 & 4) != 0)) {
           param_3 = (char *)local_c;
           if (local_1c == 0) {
-            local_1c = iVar7 + local_18;
+            local_1c = iVar8 + local_18;
             param_3 = (char *)0x0;
-            param_1 = (TextContext *)iVar4;
+            param_1 = (TextContext *)iVar6;
           }
         }
         else {
-          local_1c = local_1c + iVar7 + local_18;
+          local_1c = local_1c + iVar8 + local_18;
           param_3 = (char *)0x0;
-          param_1 = (TextContext *)iVar4;
+          param_1 = (TextContext *)iVar6;
         }
       }
       if (param_6 != 0) {
         if (param_3 == (char *)0x0) {
           if ((uVar1 & 1) == 0) {
-            iVar7 = (int)param_1;
+            iVar8 = (int)param_1;
             if ((uVar1 & 2) != 0) {
-              iVar7 = -(int)param_1;
+              iVar8 = -(int)param_1;
             }
-            ctx->nX = ctx->nX + iVar7;
+            ctx->nX = ctx->nX + iVar8;
           }
           else {
             ctx->nX = (int)param_1 / 2 + ctx->nX;
@@ -896,64 +906,67 @@ LAB_004ab425:
       }
       return param_3;
     }
-    if (((iVar4 == 0x20) || (iVar4 == 0xfe)) && ((uVar1 & 4) != 0)) {
-      param_1 = (TextContext *)(iVar6 + uVar3 + local_14);
+    if (((iVar6 == 0x20) || (iVar6 == 0xfe)) && ((uVar1 & 4) != 0)) {
+      param_1 = (TextContext *)(iVar7 + uVar4 + local_14);
       if ((int)local_10 < (int)param_1) {
-        param_1 = (TextContext *)iVar6;
+        param_1 = (TextContext *)iVar7;
         pcVar2 = (char *)local_c;
         if (local_1c == 0) {
-          local_1c = iVar7 + local_18;
-          param_1 = (TextContext *)(iVar6 + uVar3 + local_14);
+          local_1c = iVar8 + local_18;
+          param_1 = (TextContext *)(iVar7 + uVar4 + local_14);
           pcVar2 = param_3;
         }
       }
       else {
-        local_1c = local_1c + iVar7 + local_18;
-        uVar3 = Font_GlyphAdvance(ctx,param_2,iVar4);
+        local_1c = local_1c + iVar8 + local_18;
+        uVar4 = Font_GlyphAdvance(ctx,param_2,iVar6);
         local_14 = 0;
         local_18 = 0;
-        iVar7 = 1;
+        iVar8 = 1;
         local_c = (uint)param_3;
-        iVar4 = Text_NextChar(&param_3);
-        if (iVar4 != 0) {
+        cVar3 = Text_NextChar(&param_3);
+        iVar6 = ((uint)(cVar3));
+        if (iVar6 != 0) {
           do {
-            if ((iVar4 != 0x20) && (iVar4 != 0xfe)) break;
-            uVar5 = Font_GlyphAdvance(ctx,param_2,iVar4);
-            uVar3 = uVar3 + uVar5;
-            iVar7 = iVar7 + 1;
+            if ((iVar6 != 0x20) && (iVar6 != 0xfe)) break;
+            uVar5 = Font_GlyphAdvance(ctx,param_2,iVar6);
+            uVar4 = uVar4 + uVar5;
+            iVar8 = iVar8 + 1;
             local_c = (uint)param_3;
-            iVar4 = Text_NextChar(&param_3);
-          } while (iVar4 != 0);
-          if (iVar4 != 0) goto LAB_004ab344;
+            cVar3 = Text_NextChar(&param_3);
+            iVar6 = ((uint)(cVar3));
+          } while (iVar6 != 0);
+          if (iVar6 != 0) goto LAB_004ab344;
         }
-        local_1c = local_1c + iVar7;
-        param_1 = (TextContext *)((int)param_1 + uVar3);
+        local_1c = local_1c + iVar8;
+        param_1 = (TextContext *)((int)param_1 + uVar4);
         pcVar2 = param_3;
       }
       goto LAB_004ab425;
     }
 LAB_004ab344:
-    if ((iVar4 == 0xd) || (iVar4 == 10)) {
-      iVar6 = (int)param_1 + uVar3 + local_14;
-      if (((int)local_10 < iVar6) && ((uVar1 & 4) != 0)) {
+    if ((iVar6 == 0xd) || (iVar6 == 10)) {
+      iVar7 = (int)param_1 + uVar4 + local_14;
+      if (((int)local_10 < iVar7) && ((uVar1 & 4) != 0)) {
         param_3 = (char *)local_c;
         pcVar2 = param_3;
       }
       else {
-        local_1c = local_1c + iVar7 + local_18;
-        param_1 = (TextContext *)iVar6;
+        local_1c = local_1c + iVar8 + local_18;
+        param_1 = (TextContext *)iVar7;
         pcVar2 = param_3;
-        if ((iVar4 == 0xd) && (*param_3 == '\n')) {
+        if ((iVar6 == 0xd) && (*param_3 == '\n')) {
           pcVar2 = param_3 + 1;
         }
       }
       goto LAB_004ab425;
     }
-    uVar5 = Font_GlyphAdvance(ctx,param_2,iVar4);
+    uVar5 = Font_GlyphAdvance(ctx,param_2,iVar6);
     local_14 = local_14 + uVar5;
     local_18 = local_18 + 1;
-    iVar4 = Text_NextChar(&param_3);
-    iVar6 = (int)param_1;
+    cVar3 = Text_NextChar(&param_3);
+    iVar6 = ((uint)(cVar3));
+    iVar7 = (int)param_1;
   } while( true );
 }
 #undef local_10
@@ -1017,10 +1030,12 @@ void __cdecl Text_DrawString(TextContext *ctx,void *font,char *text)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   TextContext *ctx_00;
-  int iVar2;
-  TextContext *pTVar3;
+  char cVar2;
+  int iVar3;
+  undefined3 extraout_var;
+  TextContext *pTVar4;
   int ch;
-  uint uVar4;
+  uint uVar5;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
@@ -1040,34 +1055,35 @@ LAB_004ab6fb:
     ctx_00->dwFlags = local_10;
     return;
   }
-  uVar4 = local_10 & 1;
-  local_8 = uVar4;
+  uVar5 = local_10 & 1;
+  local_8 = uVar5;
   do {
     local_c = text_FindNextBreak(ctx_00,font,text,&ctx,&local_14,0);
     iVar1 = ctx_00->nX;
     local_4 = ctx_00->nY;
-    if (uVar4 == 0) {
-      iVar2 = iVar1;
-      pTVar3 = ctx;
+    if (uVar5 == 0) {
+      iVar3 = iVar1;
+      pTVar4 = ctx;
       if ((local_10 & 2) != 0) goto LAB_004ab66a;
     }
     else {
-      pTVar3 = (TextContext *)((int)ctx / 2);
+      pTVar4 = (TextContext *)((int)ctx / 2);
 LAB_004ab66a:
-      iVar2 = iVar1 - (int)pTVar3;
+      iVar3 = iVar1 - (int)pTVar4;
     }
-    ctx_00->nX = iVar2;
+    ctx_00->nX = iVar3;
     local_18 = 0;
-    iVar2 = ch;
+    iVar3 = ch;
     if (0 < (int)local_14) {
       do {
-        ch = Text_NextChar(&text);
-        if ((iVar2 != 10) || (ch != 0xd)) {
+        cVar2 = Text_NextChar(&text);
+        ch = ((uint)(cVar2));
+        if ((iVar3 != 10) || (ch != 0xd)) {
           Text_DrawChar(ctx_00,font,ch);
         }
         local_18 = local_18 + 1;
-        iVar2 = ch;
-        uVar4 = local_8;
+        iVar3 = ch;
+        uVar5 = local_8;
       } while ((int)local_18 < (int)local_14);
     }
     if (local_c == 0) goto LAB_004ab6fb;

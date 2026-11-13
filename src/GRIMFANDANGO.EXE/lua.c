@@ -2780,7 +2780,7 @@ void sputLua_IsActorMovingL(void)
 
 /* ---- 0x00499be0  sputLua_IsActorTurningL ---- */
 /* Lua opcode: IsActorTurning(actor). TRUE while extra+0x28 (angle left between visible yaw and
-   walker heading) is not 0. That field is written only by Walker_UpdateYaw (0 once under 0.5
+   walker heading) is not 0. That field is written only by sputActor_AlignToPuck (0 once under 0.5
    degrees) and Actor_SetRot, so an actor without a walker is never turning. Original name
    sputLua_IsActorTurningL (the remaster's GrimFandango (Linux): Lua / module table entry
    'IsActorTurning'); was Lua_IsActorTurning. */
@@ -7862,9 +7862,9 @@ void sputLua_GetCameraLookVectorL(void)
 /* ---- 0x0049fb00  sputLua_PointActorAtL ---- */
 /* Lua opcode: PointActorAt(actor, x, y, z | actor). Creates the walker if missing, turns the walker
    heading all the way to the point (Walker_TurnToPoint with FLT_MAX) and negates the turn rate so
-   Walker_UpdateYaw snaps the visible yaw next frame. Only the yaw changes; pitch and roll are not
-   touched. Original name sputLua_PointActorAtL (the remaster's GrimFandango (Linux): Lua / module
-   table entry 'PointActorAt'); was Lua_PointActorAt. */
+   sputActor_AlignToPuck snaps the visible yaw next frame. Only the yaw changes; pitch and roll are
+   not touched. Original name sputLua_PointActorAtL (the remaster's GrimFandango (Linux): Lua /
+   module table entry 'PointActorAt'); was Lua_PointActorAt. */
 
 void sputLua_PointActorAtL(void)
 

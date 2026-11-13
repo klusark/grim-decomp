@@ -119,7 +119,7 @@ void * __cdecl stdLoadImageData(char *name,int a,int b)
 
 
 /* ---- 0x00473810  stdWriteImage ---- */
-/* Picks the writer from the file extension: .bm/.zbm (stdBitmap_SaveBM, zbm marks format 5), .bmp,
+/* Picks the writer from the file extension: .bm/.zbm (stdBitmap_Write, zbm marks format 5), .bmp,
    .gif, .pcx, .lbm Original name stdWriteImage (the remaster's GrimFandango (Linux): strings: 'lbm'
    | 'pcx' | 'zbm' | 'bmp'); was stdBitmap_SaveByExtension. */
 

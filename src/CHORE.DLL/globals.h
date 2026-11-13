@@ -31,7 +31,6 @@ extern int g_nLineNum; /* 0x100143ec */
 extern int g_nNextCostumeID; /* 0x100143f0 */
 
 /* ---- unnamed data (type inferred from use) ---- */
-extern undefined4 in_stack_0000000c; /* used by 2 fn(s), first 0x10001770 */
 extern undefined UNK_1000e0fc; /* used by 1 fn(s), first 0x100061d0 */
 extern undefined UNK_1000e3e8; /* used by 1 fn(s), first 0x100089e0 */
 extern undefined UNK_1000e414; /* used by 1 fn(s), first 0x100089e0 */
@@ -136,7 +135,6 @@ extern undefined DAT_10015aec; /* used by 3 fn(s), first 0x10005740 */
 extern undefined DAT_10015af0; /* used by 1 fn(s), first 0x10005740 */
 extern undefined DAT_10015af4; /* used by 2 fn(s), first 0x10005f50 */
 extern undefined DAT_10015af8; /* used by 1 fn(s), first 0x10006070 */
-extern undefined4 in_stack_ffffff9c; /* used by 1 fn(s), first 0x10001770 */
 
 /* ---- re-typed views of the symbols above ---- */
 #define _DAT_100106a8 (*(code * *)&DAT_100106a8) /* same address as DAT_100106a8, other width */
@@ -154,8 +152,8 @@ extern undefined4 in_stack_ffffff9c; /* used by 1 fn(s), first 0x10001770 */
 #define _DAT_10010908 (*(undefined4 *)&DAT_10010908) /* same address as DAT_10010908, other width */
 #define _DAT_10010ac8 (*(undefined4 *)&DAT_10010ac8) /* same address as DAT_10010ac8, other width */
 #define _DAT_10010ad0 (*(undefined4 *)&DAT_10010ad0) /* same address as DAT_10010ad0, other width */
-#define _DAT_10010ad8 (*(undefined2 * *)&DAT_10010ad8) /* same address as DAT_10010ad8, other width */
-#define _DAT_10010adc (*(undefined2 * *)&DAT_10010adc) /* same address as DAT_10010adc, other width */
+#define _DAT_10010ad8 (*(undefined4 *)&DAT_10010ad8) /* same address as DAT_10010ad8, other width */
+#define _DAT_10010adc (*(undefined4 *)&DAT_10010adc) /* same address as DAT_10010adc, other width */
 #define _DAT_100117a8 (*(undefined4 *)&DAT_100117a8) /* same address as DAT_100117a8, other width */
 #define _DAT_100117ac (*(undefined4 * *)&DAT_100117ac) /* same address as DAT_100117ac, other width */
 #define _DAT_100117b8 (*(undefined4 *)&DAT_100117b8) /* same address as DAT_100117b8, other width */
@@ -168,7 +166,7 @@ extern undefined4 in_stack_ffffff9c; /* used by 1 fn(s), first 0x10001770 */
 #define _DAT_100138b8 (*(undefined4 * *)&DAT_100138b8) /* same address as DAT_100138b8, other width */
 #define _DAT_100143f8 (*(undefined4 *)&DAT_100143f8) /* same address as DAT_100143f8, other width */
 #define _DAT_100143fc (*(undefined4 *)&DAT_100143fc) /* same address as DAT_100143fc, other width */
-#define _DAT_10014400 (*(char * *)&DAT_10014400) /* same address as DAT_10014400, other width */
+#define _DAT_10014400 (*(undefined4 * *)&DAT_10014400) /* same address as DAT_10014400, other width */
 #define _DAT_10014408 (*(undefined4 *)&DAT_10014408) /* same address as DAT_10014408, other width */
 #define _DAT_1001440c (*(undefined4 *)&DAT_1001440c) /* same address as DAT_1001440c, other width */
 #define _DAT_10014478 (*(int *)&DAT_10014478) /* same address as DAT_10014478, other width */
@@ -182,7 +180,7 @@ extern undefined4 in_stack_ffffff9c; /* used by 1 fn(s), first 0x10001770 */
 #define _DAT_100144a8 (*(undefined4 *)&DAT_100144a8) /* same address as DAT_100144a8, other width */
 #define _DAT_100144ac (*(undefined4 *)&DAT_100144ac) /* same address as DAT_100144ac, other width */
 #define _DAT_100144b0 (*(undefined4 *)&DAT_100144b0) /* same address as DAT_100144b0, other width */
-#define _DAT_100144b8 (*(int * *)&DAT_100144b8) /* same address as DAT_100144b8, other width */
+#define _DAT_100144b8 (*(undefined4 *)&DAT_100144b8) /* same address as DAT_100144b8, other width */
 #define _DAT_100144c8 (*(undefined4 *)&DAT_100144c8) /* same address as DAT_100144c8, other width */
 #define _DAT_100144d4 (*(undefined4 *)&DAT_100144d4) /* same address as DAT_100144d4, other width */
 #define _DAT_100144d8 (*(undefined4 *)&DAT_100144d8) /* same address as DAT_100144d8, other width */
@@ -200,7 +198,7 @@ extern undefined4 in_stack_ffffff9c; /* used by 1 fn(s), first 0x10001770 */
 #define _DAT_10014820 (*(undefined4 *)&DAT_10014820) /* same address as DAT_10014820, other width */
 #define _DAT_10014824 (*(undefined4 *)&DAT_10014824) /* same address as DAT_10014824, other width */
 #define _DAT_10014828 (*(undefined4 * *)&DAT_10014828) /* same address as DAT_10014828, other width */
-#define _DAT_1001482c (*(undefined2 * *)&DAT_1001482c) /* same address as DAT_1001482c, other width */
+#define _DAT_1001482c (*(undefined4 *)&DAT_1001482c) /* same address as DAT_1001482c, other width */
 #define _DAT_10014830 (*(undefined4 *)&DAT_10014830) /* same address as DAT_10014830, other width */
 #define _DAT_10014844 (*(undefined2 *)&DAT_10014844) /* same address as DAT_10014844, other width */
 #define _DAT_1001484c (*(undefined2 *)&DAT_1001484c) /* same address as DAT_1001484c, other width */
@@ -275,6 +273,7 @@ extern unsigned char DAT_1001023c[]; /* 0x1001023c */
 extern unsigned char DAT_1001024c[]; /* 0x1001024c */
 extern unsigned char DAT_10010260[]; /* 0x10010260 */
 extern unsigned char DAT_10010270[]; /* 0x10010270 */
+extern unsigned char DAT_10010280[]; /* 0x10010280 */
 extern unsigned char DAT_10010288[]; /* 0x10010288 */
 extern unsigned char DAT_100102a4[]; /* 0x100102a4 */
 extern unsigned char DAT_100102cc[]; /* 0x100102cc */

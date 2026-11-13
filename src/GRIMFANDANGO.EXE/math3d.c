@@ -207,7 +207,7 @@ void __cdecl rdVector_ExtractAngles(float *matrix,float *outAngles)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Original name rdClip_SphereInFrustrum (the remaster's GrimFandango (Linux): aligned call in
-   rdModel3_DrawMeshImpl, rdSprite_Draw, rdThing_Draw); was Frustum_TestSphere. */
+   rdModel3_DrawMeshImpl, rdSprite_Draw, rdModel3_Draw); was Frustum_TestSphere. */
 
 uint rdClip_SphereInFrustrum(int *param_1,float *param_2,float param_3)
 
@@ -1193,7 +1193,7 @@ void __cdecl rdMatrix_TransformVector34Acc(float *vec,float *m)
    Vec3_Sub. rdModel_DrawMesh uses it with a zeroed translation (saved and restored around the call)
    to rotate light directions. Original name rdMatrix_TransformPoint34 (the remaster's GrimFandango
    (Linux): aligned call in rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox,
-   rdThing_Draw); was Matrix34_TransformPoint. */
+   rdModel3_Draw); was Matrix34_TransformPoint. */
 
 void __cdecl rdMatrix_TransformPoint34(float *out,float *a,float *b)
 

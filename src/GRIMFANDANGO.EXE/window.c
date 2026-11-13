@@ -309,8 +309,7 @@ Win_AbortIfAlreadyRunning
 
 
 /* ---- 0x004ac020  Win_PumpMessages ---- */
-/* One message-loop iteration: runs Game_FrameUpdate when idle, routes messages to registered
-   dialogs */
+/* One message-loop iteration: runs Main_Service when idle, routes messages to registered dialogs */
 
 uint Win_PumpMessages(void)
 

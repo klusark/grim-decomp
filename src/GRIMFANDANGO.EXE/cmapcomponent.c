@@ -111,6 +111,7 @@ int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *par
 }
 
 /* ---- 0x00496580  ColormapFreer ---- */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name ColormapFreer (the remaster's GrimFandango (Linux): the same handler slot (freer)
    of the same costume tag registration in sputCostume_Startup); was CmapComponent_Destroy. */
 

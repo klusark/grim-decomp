@@ -99,8 +99,10 @@ void stdConffile_Close(void)
 }
 
 /* ---- 0x0047c920  stdConffile_ReadLine ---- */
-/* Reads the next line of the open stdConffile into the line buffer g_dwStdConffile_aLine (skips ';'
-   '#' and blank lines, strips '#' comments, lower-cases, joins lines ending in a backslash) */
+/* Renamed from Std_ParseCommandLine: it does not tokenise a command line, it reads the next line of
+   the open stdConffile into the line buffer g_dwStdConffile_aLine (skips ';' '#' and blank lines,
+   strips '#' comments, lower-cases, joins lines that end in a backslash). Source file Stdconffile.c
+   (C:\grimjedi\Libs\Std\General\Stdconffile.c). */
 
 undefined4 stdConffile_ReadLine(void)
 

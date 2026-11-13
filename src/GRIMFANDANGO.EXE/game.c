@@ -10,7 +10,7 @@
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Per-frame function of the main loop. Passes the one-shot global DAT_004f5a48 ("fixed frame time",
-   ms) to Engine_UpdateFrame and zeroes it. The load of that global at 0x401721 is what
+   ms) to grimlib_UpdateManual and zeroes it. The load of that global at 0x401721 is what
    tools/patch_simtime.py replaces with `mov eax,17` to run on a fixed 17 ms frame. The call at
    0x401753 (timeGetTime) is the hook of the frame limiter (grimdlg.dll GrimFrameLimit). Original
    name Main_Service (the remaster's GrimFandango (Linux): strings: '%02.3f' | '%s %02.3f'); was

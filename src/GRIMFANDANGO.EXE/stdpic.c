@@ -6,7 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x0047d280  stdPic_Load ---- */
-/* stdBitmap_LoadFile loader for '.pic' (wrapper of stdPic_LoadInto, allocation string stdPic.c) */
+/* stdLoadImageData loader for '.pic' (wrapper of stdPic_LoadEntry, allocation string stdPic.c); was
+   named stdGif_Load. */
 
 uint stdPic_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 

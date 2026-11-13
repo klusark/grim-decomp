@@ -297,7 +297,8 @@ int __fastcall ObjectStateImage_InSync(int param_1)
 }
 
 /* ---- 0x004aa410  ObjectState_Construct ---- */
-/* ObjectState.cpp constructor: builds the bitmap and depth StateImages */
+/* ObjectState record (0xfc bytes): +4 type, +8 setupIdx, +0xc bitmap StateImage, +0x80 depth
+   StateImage, +0xf4 prev, +0xf8 next */
 
 void * __thiscall
 ObjectState_Construct(void *this,int type,char *bitmapName,char *zbufName,int setupIdx)

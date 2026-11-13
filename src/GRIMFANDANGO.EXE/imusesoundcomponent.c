@@ -8,7 +8,7 @@
 /* ---- 0x004971a0  SoundChanger ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
+/* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Startup
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, starts the sound (SoundStartVoiceStream for
    streamed, SoundsLoadStartSound + positional parameters from the current set for resident sounds)
    unless it already plays. Original name SoundChanger (the remaster's GrimFandango (Linux): the
@@ -85,7 +85,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
 
 
 /* ---- 0x00497320  SoundAdjuster ---- */
-/* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
+/* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Startup
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for Maximum Volume / Priority
    / Minimum Volume. Original name SoundAdjuster (the remaster's GrimFandango (Linux): strings:
    '%s,%d,%d,%d,%d'); was ImuseSoundComponent_EditKey. */
@@ -181,7 +181,7 @@ undefined4 SoundAdjuster(int *param_1,undefined4 param_2)
 
 
 /* ---- 0x00497460  SoundRequester ---- */
-/* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Start
+/* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Startup
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sound key or asks for an
    .imu/.imc/.wvc file. Original name SoundRequester (the remaster's GrimFandango (Linux): strings:
    'Select sound file to add...' | 'Sound files (*.imu, *.imc, *.wvc, *.wav)'); was

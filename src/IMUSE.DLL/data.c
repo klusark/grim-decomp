@@ -2795,7 +2795,5 @@ extern unsigned char DAT_10034808[4];
 /* 0x10034804, 4 bytes, unused (rest of DAT_10034800) */ GRIM_DATA("10034804") unsigned char DAT_10034804[4];
 /* 0x10034808, 4 bytes, unused (rest of DAT_10034804) */ GRIM_DATA("10034808") unsigned char DAT_10034808[4];
 
-__asm__(".globl _DAT_100172e8\n\t.set _DAT_100172e8, _g_aImStateTable\n");
-__asm__(".globl _DAT_1001730c\n\t.set _DAT_1001730c, _g_aImStateTable + 36\n");
 __asm__(".globl _sect_rdata\n\t.set _sect_rdata, _PTR_hmiFXPresetRelease_10015000\n");
 __asm__(".globl _sect_data\n\t.set _sect_data, _DAT_10017000\n");

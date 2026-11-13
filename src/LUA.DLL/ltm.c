@@ -175,7 +175,7 @@ void __cdecl luaT_settagmethod(int param_1,byte *param_2,undefined4 *param_3)
 
 /* ---- 0x1000cb80  luaT_travtagmethods ---- */
 /* Original name luaT_travtagmethods (the remaster's libLua.so: string 'error', callers
-   lua_collectgarbage (luaC_markall) and lua_getobjname); was ltm__cb80. */
+   lua_collectgarbage (markall) and lua_getobjname); was ltm__cb80. */
 
 char * __cdecl luaT_travtagmethods(undefined *param_1)
 

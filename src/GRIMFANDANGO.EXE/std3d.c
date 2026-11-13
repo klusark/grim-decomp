@@ -1363,7 +1363,6 @@ void D3D_SetViewportRect(uint *param_1)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Fills an execute buffer with the initial STATERENDER list derived from the driver capability bits
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
     */
 
 undefined4 D3D_InitRenderState(void)

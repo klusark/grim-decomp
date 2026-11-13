@@ -268,55 +268,57 @@ void * __cdecl Lab_Open(char *name)
 {
   char cVar1;
   int iVar2;
-  void *lab;
-  undefined4 uVar3;
+  int *lab;
+  uint uVar3;
   uint uVar4;
-  uint uVar5;
+  int *piVar5;
   char *pcVar6;
   char *pcVar7;
+  int *piVar8;
   
   iVar2 = Res_FOpen(name,&DAT_004ddb18);
-  lab = (void *)Lab_AllocRecord();
+  lab = Lab_AllocRecord();
   if (iVar2 != 0) {
-    uVar4 = 0xffffffff;
+    uVar3 = 0xffffffff;
     pcVar6 = name;
     do {
       pcVar7 = pcVar6;
-      if (uVar4 == 0) break;
-      uVar4 = uVar4 - 1;
+      if (uVar3 == 0) break;
+      uVar3 = uVar3 - 1;
       pcVar7 = pcVar6 + 1;
       cVar1 = *pcVar6;
       pcVar6 = pcVar7;
     } while (cVar1 != '\0');
-    uVar4 = ~uVar4;
-    pcVar6 = pcVar7 + -uVar4;
-    pcVar7 = (char *)((int)lab + 8);
-    for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *(undefined4 *)pcVar7 = *(undefined4 *)pcVar6;
-      pcVar6 = pcVar6 + 4;
-      pcVar7 = pcVar7 + 4;
+    uVar3 = ~uVar3;
+    piVar5 = (int *)(pcVar7 + -uVar3);
+    piVar8 = lab + 2;
+    for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
+      *piVar8 = *piVar5;
+      piVar5 = piVar5 + 1;
+      piVar8 = piVar8 + 1;
     }
-    for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *pcVar7 = *pcVar6;
-      pcVar6 = pcVar6 + 1;
-      pcVar7 = pcVar7 + 1;
+    for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+      *(char *)piVar8 = (char)*piVar5;
+      piVar5 = (int *)((int)piVar5 + 1);
+      piVar8 = (int *)((int)piVar8 + 1);
     }
-    *(int *)((int)lab + 0x10c) = iVar2;
-    uVar3 = (**(code **)(g_dwResHS + 0x50))(name);
-    *(undefined4 *)((int)lab + 0x110) = uVar3;
-    *(undefined4 *)((int)lab + 0x114) = 2;
-    *(undefined4 *)((int)lab + 0x118) = 0;
-    *(undefined4 *)((int)lab + 0x11c) = 0;
+    lab[0x43] = iVar2;
+    iVar2 = (**(code **)(g_dwResHS + 0x50))(name);
+    lab[0x44] = iVar2;
+    lab[0x45] = 2;
+    lab[0x46] = 0;
+    lab[0x47] = 0;
     iVar2 = Lab_ReadDirectory(lab);
     if (iVar2 != 1) {
       Lab_Unlink(lab);
-      lab = (void *)0x0;
+      lab = (int *)0x0;
     }
   }
   return lab;
 }
 
 /* ---- 0x00481750  Lab_AllocRecord ---- */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Takes a 0x120-byte archive record from g_pLabPool and links it at the head of g_pLabList */
 
 int * Lab_AllocRecord(void)

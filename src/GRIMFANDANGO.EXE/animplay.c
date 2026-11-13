@@ -287,7 +287,7 @@ int __cdecl anm_animator_NewAnim(void *p,char *name,uint flags,int a4,int a5,int
     return -1;
   }
   *(undefined4 *)((int)p + 0x38) = 1;
-  ((code *)zlibVersion)(*(undefined4 *)((int)p + 0x60));
+  zlibVersion();
   FUN_004c3d90(p,a4,a5);
   return 0;
 }

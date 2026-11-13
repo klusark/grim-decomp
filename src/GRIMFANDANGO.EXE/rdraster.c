@@ -660,9 +660,7 @@ void rdAFRaster_DrawSpanNGonLW_16(int *param_1)
 /* ---- 0x0040f750  rdRaster_EdgeStepFlat ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Advances an edge record one scanline (x += dx, attribute += dAttr)
-   Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
-   (docs/notes/asm_s*.md). */
+/* Advances an edge record one scanline (x += dx, attribute += dAttr) */
 
 void rdRaster_EdgeStepFlat(int param_1)
 
@@ -6640,9 +6638,7 @@ void rdNRaster_DrawNGonFS(int param_1,int param_2,float param_3)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Flat). Grimjedi RDroid
-   Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
-   (docs/notes/asm_s*.md). */
+   Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span_Flat(uint *param_1,uint *param_2)
 
@@ -6974,9 +6970,7 @@ void rdNRaster_DrawNGonTFS(int param_1,int param_2,float param_3)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex). Grimjedi RDroid
-   Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o1.c): differential test, 0 differences (docs/notes/asm_o1.md).
-    */
+   Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span_Tex(uint *param_1,uint *param_2)
 
@@ -41025,9 +41019,7 @@ void rdRaster_SpanP16_TexLit_9(uint *param_1)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2)
 
@@ -41136,9 +41128,7 @@ void rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_2(uint *param_1,uint *param_2)
 
@@ -41261,9 +41251,7 @@ LAB_004605e4:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_3(uint *param_1,uint *param_2)
 
@@ -41386,9 +41374,7 @@ LAB_00460994:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_4(uint *param_1,uint *param_2)
 
@@ -41511,9 +41497,7 @@ LAB_00460d44:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_5(uint *param_1,uint *param_2)
 
@@ -41636,9 +41620,7 @@ LAB_004610f4:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_6(uint *param_1,uint *param_2)
 
@@ -41761,9 +41743,7 @@ LAB_004614a4:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_7(uint *param_1,uint *param_2)
 
@@ -41886,9 +41866,7 @@ LAB_00461854:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_8(uint *param_1,uint *param_2)
 
@@ -44179,9 +44157,7 @@ LAB_0046689a:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_15(uint *param_1,uint *param_2)
 
@@ -44279,9 +44255,7 @@ void rdRaster_Span16_TexLitZw_15(uint *param_1,uint *param_2)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_16(uint *param_1,uint *param_2)
 
@@ -44390,9 +44364,7 @@ LAB_00466ec0:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_17(uint *param_1,uint *param_2)
 
@@ -44501,9 +44473,7 @@ LAB_004671c0:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_18(uint *param_1,uint *param_2)
 
@@ -44612,9 +44582,7 @@ LAB_004674c0:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_19(uint *param_1,uint *param_2)
 
@@ -44723,9 +44691,7 @@ LAB_004677c0:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_20(uint *param_1,uint *param_2)
 
@@ -44834,9 +44800,7 @@ LAB_00467ac0:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_21(uint *param_1,uint *param_2)
 
@@ -44945,9 +44909,7 @@ LAB_00467dc0:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_22(uint *param_1,uint *param_2)
 
@@ -47076,9 +47038,7 @@ LAB_0046c2c4:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_24(uint *param_1,uint *param_2)
 
@@ -47176,9 +47136,7 @@ void rdRaster_Span16_TexLitZw_24(uint *param_1,uint *param_2)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_25(uint *param_1,uint *param_2)
 
@@ -47287,9 +47245,7 @@ LAB_0046c8d0:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_26(uint *param_1,uint *param_2)
 
@@ -47398,9 +47354,7 @@ LAB_0046cbd0:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_27(uint *param_1,uint *param_2)
 
@@ -47509,9 +47463,7 @@ LAB_0046ced0:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_28(uint *param_1,uint *param_2)
 
@@ -47620,9 +47572,7 @@ LAB_0046d1d0:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_29(uint *param_1,uint *param_2)
 
@@ -47731,9 +47681,7 @@ LAB_0046d4d0:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Software rasterizer variant (auto-classified from the decompilation: Span Tex Lit Zw). Grimjedi
-   RDroid Rdraster; verify the exact pixel format before relying on the suffix.
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   RDroid Rdraster; verify the exact pixel format before relying on the suffix. */
 
 void rdRaster_Span16_TexLitZw_30(uint *param_1,uint *param_2)
 

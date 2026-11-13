@@ -12,7 +12,7 @@
 | 00473390 | Win_GetInstance | window.c | 7 |
 | 004772d0 | Win_IsSysCommandBlocked | window.c | 14 |
 | 004abf40 | Win_AbortIfAlreadyRunning | window.c | 1 |
-| 004ac020 | Win_PumpMessages | window.c | 48 |
+| 004ac020 | Win_PumpMessages | window.c | 47 |
 | 004ac100 | Win_SetWindowedSize | window.c | 10 |
 | 004ac160 | Win_AddMessageHook | window.c | 18 |
 | 004ac1a0 | Win_RemoveMessageHook | window.c | 18 |
@@ -1158,13 +1158,13 @@
 | 0047c7c0 | stdConffile_Open | stdconffile.c | 11 |
 | 0047c7e0 | stdConffile_OpenMode | stdconffile.c | 56 |
 | 0047c8c0 | stdConffile_Close | stdconffile.c | 20 |
-| 0047c920 | stdConffile_ReadLine | stdconffile.c | 60 |
+| 0047c920 | stdConffile_ReadLine | stdconffile.c | 62 |
 | 0047ca00 | stdConffile_Push | stdconffile.c | 55 |
 | 0047ca90 | stdConffile_Pop | stdconffile.c | 55 |
 | 0047cb20 | stdBmp_Load | stdbmp.c | 15 |
 | 0047cb70 | stdBmp_LoadEntry | stdbmp.c | 219 |
 | 0047d050 | stdBmp_Write | stdbmp.c | 124 |
-| 0047d280 | stdPic_Load | stdpic.c | 15 |
+| 0047d280 | stdPic_Load | stdpic.c | 16 |
 | 0047d2d0 | stdPic_LoadEntry | stdpic.c | 1 |
 | 0047db00 | stdGif_Load | stdgif.c | 230 |
 | 0047e060 | stdGif_Write | stdgif.c | 148 |
@@ -1247,8 +1247,8 @@
 | 00481070 | Lab_Find | lab.c | 43 |
 | 004813c0 | Lab_Unlink | lab.c | 15 |
 | 00481630 | res_FindInternalFile | lab.c | 1 |
-| 004816b0 | Lab_Open | lab.c | 54 |
-| 00481750 | Lab_AllocRecord | lab.c | 26 |
+| 004816b0 | Lab_Open | lab.c | 55 |
+| 00481750 | Lab_AllocRecord | lab.c | 27 |
 | 004817a0 | Lab_ReadDirectory | lab.c | 83 |
 | 00481a00 | Lab_FindEntry | lab.c | 86 |
 | 00482020 | Lab_ReadRaw | lab.c | 19 |
@@ -1277,7 +1277,7 @@
 | 00480f40 | Res_FSize | resfile.c | 21 |
 | 00480f90 | Res_FPrintf | resfile.c | 31 |
 | 00481fd0 | ResFile_FillBuffer | resfile.c | 21 |
-| 00481b00 | LabDir_Open | labdir.c | 117 |
+| 00481b00 | LabDir_Open | labdir.c | 118 |
 | 00481cf0 | res_FindDirectoryEntry | labdir.c | 1 |
 | 00482070 | Res_SetReference | resref.c | 35 |
 | 00482110 | Res_RemoveReference | resref.c | 29 |
@@ -1316,7 +1316,7 @@
 | 00482f90 | grimlib_Save | engine.c | 12 |
 | 00482fb0 | grimlib_Load | engine.c | 10 |
 | 00482fd0 | grimlib_JustLoaded | engine.c | 12 |
-| 00482fe0 | Engine_SaveGame | engine.c | 91 |
+| 00482fe0 | Engine_SaveGame | engine.c | 92 |
 | 00483240 | Engine_LoadGame | engine.c | 1 |
 | 004835f0 | SetPrevMode | engine.c | 10 |
 | 00483600 | GetPrevMode | engine.c | 8 |
@@ -1348,7 +1348,7 @@
 | 004a4fe0 | sputRoom_LoadResources | set.c | 157 |
 | 004a54a0 | Set_RegisterHandle | set.c | 23 |
 | 004a5500 | Set_FindHandle | set.c | 24 |
-| 004a55d0 | Set_IsHandleValid | set.c | 12 |
+| 004a55d0 | Set_IsHandleValid | set.c | 14 |
 | 004a60a0 | GetRoomActors | set.c | 16 |
 | 004a60c0 | Set_FindNameInList | set.c | 20 |
 | 004a6100 | Set_NormalizeName | set.c | 48 |
@@ -1610,11 +1610,11 @@
 | 004aabb0 | Text_DrawFormatted | text.c | 26 |
 | 004aac40 | Text_WrapLines | text.c | 175 |
 | 004aae90 | Text_CopyRunes | text.c | 46 |
-| 004aaf30 | Text_BuildLineTable | text.c | 127 |
-| 004ab210 | text_FindNextBreak | text.c | 165 |
+| 004aaf30 | Text_BuildLineTable | text.c | 131 |
+| 004ab210 | text_FindNextBreak | text.c | 174 |
 | 004ab510 | Font_GlyphAdvance | text.c | 24 |
 | 004ab570 | Font_GlyphWidth | text.c | 17 |
-| 004ab5d0 | Text_DrawString | text.c | 73 |
+| 004ab5d0 | Text_DrawString | text.c | 76 |
 | 004ab710 | Text_DrawChar | text.c | 97 |
 | 0048c470 | sputText_AddToQueue | textobject.c | 28 |
 | 0048c7e0 | TextObject_New | textobject.c | 50 |
@@ -1707,10 +1707,10 @@
 | 004988a0 | sputCostume_Shutdown | sputcostume.c | 28 |
 | 00496060 | BitmapChanger | component.c | 12 |
 | 004960a0 | BitmapRequester | bitmapcomponent.c | 149 |
-| 00496340 | BitmapFreer | bitmapcomponent.c | 15 |
+| 00496340 | BitmapFreer | bitmapcomponent.c | 16 |
 | 00496370 | ColormapInstancer | cmapcomponent.c | 1 |
 | 00496460 | ColormapRequester | cmapcomponent.c | 52 |
-| 00496580 | ColormapFreer | cmapcomponent.c | 10 |
+| 00496580 | ColormapFreer | cmapcomponent.c | 11 |
 | 004965b0 | MaterialInstanceSaveLoad | cmapcomponent.c | 1 |
 | 004965d0 | MaterialChanger | materialcomponent.c | 12 |
 | 004965e0 | MaterialInstancer | materialcomponent.c | 27 |
@@ -1720,7 +1720,7 @@
 | 00496950 | ThingInstancer | modelcomponent.c | 1 |
 | 00496b40 | ThingStopper | modelcomponent.c | 12 |
 | 00496b60 | ThingRequester | modelcomponent.c | 83 |
-| 00496d10 | ThingFreer | modelcomponent.c | 10 |
+| 00496d10 | ThingFreer | modelcomponent.c | 11 |
 | 00496d40 | MeshChanger | meshcomponent.c | 18 |
 | 00496d70 | MeshInstancer | meshcomponent.c | 1 |
 | 00496e10 | MeshStopper | meshcomponent.c | 11 |
@@ -1742,7 +1742,7 @@
 | 00497d10 | KeyframeInstancer | keyframecomponent.c | 1 |
 | 00497e10 | KeyframeRequester | keyframecomponent.c | 92 |
 | 00498000 | KeyframeAdjuster | keyframecomponent.c | 39 |
-| 004980b0 | KeyframeFreer | keyframecomponent.c | 12 |
+| 004980b0 | KeyframeFreer | keyframecomponent.c | 13 |
 | 004980e0 | KeyframeStopper | keyframecomponent.c | 30 |
 | 00498140 | SmushFreer | smushcomponent.c | 11 |
 | 00498160 | SmushChanger | smushcomponent.c | 14 |
@@ -1818,7 +1818,7 @@
 | 004aa290 | ObjectStateImage_SetClean | objstate.c | 27 |
 | 004aa310 | ObjectStateImage_Draw | objstate.c | 55 |
 | 004aa3e0 | ObjectStateImage_InSync | objstate.c | 14 |
-| 004aa410 | ObjectState_Construct | objstate.c | 26 |
+| 004aa410 | ObjectState_Construct | objstate.c | 27 |
 | 004aa4c0 | ObjectState_Destruct | objstate.c | 14 |
 | 004aa540 | ObjectState_LoadResources | objstate.c | 11 |
 | 004aa560 | ObjectState_UnLoadResources | objstate.c | 11 |
@@ -2275,7 +2275,7 @@
 | 004c5840 | Zfile_module_terminate | crt_unnamed.c | 11 |
 | 004c5870 | Zfile_module_startup | crt_unnamed.c | 26 |
 | 004c5910 | Zfile_module_shutdown | crt_unnamed.c | 14 |
-| 004c5950 | Zfile_fle_Open | crt_unnamed.c | 65 |
+| 004c5950 | Zfile_fle_Open | crt_unnamed.c | 66 |
 | 004c5b00 | Zfile_fle_Read | crt_unnamed.c | 41 |
 | 004c5bc0 | Zfile_fle_Write | crt_unnamed.c | 23 |
 | 004c5c20 | Zfile_fle_Tell | crt_unnamed.c | 18 |
@@ -2467,7 +2467,7 @@
 | 004c4920 | gz_getLong | zlib.c | 17 |
 | 004c4970 | gzclose | zlib.c | 19 |
 | 004c49c0 | gz_putLong | zlib.c | 1 |
-| 004c4c40 | zlibVersion | zlib.c | 7 |
+| 004c4c40 | zlibVersion | zlib.c | 8 |
 | 004c57d0 | fle_zfilio_config | zlib.c | 39 |
 | 004c6040 | inflateReset | zlib.c | 1 |
 | 004c6090 | inflateEnd | zlib.c | 1 |

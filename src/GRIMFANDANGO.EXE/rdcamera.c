@@ -278,8 +278,8 @@ void __cdecl rdCamera_Update(float *frame)
 
 /* ---- 0x0040a470  rdCamera_OrthoProject ---- */
 /* Projects one camera-space point orthographically with the aspect ratio. Selected by
-   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
-   when the pixel aspect (+0x40) is 1.0). */
+   rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
+   'Square' when the pixel aspect (+0x40) is 1.0). */
 
 void rdCamera_OrthoProject(float *param_1,float *param_2)
 
@@ -296,8 +296,8 @@ void rdCamera_OrthoProject(float *param_1,float *param_2)
 
 /* ---- 0x0040a4b0  rdCamera_OrthoProjectLst ---- */
 /* Projects a list of points orthographically with the aspect ratio. Selected by
-   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
-   when the pixel aspect (+0x40) is 1.0). */
+   rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
+   'Square' when the pixel aspect (+0x40) is 1.0). */
 
 void rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
 
@@ -331,8 +331,8 @@ void rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
 
 /* ---- 0x0040a530  rdCamera_OrthoProjectSquare ---- */
 /* Projects one point orthographically, square pixels. Selected by
-   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
-   when the pixel aspect (+0x40) is 1.0). */
+   rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
+   'Square' when the pixel aspect (+0x40) is 1.0). */
 
 void rdCamera_OrthoProjectSquare(float *param_1,float *param_2)
 
@@ -348,8 +348,8 @@ void rdCamera_OrthoProjectSquare(float *param_1,float *param_2)
 
 /* ---- 0x0040a570  rdCamera_OrthoProjectSquareLst ---- */
 /* Projects a list of points orthographically, square pixels. Selected by
-   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
-   when the pixel aspect (+0x40) is 1.0). */
+   rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
+   'Square' when the pixel aspect (+0x40) is 1.0). */
 
 void rdCamera_OrthoProjectSquareLst(float *param_1,float *param_2,int param_3)
 
@@ -381,8 +381,8 @@ void rdCamera_OrthoProjectSquareLst(float *param_1,float *param_2,int param_3)
 
 /* ---- 0x0040a5e0  rdCamera_PerspProject ---- */
 /* Perspective-projects one point (x*focal/y + cx, cy - z*aspect*focal/y) with the aspect ratio.
-   Selected by rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective;
-   'Square' when the pixel aspect (+0x40) is 1.0). */
+   Selected by rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1
+   perspective; 'Square' when the pixel aspect (+0x40) is 1.0). */
 
 void rdCamera_PerspProject(float *param_1,float *param_2)
 
@@ -402,8 +402,8 @@ void rdCamera_PerspProject(float *param_1,float *param_2)
 
 /* ---- 0x0040a620  rdCamera_PerspProjectLst ---- */
 /* Perspective-projects a list of points with the aspect ratio. Selected by
-   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
-   when the pixel aspect (+0x40) is 1.0). */
+   rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
+   'Square' when the pixel aspect (+0x40) is 1.0). */
 
 void rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
 
@@ -435,8 +435,8 @@ void rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
 
 /* ---- 0x0040a6a0  rdCamera_PerspProjectSquare ---- */
 /* Perspective-projects one point, square pixels. Selected by
-   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
-   when the pixel aspect (+0x40) is 1.0). */
+   rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
+   'Square' when the pixel aspect (+0x40) is 1.0). */
 
 void rdCamera_PerspProjectSquare(float *param_1,float *param_2)
 
@@ -454,8 +454,8 @@ void rdCamera_PerspProjectSquare(float *param_1,float *param_2)
 
 /* ---- 0x0040a6e0  rdCamera_PerspProjectSquareLst ---- */
 /* Perspective-projects a list of points, square pixels. Selected by
-   rdCamera_SetProjectType/rdCamera_SetZoom (camera type 0 orthographic, 1 perspective; 'Square'
-   when the pixel aspect (+0x40) is 1.0). */
+   rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
+   'Square' when the pixel aspect (+0x40) is 1.0). */
 
 void rdCamera_PerspProjectSquareLst(float *param_1,float *param_2,int param_3)
 
@@ -559,7 +559,7 @@ void rdCamera_AdvanceFrame(void)
 /* ---- 0x0040a860  rdModel3_ClearFrameCounters ---- */
 /* Original name rdModel3_ClearFrameCounters (the remaster's GrimFandango (Linux): the third counter
    reset of rdClearPreStatistics (clears rdModel3_numDrawnModels, counted per model in
-   rdThing_Draw)); was rdCamera_ResetStats. */
+   rdModel3_Draw)); was rdCamera_ResetStats. */
 
 void rdModel3_ClearFrameCounters(void)
 
