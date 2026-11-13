@@ -149,5 +149,5 @@ _Static_assert(sizeof(ChoreKey) == 0x08 && sizeof(ChoreTrack) == 0x10 && sizeof(
 /* float constant given as its IEEE bit pattern (Ghidra prints float arguments as hex) */
 #define FBITS(b) (((union { unsigned u; float f; }){ (unsigned)(b) }).f)
 
-/* host getenv for the test knobs (GRIM_ACTIVE: the window procedure ignores WM_ACTIVATEAPP) */
+/* host getenv for the test knobs */
 extern char *GRIM_getenv(const char *) __asm__("_getenv");

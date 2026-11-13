@@ -15,8 +15,8 @@
  *
  * The other grimlaunch patches are knobs of this build already: simtime is GRIM_SIMTIME=<ms> (overrides_exe.c), which
  * also runs the movies (overrides_mixer_drv.c) and iMUSE (overrides.c, and iMUSE's timeGetTime below) on game time, as
- * smushtime and imusetime do; the game runs windowed by default (Win_CreateMainWindow in overrides.c), and GRIM_ACTIVE=1
- * keeps it drawing behind other windows. */
+ * smushtime and imusetime do; the game runs windowed by default (Win_CreateMainWindow in overrides.c), and a window
+ * draws behind other windows too (Main_Service in overrides_exe.c). */
 
 #ifdef GRIM_EXE
 /* WRAPS: Reg_Open wuRegistry_Shutdown Reg_HasValue Reg_GetInt wuRegistry_GetFloat Reg_GetBinary wuRegistry_GetStr wuRegistry_QueryType */

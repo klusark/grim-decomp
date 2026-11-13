@@ -9,7 +9,6 @@ set pagination off
 set breakpoint pending on
 set environment _NO_DEBUG_HEAP=1
 set environment GRIM_MULTI=agentN
-set environment GRIM_ACTIVE=1
 set environment GRIM_SIMTIME=17
 $( [ "${4:-0}" = 1 ] || echo "set environment GRIM_NOMOVIE=1" )
 set environment GRIM_LUA_FILE=C:\Users\Joel\grimN_work\cmd.lua

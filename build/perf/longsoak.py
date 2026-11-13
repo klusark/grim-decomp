@@ -3,7 +3,7 @@ import subprocess, time, os, sys
 D=r'C:\Users\Joel'; exe=sys.argv[1]; dur=float(sys.argv[2])
 here=os.path.dirname(os.path.abspath(__file__)); HERE=here.replace(chr(92),'/')
 subprocess.run(['bash',HERE+'/ctl.sh','stop'])
-env=dict(os.environ, GRIM_MULTI='agentC', GRIM_ACTIVE='1', GRIM_LUA_FILE=D+r'\agentC_cmd.lua', GRIM_LUA_LOG=D+r'\agentC_log.txt', _NO_DEBUG_HEAP='1')
+env=dict(os.environ, GRIM_MULTI='agentC', GRIM_LUA_FILE=D+r'\agentC_cmd.lua', GRIM_LUA_LOG=D+r'\agentC_log.txt', _NO_DEBUG_HEAP='1')
 env.pop('GRIM_NOMOVIE',None)
 open(D+r'\agentC_cmd.lua','w').close()
 try: os.remove(D+r'\agentC_log.txt')

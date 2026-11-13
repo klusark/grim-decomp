@@ -27,7 +27,7 @@ def main():
         try: os.remove(f)
         except OSError: pass
     open(cmdf, 'w').close()
-    env = dict(os.environ, GRIM_MULTI=a.tag, GRIM_ACTIVE='1', GRIM_LUA_FILE=cmdf, GRIM_LUA_LOG=logf, _NO_DEBUG_HEAP='1')
+    env = dict(os.environ, GRIM_MULTI=a.tag, GRIM_LUA_FILE=cmdf, GRIM_LUA_LOG=logf, _NO_DEBUG_HEAP='1')
     if a.simtime:
         env['GRIM_SIMTIME'] = '17'
     p = subprocess.Popen([os.path.join(a.exe, 'grimfandango.exe')], cwd=a.data, env=env, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

@@ -346,7 +346,7 @@ game" at the end of this file.
 
 Test knobs (environment, all optional): `GRIM_MULTI=<tag>` (window title "Grim Fandango (<tag>)", several instances),
 `GRIM_NOMOVIE=1` (movies off, set every frame), `GRIM_ACTIVE=1` (draw and present although the window is not the foreground
-window, ignore WM_ACTIVATEAPP), `GRIM_LUA_FILE`/`GRIM_LUA_LOG` (Lua lines per frame; polled from sputLua_Update and from
+window, ignore WM_ACTIVATEAPP; dropped on 2026-11-13: a window always draws), `GRIM_LUA_FILE`/`GRIM_LUA_LOG` (Lua lines per frame; polled from sputLua_Update and from
 Game_FrameUpdate, so it also works while the engine is paused in a menu). An unhandled exception writes `grim_crash.txt`
 (registers, three frame arguments, stack) in the working directory; resolve addresses with `nm`.
 
@@ -1351,10 +1351,14 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
 * The crashes: access violation in `sputLua_GetCameraPositionL` (and `GetCameraFOV`), `g_pSputRender_Camera` 0. Each was
   the first test of a fresh game (MakeCurrentSet, one frame, then the camera): that frame ran its Lua but did not draw,
   because `grimlib_UpdateManual` takes the active flag by value from `Main_Service` and skips `sputRender_Update` when it
-  is 0, and GRIM_ACTIVE set it only from the Lua hook, inside the frame. On the runner the windows never become the
-  foreground one at start-up, and the four games side by side take the activation from each other. GRIM_ACTIVE is now
-  applied at the top of `Main_Service` (`GRIM_ForceActive`, overrides.c). (The camera getters push nil and then read
-  through the 0 pointer anyway: Ghidra's C has no return after `lua_pushnil`, not changed here.)
+  is 0, and the GRIM_ACTIVE knob forced the flag only from the Lua hook, inside the frame. On the runner the windows are
+  not the foreground one at start-up, and the four games side by side take the activation from each other.
+  GRIM_ACTIVE is gone: `Main_Service` draws whenever the display is a window (`g_bWindowedMode`), active or not, and
+  only fullscreen keeps the original's rule (it drew only while active: DirectDraw's surfaces are lost to another
+  application). The game ran on behind other windows anyway; it only stopped drawing. The window procedure handles
+  WM_ACTIVATEAPP as the original again (windowed: input released and acquired; build_src.py no longer patches it out),
+  and the CRKEY key presses of the clean room read the keyboard unacquired already. (The camera getters push nil and
+  then read through the 0 pointer anyway: Ghidra's C has no return after `lua_pushnil`, not changed here.)
 * `random()`: LUA.DLL's rand had its own seed in the original (its own linked MSVC runtime), the host msvcrt's rand is
   shared with the whole process, and on the runner something else draws from it on the main thread first (0.865932
   instead of 41/32767). math_random / math_randomseed use their own MSVC-style generator now (seed 1).

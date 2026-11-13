@@ -105,24 +105,6 @@ void GRIM_ImuseSimFrame(int ms)
         imuse_step(ms);
 }
 
-/* GRIM_ACTIVE=1: draw and present even when the window is not the foreground window (the engine only draws while
- * WM_ACTIVATEAPP says the application is active); lets a test run behind other windows. Main_Service calls this before
- * the frame: grimlib_UpdateManual takes the active flag by value and skips sputRender_Update when it is 0. Set only from
- * the Lua hook (inside the frame, after that), a frame that began inactive (the first frames of a game whose window
- * never became the foreground one, or after another game took the activation) ran its Lua but drew nothing: a test that
- * made a set current and waited one frame found no camera (g_pSputRender_Camera still 0 in a fresh game, and
- * GetCameraPosition / GetCameraFOV read through it: the clean-room CI's crashes of camera, camera_set and setups). */
-void GRIM_ForceActive(void)
-{
-    static int active = -1;
-    if (active < 0)
-        active = GRIM_getenv("GRIM_ACTIVE") != 0;
-    if (active) {
-        g_dwZg_App_bAppActive = 1;
-        UINT_008d0a6c = 1;
-    }
-}
-
 void GRIM_lua_cmd_poll(void)
 {
     static char line[1024];
@@ -136,7 +118,6 @@ void GRIM_lua_cmd_poll(void)
         nomovie = GRIM_getenv("GRIM_NOMOVIE") != 0;
     if (nomovie)
         g_nSputSmushStarted = 0;
-    GRIM_ForceActive();
     if (lua_cmd_state < 0)
         return;
     if (lua_cmd_state == 0) {

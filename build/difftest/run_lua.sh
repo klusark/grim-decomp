@@ -11,7 +11,7 @@ cp "$SCRIPT" "$DD/difftest.lua"
 CMD="$DD/cmd.lua"; LOG="$DD/log.txt"
 rm -f "$DD"/grim_crash_*.txt; : > "$CMD"; : > "$LOG"
 cd "$DD"
-GRIM_MULTI="$TAG" GRIM_NOMOVIE=1 GRIM_ACTIVE=1 GRIM_SIMTIME=17 \
+GRIM_MULTI="$TAG" GRIM_NOMOVIE=1 GRIM_SIMTIME=17 \
   GRIM_LUA_FILE="$(cygpath -w "$CMD")" GRIM_LUA_LOG="$(cygpath -w "$LOG")" \
   "$RUN/grimfandango.exe" > "$DD/stdout.txt" 2>&1 &
 PID=$!

@@ -14,7 +14,7 @@ LOG = os.path.join(D, "q6_log.txt")
 GAME = r"C:\GOG Games\GRIMDATA"
 exe = sys.argv[1]
 dwell = float(sys.argv[2]) if len(sys.argv) > 2 and "=" not in sys.argv[2] else 4.0
-env = dict(os.environ, GRIM_MULTI="q6bench", GRIM_ACTIVE="1", GRIM_NOMOVIE="1", GRIM_LUA_FILE=CMD, GRIM_LUA_LOG=LOG,
+env = dict(os.environ, GRIM_MULTI="q6bench", GRIM_NOMOVIE="1", GRIM_LUA_FILE=CMD, GRIM_LUA_LOG=LOG,
            _NO_DEBUG_HEAP="1", GRIM_PERFLOG="1")
 for a in sys.argv[2:]:
     if "=" in a:

@@ -168,7 +168,6 @@ Environment variables read by the rebuilt EXE (set them before `tools/run_game.s
 |---|---|---|
 | `GRIM_MULTI=<tag>` | allow several instances; window title "Grim Fandango (<tag>)" (the original quits if its window exists) | `overrides.c` `Win_AbortIfAlreadyRunning` |
 | `GRIM_NOMOVIE=1` | skip all movies (cleared every frame) | `GRIM_lua_cmd_poll` |
-| `GRIM_ACTIVE=1` | draw and present even when the window is not the foreground window | `GRIM_lua_cmd_poll` |
 | `GRIM_LUA_FILE=<file>` | the **Lua test hook**: every complete line appended to this file runs as Lua once per frame (also while a menu pauses the engine) | `GRIM_lua_cmd_poll` |
 | `GRIM_LUA_LOG=<file>` | target of `grimlog("text")` and of the hook's `rc=0: <line>` result lines | same |
 | `GRIM_DISPLAY_DEVICE=<n>` | pick another enumerated display device (1 = DirectDraw); default 0 = windowed DIB, software renderer | `Display_InitFromConfig` |

@@ -19,7 +19,6 @@ echo "set pagination off"
 echo "set breakpoint pending on"
 echo "set environment _NO_DEBUG_HEAP=1"
 echo "set environment GRIM_MULTI=agentS2"
-echo "set environment GRIM_ACTIVE=1"
 [ -n "$ST" ] && echo "set environment GRIM_SIMTIME=$ST"
 echo "set environment GRIM_NOMOVIE=1"
 for e in $ENVX; do echo "set environment $e"; done

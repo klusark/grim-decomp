@@ -61,7 +61,7 @@ def crash_info():
 
 class Game:
     def __init__(self):
-        env = dict(os.environ, GRIM_MULTI=tag, GRIM_NOMOVIE='1', GRIM_ACTIVE='1', GRIM_LUA_FILE=cmdf, GRIM_LUA_LOG=logf)
+        env = dict(os.environ, GRIM_MULTI=tag, GRIM_NOMOVIE='1', GRIM_LUA_FILE=cmdf, GRIM_LUA_LOG=logf)
         open(cmdf, 'w').close()
         try: os.remove(logf)
         except OSError: pass

@@ -84,7 +84,6 @@ float Math_Floor(float x)
 extern int GRIM_SimTime(void);   /* overrides.c: GRIM_SIMTIME=<ms> test knob (fixed frame time), 0 = off */
 extern void GRIM_SmushSimFrame(int ms);   /* overrides_mixer_drv.c: movies on game time */
 extern void GRIM_ImuseSimFrame(int ms);   /* overrides.c: iMUSE on game time */
-extern void GRIM_ForceActive(void);       /* overrides.c: GRIM_ACTIVE=1 test knob */
 
 /* ==== Main_Service (0x004016a0) ====
  * One pass of the main loop: re-selects the display after a mode change, runs the engine for one frame (the frame time
@@ -98,7 +97,7 @@ void Main_Service(void)
     int rect[4] = { 0, 0, 0x50, 0x1e };          /* x, y, width, height of the overlay text box */
     int savedMode = g_dwGrimlib_mode;
     int y = 0x1e;
-    int frameMs, now, frames;
+    int frameMs, now, frames, draw;
     uint *prof;
 
     if (g_nQuitApp != 0)
@@ -113,7 +112,6 @@ void Main_Service(void)
     _g_dwDeadmanCounter = 300;
     g_dwGrimlib_mode = savedMode;
 
-    GRIM_ForceActive();                          /* test hook (GRIM_ACTIVE): before the frame reads the active flag */
     frameMs = GRIM_SimTime();                    /* test hook: fixed frame time */
     if (frameMs > 0) {                           /* ... and the movies and iMUSE step by it (grimlaunch's frame stub) */
         GRIM_SmushSimFrame(frameMs);
@@ -121,7 +119,12 @@ void Main_Service(void)
     }
     if (frameMs == 0)
         frameMs = g_fixedFrameMs;
-    grimlib_UpdateManual(g_dwZg_App_bAppActive, frameMs);
+    /* Not in the original, which draws only while the application is active (WM_ACTIVATEAPP): fullscreen on DirectDraw,
+     * whose surfaces are lost when another application takes the screen. A window (this build's default, the DIB
+     * section device) draws whether or not it is the foreground one; the game runs on either way, and a window that
+     * stopped drawing showed a frozen picture of a running game. Fullscreen keeps the original's rule. */
+    draw = g_dwZg_App_bAppActive != 0 || g_bWindowedMode != 0;
+    grimlib_UpdateManual(draw, frameMs);
     g_dwMain_Service_frameCount = g_dwMain_Service_frameCount + 1;
     g_fixedFrameMs = 0;
 
@@ -154,7 +157,7 @@ void Main_Service(void)
             prof += 0xc;
         } while (y < 0x122);
     }
-    if (g_dwZg_App_bAppActive != 0)
+    if (draw)
         grimlib_Display();
     if (g_nQuitApp != 0) {                  /* quit requested during the frame: tear the window down */
         Win_RemoveMessageHook(Win_WndProc);

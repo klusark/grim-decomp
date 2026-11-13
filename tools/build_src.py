@@ -1328,9 +1328,6 @@ def fix_function(code, ctx, stats):
     # stack and move the frame pointer away from the argument area, so those functions get no alignment
     if re.search(r"STACK0X\(0x0", body):
         body = body.replace(" __attribute__((aligned(16)))", "")
-    # test knob (build/overrides.c, GRIM_lua_cmd_poll): with GRIM_ACTIVE set the window procedure ignores
-    # WM_ACTIVATEAPP, so a run behind other windows is not paused and its display is not shut down
-    body = body.replace("      if (param_2 == 0x1c) {\n", "      if (param_2 == 0x1c && GRIM_getenv(\"GRIM_ACTIVE\") == 0) {\n")
     return head + body + trailer
 
 

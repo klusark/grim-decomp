@@ -17,7 +17,7 @@ Everything here is off unless its environment variable is set, so a normal run o
 | (an assert writes its text to the log and crashes, instead of a message box that waits) | `cleanroom.c` wraps `stdPlatform_Assert` | `GRIM_DEBUGLOG` set |
 | (key presses without the focus: `PrintDebug("CRKEY:<DIK code> <1 down / 0 up>")`, applied by the next frame's keyboard poll; this build only) | `cleanroom.c` wraps `stdControl_ReadControls` | `GRIM_DEBUGLOG` set |
 | `windowed` | the build is windowed by default (`Win_CreateMainWindow` in `../overrides.c`) | (none) |
-| (drawing behind other windows) | `../overrides.c` | `GRIM_ACTIVE=1` |
+| (drawing behind other windows) | a window draws whether or not it is the foreground one (`Main_Service` in `../overrides_exe.c`) | (none) |
 
 Without `GRIM_INI` the game reads `GrimDataDir` from the registry and finds the real game's data, which a clean-room
 run must never see.

@@ -2,7 +2,7 @@
 import subprocess, time, os, sys
 D=r'C:\Users\Joel'
 exe=sys.argv[1]
-env=dict(os.environ, GRIM_MULTI='agentC', GRIM_NOMOVIE='1', GRIM_ACTIVE='1', GRIM_LUA_FILE=D+r'\agentC_cmd.lua', GRIM_LUA_LOG=D+r'\agentC_log.txt', _NO_DEBUG_HEAP='1', GRIM_PERFLOG='1')
+env=dict(os.environ, GRIM_MULTI='agentC', GRIM_NOMOVIE='1', GRIM_LUA_FILE=D+r'\agentC_cmd.lua', GRIM_LUA_LOG=D+r'\agentC_log.txt', _NO_DEBUG_HEAP='1', GRIM_PERFLOG='1')
 for a in sys.argv[2:]:
     k,v=a.split('=',1); env[k]=v
 open(D+r'\agentC_cmd.lua','w').close()

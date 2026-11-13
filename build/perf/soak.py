@@ -5,7 +5,7 @@ D=r'C:\Users\Joel'
 exe,tag=sys.argv[1],sys.argv[2]; ref=sys.argv[3] if len(sys.argv)>3 else None
 here=os.path.dirname(os.path.abspath(__file__)); HERE=here.replace(chr(92),'/')
 subprocess.run(['bash',HERE+'/ctl.sh','stop'])
-env=dict(os.environ, GRIM_MULTI='agentC', GRIM_ACTIVE='1', GRIM_NOMOVIE='0', GRIM_LUA_FILE=D+r'\agentC_cmd.lua', GRIM_LUA_LOG=D+r'\agentC_log.txt', _NO_DEBUG_HEAP='1', GRIM_PERFLOG='1')
+env=dict(os.environ, GRIM_MULTI='agentC', GRIM_NOMOVIE='0', GRIM_LUA_FILE=D+r'\agentC_cmd.lua', GRIM_LUA_LOG=D+r'\agentC_log.txt', _NO_DEBUG_HEAP='1', GRIM_PERFLOG='1')
 del env['GRIM_NOMOVIE']   # movies on (the knob zeroes them when merely set)
 open(D+r'\agentC_cmd.lua','w').close()
 try: os.remove(D+r'\agentC_log.txt')

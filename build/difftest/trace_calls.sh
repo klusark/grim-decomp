@@ -6,7 +6,7 @@ DD=/c/Users/Joel/grim-agentI-data-tr
 [ -d "$DD" ] || bash "$(dirname "$0")/../../tools/mkmoddir.sh" "$DD" >/dev/null
 cp "$SCRIPT" "$DD/difftest.lua"; cd "$DD"; : > cmd.lua; : > log.txt
 { echo "set pagination off"; echo "set environment _NO_DEBUG_HEAP=1"; echo "set environment GRIM_MULTI=tr"
-  echo "set environment GRIM_NOMOVIE=1"; echo "set environment GRIM_ACTIVE=1"; echo "set environment GRIM_SIMTIME=17"
+  echo "set environment GRIM_NOMOVIE=1"; echo "set environment GRIM_SIMTIME=17"
   echo "set environment GRIM_LUA_FILE=C:\Users\Joel\grim-agentI-data-tr\cmd.lua"; echo "set environment GRIM_LUA_LOG=C:\Users\Joel\grim-agentI-data-tr\log.txt"
 
   echo "break *$SYM"; echo "commands"; echo "silent"; [ -n "$RET" ] && { echo "set \$ra = *(int*)\$esp"; echo "tbreak *\$ra"; echo "commands"; echo "silent"; echo "printf \"A9 ret=%x\n\", \$eax"; echo "continue"; echo "end"; }

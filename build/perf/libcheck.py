@@ -96,7 +96,7 @@ def main():
     fail = [False]
 
     def start(movies):
-        env = dict(os.environ, GRIM_MULTI=tag, GRIM_ACTIVE='1', GRIM_LUA_FILE=cmdf, GRIM_LUA_LOG=logf, GRIM_PERFLOG='1',
+        env = dict(os.environ, GRIM_MULTI=tag, GRIM_LUA_FILE=cmdf, GRIM_LUA_LOG=logf, GRIM_PERFLOG='1',
                    GRIM_SIMTIME='17', GRIM_DEBUGLOG=dbg, _NO_DEBUG_HEAP='1')
         if not movies:
             env['GRIM_NOMOVIE'] = '1'
