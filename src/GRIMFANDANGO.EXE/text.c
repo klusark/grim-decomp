@@ -859,7 +859,7 @@ LAB_004ab257:
   local_18 = 0;
   local_1c = 0;
   cVar3 = Text_NextChar(&param_3);
-  ch = ((uint)(cVar3));
+  ch = ((uint)(byte)(cVar3));
   pTVar6 = param_1;
   do {
     param_1 = pTVar6;
@@ -927,7 +927,7 @@ LAB_004ab425:
         iVar7 = 1;
         local_c = (uint)param_3;
         cVar3 = Text_NextChar(&param_3);
-        ch = ((uint)(cVar3));
+        ch = ((uint)(byte)(cVar3));
         if (ch != 0) {
           do {
             if ((ch != 0x20) && (ch != 0xfe)) break;
@@ -936,7 +936,7 @@ LAB_004ab425:
             iVar7 = iVar7 + 1;
             local_c = (uint)param_3;
             cVar3 = Text_NextChar(&param_3);
-            ch = ((uint)(cVar3));
+            ch = ((uint)(byte)(cVar3));
           } while (ch != 0);
           if (ch != 0) goto LAB_004ab344;
         }
@@ -967,7 +967,7 @@ LAB_004ab344:
     local_14 = local_14 + uVar5;
     local_18 = local_18 + 1;
     cVar3 = Text_NextChar(&param_3);
-    ch = ((uint)(cVar3));
+    ch = ((uint)(byte)(cVar3));
     pTVar6 = param_1;
   } while( true );
 }
@@ -1081,7 +1081,7 @@ LAB_004ab66a:
     if (0 < (int)local_14) {
       do {
         cVar2 = Text_NextChar(&text);
-        ch = ((uint)(cVar2));
+        ch = ((uint)(byte)(cVar2));
         if ((iVar3 != 10) || (ch != 0xd)) {
           Text_DrawChar(ctx_00,font,ch);
         }

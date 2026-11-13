@@ -401,7 +401,7 @@ void __thiscall ObjectState_Update(void *this,int type,void *dst,void *zdst)
     if (*(int *)((int)this + 4) == 3) {
       iVar2 = 0;
       bVar1 = ObjectStateImage_InSync((int)this + 0xc);
-      if (((uint)(bVar1)) == 0) {
+      if (((uint)(byte)(bVar1)) == 0) {
         ObjectStateImage_Draw((void *)((int)this + 0xc),dst);
         if ((*(int *)((int)this + 0xb4) != 0) && (zdst != (void *)0x0)) {
           if (*(int *)((int)this + 0xb4) == 0) {

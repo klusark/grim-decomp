@@ -683,7 +683,7 @@ int __cdecl lua_getcfunction(int param_1)
   
                     /* 0x1940  28  lua_getcfunction */
   bVar1 = lua_iscfunction(param_1);
-  if (((uint)(bVar1)) == 0) {
+  if (((uint)(byte)(bVar1)) == 0) {
     return 0;
   }
   pTVar2 = luaA_protovalue(g_pLuaState->pStack + param_1 + -1);

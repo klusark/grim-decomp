@@ -1454,3 +1454,14 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
 * Printf-style functions declared with one parameter (grimdemo_*Print, default*Print, stdFilePrintf, fle_PrintF,
   Text_DrawFormatted, msc_error_SaveString) read their arguments with STACK0X; their callers already passed only the
   format in main, so nothing is lost, but they should become `(char *fmt, ...)` too.
+
+## Characters above 0x7f: Text_NextChar's byte zero-extended (2026-11-13)
+
+* The whole-game autorun crashed in Font_GlyphAdvance on a 0xa1 in ch19 (and main's build at the start, in
+  Glyph_Blit16Clipped). Text_NextChar returns its byte zero-extended (`XOR ECX,ECX; MOV CL,[EAX]`); Ghidra's callers
+  print `ch = CONCAT31(extraout_var, cVar)`, and build_src turned that into `(uint)(cVar)`, which sign-extends a char:
+  0x80..0xff became negative glyph indexes (text_FindNextBreak, Text_GetStringWidth, Text_DrawString). The rewrite is
+  `(uint)(byte)(cVar)` now (the other users of the pattern return 0/1).
+* Clean-room reproducers in grim_tools (tests/grim/text.lua): `text_high_chars` (sizes of text objects with
+  0x80..0xff and the 0xfe break; the old build crashed or measured memory before the glyph table) and `text_high_drawn`
+  (the same characters drawn over cr_flat; the old build crashed).

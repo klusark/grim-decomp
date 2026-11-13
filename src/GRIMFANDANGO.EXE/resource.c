@@ -169,7 +169,7 @@ uint __cdecl Res_SysSave(code *param_1)
     pcVar2 = param_1;
   }
   uVar3 = (*pcVar2)(&local_4,4);
-  if (((uint)(uVar3)) != 0) {
+  if (((uint)(byte)(uVar3)) != 0) {
     return 1;
   }
   local_4 = 0;
@@ -191,14 +191,14 @@ uint __cdecl Res_SysSave(code *param_1)
       } while (cVar1 != '\0');
       param_1 = (code *)(~uVar5 - 1);
       uVar3 = (*pcVar2)(&param_1,4);
-      if (((((uint)(uVar3)) != 0) ||
-          (uVar3 = (*pcVar2)(piVar6[2],param_1), ((uint)(uVar3)) != 0)) ||
-         (uVar3 = (*pcVar2)(piVar6 + 4,4), ((uint)(uVar3)) != 0)) {
+      if (((((uint)(byte)(uVar3)) != 0) ||
+          (uVar3 = (*pcVar2)(piVar6[2],param_1), ((uint)(byte)(uVar3)) != 0)) ||
+         (uVar3 = (*pcVar2)(piVar6 + 4,4), ((uint)(byte)(uVar3)) != 0)) {
         return 1;
       }
       piVar6[6] = piVar6[5];
       uVar3 = (*pcVar2)(piVar6 + 6,4);
-      if (((uint)(uVar3)) != 0) {
+      if (((uint)(byte)(uVar3)) != 0) {
         return 1;
       }
       local_4 = local_4 + 1;
@@ -236,7 +236,7 @@ uint __cdecl Res_SysLoad(code *param_1)
   #define acStack_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
   
   uVar1 = (*param_1)(&local_10c,4);
-  if (((uint)(uVar1)) != 0) {
+  if (((uint)(byte)(uVar1)) != 0) {
     return 1;
   }
   iVar3 = 0;
@@ -245,22 +245,22 @@ uint __cdecl Res_SysLoad(code *param_1)
   }
   while( true ) {
     uVar1 = (*param_1)(&iStack_110,4);
-    if ((((uint)(uVar1)) != 0) || (0xff < iStack_110)) {
+    if ((((uint)(byte)(uVar1)) != 0) || (0xff < iStack_110)) {
       return 1;
     }
     uVar1 = (*param_1)(acStack_100,iStack_110);
-    if (((uint)(uVar1)) != 0) {
+    if (((uint)(byte)(uVar1)) != 0) {
       return 1;
     }
     acStack_100[iStack_110] = '\0';
     uVar1 = (*param_1)(&iStack_108,4);
-    if (((uint)(uVar1)) != 0) break;
+    if (((uint)(byte)(uVar1)) != 0) break;
     pvVar2 = res_Load(iStack_108,acStack_100,&iStack_104);
     if (iStack_104 == 0) {
       return 1;
     }
     uVar1 = (*param_1)((int)pvVar2 + 0x18,4);
-    if (((uint)(uVar1)) != 0) {
+    if (((uint)(byte)(uVar1)) != 0) {
       return 1;
     }
     iVar3 = iVar3 + 1;

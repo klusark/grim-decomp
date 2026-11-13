@@ -168,7 +168,7 @@ uint __cdecl sputText_Save(code *param_1)
   }
   uVar2 = (*param_1)(&local_4,4);
   pTVar1 = g_pTextQueue;
-  if (((uint)(uVar2)) != 0) {
+  if (((uint)(byte)(uVar2)) != 0) {
     return 1;
   }
   for (; pTVar1 != (TextObject *)0x0; pTVar1 = pTVar1->pNext) {
@@ -228,7 +228,7 @@ uint __cdecl sputText_Restore(code *param_1)
     List_Unlink(g_pTextQueue);
   }
   uVar4 = (*param_1)(&local_4,4);
-  if (((uint)(uVar4)) == 0) {
+  if (((uint)(byte)(uVar4)) == 0) {
     param_1 = (code *)0x0;
     if (0 < local_4) {
       do {
