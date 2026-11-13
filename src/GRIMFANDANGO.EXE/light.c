@@ -33,19 +33,19 @@ int __cdecl sputRoom_FindLightByName(void *set,char *name)
 {
   int iVar1;
   int iVar2;
-  int iVar3;
+  byte *pbVar3;
   
   if (set == (void *)0x0) {
     set = sputRoom_GetCurrentRoom();
   }
   iVar2 = 0;
   if (0 < *(int *)((int)set + 0xb8)) {
-    iVar3 = (int)set + 0xbc;
+    pbVar3 = (byte *)((int)set + 0xbc);
     do {
-      iVar1 = _stricmp(name,iVar3);
+      iVar1 = _stricmp((byte *)name,pbVar3);
       if (iVar1 == 0) break;
       iVar2 = iVar2 + 1;
-      iVar3 = iVar3 + 0x68;
+      pbVar3 = pbVar3 + 0x68;
     } while (iVar2 < *(int *)((int)set + 0xb8));
   }
   if (iVar2 < *(int *)((int)set + 0xb8)) {

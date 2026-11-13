@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00486250  DrawList_Reset ---- */
-void DrawList_Reset(void)
+void __cdecl DrawList_Reset(void)
 
 {
   undefined *puVar1;
@@ -26,7 +26,7 @@ void DrawList_Reset(void)
 /* ---- 0x00486280  DrawList_Alloc ---- */
 /* Returns the next of 128 draw-list entries or NULL */
 
-undefined * DrawList_Alloc(void)
+undefined * __cdecl DrawList_Alloc(void)
 
 {
   uint uVar1;
@@ -40,7 +40,7 @@ undefined * DrawList_Alloc(void)
 }
 
 /* ---- 0x004862b0  FUN_004862b0 ---- */
-undefined4 FUN_004862b0(int *param_1,int *param_2)
+uint __cdecl FUN_004862b0(int *param_1,int *param_2)
 
 {
   if (*(float *)(*param_1 + 4) < *(float *)(*param_2 + 4)) {

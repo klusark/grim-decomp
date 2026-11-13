@@ -123,7 +123,7 @@ float __cdecl stdMath_NormalizeAngleAcute(float param_1)
    ms). Original name stdMath_SinCos (the remaster's GrimFandango (Linux): the only unmatched callee
    of rdLight_SetAngles; 2 matched neighbours agree, 0 disagree); was Math_SinCosTable. */
 
-void stdMath_SinCos(float param_1,float *param_2,float *param_3)
+void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

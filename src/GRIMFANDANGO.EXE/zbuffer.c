@@ -10,10 +10,10 @@
    remaster's GrimFandango (Linux): the load call of the 'ZBUF' resource handler
    (sputResource_ZBufferHandler); the remaster inlined ZBuffer_LoadFile); was ZBuffer_Load. */
 
-void sputRoom_LoadZBuffer(undefined4 param_1)
+void __cdecl sputRoom_LoadZBuffer(uint param_1)
 
 {
-  ZBuffer_LoadFile(param_1);
+  ZBuffer_LoadFile((char *)param_1);
   return;
 }
 
@@ -21,18 +21,18 @@ void sputRoom_LoadZBuffer(undefined4 param_1)
 /* Loads a z-buffer .zbm through stdLoadImageData and detaches the pixel plane (bitmap+0x78) from
    the bitmap, returning it. */
 
-undefined4 ZBuffer_LoadFile(char *param_1)
+uint __cdecl ZBuffer_LoadFile(char *param_1)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   void *bitmap;
   
   bitmap = stdLoadImageData(param_1,0,0);
   if (bitmap == (void *)0x0) {
     return 0;
   }
-  uVar1 = **(undefined4 **)((int)bitmap + 0x78);
-  (*g_pSputRoomHS->pFree)(*(undefined4 **)((int)bitmap + 0x78));
+  uVar1 = **(uint **)((int)bitmap + 0x78);
+  (*g_pSputRoomHS->pFree)(*(uint **)((int)bitmap + 0x78));
   *(undefined4 *)((int)bitmap + 0x78) = 0;
   *(undefined4 *)((int)bitmap + 100) = 0;
   stdBitmap_Free(bitmap);
@@ -44,17 +44,17 @@ undefined4 ZBuffer_LoadFile(char *param_1)
    remaster's GrimFandango (Linux): the free call of the 'ZBUF' resource handler
    (sputResource_ZBufferHandler) on both sides); was ZBuffer_Free. */
 
-void sputRoom_FreeZBuffer(undefined4 param_1)
+void __cdecl sputRoom_FreeZBuffer(uint param_1)
 
 {
-  ZBuffer_FreeData(param_1);
+  ZBuffer_FreeData((void *)param_1);
   return;
 }
 
 /* ---- 0x004a4990  ZBuffer_FreeData ---- */
 /* stdDisplay_VBufferFree of the z-buffer surface. */
 
-void ZBuffer_FreeData(void *param_1)
+void __cdecl ZBuffer_FreeData(void *param_1)
 
 {
   stdDisplay_VBufferFree(param_1);

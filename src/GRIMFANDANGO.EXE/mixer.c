@@ -11,7 +11,7 @@
 /* Creates the DirectSound object, sets the cooperative level on the main window and creates the
    primary buffer */
 
-undefined4 DSound_Init(void)
+uint __cdecl DSound_Init(void)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -104,7 +104,7 @@ undefined4 DSound_Init(void)
 /* ---- 0x004c1090  DSound_Shutdown ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void DSound_Shutdown(void)
+void __cdecl DSound_Shutdown(void)
 
 {
   if (PTR_008d3674 != (int *)0x0) {
@@ -163,7 +163,7 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
    sou_mixer_start, dsn_fill_func(0x600, sou_mixer_mix), sou_mixer_end into the 0x1800-byte block);
    was DSound_FillStreamBuffer. */
 
-void dsn_fill_thread(void)
+void __cdecl dsn_fill_thread(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -251,7 +251,7 @@ void dsn_fill_thread(void)
 #if 0
 /* IDirectSoundBuffer::GetCurrentPosition / 0x1800 modulo the block count */
 
-int DSound_GetPlayBlock(void)
+int __cdecl DSound_GetPlayBlock(void)
 
 {
   int iVar1;
@@ -509,14 +509,14 @@ Mixer_MixVoice(byte *data,int count,int bits,int channels,uint outFrames,int acc
         return;
       }
       if (offsetBinary == 0) {
-        Mixer_MixStereoLR_A(data,count,outFrames,accumOffset,volL,uVar2);
+        Mixer_MixStereoLR_A((ushort *)data,count,outFrames,accumOffset,volL,uVar2);
         return;
       }
       if (byteSwapped != 0) {
-        ((code *)Mixer_MixStereoLR_B)(data,count,outFrames,accumOffset);
+        Mixer_MixStereoLR_B((ushort *)data,count,outFrames,accumOffset,volL,uVar2);
         return;
       }
-      Mixer_Mix16MonoLR(data,count,outFrames,accumOffset,volL,uVar2);
+      Mixer_Mix16MonoLR((short *)data,count,outFrames,accumOffset,volL,uVar2);
       return;
     }
     if (bits == 8) {
@@ -524,14 +524,14 @@ Mixer_MixVoice(byte *data,int count,int bits,int channels,uint outFrames,int acc
       return;
     }
     if (offsetBinary == 0) {
-      Mixer_MixStereo_A(data,count,outFrames,accumOffset,volume + 1);
+      Mixer_MixStereo_A((ushort *)data,count,outFrames,accumOffset,volume + 1);
       return;
     }
     if (byteSwapped != 0) {
-      Mixer_MixStereo_B(data,count,outFrames,accumOffset,volume + 1);
+      Mixer_MixStereo_B((ushort *)data,count,outFrames,accumOffset,volume + 1);
       return;
     }
-    Mixer_Mix16Mono(data,count,outFrames,accumOffset,volume + 1);
+    Mixer_Mix16Mono((short *)data,count,outFrames,accumOffset,volume + 1);
   }
   return;
 }
@@ -653,7 +653,7 @@ void __cdecl Mixer_Mix8MonoLR(byte *src,int count,uint rateFrac,int accumOffset,
 /* ---- 0x004d34a0  Mixer_Mix8Mono ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Mixer_Mix8Mono(byte *param_1,int param_2,uint param_3,int param_4,int param_5)
+void __cdecl Mixer_Mix8Mono(byte *param_1,int param_2,uint param_3,int param_4,int param_5)
 
 {
   byte bVar1;
@@ -731,7 +731,8 @@ void Mixer_Mix8Mono(byte *param_1,int param_2,uint param_3,int param_4,int param
 /* ---- 0x004d36e0  Mixer_Mix16MonoLR ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Mixer_Mix16MonoLR(short *param_1,int param_2,uint param_3,int param_4,int param_5,int param_6)
+void __cdecl
+Mixer_Mix16MonoLR(short *param_1,int param_2,uint param_3,int param_4,int param_5,int param_6)
 
 {
   uint uVar1;
@@ -802,7 +803,7 @@ void Mixer_Mix16MonoLR(short *param_1,int param_2,uint param_3,int param_4,int p
 /* ---- 0x004d38a0  Mixer_Mix16Mono ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Mixer_Mix16Mono(short *param_1,int param_2,uint param_3,int param_4,int param_5)
+void __cdecl Mixer_Mix16Mono(short *param_1,int param_2,uint param_3,int param_4,int param_5)
 
 {
   short sVar1;
@@ -878,37 +879,38 @@ void Mixer_Mix16Mono(short *param_1,int param_2,uint param_3,int param_4,int par
 #if 0
 /* Stereo sample-pair resampler with left/right volumes (format A) */
 
-void Mixer_MixStereoLR_A(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5,
-                        int param_6)
+void __cdecl
+Mixer_MixStereoLR_A(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5,int param_6)
 
 {
   ushort uVar1;
   uint uVar2;
   int *piVar3;
   int iVar4;
-  uint uVar5;
+  int iVar5;
   uint uVar6;
+  uint uVar7;
   
   piVar3 = g_pMixer_mixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
       uVar1 = param_1[2];
-      iVar4 = (int)(short)(*param_1 ^ 0x8000);
-      *piVar3 = *piVar3 + param_5 * iVar4;
-      piVar3[1] = piVar3[1] + param_6 * iVar4;
-      iVar4 = (short)(uVar1 ^ 0x8000) + iVar4 >> 1;
-      piVar3[2] = piVar3[2] + param_5 * iVar4;
+      iVar5 = (int)(short)(*param_1 ^ 0x8000);
+      *piVar3 = *piVar3 + param_5 * iVar5;
+      piVar3[1] = piVar3[1] + param_6 * iVar5;
+      iVar5 = (short)(uVar1 ^ 0x8000) + iVar5 >> 1;
+      piVar3[2] = piVar3[2] + param_5 * iVar5;
       param_1 = param_1 + 1;
-      piVar3[3] = piVar3[3] + param_6 * iVar4;
+      piVar3[3] = piVar3[3] + param_6 * iVar5;
       piVar3 = piVar3 + 4;
     }
-    param_5 = param_5 * (short)(*param_1 ^ 0x8000);
-    param_6 = param_6 * (short)(*param_1 ^ 0x8000);
-    *piVar3 = *piVar3 + param_5;
-    piVar3[1] = piVar3[1] + param_6;
-    piVar3[2] = piVar3[2] + param_5;
-    piVar3[3] = piVar3[3] + param_6;
+    iVar4 = param_5 * (short)(*param_1 ^ 0x8000);
+    iVar5 = param_6 * (short)(*param_1 ^ 0x8000);
+    *piVar3 = *piVar3 + iVar4;
+    piVar3[1] = piVar3[1] + iVar5;
+    piVar3[2] = piVar3[2] + iVar4;
+    piVar3[3] = piVar3[3] + iVar5;
   }
   else if (uVar2 == 0x10000) {
     if (param_3 != 0) {
@@ -937,17 +939,17 @@ void Mixer_MixStereoLR_A(ushort *param_1,int param_2,uint param_3,uint param_4,i
     }
   }
   else {
-    uVar5 = 0;
+    uVar6 = 0;
     if (param_3 != 0) {
       param_4 = param_3;
       do {
         uVar1 = *param_1;
         *piVar3 = *piVar3 + param_5 * (short)(uVar1 ^ 0x8000);
-        uVar6 = uVar5 + uVar2;
+        uVar7 = uVar6 + uVar2;
         piVar3[1] = piVar3[1] + param_6 * (short)(uVar1 ^ 0x8000);
         piVar3 = piVar3 + 2;
-        uVar5 = uVar6 & 0xffff;
-        param_1 = param_1 + ((int)uVar6 >> 0x10);
+        uVar6 = uVar7 & 0xffff;
+        param_1 = param_1 + ((int)uVar7 >> 0x10);
         param_4 = param_4 - 1;
       } while (param_4 != 0);
       return;
@@ -961,7 +963,7 @@ void Mixer_MixStereoLR_A(ushort *param_1,int param_2,uint param_3,uint param_4,i
 /* ---- 0x004d3c40  Mixer_MixStereo_A ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5)
+void __cdecl Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5)
 
 {
   ushort uVar1;
@@ -971,8 +973,9 @@ void Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int
   uint uVar5;
   int *piVar6;
   int iVar7;
-  uint uVar8;
+  int iVar8;
   uint uVar9;
+  uint uVar10;
   
   piVar6 = g_pMixer_mixBuf + param_4 * 2;
   uVar5 = (uint)(param_2 << 0x10) / param_3;
@@ -992,12 +995,12 @@ void Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int
                   ((int)(short)(uVar4 ^ 0x8000) + (int)(short)(uVar2 ^ 0x8000) >> 1) * param_5;
       piVar6 = piVar6 + 4;
     }
-    iVar7 = (short)(*param_1 ^ 0x8000) * param_5;
-    param_5 = (short)(param_1[1] ^ 0x8000) * param_5;
-    *piVar6 = *piVar6 + iVar7;
-    piVar6[1] = piVar6[1] + param_5;
-    piVar6[2] = piVar6[2] + iVar7;
-    piVar6[3] = piVar6[3] + param_5;
+    iVar8 = (short)(*param_1 ^ 0x8000) * param_5;
+    iVar7 = (short)(param_1[1] ^ 0x8000) * param_5;
+    *piVar6 = *piVar6 + iVar8;
+    piVar6[1] = piVar6[1] + iVar7;
+    piVar6[2] = piVar6[2] + iVar8;
+    piVar6[3] = piVar6[3] + iVar7;
   }
   else if (uVar5 == 0x10000) {
     iVar7 = param_3 * 2;
@@ -1026,17 +1029,17 @@ void Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int
     }
   }
   else {
-    uVar8 = 0;
+    uVar9 = 0;
     if (param_3 != 0) {
       param_4 = param_3;
       do {
         uVar1 = param_1[1];
         *piVar6 = *piVar6 + ((int)(short)*param_1 ^ 0xffff8000U) * param_5;
-        uVar9 = uVar8 + uVar5 * 2;
+        uVar10 = uVar9 + uVar5 * 2;
         piVar6[1] = piVar6[1] + (short)(uVar1 ^ 0x8000) * param_5;
         piVar6 = piVar6 + 2;
-        uVar8 = uVar9 & 0xffff;
-        param_1 = param_1 + ((int)uVar9 >> 0x10);
+        uVar9 = uVar10 & 0xffff;
+        param_1 = param_1 + ((int)uVar10 >> 0x10);
         param_4 = param_4 - 1;
       } while (param_4 != 0);
       return;
@@ -1050,16 +1053,17 @@ void Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int
 /* ---- 0x004d3e60  Mixer_MixStereoLR_B ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5,
-                        int param_6)
+void __cdecl
+Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5,int param_6)
 
 {
   ushort uVar1;
   uint uVar2;
   int iVar3;
   int *piVar4;
-  uint uVar5;
+  int iVar5;
   uint uVar6;
+  uint uVar7;
   
   piVar4 = g_pMixer_mixBuf + param_4 * 2;
   uVar2 = (uint)(param_2 << 0x10) / param_3;
@@ -1075,12 +1079,12 @@ void Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,i
       param_1 = param_1 + 1;
     }
     iVar3 = (int)CONCAT11((char)*param_1,(char)(*param_1 >> 8));
-    param_5 = param_5 * iVar3;
-    param_6 = param_6 * iVar3;
-    *piVar4 = *piVar4 + param_5;
-    piVar4[1] = piVar4[1] + param_6;
-    piVar4[2] = piVar4[2] + param_5;
-    piVar4[3] = piVar4[3] + param_6;
+    iVar5 = param_5 * iVar3;
+    iVar3 = param_6 * iVar3;
+    *piVar4 = *piVar4 + iVar5;
+    piVar4[1] = piVar4[1] + iVar3;
+    piVar4[2] = piVar4[2] + iVar5;
+    piVar4[3] = piVar4[3] + iVar3;
   }
   else if (uVar2 == 0x10000) {
     if (param_3 != 0) {
@@ -1110,17 +1114,17 @@ void Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,i
     }
   }
   else {
-    uVar5 = 0;
+    uVar6 = 0;
     if (param_3 != 0) {
       param_4 = param_3;
       do {
         *piVar4 = *piVar4 + ((uint)(*param_1 >> 8) | (uint)(byte)*param_1 << 8) * param_5;
-        uVar6 = uVar5 + uVar2;
+        uVar7 = uVar6 + uVar2;
         piVar4[1] = piVar4[1] + ((uint)(*param_1 >> 8) | (uint)(byte)*param_1 << 8) * param_6;
         piVar4 = piVar4 + 2;
-        uVar5 = uVar6 & 0xffff;
+        uVar6 = uVar7 & 0xffff;
         param_4 = param_4 - 1;
-        param_1 = param_1 + ((int)uVar6 >> 0x10);
+        param_1 = param_1 + ((int)uVar7 >> 0x10);
       } while (param_4 != 0);
       return;
     }
@@ -1133,7 +1137,7 @@ void Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,i
 /* ---- 0x004d40d0  Mixer_MixStereo_B ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Mixer_MixStereo_B(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5)
+void __cdecl Mixer_MixStereo_B(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5)
 
 {
   uint uVar1;

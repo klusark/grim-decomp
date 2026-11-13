@@ -622,7 +622,8 @@ extern unsigned char DAT_004d8c5c[44];
 extern unsigned char DAT_004d8c88[36];
 extern unsigned char DAT_004d8cac[44];
 extern unsigned char DAT_004d8cd8[44];
-extern unsigned char DAT_004d8d04[80];
+extern unsigned char DAT_004d8d04[40];
+extern unsigned char DAT_004d8d2c[40];
 extern unsigned char UINT_004d8d54[28];
 extern unsigned char DAT_004d8d70[4];
 extern unsigned char UINT_004d8d74[24];
@@ -758,8 +759,7 @@ extern unsigned char DAT_004d94dc[12];
 extern char s_GetLastActivePopup_004d94e8[20];
 extern char s_GetActiveWindow_004d94fc[16];
 extern char s_MessageBoxA_004d950c[12];
-extern unsigned char DAT_004d9518[80];
-extern unsigned char DAT_004d9568[32];
+extern unsigned char DAT_004d9518[112];
 extern unsigned char DAT_004d9588[8];
 extern unsigned char DAT_004d9590[20];
 extern unsigned char DAT_004d95a4[8];
@@ -905,7 +905,7 @@ extern char s_SetVideoDevices_004dd3d0[16];
 extern char s_GetVideoDevices_004dd3e0[16];
 extern char s_Is3DHardwareEnabled_004dd3f0[20];
 extern char s_Grim_Fandango_004dd404[16];
-extern char s_resource_log_004dd414[16];
+extern unsigned char DAT_004dd414[16];
 extern char s_Unable_to_open_debug_log_in_the_c_004dd424[64];
 extern char s_Uh_oh__004dd464[8];
 extern char s_debug_log_004dd46c[12];
@@ -975,7 +975,7 @@ extern char s__s_d_bmp_004dd928[12];
 extern unsigned char DAT_004dd934[8];
 extern char s_grimpatch_bin_004dd93c[16];
 extern char s_GrimDataDir_004dd94c[12];
-extern char s_SOFTWARE_LucasArts_Entertainment_004dd958[64];
+extern unsigned char DAT_004dd958[64];
 extern unsigned char DAT_004dd998[4];
 extern char s_splash_bm_004dd99c[12];
 extern void *g_aDefaultHostServices[28];
@@ -1021,7 +1021,8 @@ extern unsigned char DAT_004ddb88[4];
 extern char s_UNKNOWN_004ddb8c[8];
 extern char s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94[48];
 extern char s__d___x__x__d__d__d__d__d__f__f___004ddbc4[56];
-extern char s_hierarchy_nodes__d_004ddbfc[24];
+extern char s_hierarchy_nodes__d_004ddbfc[20];
+extern unsigned char DAT_004ddc10[4];
 extern unsigned char DAT_004ddc14[4];
 extern unsigned char DAT_004ddc18[4];
 extern unsigned char DAT_004ddc1c[4];
@@ -1321,7 +1322,7 @@ extern unsigned int g_dwMax_ram;
 extern unsigned char DAT_004e7b48[8];
 extern unsigned char g_dwGrimlib_PerfData[584];
 extern unsigned char g_dwUpdateLua[8];
-extern unsigned char g_aGrimlib_renderOptions[32];
+extern unsigned char DAT_004e7da0[32];
 extern void *PTR_FileUtil_SysInitialize_004e7dc0[16];
 extern void *PTR_sputControl_Initialize_004e7e00[12];
 extern int g_dwGrimlib_NewImuseState;
@@ -2998,8 +2999,7 @@ extern unsigned char PTR_007fead8[8];
 extern unsigned int UINT_007feae0;
 extern unsigned char UINT_007feae4[112];
 extern unsigned char DAT_007feb54[4];
-extern unsigned char DAT_007feb58[5288];
-extern unsigned char DAT_00800000[16252];
+extern unsigned char DAT_007feb58[21540];
 extern unsigned int UINT_00803f7c;
 extern unsigned char g_bStdDisplay_Startup[4];
 extern int g_nDisplayDeviceOpen;
@@ -3193,7 +3193,7 @@ extern unsigned char g_dwOldestResNode[8];
 extern unsigned int g_dwLastFound;
 extern unsigned int g_dwLogFile;
 extern unsigned char g_dwRes_pPeriodicCallback[8];
-extern unsigned char g_aGrimlib_Filenames[80];
+extern unsigned char DAT_008a85f0[80];
 extern unsigned int UINT_008a8640;
 extern unsigned char UINT_008a8644[124];
 extern unsigned int UINT_008a86c0;
@@ -3202,7 +3202,7 @@ extern unsigned int UINT_008a86e0;
 extern unsigned char UINT_008a86e4[12];
 extern char g_szGrimlib_aFilename[128];
 extern unsigned char UINT_008a8770[8];
-extern unsigned char g_aBaseModuleServices[48];
+extern unsigned char DAT_008a8778[48];
 extern unsigned char g_pfnIMuseSaveHook[4];
 extern unsigned char g_pfnIMuseRestoreHook[28];
 extern unsigned int UINT_008a87c8;
@@ -3582,7 +3582,8 @@ extern unsigned char UINT_008d0b7c[4];
 extern unsigned int UINT_008d0b80;
 extern unsigned char DAT_008d0b90[264];
 extern unsigned char UINT_008d0c98[8];
-extern unsigned char UINT_008d0ca0[264];
+extern unsigned char UINT_008d0ca0[1];
+extern unsigned char DAT_008d0ca1[263];
 extern unsigned char DAT_008d0da8[256];
 extern unsigned int UINT_008d0ea8;
 extern unsigned int UINT_008d0eac;
@@ -4167,8 +4168,10 @@ extern unsigned char DAT_00900b74[4];
 extern unsigned char DAT_00900b78[4];
 extern unsigned char DAT_00900b7c[4];
 extern unsigned char DAT_00900b80[4];
-extern unsigned char DAT_00900b84[131];
-extern unsigned char DAT_00900c07[128];
+extern unsigned char DAT_00900b84[4];
+extern unsigned char DAT_00900b88[127];
+extern unsigned char DAT_00900c07;
+extern unsigned char DAT_00900c08[127];
 extern unsigned char DAT_00900c87[9];
 extern unsigned char DAT_00900c90[8];
 extern unsigned char DAT_00900c98[104];
@@ -4978,12 +4981,15 @@ extern grim_span_004d5400 DAT_004d5400;
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x61, 0x72,
     0x67, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x0d, 0x0a
 };
-/* 0x004d8d04, 80 bytes */ GRIM_DATA("004d8d04") unsigned char DAT_004d8d04[80] = {
+/* 0x004d8d04, 40 bytes */ GRIM_DATA("004d8d04") unsigned char DAT_004d8d04[40] = {
     0x52, 0x36, 0x30, 0x30, 0x32, 0x0d, 0x0a, 0x2d, 0x20, 0x66, 0x6c, 0x6f, 0x61, 0x74, 0x69, 0x6e,
     0x67, 0x20, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x6c, 0x6f, 0x61, 0x64,
-    0x65, 0x64, 0x0d, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x4d, 0x69, 0x63, 0x72, 0x6f, 0x73, 0x6f, 0x66,
-    0x74, 0x20, 0x56, 0x69, 0x73, 0x75, 0x61, 0x6c, 0x20, 0x43, 0x2b, 0x2b, 0x20, 0x52, 0x75, 0x6e,
-    0x74, 0x69, 0x6d, 0x65, 0x20, 0x4c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79
+    0x65, 0x64, 0x0d, 0x0a
+};
+/* 0x004d8d2c, 40 bytes */ GRIM_DATA("004d8d2c") unsigned char DAT_004d8d2c[40] = {
+    0x4d, 0x69, 0x63, 0x72, 0x6f, 0x73, 0x6f, 0x66, 0x74, 0x20, 0x56, 0x69, 0x73, 0x75, 0x61, 0x6c,
+    0x20, 0x43, 0x2b, 0x2b, 0x20, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x20, 0x4c, 0x69, 0x62,
+    0x72, 0x61, 0x72, 0x79
 };
 /* 0x004d8d54, 28 bytes */ GRIM_DATA("004d8d54") unsigned char UINT_004d8d54[28] = {
     0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x20, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x21, 0x0a, 0x0a,
@@ -5143,14 +5149,12 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x004d94e8, 20 bytes */ GRIM_DATA("004d94e8") char s_GetLastActivePopup_004d94e8[20] = "GetLastActivePopup";
 /* 0x004d94fc, 16 bytes */ GRIM_DATA("004d94fc") char s_GetActiveWindow_004d94fc[16] = "GetActiveWindow";
 /* 0x004d950c, 12 bytes */ GRIM_DATA("004d950c") char s_MessageBoxA_004d950c[12] = "MessageBoxA";
-/* 0x004d9518, 80 bytes */ GRIM_DATA("004d9518") unsigned char DAT_004d9518[80] = {
+/* 0x004d9518, 112 bytes */ GRIM_DATA("004d9518") unsigned char DAT_004d9518[112] = {
     0x75, 0x73, 0x65, 0x72, 0x33, 0x32, 0x2e, 0x64, 0x6c, 0x6c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x53, 0x75, 0x6e, 0x4d, 0x6f, 0x6e, 0x54, 0x75, 0x65, 0x57, 0x65, 0x64, 0x54, 0x68, 0x75, 0x46,
     0x72, 0x69, 0x53, 0x61, 0x74, 0x00, 0x00, 0x00, 0x4a, 0x61, 0x6e, 0x46, 0x65, 0x62, 0x4d, 0x61,
     0x72, 0x41, 0x70, 0x72, 0x4d, 0x61, 0x79, 0x4a, 0x75, 0x6e, 0x4a, 0x75, 0x6c, 0x41, 0x75, 0x67,
-    0x53, 0x65, 0x70, 0x4f, 0x63, 0x74, 0x4e, 0x6f, 0x76, 0x44, 0x65, 0x63
-};
-/* 0x004d9568, 32 bytes */ GRIM_DATA("004d9568") unsigned char DAT_004d9568[32] = {
+    0x53, 0x65, 0x70, 0x4f, 0x63, 0x74, 0x4e, 0x6f, 0x76, 0x44, 0x65, 0x63, 0x00, 0x00, 0x00, 0x00,
     0x54, 0x5a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0xbf
 };
@@ -5840,7 +5844,7 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x004dd3e0, 16 bytes */ GRIM_DATA("004dd3e0") char s_GetVideoDevices_004dd3e0[16] = "GetVideoDevices";
 /* 0x004dd3f0, 20 bytes */ GRIM_DATA("004dd3f0") char s_Is3DHardwareEnabled_004dd3f0[20] = "Is3DHardwareEnabled";
 /* 0x004dd404, 16 bytes */ GRIM_DATA("004dd404") char s_Grim_Fandango_004dd404[16] = "Grim Fandango";
-/* 0x004dd414, 16 bytes */ GRIM_DATA("004dd414") char s_resource_log_004dd414[16] = "resource.log";
+/* 0x004dd414, 16 bytes */ GRIM_DATA("004dd414") unsigned char DAT_004dd414[16] = { 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x2e, 0x6c, 0x6f, 0x67 };
 /* 0x004dd424, 64 bytes */ GRIM_DATA("004dd424") char s_Unable_to_open_debug_log_in_the_c_004dd424[64] = "Unable to open debug.log in the current directory for writing!";
 /* 0x004dd464, 8 bytes */ GRIM_DATA("004dd464") char s_Uh_oh__004dd464[8] = "Uh oh!";
 /* 0x004dd46c, 12 bytes */ GRIM_DATA("004dd46c") char s_debug_log_004dd46c[12] = "debug.log";
@@ -5925,7 +5929,12 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x004dd934, 8 bytes */ GRIM_DATA("004dd934") unsigned char DAT_004dd934[8] = { 0x73, 0x68, 0x6f, 0x74 };
 /* 0x004dd93c, 16 bytes */ GRIM_DATA("004dd93c") char s_grimpatch_bin_004dd93c[16] = "grimpatch.bin";
 /* 0x004dd94c, 12 bytes */ GRIM_DATA("004dd94c") char s_GrimDataDir_004dd94c[12] = "GrimDataDir";
-/* 0x004dd958, 64 bytes */ GRIM_DATA("004dd958") char s_SOFTWARE_LucasArts_Entertainment_004dd958[64] = "SOFTWARE\\LucasArts Entertainment Company LLC\\Grim Fandango\\v1.0";
+/* 0x004dd958, 64 bytes */ GRIM_DATA("004dd958") unsigned char DAT_004dd958[64] = {
+    0x53, 0x4f, 0x46, 0x54, 0x57, 0x41, 0x52, 0x45, 0x5c, 0x4c, 0x75, 0x63, 0x61, 0x73, 0x41, 0x72,
+    0x74, 0x73, 0x20, 0x45, 0x6e, 0x74, 0x65, 0x72, 0x74, 0x61, 0x69, 0x6e, 0x6d, 0x65, 0x6e, 0x74,
+    0x20, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x20, 0x4c, 0x4c, 0x43, 0x5c, 0x47, 0x72, 0x69,
+    0x6d, 0x20, 0x46, 0x61, 0x6e, 0x64, 0x61, 0x6e, 0x67, 0x6f, 0x5c, 0x76, 0x31, 0x2e, 0x30
+};
 /* 0x004dd998, 4 bytes */ GRIM_DATA("004dd998") unsigned char DAT_004dd998[4] = { 0x31, 0x2e, 0x30 };
 /* 0x004dd99c, 12 bytes */ GRIM_DATA("004dd99c") char s_splash_bm_004dd99c[12] = "splash.bm";
 /* 0x004dd9a8, 112 bytes */ GRIM_DATA("004dd9a8") void *g_aDefaultHostServices[28] = {
@@ -5979,7 +5988,8 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x004ddb8c, 8 bytes */ GRIM_DATA("004ddb8c") char s_UNKNOWN_004ddb8c[8] = "UNKNOWN";
 /* 0x004ddb94, 48 bytes */ GRIM_DATA("004ddb94") char s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94[48] = "C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdmodel3.c";
 /* 0x004ddbc4, 56 bytes */ GRIM_DATA("004ddbc4") char s__d___x__x__d__d__d__d__d__f__f___004ddbc4[56] = " %d: %x %x %d %d %d %d %d %f %f %f %f %f %f %f %f %f %s";
-/* 0x004ddbfc, 24 bytes */ GRIM_DATA("004ddbfc") char s_hierarchy_nodes__d_004ddbfc[24] = " hierarchy nodes %d\000 \t,";
+/* 0x004ddbfc, 20 bytes */ GRIM_DATA("004ddbfc") char s_hierarchy_nodes__d_004ddbfc[20] = " hierarchy nodes %d";
+/* 0x004ddc10, 4 bytes */ GRIM_DATA("004ddc10") unsigned char DAT_004ddc10[4] = { 0x20, 0x09, 0x2c };
 /* 0x004ddc14, 4 bytes */ GRIM_DATA("004ddc14") unsigned char DAT_004ddc14[4] = { 0x25, 0x66 };
 /* 0x004ddc18, 4 bytes */ GRIM_DATA("004ddc18") unsigned char DAT_004ddc18[4] = { 0x25, 0x64 };
 /* 0x004ddc1c, 4 bytes */ GRIM_DATA("004ddc1c") unsigned char DAT_004ddc1c[4] = { 0x25, 0x78 };
@@ -8220,7 +8230,7 @@ extern grim_span_004d5400 DAT_004d5400;
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x57, 0x41, 0x49, 0x54, 0x49, 0x43, 0x4f, 0x4e
 };
 /* 0x004e7d98, 8 bytes */ GRIM_DATA("004e7d98") unsigned char g_dwUpdateLua[8] = { 0x01 };
-/* 0x004e7da0, 32 bytes */ GRIM_DATA("004e7da0") unsigned char g_aGrimlib_renderOptions[32] = {
+/* 0x004e7da0, 32 bytes */ GRIM_DATA("004e7da0") unsigned char DAT_004e7da0[32] = {
     0x04, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02
 };
@@ -11347,8 +11357,7 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x007feae0, 4 bytes */ GRIM_DATA("007feae0") unsigned int UINT_007feae0 = 0x0;
 /* 0x007feae4, 112 bytes */ GRIM_DATA("007feae4") unsigned char UINT_007feae4[112] = {0};
 /* 0x007feb54, 4 bytes */ GRIM_DATA("007feb54") unsigned char DAT_007feb54[4] = {0};
-/* 0x007feb58, 5288 bytes */ GRIM_DATA("007feb58") unsigned char DAT_007feb58[5288] = {0};
-/* 0x00800000, 16252 bytes */ GRIM_DATA("00800000") unsigned char DAT_00800000[16252] = {0};
+/* 0x007feb58, 21540 bytes */ GRIM_DATA("007feb58") unsigned char DAT_007feb58[21540] = {0};
 /* 0x00803f7c, 4 bytes */ GRIM_DATA("00803f7c") unsigned int UINT_00803f7c = 0x0;
 /* 0x00803f80, 4 bytes */ GRIM_DATA("00803f80") unsigned char g_bStdDisplay_Startup[4] = {0};
 /* 0x00803f84, 4 bytes */ GRIM_DATA("00803f84") int g_nDisplayDeviceOpen = 0;
@@ -11545,7 +11554,7 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x008a85e0, 4 bytes */ GRIM_DATA("008a85e0") unsigned int g_dwLastFound = 0x0;
 /* 0x008a85e4, 4 bytes */ GRIM_DATA("008a85e4") unsigned int g_dwLogFile = 0x0;
 /* 0x008a85e8, 8 bytes */ GRIM_DATA("008a85e8") unsigned char g_dwRes_pPeriodicCallback[8] = {0};
-/* 0x008a85f0, 80 bytes */ GRIM_DATA("008a85f0") unsigned char g_aGrimlib_Filenames[80] = {0};
+/* 0x008a85f0, 80 bytes */ GRIM_DATA("008a85f0") unsigned char DAT_008a85f0[80] = {0};
 /* 0x008a8640, 4 bytes */ GRIM_DATA("008a8640") unsigned int UINT_008a8640 = 0x0;
 /* 0x008a8644, 124 bytes */ GRIM_DATA("008a8644") unsigned char UINT_008a8644[124] = {0};
 /* 0x008a86c0, 4 bytes */ GRIM_DATA("008a86c0") unsigned int UINT_008a86c0 = 0x0;
@@ -11554,7 +11563,7 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x008a86e4, 12 bytes */ GRIM_DATA("008a86e4") unsigned char UINT_008a86e4[12] = {0};
 /* 0x008a86f0, 128 bytes */ GRIM_DATA("008a86f0") char g_szGrimlib_aFilename[128] = "";
 /* 0x008a8770, 8 bytes */ GRIM_DATA("008a8770") unsigned char UINT_008a8770[8] = {0};
-/* 0x008a8778, 48 bytes */ GRIM_DATA("008a8778") unsigned char g_aBaseModuleServices[48] = {0};
+/* 0x008a8778, 48 bytes */ GRIM_DATA("008a8778") unsigned char DAT_008a8778[48] = {0};
 /* 0x008a87a8, 4 bytes */ GRIM_DATA("008a87a8") unsigned char g_pfnIMuseSaveHook[4] = {0};
 /* 0x008a87ac, 28 bytes */ GRIM_DATA("008a87ac") unsigned char g_pfnIMuseRestoreHook[28] = {0};
 /* 0x008a87c8, 4 bytes */ GRIM_DATA("008a87c8") unsigned int UINT_008a87c8 = 0x0;
@@ -11945,7 +11954,8 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x008d0b84, 12 bytes: the rest of UINT_008d0b80's span */ GRIM_DATA("008d0b80") static unsigned char UINT_008d0b80__tail[12] __attribute__((used)) = {0};
 /* 0x008d0b90, 264 bytes, unused (dead) */ GRIM_DATA("008d0b90") unsigned char DAT_008d0b90[264];
 /* 0x008d0c98, 8 bytes, unused (dead) */ GRIM_DATA("008d0c98") unsigned char UINT_008d0c98[8];
-/* 0x008d0ca0, 264 bytes */ GRIM_DATA("008d0ca0") unsigned char UINT_008d0ca0[264] = {0};
+/* 0x008d0ca0, 1 bytes */ GRIM_DATA("008d0ca0") unsigned char UINT_008d0ca0[1] = {0};
+/* 0x008d0ca1, 263 bytes */ GRIM_DATA("008d0ca0") unsigned char DAT_008d0ca1[263] = {0};
 /* 0x008d0da8, 256 bytes, unused (dead) */ GRIM_DATA("008d0da8") unsigned char DAT_008d0da8[256];
 /* 0x008d0ea8, 4 bytes */ GRIM_DATA("008d0ea8") unsigned int UINT_008d0ea8 = 0x0;
 /* 0x008d0eac, 4 bytes */ GRIM_DATA("008d0eac") unsigned int UINT_008d0eac = 0x0;
@@ -12537,9 +12547,11 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x00900b78, 4 bytes */ GRIM_DATA("00900b78") unsigned char DAT_00900b78[4] = {0};
 /* 0x00900b7c, 4 bytes */ GRIM_DATA("00900b7c") unsigned char DAT_00900b7c[4] = {0};
 /* 0x00900b80, 4 bytes */ GRIM_DATA("00900b80") unsigned char DAT_00900b80[4] = {0};
-/* 0x00900b84, 131 bytes */ GRIM_DATA("00900b84") unsigned char DAT_00900b84[131] = {0};
-/* 0x00900c07, 128 bytes */ GRIM_DATA("00900b84") unsigned char DAT_00900c07[128] = {0};
-/* 0x00900c87, 9 bytes */ GRIM_DATA("00900b84") unsigned char DAT_00900c87[9] = {0};
+/* 0x00900b84, 4 bytes */ GRIM_DATA("00900b84") unsigned char DAT_00900b84[4] = {0};
+/* 0x00900b88, 127 bytes */ GRIM_DATA("00900b88") unsigned char DAT_00900b88[127] = {0};
+/* 0x00900c07, 1 bytes */ GRIM_DATA("00900b88") unsigned char DAT_00900c07 = 0x0;
+/* 0x00900c08, 127 bytes */ GRIM_DATA("00900c08") unsigned char DAT_00900c08[127] = {0};
+/* 0x00900c87, 9 bytes */ GRIM_DATA("00900c08") unsigned char DAT_00900c87[9] = {0};
 /* 0x00900c90, 8 bytes */ GRIM_DATA("00900c90") unsigned char DAT_00900c90[8] = {0};
 /* 0x00900c98, 104 bytes */ GRIM_DATA("00900c98") unsigned char DAT_00900c98[104] = {0};
 /* 0x00900d00, 16 bytes */ GRIM_DATA("00900d00") unsigned char DAT_00900d00[16] = {0};

@@ -65,7 +65,7 @@ int __cdecl Res_FindExternalFile(char *name,char *buf,int size)
   char *pcVar4;
   #define local_31c (*(byte (*)[260])(_frame + (0x330 - 0x31c)))
   #define local_218 (*(undefined4 (*)[69])(_frame + (0x330 - 0x218)))
-  #define local_103 (*(undefined1 (*)[259])(_frame + (0x330 - 0x103)))
+  #define local_103 (*(uint (*)[64])(_frame + (0x330 - 0x103)))
   
   iVar2 = 0;
   iVar3 = 0;
@@ -91,7 +91,7 @@ LAB_0048030d:
       *pcVar4 = '\0';
       pcVar4 = pcVar4 + 1;
     }
-    strncpy(buf,local_103,size + -1);
+    strncpy((uint *)buf,local_103,size - 1);
     iVar2 = 1;
   }
   return iVar2;
@@ -512,14 +512,14 @@ void * __cdecl res_Load(int type,char *name,int *status)
 undefined * __cdecl res_LocateResByName(uint param_1,uint param_2)
 
 {
-  undefined *puVar1;
+  int *piVar1;
   
-  puVar1 = (undefined *)Res_FindByNameInList(param_1,param_2,g_pNewestResNode);
-  return puVar1;
+  piVar1 = Res_FindByNameInList(param_1,(char *)param_2,g_pNewestResNode);
+  return (undefined *)piVar1;
 }
 
 /* ---- 0x00481320  Res_FindByNameInList ---- */
-int * Res_FindByNameInList(int param_1,char *param_2,int *param_3)
+int * __cdecl Res_FindByNameInList(int param_1,char *param_2,int *param_3)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -585,7 +585,7 @@ void * __cdecl Res_CreateRecord(int type,char *name,void *data)
   uint uVar5;
   int iVar6;
   
-  res = (int *)Memory_AllocFixed(g_dwResNodePool);
+  res = Memory_AllocFixed((int *)g_dwResNodePool);
   if (res != (int *)0x0) {
     res[4] = type;
     res[5] = (int)data;
@@ -597,7 +597,8 @@ void * __cdecl Res_CreateRecord(int type,char *name,void *data)
     iVar6 = 1;
     do {
       piVar2 = *(int **)(&g_aFoundFiles + (g_dwLastFound - iVar6 & 0xf) * 4);
-      if ((piVar2 != (int *)0x0) && (iVar3 = _stricmp(name,piVar2[1]), iVar3 == 0)) {
+      if ((piVar2 != (int *)0x0) && (iVar3 = _stricmp((byte *)name,(byte *)piVar2[1]), iVar3 == 0))
+      {
         res[2] = piVar2[1];
         res[8] = *(int *)(&g_aFoundFileNodes + (g_dwLastFound - iVar6 & 0xf) * 4);
         res[3] = *piVar2;
@@ -746,36 +747,39 @@ uint __cdecl Res_HashName(char *name,char *outLower)
 
 {
   char cVar1;
-  uint uVar2;
-  char *pcVar3;
+  int iVar2;
+  uint uVar3;
+  char *pcVar4;
   
-  uVar2 = 0xffffffff;
-  pcVar3 = name;
+  uVar3 = 0xffffffff;
+  pcVar4 = name;
   do {
-    if (uVar2 == 0) break;
-    uVar2 = uVar2 - 1;
-    cVar1 = *pcVar3;
-    pcVar3 = pcVar3 + 1;
+    if (uVar3 == 0) break;
+    uVar3 = uVar3 - 1;
+    cVar1 = *pcVar4;
+    pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
-  uVar2 = ~uVar2 - 1;
-  uVar2 = uVar2 | ((uVar2 * 0x100 | uVar2) << 8 | uVar2) << 8;
-  cVar1 = toupper((int)*name);
+  uVar3 = ~uVar3 - 1;
+  uVar3 = uVar3 | ((uVar3 * 0x100 | uVar3) << 8 | uVar3) << 8;
+  iVar2 = toupper((int)*name);
+  cVar1 = (char)iVar2;
   *outLower = cVar1;
   while (cVar1 != '\0') {
     outLower = outLower + 1;
     name = name + 1;
-    uVar2 = (uVar2 * 2 | uVar2 >> 0x1f) ^ (int)cVar1;
-    cVar1 = toupper((int)*name);
+    uVar3 = (uVar3 * 2 | uVar3 >> 0x1f) ^ (int)(char)iVar2;
+    iVar2 = toupper((int)*name);
+    cVar1 = (char)iVar2;
     *outLower = cVar1;
   }
-  return uVar2;
+  return uVar3;
 }
 
 /* ---- 0x00482170  Res_GetFirstType ---- */
 /* Original name Res_GetFirstType (the remaster's GrimFandango (Linux): aligned call in
    sputRoom_Save); was Res_FindByHandleOrNull. */
 
-void Res_GetFirstType(int *param_1,int *param_2,int param_3)
+void __cdecl Res_GetFirstType(int *param_1,int *param_2,int param_3)
 
 {
   int *piVar1;
@@ -799,7 +803,7 @@ void Res_GetFirstType(int *param_1,int *param_2,int param_3)
 /* Original name Res_GetNextType (the remaster's GrimFandango (Linux): aligned call in
    sputRoom_Save); was Res_NextInList. */
 
-void Res_GetNextType(int *param_1,int *param_2,int param_3)
+void __cdecl Res_GetNextType(int *param_1,int *param_2,int param_3)
 
 {
   int *piVar1;
@@ -849,7 +853,7 @@ undefined * __cdecl Res_Touch(void *param_1)
 
 
 /* ---- 0x004824f0  Res_CountChildren ---- */
-int Res_CountChildren(uint param_1,uint param_2)
+int __cdecl Res_CountChildren(uint param_1,uint param_2)
 
 {
   int iVar1;
@@ -870,7 +874,7 @@ int Res_CountChildren(uint param_1,uint param_2)
 /* Cache limit in megabytes (shifted left by 20) Original name grimlib_SetCacheMax (the remaster's
    GrimFandango (Linux): max_ram = MB << 20); was Res_SetCacheSizeMB. */
 
-void grimlib_SetCacheMax(int param_1)
+void __cdecl grimlib_SetCacheMax(int param_1)
 
 {
   g_dwMax_ram = param_1 << 0x14;
@@ -881,7 +885,7 @@ void grimlib_SetCacheMax(int param_1)
 /* Original name sputResource_ReportAllocations (the remaster's GrimFandango (Linux): strings:
    'Grim.res'); was Res_PrintReport. */
 
-void sputResource_ReportAllocations(void)
+void __cdecl sputResource_ReportAllocations(void)
 
 {
   Res_Dump(s_Grim_res_004e9c74,0);

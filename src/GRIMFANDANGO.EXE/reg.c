@@ -10,7 +10,7 @@
 /* W32Util/wuregistry: creates/opens the game key; if its Version value differs from ours the key is
    deleted and recreated. Then caches all value names. */
 
-void Reg_Open(void *param_1,uint param_2,char *param_3)
+void __cdecl Reg_Open(void *param_1,uint param_2,char *param_3)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -18,16 +18,16 @@ void Reg_Open(void *param_1,uint param_2,char *param_3)
   int iVar2;
   #define local_88 (*(int *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(undefined1 (*)[4])(_frame + (0xa0 - 0x84)))
-  #define acStack_80 (*(char (*)[128])(_frame + (0xa0 - 0x80)))
+  #define abStack_80 (*(byte (*)[128])(_frame + (0xa0 - 0x80)))
   
   _DAT_004f5ea8 = 1;
   UINT_004f5eac = param_2;
   g_pRegRootKey = param_1;
   iVar1 = RegCreateKeyExA((int)param_1,param_2,0,((unsigned)(uintptr_t)&DAT_004f5a98),0,0xf003f,0,(int)&local_88,(int)local_84);
   if (iVar1 == 0) {
-    iVar2 = wuRegistry_GetStr(s_Version_004dda60,acStack_80,0x80,(char *)0x0);
+    iVar2 = wuRegistry_GetStr(s_Version_004dda60,(char *)abStack_80,0x80,(char *)0x0);
     if (iVar2 != 0) {
-      iVar2 = _stricmp(acStack_80,param_3);
+      iVar2 = _stricmp(abStack_80,(byte *)param_3);
       if (iVar2 != 0) {
         RegDeleteKeyA((int)g_pRegRootKey,UINT_004f5eac);
         iVar1 = RegCreateKeyExA((int)g_pRegRootKey,UINT_004f5eac,0,((unsigned)(uintptr_t)&DAT_004f5a98),0,0xf003f,0,
@@ -42,7 +42,7 @@ void Reg_Open(void *param_1,uint param_2,char *param_3)
   Reg_CacheValueNames();
   return;
 }
-#undef acStack_80
+#undef abStack_80
 #undef local_84
 #undef local_88
 
@@ -50,7 +50,7 @@ void Reg_Open(void *param_1,uint param_2,char *param_3)
 /* ---- 0x004039a0  Reg_CacheValueNames ---- */
 /* RegEnumValue into g_ppRegValueNames (lower-cased, qsorted) so Reg_HasValue can bsearch */
 
-void Reg_CacheValueNames(void)
+void __cdecl Reg_CacheValueNames(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -100,7 +100,7 @@ void Reg_CacheValueNames(void)
 /* Original name wuRegistry_Shutdown (the remaster's GrimFandango (Linux): the registry shutdown
    after the cursor in Main_Shutdown in both builds (the remaster's is empty)); was Reg_Close. */
 
-void wuRegistry_Shutdown(void)
+void __cdecl wuRegistry_Shutdown(void)
 
 {
   Reg_FreeValueNames();
@@ -109,7 +109,7 @@ void wuRegistry_Shutdown(void)
 }
 
 /* ---- 0x00403b30  Reg_FreeValueNames ---- */
-void Reg_FreeValueNames(void)
+void __cdecl Reg_FreeValueNames(void)
 
 {
   uint uVar1;
@@ -245,7 +245,7 @@ int __cdecl Reg_HasValue(char *name)
     pcVar6 = pcVar6 + 1;
   }
   Str_ToLower(local_80);
-  piVar2 = (int *)bsearch(&local_84,g_ppRegValueNames,g_dwRegValueCount,4,Str_ComparePtrs);
+  piVar2 = bsearch(&local_84,g_ppRegValueNames,g_dwRegValueCount,4,Str_ComparePtrs);
   if (piVar2 != (int *)0x0) {
     return *piVar2;
   }
@@ -445,7 +445,7 @@ int __cdecl wuRegistry_GetStr(char *name,char *buf,int size,char *defaultValue)
   iVar3 = RegQueryValueExA((int)name,(int)a2,0,(int)auStack_4,(int)buf,(int)&iStack_8);
   if (iVar3 != 0) {
     if (defaultValue != (char *)0x0) {
-      strncpy(pcVar1,defaultValue,iVar2 + -1);
+      strncpy((uint *)pcVar1,(uint *)defaultValue,iVar2 - 1);
       pcVar1[iVar2 + -1] = '\0';
     }
     RegCloseKey((int)name);

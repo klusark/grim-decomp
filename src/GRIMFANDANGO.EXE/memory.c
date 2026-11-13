@@ -91,10 +91,10 @@ void __cdecl Mem_CheckAlloc(void *p,char *file,int line)
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
+uint __cdecl Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
   g_pMemoryHS = param_1;
   uVar1 = 1;
@@ -121,7 +121,7 @@ undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
    Memory_SysTerminate (the remaster's GrimFandango (Linux): aligned call in Memory_SysInitialize);
    was Memory_Sys_Terminate. */
 
-void Memory_SysTerminate(void)
+void __cdecl Memory_SysTerminate(void)
 
 {
   g_dwMemorySysInitialized = 0;
@@ -133,10 +133,10 @@ void Memory_SysTerminate(void)
    (non-zero makes the whole start-up unwind). Original name Memory_SysStartup (the remaster's
    GrimFandango (Linux): aligned call in Memory_SysInitialize); was Memory_Sys_Start. */
 
-undefined4 Memory_SysStartup(void)
+uint __cdecl Memory_SysStartup(void)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
   uVar1 = 1;
   if ((g_dwMemorySysInitialized != 0) && (g_dwMemorySysStarted == 0)) {
@@ -151,7 +151,7 @@ undefined4 Memory_SysStartup(void)
    releases what _Start created. Original name Memory_SysShutdown (the remaster's GrimFandango
    (Linux): aligned call in Memory_SysInitialize); was Memory_Sys_Stop. */
 
-void Memory_SysShutdown(void)
+void __cdecl Memory_SysShutdown(void)
 
 {
   g_dwMemorySysStarted = 0;
@@ -164,7 +164,7 @@ void Memory_SysShutdown(void)
    Memory_AllocatePool (the remaster's GrimFandango (Linux): aligned call in Res_SysStartup,
    sputRoom_Startup, sputText_Startup); was Pool_Create. */
 
-void ** Memory_AllocatePool(int param_1,void *param_2,void *param_3)
+void ** __cdecl Memory_AllocatePool(int param_1,void *param_2,void *param_3)
 
 {
   void **ppvVar1;
@@ -197,7 +197,7 @@ void ** Memory_AllocatePool(int param_1,void *param_2,void *param_3)
   ppvVar1[6] = param_3;
   ppvVar1[7] = (void *)0x0;
   if (param_2 != (void *)0x0) {
-    Pool_Grow(ppvVar1,param_2);
+    Pool_Grow((int)ppvVar1,(int)param_2);
   }
   if (ppvVar1[5] != param_2) {
     (*g_pMemoryHS->pAssertFail)
@@ -212,7 +212,7 @@ void ** Memory_AllocatePool(int param_1,void *param_2,void *param_3)
    name Memory_FreePool (the remaster's GrimFandango (Linux): aligned call in sputCostume_Shutdown,
    sputRoom_Shutdown, sputText_Shutdown); was Pool_Destroy. */
 
-void Memory_FreePool(void **param_1)
+void __cdecl Memory_FreePool(void **param_1)
 
 {
   undefined4 *puVar1;
@@ -253,7 +253,7 @@ void Memory_FreePool(void **param_1)
    header + 8). Original name Memory_AllocFixed (the remaster's GrimFandango (Linux): aligned call
    in Res_SysRegisterHandler, sputText_Restore); was Pool_Alloc. */
 
-int * Memory_AllocFixed(int *param_1)
+int * __cdecl Memory_AllocFixed(int *param_1)
 
 {
   int *piVar1;
@@ -267,7 +267,7 @@ int * Memory_AllocFixed(int *param_1)
               (s_pPool__pPool____pPool_004e82dc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x42b);
   }
   if (param_1[3] == param_1[5]) {
-    Pool_Grow(param_1,param_1[6]);
+    Pool_Grow((int)param_1,param_1[6]);
   }
   piVar1 = (int *)param_1[7];
   if (piVar1 != (int *)0x0) {
@@ -311,7 +311,7 @@ void __cdecl Pool_Free(void *item)
 /* ---- 0x00488c00  Pool_Grow ---- */
 /* Allocates one chunk of `count` items and threads them onto the free list. */
 
-void Pool_Grow(int param_1,int param_2)
+void __cdecl Pool_Grow(int param_1,int param_2)
 
 {
   int *piVar1;

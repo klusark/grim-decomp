@@ -66,7 +66,7 @@ LAB_004021fb:
 }
 
 /* ---- 0x00402200  FUN_00402200 ---- */
-undefined4 FUN_00402200(void)
+uint __cdecl FUN_00402200(void)
 
 {
   (*(code *)UINT_004f5a70)();
@@ -78,7 +78,7 @@ undefined4 FUN_00402200(void)
    pop/push the selected actor costume (forces windowed mode while editing), >=7 sets
    g_fixedFrameMs. */
 
-void ChoreFace_OnCommand(undefined4 param_1,int param_2)
+void __cdecl ChoreFace_OnCommand(uint param_1,int param_2)
 
 {
   switch(param_2) {

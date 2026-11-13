@@ -9,7 +9,7 @@
 /* Original name Res_FileCloseAll (the remaster's GrimFandango (Linux): aligned call in
    Res_SysShutdown, sputResource_CloseResources); was Lab_CloseAll. */
 
-void Res_FileCloseAll(void)
+void __cdecl Res_FileCloseAll(void)
 
 {
   while (g_pResFileList != (int *)0x0) {
@@ -59,19 +59,19 @@ int __cdecl Res_FileClose(char *name)
   char cVar1;
   int *piVar2;
   int *res;
-  void *pvVar3;
+  int *piVar3;
   char *pcVar4;
   uint uVar5;
   uint uVar6;
   char *pcVar7;
   char *pcVar8;
   
-  pvVar3 = Lab_Find(name);
+  piVar3 = Lab_Find(name);
   piVar2 = g_pNewestResNode;
-  if (pvVar3 != (void *)0x0) {
+  if (piVar3 != (int *)0x0) {
     while (res = piVar2, res != (int *)0x0) {
       piVar2 = (int *)*res;
-      if ((void *)res[8] == pvVar3) {
+      if ((int *)res[8] == piVar3) {
         if ((res[9] == 0) && ((*(byte *)(res + 7) & 8) == 0)) {
           Res_CallUnload(res);
           Res_Unlink(res);
@@ -116,16 +116,16 @@ int __cdecl Res_FileClose(char *name)
         }
       }
     }
-    if ((*(byte *)((int)pvVar3 + 0x114) & 2) != 0) {
-      Res_FClose(*(int *)((int)pvVar3 + 0x10c));
+    if ((*(byte *)(piVar3 + 0x45) & 2) != 0) {
+      Res_FClose(piVar3[0x43]);
     }
-    if (*(int *)((int)pvVar3 + 0x118) != 0) {
-      (**(code **)(g_dwResHS + 0x24))(*(int *)((int)pvVar3 + 0x118));
+    if (piVar3[0x46] != 0) {
+      (**(code **)(g_dwResHS + 0x24))(piVar3[0x46]);
     }
-    if (*(int *)((int)pvVar3 + 0x11c) != 0) {
-      (**(code **)(g_dwResHS + 0x24))(*(int *)((int)pvVar3 + 0x11c));
+    if (piVar3[0x47] != 0) {
+      (**(code **)(g_dwResHS + 0x24))(piVar3[0x47]);
     }
-    Lab_Unlink(pvVar3);
+    Lab_Unlink(piVar3);
   }
   return 1;
 }
@@ -209,7 +209,7 @@ LAB_004810b5:
 }
 
 /* ---- 0x004813c0  Lab_Unlink ---- */
-void Lab_Unlink(int *param_1)
+void __cdecl Lab_Unlink(int *param_1)
 
 {
   if ((int *)param_1[1] != (int *)0x0) {
@@ -324,7 +324,7 @@ int * Lab_AllocRecord(void)
   int iVar2;
   int *piVar3;
   
-  piVar1 = (int *)Memory_AllocFixed(g_dwResFilePool);
+  piVar1 = Memory_AllocFixed((int *)g_dwResFilePool);
   if (piVar1 == (int *)0x0) {
     return (int *)0x0;
   }
@@ -359,11 +359,11 @@ int __cdecl Lab_ReadDirectory(void *lab)
   undefined4 *puVar6;
   void *pvVar7;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(undefined1 (*)[8])(_frame + (0x20 - 0x8)))
+  #define local_8 (*(char (*)[8])(_frame + (0x20 - 0x8)))
   
   pvVar1 = lab;
   uVar2 = Res_FRead(*(int *)((int)lab + 0x10c),local_8,4);
-  if ((((uVar2 == 4) && (iVar3 = strncmp(local_8,&DAT_004e7af0,4), iVar3 == 0)) &&
+  if ((((uVar2 == 4) && (uVar2 = strncmp(local_8,&DAT_004e7af0,4), uVar2 == 0)) &&
       (uVar2 = Res_FRead(*(int *)((int)pvVar1 + 0x10c),&lab,4), uVar2 == 4)) &&
      (((lab < (void *)0x10001 &&
        (uVar2 = Res_FRead(*(int *)((int)pvVar1 + 0x10c),&lab,4), pvVar7 = lab, uVar2 == 4)) &&

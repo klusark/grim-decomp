@@ -8,7 +8,7 @@
 /* ---- 0x00488840  Spew_Startup ---- */
 /* Loads spew.dll on first use and calls its Spew_Startup export (debug output DLL) */
 
-void Spew_Startup(void)
+void __cdecl Spew_Startup(void)
 
 {
   if (g_hSpewDll == (void *)0x0) {
@@ -28,7 +28,7 @@ void Spew_Startup(void)
    grimlib_Close in Main_Shutdown in both builds: the debug module's shutdown (here it unloads the
    spew DLL; the remaster's is empty)); was Spew_Shutdown. */
 
-void grimDebug_Shutdown(void)
+void __cdecl grimDebug_Shutdown(void)
 
 {
   if (g_hSpewDll != (void *)0x0) {
@@ -40,7 +40,7 @@ void grimDebug_Shutdown(void)
 }
 
 /* ---- 0x00488890  Spew_LoadDll ---- */
-void Spew_LoadDll(void)
+void __cdecl Spew_LoadDll(void)
 
 {
   g_hSpewDll = (void *)LoadLibraryA(((unsigned)(uintptr_t)&DAT_004e8238));

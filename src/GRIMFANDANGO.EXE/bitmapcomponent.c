@@ -11,7 +11,7 @@
    sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a bitmap key or
    asks for an image file (.pcx/.gif/.lbm) and loads it as a bitmap resource. */
 
-undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+uint __cdecl BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -19,7 +19,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   char cVar2;
   int iVar3;
   char *name;
-  undefined4 uVar4;
+  uint *puVar4;
   char *data;
   undefined4 *ref;
   uint uVar5;
@@ -33,7 +33,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(undefined1 (*)[31])(_frame + (0x50 - 0x20)))
+  #define local_20 (*(uint (*)[7])(_frame + (0x50 - 0x20)))
   #define local_1 (*(undefined1 *)(_frame + (0x50 - 0x1)))
   
   local_34 = 1;
@@ -43,7 +43,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   local_24 = 0;
   if (param_5 == (char *)0x0) {
     if (g_bBitmapPath != '\0') {
-      grimPlat_SetDefaultOpenPath(&g_bBitmapPath);
+      grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bBitmapPath));
     }
     iVar7 = grimPlat_OpenFileRequest
                       (s_Select_image_file_to_add____004ea4b8,
@@ -51,15 +51,16 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
     if (iVar7 == 0) {
       return 0;
     }
-    uVar4 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
-    ((code *)strncpy)(&g_bBitmapPath,uVar4);
+    uVar5 = 0x7f;
+    puVar4 = (uint *)grimPlat_GetDefaultOpenPath();
+    strncpy((uint *)&g_bBitmapPath,puVar4,uVar5);
     DAT_008ca8b7 = 0;
     name = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   else {
-    strncpy(local_20,param_5,0x1f);
+    strncpy(local_20,(uint *)param_5,0x1f);
     local_1 = 0;
-    name = (char *)strtok(local_20,&DAT_004ea52c);
+    name = (char *)strtok((byte *)local_20,&DAT_004ea52c);
   }
   data = sputResource_Alloc(0x444e4b42,name);
   if (data == (char *)0x0) {

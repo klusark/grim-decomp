@@ -285,7 +285,7 @@ int __cdecl SoundModule_AddTrackBuffer(uint size,int limit)
     return -2;
   }
 LAB_004d0827:
-  msc_MemSet((&UINT_008dad58)[uVar1 * 0xd],0x7f,*(undefined4 *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)));
+  msc_MemSet((&UINT_008dad58)[uVar1 * 0xd],0x7f,*(uint *)(iVar5 + ((unsigned)(uintptr_t)&DAT_008dad68)));
   g_dwSou_chans = g_dwSou_chans + 1;
   return 0;
 }

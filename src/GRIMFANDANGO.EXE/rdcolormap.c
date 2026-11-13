@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00404380  rdColormap_SetCurrent ---- */
-undefined4 rdColormap_SetCurrent(uint param_1)
+uint __cdecl rdColormap_SetCurrent(uint param_1)
 
 {
   if ((g_dwRdColormap_pCurMap != param_1) &&
@@ -40,7 +40,7 @@ void * __cdecl rdColormap_Load(char *name)
       return cmp;
     }
   }
-  rdColormap_Free(cmp);
+  rdColormap_Free((uint)cmp);
   return (void *)0x0;
 }
 
@@ -59,12 +59,11 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
   byte bVar5;
   char cVar6;
   int iVar7;
-  char *pcVar8;
-  int iVar9;
-  undefined2 *puVar10;
+  uint *puVar8;
+  undefined2 *puVar9;
+  int iVar10;
   uint uVar11;
-  undefined4 uVar12;
-  #define auStack_40 (*(undefined1 (*)[8])(_frame + (0x50 - 0x40)))
+  #define acStack_40 (*(char (*)[8])(_frame + (0x50 - 0x40)))
   #define uStack_38 (*(undefined4 *)(_frame + (0x50 - 0x38)))
   #define uStack_34 (*(undefined4 *)(_frame + (0x50 - 0x34)))
   #define uStack_30 (*(undefined4 *)(_frame + (0x50 - 0x30)))
@@ -74,17 +73,17 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
   if (iVar7 == 0) {
     return 0;
   }
-  uVar12 = 0x1f;
-  pcVar8 = stdFileFromPath(name);
-  strncpy(cmp,pcVar8,uVar12);
+  uVar11 = 0x1f;
+  puVar8 = (uint *)stdFileFromPath(name);
+  strncpy(cmp,puVar8,uVar11);
   *(undefined1 *)((int)cmp + 0x1f) = 0;
-  (*g_pRdroid_HS->pFread)(iVar7,auStack_40,0x40);
+  (*g_pRdroid_HS->pFread)(iVar7,acStack_40,0x40);
   *(undefined4 *)((int)cmp + 0x24) = uStack_34;
   *(undefined4 *)((int)cmp + 0x20) = uStack_38;
   *(undefined4 *)((int)cmp + 0x28) = uStack_30;
   *(undefined4 *)((int)cmp + 0x2c) = uStack_2c;
-  iVar9 = strncmp(auStack_40,&DAT_004ddb10,4);
-  if (iVar9 != 0) {
+  uVar11 = strncmp(acStack_40,&DAT_004ddb10,4);
+  if (uVar11 != 0) {
     (*g_pRdroid_HS->pFclose)(iVar7);
     rdColormap_BuildGrayRamp(cmp);
     return 1;
@@ -94,7 +93,7 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
   bVar2 = *(byte *)puVar1;
   bVar3 = *(byte *)((int)cmp + 0x31);
   bVar4 = *(byte *)((int)cmp + 0x32);
-  iVar9 = 0xfe;
+  iVar10 = 0xfe;
   do {
     bVar5 = *(byte *)puVar1;
     if (bVar5 == bVar2) {
@@ -126,18 +125,18 @@ int __cdecl rdColormap_LoadEntry(char *name,void *cmp)
       }
       *(char *)((int)cmp + 0x32) = cVar6;
     }
-    iVar9 = iVar9 + -1;
-  } while (iVar9 != 0);
+    iVar10 = iVar10 + -1;
+  } while (iVar10 != 0);
   if ((*(byte *)((int)cmp + 0x20) & 4) == 0) {
     *(undefined4 *)((int)cmp + 0x348) = 0;
   }
   else {
-    puVar10 = (undefined2 *)
-              (*g_pRdroid_HS->pAlloc)
-                        (0x8000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x4b);
-    *(undefined2 **)((int)cmp + 0x348) = puVar10;
-    if (puVar10 == (undefined2 *)0x0) goto LAB_00404659;
-    rdColormap_BuildRGB16(puVar10,puVar1,0,0,0,((unsigned)(uintptr_t)&g_dwRdColormap_colorInfo));
+    puVar9 = (undefined2 *)
+             (*g_pRdroid_HS->pAlloc)
+                       (0x8000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x4b);
+    *(undefined2 **)((int)cmp + 0x348) = puVar9;
+    if (puVar9 == (undefined2 *)0x0) goto LAB_00404659;
+    rdColormap_BuildRGB16(puVar9,puVar1,0,0,0,((unsigned)(uintptr_t)&g_dwRdColormap_colorInfo));
   }
   if ((*(byte *)((int)cmp + 0x20) & 1) != 0) {
     uVar11 = (*g_pRdroid_HS->pAlloc)
@@ -160,10 +159,10 @@ LAB_00404659:
       *(undefined4 *)((int)cmp + 0x344) = 0;
     }
     else {
-      iVar9 = (*g_pRdroid_HS->pAlloc)
-                        (0x10000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x76);
-      *(int *)((int)cmp + 0x34c) = iVar9;
-      if (iVar9 == 0) goto LAB_00404659;
+      iVar10 = (*g_pRdroid_HS->pAlloc)
+                         (0x10000,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddadc + 0x76);
+      *(int *)((int)cmp + 0x34c) = iVar10;
+      if (iVar10 == 0) goto LAB_00404659;
       if (UINT_004ddaac == 5) {
         (*g_pRdroid_HS->pFseek)(iVar7,0x10000,1);
         (*g_pRdroid_HS->pFread)(iVar7,*(undefined4 *)((int)cmp + 0x34c),0x10000);
@@ -171,7 +170,7 @@ LAB_00404659:
         *(undefined4 *)((int)cmp + 0x344) = 0;
       }
       else {
-        (*g_pRdroid_HS->pFread)(iVar7,iVar9,0x10000);
+        (*g_pRdroid_HS->pFread)(iVar7,iVar10,0x10000);
         (*g_pRdroid_HS->pFseek)(iVar7,0x10000,1);
         *(undefined4 *)((int)cmp + 0x340) = 0;
         *(undefined4 *)((int)cmp + 0x344) = 0;
@@ -181,7 +180,7 @@ LAB_00404659:
   (*g_pRdroid_HS->pFclose)(iVar7);
   return 1;
 }
-#undef auStack_40
+#undef acStack_40
 #undef uStack_2c
 #undef uStack_30
 #undef uStack_34
@@ -189,7 +188,7 @@ LAB_00404659:
 
 
 /* ---- 0x00404730  rdColormap_Free ---- */
-void rdColormap_Free(undefined4 param_1)
+void __cdecl rdColormap_Free(uint param_1)
 
 {
   rdColormap_FreeEntry(param_1);
@@ -198,7 +197,7 @@ void rdColormap_Free(undefined4 param_1)
 }
 
 /* ---- 0x00404750  rdColormap_FreeEntry ---- */
-void rdColormap_FreeEntry(int param_1)
+void __cdecl rdColormap_FreeEntry(int param_1)
 
 {
   if (*(int *)(param_1 + 0x334) != 0) {
@@ -319,7 +318,7 @@ rdColormap_BuildRGB16
    rdColormap_BuildGrayRamp (the remaster's GrimFandango (Linux): same body (name "GREYRAMP.CMP",
    the tint 1.0 / 1.0 / 1.0, the ramp)); was rdColormap_BuildGreyRamp. */
 
-undefined4 rdColormap_BuildGrayRamp(undefined4 *param_1)
+uint __cdecl rdColormap_BuildGrayRamp(undefined4 *param_1)
 
 {
   int iVar1;
@@ -330,7 +329,7 @@ undefined4 rdColormap_BuildGrayRamp(undefined4 *param_1)
   uint uVar6;
   
   *param_1 = 0;
-  strncpy(param_1,s_GREYRAMP_CMP_004ddb20,0x1f);
+  strncpy(param_1,(uint *)s_GREYRAMP_CMP_004ddb20,0x1f);
   *(undefined1 *)((int)param_1 + 0x1f) = 0;
   param_1[8] = 0;
   param_1[9] = 0x3f800000;
@@ -371,7 +370,7 @@ undefined4 rdColormap_BuildGrayRamp(undefined4 *param_1)
    0x10100 / 0x8000 / 0x10000 by the table flags); sputResource_ColormapHandler's size query); was
    FUN_00404b30. */
 
-int rdColormap_Size(int param_1)
+int __cdecl rdColormap_Size(int param_1)
 
 {
   int iVar1;

@@ -148,7 +148,7 @@ void dsn_terminate(void)
     (*(code *)g_pDsndDriver_timer_services[1])(g_nStreamTimerId);
   }
   g_nStreamTimerId = 0;
-  sou_mixer_terminate(g_dwDsndDriver_memory_services);
+  sou_mixer_terminate((int *)g_dwDsndDriver_memory_services);
   DsndDriver_ReleaseDirectSound();
   return;
 }
@@ -263,20 +263,20 @@ int DsndDriver_InitDirectSound(void)
 {
   unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
-  undefined4 uVar2;
+  void *pvVar2;
   
   if (g_pStreamDS == (void *)0x0) {
     iVar1 = DirectSoundCreate(0,((unsigned)(uintptr_t)&g_pStreamDS),0);
     if (iVar1 != 0) {
       g_pStreamDS = (void *)0x0;
-      ((code *)Lua_Stub)(s_Cannot_create_DirectSound_object_004f40d0);
+      Lua_Stub(s_Cannot_create_DirectSound_object_004f40d0);
       return -1;
     }
     iVar1 = *(int *)g_pStreamDS;
-    uVar2 = Win_GetMainHwnd();
-    iVar1 = (**(code **)(iVar1 + 0x18))(g_pStreamDS,uVar2);
+    pvVar2 = Win_GetMainHwnd();
+    iVar1 = (**(code **)(iVar1 + 0x18))(g_pStreamDS,pvVar2);
     if (iVar1 != 0) {
-      ((code *)Lua_Stub)(s_DirectSound__Error__08X_while_se_004f4098,iVar1);
+      Lua_Stub(s_DirectSound__Error__08X_while_se_004f4098,iVar1);
       if (iVar1 != 0) {
         return -1;
       }
@@ -284,7 +284,7 @@ int DsndDriver_InitDirectSound(void)
     iVar1 = (**(code_std **)(*(int *)g_pStreamDS + 0xc))
                       (g_pStreamDS,(_stkneg + 16),&g_pStreamDSPrimary,0);
     if (iVar1 != 0) {
-      ((code *)Lua_Stub)(s_DirectSound__Error__08X_while_cr_004f4060,iVar1);
+      Lua_Stub(s_DirectSound__Error__08X_while_cr_004f4060,iVar1);
       if (iVar1 != 0) {
         return -1;
       }

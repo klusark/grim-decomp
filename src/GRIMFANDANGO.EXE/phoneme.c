@@ -12,16 +12,16 @@ uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  void *pvVar1;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
   if (phoneme == 0x5f) {
     return 0;
   }
   local_8 = phoneme;
-  iVar1 = bsearch(&local_8,g_aPhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
-  if (iVar1 != 0) {
-    return *(ushort *)(iVar1 + 4);
+  pvVar1 = bsearch(&local_8,g_aPhonemeTable,g_nPhonemeCount,8,ComparePhonemes);
+  if (pvVar1 != (void *)0x0) {
+    return *(ushort *)((int)pvVar1 + 4);
   }
   return 1;
 }
@@ -32,7 +32,7 @@ uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme)
 /* Original name ComparePhonemes (the remaster's GrimFandango (Linux): aligned call in
    sputActor_Startup); was FUN_00490e50. */
 
-int ComparePhonemes(int *param_1,int *param_2)
+int __cdecl ComparePhonemes(int *param_1,int *param_2)
 
 {
   return *param_1 - *param_2;

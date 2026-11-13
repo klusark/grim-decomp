@@ -8,7 +8,7 @@
 /* ---- 0x0049a1e0  sputLua_GetActorCostumeL ---- */
 /* Lua opcode: GetActorCostume */
 
-void sputLua_GetActorCostumeL(void)
+void __cdecl sputLua_GetActorCostumeL(void)
 
 {
   int iVar1;
@@ -56,7 +56,7 @@ LAB_0049a295:
 /* WARNING: Variable defined which should be unmapped: local_24 */
 /* Lua opcode: GetPointSector */
 
-void sputLua_GetPointSectorL(void)
+void __cdecl sputLua_GetPointSectorL(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -118,7 +118,7 @@ void sputLua_GetPointSectorL(void)
 /* Per frame: stores system.frameTime and system.movieTime, collects garbage every 10 s, runs
    lua_updatetasks */
 
-void sputLua_Update(void)
+void __cdecl sputLua_Update(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -157,7 +157,7 @@ void sputLua_Update(void)
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 sputLua_Initialize(GrimServices *param_1,undefined4 *param_2)
+uint __cdecl sputLua_Initialize(GrimServices *param_1,undefined4 *param_2)
 
 {
   int iVar1;
@@ -183,7 +183,7 @@ undefined4 sputLua_Initialize(GrimServices *param_1,undefined4 *param_2)
 /* ---- 0x0049cbe0  sputLua_FunctionNameL ---- */
 /* Lua opcode: FunctionName */
 
-void sputLua_FunctionNameL(void)
+void __cdecl sputLua_FunctionNameL(void)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -241,7 +241,7 @@ void sputLua_FunctionNameL(void)
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: Lua_TypeOverride */
 
-void sputLua_TypeOverride(void)
+void __cdecl sputLua_TypeOverride(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -293,7 +293,7 @@ LAB_0049d199:
 /* Module slot 1 of sputLua: clears g_pSputLuaHS and calls the Lua shutdown hook if the Lua state
    exists. */
 
-void sputLua_Terminate(void)
+void __cdecl sputLua_Terminate(void)
 
 {
   g_pSputLuaHS = (GrimServices *)0x0;
@@ -310,11 +310,11 @@ void sputLua_Terminate(void)
    GrimFandango (Linux): the only unmatched caller of stdFileUtil_DisposeFind; 1 matched neighbours
    agree, 0 disagree); was sputLua_Stop. */
 
-void sputLua_Shutdown(void)
+void __cdecl sputLua_Shutdown(void)
 
 {
   if (g_pFrFileReq != (void *)0x0) {
-    stdFileUtil_DisposeFind(g_pFrFileReq);
+    stdFileUtil_DisposeFind((int)g_pFrFileReq);
     g_pFrFileReq = (void *)0x0;
   }
   lua_unref(g_nLrSystemTable);
@@ -328,7 +328,7 @@ void sputLua_Shutdown(void)
 /* ---- 0x0049e880  sputLua_StartMovieL ---- */
 /* Lua opcode: StartMovie */
 
-void sputLua_StartMovieL(void)
+void __cdecl sputLua_StartMovieL(void)
 
 {
   int iVar1;
@@ -336,10 +336,10 @@ void sputLua_StartMovieL(void)
   int iVar3;
   int iVar4;
   int iVar5;
-  undefined4 uVar6;
-  undefined4 uVar7;
-  longlong lVar8;
-  undefined4 uVar9;
+  uint uVar6;
+  uint uVar7;
+  uint uVar8;
+  longlong lVar9;
   uint uVar10;
   
   iVar1 = lua_lua2C(1);
@@ -351,26 +351,26 @@ void sputLua_StartMovieL(void)
     SoundsFloodMusicBuffer();
     iVar5 = lua_isnumber(iVar4);
     if (iVar5 == 0) {
-      uVar7 = 0xffffffff;
+      uVar8 = 0xffffffff;
     }
     else {
-      lVar8 = (longlong)lua_getnumber(iVar4);
-      uVar7 = (undefined4)lVar8;
+      lVar9 = (longlong)lua_getnumber(iVar4);
+      uVar8 = (uint)lVar9;
     }
     iVar4 = lua_isnumber(iVar3);
     if (iVar4 == 0) {
       uVar6 = 0xffffffff;
     }
     else {
-      lVar8 = (longlong)lua_getnumber(iVar3);
-      uVar6 = (undefined4)lVar8;
+      lVar9 = (longlong)lua_getnumber(iVar3);
+      uVar6 = (uint)lVar9;
     }
     iVar2 = lua_isnil(iVar2);
     uVar10 = (uint)(iVar2 == 0);
-    uVar9 = 0;
-    iVar1 = lua_getstring(iVar1);
-    iVar1 = grimlib_PlayMovie(iVar1,uVar9,uVar10,uVar6,uVar7);
-    if (iVar1 == 1) {
+    iVar2 = 0;
+    uVar7 = lua_getstring(iVar1);
+    uVar8 = grimlib_PlayMovie(uVar7,iVar2,uVar10,uVar6,uVar8);
+    if (uVar8 == 1) {
       lua_pushnumber(1.0);
       return;
     }
@@ -382,7 +382,7 @@ void sputLua_StartMovieL(void)
 /* ---- 0x0049f0f0  sputLua_RotateVectorL ---- */
 /* Lua opcode: RotateVector */
 
-void sputLua_RotateVectorL(void)
+void __cdecl sputLua_RotateVectorL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -452,7 +452,7 @@ void sputLua_RotateVectorL(void)
 /* ---- 0x004a0f20  sputLua_ImStartRecording ---- */
 /* Lua opcode: ImStartRecording */
 
-void sputLua_ImStartRecording(void)
+void __cdecl sputLua_ImStartRecording(void)
 
 {
   int iVar1;
@@ -477,7 +477,7 @@ void sputLua_ImStartRecording(void)
 /* Lua opcodes: ImStartSound, play
    also registered as `play` */
 
-void sputLua_ImStartSound(void)
+void __cdecl sputLua_ImStartSound(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -516,7 +516,7 @@ void sputLua_ImStartSound(void)
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImStopSound */
 
-void sputLua_ImStopSound(void)
+void __cdecl sputLua_ImStopSound(void)
 
 {
   int iVar1;
@@ -539,7 +539,7 @@ void sputLua_ImStopSound(void)
 /* WARNING: Variable defined which should be unmapped: local_10 */
 /* Lua opcode: ImGetParam */
 
-void sputLua_ImGetParam(void)
+void __cdecl sputLua_ImGetParam(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -581,7 +581,7 @@ void sputLua_ImGetParam(void)
 /* ---- 0x004a1140  sputLua_ImSetParam ---- */
 /* Lua opcode: ImSetParam */
 
-void sputLua_ImSetParam(void)
+void __cdecl sputLua_ImSetParam(void)
 
 {
   int iVar1;
@@ -638,7 +638,7 @@ void sputLua_ImSetParam(void)
 /* ---- 0x004a1260  sputLua_ImFadeParam ---- */
 /* Lua opcode: ImFadeParam */
 
-void sputLua_ImFadeParam(void)
+void __cdecl sputLua_ImFadeParam(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -712,7 +712,7 @@ void sputLua_ImFadeParam(void)
 /* ---- 0x004a1590  sputLua_ImStartVoice ---- */
 /* Lua opcode: ImStartVoice */
 
-void sputLua_ImStartVoice(void)
+void __cdecl sputLua_ImStartVoice(void)
 
 {
   int iVar1;
@@ -773,7 +773,7 @@ void __fastcall sputLua_ImSetSequence(undefined4 param_1)
 /* WARNING: Variable defined which should be unmapped: local_14 */
 /* Lua opcode: ImSetAttribute */
 
-void sputLua_ImSetAttribute(void)
+void __cdecl sputLua_ImSetAttribute(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -807,7 +807,7 @@ void sputLua_ImSetAttribute(void)
 /* Lua opcodes: vfx, ImSetVoiceEffect
    also registered as `vfx` */
 
-void sputLua_ImSetVoiceEffect(void)
+void __cdecl sputLua_ImSetVoiceEffect(void)
 
 {
   int iVar1;
@@ -826,7 +826,7 @@ void sputLua_ImSetVoiceEffect(void)
 /* ---- 0x004a2b00  sputLua_FadeInChore ---- */
 /* Lua opcode: FadeInChore */
 
-void sputLua_FadeInChore(void)
+void __cdecl sputLua_FadeInChore(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -871,7 +871,7 @@ void sputLua_FadeInChore(void)
 /* ---- 0x004a35d0  sputLua_SubmitSaveGameData ---- */
 /* Lua opcode: SubmitSaveGameData */
 
-void sputLua_SubmitSaveGameData(void)
+void __cdecl sputLua_SubmitSaveGameData(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

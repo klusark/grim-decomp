@@ -573,7 +573,7 @@ SmushPlay_FakeBlit(uint param_1,uint param_2,uint param_3,uint param_4,uint para
 /* Original name grimmem_memory_module (the remaster's GrimFandango (Linux): slot 0 of the
    "LECMODULE=insane_memory" service table); was FUN_004bdf70. */
 
-undefined4 grimmem_memory_module(int *param_1,undefined4 param_2)
+uint __cdecl grimmem_memory_module(int *param_1,uint param_2)
 
 {
   g_pGrimmem_share_services = param_1;
@@ -587,7 +587,7 @@ undefined4 grimmem_memory_module(int *param_1,undefined4 param_2)
 /* Original name grimmem_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the
    "LECMODULE=insane_memory" service table); was FUN_004bdfb0. */
 
-void grimmem_module_terminate(void)
+void __cdecl grimmem_module_terminate(void)
 
 {
   (*(code *)g_pGrimmem_share_services[1])(s_MEMORY_insane_004f0ccc);
@@ -599,7 +599,7 @@ void grimmem_module_terminate(void)
 /* Original name mem_Alloc (the remaster's GrimFandango (Linux): slot 0 of the "MEMORY=insane"
    service table); was FUN_004bdfe0. */
 
-void mem_Alloc(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl mem_Alloc(uint param_1,uint param_2,uint param_3)
 
 {
   (**(code **)(g_dwSmushPlayHS + 0x20))(param_1,param_2,param_3);
@@ -610,7 +610,7 @@ void mem_Alloc(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* Original name mem_Free (the remaster's GrimFandango (Linux): slot 1 of the "MEMORY=insane"
    service table); was FUN_004be000. */
 
-void mem_Free(undefined4 param_1)
+void __cdecl mem_Free(uint param_1)
 
 {
   (**(code **)(g_dwSmushPlayHS + 0x24))(param_1);
@@ -621,7 +621,7 @@ void mem_Free(undefined4 param_1)
 /* Original name mem_Realloc (the remaster's GrimFandango (Linux): slot 2 of the "MEMORY=insane"
    service table); was FUN_004be020. */
 
-void mem_Realloc(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4)
+void __cdecl mem_Realloc(uint param_1,uint param_2,uint param_3,uint param_4)
 
 {
   (**(code **)(g_dwSmushPlayHS + 0x28))(param_1,param_2,param_3,param_4);
@@ -633,7 +633,7 @@ void mem_Realloc(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
 /* Original name grimio_stdio_module (the remaster's GrimFandango (Linux): slot 0 of the
    "LECMODULE=insane_stdio" service table); was FUN_004be050. */
 
-undefined4 grimio_stdio_module(int *param_1,undefined4 param_2)
+uint __cdecl grimio_stdio_module(int *param_1,uint param_2)
 
 {
   g_pSmushPlay_share_services = param_1;
@@ -647,7 +647,7 @@ undefined4 grimio_stdio_module(int *param_1,undefined4 param_2)
 /* Original name grimio_terminate (the remaster's GrimFandango (Linux): slot 1 of the
    "LECMODULE=insane_stdio" service table); was FUN_004be090. */
 
-void grimio_terminate(void)
+void __cdecl grimio_terminate(void)
 
 {
   (*(code *)g_pSmushPlay_share_services[1])(s_FILIO_insane_stdio_004f0c64);
@@ -659,7 +659,7 @@ void grimio_terminate(void)
 /* Original name grimio_Open (the remaster's GrimFandango (Linux): slot 0 of the
    "FILIO=insane_stdio" service table); was FUN_004be0c0. */
 
-void grimio_Open(undefined4 param_1,undefined4 param_2)
+void __cdecl grimio_Open(uint param_1,uint param_2)
 
 {
   (**(code **)(g_dwSmushPlayHS + 0x30))(param_1,param_2);
@@ -670,7 +670,7 @@ void grimio_Open(undefined4 param_1,undefined4 param_2)
 /* Original name grimio_Close (the remaster's GrimFandango (Linux): slot 1 of the
    "FILIO=insane_stdio" service table); was FUN_004be0e0. */
 
-void grimio_Close(undefined4 param_1)
+void __cdecl grimio_Close(uint param_1)
 
 {
   (**(code **)(g_dwSmushPlayHS + 0x34))(param_1);
@@ -681,7 +681,7 @@ void grimio_Close(undefined4 param_1)
 /* Original name grimio_Read (the remaster's GrimFandango (Linux): slot 2 of the
    "FILIO=insane_stdio" service table); was FUN_004be100. */
 
-void grimio_Read(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl grimio_Read(uint param_1,uint param_2,uint param_3)
 
 {
   (**(code **)(g_dwSmushPlayHS + 0x38))(param_1,param_2,param_3);
@@ -692,7 +692,7 @@ void grimio_Read(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* Original name grimio_Write (the remaster's GrimFandango (Linux): slot 3 of the
    "FILIO=insane_stdio" service table); was FUN_004be120. */
 
-void grimio_Write(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl grimio_Write(uint param_1,uint param_2,uint param_3)
 
 {
   (**(code **)(g_dwSmushPlayHS + 0x40))(param_1,param_2,param_3);
@@ -703,7 +703,7 @@ void grimio_Write(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* Original name grimio_Tell (the remaster's GrimFandango (Linux): slot 4 of the
    "FILIO=insane_stdio" service table); was FUN_004be140. */
 
-void grimio_Tell(undefined4 param_1)
+void __cdecl grimio_Tell(uint param_1)
 
 {
   (**(code **)(g_dwSmushPlayHS + 0x48))(param_1);
@@ -714,7 +714,7 @@ void grimio_Tell(undefined4 param_1)
 /* Original name grimio_Seek (the remaster's GrimFandango (Linux): slot 5 of the
    "FILIO=insane_stdio" service table); was FUN_004be160. */
 
-void grimio_Seek(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl grimio_Seek(uint param_1,uint param_2,uint param_3)
 
 {
   (**(code **)(g_dwSmushPlayHS + 0x4c))(param_1,param_2,param_3);
@@ -774,19 +774,19 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
     uVar6 = (uint)a3 >> 0x10;
     iVar4 = GetDlgItem(a1,0x3fb);
     if (a4 == iVar4) {
-      LightEd_RefreshControl(a1,0x3fb,uVar3,uVar6);
+      LightEd_RefreshControl(a1,1.42792e-42,uVar3,uVar6);
       return (undefined *)0x1;
     }
     iVar4 = GetDlgItem(a1,0x3ff);
     if (a4 == iVar4) {
-      LightEd_RefreshControl(a1,0x3ff,uVar3,uVar6);
+      LightEd_RefreshControl(a1,1.43353e-42,uVar3,uVar6);
       return (undefined *)0x1;
     }
     iVar4 = GetDlgItem(a1,0x400);
     if (a4 != iVar4) {
       return (undefined *)0x0;
     }
-    LightEd_RefreshControl(a1,0x400,uVar3,uVar6);
+    LightEd_RefreshControl(a1,1.43493e-42,uVar3,uVar6);
     return (undefined *)0x1;
   }
   sVar2 = (short)((uint)a3 >> 0x10);
@@ -823,7 +823,7 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
         }
       }
     }
-    LightEd_UpdateDialog(g_hLightEdDialog);
+    LightEd_UpdateDialog((int)g_hLightEdDialog);
     return (undefined *)0x1;
   case 0x3ec:
   case 0x3ed:
@@ -904,7 +904,8 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
       if (*(int *)((int)g_pLightEdSet + 0xb8) != 0) {
         puVar8 = &UINT_008d1730;
         do {
-          if ((uVar3 != iVar4) && (iVar5 = _stricmp(*puVar8,&local_28), iVar5 == 0)) break;
+          if ((uVar3 != iVar4) && (iVar5 = _stricmp((byte *)*puVar8,(byte *)&local_28), iVar5 == 0))
+          break;
           uVar3 = uVar3 + 1;
           puVar8 = puVar8 + 5;
         } while (uVar3 < *(uint *)((int)g_pLightEdSet + 0xb8));
@@ -962,42 +963,44 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
 /* Original name BatchUnsubscribe (the remaster's GrimFandango (Linux): strings:
    "LecShare:BatchUnsubscribe Couldn't unsubscribe from %s inte); was FUN_004c1900. */
 
-undefined4 BatchUnsubscribe(int *param_1)
+uint __cdecl BatchUnsubscribe(int *param_1)
 
 {
   int iVar1;
-  int *piVar2;
-  int iVar3;
+  uint uVar2;
+  int *piVar3;
+  int *piVar4;
+  int iVar5;
   
   if (*param_1 == 0) {
     return 1;
   }
-  param_1 = param_1 + 3;
-  iVar3 = 1;
-  iVar1 = *param_1;
+  piVar4 = param_1 + 3;
+  iVar5 = 1;
+  iVar1 = *piVar4;
   while (iVar1 != 0) {
-    piVar2 = param_1 + 3;
-    param_1 = param_1 + 3;
-    iVar3 = iVar3 + 1;
-    iVar1 = *piVar2;
+    piVar3 = piVar4 + 3;
+    piVar4 = piVar4 + 3;
+    iVar5 = iVar5 + 1;
+    iVar1 = *piVar3;
   }
-  if (iVar3 == 0) {
+  if (iVar5 == 0) {
     return 0;
   }
   do {
-    iVar3 = iVar3 + -1;
-    piVar2 = param_1 + -3;
-    iVar1 = LecShare_Unsubscribe(*(undefined4 *)*piVar2);
-    if (iVar1 != 0) {
+    iVar5 = iVar5 + -1;
+    piVar3 = piVar4 + -3;
+    uVar2 = LecShare_Unsubscribe(*(uint *)*piVar3);
+    if (uVar2 != 0) {
       if (PTR_LecShare_Nop_004f1220 != (undefined *)0x0) {
-        (*(code *)PTR_LecShare_Nop_004f1220)
-                  (s_LecShare_BatchUnsubscribe_Couldn_004f1298,param_1[-2]);
+        (*(code *)PTR_LecShare_Nop_004f1220)(s_LecShare_BatchUnsubscribe_Couldn_004f1298,piVar4[-2])
+        ;
       }
       return 1;
     }
-    *(undefined4 *)*piVar2 = 0;
-    param_1 = piVar2;
-  } while (iVar3 != 0);
+    *(undefined4 *)*piVar3 = 0;
+    piVar4 = piVar3;
+  } while (iVar5 != 0);
   return 0;
 }
 
@@ -1006,7 +1009,7 @@ undefined4 BatchUnsubscribe(int *param_1)
 /* Original name anm_animplay_module (the remaster's GrimFandango (Linux): slot 0 of the
    "LECMODULE=insane_animplay" service table); was FUN_004c1f40. */
 
-undefined4 anm_animplay_module(int *param_1,uint param_2)
+uint __cdecl anm_animplay_module(int *param_1,uint param_2)
 
 {
   g_pAnm_share_services = param_1;
@@ -1025,7 +1028,7 @@ undefined4 anm_animplay_module(int *param_1,uint param_2)
    "LECMODULE=insane_animplay" service table; module_terminate is a static several LEC modules have,
    written with the module prefix); was FUN_004c1fb0. */
 
-void AnimPlay_module_terminate(void)
+void __cdecl AnimPlay_module_terminate(void)
 
 {
   (*(code *)g_pAnm_share_services[1])(s_ANIMPLAY_insane_004f1350);
@@ -1041,7 +1044,7 @@ void AnimPlay_module_terminate(void)
    animframe services.' | 'STREAMER.spooler' | 'AnimPlay Module: Cannot allocate streamer
    services.'); was FUN_004c1ff0. */
 
-undefined4 AnimPlay_module_startup(void)
+uint __cdecl AnimPlay_module_startup(void)
 
 {
   g_pAnm_memory_services =
@@ -1093,7 +1096,7 @@ undefined4 AnimPlay_module_startup(void)
    bitmap_services, timer_services, anm_virtherc_services, sound_services (module_shutdown in the
    remaster)); was FUN_004c2150. */
 
-void AnimPlay_module_shutdown(void)
+void __cdecl AnimPlay_module_shutdown(void)
 
 {
   (*(code *)g_pAnm_share_services[3])(g_pAnm_memory_services);
@@ -1114,16 +1117,17 @@ void AnimPlay_module_shutdown(void)
 /* Original name anm_EasyPlay (the remaster's GrimFandango (Linux): strings: 'Cannot allocate render
    bitmap.'); was FUN_004c21e0. */
 
-int anm_EasyPlay(char *param_1,int param_2,uint param_3,undefined4 param_4,undefined4 param_5,
-                undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9,
-                code *param_10,int param_11,int param_12,int param_13)
+int __cdecl
+anm_EasyPlay(char *param_1,int param_2,uint param_3,uint param_4,uint param_5,uint param_6,
+            uint param_7,uint param_8,uint param_9,code *param_10,int param_11,int param_12,
+            int param_13)
 
 {
   unsigned char _frame[0x430] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   #define pvStack_418 (*(void **)(_frame + (0x430 - 0x418)))
-  #define local_414 (*(undefined4 *)(_frame + (0x430 - 0x414)))
+  #define local_414 (*(uint *)(_frame + (0x430 - 0x414)))
   #define local_410 (*(uint *)(_frame + (0x430 - 0x410)))
   #define local_40c (*(uint *)(_frame + (0x430 - 0x40c)))
   #define iStack_408 (*(int *)(_frame + (0x430 - 0x408)))
@@ -1156,8 +1160,8 @@ int anm_EasyPlay(char *param_1,int param_2,uint param_3,undefined4 param_4,undef
 LAB_004c22ac:
     local_40c = 0;
     local_410 = 0;
-    iVar2 = FUN_004c25c0(pvStack_418,local_414,0,0,0,auStack_400,&local_410,&local_40c,param_8,
-                         param_9);
+    iVar2 = FUN_004c25c0(pvStack_418,local_414,0,0,0,(int)auStack_400,(int)&local_410,
+                         (int)&local_40c,param_8,param_9);
     if (((iVar2 != 0) && (iVar2 != 2)) && (iVar2 != 1)) {
 LAB_004c2364:
       if ((iVar2 < 0) || (iVar2 == 4)) goto LAB_004c2376;
@@ -1168,7 +1172,8 @@ LAB_004c2364:
         (*param_10)(pvStack_418,local_414,auStack_400,local_410,local_40c), iVar1 != 0)) ||
        (*(int *)((int)pvStack_418 + 0x54) == 0)) {
       AnimPlay_anm_Display
-                (pvStack_418,local_414,0,param_4,param_5,auStack_400,local_410,local_40c,param_3);
+                ((uint)pvStack_418,local_414,0,param_4,param_5,(uint)auStack_400,local_410,local_40c
+                 ,param_3);
       goto LAB_004c2364;
     }
     iStack_408 = 0;
@@ -1190,15 +1195,16 @@ LAB_004c2376:
 /* Original name anm_GetTime (the remaster's GrimFandango (Linux): slot 2 of the "ANIMPLAY=insane"
    service table); was FUN_004c2590. */
 
-int anm_GetTime(int param_1)
+int __cdecl anm_GetTime(int param_1)
 
 {
   return (*(int *)(param_1 + 0x20) * 1000) / 0x1234dc;
 }
 
 /* ---- 0x004c25c0  FUN_004c25c0 ---- */
-int FUN_004c25c0(void *param_1,int param_2,int param_3,int param_4,int param_5,int param_6,
-                int param_7,int param_8,int param_9,int param_10)
+int __cdecl
+FUN_004c25c0(void *param_1,int param_2,int param_3,int param_4,int param_5,int param_6,int param_7,
+            int param_8,int param_9,int param_10)
 
 {
   int iVar1;
@@ -1227,10 +1233,10 @@ int FUN_004c25c0(void *param_1,int param_2,int param_3,int param_4,int param_5,i
    "ANIMPLAY=insane" service table; anm_Display is a static several LEC modules have, written with
    the module prefix); was FUN_004c2650. */
 
-void AnimPlay_anm_Display
-               (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-               undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8,
-               undefined4 param_9)
+void __cdecl
+AnimPlay_anm_Display
+          (uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
+          uint param_7,uint param_8,uint param_9)
 
 {
   (*(code *)g_pAnm_animframe_services[3])
@@ -1242,7 +1248,7 @@ void AnimPlay_anm_Display
 /* Original name anm_SetRate (the remaster's GrimFandango (Linux): slot 10 of the "ANIMPLAY=insane"
    service table); was FUN_004c2720. */
 
-void anm_SetRate(undefined4 *param_1,int param_2)
+void __cdecl anm_SetRate(undefined4 *param_1,int param_2)
 
 {
   undefined4 uVar1;
@@ -1259,7 +1265,7 @@ void anm_SetRate(undefined4 *param_1,int param_2)
 /* Original name anm_SyncUp (the remaster's GrimFandango (Linux): slot 11 of the "ANIMPLAY=insane"
    service table); was FUN_004c2760. */
 
-void anm_SyncUp(undefined4 *param_1)
+void __cdecl anm_SyncUp(undefined4 *param_1)
 
 {
   param_1[6] = 0;
@@ -1271,7 +1277,7 @@ void anm_SyncUp(undefined4 *param_1)
 /* Original name anm_RenderQuery (the remaster's GrimFandango (Linux): slot 12 of the
    "ANIMPLAY=insane" service table); was FUN_004c2780. */
 
-undefined4 anm_RenderQuery(int param_1)
+uint __cdecl anm_RenderQuery(int param_1)
 
 {
   if ((*(int *)(param_1 + 0x68) != 5) && (*(int *)(param_1 + 0x14) == 0)) {
@@ -1284,7 +1290,7 @@ undefined4 anm_RenderQuery(int param_1)
 /* Original name frame_Timer (the remaster's GrimFandango (Linux): anm_Start's timer callback; same
    body); was FUN_004c2a70. */
 
-void frame_Timer(undefined4 param_1,int param_2)
+void __cdecl frame_Timer(uint param_1,int param_2)
 
 {
   *(int *)(param_2 + 0x14) = *(int *)(param_2 + 0x14) + 1;
@@ -1295,7 +1301,7 @@ void frame_Timer(undefined4 param_1,int param_2)
 /* Original name sync_Timer (the remaster's GrimFandango (Linux): anm_Start's other timer callback;
    same body (audio_halted, sound services +8/+0xc)); was FUN_004c2a80. */
 
-void sync_Timer(undefined4 param_1,int param_2)
+void __cdecl sync_Timer(uint param_1,int param_2)
 
 {
   if (*(int *)(param_2 + 0x6c) == 0) {
@@ -1331,7 +1337,7 @@ LAB_004c2adc:
    "DEBUG=insane_animplay" service table; anm_DebugInfo is a static several LEC modules have,
    written with the module prefix); was FUN_004c2b00. */
 
-char * AnimPlay_anm_DebugInfo(int param_1)
+char * __cdecl AnimPlay_anm_DebugInfo(int param_1)
 
 {
   if (param_1 == 0) {
@@ -1351,7 +1357,7 @@ char * AnimPlay_anm_DebugInfo(int param_1)
    "DEBUG=insane_animplay" service table; anm_DebugSetState is a static several LEC modules have,
    written with the module prefix); was FUN_004c2b30. */
 
-void AnimPlay_anm_DebugSetState(uint param_1)
+void __cdecl AnimPlay_anm_DebugSetState(uint param_1)
 
 {
   UINT_008d6f20 = param_1;
@@ -1363,7 +1369,7 @@ void AnimPlay_anm_DebugSetState(uint param_1)
    "DEBUG=insane_animplay" service table; anm_DebugGetState is a static several LEC modules have,
    written with the module prefix); was FUN_004c2b40. */
 
-uint AnimPlay_anm_DebugGetState(void)
+uint __cdecl AnimPlay_anm_DebugGetState(void)
 
 {
   return UINT_008d6f20;
@@ -1373,7 +1379,7 @@ uint AnimPlay_anm_DebugGetState(void)
 /* Original name anm_animframe_module (the remaster's GrimFandango (Linux): slot 0 of the
    "LECMODULE=insane_animframe" service table); was FUN_004c2b50. */
 
-undefined4 anm_animframe_module(int *param_1,uint param_2)
+uint __cdecl anm_animframe_module(int *param_1,uint param_2)
 
 {
   g_pAnimFrame_share_services = param_1;
@@ -1390,7 +1396,7 @@ undefined4 anm_animframe_module(int *param_1,uint param_2)
    "LECMODULE=insane_animframe" service table; module_terminate is a static several LEC modules
    have, written with the module prefix); was FUN_004c2ba0. */
 
-void AnimFrame_module_terminate(void)
+void __cdecl AnimFrame_module_terminate(void)
 
 {
   (*(code *)g_pAnimFrame_share_services[1])(s_ANIMFRAME_insane_004f176c);
@@ -1406,7 +1412,7 @@ void AnimFrame_module_terminate(void)
    Module: Cannot allocate bitmap services.' | "AnimFrame Module: Can't allocate overlay buffer (%ld
    bytes)); was FUN_004c2be0. */
 
-int AnimFrame_module_startup(void)
+int __cdecl AnimFrame_module_startup(void)
 
 {
   int iVar1;
@@ -1490,7 +1496,7 @@ int AnimFrame_module_startup(void)
    module's shutdown: releases its services, anm_overlay_buffer, anm_preload_buffer and the
    anm_flobdec_services (module_shutdown in the remaster)); was FUN_004c2dc0. */
 
-void AnimFrame_module_shutdown(void)
+void __cdecl AnimFrame_module_shutdown(void)
 
 {
   uint uVar1;
@@ -1536,7 +1542,7 @@ void AnimFrame_module_shutdown(void)
 /* Original name anm_Reset (the remaster's GrimFandango (Linux): slot 0 of the "ANIMFRAME=insane"
    service table); was FUN_004c2eb0. */
 
-void anm_Reset(void)
+void __cdecl anm_Reset(void)
 
 {
   uint *puVar1;
@@ -1560,7 +1566,7 @@ void anm_Reset(void)
 /* Original name anm_DecodeHeader (the remaster's GrimFandango (Linux): walks the chunks and hands
    each to the anm_flobdec_services entry with the same anm_flobdec_ids id); was FUN_004c2ee0. */
 
-undefined4 anm_DecodeHeader(undefined1 *param_1,int param_2)
+uint __cdecl anm_DecodeHeader(undefined1 *param_1,int param_2)
 
 {
   byte bVar1;
@@ -1600,9 +1606,9 @@ undefined4 anm_DecodeHeader(undefined1 *param_1,int param_2)
    '%c%c%c%c' (%ld)\n" | "Bad Header Found '%c%c%c%c'\n" | "Found Unknown Block '%c%c%c%c'\n"); was
    FUN_004c2fa0. */
 
-uint anm_DecodeBody(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-                   uint *param_5,uint *param_6,uint *param_7,uint param_8,undefined4 param_9,
-                   undefined4 param_10,byte *param_11,int param_12)
+uint __cdecl
+anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *param_5,uint *param_6,
+              uint *param_7,uint param_8,uint param_9,uint param_10,byte *param_11,int param_12)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1706,7 +1712,7 @@ uint anm_DecodeBody(undefined4 param_1,undefined4 param_2,undefined4 param_3,und
     if ((int)g_dwAnm_flobdec_count <= (int)uVar10) {
       if (uVar12 < 0x6c6f6165) {
         if (uVar12 == 0x6c6f6164) {
-          anm_PreloadPut(param_11 + 8,iVar11);
+          anm_PreloadPut((short *)(param_11 + 8),iVar11);
         }
         else if (uVar12 == 0x66746368) {
           if ((g_dwAnm_overlay_buffer != 0) && (-1 < (int)g_dwAnm_overlay_flobdec)) {
@@ -1787,7 +1793,7 @@ LAB_004c3182:
 /* Original name anm_PreloadPut (the remaster's GrimFandango (Linux): slot 4 of the
    "ANIMFRAME=insane" service table); was FUN_004c34d0. */
 
-void anm_PreloadPut(short *param_1,int param_2)
+void __cdecl anm_PreloadPut(short *param_1,int param_2)
 
 {
   uint uVar1;
@@ -1814,7 +1820,7 @@ void anm_PreloadPut(short *param_1,int param_2)
 /* Original name anm_PreloadGet (the remaster's GrimFandango (Linux): slot 5 of the
    "ANIMFRAME=insane" service table); was FUN_004c3560. */
 
-int anm_PreloadGet(int param_1)
+int __cdecl anm_PreloadGet(int param_1)
 
 {
   if (param_1 < 0) {
@@ -1837,9 +1843,10 @@ int anm_PreloadGet(int param_1)
    "ANIMFRAME=insane" service table; anm_Display is a static several LEC modules have, written with
    the module prefix); was FUN_004c35c0. */
 
-void AnimFrame_anm_Display
-               (int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-               undefined4 param_5,byte param_6,byte param_7,uint param_8)
+void __cdecl
+AnimFrame_anm_Display
+          (int param_1,uint param_2,uint param_3,uint param_4,uint param_5,byte param_6,byte param_7
+          ,uint param_8)
 
 {
   int iVar1;
@@ -1868,7 +1875,7 @@ LAB_004c360c:
    "DEBUG=animframe" service table; anm_DebugInfo is a static several LEC modules have, written with
    the module prefix); was FUN_004c3660. */
 
-char * AnimFrame_anm_DebugInfo(int param_1)
+char * __cdecl AnimFrame_anm_DebugInfo(int param_1)
 
 {
   if (param_1 == 0) {
@@ -1888,7 +1895,7 @@ char * AnimFrame_anm_DebugInfo(int param_1)
    "DEBUG=animframe" service table; anm_DebugSetState is a static several LEC modules have, written
    with the module prefix); was FUN_004c3690. */
 
-void AnimFrame_anm_DebugSetState(uint param_1)
+void __cdecl AnimFrame_anm_DebugSetState(uint param_1)
 
 {
   UINT_008d77e8 = param_1;
@@ -1900,7 +1907,7 @@ void AnimFrame_anm_DebugSetState(uint param_1)
    "DEBUG=animframe" service table; anm_DebugGetState is a static several LEC modules have, written
    with the module prefix); was FUN_004c36a0. */
 
-uint AnimFrame_anm_DebugGetState(void)
+uint __cdecl AnimFrame_anm_DebugGetState(void)
 
 {
   return UINT_008d77e8;
@@ -1910,13 +1917,13 @@ uint AnimFrame_anm_DebugGetState(void)
 /* Original name anm_animator_Render (the remaster's GrimFandango (Linux): strings: 'Read invalid
    frame header %c%c%c%c -- CD may be dirty or da); was FUN_004c36f0. */
 
-uint anm_animator_Render(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-                        undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8,
-                        undefined4 param_9,undefined4 param_10,undefined4 param_11)
+uint __cdecl
+anm_animator_Render(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
+                   uint param_7,uint param_8,uint param_9,uint param_10,uint param_11)
 
 {
-  uint uVar1;
-  undefined1 *puVar2;
+  undefined1 *puVar1;
+  uint uVar2;
   int iVar3;
   
   if (*(int *)(param_1 + 0x54) != 0) {
@@ -1924,10 +1931,10 @@ uint anm_animator_Render(int param_1,undefined4 param_2,undefined4 param_3,undef
     return 0xffffffff;
   }
 LAB_004c371b:
-  uVar1 = *(uint *)(param_1 + 0x34);
-  if (uVar1 < 0x464c4845) {
-    if (uVar1 == 0x464c4844) {
-      FUN_004c3b30(param_1,*(undefined4 *)(param_1 + 0x30));
+  uVar2 = *(uint *)(param_1 + 0x34);
+  if (uVar2 < 0x464c4845) {
+    if (uVar2 == 0x464c4844) {
+      FUN_004c3b30(param_1,*(uint *)(param_1 + 0x30));
       iVar3 = *(int *)(param_1 + 0x24);
       if (iVar3 == -1) {
         return 5;
@@ -1939,8 +1946,8 @@ LAB_004c371b:
       *(undefined4 *)(param_1 + 0x34) = 0x6e756c6c;
       goto LAB_004c371b;
     }
-    if (uVar1 == 0x414e4e4f) {
-      FUN_004c3b30(param_1,*(undefined4 *)(param_1 + 0x30));
+    if (uVar2 == 0x414e4e4f) {
+      FUN_004c3b30(param_1,*(uint *)(param_1 + 0x30));
       if (*(int *)(param_1 + 0x24) == -1) {
         return 5;
       }
@@ -1952,9 +1959,9 @@ LAB_004c371b:
     }
   }
   else {
-    if (uVar1 < 0x53484453) {
-      if (uVar1 == 0x53484452) {
-        FUN_004c3b30(param_1,*(undefined4 *)(param_1 + 0x30));
+    if (uVar2 < 0x53484453) {
+      if (uVar2 == 0x53484452) {
+        FUN_004c3b30(param_1,*(uint *)(param_1 + 0x30));
         iVar3 = *(int *)(param_1 + 0x24);
         if (iVar3 == -1) {
           return 5;
@@ -1964,12 +1971,12 @@ LAB_004c371b:
         }
         *(undefined4 *)(param_1 + 0x34) = 0x6e756c6c;
         if (iVar3 != 0) {
-          FUN_004c3c90(param_1,iVar3,param_6,param_8);
+          FUN_004c3c90(param_1,iVar3,(void *)param_6,(uint *)param_8);
         }
       }
       else {
-        if (uVar1 != 0x46524d45) goto LAB_004c3a66;
-        FUN_004c3b30(param_1,*(undefined4 *)(param_1 + 0x30));
+        if (uVar2 != 0x46524d45) goto LAB_004c3a66;
+        FUN_004c3b30(param_1,*(uint *)(param_1 + 0x30));
         iVar3 = *(int *)(param_1 + 0x24);
         if (iVar3 == -1) {
           return 5;
@@ -1980,7 +1987,7 @@ LAB_004c371b:
         *(undefined4 *)(param_1 + 0x34) = 0x6e756c6c;
         if (iVar3 != 0) {
           *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + 1;
-          if ((*(int *)(param_1 + 0x44) != 0) || (iVar3 = FUN_004c3bb0(param_1), iVar3 == 0)) {
+          if ((*(int *)(param_1 + 0x44) != 0) || (uVar2 = FUN_004c3bb0(param_1), uVar2 == 0)) {
             FUN_004c3c00(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
                          param_10,param_11);
             if ((*(int *)(param_1 + 0x28) < *(int *)(param_1 + 0x2c) + -1) ||
@@ -2022,8 +2029,8 @@ LAB_004c371b:
       }
       goto LAB_004c371b;
     }
-    if (0x6e756c6c < uVar1) {
-      if (uVar1 == 0x70617773) {
+    if (0x6e756c6c < uVar2) {
+      if (uVar2 == 0x70617773) {
         FUN_004c3c00(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
                      param_10,param_11);
         if (*(int *)(param_1 + 0x58) != 1) {
@@ -2034,7 +2041,7 @@ LAB_004c371b:
         }
         return 3;
       }
-      if (uVar1 == 0x77616974) {
+      if (uVar2 == 0x77616974) {
         iVar3 = (*(code *)g_pAnm_streamer_services[3])(*(undefined4 *)(param_1 + 0x60));
         if (iVar3 == 0) {
           if (*(int *)(param_1 + 0x40) == 0) {
@@ -2050,32 +2057,32 @@ LAB_004c371b:
       }
       goto LAB_004c3a66;
     }
-    if (uVar1 == 0x6e756c6c) {
+    if (uVar2 == 0x6e756c6c) {
       if (*(int *)(param_1 + 0x40) != 0) {
         *(undefined4 *)(param_1 + 0x40) = 0;
         *(undefined4 *)(param_1 + 0x44) = 1;
       }
       FUN_004c3b30(param_1,8);
-      puVar2 = *(undefined1 **)(param_1 + 0x24);
-      if (puVar2 == (undefined1 *)0xffffffff) {
+      puVar1 = *(undefined1 **)(param_1 + 0x24);
+      if (puVar1 == (undefined1 *)0xffffffff) {
         return 5;
       }
-      if (puVar2 == (undefined1 *)0xfffffffe) {
+      if (puVar1 == (undefined1 *)0xfffffffe) {
         return 0xfffffffe;
       }
-      if (puVar2 != (undefined1 *)0x0) {
+      if (puVar1 != (undefined1 *)0x0) {
         *(uint *)(param_1 + 0x34) =
-             CONCAT31(CONCAT21(CONCAT11(*puVar2,puVar2[1]),puVar2[2]),puVar2[3]);
+             CONCAT31(CONCAT21(CONCAT11(*puVar1,puVar1[1]),puVar1[2]),puVar1[3]);
         *(uint *)(param_1 + 0x30) =
-             CONCAT31(CONCAT21(CONCAT11(puVar2[4],puVar2[5]),puVar2[6]),puVar2[7]) + 1U & 0xfffffffe
+             CONCAT31(CONCAT21(CONCAT11(puVar1[4],puVar1[5]),puVar1[6]),puVar1[7]) + 1U & 0xfffffffe
         ;
       }
       goto LAB_004c371b;
     }
-    if (uVar1 == 0x656e6420) {
+    if (uVar2 == 0x656e6420) {
       *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + 1;
-      iVar3 = FUN_004c3bb0(param_1);
-      if (iVar3 == 0) {
+      uVar2 = FUN_004c3bb0(param_1);
+      if (uVar2 == 0) {
         FUN_004c3c00(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
                      param_10,param_11);
       }
@@ -2089,15 +2096,15 @@ LAB_004c371b:
     }
   }
 LAB_004c3a66:
-  uVar1 = *(uint *)(param_1 + 0x34);
+  uVar2 = *(uint *)(param_1 + 0x34);
   (*(code *)g_pAnm_share_services[8])
-            (s_Read_invalid_frame_header__c_c_c_004f19bc,uVar1 >> 0x18,uVar1 >> 0x10,uVar1 >> 8,
-             uVar1);
+            (s_Read_invalid_frame_header__c_c_c_004f19bc,uVar2 >> 0x18,uVar2 >> 0x10,uVar2 >> 8,
+             uVar2);
   return 0xfffffffe;
 }
 
 /* ---- 0x004c3b30  FUN_004c3b30 ---- */
-void FUN_004c3b30(int param_1,undefined4 param_2)
+void __cdecl FUN_004c3b30(int param_1,uint param_2)
 
 {
   undefined4 uVar1;
@@ -2129,7 +2136,7 @@ void FUN_004c3b30(int param_1,undefined4 param_2)
 /* ---- 0x004c3bb0  FUN_004c3bb0 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 FUN_004c3bb0(int param_1)
+uint __cdecl FUN_004c3bb0(int param_1)
 
 {
   if (*(int *)(param_1 + 0x44) == 0) {
@@ -2151,16 +2158,15 @@ undefined4 FUN_004c3bb0(int param_1)
 }
 
 /* ---- 0x004c3c00  FUN_004c3c00 ---- */
-undefined4
-FUN_004c3c00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5
-            ,undefined4 param_6,undefined4 param_7,undefined4 param_8,uint param_9,
-            undefined4 param_10,undefined4 param_11)
+uint __cdecl
+FUN_004c3c00(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
+            uint param_7,uint param_8,uint param_9,uint param_10,uint param_11)
 
 {
   uint uVar1;
   
   if (((param_9 | *(uint *)(param_1 + 0xc)) & 4) == 0) {
-    gra_SetBitmap(param_2,0);
+    gra_SetBitmap((undefined4 *)param_2,0);
   }
   uVar1 = (*(code *)g_pAnm_animframe_services[2])
                     (param_2,param_3,param_4,param_5,param_6,param_7,param_8,
@@ -2176,7 +2182,7 @@ FUN_004c3c00(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_
 }
 
 /* ---- 0x004c3c90  FUN_004c3c90 ---- */
-void FUN_004c3c90(int param_1,int param_2,void *param_3,uint *param_4)
+void __cdecl FUN_004c3c90(int param_1,int param_2,void *param_3,uint *param_4)
 
 {
   *(uint *)(param_1 + 0xc) = *(uint *)(param_1 + 0x3c);
@@ -2196,17 +2202,17 @@ void FUN_004c3c90(int param_1,int param_2,void *param_3,uint *param_4)
 /* Original name anm_animator_Query (the remaster's GrimFandango (Linux): slot 6 of the
    "ANIMPLAY=insane" service table); was FUN_004c3d00. */
 
-undefined4 anm_animator_Query(int param_1)
+uint __cdecl anm_animator_Query(int param_1)
 
 {
-  return *(undefined4 *)(param_1 + 0x38);
+  return *(uint *)(param_1 + 0x38);
 }
 
 /* ---- 0x004c3d10  anm_animator_Quit ---- */
 /* Original name anm_animator_Quit (the remaster's GrimFandango (Linux): slot 7 of the
    "ANIMPLAY=insane" service table); was FUN_004c3d10. */
 
-void anm_animator_Quit(int param_1)
+void __cdecl anm_animator_Quit(int param_1)
 
 {
   (*(code *)*g_pAnm_animframe_services)();
@@ -2215,12 +2221,12 @@ void anm_animator_Quit(int param_1)
 }
 
 /* ---- 0x004c3d90  FUN_004c3d90 ---- */
-void FUN_004c3d90(int param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl FUN_004c3d90(int param_1,uint param_2,uint param_3)
 
 {
-  *(undefined4 *)(param_1 + 0x48) = param_3;
+  *(uint *)(param_1 + 0x48) = param_3;
   *(undefined4 *)(param_1 + 0x4c) = *(undefined4 *)(param_1 + 0x28);
-  *(undefined4 *)(param_1 + 0x50) = param_2;
+  *(uint *)(param_1 + 0x50) = param_2;
   return;
 }
 
@@ -2228,7 +2234,7 @@ void FUN_004c3d90(int param_1,undefined4 param_2,undefined4 param_3)
 /* Original name anm_animator_Pause (the remaster's GrimFandango (Linux): slot 9 of the
    "ANIMPLAY=insane" service table); was FUN_004c3db0. */
 
-uint anm_animator_Pause(int param_1,int param_2)
+uint __cdecl anm_animator_Pause(int param_1,int param_2)
 
 {
   uint uVar1;
@@ -2251,7 +2257,7 @@ uint anm_animator_Pause(int param_1,int param_2)
 }
 
 /* ---- 0x004c4650  FUN_004c4650 ---- */
-uint FUN_004c4650(int param_1,undefined4 param_2)
+uint __cdecl FUN_004c4650(int param_1,uint param_2)
 
 {
   uint uVar1;
@@ -2265,7 +2271,7 @@ uint FUN_004c4650(int param_1,undefined4 param_2)
 }
 
 /* ---- 0x004c4a00  FUN_004c4a00 ---- */
-undefined * FUN_004c4a00(int param_1,int *param_2)
+undefined * __cdecl FUN_004c4a00(int param_1,int *param_2)
 
 {
   char cVar1;
@@ -2408,7 +2414,7 @@ undefined * FUN_004c4a00(int param_1,int *param_2)
 /* Original name fle_streamer_module (the remaster's GrimFandango (Linux): slot 0 of the
    "LECMODULE=insane_streamer" service table); was FUN_004c4b20. */
 
-undefined4 fle_streamer_module(int *param_1,uint param_2)
+uint __cdecl fle_streamer_module(int *param_1,uint param_2)
 
 {
   g_pStreamer_share_services = param_1;
@@ -2423,7 +2429,7 @@ undefined4 fle_streamer_module(int *param_1,uint param_2)
    "LECMODULE=insane_streamer" service table; module_terminate is a static several LEC modules have,
    written with the module prefix); was FUN_004c4b60. */
 
-void Streamer_module_terminate(void)
+void __cdecl Streamer_module_terminate(void)
 
 {
   (*(code *)g_pStreamer_share_services[1])(s_STREAMER_insane_streamer_004f1a60);
@@ -2437,7 +2443,7 @@ void Streamer_module_terminate(void)
    strings: 'Streamer Module: Cannot allocate filio services.' | 'FILIO.io' | 'Streamer Module:
    Cannot allocate memory services.'); was FUN_004c4b90. */
 
-undefined4 Streamer_module_startup(void)
+uint __cdecl Streamer_module_startup(void)
 
 {
   g_pStreamer_memory_services =
@@ -2462,7 +2468,7 @@ undefined4 Streamer_module_startup(void)
    "LECMODULE=insane_streamer" service table; module_shutdown is a static several LEC modules have,
    written with the module prefix); was FUN_004c4c10. */
 
-void Streamer_module_shutdown(void)
+void __cdecl Streamer_module_shutdown(void)
 
 {
   (*(code *)g_pStreamer_share_services[3])(g_pStreamer_memory_services);
@@ -2474,37 +2480,38 @@ void Streamer_module_shutdown(void)
 /* Original name fle_StreamerAlloc (the remaster's GrimFandango (Linux): slot 0 of the
    "STREAMER=insane_streamer" service table); was FUN_004c4c50. */
 
-int fle_StreamerAlloc(undefined4 *param_1,uint param_2,int param_3)
+int __cdecl fle_StreamerAlloc(undefined4 *param_1,uint param_2,int param_3)
 
 {
   undefined4 *puVar1;
   undefined4 *puVar2;
-  int iVar3;
+  uint uVar3;
+  int iVar4;
   
   puVar1 = (undefined4 *)
            (*(code *)*g_pStreamer_memory_services)
                      (0x110,s_C__grimsrc_libs_lecsmush_insane__004f1b0c,0xd5);
-  iVar3 = (puVar1 != (undefined4 *)0x0) - 1;
-  if (iVar3 == 0) {
+  iVar4 = (puVar1 != (undefined4 *)0x0) - 1;
+  if (iVar4 == 0) {
     puVar1[0x43] = 0;
     puVar2 = (undefined4 *)
              (*(code *)*g_pStreamer_memory_services)
                        (param_3 + param_2,s_C__grimsrc_libs_lecsmush_insane__004f1b0c,0xd9);
     *puVar1 = puVar2;
-    iVar3 = (puVar2 != (undefined4 *)0x0) - 1;
-    if (iVar3 == 0) {
-      param_2 = param_2 & 0xfffff800;
+    iVar4 = (puVar2 != (undefined4 *)0x0) - 1;
+    if (iVar4 == 0) {
+      uVar3 = param_2 & 0xfffff800;
       puVar1[3] = param_3;
-      puVar1[2] = param_2;
+      puVar1[2] = uVar3;
       puVar1[0xc] = 0;
       puVar1[0x41] = 0;
-      puVar1[1] = (undefined1 *)(param_2 + (int)puVar2);
+      puVar1[1] = (undefined1 *)(uVar3 + (int)puVar2);
       puVar1[0x42] = 0;
-      for (param_2 = param_2 >> 2; param_2 != 0; param_2 = param_2 - 1) {
+      for (uVar3 = uVar3 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
         *puVar2 = 0;
         puVar2 = puVar2 + 1;
       }
-      for (iVar3 = 0; iVar3 != 0; iVar3 = iVar3 + -1) {
+      for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
         *(undefined1 *)puVar2 = 0;
         puVar2 = (undefined4 *)((int)puVar2 + 1);
       }
@@ -2516,14 +2523,14 @@ int fle_StreamerAlloc(undefined4 *param_1,uint param_2,int param_3)
                 (puVar1,s_C__grimsrc_libs_lecsmush_insane__004f1b0c,0xe8);
     }
   }
-  return iVar3;
+  return iVar4;
 }
 
 /* ---- 0x004c4d20  fle_StreamerFree ---- */
 /* Original name fle_StreamerFree (the remaster's GrimFandango (Linux): slot 1 of the
    "STREAMER=insane_streamer" service table); was FUN_004c4d20. */
 
-void fle_StreamerFree(int *param_1)
+void __cdecl fle_StreamerFree(int *param_1)
 
 {
   int *piVar1;
@@ -2552,7 +2559,7 @@ void fle_StreamerFree(int *param_1)
 /* Original name fle_StreamerReset (the remaster's GrimFandango (Linux): slot 6 of the
    "STREAMER=insane_streamer" service table); was FUN_004c4d90. */
 
-void fle_StreamerReset(undefined4 *param_1)
+void __cdecl fle_StreamerReset(undefined4 *param_1)
 
 {
   param_1[5] = 0;
@@ -2573,60 +2580,59 @@ void fle_StreamerReset(undefined4 *param_1)
 /* Original name fle_StreamerAcquire (the remaster's GrimFandango (Linux): slot 4 of the
    "STREAMER=insane_streamer" service table); was FUN_004c4dd0. */
 
-void fle_StreamerAcquire(uint *param_1,uint param_2)
+void __cdecl fle_StreamerAcquire(uint *param_1,uint param_2)
 
 {
-  int iVar1;
+  uint uVar1;
   uint uVar2;
   uint uVar3;
-  uint uVar4;
   
-  iVar1 = FUN_004c4f60(param_1);
+  uVar1 = FUN_004c4f60((int)param_1);
   if (param_1[0xc] == 0) {
     return;
   }
   if ((int)param_1[0xe] <= (int)param_1[0xd]) {
     return;
   }
-  uVar4 = param_1[10];
-  uVar3 = param_1[9];
-  if (uVar3 < uVar4) {
-    if (uVar4 == *param_1) goto LAB_004c4e1a;
+  uVar3 = param_1[10];
+  uVar2 = param_1[9];
+  if (uVar2 < uVar3) {
+    if (uVar3 == *param_1) goto LAB_004c4e1a;
   }
   else {
-    if (uVar4 != *param_1) {
-      uVar4 = param_1[1] - uVar3;
+    if (uVar3 != *param_1) {
+      uVar3 = param_1[1] - uVar2;
       goto LAB_004c4e49;
     }
 LAB_004c4e1a:
-    if (0x800 < (int)(param_1[1] - uVar3)) {
-      uVar4 = (param_1[1] - uVar3) - 0x800;
+    if (0x800 < (int)(param_1[1] - uVar2)) {
+      uVar3 = (param_1[1] - uVar2) - 0x800;
       goto LAB_004c4e49;
     }
   }
-  uVar4 = (uVar4 - uVar3) - 0x800 & 0xfffff800;
-  if ((int)uVar4 < 0x800) {
+  uVar3 = (uVar3 - uVar2) - 0x800 & 0xfffff800;
+  if ((int)uVar3 < 0x800) {
     return;
   }
 LAB_004c4e49:
-  if (iVar1 == 0) {
+  if (uVar1 == 0) {
     param_2 = param_1[3];
   }
-  if ((int)param_2 < (int)uVar4) {
-    uVar4 = param_2;
+  if ((int)param_2 < (int)uVar3) {
+    uVar3 = param_2;
   }
-  uVar2 = param_1[0xe] - param_1[0xd];
-  if ((int)uVar4 <= (int)uVar2) {
-    uVar2 = uVar4;
+  uVar1 = param_1[0xe] - param_1[0xd];
+  if ((int)uVar3 <= (int)uVar1) {
+    uVar1 = uVar3;
   }
-  uVar3 = (*(code *)g_pStreamer_filio_services[2])(param_1[0xc],uVar3,uVar2);
-  if (uVar3 == uVar2) {
-    uVar3 = uVar4 + param_1[9];
-    param_1[0xd] = param_1[0xd] + uVar4;
-    if (param_1[1] <= uVar3) {
-      uVar3 = uVar3 - param_1[2];
+  uVar2 = (*(code *)g_pStreamer_filio_services[2])(param_1[0xc],uVar2,uVar1);
+  if (uVar2 == uVar1) {
+    uVar1 = uVar3 + param_1[9];
+    param_1[0xd] = param_1[0xd] + uVar3;
+    if (param_1[1] <= uVar1) {
+      uVar1 = uVar1 - param_1[2];
     }
-    param_1[9] = uVar3;
+    param_1[9] = uVar1;
     if (param_1[5] != 0) {
       param_1[6] = 1;
       return;
@@ -2645,7 +2651,7 @@ LAB_004c4e49:
 /* Original name fle_StreamerStart (the remaster's GrimFandango (Linux): slot 2 of the
    "STREAMER=insane_streamer" service table); was FUN_004c4ee0. */
 
-undefined4 fle_StreamerStart(int param_1,char *param_2,undefined4 param_3)
+uint __cdecl fle_StreamerStart(int param_1,char *param_2,uint param_3)
 
 {
   char cVar1;
@@ -2687,18 +2693,19 @@ undefined4 fle_StreamerStart(int param_1,char *param_2,undefined4 param_3)
       pcVar6 = pcVar6 + 1;
     }
   }
-  *(undefined4 *)(param_1 + 0x104) = param_3;
+  *(uint *)(param_1 + 0x104) = param_3;
   *(undefined4 *)(param_1 + 0x108) = 1;
   return 0;
 }
 
 /* ---- 0x004c4f60  FUN_004c4f60 ---- */
-undefined4 FUN_004c4f60(int param_1)
+uint __cdecl FUN_004c4f60(int param_1)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  uint uVar2;
   int iVar3;
+  undefined4 uVar4;
   
   uVar2 = 0xffffffff;
   if (*(int *)(param_1 + 0x108) != 0) {
@@ -2719,8 +2726,8 @@ undefined4 FUN_004c4f60(int param_1)
       }
       *(int *)(param_1 + 0x30) = iVar3;
       (*(code *)g_pStreamer_filio_services[5])(iVar3,0,2);
-      uVar2 = (*(code *)g_pStreamer_filio_services[4])(*(undefined4 *)(param_1 + 0x30));
-      *(undefined4 *)(param_1 + 0x38) = uVar2;
+      uVar4 = (*(code *)g_pStreamer_filio_services[4])(*(undefined4 *)(param_1 + 0x30));
+      *(undefined4 *)(param_1 + 0x38) = uVar4;
     }
     (*(code *)g_pStreamer_filio_services[5])
               (*(undefined4 *)(param_1 + 0x30),*(uint *)(param_1 + 0x104) & 0xfffff800,0);
@@ -2740,7 +2747,7 @@ undefined4 FUN_004c4f60(int param_1)
 /* Original name fle_StreamerCheck (the remaster's GrimFandango (Linux): slot 3 of the
    "STREAMER=insane_streamer" service table); was FUN_004c5080. */
 
-undefined4 fle_StreamerCheck(int param_1)
+uint __cdecl fle_StreamerCheck(int param_1)
 
 {
   if ((*(int *)(param_1 + 0x18) != 0) && (*(int *)(param_1 + 0x14) != 0)) {
@@ -2753,7 +2760,7 @@ undefined4 fle_StreamerCheck(int param_1)
 /* Original name fle_StreamerDispense (the remaster's GrimFandango (Linux): strings: 'File Streamer:
    Invalid frame size %ld'); was FUN_004c50a0. */
 
-int fle_StreamerDispense(undefined4 *param_1,int param_2)
+int __cdecl fle_StreamerDispense(undefined4 *param_1,int param_2)
 
 {
   int iVar1;
@@ -2782,15 +2789,15 @@ int fle_StreamerDispense(undefined4 *param_1,int param_2)
       return -1;
     }
     if (param_1[5] != 0) {
-      FUN_004c51b0(param_1);
+      FUN_004c51b0((int)param_1);
       g_dwFle_StreamerDispense_incremented = 0;
       return 0;
     }
     if (param_1[8] != 0) {
       param_2 = param_2 + param_1[8];
     }
-    iVar1 = FUN_004c51e0(param_1,param_2);
-    if (iVar1 != 0) {
+    uVar2 = FUN_004c51e0((int)param_1,param_2);
+    if (uVar2 != 0) {
       g_dwFle_StreamerDispense_incremented = 0;
       param_1[0xb] = param_2;
       uVar2 = (param_2 + param_1[10]) - (int)param_1[1];
@@ -2808,7 +2815,7 @@ int fle_StreamerDispense(undefined4 *param_1,int param_2)
 }
 
 /* ---- 0x004c51b0  FUN_004c51b0 ---- */
-undefined4 FUN_004c51b0(int param_1)
+uint __cdecl FUN_004c51b0(int param_1)
 
 {
   if (*(int *)(param_1 + 0x14) != 0) {
@@ -2822,7 +2829,7 @@ undefined4 FUN_004c51b0(int param_1)
 }
 
 /* ---- 0x004c51e0  FUN_004c51e0 ---- */
-undefined4 FUN_004c51e0(int param_1,int param_2)
+uint __cdecl FUN_004c51e0(int param_1,int param_2)
 
 {
   uint uVar1;
@@ -2845,7 +2852,7 @@ undefined4 FUN_004c51e0(int param_1,int param_2)
 /* Original name fle_StreamerQuerySize (the remaster's GrimFandango (Linux): slot 7 of the
    "STREAMER=insane_streamer" service table); was FUN_004c5220. */
 
-int fle_StreamerQuerySize(int param_1)
+int __cdecl fle_StreamerQuerySize(int param_1)
 
 {
   uint uVar1;
@@ -2869,7 +2876,7 @@ int fle_StreamerQuerySize(int param_1)
 /* Original name fle_directory_module (the remaster's GrimFandango (Linux): slot 0 of the
    "LECMODULE=insane_directory" service table); was FUN_004c5280. */
 
-undefined4 fle_directory_module(int *param_1,uint param_2)
+uint __cdecl fle_directory_module(int *param_1,uint param_2)
 
 {
   g_pDirectory_share_services = param_1;
@@ -2885,7 +2892,7 @@ undefined4 fle_directory_module(int *param_1,uint param_2)
    "LECMODULE=insane_directory" service table; module_terminate is a static several LEC modules
    have, written with the module prefix); was FUN_004c52c0. */
 
-void Directory_module_terminate(void)
+void __cdecl Directory_module_terminate(void)
 
 {
   (*(code *)g_pDirectory_share_services[1])(s_DIRECTORY_insane_directory_004f1ba4);
@@ -2898,7 +2905,7 @@ void Directory_module_terminate(void)
    module_startup of the Directory module (the remaster has one per module file, hence the prefix);
    strings: 'FILE.io' | 'Directory Module: Cannot allocate file services.'); was FUN_004c52f0. */
 
-undefined4 Directory_module_startup(void)
+uint __cdecl Directory_module_startup(void)
 
 {
   g_dwDirectory_file_services =
@@ -2915,7 +2922,7 @@ undefined4 Directory_module_startup(void)
    "LECMODULE=insane_directory" service table; module_shutdown is a static several LEC modules have,
    written with the module prefix); was FUN_004c5330. */
 
-void Directory_module_shutdown(void)
+void __cdecl Directory_module_shutdown(void)
 
 {
   (*(code *)g_pDirectory_share_services[3])(g_dwDirectory_file_services);
@@ -2923,7 +2930,7 @@ void Directory_module_shutdown(void)
 }
 
 /* ---- 0x004c5350  FUN_004c5350 ---- */
-void FUN_004c5350(undefined4 param_1,undefined4 *param_2)
+void __cdecl FUN_004c5350(uint param_1,undefined4 *param_2)
 
 {
   FUN_004d5740(param_1);
@@ -2932,13 +2939,13 @@ void FUN_004c5350(undefined4 param_1,undefined4 *param_2)
 }
 
 /* ---- 0x004c5370  FUN_004c5370 ---- */
-void FUN_004c5370(undefined4 *param_1)
+void __cdecl FUN_004c5370(undefined4 *param_1)
 
 {
-  undefined4 uVar1;
+  int iVar1;
   
-  uVar1 = FUN_004d56f0();
-  *param_1 = uVar1;
+  iVar1 = FUN_004d56f0();
+  *param_1 = iVar1;
   return;
 }
 
@@ -2946,7 +2953,7 @@ void FUN_004c5370(undefined4 *param_1)
 /* Original name fle_Exists (the remaster's GrimFandango (Linux): slot 5 of the
    "DIRECTORY=insane_directory" service table); was FUN_004c5380. */
 
-int fle_Exists(int param_1)
+int __cdecl fle_Exists(int param_1)
 
 {
   unsigned char _frame[0x150] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2954,7 +2961,7 @@ int fle_Exists(int param_1)
   #define local_140 (*(undefined1 (*)[320])(_frame + (0x150 - 0x140)))
   
   iVar1 = FindFirstFileA(param_1,(int)local_140);
-  return iVar1 != -1;
+  return (uint)(iVar1 != -1);
 }
 #undef local_140
 
@@ -2963,7 +2970,7 @@ int fle_Exists(int param_1)
 /* Original name fle_Rename (the remaster's GrimFandango (Linux): slot 6 of the
    "DIRECTORY=insane_directory" service table); was FUN_004c53b0. */
 
-void fle_Rename(undefined4 param_1,undefined4 param_2)
+void __cdecl fle_Rename(uint param_1,uint param_2)
 
 {
   FUN_004d57c0(param_1,param_2);
@@ -2974,7 +2981,7 @@ void fle_Rename(undefined4 param_1,undefined4 param_2)
 /* Original name fle_Remove (the remaster's GrimFandango (Linux): slot 7 of the
    "DIRECTORY=insane_directory" service table); was FUN_004c53d0. */
 
-void fle_Remove(undefined4 param_1)
+void __cdecl fle_Remove(uint param_1)
 
 {
   FUN_004d5800(param_1);
@@ -2985,14 +2992,15 @@ void fle_Remove(undefined4 param_1)
 /* Original name fle_DirectoryLoad (the remaster's GrimFandango (Linux): slot 0 of the
    "DIRECTORY=insane_directory" service table); was FUN_004c53e0. */
 
-int fle_DirectoryLoad(undefined4 param_1,int param_2,int param_3,undefined4 param_4,byte param_5)
+int __cdecl fle_DirectoryLoad(uint param_1,int param_2,int param_3,uint param_4,byte param_5)
 
 {
   unsigned char _frame[0x260] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
-  int iVar4;
+  uint *puVar4;
+  uint *puVar5;
   #define local_24c (*(byte (*)[44])(_frame + (0x260 - 0x24c)))
   #define local_220 (*(char (*)[276])(_frame + (0x260 - 0x220)))
   #define local_10c (*(char (*)[268])(_frame + (0x260 - 0x10c)))
@@ -3000,29 +3008,30 @@ int fle_DirectoryLoad(undefined4 param_1,int param_2,int param_3,undefined4 para
   iVar3 = 0;
   sprintf(local_10c,&DAT_004e7af8,param_1,param_4);
   if (((param_5 & 1) == 0) &&
-     (iVar1 = FindFirstFileA((int)local_10c,(int)local_24c), iVar2 = param_2, iVar1 != -1)) {
+     (iVar1 = FindFirstFileA((int)local_10c,(int)local_24c), puVar4 = (uint *)param_2, iVar1 != -1))
+  {
     do {
-      iVar4 = iVar2;
+      puVar5 = puVar4;
       if (((local_24c[0] & 0x10) != 0) && (local_220[0] != '.')) {
         iVar3 = iVar3 + 1;
-        iVar4 = iVar2 + 0x40;
-        strncpy(iVar2,local_220,0x40);
+        puVar5 = puVar4 + 0x10;
+        strncpy(puVar4,(uint *)local_220,0x40);
       }
       iVar2 = FindNextFileA(iVar1,(int)local_24c);
-    } while ((iVar2 != 0) && (iVar2 = iVar4, iVar3 < param_3));
+    } while ((iVar2 != 0) && (puVar4 = puVar5, iVar3 < param_3));
   }
   if (((param_5 & 2) == 0) &&
-     ((iVar3 < param_3 && (iVar2 = FindFirstFileA((int)local_10c,(int)local_24c), iVar2 != -1)))) {
-    iVar1 = iVar3 * 0x40 + param_2;
+     ((iVar3 < param_3 && (iVar1 = FindFirstFileA((int)local_10c,(int)local_24c), iVar1 != -1)))) {
+    puVar4 = (uint *)(iVar3 * 0x40 + param_2);
     do {
-      iVar4 = iVar1;
+      puVar5 = puVar4;
       if ((local_24c[0] & 0x10) == 0) {
         iVar3 = iVar3 + 1;
-        iVar4 = iVar1 + 0x40;
-        strncpy(iVar1,local_220,0x40);
+        puVar5 = puVar4 + 0x10;
+        strncpy(puVar4,(uint *)local_220,0x40);
       }
-      iVar1 = FindNextFileA(iVar2,(int)local_24c);
-    } while ((iVar1 != 0) && (iVar1 = iVar4, iVar3 < param_3));
+      iVar2 = FindNextFileA(iVar1,(int)local_24c);
+    } while ((iVar2 != 0) && (puVar4 = puVar5, iVar3 < param_3));
   }
   return iVar3;
 }
@@ -3035,19 +3044,19 @@ int fle_DirectoryLoad(undefined4 param_1,int param_2,int param_3,undefined4 para
 /* Original name fle_DirectoryGetCWD (the remaster's GrimFandango (Linux): slot 1 of the
    "DIRECTORY=insane_directory" service table); was FUN_004c54f0. */
 
-int fle_DirectoryGetCWD(char *param_1,int param_2)
+int __cdecl fle_DirectoryGetCWD(char *param_1,int param_2)
 
 {
   char cVar1;
-  int iVar2;
+  uint uVar2;
   uint uVar3;
   int iVar4;
   uint uVar5;
   char *pcVar6;
   char *pcVar7;
   
-  iVar2 = FUN_004d5830(param_1,param_2);
-  if (iVar2 != 0) {
+  uVar2 = FUN_004d5830((uint)param_1,param_2);
+  if ((uVar2 == 0) == 0) {
     uVar3 = 0xffffffff;
     pcVar7 = param_1;
     do {
@@ -3093,20 +3102,20 @@ int fle_DirectoryGetCWD(char *param_1,int param_2)
       }
     }
   }
-  return iVar2 == 0;
+  return (uint)(uVar2 == 0);
 }
 
 /* ---- 0x004c5570  fle_DirectoryGetParent ---- */
 /* Original name fle_DirectoryGetParent (the remaster's GrimFandango (Linux): slot 2 of the
    "DIRECTORY=insane_directory" service table); was FUN_004c5570. */
 
-undefined4 fle_DirectoryGetParent(int param_1,char *param_2)
+uint __cdecl fle_DirectoryGetParent(int param_1,char *param_2)
 
 {
   char *pcVar1;
   char cVar2;
   uint uVar3;
-  int iVar4;
+  uint uVar4;
   char *pcVar5;
   
   uVar3 = 0xffffffff;
@@ -3117,18 +3126,18 @@ undefined4 fle_DirectoryGetParent(int param_1,char *param_2)
     cVar2 = *pcVar5;
     pcVar5 = pcVar5 + 1;
   } while (cVar2 != '\0');
-  iVar4 = ~uVar3 - 1;
-  if (((iVar4 < 3) || (param_2[~uVar3 - 3] == ':')) ||
-     (pcVar5 = param_2 + iVar4, (param_2 + iVar4)[-1] != '\\')) {
+  uVar4 = ~uVar3 - 1;
+  if ((((int)uVar4 < 3) || (param_2[~uVar3 - 3] == ':')) ||
+     (pcVar5 = param_2 + uVar4, (param_2 + uVar4)[-1] != '\\')) {
     return 0xffffffff;
   }
   do {
-    iVar4 = iVar4 + -1;
-    if ((iVar4 == 0) || (pcVar1 = pcVar5 + -2, *pcVar1 == '\\')) break;
+    uVar4 = uVar4 - 1;
+    if ((uVar4 == 0) || (pcVar1 = pcVar5 + -2, *pcVar1 == '\\')) break;
     pcVar5 = pcVar5 + -1;
   } while (*pcVar1 != ':');
-  strncpy(param_1,param_2,iVar4);
-  *(undefined1 *)(iVar4 + param_1) = 0;
+  strncpy((uint *)param_1,(uint *)param_2,uVar4);
+  *(undefined1 *)(uVar4 + param_1) = 0;
   return 0;
 }
 
@@ -3136,131 +3145,133 @@ undefined4 fle_DirectoryGetParent(int param_1,char *param_2)
 /* Original name fle_DirectoryGetPath (the remaster's GrimFandango (Linux): slot 3 of the
    "DIRECTORY=insane_directory" service table); was FUN_004c55d0. */
 
-undefined4 fle_DirectoryGetPath(char *param_1,char *param_2,char *param_3,undefined4 param_4)
+uint __cdecl fle_DirectoryGetPath(char *param_1,char *param_2,char *param_3,uint param_4)
 
 {
   char cVar1;
   char cVar2;
-  int iVar3;
-  uint uVar4;
+  uint *puVar3;
+  int iVar4;
   uint uVar5;
-  char *pcVar6;
-  char *pcVar7;
+  uint uVar6;
+  uint *puVar7;
   char *pcVar8;
   char *pcVar9;
+  char *pcVar10;
   
-  pcVar6 = param_3;
-  uVar4 = 0xffffffff;
-  pcVar7 = param_3;
+  pcVar8 = param_3;
+  uVar5 = 0xffffffff;
+  pcVar10 = param_3;
   do {
-    if (uVar4 == 0) break;
-    uVar4 = uVar4 - 1;
-    cVar1 = *pcVar7;
-    pcVar7 = pcVar7 + 1;
+    if (uVar5 == 0) break;
+    uVar5 = uVar5 - 1;
+    cVar1 = *pcVar10;
+    pcVar10 = pcVar10 + 1;
   } while (cVar1 != '\0');
-  if ((~uVar4 - 1 < 2) || (param_3[1] != ':')) {
+  if ((~uVar5 - 1 < 2) || (param_3[1] != ':')) {
+    puVar7 = (uint *)param_3;
     if (param_1 != param_2) {
-      uVar4 = 0xffffffff;
-      pcVar7 = param_2;
+      uVar5 = 0xffffffff;
+      pcVar8 = param_2;
       do {
-        pcVar9 = pcVar7;
-        if (uVar4 == 0) break;
-        uVar4 = uVar4 - 1;
-        pcVar9 = pcVar7 + 1;
-        cVar1 = *pcVar7;
-        pcVar7 = pcVar9;
+        pcVar10 = pcVar8;
+        if (uVar5 == 0) break;
+        uVar5 = uVar5 - 1;
+        pcVar10 = pcVar8 + 1;
+        cVar1 = *pcVar8;
+        pcVar8 = pcVar10;
       } while (cVar1 != '\0');
-      uVar4 = ~uVar4;
-      pcVar7 = pcVar9 + -uVar4;
-      pcVar9 = param_1;
-      for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-        *(undefined4 *)pcVar9 = *(undefined4 *)pcVar7;
-        pcVar7 = pcVar7 + 4;
-        pcVar9 = pcVar9 + 4;
+      uVar5 = ~uVar5;
+      pcVar8 = pcVar10 + -uVar5;
+      pcVar10 = param_1;
+      for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+        *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+        pcVar8 = pcVar8 + 4;
+        pcVar10 = pcVar10 + 4;
       }
-      for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-        *pcVar9 = *pcVar7;
-        pcVar7 = pcVar7 + 1;
-        pcVar9 = pcVar9 + 1;
+      for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+        *pcVar10 = *pcVar8;
+        pcVar8 = pcVar8 + 1;
+        pcVar10 = pcVar10 + 1;
       }
     }
   }
   else {
     FUN_004c5370(&param_2);
-    cVar1 = *pcVar6;
+    cVar1 = *pcVar8;
     if ((cVar1 < 'a') || ('z' < cVar1)) {
-      iVar3 = (int)cVar1;
+      iVar4 = (int)cVar1;
     }
     else {
-      iVar3 = cVar1 + -0x20;
+      iVar4 = cVar1 + -0x20;
     }
-    FUN_004c5350(iVar3 + -0x40,&param_3);
+    FUN_004c5350(iVar4 - 0x40,&param_3);
     fle_DirectoryGetCWD(param_1,param_4);
-    FUN_004c5350(param_2,&param_3);
-    pcVar6 = pcVar6 + 2;
+    FUN_004c5350((uint)param_2,&param_3);
+    puVar7 = (uint *)(pcVar8 + 2);
   }
-  if ((*pcVar6 == '\\') && (pcVar6[1] != '\\')) {
+  if (((char)*puVar7 == '\\') && (*(char *)((int)puVar7 + 1) != '\\')) {
     param_1[2] = '\\';
     param_1[3] = '\0';
-    pcVar6 = pcVar6 + 1;
+    puVar7 = (uint *)((int)puVar7 + 1);
   }
-  cVar1 = *pcVar6;
+  cVar1 = (char)*puVar7;
   do {
     cVar2 = cVar1;
-    pcVar7 = pcVar6;
+    puVar3 = puVar7;
     if (cVar1 == '\0') {
       return 0;
     }
     while ((cVar2 != '\0' && (cVar2 != '\\'))) {
-      cVar2 = pcVar7[1];
-      pcVar7 = pcVar7 + 1;
+      cVar2 = *(char *)((int)puVar3 + 1);
+      puVar3 = (uint *)((int)puVar3 + 1);
     }
     if (cVar1 == '.') {
-      if (pcVar6[1] == '.') {
-        fle_DirectoryGetParent(param_1,param_1);
+      if (*(char *)((int)puVar7 + 1) == '.') {
+        fle_DirectoryGetParent((int)param_1,param_1);
       }
     }
     else {
-      FUN_004ae410(param_1,pcVar6,(int)pcVar7 - (int)pcVar6);
-      uVar4 = 0xffffffff;
-      pcVar6 = &DAT_004e9c60;
+      FUN_004ae410((uint *)param_1,puVar7,(int)puVar3 - (int)puVar7);
+      uVar5 = 0xffffffff;
+      pcVar8 = &DAT_004e9c60;
       do {
-        pcVar9 = pcVar6;
-        if (uVar4 == 0) break;
-        uVar4 = uVar4 - 1;
-        pcVar9 = pcVar6 + 1;
-        cVar1 = *pcVar6;
-        pcVar6 = pcVar9;
+        pcVar10 = pcVar8;
+        if (uVar5 == 0) break;
+        uVar5 = uVar5 - 1;
+        pcVar10 = pcVar8 + 1;
+        cVar1 = *pcVar8;
+        pcVar8 = pcVar10;
       } while (cVar1 != '\0');
-      uVar4 = ~uVar4;
-      iVar3 = -1;
-      pcVar6 = param_1;
+      uVar5 = ~uVar5;
+      iVar4 = -1;
+      pcVar8 = param_1;
       do {
-        pcVar8 = pcVar6;
-        if (iVar3 == 0) break;
-        iVar3 = iVar3 + -1;
-        pcVar8 = pcVar6 + 1;
-        cVar1 = *pcVar6;
-        pcVar6 = pcVar8;
+        pcVar9 = pcVar8;
+        if (iVar4 == 0) break;
+        iVar4 = iVar4 + -1;
+        pcVar9 = pcVar8 + 1;
+        cVar1 = *pcVar8;
+        pcVar8 = pcVar9;
       } while (cVar1 != '\0');
-      pcVar6 = pcVar9 + -uVar4;
-      pcVar9 = pcVar8 + -1;
-      for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-        *(undefined4 *)pcVar9 = *(undefined4 *)pcVar6;
-        pcVar6 = pcVar6 + 4;
-        pcVar9 = pcVar9 + 4;
+      pcVar8 = pcVar10 + -uVar5;
+      pcVar10 = pcVar9 + -1;
+      for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+        *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+        pcVar8 = pcVar8 + 4;
+        pcVar10 = pcVar10 + 4;
       }
-      for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-        *pcVar9 = *pcVar6;
-        pcVar6 = pcVar6 + 1;
-        pcVar9 = pcVar9 + 1;
+      for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+        *pcVar10 = *pcVar8;
+        pcVar8 = pcVar8 + 1;
+        pcVar10 = pcVar10 + 1;
       }
     }
-    if (*pcVar7 == '\0') {
+    if ((char)*puVar3 == '\0') {
       return 0;
     }
-    cVar1 = pcVar7[1];
-    pcVar6 = pcVar7 + 1;
+    cVar1 = *(char *)((int)puVar3 + 1);
+    puVar7 = (uint *)((int)puVar3 + 1);
   } while( true );
 }
 
@@ -3268,7 +3279,7 @@ undefined4 fle_DirectoryGetPath(char *param_1,char *param_2,char *param_3,undefi
 /* Original name fle_VolumeLoadList (the remaster's GrimFandango (Linux): slot 4 of the
    "DIRECTORY=insane_directory" service table); was FUN_004c5720. */
 
-int fle_VolumeLoadList(int param_1,int param_2)
+int __cdecl fle_VolumeLoadList(int param_1,int param_2)
 
 {
   int iVar1;
@@ -3298,7 +3309,7 @@ int fle_VolumeLoadList(int param_1,int param_2)
 /* Original name fle_zfilio_module (the remaster's GrimFandango (Linux): slot 0 of the
    "LECMODULE=insane_zfilio" service table); was FUN_004c5790. */
 
-undefined4 fle_zfilio_module(int *param_1,uint param_2)
+uint __cdecl fle_zfilio_module(int *param_1,uint param_2)
 
 {
   g_pZfile_share_services = param_1;
@@ -3313,7 +3324,7 @@ undefined4 fle_zfilio_module(int *param_1,uint param_2)
    "LECMODULE=insane_zfilio" service table; module_terminate is a static several LEC modules have,
    written with the module prefix); was FUN_004c5840. */
 
-void Zfile_module_terminate(void)
+void __cdecl Zfile_module_terminate(void)
 
 {
   (*(code *)g_pZfile_share_services[1])(s_FILIO_insane_zfilio_004f0ca0);
@@ -3327,7 +3338,7 @@ void Zfile_module_terminate(void)
    strings: 'Zfile Module: Cannot allocate memory services.' | 'MEMORY.buffers' | 'Zfile Module:
    Cannot allocate filio services.'); was FUN_004c5870. */
 
-undefined4 Zfile_module_startup(void)
+uint __cdecl Zfile_module_startup(void)
 
 {
   g_pZf_filio_services =
@@ -3354,7 +3365,7 @@ undefined4 Zfile_module_startup(void)
    "LECMODULE=insane_zfilio" service table; module_shutdown is a static several LEC modules have,
    written with the module prefix); was FUN_004c5910. */
 
-void Zfile_module_shutdown(void)
+void __cdecl Zfile_module_shutdown(void)
 
 {
   (*(code *)g_pZfile_share_services[3])(g_pZf_filio_services);
@@ -3376,7 +3387,7 @@ int * Zfile_fle_Open(char *param_1,char *param_2)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
-  int iVar2;
+  uint *puVar2;
   void *pvVar3;
   undefined4 uVar4;
   undefined **ppuVar5;
@@ -3399,8 +3410,8 @@ int * Zfile_fle_Open(char *param_1,char *param_2)
         ((param_2[1] == '\0' || (param_2[2] != '+')))) && (0 < (int)UINT_004f1c20)) {
       ppuVar5 = &PTR_DAT_004f1c28;
       do {
-        iVar2 = String_ContainsSubstring(param_1,*ppuVar5);
-        if (iVar2 != 0) {
+        puVar2 = String_ContainsSubstring((uint *)param_1,*ppuVar5);
+        if (puVar2 != (uint *)0x0) {
           pvVar3 = SaveFile_Open(param_1,param_2);
           *piVar1 = (int)pvVar3;
           if (pvVar3 != (void *)0x0) {
@@ -3438,42 +3449,43 @@ int * Zfile_fle_Open(char *param_1,char *param_2)
    "FILIO=insane_zfilio" service table; fle_Read is a static several LEC modules have, written with
    the module prefix); was FUN_004c5b00. */
 
-int Zfile_fle_Read(int *param_1,undefined4 param_2,int param_3)
+int __cdecl Zfile_fle_Read(int *param_1,uint param_2,int param_3)
 
 {
-  int iVar1;
+  undefined4 *puVar1;
   int *piVar2;
   int iVar3;
+  uint uVar4;
   
   piVar2 = param_1;
-  iVar3 = 0;
-  iVar1 = *param_1;
-  if (iVar1 != 0) {
+  uVar4 = 0;
+  puVar1 = (undefined4 *)*param_1;
+  if (puVar1 != (undefined4 *)0x0) {
     if (param_1[1] != 0) {
       if (param_1[3] != param_1[4]) {
-        iVar3 = gzseek(iVar1,param_1[4],0);
-        if (iVar3 < 0) {
-          FUN_004c4a00(*piVar2,&param_1);
+        uVar4 = gzseek(puVar1,param_1[4],0);
+        if ((int)uVar4 < 0) {
+          FUN_004c4a00(*piVar2,(int *)&param_1);
         }
         else {
           piVar2[3] = piVar2[4];
         }
       }
-      iVar1 = param_3;
-      if (-1 < iVar3) {
-        iVar3 = gzread(*piVar2,param_2,param_3);
+      iVar3 = param_3;
+      if (-1 < (int)uVar4) {
+        uVar4 = gzread((int *)*piVar2,param_2,param_3);
       }
-      if (-1 < iVar3) {
-        piVar2[4] = piVar2[4] + iVar1;
-        piVar2[3] = piVar2[3] + iVar1;
-        return iVar3;
+      if (-1 < (int)uVar4) {
+        piVar2[4] = piVar2[4] + iVar3;
+        piVar2[3] = piVar2[3] + iVar3;
+        return uVar4;
       }
-      FUN_004c4a00(*piVar2,&param_1);
-      return iVar3;
+      FUN_004c4a00(*piVar2,(int *)&param_1);
+      return uVar4;
     }
-    iVar3 = (*(code *)g_pZf_filio_services[2])(iVar1,param_2,param_3);
+    uVar4 = (*(code *)g_pZf_filio_services[2])(puVar1,param_2,param_3);
   }
-  return iVar3;
+  return uVar4;
 }
 
 /* ---- 0x004c5bc0  Zfile_fle_Write ---- */
@@ -3481,22 +3493,22 @@ int Zfile_fle_Read(int *param_1,undefined4 param_2,int param_3)
    "FILIO=insane_zfilio" service table; fle_Write is a static several LEC modules have, written with
    the module prefix); was FUN_004c5bc0. */
 
-undefined4 Zfile_fle_Write(int *param_1,undefined4 param_2,int param_3)
+uint __cdecl Zfile_fle_Write(int *param_1,uint param_2,int param_3)
 
 {
-  int iVar1;
-  undefined4 uVar2;
+  undefined4 *puVar1;
+  uint uVar2;
   
   uVar2 = 0;
-  iVar1 = *param_1;
-  if (iVar1 != 0) {
+  puVar1 = (undefined4 *)*param_1;
+  if (puVar1 != (undefined4 *)0x0) {
     if (param_1[1] != 0) {
-      uVar2 = gzwrite(iVar1,param_2,param_3);
+      uVar2 = gzwrite(puVar1,param_2,param_3);
       param_1[3] = param_1[3] + param_3;
       param_1[4] = param_1[4] + param_3;
       return uVar2;
     }
-    uVar2 = (*(code *)g_pZf_filio_services[3])(iVar1,param_2,param_3);
+    uVar2 = (*(code *)g_pZf_filio_services[3])(puVar1,param_2,param_3);
   }
   return uVar2;
 }
@@ -3506,7 +3518,7 @@ undefined4 Zfile_fle_Write(int *param_1,undefined4 param_2,int param_3)
    "FILIO=insane_zfilio" service table; fle_Tell is a static several LEC modules have, written with
    the module prefix); was FUN_004c5c20. */
 
-int Zfile_fle_Tell(int *param_1)
+int __cdecl Zfile_fle_Tell(int *param_1)
 
 {
   int iVar1;
@@ -3526,7 +3538,7 @@ int Zfile_fle_Tell(int *param_1)
    "FILIO=insane_zfilio" service table; fle_Seek is a static several LEC modules have, written with
    the module prefix); was FUN_004c5c50. */
 
-void Zfile_fle_Seek(int *param_1,int param_2,int param_3)
+void __cdecl Zfile_fle_Seek(int *param_1,int param_2,int param_3)
 
 {
   if (*param_1 != 0) {
@@ -3556,7 +3568,7 @@ void Zfile_fle_Seek(int *param_1,int param_2,int param_3)
    "FILIO=insane_zfilio" service table; fle_Flush is a static several LEC modules have, written with
    the module prefix); was FUN_004c5cb0. */
 
-void Zfile_fle_Flush(int *param_1)
+void __cdecl Zfile_fle_Flush(int *param_1)
 
 {
   int iVar1;
@@ -3576,7 +3588,7 @@ void Zfile_fle_Flush(int *param_1)
 /* Original name fle_stdfile_module (the remaster's GrimFandango (Linux): slot 0 of the
    "LECMODULE=insane_stdfile" service table); was FUN_004c5ce0. */
 
-undefined4 fle_stdfile_module(int *param_1,uint param_2)
+uint __cdecl fle_stdfile_module(int *param_1,uint param_2)
 
 {
   g_pStdFile_share_services = param_1;
@@ -3592,7 +3604,7 @@ undefined4 fle_stdfile_module(int *param_1,uint param_2)
    "LECMODULE=insane_stdfile" service table; module_terminate is a static several LEC modules have,
    written with the module prefix); was FUN_004c5d20. */
 
-void StdFile_module_terminate(void)
+void __cdecl StdFile_module_terminate(void)
 
 {
   (*(code *)g_pStdFile_share_services[1])(s_FILE_insane_stdfile_004f1e74);
@@ -3605,7 +3617,7 @@ void StdFile_module_terminate(void)
    module_startup of the StdFile module (the remaster has one per module file, hence the prefix);
    strings: 'StdFile Module: Cannot allocate filio services.'); was FUN_004c5d50. */
 
-undefined4 StdFile_module_startup(void)
+uint __cdecl StdFile_module_startup(void)
 
 {
   g_pStdFile_filio_services =
@@ -3623,7 +3635,7 @@ undefined4 StdFile_module_startup(void)
    "LECMODULE=insane_stdfile" service table; module_shutdown is a static several LEC modules have,
    written with the module prefix); was FUN_004c5d90. */
 
-void StdFile_module_shutdown(void)
+void __cdecl StdFile_module_shutdown(void)
 
 {
   (*(code *)g_pStdFile_share_services[3])(g_pStdFile_filio_services);
@@ -3635,7 +3647,7 @@ void StdFile_module_shutdown(void)
    "FILE=insane_stdfile" service table; fle_Open is a static several LEC modules have, written with
    the module prefix); was FUN_004c5db0. */
 
-void StdFile_fle_Open(undefined4 param_1,undefined4 param_2)
+void __cdecl StdFile_fle_Open(uint param_1,uint param_2)
 
 {
   (*(code *)*g_pStdFile_filio_services)(param_1,param_2);
@@ -3647,7 +3659,7 @@ void StdFile_fle_Open(undefined4 param_1,undefined4 param_2)
    "FILE=insane_stdfile" service table; fle_Close is a static several LEC modules have, written with
    the module prefix); was FUN_004c5dd0. */
 
-void StdFile_fle_Close(undefined4 param_1)
+void __cdecl StdFile_fle_Close(uint param_1)
 
 {
   (*(code *)g_pStdFile_filio_services[1])(param_1);
@@ -3659,7 +3671,7 @@ void StdFile_fle_Close(undefined4 param_1)
    "FILE=insane_stdfile" service table; fle_Read is a static several LEC modules have, written with
    the module prefix); was FUN_004c5df0. */
 
-void StdFile_fle_Read(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl StdFile_fle_Read(uint param_1,uint param_2,uint param_3)
 
 {
   (*(code *)g_pStdFile_filio_services[2])(param_1,param_2,param_3);
@@ -3671,7 +3683,7 @@ void StdFile_fle_Read(undefined4 param_1,undefined4 param_2,undefined4 param_3)
    "FILE=insane_stdfile" service table; fle_Write is a static several LEC modules have, written with
    the module prefix); was FUN_004c5e10. */
 
-void StdFile_fle_Write(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl StdFile_fle_Write(uint param_1,uint param_2,uint param_3)
 
 {
   (*(code *)g_pStdFile_filio_services[3])(param_1,param_2,param_3);
@@ -3683,7 +3695,7 @@ void StdFile_fle_Write(undefined4 param_1,undefined4 param_2,undefined4 param_3)
    "FILE=insane_stdfile" service table; fle_Seek is a static several LEC modules have, written with
    the module prefix); was FUN_004c5e50. */
 
-void StdFile_fle_Seek(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl StdFile_fle_Seek(uint param_1,uint param_2,uint param_3)
 
 {
   (*(code *)g_pStdFile_filio_services[5])(param_1,param_2,param_3);
@@ -3695,7 +3707,7 @@ void StdFile_fle_Seek(undefined4 param_1,undefined4 param_2,undefined4 param_3)
    "FILE=insane_stdfile" service table; fle_Flush is a static several LEC modules have, written with
    the module prefix); was FUN_004c5e70. */
 
-void StdFile_fle_Flush(undefined4 param_1)
+void __cdecl StdFile_fle_Flush(uint param_1)
 
 {
   (*(code *)g_pStdFile_filio_services[6])(param_1);
@@ -3706,10 +3718,10 @@ void StdFile_fle_Flush(undefined4 param_1)
 /* Original name fle_GetS (the remaster's GrimFandango (Linux): slot 8 of the "FILE=insane_stdfile"
    service table); was FUN_004c5ee0. */
 
-int fle_GetS(undefined4 param_1,int param_2,int param_3)
+int __cdecl fle_GetS(uint param_1,int param_2,int param_3)
 
 {
-  int iVar1;
+  uint uVar1;
   int iVar2;
   int iVar3;
   
@@ -3717,16 +3729,16 @@ int fle_GetS(undefined4 param_1,int param_2,int param_3)
   if (0 < param_3) {
     iVar2 = 1;
     while( true ) {
-      iVar1 = fle_GetC(param_1);
-      if (iVar1 == -1) {
+      uVar1 = fle_GetC(param_1);
+      if (uVar1 == 0xffffffff) {
         if (iVar3 == 0) {
           return 0;
         }
         *(undefined1 *)(iVar3 + param_2) = 0;
         return param_2;
       }
-      *(char *)(param_2 + -1 + iVar2) = (char)iVar1;
-      if ((iVar1 == 10) && (iVar2 < param_3)) break;
+      *(char *)(param_2 + -1 + iVar2) = (char)uVar1;
+      if ((uVar1 == 10) && (iVar2 < param_3)) break;
       iVar3 = iVar3 + 1;
       iVar2 = iVar2 + 1;
       if (param_3 <= iVar3) {
@@ -3742,7 +3754,7 @@ int fle_GetS(undefined4 param_1,int param_2,int param_3)
 /* Original name fle_PrintF (the remaster's GrimFandango (Linux): slot 10 of the
    "FILE=insane_stdfile" service table); was FUN_004c5f80. */
 
-void fle_PrintF(undefined4 param_1,undefined4 param_2)
+void __cdecl fle_PrintF(uint param_1,uint param_2)
 
 {
   unsigned char _frame[0x210];  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3751,7 +3763,7 @@ void fle_PrintF(undefined4 param_1,undefined4 param_2)
   char *pcVar3;
   #define local_1f4 (*(char (*)[500])(_frame + (0x210 - 0x1f4)))
   
-  vsprintf(local_1f4,param_2,&STACK0X(0x0000000c));
+  vsprintf((uint)local_1f4,param_2,(uint)&STACK0X(0x0000000c));
   uVar2 = 0xffffffff;
   pcVar3 = local_1f4;
   do {
@@ -3770,7 +3782,7 @@ void fle_PrintF(undefined4 param_1,undefined4 param_2)
 /* Original name fle_GetC (the remaster's GrimFandango (Linux): slot 11 of the "FILE=insane_stdfile"
    service table); was FUN_004c5fe0. */
 
-uint fle_GetC(uint param_1)
+uint __cdecl fle_GetC(uint param_1)
 
 {
   int iVar1;
@@ -3786,7 +3798,7 @@ uint fle_GetC(uint param_1)
 /* Original name fle_PutC (the remaster's GrimFandango (Linux): slot 12 of the "FILE=insane_stdfile"
    service table); was FUN_004c6010. */
 
-uint fle_PutC(undefined4 param_1,uint param_2)
+uint __cdecl fle_PutC(uint param_1,uint param_2)
 
 {
   int iVar1;
@@ -3886,7 +3898,7 @@ uint fle_PutC(undefined4 param_1,uint param_2)
 /* Original name fob_flobdec_wave_module (the remaster's GrimFandango (Linux): slot 0 of the
    "LECMODULE=insane_wave_flobdec" service table); was FUN_004cba30. */
 
-undefined4 fob_flobdec_wave_module(int *param_1,uint param_2)
+uint __cdecl fob_flobdec_wave_module(int *param_1,uint param_2)
 
 {
   g_pDWave_share_services = param_1;
@@ -3902,7 +3914,7 @@ undefined4 fob_flobdec_wave_module(int *param_1,uint param_2)
    "LECMODULE=insane_wave_flobdec" service table; module_terminate is a static several LEC modules
    have, written with the module prefix); was FUN_004cba70. */
 
-void DWave_module_terminate(void)
+void __cdecl DWave_module_terminate(void)
 
 {
   (*(code *)g_pDWave_share_services[1])(s_FLOBDEC_insane_wave_004f3368);
@@ -3916,7 +3928,7 @@ void DWave_module_terminate(void)
    strings: 'MEMORY' | 'D_WAVE: Cannot allocate sound services.' | 'SOUND' | 'D_WAVE: Cannot
    allocate memory services.'); was FUN_004cbaa0. */
 
-int DWave_module_startup(void)
+int __cdecl DWave_module_startup(void)
 
 {
   g_dwSoundServices = (*(code *)g_pDWave_share_services[2])(s_SOUND_004f3434,g_dwDWave_share_config)
@@ -3942,7 +3954,7 @@ int DWave_module_startup(void)
    shutdown: soundServices, memoryServices, outputBuffer (module_shutdown in the remaster)); was
    FUN_004cbb30. */
 
-void DWave_module_shutdown(void)
+void __cdecl DWave_module_shutdown(void)
 
 {
   (*(code *)g_pDWave_share_services[3])(g_dwSoundServices);
@@ -3960,7 +3972,7 @@ void DWave_module_shutdown(void)
    "FLOBDEC=insane_wave" service table; flobdec_Info is a static several LEC modules have, written
    with the module prefix); was FUN_004cbb80. */
 
-char * DWave_flobdec_Info(int param_1)
+char * __cdecl DWave_flobdec_Info(int param_1)
 
 {
   if (param_1 == 0) {
@@ -3980,7 +3992,7 @@ char * DWave_flobdec_Info(int param_1)
    "FLOBDEC=insane_wave" service table; flobdec_GetID is a static several LEC modules have, written
    with the module prefix); was FUN_004cbbb0. */
 
-undefined4 DWave_flobdec_GetID(void)
+uint __cdecl DWave_flobdec_GetID(void)
 
 {
   return 0x57617665;
@@ -3991,7 +4003,7 @@ undefined4 DWave_flobdec_GetID(void)
    "FLOBDEC=insane_wave" service table; flobdec_GetType is a static several LEC modules have,
    written with the module prefix); was FUN_004cbbc0. */
 
-undefined4 DWave_flobdec_GetType(void)
+uint __cdecl DWave_flobdec_GetType(void)
 
 {
   return 4;
@@ -4002,7 +4014,7 @@ undefined4 DWave_flobdec_GetType(void)
    "FLOBDEC=insane_wave" service table; flobdec_Reset is a static several LEC modules have, written
    with the module prefix); was FUN_004cbbd0. */
 
-void DWave_flobdec_Reset(void)
+void __cdecl DWave_flobdec_Reset(void)
 
 {
   DAT_008d785e = 0;
@@ -4014,7 +4026,7 @@ void DWave_flobdec_Reset(void)
    "FLOBDEC=insane_wave" service table; flobdec_DecodeHeader is a static several LEC modules have,
    written with the module prefix); was FUN_004cbbe0. */
 
-undefined4 DWave_flobdec_DecodeHeader(int param_1)
+uint __cdecl DWave_flobdec_DecodeHeader(int param_1)
 
 {
   DAT_008d785e = 0;
@@ -4122,7 +4134,7 @@ DWave_flobdec_DecodeBody
 }
 
 /* ---- 0x004cbf40  FUN_004cbf40 ---- */
-undefined4 FUN_004cbf40(void)
+uint __cdecl FUN_004cbf40(void)
 
 {
   return 0xffffffff;
@@ -4270,7 +4282,7 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
 
 
 /* ---- 0x004cd3f0  FUN_004cd3f0 ---- */
-int FUN_004cd3f0(uint param_1,uint param_2)
+int __cdecl FUN_004cd3f0(uint param_1,uint param_2)
 
 {
   return (int)((param_1 & 0xf800) + (param_2 & 0xf800) & 0x1f000 |
@@ -4282,7 +4294,7 @@ int FUN_004cd3f0(uint param_1,uint param_2)
 /* Original name sys_GetCount (the remaster's GrimFandango (Linux): slot 7 of the "TIMER=insane"
    service table); was FUN_004ce010. */
 
-uint sys_GetCount(void)
+uint __cdecl sys_GetCount(void)
 
 {
   return g_dwSys_timer_count;
@@ -4292,7 +4304,7 @@ uint sys_GetCount(void)
 /* Original name sys_ExtSync (the remaster's GrimFandango (Linux): slot 8 of the "TIMER=insane"
    service table); was FUN_004ce020. */
 
-void sys_ExtSync(int param_1)
+void __cdecl sys_ExtSync(int param_1)
 
 {
   uint *puVar1;
@@ -4314,7 +4326,7 @@ void sys_ExtSync(int param_1)
 /* Original name bmp_bitmap_module (the remaster's GrimFandango (Linux): slot 0 of the
    "LECMODULE=insane_bitmap" service table); was FUN_004ce2e0. */
 
-undefined4 bmp_bitmap_module(int *param_1,uint param_2)
+uint __cdecl bmp_bitmap_module(int *param_1,uint param_2)
 
 {
   g_pVideo_share_services = param_1;
@@ -4329,7 +4341,7 @@ undefined4 bmp_bitmap_module(int *param_1,uint param_2)
    "LECMODULE=insane_bitmap" service table; module_terminate is a static several LEC modules have,
    written with the module prefix); was FUN_004ce320. */
 
-void Video_module_terminate(void)
+void __cdecl Video_module_terminate(void)
 
 {
   (*(code *)g_pVideo_share_services[1])(s_BITMAP_insane_004f3cdc);
@@ -4342,7 +4354,7 @@ void Video_module_terminate(void)
    module_startup of the Video module (the remaster has one per module file, hence the prefix);
    strings: 'Video Module: Cannot allocate memory services.' | 'VIDEO.getbm'); was FUN_004ce350. */
 
-undefined4 Video_module_startup(void)
+uint __cdecl Video_module_startup(void)
 
 {
   g_pVideo_memory_services =
@@ -4362,7 +4374,7 @@ undefined4 Video_module_startup(void)
    "LECMODULE=insane_bitmap" service table; module_shutdown is a static several LEC modules have,
    written with the module prefix); was FUN_004ce3b0. */
 
-void Video_module_shutdown(void)
+void __cdecl Video_module_shutdown(void)
 
 {
   (*(code *)g_pVideo_share_services[3])(g_pVideo_memory_services);
@@ -4376,8 +4388,8 @@ void Video_module_shutdown(void)
 /* Original name bmp_bitmap_AllocRaw (the remaster's GrimFandango (Linux): slot 1 of the
    "BITMAP=insane" service table); was FUN_004ce840. */
 
-undefined4
-bmp_bitmap_AllocRaw(int *param_1,int param_2,int param_3,int param_4,int param_5,undefined4 param_6,
+uint __cdecl
+bmp_bitmap_AllocRaw(int *param_1,int param_2,int param_3,int param_4,int param_5,uint param_6,
                    undefined4 *param_7)
 
 {
@@ -4402,7 +4414,7 @@ bmp_bitmap_AllocRaw(int *param_1,int param_2,int param_3,int param_4,int param_5
   *(int *)(*param_1 + 0x14) = param_5 * param_2;
   *(int *)(*param_1 + 8) = param_3;
   *(int *)(*param_1 + 0xc) = param_5;
-  *(undefined4 *)(*param_1 + 0x10) = param_6;
+  *(uint *)(*param_1 + 0x10) = param_6;
   *(undefined4 *)(*param_1 + 0x1c) = 0;
   *(undefined4 *)(*param_1 + 0x18) = 0;
   *(int *)(*param_1 + 0x20) = param_4;
@@ -4446,7 +4458,7 @@ bmp_bitmap_AllocRaw(int *param_1,int param_2,int param_3,int param_4,int param_5
 /* Original name bmp_bitmap_Free (the remaster's GrimFandango (Linux): slot 2 of the "BITMAP=insane"
    service table); was FUN_004ce980. */
 
-void bmp_bitmap_Free(int *param_1)
+void __cdecl bmp_bitmap_Free(int *param_1)
 
 {
   if (*param_1 + -8 != 0) {
@@ -4461,14 +4473,14 @@ void bmp_bitmap_Free(int *param_1)
 /* Original name gra_SetBitmap (the remaster's GrimFandango (Linux): same body (memset or convert
    colour + SetBuffer); called from the animator render); was FUN_004ce9b0. */
 
-void gra_SetBitmap(undefined4 *param_1,undefined4 param_2)
+void __cdecl gra_SetBitmap(undefined4 *param_1,uint param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 uVar2;
+  char *pcVar2;
   int iVar3;
-  #define local_14 (*(undefined1 (*)[20])(_frame + (0x30 - 0x14)))
+  #define local_14 (*(char (*)[20])(_frame + (0x30 - 0x14)))
   
   if (0 < (int)param_1[5]) {
     if (param_1[8] == 0) {
@@ -4476,10 +4488,10 @@ void gra_SetBitmap(undefined4 *param_1,undefined4 param_2)
       return;
     }
     iVar1 = param_1[2];
-    uVar2 = *param_1;
+    pcVar2 = (char *)*param_1;
     iVar3 = param_1[1];
     gra_ConvertFromLecColor(local_14,param_1,1,0,(byte *)&param_2);
-    gra_SetBuffer(uVar2,param_1,iVar1 * iVar3,local_14);
+    gra_SetBuffer(pcVar2,(int)param_1,iVar1 * iVar3,local_14);
   }
   return;
 }
@@ -4491,7 +4503,7 @@ void gra_SetBitmap(undefined4 *param_1,undefined4 param_2)
    source, non-indexed destination: gra_ConvertFromLecColor of 0x100 palette entries into the
    lookup); called by gra_BlitRectLookup in both builds); was FUN_004ced70. */
 
-undefined4 gra_ConvertMakeLookup(int param_1,void *param_2,void *param_3,byte *param_4)
+uint __cdecl gra_ConvertMakeLookup(int param_1,void *param_2,void *param_3,byte *param_4)
 
 {
   byte *src;
@@ -4510,7 +4522,7 @@ undefined4 gra_ConvertMakeLookup(int param_1,void *param_2,void *param_3,byte *p
 /* Original name sou_mixer_terminate (the remaster's GrimFandango (Linux): dsn_terminate's
    (DsndDriver_Close's) mixer call; frees the mixer tables through Mixer_Free); was FUN_004d2d70. */
 
-void sou_mixer_terminate(int *param_1)
+void __cdecl sou_mixer_terminate(int *param_1)
 
 {
   Mixer_Free(param_1);
@@ -4572,10 +4584,10 @@ void sou_mixer_terminate(int *param_1)
    Original name msc_MemSet (the remaster's GrimFandango (Linux): gra_SetBitmap's / AllocBuffers'
    fill call (dst, 0, n)); was FUN_004d5e50. */
 
-void msc_MemSet(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl msc_MemSet(uint param_1,uint param_2,uint param_3)
 
 {
-  ((code *)FUN_004d5fd0)(param_1,param_2,param_3);
+  FUN_004d5fd0((byte *)param_1,param_2,param_3);
   return;
 }
 #endif
@@ -4593,8 +4605,10 @@ int msc_error_SaveString(void)
 
 {
   uint uVar1;
+  uint in_stack_00000004;
   
-  ((code *)vsprintf)(&g_aMsc_error_string + g_dwMsc_error_loc * 200);
+  vsprintf((uint)(&g_aMsc_error_string + g_dwMsc_error_loc * 200),in_stack_00000004,
+           (uint)&STACK0X(0x00000008));
   uVar1 = 0x13;
   if (g_dwMsc_error_loc == 0x13) {
     g_dwMsc_error_loc = 0;
@@ -4617,37 +4631,34 @@ int msc_error_SaveString(void)
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
     */
 
-undefined8 __fastcall
-FUN_004d5fd0(undefined4 param_1,undefined4 param_2,undefined4 *param_3,undefined1 param_4,
-            uint param_5)
+void __cdecl FUN_004d5fd0(byte *dst,int value,int count)
 
 {
-  undefined4 in_EAX;
   undefined4 uVar1;
   int iVar2;
   uint uVar3;
   
-  uVar1 = CONCAT31(CONCAT21(CONCAT11(param_4,param_4),param_4),param_4);
-  if (19999 < (int)param_5) {
+  uVar1 = CONCAT31(CONCAT21(CONCAT11((byte)value,(byte)value),(byte)value),(byte)value);
+  if (19999 < count) {
     do {
       for (iVar2 = 5000; iVar2 != 0; iVar2 = iVar2 + -1) {
-        *param_3 = uVar1;
-        param_3 = param_3 + 1;
+        *(undefined4 *)dst = uVar1;
+        dst = dst + 4;
       }
-      param_5 = param_5 - 20000;
-    } while (20000 < (int)param_5);
+      count = count - 20000;
+    } while (20000 < count);
   }
-  if ((param_5 & 3) != 0) {
-    for (uVar3 = param_5 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-      *(undefined1 *)param_3 = param_4;
-      param_3 = (undefined4 *)((int)param_3 + 1);
+  if ((count & 3U) != 0) {
+    for (uVar3 = count & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+      *dst = (byte)value;
+      dst = dst + 1;
     }
   }
-  for (param_5 = param_5 >> 2; param_5 != 0; param_5 = param_5 - 1) {
-    *param_3 = uVar1;
-    param_3 = param_3 + 1;
+  for (uVar3 = (uint)count >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
+    *(undefined4 *)dst = uVar1;
+    dst = dst + 4;
   }
-  return CONCAT44(param_2,in_EAX);
+  return;
 }
 #endif
 

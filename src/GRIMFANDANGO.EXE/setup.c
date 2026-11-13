@@ -9,11 +9,12 @@
 /* Draws the three axis lines at the setup's interest point and the camera actor's costume at its
    position */
 
-void Setup_DrawDebugCamera(int param_1)
+void __cdecl Setup_DrawDebugCamera(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *pAVar1;
+  uint uVar2;
   #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
@@ -43,9 +44,9 @@ void Setup_DrawDebugCamera(int param_1)
                      UINT_008c97cc & 0xffff,0xffffffff);
   pAVar1 = sputActor_ActorDeref(g_nCamActorIndex);
   if (pAVar1->pCostumes != (CostumeNode *)0x0) {
-    param_1 = param_1 + 0x50;
+    uVar2 = param_1 + 0x50;
     pAVar1 = sputActor_ActorDeref(g_nCamActorIndex);
-    sputCostume_Draw3D(pAVar1->pCostumes,param_1);
+    sputCostume_Draw3D((uint)pAVar1->pCostumes,uVar2);
   }
   return;
 }
@@ -75,7 +76,7 @@ void * __cdecl sputRoom_GetSetupBackground(void *set,int setupIdx)
   iVar1 = *(int *)((int)set + 0xac) + setupIdx * 300;
   ref = (int *)(iVar1 + 0xc0);
   if (*(int *)(iVar1 + 0xc0) == 0) {
-    iVar3 = _stricmp((char *)(iVar1 + 0x80),&DAT_004ec60c);
+    iVar3 = _stricmp((byte *)(iVar1 + 0x80),&DAT_004ec60c);
     if (iVar3 != 0) {
       pvVar4 = sputResource_Alloc(0x444e4b42,(char *)(iVar1 + 0x80));
       if (pvVar4 != (void *)0x0) {

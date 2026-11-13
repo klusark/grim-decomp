@@ -9,14 +9,14 @@
 /* Original name sputRoom_RelocateSounds (the remaster's GrimFandango (Linux): aligned call in
    grimlib_MakeCurrentSetup); was PositionedSounds_UpdateAll. */
 
-void sputRoom_RelocateSounds(void)
+void __cdecl sputRoom_RelocateSounds(void)
 
 {
   undefined4 *puVar1;
   
   PositionedSounds_DropFinished();
   for (puVar1 = g_pSoundEventList; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
-    SetSoundPosition(puVar1);
+    SetSoundPosition((int)puVar1);
   }
   return;
 }
@@ -25,9 +25,9 @@ void sputRoom_RelocateSounds(void)
 /* Original name sputRoom_SetSoundPosition (the remaster's GrimFandango (Linux): aligned call in
    SoundChanger, sputActor_SayLine, sputLua_SetSoundPosition); was Sound_SetPosition. */
 
-void sputRoom_SetSoundPosition
-               (uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5,uint param_6
-               )
+void __cdecl
+sputRoom_SetSoundPosition
+          (uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5,uint param_6)
 
 {
   int iVar1;
@@ -38,12 +38,12 @@ void sputRoom_SetSoundPosition
     return;
   }
   puVar2 = PositionedSound_Add(param_1,param_2,param_3,param_4,param_5,param_6);
-  SetSoundPosition(puVar2);
+  SetSoundPosition((int)puVar2);
   return;
 }
 
 /* ---- 0x004a4dc0  PositionedSounds_DropFinished ---- */
-void PositionedSounds_DropFinished(void)
+void __cdecl PositionedSounds_DropFinished(void)
 
 {
   undefined4 *puVar1;
@@ -83,21 +83,21 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
                    uint param_6)
 
 {
-  undefined4 *puVar1;
+  int *piVar1;
   
   PositionedSounds_DropFinished();
-  puVar1 = (undefined4 *)Memory_AllocFixed(g_pSoundPool);
-  puVar1[1] = param_1;
-  *puVar1 = g_pSoundEventList;
-  puVar1[2] = *param_2;
-  puVar1[3] = param_2[1];
-  puVar1[4] = param_2[2];
-  puVar1[5] = param_3;
-  puVar1[6] = param_4;
-  puVar1[7] = param_5;
-  puVar1[8] = param_6;
-  g_pSoundEventList = puVar1;
-  return (undefined *)puVar1;
+  piVar1 = Memory_AllocFixed((int *)g_pSoundPool);
+  piVar1[1] = param_1;
+  *piVar1 = (int)g_pSoundEventList;
+  piVar1[2] = (int)*param_2;
+  piVar1[3] = (int)param_2[1];
+  piVar1[4] = (int)param_2[2];
+  piVar1[5] = param_3;
+  piVar1[6] = param_4;
+  piVar1[7] = param_5;
+  piVar1[8] = param_6;
+  g_pSoundEventList = piVar1;
+  return (undefined *)piVar1;
 }
 
 /* ---- 0x004a4e80  SetSoundPosition ---- */
@@ -112,7 +112,7 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
    param 0x700. Original name SetSoundPosition (the remaster's GrimFandango (Linux): aligned call in
    sputRoom_RelocateSounds, sputRoom_SetSoundPosition); was PositionedSound_Apply. */
 
-undefined4 SetSoundPosition(int param_1)
+uint __cdecl SetSoundPosition(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -171,10 +171,10 @@ undefined4 SetSoundPosition(int param_1)
    remaster's GrimFandango (Linux): slot 11 of the "SOUND=insane" service table); was
    Sound_DriverQuery. */
 
-undefined4 sou_engine_GetRate(void)
+uint __cdecl sou_engine_GetRate(void)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
   if (g_pSoundModule_snddriver_services != (int *)0x0) {
                     /* WARNING: Could not recover jumptable at 0x004d0c29. Too many branches */

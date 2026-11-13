@@ -11,14 +11,14 @@
    mat file for sprite') and creates the polyline. Original name SpriteRequester (the remaster's
    GrimFandango (Linux): strings: 'Select mat file for sprite...'); was SpriteComponent_Create. */
 
-undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,char *param_5)
+uint __cdecl SpriteRequester(uint param_1,int param_2,int param_3,float param_4,char *param_5)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   uint uVar2;
   undefined *puVar3;
-  undefined4 uVar4;
+  uint *puVar4;
   char *pcVar5;
   int *piVar6;
   int iVar7;
@@ -35,7 +35,7 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
   #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(char *)(_frame + (0x60 - 0x20)))
+  #define local_20 (*(undefined1 *)(_frame + (0x60 - 0x20)))
   #define local_1f (*(undefined4 *)(_frame + (0x60 - 0x1f)))
   #define local_1 (*(undefined1 *)(_frame + (0x60 - 0x1)))
   
@@ -58,7 +58,7 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
   if ((param_3 != 0) && (param_4 == 216341.2)) {
     if (param_5 == (char *)0x0) {
       if (g_bMaterialPath != '\0') {
-        grimPlat_SetDefaultOpenPath(&g_bMaterialPath);
+        grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bMaterialPath));
       }
       iVar7 = grimPlat_OpenFileRequest
                         (s_Select_mat_file_for_sprite____004ea834,s_Material_files____mat__004ea5a4)
@@ -66,31 +66,32 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
       if (iVar7 == 0) {
         return 0;
       }
-      uVar4 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
-      ((code *)strncpy)(&g_bMaterialPath,uVar4);
+      uVar2 = 0x7f;
+      puVar4 = (uint *)grimPlat_GetDefaultOpenPath();
+      strncpy((uint *)&g_bMaterialPath,puVar4,uVar2);
       DAT_008ca9b7 = 0;
       pcVar5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
       param_5 = pcVar5;
     }
     else {
-      strncpy(&local_20,param_5,0x1f);
+      strncpy((uint *)&local_20,(uint *)param_5,0x1f);
       local_1 = 0;
       pcVar5 = &local_20;
       strtok(&local_20,&DAT_004ea52c);
-      uVar2 = strtok(0,&DAT_004ea52c);
+      uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
       if (uVar2 != 0) {
         puVar3 = atoi(uVar2);
         local_44 = (float)(int)puVar3 * 0.01;
-        uVar2 = strtok(0,&DAT_004ea52c);
+        uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
         local_50[2] = (float)(int)puVar3 * 0.01;
-        uVar2 = strtok(0,&DAT_004ea52c);
+        uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
         local_50[0] = (float)(int)puVar3 * 0.01;
-        uVar2 = strtok(0,&DAT_004ea52c);
+        uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
         local_50[1] = (float)(int)puVar3 * 0.01;
-        uVar2 = strtok(0,&DAT_004ea52c);
+        uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
         param_4 = (float)(int)puVar3 * 0.01;
       }
@@ -106,7 +107,8 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
       local_40[0] = local_50[0];
       local_40[1] = local_50[1];
       local_40[2] = param_4;
-      iVar7 = rdSprite_New(0,pcVar5,pcVar5,PUN(undefined4,(float)(local_44)),PUN(undefined4,(float)(local_50[2])),5,0,1,0,local_40);
+      iVar7 = rdSprite_New(0,(uint)pcVar5,(uint)pcVar5,PUN(uint,(float)local_44),PUN(uint,(float)local_50[2]),5,0,1,0,
+                           (uint)local_40);
       *piVar6 = iVar7;
       uVar2 = 0xffffffff;
       do {
@@ -166,7 +168,7 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
    (changer) of the same costume tag registration in sputCostume_Startup); was
    SpriteComponent_OnKey. */
 
-void SpriteChanger(undefined4 param_1,int param_2,undefined4 param_3,int param_4)
+void __cdecl SpriteChanger(uint param_1,int param_2,uint param_3,int param_4)
 
 {
   if (param_4 == 0) {
@@ -184,10 +186,10 @@ void SpriteChanger(undefined4 param_1,int param_2,undefined4 param_3,int param_4
    rdMaterial_Free; the only unmatched caller of rdSprite_Free; 2 matched neighbours agree, 0
    disagree); was SpriteComponent_Destroy. */
 
-undefined4 SpriteFreer(undefined4 param_1,undefined4 param_2,int *param_3)
+uint __cdecl SpriteFreer(uint param_1,uint param_2,int *param_3)
 
 {
-  rdMaterial_Free(*(undefined4 *)(*param_3 + 0x7c));
+  rdMaterial_Free(*(uint *)(*param_3 + 0x7c));
   rdSprite_Free(*param_3);
   (*g_pSputCosHS->pFree)(param_3);
   return 1;
@@ -200,13 +202,14 @@ undefined4 SpriteFreer(undefined4 param_1,undefined4 param_2,int *param_3)
    Original name SpriteInstancer (the remaster's GrimFandango (Linux): the only unmatched caller of
    rdThing_New; 2 matched neighbours agree, 1 disagree); was FUN_004985c0. */
 
-undefined4 * SpriteInstancer(int param_1,undefined4 *param_2,int param_3)
+uint * __cdecl SpriteInstancer(int param_1,uint *param_2,int param_3)
 
 {
   int iVar1;
   int iVar2;
-  undefined4 *puVar3;
-  undefined4 *puVar4;
+  uint *puVar3;
+  uint uVar4;
+  uint *puVar5;
   
   iVar1 = param_1;
   if (param_3 == 0) {
@@ -214,28 +217,28 @@ undefined4 * SpriteInstancer(int param_1,undefined4 *param_2,int param_3)
     iVar2 = *(int *)(iVar1 + 0x50) + -1;
     *(int *)(iVar1 + 0x50) = iVar2;
     if (iVar2 == 0) {
-      rdThing_Free(*(undefined4 *)(iVar1 + 0x40));
+      rdThing_Free(*(int *)(iVar1 + 0x40));
       (*g_pSputCosHS->pFree)(iVar1);
     }
-    return (undefined4 *)0x0;
+    return (uint *)0x0;
   }
   Cos_InstComponentInfo(param_1,(int)param_2,(int)&param_3,(int)&param_2,(int)&param_1);
-  puVar3 = (undefined4 *)
-           (*g_pSputCosHS->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1070);
-  puVar4 = puVar3;
+  puVar3 = (uint *)(*g_pSputCosHS->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1070)
+  ;
+  puVar5 = puVar3;
   for (iVar2 = 0x65; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar4 = 0;
-    puVar4 = puVar4 + 1;
+    *puVar5 = 0;
+    puVar5 = puVar5 + 1;
   }
   puVar3[0xd] = *param_2;
-  iVar2 = rdThing_New(0);
-  puVar3[0x10] = iVar2;
-  *(undefined4 *)(iVar2 + 0x30) = 0;
-  rdThing_SetPolyline(puVar3[0x10],*param_2);
+  uVar4 = rdThing_New(0);
+  puVar3[0x10] = uVar4;
+  *(undefined4 *)(uVar4 + 0x30) = 0;
+  rdThing_SetPolyline((undefined4 *)puVar3[0x10],*param_2);
   if (-1 < param_1) {
-    puVar4 = (undefined4 *)Cos_InstGetInstanceData(iVar1,param_1,(int *)0x0);
-    puVar3[0x11] = *puVar4;
-    puVar3[0x12] = puVar4[1];
+    puVar5 = (uint *)Cos_InstGetInstanceData(iVar1,param_1,(int *)0x0);
+    puVar3[0x11] = *puVar5;
+    puVar3[0x12] = puVar5[1];
     puVar3[0x14] = puVar3[0x14] + 1;
     puVar3[0xe] = 0;
     return puVar3;
@@ -257,15 +260,16 @@ undefined4 * SpriteInstancer(int param_1,undefined4 *param_2,int param_3)
    Original name SpriteAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d,%d,%d,%d,%d');
    was SpriteComponent_EditKey. */
 
-undefined4 SpriteAdjuster(undefined4 *param_1,undefined4 param_2)
+uint __cdecl SpriteAdjuster(uint *param_1,uint param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   int iVar2;
+  uint *puVar3;
   undefined4 unaff_ESI;
   undefined4 unaff_EDI;
-  longlong lVar3;
+  longlong lVar4;
   #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
   #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
   #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
@@ -276,7 +280,7 @@ undefined4 SpriteAdjuster(undefined4 *param_1,undefined4 param_2)
   #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(char (*)[32])(_frame + (0x60 - 0x20)))
+  #define local_20 (*(uint (*)[8])(_frame + (0x60 - 0x20)))
   
   local_34 = (uint)s_Width_004ea87c;
   local_30 = (uint)s_Height_004ea874;
@@ -284,17 +288,17 @@ undefined4 SpriteAdjuster(undefined4 *param_1,undefined4 param_2)
   local_2c = (uint)&DAT_004ea870;
   local_28 = (uint)&DAT_004ea86c;
   local_24 = (uint)&DAT_004ea868;
-  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  local_48 = (uint)lVar3;
-  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  local_44 = (uint)lVar3;
-  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  local_40 = (uint)lVar3;
-  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  local_3c = (uint)lVar3;
-  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  local_38 = (uint)lVar3;
-  iVar2 = grimPlat_SpinDialog(param_2,&local_34,&local_48,5);
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_48 = (uint)lVar4;
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_44 = (uint)lVar4;
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_40 = (uint)lVar4;
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_3c = (uint)lVar4;
+  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  local_38 = (uint)lVar4;
+  iVar2 = grimPlat_SpinDialog(param_2,(int)&local_34,&local_48,5);
   if (iVar2 != 0) {
     *(float *)(*piVar1 + 0x4c) = (float)(int)local_48 * 0.01;
     *(float *)(*piVar1 + 0x50) = (float)(int)local_44 * 0.01;
@@ -303,11 +307,11 @@ undefined4 SpriteAdjuster(undefined4 *param_1,undefined4 param_2)
     *(float *)(*piVar1 + 0xac) = (float)(int)local_40 * 0.01;
     *(float *)(*piVar1 + 0xb0) = (float)(int)local_3c * 0.01;
     *(float *)(*piVar1 + 0xb4) = (float)(int)local_38 * 0.01;
-    iVar2 = strtok(param_2,&DAT_004ea52c);
-    sprintf(local_20,s__s__d__d__d__d__d_004ea854,iVar2,local_48,local_44,local_40,local_3c,local_38
-           );
-    strncpy(iVar2,local_20,0x1f);
-    *(undefined1 *)(iVar2 + 0x1f) = 0;
+    puVar3 = (uint *)strtok((byte *)param_2,&DAT_004ea52c);
+    sprintf((char *)local_20,s__s__d__d__d__d__d_004ea854,puVar3,local_48,local_44,local_40,local_3c
+            ,local_38);
+    strncpy(puVar3,local_20,0x1f);
+    *(undefined1 *)((int)puVar3 + 0x1f) = 0;
     return 1;
   }
   return 0;

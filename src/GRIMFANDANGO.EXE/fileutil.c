@@ -9,10 +9,10 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
+uint __cdecl FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
   uVar1 = 1;
   g_pSvcFileutil = param_1;
@@ -39,7 +39,7 @@ undefined4 FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
    FileUtil_SysTerminate (the remaster's GrimFandango (Linux): aligned call in
    FileUtil_SysInitialize); was FileUtil_Sys_Terminate. */
 
-void FileUtil_SysTerminate(void)
+void __cdecl FileUtil_SysTerminate(void)
 
 {
   g_dwFileUtilSysInitialized = 0;
@@ -51,10 +51,10 @@ void FileUtil_SysTerminate(void)
    (non-zero makes the whole start-up unwind). Original name FileUtil_SysStartup (the remaster's
    GrimFandango (Linux): aligned call in FileUtil_SysInitialize); was FileUtil_Sys_Start. */
 
-undefined4 FileUtil_SysStartup(void)
+uint __cdecl FileUtil_SysStartup(void)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
   uVar1 = 1;
   if ((g_dwFileUtilSysInitialized != 0) && (g_dwFileUtilSysStarted == 0)) {
@@ -69,7 +69,7 @@ undefined4 FileUtil_SysStartup(void)
    releases what _Start created. Original name FileUtil_SysShutdown (the remaster's GrimFandango
    (Linux): aligned call in FileUtil_SysInitialize); was FileUtil_Sys_Stop. */
 
-void FileUtil_SysShutdown(void)
+void __cdecl FileUtil_SysShutdown(void)
 
 {
   g_dwFileUtilSysStarted = 0;
@@ -81,7 +81,7 @@ void FileUtil_SysShutdown(void)
    handed for every field. Original name FileUtil_SysSave (the remaster's GrimFandango (Linux):
    aligned call in FileUtil_SysInitialize); was FileUtil_Sys_SaveState. */
 
-undefined4 FileUtil_SysSave(code *param_1)
+uint __cdecl FileUtil_SysSave(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

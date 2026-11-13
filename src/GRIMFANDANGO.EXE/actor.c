@@ -101,7 +101,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int 
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *pAVar1;
   Actor *pAVar2;
-  char *pcVar3;
+  byte *pbVar3;
   TextObject *pTVar4;
   int iVar5;
   int unaff_ESI;
@@ -145,8 +145,8 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int 
   if ((actor->nScreenBoxValid == 0) || (g_dwGrimlib_mode == 3)) {
     pAVar2 = (Actor *)local_50;
     if ((actor->pCostumes == (CostumeNode *)0x0) || ((actor->dwFlags & 2) != 0)) {
-      pcVar3 = sputRoom_GetCurrentRoomName();
-      iVar5 = _stricmp(actor->aSetName,pcVar3);
+      pbVar3 = (byte *)sputRoom_GetCurrentRoomName();
+      iVar5 = _stricmp((byte *)actor->aSetName,pbVar3);
       if (iVar5 == 0) {
         iVar5 = rdPrimit3_GetScreenCoord(actor->aPos,local_5c);
         if (iVar5 != 0) {
@@ -267,7 +267,7 @@ sputActor_SetActorHead
       if (maxRoll < 0.0) {
         fVar3 = -maxRoll;
       }
-      stdMath_SinCos(fVar3 * 0.5,&actor,iVar1 + 0x24);
+      stdMath_SinCos(fVar3 * 0.5,(float *)&actor,(float *)(iVar1 + 0x24));
     }
   }
   return;
@@ -341,7 +341,7 @@ int __cdecl sputActor_CanActorSeeActor(Actor *viewer,Actor *target,float *outDis
   
   if (target->aSetName[0] != '\0') {
     if (viewer->aSetName[0] != '\0') {
-      iVar1 = _stricmp(target->aSetName,viewer->aSetName);
+      iVar1 = _stricmp((byte *)target->aSetName,(byte *)viewer->aSetName);
       if (iVar1 == 0) {
         pfVar2 = sputActor_GetOrientMatrix(target);
         iVar1 = sputActor_CanActorSeePoint(viewer,pfVar2 + 9,outDistance);
@@ -978,7 +978,7 @@ void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *param_2,int par
   ActorExtra *pAVar1;
   float fVar2;
   #define local_40 (*(float *)(_frame + (0x50 - 0x40)))
-  #define local_30 (*(undefined1 (*)[12])(_frame + (0x50 - 0x30)))
+  #define local_30 (*(float (*)[3])(_frame + (0x50 - 0x30)))
   #define local_24 (*(float (*)[3])(_frame + (0x50 - 0x24)))
   
   actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
@@ -1198,14 +1198,14 @@ void __cdecl Actor_PuckOrient(Actor *actor)
   #define local_54 (*(float (*)[3])(_frame + (0x80 - 0x54)))
   #define local_48 (*(float (*)[3])(_frame + (0x80 - 0x48)))
   #define local_3c (*(float (*)[3])(_frame + (0x80 - 0x3c)))
-  #define local_30 (*(undefined1 (*)[48])(_frame + (0x80 - 0x30)))
+  #define local_30 (*(float (*)[12])(_frame + (0x80 - 0x30)))
   
   if (((actor != (Actor *)0x0) && (actor->pExtra != (ActorExtra *)0x0)) &&
      (pPVar4 = actor->pExtra->pPuck, pPVar4 != (Puck *)0x0)) {
     pfVar1 = actor->aPos;
     pfVar2 = actor->aRot;
     pfVar3 = actor->aOrient;
-    rdMatrix_Build34(pfVar3,pfVar2,pfVar1);
+    rdMatrix_Build34(pfVar3,(uint *)pfVar2,pfVar1);
     local_48[0] = actor->aOrient[6];
     local_48[1] = actor->aOrient[7];
     local_48[2] = actor->aOrient[8];
@@ -1236,7 +1236,7 @@ void __cdecl Actor_PuckOrient(Actor *actor)
       rdMatrix_BuildFromVectorAngle34(local_30,local_3c,PUN(float,actor));
       rdMatrix_PostMultiply34(pfVar3,local_30);
       rdMatrix_ExtractAngles34(pfVar3,pfVar2);
-      rdMatrix_Build34(pfVar3,pfVar2,pfVar1);
+      rdMatrix_Build34(pfVar3,(uint *)pfVar2,pfVar1);
     }
   }
   return;
@@ -1350,7 +1350,7 @@ LAB_00491477:
       }
       else if (uVar5 == 0) {
         actor->pExtra->nResting = 0;
-        FadeInChore(pCVar7->dwInstance,pCVar7->nWalkChore,g_nWALKSYSTEM_FADE_TIME);
+        FadeInChore((void *)pCVar7->dwInstance,pCVar7->nWalkChore,g_nWALKSYSTEM_FADE_TIME);
       }
       else if (iVar2 == 0) goto LAB_00491477;
     }
@@ -1377,7 +1377,7 @@ LAB_00491517:
         }
         else if (uVar5 == 0) {
           actor->pExtra->nResting = 0;
-          FadeInChore(pCVar7->dwInstance,pCVar7->nTurnLeftChore,g_nWALKSYSTEM_FADE_TIME);
+          FadeInChore((void *)pCVar7->dwInstance,pCVar7->nTurnLeftChore,g_nWALKSYSTEM_FADE_TIME);
         }
         else if (iVar2 < 1) goto LAB_00491517;
       }
@@ -1388,7 +1388,7 @@ LAB_00491517:
         if (iVar2 < 0) {
           if (uVar5 == 0) {
             actor->pExtra->nResting = 0;
-            FadeInChore(pCVar7->dwInstance,pCVar7->nTurnRightChore,g_nWALKSYSTEM_FADE_TIME);
+            FadeInChore((void *)pCVar7->dwInstance,pCVar7->nTurnRightChore,g_nWALKSYSTEM_FADE_TIME);
           }
           else if (-1 < iVar2) goto LAB_0049157a;
         }
@@ -1419,7 +1419,7 @@ LAB_0049157a:
       iVar2 = actor->pExtra->nResting;
       if (iVar2 != 0) {
         if (iVar6 == 0) {
-          FadeInChore(pCVar7->dwInstance,pCVar7->nRestChore,g_nWALKSYSTEM_FADE_TIME);
+          FadeInChore((void *)pCVar7->dwInstance,pCVar7->nRestChore,g_nWALKSYSTEM_FADE_TIME);
           goto LAB_0049162b;
         }
         if (iVar2 != 0) goto LAB_0049162b;
@@ -1465,7 +1465,7 @@ sputActor_SayLine(Actor *actor,char *text,int background,int volume,int pan,int 
   uint uVar16;
   char *pcVar17;
   bool bVar18;
-  #define local_44 (*(byte (*)[32])(_frame + (0x60 - 0x44)))
+  #define local_44 (*(undefined4 *)(_frame + (0x60 - 0x44)))
   #define local_24 (*(char (*)[36])(_frame + (0x60 - 0x24)))
   
   if (actor->pExtra == (ActorExtra *)0x0) {
@@ -1473,19 +1473,19 @@ sputActor_SayLine(Actor *actor,char *text,int background,int volume,int pan,int 
   }
   uVar7 = g_dwSmSpeechMode & 1;
   uVar16 = g_dwSmSpeechMode & 2;
-  text_00 = sputText_ExtractSayLineData(text,(char *)local_44);
+  text_00 = sputText_ExtractSayLineData(text,(char *)&local_44);
   local_24[0] = '\0';
-  if (local_44[0] != 0) {
-    sprintf(local_24,s__s_wvc_004e9eec,local_44);
+  if ((byte)local_44 != 0) {
+    sprintf(local_24,s__s_wvc_004e9eec,&local_44);
     iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
     if (iVar8 == 0) {
-      sprintf(local_24,s__s_wav_004e9ee4,local_44);
+      sprintf(local_24,s__s_wav_004e9ee4,&local_44);
       iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
       if (iVar8 == 0) {
-        sprintf(local_24,s__s_imc_004e9edc,local_44);
+        sprintf(local_24,s__s_imc_004e9edc,&local_44);
         iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
         if (iVar8 == 0) {
-          sprintf(local_24,s__s_imu_004e9ed4,local_44);
+          sprintf(local_24,s__s_imu_004e9ed4,&local_44);
           iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
           if (iVar8 == 0) {
             local_24[0] = '\0';
@@ -1498,8 +1498,8 @@ sputActor_SayLine(Actor *actor,char *text,int background,int volume,int pan,int 
   }
 LAB_00492c61:
   if (actor->pExtra->nTalking != 0) {
-    if (local_44[0] != 0) {
-      pbVar15 = local_44;
+    if ((byte)local_44 != 0) {
+      pbVar15 = (byte *)&local_44;
       pcVar9 = actor->pExtra->aMsgId;
       do {
         bVar4 = *pcVar9;
@@ -1526,7 +1526,7 @@ LAB_00492cab:
   }
   actor->pExtra->nTalkTime = 0;
   actor->pExtra->nTalking = 1;
-  strncpy(actor->pExtra->aMsgId,local_44,0xc);
+  strncpy((uint *)actor->pExtra->aMsgId,&local_44,0xc);
   g_nNumActorsTalking = g_nNumActorsTalking + 1;
   iVar8 = 0;
   ppAVar10 = g_pTalkingActors;
@@ -1554,7 +1554,7 @@ LAB_00492e5e:
         }
         SoundsSetParam(iVar8,0x600,volume);
         if ((actor->dwFlags & 8) != 0) {
-          iVar8 = actor->pExtra->nVoiceSound;
+          uVar16 = actor->pExtra->nVoiceSound;
           goto LAB_00492dfb;
         }
       }
@@ -1563,9 +1563,10 @@ LAB_00492e5e:
         if (iVar8 != 0) goto LAB_00492e5e;
         actor->pExtra->nVoiceSound = 10000;
         if ((actor->dwFlags & 8) != 0) {
-          iVar8 = 10000;
+          uVar16 = 10000;
 LAB_00492dfb:
-          sputRoom_SetSoundPosition(iVar8,actor->aPos,0x14,0x7f,0x41000000,0x3f4ccccd);
+          sputRoom_SetSoundPosition
+                    (uVar16,(undefined **)actor->aPos,0x14,0x7f,0x41000000,0x3f4ccccd);
         }
       }
       uVar16 = 0xffffffff;
@@ -2075,7 +2076,7 @@ float * __cdecl sputActor_GetOrientMatrix(Actor *actor)
 
 {
   if (actor->nMatrixDirty == 0) {
-    rdMatrix_Build34(actor->aOrient,actor->aRot,actor->aPos);
+    rdMatrix_Build34(actor->aOrient,(uint *)actor->aRot,actor->aPos);
     actor->nMatrixDirty = 1;
   }
   return actor->aOrient;
@@ -2097,52 +2098,52 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
   int iVar5;
   float fVar6;
   void *pvVar7;
-  undefined4 uVar8;
-  code *pcVar9;
+  code *pcVar8;
+  float *pfVar9;
   float *pfVar10;
-  float *pfVar11;
-  int iVar12;
+  int iVar11;
+  undefined4 uVar12;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define fStack_c (*(float *)(_frame + (0x20 - 0xc)))
   #define fStack_8 (*(float *)(_frame + (0x20 - 0x8)))
   #define fStack_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   pvVar7 = sputRoom_GetCurrentRoom();
-  iVar12 = *(int *)((int)pvVar7 + 0xb4);
+  iVar11 = *(int *)((int)pvVar7 + 0xb4);
   pvVar7 = sputRoom_GetCurrentRoom();
-  iVar1 = *(int *)((int)pvVar7 + 0xac) + iVar12 * 300;
-  iVar12 = *(int *)(*(int *)(*(int *)((int)pvVar7 + 0xac) + 0x48 + iVar12 * 300) + 4);
-  if (iVar12 != 0) {
-    uVar2 = *(undefined4 *)(iVar12 + 0x10);
-    uVar3 = *(undefined4 *)(iVar12 + 4);
-    uVar8 = sputRender_CleanArtBuffer();
-    *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 4) = uVar8;
-    uVar8 = sputRender_CleanZBuffer();
-    *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 0x10) = uVar8;
+  iVar1 = *(int *)((int)pvVar7 + 0xac) + iVar11 * 300;
+  iVar11 = *(int *)(*(int *)(*(int *)((int)pvVar7 + 0xac) + 0x48 + iVar11 * 300) + 4);
+  if (iVar11 != 0) {
+    uVar2 = *(undefined4 *)(iVar11 + 0x10);
+    uVar3 = *(undefined4 *)(iVar11 + 4);
+    pvVar7 = sputRender_CleanArtBuffer();
+    *(void **)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 4) = pvVar7;
+    pvVar7 = sputRender_CleanZBuffer();
+    *(void **)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 0x10) = pvVar7;
     piVar4 = actor->pColormapRef;
-    iVar12 = *piVar4;
-    if (iVar12 == 0) {
+    iVar11 = *piVar4;
+    if (iVar11 == 0) {
       pvVar7 = sputRoom_GetCurrentRoom();
-      iVar12 = *(int *)((int)pvVar7 + 0x88);
+      iVar11 = *(int *)((int)pvVar7 + 0x88);
       pvVar7 = sputRoom_GetCurrentRoom();
       iVar5 = *(int *)((int)pvVar7 + 0x80);
-      if (*(int *)(iVar5 + iVar12 * 0x34) == 0) {
+      if (*(int *)(iVar5 + iVar11 * 0x34) == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      rdroid_SetColormap(*(undefined4 *)(iVar5 + iVar12 * 0x34 + 4));
+      rdroid_SetColormap(*(uint *)(iVar5 + iVar11 * 0x34 + 4));
       pvVar7 = sputRoom_GetCurrentRoom();
-      iVar12 = *(int *)((int)pvVar7 + 0x88);
+      iVar11 = *(int *)((int)pvVar7 + 0x88);
       pvVar7 = sputRoom_GetCurrentRoom();
-      piVar4 = (int *)(*(int *)((int)pvVar7 + 0x80) + iVar12 * 0x34);
+      piVar4 = (int *)(*(int *)((int)pvVar7 + 0x80) + iVar11 * 0x34);
       if (*piVar4 == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      iVar12 = piVar4[1];
+      iVar11 = piVar4[1];
     }
     else {
-      if (iVar12 == 0) {
+      if (iVar11 == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
@@ -2152,23 +2153,23 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      iVar12 = piVar4[1];
+      iVar11 = piVar4[1];
     }
-    iVar12 = iVar12 + 0x30;
-    uVar8 = 0;
-    pcVar9 = sputRender_SetPaletteFunc();
-    (*pcVar9)(iVar12,uVar8);
+    iVar11 = iVar11 + 0x30;
+    uVar12 = 0;
+    pcVar8 = sputRender_SetPaletteFunc();
+    (*pcVar8)(iVar11,uVar12);
     fVar6 = actor->flScale;
     if (fVar6 != 1.0) {
-      pfVar11 = &fStack_c;
+      pfVar10 = &fStack_c;
       fStack_c = fVar6;
       fStack_8 = fVar6;
       fStack_4 = fVar6;
-      pfVar10 = sputActor_GetOrientMatrix(actor);
-      rdMatrix_PreScale34(pfVar10,pfVar11);
+      pfVar9 = sputActor_GetOrientMatrix(actor);
+      rdMatrix_PreScale34(pfVar9,(uint)pfVar10);
     }
-    pfVar11 = sputActor_GetOrientMatrix(actor);
-    sputCostume_Draw3D(actor->pCostumes,pfVar11);
+    pfVar10 = sputActor_GetOrientMatrix(actor);
+    sputCostume_Draw3D((uint)actor->pCostumes,(uint)pfVar10);
     actor->nMatrixDirty = 0;
     rdCache_Flush();
     *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 4) = uVar3;
@@ -2380,7 +2381,7 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
               g_pShadowColormap = rdColormap_Load(s_shadow_cmp_004ea190);
             }
             if (g_pShadowMaterial != (void *)0x0) {
-              rdroid_SetColormap(g_pShadowColormap);
+              rdroid_SetColormap((uint)g_pShadowColormap);
               if (g_nSputRender_b3DAcceleration != 0) {
                 std3D_SetCurrentPalette((void *)((int)g_pShadowColormap + 0x30),0);
               }
@@ -2434,10 +2435,10 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
 /* Original name sputCostume_Draw3D (the remaster's GrimFandango (Linux): aligned call in
    sputActor_DrawToClean, sputRender_Update); was Actor_DrawCostumes. */
 
-void sputCostume_Draw3D(undefined4 param_1,undefined4 param_2)
+void __cdecl sputCostume_Draw3D(uint param_1,uint param_2)
 
 {
-  ((code *)sputCostume_InternalDraw3D)(param_1,param_2,0,0);
+  sputCostume_InternalDraw3D((int *)param_1,(float *)param_2);
   return;
 }
 
@@ -2452,7 +2453,7 @@ void sputCostume_Draw3D(undefined4 param_1,undefined4 param_2)
    sputCostume_InternalDraw3D (the remaster's GrimFandango (Linux): aligned call in
    sputCostume_Draw3D); was Actor_DrawCostumeMeshes. */
 
-void sputCostume_InternalDraw3D(int *param_1,float *param_2)
+void __cdecl sputCostume_InternalDraw3D(int *param_1,float *param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2461,7 +2462,7 @@ void sputCostume_InternalDraw3D(int *param_1,float *param_2)
   int iVar2;
   int iVar3;
   int iVar4;
-  void *pvVar5;
+  uint *puVar5;
   int iVar6;
   int iVar7;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
@@ -2507,19 +2508,19 @@ void sputCostume_InternalDraw3D(int *param_1,float *param_2)
       g_nDrawBoxMaxY = 0;
       iVar6 = iVar4;
       if (*(int *)(iVar4 + 0x44) == 0) {
-        if (*(int *)(iVar4 + 0x4c) == 0) {
+        if (*(uint *)(iVar4 + 0x4c) == 0) {
 LAB_004951ab:
           if (g_nSputRender_b3DAcceleration == 0) goto LAB_004951b3;
         }
         else {
-          rdroid_SetColormap(*(int *)(iVar4 + 0x4c));
+          rdroid_SetColormap(*(uint *)(iVar4 + 0x4c));
           if (g_nSputRender_b3DAcceleration != 0) {
             std3D_SetCurrentPalette((void *)(*(int *)(iVar4 + 0x4c) + 0x30),0);
             goto LAB_004951ab;
           }
 LAB_004951b3:
-          pvVar5 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferLock(pvVar5);
+          puVar5 = Render_GetBackBuffer();
+          stdDisplay_VBufferLock(puVar5);
         }
         iVar6 = rdThing_Draw(*(void **)(iVar4 + 0x40),param_2);
         if ((iVar6 == 0) || (actor == (Actor *)0x0)) {
@@ -2529,15 +2530,15 @@ LAB_004951b3:
           actor->nScreenBoxValid = 1;
         }
         if (g_nSputRender_b3DAcceleration == 0) {
-          pvVar5 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferUnlock(pvVar5);
+          puVar5 = Render_GetBackBuffer();
+          stdDisplay_VBufferUnlock(puVar5);
         }
       }
       else {
         for (; (iVar6 != 0 && (*(int *)(iVar6 + 0x4c) == 0)); iVar6 = *(int *)(iVar6 + 0x44)) {
         }
-        if (((iVar6 != 0) && (*(int *)(iVar6 + 0x4c) != 0)) &&
-           (rdroid_SetColormap(*(int *)(iVar6 + 0x4c)), g_nSputRender_b3DAcceleration != 0)) {
+        if (((iVar6 != 0) && (*(uint *)(iVar6 + 0x4c) != 0)) &&
+           (rdroid_SetColormap(*(uint *)(iVar6 + 0x4c)), g_nSputRender_b3DAcceleration != 0)) {
           std3D_SetCurrentPalette((void *)(*(int *)(iVar6 + 0x4c) + 0x30),0);
         }
         sputCostume_BuildThingStateMatrices(*(void **)(iVar4 + 0x44),param_2);
@@ -2545,8 +2546,8 @@ LAB_004951b3:
         iVar6 = *(int *)(*(int *)(iVar7 + 4) + 0x58) + *(int *)(iVar4 + 0x48) * 0xb8;
         iVar2 = *(int *)(*(int *)(*(int *)(iVar4 + 0x40) + 4) + 0x58);
         if (g_nSputRender_b3DAcceleration == 0) {
-          pvVar5 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferLock(pvVar5);
+          puVar5 = Render_GetBackBuffer();
+          stdDisplay_VBufferLock(puVar5);
         }
         if ((*(int *)(iVar4 + 0x3c) != 0) && (**(int **)(iVar4 + 0x40) != 4)) {
           iVar3 = (*(int **)(iVar4 + 0x40))[1];
@@ -2585,8 +2586,8 @@ LAB_004951b3:
           *(undefined4 *)(iVar6 + 0x8c) = uStack_14;
         }
         if (g_nSputRender_b3DAcceleration == 0) {
-          pvVar5 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferUnlock(pvVar5);
+          puVar5 = Render_GetBackBuffer();
+          stdDisplay_VBufferUnlock(puVar5);
         }
       }
       piVar1 = actor->pColormapRef;
@@ -2639,13 +2640,13 @@ void __cdecl sputRoom_RemoveActor(char *setName,void *actor)
 
 {
   int iVar1;
-  int iVar2;
+  void *pvVar2;
   int *piVar3;
   
-  iVar2 = Set_FindNameInList(setName);
-  if (iVar2 != 0) {
+  pvVar2 = Set_FindNameInList((int)setName);
+  if (pvVar2 != (void *)0x0) {
     *(undefined4 *)((int)actor + 0x68) = 0;
-    piVar3 = *(int **)(iVar2 + 0x80);
+    piVar3 = *(int **)((int)pvVar2 + 0x80);
     if (piVar3 != (int *)0x0) {
       do {
         if (g_pActors + *piVar3 == actor) break;
@@ -2662,8 +2663,8 @@ void __cdecl sputRoom_RemoveActor(char *setName,void *actor)
         if (piVar3[1] != 0) {
           *(int *)(piVar3[1] + 8) = piVar3[2];
         }
-        if (*(int **)(iVar2 + 0x80) == piVar3) {
-          *(int *)(iVar2 + 0x80) = piVar3[2];
+        if (*(int **)((int)pvVar2 + 0x80) == piVar3) {
+          *(int *)((int)pvVar2 + 0x80) = piVar3[2];
         }
         (*g_pSputRoomHS->pFree)(piVar3);
         *(undefined1 *)((int)actor + 0x7c) = 0;
@@ -2681,7 +2682,7 @@ void __cdecl sputRoom_RemoveActor(char *setName,void *actor)
 void __cdecl sputRoom_AddActor(Actor *actor,char *setName)
 
 {
-  char *setName_00;
+  uint *setName_00;
   byte bVar1;
   Actor *pAVar2;
   int iVar3;
@@ -2713,10 +2714,10 @@ LAB_004a5fa6:
       return;
     }
   }
-  setName_00 = setName + 0x7c;
-  if ((setName_00 != (char *)0x0) || (actor != (Actor *)0x0)) {
-    if ((setName != (char *)0x0) && (setName_00 != (char *)0x0)) {
-      sputRoom_RemoveActor(setName_00,setName);
+  setName_00 = (uint *)(setName + 0x7c);
+  if ((setName_00 != (uint *)0x0) || (actor != (Actor *)0x0)) {
+    if ((setName != (char *)0x0) && (setName_00 != (uint *)0x0)) {
+      sputRoom_RemoveActor((char *)setName_00,setName);
     }
     if (actor == (Actor *)0x0) {
       setName[0x68] = '\0';
@@ -2725,7 +2726,7 @@ LAB_004a5fa6:
       setName[0x6b] = '\0';
       return;
     }
-    pvVar4 = (void *)Set_FindNameInList(actor);
+    pvVar4 = Set_FindNameInList((int)actor);
     if (pvVar4 == (void *)0x0) {
       pvVar4 = Set_NormalizeName((char *)actor);
     }
@@ -2746,7 +2747,7 @@ LAB_004a5fa6:
     }
     *(int **)((int)pvVar4 + 0x80) = piVar5;
     if (setName != (char *)0x0) {
-      strncpy(setName_00,actor,0x20);
+      strncpy(setName_00,(uint *)actor,0x20);
     }
   }
   return;

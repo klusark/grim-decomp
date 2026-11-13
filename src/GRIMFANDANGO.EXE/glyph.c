@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x004ab910  Glyph_Blit16 ---- */
-void Glyph_Blit16(int param_1,undefined4 param_2,int *param_3)
+void __cdecl Glyph_Blit16(int param_1,uint param_2,int *param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -80,7 +80,7 @@ LAB_004ab9af:
 
 
 /* ---- 0x004ab9d0  Glyph_Blit8 ---- */
-void Glyph_Blit8(int param_1,int param_2,int *param_3)
+void __cdecl Glyph_Blit8(int param_1,int param_2,int *param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -155,7 +155,7 @@ void Glyph_Blit8(int param_1,int param_2,int *param_3)
 
 
 /* ---- 0x004abae0  Glyph_Blit16Clipped ---- */
-void Glyph_Blit16Clipped(int param_1,undefined4 param_2,int *param_3)
+void __cdecl Glyph_Blit16Clipped(int param_1,uint param_2,int *param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -260,7 +260,7 @@ LAB_004abc47:
 
 
 /* ---- 0x004abc80  Glyph_Blit8Clipped ---- */
-void Glyph_Blit8Clipped(int param_1,int param_2,int *param_3)
+void __cdecl Glyph_Blit8Clipped(int param_1,int param_2,int *param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

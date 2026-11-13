@@ -54,10 +54,10 @@ void __cdecl sputControl_DisableControl(int control)
 undefined * sputControl_Open(void)
 
 {
-  int iVar1;
+  uint uVar1;
   
-  iVar1 = stdControl_Open();
-  if (iVar1 == 0) {
+  uVar1 = stdControl_Open();
+  if (uVar1 == 0) {
     return (undefined *)0x0;
   }
   g_nControlOpen = 1;
@@ -69,16 +69,16 @@ undefined * sputControl_Open(void)
    stdControl_Close, clear the flag); called by grimlib_Close in both builds); was Control_Release.
     */
 
-undefined4 sputControl_Close(void)
+uint __cdecl sputControl_Close(void)
 
 {
-  int iVar1;
+  uint uVar1;
   
   if (g_nControlOpen == 0) {
     return 0;
   }
-  iVar1 = stdControl_Close();
-  if (iVar1 == 0) {
+  uVar1 = stdControl_Close();
+  if (uVar1 == 0) {
     return 0;
   }
   g_nControlOpen = 0;

@@ -358,10 +358,11 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
         rdMatrix_TransformPoint34(local_58,(float *)&DAT_008ca320,pfVar10);
         pWVar12 = WalkPlane_PlaneClosest(local_58,0xffffffff);
         WalkPlane_SnapTo(pWVar12,local_58);
+        pfVar17 = &local_4c;
         pfVar10 = sputActor_GetOrientMatrix(other);
         local_124 = PUN(uint,(float)(local_104 - -0.02));
         fVar26 = 6.713914e-39;
-        ((code *)FindObjectCorners)();
+        FindObjectCorners(PUN(int,(float)zmin),PUN(float,local_124),pfVar10,PUN(float,local_50),pfVar17);
         puVar21 = &local_1c;
         pfVar17 = &local_4c;
         local_f4 = 5.60519e-45;
@@ -394,7 +395,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
           puVar21 = puVar21 + 1;
           local_f4 = PUN(float,(PUN(int,(float)local_f4) + -1));
         } while (local_f4 != 0.0);
-        fVar25 = (float)((code *)Collision_PickDetour)();
+        fVar25 = PUN(float,Collision_PickDetour(local_64,&local_d0,(int)&local_4c));
         if (fVar25 == -NAN) {
           return uVar19;
         }
@@ -678,7 +679,7 @@ Puck * __thiscall Puck_Construct(Puck *this,float radius)
   this->aPos[0] = 0.0;
   this->aPos[1] = 0.0;
   this->aPos[2] = 0.0;
-  rdMatrix_Build34(this->aFrame,this,this);
+  rdMatrix_Build34(this->aFrame,(uint *)this,this->aPos);
   this->aConstraint[1] = 1.0;
   this->flRadius = radius;
   this->pSector = (WalkPlane *)0x0;
@@ -723,7 +724,7 @@ void __fastcall Puck_Destruct(Puck *puck)
 undefined * __fastcall Puck_Rot(Puck *puck)
 
 {
-  rdMatrix_ExtractAngles34(puck->aFrame,&g_aPuck_Rot_ret);
+  rdMatrix_ExtractAngles34(puck->aFrame,(float *)&g_aPuck_Rot_ret);
   return &g_aPuck_Rot_ret;
 }
 
@@ -1538,7 +1539,7 @@ undefined4 __cdecl Planner_PortalPoint(WalkPlane *planeA,WalkPlane *planeB,float
    working-path points drop the middle point where the direct segment stays on the planes); called
    by BuildPath in both builds); was Planner_SmoothPath. */
 
-undefined4 TightenPath(void)
+uint __cdecl TightenPath(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

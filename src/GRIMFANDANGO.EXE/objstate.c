@@ -121,7 +121,7 @@ void __thiscall ObjectStateImage_SetFile(void *this,char *name)
 {
   ObjectStateImage_Clear((int)this);
   if (name != (char *)0x0) {
-    strncpy((int)this + 0x14,name,0x20);
+    strncpy((uint *)((int)this + 0x14),(uint *)name,0x20);
   }
   return;
 }
@@ -233,8 +233,7 @@ void __thiscall ObjectStateImage_Draw(void *this,void *dst)
 {
   int iVar1;
   int *piVar2;
-  undefined4 uVar3;
-  void *src;
+  void *pvVar3;
   int iVar4;
   int iVar5;
   int y;
@@ -257,20 +256,20 @@ void __thiscall ObjectStateImage_Draw(void *this,void *dst)
         piVar2 = (int *)ObjectStateImage_VBuffer((int)this);
         iVar1 = iVar4;
         if (*piVar2 == 2) {
-          uVar3 = ObjectStateImage_VBuffer((int)this);
-          sputRender_Decompress(uVar3);
+          pvVar3 = (void *)ObjectStateImage_VBuffer((int)this);
+          sputRender_Decompress(pvVar3);
           y = *(int *)(iVar5 + 0x70);
           iVar5 = *(int *)(iVar5 + 0x6c);
           piVar2 = (int *)0x0;
-          src = g_pSputRender_DecompressionBuffer;
+          pvVar3 = g_pSputRender_DecompressionBuffer;
         }
         else {
           y = *(int *)(iVar5 + 0x70);
           iVar5 = *(int *)(iVar5 + 0x6c);
           piVar2 = (int *)0x0;
-          src = (void *)ObjectStateImage_VBuffer((int)this);
+          pvVar3 = (void *)ObjectStateImage_VBuffer((int)this);
         }
-        Surface_Blit(dst,src,iVar5,y,piVar2,iVar1);
+        Surface_Blit(dst,pvVar3,iVar5,y,piVar2,iVar1);
         if (iVar4 != 0) {
           sputRender_MarkDirtyRect((int *)((int)this + 4),1);
         }

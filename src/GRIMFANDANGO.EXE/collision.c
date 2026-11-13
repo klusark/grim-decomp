@@ -146,7 +146,8 @@ Collision_PointInBox
    corners of the box +0x60 .. +0x70 grown by the radius, transformed by the matrix)); was
    Collision_BoxCorners. */
 
-void FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5)
+void __cdecl
+FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5)
 
 {
   int iVar1;
@@ -278,7 +279,7 @@ LAB_00492801:
 /* ---- 0x00492a50  Collision_PickDetour ---- */
 /* Chooses the detour corner that keeps the path shortest */
 
-int Collision_PickDetour(float *param_1,float *param_2,int param_3)
+int __cdecl Collision_PickDetour(float *param_1,float *param_2,int param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -319,35 +320,35 @@ int Collision_PickDetour(float *param_1,float *param_2,int param_3)
 
 
 /* ---- 0x004939a0  Collision_UpdateMovedActors ---- */
-undefined4 Collision_UpdateMovedActors(void)
+uint __cdecl Collision_UpdateMovedActors(void)
 
 {
-  void *pvVar1;
+  Actor *pAVar1;
   int iVar2;
   void **ppvVar3;
   int iVar4;
-  char *pcVar5;
-  char *pcVar6;
+  float *pfVar5;
+  float *pfVar6;
   bool bVar7;
   
   iVar4 = 0;
   if (0 < g_nTotActors) {
     ppvVar3 = &g_pDrawableActors;
     do {
-      pvVar1 = *ppvVar3;
+      pAVar1 = *ppvVar3;
       iVar2 = 0xc;
       bVar7 = true;
-      pcVar5 = (char *)((int)pvVar1 + 0xc);
-      pcVar6 = (char *)((int)pvVar1 + 0x18);
+      pfVar5 = pAVar1->aPos;
+      pfVar6 = pAVar1->aPrevPos;
       do {
         if (iVar2 == 0) break;
         iVar2 = iVar2 + -1;
-        bVar7 = *pcVar5 == *pcVar6;
-        pcVar5 = pcVar5 + 1;
-        pcVar6 = pcVar6 + 1;
+        bVar7 = *(char *)pfVar5 == *(char *)pfVar6;
+        pfVar5 = (float *)((int)pfVar5 + 1);
+        pfVar6 = (float *)((int)pfVar6 + 1);
       } while (bVar7);
       if (!bVar7) {
-        Collision_TestActorAgainstOthers(pvVar1);
+        Collision_TestActorAgainstOthers(pAVar1);
       }
       iVar4 = iVar4 + 1;
       ppvVar3 = ppvVar3 + 1;
@@ -363,7 +364,7 @@ undefined4 Collision_UpdateMovedActors(void)
 /* Ported to C (build/overrides_big_collision_others.c): differential test vs model stand-ins, 0
    differences (docs/notes/big_collision_others.md). */
 
-undefined4 Collision_TestActorAgainstOthers(Actor *param_1)
+uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

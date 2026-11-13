@@ -9,7 +9,7 @@
 /* Temp/Fileutil.c: allocates a 0x20c-byte directory scanner. mode 0-2: pattern dir\*.*, mode 3:
    dir\*.ext (leading '.' stripped). */
 
-undefined4 * DirScan_Create(undefined4 param_1,int param_2,char *param_3)
+undefined4 * __cdecl DirScan_Create(uint param_1,int param_2,char *param_3)
 
 {
   undefined4 *puVar1;
@@ -42,12 +42,12 @@ undefined4 * DirScan_Create(undefined4 param_1,int param_2,char *param_3)
 }
 
 /* ---- 0x00488e70  DirScan_Destroy ---- */
-void DirScan_Destroy(int param_1)
+void __cdecl DirScan_Destroy(int param_1)
 
 {
   if (param_1 != 0) {
     if (*(int *)(param_1 + 4) != 0) {
-      _findclose(*(undefined4 *)(param_1 + 0x208));
+      _findclose(*(int *)(param_1 + 0x208));
     }
     if (param_1 != 0) {
       (*g_pSvcFileutil->pFree)(param_1);
@@ -59,11 +59,11 @@ void DirScan_Destroy(int param_1)
 /* ---- 0x00488eb0  DirScan_Reset ---- */
 /* Closes the find handle so the next DirScan_Next restarts with _findfirst */
 
-void DirScan_Reset(int param_1)
+void __cdecl DirScan_Reset(int param_1)
 
 {
   if ((param_1 != 0) && (*(int *)(param_1 + 4) != 0)) {
-    _findclose(*(undefined4 *)(param_1 + 0x208));
+    _findclose(*(int *)(param_1 + 0x208));
   }
   if (param_1 != 0) {
     *(undefined4 *)(param_1 + 4) = 0;
@@ -75,7 +75,7 @@ void DirScan_Reset(int param_1)
 /* _findfirst/_findnext wrapper. Copies the entry name into out, out+0x104 = is-directory flag
    (attrib & 0x10), out+0x108 = file size. */
 
-undefined4 DirScan_Next(int param_1,char *param_2)
+uint __cdecl DirScan_Next(int param_1,char *param_2)
 
 {
   unsigned char _frame[0x130] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -95,13 +95,13 @@ undefined4 DirScan_Next(int param_1,char *param_2)
   iVar2 = *(int *)(param_1 + 4);
   *(int *)(param_1 + 4) = iVar2 + 1;
   if (iVar2 == 0) {
-    iVar2 = _findfirst(param_1 + 8,&local_118);
-    *(int *)(param_1 + 0x208) = iVar2;
+    uVar3 = _findfirst(param_1 + 8,&local_118);
+    *(uint *)(param_1 + 0x208) = uVar3;
   }
   else {
-    iVar2 = _findnext(*(undefined4 *)(param_1 + 0x208),&local_118);
+    uVar3 = _findnext(*(int *)(param_1 + 0x208),&local_118);
   }
-  if (iVar2 == -1) {
+  if (uVar3 == 0xffffffff) {
     return 0;
   }
   uVar3 = 0xffffffff;

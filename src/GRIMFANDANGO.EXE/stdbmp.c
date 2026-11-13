@@ -8,18 +8,19 @@
 /* ---- 0x0047cb20  stdBmp_Load ---- */
 /* Stdbmp.c: allocates a bitmap record and reads a Windows .bmp */
 
-uint stdBmp_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+uint __cdecl stdBmp_Load(uint param_1,uint param_2,uint param_3)
 
 {
-  uint uVar1;
-  int iVar2;
+  undefined4 *puVar1;
+  uint uVar2;
   
-  uVar1 = (*g_pStd_HS->pAlloc)(0x7c,s_C__grimjedi_Libs_Std_General_Std_004e7644,DAT_004e7638 + 4);
-  if (uVar1 == 0) {
+  puVar1 = (undefined4 *)
+           (*g_pStd_HS->pAlloc)(0x7c,s_C__grimjedi_Libs_Std_General_Std_004e7644,DAT_004e7638 + 4);
+  if (puVar1 == (undefined4 *)0x0) {
     return 0;
   }
-  iVar2 = stdBmp_LoadEntry(param_1,uVar1,param_2,param_3);
-  return -(uint)(iVar2 != 0) & uVar1;
+  uVar2 = stdBmp_LoadEntry((char *)param_1,puVar1,param_2,param_3);
+  return -(uint)(uVar2 != 0) & (uint)puVar1;
 }
 
 /* ---- 0x0047cb70  stdBmp_LoadEntry ---- */
@@ -29,26 +30,25 @@ uint stdBmp_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3)
    a bit-depth which I do not support yet.' | 'Unable to read the palette.  Your file is
    corrupted.'); was stdBmp_LoadInto. */
 
-undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int param_4)
+uint __cdecl stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint uVar1;
-  byte *pbVar2;
+  byte *pbVar1;
+  int iVar2;
   int iVar3;
   int iVar4;
-  int iVar5;
-  char *pcVar6;
-  void *pvVar7;
+  uint *puVar5;
+  void *pvVar6;
+  byte *pbVar7;
   byte *pbVar8;
-  byte *pbVar9;
-  int iVar10;
-  int *piVar11;
-  undefined4 *puVar12;
-  int *piVar13;
-  byte *pbVar14;
-  bool bVar15;
-  undefined4 uVar16;
+  int iVar9;
+  int *piVar10;
+  undefined4 *puVar11;
+  int *piVar12;
+  byte *pbVar13;
+  bool bVar14;
+  uint uVar15;
   #define local_98 (*(uint *)(_frame + (0xb0 - 0x98)))
   #define aiStack_84 (*(int (*)[19])(_frame + (0xb0 - 0x84)))
   #define iStack_38 (*(int *)(_frame + (0xb0 - 0x38)))
@@ -58,13 +58,13 @@ undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
   #define asStack_10 (*(short (*)[8])(_frame + (0xb0 - 0x10)))
   
   local_98 = 0;
-  iVar3 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
-  if (iVar3 == 0) {
+  iVar2 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
+  if (iVar2 == 0) {
     return 0;
   }
-  iVar4 = (*g_pStd_HS->pFread)(iVar3,asStack_10,0xe);
-  iVar5 = (*g_pStd_HS->pFread)(iVar3,&iStack_38,0x28);
-  if (iVar4 + iVar5 != 0x36) {
+  iVar3 = (*g_pStd_HS->pFread)(iVar2,asStack_10,0xe);
+  iVar4 = (*g_pStd_HS->pFread)(iVar2,&iStack_38,0x28);
+  if (iVar3 + iVar4 != 0x36) {
     return 0;
   }
   if (asStack_10[0] != 0x4d42) {
@@ -72,25 +72,25 @@ undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
   }
   if (iStack_38 == 0x28) {
     if ((ushort)uStack_2a < 8) {
-      iVar5 = (1 << ((byte)uStack_2a & 0x1f)) * 4;
+      iVar4 = (1 << ((byte)uStack_2a & 0x1f)) * 4;
       local_98 = (*g_pStd_HS->pAlloc)
-                           (iVar5 + 0x2c,s_C__grimjedi_Libs_Std_General_Std_004e7644,
+                           (iVar4 + 0x2c,s_C__grimjedi_Libs_Std_General_Std_004e7644,
                             DAT_004e763c + 0x43);
-      iVar4 = (*g_pStd_HS->pFread)(iVar3,local_98,iVar5);
-      if (iVar4 != iVar5) {
+      iVar3 = (*g_pStd_HS->pFread)(iVar2,local_98,iVar4);
+      if (iVar3 != iVar4) {
         (*g_pStd_HS->pAssertFail)
                   (s_Unable_to_read_the_palette__Your_004e777c,
                    s_C__grimjedi_Libs_Std_General_Std_004e7644,DAT_004e763c + 0x46);
       }
     }
-    puVar12 = param_2;
-    for (iVar4 = 0x1f; iVar4 != 0; iVar4 = iVar4 + -1) {
-      *puVar12 = 0;
-      puVar12 = puVar12 + 1;
+    puVar11 = param_2;
+    for (iVar3 = 0x1f; iVar3 != 0; iVar3 = iVar3 + -1) {
+      *puVar11 = 0;
+      puVar11 = puVar11 + 1;
     }
-    uVar16 = 0x1f;
-    pcVar6 = stdFileFromPath(param_1);
-    strncpy(param_2,pcVar6,uVar16);
+    uVar15 = 0x1f;
+    puVar5 = (uint *)stdFileFromPath(param_1);
+    strncpy(param_2,puVar5,uVar15);
     *(undefined1 *)((int)param_2 + 0x1f) = 0;
     param_2[8] = 0;
     param_2[9] = 0;
@@ -128,12 +128,12 @@ undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
       aiStack_84[0xb] = 0;
       aiStack_84[0xc] = 0;
       aiStack_84[0xd] = 0;
-      piVar11 = aiStack_84;
-      piVar13 = param_2 + 10;
-      for (iVar4 = 0xe; iVar4 != 0; iVar4 = iVar4 + -1) {
-        *piVar13 = *piVar11;
-        piVar11 = piVar11 + 1;
-        piVar13 = piVar13 + 1;
+      piVar10 = aiStack_84;
+      piVar12 = param_2 + 10;
+      for (iVar3 = 0xe; iVar3 != 0; iVar3 = iVar3 + -1) {
+        *piVar12 = *piVar10;
+        piVar10 = piVar10 + 1;
+        piVar12 = piVar12 + 1;
       }
       break;
     case 0x20:
@@ -141,95 +141,95 @@ undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
                 (s_32bit_per_pixel_BMP_not_yet_supp_004e772c,
                  s_C__grimjedi_Libs_Std_General_Std_004e7644,DAT_004e763c + 0x66);
     }
-    iVar4 = (*g_pStd_HS->pAlloc)
+    iVar3 = (*g_pStd_HS->pAlloc)
                       (param_2[0x19] << 2,s_C__grimjedi_Libs_Std_General_Std_004e7644,
                        DAT_004e763c + 0x76);
-    param_2[0x1e] = iVar4;
-    if (iVar4 == 0) {
+    param_2[0x1e] = iVar3;
+    if (iVar3 == 0) {
       (*g_pStd_HS->pAssertFail)
                 (s_Unable_to_allocate_memory__004e76d4,s_C__grimjedi_Libs_Std_General_Std_004e7644,
                  DAT_004e763c + 0x77);
     }
     aiStack_84[1] = iStack_30;
-    bVar15 = iStack_30 < 0;
-    piVar11 = param_2 + 10;
-    piVar13 = aiStack_84 + 5;
-    for (iVar4 = 0xe; iVar4 != 0; iVar4 = iVar4 + -1) {
-      *piVar13 = *piVar11;
-      piVar11 = piVar11 + 1;
-      piVar13 = piVar13 + 1;
+    bVar14 = iStack_30 < 0;
+    piVar10 = param_2 + 10;
+    piVar12 = aiStack_84 + 5;
+    for (iVar3 = 0xe; iVar3 != 0; iVar3 = iVar3 + -1) {
+      *piVar12 = *piVar10;
+      piVar10 = piVar10 + 1;
+      piVar12 = piVar12 + 1;
     }
     aiStack_84[0] = iStack_34;
-    if (bVar15) {
+    if (bVar14) {
       aiStack_84[1] = -aiStack_84[1];
     }
-    pvVar7 = stdDisplay_VBufferNew(aiStack_84,param_3,param_4,local_98);
-    *(void **)param_2[0x1e] = pvVar7;
+    pvVar6 = stdDisplay_VBufferNew(aiStack_84,param_3,param_4,local_98);
+    *(void **)param_2[0x1e] = pvVar6;
     if (*(int *)param_2[0x1e] == 0) {
       (*g_pStd_HS->pAssertFail)
                 (s_Unable_to_allocate_memory__004e76d4,s_C__grimjedi_Libs_Std_General_Std_004e7644,
                  DAT_004e763c + 0x81);
     }
-    iVar4 = stdDisplay_VBufferLock(*(void **)param_2[0x1e]);
-    if (iVar4 == 0) {
+    iVar3 = stdDisplay_VBufferLock(*(void **)param_2[0x1e]);
+    if (iVar3 == 0) {
       (*g_pStd_HS->pAssertFail)
                 (s_Unable_to_lock_VBuffer_memory__004e76b4,
                  s_C__grimjedi_Libs_Std_General_Std_004e7644,DAT_004e763c + 0x8d);
     }
-    iVar4 = *(int *)param_2[0x1e];
-    uVar1 = *(uint *)(iVar4 + 0x10);
-    pbVar2 = *(byte **)(iVar4 + 0x5c);
-    iVar5 = *(int *)(iVar4 + 0x18);
-    if (0 < (int)uVar1) {
-      pbVar14 = pbVar2;
-      local_98 = uVar1;
+    iVar3 = *(int *)param_2[0x1e];
+    uVar15 = *(uint *)(iVar3 + 0x10);
+    pbVar1 = *(byte **)(iVar3 + 0x5c);
+    iVar4 = *(int *)(iVar3 + 0x18);
+    if (0 < (int)uVar15) {
+      pbVar13 = pbVar1;
+      local_98 = uVar15;
       do {
-        iVar4 = (*g_pStd_HS->pFread)(iVar3,pbVar14,*(undefined4 *)(iVar4 + 0x18));
-        if (iVar4 != *(int *)(*(int *)param_2[0x1e] + 0x18)) {
+        iVar3 = (*g_pStd_HS->pFread)(iVar2,pbVar13,*(undefined4 *)(iVar3 + 0x18));
+        if (iVar3 != *(int *)(*(int *)param_2[0x1e] + 0x18)) {
           (*g_pStd_HS->pAssertFail)
                     (s_Unable_to_read_all_the_data_from_004e766c,
                      s_C__grimjedi_Libs_Std_General_Std_004e7644,DAT_004e763c + 0xa2);
         }
-        (*g_pStd_HS->pFseek)(iVar3,(iVar5 + 3U & 0xfffffffc) - iVar5,1);
-        iVar4 = *(int *)param_2[0x1e];
-        if ((*(int *)(iVar4 + 0x24) == 0x18) &&
-           (iVar10 = 0, pbVar8 = pbVar14, 0 < *(int *)(iVar4 + 0xc))) {
+        (*g_pStd_HS->pFseek)(iVar2,(iVar4 + 3U & 0xfffffffc) - iVar4,1);
+        iVar3 = *(int *)param_2[0x1e];
+        if ((*(int *)(iVar3 + 0x24) == 0x18) &&
+           (iVar9 = 0, pbVar7 = pbVar13, 0 < *(int *)(iVar3 + 0xc))) {
           do {
-            *pbVar8 = *pbVar8 ^ pbVar8[2];
-            pbVar8[2] = pbVar8[2] ^ *pbVar8;
-            *pbVar8 = *pbVar8 ^ pbVar8[2];
-            pbVar8 = pbVar8 + 3;
-            iVar10 = iVar10 + 1;
-            iVar4 = *(int *)param_2[0x1e];
-          } while (iVar10 < *(int *)(iVar4 + 0xc));
+            *pbVar7 = *pbVar7 ^ pbVar7[2];
+            pbVar7[2] = pbVar7[2] ^ *pbVar7;
+            *pbVar7 = *pbVar7 ^ pbVar7[2];
+            pbVar7 = pbVar7 + 3;
+            iVar9 = iVar9 + 1;
+            iVar3 = *(int *)param_2[0x1e];
+          } while (iVar9 < *(int *)(iVar3 + 0xc));
         }
-        pbVar14 = pbVar14 + iVar5;
+        pbVar13 = pbVar13 + iVar4;
         local_98 = local_98 - 1;
       } while (local_98 != 0);
     }
-    if ((0 < iStack_30) && (local_98 = (int)uVar1 / 2, 0 < (int)local_98)) {
-      iVar4 = iVar5 * uVar1;
-      pbVar14 = pbVar2;
+    if ((0 < iStack_30) && (local_98 = (int)uVar15 / 2, 0 < (int)local_98)) {
+      iVar3 = iVar4 * uVar15;
+      pbVar13 = pbVar1;
       do {
-        if (0 < iVar5) {
-          pbVar9 = pbVar2 + ((iVar4 - iVar5) - (int)pbVar14);
-          pbVar8 = pbVar14;
-          iVar10 = iVar5;
+        if (0 < iVar4) {
+          pbVar8 = pbVar1 + ((iVar3 - iVar4) - (int)pbVar13);
+          pbVar7 = pbVar13;
+          iVar9 = iVar4;
           do {
-            *pbVar8 = *pbVar8 ^ pbVar8[(int)pbVar9];
-            pbVar8[(int)pbVar9] = pbVar8[(int)pbVar9] ^ *pbVar8;
-            *pbVar8 = *pbVar8 ^ pbVar8[(int)pbVar9];
-            pbVar8 = pbVar8 + 1;
-            iVar10 = iVar10 + -1;
-          } while (iVar10 != 0);
+            *pbVar7 = *pbVar7 ^ pbVar7[(int)pbVar8];
+            pbVar7[(int)pbVar8] = pbVar7[(int)pbVar8] ^ *pbVar7;
+            *pbVar7 = *pbVar7 ^ pbVar7[(int)pbVar8];
+            pbVar7 = pbVar7 + 1;
+            iVar9 = iVar9 + -1;
+          } while (iVar9 != 0);
         }
-        iVar4 = iVar4 - iVar5;
-        pbVar14 = pbVar14 + iVar5;
+        iVar3 = iVar3 - iVar4;
+        pbVar13 = pbVar13 + iVar4;
         local_98 = local_98 - 1;
       } while (local_98 != 0);
     }
     stdDisplay_VBufferUnlock(*(void **)param_2[0x1e]);
-    (*g_pStd_HS->pFclose)(iVar3);
+    (*g_pStd_HS->pFclose)(iVar2);
     return 1;
   }
   return 0;
@@ -247,7 +247,7 @@ undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int pa
 /* Original name stdBmp_Write (the remaster's GrimFandango (Linux): aligned call in stdWriteImage);
    was stdBmp_Save. */
 
-undefined4 stdBmp_Write(undefined4 param_1,int param_2)
+uint __cdecl stdBmp_Write(uint param_1,int param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

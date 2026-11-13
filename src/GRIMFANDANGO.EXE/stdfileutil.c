@@ -29,7 +29,7 @@ undefined * __cdecl stdFileOpen(uint param_1,uint param_2)
 /* Original name stdFileClose (the remaster's GrimFandango (Linux): the std.c host file service
    after stdFileOpen; fclose wrapper in both builds); was stdFile_Close. */
 
-void stdFileClose(undefined4 param_1)
+void __cdecl stdFileClose(uint param_1)
 
 {
   fclose(param_1);
@@ -44,7 +44,7 @@ void stdFileClose(undefined4 param_1)
 /* GrimServices.pFread of the platform table: fread(buf, 1, n, file). Original name stdFileRead (the
    remaster's GrimFandango (Linux): same body (fread(buf, 1, n, fh))); was stdFile_Read. */
 
-void stdFileRead(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl stdFileRead(uint param_1,uint param_2,uint param_3)
 
 {
   fread(param_2,1,param_3,param_1);
@@ -57,7 +57,7 @@ void stdFileRead(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* Original name stdFileWrite (the remaster's GrimFandango (Linux): the std.c host file service
    after stdFileRead; fwrite wrapper in both builds); was stdFile_Write. */
 
-void stdFileWrite(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl stdFileWrite(uint param_1,uint param_2,uint param_3)
 
 {
   fwrite(param_2,1,param_3,param_1);
@@ -70,10 +70,10 @@ void stdFileWrite(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* GrimServices.pFgets of the platform table: fgets. Original name stdFileGets (the remaster's
    GrimFandango (Linux): same body (fgets(buf, n, fh))); was stdFile_Gets. */
 
-void stdFileGets(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl stdFileGets(uint param_1,uint param_2,uint param_3)
 
 {
-  fgets(param_2,param_3,param_1);
+  fgets((char *)param_2,param_3,(undefined4 *)param_1);
   return;
 }
 #endif
@@ -83,10 +83,10 @@ void stdFileGets(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* Original name stdFileGetws (the remaster's GrimFandango (Linux): same body (fgetws(buf, n, fh));
    between stdFileGets and stdFeof in both builds); was FUN_004734c0. */
 
-void stdFileGetws(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl stdFileGetws(uint param_1,uint param_2,uint param_3)
 
 {
-  FUN_004adef0(param_2,param_3,param_1);
+  FUN_004adef0((short *)param_2,param_3,param_1);
   return;
 }
 
@@ -95,7 +95,7 @@ void stdFileGetws(undefined4 param_1,undefined4 param_2,undefined4 param_3)
    GrimFandango (Linux): the std.c end-of-file service after stdFileGetws in both builds); was
    stdFile_Eof. */
 
-uint stdFeof(int param_1)
+uint __cdecl stdFeof(int param_1)
 
 {
   return *(uint *)(param_1 + 0xc) & 0x10;
@@ -118,7 +118,7 @@ undefined * __cdecl stdFtell(uint param_1)
 /* Original name stdFseek (the remaster's GrimFandango (Linux): the std.c seek service after
    stdFtell in both builds); was stdFile_Seek. */
 
-void stdFseek(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl stdFseek(uint param_1,uint param_2,uint param_3)
 
 {
   fseek(param_1,param_2,param_3);
@@ -130,7 +130,7 @@ void stdFseek(undefined4 param_1,undefined4 param_2,undefined4 param_3)
    Original name stdFileSize (the remaster's GrimFandango (Linux): same body (open "rb", seek to the
    end, tell, close)); was stdFile_Size. */
 
-undefined * stdFileSize(uint param_1)
+undefined * __cdecl stdFileSize(uint param_1)
 
 {
   undefined *puVar1;
@@ -140,9 +140,9 @@ undefined * stdFileSize(uint param_1)
   if (puVar1 == (undefined *)0x0) {
     return (undefined *)0x0;
   }
-  stdFseek(puVar1,0,2);
+  stdFseek((uint)puVar1,0,2);
   puVar2 = stdFtell((uint)puVar1);
-  stdFileClose(puVar1);
+  stdFileClose((uint)puVar1);
   return puVar2;
 }
 
@@ -151,13 +151,13 @@ undefined * stdFileSize(uint param_1)
    Original name stdFilePrintf (the remaster's GrimFandango (Linux): same body (format into the
    static printBuffer of 0x400 bytes, write it to the file)); was stdFile_Printf. */
 
-undefined4 stdFilePrintf(undefined4 param_1,char *param_2)
+uint __cdecl stdFilePrintf(uint param_1,char *param_2)
 
 {
-  int iVar1;
+  uint uVar1;
   
-  iVar1 = _vsnprintf(&DAT_007f6090,0x400,param_2,&STACK0X(0x0000000c));
-  stdFileWrite(param_1,&DAT_007f6090,iVar1);
+  uVar1 = _vsnprintf(&DAT_007f6090,0x400,param_2,&STACK0X(0x0000000c));
+  stdFileWrite(param_1,((unsigned)(uintptr_t)&DAT_007f6090),uVar1);
   return 0;
 }
 
@@ -165,18 +165,20 @@ undefined4 stdFilePrintf(undefined4 param_1,char *param_2)
 /* Original name stdFGetc (the remaster's GrimFandango (Linux): aligned call in stdGif_Load,
    stdLbm_Load, stdPcx_Load); was stdFile_ReadByte. */
 
-uint stdFGetc(uint param_1)
+uint __cdecl stdFGetc(uint param_1)
 
 {
-  (*g_pStd_HS->pFread)(param_1,&param_1,1);
-  return param_1 & 0xff;
+  undefined4 uVar1;
+  
+  uVar1 = (*g_pStd_HS->pFread)(param_1,&param_1,1);
+  return CONCAT31((int3)((uint)uVar1 >> 8),(undefined1)param_1);
 }
 
 /* ---- 0x00473610  stdFPutc ---- */
 /* Original name stdFPutc (the remaster's GrimFandango (Linux): aligned call in stdPcx_Write); was
    stdFile_WriteByte. */
 
-void stdFPutc(undefined4 param_1,undefined4 param_2)
+void __cdecl stdFPutc(uint param_1,uint param_2)
 
 {
   (*g_pStd_HS->pFwrite)(param_2,&param_1,1);
@@ -205,7 +207,7 @@ int __cdecl LzssDecompress(void *dst,void *src,int srcSize)
 /* ---- 0x00473b60  stdCompress_DecompressLoop ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void stdCompress_DecompressLoop(void)
+void __cdecl stdCompress_DecompressLoop(void)
 
 {
   ushort *puVar1;
@@ -297,49 +299,50 @@ void * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext)
 {
   char cVar1;
   undefined4 *puVar2;
-  int iVar3;
-  uint uVar4;
+  uint *puVar3;
+  int iVar4;
   uint uVar5;
-  undefined4 *puVar6;
-  char *pcVar7;
+  uint uVar6;
+  undefined4 *puVar7;
   char *pcVar8;
   char *pcVar9;
   char *pcVar10;
+  char *pcVar11;
   
   puVar2 = (undefined4 *)
            (*g_pStd_HS->pAlloc)(0x150,s_C__grimjedi_Libs_Std_General_Std_004f11d0,DAT_004f11c0 + 3);
   if (puVar2 == (undefined4 *)0x0) {
     return (void *)0x0;
   }
-  puVar6 = puVar2;
-  for (iVar3 = 0x54; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar6 = 0;
-    puVar6 = puVar6 + 1;
+  puVar7 = puVar2;
+  for (iVar4 = 0x54; iVar4 != 0; iVar4 = iVar4 + -1) {
+    *puVar7 = 0;
+    puVar7 = puVar7 + 1;
   }
-  uVar4 = 0xffffffff;
+  uVar5 = 0xffffffff;
   puVar2[2] = 0;
   puVar2[0x53] = mode;
   do {
-    pcVar7 = dir;
-    if (uVar4 == 0) break;
-    uVar4 = uVar4 - 1;
-    pcVar7 = dir + 1;
+    pcVar8 = dir;
+    if (uVar5 == 0) break;
+    uVar5 = uVar5 - 1;
+    pcVar8 = dir + 1;
     cVar1 = *dir;
-    dir = pcVar7;
+    dir = pcVar8;
   } while (cVar1 != '\0');
-  uVar4 = ~uVar4;
-  pcVar10 = (char *)(puVar2 + 0xe);
-  pcVar7 = pcVar7 + -uVar4;
-  pcVar9 = pcVar10;
-  for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-    *(undefined4 *)pcVar9 = *(undefined4 *)pcVar7;
-    pcVar7 = pcVar7 + 4;
-    pcVar9 = pcVar9 + 4;
+  uVar5 = ~uVar5;
+  pcVar11 = (char *)(puVar2 + 0xe);
+  pcVar8 = pcVar8 + -uVar5;
+  pcVar10 = pcVar11;
+  for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+    *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+    pcVar8 = pcVar8 + 4;
+    pcVar10 = pcVar10 + 4;
   }
-  for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-    *pcVar9 = *pcVar7;
-    pcVar7 = pcVar7 + 1;
-    pcVar9 = pcVar9 + 1;
+  for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+    *pcVar10 = *pcVar8;
+    pcVar8 = pcVar8 + 1;
+    pcVar10 = pcVar10 + 1;
   }
   switch(mode) {
   case 0:
@@ -348,107 +351,107 @@ void * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext)
     ext = &DAT_004f11c8;
     break;
   case 3:
-    iVar3 = strchr(ext,0x2e);
-    pcVar7 = &DAT_004f11c4;
-    if (iVar3 != 0) {
-      pcVar7 = &DAT_004e9c60;
+    puVar3 = strchr((uint *)ext,'.');
+    pcVar8 = &DAT_004f11c4;
+    if (puVar3 != (uint *)0x0) {
+      pcVar8 = &DAT_004e9c60;
     }
-    uVar4 = 0xffffffff;
+    uVar5 = 0xffffffff;
     do {
-      pcVar9 = pcVar7;
-      if (uVar4 == 0) break;
-      uVar4 = uVar4 - 1;
-      pcVar9 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar9;
+      pcVar10 = pcVar8;
+      if (uVar5 == 0) break;
+      uVar5 = uVar5 - 1;
+      pcVar10 = pcVar8 + 1;
+      cVar1 = *pcVar8;
+      pcVar8 = pcVar10;
     } while (cVar1 != '\0');
-    uVar4 = ~uVar4;
-    iVar3 = -1;
-    pcVar7 = pcVar10;
+    uVar5 = ~uVar5;
+    iVar4 = -1;
+    pcVar8 = pcVar11;
     do {
-      pcVar8 = pcVar7;
-      if (iVar3 == 0) break;
-      iVar3 = iVar3 + -1;
-      pcVar8 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar8;
+      pcVar9 = pcVar8;
+      if (iVar4 == 0) break;
+      iVar4 = iVar4 + -1;
+      pcVar9 = pcVar8 + 1;
+      cVar1 = *pcVar8;
+      pcVar8 = pcVar9;
     } while (cVar1 != '\0');
-    pcVar7 = pcVar9 + -uVar4;
-    pcVar9 = pcVar8 + -1;
-    for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *(undefined4 *)pcVar9 = *(undefined4 *)pcVar7;
-      pcVar7 = pcVar7 + 4;
-      pcVar9 = pcVar9 + 4;
+    pcVar8 = pcVar10 + -uVar5;
+    pcVar10 = pcVar9 + -1;
+    for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+      *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+      pcVar8 = pcVar8 + 4;
+      pcVar10 = pcVar10 + 4;
     }
-    for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *pcVar9 = *pcVar7;
-      pcVar7 = pcVar7 + 1;
-      pcVar9 = pcVar9 + 1;
+    for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+      *pcVar10 = *pcVar8;
+      pcVar8 = pcVar8 + 1;
+      pcVar10 = pcVar10 + 1;
     }
     break;
   case 4:
-    uVar4 = 0xffffffff;
+    uVar5 = 0xffffffff;
     do {
-      pcVar7 = ext;
-      if (uVar4 == 0) break;
-      uVar4 = uVar4 - 1;
-      pcVar7 = ext + 1;
+      pcVar8 = ext;
+      if (uVar5 == 0) break;
+      uVar5 = uVar5 - 1;
+      pcVar8 = ext + 1;
       cVar1 = *ext;
-      ext = pcVar7;
+      ext = pcVar8;
     } while (cVar1 != '\0');
-    uVar4 = ~uVar4;
-    pcVar7 = pcVar7 + -uVar4;
-    for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *(undefined4 *)pcVar10 = *(undefined4 *)pcVar7;
-      pcVar7 = pcVar7 + 4;
-      pcVar10 = pcVar10 + 4;
+    uVar5 = ~uVar5;
+    pcVar8 = pcVar8 + -uVar5;
+    for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+      *(undefined4 *)pcVar11 = *(undefined4 *)pcVar8;
+      pcVar8 = pcVar8 + 4;
+      pcVar11 = pcVar11 + 4;
     }
-    for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *pcVar10 = *pcVar7;
-      pcVar7 = pcVar7 + 1;
-      pcVar10 = pcVar10 + 1;
+    for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+      *pcVar11 = *pcVar8;
+      pcVar8 = pcVar8 + 1;
+      pcVar11 = pcVar11 + 1;
     }
     return puVar2;
   default:
     goto switchD_004c11e0_default;
   }
-  uVar4 = 0xffffffff;
+  uVar5 = 0xffffffff;
   do {
-    pcVar7 = ext;
-    if (uVar4 == 0) break;
-    uVar4 = uVar4 - 1;
-    pcVar7 = ext + 1;
+    pcVar8 = ext;
+    if (uVar5 == 0) break;
+    uVar5 = uVar5 - 1;
+    pcVar8 = ext + 1;
     cVar1 = *ext;
-    ext = pcVar7;
+    ext = pcVar8;
   } while (cVar1 != '\0');
-  uVar4 = ~uVar4;
-  iVar3 = -1;
+  uVar5 = ~uVar5;
+  iVar4 = -1;
   do {
-    pcVar9 = pcVar10;
-    if (iVar3 == 0) break;
-    iVar3 = iVar3 + -1;
-    pcVar9 = pcVar10 + 1;
-    cVar1 = *pcVar10;
-    pcVar10 = pcVar9;
+    pcVar10 = pcVar11;
+    if (iVar4 == 0) break;
+    iVar4 = iVar4 + -1;
+    pcVar10 = pcVar11 + 1;
+    cVar1 = *pcVar11;
+    pcVar11 = pcVar10;
   } while (cVar1 != '\0');
-  pcVar7 = pcVar7 + -uVar4;
-  pcVar10 = pcVar9 + -1;
-  for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-    *(undefined4 *)pcVar10 = *(undefined4 *)pcVar7;
-    pcVar7 = pcVar7 + 4;
-    pcVar10 = pcVar10 + 4;
+  pcVar8 = pcVar8 + -uVar5;
+  pcVar11 = pcVar10 + -1;
+  for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+    *(undefined4 *)pcVar11 = *(undefined4 *)pcVar8;
+    pcVar8 = pcVar8 + 4;
+    pcVar11 = pcVar11 + 4;
   }
-  for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-    *pcVar10 = *pcVar7;
-    pcVar7 = pcVar7 + 1;
-    pcVar10 = pcVar10 + 1;
+  for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+    *pcVar11 = *pcVar8;
+    pcVar8 = pcVar8 + 1;
+    pcVar11 = pcVar11 + 1;
   }
 switchD_004c11e0_default:
   return puVar2;
 }
 
 /* ---- 0x004c12a0  stdFileUtil_DisposeFind ---- */
-void stdFileUtil_DisposeFind(int param_1)
+void __cdecl stdFileUtil_DisposeFind(int param_1)
 
 {
   if (param_1 != 0) {

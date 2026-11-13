@@ -23,7 +23,7 @@ void __cdecl sputPrimitive_Update(uint layerMask)
    sputPrimitive_Pause (the remaster's GrimFandango (Linux): aligned call in sputRender_Dim); was
    Primitives_Hide. */
 
-void sputPrimitive_Pause(void)
+void __cdecl sputPrimitive_Pause(void)
 
 {
   PrimitiveQueue_markAllDirty(&g_dwPrimitiveQ,3);
@@ -35,7 +35,7 @@ void sputPrimitive_Pause(void)
 /* Original name sputPrimitive_Resume (the remaster's GrimFandango (Linux): aligned call in
    sputRender_Dim); was Primitives_Show. */
 
-void sputPrimitive_Resume(void)
+void __cdecl sputPrimitive_Resume(void)
 
 {
   g_nSputPrimitive_Paused = 0;
@@ -453,7 +453,7 @@ int __thiscall PrimitiveQueue_markDirty(void *this,void *prim)
 /* Original name PrimitiveQueue_resetId (the remaster's GrimFandango (Linux): same body (nextId =
    1)); was Primitive_ResetIds. */
 
-void PrimitiveQueue_resetId(void)
+void __cdecl PrimitiveQueue_resetId(void)
 
 {
   g_nPrimitiveQueue_nextId = 1;

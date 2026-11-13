@@ -97,7 +97,7 @@ void __cdecl sputRender_RestoreCacheRect(int unused)
 }
 
 /* ---- 0x00486cb0  CacheRect_FreeAll ---- */
-void CacheRect_FreeAll(void)
+void __cdecl CacheRect_FreeAll(void)
 
 {
   void *pvVar1;

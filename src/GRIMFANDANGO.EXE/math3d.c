@@ -178,7 +178,7 @@ void __cdecl rdVector_Rotate3Acc(float *vec,float *rot)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
-  rdMatrix_BuildRotate34(local_30,rot);
+  rdMatrix_BuildRotate34(local_30,(uint *)rot);
   rdMatrix_TransformVector34Acc(vec,local_30);
   return;
 }
@@ -209,7 +209,7 @@ void __cdecl rdVector_ExtractAngles(float *matrix,float *outAngles)
 /* Original name rdClip_SphereInFrustrum (the remaster's GrimFandango (Linux): aligned call in
    rdModel3_DrawMeshImpl, rdSprite_Draw, rdModel3_Draw); was Frustum_TestSphere. */
 
-uint rdClip_SphereInFrustrum(int *param_1,float *param_2,float param_3)
+uint __cdecl rdClip_SphereInFrustrum(int *param_1,float *param_2,float param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -301,7 +301,7 @@ uint rdClip_SphereInFrustrum(int *param_1,float *param_2,float param_3)
   if ((fVar2 < fVar7) || (param_3 < fVar7)) {
     bVar4 = false;
   }
-  return !bVar4;
+  return (uint)!bVar4;
 }
 #undef local_4
 #undef local_8
@@ -316,8 +316,9 @@ uint rdClip_SphereInFrustrum(int *param_1,float *param_2,float param_3)
 /* Original name rdClip_FaceToPlane (the remaster's GrimFandango (Linux): aligned call in
    rdModel3_DrawFace); was Polygon_ClipToPlane. */
 
-uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 *param_4,
-                       float *param_5,uint *param_6)
+uint __cdecl
+rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,uint *param_4,float *param_5,
+                  uint *param_6)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -325,7 +326,7 @@ uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 
   float fVar2;
   int iVar3;
   int iVar4;
-  undefined4 *puVar5;
+  uint *puVar5;
   float *pfVar6;
   float *pfVar7;
   float *pfVar8;
@@ -333,7 +334,7 @@ uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 
   int iVar10;
   float *pfVar11;
   uint *puVar12;
-  undefined4 *puVar13;
+  uint *puVar13;
   uint *puVar14;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -348,7 +349,7 @@ uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 
   iVar4 = (int)param_6 * 3;
   local_20 = 0;
   pfVar6 = (float *)(param_4 + (int)param_6 * 2 + -2);
-  if (param_4 == (undefined4 *)0x0) {
+  if (param_4 == (uint *)0x0) {
     pfVar6 = param_5;
   }
   if (param_5 != (float *)0x0) {
@@ -359,7 +360,7 @@ uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 
     local_c[1] = PUN(float,param_5);
     local_c[0] = PUN(float,param_4);
     param_6 = &g_dwWorkTVerts;
-    puVar12 = &g_dwWorkVerts;
+    puVar13 = &g_dwWorkVerts;
     local_1c = (uint)&UINT_007f46bc;
     puVar9 = &UINT_007f48c8;
     puVar14 = &UINT_007f48c4;
@@ -370,7 +371,7 @@ uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 
                   (param_3[iVar3 + -1] - param_2[2]) * param_1[2] +
                   (param_3[iVar10 + -3] - *param_2) * *param_1;
     do {
-      if (param_4 != (undefined4 *)0x0) {
+      if (param_4 != (uint *)0x0) {
         local_18[1] = local_c[0];
       }
       if (param_5 != (float *)0x0) {
@@ -381,10 +382,10 @@ uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 
       if ((local_18[0] < 0.0) || (fVar2 < 0.0)) {
         if ((0.0 <= local_18[0]) && (fVar2 < 0.0)) {
           fVar1 = -(local_18[0] / (fVar2 - local_18[0]));
-          *puVar12 = PUN(uint,(float)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7));
+          *puVar13 = PUN(uint,(float)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7));
           *puVar14 = PUN(uint,(float)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]));
           *puVar9 = PUN(uint,(float)((pfVar8[2] - pfVar7[2]) * fVar1 + pfVar7[2]));
-          if (param_4 != (undefined4 *)0x0) {
+          if (param_4 != (uint *)0x0) {
             *param_6 = PUN(uint,(float)((*PUN(float *,(float)local_18[1]) - *pfVar6) * fVar1 + *pfVar6));
             *(float *)local_1c = (*(float *)(PUN(int,(float)local_18[1]) + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
           }
@@ -395,10 +396,10 @@ uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 
         }
         if ((local_18[0] < 0.0) && (0.0 <= fVar2)) {
           fVar1 = -(local_18[0] / (fVar2 - local_18[0]));
-          *puVar12 = PUN(uint,(float)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7));
+          *puVar13 = PUN(uint,(float)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7));
           *puVar14 = PUN(uint,(float)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]));
           *puVar9 = PUN(uint,(float)((pfVar8[2] - pfVar7[2]) * fVar1 + pfVar7[2]));
-          if (param_4 != (undefined4 *)0x0) {
+          if (param_4 != (uint *)0x0) {
             *param_6 = PUN(uint,(float)((*PUN(float *,(float)local_18[1]) - *pfVar6) * fVar1 + *pfVar6));
             *(float *)local_1c = (*(float *)(PUN(int,(float)local_18[1]) + 4) - pfVar6[1]) * fVar1 + pfVar6[1];
           }
@@ -407,21 +408,21 @@ uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 
           }
           local_20 = local_20 + 1;
           local_1c = local_1c + 8;
-          pfVar6 = (float *)(param_6 + 2);
+          puVar12 = param_6 + 2;
           local_24 = local_24 + 4;
-          pfVar7 = (float *)(puVar12 + 3);
+          pfVar6 = (float *)(puVar13 + 3);
           puVar14 = puVar14 + 3;
-          *pfVar7 = *pfVar8;
+          *pfVar6 = *pfVar8;
           puVar9 = puVar9 + 3;
-          puVar12[4] = PUN(uint,(float)pfVar8[1]);
-          puVar12[5] = PUN(uint,(float)pfVar8[2]);
-          if (param_4 != (undefined4 *)0x0) {
-            *pfVar6 = *PUN(float *,(float)local_18[1]);
-            param_6[3] = PUN(uint,(float)*(float *)(PUN(int,(float)local_18[1]) + 4));
-            param_6[4] = PUN(uint,(float)*(float *)(PUN(int,(float)local_18[1]) + 8));
+          puVar13[4] = PUN(uint,(float)pfVar8[1]);
+          puVar13[5] = PUN(uint,(float)pfVar8[2]);
+          if (param_4 != (uint *)0x0) {
+            *puVar12 = *PUN(uint *,(float)local_18[1]);
+            param_6[3] = *(uint *)(PUN(int,(float)local_18[1]) + 4);
+            param_6[4] = *(uint *)(PUN(int,(float)local_18[1]) + 8);
           }
-          puVar12 = (uint *)pfVar7;
-          param_6 = (uint *)pfVar6;
+          puVar13 = (uint *)pfVar6;
+          param_6 = puVar12;
           if (param_5 != (float *)0x0) {
             *(float **)local_24 = pfVar11;
           }
@@ -429,13 +430,13 @@ uint rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,undefined4 
         }
       }
       else {
-        *puVar12 = PUN(uint,(float)*pfVar8);
-        puVar12[1] = PUN(uint,(float)pfVar8[1]);
-        puVar12[2] = PUN(uint,(float)pfVar8[2]);
-        if (param_4 != (undefined4 *)0x0) {
-          *param_6 = PUN(uint,(float)*PUN(float *,(float)local_18[1]));
-          param_6[1] = PUN(uint,(float)*(float *)(PUN(int,(float)local_18[1]) + 4));
-          param_6[2] = PUN(uint,(float)*(float *)(PUN(int,(float)local_18[1]) + 8));
+        *puVar13 = PUN(uint,(float)*pfVar8);
+        puVar13[1] = PUN(uint,(float)pfVar8[1]);
+        puVar13[2] = PUN(uint,(float)pfVar8[2]);
+        if (param_4 != (uint *)0x0) {
+          *param_6 = *PUN(uint *,(float)local_18[1]);
+          param_6[1] = *(uint *)(PUN(int,(float)local_18[1]) + 4);
+          param_6[2] = *(uint *)(PUN(int,(float)local_18[1]) + 8);
         }
         if (param_5 != (float *)0x0) {
           *(float **)local_24 = pfVar11;
@@ -446,7 +447,7 @@ LAB_0044ed90:
         param_6 = param_6 + 2;
         puVar14 = puVar14 + 3;
         puVar9 = puVar9 + 3;
-        puVar12 = puVar12 + 3;
+        puVar13 = puVar13 + 3;
         local_24 = local_24 + 4;
       }
       local_c[0] = PUN(float,(PUN(int,(float)local_c[0]) + 8));
@@ -462,7 +463,7 @@ LAB_0044ed90:
   if (0 < (int)local_20) {
     iVar10 = (int)&g_dwWorkVerts - (int)param_3;
     iVar3 = -(int)param_4;
-    param_4 = (undefined4 *)local_20;
+    param_4 = (uint *)local_20;
     pfVar6 = param_5;
     puVar13 = puVar5;
     do {
@@ -470,9 +471,9 @@ LAB_0044ed90:
       *param_3 = *pfVar11;
       param_3[1] = pfVar11[1];
       param_3[2] = pfVar11[2];
-      if (puVar5 != (undefined4 *)0x0) {
-        *puVar13 = *(undefined4 *)((int)&g_dwWorkTVerts + iVar3 + (int)puVar13);
-        puVar13[1] = *(undefined4 *)((int)&UINT_007f46bc + iVar3 + (int)puVar13);
+      if (puVar5 != (uint *)0x0) {
+        *puVar13 = *(uint *)((int)&g_dwWorkTVerts + iVar3 + (int)puVar13);
+        puVar13[1] = *(uint *)((int)&UINT_007f46bc + iVar3 + (int)puVar13);
       }
       if (param_5 != (float *)0x0) {
         *pfVar6 = *(float *)(((int)&g_dwWorkIVerts - (int)param_5) + (int)pfVar6);
@@ -480,8 +481,8 @@ LAB_0044ed90:
       param_3 = param_3 + 3;
       puVar13 = puVar13 + 2;
       pfVar6 = pfVar6 + 1;
-      param_4 = (undefined4 *)((int)param_4 - 1);
-    } while (param_4 != (undefined4 *)0x0);
+      param_4 = (uint *)((int)param_4 + -1);
+    } while (param_4 != (uint *)0x0);
   }
   return local_20;
 }
@@ -501,17 +502,17 @@ LAB_0044ed90:
    rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox, rdThing_SetModel3); was
    Angles_ToMatrix. */
 
-void rdMatrix_Build34(float *param_1,undefined4 *param_2,float *param_3)
+void __cdecl rdMatrix_Build34(float *param_1,uint *param_2,float *param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 *puVar1;
+  uint *puVar1;
   #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
   #define local_10 (*(float (*)[3])(_frame + (0x30 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   puVar1 = param_2;
-  stdMath_SinCos(*param_2,&param_2,local_1c);
+  stdMath_SinCos(PUN(float,PUN(float,*param_2)),(float *)&param_2,local_1c);
   stdMath_SinCos(PUN(float,puVar1[1]),local_1c + 2,local_10);
   stdMath_SinCos(PUN(float,puVar1[2]),local_1c + 1,local_10 + 1);
   *param_1 = -(local_1c[1] * local_1c[2]) * PUN(float,param_2) + local_10[1] * local_10[0];
@@ -572,17 +573,17 @@ void __cdecl rdMatrix_InvertOrtho34(float *out,float *m)
 /* Original name rdMatrix_BuildRotate34 (the remaster's GrimFandango (Linux): aligned call in
    rdVector_Rotate3Acc, sputActor_SetActorRotation); was Angles_ToMatrixNoPos. */
 
-void rdMatrix_BuildRotate34(float *param_1,undefined4 *param_2)
+void __cdecl rdMatrix_BuildRotate34(float *param_1,uint *param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 *puVar1;
+  uint *puVar1;
   #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
   #define local_10 (*(float (*)[3])(_frame + (0x30 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   puVar1 = param_2;
-  stdMath_SinCos(*param_2,&param_2,local_1c);
+  stdMath_SinCos(PUN(float,PUN(float,*param_2)),(float *)&param_2,local_1c);
   stdMath_SinCos(PUN(float,puVar1[1]),local_1c + 2,local_10);
   stdMath_SinCos(PUN(float,puVar1[2]),local_1c + 1,local_10 + 1);
   *param_1 = -(local_1c[1] * local_1c[2]) * PUN(float,param_2) + local_10[1] * local_10[0];
@@ -635,7 +636,7 @@ void __cdecl rdMatrix_BuildTranslate34(float *m,float *pos)
 /* Original name rdMatrix_BuildScale34 (the remaster's GrimFandango (Linux): aligned call in
    rdMatrix_PreScale34); was Matrix_BuildTranslation2. */
 
-void rdMatrix_BuildScale34(undefined4 *param_1,undefined4 *param_2)
+void __cdecl rdMatrix_BuildScale34(undefined4 *param_1,undefined4 *param_2)
 
 {
   *param_1 = *param_2;
@@ -659,7 +660,7 @@ void rdMatrix_BuildScale34(undefined4 *param_1,undefined4 *param_2)
 /* Original name rdMatrix_BuildFromVectorAngle34 (the remaster's GrimFandango (Linux): aligned call
    in Rotate, rdMatrix_LookAt); was Matrix_AxisAngle. */
 
-void rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float param_3)
+void __cdecl rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float param_3)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -675,6 +676,7 @@ void rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float param_3
   float fVar10;
   float fVar11;
   float fVar12;
+  float fVar13;
   #define local_28 (*(float (*)[3])(_frame + (0x40 - 0x28)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
@@ -714,26 +716,26 @@ void rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float param_3
       fVar7 = fVar6 * param_3;
       fVar9 = (1.0 - fVar6) - fVar8;
       fVar10 = fVar8 * param_3;
-      param_3 = 1.0 - param_3;
+      fVar11 = 1.0 - param_3;
       fVar1 = param_2[1];
       fVar2 = param_2[1];
       fVar3 = *param_2;
       fVar4 = param_2[2];
       fVar5 = *param_2;
-      fVar11 = param_2[2] * *param_2 * param_3;
-      fVar12 = param_2[1] * param_2[2] * param_3;
+      fVar12 = param_2[2] * *param_2 * fVar11;
+      fVar13 = param_2[1] * param_2[2] * fVar11;
       *param_1 = (fVar7 * fVar9 + fVar10) / (1.0 - fVar9) + fVar6;
-      param_3 = fVar1 * fVar3 * param_3;
+      fVar11 = fVar1 * fVar3 * fVar11;
       param_1[9] = 0.0;
       param_1[10] = 0.0;
       param_1[4] = (fVar10 * fVar9 + fVar7) / (1.0 - fVar9) + fVar8;
       param_1[8] = fVar10 + fVar7 + fVar9;
-      param_1[1] = fVar4 * local_28[0] + param_3;
-      param_1[3] = param_3 - fVar4 * local_28[0];
-      param_1[2] = fVar11 - fVar2 * local_28[0];
-      param_1[5] = fVar12 + local_28[0] * fVar5;
-      param_1[6] = fVar11 + fVar2 * local_28[0];
-      param_1[7] = fVar12 - local_28[0] * fVar5;
+      param_1[1] = fVar4 * local_28[0] + fVar11;
+      param_1[3] = fVar11 - fVar4 * local_28[0];
+      param_1[2] = fVar12 - fVar2 * local_28[0];
+      param_1[5] = fVar13 + local_28[0] * fVar5;
+      param_1[6] = fVar12 + fVar2 * local_28[0];
+      param_1[7] = fVar13 - local_28[0] * fVar5;
       param_1[0xb] = 0.0;
       return;
     }
@@ -772,7 +774,7 @@ void rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float param_3
    rdMatrix_LookAt (the remaster's GrimFandango (Linux): aligned call in sputLua_SetCameraInterestL,
    sputLua_SetCameraPositionL, sputLua_SetCameraRollL); was Camera_BuildBasis. */
 
-void rdMatrix_LookAt(float *param_1,float *param_2,float *param_3,undefined4 param_4)
+void __cdecl rdMatrix_LookAt(float *param_1,float *param_2,float *param_3,uint param_4)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -831,7 +833,7 @@ void rdMatrix_LookAt(float *param_1,float *param_2,float *param_3,undefined4 par
 /* Original name rdMatrix_ExtractAngles34 (the remaster's GrimFandango (Linux): aligned call in
    rdCamera_Update); was Matrix_ToAngles. */
 
-void rdMatrix_ExtractAngles34(float *param_1,float *param_2)
+void __cdecl rdMatrix_ExtractAngles34(float *param_1,float *param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1026,7 +1028,7 @@ void __cdecl rdMatrix_PreMultiply34(float *m,float *angles)
 /* Original name rdMatrix_PostMultiply34 (the remaster's GrimFandango (Linux): aligned call in
    rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox); was Matrix_Multiply. */
 
-void rdMatrix_PostMultiply34(float *param_1,float *param_2)
+void __cdecl rdMatrix_PostMultiply34(float *param_1,float *param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1077,13 +1079,13 @@ void rdMatrix_PostMultiply34(float *param_1,float *param_2)
 /* ---- 0x0044fe50  Matrix_BuildTransform ---- */
 /* Rotation then translation */
 
-void Matrix_BuildTransform(float *param_1,undefined4 param_2)
+void __cdecl Matrix_BuildTransform(float *param_1,uint param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
-  rdMatrix_BuildRotate34(local_30,param_2);
+  rdMatrix_BuildRotate34(local_30,(uint *)param_2);
   rdMatrix_PreMultiply34(param_1,local_30);
   return;
 }
@@ -1094,7 +1096,7 @@ void Matrix_BuildTransform(float *param_1,undefined4 param_2)
 /* Original name rdMatrix_PostTranslate34 (the remaster's GrimFandango (Linux): aligned call in
    rdModel3_BuildExpandedRadius, rdModel3_CalcModelBoundingBox); was Matrix_SetTranslation. */
 
-void rdMatrix_PostTranslate34(int param_1,float *param_2)
+void __cdecl rdMatrix_PostTranslate34(int param_1,float *param_2)
 
 {
   *(float *)(param_1 + 0x24) = *param_2 + *(float *)(param_1 + 0x24);
@@ -1107,13 +1109,13 @@ void rdMatrix_PostTranslate34(int param_1,float *param_2)
 /* Original name rdMatrix_PreScale34 (the remaster's GrimFandango (Linux): aligned call in
    sputActor_DrawToClean, sputRender_Update); was Matrix_BuildTransform2. */
 
-void rdMatrix_PreScale34(float *param_1,undefined4 param_2)
+void __cdecl rdMatrix_PreScale34(float *param_1,uint param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
-  rdMatrix_BuildScale34(local_30,param_2);
+  rdMatrix_BuildScale34(local_30,(undefined4 *)param_2);
   rdMatrix_PreMultiply34(param_1,local_30);
   return;
 }
@@ -1267,7 +1269,7 @@ void __cdecl rdMatrix_TransformPointLst34(float *m,float *in,float *out,int coun
 }
 
 /* ---- 0x00450220  FUN_00450220 ---- */
-undefined4 FUN_00450220(undefined4 *param_1)
+uint __cdecl FUN_00450220(undefined4 *param_1)
 
 {
   *param_1 = 0;
@@ -1290,7 +1292,7 @@ undefined4 FUN_00450220(undefined4 *param_1)
 /* Original name rdFace_FreeEntry (the remaster's GrimFandango (Linux): aligned call in
    rdModel3_FreeEntry); was FUN_00450260. */
 
-void rdFace_FreeEntry(int param_1)
+void __cdecl rdFace_FreeEntry(int param_1)
 
 {
   if (*(int *)(param_1 + 0x18) != 0) {
@@ -1308,7 +1310,7 @@ void rdFace_FreeEntry(int param_1)
    (two edge vectors from the first point, normalised, cross product, normalised, components below
    1e-6 cleared); called by rdModel3_CalcFaceNormals in both builds); was Math3D_TriangleNormal. */
 
-void rdMath_CalcSurfaceNormal(float *param_1,float *param_2,float *param_3,float *param_4)
+void __cdecl rdMath_CalcSurfaceNormal(float *param_1,float *param_2,float *param_3,float *param_4)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1329,7 +1331,7 @@ void rdMath_CalcSurfaceNormal(float *param_1,float *param_2,float *param_3,float
   param_1[1] = local_18 * local_8[1] - local_14[1] * local_c;
   param_1[2] = local_14[0] * local_c - local_18 * local_8[0];
   rdVector_Normalize3Acc(param_1);
-  rdMath_ClampVector(param_1,FBITS(0x358637bd));
+  rdMath_ClampVector(param_1,1e-06);
   return;
 }
 #undef local_14
@@ -1344,7 +1346,7 @@ void rdMath_CalcSurfaceNormal(float *param_1,float *param_2,float *param_3,float
    absolute value is below the threshold becomes 0); the remaster inlined it into
    rdMath_CalcSurfaceNormal); was Vec3_ZeroSmallComponents. */
 
-void rdMath_ClampVector(float *param_1,float param_2)
+void __cdecl rdMath_ClampVector(float *param_1,float param_2)
 
 {
   float fVar1;
@@ -1388,7 +1390,7 @@ void rdMath_ClampVector(float *param_1,float param_2)
    name rdMath_PointsCollinear (the remaster's GrimFandango (Linux): aligned call in
    rdModel3_CalcFaceNormals); was Math3D_PointsCollinear. */
 
-undefined4 rdMath_PointsCollinear(float *param_1,float *param_2,float *param_3)
+uint __cdecl rdMath_PointsCollinear(float *param_1,float *param_2,float *param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

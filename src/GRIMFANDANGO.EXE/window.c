@@ -21,7 +21,7 @@ undefined * __stdcall Win_WinMain(int a1,int a2,int a3,int a4)
    Backspace-chord debug keys (C choreface, F fps, P profile, S screenshot, T reset textures, Z
    z-buffer dump, F12 grimpatch.bin, NumLock spew). */
 
-undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
+undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int param_3)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -214,7 +214,7 @@ LAB_0040303f:
 
 
 /* ---- 0x00473360  Win_SetMainHwnd ---- */
-void Win_SetMainHwnd(void *param_1)
+void __cdecl Win_SetMainHwnd(void *param_1)
 
 {
   g_pMainHwnd = param_1;
@@ -229,7 +229,7 @@ void * __cdecl Win_GetMainHwnd(void)
 }
 
 /* ---- 0x00473380  Win_SetInstance ---- */
-void Win_SetInstance(uint param_1)
+void __cdecl Win_SetInstance(uint param_1)
 
 {
   UINT_007f608c = param_1;
@@ -239,7 +239,7 @@ void Win_SetInstance(uint param_1)
 /* ---- 0x00473390  Win_GetInstance ---- */
 /* Returns the HINSTANCE of the executable */
 
-uint Win_GetInstance(void)
+uint __cdecl Win_GetInstance(void)
 
 {
   return UINT_007f608c;
@@ -249,7 +249,7 @@ uint Win_GetInstance(void)
 /* Window-message filter: true for WM_SYSCOMMAND with SC_KEYMENU (0xf100) or SC_SCREENSAVE (0xf140).
     */
 
-undefined4 Win_IsSysCommandBlocked(undefined4 param_1,int param_2,int param_3)
+uint __cdecl Win_IsSysCommandBlocked(uint param_1,int param_2,int param_3)
 
 {
   if (param_2 != 0x112) {
@@ -274,6 +274,7 @@ Win_AbortIfAlreadyRunning
 {
   int iVar1;
   int iVar2;
+  uint uVar3;
   
   iVar1 = FindWindowA(((unsigned)(uintptr_t)&s_wKernel_004ed080),(int)appName);
   if (iVar1 != 0) {
@@ -287,7 +288,7 @@ Win_AbortIfAlreadyRunning
   UINT_008d0a8c = 0;
   UINT_008d09e4 = (uint)hInstance;
   _DAT_008d09e0 = nCmdShow;
-  Win_CreateMainWindow(hInstance,nCmdShow,appName);
+  Win_CreateMainWindow((uint)hInstance,nCmdShow,(int)appName);
   Win_SetMainHwnd(g_pWinMainHwnd);
   Win_SetInstance(UINT_008d09e4);
   InitCommonControls();
@@ -296,8 +297,8 @@ Win_AbortIfAlreadyRunning
   iVar1 = GetSystemMetrics(0x20);
   iVar2 = GetSystemMetrics(0xf);
   UINT_008d0a88 = iVar2 + iVar1 * 2;
-  iVar1 = Main_Startup(cmdLine);
-  if (iVar1 != 0) {
+  uVar3 = Main_Startup(cmdLine);
+  if (uVar3 != 0) {
     UINT_008d0a8c = 1;
     do {
       Win_PumpMessages();
@@ -311,7 +312,7 @@ Win_AbortIfAlreadyRunning
 /* ---- 0x004ac020  Win_PumpMessages ---- */
 /* One message-loop iteration: runs Main_Service when idle, routes messages to registered dialogs */
 
-uint Win_PumpMessages(void)
+uint __cdecl Win_PumpMessages(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -370,7 +371,7 @@ int __cdecl Win_SetWindowedSize(int fullscreen,int w,int h)
 }
 
 /* ---- 0x004ac160  Win_AddMessageHook ---- */
-void Win_AddMessageHook(void *param_1)
+void __cdecl Win_AddMessageHook(void *param_1)
 
 {
   int *piVar1;
@@ -412,7 +413,7 @@ undefined4 __cdecl Win_RemoveMessageHook(void *hook)
 /* ---- 0x004ac1f0  Win_CreateMainWindow ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3)
+uint __cdecl Win_CreateMainWindow(uint param_1,uint param_2,int param_3)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

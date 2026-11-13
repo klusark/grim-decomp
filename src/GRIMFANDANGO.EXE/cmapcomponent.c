@@ -56,33 +56,35 @@ int * __cdecl ColormapInstancer(int inst,int component,int create)
 /* Registers a 'cmap' colormap component (CMAP resource, 0x34-byte ResRef); with no name a file
    dialog asks for one (editor) */
 
-int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int __cdecl ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
-  undefined4 uVar1;
+  uint *puVar1;
   void *data;
   undefined4 *ref;
   char *pcVar2;
   int iVar3;
   undefined4 *puVar4;
+  uint uVar5;
   char *name;
   
   pcVar2 = param_5;
   if (((param_4 != 0x4c444f4d) && (param_4 != 0x4c444d4d)) && (param_4 != 0x74727073)) {
-    return false;
+    return 0;
   }
   name = param_5;
   if (param_5 == (char *)0x0) {
     if (g_bColormapPath != '\0') {
-      grimPlat_SetDefaultOpenPath(&g_bColormapPath);
+      grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bColormapPath));
     }
     iVar3 = grimPlat_OpenFileRequest
                       (s_Select_colormap_file_to_add____004ea530,s_Colormap_files____cmp__004ea550);
     if (iVar3 == 0) {
-      return false;
+      return 0;
     }
-    uVar1 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
-    ((code *)strncpy)(&g_bColormapPath,uVar1);
+    uVar5 = 0x7f;
+    puVar1 = (uint *)grimPlat_GetDefaultOpenPath();
+    strncpy((uint *)&g_bColormapPath,puVar1,uVar5);
     DAT_008ca937 = 0;
     param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
     name = g_szGrimlib_aFilename;
@@ -101,9 +103,9 @@ int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *par
       pcVar2 = param_5;
     }
     iVar3 = Cos_RegisterComponent(param_1,(int)pcVar2,(int)ref,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004e9f20));
-    return iVar3 != 0;
+    return (uint)(iVar3 != 0);
   }
-  return false;
+  return 0;
 }
 
 /* ---- 0x00496580  ColormapFreer ---- */
@@ -127,7 +129,7 @@ undefined4 ColormapFreer(undefined4 param_1,undefined4 param_2,void *param_3)
    slot (instancesaveload) of the same costume tag registration in sputCostume_Startup); was
    FUN_004965b0. */
 
-undefined4 MaterialInstanceSaveLoad(void)
+uint __cdecl MaterialInstanceSaveLoad(void)
 
 {
   int in_stack_00000010;

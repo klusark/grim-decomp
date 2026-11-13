@@ -13,18 +13,18 @@
    Original name msc_rle_DecompressBlock (the remaster's GrimFandango (Linux): same body
    (Initialize, Getbyte loop, Terminate)); was Rle_Decode. */
 
-void msc_rle_DecompressBlock(undefined1 *param_1,undefined4 param_2,int param_3)
+void __cdecl msc_rle_DecompressBlock(byte *param_1,uint param_2,int param_3)
 
 {
   int iVar1;
   uint uVar2;
   int extraout_ECX;
   
-  msc_rle_DecompressInitialize(param_2);
+  msc_rle_DecompressInitialize((int *)param_2);
   iVar1 = param_3;
   for (; param_3 != 0; param_3 = param_3 + -1) {
     uVar2 = msc_rle_DecompressGetbyte(iVar1);
-    *param_1 = (char)uVar2;
+    *param_1 = (byte)uVar2;
     param_1 = param_1 + 1;
     iVar1 = extraout_ECX;
   }
@@ -38,7 +38,7 @@ void msc_rle_DecompressBlock(undefined1 *param_1,undefined4 param_2,int param_3)
 /* Starts reading a run-length coded byte stream Original name msc_rle_DecompressInitialize (the
    remaster's GrimFandango (Linux): same body (data = p, state = 2)); was Rle_Begin. */
 
-void msc_rle_DecompressInitialize(int *param_1)
+void __cdecl msc_rle_DecompressInitialize(int *param_1)
 
 {
   g_dwMsc_uncompress_state = 2;

@@ -6,13 +6,13 @@
 #include "functions.h"
 
 /* ---- 0x00402580  Display_Shutdown3D ---- */
-void Display_Shutdown3D(void)
+void __cdecl Display_Shutdown3D(void)
 
 {
-  int iVar1;
+  uint uVar1;
   
-  iVar1 = D3D_IsAvailable();
-  if (iVar1 != 0) {
+  uVar1 = D3D_IsAvailable();
+  if (uVar1 != 0) {
     D3D_ReleaseDriver();
     D3D_Release();
     g_nRdroid_curAcceleration = g_nRdroid_curAcceleration & 0xfffffffe;
@@ -45,7 +45,7 @@ int __cdecl Display_Select(int deviceIdx,int modeIdx,int threeDIdx)
   if (g_nDisplayDeviceOpen != 0) {
     return 0;
   }
-  stdControl_ShowMouseCursor((&UINT_00902d70)[deviceIdx * 0xa6] == 0);
+  stdControl_ShowMouseCursor((uint)((&UINT_00902d70)[deviceIdx * 0xa6] == 0));
   Reg_SetInt(s_ExperimentalDisplay_004dd5e4,1);
   iVar1 = Display_SelectDevice(deviceIdx);
   if ((iVar1 != 0) && (iVar1 = Display_OpenMode(modeIdx,&DAT_004f41e0,1), iVar1 != 0)) {
@@ -137,7 +137,8 @@ int __cdecl Display_Select3DDevice(int threeDNum)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  uint uVar1;
+  int iVar2;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
@@ -145,16 +146,16 @@ int __cdecl Display_Select3DDevice(int threeDNum)
   
   Display_Shutdown3D();
   if (threeDNum != -1) {
-    iVar1 = D3D_Enumerate();
-    if (iVar1 != 0) {
+    uVar1 = D3D_Enumerate();
+    if (uVar1 != 0) {
       if ((threeDNum < 0) ||
          (*(int *)(UINT_00901758 * 0x10 + 8 + (int)g_pDisplayModes) <= threeDNum)) {
         (*g_pStd_HS->pAssertFail)
                   (s_threeDNum____0____threeDNum____i_004dd7a4,
                    s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x54d);
       }
-      iVar1 = D3D_SelectDriver(threeDNum,1);
-      if (iVar1 != 0) {
+      iVar2 = D3D_SelectDriver(threeDNum,1);
+      if (iVar2 != 0) {
         g_nRdroid_curAcceleration = g_nRdroid_curAcceleration | 1;
         grimlib_Using3DHardware(1);
         Reg_SetBinary(s_Last3DDevice_004dd794,(void *)((int)g_pStd3D_CurDevice + 0x21c),0x10);
@@ -352,9 +353,8 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  uint uVar1;
   uint *puVar2;
-  uint uVar3;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
@@ -366,21 +366,21 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
   local_10 = UINT_004dd33c;
   local_14 = (uint)(wantFullscreen == 0);
   local_c = want3D;
-  iVar1 = Display_FindClosestDevice(&local_14);
-  *deviceIdx = iVar1;
-  puVar2 = (uint *)(iVar1 * 0x10 + (int)g_pDisplayModes);
-  uVar3 = Display_FindClosestMode(&UINT_004f4d38,(void *)puVar2[1],*puVar2);
-  *modeIdx = uVar3;
-  iVar1 = *(int *)((int)g_pDisplayModes + *deviceIdx * 0x10 + 8);
-  if ((iVar1 == 0) || (want3D == 0)) {
+  uVar1 = Display_FindClosestDevice(&local_14);
+  *deviceIdx = uVar1;
+  puVar2 = (uint *)(uVar1 * 0x10 + (int)g_pDisplayModes);
+  uVar1 = Display_FindClosestMode(&UINT_004f4d38,(void *)puVar2[1],*puVar2);
+  *modeIdx = uVar1;
+  uVar1 = *(uint *)((int)g_pDisplayModes + *deviceIdx * 0x10 + 8);
+  if ((uVar1 == 0) || (want3D == 0)) {
     *threeDIdx = -1;
   }
   else {
-    iVar1 = D3D_FindClosestDriver
-                      (&UINT_004f44e8,
-                       *(undefined4 *)((int)g_pDisplayModes + *deviceIdx * 0x10 + 0xc),iVar1);
-    *threeDIdx = iVar1;
-    if (*(int *)(*(int *)(*deviceIdx * 0x10 + 0xc + (int)g_pDisplayModes) + iVar1 * 0x22c) == 0) {
+    uVar1 = D3D_FindClosestDriver
+                      ((int *)&UINT_004f44e8,
+                       *(int *)((int)g_pDisplayModes + *deviceIdx * 0x10 + 0xc),uVar1);
+    *threeDIdx = uVar1;
+    if (*(int *)(*(int *)(*deviceIdx * 0x10 + 0xc + (int)g_pDisplayModes) + uVar1 * 0x22c) == 0) {
       *threeDIdx = -1;
       return 1;
     }
@@ -397,8 +397,8 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
 /* ---- 0x004730d0  stdDisplay_BuildBitmapInfo8 ---- */
 /* Fills a BITMAPINFO (0x28 header, negative height) with a 256-entry palette */
 
-void stdDisplay_BuildBitmapInfo8
-               (int param_1,uint param_2,int param_3,int param_4,undefined1 *param_5)
+void __cdecl
+stdDisplay_BuildBitmapInfo8(int param_1,uint param_2,int param_3,int param_4,undefined1 *param_5)
 
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -459,7 +459,7 @@ void stdDisplay_BuildBitmapInfo8
 
 
 /* ---- 0x00473180  stdDisplay_BuildBitmapInfo16 ---- */
-void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4)
+void __cdecl stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -561,7 +561,7 @@ undefined * __cdecl DIB_CreateSection565(uint param_1,uint param_2,int param_3,u
 /* ---- 0x00473270  Palette_SwapRedBlue ---- */
 /* Converts a 768-byte RGB palette to BGR order */
 
-undefined4 Palette_SwapRedBlue(int param_1,undefined1 *param_2)
+uint __cdecl Palette_SwapRedBlue(int param_1,undefined1 *param_2)
 
 {
   unsigned char _frame[0x820] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -626,7 +626,7 @@ undefined4 Palette_SwapRedBlue(int param_1,undefined1 *param_2)
    DirectDraw devices Original name stdDisplay_Startup (the remaster's GrimFandango (Linux):
    strings: 'Window Display Device' | 'DIBsection windowed display'); was Display_EnumDevices. */
 
-int stdDisplay_Startup(void)
+int __cdecl stdDisplay_Startup(void)
 
 {
   int iVar1;
@@ -637,10 +637,10 @@ int stdDisplay_Startup(void)
   _DAT_00902eec = 0x11d113fa;
   _DAT_00902ef0 = 0xa000c097;
   _DAT_00902ef4 = 0x5302924;
-  strncpy(&DAT_00902c60,s_Window_Display_Device_004de9f8,0x7f);
+  strncpy((uint *)&DAT_00902c60,(uint *)s_Window_Display_Device_004de9f8,0x7f);
   iVar1 = g_dwStdDisplay_numDevices * 0x298;
   (&DAT_00902cdf)[iVar1] = 0;
-  strncpy(&DAT_00902ce0 + iVar1,s_DIBsection_windowed_display_004de9dc,0x7f);
+  strncpy((uint *)(&DAT_00902ce0 + iVar1),(uint *)s_DIBsection_windowed_display_004de9dc,0x7f);
   (&DAT_00902d5f)[g_dwStdDisplay_numDevices * 0x298] = 0;
   (&UINT_00902d60)[g_dwStdDisplay_numDevices * 0xa6] = 0;
   (&UINT_00902d64)[g_dwStdDisplay_numDevices * 0xa6] = 0;
@@ -651,7 +651,7 @@ int stdDisplay_Startup(void)
   (&UINT_00902d78)[g_dwStdDisplay_numDevices * 0xa6] = 2000000;
   g_dwStdDisplay_numDevices = g_dwStdDisplay_numDevices + 1;
   iVar1 = DirectDrawEnumerateA(((unsigned)(uintptr_t)FUN_004761b0),0);
-  return iVar1 == 0;
+  return (uint)(iVar1 == 0);
 }
 
 /* ---- 0x00473b30  stdDisplay_Shutdown ---- */
@@ -661,7 +661,7 @@ int stdDisplay_Startup(void)
    Main_Shutdown in both builds; clears the stdDisplay startup flag (the remaster's is empty)); was
    Display_RestoreMode. */
 
-void stdDisplay_Shutdown(void)
+void __cdecl stdDisplay_Shutdown(void)
 
 {
   _g_bStdDisplay_Startup = 0;
@@ -831,7 +831,7 @@ int __cdecl Display_SelectDevice(int deviceIdx)
   }
   else if ((&UINT_00902d60)[deviceIdx * 0xa6] == 1) {
     pvVar1 = Win_GetMainHwnd();
-    iVar2 = DDraw_Create(pvVar1);
+    iVar2 = DDraw_Create((uint)pvVar1);
     if (iVar2 == 0) {
       return 0;
     }
@@ -846,7 +846,7 @@ int __cdecl Display_SelectDevice(int deviceIdx)
    stdDisplay_ClearMode in both builds (if open: clear the mode if set, clear the open flag)); was
    Display_CloseDevice. */
 
-void stdDisplay_Close(void)
+void __cdecl stdDisplay_Close(void)
 
 {
   if (g_nDisplayDeviceOpen != 0) {
@@ -932,7 +932,7 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
    display shutdown in both builds (if a mode is set and the device type at +0x100 is 0, release the
    front / back buffers; clear the mode flag)); was Display_CloseMode. */
 
-void stdDisplay_ClearMode(void)
+void __cdecl stdDisplay_ClearMode(void)
 
 {
   if (g_nDisplayModeOpen != 0) {
@@ -956,7 +956,7 @@ void stdDisplay_ClearMode(void)
 }
 
 /* ---- 0x00474380  Display_SuspendForDialog ---- */
-void Display_SuspendForDialog(void)
+void __cdecl Display_SuspendForDialog(void)
 
 {
   void *pvVar1;
@@ -977,7 +977,7 @@ void Display_SuspendForDialog(void)
 }
 
 /* ---- 0x004743d0  Display_ResumeAfterDialog ---- */
-void Display_ResumeAfterDialog(void)
+void __cdecl Display_ResumeAfterDialog(void)
 
 {
   void *pvVar1;
@@ -1004,10 +1004,11 @@ void Display_ResumeAfterDialog(void)
    GrimFandango (Linux): the page-flip callback of Main_Startup (the remaster's is the platform
    rewrite)); was Display_Flip. */
 
-int stdDisplay_Update(void)
+int __cdecl stdDisplay_Update(void)
 
 {
   int iVar1;
+  uint uVar2;
   
   if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
     GdiFlush();
@@ -1020,8 +1021,8 @@ int stdDisplay_Update(void)
       return iVar1;
     }
     if (UINT_00803f9c != 0) {
-      iVar1 = DDraw_Flip();
-      return iVar1;
+      uVar2 = DDraw_Flip();
+      return uVar2;
     }
   }
   return 1;
@@ -1201,7 +1202,7 @@ void __cdecl Surface_Release(void *surface)
 int __cdecl stdDisplay_VBufferLock(void *surface)
 
 {
-  int iVar1;
+  uint uVar1;
   
   if (*(int *)surface != 0) {
     if (*(int *)surface != 1) {
@@ -1211,12 +1212,12 @@ int __cdecl stdDisplay_VBufferLock(void *surface)
        ((*(uint *)((int)surface + 0xd4) & 0x200000) != 0)) {
       return 0;
     }
-    iVar1 = DDraw_LockSurface((int)surface + 100);
+    uVar1 = DDraw_LockSurface((undefined4 *)((int)surface + 100));
     *(uint *)((int)surface + 0x18) = *(uint *)((int)surface + 0x7c);
-    *(int *)((int)surface + 0x5c) = iVar1;
+    *(uint *)((int)surface + 0x5c) = uVar1;
     *(uint *)((int)surface + 0x1c) =
          *(uint *)((int)surface + 0x7c) / (*(uint *)((int)surface + 0x24) >> 3);
-    if (iVar1 == 0) {
+    if (uVar1 == 0) {
       return 0;
     }
   }
@@ -1231,7 +1232,7 @@ int __cdecl stdDisplay_VBufferLock(void *surface)
 int __cdecl stdDisplay_VBufferUnlock(void *surface)
 
 {
-  int iVar1;
+  uint uVar1;
   
   if (*(int *)surface == 0) {
     if (*(int *)((int)surface + 4) != 0) {
@@ -1242,12 +1243,12 @@ int __cdecl stdDisplay_VBufferUnlock(void *surface)
     if (*(int *)((int)surface + 4) == 0) {
       return (int)surface;
     }
-    iVar1 = DDraw_UnlockSurface((int)surface + 100);
-    if (iVar1 == 0) {
+    uVar1 = DDraw_UnlockSurface((undefined4 *)((int)surface + 100));
+    if (uVar1 == 0) {
       return 0;
     }
     *(int *)((int)surface + 4) = *(int *)((int)surface + 4) + -1;
-    return iVar1;
+    return uVar1;
   }
   return 1;
 }
@@ -1258,8 +1259,8 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined1 uVar1;
-  int iVar2;
-  uint uVar3;
+  uint uVar2;
+  int iVar3;
   uint uVar4;
   int *piVar5;
   undefined4 *puVar6;
@@ -1268,17 +1269,17 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
   if (*(int *)surface == 0) {
-    iVar2 = *(int *)((int)surface + 0x24);
-    if (iVar2 == 8) {
+    iVar3 = *(int *)((int)surface + 0x24);
+    if (iVar3 == 8) {
       uVar1 = (undefined1)color;
       if (rect == (int *)0x0) {
-        uVar3 = *(uint *)((int)surface + 0x14);
+        uVar2 = *(uint *)((int)surface + 0x14);
         puVar6 = *(undefined4 **)((int)surface + 0x5c);
-        for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
+        for (uVar4 = uVar2 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
           *puVar6 = CONCAT22(CONCAT11(uVar1,uVar1),CONCAT11(uVar1,uVar1));
           puVar6 = puVar6 + 1;
         }
-        for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+        for (uVar2 = uVar2 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
           *(undefined1 *)puVar6 = uVar1;
           puVar6 = (undefined4 *)((int)puVar6 + 1);
         }
@@ -1289,13 +1290,13 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
                (*(int *)((int)surface + 0x1c) * rect[1] + *(int *)((int)surface + 0x5c) + *rect);
       if (0 < rect[3]) {
         do {
-          uVar3 = rect[2];
+          uVar2 = rect[2];
           puVar8 = puVar6;
-          for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
+          for (uVar4 = uVar2 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
             *puVar8 = CONCAT22(CONCAT11(uVar1,uVar1),CONCAT11(uVar1,uVar1));
             puVar8 = puVar8 + 1;
           }
-          for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+          for (uVar2 = uVar2 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
             *(undefined1 *)puVar8 = uVar1;
             puVar8 = (undefined4 *)((int)puVar8 + 1);
           }
@@ -1304,18 +1305,18 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
         } while ((int)local_8 < rect[3]);
       }
     }
-    else if (iVar2 == 0x10) {
+    else if (iVar3 == 0x10) {
       if (rect == (int *)0x0) {
         puVar6 = *(undefined4 **)((int)surface + 0x5c);
-        uVar3 = *(uint *)((int)surface + 0x14) >> 1;
-        if ((uVar3 & 1) == 0) {
-          for (uVar3 = *(uint *)((int)surface + 0x14) >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
+        uVar2 = *(uint *)((int)surface + 0x14) >> 1;
+        if ((uVar2 & 1) == 0) {
+          for (uVar2 = *(uint *)((int)surface + 0x14) >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
             *puVar6 = CONCAT22((undefined2)color,(undefined2)color);
             puVar6 = puVar6 + 1;
           }
         }
         else {
-          for (; uVar3 != 0; uVar3 = uVar3 - 1) {
+          for (; uVar2 != 0; uVar2 = uVar2 - 1) {
             *(undefined2 *)puVar6 = (undefined2)color;
             puVar6 = (undefined4 *)((int)puVar6 + 2);
           }
@@ -1328,16 +1329,16 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
                (*(int *)((int)surface + 0x1c) * rect[1] + *rect) * 2);
       if (0 < rect[3]) {
         do {
-          uVar3 = rect[2];
+          uVar2 = rect[2];
           puVar8 = puVar6;
-          if ((uVar3 & 1) == 0) {
-            for (uVar3 = uVar3 >> 1; uVar3 != 0; uVar3 = uVar3 - 1) {
+          if ((uVar2 & 1) == 0) {
+            for (uVar2 = uVar2 >> 1; uVar2 != 0; uVar2 = uVar2 - 1) {
               *puVar8 = CONCAT22((undefined2)color,(undefined2)color);
               puVar8 = puVar8 + 1;
             }
           }
           else {
-            for (; uVar3 != 0; uVar3 = uVar3 - 1) {
+            for (; uVar2 != 0; uVar2 = uVar2 - 1) {
               *(undefined2 *)puVar8 = (undefined2)color;
               puVar8 = (undefined4 *)((int)puVar8 + 2);
             }
@@ -1348,10 +1349,10 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
         return 1;
       }
     }
-    else if (iVar2 == 0x20) {
+    else if (iVar3 == 0x20) {
       if (rect == (int *)0x0) {
         piVar5 = *(int **)((int)surface + 0x5c);
-        for (uVar3 = *(uint *)((int)surface + 0x14) >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
+        for (uVar2 = *(uint *)((int)surface + 0x14) >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
           *piVar5 = color;
           piVar5 = piVar5 + 1;
         }
@@ -1363,7 +1364,7 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
       if (0 < rect[3]) {
         do {
           piVar7 = piVar5;
-          for (iVar2 = rect[2]; iVar2 != 0; iVar2 = iVar2 + -1) {
+          for (iVar3 = rect[2]; iVar3 != 0; iVar3 = iVar3 + -1) {
             *piVar7 = color;
             piVar7 = piVar7 + 1;
           }
@@ -1379,8 +1380,8 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
        ((*(uint *)((int)surface + 0xd4) & 0x200000) != 0)) {
       return 0;
     }
-    iVar2 = DDraw_FillSurface((int)surface + 100,color,rect);
-    return iVar2;
+    uVar2 = DDraw_FillSurface((undefined4 *)((int)surface + 100),color,(uint *)rect);
+    return uVar2;
   }
   return 1;
 }
@@ -1393,17 +1394,17 @@ int __cdecl Surface_Blit(void *dst,void *src,int x,int y,int *srcRect,int colorK
 {
   if (*(int *)src != 0) {
     if (*(int *)dst == 1) {
-      ((code *)Surface_BlitDDraw)();
+      Surface_BlitDDraw((int)dst,(int)src,x,y,(uint *)srcRect,(byte)colorKey);
       return 1;
     }
-    Surface_BlitLockedDst(dst,src,x,y,srcRect,colorKey);
+    Surface_BlitLockedDst((int)dst,src,(void *)x,y,srcRect,(void *)colorKey);
     return 1;
   }
   if (*(int *)dst == 0) {
     Surface_BlitSoftware(dst,src,x,y,srcRect,colorKey);
     return 1;
   }
-  ((code *)Surface_BlitLockedSrc)();
+  Surface_BlitLockedSrc(dst,(int)src,(void *)x,y,srcRect,(void *)colorKey);
   return 1;
 }
 
@@ -1478,33 +1479,32 @@ int __cdecl stdDisplay_VBufferDeCompressTo(void *src,void *dst)
 /* Original name stdDisplay_VBufferConvertColorFormat (the remaster's GrimFandango (Linux): aligned
    call in stdBitmap_ConvertColorFormat); was Surface_CreateFromBitmap. */
 
-void * stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2)
+void * __cdecl stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
   void *surface;
-  int iVar2;
-  undefined4 *puVar3;
-  int *piVar4;
-  undefined4 *puVar5;
-  int *piVar6;
-  bool bVar7;
+  int iVar1;
+  undefined4 *puVar2;
+  int *piVar3;
+  undefined4 *puVar4;
+  int *piVar5;
+  bool bVar6;
   #define local_4c (*(undefined4 (*)[5])(_frame + (0x60 - 0x4c)))
   #define local_38 (*(int (*)[14])(_frame + (0x60 - 0x38)))
   
-  iVar2 = 0x38;
-  bVar7 = true;
-  piVar4 = param_1;
-  piVar6 = (int *)((int)param_2 + 0x20);
+  iVar1 = 0x38;
+  bVar6 = true;
+  piVar3 = param_1;
+  piVar5 = (int *)((int)param_2 + 0x20);
   do {
-    if (iVar2 == 0) break;
-    iVar2 = iVar2 + -1;
-    bVar7 = (char)*piVar4 == (char)*piVar6;
-    piVar4 = (int *)((int)piVar4 + 1);
-    piVar6 = (int *)((int)piVar6 + 1);
-  } while (bVar7);
-  if (bVar7) {
+    if (iVar1 == 0) break;
+    iVar1 = iVar1 + -1;
+    bVar6 = (char)*piVar3 == (char)*piVar5;
+    piVar3 = (int *)((int)piVar3 + 1);
+    piVar5 = (int *)((int)piVar5 + 1);
+  } while (bVar6);
+  if (bVar6) {
     return param_2;
   }
   if ((*(int *)((int)param_2 + 0x20) == 0) && (*param_1 == 0)) {
@@ -1512,19 +1512,19 @@ void * stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2)
   }
   surface = param_2;
   if (*(int *)((int)param_2 + 0x24) != param_1[1]) {
-    puVar3 = (undefined4 *)((int)param_2 + 0xc);
-    puVar5 = local_4c;
-    for (iVar2 = 0x13; iVar2 != 0; iVar2 = iVar2 + -1) {
-      *puVar5 = *puVar3;
-      puVar3 = puVar3 + 1;
-      puVar5 = puVar5 + 1;
+    puVar2 = (undefined4 *)((int)param_2 + 0xc);
+    puVar4 = local_4c;
+    for (iVar1 = 0x13; iVar1 != 0; iVar1 = iVar1 + -1) {
+      *puVar4 = *puVar2;
+      puVar2 = puVar2 + 1;
+      puVar4 = puVar4 + 1;
     }
-    piVar4 = param_1;
-    piVar6 = local_38;
-    for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-      *piVar6 = *piVar4;
-      piVar4 = piVar4 + 1;
-      piVar6 = piVar6 + 1;
+    piVar3 = param_1;
+    piVar5 = local_38;
+    for (iVar1 = 0xe; iVar1 != 0; iVar1 = iVar1 + -1) {
+      *piVar5 = *piVar3;
+      piVar3 = piVar3 + 1;
+      piVar5 = piVar5 + 1;
     }
     surface = stdDisplay_VBufferNew(local_4c,0,0,0);
     if (surface == (void *)0x0) {
@@ -1533,27 +1533,27 @@ void * stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2)
   }
   stdDisplay_VBufferLock(param_2);
   stdDisplay_VBufferLock(surface);
-  iVar2 = 0;
+  iVar1 = 0;
   if (0 < *(int *)((int)surface + 0x10)) {
     do {
       stdColor_ColorConvertOneRow
-                ((ushort *)(iVar2 * *(int *)((int)surface + 0x18) + *(int *)((int)surface + 0x5c)),
+                ((ushort *)(iVar1 * *(int *)((int)surface + 0x18) + *(int *)((int)surface + 0x5c)),
                  (int)param_1,
-                 (ushort *)(iVar2 * *(int *)((int)param_2 + 0x18) + *(int *)((int)param_2 + 0x5c)),
+                 (ushort *)(iVar1 * *(int *)((int)param_2 + 0x18) + *(int *)((int)param_2 + 0x5c)),
                  (int)param_2 + 0x20,*(uint *)((int)surface + 0xc));
-      iVar2 = iVar2 + 1;
-    } while (iVar2 < *(int *)((int)surface + 0x10));
+      iVar1 = iVar1 + 1;
+    } while (iVar1 < *(int *)((int)surface + 0x10));
   }
   stdDisplay_VBufferUnlock(param_2);
   stdDisplay_VBufferUnlock(surface);
-  uVar1 = stdColor_ColorConvertOnePixel
-                    (param_1,*(undefined4 *)((int)param_2 + 0x60),(int)param_2 + 0x20);
-  *(undefined4 *)((int)surface + 0x60) = uVar1;
-  piVar4 = (int *)((int)surface + 0x20);
-  for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *piVar4 = *param_1;
+  iVar1 = stdColor_ColorConvertOnePixel
+                    ((int)param_1,*(uint *)((int)param_2 + 0x60),(int)param_2 + 0x20);
+  *(int *)((int)surface + 0x60) = iVar1;
+  piVar3 = (int *)((int)surface + 0x20);
+  for (iVar1 = 0xe; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *piVar3 = *param_1;
     param_1 = param_1 + 1;
-    piVar4 = piVar4 + 1;
+    piVar3 = piVar3 + 1;
   }
   if (surface != param_2) {
     stdDisplay_VBufferFree(param_2);
@@ -1568,17 +1568,18 @@ void * stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2)
 /* Original name stdDisplay_SetPalette (the remaster's GrimFandango (Linux): the first call of
    grimdemo_SetPalette; the remaster's is a stub); was Display_SetDIBPalette. */
 
-int stdDisplay_SetPalette(undefined4 param_1)
+int __cdecl stdDisplay_SetPalette(uint param_1)
 
 {
   int iVar1;
+  uint uVar2;
   
   if (*(int *)((int)g_pVideoMode + 0x1c) != 0) {
     return 0;
   }
   if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
-    iVar1 = Palette_SwapRedBlue(UINT_007f6498,param_1);
-    if (iVar1 == 0) {
+    uVar2 = Palette_SwapRedBlue(UINT_007f6498,(undefined1 *)param_1);
+    if (uVar2 == 0) {
       return 0;
     }
     GdiFlush();
@@ -1588,8 +1589,8 @@ int stdDisplay_SetPalette(undefined4 param_1)
   else {
     iVar1 = *(int *)((int)g_pDisplayDevice + 0x100) + -1;
     if (iVar1 == 0) {
-      iVar1 = DDraw_SetPalette(param_1);
-      return iVar1;
+      uVar2 = DDraw_SetPalette((undefined1 *)param_1);
+      return uVar2;
     }
   }
   return iVar1;
@@ -1715,7 +1716,7 @@ int __cdecl stdDisplay_TextOut(char *text,int x,int y)
 
 
 /* ---- 0x00475000  Display_FindClosestDevice ---- */
-uint Display_FindClosestDevice(uint *param_1)
+uint __cdecl Display_FindClosestDevice(uint *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1804,7 +1805,7 @@ uint __cdecl Display_FindClosestMode(void *wanted,void *modes,uint count)
 /* ---- 0x00475140  Display_CompareVideoModes ---- */
 /* qsort comparator of Display_SelectDevice for the video mode list. */
 
-int Display_CompareVideoModes(int *param_1,int *param_2)
+int __cdecl Display_CompareVideoModes(int *param_1,int *param_2)
 
 {
   if (*param_1 == 0) {
@@ -2035,7 +2036,7 @@ int __cdecl Surface_BlitSoftware(void *dst,void *src,uint x,uint y,int *srcRect,
 }
 
 /* ---- 0x004755e0  Surface_BlitDDraw ---- */
-undefined4
+uint __cdecl
 Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_5,byte param_6)
 
 {
@@ -2197,201 +2198,200 @@ Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_
 
 
 /* ---- 0x004758a0  Surface_BlitLockedSrc ---- */
-undefined4
+uint __cdecl
 Surface_BlitLockedSrc
           (void *param_1,int param_2,void *param_3,uint param_4,int *param_5,void *param_6)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint uVar1;
+  int iVar1;
   int iVar2;
-  int iVar3;
-  uint uVar4;
-  int *piVar5;
-  short *psVar6;
-  char *pcVar7;
-  uint uVar8;
+  uint uVar3;
+  int *piVar4;
+  short *psVar5;
+  char *pcVar6;
+  void *pvVar7;
+  int iVar8;
   int iVar9;
-  int iVar10;
-  uint uVar11;
-  int iVar12;
-  int *piVar13;
-  void *pvVar14;
-  short *psVar15;
-  char *pcVar16;
-  int iVar17;
+  uint uVar10;
+  int iVar11;
+  int *piVar12;
+  short *psVar13;
+  char *pcVar14;
+  void *pvVar15;
+  int iVar16;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar3 = param_2;
+  iVar2 = param_2;
   if (*(int *)((int)param_1 + 4) == 0) {
     if (param_5 == (int *)0x0) {
-      iVar9 = *(int *)(param_2 + 0xc);
-      iVar10 = *(int *)(param_2 + 0x10);
+      iVar8 = *(int *)(param_2 + 0xc);
+      iVar9 = *(int *)(param_2 + 0x10);
       param_2 = 0;
-      iVar12 = 0;
+      iVar11 = 0;
     }
     else {
-      iVar9 = param_5[2];
+      iVar8 = param_5[2];
+      if (iVar8 == 0) {
+        return 0;
+      }
+      iVar9 = param_5[3];
       if (iVar9 == 0) {
         return 0;
       }
-      iVar10 = param_5[3];
-      if (iVar10 == 0) {
-        return 0;
-      }
       param_2 = *param_5;
-      iVar12 = param_5[1];
+      iVar11 = param_5[1];
     }
-    uVar4 = *(uint *)((int)param_1 + 0xc);
-    if (((((int)param_3 < (int)uVar4) && (iVar9 + (int)param_3 != 0)) &&
-        (uVar1 = *(uint *)((int)param_1 + 0x10), (int)param_4 < (int)uVar1)) &&
-       (iVar10 + param_4 != 0)) {
-      uVar8 = (iVar9 + (int)param_3) - 1;
-      uVar11 = (iVar10 + param_4) - 1;
+    pvVar15 = *(void **)((int)param_1 + 0xc);
+    if (((((int)param_3 < (int)pvVar15) && (iVar8 + (int)param_3 != 0)) &&
+        (uVar3 = *(uint *)((int)param_1 + 0x10), (int)param_4 < (int)uVar3)) &&
+       (iVar9 + param_4 != 0)) {
+      pvVar7 = (void *)((iVar8 + (int)param_3) - 1);
+      uVar10 = (iVar9 + param_4) - 1;
       if ((int)param_4 < 0) {
-        iVar12 = iVar12 - param_4;
+        iVar11 = iVar11 - param_4;
         param_4 = 0;
       }
-      if (uVar1 <= uVar11) {
-        uVar11 = uVar1 - 1;
+      if (uVar3 <= uVar10) {
+        uVar10 = uVar3 - 1;
       }
       if ((int)param_3 < 0) {
         param_2 = param_2 - (int)param_3;
         param_3 = (void *)0x0;
       }
-      if (uVar4 <= uVar8) {
-        uVar8 = uVar4 - 1;
+      if (pvVar15 <= pvVar7) {
+        pvVar7 = (void *)((int)pvVar15 - 1);
       }
-      iVar9 = (uVar8 - (int)param_3) + 1;
-      if (iVar9 != 0) {
-        uVar4 = (*(uint *)(iVar3 + 0x24) >> 3) * iVar9;
+      iVar8 = (int)pvVar7 + (1 - (int)param_3);
+      if (iVar8 != 0) {
+        uVar3 = (*(uint *)(iVar2 + 0x24) >> 3) * iVar8;
         stdDisplay_VBufferLock(param_1);
-        iVar10 = *(int *)(iVar3 + 0x24);
-        if (iVar10 == 8) {
+        iVar9 = *(int *)(iVar2 + 0x24);
+        if (iVar9 == 8) {
           if (((uint)param_6 & 1) == 0) {
-            param_6 = (void *)(iVar12 * *(int *)(iVar3 + 0x1c) + *(int *)(iVar3 + 0x5c) + param_2);
-            param_3 = (void *)(param_4 * *(int *)((int)param_1 + 0x1c) +
+            param_6 = (void *)(iVar11 * *(int *)(iVar2 + 0x1c) + *(int *)(iVar2 + 0x5c) + param_2);
+            pvVar15 = (void *)(param_4 * *(int *)((int)param_1 + 0x1c) +
                                *(int *)((int)param_1 + 0x5c) + (int)param_3);
-            if (param_4 <= uVar11) {
-              iVar9 = (uVar11 - param_4) + 1;
+            if (param_4 <= uVar10) {
+              iVar8 = (uVar10 - param_4) + 1;
               do {
-                Mem_Copy(param_3,param_6,uVar4);
-                param_6 = (void *)((int)param_6 + *(int *)(iVar3 + 0x1c));
-                param_3 = (void *)((int)param_3 + *(int *)((int)param_1 + 0x1c));
-                iVar9 = iVar9 + -1;
-              } while (iVar9 != 0);
+                Mem_Copy(pvVar15,param_6,uVar3);
+                param_6 = (void *)((int)param_6 + *(int *)(iVar2 + 0x1c));
+                pvVar15 = (void *)((int)pvVar15 + *(int *)((int)param_1 + 0x1c));
+                iVar8 = iVar8 + -1;
+              } while (iVar8 != 0);
             }
           }
           else {
-            iVar10 = *(int *)(iVar3 + 0x1c);
-            iVar2 = *(int *)((int)param_1 + 0x1c);
-            pcVar16 = (char *)(iVar12 * iVar10 + *(int *)(iVar3 + 0x5c) + param_2);
-            pcVar7 = (char *)(param_4 * *(int *)((int)param_1 + 0x1c) +
+            iVar9 = *(int *)(iVar2 + 0x1c);
+            iVar1 = *(int *)((int)param_1 + 0x1c);
+            pcVar14 = (char *)(iVar11 * iVar9 + *(int *)(iVar2 + 0x5c) + param_2);
+            pcVar6 = (char *)(param_4 * *(int *)((int)param_1 + 0x1c) +
                               *(int *)((int)param_1 + 0x5c) + (int)param_3);
-            if (param_4 <= uVar11) {
-              iVar12 = (uVar11 - param_4) + 1;
+            if (param_4 <= uVar10) {
+              iVar11 = (uVar10 - param_4) + 1;
               do {
-                iVar17 = iVar9;
-                if (param_3 <= uVar8) {
+                iVar16 = iVar8;
+                if (param_3 <= pvVar7) {
                   do {
-                    if (*pcVar16 != *(char *)(iVar3 + 0x60)) {
-                      *pcVar7 = *pcVar16;
+                    if (*pcVar14 != *(char *)(iVar2 + 0x60)) {
+                      *pcVar6 = *pcVar14;
                     }
-                    pcVar16 = pcVar16 + 1;
-                    pcVar7 = pcVar7 + 1;
-                    iVar17 = iVar17 + -1;
-                  } while (iVar17 != 0);
+                    pcVar14 = pcVar14 + 1;
+                    pcVar6 = pcVar6 + 1;
+                    iVar16 = iVar16 + -1;
+                  } while (iVar16 != 0);
                 }
-                pcVar7 = pcVar7 + (iVar2 - iVar9);
-                pcVar16 = pcVar16 + (iVar10 - iVar9);
-                iVar12 = iVar12 + -1;
-              } while (iVar12 != 0);
+                pcVar6 = pcVar6 + (iVar1 - iVar8);
+                pcVar14 = pcVar14 + (iVar9 - iVar8);
+                iVar11 = iVar11 + -1;
+              } while (iVar11 != 0);
             }
           }
         }
-        else if (iVar10 == 0x10) {
+        else if (iVar9 == 0x10) {
           if (((uint)param_6 & 1) == 0) {
-            pvVar14 = (void *)(*(int *)(iVar3 + 0x5c) +
-                              (iVar12 * *(int *)(iVar3 + 0x1c) + param_2) * 2);
+            pvVar15 = (void *)(*(int *)(iVar2 + 0x5c) +
+                              (iVar11 * *(int *)(iVar2 + 0x1c) + param_2) * 2);
             param_3 = (void *)(*(int *)((int)param_1 + 0x5c) +
-                              (param_4 * *(int *)((int)param_1 + 0x1c) + (int)param_3) * 2);
-            if (param_4 <= uVar11) {
-              iVar9 = (uVar11 - param_4) + 1;
+                              (int)(param_4 * *(int *)((int)param_1 + 0x1c) + (int)param_3) * 2);
+            if (param_4 <= uVar10) {
+              iVar8 = (uVar10 - param_4) + 1;
               do {
-                Mem_Copy(param_3,pvVar14,uVar4);
-                iVar9 = iVar9 + -1;
-                pvVar14 = (void *)((int)pvVar14 + *(int *)(iVar3 + 0x1c) * 2);
+                Mem_Copy(param_3,pvVar15,uVar3);
+                iVar8 = iVar8 + -1;
+                pvVar15 = (void *)((int)pvVar15 + *(int *)(iVar2 + 0x1c) * 2);
                 param_3 = (void *)((int)param_3 + *(int *)((int)param_1 + 0x1c) * 2);
-              } while (iVar9 != 0);
+              } while (iVar8 != 0);
             }
           }
           else {
-            iVar10 = *(int *)(iVar3 + 0x1c);
-            iVar2 = *(int *)((int)param_1 + 0x1c);
-            psVar15 = (short *)(*(int *)(iVar3 + 0x5c) + (iVar12 * iVar10 + param_2) * 2);
-            psVar6 = (short *)(*(int *)((int)param_1 + 0x5c) +
-                              (param_4 * *(int *)((int)param_1 + 0x1c) + (int)param_3) * 2);
-            if (param_4 <= uVar11) {
-              iVar12 = (uVar11 - param_4) + 1;
+            iVar9 = *(int *)(iVar2 + 0x1c);
+            iVar1 = *(int *)((int)param_1 + 0x1c);
+            psVar13 = (short *)(*(int *)(iVar2 + 0x5c) + (iVar11 * iVar9 + param_2) * 2);
+            psVar5 = (short *)(*(int *)((int)param_1 + 0x5c) +
+                              (int)(param_4 * *(int *)((int)param_1 + 0x1c) + (int)param_3) * 2);
+            if (param_4 <= uVar10) {
+              iVar11 = (uVar10 - param_4) + 1;
               do {
-                iVar17 = iVar9;
-                if (param_3 <= uVar8) {
+                iVar16 = iVar8;
+                if (param_3 <= pvVar7) {
                   do {
-                    if (*psVar15 != *(short *)(iVar3 + 0x60)) {
-                      *psVar6 = *psVar15;
+                    if (*psVar13 != *(short *)(iVar2 + 0x60)) {
+                      *psVar5 = *psVar13;
                     }
-                    psVar15 = psVar15 + 1;
-                    psVar6 = psVar6 + 1;
-                    iVar17 = iVar17 + -1;
-                  } while (iVar17 != 0);
+                    psVar13 = psVar13 + 1;
+                    psVar5 = psVar5 + 1;
+                    iVar16 = iVar16 + -1;
+                  } while (iVar16 != 0);
                 }
-                iVar12 = iVar12 + -1;
-                psVar6 = psVar6 + (iVar2 - iVar9);
-                psVar15 = psVar15 + (iVar10 - iVar9);
-              } while (iVar12 != 0);
+                iVar11 = iVar11 + -1;
+                psVar5 = psVar5 + (iVar1 - iVar8);
+                psVar13 = psVar13 + (iVar9 - iVar8);
+              } while (iVar11 != 0);
             }
           }
         }
-        else if (iVar10 == 0x20) {
+        else if (iVar9 == 0x20) {
           if (((uint)param_6 & 1) == 0) {
-            pvVar14 = (void *)(*(int *)(iVar3 + 0x5c) +
-                              (iVar12 * *(int *)(iVar3 + 0x1c) + param_2) * 4);
+            pvVar15 = (void *)(*(int *)(iVar2 + 0x5c) +
+                              (iVar11 * *(int *)(iVar2 + 0x1c) + param_2) * 4);
             param_3 = (void *)(*(int *)((int)param_1 + 0x5c) +
-                              (param_4 * *(int *)((int)param_1 + 0x1c) + (int)param_3) * 4);
-            if (param_4 <= uVar11) {
-              iVar9 = (uVar11 - param_4) + 1;
+                              (int)(param_4 * *(int *)((int)param_1 + 0x1c) + (int)param_3) * 4);
+            if (param_4 <= uVar10) {
+              iVar8 = (uVar10 - param_4) + 1;
               do {
-                Mem_Copy(param_3,pvVar14,uVar4);
-                iVar9 = iVar9 + -1;
-                pvVar14 = (void *)((int)pvVar14 + *(int *)(iVar3 + 0x1c) * 4);
+                Mem_Copy(param_3,pvVar15,uVar3);
+                iVar8 = iVar8 + -1;
+                pvVar15 = (void *)((int)pvVar15 + *(int *)(iVar2 + 0x1c) * 4);
                 param_3 = (void *)((int)param_3 + *(int *)((int)param_1 + 0x1c) * 4);
-              } while (iVar9 != 0);
+              } while (iVar8 != 0);
             }
           }
           else {
-            iVar10 = *(int *)(iVar3 + 0x1c);
-            iVar2 = *(int *)((int)param_1 + 0x1c);
-            piVar13 = (int *)(*(int *)(iVar3 + 0x5c) + (iVar12 * iVar10 + param_2) * 4);
-            piVar5 = (int *)(*(int *)((int)param_1 + 0x5c) +
-                            (param_4 * *(int *)((int)param_1 + 0x1c) + (int)param_3) * 4);
-            if (param_4 <= uVar11) {
-              iVar12 = (uVar11 - param_4) + 1;
+            iVar9 = *(int *)(iVar2 + 0x1c);
+            iVar1 = *(int *)((int)param_1 + 0x1c);
+            piVar12 = (int *)(*(int *)(iVar2 + 0x5c) + (iVar11 * iVar9 + param_2) * 4);
+            piVar4 = (int *)(*(int *)((int)param_1 + 0x5c) +
+                            (int)(param_4 * *(int *)((int)param_1 + 0x1c) + (int)param_3) * 4);
+            if (param_4 <= uVar10) {
+              iVar11 = (uVar10 - param_4) + 1;
               do {
-                iVar17 = iVar9;
-                if (param_3 <= uVar8) {
+                iVar16 = iVar8;
+                if (param_3 <= pvVar7) {
                   do {
-                    if (*piVar13 != *(int *)(iVar3 + 0x60)) {
-                      *piVar5 = *piVar13;
+                    if (*piVar12 != *(int *)(iVar2 + 0x60)) {
+                      *piVar4 = *piVar12;
                     }
-                    piVar13 = piVar13 + 1;
-                    piVar5 = piVar5 + 1;
-                    iVar17 = iVar17 + -1;
-                  } while (iVar17 != 0);
+                    piVar12 = piVar12 + 1;
+                    piVar4 = piVar4 + 1;
+                    iVar16 = iVar16 + -1;
+                  } while (iVar16 != 0);
                 }
-                iVar12 = iVar12 + -1;
-                piVar5 = piVar5 + (iVar2 - iVar9);
-                piVar13 = piVar13 + (iVar10 - iVar9);
-              } while (iVar12 != 0);
+                iVar11 = iVar11 + -1;
+                piVar4 = piVar4 + (iVar1 - iVar8);
+                piVar12 = piVar12 + (iVar9 - iVar8);
+              } while (iVar11 != 0);
             }
           }
         }
@@ -2406,7 +2406,7 @@ Surface_BlitLockedSrc
 
 
 /* ---- 0x00475c90  Surface_BlitLockedDst ---- */
-undefined4
+uint __cdecl
 Surface_BlitLockedDst
           (int param_1,void *param_2,void *param_3,uint param_4,int *param_5,void *param_6)
 
@@ -2421,12 +2421,11 @@ Surface_BlitLockedDst
   short *psVar5;
   char *pcVar6;
   int iVar7;
-  uint uVar8;
+  void *pvVar8;
   int iVar9;
   int *piVar10;
-  void *pvVar11;
-  short *psVar12;
-  char *pcVar13;
+  short *psVar11;
+  char *pcVar12;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   surface = param_2;
@@ -2436,14 +2435,14 @@ Surface_BlitLockedDst
       iVar4 = *(int *)((int)param_2 + 0xc);
       iVar2 = 0;
       iVar9 = 0;
-      param_2 = (void *)*(int *)((int)param_2 + 0x10);
+      param_2 = *(void **)((int)param_2 + 0x10);
     }
     else {
       iVar4 = param_5[2];
       if (iVar4 == 0) {
         return 0;
       }
-      if (param_5[3] == 0) {
+      if ((void *)param_5[3] == (void *)0x0) {
         return 0;
       }
       iVar2 = *param_5;
@@ -2452,24 +2451,24 @@ Surface_BlitLockedDst
     }
     if (((((int)param_3 < *(int *)(param_1 + 0xc)) && (iVar4 + (int)param_3 != 0)) &&
         ((int)param_4 < *(int *)(param_1 + 0x10))) && ((int)param_2 + param_4 != 0)) {
-      uVar8 = (iVar4 + (int)param_3) - 1;
+      pvVar8 = (void *)((iVar4 + (int)param_3) - 1);
       param_5 = (int *)(((int)param_2 + param_4) - 1);
       if ((int)param_4 < 0) {
         iVar9 = iVar9 - param_4;
         param_4 = 0;
       }
-      if (*(uint *)(param_1 + 0x10) <= param_5) {
-        param_5 = (int *)(*(uint *)(param_1 + 0x10) - 1);
+      if (*(int **)(param_1 + 0x10) <= param_5) {
+        param_5 = (int *)((int)*(int **)(param_1 + 0x10) - 1);
       }
       param_1 = iVar2;
       if ((int)param_3 < 0) {
         param_1 = iVar2 - (int)param_3;
         param_3 = (void *)0x0;
       }
-      if (*(uint *)(iVar7 + 0xc) <= uVar8) {
-        uVar8 = *(uint *)(iVar7 + 0xc) - 1;
+      if (*(void **)(iVar7 + 0xc) <= pvVar8) {
+        pvVar8 = (void *)((int)*(void **)(iVar7 + 0xc) - 1);
       }
-      iVar4 = (uVar8 - (int)param_3) + 1;
+      iVar4 = (int)pvVar8 + (1 - (int)param_3);
       if (iVar4 != 0) {
         n = (*(uint *)((int)surface + 0x24) >> 3) * iVar4;
         stdDisplay_VBufferLock(surface);
@@ -2478,14 +2477,14 @@ Surface_BlitLockedDst
           if (((uint)param_6 & 1) == 0) {
             param_6 = (void *)(iVar9 * *(int *)((int)surface + 0x1c) + *(int *)((int)surface + 0x5c)
                               + param_1);
-            param_3 = (void *)(param_4 * *(int *)(iVar7 + 0x1c) + *(int *)(iVar7 + 0x5c) +
-                              (int)param_3);
+            pvVar8 = (void *)(param_4 * *(int *)(iVar7 + 0x1c) + *(int *)(iVar7 + 0x5c) +
+                             (int)param_3);
             if (param_4 <= param_5) {
-              iVar4 = ((int)param_5 - param_4) + 1;
+              iVar4 = (int)param_5 + (1 - param_4);
               do {
-                Mem_Copy(param_3,param_6,n);
+                Mem_Copy(pvVar8,param_6,n);
                 param_6 = (void *)((int)param_6 + *(int *)((int)surface + 0x1c));
-                param_3 = (void *)((int)param_3 + *(int *)(iVar7 + 0x1c));
+                pvVar8 = (void *)((int)pvVar8 + *(int *)(iVar7 + 0x1c));
                 iVar4 = iVar4 + -1;
               } while (iVar4 != 0);
             }
@@ -2493,25 +2492,25 @@ Surface_BlitLockedDst
           else {
             iVar2 = *(int *)((int)surface + 0x1c);
             iVar1 = *(int *)(iVar7 + 0x1c);
-            pcVar13 = (char *)(iVar9 * iVar2 + *(int *)((int)surface + 0x5c) + param_1);
+            pcVar12 = (char *)(iVar9 * iVar2 + *(int *)((int)surface + 0x5c) + param_1);
             pcVar6 = (char *)(param_4 * *(int *)(iVar7 + 0x1c) + *(int *)(iVar7 + 0x5c) +
                              (int)param_3);
             if (param_4 <= param_5) {
-              iVar7 = ((int)param_5 - param_4) + 1;
+              iVar7 = (int)param_5 + (1 - param_4);
               do {
                 iVar9 = iVar4;
-                if (param_3 <= uVar8) {
+                if (param_3 <= pvVar8) {
                   do {
-                    if (*pcVar13 != *(char *)((int)surface + 0x60)) {
-                      *pcVar6 = *pcVar13;
+                    if (*pcVar12 != *(char *)((int)surface + 0x60)) {
+                      *pcVar6 = *pcVar12;
                     }
-                    pcVar13 = pcVar13 + 1;
+                    pcVar12 = pcVar12 + 1;
                     pcVar6 = pcVar6 + 1;
                     iVar9 = iVar9 + -1;
                   } while (iVar9 != 0);
                 }
                 pcVar6 = pcVar6 + (iVar1 - iVar4);
-                pcVar13 = pcVar13 + (iVar2 - iVar4);
+                pcVar12 = pcVar12 + (iVar2 - iVar4);
                 iVar7 = iVar7 + -1;
               } while (iVar7 != 0);
               stdDisplay_VBufferUnlock(surface);
@@ -2521,15 +2520,15 @@ Surface_BlitLockedDst
         }
         else if (iVar2 == 0x10) {
           if (((uint)param_6 & 1) == 0) {
-            pvVar11 = (void *)(*(int *)((int)surface + 0x5c) +
-                              (iVar9 * *(int *)((int)surface + 0x1c) + param_1) * 2);
+            pvVar8 = (void *)(*(int *)((int)surface + 0x5c) +
+                             (iVar9 * *(int *)((int)surface + 0x1c) + param_1) * 2);
             param_3 = (void *)(*(int *)(iVar7 + 0x5c) +
-                              (param_4 * *(int *)(iVar7 + 0x1c) + (int)param_3) * 2);
+                              (int)(param_4 * *(int *)(iVar7 + 0x1c) + (int)param_3) * 2);
             if (param_4 <= param_5) {
-              iVar4 = ((int)param_5 - param_4) + 1;
+              iVar4 = (int)param_5 + (1 - param_4);
               do {
-                Mem_Copy(param_3,pvVar11,n);
-                pvVar11 = (void *)((int)pvVar11 + *(int *)((int)surface + 0x1c) * 2);
+                Mem_Copy(param_3,pvVar8,n);
+                pvVar8 = (void *)((int)pvVar8 + *(int *)((int)surface + 0x1c) * 2);
                 iVar4 = iVar4 + -1;
                 param_3 = (void *)((int)param_3 + *(int *)(iVar7 + 0x1c) * 2);
               } while (iVar4 != 0);
@@ -2540,26 +2539,26 @@ Surface_BlitLockedDst
           else {
             iVar2 = *(int *)((int)surface + 0x1c);
             iVar1 = *(int *)(iVar7 + 0x1c);
-            psVar12 = (short *)(*(int *)((int)surface + 0x5c) + (iVar9 * iVar2 + param_1) * 2);
+            psVar11 = (short *)(*(int *)((int)surface + 0x5c) + (iVar9 * iVar2 + param_1) * 2);
             psVar5 = (short *)(*(int *)(iVar7 + 0x5c) +
-                              (param_4 * *(int *)(iVar7 + 0x1c) + (int)param_3) * 2);
+                              (int)(param_4 * *(int *)(iVar7 + 0x1c) + (int)param_3) * 2);
             if (param_4 <= param_5) {
-              iVar7 = ((int)param_5 - param_4) + 1;
+              iVar7 = (int)param_5 + (1 - param_4);
               do {
                 iVar9 = iVar4;
-                if (param_3 <= uVar8) {
+                if (param_3 <= pvVar8) {
                   do {
-                    if (*psVar12 != *(short *)((int)surface + 0x60)) {
-                      *psVar5 = *psVar12;
+                    if (*psVar11 != *(short *)((int)surface + 0x60)) {
+                      *psVar5 = *psVar11;
                     }
-                    psVar12 = psVar12 + 1;
+                    psVar11 = psVar11 + 1;
                     psVar5 = psVar5 + 1;
                     iVar9 = iVar9 + -1;
                   } while (iVar9 != 0);
                 }
                 iVar7 = iVar7 + -1;
                 psVar5 = psVar5 + (iVar1 - iVar4);
-                psVar12 = psVar12 + (iVar2 - iVar4);
+                psVar11 = psVar11 + (iVar2 - iVar4);
               } while (iVar7 != 0);
               stdDisplay_VBufferUnlock(surface);
               return 1;
@@ -2568,15 +2567,15 @@ Surface_BlitLockedDst
         }
         else if (iVar2 == 0x20) {
           if (((uint)param_6 & 1) == 0) {
-            pvVar11 = (void *)(*(int *)((int)surface + 0x5c) +
-                              (iVar9 * *(int *)((int)surface + 0x1c) + param_1) * 4);
+            pvVar8 = (void *)(*(int *)((int)surface + 0x5c) +
+                             (iVar9 * *(int *)((int)surface + 0x1c) + param_1) * 4);
             param_3 = (void *)(*(int *)(iVar7 + 0x5c) +
-                              (param_4 * *(int *)(iVar7 + 0x1c) + (int)param_3) * 4);
+                              (int)(param_4 * *(int *)(iVar7 + 0x1c) + (int)param_3) * 4);
             if (param_4 <= param_5) {
-              iVar4 = ((int)param_5 - param_4) + 1;
+              iVar4 = (int)param_5 + (1 - param_4);
               do {
-                Mem_Copy(param_3,pvVar11,n);
-                pvVar11 = (void *)((int)pvVar11 + *(int *)((int)surface + 0x1c) * 4);
+                Mem_Copy(param_3,pvVar8,n);
+                pvVar8 = (void *)((int)pvVar8 + *(int *)((int)surface + 0x1c) * 4);
                 iVar4 = iVar4 + -1;
                 param_3 = (void *)((int)param_3 + *(int *)(iVar7 + 0x1c) * 4);
               } while (iVar4 != 0);
@@ -2589,12 +2588,12 @@ Surface_BlitLockedDst
             iVar1 = *(int *)(iVar7 + 0x1c);
             piVar10 = (int *)(*(int *)((int)surface + 0x5c) + (iVar9 * iVar2 + param_1) * 4);
             piVar3 = (int *)(*(int *)(iVar7 + 0x5c) +
-                            (param_4 * *(int *)(iVar7 + 0x1c) + (int)param_3) * 4);
+                            (int)(param_4 * *(int *)(iVar7 + 0x1c) + (int)param_3) * 4);
             if (param_4 <= param_5) {
-              iVar7 = ((int)param_5 - param_4) + 1;
+              iVar7 = (int)param_5 + (1 - param_4);
               do {
                 iVar9 = iVar4;
-                if (param_3 <= uVar8) {
+                if (param_3 <= pvVar8) {
                   do {
                     if (*piVar10 != *(int *)((int)surface + 0x60)) {
                       *piVar3 = *piVar10;
@@ -2624,7 +2623,7 @@ Surface_BlitLockedDst
 
 
 /* ---- 0x004760d0  DDraw_Create ---- */
-int DDraw_Create(undefined4 param_1)
+int __cdecl DDraw_Create(uint param_1)
 
 {
   int iVar1;
@@ -2637,32 +2636,32 @@ int DDraw_Create(undefined4 param_1)
   }
   iVar1 = DirectDrawCreate(iVar1,((unsigned)(uintptr_t)&g_pDirectDraw),0);
   if (iVar1 != 0) {
-    return false;
+    return 0;
   }
   g_dwVideoModeCount = 0;
   iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,param_1,0x51);
   if (iVar1 != 0) {
-    return false;
+    return 0;
   }
   iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x20))
                     (g_pDirectDraw,0,0,0,DDraw_EnumModesCallback320);
   if (iVar1 != 0) {
-    return false;
+    return 0;
   }
   iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,param_1,0x11);
   if (iVar1 != 0) {
-    return false;
+    return 0;
   }
   iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x20))(g_pDirectDraw,0,0,0,DDraw_EnumModesCallback);
   if (iVar1 != 0) {
-    return false;
+    return 0;
   }
   iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,param_1,8);
-  return iVar1 == 0;
+  return (uint)(iVar1 == 0);
 }
 
 /* ---- 0x00476190  DDraw_Release ---- */
-void DDraw_Release(void)
+void __cdecl DDraw_Release(void)
 
 {
   if (g_pDirectDraw != (void *)0x0) {
@@ -2714,9 +2713,9 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
       Mem_Copy(&DAT_00902ee8 + iVar2,(void *)a1,0x10);
       (&UINT_00902d6c)[uVar1 * 0xa6] = 0;
     }
-    strncpy(&DAT_00902ce0 + iVar2,a2,0x7f);
+    strncpy((uint *)(&DAT_00902ce0 + iVar2),(uint *)a2,0x7f);
     (&DAT_00902d5f)[iVar2] = 0;
-    strncpy(&DAT_00902c60 + iVar2,a3,0x7f);
+    strncpy((uint *)(&DAT_00902c60 + iVar2),(uint *)a3,0x7f);
     (&DAT_00902cdf)[iVar2] = 0;
     if (a1 == 0) {
       (&UINT_00902d64)[uVar1 * 0xa6] = 0;
@@ -2984,7 +2983,7 @@ LAB_0047675b:
 }
 
 /* ---- 0x004767c0  DDraw_Get ---- */
-void * DDraw_Get(void)
+void * __cdecl DDraw_Get(void)
 
 {
   return g_pDirectDraw;
@@ -3152,7 +3151,7 @@ LAB_00476b98:
 
 
 /* ---- 0x00476bc0  DDraw_ReleaseSurfaces ---- */
-void DDraw_ReleaseSurfaces(void)
+void __cdecl DDraw_ReleaseSurfaces(void)
 
 {
   if (UINT_00803f9c != 0) {
@@ -3164,7 +3163,7 @@ void DDraw_ReleaseSurfaces(void)
 }
 
 /* ---- 0x00476bf0  DDraw_LockSurface ---- */
-undefined4 DDraw_LockSurface(undefined4 *param_1)
+uint __cdecl DDraw_LockSurface(undefined4 *param_1)
 
 {
   int iVar1;
@@ -3185,7 +3184,7 @@ undefined4 DDraw_LockSurface(undefined4 *param_1)
 }
 
 /* ---- 0x00476c40  DDraw_UnlockSurface ---- */
-undefined4 DDraw_UnlockSurface(undefined4 *param_1)
+uint __cdecl DDraw_UnlockSurface(undefined4 *param_1)
 
 {
   int iVar1;
@@ -3208,7 +3207,7 @@ undefined4 DDraw_UnlockSurface(undefined4 *param_1)
 }
 
 /* ---- 0x00476c90  DDraw_Flip ---- */
-undefined4 DDraw_Flip(void)
+uint __cdecl DDraw_Flip(void)
 
 {
   int iVar1;
@@ -3231,7 +3230,7 @@ undefined4 DDraw_Flip(void)
 }
 
 /* ---- 0x00476cd0  DDraw_FillSurface ---- */
-undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3)
+uint __cdecl DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3295,7 +3294,7 @@ undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3)
 
 
 /* ---- 0x00476dc0  DDraw_SetPalette ---- */
-undefined4 DDraw_SetPalette(undefined1 *param_1)
+uint __cdecl DDraw_SetPalette(undefined1 *param_1)
 
 {
   unsigned char _frame[0x410] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3334,8 +3333,8 @@ void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hw
   UINT_00803f7c = GetDC((int)hwnd);
   if (*(int *)((int)mode + 0x1c) == 0) {
     UINT_00803fb4 =
-         ((code *)stdDisplay_BuildBitmapInfo8)(UINT_00803f7c,*(undefined4 *)((int)mode + 8),*(undefined4 *)((int)mode + 0xc),
-                    surface,palette);
+         ((code *)stdDisplay_BuildBitmapInfo8)(UINT_00803f7c,*(uint *)((int)mode + 8),*(int *)((int)mode + 0xc),(int)surface,
+                    palette);
     if (UINT_00803fb4 == 0) {
       return (void *)0x0;
     }
@@ -3348,7 +3347,9 @@ void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hw
                             (uint)surface);
     }
     else {
-      UINT_00803fb4 = ((code *)stdDisplay_BuildBitmapInfo16)();
+      UINT_00803fb4 =
+           ((code *)stdDisplay_BuildBitmapInfo16)(UINT_00803f7c,*(uint *)((int)mode + 8),*(int *)((int)mode + 0xc),(int)surface)
+      ;
     }
     if ((undefined *)UINT_00803fb4 == (undefined *)0x0) {
       return (void *)0x0;
@@ -3360,7 +3361,7 @@ void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hw
 }
 
 /* ---- 0x00476ee0  DIB_ReleaseSurface ---- */
-void DIB_ReleaseSurface(void)
+void __cdecl DIB_ReleaseSurface(void)
 
 {
   void *a1;
@@ -3384,15 +3385,15 @@ void __cdecl std3D_SetCurrentPalette(void *palette,int flags)
 {
   Mem_Copy(&DAT_00806618,palette,0x300);
   if ((*(int *)UINT_00806934 == 1) && (*(int *)(UINT_00806934 + 4) == 0x10)) {
-    stdPcx_DecodeRun16(palette,&UINT_00806408,UINT_00806934);
+    stdPcx_DecodeRun16(palette,(ushort *)&UINT_00806408,UINT_00806934);
   }
   if (*(int *)((int)g_pStd3D_CurDevice + 0x10) != 0) {
     if ((*(int *)UINT_00806938 == 2) && (*(int *)(UINT_00806938 + 4) == 0x10)) {
-      stdPcx_DecodeRun8(palette,&DAT_008061e8,UINT_00806938);
+      stdPcx_DecodeRun8(palette,((unsigned)(uintptr_t)&DAT_008061e8),UINT_00806938);
     }
     if (((*(int *)((int)g_pStd3D_CurDevice + 0x18) == 0) && (*(int *)UINT_0080693c == 2)) &&
        (*(int *)(UINT_0080693c + 4) == 0x10)) {
-      stdPcx_DecodeRunMasked(palette,&DAT_00805fd8,UINT_0080693c,flags);
+      stdPcx_DecodeRunMasked(palette,((unsigned)(uintptr_t)&DAT_00805fd8),UINT_0080693c,flags);
     }
   }
   return;
@@ -3544,7 +3545,7 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
 /* Original name stdColor_ColorConvertOnePixel (the remaster's GrimFandango (Linux): aligned call in
    stdBitmap_ConvertColorFormat, stdDisplay_VBufferConvertColorFormat); was Pixel_ConvertOne. */
 
-int stdColor_ColorConvertOnePixel(int param_1,undefined4 param_2,int param_3)
+int __cdecl stdColor_ColorConvertOnePixel(int param_1,uint param_2,int param_3)
 
 {
   stdColor_ColorConvertOneRow((ushort *)&param_3,param_1,(ushort *)&param_2,param_3,1);

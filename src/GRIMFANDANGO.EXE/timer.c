@@ -9,7 +9,7 @@
 /* Original name sputTime_GetGameTime (the remaster's GrimFandango (Linux): aligned call in
    sputRender_IrisDown, sputRender_IrisUp, sputRender_Update); was Timer_GetTotalMs. */
 
-uint sputTime_GetGameTime(void)
+uint __cdecl sputTime_GetGameTime(void)
 
 {
   return g_dwSputTime_gameTime_ms;
@@ -19,7 +19,7 @@ uint sputTime_GetGameTime(void)
 /* Original name sputTime_GetFrameTime (the remaster's GrimFandango (Linux): aligned call in
    grimlib_UpdateManual, sputLua_Update, sputText_Update); was Timer_GetFrameMs. */
 
-uint sputTime_GetFrameTime(void)
+uint __cdecl sputTime_GetFrameTime(void)
 
 {
   return g_dwSputTime_frameTime_ms;
@@ -42,7 +42,7 @@ float __cdecl sputTime_GetFrameTimeFlex(void)
    sputTime_Advance (the remaster's GrimFandango (Linux): aligned call in grimlib_UpdateManual); was
    Timer_UpdateFromWallClock. */
 
-void sputTime_Advance(void)
+void __cdecl sputTime_Advance(void)
 
 {
   uint uVar1;
@@ -69,7 +69,7 @@ void sputTime_Advance(void)
    Game_FrameUpdate). Original name sputTime_AdvanceManual (the remaster's GrimFandango (Linux):
    aligned call in grimlib_UpdateManual, sputRender_Dim); was Timer_UpdateFixedStep. */
 
-void sputTime_AdvanceManual(uint param_1)
+void __cdecl sputTime_AdvanceManual(uint param_1)
 
 {
   g_dwSputTime_frameTime_ms = param_1;
@@ -83,7 +83,7 @@ void sputTime_AdvanceManual(uint param_1)
 }
 
 /* ---- 0x004a3ce0  Timer_Reset ---- */
-void Timer_Reset(void)
+void __cdecl Timer_Reset(void)
 
 {
   g_dwSputTime_gameTime_ms = 0;

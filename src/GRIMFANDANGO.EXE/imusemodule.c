@@ -12,7 +12,7 @@
    shutdown, 0...) and its pHS (the old name was wrong: it is the polyglot module)); was
    IMuseModule_Init. */
 
-undefined4 PolyglotInitialize(GrimServices *param_1,undefined4 *param_2)
+uint __cdecl PolyglotInitialize(GrimServices *param_1,undefined4 *param_2)
 
 {
   g_pPolyglot_HS = param_1;
@@ -33,7 +33,7 @@ undefined4 PolyglotInitialize(GrimServices *param_1,undefined4 *param_2)
    PolyglotInitialize fills, same body (frees pLanguageMalloc and ppLanguageLine)); was
    IMuseModule_Stop. */
 
-void polyglot_shutdown(void)
+void __cdecl polyglot_shutdown(void)
 
 {
   if (g_pLanguageMalloc != (char *)0x0) {

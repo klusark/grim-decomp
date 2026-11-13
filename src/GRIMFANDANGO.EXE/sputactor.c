@@ -9,7 +9,7 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2)
+uint __cdecl sputActor_Initialize(uint param_1,undefined4 *param_2)
 
 {
   g_dwSputActHS = param_1;
@@ -34,7 +34,7 @@ undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2)
    handed for every field. Original name sputActor_Save (the remaster's GrimFandango (Linux):
    aligned call in sputActor_Initialize); was sputActor_SaveState. */
 
-undefined4 sputActor_Save(code *param_1)
+uint __cdecl sputActor_Save(code *param_1)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -323,7 +323,7 @@ undefined4 sputActor_Save(code *param_1)
    GrimFandango (Linux): the only unmatched caller of rdPuppet_AddTrack; 4 matched neighbours agree,
    2 disagree); was sputActor_RestoreState. */
 
-undefined4 sputActor_Restore(code *param_1)
+uint __cdecl sputActor_Restore(code *param_1)
 
 {
   unsigned char _frame[0x180] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -784,7 +784,7 @@ void __cdecl sputActor_SetWalkChore(Actor *actor,int chore,CostumeNode *costume)
 /* Module interface slot 1 (sputActor): called by Engine_ResetSubsystems / when registration fails;
    drops the service table pointer and clears the initialised flag. */
 
-void sputActor_Terminate(void)
+void __cdecl sputActor_Terminate(void)
 
 {
   g_dwSputActHS = 0;
@@ -800,7 +800,7 @@ void sputActor_Terminate(void)
    sorts the phoneme table; _Stop destroys every actor. Original name sputActor_Startup (the
    remaster's GrimFandango (Linux): aligned call in sputActor_Initialize); was sputActor_Start. */
 
-undefined4 sputActor_Startup(void)
+uint __cdecl sputActor_Startup(void)
 
 {
   int iVar1;
@@ -826,7 +826,7 @@ undefined4 sputActor_Startup(void)
    releases what _Start created. Original name sputActor_Shutdown (the remaster's GrimFandango
    (Linux): aligned call in sputActor_Initialize); was sputActor_Stop. */
 
-void sputActor_Shutdown(void)
+void __cdecl sputActor_Shutdown(void)
 
 {
   int iVar1;

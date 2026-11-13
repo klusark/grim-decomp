@@ -13,8 +13,9 @@
    caller of rdPuppet_PlayTrack; 5 matched neighbours agree, 0 disagree); was
    KeyframeComponent_OnKey. */
 
-void KeyframeChanger(undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5,
-                    undefined4 param_6,undefined4 param_7,undefined4 param_8)
+void __cdecl
+KeyframeChanger(uint param_1,int *param_2,uint param_3,int param_4,uint param_5,uint param_6,
+               uint param_7,uint param_8)
 
 {
   void *puppet;
@@ -47,8 +48,8 @@ void KeyframeChanger(undefined4 param_1,int *param_2,undefined4 param_3,int para
       *(int *)(*(int *)(*param_2 + 0x40) + 0x48) = *param_2;
       Res_SetReference((void *)(*param_2 + 0x54 + track * 0x34),data,
                        s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xe3a);
-      *(undefined4 *)(*param_2 + 0x18c) = param_8;
-      rdPuppet_SetCallback(puppet,track,sputCostume_PuppetHook);
+      *(uint *)(*param_2 + 0x18c) = param_8;
+      rdPuppet_SetCallback((int)puppet,track,((unsigned)(uintptr_t)sputCostume_PuppetHook));
       bVar2 = true;
       goto LAB_00497960;
     }
@@ -64,16 +65,16 @@ LAB_00497960:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
     }
-    rdPuppet_ResetTrack(puppet,track);
-    rdPuppet_SetStatus(puppet,track,0x20);
-    rdPuppet_PlayTrack(puppet,track);
+    rdPuppet_ResetTrack((int)puppet,track);
+    rdPuppet_SetStatus((int)puppet,track,0x20);
+    rdPuppet_PlayTrack((int)puppet,track);
     return;
   case 1:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
     }
     if ((*(byte *)((int)puppet + track * 0x134 + 8) & 0xc) == 0) {
-      rdPuppet_PlayTrack(puppet,track);
+      rdPuppet_PlayTrack((int)puppet,track);
       return;
     }
     break;
@@ -81,17 +82,17 @@ LAB_00497960:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
     }
-    rdPuppet_ResetTrack(puppet,track);
-    rdPuppet_SetStatus(puppet,track,0x40);
-    rdPuppet_PlayTrack(puppet,track);
+    rdPuppet_ResetTrack((int)puppet,track);
+    rdPuppet_SetStatus((int)puppet,track,0x40);
+    rdPuppet_PlayTrack((int)puppet,track);
     return;
   case 3:
     if (bVar2) {
       rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
     }
-    rdPuppet_ResetTrack(puppet,track);
-    rdPuppet_SetStatus(puppet,track,0x80);
-    rdPuppet_PlayTrack(puppet,track);
+    rdPuppet_ResetTrack((int)puppet,track);
+    rdPuppet_SetStatus((int)puppet,track,0x80);
+    rdPuppet_PlayTrack((int)puppet,track);
     return;
   case 4:
     rdPuppet_FadeInTrack(puppet,track,1.0);
@@ -130,7 +131,7 @@ LAB_00497bc4:
     }
     break;
   case 9:
-    rdPuppet_SetStatus(puppet,track,0x10);
+    rdPuppet_SetStatus((int)puppet,track,0x10);
     return;
   case 10:
     *(uint *)((int)puppet + track * 0x134 + 8) =
@@ -162,7 +163,7 @@ LAB_00497bc4:
    GrimFandango (Linux): the only unmatched caller of Lua_CallCostumeMarkerHandler; 1 matched
    neighbours agree, 0 disagree); was KeyframeComponent_TrackCallback. */
 
-void sputCostume_PuppetHook(int param_1,int param_2,uint param_3)
+void __cdecl sputCostume_PuppetHook(int param_1,int param_2,uint param_3)
 
 {
   int iVar1;
@@ -226,14 +227,14 @@ int * __cdecl KeyframeInstancer(int inst,int component,int create)
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a key from 'name priority tagged' text or
    asks for a .key file and loads it as a Keyframe resource. */
 
-int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint param_5)
+int __cdecl KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char *name;
   void *data;
   uint uVar1;
-  undefined4 uVar2;
+  uint *puVar2;
   undefined4 *ref;
   int iVar3;
   undefined4 *puVar4;
@@ -257,33 +258,34 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
   local_28 = 5;
   if ((param_4 == 0x4c444f4d) || (param_4 == 0x4c444d4d)) {
     if (param_3 == 0) {
-      return false;
+      return 0;
     }
     if (param_5 == 0) {
       if (g_bKeyframePath != '\0') {
-        grimPlat_SetDefaultOpenPath(&g_bKeyframePath);
+        grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bKeyframePath));
       }
       iVar3 = grimPlat_OpenFileRequest
                         (s_Select_keyframe_file_to_add____004ea76c,s_Keyframe_files____key__004ea78c
                         );
       if (iVar3 == 0) {
-        return false;
+        return 0;
       }
-      uVar2 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
-      ((code *)strncpy)(&g_bKeyframePath,uVar2);
+      uVar1 = 0x7f;
+      puVar2 = (uint *)grimPlat_GetDefaultOpenPath();
+      strncpy((uint *)&g_bKeyframePath,puVar2,uVar1);
       DAT_008ca837 = 0;
       local_24 = (uint)stdFnames_FindMedName(g_szGrimlib_aFilename);
       data = sputResource_Alloc(0x4659454b,g_szGrimlib_aFilename);
     }
     else {
-      strncpy(&local_20,param_5,0x1f);
+      strncpy((uint *)&local_20,(uint *)param_5,0x1f);
       local_1 = 0;
       name = (char *)strtok(&local_20,&DAT_004ea52c);
       data = sputResource_Alloc(0x4659454b,name);
-      uVar1 = strtok(0,&DAT_004ea52c);
+      uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
       if (uVar1 != 0) {
         local_2c = (uint)atoi(uVar1);
-        uVar1 = strtok(0,&DAT_004ea52c);
+        uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
         local_28 = (uint)atoi(uVar1);
       }
     }
@@ -302,10 +304,10 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
         param_5 = local_24;
       }
       iVar3 = Cos_RegisterComponent(param_1,param_5,(int)ref,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004e9fe0));
-      return iVar3 != 0;
+      return (uint)(iVar3 != 0);
     }
   }
-  return false;
+  return 0;
 }
 #undef local_1
 #undef local_1f
@@ -320,31 +322,32 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the Normal/Tagged priority of a
    keyframe key. */
 
-undefined4 KeyframeAdjuster(int *param_1,undefined4 param_2)
+uint __cdecl KeyframeAdjuster(int *param_1,uint param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
+  uint *puVar3;
   #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
+  #define local_20 (*(uint (*)[8])(_frame + (0x40 - 0x20)))
   
   local_28 = (uint)s_Tagged_Priority_004ea7dc;
   local_24 = (uint)s_Normal_Priority_004ea7cc;
   iVar1 = *param_1;
   local_30 = *(uint *)(iVar1 + 0x34);
   local_2c = *(uint *)(iVar1 + 0x38);
-  iVar2 = grimPlat_SpinDialog(param_2,&local_28,&local_30,2);
+  iVar2 = grimPlat_SpinDialog(param_2,(int)&local_28,&local_30,2);
   if (iVar2 != 0) {
-    iVar2 = strtok(param_2,&DAT_004ea52c);
+    puVar3 = (uint *)strtok((byte *)param_2,&DAT_004ea52c);
     *(uint *)(iVar1 + 0x34) = local_30;
     *(uint *)(iVar1 + 0x38) = local_2c;
-    sprintf(local_20,s__s__d__d_004ea7c0,iVar2,local_2c,local_30);
-    strncpy(iVar2,local_20,0x1f);
-    *(undefined1 *)(iVar2 + 0x1f) = 0;
+    sprintf((char *)local_20,s__s__d__d_004ea7c0,puVar3,local_2c,local_30);
+    strncpy(puVar3,local_20,0x1f);
+    *(undefined1 *)((int)puVar3 + 0x1f) = 0;
     return 1;
   }
   return 0;
@@ -377,7 +380,7 @@ undefined4 KeyframeFreer(undefined4 param_1,undefined4 param_2,void *param_3)
    handler slot (stopper) of the same costume tag registration in sputCostume_Startup); was
    KeyframeComponent_Stop. */
 
-undefined4 KeyframeStopper(int *param_1)
+uint __cdecl KeyframeStopper(int *param_1)
 
 {
   void *puppet;

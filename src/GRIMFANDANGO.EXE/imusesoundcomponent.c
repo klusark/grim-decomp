@@ -21,20 +21,21 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *pAVar1;
   int iVar2;
-  byte bVar3;
-  int iVar4;
+  int iVar3;
+  byte bVar4;
   int iVar5;
-  void *set;
   int iVar6;
+  void *set;
   uint uVar7;
+  uint uVar8;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  iVar4 = Cos_InstGetUserData(inst);
-  iVar6 = slot;
+  iVar5 = Cos_InstGetUserData(inst);
+  iVar3 = slot;
   iVar2 = snd;
   pAVar1 = g_pActors;
   if ((*(int *)(&g_aSoundCommands + slot * 4) == 0) &&
-     (iVar5 = SoundsIsSoundPlaying(snd), iVar5 == 0)) {
+     (iVar6 = SoundsIsSoundPlaying(snd), iVar6 == 0)) {
     if (tag != 0x736c6d69) {
       if (tag != 0x73736d69) {
         return;
@@ -45,24 +46,24 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
       return;
     }
     set = sputRoom_GetCurrentRoom();
-    iVar6 = SoundsLoadStartSound(iVar2,*(int *)(iVar2 + 0x24),1);
+    uVar7 = SoundsLoadStartSound(iVar2,*(int *)(iVar2 + 0x24),1);
     if (set == (void *)0x0) {
       return;
     }
     sputRoom_GetSoundParameters
               (set,(float *)&snd,(char *)&inst,(char *)&tag,&local_4,(float *)&slot);
-    bVar3 = *(byte *)(iVar2 + 0x20);
+    bVar4 = *(byte *)(iVar2 + 0x20);
     if ((byte)tag < *(byte *)(iVar2 + 0x20)) {
-      bVar3 = (byte)tag;
+      bVar4 = (byte)tag;
     }
-    uVar7 = inst & 0xff;
+    uVar8 = inst & 0xff;
     if ((int)(inst & 0xff) <= (int)*(uint *)(iVar2 + 0x28)) {
-      uVar7 = *(uint *)(iVar2 + 0x28);
+      uVar8 = *(uint *)(iVar2 + 0x28);
     }
-    sputRoom_SetSoundPosition(iVar6,pAVar1[iVar4].aPos,uVar7,bVar3,snd,slot);
+    sputRoom_SetSoundPosition(uVar7,(undefined **)pAVar1[iVar5].aPos,uVar8,(uint)bVar4,snd,slot);
     return;
   }
-  if (*(int *)(&g_aSoundCommands + iVar6 * 4) == 1) {
+  if (*(int *)(&g_aSoundCommands + iVar3 * 4) == 1) {
     if (tag == 0x736c6d69) {
       SoundsStopSound(iVar2);
       return;
@@ -72,7 +73,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
       return;
     }
   }
-  else if (*(int *)(&g_aSoundCommands + iVar6 * 4) == 2) {
+  else if (*(int *)(&g_aSoundCommands + iVar3 * 4) == 2) {
     iMUSE_SetHook(iVar2,0x80);
   }
   return;
@@ -86,16 +87,17 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
    / Minimum Volume. Original name SoundAdjuster (the remaster's GrimFandango (Linux): strings:
    '%s,%d,%d,%d,%d'); was ImuseSoundComponent_EditKey. */
 
-undefined4 SoundAdjuster(int *param_1,undefined4 param_2)
+uint __cdecl SoundAdjuster(int *param_1,uint param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  uint uVar3;
+  uint *puVar3;
   uint uVar4;
   uint uVar5;
-  char cVar6;
+  uint uVar6;
+  char cVar7;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
@@ -104,7 +106,7 @@ undefined4 SoundAdjuster(int *param_1,undefined4 param_2)
   #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(char (*)[32])(_frame + (0x50 - 0x20)))
+  #define local_20 (*(uint (*)[8])(_frame + (0x50 - 0x20)))
   
   iVar1 = *param_1;
   local_30 = (uint)s_Maximum_Volume_004ea6a8;
@@ -115,52 +117,52 @@ undefined4 SoundAdjuster(int *param_1,undefined4 param_2)
   local_3c = (uint)*(char *)(iVar1 + 0x21);
   local_38 = *(uint *)(iVar1 + 0x24);
   local_34 = *(uint *)(iVar1 + 0x28);
-  iVar2 = grimPlat_SpinDialog(param_2,&local_30,&local_40,4);
+  iVar2 = grimPlat_SpinDialog(param_2,(int)&local_30,&local_40,4);
   if ((iVar2 != 0) && ((int)local_34 <= (int)local_40)) {
-    iVar2 = strtok(param_2,&DAT_004ea52c);
+    puVar3 = (uint *)strtok((byte *)param_2,&DAT_004ea52c);
     if ((int)local_40 < 0) {
-      uVar4 = 0;
-    }
-    else {
-      uVar4 = local_40;
-      if (0x7f < (int)local_40) {
-        uVar4 = 0x7f;
-      }
-    }
-    *(char *)(iVar1 + 0x20) = (char)uVar4;
-    if ((int)local_3c < 0) {
-      cVar6 = '\0';
-    }
-    else if ((int)local_3c < 0x80) {
-      cVar6 = (char)local_3c;
-    }
-    else {
-      cVar6 = '\x7f';
-    }
-    *(char *)(iVar1 + 0x21) = cVar6;
-    if ((int)local_38 < 0) {
       uVar5 = 0;
     }
     else {
-      uVar5 = local_38;
-      if (0x7f < (int)local_38) {
+      uVar5 = local_40;
+      if (0x7f < (int)local_40) {
         uVar5 = 0x7f;
       }
     }
-    *(uint *)(iVar1 + 0x24) = uVar5;
-    if ((int)local_34 < 0) {
-      uVar3 = 0;
+    *(char *)(iVar1 + 0x20) = (char)uVar5;
+    if ((int)local_3c < 0) {
+      cVar7 = '\0';
+    }
+    else if ((int)local_3c < 0x80) {
+      cVar7 = (char)local_3c;
     }
     else {
-      uVar3 = local_34;
-      if (0x7f < (int)local_34) {
-        uVar3 = 0x7f;
+      cVar7 = '\x7f';
+    }
+    *(char *)(iVar1 + 0x21) = cVar7;
+    if ((int)local_38 < 0) {
+      uVar6 = 0;
+    }
+    else {
+      uVar6 = local_38;
+      if (0x7f < (int)local_38) {
+        uVar6 = 0x7f;
       }
     }
-    *(uint *)(iVar1 + 0x28) = uVar3;
-    sprintf(local_20,s__s__d__d__d__d_004ea678,iVar2,uVar4 & 0xff,(int)cVar6,uVar5,uVar3);
-    strncpy(iVar2,local_20,0x1f);
-    *(undefined1 *)(iVar2 + 0x1f) = 0;
+    *(uint *)(iVar1 + 0x24) = uVar6;
+    if ((int)local_34 < 0) {
+      uVar4 = 0;
+    }
+    else {
+      uVar4 = local_34;
+      if (0x7f < (int)local_34) {
+        uVar4 = 0x7f;
+      }
+    }
+    *(uint *)(iVar1 + 0x28) = uVar4;
+    sprintf((char *)local_20,s__s__d__d__d__d_004ea678,puVar3,uVar5 & 0xff,(int)cVar7,uVar6,uVar4);
+    strncpy(puVar3,local_20,0x1f);
+    *(undefined1 *)((int)puVar3 + 0x1f) = 0;
     return 1;
   }
   return 0;
@@ -183,20 +185,20 @@ undefined4 SoundAdjuster(int *param_1,undefined4 param_2)
    'Select sound file to add...' | 'Sound files (*.imu, *.imc, *.wvc, *.wav)'); was
    ImuseSoundComponent_Create. */
 
-int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int __cdecl SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  undefined4 uVar2;
-  char *pcVar3;
+  uint *puVar2;
+  uint *puVar3;
   int iVar4;
   undefined1 uVar5;
   undefined *puVar6;
   undefined4 *puVar7;
   #define local_25 (*(undefined1 *)(_frame + (0x40 - 0x25)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(char *)(_frame + (0x40 - 0x20)))
+  #define local_20 (*(undefined1 *)(_frame + (0x40 - 0x20)))
   #define local_1f (*(undefined4 *)(_frame + (0x40 - 0x1f)))
   #define local_1 (*(undefined1 *)(_frame + (0x40 - 0x1)))
   
@@ -213,56 +215,57 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
   puVar6 = (undefined *)0x64;
   local_24 = 1;
   if (param_3 != 0) {
-    return false;
+    return 0;
   }
   if (param_5 == (char *)0x0) {
     if (g_bSoundPath != '\0') {
-      grimPlat_SetDefaultOpenPath(&g_bSoundPath);
+      grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bSoundPath));
     }
     iVar4 = grimPlat_OpenFileRequest
                       (s_Select_sound_file_to_add____004ea6b8,
                        s_Sound_files____imu____imc____wvc_004ea6d4);
     if (iVar4 == 0) {
-      return false;
+      return 0;
     }
-    uVar2 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
-    ((code *)strncpy)(&g_bSoundPath,uVar2);
+    uVar1 = 0x7f;
+    puVar2 = (uint *)grimPlat_GetDefaultOpenPath();
+    strncpy((uint *)&g_bSoundPath,puVar2,uVar1);
     DAT_008caab7 = 0;
     param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   else {
-    strncpy(&local_20,param_5,0x1f);
+    strncpy((uint *)&local_20,(uint *)param_5,0x1f);
     local_1 = 0;
     strtok(&local_20,&DAT_004ea52c);
-    uVar1 = strtok(0,&DAT_004ea52c);
+    uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
     if (uVar1 != 0) {
       puVar6 = atoi(uVar1);
       uVar5 = SUB41(puVar6,0);
-      uVar1 = strtok(0,&DAT_004ea52c);
+      uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
       puVar6 = atoi(uVar1);
       local_25 = SUB41(puVar6,0);
-      uVar1 = strtok(0,&DAT_004ea52c);
+      uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
       puVar6 = atoi(uVar1);
-      uVar1 = strtok(0,&DAT_004ea52c);
+      uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
       local_24 = (uint)atoi(uVar1);
     }
   }
-  iVar4 = (*g_pSputCosHS->pAlloc)(0x2c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xcee);
-  if (iVar4 == 0) {
-    return false;
+  puVar2 = (uint *)(*g_pSputCosHS->pAlloc)(0x2c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xcee);
+  if (puVar2 == (uint *)0x0) {
+    return 0;
   }
-  pcVar3 = &local_20;
-  if (local_20 == '\0') {
-    pcVar3 = param_5;
+  puVar3 = (uint *)&local_20;
+  if (local_20 == 0) {
+    puVar3 = (uint *)param_5;
   }
-  strncpy(iVar4,pcVar3,0x1f);
-  *(undefined1 *)(iVar4 + 0x21) = local_25;
-  *(uint *)(iVar4 + 0x28) = local_24;
-  *(undefined1 *)(iVar4 + 0x1f) = 0;
-  *(undefined1 *)(iVar4 + 0x20) = uVar5;
-  *(undefined **)(iVar4 + 0x24) = puVar6;
-  iVar4 = Cos_RegisterComponent(param_1,(int)param_5,iVar4,param_2,0,param_4,((unsigned)(uintptr_t)&DAT_004ea018));
-  return iVar4 != 0;
+  strncpy(puVar2,puVar3,0x1f);
+  *(undefined1 *)((int)puVar2 + 0x21) = local_25;
+  puVar2[10] = local_24;
+  *(undefined1 *)((int)puVar2 + 0x1f) = 0;
+  *(undefined1 *)(puVar2 + 8) = uVar5;
+  puVar2[9] = (uint)puVar6;
+  iVar4 = Cos_RegisterComponent(param_1,(int)param_5,(int)puVar2,param_2,0,param_4,((unsigned)(uintptr_t)&DAT_004ea018));
+  return (uint)(iVar4 != 0);
 }
 #undef local_1
 #undef local_1f
@@ -277,7 +280,7 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
    (the remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag
    registration in sputCostume_Startup); was ImuseSoundComponent_Destroy. */
 
-undefined4 SoundFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+uint __cdecl SoundFreer(uint param_1,uint param_2,uint param_3)
 
 {
   (*g_pSputCosHS->pFree)(param_3);
@@ -290,7 +293,7 @@ undefined4 SoundFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3)
    (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same costume tag
    registration in sputCostume_Startup); was ImuseSoundComponent_Stop. */
 
-undefined4 SoundStopper(int param_1)
+uint __cdecl SoundStopper(int param_1)
 
 {
   SoundsStopSound(param_1);

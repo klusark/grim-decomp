@@ -20,7 +20,7 @@ undefined * __cdecl sputResource_Initialize(uint param_1,undefined **param_2)
   param_2[1] = sputResource_Terminate;
   param_2[2] = sputResource_Startup;
   param_2[3] = sputResource_Shutdown;
-  puVar1 = (undefined *)Res_SysInitialize(param_1,&g_aResModServices);
+  puVar1 = (undefined *)Res_SysInitialize(param_1,(undefined4 *)&g_aResModServices);
   if (puVar1 == (undefined *)0x0) {
     _DAT_008ca1f8 = 1;
     param_2[4] = (undefined *)UINT_008ca1e8;
@@ -36,7 +36,7 @@ undefined * __cdecl sputResource_Initialize(uint param_1,undefined **param_2)
 /* Module interface slot 1 (sputResource): called by Engine_ResetSubsystems / when registration
    fails; drops the service table pointer and clears the initialised flag. */
 
-void sputResource_Terminate(void)
+void __cdecl sputResource_Terminate(void)
 
 {
   (*(code *)UINT_008ca1dc)();
@@ -51,24 +51,24 @@ void sputResource_Terminate(void)
    the resource types. Original name sputResource_Startup (the remaster's GrimFandango (Linux):
    aligned call in sputResource_Initialize); was sputResource_Start. */
 
-int sputResource_Startup(void)
+int __cdecl sputResource_Startup(void)
 
 {
   int iVar1;
   
   if (g_dwSputResStartup != 0) {
-    return true;
+    return 1;
   }
   iVar1 = (*(code *)UINT_008ca1e0)();
   if (iVar1 == 0) {
     g_dwSputResStartup = Resource_RegisterTypes();
   }
   Res_OverrideFileCalls((GrimServices *)g_dwSputResHS);
-  g_dwPrdMatLoader = rdMaterial_RegisterLoader(sputResource_MatLoader);
-  g_dwPrdMatUnloader = rdMaterial_RegisterUnloader(sputResource_MatUnloader);
+  g_dwPrdMatLoader = rdMaterial_RegisterLoader(((unsigned)(uintptr_t)sputResource_MatLoader));
+  g_dwPrdMatUnloader = rdMaterial_RegisterUnloader(((unsigned)(uintptr_t)sputResource_MatUnloader));
   g_dwRes_pPeriodicCallback = (uint)SoundsPeriodic;
   Cos_RegisterSaveVerify(((unsigned)(uintptr_t)Resource_CountCostumeRefs));
-  return g_dwSputResStartup == 0;
+  return (uint)(g_dwSputResStartup == 0);
 }
 
 /* ---- 0x0048d830  sputResource_Shutdown ---- */
@@ -76,7 +76,7 @@ int sputResource_Startup(void)
    releases what _Start created. Original name sputResource_Shutdown (the remaster's GrimFandango
    (Linux): aligned call in sputResource_Initialize); was sputResource_Stop. */
 
-void sputResource_Shutdown(void)
+void __cdecl sputResource_Shutdown(void)
 
 {
   (*(code *)UINT_008ca1e4)();

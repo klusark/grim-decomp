@@ -9,7 +9,7 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-int sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2)
+int __cdecl sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2)
 
 {
   int iVar1;
@@ -25,14 +25,14 @@ int sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2)
   param_2[7] = 0;
   iVar1 = Cos_Initialize((int)param_1,(int *)&g_aChoreMS);
   g_dwSputCosInitialize = (uint)(iVar1 == 0);
-  return iVar1 != 0;
+  return (uint)(iVar1 != 0);
 }
 
 /* ---- 0x00495960  sputCostume_Terminate ---- */
 /* Module interface slot 1 (sputCostume): called by Engine_ResetSubsystems / when registration
    fails; drops the service table pointer and clears the initialised flag. */
 
-void sputCostume_Terminate(void)
+void __cdecl sputCostume_Terminate(void)
 
 {
   g_pSputCosHS = (GrimServices *)0x0;
@@ -40,7 +40,7 @@ void sputCostume_Terminate(void)
     g_dwSputCosInitialize = 0;
     (*(code *)UINT_008ca774)();
     if (g_pShadowColormap != (void *)0x0) {
-      rdColormap_Free(g_pShadowColormap);
+      rdColormap_Free((uint)g_pShadowColormap);
     }
   }
   return;
@@ -51,7 +51,7 @@ void sputCostume_Terminate(void)
    (non-zero makes the whole start-up unwind). Original name sputCostume_Startup (the remaster's
    GrimFandango (Linux): aligned call in sputCostume_Initialize); was sputCostume_Start. */
 
-undefined4 sputCostume_Startup(void)
+uint __cdecl sputCostume_Startup(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -73,7 +73,7 @@ undefined4 sputCostume_Startup(void)
     return 1;
   }
   (*(code *)UINT_008ca778)();
-  g_pCosNodePool = (void **)Memory_AllocatePool(0xb4,10,2);
+  g_pCosNodePool = Memory_AllocatePool(0xb4,(void *)0xa,(void *)0x2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
@@ -200,7 +200,7 @@ undefined4 sputCostume_Startup(void)
   Cos_NewIntTag(0x7661756c,((unsigned)(uintptr_t)&s_Lua_Variable_004ea298),0,(int *)(local_38 + 7),1);
   g_dwOldInstanceHook = Cos_RegisterInstanceHook(((unsigned)(uintptr_t)Costume_InstanceHook));
   g_dwOldSaveHook = Cos_RegisterSaveHook(((unsigned)(uintptr_t)sputCostume_SaveHook));
-  sputLua_RegisterFunctions(&g_pLuaCostumeFuncs,UINT_004ea068);
+  sputLua_RegisterFunctions((int *)&g_pLuaCostumeFuncs,UINT_004ea068);
   g_dwSputCosStartup = 1;
   Config_GetPath(s_KeyframePath_004ea27c,&g_bKeyframePath,s_Animation_004ea28c);
   Config_GetPath(s_ColormapPath_004ea260,&g_bColormapPath,s_Colormaps_004ea270);
@@ -220,7 +220,7 @@ undefined4 sputCostume_Startup(void)
    (Linux): the module's shutdown slot: writes keyframePath, bitmapPath, ... back to the
    configuration); was sputCostume_Stop. */
 
-void sputCostume_Shutdown(void)
+void __cdecl sputCostume_Shutdown(void)
 
 {
   Config_SetPath(s_KeyframePath_004ea27c,&g_bKeyframePath);

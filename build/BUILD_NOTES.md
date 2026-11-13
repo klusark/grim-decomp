@@ -1423,3 +1423,34 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   the box to the outgoing arguments before the moved end point is stored over the box's parameter slots, and Ghidra
   orders the stores first. The anm_* movie functions (overrides_mixer_misc.c) are readable rewrites on an AnimPlay
   struct that Ghidra lacks; they stay until the struct is in Ghidra.
+
+## A stored prototype for every EXE function (2026-11-13)
+
+* 1,906 of the EXE's 2,671 functions had no prototype in Ghidra (signature source DEFAULT). The decompiler then guesses
+  per view: the function's own text from the stack slots its body reads, each caller from the pushes it sees, and both
+  guesses move whenever a neighbour changes (gra_SetBuffer's turned into a 6-parameter `__fastcall` after other
+  functions were locked). names/protos_all_exe.json now stores 1,863 of them (dumped from the project; replay with
+  `tools/apply_logic_protos.py names/protos_all_exe.json` after names/sweep_protos.json). Clean room 0 of 5327 after each
+  of the four address ranges and at the end.
+* Source: main's src/GRIMFANDANGO.EXE/functions.h, i.e. the inference the validated build compiled against, not a fresh
+  inference (which had already drifted), `__cdecl` (every callee-pop function already had a prototype).
+* `undefinedN` parameters are not type-locked in Ghidra: a locked `undefined4` still became `int *` or `char *`. Scalar
+  ones are stored as uint / ushort / byte / ulonglong. Pointer types stay as they were for generated functions: a
+  concrete `byte *` made VbrAdpcm_Uncompress print `p[0x4dab10]` for `g_abAdpcmStepBits[i]` (the slot is reused as an
+  index), a raw address the relocated build cannot map. Functions with a hand-written override get fully concrete types
+  and a locked return (their declaration must match the override; a void return left `undefined` came back as
+  `float10`).
+* Not the override's own signature: overrides_asm_p2.c declares rdMatrix_BuildFromVectorAngle34's angle `uint` (it reads
+  the bits) and hides functions.h's `float` with a #define; stored as `uint`, every C caller converted the float
+  numerically (collision tests 26 off).
+* A void return of a generated function stays `undefined`, so callers keep inferring whether they use EAX.
+* By hand: Lua_Stub is the game's no-op print, `(char *fmt, ...)` (as `(void)` its callers lost the format strings that
+  hand-written code still names); fle_zfilio_config reads its extension list from the stack, `(int cmd, ...)` (as
+  `(int)` the movie player registered no zfilio extensions and no movie played); qsort / bsearch take `void *` (with
+  `uint` the tables' addresses came out as numbers, which datagen maps back to symbols that globals.h then no longer
+  declared).
+* Left DEFAULT (27): VbrAdpcm_Uncompress, x87 returns (float10 / unkbyte10), functions without RET (purge unknown),
+  the six whose view in main was `__fastcall`, and thunks.
+* Printf-style functions declared with one parameter (grimdemo_*Print, default*Print, stdFilePrintf, fle_PrintF,
+  Text_DrawFormatted, msc_error_SaveString) read their arguments with STACK0X; their callers already passed only the
+  format in main, so nothing is lost, but they should become `(char *fmt, ...)` too.

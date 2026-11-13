@@ -28,7 +28,7 @@ int __cdecl rdStartup(GrimServices *svc)
 /* Original name rdShutdown (the remaster's GrimFandango (Linux): same body (clears bRDroidStartup);
    the call after rdClose in Main_Shutdown in both builds); was rdroid_Shutdown. */
 
-void rdShutdown(void)
+void __cdecl rdShutdown(void)
 
 {
   if (g_dwRDroidStartup == 1) {
@@ -69,7 +69,7 @@ int __cdecl rdOpen(int flags)
 /* Original name rdClose (the remaster's GrimFandango (Linux): the only unpaired user of bRDroidOpen
    besides rdOpen, same body (clears the open flag)); was rdroid_Close. */
 
-void rdClose(void)
+void __cdecl rdClose(void)
 
 {
   if (g_dwRDroidOpen != 0) {
@@ -83,7 +83,7 @@ void rdClose(void)
    rdSetRenderOptions (the remaster's GrimFandango (Linux): same body (rdroid_curRenderOptions =
    flags)); was rdroid_SetRenderFlags. */
 
-void rdSetRenderOptions(uint param_1)
+void __cdecl rdSetRenderOptions(uint param_1)
 
 {
   g_dwRdroid_curRenderOptions = param_1;
@@ -95,7 +95,7 @@ void rdSetRenderOptions(uint param_1)
    (the remaster's GrimFandango (Linux): same body (rdroid_curGeometryMode = mode)); was
    rdroid_SetGeometryMode. */
 
-void rdSetGeometryMode(int param_1)
+void __cdecl rdSetGeometryMode(int param_1)
 
 {
   g_nRdroid_curGeometryMode = param_1;
@@ -107,7 +107,7 @@ void rdSetGeometryMode(int param_1)
    (rdroid_curLightingMode = mode); between rdSetGeometryMode and rdSetTextureMode in both builds);
    was rdroid_SetLightingMode. */
 
-void rdSetLightingMode(int param_1)
+void __cdecl rdSetLightingMode(int param_1)
 
 {
   g_nRdroid_curLightingMode = param_1;
@@ -119,7 +119,7 @@ void rdSetLightingMode(int param_1)
    (rdroid_curTextureMode = mode); after rdSetLightingMode in both builds); was
    rdroid_SetTextureMode. */
 
-void rdSetTextureMode(int param_1)
+void __cdecl rdSetTextureMode(int param_1)
 
 {
   g_nRdroid_curTextureMode = param_1;
@@ -131,7 +131,7 @@ void rdSetTextureMode(int param_1)
    remaster's GrimFandango (Linux): same body (rdroid_curSortingMethod = method)); was
    rdroid_SetSortMode. */
 
-void rdSetSortingMethod(int param_1)
+void __cdecl rdSetSortingMethod(int param_1)
 
 {
   g_nRdroid_curSortingMethod = param_1;
@@ -143,7 +143,7 @@ void rdSetSortingMethod(int param_1)
    remaster's GrimFandango (Linux): same body (rdroid_curOcclusionMethod = method); after
    rdSetSortingMethod in both builds); was rdroid_SetOcclusionMode. */
 
-void rdSetOcclusionMethod(int param_1)
+void __cdecl rdSetOcclusionMethod(int param_1)
 
 {
   g_nRdroid_curOcclusionMethod = param_1;
@@ -155,7 +155,7 @@ void rdSetOcclusionMethod(int param_1)
    remaster's GrimFandango (Linux): same body (rdroid_curZBufferMethod = method); after
    rdSetOcclusionMethod in both builds); was rdroid_SetZBufferMode. */
 
-void rdSetZBufferMethod(int param_1)
+void __cdecl rdSetZBufferMethod(int param_1)
 
 {
   g_nRdroid_curZBufferMethod = param_1;
@@ -183,7 +183,7 @@ void rdAdvanceFrame(void)
    (the remaster's GrimFandango (Linux): same body (rdCache_Flush, rdCache_FinishFrame, the frame
    counters' clear); called by sputRender_Dim in both builds); was rdroid_EndFrame. */
 
-void rdFinishFrame(void)
+void __cdecl rdFinishFrame(void)
 
 {
   rdCache_Flush();
@@ -207,7 +207,7 @@ void rdClearPreStatistics(void)
 }
 
 /* ---- 0x00404350  rdroid_SetColormap ---- */
-undefined4 rdroid_SetColormap(uint param_1)
+uint __cdecl rdroid_SetColormap(uint param_1)
 
 {
   if (g_dwRdColormap_pIdentityMap != param_1) {
@@ -229,7 +229,7 @@ undefined4 rdroid_SetColormap(uint param_1)
    (rdRaster_aOneOverNFlex / rdRaster_aOneOverNFixed tables from 0x7f7fc99e / 0x7fffffff)); was
    rdroid_BuildMathTables. */
 
-void rdRaster_Startup(void)
+void __cdecl rdRaster_Startup(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

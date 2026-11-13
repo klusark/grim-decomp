@@ -10,7 +10,7 @@
    rdMaterial_RegisterLoader (the remaster's GrimFandango (Linux): swaps pMaterialsLoader); was
    rdMaterial_SetLoadHook. */
 
-uint rdMaterial_RegisterLoader(uint param_1)
+uint __cdecl rdMaterial_RegisterLoader(uint param_1)
 
 {
   uint uVar1;
@@ -24,7 +24,7 @@ uint rdMaterial_RegisterLoader(uint param_1)
 /* Original name rdMaterial_RegisterUnloader (the remaster's GrimFandango (Linux): swaps
    pMaterialsUnloader); was rdMaterial_SetFreeHook. */
 
-uint rdMaterial_RegisterUnloader(uint param_1)
+uint __cdecl rdMaterial_RegisterUnloader(uint param_1)
 
 {
   uint uVar1;
@@ -53,7 +53,7 @@ void * __cdecl rdMaterial_Load(char *name,int a,int b)
       return pvVar1;
     }
   }
-  rdMaterial_Free(pvVar1);
+  rdMaterial_Free((uint)pvVar1);
   return (void *)0x0;
 }
 
@@ -66,11 +66,11 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
 
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  uint uVar1;
   void *surface;
-  char *pcVar2;
+  uint *puVar2;
   int iVar3;
-  uint uVar4;
+  int iVar4;
   undefined4 *puVar5;
   byte *pbVar6;
   byte *pbVar7;
@@ -78,7 +78,6 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
   undefined4 *puVar9;
   int *piVar10;
   byte *pbVar11;
-  undefined4 uVar12;
   #define uStack_428 (*(uint *)(_frame + (0x440 - 0x428)))
   #define iStack_420 (*(int *)(_frame + (0x440 - 0x420)))
   #define uStack_418 (*(uint *)(_frame + (0x440 - 0x418)))
@@ -99,7 +98,7 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
   #define uStack_3d4 (*(uint *)(_frame + (0x440 - 0x3d4)))
   #define uStack_3c4 (*(undefined4 *)(_frame + (0x440 - 0x3c4)))
   #define uStack_3c0 (*(undefined4 *)(_frame + (0x440 - 0x3c0)))
-  #define auStack_38c (*(undefined1 (*)[4])(_frame + (0x440 - 0x38c)))
+  #define acStack_38c (*(char (*)[4])(_frame + (0x440 - 0x38c)))
   #define iStack_388 (*(int *)(_frame + (0x440 - 0x388)))
   #define uStack_384 (*(undefined4 *)(_frame + (0x440 - 0x384)))
   #define iStack_380 (*(int *)(_frame + (0x440 - 0x380)))
@@ -117,9 +116,9 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
   if (iVar3 == 0) {
     return 0;
   }
-  (*g_pRdroid_HS->pFread)(iVar3,auStack_38c,0x4c);
-  iVar1 = strncmp(auStack_38c,&DAT_004dddb0,4);
-  if ((iVar1 == 0) && (iStack_388 == 0x32)) {
+  (*g_pRdroid_HS->pFread)(iVar3,acStack_38c,0x4c);
+  uVar1 = strncmp(acStack_38c,&DAT_004dddb0,4);
+  if ((uVar1 == 0) && (iStack_388 == 0x32)) {
     *(undefined4 *)((int)material + 0xa8) = uStack_37c;
     *(undefined4 *)material = uStack_384;
     *(int *)((int)material + 0x60) = iStack_380;
@@ -127,7 +126,7 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
     uStack_428 = 0;
     puVar5 = auStack_378;
     puVar9 = (undefined4 *)((int)material + 0x28);
-    for (iVar1 = 0xe; iVar1 != 0; iVar1 = iVar1 + -1) {
+    for (iVar4 = 0xe; iVar4 != 0; iVar4 = iVar4 + -1) {
       *puVar9 = *puVar5;
       puVar5 = puVar5 + 1;
       puVar9 = puVar9 + 1;
@@ -136,10 +135,10 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
       piVar10 = aiStack_340;
       piVar8 = (int *)((int)material + 0x68);
       do {
-        iVar1 = (*g_pRdroid_HS->pAlloc)
+        iVar4 = (*g_pRdroid_HS->pAlloc)
                           (0x20,s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,DAT_004ddd80 + 0x4c);
-        *piVar8 = iVar1;
-        if (iVar1 == 0) goto LAB_0041833a;
+        *piVar8 = iVar4;
+        if (iVar4 == 0) goto LAB_0041833a;
         (*g_pRdroid_HS->pFread)(iVar3,&uStack_400,0x18);
         *(uint *)*piVar8 = uStack_400;
         *(undefined4 *)(*piVar8 + 4) = uStack_3fc;
@@ -159,11 +158,11 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
     }
     *(undefined4 *)((int)material + 0xac) = 0;
     if (*(int *)((int)material + 0xa8) != 0) {
-      iVar1 = (*g_pRdroid_HS->pAlloc)
+      iVar4 = (*g_pRdroid_HS->pAlloc)
                         (*(int *)((int)material + 0xa8) * 0x4ec,
                          s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,DAT_004ddd80 + 0x7e);
-      *(int *)((int)material + 0xac) = iVar1;
-      if (iVar1 == 0) goto LAB_0041833a;
+      *(int *)((int)material + 0xac) = iVar4;
+      if (iVar4 == 0) goto LAB_0041833a;
     }
     uStack_428 = 0;
     if (*(int *)((int)material + 0xa8) != 0) {
@@ -173,10 +172,10 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
         pbVar7 = (byte *)(iStack_420 + *(int *)((int)material + 0xac));
         *(undefined4 *)pbVar7 = uStack_410;
         *(undefined4 *)(pbVar7 + 4) = uStack_40c;
-        iVar1 = stdCalcBitPos(uStack_418);
-        *(int *)(pbVar7 + 0xc) = iVar1;
+        iVar4 = stdCalcBitPos(uStack_418);
+        *(int *)(pbVar7 + 0xc) = iVar4;
         *(uint *)(pbVar7 + 0x10) = uStack_418 - 1;
-        uVar4 = 0;
+        uVar1 = 0;
         *(uint *)(pbVar7 + 0x14) = uStack_414 - 1;
         *(undefined4 *)(pbVar7 + 0x18) = uStack_404;
         *(undefined4 *)(pbVar7 + 8) = uStack_408;
@@ -217,16 +216,16 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
             stdDisplay_VBufferUnlock(*(void **)pbVar11);
             uStack_3d8 = uStack_3d8 >> 1;
             uStack_3d4 = uStack_3d4 >> 1;
-            uVar4 = uVar4 + 1;
+            uVar1 = uVar1 + 1;
             pbVar11 = pbVar11 + 4;
             pbVar6 = pbVar6 + 0x98;
-          } while (uVar4 < *(uint *)(pbVar7 + 0x18));
+          } while (uVar1 < *(uint *)(pbVar7 + 0x18));
         }
         uStack_428 = uStack_428 + 1;
         iStack_420 = iStack_420 + 0x4ec;
       } while (uStack_428 < *(uint *)((int)material + 0xa8));
     }
-    uVar4 = 0;
+    uVar1 = 0;
     if (*(int *)((int)material + 0x60) != 0) {
       piVar8 = aiStack_340;
       puVar5 = (undefined4 *)((int)material + 0x68);
@@ -234,17 +233,17 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
         if ((*(byte *)*puVar5 & 8) != 0) {
           *(int *)((byte *)*puVar5 + 0x1c) = *(int *)((int)material + 0xac) + *piVar8 * 0x4ec;
         }
-        uVar4 = uVar4 + 1;
+        uVar1 = uVar1 + 1;
         piVar8 = piVar8 + 1;
         puVar5 = puVar5 + 1;
-      } while (uVar4 < *(uint *)((int)material + 0x60));
+      } while (uVar1 < *(uint *)((int)material + 0x60));
     }
     if ((*(byte *)material & 1) != 0) {
       (*g_pRdroid_HS->pFread)(iVar3,auStack_300,0x300);
     }
-    uVar12 = 0x1f;
-    pcVar2 = stdFileFromPath(filename);
-    strncpy((int)material + 4,pcVar2,uVar12);
+    uVar1 = 0x1f;
+    puVar2 = (uint *)stdFileFromPath(filename);
+    strncpy((uint *)((int)material + 4),puVar2,uVar1);
     *(undefined1 *)((int)material + 0x23) = 0;
     (*g_pRdroid_HS->pFclose)(iVar3);
     return 1;
@@ -253,10 +252,10 @@ LAB_0041833a:
   (*g_pRdroid_HS->pFclose)(iVar3);
   return 0;
 }
+#undef acStack_38c
 #undef aiStack_340
 #undef auStack_300
 #undef auStack_378
-#undef auStack_38c
 #undef auStack_3e8
 #undef iStack_380
 #undef iStack_388
@@ -284,7 +283,7 @@ LAB_0041833a:
 
 
 /* ---- 0x00418360  rdMaterial_Free ---- */
-void rdMaterial_Free(undefined4 param_1)
+void __cdecl rdMaterial_Free(uint param_1)
 
 {
   if (g_dwMaterialsUnloader != 0) {
@@ -302,7 +301,7 @@ void rdMaterial_Free(undefined4 param_1)
    entries, the texture VBuffers of every cel, then the +0xac array); called by the material
    resource handler's free message in both builds); was rdMaterial_FreeContents. */
 
-void rdMaterial_FreeEntry(int param_1)
+void __cdecl rdMaterial_FreeEntry(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -369,7 +368,7 @@ int __cdecl rdMaterial_AddToTextureCache(void *a,uint *material,int cel,int alt)
   
   if (alt == 0) {
     if (material[cel * 0x26 + 0x29] != 0) {
-      std3D_UpdateFrameCount(material + cel * 0x26 + 0xb);
+      std3D_UpdateFrameCount((int)(material + cel * 0x26 + 0xb));
       return 1;
     }
     iVar1 = std3D_AddToTextureCache
@@ -386,7 +385,7 @@ int __cdecl rdMaterial_AddToTextureCache(void *a,uint *material,int cel,int alt)
     }
   }
   else {
-    std3D_UpdateFrameCount(material + cel * 0x26 + 0xa3);
+    std3D_UpdateFrameCount((int)(material + cel * 0x26 + 0xa3));
   }
   return 1;
 }

@@ -10,7 +10,7 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 sputSmush_Initialize(undefined4 param_1,undefined4 *param_2)
+uint __cdecl sputSmush_Initialize(uint param_1,undefined4 *param_2)
 
 {
   _g_dwSmushHS = param_1;
@@ -22,8 +22,8 @@ undefined4 sputSmush_Initialize(undefined4 param_1,undefined4 *param_2)
   param_2[5] = sputSmush_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
-  SmushPlay_SysInitialize(param_1,&g_aSmushPlayMS);
-  SmushPlay_SysSetVideoCallbacks(&g_pSputVideoCallBacks);
+  SmushPlay_SysInitialize(param_1,(undefined4 *)&g_aSmushPlayMS);
+  SmushPlay_SysSetVideoCallbacks((uint *)&g_pSputVideoCallBacks);
   g_pPresentBuf = (void *)0x0;
   _g_dwSmushBuf = 1;
   return 0;
@@ -35,15 +35,15 @@ undefined4 sputSmush_Initialize(undefined4 param_1,undefined4 *param_2)
    Original name sputSmush_Startup (the remaster's GrimFandango (Linux): strings: 'StartSmush'); was
    sputSmush_Start. */
 
-undefined4 sputSmush_Startup(void)
+uint __cdecl sputSmush_Startup(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_c (*(char (*)[12])(_frame + (0x20 - 0xc)))
+  #define local_c (*(byte (*)[12])(_frame + (0x20 - 0xc)))
   
-  iVar1 = wuRegistry_GetStr(s_StartSmush_004e8358,local_c,10,&DAT_004f5a98);
-  if ((iVar1 != 0) && (iVar1 = _stricmp(local_c,s_FALSE_004e8350), iVar1 == 0)) {
+  iVar1 = wuRegistry_GetStr(s_StartSmush_004e8358,(char *)local_c,10,&DAT_004f5a98);
+  if ((iVar1 != 0) && (iVar1 = _stricmp(local_c,(byte *)s_FALSE_004e8350), iVar1 == 0)) {
     return 0;
   }
   iVar1 = (*(code *)UINT_008c9fc0)();
@@ -62,7 +62,7 @@ undefined4 sputSmush_Startup(void)
    available. Original name sputSmush_Shutdown (the remaster's GrimFandango (Linux): aligned call in
    sputSmush_Initialize); was sputSmush_Stop. */
 
-void sputSmush_Shutdown(void)
+void __cdecl sputSmush_Shutdown(void)
 
 {
   if (g_nSputSmushStarted != 0) {

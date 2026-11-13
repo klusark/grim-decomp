@@ -11,14 +11,15 @@
    PolyglotInitialize, same body (reads the .tab file through the polyglot pHS)); was
    Polyglot_LoadTable. */
 
-void PolyglotConfigure(undefined *param_1)
+void __cdecl PolyglotConfigure(undefined *param_1)
 
 {
   int iVar1;
   int iVar2;
   char *pcVar3;
   undefined *puVar4;
-  undefined1 *puVar5;
+  uint *puVar5;
+  uint *puVar6;
   
   g_pTabFilename = param_1;
   iVar1 = (*g_pPolyglot_HS->pFopen)(param_1,&DAT_004ddb18);
@@ -52,20 +53,20 @@ void PolyglotConfigure(undefined *param_1)
          (*g_pPolyglot_HS->pAlloc)
                    (g_dwLineCount * 4,s_C__grimsrc_libs_grimlib_Engine_p_004e8038,0xa2);
     iVar1 = 0;
-    pcVar3 = g_pLanguageMalloc;
+    puVar6 = (uint *)g_pLanguageMalloc;
     do {
-      puVar4 = Str_FindChar(pcVar3,0xd);
+      puVar4 = Str_FindChar((char *)puVar6,0xd);
       *puVar4 = 0;
-      puVar5 = (undefined1 *)strchr(pcVar3,9);
-      if (puVar5 != (undefined1 *)0x0) {
-        *puVar5 = 0;
+      puVar5 = strchr(puVar6,'\t');
+      if (puVar5 != (uint *)0x0) {
+        *(undefined1 *)puVar5 = 0;
       }
-      _strupr(pcVar3);
-      *(char **)(g_dwLanguageLine + iVar1) = pcVar3;
-      pcVar3 = puVar4 + 2;
+      _strupr((char *)puVar6);
+      *(uint **)(g_dwLanguageLine + iVar1) = puVar6;
+      puVar6 = (uint *)(puVar4 + 2);
       iVar1 = iVar1 + 4;
-    } while (pcVar3 < g_pLanguageMalloc + iVar2 + -1);
-    qsort(g_dwLanguageLine,g_dwLineCount,4,Str_ComparePtrs);
+    } while (puVar6 < g_pLanguageMalloc + iVar2 + -1);
+    qsort((void *)g_dwLanguageLine,g_dwLineCount,4,Str_ComparePtrs);
   }
   return;
 }
@@ -80,68 +81,69 @@ char * __cdecl PolyglotGetString(char *textId)
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
-  int iVar2;
-  undefined1 *puVar3;
-  undefined4 *puVar4;
-  uint uVar5;
+  char *pcVar2;
+  uint *puVar3;
+  uint *puVar4;
+  undefined4 *puVar5;
   uint uVar6;
-  char *pcVar7;
-  char *pcVar8;
+  uint uVar7;
+  uint *puVar8;
+  char *pcVar9;
   #define local_104 (*(uint *)(_frame + (0x120 - 0x104)))
-  #define local_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
+  #define local_100 (*(uint (*)[64])(_frame + (0x120 - 0x100)))
   
   local_104 = (uint)local_100;
   if (textId == (char *)0x0) {
     return (char *)0x0;
   }
   if ((*textId != '\0') && (*textId == '/')) {
-    iVar2 = strchr(textId + 1,0x2f);
+    puVar3 = strchr((uint *)(textId + 1),'/');
     if (g_pLanguageMalloc == (char *)0x0) {
-      return (char *)(iVar2 + 1);
+      return (char *)((int)puVar3 + 1);
     }
-    uVar5 = 0xffffffff;
-    pcVar7 = textId + 1;
+    uVar6 = 0xffffffff;
+    puVar4 = (uint *)(textId + 1);
     do {
-      pcVar8 = pcVar7;
-      if (uVar5 == 0) break;
-      uVar5 = uVar5 - 1;
-      pcVar8 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar8;
-    } while (cVar1 != '\0');
-    uVar5 = ~uVar5;
-    pcVar7 = pcVar8 + -uVar5;
-    pcVar8 = local_100;
-    for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-      *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
-      pcVar7 = pcVar7 + 4;
-      pcVar8 = pcVar8 + 4;
+      puVar8 = puVar4;
+      if (uVar6 == 0) break;
+      uVar6 = uVar6 - 1;
+      puVar8 = (uint *)((int)puVar4 + 1);
+      uVar7 = *puVar4;
+      puVar4 = puVar8;
+    } while ((char)uVar7 != '\0');
+    uVar6 = ~uVar6;
+    puVar4 = (uint *)((int)puVar8 - uVar6);
+    puVar8 = local_100;
+    for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+      *puVar8 = *puVar4;
+      puVar4 = puVar4 + 1;
+      puVar8 = puVar8 + 1;
     }
-    for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *pcVar8 = *pcVar7;
-      pcVar7 = pcVar7 + 1;
-      pcVar8 = pcVar8 + 1;
+    for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
+      *(char *)puVar8 = (char)*puVar4;
+      puVar4 = (uint *)((int)puVar4 + 1);
+      puVar8 = (uint *)((int)puVar8 + 1);
     }
-    puVar3 = (undefined1 *)strchr(local_100,0x2f);
-    if (puVar3 != (undefined1 *)0x0) {
-      *puVar3 = 0;
+    puVar4 = strchr(local_100,'/');
+    if (puVar4 != (uint *)0x0) {
+      *(undefined1 *)puVar4 = 0;
     }
-    _strupr(local_100);
-    puVar4 = (undefined4 *)bsearch(&local_104,g_dwLanguageLine,g_dwLineCount,4,Str_ComparePtrs);
-    if (puVar4 == (undefined4 *)0x0) {
-      return (char *)(iVar2 + 1);
+    _strupr((char *)local_100);
+    puVar5 = bsearch(&local_104,(void *)g_dwLanguageLine,g_dwLineCount,4,Str_ComparePtrs);
+    if (puVar5 == (undefined4 *)0x0) {
+      return (char *)((int)puVar3 + 1);
     }
-    pcVar7 = (char *)*puVar4;
-    uVar5 = 0xffffffff;
-    pcVar8 = pcVar7;
+    pcVar2 = (char *)*puVar5;
+    uVar6 = 0xffffffff;
+    pcVar9 = pcVar2;
     do {
-      if (uVar5 == 0) break;
-      uVar5 = uVar5 - 1;
-      cVar1 = *pcVar8;
-      pcVar8 = pcVar8 + 1;
+      if (uVar6 == 0) break;
+      uVar6 = uVar6 - 1;
+      cVar1 = *pcVar9;
+      pcVar9 = pcVar9 + 1;
     } while (cVar1 != '\0');
-    if (pcVar7[~uVar5] != '\0') {
-      return pcVar7 + ~uVar5;
+    if (pcVar2[~uVar6] != '\0') {
+      return pcVar2 + ~uVar6;
     }
   }
   return textId;

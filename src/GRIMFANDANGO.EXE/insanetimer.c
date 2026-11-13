@@ -330,7 +330,7 @@ void __cdecl sys_Delay(int ticks)
 /* Original name sys_GetTime (the remaster's GrimFandango (Linux): slot 6 of the "TIMER=insane"
    service table); was InsaneTimer_GetClock. */
 
-int sys_GetTime(void)
+int __cdecl sys_GetTime(void)
 
 {
   return g_nSys_global_timer;
@@ -342,7 +342,7 @@ int sys_GetTime(void)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Advances the timer clock by one step and runs the due callbacks */
 
-void InsaneTimer_Tick(void)
+void __cdecl InsaneTimer_Tick(void)
 
 {
   uint uVar1;
@@ -428,14 +428,16 @@ void InsaneTimer_Tick(void)
    setjmp, run the timers with flags & 5 == 4, longjmp(state, 2); the remaster inlined
    InsaneTimer_RunDeferred into it); was InsaneTimer_ServiceDeferred. */
 
-void sys_timer_dispatcher(void)
+void __cdecl sys_timer_dispatcher(void)
 
 {
-  int iVar1;
+  uint uVar1;
+  uint unaff_EBP;
+  int unaff_ESI;
   
   if ((UINT_008da88c == 0) || (UINT_008da88c = UINT_008da88c - 1, UINT_008da88c == 0)) {
-    iVar1 = ((code *)_setjmp3)(&DAT_008da548,0);
-    if (iVar1 == 0) {
+    uVar1 = _setjmp3((undefined4 *)&DAT_008da548,0,unaff_ESI,unaff_EBP);
+    if (uVar1 == 0) {
       if (UINT_008da884 != 0) {
         UINT_008da884 = 0;
         _DAT_008da888 = 1;
@@ -458,7 +460,7 @@ void sys_timer_dispatcher(void)
 /* ---- 0x004ce260  InsaneTimer_RunDeferred ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void InsaneTimer_RunDeferred(void)
+void __cdecl InsaneTimer_RunDeferred(void)
 
 {
   uint uVar1;
