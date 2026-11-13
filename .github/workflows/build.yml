@@ -68,7 +68,10 @@ jobs:
       - name: The four programs in one folder
         run: |
           New-Item -ItemType Directory decomp | Out-Null
-          Get-ChildItem binaries -Recurse -Include *.exe, *.dll | Copy-Item -Destination decomp
+          # (by path: the artifact's folders are named after the programs, CHORE.DLL/ ..., and a *.dll pattern matches them too)
+          foreach ($f in "GRIMFANDANGO.EXE/grimfandango.exe", "LUA.DLL/lua.dll", "IMUSE.DLL/imuse.dll", "CHORE.DLL/chore.dll") {
+            Copy-Item "binaries/$f" -Destination decomp -ErrorAction Stop
+          }
           Get-ChildItem decomp
 
       - uses: actions/checkout@v4
