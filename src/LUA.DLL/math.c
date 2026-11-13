@@ -10,7 +10,7 @@
 #if 0
 /* Lua math library: abs(x) */
 
-void math_abs(void)
+void __cdecl math_abs(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -33,7 +33,7 @@ void math_abs(void)
 #if 0
 /* Lua math library: sin(degrees); the argument is converted to radians (x * pi / 180) */
 
-void math_sin(void)
+void __cdecl math_sin(void)
 
 {
   float10 fVar1;
@@ -52,7 +52,7 @@ void math_sin(void)
 #if 0
 /* Lua math library: cos(degrees) */
 
-void math_cos(void)
+void __cdecl math_cos(void)
 
 {
   float10 fVar1;
@@ -71,7 +71,7 @@ void math_cos(void)
 #if 0
 /* Lua math library: tan(degrees) */
 
-void math_tan(void)
+void __cdecl math_tan(void)
 
 {
   float10 fVar1;
@@ -90,7 +90,7 @@ void math_tan(void)
 #if 0
 /* Lua math library: asin(x) in degrees (CRT _CIasin, result * 180 / pi) */
 
-void math_asin(void)
+void __cdecl math_asin(void)
 
 {
   float fVar1;
@@ -108,7 +108,7 @@ void math_asin(void)
 #if 0
 /* Lua math library: acos(x) in degrees (CRT _CIacos, result * 180 / pi) */
 
-void math_acos(void)
+void __cdecl math_acos(void)
 
 {
   float fVar1;
@@ -126,7 +126,7 @@ void math_acos(void)
 #if 0
 /* Lua math library: atan(x) in degrees (fpatan(x, 1) * 180 / pi) */
 
-void math_atan(void)
+void __cdecl math_atan(void)
 
 {
   float10 fVar1;
@@ -145,7 +145,7 @@ void math_atan(void)
 #if 0
 /* Lua math library: atan2(y, x) in degrees */
 
-void math_atan2(void)
+void __cdecl math_atan2(void)
 
 {
   float10 fVar1;
@@ -166,7 +166,7 @@ void math_atan2(void)
 #if 0
 /* Lua math library: ceil(x) */
 
-void math_ceil(void)
+void __cdecl math_ceil(void)
 
 {
   float fVar1;
@@ -184,7 +184,7 @@ void math_ceil(void)
 #if 0
 /* Lua math library: floor(x) */
 
-void math_floor(void)
+void __cdecl math_floor(void)
 
 {
   float fVar1;
@@ -202,7 +202,7 @@ void math_floor(void)
 #if 0
 /* Lua math library: mod(x, y) = fmod */
 
-void math_mod(void)
+void __cdecl math_mod(void)
 
 {
   undefined4 extraout_ECX;
@@ -222,7 +222,7 @@ void math_mod(void)
 #if 0
 /* Lua math library: sqrt(x) */
 
-void math_sqrt(void)
+void __cdecl math_sqrt(void)
 
 {
   float fVar1;
@@ -240,7 +240,7 @@ void math_sqrt(void)
 /* Lua math library: pow(x, y); also installed as the 'pow' tag method of numbers (the ^ operator)
     */
 
-void math_pow(void)
+void __cdecl math_pow(void)
 
 {
   float n;
@@ -259,7 +259,7 @@ void math_pow(void)
 #if 0
 /* Lua math library: log(x), natural logarithm */
 
-void math_log(void)
+void __cdecl math_log(void)
 
 {
   float10 fVar1;
@@ -278,7 +278,7 @@ void math_log(void)
 #if 0
 /* Lua math library: log10(x) */
 
-void math_log10(void)
+void __cdecl math_log10(void)
 
 {
   float10 fVar1;
@@ -297,7 +297,7 @@ void math_log10(void)
 #if 0
 /* Lua math library: exp(x) */
 
-void math_exp(void)
+void __cdecl math_exp(void)
 
 {
   float10 fVar1;
@@ -319,7 +319,7 @@ void math_exp(void)
 #if 0
 /* Lua math library: deg(x), radians to degrees */
 
-void math_deg(void)
+void __cdecl math_deg(void)
 
 {
   float fVar1;
@@ -336,7 +336,7 @@ void math_deg(void)
 #if 0
 /* Lua math library: rad(x), degrees to radians */
 
-void math_rad(void)
+void __cdecl math_rad(void)
 
 {
   float fVar1;
@@ -353,7 +353,7 @@ void math_rad(void)
 #if 0
 /* Lua math library: min(x, ...) */
 
-void math_min(void)
+void __cdecl math_min(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -386,7 +386,7 @@ void math_min(void)
 #if 0
 /* Lua math library: max(x, ...) */
 
-void math_max(void)
+void __cdecl math_max(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -419,7 +419,7 @@ void math_max(void)
 #if 0
 /* Lua math library: random() in [0,1) (rand() % 32767 / 32768), random(n) in [1,n] */
 
-void math_random(void)
+void __cdecl math_random(void)
 
 {
   uint uVar1;
@@ -444,7 +444,7 @@ void math_random(void)
 #if 0
 /* Lua math library: randomseed(x), srand */
 
-void math_randomseed(void)
+void __cdecl math_randomseed(void)
 
 {
   longlong lVar1;

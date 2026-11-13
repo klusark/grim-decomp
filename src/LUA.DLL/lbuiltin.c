@@ -57,7 +57,7 @@ undefined4 luaL_buffer(void)
 /* Original name nextvar (the remaster's libLua.so: int_funcs entry 'nextvar', string 'variable name
    expected'); was FUN_10002db0. */
 
-void nextvar(void)
+void __cdecl nextvar(void)
 
 {
   int iVar1;
@@ -113,7 +113,7 @@ void __cdecl pushstring(uint param_1)
 /* Original name foreachvar (the remaster's libLua.so: int_funcs entry 'foreachvar'); was
    FUN_10002e70. */
 
-void foreachvar(void)
+void __cdecl foreachvar(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -158,7 +158,7 @@ void foreachvar(void)
 /* ---- 0x10002f80  next ---- */
 /* Original name next (the remaster's libLua.so: int_funcs entry 'next'); was FUN_10002f80. */
 
-void next(void)
+void __cdecl next(void)
 
 {
   int iVar1;
@@ -182,7 +182,7 @@ void next(void)
 /* ---- 0x10002fd0  foreach ---- */
 /* Original name foreach (the remaster's libLua.so: int_funcs entry 'foreach'); was FUN_10002fd0. */
 
-void foreach(void)
+void __cdecl foreach(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -231,7 +231,7 @@ void foreach(void)
 /* Original name internaldostring (the remaster's libLua.so: int_funcs entry 'dostring'); was
    FUN_100030d0. */
 
-void internaldostring(void)
+void __cdecl internaldostring(void)
 
 {
   int iVar1;
@@ -256,7 +256,7 @@ void internaldostring(void)
 /* Original name internaldofile (the remaster's libLua.so: int_funcs entry 'dofile'); was
    FUN_10003120. */
 
-void internaldofile(void)
+void __cdecl internaldofile(void)
 
 {
   char *pcVar1;
@@ -277,7 +277,7 @@ void internaldofile(void)
 /* Original name bi_tostring (the remaster's libLua.so: int_funcs entry 'tostring'); was
    FUN_10003150. */
 
-void bi_tostring(void)
+void __cdecl bi_tostring(void)
 
 {
   int iVar1;
@@ -396,7 +396,7 @@ void luaI_startscript(void)
 /* Original name luaI_stopscript (the remaster's libLua.so: int_funcs entry 'stop_script', strings
    'Argument to stopscript must be a task handle or function!'); was FUN_10003370. */
 
-void luaI_stopscript(void)
+void __cdecl luaI_stopscript(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -479,7 +479,7 @@ void luaI_stopscript(void)
 /* Original name luaI_findscript (the remaster's libLua.so: strings 'Too few arguments to
    findscript! ...'); was FUN_100034c0. */
 
-void luaI_findscript(void)
+void __cdecl luaI_findscript(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -556,7 +556,7 @@ void luaI_findscript(void)
 /* Original name luaI_identifyscript (the remaster's libLua.so: strings 'Too few arguments to
    identifyscript! ...'); was FUN_10003610. */
 
-void luaI_identifyscript(void)
+void __cdecl luaI_identifyscript(void)
 
 {
   int iVar1;
@@ -592,7 +592,7 @@ void luaI_identifyscript(void)
 /* Original name luaI_nextscript (the remaster's libLua.so: strings 'Too few arguments to
    nextscript! ...'); was FUN_100036a0. */
 
-void luaI_nextscript(void)
+void __cdecl luaI_nextscript(void)
 
 {
   int iVar1;
@@ -645,7 +645,7 @@ void luaI_breakhere(void)
 /* Original name luaI_print (the remaster's libLua.so: int_funcs entry 'print'); was FUN_10003780.
     */
 
-void luaI_print(void)
+void __cdecl luaI_print(void)
 
 {
   int iVar1;
@@ -667,7 +667,7 @@ void luaI_print(void)
 /* ---- 0x100037d0  luaI_type ---- */
 /* Original name luaI_type (the remaster's libLua.so: int_funcs entry 'type'); was FUN_100037d0. */
 
-void luaI_type(void)
+void __cdecl luaI_type(void)
 
 {
   int iVar1;
@@ -685,7 +685,7 @@ void luaI_type(void)
 /* Original name tonumber (the remaster's libLua.so: int_funcs entry 'tonumber', string 'base out of
    range'); was FUN_10003820. */
 
-void tonumber(void)
+void __cdecl tonumber(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -738,7 +738,7 @@ void tonumber(void)
 /* Original name luaI_error (the remaster's libLua.so: int_funcs entry 'error'); was FUN_10003910.
     */
 
-void luaI_error(void)
+void __cdecl luaI_error(void)
 
 {
   int iVar1;
@@ -754,7 +754,7 @@ void luaI_error(void)
 /* Original name luaI_assert (the remaster's libLua.so: int_funcs entry 'assert'); was FUN_10003930.
     */
 
-void luaI_assert(void)
+void __cdecl luaI_assert(void)
 
 {
   int iVar1;
@@ -773,7 +773,7 @@ void luaI_assert(void)
 /* Original name setglobal (the remaster's libLua.so: int_funcs entry 'setglobal'); was
    FUN_10003970. */
 
-void setglobal(void)
+void __cdecl setglobal(void)
 
 {
   byte *pbVar1;
@@ -791,7 +791,7 @@ void setglobal(void)
 /* Original name rawsetglobal (the remaster's libLua.so: int_funcs entry 'rawsetglobal'); was
    FUN_100039b0. */
 
-void rawsetglobal(void)
+void __cdecl rawsetglobal(void)
 
 {
   byte *pbVar1;
@@ -809,7 +809,7 @@ void rawsetglobal(void)
 /* Original name getglobal (the remaster's libLua.so: int_funcs entry 'getglobal'); was
    FUN_100039f0. */
 
-void getglobal(void)
+void __cdecl getglobal(void)
 
 {
   byte *pbVar1;
@@ -825,7 +825,7 @@ void getglobal(void)
 /* Original name rawgetglobal (the remaster's libLua.so: int_funcs entry 'rawgetglobal'); was
    FUN_10003a10. */
 
-void rawgetglobal(void)
+void __cdecl rawgetglobal(void)
 
 {
   byte *pbVar1;
@@ -840,7 +840,7 @@ void rawgetglobal(void)
 /* ---- 0x10003a30  luatag ---- */
 /* Original name luatag (the remaster's libLua.so: int_funcs entry 'tag'); was FUN_10003a30. */
 
-void luatag(void)
+void __cdecl luatag(void)
 
 {
   int iVar1;
@@ -854,7 +854,7 @@ void luatag(void)
 /* ---- 0x10003a60  luaI_call ---- */
 /* Original name luaI_call (the remaster's libLua.so: int_funcs entry 'call'); was FUN_10003a60. */
 
-void luaI_call(void)
+void __cdecl luaI_call(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -942,7 +942,7 @@ int __cdecl getnarg(int param_1)
 /* ---- 0x10003bf0  settag ---- */
 /* Original name settag (the remaster's libLua.so: int_funcs entry 'settag'); was FUN_10003bf0. */
 
-void settag(void)
+void __cdecl settag(void)
 
 {
   int iVar1;
@@ -958,7 +958,7 @@ void settag(void)
 /* ---- 0x10003c20  newtag ---- */
 /* Original name newtag (the remaster's libLua.so: int_funcs entry 'newtag'); was FUN_10003c20. */
 
-void newtag(void)
+void __cdecl newtag(void)
 
 {
   int iVar1;
@@ -972,7 +972,7 @@ void newtag(void)
 /* Original name copytagmethods (the remaster's libLua.so: int_funcs entry 'copytagmethods'); was
    FUN_10003c40. */
 
-void copytagmethods(void)
+void __cdecl copytagmethods(void)
 
 {
   int iVar1;
@@ -990,7 +990,7 @@ void copytagmethods(void)
 /* Original name rawgettable (the remaster's libLua.so: int_funcs entry 'rawgettable'); was
    FUN_10003c80. */
 
-void rawgettable(void)
+void __cdecl rawgettable(void)
 
 {
   int iVar1;
@@ -1030,7 +1030,7 @@ void rawsettable(void)
 /* Original name settagmethod (the remaster's libLua.so: int_funcs entry 'settagmethod'); was
    FUN_10003d10. */
 
-void settagmethod(void)
+void __cdecl settagmethod(void)
 
 {
   int iVar1;
@@ -1050,7 +1050,7 @@ void settagmethod(void)
 /* Original name gettagmethod (the remaster's libLua.so: int_funcs entry 'gettagmethod'); was
    FUN_10003d50. */
 
-void gettagmethod(void)
+void __cdecl gettagmethod(void)
 
 {
   byte *pbVar1;
@@ -1068,7 +1068,7 @@ void gettagmethod(void)
 /* Original name seterrormethod (the remaster's libLua.so: int_funcs entry 'seterrormethod'); was
    FUN_10003d80. */
 
-void seterrormethod(void)
+void __cdecl seterrormethod(void)
 
 {
   int iVar1;
@@ -1084,7 +1084,7 @@ void seterrormethod(void)
 /* Original name luaI_collectgarbage (the remaster's libLua.so: int_funcs entry 'collectgarbage');
    was FUN_10003db0. */
 
-void luaI_collectgarbage(void)
+void __cdecl luaI_collectgarbage(void)
 
 {
   int iVar1;

@@ -679,7 +679,7 @@ int __cdecl luaS_globaldefined(char *name)
 /* ---- 0x10009570  str_len ---- */
 /* Original name str_len (the remaster's libLua.so: strlib entry 'strlen'); was FUN_10009570. */
 
-void str_len(void)
+void __cdecl str_len(void)
 
 {
   char cVar1;

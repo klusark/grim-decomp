@@ -68,11 +68,11 @@ int __cdecl lua_updatetasks(int param_1)
                             set_normalized((int *)(GL[8] + GL[10] * 8), GL + 0x31);
                             if (lua_taskhook != 0)
                                 luaD_taskHook(GL[0x30], 0);
-                            res = luaD_call((code *)(base + 1), (void *)0xff);
+                            res = luaD_call(base + 1, 0xff);
                         } else {
                             if (lua_taskhook != 0)
                                 luaD_taskHook(GL[0x30], 2);
-                            res = luaD_call((code *)((int *)GL[0])[4], (void *)((int *)GL[0])[5]);
+                            res = luaD_call(((int *)GL[0])[4], ((int *)GL[0])[5]);
                         }
                     } else {
                         hookarg = 3;

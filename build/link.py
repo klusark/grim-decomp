@@ -141,6 +141,7 @@ def link(cc, src, obj, prog, env):
     if not objs:
         print(f"{prog}: no objects (run `make objs` first)")
         return
+    generated = list(objs)
     cflags = ["-std=gnu11", "-fpermissive", "-w", "-fno-builtin", "-ffreestanding", "-fno-common", "-include",
               os.path.join(os.path.dirname(os.path.abspath(__file__)), "compat.h"),
               "-I" + os.path.join(src, prog)]
@@ -253,6 +254,19 @@ def link(cc, src, obj, prog, env):
             print(f"{prog}: lib_alias.s does not assemble:\n{out[:2000]}")
             return
         objs.append(os.path.join(d, "lib_alias.o"))
+    # a hand-written function must replace its decompiled twin, not sit next to it: --allow-multiple-definition would
+    # silently keep whichever object comes first (build_src leaves the twin compiled when it does not recognise the
+    # override's definition, e.g. a comment between `)` and `{`)
+    nm = os.path.join(os.path.dirname(cc), "nm") if os.path.dirname(cc) else "nm"
+    hand = [o for o in objs if os.path.basename(o).startswith(("overrides", "cleanroom_"))]
+    def text_syms(files):
+        r = subprocess.run([nm, "-g", "--defined-only"] + files, capture_output=True, text=True, env=env)
+        return {l.split()[2] for l in r.stdout.splitlines() if len(l.split()) == 3 and l.split()[1] == "T"}
+    twice = sorted(text_syms(hand) & text_syms(generated))
+    if twice:
+        print(f"{prog}: link FAILED: defined both by a hand-written override and by the generated code (build_src did not "
+              f"put the twin under #if 0): {' '.join(twice[:20])}")
+        return
     libs = []
     for dep in DLL_IMPORTS.get(prog, []):
         imp = os.path.join(obj, dep, "lib" + dep.split(".")[0].lower() + ".a")

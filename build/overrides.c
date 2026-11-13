@@ -2307,9 +2307,9 @@ void luaI_startscript(void)
 
 /* Reads a whole saved Lua world back: closes the current one, builds the first task state from the stream (and the others
  * linked after it), makes the saved current task current again. */
-undefined4 lua_Restore(code *param_1)
+undefined4 lua_Restore(void *readFunc)
 {
-    LuaIO rd = (LuaIO)param_1;
+    LuaIO rd = (LuaIO)readFunc;
     undefined4 saved78;
     uint numTasks, i;
     int depth;
@@ -2320,26 +2320,26 @@ undefined4 lua_Restore(code *param_1)
     g_pLuaState = mem != 0 ? LState_Construct((LState *)mem) : 0;
     g_dwL_Main = g_pLuaState;
     LState_initglobals();
-    LState_GlobalBeginRestore((int)param_1);
+    LState_GlobalBeginRestore((int)readFunc);
     saved78 = g_dwLState_numThreads;
     rd(&numTasks, 4);
     if (numTasks == 0)
         (*(void (__cdecl **)(char *, char *, int))LUA_HOST(0x18))(s_numTasks___0_100262f4, s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4, 0x499);
     rd(&depth, 4);
-    LState_Restore(g_dwL_Main, (int)param_1);
+    LState_Restore(g_dwL_Main, (int)readFunc);
     prev = g_dwL_Main;
     for (i = 1; i < numTasks; i++) {
         int *task;
         mem = luaM_malloc(0xd4);
         task = mem != 0 ? (int *)LState_Construct(mem) : 0;
-        if (LState_Restore(task, (int)param_1) != 0)
+        if (LState_Restore(task, (int)readFunc) != 0)
             (*(void (__cdecl **)(char *, char *, int))LUA_HOST(0x18))(s_pNewState__Restore_restoreFunc____100262c8, s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4, 0x4a2);
         LState_attach(task, (int)prev);
         prev = task;
     }
     while (depth-- != 0)
         g_pLuaState = LState_next(g_pLuaState);
-    LState_GlobalEndRestore((int)param_1);
+    LState_GlobalEndRestore((int)readFunc);
     g_dwLState_numThreads = saved78;
     return 0;
 }
@@ -2353,11 +2353,10 @@ undefined4 lua_Restore(code *param_1)
  *    -5 raw C function, not started        -11 C function running ("cmark")
  * anything else is called through its tag method ("call").  A handler returns `res`: > 0 the function finished and the
  * results start at stack index res, <= 0 it wants to call the function at position -res next (a new frame is pushed).
- * Returns 1 when the task function luaI_breakhere finished the task, else 0.  (The original had a C++ exception frame; not needed.) */
-undefined4 luaD_call(code *param_1, void *param_2)
+ * Returns 1 when the task function luaI_breakhere finished the task, else 0.  (The original had a C++ exception frame; not needed.)
+ * pos: stack position of the function to call; nres: number of results wanted (0xff: all). */
+undefined4 luaD_call(int pos, int nres)
 {
-    int pos = (int)param_1;                             /* stack position of the function to call */
-    int nres = (int)param_2;                            /* number of results wanted (0xff: all) */
     int res = nres;                                     /* the last handler's result */
     int base = *LSW;                           /* call frame to return at */
     if (base == 0 || LSW[6] != 0) {            /* no frame yet, or inside a C call: push a frame for this call */

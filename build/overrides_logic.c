@@ -2896,4 +2896,45 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   pfVar8[2] = fVar10 * vv[2] + pfVar8[2];
   return 1;
 }
+
+/* ==== sputLua_GetVisibleThingsL (0x0049b9e0) ====
+ * GetVisibleThings([actor]): a table {actor handle = 1} of the actors in the viewer's set that it can see (the viewer is
+ * the argument, or the selected actor when it is nil; none selected: no result).  The original leaves the viewer
+ * unset when the argument is neither nil nor an actor and reads whatever an earlier call frame left in that stack slot
+ * (the clean room's GetVisibleThings({}) gets a table back from it).  The rebuild read a different leftover after the
+ * LUA.DLL prototypes round (2026-11-13), a null pointer, and crashed (grim_tools cleanroom args_GetVisibleThings_tab);
+ * here such an argument means the selected actor, and with none selected the table stays empty. */
+void sputLua_GetVisibleThingsL(void)
+{
+    int arg = lua_lua2C(1);
+    Actor *viewer = g_pSelectedActor;
+    int tab;
+    int *node;
+    float dist;
+
+    if (lua_isnil(arg)) {
+        if (viewer == (Actor *)0)
+            return;
+    } else if (lua_isuserdata(arg) && lua_tag(arg) == 0x52544341) {   /* 'ACTR' */
+        viewer = sputActor_ActorDeref(lua_getuserdata(arg));
+    }
+    tab = lua_createtable();
+    if (viewer == (Actor *)0) {
+        lua_pushobject(tab);
+        return;
+    }
+    if (*((char *)viewer + 0x7c) == ' ')                              /* not in a set */
+        lua_pushobject(tab);
+    for (node = (int *)GetRoomActors((char *)viewer + 0x7c); node != (int *)0; node = (int *)node[2]) {
+        Actor *target = g_pActors + node[0];
+        if (target != viewer && (*((byte *)viewer + 4) & 1) == 0 && sputActor_CanActorSeeActor(viewer, target, &dist)) {
+            lua_pushobject(tab);
+            lua_pushusertag(sputActor_GetActorHandle(target, 0x52544341), 0x52544341);
+            lua_pushnumber(1.0f);
+            lua_settable();
+        }
+    }
+    lua_pushobject(tab);
+}
+
 #endif /* GRIM_EXE */
