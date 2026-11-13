@@ -1,13 +1,14 @@
 """Applies names/logic_protos.json to the live Ghidra project (agent P): function prototypes whose arguments the decompiler
 had wrong, so that the callers' decompilation (and tools/export_changed.py) sees the right argument lists.
-  python -I tools/apply_logic_protos.py [--dry]"""
+  python -I tools/apply_logic_protos.py [--dry] [names/<file>.json]   (default names/logic_protos.json)"""
 import json, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ghidra_api as g
 import export_raw
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-data = json.load(open(os.path.join(ROOT, "names", "logic_protos.json")))
+files = [a for a in sys.argv[1:] if not a.startswith("--")]
+data = json.load(open(files[0] if files else os.path.join(ROOT, "names", "logic_protos.json")))
 for prog, items in data.items():
     if prog.startswith("_"):
         continue

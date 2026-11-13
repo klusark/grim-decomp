@@ -27,7 +27,7 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
-  int iVar3;
+  void *pvVar3;
   undefined *puVar4;
   short sVar5;
   int iVar6;
@@ -43,8 +43,8 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
             grimlib_SetPause(1);
             Grim_ShutdownDisplay();
             iVar6 = 6;
-            iVar3 = Win_GetMainHwnd();
-            ShowWindow(iVar3,iVar6);
+            pvVar3 = Win_GetMainHwnd();
+            ShowWindow((int)pvVar3,iVar6);
           }
           Input_SetAcquired(0);
           INT_004dd38c = 0;
@@ -59,8 +59,8 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
         if (g_bWindowedMode == 0) {
           grimlib_SetPause(0);
           iVar6 = 9;
-          iVar3 = Win_GetMainHwnd();
-          ShowWindow(iVar3,iVar6);
+          pvVar3 = Win_GetMainHwnd();
+          ShowWindow((int)pvVar3,iVar6);
           Display_InitFromConfig();
         }
         INT_004dd38c = 1;
@@ -126,8 +126,8 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
           }
           break;
         case 0x7b:
-          iVar3 = GetKeyState(8);
-          if ((short)iVar3 != 0) {
+          iVar6 = GetKeyState(8);
+          if ((short)iVar6 != 0) {
             lua_dofile(s_grimpatch_bin_004dd93c);
             return (undefined *)0x1;
           }
@@ -172,15 +172,15 @@ undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3)
     return (undefined *)0x0;
   }
   if (param_2 == 0x10) {
-    iVar3 = ChoreFace_Toggle(0);
-    if (iVar3 != 0) {
-      iVar3 = Win_GetMainHwnd();
-      iVar3 = IsIconic(iVar3);
-      if (iVar3 != 0) {
+    iVar6 = ChoreFace_Toggle(0);
+    if (iVar6 != 0) {
+      pvVar3 = Win_GetMainHwnd();
+      iVar6 = IsIconic((int)pvVar3);
+      if (iVar6 != 0) {
         return (undefined *)0x0;
       }
-      iVar3 = grimlib_ConfirmClose();
-      return (undefined *)(uint)(iVar3 == 0);
+      iVar6 = grimlib_ConfirmClose();
+      return (undefined *)(uint)(iVar6 == 0);
     }
 switchD_0040336f_caseD_105:
     return (undefined *)0x1;
@@ -204,8 +204,8 @@ switchD_0040336f_caseD_105:
 LAB_0040303f:
   if ((g_bWindowedMode == 0) && (UINT_004e814c != 0)) {
     iVar6 = 6;
-    iVar3 = Win_GetMainHwnd();
-    ShowWindow(iVar3,iVar6);
+    pvVar3 = Win_GetMainHwnd();
+    ShowWindow((int)pvVar3,iVar6);
     return (undefined *)0x0;
   }
   return (undefined *)0x0;
@@ -222,7 +222,7 @@ void Win_SetMainHwnd(void *param_1)
 }
 
 /* ---- 0x00473370  Win_GetMainHwnd ---- */
-void * Win_GetMainHwnd(void)
+void * __cdecl Win_GetMainHwnd(void)
 
 {
   return g_pMainHwnd;
@@ -390,7 +390,7 @@ void Win_AddMessageHook(void *param_1)
 }
 
 /* ---- 0x004ac1a0  Win_RemoveMessageHook ---- */
-undefined4 Win_RemoveMessageHook(void *param_1)
+undefined4 __cdecl Win_RemoveMessageHook(void *hook)
 
 {
   void **ppvVar1;
@@ -399,7 +399,7 @@ undefined4 Win_RemoveMessageHook(void *param_1)
   iVar2 = 0;
   ppvVar1 = &g_pWinMessageHooks;
   do {
-    if (*ppvVar1 == param_1) break;
+    if (*ppvVar1 == hook) break;
     ppvVar1 = ppvVar1 + 2;
     iVar2 = iVar2 + 1;
   } while ((int)ppvVar1 < ((unsigned)(uintptr_t)&DAT_008d0a68));

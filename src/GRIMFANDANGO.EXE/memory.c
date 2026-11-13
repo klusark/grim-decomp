@@ -8,7 +8,7 @@
 /* ---- 0x0045ff00  Mem_DumpLog ---- */
 /* Lua DumpMemoryLog */
 
-void Mem_DumpLog(void)
+void __cdecl Mem_DumpLog(void)
 
 {
   return;

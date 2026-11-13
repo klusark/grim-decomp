@@ -18,12 +18,13 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
   int iVar3;
   char *pcVar4;
   char *pcVar5;
-  uint uVar6;
+  void *pvVar6;
   uint uVar7;
-  char *pcVar8;
+  uint uVar8;
   char *pcVar9;
   char *pcVar10;
-  undefined4 uVar11;
+  char *pcVar11;
+  undefined4 uVar12;
   #define acStack_174 (*(char (*)[52])(_frame + (0x190 - 0x174)))
   #define auStack_140 (*(undefined1 (*)[320])(_frame + (0x190 - 0x140)))
   
@@ -37,61 +38,61 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
     while (((pcVar5 != (char *)0x0 && (*pcVar5 != '\0')) && (!bVar2))) {
       iVar3 = GetDriveTypeA((int)pcVar5);
       if ((iVar3 == 5) || ((g_nDeveloper != 0 && (iVar3 == 4)))) {
-        uVar6 = 0xffffffff;
-        pcVar8 = pcVar5;
+        uVar7 = 0xffffffff;
+        pcVar9 = pcVar5;
         do {
-          pcVar10 = pcVar8;
-          if (uVar6 == 0) break;
-          uVar6 = uVar6 - 1;
-          pcVar10 = pcVar8 + 1;
-          cVar1 = *pcVar8;
-          pcVar8 = pcVar10;
+          pcVar11 = pcVar9;
+          if (uVar7 == 0) break;
+          uVar7 = uVar7 - 1;
+          pcVar11 = pcVar9 + 1;
+          cVar1 = *pcVar9;
+          pcVar9 = pcVar11;
         } while (cVar1 != '\0');
-        uVar6 = ~uVar6;
-        pcVar8 = pcVar10 + -uVar6;
-        pcVar10 = acStack_174;
-        for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
-          *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
-          pcVar8 = pcVar8 + 4;
-          pcVar10 = pcVar10 + 4;
+        uVar7 = ~uVar7;
+        pcVar9 = pcVar11 + -uVar7;
+        pcVar11 = acStack_174;
+        for (uVar8 = uVar7 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
+          *(undefined4 *)pcVar11 = *(undefined4 *)pcVar9;
+          pcVar9 = pcVar9 + 4;
+          pcVar11 = pcVar11 + 4;
         }
-        for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-          *pcVar10 = *pcVar8;
-          pcVar8 = pcVar8 + 1;
-          pcVar10 = pcVar10 + 1;
+        for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
+          *pcVar11 = *pcVar9;
+          pcVar9 = pcVar9 + 1;
+          pcVar11 = pcVar11 + 1;
         }
-        uVar6 = 0xffffffff;
-        pcVar8 = subdir;
+        uVar7 = 0xffffffff;
+        pcVar9 = subdir;
         do {
-          pcVar10 = pcVar8;
-          if (uVar6 == 0) break;
-          uVar6 = uVar6 - 1;
-          pcVar10 = pcVar8 + 1;
-          cVar1 = *pcVar8;
-          pcVar8 = pcVar10;
+          pcVar11 = pcVar9;
+          if (uVar7 == 0) break;
+          uVar7 = uVar7 - 1;
+          pcVar11 = pcVar9 + 1;
+          cVar1 = *pcVar9;
+          pcVar9 = pcVar11;
         } while (cVar1 != '\0');
-        uVar6 = ~uVar6;
+        uVar7 = ~uVar7;
         iVar3 = -1;
-        pcVar8 = acStack_174;
+        pcVar9 = acStack_174;
         do {
-          pcVar9 = pcVar8;
+          pcVar10 = pcVar9;
           if (iVar3 == 0) break;
           iVar3 = iVar3 + -1;
-          pcVar9 = pcVar8 + 1;
-          cVar1 = *pcVar8;
-          pcVar8 = pcVar9;
+          pcVar10 = pcVar9 + 1;
+          cVar1 = *pcVar9;
+          pcVar9 = pcVar10;
         } while (cVar1 != '\0');
-        pcVar8 = pcVar10 + -uVar6;
-        pcVar10 = pcVar9 + -1;
-        for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
-          *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
-          pcVar8 = pcVar8 + 4;
-          pcVar10 = pcVar10 + 4;
+        pcVar9 = pcVar11 + -uVar7;
+        pcVar11 = pcVar10 + -1;
+        for (uVar8 = uVar7 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
+          *(undefined4 *)pcVar11 = *(undefined4 *)pcVar9;
+          pcVar9 = pcVar9 + 4;
+          pcVar11 = pcVar11 + 4;
         }
-        for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-          *pcVar10 = *pcVar8;
-          pcVar8 = pcVar8 + 1;
-          pcVar10 = pcVar10 + 1;
+        for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
+          *pcVar11 = *pcVar9;
+          pcVar9 = pcVar9 + 1;
+          pcVar11 = pcVar11 + 1;
         }
         iVar3 = FindFirstFileA((int)acStack_174,(int)auStack_140);
         if (iVar3 != -1) {
@@ -99,24 +100,24 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
           FindClose(iVar3);
         }
       }
-      uVar6 = 0xffffffff;
-      pcVar8 = pcVar5;
+      uVar7 = 0xffffffff;
+      pcVar9 = pcVar5;
       do {
-        if (uVar6 == 0) break;
-        uVar6 = uVar6 - 1;
-        cVar1 = *pcVar8;
-        pcVar8 = pcVar8 + 1;
+        if (uVar7 == 0) break;
+        uVar7 = uVar7 - 1;
+        cVar1 = *pcVar9;
+        pcVar9 = pcVar9 + 1;
       } while (cVar1 != '\0');
-      pcVar5 = pcVar5 + ~uVar6;
+      pcVar5 = pcVar5 + ~uVar7;
     }
     (*g_pStd_HS->pFree)(pcVar4);
   }
   if (!bVar2) {
-    uVar11 = 0;
+    uVar12 = 0;
     pcVar5 = PolyglotGetString(s__engn007_Grim_Fandango_could_not_004dd4dc);
     pcVar4 = PolyglotGetString(s__engn006_Please_make_sure_that_t_004dd47c);
-    uVar11 = ((code *)Win_GetMainHwnd)(pcVar4,pcVar5,uVar11);
-    ((code *)Grim_FatalMessageBox)(uVar11);
+    pvVar6 = Win_GetMainHwnd();
+    Grim_FatalMessageBox(pvVar6,pcVar4,pcVar5,uVar12);
     return 0;
   }
   return 1;
@@ -141,10 +142,11 @@ undefined4 Main_Startup(char *param_1)
   int iVar1;
   char *pcVar2;
   char *pcVar3;
-  undefined *puVar4;
-  int iVar5;
-  undefined4 *puVar6;
-  undefined4 uVar7;
+  void *pvVar4;
+  undefined *puVar5;
+  int iVar6;
+  undefined4 *puVar7;
+  undefined4 uVar8;
   #define local_80 (*(uint *)(_frame + (0x90 - 0x80)))
   #define local_7c (*(uint *)(_frame + (0x90 - 0x7c)))
   #define local_78 (*(undefined2 *)(_frame + (0x90 - 0x78)))
@@ -156,15 +158,15 @@ undefined4 Main_Startup(char *param_1)
   local_7c = UINT_004dd66c;
   local_76 = DAT_004dd672;
   local_78 = DAT_004dd670;
-  puVar6 = local_75;
-  for (iVar5 = 0xd; iVar5 != 0; iVar5 = iVar5 + -1) {
-    *puVar6 = 0;
-    puVar6 = puVar6 + 1;
+  puVar7 = local_75;
+  for (iVar6 = 0xd; iVar6 != 0; iVar6 = iVar6 + -1) {
+    *puVar7 = 0;
+    puVar7 = puVar7 + 1;
   }
-  *(undefined1 *)puVar6 = 0;
+  *(undefined1 *)puVar7 = 0;
   HostServicesInitialize((GrimServices *)&g_aHs);
-  iVar5 = Grim_ParseCommandLine(param_1);
-  if (iVar5 == 0) {
+  iVar6 = Grim_ParseCommandLine(param_1);
+  if (iVar6 == 0) {
     return 0;
   }
   stdInitServices(&g_aHs);
@@ -176,61 +178,61 @@ undefined4 Main_Startup(char *param_1)
   Grim_OpenRegistry();
   Grim_DecodeRegKeyName((char *)&local_80);
   wuRegistry_GetStr((char *)&local_80,acStack_40,0x40,(char *)0x0);
-  iVar5 = _stricmp(acStack_40,&DAT_004dd660);
-  if (iVar5 == 0) {
+  iVar6 = _stricmp(acStack_40,&DAT_004dd660);
+  if (iVar6 == 0) {
     g_nDeveloper = 1;
   }
-  iVar5 = _stricmp(acStack_40,&DAT_004dd65c);
-  if (iVar5 == 0) {
+  iVar6 = _stricmp(acStack_40,&DAT_004dd65c);
+  if (iVar6 == 0) {
     g_nDeveloper = 1;
   }
   if (g_nDeveloper == 0) {
-    iVar5 = Grim_FindDataOnDrives(s_GrimData_004dd650);
-    if (iVar5 == 0) {
+    iVar6 = Grim_FindDataOnDrives(s_GrimData_004dd650);
+    if (iVar6 == 0) {
       return 0;
     }
   }
   rdStartup((GrimServices *)&g_aHs);
-  iVar5 = rdOpen(0);
-  if (iVar5 == 0) {
+  iVar6 = rdOpen(0);
+  if (iVar6 == 0) {
     return 0;
   }
   Win_AddMessageHook(Win_WndProc);
   Win_AddMessageHook(Win_IsSysCommandBlocked);
-  iVar5 = GetDC(0);
-  iVar1 = GetDeviceCaps(iVar5,0xc);
-  ReleaseDC(0,iVar5);
+  iVar6 = GetDC(0);
+  iVar1 = GetDeviceCaps(iVar6,0xc);
+  ReleaseDC(0,iVar6);
   if (iVar1 < 8) {
-    uVar7 = 0;
+    uVar8 = 0;
     pcVar2 = PolyglotGetString(s__engn001_Grim_Fandango_004dd638);
     pcVar3 = PolyglotGetString(s__engn002_System_must_be_in_256_c_004dd5f8);
-    uVar7 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar7);
-    ((code *)Grim_FatalMessageBox)(uVar7);
+    pvVar4 = Win_GetMainHwnd();
+    Grim_FatalMessageBox(pvVar4,pcVar3,pcVar2,uVar8);
     return 0;
   }
-  iVar5 = stdDisplay_Startup();
-  if (iVar5 == 0) {
+  iVar6 = stdDisplay_Startup();
+  if (iVar6 == 0) {
     return 0;
   }
   Grim_EnumDisplayModes();
   if ((g_nDeveloper != 0) && (g_bWindowedMode != 0)) {
     Reg_SetInt(s_ExperimentalDisplay_004dd5e4,1);
   }
-  puVar4 = Display_InitFromConfig();
-  if (puVar4 == (undefined *)0x0) {
+  puVar5 = Display_InitFromConfig();
+  if (puVar5 == (undefined *)0x0) {
     return 0;
   }
-  puVar4 = grimlib_GameInitialize((GrimServices *)&g_aHs,(undefined **)&g_aMs);
-  if (puVar4 != (undefined *)0x0) {
+  puVar5 = grimlib_GameInitialize((GrimServices *)&g_aHs,(undefined **)&g_aMs);
+  if (puVar5 != (undefined *)0x0) {
     return 0;
   }
-  iVar5 = (*(code *)UINT_008dde28)();
-  if (iVar5 != 0) {
-    uVar7 = 0;
+  iVar6 = (*(code *)UINT_008dde28)();
+  if (iVar6 != 0) {
+    uVar8 = 0;
     pcVar2 = PolyglotGetString(s__engn005_Grim_Fandango_could_not_004dd5a8);
     pcVar3 = PolyglotGetString(s__engn004_Please_make_sure_you_ar_004dd534);
-    uVar7 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar7);
-    ((code *)Grim_FatalMessageBox)(uVar7);
+    pvVar4 = Win_GetMainHwnd();
+    Grim_FatalMessageBox(pvVar4,pcVar3,pcVar2,uVar8);
     return 0;
   }
   lua_openlib((int *)&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
@@ -241,24 +243,24 @@ undefined4 Main_Startup(char *param_1)
   grimlib_FindResources();
   Grim_ShowSplash();
   grimdemo_EnableDebugging(1);
-  iVar5 = grimlib_FindSystemFiles();
-  if (iVar5 != 0) {
-    uVar7 = 0;
+  iVar6 = grimlib_FindSystemFiles();
+  if (iVar6 != 0) {
+    uVar8 = 0;
     pcVar2 = PolyglotGetString(s__engn007_Grim_Fandango_could_not_004dd4dc);
     pcVar3 = PolyglotGetString(s__engn006_Please_make_sure_that_t_004dd47c);
-    uVar7 = ((code *)Win_GetMainHwnd)(pcVar3,pcVar2,uVar7);
-    ((code *)Grim_FatalMessageBox)(uVar7);
+    pvVar4 = Win_GetMainHwnd();
+    Grim_FatalMessageBox(pvVar4,pcVar3,pcVar2,uVar8);
     return 0;
   }
-  iVar5 = grimlib_Open(UINT_004f5a10,-(uint)(UINT_004f5a14 != 0) & 0x4f59b0);
-  if (iVar5 != 0) {
+  iVar6 = grimlib_Open(UINT_004f5a10,-(uint)(UINT_004f5a14 != 0) & 0x4f59b0);
+  if (iVar6 != 0) {
     return 0;
   }
   if (UINT_004f5a44 != 0) {
     ChoreFace_Toggle(1);
   }
-  iVar5 = Win_GetMainHwnd();
-  SetActiveWindow(iVar5);
+  pvVar4 = Win_GetMainHwnd();
+  SetActiveWindow((int)pvVar4);
   _g_dwGrimlib_MinimizeWhenInactive = 1;
   return 1;
 }
@@ -574,8 +576,10 @@ int __cdecl Grim_ParseCommandLine(char *cmdline)
 {
   int iVar1;
   int iVar2;
-  uint uVar3;
-  undefined4 uVar4;
+  undefined4 uVar3;
+  uint uVar4;
+  void *pvVar5;
+  char *pcVar6;
   
   iVar1 = strtok(cmdline,&DAT_004dd918);
   if (iVar1 == 0) {
@@ -584,8 +588,8 @@ int __cdecl Grim_ParseCommandLine(char *cmdline)
   do {
     iVar2 = _stricmp(iVar1,&DAT_004dd914);
     if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd910), iVar2 == 0)) {
-      uVar4 = strtok(0,&DAT_004dd918);
-      strncpy(s_grim_tab_004dd238,uVar4,0x103);
+      uVar3 = strtok(0,&DAT_004dd918);
+      strncpy(s_grim_tab_004dd238,uVar3,0x103);
       DAT_004dd33b = 0;
 LAB_00402f60:
       iVar1 = strtok(0,&DAT_004dd918);
@@ -593,8 +597,8 @@ LAB_00402f60:
     else {
       iVar2 = _stricmp(iVar1,&DAT_004dd90c);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd908), iVar2 == 0)) {
-        uVar3 = strtok(0,&DAT_004dd918);
-        _DAT_004dd34c = atoi(uVar3);
+        uVar4 = strtok(0,&DAT_004dd918);
+        _DAT_004dd34c = atoi(uVar4);
         grimlib_SetCacheMax(_DAT_004dd34c);
         goto LAB_00402f60;
       }
@@ -631,15 +635,15 @@ LAB_00402f60:
       iVar2 = _stricmp(iVar1,&DAT_004dd8d4);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8d0), iVar2 == 0)) {
         UINT_004f5a14 = 1;
-        uVar4 = strtok(0,&DAT_004dd918);
-        strncpy(&DAT_004f59b0,uVar4,0x4f);
+        uVar3 = strtok(0,&DAT_004dd918);
+        strncpy(&DAT_004f59b0,uVar3,0x4f);
         DAT_004f59ff = 0;
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8cc);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8c8), iVar2 == 0)) {
-        uVar4 = strtok(0,&DAT_004dd918);
-        grimlib_AddResourcePath(uVar4);
+        uVar3 = strtok(0,&DAT_004dd918);
+        grimlib_AddResourcePath(uVar3);
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8c4);
@@ -648,8 +652,10 @@ LAB_00402f60:
         if ((iVar2 == 0) || (iVar1 = _stricmp(iVar1,&DAT_004dd8b8), iVar1 == 0)) {
           cmdline = s_Usage_004dd8b0;
         }
-        uVar4 = ((code *)Win_GetMainHwnd)(s_GRIME__Grim_Fandango_Executable_U_004dd048,cmdline,0);
-        ((code *)Grim_FatalMessageBox)(uVar4);
+        uVar3 = 0;
+        pcVar6 = s_GRIME__Grim_Fandango_Executable_U_004dd048;
+        pvVar5 = Win_GetMainHwnd();
+        Grim_FatalMessageBox(pvVar5,pcVar6,cmdline,uVar3);
         return 0;
       }
       iVar1 = strtok(0,&DAT_004dd918);

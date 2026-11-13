@@ -242,10 +242,10 @@ undefined4 grimlib_Open(int param_1,char *param_2)
 /* Original name grimlib_MarkDirtyRect (the remaster's GrimFandango (Linux): aligned call in
    Main_Service); was Engine_InvalidateRect. */
 
-void grimlib_MarkDirtyRect(int *param_1,int param_2)
+void __cdecl grimlib_MarkDirtyRect(int *rect,int flags)
 
 {
-  sputRender_MarkDirtyRect(param_1,param_2);
+  sputRender_MarkDirtyRect(rect,flags);
   return;
 }
 
@@ -333,7 +333,7 @@ undefined * __cdecl grimlib_CharacterCallback(int param_1)
    grimlib_UpdateManual (the remaster's GrimFandango (Linux): aligned call in Main_Service); was
    Engine_UpdateFrame. */
 
-void grimlib_UpdateManual(int param_1,int param_2)
+void __cdecl grimlib_UpdateManual(int draw,int frameMs)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -358,13 +358,13 @@ void grimlib_UpdateManual(int param_1,int param_2)
     fVar2 = sputTime_GetFrameTimeFlex();
     sputControl_Update(PUN(undefined4,(float)(fVar2)),uVar1);
     PerfEnd(1);
-    if ((g_dwGrimlib_mode != 1) || (param_2 != 0)) {
+    if ((g_dwGrimlib_mode != 1) || (frameMs != 0)) {
       g_dwGrimlib_frameNumber = g_dwGrimlib_frameNumber + 1;
-      if (param_2 == 0) {
+      if (frameMs == 0) {
         sputTime_Advance();
       }
       else {
-        sputTime_AdvanceManual(param_2);
+        sputTime_AdvanceManual(frameMs);
       }
       if (g_dwUpdateLua != 0) {
         PerfBegin(2);
@@ -378,7 +378,7 @@ void grimlib_UpdateManual(int param_1,int param_2)
         PerfEnd(3);
       }
     }
-    if ((param_1 != 0) && ((g_dwGrimlib_mode != 1 || (param_2 != 0)))) {
+    if ((draw != 0) && ((g_dwGrimlib_mode != 1 || (frameMs != 0)))) {
       sputRender_Update();
       UINT_008a8c60 = 1;
     }

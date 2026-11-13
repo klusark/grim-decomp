@@ -466,7 +466,7 @@ void Input_CreateMouse(void)
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define uStack_38 (*(undefined4 *)(_frame + (0x50 - 0x38)))
+  #define pvStack_38 (*(void **)(_frame + (0x50 - 0x38)))
   #define uStack_34 (*(undefined4 *)(_frame + (0x50 - 0x34)))
   #define pvStack_30 (*(void **)(_frame + (0x50 - 0x30)))
   #define puStack_2c (*(undefined **)(_frame + (0x50 - 0x2c)))
@@ -490,15 +490,15 @@ void Input_CreateMouse(void)
       if (iVar1 == 0) {
         uStack_34 = 5;
         iVar1 = *(int *)g_pDInputMouse;
-        uStack_38 = 0x4775fe;
-        uStack_38 = Win_GetMainHwnd();
+        pvStack_38 = (void *)0x4775fe;
+        pvStack_38 = Win_GetMainHwnd();
         pvStack_30 = (void *)(**(code_std **)(iVar1 + 0x34))(g_pDInputMouse);
         if (pvStack_30 == (void *)0x0) {
-          uStack_38 = 0x14;
+          pvStack_38 = (void *)0x14;
           uStack_34 = 0x10;
           pvStack_28 = (void *)0x20;
           puStack_2c = pvStack_30;
-          (**(code_std **)(*(int *)g_pDInputMouse + 0x18))(g_pDInputMouse,1,&uStack_38);
+          (**(code_std **)(*(int *)g_pDInputMouse + 0x18))(g_pDInputMouse,1,&pvStack_38);
           Input_SetAxisRange(0xc,-0xfa,0xfa,0.0);
           Input_SetAxisRange(0xd,-200,200,0.0);
           Input_SetAxisRange(0xe,-0x14,0x14,0.0);
@@ -513,8 +513,8 @@ void Input_CreateMouse(void)
 #undef puStack_2c
 #undef pvStack_28
 #undef pvStack_30
+#undef pvStack_38
 #undef uStack_34
-#undef uStack_38
 
 #endif
 

@@ -13,26 +13,26 @@
    +0x24) with the outcodes 1 / 0x10 / 0x1000 / 0x100 in both builds; the remaster inlined
    rdClip_CalcOutcode2); was rdClip_Line2D. */
 
-undefined4
-rdClip_Line2(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4,
-            undefined4 *param_5)
+undefined4 __cdecl
+rdClip_Line2(int canvas,undefined4 *x0,undefined4 *y0,undefined4 *x1,undefined4 *y1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   uint uVar3;
+  int iVar4;
   undefined4 unaff_ESI;
   undefined4 unaff_EDI;
-  longlong lVar4;
+  longlong lVar5;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  uVar1 = rdClip_CalcOutcode2(param_1,*param_2,*param_3);
-  uVar2 = rdClip_CalcOutcode2(param_1,*param_4,*param_5);
+  uVar1 = rdClip_CalcOutcode2(canvas,*x0,*y0);
+  uVar2 = rdClip_CalcOutcode2(canvas,*x1,*y1);
   if ((uVar1 == 0) && (uVar2 == 0)) {
     return 1;
   }
@@ -46,26 +46,28 @@ rdClip_Line2(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefine
       uVar3 = uVar2;
     }
     if (uVar3 == uVar1) {
-      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      lVar4 = _ftol((double)CONCAT44(unaff_EDI,(int)lVar4));
-      uVar1 = ((code *)rdClip_CalcOutcode2)(param_1,(int)lVar4);
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      iVar4 = (int)lVar5;
+      lVar5 = _ftol((double)CONCAT44(unaff_EDI,iVar4));
+      uVar1 = rdClip_CalcOutcode2(canvas,(int)lVar5,iVar4);
     }
     else {
-      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      lVar4 = _ftol((double)CONCAT44(unaff_EDI,(int)lVar4));
-      uVar2 = ((code *)rdClip_CalcOutcode2)(param_1,(int)lVar4);
+      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      iVar4 = (int)lVar5;
+      lVar5 = _ftol((double)CONCAT44(unaff_EDI,iVar4));
+      uVar2 = rdClip_CalcOutcode2(canvas,(int)lVar5,iVar4);
     }
     if ((uVar1 == 0) && (uVar2 == 0)) break;
     uVar3 = uVar1 & uVar2;
   }
-  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  *param_2 = (int)lVar4;
-  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  *param_3 = (int)lVar4;
-  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  *param_4 = (int)lVar4;
-  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  *param_5 = (int)lVar4;
+  lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  *x0 = (int)lVar5;
+  lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  *y0 = (int)lVar5;
+  lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  *x1 = (int)lVar5;
+  lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  *y1 = (int)lVar5;
   return 1;
 }
 #undef local_10
@@ -81,22 +83,22 @@ rdClip_Line2(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefine
 /* Original name rdClip_CalcOutcode2 (the remaster's GrimFandango (Linux): same body (outcode 1 /
    0x10 for x left / right of +0x18 / +0x20, 0x1000 / 0x100 for y)); was rdClip_Outcode2D. */
 
-uint rdClip_CalcOutcode2(int param_1,int param_2,int param_3)
+uint __cdecl rdClip_CalcOutcode2(int canvas,int x,int y)
 
 {
   uint uVar1;
   
   uVar1 = 0;
-  if (param_2 < *(int *)(param_1 + 0x18)) {
+  if (x < *(int *)(canvas + 0x18)) {
     uVar1 = 1;
   }
-  else if (*(int *)(param_1 + 0x20) < param_2) {
+  else if (*(int *)(canvas + 0x20) < x) {
     uVar1 = 0x10;
   }
-  if (param_3 < *(int *)(param_1 + 0x1c)) {
+  if (y < *(int *)(canvas + 0x1c)) {
     return uVar1 | 0x1000;
   }
-  if (*(int *)(param_1 + 0x24) < param_3) {
+  if (*(int *)(canvas + 0x24) < y) {
     uVar1 = uVar1 | 0x100;
   }
   return uVar1;

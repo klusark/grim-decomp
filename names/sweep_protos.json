@@ -1,0 +1,77 @@
+{
+ "_comment": "override sweep (2026-11-13): prototypes of functions Ghidra had left without one (signature source DEFAULT), so each caller guessed its own argument list; applied with tools/apply_logic_protos.py names/sweep_protos.json",
+ "GRIMFANDANGO.EXE": {
+  "00486b20": {
+   "proto": "code * sputRender_SetPaletteFunc(void)",
+   "cc": "__cdecl"
+  },
+  "00481cf0": {
+   "proto": "int res_FindDirectoryEntry(int archive, int type, byte *name, uint hash, undefined4 *entry)",
+   "cc": "__cdecl"
+  },
+  "00492680": {
+   "proto": "int TestCollision(float *from, float *to, float *hit, float xmin, float ymin, float zmin, float xmax, float ymax, float zmax, float *frame)",
+   "cc": "__cdecl"
+  },
+  "004a9430": {
+   "proto": "int BuildPath(float *from, float *to, int flags)",
+   "cc": "__cdecl"
+  },
+  "004a9420": {
+   "proto": "uint GetPath(undefined4 *out)",
+   "cc": "__cdecl"
+  },
+  "004922d0": {
+   "proto": "void GetOuttaTheBox(float *pos, float xmin, float ymin, float zmin, float xmax, float ymax, float zmax, float *frame, float *out)",
+   "cc": "__cdecl"
+  },
+  "00494100": {
+   "proto": "undefined4 Collision_BoxSlide(float *from, float *to, float xmin, float ymin, float zmin, float xmax, float ymax, float zmax, float *out)",
+   "cc": "__cdecl"
+  },
+  "0049c750": {
+   "proto": "void sputLua_CollisionHandler(int self, int other, float *a, float *b, float *c)",
+   "cc": "__cdecl"
+  },
+  "0045ff00": {
+   "proto": "void Mem_DumpLog(void)",
+   "cc": "__cdecl"
+  },
+  "00482820": {
+   "proto": "void * grimlib_MakeCurrentSetup(uint setup)",
+   "cc": "__cdecl"
+  },
+  "00482800": {
+   "proto": "void grimlib_MarkDirtyRect(int *rect, int flags)",
+   "cc": "__cdecl"
+  },
+  "00482990": {
+   "proto": "void grimlib_UpdateManual(int draw, int frameMs)",
+   "cc": "__cdecl"
+  },
+  "004ac1a0": {
+   "proto": "undefined4 Win_RemoveMessageHook(void *hook)",
+   "cc": "__cdecl"
+  },
+  "00446e80": {
+   "proto": "uint rdClip_CalcOutcode2(int canvas, int x, int y)",
+   "cc": "__cdecl"
+  },
+  "00473370": {
+   "proto": "void * Win_GetMainHwnd(void)",
+   "cc": "__cdecl"
+  },
+  "00446c10": {
+   "proto": "undefined4 rdClip_Line2(undefined4 canvas, undefined4 *x0, undefined4 *y0, undefined4 *x1, undefined4 *y1)",
+   "cc": "__cdecl"
+  },
+  "004917e0": {
+   "proto": "uint Walker_AvoidActorPath(Actor *self, Actor *other, undefined4 *pts, uint count, float *out)",
+   "cc": "__cdecl"
+  },
+  "00486c50": {
+   "proto": "void sputRender_RestoreCacheRect(int unused)",
+   "cc": "__cdecl"
+  }
+ }
+}

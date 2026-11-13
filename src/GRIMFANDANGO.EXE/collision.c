@@ -10,8 +10,9 @@
    space; if inside, move it out through the nearest face from FLT_MAX)); was
    Collision_PushOutOfBox. */
 
-void GetOuttaTheBox(float *param_1,float param_2,float param_3,float param_4,float param_5,
-                   float param_6,float param_7,float *param_8,float *param_9)
+void __cdecl
+GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax,float zmax,
+              float *frame,float *out)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -23,62 +24,62 @@ void GetOuttaTheBox(float *param_1,float param_2,float param_3,float param_4,flo
   #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
-  local_c = *param_1 - *param_9;
-  local_8 = param_1[1] - param_9[1];
-  local_4 = param_1[2] - param_9[2];
-  rdMatrix_TransformVectorOrtho34(&local_18,&local_c,param_8);
-  if ((((param_4 < local_14[1]) && (param_3 < local_14[0])) && (local_14[0] < param_6)) &&
-     (((param_2 < local_18 && (local_18 < param_5)) && (local_14[1] < param_7)))) {
+  local_c = *pos - *out;
+  local_8 = pos[1] - out[1];
+  local_4 = pos[2] - out[2];
+  rdMatrix_TransformVectorOrtho34(&local_18,&local_c,frame);
+  if ((((zmin < local_14[1]) && (ymin < local_14[0])) && (local_14[0] < ymax)) &&
+     (((xmin < local_18 && (local_18 < xmax)) && (local_14[1] < zmax)))) {
     fVar1 = 3.4028235e+38;
-    if (local_14[0] < param_6) {
-      fVar2 = param_6 - local_14[0];
+    if (local_14[0] < ymax) {
+      fVar2 = ymax - local_14[0];
       if (fVar2 < 0.0) {
         fVar2 = -fVar2;
       }
       fVar1 = 3.4028235e+38;
       if (fVar2 < 3.4028235e+38) {
-        local_8 = param_6 - -0.01;
+        local_8 = ymax - -0.01;
         local_c = local_18;
         local_4 = local_14[1];
         fVar1 = fVar2;
       }
     }
-    if (param_3 < local_14[0]) {
-      fVar2 = param_3 - local_14[0];
+    if (ymin < local_14[0]) {
+      fVar2 = ymin - local_14[0];
       if (fVar2 < 0.0) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_8 = param_3 - 0.01;
+        local_8 = ymin - 0.01;
         local_c = local_18;
         local_4 = local_14[1];
         fVar1 = fVar2;
       }
     }
-    if (local_18 < param_5) {
-      fVar2 = param_5 - local_18;
+    if (local_18 < xmax) {
+      fVar2 = xmax - local_18;
       if (fVar2 < 0.0) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_c = param_5 - -0.01;
+        local_c = xmax - -0.01;
         local_8 = local_14[0];
         local_4 = local_14[1];
         fVar1 = fVar2;
       }
     }
-    if (param_2 < local_18) {
-      fVar2 = param_2 - local_18;
+    if (xmin < local_18) {
+      fVar2 = xmin - local_18;
       if (fVar2 < 0.0) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_c = param_2 - 0.01;
+        local_c = xmin - 0.01;
         local_8 = local_14[0];
         local_4 = local_14[1];
       }
     }
-    rdMatrix_TransformPoint34(param_1,&local_c,param_8);
+    rdMatrix_TransformPoint34(pos,&local_c,frame);
   }
   return;
 }
@@ -92,52 +93,49 @@ void GetOuttaTheBox(float *param_1,float param_2,float param_3,float param_4,flo
 /* ---- 0x00492510  Collision_PointInBox ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-undefined4 __cdecl
+int __cdecl
 Collision_PointInBox
           (float *a,float *b,float *p3,float bx0,float by0,float bz0,float bx1,float by1,float bz1,
           float *p10,float *offset)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  int iVar2;
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[80] __attribute__((aligned(16)));  /* the original frame below the return address */
+  int iVar1;
+  float *pfVar2;
   float *pfVar3;
-  float *pfVar4;
-  #define afStack_38 (*(float (*)[4])(_frame + (0x50 - 0x38)))
-  #define pfStack_28 (*(float **)(_frame + (0x50 - 0x28)))
-  #define pfStack_24 (*(float **)(_frame + (0x50 - 0x24)))
-  #define pfStack_20 (*(float **)(_frame + (0x50 - 0x20)))
-  #define local_c (*(float (*)[3])(_frame + (0x50 - 0xc)))
+  float in_stack_ffffffc8;
+  float in_stack_ffffffcc;
+  float in_stack_ffffffd0;
+  float in_stack_ffffffd4;
+  float in_stack_ffffffd8;
+  float in_stack_ffffffdc;
+  float *frame;
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   local_c[0] = *offset + *a;
-  pfStack_20 = p10;
   bx0 = *offset + *b;
   local_c[1] = a[1] + offset[1];
   by0 = b[1] + offset[1];
   local_c[2] = a[2] + offset[2];
   bz0 = b[2] + offset[2];
-  pfVar3 = &bx0;
-  pfVar4 = afStack_38;
-  for (iVar2 = 6; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *pfVar4 = *pfVar3;
+  pfVar2 = &bx0;
+  pfVar3 = (float *)(_stkneg + 24);
+  frame = p10;
+  for (iVar1 = 6; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *pfVar3 = *pfVar2;
+    pfVar2 = pfVar2 + 1;
     pfVar3 = pfVar3 + 1;
-    pfVar4 = pfVar4 + 1;
   }
-  pfStack_20 = (float *)((code *)TestCollision)(local_c,&bx0,p3);
-  if (pfStack_20 == (float *)0x0) {
-    pfStack_24 = b;
-    pfStack_28 = a;
-    afStack_38[3] = 6.717497e-39;
-    uVar1 = ((code *)BuildPath)();
-    return uVar1;
+  iVar1 = TestCollision(local_c,&bx0,p3,in_stack_ffffffc8,in_stack_ffffffcc,in_stack_ffffffd0,
+                        in_stack_ffffffd4,in_stack_ffffffd8,in_stack_ffffffdc,frame);
+  if (iVar1 == 0) {
+    iVar1 = BuildPath(a,b,0);
+    return iVar1;
   }
   return 0;
 }
-#undef afStack_38
 #undef local_c
-#undef pfStack_20
-#undef pfStack_24
-#undef pfStack_28
 
 #endif
 
@@ -188,9 +186,9 @@ void FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,fl
    segment ends into box space with rdMatrix_TransformVectorOrtho34, the slab tests against the box
    faces)); was Collision_SegmentHitsBox. */
 
-undefined4
-TestCollision(float *param_1,float *param_2,float *param_3,float param_4,float param_5,
-             undefined4 param_6,float param_7,float param_8,undefined4 param_9,float *param_10)
+int __cdecl
+TestCollision(float *from,float *to,float *hit,float xmin,float ymin,float zmin,float xmax,
+             float ymax,float zmax,float *frame)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -208,22 +206,22 @@ TestCollision(float *param_1,float *param_2,float *param_3,float param_4,float p
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  local_18[0] = *param_1 - *param_3;
-  local_18[1] = param_1[1] - param_3[1];
-  local_18[2] = param_1[2] - param_3[2];
-  rdMatrix_TransformVectorOrtho34(local_24,local_18,param_10);
-  local_18[0] = *param_2 - *param_3;
-  local_18[1] = param_2[1] - param_3[1];
-  local_18[2] = param_2[2] - param_3[2];
-  rdMatrix_TransformVectorOrtho34(local_c,local_18,param_10);
+  local_18[0] = *from - *hit;
+  local_18[1] = from[1] - hit[1];
+  local_18[2] = from[2] - hit[2];
+  rdMatrix_TransformVectorOrtho34(local_24,local_18,frame);
+  local_18[0] = *to - *hit;
+  local_18[1] = to[1] - hit[1];
+  local_18[2] = to[2] - hit[2];
+  rdMatrix_TransformVectorOrtho34(local_c,local_18,frame);
   fVar2 = local_c[0] - local_24[0];
   fVar3 = local_c[1] - local_24[1];
   fVar4 = local_c[2] - local_24[2];
-  if (((param_8 < local_24[1]) && (local_c[1] < param_8)) &&
-     (fVar1 = (param_8 - local_24[1]) / fVar3, fVar1 < 1.0)) {
+  if (((ymax < local_24[1]) && (local_c[1] < ymax)) &&
+     (fVar1 = (ymax - local_24[1]) / fVar3, fVar1 < 1.0)) {
     fVar5 = fVar1 * fVar2 + local_24[0];
-    if ((param_4 < fVar5) &&
-       (fVar6 = fVar1 * fVar3 + local_24[1], fVar7 = fVar1 * fVar4 + local_24[2], fVar5 < param_7))
+    if ((xmin < fVar5) &&
+       (fVar6 = fVar1 * fVar3 + local_24[1], fVar7 = fVar1 * fVar4 + local_24[2], fVar5 < xmax))
     goto LAB_00492801;
   }
   fVar1 = 1.0;
@@ -234,30 +232,30 @@ LAB_00492801:
   *(float *)&DAT_008ca328 = fVar7;
   *(float *)&DAT_008ca324 = fVar6;
   *(float *)&DAT_008ca320 = fVar5;
-  if (((local_24[1] < param_5) && (param_5 < local_c[1])) &&
-     (fVar5 = (param_5 - local_24[1]) / fVar3, fVar5 < fVar1)) {
+  if (((local_24[1] < ymin) && (ymin < local_c[1])) &&
+     (fVar5 = (ymin - local_24[1]) / fVar3, fVar5 < fVar1)) {
     fVar6 = fVar5 * fVar2 + local_24[0];
-    if ((param_4 < fVar6) && (fVar6 < param_7)) {
+    if ((xmin < fVar6) && (fVar6 < xmax)) {
       fVar1 = fVar5;
       *(float *)&DAT_008ca320 = fVar6;
       *(float *)&DAT_008ca324 = fVar5 * fVar3 + local_24[1];
       *(float *)&DAT_008ca328 = fVar5 * fVar4 + local_24[2];
     }
   }
-  if (((param_7 < local_24[0]) && (local_c[0] < param_7)) &&
-     (fVar5 = (param_7 - local_24[0]) / fVar2, fVar5 < fVar1)) {
+  if (((xmax < local_24[0]) && (local_c[0] < xmax)) &&
+     (fVar5 = (xmax - local_24[0]) / fVar2, fVar5 < fVar1)) {
     fVar6 = fVar5 * fVar3 + local_24[1];
-    if ((param_5 < fVar6) && (fVar6 < param_8)) {
+    if ((ymin < fVar6) && (fVar6 < ymax)) {
       fVar1 = fVar5;
       *(float *)&DAT_008ca320 = fVar5 * fVar2 + local_24[0];
       *(float *)&DAT_008ca324 = fVar6;
       *(float *)&DAT_008ca328 = fVar5 * fVar4 + local_24[2];
     }
   }
-  if (((local_24[0] < param_4) && (param_4 < local_c[0])) &&
-     (fVar5 = (param_4 - local_24[0]) / fVar2, fVar5 < fVar1)) {
+  if (((local_24[0] < xmin) && (xmin < local_c[0])) &&
+     (fVar5 = (xmin - local_24[0]) / fVar2, fVar5 < fVar1)) {
     fVar3 = fVar5 * fVar3 + local_24[1];
-    if ((param_5 < fVar3) && (fVar3 < param_8)) {
+    if ((ymin < fVar3) && (fVar3 < ymax)) {
       fVar1 = fVar5;
       *(float *)&DAT_008ca320 = fVar5 * fVar2 + local_24[0];
       *(float *)&DAT_008ca324 = fVar3;
@@ -368,51 +366,54 @@ undefined4 Collision_UpdateMovedActors(void)
 undefined4 Collision_TestActorAgainstOthers(Actor *param_1)
 
 {
-  unsigned char _frame[0xf0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[240] __attribute__((aligned(16)));  /* the original frame below the return address */
   float (*pafVar1) [3];
   Actor *actor;
   ActorExtra *pAVar2;
   float fVar3;
   float fVar4;
-  float fVar5;
-  float fVar6;
-  uint uVar7;
+  uint uVar5;
+  float *pfVar6;
+  float *pfVar7;
   float *pfVar8;
   float *pfVar9;
   int iVar10;
-  float **ppfVar11;
-  #define pfStack_e0 (*(float **)(_frame + (0xf0 - 0xe0)))
-  #define afStack_dc (*(float (*)[2])(_frame + (0xf0 - 0xdc)))
-  #define pAStack_d4 (*(Actor **)(_frame + (0xf0 - 0xd4)))
-  #define local_b0 (*(uint *)(_frame + (0xf0 - 0xb0)))
-  #define local_ac (*(uint *)(_frame + (0xf0 - 0xac)))
-  #define local_a8 (*(uint *)(_frame + (0xf0 - 0xa8)))
-  #define local_a4 (*(float (*)[3])(_frame + (0xf0 - 0xa4)))
-  #define local_98 (*(float (*)[3])(_frame + (0xf0 - 0x98)))
-  #define local_8c (*(float (*)[3])(_frame + (0xf0 - 0x8c)))
-  #define local_80 (*(float (*)[3])(_frame + (0xf0 - 0x80)))
-  #define local_74 (*(float (*)[3])(_frame + (0xf0 - 0x74)))
-  #define local_68 (*(float (*)[3])(_frame + (0xf0 - 0x68)))
-  #define local_5c (*(float (*)[3])(_frame + (0xf0 - 0x5c)))
-  #define local_50 (*(float (*)[3])(_frame + (0xf0 - 0x50)))
-  #define local_44 (*(float (*)[3])(_frame + (0xf0 - 0x44)))
-  #define local_38 (*(float (*)[3])(_frame + (0xf0 - 0x38)))
-  #define local_2c (*(float (*)[3])(_frame + (0xf0 - 0x2c)))
-  #define local_20 (*(float (*)[3])(_frame + (0xf0 - 0x20)))
-  #define local_14 (*(uint *)(_frame + (0xf0 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0xf0 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0xf0 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0xf0 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0xf0 - 0x4)))
+  float *pfVar11;
+  float in_stack_ffffff24;
+  float in_stack_ffffff28;
+  Actor *in_stack_ffffff2c;
+  float fVar12;
+  float fVar13;
+  #define local_b0 (*(uint *)(_frame + (0xc0 - 0xb0)))
+  #define local_ac (*(uint *)(_frame + (0xc0 - 0xac)))
+  #define local_a8 (*(uint *)(_frame + (0xc0 - 0xa8)))
+  #define local_a4 (*(float (*)[3])(_frame + (0xc0 - 0xa4)))
+  #define local_98 (*(float (*)[3])(_frame + (0xc0 - 0x98)))
+  #define local_8c (*(float (*)[3])(_frame + (0xc0 - 0x8c)))
+  #define local_80 (*(float (*)[3])(_frame + (0xc0 - 0x80)))
+  #define local_74 (*(float (*)[3])(_frame + (0xc0 - 0x74)))
+  #define local_68 (*(float (*)[3])(_frame + (0xc0 - 0x68)))
+  #define local_5c (*(float (*)[3])(_frame + (0xc0 - 0x5c)))
+  #define local_50 (*(float (*)[3])(_frame + (0xc0 - 0x50)))
+  #define local_44 (*(float (*)[3])(_frame + (0xc0 - 0x44)))
+  #define local_38 (*(float (*)[3])(_frame + (0xc0 - 0x38)))
+  #define local_2c (*(float (*)[3])(_frame + (0xc0 - 0x2c)))
+  #define local_20 (*(float (*)[3])(_frame + (0xc0 - 0x20)))
+  #define local_14 (*(uint *)(_frame + (0xc0 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0xc0 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0xc0 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0xc0 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0xc0 - 0x4)))
   
   iVar10 = *(int *)((int)param_1->pCostumes->pMainModel + 4);
-  pfVar8 = sputActor_GetOrientMatrix(param_1);
-  rdMatrix_TransformVector34(local_98,(float *)(iVar10 + 0x78),pfVar8);
-  fVar4 = local_98[0] + param_1->aPos[0];
+  pfVar6 = sputActor_GetOrientMatrix(param_1);
+  rdMatrix_TransformVector34(local_98,(float *)(iVar10 + 0x78),pfVar6);
+  fVar3 = local_98[0] + param_1->aPos[0];
   local_5c[2] = 0.0;
   local_68[0] = param_1->aPos[1] + local_98[1];
   local_68[1] = param_1->aPos[2] + local_98[2];
-  fVar5 = *(float *)(iVar10 + 0x5c) * param_1->pExtra->flCollisionScale;
+  fVar4 = *(float *)(iVar10 + 0x5c) * param_1->pExtra->flCollisionScale;
   if (0 < g_nTotActors) {
     local_74[1] = PUN(float,&g_pDrawableActors);
     do {
@@ -420,58 +421,58 @@ undefined4 Collision_TestActorAgainstOthers(Actor *param_1)
       if (((actor != param_1) && (actor->pExtra != (ActorExtra *)0x0)) &&
          (actor->pExtra->nCollisionMode != 0)) {
         iVar10 = *(int *)((int)actor->pCostumes->pMainModel + 4);
-        pfVar8 = (float *)(iVar10 + 0x78);
-        pfVar9 = sputActor_GetOrientMatrix(actor);
-        rdMatrix_TransformPoint34(local_68 + 2,pfVar8,pfVar9);
-        local_50[1] = fVar4 - local_68[2];
+        pfVar6 = (float *)(iVar10 + 0x78);
+        pfVar7 = sputActor_GetOrientMatrix(actor);
+        rdMatrix_TransformPoint34(local_68 + 2,pfVar6,pfVar7);
+        local_50[1] = fVar3 - local_68[2];
         local_50[0] = local_68[0] - local_5c[0];
-        fVar6 = local_68[1] - local_5c[1];
-        fVar3 = SQRT(fVar6 * fVar6 + local_50[0] * local_50[0] + local_50[1] * local_50[1]);
+        fVar13 = local_68[1] - local_5c[1];
+        fVar12 = SQRT(fVar13 * fVar13 + local_50[0] * local_50[0] + local_50[1] * local_50[1]);
         local_8c[0] = *(float *)(iVar10 + 0x5c) * actor->pExtra->flCollisionScale;
-        if (fVar3 < local_8c[0] + fVar5) {
+        if (fVar12 < local_8c[0] + fVar4) {
           if (actor->pExtra->nCollisionMode == 2) {
             param_1->pExtra->nCollided = 1;
-            pfVar8 = param_1->aPos;
+            pfVar6 = param_1->aPos;
             actor->pExtra->nCollided = 1;
-            local_2c[2] = fVar4 - local_68[2];
+            local_2c[2] = fVar3 - local_68[2];
             local_20[0] = local_68[0] - local_5c[0];
             local_20[1] = local_68[1] - local_5c[1];
-            _DAT_008ca348 = *pfVar8;
+            _DAT_008ca348 = *pfVar6;
             _DAT_008ca34c = param_1->aPos[1];
             _DAT_008ca350 = param_1->aPos[2];
             rdVector_Normalize3Acc(local_2c + 2);
-            uVar7 = param_1->dwMoveFlags;
-            local_20[2] = (local_2c[2] * (1.0 - (fVar3 - local_8c[0]) / fVar5) * fVar5 + fVar4) -
+            uVar5 = param_1->dwMoveFlags;
+            local_20[2] = (local_2c[2] * (1.0 - (fVar12 - local_8c[0]) / fVar4) * fVar4 + fVar3) -
                           local_98[0];
             sputActor_SetActorPosition(param_1,local_20 + 2);
-            _DAT_008ca338 = *pfVar8;
+            _DAT_008ca338 = *pfVar6;
             _DAT_008ca33c = param_1->aPos[1];
             _DAT_008ca340 = param_1->aPos[2];
-            _DAT_008ca320 = *pfVar8;
+            _DAT_008ca320 = *pfVar6;
             _DAT_008ca324 = param_1->aPos[1];
             _DAT_008ca328 = param_1->aPos[2];
-            if ((uVar7 & 1) != 0) {
+            if ((uVar5 & 1) != 0) {
               param_1->dwMoveFlags = param_1->dwMoveFlags | 1;
             }
           }
           else {
             local_8c[1] = local_50[1];
             local_8c[2] = local_50[0];
-            local_80[0] = fVar6;
-            pfVar9 = sputActor_GetOrientMatrix(actor);
-            rdMatrix_TransformVectorOrtho34(local_a4,local_8c + 1,pfVar9);
-            local_a4[0] = local_a4[0] + *pfVar8;
+            local_80[0] = fVar13;
+            pfVar7 = sputActor_GetOrientMatrix(actor);
+            rdMatrix_TransformVectorOrtho34(local_a4,local_8c + 1,pfVar7);
+            local_a4[0] = local_a4[0] + *pfVar6;
             local_a4[1] = local_a4[1] + *(float *)(iVar10 + 0x7c);
             local_a4[2] = local_a4[2] + *(float *)(iVar10 + 0x80);
             pAVar2 = actor->pExtra;
-            local_44[2] = *(float *)(iVar10 + 0x60) * pAVar2->flCollisionScale - fVar5;
-            local_2c[0] = *(float *)(iVar10 + 0x70) * pAVar2->flCollisionScale + fVar5;
-            local_2c[1] = *(float *)(iVar10 + 0x74) * pAVar2->flCollisionScale + fVar5;
-            if ((((local_a4[2] <= *(float *)(iVar10 + 0x68) * pAVar2->flCollisionScale - fVar5) ||
-                 (local_a4[1] <= *(float *)(iVar10 + 100) * pAVar2->flCollisionScale - fVar5)) ||
+            local_44[2] = *(float *)(iVar10 + 0x60) * pAVar2->flCollisionScale - fVar4;
+            local_2c[0] = *(float *)(iVar10 + 0x70) * pAVar2->flCollisionScale + fVar4;
+            local_2c[1] = *(float *)(iVar10 + 0x74) * pAVar2->flCollisionScale + fVar4;
+            if ((((local_a4[2] <= *(float *)(iVar10 + 0x68) * pAVar2->flCollisionScale - fVar4) ||
+                 (local_a4[1] <= *(float *)(iVar10 + 100) * pAVar2->flCollisionScale - fVar4)) ||
                 ((local_2c[0] <= local_a4[1] ||
                  ((local_a4[0] <= local_44[2] ||
-                  (*(float *)(iVar10 + 0x6c) * pAVar2->flCollisionScale + fVar5 <= local_a4[0]))))))
+                  (*(float *)(iVar10 + 0x6c) * pAVar2->flCollisionScale + fVar4 <= local_a4[0]))))))
                || (local_2c[1] <= local_a4[2])) goto LAB_004940c6;
             param_1->pExtra->nCollided = 1;
             _DAT_008ca348 = param_1->aPos[0];
@@ -480,65 +481,75 @@ undefined4 Collision_TestActorAgainstOthers(Actor *param_1)
             local_8c[1] = (local_98[0] + param_1->aPrevPos[0]) - local_68[2];
             local_8c[2] = (param_1->aPrevPos[1] + local_98[1]) - local_5c[0];
             local_80[0] = (param_1->aPrevPos[2] + local_98[2]) - local_5c[1];
-            pfVar9 = sputActor_GetOrientMatrix(actor);
-            rdMatrix_TransformVectorOrtho34(local_50 + 2,local_8c + 1,pfVar9);
-            local_50[2] = local_50[2] + *pfVar8;
+            pfVar8 = sputActor_GetOrientMatrix(actor);
+            pfVar7 = local_8c + 1;
+            pfVar11 = local_50 + 2;
+            fVar12 = 6.726548e-39;
+            rdMatrix_TransformVectorOrtho34(pfVar11,pfVar7,pfVar8);
+            local_50[2] = local_50[2] + *pfVar6;
+            pfVar6 = local_80 + 1;
             local_44[0] = local_44[0] + *(float *)(iVar10 + 0x7c);
             local_44[1] = local_44[1] + *(float *)(iVar10 + 0x80);
             pfVar8 = local_44 + 2;
-            pfVar9 = afStack_dc;
+            pfVar9 = (float *)(_stkneg + 20);
             for (iVar10 = 6; iVar10 != 0; iVar10 = iVar10 + -1) {
               *pfVar9 = *pfVar8;
               pfVar8 = pfVar8 + 1;
               pfVar9 = pfVar9 + 1;
             }
-            pfStack_e0 = local_50 + 2;
-            iVar10 = ((code *)Collision_BoxSlide)(local_a4);
+            pfVar8 = local_50 + 2;
+            iVar10 = Collision_BoxSlide(local_a4,pfVar8,in_stack_ffffff24,in_stack_ffffff28,
+                                        (float)in_stack_ffffff2c,fVar12,(float)pfVar11,(float)pfVar7
+                                        ,pfVar6);
             if (iVar10 == 0) {
-              sputActor_GetOrientMatrix(actor);
-              pfVar8 = local_44 + 2;
-              ppfVar11 = &pfStack_e0;
+              pfVar6 = actor->aPos;
+              fVar13 = 6.726705e-39;
+              pfVar9 = sputActor_GetOrientMatrix(actor);
+              pfVar7 = local_44 + 2;
+              pfVar11 = (float *)(_stkneg + 16);
               for (iVar10 = 6; iVar10 != 0; iVar10 = iVar10 + -1) {
-                *ppfVar11 = (float *)*pfVar8;
-                pfVar8 = pfVar8 + 1;
-                ppfVar11 = ppfVar11 + 1;
+                *pfVar11 = *pfVar7;
+                pfVar7 = pfVar7 + 1;
+                pfVar11 = pfVar11 + 1;
               }
-              ((code *)GetOuttaTheBox)(local_a4);
+              GetOuttaTheBox(local_a4,(float)pfVar8,in_stack_ffffff24,in_stack_ffffff28,
+                             (float)in_stack_ffffff2c,fVar12,fVar13,pfVar9,pfVar6);
               local_80[1] = local_a4[0];
               local_80[2] = local_a4[1];
             }
-            pfVar8 = sputActor_GetOrientMatrix(actor);
-            rdMatrix_TransformPoint34Acc(local_80 + 1,pfVar8);
+            pfVar6 = sputActor_GetOrientMatrix(actor);
+            rdMatrix_TransformPoint34Acc(local_80 + 1,pfVar6);
             local_80[1] = local_80[1] - local_98[0];
             local_80[2] = local_80[2] - local_98[1];
             param_1->aPrevPos[0] = param_1->aPos[0];
-            fVar3 = param_1->aPos[2];
+            fVar12 = param_1->aPos[2];
             param_1->aPrevPos[1] = param_1->aPos[1];
-            param_1->aPrevPos[2] = fVar3;
-            pfVar8 = sputActor_GetOrientMatrix(actor);
-            rdMatrix_TransformPoint34Acc((float *)&DAT_008ca320,pfVar8);
+            param_1->aPrevPos[2] = fVar12;
+            pfVar6 = sputActor_GetOrientMatrix(actor);
+            rdMatrix_TransformPoint34Acc((float *)&DAT_008ca320,pfVar6);
             _DAT_008ca320 = _DAT_008ca320 - local_98[0];
             _DAT_008ca324 = _DAT_008ca324 - local_98[1];
             _DAT_008ca328 = _DAT_008ca328 - local_98[2];
-            uVar7 = param_1->dwMoveFlags;
+            uVar5 = param_1->dwMoveFlags;
             sputActor_SetActorPosition(param_1,local_80 + 1);
             _DAT_008ca338 = param_1->aPos[0];
             _DAT_008ca33c = param_1->aPos[1];
             _DAT_008ca340 = param_1->aPos[2];
-            if ((uVar7 & 1) != 0) {
+            if ((uVar5 & 1) != 0) {
               pAVar2 = param_1->pExtra;
               param_1->dwMoveFlags = param_1->dwMoveFlags | 1;
               pafVar1 = pAVar2->aPath + pAVar2->nPathNodes + -1;
               local_c = (uint)(*pafVar1)[0];
               local_8 = (uint)(*pafVar1)[1];
               local_4 = (uint)(*pafVar1)[2];
-              pAStack_d4 = (Actor *)0x4940aa;
               sputActor_ActorWalkTo(param_1,(int)&local_c,pAVar2->aDest,actor);
             }
           }
-          pAStack_d4 = param_1;
-          afStack_dc[1] = 6.727223e-39;
-          ((code *)sputLua_CollisionHandler)();
+          in_stack_ffffff28 = 6.727223e-39;
+          in_stack_ffffff2c = param_1;
+          sputLua_CollisionHandler
+                    ((int)param_1,(int)actor,(float *)&DAT_008ca348,(float *)&DAT_008ca320,
+                     (float *)&DAT_008ca338);
         }
       }
 LAB_004940c6:
@@ -548,7 +559,6 @@ LAB_004940c6:
   }
   return 1;
 }
-#undef afStack_dc
 #undef local_10
 #undef local_14
 #undef local_20
@@ -569,8 +579,6 @@ LAB_004940c6:
 #undef local_ac
 #undef local_b0
 #undef local_c
-#undef pAStack_d4
-#undef pfStack_e0
 
 #endif
 
@@ -584,9 +592,9 @@ LAB_004940c6:
    Head-on slides depend on float noise of a zero rotation axis, either side. Ported bit-exact as
    origBoxSlide in engines/grim/actor.cpp. */
 
-undefined4
-Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,float param_5,
-                  float param_6,float param_7,float param_8,float *param_9)
+undefined4 __cdecl
+Collision_BoxSlide(float *from,float *to,float xmin,float ymin,float zmin,float xmax,float ymax,
+                  float zmax,float *out)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -610,24 +618,24 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   #define local_38 (*(float (*)[2])(_frame + (0x70 - 0x38)))
   #define local_30 (*(float (*)[12])(_frame + (0x70 - 0x30)))
   
-  pfVar8 = param_9;
+  pfVar8 = out;
   iVar9 = 0;
-  fVar10 = *param_1 - *param_2;
-  fVar1 = param_1[1] - param_2[1];
-  fVar3 = param_1[2] - param_2[2];
-  fVar11 = fVar10 * -10.0 + *param_2;
-  fVar2 = fVar1 * -10.0 + param_2[1];
-  fVar6 = fVar3 * -10.0 + param_2[2];
-  *param_2 = fVar11;
+  fVar10 = *from - *to;
+  fVar1 = from[1] - to[1];
+  fVar3 = from[2] - to[2];
+  fVar11 = fVar10 * -10.0 + *to;
+  fVar2 = fVar1 * -10.0 + to[1];
+  fVar6 = fVar3 * -10.0 + to[2];
+  *to = fVar11;
   fVar5 = 3.4028235e+38;
-  param_2[1] = fVar2;
-  param_2[2] = fVar6;
-  if (param_6 - 0.002 < fVar11) {
+  to[1] = fVar2;
+  to[2] = fVar6;
+  if (xmax - 0.002 < fVar11) {
     fVar4 = fVar10;
     if (fVar10 < 0.0) {
       fVar4 = -fVar10;
     }
-    fVar4 = (param_6 - *param_1) / fVar4;
+    fVar4 = (xmax - *from) / fVar4;
     fVar7 = fVar4;
     if (fVar4 < 0.0) {
       fVar7 = -fVar4;
@@ -641,12 +649,12 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
       local_38[1] = 0.0;
     }
   }
-  if (fVar11 < param_3 - -0.002) {
+  if (fVar11 < xmin - -0.002) {
     fVar11 = fVar10;
     if (fVar10 < 0.0) {
       fVar11 = -fVar10;
     }
-    fVar11 = (param_3 - *param_1) / fVar11;
+    fVar11 = (xmin - *from) / fVar11;
     fVar4 = fVar11;
     if (fVar11 < 0.0) {
       fVar4 = -fVar11;
@@ -663,12 +671,12 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
       fVar5 = fVar11;
     }
   }
-  if (param_7 - 0.002 < fVar2) {
+  if (ymax - 0.002 < fVar2) {
     fVar11 = fVar1;
     if (fVar1 < 0.0) {
       fVar11 = -fVar1;
     }
-    fVar11 = (param_7 - param_1[1]) / fVar11;
+    fVar11 = (ymax - from[1]) / fVar11;
     fVar4 = fVar11;
     if (fVar11 < 0.0) {
       fVar4 = -fVar11;
@@ -685,12 +693,12 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
       local_38[1] = 0.0;
     }
   }
-  if (fVar2 < param_4 - -0.002) {
+  if (fVar2 < ymin - -0.002) {
     fVar11 = fVar1;
     if (fVar1 < 0.0) {
       fVar11 = -fVar1;
     }
-    fVar11 = (param_4 - param_1[1]) / fVar11;
+    fVar11 = (ymin - from[1]) / fVar11;
     fVar2 = fVar11;
     if (fVar11 < 0.0) {
       fVar2 = -fVar11;
@@ -707,12 +715,12 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
       fVar5 = fVar11;
     }
   }
-  if (param_8 - 0.002 < fVar6) {
+  if (zmax - 0.002 < fVar6) {
     fVar11 = fVar3;
     if (fVar3 < 0.0) {
       fVar11 = -fVar3;
     }
-    fVar11 = (param_8 - param_1[2]) / fVar11;
+    fVar11 = (zmax - from[2]) / fVar11;
     fVar2 = fVar11;
     if (fVar11 < 0.0) {
       fVar2 = -fVar11;
@@ -729,12 +737,12 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
       local_38[1] = 1.0;
     }
   }
-  if (fVar6 < param_5 - -0.002) {
+  if (fVar6 < zmin - -0.002) {
     fVar11 = fVar3;
     if (fVar3 < 0.0) {
       fVar11 = -fVar3;
     }
-    fVar11 = (param_5 - param_1[2]) / fVar11;
+    fVar11 = (zmin - from[2]) / fVar11;
     fVar2 = fVar11;
     if (fVar11 < 0.0) {
       fVar2 = -fVar11;
@@ -754,12 +762,12 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   if (iVar9 == 0) {
     return 0;
   }
-  *param_9 = fVar5 * fVar10 + *param_1;
-  param_9[1] = fVar5 * fVar1 + param_1[1];
-  param_9[2] = fVar5 * fVar3 + param_1[2];
-  *(float *)&DAT_008ca320 = *param_9;
-  *(float *)&DAT_008ca324 = param_9[1];
-  *(float *)&DAT_008ca328 = param_9[2];
+  *out = fVar5 * fVar10 + *from;
+  out[1] = fVar5 * fVar1 + from[1];
+  out[2] = fVar5 * fVar3 + from[2];
+  *(float *)&DAT_008ca320 = *out;
+  *(float *)&DAT_008ca324 = out[1];
+  *(float *)&DAT_008ca328 = out[2];
   fVar11 = fVar5;
   if (fVar5 < 0.0) {
     fVar11 = -fVar5;
@@ -780,11 +788,11 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   if (90.0 - fVar11 < 90.0) {
     return 0;
   }
-  param_3 = local_38[1] * local_44[0] - local_38[0] * local_44[1];
-  param_4 = local_3c * local_44[1] - local_38[1] * local_48;
-  param_5 = local_38[0] * local_48 - local_3c * local_44[0];
-  rdVector_Normalize3Acc(&param_3);
-  rdMatrix_BuildFromVectorAngle34(local_30,&param_3,(90.0 - fVar11) - 90.0);
+  xmin = local_38[1] * local_44[0] - local_38[0] * local_44[1];
+  ymin = local_3c * local_44[1] - local_38[1] * local_48;
+  zmin = local_38[0] * local_48 - local_3c * local_44[0];
+  rdVector_Normalize3Acc(&xmin);
+  rdMatrix_BuildFromVectorAngle34(local_30,&xmin,(90.0 - fVar11) - 90.0);
   rdMatrix_TransformVector34Acc(&local_48,local_30);
   *pfVar8 = fVar10 * local_48 + *pfVar8;
   pfVar8[1] = fVar10 * local_44[0] + pfVar8[1];

@@ -63,7 +63,7 @@ static inline int q1_ftol(long double x)
  *     while the stored end point is their float.
  *   - the final write-back truncates the floats with _ftol (64-bit conversion, low dword). */
 /* OVERRIDES: rdClip_Line2 */
-undefined4 rdClip_Line2(undefined4 param_1, undefined4 *param_2, undefined4 *param_3, undefined4 *param_4,
+undefined4 rdClip_Line2(int param_1, undefined4 *param_2, undefined4 *param_3, undefined4 *param_4,
                          undefined4 *param_5)
 {
     int canvas = (int)param_1;

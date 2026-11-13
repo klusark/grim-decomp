@@ -1232,7 +1232,7 @@ extern char s_DirectSound__Error__08X_while_se_004f4098[]; /* used by 1 fn(s), f
 extern char s_Cannot_create_DirectSound_object_004f40d0[]; /* used by 1 fn(s), first 0x004d2940 */
 extern char s_C__grimsrc_libs_lecsmush_insane__004f4158[]; /* used by 2 fn(s), first 0x004d2e80 */
 extern undefined DAT_004f41e0; /* used by 1 fn(s), first 0x004025b0 */
-extern undefined4 UINT_004f44e0; /* used by 3 fn(s), first 0x00401040 */
+extern uint UINT_004f44e0; /* used by 3 fn(s), first 0x00401040 */
 extern undefined4 UINT_004f44e8; /* used by 2 fn(s), first 0x00401a50 */
 extern undefined4 UINT_004f44ec; /* used by 1 fn(s), first 0x00401a50 */
 extern undefined DAT_004f44f0; /* used by 1 fn(s), first 0x00401a50 */
@@ -1561,7 +1561,7 @@ extern uint UINT_00803f7c; /* used by 4 fn(s), first 0x00474420 */
 extern undefined g_bStdDisplay_Startup; /* used by 2 fn(s), first 0x00473a40 */
 extern int UINT_00803f9c; /* used by 5 fn(s), first 0x00474140 */
 extern undefined4 g_dwStdDisplay_numDrawBuffers; /* used by 3 fn(s), first 0x00474140 */
-extern undefined4 UINT_00803fb0; /* used by 2 fn(s), first 0x004743d0 */
+extern uint UINT_00803fb0; /* used by 2 fn(s), first 0x004743d0 */
 extern undefined4 UINT_00803fb4; /* used by 2 fn(s), first 0x00476e40 */
 extern undefined4 UINT_00803fb8; /* used by 1 fn(s), first 0x00474d90 */
 extern undefined4 UINT_00803fc0; /* used by 1 fn(s), first 0x00474dd0 */
@@ -2756,9 +2756,19 @@ extern undefined DAT_0091f0f0; /* used by 1 fn(s), first 0x004cc7d0 */
 extern undefined DAT_0091f100; /* used by 2 fn(s), first 0x004cc6a0 */
 extern undefined DAT_0091f101; /* used by 1 fn(s), first 0x004cc7d0 */
 extern undefined DAT_009272a0; /* used by 1 fn(s), first 0x004cedc0 */
+extern undefined4 in_stack_fffffecc; /* used by 1 fn(s), first 0x004917e0 */
 extern undefined4 in_stack_fffffed0; /* used by 1 fn(s), first 0x004917e0 */
-extern undefined4 in_stack_ffffffd8; /* used by 1 fn(s), first 0x004b9b1c */
-extern undefined4 in_stack_ffffffdc; /* used by 1 fn(s), first 0x004b9b1c */
+extern undefined4 in_stack_fffffed4; /* used by 1 fn(s), first 0x004917e0 */
+extern undefined4 in_stack_fffffed8; /* used by 1 fn(s), first 0x004917e0 */
+extern undefined4 in_stack_ffffff24; /* used by 1 fn(s), first 0x004939f0 */
+extern undefined4 in_stack_ffffff28; /* used by 1 fn(s), first 0x004939f0 */
+extern Actor * in_stack_ffffff2c; /* used by 1 fn(s), first 0x004939f0 */
+extern undefined4 in_stack_ffffffc8; /* used by 1 fn(s), first 0x00492510 */
+extern undefined4 in_stack_ffffffcc; /* used by 1 fn(s), first 0x00492510 */
+extern undefined4 in_stack_ffffffd0; /* used by 1 fn(s), first 0x00492510 */
+extern undefined4 in_stack_ffffffd4; /* used by 1 fn(s), first 0x00492510 */
+extern undefined4 in_stack_ffffffd8; /* used by 2 fn(s), first 0x00492510 */
+extern undefined4 in_stack_ffffffdc; /* used by 2 fn(s), first 0x00492510 */
 extern undefined4 in_stack_ffffffe0; /* used by 1 fn(s), first 0x004b9b1c */
 extern undefined4 in_stack_ffffffe2; /* used by 1 fn(s), first 0x004b9b1c */
 extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */

@@ -21,6 +21,7 @@ void Main_Service(void)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
+  void *a1;
   int iVar2;
   uint *puVar3;
   uint y;
@@ -44,7 +45,7 @@ void Main_Service(void)
     }
     _g_dwDeadmanCounter = 300;
     g_dwGrimlib_mode = uVar1;
-    ((code *)grimlib_UpdateManual)(g_dwZg_App_bAppActive);
+    grimlib_UpdateManual(g_dwZg_App_bAppActive,g_fixedFrameMs);
     g_dwMain_Service_frameCount = g_dwMain_Service_frameCount + 1;
     g_fixedFrameMs = 0;
     _g_dwMain_Service_frameTime = timeGetTime();
@@ -59,7 +60,7 @@ void Main_Service(void)
     if (_g_bDrawFrameRate != 0) {
       sprintf(&g_bStd_genBuffer,s__02_3f_004dd680,(double)g_flMain_Service_frameRate);
       stdDisplay_TextOut(&g_bStd_genBuffer,4,4);
-      ((code *)grimlib_MarkDirtyRect)(&local_18);
+      grimlib_MarkDirtyRect((int *)&local_18,0);
     }
     if (g_nDrawPerfData != 0) {
       puVar3 = &g_dwGrimlib_PerfData;
@@ -70,7 +71,7 @@ void Main_Service(void)
         local_10 = 0xbe;
         local_c = 0x14;
         local_14 = y;
-        ((code *)grimlib_MarkDirtyRect)(&local_18);
+        grimlib_MarkDirtyRect((int *)&local_18,0);
         *puVar3 = 0;
         puVar3[1] = 0;
         y = y + 0x14;
@@ -81,10 +82,10 @@ void Main_Service(void)
       grimlib_Display();
     }
     if (g_nQuitApp != 0) {
-      ((code *)Win_RemoveMessageHook)();
-      ((code *)Win_RemoveMessageHook)();
-      iVar2 = Win_GetMainHwnd();
-      DestroyWindow(iVar2);
+      Win_RemoveMessageHook(Win_WndProc);
+      Win_RemoveMessageHook(Win_IsSysCommandBlocked);
+      a1 = Win_GetMainHwnd();
+      DestroyWindow((int)a1);
     }
   }
   return;

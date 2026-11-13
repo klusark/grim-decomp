@@ -6,7 +6,7 @@
 undefined * __stdcall Win_WinMain(int a1,int a2,int a3,int a4); /* 0x00401010 */
 undefined * Win_WndProc(undefined4 param_1,uint param_2,int param_3); /* 0x00402fd0 */
 void Win_SetMainHwnd(void *param_1); /* 0x00473360 */
-void * Win_GetMainHwnd(void); /* 0x00473370 */
+void * __cdecl Win_GetMainHwnd(void); /* 0x00473370 */
 void Win_SetInstance(uint param_1); /* 0x00473380 */
 uint Win_GetInstance(void); /* 0x00473390 */
 undefined4 Win_IsSysCommandBlocked(undefined4 param_1,int param_2,int param_3); /* 0x004772d0 */
@@ -14,7 +14,7 @@ void __cdecl Win_AbortIfAlreadyRunning (void *hInstance,void *hPrevInstance,char
 uint Win_PumpMessages(void); /* 0x004ac020 */
 int __cdecl Win_SetWindowedSize(int fullscreen,int w,int h); /* 0x004ac100 */
 void Win_AddMessageHook(void *param_1); /* 0x004ac160 */
-undefined4 Win_RemoveMessageHook(void *param_1); /* 0x004ac1a0 */
+undefined4 __cdecl Win_RemoveMessageHook(void *hook); /* 0x004ac1a0 */
 undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3); /* 0x004ac1f0 */
 undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4); /* 0x004ac340 */
 int __cdecl Win_IsFocusWithin(void *hwnd); /* 0x004bff70 */
@@ -1034,8 +1034,8 @@ void rdMath_ClampVector(float *param_1,float param_2); /* 0x00450380 */
 undefined4 rdMath_PointsCollinear(float *param_1,float *param_2,float *param_3); /* 0x00450410 */
 
 /* ===== rdclip.c ===== */
-undefined4 rdClip_Line2(undefined4 param_1,undefined4 *param_2,undefined4 *param_3,undefined4 *param_4, undefined4 *param_5); /* 0x00446c10 */
-uint rdClip_CalcOutcode2(int param_1,int param_2,int param_3); /* 0x00446e80 */
+undefined4 __cdecl rdClip_Line2(int canvas,undefined4 *x0,undefined4 *y0,undefined4 *x1,undefined4 *y1); /* 0x00446c10 */
+uint __cdecl rdClip_CalcOutcode2(int canvas,int x,int y); /* 0x00446e80 */
 int __cdecl rdClip_Point3(void *frustum,float *point); /* 0x00446ec0 */
 int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *clipped1); /* 0x00446f80 */
 uint rdClip_Face3W(int *param_1,float *param_2,uint param_3); /* 0x004478c0 */
@@ -1060,7 +1060,7 @@ void __cdecl rdPrimit2_DrawLine(void *canvas,int x1,int y1,int x2,int y2,int col
 void __cdecl rdPrimit2_DrawRectangle(void *canvas,int x1,int y1,int x2,int y2,int color,int mask); /* 0x00451f20 */
 
 /* ===== memory.c ===== */
-void Mem_DumpLog(void); /* 0x0045ff00 */
+void __cdecl Mem_DumpLog(void); /* 0x0045ff00 */
 void __cdecl Mem_Copy(void *dst,void *src,uint n); /* 0x00478170 */
 void __cdecl Mem_CheckAlloc(void *p,char *file,int line); /* 0x0047fe00 */
 undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2); /* 0x004888d0 */
@@ -1398,12 +1398,12 @@ void grimlib_Using3DHardware(undefined4 param_1); /* 0x00482760 */
 void grimlib_AddResourcePath(char *param_1); /* 0x00482770 */
 int grimlib_FindSystemFiles(void); /* 0x00482790 */
 undefined4 grimlib_Open(int param_1,char *param_2); /* 0x004827a0 */
-void grimlib_MarkDirtyRect(int *param_1,int param_2); /* 0x00482800 */
+void __cdecl grimlib_MarkDirtyRect(int *rect,int flags); /* 0x00482800 */
 int grimlib_ConfirmClose(void); /* 0x004828d0 */
 void __cdecl grimlib_RequestShutdown(int exitCode); /* 0x004828e0 */
 void __cdecl grimlib_SetPause(int paused); /* 0x00482900 */
 undefined * __cdecl grimlib_CharacterCallback(int param_1); /* 0x00482980 */
-void grimlib_UpdateManual(int param_1,int param_2); /* 0x00482990 */
+void __cdecl grimlib_UpdateManual(int draw,int frameMs); /* 0x00482990 */
 void __cdecl gimlib_SetImuseState(int state); /* 0x00482ae0 */
 void grimlib_Display(void); /* 0x00482af0 */
 uint Engine_RegisterSubsystems(undefined4 param_1,undefined4 *param_2,int param_3,int param_4); /* 0x00482cf0 */
@@ -1429,7 +1429,7 @@ void __cdecl sputControl_Update(undefined4 param_1,undefined4 param_2); /* 0x004
 /* ===== set.c ===== */
 int Res_NumRefs(void *param_1); /* 0x004824c0 */
 void __cdecl grimlib_MakeCurrentSet(char *name); /* 0x00482670 */
-void * grimlib_MakeCurrentSetup(uint param_1); /* 0x00482820 */
+void * __cdecl grimlib_MakeCurrentSetup(uint setup); /* 0x00482820 */
 void __cdecl sputRender_SyncCamera(void *set,int setupIdx); /* 0x00483aa0 */
 void __cdecl sputRender_UseSetup(void *set,int setupIdx); /* 0x00483b50 */
 void Set_DrawDebugLights(int param_1); /* 0x00485780 */
@@ -1606,7 +1606,7 @@ void * __cdecl sputRoom_GetSetupZBackground(void *set,int setupIdx); /* 0x004a3e
 
 /* ===== sector.c ===== */
 void __cdecl Sector_DrawAllDebug(void); /* 0x00485dc0 */
-void sputLua_CollisionHandler(int param_1,int param_2,float *param_3,float *param_4,float *param_5); /* 0x0049c750 */
+void __cdecl sputLua_CollisionHandler(int self,int other,float *a,float *b,float *c); /* 0x0049c750 */
 int SetFile_Parse(char *param_1,uint param_2); /* 0x004a4b00 */
 undefined4 sputRoom_LoadRoomEntry(undefined4 param_1); /* 0x004a5550 */
 undefined4 sputRoom_ParseColormaps(void); /* 0x004a5b40 */
@@ -1649,7 +1649,7 @@ int __cdecl sputRender_SegmentPlaneIntersect(float *out,float *p1,float *p2,floa
 
 /* ===== cacherect.c ===== */
 void * __cdecl sputRender_CreateCacheRect(int x,int y,int w,int h); /* 0x00486b40 */
-void sputRender_RestoreCacheRect(void); /* 0x00486c50 */
+void __cdecl sputRender_RestoreCacheRect(int unused); /* 0x00486c50 */
 void CacheRect_FreeAll(void); /* 0x00486cb0 */
 
 /* ===== dlg.c ===== */
@@ -1827,8 +1827,8 @@ int ComparePhonemes(int *param_1,int *param_2); /* 0x00490e50 */
 
 /* ===== walker.c ===== */
 undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *param_2); /* 0x00491230 */
-void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *param_3,undefined4 param_4); /* 0x00491650 */
-uint Walker_AvoidActorPath (Actor *param_1,Actor *param_2,undefined4 *param_3,uint param_4,float *param_5); /* 0x004917e0 */
+void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *param_3,Actor *param_4); /* 0x00491650 */
+uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint count,float *out); /* 0x004917e0 */
 void __cdecl sputActor_SetWalkSystemFadeTime(int ms); /* 0x00494880 */
 Puck * __thiscall Puck_Construct(Puck *this,float radius); /* 0x004a8200 */
 void __fastcall Puck_Destruct(Puck *puck); /* 0x004a8270 */
@@ -1844,8 +1844,8 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
 void __thiscall Puck_OrientToPlane(Puck *this,int a1); /* 0x004a89b0 */
 void __fastcall Puck_Normalize(Puck *puck); /* 0x004a8a90 */
 void __thiscall Puck_Draw(Puck *this,int color); /* 0x004a8b00 */
-uint GetPath(undefined4 *param_1); /* 0x004a9420 */
-undefined4 BuildPath(float *param_1,float *param_2,int param_3); /* 0x004a9430 */
+uint __cdecl GetPath(undefined4 *out); /* 0x004a9420 */
+int __cdecl BuildPath(float *from,float *to,int flags); /* 0x004a9430 */
 undefined4 __cdecl Planner_FindPath(float *param_1,float *param_2,WalkPlane *plane); /* 0x004a94d0 */
 uint __cdecl FindExitPoints(WalkPlane *plane,float *param_2,uint *param_3); /* 0x004a96f0 */
 undefined4 __cdecl Planner_PortalPoint(WalkPlane *planeA,WalkPlane *planeB,float *point,float *out); /* 0x004a9920 */
@@ -1853,14 +1853,14 @@ undefined4 TightenPath(void); /* 0x004a9aa0 */
 WalkPlane * __cdecl Planner_SharedSector(float *from,float *to); /* 0x004a9ca0 */
 
 /* ===== collision.c ===== */
-void GetOuttaTheBox(float *param_1,float param_2,float param_3,float param_4,float param_5, float param_6,float param_7,float *param_8,float *param_9); /* 0x004922d0 */
-undefined4 __cdecl Collision_PointInBox (float *a,float *b,float *p3,float bx0,float by0,float bz0,float bx1,float by1,float bz1, float *p10,float *offset); /* 0x00492510 */
+void __cdecl GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax,float zmax, float *frame,float *out); /* 0x004922d0 */
+int __cdecl Collision_PointInBox (float *a,float *b,float *p3,float bx0,float by0,float bz0,float bx1,float by1,float bz1, float *p10,float *offset); /* 0x00492510 */
 void FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5); /* 0x004925c0 */
-undefined4 TestCollision(float *param_1,float *param_2,float *param_3,float param_4,float param_5, undefined4 param_6,float param_7,float param_8,undefined4 param_9,float *param_10); /* 0x00492680 */
+int __cdecl TestCollision(float *from,float *to,float *hit,float xmin,float ymin,float zmin,float xmax, float ymax,float zmax,float *frame); /* 0x00492680 */
 int Collision_PickDetour(float *param_1,float *param_2,int param_3); /* 0x00492a50 */
 undefined4 Collision_UpdateMovedActors(void); /* 0x004939a0 */
 undefined4 Collision_TestActorAgainstOthers(Actor *param_1); /* 0x004939f0 */
-undefined4 Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,float param_5, float param_6,float param_7,float param_8,float *param_9); /* 0x00494100 */
+undefined4 __cdecl Collision_BoxSlide(float *from,float *to,float xmin,float ymin,float zmin,float xmax,float ymax, float zmax,float *out); /* 0x00494100 */
 
 /* ===== speech.c ===== */
 void __cdecl sputActor_SetSpeechMode(int mode); /* 0x004931c0 */
