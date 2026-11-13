@@ -1,0 +1,325 @@
+{
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "WalkVertex",
+   "size": 16,
+   "comment": "A vertex of the walk-sector vertex pool (WalkPlane.cpp's vertex database, 0x400 records at 0x008cb0b0). WalkPlane_AddVertex welds a new vertex to an existing one closer than 1e-4 and counts the reference, so neighbouring sectors share their corner vertices (ShrinkBoxes moves them together).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nRefs",
+     "sectors that use the vertex (WalkPlane_AddVertex / WalkPlane_RemoveVertex); 0 = the record is free"
+    ],
+    [
+     4,
+     "float[3]",
+     "aPos",
+     "position"
+    ]
+   ]
+  },
+  {
+   "name": "WalkPlane",
+   "size": 132,
+   "comment": "A sector of the set file (WalkPlane.cpp's WalkPlane, 0x84 bytes, made by ParseCollection): a planar polygon of up to 10 vertices with a type and two activity flags. All sectors of the loaded set are on the list g_pWalkPlane_wp_head, the newest first.",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aName",
+     "sector name (WalkPlane_SetName, WalkPlane_PlaneNamed)"
+    ],
+    [
+     32,
+     "int",
+     "nId",
+     "the set file's id (WalkPlane_PlaneNumbered)"
+    ],
+    [
+     36,
+     "uint",
+     "dwType",
+     "type bits (WalkPlane_SetType): 0x1000 walk, 0x1100 funnel (a 4-vertex walk sector, see nLongEdge), 0x2000 camera, 0x4000 special, 0x8000 chernobyl"
+    ],
+    [
+     40,
+     "int",
+     "nVisible",
+     "the set file's default visibility; ShrinkBoxes clears it for a sector it cannot shrink, WalkPlane_RestoreCache restores it"
+    ],
+    [
+     44,
+     "int",
+     "nActive",
+     "1 at load and after WalkPlane_AllActive; Lua MakeSectorActive; Planner_SharedSector clears it while it searches"
+    ],
+    [
+     48,
+     "float",
+     "flHeight",
+     "how far a point may be off the plane and still be inside (WalkPlane_Within): 0.005 for walk sectors, else the file's height (9999 by WalkPlane_SetType)"
+    ],
+    [
+     52,
+     "int",
+     "nNumVerts",
+     "vertices in aVerts, 3 to 10"
+    ],
+    [
+     56,
+     "WalkVertex *[10]",
+     "aVerts",
+     "the polygon, records of the vertex pool"
+    ],
+    [
+     96,
+     "float[3]",
+     "aNormal",
+     "unit normal (Newell's method, WalkPlane_Construct)"
+    ],
+    [
+     108,
+     "WalkPlane *",
+     "pPrev",
+     "the sector list (g_pWalkPlane_wp_head)"
+    ],
+    [
+     112,
+     "WalkPlane *",
+     "pNext",
+     ""
+    ],
+    [
+     116,
+     "int",
+     "nHitEdge",
+     "the edge WalkPlane_Intersection last crossed (its first vertex), -1 none; WalkPlane_JumpOut and WalkPlane_GetConstraintVector step it"
+    ],
+    [
+     120,
+     "int",
+     "nLongEdge",
+     "funnel sectors (0x100): the first vertex of the long edge, 0 to 3 (WalkPlane_SetType)"
+    ],
+    [
+     124,
+     "int",
+     "nAxisU",
+     "first of the two coordinate axes the polygon is projected on for the 2-D tests (the normal's largest component is left out)"
+    ],
+    [
+     128,
+     "int",
+     "nAxisV",
+     "second projection axis"
+    ]
+   ]
+  },
+  {
+   "name": "WalkPlaneCache",
+   "size": 52,
+   "comment": "One sector as WalkPlane_BuildCache saved it before ShrinkBoxes, g_pWalkPlaneCache[g_nWalkPlaneCacheSize]; WalkPlane_RestoreCache puts it back.",
+   "fields": [
+    [
+     0,
+     "WalkPlane *",
+     "pPlane",
+     "the sector"
+    ],
+    [
+     4,
+     "int",
+     "nNumVerts",
+     ""
+    ],
+    [
+     8,
+     "int[10]",
+     "aVertIdx",
+     "its vertices as indices into the vertex pool"
+    ],
+    [
+     48,
+     "int",
+     "nVisible",
+     "WalkPlane::nVisible"
+    ]
+   ]
+  },
+  {
+   "name": "WalkVertexCache",
+   "size": 20,
+   "comment": "One vertex as WalkPlane_BuildCache saved it, g_pVertexCache[g_nVertexCacheSize] (one entry per vertex of every sector).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nIndex",
+     "index into the vertex pool"
+    ],
+    [
+     4,
+     "WalkVertex",
+     "vert",
+     "the record as it was"
+    ]
+   ]
+  }
+ ],
+ "this": [
+  {
+   "addr": "004a6490",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a6760",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a6790",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a6980",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a6b30",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a6d10",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a6fa0",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a7000",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a70a0",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a7390",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a7520",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a8cb0",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a9070",
+   "type": "WalkPlane *"
+  }
+ ],
+ "params": [
+  {
+   "addr": "004a66e0",
+   "index": 0,
+   "type": "WalkPlane *",
+   "name": "plane"
+  },
+  {
+   "addr": "004a9180",
+   "index": 0,
+   "type": "WalkPlane *",
+   "name": "plane"
+  },
+  {
+   "addr": "004a96f0",
+   "index": 0,
+   "type": "WalkPlane *",
+   "name": "plane"
+  },
+  {
+   "addr": "004a9920",
+   "index": 0,
+   "type": "WalkPlane *",
+   "name": "planeA"
+  },
+  {
+   "addr": "004a9920",
+   "index": 1,
+   "type": "WalkPlane *",
+   "name": "planeB"
+  },
+  {
+   "addr": "004a94d0",
+   "index": 2,
+   "type": "WalkPlane *",
+   "name": "plane"
+  },
+  {
+   "addr": "004a9920",
+   "index": 2,
+   "type": "float *",
+   "name": "point"
+  },
+  {
+   "addr": "004a9920",
+   "index": 3,
+   "type": "float *",
+   "name": "out"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "004a6490",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a7230",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "004a7290",
+   "type": "WalkPlane *"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "008cf280",
+   "type": "WalkPlane *"
+  },
+  {
+   "addr": "008cf27c",
+   "type": "WalkPlaneCache *"
+  },
+  {
+   "addr": "008cf274",
+   "type": "WalkVertexCache *"
+  },
+  {
+   "addr": "008cb0b0",
+   "type": "WalkVertex[1024]",
+   "name": "g_aWalkPlane_vert_db"
+  }
+ ],
+ "protos": [
+  {
+   "addr": "004a71e0",
+   "proto": "WalkPlane * WalkPlane_PlaneAt(float * point, uint mask)",
+   "cc": "__cdecl"
+  },
+  {
+   "addr": "004a72b0",
+   "proto": "WalkPlane * WalkPlane_PlaneClosest(float * point, uint mask)",
+   "cc": "__cdecl"
+  },
+  {
+   "addr": "004a9ca0",
+   "proto": "WalkPlane * Planner_SharedSector(float * from, float * to)",
+   "cc": "__cdecl"
+  }
+ ]
+}

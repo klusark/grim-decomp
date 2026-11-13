@@ -547,6 +547,28 @@ FLOAT_BITS_MEMBERS = {"dwValue"}   # TObject.dwValue (LUA.DLL, docs/notes/types_
 FLOAT_BITS_MEMBER_RE = re.compile(r"(?:\.|->)\s*(" + "|".join(FLOAT_BITS_MEMBERS) + r")\s*$")
 
 
+_FLOAT_MEMBERS = {}   # program -> {member name: "float" | "float[]"} where every structure that has the name agrees
+FLOAT_MEMBER_AT_END_RE = re.compile(r"(?:\.|->)\s*(\w+)\s*(\[[^\[\]]*\])?\s*$")
+
+
+def float_member(operand):
+    """True when the operand is a float member of raw/<prog>/structs.json: `s.flHeight`, or an element `p->aPos[0]` of
+    a float[N] (the array itself, `(int)p->aPos`, is an address). Only fix_casts' float-to-int branch asks: type_of does
+    not know members (taught them all, it rewrote 61 EXE files through fix_fnptr_calls, docs/notes/types_9.md)."""
+    if CUR_PROG not in _FLOAT_MEMBERS:
+        kinds = {}
+        for s in STRUCTS.values():
+            for f in s.get("fields", []):
+                t = f[2].replace(" ", "")
+                kinds.setdefault(f[3], set()).add("float" if t == "float" else
+                                                  "float[]" if re.fullmatch(r"float\[\d+\]", t) else "other")
+        _FLOAT_MEMBERS[CUR_PROG] = {n: k.pop() for n, k in kinds.items() if len(k) == 1 and k != {"other"}}
+    m = FLOAT_MEMBER_AT_END_RE.search(operand)
+    if not m:
+        return False
+    return _FLOAT_MEMBERS[CUR_PROG].get(m.group(1)) == ("float[]" if m.group(2) else "float")
+
+
 def fix_float_bits_members(body, vt, ctx):
     """`x.dwValue = (uint)f;` with f a float -> PUN: the member holds the float's bits (FLOAT_BITS_MEMBERS)."""
     def rep(m):
@@ -584,6 +606,8 @@ def fix_casts(body, vt, ctx):
             continue
         operand = body[s:e]
         ok = type_kind(type_of(operand, vt, ctx))
+        if ok is None and tk == "int" and not has_fist and float_member(operand.strip()):
+            ok = "float"   # `(uint)p->aPos[0]` copies a float member's bits (WalkPlane_BuildCache, types_10.md)
         if tk == "float" and FLOAT_BITS_MEMBER_RE.search(operand.strip()):
             new = f"PUN({T},{operand.strip()})"  # a member that holds a float's bits (FLOAT_BITS_MEMBERS)
         elif tk == "float" and ok == "int" and (not has_fild or operand.strip() in float_slots) \
@@ -888,8 +912,26 @@ def fix_image_addrs(code):
                 return m.group(0)
         return "IMG_ADDR(0x%08x)" % v
     code = IMG_LIT_RE.sub(rep, code)
+    code = STRUCT_PTRDIFF_RE.sub(lambda m: struct_ptrdiff(m, code), code)
     code = PTRDIFF_RE.sub(ptrdiff, code)
     return fix_indexed_addrs(code)
+
+
+STRUCT_PTRDIFF_RE = re.compile(r"(\*?)\b([A-Za-z_]\w*) \+ -0x([0-9a-f]{3,6})\b")
+
+
+def struct_ptrdiff(m, code):
+    """`(int)(*ppWVar4 + -0x8cb0b) >> 4` with a WalkVertex ** (16-byte records): the original subtracts the byte address
+    0x8cb0b0 of the table to get an index, Ghidra divided it by the element size. Written as a byte difference from
+    the relocated table (the literal would be off by the section shift; types_10.md). ptrdiff does the same for int *."""
+    stars, name, v = m.group(1), m.group(2), int(m.group(3), 16)
+    d = re.search(r"\b([A-Za-z_]\w*)\s*(\*+)\s*" + re.escape(name) + r"\s*[;,)]", code)
+    if not d or len(d.group(2)) - len(stars) != 1 or d.group(1) not in STRUCTS:
+        return m.group(0)
+    k = v * STRUCTS[d.group(1)]["size"]
+    if not any(start <= k <= start + size for _, start, size in IMG_SECTIONS):
+        return m.group(0)
+    return "(%s *)((char *)%s%s - IMG_ADDR(0x%08x))" % (d.group(1), stars, name, k)
 
 
 PTRDIFF_RE = re.compile(r"\b([A-Za-z_]\w*) \+ -0x([0-9a-f]{6})\b")

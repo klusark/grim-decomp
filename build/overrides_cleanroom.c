@@ -273,7 +273,7 @@ int __cdecl res_FindInternalFile(char *name, void *outEntry)
  * length and the new x on the x87 stack, rounds only where it stores (n0 = -dy, n1 = dx, d, the new y), compares
  * unordered-aware, and copies an end vertex as three dwords. With huge coordinates (GetShrinkPos(0, 1e30, 0)) the values
  * overflow to inf / NaN and only that order gives the original's point (grim_tools/cleanroom args_GetShrinkPos_p1_big). */
-int __thiscall WalkPlane_ClosestPoint(void *this, int a1)
+int __thiscall WalkPlane_ClosestPoint(WalkPlane *this, int a1)
 {
     float *pt = (float *)a1, *prev, *cur;
     float n0, n1, d, sy, e24;

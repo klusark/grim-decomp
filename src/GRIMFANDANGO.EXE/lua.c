@@ -2014,7 +2014,7 @@ void __cdecl sputLua_GetShrinkPosition(void)
   int iVar3;
   int iVar4;
   int iVar5;
-  void *this;
+  WalkPlane *this;
   float fVar6;
   float fVar7;
   float n;
@@ -2046,12 +2046,12 @@ void __cdecl sputLua_GetShrinkPosition(void)
           local_c[1] = fVar7;
           WalkPlane_BuildCache();
           ShrinkBoxes(radius);
-          this = (void *)WalkPlane_PlaneClosest(local_c,0x1000);
-          if (this != (void *)0x0) {
+          this = WalkPlane_PlaneClosest(local_c,0x1000);
+          if (this != (WalkPlane *)0x0) {
             WalkPlane_ClosestPoint(this,(int)local_c);
           }
           sputLua_UnShrinkBoxes();
-          if (this != (void *)0x0) {
+          if (this != (WalkPlane *)0x0) {
             lua_pushnumber(local_c[0]);
             lua_pushnumber(local_c[1]);
             lua_pushnumber(n);
@@ -4891,7 +4891,7 @@ void sputLua_GetActorSectorL(void)
   int iVar2;
   int iVar3;
   Actor *pAVar4;
-  char *pcVar5;
+  WalkPlane *pWVar5;
   longlong lVar6;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   
@@ -4906,11 +4906,11 @@ void sputLua_GetActorSectorL(void)
         iVar1 = lua_getuserdata(iVar1);
         pAVar4 = sputActor_ActorDeref(iVar1);
         lVar6 = (longlong)lua_getnumber(iVar2);
-        pcVar5 = (char *)WalkPlane_PlaneAt(pAVar4->aPos,(int)lVar6);
-        if (pcVar5 != (char *)0x0) {
-          lua_pushnumber((float)*(int *)(pcVar5 + 0x20));
-          lua_pushstring(pcVar5);
-          lua_pushnumber((float)*(int *)(pcVar5 + 0x24));
+        pWVar5 = WalkPlane_PlaneAt(pAVar4->aPos,(uint)lVar6);
+        if (pWVar5 != (WalkPlane *)0x0) {
+          lua_pushnumber((float)pWVar5->nId);
+          lua_pushstring(pWVar5->aName);
+          lua_pushnumber((float)(int)pWVar5->dwType);
           return;
         }
         lua_pushnil();
@@ -4935,7 +4935,7 @@ void sputLua_IsActorInSector(void)
   int iVar2;
   int iVar3;
   Actor *pAVar4;
-  char *this;
+  WalkPlane *this;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   
   iVar1 = lua_lua2C(1);
@@ -4950,20 +4950,20 @@ void sputLua_IsActorInSector(void)
         pAVar4 = sputActor_ActorDeref(iVar1);
         iVar1 = lua_getstring(iVar2);
         this = g_pWalkPlane_wp_head;
-        if (g_pWalkPlane_wp_head != (void *)0x0) {
+        if (g_pWalkPlane_wp_head != (WalkPlane *)0x0) {
           do {
             iVar2 = String_ContainsSubstring(this,iVar1);
             if (iVar2 != 0) {
               iVar2 = WalkPlane_Within(this,pAVar4->aPos,1);
               if (iVar2 != 0) {
-                lua_pushnumber((float)*(int *)(this + 0x20));
-                lua_pushstring(this);
-                lua_pushnumber((float)*(int *)(this + 0x24));
+                lua_pushnumber((float)this->nId);
+                lua_pushstring(this->aName);
+                lua_pushnumber((float)(int)this->dwType);
                 return;
               }
             }
-            this = *(char **)(this + 0x70);
-          } while (this != (char *)0x0);
+            this = this->pNext;
+          } while (this != (WalkPlane *)0x0);
           lua_pushnil();
           return;
         }
@@ -4990,7 +4990,7 @@ void sputLua_IsPointInSector(void)
   int iVar3;
   int iVar4;
   int iVar5;
-  char *this;
+  WalkPlane *this;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
@@ -5006,18 +5006,18 @@ void sputLua_IsPointInSector(void)
     local_c[2] = lua_getnumber(iVar3);
     iVar1 = lua_getstring(iVar4);
     this = g_pWalkPlane_wp_head;
-    if (g_pWalkPlane_wp_head != (void *)0x0) {
+    if (g_pWalkPlane_wp_head != (WalkPlane *)0x0) {
       do {
         iVar2 = String_ContainsSubstring(this,iVar1);
         if ((iVar2 != 0) && (iVar2 = WalkPlane_Within(this,local_c,1), iVar2 != 0)) {
-          lua_pushnumber((float)*(int *)(this + 0x20));
-          lua_pushstring(this);
-          lua_pushnumber((float)*(int *)(this + 0x24));
+          lua_pushnumber((float)this->nId);
+          lua_pushstring(this->aName);
+          lua_pushnumber((float)(int)this->dwType);
           break;
         }
-        this = *(char **)(this + 0x70);
-      } while (this != (char *)0x0);
-      if (this != (char *)0x0) {
+        this = this->pNext;
+      } while (this != (WalkPlane *)0x0);
+      if (this != (WalkPlane *)0x0) {
         return;
       }
     }
@@ -7160,7 +7160,7 @@ void sputLua_GetSectorOppositeEdge(void)
   int iVar2;
   Actor *a1;
   char *name;
-  void *a2;
+  WalkPlane *a2;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isuserdata(iVar1);
@@ -7174,7 +7174,7 @@ void sputLua_GetSectorOppositeEdge(void)
       if (iVar2 != 0) {
         name = (char *)lua_getstring(iVar1);
         a2 = WalkPlane_PlaneNamed(name);
-        if (a2 != (void *)0x0) {
+        if (a2 != (WalkPlane *)0x0) {
           sputActor_LeaveSector((int)a1,(int)a2);
           return;
         }
@@ -7196,7 +7196,8 @@ void sputLua_IsSectorActiveL(void)
   int iVar2;
   void *pvVar3;
   char *name;
-  longlong lVar4;
+  WalkPlane *pWVar4;
+  longlong lVar5;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(iVar1);
@@ -7208,14 +7209,14 @@ void sputLua_IsSectorActiveL(void)
   if (pvVar3 != (void *)0x0) {
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) {
-      lVar4 = (longlong)lua_getnumber(iVar1);
-      pvVar3 = WalkPlane_PlaneNumbered((int)lVar4);
+      lVar5 = (longlong)lua_getnumber(iVar1);
+      pWVar4 = WalkPlane_PlaneNumbered((int)lVar5);
     }
     else {
       name = (char *)lua_getstring(iVar1);
-      pvVar3 = WalkPlane_PlaneNamed(name);
+      pWVar4 = WalkPlane_PlaneNamed(name);
     }
-    if ((pvVar3 != (void *)0x0) && (*(int *)((int)pvVar3 + 0x28) != 0)) {
+    if ((pWVar4 != (WalkPlane *)0x0) && (pWVar4->nVisible != 0)) {
       lua_pushnumber(1.0);
     }
   }
@@ -7235,7 +7236,7 @@ void sputLua_MakeSectorActiveL(void)
   int iVar2;
   int iVar3;
   char *name;
-  void *pvVar4;
+  WalkPlane *pWVar4;
   longlong lVar5;
   
   iVar1 = lua_lua2C(1);
@@ -7247,19 +7248,19 @@ void sputLua_MakeSectorActiveL(void)
   iVar3 = lua_isstring(iVar1);
   if (iVar3 == 0) {
     lVar5 = (longlong)lua_getnumber(iVar1);
-    pvVar4 = WalkPlane_PlaneNumbered((int)lVar5);
+    pWVar4 = WalkPlane_PlaneNumbered((int)lVar5);
   }
   else {
     name = (char *)lua_getstring(iVar1);
-    pvVar4 = WalkPlane_PlaneNamed(name);
+    pWVar4 = WalkPlane_PlaneNamed(name);
   }
-  if (pvVar4 != (void *)0x0) {
+  if (pWVar4 != (WalkPlane *)0x0) {
     iVar1 = lua_isnil(iVar2);
     if (iVar1 != 0) {
-      *(undefined4 *)((int)pvVar4 + 0x28) = 0;
+      pWVar4->nVisible = 0;
       return;
     }
-    *(undefined4 *)((int)pvVar4 + 0x28) = 1;
+    pWVar4->nVisible = 1;
   }
   return;
 }
@@ -8038,7 +8039,7 @@ void sputLua_SnapToPlane(void)
   int iVar3;
   int iVar4;
   char *name;
-  void *this;
+  WalkPlane *this;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
@@ -8048,7 +8049,7 @@ void sputLua_SnapToPlane(void)
   iVar4 = lua_lua2C(4);
   name = (char *)lua_getstring(iVar1);
   this = WalkPlane_PlaneNamed(name);
-  if (this == (void *)0x0) {
+  if (this == (WalkPlane *)0x0) {
     lua_pushnil();
     return;
   }

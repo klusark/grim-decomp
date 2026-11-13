@@ -941,7 +941,7 @@ static long double sector_snap(long double x)
     return x;
 }
 
-int __thiscall WalkPlane_Within(void *this, float *point, int checkActive)
+int __thiscall WalkPlane_Within(WalkPlane *this, float *point, int checkActive)
 {
     byte *sec = (byte *)this;
     float *v;

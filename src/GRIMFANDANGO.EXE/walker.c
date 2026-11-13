@@ -98,7 +98,7 @@ void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *param_3,
   float (*pafVar2) [3];
   Puck *pPVar3;
   ActorExtra *pAVar4;
-  void *this;
+  WalkPlane *this;
   int iVar5;
   uint *puVar6;
   undefined4 *puVar7;
@@ -116,9 +116,9 @@ void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *param_3,
   
   actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
   pPVar3 = actor->pExtra->pPuck;
-  if ((pPVar3 != (Puck *)0x0) && (g_pWalkPlane_wp_head != (void *)0x0)) {
-    this = (void *)WalkPlane_PlaneClosest(param_2,0x1000);
-    if (this != (void *)0x0) {
+  if ((pPVar3 != (Puck *)0x0) && (g_pWalkPlane_wp_head != (WalkPlane *)0x0)) {
+    this = WalkPlane_PlaneClosest((float *)param_2,0x1000);
+    if (this != (WalkPlane *)0x0) {
       WalkPlane_ClosestPoint(this,param_2);
     }
     iVar5 = BuildPath(pPVar3,param_2,1);
@@ -201,25 +201,25 @@ uint Walker_AvoidActorPath
   undefined4 *puVar8;
   undefined4 *puVar9;
   float *pfVar10;
-  void *this;
-  float fVar11;
-  float *pfVar12;
-  int iVar13;
+  WalkPlane *pWVar11;
+  float fVar12;
+  float *pfVar13;
   int iVar14;
-  float *pfVar15;
-  uint uVar16;
+  int iVar15;
+  float *pfVar16;
   uint uVar17;
-  int iVar18;
-  uint *puVar19;
-  float *pfVar20;
+  uint uVar18;
+  int iVar19;
+  uint *puVar20;
   float *pfVar21;
-  float fVar22;
-  float *pfVar23;
+  float *pfVar22;
+  float fVar23;
+  float *pfVar24;
   float in_stack_fffffed0;
   float bz0;
   float bx1;
   #define local_124 (*(uint *)(_frame + (0x140 - 0x124)))
-  float fVar24;
+  float fVar25;
   #define local_104 (*(float *)(_frame + (0x140 - 0x104)))
   #define local_100 (*(uint *)(_frame + (0x140 - 0x100)))
   #define local_fc (*(float *)(_frame + (0x140 - 0xfc)))
@@ -258,24 +258,24 @@ uint Walker_AvoidActorPath
   local_100 = 0;
   if (param_2 == (Actor *)0x0) {
     puVar8 = param_3;
-    uVar16 = param_4;
+    uVar17 = param_4;
     if ((int)param_4 < 1) {
       return 0;
     }
     do {
       puVar9 = puVar8 + 3;
-      uVar16 = uVar16 - 1;
+      uVar17 = uVar17 - 1;
       *(undefined4 *)((int)param_5 + (-0xc - (int)param_3) + (int)puVar9) = *puVar8;
       *(undefined4 *)((int)param_5 + (-8 - (int)param_3) + (int)puVar9) = puVar8[1];
       *(undefined4 *)((int)param_5 + (-4 - (int)param_3) + (int)puVar9) = puVar8[2];
       puVar8 = puVar9;
-    } while (uVar16 != 0);
+    } while (uVar17 != 0);
     return param_4;
   }
-  iVar13 = *(int *)((int)param_1->pCostumes->pMainModel + 4);
-  local_104 = param_1->pExtra->flCollisionScale * *(float *)(iVar13 + 0x5c);
+  iVar14 = *(int *)((int)param_1->pCostumes->pMainModel + 4);
+  local_104 = param_1->pExtra->flCollisionScale * *(float *)(iVar14 + 0x5c);
   pfVar10 = sputActor_GetOrientMatrix(param_1);
-  rdMatrix_TransformVector34(local_c,(float *)(iVar13 + 0x78),pfVar10);
+  rdMatrix_TransformVector34(local_c,(float *)(iVar14 + 0x78),pfVar10);
   bx1 = *(float *)((int)param_2->pCostumes->pMainModel + 4);
   pfVar10 = sputActor_GetOrientMatrix(param_2);
   rdMatrix_TransformPoint34(local_88,(float *)(PUN(int,(float)bx1) + 0x78),pfVar10);
@@ -287,302 +287,302 @@ uint Walker_AvoidActorPath
   local_7c[1] = *(float *)(PUN(int,(float)bx1) + 100) * pAVar1->flCollisionScale - local_104;
   local_7c[2] = *(float *)(PUN(int,(float)bx1) + 0x68) * pAVar1->flCollisionScale - local_104;
   sputActor_GetOrientMatrix(param_2);
-  pfVar15 = local_7c;
-  pfVar20 = (float *)(_stkneg + 28);
-  for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
-    *pfVar20 = *pfVar15;
-    pfVar15 = pfVar15 + 1;
-    pfVar20 = pfVar20 + 1;
+  pfVar16 = local_7c;
+  pfVar21 = (float *)(_stkneg + 28);
+  for (iVar14 = 6; iVar14 != 0; iVar14 = iVar14 + -1) {
+    *pfVar21 = *pfVar16;
+    pfVar16 = pfVar16 + 1;
+    pfVar21 = pfVar21 + 1;
   }
   ((code *)GetOuttaTheBox)(pfVar10);
   sputActor_GetOrientMatrix(param_2);
-  pfVar15 = local_7c;
-  pfVar20 = (float *)(_stkneg + 28);
-  for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
-    *pfVar20 = *pfVar15;
-    pfVar15 = pfVar15 + 1;
-    pfVar20 = pfVar20 + 1;
+  pfVar16 = local_7c;
+  pfVar21 = (float *)(_stkneg + 28);
+  for (iVar14 = 6; iVar14 != 0; iVar14 = iVar14 + -1) {
+    *pfVar21 = *pfVar16;
+    pfVar16 = pfVar16 + 1;
+    pfVar21 = pfVar21 + 1;
   }
   ((code *)GetOuttaTheBox)(param_3);
   local_d0 = *pfVar10;
   local_cc[0] = pfVar10[1];
   local_cc[1] = pfVar10[2];
-  iVar13 = ((code *)WalkPlane_PlaneAt)();
-  if (iVar13 == 0) {
+  pWVar11 = WalkPlane_PlaneAt(&local_d0,0xffffffff);
+  if (pWVar11 == (WalkPlane *)0x0) {
     return 0;
   }
-  uVar16 = 0;
+  uVar17 = 0;
   local_f8 = PUN(float,(param_4 - 1));
   local_f0 = 0;
   if (0 < PUN(int,(float)local_f8)) {
-    pfVar15 = (float *)(param_3 + 2);
+    pfVar16 = (float *)(param_3 + 2);
     pfVar10 = param_5;
     do {
-      local_64[0] = local_e8 + pfVar15[-2];
+      local_64[0] = local_e8 + pfVar16[-2];
       local_fc = PUN(float,(pfVar10 + 3));
-      uVar16 = local_100 + 1;
-      local_64[1] = pfVar15[-1] + local_e4[0];
-      local_64[2] = local_e4[1] + *pfVar15;
-      local_a0[0] = pfVar15[1] + local_e8;
-      local_a0[1] = pfVar15[2] + local_e4[0];
-      local_a0[2] = pfVar15[3] + local_e4[1];
-      *pfVar10 = pfVar15[-2];
-      pfVar10[1] = pfVar15[-1];
-      pfVar10[2] = *pfVar15;
+      uVar17 = local_100 + 1;
+      local_64[1] = pfVar16[-1] + local_e4[0];
+      local_64[2] = local_e4[1] + *pfVar16;
+      local_a0[0] = pfVar16[1] + local_e8;
+      local_a0[1] = pfVar16[2] + local_e4[0];
+      local_a0[2] = pfVar16[3] + local_e4[1];
+      *pfVar10 = pfVar16[-2];
+      pfVar10[1] = pfVar16[-1];
+      pfVar10[2] = *pfVar16;
       sputActor_GetOrientMatrix(param_2);
       pfVar10 = local_7c;
-      pfVar20 = (float *)(_stkneg + 32);
-      for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
-        *pfVar20 = *pfVar10;
+      pfVar21 = (float *)(_stkneg + 32);
+      for (iVar14 = 6; iVar14 != 0; iVar14 = iVar14 + -1) {
+        *pfVar21 = *pfVar10;
         pfVar10 = pfVar10 + 1;
-        pfVar20 = pfVar20 + 1;
+        pfVar21 = pfVar21 + 1;
       }
-      iVar13 = ((code *)TestCollision)(local_64,local_a0);
-      local_100 = uVar16;
-      if (iVar13 != 0) {
+      iVar14 = ((code *)TestCollision)(local_64,local_a0);
+      local_100 = uVar17;
+      if (iVar14 != 0) {
         pfVar10 = sputActor_GetOrientMatrix(param_2);
         rdMatrix_TransformPoint34(local_58,(float *)&DAT_008ca320,pfVar10);
-        this = (void *)((code *)WalkPlane_PlaneClosest)();
-        WalkPlane_SnapTo(this,local_58);
+        pWVar11 = WalkPlane_PlaneClosest(local_58,0xffffffff);
+        WalkPlane_SnapTo(pWVar11,local_58);
         sputActor_GetOrientMatrix(param_2);
         bz0 = 6.713914e-39;
         ((code *)FindObjectCorners)();
-        puVar19 = &local_1c;
+        puVar20 = &local_1c;
         pfVar10 = &local_4c;
         local_f4 = 5.60519e-45;
         do {
-          *puVar19 = 0;
+          *puVar20 = 0;
           local_a0[0] = local_e8 + *pfVar10;
           local_a0[1] = pfVar10[1] + local_e4[0];
           local_a0[2] = local_e4[1] + pfVar10[2];
           sputActor_GetOrientMatrix(param_2);
-          pfVar15 = local_88;
-          pfVar20 = local_7c;
-          pfVar21 = (float *)(_stkneg + 32);
-          for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
-            *pfVar21 = *pfVar20;
-            pfVar20 = pfVar20 + 1;
+          pfVar16 = local_88;
+          pfVar21 = local_7c;
+          pfVar22 = (float *)(_stkneg + 32);
+          for (iVar14 = 6; iVar14 != 0; iVar14 = iVar14 + -1) {
+            *pfVar22 = *pfVar21;
             pfVar21 = pfVar21 + 1;
+            pfVar22 = pfVar22 + 1;
           }
-          iVar13 = ((code *)TestCollision)(local_64,local_a0);
-          if ((iVar13 == 0) && (iVar13 = ((code *)BuildPath)(), iVar13 != 0)) {
-            *puVar19 = 1;
+          iVar14 = ((code *)TestCollision)(local_64,local_a0);
+          if ((iVar14 == 0) && (iVar14 = ((code *)BuildPath)(), iVar14 != 0)) {
+            *puVar20 = 1;
           }
           pfVar10 = pfVar10 + 3;
-          puVar19 = puVar19 + 1;
+          puVar20 = puVar20 + 1;
           local_f4 = PUN(float,(PUN(int,(float)local_f4) + -1));
         } while (local_f4 != 0.0);
-        fVar11 = (float)((code *)Collision_PickDetour)();
-        if (fVar11 == -NAN) {
-          return uVar16;
+        fVar12 = (float)((code *)Collision_PickDetour)();
+        if (fVar12 == -NAN) {
+          return uVar17;
         }
         ((code *)BuildPath)();
-        iVar13 = ((code *)GetPath)();
-        if (0 < iVar13) {
-          local_100 = uVar16 + iVar13;
-          pfVar10 = param_5 + uVar16 * 3;
-          pfVar20 = PUN(float *,(float)local_fc);
+        iVar14 = ((code *)GetPath)();
+        if (0 < iVar14) {
+          local_100 = uVar17 + iVar14;
+          pfVar10 = param_5 + uVar17 * 3;
+          pfVar21 = PUN(float *,(float)local_fc);
           do {
-            iVar13 = iVar13 + -1;
-            *pfVar10 = *pfVar20;
-            pfVar10[1] = pfVar20[1];
-            pfVar10[2] = pfVar20[2];
+            iVar14 = iVar14 + -1;
+            *pfVar10 = *pfVar21;
+            pfVar10[1] = pfVar21[1];
+            pfVar10[2] = pfVar21[2];
             pfVar10 = pfVar10 + 3;
-            pfVar20 = pfVar20 + 3;
-          } while (iVar13 != 0);
+            pfVar21 = pfVar21 + 3;
+          } while (iVar14 != 0);
         }
-        pfVar20 = &local_e8;
-        (&local_1c)[PUN(int,(float)fVar11)] = 0;
+        pfVar21 = &local_e8;
+        (&local_1c)[PUN(int,(float)fVar12)] = 0;
         local_f4 = PUN(float,(param_5 + local_100 * 3));
         pfVar10 = (float *)(PUN(int,(float)local_f4) + -0xc);
-        fVar24 = 6.714508e-39;
-        pfVar12 = sputActor_GetOrientMatrix(param_2);
-        pfVar21 = local_7c;
-        pfVar23 = (float *)(_stkneg + 28);
-        for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
-          *pfVar23 = *pfVar21;
-          pfVar21 = pfVar21 + 1;
-          pfVar23 = pfVar23 + 1;
+        fVar25 = 6.714508e-39;
+        pfVar13 = sputActor_GetOrientMatrix(param_2);
+        pfVar22 = local_7c;
+        pfVar24 = (float *)(_stkneg + 28);
+        for (iVar14 = 6; iVar14 != 0; iVar14 = iVar14 + -1) {
+          *pfVar24 = *pfVar22;
+          pfVar22 = pfVar22 + 1;
+          pfVar24 = pfVar24 + 1;
         }
-        iVar13 = Collision_PointInBox
-                           (pfVar10,&local_d0,local_88,PUN(float,pfVar15),in_stack_fffffed0,bz0,bx1,
-                            6.714319e-39,fVar24,pfVar12,pfVar20);
-        if (iVar13 != 0) {
-          iVar13 = ((code *)GetPath)();
-          if (iVar13 < 1) {
+        iVar14 = Collision_PointInBox
+                           (pfVar10,&local_d0,local_88,PUN(float,pfVar16),in_stack_fffffed0,bz0,bx1,
+                            6.714319e-39,fVar25,pfVar13,pfVar21);
+        if (iVar14 != 0) {
+          iVar14 = ((code *)GetPath)();
+          if (iVar14 < 1) {
             return local_100;
           }
-          uVar16 = local_100 + iVar13;
+          uVar17 = local_100 + iVar14;
           do {
-            iVar13 = iVar13 + -1;
+            iVar14 = iVar14 + -1;
             *PUN(float *,(float)local_f4) = *PUN(float *,(float)local_fc);
             *(float *)(PUN(int,(float)local_f4) + 4) = *(float *)(PUN(int,(float)local_fc) + 4);
             *(float *)(PUN(int,(float)local_f4) + 8) = *(float *)(PUN(int,(float)local_fc) + 8);
             local_f4 = PUN(float,(PUN(int,(float)local_f4) + 0xc));
             local_fc = PUN(float,(PUN(int,(float)local_fc) + 0xc));
-          } while (iVar13 != 0);
-          return uVar16;
+          } while (iVar14 != 0);
+          return uVar17;
         }
-        uVar16 = (int)(PUN(int,(float)fVar11) + 3U) >> 0x1f;
-        fVar24 = PUN(float,(((PUN(int,(float)fVar11) + 3U ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16));
-        uVar16 = (int)(PUN(int,(float)fVar11) + 5U) >> 0x1f;
-        fVar22 = PUN(float,(((PUN(int,(float)fVar11) + 5U ^ uVar16) - uVar16 & 3 ^ uVar16) - uVar16));
+        uVar17 = (int)(PUN(int,(float)fVar12) + 3U) >> 0x1f;
+        fVar25 = PUN(float,(((PUN(int,(float)fVar12) + 3U ^ uVar17) - uVar17 & 3 ^ uVar17) - uVar17));
+        uVar17 = (int)(PUN(int,(float)fVar12) + 5U) >> 0x1f;
+        fVar23 = PUN(float,(((PUN(int,(float)fVar12) + 5U ^ uVar17) - uVar17 & 3 ^ uVar17) - uVar17));
         local_f0 = ((code *)BuildPath)();
-        iVar13 = ((code *)BuildPath)();
-        if (iVar13 != 0) {
+        iVar14 = ((code *)BuildPath)();
+        if (iVar14 != 0) {
           if (local_f0 == 0) goto LAB_00491fa5;
-          local_104 = *pfVar10 - (&local_4c)[PUN(int,(float)fVar24) * 3];
-          fVar3 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar24) * 3]);
-          fVar4 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar24) * 3]);
-          fVar5 = PUN(float,(&local_48)[PUN(int,(float)fVar24) * 3]) - local_cc[0];
-          fVar6 = PUN(float,(&local_44)[PUN(int,(float)fVar24) * 3]) - local_cc[1];
-          fVar7 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar22) * 3]);
-          local_f8 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar22) * 3]);
-          local_fc = PUN(float,(&local_48)[PUN(int,(float)fVar22) * 3]) - local_cc[0];
-          fVar2 = PUN(float,(&local_44)[PUN(int,(float)fVar22) * 3]) - local_cc[1];
+          local_104 = *pfVar10 - (&local_4c)[PUN(int,(float)fVar25) * 3];
+          fVar3 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar25) * 3]);
+          fVar4 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar25) * 3]);
+          fVar5 = PUN(float,(&local_48)[PUN(int,(float)fVar25) * 3]) - local_cc[0];
+          fVar6 = PUN(float,(&local_44)[PUN(int,(float)fVar25) * 3]) - local_cc[1];
+          fVar7 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar23) * 3]);
+          local_f8 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar23) * 3]);
+          local_fc = PUN(float,(&local_48)[PUN(int,(float)fVar23) * 3]) - local_cc[0];
+          fVar2 = PUN(float,(&local_44)[PUN(int,(float)fVar23) * 3]) - local_cc[1];
           if (fVar2 * fVar2 +
               local_fc * local_fc +
-              ((&local_4c)[PUN(int,(float)fVar22) * 3] - local_d0) * ((&local_4c)[PUN(int,(float)fVar22) * 3] - local_d0)
+              ((&local_4c)[PUN(int,(float)fVar23) * 3] - local_d0) * ((&local_4c)[PUN(int,(float)fVar23) * 3] - local_d0)
               + local_f8 * local_f8 +
                 fVar7 * fVar7 +
-                (*pfVar10 - (&local_4c)[PUN(int,(float)fVar22) * 3]) *
-                (*pfVar10 - (&local_4c)[PUN(int,(float)fVar22) * 3]) <=
+                (*pfVar10 - (&local_4c)[PUN(int,(float)fVar23) * 3]) *
+                (*pfVar10 - (&local_4c)[PUN(int,(float)fVar23) * 3]) <=
               fVar6 * fVar6 +
               fVar5 * fVar5 +
-              ((&local_4c)[PUN(int,(float)fVar24) * 3] - local_d0) * ((&local_4c)[PUN(int,(float)fVar24) * 3] - local_d0)
+              ((&local_4c)[PUN(int,(float)fVar25) * 3] - local_d0) * ((&local_4c)[PUN(int,(float)fVar25) * 3] - local_d0)
               + fVar4 * fVar4 + fVar3 * fVar3 + local_104 * local_104) {
             local_f0 = 0;
           }
           else {
-            iVar13 = 0;
+            iVar14 = 0;
           }
         }
         if (local_f0 != 0) {
           local_f8 = -NAN;
-          local_104 = fVar24;
+          local_104 = fVar25;
         }
 LAB_00491fa5:
-        if (iVar13 != 0) {
+        if (iVar14 != 0) {
           local_f8 = 1.4013e-45;
-          local_104 = fVar22;
+          local_104 = fVar23;
         }
-        if (local_104 == fVar11) {
+        if (local_104 == fVar12) {
           return local_100;
         }
         while( true ) {
           ((code *)BuildPath)();
           pfVar10 = (float *)((code *)GetPath)();
-          iVar13 = 0;
+          iVar14 = 0;
           if (0 < (int)pfVar10 + -1) {
-            iVar18 = 0;
+            iVar19 = 0;
             do {
-              local_ac[0] = local_e8 + *(float *)(PUN(int,(float)local_fc) + iVar18);
-              local_ac[1] = *(float *)(PUN(int,(float)local_fc) + 4 + iVar18) + local_e4[0];
-              local_ac[2] = *(float *)(PUN(int,(float)local_fc) + 8 + iVar18) + local_e4[1];
-              local_94[0] = *(float *)(PUN(int,(float)local_fc) + 0xc + iVar18) + local_e8;
-              local_94[1] = *(float *)(PUN(int,(float)local_fc) + 0x10 + iVar18) + local_e4[0];
-              local_94[2] = *(float *)(PUN(int,(float)local_fc) + 0x14 + iVar18) + local_e4[1];
+              local_ac[0] = local_e8 + *(float *)(PUN(int,(float)local_fc) + iVar19);
+              local_ac[1] = *(float *)(PUN(int,(float)local_fc) + 4 + iVar19) + local_e4[0];
+              local_ac[2] = *(float *)(PUN(int,(float)local_fc) + 8 + iVar19) + local_e4[1];
+              local_94[0] = *(float *)(PUN(int,(float)local_fc) + 0xc + iVar19) + local_e8;
+              local_94[1] = *(float *)(PUN(int,(float)local_fc) + 0x10 + iVar19) + local_e4[0];
+              local_94[2] = *(float *)(PUN(int,(float)local_fc) + 0x14 + iVar19) + local_e4[1];
               sputActor_GetOrientMatrix(param_2);
-              pfVar15 = local_7c;
-              pfVar20 = (float *)(_stkneg + 32);
-              for (iVar14 = 6; iVar14 != 0; iVar14 = iVar14 + -1) {
-                *pfVar20 = *pfVar15;
-                pfVar15 = pfVar15 + 1;
-                pfVar20 = pfVar20 + 1;
+              pfVar16 = local_7c;
+              pfVar21 = (float *)(_stkneg + 32);
+              for (iVar15 = 6; iVar15 != 0; iVar15 = iVar15 + -1) {
+                *pfVar21 = *pfVar16;
+                pfVar16 = pfVar16 + 1;
+                pfVar21 = pfVar21 + 1;
               }
-              pfVar15 = local_88;
-              iVar14 = ((code *)TestCollision)(local_ac,local_94);
-              if (iVar14 != 0) {
+              pfVar16 = local_88;
+              iVar15 = ((code *)TestCollision)(local_ac,local_94);
+              if (iVar15 != 0) {
                 return 0;
               }
-              iVar13 = iVar13 + 1;
-              iVar18 = iVar18 + 0xc;
-            } while (iVar13 < (int)pfVar10 + -1);
+              iVar14 = iVar14 + 1;
+              iVar19 = iVar19 + 0xc;
+            } while (iVar14 < (int)pfVar10 + -1);
           }
           if (0 < (int)pfVar10) {
             local_100 = local_100 + (int)pfVar10;
             puVar8 = PUN(undefined4 *,(float)local_fc);
-            pfVar20 = pfVar10;
+            pfVar21 = pfVar10;
             do {
-              pfVar20 = (float *)((int)pfVar20 + -1);
+              pfVar21 = (float *)((int)pfVar21 + -1);
               *PUN(undefined4 *,(float)local_f4) = *puVar8;
               *(undefined4 *)(PUN(int,(float)local_f4) + 4) = puVar8[1];
               *(undefined4 *)(PUN(int,(float)local_f4) + 8) = puVar8[2];
               local_f4 = PUN(float,(PUN(int,(float)local_f4) + 0xc));
               puVar8 = puVar8 + 3;
-            } while (pfVar20 != (float *)0x0);
+            } while (pfVar21 != (float *)0x0);
           }
-          pfVar20 = &local_e8;
+          pfVar21 = &local_e8;
           local_f4 = PUN(float,(param_5 + local_100 * 3));
-          fVar24 = 6.715863e-39;
-          pfVar12 = sputActor_GetOrientMatrix(param_2);
-          pfVar21 = local_7c;
-          pfVar23 = (float *)(_stkneg + 28);
-          for (iVar13 = 6; iVar13 != 0; iVar13 = iVar13 + -1) {
-            *pfVar23 = *pfVar21;
-            pfVar21 = pfVar21 + 1;
-            pfVar23 = pfVar23 + 1;
+          fVar25 = 6.715863e-39;
+          pfVar13 = sputActor_GetOrientMatrix(param_2);
+          pfVar22 = local_7c;
+          pfVar24 = (float *)(_stkneg + 28);
+          for (iVar14 = 6; iVar14 != 0; iVar14 = iVar14 + -1) {
+            *pfVar24 = *pfVar22;
+            pfVar22 = pfVar22 + 1;
+            pfVar24 = pfVar24 + 1;
           }
-          iVar13 = Collision_PointInBox
-                             ((float *)(PUN(int,(float)local_f4) + -0xc),&local_d0,local_88,PUN(float,pfVar15),
-                              in_stack_fffffed0,bz0,bx1,6.715423e-39,fVar24,pfVar12,pfVar20);
-          if (iVar13 != 0) break;
-          uVar16 = PUN(int,(float)local_f8) + 4 + PUN(int,(float)local_104);
-          uVar17 = (int)uVar16 >> 0x1f;
-          local_104 = PUN(float,(((uVar16 ^ uVar17) - uVar17 & 3 ^ uVar17) - uVar17));
-          if (local_104 == fVar11) {
+          iVar14 = Collision_PointInBox
+                             ((float *)(PUN(int,(float)local_f4) + -0xc),&local_d0,local_88,PUN(float,pfVar16),
+                              in_stack_fffffed0,bz0,bx1,6.715423e-39,fVar25,pfVar13,pfVar21);
+          if (iVar14 != 0) break;
+          uVar17 = PUN(int,(float)local_f8) + 4 + PUN(int,(float)local_104);
+          uVar18 = (int)uVar17 >> 0x1f;
+          local_104 = PUN(float,(((uVar17 ^ uVar18) - uVar18 & 3 ^ uVar18) - uVar18));
+          if (local_104 == fVar12) {
             return local_100;
           }
         }
-        iVar13 = ((code *)GetPath)();
-        iVar18 = 0;
+        iVar14 = ((code *)GetPath)();
+        iVar19 = 0;
         local_f8 = 0.0;
-        if (0 < iVar13 + -1) {
+        if (0 < iVar14 + -1) {
           do {
-            local_94[0] = local_e8 + *(float *)((int)pfVar10 + iVar18);
-            local_94[1] = *(float *)((int)pfVar10 + iVar18 + 4) + local_e4[0];
-            local_94[2] = *(float *)((int)pfVar10 + iVar18 + 8) + local_e4[1];
-            local_ac[0] = *(float *)((int)pfVar10 + iVar18 + 0xc) + local_e8;
-            local_ac[1] = *(float *)((int)pfVar10 + iVar18 + 0x10) + local_e4[0];
-            local_ac[2] = *(float *)((int)pfVar10 + iVar18 + 0x14) + local_e4[1];
+            local_94[0] = local_e8 + *(float *)((int)pfVar10 + iVar19);
+            local_94[1] = *(float *)((int)pfVar10 + iVar19 + 4) + local_e4[0];
+            local_94[2] = *(float *)((int)pfVar10 + iVar19 + 8) + local_e4[1];
+            local_ac[0] = *(float *)((int)pfVar10 + iVar19 + 0xc) + local_e8;
+            local_ac[1] = *(float *)((int)pfVar10 + iVar19 + 0x10) + local_e4[0];
+            local_ac[2] = *(float *)((int)pfVar10 + iVar19 + 0x14) + local_e4[1];
             sputActor_GetOrientMatrix(param_2);
-            pfVar15 = local_7c;
-            pfVar20 = (float *)(_stkneg + 32);
-            for (iVar14 = 6; iVar14 != 0; iVar14 = iVar14 + -1) {
-              *pfVar20 = *pfVar15;
-              pfVar15 = pfVar15 + 1;
-              pfVar20 = pfVar20 + 1;
+            pfVar16 = local_7c;
+            pfVar21 = (float *)(_stkneg + 32);
+            for (iVar15 = 6; iVar15 != 0; iVar15 = iVar15 + -1) {
+              *pfVar21 = *pfVar16;
+              pfVar16 = pfVar16 + 1;
+              pfVar21 = pfVar21 + 1;
             }
-            iVar14 = ((code *)TestCollision)(local_94,local_ac);
-            if (iVar14 != 0) {
+            iVar15 = ((code *)TestCollision)(local_94,local_ac);
+            if (iVar15 != 0) {
               return 0;
             }
             local_f8 = PUN(float,(PUN(int,(float)local_f8) + 1));
-            iVar18 = iVar18 + 0xc;
-          } while (PUN(int,(float)local_f8) < iVar13 + -1);
+            iVar19 = iVar19 + 0xc;
+          } while (PUN(int,(float)local_f8) < iVar14 + -1);
         }
-        uVar16 = local_100;
-        if (0 < iVar13) {
-          uVar16 = local_100 + iVar13;
-          pfVar15 = param_5 + local_100 * 3;
+        uVar17 = local_100;
+        if (0 < iVar14) {
+          uVar17 = local_100 + iVar14;
+          pfVar16 = param_5 + local_100 * 3;
           do {
-            iVar13 = iVar13 + -1;
-            *pfVar15 = *pfVar10;
-            pfVar15[1] = pfVar10[1];
-            pfVar15[2] = pfVar10[2];
-            pfVar15 = pfVar15 + 3;
+            iVar14 = iVar14 + -1;
+            *pfVar16 = *pfVar10;
+            pfVar16[1] = pfVar10[1];
+            pfVar16[2] = pfVar10[2];
+            pfVar16 = pfVar16 + 3;
             pfVar10 = pfVar10 + 3;
-          } while (iVar13 != 0);
+          } while (iVar14 != 0);
         }
-        return uVar16;
+        return uVar17;
       }
-      uVar16 = local_f0 + 1;
-      pfVar15 = pfVar15 + 3;
+      uVar17 = local_f0 + 1;
+      pfVar16 = pfVar16 + 3;
       pfVar10 = PUN(float *,(float)local_fc);
-      local_f0 = uVar16;
-    } while ((int)uVar16 < PUN(int,(float)local_f8));
+      local_f0 = uVar17;
+    } while ((int)uVar17 < PUN(int,(float)local_f8));
   }
-  pfVar10 = (float *)(param_3 + uVar16 * 3);
+  pfVar10 = (float *)(param_3 + uVar17 * 3);
   param_5 = param_5 + local_100 * 3;
   *param_5 = *pfVar10;
   param_5[1] = pfVar10[1];
@@ -653,7 +653,7 @@ Puck * __thiscall Puck_Construct(Puck *this,float radius)
   rdMatrix_Build34(this->aFrame,this,this);
   this->aConstraint[1] = 1.0;
   this->flRadius = radius;
-  this->pSector = (void *)0x0;
+  this->pSector = (WalkPlane *)0x0;
   this->flStep = 0.0;
   this->nConstrained = 0;
   this->aConstraint[0] = 0.0;
@@ -708,12 +708,12 @@ undefined * __fastcall Puck_Rot(Puck *puck)
 void __fastcall Puck_Validate(Puck *puck)
 
 {
-  void *this;
+  WalkPlane *this;
   int iVar1;
   
-  this = (void *)WalkPlane_PlaneClosest(puck,0x1000);
+  this = WalkPlane_PlaneClosest(puck->aPos,0x1000);
   puck->pSector = this;
-  if (this != (void *)0x0) {
+  if (this != (WalkPlane *)0x0) {
     iVar1 = WalkPlane_Within(this,puck->aPos,1);
     if (iVar1 == 0) {
       WalkPlane_ClosestPoint(puck->pSector,(int)puck);
@@ -789,7 +789,7 @@ void __thiscall Puck_Rotate(Puck *this,float angle)
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *vec;
-  void *this_00;
+  WalkPlane *this_00;
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
   rdMatrix_BuildFromVectorAngle34(local_30,this->aFrame + 6,angle);
@@ -799,7 +799,7 @@ void __thiscall Puck_Rotate(Puck *this,float angle)
   *vec = *vec + this->aFrame[9];
   this->aFrame[4] = this->aFrame[10] + this->aFrame[4];
   this->aFrame[5] = this->aFrame[0xb] + this->aFrame[5];
-  if (this_00 != (void *)0x0) {
+  if (this_00 != (WalkPlane *)0x0) {
     WalkPlane_SnapTo(this_00,vec);
   }
   *vec = *vec - this->aFrame[9];
@@ -830,7 +830,7 @@ float __thiscall Puck_PointAt(Puck *this,float *point,float maxTurn)
   local_c = *point;
   local_8 = point[1];
   local_4 = PUN(uint,(float)point[2]);
-  if (this->pSector != (void *)0x0) {
+  if (this->pSector != (WalkPlane *)0x0) {
     WalkPlane_Project(this->pSector,(int)&local_c);
   }
   Puck_InvXform(this,&local_c);
@@ -864,7 +864,7 @@ void __thiscall Puck_Constrain(Puck *this,int a1)
   float *pfVar1;
   
   this->nConstrained = 0;
-  if ((this->pSector != (void *)0x0) && (a1 != 0)) {
+  if ((this->pSector != (WalkPlane *)0x0) && (a1 != 0)) {
     pfVar1 = WalkPlane_GetConstraintVector(this->pSector,this->aPos);
     if (pfVar1 != (float *)0x0) {
       this->aConstraint[0] = *pfVar1;
@@ -893,11 +893,12 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *this_00;
-  int iVar1;
-  void *pvVar2;
-  undefined *puVar3;
-  float fVar4;
+  WalkPlane *this_00;
+  WalkVertex *pWVar1;
+  int iVar2;
+  WalkPlane *pWVar3;
+  undefined *puVar4;
+  float fVar5;
   #define local_48 (*(float *)(_frame + (0x60 - 0x48)))
   #define local_34 (*(float *)(_frame + (0x60 - 0x34)))
   #define local_30 (*(float *)(_frame + (0x60 - 0x30)))
@@ -913,24 +914,24 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
   #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
   
-  puVar3 = (undefined *)0x0;
+  puVar4 = (undefined *)0x0;
   if (g_dwPuck_Forward_recursion_level == 0) {
     this->flStep = step;
   }
   g_dwPuck_Forward_recursion_level = g_dwPuck_Forward_recursion_level + 1;
   if (this->nConstrained != 0) {
-    fVar4 = rdVector_Dot3(this->aFrame,this->aConstraint);
-    fVar4 = stdMath_ArcSin3(fVar4);
-    local_48 = (90.0 - fVar4) - 90.0;
-    fVar4 = local_48;
+    fVar5 = rdVector_Dot3(this->aFrame,this->aConstraint);
+    fVar5 = stdMath_ArcSin3(fVar5);
+    local_48 = (90.0 - fVar5) - 90.0;
+    fVar5 = local_48;
     if (local_48 < 0.0) {
-      fVar4 = -local_48;
+      fVar5 = -local_48;
     }
-    if (this->flRadius < fVar4) {
+    if (this->flRadius < fVar5) {
       return (undefined *)0x0;
     }
-    fVar4 = rdVector_Dot3(this->aFrame + 3,this->aConstraint);
-    if (fVar4 <= 0.0) {
+    fVar5 = rdVector_Dot3(this->aFrame + 3,this->aConstraint);
+    if (fVar5 <= 0.0) {
       local_48 = -local_48;
     }
     Puck_Rotate(this,local_48);
@@ -939,8 +940,8 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
   local_2c = PUN(uint,(float)step);
   local_28 = 0;
   Puck_Xform(this,&local_30);
-  if ((this->pSector == (void *)0x0) ||
-     (iVar1 = WalkPlane_Within(this->pSector,&local_30,1), iVar1 != 0)) {
+  if ((this->pSector == (WalkPlane *)0x0) ||
+     (iVar2 = WalkPlane_Within(this->pSector,&local_30,1), iVar2 != 0)) {
     local_48 = PUN(float,&local_30);
     Puck_SetPos(this,PUN(float *,(float)local_48));
     g_dwPuck_Forward_recursion_level = 0;
@@ -952,29 +953,29 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
   }
   this_00 = this->pSector;
   local_34 = WalkPlane_Intersection(this_00,(int)this,(int)&local_30,(int)&local_24);
-  *(undefined4 *)((int)this->pSector + 0x2c) = 0;
+  this->pSector->nActive = 0;
   local_18 = local_24;
   local_14 = local_20;
   local_10 = local_1c;
   Puck_InvXform(this,&local_18);
   step = step - local_14;
-  pvVar2 = (void *)WalkPlane_PlaneAt(&local_24,0x1000);
-  if (pvVar2 == (void *)0x0) {
+  pWVar3 = WalkPlane_PlaneAt(&local_24,0x1000);
+  if (pWVar3 == (WalkPlane *)0x0) {
     Puck_SetPos(this,&local_24);
-    pvVar2 = this->pSector;
-    if ((*(uint *)((int)pvVar2 + 0x24) & 0x100) == 0) {
-      fVar4 = local_34;
+    pWVar3 = this->pSector;
+    if ((pWVar3->dwType & 0x100) == 0) {
+      fVar5 = local_34;
       if (local_34 < 0.0) {
-        fVar4 = -local_34;
+        fVar5 = -local_34;
       }
-      if ((this->flRadius <= fVar4) || (this->nConstrained != 0)) {
+      if ((this->flRadius <= fVar5) || (this->nConstrained != 0)) {
         this->flStep = this->flStep - step;
       }
       else if (((0.0 < local_34) && (turnLeftOk != 0)) || ((local_34 < 0.0 && (turnRightOk != 0))))
       {
         Puck_Rotate(this,local_34);
-        *(undefined4 *)((int)this_00 + 0x2c) = 1;
-        puVar3 = Puck_Forward(this,step,1,1);
+        this_00->nActive = 1;
+        puVar4 = Puck_Forward(this,step,1,1);
       }
       if (this->nConstrained != 0) {
         Puck_Rotate(this,local_34);
@@ -983,15 +984,14 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
         this->aConstraint[1] = this->aFrame[4];
         this->aConstraint[2] = this->aFrame[5];
       }
-      *(undefined4 *)((int)this_00 + 0x2c) = 1;
-      return puVar3;
+      this_00->nActive = 1;
+      return puVar4;
     }
-    if ((*(int *)((int)pvVar2 + 0x78) + 1) % *(int *)((int)pvVar2 + 0x34) !=
-        *(int *)((int)pvVar2 + 0x74)) {
-      iVar1 = *(int *)((int)pvVar2 + *(int *)((int)pvVar2 + 0x78) * 4 + 0x38);
-      local_c = *(float *)(iVar1 + 4);
-      local_8 = *(uint *)(iVar1 + 8);
-      local_4 = *(uint *)(iVar1 + 0xc);
+    if ((pWVar3->nLongEdge + 1) % pWVar3->nNumVerts != pWVar3->nHitEdge) {
+      pWVar1 = pWVar3->aVerts[pWVar3->nLongEdge];
+      local_c = pWVar1->aPos[0];
+      local_8 = PUN(uint,(float)pWVar1->aPos[1]);
+      local_4 = PUN(uint,(float)pWVar1->aPos[2]);
       Puck_InvXform(this,&local_c);
       if (local_c <= 0.0) {
         if (local_34 < 3.0) {
@@ -1002,21 +1002,21 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
         local_34 = -90.2 - (90.0 - local_34);
       }
       Puck_Rotate(this,local_34);
-      puVar3 = Puck_Forward(this,step,1,1);
-      *(undefined4 *)((int)this_00 + 0x2c) = 1;
-      return puVar3;
+      puVar4 = Puck_Forward(this,step,1,1);
+      this_00->nActive = 1;
+      return puVar4;
     }
     return (undefined *)0x0;
   }
   Puck_SetPos(this,&local_24);
-  this->pSector = pvVar2;
-  Puck_OrientToPlane(this,(int)pvVar2);
+  this->pSector = pWVar3;
+  Puck_OrientToPlane(this,(int)pWVar3);
   if (0.02 <= step) {
     step = 0.02;
   }
-  puVar3 = Puck_Forward(this,step,1,1);
-  *(undefined4 *)((int)this_00 + 0x2c) = 1;
-  return puVar3;
+  puVar4 = Puck_Forward(this,step,1,1);
+  this_00->nActive = 1;
+  return puVar4;
 }
 #undef local_10
 #undef local_14
@@ -1171,39 +1171,40 @@ uint GetPath(undefined4 *param_1)
    is this body (all planes active, find the start and end planes, FindPath, append the end point,
    TightenPath)); was Planner_PlanPath. */
 
-undefined4 BuildPath(undefined4 param_1,uint *param_2,int param_3)
+undefined4 BuildPath(float *param_1,float *param_2,int param_3)
 
 {
   uint uVar1;
-  int iVar2;
-  undefined4 uVar3;
+  WalkPlane *pWVar2;
+  int iVar3;
+  undefined4 uVar4;
   
-  uVar3 = 0;
+  uVar4 = 0;
   WalkPlane_AllActive();
   g_dwTotWorkingPathPoints = 0;
-  iVar2 = WalkPlane_PlaneAt(param_1,0x1000);
-  if (iVar2 == 0) {
+  pWVar2 = WalkPlane_PlaneAt(param_1,0x1000);
+  if (pWVar2 == (WalkPlane *)0x0) {
     return 0;
   }
-  iVar2 = WalkPlane_PlaneAt(param_2,0x1000);
-  if (iVar2 == 0) {
+  pWVar2 = WalkPlane_PlaneAt(param_2,0x1000);
+  if (pWVar2 == (WalkPlane *)0x0) {
     return 0;
   }
-  iVar2 = Planner_FindPath(param_1,param_2,0);
+  iVar3 = Planner_FindPath(param_1,param_2,(WalkPlane *)0x0);
   uVar1 = g_dwTotWorkingPathPoints;
-  if (iVar2 != 0) {
-    iVar2 = g_dwTotWorkingPathPoints * 3;
+  if (iVar3 != 0) {
+    iVar3 = g_dwTotWorkingPathPoints * 3;
     g_dwTotWorkingPathPoints = g_dwTotWorkingPathPoints + 1;
-    (&g_dwWorkingPath)[iVar2] = *param_2;
-    (&UINT_008cf0b4)[uVar1 * 3] = param_2[1];
-    (&UINT_008cf0b8)[uVar1 * 3] = param_2[2];
+    (&g_dwWorkingPath)[iVar3] = PUN(uint,(float)*param_2);
+    (&UINT_008cf0b4)[uVar1 * 3] = PUN(uint,(float)param_2[1]);
+    (&UINT_008cf0b8)[uVar1 * 3] = PUN(uint,(float)param_2[2]);
     if (param_3 != 0) {
       TightenPath();
     }
-    uVar3 = 1;
+    uVar4 = 1;
   }
   WalkPlane_AllActive();
-  return uVar3;
+  return uVar4;
 }
 
 /* ---- 0x004a94d0  Planner_FindPath ---- */
@@ -1212,14 +1213,14 @@ undefined4 BuildPath(undefined4 param_1,uint *param_2,int param_3)
    FindPath is a static two remaster files have, so it keeps the module prefix); was
    Planner_SearchSectors. */
 
-undefined4 Planner_FindPath(float *param_1,float *param_2,void *param_3)
+undefined4 __cdecl Planner_FindPath(float *param_1,float *param_2,WalkPlane *plane)
 
 {
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
-  int iVar3;
-  undefined1 *puVar4;
+  WalkPlane *planeB;
+  float *point;
   #define local_1fc (*(uint *)(_frame + (0x210 - 0x1fc)))
   #define local_1f8 (*(uint *)(_frame + (0x210 - 0x1f8)))
   #define local_1f4 (*(float *)(_frame + (0x210 - 0x1f4)))
@@ -1227,39 +1228,39 @@ undefined4 Planner_FindPath(float *param_1,float *param_2,void *param_3)
   #define local_1ec (*(float *)(_frame + (0x210 - 0x1ec)))
   #define local_1e8 (*(uint *)(_frame + (0x210 - 0x1e8)))
   #define local_1e4 (*(uint *)(_frame + (0x210 - 0x1e4)))
-  #define local_1e0 (*(undefined1 (*)[480])(_frame + (0x210 - 0x1e0)))
+  #define local_1e0 (*(float (*)[120])(_frame + (0x210 - 0x1e0)))
   
   if (0x1d < (int)(g_dwTotWorkingPathPoints + 1)) {
-    *(undefined4 *)((int)param_3 + 0x2c) = 0;
+    plane->nActive = 0;
     return 1;
   }
-  if (param_3 == (void *)0x0) {
-    param_3 = (void *)WalkPlane_PlaneAt(param_1,0x1000);
+  if (plane == (WalkPlane *)0x0) {
+    plane = WalkPlane_PlaneAt(param_1,0x1000);
   }
   uVar1 = g_dwTotWorkingPathPoints;
-  if (param_3 != (void *)0x0) {
+  if (plane != (WalkPlane *)0x0) {
     iVar2 = g_dwTotWorkingPathPoints * 3;
     g_dwTotWorkingPathPoints = g_dwTotWorkingPathPoints + 1;
     (&g_dwWorkingPath)[iVar2] = PUN(uint,(float)*param_1);
     (&UINT_008cf0b4)[uVar1 * 3] = PUN(uint,(float)param_1[1]);
     (&UINT_008cf0b8)[uVar1 * 3] = PUN(uint,(float)param_1[2]);
-    iVar2 = WalkPlane_Within(param_3,param_2,1);
+    iVar2 = WalkPlane_Within(plane,param_2,1);
     if (iVar2 != 0) {
       return 1;
     }
     local_1e8 = g_dwTotWorkingPathPoints;
-    WalkPlane_Intersection(param_3,(int)param_1,(int)param_2,(int)&local_1f4);
-    *(undefined4 *)((int)param_3 + 0x2c) = 0;
+    WalkPlane_Intersection(plane,(int)param_1,(int)param_2,(int)&local_1f4);
+    plane->nActive = 0;
     if ((local_1f4 - *param_1) * (local_1f4 - *param_1) +
         (local_1ec - param_1[2]) * (local_1ec - param_1[2]) +
         (local_1f0 - param_1[1]) * (local_1f0 - param_1[1]) <= 0.0001) {
       local_1f8 = 0;
     }
     else {
-      local_1f8 = WalkPlane_PlaneAt(&local_1f4,0x1000);
+      local_1f8 = (uint)WalkPlane_PlaneAt(&local_1f4,0x1000);
     }
     if (local_1f8 != 0) {
-      iVar2 = Planner_FindPath(&local_1f4,param_2,local_1f8);
+      iVar2 = Planner_FindPath(&local_1f4,param_2,(WalkPlane *)local_1f8);
       if (iVar2 != 0) {
         return 1;
       }
@@ -1267,24 +1268,24 @@ undefined4 Planner_FindPath(float *param_1,float *param_2,void *param_3)
         *(undefined4 *)(local_1f8 + 0x2c) = 0;
       }
     }
-    local_1e4 = FindExitPoints(param_3,param_2,local_1e0);
+    local_1e4 = FindExitPoints(plane,param_2,(uint *)local_1e0);
     local_1fc = 0;
     if (0 < (int)local_1e4) {
-      puVar4 = local_1e0;
+      point = local_1e0;
       do {
-        iVar2 = WalkPlane_PlaneAt(puVar4,0x1000);
-        if (iVar2 != 0) {
+        planeB = WalkPlane_PlaneAt(point,0x1000);
+        if (planeB != (WalkPlane *)0x0) {
           g_dwTotWorkingPathPoints = local_1e8;
-          iVar3 = Planner_PortalPoint(param_3,iVar2,param_2,&local_1f4);
-          if ((iVar3 != 0) && (iVar2 = Planner_FindPath(&local_1f4,param_2,iVar2), iVar2 != 0)) {
+          iVar2 = Planner_PortalPoint(plane,planeB,param_2,&local_1f4);
+          if ((iVar2 != 0) && (iVar2 = Planner_FindPath(&local_1f4,param_2,planeB), iVar2 != 0)) {
             return 1;
           }
         }
         local_1fc = local_1fc + 1;
-        puVar4 = puVar4 + 0x10;
+        point = point + 4;
       } while ((int)local_1fc < (int)local_1e4);
     }
-    *(undefined4 *)((int)param_3 + 0x2c) = 1;
+    plane->nActive = 1;
     if (local_1f8 != 0) {
       *(undefined4 *)(local_1f8 + 0x2c) = 1;
     }
@@ -1306,22 +1307,23 @@ undefined4 Planner_FindPath(float *param_1,float *param_2,void *param_3)
    active walkable plane the vertices inside the current plane, without duplicates); called by
    FindPath in both builds); was Planner_CollectSharedCorners. */
 
-uint FindExitPoints(void *param_1,float *param_2,uint *param_3)
+uint __cdecl FindExitPoints(WalkPlane *plane,float *param_2,uint *param_3)
 
 {
   unsigned char _frame[0x200] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
-  void *pvVar4;
-  int iVar5;
-  uint uVar6;
-  uint *puVar7;
+  WalkVertex *pWVar4;
+  WalkPlane *pWVar5;
+  int iVar6;
+  uint uVar7;
   uint *puVar8;
-  int *piVar9;
-  uint uVar10;
-  char *pcVar11;
-  bool bVar12;
+  uint *puVar9;
+  WalkVertex **ppWVar10;
+  uint uVar11;
+  float *pfVar12;
+  bool bVar13;
   #define local_1f0 (*(uint *)(_frame + (0x200 - 0x1f0)))
   #define local_1ec (*(uint *)(_frame + (0x200 - 0x1ec)))
   #define local_1e8 (*(uint *)(_frame + (0x200 - 0x1e8)))
@@ -1335,94 +1337,92 @@ uint FindExitPoints(void *param_1,float *param_2,uint *param_3)
   #define local_1c8 (*(uint *)(_frame + (0x200 - 0x1c8)))
   #define local_1c4 (*(uint *)(_frame + (0x200 - 0x1c4)))
   
-  uVar10 = 0;
+  uVar11 = 0;
   local_1e8 = 0;
-  for (pvVar4 = g_pWalkPlane_wp_head; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)
-      ) {
-    if ((((pvVar4 != param_1) && (*(int *)((int)pvVar4 + 0x2c) != 0)) &&
-        ((*(uint *)((int)pvVar4 + 0x24) & 0x1000) != 0)) &&
-       (local_1ec = 0, 0 < *(int *)((int)pvVar4 + 0x34))) {
-      piVar9 = (int *)((int)pvVar4 + 0x38);
+  for (pWVar5 = g_pWalkPlane_wp_head; pWVar5 != (WalkPlane *)0x0; pWVar5 = pWVar5->pNext) {
+    if ((((pWVar5 != plane) && (pWVar5->nActive != 0)) && ((pWVar5->dwType & 0x1000) != 0)) &&
+       (local_1ec = 0, 0 < pWVar5->nNumVerts)) {
+      ppWVar10 = pWVar5->aVerts;
       do {
-        iVar5 = WalkPlane_Within(param_1,(float *)(*piVar9 + 4),0);
-        if (iVar5 != 0) {
-          uVar6 = 0;
-          if (0 < (int)uVar10) {
-            puVar7 = &local_1e0;
+        iVar6 = WalkPlane_Within(plane,(*ppWVar10)->aPos,0);
+        if (iVar6 != 0) {
+          uVar7 = 0;
+          if (0 < (int)uVar11) {
+            puVar8 = &local_1e0;
             do {
-              iVar5 = 0xc;
-              bVar12 = true;
-              puVar8 = puVar7;
-              pcVar11 = (char *)(*piVar9 + 4);
+              iVar6 = 0xc;
+              bVar13 = true;
+              puVar9 = puVar8;
+              pfVar12 = (*ppWVar10)->aPos;
               do {
-                if (iVar5 == 0) break;
-                iVar5 = iVar5 + -1;
-                bVar12 = (char)*puVar8 == *pcVar11;
-                puVar8 = (uint *)((int)puVar8 + 1);
-                pcVar11 = pcVar11 + 1;
-              } while (bVar12);
-              uVar10 = local_1e8;
-              if (bVar12) break;
-              uVar6 = uVar6 + 1;
-              puVar7 = puVar7 + 4;
-            } while ((int)uVar6 < (int)local_1e8);
+                if (iVar6 == 0) break;
+                iVar6 = iVar6 + -1;
+                bVar13 = (char)*puVar9 == *(char *)pfVar12;
+                puVar9 = (uint *)((int)puVar9 + 1);
+                pfVar12 = (float *)((int)pfVar12 + 1);
+              } while (bVar13);
+              uVar11 = local_1e8;
+              if (bVar13) break;
+              uVar7 = uVar7 + 1;
+              puVar8 = puVar8 + 4;
+            } while ((int)uVar7 < (int)local_1e8);
           }
-          if (uVar6 == uVar10) {
-            iVar5 = *piVar9;
+          if (uVar7 == uVar11) {
+            pWVar4 = *ppWVar10;
             fVar1 = *param_2;
             fVar2 = param_2[1];
-            uVar10 = uVar10 + 1;
+            uVar11 = uVar11 + 1;
             fVar3 = param_2[2];
-            (&local_1e0)[uVar6 * 4] = PUN(uint,(float)*(float *)(iVar5 + 4));
-            (&local_1dc)[uVar6 * 4] = *(uint *)(iVar5 + 8);
-            (&local_1d8)[uVar6 * 4] = *(uint *)(iVar5 + 0xc);
-            fVar1 = fVar1 - PUN(float,(&local_1e0)[uVar6 * 4]);
-            (&local_1d4)[uVar6 * 4] =
-                 PUN(uint,(float)((fVar3 - PUN(float,(&local_1d8)[uVar6 * 4])) *
-                        (fVar3 - PUN(float,(&local_1d8)[uVar6 * 4])) +
-                       (fVar2 - PUN(float,(&local_1dc)[uVar6 * 4])) *
-                       (fVar2 - PUN(float,(&local_1dc)[uVar6 * 4])) + fVar1 * fVar1));
-            local_1e8 = uVar10;
+            (&local_1e0)[uVar7 * 4] = PUN(uint,(float)pWVar4->aPos[0]);
+            (&local_1dc)[uVar7 * 4] = PUN(uint,(float)pWVar4->aPos[1]);
+            (&local_1d8)[uVar7 * 4] = PUN(uint,(float)pWVar4->aPos[2]);
+            fVar1 = fVar1 - PUN(float,(&local_1e0)[uVar7 * 4]);
+            (&local_1d4)[uVar7 * 4] =
+                 PUN(uint,(float)((fVar3 - PUN(float,(&local_1d8)[uVar7 * 4])) *
+                        (fVar3 - PUN(float,(&local_1d8)[uVar7 * 4])) +
+                       (fVar2 - PUN(float,(&local_1dc)[uVar7 * 4])) *
+                       (fVar2 - PUN(float,(&local_1dc)[uVar7 * 4])) + fVar1 * fVar1));
+            local_1e8 = uVar11;
           }
         }
         local_1ec = local_1ec + 1;
-        piVar9 = piVar9 + 1;
-      } while ((int)local_1ec < *(int *)((int)pvVar4 + 0x34));
+        ppWVar10 = ppWVar10 + 1;
+      } while ((int)local_1ec < pWVar5->nNumVerts);
     }
   }
-  iVar5 = 1;
+  iVar6 = 1;
   *param_3 = local_1e0;
   param_3[1] = local_1dc;
   param_3[2] = local_1d8;
   param_3[3] = local_1d4;
-  if (1 < (int)uVar10) {
-    puVar7 = &local_1d0;
+  if (1 < (int)uVar11) {
+    puVar8 = &local_1d0;
     do {
-      fVar1 = PUN(float,puVar7[3]);
-      uVar6 = iVar5 - 1;
-      if (-1 < (int)uVar6) {
-        puVar8 = param_3 + iVar5 * 4;
+      fVar1 = PUN(float,puVar8[3]);
+      uVar7 = iVar6 - 1;
+      if (-1 < (int)uVar7) {
+        puVar9 = param_3 + iVar6 * 4;
         do {
-          if (PUN(float,puVar8[-1]) <= fVar1) break;
-          uVar6 = uVar6 - 1;
-          *puVar8 = puVar8[-4];
-          puVar8[1] = puVar8[-3];
-          puVar8[2] = puVar8[-2];
-          puVar8[3] = puVar8[-1];
-          puVar8 = puVar8 + -4;
-        } while (uVar6 < 0x80000000);
+          if (PUN(float,puVar9[-1]) <= fVar1) break;
+          uVar7 = uVar7 - 1;
+          *puVar9 = puVar9[-4];
+          puVar9[1] = puVar9[-3];
+          puVar9[2] = puVar9[-2];
+          puVar9[3] = puVar9[-1];
+          puVar9 = puVar9 + -4;
+        } while (uVar7 < 0x80000000);
       }
-      puVar8 = param_3 + (uVar6 + 1) * 4;
-      iVar5 = iVar5 + 1;
-      *puVar8 = *puVar7;
-      puVar8[1] = puVar7[1];
-      uVar6 = puVar7[3];
-      puVar8[2] = puVar7[2];
-      puVar8[3] = uVar6;
-      puVar7 = puVar7 + 4;
-    } while (iVar5 < (int)uVar10);
+      puVar9 = param_3 + (uVar7 + 1) * 4;
+      iVar6 = iVar6 + 1;
+      *puVar9 = *puVar8;
+      puVar9[1] = puVar8[1];
+      uVar7 = puVar8[3];
+      puVar9[2] = puVar8[2];
+      puVar9[3] = uVar7;
+      puVar8 = puVar8 + 4;
+    } while (iVar6 < (int)uVar11);
   }
-  return uVar10;
+  return uVar11;
 }
 #undef local_1c4
 #undef local_1c8
@@ -1439,62 +1439,63 @@ uint FindExitPoints(void *param_1,float *param_2,uint *param_3)
 
 
 /* ---- 0x004a9920  Planner_PortalPoint ---- */
-undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefined4 *param_4)
+undefined4 __cdecl Planner_PortalPoint(WalkPlane *planeA,WalkPlane *planeB,float *point,float *out)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float fVar1;
+  WalkVertex *pWVar1;
   float fVar2;
   float fVar3;
-  int iVar4;
+  float fVar4;
   int iVar5;
-  int *piVar6;
+  int iVar6;
+  WalkVertex **ppWVar7;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  iVar5 = 0;
+  iVar6 = 0;
   local_4 = 3.4028235e+38;
-  if (0 < *(int *)((int)param_1 + 0x34)) {
-    piVar6 = (int *)((int)param_1 + 0x38);
+  if (0 < planeA->nNumVerts) {
+    ppWVar7 = planeA->aVerts;
     do {
-      iVar4 = WalkPlane_Within(param_2,(float *)(*piVar6 + 4),0);
-      if (iVar4 != 0) {
-        iVar4 = *piVar6;
-        fVar3 = *(float *)(iVar4 + 8) - param_3[1];
-        fVar1 = *(float *)(iVar4 + 0xc) - param_3[2];
-        fVar2 = *(float *)(iVar4 + 4) - *param_3;
-        fVar1 = fVar2 * fVar2 + fVar1 * fVar1 + fVar3 * fVar3;
-        if (fVar1 < local_4) {
-          *param_4 = *(undefined4 *)(iVar4 + 4);
-          param_4[1] = *(undefined4 *)(iVar4 + 8);
-          param_4[2] = *(undefined4 *)(iVar4 + 0xc);
-          local_4 = fVar1;
+      iVar5 = WalkPlane_Within(planeB,(*ppWVar7)->aPos,0);
+      if (iVar5 != 0) {
+        pWVar1 = *ppWVar7;
+        fVar4 = pWVar1->aPos[1] - point[1];
+        fVar2 = pWVar1->aPos[2] - point[2];
+        fVar3 = pWVar1->aPos[0] - *point;
+        fVar2 = fVar3 * fVar3 + fVar2 * fVar2 + fVar4 * fVar4;
+        if (fVar2 < local_4) {
+          *out = pWVar1->aPos[0];
+          out[1] = pWVar1->aPos[1];
+          out[2] = pWVar1->aPos[2];
+          local_4 = fVar2;
         }
       }
-      iVar5 = iVar5 + 1;
-      piVar6 = piVar6 + 1;
-    } while (iVar5 < *(int *)((int)param_1 + 0x34));
+      iVar6 = iVar6 + 1;
+      ppWVar7 = ppWVar7 + 1;
+    } while (iVar6 < planeA->nNumVerts);
   }
-  iVar5 = 0;
-  if (0 < *(int *)((int)param_2 + 0x34)) {
-    piVar6 = (int *)((int)param_2 + 0x38);
+  iVar6 = 0;
+  if (0 < planeB->nNumVerts) {
+    ppWVar7 = planeB->aVerts;
     do {
-      iVar4 = WalkPlane_Within(param_1,(float *)(*piVar6 + 4),0);
-      if (iVar4 != 0) {
-        iVar4 = *piVar6;
-        fVar3 = *(float *)(iVar4 + 8) - param_3[1];
-        fVar1 = *(float *)(iVar4 + 0xc) - param_3[2];
-        fVar2 = *(float *)(iVar4 + 4) - *param_3;
-        fVar1 = fVar2 * fVar2 + fVar1 * fVar1 + fVar3 * fVar3;
-        if (fVar1 < local_4) {
-          *param_4 = *(undefined4 *)(iVar4 + 4);
-          param_4[1] = *(undefined4 *)(iVar4 + 8);
-          param_4[2] = *(undefined4 *)(iVar4 + 0xc);
-          local_4 = fVar1;
+      iVar5 = WalkPlane_Within(planeA,(*ppWVar7)->aPos,0);
+      if (iVar5 != 0) {
+        pWVar1 = *ppWVar7;
+        fVar4 = pWVar1->aPos[1] - point[1];
+        fVar2 = pWVar1->aPos[2] - point[2];
+        fVar3 = pWVar1->aPos[0] - *point;
+        fVar2 = fVar3 * fVar3 + fVar2 * fVar2 + fVar4 * fVar4;
+        if (fVar2 < local_4) {
+          *out = pWVar1->aPos[0];
+          out[1] = pWVar1->aPos[1];
+          out[2] = pWVar1->aPos[2];
+          local_4 = fVar2;
         }
       }
-      iVar5 = iVar5 + 1;
-      piVar6 = piVar6 + 1;
-    } while (iVar5 < *(int *)((int)param_2 + 0x34));
+      iVar6 = iVar6 + 1;
+      ppWVar7 = ppWVar7 + 1;
+    } while (iVar6 < planeB->nNumVerts);
   }
   if (local_4 == 3.4028235e+38) {
     return 0;
@@ -1513,15 +1514,15 @@ undefined4 TightenPath(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint *a1;
+  float *from;
   bool bVar1;
   bool bVar2;
-  void *this;
-  int iVar3;
-  int iVar4;
+  WalkPlane *pWVar3;
+  WalkPlane *pWVar4;
   float *pfVar5;
-  uint *puVar6;
-  uint uVar7;
+  int iVar6;
+  uint *puVar7;
+  uint uVar8;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
@@ -1532,62 +1533,62 @@ undefined4 TightenPath(void)
   bVar2 = false;
   local_10 = 0;
   if (g_dwTotWorkingPathPoints != 3 && -1 < (int)(g_dwTotWorkingPathPoints - 3)) {
-    puVar6 = &UINT_008cf0c8;
+    puVar7 = &UINT_008cf0c8;
     do {
-      pfVar5 = (float *)(puVar6 + -3);
-      a1 = puVar6 + -6;
-      this = (void *)Planner_SharedSector(a1,pfVar5);
-      iVar3 = Planner_SharedSector(pfVar5,puVar6);
-      if (this == (void *)0x0) {
+      pfVar5 = (float *)(puVar7 + -3);
+      from = (float *)(puVar7 + -6);
+      pWVar3 = Planner_SharedSector(from,pfVar5);
+      pWVar4 = Planner_SharedSector(pfVar5,(float *)puVar7);
+      if (pWVar3 == (WalkPlane *)0x0) {
         return 1;
       }
-      if (iVar3 == 0) {
+      if (pWVar4 == (WalkPlane *)0x0) {
         return 1;
       }
-      WalkPlane_Intersection(this,(int)a1,(int)puVar6,(int)&local_c);
-      iVar3 = Planner_SharedSector(&local_c,a1);
-      iVar4 = Planner_SharedSector(&local_c,puVar6);
-      if (((iVar4 != 0) && (iVar3 != 0)) &&
+      WalkPlane_Intersection(pWVar3,(int)from,(int)puVar7,(int)&local_c);
+      pWVar3 = Planner_SharedSector(&local_c,from);
+      pWVar4 = Planner_SharedSector(&local_c,(float *)puVar7);
+      if (((pWVar4 != (WalkPlane *)0x0) && (pWVar3 != (WalkPlane *)0x0)) &&
          (0.0025000002 <
-          (local_4 - PUN(float,puVar6[-1])) * (local_4 - PUN(float,puVar6[-1])) +
-          (local_8 - PUN(float,puVar6[-2])) * (local_8 - PUN(float,puVar6[-2])) +
+          (local_4 - PUN(float,puVar7[-1])) * (local_4 - PUN(float,puVar7[-1])) +
+          (local_8 - PUN(float,puVar7[-2])) * (local_8 - PUN(float,puVar7[-2])) +
           (local_c - *pfVar5) * (local_c - *pfVar5))) {
         *pfVar5 = local_c;
-        puVar6[-2] = PUN(uint,(float)local_8);
-        puVar6[-1] = PUN(uint,(float)local_4);
+        puVar7[-2] = PUN(uint,(float)local_8);
+        puVar7[-1] = PUN(uint,(float)local_4);
         bVar2 = true;
       }
       local_10 = local_10 + 1;
-      puVar6 = puVar6 + 3;
+      puVar7 = puVar7 + 3;
     } while ((int)local_10 < (int)(g_dwTotWorkingPathPoints - 3));
   }
   if (g_dwTotWorkingPathPoints != 2 && -1 < (int)(g_dwTotWorkingPathPoints - 2)) {
-    puVar6 = &UINT_008cf0b4;
+    puVar7 = &UINT_008cf0b4;
     local_14 = 1;
-    uVar7 = g_dwTotWorkingPathPoints;
+    uVar8 = g_dwTotWorkingPathPoints;
     do {
-      if (((PUN(float,puVar6[1]) - PUN(float,puVar6[4])) * (PUN(float,puVar6[1]) - PUN(float,puVar6[4])) +
-           (PUN(float,*puVar6) - PUN(float,puVar6[3])) * (PUN(float,*puVar6) - PUN(float,puVar6[3])) +
-           (PUN(float,puVar6[-1]) - PUN(float,puVar6[2])) * (PUN(float,puVar6[-1]) - PUN(float,puVar6[2])) < 0.0001)
-         && (iVar3 = Planner_SharedSector(puVar6 + -1,puVar6 + 2), uVar7 = g_dwTotWorkingPathPoints,
-            iVar3 != 0)) {
+      if (((PUN(float,puVar7[1]) - PUN(float,puVar7[4])) * (PUN(float,puVar7[1]) - PUN(float,puVar7[4])) +
+           (PUN(float,*puVar7) - PUN(float,puVar7[3])) * (PUN(float,*puVar7) - PUN(float,puVar7[3])) +
+           (PUN(float,puVar7[-1]) - PUN(float,puVar7[2])) * (PUN(float,puVar7[-1]) - PUN(float,puVar7[2])) < 0.0001)
+         && (pWVar3 = Planner_SharedSector((float *)(puVar7 + -1),(float *)(puVar7 + 2)),
+            uVar8 = g_dwTotWorkingPathPoints, pWVar3 != (WalkPlane *)0x0)) {
         bVar2 = true;
-        uVar7 = g_dwTotWorkingPathPoints - 1;
-        g_dwTotWorkingPathPoints = uVar7;
-        if ((int)local_14 < (int)uVar7) {
-          iVar3 = uVar7 - local_14;
-          pfVar5 = (float *)(puVar6 + 2);
+        uVar8 = g_dwTotWorkingPathPoints - 1;
+        g_dwTotWorkingPathPoints = uVar8;
+        if ((int)local_14 < (int)uVar8) {
+          iVar6 = uVar8 - local_14;
+          pfVar5 = (float *)(puVar7 + 2);
           do {
-            iVar3 = iVar3 + -1;
+            iVar6 = iVar6 + -1;
             *pfVar5 = pfVar5[3];
             pfVar5[1] = pfVar5[4];
             pfVar5[2] = pfVar5[5];
             pfVar5 = pfVar5 + 3;
-          } while (iVar3 != 0);
+          } while (iVar6 != 0);
         }
       }
-      puVar6 = puVar6 + 3;
-      bVar1 = (int)local_14 < (int)(uVar7 - 2);
+      puVar7 = puVar7 + 3;
+      bVar1 = (int)local_14 < (int)(uVar8 - 2);
       local_14 = local_14 + 1;
     } while (bVar1);
   }
@@ -1605,16 +1606,17 @@ undefined4 TightenPath(void)
 
 
 /* ---- 0x004a9ca0  Planner_SharedSector ---- */
-void * Planner_SharedSector(undefined4 param_1,float *param_2)
+WalkPlane * __cdecl Planner_SharedSector(float *from,float *to)
 
 {
-  void *this;
+  WalkPlane *this;
   int iVar1;
   
-  this = (void *)WalkPlane_PlaneAt(param_1,0x1000);
-  while ((this != (void *)0x0 && (iVar1 = WalkPlane_Within(this,param_2,1), iVar1 == 0))) {
-    *(undefined4 *)((int)this + 0x2c) = 0;
-    this = (void *)WalkPlane_PlaneAt(param_1,0x1000);
+  this = WalkPlane_PlaneAt(from,0x1000);
+  while ((this != (WalkPlane *)0x0 && (iVar1 = WalkPlane_Within(this,to,1), iVar1 == 0)))
+  {
+    this->nActive = 0;
+    this = WalkPlane_PlaneAt(from,0x1000);
   }
   WalkPlane_AllActive();
   return this;

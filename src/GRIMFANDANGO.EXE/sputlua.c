@@ -65,9 +65,9 @@ void sputLua_GetPointSectorL(void)
   int iVar3;
   int iVar4;
   int iVar5;
-  char *pcVar6;
-  undefined4 uVar7;
-  longlong lVar8;
+  WalkPlane *pWVar6;
+  uint mask;
+  longlong lVar7;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
@@ -84,20 +84,20 @@ void sputLua_GetPointSectorL(void)
       if (iVar5 != 0) {
         iVar5 = lua_isnil(iVar4);
         if (iVar5 == 0) {
-          lVar8 = (longlong)lua_getnumber(iVar4);
-          uVar7 = (undefined4)lVar8;
+          lVar7 = (longlong)lua_getnumber(iVar4);
+          mask = (uint)lVar7;
         }
         else {
-          uVar7 = 0x1000;
+          mask = 0x1000;
         }
         local_c[0] = lua_getnumber(iVar1);
         local_c[1] = lua_getnumber(iVar2);
         local_c[2] = lua_getnumber(iVar3);
-        pcVar6 = (char *)WalkPlane_PlaneAt(local_c,uVar7);
-        if (pcVar6 != (char *)0x0) {
-          lua_pushnumber((float)*(int *)(pcVar6 + 0x20));
-          lua_pushstring(pcVar6);
-          lua_pushnumber((float)*(int *)(pcVar6 + 0x24));
+        pWVar6 = WalkPlane_PlaneAt(local_c,mask);
+        if (pWVar6 != (WalkPlane *)0x0) {
+          lua_pushnumber((float)pWVar6->nId);
+          lua_pushstring(pWVar6->aName);
+          lua_pushnumber((float)(int)pWVar6->dwType);
           return;
         }
       }

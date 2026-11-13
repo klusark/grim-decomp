@@ -56,9 +56,9 @@
     ],
     [
      92,
-     "void *",
+     "WalkPlane *",
      "pSector",
-     "the WalkPlane sector the puck is on (Puck_Validate), 0 off the sectors"
+     "the sector the puck is on (Puck_Validate), 0 off the sectors"
     ]
    ]
   }

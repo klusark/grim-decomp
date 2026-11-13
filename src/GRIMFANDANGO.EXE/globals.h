@@ -190,12 +190,13 @@ extern void * g_pSoundEventList; /* 0x008cb08c */
 extern GrimServices * g_pSputRoomHS; /* 0x008cb090 */
 extern int g_nSkipSetupBitmaps; /* 0x008cb0a0 */
 extern void * g_pRoomList; /* 0x008cb0ac */
+extern WalkVertex g_aWalkPlane_vert_db[1024]; /* 0x008cb0b0 */
 extern float g_vEdgeFollowDir; /* 0x008cf260 */
 extern int g_nVertexCacheSize; /* 0x008cf270 */
-extern void * g_pVertexCache; /* 0x008cf274 */
+extern WalkVertexCache * g_pVertexCache; /* 0x008cf274 */
 extern int g_nWalkPlaneCacheSize; /* 0x008cf278 */
-extern void * g_pWalkPlaneCache; /* 0x008cf27c */
-extern void * g_pWalkPlane_wp_head; /* 0x008cf280 */
+extern WalkPlaneCache * g_pWalkPlaneCache; /* 0x008cf27c */
+extern WalkPlane * g_pWalkPlane_wp_head; /* 0x008cf280 */
 extern Puck * g_dwPuck_p_head; /* 0x008d086c */
 extern GrimServices * g_pTextHS; /* 0x008d0878 */
 extern void * g_pDefaultFont; /* 0x008d0988 */
@@ -1915,10 +1916,6 @@ extern undefined4 g_dwSputRoomInitialize; /* used by 2 fn(s), first 0x004a48c0 *
 extern undefined4 g_dwSputRoomStartup; /* used by 2 fn(s), first 0x004a53b0 */
 extern uint UINT_008cb0a4; /* used by 2 fn(s), first 0x004a54a0 */
 extern uint g_dwLoadingRoom; /* used by 5 fn(s), first 0x004a4b00 */
-extern float FLOAT_008cb0b0; /* used by 2 fn(s), first 0x004a6380 */
-extern undefined4 UINT_008cb0b4; /* used by 2 fn(s), first 0x004a6380 */
-extern undefined4 UINT_008cb0b8; /* used by 2 fn(s), first 0x004a6380 */
-extern undefined4 UINT_008cb0bc; /* used by 1 fn(s), first 0x004a6380 */
 extern undefined4 g_dwWorkingPath; /* used by 3 fn(s), first 0x004a9420 */
 extern undefined4 UINT_008cf0b4; /* used by 3 fn(s), first 0x004a9430 */
 extern undefined4 UINT_008cf0b8; /* used by 2 fn(s), first 0x004a9430 */
