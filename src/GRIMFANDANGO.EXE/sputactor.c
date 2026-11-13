@@ -332,9 +332,10 @@ undefined4 sputActor_Restore(code *param_1)
   void *pvVar3;
   undefined4 *puVar4;
   char *pcVar5;
-  void *pvVar6;
-  Actor **ppAVar7;
-  TextObject *pTVar8;
+  void *keyframe;
+  Actor **ppAVar6;
+  TextObject *pTVar7;
+  WalkPlane *pWVar8;
   uint uVar9;
   uint uVar10;
   int iVar11;
@@ -561,12 +562,12 @@ undefined4 sputActor_Restore(code *param_1)
               do {
                 pvStack_160 = *(void **)(piVar12[0x10] + 0x14);
                 (*param_1)(acStack_60,0x20);
-                pvVar6 = sputResource_Alloc(0x4659454b,acStack_60);
-                if (pvVar6 != (void *)0x0) {
+                keyframe = sputResource_Alloc(0x4659454b,acStack_60);
+                if (keyframe != (void *)0x0) {
                   (*param_1)(&uStack_144,4);
                   (*param_1)(&uStack_138,4);
                   pvVar3 = pvStack_160;
-                  uVar9 = rdPuppet_AddTrack(pvStack_160,(uint)pvVar6,uStack_144,uStack_138);
+                  uVar9 = rdPuppet_AddTrack(pvStack_160,(uint)keyframe,uStack_144,uStack_138);
                   (*param_1)((int)pvVar3 + uVar9 * 0x134 + 8,4);
                   (*param_1)((int)pvVar3 + uVar9 * 0x134 + 0x128,4);
                   (*param_1)((int)pvVar3 + uVar9 * 0x134 + 300,4);
@@ -643,21 +644,21 @@ undefined4 sputActor_Restore(code *param_1)
         }
         if (pAVar14->pExtra->nTalking != 0) {
           iVar13 = 0;
-          ppAVar7 = g_pTalkingActors;
+          ppAVar6 = g_pTalkingActors;
           do {
-            if (*ppAVar7 == (Actor *)0x0) {
+            if (*ppAVar6 == (Actor *)0x0) {
               g_pTalkingActors[iVar13] = pAVar14;
               g_nNumActorsTalking = g_nNumActorsTalking + 1;
               break;
             }
-            ppAVar7 = ppAVar7 + 1;
+            ppAVar6 = ppAVar6 + 1;
             iVar13 = iVar13 + 1;
-          } while ((int)ppAVar7 < ((unsigned)(uintptr_t)&DAT_008ca320));
+          } while ((int)ppAVar6 < ((unsigned)(uintptr_t)&DAT_008ca320));
         }
-        pTVar8 = pAVar14->pExtra->pText;
-        if (pTVar8 != (TextObject *)0x0) {
-          pTVar8 = sputText_FindSerialNumber((int)pTVar8);
-          pAVar14->pExtra->pText = pTVar8;
+        pTVar7 = pAVar14->pExtra->pText;
+        if (pTVar7 != (TextObject *)0x0) {
+          pTVar7 = sputText_FindSerialNumber((int)pTVar7);
+          pAVar14->pExtra->pText = pTVar7;
         }
         sputActor_ResetShadows(pAVar14);
         pvStack_160 = (void *)0x1f8;
@@ -685,8 +686,8 @@ undefined4 sputActor_Restore(code *param_1)
             do {
               acStack_80[0] = '\0';
               (*param_1)(acStack_80,0x20);
-              pvVar6 = WalkPlane_PlaneNamed(acStack_80);
-              *puVar4 = pvVar6;
+              pWVar8 = WalkPlane_PlaneNamed(acStack_80);
+              *puVar4 = pWVar8;
               iVar13 = iVar13 + 1;
               puVar4 = puVar4 + 1;
             } while (iVar13 < iStack_164);

@@ -57,7 +57,7 @@ sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,Ac
   local_b4 = 0;
   ppvVar3 = shadow->aClipPlanes;
   do {
-    if (*ppvVar3 == (void *)0x0) {
+    if (*ppvVar3 == (WalkPlane *)0x0) {
       return;
     }
     count_00 = WalkPlane_ClipPoly(*ppvVar3,verts,count,local_90);

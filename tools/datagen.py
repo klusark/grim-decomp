@@ -679,6 +679,8 @@ def struct_span(base, is_arr, count, start, b, relocs, target):
         return None
     if not is_arr:
         return "%s %%s" % base, elems[0], size
+    if all(e == "{0}" for e in elems):   # a zero array (WalkPlane's vertex pool, 1024 records): one {0}, not k lines
+        return "%s %%s[%d]" % (base, k), "{0}", k * size
     return "%s %%s[%d]" % (base, k), "{\n" + ",\n".join("    " + e for e in elems) + "\n}", k * size
 
 

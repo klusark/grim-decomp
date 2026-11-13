@@ -429,7 +429,7 @@ int __cdecl sputRoom_Save(void *writeFn)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
+  WalkPlane *pWVar1;
   code *pcVar2;
   uint uVar3;
   int iVar4;
@@ -439,7 +439,7 @@ int __cdecl sputRoom_Save(void *writeFn)
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define pvStack_c (*(void **)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define iStack_4 (*(int *)(_frame + (0x30 - 0x4)))
+  #define fStack_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   local_8 = 0;
   Res_GetFirstType(&local_14,&local_10,0x20544553);
@@ -466,18 +466,17 @@ int __cdecl sputRoom_Save(void *writeFn)
           (*pcVar2)((int)pvStack_c + 0x1afc,4);
           (*pcVar2)((int)pvStack_c + 0x1b00,4);
           (*pcVar2)((int)pvStack_c + 0x1b04,4);
-          for (pvVar1 = g_pWalkPlane_wp_head; pvVar1 != (void *)0x0;
-              pvVar1 = *(void **)((int)pvVar1 + 0x70)) {
-            writeFn = *(void **)((int)pvVar1 + 0x20);
+          for (pWVar1 = g_pWalkPlane_wp_head; pWVar1 != (WalkPlane *)0x0; pWVar1 = pWVar1->pNext) {
+            writeFn = (void *)pWVar1->nId;
             (*pcVar2)(&writeFn,4);
-            writeFn = *(void **)((int)pvVar1 + 0x28);
+            writeFn = (void *)pWVar1->nVisible;
             (*pcVar2)(&writeFn,4);
-            writeFn = *(void **)((int)pvVar1 + 0x24);
+            writeFn = (void *)pWVar1->dwType;
             (*pcVar2)(&writeFn,4);
-            writeFn = *(void **)((int)pvVar1 + 0x2c);
+            writeFn = (void *)pWVar1->nActive;
             (*pcVar2)(&writeFn,4);
-            iStack_4 = *(int *)((int)pvVar1 + 0x30);
-            (*pcVar2)(&iStack_4,4);
+            fStack_4 = pWVar1->flHeight;
+            (*pcVar2)(&fStack_4,4);
           }
         }
         return 0;
@@ -489,7 +488,7 @@ int __cdecl sputRoom_Save(void *writeFn)
         (*pcVar2)(&local_10,4);
         (*pcVar2)(uVar3 + 0xb4,4);
         (*pcVar2)(uVar3 + 0x1ac0,4);
-        iStack_4 = 0;
+        fStack_4 = 0.0;
         if (0 < *(int *)(uVar3 + 0xb0)) {
           do {
             iVar6 = iVar5 + *(int *)(uVar3 + 0xac);
@@ -513,9 +512,9 @@ int __cdecl sputRoom_Save(void *writeFn)
               (*pcVar2)(*(int *)(iVar4 + 0x44) + 0x68,4);
               (*pcVar2)(iVar4 + 0xec,4);
             }
-            iStack_4 = iStack_4 + 1;
+            fStack_4 = PUN(float,(PUN(int,(float)fStack_4) + 1));
             iVar5 = iVar5 + 300;
-          } while (iStack_4 < *(int *)(uVar3 + 0xb0));
+          } while (PUN(int,(float)fStack_4) < *(int *)(uVar3 + 0xb0));
         }
       }
       Res_GetNextType(&local_14,&local_10,0x20544553);
@@ -524,7 +523,7 @@ int __cdecl sputRoom_Save(void *writeFn)
   }
   return 1;
 }
-#undef iStack_4
+#undef fStack_4
 #undef local_10
 #undef local_14
 #undef local_8
@@ -541,6 +540,7 @@ int __cdecl sputRoom_Restore(void *readFn)
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
+  WalkPlane *this;
   float fVar2;
   int iVar3;
   void *pvVar4;
@@ -654,22 +654,21 @@ int __cdecl sputRoom_Restore(void *readFn)
     (*(code *)readFn)((int)pvVar4 + 0x1afc,4);
     (*(code *)readFn)((int)pvVar4 + 0x1b00,4);
     (*(code *)readFn)((int)pvVar4 + 0x1b04,4);
-    for (pvVar4 = g_pWalkPlane_wp_head; pvVar4 != (void *)0x0;
-        pvVar4 = *(void **)((int)pvVar4 + 0x70)) {
+    for (this = g_pWalkPlane_wp_head; this != (WalkPlane *)0x0; this = this->pNext) {
       (*(code *)readFn)(&iStack_48,4);
-      if (iStack_48 == *(int *)((int)pvVar4 + 0x20)) {
+      if (iStack_48 == this->nId) {
         (*(code *)readFn)(&uStack_74,4);
-        *(uint *)((int)pvVar4 + 0x28) = uStack_74;
+        this->nVisible = uStack_74;
         (*(code *)readFn)(&uStack_74,4);
-        WalkPlane_SetType(pvVar4,uStack_74);
+        WalkPlane_SetType(this,uStack_74);
         (*(code *)readFn)(&uStack_74,4);
-        *(uint *)((int)pvVar4 + 0x2c) = uStack_74;
+        this->nActive = uStack_74;
         (*(code *)readFn)(&fStack_64,4);
         fVar2 = fStack_64;
         if (fStack_64 == 0.0) {
           fVar2 = 0.005;
         }
-        *(float *)((int)pvVar4 + 0x30) = fVar2;
+        this->flHeight = fVar2;
       }
     }
   }
@@ -1237,22 +1236,22 @@ void * __cdecl Set_NormalizeName(char *setName)
 void WalkPlane_KillCollection(void *param_1)
 
 {
-  void *p;
-  void *pvVar1;
+  WalkPlane *plane;
+  WalkPlane *pWVar1;
   
-  pvVar1 = g_pWalkPlane_wp_head;
+  pWVar1 = g_pWalkPlane_wp_head;
   WalkPlane_SetCollection(param_1);
-  p = g_pWalkPlane_wp_head;
-  if (pvVar1 == g_pWalkPlane_wp_head) {
-    pvVar1 = (void *)0x0;
+  plane = g_pWalkPlane_wp_head;
+  if (pWVar1 == g_pWalkPlane_wp_head) {
+    pWVar1 = (WalkPlane *)0x0;
   }
-  while (p != (void *)0x0) {
-    g_pWalkPlane_wp_head = p;
-    WalkPlane_Destruct(p);
-    Plat_Free(p);
-    p = g_pWalkPlane_wp_head;
+  while (plane != (WalkPlane *)0x0) {
+    g_pWalkPlane_wp_head = plane;
+    WalkPlane_Destruct(plane);
+    Plat_Free(plane);
+    plane = g_pWalkPlane_wp_head;
   }
-  g_pWalkPlane_wp_head = pvVar1;
+  g_pWalkPlane_wp_head = pWVar1;
   return;
 }
 
@@ -1305,11 +1304,11 @@ LAB_004a7187:
     if (((unsigned)(uintptr_t)&DAT_008d086b) < (int)pbVar5) {
 LAB_004a719c:
       if (0x8b < iVar3) {
-        g_pWalkPlane_wp_head = (void *)0x0;
+        g_pWalkPlane_wp_head = (WalkPlane *)0x0;
         _DAT_008cf284 = (undefined1 *)0x0;
         return;
       }
-      g_pWalkPlane_wp_head = (void *)(&g_dwWalkPlane_Collection)[iVar3 * 10];
+      g_pWalkPlane_wp_head = (WalkPlane *)(&g_dwWalkPlane_Collection)[iVar3 * 10];
       _DAT_008cf284 = &DAT_008cf28c + iVar3 * 0x28;
       return;
     }

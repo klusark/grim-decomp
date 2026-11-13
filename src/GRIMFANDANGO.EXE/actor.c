@@ -877,7 +877,7 @@ void __cdecl sputActor_EnableWalkSystem(Actor *actor,int param_2)
   actor->pExtra->nFollowBoxes = 0;
   pPVar1 = actor->pExtra->pPuck;
   if (pPVar1 != (Puck *)0x0) {
-    pPVar1->pSector = (void *)0x0;
+    pPVar1->pSector = (WalkPlane *)0x0;
   }
   return;
 }
@@ -1763,7 +1763,7 @@ void __cdecl sputActor_LeaveSector(int a1,int a2)
   
   if (((a2 != 0) && (a1 != 0)) &&
      (walker = *(float **)(*(int *)(a1 + 0xa4) + 0x1b4), walker != (float *)0x0)) {
-    WalkPlane_JumpOut((void *)a2,walker);
+    WalkPlane_JumpOut((WalkPlane *)a2,walker);
     sputActor_SetActorPosition((Actor *)a1,walker);
   }
   return;
@@ -1927,20 +1927,20 @@ void __cdecl sputActor_SetShadowPlane(Actor *actor,char *param_2)
   float fVar4;
   float fVar5;
   float fVar6;
-  int iVar7;
-  void *pvVar8;
+  WalkVertex *pWVar7;
+  WalkPlane *pWVar8;
   
   pAVar1 = actor->pExtra->aShadows + actor->pExtra->nActiveShadow;
-  pvVar8 = WalkPlane_PlaneNamed(param_2);
-  if (pvVar8 != (void *)0x0) {
-    pAVar1->aPlane[0] = *(float *)((int)pvVar8 + 0x60);
-    pAVar1->aPlane[1] = *(float *)((int)pvVar8 + 100);
-    fVar2 = *(float *)((int)pvVar8 + 0x68);
+  pWVar8 = WalkPlane_PlaneNamed(param_2);
+  if (pWVar8 != (WalkPlane *)0x0) {
+    pAVar1->aPlane[0] = pWVar8->aNormal[0];
+    pAVar1->aPlane[1] = pWVar8->aNormal[1];
+    fVar2 = pWVar8->aNormal[2];
     pAVar1->aPlane[2] = fVar2;
-    iVar7 = *(int *)((int)pvVar8 + 0x38);
-    fVar3 = *(float *)(iVar7 + 8);
-    fVar4 = *(float *)(iVar7 + 0xc);
-    fVar5 = *(float *)(iVar7 + 4);
+    pWVar7 = pWVar8->aVerts[0];
+    fVar3 = pWVar7->aPos[1];
+    fVar4 = pWVar7->aPos[2];
+    fVar5 = pWVar7->aPos[0];
     fVar6 = pAVar1->aPlane[1];
     pAVar1->nActive = 1;
     pAVar1->nValid = 0;
@@ -1988,12 +1988,12 @@ void __cdecl sputActor_SetShadowValid(Actor *actor,int shadowIdx,int valid)
 void __cdecl sputActor_AddShadowClipPlane(Actor *actor,int shadowIdx,char *sectorName)
 
 {
-  void *pvVar1;
+  WalkPlane *pWVar1;
   int iVar2;
   void **ppvVar3;
   
-  pvVar1 = WalkPlane_PlaneNamed(sectorName);
-  if (pvVar1 != (void *)0x0) {
+  pWVar1 = WalkPlane_PlaneNamed(sectorName);
+  if (pWVar1 != (WalkPlane *)0x0) {
     iVar2 = 0;
     ppvVar3 = actor->pExtra->aShadows[shadowIdx].aClipPlanes;
     while (*ppvVar3 != (void *)0x0) {
@@ -2003,7 +2003,7 @@ void __cdecl sputActor_AddShadowClipPlane(Actor *actor,int shadowIdx,char *secto
         return;
       }
     }
-    actor->pExtra->aShadows[shadowIdx].aClipPlanes[iVar2] = pvVar1;
+    actor->pExtra->aShadows[shadowIdx].aClipPlanes[iVar2] = pWVar1;
   }
   return;
 }
@@ -2777,7 +2777,7 @@ float __thiscall Puck_GetYawToPoint(Puck *this,float *point)
   local_18 = *point;
   local_14 = point[1];
   local_10 = PUN(uint,(float)point[2]);
-  if (this->pSector != (void *)0x0) {
+  if (this->pSector != (WalkPlane *)0x0) {
     WalkPlane_Project(this->pSector,(int)&local_18);
   }
   Puck_InvXform(this,&local_18);

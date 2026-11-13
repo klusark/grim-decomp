@@ -13,16 +13,16 @@ void __cdecl Sector_DrawAllDebug(void)
 
 {
   uint uVar1;
-  void *this;
+  WalkPlane *this;
   Puck *pPVar2;
   uint color;
   
   this = g_pWalkPlane_wp_head;
   do {
-    if (this == (void *)0x0) {
+    if (this == (WalkPlane *)0x0) {
       return;
     }
-    uVar1 = *(uint *)((int)this + 0x24);
+    uVar1 = this->dwType;
     color = UINT_008c97e4 & 0xffff;
     if ((uVar1 & 0x1000) != 0) {
       color = (uint)DAT_008c97c6;
@@ -44,7 +44,7 @@ void __cdecl Sector_DrawAllDebug(void)
       }
     }
     WalkPlane_Draw(this,color);
-    this = *(void **)((int)this + 0x70);
+    this = this->pNext;
   } while( true );
 }
 
@@ -281,70 +281,67 @@ void WalkPlane_BuildCache(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 *puVar1;
-  undefined4 *puVar2;
-  int iVar3;
-  void *pvVar4;
-  int *piVar5;
+  int *piVar1;
+  WalkVertex *pWVar2;
+  WalkPlane *pWVar3;
+  WalkVertex **ppWVar4;
+  int iVar5;
   int iVar6;
   int iVar7;
-  int iVar8;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   WalkPlane_DestroyCache();
   g_nVertexCacheSize = 0;
   g_nWalkPlaneCacheSize = 0;
-  for (pvVar4 = g_pWalkPlane_wp_head; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)
-      ) {
-    g_nVertexCacheSize = g_nVertexCacheSize + *(int *)((int)pvVar4 + 0x34);
+  for (pWVar3 = g_pWalkPlane_wp_head; pWVar3 != (WalkPlane *)0x0; pWVar3 = pWVar3->pNext) {
+    g_nVertexCacheSize = g_nVertexCacheSize + pWVar3->nNumVerts;
     g_nWalkPlaneCacheSize = g_nWalkPlaneCacheSize + 1;
   }
   g_pVertexCache = Plat_Alloc(g_nVertexCacheSize * 0x14);
   local_4 = 0;
-  for (pvVar4 = g_pWalkPlane_wp_head; pvVar4 != (void *)0x0; pvVar4 = *(void **)((int)pvVar4 + 0x70)
-      ) {
-    iVar6 = 0;
-    if (0 < *(int *)((int)pvVar4 + 0x34)) {
-      iVar8 = local_4 * 0x14;
-      piVar5 = (int *)((int)pvVar4 + 0x38);
+  for (pWVar3 = g_pWalkPlane_wp_head; pWVar3 != (WalkPlane *)0x0; pWVar3 = pWVar3->pNext) {
+    iVar5 = 0;
+    if (0 < pWVar3->nNumVerts) {
+      iVar7 = local_4 * 0x14;
+      ppWVar4 = pWVar3->aVerts;
       do {
-        puVar2 = (undefined4 *)*piVar5;
-        puVar1 = (undefined4 *)((int)g_pVertexCache + iVar8 + 4);
-        *puVar1 = *puVar2;
-        puVar1[1] = puVar2[1];
-        puVar1[2] = puVar2[2];
-        puVar1[3] = puVar2[3];
-        *(int *)((int)g_pVertexCache + iVar8) = *piVar5 - (int)((unsigned)(uintptr_t)&FLOAT_008cb0b0) >> 4;
+        pWVar2 = *ppWVar4;
+        piVar1 = (int *)((int)(g_pVertexCache->vert).aPos + iVar7 + -4);
+        *piVar1 = pWVar2->nRefs;
+        piVar1[1] = PUN(int,(float)pWVar2->aPos[0]);
+        piVar1[2] = PUN(int,(float)pWVar2->aPos[1]);
+        piVar1[3] = PUN(int,(float)pWVar2->aPos[2]);
+        *(int *)((int)(g_pVertexCache->vert).aPos + iVar7 + -8) = (int)((WalkVertex *)((char *)*ppWVar4 - ((unsigned)(uintptr_t)&g_aWalkPlane_vert_db))) >> 4;
         local_4 = local_4 + 1;
-        iVar6 = iVar6 + 1;
-        iVar8 = iVar8 + 0x14;
-        piVar5 = piVar5 + 1;
-      } while (iVar6 < *(int *)((int)pvVar4 + 0x34));
+        iVar5 = iVar5 + 1;
+        iVar7 = iVar7 + 0x14;
+        ppWVar4 = ppWVar4 + 1;
+      } while (iVar5 < pWVar3->nNumVerts);
     }
   }
   g_pWalkPlaneCache = Plat_Alloc(g_nWalkPlaneCacheSize * 0x34);
-  if (g_pWalkPlane_wp_head != (void *)0x0) {
-    iVar6 = 0;
-    pvVar4 = g_pWalkPlane_wp_head;
+  if (g_pWalkPlane_wp_head != (WalkPlane *)0x0) {
+    iVar5 = 0;
+    pWVar3 = g_pWalkPlane_wp_head;
     do {
-      iVar8 = 0;
-      *(void **)((int)g_pWalkPlaneCache + iVar6) = pvVar4;
-      *(undefined4 *)((int)g_pWalkPlaneCache + iVar6 + 4) = *(undefined4 *)((int)pvVar4 + 0x34);
-      *(undefined4 *)((int)g_pWalkPlaneCache + iVar6 + 0x30) = *(undefined4 *)((int)pvVar4 + 0x28);
-      if (0 < *(int *)((int)pvVar4 + 0x34)) {
-        iVar7 = iVar6 + 8;
-        piVar5 = (int *)((int)pvVar4 + 0x38);
+      iVar7 = 0;
+      *(WalkPlane **)((int)g_pWalkPlaneCache->aVertIdx + iVar5 + -8) = pWVar3;
+      *(int *)((int)g_pWalkPlaneCache->aVertIdx + iVar5 + -4) = pWVar3->nNumVerts;
+      *(int *)((int)g_pWalkPlaneCache->aVertIdx + iVar5 + 0x28) = pWVar3->nVisible;
+      if (0 < pWVar3->nNumVerts) {
+        iVar6 = iVar5 + 8;
+        ppWVar4 = pWVar3->aVerts;
         do {
-          iVar3 = *piVar5;
-          piVar5 = piVar5 + 1;
-          *(int *)((int)g_pWalkPlaneCache + iVar7) = iVar3 - (int)((unsigned)(uintptr_t)&FLOAT_008cb0b0) >> 4;
-          iVar8 = iVar8 + 1;
-          iVar7 = iVar7 + 4;
-        } while (iVar8 < *(int *)((int)pvVar4 + 0x34));
+          pWVar2 = *ppWVar4;
+          ppWVar4 = ppWVar4 + 1;
+          *(int *)((int)g_pWalkPlaneCache->aVertIdx + iVar6 + -8) = (int)((WalkVertex *)((char *)pWVar2 - ((unsigned)(uintptr_t)&g_aWalkPlane_vert_db))) >> 4;
+          iVar7 = iVar7 + 1;
+          iVar6 = iVar6 + 4;
+        } while (iVar7 < pWVar3->nNumVerts);
       }
-      pvVar4 = *(void **)((int)pvVar4 + 0x70);
-      iVar6 = iVar6 + 0x34;
-    } while (pvVar4 != (void *)0x0);
+      pWVar3 = pWVar3->pNext;
+      iVar5 = iVar5 + 0x34;
+    } while (pWVar3 != (WalkPlane *)0x0);
   }
   g_dwWpCacheBuilt = 1;
   return;
@@ -361,14 +358,14 @@ void WalkPlane_DestroyCache(void)
 
 {
   g_dwWpCacheBuilt = 0;
-  if (g_pVertexCache != (void *)0x0) {
+  if (g_pVertexCache != (WalkVertexCache *)0x0) {
     Plat_Free(g_pVertexCache);
   }
-  if (g_pWalkPlaneCache != (void *)0x0) {
+  if (g_pWalkPlaneCache != (WalkPlaneCache *)0x0) {
     Plat_Free(g_pWalkPlaneCache);
   }
-  g_pVertexCache = (void *)0x0;
-  g_pWalkPlaneCache = (void *)0x0;
+  g_pVertexCache = (WalkVertexCache *)0x0;
+  g_pWalkPlaneCache = (WalkPlaneCache *)0x0;
   g_nWalkPlaneCacheSize = 0;
   g_nVertexCacheSize = 0;
   return;
@@ -383,76 +380,78 @@ void WalkPlane_RestoreCache(void)
 
 {
   int iVar1;
-  void *pvVar2;
-  int *piVar3;
-  float *pfVar4;
+  WalkPlane *pWVar2;
+  WalkVertexCache *pWVar3;
+  WalkVertex *pWVar4;
   int iVar5;
   int iVar6;
-  undefined4 *puVar7;
-  int iVar8;
+  WalkVertex **ppWVar7;
+  undefined4 *puVar8;
   int iVar9;
+  int iVar10;
   
-  pvVar2 = g_pWalkPlane_wp_head;
-  piVar3 = g_pVertexCache;
-  iVar8 = g_nVertexCacheSize;
+  pWVar2 = g_pWalkPlane_wp_head;
+  pWVar3 = g_pVertexCache;
+  iVar9 = g_nVertexCacheSize;
   if (g_dwWpCacheBuilt != 0) {
-    for (; g_nVertexCacheSize = iVar8, g_pVertexCache = piVar3, pvVar2 != (void *)0x0;
-        pvVar2 = *(void **)((int)pvVar2 + 0x70)) {
-      iVar8 = 0;
-      if (0 < *(int *)((int)pvVar2 + 0x34)) {
-        puVar7 = (undefined4 *)((int)pvVar2 + 0x38);
-        do {
-          WalkPlane_RemoveVertex(*puVar7);
-          iVar8 = iVar8 + 1;
-          puVar7 = puVar7 + 1;
-        } while (iVar8 < *(int *)((int)pvVar2 + 0x34));
-      }
-      piVar3 = g_pVertexCache;
-      iVar8 = g_nVertexCacheSize;
-    }
-    if (0 < iVar8) {
-      do {
-        iVar9 = *piVar3;
-        iVar8 = iVar8 + -1;
-        (&FLOAT_008cb0b0)[iVar9 * 4] = PUN(float,piVar3[1]);
-        (&UINT_008cb0b4)[iVar9 * 4] = piVar3[2];
-        (&UINT_008cb0b8)[iVar9 * 4] = piVar3[3];
-        (&UINT_008cb0bc)[iVar9 * 4] = piVar3[4];
-        piVar3 = piVar3 + 5;
-      } while (iVar8 != 0);
-    }
-    iVar8 = 0;
-    if (0 < g_nWalkPlaneCacheSize) {
+    for (; g_nVertexCacheSize = iVar9, g_pVertexCache = pWVar3, pWVar2 != (WalkPlane *)0x0;
+        pWVar2 = pWVar2->pNext) {
       iVar9 = 0;
+      if (0 < pWVar2->nNumVerts) {
+        ppWVar7 = pWVar2->aVerts;
+        do {
+          WalkPlane_RemoveVertex(*ppWVar7);
+          iVar9 = iVar9 + 1;
+          ppWVar7 = ppWVar7 + 1;
+        } while (iVar9 < pWVar2->nNumVerts);
+      }
+      pWVar3 = g_pVertexCache;
+      iVar9 = g_nVertexCacheSize;
+    }
+    if (0 < iVar9) {
       do {
-        iVar1 = *(int *)((int)g_pWalkPlaneCache + iVar9);
-        iVar6 = *(int *)((int)g_pWalkPlaneCache + iVar9 + 4);
+        iVar10 = pWVar3->nIndex;
+        iVar9 = iVar9 + -1;
+        g_aWalkPlane_vert_db[iVar10].nRefs = (pWVar3->vert).nRefs;
+        g_aWalkPlane_vert_db[iVar10].aPos[0] = (pWVar3->vert).aPos[0];
+        g_aWalkPlane_vert_db[iVar10].aPos[1] = (pWVar3->vert).aPos[1];
+        g_aWalkPlane_vert_db[iVar10].aPos[2] = (pWVar3->vert).aPos[2];
+        pWVar3 = pWVar3 + 1;
+      } while (iVar9 != 0);
+    }
+    iVar9 = 0;
+    if (0 < g_nWalkPlaneCacheSize) {
+      iVar10 = 0;
+      do {
+        iVar1 = *(int *)((int)g_pWalkPlaneCache->aVertIdx + iVar10 + -8);
+        iVar6 = *(int *)((int)g_pWalkPlaneCache->aVertIdx + iVar10 + -4);
         iVar5 = 0;
         *(int *)(iVar1 + 0x34) = iVar6;
         if (0 < iVar6) {
-          iVar6 = iVar9 + 8;
-          puVar7 = (undefined4 *)(iVar1 + 0x38);
+          iVar6 = iVar10 + 8;
+          puVar8 = (undefined4 *)(iVar1 + 0x38);
           do {
             iVar5 = iVar5 + 1;
-            *puVar7 = &FLOAT_008cb0b0 + *(int *)((int)g_pWalkPlaneCache + iVar6) * 4;
+            *puVar8 = g_aWalkPlane_vert_db + *(int *)((int)g_pWalkPlaneCache->aVertIdx + iVar6 + -8)
+            ;
             iVar6 = iVar6 + 4;
-            puVar7 = puVar7 + 1;
+            puVar8 = puVar8 + 1;
           } while (iVar5 < *(int *)(iVar1 + 0x34));
         }
-        iVar8 = iVar8 + 1;
-        iVar6 = iVar9 + 0x30;
-        iVar9 = iVar9 + 0x34;
-        *(undefined4 *)(iVar1 + 0x28) = *(undefined4 *)((int)g_pWalkPlaneCache + iVar6);
-      } while (iVar8 < g_nWalkPlaneCacheSize);
+        iVar9 = iVar9 + 1;
+        iVar6 = iVar10 + 0x28;
+        iVar10 = iVar10 + 0x34;
+        *(undefined4 *)(iVar1 + 0x28) = *(undefined4 *)((int)g_pWalkPlaneCache->aVertIdx + iVar6);
+      } while (iVar9 < g_nWalkPlaneCacheSize);
     }
     g_dwWalkPlane_tot_verts = 0;
-    pfVar4 = &FLOAT_008cb0b0;
+    pWVar4 = g_aWalkPlane_vert_db;
     do {
-      if (0 < PUN(int,(float)*pfVar4)) {
+      if (0 < pWVar4->nRefs) {
         g_dwWalkPlane_tot_verts = g_dwWalkPlane_tot_verts + 1;
       }
-      pfVar4 = pfVar4 + 4;
-    } while ((int)pfVar4 < ((unsigned)(uintptr_t)&g_dwWorkingPath));
+      pWVar4 = pWVar4 + 1;
+    } while ((int)pWVar4 < ((unsigned)(uintptr_t)&g_dwWorkingPath));
   }
   return;
 }
@@ -469,7 +468,7 @@ void WalkPlane_RestoreCache(void)
    through the vertex database) as the remaster's first WalkPlane::WalkPlane; its second one is a
    copy constructor v1.01 does not have); was Sector_Construct. */
 
-undefined1 * __thiscall WalkPlane_Construct(void *this,int a1,int a2,int a3)
+WalkPlane * __thiscall WalkPlane_Construct(WalkPlane *this,int a1,int a2,int a3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -477,165 +476,165 @@ undefined1 * __thiscall WalkPlane_Construct(void *this,int a1,int a2,int a3)
   float fVar2;
   char cVar3;
   byte bVar4;
-  undefined4 uVar5;
-  int iVar6;
+  WalkVertex *pWVar5;
+  WalkVertex *pWVar6;
   int iVar7;
-  uint uVar8;
+  int iVar8;
   uint uVar9;
-  byte *pbVar10;
-  char *pcVar11;
-  undefined4 *puVar12;
-  undefined4 *puVar13;
-  byte *pbVar14;
+  uint uVar10;
+  byte *pbVar11;
+  char *pcVar12;
+  WalkVertex **ppWVar13;
+  WalkVertex **ppWVar14;
   byte *pbVar15;
-  char *pcVar16;
-  bool bVar17;
+  byte *pbVar16;
+  char *pcVar17;
+  bool bVar18;
   #define local_2 (*(undefined1 (*)[2])(_frame + (0x20 - 0x2)))
   
   if (a3 == 0) {
     a3 = (int)local_2;
   }
-  puVar13 = (undefined4 *)((int)this + 0x38);
-  *(undefined4 *)((int)this + 0x28) = 1;
-  *(undefined4 *)((int)this + 0x2c) = 1;
-  *(undefined4 *)((int)this + 0x70) = 0;
-  *(undefined4 *)((int)this + 0x6c) = 0;
-  *(undefined4 *)((int)this + 0x20) = 0;
-  *(undefined4 *)((int)this + 0x24) = 0;
-  *(int *)((int)this + 0x34) = a2;
-  *(undefined1 *)this = 0;
-  *(undefined4 *)((int)this + 0x30) = 0x3ba3d70a;
-  puVar12 = puVar13;
-  for (iVar7 = 10; iVar7 != 0; iVar7 = iVar7 + -1) {
-    *puVar12 = 0;
-    puVar12 = puVar12 + 1;
+  ppWVar14 = this->aVerts;
+  this->nVisible = 1;
+  this->nActive = 1;
+  this->pNext = (WalkPlane *)0x0;
+  this->pPrev = (WalkPlane *)0x0;
+  this->nId = 0;
+  this->dwType = 0;
+  this->nNumVerts = a2;
+  this->aName[0] = '\0';
+  this->flHeight = 0.005;
+  ppWVar13 = ppWVar14;
+  for (iVar8 = 10; iVar8 != 0; iVar8 = iVar8 + -1) {
+    *ppWVar13 = (WalkVertex *)0x0;
+    ppWVar13 = ppWVar13 + 1;
   }
   if (0 < a2) {
     do {
-      uVar5 = WalkPlane_AddVertex(this,a1);
-      *puVar13 = uVar5;
-      puVar13 = puVar13 + 1;
+      pWVar6 = (WalkVertex *)WalkPlane_AddVertex(this,a1);
+      *ppWVar14 = pWVar6;
+      ppWVar14 = ppWVar14 + 1;
       a1 = a1 + 0xc;
       a2 = a2 + -1;
     } while (a2 != 0);
   }
-  pfVar1 = (float *)((int)this + 0x60);
+  pfVar1 = this->aNormal;
   *pfVar1 = 0.0;
-  *(undefined4 *)((int)this + 100) = 0;
-  *(undefined4 *)((int)this + 0x68) = 0;
-  a1 = *(int *)((int)this + 0x34);
+  this->aNormal[1] = 0.0;
+  this->aNormal[2] = 0.0;
+  a1 = this->nNumVerts;
   if (0 < a1) {
-    a2 = (int)this + 0x38;
-    iVar7 = *(int *)((int)this + a1 * 4 + 0x34);
+    a2 = (int)this->aVerts;
+    pWVar6 = this->aVerts[a1 + -1];
     do {
-      iVar6 = *(int *)a2;
+      pWVar5 = *(WalkVertex **)a2;
       a2 = a2 + 4;
       a1 = a1 + -1;
-      *pfVar1 = (*(float *)(iVar7 + 8) - *(float *)(iVar6 + 8)) *
-                (*(float *)(iVar7 + 0xc) + *(float *)(iVar6 + 0xc)) + *pfVar1;
-      *(float *)((int)this + 100) =
-           (*(float *)(iVar7 + 0xc) - *(float *)(iVar6 + 0xc)) *
-           (*(float *)(iVar6 + 4) + *(float *)(iVar7 + 4)) + *(float *)((int)this + 100);
-      *(float *)((int)this + 0x68) =
-           (*(float *)(iVar7 + 8) + *(float *)(iVar6 + 8)) *
-           (*(float *)(iVar7 + 4) - *(float *)(iVar6 + 4)) + *(float *)((int)this + 0x68);
-      iVar7 = iVar6;
+      *pfVar1 = (pWVar6->aPos[1] - pWVar5->aPos[1]) * (pWVar6->aPos[2] + pWVar5->aPos[2]) + *pfVar1;
+      this->aNormal[1] =
+           (pWVar6->aPos[2] - pWVar5->aPos[2]) * (pWVar5->aPos[0] + pWVar6->aPos[0]) +
+           this->aNormal[1];
+      this->aNormal[2] =
+           (pWVar6->aPos[1] + pWVar5->aPos[1]) * (pWVar6->aPos[0] - pWVar5->aPos[0]) +
+           this->aNormal[2];
+      pWVar6 = pWVar5;
     } while (a1 != 0);
   }
-  pfVar1 = (float *)((int)this + 0x60);
+  pfVar1 = this->aNormal;
   rdVector_Normalize3Acc(pfVar1);
-  if (*pfVar1 <= *(float *)((int)this + 100)) {
-    fVar2 = *(float *)((int)this + 100);
+  if (*pfVar1 <= this->aNormal[1]) {
+    fVar2 = this->aNormal[1];
   }
   else {
     fVar2 = *pfVar1;
   }
-  if (fVar2 <= *(float *)((int)this + 0x68)) {
-    fVar2 = *(float *)((int)this + 0x68);
+  if (fVar2 <= this->aNormal[2]) {
+    fVar2 = this->aNormal[2];
   }
-  else if (*pfVar1 <= *(float *)((int)this + 100)) {
-    fVar2 = *(float *)((int)this + 100);
+  else if (*pfVar1 <= this->aNormal[1]) {
+    fVar2 = this->aNormal[1];
   }
   else {
     fVar2 = *pfVar1;
   }
   if (fVar2 == *pfVar1) {
-    *(undefined4 *)((int)this + 0x7c) = 2;
-    *(undefined4 *)((int)this + 0x80) = 1;
+    this->nAxisU = 2;
+    this->nAxisV = 1;
   }
-  else if (fVar2 == *(float *)((int)this + 100)) {
-    *(undefined4 *)((int)this + 0x7c) = 0;
-    *(undefined4 *)((int)this + 0x80) = 2;
+  else if (fVar2 == this->aNormal[1]) {
+    this->nAxisU = 0;
+    this->nAxisV = 2;
   }
   else {
-    *(undefined4 *)((int)this + 0x7c) = 1;
-    *(undefined4 *)((int)this + 0x80) = 0;
+    this->nAxisU = 1;
+    this->nAxisV = 0;
   }
-  iVar7 = 0;
-  pbVar14 = &DAT_008cf28c;
-  pbVar10 = (byte *)a3;
-  pbVar15 = pbVar14;
+  iVar8 = 0;
+  pbVar15 = &DAT_008cf28c;
+  pbVar11 = (byte *)a3;
+  pbVar16 = pbVar15;
 LAB_004a6636:
   do {
-    bVar4 = *pbVar14;
-    bVar17 = bVar4 < *pbVar10;
-    if (bVar4 == *pbVar10) {
+    bVar4 = *pbVar15;
+    bVar18 = bVar4 < *pbVar11;
+    if (bVar4 == *pbVar11) {
       if (bVar4 != 0) {
-        bVar4 = pbVar14[1];
-        bVar17 = bVar4 < pbVar10[1];
-        if (bVar4 != pbVar10[1]) goto LAB_004a665a;
-        pbVar14 = pbVar14 + 2;
-        pbVar10 = pbVar10 + 2;
+        bVar4 = pbVar15[1];
+        bVar18 = bVar4 < pbVar11[1];
+        if (bVar4 != pbVar11[1]) goto LAB_004a665a;
+        pbVar15 = pbVar15 + 2;
+        pbVar11 = pbVar11 + 2;
         if (bVar4 != 0) goto LAB_004a6636;
       }
-      iVar6 = 0;
+      iVar7 = 0;
     }
     else {
 LAB_004a665a:
-      iVar6 = (1 - (uint)bVar17) - (uint)(bVar17 != 0);
+      iVar7 = (1 - (uint)bVar18) - (uint)(bVar18 != 0);
     }
-    if ((iVar6 == 0) || (*pbVar15 == 0)) {
-      if ((&DAT_008cf28c)[iVar7 * 0x28] == '\0') {
-        uVar8 = 0xffffffff;
+    if ((iVar7 == 0) || (*pbVar16 == 0)) {
+      if ((&DAT_008cf28c)[iVar8 * 0x28] == '\0') {
+        uVar9 = 0xffffffff;
         goto code_r0x004a6694;
       }
       break;
     }
-    pbVar14 = pbVar15 + 0x28;
-    iVar7 = iVar7 + 1;
-    pbVar10 = (byte *)a3;
-    pbVar15 = pbVar14;
-  } while ((int)pbVar14 < ((unsigned)(uintptr_t)&g_dwPuck_p_head));
+    pbVar15 = pbVar16 + 0x28;
+    iVar8 = iVar8 + 1;
+    pbVar11 = (byte *)a3;
+    pbVar16 = pbVar15;
+  } while ((int)pbVar15 < ((unsigned)(uintptr_t)&g_dwPuck_p_head));
   goto LAB_004a66ac;
   while( true ) {
-    uVar8 = uVar8 - 1;
-    pcVar11 = (char *)(a3 + 1);
+    uVar9 = uVar9 - 1;
+    pcVar12 = (char *)(a3 + 1);
     cVar3 = *(char *)a3;
-    a3 = (int)pcVar11;
+    a3 = (int)pcVar12;
     if (cVar3 == '\0') break;
 code_r0x004a6694:
-    pcVar11 = (char *)a3;
-    if (uVar8 == 0) break;
+    pcVar12 = (char *)a3;
+    if (uVar9 == 0) break;
   }
-  uVar8 = ~uVar8;
-  pcVar11 = pcVar11 + -uVar8;
-  pcVar16 = &DAT_008cf28c + iVar7 * 0x28;
-  for (uVar9 = uVar8 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
-    *(undefined4 *)pcVar16 = *(undefined4 *)pcVar11;
-    pcVar11 = pcVar11 + 4;
-    pcVar16 = pcVar16 + 4;
+  uVar9 = ~uVar9;
+  pcVar12 = pcVar12 + -uVar9;
+  pcVar17 = &DAT_008cf28c + iVar8 * 0x28;
+  for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
+    *(undefined4 *)pcVar17 = *(undefined4 *)pcVar12;
+    pcVar12 = pcVar12 + 4;
+    pcVar17 = pcVar17 + 4;
   }
-  for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
-    *pcVar16 = *pcVar11;
-    pcVar11 = pcVar11 + 1;
-    pcVar16 = pcVar16 + 1;
+  for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
+    *pcVar17 = *pcVar12;
+    pcVar12 = pcVar12 + 1;
+    pcVar17 = pcVar17 + 1;
   }
 LAB_004a66ac:
-  *(uint *)((int)this + 0x70) = (&g_dwWalkPlane_Collection)[iVar7 * 10];
-  if ((&g_dwWalkPlane_Collection)[iVar7 * 10] != 0) {
-    *(void **)((&g_dwWalkPlane_Collection)[iVar7 * 10] + 0x6c) = this;
+  this->pNext = (WalkPlane *)(&g_dwWalkPlane_Collection)[iVar8 * 10];
+  if ((&g_dwWalkPlane_Collection)[iVar8 * 10] != 0) {
+    *(WalkPlane **)((&g_dwWalkPlane_Collection)[iVar8 * 10] + 0x6c) = this;
   }
-  (&g_dwWalkPlane_Collection)[iVar7 * 10] = (uint)this;
+  (&g_dwWalkPlane_Collection)[iVar8 * 10] = (uint)this;
   g_pWalkPlane_wp_head = this;
   return this;
 }
@@ -648,40 +647,40 @@ LAB_004a66ac:
    same body (unlink from wp_head and the Collection lists, release the vertices, unlink from the
    neighbours)); was Sector_Unlink. */
 
-void __fastcall WalkPlane_Destruct(void *param_1)
+void __fastcall WalkPlane_Destruct(WalkPlane *plane)
 
 {
   uint *puVar1;
   int iVar2;
-  undefined4 *puVar3;
+  WalkVertex **ppWVar3;
   
-  if (param_1 == g_pWalkPlane_wp_head) {
-    g_pWalkPlane_wp_head = *(void **)((int)param_1 + 0x70);
+  if (plane == g_pWalkPlane_wp_head) {
+    g_pWalkPlane_wp_head = plane->pNext;
   }
   iVar2 = 0;
   puVar1 = &g_dwWalkPlane_Collection;
   do {
-    if ((void *)*puVar1 == param_1) {
-      (&g_dwWalkPlane_Collection)[iVar2 * 10] = *(uint *)((int)param_1 + 0x70);
+    if ((WalkPlane *)*puVar1 == plane) {
+      (&g_dwWalkPlane_Collection)[iVar2 * 10] = (uint)plane->pNext;
       break;
     }
     puVar1 = puVar1 + 10;
     iVar2 = iVar2 + 1;
   } while ((int)puVar1 < ((unsigned)(uintptr_t)&g_dwWpCacheBuilt));
   iVar2 = 0;
-  if (0 < *(int *)((int)param_1 + 0x34)) {
-    puVar3 = (undefined4 *)((int)param_1 + 0x38);
+  if (0 < plane->nNumVerts) {
+    ppWVar3 = plane->aVerts;
     do {
-      WalkPlane_RemoveVertex(*puVar3);
+      WalkPlane_RemoveVertex(*ppWVar3);
       iVar2 = iVar2 + 1;
-      puVar3 = puVar3 + 1;
-    } while (iVar2 < *(int *)((int)param_1 + 0x34));
+      ppWVar3 = ppWVar3 + 1;
+    } while (iVar2 < plane->nNumVerts);
   }
-  if (*(int *)((int)param_1 + 0x6c) != 0) {
-    *(undefined4 *)(*(int *)((int)param_1 + 0x6c) + 0x70) = *(undefined4 *)((int)param_1 + 0x70);
+  if (plane->pPrev != (WalkPlane *)0x0) {
+    plane->pPrev->pNext = plane->pNext;
   }
-  if (*(int *)((int)param_1 + 0x70) != 0) {
-    *(undefined4 *)(*(int *)((int)param_1 + 0x70) + 0x6c) = *(undefined4 *)((int)param_1 + 0x6c);
+  if (plane->pNext != (WalkPlane *)0x0) {
+    plane->pNext->pPrev = plane->pPrev;
   }
   return;
 }
@@ -690,7 +689,7 @@ void __fastcall WalkPlane_Destruct(void *param_1)
 /* Original name WalkPlane_SetName (the remaster's GrimFandango (Linux): same body (strcpy of a
    non-null name into the record)); was Sector_SetName. */
 
-void __thiscall WalkPlane_SetName(void *this,char *name)
+void __thiscall WalkPlane_SetName(WalkPlane *this,char *name)
 
 {
   char cVar1;
@@ -711,14 +710,14 @@ void __thiscall WalkPlane_SetName(void *this,char *name)
     uVar2 = ~uVar2;
     pcVar4 = pcVar4 + -uVar2;
     for (uVar3 = uVar2 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
-      *(undefined4 *)this = *(undefined4 *)pcVar4;
+      *(undefined4 *)this->aName = *(undefined4 *)pcVar4;
       pcVar4 = pcVar4 + 4;
-      this = (char *)((int)this + 4);
+      this = (WalkPlane *)(this->aName + 4);
     }
     for (uVar2 = uVar2 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
-      *(char *)this = *pcVar4;
+      this->aName[0] = *pcVar4;
       pcVar4 = pcVar4 + 1;
-      this = (char *)((int)this + 1);
+      this = (WalkPlane *)(this->aName + 1);
     }
   }
   return;
@@ -730,14 +729,14 @@ void __thiscall WalkPlane_SetName(void *this,char *name)
    GrimFandango (Linux): same body (type at +0x24, the 0.005f / 9999 tolerance by bit 0x1000, the
    0x100 case for 4-vertex planes)); was Sector_SetSavedType. */
 
-void __thiscall WalkPlane_SetType(void *this,uint type)
+void __thiscall WalkPlane_SetType(WalkPlane *this,uint type)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
-  int iVar3;
-  int iVar4;
+  WalkVertex *pWVar1;
+  WalkVertex *pWVar2;
+  WalkVertex *pWVar3;
+  WalkVertex *pWVar4;
   float fVar5;
   float fVar6;
   float fVar7;
@@ -755,42 +754,42 @@ void __thiscall WalkPlane_SetType(void *this,uint type)
   #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
   
-  *(uint *)((int)this + 0x24) = type;
-  *(undefined4 *)((int)this + 0x30) = 0x461c3c00;
+  this->dwType = type;
+  this->flHeight = 9999.0;
   if ((type & 0x1000) != 0) {
-    *(undefined4 *)((int)this + 0x30) = 0x3ba3d70a;
+    this->flHeight = 0.005;
   }
   if ((type & 0x100) != 0) {
-    if (*(int *)((int)this + 0x34) != 4) {
-      *(undefined4 *)((int)this + 0x24) = 0x1000;
+    if (this->nNumVerts != 4) {
+      this->dwType = 0x1000;
       return;
     }
-    iVar1 = *(int *)((int)this + 0x3c);
-    iVar2 = *(int *)((int)this + 0x38);
-    iVar3 = *(int *)((int)this + 0x44);
-    iVar4 = *(int *)((int)this + 0x40);
-    local_c = *(float *)(iVar1 + 4) - *(float *)(iVar2 + 4);
-    local_8 = *(float *)(iVar1 + 8) - *(float *)(iVar2 + 8);
-    local_4 = *(float *)(iVar1 + 0xc) - *(float *)(iVar2 + 0xc);
-    local_18 = *(float *)(iVar3 + 4) - *(float *)(iVar4 + 4);
-    local_14 = *(float *)(iVar3 + 8) - *(float *)(iVar4 + 8);
-    local_10 = *(float *)(iVar3 + 0xc) - *(float *)(iVar4 + 0xc);
+    pWVar1 = this->aVerts[1];
+    pWVar2 = this->aVerts[0];
+    pWVar3 = this->aVerts[3];
+    pWVar4 = this->aVerts[2];
+    local_c = pWVar1->aPos[0] - pWVar2->aPos[0];
+    local_8 = pWVar1->aPos[1] - pWVar2->aPos[1];
+    local_4 = pWVar1->aPos[2] - pWVar2->aPos[2];
+    local_18 = pWVar3->aPos[0] - pWVar4->aPos[0];
+    local_14 = pWVar3->aPos[1] - pWVar4->aPos[1];
+    local_10 = pWVar3->aPos[2] - pWVar4->aPos[2];
     fVar7 = rdVector_Normalize3Acc(&local_c);
     fVar8 = rdVector_Normalize3Acc(&local_18);
     fVar5 = local_10 * local_4 + local_14 * local_8 + local_18 * local_c;
     if (fVar5 < 0.0) {
       fVar5 = -fVar5;
     }
-    iVar1 = *(int *)((int)this + 0x40);
-    iVar2 = *(int *)((int)this + 0x3c);
-    local_c = *(float *)(iVar1 + 4) - *(float *)(iVar2 + 4);
-    iVar3 = *(int *)((int)this + 0x38);
-    iVar4 = *(int *)((int)this + 0x44);
-    local_8 = *(float *)(iVar1 + 8) - *(float *)(iVar2 + 8);
-    local_4 = *(float *)(iVar1 + 0xc) - *(float *)(iVar2 + 0xc);
-    local_18 = *(float *)(iVar3 + 4) - *(float *)(iVar4 + 4);
-    local_14 = *(float *)(iVar3 + 8) - *(float *)(iVar4 + 8);
-    local_10 = *(float *)(iVar3 + 0xc) - *(float *)(iVar4 + 0xc);
+    pWVar1 = this->aVerts[2];
+    pWVar2 = this->aVerts[1];
+    local_c = pWVar1->aPos[0] - pWVar2->aPos[0];
+    pWVar3 = this->aVerts[0];
+    pWVar4 = this->aVerts[3];
+    local_8 = pWVar1->aPos[1] - pWVar2->aPos[1];
+    local_4 = pWVar1->aPos[2] - pWVar2->aPos[2];
+    local_18 = pWVar3->aPos[0] - pWVar4->aPos[0];
+    local_14 = pWVar3->aPos[1] - pWVar4->aPos[1];
+    local_10 = pWVar3->aPos[2] - pWVar4->aPos[2];
     fVar9 = rdVector_Normalize3Acc(&local_c);
     fVar10 = rdVector_Normalize3Acc(&local_18);
     fVar6 = local_10 * local_4 + local_14 * local_8 + local_18 * local_c;
@@ -799,17 +798,17 @@ void __thiscall WalkPlane_SetType(void *this,uint type)
     }
     if (fVar6 < fVar5) {
       if (fVar7 < fVar8) {
-        *(undefined4 *)((int)this + 0x78) = 0;
+        this->nLongEdge = 0;
         return;
       }
-      *(undefined4 *)((int)this + 0x78) = 2;
+      this->nLongEdge = 2;
       return;
     }
     if (fVar9 < fVar10) {
-      *(undefined4 *)((int)this + 0x78) = 1;
+      this->nLongEdge = 1;
       return;
     }
-    *(undefined4 *)((int)this + 0x78) = 3;
+    this->nLongEdge = 3;
   }
   return;
 }
@@ -840,87 +839,86 @@ void __thiscall WalkPlane_SetType(void *this,uint type)
    visible check, the plane distance test against the first vertex, then the edge tests)); was
    Sector_ContainsPoint. */
 
-int __thiscall WalkPlane_Within(void *this,float *point,int checkActive)
+int __thiscall WalkPlane_Within(WalkPlane *this,float *point,int checkActive)
 
 {
-  int iVar1;
-  float fVar2;
-  float fVar3;
-  float fVar4;
-  int iVar5;
-  int iVar6;
-  int iVar7;
-  int iVar8;
-  int iVar9;
-  int *piVar10;
+  WalkVertex *pWVar1;
+  int iVar2;
+  int iVar3;
+  int iVar4;
+  float fVar5;
+  float fVar6;
+  float fVar7;
+  float *pfVar8;
+  float *pfVar9;
+  int iVar10;
+  WalkVertex **ppWVar11;
   
   if (checkActive != 0) {
-    if (*(int *)((int)this + 0x2c) == 0) {
+    if (this->nActive == 0) {
       return 0;
     }
-    if (*(int *)((int)this + 0x28) == 0) {
+    if (this->nVisible == 0) {
       return 0;
     }
   }
-  iVar1 = *(int *)((int)this + 0x3c);
-  fVar2 = (point[1] - *(float *)(iVar1 + 8)) * *(float *)((int)this + 100) +
-          (point[2] - *(float *)(iVar1 + 0xc)) * *(float *)((int)this + 0x68) +
-          (*point - *(float *)(iVar1 + 4)) * *(float *)((int)this + 0x60);
-  fVar3 = fVar2;
-  if (fVar2 < 0.0) {
-    fVar3 = -fVar2;
+  pWVar1 = this->aVerts[1];
+  fVar5 = (point[1] - pWVar1->aPos[1]) * this->aNormal[1] +
+          (point[2] - pWVar1->aPos[2]) * this->aNormal[2] +
+          (*point - pWVar1->aPos[0]) * this->aNormal[0];
+  fVar6 = fVar5;
+  if (fVar5 < 0.0) {
+    fVar6 = -fVar5;
   }
-  fVar4 = fVar2;
-  if (fVar3 <= 1e-05) {
-    fVar4 = 0.0;
+  fVar7 = fVar5;
+  if (fVar6 <= 1e-05) {
+    fVar7 = 0.0;
   }
-  if (0.0 <= fVar4) {
-    fVar3 = fVar2;
-    if (fVar2 < 0.0) {
-      fVar3 = -fVar2;
+  if (0.0 <= fVar7) {
+    fVar6 = fVar5;
+    if (fVar5 < 0.0) {
+      fVar6 = -fVar5;
     }
-    if (fVar3 <= 1e-05) {
-      fVar2 = 0.0;
+    if (fVar6 <= 1e-05) {
+      fVar5 = 0.0;
     }
   }
   else {
-    fVar3 = fVar2;
-    if (fVar2 < 0.0) {
-      fVar3 = -fVar2;
+    fVar6 = fVar5;
+    if (fVar5 < 0.0) {
+      fVar6 = -fVar5;
     }
-    if (fVar3 <= 1e-05) {
-      fVar2 = 0.0;
+    if (fVar6 <= 1e-05) {
+      fVar5 = 0.0;
     }
-    fVar2 = -fVar2;
+    fVar5 = -fVar5;
   }
-  if (fVar2 <= *(float *)((int)this + 0x30)) {
-    iVar1 = *(int *)((int)this + 0x34);
-    iVar8 = 0;
-    if (iVar1 < 1) {
+  if (fVar5 <= this->flHeight) {
+    iVar2 = this->nNumVerts;
+    iVar10 = 0;
+    if (iVar2 < 1) {
       return 1;
     }
-    iVar7 = *(int *)((int)this + 0x80) * 4;
-    iVar9 = *(int *)((int)this + 0x7c) * 4;
-    piVar10 = (int *)((int)this + 0x38);
-    iVar5 = *(int *)((int)this + iVar1 * 4 + 0x34) + 4;
+    iVar3 = this->nAxisV;
+    iVar4 = this->nAxisU;
+    ppWVar11 = this->aVerts;
+    pfVar8 = this->aVerts[iVar2 + -1]->aPos;
     while( true ) {
-      iVar6 = *piVar10 + 4;
-      fVar2 = ((point[*(int *)((int)this + 0x7c)] - *(float *)(iVar5 + iVar9)) *
-               (*(float *)(iVar6 + iVar7) - *(float *)(iVar5 + iVar7)) +
-              (point[*(int *)((int)this + 0x80)] - *(float *)(iVar5 + iVar7)) *
-              -(*(float *)(iVar6 + iVar9) - *(float *)(iVar5 + iVar9))) - -1e-05;
-      fVar3 = fVar2;
-      if (fVar2 < 0.0) {
-        fVar3 = -fVar2;
+      pfVar9 = (*ppWVar11)->aPos;
+      fVar5 = ((point[iVar4] - pfVar8[iVar4]) * (pfVar9[iVar3] - pfVar8[iVar3]) +
+              (point[iVar3] - pfVar8[iVar3]) * -(pfVar9[iVar4] - pfVar8[iVar4])) - -1e-05;
+      fVar6 = fVar5;
+      if (fVar5 < 0.0) {
+        fVar6 = -fVar5;
       }
-      if (fVar3 <= 1e-05) {
-        fVar2 = 0.0;
+      if (fVar6 <= 1e-05) {
+        fVar5 = 0.0;
       }
-      if (fVar2 < 0.0) break;
-      iVar8 = iVar8 + 1;
-      piVar10 = piVar10 + 1;
-      iVar5 = iVar6;
-      if (iVar1 <= iVar8) {
+      if (fVar5 < 0.0) break;
+      iVar10 = iVar10 + 1;
+      ppWVar11 = ppWVar11 + 1;
+      pfVar8 = pfVar9;
+      if (iVar2 <= iVar10) {
         return 1;
       }
     }
@@ -938,7 +936,7 @@ int __thiscall WalkPlane_Within(void *this,float *point,int checkActive)
    the point onto the plane, then clamps it to the nearest edge); the remaster inlined Project at
    its start); was Sector_ClampPoint. */
 
-int __thiscall WalkPlane_ClosestPoint(void *this,int a1)
+int __thiscall WalkPlane_ClosestPoint(WalkPlane *this,int a1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -958,11 +956,11 @@ int __thiscall WalkPlane_ClosestPoint(void *this,int a1)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   WalkPlane_Project(this,a1);
-  iVar7 = *(int *)((int)this + 0x34);
+  iVar7 = this->nNumVerts;
   iVar9 = 0;
   if (0 < iVar7) {
-    local_10 = (int)this + 0x38;
-    pfVar8 = (float *)(*(int *)((int)this + iVar7 * 4 + 0x34) + 4);
+    local_10 = (uint)this->aVerts;
+    pfVar8 = this->aVerts[iVar7 + -1]->aPos;
     do {
       iVar7 = *(int *)local_10;
       pfVar10 = (float *)(iVar7 + 4);
@@ -1001,7 +999,7 @@ int __thiscall WalkPlane_ClosestPoint(void *this,int a1)
           else {
             fVar2 = (fVar4 - *pfVar8) / fVar2;
           }
-          if ((iVar9 != *(int *)((int)this + 0x34) + -1) || (fVar2 <= 1.0)) {
+          if ((iVar9 != this->nNumVerts + -1) || (fVar2 <= 1.0)) {
             if (0.0 <= fVar2) {
               WalkPlane_Project(this,a1);
             }
@@ -1018,7 +1016,7 @@ int __thiscall WalkPlane_ClosestPoint(void *this,int a1)
           }
         }
       }
-      iVar7 = *(int *)((int)this + 0x34);
+      iVar7 = this->nNumVerts;
       iVar9 = iVar9 + 1;
       local_10 = local_10 + 4;
       pfVar8 = pfVar10;
@@ -1041,7 +1039,7 @@ int __thiscall WalkPlane_ClosestPoint(void *this,int a1)
    Sector_MoveWalkerToOppositeEdge; 3 matched neighbours agree, 1 disagree); was
    Sector_FindExitPoint. */
 
-float __thiscall WalkPlane_Intersection(void *this,int a1,int a2,int a3)
+float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1071,19 +1069,19 @@ float __thiscall WalkPlane_Intersection(void *this,int a1,int a2,int a3)
   #define local_4 (*(float *)(_frame + (0x50 - 0x4)))
   
   local_1c = 0;
-  *(undefined4 *)((int)this + 0x74) = 0xffffffff;
+  this->nHitEdge = -1;
   iVar8 = WalkPlane_Within(this,(float *)a2,1);
   if (iVar8 == 0) {
     local_28 = 0;
     *(undefined4 *)a3 = *(undefined4 *)a2;
     *(undefined4 *)(a3 + 4) = *(undefined4 *)(a2 + 4);
     *(undefined4 *)(a3 + 8) = *(undefined4 *)(a2 + 8);
-    if (0 < *(int *)((int)this + 0x34)) {
-      local_24 = (int)this + 0x38;
-      pfVar10 = (float *)(*(int *)((int)this + *(int *)((int)this + 0x34) * 4 + 0x34) + 4);
+    if (0 < this->nNumVerts) {
+      local_24 = (uint)this->aVerts;
+      pfVar10 = this->aVerts[this->nNumVerts + -1]->aPos;
       do {
-        iVar8 = *(int *)((int)this + 0x7c);
-        iVar1 = *(int *)((int)this + 0x80);
+        iVar8 = this->nAxisU;
+        iVar1 = this->nAxisV;
         iVar2 = *(int *)local_24;
         pfVar11 = (float *)(iVar2 + 4);
         iVar12 = iVar8 * 4;
@@ -1114,19 +1112,19 @@ float __thiscall WalkPlane_Intersection(void *this,int a1,int a2,int a3)
           }
           if (fVar5 != 0.0) {
             *(float *)(a3 + iVar9) = fVar3 * (fVar13 / fVar6) + *(float *)(a3 + iVar9);
-            *(float *)(a3 + *(int *)((int)this + 0x7c) * 4) =
-                 fVar7 * (fVar13 / fVar6) + *(float *)(a3 + *(int *)((int)this + 0x7c) * 4);
+            *(float *)(a3 + this->nAxisU * 4) =
+                 fVar7 * (fVar13 / fVar6) + *(float *)(a3 + this->nAxisU * 4);
             local_c = *pfVar10 - *pfVar11;
             local_8 = pfVar10[1] - *(float *)(iVar2 + 8);
             local_4 = pfVar10[2] - *(float *)(iVar2 + 0xc);
-            *(uint *)((int)this + 0x74) = local_28;
+            this->nHitEdge = local_28;
             local_1c = (uint)pfVar10;
           }
         }
         local_28 = local_28 + 1;
         local_24 = local_24 + 4;
         pfVar10 = pfVar11;
-      } while ((int)local_28 < *(int *)((int)this + 0x34));
+      } while ((int)local_28 < this->nNumVerts);
     }
     WalkPlane_Project(this,a3);
     if (local_1c != 0) {
@@ -1165,19 +1163,19 @@ float __thiscall WalkPlane_Intersection(void *this,int a1,int a2,int a3)
    remaster (a C++ method there); the only unmatched callee of Lua_SnapToPlane; 1 matched neighbours
    agree, 0 disagree); was Sector_SnapToPlane. */
 
-void __thiscall WalkPlane_SnapTo(void *this,float *pos)
+void __thiscall WalkPlane_SnapTo(WalkPlane *this,float *pos)
 
 {
-  int iVar1;
+  WalkVertex *pWVar1;
   float fVar2;
   
-  iVar1 = *(int *)((int)this + 0x38);
-  fVar2 = (pos[1] - *(float *)(iVar1 + 8)) * *(float *)((int)this + 100) +
-          (pos[2] - *(float *)(iVar1 + 0xc)) * *(float *)((int)this + 0x68) +
-          (*pos - *(float *)(iVar1 + 4)) * *(float *)((int)this + 0x60);
-  *pos = *pos - fVar2 * *(float *)((int)this + 0x60);
-  pos[1] = pos[1] - fVar2 * *(float *)((int)this + 100);
-  pos[2] = pos[2] - fVar2 * *(float *)((int)this + 0x68);
+  pWVar1 = this->aVerts[0];
+  fVar2 = (pos[1] - pWVar1->aPos[1]) * this->aNormal[1] +
+          (pos[2] - pWVar1->aPos[2]) * this->aNormal[2] +
+          (*pos - pWVar1->aPos[0]) * this->aNormal[0];
+  *pos = *pos - fVar2 * this->aNormal[0];
+  pos[1] = pos[1] - fVar2 * this->aNormal[1];
+  pos[2] = pos[2] - fVar2 * this->aNormal[2];
   return;
 }
 
@@ -1186,31 +1184,30 @@ void __thiscall WalkPlane_SnapTo(void *this,float *pos)
    equation for the axis the two dominant-axis fields at +0x7c / +0x80 leave out)); was
    Sector_FixPlaneCoordinate. */
 
-int __thiscall WalkPlane_Project(void *this,int a1)
+int __thiscall WalkPlane_Project(WalkPlane *this,int a1)
 
 {
-  int iVar1;
+  WalkVertex *pWVar1;
   int iVar2;
   int iVar3;
   int iVar4;
   
-  iVar1 = *(int *)((int)this + 0x38);
-  iVar2 = *(int *)((int)this + 0x7c);
-  if ((iVar2 == 1) && (*(int *)((int)this + 0x80) == 0)) {
+  pWVar1 = this->aVerts[0];
+  iVar2 = this->nAxisU;
+  if ((iVar2 == 1) && (this->nAxisV == 0)) {
     iVar4 = 2;
   }
-  else if (((iVar2 != 0) || (iVar4 = 1, *(int *)((int)this + 0x80) != 2)) &&
-          ((iVar4 = a1, iVar2 == 2 && (*(int *)((int)this + 0x80) == 1)))) {
+  else if (((iVar2 != 0) || (iVar4 = 1, this->nAxisV != 2)) &&
+          ((iVar4 = a1, iVar2 == 2 && (this->nAxisV == 1)))) {
     iVar4 = 0;
   }
-  iVar3 = *(int *)((int)this + 0x80);
+  iVar3 = this->nAxisV;
   *(float *)(a1 + iVar4 * 4) =
-       (*(float *)((int)this + iVar2 * 4 + 0x60) * *(float *)(a1 + iVar2 * 4) +
-        *(float *)((int)this + iVar3 * 4 + 0x60) * *(float *)(a1 + iVar3 * 4) +
-       -(*(float *)((int)this + 0x68) * *(float *)(iVar1 + 0xc) +
-        *(float *)((int)this + 0x60) * *(float *)(iVar1 + 4) +
-        *(float *)((int)this + 100) * *(float *)(iVar1 + 8))) /
-       -*(float *)((int)this + iVar4 * 4 + 0x60);
+       (this->aNormal[iVar2] * *(float *)(a1 + iVar2 * 4) +
+        this->aNormal[iVar3] * *(float *)(a1 + iVar3 * 4) +
+       -(this->aNormal[2] * pWVar1->aPos[2] +
+        this->aNormal[0] * pWVar1->aPos[0] + this->aNormal[1] * pWVar1->aPos[1])) /
+       -this->aNormal[iVar4];
   return iVar3;
 }
 
@@ -1218,27 +1215,27 @@ int __thiscall WalkPlane_Project(void *this,int a1)
 /* Original name WalkPlane_Draw (the remaster's GrimFandango (Linux): same body (if visible:
    rdPrimit3_DrawLine along every edge in the colour)); was Sector_DrawOutline. */
 
-void __thiscall WalkPlane_Draw(void *this,int color)
+void __thiscall WalkPlane_Draw(WalkPlane *this,int color)
 
 {
-  int iVar1;
+  WalkVertex *pWVar1;
   float *a;
-  int *piVar2;
+  WalkVertex **ppWVar2;
   int iVar3;
   
-  if (*(int *)((int)this + 0x28) != 0) {
+  if (this->nVisible != 0) {
     iVar3 = 0;
-    if (0 < *(int *)((int)this + 0x34)) {
-      piVar2 = (int *)((int)this + 0x38);
-      a = (float *)(*(int *)((int)this + *(int *)((int)this + 0x34) * 4 + 0x34) + 4);
+    if (0 < this->nNumVerts) {
+      ppWVar2 = this->aVerts;
+      a = this->aVerts[this->nNumVerts + -1]->aPos;
       do {
-        iVar1 = *piVar2;
-        rdPrimit3_DrawLine(a,(float *)(iVar1 + 4),(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,
+        pWVar1 = *ppWVar2;
+        rdPrimit3_DrawLine(a,pWVar1->aPos,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,
                            0xffffffff);
         iVar3 = iVar3 + 1;
-        piVar2 = piVar2 + 1;
-        a = (float *)(iVar1 + 4);
-      } while (iVar3 < *(int *)((int)this + 0x34));
+        ppWVar2 = ppWVar2 + 1;
+        a = pWVar1->aPos;
+      } while (iVar3 < this->nNumVerts);
     }
   }
   return;
@@ -1248,23 +1245,23 @@ void __thiscall WalkPlane_Draw(void *this,int color)
 /* Original name WalkPlane_PlaneAt (the remaster's GrimFandango (Linux): same body (the first plane
    of wp_head with a type bit of the mask that contains the point)); was SectorList_FindByPoint. */
 
-void * WalkPlane_PlaneAt(float *param_1,uint param_2)
+WalkPlane * __cdecl WalkPlane_PlaneAt(float *point,uint mask)
 
 {
-  int *piVar1;
+  WalkPlane **ppWVar1;
   int iVar2;
-  void *this;
+  WalkPlane *this;
   
   this = g_pWalkPlane_wp_head;
-  if (g_pWalkPlane_wp_head == (void *)0x0) {
-    return (void *)0x0;
+  if (g_pWalkPlane_wp_head == (WalkPlane *)0x0) {
+    return (WalkPlane *)0x0;
   }
-  while (((*(uint *)((int)this + 0x24) & param_2) == 0 ||
-         (iVar2 = WalkPlane_Within(this,param_1,1), iVar2 == 0))) {
-    piVar1 = (int *)((int)this + 0x70);
-    this = (void *)*piVar1;
-    if ((void *)*piVar1 == (void *)0x0) {
-      return (void *)0x0;
+  while (((this->dwType & mask) == 0 ||
+         (iVar2 = WalkPlane_Within(this,point,1), iVar2 == 0))) {
+    ppWVar1 = &this->pNext;
+    this = *ppWVar1;
+    if (*ppWVar1 == (WalkPlane *)0x0) {
+      return (WalkPlane *)0x0;
     }
   }
   return this;
@@ -1275,25 +1272,25 @@ void * WalkPlane_PlaneAt(float *param_1,uint param_2)
    the remaster (a C++ method there); the only unmatched callee of Actor_SetShadowPlane; 7 matched
    neighbours agree, 0 disagree); was Sector_FindByName. */
 
-void * __cdecl WalkPlane_PlaneNamed(char *name)
+WalkPlane * __cdecl WalkPlane_PlaneNamed(char *name)
 
 {
   byte bVar1;
-  byte *pbVar2;
-  byte *pbVar3;
+  WalkPlane *pWVar2;
+  WalkPlane *pWVar3;
   int iVar4;
   byte *pbVar5;
   bool bVar6;
   
-  pbVar2 = g_pWalkPlane_wp_head;
+  pWVar2 = g_pWalkPlane_wp_head;
   do {
-    pbVar3 = pbVar2;
+    pWVar3 = pWVar2;
     pbVar5 = (byte *)name;
-    if (pbVar2 == (byte *)0x0) {
-      return (void *)0x0;
+    if (pWVar2 == (WalkPlane *)0x0) {
+      return (WalkPlane *)0x0;
     }
     do {
-      bVar1 = *pbVar3;
+      bVar1 = pWVar3->aName[0];
       bVar6 = bVar1 < *pbVar5;
       if (bVar1 != *pbVar5) {
 LAB_004a726e:
@@ -1301,18 +1298,18 @@ LAB_004a726e:
         goto LAB_004a7273;
       }
       if (bVar1 == 0) break;
-      bVar1 = pbVar3[1];
+      bVar1 = pWVar3->aName[1];
       bVar6 = bVar1 < pbVar5[1];
       if (bVar1 != pbVar5[1]) goto LAB_004a726e;
-      pbVar3 = pbVar3 + 2;
+      pWVar3 = (WalkPlane *)(pWVar3->aName + 2);
       pbVar5 = pbVar5 + 2;
     } while (bVar1 != 0);
     iVar4 = 0;
 LAB_004a7273:
     if (iVar4 == 0) {
-      return pbVar2;
+      return pWVar2;
     }
-    pbVar2 = *(byte **)(pbVar2 + 0x70);
+    pWVar2 = pWVar2->pNext;
   } while( true );
 }
 
@@ -1320,16 +1317,15 @@ LAB_004a7273:
 /* Original name WalkPlane_PlaneNumbered (the remaster's GrimFandango (Linux): same body (the plane
    of wp_head whose number at +0x20 is the id)); was Sector_FindById. */
 
-void * __cdecl WalkPlane_PlaneNumbered(int id)
+WalkPlane * __cdecl WalkPlane_PlaneNumbered(int id)
 
 {
-  void *pvVar1;
+  WalkPlane *pWVar1;
   
-  for (pvVar1 = g_pWalkPlane_wp_head;
-      (pvVar1 != (void *)0x0 && (*(int *)((int)pvVar1 + 0x20) != id));
-      pvVar1 = *(void **)((int)pvVar1 + 0x70)) {
+  for (pWVar1 = g_pWalkPlane_wp_head; (pWVar1 != (WalkPlane *)0x0 && (pWVar1->nId != id));
+      pWVar1 = pWVar1->pNext) {
   }
-  return pvVar1;
+  return pWVar1;
 }
 
 /* ---- 0x004a72b0  WalkPlane_PlaneClosest ---- */
@@ -1340,43 +1336,42 @@ void * __cdecl WalkPlane_PlaneNumbered(int id)
    GrimFandango (Linux): same body (the plane containing the point, else the plane whose clamped
    point is nearest; FLT_MAX start)); was SectorList_FindNearestPoint. */
 
-void * WalkPlane_PlaneClosest(float *param_1,uint param_2)
+WalkPlane * __cdecl WalkPlane_PlaneClosest(float *point,uint mask)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  void *this;
-  void *pvVar2;
-  void *pvVar3;
+  WalkPlane *this;
+  WalkPlane *pWVar2;
+  WalkPlane *pWVar3;
   #define local_10 (*(float *)(_frame + (0x20 - 0x10)))
   #define local_c (*(float *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   local_10 = 3.4028235e+38;
-  pvVar3 = (void *)WalkPlane_PlaneAt(param_1,param_2);
-  pvVar2 = (void *)0x0;
+  pWVar3 = WalkPlane_PlaneAt(point,mask);
+  pWVar2 = (WalkPlane *)0x0;
   this = g_pWalkPlane_wp_head;
-  if (pvVar3 == (void *)0x0) {
-    for (; pvVar3 = pvVar2, this != (void *)0x0; this = *(void **)((int)this + 0x70)) {
-      if ((((*(uint *)((int)this + 0x24) & param_2) != 0) && (*(int *)((int)this + 0x2c) != 0)) &&
-         (*(int *)((int)this + 0x28) != 0)) {
-        local_c = *param_1;
-        local_8 = param_1[1];
-        local_4 = param_1[2];
+  if (pWVar3 == (WalkPlane *)0x0) {
+    for (; pWVar3 = pWVar2, this != (WalkPlane *)0x0; this = this->pNext) {
+      if ((((this->dwType & mask) != 0) && (this->nActive != 0)) && (this->nVisible != 0)) {
+        local_c = *point;
+        local_8 = point[1];
+        local_4 = point[2];
         WalkPlane_ClosestPoint(this,(int)&local_c);
-        fVar1 = (local_c - *param_1) * (local_c - *param_1) +
-                (local_4 - param_1[2]) * (local_4 - param_1[2]) +
-                (local_8 - param_1[1]) * (local_8 - param_1[1]);
+        fVar1 = (local_c - *point) * (local_c - *point) +
+                (local_4 - point[2]) * (local_4 - point[2]) +
+                (local_8 - point[1]) * (local_8 - point[1]);
         if (fVar1 < local_10) {
-          pvVar3 = this;
+          pWVar3 = this;
           local_10 = fVar1;
         }
       }
-      pvVar2 = pvVar3;
+      pWVar2 = pWVar3;
     }
   }
-  return pvVar3;
+  return pWVar3;
 }
 #undef local_10
 #undef local_4
@@ -1389,12 +1384,12 @@ void * WalkPlane_PlaneClosest(float *param_1,uint param_2)
    remaster (a C++ method there); the only unmatched callee of Actor_PushSectorOppositeEdge; 1
    matched neighbours agree, 1 disagree); was Sector_MoveWalkerToOppositeEdge. */
 
-void __thiscall WalkPlane_JumpOut(void *this,float *walker)
+void __thiscall WalkPlane_JumpOut(WalkPlane *this,float *walker)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
+  WalkVertex *pWVar1;
+  WalkVertex *pWVar2;
   float fVar3;
   float fVar4;
   float fVar5;
@@ -1410,7 +1405,7 @@ void __thiscall WalkPlane_JumpOut(void *this,float *walker)
   #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
   
-  if (*(int *)((int)this + 0x34) == 4) {
+  if (this->nNumVerts == 4) {
     local_18 = *walker;
     local_14 = walker[1];
     local_10 = walker[2];
@@ -1418,15 +1413,14 @@ void __thiscall WalkPlane_JumpOut(void *this,float *walker)
     local_20 = walker[7] * -10.0 + local_14;
     local_1c = walker[8] * -10.0 + local_10;
     WalkPlane_Intersection(this,(int)&local_18,(int)&local_24,(int)&local_c);
-    iVar1 = *(int *)((int)this + 0x74);
-    if (iVar1 != -1) {
-      iVar7 = *(int *)((int)this + iVar1 * 4 + 0x38);
-      uVar6 = iVar1 - 1;
+    iVar7 = this->nHitEdge;
+    if (iVar7 != -1) {
+      pWVar1 = this->aVerts[iVar7];
+      uVar6 = iVar7 - 1;
       if (0x7fffffff < uVar6) {
-        uVar6 = *(int *)((int)this + 0x34) - 1;
+        uVar6 = this->nNumVerts - 1;
       }
-      iVar2 = *(int *)((int)this + uVar6 * 4 + 0x38);
-      fVar3 = *(float *)(iVar2 + 4) - *(float *)(iVar7 + 4);
+      fVar3 = this->aVerts[uVar6]->aPos[0] - pWVar1->aPos[0];
       fVar5 = fVar3;
       if (fVar3 < 0.0) {
         fVar5 = -fVar3;
@@ -1436,24 +1430,23 @@ void __thiscall WalkPlane_JumpOut(void *this,float *walker)
         fVar4 = 0.0;
       }
       if (fVar4 == 0.0) {
-        fVar3 = (local_8 - *(float *)(iVar7 + 8)) / (*(float *)(iVar2 + 8) - *(float *)(iVar7 + 8));
+        fVar3 = (local_8 - pWVar1->aPos[1]) / (this->aVerts[uVar6]->aPos[1] - pWVar1->aPos[1]);
       }
       else {
-        fVar3 = (local_c - *(float *)(iVar7 + 4)) / fVar3;
+        fVar3 = (local_c - pWVar1->aPos[0]) / fVar3;
       }
       fVar3 = 1.0 - fVar3;
-      iVar7 = (iVar1 + 2) % *(int *)((int)this + 0x34);
-      *(int *)((int)this + 0x74) = iVar7;
-      iVar1 = *(int *)((int)this + iVar7 * 4 + 0x38);
+      iVar7 = (iVar7 + 2) % this->nNumVerts;
+      this->nHitEdge = iVar7;
+      pWVar1 = this->aVerts[iVar7];
       uVar6 = iVar7 - 1;
       if (0x7fffffff < uVar6) {
-        uVar6 = *(int *)((int)this + 0x34) - 1;
+        uVar6 = this->nNumVerts - 1;
       }
-      iVar7 = *(int *)((int)this + uVar6 * 4 + 0x38);
-      local_c = (*(float *)(iVar7 + 4) - *(float *)(iVar1 + 4)) * fVar3 + *(float *)(iVar1 + 4);
-      local_8 = (*(float *)(iVar7 + 8) - *(float *)(iVar1 + 8)) * fVar3 + *(float *)(iVar1 + 8);
-      local_4 = (*(float *)(iVar7 + 0xc) - *(float *)(iVar1 + 0xc)) * fVar3 +
-                *(float *)(iVar1 + 0xc);
+      pWVar2 = this->aVerts[uVar6];
+      local_c = (pWVar2->aPos[0] - pWVar1->aPos[0]) * fVar3 + pWVar1->aPos[0];
+      local_8 = (pWVar2->aPos[1] - pWVar1->aPos[1]) * fVar3 + pWVar1->aPos[1];
+      local_4 = (pWVar2->aPos[2] - pWVar1->aPos[2]) * fVar3 + pWVar1->aPos[2];
       Puck_SetPos((Puck *)walker,&local_c);
     }
   }
@@ -1478,22 +1471,23 @@ void __thiscall WalkPlane_JumpOut(void *this,float *walker)
    position and the +0x40 turn sign as +-100 steps along the blocking edge)); was
    Sector_EdgeFollowDirection. */
 
-float * __thiscall WalkPlane_GetConstraintVector(void *this,float *walker)
+float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
+  WalkVertex *pWVar2;
   int iVar3;
-  float fVar4;
+  WalkVertex *pWVar4;
   float fVar5;
-  uint uVar6;
+  float fVar6;
   uint uVar7;
   uint uVar8;
   uint uVar9;
   uint uVar10;
   uint uVar11;
-  float fVar12;
+  uint uVar12;
+  float fVar13;
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(float *)(_frame + (0x50 - 0x30)))
@@ -1512,16 +1506,10 @@ float * __thiscall WalkPlane_GetConstraintVector(void *this,float *walker)
   local_14 = walker[1];
   local_10 = walker[2];
   if (walker[0x10] <= 0.0) {
-    fVar12 = 100.0;
+    fVar13 = 100.0;
   }
   else {
-    fVar12 = -100.0;
-  }
-  if (walker[0x10] <= 0.0) {
-    fVar4 = 100.0;
-  }
-  else {
-    fVar4 = -100.0;
+    fVar13 = -100.0;
   }
   if (walker[0x10] <= 0.0) {
     fVar5 = 100.0;
@@ -1529,132 +1517,130 @@ float * __thiscall WalkPlane_GetConstraintVector(void *this,float *walker)
   else {
     fVar5 = -100.0;
   }
-  local_30 = walker[6] * fVar12 + local_18;
-  local_2c = walker[7] * fVar4 + local_14;
-  local_28 = walker[8] * fVar5 + local_10;
+  if (walker[0x10] <= 0.0) {
+    fVar6 = 100.0;
+  }
+  else {
+    fVar6 = -100.0;
+  }
+  local_30 = walker[6] * fVar13 + local_18;
+  local_2c = walker[7] * fVar5 + local_14;
+  local_28 = walker[8] * fVar6 + local_10;
   WalkPlane_Intersection(this,(int)&local_18,(int)&local_30,((unsigned)(uintptr_t)&g_vEdgeFollowDir));
-  iVar1 = *(int *)((int)this + 0x74);
+  iVar1 = this->nHitEdge;
   if (iVar1 != -1) {
-    iVar2 = *(int *)((int)this + iVar1 * 4 + 0x38);
-    fVar5 = *(float *)(iVar2 + 4) - g_vEdgeFollowDir;
-    fVar12 = *(float *)(iVar2 + 8) - *(float *)&DAT_008cf264;
-    fVar4 = *(float *)(iVar2 + 0xc) - *(float *)&DAT_008cf268;
-    if (0.0025 <= fVar4 * fVar4 + fVar12 * fVar12 + fVar5 * fVar5) {
-      uVar10 = iVar1 - 1;
-      uVar9 = uVar10;
-      uVar8 = uVar10;
-      uVar11 = uVar10;
-      uVar6 = uVar10;
-      uVar7 = uVar10;
-      local_38 = uVar10;
-      if ((int)uVar10 < 0) {
-        uVar9 = *(int *)((int)this + 0x34) - 1;
-        uVar8 = *(int *)((int)this + 0x34) - 1;
-        uVar11 = *(int *)((int)this + 0x34) - 1;
-        uVar6 = *(int *)((int)this + 0x34) - 1;
-        uVar7 = *(int *)((int)this + 0x34) - 1;
-        local_38 = *(int *)((int)this + 0x34) - 1;
+    pWVar2 = this->aVerts[iVar1];
+    fVar6 = pWVar2->aPos[0] - g_vEdgeFollowDir;
+    fVar13 = pWVar2->aPos[1] - *(float *)&DAT_008cf264;
+    fVar5 = pWVar2->aPos[2] - *(float *)&DAT_008cf268;
+    if (0.0025 <= fVar5 * fVar5 + fVar13 * fVar13 + fVar6 * fVar6) {
+      uVar11 = iVar1 - 1;
+      uVar10 = uVar11;
+      uVar9 = uVar11;
+      uVar12 = uVar11;
+      uVar7 = uVar11;
+      uVar8 = uVar11;
+      local_38 = uVar11;
+      if ((int)uVar11 < 0) {
+        uVar10 = this->nNumVerts - 1;
+        uVar9 = this->nNumVerts - 1;
+        uVar12 = this->nNumVerts - 1;
+        uVar7 = this->nNumVerts - 1;
+        uVar8 = this->nNumVerts - 1;
+        local_38 = this->nNumVerts - 1;
       }
-      if ((*(float *)(*(int *)((int)this + local_38 * 4 + 0x38) + 0xc) - *(float *)&DAT_008cf268) *
-          (*(float *)(*(int *)((int)this + uVar9 * 4 + 0x38) + 0xc) - *(float *)&DAT_008cf268) +
-          (*(float *)(*(int *)((int)this + uVar11 * 4 + 0x38) + 8) - *(float *)&DAT_008cf264) *
-          (*(float *)(*(int *)((int)this + uVar8 * 4 + 0x38) + 8) - *(float *)&DAT_008cf264) +
-          (*(float *)(*(int *)((int)this + uVar7 * 4 + 0x38) + 4) - g_vEdgeFollowDir) *
-          (*(float *)(*(int *)((int)this + uVar6 * 4 + 0x38) + 4) - g_vEdgeFollowDir) < 0.0025) {
-        uVar8 = uVar10;
-        if ((int)uVar10 < 0) {
-          uVar8 = *(int *)((int)this + 0x34) - 1;
+      if ((this->aVerts[local_38]->aPos[2] - *(float *)&DAT_008cf268) *
+          (this->aVerts[uVar10]->aPos[2] - *(float *)&DAT_008cf268) +
+          (this->aVerts[uVar12]->aPos[1] - *(float *)&DAT_008cf264) *
+          (this->aVerts[uVar9]->aPos[1] - *(float *)&DAT_008cf264) +
+          (this->aVerts[uVar8]->aPos[0] - g_vEdgeFollowDir) *
+          (this->aVerts[uVar7]->aPos[0] - g_vEdgeFollowDir) < 0.0025) {
+        uVar9 = uVar11;
+        if ((int)uVar11 < 0) {
+          uVar9 = this->nNumVerts - 1;
         }
-        local_24 = *(float *)(*(int *)((int)this + uVar8 * 4 + 0x38) + 4) - *(float *)(iVar2 + 4);
-        uVar8 = uVar10;
-        if ((int)uVar10 < 0) {
-          uVar8 = *(int *)((int)this + 0x34) - 1;
+        local_24 = this->aVerts[uVar9]->aPos[0] - pWVar2->aPos[0];
+        uVar9 = uVar11;
+        if ((int)uVar11 < 0) {
+          uVar9 = this->nNumVerts - 1;
         }
-        local_20 = *(float *)(*(int *)((int)this + uVar8 * 4 + 0x38) + 8) -
-                   *(float *)(*(int *)((int)this + *(int *)((int)this + 0x74) * 4 + 0x38) + 8);
-        if (0x7fffffff < uVar10) {
-          uVar10 = *(int *)((int)this + 0x34) - 1;
+        local_20 = this->aVerts[uVar9]->aPos[1] - this->aVerts[this->nHitEdge]->aPos[1];
+        if (0x7fffffff < uVar11) {
+          uVar11 = this->nNumVerts - 1;
         }
-        local_1c = *(float *)(*(int *)((int)this + uVar10 * 4 + 0x38) + 0xc) -
-                   *(float *)(*(int *)((int)this + *(int *)((int)this + 0x74) * 4 + 0x38) + 0xc);
+        local_1c = this->aVerts[uVar11]->aPos[2] - this->aVerts[this->nHitEdge]->aPos[2];
         rdVector_Normalize3Acc(&local_24);
-        fVar12 = rdVector_Dot3(&local_24,walker + 6);
-        fVar12 = stdMath_ArcSin3(fVar12);
-        if ((90.0 - fVar12 < 1.0) || (179.0 < 90.0 - fVar12)) {
-          uVar8 = *(int *)((int)this + 0x74) - 1;
-          if (0x7fffffff < uVar8) {
-            uVar8 = *(int *)((int)this + 0x34) - 1;
+        fVar13 = rdVector_Dot3(&local_24,walker + 6);
+        fVar13 = stdMath_ArcSin3(fVar13);
+        if ((90.0 - fVar13 < 1.0) || (179.0 < 90.0 - fVar13)) {
+          uVar9 = this->nHitEdge - 1;
+          if (0x7fffffff < uVar9) {
+            uVar9 = this->nNumVerts - 1;
           }
-          *(uint *)((int)this + 0x74) = uVar8;
+          this->nHitEdge = uVar9;
         }
       }
     }
     else {
-      uVar8 = iVar1 - 1;
-      uVar11 = uVar8;
-      if ((int)uVar8 < 0) {
-        uVar11 = *(int *)((int)this + 0x34) - 1;
+      uVar9 = iVar1 - 1;
+      uVar12 = uVar9;
+      if ((int)uVar9 < 0) {
+        uVar12 = this->nNumVerts - 1;
       }
-      local_24 = *(float *)(*(int *)((int)this + uVar11 * 4 + 0x38) + 4) - *(float *)(iVar2 + 4);
-      uVar11 = uVar8;
-      if ((int)uVar8 < 0) {
-        uVar11 = *(int *)((int)this + 0x34) - 1;
+      local_24 = this->aVerts[uVar12]->aPos[0] - pWVar2->aPos[0];
+      uVar12 = uVar9;
+      if ((int)uVar9 < 0) {
+        uVar12 = this->nNumVerts - 1;
       }
-      local_20 = *(float *)(*(int *)((int)this + uVar11 * 4 + 0x38) + 8) -
-                 *(float *)(*(int *)((int)this + iVar1 * 4 + 0x38) + 8);
-      if (0x7fffffff < uVar8) {
-        uVar8 = *(int *)((int)this + 0x34) - 1;
+      local_20 = this->aVerts[uVar12]->aPos[1] - this->aVerts[iVar1]->aPos[1];
+      if (0x7fffffff < uVar9) {
+        uVar9 = this->nNumVerts - 1;
       }
-      local_1c = *(float *)(*(int *)((int)this + uVar8 * 4 + 0x38) + 0xc) -
-                 *(float *)(*(int *)((int)this + iVar1 * 4 + 0x38) + 0xc);
+      local_1c = this->aVerts[uVar9]->aPos[2] - this->aVerts[iVar1]->aPos[2];
       rdVector_Normalize3Acc(&local_24);
-      fVar12 = rdVector_Dot3(&local_24,walker + 6);
-      fVar12 = stdMath_ArcSin3(fVar12);
-      if (90.0 - fVar12 < 1.0) {
-        *(int *)((int)this + 0x74) = (*(int *)((int)this + 0x74) + 1) % *(int *)((int)this + 0x34);
+      fVar13 = rdVector_Dot3(&local_24,walker + 6);
+      fVar13 = stdMath_ArcSin3(fVar13);
+      if (90.0 - fVar13 < 1.0) {
+        this->nHitEdge = (this->nHitEdge + 1) % this->nNumVerts;
       }
-      else if (179.0 < 90.0 - fVar12) {
-        *(int *)((int)this + 0x74) = (*(int *)((int)this + 0x74) + 1) % *(int *)((int)this + 0x34);
+      else if (179.0 < 90.0 - fVar13) {
+        this->nHitEdge = (this->nHitEdge + 1) % this->nNumVerts;
       }
     }
-    iVar1 = *(int *)((int)this + 0x74);
-    iVar2 = *(int *)((int)this + iVar1 * 4 + 0x38);
-    uVar8 = iVar1 - 1;
-    if (0x7fffffff < uVar8) {
-      uVar8 = *(int *)((int)this + 0x34) - 1;
+    iVar1 = this->nHitEdge;
+    pWVar2 = this->aVerts[iVar1];
+    uVar9 = iVar1 - 1;
+    if (0x7fffffff < uVar9) {
+      uVar9 = this->nNumVerts - 1;
     }
-    iVar3 = *(int *)((int)this + uVar8 * 4 + 0x38);
-    fVar12 = *(float *)(iVar3 + 4) - *(float *)(iVar2 + 4);
-    fVar4 = fVar12;
-    if (fVar12 < 0.0) {
-      fVar4 = -fVar12;
+    fVar13 = this->aVerts[uVar9]->aPos[0] - pWVar2->aPos[0];
+    fVar5 = fVar13;
+    if (fVar13 < 0.0) {
+      fVar5 = -fVar13;
     }
-    fVar5 = fVar12;
-    if (fVar4 <= 1e-05) {
-      fVar5 = 0.0;
+    fVar6 = fVar13;
+    if (fVar5 <= 1e-05) {
+      fVar6 = 0.0;
     }
-    if (fVar5 == 0.0) {
-      fVar12 = (*(float *)&DAT_008cf264 - *(float *)(iVar2 + 8)) /
-               (*(float *)(iVar3 + 8) - *(float *)(iVar2 + 8));
+    if (fVar6 == 0.0) {
+      fVar13 = (*(float *)&DAT_008cf264 - pWVar2->aPos[1]) / (this->aVerts[uVar9]->aPos[1] - pWVar2->aPos[1]);
     }
     else {
-      fVar12 = (g_vEdgeFollowDir - *(float *)(iVar2 + 4)) / fVar12;
+      fVar13 = (g_vEdgeFollowDir - pWVar2->aPos[0]) / fVar13;
     }
-    if (fVar12 < 0.15) {
-      fVar12 = 0.15;
+    if (fVar13 < 0.15) {
+      fVar13 = 0.15;
     }
-    if (0.85 < fVar12) {
-      fVar12 = 0.85;
+    if (0.85 < fVar13) {
+      fVar13 = 0.85;
     }
-    iVar2 = *(int *)((int)this + 0x34);
-    iVar3 = *(int *)((int)this + ((iVar1 + 1) % iVar2) * 4 + 0x38);
-    iVar1 = *(int *)((int)this + ((iVar2 + -2 + iVar1) % iVar2) * 4 + 0x38);
-    local_8 = (*(float *)(iVar1 + 8) - *(float *)(iVar3 + 8)) * fVar12 + *(float *)(iVar3 + 8);
-    local_4 = (*(float *)(iVar1 + 0xc) - *(float *)(iVar3 + 0xc)) * fVar12 + *(float *)(iVar3 + 0xc)
-    ;
+    iVar3 = this->nNumVerts;
+    pWVar2 = this->aVerts[(iVar1 + 1) % iVar3];
+    pWVar4 = this->aVerts[(iVar3 + -2 + iVar1) % iVar3];
+    local_8 = (pWVar4->aPos[1] - pWVar2->aPos[1]) * fVar13 + pWVar2->aPos[1];
+    local_4 = (pWVar4->aPos[2] - pWVar2->aPos[2]) * fVar13 + pWVar2->aPos[2];
     g_vEdgeFollowDir =
-         ((*(float *)(iVar1 + 4) - *(float *)(iVar3 + 4)) * fVar12 + *(float *)(iVar3 + 4)) -
-         g_vEdgeFollowDir;
+         ((pWVar4->aPos[0] - pWVar2->aPos[0]) * fVar13 + pWVar2->aPos[0]) - g_vEdgeFollowDir;
     *(float *)&DAT_008cf264 = local_8 - *(float *)&DAT_008cf264;
     *(float *)&DAT_008cf268 = local_4 - *(float *)&DAT_008cf268;
     rdVector_Normalize3Acc(&g_vEdgeFollowDir);
@@ -1689,11 +1675,10 @@ float * __thiscall WalkPlane_GetConstraintVector(void *this,float *walker)
 void WalkPlane_AllActive(void)
 
 {
-  void *pvVar1;
+  WalkPlane *pWVar1;
   
-  for (pvVar1 = g_pWalkPlane_wp_head; pvVar1 != (void *)0x0; pvVar1 = *(void **)((int)pvVar1 + 0x70)
-      ) {
-    *(undefined4 *)((int)pvVar1 + 0x2c) = 1;
+  for (pWVar1 = g_pWalkPlane_wp_head; pWVar1 != (WalkPlane *)0x0; pWVar1 = pWVar1->pNext) {
+    pWVar1->nActive = 1;
   }
   return;
 }
@@ -1704,50 +1689,50 @@ void WalkPlane_AllActive(void)
    MAX_DB_VERTS - 2", WalkPlane.cpp; find an equal vertex in vert_db or take a free one, count the
    references)); was SectorVertexPool_GetOrAdd. */
 
-float * WalkPlane_AddVertex(undefined4 param_1,float *param_2)
+WalkVertex * WalkPlane_AddVertex(undefined4 param_1,float *param_2)
 
 {
-  float *pfVar1;
-  uint *puVar2;
+  WalkVertex *pWVar1;
+  float *pfVar2;
   int iVar3;
-  float *pfVar4;
+  WalkVertex *pWVar4;
   
-  pfVar4 = (float *)0x0;
+  pWVar4 = (WalkVertex *)0x0;
   if (0x3fd < (int)g_dwWalkPlane_tot_verts) {
     (*g_pStd_HS->pAssertFail)
               (s_tot_verts___MAX_DB_VERTS___2_004ec8a8,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,
                0x3ce);
   }
   iVar3 = 0;
-  puVar2 = &UINT_008cb0b4;
+  pfVar2 = g_aWalkPlane_vert_db[0].aPos;
   do {
-    if ((PUN(float,puVar2[-1]) != 0.0) &&
-       ((param_2[2] - PUN(float,puVar2[2])) * (param_2[2] - PUN(float,puVar2[2])) +
-        (param_2[1] - PUN(float,puVar2[1])) * (param_2[1] - PUN(float,puVar2[1])) +
-        (*param_2 - PUN(float,*puVar2)) * (*param_2 - PUN(float,*puVar2)) < 1e-08)) {
-      pfVar4 = &FLOAT_008cb0b0 + iVar3 * 4;
-      *pfVar4 = PUN(float,(PUN(int,(float)*pfVar4) + 1));
-      return pfVar4;
+    if (((float)((WalkVertex *)(pfVar2 + -1))->nRefs != 0.0) &&
+       ((param_2[2] - pfVar2[2]) * (param_2[2] - pfVar2[2]) +
+        (param_2[1] - pfVar2[1]) * (param_2[1] - pfVar2[1]) +
+        (*param_2 - *pfVar2) * (*param_2 - *pfVar2) < 1e-08)) {
+      pWVar4 = g_aWalkPlane_vert_db + iVar3;
+      pWVar4->nRefs = pWVar4->nRefs + 1;
+      return pWVar4;
     }
-    puVar2 = puVar2 + 4;
+    pfVar2 = pfVar2 + 4;
     iVar3 = iVar3 + 1;
-  } while ((int)puVar2 < ((unsigned)(uintptr_t)&UINT_008cf0b4));
+  } while ((int)pfVar2 < ((unsigned)(uintptr_t)&UINT_008cf0b4));
   iVar3 = 0;
-  pfVar1 = &FLOAT_008cb0b0;
+  pWVar1 = g_aWalkPlane_vert_db;
   do {
-    if (PUN(int,(float)*pfVar1) < 1) {
-      pfVar4 = &FLOAT_008cb0b0 + iVar3 * 4;
+    if (pWVar1->nRefs < 1) {
+      pWVar4 = g_aWalkPlane_vert_db + iVar3;
       break;
     }
-    pfVar1 = pfVar1 + 4;
+    pWVar1 = pWVar1 + 1;
     iVar3 = iVar3 + 1;
-  } while ((int)pfVar1 < ((unsigned)(uintptr_t)&g_dwWorkingPath));
-  *pfVar4 = 1.4013e-45;
+  } while ((int)pWVar1 < ((unsigned)(uintptr_t)&g_dwWorkingPath));
+  pWVar4->nRefs = 1;
   g_dwWalkPlane_tot_verts = g_dwWalkPlane_tot_verts + 1;
-  pfVar4[1] = *param_2;
-  pfVar4[2] = param_2[1];
-  pfVar4[3] = param_2[2];
-  return pfVar4;
+  pWVar4->aPos[0] = *param_2;
+  pWVar4->aPos[1] = param_2[1];
+  pWVar4->aPos[2] = param_2[2];
+  return pWVar4;
 }
 
 /* ---- 0x004a7ba0  WalkPlane_RemoveVertex ---- */
@@ -1779,17 +1764,16 @@ undefined * ParseCollection(int param_1)
   char cVar1;
   byte bVar2;
   int iVar3;
-  void *pvVar4;
-  undefined1 *puVar5;
-  byte *pbVar6;
-  int iVar7;
-  undefined *puVar8;
+  WalkPlane *pWVar4;
+  byte *pbVar5;
+  int iVar6;
+  undefined *puVar7;
+  uint uVar8;
   uint uVar9;
-  uint uVar10;
-  char *pcVar11;
-  byte *pbVar12;
-  char *pcVar13;
-  bool bVar14;
+  char *pcVar10;
+  byte *pbVar11;
+  char *pcVar12;
+  bool bVar13;
   #define local_200 (*(uint *)(_frame + (0x210 - 0x200)))
   #define local_1fc (*(uint *)(_frame + (0x210 - 0x1fc)))
   #define local_1f8 (*(uint *)(_frame + (0x210 - 0x1f8)))
@@ -1816,67 +1800,67 @@ undefined * ParseCollection(int param_1)
   do {
     if (iVar3 == 0) {
       if (2 < (int)local_1fc) {
-        pvVar4 = Plat_Alloc(0x84);
-        if (pvVar4 == (void *)0x0) {
-          puVar5 = (undefined1 *)0x0;
+        pWVar4 = Plat_Alloc(0x84);
+        if (pWVar4 == (WalkPlane *)0x0) {
+          pWVar4 = (WalkPlane *)0x0;
         }
         else {
-          puVar5 = WalkPlane_Construct(pvVar4,(int)local_184,local_1fc,param_1);
+          pWVar4 = WalkPlane_Construct(pWVar4,(int)local_184,local_1fc,param_1);
         }
-        if (puVar5 != (undefined1 *)0x0) {
-          Mem_CheckAlloc(puVar5,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x4a0);
-          WalkPlane_SetName(puVar5,(char *)local_1b4);
-          *(uint *)(puVar5 + 0x20) = local_1ec;
-          *(uint *)(puVar5 + 0x28) = local_1f0;
-          WalkPlane_SetType(puVar5,local_200);
+        if (pWVar4 != (WalkPlane *)0x0) {
+          Mem_CheckAlloc(pWVar4,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x4a0);
+          WalkPlane_SetName(pWVar4,(char *)local_1b4);
+          pWVar4->nId = local_1ec;
+          pWVar4->nVisible = local_1f0;
+          WalkPlane_SetType(pWVar4,local_200);
         }
       }
-      puVar8 = (undefined *)0x0;
+      puVar7 = (undefined *)0x0;
 LAB_004a8147:
-      return puVar8;
+      return puVar7;
     }
-    uVar9 = 0xffffffff;
-    pcVar11 = (char *)g_dwStdConffile_aLine;
+    uVar8 = 0xffffffff;
+    pcVar10 = (char *)g_dwStdConffile_aLine;
     do {
-      pcVar13 = pcVar11;
-      if (uVar9 == 0) break;
-      uVar9 = uVar9 - 1;
-      pcVar13 = pcVar11 + 1;
-      cVar1 = *pcVar11;
-      pcVar11 = pcVar13;
+      pcVar12 = pcVar10;
+      if (uVar8 == 0) break;
+      uVar8 = uVar8 - 1;
+      pcVar12 = pcVar10 + 1;
+      cVar1 = *pcVar10;
+      pcVar10 = pcVar12;
     } while (cVar1 != '\0');
-    uVar9 = ~uVar9;
-    pcVar11 = pcVar13 + -uVar9;
-    pcVar13 = local_10c;
-    for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
-      *(undefined4 *)pcVar13 = *(undefined4 *)pcVar11;
-      pcVar11 = pcVar11 + 4;
-      pcVar13 = pcVar13 + 4;
+    uVar8 = ~uVar8;
+    pcVar10 = pcVar12 + -uVar8;
+    pcVar12 = local_10c;
+    for (uVar9 = uVar8 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
+      *(undefined4 *)pcVar12 = *(undefined4 *)pcVar10;
+      pcVar10 = pcVar10 + 4;
+      pcVar12 = pcVar12 + 4;
     }
-    for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
-      *pcVar13 = *pcVar11;
-      pcVar11 = pcVar11 + 1;
-      pcVar13 = pcVar13 + 1;
+    for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
+      *pcVar12 = *pcVar10;
+      pcVar10 = pcVar10 + 1;
+      pcVar12 = pcVar12 + 1;
     }
     iVar3 = sscanf(local_10c,s_section___s_004ddd64,&DAT_008cf218);
     if (iVar3 == 1) {
       if (2 < (int)local_1fc) {
-        pvVar4 = Plat_Alloc(0x84);
-        if (pvVar4 == (void *)0x0) {
-          puVar5 = (undefined1 *)0x0;
+        pWVar4 = Plat_Alloc(0x84);
+        if (pWVar4 == (WalkPlane *)0x0) {
+          pWVar4 = (WalkPlane *)0x0;
         }
         else {
-          puVar5 = WalkPlane_Construct(pvVar4,(int)local_184,local_1fc,param_1);
+          pWVar4 = WalkPlane_Construct(pWVar4,(int)local_184,local_1fc,param_1);
         }
-        if (puVar5 != (undefined1 *)0x0) {
-          Mem_CheckAlloc(puVar5,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x42e);
-          WalkPlane_SetName(puVar5,(char *)local_1b4);
-          *(uint *)(puVar5 + 0x20) = local_1ec;
-          *(uint *)(puVar5 + 0x28) = local_1f0;
-          WalkPlane_SetType(puVar5,local_200);
+        if (pWVar4 != (WalkPlane *)0x0) {
+          Mem_CheckAlloc(pWVar4,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x42e);
+          WalkPlane_SetName(pWVar4,(char *)local_1b4);
+          pWVar4->nId = local_1ec;
+          pWVar4->nVisible = local_1f0;
+          WalkPlane_SetType(pWVar4,local_200);
         }
       }
-      puVar8 = &DAT_008cf218;
+      puVar7 = &DAT_008cf218;
       goto LAB_004a8147;
     }
     iVar3 = String_ContainsSubstring(local_10c,s_numsectors_004ec9a8);
@@ -1884,19 +1868,19 @@ LAB_004a8147:
       iVar3 = sscanf(local_10c,s_sector__s_004ec99c,local_1e4);
       if (iVar3 == 1) {
         if (2 < (int)local_1fc) {
-          pvVar4 = Plat_Alloc(0x84);
-          if (pvVar4 == (void *)0x0) {
-            puVar5 = (undefined1 *)0x0;
+          pWVar4 = Plat_Alloc(0x84);
+          if (pWVar4 == (WalkPlane *)0x0) {
+            pWVar4 = (WalkPlane *)0x0;
           }
           else {
-            puVar5 = WalkPlane_Construct(pvVar4,(int)local_184,local_1fc,param_1);
+            pWVar4 = WalkPlane_Construct(pWVar4,(int)local_184,local_1fc,param_1);
           }
-          if (puVar5 != (undefined1 *)0x0) {
-            Mem_CheckAlloc(puVar5,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x445);
-            WalkPlane_SetName(puVar5,(char *)local_1b4);
-            *(uint *)(puVar5 + 0x28) = local_1f0;
-            *(uint *)(puVar5 + 0x20) = local_1ec;
-            WalkPlane_SetType(puVar5,local_200);
+          if (pWVar4 != (WalkPlane *)0x0) {
+            Mem_CheckAlloc(pWVar4,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x445);
+            WalkPlane_SetName(pWVar4,(char *)local_1b4);
+            pWVar4->nVisible = local_1f0;
+            pWVar4->nId = local_1ec;
+            WalkPlane_SetType(pWVar4,local_200);
             if (local_1f4 != 12345.0) {
               if (local_200 == 0x1000) {
                 local_1f4 = 0.005;
@@ -1904,39 +1888,39 @@ LAB_004a8147:
               if (local_1f4 == 0.0) {
                 local_1f4 = 0.005;
               }
-              *(float *)(puVar5 + 0x30) = local_1f4;
+              pWVar4->flHeight = local_1f4;
             }
           }
         }
-        uVar9 = 0xffffffff;
-        pbVar6 = local_1e4;
+        uVar8 = 0xffffffff;
+        pbVar5 = local_1e4;
         do {
-          pbVar12 = pbVar6;
-          if (uVar9 == 0) break;
-          uVar9 = uVar9 - 1;
-          pbVar12 = pbVar6 + 1;
-          bVar2 = *pbVar6;
-          pbVar6 = pbVar12;
+          pbVar11 = pbVar5;
+          if (uVar8 == 0) break;
+          uVar8 = uVar8 - 1;
+          pbVar11 = pbVar5 + 1;
+          bVar2 = *pbVar5;
+          pbVar5 = pbVar11;
         } while (bVar2 != 0);
-        uVar9 = ~uVar9;
+        uVar8 = ~uVar8;
         local_1b4[0] = 0;
         local_1f4 = 12345.0;
-        pbVar6 = pbVar12 + -uVar9;
-        pbVar12 = local_1b4;
-        for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
-          *(undefined4 *)pbVar12 = *(undefined4 *)pbVar6;
-          pbVar6 = pbVar6 + 4;
-          pbVar12 = pbVar12 + 4;
+        pbVar5 = pbVar11 + -uVar8;
+        pbVar11 = local_1b4;
+        for (uVar9 = uVar8 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
+          *(undefined4 *)pbVar11 = *(undefined4 *)pbVar5;
+          pbVar5 = pbVar5 + 4;
+          pbVar11 = pbVar11 + 4;
         }
         local_1ec = 0;
         local_200 = 0;
         local_1f0 = 0;
         local_1fc = 0;
         local_1f8 = 0;
-        for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
-          *pbVar12 = *pbVar6;
-          pbVar6 = pbVar6 + 1;
-          pbVar12 = pbVar12 + 1;
+        for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
+          *pbVar11 = *pbVar5;
+          pbVar5 = pbVar5 + 1;
+          pbVar11 = pbVar11 + 1;
         }
       }
       else {
@@ -1947,22 +1931,22 @@ LAB_004a8147:
         else {
           iVar3 = sscanf(local_10c,s_type__s_004ec7b8,local_1e4);
           if (iVar3 == 1) {
-            pbVar12 = &DAT_004ec98c;
-            pbVar6 = local_1e4;
+            pbVar11 = &DAT_004ec98c;
+            pbVar5 = local_1e4;
             do {
-              bVar2 = *pbVar6;
-              bVar14 = bVar2 < *pbVar12;
-              if (bVar2 != *pbVar12) {
+              bVar2 = *pbVar5;
+              bVar13 = bVar2 < *pbVar11;
+              if (bVar2 != *pbVar11) {
 LAB_004a7e39:
-                iVar3 = (1 - (uint)bVar14) - (uint)(bVar14 != 0);
+                iVar3 = (1 - (uint)bVar13) - (uint)(bVar13 != 0);
                 goto LAB_004a7e3e;
               }
               if (bVar2 == 0) break;
-              bVar2 = pbVar6[1];
-              bVar14 = bVar2 < pbVar12[1];
-              if (bVar2 != pbVar12[1]) goto LAB_004a7e39;
-              pbVar6 = pbVar6 + 2;
-              pbVar12 = pbVar12 + 2;
+              bVar2 = pbVar5[1];
+              bVar13 = bVar2 < pbVar11[1];
+              if (bVar2 != pbVar11[1]) goto LAB_004a7e39;
+              pbVar5 = pbVar5 + 2;
+              pbVar11 = pbVar11 + 2;
             } while (bVar2 != 0);
             iVar3 = 0;
 LAB_004a7e3e:
@@ -1970,22 +1954,22 @@ LAB_004a7e3e:
               local_200 = 0x1000;
             }
             else {
-              pbVar12 = &DAT_004ec984;
-              pbVar6 = local_1e4;
+              pbVar11 = &DAT_004ec984;
+              pbVar5 = local_1e4;
               do {
-                bVar2 = *pbVar6;
-                bVar14 = bVar2 < *pbVar12;
-                if (bVar2 != *pbVar12) {
+                bVar2 = *pbVar5;
+                bVar13 = bVar2 < *pbVar11;
+                if (bVar2 != *pbVar11) {
 LAB_004a7e7c:
-                  iVar3 = (1 - (uint)bVar14) - (uint)(bVar14 != 0);
+                  iVar3 = (1 - (uint)bVar13) - (uint)(bVar13 != 0);
                   goto LAB_004a7e81;
                 }
                 if (bVar2 == 0) break;
-                bVar2 = pbVar6[1];
-                bVar14 = bVar2 < pbVar12[1];
-                if (bVar2 != pbVar12[1]) goto LAB_004a7e7c;
-                pbVar6 = pbVar6 + 2;
-                pbVar12 = pbVar12 + 2;
+                bVar2 = pbVar5[1];
+                bVar13 = bVar2 < pbVar11[1];
+                if (bVar2 != pbVar11[1]) goto LAB_004a7e7c;
+                pbVar5 = pbVar5 + 2;
+                pbVar11 = pbVar11 + 2;
               } while (bVar2 != 0);
               iVar3 = 0;
 LAB_004a7e81:
@@ -1993,22 +1977,22 @@ LAB_004a7e81:
                 local_200 = 0x1100;
               }
               else {
-                pbVar12 = &DAT_004ec97c;
-                pbVar6 = local_1e4;
+                pbVar11 = &DAT_004ec97c;
+                pbVar5 = local_1e4;
                 do {
-                  bVar2 = *pbVar6;
-                  bVar14 = bVar2 < *pbVar12;
-                  if (bVar2 != *pbVar12) {
+                  bVar2 = *pbVar5;
+                  bVar13 = bVar2 < *pbVar11;
+                  if (bVar2 != *pbVar11) {
 LAB_004a7ebf:
-                    iVar3 = (1 - (uint)bVar14) - (uint)(bVar14 != 0);
+                    iVar3 = (1 - (uint)bVar13) - (uint)(bVar13 != 0);
                     goto LAB_004a7ec4;
                   }
                   if (bVar2 == 0) break;
-                  bVar2 = pbVar6[1];
-                  bVar14 = bVar2 < pbVar12[1];
-                  if (bVar2 != pbVar12[1]) goto LAB_004a7ebf;
-                  pbVar6 = pbVar6 + 2;
-                  pbVar12 = pbVar12 + 2;
+                  bVar2 = pbVar5[1];
+                  bVar13 = bVar2 < pbVar11[1];
+                  if (bVar2 != pbVar11[1]) goto LAB_004a7ebf;
+                  pbVar5 = pbVar5 + 2;
+                  pbVar11 = pbVar11 + 2;
                 } while (bVar2 != 0);
                 iVar3 = 0;
 LAB_004a7ec4:
@@ -2016,22 +2000,22 @@ LAB_004a7ec4:
                   local_200 = 0x2000;
                 }
                 else {
-                  pbVar12 = &DAT_004ec974;
-                  pbVar6 = local_1e4;
+                  pbVar11 = &DAT_004ec974;
+                  pbVar5 = local_1e4;
                   do {
-                    bVar2 = *pbVar6;
-                    bVar14 = bVar2 < *pbVar12;
-                    if (bVar2 != *pbVar12) {
+                    bVar2 = *pbVar5;
+                    bVar13 = bVar2 < *pbVar11;
+                    if (bVar2 != *pbVar11) {
 LAB_004a7f02:
-                      iVar3 = (1 - (uint)bVar14) - (uint)(bVar14 != 0);
+                      iVar3 = (1 - (uint)bVar13) - (uint)(bVar13 != 0);
                       goto LAB_004a7f07;
                     }
                     if (bVar2 == 0) break;
-                    bVar2 = pbVar6[1];
-                    bVar14 = bVar2 < pbVar12[1];
-                    if (bVar2 != pbVar12[1]) goto LAB_004a7f02;
-                    pbVar6 = pbVar6 + 2;
-                    pbVar12 = pbVar12 + 2;
+                    bVar2 = pbVar5[1];
+                    bVar13 = bVar2 < pbVar11[1];
+                    if (bVar2 != pbVar11[1]) goto LAB_004a7f02;
+                    pbVar5 = pbVar5 + 2;
+                    pbVar11 = pbVar11 + 2;
                   } while (bVar2 != 0);
                   iVar3 = 0;
 LAB_004a7f07:
@@ -2039,22 +2023,22 @@ LAB_004a7f07:
                     local_200 = 0x4000;
                   }
                   else {
-                    pbVar12 = &DAT_004ec968;
-                    pbVar6 = local_1e4;
+                    pbVar11 = &DAT_004ec968;
+                    pbVar5 = local_1e4;
                     do {
-                      bVar2 = *pbVar6;
-                      bVar14 = bVar2 < *pbVar12;
-                      if (bVar2 != *pbVar12) {
+                      bVar2 = *pbVar5;
+                      bVar13 = bVar2 < *pbVar11;
+                      if (bVar2 != *pbVar11) {
 LAB_004a7f45:
-                        iVar3 = (1 - (uint)bVar14) - (uint)(bVar14 != 0);
+                        iVar3 = (1 - (uint)bVar13) - (uint)(bVar13 != 0);
                         goto LAB_004a7f4a;
                       }
                       if (bVar2 == 0) break;
-                      bVar2 = pbVar6[1];
-                      bVar14 = bVar2 < pbVar12[1];
-                      if (bVar2 != pbVar12[1]) goto LAB_004a7f45;
-                      pbVar6 = pbVar6 + 2;
-                      pbVar12 = pbVar12 + 2;
+                      bVar2 = pbVar5[1];
+                      bVar13 = bVar2 < pbVar11[1];
+                      if (bVar2 != pbVar11[1]) goto LAB_004a7f45;
+                      pbVar5 = pbVar5 + 2;
+                      pbVar11 = pbVar11 + 2;
                     } while (bVar2 != 0);
                     iVar3 = 0;
 LAB_004a7f4a:
@@ -2069,22 +2053,22 @@ LAB_004a7f4a:
           else {
             iVar3 = sscanf(local_10c,s_default_visibility__s_004ec950,local_1e4);
             if (iVar3 == 1) {
-              pbVar12 = &DAT_004ec944;
-              pbVar6 = local_1e4;
+              pbVar11 = &DAT_004ec944;
+              pbVar5 = local_1e4;
               do {
-                bVar2 = *pbVar6;
-                bVar14 = bVar2 < *pbVar12;
-                if (bVar2 != *pbVar12) {
+                bVar2 = *pbVar5;
+                bVar13 = bVar2 < *pbVar11;
+                if (bVar2 != *pbVar11) {
 LAB_004a7fb9:
-                  local_1f0 = (uint)(1 - bVar14 != (uint)(bVar14 != 0));
+                  local_1f0 = (uint)(1 - bVar13 != (uint)(bVar13 != 0));
                   goto LAB_004a80a5;
                 }
                 if (bVar2 == 0) break;
-                bVar2 = pbVar6[1];
-                bVar14 = bVar2 < pbVar12[1];
-                if (bVar2 != pbVar12[1]) goto LAB_004a7fb9;
-                pbVar6 = pbVar6 + 2;
-                pbVar12 = pbVar12 + 2;
+                bVar2 = pbVar5[1];
+                bVar13 = bVar2 < pbVar11[1];
+                if (bVar2 != pbVar11[1]) goto LAB_004a7fb9;
+                pbVar5 = pbVar5 + 2;
+                pbVar11 = pbVar11 + 2;
               } while (bVar2 != 0);
               local_1f0 = 0;
             }
@@ -2099,9 +2083,9 @@ LAB_004a7fb9:
                   iVar3 = sscanf(local_10c,s_numgates__s_004ec918,local_1e4);
                   if (iVar3 != 1) {
                     iVar3 = local_1f8 * 0xc;
-                    iVar7 = sscanf(local_10c,s_vertices___f__f__f_004ec904,local_184 + iVar3,
+                    iVar6 = sscanf(local_10c,s_vertices___f__f__f_004ec904,local_184 + iVar3,
                                    auStack_180 + iVar3,auStack_17c + iVar3);
-                    if ((iVar7 == 3) ||
+                    if ((iVar6 == 3) ||
                        (((int)local_1f8 < (int)local_1fc &&
                         (iVar3 = sscanf(local_10c,s__f__f__f_004ec8f8,local_184 + iVar3,
                                         auStack_180 + iVar3,auStack_17c + iVar3), iVar3 == 3)))) {
@@ -2140,7 +2124,7 @@ LAB_004a80a5:
    parameters (vertices, count, out) and body (copy the polygon, clip it against every edge of the
    plane)); was Sector_ClipPolygon. */
 
-int __thiscall WalkPlane_ClipPoly(void *this,float *verts,int count,float *out)
+int __thiscall WalkPlane_ClipPoly(WalkPlane *this,float *verts,int count,float *out)
 
 {
   unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2157,14 +2141,11 @@ int __thiscall WalkPlane_ClipPoly(void *this,float *verts,int count,float *out)
   undefined1 *puVar11;
   int iVar12;
   uint uVar13;
-  int iVar14;
-  undefined4 *puVar15;
-  int iVar16;
-  undefined1 *puVar17;
-  int iVar18;
-  float *pfVar19;
-  int iVar20;
-  int iVar21;
+  undefined4 *puVar14;
+  int iVar15;
+  undefined1 *puVar16;
+  float *pfVar17;
+  float *pfVar18;
   #define local_150 (*(uint *)(_frame + (0x160 - 0x150)))
   #define local_14c (*(uint *)(_frame + (0x160 - 0x14c)))
   #define local_148 (*(uint *)(_frame + (0x160 - 0x148)))
@@ -2186,48 +2167,46 @@ int __thiscall WalkPlane_ClipPoly(void *this,float *verts,int count,float *out)
   #define local_7c (*(uint *)(_frame + (0x160 - 0x7c)))
   
   if (0 < count) {
-    pfVar19 = &local_120;
+    pfVar18 = &local_120;
     for (uVar13 = count * 3 & 0x3fffffff; uVar13 != 0; uVar13 = uVar13 - 1) {
-      *pfVar19 = *verts;
+      *pfVar18 = *verts;
       verts = verts + 1;
-      pfVar19 = pfVar19 + 1;
+      pfVar18 = pfVar18 + 1;
     }
   }
   local_128 = 0;
   local_140 = (uint)&local_120;
-  if (0 < *(int *)((int)this + 0x34)) {
-    local_12c = (int)this + 0x38;
+  if (0 < this->nNumVerts) {
+    local_12c = (uint)this->aVerts;
     puVar11 = local_90;
-    iVar21 = *(int *)((int)this + *(int *)((int)this + 0x34) * 4 + 0x34) + 4;
+    pfVar18 = this->aVerts[this->nNumVerts + -1]->aPos;
     do {
-      puVar17 = puVar11;
-      iVar14 = *(int *)((int)this + 0x80) * 4;
-      iVar18 = *(int *)local_12c + 4;
-      iVar12 = *(int *)((int)this + 0x7c) * 4;
+      puVar16 = puVar11;
+      iVar12 = this->nAxisV;
+      iVar1 = this->nAxisU;
+      pfVar17 = (float *)(*(int *)local_12c + 4);
       local_150 = 0;
-      fVar2 = -(*(float *)(iVar18 + iVar12) - *(float *)(iVar21 + iVar12));
-      fVar3 = *(float *)(iVar18 + iVar14) - *(float *)(iVar21 + iVar14);
+      fVar2 = -(pfVar17[iVar1] - pfVar18[iVar1]);
+      fVar3 = pfVar17[iVar12] - pfVar18[iVar12];
       local_148 = (local_140 - 0xc) + count * 0xc;
       if (0 < count) {
-        iVar16 = 0;
+        iVar15 = 0;
         puVar10 = (undefined4 *)local_140;
-        local_14c = (uint)puVar17;
+        local_14c = (uint)puVar16;
         local_144 = count;
-        local_138 = (*(float *)(local_148 + iVar12) - *(float *)(iVar21 + iVar12)) * fVar3 +
-                    (*(float *)(local_148 + iVar14) - *(float *)(iVar21 + iVar14)) * fVar2;
+        local_138 = (*(float *)(local_148 + iVar1 * 4) - pfVar18[iVar1]) * fVar3 +
+                    (*(float *)(local_148 + iVar12 * 4) - pfVar18[iVar12]) * fVar2;
         do {
-          puVar15 = puVar10;
-          iVar14 = *(int *)((int)this + 0x80);
-          iVar1 = *(int *)((int)this + 0x7c);
-          iVar20 = iVar1 * 4;
-          iVar12 = iVar14 * 4;
-          fVar4 = (PUN(float,puVar15[iVar14]) - *(float *)(iVar21 + iVar12)) * fVar2 +
-                  (PUN(float,puVar15[iVar1]) - *(float *)(iVar21 + iVar20)) * fVar3;
+          puVar14 = puVar10;
+          iVar12 = this->nAxisV;
+          iVar1 = this->nAxisU;
+          fVar4 = (PUN(float,puVar14[iVar12]) - pfVar18[iVar12]) * fVar2 +
+                  (PUN(float,puVar14[iVar1]) - pfVar18[iVar1]) * fVar3;
           if ((local_138 <= 0.0) || (fVar4 <= 0.0)) {
             if ((local_138 <= 0.0) || (0.0 <= fVar4)) {
               if ((local_138 < 0.0) && (0.0 < fVar4)) {
-                fVar9 = PUN(float,puVar15[iVar14]) - *(float *)(local_148 + iVar12);
-                fVar8 = PUN(float,puVar15[iVar1]) - *(float *)(local_148 + iVar20);
+                fVar9 = PUN(float,puVar14[iVar12]) - *(float *)(local_148 + iVar12 * 4);
+                fVar8 = PUN(float,puVar14[iVar1]) - *(float *)(local_148 + iVar1 * 4);
                 fVar5 = -(fVar9 * fVar2) - fVar8 * fVar3;
                 fVar7 = fVar5;
                 if (fVar5 < 0.0) {
@@ -2239,20 +2218,20 @@ int __thiscall WalkPlane_ClipPoly(void *this,float *verts,int count,float *out)
                 }
                 if (fVar6 != 0.0) {
                   local_150 = local_150 + 1;
-                  *(float *)(puVar17 + (*(int *)((int)this + 0x80) + iVar16) * 4) =
-                       fVar9 * (fVar4 / fVar5) + PUN(float,puVar15[iVar14]);
-                  iVar12 = *(int *)((int)this + 0x7c) + iVar16;
-                  iVar16 = iVar16 + 3;
+                  *(float *)(puVar16 + (this->nAxisV + iVar15) * 4) =
+                       fVar9 * (fVar4 / fVar5) + PUN(float,puVar14[iVar12]);
+                  iVar12 = this->nAxisU + iVar15;
+                  iVar15 = iVar15 + 3;
                   local_14c = local_14c + 0xc;
-                  *(float *)(puVar17 + iVar12 * 4) =
-                       fVar8 * (fVar4 / fVar5) + PUN(float,puVar15[*(int *)((int)this + 0x7c)]);
+                  *(float *)(puVar16 + iVar12 * 4) =
+                       fVar8 * (fVar4 / fVar5) + PUN(float,puVar14[this->nAxisU]);
                 }
                 goto LAB_004a903f;
               }
             }
             else {
-              fVar9 = PUN(float,puVar15[iVar14]) - *(float *)(local_148 + iVar12);
-              fVar8 = PUN(float,puVar15[iVar1]) - *(float *)(local_148 + iVar20);
+              fVar9 = PUN(float,puVar14[iVar12]) - *(float *)(local_148 + iVar12 * 4);
+              fVar8 = PUN(float,puVar14[iVar1]) - *(float *)(local_148 + iVar1 * 4);
               fVar5 = -(fVar9 * fVar2) - fVar8 * fVar3;
               fVar7 = fVar5;
               if (fVar5 < 0.0) {
@@ -2264,28 +2243,28 @@ int __thiscall WalkPlane_ClipPoly(void *this,float *verts,int count,float *out)
               }
               if (fVar6 != 0.0) {
                 local_150 = local_150 + 1;
-                *(float *)(puVar17 + (*(int *)((int)this + 0x80) + iVar16) * 4) =
-                     fVar9 * (fVar4 / fVar5) + PUN(float,puVar15[iVar14]);
-                iVar12 = *(int *)((int)this + 0x7c) + iVar16;
-                iVar16 = iVar16 + 3;
+                *(float *)(puVar16 + (this->nAxisV + iVar15) * 4) =
+                     fVar9 * (fVar4 / fVar5) + PUN(float,puVar14[iVar12]);
+                iVar12 = this->nAxisU + iVar15;
+                iVar15 = iVar15 + 3;
                 local_14c = local_14c + 0xc;
-                *(float *)(puVar17 + iVar12 * 4) =
-                     fVar8 * (fVar4 / fVar5) + PUN(float,puVar15[*(int *)((int)this + 0x7c)]);
+                *(float *)(puVar16 + iVar12 * 4) =
+                     fVar8 * (fVar4 / fVar5) + PUN(float,puVar14[this->nAxisU]);
               }
             }
           }
           else {
 LAB_004a903f:
-            iVar16 = iVar16 + 3;
-            *(undefined4 *)local_14c = *puVar15;
-            *(undefined4 *)(local_14c + 4) = puVar15[1];
+            iVar15 = iVar15 + 3;
+            *(undefined4 *)local_14c = *puVar14;
+            *(undefined4 *)(local_14c + 4) = puVar14[1];
             local_150 = local_150 + 1;
-            *(undefined4 *)(local_14c + 8) = puVar15[2];
+            *(undefined4 *)(local_14c + 8) = puVar14[2];
             local_14c = local_14c + 0xc;
           }
           local_144 = local_144 - 1;
-          puVar10 = puVar15 + 3;
-          local_148 = (uint)puVar15;
+          puVar10 = puVar14 + 3;
+          local_148 = (uint)puVar14;
           local_138 = fVar4;
         } while (local_144 != 0);
       }
@@ -2296,17 +2275,17 @@ LAB_004a903f:
       local_12c = local_12c + 4;
       count = local_150;
       puVar11 = (undefined1 *)local_140;
-      iVar21 = iVar18;
-      local_140 = (uint)puVar17;
-    } while ((int)local_128 < *(int *)((int)this + 0x34));
+      pfVar18 = pfVar17;
+      local_140 = (uint)puVar16;
+    } while ((int)local_128 < this->nNumVerts);
   }
   if (0 < count) {
-    iVar21 = local_140 - (int)out;
+    iVar12 = local_140 - (int)out;
     do {
-      pfVar19 = (float *)(iVar21 + (int)out);
-      *out = *pfVar19;
-      out[1] = pfVar19[1];
-      out[2] = pfVar19[2];
+      pfVar18 = (float *)(iVar12 + (int)out);
+      *out = *pfVar18;
+      out[1] = pfVar18[1];
+      out[2] = pfVar18[2];
       WalkPlane_Project(this,(int)out);
       out = out + 3;
       count = count - 1;
@@ -2342,12 +2321,12 @@ LAB_004a903f:
    name WalkPlane_DistToEdge (the remaster's GrimFandango (Linux): same body (assert "edge_index <
    num_verts", WalkPlane.cpp; the distance of the point to the edge)); was Sector_EdgeDistance. */
 
-float __thiscall WalkPlane_DistToEdge(void *this,int edge,float *point)
+float __thiscall WalkPlane_DistToEdge(WalkPlane *this,int edge,float *point)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
+  WalkVertex *pWVar1;
+  WalkVertex *pWVar2;
   float10 extraout_ST0;
   float fVar3;
   #define fStack_38 (*(float *)(_frame + (0x50 - 0x38)))
@@ -2365,18 +2344,18 @@ float __thiscall WalkPlane_DistToEdge(void *this,int edge,float *point)
   #define fStack_8 (*(float *)(_frame + (0x50 - 0x8)))
   #define fStack_4 (*(float *)(_frame + (0x50 - 0x4)))
   
-  if (*(int *)((int)this + 0x34) <= edge) {
+  if (this->nNumVerts <= edge) {
     (*g_pStd_HS->pAssertFail)
               (s_edge_index___num_verts_004ec9b8,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x6c8);
   }
-  iVar1 = *(int *)((int)this + edge * 4 + 0x38);
-  iVar2 = *(int *)((int)this + ((edge + 1) % *(int *)((int)this + 0x34)) * 4 + 0x38);
-  local_30 = *(float *)(iVar2 + 4) - *(float *)(iVar1 + 4);
-  fStack_2c = *(float *)(iVar2 + 8) - *(float *)(iVar1 + 8);
-  fStack_28 = *(float *)(iVar2 + 0xc) - *(float *)(iVar1 + 0xc);
-  fStack_24 = *point - *(float *)(iVar1 + 4);
-  fStack_20 = point[1] - *(float *)(iVar1 + 8);
-  fStack_1c = point[2] - *(float *)(iVar1 + 0xc);
+  pWVar1 = this->aVerts[edge];
+  pWVar2 = this->aVerts[(edge + 1) % this->nNumVerts];
+  local_30 = pWVar2->aPos[0] - pWVar1->aPos[0];
+  fStack_2c = pWVar2->aPos[1] - pWVar1->aPos[1];
+  fStack_28 = pWVar2->aPos[2] - pWVar1->aPos[2];
+  fStack_24 = *point - pWVar1->aPos[0];
+  fStack_20 = point[1] - pWVar1->aPos[1];
+  fStack_1c = point[2] - pWVar1->aPos[2];
   rdVector_Normalize3(&local_c,&local_30);
   rdVector_Normalize3(&fStack_18,&fStack_24);
   fVar3 = stdMath_ArcSin3(fStack_10 * fStack_4 + fStack_14 * fStack_8 + fStack_18 * local_c);
@@ -2411,27 +2390,26 @@ float __thiscall WalkPlane_DistToEdge(void *this,int edge,float *point)
    vertices: find the shortest edge from FLT_MAX and merge its vertices)); was
    Sector_CollapseShortestEdge. */
 
-undefined4 __fastcall WalkPlane_RemoveShortEdge(void *param_1)
+undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
-  float fVar2;
-  float fVar3;
-  float fVar4;
+  WalkVertex *pWVar2;
+  WalkVertex *pWVar3;
+  int iVar4;
   float fVar5;
   float fVar6;
   float fVar7;
-  float *pfVar8;
-  int iVar9;
-  int iVar10;
-  uint *puVar11;
-  int iVar12;
-  uint *puVar13;
-  int iVar14;
+  float fVar8;
+  float fVar9;
+  float fVar10;
+  float *pfVar11;
+  uint *puVar12;
+  int iVar13;
+  WalkVertex **ppWVar14;
   int iVar15;
-  int *piVar16;
-  int iVar17;
+  int iVar16;
   #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
   #define local_50 (*(float *)(_frame + (0x70 - 0x50)))
   #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
@@ -2446,97 +2424,92 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(void *param_1)
   #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
   
   local_50 = 3.4028235e+38;
-  iVar12 = *(int *)((int)param_1 + 0x34);
-  if (3 < iVar12) {
-    iVar14 = 0;
-    if (0 < iVar12) {
-      piVar16 = (int *)((int)param_1 + 0x38);
-      pfVar8 = (float *)(*(int *)((int)param_1 + iVar12 * 4 + 0x34) + 4);
+  iVar16 = plane->nNumVerts;
+  if (3 < iVar16) {
+    iVar15 = 0;
+    if (0 < iVar16) {
+      ppWVar14 = plane->aVerts;
+      pfVar11 = plane->aVerts[iVar16 + -1]->aPos;
       do {
-        iVar9 = *piVar16;
-        fVar4 = pfVar8[1] - *(float *)(iVar9 + 8);
-        fVar2 = pfVar8[2] - *(float *)(iVar9 + 0xc);
-        fVar3 = *pfVar8 - *(float *)(iVar9 + 4);
-        fVar2 = fVar3 * fVar3 + fVar2 * fVar2 + fVar4 * fVar4;
-        if (fVar2 < local_50) {
-          local_4c = (iVar12 + -1 + iVar14) % iVar12;
-          local_50 = fVar2;
+        pWVar2 = *ppWVar14;
+        fVar7 = pfVar11[1] - pWVar2->aPos[1];
+        fVar5 = pfVar11[2] - pWVar2->aPos[2];
+        fVar6 = *pfVar11 - pWVar2->aPos[0];
+        fVar5 = fVar6 * fVar6 + fVar5 * fVar5 + fVar7 * fVar7;
+        if (fVar5 < local_50) {
+          local_4c = (iVar16 + -1 + iVar15) % iVar16;
+          local_50 = fVar5;
         }
-        iVar14 = iVar14 + 1;
-        piVar16 = piVar16 + 1;
-        pfVar8 = (float *)(iVar9 + 4);
-      } while (iVar14 < iVar12);
+        iVar15 = iVar15 + 1;
+        ppWVar14 = ppWVar14 + 1;
+        pfVar11 = pWVar2->aPos;
+      } while (iVar15 < iVar16);
     }
-    iVar17 = *(int *)((int)param_1 + local_4c * 4 + 0x38) + 4;
-    iVar15 = *(int *)((int)param_1 + ((int)(iVar12 + -1 + local_4c) % iVar12) * 4 + 0x38) + 4;
-    iVar9 = *(int *)((int)param_1 + ((int)(local_4c + 1) % iVar12) * 4 + 0x38) + 4;
-    iVar14 = local_4c + 2;
-    iVar12 = *(int *)((int)param_1 + (iVar14 % iVar12) * 4 + 0x38);
-    local_40 = *(uint *)(iVar12 + 4);
-    local_3c = *(uint *)(iVar12 + 8);
-    iVar10 = *(int *)((int)param_1 + 0x7c) * 4;
-    local_38 = *(uint *)(iVar12 + 0xc);
-    iVar12 = *(int *)((int)param_1 + 0x80) * 4;
-    local_34 = -(*(float *)(iVar17 + iVar10) - *(float *)(iVar15 + iVar10));
-    local_30 = *(float *)(iVar17 + iVar12) - *(float *)(iVar15 + iVar12);
-    pfVar8 = (float *)(&local_40 + *(int *)((int)param_1 + 0x7c));
-    pfVar1 = (float *)(&local_40 + *(int *)((int)param_1 + 0x80));
-    fVar2 = (*pfVar1 - *(float *)(iVar15 + iVar12)) * local_34 +
-            (*pfVar8 - *(float *)(iVar15 + iVar10)) * local_30;
-    fVar3 = fVar2;
-    if (fVar2 < 0.0) {
-      fVar3 = -fVar2;
+    pWVar2 = plane->aVerts[(int)(iVar16 + -1 + local_4c) % iVar16];
+    iVar15 = local_4c + 2;
+    pWVar3 = plane->aVerts[iVar15 % iVar16];
+    local_40 = PUN(uint,(float)pWVar3->aPos[0]);
+    iVar4 = plane->nAxisU;
+    local_3c = PUN(uint,(float)pWVar3->aPos[1]);
+    iVar13 = plane->nAxisV;
+    local_38 = PUN(uint,(float)pWVar3->aPos[2]);
+    local_34 = -(plane->aVerts[local_4c]->aPos[iVar4] - pWVar2->aPos[iVar4]);
+    local_30 = plane->aVerts[local_4c]->aPos[iVar13] - pWVar2->aPos[iVar13];
+    pfVar11 = (float *)(&local_40 + iVar4);
+    pfVar1 = (float *)(&local_40 + iVar13);
+    fVar5 = (*pfVar1 - pWVar2->aPos[iVar13]) * local_34 +
+            (*pfVar11 - pWVar2->aPos[iVar4]) * local_30;
+    fVar6 = fVar5;
+    if (fVar5 < 0.0) {
+      fVar6 = -fVar5;
     }
-    fVar4 = fVar2;
-    if (fVar3 <= 1e-05) {
-      fVar4 = 0.0;
+    fVar7 = fVar5;
+    if (fVar6 <= 1e-05) {
+      fVar7 = 0.0;
     }
-    if (fVar4 != 0.0) {
-      fVar3 = *pfVar1 - *(float *)(iVar9 + iVar12);
-      fVar7 = *pfVar8 - *(float *)(iVar9 + iVar10);
-      fVar4 = -(fVar3 * local_34) - fVar7 * local_30;
-      fVar6 = fVar4;
-      if (fVar4 < 0.0) {
-        fVar6 = -fVar4;
+    if (fVar7 != 0.0) {
+      fVar6 = *pfVar1 - plane->aVerts[(int)(local_4c + 1) % iVar16]->aPos[iVar13];
+      fVar10 = *pfVar11 - plane->aVerts[(int)(local_4c + 1) % iVar16]->aPos[iVar4];
+      fVar7 = -(fVar6 * local_34) - fVar10 * local_30;
+      fVar9 = fVar7;
+      if (fVar7 < 0.0) {
+        fVar9 = -fVar7;
       }
-      fVar5 = fVar4;
-      if (fVar6 <= 1e-05) {
-        fVar5 = 0.0;
+      fVar8 = fVar7;
+      if (fVar9 <= 1e-05) {
+        fVar8 = 0.0;
       }
-      if (fVar5 != 0.0) {
-        *pfVar1 = fVar3 * (fVar2 / fVar4) + *pfVar1;
-        *pfVar8 = fVar7 * (fVar2 / fVar4) + *pfVar8;
-        WalkPlane_Project(param_1,(int)&local_40);
+      if (fVar8 != 0.0) {
+        *pfVar1 = fVar6 * (fVar5 / fVar7) + *pfVar1;
+        *pfVar11 = fVar10 * (fVar5 / fVar7) + *pfVar11;
+        WalkPlane_Project(plane,(int)&local_40);
         local_28 = WalkPlane_AddVertex(0,&local_40);
-        iVar9 = *(int *)((int)param_1 + 0x34);
-        iVar12 = iVar9 + -2;
-        if (0 < iVar12) {
-          puVar13 = &local_24;
+        iVar4 = plane->nNumVerts;
+        iVar16 = iVar4 + -2;
+        if (0 < iVar16) {
+          puVar12 = &local_24;
           do {
-            iVar10 = iVar14 % iVar9;
-            iVar14 = iVar14 + 1;
-            iVar12 = iVar12 + -1;
-            *puVar13 = *(uint *)((int)param_1 + iVar10 * 4 + 0x38);
-            puVar13 = puVar13 + 1;
-          } while (iVar12 != 0);
+            iVar13 = iVar15 % iVar4;
+            iVar15 = iVar15 + 1;
+            iVar16 = iVar16 + -1;
+            *puVar12 = (uint)plane->aVerts[iVar13];
+            puVar12 = puVar12 + 1;
+          } while (iVar16 != 0);
         }
-        WalkPlane_RemoveVertex(*(undefined4 *)((int)param_1 + local_4c * 4 + 0x38));
-        WalkPlane_RemoveVertex
-                  (*(undefined4 *)
-                    ((int)param_1 + ((int)(local_4c + 1) % *(int *)((int)param_1 + 0x34)) * 4 + 0x38
-                    ));
-        iVar14 = *(int *)((int)param_1 + 0x34) + -1;
-        iVar12 = 0;
-        *(int *)((int)param_1 + 0x34) = iVar14;
-        if (0 < iVar14) {
-          puVar11 = &local_28;
-          puVar13 = (uint *)((int)param_1 + 0x38);
+        WalkPlane_RemoveVertex(plane->aVerts[local_4c]);
+        WalkPlane_RemoveVertex(plane->aVerts[(int)(local_4c + 1) % plane->nNumVerts]);
+        iVar15 = plane->nNumVerts + -1;
+        iVar16 = 0;
+        plane->nNumVerts = iVar15;
+        if (0 < iVar15) {
+          puVar12 = &local_28;
+          ppWVar14 = plane->aVerts;
           do {
-            iVar12 = iVar12 + 1;
-            *puVar13 = *puVar11;
-            puVar11 = puVar11 + 1;
-            puVar13 = puVar13 + 1;
-          } while (iVar12 < *(int *)((int)param_1 + 0x34));
+            iVar16 = iVar16 + 1;
+            *ppWVar14 = (WalkVertex *)*puVar12;
+            puVar12 = puVar12 + 1;
+            ppWVar14 = ppWVar14 + 1;
+          } while (iVar16 < plane->nNumVerts);
         }
         return 1;
       }
@@ -2583,15 +2556,15 @@ void __cdecl ShrinkBoxes(float radius)
   float fVar1;
   float fVar2;
   float fVar3;
-  bool bVar4;
-  uint *puVar5;
-  int iVar6;
+  WalkVertex *pWVar4;
+  bool bVar5;
+  float *pfVar6;
   int iVar7;
   float *pfVar8;
   int iVar9;
   int *piVar10;
-  void *this;
-  float *pfVar11;
+  WalkPlane *this;
+  WalkVertex **ppWVar11;
   undefined4 *puVar12;
   float fVar13;
   uint local_res0;
@@ -2613,21 +2586,21 @@ void __cdecl ShrinkBoxes(float radius)
   FUN_004addf0();
   if (0.0 <= radius) {
     puVar12 = (undefined4 *)&STACK0X(0x000010b8);
-    for (iVar6 = 0xc00; iVar6 != 0; iVar6 = iVar6 + -1) {
+    for (iVar7 = 0xc00; iVar7 != 0; iVar7 = iVar7 + -1) {
       *puVar12 = 0;
       puVar12 = puVar12 + 1;
     }
     puVar12 = (undefined4 *)&STACK0X(0x000000b8);
-    for (iVar6 = 0x400; iVar6 != 0; iVar6 = iVar6 + -1) {
+    for (iVar7 = 0x400; iVar7 != 0; iVar7 = iVar7 + -1) {
       *puVar12 = 0;
       puVar12 = puVar12 + 1;
     }
     this = g_pWalkPlane_wp_head;
-    if (g_pWalkPlane_wp_head != (void *)0x0) {
+    if (g_pWalkPlane_wp_head != (WalkPlane *)0x0) {
 LAB_004a9d53:
-      if (((*(uint *)((int)this + 0x24) & 0x1000) != 0) && (*(int *)((int)this + 0x28) != 0)) {
+      if (((this->dwType & 0x1000) != 0) && (this->nVisible != 0)) {
 LAB_004a9d6a:
-        iVar6 = *(int *)((int)this + 0x38);
+        pWVar4 = this->aVerts[0];
         puVar12 = (undefined4 *)&STACK0X(0x00000040);
         for (iVar7 = 0x1e; iVar7 != 0; iVar7 = iVar7 + -1) {
           *puVar12 = 0;
@@ -2635,43 +2608,43 @@ LAB_004a9d6a:
         }
         pfStack00000020 = (float *)&STACK0X(0x00000044);
         iStack0000000c = 0;
-        pfVar8 = (float *)(*(int *)((int)this + *(int *)((int)this + 0x34) * 4 + 0x34) + 4);
-        pfVar11 = (float *)(iVar6 + 4);
+        pfVar8 = this->aVerts[this->nNumVerts + -1]->aPos;
+        pfVar6 = pWVar4->aPos;
         do {
-          if (*(int *)((int)this + 0x34) <= iStack0000000c) {
-            iVar6 = *(int *)((int)this + 0x34);
-            if (0 < iVar6) {
-              piVar10 = (int *)((int)this + 0x38);
+          if (this->nNumVerts <= iStack0000000c) {
+            iVar7 = this->nNumVerts;
+            if (0 < iVar7) {
+              ppWVar11 = this->aVerts;
               pfVar8 = (float *)&STACK0X(0x00000044);
               do {
-                iVar7 = *piVar10;
-                piVar10 = piVar10 + 1;
-                iVar7 = iVar7 - (int)((unsigned)(uintptr_t)&FLOAT_008cb0b0) >> 4;
-                iVar9 = iVar7 * 0xc;
+                pWVar4 = *ppWVar11;
+                ppWVar11 = ppWVar11 + 1;
+                iVar9 = ((int)((WalkVertex *)((char *)pWVar4 - ((unsigned)(uintptr_t)&g_aWalkPlane_vert_db))) >> 4) * 0xc;
                 *(float *)(&STACK0X(0x000010b8) + iVar9) =
                      pfVar8[-1] + *(float *)(&STACK0X(0x000010b8) + iVar9);
                 *(float *)(&STACK0X(0x000010bc) + iVar9) =
                      *(float *)(&STACK0X(0x000010bc) + iVar9) + *pfVar8;
                 *(float *)(&STACK0X(0x000010c0) + iVar9) =
                      pfVar8[1] + *(float *)(&STACK0X(0x000010c0) + iVar9);
-                iVar6 = iVar6 + -1;
-                *(int *)(&STACK0X(0x000000b8) + iVar7 * 4) = *(int *)(&STACK0X(0x000000b8) + iVar7 * 4) + 1;
+                iVar7 = iVar7 + -1;
+                *(int *)(&STACK0X(0x000000b8) + ((int)((WalkVertex *)((char *)pWVar4 - ((unsigned)(uintptr_t)&g_aWalkPlane_vert_db))) >> 4) * 4) =
+                     *(int *)(&STACK0X(0x000000b8) + ((int)((WalkVertex *)((char *)pWVar4 - ((unsigned)(uintptr_t)&g_aWalkPlane_vert_db))) >> 4) * 4) + 1;
                 pfVar8 = pfVar8 + 3;
-              } while (iVar6 != 0);
+              } while (iVar7 != 0);
             }
             break;
           }
           iStack0000000c = iStack0000000c + 1;
-          local_4 = *pfVar8 - *pfVar11;
-          iVar6 = *(int *)((int)this + (iStack0000000c % *(int *)((int)this + 0x34)) * 4 + 0x38);
+          local_4 = *pfVar8 - *pfVar6;
+          pWVar4 = this->aVerts[iStack0000000c % this->nNumVerts];
           fVar1 = pfVar8[1];
-          fVar2 = pfVar11[1];
+          fVar2 = pfVar6[1];
           fVar3 = pfVar8[2];
-          fVar13 = pfVar11[2];
+          fVar13 = pfVar6[2];
           rdVector_Normalize3Acc(&local_4);
-          in_stack_00000014 = *(float *)(iVar6 + 4) - *pfVar11;
-          in_stack_00000018 = *(float *)(iVar6 + 8) - pfVar11[1];
-          in_stack_0000001c = *(float *)(iVar6 + 0xc) - pfVar11[2];
+          in_stack_00000014 = pWVar4->aPos[0] - *pfVar6;
+          in_stack_00000018 = pWVar4->aPos[1] - pfVar6[1];
+          in_stack_0000001c = pWVar4->aPos[2] - pfVar6[2];
           rdVector_Normalize3Acc(&STACK0X(0x00000014));
           local_4 = in_stack_00000014 + local_4;
           fVar1 = in_stack_00000018 + (fVar1 - fVar2);
@@ -2681,65 +2654,65 @@ LAB_004a9d6a:
                           in_stack_00000018 * fVar1 + in_stack_00000014 * local_4);
           ((code *)stdMath_SinCos)();
           fVar3 = fVar2 / in_stack_00000024;
-          bVar4 = true;
-          in_stack_00000028 = fVar3 * local_4 + *pfVar11;
-          in_stack_0000002c = fVar3 * fVar1 + pfVar11[1];
-          in_stack_00000030 = fVar3 * fVar2 + pfVar11[2];
+          bVar5 = true;
+          in_stack_00000028 = fVar3 * local_4 + *pfVar6;
+          in_stack_0000002c = fVar3 * fVar1 + pfVar6[1];
+          in_stack_00000030 = fVar3 * fVar2 + pfVar6[2];
           iVar7 = WalkPlane_Within(this,&STACK0X(0x00000028),1);
           if (iVar7 == 0) {
 LAB_004a9f32:
-            bVar4 = false;
+            bVar5 = false;
           }
           else {
             iStack00000010 = 0;
-            if (0 < *(int *)((int)this + 0x34)) {
+            if (0 < this->nNumVerts) {
               in_stack_00000038 = (double)(fVar2 - 0.001);
               do {
                 fVar13 = WalkPlane_DistToEdge(this,iStack00000010,&STACK0X(0x00000028));
                 if (fVar13 < (float)in_stack_00000038) goto LAB_004a9f32;
                 iStack00000010 = iStack00000010 + 1;
-              } while (iStack00000010 < *(int *)((int)this + 0x34));
+              } while (iStack00000010 < this->nNumVerts);
             }
           }
-          if (!bVar4) goto LAB_004a9f7e;
+          if (!bVar5) goto LAB_004a9f7e;
           pfStack00000020[-1] = fVar3 * local_4;
           *pfStack00000020 = fVar3 * fVar1;
           pfStack00000020[1] = fVar3 * fVar2;
           pfStack00000020 = pfStack00000020 + 3;
-          pfVar8 = pfVar11;
-          pfVar11 = (float *)(iVar6 + 4);
+          pfVar8 = pfVar6;
+          pfVar6 = pWVar4->aPos;
         } while( true );
       }
       goto LAB_004a9ffa;
     }
 LAB_004aa005:
     piVar10 = (int *)&STACK0X(0x000000b8);
-    puVar5 = &UINT_008cb0b8;
+    pfVar6 = g_aWalkPlane_vert_db[0].aPos + 1;
     pfVar8 = (float *)&STACK0X(0x000010bc);
     do {
       if (*piVar10 != 0) {
         fVar3 = 1.0 / (float)*piVar10;
         fVar1 = *pfVar8;
         fVar2 = pfVar8[1];
-        puVar5[-1] = PUN(uint,(float)(pfVar8[-1] * fVar3 + (float)puVar5[-1]));
-        *puVar5 = PUN(uint,(float)(fVar1 * fVar3 + (float)*puVar5));
-        puVar5[1] = PUN(uint,(float)(fVar2 * fVar3 + (float)puVar5[1]));
+        pfVar6[-1] = pfVar8[-1] * fVar3 + pfVar6[-1];
+        *pfVar6 = fVar1 * fVar3 + *pfVar6;
+        pfVar6[1] = fVar2 * fVar3 + pfVar6[1];
       }
-      puVar5 = puVar5 + 4;
+      pfVar6 = pfVar6 + 4;
       piVar10 = piVar10 + 1;
       pfVar8 = pfVar8 + 3;
-    } while ((int)puVar5 < ((unsigned)(uintptr_t)&UINT_008cf0b8));
+    } while ((int)pfVar6 < ((unsigned)(uintptr_t)&UINT_008cf0b8));
   }
   return;
 LAB_004a9f7e:
-  iVar6 = WalkPlane_RemoveShortEdge(this);
-  if (iVar6 == 0) goto code_r0x004a9f8d;
+  iVar7 = WalkPlane_RemoveShortEdge(this);
+  if (iVar7 == 0) goto code_r0x004a9f8d;
   goto LAB_004a9d6a;
 code_r0x004a9f8d:
-  *(undefined4 *)((int)this + 0x28) = 0;
+  this->nVisible = 0;
 LAB_004a9ffa:
-  this = *(void **)((int)this + 0x70);
-  if (this == (void *)0x0) goto LAB_004aa005;
+  this = this->pNext;
+  if (this == (WalkPlane *)0x0) goto LAB_004aa005;
   goto LAB_004a9d53;
 }
 #undef local_18

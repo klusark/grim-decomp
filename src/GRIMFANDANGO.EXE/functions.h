@@ -1614,29 +1614,29 @@ undefined4 sputRoom_ParseSectors(void); /* 0x004a5c90 */
 void WalkPlane_BuildCache(void); /* 0x004a61c0 */
 void WalkPlane_DestroyCache(void); /* 0x004a6330 */
 void WalkPlane_RestoreCache(void); /* 0x004a6380 */
-undefined1 * __thiscall WalkPlane_Construct(void *this,int a1,int a2,int a3); /* 0x004a6490 */
-void __fastcall WalkPlane_Destruct(void *param_1); /* 0x004a66e0 */
-void __thiscall WalkPlane_SetName(void *this,char *name); /* 0x004a6760 */
-void __thiscall WalkPlane_SetType(void *this,uint type); /* 0x004a6790 */
-int __thiscall WalkPlane_Within(void *this,float *point,int checkActive); /* 0x004a6980 */
-int __thiscall WalkPlane_ClosestPoint(void *this,int a1); /* 0x004a6b30 */
-float __thiscall WalkPlane_Intersection(void *this,int a1,int a2,int a3); /* 0x004a6d10 */
-void __thiscall WalkPlane_SnapTo(void *this,float *pos); /* 0x004a6fa0 */
-int __thiscall WalkPlane_Project(void *this,int a1); /* 0x004a7000 */
-void __thiscall WalkPlane_Draw(void *this,int color); /* 0x004a70a0 */
-void * WalkPlane_PlaneAt(float *param_1,uint param_2); /* 0x004a71e0 */
-void * __cdecl WalkPlane_PlaneNamed(char *name); /* 0x004a7230 */
-void * __cdecl WalkPlane_PlaneNumbered(int id); /* 0x004a7290 */
-void * WalkPlane_PlaneClosest(float *param_1,uint param_2); /* 0x004a72b0 */
-void __thiscall WalkPlane_JumpOut(void *this,float *walker); /* 0x004a7390 */
-float * __thiscall WalkPlane_GetConstraintVector(void *this,float *walker); /* 0x004a7520 */
+WalkPlane * __thiscall WalkPlane_Construct(WalkPlane *this,int a1,int a2,int a3); /* 0x004a6490 */
+void __fastcall WalkPlane_Destruct(WalkPlane *plane); /* 0x004a66e0 */
+void __thiscall WalkPlane_SetName(WalkPlane *this,char *name); /* 0x004a6760 */
+void __thiscall WalkPlane_SetType(WalkPlane *this,uint type); /* 0x004a6790 */
+int __thiscall WalkPlane_Within(WalkPlane *this,float *point,int checkActive); /* 0x004a6980 */
+int __thiscall WalkPlane_ClosestPoint(WalkPlane *this,int a1); /* 0x004a6b30 */
+float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3); /* 0x004a6d10 */
+void __thiscall WalkPlane_SnapTo(WalkPlane *this,float *pos); /* 0x004a6fa0 */
+int __thiscall WalkPlane_Project(WalkPlane *this,int a1); /* 0x004a7000 */
+void __thiscall WalkPlane_Draw(WalkPlane *this,int color); /* 0x004a70a0 */
+WalkPlane * __cdecl WalkPlane_PlaneAt(float *point,uint mask); /* 0x004a71e0 */
+WalkPlane * __cdecl WalkPlane_PlaneNamed(char *name); /* 0x004a7230 */
+WalkPlane * __cdecl WalkPlane_PlaneNumbered(int id); /* 0x004a7290 */
+WalkPlane * __cdecl WalkPlane_PlaneClosest(float *point,uint mask); /* 0x004a72b0 */
+void __thiscall WalkPlane_JumpOut(WalkPlane *this,float *walker); /* 0x004a7390 */
+float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker); /* 0x004a7520 */
 void WalkPlane_AllActive(void); /* 0x004a7a90 */
-float * WalkPlane_AddVertex(undefined4 param_1,float *param_2); /* 0x004a7ab0 */
+WalkVertex * WalkPlane_AddVertex(undefined4 param_1,float *param_2); /* 0x004a7ab0 */
 void WalkPlane_RemoveVertex(int *param_1); /* 0x004a7ba0 */
 undefined * ParseCollection(int param_1); /* 0x004a7bc0 */
-int __thiscall WalkPlane_ClipPoly(void *this,float *verts,int count,float *out); /* 0x004a8cb0 */
-float __thiscall WalkPlane_DistToEdge(void *this,int edge,float *point); /* 0x004a9070 */
-undefined4 __fastcall WalkPlane_RemoveShortEdge(void *param_1); /* 0x004a9180 */
+int __thiscall WalkPlane_ClipPoly(WalkPlane *this,float *verts,int count,float *out); /* 0x004a8cb0 */
+float __thiscall WalkPlane_DistToEdge(WalkPlane *this,int edge,float *point); /* 0x004a9070 */
+undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane); /* 0x004a9180 */
 void __cdecl ShrinkBoxes(float radius); /* 0x004a9d00 */
 
 /* ===== drawlist.c ===== */
@@ -1845,12 +1845,12 @@ void __thiscall Puck_OrientToPlane(Puck *this,int a1); /* 0x004a89b0 */
 void __fastcall Puck_Normalize(Puck *puck); /* 0x004a8a90 */
 void __thiscall Puck_Draw(Puck *this,int color); /* 0x004a8b00 */
 uint GetPath(undefined4 *param_1); /* 0x004a9420 */
-undefined4 BuildPath(undefined4 param_1,uint *param_2,int param_3); /* 0x004a9430 */
-undefined4 Planner_FindPath(float *param_1,float *param_2,void *param_3); /* 0x004a94d0 */
-uint FindExitPoints(void *param_1,float *param_2,uint *param_3); /* 0x004a96f0 */
-undefined4 Planner_PortalPoint(void *param_1,void *param_2,float *param_3,undefined4 *param_4); /* 0x004a9920 */
+undefined4 BuildPath(float *param_1,float *param_2,int param_3); /* 0x004a9430 */
+undefined4 __cdecl Planner_FindPath(float *param_1,float *param_2,WalkPlane *plane); /* 0x004a94d0 */
+uint __cdecl FindExitPoints(WalkPlane *plane,float *param_2,uint *param_3); /* 0x004a96f0 */
+undefined4 __cdecl Planner_PortalPoint(WalkPlane *planeA,WalkPlane *planeB,float *point,float *out); /* 0x004a9920 */
 undefined4 TightenPath(void); /* 0x004a9aa0 */
-void * Planner_SharedSector(undefined4 param_1,float *param_2); /* 0x004a9ca0 */
+WalkPlane * __cdecl Planner_SharedSector(float *from,float *to); /* 0x004a9ca0 */
 
 /* ===== collision.c ===== */
 void GetOuttaTheBox(float *param_1,float param_2,float param_3,float param_4,float param_5, float param_6,float param_7,float *param_8,float *param_9); /* 0x004922d0 */

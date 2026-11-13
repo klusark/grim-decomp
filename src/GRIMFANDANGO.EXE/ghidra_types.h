@@ -225,6 +225,10 @@ typedef struct PhonemeEntry PhonemeEntry;
 typedef struct Puck Puck;
 typedef struct TextContext TextContext;
 typedef struct TextObject TextObject;
+typedef struct WalkPlane WalkPlane;
+typedef struct WalkPlaneCache WalkPlaneCache;
+typedef struct WalkVertex WalkVertex;
+typedef struct WalkVertexCache WalkVertexCache;
 
 /* Actor: One record of g_pActors (sputActor.cpp); a handle is the index (sputActor_AllocateActor, sputActor_GetActorHandle). Grows by 0x20 records. */
 struct Actor {  /* 0xa8 */
@@ -414,7 +418,7 @@ struct Puck {  /* 0x60 */
     int nConstrained;  /* 0x50: aConstraint holds (Puck_Constrain) */
     Puck *pPrev;  /* 0x54: list g_dwPuck_p_head */
     Puck *pNext;  /* 0x58 */
-    void *pSector;  /* 0x5c: the WalkPlane sector the puck is on (Puck_Validate), 0 off the sectors */
+    WalkPlane *pSector;  /* 0x5c: the sector the puck is on (Puck_Validate), 0 off the sectors */
 };
 _Static_assert(__builtin_offsetof(Puck, aPos) == 0x0, "Puck.aPos");
 _Static_assert(__builtin_offsetof(Puck, aFrame) == 0xc, "Puck.aFrame");
@@ -480,3 +484,65 @@ _Static_assert(__builtin_offsetof(TextObject, pActor) == 0x254, "TextObject.pAct
 _Static_assert(__builtin_offsetof(TextObject, dwFlags) == 0x258, "TextObject.dwFlags");
 _Static_assert(__builtin_offsetof(TextObject, nSerial) == 0x25c, "TextObject.nSerial");
 _Static_assert(sizeof(TextObject) == 0x260, "sizeof TextObject");
+/* WalkPlane: A sector of the set file (WalkPlane.cpp's WalkPlane, 0x84 bytes, made by ParseCollection): a planar polygon of up to 10 vertices with a type and two activity flags. All sectors of the loaded set are on the list g_pWalkPlane_wp_head, the newest first. */
+struct WalkPlane {  /* 0x84 */
+    char aName[32];  /* 0x00: sector name (WalkPlane_SetName, WalkPlane_PlaneNamed) */
+    int nId;  /* 0x20: the set file's id (WalkPlane_PlaneNumbered) */
+    uint dwType;  /* 0x24: type bits (WalkPlane_SetType): 0x1000 walk, 0x1100 funnel (a 4-vertex walk sector, see nLongEdge), 0x2000 camera, 0x4000 special, 0x8000 chernobyl */
+    int nVisible;  /* 0x28: the set file's default visibility; ShrinkBoxes clears it for a sector it cannot shrink, WalkPlane_RestoreCache restores it */
+    int nActive;  /* 0x2c: 1 at load and after WalkPlane_AllActive; Lua MakeSectorActive; Planner_SharedSector clears it while it searches */
+    float flHeight;  /* 0x30: how far a point may be off the plane and still be inside (WalkPlane_Within): 0.005 for walk sectors, else the file's height (9999 by WalkPlane_SetType) */
+    int nNumVerts;  /* 0x34: vertices in aVerts, 3 to 10 */
+    WalkVertex *aVerts[10];  /* 0x38: the polygon, records of the vertex pool */
+    float aNormal[3];  /* 0x60: unit normal (Newell's method, WalkPlane_Construct) */
+    WalkPlane *pPrev;  /* 0x6c: the sector list (g_pWalkPlane_wp_head) */
+    WalkPlane *pNext;  /* 0x70 */
+    int nHitEdge;  /* 0x74: the edge WalkPlane_Intersection last crossed (its first vertex), -1 none; WalkPlane_JumpOut and WalkPlane_GetConstraintVector step it */
+    int nLongEdge;  /* 0x78: funnel sectors (0x100): the first vertex of the long edge, 0 to 3 (WalkPlane_SetType) */
+    int nAxisU;  /* 0x7c: first of the two coordinate axes the polygon is projected on for the 2-D tests (the normal's largest component is left out) */
+    int nAxisV;  /* 0x80: second projection axis */
+};
+_Static_assert(__builtin_offsetof(WalkPlane, aName) == 0x0, "WalkPlane.aName");
+_Static_assert(__builtin_offsetof(WalkPlane, nId) == 0x20, "WalkPlane.nId");
+_Static_assert(__builtin_offsetof(WalkPlane, dwType) == 0x24, "WalkPlane.dwType");
+_Static_assert(__builtin_offsetof(WalkPlane, nVisible) == 0x28, "WalkPlane.nVisible");
+_Static_assert(__builtin_offsetof(WalkPlane, nActive) == 0x2c, "WalkPlane.nActive");
+_Static_assert(__builtin_offsetof(WalkPlane, flHeight) == 0x30, "WalkPlane.flHeight");
+_Static_assert(__builtin_offsetof(WalkPlane, nNumVerts) == 0x34, "WalkPlane.nNumVerts");
+_Static_assert(__builtin_offsetof(WalkPlane, aVerts) == 0x38, "WalkPlane.aVerts");
+_Static_assert(__builtin_offsetof(WalkPlane, aNormal) == 0x60, "WalkPlane.aNormal");
+_Static_assert(__builtin_offsetof(WalkPlane, pPrev) == 0x6c, "WalkPlane.pPrev");
+_Static_assert(__builtin_offsetof(WalkPlane, pNext) == 0x70, "WalkPlane.pNext");
+_Static_assert(__builtin_offsetof(WalkPlane, nHitEdge) == 0x74, "WalkPlane.nHitEdge");
+_Static_assert(__builtin_offsetof(WalkPlane, nLongEdge) == 0x78, "WalkPlane.nLongEdge");
+_Static_assert(__builtin_offsetof(WalkPlane, nAxisU) == 0x7c, "WalkPlane.nAxisU");
+_Static_assert(__builtin_offsetof(WalkPlane, nAxisV) == 0x80, "WalkPlane.nAxisV");
+_Static_assert(sizeof(WalkPlane) == 0x84, "sizeof WalkPlane");
+/* WalkPlaneCache: One sector as WalkPlane_BuildCache saved it before ShrinkBoxes, g_pWalkPlaneCache[g_nWalkPlaneCacheSize]; WalkPlane_RestoreCache puts it back. */
+struct WalkPlaneCache {  /* 0x34 */
+    WalkPlane *pPlane;  /* 0x00: the sector */
+    int nNumVerts;  /* 0x04 */
+    int aVertIdx[10];  /* 0x08: its vertices as indices into the vertex pool */
+    int nVisible;  /* 0x30: WalkPlane::nVisible */
+};
+_Static_assert(__builtin_offsetof(WalkPlaneCache, pPlane) == 0x0, "WalkPlaneCache.pPlane");
+_Static_assert(__builtin_offsetof(WalkPlaneCache, nNumVerts) == 0x4, "WalkPlaneCache.nNumVerts");
+_Static_assert(__builtin_offsetof(WalkPlaneCache, aVertIdx) == 0x8, "WalkPlaneCache.aVertIdx");
+_Static_assert(__builtin_offsetof(WalkPlaneCache, nVisible) == 0x30, "WalkPlaneCache.nVisible");
+_Static_assert(sizeof(WalkPlaneCache) == 0x34, "sizeof WalkPlaneCache");
+/* WalkVertex: A vertex of the walk-sector vertex pool (WalkPlane.cpp's vertex database, 0x400 records at 0x008cb0b0). WalkPlane_AddVertex welds a new vertex to an existing one closer than 1e-4 and counts the reference, so neighbouring sectors share their corner vertices (ShrinkBoxes moves them together). */
+struct WalkVertex {  /* 0x10 */
+    int nRefs;  /* 0x00: sectors that use the vertex (WalkPlane_AddVertex / WalkPlane_RemoveVertex); 0 = the record is free */
+    float aPos[3];  /* 0x04: position */
+};
+_Static_assert(__builtin_offsetof(WalkVertex, nRefs) == 0x0, "WalkVertex.nRefs");
+_Static_assert(__builtin_offsetof(WalkVertex, aPos) == 0x4, "WalkVertex.aPos");
+_Static_assert(sizeof(WalkVertex) == 0x10, "sizeof WalkVertex");
+/* WalkVertexCache: One vertex as WalkPlane_BuildCache saved it, g_pVertexCache[g_nVertexCacheSize] (one entry per vertex of every sector). */
+struct WalkVertexCache {  /* 0x14 */
+    int nIndex;  /* 0x00: index into the vertex pool */
+    WalkVertex vert;  /* 0x04: the record as it was */
+};
+_Static_assert(__builtin_offsetof(WalkVertexCache, nIndex) == 0x0, "WalkVertexCache.nIndex");
+_Static_assert(__builtin_offsetof(WalkVertexCache, vert) == 0x4, "WalkVertexCache.vert");
+_Static_assert(sizeof(WalkVertexCache) == 0x14, "sizeof WalkVertexCache");

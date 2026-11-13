@@ -624,7 +624,7 @@ float __thiscall Puck_GetYawToPoint(Puck *this, float *point)
 /* WalkPlane_DistToEdge (0x4a9070): distance of a point from the line through edge `edge` of a sector polygon
  * (sin of the angle between the edge and the direction to the point, times the distance to the edge's start vertex).
  * Vertex records hold the position at +4. */
-float __thiscall WalkPlane_DistToEdge(void *this, int edge, float *point)
+float __thiscall WalkPlane_DistToEdge(WalkPlane *this, int edge, float *point)
 {
     int numVerts = *(int *)((int)this + 0x34);
     float *v0, *v1;

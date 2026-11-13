@@ -242,7 +242,7 @@ void sputLua_GetShrinkPosition(void)
     int a1 = lua_lua2C(1), a2 = lua_lua2C(2), a3 = lua_lua2C(3), a4 = lua_lua2C(4);
     float pos[3];
     float amount;
-    void *sector;
+    WalkPlane *sector;
 
     if (!lua_isnumber(a1) || !lua_isnumber(a2) || !lua_isnumber(a3) || !lua_isnumber(a4))
         return;

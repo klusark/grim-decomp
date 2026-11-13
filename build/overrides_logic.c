@@ -2190,7 +2190,7 @@ void __cdecl ShrinkBoxes(float radius)
     float acc[1024 * 3];
     int cnt[1024];
     float shift[10][3];
-    char *pool = (char *)&UINT_008cb0b8 - 8;
+    char *pool = (char *)g_aWalkPlane_vert_db;
     char *s;
     int idx;
 
@@ -2235,11 +2235,11 @@ void __cdecl ShrinkBoxes(float radius)
                 P[0] = (float)(sc_ext * A[0] + cur[0]);
                 P[1] = (float)((long double)sc * A[1] + cur[1]);
                 P[2] = (float)((long double)sc * A[2] + cur[2]);
-                ok = WalkPlane_Within(s, P, 1) != 0;
+                ok = WalkPlane_Within((WalkPlane *)s, P, 1) != 0;
                 if (ok) {
                     double thr = (double)((long double)radius - (long double)0.001);
                     for (k = 0; k < *(int *)(s + 0x34); k++) {
-                        if (!((long double)WalkPlane_DistToEdge(s, k, P) >= (long double)thr)) {
+                        if (!((long double)WalkPlane_DistToEdge((WalkPlane *)s, k, P) >= (long double)thr)) {
                             ok = 0;
                             break;
                         }
@@ -2256,7 +2256,7 @@ void __cdecl ShrinkBoxes(float radius)
                 cur = next;
             }
             if (!valid) {
-                if (WalkPlane_RemoveShortEdge(s) != 0)
+                if (WalkPlane_RemoveShortEdge((WalkPlane *)s) != 0)
                     continue;                   /* an edge was collapsed: shift the smaller sector again */
                 *(int *)(s + 0x28) = 0;         /* nothing to collapse: the sector is switched off */
                 break;
