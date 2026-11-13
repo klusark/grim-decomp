@@ -3366,6 +3366,7 @@ void Zfile_module_shutdown(void)
 }
 
 /* ---- 0x004c5950  Zfile_fle_Open ---- */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name Zfile_fle_Open (the remaster's GrimFandango (Linux): the Zfile module's static
    fle_Open (two in the remaster, hence the prefix); strings: 'Zfile Memory Alloc fail'); was
    FUN_004c5950. */

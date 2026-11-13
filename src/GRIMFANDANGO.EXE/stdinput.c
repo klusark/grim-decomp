@@ -560,9 +560,7 @@ void Input_MarkAxisUsed(uint param_1)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* Buffered DirectInput key events plus the immediate key state; each key has a 7-dword record {?,
-   lastDown, down, downTime, upTime, pressCount, doubleTap}
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   lastDown, down, downTime, upTime, pressCount, doubleTap} */
 
 void Input_PollKeyboard(void)
 

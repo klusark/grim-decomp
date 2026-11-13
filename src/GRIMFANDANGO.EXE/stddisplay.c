@@ -2989,9 +2989,7 @@ void * DDraw_Get(void)
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Sets the display mode and creates the primary (+ back buffer when triple buffering) surfaces and
-   palette
-   Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+   palette */
 
 undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette)
 
@@ -3406,11 +3404,11 @@ void __cdecl Palette_FromFloatTable(byte *out,byte *in,int n,double gamma)
   
   if (0 < n) {
     do {
-      lVar1 = (longlong)_CIpow();
+      lVar1 = FTOL(_CIpow());
       *out = (byte)lVar1;
-      lVar1 = (longlong)_CIpow();
+      lVar1 = FTOL(_CIpow());
       out[1] = (byte)lVar1;
-      lVar1 = (longlong)_CIpow();
+      lVar1 = FTOL(_CIpow());
       out[2] = (byte)lVar1;
       out = out + 3;
       n = n + -1;

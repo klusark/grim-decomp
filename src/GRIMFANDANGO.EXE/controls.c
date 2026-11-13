@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x0048d030  Controls_DebugKeysHook ---- */
-/* Hook registered by sputControl_Start: forwards to Debug_CameraFovKeys. */
+/* Hook registered by sputControl_Startup: forwards to sputControl_StandardHandler. */
 
 int Controls_DebugKeysHook(undefined4 param_1)
 

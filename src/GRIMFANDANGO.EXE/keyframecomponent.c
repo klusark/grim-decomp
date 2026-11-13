@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00497890  KeyframeChanger ---- */
-/* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
+/* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Startup through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, applies a keyframe key to the actor's puppet: finds
    or adds the track (rdPuppet_AddTrack) and plays/loops/stops/fades it according to the key type
    0..14. Original name KeyframeChanger (the remaster's GrimFandango (Linux): the only unmatched
@@ -156,11 +156,11 @@ LAB_00497bc4:
 }
 
 /* ---- 0x00497cb0  sputCostume_PuppetHook ---- */
-/* Track user-data callback installed by KeyframeComponent_OnKey (rdPuppet_SetTrackUserData):
-   forwards track markers of the playing animation to Lua_CallCostumeMarkerHandler for the actor and
-   drops the keyframe ResRef when the track ends. Original name sputCostume_PuppetHook (the
-   remaster's GrimFandango (Linux): the only unmatched caller of Lua_CallCostumeMarkerHandler; 1
-   matched neighbours agree, 0 disagree); was KeyframeComponent_TrackCallback. */
+/* Track user-data callback installed by KeyframeComponent_OnKey (rdPuppet_SetCallback): forwards
+   track markers of the playing animation to Lua_CallCostumeMarkerHandler for the actor and drops
+   the keyframe ResRef when the track ends. Original name sputCostume_PuppetHook (the remaster's
+   GrimFandango (Linux): the only unmatched caller of Lua_CallCostumeMarkerHandler; 1 matched
+   neighbours agree, 0 disagree); was KeyframeComponent_TrackCallback. */
 
 void sputCostume_PuppetHook(int param_1,int param_2,uint param_3)
 
@@ -226,7 +226,7 @@ int * __cdecl KeyframeInstancer(int inst,int component,int create)
 
 
 /* ---- 0x00497e10  KeyframeRequester ---- */
-/* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
+/* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Startup through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a key from 'name priority tagged' text or
    asks for a .key file and loads it as a Keyframe resource. */
 
@@ -320,7 +320,7 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
 
 
 /* ---- 0x00498000  KeyframeAdjuster ---- */
-/* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
+/* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Startup through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the Normal/Tagged priority of a
    keyframe key. */
 
@@ -361,6 +361,7 @@ undefined4 KeyframeAdjuster(int *param_1,undefined4 param_2)
 
 
 /* ---- 0x004980b0  KeyframeFreer ---- */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Costume tag handler, slot 2 of the 'RDroid Keyframe (KEY)' tag: frees the key data. (Was named
    BitmapComponent_Destroy.) Original name KeyframeFreer (the remaster's GrimFandango (Linux): the
    same handler slot (freer) of the same costume tag registration in sputCostume_Startup); was

@@ -1362,3 +1362,22 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
 * `random()`: LUA.DLL's rand had its own seed in the original (its own linked MSVC runtime), the host msvcrt's rand is
   shared with the whole process, and on the runner something else draws from it on the main thread first (0.865932
   instead of 41/32767). math_random / math_randomseed use their own MSVC-style generator now (seed 1).
+
+## Stack purges from the RET instruction; Ghidra project restored (2026-11-13)
+
+* `run_script_inline` works now (Ghidra started with GHIDRA_MCP_ALLOW_SCRIPTS=1). A scan of every function's RET against its
+  stored stack purge found 104 wrong ones in the DLLs (CHORE 89, IMUSE 13, LUA 2; the EXE has none), all `RET` without
+  operand but a purge of 4..36 stored. They are 0 now. CHORE.DLL's generated text has no `in_stack_` read left (111
+  before), so build/overrides_chore_naming.c (11 functions) is gone: clean room 0 of 5327 differ. Two CRT entry stubs that
+  tail-jump into a __stdcall DllMain keep 12 / 16.
+* The "X86 Function Callee Purge" and "Call Convention ID" analyzers are switched off in all four programs: they run
+  after every edit and put back wrong purges (the cause of the locked-prototype breakage of the chore-naming round) and
+  `__cdecl` on functions whose convention is unknown.
+* **Save the project after edits** (`save_all_programs`). It had last been saved on 2026-11-11; a restart lost types
+  rounds 1-10 and some name batches. Recovery: replay names/*.json in the order the batches were created (replaying an
+  old batch after a newer one puts back its old comments, prototypes and global types), apply names/types_*.json, then
+  restore what src/ had where old batches disagree with it. The EXE is /v101/GRIMFANDANGO.EXE (a stale /GRIMFANDANGO.EXE
+  is in the project too); from Git Bash set MSYS_NO_PATHCONV=1 or /v101/ paths get mangled.
+* `make -j14` sometimes fails every file with ccache "execute_noreturn of gcc failed" (process creation); -j8 and a
+  rerun work.
+

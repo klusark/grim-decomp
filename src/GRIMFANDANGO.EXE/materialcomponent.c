@@ -49,7 +49,7 @@ void * __cdecl MaterialInstancer(void *cosInst,int componentIdx,int create)
 
 
 /* ---- 0x00496670  MaterialRequester ---- */
-/* Costume tag handler for 'RDroid Animated Material' (registered by sputCostume_Start through
+/* Costume tag handler for 'RDroid Animated Material' (registered by sputCostume_Startup through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, parses a key or asks for a .mat file ('Select mat
    file to animate...') for a model/sprite component. Original name MaterialRequester (the
    remaster's GrimFandango (Linux): strings: 'Select mat file to animate...'); was

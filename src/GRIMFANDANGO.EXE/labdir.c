@@ -17,19 +17,20 @@ void * __cdecl LabDir_Open(char *dir)
   int iVar3;
   uint uVar4;
   uint uVar5;
-  void *pvVar6;
+  int *piVar6;
   int iVar7;
   uint *puVar8;
   int iVar9;
-  char *pcVar10;
-  char *pcVar11;
+  int *piVar10;
+  int *piVar11;
+  char *pcVar12;
   #define local_114 (*(uint *)(_frame + (0x130 - 0x114)))
   #define local_110 (*(uint *)(_frame + (0x130 - 0x110)))
   #define local_10c (*(char (*)[260])(_frame + (0x130 - 0x10c)))
   #define local_8 (*(uint *)(_frame + (0x130 - 0x8)))
   
   iVar9 = 0;
-  pvVar6 = (void *)0x0;
+  piVar6 = (int *)0x0;
   iVar7 = 0;
   uVar2 = DirScan_Create(dir,1,&DAT_004f5a98);
   iVar3 = DirScan_Next(uVar2,local_10c);
@@ -37,12 +38,12 @@ void * __cdecl LabDir_Open(char *dir)
     if (local_8 == 0) {
       uVar4 = 0xffffffff;
       iVar9 = iVar9 + 1;
-      pcVar10 = local_10c;
+      pcVar12 = local_10c;
       do {
         if (uVar4 == 0) break;
         uVar4 = uVar4 - 1;
-        cVar1 = *pcVar10;
-        pcVar10 = pcVar10 + 1;
+        cVar1 = *pcVar12;
+        pcVar12 = pcVar12 + 1;
       } while (cVar1 != '\0');
       iVar7 = iVar7 + ~uVar4;
     }
@@ -52,59 +53,59 @@ void * __cdecl LabDir_Open(char *dir)
     if (iVar7 < 1) {
       iVar7 = 1;
     }
-    pvVar6 = (void *)Lab_AllocRecord();
+    piVar6 = Lab_AllocRecord();
     uVar4 = 0xffffffff;
     do {
-      pcVar10 = dir;
+      pcVar12 = dir;
       if (uVar4 == 0) break;
       uVar4 = uVar4 - 1;
-      pcVar10 = dir + 1;
+      pcVar12 = dir + 1;
       cVar1 = *dir;
-      dir = pcVar10;
+      dir = pcVar12;
     } while (cVar1 != '\0');
     uVar4 = ~uVar4;
-    pcVar10 = pcVar10 + -uVar4;
-    pcVar11 = (char *)((int)pvVar6 + 8);
+    piVar10 = (int *)(pcVar12 + -uVar4);
+    piVar11 = piVar6 + 2;
     for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *(undefined4 *)pcVar11 = *(undefined4 *)pcVar10;
-      pcVar10 = pcVar10 + 4;
-      pcVar11 = pcVar11 + 4;
+      *piVar11 = *piVar10;
+      piVar10 = piVar10 + 1;
+      piVar11 = piVar11 + 1;
     }
     for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *pcVar11 = *pcVar10;
-      pcVar10 = pcVar10 + 1;
-      pcVar11 = pcVar11 + 1;
+      *(char *)piVar11 = (char)*piVar10;
+      piVar10 = (int *)((int)piVar10 + 1);
+      piVar11 = (int *)((int)piVar11 + 1);
     }
-    *(undefined4 *)((int)pvVar6 + 0x114) = 1;
+    piVar6[0x45] = 1;
     iVar9 = (**(code **)(g_dwResHS + 0x20))
                       ((iVar9 + 1) * 0xc,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xc63);
-    *(int *)((int)pvVar6 + 0x118) = iVar9;
+    piVar6[0x46] = iVar9;
     if (iVar9 != 0) {
       iVar7 = (**(code **)(g_dwResHS + 0x20))
                         (iVar7,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xc67);
-      *(int *)((int)pvVar6 + 0x11c) = iVar7;
+      piVar6[0x47] = iVar7;
       if (iVar7 == 0) {
-        (**(code **)(g_dwResHS + 0x24))(*(undefined4 *)((int)pvVar6 + 0x118));
-        *(undefined4 *)((int)pvVar6 + 0x118) = 0;
+        (**(code **)(g_dwResHS + 0x24))(piVar6[0x46]);
+        piVar6[0x46] = 0;
       }
       else {
-        puVar8 = *(uint **)((int)pvVar6 + 0x118);
+        puVar8 = (uint *)piVar6[0x46];
         iVar7 = 0;
         DirScan_Reset(uVar2);
         iVar9 = DirScan_Next(uVar2,local_10c);
         while (iVar9 != 0) {
           if (local_8 == 0) {
-            puVar8[1] = iVar7 + *(int *)((int)pvVar6 + 0x11c);
-            uVar4 = Res_HashName(local_10c,(char *)(iVar7 + *(int *)((int)pvVar6 + 0x11c)));
+            puVar8[1] = iVar7 + piVar6[0x47];
+            uVar4 = Res_HashName(local_10c,(char *)(iVar7 + piVar6[0x47]));
             *puVar8 = uVar4;
             uVar4 = 0xffffffff;
             puVar8 = puVar8 + 3;
-            pcVar10 = local_10c;
+            pcVar12 = local_10c;
             do {
               if (uVar4 == 0) break;
               uVar4 = uVar4 - 1;
-              cVar1 = *pcVar10;
-              pcVar10 = pcVar10 + 1;
+              cVar1 = *pcVar12;
+              pcVar12 = pcVar12 + 1;
             } while (cVar1 != '\0');
             iVar7 = iVar7 + ~uVar4;
           }
@@ -116,7 +117,7 @@ void * __cdecl LabDir_Open(char *dir)
     }
   }
   DirScan_Destroy(uVar2);
-  return pvVar6;
+  return piVar6;
 }
 #undef local_10c
 #undef local_110

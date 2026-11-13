@@ -690,6 +690,7 @@ void __cdecl gz_putLong(void *file,uint x)
 
 
 /* ---- 0x004c4c40  zlibVersion ---- */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* MSVC CRT default _matherr: returns 0 (was mislabelled zlibVersion) */
 
 undefined4 zlibVersion(void)

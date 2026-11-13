@@ -94,8 +94,7 @@ void InsaneTimer_module_shutdown(void)
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
-/* First caller clears the 20 timer slots and creates the high priority thread
-   InsaneTimer_ThreadProc */
+/* First caller clears the 20 timer slots and creates the high priority thread timer_thread */
 
 int InsaneTimer_StartThread(void)
 

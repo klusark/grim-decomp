@@ -964,11 +964,11 @@ void __cdecl sputActor_SetActorPosition(Actor *actor,float *param_2)
 /* Actor_SetRot(actor, angles, snap): clears actor+8 bit 0 first, which ends a WalkActorTo path walk
    (Actor_UpdateMovement only calls Actor_FollowPath while it is set). Pitch (+0x24) and roll
    (+0x2c) are always set at once. With a walker, the walker heading is turned to the yaw
-   immediately, +0x28 (angle left) is set, and the visible yaw eases there in Walker_UpdateYaw; snap
-   (5th Lua arg nil) negates the turn rate so that update jumps in one frame. Without a walker all
-   three angles are set at once. Does not create a walker. Original name sputActor_SetActorRotation
-   (the remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetActorRot; 2 matched
-   neighbours agree, 0 disagree); was Actor_SetRot. */
+   immediately, +0x28 (angle left) is set, and the visible yaw eases there in sputActor_AlignToPuck;
+   snap (5th Lua arg nil) negates the turn rate so that update jumps in one frame. Without a walker
+   all three angles are set at once. Does not create a walker. Original name
+   sputActor_SetActorRotation (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_SetActorRot; 2 matched neighbours agree, 0 disagree); was Actor_SetRot. */
 
 void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *param_2,int param_3)
 
@@ -2035,7 +2035,7 @@ void __cdecl sputActor_ResetShadows(Actor *actor)
    <= 0; 1: only when >= 0 (pos = actor+0xc). Set by SetActorShadowPlane (Actor_SetShadowPlane
    0x493570, which resets valid to 0) and SetActorShadowValid (Lua_SetActorShadowValid 0x4a1fd0 ->
    0x493630). Original name sputCostume_DrawActorShadow (the remaster's GrimFandango (Linux): the
-   only unmatched caller of Actor_DrawShadowPlane; 1 matched neighbours agree, 0 disagree); was
+   only unmatched caller of sputCostume_DrawMeshShadow; 1 matched neighbours agree, 0 disagree); was
    Actor_DrawShadows. */
 
 void __cdecl sputCostume_DrawActorShadow(Actor *actor)

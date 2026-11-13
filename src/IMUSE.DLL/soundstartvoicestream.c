@@ -12,7 +12,6 @@ int __cdecl SoundStartVoiceStream(undefined4 param_1,uint volume,uint pan)
 
 {
   int iVar1;
-  uint in_stack_00000010;
   
                     /* 0x88d0  51  SoundStartVoiceStream */
   ImStopSound(10000);
@@ -22,8 +21,8 @@ int __cdecl SoundStartVoiceStream(undefined4 param_1,uint volume,uint pan)
     SoundsFillStreamsWhileMusicCritical(5);
     ImStartStream(10000,0x7f,1);
     ImSetParam(10000,0x400,2);
-    ImSetParam(10000,0x600,pan);
-    ImSetParam(10000,0x700,in_stack_00000010);
+    ImSetParam(10000,0x600,volume);
+    ImSetParam(10000,0x700,pan);
     ImProcessStreams();
     ImProcessStreams();
     return 0;

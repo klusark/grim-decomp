@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00477f10  stdPlatform_Assert ---- */
-/* GrimServices.pAssertFail of the platform table (Services_InitPlatformTable; the default table of
+/* GrimServices.pAssertFail of the platform table (stdPlatform_InitServices; the default table of
    Svc_* functions has its own Svc_AssertFail): logs 'file(line): message' to an assert file and
    aborts (DebugBreak + exit(1)); a second failure while handling the first exits immediately.
    Original name stdPlatform_Assert (the remaster's GrimFandango (Linux): strings: '%s(%d):  %s\n');

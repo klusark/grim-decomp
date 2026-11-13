@@ -1628,6 +1628,7 @@ void Lua_Shutdown(void)
 undefined4 __cdecl lua_error(byte *param_1)
 
 {
+  undefined4 extraout_EAX;
   undefined4 uVar1;
   
                     /* 0x4650  26  lua_error */
@@ -1635,8 +1636,8 @@ undefined4 __cdecl lua_error(byte *param_1)
     message(param_1);
   }
   if (g_pLuaState->pErrorJmp != (void *)0x0) {
-    uVar1 = ((code *)longjmp)((int)g_pLuaState->pErrorJmp);
-    return uVar1;
+    longjmp((int)g_pLuaState->pErrorJmp);
+    return extraout_EAX;
   }
   uVar1 = (**(code **)(g_dwLuaHS + 0x18))
                     (s_lua__Unable_to_recover__10026a68,s_C__grimsrc_libs_lua_src_ldo_cpp_10026a04,

@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x10001110  CosUtil_Write ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export (costume editor): writes `pCostume` as a text costume file: the save hook
    (Cos_RegisterSaveHook) may refuse; then the file is created ('wt+'), the costume renamed after
    the file name, and '# comment', 'costume v0.1', 'section tags' (Cos_CollectUsedTags), 'section
@@ -36,17 +34,17 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
   CosComponent *pCVar14;
   Chore *pCVar15;
   ChoreKey *pCVar16;
+  #define uStack_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define uStack_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define uStack_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define uStack_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define iStack_18 (*(int *)(_frame + (0x40 - 0x18)))
-  #define iStack_c (*(int *)(_frame + (0x40 - 0xc)))
-  #define uStack_8 (*(undefined1 *)(_frame + (0x40 - 0x8)))
+  #define iStack_1c (*(int *)(_frame + (0x40 - 0x1c)))
+  #define iStack_10 (*(int *)(_frame + (0x40 - 0x10)))
+  #define uStack_c (*(undefined1 *)(_frame + (0x40 - 0xc)))
   
                     /* 0x1110  24  CosUtil_Write */
+  iStack_1c = 1;
   if (pCostume == (Costume *)0x0) {
-    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_100101f8),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x14c)
-    ;
+    (*(code *)g_pSvcChore->pAssertFail)(((unsigned)(uintptr_t)&DAT_100101f8),s_C__grimsrc_libs_chore_Costume_c_1001020c);
   }
   uStack_24 = 0;
   if (pCostume->dwNumChores != 0) {
@@ -101,7 +99,7 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
       pcVar13 = pcVar13 + 1;
     } while (cVar2 != '\0');
     if (0x20 < ~uVar7 - 1) {
-      iStack_18 = 0;
+      iStack_1c = 0;
       goto LAB_1000167e;
     }
     msvc_strncpy(pCostume,fileName,0x1f);
@@ -117,7 +115,7 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
       pcVar13 = pcVar13 + 1;
     } while (cVar2 != '\0');
     if (0x20 < ~uVar7 - 1) {
-      iStack_18 = 0;
+      iStack_1c = 0;
       goto LAB_1000167e;
     }
     msvc_strncpy(pCostume,(char *)(iVar9 + 1),0x1f);
@@ -133,8 +131,8 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
     puVar11 = g_aTagLookups;
     do {
       uVar3 = *puVar11;
-      iStack_c = g_aComponentTags[uVar3].nId;
-      uStack_8 = 0;
+      iStack_10 = g_aComponentTags[uVar3].nId;
+      uStack_c = 0;
       if (g_aComponentTags[uVar3].nKind == 0) {
         uVar8 = ((unsigned)(uintptr_t)&DAT_1001019c);
       }
@@ -145,7 +143,7 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
         }
       }
       (*(code *)g_pSvcChore->pFprintf)
-                (iVar10,((unsigned)(uintptr_t)&DAT_1001017c),uVar7,&iStack_c,uVar8,g_aComponentTags[uVar3].aName);
+                (iVar10,((unsigned)(uintptr_t)&DAT_1001017c),uVar7,&iStack_10,uVar8,g_aComponentTags[uVar3].aName);
       uVar7 = uVar7 + 1;
       puVar11 = puVar11 + 1;
     } while (uVar7 < uVar6);
@@ -154,7 +152,7 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
   (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010150),pCostume->dwNumComponents);
   (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010130));
   pCVar14 = pCostume->pComponents;
-  uStack_24 = 0;
+  uStack_28 = 0;
   if (pCostume->dwNumComponents != 0) {
     do {
       uVar7 = 0;
@@ -171,10 +169,10 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
         (*(code *)g_pSvcChore->pAssertFail)
                   (((unsigned)(uintptr_t)&DAT_10010120),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x1a9);
       }
-      (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010108),uStack_24,uVar7,pCVar14->nHash);
-      uStack_24 = uStack_24 + 1;
+      (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010108),uStack_28,uVar7,pCVar14->nHash);
+      uStack_28 = uStack_28 + 1;
       pCVar14 = pCVar14 + 1;
-    } while (uStack_24 < pCostume->dwNumComponents);
+    } while (uStack_28 < pCostume->dwNumComponents);
   }
   (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100f4));
   (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100e4),pCostume->dwNumChores);
@@ -201,13 +199,13 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
     } while (uVar6 < pCostume->dwNumChores);
   }
   (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100a4));
-  uStack_20 = 0;
+  uStack_24 = 0;
   pCVar15 = pCostume->pChores;
   if (pCostume->dwNumChores != 0) {
     do {
-      (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010094),uStack_20,pCVar15);
+      (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010094),uStack_24,pCVar15);
       pCVar12 = pCVar15->pChoreTracks;
-      uStack_1c = 0;
+      uStack_20 = 0;
       if (pCVar15->dwNumTracks != 0) {
         do {
           if (pCVar12->dwNumKeys != 0) {
@@ -218,7 +216,7 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
             pCVar5 = g_aComponentTags;
             pCVar16 = pCVar12->pKeys;
             iVar9 = pCostume->pComponents[pCVar12->nCompNum].nTag;
-            uStack_24 = 0;
+            uStack_28 = 0;
             if (pCVar12->dwNumKeys != 0) {
               do {
                 iVar4 = pCVar5[iVar9].nKind;
@@ -233,32 +231,30 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
                   (*(code *)g_pSvcChore->pAssertFail)
                             (((unsigned)(uintptr_t)&DAT_10010040),s_C__grimsrc_libs_chore_Costume_c_1001020c);
                 }
-                uStack_24 = uStack_24 + 1;
+                uStack_28 = uStack_28 + 1;
                 pCVar16 = pCVar16 + 1;
-              } while (uStack_24 < pCVar12->dwNumKeys);
+              } while (uStack_28 < pCVar12->dwNumKeys);
             }
             (*(code *)g_pSvcChore->pFprintf)();
           }
-          uStack_1c = uStack_1c + 1;
+          uStack_20 = uStack_20 + 1;
           pCVar12 = pCVar12 + 1;
-        } while (uStack_1c < pCVar15->dwNumTracks);
+        } while (uStack_20 < pCVar15->dwNumTracks);
       }
-      uStack_20 = uStack_20 + 1;
+      uStack_24 = uStack_24 + 1;
       pCVar15 = pCVar15 + 1;
-    } while (uStack_20 < pCostume->dwNumChores);
+    } while (uStack_24 < pCostume->dwNumChores);
   }
 LAB_1000167e:
   (*(code *)g_pSvcChore->pFclose)();
-  return iStack_18;
+  return iStack_1c;
 }
-#undef iStack_18
-#undef iStack_c
-#undef uStack_1c
+#undef iStack_10
+#undef iStack_1c
 #undef uStack_20
 #undef uStack_24
-#undef uStack_8
-
-#endif
+#undef uStack_28
+#undef uStack_c
 
 
 /* ---- 0x10002020  CosUtil_CompPtrFromHandle ---- */
@@ -317,8 +313,6 @@ void * __cdecl CosUtil_RegisterBitmapMunger(void *munger)
 }
 
 /* ---- 0x10002260  CosUtil_DeleteComponent ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export (costume editor): deletes component `compNum` and all its descendants: the hashes of later
    components with the same tag and name are renumbered, the component array is compacted and the
    parent indices remapped, the chore tracks of the deleted components and their keys are freed, and
@@ -346,12 +340,11 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
   char *pcVar14;
   uint uVar15;
   ChoreTrack **ppCVar16;
-  uint in_stack_0000000c;
-  #define piStack_8 (*(int **)(_frame + (0x20 - 0x8)))
+  #define piStack_c (*(int **)(_frame + (0x20 - 0xc)))
   
                     /* 0x2260  15  CosUtil_DeleteComponent */
   pCostume = CosUtil_PtrFromHandle(hCostume);
-  if ((pCostume == (Costume *)0x0) || (pCostume->dwNumComponents <= in_stack_0000000c)) {
+  if ((pCostume == (Costume *)0x0) || (pCostume->dwNumComponents <= compNum)) {
     return 0;
   }
   piVar2 = (int *)(*(code *)g_pSvcChore->pAlloc)
@@ -378,9 +371,9 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
       puVar9 = puVar9 + 1;
     } while (uVar3 < pCostume->dwNumComponents);
   }
-  compNum = 0;
-  piVar2[in_stack_0000000c] = 1;
-  puVar4[in_stack_0000000c] = 0xffffffff;
+  hCostume = 0;
+  piVar2[compNum] = 1;
+  puVar4[compNum] = 0xffffffff;
   if (pCostume->dwNumComponents != 0) {
     iVar13 = 0;
     puVar9 = puVar4;
@@ -397,17 +390,17 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
         *(undefined4 *)(((int)piVar2 - (int)puVar4) + (int)puVar9) = 1;
         *puVar9 = 0xffffffff;
       }
-      compNum = compNum + 1;
+      hCostume = hCostume + 1;
       iVar13 = iVar13 + 0x40;
       puVar9 = puVar9 + 1;
-    } while (compNum < pCostume->dwNumComponents);
+    } while (hCostume < pCostume->dwNumComponents);
   }
   iVar13 = 0;
-  compNum = 0;
-  piStack_8 = piVar2;
+  hCostume = 0;
+  piStack_c = piVar2;
   if (pCostume->dwNumComponents != 0) {
     do {
-      if (*piStack_8 != 0) {
+      if (*piStack_c != 0) {
         pcVar14 = pCostume->pComponents->aName + iVar13;
         iVar10 = *(int *)(pcVar14 + 0x28);
         iVar5 = Cos_FindComponent(pCostume,g_aComponentTags[*(int *)(pcVar14 + 0x20)].nId,iVar10 + 1
@@ -421,21 +414,21 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
           iVar10 = iVar10 + 1;
         }
       }
-      compNum = compNum + 1;
+      hCostume = hCostume + 1;
       iVar13 = iVar13 + 0x40;
-      piStack_8 = piStack_8 + 1;
-    } while (compNum < pCostume->dwNumComponents);
+      piStack_c = piStack_c + 1;
+    } while (hCostume < pCostume->dwNumComponents);
   }
   iVar13 = 0;
   uVar3 = 0;
   if (pCostume->dwNumComponents != 0) {
-    compNum = 0;
+    hCostume = 0;
     piVar8 = piVar2;
     do {
       iVar13 = iVar13 + (uint)(*piVar8 != 0);
       if ((*piVar8 == 0) && (iVar13 != 0)) {
         *(uint *)(((int)puVar4 - (int)piVar2) + (int)piVar8) = uVar3 - iVar13;
-        pcVar14 = pCostume->pComponents->aName + compNum;
+        pcVar14 = pCostume->pComponents->aName + hCostume;
         pCVar6 = pCostume->pComponents + (uVar3 - iVar13);
         for (iVar10 = 0x10; iVar10 != 0; iVar10 = iVar10 + -1) {
           *(undefined4 *)pCVar6->aName = *(undefined4 *)pcVar14;
@@ -445,7 +438,7 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
       }
       uVar3 = uVar3 + 1;
       piVar8 = piVar8 + 1;
-      compNum = compNum + 0x40;
+      hCostume = hCostume + 0x40;
     } while (uVar3 < pCostume->dwNumComponents);
   }
   uVar3 = pCostume->dwNumComponents;
@@ -484,7 +477,7 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
       puVar9 = puVar9 + 0xb;
     } while (uVar15 < pCostume->dwNumChores);
   }
-  compNum = 0;
+  hCostume = 0;
   if (pCostume->dwNumChores != 0) {
     ppCVar16 = &pCostume->pChores->pChoreTracks;
     do {
@@ -492,7 +485,7 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
       iVar13 = 0;
       uVar15 = 0;
       if (ppCVar16[-1] != (ChoreTrack *)0x0) {
-        piStack_8 = (int *)0x0;
+        piStack_c = (int *)0x0;
         do {
           iVar13 = iVar13 + (uint)(pCVar7->nCompNum == -1);
           if (pCVar7->nCompNum == -1) {
@@ -501,7 +494,7 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
             }
           }
           else if (iVar13 != 0) {
-            piVar8 = (int *)((int)&(*ppCVar16)->nCompNum + (int)piStack_8);
+            piVar8 = (int *)((int)&(*ppCVar16)->nCompNum + (int)piStack_c);
             pCVar12 = *ppCVar16 + (uVar15 - iVar13);
             pCVar12->nCompNum = *piVar8;
             pCVar12->dwLastKeyTime = piVar8[1];
@@ -509,7 +502,7 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
             pCVar12->pKeys = (ChoreKey *)piVar8[3];
           }
           uVar15 = uVar15 + 1;
-          piStack_8 = (int *)((int)piStack_8 + 0x10);
+          piStack_c = (int *)((int)piStack_c + 0x10);
           pCVar7 = pCVar7 + 1;
         } while (uVar15 < ppCVar16[-1]);
       }
@@ -520,9 +513,9 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
                          (*ppCVar16,(uVar15 - iVar13) * 0x10,
                           s_C__grimsrc_libs_chore_Costume_c_1001020c,0x5be);
       *ppCVar16 = pCVar7;
-      compNum = compNum + 1;
+      hCostume = hCostume + 1;
       ppCVar16 = ppCVar16 + 0xb;
-    } while (compNum < pCostume->dwNumChores);
+    } while (hCostume < pCostume->dwNumChores);
   }
   if (g_pfnCompNotifier != (void *)0x0) {
     iVar13 = 0;
@@ -543,9 +536,7 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
   (*(code *)g_pSvcChore->pFree)(puVar4);
   return 1;
 }
-#undef piStack_8
-
-#endif
+#undef piStack_c
 
 
 /* ---- 0x100026a0  CosUtil_AdjustComponent ---- */
@@ -942,8 +933,6 @@ ChoreKey * __cdecl CosUtil_QueryValueAtTime(Costume *pCostume,uint choreNum,uint
 }
 
 /* ---- 0x10002cf0  CosUtil_AddFSKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export (costume editor): adds or replaces a key of a state-based component (Cos_AddKey); 0 for
    another tag kind. */
 
@@ -951,7 +940,6 @@ int __cdecl CosUtil_AddFSKey(Costume *pCostume,uint choreNum,int compNum,uint ti
 
 {
   ChoreKey *pCVar1;
-  int in_stack_00000024;
   
                     /* 0x2cf0  3  CosUtil_AddFSKey */
   if (g_aComponentTags[pCostume->pComponents[compNum].nTag].nKind != 0) {
@@ -961,15 +949,11 @@ int __cdecl CosUtil_AddFSKey(Costume *pCostume,uint choreNum,int compNum,uint ti
   if (pCVar1 == (ChoreKey *)0x0) {
     return 0;
   }
-  pCVar1->nValue = in_stack_00000024;
+  pCVar1->nValue = value;
   return 1;
 }
-#endif
-
 
 /* ---- 0x10002d50  CosUtil_AddIntKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export (costume editor): adds or replaces a key of an int component (Cos_AddKey); 0 for another
    tag kind. */
 
@@ -977,7 +961,6 @@ int __cdecl CosUtil_AddIntKey(Costume *pCostume,uint choreNum,int compNum,uint t
 
 {
   ChoreKey *pCVar1;
-  int in_stack_00000024;
   
                     /* 0x2d50  5  CosUtil_AddIntKey */
   if (g_aComponentTags[pCostume->pComponents[compNum].nTag].nKind != 1) {
@@ -987,15 +970,11 @@ int __cdecl CosUtil_AddIntKey(Costume *pCostume,uint choreNum,int compNum,uint t
   if (pCVar1 == (ChoreKey *)0x0) {
     return 0;
   }
-  pCVar1->nValue = in_stack_00000024;
+  pCVar1->nValue = value;
   return 1;
 }
-#endif
-
 
 /* ---- 0x10002db0  CosUtil_AddFloatKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export (costume editor): adds or replaces a key of a float component (Cos_AddKey; the value is
    stored as its bits); 0 for another tag kind. */
 
@@ -1003,7 +982,6 @@ int __cdecl CosUtil_AddFloatKey(Costume *pCostume,uint choreNum,int compNum,uint
 
 {
   ChoreKey *pCVar1;
-  int in_stack_00000024;
   
                     /* 0x2db0  4  CosUtil_AddFloatKey */
   if (g_aComponentTags[pCostume->pComponents[compNum].nTag].nKind != 2) {
@@ -1013,11 +991,9 @@ int __cdecl CosUtil_AddFloatKey(Costume *pCostume,uint choreNum,int compNum,uint
   if (pCVar1 == (ChoreKey *)0x0) {
     return 0;
   }
-  pCVar1->nValue = in_stack_00000024;
+  pCVar1->nValue = value;
   return 1;
 }
-#endif
-
 
 /* ---- 0x10002e10  CosUtil_CountComponents ---- */
 /* Export: number of components of the costume. */

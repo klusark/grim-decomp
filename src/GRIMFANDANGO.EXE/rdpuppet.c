@@ -793,7 +793,7 @@ void rdKeyframe_NewEntry(undefined4 *param_1)
 
 /* ---- 0x004c0660  rdKeyframe_Load ---- */
 /* Loads an animation: custom loader hook if installed, else allocates the 0x84-byte record; the
-   magic 'KEYF' selects rdKeyframe_LoadBinary, anything else rdKeyframe_LoadText. Source file
+   magic 'KEYF' selects rdKeyframe_LoadEntryBinary, anything else rdKeyframe_LoadEntry. Source file
    Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
 int rdKeyframe_Load(char *param_1)

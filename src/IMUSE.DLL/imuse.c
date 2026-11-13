@@ -2036,9 +2036,9 @@ undefined4 __cdecl GrGetGroupEffVol(uint param_1)
 /* ---- 0x10004f50  ImWaveHalt ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Guard enter: INC [g_dwWvSlicingHalted], NOT atomic (no LOCK) and NOT a lock: it does not exclude any
-   thread, ImHeartbeat only skips itself while it is nonzero. Called at the start of most Im* entry
-   points. Original name ImWaveHalt (the remaster's GrimFandango (Linux): aligned call in
+/* Guard enter: INC [g_dwWvSlicingHalted], NOT atomic (no LOCK) and NOT a lock: it does not exclude
+   any thread, ImHeartbeat only skips itself while it is nonzero. Called at the start of most Im*
+   entry points. Original name ImWaveHalt (the remaster's GrimFandango (Linux): aligned call in
    ImGetParam, ImStartStream, ImStopAllSounds); was Im_GuardEnter. */
 
 void ImWaveHalt(void)
@@ -2945,40 +2945,40 @@ LAB_10006549:
 /* ---- 0x10006560  FUN_10006560 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-undefined4 __cdecl FUN_10006560(int param_1)
+int __cdecl FUN_10006560(int param_1)
 
 {
   uint uVar1;
   int *piVar2;
-  char *pcVar3;
+  ImMusicEntry *pIVar3;
+  int unaff_ESI;
   uint uVar4;
+  uint unaff_EDI;
   uint unaff_retaddr;
   uint in_stack_00000008;
-  uint in_stack_0000000c;
-  uint in_stack_00000010;
   
   if (param_1 == -1) {
-    return (&DAT_1001730c)[g_dwCurrentState * 0x15];
+    return g_aImStateTable[g_dwCurrentState].nId;
   }
   uVar4 = 0;
-  piVar2 = &DAT_1001730c;
+  piVar2 = &g_aImStateTable[0].nId;
   do {
     if (param_1 == *piVar2) {
-      ImPrintf((char *)(uVar4 * 0x54 + ((unsigned)(uintptr_t)((unsigned char *)&g_aImStateTable + 0x28))));
+      ImPrintf(g_aImStateTable[uVar4].aName);
       ImPrintf(&DAT_100171b0);
       uVar1 = g_dwCurrentState;
       if ((uVar4 != g_dwCurrentState) && (uVar1 = uVar4, g_dwCurrentSequence == 0)) {
         if (uVar4 == 0) {
-          pcVar3 = (char *)0x0;
+          pIVar3 = (ImMusicEntry *)0x0;
         }
         else {
-          pcVar3 = &DAT_100172e8 + uVar4 * 0x54;
+          pIVar3 = g_aImStateTable + uVar4;
         }
-        Script_Trans(pcVar3,uVar4,0,unaff_retaddr,param_1,in_stack_00000008,in_stack_0000000c,
-                     in_stack_00000010);
+        Script_Trans(pIVar3->aFilename,uVar4,0,unaff_EDI,unaff_ESI,unaff_retaddr,param_1,
+                     in_stack_00000008);
       }
       g_dwCurrentState = uVar1;
-      return (&DAT_1001730c)[g_dwCurrentState * 0x15];
+      return g_aImStateTable[g_dwCurrentState].nId;
     }
     piVar2 = piVar2 + 0x15;
     uVar4 = uVar4 + 1;
@@ -3002,11 +3002,11 @@ int __cdecl Script_SetSequence(int param_1)
   int *piVar2;
   ImMusicEntry *pIVar3;
   int iVar4;
+  int unaff_ESI;
   int iVar5;
+  uint unaff_EDI;
   uint unaff_retaddr;
   uint in_stack_00000008;
-  uint in_stack_0000000c;
-  uint in_stack_00000010;
   
   if (param_1 == -1) {
     return g_aImSeqTable[g_dwCurrentSequence].nId;
@@ -3032,15 +3032,15 @@ int __cdecl Script_SetSequence(int param_1)
             else {
               pIVar3 = g_aImStateTable + g_dwCurrentState;
             }
-            Script_Trans(pIVar3->aFilename,g_dwCurrentState,1,unaff_retaddr,param_1,
-                         in_stack_00000008,in_stack_0000000c,in_stack_00000010);
+            Script_Trans(pIVar3->aFilename,g_dwCurrentState,1,unaff_EDI,unaff_ESI,unaff_retaddr,
+                         param_1,in_stack_00000008);
             g_dwCurrentSequence = 0;
             iVar4 = g_dwCurrentSequence;
             iVar1 = g_dwCurrentCuePoint;
           }
           else {
-            Script_Trans(g_aImSeqTable[g_dwCurrentCuePoint].aFilename,0,1,unaff_retaddr,param_1,
-                         in_stack_00000008,in_stack_0000000c,in_stack_00000010);
+            Script_Trans(g_aImSeqTable[g_dwCurrentCuePoint].aFilename,0,1,unaff_EDI,unaff_ESI,
+                         unaff_retaddr,param_1,in_stack_00000008);
             iVar4 = g_dwCurrentCuePoint;
             g_dwCurrentSequence = g_dwCurrentCuePoint;
             g_dwCurrentCuePoint = 0;
@@ -3051,8 +3051,8 @@ int __cdecl Script_SetSequence(int param_1)
         else if ((g_dwCurrentSequence == 0) ||
                 ((iVar1 = iVar5, g_aImSeqTable[g_dwCurrentSequence].nTransType != 4 &&
                  (g_aImSeqTable[g_dwCurrentSequence].nTransType != 6)))) {
-          Script_Trans(g_aImSeqTable[iVar5].aFilename,0,1,unaff_retaddr,param_1,in_stack_00000008,
-                       in_stack_0000000c,in_stack_00000010);
+          Script_Trans(g_aImSeqTable[iVar5].aFilename,0,1,unaff_EDI,unaff_ESI,unaff_retaddr,param_1,
+                       in_stack_00000008);
           g_dwCurrentCuePoint = 0;
           (&DAT_1002e25c)[iVar5] = 1;
           iVar4 = iVar5;
@@ -3181,7 +3181,6 @@ Script_Trans(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uin
   char *pcVar11;
   bool bVar12;
   int unaff_retaddr;
-  int in_stack_00000024;
   
   pcVar1 = param_1;
   if (g_dwLocalMusic == 0) {
@@ -3298,10 +3297,10 @@ LAB_1000695e:
     }
     if (*(int *)(pcVar1 + 0x20) == 4) {
       DAT_1002e304 = 0;
-      ImSetTrigger(uVar4,&DAT_1001e858,0,unaff_EBX,unaff_retaddr,(int)param_1,param_2,param_3,
-                   param_4,param_5,param_6,param_7,param_8);
+      ImSetTrigger(uVar4,&DAT_1001e858,0,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,
+                   (int)param_1,param_2,param_3,param_4,param_5);
     }
-    ImPrintf(s_HOOK__lu____1001e824,param_4);
+    ImPrintf(s_HOOK__lu____1001e824,param_1);
     if (uVar5 == 0) {
       ImPrintf(s_No_stream_sound____1001e7ac);
       iVar8 = ImStartStream(uVar4,0x7e,2);
@@ -3312,17 +3311,17 @@ LAB_1000695e:
       ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
       ImSetParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50));
       ImSetParam(uVar4,0x400,4);
-      ImSetHook(uVar4,param_7);
+      ImSetHook(uVar4,(uint)param_1);
       goto LAB_10007019;
     }
     if (*(int *)(pcVar1 + 0x20) == 2) {
-      ImSwitchStream(uVar5,uVar4,param_6,0,0);
-      ImPrintf(s_FADE__lu____1001e818,param_6);
-      ImPrintf(s_vol__lu____1001e80c);
+      ImSwitchStream(uVar5,uVar4,param_2,0,0);
+      ImPrintf(s_FADE__lu____1001e818,param_2);
+      ImPrintf(s_vol__lu____1001e80c,*(undefined4 *)(pcVar1 + 0x4c));
       ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
       ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
       ImSetParam(uVar4,0x400,4);
-      ImSetHook(uVar4,param_7);
+      ImSetHook(uVar4,(uint)param_1);
       ImProcessStreams();
       goto LAB_10007019;
     }
@@ -3331,17 +3330,17 @@ LAB_1000695e:
       ImPrintf(s_fading_VOL__lu____1001e7d0,*(undefined4 *)(pcVar1 + 0x4c));
       if (*(uint *)(pcVar1 + 0x50) != 0) {
         ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
-        ImPrintf(s_and_PAN__lu____1001e7c0);
+        ImPrintf(s_and_PAN__lu____1001e7c0,*(undefined4 *)(pcVar1 + 0x50));
       }
       goto LAB_10007019;
     }
-    if (((param_7 == 0) && (*(int *)(pcVar1 + 0x40) != 0)) &&
+    if (((param_3 == 0) && (*(int *)(pcVar1 + 0x40) != 0)) &&
        (*(int *)(pcVar1 + 0x40) == g_aImStateTable[g_dwCurrentState].nHookSlot)) {
-      ImSwitchStream(uVar5,uVar4,param_6,0,1);
+      ImSwitchStream(uVar5,uVar4,param_2,0,1);
       ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
       ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
       ImSetParam(uVar4,0x400,4);
-      if (param_5 == 100) {
+      if (param_1 == (char *)0x64) {
         ImSetHook(uVar4,100);
         ImProcessStreams();
         goto LAB_10007019;
@@ -3352,56 +3351,56 @@ LAB_10006f42:
     else {
       iVar8 = *(int *)(pcVar1 + 0x20);
       if (iVar8 == 10) {
-        ImSetTrigger(uVar5,&DAT_1001e804,0x1a,uVar5,uVar4,param_6,1,0,unaff_retaddr,(int)param_1,
-                     param_2,param_3,param_4);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,unaff_retaddr
-                     ,(int)param_1,param_2,param_3,param_4,param_5);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,unaff_retaddr
-                     ,(int)param_1,param_2,param_3,param_4,param_5);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xc,uVar4,0x400,4,unaff_retaddr,(int)param_1,param_2,
-                     param_3,param_4,param_5,param_6);
+        ImSetTrigger(uVar5,&DAT_1001e804,0x1a,uVar5,uVar4,param_2,1,0,unaff_EDI,unaff_ESI,unaff_EBP,
+                     unaff_EBX,unaff_retaddr);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,unaff_EDI,
+                     unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,(int)param_1);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,unaff_EDI,
+                     unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,(int)param_1);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xc,uVar4,0x400,4,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,
+                     unaff_retaddr,(int)param_1,param_2);
       }
       else {
         if (iVar8 == 0xb) {
-          ImSetTrigger(uVar5,s_exit2_1001e7fc,0x1a,uVar5,uVar4,param_6,1,0,unaff_retaddr,
-                       (int)param_1,param_2,param_3,param_4);
+          ImSetTrigger(uVar5,s_exit2_1001e7fc,0x1a,uVar5,uVar4,param_2,1,0,unaff_EDI,unaff_ESI,
+                       unaff_EBP,unaff_EBX,unaff_retaddr);
           ImSetTrigger(uVar5,s_exit2_1001e7fc,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,
-                       unaff_retaddr,(int)param_1,param_2,param_3,param_4,param_5);
+                       unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,(int)param_1);
           ImSetTrigger(uVar5,s_exit2_1001e7fc,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,
-                       unaff_retaddr,(int)param_1,param_2,param_3,param_4,param_5);
-          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xc,uVar4,0x400,4,unaff_retaddr,(int)param_1,param_2,
-                       param_3,param_4,param_5,param_6);
-          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xf,uVar4,param_5,unaff_retaddr,(int)param_1,param_2,
-                       param_3,param_4,param_5,param_6,param_7);
+                       unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,(int)param_1);
+          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xc,uVar4,0x400,4,unaff_EDI,unaff_ESI,unaff_EBP,
+                       unaff_EBX,unaff_retaddr,(int)param_1,param_2);
+          ImSetTrigger(uVar5,s_exit2_1001e7fc,0xf,uVar4,(int)param_1,unaff_EDI,unaff_ESI,unaff_EBP,
+                       unaff_EBX,unaff_retaddr,(int)param_1,param_2,param_3);
           ImProcessStreams();
           goto LAB_10007019;
         }
         if (iVar8 != 0xc) {
-          ImSwitchStream(uVar5,uVar4,param_6,0,0);
-          ImPrintf(s_FADE__lu____1001e818,param_6);
-          ImPrintf(s_vol__lu____1001e80c);
+          ImSwitchStream(uVar5,uVar4,param_2,0,0);
+          ImPrintf(s_FADE__lu____1001e818,param_2);
+          ImPrintf(s_vol__lu____1001e80c,*(undefined4 *)(pcVar1 + 0x4c));
           ImFadeParam(uVar4,0x600,*(uint *)(pcVar1 + 0x4c),iVar9);
           ImFadeParam(uVar4,0x700,*(uint *)(pcVar1 + 0x50),iVar9);
-          ImPrintf(s_set_pan__lu____1001e7e4);
+          ImPrintf(s_set_pan__lu____1001e7e4,*(undefined4 *)(pcVar1 + 0x50));
           ImSetParam(uVar4,0x400,4);
-          ImSetHook(uVar4,param_8);
+          ImSetHook(uVar4,(uint)param_1);
           goto LAB_10006f42;
         }
         ImSetHook(uVar5,99);
-        ImSetTrigger(uVar5,s_clear_1001e7f4,0xf,uVar5,0x80,unaff_retaddr,(int)param_1,param_2,
-                     param_3,param_4,param_5,param_6,param_7);
-        ImSetTrigger(uVar5,&DAT_1001e804,0x1a,uVar5,uVar4,param_6,1,0,unaff_retaddr,(int)param_1,
-                     param_2,param_3,param_4);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,unaff_retaddr
-                     ,(int)param_1,param_2,param_3,param_4,param_5);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,unaff_retaddr
-                     ,(int)param_1,param_2,param_3,param_4,param_5);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xc,uVar4,0x400,4,unaff_retaddr,(int)param_1,param_2,
-                     param_3,param_4,param_5,param_6);
-        ImPrintf(s_HOOK__lu____1001e824,param_5);
+        ImSetTrigger(uVar5,s_clear_1001e7f4,0xf,uVar5,0x80,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,
+                     unaff_retaddr,(int)param_1,param_2,param_3);
+        ImSetTrigger(uVar5,&DAT_1001e804,0x1a,uVar5,uVar4,param_2,1,0,unaff_EDI,unaff_ESI,unaff_EBP,
+                     unaff_EBX,unaff_retaddr);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,unaff_EDI,
+                     unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,(int)param_1);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,unaff_EDI,
+                     unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,(int)param_1);
+        ImSetTrigger(uVar5,&DAT_1001e804,0xc,uVar4,0x400,4,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,
+                     unaff_retaddr,(int)param_1,param_2);
+        ImPrintf(s_HOOK__lu____1001e824,param_1);
       }
-      ImSetTrigger(uVar5,&DAT_1001e804,0xf,uVar4,(int)param_1,param_2,param_3,param_4,param_5,
-                   param_6,param_7,param_8,in_stack_00000024);
+      ImSetTrigger(uVar5,&DAT_1001e804,0xf,uVar4,(int)param_1,unaff_EDI,unaff_ESI,unaff_EBP,
+                   unaff_EBX,unaff_retaddr,(int)param_1,param_2,param_3);
       ImProcessStreams();
     }
 LAB_10007019:
@@ -3457,10 +3456,8 @@ LAB_1000692f:
 void __cdecl Script_Callback(char *marker)
 
 {
-  char *in_stack_00000008;
-  
   ImPrintf(s_CALLBACK__1001e898);
-  if (*in_stack_00000008 == '_') {
+  if (*marker == '_') {
     DAT_1002e304 = 1;
     return;
   }
@@ -4712,7 +4709,7 @@ int TrTerminate(void)
 }
 
 /* ---- 0x1000a8d0  TrPause ---- */
-/* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
+/* Unidentified function of stream tracks (Stream_LoadData and friends) - module name inferred
    Original name TrPause (the remaster's GrimFandango (Linux): the only unmatched callee of ImPause;
    1 matched neighbours agree, 0 disagree); was Im_PauseImpl. */
 
@@ -4726,7 +4723,7 @@ void TrPause(void)
 }
 
 /* ---- 0x1000a8f0  TrResume ---- */
-/* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
+/* Unidentified function of stream tracks (Stream_LoadData and friends) - module name inferred
    Original name TrResume (the remaster's GrimFandango (Linux): the only unmatched callee of
    ImResume; 1 matched neighbours agree, 0 disagree); was Im_ResumeImpl. */
 
@@ -5457,7 +5454,7 @@ undefined4 __cdecl TgRestore(undefined4 *param_1)
 /* ---- 0x1000b220  TgSetTrigger ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
+/* Unidentified function of stream tracks (Stream_LoadData and friends) - module name inferred
    Original name TgSetTrigger (the remaster's GrimFandango (Linux): the only unmatched callee of
    ImSetTrigger; 1 matched neighbours agree, 0 disagree); was Im_SetTriggerImpl. */
 
@@ -5797,7 +5794,7 @@ LAB_1000b52c:
 /* ---- 0x1000b570  TgDeferCommand ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
+/* Unidentified function of stream tracks (Stream_LoadData and friends) - module name inferred
    Original name TgDeferCommand (the remaster's GrimFandango (Linux): the only unmatched callee of
    ImDeferCommand; 1 matched neighbours agree, 0 disagree); was Im_DeferCommandImpl. */
 

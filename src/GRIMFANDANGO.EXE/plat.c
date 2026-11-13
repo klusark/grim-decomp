@@ -542,7 +542,7 @@ int __cdecl grimPlat_InputDialog(char *title,char *prompt,char *buf,int bufSize,
 
 
 /* ---- 0x00488370  Plat_PromptDialogProc ---- */
-/* Dialog procedure of Plat_PromptDialog: fills integer edit fields on WM_INITDIALOG, reads them
+/* Dialog procedure of grimPlat_SpinDialog: fills integer edit fields on WM_INITDIALOG, reads them
    back on OK. */
 
 undefined * __stdcall Plat_PromptDialogProc(int a1,int a2,int a3,int a4)
@@ -587,7 +587,7 @@ undefined * __stdcall Plat_PromptDialogProc(int a1,int a2,int a3,int a4)
 }
 
 /* ---- 0x00488460  Plat_TreeSelectDialogProc ---- */
-/* Dialog procedure of Plat_TreeSelectDialog: fills the tree control on WM_INITDIALOG; on OK warns
+/* Dialog procedure of grimPlat_TreeDialog: fills the tree control on WM_INITDIALOG; on OK warns
    when nothing is picked. */
 
 undefined * __stdcall Plat_TreeSelectDialogProc(int a1,int a2,int a3,int a4)
@@ -725,8 +725,8 @@ undefined * __stdcall Plat_TreeSelectDialogProc(int a1,int a2,int a3,int a4)
 
 
 /* ---- 0x004886f0  Plat_InputDialogProc ---- */
-/* Dialog procedure of Plat_InputDialog: title/prompt/default text on WM_INITDIALOG, copies the edit
-   text into the caller buffer on OK. */
+/* Dialog procedure of grimPlat_InputDialog: title/prompt/default text on WM_INITDIALOG, copies the
+   edit text into the caller buffer on OK. */
 
 undefined * __stdcall Plat_InputDialogProc(int a1,int a2,int a3,int a4)
 

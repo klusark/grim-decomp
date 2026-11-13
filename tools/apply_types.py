@@ -51,6 +51,8 @@ def apply_struct(prog, s, log):
     fields = json.dumps([{"name": f[2], "type": f[1], "offset": f[0]} for f in s["fields"]])
     if DRY:
         return "would " + ("create" if have is None else "recreate")
+    for f in s["fields"]:
+        ensure_multidim(prog, f[1].replace(" ", ""), f"struct {s['name']}.{f[2]}", log)
     if have is not None and size == s["size"]:
         # rename / retype the fields in place and fill gaps with add_struct_field (which takes the undefined bytes at
         # its offset and moves nothing); recreating the type would detach its users
@@ -207,20 +209,28 @@ def apply_proto(prog, e, log):
         log.append(f"FAIL proto {e['addr']}: {str(r)[:200]}")
 
 
+def ensure_multidim(prog, type_name, what, log):
+    """The bridge parses one array dimension: for T[A][B] build T[B], then T[A][B] (Ghidra names it so), innermost
+    first. Needed before a global or a structure field takes such a type. False (and logged) on failure."""
+    dims = re.findall(r"\[(\d+)\]", type_name)
+    if len(dims) < 2 or DRY:
+        return True
+    base = re.sub(r"\[\d+\]", "", type_name).strip()
+    t = base
+    for d in reversed(dims):
+        r = g.post("create_array_type", program=prog, base_type=t, length=int(d))
+        if not g.ok(r):
+            log.append(f"FAIL {what}: array type {t}[{d}]: {str(r)[:200]}")
+            return False
+        t = t + "[" + d + "]" if t == base else re.sub(r"^(\w+)", lambda m: m.group(1) + "[" + d + "]", t)
+    return True
+
+
 def apply_global(prog, e, log):
     if DRY:
         return
-    dims = re.findall(r"\[(\d+)\]", e["type"])
-    if len(dims) > 1:
-        # the bridge parses one dimension: build T[B], then T[A][B] (Ghidra names it so), innermost first
-        t = re.sub(r"\[\d+\]", "", e["type"]).strip()
-        for d in reversed(dims):
-            r = g.post("create_array_type", program=prog, base_type=t, length=int(d))
-            if not g.ok(r):
-                log.append(f"FAIL global {e['addr']}: array type {t}[{d}]: {str(r)[:200]}")
-                return
-            t = t + "[" + d + "]" if t == re.sub(r"\[\d+\]", "", e["type"]).strip() else \
-                re.sub(r"^(\w+)", lambda m: m.group(1) + "[" + d + "]", t)
+    if not ensure_multidim(prog, e["type"], f"global {e['addr']}", log):
+        return
     r = g.post("apply_data_type", program=prog, address=e["addr"], type_name=e["type"])
     if not g.ok(r):
         log.append(f"FAIL global {e['addr']}: {str(r)[:200]}")

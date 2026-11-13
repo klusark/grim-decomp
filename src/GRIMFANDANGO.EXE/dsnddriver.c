@@ -102,8 +102,8 @@ void DsndDriver_module_shutdown(void)
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Opens DirectSound and the mixer and starts the periodic DSound_FillStreamBuffer timer Original
-   name dsn_initialize (the remaster's GrimFandango (Linux): slot 0 of the "SNDDRIVER=insane_dsnd"
+/* Opens DirectSound and the mixer and starts the periodic dsn_fill_thread timer Original name
+   dsn_initialize (the remaster's GrimFandango (Linux): slot 0 of the "SNDDRIVER=insane_dsnd"
    service table); was DsndDriver_Open. */
 
 int __cdecl dsn_initialize(int rate,int unused,void *mix)

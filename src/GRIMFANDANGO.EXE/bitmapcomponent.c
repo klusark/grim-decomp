@@ -8,7 +8,7 @@
 /* ---- 0x004960a0  BitmapRequester ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Costume tag handler for 'General Bitmap / Animation (old use Bitmap)' (registered by
-   sputCostume_Start through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a bitmap key or
+   sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a bitmap key or
    asks for an image file (.pcx/.gif/.lbm) and loads it as a bitmap resource. */
 
 undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
@@ -158,8 +158,9 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
 
 /* ---- 0x00496340  BitmapFreer ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Costume tag handler, slot 2 of the 'General Bitmap' / 'Animation (old use Bitmap)' tags: frees
-   the key data. (Was named SpriteComponent_Destroy; the tag table in sputCostume_Start pairs it
+   the key data. (Was named SpriteComponent_Destroy; the tag table in sputCostume_Startup pairs it
    with the bitmap tags.) Original name BitmapFreer (the remaster's GrimFandango (Linux): frees a
    bitmap component key (RecentBM, Res_RemoveReference, psputCosHS free)); was
    BitmapComponent_Destroy. */

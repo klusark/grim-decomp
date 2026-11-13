@@ -699,10 +699,11 @@ LAB_004ccb89:
 /* ---- 0x004ccd00  Blocky16_DecodeFrame ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Decodes one Blocky16 frame into the buffers g_pFob_blk16_render_buffer, g_pFob_blk16_delta_buffer and g_pFob_blk16_key_buffer using
-   g_stBlockyDecState, g_asBlockyMotion, g_aBlockySplit4 and g_aBlockySplit8 and gives it to the
-   output g_pFob_blit_routine; bitmaps g_pBlkBitmap0, g_pBlkBitmap1, g_pBlkBitmap2; tables
-   g_pbBlkExpand, g_nFob_translation_shiftr, g_nFob_translation_shiftg, g_nFob_translation_shiftb, g_pbBlkOutput, g_nBlkLastSeq */
+/* Decodes one Blocky16 frame into the buffers g_pFob_blk16_render_buffer, g_pFob_blk16_delta_buffer
+   and g_pFob_blk16_key_buffer using g_stBlockyDecState, g_asBlockyMotion, g_aBlockySplit4 and
+   g_aBlockySplit8 and gives it to the output g_pFob_blit_routine; bitmaps g_pBlkBitmap0,
+   g_pBlkBitmap1, g_pBlkBitmap2; tables g_pbBlkExpand, g_nFob_translation_shiftr,
+   g_nFob_translation_shiftg, g_nFob_translation_shiftb, g_pbBlkOutput, g_nBlkLastSeq */
 
 int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,byte *hdr,byte flags)
 

@@ -6,8 +6,8 @@
 #include "functions.h"
 
 /* ---- 0x0047db00  stdGif_Load ---- */
-/* stdBitmap_LoadFile loader for '.gif' (LZW through stdGif_LzwInitDecoder/DecodeNext, allocation
-   string Stdgif.c) */
+/* stdLoadImageData loader for '.gif' (LZW through stdGif_LzwInitDecoder/DecodeNext, allocation
+   string Stdgif.c); was named stdPcx_Load. */
 
 void * stdGif_Load(char *param_1,int param_2,int param_3)
 

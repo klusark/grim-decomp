@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x0047f120  stdLbm_Load ---- */
-/* stdBitmap_LoadFile loader for '.lbm' (IFF PBM: FORM, BMHD, BODY chunks; allocation string
+/* stdLoadImageData loader for '.lbm' (IFF PBM: FORM, BMHD, BODY chunks; allocation string
    Stdlbm.c). */
 
 void * stdLbm_Load(char *param_1,int param_2,int param_3)

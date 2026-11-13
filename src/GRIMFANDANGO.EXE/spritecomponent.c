@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00498280  SpriteRequester ---- */
-/* Costume tag handler for 'Sprite' (registered by sputCostume_Start through
+/* Costume tag handler for 'Sprite' (registered by sputCostume_Startup through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a sprite key; asks for a .mat file ('Select
    mat file for sprite') and creates the polyline. Original name SpriteRequester (the remaster's
    GrimFandango (Linux): strings: 'Select mat file for sprite...'); was SpriteComponent_Create. */
@@ -179,10 +179,10 @@ void SpriteChanger(undefined4 param_1,int param_2,undefined4 param_3,int param_4
 }
 
 /* ---- 0x00498580  SpriteFreer ---- */
-/* Costume tag handler, slot 2 of the 'Sprite' tag: frees the key data. (Was named
-   KeyframeComponent_Destroy.) Original name SpriteFreer (the remaster's GrimFandango (Linux): the
-   only unmatched caller of rdMaterial_Free; the only unmatched caller of rdSprite_Free; 2 matched
-   neighbours agree, 0 disagree); was SpriteComponent_Destroy. */
+/* Costume tag handler, slot 2 of the 'Sprite' tag: frees the key data. (Was named KeyframeFreer.)
+   Original name SpriteFreer (the remaster's GrimFandango (Linux): the only unmatched caller of
+   rdMaterial_Free; the only unmatched caller of rdSprite_Free; 2 matched neighbours agree, 0
+   disagree); was SpriteComponent_Destroy. */
 
 undefined4 SpriteFreer(undefined4 param_1,undefined4 param_2,int *param_3)
 
@@ -252,7 +252,7 @@ undefined4 * SpriteInstancer(int param_1,undefined4 *param_2,int param_3)
 /* ---- 0x004986e0  SpriteAdjuster ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Costume tag handler for 'Sprite' (registered by sputCostume_Start through
+/* Costume tag handler for 'Sprite' (registered by sputCostume_Startup through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the sprite's Width and Height.
    Original name SpriteAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d,%d,%d,%d,%d');
    was SpriteComponent_EditKey. */

@@ -56,16 +56,7 @@ void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
 /* ---- 0x00451510  rdLight_CalcVertexIntensities ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Per-vertex light level (monochrome, light colour unused). out[v] = base[v] + sum over lights,
-   clamped to <= 1 after each light (stops at 1). Returns the mean.
-   Lights culled when dist >= light+0x34 (= intensity / 0.2). k = camera+0x45c = 0.2
-   (rdCamera_Init).
-   type 0/1 direct: I * dot(n, -dir) if > 0.
-   type 2 omni: (I - k*dist) * dot(n, L) if > 0.
-   type 3 spot: c = dot(-dir, L); if c > cosOuter(+0x2c): I' = I, or I * (1 - (cosInner(+0x24) - c)
-   * invRange(+0x30)) when c < cosInner; adds (I' - k*dist) * dot(n, -dir) UNCLAMPED (uses the spot
-   axis, not L).
-   L = normalised light pos - vertex (model space), -dir = negated beam direction. */
+/* Accumulates the intensity of every light (type, radius, direction) at each vertex position */
 
 float __cdecl
 rdLight_CalcVertexIntensities
