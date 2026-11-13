@@ -15,6 +15,7 @@ Everything here is off unless its environment variable is set, so a normal run o
 | `smushtime`: movies on game time | the GRIM_SIMTIME block of `../overrides_mixer_drv.c` | `GRIM_SIMTIME` (off: `GRIM_SMUSH_REALTIME=1`) |
 | `imusetime`: music and sound on game time | the GRIM_SIMTIME block of `../overrides.c`; iMUSE's `timeGetTime` is wrapped in `cleanroom.c` | `GRIM_SIMTIME` (off: `GRIM_IMUSE_REALTIME=1`) |
 | (an assert writes its text to the log and crashes, instead of a message box that waits) | `cleanroom.c` wraps `stdPlatform_Assert` | `GRIM_DEBUGLOG` set |
+| (key presses without the focus: `PrintDebug("CRKEY:<DIK code> <1 down / 0 up>")`, applied by the next frame's keyboard poll; this build only) | `cleanroom.c` wraps `stdControl_ReadControls` | `GRIM_DEBUGLOG` set |
 | `windowed` | the build is windowed by default (`Win_CreateMainWindow` in `../overrides.c`) | (none) |
 | (drawing behind other windows) | `../overrides.c` | `GRIM_ACTIVE=1` |
 

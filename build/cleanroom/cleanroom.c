@@ -382,6 +382,53 @@ int __wrap_Reg_SetBinary(char *name, void *data, int size)
 
 /* ---- PrintDebug("CRSNAP:<file>"): a picture of the screen (sputRender_SaveDrawBuffer, the Backspace+S debug key) ---- */
 
+/* PrintDebug("CRKEY:<key> <0|1>") (GRIM_DEBUGLOG set): the keyboard poll of the next frame gets that DirectInput event (key
+ * = DIK scan code, 1 down, 0 up), as if the key had been pressed or let go, whether or not the window has the focus. The
+ * rest of the way is the game's own: the key records, the control handlers (system.buttonHandler), GetControlState. A test
+ * aid of this build only (the original has no such patch). */
+/* WRAPS: stdControl_ReadControls */
+extern void __real_stdControl_ReadControls(void);
+extern int g_nInputAcquired;
+extern unsigned g_dwCurReadTime, UINT_00804020;
+static unsigned cr_keys[32][2];
+static int cr_nkeys, cr_keys_used;
+static void cr_key_queue(const char *s)
+{
+    char *end;
+    unsigned key = (unsigned)strtod(s, &end);
+    if (cr_nkeys < 32 && key < 0x100) {
+        cr_keys[cr_nkeys][0] = key;
+        cr_keys[cr_nkeys][1] = strtod(end, 0) != 0 ? 0x80 : 0;
+        cr_nkeys++;
+        cr_keys_used = 1;
+    }
+}
+void __wrap_stdControl_ReadControls(void)
+{
+    int i;
+    if (cr_keys_used)
+        g_nInputAcquired = 1;   /* (unacquired without the focus: then nothing is read at all) */
+    __real_stdControl_ReadControls();
+    for (i = 0; i < cr_nkeys; i++) {   /* as input_key_event (../overrides_asm_o2.c) with the frame's time */
+        unsigned *e = &UINT_00804020 + cr_keys[i][0] * 7, value = cr_keys[i][1], time = g_dwCurReadTime;
+        if (value == e[0]) {
+            if (value != 0)
+                e[2] = time;
+            continue;
+        }
+        if (value != 0 && time - e[2] < 200)
+            e[4] = 1;
+        e[0] = value;
+        e[1] = time;
+        if (value != 0) {
+            e[3] = e[3] + 1;
+            e[-2] = value;
+            e[2] = time;
+        }
+    }
+    cr_nkeys = 0;
+}
+
 void __wrap_Lua_Print_NoOp(void)
 {
     if (getenv("GRIM_DEBUGLOG")) {
@@ -390,6 +437,10 @@ void __wrap_Lua_Print_NoOp(void)
             char *s = lua_getstring(arg);
             if (!strncmp(s, "CRSNAP:", 7)) {
                 sputRender_SaveDrawBuffer(s + 7);
+                return;
+            }
+            if (!strncmp(s, "CRKEY:", 6)) {
+                cr_key_queue(s + 6);
                 return;
             }
         }
