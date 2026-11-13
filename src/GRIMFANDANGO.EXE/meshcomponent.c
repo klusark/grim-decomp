@@ -26,8 +26,6 @@ void MeshChanger(undefined4 param_1,int *param_2,undefined4 param_3,int param_4)
 }
 
 /* ---- 0x00496d70  MeshInstancer ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Costume tag handler, slot 5 of the 'RDroid Thing Mesh' tag: per-instance data of a mesh
    component. (Was named SpriteComponent_NewInstance.) Original name MeshInstancer (the remaster's
    GrimFandango (Linux): the same handler slot (instancer) of the same costume tag registration in
@@ -57,8 +55,6 @@ int * __cdecl MeshInstancer(int inst,int component,int create)
   return piVar3;
 }
 #undef auStack_4
-
-#endif
 
 
 /* ---- 0x00496e10  MeshStopper ---- */

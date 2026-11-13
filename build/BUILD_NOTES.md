@@ -1381,3 +1381,28 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
 * `make -j14` sometimes fails every file with ccache "execute_noreturn of gcc failed" (process creation); -j8 and a
   rerun work.
 
+
+## Override sweep: hand-written functions generated again (2026-11-13)
+
+* Candidates: overrides whose decompiled twin shows no failure marker (`in_stack_`, `unaff_`, `extraout_`, `CONCAT`,
+  `_ftol`, warnings). Each was disabled, built from the generated text and run through the clean room, and its
+  generated text was read against the hand-written one: the clean room does not reach every path.
+* **Generated now (30):** EXE PolyglotConfigure, SoundChanger, ThingAdjuster, sputLua_GetDiskFreeSpaceL,
+  sputPrimitive_ChangePrimitive, sputResource_FontHandler, stdColor_ColorConvertOnePixel (overrides_logic.c);
+  sputLua_SetCameraFOVL, sputLua_Test, sputLua_ShrinkBoxes, sputLua_UnShrinkBoxes, Keyframe/Colormap/MeshInstancer,
+  stdFGetc, stdFPutc, FileUtil_SysRestore, Res_SysSave, sputPrimitive_Save / Restore (overrides_exe.c); CHORE
+  Cos_New{StateBased,Int,Float}Tag, CosUtil_ComponentInfo, Cos_Save, Cos_Restore (overrides_logic_chore.c, removed),
+  Cos_Read{Tags,Chores,Keys,Components}Section (overrides_asm_o2_chore.c). Clean room 0 of 5327 differ.
+  Most were hand-written because they pass the address of a parameter slot as a call's output; the types rounds made
+  Ghidra print those as plain `&param` uses, which is valid C.
+* **Kept, generated text still wrong:** Palette_FromFloatTable (`_CIpow()` with an empty x87 stack; passes the clean
+  room, gamma is never set), stdDisplay_VBufferNew (palette argument and the allocations' file / line lost; the video
+  memory path is not run), sputLua_GetShrinkPosition (the position split into float[2] + z, so z never reaches the
+  frame), Collision_PointInBox (TestCollision with 3 of 10 arguments, BuildPath with none: walk tests crash),
+  sputActor_AlignToPuck (float compares, NaN taken the other way), Math_Floor / rdVector_Normalize3 and the
+  overrides_cleanroom.c math (x87 rounding), sputActor_DrawToClean and res_FindInternalFile (the
+  sputRender_SetPaletteFunc and res_FindDirectoryEntry prototypes in Ghidra), the iMUSE candidates (sound tests crash;
+  docs/notes/imuse*.md give the reasons) and the renderer functions of overrides_logic.c (draw tests crash).
+* Not swept: the rasteriser rounds (overrides_asm_*.c), whose differential tests in build/difftest/ are the oracle
+  (the clean room only logs the box of the bright pixels), and overrides.c / overrides_mixer*.c, which carry host
+  changes.

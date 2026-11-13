@@ -27,8 +27,6 @@ undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2)
 }
 
 /* ---- 0x00489600  sputPrimitive_Save ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Module interface slot 4 (sputPrimitive): save-game writer, calls the SaveGame_Write callback it
    is handed for every field. Original name sputPrimitive_Save (the remaster's GrimFandango (Linux):
    aligned call in sputPrimitive_Initialize); was sputPrimitive_SaveState. */
@@ -64,12 +62,8 @@ undefined4 sputPrimitive_Save(code *param_1)
 }
 #undef local_4
 
-#endif
-
 
 /* ---- 0x004896b0  sputPrimitive_Restore ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Module interface slot 5 (sputPrimitive): save-game reader, calls the SaveGame_Read callback it is
    handed; returns non-zero on a short read. Original name sputPrimitive_Restore (the remaster's
    GrimFandango (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_RestoreState.
@@ -134,8 +128,6 @@ undefined4 sputPrimitive_Restore(code *param_1)
 #undef uStack_4
 #undef uStack_8
 #undef uStack_c
-
-#endif
 
 
 /* ---- 0x004897d0  sputPrimitive_Terminate ---- */

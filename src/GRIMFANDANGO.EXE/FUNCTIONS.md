@@ -83,9 +83,9 @@
 | 00497830 | Lua_Stub | lua.c | 10 |
 | 00498d80 | sputLua_GetMemoryUsageL | lua.c | 19 |
 | 00498da0 | sputLua_GetDiskFreeSpaceL | lua.c | 18 |
-| 00498e20 | sputLua_Test | lua.c | 1 |
-| 00498e50 | sputLua_ShrinkBoxes | lua.c | 1 |
-| 00498e90 | sputLua_UnShrinkBoxes | lua.c | 1 |
+| 00498e20 | sputLua_Test | lua.c | 9 |
+| 00498e50 | sputLua_ShrinkBoxes | lua.c | 20 |
+| 00498e90 | sputLua_UnShrinkBoxes | lua.c | 10 |
 | 00498ea0 | sputLua_GetShrinkPosition | lua.c | 1 |
 | 00499000 | sputLua_SetSoundParametersL | lua.c | 101 |
 | 004991c0 | sputLua_GetSoundParametersL | lua.c | 39 |
@@ -226,7 +226,7 @@
 | 0049f690 | sputLua_GetActorNodeLocationL | lua.c | 66 |
 | 0049f810 | sputLua_GetActorScaleL | lua.c | 22 |
 | 0049f860 | sputLua_GetActorTimeScaleL | lua.c | 26 |
-| 0049f8d0 | sputLua_SetCameraFOVL | lua.c | 1 |
+| 0049f8d0 | sputLua_SetCameraFOVL | lua.c | 23 |
 | 0049f930 | sputLua_SetCameraRollL | lua.c | 29 |
 | 0049f9b0 | sputLua_GetCameraLookVectorL | lua.c | 55 |
 | 0049fb00 | sputLua_PointActorAtL | lua.c | 61 |
@@ -1038,8 +1038,8 @@
 | 00473500 | stdFseek | stdfileutil.c | 9 |
 | 00473520 | stdFileSize | stdfileutil.c | 19 |
 | 00473570 | stdFilePrintf | stdfileutil.c | 13 |
-| 004735f0 | stdFGetc | stdfileutil.c | 1 |
-| 00473610 | stdFPutc | stdfileutil.c | 1 |
+| 004735f0 | stdFGetc | stdfileutil.c | 9 |
+| 00473610 | stdFPutc | stdfileutil.c | 9 |
 | 00473a00 | LzssDecompress | stdfileutil.c | 17 |
 | 00473b60 | stdCompress_DecompressLoop | stdfileutil.c | 85 |
 | 004c1170 | stdFileUtil_NewFind | stdfileutil.c | 156 |
@@ -1224,7 +1224,7 @@
 | 004800a0 | Res_SysTerminate | resource.c | 11 |
 | 004800b0 | Res_SysStartup | resource.c | 20 |
 | 00480140 | Res_SysShutdown | resource.c | 23 |
-| 00482260 | Res_SysSave | resource.c | 1 |
+| 00482260 | Res_SysSave | resource.c | 66 |
 | 00482380 | Res_SysLoad | resource.c | 58 |
 | 0048d340 | Resource_SetNoPurge | resource.c | 6 |
 | 0048d350 | sputResource_Alloc | resource.c | 29 |
@@ -1530,7 +1530,7 @@
 | 00488cf0 | FileUtil_SysStartup | fileutil.c | 16 |
 | 00488d20 | FileUtil_SysShutdown | fileutil.c | 10 |
 | 00488d30 | FileUtil_SysSave | fileutil.c | 20 |
-| 00488d80 | FileUtil_SysRestore | savefile.c | 1 |
+| 00488d80 | FileUtil_SysRestore | savefile.c | 24 |
 | 004c3e40 | SaveFile_Open | savefile.c | 10 |
 | 00488de0 | DirScan_Create | dirscan.c | 34 |
 | 00488e70 | DirScan_Destroy | dirscan.c | 13 |
@@ -1581,8 +1581,8 @@
 | 0048ab50 | PrimitiveQueue_markDirty | primitives.c | 47 |
 | 0048abc0 | PrimitiveQueue_resetId | primitives.c | 9 |
 | 00489580 | sputPrimitive_Initialize | sputprimitive.c | 19 |
-| 00489600 | sputPrimitive_Save | sputprimitive.c | 1 |
-| 004896b0 | sputPrimitive_Restore | sputprimitive.c | 1 |
+| 00489600 | sputPrimitive_Save | sputprimitive.c | 35 |
+| 004896b0 | sputPrimitive_Restore | sputprimitive.c | 65 |
 | 004897d0 | sputPrimitive_Terminate | sputprimitive.c | 13 |
 | 004897f0 | sputPrimitive_Startup | sputprimitive.c | 15 |
 | 00489820 | sputPrimitive_Shutdown | sputprimitive.c | 11 |
@@ -1708,7 +1708,7 @@
 | 00496060 | BitmapChanger | component.c | 12 |
 | 004960a0 | BitmapRequester | bitmapcomponent.c | 149 |
 | 00496340 | BitmapFreer | bitmapcomponent.c | 16 |
-| 00496370 | ColormapInstancer | cmapcomponent.c | 1 |
+| 00496370 | ColormapInstancer | cmapcomponent.c | 45 |
 | 00496460 | ColormapRequester | cmapcomponent.c | 52 |
 | 00496580 | ColormapFreer | cmapcomponent.c | 11 |
 | 004965b0 | MaterialInstanceSaveLoad | cmapcomponent.c | 1 |
@@ -1722,7 +1722,7 @@
 | 00496b60 | ThingRequester | modelcomponent.c | 83 |
 | 00496d10 | ThingFreer | modelcomponent.c | 11 |
 | 00496d40 | MeshChanger | meshcomponent.c | 18 |
-| 00496d70 | MeshInstancer | meshcomponent.c | 1 |
+| 00496d70 | MeshInstancer | meshcomponent.c | 30 |
 | 00496e10 | MeshStopper | meshcomponent.c | 11 |
 | 00496e20 | MeshRequester | meshcomponent.c | 156 |
 | 00497180 | MeshAdjuster | meshcomponent.c | 11 |
@@ -1739,7 +1739,7 @@
 | 00497840 | IMuseRequester | imuseintcomponent.c | 22 |
 | 00497890 | KeyframeChanger | keyframecomponent.c | 148 |
 | 00497cb0 | sputCostume_PuppetHook | keyframecomponent.c | 20 |
-| 00497d10 | KeyframeInstancer | keyframecomponent.c | 1 |
+| 00497d10 | KeyframeInstancer | keyframecomponent.c | 42 |
 | 00497e10 | KeyframeRequester | keyframecomponent.c | 92 |
 | 00498000 | KeyframeAdjuster | keyframecomponent.c | 39 |
 | 004980b0 | KeyframeFreer | keyframecomponent.c | 13 |
