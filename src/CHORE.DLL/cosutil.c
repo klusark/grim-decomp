@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x10001110  CosUtil_Write ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export (costume editor): writes `pCostume` as a text costume file: the save hook
    (Cos_RegisterSaveHook) may refuse; then the file is created ('wt+'), the costume renamed after
    the file name, and '# comment', 'costume v0.1', 'section tags' (Cos_CollectUsedTags), 'section
@@ -258,8 +256,6 @@ LAB_1000167e:
 #undef uStack_28
 #undef uStack_c
 
-#endif
-
 
 /* ---- 0x10002020  CosUtil_CompPtrFromHandle ---- */
 /* Export: component `compNum` of the costume, 0 when out of range. */
@@ -317,8 +313,6 @@ void * __cdecl CosUtil_RegisterBitmapMunger(void *munger)
 }
 
 /* ---- 0x10002260  CosUtil_DeleteComponent ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export (costume editor): deletes component `compNum` and all its descendants: the hashes of later
    components with the same tag and name are renumbered, the component array is compacted and the
    parent indices remapped, the chore tracks of the deleted components and their keys are freed, and
@@ -543,8 +537,6 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
   return 1;
 }
 #undef piStack_c
-
-#endif
 
 
 /* ---- 0x100026a0  CosUtil_AdjustComponent ---- */
@@ -941,8 +933,6 @@ ChoreKey * __cdecl CosUtil_QueryValueAtTime(Costume *pCostume,uint choreNum,uint
 }
 
 /* ---- 0x10002cf0  CosUtil_AddFSKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export (costume editor): adds or replaces a key of a state-based component (Cos_AddKey); 0 for
    another tag kind. */
 
@@ -962,12 +952,8 @@ int __cdecl CosUtil_AddFSKey(Costume *pCostume,uint choreNum,int compNum,uint ti
   pCVar1->nValue = value;
   return 1;
 }
-#endif
-
 
 /* ---- 0x10002d50  CosUtil_AddIntKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export (costume editor): adds or replaces a key of an int component (Cos_AddKey); 0 for another
    tag kind. */
 
@@ -987,12 +973,8 @@ int __cdecl CosUtil_AddIntKey(Costume *pCostume,uint choreNum,int compNum,uint t
   pCVar1->nValue = value;
   return 1;
 }
-#endif
-
 
 /* ---- 0x10002db0  CosUtil_AddFloatKey ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export (costume editor): adds or replaces a key of a float component (Cos_AddKey; the value is
    stored as its bits); 0 for another tag kind. */
 
@@ -1012,8 +994,6 @@ int __cdecl CosUtil_AddFloatKey(Costume *pCostume,uint choreNum,int compNum,uint
   pCVar1->nValue = value;
   return 1;
 }
-#endif
-
 
 /* ---- 0x10002e10  CosUtil_CountComponents ---- */
 /* Export: number of components of the costume. */

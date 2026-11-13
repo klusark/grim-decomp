@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x10001000  Cos_InstRescue ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export: points the costume instance `hInst` at the costume `hCostume` again (CosInstance +0),
    without rebuilding it; the EXE's actor update calls it with the current handle of the actor's
    costume resource. Returns g_aCostumeInstances when both handles are valid (the converted index
@@ -33,8 +31,6 @@ int __cdecl Cos_InstRescue(int hInst,int hCostume)
   }
   return (int)pCVar3;
 }
-#endif
-
 
 /* ---- 0x10001040  Cos_Free ---- */
 /* Export: frees the costume `hCostume`: every costume instance of it (Cos_FreeCosInstance), then
@@ -298,8 +294,6 @@ int __cdecl Cos_FreeCosInstance(int hInst)
 }
 
 /* ---- 0x10001a80  Cos_CreateCosInstance ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export: creates a costume instance (CosInstance) of the costume `hCostume` for the EXE's actor
    (`userData`): chore states (assert 'pInstance->aChoreInstances != NULL', Cos_InitChoreInstances),
    the instance data array initialised from each component's data (assert 'pInstance->aInstanceData
@@ -460,8 +454,6 @@ joined_r0x10001cd0:
   } while( true );
 }
 #undef uStack_c
-
-#endif
 
 
 /* ---- 0x10001d70  Cos_InstGetInstanceData ---- */
@@ -691,8 +683,6 @@ uint __cdecl Cos_NewFloatTag(uint id,uint name,uint unused,uint *handlers,int ex
 
 
 /* ---- 0x10002080  Cos_RegisterComponent ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export, called back by a tag's Create handler: appends a component to the costume: tag `tagId`,
    the EXE's component data `data`, parent = the component with tag `parentTagId` and data
    `parentData` (0 for a root; an unknown tag or parent refuses), the state description `pStates`
@@ -773,12 +763,8 @@ Cos_RegisterComponent
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x100021f0  Cos_RemoveComponent ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export: deletes the component with tag `tagId` and component data `data`
    (CosUtil_DeleteComponent). */
 
@@ -809,8 +795,6 @@ int __cdecl Cos_RemoveComponent(int hCostume,int tagId,int data)
   }
   return (int)pCVar1;
 }
-#endif
-
 
 /* ---- 0x10002ee0  Cos_InstCountComponents ---- */
 /* Export: number of components of the instance's costume. */
@@ -2505,8 +2489,6 @@ void __cdecl Cos_InitChoreInstances(Chore *pChores,ChoreInstance *pChoreInstance
 }
 
 /* ---- 0x10004c70  Cos_FreeCostume ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Frees everything a costume owns: each component (Cos_FreeComponent: the tag's Destroy handler and
    the state arrays), the component array, every chore's track keys and tracks, the chore array;
    then marks the costume slot free (+0x38 = 1) without changing g_nCostumes (see
@@ -2563,8 +2545,6 @@ void __cdecl Cos_FreeCostume(int hCostume)
   return;
 }
 #undef uStack_4
-
-#endif
 
 
 /* ---- 0x10004d70  Cos_FreeComponent ---- */
@@ -2696,8 +2676,6 @@ uint __cdecl Cos_AllocTagSlot(void)
 }
 
 /* ---- 0x10004f70  Cos_FreeInstanceData ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Releases a costume instance record (CosInstance, 0x14 bytes) that is in use: calls each component
    tag's NewInstance handler (ComponentTag +0x40, slot 5) with create = 0, frees the chore states
    and the instance data array and marks the record free (costume -1, +0x10 = 1). */
@@ -2766,8 +2744,6 @@ joined_r0x10005011:
   }
   return;
 }
-#endif
-
 
 /* ---- 0x10005090  Cos_AllocInstanceSlot ---- */
 /* replaced by the hand-written version in build/overrides.c */

@@ -4,14 +4,14 @@
 
 | address | name | module | lines |
 |---|---|---|---|
-| 10001000 | Cos_InstRescue | costume.c | 1 |
+| 10001000 | Cos_InstRescue | costume.c | 25 |
 | 10001040 | Cos_Free | costume.c | 35 |
 | 100010d0 | Cos_NewEntry | costume.c | 18 |
 | 100016a0 | Cos_New | costume.c | 17 |
 | 100016e0 | Cos_Load | costume.c | 40 |
 | 10001770 | Cos_LoadEntry | costume.c | 1 |
 | 10001a30 | Cos_FreeCosInstance | costume.c | 18 |
-| 10001a80 | Cos_CreateCosInstance | costume.c | 1 |
+| 10001a80 | Cos_CreateCosInstance | costume.c | 161 |
 | 10001d70 | Cos_InstGetInstanceData | costume.c | 22 |
 | 10001e00 | Cos_RegisterInstanceHook | costume.c | 12 |
 | 10001e10 | Cos_RegisterSaveHook | costume.c | 13 |
@@ -21,8 +21,8 @@
 | 10001ed0 | Cos_NewTagEntry | costume.c | 49 |
 | 10001f80 | Cos_NewIntTag | costume.c | 1 |
 | 10001fd0 | Cos_NewFloatTag | costume.c | 1 |
-| 10002080 | Cos_RegisterComponent | costume.c | 1 |
-| 100021f0 | Cos_RemoveComponent | costume.c | 1 |
+| 10002080 | Cos_RegisterComponent | costume.c | 80 |
+| 100021f0 | Cos_RemoveComponent | costume.c | 30 |
 | 10002ee0 | Cos_InstCountComponents | costume.c | 16 |
 | 10002f20 | Cos_InstComponentInfo | costume.c | 14 |
 | 10002f70 | Cos_InstCountChores | costume.c | 11 |
@@ -61,11 +61,11 @@
 | 10004970 | Cos_ReadKeysSection | costume.c | 1 |
 | 10004bb0 | Cos_ReadLine | costume.c | 37 |
 | 10004c40 | Cos_InitChoreInstances | costume.c | 22 |
-| 10004c70 | Cos_FreeCostume | costume.c | 1 |
+| 10004c70 | Cos_FreeCostume | costume.c | 57 |
 | 10004d70 | Cos_FreeComponent | costume.c | 50 |
 | 10004e50 | Cos_AllocCostumeSlot | costume.c | 1 |
 | 10004f30 | Cos_AllocTagSlot | costume.c | 16 |
-| 10004f70 | Cos_FreeInstanceData | costume.c | 1 |
+| 10004f70 | Cos_FreeInstanceData | costume.c | 68 |
 | 10005090 | Cos_AllocInstanceSlot | costume.c | 1 |
 | 10005160 | Cos_HandleToIndex | costume.c | 11 |
 | 10005180 | Cos_IndexToHandle | costume.c | 10 |
@@ -75,12 +75,12 @@
 | 10005200 | Cos_Startup | costume.c | 60 |
 | 10005350 | Cos_Shutdown | costume.c | 24 |
 | 10005590 | Cos_RegisterSaveVerify | costume.c | 10 |
-| 10001110 | CosUtil_Write | cosutil.c | 1 |
+| 10001110 | CosUtil_Write | cosutil.c | 250 |
 | 10002020 | CosUtil_CompPtrFromHandle | cosutil.c | 11 |
 | 10002040 | CosUtil_PtrFromHandle | cosutil.c | 11 |
 | 10002060 | CosUtil_RegisterCompNotifier | cosutil.c | 13 |
 | 10002070 | CosUtil_RegisterBitmapMunger | cosutil.c | 12 |
-| 10002260 | CosUtil_DeleteComponent | cosutil.c | 1 |
+| 10002260 | CosUtil_DeleteComponent | cosutil.c | 225 |
 | 100026a0 | CosUtil_AdjustComponent | cosutil.c | 32 |
 | 10002740 | CosUtil_ComponentHasAdjuster | cosutil.c | 26 |
 | 100027e0 | CosUtil_AddComponent | cosutil.c | 46 |
@@ -90,9 +90,9 @@
 | 10002ab0 | CosUtil_NameChore | cosutil.c | 44 |
 | 10002b40 | CosUtil_DeleteKey | cosutil.c | 57 |
 | 10002c50 | CosUtil_QueryValueAtTime | cosutil.c | 54 |
-| 10002cf0 | CosUtil_AddFSKey | cosutil.c | 1 |
-| 10002d50 | CosUtil_AddIntKey | cosutil.c | 1 |
-| 10002db0 | CosUtil_AddFloatKey | cosutil.c | 1 |
+| 10002cf0 | CosUtil_AddFSKey | cosutil.c | 19 |
+| 10002d50 | CosUtil_AddIntKey | cosutil.c | 19 |
+| 10002db0 | CosUtil_AddFloatKey | cosutil.c | 19 |
 | 10002e10 | CosUtil_CountComponents | cosutil.c | 12 |
 | 10002e40 | CosUtil_ComponentInfo | cosutil.c | 1 |
 | 10002fa0 | CosUtil_CountChores | cosutil.c | 8 |

@@ -120,7 +120,11 @@ and wrote to its current program, the EXE, which `switch_program` did not change
 bridge's `prefix_type_mismatch` like `name_quality`, re-applies an existing label without failing and sets a data
 plate comment with `set_comment` (`set_plate_comment` only takes functions).
 
-## Stack purge: why 11 functions are hand-written now (build/overrides_chore_naming.c)
+## Stack purge: why 11 functions were hand-written (build/overrides_chore_naming.c, removed 2026-11-13)
+
+**Resolved 2026-11-13:** the purges were set from the RET instruction with `run_script_inline` (104 DLL functions,
+BUILD_NOTES "Stack purges"); the generated text of the 11 functions has no `in_stack_` reads any more, the file is
+gone and the clean-room suite gives 0 of 5327 differences. The section below is the history.
 
 Locking the prototypes (names/chore_types.json, all `__cdecl`, correct parameter counts) broke the decompilation of
 the *callers* of some of them: Ghidra now reads their parameters after such a call at the wrong stack offset
