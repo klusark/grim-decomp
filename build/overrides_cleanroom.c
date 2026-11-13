@@ -154,119 +154,12 @@ float stdMath_ArcTan4(float y, float x)
     return c;
 }
 
-/* sputActor_DrawToClean (0x4937c0, Lua ActorToClean): draws the actor's costumes into the clean background with the colormap of
- * the actor (or of the set). The original pushes (colormap + 0x30, 0) for sputRender_SetPaletteFunc, which takes no
- * arguments and returns the palette callback (0x8c97b8), then calls that callback with the same two words still on the
- * stack (CALL EAX; ADD ESP,8). The decompiled C passed the two words to sputRender_SetPaletteFunc and called the callback
- * with none, so it read whatever was on the stack. */
-void __cdecl sputActor_DrawToClean(Actor *actor_)
-{
-    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
-    void *actor = (void *)actor_;
-    int setup, bg, cmap, scale[3];
-    void *set;
-    int *pal;
-    uint savedZ, savedBg;
-
-    set = sputRoom_GetCurrentRoom();
-    setup = *(int *)((int)set + 0xac) + *(int *)((int)set + 0xb4) * 300;
-    bg = *(int *)(*(int *)(setup + 0x48) + 4);
-    if (bg == 0)
-        return;
-    savedZ = *(uint *)(bg + 0x10);
-    savedBg = *(uint *)(bg + 4);
-    *(uint *)(*(int *)(*(int *)(setup + 0x48) + 4) + 4) = sputRender_CleanArtBuffer();
-    *(uint *)(*(int *)(*(int *)(setup + 0x48) + 4) + 0x10) = sputRender_CleanZBuffer();
-    pal = *(int **)actor;
-    if (*pal == 0) {   /* no colormap of its own: the set's */
-        set = sputRoom_GetCurrentRoom();
-        pal = (int *)(*(int *)((int)set + 0x80) + *(int *)((int)set + 0x88) * 0x34);
-        if (*pal == 0)
-            (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
-        rdroid_SetColormap(pal[1]);
-        set = sputRoom_GetCurrentRoom();
-        pal = (int *)(*(int *)((int)set + 0x80) + *(int *)((int)set + 0x88) * 0x34);
-        if (*pal == 0)
-            (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
-    } else {
-        rdroid_SetColormap(pal[1]);
-        pal = *(int **)actor;
-        if (*pal == 0)
-            (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090, s_main_sputResource_h_004e80a8, 0x9f);
-    }
-    cmap = pal[1];
-    ((void (*)(int, int))sputRender_SetPaletteFunc())(cmap + 0x30, 0);
-    if (*(int *)((int)actor + 0x30) != 0x3f800000) {
-        scale[0] = scale[1] = scale[2] = *(int *)((int)actor + 0x30);
-        rdMatrix_PreScale34(sputActor_GetOrientMatrix(actor), (undefined4)scale);
-    }
-    sputCostume_Draw3D(*(undefined4 *)((int)actor + 0xa0), (undefined4)sputActor_GetOrientMatrix(actor));
-    *(undefined4 *)((int)actor + 0x34) = 0;
-    rdCache_Flush();
-    *(uint *)(*(int *)(*(int *)(setup + 0x48) + 4) + 4) = savedBg;
-    *(uint *)(*(int *)(*(int *)(setup + 0x48) + 4) + 0x10) = savedZ;
-}
-
 /* res_FindDirectoryEntry (0x481cf0): a directory opened as an archive: finds `name` (lower case, with its hash) in the file
  * list LabDir_Open made (entries of {hash, name, -} from dir + 0x118), remembers the hit in the 16-entry cache, and fills
  * the entry: type, the name at +0x14, the path "<dir>\<name>" at +0x115, not in an archive (+4 = 0), the file size
  * (+8), offset and flag 0. Written from the machine code; before res_FindInternalFile passed its arguments this was never
  * reached with a valid hash, and the decompiled C of it misread entries (grim_tools/cleanroom save_load, tp_*). */
 extern int GRIM_host_sprintf(char *, const char *, ...) __asm__("_sprintf");
-undefined4 res_FindDirectoryEntry(int param_1, undefined4 param_2, byte *param_3, int param_4, undefined4 *param_5)
-{
-    int *e = *(int **)(param_1 + 0x118);
-    uint n;
-
-    if (e == 0)
-        return 0;
-    for (; e[1] != 0; e += 3) {
-        const byte *a, *b;
-        if (e[0] != param_4)
-            continue;
-        for (a = param_3, b = (const byte *)e[1]; *a == *b && *a != 0; a++, b++)
-            ;
-        if (*a == *b) {
-            *(int **)((int)&g_aFoundFiles + g_dwLastFound * 4) = e;
-            *(int *)((int)&g_aFoundFileNodes + g_dwLastFound * 4) = param_1;
-            g_dwLastFound = (g_dwLastFound + 1) & 0xf;
-            break;
-        }
-    }
-    if (e[1] == 0)
-        return 0;
-    n = __builtin_strlen((const char *)param_3) + 1;
-    memmove((char *)param_5 + 0x14, param_3, n);
-    *param_5 = param_2;
-    GRIM_host_sprintf((char *)param_5 + 0x115, (const char *)IMG_ADDR(0x004e7af8), (char *)(param_1 + 8), (char *)param_3);
-    param_5[1] = 0;
-    param_5[2] = (undefined4)(*(code **)(g_dwLowLevelHS + 0x50))((char *)param_5 + 0x115);
-    param_5[3] = 0;
-    param_5[4] = 0;
-    return 1;
-}
-
-/* res_FindInternalFile (0x481630): looks the name up in every open archive, front to back. The original passes the same five
- * arguments (archive, 0, lower-case name, hash, entry) to Lab_FindEntry for a .LAB and to res_FindDirectoryEntry for a
- * directory opened as an archive; the decompiled C passed only three to res_FindDirectoryEntry, which then compared the
- * hash with garbage and never found a loose file: a name that is both loose in the working directory and in a .LAB
- * was read from the .LAB, where the original reads the loose file, the directory being in front of the archives
- * (grim_tools/cleanroom lab_dofile, docs/MODDING.md section 6). */
-int __cdecl res_FindInternalFile(char *name, void *outEntry)
-{
-    char lower[260];
-    uint hash = Res_HashName(name, lower);
-    int *lab, found = 0;
-
-    for (lab = g_pResFileList; lab != 0 && found == 0; lab = (int *)*lab) {
-        if ((*(byte *)((int)lab + 0x114) & 2) == 0)
-            found = res_FindDirectoryEntry((int)lab, 0, (byte *)lower, (int)hash, (undefined4 *)outEntry);
-        else
-            found = Lab_FindEntry(lab, 0, lower, hash, outEntry);
-    }
-    return found;
-}
-
 /* WalkPlane_ClosestPoint (0x4a6b30, __thiscall sector, point): moves `pt` onto the sector's edge it is outside of (for each
  * edge prev -> cur with the point on its outer side, the foot of the perpendicular; clamped to the edge's ends). The
  * decompiled C rounded every intermediate to float and used C compares; the original keeps the distance, the edge

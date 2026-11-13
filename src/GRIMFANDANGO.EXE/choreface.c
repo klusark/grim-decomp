@@ -13,7 +13,7 @@ int __cdecl ChoreFace_Toggle(int show)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  void *pvVar2;
   
   if (show == 0) {
     if (UINT_004f5a6c == 0) {
@@ -60,8 +60,8 @@ int __cdecl ChoreFace_Toggle(int show)
     return 0;
   }
 LAB_004021fb:
-  uVar2 = Win_GetMainHwnd();
-  (*(code *)UINT_004f5a70)(uVar2);
+  pvVar2 = Win_GetMainHwnd();
+  (*(code *)UINT_004f5a70)(pvVar2);
   return 1;
 }
 

@@ -677,7 +677,7 @@ void stdDisplay_Shutdown(void)
 int __cdecl Display_SelectDevice(int deviceIdx)
 
 {
-  undefined4 uVar1;
+  void *pvVar1;
   int iVar2;
   
   if (g_nDisplayDeviceOpen != 0) {
@@ -830,8 +830,8 @@ int __cdecl Display_SelectDevice(int deviceIdx)
     g_dwVideoModeCount = 10;
   }
   else if ((&UINT_00902d60)[deviceIdx * 0xa6] == 1) {
-    uVar1 = Win_GetMainHwnd();
-    iVar2 = DDraw_Create(uVar1);
+    pvVar1 = Win_GetMainHwnd();
+    iVar2 = DDraw_Create(pvVar1);
     if (iVar2 == 0) {
       return 0;
     }
@@ -869,9 +869,8 @@ void stdDisplay_Close(void)
 int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
 
 {
-  undefined4 hwnd;
-  int iVar1;
-  void *pvVar2;
+  void *pvVar1;
+  int iVar2;
   uint *mode;
   byte *palette_00;
   
@@ -886,9 +885,9 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
   g_dwStdDisplay_numDrawBuffers = 1;
   g_pVideoMode = &UINT_00901760 + modeIdx * 0x15;
   if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
-    pvVar2 = (void *)Win_GetMainHwnd();
-    pvVar2 = DIB_CreateSurface(g_pVideoMode,&UINT_007feae0,palette,pvVar2);
-    if (pvVar2 == (void *)0x0) {
+    pvVar1 = Win_GetMainHwnd();
+    pvVar1 = DIB_CreateSurface(g_pVideoMode,&UINT_007feae0,palette,pvVar1);
+    if (pvVar1 == (void *)0x0) {
       return 0;
     }
     g_dwStdDisplay_frontBuffer = 0;
@@ -906,9 +905,9 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
   else if (*(int *)((int)g_pDisplayDevice + 0x100) == 1) {
     mode = g_pVideoMode;
     palette_00 = palette;
-    hwnd = Win_GetMainHwnd();
-    iVar1 = DDraw_CreateSurfaces(hwnd,(int *)mode,palette_00);
-    if (iVar1 == 0) {
+    pvVar1 = Win_GetMainHwnd();
+    iVar2 = DDraw_CreateSurfaces(pvVar1,(int *)mode,palette_00);
+    if (iVar2 == 0) {
       return 0;
     }
   }
@@ -960,14 +959,16 @@ void stdDisplay_ClearMode(void)
 void Display_SuspendForDialog(void)
 
 {
-  undefined4 uVar1;
+  void *pvVar1;
   int iVar2;
+  undefined4 uVar3;
   
   if (((g_nDisplayDeviceOpen != 0) && (g_nDisplayModeOpen != 0)) &&
      (*(int *)((int)g_pDisplayDevice + 0x100) == 1)) {
+    uVar3 = 8;
     iVar2 = *(int *)g_pDirectDraw;
-    uVar1 = ((code *)Win_GetMainHwnd)(8);
-    iVar2 = (**(code_std **)(iVar2 + 0x50))(g_pDirectDraw,uVar1);
+    pvVar1 = Win_GetMainHwnd();
+    iVar2 = (**(code_std **)(iVar2 + 0x50))(g_pDirectDraw,pvVar1,uVar3);
     if (iVar2 == 0) {
       (**(code_std **)(*(int *)g_pDirectDraw + 0x28))(g_pDirectDraw);
     }
@@ -979,14 +980,16 @@ void Display_SuspendForDialog(void)
 void Display_ResumeAfterDialog(void)
 
 {
-  undefined4 uVar1;
+  void *pvVar1;
   int iVar2;
+  uint uVar3;
   
   if (((g_nDisplayDeviceOpen != 0) && (g_nDisplayModeOpen != 0)) &&
      (*(int *)((int)g_pDisplayDevice + 0x100) == 1)) {
     iVar2 = *(int *)g_pDirectDraw;
-    uVar1 = ((code *)Win_GetMainHwnd)(UINT_00803fb0);
-    iVar2 = (**(code_std **)(iVar2 + 0x50))(g_pDirectDraw,uVar1);
+    uVar3 = UINT_00803fb0;
+    pvVar1 = Win_GetMainHwnd();
+    iVar2 = (**(code_std **)(iVar2 + 0x50))(g_pDirectDraw,pvVar1,uVar3);
     if (iVar2 == 0) {
       std3D_PurgeTextureCache();
     }
@@ -2683,11 +2686,12 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
   uint uVar1;
   int iVar2;
   int *piVar3;
-  undefined4 uVar4;
+  void *pvVar4;
   int *unaff_ESI;
   uint unaff_EDI;
   undefined4 *puVar5;
   int *piVar6;
+  undefined4 uVar7;
   #define local_2dc (*(uint *)(_frame + (0x2f0 - 0x2dc)))
   #define uStack_2b4 (*(uint *)(_frame + (0x2f0 - 0x2b4)))
   #define uStack_2b0 (*(uint *)(_frame + (0x2f0 - 0x2b0)))
@@ -2724,9 +2728,10 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
     if (iVar2 != 0) {
       return (undefined *)0x1;
     }
+    uVar7 = 0x11;
     iVar2 = *(int *)local_2dc;
-    piVar3 = (int *)((code *)Win_GetMainHwnd)(0x11);
-    iVar2 = (**(code_std **)(iVar2 + 0x50))(local_2dc);
+    piVar3 = Win_GetMainHwnd();
+    iVar2 = (**(code_std **)(iVar2 + 0x50))(local_2dc,piVar3,uVar7);
     if (iVar2 == 0) {
       puVar5 = (undefined4 *)(_stkneg + 28);
       for (iVar2 = 0x5b; iVar2 != 0; iVar2 = iVar2 + -1) {
@@ -2751,11 +2756,12 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
       else {
         (&UINT_00902d68)[uVar1 * 0xa6] = 1;
       }
+      uVar7 = 8;
       (&UINT_00902d74)[uVar1 * 0xa6] = uStack_2b4;
       (&UINT_00902d78)[uVar1 * 0xa6] = uStack_2b0;
       iVar2 = *piVar3;
-      uVar4 = ((code *)Win_GetMainHwnd)(8);
-      iVar2 = (**(code_std **)(iVar2 + 0x50))(piVar3,uVar4);
+      pvVar4 = Win_GetMainHwnd();
+      iVar2 = (**(code_std **)(iVar2 + 0x50))(piVar3,pvVar4,uVar7);
       if (iVar2 == 0) {
         (**(code_std **)(*piVar6 + 8))(piVar6);
         g_dwStdDisplay_numDevices = g_dwStdDisplay_numDevices + 1;
@@ -3357,13 +3363,13 @@ void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hw
 void DIB_ReleaseSurface(void)
 
 {
-  int a1;
+  void *a1;
   uint a2;
   
   DeleteObject(UINT_00803fb4);
   a2 = UINT_00803f7c;
   a1 = Win_GetMainHwnd();
-  ReleaseDC(a1,a2);
+  ReleaseDC((int)a1,a2);
   DeleteDC(UINT_007f6498);
   return;
 }

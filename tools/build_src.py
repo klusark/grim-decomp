@@ -1148,7 +1148,7 @@ def fix_stdcall(code):
 # The game converts Lua numbers with `lua_getnumber(obj); _ftol();`: the float comes back in ST0 and _ftol
 # consumes it.  Ghidra prints the call as a statement and the _ftol argument as stack garbage
 #     lua_getnumber(iVar1);
-#     lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+#     lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));   (or _ftol(in_stack_00000000) with no saved register)
 # so the statement before a garbage `_ftol` call, when it is a call of a function that returns in ST0, is the value.
 _X87_NAMES = {}
 
@@ -1169,7 +1169,7 @@ def x87_float_names():
     return _X87_NAMES[CUR_PROG]
 
 
-FTOL_GARBAGE_RE = re.compile(r"^(?P<ind>[ \t]*)(?:(?P<lhs>[A-Za-z_]\w*) = )?_ftol\((?:\(double\)CONCAT44\([^;]*\))?\);[ \t]*$")
+FTOL_GARBAGE_RE = re.compile(r"^(?P<ind>[ \t]*)(?:(?P<lhs>[A-Za-z_]\w*) = )?_ftol\((?:\(double\)CONCAT44\([^;]*\)|in_stack_[0-9a-f]+)?\);[ \t]*$")
 PREV_CALL_RE = re.compile(r"^(?P<ind>[ \t]*)(?:(?P<v>[A-Za-z_]\w*) = )?(?P<f>[A-Za-z_]\w*)\((?P<a>.*)\);[ \t]*$")
 
 

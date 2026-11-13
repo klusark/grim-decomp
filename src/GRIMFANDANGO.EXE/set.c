@@ -60,7 +60,7 @@ void __cdecl grimlib_MakeCurrentSet(char *name)
    grimlib_MakeCurrentSetup (the remaster's GrimFandango (Linux): aligned call in grimlib_NextSetup,
    grimlib_PreviousSetup, sputLua_MakeCurrentSetupL); was Set_ChangeSetup. */
 
-void * grimlib_MakeCurrentSetup(uint param_1)
+void * __cdecl grimlib_MakeCurrentSetup(uint setup)
 
 {
   uint uVar1;
@@ -70,15 +70,15 @@ void * grimlib_MakeCurrentSetup(uint param_1)
   pvVar2 = sputRoom_GetCurrentRoom();
   uVar1 = *(uint *)((int)pvVar2 + 0xb0);
   pvVar3 = pvVar2;
-  if (uVar1 <= param_1) {
-    pvVar3 = (void *)(param_1 / uVar1);
-    param_1 = param_1 % uVar1;
+  if (uVar1 <= setup) {
+    pvVar3 = (void *)(setup / uVar1);
+    setup = setup % uVar1;
   }
   uVar1 = *(uint *)((int)pvVar2 + 0xb4);
-  if (param_1 != uVar1) {
-    *(uint *)((int)pvVar2 + 0xb4) = param_1;
+  if (setup != uVar1) {
+    *(uint *)((int)pvVar2 + 0xb4) = setup;
     sputRoom_SetSoundParameters(pvVar2,0x41000000,0x14,0x7f,0x3fc00000,0x3f4ccccd);
-    sputLua_CameraChange(uVar1,param_1);
+    sputLua_CameraChange(uVar1,setup);
     pvVar3 = (void *)((code *)sputRoom_RelocateSounds)();
   }
   return pvVar3;
@@ -647,7 +647,7 @@ int __cdecl sputRoom_Restore(void *readFn)
   pvVar4 = Res_HandleFromSerialNumber(pvStack_44);
   sputRoom_SetCurrentRoom(pvVar4,(int)pvVar4);
   if (pvVar4 != (void *)0x0) {
-    grimlib_MakeCurrentSetup(*(undefined4 *)((int)pvVar4 + 0xb4));
+    grimlib_MakeCurrentSetup(*(uint *)((int)pvVar4 + 0xb4));
     WalkPlane_SetCollection(pvVar4);
     (*(code *)readFn)((int)pvVar4 + 0x1af8,1);
     (*(code *)readFn)((int)pvVar4 + 0x1af9,1);

@@ -1567,7 +1567,7 @@ void rdCanvas_Free(int param_1)
 
 {
   if (param_1 != 0) {
-    ((code *)Mem_DumpLog)(param_1);
+    Mem_DumpLog();
     (*g_pRdroid_HS->pFree)(param_1);
   }
   return;

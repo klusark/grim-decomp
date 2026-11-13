@@ -77,7 +77,7 @@ void * __cdecl sputRender_CreateCacheRect(int x,int y,int w,int h)
    name sputRender_RestoreCacheRect (the remaster's GrimFandango (Linux): aligned call in
    sputLua_RestoreCacheRect); was CacheRect_Restore. */
 
-void sputRender_RestoreCacheRect(void)
+void __cdecl sputRender_RestoreCacheRect(int unused)
 
 {
   int *piVar1;

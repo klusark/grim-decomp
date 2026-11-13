@@ -53,7 +53,7 @@ void __cdecl Sector_DrawAllDebug(void)
    sputLua_CollisionHandler (the remaster's GrimFandango (Linux): strings: 'collisionHandler'); was
    Sector_IntersectSegment. */
 
-void sputLua_CollisionHandler(int param_1,int param_2,float *param_3,float *param_4,float *param_5)
+void __cdecl sputLua_CollisionHandler(int self,int other,float *a,float *b,float *c)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -76,7 +76,7 @@ void sputLua_CollisionHandler(int param_1,int param_2,float *param_3,float *para
     iVar4 = lua_isfunction(iVar3);
     if (iVar4 == 0) {
       lua_isnil(iVar3);
-      iVar4 = param_1;
+      iVar4 = self;
     }
     else {
       bVar2 = false;
@@ -98,17 +98,17 @@ void sputLua_CollisionHandler(int param_1,int param_2,float *param_3,float *para
     if (bVar2) {
       lua_pushobject(iVar3);
     }
-    lua_pushusertag((char *)((param_1 - (int)g_pActors) / 0xa8),0x52544341);
-    lua_pushusertag((char *)((param_2 - (int)g_pActors) / 0xa8),0x52544341);
-    lua_pushnumber(*param_3);
-    lua_pushnumber(param_3[1]);
-    lua_pushnumber(param_3[2]);
-    lua_pushnumber(*param_4);
-    lua_pushnumber(param_4[1]);
-    lua_pushnumber(param_4[2]);
-    lua_pushnumber(*param_5);
-    lua_pushnumber(param_5[1]);
-    lua_pushnumber(param_5[2]);
+    lua_pushusertag((char *)((self - (int)g_pActors) / 0xa8),0x52544341);
+    lua_pushusertag((char *)((other - (int)g_pActors) / 0xa8),0x52544341);
+    lua_pushnumber(*a);
+    lua_pushnumber(a[1]);
+    lua_pushnumber(a[2]);
+    lua_pushnumber(*b);
+    lua_pushnumber(b[1]);
+    lua_pushnumber(b[2]);
+    lua_pushnumber(*c);
+    lua_pushnumber(c[1]);
+    lua_pushnumber(c[2]);
     lua_callfunction(iVar4);
   }
   lua_endblock();

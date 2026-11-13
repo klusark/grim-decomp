@@ -230,20 +230,4 @@ void sputLua_GetShrinkPosition(void)
     lua_pushnumber(pos[2]);
 }
 
-/* ==== sputLua_EngineDisplay (0x00499280), sputLua_MakeCurrentSetupL (0x0049db70) ====
- * EngineDisplay(n): switch drawing of the 3D scene on/off.  MakeCurrentSetup(n): select camera setup n of the current set.
- * Both convert the Lua number with the CRT _ftol (the float stays in ST(0) between lua_getnumber and _ftol, which the
- * decompiler cannot follow): a C `(int)` cast does the same truncation. */
-void sputLua_EngineDisplay(void)
-{
-    sputRender_SetPageFlip((int)lua_getnumber(lua_lua2C(1)));
-}
-
-void sputLua_MakeCurrentSetupL(void)
-{
-    int arg = lua_lua2C(1);
-    if (lua_isnumber(arg))
-        grimlib_MakeCurrentSetup((uint)(int)lua_getnumber(arg));
-}
-
 #endif /* GRIM_EXE */

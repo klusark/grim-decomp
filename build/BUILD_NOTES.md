@@ -1401,8 +1401,25 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   frame), Collision_PointInBox (TestCollision with 3 of 10 arguments, BuildPath with none: walk tests crash),
   sputActor_AlignToPuck (float compares, NaN taken the other way), Math_Floor / rdVector_Normalize3 and the
   overrides_cleanroom.c math (x87 rounding), sputActor_DrawToClean and res_FindInternalFile (the
-  sputRender_SetPaletteFunc and res_FindDirectoryEntry prototypes in Ghidra), the iMUSE candidates (sound tests crash;
+  sputRender_SetPaletteFunc and res_FindDirectoryEntry prototypes in Ghidra; fixed later the same day, below), the iMUSE candidates (sound tests crash;
   docs/notes/imuse*.md give the reasons) and the renderer functions of overrides_logic.c (draw tests crash).
 * Not swept: the rasteriser rounds (overrides_asm_*.c), whose differential tests in build/difftest/ are the oracle
   (the clean room only logs the box of the bright pixels), and overrides.c / overrides_mixer*.c, which carry host
   changes.
+* **Prototypes Ghidra never had.** Many EXE functions have signature source DEFAULT: no stored prototype, so every
+  caller guesses its own argument list from the pushes it sees (pushes shared across a branch get lost, a returned
+  callback gets the arguments of the call that returned it). names/sweep_protos.json locks 17 of them (`__cdecl`;
+  replay with `tools/apply_logic_protos.py names/sweep_protos.json`): sputRender_SetPaletteFunc (returns `code *`),
+  res_FindDirectoryEntry, TestCollision, BuildPath, GetPath, GetOuttaTheBox, Collision_BoxSlide, sputLua_CollisionHandler,
+  Mem_DumpLog, grimlib_MakeCurrentSetup / MarkDirtyRect / UpdateManual, sputRender_RestoreCacheRect (one ignored int:
+  the caller pushes it), Win_RemoveMessageHook, Win_GetMainHwnd, rdClip_CalcOutcode2, plus rdClip_Line2 and
+  Walker_AvoidActorPath locked to their overrides' signatures (their inferred ones moved with the callees'). Clean room
+  0 of 5327 with the prototypes alone (75 functions re-exported).
+* build_src's fix_ftol also takes `_ftol(in_stack_00000000)` as the lost ST0 operand (a caller with no saved register
+  to show as CONCAT44).
+* Generated again after that: sputActor_DrawToClean, res_FindInternalFile, res_FindDirectoryEntry
+  (overrides_cleanroom.c), sputLua_MakeCurrentSetupL, sputLua_EngineDisplay (overrides_exe.c), sputLua_DimRegion,
+  sputLua_RestoreCacheRect (overrides_logic.c). Clean room 0 of 5327. Collision_PointInBox stays: its `rep movsd` copies
+  the box to the outgoing arguments before the moved end point is stored over the box's parameter slots, and Ghidra
+  orders the stores first. The anm_* movie functions (overrides_mixer_misc.c) are readable rewrites on an AnimPlay
+  struct that Ghidra lacks; they stay until the struct is in Ghidra.

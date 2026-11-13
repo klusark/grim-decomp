@@ -16,7 +16,7 @@ undefined4 DSound_Init(void)
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  uint uVar2;
+  void *pvVar2;
   #define pvStack_4c (*(void **)(_frame + (0x60 - 0x4c)))
   #define puStack_48 (*(undefined4 **)(_frame + (0x60 - 0x48)))
   #define ppvStack_44 (*(void ***)(_frame + (0x60 - 0x44)))
@@ -37,7 +37,7 @@ undefined4 DSound_Init(void)
     g_pDirectSound = (void *)0x0;
     return 0;
   }
-  uVar2 = Win_GetMainHwnd();
+  pvVar2 = Win_GetMainHwnd();
   uStack_40 = 0x4c0f21;
   iVar1 = (**(code_std **)(*(int *)g_pDirectSound + 0x18))();
   if (-1 < iVar1) {
@@ -53,7 +53,7 @@ undefined4 DSound_Init(void)
     puStack_48 = &uStack_20;
     ppvStack_44 = &g_pDSoundPrimary;
     pvStack_4c = g_pDirectSound;
-    UINT_008d3654 = uVar2;
+    UINT_008d3654 = (uint)pvVar2;
     iVar1 = (**(code_std **)(*(int *)g_pDirectSound + 0xc))();
     if (iVar1 < 0) {
       g_pDSoundPrimary = (void *)0x0;
@@ -84,7 +84,7 @@ undefined4 DSound_Init(void)
       }
     }
     (**(code_std **)(*(int *)g_pDSoundPrimary + 0x30))(g_pDSoundPrimary,0,0,0);
-    (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,uVar2,3);
+    (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,pvVar2,3);
   }
   return 1;
 }
@@ -134,7 +134,7 @@ void DSound_Shutdown(void)
 void __cdecl DSound_SetPrimaryVolume(int volume)
 
 {
-  undefined4 uVar1;
+  void *pvVar1;
   int iVar2;
   undefined4 unaff_ESI;
   undefined4 unaff_EDI;
@@ -142,11 +142,11 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
   
   if (g_pDSoundPrimary != (void *)0x0) {
     lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-    uVar1 = Win_GetMainHwnd();
-    iVar2 = (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,uVar1,2);
+    pvVar1 = Win_GetMainHwnd();
+    iVar2 = (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,pvVar1,2);
     if (-1 < iVar2) {
       (**(code_std **)(*(int *)g_pDSoundPrimary + 0x3c))(g_pDSoundPrimary,(int)lVar3);
-      (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,uVar1,3);
+      (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,pvVar1,3);
     }
   }
   return;

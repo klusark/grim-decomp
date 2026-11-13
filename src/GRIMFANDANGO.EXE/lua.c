@@ -2232,8 +2232,6 @@ void sputLua_EngineResume(void)
 }
 
 /* ---- 0x00499280  sputLua_EngineDisplay ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua opcode: EngineDisplay Original name sputLua_EngineDisplay (the remaster's GrimFandango
    (Linux): Lua / module table entry 'EngineDisplay'); was Lua_EngineDisplay. */
 
@@ -2242,16 +2240,12 @@ void sputLua_EngineDisplay(void)
 {
   int iVar1;
   longlong lVar2;
-  double in_stack_00000000;
   
   iVar1 = lua_lua2C(1);
-  lua_getnumber(iVar1);
-  lVar2 = _ftol(in_stack_00000000);
+  lVar2 = FTOL(lua_getnumber(iVar1));
   sputRender_SetPageFlip((int)lVar2);
   return;
 }
-#endif
-
 
 /* ---- 0x004992b0  sputLua_AllocateActorL ---- */
 /* Lua opcode: LoadActor Original name sputLua_AllocateActorL (the remaster's GrimFandango (Linux):
@@ -6122,8 +6116,6 @@ int __cdecl sputLua_DoCharacterCallback(int ch)
 
 
 /* ---- 0x0049db70  sputLua_MakeCurrentSetupL ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: MakeCurrentSetup Original name sputLua_MakeCurrentSetupL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'MakeCurrentSetup'); was Lua_MakeCurrentSetup. */
@@ -6133,19 +6125,16 @@ void sputLua_MakeCurrentSetupL(void)
 {
   int iVar1;
   int iVar2;
-  undefined4 unaff_ESI;
   longlong lVar3;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
     lVar3 = (longlong)lua_getnumber(iVar1);
-    ((code *)grimlib_MakeCurrentSetup)((int)lVar3,unaff_ESI);
+    grimlib_MakeCurrentSetup((uint)lVar3);
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0049dbb0  sputLua_GetCurrentSetupL ---- */
 /* WARNING: Variable defined which should be unmapped: local_10 */
@@ -9360,8 +9349,6 @@ void sputLua_DimScreen(void)
 }
 
 /* ---- 0x004a1a00  sputLua_DimRegion ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_28 */
 /* WARNING: Variable defined which should be unmapped: local_38 */
 /* WARNING: Variable defined which should be unmapped: local_34 */
@@ -9412,8 +9399,6 @@ void sputLua_DimRegion(void)
 #undef local_34
 #undef local_38
 #undef local_4
-
-#endif
 
 
 /* ---- 0x004a1ae0  sputLua_SetSpeechMode ---- */
@@ -10176,8 +10161,6 @@ LAB_004a268a:
 
 
 /* ---- 0x004a26b0  sputLua_RestoreCacheRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: This function may have set the stack pointer */
 /* Lua opcode: RestoreCacheRect Original name sputLua_RestoreCacheRect (the remaster's GrimFandango
    (Linux): Lua / module table entry 'RestoreCacheRect'); was Lua_RestoreCacheRect. */
@@ -10187,19 +10170,16 @@ void sputLua_RestoreCacheRect(void)
 {
   int iVar1;
   int *piVar2;
-  undefined4 unaff_ESI;
   longlong lVar3;
   
   iVar1 = lua_lua2C(1);
   piVar2 = (int *)lua_getuserdata(iVar1);
   if ((piVar2 != (int *)0x0) && (*piVar2 == 0x11111111)) {
     lVar3 = (longlong)lua_getnumber(iVar1);
-    ((code *)sputRender_RestoreCacheRect)((int)lVar3,unaff_ESI);
+    sputRender_RestoreCacheRect((int)lVar3);
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004a26f0  sputLua_ResReport ---- */
 /* WARNING: Variable defined which should be unmapped: local_4 */

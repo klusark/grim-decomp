@@ -15,14 +15,20 @@
 void __cdecl grimdemo_EnableDebugging(int enable)
 
 {
-  undefined4 uVar1;
+  void *pvVar1;
+  char *pcVar2;
+  char *pcVar3;
+  uint uVar4;
   
   if (enable != 0) {
     if (UINT_004f5a54 == 0) {
       if (((UINT_004f5a18 != 0) && (g_nDeveloper != 0)) &&
          (UINT_004f44e0 = Res_FOpen(s_debug_log_004dd46c,&DAT_004dd478), UINT_004f44e0 == 0)) {
-        uVar1 = ((code *)Win_GetMainHwnd)(s_Unable_to_open_debug_log_in_the_c_004dd424,s_Uh_oh__004dd464,0);
-        ((code *)Grim_FatalMessageBox)(uVar1);
+        pcVar3 = s_Uh_oh__004dd464;
+        pcVar2 = s_Unable_to_open_debug_log_in_the_c_004dd424;
+        uVar4 = UINT_004f44e0;
+        pvVar1 = Win_GetMainHwnd();
+        Grim_FatalMessageBox(pvVar1,pcVar2,pcVar3,uVar4);
         return;
       }
       if (UINT_004f5a1c != 0) {
@@ -58,7 +64,7 @@ void __cdecl grimdemo_EnableDebugging(int enable)
 undefined4 DebugLog_Load(void)
 
 {
-  undefined4 uVar1;
+  void *pvVar1;
   
   if (g_bWindowedMode == 0) {
     UINT_004f5a40 = 0;
@@ -70,8 +76,8 @@ undefined4 DebugLog_Load(void)
     UINT_004f5a3c = GetProcAddress(UINT_004f5a40,((unsigned)(uintptr_t)&s__logPrintf_004dd6b8));
     UINT_004f5a68 = GetProcAddress(UINT_004f5a40,((unsigned)(uintptr_t)&s__ShowDebugLog_004dd6a8));
     if ((UINT_004f5a3c != 0) && (UINT_004f5a68 != 0)) {
-      uVar1 = Win_GetMainHwnd();
-      (*(code *)UINT_004f5a68)(s_Grim_Debug_004dd69c,1,uVar1);
+      pvVar1 = Win_GetMainHwnd();
+      (*(code *)UINT_004f5a68)(s_Grim_Debug_004dd69c,1,pvVar1);
       return 1;
     }
   }

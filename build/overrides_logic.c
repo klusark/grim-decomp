@@ -1612,37 +1612,6 @@ void *sputRender_ScreenShot(int w, int h)
     g_nSputRender_Reset = 1;
     return thumb;
 }
-/* ==== sputLua_DimRegion (0x004a1a00), sputLua_RestoreCacheRect (0x004a26b0) ====
- * Lua DimRegion(x, y, w, h, amount) scales the brightness of a screen rectangle (sputRender_DimRegion); the first four numbers
- * are truncated by _ftol, the decompiler lost their operands.  RestoreCacheRect(rect) takes a cache rect userdata (tag
- * word 0x11111111), reads its number (truncated, passed on to sputRender_RestoreCacheRect which ignores it). */
-void sputLua_DimRegion(void)
-{
-    int a1 = lua_lua2C(1);
-    int a2 = lua_lua2C(2);
-    int a3 = lua_lua2C(3);
-    int a4 = lua_lua2C(4);
-    int a5 = lua_lua2C(5);
-    int x, y, w, h;
-    float amount;
-
-    x = (int)(long long)lua_getnumber(a1);
-    y = (int)(long long)lua_getnumber(a2);
-    w = (int)(long long)lua_getnumber(a3);
-    h = (int)(long long)lua_getnumber(a4);
-    amount = lua_getnumber(a5);
-    sputRender_DimRegion(x, y, w, h, amount);
-}
-
-void sputLua_RestoreCacheRect(void)
-{
-    int arg = lua_lua2C(1);
-    int *rect = (int *)lua_getuserdata(arg);
-
-    if (rect != (int *)0 && *rect == 0x11111111)
-        ((void (*)(int))sputRender_RestoreCacheRect)((int)(long long)lua_getnumber(arg));
-}
-
 /* ==== SetSoundPosition (0x004a4e80) ====
  * Moves the volume and pan of one positioned sound (entry: +8..0x10 position, +0x14 min, +0x18 max, +0x1c scale,
  * +0x20 near distance).  d = position - camera position (current setup of the current set, set+0xac, stride 300),
@@ -2702,7 +2671,7 @@ undefined4 sputActor_AlignToPuck(Actor *actor_, float *pos)
  * True when the segment from `a` to `b` (both moved by `offset`) does not hit the box (xmin, ymin, zmin, xmax, ymax, zmax
  * passed by value, then one more pointer for TestCollision) and BuildPath accepts a plan between the two
  * points.  The Ghidra prototype took the box as six unsigned integers; they are floats. */
-undefined4 __cdecl Collision_PointInBox(float *a, float *b, float *p3, float bx0, float by0, float bz0, float bx1, float by1,
+int __cdecl Collision_PointInBox(float *a, float *b, float *p3, float bx0, float by0, float bz0, float bx1, float by1,
                                         float bz1, float *p10, float *offset)
 {
     float pa[3], pb[3];

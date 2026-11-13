@@ -19,7 +19,7 @@
 | 004ac1f0 | Win_CreateMainWindow | window.c | 1 |
 | 004ac340 | Win_KernelWndProc | window.c | 83 |
 | 004bff70 | Win_IsFocusWithin | window.c | 21 |
-| 00401040 | grimdemo_EnableDebugging | debuglog.c | 45 |
+| 00401040 | grimdemo_EnableDebugging | debuglog.c | 51 |
 | 004020a0 | DebugLog_Load | debuglog.c | 24 |
 | 00402330 | grimdemo_MessagePrint | debuglog.c | 19 |
 | 004023a0 | grimdemo_StatusPrint | debuglog.c | 19 |
@@ -27,8 +27,8 @@
 | 00402480 | grimdemo_WarningPrint | debuglog.c | 19 |
 | 004024f0 | grimdemo_DebugPrint | debuglog.c | 19 |
 | 00402560 | DebugLog_Write | debuglog.c | 6 |
-| 00401140 | Grim_FindDataOnDrives | grim.c | 118 |
-| 004012b0 | Main_Startup | grim.c | 143 |
+| 00401140 | Grim_FindDataOnDrives | grim.c | 119 |
+| 004012b0 | Main_Startup | grim.c | 144 |
 | 00401640 | Grim_DecodeRegKeyName | grim.c | 17 |
 | 004018b0 | Grim_FatalMessageBox | grim.c | 15 |
 | 00401900 | Grim_ShutdownDisplay | grim.c | 18 |
@@ -36,7 +36,7 @@
 | 00401a50 | Grim_EnumDisplayModes | grim.c | 148 |
 | 00402050 | grimdemo_PleaseShutdown | grim.c | 9 |
 | 00402060 | grimdemo_SetPalette | grim.c | 14 |
-| 00402c80 | Grim_ParseCommandLine | grim.c | 95 |
+| 00402c80 | Grim_ParseCommandLine | grim.c | 99 |
 | 004034b0 | Grim_OpenRegistry | grim.c | 22 |
 | 00403520 | Grim_ShowSplash | grim.c | 29 |
 | 004016a0 | Main_Service | game.c | 1 |
@@ -92,7 +92,7 @@
 | 00499250 | sputLua_SetDebugToggleCallback | lua.c | 9 |
 | 00499260 | sputLua_EnginePause | lua.c | 9 |
 | 00499270 | sputLua_EngineResume | lua.c | 9 |
-| 00499280 | sputLua_EngineDisplay | lua.c | 1 |
+| 00499280 | sputLua_EngineDisplay | lua.c | 14 |
 | 004992b0 | sputLua_AllocateActorL | lua.c | 18 |
 | 004992d0 | sputLua_PutActorAtInterestL | lua.c | 40 |
 | 00499360 | sputLua_SetSelectedActorL | lua.c | 26 |
@@ -182,7 +182,7 @@
 | 0049d890 | sputLua_DoExitCallback | lua.c | 54 |
 | 0049d970 | sputLua_DoPauseCallback | lua.c | 54 |
 | 0049da50 | sputLua_DoCharacterCallback | lua.c | 64 |
-| 0049db70 | sputLua_MakeCurrentSetupL | lua.c | 1 |
+| 0049db70 | sputLua_MakeCurrentSetupL | lua.c | 19 |
 | 0049dbb0 | sputLua_GetCurrentSetupL | lua.c | 44 |
 | 0049dc70 | sputLua_MakeCurrentSetL | lua.c | 20 |
 | 0049dcb0 | sputLua_LockSet | lua.c | 24 |
@@ -267,7 +267,7 @@
 | 004a1900 | sputLua_SetActorConstrain | lua.c | 26 |
 | 004a1970 | sputLua_RenderModeUser | lua.c | 25 |
 | 004a19f0 | sputLua_DimScreen | lua.c | 9 |
-| 004a1a00 | sputLua_DimRegion | lua.c | 1 |
+| 004a1a00 | sputLua_DimRegion | lua.c | 51 |
 | 004a1ae0 | sputLua_SetSpeechMode | lua.c | 32 |
 | 004a1b40 | sputLua_GetSpeechMode | lua.c | 22 |
 | 004a1b80 | sputLua_ActorShadow | lua.c | 27 |
@@ -290,7 +290,7 @@
 | 004a2470 | sputLua_SetActorCollisionScale | lua.c | 32 |
 | 004a2500 | sputLua_SetActorOffsetYaw | lua.c | 32 |
 | 004a2590 | sputLua_CacheRect | lua.c | 66 |
-| 004a26b0 | sputLua_RestoreCacheRect | lua.c | 1 |
+| 004a26b0 | sputLua_RestoreCacheRect | lua.c | 19 |
 | 004a26f0 | sputLua_ResReport | lua.c | 21 |
 | 004a2720 | sputLua_HardwareAccelerated | lua.c | 14 |
 | 004a2750 | sputLua_SetActorClipActive | lua.c | 22 |
@@ -338,10 +338,10 @@
 | 00473b30 | stdDisplay_Shutdown | stddisplay.c | 15 |
 | 00473c80 | Display_SelectDevice | stddisplay.c | 168 |
 | 00474100 | stdDisplay_Close | stddisplay.c | 18 |
-| 00474140 | Display_OpenMode | stddisplay.c | 65 |
+| 00474140 | Display_OpenMode | stddisplay.c | 64 |
 | 00474310 | stdDisplay_ClearMode | stddisplay.c | 26 |
-| 00474380 | Display_SuspendForDialog | stddisplay.c | 17 |
-| 004743d0 | Display_ResumeAfterDialog | stddisplay.c | 17 |
+| 00474380 | Display_SuspendForDialog | stddisplay.c | 19 |
+| 004743d0 | Display_ResumeAfterDialog | stddisplay.c | 19 |
 | 00474420 | stdDisplay_Update | stddisplay.c | 1 |
 | 00474480 | stdDisplay_VBufferNew | stddisplay.c | 1 |
 | 004746d0 | stdDisplay_VBufferFree | stddisplay.c | 12 |
@@ -1097,12 +1097,12 @@
 | 00477e70 | Input_SetAxisRange | stdinput.c | 1 |
 | 00477f00 | Plat_ReturnTrue | plat.c | 7 |
 | 00478150 | stdPlatform_GetPhysicalRam | plat.c | 18 |
-| 00487650 | grimPlat_QueryDialog | plat.c | 17 |
+| 00487650 | grimPlat_QueryDialog | plat.c | 18 |
 | 00487690 | grimPlat_SetDefaultOpenPath | plat.c | 10 |
 | 004876b0 | grimPlat_GetDefaultOpenPath | plat.c | 8 |
 | 004876c0 | grimPlat_OpenFileRequest | plat.c | 64 |
 | 004877d0 | grimPlat_SaveFileRequest | plat.c | 62 |
-| 004878c0 | grimPlat_SpinDialog | plat.c | 131 |
+| 004878c0 | grimPlat_SpinDialog | plat.c | 132 |
 | 00487c10 | grimPlat_TreeDialog | plat.c | 105 |
 | 00487e30 | grimPlat_InputDialog | plat.c | 94 |
 | 00488370 | Plat_PromptDialogProc | plat.c | 43 |
@@ -1246,7 +1246,7 @@
 | 004804c0 | Res_FileMoveToFront | lab.c | 31 |
 | 00481070 | Lab_Find | lab.c | 43 |
 | 004813c0 | Lab_Unlink | lab.c | 15 |
-| 00481630 | res_FindInternalFile | lab.c | 1 |
+| 00481630 | res_FindInternalFile | lab.c | 29 |
 | 004816b0 | Lab_Open | lab.c | 55 |
 | 00481750 | Lab_AllocRecord | lab.c | 27 |
 | 004817a0 | Lab_ReadDirectory | lab.c | 83 |
@@ -1278,7 +1278,7 @@
 | 00480f90 | Res_FPrintf | resfile.c | 31 |
 | 00481fd0 | ResFile_FillBuffer | resfile.c | 21 |
 | 00481b00 | LabDir_Open | labdir.c | 118 |
-| 00481cf0 | res_FindDirectoryEntry | labdir.c | 1 |
+| 00481cf0 | res_FindDirectoryEntry | labdir.c | 89 |
 | 00482070 | Res_SetReference | resref.c | 35 |
 | 00482110 | Res_RemoveReference | resref.c | 29 |
 | 00482220 | Res_ResolveToSerialNumber | resref.c | 19 |
@@ -1462,7 +1462,7 @@
 | 004936b0 | sputActor_ResetShadows | actor.c | 19 |
 | 004936e0 | sputCostume_DrawActorShadow | actor.c | 35 |
 | 00493790 | sputActor_GetOrientMatrix | actor.c | 13 |
-| 004937c0 | sputActor_DrawToClean | actor.c | 1 |
+| 004937c0 | sputActor_DrawToClean | actor.c | 99 |
 | 00494690 | Actor_CountCostumes | actor.c | 12 |
 | 004946b0 | sputActor_SetClipPlane | actor.c | 22 |
 | 00494710 | sputActor_SetClipPlaneActive | actor.c | 12 |
@@ -1672,7 +1672,7 @@
 | 004a9920 | Planner_PortalPoint | walker.c | 65 |
 | 004a9aa0 | TightenPath | walker.c | 98 |
 | 004a9ca0 | Planner_SharedSector | walker.c | 15 |
-| 004922d0 | GetOuttaTheBox | collision.c | 82 |
+| 004922d0 | GetOuttaTheBox | collision.c | 83 |
 | 00492510 | Collision_PointInBox | collision.c | 1 |
 | 004925c0 | FindObjectCorners | collision.c | 37 |
 | 00492680 | TestCollision | collision.c | 94 |
