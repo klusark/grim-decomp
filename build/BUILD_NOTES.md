@@ -1322,3 +1322,22 @@ Checks: `data.c` and `globals.h` are as on main. `datacmp.py` against main's bui
 every unused span zero. Stubs: no new one; LUA.DLL 41 -> 35 (functions only the dropped code called). Clean-room against
 grim_tools' knowngood (no install file in the run folder, the suite's own `IMUSE.PSL`): the same 3 of 5167 differ from
 the reference as before (`lab_files`, `lab_dofile`, `lab_costume`), 0 of 5167 from the previous build's log.
+
+## Clean room on grim_tools main, the menu, the whole game (2026-11-13)
+
+* grim_tools' main records the original with movies and sound on game time and runs four games at once. Against it:
+  movies on game time under GRIM_SIMTIME (overrides_mixer_drv.c, grimlaunch's smushtime), iMUSE's timeGetTime on game
+  time (cleanroom.c), the window device's mode matched after selecting the device (Display_InitFromConfig: mode 0,
+  320x200x8, was picked now and then and the first background blit overran the clean buffer onto the dirty-rectangle
+  pool), the CRT names of 0x4ac720 / 0x4adf70 swapped back (the assert handler crashed), sounds_restore by hand (the pan
+  was not restored). 5333 of 5333 (e4a5c75).
+* The menu (driven with CRKEY key presses, ea2976c): moving, choosing, the option gauges, saving with a typed name,
+  loading, the cutscenes and the quit query work. grim_tools' new `tests/grim/menu.lua` (the menu's engine features:
+  BlastText modes, gauges, DimRegion / DimScreen, userPaintHandler, the settings, the devices) gives the original's
+  values: 5340 of 5340. The menu runs unthrottled (no frame limit in the window device: 1000+ frames a second, so the
+  frame-counted fades of the credits are instant).
+* Whole-game autorun (grimW_work/wg_start.sh, private autorun copy grimW_ar with `readfrom()` in nav_setfile.lua):
+  `AUTORUN RESULT PASSED`, ch01-ch65 in 423 s. Fixed on the way: the stale camera of the ch49 crash noted above
+  (sputRender_Update compares the camera pointer with the current setup's: a new set at the freed set's address kept
+  the old setups' camera). With grim_tools' own nav_setfile.lua (`readfrom(old)`) the run dies in ch19: the 128 file
+  slots fill up and the forklift's material is not found (sputResource_MatLoader, as the original, does not check).

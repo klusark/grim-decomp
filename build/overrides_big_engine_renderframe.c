@@ -96,6 +96,13 @@ void sputRender_Update(void)
             cur = sputRoom_GetCurrentRoom();
             if (*(int *)((byte *)cur + 0xb4) != g_nSputRender_Update_RenderSetup || g_nSputRender_Reset != 0)
                 changed = 1;
+            /* Not in the original: a set is told from the last one by its address only, so a new set that the heap put
+             * where the freed one was (same setup number, no refresh pending) kept g_pSputRender_Camera pointing into
+             * the freed set's setups, and Render_BuildActorDrawList read it (an access violation in the whole-game
+             * autorun, ch49, the switch to "temple back stairs"). The original's own heap seldom gives the address
+             * back so soon; the system heap of this build does. The camera of the current setup is where it must be. */
+            else if (g_pSputRender_Camera != (float *)(ER_U32(cur, 0xac) + (uint)g_nSputRender_Update_RenderSetup * 300u + 0x20u))
+                changed = 1;
         }
         if (changed) {
             DirtyRect_Clear();
