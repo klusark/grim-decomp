@@ -1375,7 +1375,7 @@ void __cdecl ResFile_FillBuffer(void *entry); /* 0x00481fd0 */
 
 /* ===== labdir.c ===== */
 void * __cdecl LabDir_Open(char *dir); /* 0x00481b00 */
-undefined4 res_FindDirectoryEntry(int param_1,undefined4 param_2,byte *param_3,int param_4,undefined4 *param_5); /* 0x00481cf0 */
+int __cdecl res_FindDirectoryEntry(int archive,int type,byte *name,uint hash,undefined4 *entry); /* 0x00481cf0 */
 
 /* ===== resref.c ===== */
 void __cdecl Res_SetReference(void *ref,void *data,char *file,int line); /* 0x00482070 */
@@ -1513,7 +1513,7 @@ void Render_CleanBuffer(void); /* 0x004869b0 */
 void sputRender_ForceRefresh(void); /* 0x00486a00 */
 void * sputRender_CleanArtBuffer(void); /* 0x00486b00 */
 void * sputRender_CleanZBuffer(void); /* 0x00486b10 */
-uint sputRender_SetPaletteFunc(void); /* 0x00486b20 */
+code * __cdecl sputRender_SetPaletteFunc(void); /* 0x00486b20 */
 void sputRender_SetPageFlip(int param_1); /* 0x00486b30 */
 void __cdecl sputRender_DrawIrisEffect(float percent,int x,int y); /* 0x00486d00 */
 void __cdecl sputRender_IrisDown(int x,int y,int durationMs); /* 0x00486eb0 */

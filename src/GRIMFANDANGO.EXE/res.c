@@ -58,43 +58,43 @@ int __cdecl Res_FindExternalFile(char *name,char *buf,int size)
 
 {
   unsigned char _frame[0x330] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  uint uVar2;
+  int *archive;
+  uint uVar1;
+  int iVar2;
   int iVar3;
-  int iVar4;
-  char *pcVar5;
-  #define local_31c (*(char (*)[260])(_frame + (0x330 - 0x31c)))
-  #define local_218 (*(undefined1 (*)[277])(_frame + (0x330 - 0x218)))
+  char *pcVar4;
+  #define local_31c (*(byte (*)[260])(_frame + (0x330 - 0x31c)))
+  #define local_218 (*(undefined4 (*)[69])(_frame + (0x330 - 0x218)))
   #define local_103 (*(undefined1 (*)[259])(_frame + (0x330 - 0x103)))
   
+  iVar2 = 0;
   iVar3 = 0;
-  iVar4 = 0;
-  uVar2 = Res_HashName(name,local_31c);
-  for (piVar1 = g_pResFileList; piVar1 != (int *)0x0; piVar1 = (int *)*piVar1) {
-    if (iVar4 != 0) goto LAB_0048030d;
-    iVar4 = 0;
-    if ((*(byte *)(piVar1 + 0x45) & 2) == 0) {
-      iVar4 = res_FindDirectoryEntry(piVar1,0,local_31c,uVar2,local_218);
+  uVar1 = Res_HashName(name,(char *)local_31c);
+  for (archive = g_pResFileList; archive != (int *)0x0; archive = (int *)*archive) {
+    if (iVar3 != 0) goto LAB_0048030d;
+    iVar3 = 0;
+    if ((*(byte *)(archive + 0x45) & 2) == 0) {
+      iVar3 = res_FindDirectoryEntry((int)archive,0,local_31c,uVar1,local_218);
     }
   }
-  if (iVar4 != 0) {
+  if (iVar3 != 0) {
 LAB_0048030d:
-    pcVar5 = buf;
-    for (uVar2 = (uint)size >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
-      pcVar5[0] = '\0';
-      pcVar5[1] = '\0';
-      pcVar5[2] = '\0';
-      pcVar5[3] = '\0';
-      pcVar5 = pcVar5 + 4;
+    pcVar4 = buf;
+    for (uVar1 = (uint)size >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
+      pcVar4[0] = '\0';
+      pcVar4[1] = '\0';
+      pcVar4[2] = '\0';
+      pcVar4[3] = '\0';
+      pcVar4 = pcVar4 + 4;
     }
-    for (uVar2 = size & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
-      *pcVar5 = '\0';
-      pcVar5 = pcVar5 + 1;
+    for (uVar1 = size & 3; uVar1 != 0; uVar1 = uVar1 - 1) {
+      *pcVar4 = '\0';
+      pcVar4 = pcVar4 + 1;
     }
     strncpy(buf,local_103,size + -1);
-    iVar3 = 1;
+    iVar2 = 1;
   }
-  return iVar3;
+  return iVar2;
 }
 #undef local_103
 #undef local_218

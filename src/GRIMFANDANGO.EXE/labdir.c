@@ -126,17 +126,14 @@ void * __cdecl LabDir_Open(char *dir)
 
 
 /* ---- 0x00481cf0  res_FindDirectoryEntry ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Directory-backed archive lookup; fills the entry with the full path and the file size Original
    name res_FindDirectoryEntry (the remaster's GrimFandango (Linux): aligned call in
    Res_FindExternalFile, res_FindInternalFile); was LabDir_FindEntry. */
 
-undefined4
-res_FindDirectoryEntry(int param_1,undefined4 param_2,byte *param_3,int param_4,undefined4 *param_5)
+int __cdecl res_FindDirectoryEntry(int archive,int type,byte *name,uint hash,undefined4 *entry)
 
 {
-  int *piVar1;
+  uint *puVar1;
   byte bVar2;
   byte *pbVar3;
   int iVar4;
@@ -144,17 +141,17 @@ res_FindDirectoryEntry(int param_1,undefined4 param_2,byte *param_3,int param_4,
   uint uVar6;
   uint uVar7;
   byte *pbVar8;
-  int *piVar9;
+  uint *puVar9;
   bool bVar10;
   
-  piVar9 = *(int **)(param_1 + 0x118);
-  if (piVar9 == (int *)0x0) {
+  puVar9 = *(uint **)(archive + 0x118);
+  if (puVar9 == (uint *)0x0) {
     return 0;
   }
-  pbVar8 = (byte *)piVar9[1];
+  pbVar8 = (byte *)puVar9[1];
   while (pbVar8 != (byte *)0x0) {
-    pbVar3 = param_3;
-    if (*piVar9 == param_4) {
+    pbVar3 = name;
+    if (*puVar9 == hash) {
       do {
         bVar2 = *pbVar3;
         bVar10 = bVar2 < *pbVar8;
@@ -173,21 +170,21 @@ LAB_00481d3e:
       iVar4 = 0;
 LAB_00481d43:
       if (iVar4 == 0) {
-        *(int **)(&g_aFoundFiles + g_dwLastFound * 4) = piVar9;
-        *(int *)(&g_aFoundFileNodes + g_dwLastFound * 4) = param_1;
+        *(uint **)(&g_aFoundFiles + g_dwLastFound * 4) = puVar9;
+        *(int *)(&g_aFoundFileNodes + g_dwLastFound * 4) = archive;
         g_dwLastFound = g_dwLastFound + 1 & 0xf;
         break;
       }
     }
-    piVar1 = piVar9 + 4;
-    piVar9 = piVar9 + 3;
-    pbVar8 = (byte *)*piVar1;
+    puVar1 = puVar9 + 4;
+    puVar9 = puVar9 + 3;
+    pbVar8 = (byte *)*puVar1;
   }
-  if (piVar9[1] == 0) {
+  if (puVar9[1] == 0) {
     return 0;
   }
   uVar6 = 0xffffffff;
-  pbVar8 = param_3;
+  pbVar8 = name;
   do {
     pbVar3 = pbVar8;
     if (uVar6 == 0) break;
@@ -198,7 +195,7 @@ LAB_00481d43:
   } while (bVar2 != 0);
   uVar6 = ~uVar6;
   pbVar8 = pbVar3 + -uVar6;
-  pbVar3 = (byte *)(param_5 + 5);
+  pbVar3 = (byte *)(entry + 5);
   for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
     *(undefined4 *)pbVar3 = *(undefined4 *)pbVar8;
     pbVar8 = pbVar8 + 4;
@@ -209,14 +206,12 @@ LAB_00481d43:
     pbVar8 = pbVar8 + 1;
     pbVar3 = pbVar3 + 1;
   }
-  *param_5 = param_2;
-  sprintf((char *)((int)param_5 + 0x115),&DAT_004e7af8,param_1 + 8,param_3);
-  param_5[1] = 0;
-  uVar5 = (**(code **)(g_dwLowLevelHS + 0x50))((char *)((int)param_5 + 0x115));
-  param_5[2] = uVar5;
-  param_5[3] = 0;
-  param_5[4] = 0;
+  *entry = type;
+  sprintf((char *)((int)entry + 0x115),&DAT_004e7af8,archive + 8,name);
+  entry[1] = 0;
+  uVar5 = (**(code **)(g_dwLowLevelHS + 0x50))((char *)((int)entry + 0x115));
+  entry[2] = uVar5;
+  entry[3] = 0;
+  entry[4] = 0;
   return 1;
 }
-#endif
-

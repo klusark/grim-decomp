@@ -226,8 +226,6 @@ void Lab_Unlink(int *param_1)
 }
 
 /* ---- 0x00481630  res_FindInternalFile ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Searches every open archive (or dev directory) for the file; fills a 0x210-byte entry {type,
    archiveFh, offset, size, inArchive, name} Original name res_FindInternalFile (the remaster's
    GrimFandango (Linux): aligned call in Res_FOpen, Res_FSize); was Lab_FindFile. */
@@ -239,25 +237,23 @@ int __cdecl res_FindInternalFile(char *name,void *outEntry)
   int *lab;
   uint hash;
   int iVar1;
-  #define local_104 (*(char (*)[260])(_frame + (0x120 - 0x104)))
+  #define local_104 (*(byte (*)[260])(_frame + (0x120 - 0x104)))
   
   iVar1 = 0;
-  hash = Res_HashName(name,local_104);
+  hash = Res_HashName(name,(char *)local_104);
   lab = g_pResFileList;
   while ((lab != (int *)0x0 && (iVar1 == 0))) {
     if ((*(byte *)(lab + 0x45) & 2) == 0) {
-      iVar1 = ((code *)res_FindDirectoryEntry)(lab,0,local_104);
+      iVar1 = res_FindDirectoryEntry((int)lab,0,local_104,hash,outEntry);
     }
     else {
-      iVar1 = Lab_FindEntry(lab,0,local_104,hash,outEntry);
+      iVar1 = Lab_FindEntry(lab,0,(char *)local_104,hash,outEntry);
     }
     lab = (int *)*lab;
   }
   return iVar1;
 }
 #undef local_104
-
-#endif
 
 
 /* ---- 0x004816b0  Lab_Open ---- */

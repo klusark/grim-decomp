@@ -1246,7 +1246,7 @@
 | 004804c0 | Res_FileMoveToFront | lab.c | 31 |
 | 00481070 | Lab_Find | lab.c | 43 |
 | 004813c0 | Lab_Unlink | lab.c | 15 |
-| 00481630 | res_FindInternalFile | lab.c | 1 |
+| 00481630 | res_FindInternalFile | lab.c | 29 |
 | 004816b0 | Lab_Open | lab.c | 55 |
 | 00481750 | Lab_AllocRecord | lab.c | 27 |
 | 004817a0 | Lab_ReadDirectory | lab.c | 83 |
@@ -1278,7 +1278,7 @@
 | 00480f90 | Res_FPrintf | resfile.c | 31 |
 | 00481fd0 | ResFile_FillBuffer | resfile.c | 21 |
 | 00481b00 | LabDir_Open | labdir.c | 118 |
-| 00481cf0 | res_FindDirectoryEntry | labdir.c | 1 |
+| 00481cf0 | res_FindDirectoryEntry | labdir.c | 89 |
 | 00482070 | Res_SetReference | resref.c | 35 |
 | 00482110 | Res_RemoveReference | resref.c | 29 |
 | 00482220 | Res_ResolveToSerialNumber | resref.c | 19 |
@@ -1462,7 +1462,7 @@
 | 004936b0 | sputActor_ResetShadows | actor.c | 19 |
 | 004936e0 | sputCostume_DrawActorShadow | actor.c | 35 |
 | 00493790 | sputActor_GetOrientMatrix | actor.c | 13 |
-| 004937c0 | sputActor_DrawToClean | actor.c | 1 |
+| 004937c0 | sputActor_DrawToClean | actor.c | 99 |
 | 00494690 | Actor_CountCostumes | actor.c | 12 |
 | 004946b0 | sputActor_SetClipPlane | actor.c | 22 |
 | 00494710 | sputActor_SetClipPlaneActive | actor.c | 12 |

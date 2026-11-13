@@ -1764,7 +1764,7 @@ extern undefined4 g_dwSputRendStartup; /* used by 2 fn(s), first 0x00486070 */
 extern undefined DAT_008c9790; /* used by 2 fn(s), first 0x00484030 */
 extern uint UINT_008c97a0; /* used by 2 fn(s), first 0x00484030 */
 extern uint UINT_008c97a4; /* used by 4 fn(s), first 0x00484030 */
-extern uint g_dwSputRender_pSetPaletteFunc; /* used by 2 fn(s), first 0x00483a80 */
+extern uint g_dwSputRender_pSetPaletteFunc; /* used by 3 fn(s), first 0x00483a80 */
 extern undefined2 DAT_008c97c6; /* used by 3 fn(s), first 0x00484c40 */
 extern undefined4 UINT_008c97c8; /* used by 4 fn(s), first 0x00484c40 */
 extern undefined4 UINT_008c97cc; /* used by 4 fn(s), first 0x00484c40 */

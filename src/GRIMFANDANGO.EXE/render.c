@@ -1192,10 +1192,10 @@ void * sputRender_CleanZBuffer(void)
    the palette callback global); the call after the colormap set-up in sputActor_DrawToClean in both
    builds); was Render_GetUserCallback. */
 
-uint sputRender_SetPaletteFunc(void)
+code * __cdecl sputRender_SetPaletteFunc(void)
 
 {
-  return g_dwSputRender_pSetPaletteFunc;
+  return (code *)g_dwSputRender_pSetPaletteFunc;
 }
 
 /* ---- 0x00486b30  sputRender_SetPageFlip ---- */
