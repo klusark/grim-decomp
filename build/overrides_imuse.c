@@ -282,11 +282,11 @@ uint ImSoundCall(uint cmd, int a2, int a3, int a4, int a5, int a6, int a7, int a
  * Starts the voice stream (sound id 10000): SoundStartVoiceStream(name, volume, pan).  The decompiler mixed up the arguments
  * (it read the pan from a fourth, non-existent parameter): the code reads [esp+0x14] and [esp+0x18] while the 3 pushes of
  * the calls before it are still on the stack (the pops are deferred), which are arguments 2 and 3. */
-int SoundStartVoiceStream(undefined4 param_1, uint volume, uint pan)
+int SoundStartVoiceStream(char *name, uint volume, uint pan)
 {
     ImStopSound(10000);
     SoundsCloseVoiceFile();
-    if (SoundsRegisterVoice(param_1) == 0)
+    if (SoundsRegisterVoice(name) == 0)
         return 1;
     SoundsFillStreamsWhileMusicCritical(5);
     ImStartStream(10000, 0x7f, 1);

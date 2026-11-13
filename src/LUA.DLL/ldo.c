@@ -206,22 +206,24 @@ void __cdecl luaD_deletestates(int param_1)
 /* Dispatches a call at the given stack position: C function, Lua closure or task mark ('unexpected
    cmark' otherwise) */
 
-undefined4 luaD_call(code *param_1,void *param_2)
+uint __cdecl luaD_call(int pos,int nres)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  code *a1;
+  uint a1;
   void *pvVar1;
   void *pvVar2;
   int iVar3;
-  int *piVar4;
-  int iVar5;
-  void *nResults;
+  int iVar4;
+  int *piVar5;
   int iVar6;
-  TObject *pTVar7;
+  int iVar7;
+  int iVar8;
+  int iVar9;
+  TObject *pTVar10;
   #define pvStack_14 (*(void **)(_frame + (0x30 - 0x14)))
   
-  nResults = param_2;
+  iVar7 = nres;
   pvStack_14 = g_pLuaState->pExecutionState;
   if ((pvStack_14 == (void *)0x0) || (g_pLuaState->nNestingLevel != 0)) {
     pvVar1 = ExecutionState_New(0x30);
@@ -229,119 +231,116 @@ undefined4 luaD_call(code *param_1,void *param_2)
       pvVar2 = (void *)0x0;
     }
     else {
-      pvVar2 = (void *)ExecutionState_Construct
-                                 (pvVar1,(int)g_pLuaState->pExecutionState,(int)param_1,(int)param_2
-                                 );
+      pvVar2 = (void *)ExecutionState_Construct(pvVar1,(int)g_pLuaState->pExecutionState,pos,nres);
     }
     g_pLuaState->pExecutionState = pvVar2;
-    param_2 = pvVar1;
+    nres = (int)pvVar1;
   }
   else {
     pvStack_14 = g_pLuaState->pResumeState;
   }
-  pvVar1 = param_2;
-  iVar6 = (int)param_1;
+  iVar3 = nres;
+  iVar8 = pos;
   do {
-    param_1 = (code *)0x0;
-    pTVar7 = g_pLuaState->pStack + iVar6 + -1;
-    switch(g_pLuaState->pStack[iVar6 + -1].nTtype) {
+    pos = 0;
+    pTVar10 = g_pLuaState->pStack + iVar8 + -1;
+    switch(g_pLuaState->pStack[iVar8 + -1].nTtype) {
     case -0xb:
-      printf(s_unexpected_cmark_at__d_10026a50,iVar6);
+      printf(s_unexpected_cmark_at__d_10026a50,iVar8);
       if (*(int *)((int)g_pLuaState->pExecutionState + 0x18) == 0)
       goto switchD_1000422b_caseD_fffffff9;
       break;
     case -10:
-      piVar4 = g_pLuaState->pExecutionState;
-      if (piVar4[6] != 0) goto LAB_100042fe;
+      piVar5 = g_pLuaState->pExecutionState;
+      if (piVar5[6] != 0) goto LAB_100042fe;
     default:
 switchD_1000422b_caseD_fffffff9:
-      iVar3 = luaT_efectivetag(pTVar7);
-      pTVar7 = (TObject *)(g_dwLState_IMtable + iVar3 * -0x90 + 0x88);
-      if (pTVar7->nTtype == -7) {
+      iVar4 = luaT_efectivetag(pTVar10);
+      pTVar10 = (TObject *)(g_dwLState_IMtable + iVar4 * -0x90 + 0x88);
+      if (pTVar10->nTtype == -7) {
         lua_error((byte *)s_call_expression_not_a_function_10026a30);
       }
-      luaD_callTM(pTVar7,(((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - iVar6) + 1,
-                  (int)nResults);
+      luaD_callTM(pTVar10,(((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - iVar8) + 1,
+                  iVar7);
       goto LAB_10004474;
     case -9:
-      piVar4 = g_pLuaState->pExecutionState;
-      if (piVar4[6] == 0) goto switchD_1000422b_caseD_fffffff9;
-      if (*(int *)(pTVar7->dwValue + 0xc) != -5) goto LAB_100042fe;
+      piVar5 = g_pLuaState->pExecutionState;
+      if (piVar5[6] == 0) goto switchD_1000422b_caseD_fffffff9;
+      if (*(int *)(pTVar10->dwValue + 0xc) != -5) goto LAB_100042fe;
       break;
     case -8:
-      a1 = (code *)pTVar7->dwValue;
-      pTVar7->nTtype = -9;
+      a1 = pTVar10->dwValue;
+      pTVar10->nTtype = -9;
       if (*(int *)(a1 + 0xc) != -5) {
-        ExecutionState_setvalues(g_pLuaState->pExecutionState,(int)a1,*(int *)(a1 + 0x10),iVar6);
-        piVar4 = g_pLuaState->pExecutionState;
+        ExecutionState_setvalues(g_pLuaState->pExecutionState,a1,*(int *)(a1 + 0x10),iVar8);
+        piVar5 = g_pLuaState->pExecutionState;
         goto LAB_100042fe;
       }
-      pvVar1 = (void *)callCclosure((int)a1,*(undefined **)(a1 + 0x10),iVar6);
-      param_1 = a1;
-      param_2 = pvVar1;
+      iVar3 = callCclosure(a1,*(undefined **)(a1 + 0x10),iVar8);
+      pos = a1;
+      nres = iVar3;
       break;
     case -5:
-      pTVar7->nTtype = -0xb;
-      param_1 = (code *)pTVar7->dwValue;
-      pvVar1 = (void *)callC(param_1,iVar6);
-      param_2 = pvVar1;
+      pTVar10->nTtype = -0xb;
+      pos = pTVar10->dwValue;
+      iVar3 = callC((undefined *)pos,iVar8);
+      nres = iVar3;
       break;
     case -4:
-      pTVar7->nTtype = -10;
-      ExecutionState_setvalues(g_pLuaState->pExecutionState,0,pTVar7->dwValue,iVar6);
-      piVar4 = g_pLuaState->pExecutionState;
+      pTVar10->nTtype = -10;
+      ExecutionState_setvalues(g_pLuaState->pExecutionState,0,pTVar10->dwValue,iVar8);
+      piVar5 = g_pLuaState->pExecutionState;
 LAB_100042fe:
-      pvVar1 = (void *)ExecutionState_execute(piVar4);
-      param_2 = pvVar1;
+      iVar3 = ExecutionState_execute(piVar5);
+      nres = iVar3;
     }
-    if ((int)pvVar1 < 1) {
-      iVar6 = -(int)pvVar1;
-      nResults = (void *)ExecutionState_getaux((int)g_pLuaState->pExecutionState);
-      pvVar2 = ExecutionState_New(0x30);
-      if (pvVar2 == (void *)0x0) {
-        pvVar2 = (void *)0x0;
+    if (iVar3 < 1) {
+      iVar8 = -iVar3;
+      iVar7 = ExecutionState_getaux((int)g_pLuaState->pExecutionState);
+      pvVar1 = ExecutionState_New(0x30);
+      if (pvVar1 == (void *)0x0) {
+        pvVar1 = (void *)0x0;
       }
       else {
-        pvVar2 = (void *)ExecutionState_Construct
-                                   (pvVar2,(int)g_pLuaState->pExecutionState,iVar6,(int)nResults);
+        pvVar1 = (void *)ExecutionState_Construct
+                                   (pvVar1,(int)g_pLuaState->pExecutionState,iVar8,iVar7);
       }
-      g_pLuaState->pExecutionState = pvVar2;
+      g_pLuaState->pExecutionState = pvVar1;
     }
     else {
-      iVar6 = *(int *)((int)g_pLuaState->pExecutionState + 0x10);
-      iVar3 = *(int *)((int)g_pLuaState->pExecutionState + 0x14);
-      if (iVar3 != 0xff) {
-        luaD_adjusttop((int)pvVar1 + iVar3);
+      iVar8 = *(int *)((int)g_pLuaState->pExecutionState + 0x10);
+      iVar7 = *(int *)((int)g_pLuaState->pExecutionState + 0x14);
+      if (iVar7 != 0xff) {
+        luaD_adjusttop(iVar3 + iVar7);
       }
-      iVar6 = iVar6 + -1;
-      nResults = (void *)((int)g_pLuaState->pTop + ((int)pvVar1 * -8 - (int)g_pLuaState->pStack) >>
-                         3);
-      if (0 < (int)nResults) {
-        iVar3 = (int)pvVar1 * 8;
-        iVar5 = iVar6 * 8;
-        pvVar2 = nResults;
+      iVar8 = iVar8 + -1;
+      iVar7 = (int)g_pLuaState->pTop + (iVar3 * -8 - (int)g_pLuaState->pStack) >> 3;
+      if (0 < iVar7) {
+        iVar4 = iVar3 * 8;
+        iVar6 = iVar8 * 8;
+        iVar9 = iVar7;
         do {
-          pTVar7 = g_pLuaState->pStack;
-          pvVar2 = (void *)((int)pvVar2 + -1);
-          *(undefined4 *)((int)&pTVar7->nTtype + iVar5) =
-               *(undefined4 *)((int)&pTVar7->nTtype + iVar3);
-          *(undefined4 *)((int)&pTVar7->dwValue + iVar5) =
-               *(undefined4 *)((int)&pTVar7->dwValue + iVar3);
-          iVar3 = iVar3 + 8;
-          iVar5 = iVar5 + 8;
-          pvVar1 = param_2;
-        } while (pvVar2 != (void *)0x0);
+          pTVar10 = g_pLuaState->pStack;
+          iVar9 = iVar9 + -1;
+          *(undefined4 *)((int)&pTVar10->nTtype + iVar6) =
+               *(undefined4 *)((int)&pTVar10->nTtype + iVar4);
+          *(undefined4 *)((int)&pTVar10->dwValue + iVar6) =
+               *(undefined4 *)((int)&pTVar10->dwValue + iVar4);
+          iVar4 = iVar4 + 8;
+          iVar6 = iVar6 + 8;
+          iVar3 = nres;
+        } while (iVar9 != 0);
       }
-      g_pLuaState->pTop = g_pLuaState->pTop + (iVar6 - (int)pvVar1);
-      pvVar2 = g_pLuaState->pExecutionState;
-      g_pLuaState->pExecutionState = *(void **)((int)pvVar2 + 0xc);
-      ExecutionState_Delete((int)pvVar2);
-      pvVar2 = g_pLuaState->pExecutionState;
-      if (pvVar2 != (void *)0x0) {
-        iVar6 = *(int *)((int)pvVar2 + 0x10);
-        nResults = *(void **)((int)pvVar2 + 0x14);
+      g_pLuaState->pTop = g_pLuaState->pTop + (iVar8 - iVar3);
+      pvVar1 = g_pLuaState->pExecutionState;
+      g_pLuaState->pExecutionState = *(void **)((int)pvVar1 + 0xc);
+      ExecutionState_Delete((int)pvVar1);
+      pvVar1 = g_pLuaState->pExecutionState;
+      if (pvVar1 != (void *)0x0) {
+        iVar8 = *(int *)((int)pvVar1 + 0x10);
+        iVar7 = *(int *)((int)pvVar1 + 0x14);
       }
-      if ((param_1 == luaI_breakhere) && (g_pLuaState->nPreventBreak == 0)) {
+      if (((code *)pos == luaI_breakhere) && (g_pLuaState->nPreventBreak == 0)) {
         g_pLuaState->pResumeState = pvStack_14;
         return 1;
       }
@@ -538,7 +537,7 @@ void __cdecl do_callinc(void *param_1)
   int iVar1;
   
   iVar1 = (g_pLuaState->Cstack).nBase;
-  luaD_call(iVar1 + 1,param_1);
+  luaD_call(iVar1 + 1,(int)param_1);
   (g_pLuaState->Cstack).nLua2C = iVar1;
   (g_pLuaState->Cstack).nNum = ((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - iVar1;
   (g_pLuaState->Cstack).nBase = (g_pLuaState->Cstack).nNum + iVar1;

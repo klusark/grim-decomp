@@ -1937,7 +1937,7 @@ Im_ApplyFXPreset(undefined2 *param_1,uint param_2,undefined2 *param_3,int *param
 /* ---- 0x10004970  FUN_10004970 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_10004970(void)
+void __cdecl FUN_10004970(void)
 
 {
   if (_DAT_1002dd78 != 0) {
@@ -2808,8 +2808,8 @@ undefined4 __cdecl ScriptCall(int cmd,...)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
 undefined4 __cdecl
-FUN_10006360(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5
-            ,undefined4 param_6,undefined4 param_7,undefined4 param_8)
+FUN_10006360(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,undefined4 param_6,
+            undefined4 param_7,undefined4 param_8)
 
 {
   int iVar1;
@@ -2874,7 +2874,7 @@ int __cdecl FUN_10006400(undefined4 *param_1,int param_2)
     *(undefined4 *)(iVar4 + (int)param_1) = uVar1;
     iVar4 = iVar4 + 4;
   } while ((int)puVar2 < ((unsigned)(uintptr_t)&g_dwCurrentSequence));
-  iVar3 = ImSaveFilelist((int)param_1 + iVar4,param_2 - iVar4);
+  iVar3 = ImSaveFilelist((int *)((int)param_1 + iVar4),param_2 - iVar4);
   if (-1 < iVar3) {
     iVar3 = iVar3 + iVar4;
   }
@@ -2903,7 +2903,7 @@ int __cdecl FUN_10006470(undefined4 *param_1)
     *puVar2 = *puVar1;
     puVar2 = puVar2 + 1;
   } while ((int)puVar2 < ((unsigned)(uintptr_t)&g_dwCurrentSequence));
-  iVar3 = ImRestoreFilelist(iVar4 + (int)param_1);
+  iVar3 = ImRestoreFilelist((int *)(iVar4 + (int)param_1));
   return iVar4 + iVar3;
 }
 
@@ -3586,7 +3586,7 @@ void __cdecl Im_SoundsFreeSlot(int param_1)
 }
 
 /* ---- 0x10008bb0  iMUSE_GetPhoneme ---- */
-int iMUSE_GetPhoneme(int param_1,int param_2)
+int __cdecl iMUSE_GetPhoneme(int param_1,int param_2)
 
 {
   int iVar1;
@@ -3675,7 +3675,7 @@ int __cdecl FUN_10008c40(int param_1,int param_2)
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-int FUN_10008ce0(void)
+int __cdecl FUN_10008ce0(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3757,7 +3757,7 @@ undefined4 __stdcall timer_callback(int a1,int a2,int a3,int a4,int a5)
 /* ---- 0x10008e30  FUN_10008e30 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_10008e30(void)
+void __cdecl FUN_10008e30(void)
 
 {
   timeKillEvent(_DAT_10031d28);
@@ -3767,7 +3767,7 @@ void FUN_10008e30(void)
 }
 
 /* ---- 0x10008e60  FUN_10008e60 ---- */
-void FUN_10008e60(void)
+void __cdecl FUN_10008e60(void)
 
 {
   undefined1 *puVar1;
@@ -3859,27 +3859,27 @@ void __cdecl Im_SoundsPrepare(uint param_1)
 
 
 /* ---- 0x10009530  FUN_10009530 ---- */
-undefined4 FUN_10009530(int param_1)
+uint __cdecl FUN_10009530(int param_1)
 
 {
   if ((99 < param_1) && (param_1 < 0x85)) {
-    return *(undefined4 *)((param_1 + -100) * 0x40 + ((unsigned)(uintptr_t)&DAT_10031554));
+    return *(uint *)((param_1 + -100) * 0x40 + ((unsigned)(uintptr_t)&DAT_10031554));
   }
   return 0;
 }
 
 /* ---- 0x10009560  FUN_10009560 ---- */
-undefined4 FUN_10009560(int param_1)
+uint __cdecl FUN_10009560(int param_1)
 
 {
   if ((99 < param_1) && (param_1 < 0x85)) {
-    return *(undefined4 *)((param_1 + -100) * 0x40 + ((unsigned)(uintptr_t)&DAT_10031558));
+    return *(uint *)((param_1 + -100) * 0x40 + ((unsigned)(uintptr_t)&DAT_10031558));
   }
   return 0;
 }
 
 /* ---- 0x100095d0  grimSound_LipSyncLoad ---- */
-uint * grimSound_LipSyncLoad(uint *param_1)
+uint * __cdecl grimSound_LipSyncLoad(uint *param_1)
 
 {
   int *piVar1;
@@ -3940,7 +3940,7 @@ undefined4 __cdecl grimSound_LipSyncFree(int param_1)
 }
 
 /* ---- 0x10009700  FUN_10009700 ---- */
-void FUN_10009700(void)
+void __cdecl FUN_10009700(char *fmt,...)
 
 {
   return;
@@ -4272,10 +4272,10 @@ uint __cdecl iRes_FREAD(undefined4 *param_1,undefined4 *param_2,uint param_3)
 /* ---- 0x1000a070  iMUSE_DeclareBufferSizes ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void iMUSE_DeclareBufferSizes
-               (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-               undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8,
-               undefined4 param_9,undefined4 param_10,undefined4 param_11,undefined4 param_12)
+void __cdecl
+iMUSE_DeclareBufferSizes
+          (uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
+          uint param_7,uint param_8,uint param_9,uint param_10,uint param_11,uint param_12)
 
 {
                     /* 0xa070  75  iMUSE_DeclareBufferSizes */
@@ -4298,7 +4298,7 @@ void iMUSE_DeclareBufferSizes
 /* ---- 0x1000a0f0  iMUSE_GetMemoryFootprint ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 iMUSE_GetMemoryFootprint(void)
+uint __cdecl iMUSE_GetMemoryFootprint(void)
 
 {
                     /* 0xa0f0  77  iMUSE_GetMemoryFootprint */
@@ -4308,7 +4308,7 @@ undefined4 iMUSE_GetMemoryFootprint(void)
 /* ---- 0x1000a100  iMUSE_GetSoundCacheSize ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 iMUSE_GetSoundCacheSize(void)
+uint __cdecl iMUSE_GetSoundCacheSize(void)
 
 {
                     /* 0xa100  79  iMUSE_GetSoundCacheSize */
@@ -4316,11 +4316,11 @@ undefined4 iMUSE_GetSoundCacheSize(void)
 }
 
 /* ---- 0x1000a110  iMUSE_SetHook ---- */
-undefined4 iMUSE_SetHook(uint *param_1,uint param_2)
+uint __cdecl iMUSE_SetHook(uint *param_1,uint param_2)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  uint uVar2;
   
                     /* 0xa110  80  iMUSE_SetHook */
   iVar1 = CacheGetSoundId(param_1);
@@ -4332,11 +4332,11 @@ undefined4 iMUSE_SetHook(uint *param_1,uint param_2)
 }
 
 /* ---- 0x1000a140  iMUSE_GetHook ---- */
-undefined4 iMUSE_GetHook(uint *param_1)
+uint __cdecl iMUSE_GetHook(uint *param_1)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  uint uVar2;
   
                     /* 0xa140  76  iMUSE_GetHook */
   iVar1 = CacheGetSoundId(param_1);

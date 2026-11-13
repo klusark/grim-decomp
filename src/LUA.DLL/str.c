@@ -83,7 +83,7 @@ void closeandpush(void)
 /* ---- 0x100096a0  str_lower ---- */
 /* Original name str_lower (the remaster's libLua.so: strlib entry 'strlower'); was FUN_100096a0. */
 
-void str_lower(void)
+void __cdecl str_lower(void)
 
 {
   byte *pbVar1;
@@ -108,7 +108,7 @@ void str_lower(void)
 /* ---- 0x100096e0  str_upper ---- */
 /* Original name str_upper (the remaster's libLua.so: strlib entry 'strupper'); was FUN_100096e0. */
 
-void str_upper(void)
+void __cdecl str_upper(void)
 
 {
   byte *pbVar1;
@@ -133,7 +133,7 @@ void str_upper(void)
 /* ---- 0x10009720  str_rep ---- */
 /* Original name str_rep (the remaster's libLua.so: strlib entry 'strrep'); was FUN_10009720. */
 
-void str_rep(void)
+void __cdecl str_rep(void)
 
 {
   uint *puVar1;
@@ -180,7 +180,7 @@ void __cdecl addstr(uint *param_1)
 /* ---- 0x10009780  str_ascii ---- */
 /* Original name str_ascii (the remaster's libLua.so: strlib entry 'ascii'); was FUN_10009780. */
 
-void str_ascii(void)
+void __cdecl str_ascii(void)
 
 {
   char cVar1;
@@ -415,7 +415,7 @@ uint __cdecl matchclass(uint param_1,uint param_2)
 /* ---- 0x10009cb0  str_find ---- */
 /* Original name str_find (the remaster's libLua.so: strlib entry 'strfind'); was FUN_10009cb0. */
 
-void str_find(void)
+void __cdecl str_find(void)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -743,7 +743,7 @@ char * __cdecl matchbalance(char *param_1,int param_2,int param_3)
 /* ---- 0x1000a1d0  str_gsub ---- */
 /* Original name str_gsub (the remaster's libLua.so: strlib entry 'gsub'); was FUN_1000a1d0. */
 
-void str_gsub(void)
+void __cdecl str_gsub(void)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -888,7 +888,7 @@ LAB_1000a36b:
 #if 0
 /* Original name str_format (the remaster's libLua.so: strlib entry 'format'); was FUN_1000a440. */
 
-void str_format(void)
+void __cdecl str_format(void)
 
 {
   unsigned char _frame[0x130] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

@@ -20,17 +20,17 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint *puVar1;
   char cVar2;
-  uint uVar3;
-  int iVar4;
+  int iVar3;
+  uint uVar4;
   ComponentTag *pCVar5;
   uint uVar6;
-  uint uVar7;
-  undefined4 uVar8;
-  int iVar9;
+  char *pcVar7;
+  uint uVar8;
+  undefined4 uVar9;
   int iVar10;
-  uint *puVar11;
-  ChoreTrack *pCVar12;
-  char *pcVar13;
+  int iVar11;
+  uint *puVar12;
+  ChoreTrack *pCVar13;
   CosComponent *pCVar14;
   Chore *pCVar15;
   ChoreKey *pCVar16;
@@ -48,184 +48,184 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
   }
   uStack_24 = 0;
   if (pCostume->dwNumChores != 0) {
-    puVar11 = &pCostume->pChores->dwNumTracks;
+    puVar12 = &pCostume->pChores->dwNumTracks;
     do {
-      uVar6 = *puVar11;
+      uVar6 = *puVar12;
       uStack_20 = 0;
       if (uVar6 != 0) {
-        iVar10 = 0;
+        iVar11 = 0;
         do {
-          uVar7 = 0;
+          uVar8 = 0;
           if (uVar6 != 0) {
-            iVar9 = 0;
+            iVar10 = 0;
             do {
-              if ((uStack_20 != uVar7) &&
-                 (*(int *)((int)&((ChoreTrack *)puVar11[1])->nCompNum + iVar10) ==
-                  *(int *)((int)&((ChoreTrack *)puVar11[1])->nCompNum + iVar9))) {
+              if ((uStack_20 != uVar8) &&
+                 (*(int *)((int)&((ChoreTrack *)puVar12[1])->nCompNum + iVar11) ==
+                  *(int *)((int)&((ChoreTrack *)puVar12[1])->nCompNum + iVar10))) {
                 return 0;
               }
-              uVar7 = uVar7 + 1;
-              iVar9 = iVar9 + 0x10;
-            } while (uVar7 < uVar6);
+              uVar8 = uVar8 + 1;
+              iVar10 = iVar10 + 0x10;
+            } while (uVar8 < uVar6);
           }
           uStack_20 = uStack_20 + 1;
-          iVar10 = iVar10 + 0x10;
+          iVar11 = iVar11 + 0x10;
         } while (uStack_20 < uVar6);
       }
       uStack_24 = uStack_24 + 1;
-      puVar11 = puVar11 + 0xb;
+      puVar12 = puVar12 + 0xb;
     } while (uStack_24 < pCostume->dwNumChores);
   }
   uVar6 = Cos_CollectUsedTags(pCostume);
   if (g_pfnSaveHook != (void *)0x0) {
-    iVar10 = Cos_IndexToHandle(((int)pCostume - (int)g_aCostumes) / 0x3c);
-    iVar10 = (*(code *)g_pfnSaveHook)(fileName,iVar10);
-    if (iVar10 == 0) {
+    iVar11 = Cos_IndexToHandle(((int)pCostume - (int)g_aCostumes) / 0x3c);
+    iVar11 = (*(code *)g_pfnSaveHook)(fileName,iVar11);
+    if (iVar11 == 0) {
       return 0;
     }
   }
-  iVar10 = (*(code *)g_pSvcChore->pFopen)(fileName,((unsigned)(uintptr_t)&DAT_100101f4));
-  if (iVar10 == 0) {
+  iVar11 = (*g_pSvcChore->pFopen)(fileName,(char *)((unsigned)(uintptr_t)&DAT_100101f4));
+  if (iVar11 == 0) {
     return 0;
   }
-  iVar9 = msvc_strrchr(fileName,0x5c);
-  if (iVar9 == 0) {
-    uVar7 = 0xffffffff;
-    pcVar13 = fileName;
+  pcVar7 = msvc_strrchr(fileName,'\\');
+  if (pcVar7 == (char *)0x0) {
+    uVar8 = 0xffffffff;
+    pcVar7 = fileName;
     do {
-      if (uVar7 == 0) break;
-      uVar7 = uVar7 - 1;
-      cVar2 = *pcVar13;
-      pcVar13 = pcVar13 + 1;
+      if (uVar8 == 0) break;
+      uVar8 = uVar8 - 1;
+      cVar2 = *pcVar7;
+      pcVar7 = pcVar7 + 1;
     } while (cVar2 != '\0');
-    if (0x20 < ~uVar7 - 1) {
+    if (0x20 < ~uVar8 - 1) {
       iStack_1c = 0;
       goto LAB_1000167e;
     }
-    msvc_strncpy(pCostume,fileName,0x1f);
+    msvc_strncpy((uint *)pCostume,(uint *)fileName,0x1f);
     pCostume->aName[0x1f] = '\0';
   }
   else {
-    uVar7 = 0xffffffff;
-    pcVar13 = (char *)(iVar9 + 1);
+    uVar8 = 0xffffffff;
+    puVar12 = (uint *)(pcVar7 + 1);
     do {
-      if (uVar7 == 0) break;
-      uVar7 = uVar7 - 1;
-      cVar2 = *pcVar13;
-      pcVar13 = pcVar13 + 1;
-    } while (cVar2 != '\0');
-    if (0x20 < ~uVar7 - 1) {
+      if (uVar8 == 0) break;
+      uVar8 = uVar8 - 1;
+      uVar4 = *puVar12;
+      puVar12 = (uint *)((int)puVar12 + 1);
+    } while ((char)uVar4 != '\0');
+    if (0x20 < ~uVar8 - 1) {
       iStack_1c = 0;
       goto LAB_1000167e;
     }
-    msvc_strncpy(pCostume,(char *)(iVar9 + 1),0x1f);
+    msvc_strncpy((uint *)pCostume,(uint *)(pcVar7 + 1),0x1f);
     pCostume->aName[0x1f] = '\0';
   }
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100101ec),comment);
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100101d8),0,1);
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100101c8));
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100101b8),uVar6);
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100101a0));
-  uVar7 = 0;
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_100101ec),comment);
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_100101d8),0,1);
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_100101c8));
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_100101b8),uVar6);
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_100101a0));
+  uVar8 = 0;
   if (uVar6 != 0) {
-    puVar11 = g_aTagLookups;
+    puVar12 = g_aTagLookups;
     do {
-      uVar3 = *puVar11;
-      iStack_10 = g_aComponentTags[uVar3].nId;
+      uVar4 = *puVar12;
+      iStack_10 = g_aComponentTags[uVar4].nId;
       uStack_c = 0;
-      if (g_aComponentTags[uVar3].nKind == 0) {
-        uVar8 = ((unsigned)(uintptr_t)&DAT_1001019c);
+      if (g_aComponentTags[uVar4].nKind == 0) {
+        uVar9 = ((unsigned)(uintptr_t)&DAT_1001019c);
       }
       else {
-        uVar8 = ((unsigned)(uintptr_t)&DAT_10010198);
-        if (g_aComponentTags[uVar3].nKind != 1) {
-          uVar8 = ((unsigned)(uintptr_t)&DAT_10010190);
+        uVar9 = ((unsigned)(uintptr_t)&DAT_10010198);
+        if (g_aComponentTags[uVar4].nKind != 1) {
+          uVar9 = ((unsigned)(uintptr_t)&DAT_10010190);
         }
       }
       (*(code *)g_pSvcChore->pFprintf)
-                (iVar10,((unsigned)(uintptr_t)&DAT_1001017c),uVar7,&iStack_10,uVar8,g_aComponentTags[uVar3].aName);
-      uVar7 = uVar7 + 1;
-      puVar11 = puVar11 + 1;
-    } while (uVar7 < uVar6);
+                (iVar11,((unsigned)(uintptr_t)&DAT_1001017c),uVar8,&iStack_10,uVar9,g_aComponentTags[uVar4].aName);
+      uVar8 = uVar8 + 1;
+      puVar12 = puVar12 + 1;
+    } while (uVar8 < uVar6);
   }
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010164));
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010150),pCostume->dwNumComponents);
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010130));
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_10010164));
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_10010150),pCostume->dwNumComponents);
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_10010130));
   pCVar14 = pCostume->pComponents;
   uStack_28 = 0;
   if (pCostume->dwNumComponents != 0) {
     do {
-      uVar7 = 0;
+      uVar8 = 0;
       if (g_aTagLookups[0] != pCVar14->nTag) {
-        puVar11 = g_aTagLookups;
+        puVar12 = g_aTagLookups;
         do {
-          if (uVar6 <= uVar7) break;
-          puVar1 = puVar11 + 1;
-          puVar11 = puVar11 + 1;
-          uVar7 = uVar7 + 1;
+          if (uVar6 <= uVar8) break;
+          puVar1 = puVar12 + 1;
+          puVar12 = puVar12 + 1;
+          uVar8 = uVar8 + 1;
         } while (*puVar1 != pCVar14->nTag);
       }
-      if (uVar7 == uVar6) {
+      if (uVar8 == uVar6) {
         (*(code *)g_pSvcChore->pAssertFail)
                   (((unsigned)(uintptr_t)&DAT_10010120),s_C__grimsrc_libs_chore_Costume_c_1001020c,0x1a9);
       }
-      (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010108),uStack_28,uVar7,pCVar14->nHash);
+      (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_10010108),uStack_28,uVar8,pCVar14->nHash);
       uStack_28 = uStack_28 + 1;
       pCVar14 = pCVar14 + 1;
     } while (uStack_28 < pCostume->dwNumComponents);
   }
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100f4));
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100e4),pCostume->dwNumChores);
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100c8));
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_100100f4));
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_100100e4),pCostume->dwNumChores);
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_100100c8));
   uVar6 = 0;
   pCVar15 = pCostume->pChores;
   if (pCostume->dwNumChores != 0) {
     do {
-      uVar7 = pCVar15->dwNumTracks;
-      iVar9 = 0;
-      if (uVar7 != 0) {
-        puVar11 = &pCVar15->pChoreTracks->dwNumKeys;
+      uVar8 = pCVar15->dwNumTracks;
+      iVar10 = 0;
+      if (uVar8 != 0) {
+        puVar12 = &pCVar15->pChoreTracks->dwNumKeys;
         do {
-          if (*puVar11 != 0) {
-            iVar9 = iVar9 + 1;
+          if (*puVar12 != 0) {
+            iVar10 = iVar10 + 1;
           }
-          puVar11 = puVar11 + 4;
-          uVar7 = uVar7 - 1;
-        } while (uVar7 != 0);
+          puVar12 = puVar12 + 4;
+          uVar8 = uVar8 - 1;
+        } while (uVar8 != 0);
       }
-      (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100b4),uVar6,pCVar15->dwLength,iVar9,pCVar15);
+      (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_100100b4),uVar6,pCVar15->dwLength,iVar10,pCVar15);
       uVar6 = uVar6 + 1;
       pCVar15 = pCVar15 + 1;
     } while (uVar6 < pCostume->dwNumChores);
   }
-  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_100100a4));
+  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_100100a4));
   uStack_24 = 0;
   pCVar15 = pCostume->pChores;
   if (pCostume->dwNumChores != 0) {
     do {
-      (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010094),uStack_24,pCVar15);
-      pCVar12 = pCVar15->pChoreTracks;
+      (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_10010094),uStack_24,pCVar15);
+      pCVar13 = pCVar15->pChoreTracks;
       uStack_20 = 0;
       if (pCVar15->dwNumTracks != 0) {
         do {
-          if (pCVar12->dwNumKeys != 0) {
-            (*(code *)g_pSvcChore->pFprintf)(iVar10);
-            (*(code *)g_pSvcChore->pFprintf)(iVar10);
-            (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010060),pCVar12->nCompNum,pCVar12->dwNumKeys)
+          if (pCVar13->dwNumKeys != 0) {
+            (*(code *)g_pSvcChore->pFprintf)(iVar11);
+            (*(code *)g_pSvcChore->pFprintf)(iVar11);
+            (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_10010060),pCVar13->nCompNum,pCVar13->dwNumKeys)
             ;
             pCVar5 = g_aComponentTags;
-            pCVar16 = pCVar12->pKeys;
-            iVar9 = pCostume->pComponents[pCVar12->nCompNum].nTag;
+            pCVar16 = pCVar13->pKeys;
+            iVar10 = pCostume->pComponents[pCVar13->nCompNum].nTag;
             uStack_28 = 0;
-            if (pCVar12->dwNumKeys != 0) {
+            if (pCVar13->dwNumKeys != 0) {
               do {
-                iVar4 = pCVar5[iVar9].nKind;
-                if ((iVar4 == 0) || (iVar4 == 1)) {
-                  (*(code *)g_pSvcChore->pFprintf)(iVar10,((unsigned)(uintptr_t)&DAT_10010054),pCVar16->dwTime);
+                iVar3 = pCVar5[iVar10].nKind;
+                if ((iVar3 == 0) || (iVar3 == 1)) {
+                  (*(code *)g_pSvcChore->pFprintf)(iVar11,((unsigned)(uintptr_t)&DAT_10010054),pCVar16->dwTime);
                 }
-                else if (iVar4 == 2) {
+                else if (iVar3 == 2) {
                   (*(code *)g_pSvcChore->pFprintf)
-                            (iVar10,((unsigned)(uintptr_t)&DAT_10010048),pCVar16->dwTime,(double)(float)pCVar16->nValue);
+                            (iVar11,((unsigned)(uintptr_t)&DAT_10010048),pCVar16->dwTime,(double)(float)pCVar16->nValue);
                 }
                 else {
                   (*(code *)g_pSvcChore->pAssertFail)
@@ -233,12 +233,12 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
                 }
                 uStack_28 = uStack_28 + 1;
                 pCVar16 = pCVar16 + 1;
-              } while (uStack_28 < pCVar12->dwNumKeys);
+              } while (uStack_28 < pCVar13->dwNumKeys);
             }
             (*(code *)g_pSvcChore->pFprintf)();
           }
           uStack_20 = uStack_20 + 1;
-          pCVar12 = pCVar12 + 1;
+          pCVar13 = pCVar13 + 1;
         } while (uStack_20 < pCVar15->dwNumTracks);
       }
       uStack_24 = uStack_24 + 1;
@@ -800,7 +800,7 @@ char * __cdecl CosUtil_NameChore(Costume *pCostume,int choreNum,char *name)
   } while (cVar1 != '\0');
   iVar4 = ~uVar3 - 1;
   if (iVar4 < 0x20) {
-    msvc_strncpy(pCostume->pChores + choreNum,name,0x1f);
+    msvc_strncpy((uint *)(pCostume->pChores + choreNum),(uint *)name,0x1f);
     pCVar2 = pCostume->pChores;
     iVar5 = 0;
     pCVar2[choreNum].aName[0x1f] = '\0';

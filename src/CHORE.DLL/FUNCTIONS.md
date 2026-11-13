@@ -47,7 +47,7 @@
 | 10003970 | Cos_Restore | costume.c | 95 |
 | 10003b40 | Cos_RestoreInstance | costume.c | 44 |
 | 10003c20 | Cos_CollectUsedTags | costume.c | 45 |
-| 10003c90 | Cos_AddKey | costume.c | 108 |
+| 10003c90 | Cos_AddKey | costume.c | 110 |
 | 10003e50 | Cos_CompareKeys | costume.c | 11 |
 | 10003e70 | Cos_InitComponentStates | costume.c | 126 |
 | 10004090 | Cos_InitComponent | costume.c | 41 |
@@ -109,8 +109,8 @@
 | 10005740 | msvc_stricmp | msvc.c | 1 |
 | 10005810 | msvc_sscanf | msvc.c | 1 |
 | 10005860 | msvc_memmove | msvc.c | 1 |
-| 10005ba0 | msvc_qsort | msvc.c | 95 |
-| 10005d50 | msvc_shortsort | msvc.c | 20 |
+| 10005ba0 | msvc_qsort | msvc.c | 96 |
+| 10005d50 | msvc_shortsort | msvc.c | 21 |
 | 10005db0 | msvc_qsort_swap | msvc.c | 18 |
 | 10005de0 | msvc_bsearch | msvc.c | 1 |
 | 10005e90 | msvc_strchr | msvc.c | 1 |

@@ -54,6 +54,10 @@ The remaining functions and their reasons are listed in `docs/ASM_REMAINING_logi
 * **Shared Ghidra project.** `tools/export_changed.py` pulls other agents' renames into the raw exports; the raw
   `functions.json` / `globals.json` / `exports.json` were restored after each export.  Changing a prototype can break compiled
   callers (Palette_FromFloatTable made Palette_ApplyGamma read a double from one dword: Palette_ApplyGamma is hand written).
+* **Unset locals.** sputLua_GetVisibleThingsL (hand-written 2026-11-13) reads its viewer from a stack slot it never wrote
+  when the argument is neither nil nor an actor; the original's value is whatever an earlier frame left there. The C uses
+  the selected actor (none: an empty table) so the result no longer depends on unrelated code (build/BUILD_NOTES.md,
+  "A stored prototype for every DLL function").
 * **Left assembled after a failed try:** Engine_RenderFrame (the C version crashes on a bad pointer at +0x240),
   Sector_ContainsPoint (the C comparisons with 1e-5 tolerances differ from the x87 original; the coll tier gives NaN),
   Collision_TestActorAgainstOthers (crashes at start-up), Walker_UpdateYaw as plain C (NaN compare).

@@ -1479,3 +1479,35 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
 * msc_error_SaveString's hand-written version (overrides_asm_o2.c) is gone: the generated text is the same function.
   bmp_bitmap_Alloc stays hand-written (its tail is a jump table Ghidra could not recover); it calls msc_error_SaveString
   and the new string symbol directly instead of a cast and IMG_ADDR(0x004f3d40).
+
+## A stored prototype for every DLL function (2026-11-13)
+
+* IMUSE.DLL (106), LUA.DLL (124) and CHORE.DLL (149) functions without a prototype (signature source DEFAULT) get the
+  one main's src/<dll>/functions.h showed, `__cdecl`, scalar `undefinedN` made concrete, like the EXE round above;
+  names/protos_all_dlls.json (replay after names/protos_all_exe.json). Left DEFAULT: 6 functions without RET, 6 LUA
+  functions returning float10 / unkbyte10, 12 IMUSE thunks.
+* **Purge.** Their stack purge was unknown (the DLLs' "X86 Function Callee Purge" analyzer is off), and setting a
+  prototype on such a function stores the parameter bytes as its purge: SoundsRegisterVoice got 4, so every caller lost
+  4 bytes of stack and SoundStartVoiceStream's twin read the volume from the pan's slot. Every one ends in a plain RET:
+  all purges were reset to 0 after the prototypes were set (IMUSE 80, LUA 18, CHORE 113).
+* By hand: IMUSE FUN_10009700, the empty debug print sounds_restore calls with "Before", "After Stopall", ...: as
+  `(void)` the calls lost the strings and datagen merged them into one block that overrides_imuse.c no longer found, so
+  `(char *fmt, ...)`; SoundStartVoiceStream `char *name` (its stored `undefined4` was re-typed from SoundsRegisterVoice;
+  the override follows); LUA luaD_call `(int pos, int nres)` (main showed `code *, void *`; the override and its two
+  callers in overrides_lua_core.c lose their casts) and lua_Restore `(void *readFunc)`; CHORE msvc_qsort /
+  msvc_shortsort / msvc_bsearch take their comparator as `void *` (the DLLs have no `code` type).
+* CHORE's GrimServices.pFopen is a `SvcFopen *` (`int SvcFopen(char *name, char *mode)`, created in the CHORE.DLL
+  project; not in names/, re-create it after a replay): with the field a plain `pointer` the decompiler inferred the
+  call's arguments from the pushes and CosUtil_Write's fopen lost its "wt+" (the string then merged into "# %s
+").
+  Checked with an arity comparison of every indirect call before / after (casts excluded): no other call in the
+  three DLLs changed its argument count.
+* build/link.py now fails the link when a function is defined both by a hand-written override and by the generated
+  code: with --allow-multiple-definition the first object won silently. It happened here: a comment between `)` and
+  `{` of luaD_call's override hid it from build_src, which then left the twin compiled.
+* sputLua_GetVisibleThingsL is hand-written (overrides_logic.c): with an argument that is neither nil nor an actor
+  the original reads its viewer from a stack slot it never wrote. The LUA.DLL changes left a null pointer there and the
+  clean room's args_GetVisibleThings_tab crashed (the other args_* tests of the file then ran in a restarted game
+  and differed: no in-place ".lbm" on the interned "cr", another globals order). Such an argument now means the
+  selected actor; none selected: the empty table.
+

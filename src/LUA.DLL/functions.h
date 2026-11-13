@@ -77,7 +77,7 @@ void __cdecl do_unprotectedrun(uint param_1,int param_2,void *param_3); /* 0x100
 void luaA_ResetSaveCount(void); /* 0x10002660 */
 undefined4 __cdecl lua_Save(undefined *param_1); /* 0x10002670 */
 void __cdecl LuaSaveWriter(undefined4 param_1,int param_2); /* 0x10002730 */
-undefined4 lua_Restore(code *param_1); /* 0x10002760 */
+uint __cdecl lua_Restore(void *readFunc); /* 0x10002760 */
 void Lua_Terminate(void); /* 0x10002900 */
 undefined4 Lua_Startup(void); /* 0x10002920 */
 void Lua_Shutdown(void); /* 0x10002940 */
@@ -119,42 +119,42 @@ void __cdecl luaL_addsize(int param_1); /* 0x10002d10 */
 int __cdecl luaL_newbuffer(int param_1); /* 0x10002d30 */
 void __cdecl luaL_oldbuffer(int param_1); /* 0x10002d80 */
 undefined4 luaL_buffer(void); /* 0x10002da0 */
-void nextvar(void); /* 0x10002db0 */
+void __cdecl nextvar(void); /* 0x10002db0 */
 void __cdecl pushstring(uint param_1); /* 0x10002e40 */
-void foreachvar(void); /* 0x10002e70 */
-void next(void); /* 0x10002f80 */
-void foreach(void); /* 0x10002fd0 */
-void internaldostring(void); /* 0x100030d0 */
-void internaldofile(void); /* 0x10003120 */
-void bi_tostring(void); /* 0x10003150 */
+void __cdecl foreachvar(void); /* 0x10002e70 */
+void __cdecl next(void); /* 0x10002f80 */
+void __cdecl foreach(void); /* 0x10002fd0 */
+void __cdecl internaldostring(void); /* 0x100030d0 */
+void __cdecl internaldofile(void); /* 0x10003120 */
+void __cdecl bi_tostring(void); /* 0x10003150 */
 undefined1 * __cdecl to_string(int param_1); /* 0x10003170 */
 void luaI_startscript(void); /* 0x10003260 */
-void luaI_stopscript(void); /* 0x10003370 */
-void luaI_findscript(void); /* 0x100034c0 */
-void luaI_identifyscript(void); /* 0x10003610 */
-void luaI_nextscript(void); /* 0x100036a0 */
+void __cdecl luaI_stopscript(void); /* 0x10003370 */
+void __cdecl luaI_findscript(void); /* 0x100034c0 */
+void __cdecl luaI_identifyscript(void); /* 0x10003610 */
+void __cdecl luaI_nextscript(void); /* 0x100036a0 */
 void luaI_breakhere(void); /* 0x10003770 */
-void luaI_print(void); /* 0x10003780 */
-void luaI_type(void); /* 0x100037d0 */
-void tonumber(void); /* 0x10003820 */
-void luaI_error(void); /* 0x10003910 */
-void luaI_assert(void); /* 0x10003930 */
-void setglobal(void); /* 0x10003970 */
-void rawsetglobal(void); /* 0x100039b0 */
-void getglobal(void); /* 0x100039f0 */
-void rawgetglobal(void); /* 0x10003a10 */
-void luatag(void); /* 0x10003a30 */
-void luaI_call(void); /* 0x10003a60 */
+void __cdecl luaI_print(void); /* 0x10003780 */
+void __cdecl luaI_type(void); /* 0x100037d0 */
+void __cdecl tonumber(void); /* 0x10003820 */
+void __cdecl luaI_error(void); /* 0x10003910 */
+void __cdecl luaI_assert(void); /* 0x10003930 */
+void __cdecl setglobal(void); /* 0x10003970 */
+void __cdecl rawsetglobal(void); /* 0x100039b0 */
+void __cdecl getglobal(void); /* 0x100039f0 */
+void __cdecl rawgetglobal(void); /* 0x10003a10 */
+void __cdecl luatag(void); /* 0x10003a30 */
+void __cdecl luaI_call(void); /* 0x10003a60 */
 int __cdecl getnarg(int param_1); /* 0x10003ba0 */
-void settag(void); /* 0x10003bf0 */
-void newtag(void); /* 0x10003c20 */
-void copytagmethods(void); /* 0x10003c40 */
-void rawgettable(void); /* 0x10003c80 */
+void __cdecl settag(void); /* 0x10003bf0 */
+void __cdecl newtag(void); /* 0x10003c20 */
+void __cdecl copytagmethods(void); /* 0x10003c40 */
+void __cdecl rawgettable(void); /* 0x10003c80 */
 void rawsettable(void); /* 0x10003cc0 */
-void settagmethod(void); /* 0x10003d10 */
-void gettagmethod(void); /* 0x10003d50 */
-void seterrormethod(void); /* 0x10003d80 */
-void luaI_collectgarbage(void); /* 0x10003db0 */
+void __cdecl settagmethod(void); /* 0x10003d10 */
+void __cdecl gettagmethod(void); /* 0x10003d50 */
+void __cdecl seterrormethod(void); /* 0x10003d80 */
+void __cdecl luaI_collectgarbage(void); /* 0x10003db0 */
 void luaB_predefine(void); /* 0x10003df0 */
 
 /* ===== ldo.c ===== */
@@ -166,7 +166,7 @@ void __cdecl luaD_callHook(int param_1,int param_2,int param_3); /* 0x10004000 *
 void __cdecl luaD_taskHook(undefined4 param_1,undefined4 param_2); /* 0x100040c0 */
 void __cdecl luaD_callTM(TObject *f,int nParams,int nResults); /* 0x100040e0 */
 void __cdecl luaD_deletestates(int param_1); /* 0x10004160 */
-undefined4 luaD_call(code *param_1,void *param_2); /* 0x10004180 */
+uint __cdecl luaD_call(int pos,int nres); /* 0x10004180 */
 int __cdecl callC(undefined *param_1,int param_2); /* 0x100044e0 */
 int __cdecl callCclosure(int param_1,undefined *param_2,int param_3); /* 0x10004580 */
 void __cdecl luaD_travallstacks(undefined *param_1); /* 0x10004600 */
@@ -202,7 +202,7 @@ void __cdecl luaC_protomark(TProtoFunc *f); /* 0x100051f0 */
 void __cdecl closuremark(Closure *f); /* 0x10005270 */
 void __cdecl hashmark(Hash *h); /* 0x100052b0 */
 void luaC_checkGC(void); /* 0x10005300 */
-void io_readfrom(void); /* 0x10005320 */
+void __cdecl io_readfrom(void); /* 0x10005320 */
 
 /* ===== io.c ===== */
 longlong __cdecl gettag(int param_1); /* 0x100053d0 */
@@ -212,21 +212,21 @@ int __cdecl getfile(byte *param_1); /* 0x10005480 */
 int __cdecl ishandler(int param_1); /* 0x100054c0 */
 void __cdecl setreturn(byte *param_1,byte *param_2); /* 0x10005520 */
 void __cdecl setfile(byte *param_1,byte *param_2,uint param_3); /* 0x10005550 */
-void io_writeto(void); /* 0x10005570 */
-void io_appendto(void); /* 0x10005620 */
-void io_read(void); /* 0x10005660 */
+void __cdecl io_writeto(void); /* 0x10005570 */
+void __cdecl io_appendto(void); /* 0x10005620 */
+void __cdecl io_read(void); /* 0x10005660 */
 int __cdecl getfileparam(byte *param_1,int *param_2); /* 0x10005780 */
-void io_write(void); /* 0x100057d0 */
-void io_execute(void); /* 0x10005870 */
-void io_remove(void); /* 0x100058a0 */
-void io_rename(void); /* 0x100058d0 */
-void io_tmpname(void); /* 0x10005900 */
-void io_getenv(void); /* 0x10005920 */
-void io_date(void); /* 0x10005940 */
-void setloc(void); /* 0x100059c0 */
-void io_exit(void); /* 0x10005a20 */
-void io_debug(void); /* 0x10005a50 */
-void errorfb(void); /* 0x10005ad0 */
+void __cdecl io_write(void); /* 0x100057d0 */
+void __cdecl io_execute(void); /* 0x10005870 */
+void __cdecl io_remove(void); /* 0x100058a0 */
+void __cdecl io_rename(void); /* 0x100058d0 */
+void __cdecl io_tmpname(void); /* 0x10005900 */
+void __cdecl io_getenv(void); /* 0x10005920 */
+void __cdecl io_date(void); /* 0x10005940 */
+void __cdecl setloc(void); /* 0x100059c0 */
+void __cdecl io_exit(void); /* 0x10005a20 */
+void __cdecl io_debug(void); /* 0x10005a50 */
+void __cdecl errorfb(void); /* 0x10005ad0 */
 
 /* ===== llex.c ===== */
 void luaX_init(void); /* 0x10005c00 */
@@ -242,28 +242,28 @@ void __cdecl ifskip(uint *param_1); /* 0x10006c30 */
 undefined4 __cdecl read_long_string(uint *param_1,undefined4 *param_2); /* 0x10006cb0 */
 
 /* ===== math.c ===== */
-void math_abs(void); /* 0x10006ea0 */
-void math_sin(void); /* 0x10006ee0 */
-void math_cos(void); /* 0x10006f00 */
-void math_tan(void); /* 0x10006f20 */
-void math_asin(void); /* 0x10006f50 */
-void math_acos(void); /* 0x10006f80 */
-void math_atan(void); /* 0x10006fb0 */
-void math_atan2(void); /* 0x10006fe0 */
-void math_ceil(void); /* 0x10007020 */
-void math_floor(void); /* 0x10007050 */
-void math_mod(void); /* 0x10007080 */
-void math_sqrt(void); /* 0x100070c0 */
-void math_pow(void); /* 0x100070e0 */
-void math_log(void); /* 0x10007120 */
-void math_log10(void); /* 0x10007140 */
-void math_exp(void); /* 0x10007160 */
-void math_deg(void); /* 0x10007190 */
-void math_rad(void); /* 0x100071b0 */
-void math_min(void); /* 0x100071d0 */
-void math_max(void); /* 0x10007230 */
-void math_random(void); /* 0x10007290 */
-void math_randomseed(void); /* 0x10007300 */
+void __cdecl math_abs(void); /* 0x10006ea0 */
+void __cdecl math_sin(void); /* 0x10006ee0 */
+void __cdecl math_cos(void); /* 0x10006f00 */
+void __cdecl math_tan(void); /* 0x10006f20 */
+void __cdecl math_asin(void); /* 0x10006f50 */
+void __cdecl math_acos(void); /* 0x10006f80 */
+void __cdecl math_atan(void); /* 0x10006fb0 */
+void __cdecl math_atan2(void); /* 0x10006fe0 */
+void __cdecl math_ceil(void); /* 0x10007020 */
+void __cdecl math_floor(void); /* 0x10007050 */
+void __cdecl math_mod(void); /* 0x10007080 */
+void __cdecl math_sqrt(void); /* 0x100070c0 */
+void __cdecl math_pow(void); /* 0x100070e0 */
+void __cdecl math_log(void); /* 0x10007120 */
+void __cdecl math_log10(void); /* 0x10007140 */
+void __cdecl math_exp(void); /* 0x10007160 */
+void __cdecl math_deg(void); /* 0x10007190 */
+void __cdecl math_rad(void); /* 0x100071b0 */
+void __cdecl math_min(void); /* 0x100071d0 */
+void __cdecl math_max(void); /* 0x10007230 */
+void __cdecl math_random(void); /* 0x10007290 */
+void __cdecl math_randomseed(void); /* 0x10007300 */
 
 /* ===== lmem.c ===== */
 void * __cdecl luaM_malloc(uint size); /* 0x100073b0 */
@@ -316,30 +316,30 @@ void luaS_freeall(void); /* 0x10009470 */
 void __cdecl luaS_rawsetglobal(TaggedString *ts,TObject *newval); /* 0x100094e0 */
 int * __cdecl luaS_travsymbol(undefined *param_1); /* 0x10009510 */
 int __cdecl luaS_globaldefined(char *name); /* 0x10009550 */
-void str_len(void); /* 0x10009570 */
+void __cdecl str_len(void); /* 0x10009570 */
 
 /* ===== str.c ===== */
 void str_sub(void); /* 0x100095b0 */
 void __cdecl addnchar(uint *param_1,uint param_2); /* 0x10009650 */
 void closeandpush(void); /* 0x10009680 */
-void str_lower(void); /* 0x100096a0 */
-void str_upper(void); /* 0x100096e0 */
-void str_rep(void); /* 0x10009720 */
+void __cdecl str_lower(void); /* 0x100096a0 */
+void __cdecl str_upper(void); /* 0x100096e0 */
+void __cdecl str_rep(void); /* 0x10009720 */
 void __cdecl addstr(uint *param_1); /* 0x10009760 */
-void str_ascii(void); /* 0x10009780 */
+void __cdecl str_ascii(void); /* 0x10009780 */
 uint __cdecl luaI_singlematch(uint param_1,char *param_2,int *param_3); /* 0x100097f0 */
 uint * __cdecl bracket_end(char *param_1); /* 0x100099e0 */
 uint __cdecl matchclass(uint param_1,uint param_2); /* 0x10009a10 */
-void str_find(void); /* 0x10009cb0 */
+void __cdecl str_find(void); /* 0x10009cb0 */
 void __cdecl push_captures(int *ms); /* 0x10009e40 */
 char * __cdecl match(char *param_1,int *param_2,int *param_3); /* 0x10009ea0 */
 int __cdecl capture_to_close(int *param_1); /* 0x1000a030 */
 char * __cdecl matchitem(char *param_1,char *param_2,int *param_3,int *param_4); /* 0x1000a060 */
 int __cdecl check_cap(int param_1,int *param_2); /* 0x1000a150 */
 char * __cdecl matchbalance(char *param_1,int param_2,int param_3); /* 0x1000a180 */
-void str_gsub(void); /* 0x1000a1d0 */
+void __cdecl str_gsub(void); /* 0x1000a1d0 */
 void __cdecl add_s(int param_1,int *param_2); /* 0x1000a2e0 */
-void str_format(void); /* 0x1000a440 */
+void __cdecl str_format(void); /* 0x1000a440 */
 void __cdecl luaI_addquoted(char *param_1); /* 0x1000a680 */
 
 /* ===== lparser.c ===== */
@@ -733,7 +733,7 @@ uint __cdecl FUN_1000f5c0(int param_1); /* 0x1000f5c0 */
 uint __cdecl FUN_1000f5f0(int param_1); /* 0x1000f5f0 */
 uint __cdecl FUN_1000f620(int param_1); /* 0x1000f620 */
 uint __cdecl FUN_1000f650(int param_1); /* 0x1000f650 */
-void FUN_1000fde0(void); /* 0x1000fde0 */
+void __cdecl FUN_1000fde0(void); /* 0x1000fde0 */
 int __stdcall FUN_1000fea0(int a1,int a2,int a3); /* 0x1000fea0 */
 undefined4 FUN_100119e0(void); /* 0x100119e0 */
 void __cdecl FUN_100119f0(char *param_1,int param_2); /* 0x100119f0 */
@@ -750,51 +750,51 @@ void __cdecl FUN_10012fc0(char *param_1); /* 0x10012fc0 */
 undefined4 __cdecl FUN_10013030(double *param_1); /* 0x10013030 */
 void __cdecl FUN_10013050(int param_1,uint *param_2,byte *param_3); /* 0x10013050 */
 void __cdecl FUN_10013420(undefined4 *param_1,char *param_2,int param_3,uint param_4,int param_5); /* 0x10013420 */
-void FUN_100139a6(void); /* 0x100139a6 */
-void FUN_100139b3(void); /* 0x100139b3 */
-undefined4 FUN_100139f0(undefined4 *param_1); /* 0x100139f0 */
-void FUN_10013b57(void); /* 0x10013b57 */
-undefined4 FUN_10013b64(void); /* 0x10013b64 */
+void __cdecl FUN_100139a6(void); /* 0x100139a6 */
+void __cdecl FUN_100139b3(void); /* 0x100139b3 */
+uint __cdecl FUN_100139f0(undefined4 *param_1); /* 0x100139f0 */
+void __cdecl FUN_10013b57(void); /* 0x10013b57 */
+uint __cdecl FUN_10013b64(void); /* 0x10013b64 */
 void FUN_10013b8f(void); /* 0x10013b8f */
-undefined4 FUN_10013c00(int *param_1); /* 0x10013c00 */
-undefined4 FUN_10013e0b(void); /* 0x10013e0b */
-void FUN_10013e11(void); /* 0x10013e11 */
+uint __cdecl FUN_10013c00(int *param_1); /* 0x10013c00 */
+uint __cdecl FUN_10013e0b(void); /* 0x10013e0b */
+void __cdecl FUN_10013e11(void); /* 0x10013e11 */
 void __cdecl FUN_10013e40(int param_1); /* 0x10013e40 */
-int FUN_10013e8a(void); /* 0x10013e8a */
-void FUN_10013e95(void); /* 0x10013e95 */
+int __cdecl FUN_10013e8a(void); /* 0x10013e8a */
+void __cdecl FUN_10013e95(void); /* 0x10013e95 */
 int __cdecl FUN_10013ec0(int param_1,int *param_2); /* 0x10013ec0 */
 undefined4 __stdcall FUN_10013ef0(int a1,int a2,int a3); /* 0x10013ef0 */
-undefined4 FUN_1001416a(void); /* 0x1001416a */
-void FUN_10014170(void); /* 0x10014170 */
+uint __cdecl FUN_1001416a(void); /* 0x1001416a */
+void __cdecl FUN_10014170(void); /* 0x10014170 */
 void FUN_10014197(void); /* 0x10014197 */
 void FUN_100141b0(void); /* 0x100141b0 */
-undefined4 FUN_100141f1(void); /* 0x100141f1 */
-void FUN_100141f7(void); /* 0x100141f7 */
+uint __cdecl FUN_100141f1(void); /* 0x100141f1 */
+void __cdecl FUN_100141f7(void); /* 0x100141f7 */
 void FUN_1001421e(void); /* 0x1001421e */
-void FUN_10014f80(uint param_1); /* 0x10014f80 */
-void FUN_10014ff0(uint param_1); /* 0x10014ff0 */
+void __cdecl FUN_10014f80(uint param_1); /* 0x10014f80 */
+void __cdecl FUN_10014ff0(uint param_1); /* 0x10014ff0 */
 undefined4 FUN_10015160(int a1); /* 0x10015160 */
-int FUN_1001519c(void); /* 0x1001519c */
+int __cdecl FUN_1001519c(void); /* 0x1001519c */
 undefined4 __stdcall FUN_100151b0(int a1); /* 0x100151b0 */
-int FUN_100156f0(int *param_1); /* 0x100156f0 */
-void FUN_100157a0(void); /* 0x100157a0 */
-int FUN_100157b0(int param_1); /* 0x100157b0 */
-undefined4 FUN_10015df0(uint param_1); /* 0x10015df0 */
-undefined4 FUN_10015e60(uint param_1); /* 0x10015e60 */
+int __cdecl FUN_100156f0(int *param_1); /* 0x100156f0 */
+void __cdecl FUN_100157a0(void); /* 0x100157a0 */
+int __cdecl FUN_100157b0(int param_1); /* 0x100157b0 */
+uint __cdecl FUN_10015df0(uint param_1); /* 0x10015df0 */
+uint __cdecl FUN_10015e60(uint param_1); /* 0x10015e60 */
 char * __cdecl FUN_10015f40(uint param_1,char *param_2,uint param_3); /* 0x10015f40 */
 void __cdecl FUN_10015f80(uint param_1,char *param_2,uint param_3,int param_4); /* 0x10015f80 */
 char * __cdecl FUN_10015ff0(uint param_1,char *param_2,uint param_3); /* 0x10015ff0 */
-int FUN_100160b0(void); /* 0x100160b0 */
-undefined4 FUN_10016c80(void); /* 0x10016c80 */
-uint FUN_10016d30(char *param_1); /* 0x10016d30 */
-void FUN_100170b0(undefined4 *param_1); /* 0x100170b0 */
-uint FUN_100172f0(char *param_1,int param_2); /* 0x100172f0 */
-undefined4 FUN_100173f0(void); /* 0x100173f0 */
-undefined4 FUN_100175f0(void); /* 0x100175f0 */
+int __cdecl FUN_100160b0(void); /* 0x100160b0 */
+uint __cdecl FUN_10016c80(void); /* 0x10016c80 */
+uint __cdecl FUN_10016d30(char *param_1); /* 0x10016d30 */
+void __cdecl FUN_100170b0(undefined4 *param_1); /* 0x100170b0 */
+uint __cdecl FUN_100172f0(char *param_1,int param_2); /* 0x100172f0 */
+uint __cdecl FUN_100173f0(void); /* 0x100173f0 */
+uint __cdecl FUN_100175f0(void); /* 0x100175f0 */
 uint __cdecl FUN_100176e0(int param_1); /* 0x100176e0 */
 void __cdecl FUN_10017830(char *param_1); /* 0x10017830 */
 void __cdecl FUN_10017870(int param_1); /* 0x10017870 */
-undefined4 FUN_100178e0(void); /* 0x100178e0 */
+uint __cdecl FUN_100178e0(void); /* 0x100178e0 */
 int __cdecl FUN_10017c10(byte *param_1,byte *param_2); /* 0x10017c10 */
 void __cdecl FUN_10017df0(int param_1,int param_2,int *param_3); /* 0x10017df0 */
 void __fastcall FUN_10018c77(undefined4 param_1,int param_2); /* 0x10018c77 */
@@ -848,32 +848,32 @@ int * __cdecl FUN_1001dc70(undefined4 param_1,undefined4 param_2,int *param_3,ch
 void __cdecl FUN_1001dd00(uint *param_1,uint *param_2); /* 0x1001dd00 */
 void FUN_1001ddc0(void); /* 0x1001ddc0 */
 undefined4 __stdcall FUN_1001ddd0(int a1); /* 0x1001ddd0 */
-void FUN_1001de30(void); /* 0x1001de30 */
-void FUN_1001de50(void); /* 0x1001de50 */
-undefined4 FUN_1001edd0(int param_1); /* 0x1001edd0 */
-undefined4 FUN_1001ee10(int *param_1); /* 0x1001ee10 */
-undefined4 FUN_1001ee80(uint param_1); /* 0x1001ee80 */
+void __cdecl FUN_1001de30(void); /* 0x1001de30 */
+void __cdecl FUN_1001de50(void); /* 0x1001de50 */
+uint __cdecl FUN_1001edd0(int param_1); /* 0x1001edd0 */
+uint __cdecl FUN_1001ee10(int *param_1); /* 0x1001ee10 */
+uint __cdecl FUN_1001ee80(uint param_1); /* 0x1001ee80 */
 uint __cdecl FUN_1001ef20(char *param_1,char *param_2,int param_3); /* 0x1001ef20 */
-undefined4 FUN_1001f5d0(uint param_1); /* 0x1001f5d0 */
+uint __cdecl FUN_1001f5d0(uint param_1); /* 0x1001f5d0 */
 undefined4 __cdecl FUN_10020090(int param_1,int param_2,int param_3,char *param_4); /* 0x10020090 */
 int __cdecl FUN_10020470(int param_1,uint param_2); /* 0x10020470 */
 int __fastcall FUN_100206d0(byte param_1,int param_2); /* 0x100206d0 */
-void FUN_10021a10(undefined4 *param_1); /* 0x10021a10 */
-void FUN_10021f90(void); /* 0x10021f90 */
-void FUN_10021f9b(void); /* 0x10021f9b */
+void __cdecl FUN_10021a10(undefined4 *param_1); /* 0x10021a10 */
+void __cdecl FUN_10021f90(void); /* 0x10021f90 */
+void __cdecl FUN_10021f9b(void); /* 0x10021f9b */
 void __cdecl FUN_10021fa6(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021fa6 */
-void FUN_10021fb0(void); /* 0x10021fb0 */
+void __cdecl FUN_10021fb0(void); /* 0x10021fb0 */
 undefined4 FUN_10021fbb(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021fbb */
-void FUN_10021fd0(void); /* 0x10021fd0 */
-void FUN_10021fdb(void); /* 0x10021fdb */
+void __cdecl FUN_10021fd0(void); /* 0x10021fd0 */
+void __cdecl FUN_10021fdb(void); /* 0x10021fdb */
 void __cdecl FUN_10021fe6(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021fe6 */
-void FUN_10021ff0(void); /* 0x10021ff0 */
+void __cdecl FUN_10021ff0(void); /* 0x10021ff0 */
 void __cdecl FUN_10021ffb(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10021ffb */
-void FUN_10022010(void); /* 0x10022010 */
+void __cdecl FUN_10022010(void); /* 0x10022010 */
 undefined4 FUN_1002201b(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x1002201b */
-void FUN_10022030(void); /* 0x10022030 */
+void __cdecl FUN_10022030(void); /* 0x10022030 */
 void __cdecl FUN_1002203b(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x1002203b */
-void FUN_10022050(void); /* 0x10022050 */
+void __cdecl FUN_10022050(void); /* 0x10022050 */
 void __cdecl FUN_1002205b(int *param_1,int param_2,int param_3,undefined4 param_4); /* 0x1002205b */
 
 /* ===== tmpnam.c ===== */

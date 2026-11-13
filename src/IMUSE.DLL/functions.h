@@ -25,7 +25,7 @@ undefined4 __cdecl FdFadeParam(int param_1,int param_2,uint param_3,int param_4)
 void __cdecl FdStopFade(int param_1,int param_2); /* 0x10003c70 */
 uint FdIntHandler(void); /* 0x10003cb0 */
 undefined4 __cdecl Im_ApplyFXPreset(undefined2 *param_1,uint param_2,undefined2 *param_3,int *param_4,int *param_5, int param_6); /* 0x10004820 */
-void FUN_10004970(void); /* 0x10004970 */
+void __cdecl FUN_10004970(void); /* 0x10004970 */
 undefined4 GrInitialize(void); /* 0x100049b0 */
 undefined4 __cdecl GrSetGroupVol(uint param_1,uint param_2); /* 0x100049e0 */
 undefined4 __cdecl GrGetGroupEffVol(uint param_1); /* 0x10004a80 */
@@ -42,7 +42,7 @@ void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,in
 void __cdecl Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5,int param_6); /* 0x10005b80 */
 void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param_4,int param_5); /* 0x10005db0 */
 undefined4 __cdecl ScriptCall(int cmd,...); /* 0x10006070 */
-undefined4 __cdecl FUN_10006360(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5 ,undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x10006360 */
+undefined4 __cdecl FUN_10006360(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,undefined4 param_6, undefined4 param_7,undefined4 param_8); /* 0x10006360 */
 undefined4 FUN_100063d0(void); /* 0x100063d0 */
 int __cdecl FUN_10006400(undefined4 *param_1,int param_2); /* 0x10006400 */
 int __cdecl FUN_10006470(undefined4 *param_1); /* 0x10006470 */
@@ -56,26 +56,26 @@ void __cdecl Script_Callback(char *marker); /* 0x100070e0 */
 void FUN_10007110(void); /* 0x10007110 */
 undefined4 __cdecl LoadLip(undefined4 param_1,char *param_2); /* 0x100089b0 */
 void __cdecl Im_SoundsFreeSlot(int param_1); /* 0x10008b60 */
-int iMUSE_GetPhoneme(int param_1,int param_2); /* 0x10008bb0 */
+int __cdecl iMUSE_GetPhoneme(int param_1,int param_2); /* 0x10008bb0 */
 int __cdecl FUN_10008c40(int param_1,int param_2); /* 0x10008c40 */
-int FUN_10008ce0(void); /* 0x10008ce0 */
+int __cdecl FUN_10008ce0(void); /* 0x10008ce0 */
 undefined4 __stdcall timer_callback(int a1,int a2,int a3,int a4,int a5); /* 0x10008e00 */
-void FUN_10008e30(void); /* 0x10008e30 */
-void FUN_10008e60(void); /* 0x10008e60 */
+void __cdecl FUN_10008e30(void); /* 0x10008e30 */
+void __cdecl FUN_10008e60(void); /* 0x10008e60 */
 void __cdecl Im_SoundsPrepare(uint param_1); /* 0x100093d0 */
-undefined4 FUN_10009530(int param_1); /* 0x10009530 */
-undefined4 FUN_10009560(int param_1); /* 0x10009560 */
-uint * grimSound_LipSyncLoad(uint *param_1); /* 0x100095d0 */
+uint __cdecl FUN_10009530(int param_1); /* 0x10009530 */
+uint __cdecl FUN_10009560(int param_1); /* 0x10009560 */
+uint * __cdecl grimSound_LipSyncLoad(uint *param_1); /* 0x100095d0 */
 undefined4 __cdecl grimSound_LipSyncFree(int param_1); /* 0x100096b0 */
-void FUN_10009700(void); /* 0x10009700 */
+void __cdecl FUN_10009700(char *fmt,...); /* 0x10009700 */
 int * __cdecl iRes_FOPEN(uint *param_1,char *param_2); /* 0x10009710 */
 undefined4 __cdecl iRes_FCLOSE(undefined4 *param_1); /* 0x10009b20 */
 uint __cdecl iRes_FREAD(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x10009b90 */
-void iMUSE_DeclareBufferSizes (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10,undefined4 param_11,undefined4 param_12); /* 0x1000a070 */
-undefined4 iMUSE_GetMemoryFootprint(void); /* 0x1000a0f0 */
-undefined4 iMUSE_GetSoundCacheSize(void); /* 0x1000a100 */
-undefined4 iMUSE_SetHook(uint *param_1,uint param_2); /* 0x1000a110 */
-undefined4 iMUSE_GetHook(uint *param_1); /* 0x1000a140 */
+void __cdecl iMUSE_DeclareBufferSizes (uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6, uint param_7,uint param_8,uint param_9,uint param_10,uint param_11,uint param_12); /* 0x1000a070 */
+uint __cdecl iMUSE_GetMemoryFootprint(void); /* 0x1000a0f0 */
+uint __cdecl iMUSE_GetSoundCacheSize(void); /* 0x1000a100 */
+uint __cdecl iMUSE_SetHook(uint *param_1,uint param_2); /* 0x1000a110 */
+uint __cdecl iMUSE_GetHook(uint *param_1); /* 0x1000a140 */
 int __cdecl iMUSE_SetVoiceEffect(uint *param_1); /* 0x1000a160 */
 undefined4 StInitialize(void); /* 0x1000a1e0 */
 undefined4 StProcessStreams(void); /* 0x1000a300 */
@@ -148,20 +148,20 @@ undefined4 __cdecl FmValidateSoundId(uint param_1); /* 0x100045a0 */
 undefined4 __cdecl FmSeek(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x100045c0 */
 undefined4 __cdecl FmRead(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x10004600 */
 undefined4 __cdecl FmGetBufInfo(int param_1); /* 0x10004640 */
-undefined4 FUN_10004660(undefined4 param_1); /* 0x10004660 */
+uint __cdecl FUN_10004660(uint param_1); /* 0x10004660 */
 int __cdecl FUN_10004750(uint param_1); /* 0x10004750 */
 
 /* ===== imuse_api.c ===== */
-undefined4 ImInitFilelist(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x10003d70 */
-int ImSaveFilelist(int *param_1,uint param_2); /* 0x10003dc0 */
-int ImRestoreFilelist(int *param_1); /* 0x10003e50 */
-int ImLoadSound(char *param_1,undefined4 param_2); /* 0x10003f90 */
+uint __cdecl ImInitFilelist(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x10003d70 */
+int __cdecl ImSaveFilelist(int *param_1,uint param_2); /* 0x10003dc0 */
+int __cdecl ImRestoreFilelist(int *param_1); /* 0x10003e50 */
+int __cdecl ImLoadSound(char *param_1,uint param_2); /* 0x10003f90 */
 undefined4 __cdecl ImUnloadSound(int param_1); /* 0x100040b0 */
 undefined4 __cdecl ImUnloadAll(void); /* 0x10004100 */
-int ImOpenSound(char *param_1,undefined4 param_2); /* 0x10004140 */
+int __cdecl ImOpenSound(char *param_1,uint param_2); /* 0x10004140 */
 undefined4 __cdecl ImCloseSound(int param_1); /* 0x10004260 */
 undefined4 __cdecl ImCloseAll(void); /* 0x100042b0 */
-int ImFindSound(char *param_1); /* 0x100042f0 */
+int __cdecl ImFindSound(char *param_1); /* 0x100042f0 */
 uint __cdecl ImFlushSounds(void); /* 0x10004380 */
 undefined4 __cdecl FUN_10004460(int *param_1,int *param_2); /* 0x10004460 */
 undefined4 __cdecl FUN_100044b0(int *param_1,int *param_2); /* 0x100044b0 */
@@ -190,8 +190,8 @@ undefined4 __cdecl ImSwitchStream(int param_1,undefined4 param_2,uint param_3,ui
 undefined4 __cdecl ImQueryStream(int param_1,undefined4 *param_2,undefined4 *param_3,int *param_4,undefined4 *param_5); /* 0x10004f00 */
 undefined4 __cdecl ImFeedStream(int param_1,undefined4 *param_2,uint param_3,undefined4 param_4); /* 0x10004f30 */
 uint __cdecl ImHeartbeat(void); /* 0x10005190 */
-undefined4 ImStartRecording(undefined4 param_1,int param_2); /* 0x10005300 */
-undefined4 ImStopRecording(void); /* 0x10005350 */
+uint __cdecl ImStartRecording(uint param_1,int param_2); /* 0x10005300 */
+uint __cdecl ImStopRecording(void); /* 0x10005350 */
 undefined4 __cdecl ImInitializeScript(int a1,int a2,int a3,int a4,int a5,int a6,int a7); /* 0x10007130 */
 undefined4 __cdecl ImTerminateScript(void); /* 0x10007170 */
 undefined4 __cdecl ImSaveScript(int a1,int a2); /* 0x10007180 */
@@ -203,15 +203,15 @@ undefined4 __cdecl ImSetCuePoint(int a1); /* 0x100071e0 */
 undefined4 __cdecl ImSetAttribute(int a1,int a2); /* 0x100071f0 */
 undefined4 __cdecl SoundsAllocateBuffer(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x10007210 */
 undefined4 __cdecl ihost_close_sound(int param_1); /* 0x10007250 */
-int * SoundsRegisterVoice(char *param_1); /* 0x100072b0 */
+int * __cdecl SoundsRegisterVoice(char *param_1); /* 0x100072b0 */
 undefined4 __cdecl SoundsCloseVoiceFile(void); /* 0x100073c0 */
-undefined4 __cdecl SoundsReOpenVoiceFile(void); /* 0x100073f0 */
+int * __cdecl SoundsReOpenVoiceFile(void); /* 0x100073f0 */
 undefined4 __cdecl SoundsLoadStartSound(uint *param_1,int param_2,uint param_3); /* 0x10007410 */
 undefined4 __cdecl SoundsLoadProcessStartSound(uint *param_1,int param_2,uint param_3); /* 0x10007470 */
 undefined4 __cdecl SoundsStopSound(uint *param_1); /* 0x10007500 */
 uint __cdecl SoundsGetParam(uint *param_1,int param_2); /* 0x10007520 */
 undefined4 __cdecl SoundsSetParam(uint *param_1,int param_2,uint param_3); /* 0x10007550 */
-undefined4 SoundsFadeParam(uint *param_1,int param_2,uint param_3,int param_4); /* 0x10007580 */
+uint __cdecl SoundsFadeParam(uint *param_1,int param_2,uint param_3,int param_4); /* 0x10007580 */
 int __cdecl SoundsIsSoundInUse(uint *param_1); /* 0x100075d0 */
 int __cdecl SoundsIsSoundPlaying(uint *param_1); /* 0x10007640 */
 undefined4 __cdecl SoundsFillStreamsWhileMusicCritical(int param_1); /* 0x10007670 */
@@ -224,29 +224,29 @@ uint __cdecl SoundsGetMusicPosition(void); /* 0x10007830 */
 undefined4 __cdecl SoundsSetMuscriptLocal(undefined4 param_1); /* 0x100078a0 */
 undefined4 __cdecl SoundsSetMuscriptRemote(undefined4 param_1); /* 0x100078b0 */
 undefined4 __cdecl Sounds_PlatformDevice(undefined4 param_1); /* 0x100078c0 */
-undefined4 SoundsInitialize(undefined4 param_1,undefined4 *param_2); /* 0x100078d0 */
-undefined4 sounds_startup(void); /* 0x10007920 */
-void FUN_10007a20(void); /* 0x10007a20 */
-void ihost_get_sound_addr(undefined4 param_1); /* 0x10007a60 */
-void ihost_get_map_addr(undefined4 param_1); /* 0x10007a70 */
-int ihost_get_buffer_info(int param_1); /* 0x10007a80 */
-int ihost_open_sound(uint *param_1,int param_2); /* 0x10007a90 */
-int ihost_fseek(int param_1,int param_2,int param_3); /* 0x10007bc0 */
-undefined4 * ihost_read(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3); /* 0x10007ca0 */
-void sounds_shutdown(void); /* 0x10008140 */
-void FUN_100081f0(void); /* 0x100081f0 */
-undefined4 sounds_save(code *param_1); /* 0x10008250 */
+uint __cdecl SoundsInitialize(uint param_1,undefined4 *param_2); /* 0x100078d0 */
+uint __cdecl sounds_startup(void); /* 0x10007920 */
+void __cdecl FUN_10007a20(void); /* 0x10007a20 */
+void __cdecl ihost_get_sound_addr(uint param_1); /* 0x10007a60 */
+void __cdecl ihost_get_map_addr(uint param_1); /* 0x10007a70 */
+int __cdecl ihost_get_buffer_info(int param_1); /* 0x10007a80 */
+int __cdecl ihost_open_sound(uint *param_1,int param_2); /* 0x10007a90 */
+int __cdecl ihost_fseek(int param_1,int param_2,int param_3); /* 0x10007bc0 */
+undefined4 * __cdecl ihost_read(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3); /* 0x10007ca0 */
+void __cdecl sounds_shutdown(void); /* 0x10008140 */
+void __cdecl FUN_100081f0(void); /* 0x100081f0 */
+uint __cdecl sounds_save(code *param_1); /* 0x10008250 */
 undefined4 sounds_restore(code *param_1,uint param_2); /* 0x10008580 */
-undefined4 sounds_pause(void); /* 0x10008860 */
-undefined4 sounds_resume(void); /* 0x100088a0 */
+uint __cdecl sounds_pause(void); /* 0x10008860 */
+uint __cdecl sounds_resume(void); /* 0x100088a0 */
 int __cdecl CacheGetSoundId(uint *param_1); /* 0x10008ec0 */
 int CachePurgeOldestStoppedSound(void); /* 0x100092f0 */
 int __cdecl ImFile_Read(int *param_1,int param_2,int param_3); /* 0x1000b940 */
 int __cdecl ImFile_ReadImpl(int *param_1,int param_2,int param_3); /* 0x1000b980 */
 undefined4 __cdecl FUN_1000ba20(undefined4 param_1,char *param_2,undefined4 param_3); /* 0x1000ba20 */
 int __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2); /* 0x1000ba60 */
-void FUN_1000ba80(void); /* 0x1000ba80 */
-void FUN_1000baa0(void); /* 0x1000baa0 */
+void __cdecl FUN_1000ba80(void); /* 0x1000ba80 */
+void __cdecl FUN_1000baa0(void); /* 0x1000baa0 */
 undefined4 __cdecl ImFile_Close(int *param_1); /* 0x1000bb10 */
 undefined4 __cdecl ImFile_CloseImpl(int *param_1); /* 0x1000bb50 */
 uint __cdecl ImFile_Open(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x1000bbc0 */
@@ -264,11 +264,11 @@ void __cdecl FUN_1000d090(char *param_1,int param_2,int *param_3,int *param_4); 
 undefined4 __cdecl FUN_1000d0d0(int *param_1); /* 0x1000d0d0 */
 undefined8 __cdecl FUN_1000d0f0(int *param_1); /* 0x1000d0f0 */
 undefined4 __cdecl FUN_1000d110(undefined4 *param_1); /* 0x1000d110 */
-void FUN_1000d130(void); /* 0x1000d130 */
+void __cdecl FUN_1000d130(void); /* 0x1000d130 */
 int __stdcall FUN_1000d1f0(int a1,int a2,int a3,int a4); /* 0x1000d1f0 */
 
 /* ===== soundstartvoicestream.c ===== */
-int __cdecl SoundStartVoiceStream(undefined4 param_1,uint volume,uint pan); /* 0x100088d0 */
+int __cdecl SoundStartVoiceStream(char *name,uint volume,uint pan); /* 0x100088d0 */
 
 /* ===== soundstopvoicestream.c ===== */
 undefined4 __cdecl SoundStopVoiceStream(void); /* 0x10008970 */
@@ -281,10 +281,10 @@ undefined4 __cdecl iRes_FTELL(undefined *param_1); /* 0x10009e10 */
 undefined4 __cdecl iRes_FSEEK(undefined *param_1,int param_2,int param_3); /* 0x10009e40 */
 int __cdecl iMUSE_sounds__9eb0(int param_1,uint param_2); /* 0x10009eb0 */
 int __cdecl FUN_10009ef0(uint param_1,uint *param_2); /* 0x10009ef0 */
-undefined4 iMUSE_Malloc(undefined4 param_1); /* 0x10009f10 */
-void FUN_10009f40(int param_1); /* 0x10009f40 */
-void iMUSE_Free(undefined4 param_1); /* 0x1000a010 */
-void FUN_1000a030(int param_1); /* 0x1000a030 */
+uint __cdecl iMUSE_Malloc(uint param_1); /* 0x10009f10 */
+void __cdecl FUN_10009f40(int param_1); /* 0x10009f40 */
+void __cdecl iMUSE_Free(uint param_1); /* 0x1000a010 */
+void __cdecl FUN_1000a030(int param_1); /* 0x1000a030 */
 
 /* ===== imuse_stream.c ===== */
 uint * __cdecl StStartStream(uint param_1,uint param_2,uint param_3); /* 0x1000a210 */
@@ -363,26 +363,26 @@ uint __cdecl FUN_1000c130(uint param_1); /* 0x1000c130 */
 undefined4 __stdcall FUN_1000c230(int a1,int a2,int a3); /* 0x1000c230 */
 void FUN_1000c440(void); /* 0x1000c440 */
 void FUN_1000c470(void); /* 0x1000c470 */
-int FUN_1000d4e0(int *param_1); /* 0x1000d4e0 */
-void FUN_1000d590(void); /* 0x1000d590 */
-int FUN_1000d5a0(int param_1); /* 0x1000d5a0 */
+int __cdecl FUN_1000d4e0(int *param_1); /* 0x1000d4e0 */
+void __cdecl FUN_1000d590(void); /* 0x1000d590 */
+int __cdecl FUN_1000d5a0(int param_1); /* 0x1000d5a0 */
 undefined4 * __cdecl FUN_1000d810(undefined4 param_1,char *param_2,undefined4 param_3,undefined4 *param_4); /* 0x1000d810 */
 undefined4 * FUN_1000d9e0(void); /* 0x1000d9e0 */
-void FUN_1000dac0(void); /* 0x1000dac0 */
-undefined4 FUN_1000db30(void); /* 0x1000db30 */
-void FUN_1000db60(char *param_1); /* 0x1000db60 */
-void FUN_1000dbc0(char *param_1); /* 0x1000dbc0 */
-undefined4 FUN_1000dc30(double *param_1); /* 0x1000dc30 */
-void FUN_1000dc50(int param_1,undefined4 *param_2,undefined4 param_3); /* 0x1000dc50 */
-int FUN_1000dcb0(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x1000dcb0 */
-undefined1 * FUN_1000dd30(undefined1 *param_1,int param_2,int param_3,int *param_4,char param_5); /* 0x1000dd30 */
-int FUN_1000de30(undefined4 *param_1,int param_2,int param_3); /* 0x1000de30 */
-undefined1 * FUN_1000dea0(undefined1 *param_1,uint param_2,int *param_3,char param_4); /* 0x1000dea0 */
-void FUN_1000df60(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x1000df60 */
-void FUN_1000e020(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4, undefined4 param_5); /* 0x1000e020 */
-void FUN_1000e090(char *param_1,int param_2); /* 0x1000e090 */
-undefined4 FUN_1000e500(void); /* 0x1000e500 */
-uint FUN_1000e510(uint param_1); /* 0x1000e510 */
+void __cdecl FUN_1000dac0(void); /* 0x1000dac0 */
+uint __cdecl FUN_1000db30(void); /* 0x1000db30 */
+void __cdecl FUN_1000db60(char *param_1); /* 0x1000db60 */
+void __cdecl FUN_1000dbc0(char *param_1); /* 0x1000dbc0 */
+uint __cdecl FUN_1000dc30(double *param_1); /* 0x1000dc30 */
+void __cdecl FUN_1000dc50(int param_1,undefined4 *param_2,uint param_3); /* 0x1000dc50 */
+int __cdecl FUN_1000dcb0(undefined4 *param_1,int param_2,int param_3,uint param_4); /* 0x1000dcb0 */
+undefined1 * __cdecl FUN_1000dd30(undefined1 *param_1,int param_2,int param_3,int *param_4,char param_5); /* 0x1000dd30 */
+int __cdecl FUN_1000de30(undefined4 *param_1,int param_2,int param_3); /* 0x1000de30 */
+undefined1 * __cdecl FUN_1000dea0(undefined1 *param_1,uint param_2,int *param_3,char param_4); /* 0x1000dea0 */
+void __cdecl FUN_1000df60(undefined4 *param_1,int param_2,int param_3,uint param_4); /* 0x1000df60 */
+void __cdecl FUN_1000e020(uint param_1,uint param_2,int param_3,uint param_4,uint param_5); /* 0x1000e020 */
+void __cdecl FUN_1000e090(char *param_1,int param_2); /* 0x1000e090 */
+uint __cdecl FUN_1000e500(void); /* 0x1000e500 */
+uint __cdecl FUN_1000e510(uint param_1); /* 0x1000e510 */
 void FUN_1000e9e0(void); /* 0x1000e9e0 */
 void FUN_1000ea30(void); /* 0x1000ea30 */
 undefined4 FUN_1000eb40(void); /* 0x1000eb40 */
@@ -409,56 +409,56 @@ int __stdcall FUN_1000fe40(int a1,int a2,int a3,int a4); /* 0x1000fe40 */
 int __stdcall FUN_1000feb0(int a1,int a2,int a3,int a4); /* 0x1000feb0 */
 uint FUN_100100e0(void); /* 0x100100e0 */
 undefined4 __cdecl FUN_10010250(uint param_1,int param_2); /* 0x10010250 */
-undefined4 FUN_10010490(uint param_1); /* 0x10010490 */
+uint __cdecl FUN_10010490(uint param_1); /* 0x10010490 */
 uint __cdecl FUN_10010530(undefined4 param_1,uint param_2,undefined4 param_3,byte param_4); /* 0x10010530 */
-uint FUN_100108d0(uint param_1,uint param_2); /* 0x100108d0 */
-void FUN_10010910(undefined4 param_1,uint param_2); /* 0x10010910 */
-uint FUN_10010930(uint param_1); /* 0x10010930 */
+uint __cdecl FUN_100108d0(uint param_1,uint param_2); /* 0x100108d0 */
+void __cdecl FUN_10010910(uint param_1,uint param_2); /* 0x10010910 */
+uint __cdecl FUN_10010930(uint param_1); /* 0x10010930 */
 int FUN_100109d0(void); /* 0x100109d0 */
-undefined4 FUN_10010a60(int param_1,int param_2); /* 0x10010a60 */
+uint __cdecl FUN_10010a60(int param_1,int param_2); /* 0x10010a60 */
 int FUN_10010ad0(void); /* 0x10010ad0 */
-int FUN_10010b40(int param_1,int param_2); /* 0x10010b40 */
-void FUN_10010be0(int param_1,undefined4 *param_2); /* 0x10010be0 */
-void FUN_10010c00(undefined4 *param_1); /* 0x10010c00 */
-undefined4 FUN_10010c10(int *param_1); /* 0x10010c10 */
-void FUN_10010c30(uint *param_1,int param_2); /* 0x10010c30 */
-undefined4 FUN_10010cf0(ushort *param_1,uint *param_2,int *param_3); /* 0x10010cf0 */
-void FUN_10010ec0(undefined4 param_1,undefined4 param_2); /* 0x10010ec0 */
-void FUN_10010ee0(undefined4 param_1,undefined4 param_2); /* 0x10010ee0 */
-void FUN_10010f00(undefined4 param_1,undefined4 param_2); /* 0x10010f00 */
-void FUN_10010f40(undefined4 param_1,undefined4 param_2); /* 0x10010f40 */
-void FUN_10010f80(char *param_1,int param_2,int param_3); /* 0x10010f80 */
-int * FUN_10011020(undefined4 param_1,undefined4 param_2,int *param_3,char *param_4); /* 0x10011020 */
-void FUN_100110b0(uint *param_1,uint *param_2); /* 0x100110b0 */
+int __cdecl FUN_10010b40(int param_1,int param_2); /* 0x10010b40 */
+void __cdecl FUN_10010be0(int param_1,undefined4 *param_2); /* 0x10010be0 */
+void __cdecl FUN_10010c00(undefined4 *param_1); /* 0x10010c00 */
+uint __cdecl FUN_10010c10(int *param_1); /* 0x10010c10 */
+void __cdecl FUN_10010c30(uint *param_1,int param_2); /* 0x10010c30 */
+uint __cdecl FUN_10010cf0(ushort *param_1,uint *param_2,int *param_3); /* 0x10010cf0 */
+void __cdecl FUN_10010ec0(uint param_1,uint param_2); /* 0x10010ec0 */
+void __cdecl FUN_10010ee0(uint param_1,uint param_2); /* 0x10010ee0 */
+void __cdecl FUN_10010f00(uint param_1,uint param_2); /* 0x10010f00 */
+void __cdecl FUN_10010f40(uint param_1,uint param_2); /* 0x10010f40 */
+void __cdecl FUN_10010f80(char *param_1,int param_2,int param_3); /* 0x10010f80 */
+int * __cdecl FUN_10011020(uint param_1,uint param_2,int *param_3,char *param_4); /* 0x10011020 */
+void __cdecl FUN_100110b0(uint *param_1,uint *param_2); /* 0x100110b0 */
 undefined4 * FUN_10011170(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x10011170 */
-void FUN_100114b0(void); /* 0x100114b0 */
-undefined4 FUN_10011be0(void); /* 0x10011be0 */
-uint FUN_10011c90(int param_1); /* 0x10011c90 */
-void FUN_10012010(undefined4 *param_1); /* 0x10012010 */
-uint FUN_10012250(char *param_1,int param_2); /* 0x10012250 */
-undefined4 FUN_10012350(void); /* 0x10012350 */
-undefined4 FUN_10012550(void); /* 0x10012550 */
-uint FUN_10012640(int param_1); /* 0x10012640 */
-void FUN_10012790(char *param_1); /* 0x10012790 */
-void FUN_100127d0(int param_1); /* 0x100127d0 */
-undefined4 FUN_10012840(void); /* 0x10012840 */
-int FUN_10012bc0(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6); /* 0x10012bc0 */
+void __cdecl FUN_100114b0(void); /* 0x100114b0 */
+uint __cdecl FUN_10011be0(void); /* 0x10011be0 */
+uint __cdecl FUN_10011c90(int param_1); /* 0x10011c90 */
+void __cdecl FUN_10012010(undefined4 *param_1); /* 0x10012010 */
+uint __cdecl FUN_10012250(char *param_1,int param_2); /* 0x10012250 */
+uint __cdecl FUN_10012350(void); /* 0x10012350 */
+uint __cdecl FUN_10012550(void); /* 0x10012550 */
+uint __cdecl FUN_10012640(int param_1); /* 0x10012640 */
+void __cdecl FUN_10012790(char *param_1); /* 0x10012790 */
+void __cdecl FUN_100127d0(int param_1); /* 0x100127d0 */
+uint __cdecl FUN_10012840(void); /* 0x10012840 */
+int __cdecl FUN_10012bc0(int param_1,int param_2,int param_3,int param_4,int param_5,int param_6); /* 0x10012bc0 */
 int FUN_10012f40(void); /* 0x10012f40 */
 int __cdecl FUN_10013090(uint param_1,char *param_2,int param_3); /* 0x10013090 */
-undefined4 FUN_100132c0(uint param_1,uint param_2,uint *param_3); /* 0x100132c0 */
-void FUN_100132f0(undefined4 *param_1,undefined4 *param_2); /* 0x100132f0 */
-void FUN_10013360(uint *param_1); /* 0x10013360 */
-void FUN_10013390(uint *param_1); /* 0x10013390 */
-void FUN_100133c0(char *param_1,int param_2,uint *param_3); /* 0x100133c0 */
-undefined4 FUN_100134c0(ushort *param_1,int *param_2,byte *param_3,undefined4 param_4,int param_5,int param_6, int param_7); /* 0x100134c0 */
-undefined4 FUN_10013c50(int param_1,uint param_2,uint param_3,int param_4,byte param_5,short *param_6); /* 0x10013c50 */
-undefined4 FUN_10013fe0(int param_1,undefined4 param_2,undefined4 param_3,char *param_4); /* 0x10013fe0 */
+uint __cdecl FUN_100132c0(uint param_1,uint param_2,uint *param_3); /* 0x100132c0 */
+void __cdecl FUN_100132f0(undefined4 *param_1,undefined4 *param_2); /* 0x100132f0 */
+void __cdecl FUN_10013360(uint *param_1); /* 0x10013360 */
+void __cdecl FUN_10013390(uint *param_1); /* 0x10013390 */
+void __cdecl FUN_100133c0(char *param_1,int param_2,uint *param_3); /* 0x100133c0 */
+uint __cdecl FUN_100134c0(ushort *param_1,int *param_2,byte *param_3,uint param_4,int param_5,int param_6, int param_7); /* 0x100134c0 */
+uint __cdecl FUN_10013c50(int param_1,uint param_2,uint param_3,int param_4,byte param_5,short *param_6); /* 0x10013c50 */
+uint __cdecl FUN_10013fe0(int param_1,uint param_2,uint param_3,char *param_4); /* 0x10013fe0 */
 int __cdecl FUN_100142a0(uint param_1,int param_2); /* 0x100142a0 */
 void FUN_10014310(void); /* 0x10014310 */
-void FUN_10014340(int *param_1,int *param_2); /* 0x10014340 */
-void FUN_10014600(undefined2 *param_1,uint param_2,int param_3); /* 0x10014600 */
-int FUN_10014690(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x10014690 */
-int FUN_100147c0(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x100147c0 */
+void __cdecl FUN_10014340(int *param_1,int *param_2); /* 0x10014340 */
+void __cdecl FUN_10014600(undefined2 *param_1,uint param_2,int param_3); /* 0x10014600 */
+int __cdecl FUN_10014690(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x10014690 */
+int __cdecl FUN_100147c0(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x100147c0 */
 
 /* ===== referenced, not decompiled here (thunks, imports, unknown FUN_) ===== */
 int STDCALL CloseHandle() __asm__("_CloseHandle@4"); /* import */

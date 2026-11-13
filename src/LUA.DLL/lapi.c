@@ -976,8 +976,9 @@ int __cdecl lua_updatetasks(int param_1)
   LState *pLVar2;
   LState *pLVar3;
   int iVar4;
+  uint uVar5;
   undefined4 unaff_ESI;
-  LState *pLVar5;
+  LState *pLVar6;
   int unaff_EDI;
   #define local_4c (*(undefined4 (*)[16])(_frame + (0x60 - 0x4c)))
   #define local_c (*(LState **)(_frame + (0x60 - 0xc)))
@@ -987,19 +988,19 @@ int __cdecl lua_updatetasks(int param_1)
   local_c = g_pLuaState;
 LAB_10001e23:
   pLVar3 = LState_next(g_pLuaState);
-  pLVar5 = local_c;
-  while (local_c = pLVar5, pLVar3 != (LState *)0x0) {
+  pLVar6 = local_c;
+  while (local_c = pLVar6, pLVar3 != (LState *)0x0) {
     for (pvVar1 = pLVar3->pExecutionState; pvVar1 != (void *)0x0;
         pvVar1 = *(void **)((int)pvVar1 + 0xc)) {
       ExecutionState_resetcounter((int)pvVar1);
     }
     pLVar3->nUpdated = 0;
     pLVar3 = LState_next(pLVar3);
-    pLVar5 = local_c;
+    pLVar6 = local_c;
   }
   do {
     pLVar3 = LState_next(g_pLuaState);
-    while (g_pLuaState = pLVar3, pLVar3 = pLVar5, pLVar2 = pLVar5, g_pLuaState != (LState *)0x0) {
+    while (g_pLuaState = pLVar3, pLVar3 = pLVar6, pLVar2 = pLVar6, g_pLuaState != (LState *)0x0) {
       if ((g_pLuaState->nUpdated == 0) && (g_pLuaState->nPaused == 0)) {
         local_8 = 4;
         g_pLuaState->pErrorJmp = local_4c;
@@ -1013,29 +1014,29 @@ LAB_10001e23:
             if (lua_taskhook != 0) {
               luaD_taskHook(g_pLuaState->nTaskId,0);
             }
-            iVar4 = luaD_call(iVar4 + 1,0xff);
+            uVar5 = luaD_call(iVar4 + 1,0xff);
           }
           else {
             if (lua_taskhook != 0) {
               luaD_taskHook(g_pLuaState->nTaskId,2);
             }
-            iVar4 = luaD_call(*(undefined4 *)((int)g_pLuaState->pExecutionState + 0x10),
-                              *(undefined4 *)((int)g_pLuaState->pExecutionState + 0x14));
+            uVar5 = luaD_call(*(int *)((int)g_pLuaState->pExecutionState + 0x10),
+                              *(int *)((int)g_pLuaState->pExecutionState + 0x14));
           }
         }
         else {
           local_8 = 3;
           luaD_deletestates((int)g_pLuaState->pExecutionState);
-          iVar4 = 0;
+          uVar5 = 0;
           g_pLuaState->pExecutionState = (void *)0x0;
         }
-        if (iVar4 != 0) {
+        if (uVar5 != 0) {
           if (g_pLuaState->pExecutionState == (void *)0x0) {
             (**(code **)(g_dwLuaHS + 0x18))
                       (s_L__pExecutionState_100261dc,s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4,
                        0x2fe);
           }
-          if (iVar4 != 0) {
+          if (uVar5 != 0) {
             if (lua_taskhook != 0) {
               luaD_taskHook(g_pLuaState->nTaskId,1);
             }
@@ -1048,17 +1049,17 @@ LAB_10001e23:
         }
         pLVar3 = LState_next(g_pLuaState);
         pLVar2 = g_pLuaState;
-        pLVar5 = local_c;
+        pLVar6 = local_c;
         if (g_pLuaState != (LState *)0x0) {
           LState_Destruct(g_pLuaState);
           luaM_free(pLVar2);
-          pLVar5 = local_c;
+          pLVar6 = local_c;
         }
       }
       else {
 LAB_1000201b:
         pLVar3 = LState_next(g_pLuaState);
-        pLVar5 = local_c;
+        pLVar6 = local_c;
       }
     }
     do {
@@ -1440,7 +1441,7 @@ void __cdecl do_unprotectedrun(uint param_1,int param_2,void *param_3)
   g_pLuaState->pStack[iVar1].nTtype = -5;
   g_pLuaState->pStack[iVar1].dwValue = param_1;
   g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + 1;
-  luaD_call(iVar1 + 1,param_3);
+  luaD_call(iVar1 + 1,(int)param_3);
   g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + -1;
   return;
 }
@@ -1513,7 +1514,7 @@ void __cdecl LuaSaveWriter(undefined4 param_1,int param_2)
 /* ---- 0x10002760  lua_Restore ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-undefined4 lua_Restore(code *param_1)
+uint __cdecl lua_Restore(void *readFunc)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1538,15 +1539,15 @@ undefined4 lua_Restore(code *param_1)
   }
   g_dwL_Main = g_pLuaState;
   LState_initglobals();
-  LState_GlobalBeginRestore((int)param_1);
+  LState_GlobalBeginRestore((int)readFunc);
   uVar2 = g_dwLState_numThreads;
-  (*param_1)(&uStack_14,4);
+  (*(code *)readFunc)(&uStack_14,4);
   if (uStack_14 == 0) {
     (**(code **)(g_dwLuaHS + 0x18))
               (s_numTasks___0_100262f4,s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4,0x499);
   }
-  (*param_1)(&iStack_18,4);
-  LState_Restore(g_dwL_Main,(int)param_1);
+  (*(code *)readFunc)(&iStack_18,4);
+  LState_Restore(g_dwL_Main,(int)readFunc);
   uVar4 = 1;
   a1 = g_dwL_Main;
   if (1 < uStack_14) {
@@ -1558,7 +1559,7 @@ undefined4 lua_Restore(code *param_1)
       else {
         this = LState_Construct(pLStack_10);
       }
-      iVar3 = LState_Restore(this,(int)param_1);
+      iVar3 = LState_Restore(this,(int)readFunc);
       if (iVar3 != 0) {
         (**(code **)(g_dwLuaHS + 0x18))
                   (s_pNewState__Restore_restoreFunc____100262c8,
@@ -1572,7 +1573,7 @@ undefined4 lua_Restore(code *param_1)
   while (bVar1 = iStack_18 != 0, iStack_18 = iStack_18 + -1, bVar1) {
     g_pLuaState = LState_next(g_pLuaState);
   }
-  LState_GlobalEndRestore((int)param_1);
+  LState_GlobalEndRestore((int)readFunc);
   g_dwLState_numThreads = uVar2;
   return 0;
 }

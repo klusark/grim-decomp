@@ -329,7 +329,7 @@ void luaC_checkGC(void)
 /* Original name io_readfrom (the remaster's libLua.so: iolib entry 'readfrom'); was FUN_10005320.
     */
 
-void io_readfrom(void)
+void __cdecl io_readfrom(void)
 
 {
   int iVar1;

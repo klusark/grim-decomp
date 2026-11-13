@@ -8,16 +8,16 @@
 /* ---- 0x100088d0  SoundStartVoiceStream ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __cdecl SoundStartVoiceStream(undefined4 param_1,uint volume,uint pan)
+int __cdecl SoundStartVoiceStream(char *name,uint volume,uint pan)
 
 {
-  int iVar1;
+  int *piVar1;
   
                     /* 0x88d0  51  SoundStartVoiceStream */
   ImStopSound(10000);
   SoundsCloseVoiceFile();
-  iVar1 = SoundsRegisterVoice(param_1);
-  if (iVar1 != 0) {
+  piVar1 = SoundsRegisterVoice(name);
+  if (piVar1 != (int *)0x0) {
     SoundsFillStreamsWhileMusicCritical(5);
     ImStartStream(10000,0x7f,1);
     ImSetParam(10000,0x400,2);

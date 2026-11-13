@@ -78,7 +78,7 @@ int __cdecl Cos_Free(int hCostume)
 void __cdecl Cos_NewEntry(Costume *pCostume)
 
 {
-  msvc_strncpy(pCostume,((unsigned)(uintptr_t)&DAT_10010030),0x1f);
+  msvc_strncpy((uint *)pCostume,(uint *)((unsigned)(uintptr_t)&DAT_10010030),0x1f);
   pCostume->aName[0x1f] = '\0';
   pCostume->nId = g_nNextCostumeID;
   g_nNextCostumeID = g_nNextCostumeID + 1;
@@ -162,14 +162,15 @@ uint __cdecl Cos_LoadEntry(char *name,int handle)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   Costume *pCostume;
-  int iVar2;
-  uint file;
+  char *pcVar2;
   uint uVar3;
-  char *pcVar4;
-  int iVar5;
-  uint unaff_EDI;
+  int iVar4;
+  uint uVar5;
   char *pcVar6;
-  uint *puVar7;
+  int iVar7;
+  uint unaff_EDI;
+  uint *puVar8;
+  uint *puVar9;
   #define uStack_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define auStack_8 (*(undefined1 (*)[4])(_frame + (0x20 - 0x8)))
   #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
@@ -177,93 +178,93 @@ uint __cdecl Cos_LoadEntry(char *name,int handle)
                     /* 0x1770  52  Cos_LoadEntry */
   pCostume = CosUtil_PtrFromHandle(handle);
   Cos_NewEntry(pCostume);
-  iVar2 = msvc_strrchr(name,0x5c);
-  if (iVar2 == 0) {
-    uVar3 = 0xffffffff;
-    pcVar6 = name;
+  pcVar2 = msvc_strrchr(name,'\\');
+  if (pcVar2 == (char *)0x0) {
+    uVar5 = 0xffffffff;
+    pcVar2 = name;
     do {
-      pcVar4 = name;
-      if (uVar3 == 0) break;
-      uVar3 = uVar3 - 1;
-      cVar1 = *pcVar6;
-      pcVar6 = pcVar6 + 1;
+      puVar9 = (uint *)name;
+      if (uVar5 == 0) break;
+      uVar5 = uVar5 - 1;
+      cVar1 = *pcVar2;
+      pcVar2 = pcVar2 + 1;
     } while (cVar1 != '\0');
   }
   else {
-    pcVar4 = (char *)(iVar2 + 1);
-    uVar3 = 0xffffffff;
-    pcVar6 = pcVar4;
+    puVar9 = (uint *)(pcVar2 + 1);
+    uVar5 = 0xffffffff;
+    puVar8 = puVar9;
     do {
-      if (uVar3 == 0) break;
-      uVar3 = uVar3 - 1;
-      cVar1 = *pcVar6;
-      pcVar6 = pcVar6 + 1;
-    } while (cVar1 != '\0');
+      if (uVar5 == 0) break;
+      uVar5 = uVar5 - 1;
+      uVar3 = *puVar8;
+      puVar8 = (uint *)((int)puVar8 + 1);
+    } while ((char)uVar3 != '\0');
   }
-  file = handle;
-  if (~uVar3 - 1 < 0x21) {
-    msvc_strncpy(pCostume,pcVar4,0x1f);
+  uVar3 = handle;
+  if (~uVar5 - 1 < 0x21) {
+    msvc_strncpy((uint *)pCostume,puVar9,0x1f);
     pCostume->aName[0x1f] = '\0';
-    file = (*(code *)g_pSvcChore->pFopen)(name,((unsigned)(uintptr_t)&DAT_10010280));
-    if (file == 0) {
+    uVar3 = (*g_pSvcChore->pFopen)(name,(char *)((unsigned)(uintptr_t)&DAT_10010280));
+    if (uVar3 == 0) {
       pCostume->nFree = 1;
       return 0;
     }
     g_nLineNum = 0;
-    iVar2 = Cos_ReadLine(file,g_szParseLine,0x400);
-    if (iVar2 != 0) {
+    iVar4 = Cos_ReadLine(uVar3,g_szParseLine,0x400);
+    if (iVar4 != 0) {
       msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010270),auStack_4,auStack_8);
-      iVar2 = Cos_ReadLine(file,g_szParseLine,0x400);
-      if (((((((iVar2 != 0) && (iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010260)), iVar2 == 0))
-             && (uVar3 = Cos_ReadTagsSection(file,(uint)pCostume,(uint)name), uVar3 != 0)) &&
-            ((iVar2 = Cos_ReadLine(file,g_szParseLine,0x400), iVar2 != 0 &&
-             (iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001024c)), iVar2 == 0)))) &&
-           ((uVar3 = Cos_ReadComponentsSection(file,handle,(uint)name,unaff_EDI), uVar3 != 0 &&
-            ((iVar2 = Cos_ReadLine(file,g_szParseLine,0x400), iVar2 != 0 &&
-             (iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001023c)), iVar2 == 0)))))) &&
-          (uVar3 = Cos_ReadChoresSection(file,(int)pCostume,(uint)name), uVar3 != 0)) &&
-         (((iVar2 = Cos_ReadLine(file,g_szParseLine,0x400), iVar2 != 0 &&
-           (iVar2 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001022c)), iVar2 == 0)) &&
+      iVar4 = Cos_ReadLine(uVar3,g_szParseLine,0x400);
+      if (((((((iVar4 != 0) && (iVar4 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_10010260)), iVar4 == 0))
+             && (uVar5 = Cos_ReadTagsSection(uVar3,(uint)pCostume,(uint)name), uVar5 != 0)) &&
+            ((iVar4 = Cos_ReadLine(uVar3,g_szParseLine,0x400), iVar4 != 0 &&
+             (iVar4 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001024c)), iVar4 == 0)))) &&
+           ((uVar5 = Cos_ReadComponentsSection(uVar3,handle,(uint)name,unaff_EDI), uVar5 != 0 &&
+            ((iVar4 = Cos_ReadLine(uVar3,g_szParseLine,0x400), iVar4 != 0 &&
+             (iVar4 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001023c)), iVar4 == 0)))))) &&
+          (uVar5 = Cos_ReadChoresSection(uVar3,(int)pCostume,(uint)name), uVar5 != 0)) &&
+         (((iVar4 = Cos_ReadLine(uVar3,g_szParseLine,0x400), iVar4 != 0 &&
+           (iVar4 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001022c)), iVar4 == 0)) &&
           ((pCostume->dwNumChores == 0 ||
-           (uVar3 = Cos_ReadKeysSection(file,(int)pCostume), uVar3 != 0)))))) {
+           (uVar5 = Cos_ReadKeysSection(uVar3,(int)pCostume), uVar5 != 0)))))) {
         uStack_10 = 0;
         if (pCostume->dwNumChores != 0) {
-          puVar7 = &pCostume->pChores->dwNumTracks;
+          puVar9 = &pCostume->pChores->dwNumTracks;
           do {
-            CosUtil_SetChoreLength(pCostume,uStack_10,puVar7[2]);
-            pcVar6 = (char *)*puVar7;
+            CosUtil_SetChoreLength(pCostume,uStack_10,puVar9[2]);
+            pcVar2 = (char *)*puVar9;
             name = (char *)0x0;
-            if (pcVar6 != (char *)0x0) {
-              iVar2 = 0;
+            if (pcVar2 != (char *)0x0) {
+              iVar4 = 0;
               do {
-                pcVar4 = (char *)0x0;
-                if (pcVar6 != (char *)0x0) {
-                  iVar5 = 0;
+                pcVar6 = (char *)0x0;
+                if (pcVar2 != (char *)0x0) {
+                  iVar7 = 0;
                   do {
-                    if ((name != pcVar4) &&
-                       (*(int *)((int)&((ChoreTrack *)puVar7[1])->nCompNum + iVar2) ==
-                        *(int *)((int)&((ChoreTrack *)puVar7[1])->nCompNum + iVar5)))
+                    if ((name != pcVar6) &&
+                       (*(int *)((int)&((ChoreTrack *)puVar9[1])->nCompNum + iVar4) ==
+                        *(int *)((int)&((ChoreTrack *)puVar9[1])->nCompNum + iVar7)))
                     goto LAB_10001a10;
-                    pcVar4 = pcVar4 + 1;
-                    iVar5 = iVar5 + 0x10;
-                  } while (pcVar4 < pcVar6);
+                    pcVar6 = pcVar6 + 1;
+                    iVar7 = iVar7 + 0x10;
+                  } while (pcVar6 < pcVar2);
                 }
                 name = name + 1;
-                iVar2 = iVar2 + 0x10;
-              } while (name < pcVar6);
+                iVar4 = iVar4 + 0x10;
+              } while (name < pcVar2);
             }
             uStack_10 = uStack_10 + 1;
-            puVar7 = puVar7 + 0xb;
+            puVar9 = puVar9 + 0xb;
           } while (uStack_10 < pCostume->dwNumChores);
         }
-        (*(code *)g_pSvcChore->pFclose)(file);
+        (*(code *)g_pSvcChore->pFclose)(uVar3);
         return 1;
       }
     }
   }
 LAB_10001a10:
   pCostume->nFree = 1;
-  (*(code *)g_pSvcChore->pFclose)(file);
+  (*(code *)g_pSvcChore->pFclose)(uVar3);
   return 0;
 }
 #undef auStack_4
@@ -613,7 +614,7 @@ int __cdecl Cos_NewTagEntry(ComponentTag **ppTag,int tagId,char *name,int unused
   }
   pCVar3 = g_aComponentTags + uVar2;
   *ppTag = pCVar3;
-  msvc_strncpy(pCVar3->aName,name,0x1f);
+  msvc_strncpy((uint *)pCVar3->aName,(uint *)name,0x1f);
   (*ppTag)->aName[0x1f] = '\0';
   (*ppTag)->nId = tagId;
   (*ppTag)->nUserData = userData;
@@ -1616,7 +1617,8 @@ ChoreKey * __cdecl Cos_AddKey(Costume *pCostume,uint choreNum,int compNum,uint t
     pCVar5 = (ChoreKey *)0x0;
   }
   else {
-    pCVar5 = (ChoreKey *)msvc_bsearch(auStack_8,pCVar4->pKeys,pCVar4->dwNumKeys,8,Cos_CompareKeys);
+    pCVar5 = (ChoreKey *)
+             msvc_bsearch((uint)auStack_8,(uint)pCVar4->pKeys,pCVar4->dwNumKeys,8,Cos_CompareKeys);
   }
   if (pCVar5 == (ChoreKey *)0x0) {
     uVar6 = pCVar4->dwNumKeys + 1;
@@ -1640,7 +1642,7 @@ ChoreKey * __cdecl Cos_AddKey(Costume *pCostume,uint choreNum,int compNum,uint t
     uVar7 = 1;
   }
   pCVar1[choreNum].dwLength = uVar7;
-  msvc_qsort(pCVar4->pKeys,pCVar4->dwNumKeys,8,Cos_CompareKeys);
+  msvc_qsort((uint)pCVar4->pKeys,pCVar4->dwNumKeys,8,Cos_CompareKeys);
   uVar6 = pCVar1[choreNum].dwNumTracks;
   choreNum = 0;
   if (uVar6 != 0) {
@@ -1663,7 +1665,8 @@ ChoreKey * __cdecl Cos_AddKey(Costume *pCostume,uint choreNum,int compNum,uint t
       pCostume = (Costume *)(pCostume->aName + 0x10);
     } while (choreNum < uVar6);
   }
-  pCVar5 = (ChoreKey *)msvc_bsearch(auStack_8,pCVar4->pKeys,pCVar4->dwNumKeys,8,Cos_CompareKeys);
+  pCVar5 = (ChoreKey *)
+           msvc_bsearch((uint)auStack_8,(uint)pCVar4->pKeys,pCVar4->dwNumKeys,8,Cos_CompareKeys);
   return pCVar5;
 }
 #undef auStack_8
@@ -1755,7 +1758,7 @@ uint __cdecl Cos_InitComponentStates(CosComponent *pComponent,int *pStates)
                                        (uVar10,s_C__grimsrc_libs_chore_Costume_c_1001020c,0xb00);
           }
           pComponent->ppStateNames[uVar8] = pcVar4;
-          msvc_strncpy(pComponent->ppStateNames[uVar8],*(undefined4 *)(pStates[2] + uVar8 * 4),
+          msvc_strncpy((uint *)pComponent->ppStateNames[uVar8],*(uint **)(pStates[2] + uVar8 * 4),
                        uVar10 - 1);
           ppcVar3 = pComponent->ppStateNames + uVar8;
           uVar8 = uVar8 + 1;
@@ -1834,7 +1837,7 @@ Cos_InitComponent(Costume *pCostume,CosComponent *pComponent,char *name,int tag,
     pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
   if (~uVar3 - 1 < 0x20) {
-    msvc_strncpy(pComponent,name,0x1f);
+    msvc_strncpy((uint *)pComponent,(uint *)name,0x1f);
     pComponent->nData = data;
     pComponent->nTag = tag;
     pComponent->aName[0x1f] = '\0';
@@ -1863,7 +1866,7 @@ void __cdecl Cos_InitChore(Chore *pChore)
   pChore->dwLength = 0xf;
   pChore->dwNumTracks = 0;
   pChore->pChoreTracks = (ChoreTrack *)0x0;
-  msvc_strncpy(pChore,((unsigned)(uintptr_t)&DAT_10010030),0x1f);
+  msvc_strncpy((uint *)pChore,(uint *)((unsigned)(uintptr_t)&DAT_10010030),0x1f);
   pChore->aName[0x1f] = '\0';
   return;
 }
@@ -2401,7 +2404,7 @@ int __cdecl Cos_ReadLine(int file,char *buf,int size)
   char cVar1;
   bool bVar2;
   int iVar3;
-  undefined1 *puVar4;
+  uint *puVar4;
   
   bVar2 = false;
   while( true ) {
@@ -2413,9 +2416,9 @@ int __cdecl Cos_ReadLine(int file,char *buf,int size)
     g_nLineNum = g_nLineNum + 1;
     cVar1 = *buf;
     if (((cVar1 != ';') && (cVar1 != '#')) && (cVar1 != '\n')) {
-      puVar4 = (undefined1 *)msvc_strchr(buf,0x23);
-      if (puVar4 != (undefined1 *)0x0) {
-        *puVar4 = 0;
+      puVar4 = msvc_strchr((uint *)buf,'#');
+      if (puVar4 != (uint *)0x0) {
+        *(undefined1 *)puVar4 = 0;
       }
       if (*buf != '\0') {
         bVar2 = true;

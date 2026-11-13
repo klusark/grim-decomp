@@ -4399,6 +4399,8 @@ void __cdecl sputLua_CanActorSeeL(void)
 
 
 /* ---- 0x0049b9e0  sputLua_GetVisibleThingsL ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Lua opcode: GetVisibleThings Original name sputLua_GetVisibleThingsL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'GetVisibleThings'); was Lua_GetVisibleThings. */
 
@@ -4453,6 +4455,8 @@ void __cdecl sputLua_GetVisibleThingsL(void)
 }
 #undef local_4
 #undef local_8
+
+#endif
 
 
 /* ---- 0x0049bb10  sputLua_GetActorRectL ---- */
