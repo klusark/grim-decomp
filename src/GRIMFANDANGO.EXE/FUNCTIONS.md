@@ -2353,7 +2353,7 @@
 | 004d5e30 | FUN_004d5e30 | crt_unnamed.c | 1 |
 | 004d5e35 | FUN_004d5e35 | crt_unnamed.c | 1 |
 | 004d5e50 | msc_MemSet | crt_unnamed.c | 1 |
-| 004d5f70 | msc_error_SaveString | crt_unnamed.c | 1 |
+| 004d5f70 | msc_error_SaveString | crt_unnamed.c | 23 |
 | 004d5fd0 | FUN_004d5fd0 | crt_unnamed.c | 1 |
 | 004d6030 | FUN_004d6030 | crt_unnamed.c | 1 |
 | 004d6046 | FUN_004d6046 | crt_unnamed.c | 1 |

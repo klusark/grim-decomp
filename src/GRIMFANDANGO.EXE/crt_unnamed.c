@@ -3754,7 +3754,7 @@ int __cdecl fle_GetS(uint param_1,int param_2,int param_3)
 /* Original name fle_PrintF (the remaster's GrimFandango (Linux): slot 10 of the
    "FILE=insane_stdfile" service table); was FUN_004c5f80. */
 
-void __cdecl fle_PrintF(uint param_1,uint param_2)
+void __cdecl fle_PrintF(uint fh,char *fmt,...)
 
 {
   unsigned char _frame[0x210];  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3763,7 +3763,7 @@ void __cdecl fle_PrintF(uint param_1,uint param_2)
   char *pcVar3;
   #define local_1f4 (*(char (*)[500])(_frame + (0x210 - 0x1f4)))
   
-  vsprintf((uint)local_1f4,param_2,(uint)&STACK0X(0x0000000c));
+  vsprintf((uint)local_1f4,(uint)fmt,(uint)&STACK0X(0x0000000c));
   uVar2 = 0xffffffff;
   pcVar3 = local_1f4;
   do {
@@ -3772,7 +3772,7 @@ void __cdecl fle_PrintF(uint param_1,uint param_2)
     cVar1 = *pcVar3;
     pcVar3 = pcVar3 + 1;
   } while (cVar1 != '\0');
-  (*(code *)g_pStdFile_filio_services[3])(param_1,local_1f4,~uVar2 - 1);
+  (*(code *)g_pStdFile_filio_services[3])(fh,local_1f4,~uVar2 - 1);
   return;
 }
 #undef local_1f4
@@ -4594,21 +4594,16 @@ void __cdecl msc_MemSet(uint param_1,uint param_2,uint param_3)
 
 
 /* ---- 0x004d5f70  msc_error_SaveString ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
    Original name msc_error_SaveString (the remaster's GrimFandango (Linux): same body (20 strings of
    200 bytes, loc/count wrap at 0x13)); was FUN_004d5f70. */
 
-int msc_error_SaveString(void)
+int __cdecl msc_error_SaveString(char *fmt,...)
 
 {
   uint uVar1;
-  uint in_stack_00000004;
   
-  vsprintf((uint)(&g_aMsc_error_string + g_dwMsc_error_loc * 200),in_stack_00000004,
-           (uint)&STACK0X(0x00000008));
+  vsprintf((uint)(&g_aMsc_error_string + g_dwMsc_error_loc * 200),(uint)fmt,(uint)&STACK0X(0x00000008));
   uVar1 = 0x13;
   if (g_dwMsc_error_loc == 0x13) {
     g_dwMsc_error_loc = 0;
@@ -4622,8 +4617,6 @@ int msc_error_SaveString(void)
   }
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x004d5fd0  FUN_004d5fd0 ---- */
 /* replaced by the hand-written version in build/overrides.c */

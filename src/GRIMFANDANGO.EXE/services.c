@@ -24,12 +24,12 @@ uint __cdecl defaultStatusPrint(char *fmt,...)
 /* Original name defaultMessagePrint (the remaster's GrimFandango (Linux): slot 2 of
    defaultHostServices (g_aDefaultHostServices)); was Svc_Printf2. */
 
-uint __cdecl defaultMessagePrint(uint param_1)
+uint __cdecl defaultMessagePrint(char *fmt,...)
 
 {
   uint uVar1;
   
-  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),param_1,(uint)&STACK0X(0x00000008));
+  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),(uint)fmt,(uint)&STACK0X(0x00000008));
   printf(&DAT_004dda18,&g_aBuffer);
   return uVar1;
 }
@@ -38,12 +38,12 @@ uint __cdecl defaultMessagePrint(uint param_1)
 /* Default GrimServices.warning: prints 'WARNING: %s' Original name defaultWarningPrint (the
    remaster's GrimFandango (Linux): strings: 'WARNING: %s'); was Svc_Warning. */
 
-uint __cdecl defaultWarningPrint(uint param_1)
+uint __cdecl defaultWarningPrint(char *fmt,...)
 
 {
   uint uVar1;
   
-  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),param_1,(uint)&STACK0X(0x00000008));
+  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),(uint)fmt,(uint)&STACK0X(0x00000008));
   printf(s_WARNING___s_004dda1c,&g_aBuffer);
   return uVar1;
 }
@@ -52,12 +52,12 @@ uint __cdecl defaultWarningPrint(uint param_1)
 /* Default GrimServices.error: prints 'ERROR: %s' Original name defaultErrorPrint (the remaster's
    GrimFandango (Linux): strings: 'ERROR: %s'); was Svc_Error. */
 
-uint __cdecl defaultErrorPrint(uint param_1)
+uint __cdecl defaultErrorPrint(char *fmt,...)
 
 {
   uint uVar1;
   
-  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),param_1,(uint)&STACK0X(0x00000008));
+  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),(uint)fmt,(uint)&STACK0X(0x00000008));
   printf(s_ERROR___s_004dda28,&g_aBuffer);
   return uVar1;
 }
@@ -66,12 +66,12 @@ uint __cdecl defaultErrorPrint(uint param_1)
 /* Default GrimServices.debug: prints 'DEBUG: %s' Original name defaultDebugPrint (the remaster's
    GrimFandango (Linux): strings: 'DEBUG: %s'); was Svc_Debug. */
 
-uint __cdecl defaultDebugPrint(uint param_1)
+uint __cdecl defaultDebugPrint(char *fmt,...)
 
 {
   uint uVar1;
   
-  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),param_1,(uint)&STACK0X(0x00000008));
+  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),(uint)fmt,(uint)&STACK0X(0x00000008));
   printf(s_DEBUG___s_004dda34,&g_aBuffer);
   return uVar1;
 }

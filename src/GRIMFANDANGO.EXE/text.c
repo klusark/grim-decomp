@@ -419,7 +419,7 @@ int __cdecl Text_GetStringHeight(TextContext *ctx,char *text)
 /* ---- 0x004aabb0  Text_DrawFormatted ---- */
 /* Formats into a 1000-byte buffer and draws it with the default font */
 
-uint __cdecl Text_DrawFormatted(TextContext *param_1,int param_2)
+uint __cdecl Text_DrawFormatted(TextContext *ctx,char *fmt,...)
 
 {
   unsigned char _frame[0x400];  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -428,16 +428,16 @@ uint __cdecl Text_DrawFormatted(TextContext *param_1,int param_2)
   void *font;
   #define local_3ec (*(char (*)[1004])(_frame + (0x400 - 0x3ec)))
   
-  if (param_2 == 0) {
+  if (fmt == (char *)0x0) {
     return 0;
   }
-  uVar2 = vsprintf((uint)local_3ec,param_2,(uint)&STACK0X(0x0000000c));
-  pvVar1 = param_1->pFont;
+  uVar2 = vsprintf((uint)local_3ec,(uint)fmt,(uint)&STACK0X(0x0000000c));
+  pvVar1 = ctx->pFont;
   if (pvVar1 == (void *)0x0) {
     (*g_pTextHS->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x2fa);
   }
   font = (void *)(*g_pTextHS->pHLock)(pvVar1);
-  Text_DrawString(param_1,font,local_3ec);
+  Text_DrawString(ctx,font,local_3ec);
   (*g_pTextHS->pHUnlock)(pvVar1);
   return uVar2;
 }

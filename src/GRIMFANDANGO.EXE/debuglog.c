@@ -89,20 +89,20 @@ uint __cdecl DebugLog_Load(void)
    grimdemo_MessagePrint (the remaster's GrimFandango (Linux): the host-service slot +8
    grimdemo_EnableDebugging sets); was DebugLog_Printf2. */
 
-char * __cdecl grimdemo_MessagePrint(char *param_1)
+char * __cdecl grimdemo_MessagePrint(char *fmt,...)
 
 {
-  _vsnprintf(&g_aGrimdemo_MessagePrint_grimMessageBuffer,0x400,param_1,&STACK0X(0x00000008));
+  _vsnprintf(&g_aGrimdemo_MessagePrint_grimMessageBuffer,0x400,fmt,&STACK0X(0x00000008));
   if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
     stdPlatform_Printf(&g_aGrimdemo_MessagePrint_grimMessageBuffer);
   }
   else {
-    param_1 = (char *)(*(code *)UINT_004f5a3c)(&g_aGrimdemo_MessagePrint_grimMessageBuffer);
+    fmt = (char *)(*(code *)UINT_004f5a3c)(&g_aGrimdemo_MessagePrint_grimMessageBuffer);
   }
   if (UINT_004f5a18 != 0) {
     DebugLog_Write(&g_aGrimdemo_MessagePrint_grimMessageBuffer,0);
   }
-  return param_1;
+  return fmt;
 }
 
 /* ---- 0x004023a0  grimdemo_StatusPrint ---- */
@@ -110,20 +110,20 @@ char * __cdecl grimdemo_MessagePrint(char *param_1)
    to debug.log. Original name grimdemo_StatusPrint (the remaster's GrimFandango (Linux): the
    host-service slot +4 grimdemo_EnableDebugging sets); was DebugLog_Printf. */
 
-char * __cdecl grimdemo_StatusPrint(char *param_1)
+char * __cdecl grimdemo_StatusPrint(char *fmt,...)
 
 {
-  _vsnprintf(&g_aGrimdemo_StatusPrint_grimStatusBuffer,0x400,param_1,&STACK0X(0x00000008));
+  _vsnprintf(&g_aGrimdemo_StatusPrint_grimStatusBuffer,0x400,fmt,&STACK0X(0x00000008));
   if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
     stdPlatform_Printf(&g_aGrimdemo_StatusPrint_grimStatusBuffer);
   }
   else {
-    param_1 = (char *)(*(code *)UINT_004f5a3c)(&g_aGrimdemo_StatusPrint_grimStatusBuffer);
+    fmt = (char *)(*(code *)UINT_004f5a3c)(&g_aGrimdemo_StatusPrint_grimStatusBuffer);
   }
   if (UINT_004f5a18 != 0) {
     DebugLog_Write(&g_aGrimdemo_StatusPrint_grimStatusBuffer,0);
   }
-  return param_1;
+  return fmt;
 }
 
 /* ---- 0x00402410  grimdemo_ErrorPrint ---- */
@@ -131,20 +131,20 @@ char * __cdecl grimdemo_StatusPrint(char *param_1)
    name grimdemo_ErrorPrint (the remaster's GrimFandango (Linux): the host-service slot +0x10
    grimdemo_EnableDebugging sets); was DebugLog_Error. */
 
-char * __cdecl grimdemo_ErrorPrint(char *param_1)
+char * __cdecl grimdemo_ErrorPrint(char *fmt,...)
 
 {
-  _vsnprintf(&g_aGrimdemo_ErrorPrint_grimErrorBuffer,0x400,param_1,&STACK0X(0x00000008));
+  _vsnprintf(&g_aGrimdemo_ErrorPrint_grimErrorBuffer,0x400,fmt,&STACK0X(0x00000008));
   if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
     stdPlatform_Printf(&g_aGrimdemo_ErrorPrint_grimErrorBuffer);
   }
   else {
-    param_1 = (char *)(*(code *)UINT_004f5a3c)(&g_aGrimdemo_ErrorPrint_grimErrorBuffer);
+    fmt = (char *)(*(code *)UINT_004f5a3c)(&g_aGrimdemo_ErrorPrint_grimErrorBuffer);
   }
   if (UINT_004f5a18 != 0) {
     DebugLog_Write(&g_aGrimdemo_ErrorPrint_grimErrorBuffer,0);
   }
-  return param_1;
+  return fmt;
 }
 
 /* ---- 0x00402480  grimdemo_WarningPrint ---- */
@@ -152,20 +152,20 @@ char * __cdecl grimdemo_ErrorPrint(char *param_1)
    name grimdemo_WarningPrint (the remaster's GrimFandango (Linux): the host-service slot +0xc
    grimdemo_EnableDebugging sets); was DebugLog_Warning. */
 
-char * __cdecl grimdemo_WarningPrint(char *param_1)
+char * __cdecl grimdemo_WarningPrint(char *fmt,...)
 
 {
-  _vsnprintf(&g_aGrimdemo_WarningPrint_grimWarningBuffer,0x400,param_1,&STACK0X(0x00000008));
+  _vsnprintf(&g_aGrimdemo_WarningPrint_grimWarningBuffer,0x400,fmt,&STACK0X(0x00000008));
   if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
     stdPlatform_Printf(&g_aGrimdemo_WarningPrint_grimWarningBuffer);
   }
   else {
-    param_1 = (char *)(*(code *)UINT_004f5a3c)(&g_aGrimdemo_WarningPrint_grimWarningBuffer);
+    fmt = (char *)(*(code *)UINT_004f5a3c)(&g_aGrimdemo_WarningPrint_grimWarningBuffer);
   }
   if (UINT_004f5a18 != 0) {
     DebugLog_Write(&g_aGrimdemo_WarningPrint_grimWarningBuffer,0);
   }
-  return param_1;
+  return fmt;
 }
 
 /* ---- 0x004024f0  grimdemo_DebugPrint ---- */
@@ -173,20 +173,20 @@ char * __cdecl grimdemo_WarningPrint(char *param_1)
    name grimdemo_DebugPrint (the remaster's GrimFandango (Linux): the host-service slot +0x14
    grimdemo_EnableDebugging sets); was DebugLog_Debug. */
 
-char * __cdecl grimdemo_DebugPrint(char *param_1)
+char * __cdecl grimdemo_DebugPrint(char *fmt,...)
 
 {
-  _vsnprintf(&g_aGrimdemo_DebugPrint_grimDebugBuffer,0x400,param_1,&STACK0X(0x00000008));
+  _vsnprintf(&g_aGrimdemo_DebugPrint_grimDebugBuffer,0x400,fmt,&STACK0X(0x00000008));
   if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
     stdPlatform_Printf(&g_aGrimdemo_DebugPrint_grimDebugBuffer);
   }
   else {
-    param_1 = (char *)(*(code *)UINT_004f5a3c)(&g_aGrimdemo_DebugPrint_grimDebugBuffer);
+    fmt = (char *)(*(code *)UINT_004f5a3c)(&g_aGrimdemo_DebugPrint_grimDebugBuffer);
   }
   if (UINT_004f5a18 != 0) {
     DebugLog_Write(&g_aGrimdemo_DebugPrint_grimDebugBuffer,0);
   }
-  return param_1;
+  return fmt;
 }
 
 /* ---- 0x00402560  DebugLog_Write ---- */

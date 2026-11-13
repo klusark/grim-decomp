@@ -1452,8 +1452,8 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
 * Left DEFAULT (27): VbrAdpcm_Uncompress, x87 returns (float10 / unkbyte10), functions without RET (purge unknown),
   the six whose view in main was `__fastcall`, and thunks.
 * Printf-style functions declared with one parameter (grimdemo_*Print, default*Print, stdFilePrintf, fle_PrintF,
-  Text_DrawFormatted, msc_error_SaveString) read their arguments with STACK0X; their callers already passed only the
-  format in main, so nothing is lost, but they should become `(char *fmt, ...)` too.
+  Text_DrawFormatted, msc_error_SaveString) read their arguments with STACK0X; they are `(char *fmt, ...)` now (see
+  "Printf-style functions varargs" below).
 
 ## Characters above 0x7f: Text_NextChar's byte zero-extended (2026-11-13)
 
@@ -1465,3 +1465,17 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
 * Clean-room reproducers in grim_tools (tests/grim/text.lua): `text_high_chars` (sizes of text objects with
   0x80..0xff and the 0xfe break; the old build crashed or measured memory before the glyph table) and `text_high_drawn`
   (the same characters drawn over cr_flat; the old build crashed).
+
+## Printf-style functions varargs (2026-11-13)
+
+* grimdemo_{Message,Status,Error,Warning,Debug}Print, default{Message,Warning,Error,Debug}Print, stdFilePrintf,
+  fle_PrintF, Text_DrawFormatted and msc_error_SaveString are stored as `(..., char *fmt, ...)` in
+  names/protos_all_exe.json (they were `(char *)` / `(uint)`, msc_error_SaveString had Ghidra's "unknown calling
+  convention" `(void)`). Their bodies still read the arguments with STACK0X; all other calls go through the host-service
+  tables, so only the declarations change.
+* msc_error_SaveString's one caller, bmp_bitmap_Alloc, now decompiles with its four pushes (format, file, line, type)
+  instead of none, and datagen splits "%s, line %s:  Type %d not supported" (0x004f3d40) off the "VIDEO.getbm" string
+  it had been merged into.
+* msc_error_SaveString's hand-written version (overrides_asm_o2.c) is gone: the generated text is the same function.
+  bmp_bitmap_Alloc stays hand-written (its tail is a jump table Ghidra could not recover); it calls msc_error_SaveString
+  and the new string symbol directly instead of a cast and IMG_ADDR(0x004f3d40).

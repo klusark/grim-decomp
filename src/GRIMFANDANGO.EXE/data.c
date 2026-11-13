@@ -2611,7 +2611,8 @@ extern void *PTR_bmp_bitmap_Alloc_004f3cd0[3];
 extern char s_BITMAP_insane_004f3cdc[16];
 extern char s_LECMODULE_insane_bitmap_004f3cec[24];
 extern char s_Video_Module__Cannot_allocate_me_004f3d04[48];
-extern char s_VIDEO_getbm_004f3d34[48];
+extern char s_VIDEO_getbm_004f3d34[12];
+extern char s__s__line__s__Type__d_not_support_004f3d40[36];
 extern char s_C__grimsrc_libs_lecsmush_insane__004f3d64[60];
 extern unsigned char g_aConvert_bitmask[40];
 extern void *g_apfnSoundModule[4];
@@ -10914,7 +10915,8 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x004f3cdc, 16 bytes */ GRIM_DATA("004f3cdc") char s_BITMAP_insane_004f3cdc[16] = "BITMAP=insane";
 /* 0x004f3cec, 24 bytes */ GRIM_DATA("004f3cec") char s_LECMODULE_insane_bitmap_004f3cec[24] = "LECMODULE=insane_bitmap";
 /* 0x004f3d04, 48 bytes */ GRIM_DATA("004f3d04") char s_Video_Module__Cannot_allocate_me_004f3d04[48] = "Video Module: Cannot allocate memory services.";
-/* 0x004f3d34, 48 bytes */ GRIM_DATA("004f3d34") char s_VIDEO_getbm_004f3d34[48] = "VIDEO.getbm\000%s, line %s:  Type %d not supported";
+/* 0x004f3d34, 12 bytes */ GRIM_DATA("004f3d34") char s_VIDEO_getbm_004f3d34[12] = "VIDEO.getbm";
+/* 0x004f3d40, 36 bytes */ GRIM_DATA("004f3d40") char s__s__line__s__Type__d_not_support_004f3d40[36] = "%s, line %s:  Type %d not supported";
 /* 0x004f3d64, 60 bytes */ GRIM_DATA("004f3d64") char s_C__grimsrc_libs_lecsmush_insane__004f3d64[60] = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\bitmap\\Bitmap.c";
 /* 0x004f3da0, 40 bytes */ GRIM_DATA("004f3da0") unsigned char g_aConvert_bitmask[40] = {
     0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0xc0, 0x00, 0x00, 0x00, 0xe0, 0x00, 0x00, 0x00,
