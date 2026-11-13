@@ -1010,8 +1010,6 @@ uint __cdecl CosUtil_CountComponents(Costume *pCostume)
 }
 
 /* ---- 0x10002e40  CosUtil_ComponentInfo ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export: tag id, component data, parent index and tag kind of component `index`; returns the
    component record (the EXE uses it). Hand-written in build/overrides_logic_chore.c. */
 
@@ -1047,8 +1045,6 @@ CosUtil_ComponentInfo(int cos,uint index,int *outTag,undefined4 *outA,undefined4
   }
   return iVar2;
 }
-#endif
-
 
 /* ---- 0x10002fa0  CosUtil_CountChores ---- */
 /* Export: number of chores of the costume. */

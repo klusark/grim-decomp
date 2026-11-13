@@ -52,7 +52,7 @@
 | 00489840 | sputPrimitive_DrawLine | lua.c | 91 |
 | 00489a80 | sputPrimitive_DrawPolygon | lua.c | 131 |
 | 00489d70 | sputPrimitive_DrawRectangle | lua.c | 90 |
-| 00489fe0 | sputPrimitive_ChangePrimitive | lua.c | 1 |
+| 00489fe0 | sputPrimitive_ChangePrimitive | lua.c | 161 |
 | 0048a460 | sputPrimitive_KillPrimitive | lua.c | 19 |
 | 0048a4a0 | sputPrimitive_PurgeQueue | lua.c | 11 |
 | 0048ad60 | sputText_SetOffscreenTextPosL | lua.c | 31 |
@@ -82,7 +82,7 @@
 | 00495900 | sputCostume_GetSmushLengthL | lua.c | 28 |
 | 00497830 | Lua_Stub | lua.c | 10 |
 | 00498d80 | sputLua_GetMemoryUsageL | lua.c | 19 |
-| 00498da0 | sputLua_GetDiskFreeSpaceL | lua.c | 1 |
+| 00498da0 | sputLua_GetDiskFreeSpaceL | lua.c | 18 |
 | 00498e20 | sputLua_Test | lua.c | 1 |
 | 00498e50 | sputLua_ShrinkBoxes | lua.c | 1 |
 | 00498e90 | sputLua_UnShrinkBoxes | lua.c | 1 |
@@ -383,7 +383,7 @@
 | 00478fc0 | std3D_SetCurrentPalette | stddisplay.c | 22 |
 | 0047b610 | Palette_FromFloatTable | stddisplay.c | 1 |
 | 0047b8a0 | stdColor_ColorConvertOneRow | stddisplay.c | 1 |
-| 0047bbb0 | stdColor_ColorConvertOnePixel | stddisplay.c | 1 |
+| 0047bbb0 | stdColor_ColorConvertOnePixel | stddisplay.c | 9 |
 | 004035b0 | defaultStatusPrint | services.c | 13 |
 | 004035e0 | defaultMessagePrint | services.c | 12 |
 | 00403610 | defaultWarningPrint | services.c | 12 |
@@ -1259,7 +1259,7 @@
 | 0048d930 | sputResource_BackgroundHandler | restype.c | 61 |
 | 0048da40 | sputResource_CostumeHandler | restype.c | 34 |
 | 0048dab0 | sputResource_ColormapHandler | restype.c | 83 |
-| 0048dbd0 | sputResource_FontHandler | restype.c | 1 |
+| 0048dbd0 | sputResource_FontHandler | restype.c | 37 |
 | 0048dc60 | sputResource_KeyframeHandler | restype.c | 52 |
 | 0048dd20 | sputResource_MaterialHandler | restype.c | 45 |
 | 0048de10 | sputResource_ModelHandler | restype.c | 33 |
@@ -1365,7 +1365,7 @@
 | 00483650 | IMuse_RestoreFromTemp | imuse.c | 17 |
 | 004836b0 | PolyglotInitialize | imusemodule.c | 20 |
 | 004836f0 | polyglot_shutdown | imusemodule.c | 16 |
-| 00483720 | PolyglotConfigure | polyglot.c | 1 |
+| 00483720 | PolyglotConfigure | polyglot.c | 63 |
 | 004838e0 | PolyglotGetString | polyglot.c | 78 |
 | 004839f0 | Render_GetBackBuffer | render.c | 7 |
 | 00483a00 | sputRender_DrawDebuggingToggle | render.c | 43 |
@@ -1715,7 +1715,7 @@
 | 004965d0 | MaterialChanger | materialcomponent.c | 12 |
 | 004965e0 | MaterialInstancer | materialcomponent.c | 27 |
 | 00496670 | MaterialRequester | materialcomponent.c | 109 |
-| 00496890 | ThingAdjuster | modelcomponent.c | 1 |
+| 00496890 | ThingAdjuster | modelcomponent.c | 32 |
 | 00496930 | ThingChanger | modelcomponent.c | 10 |
 | 00496950 | ThingInstancer | modelcomponent.c | 1 |
 | 00496b40 | ThingStopper | modelcomponent.c | 12 |
@@ -1726,7 +1726,7 @@
 | 00496e10 | MeshStopper | meshcomponent.c | 11 |
 | 00496e20 | MeshRequester | meshcomponent.c | 156 |
 | 00497180 | MeshAdjuster | meshcomponent.c | 11 |
-| 004971a0 | SoundChanger | imusesoundcomponent.c | 1 |
+| 004971a0 | SoundChanger | imusesoundcomponent.c | 73 |
 | 00497320 | SoundAdjuster | imusesoundcomponent.c | 94 |
 | 00497460 | SoundRequester | imusesoundcomponent.c | 93 |
 | 00497640 | SoundFreer | imusesoundcomponent.c | 11 |

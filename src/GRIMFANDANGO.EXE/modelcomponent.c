@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00496890  ThingAdjuster ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Editor dialog 'Resolve parent offset' Original name ThingAdjuster (the remaster's GrimFandango
    (Linux): strings: '%s,%d' | 'Resolve parent offset (0 = off)'); was
    ModelComponent_EditParentOffset. */
@@ -39,8 +37,6 @@ undefined4 ThingAdjuster(int *param_1,undefined4 param_2)
 }
 #undef local_20
 #undef local_24
-
-#endif
 
 
 /* ---- 0x00496930  ThingChanger ---- */

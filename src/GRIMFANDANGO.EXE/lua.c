@@ -577,8 +577,6 @@ void sputPrimitive_DrawRectangle(void)
 
 
 /* ---- 0x00489fe0  sputPrimitive_ChangePrimitive ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua opcode: ChangePrimitive Original name sputPrimitive_ChangePrimitive (the remaster's
    GrimFandango (Linux): Lua / module table entry 'ChangePrimitive'); was Lua_ChangePrimitive. */
 
@@ -739,8 +737,6 @@ void sputPrimitive_ChangePrimitive(void)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0048a460  sputPrimitive_KillPrimitive ---- */
@@ -1919,8 +1915,6 @@ void sputLua_GetMemoryUsageL(void)
 
 
 /* ---- 0x00498da0  sputLua_GetDiskFreeSpaceL ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua opcode: GetDiskFreeSpace Original name sputLua_GetDiskFreeSpaceL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'GetDiskFreeSpace'); was Lua_GetDiskFreeSpace. */
 
@@ -1938,8 +1932,6 @@ void sputLua_GetDiskFreeSpaceL(void)
 }
 #undef local_18
 #undef local_4
-
-#endif
 
 
 /* ---- 0x00498e20  sputLua_Test ---- */

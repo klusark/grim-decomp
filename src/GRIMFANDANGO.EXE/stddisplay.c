@@ -3535,8 +3535,6 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
 
 
 /* ---- 0x0047bbb0  stdColor_ColorConvertOnePixel ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name stdColor_ColorConvertOnePixel (the remaster's GrimFandango (Linux): aligned call in
    stdBitmap_ConvertColorFormat, stdDisplay_VBufferConvertColorFormat); was Pixel_ConvertOne. */
 
@@ -3546,5 +3544,3 @@ int stdColor_ColorConvertOnePixel(int param_1,undefined4 param_2,int param_3)
   stdColor_ColorConvertOneRow((ushort *)&param_3,param_1,(ushort *)&param_2,param_3,1);
   return param_3;
 }
-#endif
-

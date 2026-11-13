@@ -545,8 +545,6 @@ int __cdecl Cos_InstSetUserData(int hInst,int userData)
 }
 
 /* ---- 0x10001e80  Cos_NewStateBasedTag ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export: registers a state-based component tag (kind 0): id, name, user data and the seven
    handlers (ComponentTag +0x2c). Hand-written in build/overrides_logic_chore.c. */
 
@@ -570,8 +568,6 @@ uint __cdecl Cos_NewStateBasedTag(uint id,uint name,uint unused,uint *handlers,i
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x10001ed0  Cos_NewTagEntry ---- */
 /* Common part of Cos_NewStateBasedTag / Cos_NewIntTag / Cos_NewFloatTag: refuses a tag id that is
@@ -625,8 +621,6 @@ int __cdecl Cos_NewTagEntry(ComponentTag **ppTag,int tagId,char *name,int unused
 }
 
 /* ---- 0x10001f80  Cos_NewIntTag ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export: registers an int component tag (kind 1), see Cos_NewStateBasedTag. Hand-written in
    build/overrides_logic_chore.c. */
 
@@ -650,12 +644,8 @@ uint __cdecl Cos_NewIntTag(uint id,uint name,uint unused,uint *handlers,int extr
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x10001fd0  Cos_NewFloatTag ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export: registers a float component tag (kind 2), see Cos_NewStateBasedTag. Hand-written in
    build/overrides_logic_chore.c. */
 
@@ -679,8 +669,6 @@ uint __cdecl Cos_NewFloatTag(uint id,uint name,uint unused,uint *handlers,int ex
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x10002080  Cos_RegisterComponent ---- */
 /* Export, called back by a tag's Create handler: appends a component to the costume: tag `tagId`,
@@ -1276,8 +1264,6 @@ int __cdecl Cos_Initialize(GrimServices *svc,void **moduleIface)
 }
 
 /* ---- 0x100037a0  Cos_Save ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Module interface slot 4 / export: writes the costume table into the save game. Hand-written in
    build/overrides_logic_chore.c. */
 
@@ -1335,8 +1321,6 @@ LAB_10003863:
 }
 #undef iStack_4
 
-#endif
-
 
 /* ---- 0x10003890  Cos_SaveInstance ---- */
 /* Export: writes a costume instance into the save game: the Save handler (ComponentTag +0x44, slot
@@ -1386,8 +1370,6 @@ int __cdecl Cos_SaveInstance(int hInst,void *io)
 }
 
 /* ---- 0x10003970  Cos_Restore ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Module interface slot 5 / export: reloads the costumes of a save game. Hand-written in
    build/overrides_logic_chore.c. */
 
@@ -1482,8 +1464,6 @@ uint __cdecl Cos_Restore(void *io)
 #undef acStack_20
 #undef iStack_24
 #undef iStack_28
-
-#endif
 
 
 /* ---- 0x10003b40  Cos_RestoreInstance ---- */
@@ -1916,8 +1896,6 @@ int __cdecl Cos_FindComponent(Costume *pCostume,int tagId,int hash,char *name)
 }
 
 /* ---- 0x100041e0  Cos_ReadTagsSection ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Text costume loader, 'section tags': " numtags %d" and one line " %d '%4c' %s %[^\n\r]" per tag
    (index, four-character tag id, type fs / int / float = kind 0 / 1 / 2, name); Cos_FindTag gives
    the registered tag, stored at g_aTagLookups[index]. Hand-written in
@@ -1986,8 +1964,6 @@ uint __cdecl Cos_ReadTagsSection(uint file,uint unused2,uint unused3)
 #undef iStack_30
 #undef iStack_34
 
-#endif
-
 
 /* ---- 0x10004320  Cos_FindTag ---- */
 /* Index into g_aComponentTags of the registered tag with id `tagId`, kind `kind` and name `name`
@@ -2019,8 +1995,6 @@ int __cdecl Cos_FindTag(int tagId,char *name,int kind)
 }
 
 /* ---- 0x10004390  Cos_ReadComponentsSection ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Text costume loader, 'section components': " numcomponents %d" and one line " %d %d %d %d
    %[^\n\r]" per component (index, tag index, hash, parent index, name). The components are created
    level by level of the parent tree through CosUtil_AddComponent (the tag's Create handler, which
@@ -2193,8 +2167,6 @@ LAB_1000470a:
 #undef uStack_1c
 #undef uStack_c
 
-#endif
-
 
 /* ---- 0x10004770  Cos_FindComponentWithParent ---- */
 /* Like Cos_FindComponent, also matching the parent component index (+0x2c): index or -1. Used by
@@ -2224,8 +2196,6 @@ int __cdecl Cos_FindComponentWithParent(Costume *pCostume,int tagId,int hash,cha
 }
 
 /* ---- 0x100047f0  Cos_ReadChoresSection ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Text costume loader, 'section chores': " numchores %d", the chore array (Cos_InitChore each) and
    one line " %d %d %d %[^\n\r]" per chore (index, length +0x28, track count +0x20, name); allocates
    the tracks (assert 'pChore->aChoreTracks != NULL'). Hand-written in
@@ -2309,12 +2279,8 @@ uint __cdecl Cos_ReadChoresSection(uint file,int costume,uint unused3)
 }
 #undef auStack_4
 
-#endif
-
 
 /* ---- 0x10004970  Cos_ReadKeysSection ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Text costume loader, 'section keys': per chore " chore %d", per track " %d %d" (file component
    index, translated through g_aComponentLookups, and key count) and per key " %d %d" or, for float
    tags, " %d %f" (time, value); assert 'pCTrack->aKeys != NULL'. Hand-written in
@@ -2421,8 +2387,6 @@ uint __cdecl Cos_ReadKeysSection(uint file,int costume)
 #undef pCStack_8
 #undef uStack_10
 #undef uStack_18
-
-#endif
 
 
 /* ---- 0x10004bb0  Cos_ReadLine ---- */

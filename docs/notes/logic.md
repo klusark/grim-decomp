@@ -22,7 +22,9 @@ The remaining functions and their reasons are listed in `docs/ASM_REMAINING_logi
    `names/seh_strip_logic.json` lets `tools/build_src.py` strip.  Prototypes that were wrong in Ghidra are corrected there
    (`names/logic_protos.json`, applied with `tools/apply_logic_protos.py`) so the callers' text passes the right arguments.
 2. **Written by hand** in `build/overrides_logic.c` (EXE, about 50 functions) and `build/overrides_logic_chore.c` (CHORE.DLL:
-   Cos_New{StateBased,Int,Float}Tag, CosUtil_ComponentInfo, Cos_Save, Cos_Restore).  `tools/build_src.py` finds the names
+   Cos_New{StateBased,Int,Float}Tag, CosUtil_ComponentInfo, Cos_Save, Cos_Restore; that file was removed on 2026-11-13 and
+   those six are generated again, as are PolyglotConfigure, SoundChanger, ThingAdjuster, sputLua_GetDiskFreeSpaceL,
+   sputPrimitive_ChangePrimitive, sputResource_FontHandler and stdColor_ColorConvertOnePixel: BUILD_NOTES "Override sweep").  `tools/build_src.py` finds the names
    (`load_overrides`) and puts the decompiled text of those functions under `#if 0`, `tools/gen_asm.py --select` leaves them out
    of the assembly.  A function whose signature has the return type on its own line is not found by that scan: add a
    `/* OVERRIDES: Name */` line (Collision_BoxSlide needed it; without it both the assembly and the C were linked and
