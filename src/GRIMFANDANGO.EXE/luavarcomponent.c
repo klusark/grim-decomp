@@ -32,7 +32,7 @@ void __cdecl LuaVarChanger(uint param_1,char *param_2,uint param_3,int param_4)
    name LuaVarAdjuster (the remaster's GrimFandango (Linux): strings: 'Change variable properties');
    was LuaVarComponent_EditKey. */
 
-uint __cdecl LuaVarAdjuster(uint *param_1,int param_2,int param_3)
+uint __cdecl LuaVarAdjuster(undefined4 *param_1,int param_2,int param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

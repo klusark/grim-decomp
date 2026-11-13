@@ -13,7 +13,7 @@ void * __cdecl LabDir_Open(char *dir)
 {
   unsigned char _frame[0x130] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
-  uint *puVar2;
+  undefined4 *puVar2;
   uint uVar3;
   uint uVar4;
   int *piVar5;

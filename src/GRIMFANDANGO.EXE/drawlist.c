@@ -26,7 +26,7 @@ void __cdecl DrawList_Reset(void)
 /* ---- 0x00486280  DrawList_Alloc ---- */
 /* Returns the next of 128 draw-list entries or NULL */
 
-byte * __cdecl DrawList_Alloc(void)
+undefined * __cdecl DrawList_Alloc(void)
 
 {
   uint uVar1;
@@ -36,7 +36,7 @@ byte * __cdecl DrawList_Alloc(void)
     g_dwTotDrawItems = g_dwTotDrawItems + 1;
     return &DAT_008a8ca8 + uVar1 * 0xc;
   }
-  return (byte *)0x0;
+  return (undefined *)0x0;
 }
 
 /* ---- 0x004862b0  FUN_004862b0 ---- */

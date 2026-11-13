@@ -60,7 +60,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
     if ((int)(inst & 0xff) <= (int)*(uint *)(iVar2 + 0x28)) {
       uVar8 = *(uint *)(iVar2 + 0x28);
     }
-    sputRoom_SetSoundPosition(uVar7,(byte **)pAVar1[iVar5].aPos,uVar8,(uint)bVar4,snd,slot);
+    sputRoom_SetSoundPosition(uVar7,(undefined **)pAVar1[iVar5].aPos,uVar8,(uint)bVar4,snd,slot);
     return;
   }
   if (*(int *)(&g_aSoundCommands + iVar3 * 4) == 1) {

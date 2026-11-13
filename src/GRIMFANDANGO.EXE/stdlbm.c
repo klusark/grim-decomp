@@ -275,9 +275,9 @@ uint __cdecl stdLbm_Write(uint param_1,int param_2)
   int iVar3;
   int iVar4;
   uint uVar5;
-  byte *pbVar6;
+  undefined1 *puVar6;
   #define uStack_7ec (*(uint *)(_frame + (0x800 - 0x7ec)))
-  #define uStack_7e8 (*(ushort *)(_frame + (0x800 - 0x7e8)))
+  #define uStack_7e8 (*(undefined2 *)(_frame + (0x800 - 0x7e8)))
   #define uStack_7e6 (*(undefined2 *)(_frame + (0x800 - 0x7e6)))
   #define uStack_7e4 (*(undefined2 *)(_frame + (0x800 - 0x7e4)))
   #define uStack_7e2 (*(undefined2 *)(_frame + (0x800 - 0x7e2)))
@@ -310,13 +310,13 @@ uint __cdecl stdLbm_Write(uint param_1,int param_2)
   stdDisplay_VBufferLock((void *)**(undefined4 **)(param_2 + 0x78));
   uVar5 = 0;
   iVar4 = **(int **)(param_2 + 0x78);
-  pbVar6 = *(byte **)(iVar4 + 0x5c);
+  puVar6 = *(undefined1 **)(iVar4 + 0x5c);
   if (*(int *)(iVar4 + 0x10) != 0) {
     iVar4 = *(int *)(iVar4 + 0xc);
     do {
-      stdLbm_PackBits(uVar2,pbVar6,iVar4,acStack_7d0);
+      stdLbm_PackBits(uVar2,puVar6,iVar4,acStack_7d0);
       iVar4 = *(int *)(**(int **)(param_2 + 0x78) + 0xc);
-      pbVar6 = pbVar6 + iVar4;
+      puVar6 = puVar6 + iVar4;
       uVar5 = uVar5 + 1;
     } while (uVar5 < *(uint *)(**(int **)(param_2 + 0x78) + 0x10));
   }
@@ -332,7 +332,7 @@ uint __cdecl stdLbm_Write(uint param_1,int param_2)
   uStack_7ec = iVar4 - 8;
   uStack_7ec = Std_Swap32(uStack_7ec);
   piVar1 = *(int **)(param_2 + 0x78);
-  uStack_7e8 = *(ushort *)(*piVar1 + 0xc);
+  uStack_7e8 = *(undefined2 *)(*piVar1 + 0xc);
   uStack_7e6 = *(undefined2 *)(*piVar1 + 0x10);
   uStack_7e4 = 0;
   uStack_7e2 = 0;
@@ -373,18 +373,18 @@ uint __cdecl stdLbm_Write(uint param_1,int param_2)
 /* ---- 0x0047f9d0  stdLbm_PackBits ---- */
 /* ByteRun1 (PackBits) RLE encoder feeding stdLbm_PackByte */
 
-void __cdecl stdLbm_PackBits(uint param_1,byte *param_2,int param_3,char *param_4)
+void __cdecl stdLbm_PackBits(uint param_1,undefined1 *param_2,int param_3,char *param_4)
 
 {
-  byte bVar1;
+  char cVar1;
   
   UINT_00815614 = 0;
   DAT_00815620 = 3;
   PTR_0081561c = param_4;
   for (; param_3 != 0; param_3 = param_3 + -1) {
-    bVar1 = *param_2;
+    cVar1 = *param_2;
     param_2 = param_2 + 1;
-    stdLbm_PackByte(bVar1);
+    stdLbm_PackByte(cVar1);
   }
   if (DAT_00815620 == 2) {
     *PTR_0081561c = '\0';
@@ -483,7 +483,7 @@ void __cdecl stdLbm_PackByte(char param_1)
 /* ---- 0x0047fc80  stdLbm_SwapHeader ---- */
 /* Byte-swaps the big-endian BMHD fields */
 
-void __cdecl stdLbm_SwapHeader(ushort *param_1)
+void __cdecl stdLbm_SwapHeader(undefined2 *param_1)
 
 {
   undefined4 in_EAX;
@@ -494,18 +494,18 @@ void __cdecl stdLbm_SwapHeader(ushort *param_1)
   undefined2 extraout_var_02;
   
   uVar1 = Std_Swap16(CONCAT22((short)((uint)in_EAX >> 0x10),*param_1));
-  *param_1 = (ushort)uVar1;
+  *param_1 = (short)uVar1;
   uVar1 = Std_Swap16(CONCAT22(extraout_var,param_1[1]));
-  param_1[1] = (ushort)uVar1;
+  param_1[1] = (short)uVar1;
   uVar1 = Std_Swap16(CONCAT22(extraout_var_01,param_1[2]));
-  param_1[2] = (ushort)uVar1;
+  param_1[2] = (short)uVar1;
   uVar1 = Std_Swap16(CONCAT22((short)(uVar1 >> 0x10),param_1[3]));
-  param_1[3] = (ushort)uVar1;
+  param_1[3] = (short)uVar1;
   uVar1 = Std_Swap16(CONCAT22(extraout_var_00,param_1[6]));
-  param_1[6] = (ushort)uVar1;
+  param_1[6] = (short)uVar1;
   uVar1 = Std_Swap16(CONCAT22(extraout_var_02,param_1[8]));
-  param_1[8] = (ushort)uVar1;
+  param_1[8] = (short)uVar1;
   uVar1 = Std_Swap16(CONCAT22((short)(uVar1 >> 0x10),param_1[9]));
-  param_1[9] = (ushort)uVar1;
+  param_1[9] = (short)uVar1;
   return;
 }

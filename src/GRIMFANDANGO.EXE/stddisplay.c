@@ -398,12 +398,12 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
 /* Fills a BITMAPINFO (0x28 header, negative height) with a 256-entry palette */
 
 void __cdecl
-stdDisplay_BuildBitmapInfo8(int param_1,uint param_2,int param_3,int param_4,byte *param_5)
+stdDisplay_BuildBitmapInfo8(int param_1,uint param_2,int param_3,int param_4,undefined1 *param_5)
 
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  byte *pbVar1;
-  byte *pbVar2;
+  undefined1 *puVar1;
+  undefined1 *puVar2;
   int iVar3;
   #define local_428 (*(uint *)(_frame + (0x440 - 0x428)))
   #define local_424 (*(uint *)(_frame + (0x440 - 0x424)))
@@ -416,7 +416,7 @@ stdDisplay_BuildBitmapInfo8(int param_1,uint param_2,int param_3,int param_4,byt
   #define local_40c (*(uint *)(_frame + (0x440 - 0x40c)))
   #define local_408 (*(uint *)(_frame + (0x440 - 0x408)))
   #define local_404 (*(uint *)(_frame + (0x440 - 0x404)))
-  #define local_400 (*(byte (*)[1024])(_frame + (0x440 - 0x400)))
+  #define local_400 (*(undefined1 (*)[1024])(_frame + (0x440 - 0x400)))
   
   local_420 = -param_3;
   local_424 = param_2;
@@ -430,16 +430,16 @@ stdDisplay_BuildBitmapInfo8(int param_1,uint param_2,int param_3,int param_4,byt
   local_408 = 0;
   local_404 = 0;
   iVar3 = 0x100;
-  pbVar2 = local_400 + 1;
+  puVar2 = local_400 + 1;
   do {
-    pbVar2[1] = *param_5;
-    pbVar1 = param_5 + 2;
-    *pbVar2 = param_5[1];
+    puVar2[1] = *param_5;
+    puVar1 = param_5 + 2;
+    *puVar2 = param_5[1];
     param_5 = param_5 + 3;
-    pbVar2[-1] = *pbVar1;
-    pbVar2[2] = 0;
+    puVar2[-1] = *puVar1;
+    puVar2[2] = 0;
     iVar3 = iVar3 + -1;
-    pbVar2 = pbVar2 + 4;
+    puVar2 = puVar2 + 4;
   } while (iVar3 != 0);
   CreateDIBSection(param_1,(int)&local_428,0,param_4,0,0);
   return;
@@ -561,32 +561,32 @@ undefined * __cdecl DIB_CreateSection565(uint param_1,uint param_2,int param_3,u
 /* ---- 0x00473270  Palette_SwapRedBlue ---- */
 /* Converts a 768-byte RGB palette to BGR order */
 
-uint __cdecl Palette_SwapRedBlue(int param_1,byte *param_2)
+uint __cdecl Palette_SwapRedBlue(int param_1,undefined1 *param_2)
 
 {
   unsigned char _frame[0x820] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  byte *pbVar1;
-  byte *pbVar2;
-  byte *pbVar3;
+  undefined1 *puVar1;
+  undefined1 *puVar2;
+  undefined1 *puVar3;
   int a2;
   int iVar4;
   #define uStack_808 (*(undefined2 *)(_frame + (0x820 - 0x808)))
   #define uStack_806 (*(undefined2 *)(_frame + (0x820 - 0x806)))
-  #define abStack_800 (*(byte (*)[1024])(_frame + (0x820 - 0x800)))
-  #define local_400 (*(byte (*)[1024])(_frame + (0x820 - 0x400)))
+  #define auStack_800 (*(undefined1 (*)[1024])(_frame + (0x820 - 0x800)))
+  #define local_400 (*(undefined1 (*)[1024])(_frame + (0x820 - 0x400)))
   
   iVar4 = 0x100;
-  pbVar2 = param_2;
-  pbVar3 = local_400 + 1;
+  puVar2 = param_2;
+  puVar3 = local_400 + 1;
   do {
-    pbVar3[1] = *pbVar2;
-    pbVar1 = pbVar2 + 2;
-    *pbVar3 = pbVar2[1];
-    pbVar2 = pbVar2 + 3;
-    pbVar3[-1] = *pbVar1;
-    pbVar3[2] = 0;
+    puVar3[1] = *puVar2;
+    puVar1 = puVar2 + 2;
+    *puVar3 = puVar2[1];
+    puVar2 = puVar2 + 3;
+    puVar3[-1] = *puVar1;
+    puVar3[2] = 0;
     iVar4 = iVar4 + -1;
-    pbVar3 = pbVar3 + 4;
+    puVar3 = puVar3 + 4;
   } while (iVar4 != 0);
   iVar4 = SetDIBColorTable(param_1,0,0x100,(int)local_400);
   if (iVar4 == 0) {
@@ -595,26 +595,26 @@ uint __cdecl Palette_SwapRedBlue(int param_1,byte *param_2)
   uStack_808 = 0x300;
   uStack_806 = 0x100;
   iVar4 = 0x100;
-  pbVar2 = abStack_800 + 1;
+  puVar2 = auStack_800 + 1;
   do {
-    pbVar2[-1] = *param_2;
-    pbVar3 = param_2 + 2;
-    *pbVar2 = param_2[1];
+    puVar2[-1] = *param_2;
+    puVar3 = param_2 + 2;
+    *puVar2 = param_2[1];
     param_2 = param_2 + 3;
-    pbVar2[1] = *pbVar3;
-    pbVar2[2] = 1;
+    puVar2[1] = *puVar3;
+    puVar2[2] = 1;
     iVar4 = iVar4 + -1;
-    pbVar2 = pbVar2 + 4;
+    puVar2 = puVar2 + 4;
   } while (iVar4 != 0);
   iVar4 = CreatePalette((int)&uStack_808);
   a2 = SelectPalette(param_1,iVar4,1);
-  AnimatePalette(iVar4,0,0x100,(int)abStack_800);
+  AnimatePalette(iVar4,0,0x100,(int)auStack_800);
   RealizePalette(param_1);
   SelectPalette(param_1,a2,0);
   DeleteObject(iVar4);
   return 1;
 }
-#undef abStack_800
+#undef auStack_800
 #undef local_400
 #undef uStack_806
 #undef uStack_808
@@ -1212,7 +1212,7 @@ int __cdecl stdDisplay_VBufferLock(void *surface)
        ((*(uint *)((int)surface + 0xd4) & 0x200000) != 0)) {
       return 0;
     }
-    uVar1 = DDraw_LockSurface((uint *)((int)surface + 100));
+    uVar1 = DDraw_LockSurface((undefined4 *)((int)surface + 100));
     *(uint *)((int)surface + 0x18) = *(uint *)((int)surface + 0x7c);
     *(uint *)((int)surface + 0x5c) = uVar1;
     *(uint *)((int)surface + 0x1c) =
@@ -1243,7 +1243,7 @@ int __cdecl stdDisplay_VBufferUnlock(void *surface)
     if (*(int *)((int)surface + 4) == 0) {
       return (int)surface;
     }
-    uVar1 = DDraw_UnlockSurface((uint *)((int)surface + 100));
+    uVar1 = DDraw_UnlockSurface((undefined4 *)((int)surface + 100));
     if (uVar1 == 0) {
       return 0;
     }
@@ -1380,7 +1380,7 @@ int __cdecl Surface_Fill(void *surface,int color,int *rect)
        ((*(uint *)((int)surface + 0xd4) & 0x200000) != 0)) {
       return 0;
     }
-    uVar2 = DDraw_FillSurface((uint *)((int)surface + 100),color,(uint *)rect);
+    uVar2 = DDraw_FillSurface((undefined4 *)((int)surface + 100),color,(uint *)rect);
     return uVar2;
   }
   return 1;
@@ -1578,7 +1578,7 @@ int __cdecl stdDisplay_SetPalette(uint param_1)
     return 0;
   }
   if (*(int *)((int)g_pDisplayDevice + 0x100) == 0) {
-    uVar2 = Palette_SwapRedBlue(UINT_007f6498,(byte *)param_1);
+    uVar2 = Palette_SwapRedBlue(UINT_007f6498,(undefined1 *)param_1);
     if (uVar2 == 0) {
       return 0;
     }
@@ -1589,7 +1589,7 @@ int __cdecl stdDisplay_SetPalette(uint param_1)
   else {
     iVar1 = *(int *)((int)g_pDisplayDevice + 0x100) + -1;
     if (iVar1 == 0) {
-      uVar2 = DDraw_SetPalette((byte *)param_1);
+      uVar2 = DDraw_SetPalette((undefined1 *)param_1);
       return uVar2;
     }
   }
@@ -3163,7 +3163,7 @@ void __cdecl DDraw_ReleaseSurfaces(void)
 }
 
 /* ---- 0x00476bf0  DDraw_LockSurface ---- */
-uint __cdecl DDraw_LockSurface(uint *param_1)
+uint __cdecl DDraw_LockSurface(undefined4 *param_1)
 
 {
   int iVar1;
@@ -3172,7 +3172,7 @@ uint __cdecl DDraw_LockSurface(uint *param_1)
     iVar1 = (**(code_std **)(*(int *)*param_1 + 100))((int *)*param_1,0,param_1 + 2,1,0);
     if (iVar1 == 0) break;
     if (iVar1 == -0x7789fe3e) {
-      if ((param_1[0x1c] & 4) == 0) {
+      if ((*(byte *)(param_1 + 0x1c) & 4) == 0) {
         iVar1 = (**(code_std **)(*(int *)*param_1 + 0x6c))((int *)*param_1);
       }
       else {
@@ -3184,7 +3184,7 @@ uint __cdecl DDraw_LockSurface(uint *param_1)
 }
 
 /* ---- 0x00476c40  DDraw_UnlockSurface ---- */
-uint __cdecl DDraw_UnlockSurface(uint *param_1)
+uint __cdecl DDraw_UnlockSurface(undefined4 *param_1)
 
 {
   int iVar1;
@@ -3195,7 +3195,7 @@ uint __cdecl DDraw_UnlockSurface(uint *param_1)
       return 1;
     }
     if (iVar1 == -0x7789fe3e) {
-      if ((param_1[0x1c] & 4) == 0) {
+      if ((*(byte *)(param_1 + 0x1c) & 4) == 0) {
         iVar1 = (**(code_std **)(*(int *)*param_1 + 0x6c))((int *)*param_1);
       }
       else {
@@ -3230,7 +3230,7 @@ uint __cdecl DDraw_Flip(void)
 }
 
 /* ---- 0x00476cd0  DDraw_FillSurface ---- */
-uint __cdecl DDraw_FillSurface(uint *param_1,uint param_2,uint *param_3)
+uint __cdecl DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3275,7 +3275,7 @@ uint __cdecl DDraw_FillSurface(uint *param_1,uint param_2,uint *param_3)
       return 1;
     }
     if (iVar1 == -0x7789fe3e) {
-      if ((param_1[0x1c] & 4) == 0) {
+      if ((*(byte *)(param_1 + 0x1c) & 4) == 0) {
         iVar1 = (**(code_std **)(*(int *)*param_1 + 0x6c))((int *)*param_1);
       }
       else {
@@ -3294,26 +3294,26 @@ uint __cdecl DDraw_FillSurface(uint *param_1,uint param_2,uint *param_3)
 
 
 /* ---- 0x00476dc0  DDraw_SetPalette ---- */
-uint __cdecl DDraw_SetPalette(byte *param_1)
+uint __cdecl DDraw_SetPalette(undefined1 *param_1)
 
 {
   unsigned char _frame[0x410] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  byte *pbVar1;
-  byte *pbVar2;
+  undefined1 *puVar1;
+  undefined1 *puVar2;
   int iVar3;
-  #define local_400 (*(byte (*)[1024])(_frame + (0x410 - 0x400)))
+  #define local_400 (*(undefined1 (*)[1024])(_frame + (0x410 - 0x400)))
   
   if (*(int *)((int)g_pVideoMode + 0x1c) == 0) {
     iVar3 = 0x100;
-    pbVar2 = local_400 + 1;
+    puVar2 = local_400 + 1;
     do {
-      pbVar2[-1] = *param_1;
-      pbVar1 = param_1 + 2;
-      *pbVar2 = param_1[1];
+      puVar2[-1] = *param_1;
+      puVar1 = param_1 + 2;
+      *puVar2 = param_1[1];
       param_1 = param_1 + 3;
-      pbVar2[1] = *pbVar1;
+      puVar2[1] = *puVar1;
       iVar3 = iVar3 + -1;
-      pbVar2 = pbVar2 + 4;
+      puVar2 = puVar2 + 4;
     } while (iVar3 != 0);
     iVar3 = (**(code_std **)(**(int **)((int)g_pDDrawPrimary + 4) + 0x18))
                       (*(int **)((int)g_pDDrawPrimary + 4),0,0,0x100,local_400);

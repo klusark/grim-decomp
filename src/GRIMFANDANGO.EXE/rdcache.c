@@ -65,7 +65,7 @@ void __cdecl rdCache_ClearFrameCounters(void)
    full Original name rdCache_GetProcEntry (the remaster's GrimFandango (Linux): aligned call in
    rdModel3_DrawFace, rdSprite_Draw); was rdCache_AllocMesh. */
 
-byte * __cdecl rdCache_GetProcEntry(void)
+undefined1 * __cdecl rdCache_GetProcEntry(void)
 
 {
   int iVar1;
@@ -76,13 +76,13 @@ byte * __cdecl rdCache_GetProcEntry(void)
   }
   uVar2 = g_dwRdCache_numProcFaces;
   if (0x8000 - g_dwNumUsedVertices < 0x20) {
-    return (byte *)0x0;
+    return (undefined1 *)0x0;
   }
   if (0x8000 - g_dwNumUsedTexVertices < 0x20) {
-    return (byte *)0x0;
+    return (undefined1 *)0x0;
   }
   if (0x8000 - g_dwNumUsedIntensities < 0x20) {
-    return (byte *)0x0;
+    return (undefined1 *)0x0;
   }
   iVar1 = g_dwRdCache_numProcFaces * 0x78;
   (&UINT_008ddfe0)[g_dwRdCache_numProcFaces * 0x1e] =

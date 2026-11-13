@@ -481,16 +481,16 @@ void __cdecl ResFile_FillBuffer(void *entry)
 {
   int iVar1;
   int iVar2;
-  uint *buf;
+  undefined4 *buf;
   
   iVar2 = *(int *)((int)entry + 0x20);
-  buf = (uint *)((int)entry + 0x2c);
+  buf = (undefined4 *)((int)entry + 0x2c);
   iVar1 = 0;
   if (*(uint *)((int)entry + 0xc) != 0) {
-    memmove(buf,(uint *)(*(int *)((int)entry + 8) + (int)buf),*(uint *)((int)entry + 0xc));
+    memmove(buf,(undefined4 *)(*(int *)((int)entry + 8) + (int)buf),*(uint *)((int)entry + 0xc));
     iVar1 = *(int *)((int)entry + 0xc);
     iVar2 = iVar2 - iVar1;
-    buf = (uint *)((int)buf + iVar1);
+    buf = (undefined4 *)((int)buf + iVar1);
   }
   iVar2 = Lab_ReadRaw(entry,buf,*(int *)((int)entry + 4) + iVar1,iVar2);
   *(undefined4 *)((int)entry + 8) = 0;

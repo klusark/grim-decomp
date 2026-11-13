@@ -73,7 +73,7 @@ void __cdecl stdFileWrite(uint param_1,uint param_2,uint param_3)
 void __cdecl stdFileGets(uint param_1,uint param_2,uint param_3)
 
 {
-  fgets((char *)param_2,param_3,(uint *)param_1);
+  fgets((char *)param_2,param_3,(undefined4 *)param_1);
   return;
 }
 #endif
@@ -130,20 +130,20 @@ void __cdecl stdFseek(uint param_1,uint param_2,uint param_3)
    Original name stdFileSize (the remaster's GrimFandango (Linux): same body (open "rb", seek to the
    end, tell, close)); was stdFile_Size. */
 
-byte * __cdecl stdFileSize(uint param_1)
+undefined * __cdecl stdFileSize(uint param_1)
 
 {
   undefined *puVar1;
-  byte *pbVar2;
+  undefined *puVar2;
   
   puVar1 = stdFileOpen(param_1,((unsigned)(uintptr_t)&DAT_004ddb18));
   if (puVar1 == (undefined *)0x0) {
-    return (byte *)0x0;
+    return (undefined *)0x0;
   }
   stdFseek((uint)puVar1,0,2);
-  pbVar2 = stdFtell((uint)puVar1);
+  puVar2 = stdFtell((uint)puVar1);
   stdFileClose((uint)puVar1);
-  return pbVar2;
+  return puVar2;
 }
 
 /* ---- 0x00473570  stdFilePrintf ---- */
@@ -451,7 +451,7 @@ switchD_004c11e0_default:
 }
 
 /* ---- 0x004c12a0  stdFileUtil_DisposeFind ---- */
-void stdFileUtil_DisposeFind(int param_1)
+void __cdecl stdFileUtil_DisposeFind(int param_1)
 
 {
   if (param_1 != 0) {

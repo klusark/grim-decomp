@@ -1565,7 +1565,8 @@ LAB_00492e5e:
         if ((actor->dwFlags & 8) != 0) {
           uVar16 = 10000;
 LAB_00492dfb:
-          sputRoom_SetSoundPosition(uVar16,(byte **)actor->aPos,0x14,0x7f,0x41000000,0x3f4ccccd);
+          sputRoom_SetSoundPosition
+                    (uVar16,(undefined **)actor->aPos,0x14,0x7f,0x41000000,0x3f4ccccd);
         }
       }
       uVar16 = 0xffffffff;
@@ -2485,7 +2486,7 @@ void __cdecl sputCostume_InternalDraw3D(int *param_1,float *param_2)
   }
   else {
     rdModel3_ActivateClipPlane(1);
-    rdModel3_SetClipPlane((uint *)actor->pExtra->aClipNormal,(uint *)actor->pExtra->aClipPoint);
+    rdModel3_SetClipPlane(actor->pExtra->aClipNormal,actor->pExtra->aClipPoint);
   }
   Costume_ApplyScale(actor,(void *)param_1[2]);
   iVar4 = param_1[2];
@@ -2564,7 +2565,7 @@ LAB_004951b3:
         if ((actor->pExtra != (ActorExtra *)0x0) &&
            (actor->pExtra->nInvClipNode == *(int *)(iVar4 + 0x48))) {
           rdModel3_ActivateClipPlane(1);
-          rdModel3_SetClipPlane((uint *)(actor->aOrient + 3),(uint *)actor->aPos);
+          rdModel3_SetClipPlane(actor->aOrient + 3,actor->aPos);
         }
         iVar7 = rdThing_Draw(*(void **)(iVar4 + 0x40),
                              (float *)(*(int *)(iVar7 + 0x20) + *(int *)(iVar4 + 0x48) * 0x30));

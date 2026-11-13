@@ -16,7 +16,7 @@ int __cdecl SaveGame_Write(void *data,int bytes)
   int iVar1;
   
   if (bytes != 0) {
-    iVar1 = gzwrite(UINT_008a8770,data,bytes);
+    iVar1 = gzwrite((undefined4 *)UINT_008a8770,(uint)data,bytes);
     if (iVar1 != bytes) {
       (*g_pSputmHS->pAssertFail)
                 (s_tot_____int_bytes_004e7fd4,s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x60c);
@@ -34,7 +34,7 @@ int __cdecl SaveGame_Read(void *buf,int n)
 
 {
   if (n != 0) {
-    gzread(UINT_008a8770,buf,n);
+    gzread((int *)UINT_008a8770,(int)buf,n);
   }
   return 0;
 }
@@ -50,7 +50,7 @@ void * __cdecl sputMain_GetSaveGameImage(char *filename)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
+  int *piVar1;
   void *pvVar2;
   int iVar3;
   uint *puVar4;
@@ -91,12 +91,12 @@ void * __cdecl sputMain_GetSaveGameImage(char *filename)
   local_58 = 0;
   local_54 = 0;
   local_50 = 0;
-  pvVar1 = SaveFile_Open(filename,&DAT_004ddb18);
-  if (pvVar1 == (void *)0x0) {
+  piVar1 = SaveFile_Open(filename,&DAT_004ddb18);
+  if (piVar1 == (int *)0x0) {
     return (void *)0x0;
   }
-  gzread(pvVar1,&local_88,4);
-  gzseek(pvVar1,local_88,1);
+  gzread(piVar1,(int)&local_88,4);
+  gzseek(piVar1,local_88,1);
   local_3c = 2;
   local_4c = 0xfa;
   local_48 = 0xbc;
@@ -110,17 +110,17 @@ void * __cdecl sputMain_GetSaveGameImage(char *filename)
   }
   pvVar2 = stdDisplay_VBufferNew(&local_4c,0,0,0);
   if (pvVar2 == (void *)0x0) {
-    gzclose(pvVar1);
+    gzclose((int)piVar1);
     return (void *)0x0;
   }
-  gzread(pvVar1,&local_8c,4);
+  gzread(piVar1,(int)&local_8c,4);
   if (local_8c != *(uint *)((int)pvVar2 + 0x14)) {
     (*g_pSputmHS->pAssertFail)
               (s_size_____int_vbuf__rasterInfo_si_004e7ff4,
                s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x6f6);
   }
-  gzread(pvVar1,*(undefined4 *)((int)pvVar2 + 0x5c),local_8c);
-  gzclose(pvVar1);
+  gzread(piVar1,*(int *)((int)pvVar2 + 0x5c),local_8c);
+  gzclose((int)piVar1);
   return pvVar2;
 }
 #undef local_38

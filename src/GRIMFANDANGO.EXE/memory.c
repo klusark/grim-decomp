@@ -91,7 +91,7 @@ void __cdecl Mem_CheckAlloc(void *p,char *file,int line)
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl Memory_SysInitialize(GrimServices *param_1,uint *param_2)
+uint __cdecl Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
 
 {
   uint uVar1;
@@ -100,11 +100,11 @@ uint __cdecl Memory_SysInitialize(GrimServices *param_1,uint *param_2)
   uVar1 = 1;
   if (g_dwMemorySysInitialized == 0) {
     g_dwMemorySysInitialized = 1;
-    if (param_2 != (uint *)0x0) {
-      *param_2 = (uint)Memory_SysInitialize;
-      param_2[1] = (uint)Memory_SysTerminate;
-      param_2[2] = (uint)Memory_SysStartup;
-      param_2[3] = (uint)Memory_SysShutdown;
+    if (param_2 != (undefined4 *)0x0) {
+      *param_2 = Memory_SysInitialize;
+      param_2[1] = Memory_SysTerminate;
+      param_2[2] = Memory_SysStartup;
+      param_2[3] = Memory_SysShutdown;
       param_2[4] = 0;
       param_2[5] = 0;
       param_2[6] = 0;

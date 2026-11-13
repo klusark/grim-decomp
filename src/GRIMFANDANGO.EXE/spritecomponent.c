@@ -234,7 +234,7 @@ uint * __cdecl SpriteInstancer(int param_1,uint *param_2,int param_3)
   uVar4 = rdThing_New(0);
   puVar3[0x10] = uVar4;
   *(undefined4 *)(uVar4 + 0x30) = 0;
-  rdThing_SetPolyline((uint *)puVar3[0x10],*param_2);
+  rdThing_SetPolyline((undefined4 *)puVar3[0x10],*param_2);
   if (-1 < param_1) {
     puVar5 = (uint *)Cos_InstGetInstanceData(iVar1,param_1,(int *)0x0);
     puVar3[0x11] = *puVar5;

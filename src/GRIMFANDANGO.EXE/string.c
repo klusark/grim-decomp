@@ -8,7 +8,7 @@
 /* ---- 0x00403ae0  Str_ComparePtrs ---- */
 /* qsort/bsearch comparator for arrays of char *: compares the strings the two entries point to. */
 
-int __cdecl Str_ComparePtrs(uint *param_1,uint *param_2)
+int __cdecl Str_ComparePtrs(undefined4 *param_1,undefined4 *param_2)
 
 {
   byte bVar1;
@@ -447,7 +447,7 @@ LAB_004c1d16:
 /* ---- 0x004c1e00  Str_ModuleNameLength ---- */
 /* Length of a module name up to the first '.' or '=' (trailing spaces before '=' trimmed) */
 
-int Str_ModuleNameLength(byte *param_1)
+int __cdecl Str_ModuleNameLength(byte *param_1)
 
 {
   byte bVar1;
@@ -472,7 +472,7 @@ int Str_ModuleNameLength(byte *param_1)
 }
 
 /* ---- 0x004c1e60  Str_StripNonPrintable ---- */
-void Str_StripNonPrintable(byte *param_1)
+void __cdecl Str_StripNonPrintable(byte *param_1)
 
 {
   byte *pbVar1;
@@ -496,7 +496,7 @@ void Str_StripNonPrintable(byte *param_1)
 }
 
 /* ---- 0x004c1e90  Str_CompareNoCase ---- */
-int Str_CompareNoCase(byte *param_1,byte *param_2)
+int __cdecl Str_CompareNoCase(char *param_1,char *param_2)
 
 {
   byte bVar1;
@@ -521,7 +521,7 @@ int Str_CompareNoCase(byte *param_1,byte *param_2)
 }
 
 /* ---- 0x004c1ee0  Str_CompareNoCaseN ---- */
-int Str_CompareNoCaseN(byte *param_1,byte *param_2,int param_3)
+int __cdecl Str_CompareNoCaseN(char *param_1,char *param_2,int param_3)
 
 {
   byte bVar1;

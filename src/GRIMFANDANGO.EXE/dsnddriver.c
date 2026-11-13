@@ -148,7 +148,7 @@ void dsn_terminate(void)
     (*(code *)g_pDsndDriver_timer_services[1])(g_nStreamTimerId);
   }
   g_nStreamTimerId = 0;
-  sou_mixer_terminate(g_dwDsndDriver_memory_services);
+  sou_mixer_terminate((int *)g_dwDsndDriver_memory_services);
   DsndDriver_ReleaseDirectSound();
   return;
 }

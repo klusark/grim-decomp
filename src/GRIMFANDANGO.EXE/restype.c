@@ -390,7 +390,7 @@ void * __cdecl sputResource_KeyframeHandler(int *param_1)
   }
   iVar1 = *param_1;
   if (iVar1 == 1) {
-    pvVar3 = (void *)rdKeyframe_Load(param_1[1]);
+    pvVar3 = (void *)rdKeyframe_Load((char *)param_1[1]);
     if (pvVar3 == (void *)0x0) {
       return (void *)0x0;
     }
@@ -480,14 +480,14 @@ void * __cdecl sputResource_ModelHandler(int *param_1)
 
 {
   int iVar1;
-  uint *data;
+  undefined4 *data;
   void *pvVar2;
   
   if (param_1[2] == 0x4c444f4d) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
       data = rdModel3_Load(param_1[1]);
-      if (data != (uint *)0x0) {
+      if (data != (undefined4 *)0x0) {
         pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],data);
         return pvVar2;
       }
@@ -516,14 +516,14 @@ void * __cdecl sputResource_SetHandler(int *param_1)
 
 {
   int iVar1;
-  uint *data;
+  undefined4 *data;
   void *pvVar2;
   
   if (param_1[2] == 0x20544553) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
       data = sputRoom_LoadRoom((char *)param_1[1]);
-      if (data != (uint *)0x0) {
+      if (data != (undefined4 *)0x0) {
         pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],data);
         return pvVar2;
       }

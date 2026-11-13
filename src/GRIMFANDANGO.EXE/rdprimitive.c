@@ -27,7 +27,7 @@ uint __cdecl rdPolyline_Draw(int param_1,float *param_2)
   #define local_48 (*(float *)(_frame + (0xc0 - 0x48)))
   #define local_40 (*(float *)(_frame + (0xc0 - 0x40)))
   #define local_38 (*(float (*)[3])(_frame + (0xc0 - 0x38)))
-  #define local_2c (*(uint (*)[3])(_frame + (0xc0 - 0x2c)))
+  #define local_2c (*(undefined4 (*)[3])(_frame + (0xc0 - 0x2c)))
   #define local_20 (*(uint *)(_frame + (0xc0 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0xc0 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0xc0 - 0x18)))
@@ -121,14 +121,14 @@ uint __cdecl rdPolyline_Draw(int param_1,float *param_2)
 /* ---- 0x00472360  rdPolyline_DrawFace ---- */
 /* Allocates a cache mesh for one polyline face, clips and adds it */
 
-void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,uint *param_4)
+void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4 *param_4)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float fVar2;
   byte flags;
-  byte *pbVar3;
+  undefined1 *puVar3;
   int iVar4;
   uint uVar5;
   uint uVar6;
@@ -143,15 +143,15 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,uint *para
   #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  pbVar3 = rdCache_GetProcEntry();
-  if (pbVar3 != (byte *)0x0) {
+  puVar3 = rdCache_GetProcEntry();
+  if (puVar3 != (undefined1 *)0x0) {
     local_20 = (uint)&DAT_007f4d00;
-    local_4 = *(uint *)(pbVar3 + 0x20);
-    local_1c = *(uint *)(pbVar3 + 0x24);
-    local_18 = *(uint *)(pbVar3 + 0x28);
-    *param_4 = *(uint *)(param_2 + 0x14);
-    param_4[1] = *(uint *)(param_2 + 0x18);
-    param_4[2] = *(uint *)(param_2 + 0x1c);
+    local_4 = *(uint *)(puVar3 + 0x20);
+    local_1c = *(uint *)(puVar3 + 0x24);
+    local_18 = *(uint *)(puVar3 + 0x28);
+    *param_4 = *(undefined4 *)(param_2 + 0x14);
+    param_4[1] = *(undefined4 *)(param_2 + 0x18);
+    param_4[2] = *(undefined4 *)(param_2 + 0x1c);
     uVar6 = *(uint *)(param_2 + 8);
     uVar10 = g_nRdroid_curGeometryMode;
     if ((int)uVar6 <= g_nRdroid_curGeometryMode) {
@@ -162,7 +162,7 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,uint *para
        (uVar7 = uVar6, g_nRdroid_curGeometryMode < (int)uVar6)) {
       uVar7 = g_nRdroid_curGeometryMode;
     }
-    *(uint *)(pbVar3 + 8) = uVar7;
+    *(uint *)(puVar3 + 8) = uVar7;
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
        (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
       iVar1 = *(int *)(param_2 + 0xc);
@@ -174,13 +174,10 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,uint *para
       if ((iVar9 < iVar4) && (iVar4 = iVar1, g_nRdroid_curLightingMode < iVar1)) {
         iVar4 = g_nRdroid_curLightingMode;
       }
-      *(int *)(pbVar3 + 0xc) = iVar4;
+      *(int *)(puVar3 + 0xc) = iVar4;
     }
     else {
-      pbVar3[0xc] = 0;
-      pbVar3[0xd] = 0;
-      pbVar3[0xe] = 0;
-      pbVar3[0xf] = 0;
+      *(undefined4 *)(puVar3 + 0xc) = 0;
     }
     uVar6 = *(uint *)(param_2 + 0x10);
     uVar10 = g_nRdroid_curTextureMode;
@@ -192,42 +189,33 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,uint *para
        (uVar5 = uVar6, g_nRdroid_curTextureMode < (int)uVar6)) {
       uVar5 = g_nRdroid_curTextureMode;
     }
-    *(uint *)(pbVar3 + 0x10) = uVar5;
-    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),uVar7,*(int *)(pbVar3 + 0xc),
+    *(uint *)(puVar3 + 0x10) = uVar5;
+    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),uVar7,*(int *)(puVar3 + 0xc),
                        uVar5,param_4,&local_2c,(float *)(param_2 + 0x28));
     if (2 < local_2c) {
       (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_4,local_20,local_2c);
       if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
-        pbVar3[0x40] = 0;
-        pbVar3[0x41] = 0;
-        pbVar3[0x42] = 0;
-        pbVar3[0x43] = 0;
+        *(undefined4 *)(puVar3 + 0x40) = 0;
       }
       else {
-        *(undefined4 *)(pbVar3 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
+        *(undefined4 *)(puVar3 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
       }
-      iVar1 = *(int *)(pbVar3 + 0xc);
+      iVar1 = *(int *)(puVar3 + 0xc);
       if (iVar1 != 0) {
         bVar11 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
-        if (*(float *)(pbVar3 + 0x40) < 1.0) {
+        if (*(float *)(puVar3 + 0x40) < 1.0) {
           if (iVar1 == 2) {
-            if ((*(float *)(pbVar3 + 0x44) < 1.0) || (bVar11)) {
-              if (*(float *)(pbVar3 + 0x44) <= 0.0) {
-                pbVar3[0xc] = 1;
-                pbVar3[0xd] = 0;
-                pbVar3[0xe] = 0;
-                pbVar3[0xf] = 0;
+            if ((*(float *)(puVar3 + 0x44) < 1.0) || (bVar11)) {
+              if (*(float *)(puVar3 + 0x44) <= 0.0) {
+                *(undefined4 *)(puVar3 + 0xc) = 1;
               }
             }
             else {
-              pbVar3[0xc] = 0;
-              pbVar3[0xd] = 0;
-              pbVar3[0xe] = 0;
-              pbVar3[0xf] = 0;
+              *(undefined4 *)(puVar3 + 0xc) = 0;
             }
           }
           else if (iVar1 == 3) {
-            pfVar8 = *(float **)(pbVar3 + 0x28);
+            pfVar8 = *(float **)(puVar3 + 0x28);
             fVar2 = *pfVar8;
             uVar6 = 1;
             if (1 < local_2c) {
@@ -240,74 +228,44 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,uint *para
             if (uVar6 == local_2c) {
               if (fVar2 == 1.0) {
                 if (bVar11) {
-                  pbVar3[0xc] = 2;
-                  pbVar3[0xd] = 0;
-                  pbVar3[0xe] = 0;
-                  pbVar3[0xf] = 0;
-                  pbVar3[0x44] = 0;
-                  pbVar3[0x45] = 0;
-                  pbVar3[0x46] = 0x80;
-                  pbVar3[0x47] = 0x3f;
+                  *(undefined4 *)(puVar3 + 0xc) = 2;
+                  *(undefined4 *)(puVar3 + 0x44) = 0x3f800000;
                 }
                 else {
-                  pbVar3[0xc] = 0;
-                  pbVar3[0xd] = 0;
-                  pbVar3[0xe] = 0;
-                  pbVar3[0xf] = 0;
+                  *(undefined4 *)(puVar3 + 0xc) = 0;
                 }
               }
               else if (fVar2 == 0.0) {
-                pbVar3[0xc] = 1;
-                pbVar3[0xd] = 0;
-                pbVar3[0xe] = 0;
-                pbVar3[0xf] = 0;
-                pbVar3[0x44] = 0;
-                pbVar3[0x45] = 0;
-                pbVar3[0x46] = 0;
-                pbVar3[0x47] = 0;
+                *(undefined4 *)(puVar3 + 0xc) = 1;
+                *(undefined4 *)(puVar3 + 0x44) = 0;
               }
               else {
-                pbVar3[0xc] = 2;
-                pbVar3[0xd] = 0;
-                pbVar3[0xe] = 0;
-                pbVar3[0xf] = 0;
-                *(float *)(pbVar3 + 0x44) = fVar2;
+                *(undefined4 *)(puVar3 + 0xc) = 2;
+                *(float *)(puVar3 + 0x44) = fVar2;
               }
             }
           }
         }
         else if (bVar11) {
-          pbVar3[0xc] = 2;
-          pbVar3[0xd] = 0;
-          pbVar3[0xe] = 0;
-          pbVar3[0xf] = 0;
-          pbVar3[0x44] = 0;
-          pbVar3[0x45] = 0;
-          pbVar3[0x46] = 0x80;
-          pbVar3[0x47] = 0x3f;
+          *(undefined4 *)(puVar3 + 0xc) = 2;
+          *(undefined4 *)(puVar3 + 0x44) = 0x3f800000;
         }
         else {
-          pbVar3[0xc] = 0;
-          pbVar3[0xd] = 0;
-          pbVar3[0xe] = 0;
-          pbVar3[0xf] = 0;
+          *(undefined4 *)(puVar3 + 0xc) = 0;
         }
       }
       flags = 1;
-      if (3 < *(int *)(pbVar3 + 8)) {
+      if (3 < *(int *)(puVar3 + 8)) {
         flags = 3;
       }
-      if (2 < *(int *)(pbVar3 + 0xc)) {
+      if (2 < *(int *)(puVar3 + 0xc)) {
         flags = flags | 4;
       }
-      *(undefined4 *)(pbVar3 + 0x3c) = *(undefined4 *)(param_1 + 0x30);
-      pbVar3[0x50] = 0;
-      pbVar3[0x51] = 0;
-      pbVar3[0x52] = 0;
-      pbVar3[0x53] = 0;
-      *(undefined4 *)(pbVar3 + 4) = *(undefined4 *)(param_2 + 4);
-      *(undefined4 *)(pbVar3 + 0x48) = *(undefined4 *)(param_2 + 0x30);
-      *(undefined4 *)(pbVar3 + 0x38) = *(undefined4 *)(param_2 + 0x20);
+      *(undefined4 *)(puVar3 + 0x3c) = *(undefined4 *)(param_1 + 0x30);
+      *(undefined4 *)(puVar3 + 0x50) = 0;
+      *(undefined4 *)(puVar3 + 4) = *(undefined4 *)(param_2 + 4);
+      *(undefined4 *)(puVar3 + 0x48) = *(undefined4 *)(param_2 + 0x30);
+      *(undefined4 *)(puVar3 + 0x38) = *(undefined4 *)(param_2 + 0x20);
       rdCache_AddProcFace((void *)0x0,local_2c,flags);
     }
   }
@@ -332,7 +290,7 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   uint uVar2;
-  byte *pbVar3;
+  undefined1 *puVar3;
   uint *puVar4;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(float (*)[3])(_frame + (0x50 - 0x3c)))
@@ -379,8 +337,8 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
   if (*(int *)(iVar1 + 0x24) != 0) {
     puVar4 = &UINT_007f5184;
     do {
-      pbVar3 = rdCache_GetProcEntry();
-      if (pbVar3 == (byte *)0x0) {
+      puVar3 = rdCache_GetProcEntry();
+      if (puVar3 == (undefined1 *)0x0) {
         return 0;
       }
       *(float *)&DAT_007f5000 = PUN(float,puVar4[-1]) - *(float *)(iVar1 + 0x34);
@@ -398,23 +356,14 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
       uVar2 = rdClip_Face3S(*(int **)((int)g_pRdCamera_CurCamera + 0x48),(float *)&DAT_007f5000,4);
       if (2 < uVar2) {
         (**(code **)((int)g_pRdCamera_CurCamera + 0x50))
-                  (*(undefined4 *)(pbVar3 + 0x20),&DAT_007f5000,uVar2);
-        *(void **)(pbVar3 + 0xc) = thing;
-        *(void **)(pbVar3 + 0x40) = sprite;
-        pbVar3[8] = 3;
-        pbVar3[9] = 0;
-        pbVar3[10] = 0;
-        pbVar3[0xb] = 0;
-        pbVar3[4] = 0;
-        pbVar3[5] = 0;
-        pbVar3[6] = 0;
-        pbVar3[7] = 0;
-        *(undefined4 *)(pbVar3 + 0x38) = *(undefined4 *)(iVar1 + 0x38);
-        *(undefined4 *)(pbVar3 + 0x3c) = *(undefined4 *)(*(int *)(iVar1 + 0x2c) + local_40 * 4);
-        pbVar3[0x50] = 0;
-        pbVar3[0x51] = 0;
-        pbVar3[0x52] = 0;
-        pbVar3[0x53] = 0;
+                  (*(undefined4 *)(puVar3 + 0x20),&DAT_007f5000,uVar2);
+        *(void **)(puVar3 + 0xc) = thing;
+        *(void **)(puVar3 + 0x40) = sprite;
+        *(undefined4 *)(puVar3 + 8) = 3;
+        *(undefined4 *)(puVar3 + 4) = 0;
+        *(undefined4 *)(puVar3 + 0x38) = *(undefined4 *)(iVar1 + 0x38);
+        *(undefined4 *)(puVar3 + 0x3c) = *(undefined4 *)(*(int *)(iVar1 + 0x2c) + local_40 * 4);
+        *(undefined4 *)(puVar3 + 0x50) = 0;
         rdCache_AddProcFace((void *)0x0,uVar2,1);
       }
       local_40 = local_40 + 1;
@@ -448,7 +397,7 @@ rdSprite_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,ui
     return 0;
   }
   rdSprite_NewEntry(iVar1,param_2,param_1,(char *)param_3,param_4,param_5,param_6,param_7,param_8,
-                    param_9,(uint *)param_10);
+                    param_9,(undefined4 *)param_10);
   return iVar1;
 }
 
@@ -459,7 +408,7 @@ rdSprite_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,ui
 
 uint __cdecl
 rdSprite_NewEntry(int param_1,int param_2,uint param_3,char *param_4,uint param_5,uint param_6,
-                 uint param_7,uint param_8,uint param_9,uint param_10,uint *param_11)
+                 uint param_7,uint param_8,uint param_9,uint param_10,undefined4 *param_11)
 
 {
   float fVar1;
@@ -476,9 +425,9 @@ rdSprite_NewEntry(int param_1,int param_2,uint param_3,char *param_4,uint param_
   *(uint *)(param_1 + 0x4c) = param_5;
   *(uint *)(param_1 + 0x20) = param_3;
   *(uint *)(param_1 + 0x50) = param_6;
-  *(uint *)(param_1 + 0xac) = *param_11;
-  *(uint *)(param_1 + 0xb0) = param_11[1];
-  *(uint *)(param_1 + 0xb4) = param_11[2];
+  *(undefined4 *)(param_1 + 0xac) = *param_11;
+  *(undefined4 *)(param_1 + 0xb0) = param_11[1];
+  *(undefined4 *)(param_1 + 0xb4) = param_11[2];
   *(uint *)(param_1 + 0x68) = param_8;
   *(uint *)(param_1 + 100) = param_7;
   *(undefined4 *)(param_1 + 0x60) = 1;
@@ -595,7 +544,7 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
   int iVar2;
   float fVar3;
   uint uVar4;
-  byte *pbVar5;
+  undefined1 *puVar5;
   int iVar6;
   uint uVar7;
   byte flags;
@@ -641,7 +590,7 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
                       (*(int **)((int)g_pRdCamera_CurCamera + 0x48),&local_64,
                        *(float *)(iVar1 + 0x24));
   }
-  if ((uVar4 != 2) && (pbVar5 = rdCache_GetProcEntry(), pbVar5 != (byte *)0x0)) {
+  if ((uVar4 != 2) && (puVar5 = rdCache_GetProcEntry(), puVar5 != (undefined1 *)0x0)) {
     *(float *)&DAT_007f5f0c = local_6c[0] + local_60[0];
     *(float *)&DAT_007f5f10 = local_6c[1] + local_60[1];
     *(float *)&DAT_007f5f08 = local_64 + (local_70 - local_78[0]);
@@ -658,9 +607,9 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
     local_18 = 0;
     local_14 = 0;
     local_4c = (uint)&g_aRdSprite_FaceVerts;
-    local_30 = *(uint *)(pbVar5 + 0x20);
-    local_48 = *(uint *)(pbVar5 + 0x24);
-    local_44 = *(uint *)(pbVar5 + 0x28);
+    local_30 = *(uint *)(puVar5 + 0x20);
+    local_48 = *(uint *)(puVar5 + 0x24);
+    local_44 = *(uint *)(puVar5 + 0x28);
     uVar4 = *(uint *)(iVar1 + 100);
     uVar11 = g_nRdroid_curGeometryMode;
     if ((int)uVar4 <= g_nRdroid_curGeometryMode) {
@@ -675,7 +624,7 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
     *(float *)&DAT_007f5f1c = *(float *)&DAT_007f5f10;
     *(float *)&DAT_007f5f24 = *(float *)&DAT_007f5f0c;
     *(float *)&DAT_007f5f30 = *(float *)&DAT_007f5f0c;
-    *(uint *)(pbVar5 + 8) = uVar8;
+    *(uint *)(puVar5 + 8) = uVar8;
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
        (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
       iVar2 = *(int *)(iVar1 + 0x68);
@@ -687,13 +636,10 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
       if ((iVar10 < iVar6) && (iVar6 = iVar2, g_nRdroid_curLightingMode < iVar2)) {
         iVar6 = g_nRdroid_curLightingMode;
       }
-      *(int *)(pbVar5 + 0xc) = iVar6;
+      *(int *)(puVar5 + 0xc) = iVar6;
     }
     else {
-      pbVar5[0xc] = 0;
-      pbVar5[0xd] = 0;
-      pbVar5[0xe] = 0;
-      pbVar5[0xf] = 0;
+      *(undefined4 *)(puVar5 + 0xc) = 0;
     }
     uVar4 = *(uint *)(iVar1 + 0x6c);
     uVar11 = g_nRdroid_curTextureMode;
@@ -705,42 +651,33 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
        (uVar7 = uVar4, g_nRdroid_curTextureMode < (int)uVar4)) {
       uVar7 = g_nRdroid_curTextureMode;
     }
-    *(uint *)(pbVar5 + 0x10) = uVar7;
-    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),uVar8,*(int *)(pbVar5 + 0xc),
+    *(uint *)(puVar5 + 0x10) = uVar7;
+    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),uVar8,*(int *)(puVar5 + 0xc),
                        uVar7,&local_2c,&local_58,(float *)(iVar1 + 0x84));
     if (2 < local_58) {
       (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_30,local_4c,local_58);
       if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
-        pbVar5[0x40] = 0;
-        pbVar5[0x41] = 0;
-        pbVar5[0x42] = 0;
-        pbVar5[0x43] = 0;
+        *(undefined4 *)(puVar5 + 0x40) = 0;
       }
       else {
-        *(undefined4 *)(pbVar5 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
+        *(undefined4 *)(puVar5 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
       }
-      iVar2 = *(int *)(pbVar5 + 0xc);
+      iVar2 = *(int *)(puVar5 + 0xc);
       if (iVar2 != 0) {
         bVar12 = g_dwRdColormap_pIdentityMap == g_dwRdColormap_pCurMap;
-        if (*(float *)(pbVar5 + 0x40) < 1.0) {
+        if (*(float *)(puVar5 + 0x40) < 1.0) {
           if (iVar2 == 2) {
-            if ((*(float *)(pbVar5 + 0x44) < 1.0) || (!bVar12)) {
-              if (*(float *)(pbVar5 + 0x44) <= 0.0) {
-                pbVar5[0xc] = 1;
-                pbVar5[0xd] = 0;
-                pbVar5[0xe] = 0;
-                pbVar5[0xf] = 0;
+            if ((*(float *)(puVar5 + 0x44) < 1.0) || (!bVar12)) {
+              if (*(float *)(puVar5 + 0x44) <= 0.0) {
+                *(undefined4 *)(puVar5 + 0xc) = 1;
               }
             }
             else {
-              pbVar5[0xc] = 0;
-              pbVar5[0xd] = 0;
-              pbVar5[0xe] = 0;
-              pbVar5[0xf] = 0;
+              *(undefined4 *)(puVar5 + 0xc) = 0;
             }
           }
           else if (iVar2 == 3) {
-            pfVar9 = *(float **)(pbVar5 + 0x28);
+            pfVar9 = *(float **)(puVar5 + 0x28);
             fVar3 = *pfVar9;
             uVar4 = 1;
             if (1 < local_58) {
@@ -753,58 +690,40 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
             if (uVar4 == local_58) {
               if (fVar3 == 1.0) {
                 if (bVar12) {
-                  pbVar5[0xc] = 0;
-                  pbVar5[0xd] = 0;
-                  pbVar5[0xe] = 0;
-                  pbVar5[0xf] = 0;
+                  *(undefined4 *)(puVar5 + 0xc) = 0;
                 }
                 else {
-                  pbVar5[0xc] = 2;
-                  pbVar5[0xd] = 0;
-                  pbVar5[0xe] = 0;
-                  pbVar5[0xf] = 0;
-                  pbVar5[0x44] = 0;
-                  pbVar5[0x45] = 0;
-                  pbVar5[0x46] = 0x80;
-                  pbVar5[0x47] = 0x3f;
+                  *(undefined4 *)(puVar5 + 0xc) = 2;
+                  *(undefined4 *)(puVar5 + 0x44) = 0x3f800000;
                 }
               }
               else if (fVar3 == 0.0) {
-                pbVar5[0xc] = 1;
-                pbVar5[0xd] = 0;
-                pbVar5[0xe] = 0;
-                pbVar5[0xf] = 0;
-                pbVar5[0x44] = 0;
-                pbVar5[0x45] = 0;
-                pbVar5[0x46] = 0;
-                pbVar5[0x47] = 0;
+                *(undefined4 *)(puVar5 + 0xc) = 1;
+                *(undefined4 *)(puVar5 + 0x44) = 0;
               }
               else {
-                pbVar5[0xc] = 2;
-                pbVar5[0xd] = 0;
-                pbVar5[0xe] = 0;
-                pbVar5[0xf] = 0;
-                *(float *)(pbVar5 + 0x44) = fVar3;
+                *(undefined4 *)(puVar5 + 0xc) = 2;
+                *(float *)(puVar5 + 0x44) = fVar3;
               }
             }
           }
         }
         else {
-          *(uint *)(pbVar5 + 0xc) = (-(uint)bVar12 & 0xfffffffe) + 2;
+          *(uint *)(puVar5 + 0xc) = (-(uint)bVar12 & 0xfffffffe) + 2;
         }
       }
       flags = 1;
-      if (3 < *(int *)(pbVar5 + 8)) {
+      if (3 < *(int *)(puVar5 + 8)) {
         flags = 3;
       }
-      if (2 < *(int *)(pbVar5 + 0xc)) {
+      if (2 < *(int *)(puVar5 + 0xc)) {
         flags = flags | 4;
       }
-      *(undefined4 *)(pbVar5 + 0x3c) = *(undefined4 *)(param_1 + 0x30);
-      *(uint *)(pbVar5 + 0x50) = (uint)(local_78[0] < 0.0);
-      *(undefined4 *)(pbVar5 + 4) = *(undefined4 *)(iVar1 + 0x60);
-      *(undefined4 *)(pbVar5 + 0x48) = *(undefined4 *)(iVar1 + 0x8c);
-      *(undefined4 *)(pbVar5 + 0x38) = *(undefined4 *)(iVar1 + 0x7c);
+      *(undefined4 *)(puVar5 + 0x3c) = *(undefined4 *)(param_1 + 0x30);
+      *(uint *)(puVar5 + 0x50) = (uint)(local_78[0] < 0.0);
+      *(undefined4 *)(puVar5 + 4) = *(undefined4 *)(iVar1 + 0x60);
+      *(undefined4 *)(puVar5 + 0x48) = *(undefined4 *)(iVar1 + 0x8c);
+      *(undefined4 *)(puVar5 + 0x38) = *(undefined4 *)(iVar1 + 0x7c);
       rdCache_AddProcFace((void *)0x0,local_58,flags);
       return 1;
     }

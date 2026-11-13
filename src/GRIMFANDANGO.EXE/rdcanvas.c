@@ -1517,8 +1517,9 @@ rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,uint param_4,float para
 /* ---- 0x004c04f0  rdCanvas_New ---- */
 /* Rdcanvas.c: allocates a 0x28-byte canvas and initialises it */
 
-uint * rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
-                   uint param_7,uint param_8)
+uint * __cdecl
+rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
+            uint param_7,uint param_8)
 
 {
   uint *canvas;
@@ -1564,7 +1565,7 @@ rdCanvas_NewEntry(uint *canvas,uint flags,uint surface,uint zSurface,uint x0,uin
 }
 
 /* ---- 0x004c0610  rdCanvas_Free ---- */
-void rdCanvas_Free(int param_1)
+void __cdecl rdCanvas_Free(int param_1)
 
 {
   if (param_1 != 0) {

@@ -106,20 +106,20 @@ uint __cdecl stdPcx_DecodeRunMasked(byte *param_1,int param_2,int param_3,uint p
 /* ---- 0x0047ec80  stdPcx_Load ---- */
 /* stdLoadImageData loader for '.pcx' (allocation string Stdpcx.c); was named stdLbm_Load. */
 
-uint * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3)
+undefined4 * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3)
 
 {
   unsigned char _frame[0xe0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   uint uVar2;
-  uint *bitmap;
-  uint uVar3;
-  void *pvVar4;
+  undefined4 *bitmap;
+  void *pvVar3;
+  uint uVar4;
   uint uVar5;
   uint uVar6;
   int iVar7;
   byte *pbVar8;
-  uint *puVar9;
+  undefined4 *puVar9;
   int *piVar10;
   byte *pbVar11;
   #define aiStack_cc (*(int (*)[5])(_frame + (0xe0 - 0xcc)))
@@ -133,11 +133,12 @@ uint * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3)
   
   uVar2 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
   if (uVar2 == 0) {
-    return (uint *)0x0;
+    return (undefined4 *)0x0;
   }
-  bitmap = (uint *)(*g_pStd_HS->pAlloc)
-                             (0x7c,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0xe);
-  if (bitmap != (uint *)0x0) {
+  bitmap = (undefined4 *)
+           (*g_pStd_HS->pAlloc)(0x7c,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0xe)
+  ;
+  if (bitmap != (undefined4 *)0x0) {
     puVar9 = bitmap;
     for (iVar7 = 0x1f; iVar7 != 0; iVar7 = iVar7 + -1) {
       *puVar9 = 0;
@@ -151,10 +152,10 @@ uint * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3)
       bitmap[0x1a] = 0;
       bitmap[10] = 0;
       bitmap[0xb] = uStack_7d & 0xff;
-      uVar3 = (*g_pStd_HS->pAlloc)
+      iVar7 = (*g_pStd_HS->pAlloc)
                         (4,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0x33);
-      bitmap[0x1e] = uVar3;
-      if (uVar3 != 0) {
+      bitmap[0x1e] = iVar7;
+      if (iVar7 != 0) {
         piVar10 = aiStack_cc;
         for (iVar7 = 0x13; iVar7 != 0; iVar7 = iVar7 + -1) {
           *piVar10 = 0;
@@ -164,17 +165,17 @@ uint * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3)
         uStack_b4 = uStack_7d & 0xff;
         aiStack_cc[0] = (int)sStack_3e / (int)(uStack_b4 >> 3);
         aiStack_cc[1] = sStack_76 + 1;
-        pvVar4 = stdDisplay_VBufferNew(aiStack_cc,param_2,param_3,0);
-        *(void **)bitmap[0x1e] = pvVar4;
+        pvVar3 = stdDisplay_VBufferNew(aiStack_cc,param_2,param_3,0);
+        *(void **)bitmap[0x1e] = pvVar3;
         if (*(int *)bitmap[0x1e] != 0) {
           *(int *)(*(int *)bitmap[0x1e] + 0xc) = sStack_78 + 1;
           stdDisplay_VBufferLock(*(void **)bitmap[0x1e]);
           pbVar8 = *(byte **)(*(int *)bitmap[0x1e] + 0x5c);
           if (*(int *)(*(int *)bitmap[0x1e] + 0x14) != 0) {
             do {
-              uVar3 = stdFGetc(uVar2);
-              if (((byte)uVar3 & 0xc0) == 0xc0) {
-                uVar5 = uVar3 & 0x3f;
+              uVar4 = stdFGetc(uVar2);
+              if (((byte)uVar4 & 0xc0) == 0xc0) {
+                uVar5 = uVar4 & 0x3f;
                 uVar6 = stdFGetc(uVar2);
                 bVar1 = (byte)uVar6;
                 if (uVar5 != 0) {
@@ -184,24 +185,24 @@ uint * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3)
                     pbVar11 = pbVar11 + 4;
                   }
                   pbVar8 = pbVar8 + uVar5;
-                  for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+                  for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
                     *pbVar11 = bVar1;
                     pbVar11 = pbVar11 + 1;
                   }
                 }
               }
               else {
-                *pbVar8 = (byte)uVar3;
+                *pbVar8 = (byte)uVar4;
                 pbVar8 = pbVar8 + 1;
               }
             } while ((uint)((int)pbVar8 - *(int *)(*(int *)bitmap[0x1e] + 0x5c)) <
                      *(uint *)(*(int *)bitmap[0x1e] + 0x14));
           }
           stdDisplay_VBufferUnlock(*(void **)bitmap[0x1e]);
-          uVar3 = (*g_pStd_HS->pAlloc)
+          iVar7 = (*g_pStd_HS->pAlloc)
                             (0x300,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0x6c);
-          bitmap[0x18] = uVar3;
-          if (uVar3 != 0) {
+          bitmap[0x18] = iVar7;
+          if (iVar7 != 0) {
             stdFGetc(uVar2);
             (*g_pStd_HS->pFread)(uVar2,bitmap[0x18],0x300);
             (*g_pStd_HS->pFclose)(uVar2);
@@ -213,7 +214,7 @@ uint * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3)
   }
   (*g_pStd_HS->pFclose)(uVar2);
   stdBitmap_Free(bitmap);
-  return (uint *)0x0;
+  return (undefined4 *)0x0;
 }
 #undef acStack_80
 #undef aiStack_cc

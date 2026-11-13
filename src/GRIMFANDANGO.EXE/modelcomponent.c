@@ -25,7 +25,7 @@ uint __cdecl ThingAdjuster(int *param_1,uint param_2)
   iVar1 = *param_1;
   local_24 = (uint)s_Resolve_parent_offset__0___off__004ea5e0;
   param_1 = (int *)(uint)(*(int *)(iVar1 + 0x34) != 0);
-  iVar3 = grimPlat_SpinDialog(param_2,(int)&local_24,(uint *)&param_1,1);
+  iVar3 = grimPlat_SpinDialog(param_2,(int)&local_24,&param_1,1);
   if (iVar3 != 0) {
     puVar4 = (uint *)strtok((byte *)uVar2,&DAT_004ea52c);
     *(int **)(iVar1 + 0x34) = param_1;
@@ -74,9 +74,8 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
   int iVar4;
   undefined4 *ref;
   void *thing;
-  uint *puVar5;
-  undefined4 *puVar6;
-  int iVar7;
+  undefined4 *puVar5;
+  int iVar6;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
@@ -97,20 +96,20 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
   iVar2 = Cos_InstGetUserData((int)cosInst);
   if (iVar2 != 0) {
     iVar3 = Cos_InstCountComponents(iVar2);
-    iVar7 = 0;
+    iVar6 = 0;
     if (0 < iVar3) {
       do {
-        Cos_InstComponentInfo(iVar2,iVar7,(int)&create,0,0);
+        Cos_InstComponentInfo(iVar2,iVar6,(int)&create,0,0);
         if (create == local_c) {
           iVar4 = _stricmp(extraout_EAX_00,(byte *)local_8);
           if (iVar4 == 0) {
-            pvVar1 = (void *)Cos_InstGetInstanceData(iVar2,iVar7,(int *)0x0);
+            pvVar1 = (void *)Cos_InstGetInstanceData(iVar2,iVar6,(int *)0x0);
             *(int *)((int)pvVar1 + 0x50) = *(int *)((int)pvVar1 + 0x50) + 1;
             return pvVar1;
           }
         }
-        iVar7 = iVar7 + 1;
-      } while (iVar7 < iVar3);
+        iVar6 = iVar6 + 1;
+      } while (iVar6 < iVar3);
     }
   }
   iVar2 = componentIdx;
@@ -120,22 +119,22 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
   pvVar1 = *(void **)(iVar2 + 4);
   ref = (undefined4 *)
         (*g_pSputCosHS->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa8d);
-  puVar6 = ref;
+  puVar5 = ref;
   for (iVar2 = 0x65; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar6 = 0;
-    puVar6 = puVar6 + 1;
+    *puVar5 = 0;
+    puVar5 = puVar5 + 1;
   }
   Res_SetReference(ref,pvVar1,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa91);
   thing = (void *)rdThing_New(0);
   rdThing_SetModel3(thing,pvVar1);
   puVar5 = rdPuppet_New(thing);
-  *(uint **)((int)thing + 0x14) = puVar5;
+  *(undefined4 **)((int)thing + 0x14) = puVar5;
   ref[0x10] = thing;
   ref[0xf] = *(undefined4 *)(componentIdx + 0x34);
   if (-1 < local_4) {
-    puVar6 = (undefined4 *)Cos_InstGetInstanceData((int)cosInst,local_4,(int *)0x0);
-    ref[0x11] = *puVar6;
-    ref[0x12] = puVar6[1];
+    puVar5 = (undefined4 *)Cos_InstGetInstanceData((int)cosInst,local_4,(int *)0x0);
+    ref[0x11] = *puVar5;
+    ref[0x12] = puVar5[1];
     ref[0xe] = 0;
     ref[0x14] = ref[0x14] + 1;
     return ref;

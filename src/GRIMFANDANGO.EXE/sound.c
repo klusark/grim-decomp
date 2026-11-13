@@ -27,7 +27,7 @@ void __cdecl sputRoom_RelocateSounds(void)
 
 void __cdecl
 sputRoom_SetSoundPosition
-          (uint param_1,byte **param_2,uint param_3,uint param_4,uint param_5,uint param_6)
+          (uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5,uint param_6)
 
 {
   int iVar1;
@@ -171,10 +171,10 @@ uint __cdecl SetSoundPosition(int param_1)
    remaster's GrimFandango (Linux): slot 11 of the "SOUND=insane" service table); was
    Sound_DriverQuery. */
 
-undefined4 sou_engine_GetRate(void)
+uint __cdecl sou_engine_GetRate(void)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
   if (g_pSoundModule_snddriver_services != (int *)0x0) {
                     /* WARNING: Could not recover jumptable at 0x004d0c29. Too many branches */

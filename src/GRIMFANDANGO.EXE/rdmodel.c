@@ -706,7 +706,7 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   byte flags;
-  byte *pbVar2;
+  undefined1 *puVar2;
   uint uVar3;
   float *pfVar4;
   int iVar5;
@@ -717,45 +717,42 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  pbVar2 = rdCache_GetProcEntry();
-  if (pbVar2 == (byte *)0x0) {
+  puVar2 = rdCache_GetProcEntry();
+  if (puVar2 == (undefined1 *)0x0) {
     return 0;
   }
   uVar3 = *(uint *)(param_1 + 8);
   if ((int)g_dwGeometryMode < (int)*(uint *)(param_1 + 8)) {
     uVar3 = g_dwGeometryMode;
   }
-  *(uint *)(pbVar2 + 8) = uVar3;
+  *(uint *)(puVar2 + 8) = uVar3;
   uVar3 = *(uint *)(param_1 + 0xc);
   if ((int)g_dwLightingMode < (int)*(uint *)(param_1 + 0xc)) {
     uVar3 = g_dwLightingMode;
   }
-  *(uint *)(pbVar2 + 0xc) = uVar3;
+  *(uint *)(puVar2 + 0xc) = uVar3;
   uVar3 = *(uint *)(param_1 + 0x10);
   if ((int)g_dwTextureMode < (int)*(uint *)(param_1 + 0x10)) {
     uVar3 = g_dwTextureMode;
   }
-  *(uint *)(pbVar2 + 0x10) = uVar3;
+  *(uint *)(puVar2 + 0x10) = uVar3;
   if ((*(byte *)(param_1 + 4) & 0x10) != 0) {
-    pbVar2[0xc] = 1;
-    pbVar2[0xd] = 0;
-    pbVar2[0xe] = 0;
-    pbVar2[0xf] = 0;
+    *(undefined4 *)(puVar2 + 0xc) = 1;
   }
-  UINT_007f1490 = *(uint *)(pbVar2 + 0x20);
-  UINT_007f1478 = *(uint *)(pbVar2 + 0x24);
-  UINT_007f147c = *(uint *)(pbVar2 + 0x28);
+  UINT_007f1490 = *(uint *)(puVar2 + 0x20);
+  UINT_007f1478 = *(uint *)(puVar2 + 0x24);
+  UINT_007f147c = *(uint *)(puVar2 + 0x28);
   _g_aVertexSrc = *(undefined4 *)(param_1 + 0x14);
   _DAT_007f30ac = *(undefined4 *)(param_1 + 0x18);
   _DAT_007f30b0 = *(undefined4 *)(param_1 + 0x1c);
   if (g_dwMeshFrustrumCull == 0) {
     rdPrimit3_NoClipFace
-              (*(uint *)(pbVar2 + 8),*(int *)(pbVar2 + 0xc),*(uint *)(pbVar2 + 0x10),
+              (*(uint *)(puVar2 + 8),*(int *)(puVar2 + 0xc),*(uint *)(puVar2 + 0x10),
                (uint *)&g_aVertexSrc,&g_dwVertexDst,(float *)(param_1 + 0x28));
   }
   else {
-    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),*(uint *)(pbVar2 + 8),
-                       *(int *)(pbVar2 + 0xc),*(uint *)(pbVar2 + 0x10),(uint *)&g_aVertexSrc,
+    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),*(uint *)(puVar2 + 8),
+                       *(int *)(puVar2 + 0xc),*(uint *)(puVar2 + 0x10),(uint *)&g_aVertexSrc,
                        &g_dwVertexDst,(float *)(param_1 + 0x28));
   }
   if (g_dwVertexDst < 3) {
@@ -772,9 +769,9 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
       return 0;
     }
     g_dwVertexDst = uVar3;
-    *(uint *)(pbVar2 + 0x1c) = uVar3;
+    *(uint *)(puVar2 + 0x1c) = uVar3;
   }
-  if (*(int *)(pbVar2 + 0xc) == 2) {
+  if (*(int *)(puVar2 + 0xc) == 2) {
     if (param_2 == 0) {
       fVar7 = *(float *)((int)g_pRdCamera_CurCamera + 0x45c);
       iVar5 = *(int *)((int)g_pCurMesh + 0x30);
@@ -791,44 +788,35 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
     fVar7 = rdLight_CalcFaceIntensity
                       ((int *)&UINT_007f30e0,((unsigned)(uintptr_t)&g_aLocalLightPos),((unsigned)(uintptr_t)&g_aLocalLightDir),g_dwNumMeshLights,param_1,pfVar4,
                        iVar5,fVar7);
-    *(float *)(pbVar2 + 0x44) = fVar7;
+    *(float *)(puVar2 + 0x44) = fVar7;
   }
   (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(UINT_007f1490,UINT_007f1474,g_dwVertexDst);
   if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
-    pbVar2[0x40] = 0;
-    pbVar2[0x41] = 0;
-    pbVar2[0x42] = 0;
-    pbVar2[0x43] = 0;
+    *(undefined4 *)(puVar2 + 0x40) = 0;
   }
   else {
-    *(undefined4 *)(pbVar2 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
+    *(undefined4 *)(puVar2 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
   }
   iVar5 = *(int *)(param_1 + 0x24);
   if ((iVar5 == -1) && (*(int *)(param_1 + 0x20) != 0)) {
     iVar5 = *(int *)(*(int *)(param_1 + 0x20) + 100);
   }
-  *(int *)(pbVar2 + 0x3c) = iVar5;
+  *(int *)(puVar2 + 0x3c) = iVar5;
   bVar6 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
-  if (*(float *)(pbVar2 + 0x40) < 1.0) {
-    if (*(int *)(pbVar2 + 0xc) == 2) {
-      if ((*(float *)(pbVar2 + 0x44) < 1.0) || (bVar6)) {
-        if (*(float *)(pbVar2 + 0x44) <= 0.0) {
-          pbVar2[0xc] = 1;
-          pbVar2[0xd] = 0;
-          pbVar2[0xe] = 0;
-          pbVar2[0xf] = 0;
+  if (*(float *)(puVar2 + 0x40) < 1.0) {
+    if (*(int *)(puVar2 + 0xc) == 2) {
+      if ((*(float *)(puVar2 + 0x44) < 1.0) || (bVar6)) {
+        if (*(float *)(puVar2 + 0x44) <= 0.0) {
+          *(undefined4 *)(puVar2 + 0xc) = 1;
         }
       }
       else {
-        pbVar2[0xc] = 0;
-        pbVar2[0xd] = 0;
-        pbVar2[0xe] = 0;
-        pbVar2[0xf] = 0;
+        *(undefined4 *)(puVar2 + 0xc) = 0;
       }
       goto LAB_0040dbd3;
     }
-    if (*(int *)(pbVar2 + 0xc) != 3) goto LAB_0040dbd3;
-    pfVar4 = *(float **)(pbVar2 + 0x28);
+    if (*(int *)(puVar2 + 0xc) != 3) goto LAB_0040dbd3;
+    pfVar4 = *(float **)(puVar2 + 0x28);
     fVar7 = *pfVar4;
     uVar3 = 1;
     if (1 < g_dwVertexDst) {
@@ -843,59 +831,38 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
     if (uVar3 != g_dwVertexDst) goto LAB_0040dbd3;
     if (fVar7 != 1.0) {
       if (fVar7 == 0.0) {
-        pbVar2[0xc] = 1;
-        pbVar2[0xd] = 0;
-        pbVar2[0xe] = 0;
-        pbVar2[0xf] = 0;
-        pbVar2[0x44] = 0;
-        pbVar2[0x45] = 0;
-        pbVar2[0x46] = 0;
-        pbVar2[0x47] = 0;
+        *(undefined4 *)(puVar2 + 0xc) = 1;
+        *(undefined4 *)(puVar2 + 0x44) = 0;
       }
       else {
-        pbVar2[0xc] = 2;
-        pbVar2[0xd] = 0;
-        pbVar2[0xe] = 0;
-        pbVar2[0xf] = 0;
-        *(float *)(pbVar2 + 0x44) = fVar7;
+        *(undefined4 *)(puVar2 + 0xc) = 2;
+        *(float *)(puVar2 + 0x44) = fVar7;
       }
       goto LAB_0040dbd3;
     }
     if (!bVar6) {
-      pbVar2[0xc] = 0;
-      pbVar2[0xd] = 0;
-      pbVar2[0xe] = 0;
-      pbVar2[0xf] = 0;
+      *(undefined4 *)(puVar2 + 0xc) = 0;
       goto LAB_0040dbd3;
     }
   }
   else if (!bVar6) {
-    pbVar2[0xc] = 0;
-    pbVar2[0xd] = 0;
-    pbVar2[0xe] = 0;
-    pbVar2[0xf] = 0;
+    *(undefined4 *)(puVar2 + 0xc) = 0;
     goto LAB_0040dbd3;
   }
-  pbVar2[0xc] = 2;
-  pbVar2[0xd] = 0;
-  pbVar2[0xe] = 0;
-  pbVar2[0xf] = 0;
-  pbVar2[0x44] = 0;
-  pbVar2[0x45] = 0;
-  pbVar2[0x46] = 0x80;
-  pbVar2[0x47] = 0x3f;
+  *(undefined4 *)(puVar2 + 0xc) = 2;
+  *(undefined4 *)(puVar2 + 0x44) = 0x3f800000;
 LAB_0040dbd3:
   flags = 1;
-  if (3 < *(int *)(pbVar2 + 8)) {
+  if (3 < *(int *)(puVar2 + 8)) {
     flags = 3;
   }
-  if (2 < *(int *)(pbVar2 + 0xc)) {
+  if (2 < *(int *)(puVar2 + 0xc)) {
     flags = flags | 4;
   }
-  *(int *)(pbVar2 + 0x50) = param_2;
-  *(undefined4 *)(pbVar2 + 4) = *(undefined4 *)(param_1 + 4);
-  *(undefined4 *)(pbVar2 + 0x48) = *(undefined4 *)(param_1 + 0x30);
-  *(undefined4 *)(pbVar2 + 0x38) = *(undefined4 *)(param_1 + 0x20);
+  *(int *)(puVar2 + 0x50) = param_2;
+  *(undefined4 *)(puVar2 + 4) = *(undefined4 *)(param_1 + 4);
+  *(undefined4 *)(puVar2 + 0x48) = *(undefined4 *)(param_1 + 0x30);
+  *(undefined4 *)(puVar2 + 0x38) = *(undefined4 *)(param_1 + 0x20);
   rdCache_AddProcFace((void *)0x0,g_dwVertexDst,flags);
   return 1;
 }

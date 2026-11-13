@@ -20,7 +20,7 @@ undefined * __cdecl sputResource_Initialize(uint param_1,undefined **param_2)
   param_2[1] = sputResource_Terminate;
   param_2[2] = sputResource_Startup;
   param_2[3] = sputResource_Shutdown;
-  puVar1 = (undefined *)Res_SysInitialize(param_1,(uint *)&g_aResModServices);
+  puVar1 = (undefined *)Res_SysInitialize(param_1,(undefined4 *)&g_aResModServices);
   if (puVar1 == (undefined *)0x0) {
     _DAT_008ca1f8 = 1;
     param_2[4] = (undefined *)UINT_008ca1e8;

@@ -10,18 +10,18 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl sputText_Initialize(GrimServices *param_1,uint *param_2)
+uint __cdecl sputText_Initialize(GrimServices *param_1,undefined4 *param_2)
 
 {
   int iVar1;
   
   _g_pSputtextHS = param_1;
-  *param_2 = (uint)sputText_Initialize;
-  param_2[1] = (uint)sputText_Terminate;
-  param_2[2] = (uint)sputText_Startup;
-  param_2[3] = (uint)sputText_Shutdown;
-  param_2[4] = (uint)sputText_Save;
-  param_2[5] = (uint)sputText_Restore;
+  *param_2 = sputText_Initialize;
+  param_2[1] = sputText_Terminate;
+  param_2[2] = sputText_Startup;
+  param_2[3] = sputText_Shutdown;
+  param_2[4] = sputText_Save;
+  param_2[5] = sputText_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   iVar1 = Graph_SysInitialize(param_1,&g_aGraphMS);

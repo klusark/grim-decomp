@@ -157,16 +157,16 @@ void __cdecl sputLua_Update(void)
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl sputLua_Initialize(GrimServices *param_1,uint *param_2)
+uint __cdecl sputLua_Initialize(GrimServices *param_1,undefined4 *param_2)
 
 {
   int iVar1;
   
   g_pSputLuaHS = param_1;
-  *param_2 = (uint)sputLua_Initialize;
-  param_2[1] = (uint)sputLua_Terminate;
-  param_2[2] = (uint)sputLua_Startup;
-  param_2[3] = (uint)sputLua_Shutdown;
+  *param_2 = sputLua_Initialize;
+  param_2[1] = sputLua_Terminate;
+  param_2[2] = sputLua_Startup;
+  param_2[3] = sputLua_Shutdown;
   param_2[4] = 0;
   param_2[5] = 0;
   param_2[6] = 0;
@@ -314,7 +314,7 @@ void __cdecl sputLua_Shutdown(void)
 
 {
   if (g_pFrFileReq != (void *)0x0) {
-    stdFileUtil_DisposeFind(g_pFrFileReq);
+    stdFileUtil_DisposeFind((int)g_pFrFileReq);
     g_pFrFileReq = (void *)0x0;
   }
   lua_unref(g_nLrSystemTable);

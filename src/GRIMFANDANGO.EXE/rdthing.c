@@ -109,12 +109,13 @@ int __cdecl rdModel3_Draw(void *thing,float *position)
 uint __cdecl rdThing_New(uint param_1)
 
 {
-  uint *puVar1;
+  undefined4 *puVar1;
   uint uVar2;
   
-  puVar1 = (uint *)(*g_pRdroid_HS->pAlloc)
-                             (0x4c,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde0c + 3);
-  if (puVar1 == (uint *)0x0) {
+  puVar1 = (undefined4 *)
+           (*g_pRdroid_HS->pAlloc)
+                     (0x4c,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde0c + 3);
+  if (puVar1 == (undefined4 *)0x0) {
     return 0;
   }
   uVar2 = rdThing_NewEntry(puVar1,param_1);
@@ -126,7 +127,7 @@ uint __cdecl rdThing_New(uint param_1)
    name rdThing_NewEntry (the remaster's GrimFandango (Linux): same body (the same field defaults 4
    / 3 / 2, 4 / 3 / 2, 1, -1 / -1, the owner at +0x48)); was rdThing_Init. */
 
-uint __cdecl rdThing_NewEntry(uint *param_1,uint param_2)
+uint __cdecl rdThing_NewEntry(undefined4 *param_1,uint param_2)
 
 {
   param_1[0xd] = 0xffffffff;
@@ -285,7 +286,7 @@ void __cdecl rdThing_SetModel3(void *thing,void *model)
 /* ---- 0x00471d40  rdThing_SetCamera ---- */
 /* Thing type 2 pointing at a sprite */
 
-uint __cdecl rdThing_SetCamera(uint *param_1,uint param_2)
+uint __cdecl rdThing_SetCamera(undefined4 *param_1,uint param_2)
 
 {
   *param_1 = 2;
@@ -296,7 +297,7 @@ uint __cdecl rdThing_SetCamera(uint *param_1,uint param_2)
 /* ---- 0x00471d60  rdThing_SetPolyline ---- */
 /* Thing type 4 pointing at a polyline */
 
-uint __cdecl rdThing_SetPolyline(uint *param_1,uint param_2)
+uint __cdecl rdThing_SetPolyline(undefined4 *param_1,uint param_2)
 
 {
   *param_1 = 4;

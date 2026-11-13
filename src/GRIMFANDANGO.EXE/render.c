@@ -238,7 +238,7 @@ sputRender_SetDisplay
   #define local_4c (*(undefined4 (*)[19])(_frame + (0x60 - 0x4c)))
   
   sputRender_Close();
-  g_pSputRender_Canvas = (void *)rdCanvas_New(1,param_1,param_2,param_3,param_4,param_5,param_6,0);
+  g_pSputRender_Canvas = rdCanvas_New(1,param_1,param_2,param_3,param_4,param_5,param_6,0);
   UINT_008c97a4 = param_2;
   UINT_008c97a0 = param_1;
   puVar3 = (undefined4 *)(param_1 + 0xc);
@@ -299,7 +299,7 @@ void __cdecl sputRender_Close(void)
 
 {
   if (g_pSputRender_Canvas != (void *)0x0) {
-    rdCanvas_Free(g_pSputRender_Canvas);
+    rdCanvas_Free((int)g_pSputRender_Canvas);
     g_pSputRender_Canvas = (void *)0x0;
   }
   if (g_pSputRender_CleanBuffer != (void *)0x0) {
@@ -709,7 +709,7 @@ void __cdecl Render_BuildActorDrawList(void)
   Actor *pAVar1;
   int *piVar2;
   void *pvVar3;
-  byte *pbVar4;
+  undefined *puVar4;
   #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
   #define local_c (*(float *)(_frame + (0x30 - 0xc)))
@@ -725,28 +725,28 @@ void __cdecl Render_BuildActorDrawList(void)
     }
     pAVar1 = g_pActors + *piVar2;
     if ((pAVar1 != (Actor *)0x0) && (pAVar1->nScreenBoxValid = 0, (pAVar1->dwFlags & 3) == 0)) {
-      pbVar4 = DrawList_Alloc();
-      if (pbVar4 == (byte *)0x0) {
+      puVar4 = DrawList_Alloc();
+      if (puVar4 == (undefined *)0x0) {
         return;
       }
       local_18 = pAVar1->aPos[0] - *g_pSputRender_Camera;
       local_14[0] = pAVar1->aPos[1] - g_pSputRender_Camera[1];
       local_14[1] = pAVar1->aPos[2] - g_pSputRender_Camera[2];
       rdMatrix_TransformVectorOrtho34(&local_c,&local_18,g_pSputRender_Camera + 0xc);
-      *(uint *)(pbVar4 + 4) = local_8;
+      *(uint *)(puVar4 + 4) = local_8;
       if (pAVar1->pCostumes == (CostumeNode *)0x0) {
-        *(int *)(pbVar4 + 8) = ((int)pAVar1 - (int)g_pActors) / 0xa8;
+        *(int *)(puVar4 + 8) = ((int)pAVar1 - (int)g_pActors) / 0xa8;
         if ((pAVar1->pCostumes == (CostumeNode *)0x0) ||
            (pAVar1->pCostumes->pMainModel == (void *)0x0)) {
-          *pbVar4 = 0xff;
+          *puVar4 = 0xff;
         }
         else {
-          *pbVar4 = 1;
+          *puVar4 = 1;
         }
       }
       else {
-        *pbVar4 = 0;
-        *(int *)(pbVar4 + 8) = ((int)pAVar1 - (int)g_pActors) / 0xa8;
+        *puVar4 = 0;
+        *(int *)(puVar4 + 8) = ((int)pAVar1 - (int)g_pActors) / 0xa8;
       }
     }
     piVar2 = (int *)piVar2[2];

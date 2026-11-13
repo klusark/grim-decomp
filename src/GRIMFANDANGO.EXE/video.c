@@ -12,8 +12,9 @@
    gra_ConvertMakeLookup for 8-bit sources and gra_ConvertCopy row by row); was Video_BlitConvert.
     */
 
-void gra_BlitRectLookup(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,
-                       byte *param_6,byte *param_7)
+void __cdecl
+gra_BlitRectLookup(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,byte *param_6,
+                  byte *param_7)
 
 {
   unsigned char _frame[0x430] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -75,7 +76,7 @@ void gra_BlitRectLookup(int *param_1,uint *param_2,int param_3,int param_4,int *
     }
     local_420 = local_418;
     if ((param_7 == (byte *)0x0) && (param_5[3] == 1)) {
-      gra_ConvertMakeLookup(param_5,param_1,local_400,param_6);
+      gra_ConvertMakeLookup((int)param_5,param_1,local_400,param_6);
       param_7 = local_400;
     }
     do {

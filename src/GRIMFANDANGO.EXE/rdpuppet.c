@@ -25,28 +25,29 @@ void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint index,flo
 }
 
 /* ---- 0x00450500  rdPuppet_New ---- */
-uint * __cdecl rdPuppet_New(void *param_1)
+undefined4 * __cdecl rdPuppet_New(void *param_1)
 
 {
-  uint *puppet;
+  undefined4 *puppet;
   int iVar1;
-  uint *puVar2;
+  undefined4 *puVar2;
   
-  puppet = (uint *)(*g_pRdroid_HS->pAlloc)
-                             (0x740,s_C__grimjedi_Libs_RDroid_Engine_R_004ddddc,DAT_004dddd8 + 3);
+  puppet = (undefined4 *)
+           (*g_pRdroid_HS->pAlloc)
+                     (0x740,s_C__grimjedi_Libs_RDroid_Engine_R_004ddddc,DAT_004dddd8 + 3);
   puVar2 = puppet;
   for (iVar1 = 0x1d0; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  if (puppet != (uint *)0x0) {
+  if (puppet != (undefined4 *)0x0) {
     iVar1 = rdPuppet_NewEntry(puppet,param_1);
     if (iVar1 != 0) {
-      *(uint **)((int)param_1 + 0x14) = puppet;
+      *(undefined4 **)((int)param_1 + 0x14) = puppet;
       return puppet;
     }
   }
-  return (uint *)0x0;
+  return (undefined4 *)0x0;
 }
 
 /* ---- 0x00450560  rdPuppet_NewEntry ---- */
@@ -775,11 +776,11 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
 /* Clears a 0x84-byte keyframe record and names it UNKNOWN. Source file Rdkeyframe.c
    (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
-void rdKeyframe_NewEntry(uint *param_1)
+void __cdecl rdKeyframe_NewEntry(undefined4 *param_1)
 
 {
   int iVar1;
-  uint *puVar2;
+  undefined4 *puVar2;
   
   puVar2 = param_1;
   for (iVar1 = 0x21; iVar1 != 0; iVar1 = iVar1 + -1) {
@@ -796,76 +797,77 @@ void rdKeyframe_NewEntry(uint *param_1)
    magic 'KEYF' selects rdKeyframe_LoadEntryBinary, anything else rdKeyframe_LoadEntry. Source file
    Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
-uint * rdKeyframe_Load(char *param_1)
+int __cdecl rdKeyframe_Load(char *param_1)
 
 {
   char *path;
-  uint *puVar1;
-  int iVar2;
-  int iVar3;
-  uint *puVar4;
-  uint uVar5;
+  int iVar1;
+  uint uVar2;
+  uint *puVar3;
+  uint uVar4;
+  uint *puVar5;
   
   path = param_1;
   if (g_dwKeyframeLoader != 0) {
-    puVar1 = (uint *)(*(code *)g_dwKeyframeLoader)(param_1);
-    return puVar1;
+    iVar1 = (*(code *)g_dwKeyframeLoader)(param_1);
+    return iVar1;
   }
-  iVar2 = (*g_pRdroid_HS->pFopen)(param_1,&DAT_004ddb18);
-  if (iVar2 != 0) {
-    puVar1 = (uint *)(*g_pRdroid_HS->pAlloc)
+  uVar2 = (*g_pRdroid_HS->pFopen)(param_1,&DAT_004ddb18);
+  if (uVar2 != 0) {
+    puVar3 = (uint *)(*g_pRdroid_HS->pAlloc)
                                (0x84,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,DAT_004f0f08 + 0x11
                                );
-    if (puVar1 != (uint *)0x0) {
-      (*g_pRdroid_HS->pFread)(iVar2,&param_1,4);
+    if (puVar3 != (uint *)0x0) {
+      (*g_pRdroid_HS->pFread)(uVar2,&param_1,4);
       if (param_1 == (char *)0x4b455946) {
-        iVar3 = rdKeyframe_LoadEntryBinary(iVar2,puVar1);
-        if (iVar3 != 0) {
-          uVar5 = 0x1f;
-          puVar4 = (uint *)stdFileFromPath(path);
-          strncpy(puVar1,puVar4,uVar5);
-          *(undefined1 *)((int)puVar1 + 0x1f) = 0;
-          (*g_pRdroid_HS->pFclose)(iVar2);
-          return puVar1;
+        uVar4 = rdKeyframe_LoadEntryBinary(uVar2,(int)puVar3);
+        if (uVar4 != 0) {
+          uVar4 = 0x1f;
+          puVar5 = (uint *)stdFileFromPath(path);
+          strncpy(puVar3,puVar5,uVar4);
+          *(undefined1 *)((int)puVar3 + 0x1f) = 0;
+          (*g_pRdroid_HS->pFclose)(uVar2);
+          return (int)puVar3;
         }
-        (*g_pRdroid_HS->pFclose)(iVar2);
-        rdKeyframe_Free(puVar1);
-        return (uint *)0x0;
+        (*g_pRdroid_HS->pFclose)(uVar2);
+        rdKeyframe_Free((int)puVar3);
+        return 0;
       }
-      (*g_pRdroid_HS->pFclose)(iVar2);
-      iVar2 = rdKeyframe_LoadEntry(path,puVar1);
-      if (iVar2 != 0) {
-        return puVar1;
+      (*g_pRdroid_HS->pFclose)(uVar2);
+      uVar2 = rdKeyframe_LoadEntry(path,(int)puVar3);
+      if (uVar2 != 0) {
+        return (int)puVar3;
       }
     }
-    rdKeyframe_Free(puVar1);
+    rdKeyframe_Free((int)puVar3);
   }
-  return (uint *)0x0;
+  return 0;
 }
 
 /* ---- 0x004c0770  rdKeyframe_LoadEntry ---- */
 /* Parser of the text .key format (flags, type, frames, fps, joints, entries; stdConffile). Source
    file Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
-undefined4 rdKeyframe_LoadEntry(char *param_1,uint *param_2)
+uint __cdecl rdKeyframe_LoadEntry(char *param_1,int param_2)
 
 {
   unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
-  uint *puVar2;
+  int iVar2;
   uint *puVar3;
   int iVar4;
   undefined4 *puVar5;
   byte *pbVar6;
   uint uVar7;
-  uint uVar8;
-  byte *pbVar9;
-  bool bVar10;
-  uint uVar11;
+  int iVar8;
+  uint uVar9;
+  byte *pbVar10;
+  bool bVar11;
+  uint uVar12;
   #define uStack_68 (*(uint *)(_frame + (0x80 - 0x68)))
   #define uStack_64 (*(uint *)(_frame + (0x80 - 0x64)))
   #define uStack_60 (*(uint *)(_frame + (0x80 - 0x60)))
-  #define uStack_5c (*(uint *)(_frame + (0x80 - 0x5c)))
+  #define pcStack_5c (*(char **)(_frame + (0x80 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x80 - 0x58)))
   #define uStack_54 (*(undefined4 *)(_frame + (0x80 - 0x54)))
   #define uStack_50 (*(undefined4 *)(_frame + (0x80 - 0x50)))
@@ -882,50 +884,50 @@ undefined4 rdKeyframe_LoadEntry(char *param_1,uint *param_2)
   #define auStack_24 (*(undefined1 (*)[4])(_frame + (0x80 - 0x24)))
   #define auStack_20 (*(uint (*)[8])(_frame + (0x80 - 0x20)))
   
-  puVar2 = param_2;
-  rdKeyframe_NewEntry(param_2);
-  uVar11 = 0x1f;
+  iVar2 = param_2;
+  rdKeyframe_NewEntry((undefined4 *)param_2);
+  uVar12 = 0x1f;
   puVar3 = (uint *)stdFileFromPath(param_1);
-  strncpy(puVar2,puVar3,uVar11);
-  *(undefined1 *)((int)puVar2 + 0x1f) = 0;
+  strncpy((uint *)iVar2,puVar3,uVar12);
+  *(undefined1 *)(iVar2 + 0x1f) = 0;
   iVar4 = ((code *)stdConffile_Open)((uint)param_1);
   if (iVar4 == 0) {
     return 0;
   }
-  uVar11 = stdConffile_ReadLine();
-  if (uVar11 != 0) {
+  uVar12 = stdConffile_ReadLine();
+  if (uVar12 != 0) {
     iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64,&g_bStd_genBuffer);
     if (iVar4 == 1) {
-      uVar11 = stdConffile_ReadLine();
-      if (uVar11 != 0) {
-        iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_flags__x_004f0ff0,puVar2 + 9);
+      uVar12 = stdConffile_ReadLine();
+      if (uVar12 != 0) {
+        iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_flags__x_004f0ff0,iVar2 + 0x24);
         if (iVar4 == 1) {
-          uVar11 = stdConffile_ReadLine();
-          if (uVar11 != 0) {
-            iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_type__x_004f0fe4,puVar2 + 0xb);
+          uVar12 = stdConffile_ReadLine();
+          if (uVar12 != 0) {
+            iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_type__x_004f0fe4,iVar2 + 0x2c);
             if (iVar4 == 1) {
-              uVar11 = stdConffile_ReadLine();
-              if (uVar11 != 0) {
-                iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_frames__d_004f0fd8,puVar2 + 0xd);
+              uVar12 = stdConffile_ReadLine();
+              if (uVar12 != 0) {
+                iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_frames__d_004f0fd8,iVar2 + 0x34);
                 if (iVar4 == 1) {
-                  uVar11 = stdConffile_ReadLine();
-                  if (uVar11 != 0) {
+                  uVar12 = stdConffile_ReadLine();
+                  if (uVar12 != 0) {
                     iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_fps__f_004f0fd0,&local_58);
                     if (iVar4 == 1) {
-                      puVar2[0xc] = local_58;
-                      uVar11 = stdConffile_ReadLine();
-                      if (uVar11 != 0) {
+                      *(uint *)(iVar2 + 0x30) = local_58;
+                      uVar12 = stdConffile_ReadLine();
+                      if (uVar12 != 0) {
                         iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_joints__d_004f0fc4,&param_2);
                         if (iVar4 == 1) {
                           puVar5 = (undefined4 *)
                                    (*g_pRdroid_HS->pAlloc)
-                                             ((int)param_2 * 0x2c,
+                                             (param_2 * 0x2c,
                                               s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
                                               DAT_004f0f0c + 0x42);
-                          puVar2[0xf] = (uint)puVar5;
+                          *(undefined4 **)(iVar2 + 0x3c) = puVar5;
                           if (puVar5 != (undefined4 *)0x0) {
-                            for (uVar11 = (int)param_2 * 0xb & 0x3fffffff; uVar11 != 0;
-                                uVar11 = uVar11 - 1) {
+                            for (uVar12 = param_2 * 0xb & 0x3fffffff; uVar12 != 0;
+                                uVar12 = uVar12 - 1) {
                               *puVar5 = 0;
                               puVar5 = puVar5 + 1;
                             }
@@ -933,132 +935,132 @@ undefined4 rdKeyframe_LoadEntry(char *param_1,uint *param_2)
                               *(undefined1 *)puVar5 = 0;
                               puVar5 = (undefined4 *)((int)puVar5 + 1);
                             }
-                            puVar2[10] = (uint)param_2;
-                            puVar2[0xe] = (uint)param_2;
-                            uVar11 = stdConffile_ReadLine();
-                            if (uVar11 != 0) {
+                            *(int *)(iVar2 + 0x28) = param_2;
+                            *(int *)(iVar2 + 0x38) = param_2;
+                            uVar12 = stdConffile_ReadLine();
+                            if (uVar12 != 0) {
                               iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64,
                                              &g_bStd_genBuffer);
                               if (iVar4 == 1) {
-                                pbVar9 = &DAT_004f0fbc;
+                                pbVar10 = &DAT_004f0fbc;
                                 pbVar6 = &g_bStd_genBuffer;
                                 do {
                                   bVar1 = *pbVar6;
-                                  bVar10 = bVar1 < *pbVar9;
-                                  if (bVar1 != *pbVar9) {
+                                  bVar11 = bVar1 < *pbVar10;
+                                  if (bVar1 != *pbVar10) {
 LAB_004c099a:
-                                    iVar4 = (1 - (uint)bVar10) - (uint)(bVar10 != 0);
+                                    iVar4 = (1 - (uint)bVar11) - (uint)(bVar11 != 0);
                                     goto LAB_004c099f;
                                   }
                                   if (bVar1 == 0) break;
                                   bVar1 = pbVar6[1];
-                                  bVar10 = bVar1 < pbVar9[1];
-                                  if (bVar1 != pbVar9[1]) goto LAB_004c099a;
+                                  bVar11 = bVar1 < pbVar10[1];
+                                  if (bVar1 != pbVar10[1]) goto LAB_004c099a;
                                   pbVar6 = pbVar6 + 2;
-                                  pbVar9 = pbVar9 + 2;
+                                  pbVar10 = pbVar10 + 2;
                                 } while (bVar1 != 0);
                                 iVar4 = 0;
 LAB_004c099f:
                                 if (iVar4 == 0) {
-                                  uVar11 = stdConffile_ReadLine();
-                                  if (uVar11 == 0) goto LAB_004c0cbf;
+                                  uVar12 = stdConffile_ReadLine();
+                                  if (uVar12 == 0) goto LAB_004c0cbf;
                                   iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_markers__d_004f0fb0
                                                  ,&uStack_68);
                                   if ((iVar4 != 1) || (8 < uStack_68)) goto LAB_004c0cbf;
-                                  uVar11 = 0;
-                                  puVar2[0x10] = uStack_68;
+                                  uVar12 = 0;
+                                  *(uint *)(iVar2 + 0x40) = uStack_68;
                                   if (uStack_68 != 0) {
-                                    puVar3 = puVar2 + 0x11;
+                                    iVar4 = iVar2 + 0x44;
                                     do {
                                       uVar7 = stdConffile_ReadLine();
                                       if (uVar7 == 0) goto LAB_004c0cbf;
-                                      iVar4 = sscanf((char *)g_dwStdConffile_aLine,s__f__d_004f0fa8,
-                                                     puVar3,puVar3 + 8);
-                                      if (iVar4 != 2) goto LAB_004c0cbf;
-                                      uVar11 = uVar11 + 1;
-                                      puVar3 = puVar3 + 1;
-                                    } while (uVar11 < uStack_68);
+                                      iVar8 = sscanf((char *)g_dwStdConffile_aLine,s__f__d_004f0fa8,
+                                                     iVar4,iVar4 + 0x20);
+                                      if (iVar8 != 2) goto LAB_004c0cbf;
+                                      uVar12 = uVar12 + 1;
+                                      iVar4 = iVar4 + 4;
+                                    } while (uVar12 < uStack_68);
                                   }
-                                  uVar11 = stdConffile_ReadLine();
-                                  if (uVar11 == 0) goto LAB_004c0cbf;
+                                  uVar12 = stdConffile_ReadLine();
+                                  if (uVar12 == 0) goto LAB_004c0cbf;
                                   iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                  s_section___s_004ddd64,&g_bStd_genBuffer);
                                   if (iVar4 != 1) goto LAB_004c0cbf;
                                 }
-                                uVar11 = stdConffile_ReadLine();
-                                if (uVar11 != 0) {
+                                uVar12 = stdConffile_ReadLine();
+                                if (uVar12 != 0) {
                                   iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_nodes__d_004f0f9c,
-                                                 &uStack_5c);
+                                                 &pcStack_5c);
                                   if (iVar4 == 1) {
                                     param_1 = (char *)0x0;
-                                    if (uStack_5c == 0) {
+                                    if (pcStack_5c == (char *)0x0) {
                                       stdConffile_Close();
                                       return 1;
                                     }
                                     while( true ) {
-                                      uVar11 = stdConffile_ReadLine();
-                                      if (uVar11 == 0) break;
+                                      uVar12 = stdConffile_ReadLine();
+                                      if (uVar12 == 0) break;
                                       iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                      s_node__d_004f0f90,&uStack_64);
                                       if (iVar4 != 1) break;
-                                      uVar11 = stdConffile_ReadLine();
-                                      if (uVar11 == 0) break;
+                                      uVar12 = stdConffile_ReadLine();
+                                      if (uVar12 == 0) break;
                                       iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                      s_mesh_name__s_004f0f80,auStack_20);
                                       if (iVar4 != 1) break;
-                                      puVar3 = (uint *)(puVar2[0xf] + uStack_64 * 0x2c);
+                                      puVar3 = (uint *)(*(int *)(iVar2 + 0x3c) + uStack_64 * 0x2c);
                                       strncpy(puVar3,auStack_20,0x1f);
                                       *(undefined1 *)((int)puVar3 + 0x1f) = 0;
-                                      uVar11 = stdConffile_ReadLine();
-                                      if (uVar11 == 0) break;
+                                      uVar12 = stdConffile_ReadLine();
+                                      if (uVar12 == 0) break;
                                       iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                      s_entries__d_004f0f74,&uStack_60);
                                       if (iVar4 != 1) break;
                                       puVar3[8] = uStack_64;
                                       puVar3[9] = uStack_60;
-                                      uVar11 = (*g_pRdroid_HS->pAlloc)
+                                      uVar12 = (*g_pRdroid_HS->pAlloc)
                                                          (uStack_60 * 0x38,
                                                                                                                     
                                                   s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
                                                   DAT_004f0f0c + 0x9b);
-                                      puVar3[10] = uVar11;
-                                      if (uVar11 == 0) break;
+                                      puVar3[10] = uVar12;
+                                      if (uVar12 == 0) break;
                                       uVar7 = 0;
                                       if (puVar3[9] != 0) {
                                         do {
-                                          uVar8 = stdConffile_ReadLine();
-                                          if (uVar8 == 0) goto LAB_004c0cbf;
+                                          uVar9 = stdConffile_ReadLine();
+                                          if (uVar9 == 0) goto LAB_004c0cbf;
                                           iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                          s__d___f__x__f__f__f__f__f__f_004f0f54,
-                                                         auStack_24,uVar11,uVar11 + 4,&uStack_54,
+                                                         auStack_24,uVar12,uVar12 + 4,&uStack_54,
                                                          &uStack_50,&uStack_4c,&uStack_48,&uStack_44
                                                          ,&uStack_40);
                                           if (iVar4 != 9) goto LAB_004c0cbf;
-                                          *(undefined4 *)(uVar11 + 8) = uStack_54;
-                                          *(undefined4 *)(uVar11 + 0xc) = uStack_50;
-                                          *(undefined4 *)(uVar11 + 0x10) = uStack_4c;
-                                          *(undefined4 *)(uVar11 + 0x14) = uStack_48;
-                                          *(undefined4 *)(uVar11 + 0x18) = uStack_44;
-                                          *(undefined4 *)(uVar11 + 0x1c) = uStack_40;
-                                          uVar8 = stdConffile_ReadLine();
-                                          if (uVar8 == 0) goto LAB_004c0cbf;
+                                          *(undefined4 *)(uVar12 + 8) = uStack_54;
+                                          *(undefined4 *)(uVar12 + 0xc) = uStack_50;
+                                          *(undefined4 *)(uVar12 + 0x10) = uStack_4c;
+                                          *(undefined4 *)(uVar12 + 0x14) = uStack_48;
+                                          *(undefined4 *)(uVar12 + 0x18) = uStack_44;
+                                          *(undefined4 *)(uVar12 + 0x1c) = uStack_40;
+                                          uVar9 = stdConffile_ReadLine();
+                                          if (uVar9 == 0) goto LAB_004c0cbf;
                                           iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                          s__f__f__f__f__f__f_004f0f40,&uStack_3c,
                                                          &uStack_38,&uStack_34,&uStack_30,&uStack_2c
                                                          ,&uStack_28);
                                           if (iVar4 != 6) goto LAB_004c0cbf;
-                                          *(undefined4 *)(uVar11 + 0x20) = uStack_3c;
-                                          *(undefined4 *)(uVar11 + 0x24) = uStack_38;
-                                          *(undefined4 *)(uVar11 + 0x28) = uStack_34;
-                                          *(undefined4 *)(uVar11 + 0x2c) = uStack_30;
-                                          *(undefined4 *)(uVar11 + 0x30) = uStack_2c;
-                                          *(undefined4 *)(uVar11 + 0x34) = uStack_28;
-                                          uVar11 = uVar11 + 0x38;
+                                          *(undefined4 *)(uVar12 + 0x20) = uStack_3c;
+                                          *(undefined4 *)(uVar12 + 0x24) = uStack_38;
+                                          *(undefined4 *)(uVar12 + 0x28) = uStack_34;
+                                          *(undefined4 *)(uVar12 + 0x2c) = uStack_30;
+                                          *(undefined4 *)(uVar12 + 0x30) = uStack_2c;
+                                          *(undefined4 *)(uVar12 + 0x34) = uStack_28;
+                                          uVar12 = uVar12 + 0x38;
                                           uVar7 = uVar7 + 1;
                                         } while (uVar7 < puVar3[9]);
                                       }
-                                      param_1 = (char *)((int)param_1 + 1);
-                                      if (uStack_5c <= param_1) {
+                                      param_1 = param_1 + 1;
+                                      if (pcStack_5c <= param_1) {
                                         stdConffile_Close();
                                         return 1;
                                       }
@@ -1087,6 +1089,7 @@ LAB_004c0cbf:
 #undef auStack_20
 #undef auStack_24
 #undef local_58
+#undef pcStack_5c
 #undef uStack_28
 #undef uStack_2c
 #undef uStack_30
@@ -1099,7 +1102,6 @@ LAB_004c0cbf:
 #undef uStack_4c
 #undef uStack_50
 #undef uStack_54
-#undef uStack_5c
 #undef uStack_60
 #undef uStack_64
 #undef uStack_68
@@ -1110,7 +1112,7 @@ LAB_004c0cbf:
    (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). Original name rdKeyframe_LoadEntryBinary (the
    remaster's GrimFandango (Linux): aligned call in rdKeyframe_Load); was rdKeyframe_LoadBinary. */
 
-undefined4 rdKeyframe_LoadEntryBinary(undefined4 param_1,int param_2)
+uint __cdecl rdKeyframe_LoadEntryBinary(uint param_1,int param_2)
 
 {
   int *piVar1;
@@ -1183,7 +1185,7 @@ LAB_004c0e2c:
 /* Frees a keyframe (custom free hook if installed, else rdKeyframe_FreeEntry and the record).
    Source file Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
-void rdKeyframe_Free(int param_1)
+void __cdecl rdKeyframe_Free(int param_1)
 
 {
   if (param_1 != 0) {
@@ -1201,7 +1203,7 @@ void rdKeyframe_Free(int param_1)
 /* Frees the per-joint node arrays of a keyframe record. Source file Rdkeyframe.c
    (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
-void rdKeyframe_FreeEntry(int param_1)
+void __cdecl rdKeyframe_FreeEntry(int param_1)
 
 {
   int *piVar1;

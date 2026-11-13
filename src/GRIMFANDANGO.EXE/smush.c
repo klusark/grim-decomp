@@ -9,7 +9,7 @@
 /* Original name SmushPlay_Pause (the remaster's GrimFandango (Linux): aligned call in
    sputSmush_Pause); was Smush_Pause. */
 
-undefined4 SmushPlay_Pause(void)
+uint __cdecl SmushPlay_Pause(void)
 
 {
   if (g_dwMovieIsPlaying != 0) {
@@ -22,7 +22,7 @@ undefined4 SmushPlay_Pause(void)
 /* Original name SmushPlay_Resume (the remaster's GrimFandango (Linux): aligned call in
    sputSmush_Pause); was Smush_Resume. */
 
-undefined4 SmushPlay_Resume(void)
+uint __cdecl SmushPlay_Resume(void)
 
 {
   if (g_dwMovieIsPlaying != 0) {
@@ -36,7 +36,7 @@ undefined4 SmushPlay_Resume(void)
 /* Original name SmushPlay_SysConfigureColorLookup (the remaster's GrimFandango (Linux): aligned
    call in sputSmush_Periodic); was Smush_Idle. */
 
-void SmushPlay_SysConfigureColorLookup(undefined4 param_1)
+void __cdecl SmushPlay_SysConfigureColorLookup(uint param_1)
 
 {
   _g_pSmushplay_UserLookup = param_1;
@@ -58,14 +58,13 @@ SmushPlay_StartMovie
   char cVar1;
   bool bVar2;
   int iVar3;
-  int iVar4;
+  uint uVar4;
   uint uVar5;
-  uint uVar6;
-  uint *puVar7;
-  undefined4 *puVar8;
+  uint *puVar6;
+  undefined4 *puVar7;
+  char *pcVar8;
   char *pcVar9;
-  char *pcVar10;
-  uint *puVar11;
+  uint *puVar10;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(undefined4 (*)[6])(_frame + (0x30 - 0x18)))
   
@@ -73,40 +72,40 @@ SmushPlay_StartMovie
   if (g_dwVideoCallbacks == 0) {
     return 1;
   }
-  puVar8 = local_18;
-  for (iVar4 = 6; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar8 = 0;
-    puVar8 = puVar8 + 1;
+  puVar7 = local_18;
+  for (iVar3 = 6; iVar3 != 0; iVar3 = iVar3 + -1) {
+    *puVar7 = 0;
+    puVar7 = puVar7 + 1;
   }
-  iVar4 = (*(code *)*g_pSmushPlay_file_services)(name,&DAT_004ddb18);
-  if (iVar4 != 0) {
-    uVar5 = 0xffffffff;
-    pcVar9 = name;
+  iVar3 = (*(code *)*g_pSmushPlay_file_services)(name,&DAT_004ddb18);
+  if (iVar3 != 0) {
+    uVar4 = 0xffffffff;
+    pcVar8 = name;
     do {
-      pcVar10 = pcVar9;
-      if (uVar5 == 0) break;
-      uVar5 = uVar5 - 1;
-      pcVar10 = pcVar9 + 1;
-      cVar1 = *pcVar9;
-      pcVar9 = pcVar10;
+      pcVar9 = pcVar8;
+      if (uVar4 == 0) break;
+      uVar4 = uVar4 - 1;
+      pcVar9 = pcVar8 + 1;
+      cVar1 = *pcVar8;
+      pcVar8 = pcVar9;
     } while (cVar1 != '\0');
-    uVar5 = ~uVar5;
-    puVar7 = (uint *)(pcVar10 + -uVar5);
-    puVar11 = &g_dwCurFileName;
-    for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-      *puVar11 = *puVar7;
-      puVar7 = puVar7 + 1;
-      puVar11 = puVar11 + 1;
+    uVar4 = ~uVar4;
+    puVar6 = (uint *)(pcVar9 + -uVar4);
+    puVar10 = &g_dwCurFileName;
+    for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
+      *puVar10 = *puVar6;
+      puVar6 = puVar6 + 1;
+      puVar10 = puVar10 + 1;
     }
-    for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *(char *)puVar11 = (char)*puVar7;
-      puVar7 = (uint *)((int)puVar7 + 1);
-      puVar11 = (uint *)((int)puVar11 + 1);
+    for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
+      *(char *)puVar10 = (char)*puVar6;
+      puVar6 = (uint *)((int)puVar6 + 1);
+      puVar10 = (uint *)((int)puVar10 + 1);
     }
-    (*(code *)g_pSmushPlay_file_services[5])(iVar4,a,1);
-    iVar3 = smushplay_GetInfo(iVar4,&DAT_008d1208);
-    if (iVar3 == 0) {
-      (*(code *)g_pSmushPlay_file_services[1])(iVar4);
+    (*(code *)g_pSmushPlay_file_services[5])(iVar3,a,1);
+    uVar4 = smushplay_GetInfo(iVar3,((unsigned)(uintptr_t)&DAT_008d1208));
+    if (uVar4 == 0) {
+      (*(code *)g_pSmushPlay_file_services[1])(iVar3);
       _DAT_008d166c = 5;
       _DAT_008d1670 = 6 - (uint)(sixteenBit != 0);
       _DAT_008d1674 = 5;
@@ -125,13 +124,13 @@ SmushPlay_StartMovie
       _DAT_008d1664 = 0;
       _DAT_008d1668 = 1;
       _DAT_008d1680 = 0;
-      iVar4 = (*(code *)g_dwVideoCallbacks)(w,h,0x10,sixteenBit);
-      if (iVar4 == 0) {
+      iVar3 = (*(code *)g_dwVideoCallbacks)(w,h,0x10,sixteenBit);
+      if (iVar3 == 0) {
         _g_bMovieFlags = flags & 0xfffffff;
         bVar2 = true;
-        iVar4 = (**(code **)(g_dwAnimplay_services + 4))
+        iVar3 = (**(code **)(g_dwAnimplay_services + 4))
                           (&g_dwAh,name,0xf,UINT_008d121a + 500000,UINT_008d121a + 10000,0x600d);
-        if (iVar4 == 0) {
+        if (iVar3 == 0) {
           if (x < 0) {
             UINT_008d11e0 = (uint)DAT_008d120c;
           }
@@ -171,7 +170,7 @@ SmushPlay_StartMovie
 /* Original name SmushPlay_StopMovie (the remaster's GrimFandango (Linux): aligned call in
    sputSmush_Periodic, sputSmush_StartMovie); was Smush_Close. */
 
-undefined4 SmushPlay_StopMovie(void)
+uint __cdecl SmushPlay_StopMovie(void)
 
 {
   if (g_dwMovieIsPlaying != 0) {
@@ -195,8 +194,8 @@ int __cdecl SmushPlay_UpdateMovie(int *outDone)
   int iVar1;
   #define local_46c (*(uint *)(_frame + (0x480 - 0x46c)))
   #define local_468 (*(uint *)(_frame + (0x480 - 0x468)))
-  #define auStack_464 (*(undefined1 (*)[16])(_frame + (0x480 - 0x464)))
-  #define auStack_454 (*(undefined1 (*)[84])(_frame + (0x480 - 0x454)))
+  #define auStack_464 (*(uint (*)[4])(_frame + (0x480 - 0x464)))
+  #define aiStack_454 (*(int (*)[21])(_frame + (0x480 - 0x454)))
   #define local_400 (*(undefined1 (*)[1024])(_frame + (0x480 - 0x400)))
   
   local_46c = 0;
@@ -204,9 +203,9 @@ int __cdecl SmushPlay_UpdateMovie(int *outDone)
   fob_flobdec_blocky16_config(1,SmushPlay_FakeBlit,0);
   iVar1 = (**(code **)(g_dwAnimplay_services + 0xc))
                     (g_dwAh,&g_aFakeBM,0,0,0,local_400,&local_468,&local_46c,1,0);
-  (*(code *)UINT_008d10a0)(auStack_454,auStack_464);
-  Insane_PrepareFrame(auStack_454,g_dwSmush_pInternalBitmap,auStack_464);
-  (*(code *)UINT_008d10a4)(auStack_454,auStack_464);
+  (*(code *)UINT_008d10a0)(aiStack_454,auStack_464);
+  Insane_PrepareFrame(aiStack_454,(undefined4 *)g_dwSmush_pInternalBitmap,auStack_464);
+  (*(code *)UINT_008d10a4)(aiStack_454,auStack_464);
   if ((iVar1 < 0) || (iVar1 == 4)) {
     (**(code **)(g_dwAnimplay_services + 0x14))(&g_dwAh);
     g_dwSmush_pInternalBitmap = 0;
@@ -235,7 +234,7 @@ int __cdecl SmushPlay_UpdateMovie(int *outDone)
   fob_flobdec_blocky16_config(1,0,0);
   return 0;
 }
-#undef auStack_454
+#undef aiStack_454
 #undef auStack_464
 #undef local_400
 #undef local_468
@@ -246,7 +245,7 @@ int __cdecl SmushPlay_UpdateMovie(int *outDone)
 /* Original name SmushPlay_SetTranslationTable (the remaster's GrimFandango (Linux): aligned call in
    sputSmush_Periodic, sputSmush_StartMovie); was Smush_SetColorTable. */
 
-void SmushPlay_SetTranslationTable(uint param_1)
+void __cdecl SmushPlay_SetTranslationTable(uint param_1)
 
 {
   g_dwSmushPlay_TranslationTable = param_1;
@@ -257,7 +256,7 @@ void SmushPlay_SetTranslationTable(uint param_1)
 /* Original name SmushPlay_GetFrameRect (the remaster's GrimFandango (Linux): aligned call in
    sputSmush_Periodic); was Smush_GetFrameRect. */
 
-undefined4 SmushPlay_GetFrameRect(uint *param_1,uint *param_2)
+uint __cdecl SmushPlay_GetFrameRect(uint *param_1,uint *param_2)
 
 {
   if (param_1 != (uint *)0x0) {
@@ -297,7 +296,7 @@ int __cdecl SmushPlay_GetMovieLength(char *path)
   if (iVar1 == 0) {
     return 0;
   }
-  smushplay_GetInfo(iVar1,auStack_428);
+  smushplay_GetInfo(iVar1,(int)auStack_428);
   (*(code *)g_pSmushPlay_file_services[1])(iVar1);
   lVar2 = _ftol((double)CONCAT44((int)sStack_426,unaff_ESI));
   return (int)lVar2;

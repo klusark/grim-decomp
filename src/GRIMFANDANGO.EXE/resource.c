@@ -11,7 +11,7 @@
    sputResource_Initialize; 1 matched neighbours agree, 0 disagree); was
    Resource_RegisterFilioModule. */
 
-uint __cdecl Res_SysInitialize(uint param_1,uint *param_2)
+uint __cdecl Res_SysInitialize(uint param_1,undefined4 *param_2)
 
 {
   uint uVar1;
@@ -21,13 +21,13 @@ uint __cdecl Res_SysInitialize(uint param_1,uint *param_2)
   uVar1 = 1;
   if (g_dwResSysInitialized == 0) {
     g_dwResSysInitialized = 1;
-    if (param_2 != (uint *)0x0) {
-      *param_2 = (uint)Res_SysInitialize;
-      param_2[1] = (uint)Res_SysTerminate;
-      param_2[2] = (uint)Res_SysStartup;
-      param_2[3] = (uint)Res_SysShutdown;
-      param_2[4] = (uint)Res_SysSave;
-      param_2[5] = (uint)Res_SysLoad;
+    if (param_2 != (undefined4 *)0x0) {
+      *param_2 = Res_SysInitialize;
+      param_2[1] = Res_SysTerminate;
+      param_2[2] = Res_SysStartup;
+      param_2[3] = Res_SysShutdown;
+      param_2[4] = Res_SysSave;
+      param_2[5] = Res_SysLoad;
       param_2[6] = 0;
       param_2[7] = 0;
     }
@@ -544,7 +544,7 @@ int __cdecl AddResourcePath(char *dir)
     pcVar2[1] = '\0';
     iVar5 = stdFileUtil_FindNext(find,local_10c);
   }
-  stdFileUtil_DisposeFind(find);
+  stdFileUtil_DisposeFind((int)find);
   iVar5 = Res_FileOpen(local_18c);
   if (iVar5 == 0) {
     return 0;

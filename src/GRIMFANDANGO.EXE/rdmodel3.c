@@ -9,11 +9,11 @@
 /* Clears a 0x90-byte model record and names it UNKNOWN. Source file Rdmodel3.c
    (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
-void __cdecl rdModel3_NewEntry(uint *param_1)
+void __cdecl rdModel3_NewEntry(undefined4 *param_1)
 
 {
   int iVar1;
-  uint *puVar2;
+  undefined4 *puVar2;
   
   puVar2 = param_1;
   for (iVar1 = 0x24; iVar1 != 0; iVar1 = iVar1 + -1) {
@@ -33,25 +33,26 @@ void __cdecl rdModel3_NewEntry(uint *param_1)
    GrimFandango (Linux): same body (loader hook, 0x90-byte model, load, post-process, free on
    failure); sputResource_ModelHandler's call); was rdModel3_New. */
 
-uint * __cdecl rdModel3_Load(uint param_1)
+undefined4 * __cdecl rdModel3_Load(uint param_1)
 
 {
-  uint *puVar1;
+  undefined4 *puVar1;
   uint uVar2;
   int iVar3;
-  uint *puVar4;
+  undefined4 *puVar4;
   
   if (g_dwModel3Loader != 0) {
-    puVar1 = (uint *)(*(code *)g_dwModel3Loader)(param_1,0);
-    if (puVar1 == (uint *)0x0) {
-      return (uint *)0x0;
+    puVar1 = (undefined4 *)(*(code *)g_dwModel3Loader)(param_1,0);
+    if (puVar1 == (undefined4 *)0x0) {
+      return (undefined4 *)0x0;
     }
     rdModel3_LoadPostProcess((uint)puVar1);
     return puVar1;
   }
-  puVar1 = (uint *)(*g_pRdroid_HS->pAlloc)
-                             (0x90,s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94,DAT_004ddb7c + 0xc);
-  if (puVar1 != (uint *)0x0) {
+  puVar1 = (undefined4 *)
+           (*g_pRdroid_HS->pAlloc)
+                     (0x90,s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94,DAT_004ddb7c + 0xc);
+  if (puVar1 != (undefined4 *)0x0) {
     puVar4 = puVar1;
     for (iVar3 = 0x24; iVar3 != 0; iVar3 = iVar3 + -1) {
       *puVar4 = 0;
@@ -64,7 +65,7 @@ uint * __cdecl rdModel3_Load(uint param_1)
     }
   }
   rdModel3_Free((int)puVar1);
-  return (uint *)0x0;
+  return (undefined4 *)0x0;
 }
 
 /* ---- 0x0040a980  rdModel3_LoadEntry ---- */
@@ -624,7 +625,7 @@ uint __cdecl rdModel3_LoadEntryBinary(int param_1,int param_2)
   iVar9 = param_1;
   uVar14 = 0;
   local_1c = 0;
-  rdModel3_NewEntry((uint *)param_2);
+  rdModel3_NewEntry((undefined4 *)param_2);
   (*g_pRdroid_HS->pFread)(param_1,&local_8,4);
   *(int *)(iVar12 + 0x4c) = local_8;
   *(undefined4 *)(iVar12 + 0x48) = 0;

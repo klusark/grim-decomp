@@ -307,7 +307,6 @@ extern undefined DAT_004d8e18; /* used by 1 fn(s), first 0x004b5950 */
 extern undefined DAT_004d8e28; /* used by 1 fn(s), first 0x004b5b60 */
 extern undefined DAT_004d8e38; /* used by 1 fn(s), first 0x004b5c60 */
 extern undefined DAT_004d8e50; /* used by 1 fn(s), first 0x004b5cf0 */
-extern undefined DAT_004d9568; /* used by 1 fn(s), first 0x004b7f40 */
 extern undefined DAT_004d9830; /* used by 1 fn(s), first 0x004c6d10 */
 extern undefined DAT_004d9832; /* used by 1 fn(s), first 0x004c6d10 */
 extern undefined DAT_004d9834; /* used by 1 fn(s), first 0x004c6d10 */
@@ -325,10 +324,6 @@ extern undefined DAT_004da448; /* used by 3 fn(s), first 0x004c70c0 */
 extern undefined DAT_004da548; /* used by 3 fn(s), first 0x004c70c0 */
 extern undefined DAT_004da648; /* used by 1 fn(s), first 0x004c9fa0 */
 extern undefined DAT_004da6c0; /* used by 1 fn(s), first 0x004c9fa0 */
-extern undefined DAT_004da768; /* used by 1 fn(s), first 0x004cb390 */
-extern undefined DAT_004da7e8; /* used by 1 fn(s), first 0x004cb390 */
-extern undefined DAT_004da868; /* used by 1 fn(s), first 0x004cb390 */
-extern undefined DAT_004da8e0; /* used by 1 fn(s), first 0x004cb390 */
 extern undefined DAT_004dab0a; /* used by 1 fn(s), first 0x004cbf50 */
 extern undefined DAT_004dac00; /* used by 1 fn(s), first 0x004d5de0 */
 extern undefined DAT_004dd000; /* used by 1 fn(s), first 0x004acd10 */
@@ -973,7 +968,7 @@ extern undefined *g_pGrimmem_memory_services; /* used by 1 fn(s), first 0x004bdf
 extern undefined *g_pGrimio_services; /* used by 1 fn(s), first 0x004be050 */
 extern undefined *g_pGrimio_filio_services; /* used by 1 fn(s), first 0x004be050 */
 extern char s_FILIO_insane_stdio_004f0c64[]; /* used by 2 fn(s), first 0x004be050 */
-extern char s_FILIO_insane_zfilio_004f0ca0[]; /* used by 3 fn(s), first 0x004bd3a0 */
+extern char s_FILIO_insane_zfilio_004f0ca0[]; /* used by 2 fn(s), first 0x004c5790 */
 extern undefined DAT_004f0cb4; /* used by 1 fn(s), first 0x004bd440 */
 extern undefined DAT_004f0cb8; /* used by 1 fn(s), first 0x004bd440 */
 extern undefined DAT_004f0cbc; /* used by 1 fn(s), first 0x004bd440 */
@@ -1268,7 +1263,7 @@ extern undefined DAT_004f5a80; /* used by 1 fn(s), first 0x00402120 */
 extern undefined4 UINT_004f5a84; /* used by 1 fn(s), first 0x004025b0 */
 extern undefined4 UINT_004f5a90; /* used by 1 fn(s), first 0x00402fd0 */
 extern undefined4 UINT_004f5a94; /* used by 1 fn(s), first 0x00402fd0 */
-extern undefined DAT_004f5a98; /* used by 25 fn(s), first 0x004034b0 */
+extern undefined DAT_004f5a98; /* used by 24 fn(s), first 0x004034b0 */
 extern undefined g_aBuffer; /* used by 5 fn(s), first 0x004035b0 */
 extern undefined DAT_004f5ea8; /* used by 2 fn(s), first 0x004038a0 */
 extern uint UINT_004f5eac; /* used by 11 fn(s), first 0x004038a0 */
@@ -1997,14 +1992,12 @@ extern undefined4 UINT_008d0f5c; /* used by 1 fn(s), first 0x004b7b80 */
 extern undefined4 UINT_008d0f60; /* used by 1 fn(s), first 0x004b7b80 */
 extern undefined4 UINT_008d0f68; /* used by 2 fn(s), first 0x004b7f40 */
 extern undefined4 UINT_008d0f70; /* used by 1 fn(s), first 0x004b7f40 */
-extern undefined DAT_008d0f74; /* used by 1 fn(s), first 0x004b7f40 */
 extern undefined2 DAT_008d0fb4; /* used by 1 fn(s), first 0x004b8250 */
 extern undefined2 DAT_008d0fb6; /* used by 2 fn(s), first 0x004b7f40 */
 extern undefined4 UINT_008d0fb8; /* used by 1 fn(s), first 0x004b8250 */
 extern undefined4 UINT_008d0fbc; /* used by 1 fn(s), first 0x004b8250 */
 extern undefined4 UINT_008d0fc0; /* used by 1 fn(s), first 0x004b8250 */
 extern undefined4 UINT_008d0fc4; /* used by 1 fn(s), first 0x004b7f40 */
-extern undefined DAT_008d0fc8; /* used by 1 fn(s), first 0x004b7f40 */
 extern undefined2 DAT_008d1008; /* used by 1 fn(s), first 0x004b8250 */
 extern undefined2 DAT_008d100a; /* used by 2 fn(s), first 0x004b7f40 */
 extern undefined4 UINT_008d100c; /* used by 1 fn(s), first 0x004b8250 */
@@ -2044,7 +2037,6 @@ extern undefined g_dwGrimmem_share_config; /* used by 1 fn(s), first 0x004bdf70 
 extern uint g_dwSmushPlayHS; /* used by 10 fn(s), first 0x004bd3a0 */
 extern int * g_pGrimmem_share_services; /* used by 2 fn(s), first 0x004bdf70 */
 extern undefined4 g_dwAnimplay_services; /* used by 5 fn(s), first 0x004bd500 */
-extern undefined DAT_008d1208; /* used by 1 fn(s), first 0x004bd570 */
 extern undefined2 DAT_008d120c; /* used by 1 fn(s), first 0x004bd570 */
 extern undefined2 DAT_008d120e; /* used by 1 fn(s), first 0x004bd570 */
 extern undefined2 DAT_008d1210; /* used by 1 fn(s), first 0x004bd570 */
@@ -2748,6 +2740,7 @@ extern undefined4 in_stack_fffffed8; /* used by 1 fn(s), first 0x004917e0 */
 extern undefined4 in_stack_ffffff24; /* used by 1 fn(s), first 0x004939f0 */
 extern undefined4 in_stack_ffffff28; /* used by 1 fn(s), first 0x004939f0 */
 extern Actor * in_stack_ffffff2c; /* used by 1 fn(s), first 0x004939f0 */
+extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x004b76a0 */
 extern undefined4 in_stack_ffffffc8; /* used by 1 fn(s), first 0x00492510 */
 extern undefined4 in_stack_ffffffcc; /* used by 1 fn(s), first 0x00492510 */
 extern undefined4 in_stack_ffffffd0; /* used by 1 fn(s), first 0x00492510 */
@@ -2895,8 +2888,8 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_008d0eb4 (*(undefined4 *)&DAT_008d0eb4) /* same address as DAT_008d0eb4, other width */
 #define _DAT_008d0eb8 (*(undefined4 *)&DAT_008d0eb8) /* same address as DAT_008d0eb8, other width */
 #define _g_bMovieFlags (*(undefined *)&g_bMovieFlags) /* same address as g_bMovieFlags, other width */
-#define _g_dwGrimmem_share_config (*(undefined4 *)&g_dwGrimmem_share_config) /* same address as g_dwGrimmem_share_config, other width */
-#define _g_dwSmushPlay_share_config (*(undefined4 *)&g_dwSmushPlay_share_config) /* same address as g_dwSmushPlay_share_config, other width */
+#define _g_dwGrimmem_share_config (*(uint *)&g_dwGrimmem_share_config) /* same address as g_dwGrimmem_share_config, other width */
+#define _g_dwSmushPlay_share_config (*(uint *)&g_dwSmushPlay_share_config) /* same address as g_dwSmushPlay_share_config, other width */
 #define _g_aFakeBM (*(undefined4 *)&g_aFakeBM) /* same address as g_aFakeBM, other width */
 #define _DAT_008d164c (*(undefined4 *)&DAT_008d164c) /* same address as DAT_008d164c, other width */
 #define _DAT_008d1650 (*(undefined4 *)&DAT_008d1650) /* same address as DAT_008d1650, other width */
@@ -2917,7 +2910,7 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_008d168c (*(undefined4 *)&DAT_008d168c) /* same address as DAT_008d168c, other width */
 #define _DAT_008d16ac (*(undefined4 *)&DAT_008d16ac) /* same address as DAT_008d16ac, other width */
 #define _DAT_008d16b0 (*(uint *)&DAT_008d16b0) /* same address as DAT_008d16b0, other width */
-#define _g_pSmushplay_UserLookup (*(undefined4 *)&g_pSmushplay_UserLookup) /* same address as g_pSmushplay_UserLookup, other width */
+#define _g_pSmushplay_UserLookup (*(uint *)&g_pSmushplay_UserLookup) /* same address as g_pSmushplay_UserLookup, other width */
 #define _DAT_008d16c0 (*(undefined4 *)&DAT_008d16c0) /* same address as DAT_008d16c0, other width */
 #define _DAT_008d6f08 (*(undefined4 *)&DAT_008d6f08) /* same address as DAT_008d6f08, other width */
 #define _DAT_008d6f0c (*(undefined4 *)&DAT_008d6f0c) /* same address as DAT_008d6f0c, other width */
@@ -3163,11 +3156,16 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 /* ---- data the code addressed by number (IMG_ADDR): the span at that address (src/GRIMFANDANGO.EXE/data.c) ---- */
 extern unsigned char s_IsProcessorFeaturePresent_004d8a68[]; /* 0x004d8a68 */
 extern unsigned char s_KERNEL32_004d8a84[]; /* 0x004d8a84 */
+extern unsigned char DAT_004d8d2c[]; /* 0x004d8d2c */
 extern unsigned char DAT_004d8d8c[]; /* 0x004d8d8c */
 extern unsigned char s_GetLastActivePopup_004d94e8[]; /* 0x004d94e8 */
 extern unsigned char s_GetActiveWindow_004d94fc[]; /* 0x004d94fc */
 extern unsigned char s_MessageBoxA_004d950c[]; /* 0x004d950c */
 extern unsigned char DAT_004d9518[]; /* 0x004d9518 */
+extern unsigned char DAT_004da768[]; /* 0x004da768 */
+extern unsigned char DAT_004da7e8[]; /* 0x004da7e8 */
+extern unsigned char DAT_004da868[]; /* 0x004da868 */
+extern unsigned char DAT_004da8e0[]; /* 0x004da8e0 */
 extern unsigned char DAT_004dd414[]; /* 0x004dd414 */
 extern unsigned char s__ShowDebugLog_004dd6a8[]; /* 0x004dd6a8 */
 extern unsigned char s__logPrintf_004dd6b8[]; /* 0x004dd6b8 */
@@ -3272,7 +3270,11 @@ extern unsigned char DAT_008a85f0[]; /* 0x008a85f0 */
 extern unsigned char DAT_008a8778[]; /* 0x008a8778 */
 extern unsigned char DAT_008d086b[]; /* 0x008d086b */
 extern unsigned char DAT_008d0874[]; /* 0x008d0874 */
+extern unsigned char DAT_008d0ca1[]; /* 0x008d0ca1 */
+extern unsigned char DAT_008d0f74[]; /* 0x008d0f74 */
+extern unsigned char DAT_008d0fc8[]; /* 0x008d0fc8 */
 extern unsigned char DAT_008d103f[]; /* 0x008d103f */
+extern unsigned char DAT_008d1208[]; /* 0x008d1208 */
 extern unsigned char DAT_008da5e0[]; /* 0x008da5e0 */
 extern unsigned char DAT_008da5e4[]; /* 0x008da5e4 */
 extern unsigned char DAT_008da5e8[]; /* 0x008da5e8 */

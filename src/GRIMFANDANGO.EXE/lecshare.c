@@ -11,8 +11,8 @@
    GrimFandango (Linux): the LecShare set-up SmushPlay_SysInitialize calls with (0, module list,
    "FILIO=insane_zfilio", ...)); was LecShare_Startup. */
 
-undefined **
-LecShare_Initialize(undefined *param_1,undefined4 *param_2,undefined4 param_3,undefined4 param_4)
+undefined ** __cdecl
+LecShare_Initialize(undefined *param_1,undefined4 *param_2,uint param_3,uint param_4)
 
 {
   undefined4 *puVar1;
@@ -39,24 +39,24 @@ LecShare_Initialize(undefined *param_1,undefined4 *param_2,undefined4 param_3,un
    remaster's GrimFandango (Linux): calls the terminate slot (+4) of every LECMODULE backwards, from
    SmushPlay_SysTerminate); was LecShare_Shutdown. */
 
-undefined4 LecShare_Terminate(void)
+uint __cdecl LecShare_Terminate(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
-  uint *puVar3;
-  uint uVar4;
+  uint *puVar2;
+  uint uVar3;
   
-  puVar3 = &UINT_008d56f0 + UINT_008d56f8 * 3;
-  for (uVar4 = UINT_008d56f8; uVar4 != 0; uVar4 = uVar4 - 1) {
-    if ((*puVar3 != 0) && (iVar1 = Str_ModuleNameLength(*puVar3), iVar1 == 9)) {
-      uVar2 = Str_ModuleNameLength(*puVar3);
-      iVar1 = Str_CompareNoCaseN(s_LECMODULE_004f1224,*puVar3,uVar2);
-      if ((iVar1 == 0) && (*(code **)(puVar3[1] + 4) != (code *)0x0)) {
-        (**(code **)(puVar3[1] + 4))();
+  puVar2 = &UINT_008d56f0 + UINT_008d56f8 * 3;
+  for (uVar3 = UINT_008d56f8; uVar3 != 0; uVar3 = uVar3 - 1) {
+    if (((byte *)*puVar2 != (byte *)0x0) &&
+       (iVar1 = Str_ModuleNameLength((byte *)*puVar2), iVar1 == 9)) {
+      iVar1 = Str_ModuleNameLength((byte *)*puVar2);
+      iVar1 = Str_CompareNoCaseN(s_LECMODULE_004f1224,(char *)*puVar2,iVar1);
+      if ((iVar1 == 0) && (*(code **)(puVar2[1] + 4) != (code *)0x0)) {
+        (**(code **)(puVar2[1] + 4))();
       }
     }
-    puVar3 = puVar3 + -3;
+    puVar2 = puVar2 + -3;
   }
   return 0;
 }
@@ -67,43 +67,42 @@ undefined4 LecShare_Terminate(void)
    calls the startup slot (+8) of every LECMODULE in order, from SmushPlay_SysStartup); was
    LecShare_StartupModules. */
 
-int LecShare_Startup(void)
+int __cdecl LecShare_Startup(void)
 
 {
   uint *puVar1;
   int iVar2;
-  undefined4 uVar3;
-  uint *puVar4;
-  uint uVar5;
+  uint *puVar3;
+  uint uVar4;
   
-  puVar4 = &UINT_008d56fc;
+  puVar3 = &UINT_008d56fc;
   PTR_008d56f4 = (int *)0x0;
-  uVar5 = UINT_008d56f8;
+  uVar4 = UINT_008d56f8;
   if (UINT_008d56f8 == 0) {
     PTR_008d56f4 = (int *)0x0;
     return 0;
   }
   do {
-    uVar5 = uVar5 - 1;
+    uVar4 = uVar4 - 1;
     puVar1 = (uint *)PTR_008d56f4;
-    if ((*puVar4 != 0) &&
-       (iVar2 = Str_ModuleNameLength(*puVar4), puVar1 = (uint *)PTR_008d56f4, iVar2 == 9)) {
-      uVar3 = Str_ModuleNameLength(*puVar4);
-      iVar2 = Str_CompareNoCaseN(s_LECMODULE_004f1224,*puVar4,uVar3);
+    if (((byte *)*puVar3 != (byte *)0x0) &&
+       (iVar2 = Str_ModuleNameLength((byte *)*puVar3), puVar1 = (uint *)PTR_008d56f4, iVar2 == 9)) {
+      iVar2 = Str_ModuleNameLength((byte *)*puVar3);
+      iVar2 = Str_CompareNoCaseN(s_LECMODULE_004f1224,(char *)*puVar3,iVar2);
       puVar1 = (uint *)PTR_008d56f4;
       if ((iVar2 == 0) &&
-         ((puVar1 = puVar4, *(code **)(puVar4[1] + 8) != (code *)0x0 &&
-          (iVar2 = (**(code **)(puVar4[1] + 8))(), puVar1 = puVar4, iVar2 != 0)))) {
+         ((puVar1 = puVar3, *(code **)(puVar3[1] + 8) != (code *)0x0 &&
+          (iVar2 = (**(code **)(puVar3[1] + 8))(), puVar1 = puVar3, iVar2 != 0)))) {
         if (PTR_LecShare_Nop_004f1220 != (undefined *)0x0) {
-          (*(code *)PTR_LecShare_Nop_004f1220)(s_LecShare_Startup__Failed_with_mo_004f1230,*puVar4);
+          (*(code *)PTR_LecShare_Nop_004f1220)(s_LecShare_Startup__Failed_with_mo_004f1230,*puVar3);
         }
         LecShare_Shutdown();
         return iVar2;
       }
     }
     PTR_008d56f4 = (int *)puVar1;
-    puVar4 = puVar4 + 3;
-    if (uVar5 == 0) {
+    puVar3 = puVar3 + 3;
+    if (uVar4 == 0) {
       return 0;
     }
   } while( true );
@@ -114,30 +113,30 @@ int LecShare_Startup(void)
    (+0xc) of the started LECMODULEs backwards, from SmushPlay_SysShutdown); was
    LecShare_UnwindStartup. */
 
-undefined4 LecShare_Shutdown(void)
+uint __cdecl LecShare_Shutdown(void)
 
 {
   int *piVar1;
   int iVar2;
-  undefined4 uVar3;
-  int *piVar4;
-  int iVar5;
+  int *piVar3;
+  int iVar4;
   
   if (PTR_008d56f4 == (int *)0x0) {
     return 1;
   }
   piVar1 = PTR_008d56f4 + 3;
-  piVar4 = PTR_008d56f4;
-  for (iVar5 = (int)((int *)((char *)PTR_008d56f4 - ((unsigned)(uintptr_t)&UINT_008d56f0))) / 0xc; PTR_008d56f4 = piVar1, iVar5 != 0;
-      iVar5 = iVar5 + -1) {
-    if ((*piVar4 != 0) && (iVar2 = Str_ModuleNameLength(*piVar4), iVar2 == 9)) {
-      uVar3 = Str_ModuleNameLength(*piVar4);
-      iVar2 = Str_CompareNoCaseN(s_LECMODULE_004f1224,*piVar4,uVar3);
-      if ((iVar2 == 0) && (*(code **)(piVar4[1] + 0xc) != (code *)0x0)) {
-        (**(code **)(piVar4[1] + 0xc))();
+  piVar3 = PTR_008d56f4;
+  for (iVar4 = (int)((int *)((char *)PTR_008d56f4 - ((unsigned)(uintptr_t)&UINT_008d56f0))) / 0xc; PTR_008d56f4 = piVar1, iVar4 != 0;
+      iVar4 = iVar4 + -1) {
+    if (((byte *)*piVar3 != (byte *)0x0) &&
+       (iVar2 = Str_ModuleNameLength((byte *)*piVar3), iVar2 == 9)) {
+      iVar2 = Str_ModuleNameLength((byte *)*piVar3);
+      iVar2 = Str_CompareNoCaseN(s_LECMODULE_004f1224,(char *)*piVar3,iVar2);
+      if ((iVar2 == 0) && (*(code **)(piVar3[1] + 0xc) != (code *)0x0)) {
+        (**(code **)(piVar3[1] + 0xc))();
       }
     }
-    piVar4 = piVar4 + -3;
+    piVar3 = piVar3 + -3;
     piVar1 = PTR_008d56f4;
   }
   return 0;
@@ -146,7 +145,7 @@ undefined4 LecShare_Shutdown(void)
 /* ---- 0x004c1590  LecShare_Reset ---- */
 /* Zeroes the 0x605-dword registry and stores the application name and version */
 
-void LecShare_Reset(uint param_1,uint param_2)
+void __cdecl LecShare_Reset(uint param_1,uint param_2)
 
 {
   int iVar1;
@@ -178,7 +177,7 @@ int __cdecl LecShare_Publish(char *name,void *vtable)
   uint uVar5;
   
   uVar5 = UINT_008d56f8;
-  Str_StripNonPrintable(name);
+  Str_StripNonPrintable((byte *)name);
   uVar3 = UINT_008d56f8;
   puVar4 = &UINT_008d56f0 + uVar5 * 3;
   while (uVar5 != 0) {
@@ -208,7 +207,7 @@ int __cdecl LecShare_Publish(char *name,void *vtable)
    (g_pLecShareServices); the original is Unpublish (the bridge takes no bare one-word name; as
    LecShare_Subscribe)); was LecShare_Unregister. */
 
-uint LecShare_Unpublish(undefined4 param_1)
+uint __cdecl LecShare_Unpublish(uint param_1)
 
 {
   int iVar1;
@@ -216,15 +215,15 @@ uint LecShare_Unpublish(undefined4 param_1)
   uint uVar3;
   
   uVar3 = UINT_008d56f8;
-  Str_StripNonPrintable(param_1);
+  Str_StripNonPrintable((byte *)param_1);
   puVar2 = &UINT_008d56f0 + uVar3 * 3;
   if (uVar3 == 0) {
     return 1;
   }
   do {
     uVar3 = uVar3 - 1;
-    if (*puVar2 != 0) {
-      iVar1 = Str_CompareNoCase(*puVar2,param_1);
+    if ((char *)*puVar2 != (char *)0x0) {
+      iVar1 = Str_CompareNoCase((char *)*puVar2,(char *)param_1);
       if (iVar1 == 0) {
         uVar3 = puVar2[2];
         *puVar2 = 0;
@@ -252,112 +251,112 @@ void * __cdecl LecShare_Subscribe(char *name,char *pattern)
   char cVar1;
   byte bVar2;
   uint uVar3;
-  int iVar4;
-  uint *puVar5;
-  uint uVar6;
-  byte *pbVar7;
+  uint *puVar4;
+  int iVar5;
+  byte *pbVar6;
+  char *pcVar7;
   char *pcVar8;
-  char *pcVar9;
-  uint *puVar10;
-  byte *pbVar11;
+  uint *puVar9;
+  byte *pbVar10;
+  uint uVar11;
   #define local_64 (*(uint (*)[25])(_frame + (0x80 - 0x64)))
   
-  pbVar7 = (byte *)0x0;
+  pbVar6 = (byte *)0x0;
   if (g_dwPrivateData != 0) {
     if (UINT_008d56f0 != 0) {
-      pbVar7 = FindMatch(name,(char *)UINT_008d56f0);
+      pbVar6 = FindMatch(name,(char *)UINT_008d56f0);
     }
-    if (pbVar7 == (byte *)0x0) {
+    if (pbVar6 == (byte *)0x0) {
       if (pattern != (char *)0x0) {
-        pbVar7 = FindMatch(name,pattern);
+        pbVar6 = FindMatch(name,pattern);
       }
-      if ((pbVar7 == (byte *)0x0) && (UINT_008d56ec != 0)) {
-        pbVar7 = FindMatch(name,(char *)UINT_008d56ec);
+      if ((pbVar6 == (byte *)0x0) && (UINT_008d56ec != 0)) {
+        pbVar6 = FindMatch(name,(char *)UINT_008d56ec);
       }
     }
-    uVar3 = Str_ModuleNameLength(name);
+    uVar3 = Str_ModuleNameLength((byte *)name);
     strncpy(local_64,(uint *)name,uVar3);
     *(undefined1 *)((int)local_64 + uVar3) = 0;
-    if (pbVar7 == (byte *)0x0) {
-      iVar4 = GetCatalogCount(local_64);
-      if (iVar4 == 0) {
+    if (pbVar6 == (byte *)0x0) {
+      uVar3 = GetCatalogCount((char *)local_64);
+      if (uVar3 == 0) {
         return (void *)0x0;
       }
-      uVar3 = 99;
-      puVar5 = (uint *)GetCatalogEntry(local_64,iVar4 + -1);
-      strncpy(local_64,puVar5,uVar3);
+      uVar11 = 99;
+      puVar4 = (uint *)GetCatalogEntry((char *)local_64,uVar3 - 1);
+      strncpy(local_64,puVar4,uVar11);
     }
     else {
       uVar3 = 0xffffffff;
-      pcVar8 = "=";
+      pcVar7 = "=";
       do {
-        pcVar9 = pcVar8;
+        pcVar8 = pcVar7;
         if (uVar3 == 0) break;
         uVar3 = uVar3 - 1;
-        pcVar9 = pcVar8 + 1;
-        cVar1 = *pcVar8;
-        pcVar8 = pcVar9;
+        pcVar8 = pcVar7 + 1;
+        cVar1 = *pcVar7;
+        pcVar7 = pcVar8;
       } while (cVar1 != '\0');
       uVar3 = ~uVar3;
-      iVar4 = -1;
-      puVar5 = local_64;
+      iVar5 = -1;
+      puVar4 = local_64;
       do {
-        puVar10 = puVar5;
-        if (iVar4 == 0) break;
-        iVar4 = iVar4 + -1;
-        puVar10 = (uint *)((int)puVar5 + 1);
-        uVar6 = *puVar5;
-        puVar5 = puVar10;
-      } while ((char)uVar6 != '\0');
-      pcVar8 = pcVar9 + -uVar3;
-      pcVar9 = (char *)((int)puVar10 + -1);
-      for (uVar6 = uVar3 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-        *(undefined4 *)pcVar9 = *(undefined4 *)pcVar8;
+        puVar9 = puVar4;
+        if (iVar5 == 0) break;
+        iVar5 = iVar5 + -1;
+        puVar9 = (uint *)((int)puVar4 + 1);
+        uVar11 = *puVar4;
+        puVar4 = puVar9;
+      } while ((char)uVar11 != '\0');
+      pcVar7 = pcVar8 + -uVar3;
+      pcVar8 = (char *)((int)puVar9 + -1);
+      for (uVar11 = uVar3 >> 2; uVar11 != 0; uVar11 = uVar11 - 1) {
+        *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
+        pcVar7 = pcVar7 + 4;
         pcVar8 = pcVar8 + 4;
-        pcVar9 = pcVar9 + 4;
       }
       for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-        *pcVar9 = *pcVar8;
+        *pcVar8 = *pcVar7;
+        pcVar7 = pcVar7 + 1;
         pcVar8 = pcVar8 + 1;
-        pcVar9 = pcVar9 + 1;
       }
       uVar3 = 0xffffffff;
       do {
-        pbVar11 = pbVar7;
+        pbVar10 = pbVar6;
         if (uVar3 == 0) break;
         uVar3 = uVar3 - 1;
-        pbVar11 = pbVar7 + 1;
-        bVar2 = *pbVar7;
-        pbVar7 = pbVar11;
+        pbVar10 = pbVar6 + 1;
+        bVar2 = *pbVar6;
+        pbVar6 = pbVar10;
       } while (bVar2 != 0);
       uVar3 = ~uVar3;
-      iVar4 = -1;
-      puVar5 = local_64;
+      iVar5 = -1;
+      puVar4 = local_64;
       do {
-        puVar10 = puVar5;
-        if (iVar4 == 0) break;
-        iVar4 = iVar4 + -1;
-        puVar10 = (uint *)((int)puVar5 + 1);
-        uVar6 = *puVar5;
-        puVar5 = puVar10;
-      } while ((char)uVar6 != '\0');
-      pbVar7 = pbVar11 + -uVar3;
-      pbVar11 = (byte *)((int)puVar10 + -1);
-      for (uVar6 = uVar3 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-        *(undefined4 *)pbVar11 = *(undefined4 *)pbVar7;
-        pbVar7 = pbVar7 + 4;
-        pbVar11 = pbVar11 + 4;
+        puVar9 = puVar4;
+        if (iVar5 == 0) break;
+        iVar5 = iVar5 + -1;
+        puVar9 = (uint *)((int)puVar4 + 1);
+        uVar11 = *puVar4;
+        puVar4 = puVar9;
+      } while ((char)uVar11 != '\0');
+      pbVar6 = pbVar10 + -uVar3;
+      pbVar10 = (byte *)((int)puVar9 + -1);
+      for (uVar11 = uVar3 >> 2; uVar11 != 0; uVar11 = uVar11 - 1) {
+        *(undefined4 *)pbVar10 = *(undefined4 *)pbVar6;
+        pbVar6 = pbVar6 + 4;
+        pbVar10 = pbVar10 + 4;
       }
       for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-        *pbVar11 = *pbVar7;
-        pbVar7 = pbVar7 + 1;
-        pbVar11 = pbVar11 + 1;
+        *pbVar10 = *pbVar6;
+        pbVar6 = pbVar6 + 1;
+        pbVar10 = pbVar10 + 1;
       }
     }
-    iVar4 = LecShare_FindEntry(local_64);
-    if (iVar4 != 0) {
-      *(int *)(iVar4 + 8) = *(int *)(iVar4 + 8) + 1;
-      return *(void **)(iVar4 + 4);
+    puVar4 = LecShare_FindEntry((uint)local_64);
+    if (puVar4 != (uint *)0x0) {
+      puVar4[2] = puVar4[2] + 1;
+      return (void *)puVar4[1];
     }
   }
   return (void *)0x0;
@@ -373,7 +372,7 @@ void * __cdecl LecShare_Subscribe(char *name,char *pattern)
    original is Unsubscribe (the bridge takes no bare one-word name; as LecShare_Subscribe)); was
    LecShare_Release. */
 
-undefined4 LecShare_Unsubscribe(uint param_1)
+uint __cdecl LecShare_Unsubscribe(uint param_1)
 
 {
   uint *puVar1;
@@ -400,7 +399,7 @@ undefined4 LecShare_Unsubscribe(uint param_1)
    remaster's GrimFandango (Linux): strings: "LecShare:BatchSubscribe Couldn't subscribe to %s
    interface.); was LecShare_BatchSubscribe. */
 
-undefined4 BatchSubscribe(int *param_1,char *param_2)
+uint __cdecl BatchSubscribe(int *param_1,char *param_2)
 
 {
   int *piVar1;
@@ -444,18 +443,18 @@ undefined4 BatchSubscribe(int *param_1,char *param_2)
 /* Original name GetCatalogEntry (the remaster's GrimFandango (Linux): aligned call in Subscribe);
    was LecShare_Subscribe. */
 
-uint GetCatalogEntry(uint *param_1,uint param_2)
+uint __cdecl GetCatalogEntry(char *param_1,uint param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  undefined4 uVar2;
+  char cVar1;
+  int iVar2;
   uint uVar3;
   uint uVar4;
   uint uVar5;
   uint *puVar6;
   uint uVar7;
-  uint *puVar8;
+  char *pcVar8;
   bool bVar9;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -474,12 +473,12 @@ LAB_004c1a7f:
     uVar5 = param_2;
   }
   else {
-    if (param_1 == (uint *)0x0) {
+    if (param_1 == (char *)0x0) {
       if (g_bGetCatalogEntry_pLastType != '\0') goto LAB_004c1a7f;
     }
     else {
-      iVar1 = Str_CompareNoCase(param_1,&g_bGetCatalogEntry_pLastType);
-      if (iVar1 != 0) goto LAB_004c1a7f;
+      iVar2 = Str_CompareNoCase(param_1,&g_bGetCatalogEntry_pLastType);
+      if (iVar2 != 0) goto LAB_004c1a7f;
     }
     if (param_2 == UINT_008d6efc) {
       return *(uint *)UINT_008d6f00;
@@ -498,11 +497,11 @@ LAB_004c1a7f:
     }
   }
   UINT_008d6efc = param_2;
-  if (param_1 == (uint *)0x0) {
+  if (param_1 == (char *)0x0) {
     g_bGetCatalogEntry_pLastType = '\0';
   }
   else {
-    strncpy((uint *)&g_bGetCatalogEntry_pLastType,param_1,99);
+    strncpy((uint *)&g_bGetCatalogEntry_pLastType,(uint *)param_1,99);
     DAT_008d36e3 = 0;
   }
   if (uVar4 == 0) {
@@ -511,8 +510,8 @@ LAB_004c1a7f:
   }
   do {
     uVar4 = uVar4 - 1;
-    if (*puVar6 != 0) {
-      if (param_1 == (uint *)0x0) {
+    if ((byte *)*puVar6 != (byte *)0x0) {
+      if (param_1 == (char *)0x0) {
 LAB_004c1b0c:
         bVar9 = uVar5 == 0;
         uVar5 = uVar5 - 1;
@@ -522,20 +521,20 @@ LAB_004c1b0c:
         }
       }
       else {
-        iVar1 = Str_ModuleNameLength(*puVar6);
+        iVar2 = Str_ModuleNameLength((byte *)*puVar6);
         uVar3 = 0xffffffff;
-        puVar8 = param_1;
+        pcVar8 = param_1;
         do {
           if (uVar3 == 0) break;
           uVar3 = uVar3 - 1;
-          uVar7 = *puVar8;
-          puVar8 = (uint *)((int)puVar8 + 1);
-        } while ((char)uVar7 != '\0');
+          cVar1 = *pcVar8;
+          pcVar8 = pcVar8 + 1;
+        } while (cVar1 != '\0');
         uVar7 = local_4;
-        if (~uVar3 - 1 == iVar1) {
-          uVar2 = Str_ModuleNameLength(*puVar6);
-          iVar1 = Str_CompareNoCaseN(param_1,*puVar6,uVar2);
-          if (iVar1 == 0) goto LAB_004c1b0c;
+        if (~uVar3 - 1 == iVar2) {
+          iVar2 = Str_ModuleNameLength((byte *)*puVar6);
+          iVar2 = Str_CompareNoCaseN(param_1,(char *)*puVar6,iVar2);
+          if (iVar2 == 0) goto LAB_004c1b0c;
         }
       }
     }
@@ -553,57 +552,56 @@ LAB_004c1b0c:
 /* Original name GetCatalogCount (the remaster's GrimFandango (Linux): aligned call in Subscribe);
    was LecShare_CountMatching. */
 
-uint GetCatalogCount(char *param_1)
+uint __cdecl GetCatalogCount(char *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   int iVar2;
-  undefined4 uVar3;
+  uint uVar3;
   uint uVar4;
-  uint uVar5;
-  uint *puVar6;
-  char *pcVar7;
+  uint *puVar5;
+  char *pcVar6;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
-  puVar6 = &UINT_008d56f0 + UINT_008d56f8 * 3;
-  uVar5 = UINT_008d56f8;
+  puVar5 = &UINT_008d56f0 + UINT_008d56f8 * 3;
+  uVar4 = UINT_008d56f8;
   do {
-    if (uVar5 == 0) {
+    if (uVar4 == 0) {
       return local_4;
     }
-    if (*puVar6 != 0) {
+    if ((byte *)*puVar5 != (byte *)0x0) {
       if (param_1 == (char *)0x0) {
 LAB_004c1bc7:
         local_4 = local_4 + 1;
       }
       else {
-        iVar2 = Str_ModuleNameLength(*puVar6);
-        uVar4 = 0xffffffff;
-        pcVar7 = param_1;
+        iVar2 = Str_ModuleNameLength((byte *)*puVar5);
+        uVar3 = 0xffffffff;
+        pcVar6 = param_1;
         do {
-          if (uVar4 == 0) break;
-          uVar4 = uVar4 - 1;
-          cVar1 = *pcVar7;
-          pcVar7 = pcVar7 + 1;
+          if (uVar3 == 0) break;
+          uVar3 = uVar3 - 1;
+          cVar1 = *pcVar6;
+          pcVar6 = pcVar6 + 1;
         } while (cVar1 != '\0');
-        if (~uVar4 - 1 == iVar2) {
-          uVar3 = Str_ModuleNameLength(*puVar6);
-          iVar2 = Str_CompareNoCaseN(param_1,*puVar6,uVar3);
+        if (~uVar3 - 1 == iVar2) {
+          iVar2 = Str_ModuleNameLength((byte *)*puVar5);
+          iVar2 = Str_CompareNoCaseN(param_1,(char *)*puVar5,iVar2);
           if (iVar2 == 0) goto LAB_004c1bc7;
         }
       }
     }
-    puVar6 = puVar6 + -3;
-    uVar5 = uVar5 - 1;
+    puVar5 = puVar5 + -3;
+    uVar4 = uVar4 - 1;
   } while( true );
 }
 #undef local_4
 
 
 /* ---- 0x004c1be0  LecShare_FindEntry ---- */
-uint * LecShare_FindEntry(undefined4 param_1)
+uint * __cdecl LecShare_FindEntry(uint param_1)
 
 {
   int iVar1;
@@ -617,7 +615,7 @@ uint * LecShare_FindEntry(undefined4 param_1)
   }
   do {
     uVar3 = uVar3 - 1;
-    iVar1 = Str_CompareNoCase(*puVar2,param_1);
+    iVar1 = Str_CompareNoCase((char *)*puVar2,(char *)param_1);
     if (iVar1 == 0) {
       return puVar2;
     }
@@ -627,7 +625,7 @@ uint * LecShare_FindEntry(undefined4 param_1)
 }
 
 /* ---- 0x004c1e50  LecShare_Nop ---- */
-undefined4 LecShare_Nop(void)
+uint __cdecl LecShare_Nop(void)
 
 {
   return 0;

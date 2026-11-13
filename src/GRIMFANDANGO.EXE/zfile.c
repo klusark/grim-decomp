@@ -18,10 +18,10 @@ void __cdecl Zfile_fle_Close(int *z)
 {
   if (*z != 0) {
     if (z[1] == 0) {
-      (*(code *)g_pZf_filio_services[1])(*z);
+      (*(code *)g_pZf_filio_services[1])();
     }
     else {
-      ((code *)gzclose)();
+      gzclose(*z);
     }
   }
   if (z != (int *)0x0) {

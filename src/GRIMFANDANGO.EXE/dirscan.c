@@ -9,17 +9,17 @@
 /* Temp/Fileutil.c: allocates a 0x20c-byte directory scanner. mode 0-2: pattern dir\*.*, mode 3:
    dir\*.ext (leading '.' stripped). */
 
-uint * __cdecl DirScan_Create(uint param_1,int param_2,char *param_3)
+undefined4 * __cdecl DirScan_Create(uint param_1,int param_2,char *param_3)
 
 {
-  uint *puVar1;
+  undefined4 *puVar1;
   int iVar2;
-  uint *puVar3;
+  undefined4 *puVar3;
   
-  puVar1 = (uint *)(*g_pSvcFileutil->pAlloc)
-                             (0x20c,s_C__grimsrc_libs_grimlib_Temp_Fil_004e830c,0x16e);
-  if (puVar1 == (uint *)0x0) {
-    return (uint *)0x0;
+  puVar1 = (undefined4 *)
+           (*g_pSvcFileutil->pAlloc)(0x20c,s_C__grimsrc_libs_grimlib_Temp_Fil_004e830c,0x16e);
+  if (puVar1 == (undefined4 *)0x0) {
+    return (undefined4 *)0x0;
   }
   puVar3 = puVar1;
   for (iVar2 = 0x83; iVar2 != 0; iVar2 = iVar2 + -1) {

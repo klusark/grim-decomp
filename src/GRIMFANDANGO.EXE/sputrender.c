@@ -9,16 +9,16 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl sputRender_Initialize(GrimServices *param_1,uint *param_2)
+uint __cdecl sputRender_Initialize(GrimServices *param_1,undefined4 *param_2)
 
 {
   g_pSputRendHS = param_1;
-  *param_2 = (uint)sputRender_Initialize;
-  param_2[1] = (uint)sputRender_Terminate;
-  param_2[2] = (uint)sputRender_Startup;
-  param_2[3] = (uint)sputRender_Shutdown;
-  param_2[4] = (uint)sputRender_Save;
-  param_2[5] = (uint)sputRender_Restore;
+  *param_2 = sputRender_Initialize;
+  param_2[1] = sputRender_Terminate;
+  param_2[2] = sputRender_Startup;
+  param_2[3] = sputRender_Shutdown;
+  param_2[4] = sputRender_Save;
+  param_2[5] = sputRender_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   sputControl_AddCallback(sputRender_ControlHandler);

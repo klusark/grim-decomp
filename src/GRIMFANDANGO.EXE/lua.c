@@ -6768,7 +6768,8 @@ void __cdecl sputLua_SetSoundPosition(void)
     uVar7 = (uint)lVar9;
   }
   sputRoom_SetSoundPosition
-            (uVar7,(byte **)local_c,local_24 & 0xff,local_28 & 0xff,PUN(uint,(float)local_20[0]),0x3f4ccccd);
+            (uVar7,(undefined **)local_c,local_24 & 0xff,local_28 & 0xff,PUN(uint,(float)local_20[0]),
+             0x3f4ccccd);
   return;
 }
 #undef local_10
@@ -6934,7 +6935,7 @@ void __cdecl sputLua_FileFindDispose(void)
 
 {
   if (g_pFrFileReq != (void *)0x0) {
-    stdFileUtil_DisposeFind(g_pFrFileReq);
+    stdFileUtil_DisposeFind((int)g_pFrFileReq);
     g_pFrFileReq = (void *)0x0;
   }
   return;
@@ -10509,7 +10510,7 @@ void __cdecl Lua_TextFileGetLineCount(void)
   int iVar2;
   int iVar3;
   uint uVar4;
-  uint *puVar5;
+  undefined4 *puVar5;
   #define local_21c (*(uint *)(_frame + (0x230 - 0x21c)))
   #define local_208 (*(uint *)(_frame + (0x230 - 0x208)))
   #define local_204 (*(uint *)(_frame + (0x230 - 0x204)))
@@ -10523,10 +10524,10 @@ void __cdecl Lua_TextFileGetLineCount(void)
     return;
   }
   uVar4 = lua_getstring(iVar2);
-  puVar5 = (uint *)fopen(uVar4,((unsigned)(uintptr_t)&DAT_004ec5bc));
-  if (puVar5 != (uint *)0x0) {
+  puVar5 = (undefined4 *)fopen(uVar4,((unsigned)(uintptr_t)&DAT_004ec5bc));
+  if (puVar5 != (undefined4 *)0x0) {
     iVar2 = lua_createtable();
-    bVar1 = (byte)puVar5[3];
+    bVar1 = *(byte *)(puVar5 + 3);
     while ((bVar1 & 0x10) == 0) {
       lua_pushobject(iVar2);
       lua_pushnumber((float)(int)local_208);
@@ -10535,7 +10536,7 @@ void __cdecl Lua_TextFileGetLineCount(void)
       lua_settable();
       fgets(local_200,0x200,puVar5);
       local_208 = local_208 + 1;
-      bVar1 = (byte)puVar5[3];
+      bVar1 = *(byte *)(puVar5 + 3);
     }
     fclose((int)puVar5);
     lua_pushobject(iVar2);
@@ -10565,7 +10566,7 @@ void __cdecl Lua_TextFileGetLine(void)
   int iVar2;
   int iVar3;
   uint uVar4;
-  uint *puVar5;
+  undefined4 *puVar5;
   longlong lVar6;
   undefined *puVar7;
   #define local_200 (*(char (*)[512])(_frame + (0x210 - 0x200)))
@@ -10578,8 +10579,8 @@ void __cdecl Lua_TextFileGetLine(void)
     if (iVar3 == 0) {
       puVar7 = &DAT_004ec5bc;
       uVar4 = lua_getstring(iVar1);
-      puVar5 = (uint *)fopen(uVar4,(uint)puVar7);
-      if (puVar5 != (uint *)0x0) {
+      puVar5 = (undefined4 *)fopen(uVar4,(uint)puVar7);
+      if (puVar5 != (undefined4 *)0x0) {
         lVar6 = (longlong)lua_getnumber(iVar2);
         fseek((uint)puVar5,(uint)lVar6,0);
         local_200[0] = '\0';
@@ -10997,7 +10998,7 @@ void __cdecl sputLua_GetSaveGameData(void)
   int iVar1;
   int iVar2;
   char *name;
-  void *pvVar3;
+  int *piVar3;
   char *mode;
   #define local_90 (*(uint *)(_frame + (0xa0 - 0x90)))
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
@@ -11011,13 +11012,13 @@ void __cdecl sputLua_GetSaveGameData(void)
   if (iVar2 != 0) {
     mode = &DAT_004ddb18;
     name = (char *)lua_getstring(iVar1);
-    pvVar3 = SaveFile_Open(name,mode);
-    if (pvVar3 != (void *)0x0) {
+    piVar3 = SaveFile_Open(name,mode);
+    if (piVar3 != (int *)0x0) {
       iVar1 = lua_createtable();
-      gzread(pvVar3,&local_8c,4);
+      gzread(piVar3,(int)&local_8c,4);
       for (; 0 < (int)local_8c; local_8c = local_8c + (-4 - local_88)) {
-        gzread(pvVar3,&local_88,4);
-        gzread(pvVar3,local_80,local_88);
+        gzread(piVar3,(int)&local_88,4);
+        gzread(piVar3,(int)local_80,local_88);
         lua_pushobject(iVar1);
         local_84 = PUN(uint,(float)(float)(int)local_90);
         local_90 = local_90 + 1;
@@ -11026,7 +11027,7 @@ void __cdecl sputLua_GetSaveGameData(void)
         lua_settable();
       }
       lua_pushobject(iVar1);
-      gzclose(pvVar3);
+      gzclose((int)piVar3);
     }
   }
   return;
@@ -11325,7 +11326,7 @@ void __cdecl sputLua_SetWalkSystemFadeTime(void)
 /* Debug light manager dialog (Lua LightMgrStartup). Creates the dialog, a keyboard hook and a
    helper actor wearing x_spot.cos */
 
-void Lua_LightMgrStartup(void)
+void __cdecl Lua_LightMgrStartup(void)
 
 {
   uint uVar1;
@@ -11373,7 +11374,7 @@ void Lua_LightMgrStartup(void)
 /* ---- 0x004be260  Lua_LightMgrSetChange ---- */
 /* Lua opcode: LightMgrSetChange */
 
-void Lua_LightMgrSetChange(void)
+void __cdecl Lua_LightMgrSetChange(void)
 
 {
   Actor *actor;
@@ -11385,7 +11386,7 @@ void Lua_LightMgrSetChange(void)
       sputRoom_AddActor(actor,(char *)g_pLightEdMarkerActor);
     }
     LightMgr_Refresh();
-    LightMgr_UpdateDialog(g_hLightEdDialog);
+    LightMgr_UpdateDialog((uint)g_hLightEdDialog);
   }
   return;
 }
@@ -11393,7 +11394,7 @@ void Lua_LightMgrSetChange(void)
 /* ---- 0x004be2a0  Lua_LightMgrShutdown ---- */
 /* Lua opcode: LightMgrShutdown */
 
-void Lua_LightMgrShutdown(void)
+void __cdecl Lua_LightMgrShutdown(void)
 
 {
   if (g_hLightEdHook != (void *)0x0) {

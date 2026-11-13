@@ -11,7 +11,7 @@
 /* Creates the DirectSound object, sets the cooperative level on the main window and creates the
    primary buffer */
 
-undefined4 DSound_Init(void)
+uint __cdecl DSound_Init(void)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

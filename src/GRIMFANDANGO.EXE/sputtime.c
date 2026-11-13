@@ -10,14 +10,14 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl sputTime_Initialize(uint param_1,uint *param_2)
+uint __cdecl sputTime_Initialize(uint param_1,undefined4 *param_2)
 
 {
   _g_pSputTimeHS = param_1;
-  *param_2 = (uint)sputTime_Initialize;
-  param_2[1] = (uint)sputTime_Terminate;
-  param_2[2] = (uint)sputTime_Startup;
-  param_2[3] = (uint)sputTime_Shutdown;
+  *param_2 = sputTime_Initialize;
+  param_2[1] = sputTime_Terminate;
+  param_2[2] = sputTime_Startup;
+  param_2[3] = sputTime_Shutdown;
   param_2[4] = 0;
   param_2[5] = 0;
   param_2[6] = 0;

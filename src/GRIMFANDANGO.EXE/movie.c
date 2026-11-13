@@ -57,7 +57,7 @@ uint __cdecl sputSmush_Periodic(void)
   int iVar1;
   uint uVar2;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define aiStack_10 (*(int (*)[4])(_frame + (0x30 - 0x10)))
+  #define auStack_10 (*(uint (*)[4])(_frame + (0x30 - 0x10)))
   
   local_14 = 0;
   uVar2 = 1;
@@ -67,7 +67,7 @@ uint __cdecl sputSmush_Periodic(void)
   if (g_nSmushPaused != 0) {
     return 0;
   }
-  SmushPlay_SetTranslationTable(&g_wSputRender_ColorLookup);
+  SmushPlay_SetTranslationTable(((unsigned)(uintptr_t)&g_wSputRender_ColorLookup));
   timeGetTime();
   if (g_nSmushAbort == 0) {
     iVar1 = SmushPlay_UpdateMovie((int *)&local_14);
@@ -79,15 +79,15 @@ uint __cdecl sputSmush_Periodic(void)
   else {
     g_nSmushPlaying = 0;
     SmushPlay_StopMovie();
-    SmushPlay_GetFrameRect(aiStack_10,0);
-    MarkDirtyRect(aiStack_10,0);
+    SmushPlay_GetFrameRect(auStack_10,(uint *)0x0);
+    MarkDirtyRect((int *)auStack_10,0);
   }
 LAB_00489259:
   SmushPlay_SysConfigureColorLookup(0);
   _DAT_008ca098 = timeGetTime();
   return uVar2;
 }
-#undef aiStack_10
+#undef auStack_10
 #undef local_14
 
 
@@ -120,7 +120,7 @@ uint __cdecl sputSmush_StartMovie(char *param_1,int param_2,uint param_3,uint pa
       SmushPlay_StopMovie();
       g_nSmushPlaying = 0;
     }
-    SmushPlay_SetTranslationTable(&g_wSputRender_ColorLookup);
+    SmushPlay_SetTranslationTable(((unsigned)(uintptr_t)&g_wSputRender_ColorLookup));
     g_nSmushLooping = param_2;
     g_dwSmushX = param_3;
     g_dwSmushY = param_4;
@@ -208,7 +208,7 @@ int __cdecl sputSmush_StopVideo(void)
    remaster's GrimFandango (Linux): slot 2 of sputVideoCallBacks (g_pSputVideoCallBacks)); was
    Movie_LockSurface. */
 
-uint __cdecl sputSmush_LockMovieBuffer(uint *param_1,uint *param_2)
+uint __cdecl sputSmush_LockMovieBuffer(undefined4 *param_1,undefined4 *param_2)
 
 {
   if (g_nSputSmushStarted == 0) {
@@ -216,14 +216,14 @@ uint __cdecl sputSmush_LockMovieBuffer(uint *param_1,uint *param_2)
   }
   stdDisplay_VBufferLock(g_pPresentBuf);
   param_1[3] = *(uint *)((int)g_pPresentBuf + 0x24) >> 3;
-  *param_1 = *(uint *)((int)g_pPresentBuf + 0x5c);
-  param_1[2] = *(uint *)((int)g_pPresentBuf + 0x10);
-  param_1[1] = *(uint *)((int)g_pPresentBuf + 0xc);
-  param_1[5] = *(uint *)((int)g_pPresentBuf + 0x18);
+  *param_1 = *(undefined4 *)((int)g_pPresentBuf + 0x5c);
+  param_1[2] = *(undefined4 *)((int)g_pPresentBuf + 0x10);
+  param_1[1] = *(undefined4 *)((int)g_pPresentBuf + 0xc);
+  param_1[5] = *(undefined4 *)((int)g_pPresentBuf + 0x18);
   param_2[1] = 0;
   *param_2 = 0;
-  param_2[3] = *(uint *)((int)g_pPresentBuf + 0x10);
-  param_2[2] = *(uint *)((int)g_pPresentBuf + 0xc);
+  param_2[3] = *(undefined4 *)((int)g_pPresentBuf + 0x10);
+  param_2[2] = *(undefined4 *)((int)g_pPresentBuf + 0xc);
   return 0;
 }
 

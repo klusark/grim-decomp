@@ -78,7 +78,7 @@ void Res_RemoveReference(void *ref)
    Res_ResolveToSerialNumber (the remaster's GrimFandango (Linux): aligned call in
    sputActor_Restore); was ResRef_Release. */
 
-void __cdecl Res_ResolveToSerialNumber(uint *param_1)
+void __cdecl Res_ResolveToSerialNumber(undefined4 *param_1)
 
 {
   void *pvVar1;

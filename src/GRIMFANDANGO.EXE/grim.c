@@ -171,9 +171,9 @@ uint __cdecl Main_Startup(char *param_1)
   stdInitServices((GrimServices *)&g_aHs);
   _DAT_008dddb4 = UINT_008dddac;
   stdStartup((GrimServices *)&g_aHs);
-  PolyglotInitialize((GrimServices *)&g_aHs,(uint *)&g_aPolyglotServices);
+  PolyglotInitialize((GrimServices *)&g_aHs,(undefined4 *)&g_aPolyglotServices);
   (*(code *)UINT_008ddd88)();
-  PolyglotConfigure((byte *)s_grim_tab_004dd238);
+  PolyglotConfigure(s_grim_tab_004dd238);
   Grim_OpenRegistry();
   Grim_DecodeRegKeyName((char *)&local_80);
   wuRegistry_GetStr((char *)&local_80,(char *)abStack_40,0x40,(char *)0x0);

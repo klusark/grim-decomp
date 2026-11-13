@@ -441,7 +441,7 @@ void __cdecl grimlib_Display(void)
 /* ---- 0x00482cf0  Engine_RegisterSubsystems ---- */
 /* Walks the {fn,name} subsystem table and calls each init, stopping at the first failure */
 
-uint __cdecl Engine_RegisterSubsystems(uint param_1,uint *param_2,int param_3,int param_4)
+uint __cdecl Engine_RegisterSubsystems(uint param_1,undefined4 *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -834,9 +834,9 @@ void __cdecl Engine_LoadGame(void)
     g_pShadowMaterial = (void *)0x0;
     Resource_SetNoPurge(1);
     SaveGame_Read(&local_18,4);
-    gzseek(UINT_008a8770,local_18,1);
+    gzseek((undefined4 *)UINT_008a8770,local_18,1);
     SaveGame_Read(&local_14,4);
-    gzseek(UINT_008a8770,local_14,1);
+    gzseek((undefined4 *)UINT_008a8770,local_14,1);
     Render_DrawProgressBar(0.2);
     Cos_Restore(SaveGame_Read);
     Render_DrawProgressBar(0.3);

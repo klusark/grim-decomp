@@ -91,7 +91,7 @@ void __cdecl stdPlatform_FreeHandle(uint param_1)
 void __cdecl stdPlatform_ReallocHandle(uint param_1,uint param_2)
 
 {
-  realloc((uint *)param_1,param_2);
+  realloc((undefined4 *)param_1,param_2);
   return;
 }
 

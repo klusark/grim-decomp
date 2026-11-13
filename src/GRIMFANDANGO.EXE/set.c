@@ -699,19 +699,19 @@ int __cdecl sputRoom_Restore(void *readFn)
    (Linux): same body (alloc the set record, LoadRoomEntry, look the name up in the set list, Puck
    validate, free on failure); sputResource_SetHandler's call); was sputResource_SetHandler. */
 
-uint * __cdecl sputRoom_LoadRoom(char *param_1)
+undefined4 * __cdecl sputRoom_LoadRoom(char *param_1)
 
 {
   int *piVar1;
   ActorExtra *pAVar2;
-  uint *puVar3;
+  undefined4 *puVar3;
   void *pvVar4;
   int iVar5;
-  uint *puVar6;
+  undefined4 *puVar6;
   
-  puVar3 = (uint *)(*g_pSputRoomHS->pAlloc)
-                             (0x1b08,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x306);
-  if (puVar3 != (uint *)0x0) {
+  puVar3 = (undefined4 *)
+           (*g_pSputRoomHS->pAlloc)(0x1b08,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x306);
+  if (puVar3 != (undefined4 *)0x0) {
     puVar6 = puVar3;
     for (iVar5 = 0x6c2; iVar5 != 0; iVar5 = iVar5 + -1) {
       *puVar6 = 0;
@@ -724,7 +724,7 @@ uint * __cdecl sputRoom_LoadRoom(char *param_1)
       if (pvVar4 == (void *)0x0) {
         pvVar4 = Set_NormalizeName(param_1);
       }
-      puVar3[0x6af] = (uint)pvVar4;
+      puVar3[0x6af] = pvVar4;
       for (piVar1 = *(int **)((int)pvVar4 + 0x80); piVar1 != (int *)0x0; piVar1 = (int *)piVar1[2])
       {
         pAVar2 = g_pActors[*piVar1].pExtra;
@@ -737,17 +737,17 @@ uint * __cdecl sputRoom_LoadRoom(char *param_1)
     }
   }
   sputRoom_FreeRoom((uint)puVar3);
-  return (uint *)0x0;
+  return (undefined4 *)0x0;
 }
 
 /* ---- 0x004a4a70  Set_InitRecord ---- */
 /* Zeroes a 0x1b08-byte set record and fills the defaults (empty names, size field +0x1af4). */
 
-void __cdecl Set_InitRecord(uint *param_1)
+void __cdecl Set_InitRecord(undefined4 *param_1)
 
 {
   int iVar1;
-  uint *puVar2;
+  undefined4 *puVar2;
   
   puVar2 = param_1;
   for (iVar1 = 0x6c2; iVar1 != 0; iVar1 = iVar1 + -1) {
@@ -927,7 +927,7 @@ int __cdecl sputRoom_LoadResources(void *set)
   int iVar3;
   void *pvVar4;
   int iVar5;
-  uint *puVar6;
+  undefined4 *puVar6;
   uint uVar7;
   uint uVar8;
   int *ref;
@@ -1044,7 +1044,7 @@ LAB_004a51bd:
       if (pvVar4 == (void *)0x0) {
         return 0;
       }
-      puVar6 = (uint *)rdThing_New(0);
+      puVar6 = (undefined4 *)rdThing_New(0);
       ref[-0x1d] = (int)puVar6;
       rdThing_SetCamera(puVar6,ref[-0x1e]);
       rdMatrix_LookAt((float *)(ref + -0x1c),(float *)(ref + -0x28),(float *)(ref + -0x25),

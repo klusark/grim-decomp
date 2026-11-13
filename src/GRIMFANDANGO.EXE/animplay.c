@@ -125,26 +125,26 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
 
 {
   int *piVar1;
-  int iVar2;
+  uint uVar2;
   undefined4 uVar3;
   int iVar4;
   int iVar5;
-  uint uVar6;
+  int iVar6;
   undefined4 uVar7;
   undefined4 unaff_ESI;
   undefined4 unaff_EDI;
   longlong lVar8;
   
   if (*(int *)((int)p + 0x68) == 5) {
-    iVar2 = anm_animator_Render(p,a2,a3,a4,a5,a6,a7,a8,*(undefined4 *)((int)p + 8),a9,a10);
-    *(int *)((int)p + 0x68) = iVar2;
-    if (iVar2 < 0) {
+    uVar2 = anm_animator_Render((int)p,a2,a3,a4,a5,a6,a7,a8,*(uint *)((int)p + 8),a9,a10);
+    *(uint *)((int)p + 0x68) = uVar2;
+    if ((int)uVar2 < 0) {
       *(undefined4 *)((int)p + 0x10) = 1;
-      return iVar2;
+      return uVar2;
     }
   }
   else if (*(int *)((int)p + 0x14) == 0) {
-    iVar2 = 6;
+    uVar2 = 6;
   }
   else {
     uVar3 = (*(code *)g_pAnm_streamer_services[7])(*(undefined4 *)((int)p + 0x60));
@@ -155,53 +155,53 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
     g_dwRenderHandler_totalTime = g_dwRenderHandler_totalTime + *(int *)((int)p + 0x20);
     sou_engine_QueryTime(0);
     lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-    iVar2 = (int)lVar8;
+    iVar4 = (int)lVar8;
     *(int *)((int)p + 0x18) = *(int *)((int)p + 0x18) + -1;
     *(undefined4 *)((int)p + 0x14) = 0;
-    if ((((iVar2 < 1) && (iVar5 = *(int *)((int)p + 0x68), iVar5 != 2)) && (iVar5 != 3)) &&
-       (iVar5 != 4)) {
-      if (iVar2 < 0) {
-        iVar5 = *(int *)((int)p + 0x1c);
-        if (*(int *)((int)p + 0x20) < iVar5) {
-          *(int *)((int)p + 0x20) = iVar5;
+    if ((((iVar4 < 1) && (iVar6 = *(int *)((int)p + 0x68), iVar6 != 2)) && (iVar6 != 3)) &&
+       (iVar6 != 4)) {
+      if (iVar4 < 0) {
+        iVar6 = *(int *)((int)p + 0x1c);
+        if (*(int *)((int)p + 0x20) < iVar6) {
+          *(int *)((int)p + 0x20) = iVar6;
         }
-        if (iVar2 == -1) {
-          iVar4 = (int)(iVar5 + (iVar5 >> 0x1f & 0xfU)) >> 4;
+        if (iVar4 == -1) {
+          iVar5 = (int)(iVar6 + (iVar6 >> 0x1f & 0xfU)) >> 4;
         }
         else {
-          iVar4 = (int)(iVar5 + (iVar5 >> 0x1f & 7U)) >> 3;
+          iVar5 = (int)(iVar6 + (iVar6 >> 0x1f & 7U)) >> 3;
         }
-        *(int *)((int)p + 0x20) = *(int *)((int)p + 0x20) + iVar4;
-        iVar5 = (iVar5 << 2) / 3;
-        if (iVar5 < *(int *)((int)p + 0x20)) {
-          *(int *)((int)p + 0x20) = iVar5;
+        *(int *)((int)p + 0x20) = *(int *)((int)p + 0x20) + iVar5;
+        iVar6 = (iVar6 << 2) / 3;
+        if (iVar6 < *(int *)((int)p + 0x20)) {
+          *(int *)((int)p + 0x20) = iVar6;
         }
       }
     }
     else {
-      iVar5 = *(int *)((int)p + 0x1c);
-      if (iVar5 < *(int *)((int)p + 0x20)) {
-        *(int *)((int)p + 0x20) = iVar5;
+      iVar6 = *(int *)((int)p + 0x1c);
+      if (iVar6 < *(int *)((int)p + 0x20)) {
+        *(int *)((int)p + 0x20) = iVar6;
       }
-      if (iVar2 == 1) {
-        iVar4 = (int)(iVar5 + (iVar5 >> 0x1f & 0xfU)) >> 4;
+      if (iVar4 == 1) {
+        iVar5 = (int)(iVar6 + (iVar6 >> 0x1f & 0xfU)) >> 4;
       }
       else {
-        iVar4 = (int)(iVar5 + (iVar5 >> 0x1f & 7U)) >> 3;
+        iVar5 = (int)(iVar6 + (iVar6 >> 0x1f & 7U)) >> 3;
       }
-      iVar4 = *(int *)((int)p + 0x20) - iVar4;
-      *(int *)((int)p + 0x20) = iVar4;
-      if (iVar4 < 1) {
+      iVar5 = *(int *)((int)p + 0x20) - iVar5;
+      *(int *)((int)p + 0x20) = iVar5;
+      if (iVar5 < 1) {
         *(undefined4 *)((int)p + 0x20) = 1;
       }
-      iVar5 = (int)(iVar5 * 3 + (iVar5 * 3 >> 0x1f & 3U)) >> 2;
-      if (*(int *)((int)p + 0x20) < iVar5) {
-        *(int *)((int)p + 0x20) = iVar5;
+      iVar6 = (int)(iVar6 * 3 + (iVar6 * 3 >> 0x1f & 3U)) >> 2;
+      if (*(int *)((int)p + 0x20) < iVar6) {
+        *(int *)((int)p + 0x20) = iVar6;
       }
     }
     (*(code *)g_pAnimPlay_timer_services[4])(*(undefined4 *)p,*(undefined4 *)((int)p + 0x20));
-    if (iVar2 < 3) {
-      if (iVar2 < 1) {
+    if (iVar4 < 3) {
+      if (iVar4 < 1) {
         *(undefined4 *)((int)p + 100) = 0;
       }
     }
@@ -209,13 +209,13 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
       *(undefined4 *)((int)p + 100) = 1;
     }
     if ((*(int *)((int)p + 100) == 0) || ((*(uint *)((int)p + 8) & 2) != 0)) {
-      uVar6 = *(uint *)((int)p + 8);
+      uVar2 = *(uint *)((int)p + 8);
     }
     else {
-      uVar6 = *(uint *)((int)p + 8) | 0x8000;
+      uVar2 = *(uint *)((int)p + 8) | 0x8000;
     }
-    uVar7 = anm_animator_Render(p,a2,a3,a4,a5,a6,a7,a8,uVar6,a9,a10);
-    *(undefined4 *)((int)p + 0x68) = uVar7;
+    uVar2 = anm_animator_Render((int)p,a2,a3,a4,a5,a6,a7,a8,uVar2,a9,a10);
+    *(uint *)((int)p + 0x68) = uVar2;
     if ((g_pAnm_virtherc_services != (int *)0x0) && ((UINT_008d6f20 & 0xc0000000) != 0)) {
       piVar1 = g_pAnm_virtherc_services + 5;
       uVar7 = (*(code *)g_pAnm_virtherc_services[7])(4,0x20);
@@ -229,16 +229,16 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
                 (s_Sync_Ticks___ld_004f1658,*(undefined4 *)((int)p + 0x18));
       (*(code *)g_pAnm_virtherc_services[3])(s_State___d_004f1640,*(undefined4 *)((int)p + 0x68));
     }
-    iVar2 = *(int *)((int)p + 0x68);
-    if (iVar2 < 0) {
+    uVar2 = *(uint *)((int)p + 0x68);
+    if ((int)uVar2 < 0) {
       *(undefined4 *)((int)p + 0x10) = 1;
     }
-    if (iVar2 == 1) {
+    if (uVar2 == 1) {
       *(undefined4 *)((int)p + 0x6c) = 1;
       return 1;
     }
   }
-  return iVar2;
+  return uVar2;
 }
 #endif
 
@@ -288,7 +288,7 @@ int __cdecl anm_animator_NewAnim(void *p,char *name,uint flags,int a4,int a5,int
   }
   *(undefined4 *)((int)p + 0x38) = 1;
   zlibVersion();
-  FUN_004c3d90(p,a4,a5);
+  FUN_004c3d90((int)p,a4,a5);
   return 0;
 }
 #endif

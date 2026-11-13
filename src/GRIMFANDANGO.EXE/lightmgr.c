@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x004be310  LightMgr_Refresh ---- */
-void LightMgr_Refresh(void)
+void __cdecl LightMgr_Refresh(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -32,7 +32,7 @@ void LightMgr_Refresh(void)
         puVar3[4] = 0;
       }
       else {
-        LightEd_GetLightAngles(*puVar3 + 0x2c,puVar3 + 2);
+        LightEd_GetLightAngles(*puVar3 + 0x2c,(float *)(puVar3 + 2));
         pvVar1 = g_pLightEdSet;
       }
       puVar3 = puVar3 + 5;
@@ -54,7 +54,7 @@ void LightMgr_Refresh(void)
 
 
 /* ---- 0x004beee0  LightMgr_UpdateDialog ---- */
-void LightMgr_UpdateDialog(undefined4 param_1)
+void __cdecl LightMgr_UpdateDialog(uint param_1)
 
 {
   if (g_pLightEdSet != (void *)0x0) {

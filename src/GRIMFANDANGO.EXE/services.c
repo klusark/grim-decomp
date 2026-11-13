@@ -104,7 +104,7 @@ void __cdecl defaultAtExit(uint param_1)
 void * __cdecl Svc_Realloc(void *p,uint size)
 
 {
-  uint *puVar1;
+  undefined4 *puVar1;
   
   puVar1 = realloc(p,size);
   return puVar1;

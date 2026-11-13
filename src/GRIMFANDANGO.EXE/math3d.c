@@ -636,7 +636,7 @@ void __cdecl rdMatrix_BuildTranslate34(float *m,float *pos)
 /* Original name rdMatrix_BuildScale34 (the remaster's GrimFandango (Linux): aligned call in
    rdMatrix_PreScale34); was Matrix_BuildTranslation2. */
 
-void __cdecl rdMatrix_BuildScale34(uint *param_1,uint *param_2)
+void __cdecl rdMatrix_BuildScale34(undefined4 *param_1,undefined4 *param_2)
 
 {
   *param_1 = *param_2;
@@ -1115,7 +1115,7 @@ void __cdecl rdMatrix_PreScale34(float *param_1,uint param_2)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
-  rdMatrix_BuildScale34((uint *)local_30,(uint *)param_2);
+  rdMatrix_BuildScale34(local_30,(undefined4 *)param_2);
   rdMatrix_PreMultiply34(param_1,local_30);
   return;
 }
@@ -1269,7 +1269,7 @@ void __cdecl rdMatrix_TransformPointLst34(float *m,float *in,float *out,int coun
 }
 
 /* ---- 0x00450220  FUN_00450220 ---- */
-uint __cdecl FUN_00450220(uint *param_1)
+uint __cdecl FUN_00450220(undefined4 *param_1)
 
 {
   *param_1 = 0;

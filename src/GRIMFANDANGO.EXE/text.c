@@ -586,7 +586,7 @@ uint __cdecl Text_WrapLines(uint *param_1)
             uVar4 = puVar5[6];
           }
           puVar5[6] = uVar4;
-          Text_CopyRunes((byte *)((int)&UINT_004eca04 + iVar3),(uint *)(pcVar10 + 2),1,
+          Text_CopyRunes((byte *)((int)&UINT_004eca04 + iVar3),(undefined4 *)(pcVar10 + 2),1,
                          (int)&local_43e);
           iVar6 = iVar6 + *(int *)(pcVar10 + 6) * *(int *)(pcVar10 + 10);
         }
@@ -623,11 +623,11 @@ uint __cdecl Text_WrapLines(uint *param_1)
 
 
 /* ---- 0x004aae90  Text_CopyRunes ---- */
-void __cdecl Text_CopyRunes(byte *param_1,uint *param_2,int param_3,int param_4)
+void __cdecl Text_CopyRunes(byte *param_1,undefined4 *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint *puVar1;
+  undefined4 *puVar1;
   uint uVar2;
   int iVar3;
   byte *pbVar4;
@@ -639,7 +639,7 @@ void __cdecl Text_CopyRunes(byte *param_1,uint *param_2,int param_3,int param_4)
   puVar1 = param_2;
   puVar6 = (undefined1 *)*param_2;
   iVar3 = -1;
-  param_2 = (uint *)0x0;
+  param_2 = (undefined4 *)0x0;
   pbVar4 = param_1;
   if (puVar1[2] != 0) {
     do {
@@ -659,10 +659,10 @@ void __cdecl Text_CopyRunes(byte *param_1,uint *param_2,int param_3,int param_4)
           iVar3 = iVar3 - param_3;
           uVar2 = uVar2 + 1;
           puVar5 = puVar6;
-        } while (uVar2 < puVar1[1]);
+        } while (uVar2 < (uint)puVar1[1]);
       }
-      param_2 = (uint *)((int)param_2 + 1);
-    } while (param_2 < (uint *)puVar1[2]);
+      param_2 = (undefined4 *)((int)param_2 + 1);
+    } while (param_2 < (undefined4 *)puVar1[2]);
   }
   return;
 }

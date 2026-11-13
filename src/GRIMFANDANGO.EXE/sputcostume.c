@@ -9,16 +9,16 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-int __cdecl sputCostume_Initialize(GrimServices *param_1,uint *param_2)
+int __cdecl sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2)
 
 {
   int iVar1;
   
   g_pSputCosHS = param_1;
-  *param_2 = (uint)sputCostume_Initialize;
-  param_2[1] = (uint)sputCostume_Terminate;
-  param_2[2] = (uint)sputCostume_Startup;
-  param_2[3] = (uint)sputCostume_Shutdown;
+  *param_2 = sputCostume_Initialize;
+  param_2[1] = sputCostume_Terminate;
+  param_2[2] = sputCostume_Startup;
+  param_2[3] = sputCostume_Shutdown;
   param_2[4] = 0;
   param_2[5] = 0;
   param_2[6] = 0;

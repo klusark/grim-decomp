@@ -26,12 +26,11 @@ undefined * __cdecl grimlib_GameInitialize(GrimServices *param_1,undefined **par
   param_2[6] = (undefined *)0x0;
   param_2[7] = (undefined *)0x0;
   puVar1 = (undefined *)
-           Engine_RegisterSubsystems
-                     ((uint)param_1,(uint *)&PTR_FileUtil_SysInitialize_004e7dc0,((unsigned)(uintptr_t)&DAT_008a85f0),8);
+           Engine_RegisterSubsystems((uint)param_1,&PTR_FileUtil_SysInitialize_004e7dc0,((unsigned)(uintptr_t)&DAT_008a85f0),8);
   if (puVar1 == (undefined *)0x0) {
     puVar1 = (undefined *)
              Engine_RegisterSubsystems
-                       ((uint)param_1,(uint *)&PTR_sputControl_Initialize_004e7e00,((unsigned)(uintptr_t)&DAT_008a8778),6);
+                       ((uint)param_1,&PTR_sputControl_Initialize_004e7e00,((unsigned)(uintptr_t)&DAT_008a8778),6);
   }
   g_dwSputmInitialize = (uint)(puVar1 == (undefined *)0x0);
   return puVar1;
@@ -70,16 +69,15 @@ int __cdecl grimlib_GameStartup(void)
 
 {
   uint uVar1;
-  int iVar2;
-  uint uVar3;
+  uint uVar2;
   
   if (g_dwSputmStartup != 0) {
     return 1;
   }
   uVar1 = Engine_InitSubsystems(((unsigned)(uintptr_t)&DAT_008a85f0),8);
   if (uVar1 == 0) {
-    iVar2 = DSound_Init();
-    if (iVar2 == 0) {
+    uVar1 = DSound_Init();
+    if (uVar1 == 0) {
       return 1;
     }
     uVar1 = stdPlatform_GetPhysicalRam();
@@ -89,9 +87,9 @@ int __cdecl grimlib_GameStartup(void)
     }
     else {
       iMUSE_DeclareBufferSizes(88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,9);
-      uVar3 = stdPlatform_GetPhysicalRam();
+      uVar2 = stdPlatform_GetPhysicalRam();
       uVar1 = g_dwMax_ram;
-      if ((int)(uVar3 - 0x800000) <= (int)g_dwMax_ram) {
+      if ((int)(uVar2 - 0x800000) <= (int)g_dwMax_ram) {
         uVar1 = stdPlatform_GetPhysicalRam();
         uVar1 = uVar1 - 0x800000;
       }

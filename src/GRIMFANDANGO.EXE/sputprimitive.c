@@ -10,16 +10,16 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl sputPrimitive_Initialize(uint param_1,uint *param_2)
+uint __cdecl sputPrimitive_Initialize(uint param_1,undefined4 *param_2)
 
 {
   _g_pSputPrimitiveHS = param_1;
-  *param_2 = (uint)sputPrimitive_Initialize;
-  param_2[1] = (uint)sputPrimitive_Terminate;
-  param_2[2] = (uint)sputPrimitive_Startup;
-  param_2[3] = (uint)sputPrimitive_Shutdown;
-  param_2[4] = (uint)sputPrimitive_Save;
-  param_2[5] = (uint)sputPrimitive_Restore;
+  *param_2 = sputPrimitive_Initialize;
+  param_2[1] = sputPrimitive_Terminate;
+  param_2[2] = sputPrimitive_Startup;
+  param_2[3] = sputPrimitive_Shutdown;
+  param_2[4] = sputPrimitive_Save;
+  param_2[5] = sputPrimitive_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   g_dwSputPrimitiveInitialize = 1;

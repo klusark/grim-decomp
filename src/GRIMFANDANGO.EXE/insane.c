@@ -11,7 +11,7 @@
    tests fSmushPlaySysInitialized and fSmushPlaySysStarted and returns the playing movie's time
    (sputLua_Update's movieTimeMsec)); was Insane_Poll. */
 
-int SmushPlay_GetMovieTime(void)
+int __cdecl SmushPlay_GetMovieTime(void)
 
 {
   int iVar1;
@@ -31,17 +31,17 @@ int SmushPlay_GetMovieTime(void)
    ...), sets fSmushPlaySysInitialized, fills the module interface {Initialize, Terminate, Startup,
    Shutdown}); was Insane_RegisterFilio. */
 
-undefined4 SmushPlay_SysInitialize(uint param_1,undefined4 *param_2)
+uint __cdecl SmushPlay_SysInitialize(uint param_1,undefined4 *param_2)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
   g_dwSmushPlayHS = param_1;
   uVar1 = 1;
   if (g_dwSmushPlaySysInitialized == 0) {
     g_pSmushPlay_share_services =
-         (int *)LecShare_Initialize(0,&g_pShl_modules,s_FILIO_insane_zfilio_004f0ca0,&DAT_004f5a98);
-    if (g_pSmushPlay_share_services == (int *)0x0) {
+         (int *)LecShare_Initialize((undefined *)0x0,&g_pShl_modules,((unsigned)(uintptr_t)&s_FILIO_insane_zfilio_004f0ca0),((unsigned)(uintptr_t)&DAT_004f5a98));
+    if ((undefined **)g_pSmushPlay_share_services == (undefined **)0x0) {
       return 1;
     }
     g_dwSmushPlaySysInitialized = 1;
@@ -69,7 +69,7 @@ undefined4 SmushPlay_SysInitialize(uint param_1,undefined4 *param_2)
    interface SmushPlay_SysInitialize fills; clears fSmushPlaySysInitialized after
    LecShare_Terminate); was SmushPlay_SysShutdown. */
 
-void SmushPlay_SysTerminate(void)
+void __cdecl SmushPlay_SysTerminate(void)
 
 {
   LecShare_Terminate();
@@ -83,18 +83,18 @@ void SmushPlay_SysTerminate(void)
    player. Original name SmushPlay_SysStartup (the remaster's GrimFandango (Linux): strings: '.SNM'
    | '.gz' | '.GZ'); was Insane_Start. */
 
-undefined4 SmushPlay_SysStartup(void)
+uint __cdecl SmushPlay_SysStartup(void)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  uint uVar2;
   
   uVar2 = 1;
   if ((g_dwSmushPlaySysInitialized != 0) && (g_dwSmushPlaySysStarted == 0)) {
-    ((code *)fle_zfilio_config)(1,&DAT_004f0cc4,0);
-    ((code *)fle_zfilio_config)(1,&DAT_004f0cbc,0);
-    ((code *)fle_zfilio_config)(1,&DAT_004f0cb8,0);
-    ((code *)fle_zfilio_config)(1,&DAT_004f0cb4,0);
+    fle_zfilio_config(1,&DAT_004f0cc4,0);
+    fle_zfilio_config(1,&DAT_004f0cbc,0);
+    fle_zfilio_config(1,&DAT_004f0cb8,0);
+    fle_zfilio_config(1,&DAT_004f0cb4,0);
     iVar1 = LecShare_Startup();
     if (iVar1 == 0) {
       iVar1 = (*(code *)g_pSmushPlay_share_services[4])(&g_pSubscription_info,0);
@@ -113,7 +113,7 @@ undefined4 SmushPlay_SysStartup(void)
    slot 3 of the module interface; clears fSmushPlaySysStarted after LecShare_Shutdown
    (share_services +0x14 unsubscribe first)); was Insane_Stop. */
 
-void SmushPlay_SysShutdown(void)
+void __cdecl SmushPlay_SysShutdown(void)
 
 {
   if (g_dwSmushPlaySysStarted != 0) {
@@ -129,7 +129,7 @@ void SmushPlay_SysShutdown(void)
    SmushPlay_SysSetVideoCallbacks (the remaster's GrimFandango (Linux): aligned call in
    sputSmush_Initialize); was Insane_SetOutputParams. */
 
-void SmushPlay_SysSetVideoCallbacks(uint *param_1)
+void __cdecl SmushPlay_SysSetVideoCallbacks(uint *param_1)
 
 {
   int iVar1;
@@ -149,7 +149,7 @@ void SmushPlay_SysSetVideoCallbacks(uint *param_1)
    Original name smushplay_GetInfo (the remaster's GrimFandango (Linux): aligned call in
    SmushPlay_GetMovieLength); was Insane_ReadFrameHeader. */
 
-undefined4 smushplay_GetInfo(int param_1,int param_2)
+uint __cdecl smushplay_GetInfo(int param_1,int param_2)
 
 {
   undefined4 uVar1;
@@ -184,19 +184,21 @@ undefined4 smushplay_GetInfo(int param_1,int param_2)
 /* Validates the frame against the output size and chooses the blit mode bits in g_dwInsaneBlitFlags
     */
 
-undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
+uint __cdecl Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  ushort *puVar2;
-  int iVar3;
+  int iVar2;
+  ushort *puVar3;
   int iVar4;
   int iVar5;
   int iVar6;
   int iVar7;
-  uint uVar8;
-  uint uVar9;
+  undefined4 *puVar8;
+  int iVar9;
+  uint uVar10;
+  uint uVar11;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
@@ -214,42 +216,44 @@ undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
         _g_bMovieFlags = _g_bMovieFlags | 4;
       }
     }
-    iVar7 = ((_g_bMovieFlags & 6) != 0) + 1;
-    iVar5 = ((_g_bMovieFlags & 4) != 0) + 1;
-    iVar6 = iVar5 * UINT_008d11e8;
-    iVar3 = UINT_008d11ec * iVar7;
+    iVar9 = ((_g_bMovieFlags & 6) != 0) + 1;
+    iVar6 = ((_g_bMovieFlags & 4) != 0) + 1;
+    iVar7 = iVar6 * UINT_008d11e8;
+    iVar4 = UINT_008d11ec * iVar9;
     uVar1 = *param_3;
-    uVar9 = UINT_008d11e0;
+    uVar11 = UINT_008d11e0;
     if ((int)UINT_008d11e0 < (int)uVar1) {
-      iVar6 = iVar6 + (UINT_008d11e0 - uVar1);
-      uVar9 = uVar1;
+      iVar7 = iVar7 + (UINT_008d11e0 - uVar1);
+      uVar11 = uVar1;
     }
-    if ((int)(uVar1 + param_3[2]) < (int)(uVar9 + iVar6)) {
-      iVar6 = (uVar1 + param_3[2]) - uVar9;
+    if ((int)(uVar1 + param_3[2]) < (int)(uVar11 + iVar7)) {
+      iVar7 = (uVar1 + param_3[2]) - uVar11;
     }
     uVar1 = param_3[1];
-    uVar8 = UINT_008d11e4;
+    uVar10 = UINT_008d11e4;
     if ((int)UINT_008d11e4 < (int)uVar1) {
-      iVar3 = iVar3 + (UINT_008d11e4 - uVar1);
-      uVar8 = uVar1;
+      iVar4 = iVar4 + (UINT_008d11e4 - uVar1);
+      uVar10 = uVar1;
     }
-    if ((int)(uVar1 + param_3[3]) < (int)(uVar8 + iVar3)) {
-      iVar3 = (uVar1 + param_3[3]) - uVar8;
+    if ((int)(uVar1 + param_3[3]) < (int)(uVar10 + iVar4)) {
+      iVar4 = (uVar1 + param_3[3]) - uVar10;
     }
-    iVar4 = (iVar6 / iVar5) * param_2[3];
-    iVar6 = param_1[5];
-    puVar2 = (ushort *)*param_2;
-    iVar5 = param_1[3] * uVar9 * iVar5 + uVar8 * iVar7 * iVar6 + *param_1;
+    iVar4 = iVar4 / iVar9;
+    iVar2 = param_2[5];
+    iVar5 = (iVar7 / iVar6) * param_2[3];
+    iVar7 = param_1[5];
+    puVar3 = (ushort *)*param_2;
+    puVar8 = (undefined4 *)(param_1[3] * uVar11 * iVar6 + uVar10 * iVar9 * iVar7 + *param_1);
     if ((_g_bMovieFlags & 4) == 0) {
       if ((_g_bMovieFlags & 2) == 0) {
-        Insane_BlitRows16(puVar2,param_2[5],iVar5,iVar6,iVar4,iVar3 / iVar7);
+        Insane_BlitRows16(puVar3,iVar2,(int)puVar8,iVar7,iVar5,iVar4);
       }
       else {
-        ((code *)Insane_BlitRowsDual)(puVar2);
+        Insane_BlitRowsDual((int)puVar3,iVar2,puVar8,iVar7,iVar5,iVar4);
       }
     }
     else {
-      ((code *)Insane_Blit8To16Doubled)(puVar2,param_2[5],iVar5,iVar6,iVar4,iVar3 / iVar7);
+      ((code *)Insane_Blit8To16Doubled)(puVar3,iVar2,puVar8,iVar7,iVar5,iVar4);
     }
   }
   _DAT_008d16ac = 0;
@@ -310,8 +314,8 @@ Insane_Blit8To16Doubled
 /* ---- 0x004bdd50  Insane_BlitRowsDual ---- */
 /* Copies frame rows to two destinations (front and back buffer) */
 
-void Insane_BlitRowsDual(int param_1,int param_2,undefined4 *param_3,int param_4,int param_5,
-                        int param_6)
+void __cdecl
+Insane_BlitRowsDual(int param_1,int param_2,undefined4 *param_3,int param_4,int param_5,int param_6)
 
 {
   undefined4 uVar1;

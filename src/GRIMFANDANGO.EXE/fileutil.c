@@ -9,7 +9,7 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl FileUtil_SysInitialize(GrimServices *param_1,uint *param_2)
+uint __cdecl FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
 
 {
   uint uVar1;
@@ -18,15 +18,15 @@ uint __cdecl FileUtil_SysInitialize(GrimServices *param_1,uint *param_2)
   g_pSvcFileutil = param_1;
   if (g_dwFileUtilSysInitialized == 0) {
     g_dwFileUtilSysInitialized = 1;
-    if (param_2 != (uint *)0x0) {
-      *param_2 = (uint)FileUtil_SysInitialize;
-      param_2[1] = (uint)FileUtil_SysTerminate;
-      param_2[2] = (uint)FileUtil_SysStartup;
-      param_2[3] = (uint)FileUtil_SysShutdown;
-      param_2[4] = (uint)FileUtil_SysSave;
-      param_2[5] = (uint)FileUtil_SysRestore;
-      param_2[6] = (uint)zlibVersion;
-      param_2[7] = (uint)zlibVersion;
+    if (param_2 != (undefined4 *)0x0) {
+      *param_2 = FileUtil_SysInitialize;
+      param_2[1] = FileUtil_SysTerminate;
+      param_2[2] = FileUtil_SysStartup;
+      param_2[3] = FileUtil_SysShutdown;
+      param_2[4] = FileUtil_SysSave;
+      param_2[5] = FileUtil_SysRestore;
+      param_2[6] = zlibVersion;
+      param_2[7] = zlibVersion;
     }
     uVar1 = 0;
   }

@@ -318,7 +318,7 @@ rdColormap_BuildRGB16
    rdColormap_BuildGrayRamp (the remaster's GrimFandango (Linux): same body (name "GREYRAMP.CMP",
    the tint 1.0 / 1.0 / 1.0, the ramp)); was rdColormap_BuildGreyRamp. */
 
-uint __cdecl rdColormap_BuildGrayRamp(uint *param_1)
+uint __cdecl rdColormap_BuildGrayRamp(undefined4 *param_1)
 
 {
   int iVar1;

@@ -34,78 +34,79 @@ void * __cdecl stdLoadImageData(char *name,int a,int b)
   char cVar1;
   uint *puVar2;
   void *pvVar3;
-  uint uVar4;
-  int iVar5;
-  uint uVar6;
-  char *pcVar7;
+  undefined4 *puVar4;
+  uint uVar5;
+  int iVar6;
+  uint uVar7;
   char *pcVar8;
   char *pcVar9;
+  char *pcVar10;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(undefined1 *)(_frame + (0x20 - 0x4)))
   
   puVar2 = (uint *)strrchr(name,'.');
   if (puVar2 == (uint *)0x0) {
-    uVar4 = 0xffffffff;
-    pcVar7 = &DAT_004ddec4;
+    uVar5 = 0xffffffff;
+    pcVar8 = &DAT_004ddec4;
     do {
-      pcVar9 = pcVar7;
-      if (uVar4 == 0) break;
-      uVar4 = uVar4 - 1;
-      pcVar9 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar9;
+      pcVar10 = pcVar8;
+      if (uVar5 == 0) break;
+      uVar5 = uVar5 - 1;
+      pcVar10 = pcVar8 + 1;
+      cVar1 = *pcVar8;
+      pcVar8 = pcVar10;
     } while (cVar1 != '\0');
-    uVar4 = ~uVar4;
-    iVar5 = -1;
-    pcVar7 = name;
+    uVar5 = ~uVar5;
+    iVar6 = -1;
+    pcVar8 = name;
     do {
-      pcVar8 = pcVar7;
-      if (iVar5 == 0) break;
-      iVar5 = iVar5 + -1;
-      pcVar8 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar8;
+      pcVar9 = pcVar8;
+      if (iVar6 == 0) break;
+      iVar6 = iVar6 + -1;
+      pcVar9 = pcVar8 + 1;
+      cVar1 = *pcVar8;
+      pcVar8 = pcVar9;
     } while (cVar1 != '\0');
-    pcVar7 = pcVar9 + -uVar4;
-    pcVar9 = pcVar8 + -1;
-    for (uVar6 = uVar4 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-      *(undefined4 *)pcVar9 = *(undefined4 *)pcVar7;
-      pcVar7 = pcVar7 + 4;
-      pcVar9 = pcVar9 + 4;
+    pcVar8 = pcVar10 + -uVar5;
+    pcVar10 = pcVar9 + -1;
+    for (uVar7 = uVar5 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+      *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+      pcVar8 = pcVar8 + 4;
+      pcVar10 = pcVar10 + 4;
     }
     puVar2 = (uint *)&DAT_004ddec4;
-    for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *pcVar9 = *pcVar7;
-      pcVar7 = pcVar7 + 1;
-      pcVar9 = pcVar9 + 1;
+    for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+      *pcVar10 = *pcVar8;
+      pcVar8 = pcVar8 + 1;
+      pcVar10 = pcVar10 + 1;
     }
   }
   strncpy(&local_8,puVar2,4);
   local_4 = 0;
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004ddec4);
-  if (iVar5 == 0) {
+  iVar6 = _stricmp((byte *)&local_8,&DAT_004ddec4);
+  if (iVar6 == 0) {
     pvVar3 = stdLbm_Load(name,a,b);
     return pvVar3;
   }
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004ddebc);
-  if (iVar5 == 0) {
-    puVar2 = stdPcx_Load((uint)name,a,b);
-    return puVar2;
+  iVar6 = _stricmp((byte *)&local_8,&DAT_004ddebc);
+  if (iVar6 == 0) {
+    puVar4 = stdPcx_Load((uint)name,a,b);
+    return puVar4;
   }
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004ddeb4);
-  if (iVar5 == 0) {
+  iVar6 = _stricmp((byte *)&local_8,&DAT_004ddeb4);
+  if (iVar6 == 0) {
     pvVar3 = stdGif_Load(name,a,b);
     return pvVar3;
   }
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004ddeb0);
-  if ((iVar5 != 0) && (iVar5 = _stricmp((byte *)&local_8,&DAT_004ddea8), iVar5 != 0)) {
-    iVar5 = _stricmp((byte *)&local_8,&DAT_004ddea0);
-    if (iVar5 == 0) {
+  iVar6 = _stricmp((byte *)&local_8,&DAT_004ddeb0);
+  if ((iVar6 != 0) && (iVar6 = _stricmp((byte *)&local_8,&DAT_004ddea8), iVar6 != 0)) {
+    iVar6 = _stricmp((byte *)&local_8,&DAT_004ddea0);
+    if (iVar6 == 0) {
       pvVar3 = (void *)stdPic_Load((uint)name,a,b);
       return pvVar3;
     }
-    iVar5 = _stricmp((byte *)&local_8,&DAT_004dde98);
-    if (iVar5 != 0) {
+    iVar6 = _stricmp((byte *)&local_8,&DAT_004dde98);
+    if (iVar6 != 0) {
       return (void *)0x0;
     }
     pvVar3 = (void *)stdBmp_Load((uint)name,a,b);
@@ -307,7 +308,7 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int param_2,int param_3,in
   #define uStack_b8 (*(undefined4 *)(_frame + (0xf0 - 0xb8)))
   #define uStack_b4 (*(undefined4 *)(_frame + (0xf0 - 0xb4)))
   #define uStack_b0 (*(undefined4 *)(_frame + (0xf0 - 0xb0)))
-  #define auStack_ac (*(uint (*)[24])(_frame + (0xf0 - 0xac)))
+  #define auStack_ac (*(undefined4 (*)[24])(_frame + (0xf0 - 0xac)))
   #define auStack_4c (*(uint (*)[5])(_frame + (0xf0 - 0x4c)))
   #define auStack_38 (*(undefined4 (*)[14])(_frame + (0xf0 - 0x38)))
   
@@ -317,7 +318,7 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int param_2,int param_3,in
     return 0;
   }
   if (iStack_c8 == 0x46) {
-    stdBitmap_NewEntry((uint *)param_2,uStack_bc,0,uStack_c4,uStack_c0,auStack_ac);
+    stdBitmap_NewEntry((undefined4 *)param_2,uStack_bc,0,uStack_c4,uStack_c0,auStack_ac);
     *(undefined4 *)(param_2 + 0x6c) = uStack_b8;
     *(undefined4 *)(param_2 + 0x74) = uStack_b0;
     puVar10 = auStack_4c;
@@ -814,23 +815,23 @@ int __cdecl stdBitmap_VBufferToBitmap(void *bitmap,int format,int flags)
    stdBitmap_Init. */
 
 uint __cdecl
-stdBitmap_NewEntry(uint *param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint *param_6)
+stdBitmap_NewEntry(undefined4 *param_1,uint param_2,uint param_3,uint param_4,uint param_5,
+                  undefined4 *param_6)
 
 {
   undefined4 *puVar1;
   int iVar2;
   uint uVar3;
-  uint *puVar4;
   
-  puVar4 = param_1;
+  puVar1 = param_1;
   for (iVar2 = 0x1f; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar4 = 0;
-    puVar4 = puVar4 + 1;
+    *puVar1 = 0;
+    puVar1 = puVar1 + 1;
   }
   puVar1 = (undefined4 *)
            (*g_pStd_HS->pAlloc)
                      (param_2 * 4,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df570 + 0xb);
-  param_1[0x1e] = (uint)puVar1;
+  param_1[0x1e] = puVar1;
   if (puVar1 == (undefined4 *)0x0) {
     return 0;
   }
@@ -844,11 +845,11 @@ stdBitmap_NewEntry(uint *param_1,uint param_2,uint param_3,uint param_4,uint par
   }
   param_1[9] = param_5;
   param_1[8] = param_4;
-  puVar4 = param_1 + 10;
+  puVar1 = param_1 + 10;
   for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar4 = *param_6;
+    *puVar1 = *param_6;
     param_6 = param_6 + 1;
-    puVar4 = puVar4 + 1;
+    puVar1 = puVar1 + 1;
   }
   param_1[0x19] = param_2;
   param_1[0x18] = param_3;
@@ -916,11 +917,11 @@ void __cdecl stdBitmap_DeCompress(int param_1)
    (the remaster's GrimFandango (Linux): the call on rdroid_curColorEffects in rdOpen, same body
    (ten words cleared, +0x24 = 1.0f)); was stdBitmap_InitHeader. */
 
-void __cdecl stdPalEffects_ResetEffect(uint *param_1)
+void __cdecl stdPalEffects_ResetEffect(undefined4 *param_1)
 
 {
   int iVar1;
-  uint *puVar2;
+  undefined4 *puVar2;
   
   puVar2 = param_1;
   for (iVar1 = 10; iVar1 != 0; iVar1 = iVar1 + -1) {
