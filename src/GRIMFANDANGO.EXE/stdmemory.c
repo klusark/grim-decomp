@@ -10,7 +10,7 @@
 #if 0
 /* Asserts the 0x12345678 guard word stored in front of every stdMemory allocation */
 
-void stdMemory_CheckMagic(int param_1)
+void __cdecl stdMemory_CheckMagic(int param_1)
 
 {
   if (*(int *)(param_1 + -4) != 0x12345678) {
@@ -61,7 +61,7 @@ void __cdecl stdMemory_Free(void *p)
   
   if (p != (void *)0x0) {
     piVar1 = (int *)((int)p + -0x1c);
-    stdMemory_CheckMagic(p);
+    stdMemory_CheckMagic((int)p);
     UINT_00825e78 = UINT_00825e78 - 1;
     g_dwStdMemory_curState = g_dwStdMemory_curState - *(int *)((int)p + -8);
     if (piVar1 == (int *)UINT_00825e84) {
@@ -97,7 +97,7 @@ void * __cdecl stdMemory_Realloc(void *p,uint size,char *file,int line)
     stdMemory_Free(p);
     return (void *)0x0;
   }
-  ((code *)stdMemory_CheckMagic)();
+  stdMemory_CheckMagic((int)p);
   puVar2 = stdMemory_Alloc(size,file,line);
   uVar4 = *(uint *)((int)p + -8);
   if ((int)puVar2[-2] < (int)*(uint *)((int)p + -8)) {

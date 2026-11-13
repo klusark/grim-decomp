@@ -9,16 +9,16 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2)
+uint __cdecl sputRender_Initialize(GrimServices *param_1,uint *param_2)
 
 {
   g_pSputRendHS = param_1;
-  *param_2 = sputRender_Initialize;
-  param_2[1] = sputRender_Terminate;
-  param_2[2] = sputRender_Startup;
-  param_2[3] = sputRender_Shutdown;
-  param_2[4] = sputRender_Save;
-  param_2[5] = sputRender_Restore;
+  *param_2 = (uint)sputRender_Initialize;
+  param_2[1] = (uint)sputRender_Terminate;
+  param_2[2] = (uint)sputRender_Startup;
+  param_2[3] = (uint)sputRender_Shutdown;
+  param_2[4] = (uint)sputRender_Save;
+  param_2[5] = (uint)sputRender_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   sputControl_AddCallback(sputRender_ControlHandler);
@@ -30,7 +30,7 @@ undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2)
 /* Module interface slot 1 (sputRender): called by Engine_ResetSubsystems / when registration fails;
    drops the service table pointer and clears the initialised flag. */
 
-void sputRender_Terminate(void)
+void __cdecl sputRender_Terminate(void)
 
 {
   g_pSputRendHS = (GrimServices *)0x0;
@@ -46,7 +46,7 @@ void sputRender_Terminate(void)
    the cache rects and the pool. Original name sputRender_Startup (the remaster's GrimFandango
    (Linux): aligned call in sputRender_Initialize); was sputRender_Start. */
 
-int sputRender_Startup(void)
+int __cdecl sputRender_Startup(void)
 
 {
   bool bVar1;
@@ -61,9 +61,9 @@ int sputRender_Startup(void)
     UINT_008a9520 = 0;
     UINT_008a9524 = 0;
     UINT_008a9528 = 2;
-    g_pDirtyRectPool = (void **)Memory_AllocatePool(0x24,0x20,8);
+    g_pDirtyRectPool = Memory_AllocatePool(0x24,(void *)0x20,(void *)0x8);
   }
-  return bVar1;
+  return (uint)bVar1;
 }
 
 /* ---- 0x004860d0  sputRender_Shutdown ---- */
@@ -71,7 +71,7 @@ int sputRender_Startup(void)
    releases what _Start created. Original name sputRender_Shutdown (the remaster's GrimFandango
    (Linux): aligned call in sputRender_Initialize); was sputRender_Stop. */
 
-void sputRender_Shutdown(void)
+void __cdecl sputRender_Shutdown(void)
 
 {
   CacheRect_FreeAll();

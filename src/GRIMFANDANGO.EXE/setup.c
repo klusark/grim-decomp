@@ -9,11 +9,12 @@
 /* Draws the three axis lines at the setup's interest point and the camera actor's costume at its
    position */
 
-void Setup_DrawDebugCamera(int param_1)
+void __cdecl Setup_DrawDebugCamera(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *pAVar1;
+  int iVar2;
   #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
@@ -43,9 +44,9 @@ void Setup_DrawDebugCamera(int param_1)
                      UINT_008c97cc & 0xffff,0xffffffff);
   pAVar1 = sputActor_ActorDeref(g_nCamActorIndex);
   if (pAVar1->pCostumes != (CostumeNode *)0x0) {
-    param_1 = param_1 + 0x50;
+    iVar2 = param_1 + 0x50;
     pAVar1 = sputActor_ActorDeref(g_nCamActorIndex);
-    sputCostume_Draw3D(pAVar1->pCostumes,param_1);
+    sputCostume_Draw3D(pAVar1->pCostumes,iVar2);
   }
   return;
 }

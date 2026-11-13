@@ -13,7 +13,7 @@
    via rdCamera_SetFOV); the control callback sputControl_Startup registers (here through
    Controls_DebugKeysHook)); was Debug_CameraFovKeys. */
 
-undefined4 sputControl_StandardHandler(void)
+uint __cdecl sputControl_StandardHandler(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

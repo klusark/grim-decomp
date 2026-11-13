@@ -30,7 +30,7 @@ int __cdecl Res_SysRegisterHandler(int fourcc,void *handler)
       return 2;
     }
   }
-  puVar2 = (uint *)Memory_AllocFixed(g_dwResTypePool);
+  puVar2 = (uint *)Memory_AllocFixed((int *)g_dwResTypePool);
   if (puVar2 == (uint *)0x0) {
     return 3;
   }
@@ -116,7 +116,7 @@ int __cdecl res_DefaultHandler(void *msg)
    GrimFandango (Linux): the 'SYNC' entry of the resource type table (g_ResTypeTable /
    TypesToRegister)); was ResType_LipSyncHandler. */
 
-void * sputResource_LipSyncHandler(int *param_1)
+void * __cdecl sputResource_LipSyncHandler(int *param_1)
 
 {
   int iVar1;
@@ -251,7 +251,7 @@ int __cdecl sputResource_CostumeHandler(void *msg)
    sputResource_ColormapHandler (the remaster's GrimFandango (Linux): the only unmatched caller of
    rdColormap_Free; 2 matched neighbours agree, 0 disagree); was ResType_ColormapHandler. */
 
-void * sputResource_ColormapHandler(int *param_1)
+void * __cdecl sputResource_ColormapHandler(int *param_1)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -336,7 +336,7 @@ void * sputResource_ColormapHandler(int *param_1)
    remaster's GrimFandango (Linux): the 'FONT' entry of the resource type table (g_ResTypeTable /
    TypesToRegister)); was ResType_FontHandler. */
 
-void * sputResource_FontHandler(int *param_1)
+void * __cdecl sputResource_FontHandler(int *param_1)
 
 {
   int *piVar1;
@@ -376,7 +376,7 @@ void * sputResource_FontHandler(int *param_1)
    unmatched caller of rdKeyframe_Load; 2 matched neighbours agree, 0 disagree); was
    ResType_KeyframeHandler. */
 
-void * sputResource_KeyframeHandler(int *param_1)
+void * __cdecl sputResource_KeyframeHandler(int *param_1)
 
 {
   int iVar1;
@@ -429,7 +429,7 @@ void * sputResource_KeyframeHandler(int *param_1)
    sputResource_MaterialHandler (the remaster's GrimFandango (Linux): strings: 'dflt.mat'); was
    ResType_MaterialHandler. */
 
-void * sputResource_MaterialHandler(int *param_1)
+void * __cdecl sputResource_MaterialHandler(int *param_1)
 
 {
   void *material;
@@ -476,7 +476,7 @@ void * sputResource_MaterialHandler(int *param_1)
    GrimFandango (Linux): the 'MODL' entry of the resource type table (g_ResTypeTable /
    TypesToRegister)); was ResType_ModelHandler. */
 
-void * sputResource_ModelHandler(int *param_1)
+void * __cdecl sputResource_ModelHandler(int *param_1)
 
 {
   int iVar1;
@@ -512,7 +512,7 @@ void * sputResource_ModelHandler(int *param_1)
    (Linux): the 'SET ' entry of the resource type table (g_ResTypeTable / TypesToRegister)); was
    ResType_SetHandler. */
 
-void * sputResource_SetHandler(int *param_1)
+void * __cdecl sputResource_SetHandler(int *param_1)
 
 {
   int iVar1;
@@ -547,7 +547,7 @@ void * sputResource_SetHandler(int *param_1)
    remaster's GrimFandango (Linux): the 'ZBUF' entry of the resource type table (g_ResTypeTable /
    TypesToRegister)); was ResType_ZBufferHandler. */
 
-void * sputResource_ZBufferHandler(int *param_1)
+void * __cdecl sputResource_ZBufferHandler(int *param_1)
 
 {
   int iVar1;
@@ -582,7 +582,7 @@ void * sputResource_ZBufferHandler(int *param_1)
    sputResource_MemoryHandler (the remaster's GrimFandango (Linux): the 'MEM ' entry of the resource
    type table (g_ResTypeTable / TypesToRegister)); was ResType_MemoryHandler. */
 
-undefined4 sputResource_MemoryHandler(int *param_1)
+uint __cdecl sputResource_MemoryHandler(int *param_1)
 
 {
   int iVar1;

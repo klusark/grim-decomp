@@ -40,7 +40,7 @@ void __cdecl Main_Service(void)
     if (UINT_004f5a50 != 0) {
       Display_Select(UINT_004dd340,UINT_004dd344,UINT_004dd348);
       g_dwGrimlib_mode = 2;
-      ((code *)sputRender_Dim)(1);
+      sputRender_Dim((ushort *)0x1,2);
       UINT_004f5a50 = 0;
     }
     _g_dwDeadmanCounter = 300;

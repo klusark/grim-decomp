@@ -59,35 +59,36 @@ int * __cdecl ColormapInstancer(int inst,int component,int create)
 int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
-  undefined4 uVar1;
+  char *pcVar1;
   void *data;
   undefined4 *ref;
   char *pcVar2;
   int iVar3;
   undefined4 *puVar4;
-  char *name;
+  undefined4 uVar5;
   
   pcVar2 = param_5;
   if (((param_4 != 0x4c444f4d) && (param_4 != 0x4c444d4d)) && (param_4 != 0x74727073)) {
     return false;
   }
-  name = param_5;
+  pcVar1 = param_5;
   if (param_5 == (char *)0x0) {
     if (g_bColormapPath != '\0') {
-      grimPlat_SetDefaultOpenPath(&g_bColormapPath);
+      grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bColormapPath));
     }
     iVar3 = grimPlat_OpenFileRequest
                       (s_Select_colormap_file_to_add____004ea530,s_Colormap_files____cmp__004ea550);
     if (iVar3 == 0) {
       return false;
     }
-    uVar1 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
-    ((code *)strncpy)(&g_bColormapPath,uVar1);
+    uVar5 = 0x7f;
+    pcVar1 = grimPlat_GetDefaultOpenPath();
+    strncpy(&g_bColormapPath,pcVar1,uVar5);
     DAT_008ca937 = 0;
     param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
-    name = g_szGrimlib_aFilename;
+    pcVar1 = g_szGrimlib_aFilename;
   }
-  data = sputResource_Alloc(0x50414d43,name);
+  data = sputResource_Alloc(0x50414d43,pcVar1);
   if (data != (void *)0x0) {
     ref = (undefined4 *)
           (*g_pSputCosHS->pAlloc)(0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x938);

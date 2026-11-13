@@ -8,7 +8,7 @@
 /* ---- 0x00483610  IMuse_SaveToTemp ---- */
 /* Lua SaveIMuse: writes the sound module's save hook output to grim.tmp */
 
-void IMuse_SaveToTemp(void)
+void __cdecl IMuse_SaveToTemp(void)
 
 {
   UINT_008a8770 = (uint)SaveFile_Open(s_grim_tmp_004e8018,&DAT_004ddd78);
@@ -25,7 +25,7 @@ void IMuse_SaveToTemp(void)
 /* Lua RestoreIMuse: stops all sounds, feeds grim.tmp to the sound module's restore hook, deletes
    the file */
 
-void IMuse_RestoreFromTemp(void)
+void __cdecl IMuse_RestoreFromTemp(void)
 
 {
   UINT_008a8770 = (uint)SaveFile_Open(s_grim_tmp_004e8018,&DAT_004ddb18);

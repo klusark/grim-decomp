@@ -10,23 +10,23 @@
    (Linux): strings: '%s,%d' | 'Resolve parent offset (0 = off)'); was
    ModelComponent_EditParentOffset. */
 
-undefined4 ThingAdjuster(int *param_1,undefined4 param_2)
+undefined4 ThingAdjuster(int *param_1,int param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 uVar2;
+  int iVar2;
   int iVar3;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
   
-  uVar2 = param_2;
+  iVar3 = param_2;
   iVar1 = *param_1;
   local_24 = (uint)s_Resolve_parent_offset__0___off__004ea5e0;
   param_1 = (int *)(uint)(*(int *)(iVar1 + 0x34) != 0);
-  iVar3 = grimPlat_SpinDialog(param_2,&local_24,&param_1,1);
-  if (iVar3 != 0) {
-    iVar3 = strtok(uVar2,&DAT_004ea52c);
+  iVar2 = grimPlat_SpinDialog(param_2,(int)&local_24,(uint *)&param_1,1);
+  if (iVar2 != 0) {
+    iVar3 = strtok(iVar3,&DAT_004ea52c);
     *(int **)(iVar1 + 0x34) = param_1;
     sprintf(local_20,s__s__d_004ea5d8,iVar3,param_1);
     strncpy(iVar3,local_20,0x1f);
@@ -86,7 +86,7 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
     *(int *)((int)pvVar1 + 0x50) = iVar2;
     if (iVar2 == 0) {
       Res_RemoveReference(pvVar1);
-      rdThing_Free(*(undefined4 *)((int)pvVar1 + 0x40));
+      rdThing_Free(*(int *)((int)pvVar1 + 0x40));
       (*g_pSputCosHS->pFree)(pvVar1);
     }
     return (void *)0x0;
@@ -176,14 +176,14 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  char *name;
-  uint uVar1;
+  char *pcVar1;
+  uint uVar2;
   void *data;
-  undefined4 uVar2;
   undefined4 *ref;
   int iVar3;
   char *pcVar4;
   undefined4 *puVar5;
+  undefined4 uVar6;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(undefined1 *)(_frame + (0x40 - 0x20)))
   #define local_1f (*(undefined4 *)(_frame + (0x40 - 0x1f)))
@@ -204,15 +204,16 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
   }
   if (param_5 == (char *)0x0) {
     if (g_bModelPath != '\0') {
-      grimPlat_SetDefaultOpenPath(&g_bModelPath);
+      grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bModelPath));
     }
     iVar3 = grimPlat_OpenFileRequest
                       (s_Select_model_file_to_add____004ea600,s_Model_files____3do__004ea61c);
     if (iVar3 == 0) {
       return false;
     }
-    uVar2 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
-    ((code *)strncpy)(&g_bModelPath,uVar2);
+    uVar6 = 0x7f;
+    pcVar1 = grimPlat_GetDefaultOpenPath();
+    strncpy(&g_bModelPath,pcVar1,uVar6);
     DAT_008caa37 = 0;
     param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
     data = sputResource_Alloc(0x4c444f4d,g_szGrimlib_aFilename);
@@ -220,11 +221,11 @@ int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
   else {
     strncpy(&local_20,param_5,0x1f);
     local_1 = 0;
-    name = (char *)strtok(&local_20,&DAT_004ea52c);
-    uVar1 = strtok(0,&DAT_004ea52c);
-    data = sputResource_Alloc(0x4c444f4d,name);
-    if (uVar1 != 0) {
-      local_24 = (uint)atoi(uVar1);
+    pcVar1 = (char *)strtok(&local_20,&DAT_004ea52c);
+    uVar2 = strtok(0,&DAT_004ea52c);
+    data = sputResource_Alloc(0x4c444f4d,pcVar1);
+    if (uVar2 != 0) {
+      local_24 = (uint)atoi(uVar2);
     }
   }
   if (data == (void *)0x0) {

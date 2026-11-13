@@ -86,7 +86,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
    / Minimum Volume. Original name SoundAdjuster (the remaster's GrimFandango (Linux): strings:
    '%s,%d,%d,%d,%d'); was ImuseSoundComponent_EditKey. */
 
-undefined4 SoundAdjuster(int *param_1,undefined4 param_2)
+undefined4 SoundAdjuster(int *param_1,int param_2)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -115,7 +115,7 @@ undefined4 SoundAdjuster(int *param_1,undefined4 param_2)
   local_3c = (uint)*(char *)(iVar1 + 0x21);
   local_38 = *(uint *)(iVar1 + 0x24);
   local_34 = *(uint *)(iVar1 + 0x28);
-  iVar2 = grimPlat_SpinDialog(param_2,&local_30,&local_40,4);
+  iVar2 = grimPlat_SpinDialog(param_2,(int)&local_30,&local_40,4);
   if ((iVar2 != 0) && ((int)local_34 <= (int)local_40)) {
     iVar2 = strtok(param_2,&DAT_004ea52c);
     if ((int)local_40 < 0) {
@@ -188,12 +188,12 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  undefined4 uVar2;
-  char *pcVar3;
-  int iVar4;
-  undefined1 uVar5;
-  undefined *puVar6;
-  undefined4 *puVar7;
+  char *pcVar2;
+  int iVar3;
+  undefined1 uVar4;
+  undefined *puVar5;
+  undefined4 *puVar6;
+  undefined4 uVar7;
   #define local_25 (*(undefined1 *)(_frame + (0x40 - 0x25)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(char *)(_frame + (0x40 - 0x20)))
@@ -201,32 +201,33 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
   #define local_1 (*(undefined1 *)(_frame + (0x40 - 0x1)))
   
   local_20 = DAT_004f5a98;
-  uVar5 = 0x7f;
-  puVar7 = &local_1f;
-  for (iVar4 = 7; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar7 = 0;
-    puVar7 = puVar7 + 1;
+  uVar4 = 0x7f;
+  puVar6 = &local_1f;
+  for (iVar3 = 7; iVar3 != 0; iVar3 = iVar3 + -1) {
+    *puVar6 = 0;
+    puVar6 = puVar6 + 1;
   }
-  *(undefined2 *)puVar7 = 0;
-  *(undefined1 *)((int)puVar7 + 2) = 0;
+  *(undefined2 *)puVar6 = 0;
+  *(undefined1 *)((int)puVar6 + 2) = 0;
   local_25 = 0x40;
-  puVar6 = (undefined *)0x64;
+  puVar5 = (undefined *)0x64;
   local_24 = 1;
   if (param_3 != 0) {
     return false;
   }
   if (param_5 == (char *)0x0) {
     if (g_bSoundPath != '\0') {
-      grimPlat_SetDefaultOpenPath(&g_bSoundPath);
+      grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bSoundPath));
     }
-    iVar4 = grimPlat_OpenFileRequest
+    iVar3 = grimPlat_OpenFileRequest
                       (s_Select_sound_file_to_add____004ea6b8,
                        s_Sound_files____imu____imc____wvc_004ea6d4);
-    if (iVar4 == 0) {
+    if (iVar3 == 0) {
       return false;
     }
-    uVar2 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
-    ((code *)strncpy)(&g_bSoundPath,uVar2);
+    uVar7 = 0x7f;
+    pcVar2 = grimPlat_GetDefaultOpenPath();
+    strncpy(&g_bSoundPath,pcVar2,uVar7);
     DAT_008caab7 = 0;
     param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
@@ -236,33 +237,33 @@ int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
     strtok(&local_20,&DAT_004ea52c);
     uVar1 = strtok(0,&DAT_004ea52c);
     if (uVar1 != 0) {
-      puVar6 = atoi(uVar1);
-      uVar5 = SUB41(puVar6,0);
+      puVar5 = atoi(uVar1);
+      uVar4 = SUB41(puVar5,0);
       uVar1 = strtok(0,&DAT_004ea52c);
-      puVar6 = atoi(uVar1);
-      local_25 = SUB41(puVar6,0);
+      puVar5 = atoi(uVar1);
+      local_25 = SUB41(puVar5,0);
       uVar1 = strtok(0,&DAT_004ea52c);
-      puVar6 = atoi(uVar1);
+      puVar5 = atoi(uVar1);
       uVar1 = strtok(0,&DAT_004ea52c);
       local_24 = (uint)atoi(uVar1);
     }
   }
-  iVar4 = (*g_pSputCosHS->pAlloc)(0x2c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xcee);
-  if (iVar4 == 0) {
+  iVar3 = (*g_pSputCosHS->pAlloc)(0x2c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xcee);
+  if (iVar3 == 0) {
     return false;
   }
-  pcVar3 = &local_20;
+  pcVar2 = &local_20;
   if (local_20 == '\0') {
-    pcVar3 = param_5;
+    pcVar2 = param_5;
   }
-  strncpy(iVar4,pcVar3,0x1f);
-  *(undefined1 *)(iVar4 + 0x21) = local_25;
-  *(uint *)(iVar4 + 0x28) = local_24;
-  *(undefined1 *)(iVar4 + 0x1f) = 0;
-  *(undefined1 *)(iVar4 + 0x20) = uVar5;
-  *(undefined **)(iVar4 + 0x24) = puVar6;
-  iVar4 = Cos_RegisterComponent(param_1,(int)param_5,iVar4,param_2,0,param_4,((unsigned)(uintptr_t)&DAT_004ea018));
-  return iVar4 != 0;
+  strncpy(iVar3,pcVar2,0x1f);
+  *(undefined1 *)(iVar3 + 0x21) = local_25;
+  *(uint *)(iVar3 + 0x28) = local_24;
+  *(undefined1 *)(iVar3 + 0x1f) = 0;
+  *(undefined1 *)(iVar3 + 0x20) = uVar4;
+  *(undefined **)(iVar3 + 0x24) = puVar5;
+  iVar3 = Cos_RegisterComponent(param_1,(int)param_5,iVar3,param_2,0,param_4,((unsigned)(uintptr_t)&DAT_004ea018));
+  return iVar3 != 0;
 }
 #undef local_1
 #undef local_1f

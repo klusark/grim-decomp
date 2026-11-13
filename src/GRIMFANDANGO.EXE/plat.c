@@ -8,7 +8,7 @@
 /* ---- 0x00477f00  Plat_ReturnTrue ---- */
 /* Always returns 1; placeholder platform check called from several init paths */
 
-undefined4 Plat_ReturnTrue(void)
+uint __cdecl Plat_ReturnTrue(void)
 
 {
   return 1;
@@ -19,7 +19,7 @@ undefined4 Plat_ReturnTrue(void)
    (Linux): the only unmatched callee of Lua_GetPhysicalBytes; 1 matched neighbours agree, 0
    disagree); was Plat_GetPhysicalMemory. */
 
-uint stdPlatform_GetPhysicalRam(void)
+uint __cdecl stdPlatform_GetPhysicalRam(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -58,7 +58,7 @@ int __cdecl grimPlat_QueryDialog(char *text,char *caption,uint flags)
 /* Original name grimPlat_SetDefaultOpenPath (the remaster's GrimFandango (Linux): aligned call in
    BitmapRequester, ColormapRequester, MaterialRequester); was Plat_SetDialogDirectory. */
 
-void grimPlat_SetDefaultOpenPath(undefined4 param_1)
+void __cdecl grimPlat_SetDefaultOpenPath(uint param_1)
 
 {
   strncpy(g_szDialogOpenDir,param_1,0x103);
@@ -70,7 +70,7 @@ void grimPlat_SetDefaultOpenPath(undefined4 param_1)
 /* Original name grimPlat_GetDefaultOpenPath (the remaster's GrimFandango (Linux): aligned call in
    BitmapRequester, ColormapRequester, MaterialRequester); was Plat_GetDialogFileName. */
 
-char * grimPlat_GetDefaultOpenPath(void)
+char * __cdecl grimPlat_GetDefaultOpenPath(void)
 
 {
   return g_szDialogOpenDir;
@@ -212,127 +212,125 @@ int __cdecl grimPlat_SaveFileRequest(char *title,char *filter)
    remaster's GrimFandango (Linux): aligned call in KeyframeAdjuster, SoundAdjuster, ThingAdjuster);
    was Plat_PromptDialog. */
 
-int grimPlat_SpinDialog(int param_1,int param_2,undefined4 *param_3,uint param_4)
+int __cdecl grimPlat_SpinDialog(int param_1,int param_2,uint *param_3,uint param_4)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  int iVar2;
+  uint uVar1;
+  short sVar2;
   undefined4 *puVar3;
-  int *piVar4;
-  undefined4 uVar5;
-  undefined4 *puVar6;
+  uint *puVar4;
+  uint *puVar5;
+  uint *puVar6;
   undefined4 *puVar7;
+  undefined4 *puVar8;
   void *a3;
-  uint uVar8;
-  uint uVar9;
-  int iVar10;
-  undefined4 *puVar11;
-  int *piVar12;
+  int iVar9;
+  uint uVar10;
+  uint uVar11;
+  undefined4 *puVar12;
   undefined4 *puVar13;
   int iVar14;
-  int iVar15;
-  undefined4 *puVar16;
+  undefined4 *puVar15;
+  ushort uVar16;
   code *a4;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
   
-  if (((param_2 != 0) && (param_3 != (undefined4 *)0x0)) && (0 < (int)param_4)) {
+  if (((param_2 != 0) && (param_3 != (uint *)0x0)) && (0 < (int)param_4)) {
     UINT_008c9850 = (uint)param_3;
     UINT_004e814c = 0;
     _DAT_008c9848 = param_1;
     _DAT_008c984c = param_2;
     UINT_008c9854 = param_4;
-    uVar9 = (param_4 + 1) * 0xc;
-    puVar3 = (undefined4 *)malloc(uVar9);
-    piVar4 = (int *)malloc(uVar9);
-    uVar5 = Dlg_MakeDialogTemplate
-                      (0x90c80884,(param_4 + 1) * 3 + -1,0,0,0x8a,param_4 * 0x14 + 0x19,param_1,
-                       s_MS_Sans_Serif_004e8184,8,piVar4);
-    *puVar3 = uVar5;
-    iVar10 = *piVar4;
+    uVar11 = (param_4 + 1) * 0xc;
+    puVar3 = (undefined4 *)malloc(uVar11);
+    puVar4 = (uint *)malloc(uVar11);
+    puVar5 = Dlg_MakeDialogTemplate
+                       ((uint *)0x90c80884,(short)(param_4 + 1) * 3 - 1,0,0,0x8a,
+                        (short)param_4 * 0x14 + 0x19,param_1,((unsigned)(uintptr_t)&s_MS_Sans_Serif_004e8184),8,puVar4);
+    *puVar3 = puVar5;
+    uVar11 = *puVar4;
     iVar14 = 0;
     param_1 = 1;
     if (0 < (int)param_4) {
-      piVar12 = piVar4 + 1;
-      puVar6 = puVar3 + 1;
-      param_2 = param_2 - (int)param_3;
+      puVar5 = puVar4 + 1;
+      puVar7 = puVar3 + 1;
+      iVar9 = param_2 - (int)param_3;
       do {
-        iVar1 = iVar14 * 0x14 + 5;
-        uVar5 = Dlg_MakeItemTemplate
-                          (0x50000082,5,iVar1,0x32,0xe,iVar14 + 0x41e,
-                           *(undefined4 *)(param_2 + (int)param_3),s_STATIC_004e817c,piVar12);
-        *puVar6 = uVar5;
-        iVar15 = *piVar12;
+        sVar2 = (short)iVar14;
+        uVar16 = sVar2 * 0x14 + 5;
+        puVar6 = Dlg_MakeItemTemplate
+                           (0x50000082,5,uVar16,0x32,0xe,sVar2 + 0x41e,
+                            *(int *)(iVar9 + (int)param_3),((unsigned)(uintptr_t)&s_STATIC_004e817c),puVar5);
+        *puVar7 = puVar6;
+        uVar10 = *puVar5;
         sprintf(local_20,&DAT_004ddc18,*param_3);
-        uVar5 = Dlg_MakeItemTemplate
-                          (0x50810003,0x41,iVar1,0x32,0xe,iVar14 + 0x3ec,local_20,&DAT_004e8174,
-                           piVar12 + 1);
-        puVar6[1] = uVar5;
-        iVar2 = piVar12[1];
-        uVar5 = Dlg_MakeItemTemplate
-                          (0x500000b6,0x55,iVar1,0x32,0xe,iVar14 + 0x450,0,
-                           s_msctls_updown32_004e8164,piVar12 + 2);
-        puVar6[2] = uVar5;
-        iVar10 = iVar10 + iVar15 + iVar2 + piVar12[2];
+        puVar6 = Dlg_MakeItemTemplate
+                           (0x50810003,0x41,uVar16,0x32,0xe,sVar2 + 0x3ec,(int)local_20,((unsigned)(uintptr_t)&DAT_004e8174),
+                            puVar5 + 1);
+        puVar7[1] = puVar6;
+        uVar1 = puVar5[1];
+        puVar6 = Dlg_MakeItemTemplate
+                           (0x500000b6,0x55,uVar16,0x32,0xe,sVar2 + 0x450,0,((unsigned)(uintptr_t)&s_msctls_updown32_004e8164),puVar5 + 2);
+        puVar7[2] = puVar6;
+        uVar11 = uVar11 + uVar10 + uVar1 + puVar5[2];
         param_1 = param_1 + 3;
-        puVar6 = puVar6 + 3;
-        piVar12 = piVar12 + 3;
+        puVar7 = puVar7 + 3;
+        puVar5 = puVar5 + 3;
         iVar14 = iVar14 + 1;
         param_3 = param_3 + 1;
       } while (iVar14 < (int)param_4);
     }
-    iVar14 = iVar14 * 0x14 + 5;
-    uVar5 = Dlg_MakeItemTemplate
-                      (0x50010001,5,iVar14,0x32,0xe,1,&DAT_004e8158,s_BUTTON_004e815c,
-                       piVar4 + param_1);
-    puVar3[param_1] = uVar5;
-    iVar1 = piVar4[param_1];
-    iVar15 = param_1 + 1;
-    uVar5 = Dlg_MakeItemTemplate
-                      (0x50010000,0x41,iVar14,0x32,0xe,2,s_Cancel_004e8150,s_BUTTON_004e815c,
-                       piVar4 + iVar15);
-    puVar3[iVar15] = uVar5;
+    uVar16 = (short)iVar14 * 0x14 + 5;
+    puVar5 = Dlg_MakeItemTemplate(0x50010001,5,uVar16,0x32,0xe,1,((unsigned)(uintptr_t)&DAT_004e8158),((unsigned)(uintptr_t)&s_BUTTON_004e815c),puVar4 + param_1)
+    ;
+    puVar3[param_1] = puVar5;
+    uVar10 = puVar4[param_1];
+    iVar14 = param_1 + 1;
+    puVar5 = Dlg_MakeItemTemplate
+                       (0x50010000,0x41,uVar16,0x32,0xe,2,((unsigned)(uintptr_t)&s_Cancel_004e8150),((unsigned)(uintptr_t)&s_BUTTON_004e815c),puVar4 + iVar14);
+    puVar3[iVar14] = puVar5;
     param_1 = param_1 + 2;
-    puVar6 = (undefined4 *)malloc(iVar10 + iVar1 + piVar4[iVar15]);
+    puVar7 = (undefined4 *)malloc(uVar11 + uVar10 + puVar4[iVar14]);
     if (0 < param_1) {
-      puVar7 = puVar6;
-      puVar11 = puVar3;
+      puVar8 = puVar7;
+      puVar12 = puVar3;
       do {
-        uVar9 = *(uint *)(((int)piVar4 - (int)puVar3) + (int)puVar11);
-        puVar13 = (undefined4 *)*puVar11;
-        puVar16 = puVar7;
-        for (uVar8 = uVar9 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
-          *puVar16 = *puVar13;
+        uVar11 = *(uint *)(((int)puVar4 - (int)puVar3) + (int)puVar12);
+        puVar13 = (undefined4 *)*puVar12;
+        puVar15 = puVar8;
+        for (uVar10 = uVar11 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
+          *puVar15 = *puVar13;
           puVar13 = puVar13 + 1;
-          puVar16 = puVar16 + 1;
+          puVar15 = puVar15 + 1;
         }
-        for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
-          *(undefined1 *)puVar16 = *(undefined1 *)puVar13;
+        for (uVar11 = uVar11 & 3; uVar11 != 0; uVar11 = uVar11 - 1) {
+          *(undefined1 *)puVar15 = *(undefined1 *)puVar13;
           puVar13 = (undefined4 *)((int)puVar13 + 1);
-          puVar16 = (undefined4 *)((int)puVar16 + 1);
+          puVar15 = (undefined4 *)((int)puVar15 + 1);
         }
-        puVar7 = (undefined4 *)((int)puVar7 + *(int *)(((int)piVar4 - (int)puVar3) + (int)puVar11));
-        free(*puVar11);
-        puVar11 = puVar11 + 1;
+        puVar8 = (undefined4 *)((int)puVar8 + *(int *)(((int)puVar4 - (int)puVar3) + (int)puVar12));
+        free(*puVar12);
+        puVar12 = puVar12 + 1;
         param_1 = param_1 + -1;
       } while (param_1 != 0);
     }
     iVar14 = 0;
     a4 = Plat_PromptDialogProc;
     a3 = Win_GetMainHwnd();
-    puVar7 = puVar6;
-    iVar10 = Win_GetInstance();
-    iVar10 = DialogBoxIndirectParamA(iVar10,(int)puVar7,(int)a3,(int)a4,iVar14);
-    free(puVar6);
+    puVar8 = puVar7;
+    uVar11 = Win_GetInstance();
+    iVar14 = DialogBoxIndirectParamA(uVar11,(int)puVar8,(int)a3,(int)a4,iVar14);
+    free(puVar7);
     free(puVar3);
-    free(piVar4);
+    free(puVar4);
     UINT_004e814c = 1;
-    return iVar10 == 1;
+    return (uint)(iVar14 == 1);
   }
-  return false;
+  return 0;
 }
 #undef local_20
 #undef local_24
@@ -358,7 +356,6 @@ int __cdecl grimPlat_TreeDialog(char *title,char **items,int count,int *recursiv
   undefined4 *puVar6;
   undefined4 *puVar7;
   code *a4;
-  int a5;
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -378,22 +375,17 @@ int __cdecl grimPlat_TreeDialog(char *title,char **items,int count,int *recursiv
     UINT_004e813c = (uint)items;
     UINT_004e8144 = 0xffffffff;
     UINT_004e8148 = 0;
-    local_14 = Dlg_MakeDialogTemplate
-                         (0x90c80884,4,0,0,0x12f,0x9a,s_Tree_Select_004e81b0,
-                          s_MS_Sans_Serif_004e8184,8,&local_28);
-    local_10 = Dlg_MakeItemTemplate
-                         (0x50b10037,5,5,0xf0,0x91,0x3ea,0,s_SysTreeView32_004e81a0,&local_24);
-    local_c = Dlg_MakeItemTemplate
-                        (0x50010001,0xfa,5,0x32,0xe,1,&DAT_004e8158,s_BUTTON_004e815c,&local_20);
-    local_8 = Dlg_MakeItemTemplate
-                        (0x50010000,0xfa,0x19,0x32,0xe,2,s_Cancel_004e8150,s_BUTTON_004e815c,
-                         &local_1c);
+    local_14 = (uint)Dlg_MakeDialogTemplate
+                               ((uint *)0x90c80884,4,0,0,0x12f,0x9a,((unsigned)(uintptr_t)&s_Tree_Select_004e81b0),((unsigned)(uintptr_t)&s_MS_Sans_Serif_004e8184),8,&local_28);
+    local_10 = (uint)Dlg_MakeItemTemplate(0x50b10037,5,5,0xf0,0x91,0x3ea,0,((unsigned)(uintptr_t)&s_SysTreeView32_004e81a0),&local_24);
+    local_c = (uint)Dlg_MakeItemTemplate(0x50010001,0xfa,5,0x32,0xe,1,((unsigned)(uintptr_t)&DAT_004e8158),((unsigned)(uintptr_t)&s_BUTTON_004e815c),&local_20);
+    local_8 = (uint)Dlg_MakeItemTemplate
+                              (0x50010000,0xfa,0x19,0x32,0xe,2,((unsigned)(uintptr_t)&s_Cancel_004e8150),((unsigned)(uintptr_t)&s_BUTTON_004e815c),&local_1c);
     uVar5 = local_28 + local_24 + local_20 + local_1c;
     items = (char **)0x4;
     if (*recursive != 0) {
-      local_4 = Dlg_MakeItemTemplate
-                          (0x50010003,0xfa,0x2d,0x32,0xe,0x3eb,s_Recursive_004e8194,
-                           s_BUTTON_004e815c,&local_18);
+      local_4 = (uint)Dlg_MakeItemTemplate
+                                (0x50010003,0xfa,0x2d,0x32,0xe,0x3eb,((unsigned)(uintptr_t)&s_Recursive_004e8194),((unsigned)(uintptr_t)&s_BUTTON_004e815c),&local_18);
       uVar5 = uVar5 + local_18;
       items = (char **)0x5;
     }
@@ -419,12 +411,12 @@ int __cdecl grimPlat_TreeDialog(char *title,char **items,int count,int *recursiv
         iVar4 = iVar4 + 1;
       } while (iVar4 < (int)items);
     }
-    a5 = 0;
+    iVar4 = 0;
     a4 = Plat_TreeSelectDialogProc;
     a3 = Win_GetMainHwnd();
     puVar3 = puVar1;
-    iVar4 = Win_GetInstance();
-    iVar4 = DialogBoxIndirectParamA(iVar4,(int)puVar3,(int)a3,(int)a4,a5);
+    uVar5 = Win_GetInstance();
+    iVar4 = DialogBoxIndirectParamA(uVar5,(int)puVar3,(int)a3,(int)a4,iVar4);
     free(puVar1);
     UINT_004e814c = 1;
     if (iVar4 == 1) {
@@ -466,7 +458,6 @@ int __cdecl grimPlat_InputDialog(char *title,char *prompt,char *buf,int bufSize,
   undefined4 *puVar7;
   undefined4 *puVar8;
   code *a4;
-  int a5;
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -486,16 +477,13 @@ int __cdecl grimPlat_InputDialog(char *title,char *prompt,char *buf,int bufSize,
     UINT_004e814c = 0;
     UINT_008c9834 = (uint)prompt;
     UINT_008c9840 = (uint)defaultText;
-    local_14 = Dlg_MakeDialogTemplate
-                         (0x90c80884,4,0,0,0x12f,0x36,s_Input_004e81bc,s_MS_Sans_Serif_004e8184,8,
-                          &local_28);
-    local_10 = Dlg_MakeItemTemplate(0x5000008b,5,7,0xf0,0xe,0x3e9,0,s_STATIC_004e817c,&local_24);
-    local_c = Dlg_MakeItemTemplate(0x50810080,5,0x19,0xf0,0xe,1000,0,&DAT_004e8174,&local_20);
-    local_8 = Dlg_MakeItemTemplate
-                        (0x50010001,0xfa,5,0x32,0xe,1,&DAT_004e8158,s_BUTTON_004e815c,&local_1c);
-    local_4 = Dlg_MakeItemTemplate
-                        (0x50010000,0xfa,0x19,0x32,0xe,2,s_Cancel_004e8150,s_BUTTON_004e815c,
-                         &local_18);
+    local_14 = (uint)Dlg_MakeDialogTemplate
+                               ((uint *)0x90c80884,4,0,0,0x12f,0x36,((unsigned)(uintptr_t)&s_Input_004e81bc),((unsigned)(uintptr_t)&s_MS_Sans_Serif_004e8184),8,&local_28);
+    local_10 = (uint)Dlg_MakeItemTemplate(0x5000008b,5,7,0xf0,0xe,0x3e9,0,((unsigned)(uintptr_t)&s_STATIC_004e817c),&local_24);
+    local_c = (uint)Dlg_MakeItemTemplate(0x50810080,5,0x19,0xf0,0xe,1000,0,((unsigned)(uintptr_t)&DAT_004e8174),&local_20);
+    local_8 = (uint)Dlg_MakeItemTemplate(0x50010001,0xfa,5,0x32,0xe,1,((unsigned)(uintptr_t)&DAT_004e8158),((unsigned)(uintptr_t)&s_BUTTON_004e815c),&local_1c);
+    local_4 = (uint)Dlg_MakeItemTemplate
+                              (0x50010000,0xfa,0x19,0x32,0xe,2,((unsigned)(uintptr_t)&s_Cancel_004e8150),((unsigned)(uintptr_t)&s_BUTTON_004e815c),&local_18);
     puVar2 = (undefined4 *)malloc(local_18 + local_28 + local_24 + local_20 + local_1c);
     puVar6 = puVar2;
     do {
@@ -518,12 +506,12 @@ int __cdecl grimPlat_InputDialog(char *title,char *prompt,char *buf,int bufSize,
       iVar5 = iVar5 + 4;
     } while (iVar5 < 0x14);
     Display_SuspendForDialog();
-    a5 = 0;
+    iVar5 = 0;
     a4 = Plat_InputDialogProc;
     a3 = Win_GetMainHwnd();
     puVar6 = puVar2;
-    iVar5 = Win_GetInstance();
-    iVar5 = DialogBoxIndirectParamA(iVar5,(int)puVar6,(int)a3,(int)a4,a5);
+    uVar4 = Win_GetInstance();
+    iVar5 = DialogBoxIndirectParamA(uVar4,(int)puVar6,(int)a3,(int)a4,iVar5);
     Display_ResumeAfterDialog();
     free(puVar2);
     UINT_004e814c = 1;

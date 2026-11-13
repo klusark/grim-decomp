@@ -11,7 +11,7 @@
    PolyglotInitialize, same body (reads the .tab file through the polyglot pHS)); was
    Polyglot_LoadTable. */
 
-void PolyglotConfigure(undefined *param_1)
+void __cdecl PolyglotConfigure(byte *param_1)
 
 {
   int iVar1;
@@ -32,7 +32,7 @@ void PolyglotConfigure(undefined *param_1)
     (*g_pPolyglot_HS->pFread)(iVar1,g_pLanguageMalloc,iVar2);
     (*g_pPolyglot_HS->pFclose)(iVar1);
     pcVar3 = g_pLanguageMalloc;
-    if (param_1 == (undefined *)0x454e4352) {
+    if (param_1 == (byte *)0x454e4352) {
       iVar2 = iVar2 + -4;
       iVar1 = 0;
       if (0 < iVar2) {

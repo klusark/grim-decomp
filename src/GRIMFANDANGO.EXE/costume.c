@@ -227,7 +227,7 @@ CostumeNode * __cdecl Costume_AllocRecord(void)
 {
   CostumeNode *node;
   
-  node = (CostumeNode *)Memory_AllocFixed(g_pCosNodePool);
+  node = (CostumeNode *)Memory_AllocFixed((int *)g_pCosNodePool);
   Costume_InitRecord(node);
   return node;
 }

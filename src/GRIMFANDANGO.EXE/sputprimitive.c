@@ -10,16 +10,16 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2)
+uint __cdecl sputPrimitive_Initialize(uint param_1,uint *param_2)
 
 {
   _g_pSputPrimitiveHS = param_1;
-  *param_2 = sputPrimitive_Initialize;
-  param_2[1] = sputPrimitive_Terminate;
-  param_2[2] = sputPrimitive_Startup;
-  param_2[3] = sputPrimitive_Shutdown;
-  param_2[4] = sputPrimitive_Save;
-  param_2[5] = sputPrimitive_Restore;
+  *param_2 = (uint)sputPrimitive_Initialize;
+  param_2[1] = (uint)sputPrimitive_Terminate;
+  param_2[2] = (uint)sputPrimitive_Startup;
+  param_2[3] = (uint)sputPrimitive_Shutdown;
+  param_2[4] = (uint)sputPrimitive_Save;
+  param_2[5] = (uint)sputPrimitive_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   g_dwSputPrimitiveInitialize = 1;
@@ -31,7 +31,7 @@ undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2)
    is handed for every field. Original name sputPrimitive_Save (the remaster's GrimFandango (Linux):
    aligned call in sputPrimitive_Initialize); was sputPrimitive_SaveState. */
 
-undefined4 sputPrimitive_Save(code *param_1)
+uint __cdecl sputPrimitive_Save(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -69,7 +69,7 @@ undefined4 sputPrimitive_Save(code *param_1)
    GrimFandango (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_RestoreState.
     */
 
-undefined4 sputPrimitive_Restore(code *param_1)
+uint __cdecl sputPrimitive_Restore(code *param_1)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -135,7 +135,7 @@ undefined4 sputPrimitive_Restore(code *param_1)
 /* Module interface slot 1 (sputPrimitive): called by Engine_ResetSubsystems / when registration
    fails; drops the service table pointer and clears the initialised flag. */
 
-void sputPrimitive_Terminate(void)
+void __cdecl sputPrimitive_Terminate(void)
 
 {
   _g_pSputPrimitiveHS = 0;
@@ -151,7 +151,7 @@ void sputPrimitive_Terminate(void)
    table, _Stop clears the primitive list. Original name sputPrimitive_Startup (the remaster's
    GrimFandango (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_Start. */
 
-undefined4 sputPrimitive_Startup(void)
+uint __cdecl sputPrimitive_Startup(void)
 
 {
   if (g_dwSputPrimitiveStartup != 0) {
@@ -167,7 +167,7 @@ undefined4 sputPrimitive_Startup(void)
    releases what _Start created. Original name sputPrimitive_Shutdown (the remaster's GrimFandango
    (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_Stop. */
 
-void sputPrimitive_Shutdown(void)
+void __cdecl sputPrimitive_Shutdown(void)
 
 {
   PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);

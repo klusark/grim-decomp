@@ -369,7 +369,7 @@ int __cdecl rdMaterial_AddToTextureCache(void *a,uint *material,int cel,int alt)
   
   if (alt == 0) {
     if (material[cel * 0x26 + 0x29] != 0) {
-      std3D_UpdateFrameCount(material + cel * 0x26 + 0xb);
+      std3D_UpdateFrameCount((int)(material + cel * 0x26 + 0xb));
       return 1;
     }
     iVar1 = std3D_AddToTextureCache
@@ -386,7 +386,7 @@ int __cdecl rdMaterial_AddToTextureCache(void *a,uint *material,int cel,int alt)
     }
   }
   else {
-    std3D_UpdateFrameCount(material + cel * 0x26 + 0xa3);
+    std3D_UpdateFrameCount((int)(material + cel * 0x26 + 0xa3));
   }
   return 1;
 }

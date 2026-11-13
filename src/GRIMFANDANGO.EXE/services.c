@@ -300,12 +300,12 @@ void __cdecl stdStartup(GrimServices *svc)
 
 {
   undefined1 uVar1;
-  int iVar2;
+  uint uVar2;
   undefined2 in_FPUControlWord;
   
   g_pStd_HS = svc;
-  iVar2 = Plat_ReturnTrue();
-  if (iVar2 == 0) {
+  uVar2 = Plat_ReturnTrue();
+  if (uVar2 == 0) {
     return;
   }
   DAT_00900524 = in_FPUControlWord;
@@ -324,7 +324,7 @@ void __cdecl stdStartup(GrimServices *svc)
 /* Original name stdShutdown (the remaster's GrimFandango (Linux): the last call of Main_Shutdown in
    both builds; clears the services pointer stdStartup sets); was Services_Clear. */
 
-void stdShutdown(void)
+void __cdecl stdShutdown(void)
 
 {
   _DAT_007f6490 = 0;
@@ -335,7 +335,7 @@ void stdShutdown(void)
 /* Original name stdInitServices (the remaster's GrimFandango (Linux): the host-service set-up call
    of Main_Startup before stdStartup); was Services_InitPlatform. */
 
-void stdInitServices(GrimServices *param_1)
+void __cdecl stdInitServices(GrimServices *param_1)
 
 {
   stdPlatform_InitServices(param_1);

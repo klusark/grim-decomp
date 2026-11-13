@@ -5,11 +5,11 @@
 /* ===== window.c ===== */
 undefined * __stdcall Win_WinMain(int a1,int a2,int a3,int a4); /* 0x00401010 */
 byte * __cdecl Win_WndProc(uint param_1,uint param_2,int param_3); /* 0x00402fd0 */
-void Win_SetMainHwnd(void *param_1); /* 0x00473360 */
+void __cdecl Win_SetMainHwnd(void *param_1); /* 0x00473360 */
 void * __cdecl Win_GetMainHwnd(void); /* 0x00473370 */
-void Win_SetInstance(uint param_1); /* 0x00473380 */
-uint Win_GetInstance(void); /* 0x00473390 */
-undefined4 Win_IsSysCommandBlocked(undefined4 param_1,int param_2,int param_3); /* 0x004772d0 */
+void __cdecl Win_SetInstance(uint param_1); /* 0x00473380 */
+uint __cdecl Win_GetInstance(void); /* 0x00473390 */
+uint __cdecl Win_IsSysCommandBlocked(uint param_1,int param_2,int param_3); /* 0x004772d0 */
 void __cdecl Win_AbortIfAlreadyRunning (void *hInstance,void *hPrevInstance,char *cmdLine,int nCmdShow,char *appName); /* 0x004abf40 */
 uint Win_PumpMessages(void); /* 0x004ac020 */
 int __cdecl Win_SetWindowedSize(int fullscreen,int w,int h); /* 0x004ac100 */
@@ -53,38 +53,38 @@ void __cdecl Lua_GetVideoDevices(void); /* 0x00401d30 */
 void __cdecl Lua_SetVideoDevices(void); /* 0x00401da0 */
 void __cdecl Lua_Enumerate3DDevices(void); /* 0x00401e90 */
 void __cdecl Lua_EnumerateVideoDevices(void); /* 0x00401fb0 */
-void grimlib_NextSetup(void); /* 0x00482880 */
-void grimlib_PreviousSetup(void); /* 0x004828a0 */
-void sputRender_ClearIris(void); /* 0x00486f50 */
-void sputPrimitive_DrawLine(void); /* 0x00489840 */
-void sputPrimitive_DrawPolygon(void); /* 0x00489a80 */
-void sputPrimitive_DrawRectangle(void); /* 0x00489d70 */
-void sputPrimitive_ChangePrimitive(void); /* 0x00489fe0 */
+void __cdecl grimlib_NextSetup(void); /* 0x00482880 */
+void __cdecl grimlib_PreviousSetup(void); /* 0x004828a0 */
+void __cdecl sputRender_ClearIris(void); /* 0x00486f50 */
+void __cdecl sputPrimitive_DrawLine(void); /* 0x00489840 */
+void __cdecl sputPrimitive_DrawPolygon(void); /* 0x00489a80 */
+void __cdecl sputPrimitive_DrawRectangle(void); /* 0x00489d70 */
+void __cdecl sputPrimitive_ChangePrimitive(void); /* 0x00489fe0 */
 void __cdecl sputPrimitive_KillPrimitive(void); /* 0x0048a460 */
 void sputPrimitive_PurgeQueue(void); /* 0x0048a4a0 */
-void sputText_SetOffscreenTextPosL(void); /* 0x0048ad60 */
-void sputText_SetEmergencyFontL(void); /* 0x0048ade0 */
-void sputText_LocalizeStringL(void); /* 0x0048ae60 */
-void sputText_MakeColorL(void); /* 0x0048aed0 */
-void sputText_GetColorComponentsL(void); /* 0x0048b100 */
-void sputText_SetActorTalkColorL(void); /* 0x0048b190 */
-void sputText_GetActorTalkColorL(void); /* 0x0048b230 */
-void sputText_SetSayLineDefaultsL(void); /* 0x0048b2a0 */
-void sputText_SayLineL(void); /* 0x0048b4c0 */
-void Lua_ParseSayLineTable (int param_1,int *param_2,int *param_3,int *param_4,int *param_5,int *param_6); /* 0x0048b6a0 */
+void __cdecl sputText_SetOffscreenTextPosL(void); /* 0x0048ad60 */
+void __cdecl sputText_SetEmergencyFontL(void); /* 0x0048ade0 */
+void __cdecl sputText_LocalizeStringL(void); /* 0x0048ae60 */
+void __cdecl sputText_MakeColorL(void); /* 0x0048aed0 */
+void __cdecl sputText_GetColorComponentsL(void); /* 0x0048b100 */
+void __cdecl sputText_SetActorTalkColorL(void); /* 0x0048b190 */
+void __cdecl sputText_GetActorTalkColorL(void); /* 0x0048b230 */
+void __cdecl sputText_SetSayLineDefaultsL(void); /* 0x0048b2a0 */
+void __cdecl sputText_SayLineL(void); /* 0x0048b4c0 */
+void __cdecl Lua_ParseSayLineTable(int param_1,int *param_2,int *param_3,int *param_4,int *param_5,int *param_6); /* 0x0048b6a0 */
 void __cdecl sputText_PrintLineL(void); /* 0x0048b830 */
-void sputText_IsMessageGoingL(void); /* 0x0048b9a0 */
-void sputText_ExpireTextQueueL(void); /* 0x0048ba90 */
-void sputText_PurgeTextQueueL(void); /* 0x0048baf0 */
-void sputText_KillTextObjectL(void); /* 0x0048bb20 */
-void sputText_GetFontDimensionsL(void); /* 0x0048bb70 */
-void sputText_GetTextObjectDimensionsL(void); /* 0x0048bbc0 */
-void sputText_GetTextCharPositionL(void); /* 0x0048bc50 */
-void sputText_ChangeTextObjectL(void); /* 0x0048bd10 */
-void sputText_MakeTextObjectL(void); /* 0x0048be30 */
-void sputText_BlastText(void); /* 0x0048bf50 */
-void sputText_GetTranslationModeL(void); /* 0x0048c960 */
-void sputText_SetTranslationModeL(void); /* 0x0048c980 */
+void __cdecl sputText_IsMessageGoingL(void); /* 0x0048b9a0 */
+void __cdecl sputText_ExpireTextQueueL(void); /* 0x0048ba90 */
+void __cdecl sputText_PurgeTextQueueL(void); /* 0x0048baf0 */
+void __cdecl sputText_KillTextObjectL(void); /* 0x0048bb20 */
+void __cdecl sputText_GetFontDimensionsL(void); /* 0x0048bb70 */
+void __cdecl sputText_GetTextObjectDimensionsL(void); /* 0x0048bbc0 */
+void __cdecl sputText_GetTextCharPositionL(void); /* 0x0048bc50 */
+void __cdecl sputText_ChangeTextObjectL(void); /* 0x0048bd10 */
+void __cdecl sputText_MakeTextObjectL(void); /* 0x0048be30 */
+void __cdecl sputText_BlastText(void); /* 0x0048bf50 */
+void __cdecl sputText_GetTranslationModeL(void); /* 0x0048c960 */
+void __cdecl sputText_SetTranslationModeL(void); /* 0x0048c980 */
 void sputCostume_GetKeyLengthL(void); /* 0x00495850 */
 void sputCostume_GetSmushLengthL(void); /* 0x00495900 */
 void Lua_Stub(void); /* 0x00497830 */
@@ -341,19 +341,19 @@ int __cdecl Display_Select3DDevice(int threeDNum); /* 0x00402860 */
 undefined * Display_InitFromConfig(void); /* 0x00402930 */
 int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *threeDIdx); /* 0x004029b0 */
 int __cdecl Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,int *threeDIdx); /* 0x00402b60 */
-void stdDisplay_BuildBitmapInfo8 (int param_1,uint param_2,int param_3,int param_4,undefined1 *param_5); /* 0x004730d0 */
-void stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4); /* 0x00473180 */
+void __cdecl stdDisplay_BuildBitmapInfo8(int param_1,uint param_2,int param_3,int param_4,byte *param_5); /* 0x004730d0 */
+void __cdecl stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4); /* 0x00473180 */
 undefined * __cdecl DIB_CreateSection565(uint param_1,uint param_2,int param_3,uint param_4); /* 0x004731f0 */
-undefined4 Palette_SwapRedBlue(int param_1,undefined1 *param_2); /* 0x00473270 */
-int stdDisplay_Startup(void); /* 0x00473a40 */
-void stdDisplay_Shutdown(void); /* 0x00473b30 */
+uint __cdecl Palette_SwapRedBlue(int param_1,byte *param_2); /* 0x00473270 */
+int __cdecl stdDisplay_Startup(void); /* 0x00473a40 */
+void __cdecl stdDisplay_Shutdown(void); /* 0x00473b30 */
 int __cdecl Display_SelectDevice(int deviceIdx); /* 0x00473c80 */
-void stdDisplay_Close(void); /* 0x00474100 */
+void __cdecl stdDisplay_Close(void); /* 0x00474100 */
 int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D); /* 0x00474140 */
-void stdDisplay_ClearMode(void); /* 0x00474310 */
-void Display_SuspendForDialog(void); /* 0x00474380 */
-void Display_ResumeAfterDialog(void); /* 0x004743d0 */
-int stdDisplay_Update(void); /* 0x00474420 */
+void __cdecl stdDisplay_ClearMode(void); /* 0x00474310 */
+void __cdecl Display_SuspendForDialog(void); /* 0x00474380 */
+void __cdecl Display_ResumeAfterDialog(void); /* 0x004743d0 */
+int __cdecl stdDisplay_Update(void); /* 0x00474420 */
 void * __cdecl stdDisplay_VBufferNew(void *info,int videoMem,int b,int c); /* 0x00474480 */
 void __cdecl stdDisplay_VBufferFree(void *surface); /* 0x004746d0 */
 void __cdecl Surface_Release(void *surface); /* 0x004746f0 */
@@ -364,37 +364,37 @@ int __cdecl Surface_Blit(void *dst,void *src,int x,int y,int *srcRect,int colorK
 int __cdecl stdDisplay_VBufferSetColorKey(void *surface,int color); /* 0x00474ae0 */
 void __cdecl stdDisplay_VBufferDeCompress(void *surface); /* 0x00474b30 */
 int __cdecl stdDisplay_VBufferDeCompressTo(void *src,void *dst); /* 0x00474ba0 */
-void * stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2); /* 0x00474be0 */
-int stdDisplay_SetPalette(undefined4 param_1); /* 0x00474d10 */
+void * __cdecl stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2); /* 0x00474be0 */
+int __cdecl stdDisplay_SetPalette(uint param_1); /* 0x00474d10 */
 void __cdecl stdDisplay_SetMasterPalette(void *palette); /* 0x00474d90 */
 int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx); /* 0x00474dd0 */
 int __cdecl stdDisplay_TextOut(char *text,int x,int y); /* 0x00474e40 */
-uint Display_FindClosestDevice(uint *param_1); /* 0x00475000 */
+uint __cdecl Display_FindClosestDevice(uint *param_1); /* 0x00475000 */
 uint __cdecl Display_FindClosestMode(void *wanted,void *modes,uint count); /* 0x00475090 */
-int Display_CompareVideoModes(int *param_1,int *param_2); /* 0x00475140 */
+int __cdecl Display_CompareVideoModes(int *param_1,int *param_2); /* 0x00475140 */
 int __cdecl Surface_BlitSoftware(void *dst,void *src,uint x,uint y,int *srcRect,uint flags); /* 0x004751b0 */
-undefined4 Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_5,byte param_6); /* 0x004755e0 */
-undefined4 Surface_BlitLockedSrc (void *param_1,int param_2,void *param_3,uint param_4,int *param_5,void *param_6); /* 0x004758a0 */
-undefined4 Surface_BlitLockedDst (int param_1,void *param_2,void *param_3,uint param_4,int *param_5,void *param_6); /* 0x00475c90 */
-int DDraw_Create(undefined4 param_1); /* 0x004760d0 */
-void DDraw_Release(void); /* 0x00476190 */
+uint __cdecl Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_5,byte param_6); /* 0x004755e0 */
+uint __cdecl Surface_BlitLockedSrc (void *param_1,int param_2,void *param_3,uint param_4,int *param_5,void *param_6); /* 0x004758a0 */
+uint __cdecl Surface_BlitLockedDst (int param_1,void *param_2,void *param_3,uint param_4,int *param_5,void *param_6); /* 0x00475c90 */
+int __cdecl DDraw_Create(uint param_1); /* 0x004760d0 */
+void __cdecl DDraw_Release(void); /* 0x00476190 */
 undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4); /* 0x004761b0 */
 undefined * __stdcall DDraw_EnumModesCallback(int a1,int a2); /* 0x00476390 */
 undefined * __stdcall DDraw_EnumModesCallback320(int a1,int a2); /* 0x004765a0 */
-void * DDraw_Get(void); /* 0x004767c0 */
+void * __cdecl DDraw_Get(void); /* 0x004767c0 */
 undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette); /* 0x004767d0 */
-void DDraw_ReleaseSurfaces(void); /* 0x00476bc0 */
-undefined4 DDraw_LockSurface(undefined4 *param_1); /* 0x00476bf0 */
-undefined4 DDraw_UnlockSurface(undefined4 *param_1); /* 0x00476c40 */
-undefined4 DDraw_Flip(void); /* 0x00476c90 */
-undefined4 DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3); /* 0x00476cd0 */
-undefined4 DDraw_SetPalette(undefined1 *param_1); /* 0x00476dc0 */
+void __cdecl DDraw_ReleaseSurfaces(void); /* 0x00476bc0 */
+uint __cdecl DDraw_LockSurface(uint *param_1); /* 0x00476bf0 */
+uint __cdecl DDraw_UnlockSurface(uint *param_1); /* 0x00476c40 */
+uint __cdecl DDraw_Flip(void); /* 0x00476c90 */
+uint __cdecl DDraw_FillSurface(uint *param_1,uint param_2,uint *param_3); /* 0x00476cd0 */
+uint __cdecl DDraw_SetPalette(byte *param_1); /* 0x00476dc0 */
 void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hwnd); /* 0x00476e40 */
-void DIB_ReleaseSurface(void); /* 0x00476ee0 */
+void __cdecl DIB_ReleaseSurface(void); /* 0x00476ee0 */
 void __cdecl std3D_SetCurrentPalette(void *palette,int flags); /* 0x00478fc0 */
 void __cdecl Palette_FromFloatTable(byte *out,byte *in,int n,double gamma); /* 0x0047b610 */
 void __cdecl stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,uint count); /* 0x0047b8a0 */
-int stdColor_ColorConvertOnePixel(int param_1,undefined4 param_2,int param_3); /* 0x0047bbb0 */
+int __cdecl stdColor_ColorConvertOnePixel(int param_1,uint param_2,int param_3); /* 0x0047bbb0 */
 
 /* ===== services.c ===== */
 undefined4 __cdecl defaultStatusPrint(char *fmt,...); /* 0x004035b0 */
@@ -420,8 +420,8 @@ void __cdecl Svc_Free(void *p); /* 0x00403860 */
 uint __cdecl defaultLockHandle(uint param_1); /* 0x00403870 */
 void __cdecl HostServicesInitialize(GrimServices *svc); /* 0x00403880 */
 void __cdecl stdStartup(GrimServices *svc); /* 0x004733a0 */
-void stdShutdown(void); /* 0x00473400 */
-void stdInitServices(GrimServices *param_1); /* 0x00473420 */
+void __cdecl stdShutdown(void); /* 0x00473400 */
+void __cdecl stdInitServices(GrimServices *param_1); /* 0x00473420 */
 undefined4 __cdecl stdPlatform_Printf(char *fmt,...); /* 0x00478000 */
 void __cdecl stdPlatform_InitServices(GrimServices *svc); /* 0x00478080 */
 
@@ -448,7 +448,7 @@ char * __cdecl stdFileFromPath(char *path); /* 0x004735b0 */
 char * __cdecl Str_ToLower(char *s); /* 0x0047b5c0 */
 char * __cdecl stdFnames_FindMedName(char *path); /* 0x0047fd20 */
 char * __cdecl stdFnames_FindExt(char *path); /* 0x0047fd50 */
-void Str_StripExtension(char *param_1); /* 0x0047fda0 */
+void __cdecl Str_StripExtension(char *param_1); /* 0x0047fda0 */
 void __cdecl stdFnames_CopyShortName(char *dst,int size,char *path); /* 0x0047fdc0 */
 undefined * __cdecl Str_FindChar(char *param_1,int param_2); /* 0x004838c0 */
 uint * String_ContainsSubstring(uint *param_1,char *param_2); /* 0x004aef70 */
@@ -602,15 +602,15 @@ void rdKeyframe_FreeEntry(int param_1); /* 0x004c0e70 */
 
 /* ===== rdthing.c ===== */
 int __cdecl rdModel3_Draw(void *thing,float *position); /* 0x0040cf20 */
-uint rdThing_New(undefined4 param_1); /* 0x00471a40 */
-undefined4 rdThing_NewEntry(undefined4 *param_1,undefined4 param_2); /* 0x00471a80 */
-void rdThing_Free(int param_1); /* 0x00471af0 */
-void rdThing_FreeEntry(int *param_1); /* 0x00471b10 */
+uint __cdecl rdThing_New(uint param_1); /* 0x00471a40 */
+uint __cdecl rdThing_NewEntry(uint *param_1,uint param_2); /* 0x00471a80 */
+void __cdecl rdThing_Free(int param_1); /* 0x00471af0 */
+void __cdecl rdThing_FreeEntry(int *param_1); /* 0x00471b10 */
 void __cdecl rdThing_SetModel3(void *thing,void *model); /* 0x00471bd0 */
-undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2); /* 0x00471d40 */
-undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2); /* 0x00471d60 */
+uint __cdecl rdThing_SetCamera(uint *param_1,uint param_2); /* 0x00471d40 */
+uint __cdecl rdThing_SetPolyline(uint *param_1,uint param_2); /* 0x00471d60 */
 int __cdecl rdThing_Draw(void *thing,float *frame); /* 0x00471d80 */
-void rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3); /* 0x00471e00 */
+void __cdecl rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3); /* 0x00471e00 */
 
 /* ===== rdraster.c ===== */
 void __cdecl rdAFRaster_CalcAffineGradients(float *param_1,int param_2); /* 0x0040ea50 */
@@ -790,157 +790,157 @@ void __cdecl rdZRaster_CalcPerspGradients(float param_1); /* 0x0042d5f0 */
 void __cdecl rdZRaster_DrawNGonLV(int param_1,int param_2); /* 0x0042dba0 */
 void __cdecl rdZRaster_DrawNGonLW(int param_1,int param_2); /* 0x0042dd10 */
 void __cdecl rdZRaster_DrawNGonLS(int param_1,int param_2); /* 0x0042e010 */
-void rdZRaster_DrawScanLineNGonLS_8(uint *param_1,uint *param_2); /* 0x0042e200 */
-void rdZRaster_DrawScanLineNGonLS_16(uint *param_1,uint *param_2); /* 0x0042e320 */
-undefined4 rdZRaster_SetupLeftEdgeNGonLS(int *param_1); /* 0x0042e440 */
-undefined4 rdZRaster_SetupRightEdgeNGonLS(int *param_1); /* 0x0042e630 */
+void __cdecl rdZRaster_DrawScanLineNGonLS_8(uint *param_1,uint *param_2); /* 0x0042e200 */
+void __cdecl rdZRaster_DrawScanLineNGonLS_16(uint *param_1,uint *param_2); /* 0x0042e320 */
+uint __cdecl rdZRaster_SetupLeftEdgeNGonLS(int *param_1); /* 0x0042e440 */
+uint __cdecl rdZRaster_SetupRightEdgeNGonLS(int *param_1); /* 0x0042e630 */
 void __cdecl rdZRaster_DrawNGonTLS(int param_1,int param_2); /* 0x0042e820 */
-void rdZRaster_DrawScanLineNGonTLS_8(uint *param_1,uint *param_2); /* 0x0042ea50 */
-void rdZRaster_DrawScanLineNGonTLS_16(uint *param_1,uint *param_2); /* 0x0042eb90 */
+void __cdecl rdZRaster_DrawScanLineNGonTLS_8(uint *param_1,uint *param_2); /* 0x0042ea50 */
+void __cdecl rdZRaster_DrawScanLineNGonTLS_16(uint *param_1,uint *param_2); /* 0x0042eb90 */
 void __cdecl rdZRaster_DrawNGonFS(int param_1,int param_2,float param_3); /* 0x0042ecf0 */
-void rdZRaster_DrawScanLineNGonFS_8(uint *param_1,uint *param_2); /* 0x0042ef00 */
-void rdZRaster_DrawScanLineNGonFS_16(uint *param_1,uint *param_2); /* 0x0042f020 */
-undefined4 rdZRaster_SetupLeftEdgeNGonFS(int *param_1); /* 0x0042f140 */
-undefined4 rdZRaster_SetupRightEdgeNGonFS(int *param_1); /* 0x0042f330 */
+void __cdecl rdZRaster_DrawScanLineNGonFS_8(uint *param_1,uint *param_2); /* 0x0042ef00 */
+void __cdecl rdZRaster_DrawScanLineNGonFS_16(uint *param_1,uint *param_2); /* 0x0042f020 */
+uint __cdecl rdZRaster_SetupLeftEdgeNGonFS(int *param_1); /* 0x0042f140 */
+uint __cdecl rdZRaster_SetupRightEdgeNGonFS(int *param_1); /* 0x0042f330 */
 void __cdecl rdZRaster_DrawNGonTFS(int param_1,int param_2,float param_3); /* 0x0042f520 */
-void rdZRaster_DrawScanLineNGonTFS_8(uint *param_1,uint *param_2); /* 0x0042f770 */
-void rdZRaster_DrawScanLineNGonTFS_16(uint *param_1,uint *param_2); /* 0x0042f8b0 */
+void __cdecl rdZRaster_DrawScanLineNGonTFS_8(uint *param_1,uint *param_2); /* 0x0042f770 */
+void __cdecl rdZRaster_DrawScanLineNGonTFS_16(uint *param_1,uint *param_2); /* 0x0042f8b0 */
 void __cdecl rdZRaster_DrawNGonGS(int param_1,int param_2); /* 0x0042fa10 */
-void rdZRaster_DrawScanLineNGonGS_8(uint *param_1,uint *param_2); /* 0x0042fc30 */
-void rdZRaster_DrawScanLineNGonGS_16(uint *param_1,uint *param_2); /* 0x0042fdc0 */
-undefined4 rdZRaster_SetupLeftEdgeNGonGS(int *param_1); /* 0x0042ff50 */
-undefined4 rdZRaster_SetupRightEdgeNGonGS(int *param_1); /* 0x004301d0 */
+void __cdecl rdZRaster_DrawScanLineNGonGS_8(uint *param_1,uint *param_2); /* 0x0042fc30 */
+void __cdecl rdZRaster_DrawScanLineNGonGS_16(uint *param_1,uint *param_2); /* 0x0042fdc0 */
+uint __cdecl rdZRaster_SetupLeftEdgeNGonGS(int *param_1); /* 0x0042ff50 */
+uint __cdecl rdZRaster_SetupRightEdgeNGonGS(int *param_1); /* 0x004301d0 */
 void __cdecl rdZRaster_DrawNGonTGS(int param_1,int param_2); /* 0x00430450 */
-void rdZRaster_DrawScanLineNGonTGS_8(uint *param_1,uint *param_2); /* 0x004306c0 */
-void rdZRaster_DrawScanLineNGonTGS_16(uint *param_1,uint *param_2); /* 0x00430860 */
+void __cdecl rdZRaster_DrawScanLineNGonTGS_8(uint *param_1,uint *param_2); /* 0x004306c0 */
+void __cdecl rdZRaster_DrawScanLineNGonTGS_16(uint *param_1,uint *param_2); /* 0x00430860 */
 void __cdecl rdZRaster_DrawNGonLAT(int param_1,int param_2); /* 0x00430a20 */
-void rdZRaster_DrawScanLineNGonLAT_8(uint *param_1,uint *param_2); /* 0x00430fd0 */
-void rdZRaster_DrawScanLineNGonLAT_16(uint *param_1,uint *param_2); /* 0x004311d0 */
-undefined4 rdZRaster_SetupLeftEdgeNGonLAT(int *param_1); /* 0x00431400 */
-undefined4 rdZRaster_SetupRightEdgeNGonLAT(int *param_1); /* 0x00431710 */
-void rdZRaster_DrawNGonTLAT(int param_1,int param_2); /* 0x00431a20 */
-void rdZRaster_DrawScanLineNGonTLAT_8(uint *param_1,uint *param_2); /* 0x00431c90 */
-void rdZRaster_DrawScanLineNGonTLAT_16(uint *param_1,uint *param_2); /* 0x00431eb0 */
-void rdZRaster_DrawNGonMLAT(int param_1,int param_2); /* 0x00432100 */
-void rdZRaster_DrawScanLineNGonMLAT_8(uint *param_1,uint *param_2); /* 0x00432350 */
-void rdZRaster_DrawScanLineNGonMLAT_16(uint *param_1,uint *param_2); /* 0x00432560 */
-void rdZRaster_DrawNGonMTLAT(int param_1,int param_2); /* 0x004327a0 */
-void rdZRaster_DrawScanLineNGonMTLAT_8(uint *param_1,uint *param_2); /* 0x00432a10 */
-void rdZRaster_DrawScanLineNGonMTLAT_16(uint *param_1,uint *param_2); /* 0x00432c40 */
+void __cdecl rdZRaster_DrawScanLineNGonLAT_8(uint *param_1,uint *param_2); /* 0x00430fd0 */
+void __cdecl rdZRaster_DrawScanLineNGonLAT_16(uint *param_1,uint *param_2); /* 0x004311d0 */
+uint __cdecl rdZRaster_SetupLeftEdgeNGonLAT(int *param_1); /* 0x00431400 */
+uint __cdecl rdZRaster_SetupRightEdgeNGonLAT(int *param_1); /* 0x00431710 */
+void __cdecl rdZRaster_DrawNGonTLAT(int param_1,int param_2); /* 0x00431a20 */
+void __cdecl rdZRaster_DrawScanLineNGonTLAT_8(uint *param_1,uint *param_2); /* 0x00431c90 */
+void __cdecl rdZRaster_DrawScanLineNGonTLAT_16(uint *param_1,uint *param_2); /* 0x00431eb0 */
+void __cdecl rdZRaster_DrawNGonMLAT(int param_1,int param_2); /* 0x00432100 */
+void __cdecl rdZRaster_DrawScanLineNGonMLAT_8(uint *param_1,uint *param_2); /* 0x00432350 */
+void __cdecl rdZRaster_DrawScanLineNGonMLAT_16(uint *param_1,uint *param_2); /* 0x00432560 */
+void __cdecl rdZRaster_DrawNGonMTLAT(int param_1,int param_2); /* 0x004327a0 */
+void __cdecl rdZRaster_DrawScanLineNGonMTLAT_8(uint *param_1,uint *param_2); /* 0x00432a10 */
+void __cdecl rdZRaster_DrawScanLineNGonMTLAT_16(uint *param_1,uint *param_2); /* 0x00432c40 */
 void __cdecl rdZRaster_DrawNGonFAT(int param_1,int param_2,float param_3); /* 0x00432ea0 */
-void rdZRaster_DrawScanLineNGonFAT_8(uint *param_1,uint *param_2); /* 0x00433480 */
-void rdZRaster_DrawScanLineNGonFAT_16(uint *param_1,uint *param_2); /* 0x004336a0 */
-undefined4 rdZRaster_SetupLeftEdgeNGonFAT(int *param_1); /* 0x004338d0 */
-undefined4 rdZRaster_SetupRightEdgeNGonFAT(int *param_1); /* 0x00433be0 */
-void rdZRaster_DrawNGonTFAT(int param_1,int param_2,float param_3); /* 0x00433ef0 */
-void rdZRaster_DrawScanLineNGonTFAT_8(uint *param_1,uint *param_2); /* 0x00434180 */
-void rdZRaster_DrawScanLineNGonTFAT_16(uint *param_1,uint *param_2); /* 0x004343b0 */
-void rdZRaster_DrawNGonMFAT(int param_1,int param_2,float param_3); /* 0x00434610 */
-void rdZRaster_DrawScanLineNGonMFAT_8(uint *param_1,uint *param_2); /* 0x00434880 */
-void rdZRaster_DrawScanLineNGonMFAT_16(uint *param_1,uint *param_2); /* 0x00434aa0 */
-void rdZRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3); /* 0x00434ce0 */
-void rdZRaster_DrawScanLineNGonMTFAT_8(uint *param_1,uint *param_2); /* 0x00434f70 */
-void rdZRaster_DrawScanLineNGonMTFAT_16(uint *param_1,uint *param_2); /* 0x004351a0 */
+void __cdecl rdZRaster_DrawScanLineNGonFAT_8(uint *param_1,uint *param_2); /* 0x00433480 */
+void __cdecl rdZRaster_DrawScanLineNGonFAT_16(uint *param_1,uint *param_2); /* 0x004336a0 */
+uint __cdecl rdZRaster_SetupLeftEdgeNGonFAT(int *param_1); /* 0x004338d0 */
+uint __cdecl rdZRaster_SetupRightEdgeNGonFAT(int *param_1); /* 0x00433be0 */
+void __cdecl rdZRaster_DrawNGonTFAT(int param_1,int param_2,float param_3); /* 0x00433ef0 */
+void __cdecl rdZRaster_DrawScanLineNGonTFAT_8(uint *param_1,uint *param_2); /* 0x00434180 */
+void __cdecl rdZRaster_DrawScanLineNGonTFAT_16(uint *param_1,uint *param_2); /* 0x004343b0 */
+void __cdecl rdZRaster_DrawNGonMFAT(int param_1,int param_2,float param_3); /* 0x00434610 */
+void __cdecl rdZRaster_DrawScanLineNGonMFAT_8(uint *param_1,uint *param_2); /* 0x00434880 */
+void __cdecl rdZRaster_DrawScanLineNGonMFAT_16(uint *param_1,uint *param_2); /* 0x00434aa0 */
+void __cdecl rdZRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3); /* 0x00434ce0 */
+void __cdecl rdZRaster_DrawScanLineNGonMTFAT_8(uint *param_1,uint *param_2); /* 0x00434f70 */
+void __cdecl rdZRaster_DrawScanLineNGonMTFAT_16(uint *param_1,uint *param_2); /* 0x004351a0 */
 void __cdecl rdZRaster_DrawNGonGAT(int param_1,int param_2); /* 0x00435400 */
-void rdZRaster_DrawScanLineNGonGAT_8(uint *param_1,uint *param_2); /* 0x00435a00 */
-void rdZRaster_DrawScanLineNGonGAT_16(uint *param_1,uint *param_2); /* 0x00435c70 */
-undefined4 rdZRaster_SetupLeftEdgeNGonGAT(int *param_1); /* 0x00435f60 */
-undefined4 rdZRaster_SetupRightEdgeNGonGAT(int *param_1); /* 0x00436300 */
-void rdZRaster_DrawNGonTGAT(int param_1,int param_2); /* 0x004366a0 */
-void rdZRaster_DrawScanLineNGonTGAT_8(uint *param_1,uint *param_2); /* 0x00436950 */
-void rdZRaster_DrawScanLineNGonTGAT_16(uint *param_1,uint *param_2); /* 0x00436be0 */
-void rdZRaster_DrawNGonMGAT(int param_1,int param_2); /* 0x00436e80 */
-void rdZRaster_DrawScanLineNGonMGAT_8(uint *param_1,uint *param_2); /* 0x00437110 */
-void rdZRaster_DrawScanLineNGonMGAT_16(uint *param_1,uint *param_2); /* 0x00437390 */
-void rdZRaster_DrawNGonMTGAT(int param_1,int param_2); /* 0x00437620 */
-void rdZRaster_DrawScanLineNGonMTGAT_8(uint *param_1,uint *param_2); /* 0x004378d0 */
-void rdZRaster_DrawScanLineNGonMTGAT_16(uint *param_1,uint *param_2); /* 0x00437b60 */
+void __cdecl rdZRaster_DrawScanLineNGonGAT_8(uint *param_1,uint *param_2); /* 0x00435a00 */
+void __cdecl rdZRaster_DrawScanLineNGonGAT_16(uint *param_1,uint *param_2); /* 0x00435c70 */
+uint __cdecl rdZRaster_SetupLeftEdgeNGonGAT(int *param_1); /* 0x00435f60 */
+uint __cdecl rdZRaster_SetupRightEdgeNGonGAT(int *param_1); /* 0x00436300 */
+void __cdecl rdZRaster_DrawNGonTGAT(int param_1,int param_2); /* 0x004366a0 */
+void __cdecl rdZRaster_DrawScanLineNGonTGAT_8(uint *param_1,uint *param_2); /* 0x00436950 */
+void __cdecl rdZRaster_DrawScanLineNGonTGAT_16(uint *param_1,uint *param_2); /* 0x00436be0 */
+void __cdecl rdZRaster_DrawNGonMGAT(int param_1,int param_2); /* 0x00436e80 */
+void __cdecl rdZRaster_DrawScanLineNGonMGAT_8(uint *param_1,uint *param_2); /* 0x00437110 */
+void __cdecl rdZRaster_DrawScanLineNGonMGAT_16(uint *param_1,uint *param_2); /* 0x00437390 */
+void __cdecl rdZRaster_DrawNGonMTGAT(int param_1,int param_2); /* 0x00437620 */
+void __cdecl rdZRaster_DrawScanLineNGonMTGAT_8(uint *param_1,uint *param_2); /* 0x004378d0 */
+void __cdecl rdZRaster_DrawScanLineNGonMTGAT_16(uint *param_1,uint *param_2); /* 0x00437b60 */
 void __cdecl rdZRaster_DrawNGonLIT(int param_1,int param_2); /* 0x00437e10 */
-void rdZRaster_DrawScanLineNGonLIT_8(uint *param_1,uint *param_2); /* 0x004383d0 */
-void rdZRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2); /* 0x00438a90 */
-undefined4 rdZRaster_SetupLeftEdgeNGonLIT(int *param_1); /* 0x004391a0 */
-undefined4 rdZRaster_SetupRightEdgeNGonLIT(int *param_1); /* 0x00439400 */
-void rdZRaster_DrawNGonTLIT(int param_1,int param_2); /* 0x004395c0 */
-void rdZRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2); /* 0x00439840 */
-void rdZRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2); /* 0x00439f50 */
-void rdZRaster_DrawNGonMLIT(int param_1,int param_2); /* 0x0043a6e0 */
-void rdZRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2); /* 0x0043a940 */
-void rdZRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2); /* 0x0043b020 */
-void rdZRaster_DrawNGonMTLIT(int param_1,int param_2); /* 0x0043b760 */
-void rdZRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2); /* 0x0043b9e0 */
-void rdZRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2); /* 0x0043c130 */
+void __cdecl rdZRaster_DrawScanLineNGonLIT_8(uint *param_1,uint *param_2); /* 0x004383d0 */
+void __cdecl rdZRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2); /* 0x00438a90 */
+uint __cdecl rdZRaster_SetupLeftEdgeNGonLIT(int *param_1); /* 0x004391a0 */
+uint __cdecl rdZRaster_SetupRightEdgeNGonLIT(int *param_1); /* 0x00439400 */
+void __cdecl rdZRaster_DrawNGonTLIT(int param_1,int param_2); /* 0x004395c0 */
+void __cdecl rdZRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2); /* 0x00439840 */
+void __cdecl rdZRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2); /* 0x00439f50 */
+void __cdecl rdZRaster_DrawNGonMLIT(int param_1,int param_2); /* 0x0043a6e0 */
+void __cdecl rdZRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2); /* 0x0043a940 */
+void __cdecl rdZRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2); /* 0x0043b020 */
+void __cdecl rdZRaster_DrawNGonMTLIT(int param_1,int param_2); /* 0x0043b760 */
+void __cdecl rdZRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2); /* 0x0043b9e0 */
+void __cdecl rdZRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2); /* 0x0043c130 */
 void __cdecl rdZRaster_DrawNGonFIT(int param_1,int param_2,float param_3); /* 0x0043c8d0 */
-void rdZRaster_DrawScanLineNGonFIT_8(uint *param_1,uint *param_2); /* 0x0043ceb0 */
-void rdZRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2); /* 0x0043d5b0 */
-undefined4 rdZRaster_SetupLeftEdgeNGonFIT(int *param_1); /* 0x0043dcc0 */
-undefined4 rdZRaster_SetupRightEdgeNGonFIT(int *param_1); /* 0x0043df20 */
-void rdZRaster_DrawNGonTFIT(int param_1,int param_2,float param_3); /* 0x0043e0e0 */
-void rdZRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2); /* 0x0043e380 */
-void rdZRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2); /* 0x0043eab0 */
-void rdZRaster_DrawNGonMFIT(int param_1,int param_2,float param_3); /* 0x0043f280 */
-void rdZRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2); /* 0x0043f500 */
-void rdZRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2); /* 0x0043fc30 */
-void rdZRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3); /* 0x00440370 */
-void rdZRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2); /* 0x00440610 */
-void rdZRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2); /* 0x00440d80 */
+void __cdecl rdZRaster_DrawScanLineNGonFIT_8(uint *param_1,uint *param_2); /* 0x0043ceb0 */
+void __cdecl rdZRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2); /* 0x0043d5b0 */
+uint __cdecl rdZRaster_SetupLeftEdgeNGonFIT(int *param_1); /* 0x0043dcc0 */
+uint __cdecl rdZRaster_SetupRightEdgeNGonFIT(int *param_1); /* 0x0043df20 */
+void __cdecl rdZRaster_DrawNGonTFIT(int param_1,int param_2,float param_3); /* 0x0043e0e0 */
+void __cdecl rdZRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2); /* 0x0043e380 */
+void __cdecl rdZRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2); /* 0x0043eab0 */
+void __cdecl rdZRaster_DrawNGonMFIT(int param_1,int param_2,float param_3); /* 0x0043f280 */
+void __cdecl rdZRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2); /* 0x0043f500 */
+void __cdecl rdZRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2); /* 0x0043fc30 */
+void __cdecl rdZRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3); /* 0x00440370 */
+void __cdecl rdZRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2); /* 0x00440610 */
+void __cdecl rdZRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2); /* 0x00440d80 */
 void __cdecl rdZRaster_DrawNGonGIT(int param_1,int param_2); /* 0x00441520 */
-void rdZRaster_DrawScanLineNGonGIT_8(uint *param_1,uint *param_2); /* 0x00441b20 */
-void rdZRaster_DrawScanLineNGonGIT_16(uint *param_1,uint *param_2); /* 0x004422d0 */
-undefined4 rdZRaster_SetupLeftEdgeNGonGIT(int *param_1); /* 0x00442ab0 */
-undefined4 rdZRaster_SetupRightEdgeNGonGIT(int *param_1); /* 0x00442db0 */
-void rdZRaster_DrawNGonTGIT(int param_1,int param_2); /* 0x00443000 */
-void rdZRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2); /* 0x004432c0 */
-void rdZRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2); /* 0x00443ab0 */
-void rdZRaster_DrawNGonMGIT(int param_1,int param_2); /* 0x00444320 */
-void rdZRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2); /* 0x004445c0 */
-void rdZRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2); /* 0x00444d90 */
-void rdZRaster_DrawNGonMTGIT(int param_1,int param_2); /* 0x00445570 */
-void rdZRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2); /* 0x00445830 */
-void rdZRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2); /* 0x00446030 */
-void rdRaster_SpanR_FlatZw(int *param_1); /* 0x00451fa0 */
-void rdRaster_SpanR_FlatZw_2(int *param_1); /* 0x00452070 */
-void rdRaster_SpanR16_Tex(int *param_1); /* 0x00452150 */
-void rdRaster_SpanR16_Tex_2(int *param_1); /* 0x004522b0 */
-void rdRaster_SpanR16_Tex_3(int *param_1); /* 0x004523f0 */
-void rdRaster_SpanR16_Tex_4(int *param_1); /* 0x00452530 */
-void rdRaster_SpanR16_TexLit(int *param_1); /* 0x00452670 */
-void rdRaster_SpanR16_Tex_5(int *param_1); /* 0x004527b0 */
-void rdRaster_SpanR16_Tex_6(int *param_1); /* 0x004528f0 */
-void rdRaster_SpanR16_Tex_7(int *param_1); /* 0x00452a30 */
-void rdRaster_SpanR16_Tex_8(int *param_1); /* 0x00452b90 */
-void rdRaster_SpanR16_Tex_9(int *param_1); /* 0x00452cd0 */
-void rdRaster_SpanR16_Tex_10(int *param_1); /* 0x00452e10 */
-void rdRaster_SpanR16_TexLit_2(int *param_1); /* 0x00452f50 */
-void rdRaster_SpanR16_Tex_11(int *param_1); /* 0x00453090 */
-void rdRaster_SpanR16_Tex_12(int *param_1); /* 0x004531d0 */
-void rdRaster_SpanR16_TexLit_3(int *param_1); /* 0x00453310 */
-void rdRaster_SpanR16_TexLit_4(int *param_1); /* 0x004534d0 */
-void rdRaster_SpanR16_TexLit_5(int *param_1); /* 0x00453660 */
-void rdRaster_SpanR16_TexLit_6(int *param_1); /* 0x004537f0 */
-void rdRaster_SpanR16_TexLit_7(int *param_1); /* 0x00453980 */
-void rdRaster_SpanR16_TexLit_8(int *param_1); /* 0x00453b10 */
-void rdRaster_SpanR16_TexLit_9(int *param_1); /* 0x00453ca0 */
-void rdRaster_SpanP16_Tex(uint *param_1); /* 0x00453e30 */
-void rdRaster_SpanP16_Tex_2(uint *param_1); /* 0x00454780 */
-void rdRaster_SpanP16_Tex_3(uint *param_1); /* 0x00455050 */
-void rdRaster_SpanP16_Tex_4(uint *param_1); /* 0x00455920 */
-void rdRaster_SpanP16_TexLit(uint *param_1); /* 0x004561f0 */
-void rdRaster_SpanP16_Tex_5(uint *param_1); /* 0x00456ac0 */
-void rdRaster_SpanP16_Tex_6(uint *param_1); /* 0x00457390 */
-void rdRaster_SpanP16_Tex_7(uint *param_1); /* 0x00457c60 */
-void rdRaster_SpanP16_Tex_8(uint *param_1); /* 0x004585b0 */
-void rdRaster_SpanP16_Tex_9(uint *param_1); /* 0x00458e80 */
-void rdRaster_SpanP16_Tex_10(uint *param_1); /* 0x00459750 */
-void rdRaster_SpanP16_TexLit_2(uint *param_1); /* 0x0045a020 */
-void rdRaster_SpanP16_Tex_11(uint *param_1); /* 0x0045a8f0 */
-void rdRaster_SpanP16_Tex_12(uint *param_1); /* 0x0045b1c0 */
-void rdRaster_SpanP16_TexLit_3(uint *param_1); /* 0x0045ba90 */
-void rdRaster_SpanP16_TexLit_4(uint *param_1); /* 0x0045c4e0 */
-void rdRaster_SpanP16_TexLit_5(uint *param_1); /* 0x0045ce90 */
-void rdRaster_SpanP16_TexLit_6(uint *param_1); /* 0x0045d840 */
-void rdRaster_SpanP16_TexLit_7(uint *param_1); /* 0x0045e1f0 */
-void rdRaster_SpanP16_TexLit_8(uint *param_1); /* 0x0045eba0 */
-void rdRaster_SpanP16_TexLit_9(uint *param_1); /* 0x0045f550 */
+void __cdecl rdZRaster_DrawScanLineNGonGIT_8(uint *param_1,uint *param_2); /* 0x00441b20 */
+void __cdecl rdZRaster_DrawScanLineNGonGIT_16(uint *param_1,uint *param_2); /* 0x004422d0 */
+uint __cdecl rdZRaster_SetupLeftEdgeNGonGIT(int *param_1); /* 0x00442ab0 */
+uint __cdecl rdZRaster_SetupRightEdgeNGonGIT(int *param_1); /* 0x00442db0 */
+void __cdecl rdZRaster_DrawNGonTGIT(int param_1,int param_2); /* 0x00443000 */
+void __cdecl rdZRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2); /* 0x004432c0 */
+void __cdecl rdZRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2); /* 0x00443ab0 */
+void __cdecl rdZRaster_DrawNGonMGIT(int param_1,int param_2); /* 0x00444320 */
+void __cdecl rdZRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2); /* 0x004445c0 */
+void __cdecl rdZRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2); /* 0x00444d90 */
+void __cdecl rdZRaster_DrawNGonMTGIT(int param_1,int param_2); /* 0x00445570 */
+void __cdecl rdZRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2); /* 0x00445830 */
+void __cdecl rdZRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2); /* 0x00446030 */
+void __cdecl rdRaster_SpanR_FlatZw(int *param_1); /* 0x00451fa0 */
+void __cdecl rdRaster_SpanR_FlatZw_2(int *param_1); /* 0x00452070 */
+void __cdecl rdRaster_SpanR16_Tex(int *param_1); /* 0x00452150 */
+void __cdecl rdRaster_SpanR16_Tex_2(int *param_1); /* 0x004522b0 */
+void __cdecl rdRaster_SpanR16_Tex_3(int *param_1); /* 0x004523f0 */
+void __cdecl rdRaster_SpanR16_Tex_4(int *param_1); /* 0x00452530 */
+void __cdecl rdRaster_SpanR16_TexLit(int *param_1); /* 0x00452670 */
+void __cdecl rdRaster_SpanR16_Tex_5(int *param_1); /* 0x004527b0 */
+void __cdecl rdRaster_SpanR16_Tex_6(int *param_1); /* 0x004528f0 */
+void __cdecl rdRaster_SpanR16_Tex_7(int *param_1); /* 0x00452a30 */
+void __cdecl rdRaster_SpanR16_Tex_8(int *param_1); /* 0x00452b90 */
+void __cdecl rdRaster_SpanR16_Tex_9(int *param_1); /* 0x00452cd0 */
+void __cdecl rdRaster_SpanR16_Tex_10(int *param_1); /* 0x00452e10 */
+void __cdecl rdRaster_SpanR16_TexLit_2(int *param_1); /* 0x00452f50 */
+void __cdecl rdRaster_SpanR16_Tex_11(int *param_1); /* 0x00453090 */
+void __cdecl rdRaster_SpanR16_Tex_12(int *param_1); /* 0x004531d0 */
+void __cdecl rdRaster_SpanR16_TexLit_3(int *param_1); /* 0x00453310 */
+void __cdecl rdRaster_SpanR16_TexLit_4(int *param_1); /* 0x004534d0 */
+void __cdecl rdRaster_SpanR16_TexLit_5(int *param_1); /* 0x00453660 */
+void __cdecl rdRaster_SpanR16_TexLit_6(int *param_1); /* 0x004537f0 */
+void __cdecl rdRaster_SpanR16_TexLit_7(int *param_1); /* 0x00453980 */
+void __cdecl rdRaster_SpanR16_TexLit_8(int *param_1); /* 0x00453b10 */
+void __cdecl rdRaster_SpanR16_TexLit_9(int *param_1); /* 0x00453ca0 */
+void __cdecl rdRaster_SpanP16_Tex(uint *param_1); /* 0x00453e30 */
+void __cdecl rdRaster_SpanP16_Tex_2(uint *param_1); /* 0x00454780 */
+void __cdecl rdRaster_SpanP16_Tex_3(uint *param_1); /* 0x00455050 */
+void __cdecl rdRaster_SpanP16_Tex_4(uint *param_1); /* 0x00455920 */
+void __cdecl rdRaster_SpanP16_TexLit(uint *param_1); /* 0x004561f0 */
+void __cdecl rdRaster_SpanP16_Tex_5(uint *param_1); /* 0x00456ac0 */
+void __cdecl rdRaster_SpanP16_Tex_6(uint *param_1); /* 0x00457390 */
+void __cdecl rdRaster_SpanP16_Tex_7(uint *param_1); /* 0x00457c60 */
+void __cdecl rdRaster_SpanP16_Tex_8(uint *param_1); /* 0x004585b0 */
+void __cdecl rdRaster_SpanP16_Tex_9(uint *param_1); /* 0x00458e80 */
+void __cdecl rdRaster_SpanP16_Tex_10(uint *param_1); /* 0x00459750 */
+void __cdecl rdRaster_SpanP16_TexLit_2(uint *param_1); /* 0x0045a020 */
+void __cdecl rdRaster_SpanP16_Tex_11(uint *param_1); /* 0x0045a8f0 */
+void __cdecl rdRaster_SpanP16_Tex_12(uint *param_1); /* 0x0045b1c0 */
+void __cdecl rdRaster_SpanP16_TexLit_3(uint *param_1); /* 0x0045ba90 */
+void __cdecl rdRaster_SpanP16_TexLit_4(uint *param_1); /* 0x0045c4e0 */
+void __cdecl rdRaster_SpanP16_TexLit_5(uint *param_1); /* 0x0045ce90 */
+void __cdecl rdRaster_SpanP16_TexLit_6(uint *param_1); /* 0x0045d840 */
+void __cdecl rdRaster_SpanP16_TexLit_7(uint *param_1); /* 0x0045e1f0 */
+void __cdecl rdRaster_SpanP16_TexLit_8(uint *param_1); /* 0x0045eba0 */
+void __cdecl rdRaster_SpanP16_TexLit_9(uint *param_1); /* 0x0045f550 */
 void __cdecl rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2); /* 0x0045ff10 */
 void __cdecl rdRaster_Span16_TexLitZw_2(uint *param_1,uint *param_2); /* 0x004602c0 */
 void __cdecl rdRaster_Span16_TexLitZw_3(uint *param_1,uint *param_2); /* 0x00460670 */
@@ -949,13 +949,13 @@ void __cdecl rdRaster_Span16_TexLitZw_5(uint *param_1,uint *param_2); /* 0x00460
 void __cdecl rdRaster_Span16_TexLitZw_6(uint *param_1,uint *param_2); /* 0x00461180 */
 void __cdecl rdRaster_Span16_TexLitZw_7(uint *param_1,uint *param_2); /* 0x00461530 */
 void __cdecl rdRaster_Span16_TexLitZw_8(uint *param_1,uint *param_2); /* 0x004618e0 */
-void rdRaster_Span16_TexZw(uint *param_1,uint *param_2); /* 0x00461c90 */
-void rdRaster_Span16_TexLitZw_9(uint *param_1,uint *param_2); /* 0x00462780 */
-void rdRaster_Span16_TexLitZw_10(uint *param_1,uint *param_2); /* 0x00463270 */
-void rdRaster_Span16_TexLitZw_11(uint *param_1,uint *param_2); /* 0x00463d60 */
-void rdRaster_Span16_TexLitZw_12(uint *param_1,uint *param_2); /* 0x00464850 */
-void rdRaster_Span16_TexLitZw_13(uint *param_1,uint *param_2); /* 0x00465340 */
-void rdRaster_Span16_TexLitZw_14(uint *param_1,uint *param_2); /* 0x00465e30 */
+void __cdecl rdRaster_Span16_TexZw(uint *param_1,uint *param_2); /* 0x00461c90 */
+void __cdecl rdRaster_Span16_TexLitZw_9(uint *param_1,uint *param_2); /* 0x00462780 */
+void __cdecl rdRaster_Span16_TexLitZw_10(uint *param_1,uint *param_2); /* 0x00463270 */
+void __cdecl rdRaster_Span16_TexLitZw_11(uint *param_1,uint *param_2); /* 0x00463d60 */
+void __cdecl rdRaster_Span16_TexLitZw_12(uint *param_1,uint *param_2); /* 0x00464850 */
+void __cdecl rdRaster_Span16_TexLitZw_13(uint *param_1,uint *param_2); /* 0x00465340 */
+void __cdecl rdRaster_Span16_TexLitZw_14(uint *param_1,uint *param_2); /* 0x00465e30 */
 void __cdecl rdRaster_Span16_TexLitZw_15(uint *param_1,uint *param_2); /* 0x00466920 */
 void __cdecl rdRaster_Span16_TexLitZw_16(uint *param_1,uint *param_2); /* 0x00466c30 */
 void __cdecl rdRaster_Span16_TexLitZw_17(uint *param_1,uint *param_2); /* 0x00466f30 */
@@ -964,13 +964,13 @@ void __cdecl rdRaster_Span16_TexLitZw_19(uint *param_1,uint *param_2); /* 0x0046
 void __cdecl rdRaster_Span16_TexLitZw_20(uint *param_1,uint *param_2); /* 0x00467830 */
 void __cdecl rdRaster_Span16_TexLitZw_21(uint *param_1,uint *param_2); /* 0x00467b30 */
 void __cdecl rdRaster_Span16_TexLitZw_22(uint *param_1,uint *param_2); /* 0x00467e30 */
-void rdRaster_Span16_TexZw_2(uint *param_1,uint *param_2); /* 0x00468130 */
-void rdRaster_Span16_TexZw_3(uint *param_1,uint *param_2); /* 0x00468af0 */
-void rdRaster_Span16_TexZw_4(uint *param_1,uint *param_2); /* 0x00469450 */
-void rdRaster_Span16_TexZw_5(uint *param_1,uint *param_2); /* 0x00469db0 */
-void rdRaster_Span16_TexLitZw_23(uint *param_1,uint *param_2); /* 0x0046a710 */
-void rdRaster_Span16_TexZw_6(uint *param_1,uint *param_2); /* 0x0046b070 */
-void rdRaster_Span16_TexZw_7(uint *param_1,uint *param_2); /* 0x0046b9d0 */
+void __cdecl rdRaster_Span16_TexZw_2(uint *param_1,uint *param_2); /* 0x00468130 */
+void __cdecl rdRaster_Span16_TexZw_3(uint *param_1,uint *param_2); /* 0x00468af0 */
+void __cdecl rdRaster_Span16_TexZw_4(uint *param_1,uint *param_2); /* 0x00469450 */
+void __cdecl rdRaster_Span16_TexZw_5(uint *param_1,uint *param_2); /* 0x00469db0 */
+void __cdecl rdRaster_Span16_TexLitZw_23(uint *param_1,uint *param_2); /* 0x0046a710 */
+void __cdecl rdRaster_Span16_TexZw_6(uint *param_1,uint *param_2); /* 0x0046b070 */
+void __cdecl rdRaster_Span16_TexZw_7(uint *param_1,uint *param_2); /* 0x0046b9d0 */
 void __cdecl rdRaster_Span16_TexLitZw_24(uint *param_1,uint *param_2); /* 0x0046c330 */
 void __cdecl rdRaster_Span16_TexLitZw_25(uint *param_1,uint *param_2); /* 0x0046c640 */
 void __cdecl rdRaster_Span16_TexLitZw_26(uint *param_1,uint *param_2); /* 0x0046c940 */
@@ -978,13 +978,13 @@ void __cdecl rdRaster_Span16_TexLitZw_27(uint *param_1,uint *param_2); /* 0x0046
 void __cdecl rdRaster_Span16_TexLitZw_28(uint *param_1,uint *param_2); /* 0x0046cf40 */
 void __cdecl rdRaster_Span16_TexLitZw_29(uint *param_1,uint *param_2); /* 0x0046d240 */
 void __cdecl rdRaster_Span16_TexLitZw_30(uint *param_1,uint *param_2); /* 0x0046d540 */
-void rdRaster_Span16_TexZw_8(uint *param_1,uint *param_2); /* 0x0046d840 */
-void rdRaster_Span16_TexZw_9(uint *param_1,uint *param_2); /* 0x0046e200 */
-void rdRaster_Span16_TexZw_10(uint *param_1,uint *param_2); /* 0x0046eb60 */
-void rdRaster_Span16_TexZw_11(uint *param_1,uint *param_2); /* 0x0046f4c0 */
-void rdRaster_Span16_TexLitZw_31(uint *param_1,uint *param_2); /* 0x0046fe20 */
-void rdRaster_Span16_TexZw_12(uint *param_1,uint *param_2); /* 0x00470780 */
-void rdRaster_Span16_TexZw_13(uint *param_1,uint *param_2); /* 0x004710e0 */
+void __cdecl rdRaster_Span16_TexZw_8(uint *param_1,uint *param_2); /* 0x0046d840 */
+void __cdecl rdRaster_Span16_TexZw_9(uint *param_1,uint *param_2); /* 0x0046e200 */
+void __cdecl rdRaster_Span16_TexZw_10(uint *param_1,uint *param_2); /* 0x0046eb60 */
+void __cdecl rdRaster_Span16_TexZw_11(uint *param_1,uint *param_2); /* 0x0046f4c0 */
+void __cdecl rdRaster_Span16_TexLitZw_31(uint *param_1,uint *param_2); /* 0x0046fe20 */
+void __cdecl rdRaster_Span16_TexZw_12(uint *param_1,uint *param_2); /* 0x00470780 */
+void __cdecl rdRaster_Span16_TexZw_13(uint *param_1,uint *param_2); /* 0x004710e0 */
 
 /* ===== rdmaterial.c ===== */
 uint __cdecl rdMaterial_RegisterLoader(uint param_1); /* 0x00417e90 */
@@ -1063,42 +1063,42 @@ void __cdecl rdPrimit2_DrawRectangle(void *canvas,int x1,int y1,int x2,int y2,in
 void __cdecl Mem_DumpLog(void); /* 0x0045ff00 */
 void __cdecl Mem_Copy(void *dst,void *src,uint n); /* 0x00478170 */
 void __cdecl Mem_CheckAlloc(void *p,char *file,int line); /* 0x0047fe00 */
-undefined4 Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2); /* 0x004888d0 */
-void Memory_SysTerminate(void); /* 0x00488930 */
-undefined4 Memory_SysStartup(void); /* 0x00488940 */
-void Memory_SysShutdown(void); /* 0x00488970 */
-void ** Memory_AllocatePool(int param_1,void *param_2,void *param_3); /* 0x00488980 */
-void Memory_FreePool(void **param_1); /* 0x00488a70 */
-int * Memory_AllocFixed(int *param_1); /* 0x00488b10 */
+uint __cdecl Memory_SysInitialize(GrimServices *param_1,uint *param_2); /* 0x004888d0 */
+void __cdecl Memory_SysTerminate(void); /* 0x00488930 */
+uint __cdecl Memory_SysStartup(void); /* 0x00488940 */
+void __cdecl Memory_SysShutdown(void); /* 0x00488970 */
+void ** __cdecl Memory_AllocatePool(int param_1,void *param_2,void *param_3); /* 0x00488980 */
+void __cdecl Memory_FreePool(void **param_1); /* 0x00488a70 */
+int * __cdecl Memory_AllocFixed(int *param_1); /* 0x00488b10 */
 void __cdecl Pool_Free(void *item); /* 0x00488ba0 */
-void Pool_Grow(int param_1,int param_2); /* 0x00488c00 */
+void __cdecl Pool_Grow(int param_1,int param_2); /* 0x00488c00 */
 
 /* ===== rdprimitive.c ===== */
-undefined4 rdPolyline_Draw(int param_1,float *param_2); /* 0x00471ee0 */
-void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,uint *param_4); /* 0x00472360 */
+uint __cdecl rdPolyline_Draw(int param_1,float *param_2); /* 0x00471ee0 */
+void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,uint *param_4); /* 0x00472360 */
 int __cdecl rdSprite_DrawThing(void *thing,void *sprite); /* 0x00472640 */
-int rdSprite_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8, undefined4 param_9,undefined4 param_10); /* 0x004728a0 */
-undefined4 rdSprite_NewEntry(int param_1,int param_2,undefined4 param_3,char *param_4,undefined4 param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9, undefined4 param_10,undefined4 *param_11); /* 0x00472910 */
-void rdSprite_Free(int param_1); /* 0x00472b50 */
-void rdSprite_FreeEntry(int param_1); /* 0x00472b70 */
-undefined4 rdSprite_Draw(int param_1,float *param_2); /* 0x00472bd0 */
+int __cdecl rdSprite_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6, uint param_7,uint param_8,uint param_9,uint param_10); /* 0x004728a0 */
+uint __cdecl rdSprite_NewEntry(int param_1,int param_2,uint param_3,char *param_4,uint param_5,uint param_6, uint param_7,uint param_8,uint param_9,uint param_10,uint *param_11); /* 0x00472910 */
+void __cdecl rdSprite_Free(int param_1); /* 0x00472b50 */
+void __cdecl rdSprite_FreeEntry(int param_1); /* 0x00472b70 */
+uint __cdecl rdSprite_Draw(int param_1,float *param_2); /* 0x00472bd0 */
 
 /* ===== stdfileutil.c ===== */
 undefined * __cdecl stdFileOpen(uint param_1,uint param_2); /* 0x00473430 */
-void stdFileClose(undefined4 param_1); /* 0x00473450 */
-void stdFileRead(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473460 */
-void stdFileWrite(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473480 */
-void stdFileGets(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004734a0 */
-void stdFileGetws(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004734c0 */
-uint stdFeof(int param_1); /* 0x004734e0 */
+void __cdecl stdFileClose(uint param_1); /* 0x00473450 */
+void __cdecl stdFileRead(uint param_1,uint param_2,uint param_3); /* 0x00473460 */
+void __cdecl stdFileWrite(uint param_1,uint param_2,uint param_3); /* 0x00473480 */
+void __cdecl stdFileGets(uint param_1,uint param_2,uint param_3); /* 0x004734a0 */
+void __cdecl stdFileGetws(uint param_1,uint param_2,uint param_3); /* 0x004734c0 */
+uint __cdecl stdFeof(int param_1); /* 0x004734e0 */
 undefined * __cdecl stdFtell(uint param_1); /* 0x004734f0 */
-void stdFseek(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00473500 */
-undefined * stdFileSize(uint param_1); /* 0x00473520 */
-undefined4 stdFilePrintf(undefined4 param_1,char *param_2); /* 0x00473570 */
-uint stdFGetc(uint param_1); /* 0x004735f0 */
-void stdFPutc(undefined4 param_1,undefined4 param_2); /* 0x00473610 */
+void __cdecl stdFseek(uint param_1,uint param_2,uint param_3); /* 0x00473500 */
+byte * __cdecl stdFileSize(uint param_1); /* 0x00473520 */
+uint __cdecl stdFilePrintf(uint param_1,char *param_2); /* 0x00473570 */
+uint __cdecl stdFGetc(uint param_1); /* 0x004735f0 */
+void __cdecl stdFPutc(uint param_1,uint param_2); /* 0x00473610 */
 int __cdecl LzssDecompress(void *dst,void *src,int srcSize); /* 0x00473a00 */
-void stdCompress_DecompressLoop(void); /* 0x00473b60 */
+void __cdecl stdCompress_DecompressLoop(void); /* 0x00473b60 */
 void * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext); /* 0x004c1170 */
 void stdFileUtil_DisposeFind(int param_1); /* 0x004c12a0 */
 int __cdecl stdFileUtil_FindNext(void *find,void *outEntry); /* 0x004c12d0 */
@@ -1122,52 +1122,52 @@ void * __cdecl stdLoadImageData(char *name,int a,int b); /* 0x00473660 */
 int __cdecl stdWriteImage(char *filename,void *bitmap); /* 0x00473810 */
 void * __cdecl stdBitmap_Load(char *name,int a,int b); /* 0x0047aa50 */
 void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c); /* 0x0047aab0 */
-undefined4 stdBitmap_LoadEntryFromFile(undefined4 param_1,int param_2,int param_3,int param_4); /* 0x0047ab20 */
+uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int param_2,int param_3,int param_4); /* 0x0047ab20 */
 void __cdecl stdBitmap_Free(void *bitmap); /* 0x0047ae70 */
-void stdBitmap_FreeEntry(int param_1); /* 0x0047ae90 */
-undefined4 stdBitmap_AppendToFile(undefined4 param_1,int param_2); /* 0x0047aef0 */
+void __cdecl stdBitmap_FreeEntry(int param_1); /* 0x0047ae90 */
+uint __cdecl stdBitmap_AppendToFile(uint param_1,int param_2); /* 0x0047aef0 */
 int __cdecl stdBitmap_Write(char *filename,void *bitmap); /* 0x0047b250 */
-void stdBitmap_ConvertColorFormat(int *param_1,int param_2); /* 0x0047b2b0 */
+void __cdecl stdBitmap_ConvertColorFormat(int *param_1,int param_2); /* 0x0047b2b0 */
 int __cdecl stdBitmap_VBufferToBitmap(void *bitmap,int format,int flags); /* 0x0047b380 */
-undefined4 stdBitmap_NewEntry(undefined4 *param_1,uint param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 *param_6); /* 0x0047b4b0 */
-void stdBitmap_SetSurface(int param_1,int param_2,undefined4 param_3); /* 0x0047b540 */
+uint __cdecl stdBitmap_NewEntry(uint *param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint *param_6); /* 0x0047b4b0 */
+void __cdecl stdBitmap_SetSurface(int param_1,int param_2,uint param_3); /* 0x0047b540 */
 int __cdecl stdBitmap_MemUsage(void *bitmap); /* 0x0047b560 */
-void stdBitmap_DeCompress(int param_1); /* 0x0047b590 */
-void stdPalEffects_ResetEffect(undefined4 *param_1); /* 0x0047b5f0 */
+void __cdecl stdBitmap_DeCompress(int param_1); /* 0x0047b590 */
+void __cdecl stdPalEffects_ResetEffect(uint *param_1); /* 0x0047b5f0 */
 
 /* ===== stdinput.c ===== */
 undefined * stdControl_Startup(void); /* 0x00476f10 */
-void stdControl_Shutdown(void); /* 0x00476f70 */
-undefined4 stdControl_Open(void); /* 0x00476fc0 */
-undefined4 stdControl_Close(void); /* 0x00476fe0 */
-void stdControl_Flush(void); /* 0x00477010 */
-void stdControl_Reset(void); /* 0x00477040 */
+void __cdecl stdControl_Shutdown(void); /* 0x00476f70 */
+uint __cdecl stdControl_Open(void); /* 0x00476fc0 */
+uint __cdecl stdControl_Close(void); /* 0x00476fe0 */
+void __cdecl stdControl_Flush(void); /* 0x00477010 */
+void __cdecl stdControl_Reset(void); /* 0x00477040 */
 int __cdecl stdControl_EnableAxis(uint axis); /* 0x00477090 */
-void stdControl_ReadControls(void); /* 0x004770d0 */
+void __cdecl stdControl_ReadControls(void); /* 0x004770d0 */
 float __cdecl stdControl_ReadAxis(int inputId); /* 0x00477160 */
 int __cdecl stdControl_ReadKey(int inputId,int *down,int *justPressed); /* 0x00477230 */
 void __cdecl Input_SetAcquired(int acquire); /* 0x00477300 */
-void stdControl_ShowMouseCursor(int param_1); /* 0x00477380 */
-void Input_InitJoysticks(void); /* 0x00477390 */
-void Input_CreateKeyboard(void); /* 0x00477530 */
-void Input_CreateMouse(void); /* 0x004775a0 */
-void Input_MarkAxisUsed(uint param_1); /* 0x00477680 */
+void __cdecl stdControl_ShowMouseCursor(int param_1); /* 0x00477380 */
+void __cdecl Input_InitJoysticks(void); /* 0x00477390 */
+void __cdecl Input_CreateKeyboard(void); /* 0x00477530 */
+void __cdecl Input_CreateMouse(void); /* 0x004775a0 */
+void __cdecl Input_MarkAxisUsed(uint param_1); /* 0x00477680 */
 void __cdecl Input_PollKeyboard(void); /* 0x00477730 */
-void Input_FlushKeyboard(void); /* 0x004778a0 */
-void Input_PollJoysticks(void); /* 0x004778f0 */
+void __cdecl Input_FlushKeyboard(void); /* 0x004778a0 */
+void __cdecl Input_PollJoysticks(void); /* 0x004778f0 */
 void __cdecl Input_PollMouse(void); /* 0x00477c20 */
 void __cdecl Input_FlushJoystick(void); /* 0x00477dc0 */
 void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone); /* 0x00477e70 */
 
 /* ===== plat.c ===== */
-undefined4 Plat_ReturnTrue(void); /* 0x00477f00 */
-uint stdPlatform_GetPhysicalRam(void); /* 0x00478150 */
+uint __cdecl Plat_ReturnTrue(void); /* 0x00477f00 */
+uint __cdecl stdPlatform_GetPhysicalRam(void); /* 0x00478150 */
 int __cdecl grimPlat_QueryDialog(char *text,char *caption,uint flags); /* 0x00487650 */
-void grimPlat_SetDefaultOpenPath(undefined4 param_1); /* 0x00487690 */
-char * grimPlat_GetDefaultOpenPath(void); /* 0x004876b0 */
+void __cdecl grimPlat_SetDefaultOpenPath(uint param_1); /* 0x00487690 */
+char * __cdecl grimPlat_GetDefaultOpenPath(void); /* 0x004876b0 */
 int __cdecl grimPlat_OpenFileRequest(char *title,char *filter); /* 0x004876c0 */
 int __cdecl grimPlat_SaveFileRequest(char *title,char *filter); /* 0x004877d0 */
-int grimPlat_SpinDialog(int param_1,int param_2,undefined4 *param_3,uint param_4); /* 0x004878c0 */
+int __cdecl grimPlat_SpinDialog(int param_1,int param_2,uint *param_3,uint param_4); /* 0x004878c0 */
 int __cdecl grimPlat_TreeDialog(char *title,char **items,int count,int *recursive); /* 0x00487c10 */
 int __cdecl grimPlat_InputDialog(char *title,char *prompt,char *buf,int bufSize,char *defaultText); /* 0x00487e30 */
 undefined * __stdcall Plat_PromptDialogProc(int a1,int a2,int a3,int a4); /* 0x00488370 */
@@ -1177,100 +1177,100 @@ void * __cdecl Plat_Alloc(uint size); /* 0x00488800 */
 void __cdecl Plat_Free(void *p); /* 0x00488820 */
 
 /* ===== platsvc.c ===== */
-void stdPlatform_Assert(undefined4 param_1,char *param_2,undefined4 param_3); /* 0x00477f10 */
-void stdPlatform_AllocHandle(uint param_1); /* 0x00478030 */
-void stdPlatform_FreeHandle(undefined4 param_1); /* 0x00478040 */
-void stdPlatform_ReallocHandle(undefined4 param_1,undefined4 param_2); /* 0x00478050 */
-undefined4 stdPlatform_LockHandle(undefined4 param_1); /* 0x00478070 */
+void __cdecl stdPlatform_Assert(uint param_1,char *param_2,uint param_3); /* 0x00477f10 */
+void __cdecl stdPlatform_AllocHandle(uint param_1); /* 0x00478030 */
+void __cdecl stdPlatform_FreeHandle(uint param_1); /* 0x00478040 */
+void __cdecl stdPlatform_ReallocHandle(uint param_1,uint param_2); /* 0x00478050 */
+uint __cdecl stdPlatform_LockHandle(uint param_1); /* 0x00478070 */
 
 /* ===== std3d.c ===== */
-undefined4 D3D_Enumerate(void); /* 0x00478230 */
-void D3D_Release(void); /* 0x004782b0 */
-uint D3D_IsAvailable(void); /* 0x004782d0 */
+uint __cdecl D3D_Enumerate(void); /* 0x00478230 */
+void __cdecl D3D_Release(void); /* 0x004782b0 */
+uint __cdecl D3D_IsAvailable(void); /* 0x004782d0 */
 int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer); /* 0x004782e0 */
-void D3D_ReleaseDriver(void); /* 0x00478660 */
+void __cdecl D3D_ReleaseDriver(void); /* 0x00478660 */
 void __cdecl D3D_SetTextureLimits(int minW,int minH,int maxSize,int d); /* 0x00478700 */
-void std3D_StartScene(void); /* 0x00478730 */
-void std3D_EndScene(void); /* 0x00478750 */
-undefined4 D3D_BeginExecuteBuffer(void); /* 0x00478770 */
+void __cdecl std3D_StartScene(void); /* 0x00478730 */
+void __cdecl std3D_EndScene(void); /* 0x00478750 */
+uint __cdecl D3D_BeginExecuteBuffer(void); /* 0x00478770 */
 int __cdecl std3D_AddRenderListVertices(void *verts,uint count); /* 0x004787d0 */
-undefined4 std3D_RenderListVerticesFinish(void); /* 0x00478840 */
+uint __cdecl std3D_RenderListVerticesFinish(void); /* 0x00478840 */
 int __cdecl std3D_AddRenderListTris(void *tris,uint count); /* 0x004788c0 */
 int __cdecl std3D_DrawRenderList(void); /* 0x00478b40 */
 void __cdecl D3D_SetRenderFlags(uint flags); /* 0x00478c00 */
-void std3D_GetValidDimensions(uint param_1,uint param_2,uint *param_3,uint *param_4); /* 0x00479070 */
-void std3D_PurgeTextureCache(void); /* 0x00479110 */
+void __cdecl std3D_GetValidDimensions(uint param_1,uint param_2,uint *param_3,uint *param_4); /* 0x00479070 */
+void __cdecl std3D_PurgeTextureCache(void); /* 0x00479110 */
 int __cdecl std3D_AddToTextureCache(void *surface,void *texture,int usePalette,int colorKey); /* 0x00479170 */
-void D3D_FreeAllTextures(void); /* 0x00479860 */
-void D3D_LinkTexture(void *param_1); /* 0x004798e0 */
-void D3D_UnlinkTexture(void *param_1); /* 0x00479950 */
-undefined4 D3D_SetVertexLimit(void); /* 0x00479a00 */
-void std3D_UpdateFrameCount(int param_1); /* 0x00479a70 */
-undefined4 std3D_ClearZBuffer(void); /* 0x00479aa0 */
-uint D3D_FindClosestDriver(int *param_1,int param_2,uint param_3); /* 0x00479b50 */
-uint D3D_FindTextureFormat(int *param_1,int param_2,uint param_3); /* 0x00479be0 */
-void D3D_SetViewportRect(uint *param_1); /* 0x00479cc0 */
+void __cdecl D3D_FreeAllTextures(void); /* 0x00479860 */
+void __cdecl D3D_LinkTexture(void *param_1); /* 0x004798e0 */
+void __cdecl D3D_UnlinkTexture(void *param_1); /* 0x00479950 */
+uint __cdecl D3D_SetVertexLimit(void); /* 0x00479a00 */
+void __cdecl std3D_UpdateFrameCount(int param_1); /* 0x00479a70 */
+uint __cdecl std3D_ClearZBuffer(void); /* 0x00479aa0 */
+uint __cdecl D3D_FindClosestDriver(int *param_1,int param_2,uint param_3); /* 0x00479b50 */
+uint __cdecl D3D_FindTextureFormat(int *param_1,int param_2,uint param_3); /* 0x00479be0 */
+void __cdecl D3D_SetViewportRect(uint *param_1); /* 0x00479cc0 */
 uint __cdecl D3D_InitRenderState(void); /* 0x00479db0 */
 undefined4 __cdecl D3D_CreateViewport(uint width,uint height); /* 0x0047a130 */
-undefined4 D3D_CreateZBuffer(int param_1,int param_2); /* 0x0047a240 */
+uint __cdecl D3D_CreateZBuffer(int param_1,int param_2); /* 0x0047a240 */
 undefined * __stdcall D3D_EnumDevicesCallback(int a1,int a2,int a3,int a4,int a5,int a6); /* 0x0047a3b0 */
 undefined * __stdcall D3D_EnumTextureFormatsCallback(int a1,int a2); /* 0x0047a590 */
-uint D3D_CapsToFilterBits(uint param_1); /* 0x0047a850 */
-uint D3D_FilterBitsToMask(byte param_1); /* 0x0047a890 */
-uint D3D_FilterBitsToEnum(byte param_1); /* 0x0047a8e0 */
+uint __cdecl D3D_CapsToFilterBits(uint param_1); /* 0x0047a850 */
+uint __cdecl D3D_FilterBitsToMask(byte param_1); /* 0x0047a890 */
+uint __cdecl D3D_FilterBitsToEnum(byte param_1); /* 0x0047a8e0 */
 int __cdecl D3D_EvictTexture(uint size); /* 0x0047a930 */
 
 /* ===== stdpcx.c ===== */
-undefined4 stdPcx_DecodeRun16(byte *param_1,ushort *param_2,int param_3); /* 0x0047b710 */
-undefined4 stdPcx_DecodeRun8(byte *param_1,int param_2,int param_3); /* 0x0047b780 */
-undefined4 stdPcx_DecodeRunMasked(byte *param_1,int param_2,int param_3,uint param_4); /* 0x0047b810 */
-undefined4 * stdPcx_Load(undefined4 param_1,int param_2,int param_3); /* 0x0047ec80 */
-undefined4 stdPcx_Write(undefined4 param_1,int param_2); /* 0x0047ef10 */
+uint __cdecl stdPcx_DecodeRun16(byte *param_1,ushort *param_2,int param_3); /* 0x0047b710 */
+uint __cdecl stdPcx_DecodeRun8(byte *param_1,int param_2,int param_3); /* 0x0047b780 */
+uint __cdecl stdPcx_DecodeRunMasked(byte *param_1,int param_2,int param_3,uint param_4); /* 0x0047b810 */
+uint * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3); /* 0x0047ec80 */
+uint __cdecl stdPcx_Write(uint param_1,int param_2); /* 0x0047ef10 */
 
 /* ===== stdconffile.c ===== */
-void stdConffile_Open(undefined4 param_1); /* 0x0047c7c0 */
-undefined4 stdConffile_OpenMode(byte *param_1,undefined4 param_2); /* 0x0047c7e0 */
-void stdConffile_Close(void); /* 0x0047c8c0 */
-undefined4 stdConffile_ReadLine(void); /* 0x0047c920 */
-void stdConffile_Push(void); /* 0x0047ca00 */
-void stdConffile_Pop(void); /* 0x0047ca90 */
+void __cdecl stdConffile_Open(uint param_1); /* 0x0047c7c0 */
+uint __cdecl stdConffile_OpenMode(byte *param_1,uint param_2); /* 0x0047c7e0 */
+void __cdecl stdConffile_Close(void); /* 0x0047c8c0 */
+uint __cdecl stdConffile_ReadLine(void); /* 0x0047c920 */
+void __cdecl stdConffile_Push(void); /* 0x0047ca00 */
+void __cdecl stdConffile_Pop(void); /* 0x0047ca90 */
 
 /* ===== stdbmp.c ===== */
-uint stdBmp_Load(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x0047cb20 */
-undefined4 stdBmp_LoadEntry(char *param_1,undefined4 *param_2,int param_3,int param_4); /* 0x0047cb70 */
-undefined4 stdBmp_Write(undefined4 param_1,int param_2); /* 0x0047d050 */
+uint __cdecl stdBmp_Load(uint param_1,uint param_2,uint param_3); /* 0x0047cb20 */
+uint __cdecl stdBmp_LoadEntry(char *param_1,uint *param_2,int param_3,int param_4); /* 0x0047cb70 */
+uint __cdecl stdBmp_Write(uint param_1,int param_2); /* 0x0047d050 */
 
 /* ===== stdpic.c ===== */
-uint stdPic_Load(char *param_1,int param_2,int param_3); /* 0x0047d280 */
+uint __cdecl stdPic_Load(uint param_1,uint param_2,uint param_3); /* 0x0047d280 */
 uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_4); /* 0x0047d2d0 */
 
 /* ===== stdgif.c ===== */
-void * stdGif_Load(char *param_1,int param_2,int param_3); /* 0x0047db00 */
-undefined4 stdGif_Write(undefined4 param_1,int param_2); /* 0x0047e060 */
-uint stdGif_LzwInitDecoder(short param_1); /* 0x0047e3c0 */
-uint stdGif_LzwDecodeNext(undefined4 param_1); /* 0x0047e470 */
-uint getcode(undefined4 param_1); /* 0x0047e600 */
-uint stdGif_ReadByte(undefined4 param_1); /* 0x0047e770 */
+void * __cdecl stdGif_Load(char *param_1,int param_2,int param_3); /* 0x0047db00 */
+uint __cdecl stdGif_Write(uint param_1,int param_2); /* 0x0047e060 */
+uint __cdecl stdGif_LzwInitDecoder(short param_1); /* 0x0047e3c0 */
+uint __cdecl stdGif_LzwDecodeNext(uint param_1); /* 0x0047e470 */
+uint __cdecl getcode(uint param_1); /* 0x0047e600 */
+uint __cdecl stdGif_ReadByte(uint param_1); /* 0x0047e770 */
 uint __cdecl stdGif_LzwInitEncoder(uint param_1,uint param_2); /* 0x0047e7f0 */
-void putcode(undefined4 param_1,short param_2); /* 0x0047e8b0 */
+void __cdecl putcode(uint param_1,short param_2); /* 0x0047e8b0 */
 uint __cdecl stdGif_LzwEncodePixel(uint param_1,byte param_2); /* 0x0047ea30 */
-void stdGif_LzwClearTable(undefined4 param_1); /* 0x0047eba0 */
-undefined4 stdGif_LzwFinishEncode(undefined4 param_1); /* 0x0047ebe0 */
-void stdGif_WriteSubBlock(undefined4 param_1,short param_2); /* 0x0047ec40 */
+void __cdecl stdGif_LzwClearTable(uint param_1); /* 0x0047eba0 */
+uint __cdecl stdGif_LzwFinishEncode(uint param_1); /* 0x0047ebe0 */
+void __cdecl stdGif_WriteSubBlock(uint param_1,short param_2); /* 0x0047ec40 */
 
 /* ===== stdlbm.c ===== */
-void * stdLbm_Load(char *param_1,int param_2,int param_3); /* 0x0047f120 */
-undefined4 stdLbm_Write(undefined4 param_1,int param_2); /* 0x0047f720 */
-void stdLbm_PackBits(undefined4 param_1,undefined1 *param_2,int param_3,char *param_4); /* 0x0047f9d0 */
-void stdLbm_PackByte(char param_1); /* 0x0047fa70 */
-void stdLbm_SwapHeader(undefined2 *param_1); /* 0x0047fc80 */
+void * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3); /* 0x0047f120 */
+uint __cdecl stdLbm_Write(uint param_1,int param_2); /* 0x0047f720 */
+void __cdecl stdLbm_PackBits(uint param_1,byte *param_2,int param_3,char *param_4); /* 0x0047f9d0 */
+void __cdecl stdLbm_PackByte(char param_1); /* 0x0047fa70 */
+void __cdecl stdLbm_SwapHeader(ushort *param_1); /* 0x0047fc80 */
 
 /* ===== std.c ===== */
-uint Std_Swap32(uint param_1); /* 0x0047fc50 */
-uint Std_Swap16(uint param_1); /* 0x0047fd00 */
+uint __cdecl Std_Swap32(uint param_1); /* 0x0047fc50 */
+uint __cdecl Std_Swap16(uint param_1); /* 0x0047fd00 */
 
 /* ===== stdmemory.c ===== */
-void stdMemory_CheckMagic(int param_1); /* 0x0047fe20 */
+void __cdecl stdMemory_CheckMagic(int param_1); /* 0x0047fe20 */
 void * __cdecl stdMemory_Alloc(uint size,char *file,int line); /* 0x0047fe50 */
 void __cdecl stdMemory_Free(void *p); /* 0x0047ff00 */
 void * __cdecl stdMemory_Realloc(void *p,uint size,char *file,int line); /* 0x0047ff70 */
@@ -1293,50 +1293,50 @@ void * __cdecl Res_Loaded(int type,char *name); /* 0x00481140 */
 void * __cdecl Res_FindByName(int type,char *name); /* 0x00481160 */
 void * __cdecl res_Load(int type,char *name,int *status); /* 0x00481210 */
 undefined * __cdecl res_LocateResByName(uint param_1,uint param_2); /* 0x00481300 */
-int * Res_FindByNameInList(int param_1,char *param_2,int *param_3); /* 0x00481320 */
+int * __cdecl Res_FindByNameInList(int param_1,char *param_2,int *param_3); /* 0x00481320 */
 void * __cdecl Res_CreateRecord(int type,char *name,void *data); /* 0x00481400 */
 void __cdecl Res_CallUnload(void *res); /* 0x00481510 */
 int __cdecl Res_Unlink(void *res); /* 0x004815c0 */
 int __cdecl Res_GetSize(void *res); /* 0x00481ef0 */
 void __cdecl Res_MoveToFront(void *res); /* 0x00481f00 */
 uint __cdecl Res_HashName(char *name,char *outLower); /* 0x00481f60 */
-void Res_GetFirstType(int *param_1,int *param_2,int param_3); /* 0x00482170 */
-void Res_GetNextType(int *param_1,int *param_2,int param_3); /* 0x004821b0 */
+void __cdecl Res_GetFirstType(int *param_1,int *param_2,int param_3); /* 0x00482170 */
+void __cdecl Res_GetNextType(int *param_1,int *param_2,int param_3); /* 0x004821b0 */
 undefined * __cdecl Res_Touch(void *param_1); /* 0x00482200 */
-int Res_CountChildren(uint param_1,uint param_2); /* 0x004824f0 */
-void grimlib_SetCacheMax(int param_1); /* 0x00482520 */
-void sputResource_ReportAllocations(void); /* 0x0048e230 */
+int __cdecl Res_CountChildren(uint param_1,uint param_2); /* 0x004824f0 */
+void __cdecl grimlib_SetCacheMax(int param_1); /* 0x00482520 */
+void __cdecl sputResource_ReportAllocations(void); /* 0x0048e230 */
 
 /* ===== resource.c ===== */
-undefined4 Res_SysInitialize(uint param_1,undefined4 *param_2); /* 0x00480010 */
+uint __cdecl Res_SysInitialize(uint param_1,uint *param_2); /* 0x00480010 */
 undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,undefined4 *param_4); /* 0x00480020 */
-void Res_SysTerminate(void); /* 0x004800a0 */
-undefined4 Res_SysStartup(void); /* 0x004800b0 */
-void Res_SysShutdown(void); /* 0x00480140 */
-undefined4 Res_SysSave(code *param_1); /* 0x00482260 */
-undefined4 Res_SysLoad(code *param_1); /* 0x00482380 */
+void __cdecl Res_SysTerminate(void); /* 0x004800a0 */
+uint __cdecl Res_SysStartup(void); /* 0x004800b0 */
+void __cdecl Res_SysShutdown(void); /* 0x00480140 */
+uint __cdecl Res_SysSave(code *param_1); /* 0x00482260 */
+uint __cdecl Res_SysLoad(code *param_1); /* 0x00482380 */
 void __cdecl Resource_SetNoPurge(int noPurge); /* 0x0048d340 */
 void * __cdecl sputResource_Alloc(int fourcc,char *name); /* 0x0048d350 */
-undefined4 sputResource_CloseResources(void); /* 0x0048d3e0 */
-undefined4 grimlib_FindResources(void); /* 0x0048d3f0 */
+uint __cdecl sputResource_CloseResources(void); /* 0x0048d3e0 */
+uint __cdecl grimlib_FindResources(void); /* 0x0048d3f0 */
 int __cdecl sputResource_AddResourcePath(char *dir); /* 0x0048d4b0 */
-int sputResource_LogToFile(char *param_1); /* 0x0048d550 */
+int __cdecl sputResource_LogToFile(char *param_1); /* 0x0048d550 */
 int __cdecl AddResourcePath(char *dir); /* 0x0048d570 */
-void Resource_CountCostumeRefs(undefined4 param_1); /* 0x0048d810 */
-undefined4 Resource_RegisterTypes(void); /* 0x0048d870 */
+void __cdecl Resource_CountCostumeRefs(uint param_1); /* 0x0048d810 */
+uint __cdecl Resource_RegisterTypes(void); /* 0x0048d870 */
 void __cdecl sputResource_SetMemoryUsage(int budget,int b); /* 0x0048d8a0 */
-void Resource_ReloadBitmaps(void); /* 0x0048df50 */
-void Resource_RebuildColormaps(void); /* 0x0048e0a0 */
-void * sputResource_MatLoader(char *param_1); /* 0x0048e170 */
-void sputResource_MatUnloader(void *param_1); /* 0x0048e1b0 */
+void __cdecl Resource_ReloadBitmaps(void); /* 0x0048df50 */
+void __cdecl Resource_RebuildColormaps(void); /* 0x0048e0a0 */
+void * __cdecl sputResource_MatLoader(char *param_1); /* 0x0048e170 */
+void __cdecl sputResource_MatUnloader(void *param_1); /* 0x0048e1b0 */
 
 /* ===== lab.c ===== */
-void Res_FileCloseAll(void); /* 0x00480120 */
+void __cdecl Res_FileCloseAll(void); /* 0x00480120 */
 int __cdecl Res_FileOpen(char *path); /* 0x00480360 */
 int __cdecl Res_FileClose(char *name); /* 0x004803a0 */
 int __cdecl Res_FileMoveToFront(char *name); /* 0x004804c0 */
 void * __cdecl Lab_Find(char *name); /* 0x00481070 */
-void Lab_Unlink(int *param_1); /* 0x004813c0 */
+void __cdecl Lab_Unlink(int *param_1); /* 0x004813c0 */
 int __cdecl res_FindInternalFile(char *name,void *outEntry); /* 0x00481630 */
 void * __cdecl Lab_Open(char *name); /* 0x004816b0 */
 int * Lab_AllocRecord(void); /* 0x00481750 */
@@ -1348,26 +1348,26 @@ int __cdecl Lab_ReadRaw(void *entry,void *buf,int offset,int n); /* 0x00482020 *
 int __cdecl Res_SysRegisterHandler(int fourcc,void *handler); /* 0x004801a0 */
 void * __cdecl ResType_Find(int fourcc); /* 0x00481050 */
 int __cdecl res_DefaultHandler(void *msg); /* 0x00481e10 */
-void * sputResource_LipSyncHandler(int *param_1); /* 0x0048d8c0 */
+void * __cdecl sputResource_LipSyncHandler(int *param_1); /* 0x0048d8c0 */
 int __cdecl sputResource_BackgroundHandler(void *msg); /* 0x0048d930 */
 int __cdecl sputResource_CostumeHandler(void *msg); /* 0x0048da40 */
-void * sputResource_ColormapHandler(int *param_1); /* 0x0048dab0 */
-void * sputResource_FontHandler(int *param_1); /* 0x0048dbd0 */
-void * sputResource_KeyframeHandler(int *param_1); /* 0x0048dc60 */
-void * sputResource_MaterialHandler(int *param_1); /* 0x0048dd20 */
-void * sputResource_ModelHandler(int *param_1); /* 0x0048de10 */
-void * sputResource_SetHandler(int *param_1); /* 0x0048de70 */
-void * sputResource_ZBufferHandler(int *param_1); /* 0x0048dee0 */
-undefined4 sputResource_MemoryHandler(int *param_1); /* 0x0048e1e0 */
+void * __cdecl sputResource_ColormapHandler(int *param_1); /* 0x0048dab0 */
+void * __cdecl sputResource_FontHandler(int *param_1); /* 0x0048dbd0 */
+void * __cdecl sputResource_KeyframeHandler(int *param_1); /* 0x0048dc60 */
+void * __cdecl sputResource_MaterialHandler(int *param_1); /* 0x0048dd20 */
+void * __cdecl sputResource_ModelHandler(int *param_1); /* 0x0048de10 */
+void * __cdecl sputResource_SetHandler(int *param_1); /* 0x0048de70 */
+void * __cdecl sputResource_ZBufferHandler(int *param_1); /* 0x0048dee0 */
+uint __cdecl sputResource_MemoryHandler(int *param_1); /* 0x0048e1e0 */
 
 /* ===== resfile.c ===== */
 int __cdecl Res_FOpen(char *name,char *mode); /* 0x00480890 */
 int __cdecl Res_FClose(int fh); /* 0x00480a00 */
 uint __cdecl Res_FRead(int fh,void *buf,uint n); /* 0x00480a70 */
-char * Res_FGets(int param_1,char *param_2,uint param_3); /* 0x00480bb0 */
-undefined4 Res_FWrite(int param_1,undefined4 param_2,undefined4 param_3); /* 0x00480ce0 */
-undefined4 Res_FEOF(int param_1); /* 0x00480d50 */
-undefined4 Res_FTell(int param_1); /* 0x00480dc0 */
+char * __cdecl Res_FGets(int param_1,char *param_2,uint param_3); /* 0x00480bb0 */
+uint __cdecl Res_FWrite(int param_1,uint param_2,uint param_3); /* 0x00480ce0 */
+uint __cdecl Res_FEOF(int param_1); /* 0x00480d50 */
+uint __cdecl Res_FTell(int param_1); /* 0x00480dc0 */
 int __cdecl Res_FSeek(int fh,int offset,int whence); /* 0x00480e30 */
 int __cdecl Res_FSize(char *name); /* 0x00480f40 */
 int __cdecl Res_FPrintf(int fh,char *fmt,...); /* 0x00480f90 */
@@ -1380,59 +1380,59 @@ int __cdecl res_FindDirectoryEntry(int archive,int type,byte *name,uint hash,und
 /* ===== resref.c ===== */
 void __cdecl Res_SetReference(void *ref,void *data,char *file,int line); /* 0x00482070 */
 void Res_RemoveReference(void *ref); /* 0x00482110 */
-void Res_ResolveToSerialNumber(undefined4 *param_1); /* 0x00482220 */
+void __cdecl Res_ResolveToSerialNumber(uint *param_1); /* 0x00482220 */
 
 /* ===== engine.c ===== */
-void Res_FreeAll(void); /* 0x00482460 */
-void grimlib_LogResources(undefined4 param_1); /* 0x00482530 */
-void grimlib_OverrideSelectedActorCostume(int param_1); /* 0x004825c0 */
-void grimlib_RestoreSelectedActorCostume(void); /* 0x004825f0 */
+void __cdecl Res_FreeAll(void); /* 0x00482460 */
+void __cdecl grimlib_LogResources(uint param_1); /* 0x00482530 */
+void __cdecl grimlib_OverrideSelectedActorCostume(int param_1); /* 0x004825c0 */
+void __cdecl grimlib_RestoreSelectedActorCostume(void); /* 0x004825f0 */
 int __cdecl grimlib_SetDisplay(void *mode,int flags); /* 0x00482620 */
-undefined4 grimlib_UnsetDisplay(void); /* 0x00482660 */
-void grimlib_Close(void); /* 0x004826e0 */
-void grimlib_SetDebugToggleCallback(undefined4 param_1); /* 0x00482720 */
-void grimlib_SetPaletteCallback(undefined4 param_1); /* 0x00482730 */
-void grimlib_SetShutdownCallback(uint param_1); /* 0x00482740 */
-void grimlib_SetPageFlipCallback(undefined4 param_1); /* 0x00482750 */
-void grimlib_Using3DHardware(undefined4 param_1); /* 0x00482760 */
-void grimlib_AddResourcePath(char *param_1); /* 0x00482770 */
-int grimlib_FindSystemFiles(void); /* 0x00482790 */
-undefined4 grimlib_Open(int param_1,char *param_2); /* 0x004827a0 */
+uint __cdecl grimlib_UnsetDisplay(void); /* 0x00482660 */
+void __cdecl grimlib_Close(void); /* 0x004826e0 */
+void __cdecl grimlib_SetDebugToggleCallback(uint param_1); /* 0x00482720 */
+void __cdecl grimlib_SetPaletteCallback(uint param_1); /* 0x00482730 */
+void __cdecl grimlib_SetShutdownCallback(uint param_1); /* 0x00482740 */
+void __cdecl grimlib_SetPageFlipCallback(uint param_1); /* 0x00482750 */
+void __cdecl grimlib_Using3DHardware(uint param_1); /* 0x00482760 */
+void __cdecl grimlib_AddResourcePath(char *param_1); /* 0x00482770 */
+int __cdecl grimlib_FindSystemFiles(void); /* 0x00482790 */
+uint __cdecl grimlib_Open(int param_1,char *param_2); /* 0x004827a0 */
 void __cdecl grimlib_MarkDirtyRect(int *rect,int flags); /* 0x00482800 */
-int grimlib_ConfirmClose(void); /* 0x004828d0 */
+int __cdecl grimlib_ConfirmClose(void); /* 0x004828d0 */
 void __cdecl grimlib_RequestShutdown(int exitCode); /* 0x004828e0 */
 void __cdecl grimlib_SetPause(int paused); /* 0x00482900 */
 undefined * __cdecl grimlib_CharacterCallback(int param_1); /* 0x00482980 */
 void __cdecl grimlib_UpdateManual(int draw,int frameMs); /* 0x00482990 */
 void __cdecl gimlib_SetImuseState(int state); /* 0x00482ae0 */
-void grimlib_Display(void); /* 0x00482af0 */
-uint Engine_RegisterSubsystems(undefined4 param_1,undefined4 *param_2,int param_3,int param_4); /* 0x00482cf0 */
-undefined4 Engine_InitSubsystems(int param_1,int param_2); /* 0x00482d60 */
-undefined4 Engine_ShutdownSubsystems(int param_1,int param_2); /* 0x00482dd0 */
-undefined4 Engine_ResetSubsystems(int param_1,int param_2); /* 0x00482e00 */
-void PerfBegin(int param_1); /* 0x00482e30 */
+void __cdecl grimlib_Display(void); /* 0x00482af0 */
+uint __cdecl Engine_RegisterSubsystems(uint param_1,uint *param_2,int param_3,int param_4); /* 0x00482cf0 */
+uint __cdecl Engine_InitSubsystems(int param_1,int param_2); /* 0x00482d60 */
+uint __cdecl Engine_ShutdownSubsystems(int param_1,int param_2); /* 0x00482dd0 */
+uint __cdecl Engine_ResetSubsystems(int param_1,int param_2); /* 0x00482e00 */
+void __cdecl PerfBegin(int param_1); /* 0x00482e30 */
 undefined * __cdecl PerfEnd(int param_1); /* 0x00482e80 */
-undefined4 grimlib_PlayMovie(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5); /* 0x00482f00 */
-void grimlib_UserPaint(void); /* 0x00482f80 */
-void grimlib_Save(char *param_1); /* 0x00482f90 */
-void grimlib_Load(char *param_1); /* 0x00482fb0 */
-uint grimlib_JustLoaded(void); /* 0x00482fd0 */
-void Engine_SaveGame(void); /* 0x00482fe0 */
-void Engine_LoadGame(void); /* 0x00483240 */
-void SetPrevMode(uint param_1); /* 0x004835f0 */
-uint GetPrevMode(void); /* 0x00483600 */
-undefined4 sputRender_Open(void); /* 0x00484000 */
+uint __cdecl grimlib_PlayMovie(uint param_1,int param_2,uint param_3,uint param_4,uint param_5); /* 0x00482f00 */
+void __cdecl grimlib_UserPaint(void); /* 0x00482f80 */
+void __cdecl grimlib_Save(char *param_1); /* 0x00482f90 */
+void __cdecl grimlib_Load(char *param_1); /* 0x00482fb0 */
+uint __cdecl grimlib_JustLoaded(void); /* 0x00482fd0 */
+void __cdecl Engine_SaveGame(void); /* 0x00482fe0 */
+void __cdecl Engine_LoadGame(void); /* 0x00483240 */
+void __cdecl SetPrevMode(uint param_1); /* 0x004835f0 */
+uint __cdecl GetPrevMode(void); /* 0x00483600 */
+uint __cdecl sputRender_Open(void); /* 0x00484000 */
 void __cdecl sputRender_Update(void); /* 0x00484260 */
 void __cdecl sputControl_AddCallback(void *fn); /* 0x0048d1a0 */
 void __cdecl sputControl_Update(undefined4 param_1,undefined4 param_2); /* 0x0048d1c0 */
 
 /* ===== set.c ===== */
-int Res_NumRefs(void *param_1); /* 0x004824c0 */
+int __cdecl Res_NumRefs(void *param_1); /* 0x004824c0 */
 void __cdecl grimlib_MakeCurrentSet(char *name); /* 0x00482670 */
 void * __cdecl grimlib_MakeCurrentSetup(uint setup); /* 0x00482820 */
 void __cdecl sputRender_SyncCamera(void *set,int setupIdx); /* 0x00483aa0 */
 void __cdecl sputRender_UseSetup(void *set,int setupIdx); /* 0x00483b50 */
-void Set_DrawDebugLights(int param_1); /* 0x00485780 */
+void __cdecl Set_DrawDebugLights(int param_1); /* 0x00485780 */
 void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx); /* 0x004859c0 */
 void sputRoom_SetSoundParameters (int param_1,undefined4 param_2,undefined1 param_3,undefined1 param_4, undefined4 param_5,undefined4 param_6); /* 0x004a4010 */
 void __cdecl sputRoom_GetSoundParameters(void *set,float *minVol,char *maxVol,char *c,float *d,float *e); /* 0x004a4050 */
@@ -1461,7 +1461,7 @@ void __cdecl WalkPlane_SetCollection(void *set); /* 0x004a7150 */
 /* ===== enginemodule.c ===== */
 undefined * __cdecl grimlib_GameInitialize(GrimServices *param_1,undefined **param_2); /* 0x00482540 */
 undefined * grimlib_GameTerminate(void); /* 0x00482b60 */
-int grimlib_GameStartup(void); /* 0x00482ba0 */
+int __cdecl grimlib_GameStartup(void); /* 0x00482ba0 */
 undefined * grimlib_GameShutdown(void); /* 0x00482cc0 */
 
 /* ===== savegame.c ===== */
@@ -1470,70 +1470,70 @@ int __cdecl SaveGame_Read(void *buf,int n); /* 0x00483470 */
 void * __cdecl sputMain_GetSaveGameImage(char *filename); /* 0x00483490 */
 
 /* ===== imuse.c ===== */
-void IMuse_SaveToTemp(void); /* 0x00483610 */
-void IMuse_RestoreFromTemp(void); /* 0x00483650 */
+void __cdecl IMuse_SaveToTemp(void); /* 0x00483610 */
+void __cdecl IMuse_RestoreFromTemp(void); /* 0x00483650 */
 
 /* ===== imusemodule.c ===== */
-undefined4 PolyglotInitialize(GrimServices *param_1,undefined4 *param_2); /* 0x004836b0 */
-void polyglot_shutdown(void); /* 0x004836f0 */
+uint __cdecl PolyglotInitialize(GrimServices *param_1,uint *param_2); /* 0x004836b0 */
+void __cdecl polyglot_shutdown(void); /* 0x004836f0 */
 
 /* ===== polyglot.c ===== */
-void PolyglotConfigure(undefined *param_1); /* 0x00483720 */
+void __cdecl PolyglotConfigure(byte *param_1); /* 0x00483720 */
 char * __cdecl PolyglotGetString(char *textId); /* 0x004838e0 */
 
 /* ===== render.c ===== */
-uint * Render_GetBackBuffer(void); /* 0x004839f0 */
-void sputRender_DrawDebuggingToggle(void); /* 0x00483a00 */
-void sputRender_SetPaletteCallback(uint param_1); /* 0x00483a80 */
-void sputRender_SetPageFlipCallback(void *param_1); /* 0x00483a90 */
+uint * __cdecl Render_GetBackBuffer(void); /* 0x004839f0 */
+void __cdecl sputRender_DrawDebuggingToggle(void); /* 0x00483a00 */
+void __cdecl sputRender_SetPaletteCallback(uint param_1); /* 0x00483a80 */
+void __cdecl sputRender_SetPageFlipCallback(void *param_1); /* 0x00483a90 */
 int __cdecl sputRender_Save(void *writeFn); /* 0x00483da0 */
 int __cdecl sputRender_Restore(void *readFn); /* 0x00483e20 */
-void sputRender_Using3DHardware(int param_1); /* 0x00483ea0 */
+void __cdecl sputRender_Using3DHardware(int param_1); /* 0x00483ea0 */
 void __cdecl sputRender_PageCountIs(int n); /* 0x00483eb0 */
 void __cdecl sputRender_MarkDirtyRect(int *rect,int flag); /* 0x00483ed0 */
 void __cdecl MarkDirtyRect(int *rect,int flag); /* 0x00483f60 */
-undefined4 sputRender_SetDisplay (uint param_1,uint param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5, undefined4 param_6,int param_7); /* 0x00484030 */
-void sputRender_Close(void); /* 0x004841f0 */
-void sputRender_PageFlip(void); /* 0x004849a0 */
-void Render_SetPixelFormat(uint *param_1); /* 0x004849d0 */
-undefined4 sputRender_ControlHandler(void); /* 0x00484a50 */
-void Render_InitColorConstants(int param_1); /* 0x00484c40 */
-void Render_DrawDebugGrid(void); /* 0x00485bd0 */
-int Render_CanvasIsPaletted(void); /* 0x00486100 */
-void Render_BuildActorDrawList(void); /* 0x00486120 */
+uint __cdecl sputRender_SetDisplay (uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,int param_7 ); /* 0x00484030 */
+void __cdecl sputRender_Close(void); /* 0x004841f0 */
+void __cdecl sputRender_PageFlip(void); /* 0x004849a0 */
+void __cdecl Render_SetPixelFormat(uint *param_1); /* 0x004849d0 */
+uint __cdecl sputRender_ControlHandler(void); /* 0x00484a50 */
+void __cdecl Render_InitColorConstants(int param_1); /* 0x00484c40 */
+void __cdecl Render_DrawDebugGrid(void); /* 0x00485bd0 */
+int __cdecl Render_CanvasIsPaletted(void); /* 0x00486100 */
+void __cdecl Render_BuildActorDrawList(void); /* 0x00486120 */
 void __cdecl sputRender_ReverseProject(int x,int y,float *outPos); /* 0x004862e0 */
 void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth); /* 0x004863b0 */
 void __cdecl Render_BuildColorTable(int param_1,float param_2); /* 0x004864a0 */
 void __cdecl sputRender_ColorCorrect(ushort *pixels,uint n); /* 0x00486620 */
 void __cdecl sputRender_SetGamma(float gamma); /* 0x00486710 */
-void sputRender_Decompress(void *param_1); /* 0x00486760 */
-void sputRender_Dim(ushort *param_1,byte param_2); /* 0x004867d0 */
-void Render_CopyBackBufferToBackground(void); /* 0x00486990 */
-void Render_CleanBuffer(void); /* 0x004869b0 */
-void sputRender_ForceRefresh(void); /* 0x00486a00 */
-void * sputRender_CleanArtBuffer(void); /* 0x00486b00 */
-void * sputRender_CleanZBuffer(void); /* 0x00486b10 */
+void __cdecl sputRender_Decompress(void *param_1); /* 0x00486760 */
+void __cdecl sputRender_Dim(ushort *param_1,byte param_2); /* 0x004867d0 */
+void __cdecl Render_CopyBackBufferToBackground(void); /* 0x00486990 */
+void __cdecl Render_CleanBuffer(void); /* 0x004869b0 */
+void __cdecl sputRender_ForceRefresh(void); /* 0x00486a00 */
+void * __cdecl sputRender_CleanArtBuffer(void); /* 0x00486b00 */
+void * __cdecl sputRender_CleanZBuffer(void); /* 0x00486b10 */
 code * __cdecl sputRender_SetPaletteFunc(void); /* 0x00486b20 */
-void sputRender_SetPageFlip(int param_1); /* 0x00486b30 */
+void __cdecl sputRender_SetPageFlip(int param_1); /* 0x00486b30 */
 void __cdecl sputRender_DrawIrisEffect(float percent,int x,int y); /* 0x00486d00 */
 void __cdecl sputRender_IrisDown(int x,int y,int durationMs); /* 0x00486eb0 */
 void __cdecl sputRender_IrisUp(int x,int y,int durationMs); /* 0x00486ef0 */
-uint sputRender_IrisComplete(void); /* 0x00486f30 */
+uint __cdecl sputRender_IrisComplete(void); /* 0x00486f30 */
 void * __cdecl sputRender_ScreenShot(int w,int h); /* 0x00486f90 */
 void __cdecl sputRender_DimRegion(int x,int y,int w,int h,float scale); /* 0x004870e0 */
 void __cdecl sputRender_SaveScreen(char *filename); /* 0x00487260 */
 void __cdecl Render_SaveZBufferBmp(char *filename); /* 0x004872f0 */
 void __cdecl sputRender_SaveDrawBuffer(char *filename); /* 0x00487340 */
 void __cdecl Render_DrawProgressBar(float fraction); /* 0x004873d0 */
-void sputRender_AllowLoadImage(uint param_1); /* 0x004874c0 */
-void sputRender_DrawLoadingImage(void); /* 0x004874d0 */
-int sputActor_GetNumActorsTalking(void); /* 0x0048f920 */
+void __cdecl sputRender_AllowLoadImage(uint param_1); /* 0x004874c0 */
+void __cdecl sputRender_DrawLoadingImage(void); /* 0x004874d0 */
+int __cdecl sputActor_GetNumActorsTalking(void); /* 0x0048f920 */
 
 /* ===== sputrender.c ===== */
-undefined4 sputRender_Initialize(GrimServices *param_1,undefined4 *param_2); /* 0x00483d40 */
-void sputRender_Terminate(void); /* 0x00486050 */
-int sputRender_Startup(void); /* 0x00486070 */
-void sputRender_Shutdown(void); /* 0x004860d0 */
+uint __cdecl sputRender_Initialize(GrimServices *param_1,uint *param_2); /* 0x00483d40 */
+void __cdecl sputRender_Terminate(void); /* 0x00486050 */
+int __cdecl sputRender_Startup(void); /* 0x00486070 */
+void __cdecl sputRender_Shutdown(void); /* 0x004860d0 */
 
 /* ===== actor.c ===== */
 void __cdecl Actor_ComputeScreenBox(Actor *actor); /* 0x00485290 */
@@ -1597,10 +1597,10 @@ float __thiscall Puck_GetYawToPoint(Puck *this,float *point); /* 0x004a8500 */
 /* ===== dirtyrect.c ===== */
 void __cdecl DirtyRect_Add(int *rect,int flag,int bufferIdx); /* 0x00485420 */
 void __cdecl DirtyRect_Flush(void *dst,void *zdst); /* 0x00485e50 */
-void DirtyRect_Clear(void); /* 0x00486020 */
+void __cdecl DirtyRect_Clear(void); /* 0x00486020 */
 
 /* ===== setup.c ===== */
-void Setup_DrawDebugCamera(int param_1); /* 0x00485a40 */
+void __cdecl Setup_DrawDebugCamera(int param_1); /* 0x00485a40 */
 void * __cdecl sputRoom_GetSetupBackground(void *set,int setupIdx); /* 0x004a3db0 */
 void * __cdecl sputRoom_GetSetupZBackground(void *set,int setupIdx); /* 0x004a3ef0 */
 
@@ -1608,7 +1608,7 @@ void * __cdecl sputRoom_GetSetupZBackground(void *set,int setupIdx); /* 0x004a3e
 void __cdecl Sector_DrawAllDebug(void); /* 0x00485dc0 */
 void __cdecl sputLua_CollisionHandler(int self,int other,float *a,float *b,float *c); /* 0x0049c750 */
 int SetFile_Parse(char *param_1,uint param_2); /* 0x004a4b00 */
-undefined4 sputRoom_LoadRoomEntry(undefined4 param_1); /* 0x004a5550 */
+undefined4 sputRoom_LoadRoomEntry(uint param_1); /* 0x004a5550 */
 undefined4 sputRoom_ParseColormaps(void); /* 0x004a5b40 */
 undefined4 sputRoom_ParseSectors(void); /* 0x004a5c90 */
 void WalkPlane_BuildCache(void); /* 0x004a61c0 */
@@ -1640,9 +1640,9 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane); /* 0x004a9180
 void __cdecl ShrinkBoxes(float radius); /* 0x004a9d00 */
 
 /* ===== drawlist.c ===== */
-void DrawList_Reset(void); /* 0x00486250 */
-undefined * DrawList_Alloc(void); /* 0x00486280 */
-undefined4 FUN_004862b0(int *param_1,int *param_2); /* 0x004862b0 */
+void __cdecl DrawList_Reset(void); /* 0x00486250 */
+byte * __cdecl DrawList_Alloc(void); /* 0x00486280 */
+uint __cdecl FUN_004862b0(int *param_1,int *param_2); /* 0x004862b0 */
 
 /* ===== plane.c ===== */
 int __cdecl sputRender_SegmentPlaneIntersect(float *out,float *p1,float *p2,float a,float b,float c,float d); /* 0x00486a10 */
@@ -1650,60 +1650,60 @@ int __cdecl sputRender_SegmentPlaneIntersect(float *out,float *p1,float *p2,floa
 /* ===== cacherect.c ===== */
 void * __cdecl sputRender_CreateCacheRect(int x,int y,int w,int h); /* 0x00486b40 */
 void __cdecl sputRender_RestoreCacheRect(int unused); /* 0x00486c50 */
-void CacheRect_FreeAll(void); /* 0x00486cb0 */
+void __cdecl CacheRect_FreeAll(void); /* 0x00486cb0 */
 
 /* ===== dlg.c ===== */
-undefined4 * Dlg_MakeItemTemplate (undefined4 param_1,undefined2 param_2,undefined2 param_3,undefined2 param_4, undefined2 param_5,undefined2 param_6,int param_7,int param_8,uint *param_9); /* 0x00488010 */
-uint * Dlg_MakeDialogTemplate (undefined4 *param_1,undefined2 param_2,undefined2 param_3,undefined2 param_4, undefined2 param_5,undefined2 param_6,int param_7,int param_8,undefined2 param_9, uint *param_10); /* 0x004881a0 */
+uint * __cdecl Dlg_MakeItemTemplate (uint param_1,ushort param_2,ushort param_3,ushort param_4,ushort param_5,ushort param_6, int param_7,int param_8,uint *param_9); /* 0x00488010 */
+uint * __cdecl Dlg_MakeDialogTemplate (uint *param_1,ushort param_2,ushort param_3,ushort param_4,ushort param_5,ushort param_6, int param_7,int param_8,ushort param_9,uint *param_10); /* 0x004881a0 */
 
 /* ===== spew.c ===== */
-void Spew_Startup(void); /* 0x00488840 */
-void grimDebug_Shutdown(void); /* 0x00488860 */
-void Spew_LoadDll(void); /* 0x00488890 */
+void __cdecl Spew_Startup(void); /* 0x00488840 */
+void __cdecl grimDebug_Shutdown(void); /* 0x00488860 */
+void __cdecl Spew_LoadDll(void); /* 0x00488890 */
 
 /* ===== fileutil.c ===== */
-undefined4 FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2); /* 0x00488c80 */
-void FileUtil_SysTerminate(void); /* 0x00488ce0 */
-undefined4 FileUtil_SysStartup(void); /* 0x00488cf0 */
-void FileUtil_SysShutdown(void); /* 0x00488d20 */
-undefined4 FileUtil_SysSave(code *param_1); /* 0x00488d30 */
+uint __cdecl FileUtil_SysInitialize(GrimServices *param_1,uint *param_2); /* 0x00488c80 */
+void __cdecl FileUtil_SysTerminate(void); /* 0x00488ce0 */
+uint __cdecl FileUtil_SysStartup(void); /* 0x00488cf0 */
+void __cdecl FileUtil_SysShutdown(void); /* 0x00488d20 */
+uint __cdecl FileUtil_SysSave(code *param_1); /* 0x00488d30 */
 
 /* ===== savefile.c ===== */
-undefined4 FileUtil_SysRestore(code *param_1); /* 0x00488d80 */
+uint __cdecl FileUtil_SysRestore(code *param_1); /* 0x00488d80 */
 void * SaveFile_Open(char *name,char *mode); /* 0x004c3e40 */
 
 /* ===== dirscan.c ===== */
-undefined4 * DirScan_Create(undefined4 param_1,int param_2,char *param_3); /* 0x00488de0 */
-void DirScan_Destroy(int param_1); /* 0x00488e70 */
-void DirScan_Reset(int param_1); /* 0x00488eb0 */
-undefined4 DirScan_Next(int param_1,char *param_2); /* 0x00488ee0 */
+uint * __cdecl DirScan_Create(uint param_1,int param_2,char *param_3); /* 0x00488de0 */
+void __cdecl DirScan_Destroy(int param_1); /* 0x00488e70 */
+void __cdecl DirScan_Reset(int param_1); /* 0x00488eb0 */
+uint __cdecl DirScan_Next(int param_1,char *param_2); /* 0x00488ee0 */
 
 /* ===== sputsmush.c ===== */
-undefined4 sputSmush_Initialize(undefined4 param_1,undefined4 *param_2); /* 0x00488fb0 */
-undefined4 sputSmush_Startup(void); /* 0x00489130 */
-void sputSmush_Shutdown(void); /* 0x00489190 */
+uint __cdecl sputSmush_Initialize(uint param_1,uint *param_2); /* 0x00488fb0 */
+uint __cdecl sputSmush_Startup(void); /* 0x00489130 */
+void __cdecl sputSmush_Shutdown(void); /* 0x00489190 */
 
 /* ===== movie.c ===== */
 int __cdecl sputSmush_Save(void *fn); /* 0x00489030 */
-undefined4 sputSmush_Restore(code *param_1); /* 0x00489090 */
-undefined4 sputSmush_Periodic(void); /* 0x004891b0 */
+uint __cdecl sputSmush_Restore(code *param_1); /* 0x00489090 */
+uint __cdecl sputSmush_Periodic(void); /* 0x004891b0 */
 int __cdecl sputSmush_SetTarget(void *surface); /* 0x00489280 */
-undefined4 sputSmush_StartMovie(char *param_1,int param_2,uint param_3,uint param_4); /* 0x004892a0 */
-void sputSmush_StopMovie(void); /* 0x00489370 */
-int sputSmush_GetMovieLength(char *param_1); /* 0x00489390 */
-undefined4 sputSmush_StartVideo(int param_1,int param_2,int param_3); /* 0x004893d0 */
-int sputSmush_StopVideo(void); /* 0x00489410 */
-undefined4 sputSmush_LockMovieBuffer(undefined4 *param_1,undefined4 *param_2); /* 0x00489420 */
-undefined4 sputSmush_UnLockMovieBuffer(void); /* 0x004894b0 */
-int sputSmush_SetVideoPalette(void); /* 0x004894d0 */
-int sputSmush_MoviePlaying(void); /* 0x004894e0 */
+uint __cdecl sputSmush_StartMovie(char *param_1,int param_2,uint param_3,uint param_4); /* 0x004892a0 */
+void __cdecl sputSmush_StopMovie(void); /* 0x00489370 */
+int __cdecl sputSmush_GetMovieLength(char *param_1); /* 0x00489390 */
+uint __cdecl sputSmush_StartVideo(int param_1,int param_2,int param_3); /* 0x004893d0 */
+int __cdecl sputSmush_StopVideo(void); /* 0x00489410 */
+uint __cdecl sputSmush_LockMovieBuffer(uint *param_1,uint *param_2); /* 0x00489420 */
+uint __cdecl sputSmush_UnLockMovieBuffer(void); /* 0x004894b0 */
+int __cdecl sputSmush_SetVideoPalette(void); /* 0x004894d0 */
+int __cdecl sputSmush_MoviePlaying(void); /* 0x004894e0 */
 void sputSmush_Pause(int paused); /* 0x004894f0 */
 
 /* ===== primitivelist.c ===== */
 void PrimitiveList_StaticConstruct(void); /* 0x00489510 */
 void PrimitiveList_InitGlobal(void); /* 0x00489520 */
-void PrimitiveList_RegisterAtExit(void); /* 0x00489530 */
-void PrimitiveList_AtExitClear(void); /* 0x00489540 */
+void __cdecl PrimitiveList_RegisterAtExit(void); /* 0x00489530 */
+void __cdecl PrimitiveList_AtExitClear(void); /* 0x00489540 */
 void __fastcall PrimitiveQueue_Construct(undefined4 *param_1); /* 0x0048a500 */
 void __fastcall PrimitiveQueue_purge(int *param_1); /* 0x0048a520 */
 void * __thiscall PrimitiveQueue_addObject(void *this,int id,int layer); /* 0x0048a670 */
@@ -1713,8 +1713,8 @@ void * __thiscall PrimitiveQueue_findPrimitive(void *this,int id,void *after); /
 
 /* ===== primitives.c ===== */
 void __cdecl sputPrimitive_Update(uint layerMask); /* 0x00489550 */
-void sputPrimitive_Pause(void); /* 0x004895d0 */
-void sputPrimitive_Resume(void); /* 0x004895f0 */
+void __cdecl sputPrimitive_Pause(void); /* 0x004895d0 */
+void __cdecl sputPrimitive_Resume(void); /* 0x004895f0 */
 void * __thiscall PrimitiveObject_Construct(void *this,int id,int unused); /* 0x0048a4b0 */
 int __thiscall PrimitiveQueue_addLine(void *this,int x1,int y1,int x2,int y2,int color,int layer); /* 0x0048a560 */
 int __thiscall PrimitiveQueue_addRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,int layer); /* 0x0048a5b0 */
@@ -1728,31 +1728,31 @@ int __thiscall PrimitiveQueue_moveEndpoint(void *this,int id,int x,int y); /* 0x
 int __thiscall PrimitiveQueue_changeDimensions(void *this,int id,int w,int h); /* 0x0048a9a0 */
 void __stdcall PrimitiveQueue_drawPrimitive(void *prim,void *canvas); /* 0x0048aa20 */
 int __thiscall PrimitiveQueue_markDirty(void *this,void *prim); /* 0x0048ab50 */
-void PrimitiveQueue_resetId(void); /* 0x0048abc0 */
+void __cdecl PrimitiveQueue_resetId(void); /* 0x0048abc0 */
 
 /* ===== sputprimitive.c ===== */
-undefined4 sputPrimitive_Initialize(undefined4 param_1,undefined4 *param_2); /* 0x00489580 */
-undefined4 sputPrimitive_Save(code *param_1); /* 0x00489600 */
-undefined4 sputPrimitive_Restore(code *param_1); /* 0x004896b0 */
-void sputPrimitive_Terminate(void); /* 0x004897d0 */
-undefined4 sputPrimitive_Startup(void); /* 0x004897f0 */
-void sputPrimitive_Shutdown(void); /* 0x00489820 */
+uint __cdecl sputPrimitive_Initialize(uint param_1,uint *param_2); /* 0x00489580 */
+uint __cdecl sputPrimitive_Save(code *param_1); /* 0x00489600 */
+uint __cdecl sputPrimitive_Restore(code *param_1); /* 0x004896b0 */
+void __cdecl sputPrimitive_Terminate(void); /* 0x004897d0 */
+uint __cdecl sputPrimitive_Startup(void); /* 0x004897f0 */
+void __cdecl sputPrimitive_Shutdown(void); /* 0x00489820 */
 
 /* ===== list.c ===== */
 void __cdecl List_Unlink(void *obj); /* 0x0048ac00 */
 
 /* ===== textobjects.c ===== */
 void __cdecl sputText_Update(int drawAll); /* 0x0048ac40 */
-void sputText_Pause(void); /* 0x0048ad40 */
-void sputText_Resume(void); /* 0x0048ad50 */
+void __cdecl sputText_Pause(void); /* 0x0048ad40 */
+void __cdecl sputText_Resume(void); /* 0x0048ad50 */
 
 /* ===== sputtext.c ===== */
-undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2); /* 0x0048acc0 */
-void sputText_Terminate(void); /* 0x0048c4d0 */
-undefined4 sputText_Startup(void); /* 0x0048c500 */
-void sputText_Shutdown(void); /* 0x0048c6f0 */
-undefined4 sputText_Save(code *param_1); /* 0x0048cbc0 */
-undefined4 sputText_Restore(code *param_1); /* 0x0048cd80 */
+uint __cdecl sputText_Initialize(GrimServices *param_1,uint *param_2); /* 0x0048acc0 */
+void __cdecl sputText_Terminate(void); /* 0x0048c4d0 */
+uint __cdecl sputText_Startup(void); /* 0x0048c500 */
+void __cdecl sputText_Shutdown(void); /* 0x0048c6f0 */
+uint __cdecl sputText_Save(code *param_1); /* 0x0048cbc0 */
+uint __cdecl sputText_Restore(code *param_1); /* 0x0048cd80 */
 
 /* ===== text.c ===== */
 int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *textObj); /* 0x0048c050 */
@@ -1783,39 +1783,39 @@ void __cdecl TextObject_Draw(TextObject *obj,int invalidate); /* 0x0048c9f0 */
 TextObject * __cdecl sputText_FindSerialNumber(int serial); /* 0x0048cba0 */
 
 /* ===== controls.c ===== */
-int Controls_DebugKeysHook(undefined4 param_1); /* 0x0048d030 */
-void sputControl_Reset(void); /* 0x0048d050 */
+int __cdecl Controls_DebugKeysHook(uint param_1); /* 0x0048d030 */
+void __cdecl sputControl_Reset(void); /* 0x0048d050 */
 
 /* ===== control.c ===== */
 void __cdecl sputControl_EnableControl(int control); /* 0x0048d090 */
 void __cdecl sputControl_DisableControl(int control); /* 0x0048d0d0 */
 undefined * sputControl_Open(void); /* 0x0048d150 */
-undefined4 sputControl_Close(void); /* 0x0048d170 */
+uint __cdecl sputControl_Close(void); /* 0x0048d170 */
 
 /* ===== sputcontrol.c ===== */
-undefined4 sputControl_Initialize(undefined4 param_1,undefined4 *param_2); /* 0x0048d100 */
-void sputControl_Terminate(void); /* 0x0048d2c0 */
-undefined4 sputControl_Startup(void); /* 0x0048d2e0 */
-void sputControl_Shutdown(void); /* 0x0048d330 */
+uint __cdecl sputControl_Initialize(uint param_1,uint *param_2); /* 0x0048d100 */
+void __cdecl sputControl_Terminate(void); /* 0x0048d2c0 */
+uint __cdecl sputControl_Startup(void); /* 0x0048d2e0 */
+void __cdecl sputControl_Shutdown(void); /* 0x0048d330 */
 
 /* ===== debug.c ===== */
-undefined4 sputControl_StandardHandler(void); /* 0x0048d210 */
+uint __cdecl sputControl_StandardHandler(void); /* 0x0048d210 */
 
 /* ===== sputresource.c ===== */
 undefined * __cdecl sputResource_Initialize(uint param_1,undefined **param_2); /* 0x0048d4e0 */
-void sputResource_Terminate(void); /* 0x0048d770 */
-int sputResource_Startup(void); /* 0x0048d790 */
-void sputResource_Shutdown(void); /* 0x0048d830 */
+void __cdecl sputResource_Terminate(void); /* 0x0048d770 */
+int __cdecl sputResource_Startup(void); /* 0x0048d790 */
+void __cdecl sputResource_Shutdown(void); /* 0x0048d830 */
 
 /* ===== actors.c ===== */
-void sputActor_NukeCostumeStacks(void); /* 0x0048e240 */
+void __cdecl sputActor_NukeCostumeStacks(void); /* 0x0048e240 */
 void __cdecl sputActor_UpdateSpeechOnly(float dt); /* 0x0048fcc0 */
 void __cdecl sputActor_UpdateActors(float dt); /* 0x0048fcf0 */
 
 /* ===== sputactor.c ===== */
-undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2); /* 0x0048e2c0 */
-undefined4 sputActor_Save(code *param_1); /* 0x0048e330 */
-undefined4 sputActor_Restore(code *param_1); /* 0x0048ecd0 */
+uint __cdecl sputActor_Initialize(uint param_1,uint *param_2); /* 0x0048e2c0 */
+uint __cdecl sputActor_Save(code *param_1); /* 0x0048e330 */
+uint __cdecl sputActor_Restore(code *param_1); /* 0x0048ecd0 */
 void __cdecl sputActor_SetWalkChore(Actor *actor,int chore,CostumeNode *costume); /* 0x00490a60 */
 void sputActor_Terminate(void); /* 0x00490e60 */
 undefined4 sputActor_Startup(void); /* 0x00490e80 */
@@ -1914,7 +1914,7 @@ void * __cdecl MaterialInstancer(void *cosInst,int componentIdx,int create); /* 
 int MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496670 */
 
 /* ===== modelcomponent.c ===== */
-undefined4 ThingAdjuster(int *param_1,undefined4 param_2); /* 0x00496890 */
+undefined4 ThingAdjuster(int *param_1,int param_2); /* 0x00496890 */
 void ThingChanger(undefined4 param_1,int param_2,undefined4 param_3,int param_4); /* 0x00496930 */
 void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create); /* 0x00496950 */
 undefined4 ThingStopper(int param_1); /* 0x00496b40 */
@@ -1930,7 +1930,7 @@ int MeshAdjuster(undefined4 param_1,undefined4 param_2); /* 0x00497180 */
 
 /* ===== imusesoundcomponent.c ===== */
 void __cdecl SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param_6,uint param_7, uint inst); /* 0x004971a0 */
-undefined4 SoundAdjuster(int *param_1,undefined4 param_2); /* 0x00497320 */
+undefined4 SoundAdjuster(int *param_1,int param_2); /* 0x00497320 */
 int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00497460 */
 undefined4 SoundFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00497640 */
 undefined4 SoundStopper(int param_1); /* 0x00497660 */
@@ -1950,13 +1950,13 @@ void KeyframeChanger(undefined4 param_1,int *param_2,undefined4 param_3,int para
 void sputCostume_PuppetHook(int param_1,int param_2,uint param_3); /* 0x00497cb0 */
 int * __cdecl KeyframeInstancer(int inst,int component,int create); /* 0x00497d10 */
 int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint param_5); /* 0x00497e10 */
-undefined4 KeyframeAdjuster(int *param_1,undefined4 param_2); /* 0x00498000 */
+undefined4 KeyframeAdjuster(int *param_1,int param_2); /* 0x00498000 */
 undefined4 KeyframeFreer(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x004980b0 */
 undefined4 KeyframeStopper(int *param_1); /* 0x004980e0 */
 
 /* ===== smushcomponent.c ===== */
 undefined4 SmushFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00498140 */
-void SmushChanger(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4); /* 0x00498160 */
+void SmushChanger(undefined4 param_1,uint param_2,undefined4 param_3,int param_4); /* 0x00498160 */
 int SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00498190 */
 
 /* ===== costumetag.c ===== */
@@ -2635,7 +2635,7 @@ undefined4 smushplay_GetInfo(int param_1,int param_2); /* 0x004bd7c0 */
 undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3); /* 0x004bdb00 */
 undefined8 __fastcall Insane_Blit8To16Doubled (undefined4 param_1,undefined4 param_2,uint *param_3,int param_4,uint *param_5,int param_6 ,int param_7,int param_8); /* 0x004bdca0 */
 void Insane_BlitRowsDual(int param_1,int param_2,undefined4 *param_3,int param_4,int param_5, int param_6); /* 0x004bdd50 */
-void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int param_5,int param_6); /* 0x004bddb0 */
+void __cdecl Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int param_5,int param_6); /* 0x004bddb0 */
 void __cdecl msc_MemCopy(void *dst,void *src,uint n); /* 0x004c3df0 */
 void __cdecl Insane_MemCopy(void *dst,void *src,uint n); /* 0x004c3e10 */
 

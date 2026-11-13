@@ -205,7 +205,7 @@ void __cdecl Lua_EnumerateVideoDevices(void)
 /* Lua opcode: NextSetup Original name grimlib_NextSetup (the remaster's GrimFandango (Linux): Lua /
    module table entry 'NextSetup'); was Lua_NextSetup. */
 
-void grimlib_NextSetup(void)
+void __cdecl grimlib_NextSetup(void)
 
 {
   void *pvVar1;
@@ -219,7 +219,7 @@ void grimlib_NextSetup(void)
 /* Lua opcode: PreviousSetup Original name grimlib_PreviousSetup (the remaster's GrimFandango
    (Linux): Lua / module table entry 'PreviousSetup'); was Lua_PreviousSetup. */
 
-void grimlib_PreviousSetup(void)
+void __cdecl grimlib_PreviousSetup(void)
 
 {
   void *pvVar1;
@@ -235,7 +235,7 @@ void grimlib_PreviousSetup(void)
 /* Lua opcode: IrisClear Original name sputRender_ClearIris (the remaster's GrimFandango (Linux):
    Lua / module table entry 'IrisClear'); was Lua_IrisClear. */
 
-void sputRender_ClearIris(void)
+void __cdecl sputRender_ClearIris(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -263,7 +263,7 @@ void sputRender_ClearIris(void)
 /* Lua opcode: DrawLine Original name sputPrimitive_DrawLine (the remaster's GrimFandango (Linux):
    Lua / module table entry 'DrawLine'); was Lua_DrawLine. */
 
-void sputPrimitive_DrawLine(void)
+void __cdecl sputPrimitive_DrawLine(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -356,7 +356,7 @@ void sputPrimitive_DrawLine(void)
 /* Lua opcode: DrawPolygon Original name sputPrimitive_DrawPolygon (the remaster's GrimFandango
    (Linux): Lua / module table entry 'DrawPolygon'); was Lua_DrawPolygon. */
 
-void sputPrimitive_DrawPolygon(void)
+void __cdecl sputPrimitive_DrawPolygon(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -489,7 +489,7 @@ void sputPrimitive_DrawPolygon(void)
 /* Lua opcode: DrawRectangle Original name sputPrimitive_DrawRectangle (the remaster's GrimFandango
    (Linux): Lua / module table entry 'DrawRectangle'); was Lua_DrawRectangle. */
 
-void sputPrimitive_DrawRectangle(void)
+void __cdecl sputPrimitive_DrawRectangle(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -580,7 +580,7 @@ void sputPrimitive_DrawRectangle(void)
 /* Lua opcode: ChangePrimitive Original name sputPrimitive_ChangePrimitive (the remaster's
    GrimFandango (Linux): Lua / module table entry 'ChangePrimitive'); was Lua_ChangePrimitive. */
 
-void sputPrimitive_ChangePrimitive(void)
+void __cdecl sputPrimitive_ChangePrimitive(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -778,7 +778,7 @@ void sputPrimitive_PurgeQueue(void)
    GrimFandango (Linux): Lua / module table entry 'SetOffscreenTextPos'); was
    Lua_SetOffscreenTextPos. */
 
-void sputText_SetOffscreenTextPosL(void)
+void __cdecl sputText_SetOffscreenTextPosL(void)
 
 {
   int iVar1;
@@ -810,7 +810,7 @@ void sputText_SetOffscreenTextPosL(void)
 /* Lua opcode: SetEmergencyFont Original name sputText_SetEmergencyFontL (the remaster's
    GrimFandango (Linux): Lua / module table entry 'SetEmergencyFont'); was Lua_SetEmergencyFont. */
 
-void sputText_SetEmergencyFontL(void)
+void __cdecl sputText_SetEmergencyFontL(void)
 
 {
   int iVar1;
@@ -842,7 +842,7 @@ void sputText_SetEmergencyFontL(void)
 /* Lua opcode: LocalizeString Original name sputText_LocalizeStringL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'LocalizeString'); was Lua_LocalizeString. */
 
-void sputText_LocalizeStringL(void)
+void __cdecl sputText_LocalizeStringL(void)
 
 {
   unsigned char _frame[0x2b0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -872,7 +872,7 @@ void sputText_LocalizeStringL(void)
 /* Lua opcode: MakeColor Original name sputText_MakeColorL (the remaster's GrimFandango (Linux): Lua
    / module table entry 'MakeColor'); was Lua_MakeColor. */
 
-void sputText_MakeColorL(void)
+void __cdecl sputText_MakeColorL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1029,7 +1029,7 @@ LAB_0048b0c2:
    GrimFandango (Linux): Lua / module table entry 'GetColorComponents'); was Lua_GetColorComponents.
     */
 
-void sputText_GetColorComponentsL(void)
+void __cdecl sputText_GetColorComponentsL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1052,7 +1052,7 @@ void sputText_GetColorComponentsL(void)
    GrimFandango (Linux): Lua / module table entry 'SetActorTalkColor'); was Lua_SetActorTalkColor.
     */
 
-void sputText_SetActorTalkColorL(void)
+void __cdecl sputText_SetActorTalkColorL(void)
 
 {
   int iVar1;
@@ -1090,7 +1090,7 @@ void sputText_SetActorTalkColorL(void)
    GrimFandango (Linux): Lua / module table entry 'GetActorTalkColor'); was Lua_GetActorTalkColor.
     */
 
-void sputText_GetActorTalkColorL(void)
+void __cdecl sputText_GetActorTalkColorL(void)
 
 {
   int iVar1;
@@ -1119,7 +1119,7 @@ void sputText_GetActorTalkColorL(void)
    GrimFandango (Linux): Lua / module table entry 'SetSayLineDefaults'); was Lua_SetSayLineDefaults.
     */
 
-void sputText_SetSayLineDefaultsL(void)
+void __cdecl sputText_SetSayLineDefaultsL(void)
 
 {
   void *table;
@@ -1139,7 +1139,7 @@ void sputText_SetSayLineDefaultsL(void)
 /* Lua opcode: SayLine Original name sputText_SayLineL (the remaster's GrimFandango (Linux): Lua /
    module table entry 'SayLine'); was Lua_SayLine. */
 
-void sputText_SayLineL(void)
+void __cdecl sputText_SayLineL(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1197,7 +1197,9 @@ void sputText_SayLineL(void)
           }
         }
         else {
-          Lua_ParseSayLineTable(iVar1,&local_3c,&local_24,&local_28,&local_2c,&local_30);
+          Lua_ParseSayLineTable
+                    (iVar1,(int *)&local_3c,(int *)&local_24,(int *)&local_28,(int *)&local_2c,
+                     (int *)&local_30);
         }
         iVar1 = (*pcVar3)(iVar4);
         iVar2 = lua_isnil(iVar1);
@@ -1224,8 +1226,8 @@ void sputText_SayLineL(void)
 /* ---- 0x0048b6a0  Lua_ParseSayLineTable ---- */
 /* Reads volume, pan, background, x, y overrides from the SayLine options table */
 
-void Lua_ParseSayLineTable
-               (int param_1,int *param_2,int *param_3,int *param_4,int *param_5,int *param_6)
+void __cdecl
+Lua_ParseSayLineTable(int param_1,int *param_2,int *param_3,int *param_4,int *param_5,int *param_6)
 
 {
   int iVar1;
@@ -1373,7 +1375,7 @@ void __cdecl sputText_PrintLineL(void)
 /* Lua opcode: IsMessageGoing Original name sputText_IsMessageGoingL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'IsMessageGoing'); was Lua_IsMessageGoing. */
 
-void sputText_IsMessageGoingL(void)
+void __cdecl sputText_IsMessageGoingL(void)
 
 {
   TextObject *pTVar1;
@@ -1416,7 +1418,7 @@ LAB_0048ba30:
 /* Lua opcode: ExpireText Original name sputText_ExpireTextQueueL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'ExpireText'); was Lua_ExpireText. */
 
-void sputText_ExpireTextQueueL(void)
+void __cdecl sputText_ExpireTextQueueL(void)
 
 {
   TextObject *obj;
@@ -1436,7 +1438,7 @@ void sputText_ExpireTextQueueL(void)
 /* Lua opcode: PurgeText Original name sputText_PurgeTextQueueL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'PurgeText'); was Lua_PurgeText. */
 
-void sputText_PurgeTextQueueL(void)
+void __cdecl sputText_PurgeTextQueueL(void)
 
 {
   TextObject *pTVar1;
@@ -1452,7 +1454,7 @@ void sputText_PurgeTextQueueL(void)
 /* Lua opcode: KillTextObject Original name sputText_KillTextObjectL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'KillTextObject'); was Lua_KillTextObject. */
 
-void sputText_KillTextObjectL(void)
+void __cdecl sputText_KillTextObjectL(void)
 
 {
   int iVar1;
@@ -1478,7 +1480,7 @@ void sputText_KillTextObjectL(void)
    GrimFandango (Linux): Lua / module table entry 'GetFontDimensions'); was Lua_GetFontDimensions.
     */
 
-void sputText_GetFontDimensionsL(void)
+void __cdecl sputText_GetFontDimensionsL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1501,7 +1503,7 @@ void sputText_GetFontDimensionsL(void)
    remaster's GrimFandango (Linux): Lua / module table entry 'GetTextObjectDimensions'); was
    Lua_GetTextObjectDimensions. */
 
-void sputText_GetTextObjectDimensionsL(void)
+void __cdecl sputText_GetTextObjectDimensionsL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1534,7 +1536,7 @@ void sputText_GetTextObjectDimensionsL(void)
    GrimFandango (Linux): Lua / module table entry 'GetTextCharPosition'); was
    Lua_GetTextCharPosition. */
 
-void sputText_GetTextCharPositionL(void)
+void __cdecl sputText_GetTextCharPositionL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1578,7 +1580,7 @@ void sputText_GetTextCharPositionL(void)
 /* Lua opcode: ChangeTextObject Original name sputText_ChangeTextObjectL (the remaster's
    GrimFandango (Linux): Lua / module table entry 'ChangeTextObject'); was Lua_ChangeTextObject. */
 
-void sputText_ChangeTextObjectL(void)
+void __cdecl sputText_ChangeTextObjectL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1633,7 +1635,7 @@ void sputText_ChangeTextObjectL(void)
 /* Lua opcode: MakeTextObject Original name sputText_MakeTextObjectL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'MakeTextObject'); was Lua_MakeTextObject. */
 
-void sputText_MakeTextObjectL(void)
+void __cdecl sputText_MakeTextObjectL(void)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1703,19 +1705,19 @@ void sputText_MakeTextObjectL(void)
 /* Lua opcode: BlastText Original name sputText_BlastText (the remaster's GrimFandango (Linux): Lua
    / module table entry 'BlastText'); was Lua_BlastText. */
 
-void sputText_BlastText(void)
+void __cdecl sputText_BlastText(void)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   char *pcVar3;
-  void *pvVar4;
+  uint *puVar4;
+  void *table;
   TextObject *obj;
   int unaff_EBP;
   TextContext *pTVar5;
   int unaff_EDI;
-  uint *puVar6;
   #define local_60 (*(uint *)(_frame + (0x70 - 0x60)))
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
@@ -1732,30 +1734,30 @@ void sputText_BlastText(void)
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
     pcVar3 = (char *)lua_getstring(iVar1);
-    pvVar4 = (void *)Render_GetBackBuffer();
-    stdDisplay_VBufferLock(pvVar4);
+    puVar4 = Render_GetBackBuffer();
+    stdDisplay_VBufferLock(puVar4);
     pTVar5 = &g_TextObjectCtx;
-    puVar6 = &local_30;
+    puVar4 = &local_30;
     for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
-      *puVar6 = (uint)pTVar5->pUnused;
+      *puVar4 = (uint)pTVar5->pUnused;
       pTVar5 = (TextContext *)&pTVar5->pClipRect;
-      puVar6 = puVar6 + 1;
+      puVar4 = puVar4 + 1;
     }
-    iVar1 = Render_GetBackBuffer();
+    puVar4 = Render_GetBackBuffer();
     local_2c = (uint)&local_60;
-    *(undefined4 *)local_30 = *(undefined4 *)(iVar1 + 0x5c);
-    pvVar4 = (void *)lua_lua2C(2);
-    if (pvVar4 != (void *)0x0) {
-      iVar1 = lua_istable((int)pvVar4);
+    *(uint *)local_30 = puVar4[0x17];
+    table = (void *)lua_lua2C(2);
+    if (table != (void *)0x0) {
+      iVar1 = lua_istable((int)table);
       if (iVar1 != 0) {
-        GetTextParamsFromTable((TextContext *)&local_30,pvVar4,(TextObject *)0x0);
+        GetTextParamsFromTable((TextContext *)&local_30,table,(TextObject *)0x0);
       }
     }
     pcVar3 = sputText_ExtractSayLineData(pcVar3,local_50);
     obj = TextObject_New((TextContext *)&local_30,pcVar3,unaff_EBP,unaff_EDI);
     TextObject_Draw(obj,0);
-    pvVar4 = (void *)Render_GetBackBuffer();
-    stdDisplay_VBufferUnlock(pvVar4);
+    puVar4 = Render_GetBackBuffer();
+    stdDisplay_VBufferUnlock(puVar4);
     List_Unlink(obj);
   }
   return;
@@ -1775,7 +1777,7 @@ void sputText_BlastText(void)
    GrimFandango (Linux): Lua / module table entry 'GetTranslationMode'); was Lua_GetTranslationMode.
     */
 
-void sputText_GetTranslationModeL(void)
+void __cdecl sputText_GetTranslationModeL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1793,7 +1795,7 @@ void sputText_GetTranslationModeL(void)
    GrimFandango (Linux): Lua / module table entry 'SetTranslationMode'); was Lua_SetTranslationMode.
     */
 
-void sputText_SetTranslationModeL(void)
+void __cdecl sputText_SetTranslationModeL(void)
 
 {
   int iVar1;
@@ -1862,6 +1864,7 @@ void sputCostume_GetSmushLengthL(void)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
+  char *pcVar3;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -1870,8 +1873,8 @@ void sputCostume_GetSmushLengthL(void)
   if (iVar2 != 0) {
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x534d5348) {
-      iVar1 = lua_getuserdata(iVar1);
-      iVar1 = sputSmush_GetMovieLength(iVar1);
+      pcVar3 = (char *)lua_getuserdata(iVar1);
+      iVar1 = sputSmush_GetMovieLength(pcVar3);
       lua_pushnumber((float)iVar1);
     }
   }
@@ -5122,10 +5125,10 @@ void sputLua_RegisterFunctions(int *param_1,int param_2)
 void sputLua_JustLoadedL(void)
 
 {
-  int iVar1;
+  uint uVar1;
   
-  iVar1 = grimlib_JustLoaded();
-  if (iVar1 != 0) {
+  uVar1 = grimlib_JustLoaded();
+  if (uVar1 != 0) {
     lua_pushnumber(1.0);
     return;
   }
@@ -5368,17 +5371,18 @@ void sputLua_LoadL(void)
 {
   int iVar1;
   int iVar2;
+  char *pcVar3;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnil(iVar1);
   if (iVar2 != 0) {
-    grimlib_Load(0);
+    grimlib_Load((char *)0x0);
     return;
   }
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
-    iVar1 = lua_getstring(iVar1);
-    grimlib_Load(iVar1);
+    pcVar3 = (char *)lua_getstring(iVar1);
+    grimlib_Load(pcVar3);
   }
   return;
 }
@@ -5392,17 +5396,18 @@ void sputLua_SaveL(void)
 {
   int iVar1;
   int iVar2;
+  char *pcVar3;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnil(iVar1);
   if (iVar2 != 0) {
-    grimlib_Save(0);
+    grimlib_Save((char *)0x0);
     return;
   }
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
-    iVar1 = lua_getstring(iVar1);
-    grimlib_Save(iVar1);
+    pcVar3 = (char *)lua_getstring(iVar1);
+    grimlib_Save(pcVar3);
   }
   return;
 }
@@ -6787,10 +6792,10 @@ void sputLua_StartFullScreenMovieL(void)
   int iVar1;
   int iVar2;
   int iVar3;
-  undefined4 uVar4;
+  uint uVar4;
   uint uVar5;
-  undefined4 uVar6;
-  undefined4 uVar7;
+  uint uVar6;
+  uint uVar7;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -6800,10 +6805,10 @@ void sputLua_StartFullScreenMovieL(void)
     uVar6 = 0xffffffff;
     iVar2 = lua_isnil(iVar2);
     uVar5 = (uint)(iVar2 == 0);
-    uVar4 = 1;
-    iVar1 = lua_getstring(iVar1);
-    iVar1 = grimlib_PlayMovie(iVar1,uVar4,uVar5,uVar6,uVar7);
-    if (iVar1 == 1) {
+    iVar2 = 1;
+    uVar4 = lua_getstring(iVar1);
+    uVar5 = grimlib_PlayMovie(uVar4,iVar2,uVar5,uVar6,uVar7);
+    if (uVar5 == 1) {
       lua_pushnumber(1.0);
       return;
     }
@@ -7318,7 +7323,6 @@ void sputLua_LoadCostumeL(void)
 }
 
 /* ---- 0x0049f080  sputLua_GetPhysicalBytes ---- */
-/* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* Lua opcode: GetPhysicalBytes Original name sputLua_GetPhysicalBytes (the remaster's GrimFandango
    (Linux): Lua / module table entry 'GetPhysicalBytes'); was Lua_GetPhysicalBytes. */
@@ -7327,12 +7331,12 @@ void __fastcall sputLua_GetPhysicalBytes(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  uint uVar1;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = ((code *)stdPlatform_GetPhysicalRam)(param_1);
-  lua_pushnumber((float)iVar1);
+  uVar1 = stdPlatform_GetPhysicalRam();
+  lua_pushnumber((float)(int)uVar1);
   return;
 }
 #undef local_4
@@ -9347,7 +9351,7 @@ void sputLua_RenderModeUser(void)
 void sputLua_DimScreen(void)
 
 {
-  sputRender_Dim(0,2);
+  sputRender_Dim((ushort *)0x0,2);
   return;
 }
 
@@ -10185,7 +10189,6 @@ void sputLua_RestoreCacheRect(void)
 }
 
 /* ---- 0x004a26f0  sputLua_ResReport ---- */
-/* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* Lua opcode: ResReport Original name sputLua_ResReport (the remaster's GrimFandango (Linux): Lua /
    module table entry 'ResReport'); was Lua_ResReport. */
@@ -10198,7 +10201,7 @@ void __fastcall sputLua_ResReport(undefined4 param_1)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  ((code *)sputResource_ReportAllocations)(param_1);
+  sputResource_ReportAllocations();
   iVar1 = daTotalAllocated();
   lua_pushnumber((float)iVar1);
   return;
@@ -10473,7 +10476,6 @@ void sputLua_IrisUp(void)
 }
 
 /* ---- 0x004a2cd0  sputLua_IrisComplete ---- */
-/* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* Lua opcode: IrisComplete Original name sputLua_IrisComplete (the remaster's GrimFandango (Linux):
    Lua / module table entry 'IrisComplete'); was Lua_IrisComplete. */
@@ -10482,12 +10484,12 @@ void __fastcall sputLua_IrisComplete(undefined4 param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  uint uVar1;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = ((code *)sputRender_IrisComplete)(param_1);
-  lua_pushnumber((float)(iVar1 != 0));
+  uVar1 = sputRender_IrisComplete();
+  lua_pushnumber((float)(uVar1 != 0));
   return;
 }
 #undef local_4
@@ -10764,7 +10766,7 @@ void sputLua_BlastImage(void)
   int iVar3;
   int iVar4;
   void *src;
-  void *dst;
+  uint *dst;
   longlong lVar5;
   int *srcRect;
   uint colorKey;
@@ -10789,7 +10791,7 @@ void sputLua_BlastImage(void)
           iVar1 = (int)lVar5;
           lVar5 = (longlong)lua_getnumber(iVar2);
           iVar2 = (int)lVar5;
-          dst = (void *)Render_GetBackBuffer();
+          dst = Render_GetBackBuffer();
           Surface_Blit(dst,src,iVar2,iVar1,srcRect,colorKey);
         }
       }
@@ -10866,7 +10868,7 @@ void sputLua_BlastRect(void)
     uVar6 = local_4;
     if ((((int)local_4 <= iVar2) && (iVar1 <= iVar4)) &&
        ((-1 < (int)local_4 && (((-1 < iVar1 && (iVar2 < 0x280)) && (iVar4 < 0x1e0)))))) {
-      local_4 = Render_GetBackBuffer();
+      local_4 = (uint)Render_GetBackBuffer();
       uVar9 = iVar2 - uVar6;
       local_c = (iVar4 - iVar1) + 1;
       stdDisplay_VBufferLock((void *)local_4);
@@ -11325,7 +11327,7 @@ void sputLua_SetWalkSystemFadeTime(void)
 void Lua_LightMgrStartup(void)
 
 {
-  int iVar1;
+  uint uVar1;
   Actor *actor;
   int iVar2;
   int a3;
@@ -11341,15 +11343,15 @@ void Lua_LightMgrStartup(void)
     a4 = FUN_004bf950;
     a3 = 0;
     iVar2 = 0x65;
-    iVar1 = Win_GetInstance();
-    g_hLightEdDialog = (void *)CreateDialogParamA(iVar1,iVar2,a3,(int)a4,a5);
+    uVar1 = Win_GetInstance();
+    g_hLightEdDialog = (void *)CreateDialogParamA(uVar1,iVar2,a3,(int)a4,a5);
     if (g_hLightEdDialog == (void *)0x0) {
       (*g_pStd_HS->pDebug)(s_LightManager_Startup__Could_not_c_004f0d34);
     }
     else {
       iVar2 = 0;
-      iVar1 = Win_GetInstance();
-      g_hLightEdHook = (void *)SetWindowsHookExA(2,((unsigned)(uintptr_t)LightEd_KeyboardProc),iVar1,iVar2);
+      uVar1 = Win_GetInstance();
+      g_hLightEdHook = (void *)SetWindowsHookExA(2,((unsigned)(uintptr_t)LightEd_KeyboardProc),uVar1,iVar2);
     }
     if (UINT_004f0d0c == 0xffffffff) {
       UINT_004f0d0c = sputActor_AllocateActor();

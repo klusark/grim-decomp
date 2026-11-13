@@ -9,7 +9,7 @@
 /* stdLoadImageData loader for '.pic' (wrapper of stdPic_LoadEntry, allocation string stdPic.c); was
    named stdGif_Load. */
 
-uint stdPic_Load(char *param_1,int param_2,int param_3)
+uint __cdecl stdPic_Load(uint param_1,uint param_2,uint param_3)
 
 {
   uint *puVar1;
@@ -20,7 +20,7 @@ uint stdPic_Load(char *param_1,int param_2,int param_3)
   if (puVar1 == (uint *)0x0) {
     return 0;
   }
-  uVar2 = stdPic_LoadEntry(param_1,puVar1,param_2,param_3);
+  uVar2 = stdPic_LoadEntry((char *)param_1,puVar1,param_2,param_3);
   return -(uint)(uVar2 != 0) & (uint)puVar1;
 }
 

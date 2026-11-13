@@ -143,8 +143,9 @@ uint __cdecl Main_Startup(char *param_1)
   char *pcVar3;
   void *pvVar4;
   undefined *puVar5;
-  int iVar6;
-  undefined4 *puVar7;
+  uint uVar6;
+  int iVar7;
+  undefined4 *puVar8;
   #define local_80 (*(uint *)(_frame + (0x90 - 0x80)))
   #define local_7c (*(uint *)(_frame + (0x90 - 0x7c)))
   #define local_78 (*(undefined2 *)(_frame + (0x90 - 0x78)))
@@ -156,60 +157,60 @@ uint __cdecl Main_Startup(char *param_1)
   local_7c = UINT_004dd66c;
   local_76 = DAT_004dd672;
   local_78 = DAT_004dd670;
-  puVar7 = local_75;
-  for (iVar6 = 0xd; iVar6 != 0; iVar6 = iVar6 + -1) {
-    *puVar7 = 0;
-    puVar7 = puVar7 + 1;
+  puVar8 = local_75;
+  for (iVar7 = 0xd; iVar7 != 0; iVar7 = iVar7 + -1) {
+    *puVar8 = 0;
+    puVar8 = puVar8 + 1;
   }
-  *(undefined1 *)puVar7 = 0;
+  *(undefined1 *)puVar8 = 0;
   HostServicesInitialize((GrimServices *)&g_aHs);
-  iVar6 = Grim_ParseCommandLine(param_1);
-  if (iVar6 == 0) {
+  iVar7 = Grim_ParseCommandLine(param_1);
+  if (iVar7 == 0) {
     return 0;
   }
-  stdInitServices(&g_aHs);
+  stdInitServices((GrimServices *)&g_aHs);
   _DAT_008dddb4 = UINT_008dddac;
   stdStartup((GrimServices *)&g_aHs);
-  PolyglotInitialize(&g_aHs,&g_aPolyglotServices);
+  PolyglotInitialize((GrimServices *)&g_aHs,(uint *)&g_aPolyglotServices);
   (*(code *)UINT_008ddd88)();
-  PolyglotConfigure(s_grim_tab_004dd238);
+  PolyglotConfigure((byte *)s_grim_tab_004dd238);
   Grim_OpenRegistry();
   Grim_DecodeRegKeyName((char *)&local_80);
   wuRegistry_GetStr((char *)&local_80,acStack_40,0x40,(char *)0x0);
-  iVar6 = _stricmp(acStack_40,&DAT_004dd660);
-  if (iVar6 == 0) {
+  iVar7 = _stricmp(acStack_40,&DAT_004dd660);
+  if (iVar7 == 0) {
     g_nDeveloper = 1;
   }
-  iVar6 = _stricmp(acStack_40,&DAT_004dd65c);
-  if (iVar6 == 0) {
+  iVar7 = _stricmp(acStack_40,&DAT_004dd65c);
+  if (iVar7 == 0) {
     g_nDeveloper = 1;
   }
   if (g_nDeveloper == 0) {
-    iVar6 = Grim_FindDataOnDrives(s_GrimData_004dd650);
-    if (iVar6 == 0) {
+    iVar7 = Grim_FindDataOnDrives(s_GrimData_004dd650);
+    if (iVar7 == 0) {
       return 0;
     }
   }
   rdStartup((GrimServices *)&g_aHs);
-  iVar6 = rdOpen(0);
-  if (iVar6 == 0) {
+  iVar7 = rdOpen(0);
+  if (iVar7 == 0) {
     return 0;
   }
   Win_AddMessageHook(Win_WndProc);
   Win_AddMessageHook(Win_IsSysCommandBlocked);
-  iVar6 = GetDC(0);
-  iVar1 = GetDeviceCaps(iVar6,0xc);
-  ReleaseDC(0,iVar6);
+  iVar7 = GetDC(0);
+  iVar1 = GetDeviceCaps(iVar7,0xc);
+  ReleaseDC(0,iVar7);
   if (iVar1 < 8) {
-    iVar6 = 0;
+    iVar7 = 0;
     pcVar2 = PolyglotGetString(s__engn001_Grim_Fandango_004dd638);
     pcVar3 = PolyglotGetString(s__engn002_System_must_be_in_256_c_004dd5f8);
     pvVar4 = Win_GetMainHwnd();
-    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar6);
+    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar7);
     return 0;
   }
-  iVar6 = stdDisplay_Startup();
-  if (iVar6 == 0) {
+  iVar7 = stdDisplay_Startup();
+  if (iVar7 == 0) {
     return 0;
   }
   Grim_EnumDisplayModes();
@@ -224,34 +225,34 @@ uint __cdecl Main_Startup(char *param_1)
   if (puVar5 != (undefined *)0x0) {
     return 0;
   }
-  iVar6 = (*(code *)UINT_008dde28)();
-  if (iVar6 != 0) {
-    iVar6 = 0;
+  iVar7 = (*(code *)UINT_008dde28)();
+  if (iVar7 != 0) {
+    iVar7 = 0;
     pcVar2 = PolyglotGetString(s__engn005_Grim_Fandango_could_not_004dd5a8);
     pcVar3 = PolyglotGetString(s__engn004_Please_make_sure_you_ar_004dd534);
     pvVar4 = Win_GetMainHwnd();
-    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar6);
+    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar7);
     return 0;
   }
   lua_openlib((int *)&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
-  grimlib_SetShutdownCallback(grimdemo_PleaseShutdown);
-  grimlib_SetPaletteCallback(grimdemo_SetPalette);
-  grimlib_SetPageFlipCallback(stdDisplay_Update);
-  grimlib_SetDebugToggleCallback(grimdemo_EnableDebugging);
+  grimlib_SetShutdownCallback(((unsigned)(uintptr_t)grimdemo_PleaseShutdown));
+  grimlib_SetPaletteCallback(((unsigned)(uintptr_t)grimdemo_SetPalette));
+  grimlib_SetPageFlipCallback(((unsigned)(uintptr_t)stdDisplay_Update));
+  grimlib_SetDebugToggleCallback(((unsigned)(uintptr_t)grimdemo_EnableDebugging));
   grimlib_FindResources();
   Grim_ShowSplash();
   grimdemo_EnableDebugging(1);
-  iVar6 = grimlib_FindSystemFiles();
-  if (iVar6 != 0) {
-    iVar6 = 0;
+  iVar7 = grimlib_FindSystemFiles();
+  if (iVar7 != 0) {
+    iVar7 = 0;
     pcVar2 = PolyglotGetString(s__engn007_Grim_Fandango_could_not_004dd4dc);
     pcVar3 = PolyglotGetString(s__engn006_Please_make_sure_that_t_004dd47c);
     pvVar4 = Win_GetMainHwnd();
-    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar6);
+    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar7);
     return 0;
   }
-  iVar6 = grimlib_Open(UINT_004f5a10,-(uint)(UINT_004f5a14 != 0) & 0x4f59b0);
-  if (iVar6 != 0) {
+  uVar6 = grimlib_Open(UINT_004f5a10,(char *)(-(uint)(UINT_004f5a14 != 0) & 0x4f59b0));
+  if (uVar6 != 0) {
     return 0;
   }
   if (UINT_004f5a44 != 0) {
@@ -491,8 +492,8 @@ void __cdecl Grim_EnumDisplayModes(void)
       }
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 8) = 0;
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 0xc) = 0;
-      iVar2 = D3D_Enumerate();
-      if (iVar2 != 0) {
+      uVar3 = D3D_Enumerate();
+      if (uVar3 != 0) {
         *(uint *)((int)g_pDisplayModes + iVar4 + 8) = g_dwD3dDriverCount;
         if (g_dwD3dDriverCount != 0) {
           uVar1 = (*g_pStd_HS->pAlloc)
@@ -556,7 +557,7 @@ void __cdecl grimdemo_PleaseShutdown(void)
 uint __cdecl grimdemo_SetPalette(void *param_1,int param_2)
 
 {
-  stdDisplay_SetPalette(param_1);
+  stdDisplay_SetPalette((uint)param_1);
   stdDisplay_SetMasterPalette(param_1);
   if (g_pStd3D_CurDevice != (void *)0x0) {
     std3D_SetCurrentPalette(param_1,param_2);
@@ -597,7 +598,7 @@ LAB_00402f60:
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd908), iVar2 == 0)) {
         uVar4 = strtok(0,&DAT_004dd918);
         _DAT_004dd34c = atoi(uVar4);
-        grimlib_SetCacheMax(_DAT_004dd34c);
+        grimlib_SetCacheMax((int)_DAT_004dd34c);
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd904);
@@ -640,8 +641,8 @@ LAB_00402f60:
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8cc);
       if ((iVar2 == 0) || (iVar2 = _stricmp(iVar1,&DAT_004dd8c8), iVar2 == 0)) {
-        uVar3 = strtok(0,&DAT_004dd918);
-        grimlib_AddResourcePath(uVar3);
+        pcVar6 = (char *)strtok(0,&DAT_004dd918);
+        grimlib_AddResourcePath(pcVar6);
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(iVar1,&DAT_004dd8c4);

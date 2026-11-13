@@ -18,15 +18,15 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
   char cVar1;
   uint uVar2;
   undefined *puVar3;
-  undefined4 uVar4;
-  char *pcVar5;
-  int *piVar6;
-  int iVar7;
-  uint uVar8;
-  int *piVar9;
-  undefined4 *puVar10;
-  char *pcVar11;
-  int *piVar12;
+  char *pcVar4;
+  int *piVar5;
+  int iVar6;
+  uint uVar7;
+  int *piVar8;
+  undefined4 *puVar9;
+  char *pcVar10;
+  int *piVar11;
+  undefined4 uVar12;
   #define local_50 (*(float (*)[3])(_frame + (0x60 - 0x50)))
   #define local_44 (*(float *)(_frame + (0x60 - 0x44)))
   #define local_40 (*(float (*)[3])(_frame + (0x60 - 0x40)))
@@ -40,13 +40,13 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
   #define local_1 (*(undefined1 *)(_frame + (0x60 - 0x1)))
   
   local_20 = DAT_004f5a98;
-  puVar10 = &local_1f;
-  for (iVar7 = 7; iVar7 != 0; iVar7 = iVar7 + -1) {
-    *puVar10 = 0;
-    puVar10 = puVar10 + 1;
+  puVar9 = &local_1f;
+  for (iVar6 = 7; iVar6 != 0; iVar6 = iVar6 + -1) {
+    *puVar9 = 0;
+    puVar9 = puVar9 + 1;
   }
-  *(undefined2 *)puVar10 = 0;
-  *(undefined1 *)((int)puVar10 + 2) = 0;
+  *(undefined2 *)puVar9 = 0;
+  *(undefined1 *)((int)puVar9 + 2) = 0;
   local_34 = 1;
   local_30 = 0;
   local_2c = 0;
@@ -58,24 +58,25 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
   if ((param_3 != 0) && (param_4 == 216341.2)) {
     if (param_5 == (char *)0x0) {
       if (g_bMaterialPath != '\0') {
-        grimPlat_SetDefaultOpenPath(&g_bMaterialPath);
+        grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bMaterialPath));
       }
-      iVar7 = grimPlat_OpenFileRequest
+      iVar6 = grimPlat_OpenFileRequest
                         (s_Select_mat_file_for_sprite____004ea834,s_Material_files____mat__004ea5a4)
       ;
-      if (iVar7 == 0) {
+      if (iVar6 == 0) {
         return 0;
       }
-      uVar4 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
-      ((code *)strncpy)(&g_bMaterialPath,uVar4);
+      uVar12 = 0x7f;
+      pcVar4 = grimPlat_GetDefaultOpenPath();
+      strncpy(&g_bMaterialPath,pcVar4,uVar12);
       DAT_008ca9b7 = 0;
-      pcVar5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
-      param_5 = pcVar5;
+      pcVar4 = stdFnames_FindMedName(g_szGrimlib_aFilename);
+      param_5 = pcVar4;
     }
     else {
       strncpy(&local_20,param_5,0x1f);
       local_1 = 0;
-      pcVar5 = &local_20;
+      pcVar4 = &local_20;
       strtok(&local_20,&DAT_004ea52c);
       uVar2 = strtok(0,&DAT_004ea52c);
       if (uVar2 != 0) {
@@ -95,47 +96,48 @@ undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,ch
         param_4 = (float)(int)puVar3 * 0.01;
       }
     }
-    piVar6 = (int *)(*g_pSputCosHS->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1026)
+    piVar5 = (int *)(*g_pSputCosHS->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1026)
     ;
-    if (piVar6 != (int *)0x0) {
-      piVar12 = piVar6;
-      for (iVar7 = 9; iVar7 != 0; iVar7 = iVar7 + -1) {
-        *piVar12 = 0;
-        piVar12 = piVar12 + 1;
+    if (piVar5 != (int *)0x0) {
+      piVar11 = piVar5;
+      for (iVar6 = 9; iVar6 != 0; iVar6 = iVar6 + -1) {
+        *piVar11 = 0;
+        piVar11 = piVar11 + 1;
       }
       local_40[0] = local_50[0];
       local_40[1] = local_50[1];
       local_40[2] = param_4;
-      iVar7 = rdSprite_New(0,pcVar5,pcVar5,PUN(undefined4,(float)(local_44)),PUN(undefined4,(float)(local_50[2])),5,0,1,0,local_40);
-      *piVar6 = iVar7;
+      iVar6 = rdSprite_New(0,(uint)pcVar4,(uint)pcVar4,PUN(uint,(float)local_44),PUN(uint,(float)local_50[2]),5,0,1,0,
+                           (uint)local_40);
+      *piVar5 = iVar6;
       uVar2 = 0xffffffff;
       do {
-        pcVar11 = pcVar5;
+        pcVar10 = pcVar4;
         if (uVar2 == 0) break;
         uVar2 = uVar2 - 1;
-        pcVar11 = pcVar5 + 1;
-        cVar1 = *pcVar5;
-        pcVar5 = pcVar11;
+        pcVar10 = pcVar4 + 1;
+        cVar1 = *pcVar4;
+        pcVar4 = pcVar10;
       } while (cVar1 != '\0');
       uVar2 = ~uVar2;
-      piVar9 = (int *)(pcVar11 + -uVar2);
-      piVar12 = piVar6;
-      for (uVar8 = uVar2 >> 2; piVar12 = piVar12 + 1, uVar8 != 0; uVar8 = uVar8 - 1) {
-        *piVar12 = *piVar9;
-        piVar9 = piVar9 + 1;
+      piVar8 = (int *)(pcVar10 + -uVar2);
+      piVar11 = piVar5;
+      for (uVar7 = uVar2 >> 2; piVar11 = piVar11 + 1, uVar7 != 0; uVar7 = uVar7 - 1) {
+        *piVar11 = *piVar8;
+        piVar8 = piVar8 + 1;
       }
       for (uVar2 = uVar2 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
-        *(char *)piVar12 = (char)*piVar9;
-        piVar9 = (int *)((int)piVar9 + 1);
-        piVar12 = (int *)((int)piVar12 + 1);
+        *(char *)piVar11 = (char)*piVar8;
+        piVar8 = (int *)((int)piVar8 + 1);
+        piVar11 = (int *)((int)piVar11 + 1);
       }
-      local_34 = *(int *)(*(int *)(*piVar6 + 0x7c) + 0x60) + 1;
+      local_34 = *(int *)(*(int *)(*piVar5 + 0x7c) + 0x60) + 1;
       local_30 = 0;
       local_2c = 0;
-      iVar7 = Cos_RegisterComponent
-                        (param_1,(int)param_5,(int)piVar6,param_2,param_3,0x4853454d,(int)&local_34)
+      iVar6 = Cos_RegisterComponent
+                        (param_1,(int)param_5,(int)piVar5,param_2,param_3,0x4853454d,(int)&local_34)
       ;
-      if (iVar7 != 0) {
+      if (iVar6 != 0) {
         return 1;
       }
       if (local_30 != 0) {
@@ -215,7 +217,7 @@ uint * __cdecl SpriteInstancer(int param_1,uint *param_2,int param_3)
     iVar2 = *(int *)(iVar1 + 0x50) + -1;
     *(int *)(iVar1 + 0x50) = iVar2;
     if (iVar2 == 0) {
-      rdThing_Free(*(undefined4 *)(iVar1 + 0x40));
+      rdThing_Free(*(int *)(iVar1 + 0x40));
       (*g_pSputCosHS->pFree)(iVar1);
     }
     return (uint *)0x0;
@@ -232,7 +234,7 @@ uint * __cdecl SpriteInstancer(int param_1,uint *param_2,int param_3)
   uVar4 = rdThing_New(0);
   puVar3[0x10] = uVar4;
   *(undefined4 *)(uVar4 + 0x30) = 0;
-  rdThing_SetPolyline(puVar3[0x10],*param_2);
+  rdThing_SetPolyline((uint *)puVar3[0x10],*param_2);
   if (-1 < param_1) {
     puVar5 = (uint *)Cos_InstGetInstanceData(iVar1,param_1,(int *)0x0);
     puVar3[0x11] = *puVar5;
@@ -295,7 +297,7 @@ uint __cdecl SpriteAdjuster(uint *param_1,uint param_2)
   local_3c = (uint)lVar3;
   lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
   local_38 = (uint)lVar3;
-  iVar2 = grimPlat_SpinDialog(param_2,&local_34,&local_48,5);
+  iVar2 = grimPlat_SpinDialog(param_2,(int)&local_34,&local_48,5);
   if (iVar2 != 0) {
     *(float *)(*piVar1 + 0x4c) = (float)(int)local_48 * 0.01;
     *(float *)(*piVar1 + 0x50) = (float)(int)local_44 * 0.01;

@@ -8,13 +8,13 @@
 /* ---- 0x0048d030  Controls_DebugKeysHook ---- */
 /* Hook registered by sputControl_Startup: forwards to sputControl_StandardHandler. */
 
-int Controls_DebugKeysHook(undefined4 param_1)
+int __cdecl Controls_DebugKeysHook(uint param_1)
 
 {
-  int iVar1;
+  uint uVar1;
   
-  iVar1 = ((code *)sputControl_StandardHandler)(param_1);
-  return iVar1 != 0;
+  uVar1 = sputControl_StandardHandler();
+  return (uint)(uVar1 != 0);
 }
 
 /* ---- 0x0048d050  sputControl_Reset ---- */
@@ -23,7 +23,7 @@ int Controls_DebugKeysHook(undefined4 param_1)
    field of every control symbol, then stdControl_Reset); called by sputControl_Startup in both
    builds); was Controls_ResetAll. */
 
-void sputControl_Reset(void)
+void __cdecl sputControl_Reset(void)
 
 {
   uint *puVar1;

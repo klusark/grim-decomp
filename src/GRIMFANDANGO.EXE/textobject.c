@@ -46,7 +46,7 @@ TextObject * __cdecl TextObject_New(TextContext *ctx,char *text,int durationMs,i
   TextContext *pTVar5;
   TextContext *pTVar6;
   
-  pTVar3 = (TextObject *)Memory_AllocFixed(g_pTextEventPool);
+  pTVar3 = (TextObject *)Memory_AllocFixed((int *)g_pTextEventPool);
   if (pTVar3 != (TextObject *)0x0) {
     pTVar3->pNext = (TextObject *)0x0;
     pTVar3->pPrev = (TextObject *)0x0;

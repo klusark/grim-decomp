@@ -12,7 +12,7 @@
    Original name stdPlatform_Assert (the remaster's GrimFandango (Linux): strings: '%s(%d):  %s\n');
    was PlatSvc_AssertFail. */
 
-void stdPlatform_Assert(undefined4 param_1,char *param_2,undefined4 param_3)
+void __cdecl stdPlatform_Assert(uint param_1,char *param_2,uint param_3)
 
 {
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -64,7 +64,7 @@ void stdPlatform_Assert(undefined4 param_1,char *param_2,undefined4 param_3)
    remaster's GrimFandango (Linux): same body (malloc); the platform handle service set in both
    builds); was PlatSvc_HAlloc. */
 
-void stdPlatform_AllocHandle(uint param_1)
+void __cdecl stdPlatform_AllocHandle(uint param_1)
 
 {
   malloc(param_1);
@@ -76,7 +76,7 @@ void stdPlatform_AllocHandle(uint param_1)
    remaster's GrimFandango (Linux): same body (free); after stdPlatform_AllocHandle in both builds);
    was PlatSvc_HFree. */
 
-void stdPlatform_FreeHandle(undefined4 param_1)
+void __cdecl stdPlatform_FreeHandle(uint param_1)
 
 {
   free(param_1);
@@ -88,7 +88,7 @@ void stdPlatform_FreeHandle(undefined4 param_1)
    (the remaster's GrimFandango (Linux): same body (realloc); after stdPlatform_FreeHandle in both
    builds); was PlatSvc_HRealloc. */
 
-void stdPlatform_ReallocHandle(undefined4 param_1,undefined4 param_2)
+void __cdecl stdPlatform_ReallocHandle(uint param_1,uint param_2)
 
 {
   realloc(param_1,param_2);
@@ -100,7 +100,7 @@ void stdPlatform_ReallocHandle(undefined4 param_1,undefined4 param_2)
    Original name stdPlatform_LockHandle (the remaster's GrimFandango (Linux): same body (returns the
    handle); after stdPlatform_ReallocHandle in both builds); was PlatSvc_HLock. */
 
-undefined4 stdPlatform_LockHandle(undefined4 param_1)
+uint __cdecl stdPlatform_LockHandle(uint param_1)
 
 {
   return param_1;

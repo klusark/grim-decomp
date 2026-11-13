@@ -9,17 +9,17 @@
 /* Temp/Fileutil.c: allocates a 0x20c-byte directory scanner. mode 0-2: pattern dir\*.*, mode 3:
    dir\*.ext (leading '.' stripped). */
 
-undefined4 * DirScan_Create(undefined4 param_1,int param_2,char *param_3)
+uint * __cdecl DirScan_Create(uint param_1,int param_2,char *param_3)
 
 {
-  undefined4 *puVar1;
+  uint *puVar1;
   int iVar2;
-  undefined4 *puVar3;
+  uint *puVar3;
   
-  puVar1 = (undefined4 *)
-           (*g_pSvcFileutil->pAlloc)(0x20c,s_C__grimsrc_libs_grimlib_Temp_Fil_004e830c,0x16e);
-  if (puVar1 == (undefined4 *)0x0) {
-    return (undefined4 *)0x0;
+  puVar1 = (uint *)(*g_pSvcFileutil->pAlloc)
+                             (0x20c,s_C__grimsrc_libs_grimlib_Temp_Fil_004e830c,0x16e);
+  if (puVar1 == (uint *)0x0) {
+    return (uint *)0x0;
   }
   puVar3 = puVar1;
   for (iVar2 = 0x83; iVar2 != 0; iVar2 = iVar2 + -1) {
@@ -42,7 +42,7 @@ undefined4 * DirScan_Create(undefined4 param_1,int param_2,char *param_3)
 }
 
 /* ---- 0x00488e70  DirScan_Destroy ---- */
-void DirScan_Destroy(int param_1)
+void __cdecl DirScan_Destroy(int param_1)
 
 {
   if (param_1 != 0) {
@@ -59,7 +59,7 @@ void DirScan_Destroy(int param_1)
 /* ---- 0x00488eb0  DirScan_Reset ---- */
 /* Closes the find handle so the next DirScan_Next restarts with _findfirst */
 
-void DirScan_Reset(int param_1)
+void __cdecl DirScan_Reset(int param_1)
 
 {
   if ((param_1 != 0) && (*(int *)(param_1 + 4) != 0)) {
@@ -75,7 +75,7 @@ void DirScan_Reset(int param_1)
 /* _findfirst/_findnext wrapper. Copies the entry name into out, out+0x104 = is-directory flag
    (attrib & 0x10), out+0x108 = file size. */
 
-undefined4 DirScan_Next(int param_1,char *param_2)
+uint __cdecl DirScan_Next(int param_1,char *param_2)
 
 {
   unsigned char _frame[0x130] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

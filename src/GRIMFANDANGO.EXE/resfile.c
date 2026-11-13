@@ -223,7 +223,7 @@ uint __cdecl Res_FRead(int fh,void *buf,uint n)
    GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was
    ResFile_Gets. */
 
-char * Res_FGets(int param_1,char *param_2,uint param_3)
+char * __cdecl Res_FGets(int param_1,char *param_2,uint param_3)
 
 {
   int iVar1;
@@ -290,10 +290,10 @@ char * Res_FGets(int param_1,char *param_2,uint param_3)
    (the remaster's GrimFandango (Linux): the same file-services slot filled by
    Res_OverrideFileCalls); was ResFile_Write. */
 
-undefined4 Res_FWrite(int param_1,undefined4 param_2,undefined4 param_3)
+uint __cdecl Res_FWrite(int param_1,uint param_2,uint param_3)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
   if (param_1 != 0) {
     if ((param_1 < 1) || (0x80 < param_1)) {
@@ -315,11 +315,11 @@ undefined4 Res_FWrite(int param_1,undefined4 param_2,undefined4 param_3)
 /* pFeof of the resource file services. Original name Res_FEOF (the remaster's GrimFandango (Linux):
    the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Eof. */
 
-undefined4 Res_FEOF(int param_1)
+uint __cdecl Res_FEOF(int param_1)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  uint uVar2;
   
   iVar1 = param_1 * 0x102c;
   if ((param_1 < 1) || (0x80 < param_1)) {
@@ -334,7 +334,7 @@ undefined4 Res_FEOF(int param_1)
     uVar2 = (**(code **)(g_dwLowLevelHS + 0x44))(*(int *)(&DAT_00824f14 + iVar1));
     return uVar2;
   }
-  return *(undefined4 *)(&DAT_00824f2c + iVar1);
+  return *(uint *)(&DAT_00824f2c + iVar1);
 }
 
 /* ---- 0x00480dc0  Res_FTell ---- */
@@ -342,11 +342,11 @@ undefined4 Res_FEOF(int param_1)
    start) or of the real file. Original name Res_FTell (the remaster's GrimFandango (Linux): the
    same file-services slot filled by Res_OverrideFileCalls); was ResFile_Tell. */
 
-undefined4 Res_FTell(int param_1)
+uint __cdecl Res_FTell(int param_1)
 
 {
   int iVar1;
-  undefined4 uVar2;
+  uint uVar2;
   
   iVar1 = param_1 * 0x102c;
   if ((param_1 < 1) || (0x80 < param_1)) {
@@ -361,7 +361,7 @@ undefined4 Res_FTell(int param_1)
     uVar2 = (**(code **)(g_dwLowLevelHS + 0x48))(*(int *)(&DAT_00824f14 + iVar1));
     return uVar2;
   }
-  return *(undefined4 *)(&DAT_00824f18 + iVar1);
+  return *(uint *)(&DAT_00824f18 + iVar1);
 }
 
 /* ---- 0x00480e30  Res_FSeek ---- */

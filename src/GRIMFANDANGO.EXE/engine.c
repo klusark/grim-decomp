@@ -10,7 +10,7 @@
    GrimFandango (Linux): aligned call in Res_SysShutdown, sputLua_NukeResourcesL); was
    Engine_ResetState. */
 
-void Res_FreeAll(void)
+void __cdecl Res_FreeAll(void)
 
 {
   int *piVar1;
@@ -43,10 +43,10 @@ void Res_FreeAll(void)
    sputResource_LogToFile in both builds (the remaster's is a jump to it); called by
    grimdemo_EnableDebugging); was Engine_OpenResourceLog. */
 
-void grimlib_LogResources(undefined4 param_1)
+void __cdecl grimlib_LogResources(uint param_1)
 
 {
-  sputResource_LogToFile(param_1);
+  sputResource_LogToFile((char *)param_1);
   return;
 }
 
@@ -55,7 +55,7 @@ void grimlib_LogResources(undefined4 param_1)
    unmatched caller of Actor_PushCostume; 2 matched neighbours agree, 0 disagree); was
    Engine_PushSelectedActorCostume. */
 
-void grimlib_OverrideSelectedActorCostume(int param_1)
+void __cdecl grimlib_OverrideSelectedActorCostume(int param_1)
 
 {
   if (g_pSelectedActor != (Actor *)0x0) {
@@ -70,7 +70,7 @@ void grimlib_OverrideSelectedActorCostume(int param_1)
    unmatched caller of Actor_PopCostume; 2 matched neighbours agree, 0 disagree); was
    Engine_PopSelectedActorCostume. */
 
-void grimlib_RestoreSelectedActorCostume(void)
+void __cdecl grimlib_RestoreSelectedActorCostume(void)
 
 {
   if (g_pSelectedActor != (Actor *)0x0) {
@@ -89,8 +89,8 @@ int __cdecl grimlib_SetDisplay(void *mode,int flags)
 {
   sputRender_PageCountIs(g_dwStdDisplay_numDrawBuffers);
   sputRender_SetDisplay
-            (mode,flags,0,0,*(int *)((int)mode + 0xc) + -1,*(int *)((int)mode + 0x10) + -1,
-             &g_aGrimlib_renderOptions);
+            ((uint)mode,flags,0,0,*(int *)((int)mode + 0xc) - 1,*(int *)((int)mode + 0x10) - 1,
+             ((unsigned)(uintptr_t)&DAT_004e7da0));
   return 0;
 }
 
@@ -99,7 +99,7 @@ int __cdecl grimlib_SetDisplay(void *mode,int flags)
    (sputRender_Close); the first call of the display shutdown in both builds); was
    Engine_CloseRenderer. */
 
-undefined4 grimlib_UnsetDisplay(void)
+uint __cdecl grimlib_UnsetDisplay(void)
 
 {
   sputRender_Close();
@@ -112,7 +112,7 @@ undefined4 grimlib_UnsetDisplay(void)
    sputRender_Close, sputRoom_SetCurrentRoom(0, 0), clear the flag); called by Main_Shutdown in both
    builds); was Engine_ShutdownGame. */
 
-void grimlib_Close(void)
+void __cdecl grimlib_Close(void)
 
 {
   if (g_dwSputmOpen != 0) {
@@ -130,7 +130,7 @@ void grimlib_Close(void)
    sputLua_SetDebugToggleCallback (the remaster's jumps to it), set in Main_Startup); was
    Engine_SetDebugKeysCallback. */
 
-void grimlib_SetDebugToggleCallback(undefined4 param_1)
+void __cdecl grimlib_SetDebugToggleCallback(uint param_1)
 
 {
   sputLua_SetDebugToggleCallback(param_1);
@@ -142,7 +142,7 @@ void grimlib_SetDebugToggleCallback(undefined4 param_1)
    callback set in Main_Startup (the remaster's jumps to sputRender_SetPaletteCallback, as this
    calls it)); was Engine_SetRenderUserCallback. */
 
-void grimlib_SetPaletteCallback(undefined4 param_1)
+void __cdecl grimlib_SetPaletteCallback(uint param_1)
 
 {
   sputRender_SetPaletteCallback(param_1);
@@ -154,7 +154,7 @@ void grimlib_SetPaletteCallback(undefined4 param_1)
    callback set in Main_Startup, with grimdemo_PleaseShutdown on both sides, same body); was
    Engine_SetIdleCallback. */
 
-void grimlib_SetShutdownCallback(uint param_1)
+void __cdecl grimlib_SetShutdownCallback(uint param_1)
 
 {
   g_dwGrimlib_shutdownCallback = param_1;
@@ -166,10 +166,10 @@ void grimlib_SetShutdownCallback(uint param_1)
    wrapper of sputRender_SetPageFlipCallback (the remaster's is a 5-byte jmp), called from
    Main_Startup); was Engine_SetFlipCallback. */
 
-void grimlib_SetPageFlipCallback(undefined4 param_1)
+void __cdecl grimlib_SetPageFlipCallback(uint param_1)
 
 {
-  sputRender_SetPageFlipCallback(param_1);
+  sputRender_SetPageFlipCallback((void *)param_1);
   return;
 }
 
@@ -178,7 +178,7 @@ void grimlib_SetPageFlipCallback(undefined4 param_1)
    of sputRender_Using3DHardware in both builds (the remaster's is a jump to it)); was
    Engine_SetZBufferEnabled. */
 
-void grimlib_Using3DHardware(undefined4 param_1)
+void __cdecl grimlib_Using3DHardware(uint param_1)
 
 {
   sputRender_Using3DHardware(param_1);
@@ -190,7 +190,7 @@ void grimlib_Using3DHardware(undefined4 param_1)
    of sputResource_AddResourcePath in both builds (the remaster's is a jump to it), called with the
    command-line data directory); was Engine_SetExtraDataDir. */
 
-void grimlib_AddResourcePath(char *param_1)
+void __cdecl grimlib_AddResourcePath(char *param_1)
 
 {
   sputResource_AddResourcePath(param_1);
@@ -201,13 +201,13 @@ void grimlib_AddResourcePath(char *param_1)
 /* Original name grimlib_FindSystemFiles (the remaster's GrimFandango (Linux): same body (the result
    of sputLua_FindSystemFiles negated), called from Main_Startup); was Engine_RunSystemScript. */
 
-int grimlib_FindSystemFiles(void)
+int __cdecl grimlib_FindSystemFiles(void)
 
 {
   int iVar1;
   
   iVar1 = sputLua_FindSystemFiles();
-  return iVar1 == 0;
+  return (uint)(iVar1 == 0);
 }
 
 /* ---- 0x004827a0  grimlib_Open ---- */
@@ -215,7 +215,7 @@ int grimlib_FindSystemFiles(void)
    body (once flag bSputmOpen, sputLua_Boot, grimlib_mode = 2, sputRender_Open, sputControl_Open));
    was Engine_CallSystemFunction. */
 
-undefined4 grimlib_Open(int param_1,char *param_2)
+uint __cdecl grimlib_Open(int param_1,char *param_2)
 
 {
   int iVar1;
@@ -254,13 +254,13 @@ void __cdecl grimlib_MarkDirtyRect(int *rect,int flags)
    caller of Lua_CallExitHandler; 1 matched neighbours agree, 0 disagree); was
    Engine_CallExitHandler. */
 
-int grimlib_ConfirmClose(void)
+int __cdecl grimlib_ConfirmClose(void)
 
 {
   int iVar1;
   
   iVar1 = sputLua_DoExitCallback();
-  return iVar1 == 0;
+  return (uint)(iVar1 == 0);
 }
 
 /* ---- 0x004828e0  grimlib_RequestShutdown ---- */
@@ -409,7 +409,7 @@ void __cdecl gimlib_SetImuseState(int state)
 /* Profile slot 8: presents the back buffer when the game state is 3 Original name grimlib_Display
    (the remaster's GrimFandango (Linux): aligned call in Main_Service); was Engine_PresentFrame. */
 
-void grimlib_Display(void)
+void __cdecl grimlib_Display(void)
 
 {
   int iVar1;
@@ -441,7 +441,7 @@ void grimlib_Display(void)
 /* ---- 0x00482cf0  Engine_RegisterSubsystems ---- */
 /* Walks the {fn,name} subsystem table and calls each init, stopping at the first failure */
 
-uint Engine_RegisterSubsystems(undefined4 param_1,undefined4 *param_2,int param_3,int param_4)
+uint __cdecl Engine_RegisterSubsystems(uint param_1,uint *param_2,int param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -481,7 +481,7 @@ uint Engine_RegisterSubsystems(undefined4 param_1,undefined4 *param_2,int param_
 
 
 /* ---- 0x00482d60  Engine_InitSubsystems ---- */
-undefined4 Engine_InitSubsystems(int param_1,int param_2)
+uint __cdecl Engine_InitSubsystems(int param_1,int param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -520,7 +520,7 @@ undefined4 Engine_InitSubsystems(int param_1,int param_2)
 /* ---- 0x00482dd0  Engine_ShutdownSubsystems ---- */
 /* Calls the +0xc entry of each 0x20-byte subsystem record in reverse order */
 
-undefined4 Engine_ShutdownSubsystems(int param_1,int param_2)
+uint __cdecl Engine_ShutdownSubsystems(int param_1,int param_2)
 
 {
   undefined4 *puVar1;
@@ -541,7 +541,7 @@ undefined4 Engine_ShutdownSubsystems(int param_1,int param_2)
 /* ---- 0x00482e00  Engine_ResetSubsystems ---- */
 /* Calls the +4 entry of each 0x20-byte subsystem record in reverse order */
 
-undefined4 Engine_ResetSubsystems(int param_1,int param_2)
+uint __cdecl Engine_ResetSubsystems(int param_1,int param_2)
 
 {
   undefined4 *puVar1;
@@ -564,7 +564,7 @@ undefined4 Engine_ResetSubsystems(int param_1,int param_2)
    name PerfBegin (the remaster's GrimFandango (Linux): aligned call in grimlib_Display,
    sputCostume_DrawActorShadow, sputRender_Update); was Profile_Begin. */
 
-void PerfBegin(int param_1)
+void __cdecl PerfBegin(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -626,23 +626,21 @@ undefined * __cdecl PerfEnd(int param_1)
    of Lua_StartFullscreenMovie; 2 matched neighbours agree, 0 disagree); was
    Engine_BlitToBackBuffer. */
 
-undefined4
-grimlib_PlayMovie(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4,
-                 undefined4 param_5)
+uint __cdecl grimlib_PlayMovie(uint param_1,int param_2,uint param_3,uint param_4,uint param_5)
 
 {
-  int iVar1;
+  uint uVar1;
   uint *surface;
   
   if (param_2 == 0) {
-    surface = (uint *)Render_GetBackBuffer();
+    surface = Render_GetBackBuffer();
   }
   else {
     surface = &g_dwStdDisplay_frontBuffer;
   }
   sputSmush_SetTarget(surface);
-  iVar1 = sputSmush_StartMovie(param_1,param_3,param_4,param_5);
-  if (iVar1 == 0) {
+  uVar1 = sputSmush_StartMovie((char *)param_1,param_3,param_4,param_5);
+  if (uVar1 == 0) {
     if (param_2 != 0) {
       g_dwGrimlib_mode = 3;
       return 1;
@@ -660,7 +658,7 @@ grimlib_PlayMovie(undefined4 param_1,int param_2,undefined4 param_3,undefined4 p
    of Lua_CallUserPaintHandler; 2 matched neighbours agree, 0 disagree); was Engine_CallUserPaint.
     */
 
-void grimlib_UserPaint(void)
+void __cdecl grimlib_UserPaint(void)
 
 {
   if (g_dwGrimlib_mode == 4) {
@@ -676,7 +674,7 @@ void grimlib_UserPaint(void)
    what to save) for the next frame; the only call of sputLua_SaveL in both builds (the remaster
    saves to a slot, v1.01 to a file name)); was Engine_RequestSave. */
 
-void grimlib_Save(char *param_1)
+void __cdecl grimlib_Save(char *param_1)
 
 {
   UINT_008a8c7c = 1;
@@ -688,7 +686,7 @@ void grimlib_Save(char *param_1)
 /* Original name grimlib_Load (the remaster's GrimFandango (Linux): the only unmatched callee of
    Lua_Load; 1 matched neighbours agree, 0 disagree); was Engine_RequestLoad. */
 
-void grimlib_Load(char *param_1)
+void __cdecl grimlib_Load(char *param_1)
 
 {
   g_dwDoLoad = 1;
@@ -700,7 +698,7 @@ void grimlib_Load(char *param_1)
 /* Original name grimlib_JustLoaded (the remaster's GrimFandango (Linux): the only unmatched callee
    of Lua_JustLoaded; 1 matched neighbours agree, 0 disagree); was Engine_TakeRestoreFlag. */
 
-uint grimlib_JustLoaded(void)
+uint __cdecl grimlib_JustLoaded(void)
 
 {
   uint uVar1;
@@ -714,7 +712,7 @@ uint grimlib_JustLoaded(void)
 /* Writes grim.sav (or the requested name): 250x188 thumbnail, costumes, each registered module's
    save hook, game mode, Lua state */
 
-void Engine_SaveGame(void)
+void __cdecl Engine_SaveGame(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -760,7 +758,7 @@ void Engine_SaveGame(void)
   if ((void *)UINT_008a8770 != (void *)0x0) {
     sputLua_SaveGameCallback(SaveGame_Write);
     pvVar1 = sputRender_ScreenShot(0xfa,0xbc);
-    pvVar1 = (void *)stdDisplay_VBufferConvertColorFormat(&local_38,pvVar1);
+    pvVar1 = stdDisplay_VBufferConvertColorFormat((int *)&local_38,pvVar1);
     SaveGame_Write((int *)((int)pvVar1 + 0x14),4);
     SaveGame_Write(*(void **)((int)pvVar1 + 0x5c),*(int *)((int)pvVar1 + 0x14));
     stdDisplay_VBufferFree(pvVar1);
@@ -809,7 +807,7 @@ void Engine_SaveGame(void)
 #if 0
 /* Reads a save in the same order Engine_SaveGame wrote it, then runs patch05.bin */
 
-void Engine_LoadGame(void)
+void __cdecl Engine_LoadGame(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -891,7 +889,7 @@ void Engine_LoadGame(void)
    (the remaster's GrimFandango (Linux): aligned call in sputLua_RenderModeUser); was
    Engine_SetSavedValue. */
 
-void SetPrevMode(uint param_1)
+void __cdecl SetPrevMode(uint param_1)
 
 {
   g_dwGrimlib_prevmode = param_1;
@@ -902,7 +900,7 @@ void SetPrevMode(uint param_1)
 /* Original name GetPrevMode (the remaster's GrimFandango (Linux): same body (returns one global,
    prevMode); called by sputLua_RenderModeUser in both builds); was Engine_GetSavedValue. */
 
-uint GetPrevMode(void)
+uint __cdecl GetPrevMode(void)
 
 {
   return g_dwGrimlib_prevmode;
@@ -913,7 +911,7 @@ uint GetPrevMode(void)
    sputRender_Open (the remaster's GrimFandango (Linux): the render call of grimlib_Open, same body
    (allocates the camera actor gCamActorIndex, flag 1)); was Engine_CreateCameraActor. */
 
-undefined4 sputRender_Open(void)
+uint __cdecl sputRender_Open(void)
 
 {
   Actor *pAVar1;
@@ -943,12 +941,13 @@ void __cdecl sputRender_Update(void)
   int *piVar1;
   int iVar2;
   int iVar3;
-  int iVar4;
+  uint uVar4;
   void *pvVar5;
   float *pfVar6;
   float *pfVar7;
   float fVar8;
-  uint *puVar9;
+  int iVar9;
+  uint *puVar10;
   #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define fStack_c (*(float *)(_frame + (0x30 - 0xc)))
@@ -958,18 +957,18 @@ void __cdecl sputRender_Update(void)
   if (g_dwGrimlib_mode != 0) {
     if (g_dwGrimlib_mode == 3) {
       sputSmush_SetTarget(&g_dwStdDisplay_backBuffer);
-      iVar4 = sputSmush_Periodic();
-      if (iVar4 != 0) {
-        iVar4 = 0;
+      uVar4 = sputSmush_Periodic();
+      if (uVar4 != 0) {
+        iVar9 = 0;
         g_dwGrimlib_mode = 2;
         local_1c[0] = 0.0;
         local_1c[1] = 0.0;
         local_1c[2] = 8.96831e-43;
         if (0 < g_nNumPages) {
           do {
-            DirtyRect_Add((int *)local_1c,1,iVar4);
-            iVar4 = iVar4 + 1;
-          } while (iVar4 < g_nNumPages);
+            DirtyRect_Add((int *)local_1c,1,iVar9);
+            iVar9 = iVar9 + 1;
+          } while (iVar9 < g_nNumPages);
         }
         sputRender_ForceRefresh();
         g_dwMovieJustFinished = 1;
@@ -1035,16 +1034,16 @@ void __cdecl sputRender_Update(void)
       Render_BuildActorDrawList();
       if ((g_dwTotDrawItems != 0) || (((byte)g_dwDebugFlags & 1) != 0)) {
         PerfBegin(5);
-        iVar4 = 0;
+        iVar9 = 0;
         if (0 < (int)g_dwTotDrawItems) {
-          puVar9 = &g_dwDrawItems;
+          puVar10 = &g_dwDrawItems;
           do {
-            if (*(char *)*puVar9 == '\0') {
-              sputCostume_Draw2D((g_pActors[*(int *)((char *)*puVar9 + 8)].pCostumes)->dwInstance);
+            if (*(char *)*puVar10 == '\0') {
+              sputCostume_Draw2D((g_pActors[*(int *)((char *)*puVar10 + 8)].pCostumes)->dwInstance);
             }
-            iVar4 = iVar4 + 1;
-            puVar9 = puVar9 + 1;
-          } while (iVar4 < (int)g_dwTotDrawItems);
+            iVar9 = iVar9 + 1;
+            puVar10 = puVar10 + 1;
+          } while (iVar9 < (int)g_dwTotDrawItems);
         }
         PerfEnd(5);
         if (((byte)g_dwDebugFlags & 1) != 0) {
@@ -1059,19 +1058,19 @@ void __cdecl sputRender_Update(void)
           stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
         }
         PerfBegin(6);
-        if (iVar4 != 0) {
-          puVar9 = &g_dwDrawItems + iVar4 + -1;
+        if (iVar9 != 0) {
+          puVar10 = &g_dwDrawItems + iVar9 + -1;
           do {
-            actor = g_pActors + *(int *)(*puVar9 + 8);
-            if (g_pActors[*(int *)(*puVar9 + 8)].flScale != 1.0) {
+            actor = g_pActors + *(int *)(*puVar10 + 8);
+            if (g_pActors[*(int *)(*puVar10 + 8)].flScale != 1.0) {
               fStack_8 = actor->flScale;
               pfVar7 = &fStack_c;
               fStack_4 = actor->flScale;
-              fStack_c = g_pActors[*(int *)(*puVar9 + 8)].flScale;
+              fStack_c = g_pActors[*(int *)(*puVar10 + 8)].flScale;
               pfVar6 = sputActor_GetOrientMatrix(actor);
               rdMatrix_PreScale34(pfVar6,(uint)pfVar7);
             }
-            if (*(char *)*puVar9 == '\0') {
+            if (*(char *)*puVar10 == '\0') {
               piVar1 = actor->pColormapRef;
               iVar2 = *piVar1;
               if (iVar2 == 0) {
@@ -1110,7 +1109,7 @@ void __cdecl sputRender_Update(void)
                 Actor_DrawDebugWalker(actor);
               }
             }
-            else if (*(char *)*puVar9 == '\x01') {
+            else if (*(char *)*puVar10 == '\x01') {
               if (g_nSputRender_b3DAcceleration == 0) {
                 stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
               }
@@ -1128,10 +1127,10 @@ void __cdecl sputRender_Update(void)
               pfVar6 = sputActor_GetOrientMatrix(actor);
               rdMatrix_PreScale34(pfVar6,(uint)pfVar7);
             }
-            iVar4 = iVar4 + -1;
-            puVar9 = puVar9 + -1;
+            iVar9 = iVar9 + -1;
+            puVar10 = puVar10 + -1;
             fVar8 = local_1c[0];
-          } while (iVar4 != 0);
+          } while (iVar9 != 0);
         }
         PerfEnd(6);
         PerfBegin(7);
@@ -1148,16 +1147,16 @@ void __cdecl sputRender_Update(void)
       if (((byte)g_dwDebugFlags & 1) != 0) {
         pvVar5 = sputRoom_GetCurrentRoom();
         if (((byte)g_dwDebugFlags & 2) != 0) {
-          Set_DrawDebugLights(pvVar5);
+          Set_DrawDebugLights((int)pvVar5);
         }
         if (((byte)g_dwDebugFlags & 4) != 0) {
           Set_DrawDebugCameras(pvVar5,0xffffffff);
         }
       }
       if ((g_dwRenderFlags & 4) != 0) {
-        iVar4 = sputTime_GetGameTime();
+        iVar9 = sputTime_GetGameTime();
         local_1c[1] = 0.0;
-        local_1c[0] = (float)(iVar4 - g_dwIrisStart) / g_flIrisDuration;
+        local_1c[0] = (float)(iVar9 - g_dwIrisStart) / g_flIrisDuration;
         if (local_1c[0] < 0.0) {
           local_1c[0] = -local_1c[0];
         }

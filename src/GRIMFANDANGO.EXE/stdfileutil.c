@@ -29,7 +29,7 @@ undefined * __cdecl stdFileOpen(uint param_1,uint param_2)
 /* Original name stdFileClose (the remaster's GrimFandango (Linux): the std.c host file service
    after stdFileOpen; fclose wrapper in both builds); was stdFile_Close. */
 
-void stdFileClose(undefined4 param_1)
+void __cdecl stdFileClose(uint param_1)
 
 {
   fclose(param_1);
@@ -44,7 +44,7 @@ void stdFileClose(undefined4 param_1)
 /* GrimServices.pFread of the platform table: fread(buf, 1, n, file). Original name stdFileRead (the
    remaster's GrimFandango (Linux): same body (fread(buf, 1, n, fh))); was stdFile_Read. */
 
-void stdFileRead(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl stdFileRead(uint param_1,uint param_2,uint param_3)
 
 {
   fread(param_2,1,param_3,param_1);
@@ -57,7 +57,7 @@ void stdFileRead(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* Original name stdFileWrite (the remaster's GrimFandango (Linux): the std.c host file service
    after stdFileRead; fwrite wrapper in both builds); was stdFile_Write. */
 
-void stdFileWrite(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl stdFileWrite(uint param_1,uint param_2,uint param_3)
 
 {
   fwrite(param_2,1,param_3,param_1);
@@ -70,7 +70,7 @@ void stdFileWrite(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* GrimServices.pFgets of the platform table: fgets. Original name stdFileGets (the remaster's
    GrimFandango (Linux): same body (fgets(buf, n, fh))); was stdFile_Gets. */
 
-void stdFileGets(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl stdFileGets(uint param_1,uint param_2,uint param_3)
 
 {
   fgets(param_2,param_3,param_1);
@@ -83,7 +83,7 @@ void stdFileGets(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 /* Original name stdFileGetws (the remaster's GrimFandango (Linux): same body (fgetws(buf, n, fh));
    between stdFileGets and stdFeof in both builds); was FUN_004734c0. */
 
-void stdFileGetws(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl stdFileGetws(uint param_1,uint param_2,uint param_3)
 
 {
   FUN_004adef0(param_2,param_3,param_1);
@@ -95,7 +95,7 @@ void stdFileGetws(undefined4 param_1,undefined4 param_2,undefined4 param_3)
    GrimFandango (Linux): the std.c end-of-file service after stdFileGetws in both builds); was
    stdFile_Eof. */
 
-uint stdFeof(int param_1)
+uint __cdecl stdFeof(int param_1)
 
 {
   return *(uint *)(param_1 + 0xc) & 0x10;
@@ -118,7 +118,7 @@ undefined * __cdecl stdFtell(uint param_1)
 /* Original name stdFseek (the remaster's GrimFandango (Linux): the std.c seek service after
    stdFtell in both builds); was stdFile_Seek. */
 
-void stdFseek(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+void __cdecl stdFseek(uint param_1,uint param_2,uint param_3)
 
 {
   fseek(param_1,param_2,param_3);
@@ -130,20 +130,20 @@ void stdFseek(undefined4 param_1,undefined4 param_2,undefined4 param_3)
    Original name stdFileSize (the remaster's GrimFandango (Linux): same body (open "rb", seek to the
    end, tell, close)); was stdFile_Size. */
 
-undefined * stdFileSize(uint param_1)
+byte * __cdecl stdFileSize(uint param_1)
 
 {
   undefined *puVar1;
-  undefined *puVar2;
+  byte *pbVar2;
   
   puVar1 = stdFileOpen(param_1,((unsigned)(uintptr_t)&DAT_004ddb18));
   if (puVar1 == (undefined *)0x0) {
-    return (undefined *)0x0;
+    return (byte *)0x0;
   }
-  stdFseek(puVar1,0,2);
-  puVar2 = stdFtell((uint)puVar1);
-  stdFileClose(puVar1);
-  return puVar2;
+  stdFseek((uint)puVar1,0,2);
+  pbVar2 = stdFtell((uint)puVar1);
+  stdFileClose((uint)puVar1);
+  return pbVar2;
 }
 
 /* ---- 0x00473570  stdFilePrintf ---- */
@@ -151,13 +151,13 @@ undefined * stdFileSize(uint param_1)
    Original name stdFilePrintf (the remaster's GrimFandango (Linux): same body (format into the
    static printBuffer of 0x400 bytes, write it to the file)); was stdFile_Printf. */
 
-undefined4 stdFilePrintf(undefined4 param_1,char *param_2)
+uint __cdecl stdFilePrintf(uint param_1,char *param_2)
 
 {
-  int iVar1;
+  uint uVar1;
   
-  iVar1 = _vsnprintf(&DAT_007f6090,0x400,param_2,&STACK0X(0x0000000c));
-  stdFileWrite(param_1,&DAT_007f6090,iVar1);
+  uVar1 = _vsnprintf(&DAT_007f6090,0x400,param_2,&STACK0X(0x0000000c));
+  stdFileWrite(param_1,((unsigned)(uintptr_t)&DAT_007f6090),uVar1);
   return 0;
 }
 
@@ -165,18 +165,20 @@ undefined4 stdFilePrintf(undefined4 param_1,char *param_2)
 /* Original name stdFGetc (the remaster's GrimFandango (Linux): aligned call in stdGif_Load,
    stdLbm_Load, stdPcx_Load); was stdFile_ReadByte. */
 
-uint stdFGetc(uint param_1)
+uint __cdecl stdFGetc(uint param_1)
 
 {
-  (*g_pStd_HS->pFread)(param_1,&param_1,1);
-  return param_1 & 0xff;
+  undefined4 uVar1;
+  
+  uVar1 = (*g_pStd_HS->pFread)(param_1,&param_1,1);
+  return CONCAT31((int3)((uint)uVar1 >> 8),(undefined1)param_1);
 }
 
 /* ---- 0x00473610  stdFPutc ---- */
 /* Original name stdFPutc (the remaster's GrimFandango (Linux): aligned call in stdPcx_Write); was
    stdFile_WriteByte. */
 
-void stdFPutc(undefined4 param_1,undefined4 param_2)
+void __cdecl stdFPutc(uint param_1,uint param_2)
 
 {
   (*g_pStd_HS->pFwrite)(param_2,&param_1,1);
@@ -205,7 +207,7 @@ int __cdecl LzssDecompress(void *dst,void *src,int srcSize)
 /* ---- 0x00473b60  stdCompress_DecompressLoop ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void stdCompress_DecompressLoop(void)
+void __cdecl stdCompress_DecompressLoop(void)
 
 {
   ushort *puVar1;

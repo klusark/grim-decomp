@@ -42,7 +42,7 @@ void __cdecl sputText_Update(int drawAll)
 /* Original name sputText_Pause (the remaster's GrimFandango (Linux): aligned call in
    sputRender_Dim); was TextObjects_Freeze. */
 
-void sputText_Pause(void)
+void __cdecl sputText_Pause(void)
 
 {
   g_nSputText_Paused = 1;
@@ -53,7 +53,7 @@ void sputText_Pause(void)
 /* Original name sputText_Resume (the remaster's GrimFandango (Linux): aligned call in
    sputRender_Dim); was TextObjects_Unfreeze. */
 
-void sputText_Resume(void)
+void __cdecl sputText_Resume(void)
 
 {
   g_nSputText_Paused = 0;

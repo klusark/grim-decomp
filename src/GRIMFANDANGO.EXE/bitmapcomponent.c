@@ -18,8 +18,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   int iVar1;
   char cVar2;
   int iVar3;
-  char *name;
-  undefined4 uVar4;
+  char *pcVar4;
   char *data;
   undefined4 *ref;
   uint uVar5;
@@ -28,6 +27,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   char *pcVar8;
   char *pcVar9;
   undefined4 *puVar10;
+  undefined4 uVar11;
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
   #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
@@ -43,7 +43,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   local_24 = 0;
   if (param_5 == (char *)0x0) {
     if (g_bBitmapPath != '\0') {
-      grimPlat_SetDefaultOpenPath(&g_bBitmapPath);
+      grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bBitmapPath));
     }
     iVar7 = grimPlat_OpenFileRequest
                       (s_Select_image_file_to_add____004ea4b8,
@@ -51,22 +51,23 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
     if (iVar7 == 0) {
       return 0;
     }
-    uVar4 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
-    ((code *)strncpy)(&g_bBitmapPath,uVar4);
+    uVar11 = 0x7f;
+    pcVar4 = grimPlat_GetDefaultOpenPath();
+    strncpy(&g_bBitmapPath,pcVar4,uVar11);
     DAT_008ca8b7 = 0;
-    name = stdFnames_FindMedName(g_szGrimlib_aFilename);
+    pcVar4 = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   else {
     strncpy(local_20,param_5,0x1f);
     local_1 = 0;
-    name = (char *)strtok(local_20,&DAT_004ea52c);
+    pcVar4 = (char *)strtok(local_20,&DAT_004ea52c);
   }
-  data = sputResource_Alloc(0x444e4b42,name);
+  data = sputResource_Alloc(0x444e4b42,pcVar4);
   if (data == (char *)0x0) {
     return 0;
   }
   uVar5 = 0xffffffff;
-  pcVar8 = name;
+  pcVar8 = pcVar4;
   do {
     pcVar9 = pcVar8;
     if (uVar5 == 0) break;
@@ -130,7 +131,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   }
   local_28 = -(uint)((char *)local_24 != (char *)0x0) & g_dwLECBitmaps;
   if (param_5 == (char *)0x0) {
-    param_5 = name;
+    param_5 = pcVar4;
   }
   iVar7 = Cos_RegisterComponent
                     (param_1,(int)param_5,(int)ref,param_2,param_3,param_4,(int)&local_34);

@@ -129,7 +129,7 @@ char * __cdecl stdFnames_FindExt(char *path)
 }
 
 /* ---- 0x0047fda0  Str_StripExtension ---- */
-void Str_StripExtension(char *param_1)
+void __cdecl Str_StripExtension(char *param_1)
 
 {
   char *pcVar1;

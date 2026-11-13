@@ -1,5 +1,5 @@
 {
- "_comment": "protos-all round (2026-11-13): every EXE function Ghidra had no prototype for (signature source DEFAULT, purge 0) gets the one main's src/GRIMFANDANGO.EXE/functions.h showed (the decompiler's own inference, which the validated build compiled against), __cdecl, undefinedN made concrete so Ghidra cannot re-type them; a void return stays `undefined` (callers keep inferring their use of EAX) except for functions with a hand-written override, whose declaration must match it. Replay: tools/apply_logic_protos.py names/protos_all_exe.json",
+ "_comment": "protos-all round (2026-11-13): every EXE function Ghidra had no prototype for (signature source DEFAULT, purge 0) gets the one main's src/GRIMFANDANGO.EXE/functions.h showed (the decompiler's own inference, which the validated build compiled against), __cdecl, undefinedN made concrete so Ghidra cannot re-type them; a void return stays `undefined` (callers keep inferring their use of EAX) except for functions with a hand-written override, whose declaration must match it. Replay after names/sweep_protos.json: tools/apply_logic_protos.py names/protos_all_exe.json",
  "GRIMFANDANGO.EXE": {
   "004012b0": {
    "proto": "uint Main_Startup(char *param_1)",
@@ -1173,48 +1173,432 @@
    "proto": "void rdZRaster_DrawNGonLS(int param_1,int param_2)",
    "cc": "__cdecl"
   },
+  "0042e200": {
+   "proto": "void rdZRaster_DrawScanLineNGonLS_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0042e320": {
+   "proto": "void rdZRaster_DrawScanLineNGonLS_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0042e440": {
+   "proto": "uint rdZRaster_SetupLeftEdgeNGonLS(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0042e630": {
+   "proto": "uint rdZRaster_SetupRightEdgeNGonLS(int *param_1)",
+   "cc": "__cdecl"
+  },
   "0042e820": {
    "proto": "void rdZRaster_DrawNGonTLS(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "0042ea50": {
+   "proto": "void rdZRaster_DrawScanLineNGonTLS_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0042eb90": {
+   "proto": "void rdZRaster_DrawScanLineNGonTLS_16(uint *param_1,uint *param_2)",
    "cc": "__cdecl"
   },
   "0042ecf0": {
    "proto": "void rdZRaster_DrawNGonFS(int param_1,int param_2,float param_3)",
    "cc": "__cdecl"
   },
+  "0042ef00": {
+   "proto": "void rdZRaster_DrawScanLineNGonFS_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0042f020": {
+   "proto": "void rdZRaster_DrawScanLineNGonFS_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0042f140": {
+   "proto": "uint rdZRaster_SetupLeftEdgeNGonFS(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0042f330": {
+   "proto": "uint rdZRaster_SetupRightEdgeNGonFS(int *param_1)",
+   "cc": "__cdecl"
+  },
   "0042f520": {
    "proto": "void rdZRaster_DrawNGonTFS(int param_1,int param_2,float param_3)",
+   "cc": "__cdecl"
+  },
+  "0042f770": {
+   "proto": "void rdZRaster_DrawScanLineNGonTFS_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0042f8b0": {
+   "proto": "void rdZRaster_DrawScanLineNGonTFS_16(uint *param_1,uint *param_2)",
    "cc": "__cdecl"
   },
   "0042fa10": {
    "proto": "void rdZRaster_DrawNGonGS(int param_1,int param_2)",
    "cc": "__cdecl"
   },
+  "0042fc30": {
+   "proto": "void rdZRaster_DrawScanLineNGonGS_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0042fdc0": {
+   "proto": "void rdZRaster_DrawScanLineNGonGS_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0042ff50": {
+   "proto": "uint rdZRaster_SetupLeftEdgeNGonGS(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004301d0": {
+   "proto": "uint rdZRaster_SetupRightEdgeNGonGS(int *param_1)",
+   "cc": "__cdecl"
+  },
   "00430450": {
    "proto": "void rdZRaster_DrawNGonTGS(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "004306c0": {
+   "proto": "void rdZRaster_DrawScanLineNGonTGS_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00430860": {
+   "proto": "void rdZRaster_DrawScanLineNGonTGS_16(uint *param_1,uint *param_2)",
    "cc": "__cdecl"
   },
   "00430a20": {
    "proto": "void rdZRaster_DrawNGonLAT(int param_1,int param_2)",
    "cc": "__cdecl"
   },
+  "00430fd0": {
+   "proto": "void rdZRaster_DrawScanLineNGonLAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004311d0": {
+   "proto": "void rdZRaster_DrawScanLineNGonLAT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00431400": {
+   "proto": "uint rdZRaster_SetupLeftEdgeNGonLAT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00431710": {
+   "proto": "uint rdZRaster_SetupRightEdgeNGonLAT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00431a20": {
+   "proto": "void rdZRaster_DrawNGonTLAT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00431c90": {
+   "proto": "void rdZRaster_DrawScanLineNGonTLAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00431eb0": {
+   "proto": "void rdZRaster_DrawScanLineNGonTLAT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00432100": {
+   "proto": "void rdZRaster_DrawNGonMLAT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00432350": {
+   "proto": "void rdZRaster_DrawScanLineNGonMLAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00432560": {
+   "proto": "void rdZRaster_DrawScanLineNGonMLAT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004327a0": {
+   "proto": "void rdZRaster_DrawNGonMTLAT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00432a10": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTLAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00432c40": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTLAT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
   "00432ea0": {
    "proto": "void rdZRaster_DrawNGonFAT(int param_1,int param_2,float param_3)",
+   "cc": "__cdecl"
+  },
+  "00433480": {
+   "proto": "void rdZRaster_DrawScanLineNGonFAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004336a0": {
+   "proto": "void rdZRaster_DrawScanLineNGonFAT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004338d0": {
+   "proto": "uint rdZRaster_SetupLeftEdgeNGonFAT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00433be0": {
+   "proto": "uint rdZRaster_SetupRightEdgeNGonFAT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00433ef0": {
+   "proto": "void rdZRaster_DrawNGonTFAT(int param_1,int param_2,float param_3)",
+   "cc": "__cdecl"
+  },
+  "00434180": {
+   "proto": "void rdZRaster_DrawScanLineNGonTFAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004343b0": {
+   "proto": "void rdZRaster_DrawScanLineNGonTFAT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00434610": {
+   "proto": "void rdZRaster_DrawNGonMFAT(int param_1,int param_2,float param_3)",
+   "cc": "__cdecl"
+  },
+  "00434880": {
+   "proto": "void rdZRaster_DrawScanLineNGonMFAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00434aa0": {
+   "proto": "void rdZRaster_DrawScanLineNGonMFAT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00434ce0": {
+   "proto": "void rdZRaster_DrawNGonMTFAT(int param_1,int param_2,float param_3)",
+   "cc": "__cdecl"
+  },
+  "00434f70": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTFAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004351a0": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTFAT_16(uint *param_1,uint *param_2)",
    "cc": "__cdecl"
   },
   "00435400": {
    "proto": "void rdZRaster_DrawNGonGAT(int param_1,int param_2)",
    "cc": "__cdecl"
   },
+  "00435a00": {
+   "proto": "void rdZRaster_DrawScanLineNGonGAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00435c70": {
+   "proto": "void rdZRaster_DrawScanLineNGonGAT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00435f60": {
+   "proto": "uint rdZRaster_SetupLeftEdgeNGonGAT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00436300": {
+   "proto": "uint rdZRaster_SetupRightEdgeNGonGAT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004366a0": {
+   "proto": "void rdZRaster_DrawNGonTGAT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00436950": {
+   "proto": "void rdZRaster_DrawScanLineNGonTGAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00436be0": {
+   "proto": "void rdZRaster_DrawScanLineNGonTGAT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00436e80": {
+   "proto": "void rdZRaster_DrawNGonMGAT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00437110": {
+   "proto": "void rdZRaster_DrawScanLineNGonMGAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00437390": {
+   "proto": "void rdZRaster_DrawScanLineNGonMGAT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00437620": {
+   "proto": "void rdZRaster_DrawNGonMTGAT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "004378d0": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTGAT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00437b60": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTGAT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
   "00437e10": {
    "proto": "void rdZRaster_DrawNGonLIT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "004383d0": {
+   "proto": "void rdZRaster_DrawScanLineNGonLIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00438a90": {
+   "proto": "void rdZRaster_DrawScanLineNGonLIT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004391a0": {
+   "proto": "uint rdZRaster_SetupLeftEdgeNGonLIT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00439400": {
+   "proto": "uint rdZRaster_SetupRightEdgeNGonLIT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004395c0": {
+   "proto": "void rdZRaster_DrawNGonTLIT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00439840": {
+   "proto": "void rdZRaster_DrawScanLineNGonTLIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00439f50": {
+   "proto": "void rdZRaster_DrawScanLineNGonTLIT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0043a6e0": {
+   "proto": "void rdZRaster_DrawNGonMLIT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "0043a940": {
+   "proto": "void rdZRaster_DrawScanLineNGonMLIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0043b020": {
+   "proto": "void rdZRaster_DrawScanLineNGonMLIT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0043b760": {
+   "proto": "void rdZRaster_DrawNGonMTLIT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "0043b9e0": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTLIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0043c130": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTLIT_16(uint *param_1,uint *param_2)",
    "cc": "__cdecl"
   },
   "0043c8d0": {
    "proto": "void rdZRaster_DrawNGonFIT(int param_1,int param_2,float param_3)",
    "cc": "__cdecl"
   },
+  "0043ceb0": {
+   "proto": "void rdZRaster_DrawScanLineNGonFIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0043d5b0": {
+   "proto": "void rdZRaster_DrawScanLineNGonFIT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0043dcc0": {
+   "proto": "uint rdZRaster_SetupLeftEdgeNGonFIT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0043df20": {
+   "proto": "uint rdZRaster_SetupRightEdgeNGonFIT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0043e0e0": {
+   "proto": "void rdZRaster_DrawNGonTFIT(int param_1,int param_2,float param_3)",
+   "cc": "__cdecl"
+  },
+  "0043e380": {
+   "proto": "void rdZRaster_DrawScanLineNGonTFIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0043eab0": {
+   "proto": "void rdZRaster_DrawScanLineNGonTFIT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0043f280": {
+   "proto": "void rdZRaster_DrawNGonMFIT(int param_1,int param_2,float param_3)",
+   "cc": "__cdecl"
+  },
+  "0043f500": {
+   "proto": "void rdZRaster_DrawScanLineNGonMFIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0043fc30": {
+   "proto": "void rdZRaster_DrawScanLineNGonMFIT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00440370": {
+   "proto": "void rdZRaster_DrawNGonMTFIT(int param_1,int param_2,float param_3)",
+   "cc": "__cdecl"
+  },
+  "00440610": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTFIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00440d80": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTFIT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
   "00441520": {
    "proto": "void rdZRaster_DrawNGonGIT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00441b20": {
+   "proto": "void rdZRaster_DrawScanLineNGonGIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004422d0": {
+   "proto": "void rdZRaster_DrawScanLineNGonGIT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00442ab0": {
+   "proto": "uint rdZRaster_SetupLeftEdgeNGonGIT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00442db0": {
+   "proto": "uint rdZRaster_SetupRightEdgeNGonGIT(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00443000": {
+   "proto": "void rdZRaster_DrawNGonTGIT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "004432c0": {
+   "proto": "void rdZRaster_DrawScanLineNGonTGIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00443ab0": {
+   "proto": "void rdZRaster_DrawScanLineNGonTGIT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00444320": {
+   "proto": "void rdZRaster_DrawNGonMGIT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "004445c0": {
+   "proto": "void rdZRaster_DrawScanLineNGonMGIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00444d90": {
+   "proto": "void rdZRaster_DrawScanLineNGonMGIT_16(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00445570": {
+   "proto": "void rdZRaster_DrawNGonMTGIT(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00445830": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTGIT_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00446030": {
+   "proto": "void rdZRaster_DrawScanLineNGonMTGIT_16(uint *param_1,uint *param_2)",
    "cc": "__cdecl"
   },
   "004478c0": {
@@ -1353,6 +1737,182 @@
    "proto": "void rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,uint param_4,float param_5, int param_6,int param_7)",
    "cc": "__cdecl"
   },
+  "00451fa0": {
+   "proto": "void rdRaster_SpanR_FlatZw(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00452070": {
+   "proto": "void rdRaster_SpanR_FlatZw_2(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00452150": {
+   "proto": "void rdRaster_SpanR16_Tex(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004522b0": {
+   "proto": "void rdRaster_SpanR16_Tex_2(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004523f0": {
+   "proto": "void rdRaster_SpanR16_Tex_3(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00452530": {
+   "proto": "void rdRaster_SpanR16_Tex_4(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00452670": {
+   "proto": "void rdRaster_SpanR16_TexLit(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004527b0": {
+   "proto": "void rdRaster_SpanR16_Tex_5(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004528f0": {
+   "proto": "void rdRaster_SpanR16_Tex_6(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00452a30": {
+   "proto": "void rdRaster_SpanR16_Tex_7(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00452b90": {
+   "proto": "void rdRaster_SpanR16_Tex_8(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00452cd0": {
+   "proto": "void rdRaster_SpanR16_Tex_9(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00452e10": {
+   "proto": "void rdRaster_SpanR16_Tex_10(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00452f50": {
+   "proto": "void rdRaster_SpanR16_TexLit_2(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00453090": {
+   "proto": "void rdRaster_SpanR16_Tex_11(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004531d0": {
+   "proto": "void rdRaster_SpanR16_Tex_12(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00453310": {
+   "proto": "void rdRaster_SpanR16_TexLit_3(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004534d0": {
+   "proto": "void rdRaster_SpanR16_TexLit_4(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00453660": {
+   "proto": "void rdRaster_SpanR16_TexLit_5(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004537f0": {
+   "proto": "void rdRaster_SpanR16_TexLit_6(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00453980": {
+   "proto": "void rdRaster_SpanR16_TexLit_7(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00453b10": {
+   "proto": "void rdRaster_SpanR16_TexLit_8(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00453ca0": {
+   "proto": "void rdRaster_SpanR16_TexLit_9(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00453e30": {
+   "proto": "void rdRaster_SpanP16_Tex(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00454780": {
+   "proto": "void rdRaster_SpanP16_Tex_2(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00455050": {
+   "proto": "void rdRaster_SpanP16_Tex_3(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00455920": {
+   "proto": "void rdRaster_SpanP16_Tex_4(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "004561f0": {
+   "proto": "void rdRaster_SpanP16_TexLit(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00456ac0": {
+   "proto": "void rdRaster_SpanP16_Tex_5(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00457390": {
+   "proto": "void rdRaster_SpanP16_Tex_6(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00457c60": {
+   "proto": "void rdRaster_SpanP16_Tex_7(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "004585b0": {
+   "proto": "void rdRaster_SpanP16_Tex_8(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00458e80": {
+   "proto": "void rdRaster_SpanP16_Tex_9(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00459750": {
+   "proto": "void rdRaster_SpanP16_Tex_10(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "0045a020": {
+   "proto": "void rdRaster_SpanP16_TexLit_2(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "0045a8f0": {
+   "proto": "void rdRaster_SpanP16_Tex_11(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "0045b1c0": {
+   "proto": "void rdRaster_SpanP16_Tex_12(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "0045ba90": {
+   "proto": "void rdRaster_SpanP16_TexLit_3(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "0045c4e0": {
+   "proto": "void rdRaster_SpanP16_TexLit_4(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "0045ce90": {
+   "proto": "void rdRaster_SpanP16_TexLit_5(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "0045d840": {
+   "proto": "void rdRaster_SpanP16_TexLit_6(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "0045e1f0": {
+   "proto": "void rdRaster_SpanP16_TexLit_7(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "0045eba0": {
+   "proto": "void rdRaster_SpanP16_TexLit_8(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "0045f550": {
+   "proto": "void rdRaster_SpanP16_TexLit_9(uint *param_1)",
+   "cc": "__cdecl"
+  },
   "0045ff10": {
    "proto": "void rdRaster_Span16_TexLitZw(uint *param_1,uint *param_2)",
    "cc": "__cdecl"
@@ -1383,6 +1943,34 @@
   },
   "004618e0": {
    "proto": "void rdRaster_Span16_TexLitZw_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00461c90": {
+   "proto": "void rdRaster_Span16_TexZw(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00462780": {
+   "proto": "void rdRaster_Span16_TexLitZw_9(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00463270": {
+   "proto": "void rdRaster_Span16_TexLitZw_10(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00463d60": {
+   "proto": "void rdRaster_Span16_TexLitZw_11(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00464850": {
+   "proto": "void rdRaster_Span16_TexLitZw_12(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00465340": {
+   "proto": "void rdRaster_Span16_TexLitZw_13(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00465e30": {
+   "proto": "void rdRaster_Span16_TexLitZw_14(uint *param_1,uint *param_2)",
    "cc": "__cdecl"
   },
   "00466920": {
@@ -1417,6 +2005,34 @@
    "proto": "void rdRaster_Span16_TexLitZw_22(uint *param_1,uint *param_2)",
    "cc": "__cdecl"
   },
+  "00468130": {
+   "proto": "void rdRaster_Span16_TexZw_2(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00468af0": {
+   "proto": "void rdRaster_Span16_TexZw_3(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00469450": {
+   "proto": "void rdRaster_Span16_TexZw_4(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00469db0": {
+   "proto": "void rdRaster_Span16_TexZw_5(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0046a710": {
+   "proto": "void rdRaster_Span16_TexLitZw_23(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0046b070": {
+   "proto": "void rdRaster_Span16_TexZw_6(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0046b9d0": {
+   "proto": "void rdRaster_Span16_TexZw_7(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
   "0046c330": {
    "proto": "void rdRaster_Span16_TexLitZw_24(uint *param_1,uint *param_2)",
    "cc": "__cdecl"
@@ -1445,8 +2061,324 @@
    "proto": "void rdRaster_Span16_TexLitZw_30(uint *param_1,uint *param_2)",
    "cc": "__cdecl"
   },
+  "0046d840": {
+   "proto": "void rdRaster_Span16_TexZw_8(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0046e200": {
+   "proto": "void rdRaster_Span16_TexZw_9(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0046eb60": {
+   "proto": "void rdRaster_Span16_TexZw_10(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0046f4c0": {
+   "proto": "void rdRaster_Span16_TexZw_11(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0046fe20": {
+   "proto": "void rdRaster_Span16_TexLitZw_31(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00470780": {
+   "proto": "void rdRaster_Span16_TexZw_12(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004710e0": {
+   "proto": "void rdRaster_Span16_TexZw_13(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00471a40": {
+   "proto": "uint rdThing_New(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00471a80": {
+   "proto": "uint rdThing_NewEntry(uint *param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "00471af0": {
+   "proto": "undefined rdThing_Free(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00471b10": {
+   "proto": "undefined rdThing_FreeEntry(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00471d40": {
+   "proto": "uint rdThing_SetCamera(uint *param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "00471d60": {
+   "proto": "uint rdThing_SetPolyline(uint *param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "00471e00": {
+   "proto": "undefined rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3)",
+   "cc": "__cdecl"
+  },
+  "00471ee0": {
+   "proto": "uint rdPolyline_Draw(int param_1,float *param_2)",
+   "cc": "__cdecl"
+  },
+  "00472360": {
+   "proto": "undefined rdPolyline_DrawFace(int param_1,int param_2,uint param_3,uint *param_4)",
+   "cc": "__cdecl"
+  },
+  "004728a0": {
+   "proto": "int rdSprite_New(uint param_1,uint param_2,uint param_3,uint param_4, uint param_5,uint param_6,uint param_7,uint param_8, uint param_9,uint param_10)",
+   "cc": "__cdecl"
+  },
+  "00472910": {
+   "proto": "uint rdSprite_NewEntry(int param_1,int param_2,uint param_3,char *param_4,uint param_5, uint param_6,uint param_7,uint param_8,uint param_9, uint param_10,uint *param_11)",
+   "cc": "__cdecl"
+  },
+  "00472b50": {
+   "proto": "undefined rdSprite_Free(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00472b70": {
+   "proto": "undefined rdSprite_FreeEntry(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00472bd0": {
+   "proto": "uint rdSprite_Draw(int param_1,float *param_2)",
+   "cc": "__cdecl"
+  },
+  "004730d0": {
+   "proto": "undefined stdDisplay_BuildBitmapInfo8(int param_1,uint param_2,int param_3,int param_4,byte *param_5)",
+   "cc": "__cdecl"
+  },
+  "00473180": {
+   "proto": "undefined stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "00473270": {
+   "proto": "uint Palette_SwapRedBlue(int param_1,byte *param_2)",
+   "cc": "__cdecl"
+  },
+  "00473360": {
+   "proto": "undefined Win_SetMainHwnd(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "00473380": {
+   "proto": "undefined Win_SetInstance(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00473390": {
+   "proto": "uint Win_GetInstance(void)",
+   "cc": "__cdecl"
+  },
+  "00473400": {
+   "proto": "undefined stdShutdown(void)",
+   "cc": "__cdecl"
+  },
+  "00473420": {
+   "proto": "undefined stdInitServices(GrimServices *param_1)",
+   "cc": "__cdecl"
+  },
+  "00473450": {
+   "proto": "void stdFileClose(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00473460": {
+   "proto": "void stdFileRead(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00473480": {
+   "proto": "undefined stdFileWrite(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004734a0": {
+   "proto": "void stdFileGets(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004734c0": {
+   "proto": "undefined stdFileGetws(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004734e0": {
+   "proto": "uint stdFeof(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00473500": {
+   "proto": "undefined stdFseek(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00473520": {
+   "proto": "byte * stdFileSize(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00473570": {
+   "proto": "uint stdFilePrintf(uint param_1,char *param_2)",
+   "cc": "__cdecl"
+  },
+  "004735f0": {
+   "proto": "uint stdFGetc(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00473610": {
+   "proto": "undefined stdFPutc(uint param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "00473a40": {
+   "proto": "int stdDisplay_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "00473b30": {
+   "proto": "undefined stdDisplay_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "00473b60": {
+   "proto": "undefined stdCompress_DecompressLoop(void)",
+   "cc": "__cdecl"
+  },
+  "00474100": {
+   "proto": "undefined stdDisplay_Close(void)",
+   "cc": "__cdecl"
+  },
+  "00474310": {
+   "proto": "undefined stdDisplay_ClearMode(void)",
+   "cc": "__cdecl"
+  },
+  "00474380": {
+   "proto": "undefined Display_SuspendForDialog(void)",
+   "cc": "__cdecl"
+  },
+  "004743d0": {
+   "proto": "undefined Display_ResumeAfterDialog(void)",
+   "cc": "__cdecl"
+  },
+  "00474420": {
+   "proto": "int stdDisplay_Update(void)",
+   "cc": "__cdecl"
+  },
+  "00474be0": {
+   "proto": "void * stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2)",
+   "cc": "__cdecl"
+  },
+  "00474d10": {
+   "proto": "int stdDisplay_SetPalette(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00475000": {
+   "proto": "uint Display_FindClosestDevice(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00475140": {
+   "proto": "int Display_CompareVideoModes(int *param_1,int *param_2)",
+   "cc": "__cdecl"
+  },
+  "004755e0": {
+   "proto": "uint Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_5,byte param_6)",
+   "cc": "__cdecl"
+  },
+  "004758a0": {
+   "proto": "uint Surface_BlitLockedSrc(void *param_1,int param_2,void *param_3,uint param_4,int *param_5,void *param_6)",
+   "cc": "__cdecl"
+  },
+  "00475c90": {
+   "proto": "uint Surface_BlitLockedDst(int param_1,void *param_2,void *param_3,uint param_4,int *param_5,void *param_6)",
+   "cc": "__cdecl"
+  },
+  "004760d0": {
+   "proto": "int DDraw_Create(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00476190": {
+   "proto": "undefined DDraw_Release(void)",
+   "cc": "__cdecl"
+  },
+  "004767c0": {
+   "proto": "void * DDraw_Get(void)",
+   "cc": "__cdecl"
+  },
+  "00476bc0": {
+   "proto": "undefined DDraw_ReleaseSurfaces(void)",
+   "cc": "__cdecl"
+  },
+  "00476bf0": {
+   "proto": "uint DDraw_LockSurface(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00476c40": {
+   "proto": "uint DDraw_UnlockSurface(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00476c90": {
+   "proto": "uint DDraw_Flip(void)",
+   "cc": "__cdecl"
+  },
+  "00476cd0": {
+   "proto": "uint DDraw_FillSurface(uint *param_1,uint param_2,uint *param_3)",
+   "cc": "__cdecl"
+  },
+  "00476dc0": {
+   "proto": "uint DDraw_SetPalette(byte *param_1)",
+   "cc": "__cdecl"
+  },
+  "00476ee0": {
+   "proto": "undefined DIB_ReleaseSurface(void)",
+   "cc": "__cdecl"
+  },
+  "00476f70": {
+   "proto": "undefined stdControl_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "00476fc0": {
+   "proto": "uint stdControl_Open(void)",
+   "cc": "__cdecl"
+  },
+  "00476fe0": {
+   "proto": "uint stdControl_Close(void)",
+   "cc": "__cdecl"
+  },
+  "00477010": {
+   "proto": "undefined stdControl_Flush(void)",
+   "cc": "__cdecl"
+  },
+  "00477040": {
+   "proto": "undefined stdControl_Reset(void)",
+   "cc": "__cdecl"
+  },
+  "004770d0": {
+   "proto": "undefined stdControl_ReadControls(void)",
+   "cc": "__cdecl"
+  },
+  "004772d0": {
+   "proto": "uint Win_IsSysCommandBlocked(uint param_1,int param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "00477380": {
+   "proto": "undefined stdControl_ShowMouseCursor(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00477390": {
+   "proto": "undefined Input_InitJoysticks(void)",
+   "cc": "__cdecl"
+  },
+  "00477530": {
+   "proto": "void Input_CreateKeyboard(void)",
+   "cc": "__cdecl"
+  },
+  "004775a0": {
+   "proto": "void Input_CreateMouse(void)",
+   "cc": "__cdecl"
+  },
+  "00477680": {
+   "proto": "undefined Input_MarkAxisUsed(uint param_1)",
+   "cc": "__cdecl"
+  },
   "00477730": {
    "proto": "void Input_PollKeyboard(void)",
+   "cc": "__cdecl"
+  },
+  "004778a0": {
+   "proto": "undefined Input_FlushKeyboard(void)",
+   "cc": "__cdecl"
+  },
+  "004778f0": {
+   "proto": "undefined Input_PollJoysticks(void)",
    "cc": "__cdecl"
   },
   "00477c20": {
@@ -1457,40 +2389,1192 @@
    "proto": "void Input_FlushJoystick(void)",
    "cc": "__cdecl"
   },
+  "00477f00": {
+   "proto": "uint Plat_ReturnTrue(void)",
+   "cc": "__cdecl"
+  },
+  "00477f10": {
+   "proto": "undefined stdPlatform_Assert(uint param_1,char *param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00478030": {
+   "proto": "undefined stdPlatform_AllocHandle(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00478040": {
+   "proto": "undefined stdPlatform_FreeHandle(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00478050": {
+   "proto": "undefined stdPlatform_ReallocHandle(uint param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "00478070": {
+   "proto": "uint stdPlatform_LockHandle(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00478150": {
+   "proto": "uint stdPlatform_GetPhysicalRam(void)",
+   "cc": "__cdecl"
+  },
+  "00478230": {
+   "proto": "uint D3D_Enumerate(void)",
+   "cc": "__cdecl"
+  },
+  "004782b0": {
+   "proto": "undefined D3D_Release(void)",
+   "cc": "__cdecl"
+  },
+  "004782d0": {
+   "proto": "uint D3D_IsAvailable(void)",
+   "cc": "__cdecl"
+  },
+  "00478660": {
+   "proto": "undefined D3D_ReleaseDriver(void)",
+   "cc": "__cdecl"
+  },
+  "00478730": {
+   "proto": "undefined std3D_StartScene(void)",
+   "cc": "__cdecl"
+  },
+  "00478750": {
+   "proto": "undefined std3D_EndScene(void)",
+   "cc": "__cdecl"
+  },
+  "00478770": {
+   "proto": "uint D3D_BeginExecuteBuffer(void)",
+   "cc": "__cdecl"
+  },
+  "00478840": {
+   "proto": "uint std3D_RenderListVerticesFinish(void)",
+   "cc": "__cdecl"
+  },
   "00478b40": {
    "proto": "int std3D_DrawRenderList(void)",
+   "cc": "__cdecl"
+  },
+  "00479070": {
+   "proto": "undefined std3D_GetValidDimensions(uint param_1,uint param_2,uint *param_3,uint *param_4)",
+   "cc": "__cdecl"
+  },
+  "00479110": {
+   "proto": "undefined std3D_PurgeTextureCache(void)",
+   "cc": "__cdecl"
+  },
+  "00479860": {
+   "proto": "undefined D3D_FreeAllTextures(void)",
+   "cc": "__cdecl"
+  },
+  "004798e0": {
+   "proto": "undefined D3D_LinkTexture(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "00479950": {
+   "proto": "undefined D3D_UnlinkTexture(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "00479a00": {
+   "proto": "uint D3D_SetVertexLimit(void)",
+   "cc": "__cdecl"
+  },
+  "00479a70": {
+   "proto": "undefined std3D_UpdateFrameCount(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00479aa0": {
+   "proto": "uint std3D_ClearZBuffer(void)",
+   "cc": "__cdecl"
+  },
+  "00479b50": {
+   "proto": "uint D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00479be0": {
+   "proto": "uint D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00479cc0": {
+   "proto": "undefined D3D_SetViewportRect(uint *param_1)",
    "cc": "__cdecl"
   },
   "00479db0": {
    "proto": "uint D3D_InitRenderState(void)",
    "cc": "__cdecl"
   },
+  "0047a240": {
+   "proto": "uint D3D_CreateZBuffer(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "0047a850": {
+   "proto": "uint D3D_CapsToFilterBits(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0047a890": {
+   "proto": "uint D3D_FilterBitsToMask(byte param_1)",
+   "cc": "__cdecl"
+  },
+  "0047a8e0": {
+   "proto": "uint D3D_FilterBitsToEnum(byte param_1)",
+   "cc": "__cdecl"
+  },
+  "0047ab20": {
+   "proto": "uint stdBitmap_LoadEntryFromFile(uint param_1,int param_2,int param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "0047ae90": {
+   "proto": "undefined stdBitmap_FreeEntry(int param_1)",
+   "cc": "__cdecl"
+  },
+  "0047aef0": {
+   "proto": "uint stdBitmap_AppendToFile(uint param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "0047b2b0": {
+   "proto": "undefined stdBitmap_ConvertColorFormat(int *param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "0047b4b0": {
+   "proto": "uint stdBitmap_NewEntry(uint *param_1,uint param_2,uint param_3,uint param_4, uint param_5,uint *param_6)",
+   "cc": "__cdecl"
+  },
+  "0047b540": {
+   "proto": "undefined stdBitmap_SetSurface(int param_1,int param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "0047b590": {
+   "proto": "undefined stdBitmap_DeCompress(int param_1)",
+   "cc": "__cdecl"
+  },
+  "0047b5f0": {
+   "proto": "undefined stdPalEffects_ResetEffect(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "0047b710": {
+   "proto": "uint stdPcx_DecodeRun16(byte *param_1,ushort *param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "0047b780": {
+   "proto": "uint stdPcx_DecodeRun8(byte *param_1,int param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "0047b810": {
+   "proto": "uint stdPcx_DecodeRunMasked(byte *param_1,int param_2,int param_3,uint param_4)",
+   "cc": "__cdecl"
+  },
+  "0047bbb0": {
+   "proto": "int stdColor_ColorConvertOnePixel(int param_1,uint param_2,int param_3)",
+   "cc": "__cdecl"
+  },
   "0047bd20": {
    "proto": "void stdMath_SinCos(float param_1,float *param_2,float *param_3)",
+   "cc": "__cdecl"
+  },
+  "0047c7c0": {
+   "proto": "undefined stdConffile_Open(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0047c7e0": {
+   "proto": "uint stdConffile_OpenMode(byte *param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "0047c8c0": {
+   "proto": "undefined stdConffile_Close(void)",
+   "cc": "__cdecl"
+  },
+  "0047c920": {
+   "proto": "uint stdConffile_ReadLine(void)",
+   "cc": "__cdecl"
+  },
+  "0047ca00": {
+   "proto": "undefined stdConffile_Push(void)",
+   "cc": "__cdecl"
+  },
+  "0047ca90": {
+   "proto": "undefined stdConffile_Pop(void)",
+   "cc": "__cdecl"
+  },
+  "0047cb20": {
+   "proto": "uint stdBmp_Load(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "0047cb70": {
+   "proto": "uint stdBmp_LoadEntry(char *param_1,uint *param_2,int param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "0047d050": {
+   "proto": "uint stdBmp_Write(uint param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "0047d280": {
+   "proto": "uint stdPic_Load(uint param_1,uint param_2,uint param_3)",
    "cc": "__cdecl"
   },
   "0047d2d0": {
    "proto": "uint stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_4)",
    "cc": "__cdecl"
   },
+  "0047db00": {
+   "proto": "void * stdGif_Load(char *param_1,int param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "0047e060": {
+   "proto": "uint stdGif_Write(uint param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "0047e3c0": {
+   "proto": "uint stdGif_LzwInitDecoder(short param_1)",
+   "cc": "__cdecl"
+  },
+  "0047e470": {
+   "proto": "uint stdGif_LzwDecodeNext(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0047e600": {
+   "proto": "uint getcode(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0047e770": {
+   "proto": "uint stdGif_ReadByte(uint param_1)",
+   "cc": "__cdecl"
+  },
   "0047e7f0": {
    "proto": "uint stdGif_LzwInitEncoder(uint param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "0047e8b0": {
+   "proto": "undefined putcode(uint param_1,short param_2)",
    "cc": "__cdecl"
   },
   "0047ea30": {
    "proto": "uint stdGif_LzwEncodePixel(uint param_1,byte param_2)",
    "cc": "__cdecl"
   },
+  "0047eba0": {
+   "proto": "undefined stdGif_LzwClearTable(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0047ebe0": {
+   "proto": "uint stdGif_LzwFinishEncode(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0047ec40": {
+   "proto": "undefined stdGif_WriteSubBlock(uint param_1,short param_2)",
+   "cc": "__cdecl"
+  },
+  "0047ec80": {
+   "proto": "uint * stdPcx_Load(uint param_1,int param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "0047ef10": {
+   "proto": "uint stdPcx_Write(uint param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "0047f120": {
+   "proto": "void * stdLbm_Load(char *param_1,int param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "0047f720": {
+   "proto": "uint stdLbm_Write(uint param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "0047f9d0": {
+   "proto": "undefined stdLbm_PackBits(uint param_1,byte *param_2,int param_3,char *param_4)",
+   "cc": "__cdecl"
+  },
+  "0047fa70": {
+   "proto": "undefined stdLbm_PackByte(char param_1)",
+   "cc": "__cdecl"
+  },
+  "0047fc50": {
+   "proto": "uint Std_Swap32(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0047fc80": {
+   "proto": "undefined stdLbm_SwapHeader(ushort *param_1)",
+   "cc": "__cdecl"
+  },
+  "0047fd00": {
+   "proto": "uint Std_Swap16(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0047fda0": {
+   "proto": "undefined Str_StripExtension(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "0047fe20": {
+   "proto": "void stdMemory_CheckMagic(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00480010": {
+   "proto": "uint Res_SysInitialize(uint param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004800a0": {
+   "proto": "undefined Res_SysTerminate(void)",
+   "cc": "__cdecl"
+  },
+  "004800b0": {
+   "proto": "uint Res_SysStartup(void)",
+   "cc": "__cdecl"
+  },
+  "00480120": {
+   "proto": "undefined Res_FileCloseAll(void)",
+   "cc": "__cdecl"
+  },
+  "00480140": {
+   "proto": "undefined Res_SysShutdown(void)",
+   "cc": "__cdecl"
+  },
+  "00480bb0": {
+   "proto": "char * Res_FGets(int param_1,char *param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00480ce0": {
+   "proto": "uint Res_FWrite(int param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00480d50": {
+   "proto": "uint Res_FEOF(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00480dc0": {
+   "proto": "uint Res_FTell(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00481320": {
+   "proto": "int * Res_FindByNameInList(int param_1,char *param_2,int *param_3)",
+   "cc": "__cdecl"
+  },
+  "004813c0": {
+   "proto": "undefined Lab_Unlink(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00482170": {
+   "proto": "undefined Res_GetFirstType(int *param_1,int *param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "004821b0": {
+   "proto": "undefined Res_GetNextType(int *param_1,int *param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "00482220": {
+   "proto": "undefined Res_ResolveToSerialNumber(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00482260": {
+   "proto": "uint Res_SysSave(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "00482380": {
+   "proto": "uint Res_SysLoad(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "00482460": {
+   "proto": "undefined Res_FreeAll(void)",
+   "cc": "__cdecl"
+  },
+  "004824c0": {
+   "proto": "int Res_NumRefs(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "004824f0": {
+   "proto": "int Res_CountChildren(uint param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "00482520": {
+   "proto": "undefined grimlib_SetCacheMax(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00482530": {
+   "proto": "undefined grimlib_LogResources(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004825c0": {
+   "proto": "undefined grimlib_OverrideSelectedActorCostume(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004825f0": {
+   "proto": "undefined grimlib_RestoreSelectedActorCostume(void)",
+   "cc": "__cdecl"
+  },
+  "00482660": {
+   "proto": "uint grimlib_UnsetDisplay(void)",
+   "cc": "__cdecl"
+  },
+  "004826e0": {
+   "proto": "undefined grimlib_Close(void)",
+   "cc": "__cdecl"
+  },
+  "00482720": {
+   "proto": "undefined grimlib_SetDebugToggleCallback(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00482730": {
+   "proto": "undefined grimlib_SetPaletteCallback(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00482740": {
+   "proto": "undefined grimlib_SetShutdownCallback(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00482750": {
+   "proto": "undefined grimlib_SetPageFlipCallback(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00482760": {
+   "proto": "undefined grimlib_Using3DHardware(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00482770": {
+   "proto": "undefined grimlib_AddResourcePath(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "00482790": {
+   "proto": "int grimlib_FindSystemFiles(void)",
+   "cc": "__cdecl"
+  },
+  "004827a0": {
+   "proto": "uint grimlib_Open(int param_1,char *param_2)",
+   "cc": "__cdecl"
+  },
+  "00482880": {
+   "proto": "undefined grimlib_NextSetup(void)",
+   "cc": "__cdecl"
+  },
+  "004828a0": {
+   "proto": "undefined grimlib_PreviousSetup(void)",
+   "cc": "__cdecl"
+  },
+  "004828d0": {
+   "proto": "int grimlib_ConfirmClose(void)",
+   "cc": "__cdecl"
+  },
+  "00482af0": {
+   "proto": "undefined grimlib_Display(void)",
+   "cc": "__cdecl"
+  },
+  "00482ba0": {
+   "proto": "int grimlib_GameStartup(void)",
+   "cc": "__cdecl"
+  },
+  "00482cf0": {
+   "proto": "uint Engine_RegisterSubsystems(uint param_1,uint *param_2,int param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "00482d60": {
+   "proto": "uint Engine_InitSubsystems(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00482dd0": {
+   "proto": "uint Engine_ShutdownSubsystems(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00482e00": {
+   "proto": "uint Engine_ResetSubsystems(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00482e30": {
+   "proto": "undefined PerfBegin(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00482f00": {
+   "proto": "uint grimlib_PlayMovie(uint param_1,int param_2,uint param_3,uint param_4, uint param_5)",
+   "cc": "__cdecl"
+  },
+  "00482f80": {
+   "proto": "undefined grimlib_UserPaint(void)",
+   "cc": "__cdecl"
+  },
+  "00482f90": {
+   "proto": "undefined grimlib_Save(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "00482fb0": {
+   "proto": "undefined grimlib_Load(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "00482fd0": {
+   "proto": "uint grimlib_JustLoaded(void)",
+   "cc": "__cdecl"
+  },
+  "00482fe0": {
+   "proto": "undefined Engine_SaveGame(void)",
+   "cc": "__cdecl"
+  },
+  "00483240": {
+   "proto": "void Engine_LoadGame(void)",
+   "cc": "__cdecl"
+  },
+  "004835f0": {
+   "proto": "undefined SetPrevMode(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00483600": {
+   "proto": "uint GetPrevMode(void)",
+   "cc": "__cdecl"
+  },
+  "00483610": {
+   "proto": "undefined IMuse_SaveToTemp(void)",
+   "cc": "__cdecl"
+  },
+  "00483650": {
+   "proto": "undefined IMuse_RestoreFromTemp(void)",
+   "cc": "__cdecl"
+  },
+  "004836b0": {
+   "proto": "uint PolyglotInitialize(GrimServices *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004836f0": {
+   "proto": "undefined polyglot_shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "00483720": {
+   "proto": "undefined PolyglotConfigure(byte *param_1)",
+   "cc": "__cdecl"
+  },
+  "004839f0": {
+   "proto": "uint * Render_GetBackBuffer(void)",
+   "cc": "__cdecl"
+  },
+  "00483a00": {
+   "proto": "undefined sputRender_DrawDebuggingToggle(void)",
+   "cc": "__cdecl"
+  },
+  "00483a80": {
+   "proto": "undefined sputRender_SetPaletteCallback(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00483a90": {
+   "proto": "undefined sputRender_SetPageFlipCallback(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "00483d40": {
+   "proto": "uint sputRender_Initialize(GrimServices *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00483ea0": {
+   "proto": "undefined sputRender_Using3DHardware(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00484000": {
+   "proto": "uint sputRender_Open(void)",
+   "cc": "__cdecl"
+  },
+  "00484030": {
+   "proto": "uint sputRender_SetDisplay(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5, uint param_6,int param_7)",
+   "cc": "__cdecl"
+  },
+  "004841f0": {
+   "proto": "undefined sputRender_Close(void)",
+   "cc": "__cdecl"
+  },
   "00484260": {
    "proto": "void sputRender_Update(void)",
+   "cc": "__cdecl"
+  },
+  "004849a0": {
+   "proto": "undefined sputRender_PageFlip(void)",
+   "cc": "__cdecl"
+  },
+  "004849d0": {
+   "proto": "undefined Render_SetPixelFormat(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "00484a50": {
+   "proto": "uint sputRender_ControlHandler(void)",
+   "cc": "__cdecl"
+  },
+  "00484c40": {
+   "proto": "undefined Render_InitColorConstants(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00485780": {
+   "proto": "undefined Set_DrawDebugLights(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00485a40": {
+   "proto": "undefined Setup_DrawDebugCamera(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00485bd0": {
+   "proto": "undefined Render_DrawDebugGrid(void)",
+   "cc": "__cdecl"
+  },
+  "00486020": {
+   "proto": "undefined DirtyRect_Clear(void)",
+   "cc": "__cdecl"
+  },
+  "00486050": {
+   "proto": "undefined sputRender_Terminate(void)",
+   "cc": "__cdecl"
+  },
+  "00486070": {
+   "proto": "int sputRender_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "004860d0": {
+   "proto": "undefined sputRender_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "00486100": {
+   "proto": "int Render_CanvasIsPaletted(void)",
+   "cc": "__cdecl"
+  },
+  "00486120": {
+   "proto": "undefined Render_BuildActorDrawList(void)",
+   "cc": "__cdecl"
+  },
+  "00486250": {
+   "proto": "undefined DrawList_Reset(void)",
+   "cc": "__cdecl"
+  },
+  "00486280": {
+   "proto": "byte * DrawList_Alloc(void)",
+   "cc": "__cdecl"
+  },
+  "004862b0": {
+   "proto": "uint FUN_004862b0(int *param_1,int *param_2)",
    "cc": "__cdecl"
   },
   "004864a0": {
    "proto": "void Render_BuildColorTable(int param_1,float param_2)",
    "cc": "__cdecl"
   },
+  "00486760": {
+   "proto": "undefined sputRender_Decompress(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "004867d0": {
+   "proto": "undefined sputRender_Dim(ushort *param_1,byte param_2)",
+   "cc": "__cdecl"
+  },
+  "00486990": {
+   "proto": "undefined Render_CopyBackBufferToBackground(void)",
+   "cc": "__cdecl"
+  },
+  "004869b0": {
+   "proto": "undefined Render_CleanBuffer(void)",
+   "cc": "__cdecl"
+  },
+  "00486a00": {
+   "proto": "undefined sputRender_ForceRefresh(void)",
+   "cc": "__cdecl"
+  },
+  "00486b00": {
+   "proto": "void * sputRender_CleanArtBuffer(void)",
+   "cc": "__cdecl"
+  },
+  "00486b10": {
+   "proto": "void * sputRender_CleanZBuffer(void)",
+   "cc": "__cdecl"
+  },
+  "00486b30": {
+   "proto": "undefined sputRender_SetPageFlip(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00486cb0": {
+   "proto": "undefined CacheRect_FreeAll(void)",
+   "cc": "__cdecl"
+  },
+  "00486f30": {
+   "proto": "uint sputRender_IrisComplete(void)",
+   "cc": "__cdecl"
+  },
+  "00486f50": {
+   "proto": "undefined sputRender_ClearIris(void)",
+   "cc": "__cdecl"
+  },
+  "004874c0": {
+   "proto": "undefined sputRender_AllowLoadImage(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004874d0": {
+   "proto": "undefined sputRender_DrawLoadingImage(void)",
+   "cc": "__cdecl"
+  },
+  "00487690": {
+   "proto": "undefined grimPlat_SetDefaultOpenPath(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004876b0": {
+   "proto": "char * grimPlat_GetDefaultOpenPath(void)",
+   "cc": "__cdecl"
+  },
+  "004878c0": {
+   "proto": "int grimPlat_SpinDialog(int param_1,int param_2,uint *param_3,uint param_4)",
+   "cc": "__cdecl"
+  },
+  "00488010": {
+   "proto": "uint * Dlg_MakeItemTemplate(uint param_1,ushort param_2,ushort param_3,ushort param_4, ushort param_5,ushort param_6,int param_7,int param_8,uint *param_9)",
+   "cc": "__cdecl"
+  },
+  "004881a0": {
+   "proto": "uint * Dlg_MakeDialogTemplate(uint *param_1,ushort param_2,ushort param_3,ushort param_4, ushort param_5,ushort param_6,int param_7,int param_8,ushort param_9, uint *param_10)",
+   "cc": "__cdecl"
+  },
+  "00488840": {
+   "proto": "undefined Spew_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "00488860": {
+   "proto": "undefined grimDebug_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "00488890": {
+   "proto": "undefined Spew_LoadDll(void)",
+   "cc": "__cdecl"
+  },
+  "004888d0": {
+   "proto": "uint Memory_SysInitialize(GrimServices *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00488930": {
+   "proto": "undefined Memory_SysTerminate(void)",
+   "cc": "__cdecl"
+  },
+  "00488940": {
+   "proto": "uint Memory_SysStartup(void)",
+   "cc": "__cdecl"
+  },
+  "00488970": {
+   "proto": "undefined Memory_SysShutdown(void)",
+   "cc": "__cdecl"
+  },
+  "00488980": {
+   "proto": "void ** Memory_AllocatePool(int param_1,void *param_2,void *param_3)",
+   "cc": "__cdecl"
+  },
+  "00488a70": {
+   "proto": "undefined Memory_FreePool(void **param_1)",
+   "cc": "__cdecl"
+  },
+  "00488b10": {
+   "proto": "int * Memory_AllocFixed(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00488c00": {
+   "proto": "undefined Pool_Grow(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00488c80": {
+   "proto": "uint FileUtil_SysInitialize(GrimServices *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00488ce0": {
+   "proto": "undefined FileUtil_SysTerminate(void)",
+   "cc": "__cdecl"
+  },
+  "00488cf0": {
+   "proto": "uint FileUtil_SysStartup(void)",
+   "cc": "__cdecl"
+  },
+  "00488d20": {
+   "proto": "undefined FileUtil_SysShutdown(void)",
+   "cc": "__cdecl"
+  },
+  "00488d30": {
+   "proto": "uint FileUtil_SysSave(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "00488d80": {
+   "proto": "uint FileUtil_SysRestore(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "00488de0": {
+   "proto": "uint * DirScan_Create(uint param_1,int param_2,char *param_3)",
+   "cc": "__cdecl"
+  },
+  "00488e70": {
+   "proto": "undefined DirScan_Destroy(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00488eb0": {
+   "proto": "undefined DirScan_Reset(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00488ee0": {
+   "proto": "uint DirScan_Next(int param_1,char *param_2)",
+   "cc": "__cdecl"
+  },
+  "00488fb0": {
+   "proto": "uint sputSmush_Initialize(uint param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00489090": {
+   "proto": "uint sputSmush_Restore(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "00489130": {
+   "proto": "uint sputSmush_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "00489190": {
+   "proto": "undefined sputSmush_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "004891b0": {
+   "proto": "uint sputSmush_Periodic(void)",
+   "cc": "__cdecl"
+  },
+  "004892a0": {
+   "proto": "uint sputSmush_StartMovie(char *param_1,int param_2,uint param_3,uint param_4)",
+   "cc": "__cdecl"
+  },
+  "00489370": {
+   "proto": "undefined sputSmush_StopMovie(void)",
+   "cc": "__cdecl"
+  },
+  "00489390": {
+   "proto": "int sputSmush_GetMovieLength(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "004893d0": {
+   "proto": "uint sputSmush_StartVideo(int param_1,int param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "00489410": {
+   "proto": "int sputSmush_StopVideo(void)",
+   "cc": "__cdecl"
+  },
+  "00489420": {
+   "proto": "uint sputSmush_LockMovieBuffer(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004894b0": {
+   "proto": "uint sputSmush_UnLockMovieBuffer(void)",
+   "cc": "__cdecl"
+  },
+  "004894d0": {
+   "proto": "int sputSmush_SetVideoPalette(void)",
+   "cc": "__cdecl"
+  },
+  "004894e0": {
+   "proto": "int sputSmush_MoviePlaying(void)",
+   "cc": "__cdecl"
+  },
+  "00489530": {
+   "proto": "undefined PrimitiveList_RegisterAtExit(void)",
+   "cc": "__cdecl"
+  },
+  "00489540": {
+   "proto": "undefined PrimitiveList_AtExitClear(void)",
+   "cc": "__cdecl"
+  },
+  "00489580": {
+   "proto": "uint sputPrimitive_Initialize(uint param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004895d0": {
+   "proto": "undefined sputPrimitive_Pause(void)",
+   "cc": "__cdecl"
+  },
+  "004895f0": {
+   "proto": "undefined sputPrimitive_Resume(void)",
+   "cc": "__cdecl"
+  },
+  "00489600": {
+   "proto": "uint sputPrimitive_Save(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "004896b0": {
+   "proto": "uint sputPrimitive_Restore(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "004897d0": {
+   "proto": "undefined sputPrimitive_Terminate(void)",
+   "cc": "__cdecl"
+  },
+  "004897f0": {
+   "proto": "uint sputPrimitive_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "00489820": {
+   "proto": "undefined sputPrimitive_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "00489840": {
+   "proto": "undefined sputPrimitive_DrawLine(void)",
+   "cc": "__cdecl"
+  },
+  "00489a80": {
+   "proto": "undefined sputPrimitive_DrawPolygon(void)",
+   "cc": "__cdecl"
+  },
+  "00489d70": {
+   "proto": "undefined sputPrimitive_DrawRectangle(void)",
+   "cc": "__cdecl"
+  },
+  "00489fe0": {
+   "proto": "undefined sputPrimitive_ChangePrimitive(void)",
+   "cc": "__cdecl"
+  },
+  "0048abc0": {
+   "proto": "undefined PrimitiveQueue_resetId(void)",
+   "cc": "__cdecl"
+  },
+  "0048acc0": {
+   "proto": "uint sputText_Initialize(GrimServices *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0048ad40": {
+   "proto": "undefined sputText_Pause(void)",
+   "cc": "__cdecl"
+  },
+  "0048ad50": {
+   "proto": "undefined sputText_Resume(void)",
+   "cc": "__cdecl"
+  },
+  "0048ad60": {
+   "proto": "undefined sputText_SetOffscreenTextPosL(void)",
+   "cc": "__cdecl"
+  },
+  "0048ade0": {
+   "proto": "undefined sputText_SetEmergencyFontL(void)",
+   "cc": "__cdecl"
+  },
+  "0048ae60": {
+   "proto": "undefined sputText_LocalizeStringL(void)",
+   "cc": "__cdecl"
+  },
+  "0048aed0": {
+   "proto": "undefined sputText_MakeColorL(void)",
+   "cc": "__cdecl"
+  },
+  "0048b100": {
+   "proto": "undefined sputText_GetColorComponentsL(void)",
+   "cc": "__cdecl"
+  },
+  "0048b190": {
+   "proto": "undefined sputText_SetActorTalkColorL(void)",
+   "cc": "__cdecl"
+  },
+  "0048b230": {
+   "proto": "undefined sputText_GetActorTalkColorL(void)",
+   "cc": "__cdecl"
+  },
+  "0048b2a0": {
+   "proto": "undefined sputText_SetSayLineDefaultsL(void)",
+   "cc": "__cdecl"
+  },
+  "0048b4c0": {
+   "proto": "undefined sputText_SayLineL(void)",
+   "cc": "__cdecl"
+  },
+  "0048b6a0": {
+   "proto": "undefined Lua_ParseSayLineTable(int param_1,int *param_2,int *param_3,int *param_4,int *param_5,int *param_6)",
+   "cc": "__cdecl"
+  },
   "0048b830": {
    "proto": "void sputText_PrintLineL(void)",
+   "cc": "__cdecl"
+  },
+  "0048b9a0": {
+   "proto": "undefined sputText_IsMessageGoingL(void)",
+   "cc": "__cdecl"
+  },
+  "0048ba90": {
+   "proto": "undefined sputText_ExpireTextQueueL(void)",
+   "cc": "__cdecl"
+  },
+  "0048baf0": {
+   "proto": "undefined sputText_PurgeTextQueueL(void)",
+   "cc": "__cdecl"
+  },
+  "0048bb20": {
+   "proto": "undefined sputText_KillTextObjectL(void)",
+   "cc": "__cdecl"
+  },
+  "0048bb70": {
+   "proto": "undefined sputText_GetFontDimensionsL(void)",
+   "cc": "__cdecl"
+  },
+  "0048bbc0": {
+   "proto": "undefined sputText_GetTextObjectDimensionsL(void)",
+   "cc": "__cdecl"
+  },
+  "0048bc50": {
+   "proto": "undefined sputText_GetTextCharPositionL(void)",
+   "cc": "__cdecl"
+  },
+  "0048bd10": {
+   "proto": "undefined sputText_ChangeTextObjectL(void)",
+   "cc": "__cdecl"
+  },
+  "0048be30": {
+   "proto": "undefined sputText_MakeTextObjectL(void)",
+   "cc": "__cdecl"
+  },
+  "0048bf50": {
+   "proto": "undefined sputText_BlastText(void)",
+   "cc": "__cdecl"
+  },
+  "0048c4d0": {
+   "proto": "undefined sputText_Terminate(void)",
+   "cc": "__cdecl"
+  },
+  "0048c500": {
+   "proto": "uint sputText_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "0048c6f0": {
+   "proto": "undefined sputText_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "0048c960": {
+   "proto": "undefined sputText_GetTranslationModeL(void)",
+   "cc": "__cdecl"
+  },
+  "0048c980": {
+   "proto": "undefined sputText_SetTranslationModeL(void)",
+   "cc": "__cdecl"
+  },
+  "0048cbc0": {
+   "proto": "uint sputText_Save(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048cd80": {
+   "proto": "uint sputText_Restore(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048d030": {
+   "proto": "int Controls_DebugKeysHook(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0048d050": {
+   "proto": "undefined sputControl_Reset(void)",
+   "cc": "__cdecl"
+  },
+  "0048d100": {
+   "proto": "uint sputControl_Initialize(uint param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0048d170": {
+   "proto": "uint sputControl_Close(void)",
+   "cc": "__cdecl"
+  },
+  "0048d210": {
+   "proto": "uint sputControl_StandardHandler(void)",
+   "cc": "__cdecl"
+  },
+  "0048d2c0": {
+   "proto": "undefined sputControl_Terminate(void)",
+   "cc": "__cdecl"
+  },
+  "0048d2e0": {
+   "proto": "uint sputControl_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "0048d330": {
+   "proto": "undefined sputControl_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "0048d3e0": {
+   "proto": "uint sputResource_CloseResources(void)",
+   "cc": "__cdecl"
+  },
+  "0048d3f0": {
+   "proto": "uint grimlib_FindResources(void)",
+   "cc": "__cdecl"
+  },
+  "0048d550": {
+   "proto": "int sputResource_LogToFile(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048d770": {
+   "proto": "undefined sputResource_Terminate(void)",
+   "cc": "__cdecl"
+  },
+  "0048d790": {
+   "proto": "int sputResource_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "0048d810": {
+   "proto": "undefined Resource_CountCostumeRefs(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0048d830": {
+   "proto": "undefined sputResource_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "0048d870": {
+   "proto": "uint Resource_RegisterTypes(void)",
+   "cc": "__cdecl"
+  },
+  "0048d8c0": {
+   "proto": "void * sputResource_LipSyncHandler(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048dab0": {
+   "proto": "void * sputResource_ColormapHandler(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048dbd0": {
+   "proto": "void * sputResource_FontHandler(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048dc60": {
+   "proto": "void * sputResource_KeyframeHandler(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048dd20": {
+   "proto": "void * sputResource_MaterialHandler(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048de10": {
+   "proto": "void * sputResource_ModelHandler(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048de70": {
+   "proto": "void * sputResource_SetHandler(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048dee0": {
+   "proto": "void * sputResource_ZBufferHandler(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048df50": {
+   "proto": "undefined Resource_ReloadBitmaps(void)",
+   "cc": "__cdecl"
+  },
+  "0048e0a0": {
+   "proto": "undefined Resource_RebuildColormaps(void)",
+   "cc": "__cdecl"
+  },
+  "0048e170": {
+   "proto": "void * sputResource_MatLoader(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048e1b0": {
+   "proto": "undefined sputResource_MatUnloader(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048e1e0": {
+   "proto": "uint sputResource_MemoryHandler(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048e230": {
+   "proto": "undefined sputResource_ReportAllocations(void)",
+   "cc": "__cdecl"
+  },
+  "0048e240": {
+   "proto": "undefined sputActor_NukeCostumeStacks(void)",
+   "cc": "__cdecl"
+  },
+  "0048e2c0": {
+   "proto": "uint sputActor_Initialize(uint param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0048e330": {
+   "proto": "uint sputActor_Save(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048ecd0": {
+   "proto": "uint sputActor_Restore(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "0048f920": {
+   "proto": "int sputActor_GetNumActorsTalking(void)",
    "cc": "__cdecl"
   },
   "004939f0": {
@@ -1535,6 +3619,10 @@
   },
   "004a4e80": {
    "proto": "uint SetSoundPosition(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004bddb0": {
+   "proto": "void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int param_5,int param_6)",
    "cc": "__cdecl"
   },
   "004c1090": {

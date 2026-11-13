@@ -19,10 +19,9 @@ void __cdecl DirtyRect_Add(int *rect,int flag,int bufferIdx)
   uint uVar3;
   uint uVar4;
   int *piVar5;
-  int *item;
   int iVar6;
   int iVar7;
-  undefined4 *puVar8;
+  int *piVar8;
   int iVar9;
   int iVar10;
   int iVar11;
@@ -48,69 +47,69 @@ void __cdecl DirtyRect_Add(int *rect,int flag,int bufferIdx)
   uVar2 = rect[1];
   iVar6 = rect[2] + uVar1;
   iVar7 = rect[3] + uVar2;
-  item = g_pDirtyRectList;
+  piVar8 = g_pDirtyRectList;
   do {
     while( true ) {
-      if (item == (int *)0x0) {
-        puVar8 = (undefined4 *)Memory_AllocFixed(g_pDirtyRectPool);
-        if (puVar8 == (undefined4 *)0x0) {
+      if (piVar8 == (int *)0x0) {
+        piVar8 = Memory_AllocFixed((int *)g_pDirtyRectPool);
+        if (piVar8 == (int *)0x0) {
           return;
         }
         g_nDirtyRectCount = g_nDirtyRectCount + 1;
-        puVar8[5] = *rect;
-        puVar8[6] = rect[1];
-        puVar8[7] = rect[2];
-        puVar8[8] = rect[3];
-        puVar8[2] = flag;
-        puVar8[3] = UINT_008c981c;
+        piVar8[5] = *rect;
+        piVar8[6] = rect[1];
+        piVar8[7] = rect[2];
+        piVar8[8] = rect[3];
+        piVar8[2] = flag;
+        piVar8[3] = UINT_008c981c;
         UINT_008c981c = UINT_008c981c + 1;
-        puVar8[4] = bufferIdx;
+        piVar8[4] = bufferIdx;
         if (g_pDirtyRectList != (void *)0x0) {
-          *(undefined4 **)((int)g_pDirtyRectList + 4) = puVar8;
+          *(int **)((int)g_pDirtyRectList + 4) = piVar8;
         }
-        *puVar8 = g_pDirtyRectList;
-        puVar8[1] = 0;
-        g_pDirtyRectList = puVar8;
+        *piVar8 = (int)g_pDirtyRectList;
+        piVar8[1] = 0;
+        g_pDirtyRectList = piVar8;
         return;
       }
-      if (item[4] == bufferIdx) break;
+      if (piVar8[4] == bufferIdx) break;
 LAB_0048555c:
-      item = (int *)*item;
+      piVar8 = (int *)*piVar8;
     }
-    uVar3 = item[5];
-    uVar4 = item[6];
-    iVar11 = item[7] + uVar3;
-    iVar10 = item[8] + uVar4;
+    uVar3 = piVar8[5];
+    uVar4 = piVar8[6];
+    iVar11 = piVar8[7] + uVar3;
+    iVar10 = piVar8[8] + uVar4;
     if ((((iVar11 <= (int)uVar1) || (iVar6 <= (int)uVar3)) || (iVar10 <= (int)uVar2)) ||
        (iVar7 <= (int)uVar4)) goto LAB_0048555c;
     if ((((int)uVar3 <= (int)uVar1) && ((int)uVar4 <= (int)uVar2)) &&
        ((iVar6 <= iVar11 && (iVar7 <= iVar10)))) {
-      iVar6 = item[2];
-      if (item[2] <= flag) {
+      iVar6 = piVar8[2];
+      if (piVar8[2] <= flag) {
         iVar6 = flag;
       }
-      item[2] = iVar6;
+      piVar8[2] = iVar6;
       return;
     }
-    if (*item != 0) {
-      *(int *)(*item + 4) = item[1];
+    if (*piVar8 != 0) {
+      *(int *)(*piVar8 + 4) = piVar8[1];
     }
-    if ((int *)item[1] == (int *)0x0) {
-      g_pDirtyRectList = (void *)*item;
+    if ((int *)piVar8[1] == (int *)0x0) {
+      g_pDirtyRectList = (void *)*piVar8;
     }
     else {
-      *(int *)item[1] = *item;
+      *(int *)piVar8[1] = *piVar8;
     }
-    if (flag < item[2]) {
-      flag = item[2];
+    if (flag < piVar8[2]) {
+      flag = piVar8[2];
     }
-    piVar5 = (int *)*item;
+    piVar5 = (int *)*piVar8;
     g_nDirtyRectCount = g_nDirtyRectCount + -1;
-    Pool_Free(item);
+    Pool_Free(piVar8);
     if ((((int)uVar3 < (int)uVar1) || (iVar6 < (int)uVar3)) ||
        ((((int)uVar4 < (int)uVar2 ||
          (((iVar7 < (int)uVar4 || (iVar11 < (int)uVar1)) || (iVar6 < iVar11)))) ||
-        ((iVar10 < (int)uVar2 || (item = piVar5, iVar7 < iVar10)))))) {
+        ((iVar10 < (int)uVar2 || (piVar8 = piVar5, iVar7 < iVar10)))))) {
       local_30 = uVar3;
       if ((int)uVar1 <= (int)uVar3) {
         local_30 = uVar1;
@@ -208,6 +207,7 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  uint *srcRect;
   int iVar1;
   int *piVar2;
   int *item;
@@ -231,16 +231,16 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
     }
     PIECE(UINT_008c9820,0,2) = (short)UINT_008c9820 + 1;
     while (item != (int *)0x0) {
-      piVar2 = item + 5;
+      srcRect = (uint *)(item + 5);
       if ((zdst != (void *)0x0) && (item[2] != 0)) {
         if (((byte)g_dwRenderFlags & 2) == 0) {
-          Surface_Blit(zdst,g_pSputRender_CleanZBuffer,*piVar2,item[6],piVar2,0);
+          Surface_Blit(zdst,g_pSputRender_CleanZBuffer,*srcRect,item[6],(int *)srcRect,0);
         }
         else if (g_nSputRender_b3DAcceleration == 0) {
-          Surface_Fill(zdst,0,piVar2);
+          Surface_Fill(zdst,0,(int *)srcRect);
         }
         else {
-          ((code *)D3D_SetViewportRect)();
+          D3D_SetViewportRect(srcRect);
           std3D_ClearZBuffer();
         }
       }
@@ -248,10 +248,10 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
       item[4] = iVar1 + -1;
       if (iVar1 < 1) {
         if (((byte)g_dwRenderFlags & 1) == 0) {
-          Surface_Blit(dst,g_pSputRender_CleanBuffer,*piVar2,item[6],piVar2,0);
+          Surface_Blit(dst,g_pSputRender_CleanBuffer,*srcRect,item[6],(int *)srcRect,0);
         }
         else {
-          Surface_Fill(dst,0,piVar2);
+          Surface_Fill(dst,0,(int *)srcRect);
         }
         if (*item != 0) {
           *(int *)(*item + 4) = item[1];
@@ -265,7 +265,7 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
         if ((((byte)g_dwDebugFlags & 1) != 0) && (((byte)g_dwDebugFlags & 0x10) != 0)) {
           stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
           rdPrimit2_DrawRectangle
-                    (*(void **)((int)g_pRdCamera_CurCamera + 4),*piVar2,item[6],item[7] + *piVar2,
+                    (*(void **)((int)g_pRdCamera_CurCamera + 4),*srcRect,item[6],item[7] + *srcRect,
                      item[8] + item[6],UINT_008c9820 & 0xffff,-1);
           stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
         }
@@ -288,7 +288,7 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
 
 
 /* ---- 0x00486020  DirtyRect_Clear ---- */
-void DirtyRect_Clear(void)
+void __cdecl DirtyRect_Clear(void)
 
 {
   void *pvVar1;

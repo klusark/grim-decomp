@@ -10,18 +10,18 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2)
+uint __cdecl sputText_Initialize(GrimServices *param_1,uint *param_2)
 
 {
   int iVar1;
   
   _g_pSputtextHS = param_1;
-  *param_2 = sputText_Initialize;
-  param_2[1] = sputText_Terminate;
-  param_2[2] = sputText_Startup;
-  param_2[3] = sputText_Shutdown;
-  param_2[4] = sputText_Save;
-  param_2[5] = sputText_Restore;
+  *param_2 = (uint)sputText_Initialize;
+  param_2[1] = (uint)sputText_Terminate;
+  param_2[2] = (uint)sputText_Startup;
+  param_2[3] = (uint)sputText_Shutdown;
+  param_2[4] = (uint)sputText_Save;
+  param_2[5] = (uint)sputText_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   iVar1 = Graph_SysInitialize(param_1,&g_aGraphMS);
@@ -40,7 +40,7 @@ undefined4 sputText_Initialize(GrimServices *param_1,undefined4 *param_2)
 /* Module interface slot 1 (sputText): called by Engine_ResetSubsystems / when registration fails;
    drops the service table pointer and clears the initialised flag. */
 
-void sputText_Terminate(void)
+void __cdecl sputText_Terminate(void)
 
 {
   _g_pSputtextHS = 0;
@@ -57,7 +57,7 @@ void sputText_Terminate(void)
    (non-zero makes the whole start-up unwind). _Start registers the text Lua API table and the
    field-name refs (fgcolor, justify, ...), creates the 0x260-byte text object pool. */
 
-undefined4 sputText_Startup(void)
+uint __cdecl sputText_Startup(void)
 
 {
   int iVar1;
@@ -104,7 +104,7 @@ undefined4 sputText_Startup(void)
         g_dwLrPan = lua_ref(1);
         lua_pushstring(s_background_004e875c);
         g_dwLrBackground = lua_ref(1);
-        g_pTextEventPool = (void **)Memory_AllocatePool(0x260,0x10,8);
+        g_pTextEventPool = Memory_AllocatePool(0x260,(void *)0x10,(void *)0x8);
         g_dwSputtextStartup = 1;
         return 0;
       }
@@ -119,7 +119,7 @@ undefined4 sputText_Startup(void)
    (Linux): the module's shutdown slot: graphMS / textMS shutdown, lua_unref of every lr*
    reference); was sputText_Stop. */
 
-void sputText_Shutdown(void)
+void __cdecl sputText_Shutdown(void)
 
 {
   (*(code *)UINT_008ca124)();
@@ -153,21 +153,22 @@ void sputText_Shutdown(void)
    handed for every field. Original name sputText_Save (the remaster's GrimFandango (Linux): aligned
    call in sputText_Initialize); was sputText_SaveState. */
 
-undefined4 sputText_Save(code *param_1)
+uint __cdecl sputText_Save(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   TextObject *pTVar1;
-  int iVar2;
+  undefined uVar2;
+  undefined3 extraout_var;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
   for (pTVar1 = g_pTextQueue; pTVar1 != (TextObject *)0x0; pTVar1 = pTVar1->pNext) {
     local_4 = local_4 + 1;
   }
-  iVar2 = (*param_1)(&local_4,4);
+  uVar2 = (*param_1)(&local_4,4);
   pTVar1 = g_pTextQueue;
-  if (iVar2 != 0) {
+  if (((uint)(uVar2)) != 0) {
     return 1;
   }
   for (; pTVar1 != (TextObject *)0x0; pTVar1 = pTVar1->pNext) {
@@ -209,14 +210,15 @@ undefined4 sputText_Save(code *param_1)
    GrimFandango (Linux): the module's restore slot: empties textQueue, reads the text events into
    pTextEventPool); was sputText_RestoreState. */
 
-undefined4 sputText_Restore(code *param_1)
+uint __cdecl sputText_Restore(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   TextContext *pTVar1;
   void **ppvVar2;
   code *pcVar3;
-  int iVar4;
+  undefined uVar4;
+  undefined3 extraout_var;
   TextObject *pTVar5;
   void *pvVar6;
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
@@ -225,12 +227,12 @@ undefined4 sputText_Restore(code *param_1)
   while (g_pTextQueue != (TextObject *)0x0) {
     List_Unlink(g_pTextQueue);
   }
-  iVar4 = (*param_1)(&local_4,4);
-  if (iVar4 == 0) {
+  uVar4 = (*param_1)(&local_4,4);
+  if (((uint)(uVar4)) == 0) {
     param_1 = (code *)0x0;
     if (0 < local_4) {
       do {
-        pTVar5 = (TextObject *)Memory_AllocFixed(g_pTextEventPool);
+        pTVar5 = (TextObject *)Memory_AllocFixed((int *)g_pTextEventPool);
         (*pcVar3)(pTVar5->aText,0x200);
         pTVar1 = &pTVar5->ctx;
         (*pcVar3)(pTVar1,4);
@@ -269,7 +271,7 @@ undefined4 sputText_Restore(code *param_1)
         if (g_pTextQueue != (TextObject *)0x0) {
           g_pTextQueue->pPrev = pTVar5;
         }
-        param_1 = (code *)((int)param_1 + 1);
+        param_1 = param_1 + 1;
         g_pTextQueue = pTVar5;
       } while ((int)param_1 < local_4);
     }

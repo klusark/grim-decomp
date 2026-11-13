@@ -214,7 +214,7 @@ LAB_0040303f:
 
 
 /* ---- 0x00473360  Win_SetMainHwnd ---- */
-void Win_SetMainHwnd(void *param_1)
+void __cdecl Win_SetMainHwnd(void *param_1)
 
 {
   g_pMainHwnd = param_1;
@@ -229,7 +229,7 @@ void * __cdecl Win_GetMainHwnd(void)
 }
 
 /* ---- 0x00473380  Win_SetInstance ---- */
-void Win_SetInstance(uint param_1)
+void __cdecl Win_SetInstance(uint param_1)
 
 {
   UINT_007f608c = param_1;
@@ -239,7 +239,7 @@ void Win_SetInstance(uint param_1)
 /* ---- 0x00473390  Win_GetInstance ---- */
 /* Returns the HINSTANCE of the executable */
 
-uint Win_GetInstance(void)
+uint __cdecl Win_GetInstance(void)
 
 {
   return UINT_007f608c;
@@ -249,7 +249,7 @@ uint Win_GetInstance(void)
 /* Window-message filter: true for WM_SYSCOMMAND with SC_KEYMENU (0xf100) or SC_SCREENSAVE (0xf140).
     */
 
-undefined4 Win_IsSysCommandBlocked(undefined4 param_1,int param_2,int param_3)
+uint __cdecl Win_IsSysCommandBlocked(uint param_1,int param_2,int param_3)
 
 {
   if (param_2 != 0x112) {

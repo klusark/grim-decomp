@@ -14,9 +14,9 @@
 undefined * stdControl_Startup(void)
 
 {
+  uint a1;
   int iVar1;
   uint *puVar2;
-  int a2;
   void **a3;
   int a4;
   
@@ -32,9 +32,9 @@ undefined * stdControl_Startup(void)
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  a2 = 0x500;
-  iVar1 = Win_GetInstance();
-  DirectInputCreateA(iVar1,a2,(int)a3,a4);
+  iVar1 = 0x500;
+  a1 = Win_GetInstance();
+  DirectInputCreateA(a1,iVar1,(int)a3,a4);
   Input_CreateKeyboard();
   Input_InitJoysticks();
   Input_CreateMouse();
@@ -47,7 +47,7 @@ undefined * stdControl_Startup(void)
 /* Original name stdControl_Shutdown (the remaster's GrimFandango (Linux): aligned call in
    sputControl_Shutdown); was Input_Shutdown. */
 
-void stdControl_Shutdown(void)
+void __cdecl stdControl_Shutdown(void)
 
 {
   if (g_dwStdControl_bStartup != 0) {
@@ -69,7 +69,7 @@ void stdControl_Shutdown(void)
 /* Original name stdControl_Open (the remaster's GrimFandango (Linux): the only call of
    sputControl_Open (sets stdControl_bOpen and activates the controls)); was Input_Enable. */
 
-undefined4 stdControl_Open(void)
+uint __cdecl stdControl_Open(void)
 
 {
   g_nStdControl_bOpen = 1;
@@ -81,7 +81,7 @@ undefined4 stdControl_Open(void)
 /* Original name stdControl_Close (the remaster's GrimFandango (Linux): called by sputControl_Close
    in both builds; clears stdControl_bOpen and returns whether it was open); was Input_Disable. */
 
-undefined4 stdControl_Close(void)
+uint __cdecl stdControl_Close(void)
 
 {
   if (g_nStdControl_bOpen == 0) {
@@ -96,7 +96,7 @@ undefined4 stdControl_Close(void)
 /* Lua FlushControls: resets keyboard and joystick state Original name stdControl_Flush (the
    remaster's GrimFandango (Linux): Lua / module table entry 'FlushControls'); was Input_Flush. */
 
-void stdControl_Flush(void)
+void __cdecl stdControl_Flush(void)
 
 {
   g_dwCurReadTime = timeGetTime();
@@ -116,7 +116,7 @@ void stdControl_Flush(void)
    / joystick read flags, the two 0x680 joystick flags, bit 1 of every axis); called by
    sputControl_Reset in both builds); was Input_ResetState. */
 
-void stdControl_Reset(void)
+void __cdecl stdControl_Reset(void)
 
 {
   uint *puVar1;
@@ -163,7 +163,7 @@ int __cdecl stdControl_EnableAxis(uint axis)
    stdControl_ReadControls (the remaster's GrimFandango (Linux): aligned call in
    sputControl_Update); was Input_Update. */
 
-void stdControl_ReadControls(void)
+void __cdecl stdControl_ReadControls(void)
 
 {
   uint uVar1;
@@ -303,7 +303,7 @@ void __cdecl Input_SetAcquired(int acquire)
    full-screen mouse cursor call of Main_Shutdown (ShowCursor(1)) in both builds; the remaster's is
    a stub); was Input_ShowCursor. */
 
-void stdControl_ShowMouseCursor(int param_1)
+void __cdecl stdControl_ShowMouseCursor(int param_1)
 
 {
   ShowCursor(param_1);
@@ -314,7 +314,7 @@ void stdControl_ShowMouseCursor(int param_1)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Up to two joysticks via joyGetDevCaps; six axes each, POV hat flagged */
 
-void Input_InitJoysticks(void)
+void __cdecl Input_InitJoysticks(void)
 
 {
   unsigned char _frame[0x1c0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -413,7 +413,7 @@ void Input_InitJoysticks(void)
 /* ---- 0x00477530  Input_CreateKeyboard ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Input_CreateKeyboard(void)
+void __cdecl Input_CreateKeyboard(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -461,7 +461,7 @@ void Input_CreateKeyboard(void)
 #if 0
 /* Mouse axes 12 (x), 13 (y), 14 (wheel) in relative mode */
 
-void Input_CreateMouse(void)
+void __cdecl Input_CreateMouse(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -520,7 +520,7 @@ void Input_CreateMouse(void)
 
 
 /* ---- 0x00477680  Input_MarkAxisUsed ---- */
-void Input_MarkAxisUsed(uint param_1)
+void __cdecl Input_MarkAxisUsed(uint param_1)
 
 {
   uint uVar1;
@@ -669,7 +669,7 @@ LAB_00477881:
 
 
 /* ---- 0x004778a0  Input_FlushKeyboard ---- */
-void Input_FlushKeyboard(void)
+void __cdecl Input_FlushKeyboard(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -698,7 +698,7 @@ void Input_FlushKeyboard(void)
 /* ---- 0x004778f0  Input_PollJoysticks ---- */
 /* joyGetPosEx per stick; the POV hat is mapped onto four virtual buttons */
 
-void Input_PollJoysticks(void)
+void __cdecl Input_PollJoysticks(void)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

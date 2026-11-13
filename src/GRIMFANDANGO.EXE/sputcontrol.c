@@ -10,15 +10,15 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 sputControl_Initialize(undefined4 param_1,undefined4 *param_2)
+uint __cdecl sputControl_Initialize(uint param_1,uint *param_2)
 
 {
   if (g_dwSputConInitialize == 0) {
     _g_pSputConHS = param_1;
-    *param_2 = sputControl_Initialize;
-    param_2[1] = sputControl_Terminate;
-    param_2[2] = sputControl_Startup;
-    param_2[3] = sputControl_Shutdown;
+    *param_2 = (uint)sputControl_Initialize;
+    param_2[1] = (uint)sputControl_Terminate;
+    param_2[2] = (uint)sputControl_Startup;
+    param_2[3] = (uint)sputControl_Shutdown;
     param_2[4] = 0;
     param_2[5] = 0;
     param_2[6] = 0;
@@ -33,7 +33,7 @@ undefined4 sputControl_Initialize(undefined4 param_1,undefined4 *param_2)
 /* Module interface slot 1 (sputControl): called by Engine_ResetSubsystems / when registration
    fails; drops the service table pointer and clears the initialised flag. */
 
-void sputControl_Terminate(void)
+void __cdecl sputControl_Terminate(void)
 
 {
   _g_pSputConHS = 0;
@@ -49,7 +49,7 @@ void sputControl_Terminate(void)
    Original name sputControl_Startup (the remaster's GrimFandango (Linux): aligned call in
    sputControl_Initialize); was sputControl_Start. */
 
-undefined4 sputControl_Startup(void)
+uint __cdecl sputControl_Startup(void)
 
 {
   undefined *puVar1;
@@ -74,7 +74,7 @@ undefined4 sputControl_Startup(void)
    releases what _Start created. Original name sputControl_Shutdown (the remaster's GrimFandango
    (Linux): aligned call in sputControl_Initialize); was sputControl_Stop. */
 
-void sputControl_Shutdown(void)
+void __cdecl sputControl_Shutdown(void)
 
 {
   stdControl_Shutdown();

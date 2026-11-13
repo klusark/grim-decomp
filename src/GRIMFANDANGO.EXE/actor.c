@@ -2097,52 +2097,52 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
   int iVar5;
   float fVar6;
   void *pvVar7;
-  undefined4 uVar8;
-  code *pcVar9;
+  code *pcVar8;
+  float *pfVar9;
   float *pfVar10;
-  float *pfVar11;
-  int iVar12;
+  int iVar11;
+  undefined4 uVar12;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define fStack_c (*(float *)(_frame + (0x20 - 0xc)))
   #define fStack_8 (*(float *)(_frame + (0x20 - 0x8)))
   #define fStack_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   pvVar7 = sputRoom_GetCurrentRoom();
-  iVar12 = *(int *)((int)pvVar7 + 0xb4);
+  iVar11 = *(int *)((int)pvVar7 + 0xb4);
   pvVar7 = sputRoom_GetCurrentRoom();
-  iVar1 = *(int *)((int)pvVar7 + 0xac) + iVar12 * 300;
-  iVar12 = *(int *)(*(int *)(*(int *)((int)pvVar7 + 0xac) + 0x48 + iVar12 * 300) + 4);
-  if (iVar12 != 0) {
-    uVar2 = *(undefined4 *)(iVar12 + 0x10);
-    uVar3 = *(undefined4 *)(iVar12 + 4);
-    uVar8 = sputRender_CleanArtBuffer();
-    *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 4) = uVar8;
-    uVar8 = sputRender_CleanZBuffer();
-    *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 0x10) = uVar8;
+  iVar1 = *(int *)((int)pvVar7 + 0xac) + iVar11 * 300;
+  iVar11 = *(int *)(*(int *)(*(int *)((int)pvVar7 + 0xac) + 0x48 + iVar11 * 300) + 4);
+  if (iVar11 != 0) {
+    uVar2 = *(undefined4 *)(iVar11 + 0x10);
+    uVar3 = *(undefined4 *)(iVar11 + 4);
+    pvVar7 = sputRender_CleanArtBuffer();
+    *(void **)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 4) = pvVar7;
+    pvVar7 = sputRender_CleanZBuffer();
+    *(void **)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 0x10) = pvVar7;
     piVar4 = actor->pColormapRef;
-    iVar12 = *piVar4;
-    if (iVar12 == 0) {
+    iVar11 = *piVar4;
+    if (iVar11 == 0) {
       pvVar7 = sputRoom_GetCurrentRoom();
-      iVar12 = *(int *)((int)pvVar7 + 0x88);
+      iVar11 = *(int *)((int)pvVar7 + 0x88);
       pvVar7 = sputRoom_GetCurrentRoom();
       iVar5 = *(int *)((int)pvVar7 + 0x80);
-      if (*(int *)(iVar5 + iVar12 * 0x34) == 0) {
+      if (*(int *)(iVar5 + iVar11 * 0x34) == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      rdroid_SetColormap(*(uint *)(iVar5 + iVar12 * 0x34 + 4));
+      rdroid_SetColormap(*(uint *)(iVar5 + iVar11 * 0x34 + 4));
       pvVar7 = sputRoom_GetCurrentRoom();
-      iVar12 = *(int *)((int)pvVar7 + 0x88);
+      iVar11 = *(int *)((int)pvVar7 + 0x88);
       pvVar7 = sputRoom_GetCurrentRoom();
-      piVar4 = (int *)(*(int *)((int)pvVar7 + 0x80) + iVar12 * 0x34);
+      piVar4 = (int *)(*(int *)((int)pvVar7 + 0x80) + iVar11 * 0x34);
       if (*piVar4 == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      iVar12 = piVar4[1];
+      iVar11 = piVar4[1];
     }
     else {
-      if (iVar12 == 0) {
+      if (iVar11 == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
@@ -2152,23 +2152,23 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      iVar12 = piVar4[1];
+      iVar11 = piVar4[1];
     }
-    iVar12 = iVar12 + 0x30;
-    uVar8 = 0;
-    pcVar9 = sputRender_SetPaletteFunc();
-    (*pcVar9)(iVar12,uVar8);
+    iVar11 = iVar11 + 0x30;
+    uVar12 = 0;
+    pcVar8 = sputRender_SetPaletteFunc();
+    (*pcVar8)(iVar11,uVar12);
     fVar6 = actor->flScale;
     if (fVar6 != 1.0) {
-      pfVar11 = &fStack_c;
+      pfVar10 = &fStack_c;
       fStack_c = fVar6;
       fStack_8 = fVar6;
       fStack_4 = fVar6;
-      pfVar10 = sputActor_GetOrientMatrix(actor);
-      rdMatrix_PreScale34(pfVar10,(uint)pfVar11);
+      pfVar9 = sputActor_GetOrientMatrix(actor);
+      rdMatrix_PreScale34(pfVar9,(uint)pfVar10);
     }
-    pfVar11 = sputActor_GetOrientMatrix(actor);
-    sputCostume_Draw3D(actor->pCostumes,pfVar11);
+    pfVar10 = sputActor_GetOrientMatrix(actor);
+    sputCostume_Draw3D(actor->pCostumes,pfVar10);
     actor->nMatrixDirty = 0;
     rdCache_Flush();
     *(undefined4 *)(*(int *)(*(int *)(iVar1 + 0x48) + 4) + 4) = uVar3;
@@ -2461,7 +2461,7 @@ void sputCostume_InternalDraw3D(int *param_1,float *param_2)
   int iVar2;
   int iVar3;
   int iVar4;
-  void *pvVar5;
+  uint *puVar5;
   int iVar6;
   int iVar7;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
@@ -2518,8 +2518,8 @@ LAB_004951ab:
             goto LAB_004951ab;
           }
 LAB_004951b3:
-          pvVar5 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferLock(pvVar5);
+          puVar5 = Render_GetBackBuffer();
+          stdDisplay_VBufferLock(puVar5);
         }
         iVar6 = rdThing_Draw(*(void **)(iVar4 + 0x40),param_2);
         if ((iVar6 == 0) || (actor == (Actor *)0x0)) {
@@ -2529,8 +2529,8 @@ LAB_004951b3:
           actor->nScreenBoxValid = 1;
         }
         if (g_nSputRender_b3DAcceleration == 0) {
-          pvVar5 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferUnlock(pvVar5);
+          puVar5 = Render_GetBackBuffer();
+          stdDisplay_VBufferUnlock(puVar5);
         }
       }
       else {
@@ -2545,8 +2545,8 @@ LAB_004951b3:
         iVar6 = *(int *)(*(int *)(iVar7 + 4) + 0x58) + *(int *)(iVar4 + 0x48) * 0xb8;
         iVar2 = *(int *)(*(int *)(*(int *)(iVar4 + 0x40) + 4) + 0x58);
         if (g_nSputRender_b3DAcceleration == 0) {
-          pvVar5 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferLock(pvVar5);
+          puVar5 = Render_GetBackBuffer();
+          stdDisplay_VBufferLock(puVar5);
         }
         if ((*(int *)(iVar4 + 0x3c) != 0) && (**(int **)(iVar4 + 0x40) != 4)) {
           iVar3 = (*(int **)(iVar4 + 0x40))[1];
@@ -2585,8 +2585,8 @@ LAB_004951b3:
           *(undefined4 *)(iVar6 + 0x8c) = uStack_14;
         }
         if (g_nSputRender_b3DAcceleration == 0) {
-          pvVar5 = (void *)Render_GetBackBuffer();
-          stdDisplay_VBufferUnlock(pvVar5);
+          puVar5 = Render_GetBackBuffer();
+          stdDisplay_VBufferUnlock(puVar5);
         }
       }
       piVar1 = actor->pColormapRef;

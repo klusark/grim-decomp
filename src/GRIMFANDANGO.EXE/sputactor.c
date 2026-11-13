@@ -9,16 +9,16 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2)
+uint __cdecl sputActor_Initialize(uint param_1,uint *param_2)
 
 {
   g_dwSputActHS = param_1;
-  *param_2 = sputActor_Initialize;
-  param_2[1] = sputActor_Terminate;
-  param_2[2] = sputActor_Startup;
-  param_2[3] = sputActor_Shutdown;
-  param_2[4] = sputActor_Save;
-  param_2[5] = sputActor_Restore;
+  *param_2 = (uint)sputActor_Initialize;
+  param_2[1] = (uint)sputActor_Terminate;
+  param_2[2] = (uint)sputActor_Startup;
+  param_2[3] = (uint)sputActor_Shutdown;
+  param_2[4] = (uint)sputActor_Save;
+  param_2[5] = (uint)sputActor_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
   g_pTalkingActors[0] = (Actor *)0x0;
@@ -34,7 +34,7 @@ undefined4 sputActor_Initialize(uint param_1,undefined4 *param_2)
    handed for every field. Original name sputActor_Save (the remaster's GrimFandango (Linux):
    aligned call in sputActor_Initialize); was sputActor_SaveState. */
 
-undefined4 sputActor_Save(code *param_1)
+uint __cdecl sputActor_Save(code *param_1)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -323,7 +323,7 @@ undefined4 sputActor_Save(code *param_1)
    GrimFandango (Linux): the only unmatched caller of rdPuppet_AddTrack; 4 matched neighbours agree,
    2 disagree); was sputActor_RestoreState. */
 
-undefined4 sputActor_Restore(code *param_1)
+uint __cdecl sputActor_Restore(code *param_1)
 
 {
   unsigned char _frame[0x180] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -370,7 +370,7 @@ undefined4 sputActor_Restore(code *param_1)
   #define iStack_100 (*(int *)(_frame + (0x180 - 0x100)))
   #define aiStack_fc (*(int (*)[16])(_frame + (0x180 - 0xfc)))
   #define iStack_bc (*(int *)(_frame + (0x180 - 0xbc)))
-  #define iStack_b8 (*(int *)(_frame + (0x180 - 0xb8)))
+  #define uStack_b8 (*(uint *)(_frame + (0x180 - 0xb8)))
   #define aiStack_b4 (*(int (*)[13])(_frame + (0x180 - 0xb4)))
   #define acStack_80 (*(char (*)[32])(_frame + (0x180 - 0x80)))
   #define acStack_60 (*(char (*)[32])(_frame + (0x180 - 0x60)))
@@ -505,8 +505,8 @@ undefined4 sputActor_Restore(code *param_1)
           (*param_1)(aiStack_fc,0x40);
           (*param_1)(&iStack_bc,4);
           (*param_1)(aiStack_b4,4);
-          Res_ResolveToSerialNumber(&iStack_b8);
-          if (iStack_b8 == 0) {
+          Res_ResolveToSerialNumber(&uStack_b8);
+          if (uStack_b8 == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Bad_costume_Reference_004e9e90,s_main_sputResource_h_004e80a8,0xb8);
           }
@@ -537,7 +537,7 @@ undefined4 sputActor_Restore(code *param_1)
             piVar16 = piVar16 + 1;
           }
           pAVar14->pCostumes->nMumbleChore = iStack_bc;
-          Res_RemoveReference(&iStack_b8);
+          Res_RemoveReference(&uStack_b8);
           iStack_164 = iStack_164 + 1;
         } while (iStack_164 < iStack_148);
       }
@@ -731,12 +731,12 @@ undefined4 sputActor_Restore(code *param_1)
 #undef iStack_154
 #undef iStack_158
 #undef iStack_164
-#undef iStack_b8
 #undef iStack_bc
 #undef local_15c
 #undef pvStack_160
 #undef uStack_138
 #undef uStack_144
+#undef uStack_b8
 
 
 /* ---- 0x00490a60  sputActor_SetWalkChore ---- */

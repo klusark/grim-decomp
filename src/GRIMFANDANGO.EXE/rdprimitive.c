@@ -9,7 +9,7 @@
 /* WARNING: Variable defined which should be unmapped: local_b0 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 rdPolyline_Draw(int param_1,float *param_2)
+uint __cdecl rdPolyline_Draw(int param_1,float *param_2)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -27,7 +27,7 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   #define local_48 (*(float *)(_frame + (0xc0 - 0x48)))
   #define local_40 (*(float *)(_frame + (0xc0 - 0x40)))
   #define local_38 (*(float (*)[3])(_frame + (0xc0 - 0x38)))
-  #define local_2c (*(undefined1 (*)[12])(_frame + (0xc0 - 0x2c)))
+  #define local_2c (*(uint (*)[3])(_frame + (0xc0 - 0x2c)))
   #define local_20 (*(uint *)(_frame + (0xc0 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0xc0 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0xc0 - 0x18)))
@@ -55,7 +55,7 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   *(float *)&DAT_007f4e90 = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4e9c = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4ea8 = *(float *)&DAT_007f4e84;
-  rdPolyline_DrawFace(param_1,iVar1 + 0x84,&DAT_007f4e80,local_2c);
+  rdPolyline_DrawFace(param_1,iVar1 + 0x84,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
   *(float *)&DAT_007f4e84 = local_54[1] - -0.001;
   *(float *)&DAT_007f4e80 = local_54[0] - *(float *)(iVar1 + 0x24);
   *(float *)&DAT_007f4e88 = local_54[2] - *(float *)(iVar1 + 0x24);
@@ -69,7 +69,7 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   *(float *)&DAT_007f4e90 = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4e9c = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4ea8 = *(float *)&DAT_007f4e84;
-  rdPolyline_DrawFace(param_1,iVar1 + 0x84,&DAT_007f4e80,local_2c);
+  rdPolyline_DrawFace(param_1,iVar1 + 0x84,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
   local_94[1] = local_88[1] - local_54[0];
   fVar2 = local_7c - local_54[2];
   fVar3 = SQRT(fVar2 * fVar2 + local_94[1] * local_94[1]);
@@ -97,7 +97,7 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
   *(float *)&DAT_007f4eac = *(float *)(iVar1 + 0x24) * local_88[0] + 0.0 + local_54[2];
   *(float *)&DAT_007f4ea8 = local_54[1];
   local_1c = *(uint *)(iVar1 + 0xd0);
-  rdPolyline_DrawFace(param_1,iVar1 + 0x38,&DAT_007f4e80,local_2c);
+  rdPolyline_DrawFace(param_1,iVar1 + 0x38,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
   return 1;
 }
 #undef local_14
@@ -121,7 +121,7 @@ undefined4 rdPolyline_Draw(int param_1,float *param_2)
 /* ---- 0x00472360  rdPolyline_DrawFace ---- */
 /* Allocates a cache mesh for one polyline face, clips and adds it */
 
-void rdPolyline_DrawFace(int param_1,int param_2,undefined4 param_3,uint *param_4)
+void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,uint *param_4)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -435,9 +435,9 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
    (the remaster's GrimFandango (Linux): the only unmatched caller of rdPolyline_Init; 2 matched
    neighbours agree, 0 disagree); was rdPolyline_New. */
 
-int rdSprite_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,
-                undefined4 param_5,undefined4 param_6,undefined4 param_7,undefined4 param_8,
-                undefined4 param_9,undefined4 param_10)
+int __cdecl
+rdSprite_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
+            uint param_7,uint param_8,uint param_9,uint param_10)
 
 {
   int iVar1;
@@ -447,8 +447,8 @@ int rdSprite_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
   if (iVar1 == 0) {
     return 0;
   }
-  rdSprite_NewEntry(iVar1,param_2,param_1,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
-                    param_10);
+  rdSprite_NewEntry(iVar1,param_2,param_1,(char *)param_3,param_4,param_5,param_6,param_7,param_8,
+                    param_9,(uint *)param_10);
   return iVar1;
 }
 
@@ -457,10 +457,9 @@ int rdSprite_New(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefi
    name rdSprite_NewEntry (the remaster's GrimFandango (Linux): the only unmatched caller of
    rdMaterial_Load; 1 matched neighbours agree, 0 disagree); was rdPolyline_Init. */
 
-undefined4
-rdSprite_NewEntry(int param_1,int param_2,undefined4 param_3,char *param_4,undefined4 param_5,
-                 undefined4 param_6,undefined4 param_7,undefined4 param_8,undefined4 param_9,
-                 undefined4 param_10,undefined4 *param_11)
+uint __cdecl
+rdSprite_NewEntry(int param_1,int param_2,uint param_3,char *param_4,uint param_5,uint param_6,
+                 uint param_7,uint param_8,uint param_9,uint param_10,uint *param_11)
 
 {
   float fVar1;
@@ -474,17 +473,17 @@ rdSprite_NewEntry(int param_1,int param_2,undefined4 param_3,char *param_4,undef
     strncpy(param_1,param_2,0x1f);
     *(undefined1 *)(param_1 + 0x1f) = 0;
   }
-  *(undefined4 *)(param_1 + 0x4c) = param_5;
-  *(undefined4 *)(param_1 + 0x20) = param_3;
-  *(undefined4 *)(param_1 + 0x50) = param_6;
-  *(undefined4 *)(param_1 + 0xac) = *param_11;
-  *(undefined4 *)(param_1 + 0xb0) = param_11[1];
-  *(undefined4 *)(param_1 + 0xb4) = param_11[2];
-  *(undefined4 *)(param_1 + 0x68) = param_8;
-  *(undefined4 *)(param_1 + 100) = param_7;
+  *(uint *)(param_1 + 0x4c) = param_5;
+  *(uint *)(param_1 + 0x20) = param_3;
+  *(uint *)(param_1 + 0x50) = param_6;
+  *(uint *)(param_1 + 0xac) = *param_11;
+  *(uint *)(param_1 + 0xb0) = param_11[1];
+  *(uint *)(param_1 + 0xb4) = param_11[2];
+  *(uint *)(param_1 + 0x68) = param_8;
+  *(uint *)(param_1 + 100) = param_7;
   *(undefined4 *)(param_1 + 0x60) = 1;
-  *(undefined4 *)(param_1 + 0x6c) = param_9;
-  *(undefined4 *)(param_1 + 0x8c) = param_10;
+  *(uint *)(param_1 + 0x6c) = param_9;
+  *(uint *)(param_1 + 0x8c) = param_10;
   pvVar3 = rdMaterial_Load(param_4,0,0);
   *(void **)(param_1 + 0x7c) = pvVar3;
   if (pvVar3 == (void *)0x0) {
@@ -552,7 +551,7 @@ LAB_00472af2:
 }
 
 /* ---- 0x00472b50  rdSprite_Free ---- */
-void rdSprite_Free(int param_1)
+void __cdecl rdSprite_Free(int param_1)
 
 {
   if (param_1 != 0) {
@@ -566,7 +565,7 @@ void rdSprite_Free(int param_1)
 /* Original name rdSprite_FreeEntry (the remaster's GrimFandango (Linux): same body (frees the +0xa8
    and +0x74 arrays through rdroid_pHS)); was rdSprite_FreeContents. */
 
-void rdSprite_FreeEntry(int param_1)
+void __cdecl rdSprite_FreeEntry(int param_1)
 
 {
   if (*(int *)(param_1 + 0xa8) != 0) {
@@ -588,7 +587,7 @@ void rdSprite_FreeEntry(int param_1)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Frustum tests the sprite, builds the quad in the cache and clips it */
 
-undefined4 rdSprite_Draw(int param_1,float *param_2)
+uint __cdecl rdSprite_Draw(int param_1,float *param_2)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

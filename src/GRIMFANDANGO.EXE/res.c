@@ -512,14 +512,14 @@ void * __cdecl res_Load(int type,char *name,int *status)
 undefined * __cdecl res_LocateResByName(uint param_1,uint param_2)
 
 {
-  undefined *puVar1;
+  int *piVar1;
   
-  puVar1 = (undefined *)Res_FindByNameInList(param_1,param_2,g_pNewestResNode);
-  return puVar1;
+  piVar1 = Res_FindByNameInList(param_1,(char *)param_2,g_pNewestResNode);
+  return (undefined *)piVar1;
 }
 
 /* ---- 0x00481320  Res_FindByNameInList ---- */
-int * Res_FindByNameInList(int param_1,char *param_2,int *param_3)
+int * __cdecl Res_FindByNameInList(int param_1,char *param_2,int *param_3)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -585,7 +585,7 @@ void * __cdecl Res_CreateRecord(int type,char *name,void *data)
   uint uVar5;
   int iVar6;
   
-  res = (int *)Memory_AllocFixed(g_dwResNodePool);
+  res = Memory_AllocFixed((int *)g_dwResNodePool);
   if (res != (int *)0x0) {
     res[4] = type;
     res[5] = (int)data;
@@ -775,7 +775,7 @@ uint __cdecl Res_HashName(char *name,char *outLower)
 /* Original name Res_GetFirstType (the remaster's GrimFandango (Linux): aligned call in
    sputRoom_Save); was Res_FindByHandleOrNull. */
 
-void Res_GetFirstType(int *param_1,int *param_2,int param_3)
+void __cdecl Res_GetFirstType(int *param_1,int *param_2,int param_3)
 
 {
   int *piVar1;
@@ -799,7 +799,7 @@ void Res_GetFirstType(int *param_1,int *param_2,int param_3)
 /* Original name Res_GetNextType (the remaster's GrimFandango (Linux): aligned call in
    sputRoom_Save); was Res_NextInList. */
 
-void Res_GetNextType(int *param_1,int *param_2,int param_3)
+void __cdecl Res_GetNextType(int *param_1,int *param_2,int param_3)
 
 {
   int *piVar1;
@@ -849,7 +849,7 @@ undefined * __cdecl Res_Touch(void *param_1)
 
 
 /* ---- 0x004824f0  Res_CountChildren ---- */
-int Res_CountChildren(uint param_1,uint param_2)
+int __cdecl Res_CountChildren(uint param_1,uint param_2)
 
 {
   int iVar1;
@@ -870,7 +870,7 @@ int Res_CountChildren(uint param_1,uint param_2)
 /* Cache limit in megabytes (shifted left by 20) Original name grimlib_SetCacheMax (the remaster's
    GrimFandango (Linux): max_ram = MB << 20); was Res_SetCacheSizeMB. */
 
-void grimlib_SetCacheMax(int param_1)
+void __cdecl grimlib_SetCacheMax(int param_1)
 
 {
   g_dwMax_ram = param_1 << 0x14;
@@ -881,7 +881,7 @@ void grimlib_SetCacheMax(int param_1)
 /* Original name sputResource_ReportAllocations (the remaster's GrimFandango (Linux): strings:
    'Grim.res'); was Res_PrintReport. */
 
-void sputResource_ReportAllocations(void)
+void __cdecl sputResource_ReportAllocations(void)
 
 {
   Res_Dump(s_Grim_res_004e9c74,0);

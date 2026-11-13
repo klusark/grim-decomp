@@ -11,10 +11,10 @@
    remaster's GrimFandango (Linux): the only unmatched caller of stdConffile_OpenMode; 4 matched
    neighbours agree, 0 disagree); was stdConffile_OpenRead. */
 
-void stdConffile_Open(undefined4 param_1)
+void __cdecl stdConffile_Open(uint param_1)
 
 {
-  stdConffile_OpenMode(param_1,&DAT_004dda54);
+  stdConffile_OpenMode((byte *)param_1,((unsigned)(uintptr_t)&DAT_004dda54));
   return;
 }
 
@@ -23,7 +23,7 @@ void stdConffile_Open(undefined4 param_1)
    first (stdConffile_Push) and allocates the 0x400-byte line buffer. The name 'none' means no file.
    Source file Stdconffile.c (C:\grimjedi\Libs\Std\General\Stdconffile.c). */
 
-undefined4 stdConffile_OpenMode(byte *param_1,undefined4 param_2)
+uint __cdecl stdConffile_OpenMode(byte *param_1,uint param_2)
 
 {
   byte bVar1;
@@ -80,7 +80,7 @@ LAB_0047c827:
 /* Closes the current configuration file, frees the line buffer and pops the previous file if one
    was pushed. Source file Stdconffile.c (C:\grimjedi\Libs\Std\General\Stdconffile.c). */
 
-void stdConffile_Close(void)
+void __cdecl stdConffile_Close(void)
 
 {
   if (g_dwStdConffile_bOpen != 0) {
@@ -104,7 +104,7 @@ void stdConffile_Close(void)
    strips '#' comments, lower-cases, joins lines that end in a backslash). Source file Stdconffile.c
    (C:\grimjedi\Libs\Std\General\Stdconffile.c). */
 
-undefined4 stdConffile_ReadLine(void)
+uint __cdecl stdConffile_ReadLine(void)
 
 {
   char cVar1;
@@ -167,7 +167,7 @@ undefined4 stdConffile_ReadLine(void)
    8-deep stack so that another file can be opened. Source file Stdconffile.c
    (C:\grimjedi\Libs\Std\General\Stdconffile.c). */
 
-void stdConffile_Push(void)
+void __cdecl stdConffile_Push(void)
 
 {
   char cVar1;
@@ -223,7 +223,7 @@ void stdConffile_Push(void)
 /* Restores the configuration file state saved by stdConffile_Push. Source file Stdconffile.c
    (C:\grimjedi\Libs\Std\General\Stdconffile.c). */
 
-void stdConffile_Pop(void)
+void __cdecl stdConffile_Pop(void)
 
 {
   char cVar1;

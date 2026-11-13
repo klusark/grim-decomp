@@ -230,13 +230,13 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  char *name;
+  char *pcVar1;
   void *data;
-  uint uVar1;
-  undefined4 uVar2;
+  uint uVar2;
   undefined4 *ref;
   int iVar3;
   undefined4 *puVar4;
+  undefined4 uVar5;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
@@ -261,7 +261,7 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
     }
     if (param_5 == 0) {
       if (g_bKeyframePath != '\0') {
-        grimPlat_SetDefaultOpenPath(&g_bKeyframePath);
+        grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bKeyframePath));
       }
       iVar3 = grimPlat_OpenFileRequest
                         (s_Select_keyframe_file_to_add____004ea76c,s_Keyframe_files____key__004ea78c
@@ -269,8 +269,9 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
       if (iVar3 == 0) {
         return false;
       }
-      uVar2 = ((code *)grimPlat_GetDefaultOpenPath)(0x7f);
-      ((code *)strncpy)(&g_bKeyframePath,uVar2);
+      uVar5 = 0x7f;
+      pcVar1 = grimPlat_GetDefaultOpenPath();
+      strncpy(&g_bKeyframePath,pcVar1,uVar5);
       DAT_008ca837 = 0;
       local_24 = (uint)stdFnames_FindMedName(g_szGrimlib_aFilename);
       data = sputResource_Alloc(0x4659454b,g_szGrimlib_aFilename);
@@ -278,13 +279,13 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
     else {
       strncpy(&local_20,param_5,0x1f);
       local_1 = 0;
-      name = (char *)strtok(&local_20,&DAT_004ea52c);
-      data = sputResource_Alloc(0x4659454b,name);
-      uVar1 = strtok(0,&DAT_004ea52c);
-      if (uVar1 != 0) {
-        local_2c = (uint)atoi(uVar1);
-        uVar1 = strtok(0,&DAT_004ea52c);
-        local_28 = (uint)atoi(uVar1);
+      pcVar1 = (char *)strtok(&local_20,&DAT_004ea52c);
+      data = sputResource_Alloc(0x4659454b,pcVar1);
+      uVar2 = strtok(0,&DAT_004ea52c);
+      if (uVar2 != 0) {
+        local_2c = (uint)atoi(uVar2);
+        uVar2 = strtok(0,&DAT_004ea52c);
+        local_28 = (uint)atoi(uVar2);
       }
     }
     if (data != (void *)0x0) {
@@ -320,7 +321,7 @@ int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint para
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the Normal/Tagged priority of a
    keyframe key. */
 
-undefined4 KeyframeAdjuster(int *param_1,undefined4 param_2)
+undefined4 KeyframeAdjuster(int *param_1,int param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -337,7 +338,7 @@ undefined4 KeyframeAdjuster(int *param_1,undefined4 param_2)
   iVar1 = *param_1;
   local_30 = *(uint *)(iVar1 + 0x34);
   local_2c = *(uint *)(iVar1 + 0x38);
-  iVar2 = grimPlat_SpinDialog(param_2,&local_28,&local_30,2);
+  iVar2 = grimPlat_SpinDialog(param_2,(int)&local_28,&local_30,2);
   if (iVar2 != 0) {
     iVar2 = strtok(param_2,&DAT_004ea52c);
     *(uint *)(iVar1 + 0x34) = local_30;

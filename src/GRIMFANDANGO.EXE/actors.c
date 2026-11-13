@@ -10,7 +10,7 @@
    (the remaster's GrimFandango (Linux): the only unmatched caller of Costume_PrintList; 1 matched
    neighbours agree, 1 disagree); was Actors_FreeAllCostumes. */
 
-void sputActor_NukeCostumeStacks(void)
+void __cdecl sputActor_NukeCostumeStacks(void)
 
 {
   char *pcVar1;

@@ -9,7 +9,7 @@
 /* Original name Res_NumRefs (the remaster's GrimFandango (Linux): aligned call in sputRoom_Save);
    was Set_GetRefCount. */
 
-int Res_NumRefs(void *param_1)
+int __cdecl Res_NumRefs(void *param_1)
 
 {
   int iVar1;
@@ -215,7 +215,7 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx)
 /* Debug overlay of every light in the set: point/omni lights as a line and circle, spot lights as a
    cone frustum */
 
-void Set_DrawDebugLights(int param_1)
+void __cdecl Set_DrawDebugLights(int param_1)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -431,7 +431,7 @@ int __cdecl sputRoom_Save(void *writeFn)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   WalkPlane *pWVar1;
   code *pcVar2;
-  uint uVar3;
+  void *pvVar3;
   int iVar4;
   int iVar5;
   int iVar6;
@@ -442,20 +442,20 @@ int __cdecl sputRoom_Save(void *writeFn)
   #define fStack_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   local_8 = 0;
-  Res_GetFirstType(&local_14,&local_10,0x20544553);
+  Res_GetFirstType((int *)&local_14,(int *)&local_10,0x20544553);
   pcVar2 = writeFn;
   while (writeFn = pcVar2, local_14 != 0) {
-    iVar4 = Res_NumRefs(local_10);
+    iVar4 = Res_NumRefs((void *)local_10);
     if (0 < iVar4) {
       local_8 = local_8 + 1;
     }
-    Res_GetNextType(&local_14,&local_10,0x20544553);
+    Res_GetNextType((int *)&local_14,(int *)&local_10,0x20544553);
     pcVar2 = writeFn;
   }
   iVar4 = (*pcVar2)(&local_8,4);
   if (iVar4 == 0) {
-    Res_GetFirstType(&local_14,&local_10,0x20544553);
-    uVar3 = local_10;
+    Res_GetFirstType((int *)&local_14,(int *)&local_10,0x20544553);
+    pvVar3 = (void *)local_10;
     do {
       if (local_14 == 0) {
         pvStack_c = sputRoom_GetCurrentRoom();
@@ -482,16 +482,16 @@ int __cdecl sputRoom_Save(void *writeFn)
         return 0;
       }
       iVar5 = 0;
-      local_10 = uVar3;
-      iVar4 = Res_NumRefs(uVar3);
+      local_10 = (uint)pvVar3;
+      iVar4 = Res_NumRefs(pvVar3);
       if (iVar4 != 0) {
         (*pcVar2)(&local_10,4);
-        (*pcVar2)(uVar3 + 0xb4,4);
-        (*pcVar2)(uVar3 + 0x1ac0,4);
+        (*pcVar2)((int)pvVar3 + 0xb4,4);
+        (*pcVar2)((int)pvVar3 + 0x1ac0,4);
         fStack_4 = 0.0;
-        if (0 < *(int *)(uVar3 + 0xb0)) {
+        if (0 < *(int *)((int)pvVar3 + 0xb0)) {
           do {
-            iVar6 = iVar5 + *(int *)(uVar3 + 0xac);
+            iVar6 = iVar5 + *(int *)((int)pvVar3 + 0xac);
             writeFn = (void *)0x0;
             for (iVar4 = *(int *)(iVar6 + 0x128); iVar4 != 0; iVar4 = *(int *)(iVar4 + 0xf8)) {
               writeFn = (void *)((int)writeFn + 1);
@@ -514,11 +514,11 @@ int __cdecl sputRoom_Save(void *writeFn)
             }
             fStack_4 = PUN(float,(PUN(int,(float)fStack_4) + 1));
             iVar5 = iVar5 + 300;
-          } while (PUN(int,(float)fStack_4) < *(int *)(uVar3 + 0xb0));
+          } while (PUN(int,(float)fStack_4) < *(int *)((int)pvVar3 + 0xb0));
         }
       }
-      Res_GetNextType(&local_14,&local_10,0x20544553);
-      uVar3 = local_10;
+      Res_GetNextType((int *)&local_14,(int *)&local_10,0x20544553);
+      pvVar3 = (void *)local_10;
     } while( true );
   }
   return 1;
@@ -928,15 +928,16 @@ int __cdecl sputRoom_LoadResources(void *set)
   int iVar3;
   void *pvVar4;
   int iVar5;
-  uint uVar6;
+  uint *puVar6;
   uint uVar7;
+  uint uVar8;
   int *ref;
-  int iVar8;
-  int *piVar9;
-  float *pfVar10;
-  char *pcVar11;
+  int iVar9;
+  int *piVar10;
+  float *pfVar11;
   char *pcVar12;
-  int *piVar13;
+  char *pcVar13;
+  int *piVar14;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -944,32 +945,32 @@ int __cdecl sputRoom_LoadResources(void *set)
   *(undefined4 *)((int)set + 0x1af4) = 0x1b08;
   iVar5 = *(int *)((int)set + 0xac);
   SoundsFloodMusicBuffer();
-  uVar7 = 0;
+  uVar8 = 0;
   if (*(int *)((int)set + 0x84) != 0) {
-    iVar8 = 0;
+    iVar9 = 0;
     do {
-      if (*(int *)(iVar8 + *(int *)((int)set + 0x80)) == 0) {
+      if (*(int *)(iVar9 + *(int *)((int)set + 0x80)) == 0) {
         iVar3 = _stricmp((char *)((int)set + 0x8c),&DAT_004ec60c);
         if (iVar3 != 0) {
           pvVar4 = sputResource_Alloc(0x50414d43,(char *)((int)set + 0x8c));
-          Res_SetReference((void *)(iVar8 + *(int *)((int)set + 0x80)),pvVar4,
+          Res_SetReference((void *)(iVar9 + *(int *)((int)set + 0x80)),pvVar4,
                            s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x6dc);
         }
-        if (*(int *)(iVar8 + *(int *)((int)set + 0x80)) == 0) {
+        if (*(int *)(iVar9 + *(int *)((int)set + 0x80)) == 0) {
           pvVar4 = sputResource_Alloc(0x50414d43,s_dfltcmp_cmp_004ec710);
-          Res_SetReference((void *)(iVar8 + *(int *)((int)set + 0x80)),pvVar4,
+          Res_SetReference((void *)(iVar9 + *(int *)((int)set + 0x80)),pvVar4,
                            s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x6e3);
-          if (*(int *)(iVar8 + *(int *)((int)set + 0x80)) == 0) {
+          if (*(int *)(iVar9 + *(int *)((int)set + 0x80)) == 0) {
             return 0;
           }
         }
       }
       else {
-        Res_Touch(*(void **)(iVar8 + *(int *)((int)set + 0x80) + 4));
+        Res_Touch(*(void **)(iVar9 + *(int *)((int)set + 0x80) + 4));
       }
-      uVar7 = uVar7 + 1;
-      iVar8 = iVar8 + 0x34;
-    } while (uVar7 < *(uint *)((int)set + 0x84));
+      uVar8 = uVar8 + 1;
+      iVar9 = iVar9 + 0x34;
+    } while (uVar8 < *(uint *)((int)set + 0x84));
   }
   local_4 = 0;
   if (*(int *)((int)set + 0xb0) == 0) {
@@ -990,28 +991,28 @@ int __cdecl sputRoom_LoadResources(void *set)
           if (*ref == 0) {
             return 0;
           }
-          uVar7 = 0xffffffff;
-          pcVar11 = &DAT_004ec60c;
+          uVar8 = 0xffffffff;
+          pcVar12 = &DAT_004ec60c;
           do {
-            pcVar12 = pcVar11;
-            if (uVar7 == 0) break;
-            uVar7 = uVar7 - 1;
-            pcVar12 = pcVar11 + 1;
-            cVar1 = *pcVar11;
-            pcVar11 = pcVar12;
+            pcVar13 = pcVar12;
+            if (uVar8 == 0) break;
+            uVar8 = uVar8 - 1;
+            pcVar13 = pcVar12 + 1;
+            cVar1 = *pcVar12;
+            pcVar12 = pcVar13;
           } while (cVar1 != '\0');
-          uVar7 = ~uVar7;
-          piVar9 = (int *)(pcVar12 + -uVar7);
-          piVar13 = ref + -0x10;
-          for (uVar6 = uVar7 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-            *piVar13 = *piVar9;
-            piVar9 = piVar9 + 1;
-            piVar13 = piVar13 + 1;
+          uVar8 = ~uVar8;
+          piVar10 = (int *)(pcVar13 + -uVar8);
+          piVar14 = ref + -0x10;
+          for (uVar7 = uVar8 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+            *piVar14 = *piVar10;
+            piVar10 = piVar10 + 1;
+            piVar14 = piVar14 + 1;
           }
-          for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
-            *(char *)piVar13 = (char)*piVar9;
-            piVar9 = (int *)((int)piVar9 + 1);
-            piVar13 = (int *)((int)piVar13 + 1);
+          for (uVar8 = uVar8 & 3; uVar8 != 0; uVar8 = uVar8 - 1) {
+            *(char *)piVar14 = (char)*piVar10;
+            piVar10 = (int *)((int)piVar10 + 1);
+            piVar14 = (int *)((int)piVar14 + 1);
           }
           *(undefined1 *)(ref + -8) = 0;
           goto LAB_004a51bd;
@@ -1027,12 +1028,12 @@ LAB_004a51bd:
       }
       stdBitmap_MemUsage((void *)ref[1]);
       if ((char)ref[-8] != '\0') {
-        piVar9 = ref + 0xd;
+        piVar10 = ref + 0xd;
         if ((ref[0xd] == 0) &&
            (pvVar4 = sputResource_Alloc(0x4655425a,(char *)(ref + -8)), pvVar4 != (void *)0x0)) {
-          Res_SetReference(piVar9,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x720);
+          Res_SetReference(piVar10,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x720);
         }
-        if ((*piVar9 != 0) && (Res_Touch((void *)ref[0xe]), *piVar9 == 0)) {
+        if ((*piVar10 != 0) && (Res_Touch((void *)ref[0xe]), *piVar10 == 0)) {
           (*g_pStd_HS->pAssertFail)
                     (s_Bad_ZBuffer_Reference_004ec614,s_main_sputResource_h_004e80a8,0x95);
         }
@@ -1044,20 +1045,20 @@ LAB_004a51bd:
       if (pvVar4 == (void *)0x0) {
         return 0;
       }
-      iVar5 = rdThing_New(0);
-      ref[-0x1d] = iVar5;
-      rdThing_SetCamera(iVar5,ref[-0x1e]);
+      puVar6 = (uint *)rdThing_New(0);
+      ref[-0x1d] = (int)puVar6;
+      rdThing_SetCamera(puVar6,ref[-0x1e]);
       rdMatrix_LookAt((float *)(ref + -0x1c),(float *)(ref + -0x28),(float *)(ref + -0x25),
                       ref[-0x22]);
       set = (void *)0x0;
       if (*(int *)((int)pvVar2 + 0xb8) != 0) {
         pvVar4 = (void *)((int)pvVar2 + 0xe8);
-        pfVar10 = (float *)((int)pvVar2 + 0x108);
+        pfVar11 = (float *)((int)pvVar2 + 0x108);
         do {
-          rdLight_SetAngles(pfVar10 + -8,*pfVar10,pfVar10[2]);
+          rdLight_SetAngles(pfVar11 + -8,*pfVar11,pfVar11[2]);
           rdCamera_AddLight((void *)ref[-0x1e],pvVar4,(float *)((int)pvVar4 + -0xc));
           set = (void *)((int)set + 1);
-          pfVar10 = pfVar10 + 0x1a;
+          pfVar11 = pfVar11 + 0x1a;
           pvVar4 = (void *)((int)pvVar4 + 0x68);
         } while (set < *(void **)((int)pvVar2 + 0xb8));
       }

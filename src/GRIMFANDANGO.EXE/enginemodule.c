@@ -27,11 +27,11 @@ undefined * __cdecl grimlib_GameInitialize(GrimServices *param_1,undefined **par
   param_2[7] = (undefined *)0x0;
   puVar1 = (undefined *)
            Engine_RegisterSubsystems
-                     (param_1,&PTR_FileUtil_SysInitialize_004e7dc0,&g_aGrimlib_Filenames,8);
+                     ((uint)param_1,(uint *)&PTR_FileUtil_SysInitialize_004e7dc0,((unsigned)(uintptr_t)&DAT_008a85f0),8);
   if (puVar1 == (undefined *)0x0) {
     puVar1 = (undefined *)
              Engine_RegisterSubsystems
-                       (param_1,&PTR_sputControl_Initialize_004e7e00,&g_aBaseModuleServices,6);
+                       ((uint)param_1,(uint *)&PTR_sputControl_Initialize_004e7e00,((unsigned)(uintptr_t)&DAT_008a8778),6);
   }
   g_dwSputmInitialize = (uint)(puVar1 == (undefined *)0x0);
   return puVar1;
@@ -53,8 +53,8 @@ undefined * grimlib_GameTerminate(void)
   g_pSputmHS = (GrimServices *)0x0;
   puVar1 = (undefined *)0x0;
   if (g_dwSputmInitialize != 0) {
-    Engine_ResetSubsystems(&g_aBaseModuleServices,6);
-    puVar1 = (undefined *)Engine_ResetSubsystems(&g_aGrimlib_Filenames,8);
+    Engine_ResetSubsystems(((unsigned)(uintptr_t)&DAT_008a8778),6);
+    puVar1 = (undefined *)Engine_ResetSubsystems(((unsigned)(uintptr_t)&DAT_008a85f0),8);
     g_dwSputmInitialize = 0;
   }
   return puVar1;
@@ -66,41 +66,42 @@ undefined * grimlib_GameTerminate(void)
    GrimFandango (Linux): the only unmatched caller of Plat_GetPhysicalMemory; 1 matched neighbours
    agree, 0 disagree); was EngineModule_Start. */
 
-int grimlib_GameStartup(void)
+int __cdecl grimlib_GameStartup(void)
 
 {
-  int iVar1;
-  uint budget;
+  uint uVar1;
+  int iVar2;
+  uint uVar3;
   
   if (g_dwSputmStartup != 0) {
     return 1;
   }
-  iVar1 = Engine_InitSubsystems(&g_aGrimlib_Filenames,8);
-  if (iVar1 == 0) {
-    iVar1 = DSound_Init();
-    if (iVar1 == 0) {
+  uVar1 = Engine_InitSubsystems(((unsigned)(uintptr_t)&DAT_008a85f0),8);
+  if (uVar1 == 0) {
+    iVar2 = DSound_Init();
+    if (iVar2 == 0) {
       return 1;
     }
-    iVar1 = stdPlatform_GetPhysicalRam();
-    if (iVar1 < 0x1000001) {
+    uVar1 = stdPlatform_GetPhysicalRam();
+    if ((int)uVar1 < 0x1000001) {
       iMUSE_DeclareBufferSizes(88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,6);
-      budget = 0xa00000;
+      uVar1 = 0xa00000;
     }
     else {
       iMUSE_DeclareBufferSizes(88000,44000,88000,440000,44000,0x55f00,100000,1,0xac44,2,300000,9);
-      iVar1 = stdPlatform_GetPhysicalRam();
-      budget = g_dwMax_ram;
-      if (iVar1 - (int)((unsigned)(uintptr_t)&DAT_00800000) <= (int)g_dwMax_ram) {
-        iVar1 = stdPlatform_GetPhysicalRam();
-        budget = iVar1 - 0x800000;
+      uVar3 = stdPlatform_GetPhysicalRam();
+      uVar1 = g_dwMax_ram;
+      if ((int)(uVar3 - 0x800000) <= (int)g_dwMax_ram) {
+        uVar1 = stdPlatform_GetPhysicalRam();
+        uVar1 = uVar1 - 0x800000;
       }
     }
-    sputResource_SetMemoryUsage(budget,0);
+    sputResource_SetMemoryUsage(uVar1,0);
     Sounds_PlatformDevice((int)g_pDirectSound);
-    iVar1 = Engine_InitSubsystems(&g_aBaseModuleServices,6);
+    uVar1 = Engine_InitSubsystems(((unsigned)(uintptr_t)&DAT_008a8778),6);
   }
-  g_dwSputmStartup = (uint)(iVar1 == 0);
-  return iVar1;
+  g_dwSputmStartup = (uint)(uVar1 == 0);
+  return uVar1;
 }
 
 /* ---- 0x00482cc0  grimlib_GameShutdown ---- */
@@ -115,9 +116,9 @@ undefined * grimlib_GameShutdown(void)
 {
   undefined *puVar1;
   
-  Engine_ShutdownSubsystems(&g_aBaseModuleServices,6);
+  Engine_ShutdownSubsystems(((unsigned)(uintptr_t)&DAT_008a8778),6);
   DSound_Shutdown();
-  puVar1 = (undefined *)Engine_ShutdownSubsystems(&g_aGrimlib_Filenames,8);
+  puVar1 = (undefined *)Engine_ShutdownSubsystems(((unsigned)(uintptr_t)&DAT_008a85f0),8);
   g_dwSputmStartup = 0;
   return puVar1;
 }

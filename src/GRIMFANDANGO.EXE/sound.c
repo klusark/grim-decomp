@@ -83,21 +83,21 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
                    uint param_6)
 
 {
-  undefined4 *puVar1;
+  int *piVar1;
   
   PositionedSounds_DropFinished();
-  puVar1 = (undefined4 *)Memory_AllocFixed(g_pSoundPool);
-  puVar1[1] = param_1;
-  *puVar1 = g_pSoundEventList;
-  puVar1[2] = *param_2;
-  puVar1[3] = param_2[1];
-  puVar1[4] = param_2[2];
-  puVar1[5] = param_3;
-  puVar1[6] = param_4;
-  puVar1[7] = param_5;
-  puVar1[8] = param_6;
-  g_pSoundEventList = puVar1;
-  return (undefined *)puVar1;
+  piVar1 = Memory_AllocFixed((int *)g_pSoundPool);
+  piVar1[1] = param_1;
+  *piVar1 = (int)g_pSoundEventList;
+  piVar1[2] = (int)*param_2;
+  piVar1[3] = (int)param_2[1];
+  piVar1[4] = (int)param_2[2];
+  piVar1[5] = param_3;
+  piVar1[6] = param_4;
+  piVar1[7] = param_5;
+  piVar1[8] = param_6;
+  g_pSoundEventList = piVar1;
+  return (undefined *)piVar1;
 }
 
 /* ---- 0x004a4e80  SetSoundPosition ---- */

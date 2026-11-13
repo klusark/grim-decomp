@@ -29,7 +29,7 @@ void PrimitiveList_InitGlobal(void)
 /* ---- 0x00489530  PrimitiveList_RegisterAtExit ---- */
 /* Registers PrimitiveList_AtExitClear with atexit (static destructor). */
 
-void PrimitiveList_RegisterAtExit(void)
+void __cdecl PrimitiveList_RegisterAtExit(void)
 
 {
   atexit(PrimitiveList_AtExitClear);
@@ -39,7 +39,7 @@ void PrimitiveList_RegisterAtExit(void)
 /* ---- 0x00489540  PrimitiveList_AtExitClear ---- */
 /* atexit handler: clears the global primitive list. */
 
-void PrimitiveList_AtExitClear(void)
+void __cdecl PrimitiveList_AtExitClear(void)
 
 {
   PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);

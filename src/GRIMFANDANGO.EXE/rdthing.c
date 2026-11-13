@@ -106,19 +106,19 @@ int __cdecl rdModel3_Draw(void *thing,float *position)
 
 
 /* ---- 0x00471a40  rdThing_New ---- */
-uint rdThing_New(undefined4 param_1)
+uint __cdecl rdThing_New(uint param_1)
 
 {
-  uint uVar1;
-  int iVar2;
+  uint *puVar1;
+  uint uVar2;
   
-  uVar1 = (*g_pRdroid_HS->pAlloc)(0x4c,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde0c + 3)
-  ;
-  if (uVar1 == 0) {
+  puVar1 = (uint *)(*g_pRdroid_HS->pAlloc)
+                             (0x4c,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde0c + 3);
+  if (puVar1 == (uint *)0x0) {
     return 0;
   }
-  iVar2 = rdThing_NewEntry(uVar1,param_1);
-  return -(uint)(iVar2 != 0) & uVar1;
+  uVar2 = rdThing_NewEntry(puVar1,param_1);
+  return -(uint)(uVar2 != 0) & (uint)puVar1;
 }
 
 /* ---- 0x00471a80  rdThing_NewEntry ---- */
@@ -126,7 +126,7 @@ uint rdThing_New(undefined4 param_1)
    name rdThing_NewEntry (the remaster's GrimFandango (Linux): same body (the same field defaults 4
    / 3 / 2, 4 / 3 / 2, 1, -1 / -1, the owner at +0x48)); was rdThing_Init. */
 
-undefined4 rdThing_NewEntry(undefined4 *param_1,undefined4 param_2)
+uint __cdecl rdThing_NewEntry(uint *param_1,uint param_2)
 
 {
   param_1[0xd] = 0xffffffff;
@@ -151,11 +151,11 @@ undefined4 rdThing_NewEntry(undefined4 *param_1,undefined4 param_2)
 }
 
 /* ---- 0x00471af0  rdThing_Free ---- */
-void rdThing_Free(int param_1)
+void __cdecl rdThing_Free(int param_1)
 
 {
   if (param_1 != 0) {
-    rdThing_FreeEntry(param_1);
+    rdThing_FreeEntry((int *)param_1);
     (*g_pRdroid_HS->pFree)(param_1);
   }
   return;
@@ -164,7 +164,7 @@ void rdThing_Free(int param_1)
 /* ---- 0x00471b10  rdThing_FreeEntry ---- */
 /* Type 1 (model) things free their puppet buffers */
 
-void rdThing_FreeEntry(int *param_1)
+void __cdecl rdThing_FreeEntry(int *param_1)
 
 {
   int track;
@@ -285,7 +285,7 @@ void __cdecl rdThing_SetModel3(void *thing,void *model)
 /* ---- 0x00471d40  rdThing_SetCamera ---- */
 /* Thing type 2 pointing at a sprite */
 
-undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2)
+uint __cdecl rdThing_SetCamera(uint *param_1,uint param_2)
 
 {
   *param_1 = 2;
@@ -296,7 +296,7 @@ undefined4 rdThing_SetCamera(undefined4 *param_1,undefined4 param_2)
 /* ---- 0x00471d60  rdThing_SetPolyline ---- */
 /* Thing type 4 pointing at a polyline */
 
-undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2)
+uint __cdecl rdThing_SetPolyline(uint *param_1,uint param_2)
 
 {
   *param_1 = 4;
@@ -313,7 +313,8 @@ undefined4 rdThing_SetPolyline(undefined4 *param_1,undefined4 param_2)
 int __cdecl rdThing_Draw(void *thing,float *frame)
 
 {
-  int iVar1;
+  uint uVar1;
+  int iVar2;
   
   if (g_nRdroid_curGeometryMode != 0) {
     switch(*(undefined4 *)thing) {
@@ -322,16 +323,16 @@ int __cdecl rdThing_Draw(void *thing,float *frame)
     case 3:
       return 0;
     case 1:
-      iVar1 = rdModel3_Draw(thing,frame);
-      return iVar1;
+      iVar2 = rdModel3_Draw(thing,frame);
+      return iVar2;
     case 4:
-      iVar1 = rdSprite_Draw(thing,frame);
-      return iVar1;
+      uVar1 = rdSprite_Draw((int)thing,frame);
+      return uVar1;
     case 5:
-      iVar1 = rdSprite_DrawThing(thing,frame);
-      return iVar1;
+      iVar2 = rdSprite_DrawThing(thing,frame);
+      return iVar2;
     case 6:
-      thing = (void *)rdPolyline_Draw(thing,frame);
+      thing = (void *)rdPolyline_Draw((int)thing,frame);
     }
     return (int)thing;
   }
@@ -345,7 +346,7 @@ int __cdecl rdThing_Draw(void *thing,float *frame)
    Multiply34 into the node matrix, recurse into the children not yet done)); was
    rdThing_BuildNodeMatrix. */
 
-void rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3)
+void __cdecl rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -373,7 +374,8 @@ void rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3)
       do {
         if (*(int *)(*(int *)(param_1 + 0x28) + *(int *)(iVar2 + 0x44) * 4) == 0) {
           rdThing_AccumulateMatrices
-                    (param_1,iVar2,*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20));
+                    (param_1,iVar2,
+                     (float *)(*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20)));
         }
         iVar2 = *(int *)(iVar2 + 0x60);
         uVar1 = uVar1 + 1;

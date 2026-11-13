@@ -9,12 +9,12 @@
 /* Queries IDirect3D from DirectDraw and enumerates the 3D drivers into g_D3dDrivers (0x22c bytes
    each) */
 
-undefined4 D3D_Enumerate(void)
+uint __cdecl D3D_Enumerate(void)
 
 {
   int iVar1;
   
-  PTR_00806968 = (int *)DDraw_Get();
+  PTR_00806968 = DDraw_Get();
   if (PTR_00806968 == (int *)0x0) {
     return 0;
   }
@@ -37,7 +37,7 @@ undefined4 D3D_Enumerate(void)
 }
 
 /* ---- 0x004782b0  D3D_Release ---- */
-void D3D_Release(void)
+void __cdecl D3D_Release(void)
 
 {
   if (g_pDirect3D != (void *)0x0) {
@@ -48,7 +48,7 @@ void D3D_Release(void)
 }
 
 /* ---- 0x004782d0  D3D_IsAvailable ---- */
-uint D3D_IsAvailable(void)
+uint __cdecl D3D_IsAvailable(void)
 
 {
   return UINT_0080696c;
@@ -62,16 +62,14 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  uint uVar2;
+  uint uVar1;
+  int iVar2;
   undefined4 *puVar3;
   undefined4 *puVar4;
   #define pvStack_ac (*(void **)(_frame + (0xc0 - 0xac)))
   #define pcStack_a8 (*(code_std **)(_frame + (0xc0 - 0xa8)))
   #define uStack_a4 (*(undefined4 *)(_frame + (0xc0 - 0xa4)))
   #define piStack_a0 (*(int **)(_frame + (0xc0 - 0xa0)))
-  #define iStack_9c (*(int *)(_frame + (0xc0 - 0x9c)))
-  #define ppvStack_98 (*(void ***)(_frame + (0xc0 - 0x98)))
   #define uStack_74 (*(undefined4 *)(_frame + (0xc0 - 0x74)))
   #define uStack_70 (*(undefined4 *)(_frame + (0xc0 - 0x70)))
   #define auStack_60 (*(undefined4 (*)[24])(_frame + (0xc0 - 0x60)))
@@ -90,40 +88,36 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   }
   else {
     UINT_004dee60 = 1;
-    ppvStack_98 = *(void ***)((int)g_pVideoMode + 0xc);
-    iStack_9c = *(undefined4 *)((int)g_pVideoMode + 8);
     piStack_a0 = (int *)0x478388;
-    iVar1 = ((code *)D3D_CreateZBuffer)();
-    if (iVar1 == 0) {
+    uVar1 = D3D_CreateZBuffer(*(int *)((int)g_pVideoMode + 8),*(int *)((int)g_pVideoMode + 0xc));
+    if (uVar1 == 0) {
       return 0;
     }
     UINT_00900534 = (-(uint)((*(uint *)((int)g_pStd3D_CurDevice + 0x2c) & 0x10) != 0) & 0xe) + 2;
   }
-  iStack_9c = (int)g_pStd3D_CurDevice + 0x21c;
-  ppvStack_98 = &g_pD3dDevice;
   piStack_a0 = PTR_00905644;
   uStack_a4 = 0x4783ca;
-  iVar1 = (**(code_std **)*PTR_00905644)();
-  if (iVar1 != 0) {
+  iVar2 = (**(code_std **)*PTR_00905644)();
+  if (iVar2 != 0) {
     return 0;
   }
   UINT_00806930 = 0;
   uStack_a4 = 0;
   pcStack_a8 = D3D_EnumTextureFormatsCallback;
   pvStack_ac = g_pD3dDevice;
-  iVar1 = (**(code_std **)(*(int *)g_pD3dDevice + 0x38))();
-  if (iVar1 != 0) {
+  iVar2 = (**(code_std **)(*(int *)g_pD3dDevice + 0x38))();
+  if (iVar2 != 0) {
     return 0;
   }
   if (UINT_00806930 == 0) {
     return 0;
   }
-  iVar1 = D3D_CreateViewport(*(uint *)((int)g_pVideoMode + 8),*(uint *)((int)g_pVideoMode + 0xc));
-  if (iVar1 == 0) {
+  iVar2 = D3D_CreateViewport(*(uint *)((int)g_pVideoMode + 8),*(uint *)((int)g_pVideoMode + 0xc));
+  if (iVar2 == 0) {
     return 0;
   }
-  uVar2 = D3D_InitRenderState();
-  if (uVar2 == 0) {
+  uVar1 = D3D_InitRenderState();
+  if (uVar1 == 0) {
     return 0;
   }
   _DAT_008063fc = *(int *)((int)g_pStd3D_CurDevice + 0x40);
@@ -147,29 +141,27 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
              *(int *)((int)g_pStd3D_CurDevice + 0x38),*(int *)((int)g_pStd3D_CurDevice + 0x3c));
   g_pD3dTextureList = (void *)0x0;
   PTR_0080694c = (void *)0x0;
-  _DAT_00900568 = D3D_FindTextureFormat((int)g_pVideoMode + 0x1c,&DAT_00900620,UINT_00806930);
+  _DAT_00900568 = D3D_FindTextureFormat((int *)((int)g_pVideoMode + 0x1c),((unsigned)(uintptr_t)&DAT_00900620),UINT_00806930);
   UINT_00806934 = (uint)(&DAT_00900620 + _DAT_00900568 * 0xa4);
   if (*(int *)((int)g_pStd3D_CurDevice + 0x10) != 0) {
     pvStack_ac = (void *)0x2;
     pcStack_a8 = (code *)0x10;
     uStack_a4 = 5;
     piStack_a0 = (int *)0x5;
-    iStack_9c = 5;
-    _DAT_009014d8 = D3D_FindTextureFormat(&pvStack_ac,&DAT_00900620,UINT_00806930);
+    _DAT_009014d8 = D3D_FindTextureFormat((int *)&pvStack_ac,((unsigned)(uintptr_t)&DAT_00900620),UINT_00806930);
     UINT_00806938 = (uint)(&DAT_00900620 + _DAT_009014d8 * 0xa4);
     if (*(int *)((int)g_pStd3D_CurDevice + 0x18) == 0) {
       pvStack_ac = (void *)0x2;
       pcStack_a8 = (code *)0x10;
       uStack_a4 = 4;
       piStack_a0 = (int *)0x4;
-      iStack_9c = 4;
-      _DAT_0090052c = D3D_FindTextureFormat(&pvStack_ac,&DAT_00900620,UINT_00806930);
+      _DAT_0090052c = D3D_FindTextureFormat((int *)&pvStack_ac,((unsigned)(uintptr_t)&DAT_00900620),UINT_00806930);
       uStack_74 = 0x20;
       uStack_70 = 0x20;
       UINT_0080693c = (uint)(&DAT_00900620 + _DAT_0090052c * 0xa4);
       puVar3 = (undefined4 *)UINT_0080693c;
       puVar4 = auStack_60;
-      for (iVar1 = 0xe; iVar1 != 0; iVar1 = iVar1 + -1) {
+      for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
         *puVar4 = *puVar3;
         puVar3 = puVar3 + 1;
         puVar4 = puVar4 + 1;
@@ -177,15 +169,13 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
       UINT_00806950 = (uint)stdDisplay_VBufferNew(&uStack_74,1,0,0);
     }
   }
-  ((code *)D3D_SetVertexLimit)((int)g_pStd3D_CurDevice + 0x148,(int)g_pStd3D_CurDevice + 0x14c);
+  D3D_SetVertexLimit();
   UINT_00806970 = 1;
   return 1;
 }
 #undef auStack_60
-#undef iStack_9c
 #undef pcStack_a8
 #undef piStack_a0
-#undef ppvStack_98
 #undef pvStack_ac
 #undef uStack_70
 #undef uStack_74
@@ -193,7 +183,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
 
 
 /* ---- 0x00478660  D3D_ReleaseDriver ---- */
-void D3D_ReleaseDriver(void)
+void __cdecl D3D_ReleaseDriver(void)
 
 {
   if (UINT_00806970 != 0) {
@@ -242,7 +232,7 @@ void __cdecl D3D_SetTextureLimits(int minW,int minH,int maxSize,int d)
 /* Original name std3D_StartScene (the remaster's GrimFandango (Linux): the only call of
    rdCache_AdvanceFrame (hardware path); the remaster's is a stub); was D3D_BeginScene. */
 
-void std3D_StartScene(void)
+void __cdecl std3D_StartScene(void)
 
 {
   if (UINT_00806974 == 0) {
@@ -257,7 +247,7 @@ void std3D_StartScene(void)
    rdCache_FinishFrame (with acceleration) in both builds; the remaster's is a stub of its platform
    layer, named by the slot as orig-4 did for std3D_StartScene); was D3D_EndScene. */
 
-void std3D_EndScene(void)
+void __cdecl std3D_EndScene(void)
 
 {
   if (UINT_00806974 != 0) {
@@ -268,7 +258,7 @@ void std3D_EndScene(void)
 }
 
 /* ---- 0x00478770  D3D_BeginExecuteBuffer ---- */
-undefined4 D3D_BeginExecuteBuffer(void)
+uint __cdecl D3D_BeginExecuteBuffer(void)
 
 {
   int iVar1;
@@ -323,7 +313,7 @@ int __cdecl std3D_AddRenderListVertices(void *verts,uint count)
    std3D_RenderListVerticesFinish (the remaster's GrimFandango (Linux): aligned call in
    rdCache_DrawRenderList); was D3D_BeginInstructions. */
 
-undefined4 std3D_RenderListVerticesFinish(void)
+uint __cdecl std3D_RenderListVerticesFinish(void)
 
 {
   UINT_0080691c = (uint)PTR_00806918;
@@ -478,7 +468,7 @@ int __cdecl std3D_DrawRenderList(void)
 void __cdecl D3D_SetRenderFlags(uint flags)
 
 {
-  int iVar1;
+  uint uVar1;
   
   if (UINT_00806924 != flags) {
     if (((flags ^ UINT_00806924) & 0x8000) != 0) {
@@ -550,8 +540,8 @@ void __cdecl D3D_SetRenderFlags(uint flags)
         PTR_00806918[1] = 8;
       }
       else {
-        iVar1 = D3D_FilterBitsToEnum(UINT_00900534);
-        PTR_00806918[1] = iVar1;
+        uVar1 = D3D_FilterBitsToEnum((byte)UINT_00900534);
+        PTR_00806918[1] = uVar1;
       }
       PTR_00806918 = PTR_00806918 + 2;
       *PTR_00806918 = 0xe;
@@ -604,7 +594,7 @@ void __cdecl D3D_SetRenderFlags(uint flags)
 /* Original name std3D_GetValidDimensions (the remaster's GrimFandango (Linux): aligned call in
    rdCache_SendFaceListToHardware); was D3D_ClampTextureSize. */
 
-void std3D_GetValidDimensions(uint param_1,uint param_2,uint *param_3,uint *param_4)
+void __cdecl std3D_GetValidDimensions(uint param_1,uint param_2,uint *param_3,uint *param_4)
 
 {
   if (param_1 == 0) {
@@ -646,7 +636,7 @@ void std3D_GetValidDimensions(uint param_1,uint param_2,uint *param_3,uint *para
    remaster's GrimFandango (Linux): aligned call in rdCache_SendFaceListToHardware); was
    D3D_ResetTextures. */
 
-void std3D_PurgeTextureCache(void)
+void __cdecl std3D_PurgeTextureCache(void)
 
 {
   while (g_pD3dTextureList != (void *)0x0) {
@@ -1034,7 +1024,7 @@ LAB_0047940a:
 
 
 /* ---- 0x00479860  D3D_FreeAllTextures ---- */
-void D3D_FreeAllTextures(void)
+void __cdecl D3D_FreeAllTextures(void)
 
 {
   int *piVar1;
@@ -1069,7 +1059,7 @@ void D3D_FreeAllTextures(void)
 }
 
 /* ---- 0x004798e0  D3D_LinkTexture ---- */
-void D3D_LinkTexture(void *param_1)
+void __cdecl D3D_LinkTexture(void *param_1)
 
 {
   if (g_pD3dTextureList == (void *)0x0) {
@@ -1091,7 +1081,7 @@ void D3D_LinkTexture(void *param_1)
 }
 
 /* ---- 0x00479950  D3D_UnlinkTexture ---- */
-void D3D_UnlinkTexture(void *param_1)
+void __cdecl D3D_UnlinkTexture(void *param_1)
 
 {
   void *pvVar1;
@@ -1126,7 +1116,7 @@ void D3D_UnlinkTexture(void *param_1)
 }
 
 /* ---- 0x00479a00  D3D_SetVertexLimit ---- */
-undefined4 D3D_SetVertexLimit(void)
+uint __cdecl D3D_SetVertexLimit(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1163,12 +1153,12 @@ undefined4 D3D_SetVertexLimit(void)
 /* Original name std3D_UpdateFrameCount (the remaster's GrimFandango (Linux): aligned call in
    rdMaterial_AddToTextureCache); was D3D_TouchTexture. */
 
-void std3D_UpdateFrameCount(int param_1)
+void __cdecl std3D_UpdateFrameCount(int param_1)
 
 {
   *(uint *)(param_1 + 0x8c) = UINT_004dee58;
-  D3D_UnlinkTexture(param_1);
-  D3D_LinkTexture(param_1);
+  D3D_UnlinkTexture((void *)param_1);
+  D3D_LinkTexture((void *)param_1);
   return;
 }
 
@@ -1176,7 +1166,7 @@ void std3D_UpdateFrameCount(int param_1)
 /* Original name std3D_ClearZBuffer (the remaster's GrimFandango (Linux): the hardware call of
    rdCamera_AdvanceFrame; the remaster's is a stub); was D3D_ClearZBuffer. */
 
-undefined4 std3D_ClearZBuffer(void)
+uint __cdecl std3D_ClearZBuffer(void)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1220,7 +1210,7 @@ undefined4 std3D_ClearZBuffer(void)
 
 
 /* ---- 0x00479b50  D3D_FindClosestDriver ---- */
-uint D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
+uint __cdecl D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1261,7 +1251,7 @@ uint D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
 
 
 /* ---- 0x00479be0  D3D_FindTextureFormat ---- */
-uint D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
+uint __cdecl D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1320,7 +1310,7 @@ uint D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
 /* ---- 0x00479cc0  D3D_SetViewportRect ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void D3D_SetViewportRect(uint *param_1)
+void __cdecl D3D_SetViewportRect(uint *param_1)
 
 {
   uint uVar1;
@@ -1373,14 +1363,13 @@ uint __cdecl D3D_InitRenderState(void)
   unsigned char _stkneg[112] __attribute__((aligned(16)));  /* the original frame below the return address */
   uint uVar1;
   uint uVar2;
-  undefined4 uVar3;
-  int iVar4;
+  int iVar3;
   int *unaff_EDI;
-  undefined4 *puVar5;
-  uint *puVar6;
-  bool bVar7;
+  undefined4 *puVar4;
+  uint *puVar5;
+  bool bVar6;
+  uint *puVar7;
   uint *puVar8;
-  uint *puVar9;
   #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
   #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
   #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
@@ -1389,20 +1378,20 @@ uint __cdecl D3D_InitRenderState(void)
   #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
   
   local_3c = 0;
-  puVar9 = &local_4c;
+  puVar8 = &local_4c;
   local_34 = 0;
-  puVar8 = &local_44;
+  puVar7 = &local_44;
   local_4c = 0;
   local_44 = 0x14;
   local_40 = 1;
   local_38 = 0x1000;
-  (**(code_std **)(*(int *)g_pD3dDevice + 0x18))(g_pD3dDevice,puVar8,puVar9,0);
+  (**(code_std **)(*(int *)g_pD3dDevice + 0x18))(g_pD3dDevice,puVar7,puVar8,0);
   (**(code_std **)(*unaff_EDI + 0x10))(unaff_EDI,(_stkneg + 28));
-  uVar2 = local_4c;
-  puVar5 = (undefined4 *)local_4c;
-  for (iVar4 = 0x400; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar5 = 0;
-    puVar5 = puVar5 + 1;
+  uVar1 = local_4c;
+  puVar4 = (undefined4 *)local_4c;
+  for (iVar3 = 0x400; iVar3 != 0; iVar3 = iVar3 + -1) {
+    *puVar4 = 0;
+    puVar4 = puVar4 + 1;
   }
   *(undefined1 *)local_4c = 8;
   *(undefined1 *)(local_4c + 1) = 8;
@@ -1432,9 +1421,9 @@ uint __cdecl D3D_InitRenderState(void)
     *(undefined4 *)(local_4c + 0x58) = 1;
   }
   else {
-    uVar1 = g_dwD3dRenderFlags & 0x400;
+    uVar2 = g_dwD3dRenderFlags & 0x400;
     *(undefined4 *)(local_4c + 0x44) = 0x15;
-    if (uVar1 == 0) {
+    if (uVar2 == 0) {
       *(undefined4 *)(local_4c + 0x48) = 2;
     }
     else {
@@ -1448,61 +1437,61 @@ uint __cdecl D3D_InitRenderState(void)
   *(undefined4 *)(local_4c + 0x5c) = 0xf;
   *(undefined4 *)(local_4c + 0x60) = 1;
   *(undefined4 *)(local_4c + 100) = 0x19;
-  uVar3 = D3D_FilterBitsToEnum(UINT_00900534);
-  *(undefined4 *)(uVar2 + 0x68) = uVar3;
-  iVar4 = *(int *)((int)g_pStd3D_CurDevice + 0x14);
-  *(undefined4 *)(uVar2 + 0x6c) = 0x21;
-  if (iVar4 == 0) {
-    *(undefined4 *)(uVar2 + 0x70) = 0;
+  uVar2 = D3D_FilterBitsToEnum((byte)UINT_00900534);
+  *(uint *)(uVar1 + 0x68) = uVar2;
+  iVar3 = *(int *)((int)g_pStd3D_CurDevice + 0x14);
+  *(undefined4 *)(uVar1 + 0x6c) = 0x21;
+  if (iVar3 == 0) {
+    *(undefined4 *)(uVar1 + 0x70) = 0;
   }
   else {
-    *(undefined4 *)(uVar2 + 0x70) = 1;
+    *(undefined4 *)(uVar1 + 0x70) = 1;
   }
-  *(undefined4 *)(uVar2 + 0x74) = 9;
-  *(undefined4 *)(uVar2 + 0x78) = 2;
-  *(undefined4 *)(uVar2 + 0x7c) = 0xb;
-  *(uint *)(uVar2 + 0x80) = ~g_dwD3dRenderFlags >> 0xf & 1;
-  *(undefined4 *)(uVar2 + 0x84) = 0x1d;
-  *(uint *)(uVar2 + 0x88) = g_dwD3dRenderFlags >> 2 & 1;
-  *(undefined4 *)(uVar2 + 0x8c) = 0x1c;
-  *(uint *)(uVar2 + 0x90) = g_dwD3dRenderFlags >> 6 & 1;
-  *(undefined4 *)(uVar2 + 0x94) = 8;
-  *(undefined4 *)(uVar2 + 0x98) = 3;
-  *(undefined4 *)(uVar2 + 0x9c) = 0x1a;
-  *(uint *)(uVar2 + 0xa0) = g_dwD3dRenderFlags >> 1 & 1;
-  *(undefined4 *)(uVar2 + 0xa4) = 2;
-  *(uint *)(uVar2 + 0xa8) = g_dwD3dRenderFlags >> 3 & 1;
-  bVar7 = UINT_004dee60 == 0;
-  *(undefined4 *)(uVar2 + 0xac) = 7;
-  if (bVar7) {
-    *(undefined4 *)(uVar2 + 0xb0) = 0;
-    *(undefined4 *)(uVar2 + 0xb4) = 0xe;
-    *(undefined4 *)(uVar2 + 0xb8) = 0;
-    *(undefined4 *)(uVar2 + 0xbc) = 0x17;
+  *(undefined4 *)(uVar1 + 0x74) = 9;
+  *(undefined4 *)(uVar1 + 0x78) = 2;
+  *(undefined4 *)(uVar1 + 0x7c) = 0xb;
+  *(uint *)(uVar1 + 0x80) = ~g_dwD3dRenderFlags >> 0xf & 1;
+  *(undefined4 *)(uVar1 + 0x84) = 0x1d;
+  *(uint *)(uVar1 + 0x88) = g_dwD3dRenderFlags >> 2 & 1;
+  *(undefined4 *)(uVar1 + 0x8c) = 0x1c;
+  *(uint *)(uVar1 + 0x90) = g_dwD3dRenderFlags >> 6 & 1;
+  *(undefined4 *)(uVar1 + 0x94) = 8;
+  *(undefined4 *)(uVar1 + 0x98) = 3;
+  *(undefined4 *)(uVar1 + 0x9c) = 0x1a;
+  *(uint *)(uVar1 + 0xa0) = g_dwD3dRenderFlags >> 1 & 1;
+  *(undefined4 *)(uVar1 + 0xa4) = 2;
+  *(uint *)(uVar1 + 0xa8) = g_dwD3dRenderFlags >> 3 & 1;
+  bVar6 = UINT_004dee60 == 0;
+  *(undefined4 *)(uVar1 + 0xac) = 7;
+  if (bVar6) {
+    *(undefined4 *)(uVar1 + 0xb0) = 0;
+    *(undefined4 *)(uVar1 + 0xb4) = 0xe;
+    *(undefined4 *)(uVar1 + 0xb8) = 0;
+    *(undefined4 *)(uVar1 + 0xbc) = 0x17;
   }
   else {
-    *(undefined4 *)(uVar2 + 0xb0) = 1;
-    *(undefined4 *)(uVar2 + 0xb4) = 0xe;
-    *(undefined4 *)(uVar2 + 0xb8) = 1;
-    *(undefined4 *)(uVar2 + 0xbc) = 0x17;
+    *(undefined4 *)(uVar1 + 0xb0) = 1;
+    *(undefined4 *)(uVar1 + 0xb4) = 0xe;
+    *(undefined4 *)(uVar1 + 0xb8) = 1;
+    *(undefined4 *)(uVar1 + 0xbc) = 0x17;
   }
-  uVar3 = D3D_FilterBitsToEnum(UINT_00900534);
-  *(undefined4 *)(uVar2 + 0xc0) = uVar3;
-  *(undefined4 *)(uVar2 + 0xc4) = 0x16;
-  *(undefined4 *)(uVar2 + 200) = 1;
-  *(undefined1 *)(uVar2 + 0xcc) = 0xb;
-  *(undefined1 *)(uVar2 + 0xcd) = 0;
-  *(undefined2 *)(uVar2 + 0xce) = 0;
-  (**(code_std **)(*puVar9 + 0x14))(puVar9);
-  puVar6 = &local_4c;
-  for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar6 = 0;
-    puVar6 = puVar6 + 1;
+  uVar2 = D3D_FilterBitsToEnum((byte)UINT_00900534);
+  *(uint *)(uVar1 + 0xc0) = uVar2;
+  *(undefined4 *)(uVar1 + 0xc4) = 0x16;
+  *(undefined4 *)(uVar1 + 200) = 1;
+  *(undefined1 *)(uVar1 + 0xcc) = 0xb;
+  *(undefined1 *)(uVar1 + 0xcd) = 0;
+  *(undefined2 *)(uVar1 + 0xce) = 0;
+  (**(code_std **)(*puVar8 + 0x14))(puVar8);
+  puVar5 = &local_4c;
+  for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
+    *puVar5 = 0;
+    puVar5 = puVar5 + 1;
   }
-  local_3c = (uVar2 + 0xd0) - (int)puVar9;
+  local_3c = (uVar1 + 0xd0) - (int)puVar8;
   local_4c = 0x30;
   local_40 = 0;
-  (**(code_std **)(*puVar8 + 0x18))(puVar8,&local_4c);
+  (**(code_std **)(*puVar7 + 0x18))(puVar7,&local_4c);
   (**(code_std **)(*(int *)g_pD3dDevice + 0x4c))(g_pD3dDevice);
   (**(code_std **)(*(int *)g_pD3dDevice + 0x20))(g_pD3dDevice,unaff_EDI,PTR_0080660c);
   (**(code_std **)(*(int *)g_pD3dDevice + 0x50))(g_pD3dDevice);
@@ -1597,7 +1586,7 @@ undefined4 __cdecl D3D_CreateViewport(uint width,uint height)
 /* ---- 0x0047a240  D3D_CreateZBuffer ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 D3D_CreateZBuffer(int param_1,int param_2)
+uint __cdecl D3D_CreateZBuffer(int param_1,int param_2)
 
 {
   int iVar1;
@@ -1712,10 +1701,10 @@ undefined * __stdcall D3D_EnumDevicesCallback(int a1,int a2,int a3,int a4,int a5
     }
     *(undefined4 *)(&DAT_00900b58 + iVar1) = uVar5;
     *(uint *)(&DAT_00900b4c + iVar1) = uVar3 >> 3 & 1;
-    uVar5 = D3D_CapsToFilterBits(*(undefined4 *)(&DAT_00900d2c + iVar1));
-    *(undefined4 *)(&DAT_00900b68 + iVar1) = uVar5;
-    uVar5 = D3D_FilterBitsToMask(*(undefined4 *)(&DAT_00900d00 + iVar1));
-    *(undefined4 *)(&DAT_00900b6c + iVar1) = uVar5;
+    uVar3 = D3D_CapsToFilterBits(*(uint *)(&DAT_00900d2c + iVar1));
+    *(uint *)(&DAT_00900b68 + iVar1) = uVar3;
+    uVar3 = D3D_FilterBitsToMask((byte)*(undefined4 *)(&DAT_00900d00 + iVar1));
+    *(uint *)(&DAT_00900b6c + iVar1) = uVar3;
     uVar3 = *(uint *)(&DAT_00900d3c + iVar1);
     if (uVar3 < 5) {
       uVar3 = 4;
@@ -1884,7 +1873,7 @@ LAB_0047a825:
 }
 
 /* ---- 0x0047a850  D3D_CapsToFilterBits ---- */
-uint D3D_CapsToFilterBits(uint param_1)
+uint __cdecl D3D_CapsToFilterBits(uint param_1)
 
 {
   byte bVar1;
@@ -1908,11 +1897,11 @@ uint D3D_CapsToFilterBits(uint param_1)
   if ((param_1 & 0x100) != 0) {
     bVar1 = bVar1 | 0x40;
   }
-  return bVar1;
+  return (uint)bVar1;
 }
 
 /* ---- 0x0047a890  D3D_FilterBitsToMask ---- */
-uint D3D_FilterBitsToMask(byte param_1)
+uint __cdecl D3D_FilterBitsToMask(byte param_1)
 
 {
   byte bVar1;
@@ -1939,11 +1928,11 @@ uint D3D_FilterBitsToMask(byte param_1)
   if ((param_1 & 0x80) != 0) {
     bVar1 = bVar1 | 0x80;
   }
-  return bVar1;
+  return (uint)bVar1;
 }
 
 /* ---- 0x0047a8e0  D3D_FilterBitsToEnum ---- */
-uint D3D_FilterBitsToEnum(byte param_1)
+uint __cdecl D3D_FilterBitsToEnum(byte param_1)
 
 {
   byte bVar1;
@@ -1970,7 +1959,7 @@ uint D3D_FilterBitsToEnum(byte param_1)
   if ((param_1 & 0x80) != 0) {
     bVar1 = bVar1 | 8;
   }
-  return bVar1;
+  return (uint)bVar1;
 }
 
 /* ---- 0x0047a930  D3D_EvictTexture ---- */

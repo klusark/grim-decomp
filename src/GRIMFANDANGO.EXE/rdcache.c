@@ -510,8 +510,8 @@ LAB_00406d8d:
         }
         local_40 = (uint)(material + iVar11);
         std3D_GetValidDimensions
-                  (*(undefined4 *)(material[uVar15 + 7] + 0xc),
-                   *(undefined4 *)(material[uVar15 + 7] + 0x10),&local_38,&local_3c);
+                  (*(uint *)(material[uVar15 + 7] + 0xc),*(uint *)(material[uVar15 + 7] + 0x10),
+                   &local_38,&local_3c);
         local_7c[0] = (float)(local_38 << ((byte)uVar15 & 0x1f));
         local_7c[1] = (float)(local_3c << ((byte)uVar15 & 0x1f));
       }
@@ -1997,14 +1997,14 @@ LAB_00408b6e:
             rdZRaster_DrawNGonLAT((int)pvVar4,(int)pbVar10);
             return 1;
           }
-          ((code *)rdZRaster_DrawNGonTLAT)();
+          rdZRaster_DrawNGonTLAT((int)pvVar4,(int)pbVar10);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMLAT(pvVar4,pbVar10);
+          rdZRaster_DrawNGonMLAT((int)pvVar4,(int)pbVar10);
           return 1;
         }
-        ((code *)rdZRaster_DrawNGonMTLAT)();
+        rdZRaster_DrawNGonMTLAT((int)pvVar4,(int)pbVar10);
         return 1;
       case 1:
         if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
@@ -2034,14 +2034,14 @@ LAB_00408b6e:
             rdZRaster_DrawNGonFAT((int)pvVar4,(int)pbVar10,fVar11);
             return 1;
           }
-          rdZRaster_DrawNGonTFAT(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFAT((int)pvVar4,(int)pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFAT(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFAT((int)pvVar4,(int)pbVar10,fVar11);
           return 1;
         }
-        rdZRaster_DrawNGonMTFAT(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFAT((int)pvVar4,(int)pbVar10,fVar11);
         return 1;
       case 2:
         fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
@@ -2072,14 +2072,14 @@ LAB_00408b6e:
             rdZRaster_DrawNGonFAT((int)pvVar4,(int)pbVar10,fVar11);
             return 1;
           }
-          rdZRaster_DrawNGonTFAT(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFAT((int)pvVar4,(int)pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFAT(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFAT((int)pvVar4,(int)pbVar10,fVar11);
           return 1;
         }
-        rdZRaster_DrawNGonMTFAT(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFAT((int)pvVar4,(int)pbVar10,fVar11);
         return 1;
       case 3:
         uVar6 = 0;
@@ -2115,14 +2115,14 @@ LAB_00408b6e:
         }
         if ((**(byte **)(pbVar10 + 0x1c) & 1) != 0) {
           if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonMGAT(pvVar4,pbVar10);
+            rdZRaster_DrawNGonMGAT((int)pvVar4,(int)pbVar10);
             return 1;
           }
-          ((code *)rdZRaster_DrawNGonMTGAT)();
+          rdZRaster_DrawNGonMTGAT((int)pvVar4,(int)pbVar10);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-          ((code *)rdZRaster_DrawNGonTGAT)();
+          rdZRaster_DrawNGonTGAT((int)pvVar4,(int)pbVar10);
           return 1;
         }
         rdZRaster_DrawNGonGAT((int)pvVar4,(int)pbVar10);
@@ -2136,14 +2136,14 @@ LAB_00408b6e:
             rdZRaster_DrawNGonLIT((int)pvVar4,(int)pbVar10);
             return 1;
           }
-          ((code *)rdZRaster_DrawNGonTLIT)();
+          rdZRaster_DrawNGonTLIT((int)pvVar4,(int)pbVar10);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMLIT(pvVar4,pbVar10);
+          rdZRaster_DrawNGonMLIT((int)pvVar4,(int)pbVar10);
           return 1;
         }
-        ((code *)rdZRaster_DrawNGonMTLIT)();
+        rdZRaster_DrawNGonMTLIT((int)pvVar4,(int)pbVar10);
         return 1;
       case 1:
         if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
@@ -2173,14 +2173,14 @@ LAB_00408b6e:
             rdZRaster_DrawNGonFIT((int)pvVar4,(int)pbVar10,fVar11);
             return 1;
           }
-          rdZRaster_DrawNGonTFIT(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFIT((int)pvVar4,(int)pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFIT(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFIT((int)pvVar4,(int)pbVar10,fVar11);
           return 1;
         }
-        rdZRaster_DrawNGonMTFIT(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFIT((int)pvVar4,(int)pbVar10,fVar11);
         return 1;
       case 2:
         fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
@@ -2211,14 +2211,14 @@ LAB_00408b6e:
             rdZRaster_DrawNGonFIT((int)pvVar4,(int)pbVar10,fVar11);
             return 1;
           }
-          rdZRaster_DrawNGonTFIT(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonTFIT((int)pvVar4,(int)pbVar10,fVar11);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFIT(pvVar4,pbVar10,fVar11);
+          rdZRaster_DrawNGonMFIT((int)pvVar4,(int)pbVar10,fVar11);
           return 1;
         }
-        rdZRaster_DrawNGonMTFIT(pvVar4,pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFIT((int)pvVar4,(int)pbVar10,fVar11);
         return 1;
       case 3:
         uVar6 = 0;
@@ -2257,14 +2257,14 @@ LAB_00408b6e:
             rdZRaster_DrawNGonGIT((int)pvVar4,(int)pbVar10);
             return 1;
           }
-          ((code *)rdZRaster_DrawNGonTGIT)();
+          rdZRaster_DrawNGonTGIT((int)pvVar4,(int)pbVar10);
           return 1;
         }
         if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMGIT(pvVar4,pbVar10);
+          rdZRaster_DrawNGonMGIT((int)pvVar4,(int)pbVar10);
           return 1;
         }
-        ((code *)rdZRaster_DrawNGonMTGIT)();
+        rdZRaster_DrawNGonMTGIT((int)pvVar4,(int)pbVar10);
         return 1;
       }
     }

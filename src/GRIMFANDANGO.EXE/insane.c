@@ -189,7 +189,7 @@ undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  undefined4 uVar2;
+  ushort *puVar2;
   int iVar3;
   int iVar4;
   int iVar5;
@@ -238,18 +238,18 @@ undefined4 Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
     }
     iVar4 = (iVar6 / iVar5) * param_2[3];
     iVar6 = param_1[5];
-    uVar2 = *param_2;
+    puVar2 = (ushort *)*param_2;
     iVar5 = param_1[3] * uVar9 * iVar5 + uVar8 * iVar7 * iVar6 + *param_1;
     if ((_g_bMovieFlags & 4) == 0) {
       if ((_g_bMovieFlags & 2) == 0) {
-        Insane_BlitRows16(uVar2,param_2[5],iVar5,iVar6,iVar4,iVar3 / iVar7);
+        Insane_BlitRows16(puVar2,param_2[5],iVar5,iVar6,iVar4,iVar3 / iVar7);
       }
       else {
-        ((code *)Insane_BlitRowsDual)(uVar2);
+        ((code *)Insane_BlitRowsDual)(puVar2);
       }
     }
     else {
-      ((code *)Insane_Blit8To16Doubled)(uVar2,param_2[5],iVar5,iVar6,iVar4,iVar3 / iVar7);
+      ((code *)Insane_Blit8To16Doubled)(puVar2,param_2[5],iVar5,iVar6,iVar4,iVar3 / iVar7);
     }
   }
   _DAT_008d16ac = 0;
@@ -339,7 +339,8 @@ void Insane_BlitRowsDual(int param_1,int param_2,undefined4 *param_3,int param_4
 /* ---- 0x004bddb0  Insane_BlitRows16 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int param_5,int param_6)
+void __cdecl
+Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int param_5,int param_6)
 
 {
   ushort *puVar1;

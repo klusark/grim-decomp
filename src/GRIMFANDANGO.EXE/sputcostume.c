@@ -73,7 +73,7 @@ undefined4 sputCostume_Startup(void)
     return 1;
   }
   (*(code *)UINT_008ca778)();
-  g_pCosNodePool = (void **)Memory_AllocatePool(0xb4,10,2);
+  g_pCosNodePool = Memory_AllocatePool(0xb4,(void *)0xa,(void *)0x2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *ppcVar2 = (code *)0x0;
