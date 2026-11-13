@@ -84,10 +84,10 @@ int __cdecl FUN_10009ef0(uint param_1,uint *param_2)
    service in sounds.c, then the pointer into the memory list mlEntries, which doubles when full);
    the remaster inlined FUN_10009f40 into it); was FUN_10009f10. */
 
-undefined4 iMUSE_Malloc(undefined4 param_1)
+uint __cdecl iMUSE_Malloc(uint param_1)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
   uVar1 = (**(code **)(g_dwSounds_pHS + 0x20))
                     (param_1,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0xad5);
@@ -98,7 +98,7 @@ undefined4 iMUSE_Malloc(undefined4 param_1)
 /* ---- 0x10009f40  FUN_10009f40 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_10009f40(int param_1)
+void __cdecl FUN_10009f40(int param_1)
 
 {
   int iVar1;
@@ -153,7 +153,7 @@ void FUN_10009f40(int param_1)
    slot in the memory list mlEntries, then the host free service); the remaster inlined FUN_1000a030
    into it); was FUN_1000a010. */
 
-void iMUSE_Free(undefined4 param_1)
+void __cdecl iMUSE_Free(uint param_1)
 
 {
   FUN_1000a030(param_1);
@@ -164,7 +164,7 @@ void iMUSE_Free(undefined4 param_1)
 /* ---- 0x1000a030  FUN_1000a030 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void FUN_1000a030(int param_1)
+void __cdecl FUN_1000a030(int param_1)
 
 {
   int iVar1;

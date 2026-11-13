@@ -147,7 +147,7 @@
 | 10004640 | FmGetBufInfo | imuse_dsound.c | 14 |
 | 10004660 | FUN_10004660 | imuse_dsound.c | 44 |
 | 10004750 | FUN_10004750 | imuse_dsound.c | 40 |
-| 10003d70 | ImInitFilelist | imuse_api.c | 21 |
+| 10003d70 | ImInitFilelist | imuse_api.c | 20 |
 | 10003dc0 | ImSaveFilelist | imuse_api.c | 50 |
 | 10003e50 | ImRestoreFilelist | imuse_api.c | 61 |
 | 10003f90 | ImLoadSound | imuse_api.c | 59 |
@@ -200,7 +200,7 @@
 | 10007250 | ihost_close_sound | imuse_api.c | 25 |
 | 100072b0 | SoundsRegisterVoice | imuse_api.c | 82 |
 | 100073c0 | SoundsCloseVoiceFile | imuse_api.c | 16 |
-| 100073f0 | SoundsReOpenVoiceFile | imuse_api.c | 13 |
+| 100073f0 | SoundsReOpenVoiceFile | imuse_api.c | 14 |
 | 10007410 | SoundsLoadStartSound | imuse_api.c | 18 |
 | 10007470 | SoundsLoadProcessStartSound | imuse_api.c | 24 |
 | 10007500 | SoundsStopSound | imuse_api.c | 14 |
@@ -227,7 +227,7 @@
 | 10007a80 | ihost_get_buffer_info | imuse_api.c | 1 |
 | 10007a90 | ihost_open_sound | imuse_api.c | 72 |
 | 10007bc0 | ihost_fseek | imuse_api.c | 35 |
-| 10007ca0 | ihost_read | imuse_api.c | 242 |
+| 10007ca0 | ihost_read | imuse_api.c | 241 |
 | 10008140 | sounds_shutdown | imuse_api.c | 41 |
 | 100081f0 | FUN_100081f0 | imuse_api.c | 25 |
 | 10008250 | sounds_save | imuse_api.c | 166 |

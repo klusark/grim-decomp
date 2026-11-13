@@ -78,12 +78,12 @@ extern undefined g_dwImVoiceCriticalSize; /* used by 2 fn(s), first 0x10007920 *
 extern undefined g_dwImMusicBufferSize; /* used by 2 fn(s), first 0x10007920 */
 extern undefined g_dwImMusicGulpSize; /* used by 3 fn(s), first 0x100077c0 */
 extern undefined g_dwImMusicCriticalSize; /* used by 2 fn(s), first 0x10007920 */
-extern undefined4 g_dwImLargeFadeSize; /* used by 4 fn(s), first 0x10001f10 */
-extern undefined4 g_dwImLargeFadeCount; /* used by 5 fn(s), first 0x10001f10 */
-extern undefined4 g_dwImSmallFadeSize; /* used by 4 fn(s), first 0x10001f10 */
-extern undefined4 g_dwImSmallFadeCount; /* used by 5 fn(s), first 0x10001f10 */
+extern uint g_dwImLargeFadeSize; /* used by 4 fn(s), first 0x10001f10 */
+extern uint g_dwImLargeFadeCount; /* used by 5 fn(s), first 0x10001f10 */
+extern uint g_dwImSmallFadeSize; /* used by 4 fn(s), first 0x10001f10 */
+extern uint g_dwImSmallFadeCount; /* used by 5 fn(s), first 0x10001f10 */
 extern undefined g_dwImNonPurgeCacheSize; /* used by 2 fn(s), first 0x10007810 */
-extern undefined4 g_dwImWaveMixCount; /* used by 3 fn(s), first 0x10005360 */
+extern uint g_dwImWaveMixCount; /* used by 3 fn(s), first 0x10005360 */
 extern undefined g_dwEffectsHeapSize; /* used by 4 fn(s), first 0x10007920 */
 extern undefined g_bMuscriptLocal; /* used by 2 fn(s), first 0x100078a0 */
 extern char s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0[]; /* used by 13 fn(s), first 0x10007210 */
@@ -369,7 +369,7 @@ extern code *DAT_10033408; /* used by 1 fn(s), first 0x10012f20 */
 extern undefined DAT_100334fc; /* used by 1 fn(s), first 0x10014690 */
 extern undefined DAT_10033500; /* used by 1 fn(s), first 0x100147c0 */
 extern int g_dwTrackCount; /* used by 6 fn(s), first 0x100020c0 */
-extern undefined4 g_dwSounds_pHS; /* used by 29 fn(s), first 0x10001f10 */
+extern uint g_dwSounds_pHS; /* used by 29 fn(s), first 0x10001f10 */
 extern undefined g_aVoxFxName; /* used by 3 fn(s), first 0x10008250 */
 extern undefined DAT_10033547; /* used by 1 fn(s), first 0x1000a160 */
 extern undefined g_bPanTable; /* used by 1 fn(s), first 0x10005360 */
@@ -394,19 +394,20 @@ extern undefined DAT_100337f4; /* used by 4 fn(s), first 0x1000d130 */
 extern undefined DAT_10034800; /* used by 4 fn(s), first 0x1000d130 */
 extern undefined DAT_10034804; /* used by 2 fn(s), first 0x1000c230 */
 extern undefined DAT_10034808; /* used by 1 fn(s), first 0x1000c350 */
+extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x10011020 */
 
 /* ---- re-typed views of the symbols above ---- */
 #define _DAT_10017064 (*(undefined *)&DAT_10017064) /* same address as DAT_10017064, other width */
 #define _DAT_10017084 (*(undefined *)&DAT_10017084) /* same address as DAT_10017084, other width */
 #define _DAT_10017090 (*(undefined *)&DAT_10017090) /* same address as DAT_10017090, other width */
 #define _g_dwTAIL_BYTES (*(undefined4 *)&g_dwTAIL_BYTES) /* same address as g_dwTAIL_BYTES, other width */
-#define _g_dwImVoiceBufferSize (*(undefined4 *)&g_dwImVoiceBufferSize) /* same address as g_dwImVoiceBufferSize, other width */
-#define _g_dwImVoiceGulpSize (*(undefined4 *)&g_dwImVoiceGulpSize) /* same address as g_dwImVoiceGulpSize, other width */
-#define _g_dwImVoiceCriticalSize (*(undefined4 *)&g_dwImVoiceCriticalSize) /* same address as g_dwImVoiceCriticalSize, other width */
-#define _g_dwImMusicBufferSize (*(undefined4 *)&g_dwImMusicBufferSize) /* same address as g_dwImMusicBufferSize, other width */
-#define _g_dwImMusicGulpSize (*(undefined4 *)&g_dwImMusicGulpSize) /* same address as g_dwImMusicGulpSize, other width */
-#define _g_dwImMusicCriticalSize (*(undefined4 *)&g_dwImMusicCriticalSize) /* same address as g_dwImMusicCriticalSize, other width */
-#define _g_dwImNonPurgeCacheSize (*(undefined4 *)&g_dwImNonPurgeCacheSize) /* same address as g_dwImNonPurgeCacheSize, other width */
+#define _g_dwImVoiceBufferSize (*(uint *)&g_dwImVoiceBufferSize) /* same address as g_dwImVoiceBufferSize, other width */
+#define _g_dwImVoiceGulpSize (*(uint *)&g_dwImVoiceGulpSize) /* same address as g_dwImVoiceGulpSize, other width */
+#define _g_dwImVoiceCriticalSize (*(uint *)&g_dwImVoiceCriticalSize) /* same address as g_dwImVoiceCriticalSize, other width */
+#define _g_dwImMusicBufferSize (*(uint *)&g_dwImMusicBufferSize) /* same address as g_dwImMusicBufferSize, other width */
+#define _g_dwImMusicGulpSize (*(uint *)&g_dwImMusicGulpSize) /* same address as g_dwImMusicGulpSize, other width */
+#define _g_dwImMusicCriticalSize (*(uint *)&g_dwImMusicCriticalSize) /* same address as g_dwImMusicCriticalSize, other width */
+#define _g_dwImNonPurgeCacheSize (*(uint *)&g_dwImNonPurgeCacheSize) /* same address as g_dwImNonPurgeCacheSize, other width */
 #define _g_dwEffectsHeapSize (*(undefined4 *)&g_dwEffectsHeapSize) /* same address as g_dwEffectsHeapSize, other width */
 #define _g_bMuscriptLocal (*(undefined4 *)&g_bMuscriptLocal) /* same address as g_bMuscriptLocal, other width */
 #define _DAT_1001e90c (*(undefined4 *)&DAT_1001e90c) /* same address as DAT_1001e90c, other width */
@@ -437,7 +438,7 @@ extern undefined DAT_10034808; /* used by 1 fn(s), first 0x1000c350 */
 #define _DAT_1002dd3c (*(undefined2 *)&DAT_1002dd3c) /* same address as DAT_1002dd3c, other width */
 #define _DAT_1002dd3e (*(undefined2 *)&DAT_1002dd3e) /* same address as DAT_1002dd3e, other width */
 #define _DAT_1002dd40 (*(undefined2 *)&DAT_1002dd40) /* same address as DAT_1002dd40, other width */
-#define _DAT_1002dd50 (*(undefined4 *)&DAT_1002dd50) /* same address as DAT_1002dd50, other width */
+#define _DAT_1002dd50 (*(uint *)&DAT_1002dd50) /* same address as DAT_1002dd50, other width */
 #define _DAT_1002dd58 (*(undefined4 *)&DAT_1002dd58) /* same address as DAT_1002dd58, other width */
 #define _DAT_1002dd5c (*(undefined4 *)&DAT_1002dd5c) /* same address as DAT_1002dd5c, other width */
 #define _DAT_1002dd60 (*(undefined2 *)&DAT_1002dd60) /* same address as DAT_1002dd60, other width */

@@ -136,7 +136,7 @@ undefined4 __cdecl FmGetBufInfo(int param_1)
 /* ---- 0x10004660  FUN_10004660 ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-undefined4 FUN_10004660(undefined4 param_1)
+uint __cdecl FUN_10004660(uint param_1)
 
 {
   int iVar1;
