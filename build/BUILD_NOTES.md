@@ -1341,3 +1341,20 @@ the reference as before (`lab_files`, `lab_dofile`, `lab_costume`), 0 of 5167 fr
   (sputRender_Update compares the camera pointer with the current setup's: a new set at the freed set's address kept
   the old setups' camera). With grim_tools' own nav_setfile.lua (`readfrom(old)`) the run dies in ch19: the 128 file
   slots fill up and the forklift's material is not found (sputResource_MatLoader, as the original, does not check).
+
+## grim_tools' clean-room CI (decomp-cleanroom.yml) against main (2026-11-13)
+
+The workflow of grim_tools (github.com/klusark/grim-autorun) that builds main and runs `run.py decomp` on a Windows
+runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the game, `args_random_none` and
+`args_random_num` differed. Both causes depend on the machine, which is why the desk runs showed all the same.
+
+* The crashes: access violation in `sputLua_GetCameraPositionL` (and `GetCameraFOV`), `g_pSputRender_Camera` 0. Each was
+  the first test of a fresh game (MakeCurrentSet, one frame, then the camera): that frame ran its Lua but did not draw,
+  because `grimlib_UpdateManual` takes the active flag by value from `Main_Service` and skips `sputRender_Update` when it
+  is 0, and GRIM_ACTIVE set it only from the Lua hook, inside the frame. On the runner the windows never become the
+  foreground one at start-up, and the four games side by side take the activation from each other. GRIM_ACTIVE is now
+  applied at the top of `Main_Service` (`GRIM_ForceActive`, overrides.c). (The camera getters push nil and then read
+  through the 0 pointer anyway: Ghidra's C has no return after `lua_pushnil`, not changed here.)
+* `random()`: LUA.DLL's rand had its own seed in the original (its own linked MSVC runtime), the host msvcrt's rand is
+  shared with the whole process, and on the runner something else draws from it on the main thread first (0.865932
+  instead of 41/32767). math_random / math_randomseed use their own MSVC-style generator now (seed 1).

@@ -105,6 +105,24 @@ void GRIM_ImuseSimFrame(int ms)
         imuse_step(ms);
 }
 
+/* GRIM_ACTIVE=1: draw and present even when the window is not the foreground window (the engine only draws while
+ * WM_ACTIVATEAPP says the application is active); lets a test run behind other windows. Main_Service calls this before
+ * the frame: grimlib_UpdateManual takes the active flag by value and skips sputRender_Update when it is 0. Set only from
+ * the Lua hook (inside the frame, after that), a frame that began inactive (the first frames of a game whose window
+ * never became the foreground one, or after another game took the activation) ran its Lua but drew nothing: a test that
+ * made a set current and waited one frame found no camera (g_pSputRender_Camera still 0 in a fresh game, and
+ * GetCameraPosition / GetCameraFOV read through it: the clean-room CI's crashes of camera, camera_set and setups). */
+void GRIM_ForceActive(void)
+{
+    static int active = -1;
+    if (active < 0)
+        active = GRIM_getenv("GRIM_ACTIVE") != 0;
+    if (active) {
+        g_dwZg_App_bAppActive = 1;
+        UINT_008d0a6c = 1;
+    }
+}
+
 void GRIM_lua_cmd_poll(void)
 {
     static char line[1024];
@@ -118,12 +136,7 @@ void GRIM_lua_cmd_poll(void)
         nomovie = GRIM_getenv("GRIM_NOMOVIE") != 0;
     if (nomovie)
         g_nSputSmushStarted = 0;
-    /* GRIM_ACTIVE=1: draw and present even when the window is not the foreground window (the engine only
-     * draws while WM_ACTIVATEAPP says the application is active); lets a test run behind other windows */
-    if (GRIM_getenv("GRIM_ACTIVE")) {
-        g_dwZg_App_bAppActive = 1;
-        UINT_008d0a6c = 1;
-    }
+    GRIM_ForceActive();
     if (lua_cmd_state < 0)
         return;
     if (lua_cmd_state == 0) {
@@ -1300,8 +1313,15 @@ void Engine_LoadGame(void)
  * game's Lua work in DEGREES (sin(30) == 0.5, asin(0.5) == 30). */
 extern double sin(double), cos(double), tan(double), asin(double), acos(double), atan(double), atan2(double, double);
 extern double sqrt(double), log(double), log10(double), exp(double), fmod(double, double), pow(double, double);
-extern int rand(void);
-extern void srand(unsigned seed);
+/* LUA.DLL's rand and srand (FUN_10012360, FUN_10012350): the MSVC runtime linked into the DLL, with a seed of its own.
+ * The host msvcrt's rand is shared by every module of the process (and system DLLs draw from it on the main thread on
+ * some machines: random() then started elsewhere in the sequence, args_random_none of the clean-room CI). */
+static unsigned lua_holdrand = 1;
+static int lua_rand(void)
+{
+    lua_holdrand = lua_holdrand * 214013u + 2531011u;
+    return (int)((lua_holdrand >> 16) & 0x7fff);
+}
 
 #define MATH_DEG 57.29577951308232       /* radians -> degrees */
 #define MATH_RAD 0.017453292519943295    /* degrees -> radians */
@@ -1403,7 +1423,7 @@ void math_max(void)
 /* random() in [0,1): rand() % 32767 / 32767;  random(n): an integer in [1,n] */
 void math_random(void)
 {
-    float r = (float)(rand() % 0x7fff) * 3.051850947599719e-05;
+    float r = (float)(lua_rand() % 0x7fff) * 3.051850947599719e-05;
     float n = luaL_opt_number(1, 0.0f);
     if (n == 0.0f) {
         lua_pushnumber(r);
@@ -1414,7 +1434,7 @@ void math_random(void)
 
 void math_randomseed(void)
 {
-    srand((unsigned)(int)luaL_check_number(1));
+    lua_holdrand = (unsigned)(int)luaL_check_number(1);
 }
 
 /* message (ldo.c): calls the error tag method (the global tag-method object, tag + value) with the message.

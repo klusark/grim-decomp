@@ -84,6 +84,7 @@ float Math_Floor(float x)
 extern int GRIM_SimTime(void);   /* overrides.c: GRIM_SIMTIME=<ms> test knob (fixed frame time), 0 = off */
 extern void GRIM_SmushSimFrame(int ms);   /* overrides_mixer_drv.c: movies on game time */
 extern void GRIM_ImuseSimFrame(int ms);   /* overrides.c: iMUSE on game time */
+extern void GRIM_ForceActive(void);       /* overrides.c: GRIM_ACTIVE=1 test knob */
 
 /* ==== Main_Service (0x004016a0) ====
  * One pass of the main loop: re-selects the display after a mode change, runs the engine for one frame (the frame time
@@ -112,6 +113,7 @@ void Main_Service(void)
     _g_dwDeadmanCounter = 300;
     g_dwGrimlib_mode = savedMode;
 
+    GRIM_ForceActive();                          /* test hook (GRIM_ACTIVE): before the frame reads the active flag */
     frameMs = GRIM_SimTime();                    /* test hook: fixed frame time */
     if (frameMs > 0) {                           /* ... and the movies and iMUSE step by it (grimlaunch's frame stub) */
         GRIM_SmushSimFrame(frameMs);
