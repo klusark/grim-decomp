@@ -47,7 +47,7 @@ extern unsigned char DAT_1000e344[36];
 extern unsigned char DAT_1000e368[44];
 extern unsigned char DAT_1000e394[44];
 extern unsigned char DAT_1000e3c0[40];
-extern unsigned char UNK_1000e3e8[44];
+extern unsigned char DAT_1000e3e8[44];
 extern unsigned char UNK_1000e414[28];
 extern unsigned char UNK_1000e430[4];
 extern unsigned char UNK_1000e434[24];
@@ -502,7 +502,11 @@ extern unsigned char DAT_10015af8[4];
 /* 0x1000e368, 44 bytes, unused (pointed at by unused data) */ GRIM_DATA("1000e368") unsigned char DAT_1000e368[44];
 /* 0x1000e394, 44 bytes, unused (pointed at by unused data) */ GRIM_DATA("1000e394") unsigned char DAT_1000e394[44];
 /* 0x1000e3c0, 40 bytes, unused (pointed at by unused data) */ GRIM_DATA("1000e3c0") unsigned char DAT_1000e3c0[40];
-/* 0x1000e3e8, 44 bytes, unused (dead) */ GRIM_DATA("1000e3e8") unsigned char UNK_1000e3e8[44];
+/* 0x1000e3e8, 44 bytes */ GRIM_DATA("1000e3e8") unsigned char DAT_1000e3e8[44] = {
+    0x4d, 0x69, 0x63, 0x72, 0x6f, 0x73, 0x6f, 0x66, 0x74, 0x20, 0x56, 0x69, 0x73, 0x75, 0x61, 0x6c,
+    0x20, 0x43, 0x2b, 0x2b, 0x20, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x20, 0x4c, 0x69, 0x62,
+    0x72, 0x61, 0x72, 0x79, 0x00, 0x00, 0x00, 0x00, 0x0a, 0x0a
+};
 /* 0x1000e414, 28 bytes, unused (dead) */ GRIM_DATA("1000e414") unsigned char UNK_1000e414[28];
 /* 0x1000e430, 4 bytes, unused (dead) */ GRIM_DATA("1000e430") unsigned char UNK_1000e430[4];
 /* 0x1000e434, 24 bytes, unused (dead) */ GRIM_DATA("1000e434") unsigned char UNK_1000e434[24];

@@ -1,0 +1,1529 @@
+{
+ "_comment": "protos-dlls round (2026-11-13): every IMUSE / LUA / CHORE function Ghidra had no prototype for (signature source DEFAULT) gets the one main's src/<dll>/functions.h showed, __cdecl, undefinedN scalars made concrete; a void return stays `undefined` except for functions with a hand-written override. By hand: IMUSE FUN_10009700 (empty debug print) (char *fmt, ...), SoundStartVoiceStream char *name, LUA luaD_call (int pos, int nres), lua_Restore / CHORE msvc_qsort, msvc_shortsort, msvc_bsearch take void * where main showed code * (no `code` type in the DLLs). Setting a prototype on a function whose purge is unknown stores the parameter bytes as purge: reset every one to 0 afterwards (all end in a plain RET). Replay after names/protos_all_exe.json: tools/apply_logic_protos.py names/protos_all_dlls.json Also by hand (not a prototype): CHORE GrimServices.pFopen typed `SvcFopen *`, int SvcFopen(char *name, char *mode).",
+ "IMUSE.DLL": {
+  "10003d70": {
+   "proto": "uint ImInitFilelist(uint param_1, uint param_2, uint param_3, uint param_4)",
+   "cc": "__cdecl"
+  },
+  "10003dc0": {
+   "proto": "int ImSaveFilelist(int *param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10003e50": {
+   "proto": "int ImRestoreFilelist(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "10003f90": {
+   "proto": "int ImLoadSound(char *param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10004140": {
+   "proto": "int ImOpenSound(char *param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "100042f0": {
+   "proto": "int ImFindSound(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "10004660": {
+   "proto": "uint FUN_10004660(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10004970": {
+   "proto": "undefined FUN_10004970(void)",
+   "cc": "__cdecl"
+  },
+  "10005300": {
+   "proto": "uint ImStartRecording(uint param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10005350": {
+   "proto": "uint ImStopRecording(void)",
+   "cc": "__cdecl"
+  },
+  "100072b0": {
+   "proto": "int * SoundsRegisterVoice(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "10007580": {
+   "proto": "uint SoundsFadeParam(uint *param_1, int param_2, uint param_3, int param_4)",
+   "cc": "__cdecl"
+  },
+  "100078d0": {
+   "proto": "uint SoundsInitialize(uint param_1, undefined4 *param_2)",
+   "cc": "__cdecl"
+  },
+  "10007920": {
+   "proto": "uint sounds_startup(void)",
+   "cc": "__cdecl"
+  },
+  "10007a20": {
+   "proto": "undefined FUN_10007a20(void)",
+   "cc": "__cdecl"
+  },
+  "10007a60": {
+   "proto": "undefined ihost_get_sound_addr(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10007a70": {
+   "proto": "undefined ihost_get_map_addr(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10007a80": {
+   "proto": "int ihost_get_buffer_info(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10007a90": {
+   "proto": "int ihost_open_sound(uint *param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10007bc0": {
+   "proto": "int ihost_fseek(int param_1, int param_2, int param_3)",
+   "cc": "__cdecl"
+  },
+  "10007ca0": {
+   "proto": "undefined4 * ihost_read(undefined4 *param_1, undefined4 *param_2, undefined4 *param_3)",
+   "cc": "__cdecl"
+  },
+  "10008140": {
+   "proto": "undefined sounds_shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "100081f0": {
+   "proto": "undefined FUN_100081f0(void)",
+   "cc": "__cdecl"
+  },
+  "10008250": {
+   "proto": "uint sounds_save(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "10008860": {
+   "proto": "uint sounds_pause(void)",
+   "cc": "__cdecl"
+  },
+  "100088a0": {
+   "proto": "uint sounds_resume(void)",
+   "cc": "__cdecl"
+  },
+  "100088d0": {
+   "proto": "int SoundStartVoiceStream(char * name, uint volume, uint pan)",
+   "cc": "__cdecl"
+  },
+  "10008bb0": {
+   "proto": "int iMUSE_GetPhoneme(int param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10008ce0": {
+   "proto": "int FUN_10008ce0(void)",
+   "cc": "__cdecl"
+  },
+  "10008e30": {
+   "proto": "undefined FUN_10008e30(void)",
+   "cc": "__cdecl"
+  },
+  "10008e60": {
+   "proto": "undefined FUN_10008e60(void)",
+   "cc": "__cdecl"
+  },
+  "10009530": {
+   "proto": "uint FUN_10009530(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10009560": {
+   "proto": "uint FUN_10009560(int param_1)",
+   "cc": "__cdecl"
+  },
+  "100095d0": {
+   "proto": "uint * grimSound_LipSyncLoad(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "10009700": {
+   "proto": "void FUN_10009700(char * fmt, ...)",
+   "cc": "__cdecl"
+  },
+  "10009f10": {
+   "proto": "uint iMUSE_Malloc(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10009f40": {
+   "proto": "undefined FUN_10009f40(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1000a010": {
+   "proto": "undefined iMUSE_Free(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1000a030": {
+   "proto": "undefined FUN_1000a030(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1000a070": {
+   "proto": "undefined iMUSE_DeclareBufferSizes(uint param_1, uint param_2, uint param_3, uint param_4, uint param_5, uint param_6, uint param_7, uint param_8, uint param_9, uint param_10, uint param_11, uint param_12)",
+   "cc": "__cdecl"
+  },
+  "1000a0f0": {
+   "proto": "uint iMUSE_GetMemoryFootprint(void)",
+   "cc": "__cdecl"
+  },
+  "1000a100": {
+   "proto": "uint iMUSE_GetSoundCacheSize(void)",
+   "cc": "__cdecl"
+  },
+  "1000a110": {
+   "proto": "uint iMUSE_SetHook(uint *param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "1000a140": {
+   "proto": "uint iMUSE_GetHook(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "1000ba80": {
+   "proto": "undefined FUN_1000ba80(void)",
+   "cc": "__cdecl"
+  },
+  "1000baa0": {
+   "proto": "undefined FUN_1000baa0(void)",
+   "cc": "__cdecl"
+  },
+  "1000d130": {
+   "proto": "undefined FUN_1000d130(void)",
+   "cc": "__cdecl"
+  },
+  "1000d4e0": {
+   "proto": "int FUN_1000d4e0(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "1000d590": {
+   "proto": "undefined FUN_1000d590(void)",
+   "cc": "__cdecl"
+  },
+  "1000d5a0": {
+   "proto": "int FUN_1000d5a0(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1000dac0": {
+   "proto": "undefined FUN_1000dac0(void)",
+   "cc": "__cdecl"
+  },
+  "1000db30": {
+   "proto": "uint FUN_1000db30(void)",
+   "cc": "__cdecl"
+  },
+  "1000db60": {
+   "proto": "undefined FUN_1000db60(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "1000dbc0": {
+   "proto": "undefined FUN_1000dbc0(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "1000dc30": {
+   "proto": "uint FUN_1000dc30(double *param_1)",
+   "cc": "__cdecl"
+  },
+  "1000dc50": {
+   "proto": "undefined FUN_1000dc50(int param_1, undefined4 *param_2, uint param_3)",
+   "cc": "__cdecl"
+  },
+  "1000dcb0": {
+   "proto": "int FUN_1000dcb0(undefined4 *param_1, int param_2, int param_3, uint param_4)",
+   "cc": "__cdecl"
+  },
+  "1000dd30": {
+   "proto": "undefined1 * FUN_1000dd30(undefined1 *param_1, int param_2, int param_3, int *param_4, char param_5)",
+   "cc": "__cdecl"
+  },
+  "1000de30": {
+   "proto": "int FUN_1000de30(undefined4 *param_1, int param_2, int param_3)",
+   "cc": "__cdecl"
+  },
+  "1000dea0": {
+   "proto": "undefined1 * FUN_1000dea0(undefined1 *param_1, uint param_2, int *param_3, char param_4)",
+   "cc": "__cdecl"
+  },
+  "1000df60": {
+   "proto": "undefined FUN_1000df60(undefined4 *param_1, int param_2, int param_3, uint param_4)",
+   "cc": "__cdecl"
+  },
+  "1000e020": {
+   "proto": "undefined FUN_1000e020(uint param_1, uint param_2, int param_3, uint param_4, uint param_5)",
+   "cc": "__cdecl"
+  },
+  "1000e090": {
+   "proto": "undefined FUN_1000e090(char *param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "1000e500": {
+   "proto": "uint FUN_1000e500(void)",
+   "cc": "__cdecl"
+  },
+  "1000e510": {
+   "proto": "uint FUN_1000e510(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10010490": {
+   "proto": "uint FUN_10010490(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "100108d0": {
+   "proto": "uint FUN_100108d0(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10010910": {
+   "proto": "undefined FUN_10010910(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10010930": {
+   "proto": "uint FUN_10010930(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10010a60": {
+   "proto": "uint FUN_10010a60(int param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10010b40": {
+   "proto": "int FUN_10010b40(int param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10010be0": {
+   "proto": "undefined FUN_10010be0(int param_1, undefined4 *param_2)",
+   "cc": "__cdecl"
+  },
+  "10010c00": {
+   "proto": "undefined FUN_10010c00(undefined4 *param_1)",
+   "cc": "__cdecl"
+  },
+  "10010c10": {
+   "proto": "uint FUN_10010c10(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "10010c30": {
+   "proto": "undefined FUN_10010c30(uint *param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10010cf0": {
+   "proto": "uint FUN_10010cf0(ushort *param_1, uint *param_2, int *param_3)",
+   "cc": "__cdecl"
+  },
+  "10010ec0": {
+   "proto": "undefined FUN_10010ec0(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10010ee0": {
+   "proto": "undefined FUN_10010ee0(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10010f00": {
+   "proto": "undefined FUN_10010f00(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10010f40": {
+   "proto": "undefined FUN_10010f40(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10010f80": {
+   "proto": "undefined FUN_10010f80(char *param_1, int param_2, int param_3)",
+   "cc": "__cdecl"
+  },
+  "10011020": {
+   "proto": "int * FUN_10011020(uint param_1, uint param_2, int *param_3, char *param_4)",
+   "cc": "__cdecl"
+  },
+  "100110b0": {
+   "proto": "undefined FUN_100110b0(uint *param_1, uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "100114b0": {
+   "proto": "undefined FUN_100114b0(void)",
+   "cc": "__cdecl"
+  },
+  "10011be0": {
+   "proto": "uint FUN_10011be0(void)",
+   "cc": "__cdecl"
+  },
+  "10011c90": {
+   "proto": "uint FUN_10011c90(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10012010": {
+   "proto": "undefined FUN_10012010(undefined4 *param_1)",
+   "cc": "__cdecl"
+  },
+  "10012250": {
+   "proto": "uint FUN_10012250(char *param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10012350": {
+   "proto": "uint FUN_10012350(void)",
+   "cc": "__cdecl"
+  },
+  "10012550": {
+   "proto": "uint FUN_10012550(void)",
+   "cc": "__cdecl"
+  },
+  "10012640": {
+   "proto": "uint FUN_10012640(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10012790": {
+   "proto": "undefined FUN_10012790(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "100127d0": {
+   "proto": "undefined FUN_100127d0(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10012840": {
+   "proto": "uint FUN_10012840(void)",
+   "cc": "__cdecl"
+  },
+  "10012bc0": {
+   "proto": "int FUN_10012bc0(int param_1, int param_2, int param_3, int param_4, int param_5, int param_6)",
+   "cc": "__cdecl"
+  },
+  "100132c0": {
+   "proto": "uint FUN_100132c0(uint param_1, uint param_2, uint *param_3)",
+   "cc": "__cdecl"
+  },
+  "100132f0": {
+   "proto": "undefined FUN_100132f0(undefined4 *param_1, undefined4 *param_2)",
+   "cc": "__cdecl"
+  },
+  "10013360": {
+   "proto": "undefined FUN_10013360(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "10013390": {
+   "proto": "undefined FUN_10013390(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "100133c0": {
+   "proto": "undefined FUN_100133c0(char *param_1, int param_2, uint *param_3)",
+   "cc": "__cdecl"
+  },
+  "100134c0": {
+   "proto": "uint FUN_100134c0(ushort *param_1, int *param_2, byte *param_3, uint param_4, int param_5, int param_6, int param_7)",
+   "cc": "__cdecl"
+  },
+  "10013c50": {
+   "proto": "uint FUN_10013c50(int param_1, uint param_2, uint param_3, int param_4, byte param_5, short *param_6)",
+   "cc": "__cdecl"
+  },
+  "10013fe0": {
+   "proto": "uint FUN_10013fe0(int param_1, uint param_2, uint param_3, char *param_4)",
+   "cc": "__cdecl"
+  },
+  "10014340": {
+   "proto": "undefined FUN_10014340(int *param_1, int *param_2)",
+   "cc": "__cdecl"
+  },
+  "10014600": {
+   "proto": "undefined FUN_10014600(undefined2 *param_1, uint param_2, int param_3)",
+   "cc": "__cdecl"
+  },
+  "10014690": {
+   "proto": "int FUN_10014690(uint param_1, uint param_2, uint param_3, uint param_4)",
+   "cc": "__cdecl"
+  },
+  "100147c0": {
+   "proto": "int FUN_100147c0(uint param_1, uint param_2, uint param_3, uint param_4)",
+   "cc": "__cdecl"
+  }
+ },
+ "LUA.DLL": {
+  "10002760": {
+   "proto": "uint lua_Restore(void * readFunc)",
+   "cc": "__cdecl"
+  },
+  "10002db0": {
+   "proto": "undefined nextvar(void)",
+   "cc": "__cdecl"
+  },
+  "10002e70": {
+   "proto": "undefined foreachvar(void)",
+   "cc": "__cdecl"
+  },
+  "10002f80": {
+   "proto": "undefined next(void)",
+   "cc": "__cdecl"
+  },
+  "10002fd0": {
+   "proto": "undefined foreach(void)",
+   "cc": "__cdecl"
+  },
+  "100030d0": {
+   "proto": "undefined internaldostring(void)",
+   "cc": "__cdecl"
+  },
+  "10003120": {
+   "proto": "undefined internaldofile(void)",
+   "cc": "__cdecl"
+  },
+  "10003150": {
+   "proto": "undefined bi_tostring(void)",
+   "cc": "__cdecl"
+  },
+  "10003370": {
+   "proto": "undefined luaI_stopscript(void)",
+   "cc": "__cdecl"
+  },
+  "100034c0": {
+   "proto": "undefined luaI_findscript(void)",
+   "cc": "__cdecl"
+  },
+  "10003610": {
+   "proto": "undefined luaI_identifyscript(void)",
+   "cc": "__cdecl"
+  },
+  "100036a0": {
+   "proto": "undefined luaI_nextscript(void)",
+   "cc": "__cdecl"
+  },
+  "10003780": {
+   "proto": "undefined luaI_print(void)",
+   "cc": "__cdecl"
+  },
+  "100037d0": {
+   "proto": "undefined luaI_type(void)",
+   "cc": "__cdecl"
+  },
+  "10003820": {
+   "proto": "undefined tonumber(void)",
+   "cc": "__cdecl"
+  },
+  "10003910": {
+   "proto": "undefined luaI_error(void)",
+   "cc": "__cdecl"
+  },
+  "10003930": {
+   "proto": "undefined luaI_assert(void)",
+   "cc": "__cdecl"
+  },
+  "10003970": {
+   "proto": "undefined setglobal(void)",
+   "cc": "__cdecl"
+  },
+  "100039b0": {
+   "proto": "undefined rawsetglobal(void)",
+   "cc": "__cdecl"
+  },
+  "100039f0": {
+   "proto": "undefined getglobal(void)",
+   "cc": "__cdecl"
+  },
+  "10003a10": {
+   "proto": "undefined rawgetglobal(void)",
+   "cc": "__cdecl"
+  },
+  "10003a30": {
+   "proto": "undefined luatag(void)",
+   "cc": "__cdecl"
+  },
+  "10003a60": {
+   "proto": "undefined luaI_call(void)",
+   "cc": "__cdecl"
+  },
+  "10003bf0": {
+   "proto": "undefined settag(void)",
+   "cc": "__cdecl"
+  },
+  "10003c20": {
+   "proto": "undefined newtag(void)",
+   "cc": "__cdecl"
+  },
+  "10003c40": {
+   "proto": "undefined copytagmethods(void)",
+   "cc": "__cdecl"
+  },
+  "10003c80": {
+   "proto": "undefined rawgettable(void)",
+   "cc": "__cdecl"
+  },
+  "10003d10": {
+   "proto": "undefined settagmethod(void)",
+   "cc": "__cdecl"
+  },
+  "10003d50": {
+   "proto": "undefined gettagmethod(void)",
+   "cc": "__cdecl"
+  },
+  "10003d80": {
+   "proto": "undefined seterrormethod(void)",
+   "cc": "__cdecl"
+  },
+  "10003db0": {
+   "proto": "undefined luaI_collectgarbage(void)",
+   "cc": "__cdecl"
+  },
+  "10004180": {
+   "proto": "uint luaD_call(int pos, int nres)",
+   "cc": "__cdecl"
+  },
+  "10005320": {
+   "proto": "undefined io_readfrom(void)",
+   "cc": "__cdecl"
+  },
+  "10005570": {
+   "proto": "undefined io_writeto(void)",
+   "cc": "__cdecl"
+  },
+  "10005620": {
+   "proto": "undefined io_appendto(void)",
+   "cc": "__cdecl"
+  },
+  "10005660": {
+   "proto": "undefined io_read(void)",
+   "cc": "__cdecl"
+  },
+  "100057d0": {
+   "proto": "undefined io_write(void)",
+   "cc": "__cdecl"
+  },
+  "10005870": {
+   "proto": "undefined io_execute(void)",
+   "cc": "__cdecl"
+  },
+  "100058a0": {
+   "proto": "undefined io_remove(void)",
+   "cc": "__cdecl"
+  },
+  "100058d0": {
+   "proto": "undefined io_rename(void)",
+   "cc": "__cdecl"
+  },
+  "10005900": {
+   "proto": "undefined io_tmpname(void)",
+   "cc": "__cdecl"
+  },
+  "10005920": {
+   "proto": "undefined io_getenv(void)",
+   "cc": "__cdecl"
+  },
+  "10005940": {
+   "proto": "undefined io_date(void)",
+   "cc": "__cdecl"
+  },
+  "100059c0": {
+   "proto": "undefined setloc(void)",
+   "cc": "__cdecl"
+  },
+  "10005a20": {
+   "proto": "undefined io_exit(void)",
+   "cc": "__cdecl"
+  },
+  "10005a50": {
+   "proto": "undefined io_debug(void)",
+   "cc": "__cdecl"
+  },
+  "10005ad0": {
+   "proto": "undefined errorfb(void)",
+   "cc": "__cdecl"
+  },
+  "10006ea0": {
+   "proto": "void math_abs(void)",
+   "cc": "__cdecl"
+  },
+  "10006ee0": {
+   "proto": "void math_sin(void)",
+   "cc": "__cdecl"
+  },
+  "10006f00": {
+   "proto": "void math_cos(void)",
+   "cc": "__cdecl"
+  },
+  "10006f20": {
+   "proto": "void math_tan(void)",
+   "cc": "__cdecl"
+  },
+  "10006f50": {
+   "proto": "void math_asin(void)",
+   "cc": "__cdecl"
+  },
+  "10006f80": {
+   "proto": "void math_acos(void)",
+   "cc": "__cdecl"
+  },
+  "10006fb0": {
+   "proto": "void math_atan(void)",
+   "cc": "__cdecl"
+  },
+  "10006fe0": {
+   "proto": "void math_atan2(void)",
+   "cc": "__cdecl"
+  },
+  "10007020": {
+   "proto": "void math_ceil(void)",
+   "cc": "__cdecl"
+  },
+  "10007050": {
+   "proto": "void math_floor(void)",
+   "cc": "__cdecl"
+  },
+  "10007080": {
+   "proto": "void math_mod(void)",
+   "cc": "__cdecl"
+  },
+  "100070c0": {
+   "proto": "void math_sqrt(void)",
+   "cc": "__cdecl"
+  },
+  "100070e0": {
+   "proto": "void math_pow(void)",
+   "cc": "__cdecl"
+  },
+  "10007120": {
+   "proto": "void math_log(void)",
+   "cc": "__cdecl"
+  },
+  "10007140": {
+   "proto": "void math_log10(void)",
+   "cc": "__cdecl"
+  },
+  "10007160": {
+   "proto": "void math_exp(void)",
+   "cc": "__cdecl"
+  },
+  "10007190": {
+   "proto": "void math_deg(void)",
+   "cc": "__cdecl"
+  },
+  "100071b0": {
+   "proto": "void math_rad(void)",
+   "cc": "__cdecl"
+  },
+  "100071d0": {
+   "proto": "void math_min(void)",
+   "cc": "__cdecl"
+  },
+  "10007230": {
+   "proto": "void math_max(void)",
+   "cc": "__cdecl"
+  },
+  "10007290": {
+   "proto": "void math_random(void)",
+   "cc": "__cdecl"
+  },
+  "10007300": {
+   "proto": "void math_randomseed(void)",
+   "cc": "__cdecl"
+  },
+  "10009570": {
+   "proto": "undefined str_len(void)",
+   "cc": "__cdecl"
+  },
+  "100096a0": {
+   "proto": "undefined str_lower(void)",
+   "cc": "__cdecl"
+  },
+  "100096e0": {
+   "proto": "undefined str_upper(void)",
+   "cc": "__cdecl"
+  },
+  "10009720": {
+   "proto": "undefined str_rep(void)",
+   "cc": "__cdecl"
+  },
+  "10009780": {
+   "proto": "undefined str_ascii(void)",
+   "cc": "__cdecl"
+  },
+  "10009cb0": {
+   "proto": "undefined str_find(void)",
+   "cc": "__cdecl"
+  },
+  "1000a1d0": {
+   "proto": "undefined str_gsub(void)",
+   "cc": "__cdecl"
+  },
+  "1000a440": {
+   "proto": "void str_format(void)",
+   "cc": "__cdecl"
+  },
+  "1000fde0": {
+   "proto": "undefined FUN_1000fde0(void)",
+   "cc": "__cdecl"
+  },
+  "100139a6": {
+   "proto": "undefined FUN_100139a6(void)",
+   "cc": "__cdecl"
+  },
+  "100139b3": {
+   "proto": "undefined FUN_100139b3(void)",
+   "cc": "__cdecl"
+  },
+  "100139f0": {
+   "proto": "uint FUN_100139f0(undefined4 *param_1)",
+   "cc": "__cdecl"
+  },
+  "10013b57": {
+   "proto": "undefined FUN_10013b57(void)",
+   "cc": "__cdecl"
+  },
+  "10013b64": {
+   "proto": "uint FUN_10013b64(void)",
+   "cc": "__cdecl"
+  },
+  "10013c00": {
+   "proto": "uint FUN_10013c00(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "10013e0b": {
+   "proto": "uint FUN_10013e0b(void)",
+   "cc": "__cdecl"
+  },
+  "10013e11": {
+   "proto": "undefined FUN_10013e11(void)",
+   "cc": "__cdecl"
+  },
+  "10013e8a": {
+   "proto": "int FUN_10013e8a(void)",
+   "cc": "__cdecl"
+  },
+  "10013e95": {
+   "proto": "undefined FUN_10013e95(void)",
+   "cc": "__cdecl"
+  },
+  "1001416a": {
+   "proto": "uint FUN_1001416a(void)",
+   "cc": "__cdecl"
+  },
+  "10014170": {
+   "proto": "undefined FUN_10014170(void)",
+   "cc": "__cdecl"
+  },
+  "100141f1": {
+   "proto": "uint FUN_100141f1(void)",
+   "cc": "__cdecl"
+  },
+  "100141f7": {
+   "proto": "undefined FUN_100141f7(void)",
+   "cc": "__cdecl"
+  },
+  "10014f80": {
+   "proto": "undefined FUN_10014f80(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10014ff0": {
+   "proto": "undefined FUN_10014ff0(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1001519c": {
+   "proto": "int FUN_1001519c(void)",
+   "cc": "__cdecl"
+  },
+  "100156f0": {
+   "proto": "int FUN_100156f0(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "100157a0": {
+   "proto": "undefined FUN_100157a0(void)",
+   "cc": "__cdecl"
+  },
+  "100157b0": {
+   "proto": "int FUN_100157b0(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10015df0": {
+   "proto": "uint FUN_10015df0(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10015e60": {
+   "proto": "uint FUN_10015e60(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "100160b0": {
+   "proto": "int FUN_100160b0(void)",
+   "cc": "__cdecl"
+  },
+  "10016c80": {
+   "proto": "uint FUN_10016c80(void)",
+   "cc": "__cdecl"
+  },
+  "10016d30": {
+   "proto": "uint FUN_10016d30(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "100170b0": {
+   "proto": "undefined FUN_100170b0(undefined4 *param_1)",
+   "cc": "__cdecl"
+  },
+  "100172f0": {
+   "proto": "uint FUN_100172f0(char *param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "100173f0": {
+   "proto": "uint FUN_100173f0(void)",
+   "cc": "__cdecl"
+  },
+  "100175f0": {
+   "proto": "uint FUN_100175f0(void)",
+   "cc": "__cdecl"
+  },
+  "100178e0": {
+   "proto": "uint FUN_100178e0(void)",
+   "cc": "__cdecl"
+  },
+  "1001de30": {
+   "proto": "undefined FUN_1001de30(void)",
+   "cc": "__cdecl"
+  },
+  "1001de50": {
+   "proto": "undefined FUN_1001de50(void)",
+   "cc": "__cdecl"
+  },
+  "1001edd0": {
+   "proto": "uint FUN_1001edd0(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1001ee10": {
+   "proto": "uint FUN_1001ee10(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "1001ee80": {
+   "proto": "uint FUN_1001ee80(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1001f5d0": {
+   "proto": "uint FUN_1001f5d0(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10021a10": {
+   "proto": "undefined FUN_10021a10(undefined4 *param_1)",
+   "cc": "__cdecl"
+  },
+  "10021f90": {
+   "proto": "undefined FUN_10021f90(void)",
+   "cc": "__cdecl"
+  },
+  "10021f9b": {
+   "proto": "undefined FUN_10021f9b(void)",
+   "cc": "__cdecl"
+  },
+  "10021fb0": {
+   "proto": "undefined FUN_10021fb0(void)",
+   "cc": "__cdecl"
+  },
+  "10021fd0": {
+   "proto": "undefined FUN_10021fd0(void)",
+   "cc": "__cdecl"
+  },
+  "10021fdb": {
+   "proto": "undefined FUN_10021fdb(void)",
+   "cc": "__cdecl"
+  },
+  "10021ff0": {
+   "proto": "undefined FUN_10021ff0(void)",
+   "cc": "__cdecl"
+  },
+  "10022010": {
+   "proto": "undefined FUN_10022010(void)",
+   "cc": "__cdecl"
+  },
+  "10022030": {
+   "proto": "undefined FUN_10022030(void)",
+   "cc": "__cdecl"
+  },
+  "10022050": {
+   "proto": "undefined FUN_10022050(void)",
+   "cc": "__cdecl"
+  }
+ },
+ "CHORE.DLL": {
+  "100055a0": {
+   "proto": "uint * msvc_strncpy(uint *param_1, uint *param_2, uint param_3)",
+   "cc": "__cdecl"
+  },
+  "100056a0": {
+   "proto": "char * msvc_strrchr(char *param_1, char param_2)",
+   "cc": "__cdecl"
+  },
+  "100056d0": {
+   "proto": "undefined msvc_fpmath(void)",
+   "cc": "__cdecl"
+  },
+  "100056f0": {
+   "proto": "undefined msvc_fpclear(void)",
+   "cc": "__cdecl"
+  },
+  "10005700": {
+   "proto": "undefined msvc_cfltcvt_init(void)",
+   "cc": "__cdecl"
+  },
+  "10005ba0": {
+   "proto": "undefined msvc_qsort(uint param_1, uint param_2, uint param_3, void * param_4)",
+   "cc": "__cdecl"
+  },
+  "10005d50": {
+   "proto": "undefined msvc_shortsort(uint param_1, uint param_2, int param_3, void * param_4)",
+   "cc": "__cdecl"
+  },
+  "10005db0": {
+   "proto": "undefined msvc_qsort_swap(undefined1 *param_1, undefined1 *param_2, int param_3)",
+   "cc": "__cdecl"
+  },
+  "10005de0": {
+   "proto": "uint msvc_bsearch(uint param_1, uint param_2, uint param_3, int param_4, void * param_5)",
+   "cc": "__cdecl"
+  },
+  "10005e90": {
+   "proto": "uint * msvc_strchr(uint *param_1, char param_2)",
+   "cc": "__cdecl"
+  },
+  "10006120": {
+   "proto": "undefined FUN_10006120(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10006160": {
+   "proto": "undefined FUN_10006160(void)",
+   "cc": "__cdecl"
+  },
+  "100061d0": {
+   "proto": "uint FUN_100061d0(void)",
+   "cc": "__cdecl"
+  },
+  "10006200": {
+   "proto": "undefined FUN_10006200(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "10006260": {
+   "proto": "undefined FUN_10006260(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "100062d0": {
+   "proto": "uint FUN_100062d0(double *param_1)",
+   "cc": "__cdecl"
+  },
+  "100062f0": {
+   "proto": "undefined FUN_100062f0(int param_1, undefined4 *param_2, uint param_3)",
+   "cc": "__cdecl"
+  },
+  "10006350": {
+   "proto": "int FUN_10006350(undefined4 *param_1, int param_2, int param_3, uint param_4)",
+   "cc": "__cdecl"
+  },
+  "100063d0": {
+   "proto": "undefined1 * FUN_100063d0(undefined1 *param_1, int param_2, int param_3, int *param_4, char param_5)",
+   "cc": "__cdecl"
+  },
+  "100064d0": {
+   "proto": "int FUN_100064d0(undefined4 *param_1, int param_2, int param_3)",
+   "cc": "__cdecl"
+  },
+  "10006540": {
+   "proto": "undefined1 * FUN_10006540(undefined1 *param_1, uint param_2, int *param_3, char param_4)",
+   "cc": "__cdecl"
+  },
+  "10006600": {
+   "proto": "undefined FUN_10006600(undefined4 *param_1, int param_2, int param_3, uint param_4)",
+   "cc": "__cdecl"
+  },
+  "100066c0": {
+   "proto": "undefined FUN_100066c0(uint param_1, uint param_2, int param_3, uint param_4, uint param_5)",
+   "cc": "__cdecl"
+  },
+  "10006730": {
+   "proto": "undefined FUN_10006730(char *param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10006760": {
+   "proto": "undefined FUN_10006760(void)",
+   "cc": "__cdecl"
+  },
+  "10006790": {
+   "proto": "undefined FUN_10006790(void)",
+   "cc": "__cdecl"
+  },
+  "10006810": {
+   "proto": "undefined FUN_10006810(int param_1)",
+   "cc": "__cdecl"
+  },
+  "100068b0": {
+   "proto": "undefined FUN_100068b0(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "100068f0": {
+   "proto": "undefined FUN_100068f0(int param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10006920": {
+   "proto": "undefined FUN_10006920(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10006960": {
+   "proto": "undefined FUN_10006960(int param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10006990": {
+   "proto": "uint FUN_10006990(void)",
+   "cc": "__cdecl"
+  },
+  "100069a0": {
+   "proto": "int FUN_100069a0(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10006a30": {
+   "proto": "uint FUN_10006a30(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10006b30": {
+   "proto": "int FUN_10006b30(uint param_1, byte *param_2, uint *param_3)",
+   "cc": "__cdecl"
+  },
+  "10007870": {
+   "proto": "uint FUN_10007870(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "100078b0": {
+   "proto": "uint FUN_100078b0(undefined4 *param_1)",
+   "cc": "__cdecl"
+  },
+  "100078e0": {
+   "proto": "undefined FUN_100078e0(int param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10007900": {
+   "proto": "uint FUN_10007900(int *param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10007950": {
+   "proto": "undefined FUN_10007950(void)",
+   "cc": "__cdecl"
+  },
+  "10007980": {
+   "proto": "undefined FUN_10007980(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "100079a0": {
+   "proto": "undefined FUN_100079a0(void)",
+   "cc": "__cdecl"
+  },
+  "100079b0": {
+   "proto": "undefined FUN_100079b0(uint param_1, int param_2, int param_3)",
+   "cc": "__cdecl"
+  },
+  "10007a70": {
+   "proto": "undefined FUN_10007a70(void)",
+   "cc": "__cdecl"
+  },
+  "10007a80": {
+   "proto": "undefined FUN_10007a80(void)",
+   "cc": "__cdecl"
+  },
+  "10007a90": {
+   "proto": "undefined FUN_10007a90(undefined4 *param_1, undefined4 *param_2)",
+   "cc": "__cdecl"
+  },
+  "10007ab0": {
+   "proto": "uint FUN_10007ab0(void)",
+   "cc": "__cdecl"
+  },
+  "10007b10": {
+   "proto": "undefined FUN_10007b10(void)",
+   "cc": "__cdecl"
+  },
+  "10007b40": {
+   "proto": "undefined FUN_10007b40(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10007b60": {
+   "proto": "int * FUN_10007b60(void)",
+   "cc": "__cdecl"
+  },
+  "10007be0": {
+   "proto": "undefined FUN_10007be0(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10007c90": {
+   "proto": "undefined FUN_10007c90(void)",
+   "cc": "__cdecl"
+  },
+  "10007ea0": {
+   "proto": "undefined FUN_10007ea0(void)",
+   "cc": "__cdecl"
+  },
+  "10007f00": {
+   "proto": "undefined FUN_10007f00(void)",
+   "cc": "__cdecl"
+  },
+  "10007ff0": {
+   "proto": "undefined FUN_10007ff0(void)",
+   "cc": "__cdecl"
+  },
+  "10008090": {
+   "proto": "undefined FUN_10008090(byte *param_1, undefined4 *param_2, byte *param_3, int *param_4, int *param_5)",
+   "cc": "__cdecl"
+  },
+  "100082a0": {
+   "proto": "uint FUN_100082a0(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "100084d0": {
+   "proto": "int FUN_100084d0(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10008520": {
+   "proto": "uint msvc_CPtoLCID(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10008580": {
+   "proto": "undefined FUN_10008580(void)",
+   "cc": "__cdecl"
+  },
+  "100085c0": {
+   "proto": "undefined FUN_100085c0(void)",
+   "cc": "__cdecl"
+  },
+  "100087a0": {
+   "proto": "undefined FUN_100087a0(void)",
+   "cc": "__cdecl"
+  },
+  "100087b0": {
+   "proto": "char * FUN_100087b0(void)",
+   "cc": "__cdecl"
+  },
+  "10008910": {
+   "proto": "uint FUN_10008910(void)",
+   "cc": "__cdecl"
+  },
+  "10008950": {
+   "proto": "undefined FUN_10008950(void)",
+   "cc": "__cdecl"
+  },
+  "100089a0": {
+   "proto": "undefined FUN_100089a0(void)",
+   "cc": "__cdecl"
+  },
+  "100089e0": {
+   "proto": "undefined FUN_100089e0(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10008bc0": {
+   "proto": "uint FUN_10008bc0(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10008c00": {
+   "proto": "undefined FUN_10008c00(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10008c20": {
+   "proto": "uint FUN_10008c20(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10008d50": {
+   "proto": "uint FUN_10008d50(int param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10008df0": {
+   "proto": "uint FUN_10008df0(int param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10008ed0": {
+   "proto": "int FUN_10008ed0(int param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10008f70": {
+   "proto": "undefined FUN_10008f70(int param_1, undefined4 *param_2)",
+   "cc": "__cdecl"
+  },
+  "10008f90": {
+   "proto": "undefined FUN_10008f90(undefined4 *param_1)",
+   "cc": "__cdecl"
+  },
+  "10008fa0": {
+   "proto": "uint FUN_10008fa0(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "10008fc0": {
+   "proto": "undefined FUN_10008fc0(uint *param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "10009080": {
+   "proto": "uint FUN_10009080(ushort *param_1, uint *param_2, int *param_3)",
+   "cc": "__cdecl"
+  },
+  "10009250": {
+   "proto": "undefined FUN_10009250(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10009270": {
+   "proto": "undefined FUN_10009270(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10009290": {
+   "proto": "undefined FUN_10009290(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "100092d0": {
+   "proto": "undefined FUN_100092d0(uint param_1, uint param_2)",
+   "cc": "__cdecl"
+  },
+  "10009310": {
+   "proto": "undefined FUN_10009310(char *param_1, int param_2, int param_3)",
+   "cc": "__cdecl"
+  },
+  "100093b0": {
+   "proto": "int * FUN_100093b0(uint param_1, uint param_2, int *param_3, char *param_4)",
+   "cc": "__cdecl"
+  },
+  "10009440": {
+   "proto": "undefined FUN_10009440(uint *param_1, uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "10009500": {
+   "proto": "undefined FUN_10009500(void)",
+   "cc": "__cdecl"
+  },
+  "100095a0": {
+   "proto": "int FUN_100095a0(uint param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "100095f0": {
+   "proto": "int FUN_100095f0(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10009650": {
+   "proto": "undefined FUN_10009650(void)",
+   "cc": "__cdecl"
+  },
+  "10009730": {
+   "proto": "uint FUN_10009730(void)",
+   "cc": "__cdecl"
+  },
+  "100097e0": {
+   "proto": "uint FUN_100097e0(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "10009b60": {
+   "proto": "undefined FUN_10009b60(int param_1)",
+   "cc": "__cdecl"
+  },
+  "10009ea0": {
+   "proto": "uint FUN_10009ea0(void)",
+   "cc": "__cdecl"
+  },
+  "1000a0a0": {
+   "proto": "uint FUN_1000a0a0(void)",
+   "cc": "__cdecl"
+  },
+  "1000a190": {
+   "proto": "uint FUN_1000a190(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1000a2e0": {
+   "proto": "undefined FUN_1000a2e0(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "1000a320": {
+   "proto": "undefined FUN_1000a320(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1000a390": {
+   "proto": "uint FUN_1000a390(void)",
+   "cc": "__cdecl"
+  },
+  "1000a940": {
+   "proto": "int FUN_1000a940(char *param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "1000a970": {
+   "proto": "uint FUN_1000a970(uint param_1, uint param_2, uint param_3)",
+   "cc": "__cdecl"
+  },
+  "1000a9f0": {
+   "proto": "uint FUN_1000a9f0(ushort *param_1, byte *param_2, uint param_3)",
+   "cc": "__cdecl"
+  },
+  "1000aaf0": {
+   "proto": "uint FUN_1000aaf0(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1000ab80": {
+   "proto": "uint FUN_1000ab80(undefined4 *param_1)",
+   "cc": "__cdecl"
+  },
+  "1000ac70": {
+   "proto": "uint FUN_1000ac70(uint param_1, int *param_2)",
+   "cc": "__cdecl"
+  },
+  "1000ad00": {
+   "proto": "undefined4 * FUN_1000ad00(int param_1, int param_2)",
+   "cc": "__cdecl"
+  },
+  "1000adb0": {
+   "proto": "int FUN_1000adb0(uint param_1, uint param_2, int param_3, uint param_4, int param_5)",
+   "cc": "__cdecl"
+  },
+  "1000af40": {
+   "proto": "int FUN_1000af40(uint param_1, uint param_2, uint param_3, uint param_4, int param_5, int param_6, int param_7)",
+   "cc": "__cdecl"
+  },
+  "1000b080": {
+   "proto": "undefined4 * FUN_1000b080(void)",
+   "cc": "__cdecl"
+  },
+  "1000b1f0": {
+   "proto": "undefined FUN_1000b1f0(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "1000b250": {
+   "proto": "undefined FUN_1000b250(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1000b320": {
+   "proto": "int FUN_1000b320(uint param_1, undefined4 *param_2, uint *param_3)",
+   "cc": "__cdecl"
+  },
+  "1000b380": {
+   "proto": "undefined FUN_1000b380(int param_1, int param_2, byte *param_3)",
+   "cc": "__cdecl"
+  },
+  "1000b3e0": {
+   "proto": "int * FUN_1000b3e0(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1000b620": {
+   "proto": "int FUN_1000b620(int *param_1, uint param_2, uint param_3)",
+   "cc": "__cdecl"
+  },
+  "1000b7a0": {
+   "proto": "uint FUN_1000b7a0(uint param_1, uint param_2, uint param_3)",
+   "cc": "__cdecl"
+  },
+  "1000b830": {
+   "proto": "uint FUN_1000b830(uint param_1, uint param_2, uint *param_3)",
+   "cc": "__cdecl"
+  },
+  "1000b860": {
+   "proto": "undefined FUN_1000b860(undefined4 *param_1, undefined4 *param_2)",
+   "cc": "__cdecl"
+  },
+  "1000b8d0": {
+   "proto": "undefined FUN_1000b8d0(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "1000b900": {
+   "proto": "undefined FUN_1000b900(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "1000b930": {
+   "proto": "undefined FUN_1000b930(char *param_1, int param_2, uint *param_3)",
+   "cc": "__cdecl"
+  },
+  "1000ba30": {
+   "proto": "uint FUN_1000ba30(ushort *param_1, int *param_2, byte *param_3, uint param_4, int param_5, int param_6, int param_7)",
+   "cc": "__cdecl"
+  },
+  "1000c1c0": {
+   "proto": "uint FUN_1000c1c0(int param_1, uint param_2, uint param_3, int param_4, byte param_5, short *param_6)",
+   "cc": "__cdecl"
+  },
+  "1000c550": {
+   "proto": "uint FUN_1000c550(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1000c610": {
+   "proto": "int FUN_1000c610(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1000c650": {
+   "proto": "uint FUN_1000c650(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "1000c6c0": {
+   "proto": "undefined FUN_1000c6c0(void)",
+   "cc": "__cdecl"
+  },
+  "1000c6d0": {
+   "proto": "int FUN_1000c6d0(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1000c790": {
+   "proto": "uint FUN_1000c790(int param_1, uint param_2, uint param_3, int *param_4)",
+   "cc": "__cdecl"
+  },
+  "1000cad0": {
+   "proto": "int FUN_1000cad0(void)",
+   "cc": "__cdecl"
+  },
+  "1000cae0": {
+   "proto": "int FUN_1000cae0(void)",
+   "cc": "__cdecl"
+  },
+  "1000caf0": {
+   "proto": "uint FUN_1000caf0(uint param_1, uint param_2, uint param_3)",
+   "cc": "__cdecl"
+  },
+  "1000cb70": {
+   "proto": "int FUN_1000cb70(uint param_1, char *param_2, int param_3)",
+   "cc": "__cdecl"
+  },
+  "1000ce00": {
+   "proto": "undefined FUN_1000ce00(int *param_1, int *param_2)",
+   "cc": "__cdecl"
+  },
+  "1000d0c0": {
+   "proto": "undefined FUN_1000d0c0(undefined2 *param_1, uint param_2, int param_3)",
+   "cc": "__cdecl"
+  },
+  "1000d150": {
+   "proto": "uint FUN_1000d150(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1000d190": {
+   "proto": "uint FUN_1000d190(int param_1)",
+   "cc": "__cdecl"
+  },
+  "1000d200": {
+   "proto": "uint FUN_1000d200(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1000d2a0": {
+   "proto": "uint FUN_1000d2a0(uint param_1, uint param_2, uint param_3)",
+   "cc": "__cdecl"
+  },
+  "1000d320": {
+   "proto": "int FUN_1000d320(uint param_1, char *param_2, uint param_3)",
+   "cc": "__cdecl"
+  },
+  "1000d530": {
+   "proto": "int FUN_1000d530(uint param_1, uint param_2, uint param_3, uint param_4)",
+   "cc": "__cdecl"
+  },
+  "1000d660": {
+   "proto": "int FUN_1000d660(uint param_1, uint param_2, uint param_3, uint param_4)",
+   "cc": "__cdecl"
+  },
+  "1000d890": {
+   "proto": "uint FUN_1000d890(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1000d930": {
+   "proto": "uint FUN_1000d930(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1000d980": {
+   "proto": "undefined FUN_1000d980(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1000d9f0": {
+   "proto": "undefined FUN_1000d9f0(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1000da20": {
+   "proto": "int FUN_1000da20(uint param_1, uint param_2, uint param_3)",
+   "cc": "__cdecl"
+  },
+  "1000daa0": {
+   "proto": "uint FUN_1000daa0(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1000db10": {
+   "proto": "uint FUN_1000db10(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1000dba0": {
+   "proto": "undefined FUN_1000dba0(undefined4 *param_1)",
+   "cc": "__cdecl"
+  }
+ }
+}

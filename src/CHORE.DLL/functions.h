@@ -106,179 +106,179 @@ void __cdecl Chore_AdvanceTime(Costume *pCostume,CosInstance *pInst,int choreNum
 void __cdecl Chore_ApplyKey(int reason,ComponentTag *pTag,int instData,ChoreKey *pKey,int dt,ChoreKey *pKey2, int zero,int user); /* 0x10005530 */
 
 /* ===== msvc.c ===== */
-uint * msvc_strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x100055a0 */
-char * msvc_strrchr(char *param_1,char param_2); /* 0x100056a0 */
-void msvc_fpmath(void); /* 0x100056d0 */
-void msvc_fpclear(void); /* 0x100056f0 */
-void msvc_cfltcvt_init(void); /* 0x10005700 */
+uint * __cdecl msvc_strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x100055a0 */
+char * __cdecl msvc_strrchr(char *param_1,char param_2); /* 0x100056a0 */
+void __cdecl msvc_fpmath(void); /* 0x100056d0 */
+void __cdecl msvc_fpclear(void); /* 0x100056f0 */
+void __cdecl msvc_cfltcvt_init(void); /* 0x10005700 */
 int __cdecl msvc_stricmp(byte *a,byte *b); /* 0x10005740 */
 int __cdecl msvc_sscanf(char *param_1,char *param_2,...); /* 0x10005810 */
 undefined4 * msvc_memmove(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x10005860 */
-void msvc_qsort(uint param_1,uint param_2,uint param_3,code *param_4); /* 0x10005ba0 */
-void msvc_shortsort(uint param_1,uint param_2,int param_3,code *param_4); /* 0x10005d50 */
-void msvc_qsort_swap(undefined1 *param_1,undefined1 *param_2,int param_3); /* 0x10005db0 */
-uint msvc_bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,code *param_5); /* 0x10005de0 */
-uint * msvc_strchr(uint *param_1,char param_2); /* 0x10005e90 */
+void __cdecl msvc_qsort(uint param_1,uint param_2,uint param_3,void *param_4); /* 0x10005ba0 */
+void __cdecl msvc_shortsort(uint param_1,uint param_2,int param_3,void *param_4); /* 0x10005d50 */
+void __cdecl msvc_qsort_swap(undefined1 *param_1,undefined1 *param_2,int param_3); /* 0x10005db0 */
+uint __cdecl msvc_bsearch(uint param_1,uint param_2,uint param_3,int param_4,void *param_5); /* 0x10005de0 */
+uint * __cdecl msvc_strchr(uint *param_1,char param_2); /* 0x10005e90 */
 undefined4 __stdcall FUN_10005f50(int a1,int a2,int a3); /* 0x10005f50 */
-undefined4 msvc_CPtoLCID(undefined4 param_1); /* 0x10008520 */
+uint __cdecl msvc_CPtoLCID(uint param_1); /* 0x10008520 */
 
 /* ===== crt.c ===== */
 undefined4 __stdcall entry(int a1,int a2,int a3); /* 0x10006070 */
 
 /* ===== region_10006120.c ===== */
-void FUN_10006120(undefined4 param_1); /* 0x10006120 */
-void FUN_10006160(void); /* 0x10006160 */
-undefined4 FUN_100061d0(void); /* 0x100061d0 */
-void FUN_10006200(char *param_1); /* 0x10006200 */
-void FUN_10006260(char *param_1); /* 0x10006260 */
-undefined4 FUN_100062d0(double *param_1); /* 0x100062d0 */
-void FUN_100062f0(int param_1,undefined4 *param_2,undefined4 param_3); /* 0x100062f0 */
-int FUN_10006350(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10006350 */
-undefined1 * FUN_100063d0(undefined1 *param_1,int param_2,int param_3,int *param_4,char param_5); /* 0x100063d0 */
-int FUN_100064d0(undefined4 *param_1,int param_2,int param_3); /* 0x100064d0 */
-undefined1 * FUN_10006540(undefined1 *param_1,uint param_2,int *param_3,char param_4); /* 0x10006540 */
-void FUN_10006600(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x10006600 */
-void FUN_100066c0(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4, undefined4 param_5); /* 0x100066c0 */
-void FUN_10006730(char *param_1,int param_2); /* 0x10006730 */
-void FUN_10006760(void); /* 0x10006760 */
-void FUN_10006790(void); /* 0x10006790 */
-void FUN_10006810(int param_1); /* 0x10006810 */
+void __cdecl FUN_10006120(uint param_1); /* 0x10006120 */
+void __cdecl FUN_10006160(void); /* 0x10006160 */
+uint __cdecl FUN_100061d0(void); /* 0x100061d0 */
+void __cdecl FUN_10006200(char *param_1); /* 0x10006200 */
+void __cdecl FUN_10006260(char *param_1); /* 0x10006260 */
+uint __cdecl FUN_100062d0(double *param_1); /* 0x100062d0 */
+void __cdecl FUN_100062f0(int param_1,undefined4 *param_2,uint param_3); /* 0x100062f0 */
+int __cdecl FUN_10006350(undefined4 *param_1,int param_2,int param_3,uint param_4); /* 0x10006350 */
+undefined1 * __cdecl FUN_100063d0(undefined1 *param_1,int param_2,int param_3,int *param_4,char param_5); /* 0x100063d0 */
+int __cdecl FUN_100064d0(undefined4 *param_1,int param_2,int param_3); /* 0x100064d0 */
+undefined1 * __cdecl FUN_10006540(undefined1 *param_1,uint param_2,int *param_3,char param_4); /* 0x10006540 */
+void __cdecl FUN_10006600(undefined4 *param_1,int param_2,int param_3,uint param_4); /* 0x10006600 */
+void __cdecl FUN_100066c0(uint param_1,uint param_2,int param_3,uint param_4,uint param_5); /* 0x100066c0 */
+void __cdecl FUN_10006730(char *param_1,int param_2); /* 0x10006730 */
+void __cdecl FUN_10006760(void); /* 0x10006760 */
+void __cdecl FUN_10006790(void); /* 0x10006790 */
+void __cdecl FUN_10006810(int param_1); /* 0x10006810 */
 int FUN_10006890(void); /* 0x10006890 */
-void FUN_100068b0(uint param_1); /* 0x100068b0 */
-void FUN_100068f0(int param_1,int param_2); /* 0x100068f0 */
-void FUN_10006920(uint param_1); /* 0x10006920 */
-void FUN_10006960(int param_1,int param_2); /* 0x10006960 */
-undefined4 FUN_10006990(void); /* 0x10006990 */
-int FUN_100069a0(int param_1); /* 0x100069a0 */
-uint FUN_10006a30(uint param_1); /* 0x10006a30 */
-int FUN_10006b30(undefined4 param_1,byte *param_2,undefined4 *param_3); /* 0x10006b30 */
-uint FUN_10007870(uint param_1); /* 0x10007870 */
-uint FUN_100078b0(undefined4 *param_1); /* 0x100078b0 */
-void FUN_100078e0(int param_1,undefined4 param_2); /* 0x100078e0 */
-undefined4 FUN_10007900(int *param_1,undefined4 param_2); /* 0x10007900 */
-void FUN_10007950(void); /* 0x10007950 */
-void FUN_10007980(undefined4 param_1); /* 0x10007980 */
-void FUN_100079a0(void); /* 0x100079a0 */
-void FUN_100079b0(undefined4 param_1,int param_2,int param_3); /* 0x100079b0 */
-void FUN_10007a70(void); /* 0x10007a70 */
-void FUN_10007a80(void); /* 0x10007a80 */
-void FUN_10007a90(undefined4 *param_1,undefined4 *param_2); /* 0x10007a90 */
-undefined4 FUN_10007ab0(void); /* 0x10007ab0 */
-void FUN_10007b10(void); /* 0x10007b10 */
-void FUN_10007b40(int param_1); /* 0x10007b40 */
-int * FUN_10007b60(void); /* 0x10007b60 */
-void FUN_10007be0(int param_1); /* 0x10007be0 */
-void FUN_10007c90(void); /* 0x10007c90 */
-void FUN_10007ea0(void); /* 0x10007ea0 */
-void FUN_10007f00(void); /* 0x10007f00 */
-void FUN_10007ff0(void); /* 0x10007ff0 */
-void FUN_10008090(byte *param_1,undefined4 *param_2,byte *param_3,int *param_4,int *param_5); /* 0x10008090 */
-undefined4 FUN_100082a0(undefined4 param_1); /* 0x100082a0 */
-int FUN_100084d0(int param_1); /* 0x100084d0 */
+void __cdecl FUN_100068b0(uint param_1); /* 0x100068b0 */
+void __cdecl FUN_100068f0(int param_1,int param_2); /* 0x100068f0 */
+void __cdecl FUN_10006920(uint param_1); /* 0x10006920 */
+void __cdecl FUN_10006960(int param_1,int param_2); /* 0x10006960 */
+uint __cdecl FUN_10006990(void); /* 0x10006990 */
+int __cdecl FUN_100069a0(int param_1); /* 0x100069a0 */
+uint __cdecl FUN_10006a30(uint param_1); /* 0x10006a30 */
+int __cdecl FUN_10006b30(uint param_1,byte *param_2,uint *param_3); /* 0x10006b30 */
+uint __cdecl FUN_10007870(uint param_1); /* 0x10007870 */
+uint __cdecl FUN_100078b0(undefined4 *param_1); /* 0x100078b0 */
+void __cdecl FUN_100078e0(int param_1,uint param_2); /* 0x100078e0 */
+uint __cdecl FUN_10007900(int *param_1,uint param_2); /* 0x10007900 */
+void __cdecl FUN_10007950(void); /* 0x10007950 */
+void __cdecl FUN_10007980(uint param_1); /* 0x10007980 */
+void __cdecl FUN_100079a0(void); /* 0x100079a0 */
+void __cdecl FUN_100079b0(uint param_1,int param_2,int param_3); /* 0x100079b0 */
+void __cdecl FUN_10007a70(void); /* 0x10007a70 */
+void __cdecl FUN_10007a80(void); /* 0x10007a80 */
+void __cdecl FUN_10007a90(undefined4 *param_1,undefined4 *param_2); /* 0x10007a90 */
+uint __cdecl FUN_10007ab0(void); /* 0x10007ab0 */
+void __cdecl FUN_10007b10(void); /* 0x10007b10 */
+void __cdecl FUN_10007b40(int param_1); /* 0x10007b40 */
+int * __cdecl FUN_10007b60(void); /* 0x10007b60 */
+void __cdecl FUN_10007be0(int param_1); /* 0x10007be0 */
+void __cdecl FUN_10007c90(void); /* 0x10007c90 */
+void __cdecl FUN_10007ea0(void); /* 0x10007ea0 */
+void __cdecl FUN_10007f00(void); /* 0x10007f00 */
+void __cdecl FUN_10007ff0(void); /* 0x10007ff0 */
+void __cdecl FUN_10008090(byte *param_1,undefined4 *param_2,byte *param_3,int *param_4,int *param_5); /* 0x10008090 */
+uint __cdecl FUN_100082a0(uint param_1); /* 0x100082a0 */
+int __cdecl FUN_100084d0(int param_1); /* 0x100084d0 */
 
 /* ===== region_10008580.c ===== */
-void FUN_10008580(void); /* 0x10008580 */
-void FUN_100085c0(void); /* 0x100085c0 */
-void FUN_100087a0(void); /* 0x100087a0 */
-char * FUN_100087b0(void); /* 0x100087b0 */
-undefined4 FUN_10008910(void); /* 0x10008910 */
-void FUN_10008950(void); /* 0x10008950 */
+void __cdecl FUN_10008580(void); /* 0x10008580 */
+void __cdecl FUN_100085c0(void); /* 0x100085c0 */
+void __cdecl FUN_100087a0(void); /* 0x100087a0 */
+char * __cdecl FUN_100087b0(void); /* 0x100087b0 */
+uint __cdecl FUN_10008910(void); /* 0x10008910 */
+void __cdecl FUN_10008950(void); /* 0x10008950 */
 undefined4 __stdcall FUN_10008990(int a1,int a2,int a3); /* 0x10008990 */
-void FUN_100089a0(void); /* 0x100089a0 */
-void FUN_100089e0(int param_1); /* 0x100089e0 */
-uint FUN_10008bc0(uint param_1,uint param_2); /* 0x10008bc0 */
-void FUN_10008c00(undefined4 param_1,uint param_2); /* 0x10008c00 */
-uint FUN_10008c20(uint param_1); /* 0x10008c20 */
+void __cdecl FUN_100089a0(void); /* 0x100089a0 */
+void __cdecl FUN_100089e0(int param_1); /* 0x100089e0 */
+uint __cdecl FUN_10008bc0(uint param_1,uint param_2); /* 0x10008bc0 */
+void __cdecl FUN_10008c00(uint param_1,uint param_2); /* 0x10008c00 */
+uint __cdecl FUN_10008c20(uint param_1); /* 0x10008c20 */
 int FUN_10008cc0(void); /* 0x10008cc0 */
-uint FUN_10008d50(int param_1,uint param_2); /* 0x10008d50 */
-undefined4 FUN_10008df0(int param_1,int param_2); /* 0x10008df0 */
+uint __cdecl FUN_10008d50(int param_1,uint param_2); /* 0x10008d50 */
+uint __cdecl FUN_10008df0(int param_1,int param_2); /* 0x10008df0 */
 int FUN_10008e60(void); /* 0x10008e60 */
-int FUN_10008ed0(int param_1,int param_2); /* 0x10008ed0 */
-void FUN_10008f70(int param_1,undefined4 *param_2); /* 0x10008f70 */
-void FUN_10008f90(undefined4 *param_1); /* 0x10008f90 */
-undefined4 FUN_10008fa0(int *param_1); /* 0x10008fa0 */
-void FUN_10008fc0(uint *param_1,int param_2); /* 0x10008fc0 */
-undefined4 FUN_10009080(ushort *param_1,uint *param_2,int *param_3); /* 0x10009080 */
-void FUN_10009250(undefined4 param_1,undefined4 param_2); /* 0x10009250 */
-void FUN_10009270(undefined4 param_1,undefined4 param_2); /* 0x10009270 */
-void FUN_10009290(undefined4 param_1,undefined4 param_2); /* 0x10009290 */
-void FUN_100092d0(undefined4 param_1,undefined4 param_2); /* 0x100092d0 */
-void FUN_10009310(char *param_1,int param_2,int param_3); /* 0x10009310 */
-int * FUN_100093b0(undefined4 param_1,undefined4 param_2,int *param_3,char *param_4); /* 0x100093b0 */
-void FUN_10009440(uint *param_1,uint *param_2); /* 0x10009440 */
-void FUN_10009500(void); /* 0x10009500 */
+int __cdecl FUN_10008ed0(int param_1,int param_2); /* 0x10008ed0 */
+void __cdecl FUN_10008f70(int param_1,undefined4 *param_2); /* 0x10008f70 */
+void __cdecl FUN_10008f90(undefined4 *param_1); /* 0x10008f90 */
+uint __cdecl FUN_10008fa0(int *param_1); /* 0x10008fa0 */
+void __cdecl FUN_10008fc0(uint *param_1,int param_2); /* 0x10008fc0 */
+uint __cdecl FUN_10009080(ushort *param_1,uint *param_2,int *param_3); /* 0x10009080 */
+void __cdecl FUN_10009250(uint param_1,uint param_2); /* 0x10009250 */
+void __cdecl FUN_10009270(uint param_1,uint param_2); /* 0x10009270 */
+void __cdecl FUN_10009290(uint param_1,uint param_2); /* 0x10009290 */
+void __cdecl FUN_100092d0(uint param_1,uint param_2); /* 0x100092d0 */
+void __cdecl FUN_10009310(char *param_1,int param_2,int param_3); /* 0x10009310 */
+int * __cdecl FUN_100093b0(uint param_1,uint param_2,int *param_3,char *param_4); /* 0x100093b0 */
+void __cdecl FUN_10009440(uint *param_1,uint *param_2); /* 0x10009440 */
+void __cdecl FUN_10009500(void); /* 0x10009500 */
 int FUN_10009510(void); /* 0x10009510 */
-undefined4 FUN_10009580(undefined4 param_1); /* 0x10009580 */
-int FUN_100095a0(uint param_1,int param_2); /* 0x100095a0 */
-int FUN_100095f0(int param_1); /* 0x100095f0 */
-void FUN_10009650(void); /* 0x10009650 */
+int FUN_10009580(uint param_1); /* 0x10009580 */
+int __cdecl FUN_100095a0(uint param_1,int param_2); /* 0x100095a0 */
+int __cdecl FUN_100095f0(int param_1); /* 0x100095f0 */
+void __cdecl FUN_10009650(void); /* 0x10009650 */
 int __stdcall FUN_10009710(int a1,int a2,int a3,int a4); /* 0x10009710 */
-undefined4 FUN_10009730(void); /* 0x10009730 */
-uint FUN_100097e0(char *param_1); /* 0x100097e0 */
-void FUN_10009b60(int param_1); /* 0x10009b60 */
+uint __cdecl FUN_10009730(void); /* 0x10009730 */
+uint __cdecl FUN_100097e0(char *param_1); /* 0x100097e0 */
+void __cdecl FUN_10009b60(int param_1); /* 0x10009b60 */
 uint FUN_10009da0(char *param_1,char *param_2,int param_3); /* 0x10009da0 */
-undefined4 FUN_10009ea0(void); /* 0x10009ea0 */
-undefined4 FUN_1000a0a0(void); /* 0x1000a0a0 */
-uint FUN_1000a190(int param_1); /* 0x1000a190 */
-void FUN_1000a2e0(char *param_1); /* 0x1000a2e0 */
-void FUN_1000a320(int param_1); /* 0x1000a320 */
-undefined4 FUN_1000a390(void); /* 0x1000a390 */
-int FUN_1000a710(undefined4 param_1,undefined4 param_2,undefined4 param_3,int param_4, undefined4 param_5,undefined4 param_6,int param_7,int param_8); /* 0x1000a710 */
-int FUN_1000a940(char *param_1,int param_2); /* 0x1000a940 */
-undefined4 FUN_1000a970(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x1000a970 */
-uint FUN_1000a9f0(ushort *param_1,byte *param_2,uint param_3); /* 0x1000a9f0 */
-uint FUN_1000aaf0(int param_1); /* 0x1000aaf0 */
+uint __cdecl FUN_10009ea0(void); /* 0x10009ea0 */
+uint __cdecl FUN_1000a0a0(void); /* 0x1000a0a0 */
+uint __cdecl FUN_1000a190(int param_1); /* 0x1000a190 */
+void __cdecl FUN_1000a2e0(char *param_1); /* 0x1000a2e0 */
+void __cdecl FUN_1000a320(int param_1); /* 0x1000a320 */
+uint __cdecl FUN_1000a390(void); /* 0x1000a390 */
+int FUN_1000a710(undefined4 param_1,undefined4 param_2,char *param_3,int param_4,undefined4 param_5, undefined4 param_6,int param_7,int param_8); /* 0x1000a710 */
+int __cdecl FUN_1000a940(char *param_1,int param_2); /* 0x1000a940 */
+uint __cdecl FUN_1000a970(uint param_1,uint param_2,uint param_3); /* 0x1000a970 */
+uint __cdecl FUN_1000a9f0(ushort *param_1,byte *param_2,uint param_3); /* 0x1000a9f0 */
+uint __cdecl FUN_1000aaf0(int param_1); /* 0x1000aaf0 */
 int __stdcall FUN_1000ab20(int a1,int a2,int a3,int a4); /* 0x1000ab20 */
 int __fastcall FUN_1000ab60(byte param_1,int param_2); /* 0x1000ab60 */
-uint FUN_1000ab80(undefined4 *param_1); /* 0x1000ab80 */
-uint FUN_1000ac70(uint param_1,int *param_2); /* 0x1000ac70 */
-undefined4 * FUN_1000ad00(int param_1,int param_2); /* 0x1000ad00 */
-int FUN_1000adb0(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4,int param_5); /* 0x1000adb0 */
-int FUN_1000af40(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, int param_5,int param_6,int param_7); /* 0x1000af40 */
-undefined4 * FUN_1000b080(void); /* 0x1000b080 */
-void FUN_1000b1f0(int *param_1); /* 0x1000b1f0 */
-void FUN_1000b250(int param_1); /* 0x1000b250 */
-int FUN_1000b320(uint param_1,undefined4 *param_2,uint *param_3); /* 0x1000b320 */
-void FUN_1000b380(int param_1,int param_2,byte *param_3); /* 0x1000b380 */
-int * FUN_1000b3e0(uint param_1); /* 0x1000b3e0 */
-int FUN_1000b620(int *param_1,uint param_2,uint param_3); /* 0x1000b620 */
-undefined4 FUN_1000b7a0(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x1000b7a0 */
-undefined4 FUN_1000b830(uint param_1,uint param_2,uint *param_3); /* 0x1000b830 */
-void FUN_1000b860(undefined4 *param_1,undefined4 *param_2); /* 0x1000b860 */
-void FUN_1000b8d0(uint *param_1); /* 0x1000b8d0 */
-void FUN_1000b900(uint *param_1); /* 0x1000b900 */
-void FUN_1000b930(char *param_1,int param_2,uint *param_3); /* 0x1000b930 */
-undefined4 FUN_1000ba30(ushort *param_1,int *param_2,byte *param_3,undefined4 param_4,int param_5,int param_6, int param_7); /* 0x1000ba30 */
-undefined4 FUN_1000c1c0(int param_1,uint param_2,uint param_3,int param_4,byte param_5,short *param_6); /* 0x1000c1c0 */
-undefined4 FUN_1000c550(undefined4 param_1); /* 0x1000c550 */
-int FUN_1000c610(int param_1); /* 0x1000c610 */
-undefined4 FUN_1000c650(int *param_1); /* 0x1000c650 */
-void FUN_1000c6c0(void); /* 0x1000c6c0 */
-int FUN_1000c6d0(int param_1); /* 0x1000c6d0 */
-undefined4 FUN_1000c790(int param_1,undefined4 param_2,undefined4 param_3,int *param_4); /* 0x1000c790 */
+uint __cdecl FUN_1000ab80(undefined4 *param_1); /* 0x1000ab80 */
+uint __cdecl FUN_1000ac70(uint param_1,int *param_2); /* 0x1000ac70 */
+undefined4 * __cdecl FUN_1000ad00(int param_1,int param_2); /* 0x1000ad00 */
+int __cdecl FUN_1000adb0(uint param_1,uint param_2,int param_3,uint param_4,int param_5); /* 0x1000adb0 */
+int __cdecl FUN_1000af40(uint param_1,uint param_2,uint param_3,uint param_4,int param_5,int param_6,int param_7 ); /* 0x1000af40 */
+undefined4 * __cdecl FUN_1000b080(void); /* 0x1000b080 */
+void __cdecl FUN_1000b1f0(int *param_1); /* 0x1000b1f0 */
+void __cdecl FUN_1000b250(int param_1); /* 0x1000b250 */
+int __cdecl FUN_1000b320(uint param_1,undefined4 *param_2,uint *param_3); /* 0x1000b320 */
+void __cdecl FUN_1000b380(int param_1,int param_2,byte *param_3); /* 0x1000b380 */
+int * __cdecl FUN_1000b3e0(uint param_1); /* 0x1000b3e0 */
+int __cdecl FUN_1000b620(int *param_1,uint param_2,uint param_3); /* 0x1000b620 */
+uint __cdecl FUN_1000b7a0(uint param_1,uint param_2,uint param_3); /* 0x1000b7a0 */
+uint __cdecl FUN_1000b830(uint param_1,uint param_2,uint *param_3); /* 0x1000b830 */
+void __cdecl FUN_1000b860(undefined4 *param_1,undefined4 *param_2); /* 0x1000b860 */
+void __cdecl FUN_1000b8d0(uint *param_1); /* 0x1000b8d0 */
+void __cdecl FUN_1000b900(uint *param_1); /* 0x1000b900 */
+void __cdecl FUN_1000b930(char *param_1,int param_2,uint *param_3); /* 0x1000b930 */
+uint __cdecl FUN_1000ba30(ushort *param_1,int *param_2,byte *param_3,uint param_4,int param_5,int param_6, int param_7); /* 0x1000ba30 */
+uint __cdecl FUN_1000c1c0(int param_1,uint param_2,uint param_3,int param_4,byte param_5,short *param_6); /* 0x1000c1c0 */
+uint __cdecl FUN_1000c550(uint param_1); /* 0x1000c550 */
+int __cdecl FUN_1000c610(int param_1); /* 0x1000c610 */
+uint __cdecl FUN_1000c650(int *param_1); /* 0x1000c650 */
+void __cdecl FUN_1000c6c0(void); /* 0x1000c6c0 */
+int __cdecl FUN_1000c6d0(int param_1); /* 0x1000c6d0 */
+uint __cdecl FUN_1000c790(int param_1,uint param_2,uint param_3,int *param_4); /* 0x1000c790 */
 int FUN_1000ca50(void); /* 0x1000ca50 */
-int FUN_1000cad0(void); /* 0x1000cad0 */
-int FUN_1000cae0(void); /* 0x1000cae0 */
-undefined4 FUN_1000caf0(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x1000caf0 */
-int FUN_1000cb70(uint param_1,char *param_2,int param_3); /* 0x1000cb70 */
+int __cdecl FUN_1000cad0(void); /* 0x1000cad0 */
+int __cdecl FUN_1000cae0(void); /* 0x1000cae0 */
+uint __cdecl FUN_1000caf0(uint param_1,uint param_2,uint param_3); /* 0x1000caf0 */
+int __cdecl FUN_1000cb70(uint param_1,char *param_2,int param_3); /* 0x1000cb70 */
 void FUN_1000cda0(int *param_1,int *param_2); /* 0x1000cda0 */
-void FUN_1000ce00(int *param_1,int *param_2); /* 0x1000ce00 */
-void FUN_1000d0c0(undefined2 *param_1,uint param_2,int param_3); /* 0x1000d0c0 */
-undefined4 FUN_1000d150(int param_1); /* 0x1000d150 */
-undefined4 FUN_1000d190(int param_1); /* 0x1000d190 */
-undefined4 FUN_1000d200(uint param_1); /* 0x1000d200 */
-undefined4 FUN_1000d2a0(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x1000d2a0 */
-int FUN_1000d320(uint param_1,char *param_2,uint param_3); /* 0x1000d320 */
-int FUN_1000d530(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x1000d530 */
-int FUN_1000d660(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x1000d660 */
-undefined4 FUN_1000d890(uint param_1); /* 0x1000d890 */
-undefined4 FUN_1000d930(uint param_1); /* 0x1000d930 */
-void FUN_1000d980(uint param_1); /* 0x1000d980 */
-void FUN_1000d9f0(uint param_1); /* 0x1000d9f0 */
-int FUN_1000da20(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x1000da20 */
-undefined4 FUN_1000daa0(uint param_1); /* 0x1000daa0 */
-undefined4 FUN_1000db10(uint param_1); /* 0x1000db10 */
-void FUN_1000dba0(undefined4 *param_1); /* 0x1000dba0 */
+void __cdecl FUN_1000ce00(int *param_1,int *param_2); /* 0x1000ce00 */
+void __cdecl FUN_1000d0c0(undefined2 *param_1,uint param_2,int param_3); /* 0x1000d0c0 */
+uint __cdecl FUN_1000d150(int param_1); /* 0x1000d150 */
+uint __cdecl FUN_1000d190(int param_1); /* 0x1000d190 */
+uint __cdecl FUN_1000d200(uint param_1); /* 0x1000d200 */
+uint __cdecl FUN_1000d2a0(uint param_1,uint param_2,uint param_3); /* 0x1000d2a0 */
+int __cdecl FUN_1000d320(uint param_1,char *param_2,uint param_3); /* 0x1000d320 */
+int __cdecl FUN_1000d530(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x1000d530 */
+int __cdecl FUN_1000d660(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x1000d660 */
+uint __cdecl FUN_1000d890(uint param_1); /* 0x1000d890 */
+uint __cdecl FUN_1000d930(uint param_1); /* 0x1000d930 */
+void __cdecl FUN_1000d980(uint param_1); /* 0x1000d980 */
+void __cdecl FUN_1000d9f0(uint param_1); /* 0x1000d9f0 */
+int __cdecl FUN_1000da20(uint param_1,uint param_2,uint param_3); /* 0x1000da20 */
+uint __cdecl FUN_1000daa0(uint param_1); /* 0x1000daa0 */
+uint __cdecl FUN_1000db10(uint param_1); /* 0x1000db10 */
+void __cdecl FUN_1000dba0(undefined4 *param_1); /* 0x1000dba0 */
 
 /* ===== referenced, not decompiled here (thunks, imports, unknown FUN_) ===== */
 int STDCALL CloseHandle() __asm__("_CloseHandle@4"); /* import */
