@@ -9,7 +9,7 @@
 /* Original name sputRoom_RelocateSounds (the remaster's GrimFandango (Linux): aligned call in
    grimlib_MakeCurrentSetup); was PositionedSounds_UpdateAll. */
 
-void sputRoom_RelocateSounds(void)
+void __cdecl sputRoom_RelocateSounds(void)
 
 {
   undefined4 *puVar1;
@@ -25,9 +25,9 @@ void sputRoom_RelocateSounds(void)
 /* Original name sputRoom_SetSoundPosition (the remaster's GrimFandango (Linux): aligned call in
    SoundChanger, sputActor_SayLine, sputLua_SetSoundPosition); was Sound_SetPosition. */
 
-void sputRoom_SetSoundPosition
-               (uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5,uint param_6
-               )
+void __cdecl
+sputRoom_SetSoundPosition
+          (uint param_1,byte **param_2,uint param_3,uint param_4,uint param_5,uint param_6)
 
 {
   int iVar1;
@@ -43,7 +43,7 @@ void sputRoom_SetSoundPosition
 }
 
 /* ---- 0x004a4dc0  PositionedSounds_DropFinished ---- */
-void PositionedSounds_DropFinished(void)
+void __cdecl PositionedSounds_DropFinished(void)
 
 {
   undefined4 *puVar1;

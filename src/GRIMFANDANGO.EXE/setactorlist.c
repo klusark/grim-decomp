@@ -8,7 +8,7 @@
 /* ---- 0x004a6160  SetActorList_Free ---- */
 /* Unlinks a node from the g_pRoomList list (per-set actor lists, link at +0x84) and frees it. */
 
-void SetActorList_Free(void *param_1)
+void __cdecl SetActorList_Free(void *param_1)
 
 {
   void *pvVar1;

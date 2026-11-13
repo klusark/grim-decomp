@@ -13,7 +13,7 @@
    (Linux): the same handler slot (changer) of the same costume tag registration in
    sputCostume_Startup); was LuaVarComponent_OnKey. */
 
-void LuaVarChanger(undefined4 param_1,char *param_2,undefined4 param_3,int param_4)
+void __cdecl LuaVarChanger(uint param_1,char *param_2,uint param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -32,22 +32,22 @@ void LuaVarChanger(undefined4 param_1,char *param_2,undefined4 param_3,int param
    name LuaVarAdjuster (the remaster's GrimFandango (Linux): strings: 'Change variable properties');
    was LuaVarComponent_EditKey. */
 
-undefined4 LuaVarAdjuster(undefined4 *param_1,int param_2,int param_3)
+uint __cdecl LuaVarAdjuster(uint *param_1,int param_2,int param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  char *defaultText;
+  uint *defaultText;
   int iVar1;
-  #define local_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
+  #define local_20 (*(uint (*)[8])(_frame + (0x30 - 0x20)))
   
-  defaultText = (char *)*param_1;
+  defaultText = (uint *)*param_1;
   iVar1 = grimPlat_InputDialog
-                    (s_Change_variable_properties_004ea72c,s_Variable_name_004ea748,local_20,0x20,
-                     defaultText);
+                    (s_Change_variable_properties_004ea72c,s_Variable_name_004ea748,(char *)local_20
+                     ,0x20,(char *)defaultText);
   if (iVar1 != 0) {
     strncpy(defaultText,local_20,0x1f);
-    defaultText[0x1f] = '\0';
-    strncpy(param_2,local_20,param_3 + -1);
+    *(undefined1 *)((int)defaultText + 0x1f) = 0;
+    strncpy((uint *)param_2,local_20,param_3 - 1);
     *(undefined1 *)(param_3 + -1 + param_2) = 0;
     return 1;
   }
@@ -62,47 +62,48 @@ undefined4 LuaVarAdjuster(undefined4 *param_1,int param_2,int param_3)
    the editor. Original name LuaVarRequester (the remaster's GrimFandango (Linux): strings: 'Name of
    variable'); was LuaVarComponent_Create. */
 
-int LuaVarRequester(uint param_1,int param_2,int param_3,int param_4,int param_5)
+int __cdecl LuaVarRequester(uint param_1,int param_2,int param_3,int param_4,int param_5)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  undefined4 *puVar2;
-  #define local_20 (*(char *)(_frame + (0x30 - 0x20)))
+  uint *puVar1;
+  int iVar2;
+  undefined4 *puVar3;
+  #define local_20 (*(undefined1 *)(_frame + (0x30 - 0x20)))
   #define local_1f (*(undefined4 *)(_frame + (0x30 - 0x1f)))
   #define local_1 (*(undefined1 *)(_frame + (0x30 - 0x1)))
   
   local_20 = DAT_004f5a98;
-  puVar2 = &local_1f;
-  for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = 0;
-    puVar2 = puVar2 + 1;
+  puVar3 = &local_1f;
+  for (iVar2 = 7; iVar2 != 0; iVar2 = iVar2 + -1) {
+    *puVar3 = 0;
+    puVar3 = puVar3 + 1;
   }
-  *(undefined2 *)puVar2 = 0;
-  *(undefined1 *)((int)puVar2 + 2) = 0;
+  *(undefined2 *)puVar3 = 0;
+  *(undefined1 *)((int)puVar3 + 2) = 0;
   if (param_3 != 0) {
-    return false;
+    return 0;
   }
   if (param_5 == 0) {
-    iVar1 = grimPlat_InputDialog
+    iVar2 = grimPlat_InputDialog
                       (s_Name_of_variable_004ea758,s_Variable_name_004ea748,&local_20,0x20,&local_20
                       );
-    if (iVar1 == 0) {
-      return false;
+    if (iVar2 == 0) {
+      return 0;
     }
   }
   else {
-    strncpy(&local_20,param_5,0x1f);
+    strncpy((uint *)&local_20,(uint *)param_5,0x1f);
     local_1 = 0;
   }
-  iVar1 = (*g_pSputCosHS->pAlloc)(0x20,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xd86);
-  if (iVar1 == 0) {
-    return false;
+  puVar1 = (uint *)(*g_pSputCosHS->pAlloc)(0x20,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xd86);
+  if (puVar1 == (uint *)0x0) {
+    return 0;
   }
-  strncpy(iVar1,&local_20,0x1f);
-  *(undefined1 *)(iVar1 + 0x1f) = 0;
-  iVar1 = Cos_RegisterComponent(param_1,iVar1,iVar1,param_2,0,param_4,0);
-  return iVar1 != 0;
+  strncpy(puVar1,(uint *)&local_20,0x1f);
+  *(undefined1 *)((int)puVar1 + 0x1f) = 0;
+  iVar2 = Cos_RegisterComponent(param_1,(int)puVar1,(int)puVar1,param_2,0,param_4,0);
+  return (uint)(iVar2 != 0);
 }
 #undef local_1
 #undef local_1f
@@ -115,7 +116,7 @@ int LuaVarRequester(uint param_1,int param_2,int param_3,int param_4,int param_5
    remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag
    registration in sputCostume_Startup); was LuaVarComponent_Destroy. */
 
-undefined4 LuaVarFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+uint __cdecl LuaVarFreer(uint param_1,uint param_2,uint param_3)
 
 {
   (*g_pSputCosHS->pFree)(param_3);
@@ -128,7 +129,7 @@ undefined4 LuaVarFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3)
    LuaVarStopper (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same
    costume tag registration in sputCostume_Startup); was LuaVarComponent_Stop. */
 
-undefined4 LuaVarStopper(char *param_1)
+uint __cdecl LuaVarStopper(char *param_1)
 
 {
   lua_pushnil();

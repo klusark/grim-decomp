@@ -44,11 +44,11 @@ int __cdecl Str_ComparePtrs(uint *param_1,uint *param_2)
 char * __cdecl stdFileFromPath(char *path)
 
 {
-  int iVar1;
+  char *pcVar1;
   
-  iVar1 = strrchr(path,0x5c);
-  if (iVar1 != 0) {
-    return (char *)(iVar1 + 1);
+  pcVar1 = strrchr(path,'\\');
+  if (pcVar1 != (char *)0x0) {
+    return pcVar1 + 1;
   }
   return path;
 }
@@ -62,15 +62,15 @@ char * __cdecl Str_ToLower(char *s)
   char cVar1;
   undefined4 in_EAX;
   char *pcVar2;
-  undefined4 uVar3;
+  int iVar3;
   
   cVar1 = *s;
   pcVar2 = (char *)CONCAT31((int3)((uint)in_EAX >> 8),cVar1);
   while (cVar1 != '\0') {
-    uVar3 = tolower((int)(char)pcVar2);
-    *s = (char)uVar3;
+    iVar3 = tolower((int)(char)pcVar2);
+    *s = (char)iVar3;
     cVar1 = s[1];
-    pcVar2 = (char *)CONCAT31((int3)((uint)uVar3 >> 8),cVar1);
+    pcVar2 = (char *)CONCAT31((int3)((uint)iVar3 >> 8),cVar1);
     s = s + 1;
   }
   return pcVar2;
@@ -89,7 +89,7 @@ char * __cdecl stdFnames_FindMedName(char *path)
   char cVar2;
   char *pcVar3;
   
-  pcVar3 = (char *)strrchr(path,0x5c);
+  pcVar3 = strrchr(path,'\\');
   if (pcVar3 != (char *)0x0) {
     cVar2 = *pcVar3;
     while (cVar2 == '\\') {
@@ -110,20 +110,19 @@ char * __cdecl stdFnames_FindExt(char *path)
 
 {
   char *pcVar1;
-  int iVar2;
-  int iVar3;
-  int iVar4;
+  char *pcVar2;
+  char *pcVar3;
   
   pcVar1 = stdFnames_FindMedName(path);
-  iVar2 = strrchr(pcVar1,0x2e);
-  if (iVar2 != 0) {
-    iVar3 = strrchr(iVar2 + 1,0x2e);
-    while (iVar3 != 0) {
-      iVar4 = strrchr(iVar3 + 1,0x2e);
-      iVar2 = iVar3;
-      iVar3 = iVar4;
+  pcVar1 = strrchr(pcVar1,'.');
+  if (pcVar1 != (char *)0x0) {
+    pcVar2 = strrchr(pcVar1 + 1,'.');
+    while (pcVar2 != (char *)0x0) {
+      pcVar3 = strrchr(pcVar2 + 1,'.');
+      pcVar1 = pcVar2;
+      pcVar2 = pcVar3;
     }
-    return (char *)(iVar2 + 1);
+    return pcVar1 + 1;
   }
   return (char *)0x0;
 }
@@ -148,10 +147,10 @@ void __cdecl Str_StripExtension(char *param_1)
 void __cdecl stdFnames_CopyShortName(char *dst,int size,char *path)
 
 {
-  char *pcVar1;
+  uint *puVar1;
   
-  pcVar1 = stdFnames_FindMedName(path);
-  strncpy(dst,pcVar1,size + -1);
+  puVar1 = (uint *)stdFnames_FindMedName(path);
+  strncpy((uint *)dst,puVar1,size - 1);
   dst[size + -1] = '\0';
   Str_StripExtension(dst);
   return;
@@ -174,7 +173,7 @@ undefined * __cdecl Str_FindChar(char *param_1,int param_2)
 }
 
 /* ---- 0x004aef70  String_ContainsSubstring ---- */
-uint * String_ContainsSubstring(uint *param_1,char *param_2)
+uint * __cdecl String_ContainsSubstring(uint *param_1,char *param_2)
 
 {
   char *pcVar1;
@@ -287,157 +286,159 @@ byte * __cdecl FindMatch(char *str,char *pattern)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  byte bVar1;
-  bool bVar2;
+  char cVar1;
+  byte bVar2;
   bool bVar3;
-  int iVar4;
-  char cVar5;
-  uint uVar6;
-  int iVar7;
-  byte *pbVar8;
+  bool bVar4;
+  int iVar5;
+  byte bVar6;
+  uint uVar7;
+  int iVar8;
   byte *pbVar9;
-  char *pcVar10;
+  byte *pbVar10;
+  char *pcVar11;
+  byte *pbVar12;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar6 = 0xffffffff;
-  bVar3 = false;
-  pcVar10 = pattern;
+  uVar7 = 0xffffffff;
+  bVar4 = false;
+  pcVar11 = pattern;
   do {
-    if (uVar6 == 0) break;
-    uVar6 = uVar6 - 1;
-    cVar5 = *pcVar10;
-    pcVar10 = pcVar10 + 1;
-  } while (cVar5 != '\0');
+    if (uVar7 == 0) break;
+    uVar7 = uVar7 - 1;
+    cVar1 = *pcVar11;
+    pcVar11 = pcVar11 + 1;
+  } while (cVar1 != '\0');
   local_4 = 0;
-  if (~uVar6 - 1 < 0x1fff) {
-    uVar6 = 0xffffffff;
-    pcVar10 = pattern;
+  if (~uVar7 - 1 < 0x1fff) {
+    uVar7 = 0xffffffff;
+    pcVar11 = pattern;
     do {
-      if (uVar6 == 0) break;
-      uVar6 = uVar6 - 1;
-      cVar5 = *pcVar10;
-      pcVar10 = pcVar10 + 1;
-    } while (cVar5 != '\0');
-    iVar7 = ~uVar6 - 1;
+      if (uVar7 == 0) break;
+      uVar7 = uVar7 - 1;
+      cVar1 = *pcVar11;
+      pcVar11 = pcVar11 + 1;
+    } while (cVar1 != '\0');
+    uVar7 = ~uVar7 - 1;
   }
   else {
-    iVar7 = 0x1fff;
+    uVar7 = 0x1fff;
   }
-  strncpy(&g_bFindMatch_stringBuffer,pattern,iVar7);
-  uVar6 = 0xffffffff;
-  pcVar10 = pattern;
+  strncpy((uint *)&g_bFindMatch_stringBuffer,(uint *)pattern,uVar7);
+  uVar7 = 0xffffffff;
+  pcVar11 = pattern;
   do {
-    if (uVar6 == 0) break;
-    uVar6 = uVar6 - 1;
-    cVar5 = *pcVar10;
-    pcVar10 = pcVar10 + 1;
-  } while (cVar5 != '\0');
-  if (~uVar6 - 1 < 0x1fff) {
-    uVar6 = 0xffffffff;
+    if (uVar7 == 0) break;
+    uVar7 = uVar7 - 1;
+    cVar1 = *pcVar11;
+    pcVar11 = pcVar11 + 1;
+  } while (cVar1 != '\0');
+  if (~uVar7 - 1 < 0x1fff) {
+    uVar7 = 0xffffffff;
     do {
-      if (uVar6 == 0) break;
-      uVar6 = uVar6 - 1;
-      cVar5 = *pattern;
+      if (uVar7 == 0) break;
+      uVar7 = uVar7 - 1;
+      cVar1 = *pattern;
       pattern = pattern + 1;
-    } while (cVar5 != '\0');
-    iVar7 = ~uVar6 - 1;
+    } while (cVar1 != '\0');
+    iVar8 = ~uVar7 - 1;
   }
   else {
-    iVar7 = 0x1fff;
+    iVar8 = 0x1fff;
   }
-  (&g_bFindMatch_stringBuffer)[iVar7] = 0;
-  pbVar8 = &g_bFindMatch_stringBuffer;
-  bVar1 = g_bFindMatch_stringBuffer;
+  (&g_bFindMatch_stringBuffer)[iVar8] = 0;
+  pbVar9 = &g_bFindMatch_stringBuffer;
+  bVar6 = g_bFindMatch_stringBuffer;
   do {
-    if (bVar1 == 0) {
+    if (bVar6 == 0) {
       return (byte *)local_4;
     }
-    bVar1 = *pbVar8;
-    while ((bVar1 != 0 &&
-           ((((bVar1 < 0x21 || (0x7f < bVar1)) || (bVar1 == 0x2c)) || (bVar1 == 0x3b))))) {
-      pbVar9 = pbVar8 + 1;
-      pbVar8 = pbVar8 + 1;
-      bVar1 = *pbVar9;
+    bVar6 = *pbVar9;
+    while ((bVar6 != 0 &&
+           ((((bVar6 < 0x21 || (0x7f < bVar6)) || (bVar6 == 0x2c)) || (bVar6 == 0x3b))))) {
+      pbVar12 = pbVar9 + 1;
+      pbVar9 = pbVar9 + 1;
+      bVar6 = *pbVar12;
     }
-    bVar1 = *pbVar8;
-    pcVar10 = str;
-    while (bVar1 != 0) {
-      if (*pcVar10 == '\0') goto LAB_004c1d16;
-      iVar7 = toupper(*pcVar10);
-      iVar4 = toupper(bVar1);
-      if (iVar7 != iVar4) break;
-      pbVar9 = pbVar8 + 1;
-      pbVar8 = pbVar8 + 1;
-      pcVar10 = pcVar10 + 1;
-      bVar1 = *pbVar9;
+    bVar6 = *pbVar9;
+    pbVar12 = (byte *)str;
+    while (bVar6 != 0) {
+      if (*pbVar12 == 0) goto LAB_004c1d16;
+      iVar8 = toupper((uint)*pbVar12);
+      iVar5 = toupper((uint)bVar6);
+      if (iVar8 != iVar5) break;
+      pbVar10 = pbVar9 + 1;
+      pbVar9 = pbVar9 + 1;
+      pbVar12 = pbVar12 + 1;
+      bVar6 = *pbVar10;
     }
-    if (*pcVar10 == '\0') {
+    if (*pbVar12 == 0) {
 LAB_004c1d16:
-      if (*pbVar8 == 0x2e) {
-        pcVar10 = str;
+      if (*pbVar9 == 0x2e) {
+        pbVar12 = (byte *)str;
       }
     }
-    bVar1 = *pbVar8;
-    if (((bVar1 == 0) || (bVar1 < 0x21)) || ((0x7f < bVar1 || (bVar1 == 0x3d)))) {
-      bVar2 = true;
+    bVar6 = *pbVar9;
+    if (((bVar6 == 0) || (bVar6 < 0x21)) || ((0x7f < bVar6 || (bVar6 == 0x3d)))) {
+      bVar3 = true;
     }
     else {
-      bVar2 = false;
-    }
-    while ((bVar1 != 0 && (bVar1 != 0x3d))) {
-      pbVar9 = pbVar8 + 1;
-      pbVar8 = pbVar8 + 1;
-      bVar1 = *pbVar9;
-    }
-    if (*pbVar8 == 0) {
-      return (byte *)local_4;
-    }
-    bVar1 = pbVar8[1];
-    pbVar9 = pbVar8;
-    while ((pbVar8 = pbVar9 + 1, bVar1 != 0 &&
-           ((((bVar1 < 0x21 || (0x7f < bVar1)) || (bVar1 == 0x2c)) || (bVar1 == 0x3b))))) {
-      bVar1 = pbVar9[2];
-      pbVar9 = pbVar8;
-    }
-    if ((bVar2) && (*pcVar10 == '\0')) {
-      cVar5 = '\0';
-      local_4 = (uint)pbVar8;
-    }
-    else {
-      cVar5 = *pcVar10;
-      if (cVar5 == '.') {
-        bVar3 = true;
-        local_4 = (uint)pbVar8;
-      }
-    }
-    bVar1 = *pbVar8;
-    while (((bVar1 != 0 && (0x20 < bVar1)) &&
-           ((bVar1 < 0x80 && ((bVar1 != 0x2c && (bVar1 != 0x3b))))))) {
-      pbVar9 = pbVar8 + 1;
-      pbVar8 = pbVar8 + 1;
-      bVar1 = *pbVar9;
-    }
-    if ((cVar5 == '\0') || (bVar3)) {
-      if (*pbVar8 == 0) {
-        bVar3 = false;
-      }
-      else {
-        *pbVar8 = 0;
-        pbVar8 = pbVar8 + 1;
-      }
-      if (!bVar3) {
-        return (byte *)local_4;
-      }
       bVar3 = false;
     }
-    bVar1 = *pbVar8;
-    while ((bVar1 != 0 &&
-           ((((bVar1 < 0x21 || (0x7f < bVar1)) || (bVar1 == 0x2c)) || (bVar1 == 0x3b))))) {
-      pbVar9 = pbVar8 + 1;
-      pbVar8 = pbVar8 + 1;
-      bVar1 = *pbVar9;
+    while ((bVar6 != 0 && (bVar6 != 0x3d))) {
+      pbVar10 = pbVar9 + 1;
+      pbVar9 = pbVar9 + 1;
+      bVar6 = *pbVar10;
     }
-    bVar1 = *pbVar8;
+    if (*pbVar9 == 0) {
+      return (byte *)local_4;
+    }
+    bVar6 = pbVar9[1];
+    pbVar10 = pbVar9;
+    while ((pbVar9 = pbVar10 + 1, bVar6 != 0 &&
+           ((((bVar6 < 0x21 || (0x7f < bVar6)) || (bVar6 == 0x2c)) || (bVar6 == 0x3b))))) {
+      bVar6 = pbVar10[2];
+      pbVar10 = pbVar9;
+    }
+    if ((bVar3) && (*pbVar12 == 0)) {
+      bVar6 = 0;
+      local_4 = (uint)pbVar9;
+    }
+    else {
+      bVar6 = *pbVar12;
+      if (bVar6 == 0x2e) {
+        bVar4 = true;
+        local_4 = (uint)pbVar9;
+      }
+    }
+    bVar2 = *pbVar9;
+    while (((bVar2 != 0 && (0x20 < bVar2)) &&
+           ((bVar2 < 0x80 && ((bVar2 != 0x2c && (bVar2 != 0x3b))))))) {
+      pbVar12 = pbVar9 + 1;
+      pbVar9 = pbVar9 + 1;
+      bVar2 = *pbVar12;
+    }
+    if ((bVar6 == 0) || (bVar4)) {
+      if (*pbVar9 == 0) {
+        bVar4 = false;
+      }
+      else {
+        *pbVar9 = 0;
+        pbVar9 = pbVar9 + 1;
+      }
+      if (!bVar4) {
+        return (byte *)local_4;
+      }
+      bVar4 = false;
+    }
+    bVar6 = *pbVar9;
+    while ((bVar6 != 0 &&
+           ((((bVar6 < 0x21 || (0x7f < bVar6)) || (bVar6 == 0x2c)) || (bVar6 == 0x3b))))) {
+      pbVar12 = pbVar9 + 1;
+      pbVar9 = pbVar9 + 1;
+      bVar6 = *pbVar12;
+    }
+    bVar6 = *pbVar9;
   } while( true );
 }
 #undef local_4
@@ -495,22 +496,22 @@ void Str_StripNonPrintable(byte *param_1)
 }
 
 /* ---- 0x004c1e90  Str_CompareNoCase ---- */
-int Str_CompareNoCase(char *param_1,char *param_2)
+int Str_CompareNoCase(byte *param_1,byte *param_2)
 
 {
-  char cVar1;
-  char cVar2;
+  byte bVar1;
+  byte bVar2;
   int iVar3;
   int iVar4;
   int iVar5;
   
   iVar5 = -1;
-  while ((cVar1 = *param_1, cVar1 != '\0' || (*param_2 != '\0'))) {
-    cVar2 = *param_2;
+  while ((bVar1 = *param_1, bVar1 != 0 || (*param_2 != 0))) {
+    bVar2 = *param_2;
     param_1 = param_1 + 1;
     param_2 = param_2 + 1;
-    iVar3 = toupper(cVar1);
-    iVar4 = toupper(cVar2);
+    iVar3 = toupper((uint)bVar1);
+    iVar4 = toupper((uint)bVar2);
     iVar5 = 0;
     if (iVar3 - iVar4 != 0) {
       return iVar3 - iVar4;
@@ -520,11 +521,11 @@ int Str_CompareNoCase(char *param_1,char *param_2)
 }
 
 /* ---- 0x004c1ee0  Str_CompareNoCaseN ---- */
-int Str_CompareNoCaseN(char *param_1,char *param_2,int param_3)
+int Str_CompareNoCaseN(byte *param_1,byte *param_2,int param_3)
 
 {
-  char cVar1;
-  char cVar2;
+  byte bVar1;
+  byte bVar2;
   int iVar3;
   int iVar4;
   
@@ -532,13 +533,13 @@ int Str_CompareNoCaseN(char *param_1,char *param_2,int param_3)
   if (param_3 != 0) {
     while( true ) {
       param_3 = param_3 + -1;
-      cVar1 = *param_1;
-      if ((cVar1 == '\0') && (*param_2 == '\0')) break;
-      cVar2 = *param_2;
+      bVar1 = *param_1;
+      if ((bVar1 == 0) && (*param_2 == 0)) break;
+      bVar2 = *param_2;
       param_1 = param_1 + 1;
       param_2 = param_2 + 1;
-      iVar3 = toupper(cVar2);
-      iVar4 = toupper(cVar1);
+      iVar3 = toupper((uint)bVar2);
+      iVar4 = toupper((uint)bVar1);
       if (iVar4 - iVar3 != 0) {
         return iVar4 - iVar3;
       }

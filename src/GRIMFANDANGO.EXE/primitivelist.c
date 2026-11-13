@@ -32,7 +32,7 @@ void PrimitiveList_InitGlobal(void)
 void __cdecl PrimitiveList_RegisterAtExit(void)
 
 {
-  atexit(PrimitiveList_AtExitClear);
+  atexit(((unsigned)(uintptr_t)PrimitiveList_AtExitClear));
   return;
 }
 

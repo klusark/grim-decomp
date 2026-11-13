@@ -257,10 +257,10 @@ void __cdecl grimlib_MarkDirtyRect(int *rect,int flags)
 int __cdecl grimlib_ConfirmClose(void)
 
 {
-  int iVar1;
+  uint uVar1;
   
-  iVar1 = sputLua_DoExitCallback();
-  return (uint)(iVar1 == 0);
+  uVar1 = sputLua_DoExitCallback();
+  return (uint)(uVar1 == 0);
 }
 
 /* ---- 0x004828e0  grimlib_RequestShutdown ---- */
@@ -337,7 +337,7 @@ void __cdecl grimlib_UpdateManual(int draw,int frameMs)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
+  uint uVar1;
   float fVar2;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
@@ -1104,7 +1104,7 @@ void __cdecl sputRender_Update(void)
               }
               (*(code *)g_dwSputRender_pSetPaletteFunc)(iVar2 + 0x30,0);
               pfVar7 = sputActor_GetOrientMatrix(actor);
-              sputCostume_Draw3D(actor->pCostumes,pfVar7);
+              sputCostume_Draw3D((uint)actor->pCostumes,(uint)pfVar7);
               if (((byte)g_dwDebugFlags & 1) != 0) {
                 Actor_DrawDebugWalker(actor);
               }
@@ -1154,9 +1154,9 @@ void __cdecl sputRender_Update(void)
         }
       }
       if ((g_dwRenderFlags & 4) != 0) {
-        iVar9 = sputTime_GetGameTime();
+        uVar4 = sputTime_GetGameTime();
         local_1c[1] = 0.0;
-        local_1c[0] = (float)(iVar9 - g_dwIrisStart) / g_flIrisDuration;
+        local_1c[0] = (float)(uVar4 - g_dwIrisStart) / g_flIrisDuration;
         if (local_1c[0] < 0.0) {
           local_1c[0] = -local_1c[0];
         }

@@ -9,7 +9,7 @@
 /* Original name BitmapChanger (the remaster's GrimFandango (Linux): the same handler slot (changer)
    of the same costume tag registration in sputCostume_Startup); was Component_SetBitmapFrame. */
 
-void BitmapChanger(undefined4 param_1,int *param_2,undefined4 param_3,int param_4)
+void __cdecl BitmapChanger(uint param_1,int *param_2,uint param_3,int param_4)
 
 {
   if (*param_2 == 0) {

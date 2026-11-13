@@ -11,11 +11,11 @@ void __cdecl Win_SetInstance(uint param_1); /* 0x00473380 */
 uint __cdecl Win_GetInstance(void); /* 0x00473390 */
 uint __cdecl Win_IsSysCommandBlocked(uint param_1,int param_2,int param_3); /* 0x004772d0 */
 void __cdecl Win_AbortIfAlreadyRunning (void *hInstance,void *hPrevInstance,char *cmdLine,int nCmdShow,char *appName); /* 0x004abf40 */
-uint Win_PumpMessages(void); /* 0x004ac020 */
+uint __cdecl Win_PumpMessages(void); /* 0x004ac020 */
 int __cdecl Win_SetWindowedSize(int fullscreen,int w,int h); /* 0x004ac100 */
-void Win_AddMessageHook(void *param_1); /* 0x004ac160 */
+void __cdecl Win_AddMessageHook(void *param_1); /* 0x004ac160 */
 undefined4 __cdecl Win_RemoveMessageHook(void *hook); /* 0x004ac1a0 */
-undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3); /* 0x004ac1f0 */
+uint __cdecl Win_CreateMainWindow(uint param_1,uint param_2,int param_3); /* 0x004ac1f0 */
 undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4); /* 0x004ac340 */
 int __cdecl Win_IsFocusWithin(void *hwnd); /* 0x004bff70 */
 
@@ -85,246 +85,246 @@ void __cdecl sputText_MakeTextObjectL(void); /* 0x0048be30 */
 void __cdecl sputText_BlastText(void); /* 0x0048bf50 */
 void __cdecl sputText_GetTranslationModeL(void); /* 0x0048c960 */
 void __cdecl sputText_SetTranslationModeL(void); /* 0x0048c980 */
-void sputCostume_GetKeyLengthL(void); /* 0x00495850 */
-void sputCostume_GetSmushLengthL(void); /* 0x00495900 */
-void Lua_Stub(void); /* 0x00497830 */
-void sputLua_GetMemoryUsageL(void); /* 0x00498d80 */
-void sputLua_GetDiskFreeSpaceL(void); /* 0x00498da0 */
+void __cdecl sputCostume_GetKeyLengthL(void); /* 0x00495850 */
+void __cdecl sputCostume_GetSmushLengthL(void); /* 0x00495900 */
+void __cdecl Lua_Stub(char *fmt,...); /* 0x00497830 */
+void __cdecl sputLua_GetMemoryUsageL(void); /* 0x00498d80 */
+void __cdecl sputLua_GetDiskFreeSpaceL(void); /* 0x00498da0 */
 void __cdecl sputLua_Test(void); /* 0x00498e20 */
 void __cdecl sputLua_ShrinkBoxes(void); /* 0x00498e50 */
 void sputLua_UnShrinkBoxes(void); /* 0x00498e90 */
 void __cdecl sputLua_GetShrinkPosition(void); /* 0x00498ea0 */
-void sputLua_SetSoundParametersL(void); /* 0x00499000 */
-void sputLua_GetSoundParametersL(void); /* 0x004991c0 */
-void sputLua_SetDebugToggleCallback(uint param_1); /* 0x00499250 */
-void sputLua_EnginePause(void); /* 0x00499260 */
-void sputLua_EngineResume(void); /* 0x00499270 */
-void sputLua_EngineDisplay(void); /* 0x00499280 */
-void sputLua_AllocateActorL(void); /* 0x004992b0 */
-void sputLua_PutActorAtInterestL(void); /* 0x004992d0 */
-void sputLua_SetSelectedActorL(void); /* 0x00499360 */
-void sputLua_PutActorAtL(void); /* 0x004993c0 */
-void sputLua_PutActorInSetL(void); /* 0x004994a0 */
-void sputLua_WalkActorVectorL(void); /* 0x00499590 */
-void sputLua_WalkActorForwardL(void); /* 0x00499800 */
-void sputLua_WalkActorToL(void); /* 0x00499860 */
-void sputLua_WalkActorToAvoidingL(void); /* 0x004999d0 */
-void sputLua_IsActorMovingL(void); /* 0x00499b80 */
-void sputLua_IsActorTurningL(void); /* 0x00499be0 */
-void sputLua_SetActorChoreLoopingL(void); /* 0x00499c70 */
-void sputLua_IsActorRestingL(void); /* 0x00499da0 */
-void sputLua_IsActorChoringL(void); /* 0x00499e20 */
+void __cdecl sputLua_SetSoundParametersL(void); /* 0x00499000 */
+void __cdecl sputLua_GetSoundParametersL(void); /* 0x004991c0 */
+void __cdecl sputLua_SetDebugToggleCallback(uint param_1); /* 0x00499250 */
+void __cdecl sputLua_EnginePause(void); /* 0x00499260 */
+void __cdecl sputLua_EngineResume(void); /* 0x00499270 */
+void __cdecl sputLua_EngineDisplay(void); /* 0x00499280 */
+void __cdecl sputLua_AllocateActorL(void); /* 0x004992b0 */
+void __cdecl sputLua_PutActorAtInterestL(void); /* 0x004992d0 */
+void __cdecl sputLua_SetSelectedActorL(void); /* 0x00499360 */
+void __cdecl sputLua_PutActorAtL(void); /* 0x004993c0 */
+void __cdecl sputLua_PutActorInSetL(void); /* 0x004994a0 */
+void __cdecl sputLua_WalkActorVectorL(void); /* 0x00499590 */
+void __cdecl sputLua_WalkActorForwardL(void); /* 0x00499800 */
+void __cdecl sputLua_WalkActorToL(void); /* 0x00499860 */
+void __cdecl sputLua_WalkActorToAvoidingL(void); /* 0x004999d0 */
+void __cdecl sputLua_IsActorMovingL(void); /* 0x00499b80 */
+void __cdecl sputLua_IsActorTurningL(void); /* 0x00499be0 */
+void __cdecl sputLua_SetActorChoreLoopingL(void); /* 0x00499c70 */
+void __cdecl sputLua_IsActorRestingL(void); /* 0x00499da0 */
+void __cdecl sputLua_IsActorChoringL(void); /* 0x00499e20 */
 void __cdecl sputLua_GetActorChoresL(void); /* 0x00499ff0 */
-void sputLua_GetActorCostumeDepthL(void); /* 0x0049a160 */
+void __cdecl sputLua_GetActorCostumeDepthL(void); /* 0x0049a160 */
 void __cdecl sputLua_GetActorLoopingChoresL(void); /* 0x0049a2a0 */
-void sputLua_SetActorColormapL(void); /* 0x0049a410 */
-void sputLua_SetActorCostumeL(void); /* 0x0049a500 */
-void sputLua_PrintActorCostumesL(void); /* 0x0049a5e0 */
-void sputLua_PushActorCostumeL(void); /* 0x0049a640 */
-void sputLua_PopActorCostumeL(void); /* 0x0049a6c0 */
-void sputLua_StopActorChoreL(void); /* 0x0049a750 */
-void sputLua_PlayActorChoreL(void); /* 0x0049a830 */
-void sputLua_CompleteActorChoreL(void); /* 0x0049a910 */
-void sputLua_PlayActorChoreLoopingL(void); /* 0x0049a9e0 */
-void sputLua_ActorLookAtL(void); /* 0x0049aac0 */
-void sputLua_IsActorLookingL(void); /* 0x0049ad30 */
-void sputLua_SetActorLookRate(void); /* 0x0049ad90 */
-void sputLua_GetActorLookRate(void); /* 0x0049ae10 */
-void sputLua_SetActorVisibilityL(void); /* 0x0049ae80 */
-void sputLua_SetActorFollowBoxesL(void); /* 0x0049af00 */
-void sputLua_ShutUpActorL(void); /* 0x0049af80 */
-void sputLua_SetActorFrustrumCull(void); /* 0x0049afd0 */
-void sputLua_GetCameraActorL(void); /* 0x0049b040 */
-void sputLua_GetActorWalkRateL(void); /* 0x0049b060 */
-void sputLua_SetActorWalkRateL(void); /* 0x0049b0d0 */
-void sputLua_GetActorTurnRateL(void); /* 0x0049b160 */
-void sputLua_SetActorTurnRateL(void); /* 0x0049b1d0 */
-void sputLua_SetActorWalkChoresL(void); /* 0x0049b280 */
-void sputLua_SetActorTurnChoresL(void); /* 0x0049b350 */
-void sputLua_SetActorRestChoreL(void); /* 0x0049b430 */
-void sputLua_SetActorMumbleChoreL(void); /* 0x0049b500 */
-void sputLua_SetActorTalkChoreL(void); /* 0x0049b5a0 */
-void sputLua_SetActorHeadL(void); /* 0x0049b6c0 */
-void sputLua_CanActorSeeL(void); /* 0x0049b830 */
-void sputLua_GetVisibleThingsL(void); /* 0x0049b9e0 */
-void sputLua_GetActorRectL(void); /* 0x0049bb10 */
-void sputLua_GetActorPuckVectorL(void); /* 0x0049bba0 */
-void sputLua_GetActorYawToPoint(void); /* 0x0049bcc0 */
-void sputLua_SetActorReflection(void); /* 0x0049be40 */
-void sputLua_GetActorPosL(void); /* 0x0049bec0 */
-void sputLua_GetActorRotL(void); /* 0x0049bf30 */
-void sputLua_SetActorRotL(void); /* 0x0049bfa0 */
-void sputLua_SetActorPitch(void); /* 0x0049c0a0 */
-void sputLua_SetActorRoll(void); /* 0x0049c110 */
-void sputLua_TurnActorL(void); /* 0x0049c180 */
-void sputLua_GetActorSectorL(void); /* 0x0049c200 */
-void sputLua_IsActorInSector(void); /* 0x0049c2c0 */
-void sputLua_IsPointInSector(void); /* 0x0049c4c0 */
-int sputLua_FindSystemFiles(void); /* 0x0049c5e0 */
+void __cdecl sputLua_SetActorColormapL(void); /* 0x0049a410 */
+void __cdecl sputLua_SetActorCostumeL(void); /* 0x0049a500 */
+void __cdecl sputLua_PrintActorCostumesL(void); /* 0x0049a5e0 */
+void __cdecl sputLua_PushActorCostumeL(void); /* 0x0049a640 */
+void __cdecl sputLua_PopActorCostumeL(void); /* 0x0049a6c0 */
+void __cdecl sputLua_StopActorChoreL(void); /* 0x0049a750 */
+void __cdecl sputLua_PlayActorChoreL(void); /* 0x0049a830 */
+void __cdecl sputLua_CompleteActorChoreL(void); /* 0x0049a910 */
+void __cdecl sputLua_PlayActorChoreLoopingL(void); /* 0x0049a9e0 */
+void __cdecl sputLua_ActorLookAtL(void); /* 0x0049aac0 */
+void __cdecl sputLua_IsActorLookingL(void); /* 0x0049ad30 */
+void __cdecl sputLua_SetActorLookRate(void); /* 0x0049ad90 */
+void __cdecl sputLua_GetActorLookRate(void); /* 0x0049ae10 */
+void __cdecl sputLua_SetActorVisibilityL(void); /* 0x0049ae80 */
+void __cdecl sputLua_SetActorFollowBoxesL(void); /* 0x0049af00 */
+void __cdecl sputLua_ShutUpActorL(void); /* 0x0049af80 */
+void __cdecl sputLua_SetActorFrustrumCull(void); /* 0x0049afd0 */
+void __cdecl sputLua_GetCameraActorL(void); /* 0x0049b040 */
+void __cdecl sputLua_GetActorWalkRateL(void); /* 0x0049b060 */
+void __cdecl sputLua_SetActorWalkRateL(void); /* 0x0049b0d0 */
+void __cdecl sputLua_GetActorTurnRateL(void); /* 0x0049b160 */
+void __cdecl sputLua_SetActorTurnRateL(void); /* 0x0049b1d0 */
+void __cdecl sputLua_SetActorWalkChoresL(void); /* 0x0049b280 */
+void __cdecl sputLua_SetActorTurnChoresL(void); /* 0x0049b350 */
+void __cdecl sputLua_SetActorRestChoreL(void); /* 0x0049b430 */
+void __cdecl sputLua_SetActorMumbleChoreL(void); /* 0x0049b500 */
+void __cdecl sputLua_SetActorTalkChoreL(void); /* 0x0049b5a0 */
+void __cdecl sputLua_SetActorHeadL(void); /* 0x0049b6c0 */
+void __cdecl sputLua_CanActorSeeL(void); /* 0x0049b830 */
+void __cdecl sputLua_GetVisibleThingsL(void); /* 0x0049b9e0 */
+void __cdecl sputLua_GetActorRectL(void); /* 0x0049bb10 */
+void __cdecl sputLua_GetActorPuckVectorL(void); /* 0x0049bba0 */
+void __cdecl sputLua_GetActorYawToPoint(void); /* 0x0049bcc0 */
+void __cdecl sputLua_SetActorReflection(void); /* 0x0049be40 */
+void __cdecl sputLua_GetActorPosL(void); /* 0x0049bec0 */
+void __cdecl sputLua_GetActorRotL(void); /* 0x0049bf30 */
+void __cdecl sputLua_SetActorRotL(void); /* 0x0049bfa0 */
+void __cdecl sputLua_SetActorPitch(void); /* 0x0049c0a0 */
+void __cdecl sputLua_SetActorRoll(void); /* 0x0049c110 */
+void __cdecl sputLua_TurnActorL(void); /* 0x0049c180 */
+void __cdecl sputLua_GetActorSectorL(void); /* 0x0049c200 */
+void __cdecl sputLua_IsActorInSector(void); /* 0x0049c2c0 */
+void __cdecl sputLua_IsPointInSector(void); /* 0x0049c4c0 */
+int __cdecl sputLua_FindSystemFiles(void); /* 0x0049c5e0 */
 int __cdecl sputLua_Boot(int flag,char *str); /* 0x0049c600 */
 void __cdecl sputLua_CameraChange(int fromSetup,int toSetup); /* 0x0049c660 */
 void __cdecl sputLua_PostCameraChange(int setup); /* 0x0049c6e0 */
-void sputLua_RegisterFunctions(int *param_1,int param_2); /* 0x0049ca60 */
-void sputLua_JustLoadedL(void); /* 0x0049ca80 */
-void sputLua_ActorVoiceIs3DL(void); /* 0x0049caa0 */
+void __cdecl sputLua_RegisterFunctions(int *param_1,int param_2); /* 0x0049ca60 */
+void __cdecl sputLua_JustLoadedL(void); /* 0x0049ca80 */
+void __cdecl sputLua_ActorVoiceIs3DL(void); /* 0x0049caa0 */
 int __cdecl FindCostumeInStack(void *luaObj,CostumeNode *costumeList,CostumeNode **outCostume); /* 0x0049cb10 */
-void sputLua_CheckForFileL(void); /* 0x0049cca0 */
-void sputLua_NukeResourcesL(void); /* 0x0049cd10 */
-void sputLua_DetachFromResourcesL(void); /* 0x0049cd40 */
-void sputLua_AttachToResourcesL(void); /* 0x0049cd50 */
-void sputLua_SearchForFileOrSwapCDsL(void); /* 0x0049cd60 */
-void sputLua_LoadL(void); /* 0x0049cea0 */
-void sputLua_SaveL(void); /* 0x0049cef0 */
-void sputLua_EnableDebugKeysL(void); /* 0x0049cf40 */
+void __cdecl sputLua_CheckForFileL(void); /* 0x0049cca0 */
+void __cdecl sputLua_NukeResourcesL(void); /* 0x0049cd10 */
+void __cdecl sputLua_DetachFromResourcesL(void); /* 0x0049cd40 */
+void __cdecl sputLua_AttachToResourcesL(void); /* 0x0049cd50 */
+void __cdecl sputLua_SearchForFileOrSwapCDsL(void); /* 0x0049cd60 */
+void __cdecl sputLua_LoadL(void); /* 0x0049cea0 */
+void __cdecl sputLua_SaveL(void); /* 0x0049cef0 */
+void __cdecl sputLua_EnableDebugKeysL(void); /* 0x0049cf40 */
 void __cdecl sputLua_WorldToScreenL(void); /* 0x0049cf60 */
-void sputLua_ScreenToWorldL(void); /* 0x0049d030 */
-void sputLua_ConcatFallback(void); /* 0x0049d220 */
-void sputLua_ExitL(void); /* 0x0049d3a0 */
-void sputLua_EnableControlL(void); /* 0x0049d3f0 */
-void sputLua_DisableControlL(void); /* 0x0049d430 */
-void sputLua_GetControlStateL(void); /* 0x0049d470 */
+void __cdecl sputLua_ScreenToWorldL(void); /* 0x0049d030 */
+void __cdecl sputLua_ConcatFallback(void); /* 0x0049d220 */
+void __cdecl sputLua_ExitL(void); /* 0x0049d3a0 */
+void __cdecl sputLua_EnableControlL(void); /* 0x0049d3f0 */
+void __cdecl sputLua_DisableControlL(void); /* 0x0049d430 */
+void __cdecl sputLua_GetControlStateL(void); /* 0x0049d470 */
 void __cdecl sputLua_DoCostumeOverrideCallback(void *actor,int flag); /* 0x0049d550 */
 void __cdecl sputLua_DoCostumeMarkerCallback(void *actor,uint marker); /* 0x0049d670 */
-void sputLua_DoUserPaintCallback(void); /* 0x0049d7b0 */
-uint sputLua_DoExitCallback(void); /* 0x0049d890 */
-uint sputLua_DoPauseCallback(void); /* 0x0049d970 */
+void __cdecl sputLua_DoUserPaintCallback(void); /* 0x0049d7b0 */
+uint __cdecl sputLua_DoExitCallback(void); /* 0x0049d890 */
+uint __cdecl sputLua_DoPauseCallback(void); /* 0x0049d970 */
 int __cdecl sputLua_DoCharacterCallback(int ch); /* 0x0049da50 */
-void sputLua_MakeCurrentSetupL(void); /* 0x0049db70 */
-void sputLua_GetCurrentSetupL(void); /* 0x0049dbb0 */
-void sputLua_MakeCurrentSetL(void); /* 0x0049dc70 */
-void sputLua_LockSet(void); /* 0x0049dcb0 */
-void sputLua_UnLockSet(void); /* 0x0049dd10 */
-void sputLua_MessagePrintL(void); /* 0x0049dd70 */
-void Lua_Print_NoOp(void); /* 0x0049ddd0 */
+void __cdecl sputLua_MakeCurrentSetupL(void); /* 0x0049db70 */
+void __cdecl sputLua_GetCurrentSetupL(void); /* 0x0049dbb0 */
+void __cdecl sputLua_MakeCurrentSetL(void); /* 0x0049dc70 */
+void __cdecl sputLua_LockSet(void); /* 0x0049dcb0 */
+void __cdecl sputLua_UnLockSet(void); /* 0x0049dd10 */
+void __cdecl sputLua_MessagePrintL(void); /* 0x0049dd70 */
+void __cdecl Lua_Print_NoOp(void); /* 0x0049ddd0 */
 uint __cdecl sputLua_Startup(void); /* 0x0049de00 */
-uint sputLua_SaveIndirector(int param_1,uint param_2); /* 0x0049dfa0 */
-TextObject * sputLua_RestoreIndirector(int param_1,TextObject *param_2); /* 0x0049e020 */
+uint __cdecl sputLua_SaveIndirector(int param_1,uint param_2); /* 0x0049dfa0 */
+TextObject * __cdecl sputLua_RestoreIndirector(int param_1,TextObject *param_2); /* 0x0049e020 */
 uint __cdecl sputLua_NotifyControlHandlers(void); /* 0x0049e0b0 */
-uint Lua_CreateSystemTable(void); /* 0x0049e380 */
-void Lua_CreateControlsTable(uint param_1); /* 0x0049e460 */
-void sputLua_SetSoundPosition(void); /* 0x0049e590 */
-void sputLua_StartFullScreenMovieL(void); /* 0x0049e7e0 */
-void sputLua_PauseMovieL(void); /* 0x0049e860 */
-void sputLua_IsMoviePlayingL(void); /* 0x0049e960 */
+uint __cdecl Lua_CreateSystemTable(void); /* 0x0049e380 */
+void __cdecl Lua_CreateControlsTable(uint param_1); /* 0x0049e460 */
+void __cdecl sputLua_SetSoundPosition(void); /* 0x0049e590 */
+void __cdecl sputLua_StartFullScreenMovieL(void); /* 0x0049e7e0 */
+void __cdecl sputLua_PauseMovieL(void); /* 0x0049e860 */
+void __cdecl sputLua_IsMoviePlayingL(void); /* 0x0049e960 */
 void __fastcall sputLua_FileFindFirst(char *param_1); /* 0x0049e980 */
-void sputLua_FileFindNext(void); /* 0x0049ea20 */
-void sputLua_FileFindDispose(void); /* 0x0049ea90 */
-void sputLua_QueryDialog(void); /* 0x0049eab0 */
-void sputLua_InputDialog(void); /* 0x0049eb60 */
-void sputLua_WriteRegistryValue(void); /* 0x0049ec50 */
-void sputLua_ReadRegistryValue(void); /* 0x0049ece0 */
-void sputLua_GetSectorOppositeEdge(void); /* 0x0049ed90 */
-void sputLua_IsSectorActiveL(void); /* 0x0049ee20 */
-void sputLua_MakeSectorActiveL(void); /* 0x0049eeb0 */
-void sputLua_PreRender(void); /* 0x0049ef50 */
-void sputLua_GetCurrentScript(void); /* 0x0049efc0 */
-void sputLua_LockFontL(void); /* 0x0049efe0 */
-void sputLua_LoadCostumeL(void); /* 0x0049f040 */
+void __cdecl sputLua_FileFindNext(void); /* 0x0049ea20 */
+void __cdecl sputLua_FileFindDispose(void); /* 0x0049ea90 */
+void __cdecl sputLua_QueryDialog(void); /* 0x0049eab0 */
+void __cdecl sputLua_InputDialog(void); /* 0x0049eb60 */
+void __cdecl sputLua_WriteRegistryValue(void); /* 0x0049ec50 */
+void __cdecl sputLua_ReadRegistryValue(void); /* 0x0049ece0 */
+void __cdecl sputLua_GetSectorOppositeEdge(void); /* 0x0049ed90 */
+void __cdecl sputLua_IsSectorActiveL(void); /* 0x0049ee20 */
+void __cdecl sputLua_MakeSectorActiveL(void); /* 0x0049eeb0 */
+void __cdecl sputLua_PreRender(void); /* 0x0049ef50 */
+void __cdecl sputLua_GetCurrentScript(void); /* 0x0049efc0 */
+void __cdecl sputLua_LockFontL(void); /* 0x0049efe0 */
+void __cdecl sputLua_LoadCostumeL(void); /* 0x0049f040 */
 void __fastcall sputLua_GetPhysicalBytes(undefined4 param_1); /* 0x0049f080 */
-void sputLua_SetMemoryUsage(void); /* 0x0049f0a0 */
-void sputLua_GetCameraPositionL(void); /* 0x0049f2b0 */
-void sputLua_GetCameraInterestL(void); /* 0x0049f300 */
-void sputLua_GetCameraFOVL(void); /* 0x0049f350 */
-void sputLua_GetCameraRollL(void); /* 0x0049f380 */
-void sputLua_SetCameraPositionL(void); /* 0x0049f3b0 */
-void sputLua_SetCameraInterestL(void); /* 0x0049f480 */
-void sputLua_SetActorScaleL(void); /* 0x0049f550 */
-void sputLua_SetActorTimeScaleL(void); /* 0x0049f5d0 */
-void sputLua_GetActorNodeLocationL(void); /* 0x0049f690 */
-void sputLua_GetActorScaleL(void); /* 0x0049f810 */
-void sputLua_GetActorTimeScaleL(void); /* 0x0049f860 */
-void sputLua_SetCameraFOVL(void); /* 0x0049f8d0 */
-void sputLua_SetCameraRollL(void); /* 0x0049f930 */
-void sputLua_GetCameraLookVectorL(void); /* 0x0049f9b0 */
-void sputLua_PointActorAtL(void); /* 0x0049fb00 */
-void sputLua_TurnActorTo(void); /* 0x0049fc60 */
-void sputLua_PerSecondL(void); /* 0x0049fdf0 */
-void sputLua_SnapToPlane(void); /* 0x0049fe40 */
-void sputLua_GetAngleBetweenVectorsL(void); /* 0x0049ff00 */
-void sputLua_GetAngleBetweenActorsL(void); /* 0x004a00a0 */
-void sputLua_SetAmbientLight(void); /* 0x004a0230 */
-void sputLua_FindLight(void); /* 0x004a0290 */
-void sputLua_TurnLightOn(void); /* 0x004a02f0 */
-void sputLua_IsLightOn(void); /* 0x004a0380 */
-void sputLua_SetLightType(void); /* 0x004a0400 */
-void sputLua_GetLightType(void); /* 0x004a0530 */
-void sputLua_SetLightPosition(void); /* 0x004a05e0 */
-void sputLua_GetLightPosition(void); /* 0x004a0760 */
-void sputLua_SetLightRotation(void); /* 0x004a0800 */
-void sputLua_GetLightRotation(void); /* 0x004a09a0 */
-void sputLua_SetLightAngles(void); /* 0x004a0a50 */
-void sputLua_GetLightAngles(void); /* 0x004a0b40 */
-void sputLua_PointLightAt(void); /* 0x004a0bd0 */
-void sputLua_SetLightIntensity(void); /* 0x004a0da0 */
-void sputLua_GetLightIntensity(void); /* 0x004a0e90 */
+void __cdecl sputLua_SetMemoryUsage(void); /* 0x0049f0a0 */
+void __cdecl sputLua_GetCameraPositionL(void); /* 0x0049f2b0 */
+void __cdecl sputLua_GetCameraInterestL(void); /* 0x0049f300 */
+void __cdecl sputLua_GetCameraFOVL(void); /* 0x0049f350 */
+void __cdecl sputLua_GetCameraRollL(void); /* 0x0049f380 */
+void __cdecl sputLua_SetCameraPositionL(void); /* 0x0049f3b0 */
+void __cdecl sputLua_SetCameraInterestL(void); /* 0x0049f480 */
+void __cdecl sputLua_SetActorScaleL(void); /* 0x0049f550 */
+void __cdecl sputLua_SetActorTimeScaleL(void); /* 0x0049f5d0 */
+void __cdecl sputLua_GetActorNodeLocationL(void); /* 0x0049f690 */
+void __cdecl sputLua_GetActorScaleL(void); /* 0x0049f810 */
+void __cdecl sputLua_GetActorTimeScaleL(void); /* 0x0049f860 */
+void __cdecl sputLua_SetCameraFOVL(void); /* 0x0049f8d0 */
+void __cdecl sputLua_SetCameraRollL(void); /* 0x0049f930 */
+void __cdecl sputLua_GetCameraLookVectorL(void); /* 0x0049f9b0 */
+void __cdecl sputLua_PointActorAtL(void); /* 0x0049fb00 */
+void __cdecl sputLua_TurnActorTo(void); /* 0x0049fc60 */
+void __cdecl sputLua_PerSecondL(void); /* 0x0049fdf0 */
+void __cdecl sputLua_SnapToPlane(void); /* 0x0049fe40 */
+void __cdecl sputLua_GetAngleBetweenVectorsL(void); /* 0x0049ff00 */
+void __cdecl sputLua_GetAngleBetweenActorsL(void); /* 0x004a00a0 */
+void __cdecl sputLua_SetAmbientLight(void); /* 0x004a0230 */
+void __cdecl sputLua_FindLight(void); /* 0x004a0290 */
+void __cdecl sputLua_TurnLightOn(void); /* 0x004a02f0 */
+void __cdecl sputLua_IsLightOn(void); /* 0x004a0380 */
+void __cdecl sputLua_SetLightType(void); /* 0x004a0400 */
+void __cdecl sputLua_GetLightType(void); /* 0x004a0530 */
+void __cdecl sputLua_SetLightPosition(void); /* 0x004a05e0 */
+void __cdecl sputLua_GetLightPosition(void); /* 0x004a0760 */
+void __cdecl sputLua_SetLightRotation(void); /* 0x004a0800 */
+void __cdecl sputLua_GetLightRotation(void); /* 0x004a09a0 */
+void __cdecl sputLua_SetLightAngles(void); /* 0x004a0a50 */
+void __cdecl sputLua_GetLightAngles(void); /* 0x004a0b40 */
+void __cdecl sputLua_PointLightAt(void); /* 0x004a0bd0 */
+void __cdecl sputLua_SetLightIntensity(void); /* 0x004a0da0 */
+void __cdecl sputLua_GetLightIntensity(void); /* 0x004a0e90 */
 void __fastcall sputLua_ImGetMasterVol(undefined4 param_1); /* 0x004a13d0 */
-void sputLua_ImSetMasterVol(void); /* 0x004a1400 */
+void __cdecl sputLua_ImSetMasterVol(void); /* 0x004a1400 */
 void __fastcall sputLua_ImGetSfxVol(undefined4 param_1); /* 0x004a1440 */
-void sputLua_ImSetSfxVol(void); /* 0x004a1470 */
+void __cdecl sputLua_ImSetSfxVol(void); /* 0x004a1470 */
 void __fastcall sputLua_ImGetVoiceVol(undefined4 param_1); /* 0x004a14b0 */
-void sputLua_ImSetVoiceVol(void); /* 0x004a14e0 */
+void __cdecl sputLua_ImSetVoiceVol(void); /* 0x004a14e0 */
 void __fastcall sputLua_ImGetMusicVol(undefined4 param_1); /* 0x004a1520 */
-void sputLua_ImSetMusicVol(void); /* 0x004a1550 */
-void sputLua_ImSetState(void); /* 0x004a1640 */
-void sputLua_ImSetCuePoint(void); /* 0x004a16d0 */
-void sputLua_ImGetMemoryFootprint(void); /* 0x004a17f0 */
-void sputLua_ImGetSoundCacheSize(void); /* 0x004a1820 */
-void sputLua_SetGamma(void); /* 0x004a1850 */
-void sputLua_SetActorWalkDominate(void); /* 0x004a1890 */
-void sputLua_SetActorConstrain(void); /* 0x004a1900 */
-void sputLua_RenderModeUser(void); /* 0x004a1970 */
-void sputLua_DimScreen(void); /* 0x004a19f0 */
-void sputLua_DimRegion(void); /* 0x004a1a00 */
-void sputLua_SetSpeechMode(void); /* 0x004a1ae0 */
-void sputLua_GetSpeechMode(void); /* 0x004a1b40 */
-void sputLua_ActorShadow(void); /* 0x004a1b80 */
-void sputLua_ActivateActorShadow(void); /* 0x004a1bf0 */
-void sputLua_SetActorShadowPlane(void); /* 0x004a1c90 */
-void sputLua_SetActorShadowPoint(void); /* 0x004a1d10 */
-void sputLua_SetActiveShadow(void); /* 0x004a1dc0 */
-void sputLua_ActorDistToShadowPlane(void); /* 0x004a1e50 */
-void sputLua_AddShadowClipPlane(void); /* 0x004a1f30 */
-void sputLua_SetActorShadowValid(void); /* 0x004a1fd0 */
-void sputLua_KillActorShadows(void); /* 0x004a2070 */
-void sputLua_SetShadowColor(void); /* 0x004a20d0 */
-void sputLua_NewObjectState(void); /* 0x004a2130 */
-void sputLua_FreeObjectState(void); /* 0x004a21f0 */
-void sputLua_SendObjectToBack(void); /* 0x004a2240 */
-void sputLua_SendObjectToFront(void); /* 0x004a22b0 */
-void sputLua_SetObjectType(void); /* 0x004a2320 */
-void sputLua_ActorToClean(void); /* 0x004a2380 */
-void sputLua_SetActorCollisionMode(void); /* 0x004a23e0 */
-void sputLua_SetActorCollisionScale(void); /* 0x004a2470 */
-void sputLua_SetActorOffsetYaw(void); /* 0x004a2500 */
-void sputLua_CacheRect(void); /* 0x004a2590 */
-void sputLua_RestoreCacheRect(void); /* 0x004a26b0 */
+void __cdecl sputLua_ImSetMusicVol(void); /* 0x004a1550 */
+void __cdecl sputLua_ImSetState(void); /* 0x004a1640 */
+void __cdecl sputLua_ImSetCuePoint(void); /* 0x004a16d0 */
+void __cdecl sputLua_ImGetMemoryFootprint(void); /* 0x004a17f0 */
+void __cdecl sputLua_ImGetSoundCacheSize(void); /* 0x004a1820 */
+void __cdecl sputLua_SetGamma(void); /* 0x004a1850 */
+void __cdecl sputLua_SetActorWalkDominate(void); /* 0x004a1890 */
+void __cdecl sputLua_SetActorConstrain(void); /* 0x004a1900 */
+void __cdecl sputLua_RenderModeUser(void); /* 0x004a1970 */
+void __cdecl sputLua_DimScreen(void); /* 0x004a19f0 */
+void __cdecl sputLua_DimRegion(void); /* 0x004a1a00 */
+void __cdecl sputLua_SetSpeechMode(void); /* 0x004a1ae0 */
+void __cdecl sputLua_GetSpeechMode(void); /* 0x004a1b40 */
+void __cdecl sputLua_ActorShadow(void); /* 0x004a1b80 */
+void __cdecl sputLua_ActivateActorShadow(void); /* 0x004a1bf0 */
+void __cdecl sputLua_SetActorShadowPlane(void); /* 0x004a1c90 */
+void __cdecl sputLua_SetActorShadowPoint(void); /* 0x004a1d10 */
+void __cdecl sputLua_SetActiveShadow(void); /* 0x004a1dc0 */
+void __cdecl sputLua_ActorDistToShadowPlane(void); /* 0x004a1e50 */
+void __cdecl sputLua_AddShadowClipPlane(void); /* 0x004a1f30 */
+void __cdecl sputLua_SetActorShadowValid(void); /* 0x004a1fd0 */
+void __cdecl sputLua_KillActorShadows(void); /* 0x004a2070 */
+void __cdecl sputLua_SetShadowColor(void); /* 0x004a20d0 */
+void __cdecl sputLua_NewObjectState(void); /* 0x004a2130 */
+void __cdecl sputLua_FreeObjectState(void); /* 0x004a21f0 */
+void __cdecl sputLua_SendObjectToBack(void); /* 0x004a2240 */
+void __cdecl sputLua_SendObjectToFront(void); /* 0x004a22b0 */
+void __cdecl sputLua_SetObjectType(void); /* 0x004a2320 */
+void __cdecl sputLua_ActorToClean(void); /* 0x004a2380 */
+void __cdecl sputLua_SetActorCollisionMode(void); /* 0x004a23e0 */
+void __cdecl sputLua_SetActorCollisionScale(void); /* 0x004a2470 */
+void __cdecl sputLua_SetActorOffsetYaw(void); /* 0x004a2500 */
+void __cdecl sputLua_CacheRect(void); /* 0x004a2590 */
+void __cdecl sputLua_RestoreCacheRect(void); /* 0x004a26b0 */
 void __fastcall sputLua_ResReport(undefined4 param_1); /* 0x004a26f0 */
-void sputLua_HardwareAccelerated(void); /* 0x004a2720 */
-void sputLua_SetActorClipActive(void); /* 0x004a2750 */
-void sputLua_SetActorClipPlane(void); /* 0x004a27b0 */
-void sputLua_MarkDirtyRect(void); /* 0x004a2920 */
-void sputLua_FadeOutChore(void); /* 0x004a2a20 */
-void sputLua_IrisDown(void); /* 0x004a2c10 */
-void sputLua_IrisUp(void); /* 0x004a2c70 */
+void __cdecl sputLua_HardwareAccelerated(void); /* 0x004a2720 */
+void __cdecl sputLua_SetActorClipActive(void); /* 0x004a2750 */
+void __cdecl sputLua_SetActorClipPlane(void); /* 0x004a27b0 */
+void __cdecl sputLua_MarkDirtyRect(void); /* 0x004a2920 */
+void __cdecl sputLua_FadeOutChore(void); /* 0x004a2a20 */
+void __cdecl sputLua_IrisDown(void); /* 0x004a2c10 */
+void __cdecl sputLua_IrisUp(void); /* 0x004a2c70 */
 void __fastcall sputLua_IrisComplete(undefined4 param_1); /* 0x004a2cd0 */
-void Lua_TextFileGetLineCount(void); /* 0x004a2d00 */
-void Lua_TextFileGetLine(void); /* 0x004a2e20 */
-void sputLua_ScreenShot(void); /* 0x004a2ee0 */
-void sputLua_SaveScreen(void); /* 0x004a2f90 */
-void sputLua_GetSaveGameImage(void); /* 0x004a2fd0 */
-void sputLua_GetImage(void); /* 0x004a3040 */
-void sputLua_FreeImage(void); /* 0x004a30e0 */
-void sputLua_BlastImage(void); /* 0x004a3130 */
-void sputLua_BlastRect(void); /* 0x004a31f0 */
+void __cdecl Lua_TextFileGetLineCount(void); /* 0x004a2d00 */
+void __cdecl Lua_TextFileGetLine(void); /* 0x004a2e20 */
+void __cdecl sputLua_ScreenShot(void); /* 0x004a2ee0 */
+void __cdecl sputLua_SaveScreen(void); /* 0x004a2f90 */
+void __cdecl sputLua_GetSaveGameImage(void); /* 0x004a2fd0 */
+void __cdecl sputLua_GetImage(void); /* 0x004a3040 */
+void __cdecl sputLua_FreeImage(void); /* 0x004a30e0 */
+void __cdecl sputLua_BlastImage(void); /* 0x004a3130 */
+void __cdecl sputLua_BlastRect(void); /* 0x004a31f0 */
 void __cdecl sputLua_SaveGameCallback(void *writeFn); /* 0x004a34c0 */
-void sputLua_GetSaveGameData(void); /* 0x004a3720 */
+void __cdecl sputLua_GetSaveGameData(void); /* 0x004a3720 */
 void __fastcall sputLua_GetTextSpeed(undefined4 param_1); /* 0x004a3830 */
-void sputLua_SetTextSpeed(void); /* 0x004a3850 */
-void sputLua_FindFileOnAnyCD(void); /* 0x004a3890 */
-void sputLua_ActorPuckOrient(void); /* 0x004a3a10 */
-void sputLua_GetTickCount(void); /* 0x004a3aa0 */
-void sputLua_SetActorInvClipNode(void); /* 0x004a3ae0 */
-void sputLua_SetWalkSystemFadeTime(void); /* 0x004a3b80 */
+void __cdecl sputLua_SetTextSpeed(void); /* 0x004a3850 */
+void __cdecl sputLua_FindFileOnAnyCD(void); /* 0x004a3890 */
+void __cdecl sputLua_ActorPuckOrient(void); /* 0x004a3a10 */
+void __cdecl sputLua_GetTickCount(void); /* 0x004a3aa0 */
+void __cdecl sputLua_SetActorInvClipNode(void); /* 0x004a3ae0 */
+void __cdecl sputLua_SetWalkSystemFadeTime(void); /* 0x004a3b80 */
 void Lua_LightMgrStartup(void); /* 0x004be180 */
 void Lua_LightMgrSetChange(void); /* 0x004be260 */
 void Lua_LightMgrShutdown(void); /* 0x004be2a0 */
@@ -397,7 +397,7 @@ void __cdecl stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,i
 int __cdecl stdColor_ColorConvertOnePixel(int param_1,uint param_2,int param_3); /* 0x0047bbb0 */
 
 /* ===== services.c ===== */
-undefined4 __cdecl defaultStatusPrint(char *fmt,...); /* 0x004035b0 */
+uint __cdecl defaultStatusPrint(char *fmt,...); /* 0x004035b0 */
 uint __cdecl defaultMessagePrint(uint param_1); /* 0x004035e0 */
 uint __cdecl defaultWarningPrint(uint param_1); /* 0x00403610 */
 uint __cdecl defaultErrorPrint(uint param_1); /* 0x00403640 */
@@ -451,12 +451,12 @@ char * __cdecl stdFnames_FindExt(char *path); /* 0x0047fd50 */
 void __cdecl Str_StripExtension(char *param_1); /* 0x0047fda0 */
 void __cdecl stdFnames_CopyShortName(char *dst,int size,char *path); /* 0x0047fdc0 */
 undefined * __cdecl Str_FindChar(char *param_1,int param_2); /* 0x004838c0 */
-uint * String_ContainsSubstring(uint *param_1,char *param_2); /* 0x004aef70 */
+uint * __cdecl String_ContainsSubstring(uint *param_1,char *param_2); /* 0x004aef70 */
 byte * __cdecl FindMatch(char *str,char *pattern); /* 0x004c1c30 */
 int Str_ModuleNameLength(byte *param_1); /* 0x004c1e00 */
 void Str_StripNonPrintable(byte *param_1); /* 0x004c1e60 */
-int Str_CompareNoCase(char *param_1,char *param_2); /* 0x004c1e90 */
-int Str_CompareNoCaseN(char *param_1,char *param_2,int param_3); /* 0x004c1ee0 */
+int Str_CompareNoCase(byte *param_1,byte *param_2); /* 0x004c1e90 */
+int Str_CompareNoCaseN(byte *param_1,byte *param_2,int param_3); /* 0x004c1ee0 */
 
 /* ===== rdroid.c ===== */
 int __cdecl rdStartup(GrimServices *svc); /* 0x00404180 */
@@ -593,9 +593,9 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt); /* 0x004507
 void __cdecl rdPuppet_UpdateTracks(void *puppet,float seconds); /* 0x00450a90 */
 void __cdecl rdPuppet_ResetTrack(int param_1,int param_2); /* 0x00450b50 */
 void __cdecl rdPuppet_UpdateFrame(void *model,float *frame); /* 0x00450ba0 */
-void rdKeyframe_NewEntry(undefined4 *param_1); /* 0x004c0630 */
-int rdKeyframe_Load(char *param_1); /* 0x004c0660 */
-undefined4 rdKeyframe_LoadEntry(char *param_1,int param_2); /* 0x004c0770 */
+void rdKeyframe_NewEntry(uint *param_1); /* 0x004c0630 */
+uint * rdKeyframe_Load(char *param_1); /* 0x004c0660 */
+undefined4 rdKeyframe_LoadEntry(char *param_1,uint *param_2); /* 0x004c0770 */
 undefined4 rdKeyframe_LoadEntryBinary(undefined4 param_1,int param_2); /* 0x004c0ce0 */
 void rdKeyframe_Free(int param_1); /* 0x004c0e40 */
 void rdKeyframe_FreeEntry(int param_1); /* 0x004c0e70 */
@@ -1434,28 +1434,28 @@ void __cdecl sputRender_SyncCamera(void *set,int setupIdx); /* 0x00483aa0 */
 void __cdecl sputRender_UseSetup(void *set,int setupIdx); /* 0x00483b50 */
 void __cdecl Set_DrawDebugLights(int param_1); /* 0x00485780 */
 void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx); /* 0x004859c0 */
-void sputRoom_SetSoundParameters (int param_1,undefined4 param_2,undefined1 param_3,undefined1 param_4, undefined4 param_5,undefined4 param_6); /* 0x004a4010 */
+void __cdecl sputRoom_SetSoundParameters (int param_1,uint param_2,byte param_3,byte param_4,uint param_5,uint param_6); /* 0x004a4010 */
 void __cdecl sputRoom_GetSoundParameters(void *set,float *minVol,char *maxVol,char *c,float *d,float *e); /* 0x004a4050 */
 void __cdecl sputRoom_SetCurrentRoom(void *set,int param_2); /* 0x004a40f0 */
 void * sputRoom_GetCurrentRoom(void); /* 0x004a41b0 */
 char * sputRoom_GetCurrentRoomName(void); /* 0x004a41d0 */
 int __cdecl sputRoom_Save(void *writeFn); /* 0x004a41e0 */
 int __cdecl sputRoom_Restore(void *readFn); /* 0x004a44e0 */
-undefined4 * sputRoom_LoadRoom(char *param_1); /* 0x004a49a0 */
-void Set_InitRecord(undefined4 *param_1); /* 0x004a4a70 */
+uint * __cdecl sputRoom_LoadRoom(char *param_1); /* 0x004a49a0 */
+void __cdecl Set_InitRecord(uint *param_1); /* 0x004a4a70 */
 void __cdecl sputRoom_UnReference(void *set); /* 0x004a4b40 */
-void sputRoom_FreeRoom(undefined4 param_1); /* 0x004a4c40 */
-void sputRoom_FreeRoomEntry(char *param_1); /* 0x004a4c60 */
-void Set_FreeSetups(int param_1); /* 0x004a4d10 */
-void Set_FreeSetup(undefined4 param_1,int param_2); /* 0x004a4d80 */
+void __cdecl sputRoom_FreeRoom(uint param_1); /* 0x004a4c40 */
+void __cdecl sputRoom_FreeRoomEntry(char *param_1); /* 0x004a4c60 */
+void __cdecl Set_FreeSetups(int param_1); /* 0x004a4d10 */
+void __cdecl Set_FreeSetup(uint param_1,int param_2); /* 0x004a4d80 */
 int __cdecl sputRoom_LoadResources(void *set); /* 0x004a4fe0 */
 int __cdecl Set_RegisterHandle(char *name,void *fn); /* 0x004a54a0 */
 int Set_FindHandle(char *name); /* 0x004a5500 */
 int Set_IsHandleValid(char *param_1); /* 0x004a55d0 */
 void * __cdecl GetRoomActors(char *setName); /* 0x004a60a0 */
-void * Set_FindNameInList(int param_1); /* 0x004a60c0 */
+void * __cdecl Set_FindNameInList(int param_1); /* 0x004a60c0 */
 void * __cdecl Set_NormalizeName(char *setName); /* 0x004a6100 */
-void WalkPlane_KillCollection(void *param_1); /* 0x004a7100 */
+void __cdecl WalkPlane_KillCollection(void *param_1); /* 0x004a7100 */
 void __cdecl WalkPlane_SetCollection(void *set); /* 0x004a7150 */
 
 /* ===== enginemodule.c ===== */
@@ -1588,8 +1588,8 @@ void __cdecl sputActor_SetClipPlaneActive(Actor *actor,int param_2); /* 0x004947
 void __cdecl sputActor_SetFrustrumCull(Actor *actor,int param_2); /* 0x00494780 */
 void __cdecl sputActor_FreeActor(Actor *actor); /* 0x004947c0 */
 void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *shadow); /* 0x00494940 */
-void sputCostume_Draw3D(undefined4 param_1,undefined4 param_2); /* 0x00495080 */
-void sputCostume_InternalDraw3D(int *param_1,float *param_2); /* 0x004950a0 */
+void __cdecl sputCostume_Draw3D(uint param_1,uint param_2); /* 0x00495080 */
+void __cdecl sputCostume_InternalDraw3D(int *param_1,float *param_2); /* 0x004950a0 */
 void __cdecl sputRoom_RemoveActor(char *setName,void *actor); /* 0x004a5eb0 */
 void __cdecl sputRoom_AddActor(Actor *actor,char *setName); /* 0x004a5f60 */
 float __thiscall Puck_GetYawToPoint(Puck *this,float *point); /* 0x004a8500 */
@@ -1607,13 +1607,13 @@ void * __cdecl sputRoom_GetSetupZBackground(void *set,int setupIdx); /* 0x004a3e
 /* ===== sector.c ===== */
 void __cdecl Sector_DrawAllDebug(void); /* 0x00485dc0 */
 void __cdecl sputLua_CollisionHandler(int self,int other,float *a,float *b,float *c); /* 0x0049c750 */
-int SetFile_Parse(char *param_1,uint param_2); /* 0x004a4b00 */
-undefined4 sputRoom_LoadRoomEntry(uint param_1); /* 0x004a5550 */
-undefined4 sputRoom_ParseColormaps(void); /* 0x004a5b40 */
-undefined4 sputRoom_ParseSectors(void); /* 0x004a5c90 */
-void WalkPlane_BuildCache(void); /* 0x004a61c0 */
-void WalkPlane_DestroyCache(void); /* 0x004a6330 */
-void WalkPlane_RestoreCache(void); /* 0x004a6380 */
+int __cdecl SetFile_Parse(char *param_1,uint param_2); /* 0x004a4b00 */
+uint __cdecl sputRoom_LoadRoomEntry(uint param_1); /* 0x004a5550 */
+uint __cdecl sputRoom_ParseColormaps(void); /* 0x004a5b40 */
+uint __cdecl sputRoom_ParseSectors(void); /* 0x004a5c90 */
+void __cdecl WalkPlane_BuildCache(void); /* 0x004a61c0 */
+void __cdecl WalkPlane_DestroyCache(void); /* 0x004a6330 */
+void __cdecl WalkPlane_RestoreCache(void); /* 0x004a6380 */
 WalkPlane * __thiscall WalkPlane_Construct(WalkPlane *this,int a1,int a2,int a3); /* 0x004a6490 */
 void __fastcall WalkPlane_Destruct(WalkPlane *plane); /* 0x004a66e0 */
 void __thiscall WalkPlane_SetName(WalkPlane *this,char *name); /* 0x004a6760 */
@@ -1630,10 +1630,10 @@ WalkPlane * __cdecl WalkPlane_PlaneNumbered(int id); /* 0x004a7290 */
 WalkPlane * __cdecl WalkPlane_PlaneClosest(float *point,uint mask); /* 0x004a72b0 */
 void __thiscall WalkPlane_JumpOut(WalkPlane *this,float *walker); /* 0x004a7390 */
 float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker); /* 0x004a7520 */
-void WalkPlane_AllActive(void); /* 0x004a7a90 */
-WalkVertex * WalkPlane_AddVertex(undefined4 param_1,float *param_2); /* 0x004a7ab0 */
-void WalkPlane_RemoveVertex(int *param_1); /* 0x004a7ba0 */
-undefined * ParseCollection(int param_1); /* 0x004a7bc0 */
+void __cdecl WalkPlane_AllActive(void); /* 0x004a7a90 */
+WalkVertex * __cdecl WalkPlane_AddVertex(uint param_1,float *param_2); /* 0x004a7ab0 */
+void __cdecl WalkPlane_RemoveVertex(int *param_1); /* 0x004a7ba0 */
+byte * __cdecl ParseCollection(int param_1); /* 0x004a7bc0 */
 int __thiscall WalkPlane_ClipPoly(WalkPlane *this,float *verts,int count,float *out); /* 0x004a8cb0 */
 float __thiscall WalkPlane_DistToEdge(WalkPlane *this,int edge,float *point); /* 0x004a9070 */
 undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane); /* 0x004a9180 */
@@ -1757,22 +1757,22 @@ uint __cdecl sputText_Restore(code *param_1); /* 0x0048cd80 */
 /* ===== text.c ===== */
 int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *textObj); /* 0x0048c050 */
 char * __cdecl sputText_ExtractSayLineData(char *line,char *outId); /* 0x0048c8d0 */
-int sputActor_GetActorTextRate(void); /* 0x00494740 */
+int __cdecl sputActor_GetActorTextRate(void); /* 0x00494740 */
 void __cdecl sputActor_SetActorTextRate(int speed); /* 0x00494750 */
-void * Text_GetSystemFont(void); /* 0x004aa930 */
+void * __cdecl Text_GetSystemFont(void); /* 0x004aa930 */
 int __cdecl Text_LoadNativeFont(char *filename,void **outFont); /* 0x004aa940 */
 void __cdecl Text_FreeFont(void *font); /* 0x004aa990 */
 int __cdecl Text_NextChar(char **pText); /* 0x004aa9b0 */
 int __cdecl Text_GetCharKernedWidth(TextContext *ctx,int ch); /* 0x004aaa20 */
 int __cdecl Text_GetStringWidth(TextContext *ctx,char *text); /* 0x004aaa80 */
 int __cdecl Text_GetStringHeight(TextContext *ctx,char *text); /* 0x004aab10 */
-undefined4 Text_DrawFormatted(TextContext *param_1,int param_2); /* 0x004aabb0 */
-undefined4 Text_WrapLines(uint *param_1); /* 0x004aac40 */
-void Text_CopyRunes(byte *param_1,undefined4 *param_2,int param_3,int param_4); /* 0x004aae90 */
-undefined4 Text_BuildLineTable(undefined4 param_1,int *param_2); /* 0x004aaf30 */
-char * text_FindNextBreak(TextContext *param_1,void *param_2,char *param_3,int *param_4, uint *param_5,int param_6); /* 0x004ab210 */
+uint __cdecl Text_DrawFormatted(TextContext *param_1,int param_2); /* 0x004aabb0 */
+uint __cdecl Text_WrapLines(uint *param_1); /* 0x004aac40 */
+void __cdecl Text_CopyRunes(byte *param_1,uint *param_2,int param_3,int param_4); /* 0x004aae90 */
+uint __cdecl Text_BuildLineTable(uint param_1,int *param_2); /* 0x004aaf30 */
+char * __cdecl text_FindNextBreak(TextContext *param_1,void *param_2,char *param_3,int *param_4,uint *param_5, int param_6); /* 0x004ab210 */
 uint __cdecl Font_GlyphAdvance(TextContext *ctx,void *font,int ch); /* 0x004ab510 */
-uint Font_GlyphWidth(int param_1,int param_2,uint param_3); /* 0x004ab570 */
+uint __cdecl Font_GlyphWidth(int param_1,int param_2,uint param_3); /* 0x004ab570 */
 void __cdecl Text_DrawString(TextContext *ctx,void *font,char *text); /* 0x004ab5d0 */
 void __cdecl Text_DrawChar(void *ctx,void *font,int ch); /* 0x004ab710 */
 
@@ -1817,13 +1817,13 @@ uint __cdecl sputActor_Initialize(uint param_1,uint *param_2); /* 0x0048e2c0 */
 uint __cdecl sputActor_Save(code *param_1); /* 0x0048e330 */
 uint __cdecl sputActor_Restore(code *param_1); /* 0x0048ecd0 */
 void __cdecl sputActor_SetWalkChore(Actor *actor,int chore,CostumeNode *costume); /* 0x00490a60 */
-void sputActor_Terminate(void); /* 0x00490e60 */
-undefined4 sputActor_Startup(void); /* 0x00490e80 */
-void sputActor_Shutdown(void); /* 0x00490ef0 */
+void __cdecl sputActor_Terminate(void); /* 0x00490e60 */
+uint __cdecl sputActor_Startup(void); /* 0x00490e80 */
+void __cdecl sputActor_Shutdown(void); /* 0x00490ef0 */
 
 /* ===== phoneme.c ===== */
 uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme); /* 0x00490e00 */
-int ComparePhonemes(int *param_1,int *param_2); /* 0x00490e50 */
+int __cdecl ComparePhonemes(int *param_1,int *param_2); /* 0x00490e50 */
 
 /* ===== walker.c ===== */
 undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *param_2); /* 0x00491230 */
@@ -1849,25 +1849,25 @@ int __cdecl BuildPath(float *from,float *to,int flags); /* 0x004a9430 */
 undefined4 __cdecl Planner_FindPath(float *param_1,float *param_2,WalkPlane *plane); /* 0x004a94d0 */
 uint __cdecl FindExitPoints(WalkPlane *plane,float *param_2,uint *param_3); /* 0x004a96f0 */
 undefined4 __cdecl Planner_PortalPoint(WalkPlane *planeA,WalkPlane *planeB,float *point,float *out); /* 0x004a9920 */
-undefined4 TightenPath(void); /* 0x004a9aa0 */
+uint __cdecl TightenPath(void); /* 0x004a9aa0 */
 WalkPlane * __cdecl Planner_SharedSector(float *from,float *to); /* 0x004a9ca0 */
 
 /* ===== collision.c ===== */
 void __cdecl GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax,float zmax, float *frame,float *out); /* 0x004922d0 */
 int __cdecl Collision_PointInBox (float *a,float *b,float *p3,float bx0,float by0,float bz0,float bx1,float by1,float bz1, float *p10,float *offset); /* 0x00492510 */
-void FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5); /* 0x004925c0 */
+void __cdecl FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5); /* 0x004925c0 */
 int __cdecl TestCollision(float *from,float *to,float *hit,float xmin,float ymin,float zmin,float xmax, float ymax,float zmax,float *frame); /* 0x00492680 */
-int Collision_PickDetour(float *param_1,float *param_2,int param_3); /* 0x00492a50 */
-undefined4 Collision_UpdateMovedActors(void); /* 0x004939a0 */
+int __cdecl Collision_PickDetour(float *param_1,float *param_2,int param_3); /* 0x00492a50 */
+uint __cdecl Collision_UpdateMovedActors(void); /* 0x004939a0 */
 uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1); /* 0x004939f0 */
 undefined4 __cdecl Collision_BoxSlide(float *from,float *to,float xmin,float ymin,float zmin,float xmax,float ymax, float zmax,float *out); /* 0x00494100 */
 
 /* ===== speech.c ===== */
 void __cdecl sputActor_SetSpeechMode(int mode); /* 0x004931c0 */
-uint sputActor_GetSpeechMode(void); /* 0x004931e0 */
+uint __cdecl sputActor_GetSpeechMode(void); /* 0x004931e0 */
 
 /* ===== costume.c ===== */
-void FadeInChore(void *param_1,uint param_2,int param_3); /* 0x00493410 */
+void __cdecl FadeInChore(void *param_1,uint param_2,int param_3); /* 0x00493410 */
 undefined * __cdecl FadeOutChore(void *param_1,int param_2,int param_3); /* 0x00493450 */
 void __cdecl sputCostume_PrintCostumeInfo(CostumeNode *costume); /* 0x00494d10 */
 void __cdecl sputCostume_FreeCostumeNodes(CostumeNode *list,int free); /* 0x00494dc0 */
@@ -1880,92 +1880,92 @@ void * __cdecl Costume_GetMainModel(void *cosInst); /* 0x00495020 */
 void __cdecl Costume_ApplyScale(void *actor,void *componentList); /* 0x00495510 */
 void __cdecl Costume_ApplyComponentState(void *cosInst); /* 0x004955e0 */
 void __cdecl sputCostume_BuildThingStateMatrices(void *component,float *frame); /* 0x004956a0 */
-void sputCostume_Draw2D(int param_1); /* 0x004956f0 */
+void __cdecl sputCostume_Draw2D(int param_1); /* 0x004956f0 */
 void __cdecl sputCostume_Update(CostumeNode *costumeList,float dt); /* 0x00495730 */
-undefined4 sputCostume_SaveHook(char *param_1,uint *param_2,undefined4 param_3); /* 0x00495e90 */
-undefined4 Costume_InstanceHook(int param_1,int param_2); /* 0x00496020 */
+uint __cdecl sputCostume_SaveHook(char *param_1,uint *param_2,uint param_3); /* 0x00495e90 */
+uint __cdecl Costume_InstanceHook(int param_1,int param_2); /* 0x00496020 */
 
 /* ===== shadow.c ===== */
 void __cdecl sputCostume_SetShadowColor(int r,int g,int b); /* 0x00494890 */
 void __cdecl sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,ActorShadow *shadow); /* 0x00494bf0 */
 
 /* ===== sputcostume.c ===== */
-int sputCostume_Initialize(GrimServices *param_1,undefined4 *param_2); /* 0x004957f0 */
-void sputCostume_Terminate(void); /* 0x00495960 */
-undefined4 sputCostume_Startup(void); /* 0x004959a0 */
-void sputCostume_Shutdown(void); /* 0x004988a0 */
+int __cdecl sputCostume_Initialize(GrimServices *param_1,uint *param_2); /* 0x004957f0 */
+void __cdecl sputCostume_Terminate(void); /* 0x00495960 */
+uint __cdecl sputCostume_Startup(void); /* 0x004959a0 */
+void __cdecl sputCostume_Shutdown(void); /* 0x004988a0 */
 
 /* ===== component.c ===== */
-void BitmapChanger(undefined4 param_1,int *param_2,undefined4 param_3,int param_4); /* 0x00496060 */
+void __cdecl BitmapChanger(uint param_1,int *param_2,uint param_3,int param_4); /* 0x00496060 */
 
 /* ===== bitmapcomponent.c ===== */
-undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x004960a0 */
+uint __cdecl BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x004960a0 */
 undefined4 BitmapFreer(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x00496340 */
 
 /* ===== cmapcomponent.c ===== */
 int * __cdecl ColormapInstancer(int inst,int component,int create); /* 0x00496370 */
-int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00496460 */
+int __cdecl ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00496460 */
 undefined4 ColormapFreer(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x00496580 */
 uint __cdecl MaterialInstanceSaveLoad(void); /* 0x004965b0 */
 
 /* ===== materialcomponent.c ===== */
-void MaterialChanger(undefined4 param_1,int param_2,undefined4 param_3,undefined4 param_4); /* 0x004965d0 */
+void __cdecl MaterialChanger(uint param_1,int param_2,uint param_3,uint param_4); /* 0x004965d0 */
 void * __cdecl MaterialInstancer(void *cosInst,int componentIdx,int create); /* 0x004965e0 */
-int MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496670 */
+int __cdecl MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496670 */
 
 /* ===== modelcomponent.c ===== */
-undefined4 ThingAdjuster(int *param_1,int param_2); /* 0x00496890 */
-void ThingChanger(undefined4 param_1,int param_2,undefined4 param_3,int param_4); /* 0x00496930 */
+uint __cdecl ThingAdjuster(int *param_1,uint param_2); /* 0x00496890 */
+void __cdecl ThingChanger(uint param_1,int param_2,uint param_3,int param_4); /* 0x00496930 */
 void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create); /* 0x00496950 */
-undefined4 ThingStopper(int param_1); /* 0x00496b40 */
-int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00496b60 */
+uint __cdecl ThingStopper(int param_1); /* 0x00496b40 */
+int __cdecl ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00496b60 */
 undefined4 ThingFreer(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x00496d10 */
 
 /* ===== meshcomponent.c ===== */
-void MeshChanger(undefined4 param_1,int *param_2,undefined4 param_3,int param_4); /* 0x00496d40 */
+void __cdecl MeshChanger(uint param_1,int *param_2,uint param_3,int param_4); /* 0x00496d40 */
 int * __cdecl MeshInstancer(int inst,int component,int create); /* 0x00496d70 */
-void MeshStopper(int param_1); /* 0x00496e10 */
-undefined4 MeshRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496e20 */
-int MeshAdjuster(undefined4 param_1,undefined4 param_2); /* 0x00497180 */
+void __cdecl MeshStopper(int param_1); /* 0x00496e10 */
+uint __cdecl MeshRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5); /* 0x00496e20 */
+int __cdecl MeshAdjuster(uint param_1,uint param_2); /* 0x00497180 */
 
 /* ===== imusesoundcomponent.c ===== */
 void __cdecl SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param_6,uint param_7, uint inst); /* 0x004971a0 */
-undefined4 SoundAdjuster(int *param_1,int param_2); /* 0x00497320 */
-int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00497460 */
-undefined4 SoundFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00497640 */
-undefined4 SoundStopper(int param_1); /* 0x00497660 */
+uint __cdecl SoundAdjuster(int *param_1,uint param_2); /* 0x00497320 */
+int __cdecl SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00497460 */
+uint __cdecl SoundFreer(uint param_1,uint param_2,uint param_3); /* 0x00497640 */
+uint __cdecl SoundStopper(int param_1); /* 0x00497660 */
 
 /* ===== luavarcomponent.c ===== */
-void LuaVarChanger(undefined4 param_1,char *param_2,undefined4 param_3,int param_4); /* 0x00497680 */
-undefined4 LuaVarAdjuster(undefined4 *param_1,int param_2,int param_3); /* 0x004976a0 */
-int LuaVarRequester(uint param_1,int param_2,int param_3,int param_4,int param_5); /* 0x00497710 */
-undefined4 LuaVarFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004977f0 */
-undefined4 LuaVarStopper(char *param_1); /* 0x00497810 */
+void __cdecl LuaVarChanger(uint param_1,char *param_2,uint param_3,int param_4); /* 0x00497680 */
+uint __cdecl LuaVarAdjuster(uint *param_1,int param_2,int param_3); /* 0x004976a0 */
+int __cdecl LuaVarRequester(uint param_1,int param_2,int param_3,int param_4,int param_5); /* 0x00497710 */
+uint __cdecl LuaVarFreer(uint param_1,uint param_2,uint param_3); /* 0x004977f0 */
+uint __cdecl LuaVarStopper(char *param_1); /* 0x00497810 */
 
 /* ===== imuseintcomponent.c ===== */
-int IMuseRequester(uint param_1,int param_2,int param_3,int param_4); /* 0x00497840 */
+int __cdecl IMuseRequester(uint param_1,int param_2,int param_3,int param_4); /* 0x00497840 */
 
 /* ===== keyframecomponent.c ===== */
-void KeyframeChanger(undefined4 param_1,int *param_2,undefined4 param_3,int param_4,uint param_5, undefined4 param_6,undefined4 param_7,undefined4 param_8); /* 0x00497890 */
-void sputCostume_PuppetHook(int param_1,int param_2,uint param_3); /* 0x00497cb0 */
+void __cdecl KeyframeChanger(uint param_1,int *param_2,uint param_3,int param_4,uint param_5,uint param_6, uint param_7,uint param_8); /* 0x00497890 */
+void __cdecl sputCostume_PuppetHook(int param_1,int param_2,uint param_3); /* 0x00497cb0 */
 int * __cdecl KeyframeInstancer(int inst,int component,int create); /* 0x00497d10 */
-int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint param_5); /* 0x00497e10 */
-undefined4 KeyframeAdjuster(int *param_1,int param_2); /* 0x00498000 */
+int __cdecl KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint param_5); /* 0x00497e10 */
+uint __cdecl KeyframeAdjuster(int *param_1,uint param_2); /* 0x00498000 */
 undefined4 KeyframeFreer(undefined4 param_1,undefined4 param_2,void *param_3); /* 0x004980b0 */
-undefined4 KeyframeStopper(int *param_1); /* 0x004980e0 */
+uint __cdecl KeyframeStopper(int *param_1); /* 0x004980e0 */
 
 /* ===== smushcomponent.c ===== */
-undefined4 SmushFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x00498140 */
-void SmushChanger(undefined4 param_1,uint param_2,undefined4 param_3,int param_4); /* 0x00498160 */
-int SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00498190 */
+uint __cdecl SmushFreer(uint param_1,uint param_2,uint param_3); /* 0x00498140 */
+void __cdecl SmushChanger(uint param_1,uint param_2,uint param_3,int param_4); /* 0x00498160 */
+int __cdecl SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5); /* 0x00498190 */
 
 /* ===== costumetag.c ===== */
-undefined4 CostumeTag_Nop(void); /* 0x00498180 */
+uint __cdecl CostumeTag_Nop(void); /* 0x00498180 */
 
 /* ===== spritecomponent.c ===== */
-undefined4 SpriteRequester(uint param_1,int param_2,int param_3,float param_4,char *param_5); /* 0x00498280 */
-void SpriteChanger(undefined4 param_1,int param_2,undefined4 param_3,int param_4); /* 0x00498550 */
-undefined4 SpriteFreer(undefined4 param_1,undefined4 param_2,int *param_3); /* 0x00498580 */
+uint __cdecl SpriteRequester(uint param_1,int param_2,int param_3,float param_4,char *param_5); /* 0x00498280 */
+void __cdecl SpriteChanger(uint param_1,int param_2,uint param_3,int param_4); /* 0x00498550 */
+uint __cdecl SpriteFreer(uint param_1,uint param_2,int *param_3); /* 0x00498580 */
 uint * __cdecl SpriteInstancer(int param_1,uint *param_2,int param_3); /* 0x004985c0 */
 uint __cdecl SpriteAdjuster(uint *param_1,uint param_2); /* 0x004986e0 */
 
@@ -1978,47 +1978,47 @@ void __cdecl Config_GetPath(char *name,char *buf,char *defaultSubdir); /* 0x0049
 void __cdecl Config_SetPath(char *name,char *value); /* 0x00498cf0 */
 
 /* ===== sputlua.c ===== */
-void sputLua_GetActorCostumeL(void); /* 0x0049a1e0 */
-void sputLua_GetPointSectorL(void); /* 0x0049c3b0 */
+void __cdecl sputLua_GetActorCostumeL(void); /* 0x0049a1e0 */
+void __cdecl sputLua_GetPointSectorL(void); /* 0x0049c3b0 */
 void __cdecl sputLua_Update(void); /* 0x0049c8f0 */
-undefined4 sputLua_Initialize(GrimServices *param_1,undefined4 *param_2); /* 0x0049c9f0 */
-void sputLua_FunctionNameL(void); /* 0x0049cbe0 */
-void sputLua_TypeOverride(void); /* 0x0049d140 */
-void sputLua_Terminate(void); /* 0x0049e500 */
-void sputLua_Shutdown(void); /* 0x0049e530 */
-void sputLua_StartMovieL(void); /* 0x0049e880 */
-void sputLua_RotateVectorL(void); /* 0x0049f0f0 */
-void sputLua_ImStartRecording(void); /* 0x004a0f20 */
-void sputLua_ImStartSound(void); /* 0x004a0f80 */
-void sputLua_ImStopSound(void); /* 0x004a1030 */
-void sputLua_ImGetParam(void); /* 0x004a1090 */
-void sputLua_ImSetParam(void); /* 0x004a1140 */
-void sputLua_ImFadeParam(void); /* 0x004a1260 */
-void sputLua_ImStartVoice(void); /* 0x004a1590 */
+uint __cdecl sputLua_Initialize(GrimServices *param_1,uint *param_2); /* 0x0049c9f0 */
+void __cdecl sputLua_FunctionNameL(void); /* 0x0049cbe0 */
+void __cdecl sputLua_TypeOverride(void); /* 0x0049d140 */
+void __cdecl sputLua_Terminate(void); /* 0x0049e500 */
+void __cdecl sputLua_Shutdown(void); /* 0x0049e530 */
+void __cdecl sputLua_StartMovieL(void); /* 0x0049e880 */
+void __cdecl sputLua_RotateVectorL(void); /* 0x0049f0f0 */
+void __cdecl sputLua_ImStartRecording(void); /* 0x004a0f20 */
+void __cdecl sputLua_ImStartSound(void); /* 0x004a0f80 */
+void __cdecl sputLua_ImStopSound(void); /* 0x004a1030 */
+void __cdecl sputLua_ImGetParam(void); /* 0x004a1090 */
+void __cdecl sputLua_ImSetParam(void); /* 0x004a1140 */
+void __cdecl sputLua_ImFadeParam(void); /* 0x004a1260 */
+void __cdecl sputLua_ImStartVoice(void); /* 0x004a1590 */
 void __fastcall sputLua_ImSetSequence(undefined4 param_1); /* 0x004a1680 */
-void sputLua_ImSetAttribute(void); /* 0x004a1710 */
-void sputLua_ImSetVoiceEffect(void); /* 0x004a17b0 */
-void sputLua_FadeInChore(void); /* 0x004a2b00 */
-void sputLua_SubmitSaveGameData(void); /* 0x004a35d0 */
+void __cdecl sputLua_ImSetAttribute(void); /* 0x004a1710 */
+void __cdecl sputLua_ImSetVoiceEffect(void); /* 0x004a17b0 */
+void __cdecl sputLua_FadeInChore(void); /* 0x004a2b00 */
+void __cdecl sputLua_SubmitSaveGameData(void); /* 0x004a35d0 */
 
 /* ===== timer.c ===== */
-uint sputTime_GetGameTime(void); /* 0x004a3be0 */
-uint sputTime_GetFrameTime(void); /* 0x004a3bf0 */
+uint __cdecl sputTime_GetGameTime(void); /* 0x004a3be0 */
+uint __cdecl sputTime_GetFrameTime(void); /* 0x004a3bf0 */
 float __cdecl sputTime_GetFrameTimeFlex(void); /* 0x004a3c00 */
-void sputTime_Advance(void); /* 0x004a3c10 */
-void sputTime_AdvanceManual(uint param_1); /* 0x004a3c80 */
-void Timer_Reset(void); /* 0x004a3ce0 */
+void __cdecl sputTime_Advance(void); /* 0x004a3c10 */
+void __cdecl sputTime_AdvanceManual(uint param_1); /* 0x004a3c80 */
+void __cdecl Timer_Reset(void); /* 0x004a3ce0 */
 
 /* ===== sputtime.c ===== */
-undefined4 sputTime_Initialize(undefined4 param_1,undefined4 *param_2); /* 0x004a3d00 */
-void sputTime_Terminate(void); /* 0x004a3d50 */
-undefined4 sputTime_Startup(void); /* 0x004a3d70 */
-void sputTime_Shutdown(void); /* 0x004a3da0 */
+uint __cdecl sputTime_Initialize(uint param_1,uint *param_2); /* 0x004a3d00 */
+void __cdecl sputTime_Terminate(void); /* 0x004a3d50 */
+uint __cdecl sputTime_Startup(void); /* 0x004a3d70 */
+void __cdecl sputTime_Shutdown(void); /* 0x004a3da0 */
 
 /* ===== sound.c ===== */
-void sputRoom_RelocateSounds(void); /* 0x004a3fe0 */
-void sputRoom_SetSoundPosition (uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5,uint param_6 ); /* 0x004a40a0 */
-void PositionedSounds_DropFinished(void); /* 0x004a4dc0 */
+void __cdecl sputRoom_RelocateSounds(void); /* 0x004a3fe0 */
+void __cdecl sputRoom_SetSoundPosition (uint param_1,byte **param_2,uint param_3,uint param_4,uint param_5,uint param_6); /* 0x004a40a0 */
+void __cdecl PositionedSounds_DropFinished(void); /* 0x004a4dc0 */
 undefined * __cdecl PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5, uint param_6); /* 0x004a4e20 */
 uint __cdecl SetSoundPosition(int param_1); /* 0x004a4e80 */
 undefined4 sou_engine_GetRate(void); /* 0x004d0c20 */
@@ -2026,17 +2026,17 @@ int __cdecl sou_engine_QueryTime(int voice); /* 0x004d0cf0 */
 
 /* ===== sputroom.c ===== */
 undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2); /* 0x004a48c0 */
-void sputRoom_Terminate(void); /* 0x004a5390 */
-undefined4 sputRoom_Startup(void); /* 0x004a53b0 */
-void sputRoom_Shutdown(void); /* 0x004a5430 */
-undefined4 sputRoom_ParseLights(void); /* 0x004a5600 */
-undefined4 sputRoom_ParseSetups(void); /* 0x004a5890 */
+void __cdecl sputRoom_Terminate(void); /* 0x004a5390 */
+uint __cdecl sputRoom_Startup(void); /* 0x004a53b0 */
+void __cdecl sputRoom_Shutdown(void); /* 0x004a5430 */
+uint __cdecl sputRoom_ParseLights(void); /* 0x004a5600 */
+uint __cdecl sputRoom_ParseSetups(void); /* 0x004a5890 */
 
 /* ===== zbuffer.c ===== */
-void sputRoom_LoadZBuffer(undefined4 param_1); /* 0x004a4920 */
-undefined4 ZBuffer_LoadFile(char *param_1); /* 0x004a4930 */
-void sputRoom_FreeZBuffer(undefined4 param_1); /* 0x004a4980 */
-void ZBuffer_FreeData(void *param_1); /* 0x004a4990 */
+void __cdecl sputRoom_LoadZBuffer(uint param_1); /* 0x004a4920 */
+uint __cdecl ZBuffer_LoadFile(char *param_1); /* 0x004a4930 */
+void __cdecl sputRoom_FreeZBuffer(uint param_1); /* 0x004a4980 */
+void __cdecl ZBuffer_FreeData(void *param_1); /* 0x004a4990 */
 
 /* ===== light.c ===== */
 void * __cdecl sputRoom_GetLight(void *set,int index); /* 0x004a5cc0 */
@@ -2064,113 +2064,113 @@ void * __thiscall ObjectState_MoveToBack(void *this,void *list); /* 0x004aa6c0 *
 void * __thiscall ObjectState_MoveToFront(void *this,void *list); /* 0x004aa720 */
 
 /* ===== setactorlist.c ===== */
-void SetActorList_Free(void *param_1); /* 0x004a6160 */
+void __cdecl SetActorList_Free(void *param_1); /* 0x004a6160 */
 
 /* ===== textmodule.c ===== */
 int __cdecl Text_SysInitialize(GrimServices *svc,void *iface); /* 0x004aa7b0 */
-void Text_SysTerminate(void); /* 0x004aa810 */
-void Text_SysStartup(void); /* 0x004aa820 */
-void Text_SysShutdown(void); /* 0x004aa860 */
-undefined4 Text_SysSave(code *param_1); /* 0x004aa880 */
-undefined4 Text_SysRestore(code *param_1); /* 0x004aa8d0 */
+void __cdecl Text_SysTerminate(void); /* 0x004aa810 */
+void __cdecl Text_SysStartup(void); /* 0x004aa820 */
+void __cdecl Text_SysShutdown(void); /* 0x004aa860 */
+uint __cdecl Text_SysSave(code *param_1); /* 0x004aa880 */
+uint __cdecl Text_SysRestore(code *param_1); /* 0x004aa8d0 */
 
 /* ===== glyph.c ===== */
-void Glyph_Blit16(int param_1,undefined4 param_2,int *param_3); /* 0x004ab910 */
-void Glyph_Blit8(int param_1,int param_2,int *param_3); /* 0x004ab9d0 */
-void Glyph_Blit16Clipped(int param_1,undefined4 param_2,int *param_3); /* 0x004abae0 */
-void Glyph_Blit8Clipped(int param_1,int param_2,int *param_3); /* 0x004abc80 */
+void __cdecl Glyph_Blit16(int param_1,uint param_2,int *param_3); /* 0x004ab910 */
+void __cdecl Glyph_Blit8(int param_1,int param_2,int *param_3); /* 0x004ab9d0 */
+void __cdecl Glyph_Blit16Clipped(int param_1,uint param_2,int *param_3); /* 0x004abae0 */
+void __cdecl Glyph_Blit8Clipped(int param_1,int param_2,int *param_3); /* 0x004abc80 */
 
 /* ===== platmodule.c ===== */
 int Graph_SysInitialize(GrimServices *svc,void *iface); /* 0x004abe90 */
-void Graph_SysTerminate(void); /* 0x004abef0 */
-undefined4 Graph_SysStartup(void); /* 0x004abf00 */
-void Graph_SysShutdown(void); /* 0x004abf30 */
+void __cdecl Graph_SysTerminate(void); /* 0x004abef0 */
+uint __cdecl Graph_SysStartup(void); /* 0x004abf00 */
+void __cdecl Graph_SysShutdown(void); /* 0x004abf30 */
 
 /* ===== crt.c ===== */
-int _stricmp(byte *param_1,byte *param_2); /* 0x004ac550 */
+int __cdecl _stricmp(byte *param_1,byte *param_2); /* 0x004ac550 */
 int __cdecl sprintf(char *buf,char *fmt,...); /* 0x004ac620 */
 longlong __cdecl _ftol(double x); /* 0x004ac6f0 */
 int __cdecl _vsnprintf(char *buf,uint n,char *fmt,void *args); /* 0x004ac720 */
-int atol(byte *param_1); /* 0x004ac790 */
+int __cdecl atol(byte *param_1); /* 0x004ac790 */
 undefined * __cdecl atoi(uint param_1); /* 0x004ac830 */
-uint * strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x004ac840 */
-uint strtok(byte *param_1,byte *param_2); /* 0x004ac940 */
-void entry(void); /* 0x004aca30 */
-void _amsg_exit(undefined4 param_1); /* 0x004acbe0 */
+uint * __cdecl strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x004ac840 */
+uint __cdecl strtok(byte *param_1,byte *param_2); /* 0x004ac940 */
+void __cdecl entry(void); /* 0x004aca30 */
+void __cdecl _amsg_exit(uint param_1); /* 0x004acbe0 */
 int __cdecl printf(char *fmt,...); /* 0x004acc40 */
-undefined4 vsprintf(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x004acca0 */
-void exit(undefined4 param_1); /* 0x004acd40 */
-void _exit(undefined4 param_1); /* 0x004acd60 */
-void doexit(int param_1,int param_2,int param_3); /* 0x004acd80 */
-void _lockexit(void); /* 0x004ace40 */
-void _unlockexit(void); /* 0x004ace50 */
-void _initterm(undefined4 *param_1,undefined4 *param_2); /* 0x004ace60 */
-void * _onexit(void *param_1); /* 0x004ace80 */
-int atexit(undefined4 param_1); /* 0x004acf10 */
+uint __cdecl vsprintf(uint param_1,uint param_2,uint param_3); /* 0x004acca0 */
+void __cdecl exit(uint param_1); /* 0x004acd40 */
+void __cdecl _exit(uint param_1); /* 0x004acd60 */
+void __cdecl doexit(int param_1,int param_2,int param_3); /* 0x004acd80 */
+void __cdecl _lockexit(void); /* 0x004ace40 */
+void __cdecl _unlockexit(void); /* 0x004ace50 */
+void __cdecl _initterm(uint *param_1,uint *param_2); /* 0x004ace60 */
+void * __cdecl _onexit(void *param_1); /* 0x004ace80 */
+int __cdecl atexit(uint param_1); /* 0x004acf10 */
 undefined * __cdecl malloc(uint param_1); /* 0x004acf70 */
-int _nh_malloc(uint param_1,int param_2); /* 0x004acf90 */
-int _heap_alloc(int param_1); /* 0x004acfe0 */
-void free(int param_1); /* 0x004ad040 */
-undefined4 * realloc(undefined4 *param_1,uint param_2); /* 0x004ad0b0 */
-undefined4 _fsopen(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004ad2c0 */
+int __cdecl _nh_malloc(uint param_1,int param_2); /* 0x004acf90 */
+int __cdecl _heap_alloc(int param_1); /* 0x004acfe0 */
+void __cdecl free(int param_1); /* 0x004ad040 */
+uint * __cdecl realloc(uint *param_1,uint param_2); /* 0x004ad0b0 */
+uint __cdecl _fsopen(uint param_1,uint param_2,uint param_3); /* 0x004ad2c0 */
 undefined * __cdecl fopen(uint param_1,uint param_2); /* 0x004ad300 */
-undefined4 fclose(int param_1); /* 0x004ad320 */
-undefined4 _fclose_lk(int param_1); /* 0x004ad360 */
-undefined4 fread(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x004ad3d0 */
-uint _fread_lk(undefined4 *param_1,uint param_2,uint param_3,int *param_4); /* 0x004ad410 */
-char * fgets(char *param_1,int param_2,undefined4 *param_3); /* 0x004ad550 */
-undefined4 fwrite(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x004ad5e0 */
-uint _fwrite_lk(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x004ad620 */
-undefined4 ftell(undefined4 param_1); /* 0x004ad770 */
-uint _ftell_lk(undefined4 *param_1); /* 0x004ad7a0 */
-undefined4 fseek(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004ad950 */
-int _fseek_lk(int param_1,int param_2,int param_3); /* 0x004ad990 */
-undefined4 vfprintf(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004ada30 */
-void qsort(uint param_1,uint param_2,uint param_3,code *param_4); /* 0x004ada80 */
-void shortsort(uint param_1,uint param_2,int param_3,code *param_4); /* 0x004adc30 */
-void qsort_swap(undefined1 *param_1,undefined1 *param_2,int param_3); /* 0x004adc90 */
-uint bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,code *param_5); /* 0x004adcc0 */
-uint strncmp(char *param_1,char *param_2,int param_3); /* 0x004add60 */
+uint __cdecl fclose(int param_1); /* 0x004ad320 */
+uint __cdecl _fclose_lk(int param_1); /* 0x004ad360 */
+uint __cdecl fread(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x004ad3d0 */
+uint __cdecl _fread_lk(uint *param_1,uint param_2,uint param_3,int *param_4); /* 0x004ad410 */
+char * __cdecl fgets(char *param_1,int param_2,uint *param_3); /* 0x004ad550 */
+uint __cdecl fwrite(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x004ad5e0 */
+uint __cdecl _fwrite_lk(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x004ad620 */
+uint __cdecl ftell(uint param_1); /* 0x004ad770 */
+uint __cdecl _ftell_lk(uint *param_1); /* 0x004ad7a0 */
+uint __cdecl fseek(uint param_1,uint param_2,uint param_3); /* 0x004ad950 */
+int __cdecl _fseek_lk(int param_1,int param_2,int param_3); /* 0x004ad990 */
+uint __cdecl vfprintf(uint param_1,uint param_2,uint param_3); /* 0x004ada30 */
+void __cdecl qsort(void *base,uint num,uint width,code *compare); /* 0x004ada80 */
+void __cdecl shortsort(uint param_1,uint param_2,int param_3,code *param_4); /* 0x004adc30 */
+void __cdecl qsort_swap(byte *param_1,byte *param_2,int param_3); /* 0x004adc90 */
+void * __cdecl bsearch(void *key,void *base,uint num,uint width,code *compare); /* 0x004adcc0 */
+uint __cdecl strncmp(char *param_1,char *param_2,int param_3); /* 0x004add60 */
 int __cdecl sscanf(char *str,char *fmt,...); /* 0x004adda0 */
-uint * strchr(uint *param_1,char param_2); /* 0x004ade30 */
+uint * __cdecl strchr(uint *param_1,char param_2); /* 0x004ade30 */
 int __cdecl _snprintf(char *buf,uint n,char *fmt,...); /* 0x004adf70 */
-char * _strupr(char *param_1); /* 0x004adfe0 */
-char * strrchr(char *param_1,char param_2); /* 0x004ae160 */
+char * __cdecl _strupr(char *param_1); /* 0x004adfe0 */
+char * __cdecl strrchr(char *param_1,char param_2); /* 0x004ae160 */
 int __cdecl fprintf(void *fp,char *fmt,...); /* 0x004ae190 */
-int wcslen(short *param_1); /* 0x004ae260 */
-int tolower(int param_1); /* 0x004ae280 */
-uint _tolower_lk(uint param_1); /* 0x004ae310 */
+int __cdecl wcslen(short *param_1); /* 0x004ae260 */
+int __cdecl tolower(int param_1); /* 0x004ae280 */
+uint __cdecl _tolower_lk(uint param_1); /* 0x004ae310 */
 float __cdecl _CIpow(void); /* 0x004ae540 */
 float10 _pow(int param_1,uint param_2,int param_3,uint param_4); /* 0x004ae562 */
-char * _strlwr(char *param_1); /* 0x004ae760 */
-int toupper(int param_1); /* 0x004ae8e0 */
-uint _toupper_lk(uint param_1); /* 0x004ae970 */
-undefined4 fflush(int param_1); /* 0x004aea70 */
-int _fflush_lk(int param_1); /* 0x004aeab0 */
-undefined4 _flush(int *param_1); /* 0x004aeaf0 */
-uint _flushall(int param_1); /* 0x004aeb70 */
-undefined4 * memmove(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x004aec30 */
-int _findfirst(int param_1,uint *param_2); /* 0x004aeff0 */
-undefined4 _findnext(int param_1,uint *param_2); /* 0x004af120 */
-undefined4 _findclose(int param_1); /* 0x004af240 */
-undefined4 _FileTimeToTime_t(int *param_1); /* 0x004af270 */
+char * __cdecl _strlwr(char *param_1); /* 0x004ae760 */
+int __cdecl toupper(int param_1); /* 0x004ae8e0 */
+uint __cdecl _toupper_lk(uint param_1); /* 0x004ae970 */
+uint __cdecl fflush(int param_1); /* 0x004aea70 */
+int __cdecl _fflush_lk(int param_1); /* 0x004aeab0 */
+uint __cdecl _flush(int *param_1); /* 0x004aeaf0 */
+uint __cdecl _flushall(int param_1); /* 0x004aeb70 */
+uint * __cdecl memmove(uint *param_1,uint *param_2,uint param_3); /* 0x004aec30 */
+int __cdecl _findfirst(int param_1,uint *param_2); /* 0x004aeff0 */
+uint __cdecl _findnext(int param_1,uint *param_2); /* 0x004af120 */
+uint __cdecl _findclose(int param_1); /* 0x004af240 */
+uint __cdecl _FileTimeToTime_t(int *param_1); /* 0x004af270 */
 void _CallSettingFrame(code *UNRECOVERED_JUMPTABLE); /* 0x004af300 */
 undefined * __stdcall _UnwindNestedFrames(int a1,int a2); /* 0x004af350 */
-undefined4 __CxxFrameHandler(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x004af3b0 */
-void _global_unwind2(int param_1); /* 0x004af660 */
-void _local_unwind2(int param_1,int param_2); /* 0x004af6a2 */
-undefined4 _unwind_handler(void); /* 0x004af70a */
+uint __cdecl __CxxFrameHandler(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x004af3b0 */
+void __cdecl _global_unwind2(int param_1); /* 0x004af660 */
+void __cdecl _local_unwind2(int param_1,int param_2); /* 0x004af6a2 */
+uint __cdecl _unwind_handler(void); /* 0x004af70a */
 undefined * __stdcall _NLG_Notify(int a1); /* 0x004af736 */
-uint isdigit(int param_1); /* 0x004af750 */
-uint isspace(int param_1); /* 0x004af780 */
-void _lock(int param_1); /* 0x004af7e0 */
-void _unlock(int param_1); /* 0x004af860 */
-void _lock_file(uint param_1); /* 0x004af880 */
-void _lock_file2(int param_1,int param_2); /* 0x004af8c0 */
-void _unlock_file(uint param_1); /* 0x004af8f0 */
-void _unlock_file2(int param_1,int param_2); /* 0x004af930 */
-uint _flsbuf(uint param_1,int *param_2); /* 0x004af960 */
-uint _output(undefined4 param_1,char *param_2,uint *param_3); /* 0x004afa90 */
+uint __cdecl isdigit(int param_1); /* 0x004af750 */
+uint __cdecl isspace(int param_1); /* 0x004af780 */
+void __cdecl _lock(int param_1); /* 0x004af7e0 */
+void __cdecl _unlock(int param_1); /* 0x004af860 */
+void __cdecl _lock_file(uint param_1); /* 0x004af880 */
+void __cdecl _lock_file2(int param_1,int param_2); /* 0x004af8c0 */
+void __cdecl _unlock_file(uint param_1); /* 0x004af8f0 */
+void __cdecl _unlock_file2(int param_1,int param_2); /* 0x004af930 */
+uint __cdecl _flsbuf(uint param_1,int *param_2); /* 0x004af960 */
+uint __cdecl _output(uint param_1,char *param_2,uint *param_3); /* 0x004afa90 */
 void write_char(uint param_1,int *param_2,int *param_3); /* 0x004b0420 */
 void write_multi_char(undefined4 param_1,int param_2,undefined4 param_3,int *param_4); /* 0x004b0470 */
 void write_string(char *param_1,int param_2,undefined4 param_3,int *param_4); /* 0x004b04b0 */
@@ -2184,7 +2184,7 @@ int * _getptd(void); /* 0x004b0cb0 */
 void _FF_MSGBANNER(void); /* 0x004b1d20 */
 void _NMSG_WRITE(undefined *param_1); /* 0x004b1d60 */
 undefined4 _stbuf(uint *param_1); /* 0x004b1f40 */
-void _ftbuf(int param_1,undefined4 *param_2); /* 0x004b2000 */
+void _ftbuf(int param_1,int *param_2); /* 0x004b2000 */
 int _msize(int param_1); /* 0x004b2120 */
 undefined4 _callnewh(undefined4 param_1); /* 0x004b2190 */
 undefined ** __sbh_alloc_new_region(void); /* 0x004b21b0 */
@@ -2215,7 +2215,7 @@ uint _input(undefined4 param_1,byte *param_2,uint *param_3); /* 0x004b3620 */
 uint _hextodec(uint param_1); /* 0x004b4360 */
 uint _inc(undefined4 *param_1); /* 0x004b43a0 */
 void _un_inc(int param_1,undefined4 param_2); /* 0x004b43d0 */
-undefined4 _whiteout(int *param_1,undefined4 param_2); /* 0x004b43f0 */
+int _whiteout(int *param_1,undefined4 param_2); /* 0x004b43f0 */
 uint __crtLCMapStringA(int param_1,uint param_2,int param_3,undefined *param_4,int param_5, int param_6,uint param_7,int param_8); /* 0x004b4560 */
 int _strncnt(char *param_1,int param_2); /* 0x004b4790 */
 float10 __fastcall _pow_except1(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,uint param_7,uint param_8); /* 0x004b4ba0 */
@@ -2225,11 +2225,11 @@ undefined4 _is_integer_double(double param_1); /* 0x004b4fc0 */
 undefined4 _commit(uint param_1); /* 0x004b5050 */
 int __loctotime_t(int param_1,int param_2,int param_3,uint param_4,int param_5,int param_6, int param_7); /* 0x004b50f0 */
 undefined4 __InternalCxxFrameHandler (int *param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4,int *param_5, int param_6,undefined4 param_7,uint param_8); /* 0x004b51e0 */
-void FindHandler(int *param_1,int param_2,undefined4 param_3,undefined4 param_4,int param_5, char param_6,undefined4 param_7,undefined4 param_8); /* 0x004b52b0 */
-void Eh_FindForeignHandler (undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,int param_6,undefined4 param_7,undefined4 param_8); /* 0x004b5570 */
+void FindHandler(int *param_1,int param_2,undefined4 param_3,undefined4 param_4,int param_5, char param_6,int param_7,undefined4 param_8); /* 0x004b52b0 */
+void Eh_FindForeignHandler (uint *param_1,uint param_2,uint param_3,uint param_4,uint param_5,int param_6, uint param_7,uint param_8); /* 0x004b5570 */
 void FrameUnwindToState(int param_1,undefined4 param_2,int param_3,int param_4); /* 0x004b5650 */
 void CatchIt(int param_1,int param_2,undefined4 param_3,undefined4 param_4,undefined4 param_5, int param_6,int param_7,undefined4 *param_8,undefined4 param_9,int param_10); /* 0x004b5730 */
-undefined4 CallCatchBlock(undefined4 param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,undefined4 param_7); /* 0x004b57c0 */
+byte * CallCatchBlock(undefined4 param_1,uint param_2,undefined4 param_3,uint param_4,int param_5, int param_6,int param_7); /* 0x004b57c0 */
 void Eh_CallCatchBlockInner(void); /* 0x004b58b8 */
 void BuildCatchObject(int param_1,int param_2,byte *param_3,byte *param_4); /* 0x004b5950 */
 void terminate(void); /* 0x004b5c60 */
@@ -2260,7 +2260,7 @@ void _lock_fhandle(uint param_1); /* 0x004b8d10 */
 void _unlock_fhandle(uint param_1); /* 0x004b8d80 */
 undefined4 mbtowc(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004b8db0 */
 uint _mbtowc_lk(ushort *param_1,byte *param_2,uint param_3); /* 0x004b8e30 */
-undefined4 ungetc(undefined4 param_1,undefined4 param_2); /* 0x004b8f50 */
+undefined4 ungetc(undefined4 param_1,uint param_2); /* 0x004b8f50 */
 uint _ungetc_lk(uint param_1,int *param_2); /* 0x004b8f80 */
 uint _filwbuf(undefined4 *param_1); /* 0x004b9010 */
 void _except1(int param_1,int *param_2,ushort *param_3); /* 0x004b9ea0 */
@@ -2293,37 +2293,37 @@ uint __crtCompareStringA(int param_1,int param_2,byte *param_3,undefined *param_
 undefined4 __crtsetenv(char *param_1,int param_2); /* 0x004bce80 */
 int findenv(undefined4 param_1,int param_2); /* 0x004bd090 */
 undefined4 * copy_environ(int *param_1); /* 0x004bd110 */
-byte * _mbschr(byte *param_1,uint param_2); /* 0x004bd180 */
+uint * _mbschr(uint *param_1,uint param_2); /* 0x004bd180 */
 char * _strdup(char *param_1); /* 0x004bd250 */
 float __cdecl atof(byte *param_1); /* 0x004d5430 */
-int _fdopen(uint param_1,char *param_2); /* 0x004d54e0 */
-void rewind(int param_1); /* 0x004d5670 */
+uint _fdopen(uint param_1,char *param_2); /* 0x004d54e0 */
+void rewind(int *param_1); /* 0x004d5670 */
 void longjmp(int param_1); /* 0x004d59d0 */
 undefined4 _setjmp3(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x004d5a4c */
 undefined * __cdecl _fltin(uint *param_1,int param_2); /* 0x004d5ad0 */
 
 /* ===== crt_unnamed.c ===== */
-void FUN_004ac690(void); /* 0x004ac690 */
-void FUN_004ac6b0(void); /* 0x004ac6b0 */
-void FUN_004acb8d(void); /* 0x004acb8d */
-void FUN_004acba2(void); /* 0x004acba2 */
-void FUN_004acc10(undefined4 param_1); /* 0x004acc10 */
-void FUN_004acd10(void); /* 0x004acd10 */
-void FUN_004acf30(void); /* 0x004acf30 */
-void FUN_004ad2b0(void); /* 0x004ad2b0 */
+void __cdecl FUN_004ac690(void); /* 0x004ac690 */
+void __cdecl FUN_004ac6b0(void); /* 0x004ac6b0 */
+void __cdecl FUN_004acb8d(void); /* 0x004acb8d */
+void __cdecl FUN_004acba2(void); /* 0x004acba2 */
+void __cdecl FUN_004acc10(uint param_1); /* 0x004acc10 */
+void __cdecl FUN_004acd10(void); /* 0x004acd10 */
+void __cdecl FUN_004acf30(void); /* 0x004acf30 */
+void __cdecl FUN_004ad2b0(void); /* 0x004ad2b0 */
 int FUN_004addf0(void); /* 0x004addf0 */
-short * FUN_004adef0(short *param_1,int param_2,undefined4 param_3); /* 0x004adef0 */
-uint * FUN_004ae410(uint *param_1,uint *param_2,uint param_3); /* 0x004ae410 */
+short * __cdecl FUN_004adef0(short *param_1,int param_2,uint param_3); /* 0x004adef0 */
+uint * __cdecl FUN_004ae410(uint *param_1,uint *param_2,uint param_3); /* 0x004ae410 */
 float __cdecl FUN_004ae735(void); /* 0x004ae735 */
-void FUN_004aeb60(void); /* 0x004aeb60 */
+void __cdecl FUN_004aeb60(void); /* 0x004aeb60 */
 void FUN_004af340(undefined4 param_1,code *UNRECOVERED_JUMPTABLE); /* 0x004af340 */
-undefined * FUN_004af3f0(uint param_1,uint param_2,int param_3,int param_4,int param_5); /* 0x004af3f0 */
-void FUN_004af450(undefined4 param_1,int param_2,undefined4 param_3); /* 0x004af450 */
-undefined4 FUN_004af480(undefined4 *param_1,uint param_2,uint param_3,undefined4 param_4,uint param_5, uint param_6,uint param_7); /* 0x004af480 */
-undefined4 FUN_004af550(int param_1,int param_2,undefined4 param_3); /* 0x004af550 */
-int FUN_004af5e0(int param_1,int param_2,int param_3,uint *param_4,uint *param_5); /* 0x004af5e0 */
+byte * __cdecl FUN_004af3f0(uint param_1,uint param_2,int param_3,int param_4,int param_5); /* 0x004af3f0 */
+void __cdecl FUN_004af450(uint param_1,int param_2,uint param_3); /* 0x004af450 */
+uint __cdecl FUN_004af480(uint *param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6, uint param_7); /* 0x004af480 */
+uint __cdecl FUN_004af550(int param_1,int param_2,uint param_3); /* 0x004af550 */
+int __cdecl FUN_004af5e0(int param_1,int param_2,int param_3,uint *param_4,uint *param_5); /* 0x004af5e0 */
 void __fastcall FUN_004af72d(uint param_1); /* 0x004af72d */
-void FUN_004af7b0(void); /* 0x004af7b0 */
+void __cdecl FUN_004af7b0(void); /* 0x004af7b0 */
 void FUN_004b0550(void); /* 0x004b0550 */
 undefined4 FUN_004b0570(void); /* 0x004b0570 */
 undefined * FUN_004b05c0(void); /* 0x004b05c0 */
@@ -2337,7 +2337,7 @@ int FUN_004b08c0(undefined4 *param_1,int param_2,int param_3); /* 0x004b08c0 */
 undefined1 * FUN_004b0930(undefined1 *param_1,uint param_2,int *param_3,char param_4); /* 0x004b0930 */
 void FUN_004b09f0(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x004b09f0 */
 void FUN_004b0ab0(undefined4 param_1,undefined4 param_2,int param_3,undefined4 param_4, undefined4 param_5); /* 0x004b0ab0 */
-void FUN_004b0b20(char *param_1,int param_2); /* 0x004b0b20 */
+void FUN_004b0b20(uint *param_1,int param_2); /* 0x004b0b20 */
 undefined4 FUN_004b0c30(void); /* 0x004b0c30 */
 undefined4 FUN_004b0d30(undefined4 param_1,undefined4 param_2); /* 0x004b0d30 */
 int * FUN_004b0f40(int param_1,int *param_2); /* 0x004b0f40 */
@@ -2384,7 +2384,7 @@ void FUN_004b5cf0(void); /* 0x004b5cf0 */
 void FUN_004b5d5e(void); /* 0x004b5d5e */
 undefined4 FUN_004b5d80(void); /* 0x004b5d80 */
 uint FUN_004b5e30(int param_1); /* 0x004b5e30 */
-void FUN_004b61b0(undefined4 *param_1); /* 0x004b61b0 */
+void FUN_004b61b0(int *param_1); /* 0x004b61b0 */
 uint FUN_004b63f0(char *param_1,int param_2); /* 0x004b63f0 */
 undefined4 FUN_004b64f0(void); /* 0x004b64f0 */
 void FUN_004b66f0(char *param_1); /* 0x004b66f0 */
@@ -2410,7 +2410,7 @@ void FUN_004b7600(char *param_1,int param_2,int param_3); /* 0x004b7600 */
 int * FUN_004b76a0(undefined4 param_1,undefined4 param_2,int *param_3,char *param_4); /* 0x004b76a0 */
 void FUN_004b7730(uint *param_1,uint *param_2); /* 0x004b7730 */
 void FUN_004b77f0(void); /* 0x004b77f0 */
-uint FUN_004b7800(int param_1,int param_2,int param_3,int param_4,uint param_5,uint param_6); /* 0x004b7800 */
+uint FUN_004b7800(int param_1,int param_2,int param_3,uint *param_4,uint param_5,uint param_6); /* 0x004b7800 */
 int FUN_004b7c10(void); /* 0x004b7c10 */
 int __fastcall FUN_004b8f30(byte param_1,int param_2); /* 0x004b8f30 */
 undefined4 __cdecl FUN_004b9916(undefined4 param_1,uint param_2,ushort param_3,uint param_4,uint param_5,uint param_6, uint param_7,uint param_8,ushort param_9); /* 0x004b9916 */
@@ -2513,10 +2513,10 @@ void FUN_004c5370(undefined4 *param_1); /* 0x004c5370 */
 int fle_Exists(int param_1); /* 0x004c5380 */
 void fle_Rename(undefined4 param_1,undefined4 param_2); /* 0x004c53b0 */
 void fle_Remove(undefined4 param_1); /* 0x004c53d0 */
-int fle_DirectoryLoad(undefined4 param_1,int param_2,int param_3,undefined4 param_4,byte param_5); /* 0x004c53e0 */
+int fle_DirectoryLoad(undefined4 param_1,uint *param_2,int param_3,undefined4 param_4,byte param_5); /* 0x004c53e0 */
 int fle_DirectoryGetCWD(char *param_1,int param_2); /* 0x004c54f0 */
-undefined4 fle_DirectoryGetParent(int param_1,char *param_2); /* 0x004c5570 */
-undefined4 fle_DirectoryGetPath(char *param_1,char *param_2,char *param_3,undefined4 param_4); /* 0x004c55d0 */
+undefined4 fle_DirectoryGetParent(uint *param_1,uint *param_2); /* 0x004c5570 */
+undefined4 fle_DirectoryGetPath(uint *param_1,uint *param_2,uint *param_3,undefined4 param_4); /* 0x004c55d0 */
 int fle_VolumeLoadList(int param_1,int param_2); /* 0x004c5720 */
 undefined4 fle_zfilio_module(int *param_1,uint param_2); /* 0x004c5790 */
 void Zfile_module_terminate(void); /* 0x004c5840 */
@@ -2539,7 +2539,7 @@ void StdFile_fle_Write(undefined4 param_1,undefined4 param_2,undefined4 param_3)
 void StdFile_fle_Seek(undefined4 param_1,undefined4 param_2,undefined4 param_3); /* 0x004c5e50 */
 void StdFile_fle_Flush(undefined4 param_1); /* 0x004c5e70 */
 int fle_GetS(undefined4 param_1,int param_2,int param_3); /* 0x004c5ee0 */
-void fle_PrintF(undefined4 param_1,undefined4 param_2); /* 0x004c5f80 */
+void fle_PrintF(undefined4 param_1,uint param_2); /* 0x004c5f80 */
 uint fle_GetC(uint param_1); /* 0x004c5fe0 */
 uint fle_PutC(undefined4 param_1,uint param_2); /* 0x004c6010 */
 uint FUN_004c6db0(int *param_1,int param_2); /* 0x004c6db0 */
@@ -2548,7 +2548,7 @@ uint FUN_004c7040(int *param_1,undefined4 *param_2,uint param_3); /* 0x004c7040 
 uint FUN_004c70c0(int *param_1,int param_2); /* 0x004c70c0 */
 char * FUN_004c73f0(int param_1,uint param_2); /* 0x004c73f0 */
 uint FUN_004c7570(int *param_1,int param_2); /* 0x004c7570 */
-void FUN_004c7b10(undefined4 param_1,undefined4 param_2); /* 0x004c7b10 */
+void FUN_004c7b10(undefined4 param_1,int param_2); /* 0x004c7b10 */
 uint FUN_004c8990(uint param_1,byte *param_2,uint param_3); /* 0x004c8990 */
 void FUN_004c8ba0(int param_1,undefined4 param_2,undefined4 param_3,int param_4); /* 0x004c8ba0 */
 void FUN_004c8e90(int param_1,int param_2,int param_3,int param_4); /* 0x004c8e90 */
@@ -2603,26 +2603,26 @@ void __cdecl msc_MemSet(uint param_1,uint param_2,uint param_3); /* 0x004d5e50 *
 int msc_error_SaveString(void); /* 0x004d5f70 */
 void __cdecl FUN_004d5fd0(byte *dst,int value,int count); /* 0x004d5fd0 */
 void FUN_004d6030(void); /* 0x004d6030 */
-void FUN_004d6046(void); /* 0x004d6046 */
+void FUN_004d6046(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x004d6046 */
 void FUN_004d6050(void); /* 0x004d6050 */
-void FUN_004d605b(void); /* 0x004d605b */
+void FUN_004d605b(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x004d605b */
 void FUN_004d6070(void); /* 0x004d6070 */
-void FUN_004d607b(void); /* 0x004d607b */
+void FUN_004d607b(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x004d607b */
 void FUN_004d6090(void); /* 0x004d6090 */
 void FUN_004d609e(void); /* 0x004d609e */
 void FUN_004d60ac(void); /* 0x004d60ac */
-void FUN_004d60ba(void); /* 0x004d60ba */
+void FUN_004d60ba(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x004d60ba */
 void FUN_004d60d0(void); /* 0x004d60d0 */
 void FUN_004d60db(void); /* 0x004d60db */
-void FUN_004d60e9(void); /* 0x004d60e9 */
+void FUN_004d60e9(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x004d60e9 */
 void FUN_004d6100(void); /* 0x004d6100 */
-void FUN_004d610b(void); /* 0x004d610b */
+void FUN_004d610b(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x004d610b */
 
 /* ===== clock.c ===== */
-int Clock_ElapsedMs(void); /* 0x004ad260 */
+int __cdecl Clock_ElapsedMs(void); /* 0x004ad260 */
 
 /* ===== strpbrk.c ===== */
-int strpbrk_or_strspn(byte *param_1,byte *param_2); /* 0x004ae220 */
+int __cdecl strpbrk_or_strspn(byte *param_1,byte *param_2); /* 0x004ae220 */
 
 /* ===== insane.c ===== */
 int SmushPlay_GetMovieTime(void); /* 0x004bd370 */
@@ -2658,7 +2658,7 @@ void LightMgr_UpdateDialog(undefined4 param_1); /* 0x004beee0 */
 void LightEd_SyncFromSet(void); /* 0x004be3b0 */
 void __cdecl LightEd_ResetLight(int index,int mode); /* 0x004be4c0 */
 void __cdecl LightEd_DeleteLight(uint index); /* 0x004be560 */
-void LightEd_MakeUniqueName(int param_1,char *param_2); /* 0x004be730 */
+void LightEd_MakeUniqueName(int param_1,byte *param_2); /* 0x004be730 */
 void LightEd_AddLight(void); /* 0x004be7b0 */
 void LightEd_SaveSetFile(void); /* 0x004be990 */
 void __cdecl LightEd_WriteLightsSection(void *set,void *file); /* 0x004bed40 */
@@ -2709,7 +2709,7 @@ uint LecShare_Unpublish(undefined4 param_1); /* 0x004c1650 */
 void * __cdecl LecShare_Subscribe(char *name,char *pattern); /* 0x004c16c0 */
 undefined4 LecShare_Unsubscribe(uint param_1); /* 0x004c1800 */
 undefined4 BatchSubscribe(int *param_1,char *param_2); /* 0x004c1850 */
-uint GetCatalogEntry(char *param_1,uint param_2); /* 0x004c1990 */
+uint GetCatalogEntry(uint *param_1,uint param_2); /* 0x004c1990 */
 uint GetCatalogCount(char *param_1); /* 0x004c1b60 */
 uint * LecShare_FindEntry(undefined4 param_1); /* 0x004c1be0 */
 undefined4 LecShare_Nop(void); /* 0x004c1e50 */

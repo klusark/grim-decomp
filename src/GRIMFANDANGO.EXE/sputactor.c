@@ -784,7 +784,7 @@ void __cdecl sputActor_SetWalkChore(Actor *actor,int chore,CostumeNode *costume)
 /* Module interface slot 1 (sputActor): called by Engine_ResetSubsystems / when registration fails;
    drops the service table pointer and clears the initialised flag. */
 
-void sputActor_Terminate(void)
+void __cdecl sputActor_Terminate(void)
 
 {
   g_dwSputActHS = 0;
@@ -800,7 +800,7 @@ void sputActor_Terminate(void)
    sorts the phoneme table; _Stop destroys every actor. Original name sputActor_Startup (the
    remaster's GrimFandango (Linux): aligned call in sputActor_Initialize); was sputActor_Start. */
 
-undefined4 sputActor_Startup(void)
+uint __cdecl sputActor_Startup(void)
 
 {
   int iVar1;
@@ -826,7 +826,7 @@ undefined4 sputActor_Startup(void)
    releases what _Start created. Original name sputActor_Shutdown (the remaster's GrimFandango
    (Linux): aligned call in sputActor_Initialize); was sputActor_Stop. */
 
-void sputActor_Shutdown(void)
+void __cdecl sputActor_Shutdown(void)
 
 {
   int iVar1;

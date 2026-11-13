@@ -406,7 +406,7 @@ extern undefined DAT_004dd908; /* used by 1 fn(s), first 0x00402c80 */
 extern undefined DAT_004dd90c; /* used by 1 fn(s), first 0x00402c80 */
 extern undefined DAT_004dd910; /* used by 1 fn(s), first 0x00402c80 */
 extern undefined DAT_004dd914; /* used by 1 fn(s), first 0x00402c80 */
-extern undefined DAT_004dd918; /* used by 1 fn(s), first 0x00402c80 */
+extern undefined DAT_004dd918; /* used by 2 fn(s), first 0x00402c80 */
 extern char s__s_d_zbm_004dd91c[]; /* used by 1 fn(s), first 0x00402fd0 */
 extern char s__s_d_bmp_004dd928[]; /* used by 1 fn(s), first 0x00402fd0 */
 extern undefined DAT_004dd934; /* used by 1 fn(s), first 0x00402fd0 */
@@ -458,6 +458,7 @@ extern char s_UNKNOWN_004ddb8c[]; /* used by 2 fn(s), first 0x0040a8c0 */
 extern char s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94[]; /* used by 3 fn(s), first 0x0040a8f0 */
 extern char s__d___x__x__d__d__d__d__d__f__f___004ddbc4[]; /* used by 1 fn(s), first 0x0040aa20 */
 extern char s_hierarchy_nodes__d_004ddbfc[]; /* used by 1 fn(s), first 0x0040aa20 */
+extern undefined DAT_004ddc10; /* used by 1 fn(s), first 0x0040aa20 */
 extern undefined DAT_004ddc14; /* used by 2 fn(s), first 0x0040aa20 */
 extern undefined DAT_004ddc18; /* used by 2 fn(s), first 0x0040aa20 */
 extern undefined DAT_004ddc1c; /* used by 1 fn(s), first 0x0040aa20 */
@@ -2703,7 +2704,7 @@ extern uint UINT_0090563c; /* used by 7 fn(s), first 0x00474140 */
 extern int * PTR_00905644; /* used by 3 fn(s), first 0x004767d0 */
 extern undefined4 UINT_00905648; /* used by 1 fn(s), first 0x00476bc0 */
 extern undefined4 UINT_0090564c; /* used by 1 fn(s), first 0x004767d0 */
-extern undefined g_bStd_genBuffer; /* used by 3 fn(s), first 0x004016a0 */
+extern undefined g_bStd_genBuffer; /* used by 4 fn(s), first 0x004016a0 */
 extern undefined4 UINT_00905ac4; /* used by 4 fn(s), first 0x004aeb70 */
 extern undefined4 UINT_00906ae0; /* used by 4 fn(s), first 0x004aeb70 */
 extern undefined4 UINT_00906ae4; /* used by 8 fn(s), first 0x004acfe0 */
@@ -2877,7 +2878,7 @@ extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 #define _DAT_008ca34c (*(undefined4 *)&DAT_008ca34c) /* same address as DAT_008ca34c, other width */
 #define _DAT_008ca350 (*(undefined4 *)&DAT_008ca350) /* same address as DAT_008ca350, other width */
 #define _g_dwRecentBM (*(void * *)&g_dwRecentBM) /* same address as g_dwRecentBM, other width */
-#define _g_pSputTimeHS (*(undefined4 *)&g_pSputTimeHS) /* same address as g_pSputTimeHS, other width */
+#define _g_pSputTimeHS (*(uint *)&g_pSputTimeHS) /* same address as g_pSputTimeHS, other width */
 #define _DAT_008cf284 (*(undefined4 *)&DAT_008cf284) /* same address as DAT_008cf284, other width */
 #define _g_pGraphHS (*(GrimServices * *)&g_pGraphHS) /* same address as g_pGraphHS, other width */
 #define _DAT_008d09e0 (*(int *)&DAT_008d09e0) /* same address as DAT_008d09e0, other width */
@@ -3281,6 +3282,8 @@ extern unsigned char DAT_008da86b[]; /* 0x008da86b */
 extern unsigned char DAT_008dad68[]; /* 0x008dad68 */
 extern unsigned char DAT_008dad78[]; /* 0x008dad78 */
 extern unsigned char DAT_00900658[]; /* 0x00900658 */
+extern unsigned char DAT_00900b88[]; /* 0x00900b88 */
+extern unsigned char DAT_00900c08[]; /* 0x00900c08 */
 extern unsigned char DAT_00900c90[]; /* 0x00900c90 */
 extern unsigned char DAT_00900d5c[]; /* 0x00900d5c */
 extern unsigned char DAT_0091f200[]; /* 0x0091f200 */

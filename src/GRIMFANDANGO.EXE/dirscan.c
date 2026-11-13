@@ -47,7 +47,7 @@ void __cdecl DirScan_Destroy(int param_1)
 {
   if (param_1 != 0) {
     if (*(int *)(param_1 + 4) != 0) {
-      _findclose(*(undefined4 *)(param_1 + 0x208));
+      _findclose(*(int *)(param_1 + 0x208));
     }
     if (param_1 != 0) {
       (*g_pSvcFileutil->pFree)(param_1);
@@ -63,7 +63,7 @@ void __cdecl DirScan_Reset(int param_1)
 
 {
   if ((param_1 != 0) && (*(int *)(param_1 + 4) != 0)) {
-    _findclose(*(undefined4 *)(param_1 + 0x208));
+    _findclose(*(int *)(param_1 + 0x208));
   }
   if (param_1 != 0) {
     *(undefined4 *)(param_1 + 4) = 0;
@@ -95,13 +95,13 @@ uint __cdecl DirScan_Next(int param_1,char *param_2)
   iVar2 = *(int *)(param_1 + 4);
   *(int *)(param_1 + 4) = iVar2 + 1;
   if (iVar2 == 0) {
-    iVar2 = _findfirst(param_1 + 8,&local_118);
-    *(int *)(param_1 + 0x208) = iVar2;
+    uVar3 = _findfirst(param_1 + 8,&local_118);
+    *(uint *)(param_1 + 0x208) = uVar3;
   }
   else {
-    iVar2 = _findnext(*(undefined4 *)(param_1 + 0x208),&local_118);
+    uVar3 = _findnext(*(int *)(param_1 + 0x208),&local_118);
   }
-  if (iVar2 == -1) {
+  if (uVar3 == 0xffffffff) {
     return 0;
   }
   uVar3 = 0xffffffff;

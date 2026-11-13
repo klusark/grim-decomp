@@ -24,7 +24,7 @@ void __cdecl sputActor_SetSpeechMode(int mode)
    (Linux): the only unmatched callee of Lua_GetSpeechMode; 1 matched neighbours agree, 0 disagree);
    was Speech_GetMode. */
 
-uint sputActor_GetSpeechMode(void)
+uint __cdecl sputActor_GetSpeechMode(void)
 
 {
   return g_dwSmSpeechMode;

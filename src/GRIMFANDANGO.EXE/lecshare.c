@@ -251,16 +251,16 @@ void * __cdecl LecShare_Subscribe(char *name,char *pattern)
   unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   byte bVar2;
-  int iVar3;
-  undefined4 uVar4;
-  uint uVar5;
+  uint uVar3;
+  int iVar4;
+  uint *puVar5;
   uint uVar6;
   byte *pbVar7;
   char *pcVar8;
   char *pcVar9;
-  char *pcVar10;
+  uint *puVar10;
   byte *pbVar11;
-  #define local_64 (*(char (*)[100])(_frame + (0x80 - 0x64)))
+  #define local_64 (*(uint (*)[25])(_frame + (0x80 - 0x64)))
   
   pbVar7 = (byte *)0x0;
   if (g_dwPrivateData != 0) {
@@ -275,88 +275,89 @@ void * __cdecl LecShare_Subscribe(char *name,char *pattern)
         pbVar7 = FindMatch(name,(char *)UINT_008d56ec);
       }
     }
-    iVar3 = Str_ModuleNameLength(name);
-    strncpy(local_64,name,iVar3);
-    local_64[iVar3] = '\0';
+    uVar3 = Str_ModuleNameLength(name);
+    strncpy(local_64,(uint *)name,uVar3);
+    *(undefined1 *)((int)local_64 + uVar3) = 0;
     if (pbVar7 == (byte *)0x0) {
-      iVar3 = GetCatalogCount(local_64);
-      if (iVar3 == 0) {
+      iVar4 = GetCatalogCount(local_64);
+      if (iVar4 == 0) {
         return (void *)0x0;
       }
-      uVar4 = ((code *)GetCatalogEntry)(local_64,iVar3 + -1,99);
-      ((code *)strncpy)(local_64,uVar4);
+      uVar3 = 99;
+      puVar5 = (uint *)GetCatalogEntry(local_64,iVar4 + -1);
+      strncpy(local_64,puVar5,uVar3);
     }
     else {
-      uVar5 = 0xffffffff;
+      uVar3 = 0xffffffff;
       pcVar8 = "=";
       do {
-        pcVar10 = pcVar8;
-        if (uVar5 == 0) break;
-        uVar5 = uVar5 - 1;
-        pcVar10 = pcVar8 + 1;
-        cVar1 = *pcVar8;
-        pcVar8 = pcVar10;
-      } while (cVar1 != '\0');
-      uVar5 = ~uVar5;
-      iVar3 = -1;
-      pcVar8 = local_64;
-      do {
         pcVar9 = pcVar8;
-        if (iVar3 == 0) break;
-        iVar3 = iVar3 + -1;
+        if (uVar3 == 0) break;
+        uVar3 = uVar3 - 1;
         pcVar9 = pcVar8 + 1;
         cVar1 = *pcVar8;
         pcVar8 = pcVar9;
       } while (cVar1 != '\0');
-      pcVar8 = pcVar10 + -uVar5;
-      pcVar10 = pcVar9 + -1;
-      for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-        *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+      uVar3 = ~uVar3;
+      iVar4 = -1;
+      puVar5 = local_64;
+      do {
+        puVar10 = puVar5;
+        if (iVar4 == 0) break;
+        iVar4 = iVar4 + -1;
+        puVar10 = (uint *)((int)puVar5 + 1);
+        uVar6 = *puVar5;
+        puVar5 = puVar10;
+      } while ((char)uVar6 != '\0');
+      pcVar8 = pcVar9 + -uVar3;
+      pcVar9 = (char *)((int)puVar10 + -1);
+      for (uVar6 = uVar3 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+        *(undefined4 *)pcVar9 = *(undefined4 *)pcVar8;
         pcVar8 = pcVar8 + 4;
-        pcVar10 = pcVar10 + 4;
+        pcVar9 = pcVar9 + 4;
       }
-      for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-        *pcVar10 = *pcVar8;
+      for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+        *pcVar9 = *pcVar8;
         pcVar8 = pcVar8 + 1;
-        pcVar10 = pcVar10 + 1;
+        pcVar9 = pcVar9 + 1;
       }
-      uVar5 = 0xffffffff;
+      uVar3 = 0xffffffff;
       do {
         pbVar11 = pbVar7;
-        if (uVar5 == 0) break;
-        uVar5 = uVar5 - 1;
+        if (uVar3 == 0) break;
+        uVar3 = uVar3 - 1;
         pbVar11 = pbVar7 + 1;
         bVar2 = *pbVar7;
         pbVar7 = pbVar11;
       } while (bVar2 != 0);
-      uVar5 = ~uVar5;
-      iVar3 = -1;
-      pcVar8 = local_64;
+      uVar3 = ~uVar3;
+      iVar4 = -1;
+      puVar5 = local_64;
       do {
-        pcVar10 = pcVar8;
-        if (iVar3 == 0) break;
-        iVar3 = iVar3 + -1;
-        pcVar10 = pcVar8 + 1;
-        cVar1 = *pcVar8;
-        pcVar8 = pcVar10;
-      } while (cVar1 != '\0');
-      pbVar7 = pbVar11 + -uVar5;
-      pbVar11 = (byte *)(pcVar10 + -1);
-      for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+        puVar10 = puVar5;
+        if (iVar4 == 0) break;
+        iVar4 = iVar4 + -1;
+        puVar10 = (uint *)((int)puVar5 + 1);
+        uVar6 = *puVar5;
+        puVar5 = puVar10;
+      } while ((char)uVar6 != '\0');
+      pbVar7 = pbVar11 + -uVar3;
+      pbVar11 = (byte *)((int)puVar10 + -1);
+      for (uVar6 = uVar3 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
         *(undefined4 *)pbVar11 = *(undefined4 *)pbVar7;
         pbVar7 = pbVar7 + 4;
         pbVar11 = pbVar11 + 4;
       }
-      for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+      for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
         *pbVar11 = *pbVar7;
         pbVar7 = pbVar7 + 1;
         pbVar11 = pbVar11 + 1;
       }
     }
-    iVar3 = LecShare_FindEntry(local_64);
-    if (iVar3 != 0) {
-      *(int *)(iVar3 + 8) = *(int *)(iVar3 + 8) + 1;
-      return *(void **)(iVar3 + 4);
+    iVar4 = LecShare_FindEntry(local_64);
+    if (iVar4 != 0) {
+      *(int *)(iVar4 + 8) = *(int *)(iVar4 + 8) + 1;
+      return *(void **)(iVar4 + 4);
     }
   }
   return (void *)0x0;
@@ -443,24 +444,23 @@ undefined4 BatchSubscribe(int *param_1,char *param_2)
 /* Original name GetCatalogEntry (the remaster's GrimFandango (Linux): aligned call in Subscribe);
    was LecShare_Subscribe. */
 
-uint GetCatalogEntry(char *param_1,uint param_2)
+uint GetCatalogEntry(uint *param_1,uint param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  char cVar1;
-  int iVar2;
-  undefined4 uVar3;
+  int iVar1;
+  undefined4 uVar2;
+  uint uVar3;
   uint uVar4;
   uint uVar5;
-  uint uVar6;
-  uint *puVar7;
-  uint uVar8;
-  char *pcVar9;
-  bool bVar10;
+  uint *puVar6;
+  uint uVar7;
+  uint *puVar8;
+  bool bVar9;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar5 = UINT_008d56f8;
-  uVar8 = 1;
+  uVar4 = UINT_008d56f8;
+  uVar7 = 1;
   local_4 = 1;
   if (UINT_008d56f8 == 0) {
     return 0;
@@ -470,78 +470,78 @@ uint GetCatalogEntry(char *param_1,uint param_2)
   }
   if (UINT_008d6f00 == 0) {
 LAB_004c1a7f:
-    puVar7 = &UINT_008d56fc;
-    uVar6 = param_2;
+    puVar6 = &UINT_008d56fc;
+    uVar5 = param_2;
   }
   else {
-    if (param_1 == (char *)0x0) {
+    if (param_1 == (uint *)0x0) {
       if (g_bGetCatalogEntry_pLastType != '\0') goto LAB_004c1a7f;
     }
     else {
-      iVar2 = Str_CompareNoCase(param_1,&g_bGetCatalogEntry_pLastType);
-      if (iVar2 != 0) goto LAB_004c1a7f;
+      iVar1 = Str_CompareNoCase(param_1,&g_bGetCatalogEntry_pLastType);
+      if (iVar1 != 0) goto LAB_004c1a7f;
     }
     if (param_2 == UINT_008d6efc) {
       return *(uint *)UINT_008d6f00;
     }
     if ((int)param_2 < (int)UINT_008d6efc) {
       local_4 = 0xffffffff;
-      uVar8 = 0xffffffff;
-      uVar5 = (int)(UINT_008d6f00 - 0x8d56fc) / 0xc;
-      puVar7 = (uint *)(UINT_008d6f00 - 0xc);
-      uVar6 = (UINT_008d6efc - param_2) - 1;
+      uVar7 = 0xffffffff;
+      uVar4 = (int)(UINT_008d6f00 - 0x8d56fc) / 0xc;
+      puVar6 = (uint *)(UINT_008d6f00 - 0xc);
+      uVar5 = (UINT_008d6efc - param_2) - 1;
     }
     else {
-      uVar5 = uVar5 + (-1 - (int)(UINT_008d6f00 - 0x8d56fc) / 0xc);
-      puVar7 = (uint *)(UINT_008d6f00 + 0xc);
-      uVar6 = param_2 + (-1 - UINT_008d6efc);
+      uVar4 = uVar4 + (-1 - (int)(UINT_008d6f00 - 0x8d56fc) / 0xc);
+      puVar6 = (uint *)(UINT_008d6f00 + 0xc);
+      uVar5 = param_2 + (-1 - UINT_008d6efc);
     }
   }
   UINT_008d6efc = param_2;
-  if (param_1 == (char *)0x0) {
+  if (param_1 == (uint *)0x0) {
     g_bGetCatalogEntry_pLastType = '\0';
   }
   else {
-    strncpy(&g_bGetCatalogEntry_pLastType,param_1,99);
+    strncpy((uint *)&g_bGetCatalogEntry_pLastType,param_1,99);
     DAT_008d36e3 = 0;
   }
-  if (uVar5 == 0) {
+  if (uVar4 == 0) {
     UINT_008d6f00 = 0;
     return 0;
   }
   do {
-    uVar5 = uVar5 - 1;
-    if (*puVar7 != 0) {
-      if (param_1 == (char *)0x0) {
+    uVar4 = uVar4 - 1;
+    if (*puVar6 != 0) {
+      if (param_1 == (uint *)0x0) {
 LAB_004c1b0c:
-        bVar10 = uVar6 == 0;
-        uVar6 = uVar6 - 1;
-        if (bVar10) {
-          UINT_008d6f00 = (uint)puVar7;
-          return *puVar7;
+        bVar9 = uVar5 == 0;
+        uVar5 = uVar5 - 1;
+        if (bVar9) {
+          UINT_008d6f00 = (uint)puVar6;
+          return *puVar6;
         }
       }
       else {
-        iVar2 = Str_ModuleNameLength(*puVar7);
-        uVar4 = 0xffffffff;
-        pcVar9 = param_1;
+        iVar1 = Str_ModuleNameLength(*puVar6);
+        uVar3 = 0xffffffff;
+        puVar8 = param_1;
         do {
-          if (uVar4 == 0) break;
-          uVar4 = uVar4 - 1;
-          cVar1 = *pcVar9;
-          pcVar9 = pcVar9 + 1;
-        } while (cVar1 != '\0');
-        uVar8 = local_4;
-        if (~uVar4 - 1 == iVar2) {
-          uVar3 = Str_ModuleNameLength(*puVar7);
-          iVar2 = Str_CompareNoCaseN(param_1,*puVar7,uVar3);
-          if (iVar2 == 0) goto LAB_004c1b0c;
+          if (uVar3 == 0) break;
+          uVar3 = uVar3 - 1;
+          uVar7 = *puVar8;
+          puVar8 = (uint *)((int)puVar8 + 1);
+        } while ((char)uVar7 != '\0');
+        uVar7 = local_4;
+        if (~uVar3 - 1 == iVar1) {
+          uVar2 = Str_ModuleNameLength(*puVar6);
+          iVar1 = Str_CompareNoCaseN(param_1,*puVar6,uVar2);
+          if (iVar1 == 0) goto LAB_004c1b0c;
         }
       }
     }
-    puVar7 = puVar7 + uVar8 * 3;
-    if (uVar5 == 0) {
-      UINT_008d6f00 = uVar5;
+    puVar6 = puVar6 + uVar7 * 3;
+    if (uVar4 == 0) {
+      UINT_008d6f00 = uVar4;
       return 0;
     }
   } while( true );

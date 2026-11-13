@@ -50,7 +50,7 @@ TextObject * __cdecl TextObject_New(TextContext *ctx,char *text,int durationMs,i
   if (pTVar3 != (TextObject *)0x0) {
     pTVar3->pNext = (TextObject *)0x0;
     pTVar3->pPrev = (TextObject *)0x0;
-    strncpy(pTVar3->aText,text,0x1ff);
+    strncpy((uint *)pTVar3->aText,(uint *)text,0x1ff);
     pTVar3->aText[0x1ff] = '\0';
     pTVar3->nX = ctx->nX;
     pTVar3->nY = ctx->nY;
@@ -130,7 +130,7 @@ void __cdecl TextObject_Draw(TextObject *obj,int invalidate)
     (obj->ctx).dwFgColor = 0;
     (obj->ctx).dwBgColor = 1;
     (obj->ctx).dwFxColor = 2;
-    Text_DrawFormatted(&obj->ctx,obj->aText);
+    Text_DrawFormatted(&obj->ctx,(int)obj->aText);
     (obj->ctx).nX = obj->nX;
     (obj->ctx).nY = *(int *)(*(int *)(obj->ctx).pFont + 8) + obj->nY;
     if (invalidate != 0) {

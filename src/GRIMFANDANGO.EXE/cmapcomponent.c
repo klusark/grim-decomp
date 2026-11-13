@@ -56,22 +56,23 @@ int * __cdecl ColormapInstancer(int inst,int component,int create)
 /* Registers a 'cmap' colormap component (CMAP resource, 0x34-byte ResRef); with no name a file
    dialog asks for one (editor) */
 
-int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int __cdecl ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
-  char *pcVar1;
+  uint *puVar1;
   void *data;
   undefined4 *ref;
   char *pcVar2;
   int iVar3;
   undefined4 *puVar4;
-  undefined4 uVar5;
+  uint uVar5;
+  char *name;
   
   pcVar2 = param_5;
   if (((param_4 != 0x4c444f4d) && (param_4 != 0x4c444d4d)) && (param_4 != 0x74727073)) {
-    return false;
+    return 0;
   }
-  pcVar1 = param_5;
+  name = param_5;
   if (param_5 == (char *)0x0) {
     if (g_bColormapPath != '\0') {
       grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bColormapPath));
@@ -79,16 +80,16 @@ int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *par
     iVar3 = grimPlat_OpenFileRequest
                       (s_Select_colormap_file_to_add____004ea530,s_Colormap_files____cmp__004ea550);
     if (iVar3 == 0) {
-      return false;
+      return 0;
     }
     uVar5 = 0x7f;
-    pcVar1 = grimPlat_GetDefaultOpenPath();
-    strncpy(&g_bColormapPath,pcVar1,uVar5);
+    puVar1 = (uint *)grimPlat_GetDefaultOpenPath();
+    strncpy((uint *)&g_bColormapPath,puVar1,uVar5);
     DAT_008ca937 = 0;
     param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
-    pcVar1 = g_szGrimlib_aFilename;
+    name = g_szGrimlib_aFilename;
   }
-  data = sputResource_Alloc(0x50414d43,pcVar1);
+  data = sputResource_Alloc(0x50414d43,name);
   if (data != (void *)0x0) {
     ref = (undefined4 *)
           (*g_pSputCosHS->pAlloc)(0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x938);
@@ -102,9 +103,9 @@ int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *par
       pcVar2 = param_5;
     }
     iVar3 = Cos_RegisterComponent(param_1,(int)pcVar2,(int)ref,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004e9f20));
-    return iVar3 != 0;
+    return (uint)(iVar3 != 0);
   }
-  return false;
+  return 0;
 }
 
 /* ---- 0x00496580  ColormapFreer ---- */

@@ -157,7 +157,7 @@ uint __cdecl sputPrimitive_Startup(void)
   if (g_dwSputPrimitiveStartup != 0) {
     return 1;
   }
-  sputLua_RegisterFunctions(&g_pPrimitiveFunctionsToRegister,UINT_004e83c8);
+  sputLua_RegisterFunctions((int *)&g_pPrimitiveFunctionsToRegister,UINT_004e83c8);
   g_dwSputPrimitiveStartup = 1;
   return 0;
 }

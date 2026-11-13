@@ -38,17 +38,15 @@ uint __cdecl stdBmp_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
   int iVar2;
   int iVar3;
   int iVar4;
-  char *pcVar5;
-  uint uVar6;
-  void *pvVar7;
+  uint *puVar5;
+  void *pvVar6;
+  byte *pbVar7;
   byte *pbVar8;
-  byte *pbVar9;
-  int iVar10;
-  uint *puVar11;
-  uint *puVar12;
-  byte *pbVar13;
-  bool bVar14;
-  undefined4 uVar15;
+  int iVar9;
+  uint *puVar10;
+  byte *pbVar11;
+  bool bVar12;
+  uint uVar13;
   #define local_98 (*(uint *)(_frame + (0xb0 - 0x98)))
   #define auStack_84 (*(uint (*)[19])(_frame + (0xb0 - 0x84)))
   #define iStack_38 (*(int *)(_frame + (0xb0 - 0x38)))
@@ -83,14 +81,14 @@ uint __cdecl stdBmp_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
                    s_C__grimjedi_Libs_Std_General_Std_004e7644,DAT_004e763c + 0x46);
       }
     }
-    puVar11 = param_2;
+    puVar5 = param_2;
     for (iVar3 = 0x1f; iVar3 != 0; iVar3 = iVar3 + -1) {
-      *puVar11 = 0;
-      puVar11 = puVar11 + 1;
+      *puVar5 = 0;
+      puVar5 = puVar5 + 1;
     }
-    uVar15 = 0x1f;
-    pcVar5 = stdFileFromPath(param_1);
-    strncpy(param_2,pcVar5,uVar15);
+    uVar13 = 0x1f;
+    puVar5 = (uint *)stdFileFromPath(param_1);
+    strncpy(param_2,puVar5,uVar13);
     *(undefined1 *)((int)param_2 + 0x1f) = 0;
     param_2[8] = 0;
     param_2[9] = 0;
@@ -128,12 +126,12 @@ uint __cdecl stdBmp_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
       auStack_84[0xb] = 0;
       auStack_84[0xc] = 0;
       auStack_84[0xd] = 0;
-      puVar11 = auStack_84;
-      puVar12 = param_2 + 10;
+      puVar5 = auStack_84;
+      puVar10 = param_2 + 10;
       for (iVar3 = 0xe; iVar3 != 0; iVar3 = iVar3 + -1) {
-        *puVar12 = *puVar11;
-        puVar11 = puVar11 + 1;
-        puVar12 = puVar12 + 1;
+        *puVar10 = *puVar5;
+        puVar5 = puVar5 + 1;
+        puVar10 = puVar10 + 1;
       }
       break;
     case 0x20:
@@ -141,30 +139,30 @@ uint __cdecl stdBmp_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
                 (s_32bit_per_pixel_BMP_not_yet_supp_004e772c,
                  s_C__grimjedi_Libs_Std_General_Std_004e7644,DAT_004e763c + 0x66);
     }
-    uVar6 = (*g_pStd_HS->pAlloc)
-                      (param_2[0x19] << 2,s_C__grimjedi_Libs_Std_General_Std_004e7644,
-                       DAT_004e763c + 0x76);
-    param_2[0x1e] = uVar6;
-    if (uVar6 == 0) {
+    uVar13 = (*g_pStd_HS->pAlloc)
+                       (param_2[0x19] << 2,s_C__grimjedi_Libs_Std_General_Std_004e7644,
+                        DAT_004e763c + 0x76);
+    param_2[0x1e] = uVar13;
+    if (uVar13 == 0) {
       (*g_pStd_HS->pAssertFail)
                 (s_Unable_to_allocate_memory__004e76d4,s_C__grimjedi_Libs_Std_General_Std_004e7644,
                  DAT_004e763c + 0x77);
     }
     auStack_84[1] = iStack_30;
-    bVar14 = iStack_30 < 0;
-    puVar11 = param_2 + 10;
-    puVar12 = auStack_84 + 5;
+    bVar12 = iStack_30 < 0;
+    puVar5 = param_2 + 10;
+    puVar10 = auStack_84 + 5;
     for (iVar3 = 0xe; iVar3 != 0; iVar3 = iVar3 + -1) {
-      *puVar12 = *puVar11;
-      puVar11 = puVar11 + 1;
-      puVar12 = puVar12 + 1;
+      *puVar10 = *puVar5;
+      puVar5 = puVar5 + 1;
+      puVar10 = puVar10 + 1;
     }
     auStack_84[0] = uStack_34;
-    if (bVar14) {
+    if (bVar12) {
       auStack_84[1] = -auStack_84[1];
     }
-    pvVar7 = stdDisplay_VBufferNew(auStack_84,param_3,param_4,local_98);
-    *(void **)param_2[0x1e] = pvVar7;
+    pvVar6 = stdDisplay_VBufferNew(auStack_84,param_3,param_4,local_98);
+    *(void **)param_2[0x1e] = pvVar6;
     if (*(int *)param_2[0x1e] == 0) {
       (*g_pStd_HS->pAssertFail)
                 (s_Unable_to_allocate_memory__004e76d4,s_C__grimjedi_Libs_Std_General_Std_004e7644,
@@ -177,14 +175,14 @@ uint __cdecl stdBmp_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
                  s_C__grimjedi_Libs_Std_General_Std_004e7644,DAT_004e763c + 0x8d);
     }
     iVar3 = *(int *)param_2[0x1e];
-    uVar6 = *(uint *)(iVar3 + 0x10);
+    uVar13 = *(uint *)(iVar3 + 0x10);
     pbVar1 = *(byte **)(iVar3 + 0x5c);
     iVar4 = *(int *)(iVar3 + 0x18);
-    if (0 < (int)uVar6) {
-      pbVar13 = pbVar1;
-      local_98 = uVar6;
+    if (0 < (int)uVar13) {
+      pbVar11 = pbVar1;
+      local_98 = uVar13;
       do {
-        iVar3 = (*g_pStd_HS->pFread)(iVar2,pbVar13,*(undefined4 *)(iVar3 + 0x18));
+        iVar3 = (*g_pStd_HS->pFread)(iVar2,pbVar11,*(undefined4 *)(iVar3 + 0x18));
         if (iVar3 != *(int *)(*(int *)param_2[0x1e] + 0x18)) {
           (*g_pStd_HS->pAssertFail)
                     (s_Unable_to_read_all_the_data_from_004e766c,
@@ -193,38 +191,38 @@ uint __cdecl stdBmp_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
         (*g_pStd_HS->pFseek)(iVar2,(iVar4 + 3U & 0xfffffffc) - iVar4,1);
         iVar3 = *(int *)param_2[0x1e];
         if ((*(int *)(iVar3 + 0x24) == 0x18) &&
-           (iVar10 = 0, pbVar8 = pbVar13, 0 < *(int *)(iVar3 + 0xc))) {
+           (iVar9 = 0, pbVar7 = pbVar11, 0 < *(int *)(iVar3 + 0xc))) {
           do {
-            *pbVar8 = *pbVar8 ^ pbVar8[2];
-            pbVar8[2] = pbVar8[2] ^ *pbVar8;
-            *pbVar8 = *pbVar8 ^ pbVar8[2];
-            pbVar8 = pbVar8 + 3;
-            iVar10 = iVar10 + 1;
+            *pbVar7 = *pbVar7 ^ pbVar7[2];
+            pbVar7[2] = pbVar7[2] ^ *pbVar7;
+            *pbVar7 = *pbVar7 ^ pbVar7[2];
+            pbVar7 = pbVar7 + 3;
+            iVar9 = iVar9 + 1;
             iVar3 = *(int *)param_2[0x1e];
-          } while (iVar10 < *(int *)(iVar3 + 0xc));
+          } while (iVar9 < *(int *)(iVar3 + 0xc));
         }
-        pbVar13 = pbVar13 + iVar4;
+        pbVar11 = pbVar11 + iVar4;
         local_98 = local_98 - 1;
       } while (local_98 != 0);
     }
-    if ((0 < iStack_30) && (local_98 = (int)uVar6 / 2, 0 < (int)local_98)) {
-      iVar3 = iVar4 * uVar6;
-      pbVar13 = pbVar1;
+    if ((0 < iStack_30) && (local_98 = (int)uVar13 / 2, 0 < (int)local_98)) {
+      iVar3 = iVar4 * uVar13;
+      pbVar11 = pbVar1;
       do {
         if (0 < iVar4) {
-          pbVar9 = pbVar1 + ((iVar3 - iVar4) - (int)pbVar13);
-          pbVar8 = pbVar13;
-          iVar10 = iVar4;
+          pbVar8 = pbVar1 + ((iVar3 - iVar4) - (int)pbVar11);
+          pbVar7 = pbVar11;
+          iVar9 = iVar4;
           do {
-            *pbVar8 = *pbVar8 ^ pbVar8[(int)pbVar9];
-            pbVar8[(int)pbVar9] = pbVar8[(int)pbVar9] ^ *pbVar8;
-            *pbVar8 = *pbVar8 ^ pbVar8[(int)pbVar9];
-            pbVar8 = pbVar8 + 1;
-            iVar10 = iVar10 + -1;
-          } while (iVar10 != 0);
+            *pbVar7 = *pbVar7 ^ pbVar7[(int)pbVar8];
+            pbVar7[(int)pbVar8] = pbVar7[(int)pbVar8] ^ *pbVar7;
+            *pbVar7 = *pbVar7 ^ pbVar7[(int)pbVar8];
+            pbVar7 = pbVar7 + 1;
+            iVar9 = iVar9 + -1;
+          } while (iVar9 != 0);
         }
         iVar3 = iVar3 - iVar4;
-        pbVar13 = pbVar13 + iVar4;
+        pbVar11 = pbVar11 + iVar4;
         local_98 = local_98 - 1;
       } while (local_98 != 0);
     }

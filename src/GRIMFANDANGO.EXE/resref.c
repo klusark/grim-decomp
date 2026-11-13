@@ -14,7 +14,7 @@ void __cdecl Res_SetReference(void *ref,void *data,char *file,int line)
 
 {
   void *res;
-  int iVar1;
+  uint *puVar1;
   
   res = Res_FindByData(data);
   if ((ref == (void *)0x0) || (*(int *)ref != 0)) {
@@ -26,9 +26,9 @@ void __cdecl Res_SetReference(void *ref,void *data,char *file,int line)
     *(void **)((int)ref + 4) = data;
     *(undefined4 *)((int)ref + 0x2c) = 0;
     *(undefined4 *)((int)ref + 0x30) = *(undefined4 *)((int)res + 0x24);
-    iVar1 = strrchr(file,0x5c);
-    if (iVar1 != 0) {
-      strncpy((int)ref + 8,iVar1,0x20);
+    puVar1 = (uint *)strrchr(file,'\\');
+    if (puVar1 != (uint *)0x0) {
+      strncpy((uint *)((int)ref + 8),puVar1,0x20);
     }
     *(int *)((int)ref + 0x28) = line;
     if (*(int *)((int)ref + 0x30) != 0) {

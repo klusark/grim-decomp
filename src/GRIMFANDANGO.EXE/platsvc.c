@@ -49,7 +49,7 @@ void __cdecl stdPlatform_Assert(uint param_1,char *param_2,uint param_3)
   fp = fopen(((unsigned)(uintptr_t)&DAT_004dee28),((unsigned)(uintptr_t)&DAT_004dee34));
   if (fp != (undefined *)0x0) {
     fprintf(fp,acStack_200);
-    fclose(fp);
+    fclose((int)fp);
   }
   MessageBoxA(0,(int)acStack_200,((unsigned)(uintptr_t)&s_Assert_Handler_004dee18),0x2000);
   DebugBreak();
@@ -91,7 +91,7 @@ void __cdecl stdPlatform_FreeHandle(uint param_1)
 void __cdecl stdPlatform_ReallocHandle(uint param_1,uint param_2)
 
 {
-  realloc(param_1,param_2);
+  realloc((uint *)param_1,param_2);
   return;
 }
 

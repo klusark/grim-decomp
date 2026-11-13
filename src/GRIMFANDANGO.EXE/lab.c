@@ -359,11 +359,11 @@ int __cdecl Lab_ReadDirectory(void *lab)
   undefined4 *puVar6;
   void *pvVar7;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(undefined1 (*)[8])(_frame + (0x20 - 0x8)))
+  #define local_8 (*(char (*)[8])(_frame + (0x20 - 0x8)))
   
   pvVar1 = lab;
   uVar2 = Res_FRead(*(int *)((int)lab + 0x10c),local_8,4);
-  if ((((uVar2 == 4) && (iVar3 = strncmp(local_8,&DAT_004e7af0,4), iVar3 == 0)) &&
+  if ((((uVar2 == 4) && (uVar2 = strncmp(local_8,&DAT_004e7af0,4), uVar2 == 0)) &&
       (uVar2 = Res_FRead(*(int *)((int)pvVar1 + 0x10c),&lab,4), uVar2 == 4)) &&
      (((lab < (void *)0x10001 &&
        (uVar2 = Res_FRead(*(int *)((int)pvVar1 + 0x10c),&lab,4), pvVar7 = lab, uVar2 == 4)) &&

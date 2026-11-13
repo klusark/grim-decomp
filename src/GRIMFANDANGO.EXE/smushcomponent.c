@@ -11,7 +11,7 @@
    remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag
    registration in sputCostume_Startup); was SmushComponent_Destroy. */
 
-undefined4 SmushFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3)
+uint __cdecl SmushFreer(uint param_1,uint param_2,uint param_3)
 
 {
   (*g_pSputCosHS->pFree)(param_3);
@@ -25,7 +25,7 @@ undefined4 SmushFreer(undefined4 param_1,undefined4 param_2,undefined4 param_3)
    unmatched caller of Engine_BlitToBackBuffer; 1 matched neighbours agree, 0 disagree); was
    SmushComponent_OnKey. */
 
-void SmushChanger(undefined4 param_1,uint param_2,undefined4 param_3,int param_4)
+void __cdecl SmushChanger(uint param_1,uint param_2,uint param_3,int param_4)
 
 {
   if (param_4 == 0) {
@@ -40,20 +40,20 @@ void SmushChanger(undefined4 param_1,uint param_2,undefined4 param_3,int param_4
    editor and stores its name. Original name SmushRequester (the remaster's GrimFandango (Linux):
    strings: 'Select smush file...' | 'Smush files (*.snm)'); was SmushComponent_Create. */
 
-int SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int __cdecl SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   char cVar1;
   int iVar2;
-  char *pcVar3;
+  uint *puVar3;
   char *pcVar4;
-  uint uVar5;
+  char *pcVar5;
   uint uVar6;
   char *pcVar7;
   char *pcVar8;
-  undefined4 uVar9;
+  uint uVar9;
   
-  pcVar3 = param_5;
+  pcVar4 = param_5;
   if (param_5 == (char *)0x0) {
     if (g_bSmushPath != '\0') {
       grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bSmushPath));
@@ -61,50 +61,50 @@ int SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_
     iVar2 = grimPlat_OpenFileRequest(s_Select_smush_file____004ea7ec,s_Smush_files____snm__004ea804)
     ;
     if (iVar2 == 0) {
-      return false;
+      return 0;
     }
     uVar9 = 0x7f;
-    pcVar3 = grimPlat_GetDefaultOpenPath();
-    strncpy(&g_bSmushPath,pcVar3,uVar9);
+    puVar3 = (uint *)grimPlat_GetDefaultOpenPath();
+    strncpy((uint *)&g_bSmushPath,puVar3,uVar9);
     DAT_008cab37 = 0;
-    pcVar3 = stdFnames_FindMedName(g_szGrimlib_aFilename);
+    pcVar4 = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
-  uVar5 = 0xffffffff;
-  pcVar7 = pcVar3;
+  uVar9 = 0xffffffff;
+  pcVar7 = pcVar4;
   do {
-    if (uVar5 == 0) break;
-    uVar5 = uVar5 - 1;
+    if (uVar9 == 0) break;
+    uVar9 = uVar9 - 1;
     cVar1 = *pcVar7;
     pcVar7 = pcVar7 + 1;
   } while (cVar1 != '\0');
-  pcVar4 = (char *)(*g_pSputCosHS->pAlloc)(~uVar5,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xfe2)
+  pcVar5 = (char *)(*g_pSputCosHS->pAlloc)(~uVar9,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xfe2)
   ;
-  uVar5 = 0xffffffff;
-  pcVar7 = pcVar3;
+  uVar9 = 0xffffffff;
+  pcVar7 = pcVar4;
   do {
     pcVar8 = pcVar7;
-    if (uVar5 == 0) break;
-    uVar5 = uVar5 - 1;
+    if (uVar9 == 0) break;
+    uVar9 = uVar9 - 1;
     pcVar8 = pcVar7 + 1;
     cVar1 = *pcVar7;
     pcVar7 = pcVar8;
   } while (cVar1 != '\0');
-  uVar5 = ~uVar5;
-  pcVar7 = pcVar8 + -uVar5;
-  pcVar8 = pcVar4;
-  for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+  uVar9 = ~uVar9;
+  pcVar7 = pcVar8 + -uVar9;
+  pcVar8 = pcVar5;
+  for (uVar6 = uVar9 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
     *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
     pcVar7 = pcVar7 + 4;
     pcVar8 = pcVar8 + 4;
   }
-  for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+  for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
     *pcVar8 = *pcVar7;
     pcVar7 = pcVar7 + 1;
     pcVar8 = pcVar8 + 1;
   }
   if (param_5 != (char *)0x0) {
-    pcVar3 = param_5;
+    pcVar4 = param_5;
   }
-  iVar2 = Cos_RegisterComponent(param_1,(int)pcVar3,(int)pcVar4,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004ea040));
-  return iVar2 != 0;
+  iVar2 = Cos_RegisterComponent(param_1,(int)pcVar4,(int)pcVar5,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004ea040));
+  return (uint)(iVar2 != 0);
 }

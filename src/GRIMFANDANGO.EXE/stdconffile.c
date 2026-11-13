@@ -69,7 +69,7 @@ LAB_0047c827:
   }
   g_dwStdConffile_aLine =
        (*g_pStd_HS->pAlloc)(0x400,s_C__grimjedi_Libs_Std_General_Std_004e7604,DAT_004e7600 + 0x1d);
-  strncpy(&g_bStdConffile_pFilename,param_1,0x7f);
+  strncpy((uint *)&g_bStdConffile_pFilename,(uint *)param_1,0x7f);
   DAT_0090051f = 0;
   g_dwStdConffile_linenum = 0;
   g_dwStdConffile_bOpen = 1;
@@ -110,31 +110,31 @@ uint __cdecl stdConffile_ReadLine(void)
   char cVar1;
   bool bVar2;
   int iVar3;
-  undefined1 *puVar4;
+  uint *puVar4;
   uint uVar5;
   int iVar6;
-  char *pcVar7;
+  uint *puVar7;
   char *pcVar8;
   
   bVar2 = false;
   iVar6 = 0x3ff;
-  pcVar7 = (char *)g_dwStdConffile_aLine;
+  puVar7 = (uint *)g_dwStdConffile_aLine;
   do {
     if (iVar6 == 0) {
       return 1;
     }
-    iVar3 = (*g_pStd_HS->pFgets)(UINT_0080cbd0,pcVar7,iVar6);
+    iVar3 = (*g_pStd_HS->pFgets)(UINT_0080cbd0,puVar7,iVar6);
     if (iVar3 == 0) {
       return 0;
     }
     g_dwStdConffile_linenum = g_dwStdConffile_linenum + 1;
-    cVar1 = *pcVar7;
+    cVar1 = (char)*puVar7;
     if ((((cVar1 != ';') && (cVar1 != '#')) && (cVar1 != '\n')) && (cVar1 != '\r')) {
-      puVar4 = (undefined1 *)strchr(pcVar7,0x23);
-      if (puVar4 != (undefined1 *)0x0) {
-        *puVar4 = 0;
+      puVar4 = strchr(puVar7,'#');
+      if (puVar4 != (uint *)0x0) {
+        *(undefined1 *)puVar4 = 0;
       }
-      _strlwr(pcVar7);
+      _strlwr((char *)puVar7);
       uVar5 = 0xffffffff;
       pcVar8 = (char *)g_dwStdConffile_aLine;
       do {
@@ -146,7 +146,7 @@ uint __cdecl stdConffile_ReadLine(void)
       uVar5 = ~uVar5;
       if (*(char *)((uVar5 - 3) + g_dwStdConffile_aLine) == '\\') {
         iVar6 = 0x400 - (uVar5 - 1);
-        pcVar7 = (char *)((uVar5 - 3) + g_dwStdConffile_aLine);
+        puVar7 = (uint *)((uVar5 - 3) + g_dwStdConffile_aLine);
       }
       else {
         cVar1 = *(char *)((uVar5 - 2) + g_dwStdConffile_aLine);

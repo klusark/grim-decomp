@@ -15,10 +15,10 @@ void __cdecl sputText_Update(int drawAll)
 {
   TextObject *pTVar1;
   TextObject *obj;
-  int iVar2;
+  uint uVar2;
   
   if (g_nSputText_Paused == 0) {
-    iVar2 = sputTime_GetFrameTime();
+    uVar2 = sputTime_GetFrameTime();
     obj = g_pTextQueue;
     while (obj != (TextObject *)0x0) {
       if ((obj->nDuration < 1) && ((obj->dwFlags & 1) == 0)) {
@@ -30,7 +30,7 @@ void __cdecl sputText_Update(int drawAll)
         if ((((obj->dwFlags & 8) != 0) || (drawAll != 0)) && ((obj->dwFlags & 2) == 0)) {
           TextObject_Draw(obj,1);
         }
-        obj->nDuration = obj->nDuration - iVar2;
+        obj->nDuration = obj->nDuration - uVar2;
         obj = obj->pNext;
       }
     }

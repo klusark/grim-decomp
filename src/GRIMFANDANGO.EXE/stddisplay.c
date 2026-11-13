@@ -637,10 +637,10 @@ int __cdecl stdDisplay_Startup(void)
   _DAT_00902eec = 0x11d113fa;
   _DAT_00902ef0 = 0xa000c097;
   _DAT_00902ef4 = 0x5302924;
-  strncpy(&DAT_00902c60,s_Window_Display_Device_004de9f8,0x7f);
+  strncpy((uint *)&DAT_00902c60,(uint *)s_Window_Display_Device_004de9f8,0x7f);
   iVar1 = g_dwStdDisplay_numDevices * 0x298;
   (&DAT_00902cdf)[iVar1] = 0;
-  strncpy(&DAT_00902ce0 + iVar1,s_DIBsection_windowed_display_004de9dc,0x7f);
+  strncpy((uint *)(&DAT_00902ce0 + iVar1),(uint *)s_DIBsection_windowed_display_004de9dc,0x7f);
   (&DAT_00902d5f)[g_dwStdDisplay_numDevices * 0x298] = 0;
   (&UINT_00902d60)[g_dwStdDisplay_numDevices * 0xa6] = 0;
   (&UINT_00902d64)[g_dwStdDisplay_numDevices * 0xa6] = 0;
@@ -2713,9 +2713,9 @@ undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
       Mem_Copy(&DAT_00902ee8 + iVar2,(void *)a1,0x10);
       (&UINT_00902d6c)[uVar1 * 0xa6] = 0;
     }
-    strncpy(&DAT_00902ce0 + iVar2,a2,0x7f);
+    strncpy((uint *)(&DAT_00902ce0 + iVar2),(uint *)a2,0x7f);
     (&DAT_00902d5f)[iVar2] = 0;
-    strncpy(&DAT_00902c60 + iVar2,a3,0x7f);
+    strncpy((uint *)(&DAT_00902c60 + iVar2),(uint *)a3,0x7f);
     (&DAT_00902cdf)[iVar2] = 0;
     if (a1 == 0) {
       (&UINT_00902d64)[uVar1 * 0xa6] = 0;

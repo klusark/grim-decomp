@@ -40,10 +40,10 @@ uint __cdecl sputSmush_Startup(void)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_c (*(char (*)[12])(_frame + (0x20 - 0xc)))
+  #define local_c (*(byte (*)[12])(_frame + (0x20 - 0xc)))
   
-  iVar1 = wuRegistry_GetStr(s_StartSmush_004e8358,local_c,10,&DAT_004f5a98);
-  if ((iVar1 != 0) && (iVar1 = _stricmp(local_c,s_FALSE_004e8350), iVar1 == 0)) {
+  iVar1 = wuRegistry_GetStr(s_StartSmush_004e8358,(char *)local_c,10,&DAT_004f5a98);
+  if ((iVar1 != 0) && (iVar1 = _stricmp(local_c,(byte *)s_FALSE_004e8350), iVar1 == 0)) {
     return 0;
   }
   iVar1 = (*(code *)UINT_008c9fc0)();

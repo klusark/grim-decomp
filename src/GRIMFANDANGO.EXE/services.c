@@ -10,12 +10,12 @@
    defaultStatusPrint (the remaster's GrimFandango (Linux): slot 1 of defaultHostServices
    (g_aDefaultHostServices)); was Svc_Printf. */
 
-undefined4 __cdecl defaultStatusPrint(char *fmt,...)
+uint __cdecl defaultStatusPrint(char *fmt,...)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
-  uVar1 = vsprintf(&g_aBuffer,fmt,&STACK0X(0x00000008));
+  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),(uint)fmt,(uint)&STACK0X(0x00000008));
   printf(&DAT_004dda18,&g_aBuffer);
   return uVar1;
 }
@@ -29,7 +29,7 @@ uint __cdecl defaultMessagePrint(uint param_1)
 {
   uint uVar1;
   
-  uVar1 = vsprintf(&g_aBuffer,param_1,&STACK0X(0x00000008));
+  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),param_1,(uint)&STACK0X(0x00000008));
   printf(&DAT_004dda18,&g_aBuffer);
   return uVar1;
 }
@@ -43,7 +43,7 @@ uint __cdecl defaultWarningPrint(uint param_1)
 {
   uint uVar1;
   
-  uVar1 = vsprintf(&g_aBuffer,param_1,&STACK0X(0x00000008));
+  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),param_1,(uint)&STACK0X(0x00000008));
   printf(s_WARNING___s_004dda1c,&g_aBuffer);
   return uVar1;
 }
@@ -57,7 +57,7 @@ uint __cdecl defaultErrorPrint(uint param_1)
 {
   uint uVar1;
   
-  uVar1 = vsprintf(&g_aBuffer,param_1,&STACK0X(0x00000008));
+  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),param_1,(uint)&STACK0X(0x00000008));
   printf(s_ERROR___s_004dda28,&g_aBuffer);
   return uVar1;
 }
@@ -71,7 +71,7 @@ uint __cdecl defaultDebugPrint(uint param_1)
 {
   uint uVar1;
   
-  uVar1 = vsprintf(&g_aBuffer,param_1,&STACK0X(0x00000008));
+  uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),param_1,(uint)&STACK0X(0x00000008));
   printf(s_DEBUG___s_004dda34,&g_aBuffer);
   return uVar1;
 }
@@ -104,10 +104,10 @@ void __cdecl defaultAtExit(uint param_1)
 void * __cdecl Svc_Realloc(void *p,uint size)
 
 {
-  void *pvVar1;
+  uint *puVar1;
   
-  pvVar1 = (void *)realloc(p,size);
-  return pvVar1;
+  puVar1 = realloc(p,size);
+  return puVar1;
 }
 
 /* ---- 0x00403710  defaultFileOpen ---- */
@@ -141,10 +141,10 @@ void __cdecl defaultFileClose(uint param_1)
 int __cdecl defaultFileRead(void *file,void *buf,int size)
 
 {
-  int iVar1;
+  uint uVar1;
   
-  iVar1 = fread(buf,1,size,file);
-  return iVar1;
+  uVar1 = fread((uint)buf,1,size,(uint)file);
+  return uVar1;
 }
 
 /* ---- 0x00403760  defaultFileGets ---- */
@@ -156,7 +156,7 @@ char * __cdecl defaultFileGets(void *file,char *buf,int size)
 {
   char *pcVar1;
   
-  pcVar1 = (char *)fgets(buf,size,file);
+  pcVar1 = fgets(buf,size,file);
   return pcVar1;
 }
 
@@ -167,10 +167,10 @@ char * __cdecl defaultFileGets(void *file,char *buf,int size)
 int __cdecl defaultFileWrite(void *file,void *buf,int size)
 
 {
-  int iVar1;
+  uint uVar1;
   
-  iVar1 = fwrite(buf,1,size,file);
-  return iVar1;
+  uVar1 = fwrite((uint)buf,1,size,(uint)file);
+  return uVar1;
 }
 
 /* ---- 0x004037a0  defaultFileEOF ---- */
@@ -201,10 +201,10 @@ void __cdecl defaultFileTell(uint param_1)
 int __cdecl defaultFileSeek(void *file,int offset,int whence)
 
 {
-  int iVar1;
+  uint uVar1;
   
-  iVar1 = fseek(file,offset,whence);
-  return iVar1;
+  uVar1 = fseek((uint)file,offset,whence);
+  return uVar1;
 }
 
 /* ---- 0x004037e0  defaultFileSize ---- */
@@ -215,14 +215,14 @@ int __cdecl defaultFileSize(char *name)
 
 {
   undefined *puVar1;
-  int iVar2;
+  uint uVar2;
   
   puVar1 = fopen((uint)name,((unsigned)(uintptr_t)&DAT_004dda54));
   if (puVar1 != (undefined *)0x0) {
-    fseek(puVar1,0,2);
-    iVar2 = ftell(puVar1);
-    fclose(puVar1);
-    return iVar2;
+    fseek((uint)puVar1,0,2);
+    uVar2 = ftell((uint)puVar1);
+    fclose((int)puVar1);
+    return uVar2;
   }
   return 0;
 }
@@ -234,7 +234,7 @@ int __cdecl defaultFileSize(char *name)
 void __cdecl defaultFilePrintf(void *fp,char *fmt,...)
 
 {
-  vfprintf(fp,fmt,&STACK0X(0x0000000c));
+  vfprintf((uint)fp,(uint)fmt,(uint)&STACK0X(0x0000000c));
   return;
 }
 
@@ -252,7 +252,7 @@ void * __cdecl Svc_Malloc(uint size)
 void __cdecl Svc_Free(void *p)
 
 {
-  free(p);
+  free((int)p);
   return;
 }
 

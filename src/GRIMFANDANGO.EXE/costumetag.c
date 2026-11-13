@@ -9,7 +9,7 @@
 /* Empty costume tag handler (returns 1), used for the Destroy slot of mesh/material tags and for
    slots a tag does not need. */
 
-undefined4 CostumeTag_Nop(void)
+uint __cdecl CostumeTag_Nop(void)
 
 {
   return 1;

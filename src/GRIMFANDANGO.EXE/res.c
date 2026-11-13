@@ -65,7 +65,7 @@ int __cdecl Res_FindExternalFile(char *name,char *buf,int size)
   char *pcVar4;
   #define local_31c (*(byte (*)[260])(_frame + (0x330 - 0x31c)))
   #define local_218 (*(undefined4 (*)[69])(_frame + (0x330 - 0x218)))
-  #define local_103 (*(undefined1 (*)[259])(_frame + (0x330 - 0x103)))
+  #define local_103 (*(uint (*)[64])(_frame + (0x330 - 0x103)))
   
   iVar2 = 0;
   iVar3 = 0;
@@ -91,7 +91,7 @@ LAB_0048030d:
       *pcVar4 = '\0';
       pcVar4 = pcVar4 + 1;
     }
-    strncpy(buf,local_103,size + -1);
+    strncpy((uint *)buf,local_103,size - 1);
     iVar2 = 1;
   }
   return iVar2;
@@ -597,7 +597,8 @@ void * __cdecl Res_CreateRecord(int type,char *name,void *data)
     iVar6 = 1;
     do {
       piVar2 = *(int **)(&g_aFoundFiles + (g_dwLastFound - iVar6 & 0xf) * 4);
-      if ((piVar2 != (int *)0x0) && (iVar3 = _stricmp(name,piVar2[1]), iVar3 == 0)) {
+      if ((piVar2 != (int *)0x0) && (iVar3 = _stricmp((byte *)name,(byte *)piVar2[1]), iVar3 == 0))
+      {
         res[2] = piVar2[1];
         res[8] = *(int *)(&g_aFoundFileNodes + (g_dwLastFound - iVar6 & 0xf) * 4);
         res[3] = *piVar2;
@@ -746,29 +747,32 @@ uint __cdecl Res_HashName(char *name,char *outLower)
 
 {
   char cVar1;
-  uint uVar2;
-  char *pcVar3;
+  int iVar2;
+  uint uVar3;
+  char *pcVar4;
   
-  uVar2 = 0xffffffff;
-  pcVar3 = name;
+  uVar3 = 0xffffffff;
+  pcVar4 = name;
   do {
-    if (uVar2 == 0) break;
-    uVar2 = uVar2 - 1;
-    cVar1 = *pcVar3;
-    pcVar3 = pcVar3 + 1;
+    if (uVar3 == 0) break;
+    uVar3 = uVar3 - 1;
+    cVar1 = *pcVar4;
+    pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
-  uVar2 = ~uVar2 - 1;
-  uVar2 = uVar2 | ((uVar2 * 0x100 | uVar2) << 8 | uVar2) << 8;
-  cVar1 = toupper((int)*name);
+  uVar3 = ~uVar3 - 1;
+  uVar3 = uVar3 | ((uVar3 * 0x100 | uVar3) << 8 | uVar3) << 8;
+  iVar2 = toupper((int)*name);
+  cVar1 = (char)iVar2;
   *outLower = cVar1;
   while (cVar1 != '\0') {
     outLower = outLower + 1;
     name = name + 1;
-    uVar2 = (uVar2 * 2 | uVar2 >> 0x1f) ^ (int)cVar1;
-    cVar1 = toupper((int)*name);
+    uVar3 = (uVar3 * 2 | uVar3 >> 0x1f) ^ (int)(char)iVar2;
+    iVar2 = toupper((int)*name);
+    cVar1 = (char)iVar2;
     *outLower = cVar1;
   }
-  return uVar2;
+  return uVar3;
 }
 
 /* ---- 0x00482170  Res_GetFirstType ---- */

@@ -73,7 +73,7 @@ void __cdecl stdFileWrite(uint param_1,uint param_2,uint param_3)
 void __cdecl stdFileGets(uint param_1,uint param_2,uint param_3)
 
 {
-  fgets(param_2,param_3,param_1);
+  fgets((char *)param_2,param_3,(uint *)param_1);
   return;
 }
 #endif
@@ -86,7 +86,7 @@ void __cdecl stdFileGets(uint param_1,uint param_2,uint param_3)
 void __cdecl stdFileGetws(uint param_1,uint param_2,uint param_3)
 
 {
-  FUN_004adef0(param_2,param_3,param_1);
+  FUN_004adef0((short *)param_2,param_3,param_1);
   return;
 }
 
@@ -299,49 +299,50 @@ void * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext)
 {
   char cVar1;
   undefined4 *puVar2;
-  int iVar3;
-  uint uVar4;
+  uint *puVar3;
+  int iVar4;
   uint uVar5;
-  undefined4 *puVar6;
-  char *pcVar7;
+  uint uVar6;
+  undefined4 *puVar7;
   char *pcVar8;
   char *pcVar9;
   char *pcVar10;
+  char *pcVar11;
   
   puVar2 = (undefined4 *)
            (*g_pStd_HS->pAlloc)(0x150,s_C__grimjedi_Libs_Std_General_Std_004f11d0,DAT_004f11c0 + 3);
   if (puVar2 == (undefined4 *)0x0) {
     return (void *)0x0;
   }
-  puVar6 = puVar2;
-  for (iVar3 = 0x54; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar6 = 0;
-    puVar6 = puVar6 + 1;
+  puVar7 = puVar2;
+  for (iVar4 = 0x54; iVar4 != 0; iVar4 = iVar4 + -1) {
+    *puVar7 = 0;
+    puVar7 = puVar7 + 1;
   }
-  uVar4 = 0xffffffff;
+  uVar5 = 0xffffffff;
   puVar2[2] = 0;
   puVar2[0x53] = mode;
   do {
-    pcVar7 = dir;
-    if (uVar4 == 0) break;
-    uVar4 = uVar4 - 1;
-    pcVar7 = dir + 1;
+    pcVar8 = dir;
+    if (uVar5 == 0) break;
+    uVar5 = uVar5 - 1;
+    pcVar8 = dir + 1;
     cVar1 = *dir;
-    dir = pcVar7;
+    dir = pcVar8;
   } while (cVar1 != '\0');
-  uVar4 = ~uVar4;
-  pcVar10 = (char *)(puVar2 + 0xe);
-  pcVar7 = pcVar7 + -uVar4;
-  pcVar9 = pcVar10;
-  for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-    *(undefined4 *)pcVar9 = *(undefined4 *)pcVar7;
-    pcVar7 = pcVar7 + 4;
-    pcVar9 = pcVar9 + 4;
+  uVar5 = ~uVar5;
+  pcVar11 = (char *)(puVar2 + 0xe);
+  pcVar8 = pcVar8 + -uVar5;
+  pcVar10 = pcVar11;
+  for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+    *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+    pcVar8 = pcVar8 + 4;
+    pcVar10 = pcVar10 + 4;
   }
-  for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-    *pcVar9 = *pcVar7;
-    pcVar7 = pcVar7 + 1;
-    pcVar9 = pcVar9 + 1;
+  for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+    *pcVar10 = *pcVar8;
+    pcVar8 = pcVar8 + 1;
+    pcVar10 = pcVar10 + 1;
   }
   switch(mode) {
   case 0:
@@ -350,100 +351,100 @@ void * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext)
     ext = &DAT_004f11c8;
     break;
   case 3:
-    iVar3 = strchr(ext,0x2e);
-    pcVar7 = &DAT_004f11c4;
-    if (iVar3 != 0) {
-      pcVar7 = &DAT_004e9c60;
+    puVar3 = strchr((uint *)ext,'.');
+    pcVar8 = &DAT_004f11c4;
+    if (puVar3 != (uint *)0x0) {
+      pcVar8 = &DAT_004e9c60;
     }
-    uVar4 = 0xffffffff;
+    uVar5 = 0xffffffff;
     do {
-      pcVar9 = pcVar7;
-      if (uVar4 == 0) break;
-      uVar4 = uVar4 - 1;
-      pcVar9 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar9;
+      pcVar10 = pcVar8;
+      if (uVar5 == 0) break;
+      uVar5 = uVar5 - 1;
+      pcVar10 = pcVar8 + 1;
+      cVar1 = *pcVar8;
+      pcVar8 = pcVar10;
     } while (cVar1 != '\0');
-    uVar4 = ~uVar4;
-    iVar3 = -1;
-    pcVar7 = pcVar10;
+    uVar5 = ~uVar5;
+    iVar4 = -1;
+    pcVar8 = pcVar11;
     do {
-      pcVar8 = pcVar7;
-      if (iVar3 == 0) break;
-      iVar3 = iVar3 + -1;
-      pcVar8 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar8;
+      pcVar9 = pcVar8;
+      if (iVar4 == 0) break;
+      iVar4 = iVar4 + -1;
+      pcVar9 = pcVar8 + 1;
+      cVar1 = *pcVar8;
+      pcVar8 = pcVar9;
     } while (cVar1 != '\0');
-    pcVar7 = pcVar9 + -uVar4;
-    pcVar9 = pcVar8 + -1;
-    for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *(undefined4 *)pcVar9 = *(undefined4 *)pcVar7;
-      pcVar7 = pcVar7 + 4;
-      pcVar9 = pcVar9 + 4;
+    pcVar8 = pcVar10 + -uVar5;
+    pcVar10 = pcVar9 + -1;
+    for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+      *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+      pcVar8 = pcVar8 + 4;
+      pcVar10 = pcVar10 + 4;
     }
-    for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *pcVar9 = *pcVar7;
-      pcVar7 = pcVar7 + 1;
-      pcVar9 = pcVar9 + 1;
+    for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+      *pcVar10 = *pcVar8;
+      pcVar8 = pcVar8 + 1;
+      pcVar10 = pcVar10 + 1;
     }
     break;
   case 4:
-    uVar4 = 0xffffffff;
+    uVar5 = 0xffffffff;
     do {
-      pcVar7 = ext;
-      if (uVar4 == 0) break;
-      uVar4 = uVar4 - 1;
-      pcVar7 = ext + 1;
+      pcVar8 = ext;
+      if (uVar5 == 0) break;
+      uVar5 = uVar5 - 1;
+      pcVar8 = ext + 1;
       cVar1 = *ext;
-      ext = pcVar7;
+      ext = pcVar8;
     } while (cVar1 != '\0');
-    uVar4 = ~uVar4;
-    pcVar7 = pcVar7 + -uVar4;
-    for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *(undefined4 *)pcVar10 = *(undefined4 *)pcVar7;
-      pcVar7 = pcVar7 + 4;
-      pcVar10 = pcVar10 + 4;
+    uVar5 = ~uVar5;
+    pcVar8 = pcVar8 + -uVar5;
+    for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+      *(undefined4 *)pcVar11 = *(undefined4 *)pcVar8;
+      pcVar8 = pcVar8 + 4;
+      pcVar11 = pcVar11 + 4;
     }
-    for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *pcVar10 = *pcVar7;
-      pcVar7 = pcVar7 + 1;
-      pcVar10 = pcVar10 + 1;
+    for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+      *pcVar11 = *pcVar8;
+      pcVar8 = pcVar8 + 1;
+      pcVar11 = pcVar11 + 1;
     }
     return puVar2;
   default:
     goto switchD_004c11e0_default;
   }
-  uVar4 = 0xffffffff;
+  uVar5 = 0xffffffff;
   do {
-    pcVar7 = ext;
-    if (uVar4 == 0) break;
-    uVar4 = uVar4 - 1;
-    pcVar7 = ext + 1;
+    pcVar8 = ext;
+    if (uVar5 == 0) break;
+    uVar5 = uVar5 - 1;
+    pcVar8 = ext + 1;
     cVar1 = *ext;
-    ext = pcVar7;
+    ext = pcVar8;
   } while (cVar1 != '\0');
-  uVar4 = ~uVar4;
-  iVar3 = -1;
+  uVar5 = ~uVar5;
+  iVar4 = -1;
   do {
-    pcVar9 = pcVar10;
-    if (iVar3 == 0) break;
-    iVar3 = iVar3 + -1;
-    pcVar9 = pcVar10 + 1;
-    cVar1 = *pcVar10;
-    pcVar10 = pcVar9;
+    pcVar10 = pcVar11;
+    if (iVar4 == 0) break;
+    iVar4 = iVar4 + -1;
+    pcVar10 = pcVar11 + 1;
+    cVar1 = *pcVar11;
+    pcVar11 = pcVar10;
   } while (cVar1 != '\0');
-  pcVar7 = pcVar7 + -uVar4;
-  pcVar10 = pcVar9 + -1;
-  for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-    *(undefined4 *)pcVar10 = *(undefined4 *)pcVar7;
-    pcVar7 = pcVar7 + 4;
-    pcVar10 = pcVar10 + 4;
+  pcVar8 = pcVar8 + -uVar5;
+  pcVar11 = pcVar10 + -1;
+  for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+    *(undefined4 *)pcVar11 = *(undefined4 *)pcVar8;
+    pcVar8 = pcVar8 + 4;
+    pcVar11 = pcVar11 + 4;
   }
-  for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-    *pcVar10 = *pcVar7;
-    pcVar7 = pcVar7 + 1;
-    pcVar10 = pcVar10 + 1;
+  for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+    *pcVar11 = *pcVar8;
+    pcVar8 = pcVar8 + 1;
+    pcVar11 = pcVar11 + 1;
   }
 switchD_004c11e0_default:
   return puVar2;

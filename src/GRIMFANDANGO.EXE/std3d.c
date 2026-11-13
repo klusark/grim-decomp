@@ -1661,9 +1661,9 @@ undefined * __stdcall D3D_EnumDevicesCallback(int a1,int a2,int a3,int a4,int a5
     iVar1 = g_dwD3dDriverCount * 0x22c;
     iVar4 = g_dwD3dDriverCount * 0x8b;
     Mem_Copy((void *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00900d5c)),(void *)a1,0x10);
-    strncpy(iVar1 + 0x900c08,a2,0x7f);
+    strncpy((uint *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00900c08)),(uint *)a2,0x7f);
     (&DAT_00900c87)[iVar1] = 0;
-    strncpy(iVar1 + 0x900b88,a3,0x7f);
+    strncpy((uint *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00900b88)),(uint *)a3,0x7f);
     (&DAT_00900c07)[iVar1] = 0;
     if (*(int *)(a4 + 8) == 0) {
       (&UINT_00900b40)[iVar4] = 0;

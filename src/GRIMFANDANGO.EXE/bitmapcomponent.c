@@ -11,14 +11,15 @@
    sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a bitmap key or
    asks for an image file (.pcx/.gif/.lbm) and loads it as a bitmap resource. */
 
-undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+uint __cdecl BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   char cVar2;
   int iVar3;
-  char *pcVar4;
+  char *name;
+  uint *puVar4;
   char *data;
   undefined4 *ref;
   uint uVar5;
@@ -27,13 +28,12 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   char *pcVar8;
   char *pcVar9;
   undefined4 *puVar10;
-  undefined4 uVar11;
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
   #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(undefined1 (*)[31])(_frame + (0x50 - 0x20)))
+  #define local_20 (*(uint (*)[7])(_frame + (0x50 - 0x20)))
   #define local_1 (*(undefined1 *)(_frame + (0x50 - 0x1)))
   
   local_34 = 1;
@@ -51,23 +51,23 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
     if (iVar7 == 0) {
       return 0;
     }
-    uVar11 = 0x7f;
-    pcVar4 = grimPlat_GetDefaultOpenPath();
-    strncpy(&g_bBitmapPath,pcVar4,uVar11);
+    uVar5 = 0x7f;
+    puVar4 = (uint *)grimPlat_GetDefaultOpenPath();
+    strncpy((uint *)&g_bBitmapPath,puVar4,uVar5);
     DAT_008ca8b7 = 0;
-    pcVar4 = stdFnames_FindMedName(g_szGrimlib_aFilename);
+    name = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   else {
-    strncpy(local_20,param_5,0x1f);
+    strncpy(local_20,(uint *)param_5,0x1f);
     local_1 = 0;
-    pcVar4 = (char *)strtok(local_20,&DAT_004ea52c);
+    name = (char *)strtok((byte *)local_20,&DAT_004ea52c);
   }
-  data = sputResource_Alloc(0x444e4b42,pcVar4);
+  data = sputResource_Alloc(0x444e4b42,name);
   if (data == (char *)0x0) {
     return 0;
   }
   uVar5 = 0xffffffff;
-  pcVar8 = pcVar4;
+  pcVar8 = name;
   do {
     pcVar9 = pcVar8;
     if (uVar5 == 0) break;
@@ -131,7 +131,7 @@ undefined4 BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char
   }
   local_28 = -(uint)((char *)local_24 != (char *)0x0) & g_dwLECBitmaps;
   if (param_5 == (char *)0x0) {
-    param_5 = pcVar4;
+    param_5 = name;
   }
   iVar7 = Cos_RegisterComponent
                     (param_1,(int)param_5,(int)ref,param_2,param_3,param_4,(int)&local_34);

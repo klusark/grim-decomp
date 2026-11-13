@@ -516,14 +516,15 @@ void * __cdecl sputResource_SetHandler(int *param_1)
 
 {
   int iVar1;
+  uint *data;
   void *pvVar2;
   
   if (param_1[2] == 0x20544553) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
-      pvVar2 = (void *)sputRoom_LoadRoom(param_1[1]);
-      if (pvVar2 != (void *)0x0) {
-        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
+      data = sputRoom_LoadRoom((char *)param_1[1]);
+      if (data != (uint *)0x0) {
+        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],data);
         return pvVar2;
       }
     }

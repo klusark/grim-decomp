@@ -38,7 +38,7 @@ undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2)
 /* Module interface slot 1 (sputRoom): called by Engine_ResetSubsystems / when registration fails;
    drops the service table pointer and clears the initialised flag. */
 
-void sputRoom_Terminate(void)
+void __cdecl sputRoom_Terminate(void)
 
 {
   g_pSputRoomHS = (GrimServices *)0x0;
@@ -55,7 +55,7 @@ void sputRoom_Terminate(void)
    sputRoom_Startup (the remaster's GrimFandango (Linux): strings: 'setups' | 'colormaps' |
    'sectors'); was sputRoom_Start. */
 
-undefined4 sputRoom_Startup(void)
+uint __cdecl sputRoom_Startup(void)
 
 {
   if (g_dwSputRoomStartup != 0) {
@@ -75,7 +75,7 @@ undefined4 sputRoom_Startup(void)
    releases what _Start created. Original name sputRoom_Shutdown (the remaster's GrimFandango
    (Linux): the module's shutdown slot: frees the room list with psputRoomHS); was sputRoom_Stop. */
 
-void sputRoom_Shutdown(void)
+void __cdecl sputRoom_Shutdown(void)
 
 {
   int iVar1;
@@ -108,7 +108,7 @@ void sputRoom_Shutdown(void)
    +0x2c: type +0x30 (omni 2, spot 3, direct 0), direction +0x38 (normalised), position +0x20,
    intensity +0x44 (raw), color +0x48 (packed RGB), umbraangle +0x4c, penumbraangle +0x54. */
 
-undefined4 sputRoom_ParseLights(void)
+uint __cdecl sputRoom_ParseLights(void)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -254,7 +254,7 @@ LAB_004a5767:
    name, background, zbuffer, position, interest, roll, fov, nclip, fclip (300-byte setup records at
    set+0xac). */
 
-undefined4 sputRoom_ParseSetups(void)
+uint __cdecl sputRoom_ParseSetups(void)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

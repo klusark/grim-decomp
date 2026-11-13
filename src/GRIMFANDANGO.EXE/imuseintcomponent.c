@@ -12,19 +12,19 @@
    GrimFandango (Linux): the same handler slot (requester) of the same costume tag registration in
    sputCostume_Startup); was ImuseIntComponent_Create. */
 
-int IMuseRequester(uint param_1,int param_2,int param_3,int param_4)
+int __cdecl IMuseRequester(uint param_1,int param_2,int param_3,int param_4)
 
 {
   char *pcVar1;
   int iVar2;
   
   if (param_3 != 0) {
-    return false;
+    return 0;
   }
   pcVar1 = s_iMuse_Sequence_004ea2b4;
   if (param_2 != 0x65736d69) {
     pcVar1 = s_iMuse_State_004ea2a8;
   }
   iVar2 = Cos_RegisterComponent(param_1,(int)pcVar1,1,param_2,0,param_4,0);
-  return iVar2 != 0;
+  return (uint)(iVar2 != 0);
 }

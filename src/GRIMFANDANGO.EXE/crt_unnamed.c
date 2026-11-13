@@ -904,7 +904,8 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
       if (*(int *)((int)g_pLightEdSet + 0xb8) != 0) {
         puVar8 = &UINT_008d1730;
         do {
-          if ((uVar3 != iVar4) && (iVar5 = _stricmp(*puVar8,&local_28), iVar5 == 0)) break;
+          if ((uVar3 != iVar4) && (iVar5 = _stricmp((byte *)*puVar8,(byte *)&local_28), iVar5 == 0))
+          break;
           uVar3 = uVar3 + 1;
           puVar8 = puVar8 + 5;
         } while (uVar3 < *(uint *)((int)g_pLightEdSet + 0xb8));
@@ -2985,14 +2986,15 @@ void fle_Remove(undefined4 param_1)
 /* Original name fle_DirectoryLoad (the remaster's GrimFandango (Linux): slot 0 of the
    "DIRECTORY=insane_directory" service table); was FUN_004c53e0. */
 
-int fle_DirectoryLoad(undefined4 param_1,int param_2,int param_3,undefined4 param_4,byte param_5)
+int fle_DirectoryLoad(undefined4 param_1,uint *param_2,int param_3,undefined4 param_4,byte param_5)
 
 {
   unsigned char _frame[0x260] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
-  int iVar4;
+  uint *puVar4;
+  uint *puVar5;
   #define local_24c (*(byte (*)[44])(_frame + (0x260 - 0x24c)))
   #define local_220 (*(char (*)[276])(_frame + (0x260 - 0x220)))
   #define local_10c (*(char (*)[268])(_frame + (0x260 - 0x10c)))
@@ -3000,29 +3002,29 @@ int fle_DirectoryLoad(undefined4 param_1,int param_2,int param_3,undefined4 para
   iVar3 = 0;
   sprintf(local_10c,&DAT_004e7af8,param_1,param_4);
   if (((param_5 & 1) == 0) &&
-     (iVar1 = FindFirstFileA((int)local_10c,(int)local_24c), iVar2 = param_2, iVar1 != -1)) {
+     (iVar1 = FindFirstFileA((int)local_10c,(int)local_24c), puVar4 = param_2, iVar1 != -1)) {
     do {
-      iVar4 = iVar2;
+      puVar5 = puVar4;
       if (((local_24c[0] & 0x10) != 0) && (local_220[0] != '.')) {
         iVar3 = iVar3 + 1;
-        iVar4 = iVar2 + 0x40;
-        strncpy(iVar2,local_220,0x40);
+        puVar5 = puVar4 + 0x10;
+        strncpy(puVar4,(uint *)local_220,0x40);
       }
       iVar2 = FindNextFileA(iVar1,(int)local_24c);
-    } while ((iVar2 != 0) && (iVar2 = iVar4, iVar3 < param_3));
+    } while ((iVar2 != 0) && (puVar4 = puVar5, iVar3 < param_3));
   }
   if (((param_5 & 2) == 0) &&
-     ((iVar3 < param_3 && (iVar2 = FindFirstFileA((int)local_10c,(int)local_24c), iVar2 != -1)))) {
-    iVar1 = iVar3 * 0x40 + param_2;
+     ((iVar3 < param_3 && (iVar1 = FindFirstFileA((int)local_10c,(int)local_24c), iVar1 != -1)))) {
+    puVar4 = param_2 + iVar3 * 0x10;
     do {
-      iVar4 = iVar1;
+      puVar5 = puVar4;
       if ((local_24c[0] & 0x10) == 0) {
         iVar3 = iVar3 + 1;
-        iVar4 = iVar1 + 0x40;
-        strncpy(iVar1,local_220,0x40);
+        puVar5 = puVar4 + 0x10;
+        strncpy(puVar4,(uint *)local_220,0x40);
       }
-      iVar1 = FindNextFileA(iVar2,(int)local_24c);
-    } while ((iVar1 != 0) && (iVar1 = iVar4, iVar3 < param_3));
+      iVar2 = FindNextFileA(iVar1,(int)local_24c);
+    } while ((iVar2 != 0) && (puVar4 = puVar5, iVar3 < param_3));
   }
   return iVar3;
 }
@@ -3100,35 +3102,35 @@ int fle_DirectoryGetCWD(char *param_1,int param_2)
 /* Original name fle_DirectoryGetParent (the remaster's GrimFandango (Linux): slot 2 of the
    "DIRECTORY=insane_directory" service table); was FUN_004c5570. */
 
-undefined4 fle_DirectoryGetParent(int param_1,char *param_2)
+undefined4 fle_DirectoryGetParent(uint *param_1,uint *param_2)
 
 {
   char *pcVar1;
-  char cVar2;
+  uint uVar2;
   uint uVar3;
   int iVar4;
-  char *pcVar5;
+  uint *puVar5;
   
-  uVar3 = 0xffffffff;
-  pcVar5 = param_2;
+  uVar2 = 0xffffffff;
+  puVar5 = param_2;
   do {
-    if (uVar3 == 0) break;
-    uVar3 = uVar3 - 1;
-    cVar2 = *pcVar5;
-    pcVar5 = pcVar5 + 1;
-  } while (cVar2 != '\0');
-  iVar4 = ~uVar3 - 1;
-  if (((iVar4 < 3) || (param_2[~uVar3 - 3] == ':')) ||
-     (pcVar5 = param_2 + iVar4, (param_2 + iVar4)[-1] != '\\')) {
+    if (uVar2 == 0) break;
+    uVar2 = uVar2 - 1;
+    uVar3 = *puVar5;
+    puVar5 = (uint *)((int)puVar5 + 1);
+  } while ((char)uVar3 != '\0');
+  uVar3 = ~uVar2 - 1;
+  if ((((int)uVar3 < 3) || (*(char *)((~uVar2 - 3) + (int)param_2) == ':')) ||
+     (iVar4 = uVar3 + (int)param_2, *(char *)(uVar3 + (int)param_2 + -1) != '\\')) {
     return 0xffffffff;
   }
   do {
+    uVar3 = uVar3 - 1;
+    if ((uVar3 == 0) || (pcVar1 = (char *)(iVar4 + -2), *pcVar1 == '\\')) break;
     iVar4 = iVar4 + -1;
-    if ((iVar4 == 0) || (pcVar1 = pcVar5 + -2, *pcVar1 == '\\')) break;
-    pcVar5 = pcVar5 + -1;
   } while (*pcVar1 != ':');
-  strncpy(param_1,param_2,iVar4);
-  *(undefined1 *)(iVar4 + param_1) = 0;
+  strncpy(param_1,param_2,uVar3);
+  *(undefined1 *)(uVar3 + (int)param_1) = 0;
   return 0;
 }
 
@@ -3136,7 +3138,7 @@ undefined4 fle_DirectoryGetParent(int param_1,char *param_2)
 /* Original name fle_DirectoryGetPath (the remaster's GrimFandango (Linux): slot 3 of the
    "DIRECTORY=insane_directory" service table); was FUN_004c55d0. */
 
-undefined4 fle_DirectoryGetPath(char *param_1,char *param_2,char *param_3,undefined4 param_4)
+undefined4 fle_DirectoryGetPath(uint *param_1,uint *param_2,uint *param_3,undefined4 param_4)
 
 {
   char cVar1;
@@ -3144,50 +3146,51 @@ undefined4 fle_DirectoryGetPath(char *param_1,char *param_2,char *param_3,undefi
   int iVar3;
   uint uVar4;
   uint uVar5;
-  char *pcVar6;
-  char *pcVar7;
+  uint *puVar6;
+  uint *puVar7;
   char *pcVar8;
-  char *pcVar9;
+  uint *puVar9;
+  char *pcVar10;
   
-  pcVar6 = param_3;
+  puVar6 = param_3;
   uVar4 = 0xffffffff;
-  pcVar7 = param_3;
+  puVar7 = param_3;
   do {
     if (uVar4 == 0) break;
     uVar4 = uVar4 - 1;
-    cVar1 = *pcVar7;
-    pcVar7 = pcVar7 + 1;
-  } while (cVar1 != '\0');
-  if ((~uVar4 - 1 < 2) || (param_3[1] != ':')) {
+    uVar5 = *puVar7;
+    puVar7 = (uint *)((int)puVar7 + 1);
+  } while ((char)uVar5 != '\0');
+  if ((~uVar4 - 1 < 2) || (*(char *)((int)param_3 + 1) != ':')) {
     if (param_1 != param_2) {
       uVar4 = 0xffffffff;
-      pcVar7 = param_2;
+      puVar7 = param_2;
       do {
-        pcVar9 = pcVar7;
+        puVar9 = puVar7;
         if (uVar4 == 0) break;
         uVar4 = uVar4 - 1;
-        pcVar9 = pcVar7 + 1;
-        cVar1 = *pcVar7;
-        pcVar7 = pcVar9;
-      } while (cVar1 != '\0');
+        puVar9 = (uint *)((int)puVar7 + 1);
+        uVar5 = *puVar7;
+        puVar7 = puVar9;
+      } while ((char)uVar5 != '\0');
       uVar4 = ~uVar4;
-      pcVar7 = pcVar9 + -uVar4;
-      pcVar9 = param_1;
+      puVar7 = (uint *)((int)puVar9 - uVar4);
+      puVar9 = param_1;
       for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-        *(undefined4 *)pcVar9 = *(undefined4 *)pcVar7;
-        pcVar7 = pcVar7 + 4;
-        pcVar9 = pcVar9 + 4;
+        *puVar9 = *puVar7;
+        puVar7 = puVar7 + 1;
+        puVar9 = puVar9 + 1;
       }
       for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-        *pcVar9 = *pcVar7;
-        pcVar7 = pcVar7 + 1;
-        pcVar9 = pcVar9 + 1;
+        *(char *)puVar9 = (char)*puVar7;
+        puVar7 = (uint *)((int)puVar7 + 1);
+        puVar9 = (uint *)((int)puVar9 + 1);
       }
     }
   }
   else {
     FUN_004c5370(&param_2);
-    cVar1 = *pcVar6;
+    cVar1 = (char)*puVar6;
     if ((cVar1 < 'a') || ('z' < cVar1)) {
       iVar3 = (int)cVar1;
     }
@@ -3197,70 +3200,70 @@ undefined4 fle_DirectoryGetPath(char *param_1,char *param_2,char *param_3,undefi
     FUN_004c5350(iVar3 + -0x40,&param_3);
     fle_DirectoryGetCWD(param_1,param_4);
     FUN_004c5350(param_2,&param_3);
-    pcVar6 = pcVar6 + 2;
+    puVar6 = (uint *)((int)puVar6 + 2);
   }
-  if ((*pcVar6 == '\\') && (pcVar6[1] != '\\')) {
-    param_1[2] = '\\';
-    param_1[3] = '\0';
-    pcVar6 = pcVar6 + 1;
+  if (((char)*puVar6 == '\\') && (*(char *)((int)puVar6 + 1) != '\\')) {
+    *(undefined1 *)((int)param_1 + 2) = 0x5c;
+    *(undefined1 *)((int)param_1 + 3) = 0;
+    puVar6 = (uint *)((int)puVar6 + 1);
   }
-  cVar1 = *pcVar6;
+  cVar1 = (char)*puVar6;
   do {
     cVar2 = cVar1;
-    pcVar7 = pcVar6;
+    puVar7 = puVar6;
     if (cVar1 == '\0') {
       return 0;
     }
     while ((cVar2 != '\0' && (cVar2 != '\\'))) {
-      cVar2 = pcVar7[1];
-      pcVar7 = pcVar7 + 1;
+      cVar2 = *(char *)((int)puVar7 + 1);
+      puVar7 = (uint *)((int)puVar7 + 1);
     }
     if (cVar1 == '.') {
-      if (pcVar6[1] == '.') {
+      if (*(char *)((int)puVar6 + 1) == '.') {
         fle_DirectoryGetParent(param_1,param_1);
       }
     }
     else {
-      FUN_004ae410(param_1,pcVar6,(int)pcVar7 - (int)pcVar6);
+      FUN_004ae410(param_1,puVar6,(int)puVar7 - (int)puVar6);
       uVar4 = 0xffffffff;
-      pcVar6 = &DAT_004e9c60;
+      pcVar8 = &DAT_004e9c60;
       do {
-        pcVar9 = pcVar6;
+        pcVar10 = pcVar8;
         if (uVar4 == 0) break;
         uVar4 = uVar4 - 1;
-        pcVar9 = pcVar6 + 1;
-        cVar1 = *pcVar6;
-        pcVar6 = pcVar9;
+        pcVar10 = pcVar8 + 1;
+        cVar1 = *pcVar8;
+        pcVar8 = pcVar10;
       } while (cVar1 != '\0');
       uVar4 = ~uVar4;
       iVar3 = -1;
-      pcVar6 = param_1;
+      puVar6 = param_1;
       do {
-        pcVar8 = pcVar6;
+        puVar9 = puVar6;
         if (iVar3 == 0) break;
         iVar3 = iVar3 + -1;
-        pcVar8 = pcVar6 + 1;
-        cVar1 = *pcVar6;
-        pcVar6 = pcVar8;
-      } while (cVar1 != '\0');
-      pcVar6 = pcVar9 + -uVar4;
-      pcVar9 = pcVar8 + -1;
+        puVar9 = (uint *)((int)puVar6 + 1);
+        uVar5 = *puVar6;
+        puVar6 = puVar9;
+      } while ((char)uVar5 != '\0');
+      pcVar8 = pcVar10 + -uVar4;
+      pcVar10 = (char *)((int)puVar9 + -1);
       for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-        *(undefined4 *)pcVar9 = *(undefined4 *)pcVar6;
-        pcVar6 = pcVar6 + 4;
-        pcVar9 = pcVar9 + 4;
+        *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+        pcVar8 = pcVar8 + 4;
+        pcVar10 = pcVar10 + 4;
       }
       for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-        *pcVar9 = *pcVar6;
-        pcVar6 = pcVar6 + 1;
-        pcVar9 = pcVar9 + 1;
+        *pcVar10 = *pcVar8;
+        pcVar8 = pcVar8 + 1;
+        pcVar10 = pcVar10 + 1;
       }
     }
-    if (*pcVar7 == '\0') {
+    if ((char)*puVar7 == '\0') {
       return 0;
     }
-    cVar1 = pcVar7[1];
-    pcVar6 = pcVar7 + 1;
+    cVar1 = *(char *)((int)puVar7 + 1);
+    puVar6 = (uint *)((int)puVar7 + 1);
   } while( true );
 }
 
@@ -3376,7 +3379,7 @@ int * Zfile_fle_Open(char *param_1,char *param_2)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
-  int iVar2;
+  uint *puVar2;
   void *pvVar3;
   undefined4 uVar4;
   undefined **ppuVar5;
@@ -3399,8 +3402,8 @@ int * Zfile_fle_Open(char *param_1,char *param_2)
         ((param_2[1] == '\0' || (param_2[2] != '+')))) && (0 < (int)UINT_004f1c20)) {
       ppuVar5 = &PTR_DAT_004f1c28;
       do {
-        iVar2 = String_ContainsSubstring(param_1,*ppuVar5);
-        if (iVar2 != 0) {
+        puVar2 = String_ContainsSubstring((uint *)param_1,*ppuVar5);
+        if (puVar2 != (uint *)0x0) {
           pvVar3 = SaveFile_Open(param_1,param_2);
           *piVar1 = (int)pvVar3;
           if (pvVar3 != (void *)0x0) {
@@ -3742,7 +3745,7 @@ int fle_GetS(undefined4 param_1,int param_2,int param_3)
 /* Original name fle_PrintF (the remaster's GrimFandango (Linux): slot 10 of the
    "FILE=insane_stdfile" service table); was FUN_004c5f80. */
 
-void fle_PrintF(undefined4 param_1,undefined4 param_2)
+void fle_PrintF(undefined4 param_1,uint param_2)
 
 {
   unsigned char _frame[0x210];  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3751,7 +3754,7 @@ void fle_PrintF(undefined4 param_1,undefined4 param_2)
   char *pcVar3;
   #define local_1f4 (*(char (*)[500])(_frame + (0x210 - 0x1f4)))
   
-  vsprintf(local_1f4,param_2,&STACK0X(0x0000000c));
+  vsprintf((uint)local_1f4,param_2,(uint)&STACK0X(0x0000000c));
   uVar2 = 0xffffffff;
   pcVar3 = local_1f4;
   do {
@@ -4593,8 +4596,10 @@ int msc_error_SaveString(void)
 
 {
   uint uVar1;
+  uint in_stack_00000004;
   
-  ((code *)vsprintf)(&g_aMsc_error_string + g_dwMsc_error_loc * 200);
+  vsprintf((uint)(&g_aMsc_error_string + g_dwMsc_error_loc * 200),in_stack_00000004,
+           (uint)&STACK0X(0x00000008));
   uVar1 = 0x13;
   if (g_dwMsc_error_loc == 0x13) {
     g_dwMsc_error_loc = 0;

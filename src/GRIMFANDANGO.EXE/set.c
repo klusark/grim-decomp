@@ -77,7 +77,7 @@ void * __cdecl grimlib_MakeCurrentSetup(uint setup)
   uVar1 = *(uint *)((int)pvVar2 + 0xb4);
   if (setup != uVar1) {
     *(uint *)((int)pvVar2 + 0xb4) = setup;
-    sputRoom_SetSoundParameters(pvVar2,0x41000000,0x14,0x7f,0x3fc00000,0x3f4ccccd);
+    sputRoom_SetSoundParameters((int)pvVar2,0x41000000,0x14,0x7f,0x3fc00000,0x3f4ccccd);
     sputLua_CameraChange(uVar1,setup);
     pvVar3 = (void *)((code *)sputRoom_RelocateSounds)();
   }
@@ -338,16 +338,16 @@ void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx)
    grimlib_MakeCurrentSetup, sputLua_SetSoundParametersL, sputRoom_SetCurrentRoom); was
    Set_SetSoundParams. */
 
-void sputRoom_SetSoundParameters
-               (int param_1,undefined4 param_2,undefined1 param_3,undefined1 param_4,
-               undefined4 param_5,undefined4 param_6)
+void __cdecl
+sputRoom_SetSoundParameters
+          (int param_1,uint param_2,byte param_3,byte param_4,uint param_5,uint param_6)
 
 {
-  *(undefined1 *)(param_1 + 0x1af8) = param_3;
-  *(undefined4 *)(param_1 + 0x1afc) = param_2;
-  *(undefined1 *)(param_1 + 0x1af9) = param_4;
-  *(undefined4 *)(param_1 + 0x1b00) = param_5;
-  *(undefined4 *)(param_1 + 0x1b04) = param_6;
+  *(byte *)(param_1 + 0x1af8) = param_3;
+  *(uint *)(param_1 + 0x1afc) = param_2;
+  *(byte *)(param_1 + 0x1af9) = param_4;
+  *(uint *)(param_1 + 0x1b00) = param_5;
+  *(uint *)(param_1 + 0x1b04) = param_6;
   return;
 }
 
@@ -391,8 +391,8 @@ void __cdecl sputRoom_SetCurrentRoom(void *set,int param_2)
         ;
       }
       sputRoom_LoadResources(g_pCurrentSet);
-      strncpy(g_szSputRoom_CurrentRoomName,set,0x20);
-      sputRoom_SetSoundParameters(set,0x41000000,0x14,0x7f,0x3fc00000,0x3f4ccccd);
+      strncpy((uint *)g_szSputRoom_CurrentRoomName,set,0x20);
+      sputRoom_SetSoundParameters((int)set,0x41000000,0x14,0x7f,0x3fc00000,0x3f4ccccd);
     }
   }
   return;
@@ -543,9 +543,9 @@ int __cdecl sputRoom_Restore(void *readFn)
   WalkPlane *this;
   float fVar2;
   int iVar3;
+  uint *data;
   void *pvVar4;
-  void *pvVar5;
-  int iVar6;
+  int iVar5;
   #define uStack_74 (*(uint *)(_frame + (0x90 - 0x74)))
   #define iStack_70 (*(int *)(_frame + (0x90 - 0x70)))
   #define iStack_6c (*(int *)(_frame + (0x90 - 0x6c)))
@@ -570,32 +570,31 @@ int __cdecl sputRoom_Restore(void *readFn)
   if (0 < local_60) {
     do {
       (*(code *)readFn)(&pvStack_5c,4);
-      pvVar4 = Res_HandleFromSerialNumber(pvStack_5c);
-      if (pvVar4 == (void *)0x0) {
+      data = Res_HandleFromSerialNumber(pvStack_5c);
+      if (data == (uint *)0x0) {
         return 1;
       }
-      (*(code *)readFn)((int)pvVar4 + 0xb4,4);
+      (*(code *)readFn)(data + 0x2d,4);
       if (g_dwSputRoom_pCurrentRoom != 0) {
         Res_RemoveReference(&g_dwSputRoom_pCurrentRoom);
       }
-      Res_SetReference(&g_dwSputRoom_pCurrentRoom,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0
-                       ,0x210);
+      Res_SetReference(&g_dwSputRoom_pCurrentRoom,data,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,
+                       0x210);
       if (g_dwSputRoom_pCurrentRoom == 0) {
         (*g_pStd_HS->pAssertFail)(s_Bad_room_Reference_004ec62c,s_main_sputResource_h_004e80a8,0xa4)
         ;
       }
       sputRoom_LoadResources(g_pCurrentSet);
-      strncpy(g_szSputRoom_CurrentRoomName,pvVar4,0x20);
+      strncpy((uint *)g_szSputRoom_CurrentRoomName,data,0x20);
       (*(code *)readFn)(&iStack_58,4);
       if (iStack_58 != 0) {
-        Res_SetReference((void *)((int)pvVar4 + 0x1ac0),pvVar4,
-                         s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x217);
+        Res_SetReference(data + 0x6b0,data,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x217);
       }
       iStack_70 = 0;
-      if (0 < *(int *)((int)pvVar4 + 0xb0)) {
+      if (0 < (int)data[0x2c]) {
         iStack_6c = 0;
         do {
-          iVar3 = iStack_6c + *(int *)((int)pvVar4 + 0xac);
+          iVar3 = iStack_6c + data[0x2b];
           (*(code *)readFn)(&uStack_74,4);
           iStack_68 = 0;
           if (0 < (int)uStack_74) {
@@ -607,38 +606,38 @@ int __cdecl sputRoom_Restore(void *readFn)
               (*(code *)readFn)(&uStack_4c,4);
               (*(code *)readFn)(&iStack_48,4);
               sputRoom_AddObjectState(iStack_70,iStack_50,acStack_20,acStack_40,iStack_54);
-              iVar6 = *(int *)(iVar3 + 0x128);
-              iVar1 = *(int *)(iVar6 + 0x40);
+              iVar5 = *(int *)(iVar3 + 0x128);
+              iVar1 = *(int *)(iVar5 + 0x40);
               if (iVar1 != 0) {
                 if (iVar1 == 0) {
                   (*g_pStd_HS->pAssertFail)
                             (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
                 }
-                *(undefined4 *)(*(int *)(iVar6 + 0x44) + 0x68) = uStack_4c;
+                *(undefined4 *)(*(int *)(iVar5 + 0x44) + 0x68) = uStack_4c;
               }
-              iVar6 = *(int *)(iVar3 + 0x128);
-              iVar1 = *(int *)(iVar6 + 0xb4);
+              iVar5 = *(int *)(iVar3 + 0x128);
+              iVar1 = *(int *)(iVar5 + 0xb4);
               if (iVar1 != 0) {
                 if (iVar1 == 0) {
                   (*g_pStd_HS->pAssertFail)
                             (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
                 }
-                *(int *)(*(int *)(iVar6 + 0xb8) + 0x68) = iStack_48;
+                *(int *)(*(int *)(iVar5 + 0xb8) + 0x68) = iStack_48;
               }
               iStack_68 = iStack_68 + 1;
             } while (iStack_68 < (int)uStack_74);
           }
-          iVar6 = 0;
+          iVar5 = 0;
           if (0 < (int)uStack_74) {
             do {
-              pvVar5 = ObjectState_MoveToBack(*(void **)(iVar3 + 0x128),*(void **)(iVar3 + 0x128));
-              *(void **)(iVar3 + 0x128) = pvVar5;
-              iVar6 = iVar6 + 1;
-            } while (iVar6 < (int)uStack_74);
+              pvVar4 = ObjectState_MoveToBack(*(void **)(iVar3 + 0x128),*(void **)(iVar3 + 0x128));
+              *(void **)(iVar3 + 0x128) = pvVar4;
+              iVar5 = iVar5 + 1;
+            } while (iVar5 < (int)uStack_74);
           }
           iStack_70 = iStack_70 + 1;
           iStack_6c = iStack_6c + 300;
-        } while (iStack_70 < *(int *)((int)pvVar4 + 0xb0));
+        } while (iStack_70 < (int)data[0x2c]);
       }
       fStack_64 = PUN(float,(PUN(int,(float)fStack_64) + 1));
     } while (PUN(int,(float)fStack_64) < local_60);
@@ -700,32 +699,32 @@ int __cdecl sputRoom_Restore(void *readFn)
    (Linux): same body (alloc the set record, LoadRoomEntry, look the name up in the set list, Puck
    validate, free on failure); sputResource_SetHandler's call); was sputResource_SetHandler. */
 
-undefined4 * sputRoom_LoadRoom(char *param_1)
+uint * __cdecl sputRoom_LoadRoom(char *param_1)
 
 {
   int *piVar1;
   ActorExtra *pAVar2;
-  undefined4 *puVar3;
+  uint *puVar3;
   void *pvVar4;
   int iVar5;
-  undefined4 *puVar6;
+  uint *puVar6;
   
-  puVar3 = (undefined4 *)
-           (*g_pSputRoomHS->pAlloc)(0x1b08,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x306);
-  if (puVar3 != (undefined4 *)0x0) {
+  puVar3 = (uint *)(*g_pSputRoomHS->pAlloc)
+                             (0x1b08,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x306);
+  if (puVar3 != (uint *)0x0) {
     puVar6 = puVar3;
     for (iVar5 = 0x6c2; iVar5 != 0; iVar5 = iVar5 + -1) {
       *puVar6 = 0;
       puVar6 = puVar6 + 1;
     }
     Set_InitRecord(puVar3);
-    iVar5 = SetFile_Parse(param_1,puVar3);
+    iVar5 = SetFile_Parse(param_1,(uint)puVar3);
     if (iVar5 != 0) {
-      pvVar4 = (void *)Set_FindNameInList(param_1);
+      pvVar4 = Set_FindNameInList((int)param_1);
       if (pvVar4 == (void *)0x0) {
         pvVar4 = Set_NormalizeName(param_1);
       }
-      puVar3[0x6af] = pvVar4;
+      puVar3[0x6af] = (uint)pvVar4;
       for (piVar1 = *(int **)((int)pvVar4 + 0x80); piVar1 != (int *)0x0; piVar1 = (int *)piVar1[2])
       {
         pAVar2 = g_pActors[*piVar1].pExtra;
@@ -737,18 +736,18 @@ undefined4 * sputRoom_LoadRoom(char *param_1)
       return puVar3;
     }
   }
-  sputRoom_FreeRoom(puVar3);
-  return (undefined4 *)0x0;
+  sputRoom_FreeRoom((uint)puVar3);
+  return (uint *)0x0;
 }
 
 /* ---- 0x004a4a70  Set_InitRecord ---- */
 /* Zeroes a 0x1b08-byte set record and fills the defaults (empty names, size field +0x1af4). */
 
-void Set_InitRecord(undefined4 *param_1)
+void __cdecl Set_InitRecord(uint *param_1)
 
 {
   int iVar1;
-  undefined4 *puVar2;
+  uint *puVar2;
   
   puVar2 = param_1;
   for (iVar1 = 0x6c2; iVar1 != 0; iVar1 = iVar1 + -1) {
@@ -763,9 +762,9 @@ void Set_InitRecord(undefined4 *param_1)
   param_1[0x21] = 1;
   param_1[0x20] = 0;
   *(undefined1 *)(param_1 + 0x23) = 0;
-  strncpy(param_1 + 0x23,&DAT_004ec60c,0x1f);
+  strncpy(param_1 + 0x23,(uint *)&DAT_004ec60c,0x1f);
   *(undefined1 *)((int)param_1 + 0xab) = 0;
-  strncpy(param_1,&DAT_004f5a98,0x1f);
+  strncpy(param_1,(uint *)&DAT_004f5a98,0x1f);
   *(undefined1 *)((int)param_1 + 0x1f) = 0;
   param_1[0x6bd] = 0x1b08;
   return;
@@ -826,10 +825,10 @@ void __cdecl sputRoom_UnReference(void *set)
    sputRoom_FreeRoom (the remaster's GrimFandango (Linux): same body (free the contents, then the
    record); the free call of sputResource_SetHandler); was Set_Free. */
 
-void sputRoom_FreeRoom(undefined4 param_1)
+void __cdecl sputRoom_FreeRoom(uint param_1)
 
 {
-  sputRoom_FreeRoomEntry(param_1);
+  sputRoom_FreeRoomEntry((char *)param_1);
   (*g_pSputRoomHS->pFree)(param_1);
   return;
 }
@@ -840,27 +839,27 @@ void sputRoom_FreeRoom(undefined4 param_1)
    GrimFandango (Linux): sputRoom_FreeRoom's only callee; callees sputRoom_UnReference,
    sputActor_ResetShadows, sputRoom_RemoveActor agree); was Set_FreeContents. */
 
-void sputRoom_FreeRoomEntry(char *param_1)
+void __cdecl sputRoom_FreeRoomEntry(char *param_1)
 
 {
-  int iVar1;
+  void *pvVar1;
   int *piVar2;
   
   sputRoom_UnReference(param_1);
   if (*(int *)(param_1 + 0x80) != 0) {
     (*g_pSputRoomHS->pFree)(*(int *)(param_1 + 0x80));
   }
-  Set_FreeSetups(param_1);
+  Set_FreeSetups((int)param_1);
   WalkPlane_KillCollection(param_1);
-  iVar1 = *(int *)(param_1 + 0x1abc);
-  if (iVar1 != 0) {
-    piVar2 = *(int **)(iVar1 + 0x80);
+  pvVar1 = *(void **)(param_1 + 0x1abc);
+  if (pvVar1 != (void *)0x0) {
+    piVar2 = *(int **)((int)pvVar1 + 0x80);
     while (piVar2 != (int *)0x0) {
       sputActor_ResetShadows(g_pActors + *piVar2);
-      sputRoom_RemoveActor(param_1,g_pActors + **(int **)(iVar1 + 0x80));
-      piVar2 = *(int **)(iVar1 + 0x80);
+      sputRoom_RemoveActor(param_1,g_pActors + **(int **)((int)pvVar1 + 0x80));
+      piVar2 = *(int **)((int)pvVar1 + 0x80);
     }
-    SetActorList_Free(iVar1);
+    SetActorList_Free(pvVar1);
     param_1[0x1abc] = '\0';
     param_1[0x1abd] = '\0';
     param_1[0x1abe] = '\0';
@@ -872,7 +871,7 @@ void sputRoom_FreeRoomEntry(char *param_1)
 /* ---- 0x004a4d10  Set_FreeSetups ---- */
 /* Frees every setup (300-byte records at set+0xac, count at +0xb0) and the array. */
 
-void Set_FreeSetups(int param_1)
+void __cdecl Set_FreeSetups(int param_1)
 
 {
   int iVar1;
@@ -898,7 +897,7 @@ void Set_FreeSetups(int param_1)
 /* ---- 0x004a4d80  Set_FreeSetup ---- */
 /* Frees one setup: camera (rdCamera_Free), rdThing, and clears the pointer fields. */
 
-void Set_FreeSetup(undefined4 param_1,int param_2)
+void __cdecl Set_FreeSetup(uint param_1,int param_2)
 
 {
   if (*(int *)(param_2 + 0x48) != 0) {
@@ -950,7 +949,7 @@ int __cdecl sputRoom_LoadResources(void *set)
     iVar9 = 0;
     do {
       if (*(int *)(iVar9 + *(int *)((int)set + 0x80)) == 0) {
-        iVar3 = _stricmp((char *)((int)set + 0x8c),&DAT_004ec60c);
+        iVar3 = _stricmp((byte *)((int)set + 0x8c),&DAT_004ec60c);
         if (iVar3 != 0) {
           pvVar4 = sputResource_Alloc(0x50414d43,(char *)((int)set + 0x8c));
           Res_SetReference((void *)(iVar9 + *(int *)((int)set + 0x80)),pvVar4,
@@ -980,7 +979,7 @@ int __cdecl sputRoom_LoadResources(void *set)
   do {
     if (g_nSkipSetupBitmaps == 0) {
       if (*ref == 0) {
-        iVar5 = _stricmp(ref + -0x10,&DAT_004ec60c);
+        iVar5 = _stricmp((byte *)(ref + -0x10),&DAT_004ec60c);
         if (iVar5 != 0) {
           pvVar4 = sputResource_Alloc(0x444e4b42,(char *)(ref + -0x10));
           Res_SetReference(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x702);
@@ -1093,7 +1092,7 @@ int __cdecl Set_RegisterHandle(char *name,void *fn)
     UINT_008cb0a4 = UINT_008cb0a4 + 1;
   }
   iVar2 = uVar1 * 0x24;
-  strncpy(&DAT_008cac08 + iVar2,name,0x1f);
+  strncpy((uint *)(&DAT_008cac08 + iVar2),(uint *)name,0x1f);
   (&DAT_008cac27)[iVar2] = 0;
   *(void **)(&DAT_008cac28 + iVar2) = fn;
   return 1;
@@ -1107,20 +1106,20 @@ int Set_FindHandle(char *name)
 {
   int iVar1;
   int iVar2;
-  undefined *puVar3;
+  byte *pbVar3;
   
   iVar2 = 0;
   if ((int)UINT_008cb0a4 < 1) {
     return -1;
   }
-  puVar3 = &DAT_008cac08;
+  pbVar3 = &DAT_008cac08;
   do {
-    iVar1 = _stricmp(puVar3,name);
+    iVar1 = _stricmp(pbVar3,(byte *)name);
     if (iVar1 == 0) {
       return iVar2;
     }
     iVar2 = iVar2 + 1;
-    puVar3 = puVar3 + 0x24;
+    pbVar3 = pbVar3 + 0x24;
   } while (iVar2 < (int)UINT_008cb0a4);
   return -1;
 }
@@ -1150,11 +1149,11 @@ int Set_IsHandleValid(char *param_1)
 void * __cdecl GetRoomActors(char *setName)
 
 {
-  int iVar1;
+  void *pvVar1;
   
-  iVar1 = Set_FindNameInList(setName);
-  if (iVar1 != 0) {
-    return *(void **)(iVar1 + 0x80);
+  pvVar1 = Set_FindNameInList((int)setName);
+  if (pvVar1 != (void *)0x0) {
+    return *(void **)((int)pvVar1 + 0x80);
   }
   return (void *)0x0;
 }
@@ -1162,20 +1161,20 @@ void * __cdecl GetRoomActors(char *setName)
 /* ---- 0x004a60c0  Set_FindNameInList ---- */
 /* Case-insensitive lookup in the linked set-name list */
 
-void * Set_FindNameInList(int param_1)
+void * __cdecl Set_FindNameInList(int param_1)
 
 {
   int iVar1;
-  void *pvVar2;
+  byte *pbVar2;
   
-  if ((param_1 != 0) && (pvVar2 = g_pRoomList, g_pRoomList != (void *)0x0)) {
+  if ((param_1 != 0) && (pbVar2 = g_pRoomList, g_pRoomList != (void *)0x0)) {
     do {
-      iVar1 = _stricmp(pvVar2,param_1);
+      iVar1 = _stricmp(pbVar2,(byte *)param_1);
       if (iVar1 == 0) {
-        return pvVar2;
+        return pbVar2;
       }
-      pvVar2 = *(void **)((int)pvVar2 + 0x84);
-    } while (pvVar2 != (void *)0x0);
+      pbVar2 = *(byte **)(pbVar2 + 0x84);
+    } while (pbVar2 != (byte *)0x0);
     return (void *)0x0;
   }
   return (void *)0x0;
@@ -1237,7 +1236,7 @@ void * __cdecl Set_NormalizeName(char *setName)
    remaster's GrimFandango (Linux): same body (select the named collection like SetCollection,
    unlink and free all its planes, restore the previous wp_head)); was Set_FreeSectors. */
 
-void WalkPlane_KillCollection(void *param_1)
+void __cdecl WalkPlane_KillCollection(void *param_1)
 
 {
   WalkPlane *plane;

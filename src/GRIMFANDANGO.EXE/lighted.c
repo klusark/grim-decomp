@@ -214,27 +214,27 @@ void __cdecl LightEd_DeleteLight(uint index)
 /* ---- 0x004be730  LightEd_MakeUniqueName ---- */
 /* newlight%d, skipping names already used in the set */
 
-void LightEd_MakeUniqueName(int param_1,char *param_2)
+void LightEd_MakeUniqueName(int param_1,byte *param_2)
 
 {
   int iVar1;
   uint uVar2;
   uint uVar3;
-  int iVar4;
+  byte *pbVar4;
   
   uVar2 = *(uint *)(param_1 + 0xb8);
   do {
     if (0x3f < uVar2) {
       return;
     }
-    sprintf(param_2,s_newlight_d_004f0d6c,uVar2);
+    sprintf((char *)param_2,s_newlight_d_004f0d6c,uVar2);
     uVar3 = 0;
     if (*(int *)(param_1 + 0xb8) != 0) {
-      iVar4 = param_1 + 0xbc;
+      pbVar4 = (byte *)(param_1 + 0xbc);
       do {
-        if ((uVar3 != uVar2) && (iVar1 = _stricmp(param_2,iVar4), iVar1 == 0)) break;
+        if ((uVar3 != uVar2) && (iVar1 = _stricmp(param_2,pbVar4), iVar1 == 0)) break;
         uVar3 = uVar3 + 1;
-        iVar4 = iVar4 + 0x68;
+        pbVar4 = pbVar4 + 0x68;
       } while (uVar3 < *(uint *)(param_1 + 0xb8));
     }
     if (*(uint *)(param_1 + 0xb8) <= uVar3) {
@@ -351,10 +351,11 @@ void LightEd_SaveSetFile(void)
   char cVar1;
   int iVar2;
   int iVar3;
-  uint uVar4;
+  uint *puVar4;
   uint uVar5;
-  char *pcVar6;
+  uint uVar6;
   char *pcVar7;
+  char *pcVar8;
   void *file;
   #define local_358 (*(uint *)(_frame + (0x370 - 0x358)))
   #define local_354 (*(uint *)(_frame + (0x370 - 0x354)))
@@ -371,7 +372,7 @@ void LightEd_SaveSetFile(void)
   #define local_318 (*(uint *)(_frame + (0x370 - 0x318)))
   #define local_314 (*(uint *)(_frame + (0x370 - 0x314)))
   #define local_310 (*(uint *)(_frame + (0x370 - 0x310)))
-  #define acStack_30c (*(char (*)[260])(_frame + (0x370 - 0x30c)))
+  #define auStack_30c (*(uint (*)[65])(_frame + (0x370 - 0x30c)))
   #define acStack_208 (*(char (*)[260])(_frame + (0x370 - 0x208)))
   #define local_104 (*(char (*)[260])(_frame + (0x370 - 0x104)))
   
@@ -379,7 +380,7 @@ void LightEd_SaveSetFile(void)
   local_354 = (uint)g_hLightEdDialog;
   local_350 = Win_GetInstance();
   local_33c = (uint)local_104;
-  uVar4 = 0xffffffff;
+  uVar5 = 0xffffffff;
   local_34c = (uint)s_Set_Files____set__004f0e0c;
   local_348 = 0;
   local_338 = 0x104;
@@ -391,27 +392,27 @@ void LightEd_SaveSetFile(void)
   local_318 = 0;
   local_314 = 0;
   local_310 = 0;
-  pcVar6 = g_pLightEdSet;
+  pcVar7 = g_pLightEdSet;
   do {
-    pcVar7 = pcVar6;
-    if (uVar4 == 0) break;
-    uVar4 = uVar4 - 1;
-    pcVar7 = pcVar6 + 1;
-    cVar1 = *pcVar6;
-    pcVar6 = pcVar7;
+    pcVar8 = pcVar7;
+    if (uVar5 == 0) break;
+    uVar5 = uVar5 - 1;
+    pcVar8 = pcVar7 + 1;
+    cVar1 = *pcVar7;
+    pcVar7 = pcVar8;
   } while (cVar1 != '\0');
-  uVar4 = ~uVar4;
-  pcVar6 = pcVar7 + -uVar4;
-  pcVar7 = local_104;
-  for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-    *(undefined4 *)pcVar7 = *(undefined4 *)pcVar6;
-    pcVar6 = pcVar6 + 4;
+  uVar5 = ~uVar5;
+  pcVar7 = pcVar8 + -uVar5;
+  pcVar8 = local_104;
+  for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+    *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
     pcVar7 = pcVar7 + 4;
+    pcVar8 = pcVar8 + 4;
   }
-  for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-    *pcVar7 = *pcVar6;
-    pcVar6 = pcVar6 + 1;
+  for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+    *pcVar8 = *pcVar7;
     pcVar7 = pcVar7 + 1;
+    pcVar8 = pcVar8 + 1;
   }
   iVar2 = GetSaveFileNameA((int)&local_358);
   if (iVar2 == 0) {
@@ -421,12 +422,12 @@ void LightEd_SaveSetFile(void)
   file = (void *)0x0;
   acStack_208[0] = '\0';
   if (iVar2 == 0) {
-    wsprintfA(acStack_30c,s_Could_not_open_file___s___004f0dc8,g_pLightEdSet);
-    MessageBoxA(0,(int)acStack_30c,(int)PTR_s_Error_004f0d14,0x30);
+    wsprintfA((char *)auStack_30c,s_Could_not_open_file___s___004f0dc8,g_pLightEdSet);
+    MessageBoxA(0,(int)auStack_30c,(int)PTR_s_Error_004f0d14,0x30);
     return;
   }
-  GetTempPathA(0x104,(int)acStack_30c);
-  iVar3 = GetTempFileNameA((int)acStack_30c,((unsigned)(uintptr_t)&DAT_004ec490),0,(int)acStack_208);
+  GetTempPathA(0x104,(int)auStack_30c);
+  iVar3 = GetTempFileNameA((int)auStack_30c,((unsigned)(uintptr_t)&DAT_004ec490),0,(int)acStack_208);
   if (iVar3 == 0) {
 LAB_004becb0:
     if (file != (void *)0x0) {
@@ -439,11 +440,12 @@ LAB_004becb0:
     if (file != (void *)0x0) {
       iVar3 = (*g_pStd_HS->pFeof)(iVar2);
       while (iVar3 == 0) {
-        (*g_pStd_HS->pFgets)(iVar2,acStack_30c,0x104);
-        iVar3 = String_ContainsSubstring(acStack_30c,s_section__004f0e00);
-        if ((iVar3 != 0) &&
-           (iVar3 = String_ContainsSubstring(acStack_30c,s_lights_004ec724), iVar3 != 0)) break;
-        (*g_pStd_HS->pFprintf)(file,acStack_30c);
+        (*g_pStd_HS->pFgets)(iVar2,auStack_30c,0x104);
+        puVar4 = String_ContainsSubstring(auStack_30c,s_section__004f0e00);
+        if ((puVar4 != (uint *)0x0) &&
+           (puVar4 = String_ContainsSubstring(auStack_30c,s_lights_004ec724), puVar4 != (uint *)0x0)
+           ) break;
+        (*g_pStd_HS->pFprintf)(file,auStack_30c);
         iVar3 = (*g_pStd_HS->pFeof)(iVar2);
       }
       iVar3 = (*g_pStd_HS->pFeof)(iVar2);
@@ -451,10 +453,10 @@ LAB_004becb0:
         LightEd_WriteLightsSection(g_pLightEdSet,file);
         iVar3 = (*g_pStd_HS->pFeof)(iVar2);
         while (iVar3 == 0) {
-          (*g_pStd_HS->pFgets)(iVar2,acStack_30c,0x104);
-          iVar3 = String_ContainsSubstring(acStack_30c,s_section__004f0e00);
-          if (iVar3 != 0) {
-            (*g_pStd_HS->pFprintf)(file,acStack_30c);
+          (*g_pStd_HS->pFgets)(iVar2,auStack_30c,0x104);
+          puVar4 = String_ContainsSubstring(auStack_30c,s_section__004f0e00);
+          if (puVar4 != (uint *)0x0) {
+            (*g_pStd_HS->pFprintf)(file,auStack_30c);
             break;
           }
           iVar3 = (*g_pStd_HS->pFeof)(iVar2);
@@ -463,8 +465,8 @@ LAB_004becb0:
         if (iVar3 == 0) {
           iVar3 = (*g_pStd_HS->pFeof)(iVar2);
           while (iVar3 == 0) {
-            (*g_pStd_HS->pFgets)(iVar2,acStack_30c,0x104);
-            (*g_pStd_HS->pFprintf)(file,acStack_30c);
+            (*g_pStd_HS->pFgets)(iVar2,auStack_30c,0x104);
+            (*g_pStd_HS->pFprintf)(file,auStack_30c);
             iVar3 = (*g_pStd_HS->pFeof)(iVar2);
           }
           (*g_pStd_HS->pFclose)(iVar2);
@@ -475,8 +477,8 @@ LAB_004becb0:
             if (file == (void *)0x0) goto LAB_004becb4;
             iVar3 = (*g_pStd_HS->pFeof)(iVar2);
             while (iVar3 == 0) {
-              (*g_pStd_HS->pFgets)(iVar2,acStack_30c,0x104);
-              (*g_pStd_HS->pFprintf)(file,acStack_30c);
+              (*g_pStd_HS->pFgets)(iVar2,auStack_30c,0x104);
+              (*g_pStd_HS->pFprintf)(file,auStack_30c);
               iVar3 = (*g_pStd_HS->pFeof)(iVar2);
             }
           }
@@ -496,7 +498,7 @@ LAB_004becd7:
   return;
 }
 #undef acStack_208
-#undef acStack_30c
+#undef auStack_30c
 #undef local_104
 #undef local_310
 #undef local_314

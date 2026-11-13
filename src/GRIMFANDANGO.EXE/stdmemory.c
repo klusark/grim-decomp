@@ -73,7 +73,7 @@ void __cdecl stdMemory_Free(void *p)
     if (*(int **)((int)p + -0x18) != (int *)0x0) {
       **(int **)((int)p + -0x18) = *piVar1;
     }
-    free(piVar1);
+    free((int)piVar1);
   }
   return;
 }

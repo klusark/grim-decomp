@@ -132,7 +132,7 @@ uint __cdecl sputSmush_StartMovie(char *param_1,int param_2,uint param_3,uint pa
       g_nSmushPlaying = 1;
       g_nSmushPaused = iVar1;
       g_nSmushAbort = iVar1;
-      strncpy(g_szCurMovieFile,param_1,0x80);
+      strncpy((uint *)g_szCurMovieFile,(uint *)param_1,0x80);
       _g_dwSmushStartTime = timeGetTime();
       return 0;
     }

@@ -3577,12 +3577,236 @@
    "proto": "int sputActor_GetNumActorsTalking(void)",
    "cc": "__cdecl"
   },
+  "00490e50": {
+   "proto": "int ComparePhonemes(int *param_1,int *param_2)",
+   "cc": "__cdecl"
+  },
+  "00490e60": {
+   "proto": "undefined sputActor_Terminate(void)",
+   "cc": "__cdecl"
+  },
+  "00490e80": {
+   "proto": "uint sputActor_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "00490ef0": {
+   "proto": "undefined sputActor_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "004925c0": {
+   "proto": "undefined FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5)",
+   "cc": "__cdecl"
+  },
+  "00492a50": {
+   "proto": "int Collision_PickDetour(float *param_1,float *param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "004931e0": {
+   "proto": "uint sputActor_GetSpeechMode(void)",
+   "cc": "__cdecl"
+  },
+  "00493410": {
+   "proto": "undefined FadeInChore(void *param_1,uint param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "004939a0": {
+   "proto": "uint Collision_UpdateMovedActors(void)",
+   "cc": "__cdecl"
+  },
   "004939f0": {
    "proto": "uint Collision_TestActorAgainstOthers(Actor *param_1)",
    "cc": "__cdecl"
   },
+  "00494740": {
+   "proto": "int sputActor_GetActorTextRate(void)",
+   "cc": "__cdecl"
+  },
+  "00495080": {
+   "proto": "undefined sputCostume_Draw3D(uint param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "004950a0": {
+   "proto": "undefined sputCostume_InternalDraw3D(int *param_1,float *param_2)",
+   "cc": "__cdecl"
+  },
+  "004956f0": {
+   "proto": "undefined sputCostume_Draw2D(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004957f0": {
+   "proto": "int sputCostume_Initialize(GrimServices *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "00495850": {
+   "proto": "undefined sputCostume_GetKeyLengthL(void)",
+   "cc": "__cdecl"
+  },
+  "00495900": {
+   "proto": "undefined sputCostume_GetSmushLengthL(void)",
+   "cc": "__cdecl"
+  },
+  "00495960": {
+   "proto": "undefined sputCostume_Terminate(void)",
+   "cc": "__cdecl"
+  },
+  "004959a0": {
+   "proto": "uint sputCostume_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "00495e90": {
+   "proto": "uint sputCostume_SaveHook(char *param_1,uint *param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00496020": {
+   "proto": "uint Costume_InstanceHook(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "00496060": {
+   "proto": "undefined BitmapChanger(uint param_1,int *param_2,uint param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "004960a0": {
+   "proto": "uint BitmapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)",
+   "cc": "__cdecl"
+  },
+  "00496460": {
+   "proto": "int ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)",
+   "cc": "__cdecl"
+  },
   "004965b0": {
    "proto": "uint MaterialInstanceSaveLoad(void)",
+   "cc": "__cdecl"
+  },
+  "004965d0": {
+   "proto": "undefined MaterialChanger(uint param_1,int param_2,uint param_3,uint param_4)",
+   "cc": "__cdecl"
+  },
+  "00496670": {
+   "proto": "int MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5)",
+   "cc": "__cdecl"
+  },
+  "00496890": {
+   "proto": "uint ThingAdjuster(int *param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "00496930": {
+   "proto": "undefined ThingChanger(uint param_1,int param_2,uint param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "00496b40": {
+   "proto": "uint ThingStopper(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00496b60": {
+   "proto": "int ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)",
+   "cc": "__cdecl"
+  },
+  "00496d40": {
+   "proto": "undefined MeshChanger(uint param_1,int *param_2,uint param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "00496e10": {
+   "proto": "undefined MeshStopper(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00496e20": {
+   "proto": "uint MeshRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5)",
+   "cc": "__cdecl"
+  },
+  "00497180": {
+   "proto": "int MeshAdjuster(uint param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "00497320": {
+   "proto": "uint SoundAdjuster(int *param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "00497460": {
+   "proto": "int SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)",
+   "cc": "__cdecl"
+  },
+  "00497640": {
+   "proto": "uint SoundFreer(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00497660": {
+   "proto": "uint SoundStopper(int param_1)",
+   "cc": "__cdecl"
+  },
+  "00497680": {
+   "proto": "undefined LuaVarChanger(uint param_1,char *param_2,uint param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "004976a0": {
+   "proto": "uint LuaVarAdjuster(uint *param_1,int param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "00497710": {
+   "proto": "int LuaVarRequester(uint param_1,int param_2,int param_3,int param_4,int param_5)",
+   "cc": "__cdecl"
+  },
+  "004977f0": {
+   "proto": "uint LuaVarFreer(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00497810": {
+   "proto": "uint LuaVarStopper(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "00497830": {
+   "proto": "void Lua_Stub(char *fmt, ...)",
+   "cc": "__cdecl"
+  },
+  "00497840": {
+   "proto": "int IMuseRequester(uint param_1,int param_2,int param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "00497890": {
+   "proto": "undefined KeyframeChanger(uint param_1,int *param_2,uint param_3,int param_4,uint param_5, uint param_6,uint param_7,uint param_8)",
+   "cc": "__cdecl"
+  },
+  "00497cb0": {
+   "proto": "undefined sputCostume_PuppetHook(int param_1,int param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00497e10": {
+   "proto": "int KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint param_5)",
+   "cc": "__cdecl"
+  },
+  "00498000": {
+   "proto": "uint KeyframeAdjuster(int *param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "004980e0": {
+   "proto": "uint KeyframeStopper(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "00498140": {
+   "proto": "uint SmushFreer(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00498160": {
+   "proto": "undefined SmushChanger(uint param_1,uint param_2,uint param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "00498180": {
+   "proto": "uint CostumeTag_Nop(void)",
+   "cc": "__cdecl"
+  },
+  "00498190": {
+   "proto": "int SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)",
+   "cc": "__cdecl"
+  },
+  "00498280": {
+   "proto": "uint SpriteRequester(uint param_1,int param_2,int param_3,float param_4,char *param_5)",
+   "cc": "__cdecl"
+  },
+  "00498550": {
+   "proto": "undefined SpriteChanger(uint param_1,int param_2,uint param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "00498580": {
+   "proto": "uint SpriteFreer(uint param_1,uint param_2,int *param_3)",
    "cc": "__cdecl"
   },
   "004985c0": {
@@ -3593,32 +3817,1576 @@
    "proto": "uint SpriteAdjuster(uint *param_1,uint param_2)",
    "cc": "__cdecl"
   },
+  "004988a0": {
+   "proto": "undefined sputCostume_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "00498d80": {
+   "proto": "undefined sputLua_GetMemoryUsageL(void)",
+   "cc": "__cdecl"
+  },
+  "00498da0": {
+   "proto": "undefined sputLua_GetDiskFreeSpaceL(void)",
+   "cc": "__cdecl"
+  },
+  "00499000": {
+   "proto": "undefined sputLua_SetSoundParametersL(void)",
+   "cc": "__cdecl"
+  },
+  "004991c0": {
+   "proto": "undefined sputLua_GetSoundParametersL(void)",
+   "cc": "__cdecl"
+  },
+  "00499250": {
+   "proto": "undefined sputLua_SetDebugToggleCallback(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00499260": {
+   "proto": "undefined sputLua_EnginePause(void)",
+   "cc": "__cdecl"
+  },
+  "00499270": {
+   "proto": "undefined sputLua_EngineResume(void)",
+   "cc": "__cdecl"
+  },
+  "00499280": {
+   "proto": "undefined sputLua_EngineDisplay(void)",
+   "cc": "__cdecl"
+  },
+  "004992b0": {
+   "proto": "undefined sputLua_AllocateActorL(void)",
+   "cc": "__cdecl"
+  },
+  "004992d0": {
+   "proto": "undefined sputLua_PutActorAtInterestL(void)",
+   "cc": "__cdecl"
+  },
+  "00499360": {
+   "proto": "undefined sputLua_SetSelectedActorL(void)",
+   "cc": "__cdecl"
+  },
+  "004993c0": {
+   "proto": "undefined sputLua_PutActorAtL(void)",
+   "cc": "__cdecl"
+  },
+  "004994a0": {
+   "proto": "undefined sputLua_PutActorInSetL(void)",
+   "cc": "__cdecl"
+  },
+  "00499590": {
+   "proto": "undefined sputLua_WalkActorVectorL(void)",
+   "cc": "__cdecl"
+  },
+  "00499800": {
+   "proto": "undefined sputLua_WalkActorForwardL(void)",
+   "cc": "__cdecl"
+  },
+  "00499860": {
+   "proto": "undefined sputLua_WalkActorToL(void)",
+   "cc": "__cdecl"
+  },
+  "004999d0": {
+   "proto": "undefined sputLua_WalkActorToAvoidingL(void)",
+   "cc": "__cdecl"
+  },
+  "00499b80": {
+   "proto": "undefined sputLua_IsActorMovingL(void)",
+   "cc": "__cdecl"
+  },
+  "00499be0": {
+   "proto": "undefined sputLua_IsActorTurningL(void)",
+   "cc": "__cdecl"
+  },
+  "00499c70": {
+   "proto": "undefined sputLua_SetActorChoreLoopingL(void)",
+   "cc": "__cdecl"
+  },
+  "00499da0": {
+   "proto": "undefined sputLua_IsActorRestingL(void)",
+   "cc": "__cdecl"
+  },
+  "00499e20": {
+   "proto": "undefined sputLua_IsActorChoringL(void)",
+   "cc": "__cdecl"
+  },
   "00499ff0": {
    "proto": "void sputLua_GetActorChoresL(void)",
+   "cc": "__cdecl"
+  },
+  "0049a160": {
+   "proto": "undefined sputLua_GetActorCostumeDepthL(void)",
+   "cc": "__cdecl"
+  },
+  "0049a1e0": {
+   "proto": "undefined sputLua_GetActorCostumeL(void)",
    "cc": "__cdecl"
   },
   "0049a2a0": {
    "proto": "void sputLua_GetActorLoopingChoresL(void)",
    "cc": "__cdecl"
   },
+  "0049a410": {
+   "proto": "undefined sputLua_SetActorColormapL(void)",
+   "cc": "__cdecl"
+  },
+  "0049a500": {
+   "proto": "undefined sputLua_SetActorCostumeL(void)",
+   "cc": "__cdecl"
+  },
+  "0049a5e0": {
+   "proto": "undefined sputLua_PrintActorCostumesL(void)",
+   "cc": "__cdecl"
+  },
+  "0049a640": {
+   "proto": "undefined sputLua_PushActorCostumeL(void)",
+   "cc": "__cdecl"
+  },
+  "0049a6c0": {
+   "proto": "undefined sputLua_PopActorCostumeL(void)",
+   "cc": "__cdecl"
+  },
+  "0049a750": {
+   "proto": "undefined sputLua_StopActorChoreL(void)",
+   "cc": "__cdecl"
+  },
+  "0049a830": {
+   "proto": "undefined sputLua_PlayActorChoreL(void)",
+   "cc": "__cdecl"
+  },
+  "0049a910": {
+   "proto": "undefined sputLua_CompleteActorChoreL(void)",
+   "cc": "__cdecl"
+  },
+  "0049a9e0": {
+   "proto": "undefined sputLua_PlayActorChoreLoopingL(void)",
+   "cc": "__cdecl"
+  },
+  "0049aac0": {
+   "proto": "undefined sputLua_ActorLookAtL(void)",
+   "cc": "__cdecl"
+  },
+  "0049ad30": {
+   "proto": "undefined sputLua_IsActorLookingL(void)",
+   "cc": "__cdecl"
+  },
+  "0049ad90": {
+   "proto": "undefined sputLua_SetActorLookRate(void)",
+   "cc": "__cdecl"
+  },
+  "0049ae10": {
+   "proto": "undefined sputLua_GetActorLookRate(void)",
+   "cc": "__cdecl"
+  },
+  "0049ae80": {
+   "proto": "undefined sputLua_SetActorVisibilityL(void)",
+   "cc": "__cdecl"
+  },
+  "0049af00": {
+   "proto": "undefined sputLua_SetActorFollowBoxesL(void)",
+   "cc": "__cdecl"
+  },
+  "0049af80": {
+   "proto": "undefined sputLua_ShutUpActorL(void)",
+   "cc": "__cdecl"
+  },
+  "0049afd0": {
+   "proto": "undefined sputLua_SetActorFrustrumCull(void)",
+   "cc": "__cdecl"
+  },
+  "0049b040": {
+   "proto": "undefined sputLua_GetCameraActorL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b060": {
+   "proto": "undefined sputLua_GetActorWalkRateL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b0d0": {
+   "proto": "undefined sputLua_SetActorWalkRateL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b160": {
+   "proto": "undefined sputLua_GetActorTurnRateL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b1d0": {
+   "proto": "undefined sputLua_SetActorTurnRateL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b280": {
+   "proto": "undefined sputLua_SetActorWalkChoresL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b350": {
+   "proto": "undefined sputLua_SetActorTurnChoresL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b430": {
+   "proto": "undefined sputLua_SetActorRestChoreL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b500": {
+   "proto": "undefined sputLua_SetActorMumbleChoreL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b5a0": {
+   "proto": "undefined sputLua_SetActorTalkChoreL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b6c0": {
+   "proto": "undefined sputLua_SetActorHeadL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b830": {
+   "proto": "undefined sputLua_CanActorSeeL(void)",
+   "cc": "__cdecl"
+  },
+  "0049b9e0": {
+   "proto": "undefined sputLua_GetVisibleThingsL(void)",
+   "cc": "__cdecl"
+  },
+  "0049bb10": {
+   "proto": "undefined sputLua_GetActorRectL(void)",
+   "cc": "__cdecl"
+  },
+  "0049bba0": {
+   "proto": "undefined sputLua_GetActorPuckVectorL(void)",
+   "cc": "__cdecl"
+  },
+  "0049bcc0": {
+   "proto": "undefined sputLua_GetActorYawToPoint(void)",
+   "cc": "__cdecl"
+  },
+  "0049be40": {
+   "proto": "undefined sputLua_SetActorReflection(void)",
+   "cc": "__cdecl"
+  },
+  "0049bec0": {
+   "proto": "undefined sputLua_GetActorPosL(void)",
+   "cc": "__cdecl"
+  },
+  "0049bf30": {
+   "proto": "undefined sputLua_GetActorRotL(void)",
+   "cc": "__cdecl"
+  },
+  "0049bfa0": {
+   "proto": "undefined sputLua_SetActorRotL(void)",
+   "cc": "__cdecl"
+  },
+  "0049c0a0": {
+   "proto": "undefined sputLua_SetActorPitch(void)",
+   "cc": "__cdecl"
+  },
+  "0049c110": {
+   "proto": "undefined sputLua_SetActorRoll(void)",
+   "cc": "__cdecl"
+  },
+  "0049c180": {
+   "proto": "undefined sputLua_TurnActorL(void)",
+   "cc": "__cdecl"
+  },
+  "0049c200": {
+   "proto": "undefined sputLua_GetActorSectorL(void)",
+   "cc": "__cdecl"
+  },
+  "0049c2c0": {
+   "proto": "undefined sputLua_IsActorInSector(void)",
+   "cc": "__cdecl"
+  },
+  "0049c3b0": {
+   "proto": "undefined sputLua_GetPointSectorL(void)",
+   "cc": "__cdecl"
+  },
+  "0049c4c0": {
+   "proto": "undefined sputLua_IsPointInSector(void)",
+   "cc": "__cdecl"
+  },
+  "0049c5e0": {
+   "proto": "int sputLua_FindSystemFiles(void)",
+   "cc": "__cdecl"
+  },
   "0049c8f0": {
    "proto": "void sputLua_Update(void)",
+   "cc": "__cdecl"
+  },
+  "0049c9f0": {
+   "proto": "uint sputLua_Initialize(GrimServices *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "0049ca60": {
+   "proto": "undefined sputLua_RegisterFunctions(int *param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "0049ca80": {
+   "proto": "undefined sputLua_JustLoadedL(void)",
+   "cc": "__cdecl"
+  },
+  "0049caa0": {
+   "proto": "undefined sputLua_ActorVoiceIs3DL(void)",
+   "cc": "__cdecl"
+  },
+  "0049cbe0": {
+   "proto": "undefined sputLua_FunctionNameL(void)",
+   "cc": "__cdecl"
+  },
+  "0049cca0": {
+   "proto": "undefined sputLua_CheckForFileL(void)",
+   "cc": "__cdecl"
+  },
+  "0049cd10": {
+   "proto": "undefined sputLua_NukeResourcesL(void)",
+   "cc": "__cdecl"
+  },
+  "0049cd40": {
+   "proto": "undefined sputLua_DetachFromResourcesL(void)",
+   "cc": "__cdecl"
+  },
+  "0049cd50": {
+   "proto": "undefined sputLua_AttachToResourcesL(void)",
+   "cc": "__cdecl"
+  },
+  "0049cd60": {
+   "proto": "undefined sputLua_SearchForFileOrSwapCDsL(void)",
+   "cc": "__cdecl"
+  },
+  "0049cea0": {
+   "proto": "undefined sputLua_LoadL(void)",
+   "cc": "__cdecl"
+  },
+  "0049cef0": {
+   "proto": "undefined sputLua_SaveL(void)",
+   "cc": "__cdecl"
+  },
+  "0049cf40": {
+   "proto": "undefined sputLua_EnableDebugKeysL(void)",
    "cc": "__cdecl"
   },
   "0049cf60": {
    "proto": "void sputLua_WorldToScreenL(void)",
    "cc": "__cdecl"
   },
+  "0049d030": {
+   "proto": "undefined sputLua_ScreenToWorldL(void)",
+   "cc": "__cdecl"
+  },
+  "0049d140": {
+   "proto": "undefined sputLua_TypeOverride(void)",
+   "cc": "__cdecl"
+  },
+  "0049d220": {
+   "proto": "undefined sputLua_ConcatFallback(void)",
+   "cc": "__cdecl"
+  },
+  "0049d3a0": {
+   "proto": "undefined sputLua_ExitL(void)",
+   "cc": "__cdecl"
+  },
+  "0049d3f0": {
+   "proto": "undefined sputLua_EnableControlL(void)",
+   "cc": "__cdecl"
+  },
+  "0049d430": {
+   "proto": "undefined sputLua_DisableControlL(void)",
+   "cc": "__cdecl"
+  },
+  "0049d470": {
+   "proto": "undefined sputLua_GetControlStateL(void)",
+   "cc": "__cdecl"
+  },
+  "0049d7b0": {
+   "proto": "undefined sputLua_DoUserPaintCallback(void)",
+   "cc": "__cdecl"
+  },
+  "0049d890": {
+   "proto": "uint sputLua_DoExitCallback(void)",
+   "cc": "__cdecl"
+  },
+  "0049d970": {
+   "proto": "uint sputLua_DoPauseCallback(void)",
+   "cc": "__cdecl"
+  },
+  "0049db70": {
+   "proto": "undefined sputLua_MakeCurrentSetupL(void)",
+   "cc": "__cdecl"
+  },
+  "0049dbb0": {
+   "proto": "undefined sputLua_GetCurrentSetupL(void)",
+   "cc": "__cdecl"
+  },
+  "0049dc70": {
+   "proto": "undefined sputLua_MakeCurrentSetL(void)",
+   "cc": "__cdecl"
+  },
+  "0049dcb0": {
+   "proto": "undefined sputLua_LockSet(void)",
+   "cc": "__cdecl"
+  },
+  "0049dd10": {
+   "proto": "undefined sputLua_UnLockSet(void)",
+   "cc": "__cdecl"
+  },
+  "0049dd70": {
+   "proto": "undefined sputLua_MessagePrintL(void)",
+   "cc": "__cdecl"
+  },
+  "0049ddd0": {
+   "proto": "void Lua_Print_NoOp(void)",
+   "cc": "__cdecl"
+  },
   "0049de00": {
    "proto": "uint sputLua_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "0049dfa0": {
+   "proto": "uint sputLua_SaveIndirector(int param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "0049e020": {
+   "proto": "TextObject * sputLua_RestoreIndirector(int param_1,TextObject *param_2)",
    "cc": "__cdecl"
   },
   "0049e0b0": {
    "proto": "uint sputLua_NotifyControlHandlers(void)",
    "cc": "__cdecl"
   },
+  "0049e380": {
+   "proto": "uint Lua_CreateSystemTable(void)",
+   "cc": "__cdecl"
+  },
+  "0049e460": {
+   "proto": "undefined Lua_CreateControlsTable(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0049e500": {
+   "proto": "undefined sputLua_Terminate(void)",
+   "cc": "__cdecl"
+  },
+  "0049e530": {
+   "proto": "undefined sputLua_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "0049e590": {
+   "proto": "undefined sputLua_SetSoundPosition(void)",
+   "cc": "__cdecl"
+  },
+  "0049e7e0": {
+   "proto": "undefined sputLua_StartFullScreenMovieL(void)",
+   "cc": "__cdecl"
+  },
+  "0049e860": {
+   "proto": "undefined sputLua_PauseMovieL(void)",
+   "cc": "__cdecl"
+  },
+  "0049e880": {
+   "proto": "undefined sputLua_StartMovieL(void)",
+   "cc": "__cdecl"
+  },
+  "0049e960": {
+   "proto": "undefined sputLua_IsMoviePlayingL(void)",
+   "cc": "__cdecl"
+  },
+  "0049ea20": {
+   "proto": "undefined sputLua_FileFindNext(void)",
+   "cc": "__cdecl"
+  },
+  "0049ea90": {
+   "proto": "undefined sputLua_FileFindDispose(void)",
+   "cc": "__cdecl"
+  },
+  "0049eab0": {
+   "proto": "undefined sputLua_QueryDialog(void)",
+   "cc": "__cdecl"
+  },
+  "0049eb60": {
+   "proto": "undefined sputLua_InputDialog(void)",
+   "cc": "__cdecl"
+  },
+  "0049ec50": {
+   "proto": "undefined sputLua_WriteRegistryValue(void)",
+   "cc": "__cdecl"
+  },
+  "0049ece0": {
+   "proto": "undefined sputLua_ReadRegistryValue(void)",
+   "cc": "__cdecl"
+  },
+  "0049ed90": {
+   "proto": "undefined sputLua_GetSectorOppositeEdge(void)",
+   "cc": "__cdecl"
+  },
+  "0049ee20": {
+   "proto": "undefined sputLua_IsSectorActiveL(void)",
+   "cc": "__cdecl"
+  },
+  "0049eeb0": {
+   "proto": "undefined sputLua_MakeSectorActiveL(void)",
+   "cc": "__cdecl"
+  },
+  "0049ef50": {
+   "proto": "undefined sputLua_PreRender(void)",
+   "cc": "__cdecl"
+  },
+  "0049efc0": {
+   "proto": "undefined sputLua_GetCurrentScript(void)",
+   "cc": "__cdecl"
+  },
+  "0049efe0": {
+   "proto": "undefined sputLua_LockFontL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f040": {
+   "proto": "undefined sputLua_LoadCostumeL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f0a0": {
+   "proto": "undefined sputLua_SetMemoryUsage(void)",
+   "cc": "__cdecl"
+  },
+  "0049f0f0": {
+   "proto": "undefined sputLua_RotateVectorL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f2b0": {
+   "proto": "undefined sputLua_GetCameraPositionL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f300": {
+   "proto": "undefined sputLua_GetCameraInterestL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f350": {
+   "proto": "undefined sputLua_GetCameraFOVL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f380": {
+   "proto": "undefined sputLua_GetCameraRollL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f3b0": {
+   "proto": "undefined sputLua_SetCameraPositionL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f480": {
+   "proto": "undefined sputLua_SetCameraInterestL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f550": {
+   "proto": "undefined sputLua_SetActorScaleL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f5d0": {
+   "proto": "undefined sputLua_SetActorTimeScaleL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f690": {
+   "proto": "undefined sputLua_GetActorNodeLocationL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f810": {
+   "proto": "undefined sputLua_GetActorScaleL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f860": {
+   "proto": "undefined sputLua_GetActorTimeScaleL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f8d0": {
+   "proto": "undefined sputLua_SetCameraFOVL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f930": {
+   "proto": "undefined sputLua_SetCameraRollL(void)",
+   "cc": "__cdecl"
+  },
+  "0049f9b0": {
+   "proto": "undefined sputLua_GetCameraLookVectorL(void)",
+   "cc": "__cdecl"
+  },
+  "0049fb00": {
+   "proto": "undefined sputLua_PointActorAtL(void)",
+   "cc": "__cdecl"
+  },
+  "0049fc60": {
+   "proto": "undefined sputLua_TurnActorTo(void)",
+   "cc": "__cdecl"
+  },
+  "0049fdf0": {
+   "proto": "undefined sputLua_PerSecondL(void)",
+   "cc": "__cdecl"
+  },
+  "0049fe40": {
+   "proto": "undefined sputLua_SnapToPlane(void)",
+   "cc": "__cdecl"
+  },
+  "0049ff00": {
+   "proto": "undefined sputLua_GetAngleBetweenVectorsL(void)",
+   "cc": "__cdecl"
+  },
+  "004a00a0": {
+   "proto": "undefined sputLua_GetAngleBetweenActorsL(void)",
+   "cc": "__cdecl"
+  },
+  "004a0230": {
+   "proto": "undefined sputLua_SetAmbientLight(void)",
+   "cc": "__cdecl"
+  },
+  "004a0290": {
+   "proto": "undefined sputLua_FindLight(void)",
+   "cc": "__cdecl"
+  },
+  "004a02f0": {
+   "proto": "undefined sputLua_TurnLightOn(void)",
+   "cc": "__cdecl"
+  },
+  "004a0380": {
+   "proto": "undefined sputLua_IsLightOn(void)",
+   "cc": "__cdecl"
+  },
+  "004a0400": {
+   "proto": "undefined sputLua_SetLightType(void)",
+   "cc": "__cdecl"
+  },
+  "004a0530": {
+   "proto": "undefined sputLua_GetLightType(void)",
+   "cc": "__cdecl"
+  },
+  "004a05e0": {
+   "proto": "undefined sputLua_SetLightPosition(void)",
+   "cc": "__cdecl"
+  },
+  "004a0760": {
+   "proto": "undefined sputLua_GetLightPosition(void)",
+   "cc": "__cdecl"
+  },
+  "004a0800": {
+   "proto": "undefined sputLua_SetLightRotation(void)",
+   "cc": "__cdecl"
+  },
+  "004a09a0": {
+   "proto": "undefined sputLua_GetLightRotation(void)",
+   "cc": "__cdecl"
+  },
+  "004a0a50": {
+   "proto": "undefined sputLua_SetLightAngles(void)",
+   "cc": "__cdecl"
+  },
+  "004a0b40": {
+   "proto": "undefined sputLua_GetLightAngles(void)",
+   "cc": "__cdecl"
+  },
+  "004a0bd0": {
+   "proto": "undefined sputLua_PointLightAt(void)",
+   "cc": "__cdecl"
+  },
+  "004a0da0": {
+   "proto": "undefined sputLua_SetLightIntensity(void)",
+   "cc": "__cdecl"
+  },
+  "004a0e90": {
+   "proto": "undefined sputLua_GetLightIntensity(void)",
+   "cc": "__cdecl"
+  },
+  "004a0f20": {
+   "proto": "undefined sputLua_ImStartRecording(void)",
+   "cc": "__cdecl"
+  },
+  "004a0f80": {
+   "proto": "undefined sputLua_ImStartSound(void)",
+   "cc": "__cdecl"
+  },
+  "004a1030": {
+   "proto": "undefined sputLua_ImStopSound(void)",
+   "cc": "__cdecl"
+  },
+  "004a1090": {
+   "proto": "undefined sputLua_ImGetParam(void)",
+   "cc": "__cdecl"
+  },
+  "004a1140": {
+   "proto": "undefined sputLua_ImSetParam(void)",
+   "cc": "__cdecl"
+  },
+  "004a1260": {
+   "proto": "undefined sputLua_ImFadeParam(void)",
+   "cc": "__cdecl"
+  },
+  "004a1400": {
+   "proto": "undefined sputLua_ImSetMasterVol(void)",
+   "cc": "__cdecl"
+  },
+  "004a1470": {
+   "proto": "undefined sputLua_ImSetSfxVol(void)",
+   "cc": "__cdecl"
+  },
+  "004a14e0": {
+   "proto": "undefined sputLua_ImSetVoiceVol(void)",
+   "cc": "__cdecl"
+  },
+  "004a1550": {
+   "proto": "undefined sputLua_ImSetMusicVol(void)",
+   "cc": "__cdecl"
+  },
+  "004a1590": {
+   "proto": "undefined sputLua_ImStartVoice(void)",
+   "cc": "__cdecl"
+  },
+  "004a1640": {
+   "proto": "undefined sputLua_ImSetState(void)",
+   "cc": "__cdecl"
+  },
+  "004a16d0": {
+   "proto": "undefined sputLua_ImSetCuePoint(void)",
+   "cc": "__cdecl"
+  },
+  "004a1710": {
+   "proto": "undefined sputLua_ImSetAttribute(void)",
+   "cc": "__cdecl"
+  },
+  "004a17b0": {
+   "proto": "undefined sputLua_ImSetVoiceEffect(void)",
+   "cc": "__cdecl"
+  },
+  "004a17f0": {
+   "proto": "undefined sputLua_ImGetMemoryFootprint(void)",
+   "cc": "__cdecl"
+  },
+  "004a1820": {
+   "proto": "undefined sputLua_ImGetSoundCacheSize(void)",
+   "cc": "__cdecl"
+  },
+  "004a1850": {
+   "proto": "undefined sputLua_SetGamma(void)",
+   "cc": "__cdecl"
+  },
+  "004a1890": {
+   "proto": "undefined sputLua_SetActorWalkDominate(void)",
+   "cc": "__cdecl"
+  },
+  "004a1900": {
+   "proto": "undefined sputLua_SetActorConstrain(void)",
+   "cc": "__cdecl"
+  },
+  "004a1970": {
+   "proto": "undefined sputLua_RenderModeUser(void)",
+   "cc": "__cdecl"
+  },
+  "004a19f0": {
+   "proto": "undefined sputLua_DimScreen(void)",
+   "cc": "__cdecl"
+  },
+  "004a1a00": {
+   "proto": "undefined sputLua_DimRegion(void)",
+   "cc": "__cdecl"
+  },
+  "004a1ae0": {
+   "proto": "undefined sputLua_SetSpeechMode(void)",
+   "cc": "__cdecl"
+  },
+  "004a1b40": {
+   "proto": "undefined sputLua_GetSpeechMode(void)",
+   "cc": "__cdecl"
+  },
+  "004a1b80": {
+   "proto": "undefined sputLua_ActorShadow(void)",
+   "cc": "__cdecl"
+  },
+  "004a1bf0": {
+   "proto": "undefined sputLua_ActivateActorShadow(void)",
+   "cc": "__cdecl"
+  },
+  "004a1c90": {
+   "proto": "undefined sputLua_SetActorShadowPlane(void)",
+   "cc": "__cdecl"
+  },
+  "004a1d10": {
+   "proto": "undefined sputLua_SetActorShadowPoint(void)",
+   "cc": "__cdecl"
+  },
+  "004a1dc0": {
+   "proto": "undefined sputLua_SetActiveShadow(void)",
+   "cc": "__cdecl"
+  },
+  "004a1e50": {
+   "proto": "undefined sputLua_ActorDistToShadowPlane(void)",
+   "cc": "__cdecl"
+  },
+  "004a1f30": {
+   "proto": "undefined sputLua_AddShadowClipPlane(void)",
+   "cc": "__cdecl"
+  },
+  "004a1fd0": {
+   "proto": "undefined sputLua_SetActorShadowValid(void)",
+   "cc": "__cdecl"
+  },
+  "004a2070": {
+   "proto": "undefined sputLua_KillActorShadows(void)",
+   "cc": "__cdecl"
+  },
+  "004a20d0": {
+   "proto": "undefined sputLua_SetShadowColor(void)",
+   "cc": "__cdecl"
+  },
+  "004a2130": {
+   "proto": "undefined sputLua_NewObjectState(void)",
+   "cc": "__cdecl"
+  },
+  "004a21f0": {
+   "proto": "undefined sputLua_FreeObjectState(void)",
+   "cc": "__cdecl"
+  },
+  "004a2240": {
+   "proto": "undefined sputLua_SendObjectToBack(void)",
+   "cc": "__cdecl"
+  },
+  "004a22b0": {
+   "proto": "undefined sputLua_SendObjectToFront(void)",
+   "cc": "__cdecl"
+  },
+  "004a2320": {
+   "proto": "undefined sputLua_SetObjectType(void)",
+   "cc": "__cdecl"
+  },
+  "004a2380": {
+   "proto": "undefined sputLua_ActorToClean(void)",
+   "cc": "__cdecl"
+  },
+  "004a23e0": {
+   "proto": "undefined sputLua_SetActorCollisionMode(void)",
+   "cc": "__cdecl"
+  },
+  "004a2470": {
+   "proto": "undefined sputLua_SetActorCollisionScale(void)",
+   "cc": "__cdecl"
+  },
+  "004a2500": {
+   "proto": "undefined sputLua_SetActorOffsetYaw(void)",
+   "cc": "__cdecl"
+  },
+  "004a2590": {
+   "proto": "undefined sputLua_CacheRect(void)",
+   "cc": "__cdecl"
+  },
+  "004a26b0": {
+   "proto": "undefined sputLua_RestoreCacheRect(void)",
+   "cc": "__cdecl"
+  },
+  "004a2720": {
+   "proto": "undefined sputLua_HardwareAccelerated(void)",
+   "cc": "__cdecl"
+  },
+  "004a2750": {
+   "proto": "undefined sputLua_SetActorClipActive(void)",
+   "cc": "__cdecl"
+  },
+  "004a27b0": {
+   "proto": "undefined sputLua_SetActorClipPlane(void)",
+   "cc": "__cdecl"
+  },
+  "004a2920": {
+   "proto": "undefined sputLua_MarkDirtyRect(void)",
+   "cc": "__cdecl"
+  },
+  "004a2a20": {
+   "proto": "undefined sputLua_FadeOutChore(void)",
+   "cc": "__cdecl"
+  },
+  "004a2b00": {
+   "proto": "undefined sputLua_FadeInChore(void)",
+   "cc": "__cdecl"
+  },
+  "004a2c10": {
+   "proto": "undefined sputLua_IrisDown(void)",
+   "cc": "__cdecl"
+  },
+  "004a2c70": {
+   "proto": "undefined sputLua_IrisUp(void)",
+   "cc": "__cdecl"
+  },
+  "004a2d00": {
+   "proto": "undefined Lua_TextFileGetLineCount(void)",
+   "cc": "__cdecl"
+  },
+  "004a2e20": {
+   "proto": "undefined Lua_TextFileGetLine(void)",
+   "cc": "__cdecl"
+  },
+  "004a2ee0": {
+   "proto": "undefined sputLua_ScreenShot(void)",
+   "cc": "__cdecl"
+  },
+  "004a2f90": {
+   "proto": "undefined sputLua_SaveScreen(void)",
+   "cc": "__cdecl"
+  },
+  "004a2fd0": {
+   "proto": "undefined sputLua_GetSaveGameImage(void)",
+   "cc": "__cdecl"
+  },
+  "004a3040": {
+   "proto": "undefined sputLua_GetImage(void)",
+   "cc": "__cdecl"
+  },
+  "004a30e0": {
+   "proto": "undefined sputLua_FreeImage(void)",
+   "cc": "__cdecl"
+  },
+  "004a3130": {
+   "proto": "undefined sputLua_BlastImage(void)",
+   "cc": "__cdecl"
+  },
+  "004a31f0": {
+   "proto": "undefined sputLua_BlastRect(void)",
+   "cc": "__cdecl"
+  },
+  "004a35d0": {
+   "proto": "undefined sputLua_SubmitSaveGameData(void)",
+   "cc": "__cdecl"
+  },
+  "004a3720": {
+   "proto": "undefined sputLua_GetSaveGameData(void)",
+   "cc": "__cdecl"
+  },
+  "004a3850": {
+   "proto": "undefined sputLua_SetTextSpeed(void)",
+   "cc": "__cdecl"
+  },
+  "004a3890": {
+   "proto": "undefined sputLua_FindFileOnAnyCD(void)",
+   "cc": "__cdecl"
+  },
+  "004a3a10": {
+   "proto": "undefined sputLua_ActorPuckOrient(void)",
+   "cc": "__cdecl"
+  },
+  "004a3aa0": {
+   "proto": "undefined sputLua_GetTickCount(void)",
+   "cc": "__cdecl"
+  },
+  "004a3ae0": {
+   "proto": "undefined sputLua_SetActorInvClipNode(void)",
+   "cc": "__cdecl"
+  },
+  "004a3b80": {
+   "proto": "undefined sputLua_SetWalkSystemFadeTime(void)",
+   "cc": "__cdecl"
+  },
+  "004a3be0": {
+   "proto": "uint sputTime_GetGameTime(void)",
+   "cc": "__cdecl"
+  },
+  "004a3bf0": {
+   "proto": "uint sputTime_GetFrameTime(void)",
+   "cc": "__cdecl"
+  },
+  "004a3c10": {
+   "proto": "undefined sputTime_Advance(void)",
+   "cc": "__cdecl"
+  },
+  "004a3c80": {
+   "proto": "undefined sputTime_AdvanceManual(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004a3ce0": {
+   "proto": "undefined Timer_Reset(void)",
+   "cc": "__cdecl"
+  },
+  "004a3d00": {
+   "proto": "uint sputTime_Initialize(uint param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004a3d50": {
+   "proto": "undefined sputTime_Terminate(void)",
+   "cc": "__cdecl"
+  },
+  "004a3d70": {
+   "proto": "uint sputTime_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "004a3da0": {
+   "proto": "undefined sputTime_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "004a3fe0": {
+   "proto": "undefined sputRoom_RelocateSounds(void)",
+   "cc": "__cdecl"
+  },
+  "004a4010": {
+   "proto": "undefined sputRoom_SetSoundParameters(int param_1,uint param_2,byte param_3,byte param_4, uint param_5,uint param_6)",
+   "cc": "__cdecl"
+  },
+  "004a40a0": {
+   "proto": "undefined sputRoom_SetSoundPosition(uint param_1,byte **param_2,uint param_3,uint param_4,uint param_5,uint param_6)",
+   "cc": "__cdecl"
+  },
+  "004a4920": {
+   "proto": "undefined sputRoom_LoadZBuffer(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004a4930": {
+   "proto": "uint ZBuffer_LoadFile(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "004a4980": {
+   "proto": "undefined sputRoom_FreeZBuffer(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004a4990": {
+   "proto": "undefined ZBuffer_FreeData(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "004a49a0": {
+   "proto": "uint * sputRoom_LoadRoom(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "004a4a70": {
+   "proto": "undefined Set_InitRecord(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "004a4b00": {
+   "proto": "int SetFile_Parse(char *param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "004a4c40": {
+   "proto": "undefined sputRoom_FreeRoom(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004a4c60": {
+   "proto": "undefined sputRoom_FreeRoomEntry(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "004a4d10": {
+   "proto": "undefined Set_FreeSetups(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004a4d80": {
+   "proto": "undefined Set_FreeSetup(uint param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "004a4dc0": {
+   "proto": "undefined PositionedSounds_DropFinished(void)",
+   "cc": "__cdecl"
+  },
   "004a4e80": {
    "proto": "uint SetSoundPosition(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004a5390": {
+   "proto": "undefined sputRoom_Terminate(void)",
+   "cc": "__cdecl"
+  },
+  "004a53b0": {
+   "proto": "uint sputRoom_Startup(void)",
+   "cc": "__cdecl"
+  },
+  "004a5430": {
+   "proto": "undefined sputRoom_Shutdown(void)",
+   "cc": "__cdecl"
+  },
+  "004a5550": {
+   "proto": "uint sputRoom_LoadRoomEntry(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004a5600": {
+   "proto": "uint sputRoom_ParseLights(void)",
+   "cc": "__cdecl"
+  },
+  "004a5890": {
+   "proto": "uint sputRoom_ParseSetups(void)",
+   "cc": "__cdecl"
+  },
+  "004a5b40": {
+   "proto": "uint sputRoom_ParseColormaps(void)",
+   "cc": "__cdecl"
+  },
+  "004a5c90": {
+   "proto": "uint sputRoom_ParseSectors(void)",
+   "cc": "__cdecl"
+  },
+  "004a60c0": {
+   "proto": "void * Set_FindNameInList(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004a6160": {
+   "proto": "undefined SetActorList_Free(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "004a61c0": {
+   "proto": "undefined WalkPlane_BuildCache(void)",
+   "cc": "__cdecl"
+  },
+  "004a6330": {
+   "proto": "undefined WalkPlane_DestroyCache(void)",
+   "cc": "__cdecl"
+  },
+  "004a6380": {
+   "proto": "undefined WalkPlane_RestoreCache(void)",
+   "cc": "__cdecl"
+  },
+  "004a7100": {
+   "proto": "undefined WalkPlane_KillCollection(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "004a7a90": {
+   "proto": "undefined WalkPlane_AllActive(void)",
+   "cc": "__cdecl"
+  },
+  "004a7ab0": {
+   "proto": "WalkVertex * WalkPlane_AddVertex(uint param_1,float *param_2)",
+   "cc": "__cdecl"
+  },
+  "004a7ba0": {
+   "proto": "undefined WalkPlane_RemoveVertex(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004a7bc0": {
+   "proto": "byte * ParseCollection(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004a9aa0": {
+   "proto": "uint TightenPath(void)",
+   "cc": "__cdecl"
+  },
+  "004aa810": {
+   "proto": "undefined Text_SysTerminate(void)",
+   "cc": "__cdecl"
+  },
+  "004aa820": {
+   "proto": "undefined Text_SysStartup(void)",
+   "cc": "__cdecl"
+  },
+  "004aa860": {
+   "proto": "undefined Text_SysShutdown(void)",
+   "cc": "__cdecl"
+  },
+  "004aa880": {
+   "proto": "uint Text_SysSave(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "004aa8d0": {
+   "proto": "uint Text_SysRestore(code *param_1)",
+   "cc": "__cdecl"
+  },
+  "004aa930": {
+   "proto": "void * Text_GetSystemFont(void)",
+   "cc": "__cdecl"
+  },
+  "004aabb0": {
+   "proto": "uint Text_DrawFormatted(TextContext *param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "004aac40": {
+   "proto": "uint Text_WrapLines(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "004aae90": {
+   "proto": "undefined Text_CopyRunes(byte *param_1,uint *param_2,int param_3,int param_4)",
+   "cc": "__cdecl"
+  },
+  "004aaf30": {
+   "proto": "uint Text_BuildLineTable(uint param_1,int *param_2)",
+   "cc": "__cdecl"
+  },
+  "004ab210": {
+   "proto": "char * text_FindNextBreak(TextContext *param_1,void *param_2,char *param_3,int *param_4, uint *param_5,int param_6)",
+   "cc": "__cdecl"
+  },
+  "004ab570": {
+   "proto": "uint Font_GlyphWidth(int param_1,int param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004ab910": {
+   "proto": "undefined Glyph_Blit16(int param_1,uint param_2,int *param_3)",
+   "cc": "__cdecl"
+  },
+  "004ab9d0": {
+   "proto": "undefined Glyph_Blit8(int param_1,int param_2,int *param_3)",
+   "cc": "__cdecl"
+  },
+  "004abae0": {
+   "proto": "undefined Glyph_Blit16Clipped(int param_1,uint param_2,int *param_3)",
+   "cc": "__cdecl"
+  },
+  "004abc80": {
+   "proto": "undefined Glyph_Blit8Clipped(int param_1,int param_2,int *param_3)",
+   "cc": "__cdecl"
+  },
+  "004abef0": {
+   "proto": "undefined Graph_SysTerminate(void)",
+   "cc": "__cdecl"
+  },
+  "004abf00": {
+   "proto": "uint Graph_SysStartup(void)",
+   "cc": "__cdecl"
+  },
+  "004abf30": {
+   "proto": "undefined Graph_SysShutdown(void)",
+   "cc": "__cdecl"
+  },
+  "004ac020": {
+   "proto": "uint Win_PumpMessages(void)",
+   "cc": "__cdecl"
+  },
+  "004ac160": {
+   "proto": "undefined Win_AddMessageHook(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "004ac1f0": {
+   "proto": "uint Win_CreateMainWindow(uint param_1,uint param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "004ac550": {
+   "proto": "int _stricmp(byte *param_1,byte *param_2)",
+   "cc": "__cdecl"
+  },
+  "004ac690": {
+   "proto": "undefined FUN_004ac690(void)",
+   "cc": "__cdecl"
+  },
+  "004ac6b0": {
+   "proto": "undefined FUN_004ac6b0(void)",
+   "cc": "__cdecl"
+  },
+  "004ac790": {
+   "proto": "int atol(byte *param_1)",
+   "cc": "__cdecl"
+  },
+  "004ac840": {
+   "proto": "uint * strncpy(uint *param_1,uint *param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004ac940": {
+   "proto": "uint strtok(byte *param_1,byte *param_2)",
+   "cc": "__cdecl"
+  },
+  "004aca30": {
+   "proto": "undefined entry(void)",
+   "cc": "__cdecl"
+  },
+  "004acb8d": {
+   "proto": "undefined FUN_004acb8d(void)",
+   "cc": "__cdecl"
+  },
+  "004acba2": {
+   "proto": "undefined FUN_004acba2(void)",
+   "cc": "__cdecl"
+  },
+  "004acbe0": {
+   "proto": "undefined _amsg_exit(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004acc10": {
+   "proto": "undefined FUN_004acc10(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004acca0": {
+   "proto": "uint vsprintf(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004acd10": {
+   "proto": "undefined FUN_004acd10(void)",
+   "cc": "__cdecl"
+  },
+  "004acd40": {
+   "proto": "undefined exit(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004acd60": {
+   "proto": "undefined _exit(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004acd80": {
+   "proto": "undefined doexit(int param_1,int param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "004ace40": {
+   "proto": "undefined _lockexit(void)",
+   "cc": "__cdecl"
+  },
+  "004ace50": {
+   "proto": "undefined _unlockexit(void)",
+   "cc": "__cdecl"
+  },
+  "004ace60": {
+   "proto": "undefined _initterm(uint *param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004ace80": {
+   "proto": "void * _onexit(void *param_1)",
+   "cc": "__cdecl"
+  },
+  "004acf10": {
+   "proto": "int atexit(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004acf30": {
+   "proto": "undefined FUN_004acf30(void)",
+   "cc": "__cdecl"
+  },
+  "004acf90": {
+   "proto": "int _nh_malloc(uint param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "004acfe0": {
+   "proto": "int _heap_alloc(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004ad040": {
+   "proto": "undefined free(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004ad0b0": {
+   "proto": "uint * realloc(uint *param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "004ad260": {
+   "proto": "int Clock_ElapsedMs(void)",
+   "cc": "__cdecl"
+  },
+  "004ad2b0": {
+   "proto": "undefined FUN_004ad2b0(void)",
+   "cc": "__cdecl"
+  },
+  "004ad2c0": {
+   "proto": "uint _fsopen(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004ad320": {
+   "proto": "uint fclose(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004ad360": {
+   "proto": "uint _fclose_lk(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004ad3d0": {
+   "proto": "uint fread(uint param_1,uint param_2,uint param_3,uint param_4)",
+   "cc": "__cdecl"
+  },
+  "004ad410": {
+   "proto": "uint _fread_lk(uint *param_1,uint param_2,uint param_3,int *param_4)",
+   "cc": "__cdecl"
+  },
+  "004ad550": {
+   "proto": "char * fgets(char *param_1,int param_2,uint *param_3)",
+   "cc": "__cdecl"
+  },
+  "004ad5e0": {
+   "proto": "uint fwrite(uint param_1,uint param_2,uint param_3,uint param_4)",
+   "cc": "__cdecl"
+  },
+  "004ad620": {
+   "proto": "uint _fwrite_lk(char *param_1,uint param_2,uint param_3,int *param_4)",
+   "cc": "__cdecl"
+  },
+  "004ad770": {
+   "proto": "uint ftell(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004ad7a0": {
+   "proto": "uint _ftell_lk(uint *param_1)",
+   "cc": "__cdecl"
+  },
+  "004ad950": {
+   "proto": "uint fseek(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004ad990": {
+   "proto": "int _fseek_lk(int param_1,int param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "004ada30": {
+   "proto": "uint vfprintf(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004ada80": {
+   "proto": "void qsort(void *base, uint num, uint width, code *compare)",
+   "cc": "__cdecl"
+  },
+  "004adc30": {
+   "proto": "undefined shortsort(uint param_1,uint param_2,int param_3,code *param_4)",
+   "cc": "__cdecl"
+  },
+  "004adc90": {
+   "proto": "undefined qsort_swap(byte *param_1,byte *param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "004adcc0": {
+   "proto": "void * bsearch(void *key, void *base, uint num, uint width, code *compare)",
+   "cc": "__cdecl"
+  },
+  "004add60": {
+   "proto": "uint strncmp(char *param_1,char *param_2,int param_3)",
+   "cc": "__cdecl"
+  },
+  "004ade30": {
+   "proto": "uint * strchr(uint *param_1,char param_2)",
+   "cc": "__cdecl"
+  },
+  "004adef0": {
+   "proto": "short * FUN_004adef0(short *param_1,int param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004adfe0": {
+   "proto": "char * _strupr(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "004ae160": {
+   "proto": "char * strrchr(char *param_1,char param_2)",
+   "cc": "__cdecl"
+  },
+  "004ae220": {
+   "proto": "int strpbrk_or_strspn(byte *param_1,byte *param_2)",
+   "cc": "__cdecl"
+  },
+  "004ae260": {
+   "proto": "int wcslen(short *param_1)",
+   "cc": "__cdecl"
+  },
+  "004ae280": {
+   "proto": "int tolower(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004ae310": {
+   "proto": "uint _tolower_lk(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004ae410": {
+   "proto": "uint * FUN_004ae410(uint *param_1,uint *param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004ae760": {
+   "proto": "char * _strlwr(char *param_1)",
+   "cc": "__cdecl"
+  },
+  "004ae8e0": {
+   "proto": "int toupper(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004ae970": {
+   "proto": "uint _toupper_lk(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004aea70": {
+   "proto": "uint fflush(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004aeab0": {
+   "proto": "int _fflush_lk(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004aeaf0": {
+   "proto": "uint _flush(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004aeb60": {
+   "proto": "undefined FUN_004aeb60(void)",
+   "cc": "__cdecl"
+  },
+  "004aeb70": {
+   "proto": "uint _flushall(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004aec30": {
+   "proto": "uint * memmove(uint *param_1,uint *param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004aef70": {
+   "proto": "uint * String_ContainsSubstring(uint *param_1,char *param_2)",
+   "cc": "__cdecl"
+  },
+  "004aeff0": {
+   "proto": "int _findfirst(int param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004af120": {
+   "proto": "uint _findnext(int param_1,uint *param_2)",
+   "cc": "__cdecl"
+  },
+  "004af240": {
+   "proto": "uint _findclose(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004af270": {
+   "proto": "uint _FileTimeToTime_t(int *param_1)",
+   "cc": "__cdecl"
+  },
+  "004af3b0": {
+   "proto": "uint __CxxFrameHandler(uint param_1,uint param_2,uint param_3,uint param_4)",
+   "cc": "__cdecl"
+  },
+  "004af3f0": {
+   "proto": "byte * FUN_004af3f0(uint param_1,uint param_2,int param_3,int param_4,int param_5)",
+   "cc": "__cdecl"
+  },
+  "004af450": {
+   "proto": "undefined FUN_004af450(uint param_1,int param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004af480": {
+   "proto": "uint FUN_004af480(uint *param_1,uint param_2,uint param_3,uint param_4,uint param_5, uint param_6,uint param_7)",
+   "cc": "__cdecl"
+  },
+  "004af550": {
+   "proto": "uint FUN_004af550(int param_1,int param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004af5e0": {
+   "proto": "int FUN_004af5e0(int param_1,int param_2,int param_3,uint *param_4,uint *param_5)",
+   "cc": "__cdecl"
+  },
+  "004af660": {
+   "proto": "undefined _global_unwind2(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004af6a2": {
+   "proto": "undefined _local_unwind2(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "004af70a": {
+   "proto": "uint _unwind_handler(void)",
+   "cc": "__cdecl"
+  },
+  "004af750": {
+   "proto": "uint isdigit(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004af780": {
+   "proto": "uint isspace(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004af7b0": {
+   "proto": "undefined FUN_004af7b0(void)",
+   "cc": "__cdecl"
+  },
+  "004af7e0": {
+   "proto": "undefined _lock(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004af860": {
+   "proto": "undefined _unlock(int param_1)",
+   "cc": "__cdecl"
+  },
+  "004af880": {
+   "proto": "undefined _lock_file(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004af8c0": {
+   "proto": "undefined _lock_file2(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "004af8f0": {
+   "proto": "undefined _unlock_file(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004af930": {
+   "proto": "undefined _unlock_file2(int param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "004af960": {
+   "proto": "uint _flsbuf(uint param_1,int *param_2)",
+   "cc": "__cdecl"
+  },
+  "004afa90": {
+   "proto": "uint _output(uint param_1,char *param_2,uint *param_3)",
    "cc": "__cdecl"
   },
   "004bddb0": {

@@ -98,8 +98,8 @@ Dlg_MakeItemTemplate
     puVar5 = (undefined4 *)((int)puVar5 + 1);
     puVar7 = (undefined4 *)((int)puVar7 + 1);
   }
-  free(a5);
-  free(PIECE(param_4,0,4));
+  free((int)a5);
+  free((int)PIECE(param_4,0,4));
   return puVar2;
 }
 #undef local_8
@@ -198,7 +198,7 @@ Dlg_MakeDialogTemplate
     puVar7 = (undefined4 *)((int)puVar7 + 1);
     puVar9 = (undefined4 *)((int)puVar9 + 1);
   }
-  free(PIECE(param_4,0,4));
+  free((int)PIECE(param_4,0,4));
   if (param_8 != 0) {
     puVar6 = (ushort *)((int)puVar3 + 0x16 + PIECE(param_2,0,4));
     *puVar6 = param_5;
@@ -214,7 +214,7 @@ Dlg_MakeDialogTemplate
       puVar8 = (uint *)((int)puVar8 + 1);
       puVar10 = (uint *)((int)puVar10 + 1);
     }
-    free(param_1);
+    free((int)param_1);
   }
   return puVar3;
 }

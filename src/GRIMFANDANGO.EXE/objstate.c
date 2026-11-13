@@ -121,7 +121,7 @@ void __thiscall ObjectStateImage_SetFile(void *this,char *name)
 {
   ObjectStateImage_Clear((int)this);
   if (name != (char *)0x0) {
-    strncpy((int)this + 0x14,name,0x20);
+    strncpy((uint *)((int)this + 0x14),(uint *)name,0x20);
   }
   return;
 }

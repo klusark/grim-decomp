@@ -147,7 +147,7 @@ uint __cdecl Res_SysSave(code *param_1)
   char cVar1;
   code *pcVar2;
   undefined uVar3;
-  int iVar4;
+  uint *puVar4;
   undefined3 extraout_var;
   undefined3 extraout_var_00;
   undefined3 extraout_var_01;
@@ -161,8 +161,9 @@ uint __cdecl Res_SysSave(code *param_1)
   local_4 = 0;
   pcVar2 = param_1;
   for (piVar6 = g_pNewestResNode; param_1 = pcVar2, piVar6 != (int *)0x0; piVar6 = (int *)*piVar6) {
-    if (((piVar6[9] != 0) && (iVar4 = String_ContainsSubstring(piVar6[2],&DAT_004e7b14), iVar4 == 0)
-        ) || ((*(byte *)(piVar6 + 7) & 8) != 0)) {
+    if (((piVar6[9] != 0) &&
+        (puVar4 = String_ContainsSubstring((uint *)piVar6[2],&DAT_004e7b14), puVar4 == (uint *)0x0))
+       || ((*(byte *)(piVar6 + 7) & 8) != 0)) {
       local_4 = local_4 + 1;
     }
     pcVar2 = param_1;
@@ -177,8 +178,9 @@ uint __cdecl Res_SysSave(code *param_1)
     return 0;
   }
   do {
-    if (((piVar6[9] != 0) && (iVar4 = String_ContainsSubstring(piVar6[2],&DAT_004e7b14), iVar4 == 0)
-        ) || ((*(byte *)(piVar6 + 7) & 8) != 0)) {
+    if (((piVar6[9] != 0) &&
+        (puVar4 = String_ContainsSubstring((uint *)piVar6[2],&DAT_004e7b14), puVar4 == (uint *)0x0))
+       || ((*(byte *)(piVar6 + 7) & 8) != 0)) {
       uVar5 = 0xffffffff;
       pcVar7 = (char *)piVar6[2];
       do {
@@ -337,28 +339,28 @@ uint __cdecl grimlib_FindResources(void)
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define acStack_100 (*(char (*)[128])(_frame + (0x110 - 0x100)))
-  #define local_80 (*(char (*)[128])(_frame + (0x110 - 0x80)))
+  #define abStack_100 (*(byte (*)[128])(_frame + (0x110 - 0x100)))
+  #define local_80 (*(byte (*)[128])(_frame + (0x110 - 0x80)))
   
   GetCurrentDirectoryA(0x80,(int)local_80);
-  wuRegistry_GetStr(s_GrimDataDir_004dd94c,acStack_100,0x80,&DAT_004f5a98);
-  iVar1 = _stricmp(local_80,acStack_100);
+  wuRegistry_GetStr(s_GrimDataDir_004dd94c,(char *)abStack_100,0x80,&DAT_004f5a98);
+  iVar1 = _stricmp(local_80,abStack_100);
   if (iVar1 != 0) {
-    AddResourcePath(acStack_100);
+    AddResourcePath((char *)abStack_100);
   }
   if (g_szExtraDataDir[0] != '\0') {
-    iVar1 = _stricmp(g_szExtraDataDir,acStack_100);
+    iVar1 = _stricmp((byte *)g_szExtraDataDir,abStack_100);
     if (iVar1 != 0) {
       AddResourcePath(g_szExtraDataDir);
     }
   }
-  iVar1 = _stricmp(local_80,g_szExtraDataDir);
+  iVar1 = _stricmp(local_80,(byte *)g_szExtraDataDir);
   if (iVar1 != 0) {
-    AddResourcePath(local_80);
+    AddResourcePath((char *)local_80);
   }
   return 1;
 }
-#undef acStack_100
+#undef abStack_100
 #undef local_80
 
 
@@ -425,7 +427,7 @@ int __cdecl AddResourcePath(char *dir)
 {
   unsigned char _frame[0x1a0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
-  undefined1 *puVar2;
+  char *pcVar2;
   void *find;
   uint uVar3;
   uint uVar4;
@@ -433,114 +435,113 @@ int __cdecl AddResourcePath(char *dir)
   uint uVar6;
   char ***pppcVar7;
   char *pcVar8;
-  char *pcVar9;
+  char **ppcVar9;
   char **ppcVar10;
-  char **ppcVar11;
-  char *pcVar12;
+  char *pcVar11;
   #define local_18c (*(char (*)[128])(_frame + (0x1a0 - 0x18c)))
   #define local_10c (*(char (*)[268])(_frame + (0x1a0 - 0x10c)))
   
   uVar3 = 0xffffffff;
   do {
-    pcVar8 = dir;
+    pcVar2 = dir;
     if (uVar3 == 0) break;
     uVar3 = uVar3 - 1;
-    pcVar8 = dir + 1;
+    pcVar2 = dir + 1;
     cVar1 = *dir;
-    dir = pcVar8;
+    dir = pcVar2;
   } while (cVar1 != '\0');
   uVar3 = ~uVar3;
-  pcVar8 = pcVar8 + -uVar3;
-  pcVar12 = local_18c;
+  pcVar2 = pcVar2 + -uVar3;
+  pcVar11 = local_18c;
   for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-    *(undefined4 *)pcVar12 = *(undefined4 *)pcVar8;
-    pcVar8 = pcVar8 + 4;
-    pcVar12 = pcVar12 + 4;
+    *(undefined4 *)pcVar11 = *(undefined4 *)pcVar2;
+    pcVar2 = pcVar2 + 4;
+    pcVar11 = pcVar11 + 4;
   }
   for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-    *pcVar12 = *pcVar8;
-    pcVar8 = pcVar8 + 1;
-    pcVar12 = pcVar12 + 1;
+    *pcVar11 = *pcVar2;
+    pcVar2 = pcVar2 + 1;
+    pcVar11 = pcVar11 + 1;
   }
-  puVar2 = (undefined1 *)strrchr(local_18c,0x5c);
-  if ((puVar2 != (undefined1 *)0x0) && (puVar2[1] == '\0')) {
-    *puVar2 = 0;
+  pcVar2 = strrchr(local_18c,'\\');
+  if ((pcVar2 != (char *)0x0) && (pcVar2[1] == '\0')) {
+    *pcVar2 = '\0';
   }
   find = stdFileUtil_NewFind(local_18c,3,&DAT_004e9c64);
   uVar3 = 0xffffffff;
-  pcVar8 = &DAT_004e9c60;
+  pcVar2 = &DAT_004e9c60;
   do {
-    pcVar12 = pcVar8;
+    pcVar11 = pcVar2;
     if (uVar3 == 0) break;
     uVar3 = uVar3 - 1;
-    pcVar12 = pcVar8 + 1;
-    cVar1 = *pcVar8;
-    pcVar8 = pcVar12;
+    pcVar11 = pcVar2 + 1;
+    cVar1 = *pcVar2;
+    pcVar2 = pcVar11;
   } while (cVar1 != '\0');
   uVar3 = ~uVar3;
   iVar5 = -1;
-  pcVar8 = local_18c;
+  pcVar2 = local_18c;
   do {
-    pcVar9 = pcVar8;
+    pcVar8 = pcVar2;
     if (iVar5 == 0) break;
     iVar5 = iVar5 + -1;
-    pcVar9 = pcVar8 + 1;
-    cVar1 = *pcVar8;
-    pcVar8 = pcVar9;
+    pcVar8 = pcVar2 + 1;
+    cVar1 = *pcVar2;
+    pcVar2 = pcVar8;
   } while (cVar1 != '\0');
-  pcVar8 = pcVar12 + -uVar3;
-  pcVar12 = pcVar9 + -1;
+  pcVar2 = pcVar11 + -uVar3;
+  pcVar11 = pcVar8 + -1;
   for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-    *(undefined4 *)pcVar12 = *(undefined4 *)pcVar8;
-    pcVar8 = pcVar8 + 4;
-    pcVar12 = pcVar12 + 4;
+    *(undefined4 *)pcVar11 = *(undefined4 *)pcVar2;
+    pcVar2 = pcVar2 + 4;
+    pcVar11 = pcVar11 + 4;
   }
   for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-    *pcVar12 = *pcVar8;
-    pcVar8 = pcVar8 + 1;
-    pcVar12 = pcVar12 + 1;
+    *pcVar11 = *pcVar2;
+    pcVar2 = pcVar2 + 1;
+    pcVar11 = pcVar11 + 1;
   }
   iVar5 = stdFileUtil_FindNext(find,local_10c);
   while (iVar5 != 0) {
     uVar3 = 0xffffffff;
-    pcVar8 = local_10c;
+    pcVar2 = local_10c;
     do {
-      pcVar12 = pcVar8;
+      pcVar11 = pcVar2;
       if (uVar3 == 0) break;
       uVar3 = uVar3 - 1;
-      pcVar12 = pcVar8 + 1;
-      cVar1 = *pcVar8;
-      pcVar8 = pcVar12;
+      pcVar11 = pcVar2 + 1;
+      cVar1 = *pcVar2;
+      pcVar2 = pcVar11;
     } while (cVar1 != '\0');
     uVar3 = ~uVar3;
     iVar5 = -1;
-    pcVar8 = local_18c;
+    pcVar2 = local_18c;
     do {
-      pcVar9 = pcVar8;
+      pcVar8 = pcVar2;
       if (iVar5 == 0) break;
       iVar5 = iVar5 + -1;
-      pcVar9 = pcVar8 + 1;
-      cVar1 = *pcVar8;
-      pcVar8 = pcVar9;
+      pcVar8 = pcVar2 + 1;
+      cVar1 = *pcVar2;
+      pcVar2 = pcVar8;
     } while (cVar1 != '\0');
-    pcVar8 = pcVar12 + -uVar3;
-    pcVar12 = pcVar9 + -1;
+    pcVar2 = pcVar11 + -uVar3;
+    pcVar11 = pcVar8 + -1;
     for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *(undefined4 *)pcVar12 = *(undefined4 *)pcVar8;
-      pcVar8 = pcVar8 + 4;
-      pcVar12 = pcVar12 + 4;
+      *(undefined4 *)pcVar11 = *(undefined4 *)pcVar2;
+      pcVar2 = pcVar2 + 4;
+      pcVar11 = pcVar11 + 4;
     }
     for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-      *pcVar12 = *pcVar8;
-      pcVar8 = pcVar8 + 1;
-      pcVar12 = pcVar12 + 1;
+      *pcVar11 = *pcVar2;
+      pcVar2 = pcVar2 + 1;
+      pcVar11 = pcVar11 + 1;
     }
     iVar5 = Res_FileOpen(local_18c);
     if (iVar5 != 0) {
       Res_FileMoveToFront(local_18c);
     }
-    iVar5 = strrchr(local_18c,0x5c);
-    *(undefined1 *)(iVar5 + 1) = 0;
+    pcVar2 = strrchr(local_18c,'\\');
+    pcVar2[1] = '\0';
     iVar5 = stdFileUtil_FindNext(find,local_10c);
   }
   stdFileUtil_DisposeFind(find);
@@ -554,46 +555,46 @@ int __cdecl AddResourcePath(char *dir)
     pppcVar7 = &g_ppRequiredLabs;
     do {
       uVar4 = 0xffffffff;
-      ppcVar10 = *pppcVar7;
+      ppcVar9 = *pppcVar7;
       do {
-        ppcVar11 = ppcVar10;
+        ppcVar10 = ppcVar9;
         if (uVar4 == 0) break;
         uVar4 = uVar4 - 1;
-        ppcVar11 = (char **)((int)ppcVar10 + 1);
-        cVar1 = *(char *)ppcVar10;
-        ppcVar10 = ppcVar11;
+        ppcVar10 = (char **)((int)ppcVar9 + 1);
+        cVar1 = *(char *)ppcVar9;
+        ppcVar9 = ppcVar10;
       } while (cVar1 != '\0');
       uVar4 = ~uVar4;
       iVar5 = -1;
-      pcVar8 = local_18c;
+      pcVar2 = local_18c;
       do {
-        pcVar12 = pcVar8;
+        pcVar11 = pcVar2;
         if (iVar5 == 0) break;
         iVar5 = iVar5 + -1;
-        pcVar12 = pcVar8 + 1;
-        cVar1 = *pcVar8;
-        pcVar8 = pcVar12;
+        pcVar11 = pcVar2 + 1;
+        cVar1 = *pcVar2;
+        pcVar2 = pcVar11;
       } while (cVar1 != '\0');
-      pcVar8 = (char *)((int)ppcVar11 - uVar4);
-      pcVar12 = pcVar12 + -1;
+      pcVar2 = (char *)((int)ppcVar10 - uVar4);
+      pcVar11 = pcVar11 + -1;
       for (uVar6 = uVar4 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-        *(undefined4 *)pcVar12 = *(undefined4 *)pcVar8;
-        pcVar8 = pcVar8 + 4;
-        pcVar12 = pcVar12 + 4;
+        *(undefined4 *)pcVar11 = *(undefined4 *)pcVar2;
+        pcVar2 = pcVar2 + 4;
+        pcVar11 = pcVar11 + 4;
       }
       for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-        *pcVar12 = *pcVar8;
-        pcVar8 = pcVar8 + 1;
-        pcVar12 = pcVar12 + 1;
+        *pcVar11 = *pcVar2;
+        pcVar2 = pcVar2 + 1;
+        pcVar11 = pcVar11 + 1;
       }
       iVar5 = Res_FileOpen(local_18c);
       if (iVar5 != 0) {
         Res_FileMoveToFront(local_18c);
       }
-      puVar2 = (undefined1 *)strrchr(local_18c,0x5c);
-      *puVar2 = 0;
-      iVar5 = strrchr(local_18c,0x5c);
-      *(undefined1 *)(iVar5 + 1) = 0;
+      pcVar2 = strrchr(local_18c,'\\');
+      *pcVar2 = '\0';
+      pcVar2 = strrchr(local_18c,'\\');
+      pcVar2[1] = '\0';
       uVar3 = uVar3 + 1;
       pppcVar7 = pppcVar7 + 1;
     } while (uVar3 < (uint)g_nRequiredLabCount);

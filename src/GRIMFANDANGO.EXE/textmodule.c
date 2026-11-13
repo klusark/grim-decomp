@@ -39,7 +39,7 @@ int __cdecl Text_SysInitialize(GrimServices *svc,void *iface)
    (the remaster's GrimFandango (Linux): aligned call in Text_SysInitialize); was
    TextModule_Terminate. */
 
-void Text_SysTerminate(void)
+void __cdecl Text_SysTerminate(void)
 
 {
   g_dwTextSysInitialized = 0;
@@ -52,7 +52,7 @@ void Text_SysTerminate(void)
    the default font. Original name Text_SysStartup (the remaster's GrimFandango (Linux): aligned
    call in Text_SysInitialize); was TextModule_Start. */
 
-void Text_SysStartup(void)
+void __cdecl Text_SysStartup(void)
 
 {
   int iVar1;
@@ -64,7 +64,7 @@ void Text_SysStartup(void)
       (&g_bLookup)[iVar1] = (char)iVar1;
       iVar1 = iVar1 + 1;
     } while (iVar1 < 0xff);
-    Text_WrapLines(&g_pDefaultFont);
+    Text_WrapLines((uint *)&g_pDefaultFont);
   }
   return;
 }
@@ -74,7 +74,7 @@ void Text_SysStartup(void)
    releases what _Start created. Original name Text_SysShutdown (the remaster's GrimFandango
    (Linux): aligned call in Text_SysInitialize); was TextModule_Stop. */
 
-void Text_SysShutdown(void)
+void __cdecl Text_SysShutdown(void)
 
 {
   (*g_pTextHS->pHFree)(g_pDefaultFont);
@@ -87,7 +87,7 @@ void Text_SysShutdown(void)
    handed for every field. Original name Text_SysSave (the remaster's GrimFandango (Linux): aligned
    call in Text_SysInitialize); was TextModule_SaveState. */
 
-undefined4 Text_SysSave(code *param_1)
+uint __cdecl Text_SysSave(code *param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -108,11 +108,11 @@ undefined4 Text_SysSave(code *param_1)
 /* Expects 'TxtB', 1, 0 from the read function Original name Text_SysRestore (the remaster's
    GrimFandango (Linux): aligned call in Text_SysInitialize); was TextModule_CheckHeader. */
 
-undefined4 Text_SysRestore(code *param_1)
+uint __cdecl Text_SysRestore(code *param_1)
 
 {
   code *pcVar1;
-  undefined4 uVar2;
+  uint uVar2;
   
   pcVar1 = param_1;
   uVar2 = 1;

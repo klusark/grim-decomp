@@ -67,11 +67,11 @@ uint __cdecl sputText_Startup(void)
     if (iVar1 == 0) {
       iVar1 = (*(code *)UINT_008ca0c0)();
       if (iVar1 == 0) {
-        g_PrintLineTextCtx.pFont = (void *)Text_GetSystemFont();
+        g_PrintLineTextCtx.pFont = Text_GetSystemFont();
         g_SubtitleTextCtx.pFont = g_PrintLineTextCtx.pFont;
         g_TextObjectCtx.pFont = g_PrintLineTextCtx.pFont;
         g_hFont = (uint)g_PrintLineTextCtx.pFont;
-        sputLua_RegisterFunctions(&g_pTextFunctionsToRegister,UINT_004e85d8);
+        sputLua_RegisterFunctions((int *)&g_pTextFunctionsToRegister,UINT_004e85d8);
         lua_pushstring(&DAT_004e8454);
         g_dwLrX = lua_ref(1);
         lua_pushstring(&DAT_004e8450);
@@ -278,7 +278,7 @@ uint __cdecl sputText_Restore(code *param_1)
     (*pcVar3)(((unsigned)(uintptr_t)((unsigned char *)&g_PrintLineTextCtx + 0x8)),4);
     (*pcVar3)(((unsigned)(uintptr_t)((unsigned char *)&g_SubtitleTextCtx + 0x8)),4);
     (*pcVar3)(((unsigned)(uintptr_t)((unsigned char *)&g_TextObjectCtx + 0x8)),4);
-    g_hFont = Text_GetSystemFont();
+    g_hFont = (uint)Text_GetSystemFont();
     g_PrintLineTextCtx.pFont = Res_HandleFromSerialNumber(g_PrintLineTextCtx.pFont);
     g_SubtitleTextCtx.pFont = Res_HandleFromSerialNumber(g_SubtitleTextCtx.pFont);
     g_TextObjectCtx.pFont = Res_HandleFromSerialNumber(g_TextObjectCtx.pFont);

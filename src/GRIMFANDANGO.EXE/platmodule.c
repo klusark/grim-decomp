@@ -41,7 +41,7 @@ int Graph_SysInitialize(GrimServices *svc,void *iface)
    (the remaster's GrimFandango (Linux): aligned call in Graph_SysInitialize); was
    PlatModule_Terminate. */
 
-void Graph_SysTerminate(void)
+void __cdecl Graph_SysTerminate(void)
 
 {
   g_dwGraphSysInitialized = 0;
@@ -53,10 +53,10 @@ void Graph_SysTerminate(void)
    (non-zero makes the whole start-up unwind). Original name Graph_SysStartup (the remaster's
    GrimFandango (Linux): aligned call in Graph_SysInitialize); was PlatModule_Start. */
 
-undefined4 Graph_SysStartup(void)
+uint __cdecl Graph_SysStartup(void)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
   uVar1 = 1;
   if ((g_dwGraphSysInitialized != 0) && (g_dwGraphSysStarted == 0)) {
@@ -71,7 +71,7 @@ undefined4 Graph_SysStartup(void)
    releases what _Start created. Original name Graph_SysShutdown (the remaster's GrimFandango
    (Linux): aligned call in Graph_SysInitialize); was PlatModule_Stop. */
 
-void Graph_SysShutdown(void)
+void __cdecl Graph_SysShutdown(void)
 
 {
   g_dwGraphSysStarted = 0;

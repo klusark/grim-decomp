@@ -9,7 +9,7 @@
 /* Milliseconds since the recorded start time (time() plus a millisecond field); engine helper
    living in the CRT range */
 
-int Clock_ElapsedMs(void)
+int __cdecl Clock_ElapsedMs(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

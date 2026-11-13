@@ -11,7 +11,7 @@
    (Linux): the only unmatched caller of Chore_FadeIn; 1 matched neighbours agree, 0 disagree); was
    Cos_StartChoreFaded. */
 
-void FadeInChore(void *param_1,uint param_2,int param_3)
+void __cdecl FadeInChore(void *param_1,uint param_2,int param_3)
 
 {
   Cos_InstPlayChore((int)param_1,param_2,1,0);
@@ -90,7 +90,7 @@ void __cdecl sputCostume_PrintCostumeInfo(CostumeNode *costume)
         if (*(int *)(iVar3 + 0x54) != 0) {
           iVar4 = 0;
           do {
-            String_ContainsSubstring(*(int *)(iVar3 + 0x58) + iVar4,s_skirt_004ea1a8);
+            String_ContainsSubstring((uint *)(*(int *)(iVar3 + 0x58) + iVar4),s_skirt_004ea1a8);
             uVar5 = uVar5 + 1;
             iVar4 = iVar4 + 0xb8;
           } while (uVar5 < *(uint *)(iVar3 + 0x54));
@@ -433,7 +433,7 @@ void __cdecl sputCostume_BuildThingStateMatrices(void *component,float *frame)
 /* Original name sputCostume_Draw2D (the remaster's GrimFandango (Linux): aligned call in
    sputRender_Update); was Costume_TouchComponents. */
 
-void sputCostume_Draw2D(int param_1)
+void __cdecl sputCostume_Draw2D(int param_1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -499,84 +499,86 @@ void __cdecl sputCostume_Update(CostumeNode *costumeList,float dt)
    (Linux): the only unpaired user of psputCosHS, same body and strings ("Name chore list file...",
    "-- Chore numbering for %s.")); was Costume_SaveChoreListFile. */
 
-undefined4 sputCostume_SaveHook(char *param_1,uint *param_2,undefined4 param_3)
+uint __cdecl sputCostume_SaveHook(char *param_1,uint *param_2,uint param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void **ppvVar1;
   char cVar2;
-  int iVar3;
-  char *pcVar4;
+  char *pcVar3;
+  byte *pbVar4;
   int iVar5;
-  uint uVar6;
-  int iVar7;
-  uint uVar8;
-  char *pcVar9;
+  int iVar6;
+  uint uVar7;
+  int iVar8;
+  byte *pbVar9;
   uint uVar10;
+  char *pcVar11;
+  uint uVar12;
   #define acStack_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
-  iVar3 = strrchr(param_1,0x5c);
-  pcVar4 = param_1;
-  if (iVar3 != 0) {
-    pcVar4 = (char *)(iVar3 + 1);
+  pcVar3 = strrchr(param_1,'\\');
+  pbVar9 = (byte *)param_1;
+  if (pcVar3 != (char *)0x0) {
+    pbVar9 = (byte *)(pcVar3 + 1);
   }
-  iVar3 = Cos_GetCostumeName((int)param_2);
-  iVar3 = _stricmp(pcVar4,iVar3);
-  if (iVar3 == 0) {
-    uVar6 = 0xffffffff;
-    pcVar4 = param_1;
+  pbVar4 = (byte *)Cos_GetCostumeName((int)param_2);
+  iVar5 = _stricmp(pbVar9,pbVar4);
+  if (iVar5 == 0) {
+    uVar7 = 0xffffffff;
+    pcVar3 = param_1;
     do {
-      pcVar9 = pcVar4;
-      if (uVar6 == 0) break;
-      uVar6 = uVar6 - 1;
-      pcVar9 = pcVar4 + 1;
-      cVar2 = *pcVar4;
-      pcVar4 = pcVar9;
+      pcVar11 = pcVar3;
+      if (uVar7 == 0) break;
+      uVar7 = uVar7 - 1;
+      pcVar11 = pcVar3 + 1;
+      cVar2 = *pcVar3;
+      pcVar3 = pcVar11;
     } while (cVar2 != '\0');
-    uVar6 = ~uVar6;
-    pcVar4 = pcVar9 + -uVar6;
-    pcVar9 = g_szGrimlib_aFilename;
-    for (uVar8 = uVar6 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
-      *(undefined4 *)pcVar9 = *(undefined4 *)pcVar4;
-      pcVar4 = pcVar4 + 4;
-      pcVar9 = pcVar9 + 4;
+    uVar7 = ~uVar7;
+    pcVar3 = pcVar11 + -uVar7;
+    pcVar11 = g_szGrimlib_aFilename;
+    for (uVar10 = uVar7 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
+      *(undefined4 *)pcVar11 = *(undefined4 *)pcVar3;
+      pcVar3 = pcVar3 + 4;
+      pcVar11 = pcVar11 + 4;
     }
-    for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-      *pcVar9 = *pcVar4;
-      pcVar4 = pcVar4 + 1;
-      pcVar9 = pcVar9 + 1;
+    for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
+      *pcVar11 = *pcVar3;
+      pcVar3 = pcVar3 + 1;
+      pcVar11 = pcVar11 + 1;
     }
-    pcVar4 = stdFnames_FindExt(g_szGrimlib_aFilename);
-    sprintf(pcVar4,&DAT_004ea45c);
+    pcVar3 = stdFnames_FindExt(g_szGrimlib_aFilename);
+    sprintf(pcVar3,&DAT_004ea45c);
   }
   else {
-    iVar3 = grimPlat_SaveFileRequest
+    iVar5 = grimPlat_SaveFileRequest
                       (s_Name_chore_list_file____004ea460,s_Script_files____lua____def__004ea478);
-    if (iVar3 == 0) {
+    if (iVar5 == 0) {
       return 0;
     }
   }
-  iVar3 = (*g_pSputCosHS->pFopen)(g_szGrimlib_aFilename,&DAT_004dd478);
-  if (iVar3 != 0) {
+  iVar5 = (*g_pSputCosHS->pFopen)(g_szGrimlib_aFilename,&DAT_004dd478);
+  if (iVar5 != 0) {
     ppvVar1 = &g_pSputCosHS->pFprintf;
-    pcVar4 = stdFnames_FindMedName(param_1);
-    (*(code *)*ppvVar1)(iVar3,s____Chore_numbering_for__s__004ea3d4,pcVar4);
-    (*g_pSputCosHS->pFprintf)(iVar3,s_____s_004ea3cc,param_3);
+    pcVar3 = stdFnames_FindMedName(param_1);
+    (*(code *)*ppvVar1)(iVar5,s____Chore_numbering_for__s__004ea3d4,pcVar3);
+    (*g_pSputCosHS->pFprintf)(iVar5,s_____s_004ea3cc,param_3);
     stdFnames_CopyShortName(acStack_20,0x20,param_1);
-    iVar5 = Cos_CreateCosInstance(param_2,0);
-    uVar6 = Cos_InstCountChores(iVar5);
-    uVar8 = 0;
-    if (uVar6 != 0) {
+    iVar6 = Cos_CreateCosInstance(param_2,0);
+    uVar7 = Cos_InstCountChores(iVar6);
+    uVar10 = 0;
+    if (uVar7 != 0) {
       do {
         ppvVar1 = &g_pSputCosHS->pFprintf;
-        uVar10 = uVar8;
-        iVar7 = Cos_InstChoreName(iVar5,uVar8);
-        (*(code *)*ppvVar1)(iVar3,s__s__s____d_004ea3bc,acStack_20,iVar7,uVar10);
-        uVar8 = uVar8 + 1;
-      } while (uVar8 < uVar6);
+        uVar12 = uVar10;
+        iVar8 = Cos_InstChoreName(iVar6,uVar10);
+        (*(code *)*ppvVar1)(iVar5,s__s__s____d_004ea3bc,acStack_20,iVar8,uVar12);
+        uVar10 = uVar10 + 1;
+      } while (uVar10 < uVar7);
     }
-    (*g_pSputCosHS->pFclose)(iVar3);
-    Cos_FreeCosInstance(iVar5);
+    (*g_pSputCosHS->pFclose)(iVar5);
+    Cos_FreeCosInstance(iVar6);
     return 1;
   }
   grimPlat_QueryDialog(s_File_Error__004ea3f0,s_Unable_to_open_chore_list_file__C_004ea3fc,0);
@@ -589,7 +591,7 @@ undefined4 sputCostume_SaveHook(char *param_1,uint *param_2,undefined4 param_3)
 /* Callback given to Cos_RegisterInstanceHook: clears the instance's user data (the actor index)
    when an instance is created or destroyed. */
 
-undefined4 Costume_InstanceHook(int param_1,int param_2)
+uint __cdecl Costume_InstanceHook(int param_1,int param_2)
 
 {
   if (param_2 != 0) {

@@ -20,7 +20,7 @@ void __cdecl rdModel3_NewEntry(uint *param_1)
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  strncpy(param_1,s_UNKNOWN_004ddb8c,0x1f);
+  strncpy(param_1,(uint *)s_UNKNOWN_004ddb8c,0x1f);
   *(undefined1 *)((int)param_1 + 0x1f) = 0;
   param_1[0x14] = 0;
   return;
@@ -123,15 +123,15 @@ rdModel3_LoadEntryText
 
 {
   char cVar1;
-  int iVar2;
-  uint uVar3;
+  uint *puVar2;
+  int iVar3;
   uint uVar4;
   void *pvVar5;
   undefined4 *puVar6;
   int iVar7;
-  int iVar8;
+  undefined *puVar8;
   undefined *puVar9;
-  undefined *puVar10;
+  int iVar10;
   uint uVar11;
   undefined *puVar12;
   uint *puVar13;
@@ -157,45 +157,47 @@ rdModel3_LoadEntryText
   int in_stack_00000068;
   undefined4 in_stack_0000006c;
   undefined4 in_stack_00000070;
-  undefined4 in_stack_00000074;
+  uint in_stack_00000074;
   int in_stack_00000078;
   uint in_stack_0000007c;
   char *in_stack_0002048c;
   uint *in_stack_00020490;
   char *pcVar16;
+  uint uVar17;
   
   FUN_004addf0();
   rdModel3_NewEntry(in_stack_00020490);
-  stdFileFromPath(in_stack_0002048c);
-  ((code *)strncpy)();
+  uVar17 = 0x1f;
+  puVar2 = (uint *)stdFileFromPath(in_stack_0002048c);
+  strncpy(in_stack_00020490,puVar2,uVar17);
   *(undefined1 *)((int)in_stack_00020490 + 0x1f) = 0;
-  iVar2 = ((code *)stdConffile_Open)((uint)in_stack_0002048c);
-  if (iVar2 == 0) {
+  iVar3 = ((code *)stdConffile_Open)((uint)in_stack_0002048c);
+  if (iVar3 == 0) {
     return 0;
   }
-  uVar3 = stdConffile_ReadLine();
-  if (((uVar3 != 0) &&
-      (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64), iVar2 == 1)) &&
-     (uVar3 = stdConffile_ReadLine(), uVar3 != 0)) {
+  uVar17 = stdConffile_ReadLine();
+  if (((uVar17 != 0) &&
+      (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64), iVar3 == 1)) &&
+     (uVar17 = stdConffile_ReadLine(), uVar17 != 0)) {
     sscanf((char *)g_dwStdConffile_aLine,s_3do__d__d_004ddd58);
-    uVar3 = stdConffile_ReadLine();
-    if (((uVar3 != 0) &&
-        (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64), iVar2 == 1)) &&
-       ((uVar3 = stdConffile_ReadLine(), uVar3 != 0 &&
-        (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_materials__d_004ddd48), iVar2 == 1)))) {
+    uVar17 = stdConffile_ReadLine();
+    if (((uVar17 != 0) &&
+        (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64), iVar3 == 1)) &&
+       ((uVar17 = stdConffile_ReadLine(), uVar17 != 0 &&
+        (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_materials__d_004ddd48), iVar3 == 1)))) {
       if (param_5 != 0) {
         if (0x7f < param_5) {
           (*g_pRdroid_HS->pAssertFail)();
         }
-        uVar3 = (*g_pRdroid_HS->pAlloc)();
-        in_stack_00020490[0x12] = uVar3;
-        if (uVar3 == 0) goto LAB_0040b8c4;
-        uVar3 = 0;
+        uVar17 = (*g_pRdroid_HS->pAlloc)();
+        in_stack_00020490[0x12] = uVar17;
+        if (uVar17 == 0) goto LAB_0040b8c4;
+        uVar17 = 0;
         if (param_5 != 0) {
           do {
             uVar4 = stdConffile_ReadLine();
             if ((uVar4 == 0) ||
-               (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s__d___s_004ddd28), iVar2 != 2))
+               (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s__d___s_004ddd28), iVar3 != 2))
             goto LAB_0040b8c4;
             uVar4 = 0xffffffff;
             pcVar15 = &STACK0X(0x00000088);
@@ -215,63 +217,63 @@ rdModel3_LoadEntryText
               pcVar15 = pcVar15 + 4;
               pcVar16 = pcVar16 + 4;
             }
-            uVar3 = uVar3 + 1;
+            uVar17 = uVar17 + 1;
             for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
               *pcVar16 = *pcVar15;
               pcVar15 = pcVar15 + 1;
               pcVar16 = pcVar16 + 1;
             }
-          } while (uVar3 < param_5);
+          } while (uVar17 < param_5);
         }
-        uVar3 = 0;
+        uVar17 = 0;
         if (param_5 != 0) {
           pcVar15 = &STACK0X(0x00000488);
           do {
             pvVar5 = rdMaterial_Load(pcVar15,0,0);
-            *(void **)(in_stack_00020490[0x12] + uVar3 * 4) = pvVar5;
-            if (*(int *)(in_stack_00020490[0x12] + uVar3 * 4) == 0) goto LAB_0040b8c4;
-            uVar3 = uVar3 + 1;
+            *(void **)(in_stack_00020490[0x12] + uVar17 * 4) = pvVar5;
+            if (*(int *)(in_stack_00020490[0x12] + uVar17 * 4) == 0) goto LAB_0040b8c4;
+            uVar17 = uVar17 + 1;
             pcVar15 = pcVar15 + 0x400;
-          } while (uVar3 < param_5);
+          } while (uVar17 < param_5);
         }
       }
       in_stack_00020490[0x13] = param_5;
-      uVar3 = stdConffile_ReadLine();
-      if ((((uVar3 != 0) &&
-           (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64), iVar2 == 1)) &&
-          (uVar3 = stdConffile_ReadLine(), uVar3 != 0)) &&
-         (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_radius__f_004ddd1c), iVar2 == 1)) {
+      uVar17 = stdConffile_ReadLine();
+      if ((((uVar17 != 0) &&
+           (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64), iVar3 == 1)) &&
+          (uVar17 = stdConffile_ReadLine(), uVar17 != 0)) &&
+         (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_radius__f_004ddd1c), iVar3 == 1)) {
         in_stack_00020490[0x17] = in_stack_00000044;
-        uVar3 = stdConffile_ReadLine();
-        if ((uVar3 != 0) &&
-           (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_insert_offset__f__f__f_004ddd04),
-           iVar2 == 3)) {
+        uVar17 = stdConffile_ReadLine();
+        if ((uVar17 != 0) &&
+           (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_insert_offset__f__f__f_004ddd04),
+           iVar3 == 3)) {
           in_stack_00020490[0x21] = param_3;
           in_stack_00020490[0x22] = param_1;
           in_stack_00020490[0x23] = param_2;
-          uVar3 = stdConffile_ReadLine();
-          if ((uVar3 != 0) &&
-             (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_geosets__d_004ddcf8), iVar2 == 1)) {
+          uVar17 = stdConffile_ReadLine();
+          if ((uVar17 != 0) &&
+             (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_geosets__d_004ddcf8), iVar3 == 1)) {
             uStack0000003c = 0;
             in_stack_00020490[0x11] = in_stack_00000040;
             if (in_stack_00000040 != 0) {
               puStack00000024 = in_stack_00020490 + 10;
               do {
-                uVar3 = stdConffile_ReadLine();
-                if (((uVar3 == 0) ||
-                    (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_geoset__d_004ddcec), iVar2 != 1)
-                    ) || ((uVar3 = stdConffile_ReadLine(), uVar3 == 0 ||
-                          (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_meshes__d_004ddce0),
-                          iVar2 != 1)))) goto LAB_0040b8c4;
+                uVar17 = stdConffile_ReadLine();
+                if (((uVar17 == 0) ||
+                    (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_geoset__d_004ddcec), iVar3 != 1)
+                    ) || ((uVar17 = stdConffile_ReadLine(), uVar17 == 0 ||
+                          (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_meshes__d_004ddce0),
+                          iVar3 != 1)))) goto LAB_0040b8c4;
                 puVar6 = (undefined4 *)(*g_pRdroid_HS->pAlloc)();
                 *puStack00000024 = (uint)puVar6;
                 if (puVar6 == (undefined4 *)0x0) goto LAB_0040b8c4;
                 uStack00000034 = 0;
-                for (uVar3 = param_6 * 0x1f & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
+                for (uVar17 = param_6 * 0x1f & 0x3fffffff; uVar17 != 0; uVar17 = uVar17 - 1) {
                   *puVar6 = 0;
                   puVar6 = puVar6 + 1;
                 }
-                for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
+                for (iVar3 = 0; iVar3 != 0; iVar3 = iVar3 + -1) {
                   *(undefined1 *)puVar6 = 0;
                   puVar6 = (undefined4 *)((int)puVar6 + 1);
                 }
@@ -279,208 +281,208 @@ rdModel3_LoadEntryText
                 if (param_6 != 0) {
                   iStack0000002c = 0;
                   do {
-                    iVar2 = *puStack00000024 + iStack0000002c;
-                    *(uint *)(iVar2 + 0x20) = uStack00000034;
-                    uVar3 = stdConffile_ReadLine();
-                    if ((((uVar3 == 0) ||
-                         (iVar7 = sscanf((char *)g_dwStdConffile_aLine,s_mesh__d_004ddcd4),
-                         iVar7 != 1)) || (uVar3 = stdConffile_ReadLine(), uVar3 == 0)) ||
-                       (iVar7 = sscanf((char *)g_dwStdConffile_aLine,s_name__s_004ddcc8), iVar7 != 1
+                    puVar2 = (uint *)(*puStack00000024 + iStack0000002c);
+                    puVar2[8] = uStack00000034;
+                    uVar17 = stdConffile_ReadLine();
+                    if ((((uVar17 == 0) ||
+                         (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_mesh__d_004ddcd4),
+                         iVar3 != 1)) || (uVar17 = stdConffile_ReadLine(), uVar17 == 0)) ||
+                       (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_name__s_004ddcc8), iVar3 != 1
                        )) goto LAB_0040b8c4;
-                    ((code *)strncpy)();
-                    *(undefined1 *)(iVar2 + 0x1f) = 0;
-                    uVar3 = stdConffile_ReadLine();
-                    if (((uVar3 == 0) ||
-                        (iVar7 = sscanf((char *)g_dwStdConffile_aLine,s_radius__f_004ddd1c),
-                        iVar7 != 1)) || (uVar3 = stdConffile_ReadLine(), uVar3 == 0))
+                    strncpy(puVar2,(uint *)&g_bStd_genBuffer,0x1f);
+                    *(undefined1 *)((int)puVar2 + 0x1f) = 0;
+                    uVar17 = stdConffile_ReadLine();
+                    if (((uVar17 == 0) ||
+                        (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_radius__f_004ddd1c),
+                        iVar3 != 1)) || (uVar17 = stdConffile_ReadLine(), uVar17 == 0))
                     goto LAB_0040b8c4;
-                    iVar7 = sscanf((char *)g_dwStdConffile_aLine,s_shadow__d_004ddcbc);
-                    if (iVar7 == 1) {
-                      *(undefined4 *)(iVar2 + 0x54) = in_stack_00000074;
-                      uVar3 = stdConffile_ReadLine();
-                      if (uVar3 == 0) goto LAB_0040b8c4;
+                    iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_shadow__d_004ddcbc);
+                    if (iVar3 == 1) {
+                      puVar2[0x15] = in_stack_00000074;
+                      uVar17 = stdConffile_ReadLine();
+                      if (uVar17 == 0) goto LAB_0040b8c4;
                     }
-                    iVar7 = sscanf((char *)g_dwStdConffile_aLine,s_geometrymode__d_004ddca8);
-                    if ((((iVar7 != 1) || (uVar3 = stdConffile_ReadLine(), uVar3 == 0)) ||
-                        ((iVar7 = sscanf((char *)g_dwStdConffile_aLine,s_lightingmode__d_004ddc94),
-                         iVar7 != 1 ||
-                         (((uVar3 = stdConffile_ReadLine(), uVar3 == 0 ||
-                           (iVar7 = sscanf((char *)g_dwStdConffile_aLine,s_texturemode__d_004ddc84),
-                           iVar7 != 1)) || (uVar3 = stdConffile_ReadLine(), uVar3 == 0)))))) ||
-                       ((iVar7 = sscanf((char *)g_dwStdConffile_aLine,s_vertices__d_004ddc74),
-                        iVar7 != 1 || (0x200 < unaff_retaddr)))) goto LAB_0040b8c4;
-                    *(undefined4 *)(iVar2 + 0x30) = 0;
-                    *(undefined4 *)(iVar2 + 0x38) = 0;
-                    *(undefined4 *)(iVar2 + 0x3c) = 0;
+                    iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_geometrymode__d_004ddca8);
+                    if ((((iVar3 != 1) || (uVar17 = stdConffile_ReadLine(), uVar17 == 0)) ||
+                        ((iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_lightingmode__d_004ddc94),
+                         iVar3 != 1 ||
+                         (((uVar17 = stdConffile_ReadLine(), uVar17 == 0 ||
+                           (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_texturemode__d_004ddc84),
+                           iVar3 != 1)) || (uVar17 = stdConffile_ReadLine(), uVar17 == 0)))))) ||
+                       ((iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_vertices__d_004ddc74),
+                        iVar3 != 1 || (0x200 < unaff_retaddr)))) goto LAB_0040b8c4;
+                    puVar2[0xc] = 0;
+                    puVar2[0xe] = 0;
+                    puVar2[0xf] = 0;
                     if (unaff_retaddr != 0) {
-                      iVar7 = (*g_pRdroid_HS->pAlloc)();
-                      *(int *)(iVar2 + 0x30) = iVar7;
-                      if (iVar7 == 0) goto LAB_0040b8c4;
-                      iVar7 = (*g_pRdroid_HS->pAlloc)();
-                      *(int *)(iVar2 + 0x38) = iVar7;
-                      if (iVar7 == 0) goto LAB_0040b8c4;
+                      uVar17 = (*g_pRdroid_HS->pAlloc)();
+                      puVar2[0xc] = uVar17;
+                      if (uVar17 == 0) goto LAB_0040b8c4;
+                      uVar17 = (*g_pRdroid_HS->pAlloc)();
+                      puVar2[0xe] = uVar17;
+                      if (uVar17 == 0) goto LAB_0040b8c4;
                       puVar6 = (undefined4 *)(*g_pRdroid_HS->pAlloc)();
-                      *(undefined4 **)(iVar2 + 0x3c) = puVar6;
+                      puVar2[0xf] = (uint)puVar6;
                       if (puVar6 == (undefined4 *)0x0) goto LAB_0040b8c4;
-                      for (uVar3 = unaff_retaddr >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
+                      for (uVar17 = unaff_retaddr >> 2; uVar17 != 0; uVar17 = uVar17 - 1) {
                         *puVar6 = 0;
                         puVar6 = puVar6 + 1;
                       }
-                      for (uVar3 = unaff_retaddr & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
+                      for (uVar17 = unaff_retaddr & 3; uVar17 != 0; uVar17 = uVar17 - 1) {
                         *(undefined1 *)puVar6 = 0;
                         puVar6 = (undefined4 *)((int)puVar6 + 1);
                       }
                     }
-                    puVar14 = *(uint **)(iVar2 + 0x30);
-                    uVar3 = 0;
+                    puVar14 = (uint *)puVar2[0xc];
+                    uVar17 = 0;
                     if (unaff_retaddr != 0) {
                       do {
                         uVar4 = stdConffile_ReadLine();
                         if ((uVar4 == 0) ||
-                           (iVar7 = sscanf((char *)g_dwStdConffile_aLine,s__d___f__f__f__f_004ddc60)
-                           , iVar7 != 5)) goto LAB_0040b8c4;
+                           (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s__d___f__f__f__f_004ddc60)
+                           , iVar3 != 5)) goto LAB_0040b8c4;
                         *puVar14 = param_3;
                         puVar14[1] = param_1;
                         puVar14[2] = param_2;
                         puVar14 = puVar14 + 3;
-                        *(undefined4 *)(*(int *)(iVar2 + 0x38) + uVar3 * 4) = in_stack_00000050;
-                        uVar3 = uVar3 + 1;
-                      } while (uVar3 < unaff_retaddr);
+                        *(undefined4 *)(puVar2[0xe] + uVar17 * 4) = in_stack_00000050;
+                        uVar17 = uVar17 + 1;
+                      } while (uVar17 < unaff_retaddr);
                     }
-                    *(uint *)(iVar2 + 0x48) = unaff_retaddr;
-                    uVar3 = stdConffile_ReadLine();
-                    if (((uVar3 == 0) ||
-                        (iVar7 = sscanf((char *)g_dwStdConffile_aLine,s_texture_vertices__d_004ddc48
-                                       ), iVar7 != 1)) || (0x300 < param_7)) goto LAB_0040b8c4;
-                    *(undefined4 *)(iVar2 + 0x34) = 0;
+                    puVar2[0x12] = unaff_retaddr;
+                    uVar17 = stdConffile_ReadLine();
+                    if (((uVar17 == 0) ||
+                        (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_texture_vertices__d_004ddc48
+                                       ), iVar3 != 1)) || (0x300 < param_7)) goto LAB_0040b8c4;
+                    puVar2[0xd] = 0;
                     if (param_7 != 0) {
                       puVar6 = (undefined4 *)(*g_pRdroid_HS->pAlloc)();
-                      *(undefined4 **)(iVar2 + 0x34) = puVar6;
+                      puVar2[0xd] = (uint)puVar6;
                       if (puVar6 == (undefined4 *)0x0) goto LAB_0040b8c4;
-                      uVar3 = 0;
+                      uVar17 = 0;
                       if (param_7 != 0) {
                         do {
                           uVar4 = stdConffile_ReadLine();
                           if ((uVar4 == 0) ||
-                             (iVar7 = sscanf((char *)g_dwStdConffile_aLine,s__d___f__f_004ddc3c),
-                             iVar7 != 3)) goto LAB_0040b8c4;
+                             (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s__d___f__f_004ddc3c),
+                             iVar3 != 3)) goto LAB_0040b8c4;
                           *puVar6 = in_stack_00000070;
                           puVar6[1] = in_stack_00000058;
                           puVar6 = puVar6 + 2;
-                          uVar3 = uVar3 + 1;
-                        } while (uVar3 < param_7);
+                          uVar17 = uVar17 + 1;
+                        } while (uVar17 < param_7);
                       }
                     }
-                    *(uint *)(iVar2 + 0x4c) = param_7;
-                    uVar3 = stdConffile_ReadLine();
-                    if (uVar3 == 0) goto LAB_0040b8c4;
-                    *(undefined4 *)(iVar2 + 0x44) = 0;
+                    puVar2[0x13] = param_7;
+                    uVar17 = stdConffile_ReadLine();
+                    if (uVar17 == 0) goto LAB_0040b8c4;
+                    puVar2[0x11] = 0;
                     if (unaff_retaddr != 0) {
-                      iVar7 = (*g_pRdroid_HS->pAlloc)();
-                      *(int *)(iVar2 + 0x44) = iVar7;
-                      if (iVar7 == 0) goto LAB_0040b8c4;
+                      uVar17 = (*g_pRdroid_HS->pAlloc)();
+                      puVar2[0x11] = uVar17;
+                      if (uVar17 == 0) goto LAB_0040b8c4;
                     }
-                    uVar3 = 0;
+                    uVar17 = 0;
                     if (unaff_retaddr != 0) {
-                      iVar7 = 0;
+                      iVar3 = 0;
                       do {
                         uVar4 = stdConffile_ReadLine();
                         if ((uVar4 == 0) ||
-                           (iVar8 = sscanf((char *)g_dwStdConffile_aLine,s__d___f__f__f_004ddc2c),
-                           iVar8 != 4)) goto LAB_0040b8c4;
-                        uVar3 = uVar3 + 1;
-                        *(uint *)(iVar7 + *(int *)(iVar2 + 0x44)) = param_3;
-                        *(uint *)(iVar7 + 4 + *(int *)(iVar2 + 0x44)) = param_1;
-                        *(uint *)(iVar7 + 8 + *(int *)(iVar2 + 0x44)) = param_2;
-                        iVar7 = iVar7 + 0xc;
-                      } while (uVar3 < unaff_retaddr);
+                           (iVar7 = sscanf((char *)g_dwStdConffile_aLine,s__d___f__f__f_004ddc2c),
+                           iVar7 != 4)) goto LAB_0040b8c4;
+                        uVar17 = uVar17 + 1;
+                        *(uint *)(iVar3 + puVar2[0x11]) = param_3;
+                        *(uint *)(iVar3 + 4 + puVar2[0x11]) = param_1;
+                        *(uint *)(iVar3 + 8 + puVar2[0x11]) = param_2;
+                        iVar3 = iVar3 + 0xc;
+                      } while (uVar17 < unaff_retaddr);
                     }
-                    uVar3 = stdConffile_ReadLine();
-                    if (((uVar3 == 0) ||
-                        (iVar7 = sscanf((char *)g_dwStdConffile_aLine,s_faces__d_004ddc20),
-                        iVar7 != 1)) || (0x200 < param_8)) goto LAB_0040b8c4;
-                    *(uint *)(iVar2 + 0x50) = param_8;
-                    *(undefined4 *)(iVar2 + 0x40) = 0;
+                    uVar17 = stdConffile_ReadLine();
+                    if (((uVar17 == 0) ||
+                        (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_faces__d_004ddc20),
+                        iVar3 != 1)) || (0x200 < param_8)) goto LAB_0040b8c4;
+                    puVar2[0x14] = param_8;
+                    puVar2[0x10] = 0;
                     if (param_8 != 0) {
-                      iVar7 = (*g_pRdroid_HS->pAlloc)();
-                      *(int *)(iVar2 + 0x40) = iVar7;
-                      if (iVar7 == 0) goto LAB_0040b8c4;
+                      uVar17 = (*g_pRdroid_HS->pAlloc)();
+                      puVar2[0x10] = uVar17;
+                      if (uVar17 == 0) goto LAB_0040b8c4;
                     }
-                    puVar14 = *(uint **)(iVar2 + 0x40);
+                    puVar14 = (uint *)puVar2[0x10];
                     uStack00000028 = 0;
                     if (param_8 != 0) {
                       puVar13 = puVar14 + 2;
                       do {
-                        uVar3 = stdConffile_ReadLine();
-                        if (uVar3 == 0) goto LAB_0040b8c4;
+                        uVar17 = stdConffile_ReadLine();
+                        if (uVar17 == 0) goto LAB_0040b8c4;
                         FUN_00450220(puVar14);
-                        ((code *)strtok)();
-                        uVar3 = ((code *)strtok)();
-                        puVar9 = atoi(uVar3);
+                        strtok((byte *)g_dwStdConffile_aLine,&DAT_004dd918);
+                        uVar17 = strtok((byte *)0x0,&DAT_004dd918);
+                        puVar8 = atoi(uVar17);
                         *puVar14 = uStack00000028;
-                        if (puVar9 == (undefined *)0xffffffff) {
+                        if (puVar8 == (undefined *)0xffffffff) {
                           puVar13[6] = 0;
                         }
                         else {
-                          puVar13[6] = *(uint *)(in_stack_00020490[0x12] + (int)puVar9 * 4);
+                          puVar13[6] = *(uint *)(in_stack_00020490[0x12] + (int)puVar8 * 4);
                         }
                         pcVar16 = &DAT_004ddc1c;
-                        pcVar15 = (char *)((code *)strtok)();
-                        iVar7 = sscanf(pcVar15,pcVar16);
-                        if (iVar7 != 1) goto LAB_0040b8c4;
+                        pcVar15 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+                        iVar3 = sscanf(pcVar15,pcVar16);
+                        if (iVar3 != 1) goto LAB_0040b8c4;
                         pcVar16 = &DAT_004ddc18;
-                        pcVar15 = (char *)((code *)strtok)();
-                        iVar7 = sscanf(pcVar15,pcVar16);
-                        if (iVar7 != 1) goto LAB_0040b8c4;
+                        pcVar15 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+                        iVar3 = sscanf(pcVar15,pcVar16);
+                        if (iVar3 != 1) goto LAB_0040b8c4;
                         pcVar16 = &DAT_004ddc18;
-                        pcVar15 = (char *)((code *)strtok)();
-                        iVar7 = sscanf(pcVar15,pcVar16);
-                        if (iVar7 != 1) goto LAB_0040b8c4;
+                        pcVar15 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+                        iVar3 = sscanf(pcVar15,pcVar16);
+                        if (iVar3 != 1) goto LAB_0040b8c4;
                         pcVar16 = &DAT_004ddc18;
-                        pcVar15 = (char *)((code *)strtok)();
-                        iVar7 = sscanf(pcVar15,pcVar16);
-                        if (iVar7 != 1) goto LAB_0040b8c4;
+                        pcVar15 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+                        iVar3 = sscanf(pcVar15,pcVar16);
+                        if (iVar3 != 1) goto LAB_0040b8c4;
                         pcVar16 = &DAT_004ddc14;
-                        pcVar15 = (char *)((code *)strtok)();
-                        iVar7 = sscanf(pcVar15,pcVar16);
-                        if (iVar7 != 1) goto LAB_0040b8c4;
+                        pcVar15 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+                        iVar3 = sscanf(pcVar15,pcVar16);
+                        if (iVar3 != 1) goto LAB_0040b8c4;
                         puVar13[10] = in_stack_0000007c;
-                        uVar3 = ((code *)strtok)();
-                        puVar9 = atoi(uVar3);
-                        if ((puVar9 == (undefined *)0x0) || ((undefined *)0x18 < puVar9))
+                        uVar17 = strtok((byte *)0x0,&DAT_004dd918);
+                        puVar8 = atoi(uVar17);
+                        if ((puVar8 == (undefined *)0x0) || ((undefined *)0x18 < puVar8))
                         goto LAB_0040b8c4;
-                        puVar13[3] = (uint)puVar9;
-                        uVar3 = (*g_pRdroid_HS->pAlloc)();
-                        puVar13[4] = uVar3;
-                        if (uVar3 == 0) goto LAB_0040b8c4;
+                        puVar13[3] = (uint)puVar8;
+                        uVar17 = (*g_pRdroid_HS->pAlloc)();
+                        puVar13[4] = uVar17;
+                        if (uVar17 == 0) goto LAB_0040b8c4;
                         if (((byte *)puVar13[6] == (byte *)0x0) || ((*(byte *)puVar13[6] & 2) == 0))
                         {
                           puVar12 = (undefined *)0x0;
-                          if (puVar9 != (undefined *)0x0) {
+                          if (puVar8 != (undefined *)0x0) {
                             do {
-                              uVar3 = ((code *)strtok)();
-                              puVar10 = atoi(uVar3);
-                              *(undefined **)(puVar13[4] + (int)puVar12 * 4) = puVar10;
-                              ((code *)strtok)();
+                              uVar17 = strtok((byte *)0x0,&DAT_004ddc10);
+                              puVar9 = atoi(uVar17);
+                              *(undefined **)(puVar13[4] + (int)puVar12 * 4) = puVar9;
+                              strtok((byte *)0x0,&DAT_004ddc10);
                               puVar12 = puVar12 + 1;
-                            } while (puVar12 < puVar9);
+                            } while (puVar12 < puVar8);
                           }
                         }
                         else {
-                          uVar3 = (*g_pRdroid_HS->pAlloc)();
-                          puVar13[5] = uVar3;
-                          if (uVar3 == 0) goto LAB_0040b8c4;
+                          uVar17 = (*g_pRdroid_HS->pAlloc)();
+                          puVar13[5] = uVar17;
+                          if (uVar17 == 0) goto LAB_0040b8c4;
                           puVar12 = (undefined *)0x0;
-                          if (puVar9 != (undefined *)0x0) {
+                          if (puVar8 != (undefined *)0x0) {
                             do {
-                              uVar3 = ((code *)strtok)();
-                              puVar10 = atoi(uVar3);
-                              *(undefined **)(puVar13[4] + (int)puVar12 * 4) = puVar10;
-                              uVar3 = ((code *)strtok)();
-                              puVar10 = atoi(uVar3);
-                              *(undefined **)(puVar13[5] + (int)puVar12 * 4) = puVar10;
+                              uVar17 = strtok((byte *)0x0,&DAT_004ddc10);
+                              puVar9 = atoi(uVar17);
+                              *(undefined **)(puVar13[4] + (int)puVar12 * 4) = puVar9;
+                              uVar17 = strtok((byte *)0x0,&DAT_004ddc10);
+                              puVar9 = atoi(uVar17);
+                              *(undefined **)(puVar13[5] + (int)puVar12 * 4) = puVar9;
                               puVar12 = puVar12 + 1;
-                            } while (puVar12 < puVar9);
+                            } while (puVar12 < puVar8);
                           }
                         }
                         puVar14 = puVar14 + 0x13;
@@ -488,22 +490,22 @@ rdModel3_LoadEntryText
                         uStack00000028 = uStack00000028 + 1;
                       } while (uStack00000028 < param_8);
                     }
-                    uVar3 = stdConffile_ReadLine();
-                    if (uVar3 == 0) goto LAB_0040b8c4;
-                    uVar3 = 0;
-                    if (*(int *)(iVar2 + 0x50) != 0) {
-                      puVar14 = (uint *)(*(int *)(iVar2 + 0x40) + 0x44);
+                    uVar17 = stdConffile_ReadLine();
+                    if (uVar17 == 0) goto LAB_0040b8c4;
+                    uVar17 = 0;
+                    if (puVar2[0x14] != 0) {
+                      puVar14 = (uint *)(puVar2[0x10] + 0x44);
                       do {
                         uVar4 = stdConffile_ReadLine();
                         if ((uVar4 == 0) ||
-                           (iVar7 = sscanf((char *)g_dwStdConffile_aLine,s__d___f__f__f_004ddc2c),
-                           iVar7 != 4)) goto LAB_0040b8c4;
+                           (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s__d___f__f__f_004ddc2c),
+                           iVar3 != 4)) goto LAB_0040b8c4;
                         puVar14[-1] = param_3;
                         *puVar14 = param_1;
                         puVar14[1] = param_2;
                         puVar14 = puVar14 + 0x13;
-                        uVar3 = uVar3 + 1;
-                      } while (uVar3 < *(uint *)(iVar2 + 0x50));
+                        uVar17 = uVar17 + 1;
+                      } while (uVar17 < puVar2[0x14]);
                     }
                     uStack00000034 = uStack00000034 + 1;
                     iStack0000002c = iStack0000002c + 0x7c;
@@ -513,28 +515,28 @@ rdModel3_LoadEntryText
                 puStack00000024 = puStack00000024 + 2;
               } while (uStack0000003c < in_stack_00000040);
             }
-            uVar3 = stdConffile_ReadLine();
-            if ((((uVar3 != 0) &&
-                 (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64), iVar2 == 1))
-                && (uVar3 = stdConffile_ReadLine(), uVar3 != 0)) &&
-               (iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_hierarchy_nodes__d_004ddbfc),
-               iVar2 == 1)) {
-              uVar3 = (*g_pRdroid_HS->pAlloc)();
-              in_stack_00020490[0x16] = uVar3;
-              if (uVar3 != 0) {
-                uVar3 = 0;
+            uVar17 = stdConffile_ReadLine();
+            if ((((uVar17 != 0) &&
+                 (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64), iVar3 == 1))
+                && (uVar17 = stdConffile_ReadLine(), uVar17 != 0)) &&
+               (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_hierarchy_nodes__d_004ddbfc),
+               iVar3 == 1)) {
+              uVar17 = (*g_pRdroid_HS->pAlloc)();
+              in_stack_00020490[0x16] = uVar17;
+              if (uVar17 != 0) {
+                uVar17 = 0;
                 in_stack_00020490[0x15] = in_stack_00000030;
                 if (in_stack_00000030 != 0) {
-                  iVar2 = 0;
+                  iVar3 = 0;
                   do {
                     uVar4 = in_stack_00020490[0x16];
-                    *(uint *)(iVar2 + 0x44 + uVar4) = uVar3;
-                    iVar7 = iVar2 + uVar4;
+                    *(uint *)(iVar3 + 0x44 + uVar4) = uVar17;
+                    iVar7 = iVar3 + uVar4;
                     uVar4 = stdConffile_ReadLine();
                     if ((uVar4 == 0) ||
-                       (iVar8 = sscanf((char *)g_dwStdConffile_aLine,
-                                       s__d___x__x__d__d__d__d__d__f__f___004ddbc4), iVar8 != 0x12))
-                    goto LAB_0040b8c4;
+                       (iVar10 = sscanf((char *)g_dwStdConffile_aLine,
+                                        s__d___x__x__d__d__d__d__d__f__f___004ddbc4), iVar10 != 0x12
+                       )) goto LAB_0040b8c4;
                     if (in_stack_00000060 == -1) {
                       *(undefined4 *)(iVar7 + 0x54) = 0;
                     }
@@ -553,7 +555,7 @@ rdModel3_LoadEntryText
                     else {
                       *(uint *)(iVar7 + 0x60) = in_stack_00020490[0x16] + in_stack_00000068 * 0xb8;
                     }
-                    uVar3 = uVar3 + 1;
+                    uVar17 = uVar17 + 1;
                     *(uint *)(iVar7 + 0x70) = param_3;
                     *(uint *)(iVar7 + 0x74) = param_1;
                     *(uint *)(iVar7 + 0x78) = param_2;
@@ -563,8 +565,8 @@ rdModel3_LoadEntryText
                     *(undefined4 *)(iVar7 + 100) = in_stack_0000005c;
                     *(undefined4 *)(iVar7 + 0x68) = in_stack_00000064;
                     *(undefined4 *)(iVar7 + 0x6c) = in_stack_0000006c;
-                    iVar2 = iVar2 + 0xb8;
-                  } while (uVar3 < in_stack_00000030);
+                    iVar3 = iVar3 + 0xb8;
+                  } while (uVar17 < in_stack_00000030);
                 }
                 rdModel3_CountNodeChildren((int)in_stack_00020490);
                 stdConffile_Close();

@@ -10,14 +10,14 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined4 sputTime_Initialize(undefined4 param_1,undefined4 *param_2)
+uint __cdecl sputTime_Initialize(uint param_1,uint *param_2)
 
 {
   _g_pSputTimeHS = param_1;
-  *param_2 = sputTime_Initialize;
-  param_2[1] = sputTime_Terminate;
-  param_2[2] = sputTime_Startup;
-  param_2[3] = sputTime_Shutdown;
+  *param_2 = (uint)sputTime_Initialize;
+  param_2[1] = (uint)sputTime_Terminate;
+  param_2[2] = (uint)sputTime_Startup;
+  param_2[3] = (uint)sputTime_Shutdown;
   param_2[4] = 0;
   param_2[5] = 0;
   param_2[6] = 0;
@@ -31,7 +31,7 @@ undefined4 sputTime_Initialize(undefined4 param_1,undefined4 *param_2)
 /* Module interface slot 1 (sputTime): called by Engine_ResetSubsystems / when registration fails;
    drops the service table pointer and clears the initialised flag. */
 
-void sputTime_Terminate(void)
+void __cdecl sputTime_Terminate(void)
 
 {
   _g_pSputTimeHS = 0;
@@ -47,7 +47,7 @@ void sputTime_Terminate(void)
    sputTime_Startup (the remaster's GrimFandango (Linux): aligned call in sputTime_Initialize); was
    sputTime_Start. */
 
-undefined4 sputTime_Startup(void)
+uint __cdecl sputTime_Startup(void)
 
 {
   if (g_dwSputTimeStartup != 0) {
@@ -63,7 +63,7 @@ undefined4 sputTime_Startup(void)
    releases what _Start created. Original name sputTime_Shutdown (the remaster's GrimFandango
    (Linux): aligned call in sputTime_Initialize); was sputTime_Stop. */
 
-void sputTime_Shutdown(void)
+void __cdecl sputTime_Shutdown(void)
 
 {
   g_dwSputTimeStartup = 0;

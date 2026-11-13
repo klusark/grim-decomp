@@ -288,7 +288,7 @@ Win_AbortIfAlreadyRunning
   UINT_008d0a8c = 0;
   UINT_008d09e4 = (uint)hInstance;
   _DAT_008d09e0 = nCmdShow;
-  Win_CreateMainWindow(hInstance,nCmdShow,appName);
+  Win_CreateMainWindow((uint)hInstance,nCmdShow,(int)appName);
   Win_SetMainHwnd(g_pWinMainHwnd);
   Win_SetInstance(UINT_008d09e4);
   InitCommonControls();
@@ -312,7 +312,7 @@ Win_AbortIfAlreadyRunning
 /* ---- 0x004ac020  Win_PumpMessages ---- */
 /* One message-loop iteration: runs Main_Service when idle, routes messages to registered dialogs */
 
-uint Win_PumpMessages(void)
+uint __cdecl Win_PumpMessages(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -371,7 +371,7 @@ int __cdecl Win_SetWindowedSize(int fullscreen,int w,int h)
 }
 
 /* ---- 0x004ac160  Win_AddMessageHook ---- */
-void Win_AddMessageHook(void *param_1)
+void __cdecl Win_AddMessageHook(void *param_1)
 
 {
   int *piVar1;
@@ -413,7 +413,7 @@ undefined4 __cdecl Win_RemoveMessageHook(void *hook)
 /* ---- 0x004ac1f0  Win_CreateMainWindow ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-undefined4 Win_CreateMainWindow(uint param_1,undefined4 param_2,int param_3)
+uint __cdecl Win_CreateMainWindow(uint param_1,uint param_2,int param_3)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
