@@ -139,7 +139,7 @@
 | 0049b5a0 | sputLua_SetActorTalkChoreL | lua.c | 53 |
 | 0049b6c0 | sputLua_SetActorHeadL | lua.c | 83 |
 | 0049b830 | sputLua_CanActorSeeL | lua.c | 87 |
-| 0049b9e0 | sputLua_GetVisibleThingsL | lua.c | 55 |
+| 0049b9e0 | sputLua_GetVisibleThingsL | lua.c | 1 |
 | 0049bb10 | sputLua_GetActorRectL | lua.c | 34 |
 | 0049bba0 | sputLua_GetActorPuckVectorL | lua.c | 45 |
 | 0049bcc0 | sputLua_GetActorYawToPoint | lua.c | 67 |
