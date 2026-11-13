@@ -210,9 +210,10 @@ def link(cc, src, obj, prog, env):
             print(f"{prog}: cleanroom/{os.path.basename(cr)} does not compile:\n{out[:3000]}")
             return
         objs.append(os.path.join(d, stem + ".o"))
-        if prog == "GRIMFANDANGO.EXE":
-            for m in re.finditer(r"^/\* WRAPS: ([^*]*?)\s*\*/", open(cr, encoding="utf-8").read(), re.M):
-                ldflags += ["-Wl,--wrap=" + w for w in m.group(1).split()]
+        # (`/* WRAPS(IMUSE.DLL): a b */` wraps in that program instead)
+        for m in re.finditer(r"^/\* WRAPS(?:\(([\w.]+)\))?: ([^*]*?)\s*\*/", open(cr, encoding="utf-8").read(), re.M):
+            if (m.group(1) or "GRIMFANDANGO.EXE") == prog:
+                ldflags += ["-Wl,--wrap=" + w for w in m.group(2).split()]
     # hand-written fast paths (fastpaths.c): optimised, SSE2
     rc, out = run([cc] + cflags + ov_flags + ["-O2", "-msse2", "-c", os.path.join(here, "fastpaths.c"), "-o", os.path.join(d, "fastpaths.o")], env)
     if rc:

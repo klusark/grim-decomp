@@ -156,7 +156,7 @@ undefined4 stdFilePrintf(undefined4 param_1,char *param_2)
 {
   int iVar1;
   
-  iVar1 = _snprintf(&DAT_007f6090,0x400,param_2,&STACK0X(0x0000000c));
+  iVar1 = _vsnprintf(&DAT_007f6090,0x400,param_2,&STACK0X(0x0000000c));
   stdFileWrite(param_1,&DAT_007f6090,iVar1);
   return 0;
 }

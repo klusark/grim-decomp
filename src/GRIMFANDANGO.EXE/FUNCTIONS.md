@@ -1845,7 +1845,7 @@
 | 004ac550 | _stricmp | crt.c | 1 |
 | 004ac620 | sprintf | crt.c | 1 |
 | 004ac6f0 | _ftol | crt.c | 1 |
-| 004ac720 | _snprintf | crt.c | 1 |
+| 004ac720 | _vsnprintf | crt.c | 1 |
 | 004ac790 | atol | crt.c | 1 |
 | 004ac830 | atoi | crt.c | 1 |
 | 004ac840 | strncpy | crt.c | 1 |
@@ -1888,7 +1888,7 @@
 | 004add60 | strncmp | crt.c | 1 |
 | 004adda0 | sscanf | crt.c | 1 |
 | 004ade30 | strchr | crt.c | 1 |
-| 004adf70 | _vsnprintf | crt.c | 1 |
+| 004adf70 | _snprintf | crt.c | 1 |
 | 004adfe0 | _strupr | crt.c | 1 |
 | 004ae160 | strrchr | crt.c | 1 |
 | 004ae190 | fprintf | crt.c | 1 |

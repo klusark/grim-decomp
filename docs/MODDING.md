@@ -174,7 +174,7 @@ Environment variables read by the rebuilt EXE (set them before `tools/run_game.s
 | `GRIM_DISPLAY_DEVICE=<n>` | pick another enumerated display device (1 = DirectDraw); default 0 = windowed DIB, software renderer | `Display_InitFromConfig` |
 | `GRIM_WALK_SCALE=<float>` | example mod 10 a: walk speed factor | `overrides.c` |
 | `GRIM_MODS=1` | the Lua functions of example mod 10 b; off = the original exe's builtins (`tools/run_game.sh` sets it) | `GRIM_ModsOn`, `overrides.c` |
-| `GRIM_INI=<file>`, `GRIM_IMUSE_REALTIME=1` | settings from an ini file instead of the registry; iMUSE on real time under `GRIM_SIMTIME` (grim_tools/cleanroom, `build/cleanroom/README.md`) | `build/cleanroom/`, `overrides.c` |
+| `GRIM_INI=<file>`, `GRIM_IMUSE_REALTIME=1`, `GRIM_SMUSH_REALTIME=1` | settings from an ini file instead of the registry; iMUSE, or the movies, on real time under `GRIM_SIMTIME` (grim_tools/cleanroom, `build/cleanroom/README.md`) | `build/cleanroom/`, `overrides.c`, `overrides_mixer_drv.c` |
 | `GRIM_SAVETRACE=<file>` | log every `SaveGame_Write` / `SaveGame_Read` (offset, size, caller) = the layout of a save; read it with `tools/savetrace.py` (BUILD_NOTES "Saves of the original game") | `overrides.c` |
 
 `GRIM_LUA_FILE` and `GRIM_LUA_LOG` take **Windows paths with backslashes** (`C:\Users\Joel\x.lua`): a forward-slash MSYS

@@ -2090,7 +2090,7 @@ void Graph_SysShutdown(void); /* 0x004abf30 */
 int _stricmp(byte *param_1,byte *param_2); /* 0x004ac550 */
 int __cdecl sprintf(char *buf,char *fmt,...); /* 0x004ac620 */
 longlong __cdecl _ftol(double x); /* 0x004ac6f0 */
-int __cdecl _snprintf(char *buf,uint n,char *fmt,...); /* 0x004ac720 */
+int __cdecl _vsnprintf(char *buf,uint n,char *fmt,void *args); /* 0x004ac720 */
 int atol(byte *param_1); /* 0x004ac790 */
 undefined * __cdecl atoi(uint param_1); /* 0x004ac830 */
 uint * strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x004ac840 */
@@ -2133,7 +2133,7 @@ uint bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,code *para
 uint strncmp(char *param_1,char *param_2,int param_3); /* 0x004add60 */
 int __cdecl sscanf(char *str,char *fmt,...); /* 0x004adda0 */
 uint * strchr(uint *param_1,char param_2); /* 0x004ade30 */
-undefined4 _vsnprintf(uint param_1,uint param_2,undefined4 param_3); /* 0x004adf70 */
+int __cdecl _snprintf(char *buf,uint n,char *fmt,...); /* 0x004adf70 */
 char * _strupr(char *param_1); /* 0x004adfe0 */
 char * strrchr(char *param_1,char param_2); /* 0x004ae160 */
 int __cdecl fprintf(void *fp,char *fmt,...); /* 0x004ae190 */

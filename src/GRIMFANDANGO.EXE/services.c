@@ -350,7 +350,7 @@ void stdInitServices(GrimServices *param_1)
 undefined4 __cdecl stdPlatform_Printf(char *fmt,...)
 
 {
-  _snprintf(&g_bStd_genBuffer,0x400,fmt,&STACK0X(0x00000008));
+  _vsnprintf(&g_bStd_genBuffer,0x400,fmt,&STACK0X(0x00000008));
   OutputDebugStringA(((unsigned)(uintptr_t)&g_bStd_genBuffer));
   return 1;
 }

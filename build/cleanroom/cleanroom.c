@@ -13,13 +13,14 @@
  *                         to <file> (a .bmp, relative to the working directory) with the game's own screenshot code,
  *                         like patch.dll's GrimLogDebug.
  *
- * The other grimlaunch patches are knobs of this build already: simtime is GRIM_SIMTIME=<ms> (overrides_exe.c), the game
- * runs windowed by default (Win_CreateMainWindow in overrides.c), and GRIM_ACTIVE=1 keeps it drawing behind other
- * windows. */
+ * The other grimlaunch patches are knobs of this build already: simtime is GRIM_SIMTIME=<ms> (overrides_exe.c), which
+ * also runs the movies (overrides_mixer_drv.c) and iMUSE (overrides.c, and iMUSE's timeGetTime below) on game time, as
+ * smushtime and imusetime do; the game runs windowed by default (Win_CreateMainWindow in overrides.c), and GRIM_ACTIVE=1
+ * keeps it drawing behind other windows. */
 
 #ifdef GRIM_EXE
 /* WRAPS: Reg_Open wuRegistry_Shutdown Reg_HasValue Reg_GetInt wuRegistry_GetFloat Reg_GetBinary wuRegistry_GetStr wuRegistry_QueryType */
-/* WRAPS: Reg_SetInt wuRegistry_SaveFloat Reg_SetBinary wuRegistry_SaveStr Lua_Print_NoOp */
+/* WRAPS: Reg_SetInt wuRegistry_SaveFloat Reg_SetBinary wuRegistry_SaveStr Lua_Print_NoOp stdPlatform_Assert */
 
 /* the host C runtime (msvcrt); no system headers: compat.h and the decompiled code define their own names */
 typedef struct _iobuf FILE;
@@ -394,5 +395,39 @@ void __wrap_Lua_Print_NoOp(void)
         }
     }
     __real_Lua_Print_NoOp();
+}
+#endif
+
+#ifdef GRIM_EXE
+/* An assert of the engine (g_MainServices.pAssertFail) shows a message box and waits for it to be closed, which in a test
+ * run is a hang of 2 s with nothing in the log. With GRIM_DEBUGLOG set it writes "ASSERT file(line): expression" to the
+ * log instead and crashes, so that run.py reports it with the crash report's backtrace (../startup.c). */
+extern void __real_stdPlatform_Assert(char *expr, char *file, int line);
+void __wrap_stdPlatform_Assert(char *expr, char *file, int line)
+{
+    const char *path = getenv("GRIM_DEBUGLOG");
+    if (path != 0) {
+        FILE *f = fopen(path, "a");
+        if (f != 0) {
+            fprintf(f, "[       0] DEBUG ASSERT %s(%d): %s\n", file, line, expr);
+            fclose(f);
+        }
+        *(volatile int *)0 = line;   /* the crash handler writes the backtrace */
+    }
+    __real_stdPlatform_Assert(expr, file, line);
+}
+#endif
+
+#ifdef GRIM_IMUSE
+/* iMUSE's timeGetTime under game time (the GRIM_SIMTIME block of ../overrides.c): every call of it in IMUSE.DLL comes here
+ * (grimlaunch's imusetime patch hooks iMUSE.dll's import of it the same way) */
+/* WRAPS(IMUSE.DLL): timeGetTime@0 */
+extern unsigned __attribute__((stdcall)) __real_timeGetTime(void) __asm__("___real_timeGetTime@0");
+extern int GRIM_ImSimOn(void);
+extern unsigned GRIM_ImTimeGetTime(void);
+unsigned __attribute__((stdcall)) __wrap_timeGetTime(void) __asm__("___wrap_timeGetTime@0");
+unsigned __attribute__((stdcall)) __wrap_timeGetTime(void)
+{
+    return GRIM_ImSimOn() ? GRIM_ImTimeGetTime() : __real_timeGetTime();
 }
 #endif

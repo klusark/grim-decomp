@@ -82,16 +82,12 @@ extern int GRIM_SimTime(void);
 extern void *__attribute__((stdcall)) GRIM_GetModuleHandleA(const char *) __asm__("_GetModuleHandleA@4");
 extern void *__attribute__((stdcall)) GRIM_GetProcAddress(void *, const char *) __asm__("_GetProcAddress@8");
 
-void GRIM_lua_cmd_poll(void)
+/* GRIM_SIMTIME: iMUSE runs on game time (see the GRIM_SIMTIME block of IMUSE.DLL below): one step per frame, called by
+ * Main_Service before the frame runs (where grimlaunch's imusetime patch steps the original's) */
+void GRIM_ImuseSimFrame(int ms)
 {
-    static char line[1024];
-    static int len;
-    char buf[256];
-    unsigned got, i;
-    static int nomovie = -1;
     static void (*imuse_step)(int);
     static int imuse_step_state;     /* 0 = not looked for, 1 = found, -1 = no GRIM_SIMTIME / not found */
-    /* GRIM_SIMTIME: iMUSE runs on game time (see the GRIM_SIMTIME block of IMUSE.DLL in overrides.c): one step per frame */
     if (imuse_step_state == 0) {
         imuse_step_state = -1;
         if (GRIM_SimTime() > 0) {
@@ -106,7 +102,16 @@ void GRIM_lua_cmd_poll(void)
         }
     }
     if (imuse_step_state > 0)
-        imuse_step(GRIM_SimTime());
+        imuse_step(ms);
+}
+
+void GRIM_lua_cmd_poll(void)
+{
+    static char line[1024];
+    static int len;
+    char buf[256];
+    unsigned got, i;
+    static int nomovie = -1;
     /* GRIM_NOMOVIE=1 (test runs): movies are skipped the way StartSmush=FALSE does it; the engine sets the flag
      * during start-up, so it is cleared again here, in every frame */
     if (nomovie < 0)
@@ -267,9 +272,16 @@ undefined *Display_InitFromConfig(void)
     unsigned mode;
     if ((unsigned)dev >= (unsigned)g_dwStdDisplay_numDevices)
         dev = 0;
+    /* Display_FindClosestMode answers 0 when g_dwVideoModeCount (the mode count of the selected device) is 0; at this point
+     * that is still the count of the last device the start-up enumerated (the DirectDraw display), whose mode enumeration now
+     * and then finds none when several games start at once: then mode 0 of the window device, 320x200 at 8 bits, was picked,
+     * and the first background blit (16-bit rows of 640x480) ran past the end of the 64000 byte clean buffer onto the
+     * dirty-rectangle pool (Memory.c's "pPool->pPool == pPool" assert). Select the device for the match (and close it again, as the start-up enumeration does: Display_Select opens it). */
+    Display_SelectDevice(dev);
     mode = Display_FindClosestMode(&UINT_004f4d38,
                                    (void *)((unsigned *)g_pDisplayModes)[dev * 4 + 1],
                                    ((unsigned *)g_pDisplayModes)[dev * 4]);
+    stdDisplay_Close();
     return (undefined *)(unsigned)Display_Select(dev, (int)mode, -1);
 }
 
@@ -687,10 +699,14 @@ __asm__(".text\n"
  *   - the play cursor (iMUSE_dsound__3a80) is a counter of bytes that advances by game time (avg bytes/s of the stream format);
  *   - the EXE calls GRIM_ImSimStep(ms) once per frame (GRIM_lua_cmd_poll): the cursor moves and ImHeartbeat runs once per 20 ms
  *     of game time (fades, mixing, retiring of finished tracks), whatever the real time between the calls;
- *   - the two loops that wait for the heartbeat (SoundsFloodMusicBuffer, SoundsFillStreamsWhileMusicCritical) tick it themselves.
+ *   - the two loops that wait for the heartbeat (SoundsFloodMusicBuffer, SoundsFillStreamsWhileMusicCritical) tick it themselves;
+ *   - iMUSE's timeGetTime is game time too (GRIM_ImTimeGetTime, through build/cleanroom/cleanroom.c's wrapper): the heartbeat's
+ *     own 20 ms check, and the sound cache, which stamps each sound it loads and, when full, drops the stopped one loaded first
+ *     (CachePurgeOldestStoppedSound): on the real clock which one that is depended on how fast the machine was.
+ * The same as grim_tools' grimlaunch imusetime patch (launcher/patch.c), which the clean room's reference was recorded with.
  * The DirectSound buffer is still written and played (muted), so the rest of iMUSE does not notice. Off without GRIM_SIMTIME,
  * and off with GRIM_IMUSE_REALTIME=1: then only the frames have the fixed time and iMUSE keeps its timer thread and the
- * hardware's pace, as on the original exe with grimlaunch's simtime patch (grim_tools/cleanroom compares with that). */
+ * hardware's pace, as on the original exe with grimlaunch's simtime patch alone. */
 extern char *GRIM_getenv(const char *) __asm__("_getenv");
 int GRIM_ImSimOn(void)
 {
@@ -703,6 +719,12 @@ int GRIM_ImSimOn(void)
 }
 static unsigned long long grim_sim_micro;   /* bytes of the ring the simulated play cursor has passed, times 1000 */
 static int grim_sim_acc;                    /* game ms not yet turned into 20 ms heartbeats */
+static unsigned grim_sim_clock = 1000;      /* iMUSE's timeGetTime under game time: game ms, 20 per heartbeat */
+
+unsigned GRIM_ImTimeGetTime(void)
+{
+    return grim_sim_clock;
+}
 
 static void grim_sim_tick(int ms)
 {
@@ -711,6 +733,7 @@ static void grim_sim_tick(int ms)
     grim_sim_acc += ms;
     while (grim_sim_acc >= 20) {
         grim_sim_acc -= 20;
+        grim_sim_clock += 20;
         DAT_100172bc = 0xffffffffu;   /* the 20 ms of real time between heartbeats ImHeartbeat insists on */
         ImHeartbeat();
     }

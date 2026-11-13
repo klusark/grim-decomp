@@ -2300,6 +2300,8 @@ undefined4 sounds_save(code *param_1)
 
 
 /* ---- 0x10008580  sounds_restore ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Original name sounds_restore (the remaster's GrimFandango (Linux): aligned call in
    SoundsInitialize); was FUN_10008580. */
 
@@ -2403,6 +2405,8 @@ LAB_1000883c:
 #undef puStack_20
 #undef uStack_24
 #undef uStack_4
+
+#endif
 
 
 /* ---- 0x10008860  sounds_pause ---- */

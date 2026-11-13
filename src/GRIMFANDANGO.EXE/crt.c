@@ -17,7 +17,7 @@
 /* not in the source: names/lib_replace.json (host): the system C runtime (msvcrt.dll) has it */
 
 
-/* ---- 0x004ac720  _snprintf ---- */
+/* ---- 0x004ac720  _vsnprintf ---- */
 /* not in the source: names/lib_replace.json (host): the system C runtime (msvcrt.dll) has it */
 
 
@@ -189,7 +189,7 @@
 /* not in the source: Microsoft's C runtime (module crt, which build/link.py does not link; the system msvcrt.dll has it) */
 
 
-/* ---- 0x004adf70  _vsnprintf ---- */
+/* ---- 0x004adf70  _snprintf ---- */
 /* not in the source: Microsoft's C runtime (module crt, which build/link.py does not link; the system msvcrt.dll has it) */
 
 

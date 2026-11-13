@@ -86,7 +86,7 @@ undefined4 DebugLog_Load(void)
 char * grimdemo_MessagePrint(char *param_1)
 
 {
-  _snprintf(&g_aGrimdemo_MessagePrint_grimMessageBuffer,0x400,param_1,&STACK0X(0x00000008));
+  _vsnprintf(&g_aGrimdemo_MessagePrint_grimMessageBuffer,0x400,param_1,&STACK0X(0x00000008));
   if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
     stdPlatform_Printf(&g_aGrimdemo_MessagePrint_grimMessageBuffer);
   }
@@ -107,7 +107,7 @@ char * grimdemo_MessagePrint(char *param_1)
 char * grimdemo_StatusPrint(char *param_1)
 
 {
-  _snprintf(&g_aGrimdemo_StatusPrint_grimStatusBuffer,0x400,param_1,&STACK0X(0x00000008));
+  _vsnprintf(&g_aGrimdemo_StatusPrint_grimStatusBuffer,0x400,param_1,&STACK0X(0x00000008));
   if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
     stdPlatform_Printf(&g_aGrimdemo_StatusPrint_grimStatusBuffer);
   }
@@ -128,7 +128,7 @@ char * grimdemo_StatusPrint(char *param_1)
 char * grimdemo_ErrorPrint(char *param_1)
 
 {
-  _snprintf(&g_aGrimdemo_ErrorPrint_grimErrorBuffer,0x400,param_1,&STACK0X(0x00000008));
+  _vsnprintf(&g_aGrimdemo_ErrorPrint_grimErrorBuffer,0x400,param_1,&STACK0X(0x00000008));
   if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
     stdPlatform_Printf(&g_aGrimdemo_ErrorPrint_grimErrorBuffer);
   }
@@ -149,7 +149,7 @@ char * grimdemo_ErrorPrint(char *param_1)
 char * grimdemo_WarningPrint(char *param_1)
 
 {
-  _snprintf(&g_aGrimdemo_WarningPrint_grimWarningBuffer,0x400,param_1,&STACK0X(0x00000008));
+  _vsnprintf(&g_aGrimdemo_WarningPrint_grimWarningBuffer,0x400,param_1,&STACK0X(0x00000008));
   if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
     stdPlatform_Printf(&g_aGrimdemo_WarningPrint_grimWarningBuffer);
   }
@@ -170,7 +170,7 @@ char * grimdemo_WarningPrint(char *param_1)
 char * grimdemo_DebugPrint(char *param_1)
 
 {
-  _snprintf(&g_aGrimdemo_DebugPrint_grimDebugBuffer,0x400,param_1,&STACK0X(0x00000008));
+  _vsnprintf(&g_aGrimdemo_DebugPrint_grimDebugBuffer,0x400,param_1,&STACK0X(0x00000008));
   if ((UINT_004f5a08 == 0) || (g_bWindowedMode == 0)) {
     stdPlatform_Printf(&g_aGrimdemo_DebugPrint_grimDebugBuffer);
   }

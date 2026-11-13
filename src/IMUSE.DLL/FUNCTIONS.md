@@ -231,7 +231,7 @@
 | 10008140 | sounds_shutdown | imuse_api.c | 41 |
 | 100081f0 | FUN_100081f0 | imuse_api.c | 25 |
 | 10008250 | sounds_save | imuse_api.c | 166 |
-| 10008580 | sounds_restore | imuse_api.c | 104 |
+| 10008580 | sounds_restore | imuse_api.c | 1 |
 | 10008860 | sounds_pause | imuse_api.c | 13 |
 | 100088a0 | sounds_resume | imuse_api.c | 12 |
 | 10008ec0 | CacheGetSoundId | imuse_api.c | 228 |

@@ -38,6 +38,54 @@ typedef void *(*SvcGetModule)(const char *name, uint arg);
 typedef void (*SvcName)(const char *name);
 typedef void (*SvcLog)(const char *fmt, ...);
 
+/* ==== GRIM_SIMTIME: movies (SMUSH) in game time =======================================================================
+ * The scripted runs give every frame a fixed game time (GRIM_SIMTIME ms) and run many times faster than real time, but SMUSH
+ * paces itself with the insane timer: a thread that runs InsaneTimer_Tick (the movie's frame and sound callbacks) every 16 ms
+ * of timeGetTime. A movie of 5 s therefore lasted 5 s of real time, hundreds of frames of game time. With GRIM_SIMTIME set:
+ *   - the timer thread no longer ticks; GRIM_SmushSimFrame(ms), called by Main_Service once per frame before the frame runs,
+ *     ticks once per 16 ms of game time on the main thread;
+ *   - sys_Delay (waits for the clock to move by n ticks) ticks itself, or it would wait forever;
+ *   - the movie's sound is mixed into a DirectSound ring (dsn_fill_thread) when the play cursor has left a block, and the
+ *     player keeps the picture in step with the sound: the play cursor (DSound_GetPlayBlock) moves with game time too
+ *     (22050 Hz, 16 bit, stereo), and the ring is muted (it is filled faster than it plays).
+ * The same as grim_tools' grimlaunch smushtime patch (launcher/grimlaunch.cpp), which the clean room's reference was
+ * recorded with. Off without GRIM_SIMTIME and with GRIM_SMUSH_REALTIME=1. */
+extern int GRIM_SimTime(void);
+extern char *GRIM_mixdrv_getenv(const char *) __asm__("_getenv");
+
+static unsigned g_smushSimPos;   /* the simulated play cursor of the stream, in thousandths of a byte (within the ring) */
+static int g_smushSimAcc;        /* game ms not yet turned into 16 ms ticks */
+
+int GRIM_SmushSimOn(void)
+{
+    static int on = -1;
+    if (on < 0) {
+        const char *rt = GRIM_mixdrv_getenv("GRIM_SMUSH_REALTIME");
+        on = GRIM_SimTime() > 0 && !(rt != 0 && rt[0] == '1');
+    }
+    return on;
+}
+
+void GRIM_SmushSimFrame(int ms)
+{
+    unsigned ring;
+
+    if (!GRIM_SmushSimOn())
+        return;
+    ring = (unsigned)g_nStreamBlocks * (0x1800u * 1000u);
+    if (ring != 0) {
+        g_smushSimPos = (g_smushSimPos + (unsigned)ms * (22050u * 4u)) % ring;
+        if (g_pStreamDSBuffer != 0)
+            ((int (__stdcall *)(void *, int))(*(void ***)g_pStreamDSBuffer)[0x3c / 4])(g_pStreamDSBuffer, -10000);   /* SetVolume */
+    }
+    g_smushSimAcc += ms;
+    while (g_smushSimAcc >= 16) {
+        g_smushSimAcc -= 16;
+        InsaneTimer_Tick();
+    }
+}
+/* ==== end GRIM_SIMTIME ================================================================================================ */
+
 /* ===================================================================================================================
  *  Insane timer module
  * =================================================================================================================== */
@@ -105,7 +153,8 @@ undefined * __stdcall timer_thread(int unused)
             wait = 0x10 - (now - g_nTimerLastTime);
         } else {
             g_nTimerLastTime += 0x10;
-            InsaneTimer_Tick();
+            if (!GRIM_SmushSimOn())             /* GRIM_SIMTIME: Main_Service ticks it by game time */
+                InsaneTimer_Tick();
             wait = 10;
         }
         if (wait == 0)
@@ -217,6 +266,11 @@ void sys_Delay(int ticks)
     int start = g_nSys_global_timer;
     int end = ticks + g_nSys_global_timer;
 
+    if (GRIM_SmushSimOn()) {                    /* GRIM_SIMTIME: the thread does not tick, so tick here */
+        while (g_nSys_global_timer < end)
+            InsaneTimer_Tick();
+        return;
+    }
     while (g_nSys_global_timer < end) {
         sys_GetTime();
         if (g_nSys_global_timer < start)
@@ -525,6 +579,14 @@ void DsndDriver_ReleaseDirectSound(void)
 /* Index of the block the play cursor is in, or -1 */
 int DSound_GetPlayBlock(void)
 {
+    if (GRIM_SmushSimOn()) {                    /* GRIM_SIMTIME: the cursor GRIM_SmushSimFrame moves */
+        unsigned pos;
+        if (g_pStreamDSBuffer == 0)
+            return -1;
+        pos = g_smushSimPos / 1000;
+        g_nStreamPlayPos = pos;
+        return (int)((pos / 0x1800) % (unsigned)g_nStreamBlocks);
+    }
     if (g_pStreamDSBuffer != 0 && COMX(g_pStreamDSBuffer, DSB_GETCURRENTPOSITION, &g_nStreamPlayPos, &g_nStreamWritePos) == 0)
         return (g_nStreamPlayPos / 0x1800) % g_nStreamBlocks;
     return -1;

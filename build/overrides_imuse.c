@@ -425,4 +425,80 @@ void Im_MixLoopD(undefined2 *src, int n, uint count, uint out, int vol)
         }
     }
 }
+/* ==== sounds_restore (0x10008580) ====
+ * The sounds module's restore callback (SoundsInitialize registers it): reads the voice effect, iMUSE's own state (ImRestore)
+ * and its script state (ImRestoreScript), stops the sounds below 10001 and starts the saved ones again with their volume, pan
+ * and hook.  `read(buf, n)` returns 0 when it read n bytes.  The decompiler lost the arguments of the read of the pan (the
+ * original reuses its first argument's stack slot for the value) and wrote `SoundsSetParam((uint *)0x4, 0x700, ...)`: the pan
+ * was never restored (grim_tools/cleanroom ims_save: the pan of 30 came back as 64). */
+undefined4 sounds_restore(code *param_1, uint param_2)
+{
+    int (*read)(void *, int) = (int (*)(void *, int))param_1;
+    int *buf;
+    int size, count, i;
+    uint sound, value;
+    uint name[8];
+    (void)param_2;
+
+    buf = (int *)((void *(*)(int, void *, int))*(void **)(g_dwSounds_pHS + 0x20))(0x20000, s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0, 0x46a);
+    if (buf == 0)
+        return 1;
+    if (read(&g_aVoxFxName, 0x28) != 0)
+        return 1;
+    ((void (*)(void *))FUN_10009700)(&DAT_1001e98c);
+    ImStopAllSounds();
+    ((void (*)(void *))FUN_10009700)(&DAT_1001e97c);
+    ImFlushSounds();
+    ((void (*)(void *))FUN_10009700)(&DAT_1001e970);
+    SoundsCloseVoiceFile();
+    ((void (*)(void *))FUN_10009700)(&DAT_1001e958);
+    FUN_10008e60();
+    ((void (*)(void *))FUN_10009700)(&DAT_1001e944);
+    iMUSE_SetVoiceEffect((uint *)&g_aVoxFxName);
+    g_aLastVoiceFilename = 0;
+    read(&size, 4);
+    read(buf, size);
+    if (ImRestore(buf) != 0) {
+        ((void (*)(void *))FUN_10009700)(&DAT_1001e930);
+        read(&size, 4);
+        read(buf, size);
+        if (ImRestoreScript((int)buf) != 0) {
+            ((void (*)(void *))FUN_10009700)(&DAT_1001e910);
+            for (sound = ImGetNextSound(0); sound != 0; sound = ImGetNextSound(sound))
+                if ((int)sound < 0x2711)
+                    ImStopSound(sound);
+            SoundsCloseVoiceFile();
+            ((void (*)(void *))FUN_10009700)(&DAT_1001e958);
+            if (read(&count, 4) == 0 && count != 0) {
+                for (i = 0; i < count; i++) {                  /* name, handle, priority: start them again */
+                    if (read(name, 0x20) != 0 || read(&value, 4) != 0)
+                        goto done;
+                    g_dwNextHandle = value - 0x457;
+                    if (read(&value, 4) != 0)
+                        goto done;
+                    SoundsLoadStartSound(name, value, 1);
+                }
+                for (i = 0; i < count; i++) {                  /* sound, volume, pan */
+                    if (read(&sound, 4) != 0 || read(&value, 4) != 0)
+                        goto done;
+                    SoundsSetParam((uint *)sound, 0x600, value);
+                    if (read(&value, 4) != 0)
+                        goto done;
+                    SoundsSetParam((uint *)sound, 0x700, value);
+                }
+                for (i = 0; i < count; i++) {                  /* sound, hook */
+                    if (read(&sound, 4) != 0 || read(&value, 4) != 0)
+                        break;
+                    iMUSE_SetHook((uint *)sound, value);
+                }
+            }
+        done:
+            ((void (*)(void *))*(void **)(g_dwSounds_pHS + 0x24))(buf);
+            return 0;
+        }
+    }
+    ((void (*)(void *))*(void **)(g_dwSounds_pHS + 0x24))(buf);
+    return 1;
+}
+
 #endif /* GRIM_IMUSE */

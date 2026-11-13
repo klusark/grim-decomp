@@ -45,7 +45,7 @@ void stdPlatform_Assert(undefined4 param_1,char *param_2,undefined4 param_3)
   if (bVar3) {
     iVar5 = iVar5 + 1;
   }
-  ((code *)_vsnprintf)(acStack_200,0x200,s__s__d____s_004dee38,param_2 + iVar5,param_3,param_1);
+  _snprintf(acStack_200,0x200,s__s__d____s_004dee38,param_2 + iVar5,param_3,param_1);
   fp = fopen(((unsigned)(uintptr_t)&DAT_004dee28),((unsigned)(uintptr_t)&DAT_004dee34));
   if (fp != (undefined *)0x0) {
     fprintf(fp,acStack_200);

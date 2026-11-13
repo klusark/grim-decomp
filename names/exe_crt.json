@@ -1,6 +1,6 @@
 [
  {"addr": "004c4c40", "name": "_matherr", "comment": "MSVC CRT default _matherr: returns 0 (was mislabelled zlibVersion)", "tags": "crt"},
- {"addr": "004ac720", "name": "_snprintf", "tags": "crt"},
+ {"addr": "004ac720", "name": "_vsnprintf", "comment": "takes a va_list (loads [esp+0x30]); was mislabelled _snprintf", "tags": "crt"},
  {"addr": "004ac790", "name": "atol", "tags": "crt"},
  {"addr": "004acbe0", "name": "_amsg_exit", "tags": "crt"},
  {"addr": "004acd60", "name": "_exit", "tags": "crt"},
@@ -23,7 +23,7 @@
  {"addr": "004adc90", "name": "qsort_swap", "tags": "crt"},
  {"addr": "004adda0", "name": "sscanf", "tags": "crt"},
  {"addr": "004ade30", "name": "_mbschr_lk", "tags": "crt"},
- {"addr": "004adf70", "name": "_vsnprintf", "tags": "crt"},
+ {"addr": "004adf70", "name": "_snprintf", "comment": "variadic (its va_list is the address of its arguments, lea [esp+0x30]); was mislabelled _vsnprintf", "tags": "crt"},
  {"addr": "004ae160", "name": "strchr", "tags": "crt"},
  {"addr": "004ae190", "name": "fprintf", "tags": "crt"},
  {"addr": "004ae220", "name": "strpbrk_or_strspn", "comment": "Bitmap-based character set scan (strspn/strcspn/strpbrk family); exact variant not confirmed", "tags": "crt"},
