@@ -1510,4 +1510,8 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   clean room's args_GetVisibleThings_tab crashed (the other args_* tests of the file then ran in a restarted game
   and differed: no in-place ".lbm" on the interned "cr", another globals order). Such an argument now means the
   selected actor; none selected: the empty table.
+* SoundStartVoiceStream compiles from the generated text again (its hand-written version in overrides_imuse.c is
+  gone): with the callees' purges at 0 the twin reads the volume and pan from the right slots. Clean room 0 of 5329.
+* Whole-game autorun on this build (IMUSE + LUA + CHORE prototypes, before the SoundStartVoiceStream removal): PASSED,
+  433 s.
 

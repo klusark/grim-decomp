@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x100088d0  SoundStartVoiceStream ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 int __cdecl SoundStartVoiceStream(char *name,uint volume,uint pan)
 
 {
@@ -29,5 +27,3 @@ int __cdecl SoundStartVoiceStream(char *name,uint volume,uint pan)
   }
   return 1;
 }
-#endif
-

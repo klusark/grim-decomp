@@ -278,26 +278,6 @@ uint ImSoundCall(uint cmd, int a2, int a3, int a4, int a5, int a6, int a7, int a
     return 0xffffffff;
 }
 
-/* ==== SoundStartVoiceStream (0x100088d0) ====
- * Starts the voice stream (sound id 10000): SoundStartVoiceStream(name, volume, pan).  The decompiler mixed up the arguments
- * (it read the pan from a fourth, non-existent parameter): the code reads [esp+0x14] and [esp+0x18] while the 3 pushes of
- * the calls before it are still on the stack (the pops are deferred), which are arguments 2 and 3. */
-int SoundStartVoiceStream(char *name, uint volume, uint pan)
-{
-    ImStopSound(10000);
-    SoundsCloseVoiceFile();
-    if (SoundsRegisterVoice(name) == 0)
-        return 1;
-    SoundsFillStreamsWhileMusicCritical(5);
-    ImStartStream(10000, 0x7f, 1);
-    ImSetParam(10000, 0x400, 2);            /* group 2: voice */
-    ImSetParam(10000, 0x600, volume);
-    ImSetParam(10000, 0x700, pan);
-    ImProcessStreams();
-    ImProcessStreams();
-    return 0;
-}
-
 /* ==== Script_Callback (0x100070e0) ====
  * Trigger callback (stored by FUN_10006360, run by Im_RunTriggerCommand with the marker name as its first argument): when the
  * marker is "_..." the script layer's end-of-sequence flag DAT_1002e304 is set.  The decompiler read the marker from the

@@ -261,7 +261,7 @@
 | 1000d110 | FUN_1000d110 | imuse_api.c | 1 |
 | 1000d130 | FUN_1000d130 | imuse_api.c | 1 |
 | 1000d1f0 | FUN_1000d1f0 | imuse_api.c | 1 |
-| 100088d0 | SoundStartVoiceStream | soundstartvoicestream.c | 1 |
+| 100088d0 | SoundStartVoiceStream | soundstartvoicestream.c | 21 |
 | 10008970 | SoundStopVoiceStream | soundstopvoicestream.c | 10 |
 | 10008990 | SoundGetVoiceTime | soundgetvoicetime.c | 11 |
 | 10009e10 | iRes_FTELL | imuse_sounds.c | 16 |
