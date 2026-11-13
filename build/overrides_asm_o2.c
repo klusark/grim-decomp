@@ -12,7 +12,6 @@
 
 #ifdef GRIM_EXE
 #include "globals.h"
-#define msc_error_SaveString msc_error_SaveString__ghidra
 #define FUN_004d5fd0 FUN_004d5fd0__ghidra
 #define msc_MemSet msc_MemSet__ghidra
 #define MaterialInstanceSaveLoad FUN_004965b0__ghidra
@@ -21,7 +20,6 @@
 #include "functions.h"
 #undef DDraw_CreateSurfaces
 #undef D3D_CreateViewport
-#undef msc_error_SaveString
 #undef FUN_004d5fd0
 #undef msc_MemSet
 #undef MaterialInstanceSaveLoad
@@ -67,30 +65,6 @@ int msc_MemSet(byte *dst, int value, int count)
 {
     FUN_004d5fd0(dst, value, count);
     return count;
-}
-
-/* ==== msc_error_SaveString (0x004d5f70): vsprintf into the Smush log ring ====
- * 20 lines of 200 bytes at 0x008dcdc8; g_dwMsc_error_loc is the next line (wraps from 19 to 0), g_dwMsc_error_count the number of
- * lines used (stops at 20).  Returns 19, or the new number of lines while it is below 20. */
-/* OVERRIDES: msc_error_SaveString */
-int msc_error_SaveString(char *fmt, ...)
-{
-    __builtin_va_list ap;
-    uint ret;
-
-    __builtin_va_start(ap, fmt);
-    ((int (*)(char *, char *, __builtin_va_list))vsprintf)((char *)&g_aMsc_error_string + g_dwMsc_error_loc * 200, fmt, ap);
-    __builtin_va_end(ap);
-    if (g_dwMsc_error_loc == 0x13)
-        g_dwMsc_error_loc = 0;
-    else
-        g_dwMsc_error_loc = g_dwMsc_error_loc + 1;
-    ret = 0x13;
-    if ((int)g_dwMsc_error_count < 0x13) {
-        ret = g_dwMsc_error_count + 1;
-        g_dwMsc_error_count = ret;
-    }
-    return ret;
 }
 
 /* ==== msc_rle_DecompressBlock (0x004d5e70) ====

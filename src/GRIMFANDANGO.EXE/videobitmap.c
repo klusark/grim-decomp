@@ -17,6 +17,7 @@ int __cdecl bmp_bitmap_Alloc(void *out,int width,int height,int format)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
+  undefined4 uVar3;
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
@@ -44,13 +45,19 @@ int __cdecl bmp_bitmap_Alloc(void *out,int width,int height,int format)
     iVar2 = 4;
     break;
   case -1:
-    if (g_dwVideo_video_services == 0) goto LAB_004ce7b5;
+    if (g_dwVideo_video_services == 0) {
+      uVar3 = 0xbe;
+      goto LAB_004ce7b5;
+    }
     iVar2 = (**(code **)(g_dwVideo_video_services + 4))();
     iVar2 = *(int *)(iVar2 + 0xc);
     break;
   default:
+    uVar3 = 0xc4;
 LAB_004ce7b5:
-    msc_error_SaveString();
+    msc_error_SaveString
+              (s__s__line__s__Type__d_not_support_004f3d40,
+               s_C__grimsrc_libs_lecsmush_insane__004f3d64,uVar3,format);
     return -1;
   }
   iVar1 = (*(code *)*g_pVideo_memory_services)

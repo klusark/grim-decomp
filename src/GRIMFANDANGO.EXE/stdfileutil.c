@@ -151,13 +151,13 @@ undefined * __cdecl stdFileSize(uint param_1)
    Original name stdFilePrintf (the remaster's GrimFandango (Linux): same body (format into the
    static printBuffer of 0x400 bytes, write it to the file)); was stdFile_Printf. */
 
-uint __cdecl stdFilePrintf(uint param_1,char *param_2)
+uint __cdecl stdFilePrintf(uint fh,char *fmt,...)
 
 {
   uint uVar1;
   
-  uVar1 = _vsnprintf(&DAT_007f6090,0x400,param_2,&STACK0X(0x0000000c));
-  stdFileWrite(param_1,((unsigned)(uintptr_t)&DAT_007f6090),uVar1);
+  uVar1 = _vsnprintf(&DAT_007f6090,0x400,fmt,&STACK0X(0x0000000c));
+  stdFileWrite(fh,((unsigned)(uintptr_t)&DAT_007f6090),uVar1);
   return 0;
 }
 

@@ -36,7 +36,8 @@ every non-equivalent mutation was reported.  Floating point tests run under the 
 
 Prototype fixes without touching Ghidra: where Ghidra's prototype in functions.h is wrong the name is renamed while
 functions.h is included (`#define name name__ghidra`) and the definition carries the real prototype and an
-`/* OVERRIDES: name */` line: FUN_004d5f70 (varargs, declared `(void)`), FUN_004d5fd0 (cdecl memset declared
+`/* OVERRIDES: name */` line: FUN_004d5f70 (varargs, declared `(void)`; since 2026-11-13 Ghidra stores
+`(char *fmt, ...)` and msc_error_SaveString compiles from the generated text again), FUN_004d5fd0 (cdecl memset declared
 `__fastcall` with 5 arguments; defined with `__asm__("@FUN_004d5fd0@20")` so the decorated name stays), FUN_004d5e50
 (returns the count), FUN_004965b0 (5 arguments), D3D_CreateViewport (width, height lost), DDraw_CreateSurfaces
 (palette lost).

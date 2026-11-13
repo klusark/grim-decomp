@@ -477,8 +477,8 @@ int gra_ConvertCopy(byte *src, void *srcFmt_, int count, byte *palette, byte *ds
 
 /* Allocates a bitmap of `width` x `height` pixels of format `format` (-1: the display's format, 0 / 1: 8 bit without /
  * with a 256 entry palette, 2..12: 15, 16, 24, 16 with alpha and 32 bit variants) through the module's allocator
- * (services[0](size, file, line)); *out receives the header.  Returns 0, -101 (out of memory) or -1 (unknown format). */
-#define LOGF ((void (*)(const char *, const char *, int, int))msc_error_SaveString)    /* vsprintf into the Smush log ring */
+ * (services[0](size, file, line)); *out receives the header.  Returns 0, -101 (out of memory) or -1 (unknown format, logged
+ * with msc_error_SaveString into the Smush log ring). */
 
 int bmp_bitmap_Alloc(void *out_, int width, int height, int format)
 {
@@ -490,7 +490,7 @@ int bmp_bitmap_Alloc(void *out_, int width, int height, int format)
     switch (format) {
     case -1:
         if (g_pVideoDisplayFormat == 0) {
-            LOGF((const char *)IMG_ADDR(0x004f3d40), s_C__grimsrc_libs_lecsmush_insane__004f3d64, 0xbe, format);
+            msc_error_SaveString(s__s__line__s__Type__d_not_support_004f3d40, s_C__grimsrc_libs_lecsmush_insane__004f3d64, 0xbe, format);
             return -1;
         }
         bytesPerPixel = ((VideoBitmap *)((int (*)(void))g_pVideoDisplayFormat[1])())->bytesPerPixel;
@@ -504,7 +504,7 @@ int bmp_bitmap_Alloc(void *out_, int width, int height, int format)
     case 6: case 11: case 12:
         bytesPerPixel = 4; break;
     default:
-        LOGF((const char *)IMG_ADDR(0x004f3d40), s_C__grimsrc_libs_lecsmush_insane__004f3d64, 0xc4, format);
+        msc_error_SaveString(s__s__line__s__Type__d_not_support_004f3d40, s_C__grimsrc_libs_lecsmush_insane__004f3d64, 0xc4, format);
         return -1;
     }
     mem = ((byte *(*)(int, const char *, int))g_pVideoMemory[0])(bytesPerPixel * height * width + paletteEntries * 4 + 0x5c,

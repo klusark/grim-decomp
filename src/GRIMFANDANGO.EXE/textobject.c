@@ -130,7 +130,7 @@ void __cdecl TextObject_Draw(TextObject *obj,int invalidate)
     (obj->ctx).dwFgColor = 0;
     (obj->ctx).dwBgColor = 1;
     (obj->ctx).dwFxColor = 2;
-    Text_DrawFormatted(&obj->ctx,(int)obj->aText);
+    Text_DrawFormatted(&obj->ctx,obj->aText);
     (obj->ctx).nX = obj->nX;
     (obj->ctx).nY = *(int *)(*(int *)(obj->ctx).pFont + 8) + obj->nY;
     if (invalidate != 0) {

@@ -22,11 +22,11 @@ int __cdecl Win_IsFocusWithin(void *hwnd); /* 0x004bff70 */
 /* ===== debuglog.c ===== */
 void __cdecl grimdemo_EnableDebugging(int enable); /* 0x00401040 */
 uint __cdecl DebugLog_Load(void); /* 0x004020a0 */
-char * __cdecl grimdemo_MessagePrint(char *param_1); /* 0x00402330 */
-char * __cdecl grimdemo_StatusPrint(char *param_1); /* 0x004023a0 */
-char * __cdecl grimdemo_ErrorPrint(char *param_1); /* 0x00402410 */
-char * __cdecl grimdemo_WarningPrint(char *param_1); /* 0x00402480 */
-char * __cdecl grimdemo_DebugPrint(char *param_1); /* 0x004024f0 */
+char * __cdecl grimdemo_MessagePrint(char *fmt,...); /* 0x00402330 */
+char * __cdecl grimdemo_StatusPrint(char *fmt,...); /* 0x004023a0 */
+char * __cdecl grimdemo_ErrorPrint(char *fmt,...); /* 0x00402410 */
+char * __cdecl grimdemo_WarningPrint(char *fmt,...); /* 0x00402480 */
+char * __cdecl grimdemo_DebugPrint(char *fmt,...); /* 0x004024f0 */
 void __cdecl DebugLog_Write(char *param_1,uint param_2); /* 0x00402560 */
 
 /* ===== grim.c ===== */
@@ -398,10 +398,10 @@ int __cdecl stdColor_ColorConvertOnePixel(int param_1,uint param_2,int param_3);
 
 /* ===== services.c ===== */
 uint __cdecl defaultStatusPrint(char *fmt,...); /* 0x004035b0 */
-uint __cdecl defaultMessagePrint(uint param_1); /* 0x004035e0 */
-uint __cdecl defaultWarningPrint(uint param_1); /* 0x00403610 */
-uint __cdecl defaultErrorPrint(uint param_1); /* 0x00403640 */
-uint __cdecl defaultDebugPrint(uint param_1); /* 0x00403670 */
+uint __cdecl defaultMessagePrint(char *fmt,...); /* 0x004035e0 */
+uint __cdecl defaultWarningPrint(char *fmt,...); /* 0x00403610 */
+uint __cdecl defaultErrorPrint(char *fmt,...); /* 0x00403640 */
+uint __cdecl defaultDebugPrint(char *fmt,...); /* 0x00403670 */
 void __cdecl defaultAssert(char *expr,char *file,int line); /* 0x004036a0 */
 void __cdecl defaultAtExit(uint param_1); /* 0x004036d0 */
 void * __cdecl Svc_Realloc(void *p,uint size); /* 0x004036e0 */
@@ -1094,7 +1094,7 @@ uint __cdecl stdFeof(int param_1); /* 0x004734e0 */
 undefined * __cdecl stdFtell(uint param_1); /* 0x004734f0 */
 void __cdecl stdFseek(uint param_1,uint param_2,uint param_3); /* 0x00473500 */
 undefined * __cdecl stdFileSize(uint param_1); /* 0x00473520 */
-uint __cdecl stdFilePrintf(uint param_1,char *param_2); /* 0x00473570 */
+uint __cdecl stdFilePrintf(uint fh,char *fmt,...); /* 0x00473570 */
 uint __cdecl stdFGetc(uint param_1); /* 0x004735f0 */
 void __cdecl stdFPutc(uint param_1,uint param_2); /* 0x00473610 */
 int __cdecl LzssDecompress(void *dst,void *src,int srcSize); /* 0x00473a00 */
@@ -1766,7 +1766,7 @@ int __cdecl Text_NextChar(char **pText); /* 0x004aa9b0 */
 int __cdecl Text_GetCharKernedWidth(TextContext *ctx,int ch); /* 0x004aaa20 */
 int __cdecl Text_GetStringWidth(TextContext *ctx,char *text); /* 0x004aaa80 */
 int __cdecl Text_GetStringHeight(TextContext *ctx,char *text); /* 0x004aab10 */
-uint __cdecl Text_DrawFormatted(TextContext *param_1,int param_2); /* 0x004aabb0 */
+uint __cdecl Text_DrawFormatted(TextContext *ctx,char *fmt,...); /* 0x004aabb0 */
 uint __cdecl Text_WrapLines(uint *param_1); /* 0x004aac40 */
 void __cdecl Text_CopyRunes(byte *param_1,undefined4 *param_2,int param_3,int param_4); /* 0x004aae90 */
 uint __cdecl Text_BuildLineTable(uint param_1,int *param_2); /* 0x004aaf30 */
@@ -2539,7 +2539,7 @@ void __cdecl StdFile_fle_Write(uint param_1,uint param_2,uint param_3); /* 0x004
 void __cdecl StdFile_fle_Seek(uint param_1,uint param_2,uint param_3); /* 0x004c5e50 */
 void __cdecl StdFile_fle_Flush(uint param_1); /* 0x004c5e70 */
 int __cdecl fle_GetS(uint param_1,int param_2,int param_3); /* 0x004c5ee0 */
-void __cdecl fle_PrintF(uint param_1,uint param_2); /* 0x004c5f80 */
+void __cdecl fle_PrintF(uint fh,char *fmt,...); /* 0x004c5f80 */
 uint __cdecl fle_GetC(uint param_1); /* 0x004c5fe0 */
 uint __cdecl fle_PutC(uint param_1,uint param_2); /* 0x004c6010 */
 uint __cdecl FUN_004c6db0(int *param_1,int param_2); /* 0x004c6db0 */
@@ -2600,7 +2600,7 @@ int __cdecl FUN_004d5e1c(void); /* 0x004d5e1c */
 undefined4 FUN_004d5e30(void); /* 0x004d5e30 */
 undefined * __stdcall FUN_004d5e35(int a1); /* 0x004d5e35 */
 void __cdecl msc_MemSet(uint param_1,uint param_2,uint param_3); /* 0x004d5e50 */
-int msc_error_SaveString(void); /* 0x004d5f70 */
+int __cdecl msc_error_SaveString(char *fmt,...); /* 0x004d5f70 */
 void __cdecl FUN_004d5fd0(byte *dst,int value,int count); /* 0x004d5fd0 */
 void __cdecl FUN_004d6030(void); /* 0x004d6030 */
 void __cdecl FUN_004d6046(void); /* 0x004d6046 */

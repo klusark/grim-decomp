@@ -1184,6 +1184,7 @@ extern char s_BITMAP_insane_004f3cdc[]; /* used by 2 fn(s), first 0x004ce2e0 */
 extern char s_LECMODULE_insane_bitmap_004f3cec[]; /* used by 2 fn(s), first 0x004ce2e0 */
 extern char s_Video_Module__Cannot_allocate_me_004f3d04[]; /* used by 1 fn(s), first 0x004ce350 */
 extern char s_VIDEO_getbm_004f3d34[]; /* used by 1 fn(s), first 0x004ce350 */
+extern char s__s__line__s__Type__d_not_support_004f3d40[]; /* used by 1 fn(s), first 0x004ce3e0 */
 extern char s_C__grimsrc_libs_lecsmush_insane__004f3d64[]; /* used by 3 fn(s), first 0x004ce3e0 */
 extern undefined g_aConvert_bitmask; /* used by 2 fn(s), first 0x004cf010 */
 extern undefined g_aSou_samplesize; /* used by 1 fn(s), first 0x004d16a0 */

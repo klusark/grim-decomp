@@ -70,23 +70,23 @@
    "cc": "__cdecl"
   },
   "00402330": {
-   "proto": "char * grimdemo_MessagePrint(char * param_1)",
+   "proto": "char * grimdemo_MessagePrint(char * fmt, ...)",
    "cc": "__cdecl"
   },
   "004023a0": {
-   "proto": "char * grimdemo_StatusPrint(char * param_1)",
+   "proto": "char * grimdemo_StatusPrint(char * fmt, ...)",
    "cc": "__cdecl"
   },
   "00402410": {
-   "proto": "char * grimdemo_ErrorPrint(char * param_1)",
+   "proto": "char * grimdemo_ErrorPrint(char * fmt, ...)",
    "cc": "__cdecl"
   },
   "00402480": {
-   "proto": "char * grimdemo_WarningPrint(char * param_1)",
+   "proto": "char * grimdemo_WarningPrint(char * fmt, ...)",
    "cc": "__cdecl"
   },
   "004024f0": {
-   "proto": "char * grimdemo_DebugPrint(char * param_1)",
+   "proto": "char * grimdemo_DebugPrint(char * fmt, ...)",
    "cc": "__cdecl"
   },
   "00402560": {
@@ -110,19 +110,19 @@
    "cc": "__cdecl"
   },
   "004035e0": {
-   "proto": "uint defaultMessagePrint(uint param_1)",
+   "proto": "uint defaultMessagePrint(char * fmt, ...)",
    "cc": "__cdecl"
   },
   "00403610": {
-   "proto": "uint defaultWarningPrint(uint param_1)",
+   "proto": "uint defaultWarningPrint(char * fmt, ...)",
    "cc": "__cdecl"
   },
   "00403640": {
-   "proto": "uint defaultErrorPrint(uint param_1)",
+   "proto": "uint defaultErrorPrint(char * fmt, ...)",
    "cc": "__cdecl"
   },
   "00403670": {
-   "proto": "uint defaultDebugPrint(uint param_1)",
+   "proto": "uint defaultDebugPrint(char * fmt, ...)",
    "cc": "__cdecl"
   },
   "004036d0": {
@@ -2210,7 +2210,7 @@
    "cc": "__cdecl"
   },
   "00473570": {
-   "proto": "uint stdFilePrintf(uint param_1, char * param_2)",
+   "proto": "uint stdFilePrintf(uint fh, char * fmt, ...)",
    "cc": "__cdecl"
   },
   "004735f0": {
@@ -4970,7 +4970,7 @@
    "cc": "__cdecl"
   },
   "004aabb0": {
-   "proto": "uint Text_DrawFormatted(TextContext * param_1, int param_2)",
+   "proto": "uint Text_DrawFormatted(TextContext * ctx, char * fmt, ...)",
    "cc": "__cdecl"
   },
   "004aac40": {
@@ -6914,7 +6914,7 @@
    "cc": "__cdecl"
   },
   "004c5f80": {
-   "proto": "undefined fle_PrintF(uint param_1, uint param_2)",
+   "proto": "void fle_PrintF(uint fh, char * fmt, ...)",
    "cc": "__cdecl"
   },
   "004c5fe0": {
@@ -7391,6 +7391,10 @@
   },
   "004d5eb0": {
    "proto": "undefined msc_rle_DecompressInitialize(int * param_1)",
+   "cc": "__cdecl"
+  },
+  "004d5f70": {
+   "proto": "int msc_error_SaveString(char * fmt, ...)",
    "cc": "__cdecl"
   },
   "004d6030": {
