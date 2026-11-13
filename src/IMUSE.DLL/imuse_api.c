@@ -2337,7 +2337,7 @@ undefined4 sounds_restore(code *param_1,uint param_2)
     return 1;
   }
   uVar2 = (*param_1)(&g_aVoxFxName,0x28);
-  if (((uint)(uVar2)) != 0) {
+  if (((uint)(byte)(uVar2)) != 0) {
     return 1;
   }
   ((code *)FUN_10009700)(((unsigned)(uintptr_t)&DAT_1001e98c));
@@ -2369,17 +2369,17 @@ undefined4 sounds_restore(code *param_1,uint param_2)
       SoundsCloseVoiceFile();
       ((code *)FUN_10009700)(((unsigned)(uintptr_t)&DAT_1001e958));
       uVar2 = (*pcVar1)(&iStack_2c,4);
-      if ((((uint)(uVar2)) == 0) && (iStack_2c != 0)) {
+      if ((((uint)(byte)(uVar2)) == 0) && (iStack_2c != 0)) {
         iVar3 = 0;
         if (0 < iStack_2c) {
           do {
             uVar2 = (*pcVar1)(auStack_20,0x20);
-            if ((((uint)(uVar2)) != 0) ||
-               (uVar2 = (*pcVar1)(&param_1,4), ((uint)(uVar2)) != 0))
+            if ((((uint)(byte)(uVar2)) != 0) ||
+               (uVar2 = (*pcVar1)(&param_1,4), ((uint)(byte)(uVar2)) != 0))
             goto LAB_1000883c;
             g_dwNextHandle = param_1 + -0x457;
             uVar2 = (*pcVar1)(&param_1,4);
-            if (((uint)(uVar2)) != 0) goto LAB_1000883c;
+            if (((uint)(byte)(uVar2)) != 0) goto LAB_1000883c;
             SoundsLoadStartSound(auStack_20,(int)param_1,1);
             iVar3 = iVar3 + 1;
           } while (iVar3 < iStack_2c);
@@ -2388,12 +2388,12 @@ undefined4 sounds_restore(code *param_1,uint param_2)
         if (0 < iStack_2c) {
           do {
             uVar2 = (*pcVar1)(&puStack_24,4);
-            if ((((uint)(uVar2)) != 0) ||
-               (uVar2 = (*pcVar1)(&param_1,4), ((uint)(uVar2)) != 0))
+            if ((((uint)(byte)(uVar2)) != 0) ||
+               (uVar2 = (*pcVar1)(&param_1,4), ((uint)(byte)(uVar2)) != 0))
             goto LAB_1000883c;
             SoundsSetParam(puStack_24,0x600,(uint)param_1);
             uVar2 = (*pcVar1)(&param_1,4);
-            if (((uint)(uVar2)) != 0) goto LAB_1000883c;
+            if (((uint)(byte)(uVar2)) != 0) goto LAB_1000883c;
             SoundsSetParam(puStack_24,0x700,(uint)param_1);
             iVar3 = iVar3 + 1;
           } while (iVar3 < iStack_2c);
@@ -2402,8 +2402,8 @@ undefined4 sounds_restore(code *param_1,uint param_2)
         if (0 < iStack_2c) {
           do {
             uVar2 = (*pcVar1)(&puStack_24,4);
-            if ((((uint)(uVar2)) != 0) ||
-               (uVar2 = (*pcVar1)(&param_1,4), ((uint)(uVar2)) != 0)) break;
+            if ((((uint)(byte)(uVar2)) != 0) ||
+               (uVar2 = (*pcVar1)(&param_1,4), ((uint)(byte)(uVar2)) != 0)) break;
             iMUSE_SetHook(puStack_24,param_1);
             iVar3 = iVar3 + 1;
           } while (iVar3 < iStack_2c);

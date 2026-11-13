@@ -81,7 +81,7 @@ int __cdecl getfile(byte *param_1)
   
   iVar2 = lua_getglobal(param_1);
   bVar1 = ishandler(iVar2);
-  if (((uint)(bVar1)) == 0) {
+  if (((uint)(byte)(bVar1)) == 0) {
     luaL_verror(s_global_variable____50s__is_not_a_10026c08,param_1);
   }
   iVar2 = lua_getuserdata(iVar2);
@@ -299,7 +299,7 @@ int __cdecl getfileparam(byte *param_1,int *param_2)
   
   iVar2 = lua_lua2C(*param_2);
   bVar1 = ishandler(iVar2);
-  if (((uint)(bVar1)) != 0) {
+  if (((uint)(byte)(bVar1)) != 0) {
     *param_2 = *param_2 + 1;
     iVar2 = lua_getuserdata(iVar2);
     return iVar2;

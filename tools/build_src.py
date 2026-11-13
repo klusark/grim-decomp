@@ -1318,7 +1318,7 @@ def fix_function(code, ctx, stats):
     body = fix_float_bits_members(body, vt, ctx)
     body = fix_casts(body, vt, ctx)
     body = fix_negative_stack(body)
-    body = EXTRAOUT_RE.sub(lambda m: "((uint)(" + m.group(1) + "))", body)
+    body = EXTRAOUT_RE.sub(lambda m: "((uint)(byte)(" + m.group(1) + "))", body)
     body = FLOAT_BITS_RE.sub(lambda m: m.group(1) + "FBITS(" + m.group(2) + ")", body)
     # last: offset-named locals become views into one frame array (keeps Ghidra's layout)
     body, trailer = frame_locals.rewrite(body)
@@ -1349,7 +1349,8 @@ FLOAT_BITS_RE = re.compile(r"(lua_pushnumber\()(0x[0-9a-fA-F]{6,8})(?=\))")
 FLOAT_ARG_IMPORTS = {"lua_pushnumber"}
 
 # CONCAT31(extraout_var, bVarN): the decompiler widens a bool result with the (undefined) upper bytes
-# of EAX; the callee returned a clean 0/1, so the widened value is just the zero-extended byte
+# of EAX; the callee returned a clean 0/1 or a byte it zero-extended (Text_NextChar: MOVZX-style XOR ECX,ECX / MOV CL),
+# so the widened value is the zero-extended byte; `(uint)(c)` of a char sign-extended 0x80..0xff
 EXTRAOUT_RE = re.compile(r"CONCAT31\(extraout_var\w*,([^()]+)\)")
 
 
