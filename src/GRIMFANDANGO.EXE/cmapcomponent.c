@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00496370  ColormapInstancer ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Costume tag handler for 'RDroid Colormap' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 5, instance data for a colormap component (0x38 bytes
    holding a ResRef to the colormap, 'Bad Colormap Reference' assertion); with param 0 it frees the
@@ -52,8 +50,6 @@ int * __cdecl ColormapInstancer(int inst,int component,int create)
 }
 #undef auStack_4
 #undef iStack_8
-
-#endif
 
 
 /* ---- 0x00496460  ColormapRequester ---- */

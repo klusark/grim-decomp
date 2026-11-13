@@ -178,8 +178,6 @@ void sputCostume_PuppetHook(int param_1,int param_2,uint param_3)
 }
 
 /* ---- 0x00497d10  KeyframeInstancer ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Start through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 5, instance data for a keyframe component (ResRef to
    the animation, 'Bad keyframe Reference' assertion); with param 0 it frees it. Original name
@@ -222,8 +220,6 @@ int * __cdecl KeyframeInstancer(int inst,int component,int create)
   *piVar2 = iVar1;
   return piVar2;
 }
-#endif
-
 
 /* ---- 0x00497e10  KeyframeRequester ---- */
 /* Costume tag handler for 'RDroid Keyframe (KEY)' (registered by sputCostume_Startup through

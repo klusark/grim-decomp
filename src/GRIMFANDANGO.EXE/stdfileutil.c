@@ -162,8 +162,6 @@ undefined4 stdFilePrintf(undefined4 param_1,char *param_2)
 }
 
 /* ---- 0x004735f0  stdFGetc ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name stdFGetc (the remaster's GrimFandango (Linux): aligned call in stdGif_Load,
    stdLbm_Load, stdPcx_Load); was stdFile_ReadByte. */
 
@@ -173,12 +171,8 @@ uint stdFGetc(uint param_1)
   (*g_pStd_HS->pFread)(param_1,&param_1,1);
   return param_1 & 0xff;
 }
-#endif
-
 
 /* ---- 0x00473610  stdFPutc ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name stdFPutc (the remaster's GrimFandango (Linux): aligned call in stdPcx_Write); was
    stdFile_WriteByte. */
 
@@ -188,8 +182,6 @@ void stdFPutc(undefined4 param_1,undefined4 param_2)
   (*g_pStd_HS->pFwrite)(param_2,&param_1,1);
   return;
 }
-#endif
-
 
 /* ---- 0x00473a00  LzssDecompress ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */

@@ -577,8 +577,6 @@ void sputPrimitive_DrawRectangle(void)
 
 
 /* ---- 0x00489fe0  sputPrimitive_ChangePrimitive ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua opcode: ChangePrimitive Original name sputPrimitive_ChangePrimitive (the remaster's
    GrimFandango (Linux): Lua / module table entry 'ChangePrimitive'); was Lua_ChangePrimitive. */
 
@@ -739,8 +737,6 @@ void sputPrimitive_ChangePrimitive(void)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0048a460  sputPrimitive_KillPrimitive ---- */
@@ -1919,8 +1915,6 @@ void sputLua_GetMemoryUsageL(void)
 
 
 /* ---- 0x00498da0  sputLua_GetDiskFreeSpaceL ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua opcode: GetDiskFreeSpace Original name sputLua_GetDiskFreeSpaceL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'GetDiskFreeSpace'); was Lua_GetDiskFreeSpace. */
 
@@ -1939,12 +1933,8 @@ void sputLua_GetDiskFreeSpaceL(void)
 #undef local_18
 #undef local_4
 
-#endif
-
 
 /* ---- 0x00498e20  sputLua_Test ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua opcode: TEST Original name sputLua_Test (the remaster's GrimFandango (Linux): Lua / module
    table entry 'TEST'); was Lua_TEST. */
 
@@ -1954,12 +1944,8 @@ void __cdecl sputLua_Test(void)
   ShrinkBoxes(0.005);
   return;
 }
-#endif
-
 
 /* ---- 0x00498e50  sputLua_ShrinkBoxes ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua opcode: ShrinkBoxes Original name sputLua_ShrinkBoxes (the remaster's GrimFandango (Linux):
    Lua / module table entry 'ShrinkBoxes'); was Lua_ShrinkBoxes. */
 
@@ -1980,12 +1966,8 @@ void __cdecl sputLua_ShrinkBoxes(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00498e90  sputLua_UnShrinkBoxes ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua opcode: UnShrinkBoxes Original name sputLua_UnShrinkBoxes (the remaster's GrimFandango
    (Linux): Lua / module table entry 'UnShrinkBoxes'); was Lua_UnShrinkBoxes. */
 
@@ -1996,8 +1978,6 @@ void sputLua_UnShrinkBoxes(void)
   WalkPlane_DestroyCache();
   return;
 }
-#endif
-
 
 /* ---- 0x00498ea0  sputLua_GetShrinkPosition ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -7743,8 +7723,6 @@ void sputLua_GetActorTimeScaleL(void)
 }
 
 /* ---- 0x0049f8d0  sputLua_SetCameraFOVL ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua opcode: SetCameraFOV Original name sputLua_SetCameraFOVL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'SetCameraFOV'); was Lua_SetCameraFOV. */
 
@@ -7768,8 +7746,6 @@ void sputLua_SetCameraFOVL(void)
   *(float *)(PUN(int,(float)g_pSputRender_Camera[10]) + 0x38) = g_pSputRender_Camera[7];
   return;
 }
-#endif
-
 
 /* ---- 0x0049f930  sputLua_SetCameraRollL ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */

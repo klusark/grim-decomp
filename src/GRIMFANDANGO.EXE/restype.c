@@ -331,8 +331,6 @@ void * sputResource_ColormapHandler(int *param_1)
 
 
 /* ---- 0x0048dbd0  sputResource_FontHandler ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Resource type handler for 'FONT' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports
    the size. Load = Font_LoadFile, kept locked. Original name sputResource_FontHandler (the
    remaster's GrimFandango (Linux): the 'FONT' entry of the resource type table (g_ResTypeTable /
@@ -370,8 +368,6 @@ void * sputResource_FontHandler(int *param_1)
   }
   return (void *)0x0;
 }
-#endif
-
 
 /* ---- 0x0048dc60  sputResource_KeyframeHandler ---- */
 /* Resource type handler for 'KEYF' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports

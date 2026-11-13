@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004971a0  SoundChanger ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Costume tag handler for 'iMuse Streamed / Resident Sound FX' (registered by sputCostume_Startup
    through Cos_NewStateBasedTag/Cos_NewIntTag): slot 0, starts the sound (SoundStartVoiceStream for
    streamed, SoundsLoadStartSound + positional parameters from the current set for resident sounds)
@@ -80,8 +78,6 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
   return;
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x00497320  SoundAdjuster ---- */

@@ -136,8 +136,6 @@ void Res_SysShutdown(void)
 }
 
 /* ---- 0x00482260  Res_SysSave ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Module interface slot 4 (Resource_Filio): save-game writer, calls the SaveGame_Write callback it
    is handed for every field. Original name Res_SysSave (the remaster's GrimFandango (Linux):
    strings: 'TEMP'); was Resource_Filio_SaveState. */
@@ -203,8 +201,6 @@ undefined4 Res_SysSave(code *param_1)
   } while( true );
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x00482380  Res_SysLoad ---- */

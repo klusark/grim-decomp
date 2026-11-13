@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00483720  PolyglotConfigure ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* polyglot.c: loads the language table (text id -> translated string) Original name
    PolyglotConfigure (the remaster's GrimFandango (Linux): the table load Main_Startup calls after
    PolyglotInitialize, same body (reads the .tab file through the polyglot pHS)); was
@@ -71,8 +69,6 @@ void PolyglotConfigure(undefined *param_1)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004838e0  PolyglotGetString ---- */
 /* Binary search of the language table for a /xxxx/ text id Original name PolyglotGetString (the
