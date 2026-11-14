@@ -445,7 +445,7 @@ int __cdecl wuRegistry_QueryType(char *name); /* 0x00404120 */
 /* ===== string.c ===== */
 int __cdecl Str_ComparePtrs(undefined4 *param_1,undefined4 *param_2); /* 0x00403ae0 */
 char * __cdecl stdFileFromPath(char *path); /* 0x004735b0 */
-char * __cdecl Str_ToLower(char *s); /* 0x0047b5c0 */
+void __cdecl Str_ToLower(char *s); /* 0x0047b5c0 */
 char * __cdecl stdFnames_FindMedName(char *path); /* 0x0047fd20 */
 char * __cdecl stdFnames_FindExt(char *path); /* 0x0047fd50 */
 void __cdecl Str_StripExtension(char *param_1); /* 0x0047fda0 */
@@ -554,7 +554,7 @@ void __cdecl rdCamera_SetAmbientLight(void *camera,float ambient); /* 0x0040a750
 void __cdecl rdCamera_AddLight(void *camera,void *light,float *pos); /* 0x0040a760 */
 void __cdecl rdCamera_AdvanceFrame(void); /* 0x0040a7d0 */
 void __cdecl rdModel3_ClearFrameCounters(void); /* 0x0040a860 */
-int __cdecl rdPrimit3_GetScreenCoord(float *world,float *outScreen); /* 0x0040dc30 */
+int __cdecl rdPrimit3_GetScreenCoord(float *world,ScreenCoord *outScreen); /* 0x0040dc30 */
 
 /* ===== renderer.c ===== */
 void __cdecl rdModel3_ActivateClipPlane(uint param_1); /* 0x0040a870 */
@@ -1302,7 +1302,7 @@ void __cdecl Res_MoveToFront(void *res); /* 0x00481f00 */
 uint __cdecl Res_HashName(char *name,char *outLower); /* 0x00481f60 */
 void __cdecl Res_GetFirstType(int *param_1,int *param_2,int param_3); /* 0x00482170 */
 void __cdecl Res_GetNextType(int *param_1,int *param_2,int param_3); /* 0x004821b0 */
-undefined * __cdecl Res_Touch(void *param_1); /* 0x00482200 */
+void __cdecl Res_Touch(void *data); /* 0x00482200 */
 int __cdecl Res_CountChildren(uint param_1,uint param_2); /* 0x004824f0 */
 void __cdecl grimlib_SetCacheMax(int param_1); /* 0x00482520 */
 void __cdecl sputResource_ReportAllocations(void); /* 0x0048e230 */
@@ -1550,7 +1550,7 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt); /* 0x0048fe80 */
 void __cdecl sputActor_UpdateActorSpeech(Actor *actor,float dt); /* 0x00490210 */
 int __cdecl sputActor_SetSelectedActor(int handle); /* 0x00490320 */
 Actor * __cdecl sputActor_ActorDeref(int handle); /* 0x00490360 */
-int __cdecl sputActor_GetActorHandle(Actor *actor,int tag); /* 0x00490380 */
+int __cdecl sputActor_GetActorHandle(Actor *actor); /* 0x00490380 */
 int sputActor_AllocateActor(void); /* 0x004903a0 */
 void __cdecl sputActor_AllocateActorExtra(Actor *actor); /* 0x00490580 */
 void __cdecl sputActor_EnableWalkSystem(Actor *actor,int param_2); /* 0x004906b0 */

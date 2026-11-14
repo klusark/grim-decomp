@@ -1,0 +1,10 @@
+{
+ "_comment": "rdPrimit3_GetScreenCoord's output (2026-11-14): two integers (x, y truncated by _ftol) and the depth as a float. Typed float[3] the callers converted the integer bits as floats (sputLua_WorldToScreenL, sputText_CreateActorText were hand-written for it).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {"name": "ScreenCoord", "size": 12, "comment": "rdPrimit3_GetScreenCoord's output",
+   "fields": [[0, "int", "nX", "screen x (truncated)"], [4, "int", "nY", "screen y (truncated)"], [8, "float", "flZ", "camera-space depth"]]}
+ ],
+ "params": [{"addr": "0040dc30", "index": 1, "type": "ScreenCoord *", "name": "outScreen"}],
+ "locals": [{"addr": "0049cf60", "name": "local_c", "type": "ScreenCoord"}]
+}
