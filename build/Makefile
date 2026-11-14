@@ -46,6 +46,17 @@ GHIDRA_CFLAGS := $(OPT) $(ARCH) -std=gnu11 -fpermissive -w -Wno-error=incompatib
 #   OPT_GRIMFANDANGO.EXE/insane := -O2
 # The value is appended after $(OPT) (the last -O wins), so everything not listed keeps $(OPT) (-O0).
 # `make OPT_ALL=-O1` is a quick experiment that forces a level for every listed or unlisted module.
+# Coverage (gcov): `make COVERAGE=1 OBJ=obj-cov` and `make COVERAGE=1 OBJ=obj-cov link` build the four programs with
+# --coverage; each module keeps its level of opt.mk (at -O0 everywhere 31 clean-room tests differ from the original: x87
+# results), so a few line counts of the optimised modules are approximate. Each program writes its counters to the .gcda
+# files next to its objects when it ends (or crashes: startup.c). link.py adds the flags to the hand-written files and
+# the link (GRIM_COVERAGE). tools/coverage.sh is the whole loop with grim_tools/cleanroom.
+COVERAGE ?=
+ifeq ($(COVERAGE),1)
+EXTRA_CFLAGS += --coverage -fprofile-update=atomic -g
+export GRIM_COVERAGE := 1
+endif
+
 OPTMK ?= opt.mk
 -include $(OPTMK)
 OPT_ALL ?=

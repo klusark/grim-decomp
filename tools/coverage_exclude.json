@@ -1,0 +1,39 @@
+{
+ "_comment": "Functions tools/covreport.py leaves out of the coverage totals: code that is built and kept, but that the shipped game cannot run, so no clean-room test can reach it. Per program: a name or an fnmatch pattern (names, not CosUtil_*: the costume loader itself uses CosUtil_AddComponent, CosUtil_ComponentInfo, CosUtil_CountComponents, CosUtil_PtrFromHandle and CosUtil_SetChoreLength) (the gcov name without its leading _ or @ and its @N stdcall suffix) -> why. The lines left out are counted in the report's Excluded column; covreport.py --no-exclude counts everything.",
+ "CHORE.DLL": {
+  "CosUtil_Write": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_DeleteComponent": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_DeleteKey": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_QueryValueAtTime": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_NameChore": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_DeleteChore": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_AdjustComponent": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_ComponentHasAdjuster": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_AddChore": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_AddIntKey": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_AddFloatKey": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_AddFSKey": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_ChoreName": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_CountChores": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_CountTags": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_TagInfo": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_CompPtrFromHandle": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_RegisterCompNotifier": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "CosUtil_RegisterBitmapMunger": "costume editor API (LucasArts' editor tool, not shipped): nothing in the exe imports it",
+  "Cos_AddKey": "costume editor: called only by CosUtil_AddIntKey / AddFloatKey / AddFSKey",
+  "Cos_CompareKeys": "costume editor: called only by Cos_AddKey",
+  "Cos_CollectUsedTags": "costume editor: called only by CosUtil_Write",
+  "Cos_New": "costume editor: an export nothing imports (a new empty costume)",
+  "Cos_RemoveComponent": "costume editor: an export nothing imports",
+  "Cos_NewFloatTag": "costume editor: an export nothing imports (the exe registers int and state-based tags only)",
+  "Cos_InstPauseChore": "an export nothing imports",
+  "Cos_InstPauseChores": "an export nothing imports",
+  "Cos_InstCompleteChores": "an export nothing imports",
+  "Cos_InstSetChoreAdv": "an export nothing imports",
+  "Cos_InstChoreName": "costume editor: the exe calls it only from sputCostume_SaveHook",
+  "Cos_GetCostumeName": "costume editor: the exe calls it only from sputCostume_SaveHook"
+ },
+ "GRIMFANDANGO.EXE": {
+  "sputCostume_SaveHook": "costume editor: the save hook the exe registers with Cos_RegisterSaveHook, called only by CosUtil_Write"
+ }
+}

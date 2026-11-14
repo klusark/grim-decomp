@@ -1540,6 +1540,41 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   g_dwDsndDriver_share_config and so on). dsn_terminate stays: its twin calls sou_mixer_terminate where the hand-written
   one calls Mixer_Free. Clean room 0 of 5329.
 
+## Coverage build, and the results that only lived in EAX (2026-11-14)
+
+* `make COVERAGE=1 OBJ=obj-cov` (+ `link`) builds the four programs with gcov (`--coverage -fprofile-update=atomic -g`, also
+  for the hand-written files: link.py, GRIM_COVERAGE); `tools/coverage.sh` builds it, runs grim_tools' clean-room suite on
+  it (`run.py decomp`) and writes `build/coverage/` with `tools/covreport.py` (summary.md per program and file,
+  functions.tsv per function, gcov's annotated text per module). Each module keeps its opt.mk level: with every module at
+  -O0 (`OPT_ALL=-O0`, coverage or not) 31 clean-room tests differ (x87 results of the walker and turning code), 0 with
+  opt.mk. A coverage DLL keeps libgcov to itself (`--exclude-libs,libgcov.a`: with --export-all-symbols the exe took
+  `__gcov_init` from lua.dll), and the crash filter (startup.c) writes the counters of a game that crashes.
+* It runs on Linux too: mingw-w64 i686 cross compiler, Wine with Xvfb and a PulseAudio null sink (grim_tools
+  cleanroom/README.md, "The decomp on Linux"). GCC 13 there wanted `__stdcall` on LightEd_KeyboardProc's definition (its
+  declaration in functions.h has it).
+* The first coverage build did not start ("could not initialize your hardware"), then crashed in 4 places in 70 tests: 30
+  functions reached through a function pointer (service tables, host callbacks, resource and costume handlers, Lua's
+  traversal callback) were `void` although their body ends in a call whose value the callers use. In the original each is
+  `call ...; ret`, so the callee's EAX is the result; the rebuilt programs passed it on only because nothing touched EAX
+  between the call and the return, which gcov's counter update after the call does (and any other change of code
+  generation could). mem_Alloc returned garbage (the SMUSH memory service: the movie module did not start), the file
+  services (stdFileWrite, stdFseek, stdFileGetws, the stdio/stdfile module thunks), stdPlatform_AllocHandle /
+  ReallocHandle (Text_BuildLineTable), sputRoom_LoadZBuffer (sputResource_ZBufferHandler), stdConffile_Open,
+  Resource_CountCostumeRefs, iMUSE's ihost_get_map_addr / ihost_get_sound_addr / iMUSE_Free, LUA.DLL's checkfunc
+  (lua_getobjname: FunctionName gave "tag method 'gettable'"), LuaSaveWriter, luaL_openlib. They return `uint` now:
+  names/exe_service_thunk_protos.json holds the prototypes for Ghidra (`tools/apply_logic_protos.py
+  names/exe_service_thunk_protos.json`), and src/ was edited to what the decompiler prints with them, so that the tree builds
+  before the next export. Found by bisecting the objects of the coverage build (crt_unnamed.o), then the functions
+  (no_profile_instrument_function), then from the crash reports. Clean room 0 of 5327 on both builds afterwards.
+* Coverage of the suite on 2026-11-14 (before / after the tests added that day: images.lua, funnel.lua, zz_ims_fx.lua):
+  EXE 61.4% / 63.0% of 47,893 lines, LUA.DLL 88.7%, IMUSE.DLL 67.4% / 71.9%, CHORE.DLL 58.1% (most of the rest is the
+  costume editor's API, which nothing calls). Large parts the suite cannot reach: Direct3D (std3d.c, the hardware
+  renderer), the registry (reg.c: GRIM_INI replaces it), dialogs, joysticks, the light editor.
+* The costume editor is kept in the build but left out of the totals: tools/coverage_exclude.json lists the functions
+  the shipped game cannot run (CHORE.DLL's CosUtil_* editor API but the five the costume loader uses, the Cos_* functions
+  only the editor calls or nothing imports, the exe's sputCostume_SaveHook), each with its reason. covreport.py shows
+  their lines in an Excluded column (functions.tsv marks them) and counts everything with --no-exclude. With the list:
+  CHORE.DLL 85.0% of 1,698 lines (785 excluded), EXE 63.1% (67 excluded).
 ## ScreenCoord: sputLua_WorldToScreenL generated again (2026-11-14)
 
 * rdPrimit3_GetScreenCoord writes two integers (x, y, truncated) and the depth as a float; its output parameter was

@@ -19,3 +19,6 @@ build/perf/*.log
 build/difftest/out/
 build/difftest/*/out/
 build/mixdiff/out/
+build/obj-cov/
+build/run-cov/
+build/coverage/

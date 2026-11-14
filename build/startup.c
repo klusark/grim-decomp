@@ -65,6 +65,12 @@ static long __stdcall grim_crash_filter(GRIM_EXC_PTRS *p)
     }
     WriteFile(h, "\r\n", 2, &wrote, 0);
     CloseHandle(h);
+#ifdef GRIM_COVERAGE
+    {   /* the coverage build (make COVERAGE=1): the counters of a game that crashes count too (a normal exit writes them) */
+        extern void __gcov_dump(void);
+        __gcov_dump();
+    }
+#endif
     return 0;   /* EXCEPTION_CONTINUE_SEARCH */
 }
 
