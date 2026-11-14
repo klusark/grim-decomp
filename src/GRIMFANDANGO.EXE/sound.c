@@ -117,55 +117,56 @@ uint __cdecl SetSoundPosition(int param_1)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  void *pvVar2;
-  uint uVar3;
+  Setup *pSVar2;
+  Set *pSVar3;
   uint uVar4;
   uint uVar5;
-  float10 fVar6;
-  longlong lVar7;
-  float fVar8;
+  uint uVar6;
+  float10 fVar7;
+  longlong lVar8;
+  float fVar9;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_c (*(float *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
-  pvVar2 = sputRoom_GetCurrentRoom();
-  if (pvVar2 != (void *)0x0) {
-    local_c = *(float *)(param_1 + 8) -
-              *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300);
-    iVar1 = *(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300;
-    local_8 = *(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4);
-    local_4 = *(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8);
-    fVar8 = rdVector_Normalize3QuickAcc(&local_c);
-    fVar6 = (float10)fVar8 - (float10)*(float *)(param_1 + 0x20);
-    if ((float10)0.0 <= fVar6) {
-      uVar5 = *(uint *)(param_1 + 0x18);
-      uVar4 = *(uint *)(param_1 + 0x14);
-      lVar7 = FTOL(((float10)*(float *)(param_1 + 0x1c) - fVar6) *
-                    ((float10)(uVar5 - uVar4) / (float10)*(float *)(param_1 + 0x1c)) +
-                    (float10)(int)uVar4);
-      uVar3 = (uint)lVar7;
-      if ((uVar4 <= uVar3) && (uVar4 = uVar3, uVar5 < uVar3)) {
-        uVar4 = uVar5;
+  pSVar3 = sputRoom_GetCurrentRoom();
+  if (pSVar3 != (Set *)0x0) {
+    iVar1 = pSVar3->nCurSetup;
+    pSVar2 = pSVar3->pSetups;
+    local_c = *(float *)(param_1 + 8) - pSVar2[iVar1].aPos[0];
+    local_8 = *(float *)(param_1 + 0xc) - pSVar2[iVar1].aPos[1];
+    local_4 = *(float *)(param_1 + 0x10) - pSVar2[iVar1].aPos[2];
+    fVar9 = rdVector_Normalize3QuickAcc(&local_c);
+    fVar7 = (float10)fVar9 - (float10)*(float *)(param_1 + 0x20);
+    if ((float10)0.0 <= fVar7) {
+      uVar6 = *(uint *)(param_1 + 0x18);
+      uVar5 = *(uint *)(param_1 + 0x14);
+      lVar8 = FTOL(((float10)*(float *)(param_1 + 0x1c) - fVar7) *
+                    ((float10)(uVar6 - uVar5) / (float10)*(float *)(param_1 + 0x1c)) +
+                    (float10)(int)uVar5);
+      uVar4 = (uint)lVar8;
+      if ((uVar5 <= uVar4) && (uVar5 = uVar4, uVar6 < uVar4)) {
+        uVar5 = uVar6;
       }
-      SoundsSetParam(*(int *)(param_1 + 4),0x600,uVar4);
+      SoundsSetParam(*(int *)(param_1 + 4),0x600,uVar5);
     }
-    fVar6 = ((float10)*(float *)(iVar1 + 0x38) * (float10)local_4 +
-            (float10)*(float *)(iVar1 + 0x34) * (float10)local_8 +
-            (float10)*(float *)(iVar1 + 0x30) * (float10)local_c) *
-            (float10)*(float *)((int)pvVar2 + 0x1b00);
-    if (fVar6 < (float10)-1.0) {
-      fVar6 = (float10)-1.0;
+    fVar7 = ((float10)*(float *)&pSVar2[iVar1].field_0x58 * (float10)local_4 +
+            (float10)*(float *)&pSVar2[iVar1].field_0x54 * (float10)local_8 +
+            (float10)*(float *)&pSVar2[iVar1].field_0x50 * (float10)local_c) *
+            (float10)pSVar3->flSoundPanScale;
+    if (fVar7 < (float10)-1.0) {
+      fVar7 = (float10)-1.0;
     }
-    else if ((float10)1.0 < fVar6) {
-      fVar6 = (float10)1.0;
+    else if ((float10)1.0 < fVar7) {
+      fVar7 = (float10)1.0;
     }
-    lVar7 = FTOL((fVar6 - (float10)-1.0) * (float10)64.0);
-    uVar5 = (uint)lVar7;
-    if (0x7f < uVar5) {
-      uVar5 = 0x7f;
+    lVar8 = FTOL((fVar7 - (float10)-1.0) * (float10)64.0);
+    uVar6 = (uint)lVar8;
+    if (0x7f < uVar6) {
+      uVar6 = 0x7f;
     }
-    SoundsSetParam(*(int *)(param_1 + 4),0x700,uVar5);
+    SoundsSetParam(*(int *)(param_1 + 4),0x700,uVar6);
     return 1;
   }
   return 0;

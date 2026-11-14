@@ -119,7 +119,7 @@ void __cdecl grimlib_Close(void)
     g_dwGrimlib_mode = 0;
     sputControl_Close();
     sputRender_Close();
-    sputRoom_SetCurrentRoom((void *)0x0,0);
+    sputRoom_SetCurrentRoom((Set *)0x0,0);
     g_dwSputmOpen = 0;
   }
   return;
@@ -809,7 +809,7 @@ void __cdecl Engine_LoadGame(void)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char *name;
-  void *set;
+  Set *set;
   int setupIdx;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -855,11 +855,11 @@ void __cdecl Engine_LoadGame(void)
     }
     Resource_SetNoPurge(0);
     set = sputRoom_GetCurrentRoom();
-    if (set == (void *)0x0) {
+    if (set == (Set *)0x0) {
       setupIdx = 0;
     }
     else {
-      setupIdx = *(int *)((int)set + 0xb4);
+      setupIdx = set->nCurSetup;
     }
     sputRender_UseSetup(set,setupIdx);
     gzclose(UINT_008a8770);
@@ -935,16 +935,17 @@ void __cdecl sputRender_Update(void)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *actor;
-  int *piVar1;
-  int iVar2;
+  ObjectState *pOVar1;
+  int *piVar2;
   int iVar3;
-  uint uVar4;
-  void *pvVar5;
-  float *pfVar6;
+  int iVar4;
+  uint uVar5;
+  Set *pSVar6;
   float *pfVar7;
-  float fVar8;
-  int iVar9;
-  uint *puVar10;
+  float *pfVar8;
+  float fVar9;
+  int iVar10;
+  uint *puVar11;
   #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define fStack_c (*(float *)(_frame + (0x30 - 0xc)))
@@ -954,18 +955,18 @@ void __cdecl sputRender_Update(void)
   if (g_dwGrimlib_mode != 0) {
     if (g_dwGrimlib_mode == 3) {
       sputSmush_SetTarget(&g_dwStdDisplay_backBuffer);
-      uVar4 = sputSmush_Periodic();
-      if (uVar4 != 0) {
-        iVar9 = 0;
+      uVar5 = sputSmush_Periodic();
+      if (uVar5 != 0) {
+        iVar10 = 0;
         g_dwGrimlib_mode = 2;
         local_1c[0] = 0.0;
         local_1c[1] = 0.0;
         local_1c[2] = 8.96831e-43;
         if (0 < g_nNumPages) {
           do {
-            DirtyRect_Add((int *)local_1c,1,iVar9);
-            iVar9 = iVar9 + 1;
-          } while (iVar9 < g_nNumPages);
+            DirtyRect_Add((int *)local_1c,1,iVar10);
+            iVar10 = iVar10 + 1;
+          } while (iVar10 < g_nNumPages);
         }
         sputRender_ForceRefresh();
         g_dwMovieJustFinished = 1;
@@ -990,28 +991,28 @@ void __cdecl sputRender_Update(void)
       if (UINT_008c9804 != 0) {
         lua_printstack(0);
       }
-      pvVar5 = sputRoom_GetCurrentRoom();
-      if (pvVar5 == (void *)0x0) {
+      pSVar6 = sputRoom_GetCurrentRoom();
+      if (pSVar6 == (Set *)0x0) {
         return;
       }
-      pvVar5 = sputRoom_GetCurrentRoom();
-      if (((g_pRenderedSet != pvVar5) ||
-          (pvVar5 = sputRoom_GetCurrentRoom(),
-          *(int *)((int)pvVar5 + 0xb4) != g_nSputRender_Update_RenderSetup)) ||
-         (g_nSputRender_Reset != 0)) {
+      pSVar6 = sputRoom_GetCurrentRoom();
+      if (((g_pRenderedSet != pSVar6) ||
+          (pSVar6 = sputRoom_GetCurrentRoom(), pSVar6->nCurSetup != g_nSputRender_Update_RenderSetup
+          )) || (g_nSputRender_Reset != 0)) {
         DirtyRect_Clear();
         g_pRenderedSet = sputRoom_GetCurrentRoom();
-        g_nSputRender_Update_RenderSetup = *(int *)((int)g_pRenderedSet + 0xb4);
+        g_nSputRender_Update_RenderSetup = ((Set *)g_pRenderedSet)->nCurSetup;
         sputRender_UseSetup(g_pRenderedSet,g_nSputRender_Update_RenderSetup);
         sputLua_PostCameraChange(g_nSputRender_Update_RenderSetup);
       }
-      fVar8 = (float)(*(int *)((int)g_pRenderedSet + 0xac) + g_nSputRender_Update_RenderSetup * 300)
+      fVar9 = (float)(*(int *)((int)g_pRenderedSet + 0xac) + g_nSputRender_Update_RenderSetup * 300)
       ;
-      local_1c[0] = fVar8;
+      local_1c[0] = fVar9;
       sputRender_SyncCamera(g_pRenderedSet,g_nSputRender_Update_RenderSetup);
-      for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
-          pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-        ObjectState_Update(pvVar5,3,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
+      for (pOVar1 = *(ObjectState **)(PUN(int,(float)fVar9) + 0x128); pOVar1 != (ObjectState *)0x0;
+          pOVar1 = pOVar1->pNext) {
+        ObjectState_Update
+                  (pOVar1,3,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
       }
       PerfBegin(4);
       if (g_nDoTheFlip != 0) {
@@ -1023,24 +1024,24 @@ void __cdecl sputRender_Update(void)
       stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
       sputPrimitive_Update(1);
       stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
-      for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
-          pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-        ObjectState_Update(pvVar5,1,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
+      for (pOVar1 = *(ObjectState **)(PUN(int,(float)fVar9) + 0x128); pOVar1 != (ObjectState *)0x0;
+          pOVar1 = pOVar1->pNext) {
+        ObjectState_Update(pOVar1,1,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
       }
       rdAdvanceFrame();
       Render_BuildActorDrawList();
       if ((g_dwTotDrawItems != 0) || (((byte)g_dwDebugFlags & 1) != 0)) {
         PerfBegin(5);
-        iVar9 = 0;
+        iVar10 = 0;
         if (0 < (int)g_dwTotDrawItems) {
-          puVar10 = &g_dwDrawItems;
+          puVar11 = &g_dwDrawItems;
           do {
-            if (*(char *)*puVar10 == '\0') {
-              sputCostume_Draw2D((g_pActors[*(int *)((char *)*puVar10 + 8)].pCostumes)->dwInstance);
+            if (*(char *)*puVar11 == '\0') {
+              sputCostume_Draw2D((g_pActors[*(int *)((char *)*puVar11 + 8)].pCostumes)->dwInstance);
             }
-            iVar9 = iVar9 + 1;
-            puVar10 = puVar10 + 1;
-          } while (iVar9 < (int)g_dwTotDrawItems);
+            iVar10 = iVar10 + 1;
+            puVar11 = puVar11 + 1;
+          } while (iVar10 < (int)g_dwTotDrawItems);
         }
         PerfEnd(5);
         if (((byte)g_dwDebugFlags & 1) != 0) {
@@ -1055,58 +1056,58 @@ void __cdecl sputRender_Update(void)
           stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
         }
         PerfBegin(6);
-        if (iVar9 != 0) {
-          puVar10 = &g_dwDrawItems + iVar9 + -1;
+        if (iVar10 != 0) {
+          puVar11 = &g_dwDrawItems + iVar10 + -1;
           do {
-            actor = g_pActors + *(int *)(*puVar10 + 8);
-            if (g_pActors[*(int *)(*puVar10 + 8)].flScale != 1.0) {
+            actor = g_pActors + *(int *)(*puVar11 + 8);
+            if (g_pActors[*(int *)(*puVar11 + 8)].flScale != 1.0) {
               fStack_8 = actor->flScale;
-              pfVar7 = &fStack_c;
+              pfVar8 = &fStack_c;
               fStack_4 = actor->flScale;
-              fStack_c = g_pActors[*(int *)(*puVar10 + 8)].flScale;
-              pfVar6 = sputActor_GetOrientMatrix(actor);
-              rdMatrix_PreScale34(pfVar6,(uint)pfVar7);
+              fStack_c = g_pActors[*(int *)(*puVar11 + 8)].flScale;
+              pfVar7 = sputActor_GetOrientMatrix(actor);
+              rdMatrix_PreScale34(pfVar7,(uint)pfVar8);
             }
-            if (*(char *)*puVar10 == '\0') {
-              piVar1 = actor->pColormapRef;
-              iVar2 = *piVar1;
-              if (iVar2 == 0) {
-                iVar2 = *(int *)((int)g_pRenderedSet + 0x88);
-                iVar3 = *(int *)((int)g_pRenderedSet + 0x80);
-                if (*(int *)(iVar3 + iVar2 * 0x34) == 0) {
+            if (*(char *)*puVar11 == '\0') {
+              piVar2 = actor->pColormapRef;
+              iVar3 = *piVar2;
+              if (iVar3 == 0) {
+                iVar3 = *(int *)((int)g_pRenderedSet + 0x88);
+                iVar4 = *(int *)((int)g_pRenderedSet + 0x80);
+                if (*(int *)(iVar4 + iVar3 * 0x34) == 0) {
                   (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                rdroid_SetColormap(*(uint *)(iVar3 + iVar2 * 0x34 + 4));
-                iVar2 = *(int *)((int)g_pRenderedSet + 0x88);
-                iVar3 = *(int *)((int)g_pRenderedSet + 0x80);
-                if (*(int *)(iVar3 + iVar2 * 0x34) == 0) {
+                rdroid_SetColormap(*(uint *)(iVar4 + iVar3 * 0x34 + 4));
+                iVar3 = *(int *)((int)g_pRenderedSet + 0x88);
+                iVar4 = *(int *)((int)g_pRenderedSet + 0x80);
+                if (*(int *)(iVar4 + iVar3 * 0x34) == 0) {
                   (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                iVar2 = *(int *)(iVar3 + iVar2 * 0x34 + 4);
+                iVar3 = *(int *)(iVar4 + iVar3 * 0x34 + 4);
               }
               else {
-                if (iVar2 == 0) {
+                if (iVar3 == 0) {
                   (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                rdroid_SetColormap(piVar1[1]);
-                piVar1 = actor->pColormapRef;
-                if (*piVar1 == 0) {
+                rdroid_SetColormap(piVar2[1]);
+                piVar2 = actor->pColormapRef;
+                if (*piVar2 == 0) {
                   (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                iVar2 = piVar1[1];
+                iVar3 = piVar2[1];
               }
-              (*(code *)g_dwSputRender_pSetPaletteFunc)(iVar2 + 0x30,0);
-              pfVar7 = sputActor_GetOrientMatrix(actor);
-              sputCostume_Draw3D((uint)actor->pCostumes,(uint)pfVar7);
+              (*(code *)g_dwSputRender_pSetPaletteFunc)(iVar3 + 0x30,0);
+              pfVar8 = sputActor_GetOrientMatrix(actor);
+              sputCostume_Draw3D((uint)actor->pCostumes,(uint)pfVar8);
               if (((byte)g_dwDebugFlags & 1) != 0) {
                 Actor_DrawDebugWalker(actor);
               }
             }
-            else if (*(char *)*puVar10 == '\x01') {
+            else if (*(char *)*puVar11 == '\x01') {
               if (g_nSputRender_b3DAcceleration == 0) {
                 stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
               }
@@ -1118,42 +1119,43 @@ void __cdecl sputRender_Update(void)
             }
             if (actor->flScale != 1.0) {
               fStack_c = 1.0 / actor->flScale;
-              pfVar7 = &fStack_c;
+              pfVar8 = &fStack_c;
               fStack_8 = fStack_c;
               fStack_4 = fStack_c;
-              pfVar6 = sputActor_GetOrientMatrix(actor);
-              rdMatrix_PreScale34(pfVar6,(uint)pfVar7);
+              pfVar7 = sputActor_GetOrientMatrix(actor);
+              rdMatrix_PreScale34(pfVar7,(uint)pfVar8);
             }
-            iVar9 = iVar9 + -1;
-            puVar10 = puVar10 + -1;
-            fVar8 = local_1c[0];
-          } while (iVar9 != 0);
+            iVar10 = iVar10 + -1;
+            puVar11 = puVar11 + -1;
+            fVar9 = local_1c[0];
+          } while (iVar10 != 0);
         }
         PerfEnd(6);
         PerfBegin(7);
         rdFinishFrame();
         PerfEnd(7);
-        for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
-            pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
-          ObjectState_Update(pvVar5,2,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
+        for (pOVar1 = *(ObjectState **)(PUN(int,(float)fVar9) + 0x128); pOVar1 != (ObjectState *)0x0;
+            pOVar1 = pOVar1->pNext) {
+          ((code *)ObjectState_Update)(pOVar1,2,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4)
+          ;
         }
       }
       stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
       sputPrimitive_Update(2);
       stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
       if (((byte)g_dwDebugFlags & 1) != 0) {
-        pvVar5 = sputRoom_GetCurrentRoom();
+        pSVar6 = sputRoom_GetCurrentRoom();
         if (((byte)g_dwDebugFlags & 2) != 0) {
-          Set_DrawDebugLights((int)pvVar5);
+          Set_DrawDebugLights((int)pSVar6);
         }
         if (((byte)g_dwDebugFlags & 4) != 0) {
-          Set_DrawDebugCameras(pvVar5,0xffffffff);
+          Set_DrawDebugCameras(pSVar6,0xffffffff);
         }
       }
       if ((g_dwRenderFlags & 4) != 0) {
-        uVar4 = sputTime_GetGameTime();
+        uVar5 = sputTime_GetGameTime();
         local_1c[1] = 0.0;
-        local_1c[0] = (float)(uVar4 - g_dwIrisStart) / g_flIrisDuration;
+        local_1c[0] = (float)(uVar5 - g_dwIrisStart) / g_flIrisDuration;
         if (local_1c[0] < 0.0) {
           local_1c[0] = -local_1c[0];
         }

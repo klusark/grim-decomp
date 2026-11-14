@@ -211,15 +211,15 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
   int iVar1;
   int *piVar2;
   int *item;
-  void *pvVar3;
+  Set *pSVar3;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   item = g_pDirtyRectList;
-  pvVar3 = sputRoom_GetCurrentRoom();
-  if (pvVar3 != (void *)0x0) {
+  pSVar3 = sputRoom_GetCurrentRoom();
+  if (pSVar3 != (Set *)0x0) {
     if (((byte)g_dwDebugFlags & 1) != 0) {
       local_10 = *(uint *)((int)g_pSputRender_Canvas + 0x18);
       local_c = *(uint *)((int)g_pSputRender_Canvas + 0x1c);

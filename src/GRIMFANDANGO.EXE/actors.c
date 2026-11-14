@@ -72,14 +72,14 @@ void __cdecl sputActor_UpdateActors(float dt)
 
 {
   Actor *actor;
-  void *pvVar1;
+  Set *pSVar1;
   int *piVar2;
   
   g_nTotActors = 0;
-  pvVar1 = sputRoom_GetCurrentRoom();
-  if (pvVar1 != (void *)0x0) {
+  pSVar1 = sputRoom_GetCurrentRoom();
+  if (pSVar1 != (Set *)0x0) {
     sputActor_UpdateSpeechOnly(dt);
-    piVar2 = *(int **)(*(int *)((int)pvVar1 + 0x1abc) + 0x80);
+    piVar2 = *(int **)(*(int *)&pSVar1->field_0x1abc + 0x80);
     if (piVar2 != (int *)0x0) {
       do {
         actor = g_pActors + *piVar2;

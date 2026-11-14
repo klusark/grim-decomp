@@ -230,7 +230,7 @@ sputRender_SetDisplay
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
+  Set *pSVar1;
   int iVar2;
   int *piVar3;
   VBufferFormat *pVVar4;
@@ -267,21 +267,20 @@ sputRender_SetDisplay
     _DAT_008a94cc = UINT_009055f8;
     *(uint *)(param_7 + 0xc) = *(uint *)(param_7 + 0xc) | 2;
     Render_SetPixelFormat((uint *)param_7);
-    pvVar1 = sputRoom_GetCurrentRoom();
-    if (pvVar1 != (void *)0x0) {
+    pSVar1 = sputRoom_GetCurrentRoom();
+    if (pSVar1 != (Set *)0x0) {
       rdCamera_SetAmbientLight
-                (*(void **)(*(int *)((int)pvVar1 + 0xac) + 0x48 + *(int *)((int)pvVar1 + 0xb4) * 300
-                           ),g_flAmbientLight);
+                (*(void **)&pSVar1->pSetups[pSVar1->nCurSetup].field_0x48,g_flAmbientLight);
     }
     UINT_008c9780 = (uint)&DAT_00905600;
     Render_InitColorConstants(((unsigned)(uintptr_t)&g_dwRdColormap_colorInfo));
     _DAT_008c9790 = 1;
-    pvVar1 = sputRoom_GetCurrentRoom();
-    if (pvVar1 != (void *)0x0) {
-      pvVar1 = sputRoom_GetCurrentRoom();
-      iVar2 = *(int *)((int)pvVar1 + 0xb4);
-      pvVar1 = sputRoom_GetCurrentRoom();
-      sputRender_UseSetup(pvVar1,iVar2);
+    pSVar1 = sputRoom_GetCurrentRoom();
+    if (pSVar1 != (Set *)0x0) {
+      pSVar1 = sputRoom_GetCurrentRoom();
+      iVar2 = pSVar1->nCurSetup;
+      pSVar1 = sputRoom_GetCurrentRoom();
+      sputRender_UseSetup(pSVar1,iVar2);
     }
     sputRender_ForceRefresh();
     return 1;
@@ -709,7 +708,7 @@ void __cdecl Render_BuildActorDrawList(void)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *pAVar1;
   int *piVar2;
-  void *pvVar3;
+  Set *pSVar3;
   undefined *puVar4;
   #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
@@ -717,8 +716,8 @@ void __cdecl Render_BuildActorDrawList(void)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   DrawList_Reset();
-  pvVar3 = sputRoom_GetCurrentRoom();
-  piVar2 = *(int **)(*(int *)((int)pvVar3 + 0x1abc) + 0x80);
+  pSVar3 = sputRoom_GetCurrentRoom();
+  piVar2 = *(int **)(*(int *)&pSVar3->field_0x1abc + 0x80);
   do {
     if (piVar2 == (int *)0x0) {
       qsort(&g_dwDrawItems,g_dwTotDrawItems,4,FUN_004862b0);
@@ -801,25 +800,26 @@ void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
-  int iVar2;
+  Setup *pSVar1;
+  Set *pSVar2;
+  int iVar3;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   g_dwRenderFlags = g_dwRenderFlags | 3;
-  pvVar1 = sputRoom_GetCurrentRoom();
-  if (pvVar1 != (void *)0x0) {
-    pvVar1 = sputRoom_GetCurrentRoom();
-    iVar2 = *(int *)((int)pvVar1 + 0xb4);
-    pvVar1 = sputRoom_GetCurrentRoom();
-    iVar2 = *(int *)((int)pvVar1 + 0xac) + iVar2 * 300;
-    if (iVar2 != 0) {
-      if ((redrawBackground != 0) && (*(int *)(iVar2 + 0xc0) != 0)) {
+  pSVar2 = sputRoom_GetCurrentRoom();
+  if (pSVar2 != (Set *)0x0) {
+    pSVar2 = sputRoom_GetCurrentRoom();
+    iVar3 = pSVar2->nCurSetup;
+    pSVar2 = sputRoom_GetCurrentRoom();
+    pSVar1 = pSVar2->pSetups + iVar3;
+    if (pSVar1 != (Setup *)0x0) {
+      if ((redrawBackground != 0) && ((pSVar1->background).dwHandle != 0)) {
         g_dwRenderFlags = g_dwRenderFlags & 0xfffffffe;
       }
-      if ((redrawDepth != 0) && (*(int *)(iVar2 + 0xf4) != 0)) {
+      if ((redrawDepth != 0) && ((pSVar1->zBackground).dwHandle != 0)) {
         g_dwRenderFlags = g_dwRenderFlags & 0xfffffffd;
       }
       local_10 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x18);
@@ -828,12 +828,12 @@ void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
                 *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x18)) + 1;
       local_4 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x24) -
                 *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c)) + 1;
-      iVar2 = 0;
+      iVar3 = 0;
       if (0 < g_nNumPages) {
         do {
-          DirtyRect_Add((int *)&local_10,1,iVar2);
-          iVar2 = iVar2 + 1;
-        } while (iVar2 < g_nNumPages);
+          DirtyRect_Add((int *)&local_10,1,iVar3);
+          iVar3 = iVar3 + 1;
+        } while (iVar3 < g_nNumPages);
       }
     }
   }
@@ -967,18 +967,18 @@ void __cdecl sputRender_ColorCorrect(ushort *pixels,uint n)
 void __cdecl sputRender_SetGamma(float gamma)
 
 {
-  void *pvVar1;
+  Set *pSVar1;
   int setupIdx;
   
   if (g_flSputRender_GammaCorrection != gamma) {
     g_flSputRender_GammaCorrection = gamma;
     Render_InitColorConstants(UINT_008c9780);
-    pvVar1 = sputRoom_GetCurrentRoom();
-    if (pvVar1 != (void *)0x0) {
-      pvVar1 = sputRoom_GetCurrentRoom();
-      setupIdx = *(int *)((int)pvVar1 + 0xb4);
-      pvVar1 = sputRoom_GetCurrentRoom();
-      sputRender_UseSetup(pvVar1,setupIdx);
+    pSVar1 = sputRoom_GetCurrentRoom();
+    if (pSVar1 != (Set *)0x0) {
+      pSVar1 = sputRoom_GetCurrentRoom();
+      setupIdx = pSVar1->nCurSetup;
+      pSVar1 = sputRoom_GetCurrentRoom();
+      sputRender_UseSetup(pSVar1,setupIdx);
     }
   }
   return;
@@ -1030,7 +1030,7 @@ void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
   undefined4 uVar1;
   undefined4 uVar2;
   void *surface;
-  void *pvVar3;
+  Set *pSVar3;
   uint uVar4;
   int iVar5;
   byte bVar6;
@@ -1073,8 +1073,8 @@ void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
         local_20 = 0;
         if (0 < *(int *)((int)surface + 0xc)) {
           do {
-            pvVar3 = sputRoom_GetCurrentRoom();
-            if (pvVar3 == (void *)0x0) {
+            pSVar3 = sputRoom_GetCurrentRoom();
+            if (pSVar3 == (Set *)0x0) {
               uVar8 = 0;
             }
             else {

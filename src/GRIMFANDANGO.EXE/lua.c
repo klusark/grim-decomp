@@ -214,10 +214,10 @@ void __cdecl Lua_EnumerateVideoDevices(void)
 void __cdecl grimlib_NextSetup(void)
 
 {
-  void *pvVar1;
+  Set *pSVar1;
   
-  pvVar1 = sputRoom_GetCurrentRoom();
-  grimlib_MakeCurrentSetup((*(int *)((int)pvVar1 + 0xb4) + 1U) % *(uint *)((int)pvVar1 + 0xb0));
+  pSVar1 = sputRoom_GetCurrentRoom();
+  grimlib_MakeCurrentSetup((pSVar1->nCurSetup + 1U) % (uint)pSVar1->nSetups);
   return;
 }
 
@@ -228,12 +228,11 @@ void __cdecl grimlib_NextSetup(void)
 void __cdecl grimlib_PreviousSetup(void)
 
 {
-  void *pvVar1;
+  Set *pSVar1;
   
-  pvVar1 = sputRoom_GetCurrentRoom();
-  grimlib_MakeCurrentSetup
-            ((*(int *)((int)pvVar1 + 0xb4) + -1 + *(uint *)((int)pvVar1 + 0xb0)) %
-             *(uint *)((int)pvVar1 + 0xb0));
+  pSVar1 = sputRoom_GetCurrentRoom();
+  grimlib_MakeCurrentSetup((uint)(pSVar1->nCurSetup + -1 + pSVar1->nSetups) % (uint)pSVar1->nSetups)
+  ;
   return;
 }
 
@@ -2122,7 +2121,7 @@ void __cdecl sputLua_SetSoundParametersL(void)
   int iVar3;
   int iVar4;
   int iVar5;
-  void *set;
+  Set *set;
   int iVar6;
   byte bVar7;
   byte bVar8;
@@ -2142,7 +2141,7 @@ void __cdecl sputLua_SetSoundParametersL(void)
   iVar4 = lua_lua2C(4);
   iVar5 = lua_lua2C(5);
   set = sputRoom_GetCurrentRoom();
-  if (set != (void *)0x0) {
+  if (set != (Set *)0x0) {
     iVar6 = lua_isnil(iVar1);
     if ((((iVar6 != 0) && (iVar6 = lua_isnil(iVar2), iVar6 != 0)) &&
         (iVar6 = lua_isnil(iVar3), iVar6 != 0)) &&
@@ -2211,7 +2210,7 @@ void __cdecl sputLua_GetSoundParametersL(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *set;
+  Set *set;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
   #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -2221,7 +2220,7 @@ void __cdecl sputLua_GetSoundParametersL(void)
   #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   set = sputRoom_GetCurrentRoom();
-  if (set != (void *)0x0) {
+  if (set != (Set *)0x0) {
     sputRoom_GetSoundParameters(set,&local_18,(char *)&local_14,(char *)&local_c,&local_8,&local_4);
     lua_pushnumber(local_18);
     local_10 = local_14 & 0xff;
@@ -2322,28 +2321,29 @@ void __cdecl sputLua_PutActorAtInterestL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  Setup *pSVar1;
   int iVar2;
+  int iVar3;
   Actor *actor;
-  void *pvVar3;
+  Set *pSVar4;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = lua_lua2C(1);
-  iVar2 = lua_isuserdata(iVar1);
-  if (iVar2 != 0) {
-    iVar2 = lua_tag(iVar1);
-    if (iVar2 == 0x52544341) {
-      iVar1 = lua_getuserdata(iVar1);
-      actor = sputActor_ActorDeref(iVar1);
-      pvVar3 = sputRoom_GetCurrentRoom();
-      if (pvVar3 != (void *)0x0) {
-        iVar1 = *(int *)((int)pvVar3 + 0xac) + 0x2c + *(int *)((int)pvVar3 + 0xb4) * 300;
-        local_c = *(uint *)(*(int *)((int)pvVar3 + 0xac) + 0x2c + *(int *)((int)pvVar3 + 0xb4) * 300
-                           );
-        local_8 = *(uint *)(iVar1 + 4);
-        local_4 = *(uint *)(iVar1 + 8);
+  iVar2 = lua_lua2C(1);
+  iVar3 = lua_isuserdata(iVar2);
+  if (iVar3 != 0) {
+    iVar3 = lua_tag(iVar2);
+    if (iVar3 == 0x52544341) {
+      iVar2 = lua_getuserdata(iVar2);
+      actor = sputActor_ActorDeref(iVar2);
+      pSVar4 = sputRoom_GetCurrentRoom();
+      if (pSVar4 != (Set *)0x0) {
+        iVar2 = pSVar4->nCurSetup;
+        pSVar1 = pSVar4->pSetups;
+        local_c = *(uint *)&pSVar1[iVar2].field_0x2c;
+        local_8 = *(uint *)&pSVar1[iVar2].field_0x30;
+        local_4 = *(uint *)&pSVar1[iVar2].field_0x34;
         sputActor_SetActorPosition(actor,(float *)&local_c);
       }
     }
@@ -5345,7 +5345,7 @@ void __cdecl sputLua_CheckForFileL(void)
 void __cdecl sputLua_NukeResourcesL(void)
 
 {
-  sputRoom_SetCurrentRoom((void *)0x0,0);
+  sputRoom_SetCurrentRoom((Set *)0x0,0);
   sputActor_NukeCostumeStacks();
   Res_FreeAll();
   g_pShadowMaterial = (void *)0x0;
@@ -6246,8 +6246,9 @@ void __cdecl sputLua_GetCurrentSetupL(void)
   int iVar2;
   byte *pbVar3;
   byte *pbVar4;
-  void *pvVar5;
+  Set *pSVar5;
   char *pcVar6;
+  void *pvVar7;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -6258,21 +6259,21 @@ void __cdecl sputLua_GetCurrentSetupL(void)
     pbVar4 = (byte *)lua_getstring(iVar1);
     iVar2 = _stricmp(pbVar4,pbVar3);
     if (iVar2 == 0) {
-      pvVar5 = sputRoom_GetCurrentRoom();
-      if (pvVar5 != (void *)0x0) {
-        pvVar5 = sputRoom_GetCurrentRoom();
-        lua_pushnumber((float)*(int *)((int)pvVar5 + 0xb4));
+      pSVar5 = sputRoom_GetCurrentRoom();
+      if (pSVar5 != (Set *)0x0) {
+        pSVar5 = sputRoom_GetCurrentRoom();
+        lua_pushnumber((float)pSVar5->nCurSetup);
         return;
       }
       lua_pushnil();
       return;
     }
     pcVar6 = (char *)lua_getstring(iVar1);
-    pvVar5 = Res_Loaded(0x20544553,pcVar6);
-    if (pvVar5 != (void *)0x0) {
+    pvVar7 = Res_Loaded(0x20544553,pcVar6);
+    if (pvVar7 != (void *)0x0) {
       pcVar6 = (char *)lua_getstring(iVar1);
-      pvVar5 = sputResource_Alloc(0x20544553,pcVar6);
-      lua_pushnumber((float)*(int *)((int)pvVar5 + 0xb4));
+      pvVar7 = sputResource_Alloc(0x20544553,pcVar6);
+      lua_pushnumber((float)*(int *)((int)pvVar7 + 0xb4));
     }
   }
   return;
@@ -6466,31 +6467,31 @@ uint __cdecl sputLua_Startup(void)
 uint __cdecl sputLua_SaveIndirector(int param_1,uint param_2)
 
 {
-  uint uVar1;
-  void *pvVar2;
+  ObjectState *pOVar1;
+  Set *pSVar2;
   uint uVar3;
-  uint *puVar4;
+  ObjectState **ppOVar4;
   uint uVar5;
   
   if (param_1 != 0x54415453) {
     return param_2;
   }
-  pvVar2 = sputRoom_GetCurrentRoom();
-  if (pvVar2 != (void *)0x0) {
+  pSVar2 = sputRoom_GetCurrentRoom();
+  if (pSVar2 != (Set *)0x0) {
     uVar5 = 0;
-    if (*(uint *)((int)pvVar2 + 0xb0) != 0) {
-      puVar4 = (uint *)(*(int *)((int)pvVar2 + 0xac) + 0x128);
+    if (pSVar2->nSetups != 0) {
+      ppOVar4 = &pSVar2->pSetups->pObjectStates;
       do {
         uVar3 = 0;
-        for (uVar1 = *puVar4; uVar1 != 0; uVar1 = *(uint *)(uVar1 + 0xf8)) {
-          if (uVar1 == param_2) {
+        for (pOVar1 = *ppOVar4; pOVar1 != (ObjectState *)0x0; pOVar1 = pOVar1->pNext) {
+          if (pOVar1 == (ObjectState *)param_2) {
             return uVar5 << 0x10 | uVar3;
           }
           uVar3 = uVar3 + 1;
         }
         uVar5 = uVar5 + 1;
-        puVar4 = puVar4 + 0x4b;
-      } while (uVar5 < *(uint *)((int)pvVar2 + 0xb0));
+        ppOVar4 = ppOVar4 + 0x4b;
+      } while (uVar5 < (uint)pSVar2->nSetups);
       return 0xffffffff;
     }
   }
@@ -6506,7 +6507,7 @@ TextObject * __cdecl sputLua_RestoreIndirector(int param_1,TextObject *param_2)
 
 {
   TextObject *pTVar1;
-  void *pvVar2;
+  Set *pSVar2;
   uint uVar3;
   
   if (param_1 == 0x54415453) {
@@ -6515,12 +6516,11 @@ TextObject * __cdecl sputLua_RestoreIndirector(int param_1,TextObject *param_2)
     }
     else {
       uVar3 = (uint)param_2 & 0xffff;
-      pvVar2 = sputRoom_GetCurrentRoom();
-      param_2 = *(TextObject **)
-                 (*(int *)((int)pvVar2 + 0xac) + 0x128 + ((uint)param_2 >> 0x10) * 300);
+      pSVar2 = sputRoom_GetCurrentRoom();
+      param_2 = (TextObject *)pSVar2->pSetups[(uint)param_2 >> 0x10].pObjectStates;
       if (uVar3 != 0) {
         do {
-          param_2 = *(TextObject **)(param_2->aText + 0xf0);
+          param_2 = *(TextObject **)((int)param_2->aText + 0xf0);
           uVar3 = uVar3 - 1;
         } while (uVar3 != 0);
         return param_2;
@@ -6773,7 +6773,7 @@ void __cdecl sputLua_SetSoundPosition(void)
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
-  void *set;
+  Set *set;
   int iVar2;
   int iVar3;
   int iVar4;
@@ -6796,7 +6796,7 @@ void __cdecl sputLua_SetSoundPosition(void)
   local_24 = CONCAT31(PIECE(local_24,1,3),10);
   local_28 = CONCAT31(PIECE(local_28,1,3),0x7f);
   local_20[2] = 1.5;
-  if (set != (void *)0x0) {
+  if (set != (Set *)0x0) {
     sputRoom_GetSoundParameters
               (set,local_20,(char *)&local_24,(char *)&local_28,local_20 + 2,local_20 + 1);
   }
@@ -7269,7 +7269,7 @@ void __cdecl sputLua_IsSectorActiveL(void)
 {
   int iVar1;
   int iVar2;
-  void *pvVar3;
+  Set *pSVar3;
   char *name;
   WalkPlane *pWVar4;
   longlong lVar5;
@@ -7281,8 +7281,8 @@ void __cdecl sputLua_IsSectorActiveL(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_0049eea2;
   }
-  pvVar3 = sputRoom_GetCurrentRoom();
-  if (pvVar3 != (void *)0x0) {
+  pSVar3 = sputRoom_GetCurrentRoom();
+  if (pSVar3 != (Set *)0x0) {
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) {
       fVar6 = lua_getnumber(iVar1);
@@ -7894,50 +7894,49 @@ void __cdecl sputLua_GetCameraLookVectorL(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  void *pvVar2;
-  int iVar3;
-  longlong lVar4;
-  float fVar5;
+  Setup *pSVar1;
+  int iVar2;
+  Set *pSVar3;
+  int iVar4;
+  longlong lVar5;
+  float fVar6;
   #define local_c (*(float *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(float (*)[2])(_frame + (0x20 - 0x8)))
   
-  iVar1 = lua_lua2C(1);
-  pvVar2 = sputRoom_GetCurrentRoom();
-  if (pvVar2 == (void *)0x0) {
+  iVar2 = lua_lua2C(1);
+  pSVar3 = sputRoom_GetCurrentRoom();
+  if (pSVar3 == (Set *)0x0) {
     lua_pushnil();
     return;
   }
-  iVar3 = lua_isnumber(iVar1);
-  if (iVar3 == 0) {
-    iVar1 = *(int *)((int)pvVar2 + 0xb4);
+  iVar4 = lua_isnumber(iVar2);
+  if (iVar4 == 0) {
+    iVar2 = pSVar3->nCurSetup;
   }
   else {
-    fVar5 = lua_getnumber(iVar1);
-    lVar4 = FTOL((float10)fVar5);
-    iVar1 = (int)lVar4;
+    fVar6 = lua_getnumber(iVar2);
+    lVar5 = FTOL((float10)fVar6);
+    iVar2 = (int)lVar5;
   }
-  iVar1 = iVar1 * 300;
-  iVar3 = *(int *)((int)pvVar2 + 0xac) + 0x20 + iVar1;
-  local_c = *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x20 + iVar1) -
-            *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x2c + iVar1);
-  local_8[0] = *(float *)(iVar3 + 4) - *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x30 + iVar1);
-  local_8[1] = *(float *)(iVar3 + 8) - *(float *)(*(int *)((int)pvVar2 + 0xac) + 0x34 + iVar1);
+  pSVar1 = pSVar3->pSetups;
+  local_c = pSVar1[iVar2].aPos[0] - *(float *)&pSVar3->pSetups[iVar2].field_0x2c;
+  local_8[0] = pSVar1[iVar2].aPos[1] - *(float *)&pSVar3->pSetups[iVar2].field_0x30;
+  local_8[1] = pSVar1[iVar2].aPos[2] - *(float *)&pSVar3->pSetups[iVar2].field_0x34;
   rdVector_Normalize3Acc(&local_c);
-  iVar1 = lua_createtable();
-  lua_pushobject(iVar1);
+  iVar2 = lua_createtable();
+  lua_pushobject(iVar2);
   lua_pushstring(&DAT_004e8454);
   lua_pushnumber(local_c);
   lua_settable();
-  lua_pushobject(iVar1);
+  lua_pushobject(iVar2);
   lua_pushstring(&DAT_004e8450);
   lua_pushnumber(local_8[0]);
   lua_settable();
-  lua_pushobject(iVar1);
+  lua_pushobject(iVar2);
   lua_pushstring(&DAT_004ec3b8);
   lua_pushnumber(local_8[1]);
   lua_settable();
-  lua_pushobject(iVar1);
+  lua_pushobject(iVar2);
   return;
 }
 #undef local_8
@@ -8302,19 +8301,17 @@ void __cdecl sputLua_SetAmbientLight(void)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  void *pvVar3;
+  Set *pSVar3;
   float ambient;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    pvVar3 = sputRoom_GetCurrentRoom();
-    if (pvVar3 != (void *)0x0) {
+    pSVar3 = sputRoom_GetCurrentRoom();
+    if (pSVar3 != (Set *)0x0) {
       ambient = lua_getnumber(iVar1);
-      rdCamera_SetAmbientLight
-                (*(void **)(*(int *)((int)pvVar3 + 0xac) + 0x48 + *(int *)((int)pvVar3 + 0xb4) * 300
-                           ),ambient);
+      rdCamera_SetAmbientLight(*(void **)&pSVar3->pSetups[pSVar3->nCurSetup].field_0x48,ambient);
     }
   }
   return;
@@ -8341,7 +8338,7 @@ void __cdecl sputLua_FindLight(void)
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
     name = (char *)lua_getstring(iVar1);
-    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
     if (iVar1 != -1) {
       lua_pushnumber((float)iVar1);
       return;
@@ -8378,14 +8375,14 @@ void __cdecl sputLua_TurnLightOn(void)
       return;
     }
     name = (char *)lua_getstring(iVar1);
-    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
     fVar6 = lua_getnumber(iVar1);
     lVar5 = FTOL((float10)fVar6);
     iVar1 = (int)lVar5;
   }
-  pSVar4 = sputRoom_GetLight((void *)0x0,iVar1);
+  pSVar4 = sputRoom_GetLight((Set *)0x0,iVar1);
   if (pSVar4 != (SetLight *)0x0) {
     iVar1 = lua_isnil(iVar2);
     (pSVar4->light).nActive = (uint)(iVar1 == 0);
@@ -8413,14 +8410,14 @@ void __cdecl sputLua_IsLightOn(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a03f5;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
     fVar5 = lua_getnumber(iVar1);
     lVar4 = FTOL((float10)fVar5);
     iVar1 = (int)lVar4;
   }
-  pSVar3 = sputRoom_GetLight((void *)0x0,iVar1);
+  pSVar3 = sputRoom_GetLight((Set *)0x0,iVar1);
   if ((pSVar3 != (SetLight *)0x0) && ((pSVar3->light).nActive != 0)) {
     lua_pushnumber(1.0);
     return;
@@ -8437,64 +8434,64 @@ LAB_004a03f5:
 void __cdecl sputLua_SetLightType(void)
 
 {
-  int *piVar1;
+  int iVar1;
   int iVar2;
-  int iVar3;
-  void *pvVar4;
-  int iVar5;
+  Set *pSVar3;
+  int iVar4;
   char *name;
-  SetLight *pSVar6;
+  SetLight *pSVar5;
+  uint *puVar6;
   uint *puVar7;
-  uint *puVar8;
-  uint uVar9;
-  longlong lVar10;
-  float fVar11;
+  uint uVar8;
+  longlong lVar9;
+  float fVar10;
   
-  iVar2 = lua_lua2C(1);
-  iVar3 = lua_lua2C(2);
-  pvVar4 = sputRoom_GetCurrentRoom();
-  iVar5 = lua_isnumber(iVar2);
-  if (iVar5 == 0) {
-    iVar5 = lua_isstring(iVar2);
-    if (iVar5 == 0) {
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  pSVar3 = sputRoom_GetCurrentRoom();
+  iVar4 = lua_isnumber(iVar1);
+  if (iVar4 == 0) {
+    iVar4 = lua_isstring(iVar1);
+    if (iVar4 == 0) {
       return;
     }
-    name = (char *)lua_getstring(iVar2);
-    iVar2 = sputRoom_FindLightByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
-    fVar11 = lua_getnumber(iVar2);
-    lVar10 = FTOL((float10)fVar11);
-    iVar2 = (int)lVar10;
+    fVar10 = lua_getnumber(iVar1);
+    lVar9 = FTOL((float10)fVar10);
+    iVar1 = (int)lVar9;
   }
-  pSVar6 = sputRoom_GetLight((void *)0x0,iVar2);
-  if (pSVar6 != (SetLight *)0x0) {
-    iVar5 = lua_isstring(iVar3);
-    if (iVar5 != 0) {
-      puVar7 = (uint *)lua_getstring(iVar3);
-      puVar8 = String_ContainsSubstring(puVar7,s_parallel_004ec5a8);
-      if ((puVar8 == (uint *)0x0) &&
-         (puVar8 = String_ContainsSubstring(puVar7,s_global_004ec5a0), puVar8 == (uint *)0x0)) {
-        puVar7 = String_ContainsSubstring(puVar7,&DAT_004ec598);
-        if (puVar7 == (uint *)0x0) {
-          (pSVar6->light).nType = 2;
+  pSVar5 = sputRoom_GetLight((Set *)0x0,iVar1);
+  if (pSVar5 != (SetLight *)0x0) {
+    iVar4 = lua_isstring(iVar2);
+    if (iVar4 != 0) {
+      puVar6 = (uint *)lua_getstring(iVar2);
+      puVar7 = String_ContainsSubstring(puVar6,s_parallel_004ec5a8);
+      if ((puVar7 == (uint *)0x0) &&
+         (puVar7 = String_ContainsSubstring(puVar6,s_global_004ec5a0), puVar7 == (uint *)0x0)) {
+        puVar6 = String_ContainsSubstring(puVar6,&DAT_004ec598);
+        if (puVar6 == (uint *)0x0) {
+          (pSVar5->light).nType = 2;
         }
         else {
-          (pSVar6->light).nType = 3;
+          (pSVar5->light).nType = 3;
         }
       }
       else {
-        (pSVar6->light).nType = 1;
+        (pSVar5->light).nType = 1;
       }
-      uVar9 = 0;
-      if (*(int *)((int)pvVar4 + 0xb0) != 0) {
-        iVar3 = 0;
+      uVar8 = 0;
+      if (pSVar3->nSetups != 0) {
+        iVar2 = 0;
         do {
-          uVar9 = uVar9 + 1;
-          piVar1 = (int *)(*(int *)((int)pvVar4 + 0xac) + 0x48 + iVar3);
-          iVar3 = iVar3 + 300;
-          *(int *)(*(int *)(*piVar1 + iVar2 * 4 + 0x5c) + 4) = (pSVar6->light).nType;
-        } while (uVar9 < *(uint *)((int)pvVar4 + 0xb0));
+          uVar8 = uVar8 + 1;
+          iVar4 = iVar2 + 0x28;
+          iVar2 = iVar2 + 300;
+          *(int *)(*(int *)(*(int *)((int)pSVar3->pSetups->aPos + iVar4) + iVar1 * 4 + 0x5c) + 4) =
+               (pSVar5->light).nType;
+        } while (uVar8 < (uint)pSVar3->nSetups);
       }
       return;
     }
@@ -8523,14 +8520,14 @@ void __cdecl sputLua_GetLightType(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a05d0;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
     fVar5 = lua_getnumber(iVar1);
     lVar4 = FTOL((float10)fVar5);
     iVar1 = (int)lVar4;
   }
-  pSVar3 = sputRoom_GetLight((void *)0x0,iVar1);
+  pSVar3 = sputRoom_GetLight((Set *)0x0,iVar1);
   if (pSVar3 != (SetLight *)0x0) {
     iVar1 = (pSVar3->light).nType;
     if (iVar1 == 1) {
@@ -8559,68 +8556,67 @@ void __cdecl sputLua_SetLightPosition(void)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
+  int iVar1;
   int iVar2;
   int iVar3;
   int iVar4;
   int iVar5;
-  int iVar6;
   char *name;
-  void *pvVar7;
-  SetLight *pSVar8;
-  uint uVar9;
-  float *pfVar10;
-  longlong lVar11;
+  Set *pSVar6;
+  SetLight *pSVar7;
+  uint uVar8;
+  float *pfVar9;
+  longlong lVar10;
+  float fVar11;
   float fVar12;
   float fVar13;
-  float fVar14;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  iVar2 = lua_lua2C(1);
-  iVar3 = lua_lua2C(2);
-  iVar4 = lua_lua2C(3);
-  iVar5 = lua_lua2C(4);
-  iVar6 = lua_isnumber(iVar2);
-  if (iVar6 == 0) {
-    iVar6 = lua_isstring(iVar2);
-    if (iVar6 == 0) {
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_lua2C(4);
+  iVar5 = lua_isnumber(iVar1);
+  if (iVar5 == 0) {
+    iVar5 = lua_isstring(iVar1);
+    if (iVar5 == 0) {
       return;
     }
-    name = (char *)lua_getstring(iVar2);
-    iVar2 = sputRoom_FindLightByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
-    fVar12 = lua_getnumber(iVar2);
-    lVar11 = FTOL((float10)fVar12);
-    iVar2 = (int)lVar11;
+    fVar11 = lua_getnumber(iVar1);
+    lVar10 = FTOL((float10)fVar11);
+    iVar1 = (int)lVar10;
   }
-  pvVar7 = sputRoom_GetCurrentRoom();
-  if ((((pvVar7 != (void *)0x0) &&
-       (pSVar8 = sputRoom_GetLight((void *)0x0,iVar2), pSVar8 != (SetLight *)0x0)) &&
-      (iVar6 = lua_isnumber(iVar3), iVar6 != 0)) &&
-     ((iVar6 = lua_isnumber(iVar4), iVar6 != 0 && (iVar6 = lua_isnumber(iVar5), iVar6 != 0)))) {
+  pSVar6 = sputRoom_GetCurrentRoom();
+  if ((((pSVar6 != (Set *)0x0) &&
+       (pSVar7 = sputRoom_GetLight((Set *)0x0,iVar1), pSVar7 != (SetLight *)0x0)) &&
+      (iVar5 = lua_isnumber(iVar2), iVar5 != 0)) &&
+     ((iVar5 = lua_isnumber(iVar3), iVar5 != 0 && (iVar5 = lua_isnumber(iVar4), iVar5 != 0)))) {
+    fVar11 = lua_getnumber(iVar2);
     fVar12 = lua_getnumber(iVar3);
     fVar13 = lua_getnumber(iVar4);
-    fVar14 = lua_getnumber(iVar5);
-    pSVar8->aPos[0] = fVar12;
-    pSVar8->aPos[1] = fVar13;
-    pSVar8->aPos[2] = fVar14;
-    uVar9 = 0;
-    if (*(int *)((int)pvVar7 + 0xb0) != 0) {
-      iVar3 = 0;
+    pSVar7->aPos[0] = fVar11;
+    pSVar7->aPos[1] = fVar12;
+    pSVar7->aPos[2] = fVar13;
+    uVar8 = 0;
+    if (pSVar6->nSetups != 0) {
+      iVar2 = 0;
       do {
-        piVar1 = (int *)(*(int *)((int)pvVar7 + 0xac) + 0x48 + iVar3);
-        iVar3 = iVar3 + 300;
-        pfVar10 = (float *)(*piVar1 + (iVar2 + 0x1d) * 0xc);
-        uVar9 = uVar9 + 1;
-        *pfVar10 = fVar12;
-        pfVar10[1] = fVar13;
-        pfVar10[2] = fVar14;
-      } while (uVar9 < *(uint *)((int)pvVar7 + 0xb0));
+        iVar3 = iVar2 + 0x28;
+        iVar2 = iVar2 + 300;
+        pfVar9 = (float *)(*(int *)((int)pSVar6->pSetups->aPos + iVar3) + (iVar1 + 0x1d) * 0xc);
+        uVar8 = uVar8 + 1;
+        *pfVar9 = fVar11;
+        pfVar9[1] = fVar12;
+        pfVar9[2] = fVar13;
+      } while (uVar8 < (uint)pSVar6->nSetups);
     }
   }
   return;
@@ -8642,7 +8638,7 @@ void __cdecl sputLua_GetLightPosition(void)
   int iVar1;
   int iVar2;
   char *name;
-  void *pvVar3;
+  Set *pSVar3;
   SetLight *pSVar4;
   longlong lVar5;
   float fVar6;
@@ -8653,16 +8649,16 @@ void __cdecl sputLua_GetLightPosition(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a07f0;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
     fVar6 = lua_getnumber(iVar1);
     lVar5 = FTOL((float10)fVar6);
     iVar1 = (int)lVar5;
   }
-  pvVar3 = sputRoom_GetCurrentRoom();
-  if (pvVar3 != (void *)0x0) {
-    pSVar4 = sputRoom_GetLight((void *)0x0,iVar1);
+  pSVar3 = sputRoom_GetCurrentRoom();
+  if (pSVar3 != (Set *)0x0) {
+    pSVar4 = sputRoom_GetLight((Set *)0x0,iVar1);
     if (pSVar4 != (SetLight *)0x0) {
       lua_pushnumber(pSVar4->aPos[0]);
       lua_pushnumber(pSVar4->aPos[1]);
@@ -8683,18 +8679,17 @@ void __cdecl sputLua_SetLightRotation(void)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
+  int iVar1;
   int iVar2;
   int iVar3;
   int iVar4;
-  int iVar5;
-  void *pvVar6;
-  int iVar7;
+  Set *pSVar5;
+  int iVar6;
   char *name;
-  SetLight *pSVar8;
-  uint uVar9;
-  longlong lVar10;
-  float fVar11;
+  SetLight *pSVar7;
+  uint uVar8;
+  longlong lVar9;
+  float fVar10;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
@@ -8705,67 +8700,67 @@ void __cdecl sputLua_SetLightRotation(void)
   #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
   
-  iVar2 = lua_lua2C(1);
-  iVar3 = lua_lua2C(2);
-  iVar4 = lua_lua2C(3);
-  iVar5 = lua_lua2C(4);
-  pvVar6 = sputRoom_GetCurrentRoom();
-  iVar7 = lua_isnumber(iVar2);
-  if (iVar7 == 0) {
-    iVar7 = lua_isstring(iVar2);
-    if (iVar7 == 0) {
+  iVar1 = lua_lua2C(1);
+  iVar2 = lua_lua2C(2);
+  iVar3 = lua_lua2C(3);
+  iVar4 = lua_lua2C(4);
+  pSVar5 = sputRoom_GetCurrentRoom();
+  iVar6 = lua_isnumber(iVar1);
+  if (iVar6 == 0) {
+    iVar6 = lua_isstring(iVar1);
+    if (iVar6 == 0) {
       return;
     }
-    name = (char *)lua_getstring(iVar2);
-    iVar2 = sputRoom_FindLightByName((void *)0x0,name);
+    name = (char *)lua_getstring(iVar1);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
-    fVar11 = lua_getnumber(iVar2);
-    lVar10 = FTOL((float10)fVar11);
-    iVar2 = (int)lVar10;
+    fVar10 = lua_getnumber(iVar1);
+    lVar9 = FTOL((float10)fVar10);
+    iVar1 = (int)lVar9;
   }
-  pSVar8 = sputRoom_GetLight((void *)0x0,iVar2);
-  if (pSVar8 != (SetLight *)0x0) {
-    iVar7 = lua_isnumber(iVar3);
-    if (iVar7 == 0) {
+  pSVar7 = sputRoom_GetLight((Set *)0x0,iVar1);
+  if (pSVar7 != (SetLight *)0x0) {
+    iVar6 = lua_isnumber(iVar2);
+    if (iVar6 == 0) {
       local_c = 0.0;
     }
     else {
-      local_c = lua_getnumber(iVar3);
+      local_c = lua_getnumber(iVar2);
     }
-    iVar3 = lua_isnumber(iVar4);
-    if (iVar3 == 0) {
+    iVar2 = lua_isnumber(iVar3);
+    if (iVar2 == 0) {
       local_8 = 0.0;
     }
     else {
-      local_8 = lua_getnumber(iVar4);
+      local_8 = lua_getnumber(iVar3);
     }
-    iVar3 = lua_isnumber(iVar5);
-    if (iVar3 == 0) {
+    iVar2 = lua_isnumber(iVar4);
+    if (iVar2 == 0) {
       local_4 = 0.0;
     }
     else {
-      local_4 = lua_getnumber(iVar5);
+      local_4 = lua_getnumber(iVar4);
     }
     local_18 = 0.0;
     local_14 = 0x3f800000;
     local_10 = 0;
     rdVector_Rotate3Acc(&local_18,&local_c);
-    (pSVar8->light).aDirection[0] = local_18;
-    (pSVar8->light).aDirection[1] = PUN(float,local_14);
-    uVar9 = 0;
-    (pSVar8->light).aDirection[2] = PUN(float,local_10);
-    if (*(int *)((int)pvVar6 + 0xb0) != 0) {
-      iVar3 = 0;
+    (pSVar7->light).aDirection[0] = local_18;
+    (pSVar7->light).aDirection[1] = PUN(float,local_14);
+    uVar8 = 0;
+    (pSVar7->light).aDirection[2] = PUN(float,local_10);
+    if (pSVar5->nSetups != 0) {
+      iVar2 = 0;
       do {
-        piVar1 = (int *)(*(int *)((int)pvVar6 + 0xac) + 0x48 + iVar3);
-        iVar3 = iVar3 + 300;
-        iVar4 = *(int *)(*piVar1 + iVar2 * 4 + 0x5c);
-        uVar9 = uVar9 + 1;
-        *(float *)(iVar4 + 0xc) = local_18;
-        *(uint *)(iVar4 + 0x10) = local_14;
-        *(uint *)(iVar4 + 0x14) = local_10;
-      } while (uVar9 < *(uint *)((int)pvVar6 + 0xb0));
+        iVar3 = iVar2 + 0x28;
+        iVar2 = iVar2 + 300;
+        iVar3 = *(int *)(*(int *)((int)pSVar5->pSetups->aPos + iVar3) + iVar1 * 4 + 0x5c);
+        uVar8 = uVar8 + 1;
+        *(float *)(iVar3 + 0xc) = local_18;
+        *(uint *)(iVar3 + 0x10) = local_14;
+        *(uint *)(iVar3 + 0x14) = local_10;
+      } while (uVar8 < (uint)pSVar5->nSetups);
     }
   }
   return;
@@ -8805,14 +8800,14 @@ void __cdecl sputLua_GetLightRotation(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a0a3b;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
     fVar5 = lua_getnumber(iVar1);
     lVar4 = FTOL((float10)fVar5);
     iVar1 = (int)lVar4;
   }
-  pSVar3 = sputRoom_GetLight((void *)0x0,iVar1);
+  pSVar3 = sputRoom_GetLight((Set *)0x0,iVar1);
   if (pSVar3 != (SetLight *)0x0) {
     rdVector_ExtractAngles((pSVar3->light).aDirection,&local_c);
     lua_pushnumber(local_c);
@@ -8858,14 +8853,14 @@ void __cdecl sputLua_SetLightAngles(void)
       return;
     }
     name = (char *)lua_getstring(iVar1);
-    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
     fVar7 = lua_getnumber(iVar1);
     lVar6 = FTOL((float10)fVar7);
     iVar1 = (int)lVar6;
   }
-  pSVar5 = sputRoom_GetLight((void *)0x0,iVar1);
+  pSVar5 = sputRoom_GetLight((Set *)0x0,iVar1);
   if (pSVar5 != (SetLight *)0x0) {
     iVar1 = lua_isnumber(iVar2);
     if (iVar1 == 0) {
@@ -8909,14 +8904,14 @@ void __cdecl sputLua_GetLightAngles(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a0bbc;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
     fVar5 = lua_getnumber(iVar1);
     lVar4 = FTOL((float10)fVar5);
     iVar1 = (int)lVar4;
   }
-  pSVar3 = sputRoom_GetLight((void *)0x0,iVar1);
+  pSVar3 = sputRoom_GetLight((Set *)0x0,iVar1);
   if (pSVar3 != (SetLight *)0x0) {
     lua_pushnumber((pSVar3->light).flInnerAngle);
     lua_pushnumber((pSVar3->light).flOuterAngle);
@@ -8965,14 +8960,14 @@ void __cdecl sputLua_PointLightAt(void)
       return;
     }
     name = (char *)lua_getstring(iVar1);
-    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
     fVar9 = lua_getnumber(iVar1);
     lVar8 = FTOL((float10)fVar9);
     iVar1 = (int)lVar8;
   }
-  pSVar6 = sputRoom_GetLight((void *)0x0,iVar1);
+  pSVar6 = sputRoom_GetLight((Set *)0x0,iVar1);
   if (pSVar6 != (SetLight *)0x0) {
     iVar1 = lua_isuserdata(iVar2);
     if (((iVar1 == 0) || (iVar1 = lua_tag(iVar2), iVar1 != 0x52544341)) &&
@@ -9034,10 +9029,10 @@ void __cdecl sputLua_SetLightIntensity(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
+  int iVar1;
   int iVar2;
   int iVar3;
-  void *pvVar4;
+  Set *pSVar4;
   int iVar5;
   char *name;
   SetLight *pSVar6;
@@ -9048,7 +9043,7 @@ void __cdecl sputLua_SetLightIntensity(void)
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
-  pvVar4 = sputRoom_GetCurrentRoom();
+  pSVar4 = sputRoom_GetCurrentRoom();
   iVar5 = lua_isnumber(iVar2);
   if (iVar5 == 0) {
     iVar5 = lua_isstring(iVar2);
@@ -9056,27 +9051,28 @@ void __cdecl sputLua_SetLightIntensity(void)
       return;
     }
     name = (char *)lua_getstring(iVar2);
-    iVar2 = sputRoom_FindLightByName((void *)0x0,name);
+    iVar2 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
     fVar9 = lua_getnumber(iVar2);
     lVar8 = FTOL((float10)fVar9);
     iVar2 = (int)lVar8;
   }
-  pSVar6 = sputRoom_GetLight((void *)0x0,iVar2);
+  pSVar6 = sputRoom_GetLight((Set *)0x0,iVar2);
   if ((pSVar6 != (SetLight *)0x0) && (iVar5 = lua_isnumber(iVar3), iVar5 != 0)) {
     fVar9 = lua_getnumber(iVar3);
     (pSVar6->light).flIntensity = fVar9;
     uVar7 = 0;
-    if (*(int *)((int)pvVar4 + 0xb0) != 0) {
+    if (pSVar4->nSetups != 0) {
       iVar5 = 0;
       do {
         fVar9 = lua_getnumber(iVar3);
         uVar7 = uVar7 + 1;
-        piVar1 = (int *)(*(int *)((int)pvVar4 + 0xac) + 0x48 + iVar5);
+        iVar1 = iVar5 + 0x28;
         iVar5 = iVar5 + 300;
-        *(float *)(*(int *)(*piVar1 + iVar2 * 4 + 0x5c) + 0x18) = fVar9;
-      } while (uVar7 < *(uint *)((int)pvVar4 + 0xb0));
+        *(float *)(*(int *)(*(int *)((int)pSVar4->pSetups->aPos + iVar1) + iVar2 * 4 + 0x5c) + 0x18)
+             = fVar9;
+      } while (uVar7 < (uint)pSVar4->nSetups);
     }
   }
   return;
@@ -9106,14 +9102,14 @@ void __cdecl sputLua_GetLightIntensity(void)
     iVar2 = lua_isstring(iVar1);
     if (iVar2 == 0) goto LAB_004a0f08;
     name = (char *)lua_getstring(iVar1);
-    iVar1 = sputRoom_FindLightByName((void *)0x0,name);
+    iVar1 = sputRoom_FindLightByName((Set *)0x0,name);
   }
   else {
     fVar5 = lua_getnumber(iVar1);
     lVar4 = FTOL((float10)fVar5);
     iVar1 = (int)lVar4;
   }
-  pSVar3 = sputRoom_GetLight((void *)0x0,iVar1);
+  pSVar3 = sputRoom_GetLight((Set *)0x0,iVar1);
   if (pSVar3 != (SetLight *)0x0) {
     lua_pushnumber((pSVar3->light).flIntensity);
     return;
@@ -9986,8 +9982,9 @@ void __cdecl sputLua_NewObjectState(void)
   int iVar4;
   int iVar5;
   int iVar6;
-  char *pcVar7;
+  char *zbitmap;
   char *bitmap;
+  ObjectState *pOVar7;
   int visible;
   longlong lVar8;
   float fVar9;
@@ -10006,15 +10003,15 @@ void __cdecl sputLua_NewObjectState(void)
     lVar8 = FTOL((float10)fVar9);
     visible = (int)lVar8;
   }
-  pcVar7 = (char *)lua_getstring(iVar4);
+  zbitmap = (char *)lua_getstring(iVar4);
   bitmap = (char *)lua_getstring(iVar3);
   fVar9 = lua_getnumber(iVar2);
   lVar8 = FTOL((float10)fVar9);
   iVar2 = (int)lVar8;
   fVar9 = lua_getnumber(iVar1);
   lVar8 = FTOL((float10)fVar9);
-  pcVar7 = sputRoom_AddObjectState((int)lVar8,iVar2,bitmap,pcVar7,visible);
-  lua_pushusertag(pcVar7,0x54415453);
+  pOVar7 = sputRoom_AddObjectState((int)lVar8,iVar2,bitmap,zbitmap,visible);
+  lua_pushusertag((char *)pOVar7,0x54415453);
   return;
 }
 #undef local_4
@@ -10030,15 +10027,15 @@ void __cdecl sputLua_FreeObjectState(void)
 {
   int iVar1;
   int iVar2;
-  void *state;
+  ObjectState *state;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isuserdata(iVar1);
   if (iVar2 != 0) {
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x54415453) {
-      state = (void *)lua_getuserdata(iVar1);
-      if (state != (void *)0x0) {
+      state = (ObjectState *)lua_getuserdata(iVar1);
+      if (state != (ObjectState *)0x0) {
         sputRoom_RemoveObjectState(state);
       }
     }
@@ -10053,23 +10050,24 @@ void __cdecl sputLua_FreeObjectState(void)
 void __cdecl sputLua_SendObjectToBack(void)
 
 {
-  int iVar1;
+  Setup *pSVar1;
   int iVar2;
-  void *pvVar3;
-  void *pvVar4;
+  int iVar3;
+  ObjectState *pOVar4;
+  Set *pSVar5;
   
-  iVar1 = lua_lua2C(1);
-  iVar2 = lua_isuserdata(iVar1);
-  if (iVar2 != 0) {
-    iVar2 = lua_tag(iVar1);
-    if (iVar2 == 0x54415453) {
-      pvVar3 = (void *)lua_getuserdata(iVar1);
-      if (pvVar3 != (void *)0x0) {
-        iVar1 = *(int *)((int)pvVar3 + 8);
-        pvVar4 = sputRoom_GetCurrentRoom();
-        iVar2 = *(int *)((int)pvVar4 + 0xac);
-        pvVar3 = ObjectState_MoveToBack(pvVar3,*(void **)(iVar2 + 0x128 + iVar1 * 300));
-        *(void **)(iVar2 + iVar1 * 300 + 0x128) = pvVar3;
+  iVar2 = lua_lua2C(1);
+  iVar3 = lua_isuserdata(iVar2);
+  if (iVar3 != 0) {
+    iVar3 = lua_tag(iVar2);
+    if (iVar3 == 0x54415453) {
+      pOVar4 = (ObjectState *)lua_getuserdata(iVar2);
+      if (pOVar4 != (ObjectState *)0x0) {
+        iVar2 = pOVar4->nState;
+        pSVar5 = sputRoom_GetCurrentRoom();
+        pSVar1 = pSVar5->pSetups;
+        pOVar4 = ObjectState_MoveToBack(pOVar4,pSVar1[iVar2].pObjectStates);
+        pSVar1[iVar2].pObjectStates = pOVar4;
       }
     }
   }
@@ -10084,23 +10082,24 @@ void __cdecl sputLua_SendObjectToBack(void)
 void __cdecl sputLua_SendObjectToFront(void)
 
 {
-  int iVar1;
+  Setup *pSVar1;
   int iVar2;
-  void *pvVar3;
-  void *pvVar4;
+  int iVar3;
+  ObjectState *pOVar4;
+  Set *pSVar5;
   
-  iVar1 = lua_lua2C(1);
-  iVar2 = lua_isuserdata(iVar1);
-  if (iVar2 != 0) {
-    iVar2 = lua_tag(iVar1);
-    if (iVar2 == 0x54415453) {
-      pvVar3 = (void *)lua_getuserdata(iVar1);
-      if (pvVar3 != (void *)0x0) {
-        iVar1 = *(int *)((int)pvVar3 + 8);
-        pvVar4 = sputRoom_GetCurrentRoom();
-        iVar2 = *(int *)((int)pvVar4 + 0xac);
-        pvVar3 = ObjectState_MoveToFront(pvVar3,*(void **)(iVar2 + 0x128 + iVar1 * 300));
-        *(void **)(iVar2 + iVar1 * 300 + 0x128) = pvVar3;
+  iVar2 = lua_lua2C(1);
+  iVar3 = lua_isuserdata(iVar2);
+  if (iVar3 != 0) {
+    iVar3 = lua_tag(iVar2);
+    if (iVar3 == 0x54415453) {
+      pOVar4 = (ObjectState *)lua_getuserdata(iVar2);
+      if (pOVar4 != (ObjectState *)0x0) {
+        iVar2 = pOVar4->nState;
+        pSVar5 = sputRoom_GetCurrentRoom();
+        pSVar1 = pSVar5->pSetups;
+        pOVar4 = ObjectState_MoveToFront(pOVar4,pSVar1[iVar2].pObjectStates);
+        pSVar1[iVar2].pObjectStates = pOVar4;
       }
     }
   }

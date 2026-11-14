@@ -60,12 +60,12 @@ void __cdecl Setup_DrawDebugCamera(int param_1)
    (the remaster's GrimFandango (Linux): aligned call in sputRender_UseSetup); was
    Setup_GetBackgroundBitmap. */
 
-void * __cdecl sputRoom_GetSetupBackground(void *set,int setupIdx)
+void * __cdecl sputRoom_GetSetupBackground(Set *set,int setupIdx)
 
 {
-  int *ref;
-  int iVar1;
-  char cVar2;
+  ResRef *ref;
+  char cVar1;
+  Setup *pSVar2;
   int iVar3;
   void *pvVar4;
   uint uVar5;
@@ -73,20 +73,20 @@ void * __cdecl sputRoom_GetSetupBackground(void *set,int setupIdx)
   char *pcVar7;
   char *pcVar8;
   
-  iVar1 = *(int *)((int)set + 0xac) + setupIdx * 300;
-  ref = (int *)(iVar1 + 0xc0);
-  if (*(int *)(iVar1 + 0xc0) == 0) {
-    iVar3 = _stricmp((byte *)(iVar1 + 0x80),&DAT_004ec60c);
+  pSVar2 = set->pSetups;
+  ref = &pSVar2[setupIdx].background;
+  if (pSVar2[setupIdx].background.dwHandle == 0) {
+    iVar3 = _stricmp(&pSVar2[setupIdx].field_0x80,&DAT_004ec60c);
     if (iVar3 != 0) {
-      pvVar4 = sputResource_Alloc(0x444e4b42,(char *)(iVar1 + 0x80));
+      pvVar4 = sputResource_Alloc(0x444e4b42,&pSVar2[setupIdx].field_0x80);
       if (pvVar4 != (void *)0x0) {
         Res_SetReference(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa2);
       }
     }
-    if (*ref != 0) goto LAB_004a3eb6;
+    if (ref->dwHandle != 0) goto LAB_004a3eb6;
     pvVar4 = sputResource_Alloc(0x444e4b42,s_dfltroom_bm_004ec5d4);
     Res_SetReference(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xaa);
-    if (*ref == 0) {
+    if (ref->dwHandle == 0) {
       return (void *)0x0;
     }
     uVar5 = 0xffffffff;
@@ -96,12 +96,12 @@ void * __cdecl sputRoom_GetSetupBackground(void *set,int setupIdx)
       if (uVar5 == 0) break;
       uVar5 = uVar5 - 1;
       pcVar8 = pcVar7 + 1;
-      cVar2 = *pcVar7;
+      cVar1 = *pcVar7;
       pcVar7 = pcVar8;
-    } while (cVar2 != '\0');
+    } while (cVar1 != '\0');
     uVar5 = ~uVar5;
     pcVar7 = pcVar8 + -uVar5;
-    pcVar8 = (char *)(iVar1 + 0x80);
+    pcVar8 = &pSVar2[setupIdx].field_0x80;
     for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
       *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
       pcVar7 = pcVar7 + 4;
@@ -112,20 +112,21 @@ void * __cdecl sputRoom_GetSetupBackground(void *set,int setupIdx)
       pcVar7 = pcVar7 + 1;
       pcVar8 = pcVar8 + 1;
     }
-    *(undefined1 *)(iVar1 + 0xa0) = 0;
+    pSVar2[setupIdx].field_0xa0 = 0;
   }
   else {
-    Res_Touch(*(void **)(iVar1 + 0xc4));
+    Res_Touch(pSVar2[setupIdx].background.pData);
   }
-  if (*ref == 0) {
+  if (ref->dwHandle == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
   }
 LAB_004a3eb6:
-  iVar3 = *(int *)(iVar1 + 0xc4);
-  if (*ref == 0) {
+  pvVar4 = pSVar2[setupIdx].background.pData;
+  if (ref->dwHandle == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
   }
-  return *(void **)(*(int *)(iVar3 + 0x78) + *(int *)(*(int *)(iVar1 + 0xc4) + 0x68) * 4);
+  return *(void **)(*(int *)((int)pvVar4 + 0x78) +
+                   *(int *)((int)pSVar2[setupIdx].background.pData + 0x68) * 4);
 }
 
 /* ---- 0x004a3ef0  sputRoom_GetSetupZBackground ---- */
@@ -133,43 +134,43 @@ LAB_004a3eb6:
    sputRoom_GetSetupZBackground (the remaster's GrimFandango (Linux): aligned call in
    sputRender_UseSetup); was Setup_GetZBufferBitmap. */
 
-void * __cdecl sputRoom_GetSetupZBackground(void *set,int setupIdx)
+void * __cdecl sputRoom_GetSetupZBackground(Set *set,int setupIdx)
 
 {
-  int *ref;
-  int iVar1;
-  byte bVar2;
+  ResRef *ref;
+  byte bVar1;
+  Setup *pSVar2;
   byte *pbVar3;
   int iVar4;
   void *data;
   byte *pbVar5;
   bool bVar6;
   
-  iVar1 = *(int *)((int)set + 0xac) + setupIdx * 300;
-  ref = (int *)(iVar1 + 0xf4);
-  if (*(int *)(iVar1 + 0xf4) == 0) {
-    if (*(char *)(iVar1 + 0xa0) != '\0') {
+  pSVar2 = set->pSetups;
+  ref = &pSVar2[setupIdx].zBackground;
+  if (pSVar2[setupIdx].zBackground.dwHandle == 0) {
+    if (pSVar2[setupIdx].field_0xa0 != '\0') {
       pbVar5 = &DAT_004ec60c;
-      pbVar3 = (byte *)(iVar1 + 0xa0);
+      pbVar3 = &pSVar2[setupIdx].field_0xa0;
       do {
-        bVar2 = *pbVar3;
-        bVar6 = bVar2 < *pbVar5;
-        if (bVar2 != *pbVar5) {
+        bVar1 = *pbVar3;
+        bVar6 = bVar1 < *pbVar5;
+        if (bVar1 != *pbVar5) {
 LAB_004a3f61:
           iVar4 = (1 - (uint)bVar6) - (uint)(bVar6 != 0);
           goto LAB_004a3f66;
         }
-        if (bVar2 == 0) break;
-        bVar2 = pbVar3[1];
-        bVar6 = bVar2 < pbVar5[1];
-        if (bVar2 != pbVar5[1]) goto LAB_004a3f61;
+        if (bVar1 == 0) break;
+        bVar1 = pbVar3[1];
+        bVar6 = bVar1 < pbVar5[1];
+        if (bVar1 != pbVar5[1]) goto LAB_004a3f61;
         pbVar3 = pbVar3 + 2;
         pbVar5 = pbVar5 + 2;
-      } while (bVar2 != 0);
+      } while (bVar1 != 0);
       iVar4 = 0;
 LAB_004a3f66:
       if (iVar4 != 0) {
-        data = sputResource_Alloc(0x4655425a,(char *)(iVar1 + 0xa0));
+        data = sputResource_Alloc(0x4655425a,&pSVar2[setupIdx].field_0xa0);
         if (data != (void *)0x0) {
           Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xcf);
         }
@@ -177,14 +178,14 @@ LAB_004a3f66:
     }
   }
   else {
-    if (*ref == 0) {
+    if (ref->dwHandle == 0) {
       (*g_pStd_HS->pAssertFail)
                 (s_Bad_ZBuffer_Reference_004ec614,s_main_sputResource_h_004e80a8,0x95);
     }
-    Res_Touch(*(void **)(iVar1 + 0xf8));
+    Res_Touch(pSVar2[setupIdx].zBackground.pData);
   }
-  if (*ref == 0) {
+  if (ref->dwHandle == 0) {
     return (void *)0x0;
   }
-  return *(void **)(iVar1 + 0xf8);
+  return pSVar2[setupIdx].zBackground.pData;
 }

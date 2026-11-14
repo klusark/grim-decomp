@@ -1,0 +1,460 @@
+{
+ "_comment": "Sets, their camera setups and object states (Set.cpp / ObjectState.cpp, 2026-11-14). Set (0x1b08, the 'SET ' resource; Set_InitRecord's defaults, sputRoom_UnReference, sputRoom_GetLight, sputRoom_GetSoundParameters), Setup (300 bytes, the set's camera setups: SetSoundPosition reads the camera at +0x20, sputRoom_UnReference drops the background and z-buffer references at +0xc0 / +0xf4 and the object states listed at +0x128), ObjectState (0xfc, ObjectState_Construct: two ObjectStateImages, the list links) and ObjectStateImage (0x74, ObjectStateImage_Construct / Clear / Load / VBuffer: rectangle, file name, bitmap reference, clean copy, frame). ResRef is the 0x34-byte resource reference (Res_SetReference / Res_RemoveReference) these hold; only its data pointer is named.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "ResRef",
+   "size": 52,
+   "comment": "A resource reference (0x34 bytes, Res_SetReference / Res_RemoveReference).",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwHandle",
+     "non-zero while it refers to a resource"
+    ],
+    [
+     4,
+     "void *",
+     "pData",
+     "the resource's data (a bitmap: ObjectStateImage_VBuffer reads its frames)"
+    ]
+   ]
+  },
+  {
+   "name": "ObjectStateImage",
+   "size": 116,
+   "comment": "One image of an object state (0x74 bytes): the bitmap or its z-buffer.",
+   "fields": [
+    [
+     0,
+     "int",
+     "nMemUsage",
+     "0x74 plus the bitmap's memory (stdBitmap_MemUsage)"
+    ],
+    [
+     4,
+     "int",
+     "nX",
+     "position, from the bitmap"
+    ],
+    [
+     8,
+     "int",
+     "nY",
+     ""
+    ],
+    [
+     12,
+     "int",
+     "nWidth",
+     "size of the bitmap's first frame"
+    ],
+    [
+     16,
+     "int",
+     "nHeight",
+     ""
+    ],
+    [
+     20,
+     "char[32]",
+     "aName",
+     "the bitmap file (ObjectStateImage_SetFile)"
+    ],
+    [
+     52,
+     "ResRef",
+     "ref",
+     "the loaded 'BKND' bitmap"
+    ],
+    [
+     104,
+     "VBuffer *",
+     "pClean",
+     "the clean copy of what lies under the image (ObjectStateImage_SetClean)"
+    ],
+    [
+     108,
+     "int",
+     "nFrame",
+     "the bitmap frame shown, -1 = the clean copy"
+    ],
+    [
+     112,
+     "int",
+     "nDrawn",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "ObjectState",
+   "size": 252,
+   "comment": "An object state of a camera setup (0xfc bytes): a bitmap (with its z-buffer) drawn over the background.",
+   "fields": [
+    [
+     0,
+     "int",
+     "nSize",
+     "0xfc"
+    ],
+    [
+     4,
+     "int",
+     "nSetup",
+     "the setup it belongs to"
+    ],
+    [
+     8,
+     "int",
+     "nState",
+     "-1 at construction"
+    ],
+    [
+     12,
+     "ObjectStateImage",
+     "image",
+     "the bitmap"
+    ],
+    [
+     128,
+     "ObjectStateImage",
+     "zImage",
+     "its z-buffer"
+    ],
+    [
+     244,
+     "ObjectState *",
+     "pPrev",
+     "the setup's list (Setup.pObjectStates)"
+    ],
+    [
+     248,
+     "ObjectState *",
+     "pNext",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "Setup",
+   "size": 300,
+   "comment": "A camera setup of a set (300 bytes, the array at Set.pSetups).",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aName",
+     ""
+    ],
+    [
+     32,
+     "float[3]",
+     "aPos",
+     "camera position (SetSoundPosition's listener)"
+    ],
+    [
+     192,
+     "ResRef",
+     "background",
+     "the background bitmap"
+    ],
+    [
+     244,
+     "ResRef",
+     "zBackground",
+     "its z-buffer"
+    ],
+    [
+     296,
+     "ObjectState *",
+     "pObjectStates",
+     "the setup's object states"
+    ]
+   ]
+  },
+  {
+   "name": "Set",
+   "size": 6920,
+   "comment": "A set (0x1b08 bytes, the 'SET ' resource).",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aName",
+     ""
+    ],
+    [
+     128,
+     "ResRef *",
+     "pColormaps",
+     "the colormap references"
+    ],
+    [
+     132,
+     "int",
+     "nColormaps",
+     "1 by default"
+    ],
+    [
+     136,
+     "int",
+     "nCurColormap",
+     ""
+    ],
+    [
+     140,
+     "char[32]",
+     "aColormapName",
+     ""
+    ],
+    [
+     172,
+     "Setup *",
+     "pSetups",
+     ""
+    ],
+    [
+     176,
+     "int",
+     "nSetups",
+     ""
+    ],
+    [
+     180,
+     "int",
+     "nCurSetup",
+     ""
+    ],
+    [
+     184,
+     "int",
+     "nLights",
+     ""
+    ],
+    [
+     188,
+     "SetLight[64]",
+     "aLights",
+     ""
+    ],
+    [
+     6848,
+     "int",
+     "nLocked",
+     "sputRoom_UnReference keeps the resources while it is set"
+    ],
+    [
+     6900,
+     "uint",
+     "dwSize",
+     "0x1b08 (Set_InitRecord)"
+    ],
+    [
+     6904,
+     "char",
+     "cSoundMaxVolume",
+     "sputRoom_GetSoundParameters"
+    ],
+    [
+     6905,
+     "char",
+     "cSound1af9",
+     ""
+    ],
+    [
+     6908,
+     "float",
+     "flSoundMinVolume",
+     ""
+    ],
+    [
+     6912,
+     "float",
+     "flSoundPanScale",
+     "scales the listener-space x of a sound (SetSoundPosition)"
+    ],
+    [
+     6916,
+     "float",
+     "flSound1b04",
+     ""
+    ]
+   ]
+  }
+ ],
+ "this": [
+  {
+   "addr": "004aa100",
+   "type": "ObjectStateImage *"
+  },
+  {
+   "addr": "004aa130",
+   "type": "ObjectStateImage *"
+  },
+  {
+   "addr": "004aa290",
+   "type": "ObjectStateImage *"
+  },
+  {
+   "addr": "004aa310",
+   "type": "ObjectStateImage *"
+  },
+  {
+   "addr": "004aa410",
+   "type": "ObjectState *"
+  },
+  {
+   "addr": "004aa580",
+   "type": "ObjectState *"
+  },
+  {
+   "addr": "004aa5c0",
+   "type": "ObjectState *"
+  },
+  {
+   "addr": "004aa6b0",
+   "type": "ObjectState *"
+  },
+  {
+   "addr": "004aa6c0",
+   "type": "ObjectState *"
+  },
+  {
+   "addr": "004aa720",
+   "type": "ObjectState *"
+  }
+ ],
+ "params": [
+  {
+   "addr": "004a4050",
+   "index": 0,
+   "type": "Set *",
+   "name": "set"
+  },
+  {
+   "addr": "004a40f0",
+   "index": 0,
+   "type": "Set *",
+   "name": "set"
+  },
+  {
+   "addr": "004a4b40",
+   "index": 0,
+   "type": "Set *",
+   "name": "set"
+  },
+  {
+   "addr": "004a4fe0",
+   "index": 0,
+   "type": "Set *",
+   "name": "set"
+  },
+  {
+   "addr": "004a3db0",
+   "index": 0,
+   "type": "Set *",
+   "name": "set"
+  },
+  {
+   "addr": "004a3ef0",
+   "index": 0,
+   "type": "Set *",
+   "name": "set"
+  },
+  {
+   "addr": "004a5cc0",
+   "index": 0,
+   "type": "Set *",
+   "name": "set"
+  },
+  {
+   "addr": "004a5cf0",
+   "index": 0,
+   "type": "Set *",
+   "name": "set"
+  },
+  {
+   "addr": "004a4a70",
+   "index": 0,
+   "type": "Set *",
+   "name": "set"
+  },
+  {
+   "addr": "004aa070",
+   "index": 0,
+   "type": "ObjectStateImage *",
+   "name": "image"
+  },
+  {
+   "addr": "004aa0b0",
+   "index": 0,
+   "type": "ObjectStateImage *",
+   "name": "image"
+  },
+  {
+   "addr": "004aa1f0",
+   "index": 0,
+   "type": "ObjectStateImage *",
+   "name": "image"
+  },
+  {
+   "addr": "004aa3e0",
+   "index": 0,
+   "type": "ObjectStateImage *",
+   "name": "image"
+  },
+  {
+   "addr": "004aa4c0",
+   "index": 0,
+   "type": "ObjectState *",
+   "name": "state"
+  },
+  {
+   "addr": "004aa540",
+   "index": 0,
+   "type": "ObjectState *",
+   "name": "state"
+  },
+  {
+   "addr": "004aa560",
+   "index": 0,
+   "type": "ObjectState *",
+   "name": "state"
+  },
+  {
+   "addr": "004aa410",
+   "index": 1,
+   "type": "ObjectState *",
+   "name": "next"
+  },
+  {
+   "addr": "004a5e50",
+   "index": 0,
+   "type": "ObjectState *",
+   "name": "state"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "004a49a0",
+   "type": "Set *"
+  },
+  {
+   "addr": "004aa410",
+   "type": "ObjectState *"
+  },
+  {
+   "addr": "004a5d50",
+   "type": "ObjectState *"
+  }
+ ],
+ "protos": [
+  {
+   "addr": "004a41b0",
+   "proto": "Set * sputRoom_GetCurrentRoom(void)",
+   "cc": "__cdecl"
+  }
+ ]
+}

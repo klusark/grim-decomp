@@ -11,14 +11,14 @@
    remaster's GrimFandango (Linux): aligned call in sputLua_IsLightOn, sputLua_SetLightType,
    sputLua_TurnLightOn); was Light_Get. */
 
-SetLight * __cdecl sputRoom_GetLight(void *set,int index)
+SetLight * __cdecl sputRoom_GetLight(Set *set,int index)
 
 {
-  if (set == (void *)0x0) {
+  if (set == (Set *)0x0) {
     set = sputRoom_GetCurrentRoom();
   }
-  if ((-1 < index) && (index < *(int *)((int)set + 0xb8))) {
-    return (SetLight *)((int)set + index * 0x68 + 0xbc);
+  if ((-1 < index) && (index < set->nLights)) {
+    return set->aLights + index;
   }
   return (SetLight *)0x0;
 }
@@ -28,27 +28,27 @@ SetLight * __cdecl sputRoom_GetLight(void *set,int index)
    remaster's GrimFandango (Linux): the only unmatched callee of Lua_FindLight; 14 matched
    neighbours agree, 1 disagree); was Light_FindByName. */
 
-int __cdecl sputRoom_FindLightByName(void *set,char *name)
+int __cdecl sputRoom_FindLightByName(Set *set,char *name)
 
 {
   int iVar1;
   int iVar2;
-  byte *pbVar3;
+  SetLight *pSVar3;
   
-  if (set == (void *)0x0) {
+  if (set == (Set *)0x0) {
     set = sputRoom_GetCurrentRoom();
   }
   iVar2 = 0;
-  if (0 < *(int *)((int)set + 0xb8)) {
-    pbVar3 = (byte *)((int)set + 0xbc);
+  if (0 < set->nLights) {
+    pSVar3 = set->aLights;
     do {
-      iVar1 = _stricmp((byte *)name,pbVar3);
+      iVar1 = _stricmp((byte *)name,(byte *)pSVar3);
       if (iVar1 == 0) break;
       iVar2 = iVar2 + 1;
-      pbVar3 = pbVar3 + 0x68;
-    } while (iVar2 < *(int *)((int)set + 0xb8));
+      pSVar3 = pSVar3 + 1;
+    } while (iVar2 < set->nLights);
   }
-  if (iVar2 < *(int *)((int)set + 0xb8)) {
+  if (iVar2 < set->nLights) {
     return iVar2;
   }
   return -1;

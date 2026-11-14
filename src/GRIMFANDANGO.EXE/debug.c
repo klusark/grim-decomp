@@ -19,7 +19,8 @@ uint __cdecl sputControl_StandardHandler(void)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fov;
   int iVar1;
-  void *pvVar2;
+  Set *pSVar2;
+  void *camera;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   if ((g_nGrimlib_bDebugKeys != 0) &&
@@ -30,16 +31,16 @@ uint __cdecl sputControl_StandardHandler(void)
       if (iVar1 == 0) {
         return 0;
       }
-      pvVar2 = sputRoom_GetCurrentRoom();
-      pvVar2 = *(void **)(*(int *)((int)pvVar2 + 0xac) + 0x48 + *(int *)((int)pvVar2 + 0xb4) * 300);
-      fov = *(float *)((int)pvVar2 + 0x38) - 0.5;
+      pSVar2 = sputRoom_GetCurrentRoom();
+      camera = *(void **)&pSVar2->pSetups[pSVar2->nCurSetup].field_0x48;
+      fov = *(float *)((int)camera + 0x38) - 0.5;
     }
     else {
-      pvVar2 = sputRoom_GetCurrentRoom();
-      pvVar2 = *(void **)(*(int *)((int)pvVar2 + 0xac) + 0x48 + *(int *)((int)pvVar2 + 0xb4) * 300);
-      fov = *(float *)((int)pvVar2 + 0x38) - -0.5;
+      pSVar2 = sputRoom_GetCurrentRoom();
+      camera = *(void **)&pSVar2->pSetups[pSVar2->nCurSetup].field_0x48;
+      fov = *(float *)((int)camera + 0x38) - -0.5;
     }
-    rdCamera_SetFOV(pvVar2,fov);
+    rdCamera_SetFOV(camera,fov);
     return 1;
   }
   return 0;

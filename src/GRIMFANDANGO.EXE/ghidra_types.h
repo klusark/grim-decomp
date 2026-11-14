@@ -237,12 +237,17 @@ typedef struct DDrawSurfaceRec DDrawSurfaceRec;
 typedef struct DisplayDevice DisplayDevice;
 typedef struct GrimServices GrimServices;
 typedef struct LecPixelFormat LecPixelFormat;
+typedef struct ObjectState ObjectState;
+typedef struct ObjectStateImage ObjectStateImage;
 typedef struct PhonemeEntry PhonemeEntry;
 typedef struct Primitive Primitive;
 typedef struct ProcEntry ProcEntry;
 typedef struct Puck Puck;
+typedef struct ResRef ResRef;
 typedef struct ScreenCoord ScreenCoord;
+typedef struct Set Set;
 typedef struct SetLight SetLight;
+typedef struct Setup Setup;
 typedef struct Std3DDevice Std3DDevice;
 typedef struct Std3DTexture Std3DTexture;
 typedef struct TextContext TextContext;
@@ -643,6 +648,62 @@ _Static_assert(__builtin_offsetof(LecPixelFormat, nAlphaBits) == 0x48, "LecPixel
 _Static_assert(__builtin_offsetof(LecPixelFormat, nAlphaShift) == 0x4c, "LecPixelFormat.nAlphaShift");
 _Static_assert(__builtin_offsetof(LecPixelFormat, nAlphaLoss) == 0x50, "LecPixelFormat.nAlphaLoss");
 _Static_assert(sizeof(LecPixelFormat) == 0x54, "sizeof LecPixelFormat");
+/* ResRef: A resource reference (0x34 bytes, Res_SetReference / Res_RemoveReference). */
+struct ResRef {  /* 0x34 */
+    uint dwHandle;  /* 0x00: non-zero while it refers to a resource */
+    void *pData;  /* 0x04: the resource's data (a bitmap: ObjectStateImage_VBuffer reads its frames) */
+    uint8_t field_0x8, field_0x9, field_0xa, field_0xb, field_0xc, field_0xd, field_0xe, field_0xf;
+    uint8_t field_0x10, field_0x11, field_0x12, field_0x13, field_0x14, field_0x15, field_0x16, field_0x17;
+    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23, field_0x24, field_0x25, field_0x26, field_0x27;
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
+    uint8_t field_0x30, field_0x31, field_0x32, field_0x33;
+};
+_Static_assert(__builtin_offsetof(ResRef, dwHandle) == 0x0, "ResRef.dwHandle");
+_Static_assert(__builtin_offsetof(ResRef, pData) == 0x4, "ResRef.pData");
+_Static_assert(sizeof(ResRef) == 0x34, "sizeof ResRef");
+/* ObjectStateImage: One image of an object state (0x74 bytes): the bitmap or its z-buffer. */
+struct ObjectStateImage {  /* 0x74 */
+    int nMemUsage;  /* 0x00: 0x74 plus the bitmap's memory (stdBitmap_MemUsage) */
+    int nX;  /* 0x04: position, from the bitmap */
+    int nY;  /* 0x08 */
+    int nWidth;  /* 0x0c: size of the bitmap's first frame */
+    int nHeight;  /* 0x10 */
+    char aName[32];  /* 0x14: the bitmap file (ObjectStateImage_SetFile) */
+    ResRef ref;  /* 0x34: the loaded 'BKND' bitmap */
+    VBuffer *pClean;  /* 0x68: the clean copy of what lies under the image (ObjectStateImage_SetClean) */
+    int nFrame;  /* 0x6c: the bitmap frame shown, -1 = the clean copy */
+    int nDrawn;  /* 0x70 */
+};
+_Static_assert(__builtin_offsetof(ObjectStateImage, nMemUsage) == 0x0, "ObjectStateImage.nMemUsage");
+_Static_assert(__builtin_offsetof(ObjectStateImage, nX) == 0x4, "ObjectStateImage.nX");
+_Static_assert(__builtin_offsetof(ObjectStateImage, nY) == 0x8, "ObjectStateImage.nY");
+_Static_assert(__builtin_offsetof(ObjectStateImage, nWidth) == 0xc, "ObjectStateImage.nWidth");
+_Static_assert(__builtin_offsetof(ObjectStateImage, nHeight) == 0x10, "ObjectStateImage.nHeight");
+_Static_assert(__builtin_offsetof(ObjectStateImage, aName) == 0x14, "ObjectStateImage.aName");
+_Static_assert(__builtin_offsetof(ObjectStateImage, ref) == 0x34, "ObjectStateImage.ref");
+_Static_assert(__builtin_offsetof(ObjectStateImage, pClean) == 0x68, "ObjectStateImage.pClean");
+_Static_assert(__builtin_offsetof(ObjectStateImage, nFrame) == 0x6c, "ObjectStateImage.nFrame");
+_Static_assert(__builtin_offsetof(ObjectStateImage, nDrawn) == 0x70, "ObjectStateImage.nDrawn");
+_Static_assert(sizeof(ObjectStateImage) == 0x74, "sizeof ObjectStateImage");
+/* ObjectState: An object state of a camera setup (0xfc bytes): a bitmap (with its z-buffer) drawn over the background. */
+struct ObjectState {  /* 0xfc */
+    int nSize;  /* 0x00: 0xfc */
+    int nSetup;  /* 0x04: the setup it belongs to */
+    int nState;  /* 0x08: -1 at construction */
+    ObjectStateImage image;  /* 0x0c: the bitmap */
+    ObjectStateImage zImage;  /* 0x80: its z-buffer */
+    ObjectState *pPrev;  /* 0xf4: the setup's list (Setup.pObjectStates) */
+    ObjectState *pNext;  /* 0xf8 */
+};
+_Static_assert(__builtin_offsetof(ObjectState, nSize) == 0x0, "ObjectState.nSize");
+_Static_assert(__builtin_offsetof(ObjectState, nSetup) == 0x4, "ObjectState.nSetup");
+_Static_assert(__builtin_offsetof(ObjectState, nState) == 0x8, "ObjectState.nState");
+_Static_assert(__builtin_offsetof(ObjectState, image) == 0xc, "ObjectState.image");
+_Static_assert(__builtin_offsetof(ObjectState, zImage) == 0x80, "ObjectState.zImage");
+_Static_assert(__builtin_offsetof(ObjectState, pPrev) == 0xf4, "ObjectState.pPrev");
+_Static_assert(__builtin_offsetof(ObjectState, pNext) == 0xf8, "ObjectState.pNext");
+_Static_assert(sizeof(ObjectState) == 0xfc, "sizeof ObjectState");
 /* PhonemeEntry: One entry of g_aPhonemeTable: a phoneme of the lip-sync data and the talk chore it shows (Phoneme_ToTalkChore). */
 struct PhonemeEntry {  /* 0x8 */
     uint dwPhoneme;  /* 0x00: the phoneme as its IPA code point (0x5f '_' silence, 0xe6, 0x28c, ...) */
@@ -796,6 +857,97 @@ _Static_assert(__builtin_offsetof(SetLight, aName) == 0x0, "SetLight.aName");
 _Static_assert(__builtin_offsetof(SetLight, aPos) == 0x20, "SetLight.aPos");
 _Static_assert(__builtin_offsetof(SetLight, light) == 0x2c, "SetLight.light");
 _Static_assert(sizeof(SetLight) == 0x68, "sizeof SetLight");
+/* Set: A set (0x1b08 bytes, the 'SET ' resource). */
+struct Set {  /* 0x1b08 */
+    char aName[32];  /* 0x00 */
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23, field_0x24, field_0x25, field_0x26, field_0x27;
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
+    uint8_t field_0x30, field_0x31, field_0x32, field_0x33, field_0x34, field_0x35, field_0x36, field_0x37;
+    uint8_t field_0x38, field_0x39, field_0x3a, field_0x3b, field_0x3c, field_0x3d, field_0x3e, field_0x3f;
+    uint8_t field_0x40, field_0x41, field_0x42, field_0x43, field_0x44, field_0x45, field_0x46, field_0x47;
+    uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint8_t field_0x50, field_0x51, field_0x52, field_0x53, field_0x54, field_0x55, field_0x56, field_0x57;
+    uint8_t field_0x58, field_0x59, field_0x5a, field_0x5b, field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    uint8_t field_0x60, field_0x61, field_0x62, field_0x63, field_0x64, field_0x65, field_0x66, field_0x67;
+    uint8_t field_0x68, field_0x69, field_0x6a, field_0x6b, field_0x6c, field_0x6d, field_0x6e, field_0x6f;
+    uint8_t field_0x70, field_0x71, field_0x72, field_0x73, field_0x74, field_0x75, field_0x76, field_0x77;
+    uint8_t field_0x78, field_0x79, field_0x7a, field_0x7b, field_0x7c, field_0x7d, field_0x7e, field_0x7f;
+    ResRef *pColormaps;  /* 0x80: the colormap references */
+    int nColormaps;  /* 0x84: 1 by default */
+    int nCurColormap;  /* 0x88 */
+    char aColormapName[32];  /* 0x8c */
+    Setup *pSetups;  /* 0xac */
+    int nSetups;  /* 0xb0 */
+    int nCurSetup;  /* 0xb4 */
+    int nLights;  /* 0xb8 */
+    SetLight aLights[64];  /* 0xbc */
+    uint8_t field_0x1abc, field_0x1abd, field_0x1abe, field_0x1abf;
+    int nLocked;  /* 0x1ac0: sputRoom_UnReference keeps the resources while it is set */
+    uint8_t field_0x1ac4, field_0x1ac5, field_0x1ac6, field_0x1ac7, field_0x1ac8, field_0x1ac9, field_0x1aca, field_0x1acb;
+    uint8_t field_0x1acc, field_0x1acd, field_0x1ace, field_0x1acf, field_0x1ad0, field_0x1ad1, field_0x1ad2, field_0x1ad3;
+    uint8_t field_0x1ad4, field_0x1ad5, field_0x1ad6, field_0x1ad7, field_0x1ad8, field_0x1ad9, field_0x1ada, field_0x1adb;
+    uint8_t field_0x1adc, field_0x1add, field_0x1ade, field_0x1adf, field_0x1ae0, field_0x1ae1, field_0x1ae2, field_0x1ae3;
+    uint8_t field_0x1ae4, field_0x1ae5, field_0x1ae6, field_0x1ae7, field_0x1ae8, field_0x1ae9, field_0x1aea, field_0x1aeb;
+    uint8_t field_0x1aec, field_0x1aed, field_0x1aee, field_0x1aef, field_0x1af0, field_0x1af1, field_0x1af2, field_0x1af3;
+    uint dwSize;  /* 0x1af4: 0x1b08 (Set_InitRecord) */
+    char cSoundMaxVolume;  /* 0x1af8: sputRoom_GetSoundParameters */
+    char cSound1af9;  /* 0x1af9 */
+    uint8_t field_0x1afa, field_0x1afb;
+    float flSoundMinVolume;  /* 0x1afc */
+    float flSoundPanScale;  /* 0x1b00: scales the listener-space x of a sound (SetSoundPosition) */
+    float flSound1b04;  /* 0x1b04 */
+};
+_Static_assert(__builtin_offsetof(Set, aName) == 0x0, "Set.aName");
+_Static_assert(__builtin_offsetof(Set, pColormaps) == 0x80, "Set.pColormaps");
+_Static_assert(__builtin_offsetof(Set, nColormaps) == 0x84, "Set.nColormaps");
+_Static_assert(__builtin_offsetof(Set, nCurColormap) == 0x88, "Set.nCurColormap");
+_Static_assert(__builtin_offsetof(Set, aColormapName) == 0x8c, "Set.aColormapName");
+_Static_assert(__builtin_offsetof(Set, pSetups) == 0xac, "Set.pSetups");
+_Static_assert(__builtin_offsetof(Set, nSetups) == 0xb0, "Set.nSetups");
+_Static_assert(__builtin_offsetof(Set, nCurSetup) == 0xb4, "Set.nCurSetup");
+_Static_assert(__builtin_offsetof(Set, nLights) == 0xb8, "Set.nLights");
+_Static_assert(__builtin_offsetof(Set, aLights) == 0xbc, "Set.aLights");
+_Static_assert(__builtin_offsetof(Set, nLocked) == 0x1ac0, "Set.nLocked");
+_Static_assert(__builtin_offsetof(Set, dwSize) == 0x1af4, "Set.dwSize");
+_Static_assert(__builtin_offsetof(Set, cSoundMaxVolume) == 0x1af8, "Set.cSoundMaxVolume");
+_Static_assert(__builtin_offsetof(Set, cSound1af9) == 0x1af9, "Set.cSound1af9");
+_Static_assert(__builtin_offsetof(Set, flSoundMinVolume) == 0x1afc, "Set.flSoundMinVolume");
+_Static_assert(__builtin_offsetof(Set, flSoundPanScale) == 0x1b00, "Set.flSoundPanScale");
+_Static_assert(__builtin_offsetof(Set, flSound1b04) == 0x1b04, "Set.flSound1b04");
+_Static_assert(sizeof(Set) == 0x1b08, "sizeof Set");
+/* Setup: A camera setup of a set (300 bytes, the array at Set.pSetups). */
+struct Setup {  /* 0x12c */
+    char aName[32];  /* 0x00 */
+    float aPos[3];  /* 0x20: camera position (SetSoundPosition's listener) */
+    uint8_t field_0x2c, field_0x2d, field_0x2e, field_0x2f, field_0x30, field_0x31, field_0x32, field_0x33;
+    uint8_t field_0x34, field_0x35, field_0x36, field_0x37, field_0x38, field_0x39, field_0x3a, field_0x3b;
+    uint8_t field_0x3c, field_0x3d, field_0x3e, field_0x3f, field_0x40, field_0x41, field_0x42, field_0x43;
+    uint8_t field_0x44, field_0x45, field_0x46, field_0x47, field_0x48, field_0x49, field_0x4a, field_0x4b;
+    uint8_t field_0x4c, field_0x4d, field_0x4e, field_0x4f, field_0x50, field_0x51, field_0x52, field_0x53;
+    uint8_t field_0x54, field_0x55, field_0x56, field_0x57, field_0x58, field_0x59, field_0x5a, field_0x5b;
+    uint8_t field_0x5c, field_0x5d, field_0x5e, field_0x5f, field_0x60, field_0x61, field_0x62, field_0x63;
+    uint8_t field_0x64, field_0x65, field_0x66, field_0x67, field_0x68, field_0x69, field_0x6a, field_0x6b;
+    uint8_t field_0x6c, field_0x6d, field_0x6e, field_0x6f, field_0x70, field_0x71, field_0x72, field_0x73;
+    uint8_t field_0x74, field_0x75, field_0x76, field_0x77, field_0x78, field_0x79, field_0x7a, field_0x7b;
+    uint8_t field_0x7c, field_0x7d, field_0x7e, field_0x7f, field_0x80, field_0x81, field_0x82, field_0x83;
+    uint8_t field_0x84, field_0x85, field_0x86, field_0x87, field_0x88, field_0x89, field_0x8a, field_0x8b;
+    uint8_t field_0x8c, field_0x8d, field_0x8e, field_0x8f, field_0x90, field_0x91, field_0x92, field_0x93;
+    uint8_t field_0x94, field_0x95, field_0x96, field_0x97, field_0x98, field_0x99, field_0x9a, field_0x9b;
+    uint8_t field_0x9c, field_0x9d, field_0x9e, field_0x9f, field_0xa0, field_0xa1, field_0xa2, field_0xa3;
+    uint8_t field_0xa4, field_0xa5, field_0xa6, field_0xa7, field_0xa8, field_0xa9, field_0xaa, field_0xab;
+    uint8_t field_0xac, field_0xad, field_0xae, field_0xaf, field_0xb0, field_0xb1, field_0xb2, field_0xb3;
+    uint8_t field_0xb4, field_0xb5, field_0xb6, field_0xb7, field_0xb8, field_0xb9, field_0xba, field_0xbb;
+    uint8_t field_0xbc, field_0xbd, field_0xbe, field_0xbf;
+    ResRef background;  /* 0xc0: the background bitmap */
+    ResRef zBackground;  /* 0xf4: its z-buffer */
+    ObjectState *pObjectStates;  /* 0x128: the setup's object states */
+};
+_Static_assert(__builtin_offsetof(Setup, aName) == 0x0, "Setup.aName");
+_Static_assert(__builtin_offsetof(Setup, aPos) == 0x20, "Setup.aPos");
+_Static_assert(__builtin_offsetof(Setup, background) == 0xc0, "Setup.background");
+_Static_assert(__builtin_offsetof(Setup, zBackground) == 0xf4, "Setup.zBackground");
+_Static_assert(__builtin_offsetof(Setup, pObjectStates) == 0x128, "Setup.pObjectStates");
+_Static_assert(sizeof(Setup) == 0x12c, "sizeof Setup");
 /* Std3DDevice: A Direct3D driver of the display device (0x22c bytes, the table at 0x00900b40). */
 struct Std3DDevice {  /* 0x22c */
     int nHardware;  /* 0x00: a hardware device: its z-buffer is created in video memory (DDSCAPS 0x4000), else in system memory (0x800) */

@@ -1435,20 +1435,20 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx); /* 0x00483b50 */
 void __cdecl Set_DrawDebugLights(int param_1); /* 0x00485780 */
 void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx); /* 0x004859c0 */
 void __cdecl sputRoom_SetSoundParameters (int param_1,uint param_2,byte param_3,byte param_4,uint param_5,uint param_6); /* 0x004a4010 */
-void __cdecl sputRoom_GetSoundParameters(void *set,float *minVol,char *maxVol,char *c,float *d,float *e); /* 0x004a4050 */
-void __cdecl sputRoom_SetCurrentRoom(void *set,int param_2); /* 0x004a40f0 */
-void * sputRoom_GetCurrentRoom(void); /* 0x004a41b0 */
+void __cdecl sputRoom_GetSoundParameters(Set *set,float *minVol,char *maxVol,char *c,float *d,float *e); /* 0x004a4050 */
+void __cdecl sputRoom_SetCurrentRoom(Set *set,int param_2); /* 0x004a40f0 */
+Set * __cdecl sputRoom_GetCurrentRoom(void); /* 0x004a41b0 */
 char * sputRoom_GetCurrentRoomName(void); /* 0x004a41d0 */
 int __cdecl sputRoom_Save(void *writeFn); /* 0x004a41e0 */
 int __cdecl sputRoom_Restore(void *readFn); /* 0x004a44e0 */
-undefined4 * __cdecl sputRoom_LoadRoom(char *param_1); /* 0x004a49a0 */
-void __cdecl Set_InitRecord(undefined4 *param_1); /* 0x004a4a70 */
-void __cdecl sputRoom_UnReference(void *set); /* 0x004a4b40 */
+Set * __cdecl sputRoom_LoadRoom(char *param_1); /* 0x004a49a0 */
+void __cdecl Set_InitRecord(Set *set); /* 0x004a4a70 */
+void __cdecl sputRoom_UnReference(Set *set); /* 0x004a4b40 */
 void __cdecl sputRoom_FreeRoom(uint param_1); /* 0x004a4c40 */
 void __cdecl sputRoom_FreeRoomEntry(char *param_1); /* 0x004a4c60 */
 void __cdecl Set_FreeSetups(int param_1); /* 0x004a4d10 */
 void __cdecl Set_FreeSetup(uint param_1,int param_2); /* 0x004a4d80 */
-int __cdecl sputRoom_LoadResources(void *set); /* 0x004a4fe0 */
+int __cdecl sputRoom_LoadResources(Set *set); /* 0x004a4fe0 */
 int __cdecl Set_RegisterHandle(char *name,void *fn); /* 0x004a54a0 */
 int Set_FindHandle(char *name); /* 0x004a5500 */
 int Set_IsHandleValid(char *param_1); /* 0x004a55d0 */
@@ -1601,8 +1601,8 @@ void __cdecl DirtyRect_Clear(void); /* 0x00486020 */
 
 /* ===== setup.c ===== */
 void __cdecl Setup_DrawDebugCamera(int param_1); /* 0x00485a40 */
-void * __cdecl sputRoom_GetSetupBackground(void *set,int setupIdx); /* 0x004a3db0 */
-void * __cdecl sputRoom_GetSetupZBackground(void *set,int setupIdx); /* 0x004a3ef0 */
+void * __cdecl sputRoom_GetSetupBackground(Set *set,int setupIdx); /* 0x004a3db0 */
+void * __cdecl sputRoom_GetSetupZBackground(Set *set,int setupIdx); /* 0x004a3ef0 */
 
 /* ===== sector.c ===== */
 void __cdecl Sector_DrawAllDebug(void); /* 0x00485dc0 */
@@ -2039,29 +2039,29 @@ void __cdecl sputRoom_FreeZBuffer(uint param_1); /* 0x004a4980 */
 void __cdecl ZBuffer_FreeData(void *param_1); /* 0x004a4990 */
 
 /* ===== light.c ===== */
-SetLight * __cdecl sputRoom_GetLight(void *set,int index); /* 0x004a5cc0 */
-int __cdecl sputRoom_FindLightByName(void *set,char *name); /* 0x004a5cf0 */
+SetLight * __cdecl sputRoom_GetLight(Set *set,int index); /* 0x004a5cc0 */
+int __cdecl sputRoom_FindLightByName(Set *set,char *name); /* 0x004a5cf0 */
 
 /* ===== objstate.c ===== */
-void * __cdecl sputRoom_AddObjectState(int setupIdx,int type,char *bitmap,char *zbitmap,int visible); /* 0x004a5d50 */
-void __cdecl sputRoom_RemoveObjectState(void *state); /* 0x004a5e50 */
-undefined4 * __fastcall ObjectStateImage_Construct(undefined4 *param_1); /* 0x004aa070 */
-void __fastcall ObjectStateImage_Clear(int param_1); /* 0x004aa0b0 */
-void __thiscall ObjectStateImage_SetFile(void *this,char *name); /* 0x004aa100 */
-void __thiscall ObjectStateImage_Load(void *this,int load); /* 0x004aa130 */
-undefined4 __fastcall ObjectStateImage_VBuffer(int param_1); /* 0x004aa1f0 */
-void __thiscall ObjectStateImage_SetClean(void *this,void *surface); /* 0x004aa290 */
-void __thiscall ObjectStateImage_Draw(void *this,void *dst); /* 0x004aa310 */
-int __fastcall ObjectStateImage_InSync(int param_1); /* 0x004aa3e0 */
-void * __thiscall ObjectState_Construct(void *this,int type,char *bitmapName,char *zbufName,int setupIdx); /* 0x004aa410 */
-void __fastcall ObjectState_Destruct(int param_1); /* 0x004aa4c0 */
-void __fastcall ObjectState_LoadResources(int param_1); /* 0x004aa540 */
-void __fastcall ObjectState_UnLoadResources(int param_1); /* 0x004aa560 */
-void __thiscall ObjectState_Reset(void *this,void *bg,void *zbuf); /* 0x004aa580 */
-void __thiscall ObjectState_Update(void *this,int type,void *dst,void *zdst); /* 0x004aa5c0 */
-int __thiscall ObjectState_SetCopyMode(void *this,int a1); /* 0x004aa6b0 */
-void * __thiscall ObjectState_MoveToBack(void *this,void *list); /* 0x004aa6c0 */
-void * __thiscall ObjectState_MoveToFront(void *this,void *list); /* 0x004aa720 */
+ObjectState * __cdecl sputRoom_AddObjectState(int setupIdx,int type,char *bitmap,char *zbitmap,int visible); /* 0x004a5d50 */
+void __cdecl sputRoom_RemoveObjectState(ObjectState *state); /* 0x004a5e50 */
+undefined4 * __fastcall ObjectStateImage_Construct(ObjectStateImage *image); /* 0x004aa070 */
+void __fastcall ObjectStateImage_Clear(ObjectStateImage *image); /* 0x004aa0b0 */
+void __thiscall ObjectStateImage_SetFile(ObjectStateImage *this,char *name); /* 0x004aa100 */
+void __thiscall ObjectStateImage_Load(ObjectStateImage *this,int load); /* 0x004aa130 */
+undefined4 __fastcall ObjectStateImage_VBuffer(ObjectStateImage *image); /* 0x004aa1f0 */
+void __thiscall ObjectStateImage_SetClean(ObjectStateImage *this,void *surface); /* 0x004aa290 */
+void __thiscall ObjectStateImage_Draw(ObjectStateImage *this,void *dst); /* 0x004aa310 */
+int __fastcall ObjectStateImage_InSync(ObjectStateImage *image); /* 0x004aa3e0 */
+ObjectState * __thiscall ObjectState_Construct (ObjectState *this,ObjectState *next,char *bitmapName,char *zbufName,int setupIdx); /* 0x004aa410 */
+void __fastcall ObjectState_Destruct(ObjectState *state); /* 0x004aa4c0 */
+void __fastcall ObjectState_LoadResources(ObjectState *state); /* 0x004aa540 */
+void __fastcall ObjectState_UnLoadResources(ObjectState *state); /* 0x004aa560 */
+void __thiscall ObjectState_Reset(ObjectState *this,void *bg,void *zbuf); /* 0x004aa580 */
+void __thiscall ObjectState_Update(ObjectState *this,int type,void *dst,void *zdst); /* 0x004aa5c0 */
+int __thiscall ObjectState_SetCopyMode(ObjectState *this,int a1); /* 0x004aa6b0 */
+void * __thiscall ObjectState_MoveToBack(ObjectState *this,void *list); /* 0x004aa6c0 */
+void * __thiscall ObjectState_MoveToFront(ObjectState *this,void *list); /* 0x004aa720 */
 
 /* ===== setactorlist.c ===== */
 void __cdecl SetActorList_Free(void *param_1); /* 0x004a6160 */
