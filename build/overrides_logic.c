@@ -2299,41 +2299,6 @@ undefined4 sputLua_NotifyControlHandlers(void)
     return 0;
 }
 
-/* ==== Actor_UpdateMovement (0x0048fd90) ====
- * Per frame: remembers the position, rescues the costume, follows the path (actor+8 bit 0), updates the walker, the
- * movement chores, the costumes (dt scaled by the actor's time scale), the look-at (bit 1) and the puck orientation
- * (actor+4 bit 4).  Its callee Actor_PuckOrient takes the actor (Ghidra had typed that parameter float). */
-void Actor_UpdateMovement(Actor *actor_, float dt)
-{
-    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
-    void *actor = (void *)actor_;
-    char *a = (char *)actor;
-    int costume;
-
-    if (*(int *)(a + 0xa4) != 0)
-        dt = *(float *)(*(int *)(a + 0xa4) + 0x41c) * dt;
-    costume = *(int *)(a + 0xa0);
-    *(undefined4 *)(a + 0x18) = *(undefined4 *)(a + 0xc);
-    *(undefined4 *)(a + 0x1c) = *(undefined4 *)(a + 0x10);
-    *(undefined4 *)(a + 0x20) = *(undefined4 *)(a + 0x14);
-    if (costume != 0 && *(int *)(costume + 0x7c) != 0) {
-        if (*(int *)(costume + 0x7c) == 0) {
-            (*g_pStd_HS->pAssertFail)(s_Bad_costume_Reference_004e9e90, s_main_sputResource_h_004e80a8, 0xb8);
-        }
-        Cos_InstRescue(**(int **)(a + 0xa0), *(int *)(costume + 0x80));
-    }
-    if ((*(byte *)(a + 8) & 1) != 0)
-        Actor_FollowPath(actor);
-    if (*(int *)(a + 0xa4) != 0 && *(int *)(*(int *)(a + 0xa4) + 0x1b4) != 0)
-        Actor_UpdateWalker(actor);
-    Actor_UpdateMoveChores(actor);
-    sputCostume_Update(*(void **)(a + 0xa0), dt);
-    if ((*(byte *)(a + 8) & 2) != 0)
-        Actor_UpdateLookAt(actor, dt);
-    if ((*(byte *)(a + 4) & 0x10) != 0)
-        Actor_PuckOrient(actor);
-}
-
 /* ==== Actor_PuckOrient (0x00490f50) ====
  * ActorPuckOrient, at the end of the actor update when actor+4 & 0x10: rebuilds the actor matrix, takes the angle between its
  * up row (actor+0x50) and the up vector of the walker frame (walker+0x24); over 2 degrees the actor turns about

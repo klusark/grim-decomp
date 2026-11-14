@@ -223,23 +223,6 @@ void Im_RunTriggerCommand(undefined4 *slot, undefined4 marker)
     ((int (*)(int, int, int, int, int, int, int, int, int, int, int))cmd)(marker, w, w, w, w, w, w, w, w, w, w);
 }
 
-/* A deferred command whose time has come (TgIntHandler): the slot is {time, command, ten words}. */
-void Im_RunDeferredCommand(int e)
-{
-    int cmd = ((int *)e)[1];
-    int w = ((int *)e)[0xb];
-
-    if (cmd == 0) {
-        if (DAT_100336a8 == 0)
-            return;
-        cmd = (int)DAT_100336a8;
-    } else if ((unsigned)cmd < 0x1e) {
-        ImSoundCall(cmd, w, w, w, w, w, w, w, w, w, w);
-        return;
-    }
-    ((int (*)(int, int, int, int, int, int, int, int, int, int))cmd)(w, w, w, w, w, w, w, w, w, w);
-}
-
 /* Command dispatcher: cmd = number of the Im* call, a2..a11 = ten argument words.  Every call takes ITS arguments from the
  * LAST of the argument words it needs (the same word for all of them: compiled from va_arg expressions evaluated in the
  * wrong order).  Commands 0x15..0x18 do not exist. */
@@ -276,20 +259,6 @@ uint ImSoundCall(uint cmd, int a2, int a3, int a4, int a5, int a6, int a7, int a
     case 0x1d: return ImFeedStream(a5, (undefined4 *)a5, a5, a5);
     }
     return 0xffffffff;
-}
-
-/* ==== Script_Callback (0x100070e0) ====
- * Trigger callback (stored by FUN_10006360, run by Im_RunTriggerCommand with the marker name as its first argument): when the
- * marker is "_..." the script layer's end-of-sequence flag DAT_1002e304 is set.  The decompiler read the marker from the
- * second argument (the code reads [esp+8] while the pop of the ImPrintf argument is still pending, that is argument 1). */
-void Script_Callback(char *marker)
-{
-    ImPrintf(s_CALLBACK__1001e898);
-    if (*marker == '_') {
-        DAT_1002e304 = 1;
-        return;
-    }
-    ImPrintf(s_ERR_callback_got_marker______end_1001e870);
 }
 
 /* ==== Im_MixLoopC (0x10005b80) and Im_MixLoopD (0x10005db0) ====

@@ -411,8 +411,6 @@ void __cdecl sputActor_Forward(Actor *actor)
 }
 
 /* ---- 0x0048fd90  Actor_UpdateMovement ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Actor_UpdateMovement(actor, dt): per frame; path following when actor+8 bit 0 (Actor_FollowPath),
    Actor_UpdateWalker, Actor_UpdateMoveChores, costume update with dt * time scale, Actor_PuckOrient
    when actor+4 & 0x10. */
@@ -452,8 +450,6 @@ void __cdecl Actor_UpdateMovement(Actor *actor,float param_2)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0048fe80  Actor_UpdateLookAt ---- */
 /* Head tracking: turns the three head joints toward the look-at point (extra+0) limited by the look
