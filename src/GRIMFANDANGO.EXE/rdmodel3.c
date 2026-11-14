@@ -894,7 +894,7 @@ void __cdecl rdModel3_Free(int param_1)
 {
   if (param_1 != 0) {
     if (g_dwModel3Unloader != 0) {
-      (*(code *)g_dwModel3Unloader)();
+      (*(code *)g_dwModel3Unloader)(param_1);
       return;
     }
     rdModel3_FreeEntry(param_1);

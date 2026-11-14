@@ -1182,7 +1182,7 @@ void __cdecl rdKeyframe_Free(int param_1)
 {
   if (param_1 != 0) {
     if (g_dwKeyframeUnloader != 0) {
-      (*(code *)g_dwKeyframeUnloader)();
+      (*(code *)g_dwKeyframeUnloader)(param_1);
       return;
     }
     rdKeyframe_FreeEntry(param_1);

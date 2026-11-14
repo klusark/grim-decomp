@@ -1,5 +1,5 @@
 {
- "_comment": "Call-site signatures (2026-11-14) for indirect calls whose arguments the decompiler lost: COM method calls through a vtable (`CALL dword ptr [ECX + 0xc]`, __stdcall, the arguments are the pushes before the call) and service-table calls (__cdecl, the `ADD ESP,n` after the call). Ghidra cannot type the interface, so it showed the pushes as stack variables and the call without arguments. tools/apply_call_overrides.py writes them as call-site overrides (HighFunctionDBUtil.writeOverride); arguments are undefined4, the result undefined4. Derived from raw/<prog>/disasm.json and checked against the DirectX method arities (Release 1, CreateSoundBuffer 4, SetVolume 2, Lock 8, Unlock 5, Play 4, ...).",
+ "_comment": "Call-site signatures (2026-11-14) for indirect calls whose arguments the decompiler lost: COM method calls through a vtable (`CALL dword ptr [ECX + 0xc]`, __stdcall, the arguments are the pushes before the call) and service-table calls (__cdecl, the `ADD ESP,n` after the call). Ghidra cannot type the interface, so it showed the pushes as stack variables and the call without arguments. tools/apply_call_overrides.py writes them as call-site overrides (HighFunctionDBUtil.writeOverride); arguments are undefined4, the result undefined4. Derived from raw/<prog>/disasm.json and checked against the DirectX method arities (Release 1, CreateSoundBuffer 4, SetVolume 2, Lock 8, Unlock 5, Play 4, ...). Live code (the audit of 2026-11-14): rdModel3_Free / rdKeyframe_Free call their unload hook (an untyped pointer) with the model, pushed before the branch both paths share; The audit compared every indirect call with the decompiler's argument count; the other mismatches were not applied (D3D_SelectDriver's and D3D_SetVertexLimit's COM calls were tried: with their arguments the decompiler lost the stack blocks built before the next calls): a wrong __stdcall count shifts the decompiler's stack model for the calls after it, typed service pointers (pFprintf, varargs) already print their arguments, and a call shared by two branches only moves the lost argument to the other path.",
  "GRIMFANDANGO.EXE": [
   {
    "func": "004d2aa0",
@@ -245,6 +245,20 @@
    "args": 3,
    "cc": "__cdecl",
    "in": "bmp_bitmap_Alloc"
+  },
+  {
+   "func": "0040c0d0",
+   "call": "0040c0e3",
+   "args": 1,
+   "cc": "__cdecl",
+   "in": "rdModel3_Free"
+  },
+  {
+   "func": "004c0e40",
+   "call": "004c0e53",
+   "args": 1,
+   "cc": "__cdecl",
+   "in": "rdKeyframe_Free"
   }
  ],
  "IMUSE.DLL": [
