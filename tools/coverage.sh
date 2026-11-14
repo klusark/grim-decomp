@@ -5,7 +5,8 @@
 #
 # 1. builds the gcov build (make COVERAGE=1 OBJ=obj-cov, then link) and copies the four programs to build/run-cov,
 # 2. clears the counters (obj-cov/*/*.gcda), runs `run.py decomp` with GRIM_DECOMP=build/run-cov,
-# 3. writes the report (tools/covreport.py): build/coverage/summary.md, functions.tsv, gcov/<prog>/<module>.gcov.
+# 3. writes the report (tools/covreport.py): build/coverage/summary.md, functions.tsv, gcov/<prog>/<module>.gcov; the
+#    functions of tools/coverage_exclude.json (the costume editor: kept, but the game cannot run it) are not counted.
 #
 # Each program adds its counters to the .gcda files next to its objects when it ends (the four games run.py runs at a
 # time lock each file while they add to it). A game run.py kills as hung writes nothing; one that crashes writes them in

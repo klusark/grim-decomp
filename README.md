@@ -34,7 +34,7 @@ read **[docs/MODDING.md](docs/MODDING.md)**; the 319 Lua functions the engine re
 | `build/` | Makefile, `link.py`, `datacmp.py` (compares the data of two builds span by span), `compat.h`, shims, `BUILD_NOTES.md`. |
 | `build/overrides_hmifx.c`, `tools/hmifx_check.c` | HMI's voice-effects library (HMIFXLIB.DLL and the effects of HMIFXFP.DLL that IMUSE.PSL uses) in C, and the check that compares it with the DLLs sample for sample. |
 | `tools/stats.py` | Coverage table (below): how much is named. |
-| `tools/coverage.sh`, `tools/covreport.py` | Line coverage of the four programs under grim_tools' clean-room tests: the gcov build (`make COVERAGE=1 OBJ=obj-cov`), the run, the report in `build/coverage/` (build/BUILD_NOTES.md, "Coverage build"). Windows (MSYS2) or Linux (mingw-w64 and Wine). |
+| `tools/coverage.sh`, `tools/covreport.py` | Line coverage of the four programs under grim_tools' clean-room tests: the gcov build (`make COVERAGE=1 OBJ=obj-cov`), the run, the report in `build/coverage/`, without the code of `tools/coverage_exclude.json` that the game cannot run (build/BUILD_NOTES.md, "Coverage build"). Windows (MSYS2) or Linux (mingw-w64 and Wine). |
 | `tools/lab.py`, `tools/luadump.py`, `tools/list_lua_api.py` | List/extract/pack `.LAB` archives; dump precompiled Lua 3.1 scripts; list the Lua API (`docs/LUA_API.md`). |
 | `tools/run_game.sh`, `tools/lua_cmd.sh`, `tools/grim_shot.ps1`, `tools/mkmoddir.sh` | Start the rebuilt game with the test knobs, run Lua in it, screenshot it, create a mod directory. |
 | `mods/` | Example mods (loose-file scripts and set files; the C examples live in `build/overrides.c`). |

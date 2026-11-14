@@ -1546,3 +1546,8 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   EXE 61.4% / 63.0% of 47,893 lines, LUA.DLL 88.7%, IMUSE.DLL 67.4% / 71.9%, CHORE.DLL 58.1% (most of the rest is the
   costume editor's API, which nothing calls). Large parts the suite cannot reach: Direct3D (std3d.c, the hardware
   renderer), the registry (reg.c: GRIM_INI replaces it), dialogs, joysticks, the light editor.
+* The costume editor is kept in the build but left out of the totals: tools/coverage_exclude.json lists the functions
+  the shipped game cannot run (CHORE.DLL's CosUtil_* editor API but the five the costume loader uses, the Cos_* functions
+  only the editor calls or nothing imports, the exe's sputCostume_SaveHook), each with its reason. covreport.py shows
+  their lines in an Excluded column (functions.tsv marks them) and counts everything with --no-exclude. With the list:
+  CHORE.DLL 85.0% of 1,698 lines (785 excluded), EXE 63.1% (67 excluded).
