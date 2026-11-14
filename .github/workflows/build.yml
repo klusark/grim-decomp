@@ -92,6 +92,7 @@ jobs:
 
       # (CR_VISIBLE: the windows on the runner's desktop, no offscreen.exe to build; the runner is slower than a desk machine)
       - name: Clean-room tests
+        id: tests
         env:
           GRIM_DECOMP: ${{ github.workspace }}\decomp
           CR_VISIBLE: "1"
@@ -108,6 +109,26 @@ jobs:
           Add-Content $env:GITHUB_STEP_SUMMARY "``````"
           exit $rc
 
+      # (the PR comment, from the output: the tests that fail and what differs; the job comment posts it)
+      - uses: actions/checkout@v4
+        if: always() && github.event_name == 'pull_request'
+        with:
+          path: self
+          sparse-checkout: .github/scripts
+
+      - name: PR comment
+        if: always() && github.event_name == 'pull_request'
+        run: |
+          python self/.github/scripts/cleanroom_comment.py cleanroom.txt "${{ steps.tests.outcome }}" `
+            "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" comment.md
+
+      - uses: actions/upload-artifact@v4
+        if: always() && github.event_name == 'pull_request'
+        with:
+          name: cleanroom-comment
+          path: comment.md
+          if-no-files-found: ignore
+
       - name: Logs
         if: always()
         uses: actions/upload-artifact@v4
@@ -120,3 +141,45 @@ jobs:
             grim_tools/cleanroom/run/decomp*/*.log
             grim_tools/cleanroom/run/decomp*/*.ini
           if-no-files-found: ignore
+
+  # A comment on the PR naming the clean-room tests that fail (and what differs), kept up to date: one comment per PR,
+  # edited by each run. A passing run only edits it (no new comment when nothing ever failed).
+  # (a PR from a fork gets a read-only token: no comment then, the step summary has the same)
+  comment:
+    needs: [build, cleanroom]
+    if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cleanroom-comment
+
+      - name: Post or update the comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+          BUILD: ${{ needs.build.result }}
+          CLEANROOM: ${{ needs.cleanroom.result }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          marker='<!-- grim-decomp cleanroom -->'
+          if [ ! -s comment.md ]; then
+            # (the tests did not run, or ended before writing the comment)
+            if [ "$BUILD" != success ]; then what="the build failed ($BUILD): the clean-room tests did not run"
+            else what="the clean-room tests job ended with $CLEANROOM before reporting the tests"; fi
+            printf '%s\n### :x: Clean-room tests\n%s\n\n[Run and logs](%s)\n' "$marker" "$what" "$RUN_URL" > comment.md
+          fi
+          id=$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/$PR/comments" \
+            --jq ".[] | select(.user.login == \"github-actions[bot]\" and (.body | startswith(\"$marker\"))) | .id" | tail -n1)
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F body=@comment.md > /dev/null
+            echo "updated comment $id"
+          elif grep -q ':x:' comment.md; then
+            gh api -X POST "repos/$GITHUB_REPOSITORY/issues/$PR/comments" -F body=@comment.md > /dev/null
+            echo "posted a comment"
+          else
+            echo "the tests pass and there is no earlier comment: none posted"
+          fi
