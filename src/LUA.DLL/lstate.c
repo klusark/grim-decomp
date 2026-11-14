@@ -129,8 +129,6 @@ uint __cdecl comparePtrIDs(int param_1,int param_2)
 }
 
 /* ---- 0x10007830  LState_SaveObject ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name LState_SaveObject (the remaster's libLua.so: LState::SaveObject(TObject*, writer):
    writes tag and value, a C function as lua_FuncPtrToID); was lstate__7830. */
 
@@ -152,8 +150,6 @@ undefined4 __stdcall LState_SaveObject(int a1,int a2)
   uVar3 = (*(code *)iVar2)(&a1,4);
   return uVar3;
 }
-#endif
-
 
 /* ---- 0x10007880  LState_LoadObject ---- */
 /* Original name LState_LoadObject (the remaster's libLua.so: LState::LoadObject(TObject*, reader):

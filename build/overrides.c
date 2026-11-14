@@ -1595,66 +1595,6 @@ void str_format(void)
 
 /* ---- agentJ: small LUA.DLL helpers whose decompilation lost x87 values or reused argument slots ---- */
 
-/* number from the precompiled-chunk loader: the 8-byte (double) or 4-byte (float) value, byte-swapped when the chunk comes from a
- * machine of the other endianness.  ld = {stream, swap flag, "numbers are floats" flag}. */
-float __cdecl luaU_LoadNumber(undefined4 *ld)
-{
-    if (ld[2] != 0) {
-        float f;
-        ezread((uint *)ld[0], (undefined4 *)&f, 4);
-        if (ld[1] != 0)
-            lundump__d360((undefined1 *)&f);
-        return f;
-    } else {
-        double d;
-        ezread((uint *)ld[0], (undefined4 *)&d, 8);
-        if (ld[1] != 0)
-            lundump__d380((undefined1 *)&d);
-        return (float)d;
-    }
-}
-
-/* string -> number coercion of a stack object: 0 = converted in place, 1 = not a string, 2 = not a number */
-undefined4 __cdecl luaV_tonumber(int *o)
-{
-    double d;
-    char trailing;                          /* "%lf %c": a second item means the string has trailing characters */
-    if (o[0] != -2)
-        return 1;
-    if (sscanf((char *)(o[1] + 0x18), s__lf__c_10028170, &d, &trailing) != 1)
-        return 2;
-    o[0] = -1;
-    *(float *)&o[1] = (float)d;
-    return 0;
-}
-
-/* pack the n stack values starting at slot `first` into a table {[1]=v1 ... [n]=vn, n=n}; result is the object that receives it */
-void __cdecl luaV_pack(int first, int n, TObject *tab)
-{
-    undefined4 *result = (undefined4 *)tab;   /* {nTtype, dwValue} as words */
-    int *src = (int *)(LSW[8] + first * 8);
-    int key[2];
-    int *slot;
-    int i;
-    if (n < 0)
-        n = 0;
-    result[1] = (undefined4)luaH_new(n + 1);
-    result[0] = (undefined4)-3;             /* tag: table */
-    for (i = 0; i < n; i++, src += 2) {
-        int tag = src[0], val = src[1];     /* read before luaH_set, which may touch the stack */
-        key[0] = -1;                        /* number key i + 1 */
-        *(float *)&key[1] = (float)i - -1.0f;
-        slot = (int *)luaH_set((Hash *)result[1], (TObject *)key);
-        slot[0] = tag;
-        slot[1] = val;
-    }
-    key[0] = -2;                            /* string key "n" */
-    key[1] = (int)luaS_new((char *)&DAT_10026994);
-    slot = (int *)luaH_set((Hash *)result[1], (TObject *)key);
-    slot[0] = -1;
-    *(float *)&slot[1] = (float)n;
-}
-
 /* the "n" field of table `t` as an int, or 0xfffe when it is missing or not a number */
 int __cdecl getnarg(int t)
 {
@@ -1669,70 +1609,6 @@ int __cdecl getnarg(int t)
 
 /* ---- agentJ: precompiled chunk loader/saver helpers (lundump.c, lstate.c) ---- */
 #define LUA_TEST_NUMBER 1.2345679e-24f      /* 0.123456789e-23: written in the chunk header to detect the number format */
-
-/* chunk header: signature, version, size of a number (4 or 8) and a test number; `ld[1]` is set when numbers need byte swapping,
- * `ld[2]` when they are 4-byte floats (otherwise 8-byte doubles) */
-void __cdecl LoadHeader(undefined4 *ld)
-{
-    uint *z = (uint *)ld[0];                /* the stream; z[4] is its name for error messages */
-    int version, size;
-    LoadSignature((int *)z);
-    version = (int)ezgetc((int *)z);
-    if (version > 0x31)
-        luaL_verror(s_binary_file__s_too_new__version__1002810c, z[4], version, 0x31);
-    if (version < 0x31)
-        luaL_verror(s_binary_file__s_too_old__version__100280c8, z[4], version, 0x31);
-    size = (int)ezgetc((int *)z);
-    if (size == 4) {
-        float f;
-        ezread(z, (undefined4 *)&f, 4);
-        if (f != LUA_TEST_NUMBER) {
-            lundump__d360((undefined1 *)&f);        /* try the other byte order */
-            if (f != LUA_TEST_NUMBER)
-                luaL_verror(s_unknown_float_representation_in_b_10028098, z[4]);
-            ld[1] = 1;
-        }
-        ld[2] = 1;
-    } else if (size == 8) {
-        double d;
-        ezread(z, (undefined4 *)&d, 8);
-        if (d != (double)LUA_TEST_NUMBER) {
-            lundump__d380((undefined1 *)&d);
-            if (d != (double)LUA_TEST_NUMBER)
-                luaL_verror(s_unknown_float_representation_in_b_10028098, z[4]);
-            ld[1] = 1;
-        }
-        ld[2] = 0;
-    } else {
-        luaL_verror(s_floats_in_binary_file__s_have__d_1002804c, z[4], size, 4);
-    }
-}
-
-/* the constants of a function: a count, then per constant a type letter (N number, S string, F function) and its value;
- * `fn` is the function prototype being filled in (constants at +8, count at +0xc) */
-void __cdecl LoadConstants(int fn, undefined4 *ld)
-{
-    uint n = LoadWord((int *)ld[0]);
-    int i;
-    *(uint *)(fn + 0xc) = n;
-    if (n == 0)
-        return;
-    *(undefined4 *)(fn + 8) = (*(undefined4 (**)(uint, char *, int))(g_dwLuaHS + 0x20))(n * 8, s_C__grimsrc_libs_lua_src_lundump__1002800c, 0xb3);
-    for (i = 0; i < (int)n; i++) {
-        undefined4 *k = (undefined4 *)(*(int *)(fn + 8) + i * 8);   /* the {tag, value} slot */
-        uint type = ezgetc((int *)ld[0]);
-        if (type == 'F') {
-            k[0] = (undefined4)-4;          /* function constant: filled in later */
-            k[1] = 0;
-        } else if (type == 'N') {
-            k[0] = (undefined4)-1;
-            *(float *)&k[1] = luaU_LoadNumber(ld);
-        } else if (type == 'S') {
-            k[0] = (undefined4)-2;
-            k[1] = LoadTString((uint *)ld[0]);
-        }
-    }
-}
 
 /* number -> string coercion of a stack object: integers print as %d, anything else as %g.  0 = converted, 1 = not a number */
 undefined4 __cdecl luaV_tostring(int *o)
@@ -1751,19 +1627,6 @@ undefined4 __cdecl luaV_tostring(int *o)
     o[1] = (int)luaS_new((char *)buf);
     o[0] = -2;
     return 0;
-}
-
-/* saves a {tag, value} object through the writer callback; a C function is written as its function id instead of its pointer */
-undefined4 __stdcall LState_SaveObject(int obj, int writer)
-{
-    int (__cdecl *write)(void *, int) = (int (__cdecl *)(void *, int))writer;
-    write((void *)obj, 4);                  /* the tag */
-    if (*(int *)obj != -5)
-        return (undefined4)write((void *)(obj + 4), 4);
-    {
-        int id = (int)lua_FuncPtrToID(*(int *)(obj + 4));
-        return (undefined4)write(&id, 4);
-    }
 }
 
 /* moves task state `this` into the task list right after `after` (it is first unlinked from where it is); doubly linked

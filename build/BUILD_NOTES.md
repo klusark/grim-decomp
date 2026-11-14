@@ -1662,3 +1662,14 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   GRIM_SIMTIME tick), msc_MemSet (returns the count; the twin is void), Zfile_fle_Close (the twin calls the close service
   without its argument).
 * Clean room 5451 of 5457, the same 6 render_g* tests as without the change.
+
+## LUA.DLL chunk loader and VM helpers generated again (2026-11-14)
+
+* luaV_pack, luaV_tonumber, LState_SaveObject, luaU_LoadNumber, LoadHeader and LoadConstants (overrides.c) use their
+  twins: build_src's PUN rewrites (fix_float_bits_members, fix_casts) already turn their float stores through
+  TObject.dwValue and their reused parameter slots into bit copies, which is what the hand-written versions did.
+* Kept: luaO_equalObj (`TEST AH,0x40` after FCOMPP: an unordered compare counts as equal, the twin's `==` does not),
+  message (the error tag method object is 8 bytes, the twin's local holds 4), match / lua_printstack (not compared yet).
+* A TObject value union (float / uint) in Ghidra was tried and taken back: ghidra_types.h has structures only, and the
+  pointer stores became `(TValue)ptr` casts.
+* Clean room 5451 of 5457, the same 6 render_g* tests as without the change.
