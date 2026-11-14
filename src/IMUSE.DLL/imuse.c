@@ -3447,8 +3447,6 @@ LAB_1000692f:
 
 
 /* ---- 0x100070e0  Script_Callback ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name Script_Callback (the remaster's GrimFandango (Linux): the static Callback of the
    music script module (prefixed: the bare name is refused as too generic); strings: "ERR:callback
    got marker != '_end'..." | 'CALLBACK:'); was FUN_100070e0. */
@@ -3464,8 +3462,6 @@ void __cdecl Script_Callback(char *marker)
   ImPrintf(s_ERR_callback_got_marker______end_1001e870);
   return;
 }
-#endif
-
 
 /* ---- 0x10007110  FUN_10007110 ---- */
 void FUN_10007110(void)
@@ -5943,8 +5939,6 @@ void __cdecl Im_RunTriggerCommand(undefined4 *param_1,undefined4 param_2)
 
 
 /* ---- 0x1000b710  Im_RunDeferredCommand ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
@@ -5972,8 +5966,6 @@ void __cdecl Im_RunDeferredCommand(int param_1)
   (*cmd)(a2,a2,a2,a2,a2,a2,a2,a2,a2,a2);
   return;
 }
-#endif
-
 
 /* ---- 0x1000bd50  Im_StrChr ---- */
 /* not in the source: names/lib_replace.json (host): the system C runtime (msvcrt.dll) has it */

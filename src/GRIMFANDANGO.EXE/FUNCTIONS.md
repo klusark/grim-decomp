@@ -1426,7 +1426,7 @@
 | 0048fb80 | sputActor_CanActorSeeActor | actor.c | 22 |
 | 0048fbd0 | sputActor_Turn | actor.c | 39 |
 | 0048fc80 | sputActor_Forward | actor.c | 15 |
-| 0048fd90 | Actor_UpdateMovement | actor.c | 1 |
+| 0048fd90 | Actor_UpdateMovement | actor.c | 39 |
 | 0048fe80 | Actor_UpdateLookAt | actor.c | 138 |
 | 00490210 | sputActor_UpdateActorSpeech | actor.c | 1 |
 | 00490320 | sputActor_SetSelectedActor | actor.c | 1 |
