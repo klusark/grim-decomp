@@ -222,8 +222,8 @@
 | 100078d0 | SoundsInitialize | imuse_api.c | 15 |
 | 10007920 | sounds_startup | imuse_api.c | 42 |
 | 10007a20 | FUN_10007a20 | imuse_api.c | 22 |
-| 10007a60 | ihost_get_sound_addr | imuse_api.c | 9 |
-| 10007a70 | ihost_get_map_addr | imuse_api.c | 9 |
+| 10007a60 | ihost_get_sound_addr | imuse_api.c | 11 |
+| 10007a70 | ihost_get_map_addr | imuse_api.c | 11 |
 | 10007a80 | ihost_get_buffer_info | imuse_api.c | 1 |
 | 10007a90 | ihost_open_sound | imuse_api.c | 72 |
 | 10007bc0 | ihost_fseek | imuse_api.c | 35 |
@@ -270,7 +270,7 @@
 | 10009ef0 | FUN_10009ef0 | imuse_sounds.c | 8 |
 | 10009f10 | iMUSE_Malloc | imuse_sounds.c | 14 |
 | 10009f40 | FUN_10009f40 | imuse_sounds.c | 51 |
-| 1000a010 | iMUSE_Free | imuse_sounds.c | 11 |
+| 1000a010 | iMUSE_Free | imuse_sounds.c | 13 |
 | 1000a030 | FUN_1000a030 | imuse_sounds.c | 24 |
 | 1000a210 | StStartStream | imuse_stream.c | 50 |
 | 1000a2d0 | StStopStream | imuse_stream.c | 13 |

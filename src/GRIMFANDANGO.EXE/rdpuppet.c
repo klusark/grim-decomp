@@ -890,8 +890,8 @@ uint __cdecl rdKeyframe_LoadEntry(char *param_1,int param_2)
   puVar3 = (uint *)stdFileFromPath(param_1);
   strncpy((uint *)iVar2,puVar3,uVar12);
   *(undefined1 *)(iVar2 + 0x1f) = 0;
-  iVar4 = ((code *)stdConffile_Open)((uint)param_1);
-  if (iVar4 == 0) {
+  uVar12 = stdConffile_Open((uint)param_1);
+  if (uVar12 == 0) {
     return 0;
   }
   uVar12 = stdConffile_ReadLine();

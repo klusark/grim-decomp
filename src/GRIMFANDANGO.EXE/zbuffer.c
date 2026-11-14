@@ -13,9 +13,10 @@
 uint __cdecl sputRoom_LoadZBuffer(uint param_1)
 
 {
-  uint uRet;
-  uRet = (uint)ZBuffer_LoadFile((char *)param_1);
-  return uRet;
+  uint uVar1;
+  
+  uVar1 = ZBuffer_LoadFile((char *)param_1);
+  return uVar1;
 }
 
 /* ---- 0x004a4930  ZBuffer_LoadFile ---- */

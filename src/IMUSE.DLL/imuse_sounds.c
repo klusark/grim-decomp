@@ -156,11 +156,11 @@ void __cdecl FUN_10009f40(int param_1)
 uint __cdecl iMUSE_Free(uint param_1)
 
 {
-  uint uRet;
+  uint uVar1;
   
   FUN_1000a030(param_1);
-  uRet = (uint)(**(code **)(g_dwSounds_pHS + 0x24))(param_1);
-  return uRet;
+  uVar1 = (**(code **)(g_dwSounds_pHS + 0x24))(param_1);
+  return uVar1;
 }
 
 /* ---- 0x1000a030  FUN_1000a030 ---- */

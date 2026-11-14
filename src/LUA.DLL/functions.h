@@ -92,7 +92,7 @@ undefined4 __cdecl lua_mathlibopen(void); /* 0x10007320 */
 void LState_initglobals(void); /* 0x10008a00 */
 LState * __cdecl lua_open(void); /* 0x10008b40 */
 undefined4 __cdecl lua_close(void); /* 0x10008c30 */
-undefined4 __cdecl lua_strlibopen(void); /* 0x1000a6e0 */
+uint __cdecl lua_strlibopen(void); /* 0x1000a6e0 */
 int lua_newtag(void); /* 0x1000c8d0 */
 int __cdecl lua_copytagmethods(int param_1,int param_2); /* 0x1000c950 */
 
