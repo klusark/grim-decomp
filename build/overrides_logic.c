@@ -448,62 +448,6 @@ void rdModel3_CalcVertexNormals(int model)
  * position-only clipper, projected, and queued with the lighting mode (0 when the camera is fully opaque, 1 when it is fully
  * transparent, otherwise the sprite's own mode, capped by it) and the camera alpha.  Written by hand: Ghidra reused the
  * parameter slots for the lighting mode (int) and the alpha (float), so the C version mixed up bit copies and conversions. */
-int __cdecl rdSprite_DrawThing(void *thing, void *sprite)
-{
-    char *t = (char *)thing;
-    char *data = *(char **)(t + 4);
-    char *cam = (char *)g_pRdCamera_CurCamera;
-    float campos[3], mat[12];
-    float alpha, size;
-    int visible, mode;
-    uint k, count;
-    float *pt;
-
-    rdMatrix_TransformPoint34(campos, (float *)((char *)sprite + 0x24), (float *)(cam + 8));
-    if ((g_bRdroid_curCullFlags & 2) == 0)
-        visible = *(int *)(t + 0x44);
-    else
-        visible = rdClip_SphereInFrustrum(*(undefined4 *)(cam + 0x48), campos, *(float *)(data + 0x3c));   /* (the radius's bits, not a conversion: grim_tools/cleanroom) */
-    if (visible == 2)
-        return 0;
-    rdMatrix_Multiply34(mat, (float *)(cam + 8), sprite);
-    alpha = ((byte)g_dwRdroid_curRenderOptions & 2) == 0 ? 0.0f : *(float *)(cam + 0x54);
-    if (alpha < 1.0f)
-        mode = (0.0f < alpha) ? *(int *)(data + 0x20) : 1;
-    else
-        mode = 0;
-    if (*(int *)(data + 0x20) <= mode)
-        mode = *(int *)(data + 0x20);
-    count = *(uint *)(data + 0x24);
-    rdMatrix_TransformPointLst34(mat, *(float **)(data + 0x28), (float *)&UINT_007f5180, count);
-    size = *(float *)(data + 0x34);
-    pt = (float *)&UINT_007f5180;
-    for (k = 0; k < count; k++, pt += 3) {
-        char *e = (char *)rdCache_GetProcEntry();
-        float *q = (float *)&DAT_007f5000;
-        uint vc;
-
-        if (e == (char *)0)
-            return 0;
-        q[0] = pt[0] - size;  q[1] = pt[1];  q[2] = pt[2] - size;
-        q[3] = pt[0] + size;  q[4] = pt[1];  q[5] = pt[2] - size;
-        q[6] = pt[0] + size;  q[7] = pt[1];  q[8] = pt[2] + size;
-        q[9] = pt[0] - size;  q[10] = pt[1]; q[11] = pt[2] + size;
-        vc = rdClip_Face3S(*(undefined4 *)(cam + 0x48), q, 4);
-        if (2 < vc) {
-            (**(code **)(cam + 0x50))(*(undefined4 *)(e + 0x20), q, vc);
-            *(int *)(e + 0xc) = mode;
-            *(float *)(e + 0x40) = alpha;
-            *(undefined4 *)(e + 8) = 3;
-            *(undefined4 *)(e + 4) = 0;
-            *(undefined4 *)(e + 0x38) = *(undefined4 *)(data + 0x38);
-            *(undefined4 *)(e + 0x3c) = *(undefined4 *)(*(int *)(data + 0x2c) + k * 4);
-            *(undefined4 *)(e + 0x50) = 0;
-            rdCache_AddProcFace((void *)0, vc, 1);
-        }
-    }
-    return 1;
-}
 /* ==== stdMath_SinCos (0x0047bd20), stdMath_Tan (0x0047c120) ====
  * Sine / cosine of an angle in degrees from a quarter-wave table of 4096 floats (0x004df600, cosine = the same table
  * read backwards; stdMath_Tan has its own table at 0x004e3600) with linear interpolation: `index = angle * 16384 / 360`
@@ -640,19 +584,6 @@ void Input_SetAxisRange(int axis, int min, int max, float deadZone)
 /* ==== Palette_FromFloatTable (0x0047b610) ====
  * Applies a gamma curve to `n` RGB byte triplets: out = min(255, pow(in / 255, gamma) * 255), truncated.  The Ghidra
  * prototype lacked the double argument (gamma, at +0x14 of the frame) and the operands of _ftol / _CIpow. */
-void Palette_FromFloatTable(byte *out, byte *in, int n, double gamma)
-{
-    int i;
-
-    for (i = 0; i < n * 3; i++) {
-        double x = (double)in[i] * 0.00392156862745098;
-        long double v = (long double)host_pow(x, gamma) * 255.0L;
-        if (v > 255.0L)
-            v = 255.0L;
-        out[i] = (byte)(int)(long long)v;
-    }
-}
-
 /* ==== stdColor_ColorConvertOneRow (0x0047b8a0), stdColor_ColorConvertOnePixel (0x0047bbb0) ====
  * Converts `count` pixels between the RGB layouts described by two format records (bits per pixel at +4, bits per channel
  * at +8 / +0xc / +0x10, left shifts at +0x14 / +0x18 / +0x1c, expansion shifts for 24 bit at +0x20 / +0x24 / +0x28).
@@ -746,31 +677,6 @@ void Render_BuildColorTable(int fmt, float gamma)
  * Scales the brightness of a rectangle of the 16 bit back buffer: every pixel is split into its channels with the
  * display's masks and shifts (UINT_00905608.. / 00905614..), each channel is multiplied by `scale` and truncated.
  * (The Ghidra prototype had three float arguments; the code only reads one, used for all channels.) */
-void sputRender_DimRegion(int x, int y, int w, int h, float scale)
-{
-    const uint *fmt = (const uint *)&g_dwStdDisplay_backBuffer;   /* the back buffer record: bits per channel at +0x28.., shifts at +0x34.. */
-    uint mr = 0xffffffffu >> ((32 - fmt[10]) & 31);
-    uint mg = 0xffffffffu >> ((32 - fmt[11]) & 31);
-    uint mb = 0xffffffffu >> ((32 - fmt[12]) & 31);
-    ushort *row;
-    int cy, cx;
-
-    stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
-    row = (ushort *)(UINT_0090563c + y * UINT_009055f8 + x * 2);
-    for (cy = h; cy > 0; cy--) {
-        ushort *p = row;
-        for (cx = w; cx > 0; cx--) {
-            uint px = *p;
-            int r = (int)(long long)((long double)(int)((px >> (fmt[13] & 31)) & mr & 0xffff) * scale);
-            int g = (int)(long long)((long double)(int)((px >> (fmt[14] & 31)) & mg & 0xffff) * scale);
-            int b = (int)(long long)((long double)(int)((px >> (fmt[15] & 31)) & mb & 0xffff) * scale);
-            *p++ = (ushort)((b << (fmt[15] & 31)) | (g << (fmt[14] & 31)) | (r << (fmt[13] & 31)));
-        }
-        row = (ushort *)((char *)row + UINT_009055f8);
-    }
-    stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
-}
-
 /* ==== Render_DrawProgressBar (0x004873d0) ====
  * Save / load progress bar on the primary surface: a yellow (0xffe0, remapped for the display) frame of 540 x 14 pixels at
  * (50, 455) whose inner 12 rows are filled for `fraction` (0..1) of the width.  The decompiler lost the operand of the

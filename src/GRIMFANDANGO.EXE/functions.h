@@ -2140,7 +2140,7 @@ int __cdecl fprintf(void *fp,char *fmt,...); /* 0x004ae190 */
 int __cdecl wcslen(short *param_1); /* 0x004ae260 */
 int __cdecl tolower(int param_1); /* 0x004ae280 */
 uint __cdecl _tolower_lk(uint param_1); /* 0x004ae310 */
-float __cdecl _CIpow(void); /* 0x004ae540 */
+float10 __cdecl _CIpow(float10 x,float10 y); /* 0x004ae540 */
 float10 _pow(int param_1,uint param_2,int param_3,uint param_4); /* 0x004ae562 */
 char * __cdecl _strlwr(char *param_1); /* 0x004ae760 */
 int __cdecl toupper(int param_1); /* 0x004ae8e0 */

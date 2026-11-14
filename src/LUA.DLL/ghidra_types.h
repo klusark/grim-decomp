@@ -50,6 +50,14 @@ typedef int code();
 #define ABS(x)     (((x) < 0) ? -(x) : (x))
 #define SQRT(x)    ((float10)__builtin_sqrtl((float10)(x)))   /* FSQRT */
 #define FTOL(x)    ((long long)(x))                /* x87 _ftol: truncate toward zero (the value Ghidra loses in ST0) */
+/* the CRT's x87 helpers _CIpow / _CIasin / _CIacos (operands on the x87 stack, names/protos_fix_2.json): msvcrt's pow,
+   asin and acos on the operands rounded to double, as build/overrides.c's __CIpow shim and the hand-written Lua math */
+extern double (*GRIM_imp_pow)(double, double) __asm__("__imp__pow");
+double asin(double);
+double acos(double);
+#define CI_POW(x, y) ((float10)(*GRIM_imp_pow)((double)(x), (double)(y)))
+#define CI_ASIN(x) ((float10)asin((double)(x)))
+#define CI_ACOS(x) ((float10)acos((double)(x)))
 #define ISNAN(x)   ((x) != (x))                    /* Ghidra NAN(x): unordered compare */
 #define NAN        (__builtin_nanf(""))
 #define f2xm1(x)   ((float10)__builtin_exp2l((float10)(x)) - 1)             /* F2XM1 */

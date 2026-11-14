@@ -1260,7 +1260,6 @@ static int lua_rand(void)
     return (int)((lua_holdrand >> 16) & 0x7fff);
 }
 
-#define MATH_DEG 57.29577951308232       /* radians -> degrees */
 #define MATH_RAD 0.017453292519943295    /* degrees -> radians */
 
 /* floor/ceil of a double (the CRT's floor/ceil of LUA.DLL are x87 code with control-word games) */
@@ -1290,8 +1289,6 @@ void math_abs(void)
     lua_pushnumber(x);
 }
 
-void math_asin(void)  { lua_pushnumber((float)(asin((double)luaL_check_number(1)) * MATH_DEG)); }
-void math_acos(void)  { lua_pushnumber((float)(acos((double)luaL_check_number(1)) * MATH_DEG)); }
 
 void math_ceil(void)  { lua_pushnumber((float)lua_ceil_d((double)luaL_check_number(1))); }
 void math_floor(void) { lua_pushnumber((float)lua_floor_d((double)luaL_check_number(1))); }
@@ -1301,14 +1298,6 @@ void math_mod(void)
     double x = luaL_check_number(1);
     double y = luaL_check_number(2);
     lua_pushnumber((float)fmod(x, y));
-}
-
-/* pow(x, y); also the tag method of the '^' operator on numbers (installed by lua_mathlibopen) */
-void math_pow(void)
-{
-    double x = luaL_check_number(1);
-    double y = luaL_check_number(2);
-    lua_pushnumber((float)pow(x, y));
 }
 
 /* random() in [0,1): rand() % 32767 / 32767;  random(n): an integer in [1,n] */
