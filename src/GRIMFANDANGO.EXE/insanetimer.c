@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004cdc90  sys_timer_module ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Entry of LECMODULE insane_timer: stores the service table of the module manager and the workspace
    size, registers the module and the TIMER insane interface Original name sys_timer_module (the
    remaster's GrimFandango (Linux): slot 0 of the "LECMODULE=insane_timer" service table); was
@@ -23,12 +21,8 @@ int __cdecl sys_timer_module(int *services,uint workspaceSize)
   g_dwTimer_rate = 300;
   return 0;
 }
-#endif
-
 
 /* ---- 0x004cdce0  InsaneTimer_module_terminate ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name InsaneTimer_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the
    "LECMODULE=insane_timer" service table; module_terminate is a static several LEC modules have,
@@ -41,8 +35,6 @@ void InsaneTimer_module_terminate(void)
   (*(code *)g_pInsaneTimer_share_services[1])(s_LECMODULE_insane_timer_004f3c40);
   return;
 }
-#endif
-
 
 /* ---- 0x004cdd10  InsaneTimer_module_startup ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -72,8 +64,6 @@ int InsaneTimer_module_startup(void)
 
 
 /* ---- 0x004cdd60  InsaneTimer_module_shutdown ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name InsaneTimer_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the
    "LECMODULE=insane_timer" service table; module_shutdown is a static several LEC modules have,
@@ -86,8 +76,6 @@ void InsaneTimer_module_shutdown(void)
   InsaneTimer_StopThread();
   return;
 }
-#endif
-
 
 /* ---- 0x004cdd80  InsaneTimer_StartThread ---- */
 /* replaced by the hand-written version in build/overrides.c */
