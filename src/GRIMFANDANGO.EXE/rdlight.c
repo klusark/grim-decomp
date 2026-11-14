@@ -169,6 +169,8 @@ LAB_0045173f:
 
 
 /* ---- 0x00451800  rdLight_CalcFaceIntensity ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Flat per-face light level (face light mode 2), called from rdModel_AddMeshToCache. Sums (I -
    k*dist) * dot(faceNormal, L) for every enabled light within cull range (+0x34) of the face's
    FIRST vertex, treating every light as omni (uses the light position even for direct/spot). Normal
@@ -222,4 +224,6 @@ rdLight_CalcFaceIntensity
 }
 #undef local_10
 #undef local_4
+
+#endif
 

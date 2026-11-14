@@ -169,6 +169,44 @@ void rdVector_Normalize3(float *out, float *v)
     __asm__ volatile("fldt %0" : : "m"(len));           /* the hidden return value: ST0 = |v| */
 }
 
+/* ==== rdLight_CalcFaceIntensity (0x00451800) ====
+ * The light of a face in lighting mode 2 (diffuse, rdModel3_DrawFace): for every active light of the mesh within its
+ * range (+0x34) of the face's first vertex, (intensity (+0x18) - dist * falloff) * dot(normal, L), L the unit vector from
+ * that vertex to the light; it stops as soon as the sum reaches 1.  Written by hand because the decompiler lost a store:
+ * the vector to the light is the three floats at -0xc..-0x4 of the frame (local_10 + 1), and its z, kept in a register,
+ * was never written to -0x4 (local_4), so rdVector_Normalize3Acc normalised (dx, dy, whatever was there) and the dot
+ * product used the z before the normalisation.  Faces in that mode came out at full light (clean room render_g3_l2_y0,
+ * render_g4_l2_*_y0_w / _f). */
+float __cdecl rdLight_CalcFaceIntensity(int *param_1, int param_2, uint param_3, uint param_4, int param_5,
+                                        float *param_6, int param_7, float param_8)
+{
+    float d[3];
+    float sum = 0.0f;
+    float *lightPos = (float *)param_2;     /* the lights' positions in the model's frame, 3 floats each */
+    uint i;
+    (void)param_3;                          /* (the lights' directions: not used, every light is treated as omni) */
+
+    for (i = 0; i < param_4; i++, param_1++, lightPos += 3) {
+        int light = *param_1;
+        if (*(int *)(light + 8) != 0) {
+            float *v = (float *)(param_7 + **(int **)(param_5 + 0x18) * 0xc);   /* the face's first vertex */
+            float range = *(float *)(light + 0x34);
+            d[0] = lightPos[0] - v[0];
+            d[1] = lightPos[1] - v[1];
+            d[2] = lightPos[2] - v[2];
+            if (d[2] * d[2] + d[1] * d[1] + d[0] * d[0] < range * range) {
+                float dist = rdVector_Normalize3Acc(d);
+                float dot = d[0] * param_6[0] + param_6[1] * d[1] + param_6[2] * d[2];
+                if (0.0f < dot)
+                    sum = (*(float *)(light + 0x18) - dist * param_8) * dot + sum;
+            }
+        }
+        if (1.0f <= sum)
+            return sum;
+    }
+    return sum;
+}
+
 /* ==== stdMath_NormalizeAngle (0x0047bc20) ====
  * Angle in degrees brought into [0, 360).  By hand because of the test at the end: the original stores the result in a
  * float local and compares *that* with 360.0 (a value that rounds to 360.0f is turned into 0).  Compiled from Ghidra's
