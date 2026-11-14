@@ -86,15 +86,28 @@ jobs:
       - name: Audio device
         uses: LABSN/sound-ci-helpers@v1
 
+      # (gcc for run.py to build offscreen.exe (cleanroom/tools/offscreen.c), from PATH; before setup-python, whose python
+      # then comes first on PATH)
+      - uses: msys2/setup-msys2@v2
+        id: msys2
+        with:
+          msystem: UCRT64
+          install: mingw-w64-ucrt-x86_64-gcc
+
+      - name: MSYS2 on PATH
+        run: Add-Content $env:GITHUB_PATH "${{ steps.msys2.outputs.msys2-location }}\ucrt64\bin"
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      # (CR_VISIBLE: the windows on the runner's desktop, no offscreen.exe to build; the runner is slower than a desk machine)
+      # (no CR_VISIBLE: the game runs on offscreen.exe's desktop of its own, as on a desk machine. On the runner's desktop it
+      # lost and got back the focus now and then, and WM_ACTIVATEAPP (window.c) calls sputRender_ForceRefresh: the whole
+      # screen drawn again, which wiped what the tests that read the back buffer's leftovers expect (gco_text_keys,
+      # rnd_objstate) and failed them at random. The runner is slower than a desk machine: CR_STALL, CR_STARTUP)
       - name: Clean-room tests
         env:
           GRIM_DECOMP: ${{ github.workspace }}\decomp
-          CR_VISIBLE: "1"
           CR_STALL: "30"
           CR_STARTUP: "180"
         run: |
@@ -120,3 +133,37 @@ jobs:
             grim_tools/cleanroom/run/decomp*/*.log
             grim_tools/cleanroom/run/decomp*/*.ini
           if-no-files-found: ignore
+
+  # When anything fails, a comment on the PR names what (the clean-room tests that differ, with what differs, and those that
+  # crash or hang the rebuilt exe; or the build), by grim_tools's cleanroom/tools/pr_comment.py; later runs edit the same
+  # comment. Branch protection of main requires the checks build and cleanroom.
+  # (a PR from a fork gets a read-only token: no comment then, the step summary has the same)
+  comment:
+    needs: [build, cleanroom]
+    if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: klusark/grim-autorun
+          path: grim_tools
+          sparse-checkout: cleanroom/tools
+
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cleanroom-logs
+          path: out
+
+      - name: Comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 grim_tools/cleanroom/tools/pr_comment.py \
+            --job Build "${{ needs.build.result }}" \
+            --job "Clean-room tests" "${{ needs.cleanroom.result }}" $(find out -name cleanroom.txt | head -n1) \
+            --url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --out comment.md --post "${{ github.repository }}" "${{ github.event.pull_request.number }}"
+          cat comment.md >> "$GITHUB_STEP_SUMMARY"
