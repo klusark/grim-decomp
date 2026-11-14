@@ -1054,7 +1054,7 @@ LAB_004a51bd:
         pvVar4 = (void *)((int)pvVar2 + 0xe8);
         pfVar11 = (float *)((int)pvVar2 + 0x108);
         do {
-          rdLight_SetAngles(pfVar11 + -8,*pfVar11,pfVar11[2]);
+          rdLight_SetAngles((rdLight *)(pfVar11 + -8),*pfVar11,pfVar11[2]);
           rdCamera_AddLight((void *)ref[-0x1e],pvVar4,(float *)((int)pvVar4 + -0xc));
           set = (void *)((int)set + 1);
           pfVar11 = pfVar11 + 0x1a;

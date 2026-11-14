@@ -9,20 +9,20 @@
 /* Defaults: type 2, on, white (0xffffff), intensity 1.0 Original name rdLight_NewEntry (the
    remaster's GrimFandango (Linux): aligned call in sputRoom_ParseLights); was rdLight_Init. */
 
-uint __cdecl rdLight_NewEntry(int param_1)
+uint __cdecl rdLight_NewEntry(rdLight *light)
 
 {
-  *(undefined4 *)(param_1 + 4) = 2;
-  *(undefined4 *)(param_1 + 8) = 1;
-  *(undefined4 *)(param_1 + 0xc) = 0;
-  *(undefined4 *)(param_1 + 0x10) = 0;
-  *(undefined4 *)(param_1 + 0x14) = 0;
-  *(undefined4 *)(param_1 + 0x18) = 0x3f800000;
-  *(undefined4 *)(param_1 + 0x1c) = 0xffffff;
-  *(undefined4 *)(param_1 + 0x20) = 0;
-  *(undefined4 *)(param_1 + 0x24) = 0;
-  *(undefined4 *)(param_1 + 0x28) = 0;
-  *(undefined4 *)(param_1 + 0x2c) = 0;
+  light->nType = 2;
+  light->nActive = 1;
+  light->aDirection[0] = 0.0;
+  light->aDirection[1] = 0.0;
+  light->aDirection[2] = 0.0;
+  light->flIntensity = 1.0;
+  light->dwColor = 0xffffff;
+  light->flInnerAngle = 0.0;
+  light->flCosInner = 0.0;
+  light->flOuterAngle = 0.0;
+  light->flCosOuter = 0.0;
   return 1;
 }
 
@@ -32,7 +32,7 @@ uint __cdecl rdLight_NewEntry(int param_1)
    edge at the penumbra). Called by Set_LoadResources with the raw set values (half angles, not
    halved). */
 
-void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
+void __cdecl rdLight_SetAngles(rdLight *light,float inner,float outer)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -40,13 +40,13 @@ void __cdecl rdLight_SetAngles(void *light,float inner,float outer)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
-  *(float *)((int)light + 0x20) = inner;
-  *(float *)((int)light + 0x28) = outer;
-  stdMath_SinCos(inner,(float *)&local_4,(float *)((int)light + 0x24));
-  stdMath_SinCos(outer,(float *)&local_4,(float *)((int)light + 0x2c));
-  fVar1 = *(float *)((int)light + 0x24) - *(float *)((int)light + 0x2c);
+  light->flInnerAngle = inner;
+  light->flOuterAngle = outer;
+  stdMath_SinCos(inner,(float *)&local_4,&light->flCosInner);
+  stdMath_SinCos(outer,(float *)&local_4,&light->flCosOuter);
+  fVar1 = light->flCosInner - light->flCosOuter;
   if (0.0 < fVar1) {
-    *(float *)((int)light + 0x30) = 1.0 / fVar1;
+    light->flConeScale = 1.0 / fVar1;
   }
   return;
 }

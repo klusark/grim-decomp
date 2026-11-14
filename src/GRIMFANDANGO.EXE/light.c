@@ -11,16 +11,16 @@
    remaster's GrimFandango (Linux): aligned call in sputLua_IsLightOn, sputLua_SetLightType,
    sputLua_TurnLightOn); was Light_Get. */
 
-void * __cdecl sputRoom_GetLight(void *set,int index)
+SetLight * __cdecl sputRoom_GetLight(void *set,int index)
 
 {
   if (set == (void *)0x0) {
     set = sputRoom_GetCurrentRoom();
   }
   if ((-1 < index) && (index < *(int *)((int)set + 0xb8))) {
-    return (void *)((int)set + index * 0x68 + 0xbc);
+    return (SetLight *)((int)set + index * 0x68 + 0xbc);
   }
-  return (void *)0x0;
+  return (SetLight *)0x0;
 }
 
 /* ---- 0x004a5cf0  sputRoom_FindLightByName ---- */
