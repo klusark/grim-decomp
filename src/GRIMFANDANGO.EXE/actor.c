@@ -104,9 +104,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int 
   byte *pbVar3;
   TextObject *pTVar4;
   int iVar5;
-  int unaff_ESI;
   TextContext *pTVar6;
-  int unaff_EDI;
   undefined4 *puVar7;
   #define local_5c (*(float (*)[2])(_frame + (0x70 - 0x5c)))
   #define local_50 (*(float (*)[3])(_frame + (0x70 - 0x50)))
@@ -185,7 +183,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int 
   }
   local_20 = *(int *)(*(int *)local_28 + 8) + y;
   local_24 = x;
-  pTVar4 = TextObject_New((TextContext *)(_frame + (0x70 - 0x30)),text,unaff_EDI,unaff_ESI);
+  pTVar4 = TextObject_New((TextContext *)(_frame + (0x70 - 0x30)),text);
   pTVar4->pActor = pAVar1;
   pAVar1->dwFlags = pAVar1->dwFlags | 4;
   return pTVar4;

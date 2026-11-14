@@ -1582,3 +1582,7 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   checked against the machine code.
 * raw/GRIMFANDANGO.EXE/data_items.txt (tools/export_data_items.py; export_changed.py does not refresh it) was a day
   old: a fresh dump differs in 1,626 lines (later names, new arrays) but changes nothing in src/.
+* TextObject_New takes (ctx, text) only (names/protos_fix_1.json): its body reads two stack arguments; the inferred
+  durationMs / flags were pushes for later calls, so sputText_MakeTextObjectL and sputText_BlastText (compiled from
+  the generated text) passed unaff_EBX / unaff_EDI / unaff_EBP garbage. sputText_CreateActorText stays hand-written:
+  its anchor rectangle (ints) is still typed float and read through an `Actor *`. Clean room 0 of 5329.
