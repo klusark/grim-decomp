@@ -485,7 +485,7 @@ void lzio__ef20(void); /* 0x1000ef20 */
 void lzio__ef40(void); /* 0x1000ef40 */
 
 /* ===== crt.c ===== */
-longlong _ftol(float10 x); /* 0x1000ef80 */
+longlong __cdecl _ftol(float10 x); /* 0x1000ef80 */
 undefined4 __cdecl _setjmp3(undefined4 *param_1,int param_2,int param_3,undefined4 param_4); /* 0x1000efa8 */
 void _CallSettingFrame(undefined *UNRECOVERED_JUMPTABLE); /* 0x1000f030 */
 undefined4 __stdcall _UnwindNestedFrames(int a1,int a2); /* 0x1000f080 */

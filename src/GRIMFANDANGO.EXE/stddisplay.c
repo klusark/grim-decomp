@@ -3402,16 +3402,33 @@ void __cdecl std3D_SetCurrentPalette(void *palette,int flags)
 void __cdecl Palette_FromFloatTable(byte *out,byte *in,int n,double gamma)
 
 {
-  longlong lVar1;
+  float10 fVar1;
+  longlong lVar2;
+  float fVar3;
   
   if (0 < n) {
     do {
-      lVar1 = (longlong)_CIpow();
-      *out = (byte)lVar1;
-      lVar1 = (longlong)_CIpow();
-      out[1] = (byte)lVar1;
-      lVar1 = (longlong)_CIpow();
-      out[2] = (byte)lVar1;
+      fVar3 = _CIpow();
+      fVar1 = (float10)fVar3 * (float10)255.0;
+      if ((float10)255.0 < fVar1) {
+        fVar1 = (float10)255.0;
+      }
+      lVar2 = FTOL(fVar1);
+      *out = (byte)lVar2;
+      fVar3 = _CIpow();
+      fVar1 = (float10)fVar3 * (float10)255.0;
+      if ((float10)255.0 < fVar1) {
+        fVar1 = (float10)255.0;
+      }
+      lVar2 = FTOL(fVar1);
+      out[1] = (byte)lVar2;
+      fVar3 = _CIpow();
+      fVar1 = (float10)fVar3 * (float10)255.0;
+      if ((float10)255.0 < fVar1) {
+        fVar1 = (float10)255.0;
+      }
+      lVar2 = FTOL(fVar1);
+      out[2] = (byte)lVar2;
       out = out + 3;
       n = n + -1;
     } while (n != 0);
@@ -3442,10 +3459,8 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
   undefined4 uVar7;
   undefined4 uVar8;
   uint uVar9;
-  char cVar10;
+  byte bVar10;
   byte bVar11;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   longlong lVar13;
   longlong lVar14;
   longlong lVar15;
@@ -3459,10 +3474,18 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
   byte bVar12;
   
   g_dwStdColor_ColorConvertOneRow_row = g_dwStdColor_ColorConvertOneRow_row + 1;
-  cVar10 = (char)*(undefined4 *)(srcFormat + 8);
-  lVar13 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  lVar14 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  lVar15 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  bVar10 = (byte)*(undefined4 *)(srcFormat + 8);
+  lVar13 = FTOL(((float10)1.0 / (float10)((1 << (bVar10 & 0x1f)) + -1)) *
+                 (float10)((1 << ((byte)*(undefined4 *)(dstFormat + 8) & 0x1f)) + -1) *
+                 (float10)65536.0);
+  lVar14 = FTOL(((float10)1.0 /
+                 (float10)((1 << ((byte)*(undefined4 *)(srcFormat + 0xc) & 0x1f)) + -1)) *
+                 (float10)((1 << ((byte)*(undefined4 *)(dstFormat + 0xc) & 0x1f)) + -1) *
+                 (float10)65536.0);
+  lVar15 = FTOL(((float10)1.0 /
+                 (float10)((1 << ((byte)*(undefined4 *)(srcFormat + 0x10) & 0x1f)) + -1)) *
+                 (float10)((1 << ((byte)*(undefined4 *)(dstFormat + 0x10) & 0x1f)) + -1) *
+                 (float10)65536.0);
   bVar11 = (byte)*(undefined4 *)(dstFormat + 0x14);
   bVar12 = (byte)*(undefined4 *)(dstFormat + 0x18);
   if ((*(int *)(srcFormat + 4) == 0x18) && (*(int *)(dstFormat + 4) == 0x10)) {
@@ -3489,7 +3512,7 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
         src = src + 1;
         count = count - 1;
         *dst = (ushort)(((int)(((uint)(uVar1 >> ((byte)uVar4 & 0x1f)) &
-                               0xffffffffU >> (0x20U - cVar10 & 0x1f)) * (int)lVar13) >> 0x10) <<
+                               0xffffffffU >> (0x20 - bVar10 & 0x1f)) * (int)lVar13) >> 0x10) <<
                        (bVar11 & 0x1f)) |
                (ushort)(((int)(((uint)(uVar1 >> ((byte)uVar6 & 0x1f)) &
                                0xffffffffU >> (0x20U - (char)uVar5 & 0x1f)) * (int)lVar14) >> 0x10)
@@ -3511,7 +3534,7 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
         uVar7 = *(undefined4 *)(srcFormat + 0x24);
         PIECE(local_4,0,1) = (byte)(0xffffffff >> (0x20U - (char)uVar3 & 0x1f));
         uVar8 = *(undefined4 *)(srcFormat + 0x28);
-        PIECE(local_c,0,1) = (byte)(0xffffffff >> (0x20U - cVar10 & 0x1f));
+        PIECE(local_c,0,1) = (byte)(0xffffffff >> (0x20 - bVar10 & 0x1f));
         *(byte *)dst = ((byte)(uVar1 >> ((byte)uVar6 & 0x1f)) & (byte)local_c) <<
                        ((byte)*(undefined4 *)(srcFormat + 0x20) & 0x1f);
         *(byte *)((int)dst + 1) =

@@ -583,8 +583,6 @@ void __cdecl PerfBegin(int param_1)
 
 
 /* ---- 0x00482e80  PerfEnd ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Source: Main/sputmain.cpp (line 1462, from __FILE__/__LINE__ passed to the allocator) Original
    name PerfEnd (the remaster's GrimFandango (Linux): aligned call in grimlib_Display,
    sputCostume_DrawActorShadow, sputRender_Update); was Profile_End. */
@@ -593,11 +591,9 @@ undefined * __cdecl PerfEnd(int param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
-  undefined4 unaff_ESI;
+  float10 x;
   longlong lVar1;
-  undefined4 in_stack_ffffffe8;
-  #define uStack_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
+  #define local_18 (*(longlong *)(_frame + (0x30 - 0x18)))
   #define lStack_10 (*(longlong *)(_frame + (0x30 - 0x10)))
   #define dStack_8 (*(double *)(_frame + (0x30 - 0x8)))
   
@@ -606,19 +602,18 @@ undefined * __cdecl PerfEnd(int param_1)
               (s_slot____1____slot___PerfTotalEnt_004e7f74,
                s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x5b6);
   }
-  QueryPerformanceFrequency((int)(_stkneg + 24));
-  dStack_8 = PUN(double,CONCAT44(uStack_14,in_stack_ffffffe8));
+  QueryPerformanceFrequency((int)&local_18);
+  dStack_8 = (double)local_18;
   QueryPerformanceCounter((int)&lStack_10);
-  *(double *)(&g_dwGrimlib_PerfData + param_1 * 0xc) =
-       (((double)lStack_10 - *(double *)(&DAT_004e7b48 + param_1 * 0x30)) / dStack_8) * 1000.0;
-  lVar1 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
+  x = (((float10)lStack_10 - (float10)*(double *)(&DAT_004e7b48 + param_1 * 0x30)) /
+      (float10)dStack_8) * (float10)1000.0;
+  *(double *)(&g_dwGrimlib_PerfData + param_1 * 0xc) = (double)x;
+  lVar1 = FTOL(x);
   return (undefined *)lVar1;
 }
 #undef dStack_8
 #undef lStack_10
-#undef uStack_14
-
-#endif
+#undef local_18
 
 
 /* ---- 0x00482f00  grimlib_PlayMovie ---- */

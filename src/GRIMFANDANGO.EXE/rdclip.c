@@ -18,57 +18,122 @@ rdClip_Line2(int canvas,undefined4 *x0,undefined4 *y0,undefined4 *x1,undefined4 
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint uVar1;
-  uint uVar2;
-  uint uVar3;
-  int iVar4;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
-  longlong lVar5;
+  bool bVar1;
+  float fVar2;
+  bool bVar3;
+  int canvas_00;
+  uint uVar4;
+  uint uVar5;
+  uint uVar6;
+  int iVar7;
+  float10 x;
+  float10 x_00;
+  float10 x_01;
+  longlong lVar8;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  uVar1 = rdClip_CalcOutcode2(canvas,*x0,*y0);
-  uVar2 = rdClip_CalcOutcode2(canvas,*x1,*y1);
-  if ((uVar1 == 0) && (uVar2 == 0)) {
+  canvas_00 = canvas;
+  uVar4 = rdClip_CalcOutcode2(canvas,*x0,*y0);
+  uVar5 = rdClip_CalcOutcode2(canvas,*x1,*y1);
+  if ((uVar4 == 0) && (uVar5 == 0)) {
     return 1;
   }
-  uVar3 = uVar1 & uVar2;
-  while( true ) {
-    if (uVar3 != 0) {
-      return 0;
-    }
-    uVar3 = uVar1;
-    if (uVar1 == 0) {
-      uVar3 = uVar2;
-    }
-    if (uVar3 == uVar1) {
-      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      iVar4 = (int)lVar5;
-      lVar5 = _ftol((double)CONCAT44(unaff_EDI,iVar4));
-      uVar1 = rdClip_CalcOutcode2(canvas,(int)lVar5,iVar4);
+  if ((uVar4 & uVar5) == 0) {
+    canvas = PUN(int,(float)PUN(float,(int)*x0));
+    local_10 = PUN(uint,(float)PUN(float,(int)*x1));
+    local_14 = PUN(uint,(float)PUN(float,(int)*y0));
+    bVar1 = PUN(float,canvas) != PUN(float,local_10);
+    local_c = PUN(uint,(float)PUN(float,(int)*y1));
+    if (PUN(float,local_14) == PUN(float,local_c)) {
+      bVar3 = true;
     }
     else {
-      lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      iVar4 = (int)lVar5;
-      lVar5 = _ftol((double)CONCAT44(unaff_EDI,iVar4));
-      uVar2 = rdClip_CalcOutcode2(canvas,(int)lVar5,iVar4);
+      bVar3 = false;
     }
-    if ((uVar1 == 0) && (uVar2 == 0)) break;
-    uVar3 = uVar1 & uVar2;
+    do {
+      uVar6 = uVar4;
+      if (uVar4 == 0) {
+        uVar6 = uVar5;
+      }
+      fVar2 = PUN(float,canvas);
+      if ((uVar6 & 0x1000) == 0) {
+        if ((uVar6 & 0x100) == 0) {
+          if ((uVar6 & 0x10) == 0) {
+            if (bVar3) {
+              local_8 = local_14;
+            }
+            else {
+              local_8 = PUN(uint,(float)(((float)*(int *)(canvas_00 + 0x18) - PUN(float,canvas)) *
+                               ((PUN(float,local_c) - PUN(float,local_14)) /
+                               (PUN(float,local_10) - PUN(float,canvas))) + PUN(float,local_14)));
+            }
+            fVar2 = (float)*(int *)(canvas_00 + 0x18);
+          }
+          else if (bVar3) {
+            fVar2 = (float)*(int *)(canvas_00 + 0x20);
+            local_8 = local_14;
+          }
+          else {
+            local_8 = PUN(uint,(float)(((float)*(int *)(canvas_00 + 0x20) - PUN(float,canvas)) *
+                             ((PUN(float,local_c) - PUN(float,local_14)) / (PUN(float,local_10) - PUN(float,canvas))
+                             ) + PUN(float,local_14)));
+            fVar2 = (float)*(int *)(canvas_00 + 0x20);
+          }
+          x = (float10)(float)local_8;
+        }
+        else if (bVar1) {
+          fVar2 = ((float)*(int *)(canvas_00 + 0x24) - PUN(float,local_14)) *
+                  ((PUN(float,local_10) - PUN(float,canvas)) / (PUN(float,local_c) - PUN(float,local_14))) +
+                  PUN(float,canvas);
+          x = (float10)*(int *)(canvas_00 + 0x24);
+        }
+        else {
+          x = (float10)*(int *)(canvas_00 + 0x24);
+        }
+      }
+      else if (bVar1) {
+        x = (float10)*(int *)(canvas_00 + 0x1c);
+        fVar2 = ((float)*(int *)(canvas_00 + 0x1c) - PUN(float,local_14)) *
+                ((PUN(float,local_10) - PUN(float,canvas)) / (PUN(float,local_c) - PUN(float,local_14))) +
+                PUN(float,canvas);
+      }
+      else {
+        x = (float10)*(int *)(canvas_00 + 0x1c);
+      }
+      if (uVar6 == uVar4) {
+        local_14 = PUN(uint,(float)(float)x);
+        lVar8 = FTOL(x);
+        iVar7 = (int)lVar8;
+        lVar8 = FTOL(x_00);
+        uVar4 = rdClip_CalcOutcode2(canvas_00,(int)lVar8,iVar7);
+        canvas = PUN(int,(float)fVar2);
+      }
+      else {
+        local_c = PUN(uint,(float)(float)x);
+        lVar8 = FTOL(x);
+        iVar7 = (int)lVar8;
+        lVar8 = FTOL(x_01);
+        uVar5 = rdClip_CalcOutcode2(canvas_00,(int)lVar8,iVar7);
+        local_10 = PUN(uint,(float)fVar2);
+      }
+      if ((uVar4 == 0) && (uVar5 == 0)) {
+        lVar8 = FTOL((float10)PUN(float,canvas));
+        *x0 = (int)lVar8;
+        lVar8 = FTOL((float10)PUN(float,local_14));
+        *y0 = (int)lVar8;
+        lVar8 = FTOL((float10)PUN(float,local_10));
+        *x1 = (int)lVar8;
+        lVar8 = FTOL((float10)PUN(float,local_c));
+        *y1 = (int)lVar8;
+        return 1;
+      }
+    } while ((uVar4 & uVar5) == 0);
   }
-  lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  *x0 = (int)lVar5;
-  lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  *y0 = (int)lVar5;
-  lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  *x1 = (int)lVar5;
-  lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  *y1 = (int)lVar5;
-  return 1;
+  return 0;
 }
 #undef local_10
 #undef local_14

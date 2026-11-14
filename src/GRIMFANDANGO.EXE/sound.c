@@ -121,10 +121,9 @@ uint __cdecl SetSoundPosition(int param_1)
   uint uVar3;
   uint uVar4;
   uint uVar5;
-  undefined4 unaff_EBP;
-  undefined4 unaff_ESI;
-  longlong lVar6;
-  float fVar7;
+  float10 fVar6;
+  longlong lVar7;
+  float fVar8;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_c (*(float *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
@@ -137,19 +136,32 @@ uint __cdecl SetSoundPosition(int param_1)
     iVar1 = *(int *)((int)pvVar2 + 0xac) + 0x20 + *(int *)((int)pvVar2 + 0xb4) * 300;
     local_8 = *(float *)(param_1 + 0xc) - *(float *)(iVar1 + 4);
     local_4 = *(float *)(param_1 + 0x10) - *(float *)(iVar1 + 8);
-    fVar7 = rdVector_Normalize3QuickAcc(&local_c);
-    if (0.0 <= fVar7 - *(float *)(param_1 + 0x20)) {
+    fVar8 = rdVector_Normalize3QuickAcc(&local_c);
+    fVar6 = (float10)fVar8 - (float10)*(float *)(param_1 + 0x20);
+    if ((float10)0.0 <= fVar6) {
       uVar5 = *(uint *)(param_1 + 0x18);
       uVar4 = *(uint *)(param_1 + 0x14);
-      lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBP));
-      uVar3 = (uint)lVar6;
+      lVar7 = FTOL(((float10)*(float *)(param_1 + 0x1c) - fVar6) *
+                    ((float10)(uVar5 - uVar4) / (float10)*(float *)(param_1 + 0x1c)) +
+                    (float10)(int)uVar4);
+      uVar3 = (uint)lVar7;
       if ((uVar4 <= uVar3) && (uVar4 = uVar3, uVar5 < uVar3)) {
         uVar4 = uVar5;
       }
       SoundsSetParam(*(int *)(param_1 + 4),0x600,uVar4);
     }
-    lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBP));
-    uVar5 = (uint)lVar6;
+    fVar6 = ((float10)*(float *)(iVar1 + 0x38) * (float10)local_4 +
+            (float10)*(float *)(iVar1 + 0x34) * (float10)local_8 +
+            (float10)*(float *)(iVar1 + 0x30) * (float10)local_c) *
+            (float10)*(float *)((int)pvVar2 + 0x1b00);
+    if (fVar6 < (float10)-1.0) {
+      fVar6 = (float10)-1.0;
+    }
+    else if ((float10)1.0 < fVar6) {
+      fVar6 = (float10)1.0;
+    }
+    lVar7 = FTOL((fVar6 - (float10)-1.0) * (float10)64.0);
+    uVar5 = (uint)lVar7;
     if (0x7f < uVar5) {
       uVar5 = 0x7f;
     }
@@ -186,8 +198,6 @@ uint __cdecl sou_engine_GetRate(void)
 }
 
 /* ---- 0x004d0cf0  sou_engine_QueryTime ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Converts the byte count of a 0x34-byte voice record to samples depending on its format code
    (halved for 8/16-bit mono formats 1,2,4) Original name sou_engine_QueryTime (the remaster's
    GrimFandango (Linux): aligned call in SmushPlay_GetMovieTime, anm_Render); was
@@ -198,7 +208,6 @@ int __cdecl sou_engine_QueryTime(int voice)
 {
   uint uVar1;
   longlong lVar2;
-  double x;
   
   uVar1 = (&UINT_008dad84)[voice * 0xd];
   switch((&DAT_008dad6f)[voice * 0x34]) {
@@ -218,10 +227,7 @@ int __cdecl sou_engine_QueryTime(int voice)
   }
   voice = uVar1;
 switchD_004d0d15_default:
-  x = (double)voice;
-  sou_engine_GetRate();
-  lVar2 = _ftol(x);
+  uVar1 = sou_engine_GetRate();
+  lVar2 = FTOL((float10)voice / ((float10)(int)uVar1 * (float10)0.001));
   return (int)lVar2;
 }
-#endif
-

@@ -179,8 +179,6 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
   uint uVar7;
   float fVar8;
   uint uVar9;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   longlong lVar10;
   #define local_10 (*(float (*)[3])(_frame + (0x20 - 0x10)))
   
@@ -237,13 +235,13 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
   }
   if (local_10[2] < local_10[1]) {
     if (fVar2 < local_10[0]) {
-      lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar10 = FTOL((float10)ROUND(local_10[2]));
       *(int *)(&DAT_008de014 + iVar1) = (int)lVar10;
-      lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar10 = FTOL((float10)ROUND(local_10[1]));
       *(int *)(&DAT_008de018 + iVar1) = (int)lVar10;
-      lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar10 = FTOL((float10)ROUND(fVar2));
       *(int *)(&DAT_008de01c + iVar1) = (int)lVar10;
-      lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar10 = FTOL((float10)ROUND(local_10[0]));
       *(int *)(&DAT_008de020 + iVar1) = (int)lVar10;
       if ((flags & 1) != 0) {
         g_dwNumUsedVertices = g_dwNumUsedVertices + vertexCount;
@@ -305,10 +303,12 @@ uint __cdecl rdCache_SendFaceListToHardware(void)
   int iVar11;
   int iVar12;
   uint uVar13;
-  undefined4 unaff_ESI;
   undefined1 *puVar14;
-  undefined4 unaff_EDI;
   uint uVar15;
+  float10 extraout_ST0;
+  float10 extraout_ST0_00;
+  float10 extraout_ST0_01;
+  float10 extraout_ST0_02;
   longlong lVar16;
   longlong lVar17;
   #define local_7c (*(float (*)[3])(_frame + (0x90 - 0x7c)))
@@ -358,7 +358,10 @@ uint __cdecl rdCache_SendFaceListToHardware(void)
   if (((0.0 < _DAT_0090002c) || (0.0 < _DAT_00900030)) || (0.0 < _DAT_00900034)) {
     bVar5 = true;
     bVar8 = true;
+    local_58 = PUN(uint,(float)(_DAT_0090002c - (_DAT_00900034 * 0.5 + _DAT_00900030 * 0.5)));
     local_20 = _DAT_0090002c * 0.5;
+    local_60 = PUN(uint,(float)(_DAT_00900030 - (local_20 + _DAT_00900034 * 0.5)));
+    local_5c = PUN(uint,(float)(_DAT_00900034 - (local_20 + _DAT_00900030 * 0.5)));
   }
   if (((g_dwRdroid_curColorEffects != 0) || (UINT_00900024 != 0)) || (UINT_00900028 != 0)) {
     bVar6 = true;
@@ -738,13 +741,15 @@ LAB_00407a22:
               if (g_dwRdroid_curVertexColorMode != 1) {
                 iVar11 = *(int *)(local_2c + 4) * 3 + *(int *)(puVar14 + 0x4c);
                 local_14 = (uint)*(byte *)(iVar11 + 0x30);
-                lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+                lVar16 = FTOL((float10)local_14 *
+                               (float10)*(float *)(*(int *)(puVar14 + 0x28) + local_8 * 4) *
+                               (float10)0.015625);
                 local_1c = (uint)lVar16;
                 local_14 = (uint)*(byte *)(iVar11 + 0x31);
-                lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+                lVar16 = FTOL((float10)local_14 * extraout_ST0_01);
                 local_10 = (uint)lVar16;
                 local_14 = (uint)*(byte *)(iVar11 + 0x32);
-                lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+                lVar16 = FTOL((float10)local_14 * extraout_ST0_02);
                 local_18 = (uint)lVar16;
               }
             }
@@ -752,23 +757,26 @@ LAB_00407a22:
               iVar11 = *(int *)(local_2c + 4) * 3;
               local_14 = (uint)*(byte *)(iVar11 + 0x30 + *(int *)(puVar14 + 0x4c));
               iVar11 = iVar11 + *(int *)(puVar14 + 0x4c);
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)local_14 *
+                             (float10)*(float *)(puVar14 + 0x44) * (float10)0.015625);
               local_1c = (uint)lVar16;
               local_14 = (uint)*(byte *)(iVar11 + 0x31);
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)local_14 * extraout_ST0);
               local_10 = (uint)lVar16;
               local_14 = (uint)*(byte *)(iVar11 + 0x32);
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)local_14 * extraout_ST0_00);
               local_18 = (uint)lVar16;
             }
-            uVar15 = local_10;
-            if (*(uint *)(puVar14 + 0x4c) != g_dwRdColormap_pCurMap) {
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+            uVar15 = *(uint *)(puVar14 + 0x4c);
+            uVar13 = local_10;
+            if (uVar15 != g_dwRdColormap_pCurMap) {
+              lVar16 = FTOL((float10)(int)local_1c * (float10)*(float *)(uVar15 + 0x24));
               local_1c = (uint)lVar16 & 0xff;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-              uVar15 = (uint)lVar16 & 0xff;
-              local_10 = uVar15;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_10 * (float10)*(float *)(uVar15 + 0x28));
+              uVar13 = (uint)lVar16 & 0xff;
+              local_10 = uVar13;
+              lVar16 = FTOL((float10)(int)local_18 *
+                             (float10)*(float *)(*(int *)(puVar14 + 0x4c) + 0x2c));
               local_18 = (uint)lVar16 & 0xff;
             }
             local_30 = local_30 | 0x8000;
@@ -777,7 +785,7 @@ LAB_00407a22:
                 local_1c = 0;
               }
               if (UINT_00900024 == 0) {
-                uVar15 = 0;
+                uVar13 = 0;
                 local_10 = 0;
               }
               if (UINT_00900028 == 0) {
@@ -785,20 +793,20 @@ LAB_00407a22:
               }
             }
             if (bVar8) {
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_1c * (float10)(float)local_58);
               local_1c = local_1c + (int)lVar16;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-              uVar15 = uVar15 + (int)lVar16;
-              local_10 = uVar15;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_10 * (float10)(float)local_60);
+              uVar13 = uVar13 + (int)lVar16;
+              local_10 = uVar13;
+              lVar16 = FTOL((float10)(int)local_18 * (float10)(float)local_5c);
               local_18 = local_18 + (int)lVar16;
             }
             if (_DAT_00900044 < 1.0) {
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_1c * (float10)_DAT_00900044);
               local_1c = (uint)lVar16;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-              uVar15 = (uint)lVar16;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_10 * (float10)_DAT_00900044);
+              uVar13 = (uint)lVar16;
+              lVar16 = FTOL((float10)(int)local_18 * (float10)_DAT_00900044);
               local_18 = (uint)lVar16;
             }
             if ((int)local_1c < 0) {
@@ -808,13 +816,13 @@ LAB_00407a22:
               local_1c = 0xff;
             }
             local_1c = local_1c & 0xff;
-            if ((int)uVar15 < 0) {
-              uVar15 = 0;
+            if ((int)uVar13 < 0) {
+              uVar13 = 0;
             }
-            else if (0xff < (int)uVar15) {
-              uVar15 = 0xff;
+            else if (0xff < (int)uVar13) {
+              uVar13 = 0xff;
             }
-            local_10 = uVar15 & 0xff;
+            local_10 = uVar13 & 0xff;
             if ((int)local_18 < 0) {
               local_18 = 0;
             }
@@ -1076,16 +1084,17 @@ LAB_004071fa:
             }
             else if (local_34 == 3) {
               if (g_dwRdroid_curVertexColorMode == 1) {
-                lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+                iVar11 = local_8 * 4;
+                lVar16 = FTOL((float10)*(float *)(*(int *)(puVar14 + 0x2c) + local_8 * 4));
                 local_1c = (uint)lVar16;
-                lVar17 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+                lVar17 = FTOL((float10)*(float *)(*(int *)(puVar14 + 0x30) + iVar11));
                 local_10 = (uint)lVar17;
-                lVar17 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+                lVar17 = FTOL((float10)*(float *)(*(int *)(puVar14 + 0x34) + iVar11));
                 local_18 = (uint)lVar17;
                 uVar15 = (uint)lVar16;
               }
               else {
-                lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+                lVar16 = FTOL((float10)*(float *)(*(int *)(puVar14 + 0x28) + local_8 * 4));
                 local_1c = (uint)lVar16;
                 uVar15 = local_1c;
                 local_18 = local_1c;
@@ -1093,19 +1102,20 @@ LAB_004071fa:
               }
             }
             else {
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)*(float *)(puVar14 + 0x44));
               local_1c = (uint)lVar16;
               uVar15 = local_1c;
               local_18 = local_1c;
               local_10 = local_1c;
             }
-            if (*(uint *)(puVar14 + 0x4c) != g_dwRdColormap_pCurMap) {
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+            uVar13 = *(uint *)(puVar14 + 0x4c);
+            if (uVar13 != g_dwRdColormap_pCurMap) {
+              lVar16 = FTOL((float10)(int)local_1c * (float10)*(float *)(uVar13 + 0x24));
               uVar15 = (uint)lVar16 & 0xff;
               local_1c = uVar15;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_10 * (float10)*(float *)(uVar13 + 0x28));
               local_10 = (uint)lVar16 & 0xff;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_18 * (float10)*(float *)(uVar13 + 0x2c));
               local_18 = (uint)lVar16 & 0xff;
               local_30 = local_30 | 0x8000;
             }
@@ -1123,20 +1133,20 @@ LAB_004071fa:
             }
             uVar13 = local_18;
             if (bVar8) {
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_1c * (float10)(float)local_58);
               uVar15 = uVar15 + (int)lVar16;
               local_1c = uVar15;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_10 * (float10)(float)local_60);
               local_10 = local_10 + (int)lVar16;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_18 * (float10)(float)local_5c);
               local_18 = uVar13 + (int)lVar16;
             }
             if (_DAT_00900044 < 1.0) {
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_1c * (float10)_DAT_00900044);
               uVar15 = (uint)lVar16;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_10 * (float10)_DAT_00900044);
               local_10 = (uint)lVar16;
-              lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+              lVar16 = FTOL((float10)(int)local_18 * (float10)_DAT_00900044);
               local_18 = (uint)lVar16;
             }
             if ((int)uVar15 < 0) {

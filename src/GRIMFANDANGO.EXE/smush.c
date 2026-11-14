@@ -287,7 +287,6 @@ int __cdecl SmushPlay_GetMovieLength(char *path)
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 unaff_ESI;
   longlong lVar2;
   #define auStack_428 (*(undefined1 (*)[2])(_frame + (0x440 - 0x428)))
   #define sStack_426 (*(short *)(_frame + (0x440 - 0x426)))
@@ -298,7 +297,7 @@ int __cdecl SmushPlay_GetMovieLength(char *path)
   }
   smushplay_GetInfo(iVar1,(int)auStack_428);
   (*(code *)g_pSmushPlay_file_services[1])(iVar1);
-  lVar2 = _ftol((double)CONCAT44((int)sStack_426,unaff_ESI));
+  lVar2 = FTOL((float10)(int)sStack_426 * (float10)66.666664);
   return (int)lVar2;
 }
 #undef auStack_428

@@ -605,8 +605,6 @@ void __cdecl sputActor_UpdateActorSpeech(Actor *actor,float dt)
   int iVar4;
   undefined2 extraout_var;
   CostumeNode *pCVar5;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   longlong lVar6;
   
   pAVar2 = actor->pExtra;
@@ -637,7 +635,7 @@ void __cdecl sputActor_UpdateActorSpeech(Actor *actor,float dt)
     }
   }
   pAVar2 = actor->pExtra;
-  lVar6 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  lVar6 = FTOL((float10)dt * (float10)-1000.0);
   pAVar2->nTalkTime = pAVar2->nTalkTime + (int)lVar6;
   if ((actor->pExtra->aVoiceFile[0] == '\0') || (iVar4 = Actor_IsVoicePlaying(actor), iVar4 != 0)) {
     if (actor->pExtra->aVoiceFile[0] != '\0') {
@@ -2311,8 +2309,6 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
   int iVar5;
   int iVar6;
   int iVar7;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   longlong lVar8;
   #define local_fc (*(float (*)[2])(_frame + (0x110 - 0xfc)))
   #define local_f4 (*(uint *)(_frame + (0x110 - 0xf4)))
@@ -2387,13 +2383,13 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
       }
     }
     if (local_fc[0] <= local_e4[0]) {
-      lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar8 = FTOL((float10)local_fc[0]);
       local_d0 = (uint)lVar8;
-      lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar8 = FTOL((float10)local_fc[1]);
       local_cc = (uint)lVar8;
-      lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar8 = FTOL((float10)local_e4[0] - (float10)local_fc[0]);
       local_c8 = (uint)lVar8;
-      lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar8 = FTOL((float10)local_e4[1] - (float10)local_fc[1]);
       local_c4 = (uint)lVar8;
       sputRender_MarkDirtyRect((int *)&local_d0,1);
     }

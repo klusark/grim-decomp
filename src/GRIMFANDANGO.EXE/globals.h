@@ -653,6 +653,8 @@ extern char s_width_004e8440[]; /* used by 1 fn(s), first 0x0048c500 */
 extern undefined DAT_004e8450; /* used by 5 fn(s), first 0x0048c500 */
 extern undefined DAT_004e8454; /* used by 5 fn(s), first 0x0048c500 */
 extern char s_color_004e8468[]; /* used by 1 fn(s), first 0x004a31f0 */
+extern undefined4 UINT_004e8470; /* used by 1 fn(s), first 0x0048b830 */
+extern undefined4 UINT_004e8474; /* used by 1 fn(s), first 0x0048b830 */
 extern undefined4 UINT_004e8480; /* used by 1 fn(s), first 0x0048b830 */
 extern undefined4 UINT_004e8484; /* used by 1 fn(s), first 0x0048b830 */
 extern undefined4 UINT_004e8490; /* used by 1 fn(s), first 0x0048b2e0 */
@@ -2328,7 +2330,7 @@ extern undefined4 g_dwRdZRaster_aAlphaMap; /* used by 45 fn(s), first 0x0042e820
 extern undefined g_dwRdZRaster_uOverZStep; /* used by 12 fn(s), first 0x00437e10 */
 extern undefined g_bRdZRaster_color; /* used by 18 fn(s), first 0x0042dba0 */
 extern undefined g_dwRdZRaster_dOneOverZdY; /* used by 4 fn(s), first 0x0042d5f0 */
-extern undefined g_dwRdZRaster_dOneOverZdX; /* used by 61 fn(s), first 0x0042d5f0 */
+extern undefined g_dwRdZRaster_dOneOverZdX; /* used by 1 fn(s), first 0x0042d5f0 */
 extern undefined4 g_dwRdZRaster_zScaleShift; /* used by 90 fn(s), first 0x0042e010 */
 extern undefined4 g_dwRdNRaster_aAlphaMap; /* used by 45 fn(s), first 0x00419a00 */
 extern undefined4 g_dwRdNRaster_dVdXModifier; /* used by 45 fn(s), first 0x00418550 */
@@ -2689,6 +2691,9 @@ extern uint UINT_009055f8; /* used by 4 fn(s), first 0x004767d0 */
 extern undefined DAT_009055fc; /* used by 1 fn(s), first 0x004767d0 */
 extern undefined DAT_00905600; /* used by 1 fn(s), first 0x00484030 */
 extern undefined4 UINT_00905604; /* used by 1 fn(s), first 0x00484030 */
+extern undefined4 UINT_00905608; /* used by 1 fn(s), first 0x004870e0 */
+extern undefined4 UINT_0090560c; /* used by 1 fn(s), first 0x004870e0 */
+extern undefined4 UINT_00905610; /* used by 1 fn(s), first 0x004870e0 */
 extern undefined DAT_00905614; /* used by 1 fn(s), first 0x004870e0 */
 extern undefined4 UINT_00905618; /* used by 1 fn(s), first 0x004870e0 */
 extern undefined4 UINT_0090561c; /* used by 1 fn(s), first 0x004870e0 */
@@ -2750,7 +2755,6 @@ extern undefined4 in_stack_ffffffd8; /* used by 2 fn(s), first 0x00492510 */
 extern undefined4 in_stack_ffffffdc; /* used by 2 fn(s), first 0x00492510 */
 extern undefined4 in_stack_ffffffe0; /* used by 1 fn(s), first 0x004b9b1c */
 extern undefined4 in_stack_ffffffe2; /* used by 1 fn(s), first 0x004b9b1c */
-extern undefined4 in_stack_ffffffe8; /* used by 2 fn(s), first 0x0040dc30 */
 
 /* ---- re-typed views of the symbols above ---- */
 #define _DAT_004dd34c (*(undefined4 *)&DAT_004dd34c) /* same address as DAT_004dd34c, other width */

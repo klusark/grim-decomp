@@ -1473,9 +1473,7 @@ rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,uint param_4,float para
   float fVar1;
   int y1;
   int iVar2;
-  undefined4 unaff_ESI;
   int x2;
-  undefined4 unaff_EDI;
   int y2;
   longlong lVar3;
   longlong lVar4;
@@ -1483,22 +1481,22 @@ rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,uint param_4,float para
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  lVar3 = FTOL((float10)PUN(float,param_4) - (float10)-0.5);
   iVar2 = (int)lVar3;
   if ((((*(int *)((int)param_1 + 0x18) <= iVar2 + param_2) &&
        (param_2 - iVar2 <= *(int *)((int)param_1 + 0x20))) &&
       (*(int *)((int)param_1 + 0x1c) <= iVar2 + param_3)) &&
      (param_3 - iVar2 <= *(int *)((int)param_1 + 0x24))) {
     stdMath_SinCos(0.0,(float *)&local_4,(float *)&local_8);
-    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    lVar3 = FTOL((float10)PUN(float,local_8) * (float10)PUN(float,param_4) - (float10)-0.5);
+    lVar4 = FTOL((float10)PUN(float,local_4) * (float10)PUN(float,param_4) - (float10)-0.5);
     iVar2 = (int)lVar3 + param_2;
     y1 = (int)lVar4 + param_3;
     for (fVar1 = param_5; fVar1 <= 360.0; fVar1 = fVar1 + param_5) {
       stdMath_SinCos(fVar1,(float *)&local_4,(float *)&local_8);
-      lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar3 = FTOL((float10)PUN(float,local_8) * (float10)PUN(float,param_4) - (float10)-0.5);
       x2 = (int)lVar3 + param_2;
-      lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar3 = FTOL((float10)PUN(float,local_4) * (float10)PUN(float,param_4) - (float10)-0.5);
       y2 = (int)lVar3 + param_3;
       rdPrimit2_DrawLine(param_1,iVar2,y1,x2,y2,param_6,param_7);
       iVar2 = x2;

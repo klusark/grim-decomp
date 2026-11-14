@@ -569,8 +569,6 @@ void __cdecl rdModel3_ClearFrameCounters(void)
 }
 
 /* ---- 0x0040dc30  rdPrimit3_GetScreenCoord ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua WorldToScreen; returns 0 when the point is behind the camera Original name
    rdPrimit3_GetScreenCoord (the remaster's GrimFandango (Linux): the only unmatched callee of
    Lua_WorldToScreen; 1 matched neighbours agree, 0 disagree); was rdCamera_ProjectPoint. */
@@ -578,23 +576,22 @@ void __cdecl rdModel3_ClearFrameCounters(void)
 int __cdecl rdPrimit3_GetScreenCoord(float *world,ScreenCoord *outScreen)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 unaff_ESI;
   longlong lVar2;
-  undefined4 in_stack_ffffffe8;
-  #define fStack_10 (*(float *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define fStack_14 (*(float *)(_frame + (0x30 - 0x14)))
+  #define fStack_10 (*(float *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   rdMatrix_TransformPoint34(local_c,world,(float *)((int)g_pRdCamera_CurCamera + 8));
   iVar1 = rdClip_Point3(*(void **)((int)g_pRdCamera_CurCamera + 0x48),local_c);
   if (iVar1 != 0) {
-    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))((_stkneg + 24),local_c);
+    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(&local_18,local_c);
     if (outScreen != (ScreenCoord *)0x0) {
-      lVar2 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
+      lVar2 = FTOL((float10)local_18);
       outScreen->nX = (int)lVar2;
-      lVar2 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
+      lVar2 = FTOL((float10)fStack_14);
       outScreen->nY = (int)lVar2;
       outScreen->flZ = fStack_10;
     }
@@ -603,7 +600,7 @@ int __cdecl rdPrimit3_GetScreenCoord(float *world,ScreenCoord *outScreen)
   return 0;
 }
 #undef fStack_10
+#undef fStack_14
+#undef local_18
 #undef local_c
-
-#endif
 

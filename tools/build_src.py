@@ -1226,12 +1226,14 @@ def fix_ftol(body, seh=True):
                 continue
         out.append(ln)
     body = "\n".join(out)
-    # LUA.DLL's _ftol has its operand in ST0 (custom storage in Ghidra): `_ftol((float10)x)` is the truncation of x
-    body = FTOL_ST0_RE.sub("FTOL((float10)", body)
+    # _ftol has its operand in ST0 (custom storage in Ghidra, names/protos_fix_2.json): `_ftol(x)` is the truncation
+    # of x. Not a call whose operand is stack garbage (`_ftol((double)CONCAT44(..))`, a program whose _ftol is still on
+    # the stack) or has none (`_ftol()`), and not a declaration (column 0).
+    body = FTOL_ST0_RE.sub("FTOL(", body)
     return drop_unused_artifacts(body)
 
 
-FTOL_ST0_RE = re.compile(r"\b_ftol\(\(float10\)")
+FTOL_ST0_RE = re.compile(r"(?m)(?<=[^\w\n])_ftol\((?!\)|\(double\)CONCAT44|in_stack_)")
 
 
 

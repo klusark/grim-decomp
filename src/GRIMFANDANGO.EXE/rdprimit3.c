@@ -127,8 +127,6 @@ void * __cdecl rdCache_InsertFace(float *verts,int count,void *material)
 
 
 /* ---- 0x0040dcc0  rdPrimit3_DrawLine ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Clips a world-space segment against the camera frustum, projects it and draws it with
    rdCanvas_DrawLine */
 
@@ -139,15 +137,15 @@ rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,u
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 unaff_EBX;
-  undefined4 unaff_ESI;
   longlong lVar2;
   longlong lVar3;
   longlong lVar4;
   longlong lVar5;
-  #define local_30 (*(undefined1 (*)[8])(_frame + (0x40 - 0x30)))
+  #define local_30 (*(float *)(_frame + (0x40 - 0x30)))
+  #define fStack_2c (*(float *)(_frame + (0x40 - 0x2c)))
   #define iStack_28 (*(int *)(_frame + (0x40 - 0x28)))
-  #define auStack_24 (*(undefined1 (*)[8])(_frame + (0x40 - 0x24)))
+  #define fStack_24 (*(float *)(_frame + (0x40 - 0x24)))
+  #define fStack_20 (*(float *)(_frame + (0x40 - 0x20)))
   #define iStack_1c (*(int *)(_frame + (0x40 - 0x1c)))
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
@@ -156,17 +154,17 @@ rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,u
   rdMatrix_TransformPoint34(local_c,b,(float *)((int)g_pRdCamera_CurCamera + 8));
   iVar1 = rdClip_Line3(*(void **)((int)g_pRdCamera_CurCamera + 0x48),local_18,local_c,clipA,clipB);
   if (iVar1 != 0) {
-    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(local_30,local_18);
-    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(auStack_24,local_c);
-    lVar2 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
-    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
+    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(&local_30,local_18);
+    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(&fStack_24,local_c);
+    lVar2 = FTOL((float10)local_30);
+    lVar3 = FTOL((float10)fStack_2c);
     if (outA != (int *)0x0) {
       *outA = (int)lVar2;
       outA[1] = (int)lVar3;
       outA[2] = iStack_28;
     }
-    lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
-    lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EBX));
+    lVar4 = FTOL((float10)fStack_24);
+    lVar5 = FTOL((float10)fStack_20);
     if (outB != (int *)0x0) {
       *outB = (int)lVar4;
       outB[1] = (int)lVar5;
@@ -178,19 +176,17 @@ rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,u
   }
   return 0;
 }
-#undef auStack_24
+#undef fStack_20
+#undef fStack_24
+#undef fStack_2c
 #undef iStack_1c
 #undef iStack_28
 #undef local_18
 #undef local_30
 #undef local_c
 
-#endif
-
 
 /* ---- 0x0040dde0  rdPrimit3_DrawPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Projects a world-space point with a radius and draws it as a 2D point */
 
 void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint a5)
@@ -203,7 +199,8 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
   #define local_30 (*(float *)(_frame + (0x40 - 0x30)))
   #define local_2c (*(float (*)[2])(_frame + (0x40 - 0x2c)))
   #define local_24 (*(float (*)[3])(_frame + (0x40 - 0x24)))
-  #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
+  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
+  #define fStack_14 (*(float *)(_frame + (0x40 - 0x14)))
   #define afStack_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
   rdMatrix_TransformPoint34(&local_30,world,(float *)((int)g_pRdCamera_CurCamera + 8));
@@ -211,24 +208,23 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
   local_24[1] = local_2c[0];
   local_24[2] = local_2c[1];
   if (0.0 < local_2c[0]) {
-    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(local_18,&local_30);
+    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(&local_18,&local_30);
     (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(afStack_c,local_24);
-    fVar3 = afStack_c[0] - local_18[0];
-    lVar2 = _ftol((double)CONCAT44(a3,fVar3));
+    fVar3 = afStack_c[0] - local_18;
+    lVar2 = FTOL((float10)fStack_14 - (float10)-0.5);
     iVar1 = (int)lVar2;
-    lVar2 = _ftol((double)CONCAT44(fVar3,iVar1));
+    lVar2 = FTOL((float10)local_18 - (float10)-0.5);
     rdCanvas_DrawPoint(*(void **)((int)g_pRdCamera_CurCamera + 4),(int)lVar2,iVar1,PUN(uint,(float)fVar3),
                        PUN(float,a3),a4,a5);
   }
   return;
 }
 #undef afStack_c
+#undef fStack_14
 #undef local_18
 #undef local_24
 #undef local_2c
 #undef local_30
-
-#endif
 
 
 /* ---- 0x0040deb0  rdPrimit3_ClipFace ---- */

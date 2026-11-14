@@ -47,10 +47,8 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
   void *pvVar8;
   int iVar9;
   undefined1 *puVar10;
-  undefined4 unaff_ESI;
   uint uVar11;
   int iVar12;
-  undefined4 unaff_EDI;
   uint uVar13;
   uint *puVar14;
   bool bVar15;
@@ -90,7 +88,7 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
   #define uStack_8f (*(undefined1 *)(_frame + (0x160 - 0x8f)))
   #define uStack_8e (*(undefined1 *)(_frame + (0x160 - 0x8e)))
   #define uStack_8d (*(undefined1 *)(_frame + (0x160 - 0x8d)))
-  #define fStack_8c (*(float *)(_frame + (0x160 - 0x8c)))
+  #define uStack_8c (*(undefined4 *)(_frame + (0x160 - 0x8c)))
   #define uStack_88 (*(undefined2 *)(_frame + (0x160 - 0x88)))
   #define uStack_86 (*(undefined2 *)(_frame + (0x160 - 0x86)))
   #define local_84 (*(uint *)(_frame + (0x160 - 0x84)))
@@ -140,7 +138,7 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
   uVar11 = (uStack_ec << 0x10 | uStack_ec & 0xff00) << 8 |
            (uStack_ec >> 0x10 | uStack_ec & 0xff0000) >> 8;
   uStack_ec = uVar11;
-  lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  lVar16 = FTOL((float10)fStack_e8);
   uVar3 = uStack_8e;
   uVar2 = uStack_90;
   uVar17 = (uint)lVar16;
@@ -154,11 +152,11 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
   uStack_8e = uStack_8d;
   uStack_8d = uVar3;
   uStack_94 = uVar13;
-  lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  lVar16 = FTOL((float10)(float)CONCAT22(PIECE(uStack_8c,2,2),(undefined2)uStack_8c));
   uVar17 = (uint)lVar16;
   uStack_110 = 0;
   uStack_114 = (uVar17 & 0xff00 | uVar17 << 0x10) << 8 | (uVar17 >> 0x10 | uVar17 & 0xff0000) >> 8;
-  fStack_8c = (float)uStack_114;
+  uStack_8c = PUN(undefined4,(float)((float)uStack_114));
   uStack_88 = CONCAT11((undefined1)uStack_88,PIECE(uStack_88,1,1));
   uStack_86 = CONCAT11((undefined1)uStack_86,PIECE(uStack_86,1,1));
   if (uVar11 != 0x5380f634) {
@@ -402,7 +400,6 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
 #undef bStack_14b
 #undef cStack_10b
 #undef cStack_10c
-#undef fStack_8c
 #undef fStack_e8
 #undef iStack_104
 #undef iStack_12c
@@ -443,6 +440,7 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
 #undef uStack_4c
 #undef uStack_86
 #undef uStack_88
+#undef uStack_8c
 #undef uStack_8d
 #undef uStack_8e
 #undef uStack_8f

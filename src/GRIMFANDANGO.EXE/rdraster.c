@@ -36,8 +36,6 @@ void __cdecl rdAFRaster_CalcAffineGradients(float *param_1,int param_2)
   float *pfVar17;
   int iVar18;
   int iVar19;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   float *pfVar20;
   float *pfVar21;
   longlong lVar22;
@@ -90,13 +88,14 @@ void __cdecl rdAFRaster_CalcAffineGradients(float *param_1,int param_2)
       iVar19 = *(int *)(PUN(int,(float)fVar5) + 0x20);
       pfVar17 = (float *)(iVar19 + (int)pfVar20 * 0xc);
       pfVar2 = (float *)(iVar19 + local_20 * 0xc);
-      lVar22 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar22 = FTOL((float10)*(float *)(iVar19 + (int)pfVar20 * 0xc) -
+                     (float10)*(float *)(iVar19 + local_20 * 0xc));
       iVar18 = (int)lVar22;
       if (iVar18 < 0) {
         iVar18 = -iVar18;
       }
       if ((float)iVar18 <= 1.0) {
-        lVar22 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        lVar22 = FTOL((float10)*pfVar17 - (float10)*(float *)(iVar19 + local_24 * 0xc));
         iVar18 = (int)lVar22;
         if (iVar18 < 0) {
           iVar18 = -iVar18;
@@ -278,15 +277,13 @@ void __cdecl rdAFRaster_CalcPerspGradients(float *param_1,int param_2)
   float fVar16;
   float fVar17;
   float fVar18;
-  float fVar19;
-  float *pfVar20;
-  uint uVar21;
-  float *pfVar22;
-  int iVar23;
-  float *pfVar24;
-  int iVar25;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
+  float *pfVar19;
+  uint uVar20;
+  float *pfVar21;
+  int iVar22;
+  float *pfVar23;
+  int iVar24;
+  float10 fVar25;
   float10 fVar26;
   float10 extraout_ST1;
   longlong lVar27;
@@ -302,10 +299,10 @@ void __cdecl rdAFRaster_CalcPerspGradients(float *param_1,int param_2)
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  pfVar20 = param_1;
+  pfVar19 = param_1;
   fVar12 = *param_1;
-  iVar23 = *(int *)(PUN(int,(float)fVar12) + 0x1c);
-  if (iVar23 == 3) {
+  iVar22 = *(int *)(PUN(int,(float)fVar12) + 0x1c);
+  if (iVar22 == 3) {
     local_2c = 0;
     param_1 = (float *)0x1;
     local_24 = 2;
@@ -313,54 +310,55 @@ void __cdecl rdAFRaster_CalcPerspGradients(float *param_1,int param_2)
   else {
     local_2c = *(uint *)(PUN(int,(float)fVar12) + 0x6c);
     param_1 = *(float **)(PUN(int,(float)fVar12) + 0x70);
-    uVar21 = local_2c + 1;
-    if ((int)uVar21 < 0) {
-      pfVar22 = (float *)(iVar23 - 1);
+    uVar20 = local_2c + 1;
+    if ((int)uVar20 < 0) {
+      pfVar21 = (float *)(iVar22 - 1);
     }
     else {
-      pfVar22 = (float *)((iVar23 + -1 < (int)uVar21) - 1 & uVar21);
+      pfVar21 = (float *)((iVar22 + -1 < (int)uVar20) - 1 & uVar20);
     }
-    pfVar24 = (float *)(iVar23 - 1);
-    if (pfVar22 == param_1) {
+    pfVar23 = (float *)(iVar22 - 1);
+    if (pfVar21 == param_1) {
       local_28 = 0xffffffff;
     }
     else {
-      pfVar22 = pfVar24;
+      pfVar21 = pfVar23;
       if (-1 < (int)(local_2c - 1)) {
-        pfVar22 = (float *)(((int)pfVar24 < (int)(local_2c - 1)) - 1 & local_2c - 1);
+        pfVar21 = (float *)(((int)pfVar23 < (int)(local_2c - 1)) - 1 & local_2c - 1);
       }
-      if (pfVar22 == param_1) {
+      if (pfVar21 == param_1) {
         local_28 = 1;
       }
       else {
-        local_24 = (uint)pfVar24;
-        if (-1 < (int)uVar21) {
-          local_24 = ((int)pfVar24 < (int)uVar21) - 1 & uVar21;
+        local_24 = (uint)pfVar23;
+        if (-1 < (int)uVar20) {
+          local_24 = ((int)pfVar23 < (int)uVar20) - 1 & uVar20;
         }
-        iVar23 = *(int *)(PUN(int,(float)fVar12) + 0x20);
-        pfVar22 = (float *)(iVar23 + local_24 * 0xc);
-        pfVar2 = (float *)(iVar23 + (int)param_1 * 0xc);
-        lVar27 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-        iVar25 = (int)lVar27;
-        if (iVar25 < 0) {
-          iVar25 = -iVar25;
+        iVar22 = *(int *)(PUN(int,(float)fVar12) + 0x20);
+        pfVar21 = (float *)(iVar22 + local_24 * 0xc);
+        pfVar2 = (float *)(iVar22 + (int)param_1 * 0xc);
+        lVar27 = FTOL((float10)*(float *)(iVar22 + local_24 * 0xc) -
+                       (float10)*(float *)(iVar22 + (int)param_1 * 0xc));
+        iVar24 = (int)lVar27;
+        if (iVar24 < 0) {
+          iVar24 = -iVar24;
         }
-        if ((float)iVar25 <= 1.0) {
-          lVar27 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-          iVar25 = (int)lVar27;
-          if (iVar25 < 0) {
-            iVar25 = -iVar25;
+        if ((float)iVar24 <= 1.0) {
+          lVar27 = FTOL((float10)*pfVar21 - (float10)*(float *)(iVar22 + local_2c * 0xc));
+          iVar24 = (int)lVar27;
+          if (iVar24 < 0) {
+            iVar24 = -iVar24;
           }
-          if ((float)iVar25 <= 1.0) {
+          if ((float)iVar24 <= 1.0) {
             local_28 = 0xffffffff;
             goto LAB_0040f132;
           }
         }
-        pfVar3 = (float *)(iVar23 + local_2c * 0xc);
-        fVar4 = pfVar22[1] -
-                ((*pfVar22 - *pfVar3) *
-                 ((pfVar2[1] - *(float *)(iVar23 + 4 + local_2c * 0xc)) /
-                 (*pfVar2 - *(float *)(iVar23 + local_2c * 0xc))) + pfVar3[1]);
+        pfVar3 = (float *)(iVar22 + local_2c * 0xc);
+        fVar4 = pfVar21[1] -
+                ((*pfVar21 - *pfVar3) *
+                 ((pfVar2[1] - *(float *)(iVar22 + 4 + local_2c * 0xc)) /
+                 (*pfVar2 - *(float *)(iVar22 + local_2c * 0xc))) + pfVar3[1]);
         if (fVar4 < 0.0) {
           fVar4 = -fVar4;
         }
@@ -371,142 +369,146 @@ void __cdecl rdAFRaster_CalcPerspGradients(float *param_1,int param_2)
       }
     }
 LAB_0040f132:
-    iVar23 = *(int *)(PUN(int,(float)fVar12) + 0x20);
+    iVar22 = *(int *)(PUN(int,(float)fVar12) + 0x20);
     local_18 = 0;
-    uVar21 = local_2c + local_28;
-    pfVar22 = pfVar24;
-    if (-1 < (int)uVar21) {
-      pfVar22 = (float *)(((int)pfVar24 < (int)uVar21) - 1 & uVar21);
+    uVar20 = local_2c + local_28;
+    pfVar21 = pfVar23;
+    if (-1 < (int)uVar20) {
+      pfVar21 = (float *)(((int)pfVar23 < (int)uVar20) - 1 & uVar20);
     }
-    while (pfVar22 != param_1) {
-      fVar4 = *(float *)(iVar23 + (int)pfVar22 * 0xc) -
-              (*(float *)(iVar23 + (int)param_1 * 0xc) + *(float *)(iVar23 + local_2c * 0xc)) * 0.5;
+    while (pfVar21 != param_1) {
+      fVar4 = *(float *)(iVar22 + (int)pfVar21 * 0xc) -
+              (*(float *)(iVar22 + (int)param_1 * 0xc) + *(float *)(iVar22 + local_2c * 0xc)) * 0.5;
       if (fVar4 < 0.0) {
         fVar4 = -fVar4;
       }
       if ((float)local_18 < fVar4) {
-        local_24 = (uint)pfVar22;
+        local_24 = (uint)pfVar21;
         local_18 = PUN(uint,(float)fVar4);
       }
-      uVar21 = local_28 + (int)pfVar22;
-      pfVar22 = pfVar24;
-      if (-1 < (int)uVar21) {
-        pfVar22 = (float *)(((int)pfVar24 < (int)uVar21) - 1 & uVar21);
+      uVar20 = local_28 + (int)pfVar21;
+      pfVar21 = pfVar23;
+      if (-1 < (int)uVar20) {
+        pfVar21 = (float *)(((int)pfVar23 < (int)uVar20) - 1 & uVar20);
       }
     }
   }
-  iVar23 = 0;
+  uVar20 = local_2c;
+  iVar22 = 0;
   if (0 < *(int *)(PUN(int,(float)fVar12) + 0x1c)) {
-    iVar25 = 0;
-    pfVar22 = pfVar20;
+    iVar24 = 0;
+    pfVar21 = pfVar19;
     do {
-      pfVar24 = pfVar22 + 1;
-      iVar1 = iVar23 * 8;
-      iVar23 = iVar23 + 1;
-      fVar4 = 1.0 / *(float *)(iVar25 + 8 + *(int *)(PUN(int,(float)fVar12) + 0x20));
-      iVar25 = iVar25 + 0xc;
-      *pfVar24 = fVar4;
-      pfVar22[0x21] = *(float *)(iVar1 + *(int *)(PUN(int,(float)fVar12) + 0x24)) * fVar4;
-      pfVar22[0x41] = *(float *)(iVar1 + 4 + *(int *)(PUN(int,(float)fVar12) + 0x24)) * *pfVar24;
-      pfVar22 = pfVar24;
-    } while (iVar23 < *(int *)(PUN(int,(float)fVar12) + 0x1c));
+      pfVar23 = pfVar21 + 1;
+      iVar1 = iVar22 * 8;
+      iVar22 = iVar22 + 1;
+      fVar4 = 1.0 / *(float *)(iVar24 + 8 + *(int *)(PUN(int,(float)fVar12) + 0x20));
+      iVar24 = iVar24 + 0xc;
+      *pfVar23 = fVar4;
+      pfVar21[0x21] = *(float *)(iVar1 + *(int *)(PUN(int,(float)fVar12) + 0x24)) * fVar4;
+      pfVar21[0x41] = *(float *)(iVar1 + 4 + *(int *)(PUN(int,(float)fVar12) + 0x24)) * *pfVar23;
+      pfVar21 = pfVar23;
+    } while (iVar22 < *(int *)(PUN(int,(float)fVar12) + 0x1c));
   }
-  iVar23 = *(int *)(PUN(int,(float)fVar12) + 0x20);
-  fVar13 = *(float *)(iVar23 + 4 + local_2c * 0xc) - *(float *)(iVar23 + 4 + local_24 * 0xc);
-  fVar15 = *(float *)(iVar23 + 4 + (int)param_1 * 0xc) - *(float *)(iVar23 + 4 + local_24 * 0xc);
-  fVar16 = *(float *)(iVar23 + local_2c * 0xc) - *(float *)(iVar23 + local_24 * 0xc);
-  fVar17 = *(float *)(iVar23 + (int)param_1 * 0xc) - *(float *)(iVar23 + local_24 * 0xc);
-  fVar4 = pfVar20[(int)param_1 + 0x21];
+  iVar22 = *(int *)(PUN(int,(float)fVar12) + 0x20);
+  fVar13 = *(float *)(iVar22 + 4 + local_2c * 0xc) - *(float *)(iVar22 + 4 + local_24 * 0xc);
+  fVar15 = *(float *)(iVar22 + 4 + (int)param_1 * 0xc) - *(float *)(iVar22 + 4 + local_24 * 0xc);
+  fVar16 = *(float *)(iVar22 + local_2c * 0xc) - *(float *)(iVar22 + local_24 * 0xc);
+  fVar17 = *(float *)(iVar22 + (int)param_1 * 0xc) - *(float *)(iVar22 + local_24 * 0xc);
+  fVar4 = pfVar19[(int)param_1 + 0x21];
   fVar14 = 1.0 / (fVar13 * fVar17 - fVar15 * fVar16);
-  fVar5 = pfVar20[local_2c + 0x21];
-  fVar6 = pfVar20[(int)param_1 + 0x41];
-  fVar7 = pfVar20[local_2c + 0x41];
-  fVar8 = pfVar20[local_24 + 0x21];
-  fVar9 = pfVar20[local_24 + 0x21];
-  fVar10 = pfVar20[local_24 + 0x41];
-  fVar11 = pfVar20[local_24 + 0x41];
-  fVar19 = -fVar14;
-  fVar18 = ((pfVar20[(int)param_1 + 1] - pfVar20[local_24 + 1]) * fVar16 -
-           (pfVar20[local_2c + 1] - pfVar20[local_24 + 1]) * fVar17) * fVar19;
-  pfVar20[0x61] =
-       ((pfVar20[(int)param_1 + 1] - pfVar20[local_24 + 1]) * fVar13 -
-       (pfVar20[local_2c + 1] - pfVar20[local_24 + 1]) * fVar15) * fVar14;
-  pfVar20[0x62] = fVar18;
-  lVar27 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  pfVar20[0x67] = (float)lVar27;
+  fVar5 = pfVar19[local_2c + 0x21];
+  fVar6 = pfVar19[(int)param_1 + 0x41];
+  fVar7 = pfVar19[local_2c + 0x41];
+  fVar8 = pfVar19[local_24 + 0x21];
+  fVar9 = pfVar19[local_24 + 0x21];
+  fVar10 = pfVar19[local_24 + 0x41];
+  fVar11 = pfVar19[local_24 + 0x41];
+  fVar18 = -fVar14;
+  fVar25 = (((float10)pfVar19[(int)param_1 + 1] - (float10)pfVar19[local_24 + 1]) * (float10)fVar16
+           - ((float10)pfVar19[local_2c + 1] - (float10)pfVar19[local_24 + 1]) * (float10)fVar17) *
+           (float10)fVar18;
+  fVar26 = (((float10)pfVar19[(int)param_1 + 1] - (float10)pfVar19[local_24 + 1]) * (float10)fVar13
+           - ((float10)pfVar19[local_2c + 1] - (float10)pfVar19[local_24 + 1]) * (float10)fVar15) *
+           (float10)fVar14;
+  pfVar19[0x61] = (float)fVar26;
+  pfVar19[0x62] = (float)fVar25;
+  lVar27 = FTOL(fVar26 * (float10)65536.0);
+  pfVar19[0x67] = (float)lVar27;
   fVar26 = ((float10)(fVar4 - fVar8) * (float10)fVar13 - (float10)(fVar5 - fVar9) * (float10)fVar15)
            * (float10)fVar14;
-  pfVar20[99] = (float)fVar26;
-  fVar4 = ((fVar4 - fVar8) * fVar16 - (fVar5 - fVar9) * fVar17) * fVar19;
+  pfVar19[99] = (float)fVar26;
+  fVar4 = ((fVar4 - fVar8) * fVar16 - (fVar5 - fVar9) * fVar17) * fVar18;
   fVar14 = ((fVar6 - fVar10) * fVar13 - (fVar7 - fVar11) * fVar15) * fVar14;
-  pfVar20[100] = fVar4;
-  pfVar20[0x65] = fVar14;
-  fVar19 = ((fVar6 - fVar10) * fVar16 - (fVar7 - fVar11) * fVar17) * fVar19;
-  pfVar20[0x66] = fVar19;
+  pfVar19[100] = fVar4;
+  pfVar19[0x65] = fVar14;
+  fVar18 = ((fVar6 - fVar10) * fVar16 - (fVar7 - fVar11) * fVar17) * fVar18;
+  pfVar19[0x66] = fVar18;
   if (param_2 == 0) {
-    pfVar20[0x70] = 0.0;
+    pfVar19[0x70] = 0.0;
     goto LAB_0040f4ea;
   }
   if (param_2 == 1) {
     if (*(float *)(PUN(int,(float)fVar12) + 100) <= _g_aRdroid_MipDistances) {
-      pfVar20[0x70] = 0.0;
+      pfVar19[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
   }
   else if (param_2 == 2) {
     if (*(float *)(PUN(int,(float)fVar12) + 100) <= _DAT_004dda90) {
-      pfVar20[0x70] = 0.0;
+      pfVar19[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
     if (_g_aRdroid_MipDistances < *(float *)(PUN(int,(float)fVar12) + 100)) {
-      pfVar20[0x70] = 2.8026e-45;
+      pfVar19[0x70] = 2.8026e-45;
       goto LAB_0040f4ea;
     }
   }
   else {
     if (param_2 != 3) goto LAB_0040f4ea;
     if (*(float *)(PUN(int,(float)fVar12) + 100) <= _DAT_004dda90) {
-      pfVar20[0x70] = 0.0;
+      pfVar19[0x70] = 0.0;
       goto LAB_0040f4ea;
     }
     if (_g_aRdroid_MipDistances < *(float *)(PUN(int,(float)fVar12) + 100)) {
       if (_DAT_004dda98 < *(float *)(PUN(int,(float)fVar12) + 100)) {
-        pfVar20[0x70] = 4.2039e-45;
+        pfVar19[0x70] = 4.2039e-45;
       }
       else {
-        pfVar20[0x70] = 2.8026e-45;
+        pfVar19[0x70] = 2.8026e-45;
       }
       goto LAB_0040f4ea;
     }
   }
-  pfVar20[0x70] = 1.4013e-45;
+  pfVar19[0x70] = 1.4013e-45;
 LAB_0040f4ea:
-  fVar26 = (float10)pfVar20[local_2c + 1] * fVar26 -
-           (float10)pfVar20[local_2c + 0x21] * extraout_ST1;
+  fVar26 = (float10)pfVar19[local_2c + 1] * fVar26 -
+           (float10)pfVar19[local_2c + 0x21] * extraout_ST1;
   if (fVar26 <= (float10)0.0) {
     if ((fVar26 < (float10)0.0) ||
-       (pfVar20[local_2c + 1] * fVar4 - pfVar20[local_2c + 0x21] * fVar18 < 0.0)) {
-      pfVar20[0x68] = 4.59163e-41;
+       (pfVar19[local_2c + 1] * fVar4 - pfVar19[local_2c + 0x21] * (float)fVar25 < 0.0)) {
+      pfVar19[0x68] = 4.59163e-41;
     }
     else {
-      pfVar20[0x68] = 4.59177e-41;
+      pfVar19[0x68] = 4.59177e-41;
     }
   }
   else {
-    pfVar20[0x68] = 4.59177e-41;
+    pfVar19[0x68] = 4.59177e-41;
   }
-  fVar26 = (float10)pfVar20[local_2c + 1] * (float10)fVar14 -
-           (float10)pfVar20[local_2c + 0x41] * extraout_ST1;
-  if (fVar26 <= (float10)0.0) {
-    if (((float10)0.0 <= fVar26) &&
-       (0.0 <= pfVar20[local_2c + 1] * fVar19 - pfVar20[local_2c + 0x41] * fVar18)) {
-      pfVar20[0x69] = 4.59177e-41;
+  local_2c = PUN(uint,(float)(float)fVar25);
+  fVar25 = (float10)pfVar19[uVar20 + 1] * (float10)fVar14 -
+           (float10)pfVar19[uVar20 + 0x41] * extraout_ST1;
+  if (fVar25 <= (float10)0.0) {
+    if (((float10)0.0 <= fVar25) &&
+       (0.0 <= pfVar19[uVar20 + 1] * fVar18 - pfVar19[uVar20 + 0x41] * PUN(float,local_2c))) {
+      pfVar19[0x69] = 4.59177e-41;
       return;
     }
-    pfVar20[0x69] = 4.59163e-41;
+    pfVar19[0x69] = 4.59163e-41;
     return;
   }
-  pfVar20[0x69] = 4.59177e-41;
+  pfVar19[0x69] = 4.59177e-41;
   return;
 }
 #undef local_10
@@ -5451,9 +5453,7 @@ void __cdecl rdNRaster_CalcAffineGradients(float param_1)
   int iVar14;
   int iVar15;
   float fVar16;
-  undefined4 unaff_ESI;
   float fVar17;
-  undefined4 unaff_EDI;
   uint uVar18;
   longlong lVar19;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
@@ -5503,13 +5503,14 @@ void __cdecl rdNRaster_CalcAffineGradients(float param_1)
         }
         pfVar2 = g_pRdNRaster_aVertices + PUN(int,(float)fVar17) * 3;
         pfVar3 = g_pRdNRaster_aVertices + g_nRdNRaster_yMaxVert * 3;
-        lVar19 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        lVar19 = FTOL((float10)g_pRdNRaster_aVertices[PUN(int,(float)fVar17) * 3] -
+                       (float10)g_pRdNRaster_aVertices[g_nRdNRaster_yMaxVert * 3]);
         iVar14 = (int)lVar19;
         if (iVar14 < 0) {
           iVar14 = -iVar14;
         }
         if ((float)iVar14 <= 1.0) {
-          lVar19 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          lVar19 = FTOL((float10)*pfVar2 - (float10)pfVar1[iVar15 * 3]);
           iVar14 = (int)lVar19;
           if (iVar14 < 0) {
             iVar14 = -iVar14;
@@ -5666,9 +5667,7 @@ void __cdecl rdNRaster_CalcPerspGradients(float param_1)
   int iVar10;
   int iVar11;
   int iVar12;
-  undefined4 unaff_ESI;
   float *pfVar13;
-  undefined4 unaff_EDI;
   uint uVar14;
   float *pfVar15;
   longlong lVar16;
@@ -5720,13 +5719,14 @@ void __cdecl rdNRaster_CalcPerspGradients(float param_1)
         }
         pfVar13 = g_pRdNRaster_aVertices + local_24 * 3;
         pfVar9 = g_pRdNRaster_aVertices + g_nRdNRaster_yMaxVert * 3;
-        lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+        lVar16 = FTOL((float10)g_pRdNRaster_aVertices[local_24 * 3] -
+                       (float10)g_pRdNRaster_aVertices[g_nRdNRaster_yMaxVert * 3]);
         iVar10 = (int)lVar16;
         if (iVar10 < 0) {
           iVar10 = -iVar10;
         }
         if ((float)iVar10 <= 1.0) {
-          lVar16 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+          lVar16 = FTOL((float10)*pfVar13 - (float10)pfVar6[iVar11 * 3]);
           iVar10 = (int)lVar16;
           if (iVar10 < 0) {
             iVar10 = -iVar10;
@@ -18975,15 +18975,14 @@ void __cdecl rdZRaster_CalcPerspGradients(float param_1)
   float fVar15;
   int iVar16;
   float fVar17;
-  undefined4 unaff_ESI;
   float fVar18;
   float *pfVar19;
-  undefined4 unaff_EDI;
   int iVar20;
   float *pfVar21;
+  float10 fVar22;
   float10 extraout_ST0;
   float10 extraout_ST1;
-  longlong lVar22;
+  longlong lVar23;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
@@ -19094,8 +19093,6 @@ void __cdecl rdZRaster_CalcPerspGradients(float param_1)
   pfVar19 = (float *)(piVar12 + PUN(int,(float)fVar17) * 3);
   fVar10 = PUN(float,piVar12[local_1c * 3]) - *pfVar19;
   fVar9 = PUN(float,piVar12[local_20 * 3]) - *pfVar19;
-  fVar8 = 1.0 / ((PUN(float,piVar12[local_1c * 3 + 1]) - pfVar19[1]) * fVar9 -
-                (PUN(float,piVar12[local_20 * 3 + 1]) - pfVar19[1]) * fVar10);
   fVar18 = (float)(&g_dwRdZRaster_aUOverZ)[local_20];
   fVar15 = (float)(&g_dwRdZRaster_aUOverZ)[local_1c];
   fVar2 = (float)(&g_dwRdZRaster_aVOverZ)[local_20];
@@ -19104,20 +19101,25 @@ void __cdecl rdZRaster_CalcPerspGradients(float param_1)
   fVar5 = (float)(&g_dwRdZRaster_aUOverZ)[PUN(int,(float)fVar17)];
   fVar6 = (float)(&g_dwRdZRaster_aVOverZ)[PUN(int,(float)fVar17)];
   fVar7 = (float)(&g_dwRdZRaster_aVOverZ)[PUN(int,(float)fVar17)];
-  _g_dwRdZRaster_dOneOverZdX =
-       (((float)(&g_dwRdZRaster_aOneOverZ)[local_20] -
-        (float)(&g_dwRdZRaster_aOneOverZ)[PUN(int,(float)fVar17)]) *
-        (PUN(float,piVar12[local_1c * 3 + 1]) - pfVar19[1]) -
-       ((float)(&g_dwRdZRaster_aOneOverZ)[local_1c] - (float)(&g_dwRdZRaster_aOneOverZ)[PUN(int,(float)fVar17)]
-       ) * (PUN(float,piVar12[local_20 * 3 + 1]) - pfVar19[1])) * fVar8;
+  fVar8 = (float)((float10)1.0 /
+                 (((float10)PUN(float,piVar12[local_1c * 3 + 1]) - (float10)pfVar19[1]) * (float10)fVar9
+                 - ((float10)PUN(float,piVar12[local_20 * 3 + 1]) - (float10)pfVar19[1]) *
+                   (float10)fVar10));
+  fVar22 = ((float10)((float)(&g_dwRdZRaster_aOneOverZ)[local_20] -
+                     (float)(&g_dwRdZRaster_aOneOverZ)[PUN(int,(float)fVar17)]) *
+            ((float10)PUN(float,piVar12[local_1c * 3 + 1]) - (float10)pfVar19[1]) -
+           (float10)((float)(&g_dwRdZRaster_aOneOverZ)[local_1c] -
+                    (float)(&g_dwRdZRaster_aOneOverZ)[PUN(int,(float)fVar17)]) *
+           ((float10)PUN(float,piVar12[local_20 * 3 + 1]) - (float10)pfVar19[1])) * (float10)fVar8;
   fVar11 = -fVar8;
   _g_dwRdZRaster_dOneOverZdY =
        (((float)(&g_dwRdZRaster_aOneOverZ)[local_20] -
         (float)(&g_dwRdZRaster_aOneOverZ)[PUN(int,(float)fVar17)]) * fVar10 -
        ((float)(&g_dwRdZRaster_aOneOverZ)[local_1c] - (float)(&g_dwRdZRaster_aOneOverZ)[PUN(int,(float)fVar17)]
        ) * fVar9) * fVar11;
-  lVar22 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  g_dwRdZRaster_dOneOverZdXFixed = (uint)lVar22;
+  *(float *)&g_dwRdZRaster_dOneOverZdX = (float)fVar22;
+  lVar23 = FTOL(fVar22 * (float10)65536.0);
+  g_dwRdZRaster_dOneOverZdXFixed = (uint)lVar23;
   _g_dwRdZRaster_dUOverZdX =
        (float)(((float10)(fVar18 - fVar4) * extraout_ST0 - (float10)(fVar15 - fVar5) * extraout_ST1)
               * (float10)fVar8);
@@ -19163,7 +19165,7 @@ void __cdecl rdZRaster_CalcPerspGradients(float param_1)
   g_dwRdZRaster_mipMapNum = 1;
 LAB_0042da90:
   fVar17 = (float)(&g_dwRdZRaster_aOneOverZ)[local_1c] * _g_dwRdZRaster_dUOverZdX -
-           (float)(&g_dwRdZRaster_aUOverZ)[local_1c] * _g_dwRdZRaster_dOneOverZdX;
+           (float)(&g_dwRdZRaster_aUOverZ)[local_1c] * *(float *)&g_dwRdZRaster_dOneOverZdX;
   if (fVar17 <= 0.0) {
     if ((fVar17 < 0.0) ||
        (g_dwRdZRaster_dUdXModifier = 0x8000,
@@ -19176,7 +19178,7 @@ LAB_0042da90:
     g_dwRdZRaster_dUdXModifier = 0x8000;
   }
   fVar17 = (float)(&g_dwRdZRaster_aOneOverZ)[local_1c] * _g_dwRdZRaster_dVOverZdX -
-           (float)(&g_dwRdZRaster_aVOverZ)[local_1c] * _g_dwRdZRaster_dOneOverZdX;
+           (float)(&g_dwRdZRaster_aVOverZ)[local_1c] * *(float *)&g_dwRdZRaster_dOneOverZdX;
   if (0.0 < fVar17) {
     g_dwRdZRaster_dVdXModifier = 0x8000;
     return;

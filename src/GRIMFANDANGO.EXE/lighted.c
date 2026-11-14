@@ -860,8 +860,6 @@ switchD_004bf4ef_caseD_2:
 
 
 /* ---- 0x004bf560  LightEd_ReadControl ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Parses the edited text field back into the light (position, direction, intensity, angles,
    falloff) */
 
@@ -870,8 +868,6 @@ void __cdecl LightEd_ReadControl(int hdlg,int id)
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint a5;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   longlong lVar1;
   float outer;
   int a2;
@@ -891,7 +887,7 @@ void __cdecl LightEd_ReadControl(int hdlg,int id)
     if (g_nLightEdBusy != 0) {
       return;
     }
-    lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    lVar1 = FTOL((float10)outer * (float10)1000.0);
     a5 = (uint)lVar1 & 0xffff;
     a2 = 0x3fb;
     goto LAB_004bf718;
@@ -901,7 +897,7 @@ void __cdecl LightEd_ReadControl(int hdlg,int id)
     if (g_nLightEdBusy != 0) {
       return;
     }
-    lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    lVar1 = FTOL((float10)outer * (float10)100.0);
     a5 = (uint)lVar1 & 0xffff;
     a2 = 0x3ff;
     goto LAB_004bf718;
@@ -911,7 +907,7 @@ void __cdecl LightEd_ReadControl(int hdlg,int id)
     if (g_nLightEdBusy != 0) {
       return;
     }
-    lVar1 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    lVar1 = FTOL((float10)outer * (float10)100.0);
     a5 = (uint)lVar1 & 0xffff;
     a2 = 0x400;
 LAB_004bf718:
@@ -941,8 +937,6 @@ LAB_004bf718:
   return;
 }
 #undef local_4c
-
-#endif
 
 
 /* ---- 0x004bf760  LightEd_SetLightPosComponent ---- */

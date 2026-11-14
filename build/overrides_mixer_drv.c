@@ -500,27 +500,6 @@ void dsn_fill_thread(void)
     ((DsndClock *)g_pDsndDriver_timer_services)->setPeriod(g_nStreamTimerId, 0x1234dc / (((int)g_dwStreamRate + (((int)g_dwStreamRate >> 31) & 0x3ff)) >> 10));
 }
 
-/* IDirectSoundBuffer::SetVolume on the primary buffer: the attenuation in 1/100 dB is (1 - v)^2 * -5000 for a
- * volume v in 0..1; `volume` carries the bits of that float (the caller, DSound_Init, passes the global as an int). */
-void DSound_SetPrimaryVolume(int volume)
-{
-    if (g_pDSoundPrimary != 0) {
-        union { int i; float f; } v;
-        long double d;
-        int attenuation;
-        void *hwnd;
-
-        v.i = volume;
-        d = (long double)1.0f - v.f;
-        attenuation = (int)(long long)(d * d * (long double)-5000.0f);    /* _ftol: 64-bit truncation, low dword */
-        hwnd = Win_GetMainHwnd();
-        if (COMX(g_pDirectSound, DS_SETCOOPERATIVELEVEL, hwnd, 2) >= 0) {
-            COMX(g_pDSoundPrimary, DSB_SETVOLUME, attenuation);
-            COMX(g_pDirectSound, DS_SETCOOPERATIVELEVEL, hwnd, 3);
-        }
-    }
-}
-
 /* ===================================================================================================================
  *  memcpy / memset of the Smush code.  Hand-written assembly in the original (cdecl, dst / src / count at ebp+8..): the
  *  fill routine pops the wrong registers when the count is not a multiple of 4 and would crash there; nothing calls it

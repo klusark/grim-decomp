@@ -116,7 +116,6 @@ float __cdecl stdMath_NormalizeAngleAcute(float param_1)
 /* ---- 0x0047bd20  stdMath_SinCos ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Variable defined which should be unmapped: local_30 */
 /* Math_SinCosTable(deg, &sin, &cos): 4096-entry quarter table, interpolated, per quadrant. Some
    quadrant indexes are one entry (90/4096 = 0.022 deg) off: a walker heading turned by a small
    negative angle turns 0.022 deg less (TurnActorTo right: 1.4229 instead of 1.445 at rate 85, 17
@@ -133,7 +132,6 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
   float fVar4;
   float fVar5;
   #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define uStack_2c (*(undefined4 *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -161,9 +159,10 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
   else {
     local_1c = 0;
   }
-  fVar5 = Math_Floor(fVar4 * 45.511112);
-  fVar5 = fVar4 * 45.511112 - fVar5;
-  lVar3 = _ftol((double)CONCAT44(uStack_2c,local_30));
+  fVar4 = fVar4 * 45.511112;
+  fVar5 = Math_Floor(fVar4);
+  fVar5 = fVar4 - fVar5;
+  lVar3 = FTOL((float10)fVar4);
   iVar1 = (int)lVar3;
   iVar2 = iVar1 + 1;
   switch(local_1c) {
@@ -251,7 +250,6 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
 #undef local_30
 #undef local_8
 #undef local_c
-#undef uStack_2c
 
 #endif
 
@@ -279,7 +277,6 @@ float __cdecl Math_Floor(float param_1)
 /* ---- 0x0047c120  stdMath_Tan ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Variable defined which should be unmapped: local_30 */
 /* Table/polynomial sine of an angle in degrees Original name stdMath_Tan (the remaster's
    GrimFandango (Linux): aligned call in rdCamera_BuildFOV; the second (tangent) table and its
    quadrant signs); was Math_SinDeg. */
@@ -294,7 +291,6 @@ float10 stdMath_Tan(float param_1)
   float fVar4;
   float fVar5;
   #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define uStack_2c (*(undefined4 *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -323,8 +319,8 @@ float10 stdMath_Tan(float param_1)
   }
   fVar4 = (fVar4 / 360.0) * 16384.0;
   fVar5 = Math_Floor(fVar4);
-  fVar4 = fVar4 - fVar5;
-  lVar3 = _ftol((double)CONCAT44(uStack_2c,local_30));
+  fVar5 = fVar4 - fVar5;
+  lVar3 = FTOL((float10)fVar4);
   iVar1 = (int)lVar3;
   iVar2 = iVar1 + 1;
   switch(local_1c) {
@@ -335,7 +331,7 @@ float10 stdMath_Tan(float param_1)
     else {
       local_8 = -g_aTanTable[0xfff - (iVar1 + -0xfff)];
     }
-    local_10[0] = (local_8 - g_aTanTable[iVar1]) * fVar4 + g_aTanTable[iVar1];
+    local_10[0] = (local_8 - g_aTanTable[iVar1]) * fVar5 + g_aTanTable[iVar1];
     break;
   case 1:
     if (iVar2 < 0x2000) {
@@ -344,7 +340,7 @@ float10 stdMath_Tan(float param_1)
     else {
       local_8 = *(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
-    local_10[0] = (local_8 - -g_aTanTable[0xfff - (iVar1 + -0x1000)]) * fVar4 +
+    local_10[0] = (local_8 - -g_aTanTable[0xfff - (iVar1 + -0x1000)]) * fVar5 +
                   -g_aTanTable[0xfff - (iVar1 + -0x1000)];
     break;
   case 2:
@@ -354,7 +350,7 @@ float10 stdMath_Tan(float param_1)
     else {
       local_8 = -g_aTanTable[0xfff - (iVar1 + -0x2fff)];
     }
-    local_10[0] = (local_8 - *(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2)) * fVar4 +
+    local_10[0] = (local_8 - *(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2)) * fVar5 +
                   *(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2);
     break;
   case 3:
@@ -364,7 +360,7 @@ float10 stdMath_Tan(float param_1)
     else {
       local_8 = *(float *)(iVar2 * 4 + 0x4d3600);
     }
-    local_10[0] = (local_8 - -g_aTanTable[0xfff - (iVar1 + -0x3000)]) * fVar4 +
+    local_10[0] = (local_8 - -g_aTanTable[0xfff - (iVar1 + -0x3000)]) * fVar5 +
                   -g_aTanTable[0xfff - (iVar1 + -0x3000)];
   }
   return (float10)local_10[0];
@@ -378,7 +374,6 @@ float10 stdMath_Tan(float param_1)
 #undef local_28
 #undef local_30
 #undef local_8
-#undef uStack_2c
 
 #endif
 

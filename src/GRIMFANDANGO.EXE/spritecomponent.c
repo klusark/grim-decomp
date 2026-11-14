@@ -263,8 +263,6 @@ uint __cdecl SpriteAdjuster(uint *param_1,uint param_2)
   int *piVar1;
   int iVar2;
   uint *puVar3;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   longlong lVar4;
   #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
   #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
@@ -284,15 +282,15 @@ uint __cdecl SpriteAdjuster(uint *param_1,uint param_2)
   local_2c = (uint)&DAT_004ea870;
   local_28 = (uint)&DAT_004ea86c;
   local_24 = (uint)&DAT_004ea868;
-  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x4c) * (float10)100.0 - (float10)-0.2);
   local_48 = (uint)lVar4;
-  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x50) * (float10)100.0 - (float10)-0.2);
   local_44 = (uint)lVar4;
-  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xac) * (float10)100.0 - (float10)-0.2);
   local_40 = (uint)lVar4;
-  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xb0) * (float10)100.0 - (float10)-0.2);
   local_3c = (uint)lVar4;
-  lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xb4) * (float10)100.0 - (float10)-0.2);
   local_38 = (uint)lVar4;
   iVar2 = grimPlat_SpinDialog(param_2,(int)&local_34,&local_48,5);
   if (iVar2 != 0) {
