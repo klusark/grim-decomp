@@ -236,35 +236,6 @@ int sou_engine_GetHVol(void)
     return -1;
 }
 
-/* Length of the played part of voice `voice` in milliseconds */
-int sou_engine_QueryTime(int voice)
-{
-    int bytes = g_aSndVoices[voice].position;
-
-    switch (g_aSndVoices[voice].format) {
-    case 0:
-        break;
-    case 1:
-    case 2:
-    case 4:
-        bytes = bytes >> 1;
-        break;
-    case 3:
-    case 5:
-        bytes = bytes >> 2;
-        break;
-    default:
-        goto count;
-    }
-    voice = bytes;
-count:
-    {
-        double samples = (double)voice;
-        int rate = sou_engine_GetRate();
-        return (int)(long long)(samples / ((double)rate * 0.001));
-    }
-}
-
 /* Adds `ms` (a double count of timer ticks, 1193180 Hz) to the clock and passes the whole ticks to the sync clock;
  * when the clock was resynchronised (g_nSndSyncTime set by SoundModule_SyncClock) and the external time has moved on, the
  * difference is taken off again. */

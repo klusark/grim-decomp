@@ -1,6 +1,29 @@
 {
- "_comment": "Prototype fixes (2026-11-14), replay after names/protos_fix_1.json with tools/apply_logic_protos.py names/protos_fix_2.json. LUA.DLL's _ftol (MSVC 6 runtime) converts the x87 value in ST0: with the operand declared in ST0 the decompiler shows what is converted (`_ftol((float10)PUN(float,o->dwValue))`), which build_src.py's fix_ftol turns into FTOL(...). Before, the calls were `_ftol()` and the functions around them were hand-written.",
+ "_comment": "Prototype fixes (2026-11-14), replay after names/protos_fix_1.json with tools/apply_logic_protos.py names/protos_fix_2.json. _ftol (MSVC 6 runtime, LUA.DLL's and the EXE's) converts the x87 value in ST0: with the operand declared in ST0 the decompiler shows what is converted (`_ftol((float10)PUN(float,o->dwValue))`), which build_src.py's fix_ftol turns into FTOL(...). Before, the calls were `_ftol()` and the functions around them were hand-written. With the EXE's _ftol in ST0 two prototypes moved on re-export and are stored: rdClip_Line2's canvas as int (sweep_protos had undefined4, which the decompiler re-typed float), sputLua_ImSetSequence as a Lua C function (void)(void) (the __fastcall parameter was the lost x87 value).",
  "LUA.DLL": {
-  "1000ef80": {"proto": "longlong _ftol(float10 x)", "cc": "__cdecl", "registers": {"x": "ST0"}}
+  "1000ef80": {
+   "proto": "longlong _ftol(float10 x)",
+   "cc": "__cdecl",
+   "registers": {
+    "x": "ST0"
+   }
+  }
+ },
+ "GRIMFANDANGO.EXE": {
+  "004ac6f0": {
+   "proto": "longlong _ftol(float10 x)",
+   "cc": "__cdecl",
+   "registers": {
+    "x": "ST0"
+   }
+  },
+  "00446c10": {
+   "proto": "undefined4 rdClip_Line2(int canvas, undefined4 *x0, undefined4 *y0, undefined4 *x1, undefined4 *y1)",
+   "cc": "__cdecl"
+  },
+  "004a1680": {
+   "proto": "void sputLua_ImSetSequence(void)",
+   "cc": "__cdecl"
+  }
  }
 }

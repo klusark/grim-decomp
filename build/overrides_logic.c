@@ -605,46 +605,10 @@ float10 stdMath_Tan(float deg)
  * Lua WorldToScreen helper: moves the world point into camera space, rejects it when the view frustum does not contain it
  * and otherwise runs the camera's projection (function pointer at +0x4c) on it.  The screen position is stored as two
  * integers (x and y truncated by _ftol, the decompiler lost both operands) followed by the depth as a float (ScreenCoord). */
-int rdPrimit3_GetScreenCoord(float *world, ScreenCoord *outScreen)
-{
-    char *cam = (char *)g_pRdCamera_CurCamera;
-    float local[3], proj[3];
-
-    rdMatrix_TransformPoint34(local, world, (float *)(cam + 8));
-    if (rdClip_Point3(*(void **)(cam + 0x48), local) == 0)
-        return 0;
-    ((void (*)(float *, float *))*(code **)(cam + 0x4c))(proj, local);
-    if (outScreen != (ScreenCoord *)0) {
-        outScreen->nX = (int)(long long)proj[0];
-        outScreen->nY = (int)(long long)proj[1];
-        outScreen->flZ = proj[2];
-    }
-    return 1;
-}
-
 /* ==== rdPrimit3_DrawPoint (0x0040dde0) ====
  * Draws a world-space point as a screen dot: projects the point and the point moved by `radius` along camera x (when it is
  * in front of the camera, y > 0), the on-screen distance of the two is the dot size, and rdCanvas_DrawPoint gets the
  * screen position (x + 0.5, y + 0.5 truncated) and the size.  The prototype in Ghidra lacked the two trailing arguments. */
-void rdPrimit3_DrawPoint(float *world, float radius, uint a3, uint a4, uint a5)
-{
-    char *cam = (char *)g_pRdCamera_CurCamera;
-    float p[3], q[3], s1[3], s2[3], size;
-    int ix, iy;
-
-    rdMatrix_TransformPoint34(p, world, (float *)(cam + 8));
-    q[0] = p[0] + radius;
-    q[1] = p[1];
-    q[2] = p[2];
-    if (p[1] > 0.0f) {
-        ((void (*)(float *, float *))*(code **)(cam + 0x4c))(s1, p);
-        ((void (*)(float *, float *))*(code **)(cam + 0x4c))(s2, q);
-        size = s2[0] - s1[0];
-        iy = (int)(long long)((long double)s1[1] - (-0.5L));        /* the code subtracts the double -0.5: round half up */
-        ix = (int)(long long)((long double)s1[0] - (-0.5L));
-        ((void (*)(void *, int, int, float, uint, uint, uint))rdCanvas_DrawPoint)(*(void **)(cam + 4), ix, iy, size, a3, a4, a5);
-    }
-}
 /* msvcrt's pow, called the way the game's _CIpow does (overrides.c): the operands are rounded to double */
 extern double (*msvcrt_pow)(double, double) __asm__("__imp__pow");   /* the import table slot of msvcrt's pow */
 #define host_pow(x, y) ((*msvcrt_pow)((x), (y)))
@@ -654,36 +618,6 @@ extern double (*msvcrt_pow)(double, double) __asm__("__imp__pow");   /* the impo
  * (rdClip_Line3, which also reports which end was clipped), projects the end points and hands the integer screen
  * positions (truncated by _ftol) to rdCanvas_DrawLine.  The optional outA / outB receive x, y (integers) and the
  * depth (float bits) of the end points.  param_7 is a full dword in the original (the Ghidra prototype said ushort). */
-undefined4 rdPrimit3_DrawLine(float *a, float *b, int *outA, int *outB, int *clipA, int *clipB, uint color, uint pattern)
-{
-    char *cam = (char *)g_pRdCamera_CurCamera;
-    float v1[3], v2[3], s1[3], s2[3];
-    int x1, y1, x2, y2;
-
-    rdMatrix_TransformPoint34(v1, a, (float *)(cam + 8));
-    rdMatrix_TransformPoint34(v2, b, (float *)(cam + 8));
-    if (rdClip_Line3(*(void **)(cam + 0x48), v1, v2, clipA, clipB) == 0)
-        return 0;
-    ((void (*)(float *, float *))*(code **)(cam + 0x4c))(s1, v1);
-    ((void (*)(float *, float *))*(code **)(cam + 0x4c))(s2, v2);
-    x1 = (int)(long long)s1[0];
-    y1 = (int)(long long)s1[1];
-    if (outA != (int *)0) {
-        outA[0] = x1;
-        outA[1] = y1;
-        outA[2] = ((int *)s1)[2];
-    }
-    x2 = (int)(long long)s2[0];
-    y2 = (int)(long long)s2[1];
-    if (outB != (int *)0) {
-        outB[0] = x2;
-        outB[1] = y2;
-        outB[2] = ((int *)s2)[2];
-    }
-    ((void (*)(void *, int, int, int, int, uint, uint))rdCanvas_DrawLine)(*(void **)(cam + 4), x1, y1, x2, y2, color, pattern);
-    return 1;
-}
-
 /* ==== Input_SetAxisRange (0x00477e70) ====
  * Sets up the range of a joystick axis (24 byte record at 0x00901500): flag, min, max, centre, dead zone (in axis
  * units, truncated by _ftol; 0 when the dead zone is 0.0 or NaN) and the reciprocal of the half range. */
@@ -841,77 +775,11 @@ void sputRender_DimRegion(int x, int y, int w, int h, float scale)
  * Save / load progress bar on the primary surface: a yellow (0xffe0, remapped for the display) frame of 540 x 14 pixels at
  * (50, 455) whose inner 12 rows are filled for `fraction` (0..1) of the width.  The decompiler lost the operand of the
  * _ftol that turns fraction * 540 into the number of filled pixels. */
-void Render_DrawProgressBar(float fraction)
-{
-    uint color = 0xffe0;
-    int filled, rows, n;
-    char *line;
-    ushort *p;
-
-    if (1.0f < fraction)
-        fraction = 1.0f;
-    filled = (int)(long long)((long double)fraction * 540.0f);
-    sputRender_ColorCorrect((ushort *)&color, 1);
-    stdDisplay_VBufferLock(&g_dwStdDisplay_frontBuffer);
-    line = (char *)(UINT_00901698 * 0x1c7 + UINT_009016dc);
-    p = (ushort *)(line + 100);
-    for (n = 0x21c; n != 0; n--)
-        *p++ = (ushort)color;
-    for (rows = 12; rows != 0; rows--) {
-        line += UINT_00901698 & 0xfffffffe;
-        p = (ushort *)(line + 100);
-        *(ushort *)(line + 0x49a) = 0xffe0;
-        *p = 0xffe0;
-        if (0x32 < filled + 0x32) {
-            for (n = filled; n != 0; n--)
-                *p++ = (ushort)color;
-        }
-    }
-    p = (ushort *)(line + 100);
-    for (n = 0x21c; n != 0; n--)
-        *p++ = (ushort)color;
-    stdDisplay_VBufferUnlock(&g_dwStdDisplay_frontBuffer);
-}
-
 /* ==== sputRender_DrawIrisEffect (0x00486d00) ====
  * Blacks out the 640 x 480 back buffer outside a rectangle around (x, y) that has closed by `percent` (0 = open):
  * (y * p) rows at the top, ((480 - y) * p) rows at the bottom, and in the rows between (x * p) pixels at the left and
  * ((640 - x) * p) at the right.  The decompiler lost the four _ftol operands.  The surface address and pitch are read
  * before the surface is locked, as in the original. */
-void sputRender_DrawIrisEffect(float percent, int x, int y)
-{
-    int top, left, bottom, right, row;
-    uint pitch, base;
-    char *p;
-
-    if (!(percent >= 0.0f) || percent > 1.0f) {
-        (*g_pSputRendHS->pAssertFail)(s__percent____0_0f______percent____004e80ec, s_C__grimsrc_libs_grimlib_Engine_s_004e80bc, 0x9f2);
-    }
-    top = (int)(long long)((long double)y * percent);
-    left = (int)(long long)((long double)x * percent);
-    bottom = (int)(long long)((long double)(0x1e0 - y) * percent);
-    right = (int)(long long)((long double)(0x280 - x) * percent);
-    base = UINT_0090563c;
-    pitch = UINT_009055f8;
-    stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
-    for (row = 0; row < top; row++)                   /* top rows: all black */
-        memset((char *)base + (uint)row * pitch, 0, 0x500);
-    if (row < 0)
-        row = 0;
-    if (row < 0x1e0 - bottom) {                       /* middle rows: left and right bands */
-        for (; row < 0x1e0 - bottom; row++) {
-            p = (char *)base + row * pitch;
-            if (left > 0)
-                memset(p, 0, (uint)left * 2);
-            if (right > 0)
-                memset(p + (0x280 - (uint)right) * 2, 0, (uint)right * 2);
-        }
-    }
-    for (; row < 0x1e0; row++)                         /* bottom rows: all black */
-        memset((char *)base + row * pitch, 0, 0x500);
-    stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
-}
-
 /* ==== sputRender_ScreenShot (0x00486f90) ====
  * Renders a dimmed frame, then makes a new w x h surface and fills it with the background scaled down by point sampling:
  * the source column / row is the truncated running sum of 640 / w and 480 / h (the sums stay in extended precision on
@@ -1020,25 +888,6 @@ undefined * __cdecl Smush_SetFile(uint id)
 /* ==== PerfEnd (0x00482e80) ====
  * Stops the stopwatch of profile slot 0..12: elapsed = (counter - start) / frequency * 1000 milliseconds, stored in the slot
  * record (48 bytes at 0x004e7b48: start at +0, result at +8) and returned truncated (the operand of _ftol was lost). */
-undefined * __cdecl PerfEnd(int slot)
-{
-    long long freq, now;
-    double freq_d;
-    long double ms;
-    char *rec;
-
-    if (slot < 0 || 0xc < slot) {
-        (*g_pSputmHS->pAssertFail)(s_slot____1____slot___PerfTotalEnt_004e7f74, s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c, 0x5b6);
-    }
-    QueryPerformanceFrequency((int)&freq);
-    freq_d = (double)freq;
-    QueryPerformanceCounter((int)&now);
-    rec = (char *)&DAT_004e7b48 + slot * 0x30;
-    ms = (((long double)now - *(double *)rec) / freq_d) * 1000.0;
-    *(double *)(rec + 8) = (double)ms;
-    return (undefined *)(int)(long long)ms;
-}
-
 /* ==== sputActor_UpdateActorSpeech (0x00490210) ====
  * Lip sync: while the actor speaks (talk flag +0x1dc, voice handle +0x1c8) the current phoneme is read from iMUSE and the
  * matching talk chore is completed; the text timer (+0x1cc) runs down by dt * 1000 (the decompiler lost the operand of

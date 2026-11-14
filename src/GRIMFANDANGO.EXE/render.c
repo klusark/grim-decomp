@@ -847,7 +847,6 @@ void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
 /* ---- 0x004864a0  Render_BuildColorTable ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Variable defined which should be unmapped: local_40 */
 /* Fills the 65536-entry 16-bit remap table g_wSputRender_ColorLookup for the pixel format and gamma
     */
 
@@ -857,11 +856,13 @@ void __cdecl Render_BuildColorTable(int param_1,float param_2)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   undefined4 uVar2;
-  int iVar3;
-  int iVar4;
+  undefined4 uVar3;
+  longlong lVar4;
   longlong lVar5;
   longlong lVar6;
-  longlong lVar7;
+  float fVar7;
+  float fVar8;
+  float fVar9;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
@@ -879,19 +880,20 @@ void __cdecl Render_BuildColorTable(int param_1,float param_2)
   
   local_24 = 0;
   do {
-    _CIpow();
-    _CIpow();
-    _CIpow();
-    iVar3 = (1 << ((byte)*(undefined4 *)(param_1 + 0xc) & 0x1f)) + -1;
-    iVar4 = (1 << ((byte)*(undefined4 *)(param_1 + 0x10) & 0x1f)) + -1;
-    lVar5 = _ftol((double)CONCAT44(iVar3,iVar4));
-    uVar1 = *(undefined4 *)(param_1 + 0x14);
-    lVar6 = _ftol((double)CONCAT44(iVar3,iVar4));
-    uVar2 = *(undefined4 *)(param_1 + 0x18);
-    lVar7 = _ftol((double)CONCAT44(iVar3,iVar4));
+    fVar7 = _CIpow();
+    fVar8 = _CIpow();
+    fVar9 = _CIpow();
+    uVar1 = *(undefined4 *)(param_1 + 0xc);
+    uVar2 = *(undefined4 *)(param_1 + 0x10);
+    lVar4 = FTOL((float10)((float)((1 << ((byte)*(undefined4 *)(param_1 + 8) & 0x1f)) + -1) * fVar7
+                           ));
+    uVar3 = *(undefined4 *)(param_1 + 0x14);
+    lVar5 = FTOL((float10)((float)((1 << ((byte)uVar1 & 0x1f)) + -1) * fVar8));
+    uVar1 = *(undefined4 *)(param_1 + 0x18);
+    lVar6 = FTOL((float10)((float)((1 << ((byte)uVar2 & 0x1f)) + -1) * fVar9));
     (&g_wSputRender_ColorLookup)[local_24] =
-         (ushort)((int)lVar5 << ((byte)uVar1 & 0x1f)) | (ushort)((int)lVar6 << ((byte)uVar2 & 0x1f))
-         | (ushort)((int)lVar7 << ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f));
+         (ushort)((int)lVar4 << ((byte)uVar3 & 0x1f)) | (ushort)((int)lVar5 << ((byte)uVar1 & 0x1f))
+         | (ushort)((int)lVar6 << ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f));
     local_24 = local_24 + 1;
   } while ((int)local_24 < 0x10000);
   g_flSputRender_GammaCorrection = param_2;
@@ -1210,8 +1212,6 @@ void __cdecl sputRender_SetPageFlip(int param_1)
 }
 
 /* ---- 0x00486d00  sputRender_DrawIrisEffect ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Blacks out the back buffer outside a rectangle centred on (x,y) that has closed by `percent` (0 =
    fully open, 1 = closed) Original name sputRender_DrawIrisEffect (the remaster's GrimFandango
    (Linux): aligned call in sputRender_Update); was Render_DrawIris. */
@@ -1228,8 +1228,6 @@ void __cdecl sputRender_DrawIrisEffect(float percent,int x,int y)
   undefined4 *puVar7;
   int iVar8;
   undefined4 *puVar9;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   undefined4 *puVar10;
   longlong lVar11;
   longlong lVar12;
@@ -1240,11 +1238,11 @@ void __cdecl sputRender_DrawIrisEffect(float percent,int x,int y)
               (s__percent____0_0f______percent____004e80ec,
                s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0x9f2);
   }
-  lVar11 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  lVar11 = FTOL((float10)y * (float10)percent);
   iVar3 = (int)lVar11;
-  lVar11 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  lVar12 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-  lVar13 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  lVar11 = FTOL((float10)x * (float10)percent);
+  lVar12 = FTOL((float10)(0x1e0 - y) * (float10)percent);
+  lVar13 = FTOL((float10)(0x280 - x) * (float10)percent);
   uVar2 = UINT_0090563c;
   uVar1 = UINT_009055f8;
   uVar4 = (uint)lVar13;
@@ -1310,8 +1308,6 @@ void __cdecl sputRender_DrawIrisEffect(float percent,int x,int y)
   stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
   return;
 }
-#endif
-
 
 /* ---- 0x00486eb0  sputRender_IrisDown ---- */
 /* Lua IrisDown: starts an iris transition closing over durationMs Original name sputRender_IrisDown
@@ -1376,12 +1372,15 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
   void *surface_00;
   undefined2 *puVar3;
   int iVar4;
-  undefined4 unaff_ESI;
   uint *puVar5;
-  undefined4 unaff_EDI;
   uint *puVar6;
-  longlong lVar7;
+  float10 fVar7;
+  float10 extraout_ST0;
+  float10 x;
+  float10 extraout_ST0_00;
+  float10 extraout_ST1;
   longlong lVar8;
+  longlong lVar9;
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
   #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
@@ -1409,22 +1408,28 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
   stdDisplay_VBufferLock(surface);
   local_58 = 0;
   if (0 < h) {
+    fVar7 = (float10)0.0;
     do {
-      lVar7 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      lVar8 = FTOL(fVar7);
       iVar4 = *(int *)((int)surface + 0x5c);
       iVar1 = *(int *)((int)surface + 0x18);
+      x = (float10)0.0;
       puVar3 = (undefined2 *)
                (local_58 * *(int *)((int)surface_00 + 0x18) + *(int *)((int)surface_00 + 0x5c));
+      fVar7 = extraout_ST0;
       if (0 < w) {
         local_5c = w;
         do {
-          lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-          *puVar3 = *(undefined2 *)((int)lVar7 * iVar1 + iVar4 + (int)lVar8 * 2);
+          lVar9 = FTOL(x);
+          x = extraout_ST0_00 + (float10)(640.0 / (float)w);
+          *puVar3 = *(undefined2 *)((int)lVar8 * iVar1 + iVar4 + (int)lVar9 * 2);
           puVar3 = puVar3 + 1;
           local_5c = local_5c - 1;
+          fVar7 = extraout_ST1;
         } while (local_5c != 0);
       }
       local_58 = local_58 + 1;
+      fVar7 = fVar7 + (float10)(480.0 / (float)h);
     } while ((int)local_58 < h);
   }
   stdDisplay_VBufferUnlock(surface_00);
@@ -1453,13 +1458,15 @@ void __cdecl sputRender_DimRegion(int x,int y,int w,int h,float scale)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  ushort *puVar1;
-  ushort *puVar2;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
-  longlong lVar3;
-  longlong lVar4;
-  longlong lVar5;
+  ushort uVar1;
+  char cVar2;
+  char cVar3;
+  char cVar4;
+  ushort *puVar5;
+  ushort *puVar6;
+  longlong lVar7;
+  longlong lVar8;
+  longlong lVar9;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
@@ -1468,26 +1475,33 @@ void __cdecl sputRender_DimRegion(int x,int y,int w,int h,float scale)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
+  cVar2 = (char)UINT_00905608;
+  cVar3 = (char)UINT_0090560c;
+  cVar4 = (char)UINT_00905610;
   stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
-  puVar2 = (ushort *)(UINT_0090563c + y * UINT_009055f8 + x * 2);
+  puVar6 = (ushort *)(UINT_0090563c + y * UINT_009055f8 + x * 2);
   if (0 < h) {
     local_14 = h;
     do {
       if (0 < w) {
         local_1c = w;
-        puVar1 = puVar2;
+        puVar5 = puVar6;
         do {
-          lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-          lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-          lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-          *puVar1 = (ushort)((int)lVar5 << ((byte)UINT_0090561c & 0x1f)) |
-                    (ushort)((int)lVar4 << ((byte)UINT_00905618 & 0x1f)) |
-                    (ushort)((int)lVar3 << ((byte)_DAT_00905614 & 0x1f));
+          uVar1 = *puVar5;
+          lVar7 = FTOL((float10)((uint)(uVar1 >> ((byte)_DAT_00905614 & 0x1f)) &
+                                 0xffffffffU >> (0x20U - cVar2 & 0x1f)) * (float10)scale);
+          lVar8 = FTOL((float10)((uint)(uVar1 >> ((byte)UINT_00905618 & 0x1f)) &
+                                 0xffffffffU >> (0x20U - cVar3 & 0x1f)) * (float10)scale);
+          lVar9 = FTOL((float10)((uint)(uVar1 >> ((byte)UINT_0090561c & 0x1f)) &
+                                 0xffffffffU >> (0x20U - cVar4 & 0x1f)) * (float10)scale);
+          *puVar5 = (ushort)((int)lVar9 << ((byte)UINT_0090561c & 0x1f)) |
+                    (ushort)((int)lVar8 << ((byte)UINT_00905618 & 0x1f)) |
+                    (ushort)((int)lVar7 << ((byte)_DAT_00905614 & 0x1f));
           local_1c = local_1c - 1;
-          puVar1 = puVar1 + 1;
+          puVar5 = puVar5 + 1;
         } while (local_1c != 0);
       }
-      puVar2 = (ushort *)((int)puVar2 + UINT_009055f8);
+      puVar6 = (ushort *)((int)puVar6 + UINT_009055f8);
       local_14 = local_14 - 1;
     } while (local_14 != 0);
   }
@@ -1644,8 +1658,6 @@ void __cdecl sputRender_SaveDrawBuffer(char *filename)
 
 
 /* ---- 0x004873d0  Render_DrawProgressBar ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Draws the save/load progress bar directly on the primary surface */
 
 void __cdecl Render_DrawProgressBar(float fraction)
@@ -1656,13 +1668,14 @@ void __cdecl Render_DrawProgressBar(float fraction)
   undefined2 *puVar2;
   int iVar3;
   int iVar4;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   longlong lVar5;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0xffe0;
-  lVar5 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  if (1.0 < fraction) {
+    fraction = 1.0;
+  }
+  lVar5 = FTOL((float10)fraction * (float10)540.0);
   sputRender_ColorCorrect((ushort *)&local_4,1);
   stdDisplay_VBufferLock(&g_dwStdDisplay_frontBuffer);
   iVar3 = 0x21c;
@@ -1700,8 +1713,6 @@ void __cdecl Render_DrawProgressBar(float fraction)
   return;
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x004874c0  sputRender_AllowLoadImage ---- */

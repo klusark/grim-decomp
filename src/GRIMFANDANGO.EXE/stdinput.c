@@ -1052,14 +1052,18 @@ LAB_00477e51:
 /* ---- 0x00477e70  Input_SetAxisRange ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* Sets up axis scaling for stdControl_ReadAxis: centre = min + (max-min+1)/2, scale =
+   1/(max-centre), integer dead zone = deadZone*(max-centre) (0 if deadZone==0). Joysticks use the
+   winmm caps range and deadZone 0.1, so axis values are (raw-centre)/(max-centre), about -1..1,
+   zero inside 10%, not rescaled past the dead zone. */
+
 void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone)
 
 {
   int iVar1;
-  undefined4 unaff_ESI;
   int iVar2;
-  undefined4 unaff_EDI;
-  longlong lVar3;
+  float10 fVar3;
+  longlong lVar4;
   
   iVar1 = ((max - min) + 1) / 2 + min;
   iVar2 = axis * 0x18;
@@ -1067,10 +1071,11 @@ void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone)
   (&UINT_00901504)[axis * 6] = min;
   *(int *)(&DAT_00901508 + iVar2) = max;
   *(int *)(&DAT_0090150c + iVar2) = iVar1;
-  *(float *)(&DAT_00901514 + iVar2) = 1.0 / (float)(max - iVar1);
+  fVar3 = (float10)(max - iVar1);
+  *(float *)(&DAT_00901514 + iVar2) = (float)((float10)1.0 / fVar3);
   if (deadZone != 0.0) {
-    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-    *(int *)(&DAT_00901510 + iVar2) = (int)lVar3;
+    lVar4 = FTOL((float10)deadZone * fVar3);
+    *(int *)(&DAT_00901510 + iVar2) = (int)lVar4;
     return;
   }
   *(undefined4 *)(&DAT_00901510 + iVar2) = 0;

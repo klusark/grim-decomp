@@ -1723,3 +1723,25 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
 * Not yet: GRIMFANDANGO.EXE's `_ftol` is still `_ftol(double x)` on the stack: 37 overridden EXE functions have
   `_ftol((double)CONCAT44(unaff_ESI,unaff_EDI))`, the same fix there is the next step.
 * Clean room 0 of 5457 after each of the six rounds.
+
+## GRIMFANDANGO.EXE's _ftol takes ST0 too; 9 more overrides generated again (2026-11-14)
+
+* The EXE's `_ftol` (0x004ac6f0) is `longlong _ftol(float10 x)` with x in ST0, like LUA.DLL's (names/protos_fix_2.json).
+  138 functions re-exported: the 99 live ones (mostly the Lua bindings of lua.c / sputlua.c) go from
+  `(longlong)lua_getnumber(o)` to `fVar = lua_getnumber(o); FTOL((float10)fVar)`, the same truncation; 19 lose the
+  "may have set the stack pointer" warning. Clean room 0 of 5457 with only that change.
+* Two prototypes moved on the re-export and are stored (protos_fix_2.json): rdClip_Line2's canvas as `int`
+  (sweep_protos.json had `undefined4`, which the decompiler re-typed `float`), sputLua_ImSetSequence as `void (void)`
+  (the `__fastcall` parameter had been the lost x87 value).
+* fix_ftol (build_src.py) now writes every `_ftol(x)` with a real operand as `FTOL(x)` (not the stack-garbage forms
+  `_ftol((double)CONCAT44(..))`, which no program has any more, nor `_ftol()`).
+* Generated again: DSound_SetPrimaryVolume, PerfEnd, sou_engine_QueryTime (the twin had lost the division by the
+  rate), rdPrimit3_GetScreenCoord, rdPrimit3_DrawPoint, rdPrimit3_DrawLine, Render_DrawProgressBar,
+  sputRender_DrawIrisEffect, LightEd_ReadControl.
+* Kept, though their twins now have the converted values: Palette_FromFloatTable / Render_BuildColorTable
+  (`_CIpow()` with its operands lost), the twins whose float constants Ghidra prints as decimals that are not the
+  float's value as a double (SmushPlay_GetMovieLength 66.666664, SpriteAdjuster -0.2 / 0.01, sputText_PrintLineL
+  16.666668, sputCostume_Update 0.001: the hand-written versions use the float), SetSoundPosition (the twin sums the
+  dot product in the other order), SoundModule_AdvanceClock (the twin reads the clock as a float, the override as a
+  double), Input_SetAxisRange (NaN dead zone), the x87-exact ports (rdCanvas_DrawPoint, stdMath_Tan, rdClip_Line2).
+* Clean room 0 of 5457 (the _ftol change alone, then with 7, then all 9 overrides removed).

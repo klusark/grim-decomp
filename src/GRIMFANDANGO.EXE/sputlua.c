@@ -18,6 +18,7 @@ void __cdecl sputLua_GetActorCostumeL(void)
   char *pcVar5;
   CostumeNode *pCVar6;
   longlong lVar7;
+  float fVar8;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -32,7 +33,8 @@ void __cdecl sputLua_GetActorCostumeL(void)
       if (iVar1 == 0) {
         return;
       }
-      lVar7 = (longlong)lua_getnumber(iVar2);
+      fVar8 = lua_getnumber(iVar2);
+      lVar7 = FTOL((float10)fVar8);
       iVar1 = (int)lVar7;
       if (pCVar6 == (CostumeNode *)0x0) goto LAB_0049a295;
       do {
@@ -68,6 +70,7 @@ void __cdecl sputLua_GetPointSectorL(void)
   WalkPlane *pWVar6;
   uint mask;
   longlong lVar7;
+  float fVar8;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
@@ -84,7 +87,8 @@ void __cdecl sputLua_GetPointSectorL(void)
       if (iVar5 != 0) {
         iVar5 = lua_isnil(iVar4);
         if (iVar5 == 0) {
-          lVar7 = (longlong)lua_getnumber(iVar4);
+          fVar8 = lua_getnumber(iVar4);
+          lVar7 = FTOL((float10)fVar8);
           mask = (uint)lVar7;
         }
         else {
@@ -340,7 +344,8 @@ void __cdecl sputLua_StartMovieL(void)
   uint uVar7;
   uint uVar8;
   longlong lVar9;
-  uint uVar10;
+  float fVar10;
+  uint uVar11;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -354,7 +359,8 @@ void __cdecl sputLua_StartMovieL(void)
       uVar8 = 0xffffffff;
     }
     else {
-      lVar9 = (longlong)lua_getnumber(iVar4);
+      fVar10 = lua_getnumber(iVar4);
+      lVar9 = FTOL((float10)fVar10);
       uVar8 = (uint)lVar9;
     }
     iVar4 = lua_isnumber(iVar3);
@@ -362,14 +368,15 @@ void __cdecl sputLua_StartMovieL(void)
       uVar6 = 0xffffffff;
     }
     else {
-      lVar9 = (longlong)lua_getnumber(iVar3);
+      fVar10 = lua_getnumber(iVar3);
+      lVar9 = FTOL((float10)fVar10);
       uVar6 = (uint)lVar9;
     }
     iVar2 = lua_isnil(iVar2);
-    uVar10 = (uint)(iVar2 == 0);
+    uVar11 = (uint)(iVar2 == 0);
     iVar2 = 0;
     uVar7 = lua_getstring(iVar1);
-    uVar8 = grimlib_PlayMovie(uVar7,iVar2,uVar10,uVar6,uVar8);
+    uVar8 = grimlib_PlayMovie(uVar7,iVar2,uVar11,uVar6,uVar8);
     if (uVar8 == 1) {
       lua_pushnumber(1.0);
       return;
@@ -487,6 +494,7 @@ void __cdecl sputLua_ImStartSound(void)
   int iVar4;
   longlong lVar5;
   longlong lVar6;
+  float fVar7;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
@@ -499,8 +507,10 @@ void __cdecl sputLua_ImStartSound(void)
   }
   iVar4 = lua_isnumber(iVar2);
   if ((iVar4 != 0) && (iVar4 = lua_isnumber(iVar3), iVar4 != 0)) {
-    lVar5 = (longlong)lua_getnumber(iVar3);
-    lVar6 = (longlong)lua_getnumber(iVar2);
+    fVar7 = lua_getnumber(iVar3);
+    lVar5 = FTOL((float10)fVar7);
+    fVar7 = lua_getnumber(iVar2);
+    lVar6 = FTOL((float10)fVar7);
     iVar2 = (int)lVar6;
     iVar1 = lua_getstring(iVar1);
     iVar1 = SoundsLoadStartSound(iVar1,iVar2,(uint)lVar5);
@@ -513,7 +523,6 @@ void __cdecl sputLua_ImStartSound(void)
 
 
 /* ---- 0x004a1030  sputLua_ImStopSound ---- */
-/* WARNING: This function may have set the stack pointer */
 /* Lua opcode: ImStopSound */
 
 void __cdecl sputLua_ImStopSound(void)
@@ -522,11 +531,13 @@ void __cdecl sputLua_ImStopSound(void)
   int iVar1;
   int iVar2;
   longlong lVar3;
+  float fVar4;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber(iVar1);
+    fVar4 = lua_getnumber(iVar1);
+    lVar3 = FTOL((float10)fVar4);
     SoundsStopSound((int)lVar3);
     return;
   }
@@ -548,6 +559,7 @@ void __cdecl sputLua_ImGetParam(void)
   int iVar3;
   uint uVar4;
   longlong lVar5;
+  float fVar6;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -560,14 +572,17 @@ void __cdecl sputLua_ImGetParam(void)
       lua_pushnumber(-1.0);
       return;
     }
-    lVar5 = (longlong)lua_getnumber(iVar2);
+    fVar6 = lua_getnumber(iVar2);
+    lVar5 = FTOL((float10)fVar6);
     local_10 = (uint)lVar5;
     iVar1 = lua_getstring(iVar1);
   }
   else {
-    lVar5 = (longlong)lua_getnumber(iVar2);
+    fVar6 = lua_getnumber(iVar2);
+    lVar5 = FTOL((float10)fVar6);
     local_10 = (uint)lVar5;
-    lVar5 = (longlong)lua_getnumber(iVar1);
+    fVar6 = lua_getnumber(iVar1);
+    lVar5 = FTOL((float10)fVar6);
     iVar1 = (int)lVar5;
   }
   uVar4 = SoundsGetParam(iVar1,local_10);
@@ -590,6 +605,7 @@ void __cdecl sputLua_ImSetParam(void)
   int iVar4;
   uint uVar5;
   longlong lVar6;
+  float fVar7;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -602,31 +618,38 @@ void __cdecl sputLua_ImSetParam(void)
   if ((iVar4 != 0) && (iVar4 = lua_isnumber(iVar3), iVar4 != 0)) {
     iVar4 = lua_isnumber(iVar1);
     if (iVar4 != 0) {
-      lVar6 = (longlong)lua_getnumber(iVar3);
+      fVar7 = lua_getnumber(iVar3);
+      lVar6 = FTOL((float10)fVar7);
       if ((int)lVar6 < 1) {
         uVar5 = 0;
       }
       else {
-        lVar6 = (longlong)lua_getnumber(iVar3);
+        fVar7 = lua_getnumber(iVar3);
+        lVar6 = FTOL((float10)fVar7);
         uVar5 = (uint)lVar6;
       }
-      lVar6 = (longlong)lua_getnumber(iVar2);
+      fVar7 = lua_getnumber(iVar2);
+      lVar6 = FTOL((float10)fVar7);
       iVar2 = (int)lVar6;
-      lVar6 = (longlong)lua_getnumber(iVar1);
+      fVar7 = lua_getnumber(iVar1);
+      lVar6 = FTOL((float10)fVar7);
       SoundsSetParam((int)lVar6,iVar2,uVar5);
       return;
     }
     iVar4 = lua_isstring(iVar1);
     if (iVar4 != 0) {
-      lVar6 = (longlong)lua_getnumber(iVar3);
+      fVar7 = lua_getnumber(iVar3);
+      lVar6 = FTOL((float10)fVar7);
       if ((int)lVar6 < 1) {
         uVar5 = 0;
       }
       else {
-        lVar6 = (longlong)lua_getnumber(iVar3);
+        fVar7 = lua_getnumber(iVar3);
+        lVar6 = FTOL((float10)fVar7);
         uVar5 = (uint)lVar6;
       }
-      lVar6 = (longlong)lua_getnumber(iVar2);
+      fVar7 = lua_getnumber(iVar2);
+      lVar6 = FTOL((float10)fVar7);
       iVar2 = (int)lVar6;
       iVar1 = lua_getstring(iVar1);
       SoundsSetParam(iVar1,iVar2,uVar5);
@@ -649,6 +672,7 @@ void __cdecl sputLua_ImFadeParam(void)
   int iVar5;
   uint uVar6;
   longlong lVar7;
+  float fVar8;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar1 = lua_lua2C(1);
@@ -671,33 +695,42 @@ void __cdecl sputLua_ImFadeParam(void)
       if (iVar5 != 0) {
         iVar5 = lua_isnumber(iVar1);
         if (iVar5 != 0) {
-          lVar7 = (longlong)lua_getnumber(iVar3);
+          fVar8 = lua_getnumber(iVar3);
+          lVar7 = FTOL((float10)fVar8);
           if ((int)lVar7 < 1) {
             uVar6 = 0;
           }
           else {
-            lVar7 = (longlong)lua_getnumber(iVar3);
+            fVar8 = lua_getnumber(iVar3);
+            lVar7 = FTOL((float10)fVar8);
             uVar6 = (uint)lVar7;
           }
-          lVar7 = (longlong)lua_getnumber(iVar4);
+          fVar8 = lua_getnumber(iVar4);
+          lVar7 = FTOL((float10)fVar8);
           iVar3 = (int)lVar7;
-          lVar7 = (longlong)lua_getnumber(iVar2);
+          fVar8 = lua_getnumber(iVar2);
+          lVar7 = FTOL((float10)fVar8);
           iVar2 = (int)lVar7;
-          lVar7 = (longlong)lua_getnumber(iVar1);
+          fVar8 = lua_getnumber(iVar1);
+          lVar7 = FTOL((float10)fVar8);
           SoundsFadeParam((int)lVar7,iVar2,uVar6,iVar3);
           return;
         }
-        lVar7 = (longlong)lua_getnumber(iVar3);
+        fVar8 = lua_getnumber(iVar3);
+        lVar7 = FTOL((float10)fVar8);
         if ((int)lVar7 < 1) {
           uVar6 = 0;
         }
         else {
-          lVar7 = (longlong)lua_getnumber(iVar3);
+          fVar8 = lua_getnumber(iVar3);
+          lVar7 = FTOL((float10)fVar8);
           uVar6 = (uint)lVar7;
         }
-        lVar7 = (longlong)lua_getnumber(iVar4);
+        fVar8 = lua_getnumber(iVar4);
+        lVar7 = FTOL((float10)fVar8);
         iVar3 = (int)lVar7;
-        lVar7 = (longlong)lua_getnumber(iVar2);
+        fVar8 = lua_getnumber(iVar2);
+        lVar7 = FTOL((float10)fVar8);
         iVar2 = (int)lVar7;
         iVar1 = lua_getstring(iVar1);
         SoundsFadeParam(iVar1,iVar2,uVar6,iVar3);
@@ -721,6 +754,7 @@ void __cdecl sputLua_ImStartVoice(void)
   int iVar4;
   uint uVar5;
   longlong lVar6;
+  float fVar7;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -731,9 +765,11 @@ void __cdecl sputLua_ImStartVoice(void)
   }
   iVar4 = lua_isnumber(iVar2);
   if ((iVar4 != 0) && (iVar4 = lua_isnumber(iVar3), iVar4 != 0)) {
-    lVar6 = (longlong)lua_getnumber(iVar3);
+    fVar7 = lua_getnumber(iVar3);
+    lVar6 = FTOL((float10)fVar7);
     uVar5 = (uint)lVar6;
-    lVar6 = (longlong)lua_getnumber(iVar2);
+    fVar7 = lua_getnumber(iVar2);
+    lVar6 = FTOL((float10)fVar7);
     iVar2 = (int)lVar6;
     iVar1 = lua_getstring(iVar1);
     SoundStartVoiceStream(iVar1,iVar2,uVar5);
@@ -743,23 +779,24 @@ void __cdecl sputLua_ImStartVoice(void)
 
 /* ---- 0x004a1680  sputLua_ImSetSequence ---- */
 /* WARNING: Variable defined which should be unmapped: local_c */
-/* WARNING: Variable defined which should be unmapped: local_4 */
 /* Lua opcode: ImSetSequence */
 
-void __fastcall sputLua_ImSetSequence(undefined4 param_1)
+void __cdecl sputLua_ImSetSequence(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   longlong lVar3;
+  float fVar4;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = (longlong)lua_getnumber(iVar1);
+    fVar4 = lua_getnumber(iVar1);
+    lVar3 = FTOL((float10)fVar4);
     iVar1 = ImSetSequence((int)lVar3);
     lua_pushnumber((float)iVar1);
   }
@@ -782,6 +819,7 @@ void __cdecl sputLua_ImSetAttribute(void)
   int iVar3;
   longlong lVar4;
   longlong lVar5;
+  float fVar6;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
@@ -791,8 +829,10 @@ void __cdecl sputLua_ImSetAttribute(void)
   if (iVar3 != 0) {
     iVar3 = lua_isnumber(iVar2);
     if (iVar3 != 0) {
-      lVar4 = (longlong)lua_getnumber(iVar2);
-      lVar5 = (longlong)lua_getnumber(iVar1);
+      fVar6 = lua_getnumber(iVar2);
+      lVar4 = FTOL((float10)fVar6);
+      fVar6 = lua_getnumber(iVar1);
+      lVar5 = FTOL((float10)fVar6);
       iVar1 = ImSetAttribute((int)lVar5,(int)lVar4);
       lua_pushnumber((float)iVar1);
     }
@@ -837,6 +877,7 @@ void __cdecl sputLua_FadeInChore(void)
   Actor *pAVar4;
   uint chore;
   longlong lVar5;
+  float fVar6;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -848,9 +889,11 @@ void __cdecl sputLua_FadeInChore(void)
   if ((iVar3 != 0) && (iVar3 = lua_tag(iVar1), iVar3 == 0x52544341)) {
     iVar1 = lua_getuserdata(iVar1);
     pAVar4 = sputActor_ActorDeref(iVar1);
-    lVar5 = (longlong)lua_getnumber(iVar2);
+    fVar6 = lua_getnumber(iVar2);
+    lVar5 = FTOL((float10)fVar6);
     chore = (uint)lVar5;
-    lVar5 = (longlong)lua_getnumber(local_4);
+    fVar6 = lua_getnumber(local_4);
+    lVar5 = FTOL((float10)fVar6);
     iVar1 = lua_isstring((int)luaObj);
     if ((iVar1 == 0) && (iVar1 = lua_isnumber((int)luaObj), iVar1 == 0)) {
       return;

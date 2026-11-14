@@ -466,25 +466,30 @@ void __cdecl sputCostume_Update(CostumeNode *costumeList,float dt)
 {
   void *pvVar1;
   void *puppet;
-  undefined4 unaff_ESI;
-  CostumeNode *pCVar2;
-  undefined4 unaff_EDI;
-  ulonglong uVar3;
+  float10 fVar2;
+  CostumeNode *pCVar3;
+  ulonglong uVar4;
   
-  uVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+  if (dt * 1000.0 <= 0.0) {
+    fVar2 = (float10)-0.5;
+  }
+  else {
+    fVar2 = (float10)0.5;
+  }
+  uVar4 = FTOL(fVar2 - (float10)dt * (float10)-1000.0);
   if (costumeList != (CostumeNode *)0x0) {
     pvVar1 = costumeList->pMainModel;
-    pCVar2 = costumeList;
+    pCVar3 = costumeList;
     do {
-      if (pCVar2->pMainModel != pvVar1) break;
-      Cos_InstUpdateChores(pCVar2->dwInstance,(int)uVar3);
-      pCVar2 = pCVar2->pNext;
-    } while (pCVar2 != (CostumeNode *)0x0);
+      if (pCVar3->pMainModel != pvVar1) break;
+      Cos_InstUpdateChores(pCVar3->dwInstance,(int)uVar4);
+      pCVar3 = pCVar3->pNext;
+    } while (pCVar3 != (CostumeNode *)0x0);
     for (pvVar1 = costumeList->pComponents; pvVar1 != (void *)0x0;
         pvVar1 = *(void **)((int)pvVar1 + 400)) {
       puppet = *(void **)(*(int *)((int)pvVar1 + 0x40) + 0x14);
       if (puppet != (void *)0x0) {
-        rdPuppet_UpdateTracks(puppet,(float)(uVar3 & 0xffffffff) * 0.001);
+        rdPuppet_UpdateTracks(puppet,(float)(uVar4 & 0xffffffff) * 0.001);
       }
     }
   }

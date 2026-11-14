@@ -123,8 +123,6 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
   int iVar5;
   int iVar6;
   undefined4 uVar7;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   longlong lVar8;
   
   if (*(int *)((int)p + 0x68) == 5) {
@@ -145,8 +143,9 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
       g_dwRenderHandler_totalTime = 0;
     }
     g_dwRenderHandler_totalTime = g_dwRenderHandler_totalTime + *(int *)((int)p + 0x20);
-    sou_engine_QueryTime(0);
-    lVar8 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    iVar4 = sou_engine_QueryTime(0);
+    lVar8 = FTOL(((float10)iVar4 - (float10)g_nBretsFrameCount * (float10)66.66666666667) *
+                  (float10)0.0149999999999925);
     iVar4 = (int)lVar8;
     *(int *)((int)p + 0x18) = *(int *)((int)p + 0x18) + -1;
     *(undefined4 *)((int)p + 0x14) = 0;

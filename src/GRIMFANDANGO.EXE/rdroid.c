@@ -222,7 +222,6 @@ uint __cdecl rdroid_SetColormap(uint param_1)
 /* ---- 0x00404b80  rdRaster_Startup ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Fills the 1/n float table and its fixed-point twin used by the span rasterizer Original name
    rdRaster_Startup (the remaster's GrimFandango (Linux): the last call of rdStartup, same body
@@ -234,7 +233,6 @@ void __cdecl rdRaster_Startup(void)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  undefined4 unaff_ESI;
   int iVar2;
   longlong lVar3;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
@@ -244,8 +242,8 @@ void __cdecl rdRaster_Startup(void)
   local_4 = 1;
   iVar2 = 0;
   do {
-    *(float *)((int)&UINT_008fe004 + iVar2) = 1.0 / (float)(int)local_4;
-    lVar3 = _ftol((double)CONCAT44(local_4,unaff_ESI));
+    *(float *)((int)&UINT_008fe004 + iVar2) = (float)((float10)1.0 / (float10)(int)local_4);
+    lVar3 = FTOL(((float10)1.0 / (float10)(int)local_4) * (float10)65536.0);
     *(int *)((int)&UINT_008fbfc4 + iVar2) = (int)lVar3;
     iVar2 = iVar2 + 4;
     local_4 = local_4 + 1;

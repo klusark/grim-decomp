@@ -1995,7 +1995,7 @@ void __cdecl sputLua_ImGetParam(void); /* 0x004a1090 */
 void __cdecl sputLua_ImSetParam(void); /* 0x004a1140 */
 void __cdecl sputLua_ImFadeParam(void); /* 0x004a1260 */
 void __cdecl sputLua_ImStartVoice(void); /* 0x004a1590 */
-void __fastcall sputLua_ImSetSequence(undefined4 param_1); /* 0x004a1680 */
+void __cdecl sputLua_ImSetSequence(void); /* 0x004a1680 */
 void __cdecl sputLua_ImSetAttribute(void); /* 0x004a1710 */
 void __cdecl sputLua_ImSetVoiceEffect(void); /* 0x004a17b0 */
 void __cdecl sputLua_FadeInChore(void); /* 0x004a2b00 */
@@ -2089,7 +2089,7 @@ void __cdecl Graph_SysShutdown(void); /* 0x004abf30 */
 /* ===== crt.c ===== */
 int __cdecl _stricmp(byte *param_1,byte *param_2); /* 0x004ac550 */
 int __cdecl sprintf(char *buf,char *fmt,...); /* 0x004ac620 */
-longlong __cdecl _ftol(double x); /* 0x004ac6f0 */
+longlong __cdecl _ftol(float10 x); /* 0x004ac6f0 */
 int __cdecl _vsnprintf(char *buf,uint n,char *fmt,void *args); /* 0x004ac720 */
 int __cdecl atol(byte *param_1); /* 0x004ac790 */
 undefined * __cdecl atoi(uint param_1); /* 0x004ac830 */

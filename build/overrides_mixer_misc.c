@@ -49,51 +49,6 @@ extern LightEdEntry g_aLightEdEntries[] __asm__("_UINT_008d1730");
 
 static uint float_bits(float f) { uint u; __builtin_memcpy(&u, &f, 4); return u; }
 
-/* Reads the text of an edit control of the light dialog back into the selected light.  Controls 0x3ec intensity,
- * 0x3ed / 0x3ee inner / outer cone angle (with a slider each: 0x3fb scaled by 1000, 0x3ff / 0x400 by 100), 0x3ef..0x3f1
- * position x y z, 0x3f2 / 0x3f4 / 0x3f5 the three angles. */
-void LightEd_ReadControl(int hdlg, int id)
-{
-    byte text[76];
-    float value;
-    int slider = 0;
-
-    GetDlgItemTextA(hdlg, id, text, 0x4b);
-    value = atof(text);
-    if (g_pLightEdSet == 0 || g_nLightEdSelected == -1)
-        return;
-    switch (id) {
-    case 0x3ec:
-        *(float *)(g_aLightEdEntries[g_nLightEdSelected].light + 0x44) = value;
-        if (g_nLightEdBusy != 0)
-            return;
-        SendDlgItemMessageA(hdlg, 0x3fb, 0x467, 0, (int)(value * 1000.0f) & 0xffff);
-        break;
-    case 0x3ed:
-        rdLight_SetAngles(g_aLightEdEntries[g_nLightEdSelected].light + 0x2c, value, *(float *)(g_aLightEdEntries[g_nLightEdSelected].light + 0x54));
-        if (g_nLightEdBusy != 0)
-            return;
-        slider = 0x3ff;
-        break;
-    case 0x3ee:
-        rdLight_SetAngles(g_aLightEdEntries[g_nLightEdSelected].light + 0x2c, *(float *)(g_aLightEdEntries[g_nLightEdSelected].light + 0x4c), value);
-        if (g_nLightEdBusy != 0)
-            return;
-        slider = 0x400;
-        break;
-    case 0x3ef: LightEd_SetLightPosComponent(g_nLightEdSelected, 0, float_bits(value)); break;
-    case 0x3f0: LightEd_SetLightPosComponent(g_nLightEdSelected, 1, float_bits(value)); break;
-    case 0x3f1: LightEd_SetLightPosComponent(g_nLightEdSelected, 2, float_bits(value)); break;
-    case 0x3f2: LightEd_SetLightAngle(g_nLightEdSelected, 0, float_bits(value)); break;
-    case 0x3f4: LightEd_SetLightAngle(g_nLightEdSelected, 1, float_bits(value)); break;
-    case 0x3f5: LightEd_SetLightAngle(g_nLightEdSelected, 2, float_bits(value)); break;
-    }
-    if (slider)
-        SendDlgItemMessageA(hdlg, slider, 0x467, 0, (int)(value * 100.0f) & 0xffff);
-    if (g_nLightEdBusy == 0)
-        LightEd_MoveMarkerActor();
-}
-
 /* the angle brought back into -180..360 (one wrap only); the first comparison is made on the unrounded sum */
 static float wrap_angle(double sum)
 {

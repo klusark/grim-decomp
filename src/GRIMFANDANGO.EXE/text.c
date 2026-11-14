@@ -6,10 +6,11 @@
 #include "functions.h"
 
 /* ---- 0x0048c050  GetTextParamsFromTable ---- */
-/* Reads x, y, font, width, height, fgcolor, bgcolor, ... keys from a Lua table into a text context
-   Original name GetTextParamsFromTable (the remaster's GrimFandango (Linux): the only unmatched
-   callee of Lua_SetSayLineDefaults; 5 matched neighbours agree, 0 disagree); was
-   Text_ParseLuaTable. */
+/* Reads x, y, font, width, height, fgcolor, bgcolor, fxcolor, center/ljustify/rjustify keys from a
+   Lua table into a text context (and textObj x/y if given). Returns the 'duration' key in ms, or
+   -1. Only PrintLine uses the return; MakeTextObject and ChangeTextObject ignore it. Original name
+   GetTextParamsFromTable (the remaster's GrimFandango (Linux): the only unmatched callee of
+   Lua_SetSayLineDefaults); was Text_ParseLuaTable. */
 
 int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *textObj)
 
@@ -21,6 +22,7 @@ int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *text
   void *pvVar4;
   uint uVar5;
   longlong lVar6;
+  float fVar7;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -32,10 +34,12 @@ int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *text
   if (iVar2 != 0) {
     iVar3 = lua_isnumber(iVar2);
     if (iVar3 != 0) {
-      lVar6 = (longlong)lua_getnumber(iVar2);
+      fVar7 = lua_getnumber(iVar2);
+      lVar6 = FTOL((float10)fVar7);
       ctx->nX = (int)lVar6;
       if (textObj != (TextObject *)0x0) {
-        lVar6 = (longlong)lua_getnumber(iVar2);
+        fVar7 = lua_getnumber(iVar2);
+        lVar6 = FTOL((float10)fVar7);
         textObj->nX = (int)lVar6;
       }
     }
@@ -47,10 +51,12 @@ int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *text
   if (iVar2 != 0) {
     iVar3 = lua_isnumber(iVar2);
     if (iVar3 != 0) {
-      lVar6 = (longlong)lua_getnumber(iVar2);
+      fVar7 = lua_getnumber(iVar2);
+      lVar6 = FTOL((float10)fVar7);
       ctx->nY = (int)lVar6 + *(int *)(*(int *)ctx->pFont + 8);
       if (textObj != (TextObject *)0x0) {
-        lVar6 = (longlong)lua_getnumber(iVar2);
+        fVar7 = lua_getnumber(iVar2);
+        lVar6 = FTOL((float10)fVar7);
         textObj->nY = (int)lVar6;
       }
     }
@@ -76,7 +82,8 @@ int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *text
   if (iVar2 != 0) {
     iVar3 = lua_isnumber(iVar2);
     if ((iVar3 != 0) && (piVar1 != (int *)0x0)) {
-      lVar6 = (longlong)lua_getnumber(iVar2);
+      fVar7 = lua_getnumber(iVar2);
+      lVar6 = FTOL((float10)fVar7);
       piVar1[2] = (int)lVar6;
     }
   }
@@ -87,7 +94,8 @@ int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *text
   if (iVar2 != 0) {
     iVar3 = lua_isnumber(iVar2);
     if ((iVar3 != 0) && (piVar1 != (int *)0x0)) {
-      lVar6 = (longlong)lua_getnumber(iVar2);
+      fVar7 = lua_getnumber(iVar2);
+      lVar6 = FTOL((float10)fVar7);
       piVar1[3] = (int)lVar6;
     }
   }
@@ -170,7 +178,8 @@ int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *text
   if (iVar2 != 0) {
     iVar3 = lua_isnumber(iVar2);
     if (iVar3 != 0) {
-      lVar6 = (longlong)lua_getnumber(iVar2);
+      fVar7 = lua_getnumber(iVar2);
+      lVar6 = FTOL((float10)fVar7);
       return (int)lVar6;
     }
   }

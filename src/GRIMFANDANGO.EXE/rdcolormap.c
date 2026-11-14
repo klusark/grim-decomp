@@ -235,75 +235,112 @@ rdColormap_BuildRGB16
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  byte bVar1;
-  ushort uVar2;
-  ushort uVar3;
-  uint uVar4;
-  uint unaff_EBX;
-  uint uVar5;
-  int iVar6;
+  byte *pbVar1;
+  byte bVar2;
+  float10 fVar3;
+  ushort uVar4;
+  ushort uVar5;
+  uint uVar6;
   ushort *puVar7;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
-  undefined2 *puVar8;
-  undefined2 *puVar9;
-  longlong lVar10;
-  longlong lVar11;
-  longlong lVar12;
+  uint uVar8;
+  uint unaff_EBX;
+  uint uVar9;
+  int iVar10;
+  ushort *puVar11;
+  undefined2 *puVar12;
+  undefined2 *puVar13;
+  float10 fVar14;
+  float10 fVar15;
+  float10 fVar16;
+  float10 extraout_ST0;
+  float10 extraout_ST1;
+  float10 extraout_ST1_00;
+  longlong lVar17;
+  longlong lVar18;
+  longlong lVar19;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar4 = 0;
+  uVar6 = param_3 & 0xff;
+  uVar8 = 0;
   local_10 = 8;
-  puVar8 = param_1;
+  puVar7 = param_2;
+  puVar12 = param_1;
   do {
-    uVar2 = *param_2;
-    bVar1 = *(byte *)((int)param_2 + 1);
-    uVar4 = CONCAT31((int3)(uVar4 >> 8),bVar1);
-    iVar6 = 0x40;
-    uVar3 = param_2[1];
-    param_2 = (ushort *)((int)param_2 + 3);
-    puVar9 = puVar8;
+    uVar4 = *puVar7;
+    bVar2 = *(byte *)((int)puVar7 + 1);
+    uVar8 = CONCAT31((int3)(uVar8 >> 8),bVar2);
+    iVar10 = 0x40;
+    uVar5 = puVar7[1];
+    puVar7 = (ushort *)((int)puVar7 + 3);
+    puVar13 = puVar12;
     do {
-      uVar5 = CONCAT22((short)(unaff_EBX >> 0x10),
-                       (ushort)(byte)((byte)uVar2 >> (*(byte *)(param_6 + 0x20) & 0x1f))) <<
+      uVar9 = CONCAT22((short)(unaff_EBX >> 0x10),
+                       (ushort)(byte)((byte)uVar4 >> (*(byte *)(param_6 + 0x20) & 0x1f))) <<
               ((byte)*(undefined4 *)(param_6 + 0x14) & 0x1f);
-      unaff_EBX = CONCAT22((short)(uVar5 >> 0x10),
-                           (ushort)(byte)((byte)uVar3 >> (*(byte *)(param_6 + 0x28) & 0x1f))) <<
+      unaff_EBX = CONCAT22((short)(uVar9 >> 0x10),
+                           (ushort)(byte)((byte)uVar5 >> (*(byte *)(param_6 + 0x28) & 0x1f))) <<
                   ((byte)*(undefined4 *)(param_6 + 0x1c) & 0x1f);
-      uVar4 = CONCAT22((short)(uVar4 >> 0x10),(ushort)(bVar1 >> (*(byte *)(param_6 + 0x24) & 0x1f)))
-              << ((byte)*(undefined4 *)(param_6 + 0x18) & 0x1f) | uVar5 | unaff_EBX;
-      iVar6 = iVar6 + -1;
-      *puVar9 = (short)uVar4;
-      puVar9 = puVar9 + 0x100;
-    } while (iVar6 != 0);
-    puVar8 = puVar8 + 1;
+      uVar8 = CONCAT22((short)(uVar8 >> 0x10),(ushort)(bVar2 >> (*(byte *)(param_6 + 0x24) & 0x1f)))
+              << ((byte)*(undefined4 *)(param_6 + 0x18) & 0x1f) | uVar9 | unaff_EBX;
+      iVar10 = iVar10 + -1;
+      *puVar13 = (short)uVar8;
+      puVar13 = puVar13 + 0x100;
+    } while (iVar10 != 0);
+    puVar12 = puVar12 + 1;
     local_10 = local_10 - 1;
   } while (local_10 != 0);
-  param_2 = param_1 + 0x3f08;
   param_3 = 0xf8;
+  puVar7 = param_2 + 0xc;
+  param_2 = param_1 + 0x3f08;
   do {
+    pbVar1 = (byte *)((int)puVar7 + 1);
+    fVar14 = (float10)PUN(float,(byte)*puVar7);
+    puVar7 = (ushort *)((int)puVar7 + 3);
     param_1 = (undefined2 *)0x40;
-    puVar7 = param_2;
+    fVar15 = ((float10)uVar6 - fVar14) * (float10)0.015625;
+    fVar16 = ((float10)(param_4 & 0xff) - (float10)*pbVar1) * (float10)0.015625;
+    puVar11 = param_2;
     do {
-      lVar10 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      lVar11 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      lVar12 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+      if (fVar15 + fVar14 <= (float10)0.0) {
+        fVar3 = (float10)0.5;
+      }
+      else {
+        fVar3 = (float10)-0.5;
+      }
+      lVar17 = FTOL((fVar15 + fVar14) - fVar3);
+      if (fVar15 <= (float10)0.0) {
+        fVar14 = (float10)0.5;
+      }
+      else {
+        fVar14 = (float10)-0.5;
+      }
+      lVar18 = FTOL(fVar15 - fVar14);
+      if (extraout_ST0 <= (float10)0.0) {
+        fVar3 = (float10)0.5;
+      }
+      else {
+        fVar3 = (float10)-0.5;
+      }
+      fVar15 = extraout_ST1;
+      fVar14 = fVar16;
+      lVar19 = FTOL(extraout_ST0 - fVar3);
       param_1 = (undefined2 *)((int)param_1 + -1);
-      *puVar7 = (ushort)(((int)lVar11 >> ((byte)*(undefined4 *)(param_6 + 0x24) & 0x1f)) <<
-                        ((byte)*(undefined4 *)(param_6 + 0x18) & 0x1f)) |
-                (ushort)(((int)lVar12 >> ((byte)*(undefined4 *)(param_6 + 0x28) & 0x1f)) <<
-                        ((byte)*(undefined4 *)(param_6 + 0x1c) & 0x1f)) |
-                (ushort)(((int)lVar10 >> ((byte)*(undefined4 *)(param_6 + 0x20) & 0x1f)) <<
-                        ((byte)*(undefined4 *)(param_6 + 0x14) & 0x1f));
-      puVar7 = puVar7 + -0x100;
+      *puVar11 = (ushort)(((int)lVar18 >> ((byte)*(undefined4 *)(param_6 + 0x24) & 0x1f)) <<
+                         ((byte)*(undefined4 *)(param_6 + 0x18) & 0x1f)) |
+                 (ushort)(((int)lVar19 >> ((byte)*(undefined4 *)(param_6 + 0x28) & 0x1f)) <<
+                         ((byte)*(undefined4 *)(param_6 + 0x1c) & 0x1f)) |
+                 (ushort)(((int)lVar17 >> ((byte)*(undefined4 *)(param_6 + 0x20) & 0x1f)) <<
+                         ((byte)*(undefined4 *)(param_6 + 0x14) & 0x1f));
+      puVar11 = puVar11 + -0x100;
+      fVar16 = extraout_ST1_00;
     } while (param_1 != (undefined2 *)0x0);
     param_2 = param_2 + 1;
     param_3 = param_3 - 1;
   } while (param_3 != 0);
-  return CONCAT44((int)((ulonglong)lVar12 >> 0x20),1);
+  return CONCAT44((int)((ulonglong)lVar19 >> 0x20),1);
 }
 #undef local_10
 #undef local_4

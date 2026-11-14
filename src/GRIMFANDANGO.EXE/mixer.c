@@ -123,8 +123,6 @@ void __cdecl DSound_Shutdown(void)
 }
 
 /* ---- 0x004c1110  DSound_SetPrimaryVolume ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* IDirectSoundBuffer::SetVolume on the primary buffer under priority cooperative level */
 
 void __cdecl DSound_SetPrimaryVolume(int volume)
@@ -132,12 +130,11 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
 {
   void *pvVar1;
   int iVar2;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
   longlong lVar3;
   
   if (g_pDSoundPrimary != (void *)0x0) {
-    lVar3 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
+    lVar3 = FTOL(((float10)1.0 - (float10)PUN(float,volume)) * ((float10)1.0 - (float10)PUN(float,volume))
+                  * (float10)-5000.0);
     pvVar1 = Win_GetMainHwnd();
     iVar2 = (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,pvVar1,2);
     if (-1 < iVar2) {
@@ -147,8 +144,6 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d27d0  dsn_fill_thread ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -356,27 +351,31 @@ int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined2 *puVar1;
-  int iVar2;
-  undefined4 unaff_ESI;
-  undefined4 unaff_EDI;
+  uint uVar1;
+  undefined2 *puVar2;
   undefined1 *puVar3;
-  longlong lVar4;
+  float10 fVar4;
+  float10 fVar5;
+  float10 extraout_ST0;
+  longlong lVar6;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  iVar2 = 0;
   puVar3 = &DAT_008dcc70;
+  local_4 = 0;
   do {
+    uVar1 = local_4;
+    fVar4 = (float10)(int)local_4;
     local_4 = 0;
     do {
-      fsin((float10)(int)local_4 * (float10)3.1415 * (float10)0.03125);
-      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      *puVar3 = (char)lVar4;
+      fVar5 = (float10)fsin((float10)(int)local_4 * (float10)3.1415 * (float10)0.03125);
+      lVar6 = FTOL((fVar5 * fVar4 - (float10)-0.5) * (float10)8.0);
+      *puVar3 = (char)lVar6;
       puVar3 = puVar3 + 1;
       local_4 = local_4 + 1;
+      fVar4 = extraout_ST0;
     } while ((int)local_4 < 0x11);
-    iVar2 = iVar2 + 1;
-  } while (iVar2 < 0x11);
+    local_4 = uVar1 + 1;
+  } while ((int)local_4 < 0x11);
   g_dwMixer_outChannelCount = channels;
   g_dwMixer_mixBufSize = frames4 * 4;
   g_pMixer_mixBuf =
@@ -386,21 +385,23 @@ int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused)
     return -1;
   }
   _DAT_008dcda0 = unused;
-  puVar1 = (undefined2 *)
+  puVar2 = (undefined2 *)
            (*(code_std *)*services)
                      (g_dwWaveMixCount << 0x10,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x35c);
-  g_pMixer_softLTable = puVar1;
-  if (puVar1 == (undefined2 *)0x0) {
+  g_pMixer_softLTable = puVar2;
+  if (puVar2 == (undefined2 *)0x0) {
     return -1;
   }
-  iVar2 = 0;
+  local_4 = 0;
   if (0 < (int)(g_dwWaveMixCount << 0xf)) {
     do {
-      lVar4 = _ftol((double)CONCAT44(unaff_ESI,unaff_EDI));
-      *puVar1 = (short)lVar4;
-      puVar1 = puVar1 + 1;
-      iVar2 = iVar2 + 1;
-    } while (iVar2 < (int)(g_dwWaveMixCount * 0x8000));
+      lVar6 = FTOL((((float10)(int)local_4 * (float10)524272.0) /
+                     ((float10)262136.0 - (float10)(int)local_4 * (float10)-7.0) - (float10)-1.0) *
+                    (float10)0.5);
+      *puVar2 = (short)lVar6;
+      puVar2 = puVar2 + 1;
+      local_4 = local_4 + 1;
+    } while ((int)local_4 < (int)(g_dwWaveMixCount * 0x8000));
   }
   return 0;
 }
