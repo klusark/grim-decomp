@@ -1307,7 +1307,7 @@ void __cdecl rdModel3_CalcRadii(int param_1)
         pfVar3 = pfVar3 + 3;
       }
       uVar6 = uVar6 + 1;
-      piVar4[6] = PUN(int,(float)(fVar1 * 0.1 + fVar1));
+      piVar4[6] = PUN(int,(float)(fVar1 * 0.1f + fVar1));
       piVar4 = piVar4 + 0x1f;
     } while (uVar6 < *(uint *)(param_1 + 0x24));
   }

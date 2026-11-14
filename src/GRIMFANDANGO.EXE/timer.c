@@ -59,7 +59,7 @@ void __cdecl sputTime_Advance(void)
     g_dwSputTime_frameTime_ms = 300;
   }
   g_dwSputTime_gameTime_ms = g_dwSputTime_gameTime_ms + g_dwSputTime_frameTime_ms;
-  g_flSputTime_frameTimeSeconds = (float)g_dwSputTime_frameTime_ms * 0.001;
+  g_flSputTime_frameTimeSeconds = (float)g_dwSputTime_frameTime_ms * 0.001f;
   return;
 }
 
@@ -77,7 +77,7 @@ void __cdecl sputTime_AdvanceManual(uint param_1)
     g_dwSputTime_frameTime_ms = 300;
   }
   g_dwSputTime_gameTime_ms = g_dwSputTime_gameTime_ms + g_dwSputTime_frameTime_ms;
-  g_flSputTime_frameTimeSeconds = (float)g_dwSputTime_frameTime_ms * 0.001;
+  g_flSputTime_frameTimeSeconds = (float)g_dwSputTime_frameTime_ms * 0.001f;
   g_dwLastClockTime = timeGetTime();
   return;
 }

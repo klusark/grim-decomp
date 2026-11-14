@@ -1336,8 +1336,6 @@ Lua_ParseSayLineTable(int param_1,int *param_2,int *param_3,int *param_4,int *pa
 }
 
 /* ---- 0x0048b830  sputText_PrintLineL ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua opcode: PrintLine Original name sputText_PrintLineL (the remaster's GrimFandango (Linux): Lua
    / module table entry 'PrintLine'); was Lua_PrintLine. */
 
@@ -1406,7 +1404,7 @@ void __cdecl sputText_PrintLineL(void)
           cVar1 = *pcVar4;
           pcVar4 = pcVar4 + 1;
         } while (cVar1 != '\0');
-        lVar9 = FTOL((float10)((~uVar6 - 1) * UINT_004e8474 + UINT_004e8470) * (float10)16.666668);
+        lVar9 = FTOL((float10)((~uVar6 - 1) * UINT_004e8474 + UINT_004e8470) * (float10)16.666668f);
         local_58 = (int)lVar9;
       }
       iVar2 = 0;
@@ -1420,8 +1418,6 @@ void __cdecl sputText_PrintLineL(void)
 #undef local_50
 #undef local_58
 #undef local_5c
-
-#endif
 
 
 /* ---- 0x0048b9a0  sputText_IsMessageGoingL ---- */

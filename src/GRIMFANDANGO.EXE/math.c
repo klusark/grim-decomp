@@ -159,7 +159,7 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
   else {
     local_1c = 0;
   }
-  fVar4 = fVar4 * 45.511112;
+  fVar4 = fVar4 * 45.511112f;
   fVar5 = Math_Floor(fVar4);
   fVar5 = fVar4 - fVar5;
   lVar3 = FTOL((float10)fVar4);
@@ -402,14 +402,14 @@ float __cdecl stdMath_ArcSin1(float x)
   else {
     local_14[0] = -x;
   }
-  if (local_14[0] <= 0.70710677) {
+  if (local_14[0] <= 0.70710677f) {
     fVar1 = stdMath_FlexPower(local_14[0],3);
-    local_8 = (fVar1 * 0.212749 + local_14[0]) * 57.295784;
+    local_8 = (fVar1 * 0.212749f + local_14[0]) * 57.295784f;
   }
   else {
     fVar1 = Math_Sqrt(1.0 - local_14[0] * local_14[0]);
     fVar2 = stdMath_FlexPower(fVar1,3);
-    local_8 = 90.0 - (fVar2 * 0.212749 + fVar1) * 57.295784;
+    local_8 = 90.0 - (fVar2 * 0.212749f + fVar1) * 57.295784f;
   }
   if (0.0 > x) {
     local_8 = -local_8;
@@ -464,18 +464,18 @@ float __cdecl stdMath_ArcSin3(float param_1)
   else {
     local_14[0] = -param_1;
   }
-  if (local_14[0] <= 0.70710677) {
+  if (local_14[0] <= 0.70710677f) {
     fVar1 = stdMath_FlexPower(local_14[0],3);
     fVar2 = stdMath_FlexPower(local_14[0],5);
     fVar3 = stdMath_FlexPower(local_14[0],7);
-    local_8 = (fVar3 * 0.066797 + fVar2 * 0.075 + fVar1 / 6.0 + local_14[0]) * 57.295784;
+    local_8 = (fVar3 * 0.066797f + fVar2 * 0.075f + fVar1 / 6.0 + local_14[0]) * 57.295784f;
   }
   else {
     fVar1 = Math_Sqrt(1.0 - local_14[0] * local_14[0]);
     fVar2 = stdMath_FlexPower(fVar1,3);
     fVar3 = stdMath_FlexPower(fVar1,5);
     fVar4 = stdMath_FlexPower(fVar1,7);
-    local_8 = 90.0 - (fVar4 * 0.066797 + fVar3 * 0.075 + fVar2 / 6.0 + fVar1) * 57.295784;
+    local_8 = 90.0 - (fVar4 * 0.066797f + fVar3 * 0.075f + fVar2 / 6.0 + fVar1) * 57.295784f;
   }
   if (0.0 > param_1) {
     local_8 = -local_8;
@@ -551,8 +551,8 @@ float __cdecl stdMath_ArcTan4(float y,float x)
     fVar2 = stdMath_FlexPower(local_28,5);
     fVar3 = stdMath_FlexPower(local_28,7);
     fVar4 = stdMath_FlexPower(local_28,9);
-    local_c = (fVar4 * 0.063235 + ((fVar2 / 5.0 + (local_28 - fVar1 / 3.0)) - fVar3 / 7.0)) *
-              57.295784;
+    local_c = (fVar4 * 0.063235f + ((fVar2 / 5.0 + (local_28 - fVar1 / 3.0)) - fVar3 / 7.0)) *
+              57.295784f;
     if (local_24[0] <= local_24[2]) {
       local_c = 90.0 - local_c;
     }

@@ -1745,3 +1745,19 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   dot product in the other order), SoundModule_AdvanceClock (the twin reads the clock as a float, the override as a
   double), Input_SetAxisRange (NaN dead zone), the x87-exact ports (rdCanvas_DrawPoint, stdMath_Tan, rdClip_Line2).
 * Clean room 0 of 5457 (the _ftol change alone, then with 7, then all 9 overrides removed).
+
+## Float constants as float literals; 4 more overrides generated again (2026-11-14)
+
+* Ghidra prints a 4-byte x87 constant (`FMUL float ptr [0x4d87f0]`) as its shortest decimal, `(float10)16.666668`, and
+  C read that as a double: 16.666668 instead of the float 16.666667938232422, so the generated code computed with a
+  constant the original does not have. build_src.py's fix_float_literals writes such a literal as a float literal
+  (`16.666668f`, the same float again) when the function reads a float constant of that value (by magnitude: the sign
+  is printed apart) through a `float ptr` operand (raw/<prog>/disasm.json), the decimal is not exact, and the function
+  reads no 8-byte constant of the same float value (then the literal could be the double). Most common: 1.5258789e-05
+  (2^-16 in the rasteriser), 1e-05 (the snap-to-zero tests), 0.001, 0.01.
+* 25 live functions change (the 1e-05 snaps of sector.c / walker.c / collision.c, the 0.15 / 0.85 clamps of
+  Puck_Forward, sputTime_Advance, stdControl_ReadAxis, ...) and 143 overridden twins. Clean room 0 of 5457 with only
+  that change.
+* Generated again: SmushPlay_GetMovieLength (66.666664f), SpriteAdjuster (-0.2f, 0.01f), sputText_PrintLineL
+  (16.666668f), sputCostume_Update (0.001f).
+* Clean room 0 of 5457 with the four overrides removed.

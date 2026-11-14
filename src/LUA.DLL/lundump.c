@@ -566,7 +566,7 @@ undefined4 __cdecl luaV_tostring(int *param_1)
     return 1;
   }
   fVar1 = (float)param_1[1];
-  if ((-2.1474836e+09 <= fVar1) && (fVar1 <= 2.1474836e+09)) {
+  if ((-2.1474836e+09f <= fVar1) && (fVar1 <= 2.1474836e+09f)) {
     lVar3 = FTOL((float10)fVar1);
     if ((float)(int)lVar3 == fVar1) {
       sprintf(local_3c,&DAT_1002817c);

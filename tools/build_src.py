@@ -6,7 +6,7 @@ of the nearest preceding named function (code from one compilation unit is conti
 in the image), except that a long run of unnamed functions becomes its own
 region_<addr> module so we do not pretend to know what it is."""
 import sys
-import bisect, glob, json, os, re, sys
+import bisect, glob, json, os, re, struct, sys
 from collections import Counter, OrderedDict, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import frame_locals
@@ -1315,6 +1315,66 @@ def drop_unused_artifacts(body):
     return "\n".join(keep)
 
 
+# ---- float constants of the x87 code (`FMUL float ptr [0x4d87f0]`) ------------------------------------------------
+# Ghidra prints a 4-byte constant as its shortest decimal (`(float10)16.666668`), which C reads as a double: a
+# different value whenever the float is not exact in decimal (16.666668 is 16.666667938232422 as a float). The x87
+# code loads the float, so the literal is written as a float literal (`16.666668f`, the same float again). Only for
+# the constants the function reads with a `float ptr` operand (raw/<prog>/disasm.json), and not when it also reads an
+# 8-byte constant of that float value (the literal could be the double).
+_SECTION_BYTES = {}
+FLOAT_OPERAND_RE = re.compile(r"\b(float|double) ptr \[0x([0-9a-f]{8})\]")
+COMMENT_LINE_RE = re.compile(r"^\s*(?:/\*|\*/|\*\s|\*$|#)")
+FLOAT_LITERAL_RE = re.compile(r"(?<![\w.])(\d+\.\d+(?:e[-+]?\d+)?|\d+e[-+]?\d+)(?![\w.])")
+
+
+def image_bytes(addr, n):
+    if CUR_PROG not in _SECTION_BYTES:
+        secs = []
+        rawdir = os.path.join(RAW, CUR_PROG)
+        try:
+            for s in json.load(open(os.path.join(rawdir, "sections.json"))):
+                secs.append((int(s["start"], 16), open(os.path.join(rawdir, "sections", s["file"]), "rb").read()))
+        except (OSError, ValueError, KeyError):
+            pass
+        _SECTION_BYTES[CUR_PROG] = secs
+    for start, data in _SECTION_BYTES[CUR_PROG]:
+        if start <= addr and addr + n <= start + len(data):
+            return data[addr - start:addr - start + n]
+    return None
+
+
+def fix_float_literals(body):
+    if CUR_PROG not in _DISASM:
+        int_float_conversions(CUR_FN_ADDR)        # (loads the disassembly)
+    text = _DISASM[CUR_PROG].get(CUR_FN_ADDR)
+    if not text or not FLOAT_LITERAL_RE.search(body):
+        return body
+    floats, doubles = set(), set()
+    for kind, a in FLOAT_OPERAND_RE.findall(text):
+        b = image_bytes(int(a, 16), 4 if kind == "float" else 8)
+        if b is not None:
+            (floats if kind == "float" else doubles).add(struct.unpack("<f" if kind == "float" else "<d", b)[0])
+    if not floats:
+        return body
+    as_float = lambda v: struct.unpack("<f", struct.pack("<f", v))[0]
+    # (by magnitude: the literal's sign is printed apart from it, `- (float10)-0.2` or `-(x) * 0.2`)
+    floats = {abs(f) for f in floats}
+    doubles_f = {abs(as_float(d)) for d in doubles if abs(d) < 3.4e38}
+
+    def sub(m):
+        v = float(m.group(1))
+        if abs(v) >= 3.4e38:
+            return m.group(0)
+        f = as_float(v)
+        if f == v or f not in floats or f in doubles_f:   # exact, not a float constant, or ambiguous
+            return m.group(0)
+        return m.group(1) + "f"
+    out = []
+    for ln in body.split("\n"):
+        out.append(ln if COMMENT_LINE_RE.match(ln) or '"' in ln else FLOAT_LITERAL_RE.sub(sub, ln))
+    return "\n".join(out)
+
+
 def fix_function(code, ctx, stats):
     code = ftol_fold.fold(code, FLOAT_RETURNERS_NOW)
     code = fix_symbols(code)
@@ -1333,6 +1393,7 @@ def fix_function(code, ctx, stats):
                     vt[n] = t
     vt.update(local_types(body))
     body = fix_ftol(body)
+    body = fix_float_literals(body)
     body = fix_pieces(body)
     body = fix_double_pieces(body)
     body = fix_views(body, vt)

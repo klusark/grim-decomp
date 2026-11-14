@@ -546,14 +546,14 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
       return;
     }
     iVar9 = 3;
-    fVar3 = pCVar1->flMaxYaw * 0.33333334;
-    fVar10 = pCVar1->flMaxPitch * 0.33333334;
+    fVar3 = pCVar1->flMaxYaw * 0.33333334f;
+    fVar10 = pCVar1->flMaxPitch * 0.33333334f;
     do {
       iVar2 = *(int *)((int)pCVar1->pMainModel + 0x24);
       *(float *)(iVar2 + 4 + *piVar8 * 0xc) =
-           fStack_b0 * 0.33333334 + *(float *)(iVar2 + 4 + *piVar8 * 0xc);
+           fStack_b0 * 0.33333334f + *(float *)(iVar2 + 4 + *piVar8 * 0xc);
       iVar2 = *(int *)((int)pCVar1->pMainModel + 0x24);
-      *(float *)(iVar2 + *piVar8 * 0xc) = fStack_b4 * 0.33333334 + *(float *)(iVar2 + *piVar8 * 0xc)
+      *(float *)(iVar2 + *piVar8 * 0xc) = fStack_b4 * 0.33333334f + *(float *)(iVar2 + *piVar8 * 0xc)
       ;
       *(undefined4 *)(*(int *)((int)pCVar1->pMainModel + 0x24) + 8 + *piVar8 * 0xc) = 0;
       iVar2 = *(int *)((int)pCVar1->pMainModel + 0x24);

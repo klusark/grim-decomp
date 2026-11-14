@@ -21,20 +21,6 @@
 
 extern void **g_pInsaneFileOps __asm__("_g_pSmushPlay_file_services");     /* [0] open(path, mode), [1] close, [2] read(file, buf, n), [4] tell, [5] seek */
 
-/* Opens a movie file, reads its header and returns the length in milliseconds (a 16 bit header field times 66.67, the
- * milliseconds of a frame at 15 frames per second); 0 if the file cannot be opened. */
-int SmushPlay_GetMovieLength(char *path)
-{
-    byte header[0x420];
-    void *file = SVC_CALL(g_pInsaneFileOps, 0, void *, (char *, const void *))(path, &DAT_004dda54);
-
-    if (file == 0)
-        return 0;
-    smushplay_GetInfo((int)file, (int)header);
-    SVC_CALL(g_pInsaneFileOps, 1, void, (void *))(file);
-    return (int)((double)(int)*(short *)(header + 2) * 66.666664f);
-}
-
 /* ===================================================================================================================
  *  light editor
  * =================================================================================================================== */

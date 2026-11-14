@@ -232,7 +232,7 @@ float __cdecl stdControl_ReadAxis(int inputId)
   if (fVar1 < 0.0) {
     fVar2 = -fVar1;
   }
-  if (fVar2 <= 1e-05) {
+  if (fVar2 <= 1e-05f) {
     fVar1 = 0.0;
   }
   if ((g_dwStdControl_bControlsIdle != 0) && (fVar1 != 0.0)) {

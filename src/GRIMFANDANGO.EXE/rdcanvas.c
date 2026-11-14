@@ -228,7 +228,7 @@ void __cdecl rdActive_BuildSpans(void)
               }
               uVar14 = uVar14 - uVar12 >> 0x10;
               iVar10 = piVar17[0x7d] - uVar11;
-              fVar7 = (float)iVar10 * 1.5258789e-05;
+              fVar7 = (float)iVar10 * 1.5258789e-05f;
               *(float *)(&DAT_004f6f4c + iVar1) =
                    (float)piVar17[0x61] * fVar7 + *(float *)(iVar3 + 0x10);
               if (*(int *)(*piVar17 + 8) == 4) {
@@ -344,7 +344,7 @@ void __cdecl rdActive_BuildSpans(void)
             }
             else {
 LAB_00404f44:
-              fVar7 = (float)(piVar13[10] - *(int *)(piVar17[0x7b] + 0x28)) * 1.5258789e-05 *
+              fVar7 = (float)(piVar13[10] - *(int *)(piVar17[0x7b] + 0x28)) * 1.5258789e-05f *
                       (float)piVar17[0x61] + *(float *)(piVar17[0x7b] + 0x10);
               if ((float)piVar13[4] <= fVar7) {
                 if (((float)piVar13[4] != fVar7) || ((float)piVar2[0x61] <= (float)piVar17[0x61])) {
@@ -388,7 +388,7 @@ LAB_00404f44:
                 }
                 uVar14 = uVar14 - uVar11 >> 0x10;
                 iVar10 = piVar17[0x7d] - *(int *)(piVar17[0x7b] + 0x28);
-                fVar7 = (float)iVar10 * 1.5258789e-05;
+                fVar7 = (float)iVar10 * 1.5258789e-05f;
                 *(float *)(&DAT_004f6f4c + iVar1) =
                      (float)piVar17[0x61] * fVar7 + *(float *)(iVar3 + 0x10);
                 if (*(int *)(*piVar17 + 8) == 4) {
@@ -472,7 +472,7 @@ LAB_004052b3:
                   }
                   else {
 LAB_00405252:
-                    fVar7 = (float)(piVar13[10] - *(int *)(piVar15[0x7b] + 0x28)) * 1.5258789e-05 *
+                    fVar7 = (float)(piVar13[10] - *(int *)(piVar15[0x7b] + 0x28)) * 1.5258789e-05f *
                             (float)piVar15[0x61] + *(float *)(piVar15[0x7b] + 0x10);
                     if ((float)piVar13[4] <= fVar7) {
                       if (((float)piVar13[4] != fVar7) ||

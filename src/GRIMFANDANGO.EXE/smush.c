@@ -275,8 +275,6 @@ uint __cdecl SmushPlay_GetFrameRect(uint *param_1,uint *param_2)
 }
 
 /* ---- 0x004bdf00  SmushPlay_GetMovieLength ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Opens a movie file, reads its header and returns the movie length in milliseconds (16 bit header
    field times 66.67); 0 if it cannot be opened Original name SmushPlay_GetMovieLength (the
    remaster's GrimFandango (Linux): aligned call in sputSmush_GetMovieLength); was
@@ -297,11 +295,9 @@ int __cdecl SmushPlay_GetMovieLength(char *path)
   }
   smushplay_GetInfo(iVar1,(int)auStack_428);
   (*(code *)g_pSmushPlay_file_services[1])(iVar1);
-  lVar2 = FTOL((float10)(int)sStack_426 * (float10)66.666664);
+  lVar2 = FTOL((float10)(int)sStack_426 * (float10)66.666664f);
   return (int)lVar2;
 }
 #undef auStack_428
 #undef sStack_426
-
-#endif
 

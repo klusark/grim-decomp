@@ -871,7 +871,7 @@ int __thiscall WalkPlane_Within(WalkPlane *this,float *point,int checkActive)
     fVar6 = -fVar5;
   }
   fVar7 = fVar5;
-  if (fVar6 <= 1e-05) {
+  if (fVar6 <= 1e-05f) {
     fVar7 = 0.0;
   }
   if (0.0 <= fVar7) {
@@ -879,7 +879,7 @@ int __thiscall WalkPlane_Within(WalkPlane *this,float *point,int checkActive)
     if (fVar5 < 0.0) {
       fVar6 = -fVar5;
     }
-    if (fVar6 <= 1e-05) {
+    if (fVar6 <= 1e-05f) {
       fVar5 = 0.0;
     }
   }
@@ -888,7 +888,7 @@ int __thiscall WalkPlane_Within(WalkPlane *this,float *point,int checkActive)
     if (fVar5 < 0.0) {
       fVar6 = -fVar5;
     }
-    if (fVar6 <= 1e-05) {
+    if (fVar6 <= 1e-05f) {
       fVar5 = 0.0;
     }
     fVar5 = -fVar5;
@@ -906,12 +906,12 @@ int __thiscall WalkPlane_Within(WalkPlane *this,float *point,int checkActive)
     while( true ) {
       pfVar9 = (*ppWVar11)->aPos;
       fVar5 = ((point[iVar4] - pfVar8[iVar4]) * (pfVar9[iVar3] - pfVar8[iVar3]) +
-              (point[iVar3] - pfVar8[iVar3]) * -(pfVar9[iVar4] - pfVar8[iVar4])) - -1e-05;
+              (point[iVar3] - pfVar8[iVar3]) * -(pfVar9[iVar4] - pfVar8[iVar4])) - -1e-05f;
       fVar6 = fVar5;
       if (fVar5 < 0.0) {
         fVar6 = -fVar5;
       }
-      if (fVar6 <= 1e-05) {
+      if (fVar6 <= 1e-05f) {
         fVar5 = 0.0;
       }
       if (fVar5 < 0.0) break;
@@ -974,7 +974,7 @@ int __thiscall WalkPlane_ClosestPoint(WalkPlane *this,int a1)
           fVar6 = -fVar4;
         }
         fVar5 = fVar4;
-        if (fVar6 <= 1e-05) {
+        if (fVar6 <= 1e-05f) {
           fVar5 = 0.0;
         }
         if (fVar5 != 0.0) {
@@ -1095,7 +1095,7 @@ float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
           fVar3 = -fVar13;
         }
         fVar4 = fVar13;
-        if (fVar3 <= 1e-05) {
+        if (fVar3 <= 1e-05f) {
           fVar4 = 0.0;
         }
         if (fVar4 < 0.0) {
@@ -1107,7 +1107,7 @@ float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
             fVar4 = -fVar6;
           }
           fVar5 = fVar6;
-          if (fVar4 <= 1e-05) {
+          if (fVar4 <= 1e-05f) {
             fVar5 = 0.0;
           }
           if (fVar5 != 0.0) {
@@ -1136,9 +1136,9 @@ float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
       fVar13 = rdVector_Dot3(&local_c,&local_18);
       fVar13 = stdMath_ArcSin3(fVar13);
       if (fVar13 <= 0.0) {
-        return -90.2 - fVar13;
+        return -90.2f - fVar13;
       }
-      return 90.2 - fVar13;
+      return 90.2f - fVar13;
     }
     WalkPlane_SnapTo(this,(float *)a3);
   }
@@ -1426,7 +1426,7 @@ void __thiscall WalkPlane_JumpOut(WalkPlane *this,float *walker)
         fVar5 = -fVar3;
       }
       fVar4 = fVar3;
-      if (fVar5 <= 1e-05) {
+      if (fVar5 <= 1e-05f) {
         fVar4 = 0.0;
       }
       if (fVar4 == 0.0) {
@@ -1619,7 +1619,7 @@ float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker)
       fVar5 = -fVar13;
     }
     fVar6 = fVar13;
-    if (fVar5 <= 1e-05) {
+    if (fVar5 <= 1e-05f) {
       fVar6 = 0.0;
     }
     if (fVar6 == 0.0) {
@@ -1628,11 +1628,11 @@ float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker)
     else {
       fVar13 = (g_vEdgeFollowDir - pWVar2->aPos[0]) / fVar13;
     }
-    if (fVar13 < 0.15) {
-      fVar13 = 0.15;
+    if (fVar13 < 0.15f) {
+      fVar13 = 0.15f;
     }
-    if (0.85 < fVar13) {
-      fVar13 = 0.85;
+    if (0.85f < fVar13) {
+      fVar13 = 0.85f;
     }
     iVar3 = this->nNumVerts;
     pWVar2 = this->aVerts[(iVar1 + 1) % iVar3];
@@ -1885,10 +1885,10 @@ LAB_004a8147:
             WalkPlane_SetType(pWVar6,local_200);
             if (local_1f4 != 12345.0) {
               if (local_200 == 0x1000) {
-                local_1f4 = 0.005;
+                local_1f4 = 0.005f;
               }
               if (local_1f4 == 0.0) {
-                local_1f4 = 0.005;
+                local_1f4 = 0.005f;
               }
               pWVar6->flHeight = local_1f4;
             }
@@ -2215,7 +2215,7 @@ int __thiscall WalkPlane_ClipPoly(WalkPlane *this,float *verts,int count,float *
                   fVar7 = -fVar5;
                 }
                 fVar6 = fVar5;
-                if (fVar7 <= 1e-05) {
+                if (fVar7 <= 1e-05f) {
                   fVar6 = 0.0;
                 }
                 if (fVar6 != 0.0) {
@@ -2240,7 +2240,7 @@ int __thiscall WalkPlane_ClipPoly(WalkPlane *this,float *verts,int count,float *
                 fVar7 = -fVar5;
               }
               fVar6 = fVar5;
-              if (fVar7 <= 1e-05) {
+              if (fVar7 <= 1e-05f) {
                 fVar6 = 0.0;
               }
               if (fVar6 != 0.0) {
@@ -2466,7 +2466,7 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
       fVar6 = -fVar5;
     }
     fVar7 = fVar5;
-    if (fVar6 <= 1e-05) {
+    if (fVar6 <= 1e-05f) {
       fVar7 = 0.0;
     }
     if (fVar7 != 0.0) {
@@ -2478,7 +2478,7 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
         fVar9 = -fVar7;
       }
       fVar8 = fVar7;
-      if (fVar9 <= 1e-05) {
+      if (fVar9 <= 1e-05f) {
         fVar8 = 0.0;
       }
       if (fVar8 != 0.0) {

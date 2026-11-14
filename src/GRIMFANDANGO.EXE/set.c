@@ -254,7 +254,7 @@ void __cdecl Set_DrawDebugLights(int param_1)
         local_64 = PUN(uint,(float)(pfVar2[-8] + pfVar2[-0xe]));
         local_6c = PUN(uint,(float)(pfVar2[-10] + pfVar2[-0x10]));
         rdMatrix_LookAt(local_30,pfVar2 + -0x10,(float *)&local_6c,0);
-        local_5c = pfVar2[-7] * 0.1;
+        local_5c = pfVar2[-7] * 0.1f;
         vec = &local_60;
         local_60 = (1.0 - pfVar2[-2]) * local_5c;
         local_48 = -local_60;
@@ -665,7 +665,7 @@ int __cdecl sputRoom_Restore(void *readFn)
         (*(code *)readFn)(&fStack_64,4);
         fVar2 = fStack_64;
         if (fStack_64 == 0.0) {
-          fVar2 = 0.005;
+          fVar2 = 0.005f;
         }
         this->flHeight = fVar2;
       }

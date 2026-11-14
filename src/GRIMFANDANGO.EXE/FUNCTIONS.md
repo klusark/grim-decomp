@@ -65,7 +65,7 @@
 | 0048b2a0 | sputText_SetSayLineDefaultsL | lua.c | 19 |
 | 0048b4c0 | sputText_SayLineL | lua.c | 86 |
 | 0048b6a0 | Lua_ParseSayLineTable | lua.c | 61 |
-| 0048b830 | sputText_PrintLineL | lua.c | 1 |
+| 0048b830 | sputText_PrintLineL | lua.c | 83 |
 | 0048b9a0 | sputText_IsMessageGoingL | lua.c | 41 |
 | 0048ba90 | sputText_ExpireTextQueueL | lua.c | 18 |
 | 0048baf0 | sputText_PurgeTextQueueL | lua.c | 14 |
@@ -1696,7 +1696,7 @@
 | 004955e0 | Costume_ApplyComponentState | costume.c | 43 |
 | 004956a0 | sputCostume_BuildThingStateMatrices | costume.c | 20 |
 | 004956f0 | sputCostume_Draw2D | costume.c | 24 |
-| 00495730 | sputCostume_Update | costume.c | 1 |
+| 00495730 | sputCostume_Update | costume.c | 37 |
 | 00495e90 | sputCostume_SaveHook | costume.c | 92 |
 | 00496020 | Costume_InstanceHook | costume.c | 13 |
 | 00494890 | sputCostume_SetShadowColor | shadow.c | 30 |
@@ -1752,7 +1752,7 @@
 | 00498550 | SpriteChanger | spritecomponent.c | 17 |
 | 00498580 | SpriteFreer | spritecomponent.c | 13 |
 | 004985c0 | SpriteInstancer | spritecomponent.c | 51 |
-| 004986e0 | SpriteAdjuster | spritecomponent.c | 1 |
+| 004986e0 | SpriteAdjuster | spritecomponent.c | 71 |
 | 00498990 | sputCostume_FadeKeysIn | chore.c | 61 |
 | 00498ad0 | sputCostume_FadeKeysOut | chore.c | 58 |
 | 00498bf0 | Config_GetPath | config.c | 145 |
@@ -2393,7 +2393,7 @@
 | 004bd970 | SmushPlay_UpdateMovie | smush.c | 56 |
 | 004bde90 | SmushPlay_SetTranslationTable | smush.c | 9 |
 | 004bdea0 | SmushPlay_GetFrameRect | smush.c | 20 |
-| 004bdf00 | SmushPlay_GetMovieLength | smush.c | 1 |
+| 004bdf00 | SmushPlay_GetMovieLength | smush.c | 26 |
 | 004be310 | LightMgr_Refresh | lightmgr.c | 46 |
 | 004beee0 | LightMgr_UpdateDialog | lightmgr.c | 10 |
 | 004be3b0 | LightEd_SyncFromSet | lighted.c | 68 |

@@ -1039,68 +1039,10 @@ void __cdecl stdStartup(GrimServices *svc)
  * Per frame: the frame time in seconds is rounded to whole milliseconds (round half away from zero, as the code does it
  * with +-0.5 and _ftol), every costume of the list gets Cos_InstUpdateChores(cos, ms) and every puppet of the second list
  * advances by ms * 0.001 seconds.  The decompiler lost the operand of the _ftol and the double bias constants. */
-void __cdecl sputCostume_Update(CostumeNode *costumeList, float dt)
-{
-    uint ms = (uint)round_half_away((long double)dt * 1000.0f);
-    float seconds = (float)((long double)(unsigned long long)ms * 0.001f);
-    int *node;
-    int key, item;
-
-    if (costumeList == (void *)0)
-        return;
-    node = (int *)costumeList;
-    key = node[1];
-    do {
-        if (node[1] != key)
-            break;
-        Cos_InstUpdateChores(*node, ms);
-        node = (int *)node[0x2c];
-    } while (node != (int *)0);
-    for (item = *(int *)((int)costumeList + 8); item != 0; item = *(int *)(item + 400)) {
-        void *puppet = *(void **)(*(int *)(item + 0x40) + 0x14);
-        if (puppet != (void *)0)
-            rdPuppet_UpdateTracks(puppet, seconds);
-    }
-}
-
 /* ==== SpriteAdjuster (0x004986e0) ====
  * Costume editor dialog for a sprite key ("Width", "Height" and three more fields).  The values shown are the sprite's
  * floats times 100 (+ 0.2, truncated: the decompiler lost the five _ftol operands); on OK they are stored back as
  * value * 0.01 (plus the half sizes) and the key's text "name w h ..." is rewritten. */
-undefined4 SpriteAdjuster(undefined4 *param_1, undefined4 param_2)
-{
-    char *labels[5];
-    int vals[5];
-    char text[32];
-    char *key = *(char **)*param_1;    /* the sprite data: the component's first field */
-    int tok;
-
-    labels[0] = s_Width_004ea87c;
-    labels[1] = s_Height_004ea874;
-    labels[2] = (char *)&DAT_004ea870;
-    labels[3] = (char *)&DAT_004ea86c;
-    labels[4] = (char *)&DAT_004ea868;
-    vals[0] = (int)(long long)((long double)*(float *)(key + 0x4c) * 100.0f - (-0.2f));
-    vals[1] = (int)(long long)((long double)*(float *)(key + 0x50) * 100.0f - (-0.2f));
-    vals[2] = (int)(long long)((long double)*(float *)(key + 0xac) * 100.0f - (-0.2f));
-    vals[3] = (int)(long long)((long double)*(float *)(key + 0xb0) * 100.0f - (-0.2f));
-    vals[4] = (int)(long long)((long double)*(float *)(key + 0xb4) * 100.0f - (-0.2f));
-    if (grimPlat_SpinDialog(param_2, (int)labels, (undefined4 *)vals, 5) == 0)
-        return 0;
-    *(float *)(key + 0x4c) = (float)vals[0] * 0.01f;
-    *(float *)(key + 0x50) = (float)vals[1] * 0.01f;
-    *(float *)(key + 0x54) = *(float *)(key + 0x4c) * 0.5f;
-    *(float *)(key + 0x58) = *(float *)(key + 0x50) * 0.5f;
-    *(float *)(key + 0xac) = (float)vals[2] * 0.01f;
-    *(float *)(key + 0xb0) = (float)vals[3] * 0.01f;
-    *(float *)(key + 0xb4) = (float)vals[4] * 0.01f;
-    tok = strtok(param_2, &DAT_004ea52c);
-    sprintf(text, s__s__d__d__d__d__d_004ea854, tok, vals[0], vals[1], vals[2], vals[3], vals[4]);
-    strncpy(tok, text, 0x1f);
-    *(undefined1 *)(tok + 0x1f) = 0;
-    return 1;
-}
-
 /* ==== sputCostume_DrawMeshShadow (0x00494940) ====
  * Draws the actor's shadow onto one shadow plane: for every mesh of every model of the costume list the 16 corner points of
  * the bounding boxes are projected through the plane (sputRender_SegmentPlaneIntersect along the shadow direction; a miss ends the
@@ -1554,72 +1496,6 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor_, char *text, int x, 
  * PrintLine(text, table): shows a line of text on screen with the options of the table (position, colour, duration ...).  When
  * the table gives no duration it is (characters * ms per character + base ms) * 16.666668 - the two values at 0x004e8470 /
  * 0x004e8474 are in front of UINT_004e8480.  The decompiler lost the operand of that _ftol. */
-
-void sputText_PrintLineL(void)
-
-{
-  char cVar1;
-  int iVar2;
-  void *pvVar3;
-  int iVar4;
-  char *pcVar5;
-  char *pcVar6;
-  uint *puVar7;
-  uint *puVar8;
-  uint local_5c;
-  int local_58;
-  char local_50 [32];
-  uint local_30 [12];
-  
-  iVar2 = lua_lua2C(1);
-  pvVar3 = (void *)lua_lua2C(2);
-  local_58 = -1;
-  if ((int)UINT_008a94bc <= (int)UINT_004e8480) {
-    UINT_004e8480 = UINT_008a94bc;
-  }
-  if ((int)UINT_008a94c0 <= (int)UINT_004e8484) {
-    UINT_004e8484 = UINT_008a94c0;
-  }
-  iVar4 = lua_isstring(iVar2);
-  if (((iVar4 != 0) || (iVar4 = lua_isnil(iVar2), iVar4 != 0)) &&
-     ((iVar4 = lua_istable((int)pvVar3), iVar4 != 0 || (iVar4 = lua_isnil((int)pvVar3), iVar4 != 0))
-     )) {
-    iVar4 = lua_isnil(iVar2);
-    if (iVar4 == 0) {
-      local_5c = (uint)local_30;
-      puVar7 = &g_PrintLineTextCtx;
-      puVar8 = local_30;
-      for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
-        *puVar8 = *puVar7;
-        puVar7 = puVar7 + 1;
-        puVar8 = puVar8 + 1;
-      }
-    }
-    else {
-      local_5c = (uint)&g_PrintLineTextCtx;
-    }
-    iVar4 = lua_istable((int)pvVar3);
-    if (iVar4 != 0) {
-      local_58 = GetTextParamsFromTable((void *)local_5c,pvVar3,(void *)0x0);
-    }
-    iVar4 = lua_isstring(iVar2);
-    if (iVar4 != 0) {
-      pcVar6 = local_50;
-      pcVar5 = (char *)lua_getstring(iVar2);
-      pcVar6 = sputText_ExtractSayLineData(pcVar5,pcVar6);
-      if (local_58 < 0) {
-        /* display time: (length * ms per character + base ms) * 16.666668 truncated */
-        uint *msTab = (uint *)&UINT_004e8480 - 4;
-        uint len = strlen(pcVar6);
-        local_58 = (int)(long long)((long double)(unsigned long long)(len * msTab[1] + msTab[0]) * 16.666668f);
-      }
-      iVar2 = 0;
-      pvVar3 = TextObject_New((void *)local_5c,pcVar6);
-      sputText_AddToQueue(pvVar3,local_58,iVar2);
-    }
-  }
-  return;
-}
 
 /* ==== stdDisplay_VBufferNew (0x00474480) ====
  * Std/Win95/Stddisplay.c: creates a surface record (0xd8 bytes) from a 19-dword format / size description `info` (copied to
