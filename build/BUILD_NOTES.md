@@ -1641,3 +1641,14 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   functions and link.py stubbed fptan / fpatan as traps (tan, atan and atan2 crashed the clean room's numbers tests),
   log2 resolved to nothing useful (log(10) was 1.6e8). They are builtins on long double now. A syntax pass over every
   src/ module with -Wimplicit-function-declaration finds no other implicit declaration. Clean room 0 of 5390.
+
+## Smush sound engine accessors generated again (2026-11-14)
+
+* sou_engine_GetPan / GetParam / GetVol / Query / SetPan / SetParam / SetRate / SetVol / Stop / SetHVol and
+  SoundModule_GetChannelVolume / SetChannelVolume (overrides_mixer_snd.c) use their twins: the same loops over the 16
+  voices (0x34 bytes at 0x008dad58, reached through the fields' own globals) and the same globals. sou_sound_module
+  stays (its twin ends the buffer-size loop at the original address 0x8dacf0); the rest of the file is unchanged.
+* build/mixdiff no longer runs on the current tree (snd_test exits before its first case with data.o for the old
+  data_s.o), so these were read against the hand-written text and checked with the clean room's movie tests.
+* Clean room: the 6 render_g* tests grim_tools added on 2026-11-14 differ with and without this change (5451 of
+  5457 the same both times).

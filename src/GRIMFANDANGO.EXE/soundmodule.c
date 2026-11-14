@@ -354,8 +354,6 @@ void __cdecl sou_engine_Start(byte *p,int id,int volume,int pan,uint flags)
 
 
 /* ---- 0x004d0a50  sou_engine_Stop ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_engine_Stop (the remaster's GrimFandango (Linux): slot 1 of the "SOUND=insane"
    service table); was SoundModule_StopSound. */
 
@@ -379,8 +377,6 @@ void __cdecl sou_engine_Stop(uint id)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d0a80  sou_engine_Pause ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -445,8 +441,6 @@ void sou_engine_StopAll(void)
 
 
 /* ---- 0x004d0ad0  sou_engine_SetVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_engine_SetVol (the remaster's GrimFandango (Linux): slot 6 of the
    "SOUND=insane" service table); was SoundModule_SetVolume. */
 
@@ -473,12 +467,8 @@ void __cdecl sou_engine_SetVol(int id,uint volume)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d0b10  sou_engine_GetVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_engine_GetVol (the remaster's GrimFandango (Linux): slot 5 of the
    "SOUND=insane" service table); was SoundModule_GetVolume. */
 
@@ -505,12 +495,8 @@ uint __cdecl sou_engine_GetVol(uint id)
   }
   return 0xffffffff;
 }
-#endif
-
 
 /* ---- 0x004d0b60  sou_engine_SetPan ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_engine_SetPan (the remaster's GrimFandango (Linux): slot 8 of the
    "SOUND=insane" service table); was SoundModule_SetPan. */
 
@@ -533,12 +519,8 @@ void __cdecl sou_engine_SetPan(int id,byte pan)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d0b90  sou_engine_GetPan ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_engine_GetPan (the remaster's GrimFandango (Linux): slot 7 of the
    "SOUND=insane" service table); was SoundModule_GetPan. */
 
@@ -562,12 +544,8 @@ int __cdecl sou_engine_GetPan(uint id)
   } while (iVar1 < (int)g_dwSou_chans);
   return -1;
 }
-#endif
-
 
 /* ---- 0x004d0bd0  sou_engine_SetHVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_engine_SetHVol (the remaster's GrimFandango (Linux): slot 10 of the
    "SOUND=insane" service table); was SoundModule_DriverCommand2. */
 
@@ -579,8 +557,6 @@ void __cdecl sou_engine_SetHVol(int arg)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d0bf0  sou_engine_GetHVol ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -606,8 +582,6 @@ int sou_engine_GetHVol(void)
 
 
 /* ---- 0x004d0c00  sou_engine_SetRate ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_engine_SetRate (the remaster's GrimFandango (Linux): the only unpaired writer
    of sou_sample_rate, same body); was SoundModule_SetDriverRate. */
 
@@ -620,12 +594,8 @@ void __cdecl sou_engine_SetRate(uint rate)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d0c30  sou_engine_Query ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_engine_Query (the remaster's GrimFandango (Linux): slot 13 of the
    "SOUND=insane" service table); was SoundModule_GetPosition. */
 
@@ -673,12 +643,8 @@ int __cdecl sou_engine_Query(uint id)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x004d0d70  sou_engine_SetParam ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_engine_SetParam (the remaster's GrimFandango (Linux): slot 15 of the
    "SOUND=insane" service table); was SoundModule_SetParam. */
 
@@ -712,12 +678,8 @@ int __cdecl sou_engine_SetParam(int unused,int which,uint a,uint b)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x004d0e00  sou_engine_GetParam ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_engine_GetParam (the remaster's GrimFandango (Linux): slot 14 of the
    "SOUND=insane" service table); was SoundModule_GetParam. */
 
@@ -765,12 +727,8 @@ int __cdecl sou_engine_GetParam(int unused,int which,uint *a,uint *b)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x004d0eb0  SoundModule_GetChannelVolume ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 uint __cdecl SoundModule_GetChannelVolume(byte channel)
 
 {
@@ -779,12 +737,8 @@ uint __cdecl SoundModule_GetChannelVolume(byte channel)
   }
   return (&DAT_008db0e8)[channel];
 }
-#endif
-
 
 /* ---- 0x004d0ed0  SoundModule_SetChannelVolume ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl SoundModule_SetChannelVolume(byte channel,byte value)
 
 {
@@ -794,8 +748,6 @@ void __cdecl SoundModule_SetChannelVolume(byte channel,byte value)
   (&DAT_008db0e8)[channel] = value;
   return;
 }
-#endif
-
 
 /* ---- 0x004d0f00  SoundModule_PlayVoc ---- */
 /* replaced by the hand-written version in build/overrides.c */
