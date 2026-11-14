@@ -315,19 +315,6 @@ void sou_engine_Start(byte *p, int id, int volume, int pan, uint flags)
  *  Simple accessors
  * =================================================================================================================== */
 
-/* Stops the sound with the given id */
-void sou_engine_Stop(uint id)
-{
-    int i;
-
-    for (i = 0; i < g_nSndVoiceCount; i++) {
-        if (g_aSndVoices[i].id == id) {
-            g_aSndVoices[i].state = 0;
-            g_aSndVoices[i].id = 0xffffff01;
-        }
-    }
-}
-
 void sou_engine_Pause(void)
 {
     g_nSndPause++;
@@ -349,100 +336,11 @@ void sou_engine_StopAll(void)
     }
 }
 
-/* id -255: the default volume for sounds that do not carry one; otherwise the volume of the sound with that id */
-void sou_engine_SetVol(int id, uint volume)
-{
-    int i;
-
-    if (id == -0xff) {
-        g_dwSndMasterVolume = volume;
-        return;
-    }
-    for (i = 0; i < g_nSndVoiceCount; i++) {
-        if ((int)g_aSndVoices[i].id == id)
-            g_aSndVoices[i].volume = (signed char)volume;
-    }
-}
-
-uint sou_engine_GetVol(uint id)
-{
-    int i;
-
-    if (id == 0xffffff01)
-        return g_dwSndMasterVolume;
-    for (i = 0; i < g_nSndVoiceCount; i++) {
-        if (g_aSndVoices[i].id == id)
-            return (int)g_aSndVoices[i].volume;
-    }
-    return 0xffffffff;
-}
-
-void sou_engine_SetPan(int id, byte pan)
-{
-    int i;
-
-    for (i = 0; i < g_nSndVoiceCount; i++) {
-        if ((int)g_aSndVoices[i].id == id)
-            g_aSndVoices[i].pan = (signed char)pan;
-    }
-}
-
-int sou_engine_GetPan(uint id)
-{
-    int i;
-
-    for (i = 0; i < g_nSndVoiceCount; i++) {
-        if (g_aSndVoices[i].id == id)
-            return (int)g_aSndVoices[i].pan;
-    }
-    return -1;
-}
-
-void sou_engine_SetHVol(int arg)
-{
-    if (g_pSndDriver != 0)
-        ((void (*)(int))g_pSndDriver[2])(arg);
-}
-
 int sou_engine_GetHVol(void)
 {
     if (g_pSndDriver != 0)
         return ((int (*)(void))g_pSndDriver[3])();
     return -1;
-}
-
-void sou_engine_SetRate(uint rate)
-{
-    g_dwSndRate = rate;
-    if (g_pSndDriver != 0)
-        ((void (*)(uint))g_pSndDriver[4])(rate);
-}
-
-/* bytes played of a sound (+1), or of the first playing one (id 0xffffff01); a negative id counts voices from the end */
-int sou_engine_Query(uint id)
-{
-    int i;
-
-    if (id == 0xffffff01) {
-        for (i = 0; i < g_nSndVoiceCount; i++) {
-            if (g_aSndVoices[i].state != 0)
-                return g_aSndVoices[i].position + 1;
-        }
-        return 0;
-    }
-    if ((int)id < 0 && (int)(-1 - id) < g_nSndVoiceCount) {
-        if (g_aSndVoices[-(int)(id + 1)].state != 0)
-            return g_aSndVoices[-(int)(id + 1)].position + 1;
-        return 0;
-    }
-    for (i = 0; i < g_nSndVoiceCount; i++) {
-        if (g_aSndVoices[i].id == id) {
-            if (g_aSndVoices[i].state != 0)
-                return g_aSndVoices[i].position + 1;
-            return 0;
-        }
-    }
-    return 0;
 }
 
 /* Length of the played part of voice `voice` in milliseconds */
@@ -472,88 +370,6 @@ count:
         int rate = sou_engine_GetRate();
         return (int)(long long)(samples / ((double)rate * 0.001));
     }
-}
-
-int sou_engine_SetParam(int unused, int which, uint a, uint b)
-{
-    switch (which) {
-    case 1:
-        SoundModule_SetChannelVolume(a, b);
-        return 0;
-    case 2:
-        if (a != 0)
-            g_nSndDuckMin = a;
-        if (b != 0) {
-            g_dwSndDuckRate = b;
-            return 0;
-        }
-        break;
-    case 3:
-        g_bSndClass1 = a;
-        return 0;
-    case 4:
-        g_bSndClass2 = a;
-        return 0;
-    case 5:
-        g_bSndClass0 = a;
-        break;
-    default:
-        return -1;
-    }
-    return 0;
-}
-
-int sou_engine_GetParam(int unused, int which, uint *a, uint *b)
-{
-    switch (which) {
-    case 1:
-        if (a != 0) {
-            *a = SoundModule_GetChannelVolume((byte)(uint)b) & 0xff;
-            return 0;
-        }
-        break;
-    case 2:
-        if (a != 0)
-            *a = g_nSndDuckMin;
-        if (b != 0) {
-            *b = g_dwSndDuckRate;
-            return 0;
-        }
-        break;
-    case 3:
-        if (a != 0) {
-            *a = g_bSndClass1;
-            return 0;
-        }
-        break;
-    case 4:
-        if (a != 0) {
-            *a = g_bSndClass2;
-            return 0;
-        }
-        break;
-    case 5:
-        if (a != 0)
-            *a = g_bSndClass0;
-        break;
-    default:
-        return -1;
-    }
-    return 0;
-}
-
-uint SoundModule_GetChannelVolume(byte channel)
-{
-    if (channel == 0xff)
-        return (byte)g_dwSndMasterVolume;
-    return g_abSndVars[channel];
-}
-
-void SoundModule_SetChannelVolume(byte channel, byte value)
-{
-    if (channel == 0xff)
-        g_dwSndMasterVolume = value;
-    g_abSndVars[channel] = value;
 }
 
 void SoundModule_SyncClock(void)
