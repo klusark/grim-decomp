@@ -181,7 +181,6 @@ FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *
 }
 
 /* ---- 0x00492680  TestCollision ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Walker_AvoidActorPath: does the path segment pass through the other actor's collision box
    Original name TestCollision (the remaster's GrimFandango (Linux): same parameters and body (both
    segment ends into box space with rdMatrix_TransformVectorOrtho34, the slab tests against the box
@@ -226,21 +225,21 @@ TestCollision(float *from,float *to,float *hit,float xmin,float ymin,float zmin,
     goto LAB_00492801;
   }
   fVar1 = 1.0;
-  fVar5 = *(float *)&DAT_008ca320;
-  fVar6 = *(float *)&DAT_008ca324;
-  fVar7 = *(float *)&DAT_008ca328;
+  fVar5 = FLOAT_008ca320;
+  fVar6 = FLOAT_008ca324;
+  fVar7 = FLOAT_008ca328;
 LAB_00492801:
-  *(float *)&DAT_008ca328 = fVar7;
-  *(float *)&DAT_008ca324 = fVar6;
-  *(float *)&DAT_008ca320 = fVar5;
+  FLOAT_008ca328 = fVar7;
+  FLOAT_008ca324 = fVar6;
+  FLOAT_008ca320 = fVar5;
   if (((local_24[1] < ymin) && (ymin < local_c[1])) &&
      (fVar5 = (ymin - local_24[1]) / fVar3, fVar5 < fVar1)) {
     fVar6 = fVar5 * fVar2 + local_24[0];
     if ((xmin < fVar6) && (fVar6 < xmax)) {
       fVar1 = fVar5;
-      *(float *)&DAT_008ca320 = fVar6;
-      *(float *)&DAT_008ca324 = fVar5 * fVar3 + local_24[1];
-      *(float *)&DAT_008ca328 = fVar5 * fVar4 + local_24[2];
+      FLOAT_008ca320 = fVar6;
+      FLOAT_008ca324 = fVar5 * fVar3 + local_24[1];
+      FLOAT_008ca328 = fVar5 * fVar4 + local_24[2];
     }
   }
   if (((xmax < local_24[0]) && (local_c[0] < xmax)) &&
@@ -248,9 +247,9 @@ LAB_00492801:
     fVar6 = fVar5 * fVar3 + local_24[1];
     if ((ymin < fVar6) && (fVar6 < ymax)) {
       fVar1 = fVar5;
-      *(float *)&DAT_008ca320 = fVar5 * fVar2 + local_24[0];
-      *(float *)&DAT_008ca324 = fVar6;
-      *(float *)&DAT_008ca328 = fVar5 * fVar4 + local_24[2];
+      FLOAT_008ca320 = fVar5 * fVar2 + local_24[0];
+      FLOAT_008ca324 = fVar6;
+      FLOAT_008ca328 = fVar5 * fVar4 + local_24[2];
     }
   }
   if (((local_24[0] < xmin) && (xmin < local_c[0])) &&
@@ -258,9 +257,9 @@ LAB_00492801:
     fVar3 = fVar5 * fVar3 + local_24[1];
     if ((ymin < fVar3) && (fVar3 < ymax)) {
       fVar1 = fVar5;
-      *(float *)&DAT_008ca320 = fVar5 * fVar2 + local_24[0];
-      *(float *)&DAT_008ca324 = fVar3;
-      *(float *)&DAT_008ca328 = fVar5 * fVar4 + local_24[2];
+      FLOAT_008ca320 = fVar5 * fVar2 + local_24[0];
+      FLOAT_008ca324 = fVar3;
+      FLOAT_008ca328 = fVar5 * fVar4 + local_24[2];
     }
   }
   if (fVar1 == 1.0) {
@@ -449,9 +448,9 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
             _DAT_008ca338 = *pfVar6;
             _DAT_008ca33c = param_1->aPos[1];
             _DAT_008ca340 = param_1->aPos[2];
-            _DAT_008ca320 = *pfVar6;
-            _DAT_008ca324 = param_1->aPos[1];
-            _DAT_008ca328 = param_1->aPos[2];
+            FLOAT_008ca320 = *pfVar6;
+            FLOAT_008ca324 = param_1->aPos[1];
+            FLOAT_008ca328 = param_1->aPos[2];
             if ((uVar5 & 1) != 0) {
               param_1->dwMoveFlags = param_1->dwMoveFlags | 1;
             }
@@ -527,10 +526,10 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
             param_1->aPrevPos[1] = param_1->aPos[1];
             param_1->aPrevPos[2] = fVar12;
             pfVar6 = sputActor_GetOrientMatrix(actor);
-            rdMatrix_TransformPoint34Acc((float *)&DAT_008ca320,pfVar6);
-            _DAT_008ca320 = _DAT_008ca320 - local_98[0];
-            _DAT_008ca324 = _DAT_008ca324 - local_98[1];
-            _DAT_008ca328 = _DAT_008ca328 - local_98[2];
+            rdMatrix_TransformPoint34Acc(&FLOAT_008ca320,pfVar6);
+            FLOAT_008ca320 = FLOAT_008ca320 - local_98[0];
+            FLOAT_008ca324 = FLOAT_008ca324 - local_98[1];
+            FLOAT_008ca328 = FLOAT_008ca328 - local_98[2];
             uVar5 = param_1->dwMoveFlags;
             sputActor_SetActorPosition(param_1,local_80 + 1);
             _DAT_008ca338 = param_1->aPos[0];
@@ -549,7 +548,7 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
           in_stack_ffffff28 = 6.727223e-39;
           in_stack_ffffff2c = param_1;
           sputLua_CollisionHandler
-                    ((int)param_1,(int)actor,(float *)&DAT_008ca348,(float *)&DAT_008ca320,
+                    ((int)param_1,(int)actor,(float *)&DAT_008ca348,&FLOAT_008ca320,
                      (float *)&DAT_008ca338);
         }
       }
@@ -588,7 +587,6 @@ LAB_004940c6:
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_58 */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Collision_BoxSlide: box collision response (entry face from the move, slide along the face).
    Head-on slides depend on float noise of a zero rotation axis, either side. Ported bit-exact as
    origBoxSlide in engines/grim/actor.cpp. */
@@ -766,9 +764,9 @@ Collision_BoxSlide(float *from,float *to,float xmin,float ymin,float zmin,float 
   *out = fVar5 * fVar10 + *from;
   out[1] = fVar5 * fVar1 + from[1];
   out[2] = fVar5 * fVar3 + from[2];
-  *(float *)&DAT_008ca320 = *out;
-  *(float *)&DAT_008ca324 = out[1];
-  *(float *)&DAT_008ca328 = out[2];
+  FLOAT_008ca320 = *out;
+  FLOAT_008ca324 = out[1];
+  FLOAT_008ca328 = out[2];
   fVar11 = fVar5;
   if (fVar5 < 0.0) {
     fVar11 = -fVar5;

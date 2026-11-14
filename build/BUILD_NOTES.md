@@ -1781,3 +1781,21 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   Ghidra first. DsndDriver_CreateStreamBuffer, DDraw_CreateSurfaces (COM arguments lost), Win_AbortIfAlreadyRunning
   (GRIM_MULTI), MxInitialize (the hmi helper's x87 operands lost).
 * Clean room 0 of 5457 after each of the three rounds.
+
+## Float globals typed float; rdRaster_Startup generated again (2026-11-14)
+
+* 26 EXE globals that the x87 code reads as floats (`float ptr [addr]` in raw/GRIMFANDANGO.EXE/disasm.json, otherwise
+  only dword moves) were untyped or `uint` in Ghidra, and globals.h gave their wider view as `undefined4` (`_DAT_..`)
+  or `uint` (`UINT_..`): in C, `x * _DAT_004ddb30` converted the float's bits as an integer. They are `float` now
+  (names/types_float_globals.json, tools/apply_types.py), and Ghidra names them FLOAT_<addr>; the overrides that used
+  the DAT_ / UINT_ names use FLOAT_ (overrides_asm_p1 / q4 / q5 / q6, big_collision_others, big_walker_avoid, logic).
+  datacmp.py: 0 differences, 0 moved (datagen keeps the rest of a span as its tail).
+* 42 functions re-exported; the 9 live ones only change `*(float *)&DAT_008ca320` into `FLOAT_008ca320`. Clean room 0
+  of 5457 with only that change.
+* Generated again: rdRaster_Startup. Kept: rdModel3_DrawMeshImpl and the gradient set-ups (x87-exact ports).
+* What is left (about 530 overrides): the rasteriser span family (363, macro-built from the assembly with the
+  original's control-word switches, fldcw 24-bit truncation part-way through each span, which generated C cannot
+  express; differentially tested), the GRIM_SIMTIME / GRIM_MULTI / mod hooks, deliberate fixes, x87-exact ports whose
+  rounding to float through memory the decompiler folds away, and twins with lost COM / x87 arguments that need
+  their own repairs.
+* Clean room 0 of 5457 with rdRaster_Startup removed.

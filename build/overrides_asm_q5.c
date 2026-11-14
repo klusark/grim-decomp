@@ -82,7 +82,7 @@ extern unsigned short DAT_00900524;  /* x87 control word: default */
 extern unsigned short DAT_00900528;  /* x87 control word: round toward zero, 24-bit precision */
 extern char *g_dwRdColormap_pCurMap;          /* the colormap; +0x338: the translucency table */
 extern char *g_pRdCamera_CurCamera;     /* 0x007f0fc8; +4: the canvas (+4 colour buffer, +0x10 z-buffer, +0x14 z shift) */
-extern float DAT_004dda90, g_aRdroid_MipDistances, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
+extern float FLOAT_004dda90, g_aRdroid_MipDistances, FLOAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
 extern void Mem_DumpLog(void);       /* an empty function: the 8 bpp "span filler" of the opaque drivers */
 
 /* the edge record (0x44 bytes, on the driver's stack): x, dx (16.16), h (scan lines left), idx (current vertex); the
@@ -256,10 +256,10 @@ void rdZRaster_CalcPerspGradients(int dbits)
         g_dwRdZRaster_mipMapNum = dist > g_aRdroid_MipDistances ? 1 : 0;
         break;
     case 2:
-        g_dwRdZRaster_mipMapNum = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
+        g_dwRdZRaster_mipMapNum = !(dist > FLOAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
         break;
     case 3:
-        g_dwRdZRaster_mipMapNum = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
+        g_dwRdZRaster_mipMapNum = !(dist > FLOAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > FLOAT_004dda98) ? 2 : 3;
         break;
     }
     {
@@ -1005,10 +1005,10 @@ Q5_TDRAW(rdZRaster_DrawNGonMTGIT, 2, 1, rdZRaster_SetupLeftEdgeNGonGIT, rdZRaste
  * Their state lives in globals (0x007f4ac8 .. 0x007f4b74, 0x008dde40), the texture in 0x008ddf04 .. 0x008ddf4c (mip
  * shift, log2 width, masks, u / v biases, the 16 bpp palette, the texels, the perspective plane steps).  Each part of
  * a span is drawn from its last pixel to its first, as in the original. */
-extern int DAT_007f4ac8, UINT_007f4acc, UINT_007f4ad0, DAT_007f4ad4, UINT_007f4adc, DAT_007f4ae4, DAT_007f4aec,
+extern int DAT_007f4ac8, UINT_007f4acc, UINT_007f4ad0, FLOAT_007f4ad4, UINT_007f4adc, DAT_007f4ae4, DAT_007f4aec,
     DAT_007f4af0, DAT_007f4af4, DAT_007f4af8, UINT_007f4b28, UINT_007f4b2c, UINT_007f4b30, DAT_007f4b34, DAT_007f4b38,
-    UINT_007f4b3c, UINT_007f4b40, UINT_007f4b44, UINT_007f4b48, UINT_007f4b4c, UINT_007f4b50, UINT_007f4b54,
-    DAT_007f4b58, DAT_007f4b5c, DAT_007f4b60, DAT_007f4b64, UINT_007f4b68, UINT_007f4b6c, UINT_007f4b70, UINT_007f4b74;
+    UINT_007f4b3c, UINT_007f4b40, UINT_007f4b44, FLOAT_007f4b48, FLOAT_007f4b4c, FLOAT_007f4b50, UINT_007f4b54,
+    DAT_007f4b58, DAT_007f4b5c, DAT_007f4b60, FLOAT_007f4b64, UINT_007f4b68, UINT_007f4b6c, UINT_007f4b70, UINT_007f4b74;
 extern int UINT_008dde40, g_dwRdAFRaster_mipMapNum, g_dwRdAFRaster_texRowShift, g_dwRdAFRaster_vWrap, g_dwRdAFRaster_dVdXModifier, g_dwRdAFRaster_dOneOverZdXFixed, g_dwRdAFRaster_dUdXModifier,
     g_dwRdAFRaster_uWrap;
 extern float g_dwRdAFRaster_dOneOverZdX, g_dwRdAFRaster_dUOverZdX, g_dwRdAFRaster_oneOverZStep, g_dwRdAFRaster_uOverZStep, g_dwRdAFRaster_dVOverZdX, g_dwRdAFRaster_vOverZStep;
@@ -1193,18 +1193,18 @@ Q5_INLINE int q5_cvt(float x, int *tr)
 #define Q5_PW()                                                                                             \
     {                                                                                                       \
         long double w_ = 1.0f / (long double)Q5_GF(DAT_007f4b38);                                           \
-        Q5_GF(UINT_007f4b50) = q5_f(w_);                                                                    \
-        Q5_GF(UINT_007f4b48) = q5_f(w_ * Q5_GF(DAT_007f4b64));                                              \
-        Q5_GF(UINT_007f4b4c) = q5_f((long double)Q5_GF(UINT_007f4b50) * Q5_GF(DAT_007f4ad4));               \
+        Q5_GF(FLOAT_007f4b50) = q5_f(w_);                                                                    \
+        Q5_GF(FLOAT_007f4b48) = q5_f(w_ * Q5_GF(FLOAT_007f4b64));                                              \
+        Q5_GF(FLOAT_007f4b4c) = q5_f((long double)Q5_GF(FLOAT_007f4b50) * Q5_GF(FLOAT_007f4ad4));               \
     }
 /* du, dv, u and the raw v of a part over 1/k = rk */
 #define Q5_PUV(rk)                                                                                          \
     {                                                                                                       \
         UINT_007f4b54 =                                                                                     \
-            Q5_CVT(q5_f(((long double)Q5_GF(UINT_007f4b48) - Q5_GF(DAT_007f4b58)) * (rk) * 65536.0f)) >>     \
+            Q5_CVT(q5_f(((long double)Q5_GF(FLOAT_007f4b48) - Q5_GF(DAT_007f4b58)) * (rk) * 65536.0f)) >>     \
             (g_dwRdAFRaster_mipMapNum & 31);                                                                           \
         UINT_007f4adc =                                                                                     \
-            Q5_CVT(q5_f(((long double)Q5_GF(UINT_007f4b4c) - Q5_GF(DAT_007f4b5c)) * (rk) * 65536.0f)) >>     \
+            Q5_CVT(q5_f(((long double)Q5_GF(FLOAT_007f4b4c) - Q5_GF(DAT_007f4b5c)) * (rk) * 65536.0f)) >>     \
             (g_dwRdAFRaster_mipMapNum & 31);                                                                           \
         UINT_007f4b6c =                                                                                     \
             (Q5_CVT(q5_f((long double)Q5_GF(DAT_007f4b58) * 65536.0f)) >> (g_dwRdAFRaster_mipMapNum & 31)) + g_dwRdAFRaster_dUdXModifier;\
@@ -1220,11 +1220,11 @@ Q5_INLINE int q5_cvt(float x, int *tr)
 /* the plane values advance by 16 pixels; u0, v0, w take the part's end values */
 #define Q5_PNEXT()                                                                                          \
     Q5_GF(DAT_007f4b38) = q5_f((long double)Q5_GF(DAT_007f4b38) + g_dwRdAFRaster_oneOverZStep);                            \
-    Q5_GF(DAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4b64) + g_dwRdAFRaster_uOverZStep);                            \
-    Q5_GF(DAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4ad4) + g_dwRdAFRaster_vOverZStep);                            \
-    DAT_007f4b58 = UINT_007f4b48;                                                                           \
-    DAT_007f4b5c = UINT_007f4b4c;                                                                           \
-    DAT_007f4b60 = UINT_007f4b50;
+    Q5_GF(FLOAT_007f4b64) = q5_f((long double)Q5_GF(FLOAT_007f4b64) + g_dwRdAFRaster_uOverZStep);                            \
+    Q5_GF(FLOAT_007f4ad4) = q5_f((long double)Q5_GF(FLOAT_007f4ad4) + g_dwRdAFRaster_vOverZStep);                            \
+    DAT_007f4b58 = FLOAT_007f4b48;                                                                           \
+    DAT_007f4b5c = FLOAT_007f4b4c;                                                                           \
+    DAT_007f4b60 = FLOAT_007f4b50;
 
 #define Q5_P16(NAME, LIT, TEXEL, PIXEL)                                                                     \
 void NAME(int *s)                                                                                           \
@@ -1264,8 +1264,8 @@ void NAME(int *s)                                                               
         Q5_GF(DAT_007f4af4) = q5_f((long double)UINT_007f4b44);                                             \
         Q5_GF(DAT_007f4b34) = q5_copy(g_dwRdRaster_aOneOverNFlex[UINT_007f4b44]);                                        \
         Q5_GF(DAT_007f4b38) = q5_f((long double)Q5_GF(DAT_007f4af4) * g_dwRdAFRaster_dOneOverZdX + Q5_GF(DAT_007f4af8));  \
-        Q5_GF(DAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4af4) * g_dwRdAFRaster_dUOverZdX + Q5_GF(DAT_007f4ae4));  \
-        Q5_GF(DAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4af4) * g_dwRdAFRaster_dVOverZdX + Q5_GF(DAT_007f4af0));  \
+        Q5_GF(FLOAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4af4) * g_dwRdAFRaster_dUOverZdX + Q5_GF(DAT_007f4ae4));  \
+        Q5_GF(FLOAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4af4) * g_dwRdAFRaster_dVOverZdX + Q5_GF(DAT_007f4af0));  \
         Q5_PW()                                                                                             \
         Q5_PUV(Q5_GF(DAT_007f4b34))                                                                         \
         Q5_PLAST(UINT_007f4b44, LIT)                                                                        \
@@ -1273,8 +1273,8 @@ void NAME(int *s)                                                               
         Q5_PNEXT()                                                                                          \
     } else {                                                                                                \
         Q5_GF(DAT_007f4b38) = q5_f((long double)Q5_GF(DAT_007f4af8) + g_dwRdAFRaster_oneOverZStep);                        \
-        Q5_GF(DAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4ae4) + g_dwRdAFRaster_uOverZStep);                        \
-        Q5_GF(DAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4af0) + g_dwRdAFRaster_vOverZStep);                        \
+        Q5_GF(FLOAT_007f4b64) = q5_f((long double)Q5_GF(DAT_007f4ae4) + g_dwRdAFRaster_uOverZStep);                        \
+        Q5_GF(FLOAT_007f4ad4) = q5_f((long double)Q5_GF(DAT_007f4af0) + g_dwRdAFRaster_vOverZStep);                        \
     }                                                                                                       \
     for (;;) {                                                                                              \
         k = UINT_007f4b2c--;                                                                                \
@@ -1293,10 +1293,10 @@ void NAME(int *s)                                                               
             Q5_GF(DAT_007f4aec) = q5_copy(g_dwRdRaster_aOneOverNFlex[k]);                                                \
             Q5_GF(DAT_007f4b38) =                                                                           \
                 q5_f(((long double)Q5_GF(DAT_007f4ac8) * g_dwRdAFRaster_dOneOverZdX - g_dwRdAFRaster_oneOverZStep) + Q5_GF(DAT_007f4b38));\
-            Q5_GF(DAT_007f4b64) =                                                                           \
-                q5_f(((long double)Q5_GF(DAT_007f4ac8) * g_dwRdAFRaster_dUOverZdX - g_dwRdAFRaster_uOverZStep) + Q5_GF(DAT_007f4b64));\
-            Q5_GF(DAT_007f4ad4) =                                                                           \
-                q5_f(((long double)Q5_GF(DAT_007f4ac8) * g_dwRdAFRaster_dVOverZdX - g_dwRdAFRaster_vOverZStep) + Q5_GF(DAT_007f4ad4));\
+            Q5_GF(FLOAT_007f4b64) =                                                                           \
+                q5_f(((long double)Q5_GF(DAT_007f4ac8) * g_dwRdAFRaster_dUOverZdX - g_dwRdAFRaster_uOverZStep) + Q5_GF(FLOAT_007f4b64));\
+            Q5_GF(FLOAT_007f4ad4) =                                                                           \
+                q5_f(((long double)Q5_GF(DAT_007f4ac8) * g_dwRdAFRaster_dVOverZdX - g_dwRdAFRaster_vOverZStep) + Q5_GF(FLOAT_007f4ad4));\
             Q5_PW()                                                                                         \
             Q5_PUV(Q5_GF(DAT_007f4aec))                                                                     \
             Q5_PLAST(k + 1, LIT)                                                                            \

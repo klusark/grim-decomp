@@ -996,7 +996,7 @@ static void p1_light_dir(int light, float *mt, int slot)
  * modes are clamped to the renderer limits, and by the light mode: 2 or 3 collect the lights that reach the mesh
  * (UINT_007f30e0 list, positions g_aLocalLightPos and directions g_aLocalLightDir in the model frame); 3 also computes the
  * vertex intensities; 6 copies the mesh intensity into every face.  Last, every face whose plane faces the eye (the
- * eye in the model frame at DAT_007f0fd8) goes to rdModel3_DrawFace with flag 0; back faces go with flag 1 if
+ * eye in the model frame at FLOAT_007f0fd8) goes to rdModel3_DrawFace with flag 0; back faces go with flag 1 if
  * the face is two-sided (+0x04 bit 0) or culling is off (g_dwRdroid_curRenderOptions bit 0).
  * The distance tests are x87 expressions with the original's precision: mode 2 compares sqrt(dx*dx + dy*(float)dy +
  * (float)dz*(float)dz) against range + mesh radius (the original spills dy and dz to float slots); mode 3 compares
@@ -1025,9 +1025,9 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
     if (n == 2)
         return;
     if (g_dwClipPlaneActive != 0) {
-        long double a1 = ((long double)matrix[10] - P1_F(&DAT_007f320c)) * P1_F(&DAT_004ddb74);
-        long double a2 = ((long double)matrix[11] - P1_F(&DAT_007f3210)) * P1_F(&DAT_004ddb78);
-        long double a0 = ((long double)matrix[9] - P1_F(&DAT_007f3208)) * P1_F(&DAT_004ddb70);
+        long double a1 = ((long double)matrix[10] - P1_F(&FLOAT_007f320c)) * P1_F(&FLOAT_004ddb74);
+        long double a2 = ((long double)matrix[11] - P1_F(&FLOAT_007f3210)) * P1_F(&FLOAT_004ddb78);
+        long double a0 = ((long double)matrix[9] - P1_F(&FLOAT_007f3208)) * P1_F(&FLOAT_004ddb70);
         long double d = (a1 + a2) + a0;
         if (-(long double)P1_F((int)g_pCurMesh + 0x60) > d)
             return;
@@ -1107,15 +1107,15 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
     eye[0] = UINT_008ddf84;
     eye[1] = UINT_008ddf88;
     eye[2] = UINT_008ddf8c;
-    rdMatrix_TransformPoint34((float *)&DAT_007f0fd8, (float *)eye, mt);
+    rdMatrix_TransformPoint34((float *)&FLOAT_007f0fd8, (float *)eye, mt);
     {
         int face = P1_I32((int)mesh + 0x40);
 
         for (i = 0; i < P1_U32((int)mesh + 0x50); i++, face += 0x4c) {
             int v = P1_I32((int)g_pCurMesh + 0x30) + P1_I32(P1_I32(face + 0x18)) * 12;
-            long double dz = (long double)P1_F(&DAT_007f0fe0) - P1_F(v + 8);
-            long double dx = (long double)P1_F(&DAT_007f0fd8) - P1_F(v);
-            long double dy = (long double)P1_F(&DAT_007f0fdc) - P1_F(v + 4);
+            long double dz = (long double)P1_F(&FLOAT_007f0fe0) - P1_F(v + 8);
+            long double dx = (long double)P1_F(&FLOAT_007f0fd8) - P1_F(v);
+            long double dy = (long double)P1_F(&FLOAT_007f0fdc) - P1_F(v + 4);
             long double dot = dz * P1_F(face + 0x48) + dx * P1_F(face + 0x40);
             dot = dy * P1_F(face + 0x44) + dot;
             if (dot > 0.0L)

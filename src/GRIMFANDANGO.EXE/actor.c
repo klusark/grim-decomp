@@ -1524,7 +1524,7 @@ LAB_00492cab:
     }
     ppAVar10 = ppAVar10 + 1;
     iVar8 = iVar8 + 1;
-  } while ((int)ppAVar10 < ((unsigned)(uintptr_t)&DAT_008ca320));
+  } while ((int)ppAVar10 < ((unsigned)(uintptr_t)&FLOAT_008ca320));
   if (uVar16 != 0) {
     if (local_24[0] == '\0') {
 LAB_00492e5e:
@@ -1611,7 +1611,7 @@ LAB_00492e6b:
           break;
         }
         ppAVar10 = ppAVar10 + 1;
-      } while ((int)ppAVar10 < ((unsigned)(uintptr_t)&DAT_008ca320));
+      } while ((int)ppAVar10 < ((unsigned)(uintptr_t)&FLOAT_008ca320));
     }
     else {
       do {
@@ -1622,7 +1622,7 @@ LAB_00492e6b:
           *puVar2 = *puVar2 | 2;
         }
         ppAVar10 = ppAVar10 + 1;
-      } while ((int)ppAVar10 < ((unsigned)(uintptr_t)&DAT_008ca320));
+      } while ((int)ppAVar10 < ((unsigned)(uintptr_t)&FLOAT_008ca320));
     }
   }
   if (((actor != (Actor *)0x0) && (pAVar6 = actor->pExtra, pAVar6 != (ActorExtra *)0x0)) &&
@@ -1725,7 +1725,7 @@ void __cdecl sputActor_ShutUp(Actor *actor)
         *ppAVar5 = (Actor *)0x0;
       }
       ppAVar5 = ppAVar5 + 1;
-    } while ((int)ppAVar5 < ((unsigned)(uintptr_t)&DAT_008ca320));
+    } while ((int)ppAVar5 < ((unsigned)(uintptr_t)&FLOAT_008ca320));
     actor->pExtra->nLipSync = 0;
     actor->pExtra->aVoiceFile[0] = '\0';
     actor->pExtra->pText = (TextObject *)0x0;

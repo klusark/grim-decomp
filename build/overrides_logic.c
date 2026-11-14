@@ -66,24 +66,6 @@ undefined8 __cdecl rdColormap_BuildRGB16(undefined2 *table, ushort *palette, uin
  * Reciprocal tables of the rasteriser: float 1/n for n = 1..2047 (entry 0 = FLT_MAX) at 0x008fe000, the same value as a
  * 16.16 fixed point integer (entry 0 = INT_MAX) at 0x008fbfc0, and the first 16 entries scaled by 65536 at 0x008fdfc0.
  * The decompiler lost the operand of _ftol (the extended precision 65536/n, truncated). */
-void rdRaster_Startup(void)
-{
-    float *recip = (float *)&g_dwRdRaster_aOneOverNFlex;
-    int *fixed = (int *)&g_aRdRaster_OneOverNFixed;
-    float *scaled = (float *)&UINT_008fdfc0;
-    int n;
-
-    recip[0] = *(float *)&(uint){0x7f7fc99e};
-    fixed[0] = 0x7fffffff;
-    for (n = 1; n < 2048; n++) {
-        long double inv = 1.0L / (long double)n;
-        recip[n] = (float)inv;
-        fixed[n] = (int)(long long)(inv * 65536.0f);
-    }
-    for (n = 0; n < 16; n++)
-        scaled[n] = recip[n] * *(float *)&DAT_004ddb30;
-}
-
 /* ==== rdCamera_BuildFOV (0x0040a280) ====
  * Computes the projection of an rdCamera from its canvas size and the frustum planes (the record the camera points to at
  * +0x48).  Camera fields: +0 projection type (0 orthographic, 1 perspective), +4 canvas, +0x38 field of view (degrees), +0x3c
@@ -1745,9 +1727,9 @@ Collision_BoxSlide(float *param_1,float *param_2,float param_3,float param_4,flo
   *param_9 = fVar5 * fVar10 + *param_1;
   param_9[1] = fVar5 * fVar1 + param_1[1];
   param_9[2] = fVar5 * fVar3 + param_1[2];
-  *(float *)&DAT_008ca320 = *param_9;   /* (the floats themselves: an undefined4 view converted them, grim_tools/cleanroom) */
-  *(float *)&DAT_008ca324 = param_9[1];
-  *(float *)&DAT_008ca328 = param_9[2];
+  *(float *)&FLOAT_008ca320 = *param_9;   /* (the floats themselves: an undefined4 view converted them, grim_tools/cleanroom) */
+  *(float *)&FLOAT_008ca324 = param_9[1];
+  *(float *)&FLOAT_008ca328 = param_9[2];
   fVar11 = fVar5;
   if (fVar5 < 0.0) {
     fVar11 = -fVar5;

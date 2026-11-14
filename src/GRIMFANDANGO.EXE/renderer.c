@@ -17,18 +17,17 @@ void __cdecl rdModel3_ActivateClipPlane(uint param_1)
 }
 
 /* ---- 0x0040a880  rdModel3_SetClipPlane ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Original name rdModel3_SetClipPlane (the remaster's GrimFandango (Linux): aligned call in
    sputCostume_InternalDraw3D); was Renderer_SetClipPlane. */
 
 void __cdecl rdModel3_SetClipPlane(undefined4 *param_1,undefined4 *param_2)
 
 {
-  _DAT_004ddb70 = *param_1;
-  _DAT_004ddb74 = param_1[1];
-  _DAT_004ddb78 = param_1[2];
-  _DAT_007f3208 = *param_2;
-  _DAT_007f320c = param_2[1];
-  _DAT_007f3210 = param_2[2];
+  FLOAT_004ddb70 = PUN(float,*param_1);
+  FLOAT_004ddb74 = PUN(float,param_1[1]);
+  FLOAT_004ddb78 = PUN(float,param_1[2]);
+  FLOAT_007f3208 = PUN(float,*param_2);
+  FLOAT_007f320c = PUN(float,param_2[1]);
+  FLOAT_007f3210 = PUN(float,param_2[2]);
   return;
 }

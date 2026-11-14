@@ -1316,21 +1316,21 @@ void __cdecl D3D_SetViewportRect(uint *param_1)
   uint uVar1;
   int iVar2;
   int iVar3;
-  uint *puVar4;
+  float *pfVar4;
   
   UINT_00900600 = *param_1;
   uVar1 = param_1[1];
-  UINT_00900580 = PUN(uint,(float)(float)(int)UINT_00900600);
+  FLOAT_00900580 = (float)(int)UINT_00900600;
   UINT_00900608 = param_1[2];
   iVar3 = UINT_00900600 + UINT_00900608;
   UINT_0090060c = param_1[3];
-  puVar4 = &UINT_00900580;
+  pfVar4 = &FLOAT_00900580;
   UINT_00900604 = uVar1;
   for (iVar2 = 0x20; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar4 = 0;
-    puVar4 = puVar4 + 1;
+    *pfVar4 = 0.0;
+    pfVar4 = pfVar4 + 1;
   }
-  UINT_00900584 = PUN(uint,(float)(float)(int)UINT_00900604);
+  FLOAT_00900584 = (float)(int)UINT_00900604;
   _DAT_00900540 = 0;
   _DAT_00900544 = 1;
   *(float *)&DAT_009005a0 = (float)iVar3;
@@ -1339,7 +1339,7 @@ void __cdecl D3D_SetViewportRect(uint *param_1)
   *(float *)&DAT_009005c0 = (float)iVar3;
   _DAT_00900550 = 0;
   *(float *)&DAT_009005e4 = *(float *)&DAT_009005c4;
-  *(float *)&DAT_009005e0 = (float)UINT_00900580;
+  _DAT_009005e0 = FLOAT_00900580;
   _DAT_00900548 = 2;
   _DAT_0090054c = 0x8200;
   _DAT_00900554 = 0;

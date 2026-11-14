@@ -59,7 +59,7 @@ void __cdecl sputActor_UpdateSpeechOnly(float dt)
       sputActor_UpdateActorSpeech(*ppAVar1,dt);
     }
     ppAVar1 = ppAVar1 + 1;
-  } while ((int)ppAVar1 < ((unsigned)(uintptr_t)&DAT_008ca320));
+  } while ((int)ppAVar1 < ((unsigned)(uintptr_t)&FLOAT_008ca320));
   return;
 }
 
