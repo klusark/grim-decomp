@@ -107,11 +107,11 @@
 | 1000b170 | TgInitialize | imuse.c | 24 |
 | 1000b1a0 | TgSave | imuse.c | 30 |
 | 1000b1e0 | TgRestore | imuse.c | 28 |
-| 1000b220 | TgSetTrigger | imuse.c | 1 |
+| 1000b220 | TgSetTrigger | imuse.c | 81 |
 | 1000b2e0 | TgCheckTrigger | imuse.c | 60 |
 | 1000b380 | TgClearTrigger | imuse.c | 61 |
 | 1000b430 | TgProcessMarker | imuse.c | 126 |
-| 1000b570 | TgDeferCommand | imuse.c | 1 |
+| 1000b570 | TgDeferCommand | imuse.c | 42 |
 | 1000b5e0 | TgIntHandler | imuse.c | 30 |
 | 1000b630 | TgGetPendCount | imuse.c | 36 |
 | 1000b6a0 | Im_RunTriggerCommand | imuse.c | 1 |

@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004c23c0  anm_Start ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Creates the AnimPlay frame player: allocates it, opens the streamer and the file, starts the
    clock and frame timers; returns 0 or -1 Original name anm_Start (the remaster's GrimFandango
    (Linux): strings: 'AnimPlay Module: Cannot open file %s' | 'AnimPlay Module: Cannot init
@@ -80,12 +78,8 @@ LAB_004c257d:
   *out = (void *)0x0;
   return -1;
 }
-#endif
-
 
 /* ---- 0x004c2690  anm_Stop ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Stops the timers of an AnimPlay frame player, closes the streamer and frees it Original name
    anm_Stop (the remaster's GrimFandango (Linux): slot 5 of the "ANIMPLAY=insane" service table);
    was AnimPlay_Destroy. */
@@ -110,8 +104,6 @@ void __cdecl anm_Stop(void **pp)
   (*(code *)*g_pAnm_animframe_services)();
   return;
 }
-#endif
-
 
 /* ---- 0x004c27a0  anm_Render ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -244,8 +236,6 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
 
 
 /* ---- 0x004c36b0  anm_animator_Initialize ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Resets the decoder state fields of an AnimPlay frame player and its streamer Original name
    anm_animator_Initialize (the remaster's GrimFandango (Linux): aligned call in anm_Start); was
    AnimPlay_ResetState. */
@@ -265,12 +255,8 @@ int __cdecl anm_animator_Initialize(void *p)
   *(undefined4 *)((int)p + 0x44) = 0;
   return 0;
 }
-#endif
-
 
 /* ---- 0x004c3d30  anm_animator_NewAnim ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Opens the movie file of an AnimPlay frame player through the streamer Original name
    anm_animator_NewAnim (the remaster's GrimFandango (Linux): aligned call in anm_Start); was
    AnimPlay_OpenFile. */
@@ -291,5 +277,3 @@ int __cdecl anm_animator_NewAnim(void *p,char *name,uint flags,int a4,int a5,int
   FUN_004c3d90((int)p,a4,a5);
   return 0;
 }
-#endif
-

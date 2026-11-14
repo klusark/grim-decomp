@@ -1702,3 +1702,24 @@ grim-autorun's render_modes.lua (its PR 9) draws a box in every geometry / light
   a vertex at (346.17, 281.71) is pixel (346, 281) as in the original, not (346, 282).
 
 Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
+
+## 48 more overrides generated again; LUA.DLL's _ftol takes ST0 (2026-11-14)
+
+* Twins that now say what the hand-written versions say (checked one by one against them):
+  overrides.c: getnarg, ExecutionState_New, ExecutionState_Restore, lua_newstate, LState_Restore, lua_Restore,
+  luaI_startscript, Puck_PointAt, Puck_GetYawToPoint; overrides_imuse.c: TgDeferCommand, TgSetTrigger (they copy the
+  parameters from `&cmd + 1` on, as the original does); overrides_mixer.c: sou_mixer_initialize, sou_mixer_start,
+  sou_mixer_mix, Mixer_ConvertTo16, Mixer_MixVoice and the eight per-format mix loops (Mixer_Mix8Mono .. MixStereo_B;
+  mixer.c is built at OPT_FAST like the hand-written loops were); overrides_mixer_drv.c: DSound_Shutdown, dsn_terminate,
+  DsndDriver_ReleaseDirectSound, sys_Disable, sys_Enable, InsaneTimer_module_startup; overrides_mixer_misc.c: anm_Start,
+  anm_Stop, anm_animator_Initialize, anm_animator_NewAnim; overrides_mixer_snd.c: sou_sound_module,
+  SoundModule_module_startup / shutdown / terminate, SoundModule_Close, SoundModule_SyncClock, sou_engine_Pause /
+  Resume / StopAll.
+* LUA.DLL's `_ftol` (0x1000ef80) is `longlong _ftol(float10 x)` with x in ST0 (custom storage,
+  names/protos_fix_2.json; tools/apply_logic_protos.py takes `"registers": {"x": "ST0"}`). The decompiler then shows
+  the converted value (`_ftol((float10)PUN(float,o->dwValue))`), and fix_ftol (build_src.py) writes it as FTOL(...).
+  With that lua_gettask, code_number, luaH_new, hashindex and to_string are generated again. Kept: luaV_tostring (its
+  twin converts the word as an integer and its sprintf lost the number).
+* Not yet: GRIMFANDANGO.EXE's `_ftol` is still `_ftol(double x)` on the stack: 37 overridden EXE functions have
+  `_ftol((double)CONCAT44(unaff_ESI,unaff_EDI))`, the same fix there is the next step.
+* Clean room 0 of 5457 after each of the six rounds.

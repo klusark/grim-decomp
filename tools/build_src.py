@@ -1225,7 +1225,13 @@ def fix_ftol(body, seh=True):
                     out[-1] = "%s%sFTOL(%s(%s));" % (m.group("ind"), lhs, pm.group("f"), pm.group("a"))
                 continue
         out.append(ln)
-    return drop_unused_artifacts("\n".join(out))
+    body = "\n".join(out)
+    # LUA.DLL's _ftol has its operand in ST0 (custom storage in Ghidra): `_ftol((float10)x)` is the truncation of x
+    body = FTOL_ST0_RE.sub("FTOL((float10)", body)
+    return drop_unused_artifacts(body)
+
+
+FTOL_ST0_RE = re.compile(r"\b_ftol\(\(float10\)")
 
 
 

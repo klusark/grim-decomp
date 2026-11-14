@@ -148,8 +148,6 @@ Node * __cdecl luaH_hashnodecreate(int nhash)
 }
 
 /* ---- 0x1000c3d0  luaH_new ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name luaH_new (the remaster's libLua.so: luaH_new: callers lua_createtable, luaV_pack,
    the VM); was luaH_init. */
 
@@ -163,7 +161,7 @@ Hash * __cdecl luaH_new(int nhash)
   
   pHVar1 = (Hash *)(**(code **)(g_dwLuaHS + 0x20))
                              (0x18,s_C__grimsrc_libs_lua_src_ltable_c_10027cf4,0xa4);
-  lVar3 = _ftol();
+  lVar3 = FTOL((float10)nhash * (float10)1.4285714285714286);
   nhash_00 = luaO_redimension((int)lVar3);
   pNVar2 = luaH_hashnodecreate(nhash_00);
   pHVar1->pNode = pNVar2;
@@ -174,8 +172,6 @@ Hash * __cdecl luaH_new(int nhash)
   g_dwLState_nblocks = g_dwLState_nblocks + 1 + ((int)(nhash_00 + (nhash_00 >> 0x1f & 0xfU)) >> 4);
   return pHVar1;
 }
-#endif
-
 
 /* ---- 0x1000c450  luaH_forcerehash ---- */
 /* Original name luaH_forcerehash (the remaster's libLua.so: luaH_forcerehash: caller
@@ -248,8 +244,6 @@ int __cdecl present(Hash *t,TObject *key)
 }
 
 /* ---- 0x1000c580  hashindex ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Named hashindex (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltable.c static
    hashindex: the key's hash by type, error "unexpected type to index table", negative values
    mirrored); was luaH_hashindex. */
@@ -275,7 +269,7 @@ int __cdecl hashindex(TObject *ref)
     break;
   case -6:
   case -1:
-    lVar2 = _ftol();
+    lVar2 = FTOL((float10)PUN(float,ref->dwValue));
     uVar1 = (uint)lVar2;
   }
   if (-1 < (int)uVar1) {
@@ -283,8 +277,6 @@ int __cdecl hashindex(TObject *ref)
   }
   return -1 - uVar1;
 }
-#endif
-
 
 /* ---- 0x1000c5f0  luaH_get ---- */
 /* Unidentified function of ltable.c (hash tables, with Grim save support) */

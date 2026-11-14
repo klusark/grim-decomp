@@ -37,8 +37,6 @@ void InsaneTimer_module_terminate(void)
 }
 
 /* ---- 0x004cdd10  InsaneTimer_module_startup ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Allocates the timer workspace and starts the timer thread Original name
    InsaneTimer_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the
@@ -60,8 +58,6 @@ int InsaneTimer_module_startup(void)
   iVar1 = InsaneTimer_StartThread();
   return iVar1;
 }
-#endif
-
 
 /* ---- 0x004cdd60  InsaneTimer_module_shutdown ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -185,8 +181,6 @@ void InsaneTimer_StopThread(void)
 
 
 /* ---- 0x004cdef0  sys_Disable ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* TIMER insane: suspends the periodic callbacks (counter) Original name sys_Disable (the remaster's
    GrimFandango (Linux): slot 2 of the "TIMER=insane" service table); was InsaneTimer_Hold. */
@@ -197,12 +191,8 @@ void sys_Disable(void)
   g_dwSys_disable_flag = g_dwSys_disable_flag + 1;
   return;
 }
-#endif
-
 
 /* ---- 0x004cdf00  sys_Enable ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name sys_Enable (the remaster's GrimFandango (Linux): slot 3 of the "TIMER=insane"
    service table); was InsaneTimer_Release. */
@@ -213,8 +203,6 @@ void sys_Enable(void)
   g_dwSys_disable_flag = g_dwSys_disable_flag - 1;
   return;
 }
-#endif
-
 
 /* ---- 0x004cdf10  sys_Alloc ---- */
 /* replaced by the hand-written version in build/overrides.c */

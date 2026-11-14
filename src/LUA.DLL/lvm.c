@@ -309,8 +309,6 @@ undefined4 __thiscall ExecutionState_Save(void *this,int a1)
 }
 
 /* ---- 0x1000dbd0  ExecutionState_Restore ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name ExecutionState_Restore (the remaster's libLua.so: ExecutionState::Restore: caller
    LState::Restore, callees ResolveObject, new); was lvm__dbd0. */
 
@@ -357,12 +355,8 @@ undefined4 __thiscall ExecutionState_Restore(void *this,int a1,int a2,int a3)
 #undef local_10
 #undef local_14
 
-#endif
-
 
 /* ---- 0x1000dd10  ExecutionState_New ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name ExecutionState_New (the remaster's libLua.so: ExecutionState::operator new: takes a
    state from the free list or allocates one); was lvm__dd10. */
 
@@ -395,8 +389,6 @@ void * __cdecl ExecutionState_New(int size)
   return pvVar1;
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x1000dd90  ExecutionState_Delete ---- */

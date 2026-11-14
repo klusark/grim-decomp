@@ -1,0 +1,6 @@
+{
+ "_comment": "Prototype fixes (2026-11-14), replay after names/protos_fix_1.json with tools/apply_logic_protos.py names/protos_fix_2.json. LUA.DLL's _ftol (MSVC 6 runtime) converts the x87 value in ST0: with the operand declared in ST0 the decompiler shows what is converted (`_ftol((float10)PUN(float,o->dwValue))`), which build_src.py's fix_ftol turns into FTOL(...). Before, the calls were `_ftol()` and the functions around them were hand-written.",
+ "LUA.DLL": {
+  "1000ef80": {"proto": "longlong _ftol(float10 x)", "cc": "__cdecl", "registers": {"x": "ST0"}}
+ }
+}

@@ -370,17 +370,19 @@ void __cdecl math_max(void)
 void __cdecl math_random(void)
 
 {
+  float n;
   uint uVar1;
   longlong lVar2;
   float fVar3;
   
   uVar1 = FUN_10012360();
+  n = (float)((int)uVar1 % 0x7fff) * 3.051851e-05;
   fVar3 = luaL_opt_number(1,0.0);
-  if (fVar3 == 0.0) {
-    lua_pushnumber((float)((int)uVar1 % 0x7fff) * 3.051851e-05);
+  if ((float10)fVar3 == (float10)0.0) {
+    lua_pushnumber(n);
     return;
   }
-  lVar2 = _ftol();
+  lVar2 = FTOL((float10)fVar3 * (float10)n);
   lua_pushnumber((float)((int)lVar2 + 1));
   return;
 }
@@ -396,8 +398,10 @@ void __cdecl math_randomseed(void)
 
 {
   longlong lVar1;
+  float fVar2;
   
-  lVar1 = FTOL(luaL_check_number(1));
+  fVar2 = luaL_check_number(1);
+  lVar1 = FTOL((float10)fVar2);
   FUN_10012350((int)lVar1);
   return;
 }

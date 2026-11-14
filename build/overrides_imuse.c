@@ -152,57 +152,6 @@ undefined4 MxInitialize(undefined4 *param_1)
  * Trigger slots: 8 of 0x4d dwords at g_dwTrigs {0 owner sound, 1..0x40 marker string (256 bytes), 0x41 command,
  * 0x42..0x4b parameters, 0x4c kept-after-fire flag}.  Deferred slots: 8 of 12 dwords at DAT_10032cc0 {0 time, 1 command,
  * 2..11 parameters}. */
-undefined4 TgSetTrigger(int sound, char *marker, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)
-{
-    int *slot = (int *)&g_dwTrigs;
-    int n, len;
-    char *dst;
-
-    if (sound == 0)
-        return 0xfffffffb;
-    if (marker == 0)
-        marker = (char *)&DAT_10032f48;           /* "" */
-    for (len = 0; marker[len] != 0; len++)
-        ;
-    if (len > 0xff)
-        return 0xfffffffb;
-    for (n = 0; slot[0] != 0; ) {                  /* first free slot */
-        n++;
-        slot += 0x4d;
-        if (n > 7)
-            return 0xfffffffa;
-    }
-    slot[0x41] = cmd;
-    slot[0] = sound;
-    slot[0x4c] = 0;
-    dst = (char *)(slot + 1);
-    for (n = 0; n <= len; n++)
-        dst[n] = marker[n];
-    slot[0x42] = p0; slot[0x43] = p1; slot[0x44] = p2; slot[0x45] = p3; slot[0x46] = p4;
-    slot[0x47] = p5; slot[0x48] = p6; slot[0x49] = p7; slot[0x4a] = p8; slot[0x4b] = p9;
-    return 0;
-}
-
-undefined4 TgDeferCommand(int time, int cmd, int p0, int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8, int p9)
-{
-    int *e = (int *)&DAT_10032cc0;
-    int i;
-
-    if (time == 0)
-        return 0xfffffffb;
-    for (i = 0; i < 8; i++, e += 0xc) {
-        if (e[0] == 0) {
-            e[1] = cmd;
-            e[2] = p0; e[3] = p1; e[4] = p2; e[5] = p3; e[6] = p4;
-            e[7] = p5; e[8] = p6; e[9] = p7; e[10] = p8; e[11] = p9;
-            e[0] = time;
-            g_dwDefersOn = 1;                      /* something to look at in TgIntHandler */
-            return 0;
-        }
-    }
-    return 0xfffffffa;
-}
-
 /* A fired trigger: free its slot, then run the command with marker name `marker` (callbacks get it first).  The decompiler
  * showed the callback call with one argument; the code pushes eleven (marker + ten words) and pops 0x2c bytes. */
 void Im_RunTriggerCommand(undefined4 *slot, undefined4 marker)

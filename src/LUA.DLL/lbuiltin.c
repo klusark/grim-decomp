@@ -290,8 +290,6 @@ void __cdecl bi_tostring(void)
 }
 
 /* ---- 0x10003170  to_string ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* lbuiltin.c: userdata: %p / task: %d / table: %p formatting Original name to_string (the
    remaster's libLua.so: static to_string: the strings 'nil', 'table: %p', 'task: %d', 'internal
    error', called by bi_tostring); was luaB_tostring. */
@@ -317,7 +315,7 @@ undefined1 * __cdecl to_string(int param_1)
   case 0xfffffff9:
     return &DAT_100266f8;
   case 0xfffffffa:
-    lVar3 = _ftol();
+    lVar3 = FTOL((float10)PUN(float,puVar1[1]));
     sprintf(buf,s_task___d_100266fc,(int)lVar3);
     return buf;
   case 0xfffffffb:
@@ -340,12 +338,8 @@ undefined1 * __cdecl to_string(int param_1)
   sprintf(buf,s_function___p_10026718,uVar4);
   return buf;
 }
-#endif
-
 
 /* ---- 0x10003260  luaI_startscript ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name luaI_startscript (the remaster's libLua.so: int_funcs entry 'start_script'); was
    lbuiltin__3260. */
 
@@ -389,8 +383,6 @@ void luaI_startscript(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x10003370  luaI_stopscript ---- */
 /* Original name luaI_stopscript (the remaster's libLua.so: int_funcs entry 'stop_script', strings
@@ -694,19 +686,20 @@ void __cdecl tonumber(void)
   uint uVar3;
   uint uVar4;
   longlong lVar5;
-  float n;
+  float fVar6;
   #define pbStack_c (*(byte **)(_frame + (0x20 - 0xc)))
   #define uStack_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  lVar5 = FTOL(luaL_opt_number(2,10.0));
+  fVar6 = luaL_opt_number(2,10.0);
+  lVar5 = FTOL((float10)fVar6);
   uVar3 = (uint)lVar5;
   if (uVar3 == 10) {
     iVar1 = lua_lua2C(1);
     iVar2 = lua_isnumber(iVar1);
     if (iVar2 != 0) {
-      n = lua_getnumber(iVar1);
-      lua_pushnumber(n);
+      fVar6 = lua_getnumber(iVar1);
+      lua_pushnumber(fVar6);
       return;
     }
   }
@@ -914,8 +907,6 @@ void __cdecl luaI_call(void)
 
 
 /* ---- 0x10003ba0  getnarg ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Named getnarg (not in the remaster, gcc inlined it there): Lua 3.1 source name (lbuiltin.c:
    rawgettable(table, "n"), number or MAX_WORD, used by luaI_call); was lbuiltin__3ba0. */
 
@@ -925,19 +916,19 @@ int __cdecl getnarg(int param_1)
   int iVar1;
   int iVar2;
   longlong lVar3;
+  float fVar4;
   
   lua_pushobject(param_1);
   lua_pushstring(&DAT_10026994);
   iVar1 = lua_rawgettable();
   iVar2 = lua_isnumber(iVar1);
   if (iVar2 != 0) {
-    lVar3 = FTOL(lua_getnumber(iVar1));
+    fVar4 = lua_getnumber(iVar1);
+    lVar3 = FTOL((float10)fVar4);
     return (int)lVar3;
   }
   return 0xfffe;
 }
-#endif
-
 
 /* ---- 0x10003bf0  settag ---- */
 /* Original name settag (the remaster's libLua.so: int_funcs entry 'settag'); was FUN_10003bf0. */
@@ -947,10 +938,12 @@ void __cdecl settag(void)
 {
   int iVar1;
   longlong lVar2;
+  float fVar3;
   
   iVar1 = luaL_tablearg(1);
   lua_pushobject(iVar1);
-  lVar2 = FTOL(luaL_check_number(2));
+  fVar3 = luaL_check_number(2);
+  lVar2 = FTOL((float10)fVar3);
   lua_settag((int)lVar2);
   return;
 }
@@ -977,10 +970,13 @@ void __cdecl copytagmethods(void)
 {
   int iVar1;
   longlong lVar2;
+  float fVar3;
   
-  lVar2 = FTOL(luaL_check_number(2));
+  fVar3 = luaL_check_number(2);
+  lVar2 = FTOL((float10)fVar3);
   iVar1 = (int)lVar2;
-  lVar2 = FTOL(luaL_check_number(1));
+  fVar3 = luaL_check_number(1);
+  lVar2 = FTOL((float10)fVar3);
   iVar1 = lua_copytagmethods((int)lVar2,iVar1);
   lua_pushnumber((float)iVar1);
   return;
@@ -1036,11 +1032,13 @@ void __cdecl settagmethod(void)
   int iVar1;
   byte *pbVar2;
   longlong lVar3;
+  float fVar4;
   
   iVar1 = luaL_nonnullarg(3);
   lua_pushobject(iVar1);
   pbVar2 = (byte *)luaL_check_string(2);
-  lVar3 = FTOL(luaL_check_number(1));
+  fVar4 = luaL_check_number(1);
+  lVar3 = FTOL((float10)fVar4);
   iVar1 = lua_settagmethod((int)lVar3,pbVar2);
   lua_pushobject(iVar1);
   return;
@@ -1056,9 +1054,11 @@ void __cdecl gettagmethod(void)
   byte *pbVar1;
   int iVar2;
   longlong lVar3;
+  float fVar4;
   
   pbVar1 = (byte *)luaL_check_string(2);
-  lVar3 = FTOL(luaL_check_number(1));
+  fVar4 = luaL_check_number(1);
+  lVar3 = FTOL((float10)fVar4);
   iVar2 = lua_gettagmethod((int)lVar3,pbVar1);
   lua_pushobject(iVar2);
   return;
@@ -1089,8 +1089,10 @@ void __cdecl luaI_collectgarbage(void)
 {
   int iVar1;
   longlong lVar2;
+  float fVar3;
   
-  lVar2 = FTOL(luaL_opt_number(1,0.0));
+  fVar3 = luaL_opt_number(1,0.0);
+  lVar2 = FTOL((float10)fVar3);
   iVar1 = lua_collectgarbage((int)lVar2);
   lua_pushnumber((float)iVar1);
   return;

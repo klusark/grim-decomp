@@ -102,8 +102,6 @@ uint __cdecl DSound_Init(void)
 
 
 /* ---- 0x004c1090  DSound_Shutdown ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl DSound_Shutdown(void)
 
 {
@@ -123,8 +121,6 @@ void __cdecl DSound_Shutdown(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004c1110  DSound_SetPrimaryVolume ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -269,8 +265,6 @@ int __cdecl DSound_GetPlayBlock(void)
 
 
 /* ---- 0x004d2d40  sou_mixer_initialize ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_mixer_initialize (the remaster's GrimFandango (Linux): dsn_initialize calls it
    with (memory_services, 4, frames) right after the driver set-up in both builds; it sets the table
    count (waveMixCount) and builds the mix tables (Mixer.c), the remaster inlined Mixer_InitTables
@@ -285,12 +279,8 @@ int __cdecl sou_mixer_initialize(int *services,uint tableUnits,int frames)
   iVar1 = Mixer_InitTables(services,2,frames * 4,0);
   return iVar1;
 }
-#endif
-
 
 /* ---- 0x004d2d90  sou_mixer_mix ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Callback handed to the driver: format code 0..5 (8/16 bit, mono/stereo, offset binary) to
    Mixer_MixVoice parameters Original name sou_mixer_mix (the remaster's GrimFandango (Linux): the
    mix function the fill routine passes to the fill callback in both builds; the same format switch
@@ -343,8 +333,6 @@ sou_mixer_mix(byte *data,int accumOffset,uint outFrames,int srcBytes,int unused,
                  ,(pan + 0x7f) / 2,format,0);
   return;
 }
-#endif
-
 
 /* ---- 0x004d2e60  sou_mixer_end ---- */
 /* Original name sou_mixer_end (the remaster's GrimFandango (Linux): the fill routine's last call
@@ -437,8 +425,6 @@ int __cdecl Mixer_Free(int *services)
 }
 
 /* ---- 0x004d3010  sou_mixer_start ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Zeroes the 32-bit mix accumulator at g_pMixer_mixBuf Original name sou_mixer_start (the
    remaster's GrimFandango (Linux): the fill routine's first call in both builds (dsn_fill_thread:
@@ -464,12 +450,8 @@ int sou_mixer_start(void)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x004d3040  Mixer_MixVoice ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Dispatches to the Mixer_Mix* resamplers by sample format, channel count and volume mode */
 
 void __cdecl
@@ -527,12 +509,8 @@ Mixer_MixVoice(byte *data,int count,int bits,int channels,uint outFrames,int acc
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d31d0  Mixer_ConvertTo16 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Accumulator >> 7 clamped to 16 bits into the output block */
 
 int __cdecl Mixer_ConvertTo16(short *dst,int frames)
@@ -562,12 +540,8 @@ int __cdecl Mixer_ConvertTo16(short *dst,int frames)
   }
   return -1;
 }
-#endif
-
 
 /* ---- 0x004d3240  Mixer_Mix8MonoLR ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Resampling mix of unsigned 8-bit mono samples with separate left/right volumes */
 
 void __cdecl Mixer_Mix8MonoLR(byte *src,int count,uint rateFrac,int accumOffset,int volL,int volR)
@@ -639,12 +613,8 @@ void __cdecl Mixer_Mix8MonoLR(byte *src,int count,uint rateFrac,int accumOffset,
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d34a0  Mixer_Mix8Mono ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Mixer_Mix8Mono(byte *param_1,int param_2,uint param_3,int param_4,int param_5)
 
 {
@@ -717,12 +687,8 @@ void __cdecl Mixer_Mix8Mono(byte *param_1,int param_2,uint param_3,int param_4,i
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d36e0  Mixer_Mix16MonoLR ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl
 Mixer_Mix16MonoLR(short *param_1,int param_2,uint param_3,int param_4,int param_5,int param_6)
 
@@ -789,12 +755,8 @@ Mixer_Mix16MonoLR(short *param_1,int param_2,uint param_3,int param_4,int param_
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d38a0  Mixer_Mix16Mono ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Mixer_Mix16Mono(short *param_1,int param_2,uint param_3,int param_4,int param_5)
 
 {
@@ -863,12 +825,8 @@ void __cdecl Mixer_Mix16Mono(short *param_1,int param_2,uint param_3,int param_4
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d3a60  Mixer_MixStereoLR_A ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Stereo sample-pair resampler with left/right volumes (format A) */
 
 void __cdecl
@@ -949,12 +907,8 @@ Mixer_MixStereoLR_A(ushort *param_1,int param_2,uint param_3,uint param_4,int pa
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d3c40  Mixer_MixStereo_A ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5)
 
 {
@@ -1039,12 +993,8 @@ void __cdecl Mixer_MixStereo_A(ushort *param_1,int param_2,uint param_3,uint par
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d3e60  Mixer_MixStereoLR_B ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl
 Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5,int param_6)
 
@@ -1123,12 +1073,8 @@ Mixer_MixStereoLR_B(ushort *param_1,int param_2,uint param_3,uint param_4,int pa
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d40d0  Mixer_MixStereo_B ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Mixer_MixStereo_B(ushort *param_1,int param_2,uint param_3,uint param_4,int param_5)
 
 {
@@ -1199,5 +1145,3 @@ void __cdecl Mixer_MixStereo_B(ushort *param_1,int param_2,uint param_3,uint par
   }
   return;
 }
-#endif
-

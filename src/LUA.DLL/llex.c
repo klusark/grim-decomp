@@ -108,7 +108,7 @@ int luaX_lasttoken(void)
 uint __cdecl luaY_lex(float *param_1)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   uint *puVar2;
   double dVar3;
@@ -116,11 +116,11 @@ uint __cdecl luaY_lex(float *param_1)
   uint uVar5;
   TaggedString *pTVar6;
   int *piVar7;
-  uint uVar8;
-  longlong lVar9;
-  undefined1 uVar10;
-  #define local_10 (*(double *)(_frame + (0x20 - 0x10)))
-  #define local_8 (*(double *)(_frame + (0x20 - 0x8)))
+  longlong lVar8;
+  undefined1 uVar9;
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(double *)(_frame + (0x30 - 0x10)))
+  #define local_8 (*(double *)(_frame + (0x30 - 0x8)))
   
   puVar2 = g_pLuaState->pLexState;
   luaL_resetbuffer();
@@ -189,8 +189,8 @@ uint __cdecl luaY_lex(float *param_1)
     case 0x22:
     case 0x27:
       uVar4 = *puVar2;
-      uVar10 = (undefined1)uVar4;
-      luaL_addchar(uVar10);
+      uVar9 = (undefined1)uVar4;
+      luaL_addchar(uVar9);
       *(int *)puVar2[1] = *(int *)puVar2[1] + -1;
       piVar7 = (int *)puVar2[1];
       if (*piVar7 < 0) {
@@ -343,6 +343,7 @@ LAB_10006563:
         *param_1 = (float)local_8;
         return 0x111;
       }
+      local_14 = 0;
       luaL_addchar((char)*puVar2);
       *(int *)puVar2[1] = *(int *)puVar2[1] + -1;
       piVar7 = (int *)puVar2[1];
@@ -371,8 +372,8 @@ LAB_10006563:
       if (uVar5 != 0) {
         do {
           uVar5 = *puVar2;
-          lVar9 = _ftol();
-          uVar8 = (uint)lVar9;
+          lVar8 = FTOL((float10)(int)(uVar5 - 0x30) - (float10)(int)local_14 * (float10)-10.0);
+          local_14 = (uint)lVar8;
           luaL_addchar((char)uVar5);
           *(int *)puVar2[1] = *(int *)puVar2[1] + -1;
           piVar7 = (int *)puVar2[1];
@@ -392,8 +393,8 @@ LAB_10006563:
         else {
           dVar3 = 10.0;
         }
-        for (; 0 < (int)uVar8; uVar8 = (int)uVar8 >> 1) {
-          if ((uVar8 & 1) != 0) {
+        for (; 0 < (int)local_14; local_14 = (int)local_14 >> 1) {
+          if ((local_14 & 1) != 0) {
             local_8 = dVar3 * local_8;
           }
           dVar3 = dVar3 * dVar3;
@@ -560,7 +561,7 @@ joined_r0x100060f4:
     luaL_addchar(0);
     pTVar6 = luaS_new(g_dwLState_Mbuffbase + 1);
     *param_1 = PUN(float,pTVar6);
-    *(undefined1 *)(g_dwLState_Mbuffnext + -1 + g_dwLState_Mbuffer) = uVar10;
+    *(undefined1 *)(g_dwLState_Mbuffnext + -1 + g_dwLState_Mbuffer) = uVar9;
     return 0x113;
   }
   uVar5 = *puVar2;
@@ -637,6 +638,7 @@ LAB_10006241:
   goto joined_r0x100060f4;
 }
 #undef local_10
+#undef local_14
 #undef local_8
 
 #endif

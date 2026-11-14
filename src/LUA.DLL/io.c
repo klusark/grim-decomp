@@ -15,9 +15,11 @@ longlong __cdecl gettag(int param_1)
 {
   int iVar1;
   longlong lVar2;
+  float fVar3;
   
   iVar1 = lua_lua2C(param_1);
-  lVar2 = FTOL(lua_getnumber(iVar1));
+  fVar3 = lua_getnumber(iVar1);
+  lVar2 = FTOL((float10)fVar3);
   return lVar2;
 }
 
@@ -472,8 +474,10 @@ void __cdecl setloc(void)
   uint *puVar2;
   byte *pbVar3;
   longlong lVar4;
+  float fVar5;
   
-  lVar4 = FTOL(luaL_opt_number(2,0.0));
+  fVar5 = luaL_opt_number(2,0.0);
+  lVar4 = FTOL((float10)fVar5);
   iVar1 = (int)lVar4;
   if ((iVar1 < 0) || (5 < iVar1)) {
     luaL_argerror(2,((unsigned)(uintptr_t)&s_invalid_option_10026cb0));

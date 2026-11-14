@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004d0300  sou_sound_module ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Entry of LECMODULE insane_sound: the Smush sound track manager (SOUND insane) Original name
    sou_sound_module (the remaster's GrimFandango (Linux): slot 0 of the "LECMODULE=insane_sound"
@@ -44,12 +42,8 @@ int __cdecl sou_sound_module(int *services,uint moduleSize)
   g_dwSound_bufsize = 500000;
   return 0;
 }
-#endif
-
 
 /* ---- 0x004d03a0  SoundModule_module_terminate ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name SoundModule_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the
    "LECMODULE=insane_sound" service table; module_terminate is a static several LEC modules have,
@@ -62,12 +56,8 @@ void SoundModule_module_terminate(void)
   (*(code *)g_pSoundModule_share_services[1])(s_LECMODULE_insane_sound_004f3e5c);
   return;
 }
-#endif
-
 
 /* ---- 0x004d03d0  SoundModule_module_startup ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name SoundModule_module_startup (the remaster's GrimFandango (Linux): the static
    module_startup of the SoundModule module (the remaster has one per module file, hence the
@@ -111,12 +101,8 @@ int SoundModule_module_startup(void)
   ;
   return iVar2;
 }
-#endif
-
 
 /* ---- 0x004d0510  SoundModule_module_shutdown ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name SoundModule_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the
    "LECMODULE=insane_sound" service table; module_shutdown is a static several LEC modules have,
@@ -131,8 +117,6 @@ void SoundModule_module_shutdown(void)
   SoundModule_Close();
   return;
 }
-#endif
-
 
 /* ---- 0x004d0550  engine_Initialize ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -180,8 +164,6 @@ int __cdecl engine_Initialize(int rate,int limit,uint size,...)
 
 
 /* ---- 0x004d0610  SoundModule_Close ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
 int SoundModule_Close(void)
@@ -217,8 +199,6 @@ int SoundModule_Close(void)
   g_dwSou_chans = 0;
   return g_dwSound_ticks;
 }
-#endif
-
 
 /* ---- 0x004d06a0  SoundModule_AddTrackBuffer ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -379,8 +359,6 @@ void __cdecl sou_engine_Stop(uint id)
 }
 
 /* ---- 0x004d0a80  sou_engine_Pause ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name sou_engine_Pause (the remaster's GrimFandango (Linux): slot 2 of the "SOUND=insane"
    service table); was SoundModule_Pause. */
@@ -391,12 +369,8 @@ void sou_engine_Pause(void)
   g_dwSou_paused_flag = g_dwSou_paused_flag + 1;
   return;
 }
-#endif
-
 
 /* ---- 0x004d0a90  sou_engine_Resume ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name sou_engine_Resume (the remaster's GrimFandango (Linux): slot 3 of the
    "SOUND=insane" service table); was SoundModule_Resume. */
@@ -409,12 +383,8 @@ void sou_engine_Resume(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d0aa0  sou_engine_StopAll ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name sou_engine_StopAll (the remaster's GrimFandango (Linux): slot 4 of the
    "SOUND=insane" service table); was SoundModule_StopAll. */
@@ -437,8 +407,6 @@ void sou_engine_StopAll(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d0ad0  sou_engine_SetVol ---- */
 /* Original name sou_engine_SetVol (the remaster's GrimFandango (Linux): slot 6 of the
@@ -1159,8 +1127,6 @@ LAB_004d153e:
 
 
 /* ---- 0x004d1690  SoundModule_SyncClock ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
 void SoundModule_SyncClock(void)
@@ -1169,8 +1135,6 @@ void SoundModule_SyncClock(void)
   UINT_008db1f8 = (**(code **)(g_dwSoundModule_timer_services + 0x18))();
   return;
 }
-#endif
-
 
 /* ---- 0x004d16a0  sou_engine_fill ---- */
 /* replaced by the hand-written version in build/overrides.c */
