@@ -74,60 +74,60 @@ uint __cdecl sputPrimitive_Restore(code *param_1)
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   code *pcVar1;
-  void *pvVar2;
+  Primitive *pPVar2;
   #define local_28 (*(int *)(_frame + (0x40 - 0x28)))
   #define iStack_24 (*(int *)(_frame + (0x40 - 0x24)))
-  #define uStack_20 (*(undefined4 *)(_frame + (0x40 - 0x20)))
-  #define uStack_1c (*(undefined4 *)(_frame + (0x40 - 0x1c)))
-  #define uStack_18 (*(undefined4 *)(_frame + (0x40 - 0x18)))
-  #define uStack_14 (*(undefined4 *)(_frame + (0x40 - 0x14)))
-  #define uStack_10 (*(undefined4 *)(_frame + (0x40 - 0x10)))
-  #define uStack_c (*(undefined4 *)(_frame + (0x40 - 0xc)))
-  #define uStack_8 (*(undefined4 *)(_frame + (0x40 - 0x8)))
-  #define uStack_4 (*(undefined4 *)(_frame + (0x40 - 0x4)))
+  #define iStack_20 (*(int *)(_frame + (0x40 - 0x20)))
+  #define iStack_1c (*(int *)(_frame + (0x40 - 0x1c)))
+  #define iStack_18 (*(int *)(_frame + (0x40 - 0x18)))
+  #define iStack_14 (*(int *)(_frame + (0x40 - 0x14)))
+  #define iStack_10 (*(int *)(_frame + (0x40 - 0x10)))
+  #define iStack_c (*(int *)(_frame + (0x40 - 0xc)))
+  #define iStack_8 (*(int *)(_frame + (0x40 - 0x8)))
+  #define iStack_4 (*(int *)(_frame + (0x40 - 0x4)))
   
   PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);
   pcVar1 = param_1;
   (*param_1)(&local_28,4);
   while (local_28 != 0) {
     local_28 = local_28 + -1;
-    uStack_10 = 0;
-    uStack_c = 0;
-    uStack_8 = 0;
-    uStack_4 = 0;
-    (*pcVar1)(&uStack_20,4);
+    iStack_10 = 0;
+    iStack_c = 0;
+    iStack_8 = 0;
+    iStack_4 = 0;
+    (*pcVar1)(&iStack_20,4);
     (*pcVar1)(&param_1,4);
     (*pcVar1)(&iStack_24,4);
-    (*pcVar1)(&uStack_10,8);
-    (*pcVar1)(&uStack_8,8);
-    (*pcVar1)(&uStack_1c,4);
-    (*pcVar1)(&uStack_18,4);
-    (*pcVar1)(&uStack_14,4);
-    pvVar2 = PrimitiveQueue_addObject(&g_dwPrimitiveQ,(int)param_1,iStack_24);
-    if (pvVar2 != (void *)0x0) {
-      *(undefined4 *)((int)pvVar2 + 8) = uStack_20;
-      *(undefined4 *)((int)pvVar2 + 0x14) = uStack_10;
-      *(undefined4 *)((int)pvVar2 + 0x18) = uStack_c;
-      *(undefined4 *)((int)pvVar2 + 0x1c) = uStack_8;
-      *(undefined4 *)((int)pvVar2 + 0x20) = uStack_4;
-      *(undefined4 *)((int)pvVar2 + 0x24) = uStack_1c;
-      *(undefined4 *)((int)pvVar2 + 0x28) = uStack_18;
-      *(undefined4 *)((int)pvVar2 + 0x2c) = uStack_14;
+    (*pcVar1)(&iStack_10,8);
+    (*pcVar1)(&iStack_8,8);
+    (*pcVar1)(&iStack_1c,4);
+    (*pcVar1)(&iStack_18,4);
+    (*pcVar1)(&iStack_14,4);
+    pPVar2 = PrimitiveQueue_addObject(&g_dwPrimitiveQ,(int)param_1,iStack_24);
+    if (pPVar2 != (Primitive *)0x0) {
+      pPVar2->nType = iStack_20;
+      pPVar2->nX1 = iStack_10;
+      pPVar2->nY1 = iStack_c;
+      pPVar2->nX2 = iStack_8;
+      pPVar2->nY2 = iStack_4;
+      pPVar2->nColor = iStack_1c;
+      pPVar2->nPattern = iStack_18;
+      pPVar2->nFilled = iStack_14;
     }
     g_nPrimitiveQueue_nextId = (int)(param_1 + 1);
   }
   return 0;
 }
+#undef iStack_10
+#undef iStack_14
+#undef iStack_18
+#undef iStack_1c
+#undef iStack_20
 #undef iStack_24
+#undef iStack_4
+#undef iStack_8
+#undef iStack_c
 #undef local_28
-#undef uStack_10
-#undef uStack_14
-#undef uStack_18
-#undef uStack_1c
-#undef uStack_20
-#undef uStack_4
-#undef uStack_8
-#undef uStack_c
 
 
 /* ---- 0x004897d0  sputPrimitive_Terminate ---- */

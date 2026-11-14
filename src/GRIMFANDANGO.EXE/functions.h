@@ -1706,16 +1706,16 @@ void __cdecl PrimitiveList_RegisterAtExit(void); /* 0x00489530 */
 void __cdecl PrimitiveList_AtExitClear(void); /* 0x00489540 */
 void __fastcall PrimitiveQueue_Construct(undefined4 *param_1); /* 0x0048a500 */
 void __fastcall PrimitiveQueue_purge(int *param_1); /* 0x0048a520 */
-void * __thiscall PrimitiveQueue_addObject(void *this,int id,int layer); /* 0x0048a670 */
+Primitive * __thiscall PrimitiveQueue_addObject(void *this,int id,int layer); /* 0x0048a670 */
 void __thiscall PrimitiveQueue_draw(void *this,void *canvas,uint layerMask); /* 0x0048a9f0 */
 undefined * __thiscall PrimitiveQueue_markAllDirty(void *this,int a1); /* 0x0048ab20 */
-void * __thiscall PrimitiveQueue_findPrimitive(void *this,int id,void *after); /* 0x0048abd0 */
+Primitive * __thiscall PrimitiveQueue_findPrimitive(void *this,int id,Primitive *after); /* 0x0048abd0 */
 
 /* ===== primitives.c ===== */
 void __cdecl sputPrimitive_Update(uint layerMask); /* 0x00489550 */
 void __cdecl sputPrimitive_Pause(void); /* 0x004895d0 */
 void __cdecl sputPrimitive_Resume(void); /* 0x004895f0 */
-void * __thiscall PrimitiveObject_Construct(void *this,int id,int unused); /* 0x0048a4b0 */
+Primitive * __thiscall PrimitiveObject_Construct(Primitive *this,int id,int type); /* 0x0048a4b0 */
 int __thiscall PrimitiveQueue_addLine(void *this,int x1,int y1,int x2,int y2,int color,int layer); /* 0x0048a560 */
 int __thiscall PrimitiveQueue_addRect(void *this,int x1,int y1,int x2,int y2,int color,int filled,int layer); /* 0x0048a5b0 */
 int __thiscall PrimitiveQueue_addPolygon(void *this,int count,int *points,int color,int layer); /* 0x0048a600 */
@@ -1726,8 +1726,8 @@ int __thiscall PrimitiveQueue_move(void *this,int id,int dx,int dy); /* 0x0048a8
 int __thiscall PrimitiveQueue_moveTo(void *this,int id,int x,int y); /* 0x0048a8a0 */
 int __thiscall PrimitiveQueue_moveEndpoint(void *this,int id,int x,int y); /* 0x0048a960 */
 int __thiscall PrimitiveQueue_changeDimensions(void *this,int id,int w,int h); /* 0x0048a9a0 */
-void __stdcall PrimitiveQueue_drawPrimitive(void *prim,void *canvas); /* 0x0048aa20 */
-int __thiscall PrimitiveQueue_markDirty(void *this,void *prim); /* 0x0048ab50 */
+void __stdcall PrimitiveQueue_drawPrimitive(Primitive *prim,void *canvas); /* 0x0048aa20 */
+int __thiscall PrimitiveQueue_markDirty(void *this,Primitive *prim); /* 0x0048ab50 */
 void __cdecl PrimitiveQueue_resetId(void); /* 0x0048abc0 */
 
 /* ===== sputprimitive.c ===== */

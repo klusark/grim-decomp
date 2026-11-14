@@ -67,14 +67,14 @@ void __fastcall PrimitiveQueue_Construct(undefined4 *param_1)
 void __fastcall PrimitiveQueue_purge(int *param_1)
 
 {
-  int iVar1;
+  Primitive *pPVar1;
   
-  iVar1 = *param_1;
-  while (iVar1 != 0) {
-    iVar1 = *(int *)*param_1;
-    PrimitiveQueue_markDirty(param_1,(int *)*param_1);
+  pPVar1 = (Primitive *)*param_1;
+  while (pPVar1 != (Primitive *)0x0) {
+    pPVar1 = ((Primitive *)*param_1)->pNext;
+    PrimitiveQueue_markDirty(param_1,(Primitive *)*param_1);
     Plat_Free((void *)*param_1);
-    *param_1 = iVar1;
+    *param_1 = (int)pPVar1;
   }
   param_1[1] = 0;
   return;
@@ -84,34 +84,34 @@ void __fastcall PrimitiveQueue_purge(int *param_1)
 /* Original name PrimitiveQueue_addObject (the remaster's GrimFandango (Linux): same body (new
    primitive record (id, layer) linked at the tail)); was PrimitiveList_Append. */
 
-void * __thiscall PrimitiveQueue_addObject(void *this,int id,int layer)
+Primitive * __thiscall PrimitiveQueue_addObject(void *this,int id,int layer)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
+  Primitive *pPVar1;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   
   if (*(int *)((int)this + 4) == 0) {
-    pvVar1 = Plat_Alloc(0x30);
-    if (pvVar1 == (void *)0x0) {
+    pPVar1 = Plat_Alloc(0x30);
+    if (pPVar1 == (Primitive *)0x0) {
       *(undefined4 *)((int)this + 4) = 0;
       *(undefined4 *)this = 0;
     }
     else {
-      pvVar1 = PrimitiveObject_Construct(pvVar1,id,0);
-      *(void **)((int)this + 4) = pvVar1;
-      *(void **)this = pvVar1;
+      pPVar1 = PrimitiveObject_Construct(pPVar1,id,0);
+      *(Primitive **)((int)this + 4) = pPVar1;
+      *(Primitive **)this = pPVar1;
     }
   }
   else {
-    pvVar1 = Plat_Alloc(0x30);
-    if (pvVar1 == (void *)0x0) {
-      pvVar1 = (void *)0x0;
+    pPVar1 = Plat_Alloc(0x30);
+    if (pPVar1 == (Primitive *)0x0) {
+      pPVar1 = (Primitive *)0x0;
     }
     else {
-      pvVar1 = PrimitiveObject_Construct(pvVar1,id,0);
+      pPVar1 = PrimitiveObject_Construct(pPVar1,id,0);
     }
-    **(undefined4 **)((int)this + 4) = pvVar1;
+    **(undefined4 **)((int)this + 4) = pPVar1;
     *(int **)(**(int **)((int)this + 4) + 4) = *(int **)((int)this + 4);
     *(undefined4 *)((int)this + 4) = **(undefined4 **)((int)this + 4);
   }
@@ -119,8 +119,8 @@ void * __thiscall PrimitiveQueue_addObject(void *this,int id,int layer)
     layer = 2;
   }
   *(int *)(*(int *)((int)this + 4) + 0x10) = layer;
-  pvVar1 = *(void **)((int)this + 4);
-  return pvVar1;
+  pPVar1 = *(Primitive **)((int)this + 4);
+  return pPVar1;
 }
 #undef local_10
 
@@ -132,10 +132,10 @@ void * __thiscall PrimitiveQueue_addObject(void *this,int id,int layer)
 void __thiscall PrimitiveQueue_draw(void *this,void *canvas,uint layerMask)
 
 {
-  undefined4 *prim;
+  Primitive *prim;
   
-  for (prim = *(undefined4 **)this; prim != (undefined4 *)0x0; prim = (undefined4 *)*prim) {
-    if ((prim[4] & layerMask) != 0) {
+  for (prim = *(Primitive **)this; prim != (Primitive *)0x0; prim = prim->pNext) {
+    if ((prim->nLayer & layerMask) != 0) {
       PrimitiveQueue_drawPrimitive(prim,canvas);
     }
   }
@@ -150,11 +150,11 @@ void __thiscall PrimitiveQueue_draw(void *this,void *canvas,uint layerMask)
 undefined * __thiscall PrimitiveQueue_markAllDirty(void *this,int a1)
 
 {
-  undefined4 *prim;
+  Primitive *prim;
   undefined *in_EAX;
   
-  for (prim = *(undefined4 **)this; prim != (undefined4 *)0x0; prim = (undefined4 *)*prim) {
-    if ((prim[4] & a1) != 0) {
+  for (prim = *(Primitive **)this; prim != (Primitive *)0x0; prim = prim->pNext) {
+    if ((prim->nLayer & a1) != 0) {
       in_EAX = (undefined *)PrimitiveQueue_markDirty(this,prim);
     }
   }
@@ -166,18 +166,18 @@ undefined * __thiscall PrimitiveQueue_markAllDirty(void *this,int a1)
    next primitive with the id after the given one, or from the head)); was PrimitiveList_FindById.
     */
 
-void * __thiscall PrimitiveQueue_findPrimitive(void *this,int id,void *after)
+Primitive * __thiscall PrimitiveQueue_findPrimitive(void *this,int id,Primitive *after)
 
 {
-  undefined4 *puVar1;
+  Primitive *pPVar1;
   
-  if (after == (void *)0x0) {
-    puVar1 = *(undefined4 **)this;
+  if (after == (Primitive *)0x0) {
+    pPVar1 = *(Primitive **)this;
   }
   else {
-    puVar1 = *(undefined4 **)after;
+    pPVar1 = after->pNext;
   }
-  for (; (puVar1 != (undefined4 *)0x0 && (puVar1[3] != id)); puVar1 = (undefined4 *)*puVar1) {
+  for (; (pPVar1 != (Primitive *)0x0 && (pPVar1->nId != id)); pPVar1 = pPVar1->pNext) {
   }
-  return puVar1;
+  return pPVar1;
 }

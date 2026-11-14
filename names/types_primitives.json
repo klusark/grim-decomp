@@ -1,0 +1,131 @@
+{
+ "_comment": "2D primitives (Primitive.cpp, 2026-11-14): the lines, rectangles and polygon segments the Lua primitives API queues (sputPrimitive_DrawLine / DrawRectangle / DrawPolygon) and PrimitiveQueue_draw draws over the frame. Layout from PrimitiveObject_Construct (which the remaster has with the same body), PrimitiveQueue_drawPrimitive and the PrimitiveQueue_change* setters.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "Primitive",
+   "size": 48,
+   "comment": "A queued 2D primitive (0x30 bytes, a node of the primitive queue's list).",
+   "fields": [
+    [
+     0,
+     "Primitive *",
+     "pNext",
+     "list link"
+    ],
+    [
+     4,
+     "Primitive *",
+     "pPrev",
+     "list link"
+    ],
+    [
+     8,
+     "int",
+     "nType",
+     "0 line, 1 rectangle, 2 polygon segment (PrimitiveObject_Construct's third argument)"
+    ],
+    [
+     12,
+     "int",
+     "nId",
+     "the id the Lua API returns; a polygon's segments share it"
+    ],
+    [
+     16,
+     "int",
+     "nLayer",
+     "1 or 2 (PrimitiveQueue_changeLayer; 2 by default)"
+    ],
+    [
+     20,
+     "int",
+     "nX1",
+     ""
+    ],
+    [
+     24,
+     "int",
+     "nY1",
+     ""
+    ],
+    [
+     28,
+     "int",
+     "nX2",
+     ""
+    ],
+    [
+     32,
+     "int",
+     "nY2",
+     ""
+    ],
+    [
+     36,
+     "int",
+     "nColor",
+     "16-bit colour"
+    ],
+    [
+     40,
+     "int",
+     "nPattern",
+     "line pattern for rdPrimit2_DrawLine (-1 solid)"
+    ],
+    [
+     44,
+     "int",
+     "nFilled",
+     "rectangle: filled"
+    ]
+   ]
+  }
+ ],
+ "this": [
+  {
+   "addr": "0048a4b0",
+   "type": "Primitive *"
+  }
+ ],
+ "params": [
+  {
+   "addr": "0048a4b0",
+   "index": 2,
+   "type": "int",
+   "name": "type"
+  },
+  {
+   "addr": "0048abd0",
+   "index": 2,
+   "type": "Primitive *",
+   "name": "after"
+  },
+  {
+   "addr": "0048ab50",
+   "index": 1,
+   "type": "Primitive *",
+   "name": "prim"
+  },
+  {
+   "addr": "0048aa20",
+   "index": 0,
+   "type": "Primitive *",
+   "name": "prim"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "0048a4b0",
+   "type": "Primitive *"
+  },
+  {
+   "addr": "0048a670",
+   "type": "Primitive *"
+  },
+  {
+   "addr": "0048abd0",
+   "type": "Primitive *"
+  }
+ ]
+}

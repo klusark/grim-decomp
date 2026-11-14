@@ -237,6 +237,7 @@ typedef struct DDrawSurfaceRec DDrawSurfaceRec;
 typedef struct DisplayDevice DisplayDevice;
 typedef struct GrimServices GrimServices;
 typedef struct PhonemeEntry PhonemeEntry;
+typedef struct Primitive Primitive;
 typedef struct ProcEntry ProcEntry;
 typedef struct Puck Puck;
 typedef struct ScreenCoord ScreenCoord;
@@ -610,6 +611,34 @@ struct PhonemeEntry {  /* 0x8 */
 _Static_assert(__builtin_offsetof(PhonemeEntry, dwPhoneme) == 0x0, "PhonemeEntry.dwPhoneme");
 _Static_assert(__builtin_offsetof(PhonemeEntry, wTalkChore) == 0x4, "PhonemeEntry.wTalkChore");
 _Static_assert(sizeof(PhonemeEntry) == 0x8, "sizeof PhonemeEntry");
+/* Primitive: A queued 2D primitive (0x30 bytes, a node of the primitive queue's list). */
+struct Primitive {  /* 0x30 */
+    Primitive *pNext;  /* 0x00: list link */
+    Primitive *pPrev;  /* 0x04: list link */
+    int nType;  /* 0x08: 0 line, 1 rectangle, 2 polygon segment (PrimitiveObject_Construct's third argument) */
+    int nId;  /* 0x0c: the id the Lua API returns; a polygon's segments share it */
+    int nLayer;  /* 0x10: 1 or 2 (PrimitiveQueue_changeLayer; 2 by default) */
+    int nX1;  /* 0x14 */
+    int nY1;  /* 0x18 */
+    int nX2;  /* 0x1c */
+    int nY2;  /* 0x20 */
+    int nColor;  /* 0x24: 16-bit colour */
+    int nPattern;  /* 0x28: line pattern for rdPrimit2_DrawLine (-1 solid) */
+    int nFilled;  /* 0x2c: rectangle: filled */
+};
+_Static_assert(__builtin_offsetof(Primitive, pNext) == 0x0, "Primitive.pNext");
+_Static_assert(__builtin_offsetof(Primitive, pPrev) == 0x4, "Primitive.pPrev");
+_Static_assert(__builtin_offsetof(Primitive, nType) == 0x8, "Primitive.nType");
+_Static_assert(__builtin_offsetof(Primitive, nId) == 0xc, "Primitive.nId");
+_Static_assert(__builtin_offsetof(Primitive, nLayer) == 0x10, "Primitive.nLayer");
+_Static_assert(__builtin_offsetof(Primitive, nX1) == 0x14, "Primitive.nX1");
+_Static_assert(__builtin_offsetof(Primitive, nY1) == 0x18, "Primitive.nY1");
+_Static_assert(__builtin_offsetof(Primitive, nX2) == 0x1c, "Primitive.nX2");
+_Static_assert(__builtin_offsetof(Primitive, nY2) == 0x20, "Primitive.nY2");
+_Static_assert(__builtin_offsetof(Primitive, nColor) == 0x24, "Primitive.nColor");
+_Static_assert(__builtin_offsetof(Primitive, nPattern) == 0x28, "Primitive.nPattern");
+_Static_assert(__builtin_offsetof(Primitive, nFilled) == 0x2c, "Primitive.nFilled");
+_Static_assert(sizeof(Primitive) == 0x30, "sizeof Primitive");
 /* ProcEntry: A processed face of the render cache (rdProcEntry, 0x78 bytes): the transformed, clipped and projected polygon with what the rasteriser needs to draw it. */
 struct ProcEntry {  /* 0x78 */
     uint dwExtraData;  /* 0x00: 0 (rdCache_InsertFace, rdSprite_DrawThing) */

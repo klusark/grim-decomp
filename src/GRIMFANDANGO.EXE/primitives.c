@@ -48,24 +48,24 @@ void __cdecl sputPrimitive_Resume(void)
    (Linux): same body (links 0, id at +0xc, +8 = the second argument, colour 0, +0x28 / +0x30 = -1,
    rectangle 0)); was Primitive_Construct. */
 
-void * __thiscall PrimitiveObject_Construct(void *this,int id,int unused)
+Primitive * __thiscall PrimitiveObject_Construct(Primitive *this,int id,int type)
 
 {
-  *(undefined4 *)((int)this + 0x14) = 0;
-  *(undefined4 *)((int)this + 0x18) = 0;
-  *(undefined4 *)((int)this + 0x1c) = 0;
-  *(undefined4 *)((int)this + 0x20) = 0;
-  *(int *)((int)this + 8) = unused;
-  *(undefined4 *)this = 0;
-  *(undefined4 *)((int)this + 4) = 0;
-  *(int *)((int)this + 0xc) = id;
-  *(undefined4 *)((int)this + 0x24) = 0;
-  *(undefined4 *)((int)this + 0x28) = 0xffffffff;
-  *(undefined4 *)((int)this + 0x14) = 0;
-  *(undefined4 *)((int)this + 0x18) = 0;
-  *(undefined4 *)((int)this + 0x1c) = 0;
-  *(undefined4 *)((int)this + 0x20) = *(undefined4 *)((int)this + 0x18);
-  *(undefined4 *)((int)this + 0x10) = 2;
+  this->nX1 = 0;
+  this->nY1 = 0;
+  this->nX2 = 0;
+  this->nY2 = 0;
+  this->nType = type;
+  this->pNext = (Primitive *)0x0;
+  this->pPrev = (Primitive *)0x0;
+  this->nId = id;
+  this->nColor = 0;
+  this->nPattern = -1;
+  this->nX1 = 0;
+  this->nY1 = 0;
+  this->nX2 = 0;
+  this->nY2 = this->nY1;
+  this->nLayer = 2;
   return this;
 }
 
@@ -78,17 +78,17 @@ int __thiscall PrimitiveQueue_addLine(void *this,int x1,int y1,int x2,int y2,int
 
 {
   int id;
-  void *pvVar1;
+  Primitive *pPVar1;
   
   id = g_nPrimitiveQueue_nextId;
   g_nPrimitiveQueue_nextId = g_nPrimitiveQueue_nextId + 1;
-  pvVar1 = PrimitiveQueue_addObject(this,id,layer);
-  *(int *)((int)pvVar1 + 0x14) = x1;
-  *(int *)((int)pvVar1 + 0x18) = y1;
-  *(int *)((int)pvVar1 + 0x1c) = x2;
-  *(int *)((int)pvVar1 + 0x20) = y2;
-  *(int *)((int)pvVar1 + 0x24) = color;
-  return *(int *)((int)pvVar1 + 0xc);
+  pPVar1 = PrimitiveQueue_addObject(this,id,layer);
+  pPVar1->nX1 = x1;
+  pPVar1->nY1 = y1;
+  pPVar1->nX2 = x2;
+  pPVar1->nY2 = y2;
+  pPVar1->nColor = color;
+  return pPVar1->nId;
 }
 
 /* ---- 0x0048a5b0  PrimitiveQueue_addRect ---- */
@@ -101,19 +101,19 @@ PrimitiveQueue_addRect(void *this,int x1,int y1,int x2,int y2,int color,int fill
 
 {
   int id;
-  void *pvVar1;
+  Primitive *pPVar1;
   
   id = g_nPrimitiveQueue_nextId;
   g_nPrimitiveQueue_nextId = g_nPrimitiveQueue_nextId + 1;
-  pvVar1 = PrimitiveQueue_addObject(this,id,layer);
-  *(undefined4 *)((int)pvVar1 + 8) = 1;
-  *(int *)((int)pvVar1 + 0x14) = x1;
-  *(int *)((int)pvVar1 + 0x18) = y1;
-  *(int *)((int)pvVar1 + 0x1c) = x2;
-  *(int *)((int)pvVar1 + 0x20) = y2;
-  *(int *)((int)pvVar1 + 0x24) = color;
-  *(int *)((int)pvVar1 + 0x2c) = filled;
-  return *(int *)((int)pvVar1 + 0xc);
+  pPVar1 = PrimitiveQueue_addObject(this,id,layer);
+  pPVar1->nType = 1;
+  pPVar1->nX1 = x1;
+  pPVar1->nY1 = y1;
+  pPVar1->nX2 = x2;
+  pPVar1->nY2 = y2;
+  pPVar1->nColor = color;
+  pPVar1->nFilled = filled;
+  return pPVar1->nId;
 }
 
 /* ---- 0x0048a600  PrimitiveQueue_addPolygon ---- */
@@ -126,7 +126,7 @@ int __thiscall PrimitiveQueue_addPolygon(void *this,int count,int *points,int co
 {
   int *piVar1;
   int id;
-  void *pvVar2;
+  Primitive *pPVar2;
   int *piVar3;
   int iVar4;
   
@@ -136,16 +136,16 @@ int __thiscall PrimitiveQueue_addPolygon(void *this,int count,int *points,int co
   if (0 < iVar4) {
     piVar3 = points + 1;
     do {
-      pvVar2 = PrimitiveQueue_addObject(this,id,layer);
-      *(undefined4 *)((int)pvVar2 + 8) = 2;
-      *(int *)((int)pvVar2 + 0x14) = piVar3[-1];
-      *(int *)((int)pvVar2 + 0x18) = *piVar3;
-      *(int *)((int)pvVar2 + 0x1c) = piVar3[1];
+      pPVar2 = PrimitiveQueue_addObject(this,id,layer);
+      pPVar2->nType = 2;
+      pPVar2->nX1 = piVar3[-1];
+      pPVar2->nY1 = *piVar3;
+      pPVar2->nX2 = piVar3[1];
       piVar1 = piVar3 + 2;
       piVar3 = piVar3 + 2;
-      *(int *)((int)pvVar2 + 0x20) = *piVar1;
+      pPVar2->nY2 = *piVar1;
       iVar4 = iVar4 + -1;
-      *(int *)((int)pvVar2 + 0x24) = color;
+      pPVar2->nColor = color;
     } while (iVar4 != 0);
   }
   return id;
@@ -158,31 +158,31 @@ int __thiscall PrimitiveQueue_addPolygon(void *this,int count,int *points,int co
 void __thiscall PrimitiveQueue_deletePrimitive(void *this,int id)
 
 {
-  int *piVar1;
-  int *prim;
+  Primitive *pPVar1;
+  Primitive *prim;
   
-  prim = *(int **)this;
-  while (prim != (int *)0x0) {
-    if (prim[3] == id) {
-      if ((int *)prim[1] != (int *)0x0) {
-        *(int *)prim[1] = *prim;
+  prim = *(Primitive **)this;
+  while (prim != (Primitive *)0x0) {
+    if (prim->nId == id) {
+      if (prim->pPrev != (Primitive *)0x0) {
+        prim->pPrev->pNext = prim->pNext;
       }
-      if (*prim != 0) {
-        *(int *)(*prim + 4) = prim[1];
+      if (prim->pNext != (Primitive *)0x0) {
+        prim->pNext->pPrev = prim->pPrev;
       }
-      if (*(int **)((int)this + 4) == prim) {
-        *(int *)((int)this + 4) = prim[1];
+      if (*(Primitive **)((int)this + 4) == prim) {
+        *(Primitive **)((int)this + 4) = prim->pPrev;
       }
-      if (prim == *(int **)this) {
-        *(int *)this = **(int **)this;
+      if (prim == *(Primitive **)this) {
+        *(Primitive **)this = (*(Primitive **)this)->pNext;
       }
-      piVar1 = (int *)*prim;
+      pPVar1 = prim->pNext;
       PrimitiveQueue_markDirty(this,prim);
       Plat_Free(prim);
-      prim = piVar1;
+      prim = pPVar1;
     }
     else {
-      prim = (int *)*prim;
+      prim = prim->pNext;
     }
   }
   return;
@@ -195,11 +195,11 @@ void __thiscall PrimitiveQueue_deletePrimitive(void *this,int id)
 int __thiscall PrimitiveQueue_changeColor(void *this,int id,int color)
 
 {
-  void *after;
+  Primitive *after;
   
-  for (after = PrimitiveQueue_findPrimitive(this,id,(void *)0x0); after != (void *)0x0;
+  for (after = PrimitiveQueue_findPrimitive(this,id,(Primitive *)0x0); after != (Primitive *)0x0;
       after = PrimitiveQueue_findPrimitive(this,id,after)) {
-    *(int *)((int)after + 0x24) = color;
+    after->nColor = color;
   }
   return 0;
 }
@@ -211,15 +211,15 @@ int __thiscall PrimitiveQueue_changeColor(void *this,int id,int color)
 int __thiscall PrimitiveQueue_changeLayer(void *this,int id,int layer)
 
 {
-  void *prim;
+  Primitive *prim;
   
-  for (prim = PrimitiveQueue_findPrimitive(this,id,(void *)0x0); prim != (void *)0x0;
+  for (prim = PrimitiveQueue_findPrimitive(this,id,(Primitive *)0x0); prim != (Primitive *)0x0;
       prim = PrimitiveQueue_findPrimitive(this,id,prim)) {
     PrimitiveQueue_markDirty(this,prim);
     if ((layer != 2) && (layer != 1)) {
       layer = 2;
     }
-    *(int *)((int)prim + 0x10) = layer;
+    prim->nLayer = layer;
   }
   return 0;
 }
@@ -231,15 +231,15 @@ int __thiscall PrimitiveQueue_changeLayer(void *this,int id,int layer)
 int __thiscall PrimitiveQueue_move(void *this,int id,int dx,int dy)
 
 {
-  void *prim;
+  Primitive *prim;
   
-  for (prim = PrimitiveQueue_findPrimitive(this,id,(void *)0x0); prim != (void *)0x0;
+  for (prim = PrimitiveQueue_findPrimitive(this,id,(Primitive *)0x0); prim != (Primitive *)0x0;
       prim = PrimitiveQueue_findPrimitive(this,id,prim)) {
     PrimitiveQueue_markDirty(this,prim);
-    *(int *)((int)prim + 0x14) = *(int *)((int)prim + 0x14) + dx;
-    *(int *)((int)prim + 0x20) = *(int *)((int)prim + 0x20) + dy;
-    *(int *)((int)prim + 0x18) = *(int *)((int)prim + 0x18) + dy;
-    *(int *)((int)prim + 0x1c) = *(int *)((int)prim + 0x1c) + dx;
+    prim->nX1 = prim->nX1 + dx;
+    prim->nY2 = prim->nY2 + dy;
+    prim->nY1 = prim->nY1 + dy;
+    prim->nX2 = prim->nX2 + dx;
   }
   return 0;
 }
@@ -252,32 +252,32 @@ int __thiscall PrimitiveQueue_move(void *this,int id,int dx,int dy)
 int __thiscall PrimitiveQueue_moveTo(void *this,int id,int x,int y)
 
 {
-  void *pvVar1;
+  Primitive *pPVar1;
   int iVar2;
   int iVar3;
   
   iVar2 = 0;
   iVar3 = 0;
-  pvVar1 = PrimitiveQueue_findPrimitive(this,id,(void *)0x0);
-  if (pvVar1 != (void *)0x0) {
-    PrimitiveQueue_markDirty(this,pvVar1);
+  pPVar1 = PrimitiveQueue_findPrimitive(this,id,(Primitive *)0x0);
+  if (pPVar1 != (Primitive *)0x0) {
+    PrimitiveQueue_markDirty(this,pPVar1);
     if (x != -1) {
-      iVar3 = x - *(int *)((int)pvVar1 + 0x14);
-      *(int *)((int)pvVar1 + 0x14) = x;
+      iVar3 = x - pPVar1->nX1;
+      pPVar1->nX1 = x;
     }
     if (y != -1) {
-      iVar2 = y - *(int *)((int)pvVar1 + 0x18);
-      *(int *)((int)pvVar1 + 0x18) = y;
+      iVar2 = y - pPVar1->nY1;
+      pPVar1->nY1 = y;
     }
-    *(int *)((int)pvVar1 + 0x20) = *(int *)((int)pvVar1 + 0x20) + iVar2;
-    *(int *)((int)pvVar1 + 0x1c) = *(int *)((int)pvVar1 + 0x1c) + iVar3;
-    for (pvVar1 = PrimitiveQueue_findPrimitive(this,id,pvVar1); pvVar1 != (void *)0x0;
-        pvVar1 = PrimitiveQueue_findPrimitive(this,id,pvVar1)) {
-      PrimitiveQueue_markDirty(this,pvVar1);
-      *(int *)((int)pvVar1 + 0x14) = *(int *)((int)pvVar1 + 0x14) + iVar3;
-      *(int *)((int)pvVar1 + 0x18) = *(int *)((int)pvVar1 + 0x18) + iVar2;
-      *(int *)((int)pvVar1 + 0x1c) = *(int *)((int)pvVar1 + 0x1c) + iVar3;
-      *(int *)((int)pvVar1 + 0x20) = *(int *)((int)pvVar1 + 0x20) + iVar2;
+    pPVar1->nY2 = pPVar1->nY2 + iVar2;
+    pPVar1->nX2 = pPVar1->nX2 + iVar3;
+    for (pPVar1 = PrimitiveQueue_findPrimitive(this,id,pPVar1); pPVar1 != (Primitive *)0x0;
+        pPVar1 = PrimitiveQueue_findPrimitive(this,id,pPVar1)) {
+      PrimitiveQueue_markDirty(this,pPVar1);
+      pPVar1->nX1 = pPVar1->nX1 + iVar3;
+      pPVar1->nY1 = pPVar1->nY1 + iVar2;
+      pPVar1->nX2 = pPVar1->nX2 + iVar3;
+      pPVar1->nY2 = pPVar1->nY2 + iVar2;
     }
   }
   return 0;
@@ -290,19 +290,19 @@ int __thiscall PrimitiveQueue_moveTo(void *this,int id,int x,int y)
 int __thiscall PrimitiveQueue_moveEndpoint(void *this,int id,int x,int y)
 
 {
-  void *prim;
+  Primitive *prim;
   int iVar1;
   
-  prim = PrimitiveQueue_findPrimitive(this,id,(void *)0x0);
+  prim = PrimitiveQueue_findPrimitive(this,id,(Primitive *)0x0);
   iVar1 = 0;
-  if (prim != (void *)0x0) {
+  if (prim != (Primitive *)0x0) {
     PrimitiveQueue_markDirty(this,prim);
     if (x != -1) {
-      *(int *)((int)prim + 0x1c) = x;
+      prim->nX2 = x;
     }
     iVar1 = y;
     if (y != -1) {
-      *(int *)((int)prim + 0x20) = y;
+      prim->nY2 = y;
     }
   }
   return iVar1;
@@ -316,19 +316,19 @@ int __thiscall PrimitiveQueue_moveEndpoint(void *this,int id,int x,int y)
 int __thiscall PrimitiveQueue_changeDimensions(void *this,int id,int w,int h)
 
 {
-  void *prim;
+  Primitive *prim;
   int iVar1;
   
-  prim = PrimitiveQueue_findPrimitive(this,id,(void *)0x0);
+  prim = PrimitiveQueue_findPrimitive(this,id,(Primitive *)0x0);
   iVar1 = 0;
-  if (prim != (void *)0x0) {
+  if (prim != (Primitive *)0x0) {
     PrimitiveQueue_markDirty(this,prim);
     if (w != -1) {
-      *(int *)((int)prim + 0x1c) = *(int *)((int)prim + 0x14) + w;
+      prim->nX2 = prim->nX1 + w;
     }
     iVar1 = h;
     if (h != -1) {
-      *(int *)((int)prim + 0x20) = *(int *)((int)prim + 0x18) + h;
+      prim->nY2 = prim->nY1 + h;
     }
   }
   return iVar1;
@@ -338,7 +338,7 @@ int __thiscall PrimitiveQueue_changeDimensions(void *this,int id,int w,int h)
 /* Original name PrimitiveQueue_drawPrimitive (the remaster's GrimFandango (Linux): the
    per-primitive draw PrimitiveQueue_draw calls in both builds); was Primitive_Draw. */
 
-void __stdcall PrimitiveQueue_drawPrimitive(void *prim,void *canvas)
+void __stdcall PrimitiveQueue_drawPrimitive(Primitive *prim,void *canvas)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -349,24 +349,22 @@ void __stdcall PrimitiveQueue_drawPrimitive(void *prim,void *canvas)
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
-  iVar1 = *(int *)((int)prim + 8);
+  iVar1 = prim->nType;
   if (iVar1 != 0) {
     if (iVar1 == 1) {
-      if (*(int *)((int)prim + 0x2c) == 0) {
+      if (prim->nFilled == 0) {
         rdPrimit2_DrawRectangle
-                  (canvas,*(int *)((int)prim + 0x14),*(int *)((int)prim + 0x18),
-                   *(int *)((int)prim + 0x1c),*(int *)((int)prim + 0x20),*(int *)((int)prim + 0x24),
-                   *(int *)((int)prim + 0x28));
+                  (canvas,prim->nX1,prim->nY1,prim->nX2,prim->nY2,prim->nColor,prim->nPattern);
         return;
       }
-      local_10 = *(uint *)((int)prim + 0x14);
-      uVar2 = *(uint *)((int)prim + 0x1c);
+      local_10 = prim->nX1;
+      uVar2 = prim->nX2;
       local_8 = local_10;
       if ((int)uVar2 <= (int)local_10) {
         local_8 = uVar2;
       }
-      iVar1 = *(int *)((int)prim + 0x18);
-      iVar3 = *(int *)((int)prim + 0x20);
+      iVar1 = prim->nY1;
+      iVar3 = prim->nY2;
       y1 = iVar1;
       if (iVar3 <= iVar1) {
         y1 = iVar3;
@@ -381,8 +379,7 @@ void __stdcall PrimitiveQueue_drawPrimitive(void *prim,void *canvas)
         return;
       }
       do {
-        rdPrimit2_DrawLine(canvas,local_8,y1,local_10,y1,*(int *)((int)prim + 0x24),
-                           *(int *)((int)prim + 0x28));
+        rdPrimit2_DrawLine(canvas,local_8,y1,local_10,y1,prim->nColor,prim->nPattern);
         y1 = y1 + 1;
       } while (y1 <= iVar3);
       return;
@@ -391,9 +388,7 @@ void __stdcall PrimitiveQueue_drawPrimitive(void *prim,void *canvas)
       return;
     }
   }
-  rdPrimit2_DrawLine(canvas,*(int *)((int)prim + 0x14),*(int *)((int)prim + 0x18),
-                     *(int *)((int)prim + 0x1c),*(int *)((int)prim + 0x20),
-                     *(int *)((int)prim + 0x24),*(int *)((int)prim + 0x28));
+  rdPrimit2_DrawLine(canvas,prim->nX1,prim->nY1,prim->nX2,prim->nY2,prim->nColor,prim->nPattern);
   return;
 }
 #undef local_10
@@ -406,7 +401,7 @@ void __stdcall PrimitiveQueue_drawPrimitive(void *prim,void *canvas)
    markDirty(PrimitiveObject *) (the primitive's rectangle, normalised, to
    sputRender_MarkDirtyRect)); was Primitive_Invalidate. */
 
-int __thiscall PrimitiveQueue_markDirty(void *this,void *prim)
+int __thiscall PrimitiveQueue_markDirty(void *this,Primitive *prim)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -420,14 +415,14 @@ int __thiscall PrimitiveQueue_markDirty(void *this,void *prim)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar3 = *(uint *)((int)prim + 0x14);
-  uVar1 = *(uint *)((int)prim + 0x1c);
+  uVar3 = prim->nX1;
+  uVar1 = prim->nX2;
   local_10 = uVar3;
   if ((int)uVar1 <= (int)uVar3) {
     local_10 = uVar1;
   }
-  uVar4 = *(uint *)((int)prim + 0x18);
-  uVar2 = *(uint *)((int)prim + 0x20);
+  uVar4 = prim->nY1;
+  uVar2 = prim->nY2;
   local_c = uVar4;
   if ((int)uVar2 <= (int)uVar4) {
     local_c = uVar2;
