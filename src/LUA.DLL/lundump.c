@@ -300,8 +300,6 @@ void __cdecl LoadLocals(int param_1,uint *param_2)
 }
 
 /* ---- 0x1000d230  LoadConstants ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Named LoadConstants (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c
    static LoadConstants: n = LoadWord, each by its type byte 'N' number, 'S' string, 'F' function);
    was luaU_LoadConstants. */
@@ -347,12 +345,8 @@ void __cdecl LoadConstants(int param_1,undefined4 *param_2)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x1000d2f0  luaU_LoadNumber ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Unidentified function of lundump.c (precompiled chunk loader) */
 
 float __cdecl luaU_LoadNumber(undefined4 *param_1)
@@ -377,8 +371,6 @@ float __cdecl luaU_LoadNumber(undefined4 *param_1)
   return (float)local_8;
 }
 #undef local_8
-
-#endif
 
 
 /* ---- 0x1000d360  lundump__d360 ---- */
@@ -450,8 +442,6 @@ void __cdecl lundump__d3c0(int param_1,int *param_2)
 }
 
 /* ---- 0x1000d420  LoadHeader ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* lundump.c: binary file %s too new/old version Named LoadHeader (not in the remaster, gcc inlined
    it there): Lua 3.1 source name (lundump.c static LoadHeader: LoadSignature, the version 0x31
    ("too new" / "too old"), the float size and test number "unknown float representation"); was
@@ -506,8 +496,6 @@ void __cdecl LoadHeader(undefined4 *param_1)
 }
 #undef local_8
 
-#endif
-
 
 /* ---- 0x1000d570  LoadSignature ---- */
 /* Named LoadSignature (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c
@@ -533,8 +521,6 @@ void __cdecl LoadSignature(int *param_1)
 }
 
 /* ---- 0x1000d5c0  luaV_tonumber ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* lundump.c: parses %lf %c Original name luaV_tonumber (the remaster's libLua.so: sscanf '%lf %c',
    callers lua_getnumber / lua_isnumber / the VM); was luaU_str2number. */
 
@@ -559,8 +545,6 @@ undefined4 __cdecl luaV_tonumber(int *param_1)
   return 2;
 }
 #undef local_8
-
-#endif
 
 
 /* ---- 0x1000d620  luaV_tostring ---- */

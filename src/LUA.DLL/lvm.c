@@ -216,8 +216,6 @@ void __cdecl luaV_setglobal(TaggedString *ts)
 }
 
 /* ---- 0x1000da30  luaV_pack ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Unidentified function of lvm.c (virtual machine) */
 
 void __cdecl luaV_pack(int firstel,int nvararg,TObject *tab)
@@ -263,8 +261,6 @@ void __cdecl luaV_pack(int firstel,int nvararg,TObject *tab)
 }
 #undef local_10
 #undef local_4
-
-#endif
 
 
 /* ---- 0x1000db10  ExecutionState_CleanUp ---- */

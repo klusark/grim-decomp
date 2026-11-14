@@ -15,38 +15,6 @@
 #include "globals.h"
 #include "functions.h"
 
-/* ==== rdPuppet_FadeInTrack (0x00450720) ====
- * Sets the fade-in bit (0x4 cleared of 0x8, 0x2 + 0x4 set: flags = (flags & ~8) | 6) and stores 1/seconds as the fade rate
- * at +0x1c (1.0 when seconds is not positive).  The rate is computed in extended precision and rounded to a float at the
- * store, as the x87 code does.  Returns 1. */
-int __cdecl rdPuppet_FadeInTrack(void *puppet, int track, float seconds)
-{
-    uint *rec = (uint *)((char *)puppet + track * 0x134 + 8);
-
-    *rec = (*rec & 0xfffffff7) | 6;
-    if (0.0f < seconds) {
-        *(float *)(rec + 7) = (float)(1.0L / (long double)seconds);
-        return 1;
-    }
-    *(float *)(rec + 7) = 1.0f;
-    return 1;
-}
-
-/* ==== rdPuppet_FadeOutTrack (0x00450780) ====
- * As FadeInTrack with the fade-out bit: flags = (flags & ~4) | 8. */
-int __cdecl rdPuppet_FadeOutTrack(void *puppet, int track, float seconds)
-{
-    uint *rec = (uint *)((char *)puppet + track * 0x134 + 8);
-
-    *rec = (*rec & 0xfffffffb) | 8;
-    if (0.0f < seconds) {
-        *(float *)(rec + 7) = (float)(1.0L / (long double)seconds);
-        return 1;
-    }
-    *(float *)(rec + 7) = 1.0f;
-    return 1;
-}
-
 /* ==== rdPuppet_UpdateTracks (0x00450a90) ====
  * Advances the six tracks of a puppet by `seconds` (scaled by each track's rate at +0x10).  Only when the puppet's first
  * dword is 0.  A track with a non-zero flag word and no 0x200 bit is advanced by rdPuppet_AdvanceTrack (unless 0x10 is

@@ -196,8 +196,6 @@ uint __cdecl SpriteFreer(uint param_1,uint param_2,int *param_3)
 }
 
 /* ---- 0x004985c0  SpriteInstancer ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
    Original name SpriteInstancer (the remaster's GrimFandango (Linux): the only unmatched caller of
    rdThing_New; 2 matched neighbours agree, 1 disagree); was FUN_004985c0. */
@@ -249,8 +247,6 @@ uint * __cdecl SpriteInstancer(int param_1,uint *param_2,int param_3)
   puVar3[0xe] = 1;
   return puVar3;
 }
-#endif
-
 
 /* ---- 0x004986e0  SpriteAdjuster ---- */
 /* replaced by the hand-written version in build/overrides.c */

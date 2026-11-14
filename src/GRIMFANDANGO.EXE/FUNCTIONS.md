@@ -550,8 +550,8 @@
 | 004506a0 | rdPuppet_SetStatus | rdpuppet.c | 12 |
 | 004506d0 | rdPuppet_SetCallback | rdpuppet.c | 10 |
 | 004506f0 | rdPuppet_PlayTrack | rdpuppet.c | 12 |
-| 00450720 | rdPuppet_FadeInTrack | rdpuppet.c | 1 |
-| 00450780 | rdPuppet_FadeOutTrack | rdpuppet.c | 1 |
+| 00450720 | rdPuppet_FadeInTrack | rdpuppet.c | 17 |
+| 00450780 | rdPuppet_FadeOutTrack | rdpuppet.c | 17 |
 | 004507e0 | rdPuppet_AdvanceTrack | rdpuppet.c | 1 |
 | 00450a90 | rdPuppet_UpdateTracks | rdpuppet.c | 1 |
 | 00450b50 | rdPuppet_ResetTrack | rdpuppet.c | 26 |
@@ -1751,7 +1751,7 @@
 | 00498280 | SpriteRequester | spritecomponent.c | 154 |
 | 00498550 | SpriteChanger | spritecomponent.c | 17 |
 | 00498580 | SpriteFreer | spritecomponent.c | 13 |
-| 004985c0 | SpriteInstancer | spritecomponent.c | 1 |
+| 004985c0 | SpriteInstancer | spritecomponent.c | 51 |
 | 004986e0 | SpriteAdjuster | spritecomponent.c | 1 |
 | 00498990 | sputCostume_FadeKeysIn | chore.c | 61 |
 | 00498ad0 | sputCostume_FadeKeysOut | chore.c | 58 |
