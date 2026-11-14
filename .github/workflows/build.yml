@@ -133,3 +133,37 @@ jobs:
             grim_tools/cleanroom/run/decomp*/*.log
             grim_tools/cleanroom/run/decomp*/*.ini
           if-no-files-found: ignore
+
+  # When anything fails, a comment on the PR names what (the clean-room tests that differ, with what differs, and those that
+  # crash or hang the rebuilt exe; or the build), by grim_tools's cleanroom/tools/pr_comment.py; later runs edit the same
+  # comment. Branch protection of main requires the checks build and cleanroom.
+  # (a PR from a fork gets a read-only token: no comment then, the step summary has the same)
+  comment:
+    needs: [build, cleanroom]
+    if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: klusark/grim-autorun
+          path: grim_tools
+          sparse-checkout: cleanroom/tools
+
+      - uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cleanroom-logs
+          path: out
+
+      - name: Comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 grim_tools/cleanroom/tools/pr_comment.py \
+            --job Build "${{ needs.build.result }}" \
+            --job "Clean-room tests" "${{ needs.cleanroom.result }}" $(find out -name cleanroom.txt | head -n1) \
+            --url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --out comment.md --post "${{ github.repository }}" "${{ github.event.pull_request.number }}"
+          cat comment.md >> "$GITHUB_STEP_SUMMARY"
