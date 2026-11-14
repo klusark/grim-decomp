@@ -4444,7 +4444,7 @@ void __cdecl sputLua_GetVisibleThingsL(void)
        (iVar2 = sputActor_CanActorSeeActor((Actor *)local_8,target,&local_4), iVar2 != 0)) {
       lua_pushobject(iVar1);
       uVar5 = 0x52544341;
-      pcVar4 = (char *)sputActor_GetActorHandle(target,0x52544341);
+      pcVar4 = (char *)sputActor_GetActorHandle(target);
       lua_pushusertag(pcVar4,uVar5);
       lua_pushnumber(1.0);
       lua_settable();
@@ -5758,13 +5758,12 @@ void __cdecl sputLua_DoCostumeOverrideCallback(void *actor,int flag)
   int iVar4;
   char *pcVar5;
   char *pcVar6;
-  int unaff_EDI;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   bVar1 = false;
   bVar2 = false;
   lua_beginblock();
-  pcVar3 = (char *)sputActor_GetActorHandle(actor,unaff_EDI);
+  pcVar3 = (char *)sputActor_GetActorHandle(actor);
   iVar4 = lua_getref(g_nLrSystemTable);
   lua_pushobject(iVar4);
   lua_pushstring(s_costumeOverrideHandler_004ec4ac);
@@ -5827,13 +5826,12 @@ void __cdecl sputLua_DoCostumeMarkerCallback(void *actor,uint marker)
   int iVar4;
   uint uVar5;
   uint uVar6;
-  int unaff_EBX;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   
   bVar1 = false;
   bVar2 = false;
   if (marker != 0) {
-    pcVar3 = (char *)sputActor_GetActorHandle(actor,unaff_EBX);
+    pcVar3 = (char *)sputActor_GetActorHandle(actor);
     lua_beginblock();
     iVar4 = lua_getref(g_nLrSystemTable);
     lua_pushobject(iVar4);
