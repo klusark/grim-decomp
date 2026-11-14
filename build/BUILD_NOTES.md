@@ -1575,3 +1575,7 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   only the editor calls or nothing imports, the exe's sputCostume_SaveHook), each with its reason. covreport.py shows
   their lines in an Excluded column (functions.tsv marks them) and counts everything with --no-exclude. With the list:
   CHORE.DLL 85.0% of 1,698 lines (785 excluded), EXE 63.1% (67 excluded).
+* 2026-11-14, more clean-room tests (grim_tools: shadow_mesh.lua, movie_modes.lua modes 1 and 7, the voice effect presets
+  of zz_ims_fx.lua, lua6.lua): EXE 64.2%, LUA.DLL 90.4%, IMUSE.DLL 75.6%, CHORE.DLL 85.0% (with the exclusions). Found on
+  the way: `setfallback("function", f)` and then calling a number hangs the rebuilt exe in luaD_call (it returns to the
+  same stack slot after the tag method, as the original's decompilation reads); not tested yet whether the original does.
