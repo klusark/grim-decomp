@@ -614,18 +614,4 @@ destroy:
     return 0;
 }
 
-/* Position in a StdFile. */
-int StdFile_fle_Tell(void *file)
-{
-    return SVC_CALL(g_pStdFile_filio_services, 4, int, (void *))(file);
-}
-
-/* True when the position of a StdFile is at (or past) its size. */
-int fle_Eof(void *file)
-{
-    int size = fle_Size(file);
-
-    return StdFile_fle_Tell(file) >= size;
-}
-
 #endif /* GRIM_EXE */

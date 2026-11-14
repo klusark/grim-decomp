@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004c5e30  StdFile_fle_Tell ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Returns the current position of a StdFile through the file service Original name StdFile_fle_Tell
    (the remaster's GrimFandango (Linux): slot 4 of the "FILE=insane_stdfile" service table; fle_Tell
    is a static several LEC modules have, written with the module prefix); was StdFile_Tell. */
@@ -20,8 +18,6 @@ int __cdecl StdFile_fle_Tell(void *file)
   iVar1 = (*(code *)g_pStdFile_filio_services[4])(file);
   return iVar1;
 }
-#endif
-
 
 /* ---- 0x004c5e90  fle_Size ---- */
 /* Returns the size of a StdFile by seeking to its end and back Original name fle_Size (the
@@ -42,8 +38,6 @@ int __cdecl fle_Size(void *file)
 }
 
 /* ---- 0x004c5f50  fle_Eof ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* True when the position of a StdFile is at or past its size Original name fle_Eof (the remaster's
    GrimFandango (Linux): slot 9 of the "FILE=insane_stdfile" service table); was StdFile_IsEof. */
 
@@ -57,5 +51,3 @@ int __cdecl fle_Eof(void *file)
   iVar2 = StdFile_fle_Tell(file);
   return (uint)(iVar1 <= iVar2);
 }
-#endif
-

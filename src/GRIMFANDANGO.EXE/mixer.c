@@ -422,8 +422,6 @@ int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused)
 
 
 /* ---- 0x004d2fb0  Mixer_Free ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 int __cdecl Mixer_Free(int *services)
 
 {
@@ -437,8 +435,6 @@ int __cdecl Mixer_Free(int *services)
   g_pMixer_mixBuf = (int *)0x0;
   return 0;
 }
-#endif
-
 
 /* ---- 0x004d3010  sou_mixer_start ---- */
 /* replaced by the hand-written version in build/overrides.c */

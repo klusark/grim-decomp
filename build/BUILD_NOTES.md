@@ -1652,3 +1652,13 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   data_s.o), so these were read against the hand-written text and checked with the clean room's movie tests.
 * Clean room: the 6 render_g* tests grim_tools added on 2026-11-14 differ with and without this change (5451 of
   5457 the same both times).
+
+## Small Smush helpers generated again (2026-11-14)
+
+* sys_Free, sys_Reset, Insane_MemCopy (overrides_mixer_drv.c), Mixer_Free (overrides_mixer.c), fle_Eof and
+  StdFile_fle_Tell (overrides_mixer_misc.c) use their twins (the same stores and service calls; Insane_MemCopy copies
+  the head bytes, then dwords, as the original, where the hand-written one called memcpy).
+* Kept: sys_Alloc (its twin stores to `iVar3 + 0x8da5e8`, integer addresses of the original image), sys_Delay (the
+  GRIM_SIMTIME tick), msc_MemSet (returns the count; the twin is void), Zfile_fle_Close (the twin calls the close service
+  without its argument).
+* Clean room 5451 of 5457, the same 6 render_g* tests as without the change.

@@ -412,8 +412,6 @@ void __cdecl msc_MemCopy(void *dst,void *src,uint n)
 }
 
 /* ---- 0x004c3e10  Insane_MemCopy ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* memcpy for the lecsmush code; __fastcall with two unused register arguments (ECX, EDX): copies
    the unaligned head first, then dwords */
 
@@ -434,5 +432,3 @@ void __cdecl Insane_MemCopy(void *dst,void *src,uint n)
   }
   return;
 }
-#endif
-
