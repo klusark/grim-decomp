@@ -6,28 +6,20 @@
 #include "functions.h"
 
 /* ---- 0x004d23e0  Dsnd_MemCopyCdecl ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Dsnd_MemCopyCdecl(void *dst,void *src,uint n)
 
 {
   Dsnd_MemCopy(dst,src,n);
   return;
 }
-#endif
-
 
 /* ---- 0x004d2400  Dsnd_MemFillCdecl ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Dsnd_MemFillCdecl(void *dst,int value,uint n)
 
 {
   Dsnd_MemFill(dst,value,n);
   return;
 }
-#endif
-
 
 /* ---- 0x004d2cb0  Dsnd_MemCopy ---- */
 /* replaced by the hand-written version in build/overrides.c */

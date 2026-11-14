@@ -347,8 +347,6 @@ sou_mixer_mix(byte *data,int accumOffset,uint outFrames,int srcBytes,int unused,
 
 
 /* ---- 0x004d2e60  sou_mixer_end ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sou_mixer_end (the remaster's GrimFandango (Linux): the fill routine's last call
    (dst, frames) in both builds: clamps the accumulator (>> 7) to 16-bit output; the remaster
    inlined Mixer_ConvertTo16); was Mixer_Output. */
@@ -359,8 +357,6 @@ void __cdecl sou_mixer_end(short *dst,int frames)
   Mixer_ConvertTo16(dst,frames);
   return;
 }
-#endif
-
 
 /* ---- 0x004d2e80  Mixer_InitTables ---- */
 /* replaced by the hand-written version in build/overrides.c */

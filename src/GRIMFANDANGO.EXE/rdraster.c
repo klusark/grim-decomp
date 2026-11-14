@@ -657,8 +657,6 @@ void __cdecl rdAFRaster_DrawSpanNGonLW_16(int *param_1)
 
 
 /* ---- 0x0040f750  rdRaster_EdgeStepFlat ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Advances an edge record one scanline (x += dx, attribute += dAttr) */
 
 void __cdecl rdRaster_EdgeStepFlat(int param_1)
@@ -668,8 +666,6 @@ void __cdecl rdRaster_EdgeStepFlat(int param_1)
   *(float *)(param_1 + 0x10) = *(float *)(param_1 + 0x14) + *(float *)(param_1 + 0x10);
   return;
 }
-#endif
-
 
 /* ---- 0x0040f770  rdAFRaster_SetupEdgeNGonLW ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -1308,8 +1304,6 @@ void __cdecl rdAFRaster_DrawNGonGS(int param_1)
 
 
 /* ---- 0x004104b0  FUN_004104b0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
@@ -1321,8 +1315,6 @@ void __cdecl FUN_004104b0(int param_1)
   *(int *)(param_1 + 0x40) = *(int *)(param_1 + 0x40) + *(int *)(param_1 + 0x44);
   return;
 }
-#endif
-
 
 /* ---- 0x004104e0  rdAFRaster_SetupEdgeNGonGS ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2031,8 +2023,6 @@ void __cdecl rdAFRaster_DrawNGonFAT(int param_1)
 
 
 /* ---- 0x00411b70  FUN_00411b70 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
@@ -2045,8 +2035,6 @@ void __cdecl FUN_00411b70(int param_1)
   *(int *)(param_1 + 0x38) = *(int *)(param_1 + 0x38) + *(int *)(param_1 + 0x3c);
   return;
 }
-#endif
-
 
 /* ---- 0x00411ba0  rdAFRaster_SetupEdgeNGonFAT ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2530,8 +2518,6 @@ void __cdecl rdAFRaster_DrawNGonGAT(int param_1)
 
 
 /* ---- 0x004129f0  FUN_004129f0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
@@ -2545,8 +2531,6 @@ void __cdecl FUN_004129f0(int param_1)
   *(int *)(param_1 + 0x40) = *(int *)(param_1 + 0x40) + *(int *)(param_1 + 0x44);
   return;
 }
-#endif
-
 
 /* ---- 0x00412a30  rdAFRaster_SetupEdgeNGonGAT ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -3870,8 +3854,6 @@ void __cdecl rdAFRaster_DrawNGonFIT(int param_1)
 
 
 /* ---- 0x00415180  FUN_00415180 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
@@ -3884,12 +3866,8 @@ void __cdecl FUN_00415180(int param_1)
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
   return;
 }
-#endif
-
 
 /* ---- 0x004151c0  FUN_004151c0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
@@ -3899,8 +3877,6 @@ void __cdecl FUN_004151c0(int param_1)
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
   return;
 }
-#endif
-
 
 /* ---- 0x004151d0  rdAFRaster_SetupEdgeNGonFIT ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -4715,8 +4691,6 @@ void __cdecl rdAFRaster_DrawNGonGIT(int param_1)
 
 
 /* ---- 0x004169f0  rdAFRaster_AdvanceLeftEdgeNGonGIT ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). Original name rdAFRaster_AdvanceLeftEdgeNGonGIT (the remaster's
    GrimFandango (Linux): the edge function rdAFRaster_SetupEdgeNGonGIT stores with side flag 1); was
@@ -4732,12 +4706,8 @@ void __cdecl rdAFRaster_AdvanceLeftEdgeNGonGIT(int param_1)
   *(float *)(param_1 + 0x20) = *(float *)(param_1 + 0x24) + *(float *)(param_1 + 0x20);
   return;
 }
-#endif
-
 
 /* ---- 0x00416a30  rdAFRaster_AdvanceRightEdgeNGonGIT ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). Original name rdAFRaster_AdvanceRightEdgeNGonGIT (the remaster's
    GrimFandango (Linux): the edge function rdAFRaster_SetupEdgeNGonGIT stores with side flag 0); was
@@ -4750,8 +4720,6 @@ void __cdecl rdAFRaster_AdvanceRightEdgeNGonGIT(int param_1)
   *(int *)(param_1 + 0x40) = *(int *)(param_1 + 0x40) + *(int *)(param_1 + 0x44);
   return;
 }
-#endif
-
 
 /* ---- 0x00416a50  rdAFRaster_SetupEdgeNGonGIT ---- */
 /* replaced by the hand-written version in build/overrides.c */
