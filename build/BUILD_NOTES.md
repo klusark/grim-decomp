@@ -1799,3 +1799,23 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   rounding to float through memory the decompiler folds away, and twins with lost COM / x87 arguments that need
   their own repairs.
 * Clean room 0 of 5457 with rdRaster_Startup removed.
+
+## COM and service calls get their arguments back; 4 more overrides generated again (2026-11-14)
+
+* Ghidra cannot type a COM interface, so a vtable call (`CALL dword ptr [ECX + 0xc]`) had no signature: the decompiler
+  showed the pushes as stack variables and the call without arguments. names/callsite_overrides.json gives 41 call
+  sites of 9 functions a signature (tools/apply_call_overrides.py, a call-site override through
+  HighFunctionDBUtil.writeOverride: n `undefined4` arguments, `undefined4` result). The argument count comes from
+  raw/<prog>/disasm.json: `__cdecl` with the `ADD ESP,n` after the call when there is one (a service-table call),
+  otherwise `__stdcall` with the pushes before the call back to the previous call, jump or return (a COM method; the
+  counts agree with the DirectX arities: Release 1, CreateSoundBuffer 4, SetVolume 2, Lock 8, Unlock 5, Play 4,
+  SetCooperativeLevel 3, SetDisplayMode 4, ...). Zero-argument calls (bmp_bitmap_Alloc's getters) keep none.
+  build_src.py's COM_VTBL_RE still makes the vtable calls `code_std`. Only overridden functions change.
+* Generated again: DsndDriver_CreateStreamBuffer, DSound_Init, DDraw_CreateSurfaces, Zfile_fle_Close.
+* Kept: Input_CreateMouse (its SetCooperativeLevel call is pushed around a Win_GetMainHwnd() call and the DIPROPDWORD
+  is still a lost stack block), Im_DSoundCreateBuffer (mutes the buffer under GRIM_SIMTIME), std3D_DrawRenderList
+  (the execute-buffer descriptor still comes from EDI), Input_CreateKeyboard (sets a cooperative level the original
+  does not).
+* While this ran, Ghidra's native decompile helper grew to ~100 GB of committed memory (after many exports in one
+  session) and builds failed to fork (0xC000012D); ending it (Ghidra starts a new one) fixed that.
+* Clean room 0 of 5457 with the four overrides removed.

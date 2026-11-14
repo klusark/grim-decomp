@@ -2994,38 +2994,36 @@ void * __cdecl DDraw_Get(void)
 undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  unsigned char _stkneg[1104] __attribute__((aligned(16)));  /* the original frame below the return address */
+  unsigned char _frame[0x410] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *src;
-  undefined1 uVar1;
+  byte bVar1;
   int iVar2;
-  undefined1 *puVar3;
-  undefined1 *puVar4;
+  byte *pbVar3;
+  byte *pbVar4;
   uint uVar5;
   uint *puVar6;
-  void *pvVar7;
-  #define puStack_28 (*(undefined1 **)(_frame + (0x40 - 0x28)))
-  #define uStack_10 (*(undefined4 *)(_frame + (0x40 - 0x10)))
+  #define abStack_400 (*(byte (*)[1024])(_frame + (0x410 - 0x400)))
   
   uVar5 = 0x11;
   if ((UINT_00803f9c != 0) && (*mode != 0)) {
     uVar5 = 0x51;
   }
-  iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))();
+  iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,hwnd,uVar5);
   if (iVar2 != 0) {
     return 0;
   }
   src = mode + 2;
   UINT_00803fb0 = uVar5;
-  iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x54))();
+  iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x54))(g_pDirectDraw,*src,mode[3],mode[8]);
   if (iVar2 != 0) {
     return 0;
   }
+  uVar5 = mode[8];
   g_dwStdDisplay_frontBuffer = 1;
   _DAT_00901684 = 0;
   _DAT_00901688 = 0;
   Mem_Copy(&DAT_0090168c,src,0x4c);
-  _DAT_009016d8 = uStack_10;
+  _DAT_009016d8 = palette;
   UINT_009016dc = 0;
   g_pDDrawPrimary = &UINT_009016e4;
   puVar6 = &UINT_009016ec;
@@ -3046,8 +3044,8 @@ undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette)
     *(undefined4 *)((int)g_pDDrawPrimary + 0xc) = 0x21;
     *(undefined4 *)((int)g_pDDrawPrimary + 0x70) = 0x2218;
   }
-  pvVar7 = g_pDDrawPrimary;
-  iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x18))(g_pDirectDraw,(int)g_pDDrawPrimary + 8);
+  iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x18))
+                    (g_pDirectDraw,(int)g_pDDrawPrimary + 8,g_pDDrawPrimary,0);
   if (iVar2 != 0) {
     return 0;
   }
@@ -3058,7 +3056,7 @@ undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette)
   }
   g_dwStdDisplay_numDrawBuffers = *(int *)((int)g_pDDrawPrimary + 0x1c) + 1;
   UINT_00901698 = *(uint *)((int)g_pDDrawPrimary + 0x18);
-  _DAT_0090169c = UINT_00901698 / (uint)pvVar7;
+  _DAT_0090169c = UINT_00901698 / (uVar5 >> 3);
   if ((*(uint *)((int)g_pDDrawPrimary + 0x70) & 0x4000) != 0) {
     _DAT_00901688 = 1;
   }
@@ -3067,7 +3065,7 @@ undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette)
     _DAT_009055e4 = 0;
     _DAT_009055e8 = 0;
     Mem_Copy(&UINT_009055ec,src,0x4c);
-    _DAT_00905638 = puStack_28;
+    _DAT_00905638 = palette;
     UINT_0090563c = 0;
     g_pDDrawBack = &PTR_00905644;
     puVar6 = &UINT_0090564c;
@@ -3095,28 +3093,28 @@ undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette)
       _DAT_009055e8 = 1;
     }
     UINT_009055f8 = *(uint *)((int)g_pDDrawBack + 0x18);
-    _DAT_009055fc = UINT_009055f8 / (uint)pvVar7;
+    _DAT_009055fc = UINT_009055f8 / (uVar5 >> 3);
     *(undefined4 *)((int)g_pDDrawBack + 4) = 0;
   }
   if (mode[7] == 0) {
     iVar2 = GetDC(0);
-    GetSystemPaletteEntries(iVar2,0,0x100,(int)(_stkneg + 28));
+    GetSystemPaletteEntries(iVar2,0,0x100,(int)abStack_400);
     ReleaseDC(0,iVar2);
     iVar2 = 0x100;
-    puVar4 = (_stkneg + 28);
+    pbVar4 = abStack_400;
     do {
-      uVar1 = *puStack_28;
-      puVar4[3] = 1;
-      *puVar4 = uVar1;
-      puVar3 = puStack_28 + 2;
-      puVar4[1] = puStack_28[1];
-      puStack_28 = puStack_28 + 3;
-      puVar4[2] = *puVar3;
+      bVar1 = *palette;
+      pbVar4[3] = 1;
+      *pbVar4 = bVar1;
+      pbVar3 = palette + 2;
+      pbVar4[1] = palette[1];
+      palette = palette + 3;
+      pbVar4[2] = *pbVar3;
       iVar2 = iVar2 + -1;
-      puVar4 = puVar4 + 4;
+      pbVar4 = pbVar4 + 4;
     } while (iVar2 != 0);
     iVar2 = (**(code_std **)(*(int *)g_pDirectDraw + 0x14))
-                      (g_pDirectDraw,0x4c,(_stkneg + 28),(int)g_pDDrawPrimary + 4,0);
+                      (g_pDirectDraw,0x4c,abStack_400,(int)g_pDDrawPrimary + 4,0);
     if (iVar2 != 0) {
       return 0;
     }
@@ -3139,8 +3137,7 @@ LAB_00476b98:
   Mem_Copy(&g_dwStdDisplay_backBuffer,&g_dwStdDisplay_frontBuffer,0xd8);
   return 1;
 }
-#undef puStack_28
-#undef uStack_10
+#undef abStack_400
 
 #endif
 

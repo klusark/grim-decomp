@@ -6,70 +6,65 @@
 #include "functions.h"
 
 /* ---- 0x004c0ed0  DSound_Init ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Creates the DirectSound object, sets the cooperative level on the main window and creates the
    primary buffer */
 
 uint __cdecl DSound_Init(void)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  void *pvVar2;
-  #define pvStack_4c (*(void **)(_frame + (0x60 - 0x4c)))
-  #define puStack_48 (*(undefined4 **)(_frame + (0x60 - 0x48)))
-  #define ppvStack_44 (*(void ***)(_frame + (0x60 - 0x44)))
-  #define uStack_40 (*(undefined4 *)(_frame + (0x60 - 0x40)))
-  #define uStack_20 (*(undefined4 *)(_frame + (0x60 - 0x20)))
-  #define uStack_1c (*(undefined4 *)(_frame + (0x60 - 0x1c)))
-  #define uStack_18 (*(undefined4 *)(_frame + (0x60 - 0x18)))
-  #define uStack_14 (*(undefined4 *)(_frame + (0x60 - 0x14)))
-  #define uStack_10 (*(undefined4 *)(_frame + (0x60 - 0x10)))
+  void *a1;
+  #define uStack_28 (*(undefined4 *)(_frame + (0x40 - 0x28)))
+  #define uStack_24 (*(undefined4 *)(_frame + (0x40 - 0x24)))
+  #define iStack_20 (*(int *)(_frame + (0x40 - 0x20)))
+  #define uStack_1c (*(undefined4 *)(_frame + (0x40 - 0x1c)))
+  #define uStack_18 (*(undefined2 *)(_frame + (0x40 - 0x18)))
+  #define uStack_14 (*(undefined4 *)(_frame + (0x40 - 0x14)))
+  #define uStack_10 (*(undefined4 *)(_frame + (0x40 - 0x10)))
+  #define uStack_c (*(undefined4 *)(_frame + (0x40 - 0xc)))
+  #define uStack_8 (*(undefined4 *)(_frame + (0x40 - 0x8)))
+  #define uStack_4 (*(undefined4 *)(_frame + (0x40 - 0x4)))
   
   if (g_pDirectSound != (void *)0x0) {
     return 0;
   }
   UINT_008d3664 = 0;
-  uStack_40 = 0x4c0efa;
   iVar1 = DirectSoundCreate(0,((unsigned)(uintptr_t)&g_pDirectSound),0);
   if (iVar1 < 0) {
     g_pDirectSound = (void *)0x0;
     return 0;
   }
-  pvVar2 = Win_GetMainHwnd();
-  uStack_40 = 0x4c0f21;
-  iVar1 = (**(code_std **)(*(int *)g_pDirectSound + 0x18))();
+  a1 = Win_GetMainHwnd();
+  iVar1 = (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,a1,2);
   if (-1 < iVar1) {
-    uStack_20 = 0x14;
-    uStack_18 = 0;
-    uStack_1c = 0x81;
-    uStack_14 = 0;
-    uStack_10 = 0;
+    uStack_14 = 0x14;
+    uStack_c = 0;
+    uStack_10 = 0x81;
+    uStack_8 = 0;
+    uStack_4 = 0;
     if (UINT_008d3664 != 0) {
-      uStack_1c = 0x91;
+      uStack_10 = 0x91;
     }
-    uStack_40 = 0;
-    puStack_48 = &uStack_20;
-    ppvStack_44 = &g_pDSoundPrimary;
-    pvStack_4c = g_pDirectSound;
-    UINT_008d3654 = (uint)pvVar2;
-    iVar1 = (**(code_std **)(*(int *)g_pDirectSound + 0xc))();
+    UINT_008d3654 = (uint)a1;
+    iVar1 = (**(code_std **)(*(int *)g_pDirectSound + 0xc))
+                      (g_pDirectSound,&uStack_14,&g_pDSoundPrimary,0);
     if (iVar1 < 0) {
       g_pDSoundPrimary = (void *)0x0;
       return 1;
     }
     (**(code_std **)(*(int *)g_pDSoundPrimary + 0x18))(g_pDSoundPrimary,&UINT_008d3658);
-    iVar1 = 0x5622;
-    pvStack_4c = (void *)0x20001;
-    puStack_48 = (undefined4 *)0x5622;
+    iStack_20 = 0x5622;
+    uStack_28 = 0x20001;
+    uStack_18 = 0;
+    uStack_24 = 0x5622;
     if (UINT_008d3660 != 0) {
-      iVar1 = 0x2b11;
-      puStack_48 = (undefined4 *)0x2b11;
+      iStack_20 = 0x2b11;
+      uStack_24 = 0x2b11;
     }
-    ppvStack_44 = (void **)(iVar1 << 2);
-    uStack_40 = 0x100004;
-    (**(code_std **)(*(int *)g_pDSoundPrimary + 0x38))(g_pDSoundPrimary,&pvStack_4c);
+    iStack_20 = iStack_20 << 2;
+    uStack_1c = 0x100004;
+    (**(code_std **)(*(int *)g_pDSoundPrimary + 0x38))(g_pDSoundPrimary,&uStack_28);
     DSound_SetPrimaryVolume(UINT_004f1000);
     if (UINT_008d3664 != 0) {
       iVar1 = (*(code_std *)**(undefined4 **)g_pDSoundPrimary)
@@ -84,21 +79,20 @@ uint __cdecl DSound_Init(void)
       }
     }
     (**(code_std **)(*(int *)g_pDSoundPrimary + 0x30))(g_pDSoundPrimary,0,0,0);
-    (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,pvVar2,3);
+    (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,a1,3);
   }
   return 1;
 }
-#undef ppvStack_44
-#undef puStack_48
-#undef pvStack_4c
+#undef iStack_20
 #undef uStack_10
 #undef uStack_14
 #undef uStack_18
 #undef uStack_1c
-#undef uStack_20
-#undef uStack_40
-
-#endif
+#undef uStack_24
+#undef uStack_28
+#undef uStack_4
+#undef uStack_8
+#undef uStack_c
 
 
 /* ---- 0x004c1090  DSound_Shutdown ---- */

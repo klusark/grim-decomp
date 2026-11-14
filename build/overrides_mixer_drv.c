@@ -278,40 +278,6 @@ int DsndDriver_InitDirectSound(void)
     return 0;
 }
 
-/* blocks: 3..16 blocks of 0x1800 bytes; the buffer is cleared and played in a loop */
-void DsndDriver_CreateStreamBuffer(int blocks)
-{
-    struct { uint size, flags, bytes, reserved; void *format; } desc;
-    void *p1, *p2;
-    uint n1, n2;
-
-    g_bStreamBufferBusy = 1;
-    if (g_pStreamDSBuffer != 0)
-        COMX(g_pStreamDSBuffer, DSB_RELEASE);
-    g_pStreamDSBuffer = 0;
-    if (blocks < 3)
-        blocks = 3;
-    if (blocks > 0x10)
-        blocks = 0x10;
-    g_nStreamBlocks = blocks;
-    desc.size = 0x14;
-    desc.flags = 0x10080;               /* DSBCAPS_CTRLVOLUME | DSBCAPS_GETCURRENTPOSITION2 */
-    desc.bytes = blocks * 0x1800;
-    desc.reserved = 0;
-    desc.format = g_StreamBufferFormat;
-    if (COMX(g_pStreamDS, DS_CREATESOUNDBUFFER, &desc, &g_pStreamDSBuffer, 0) == 0) {
-        COMX(g_pStreamDSBuffer, DSB_SETVOLUME, 0);
-        if (COMX(g_pStreamDSBuffer, DSB_LOCK, 0, g_nStreamBlocks * 0x1800, &p1, &n1, &p2, &n2, 0) == 0) {
-            memset(p1, 0, n1);
-            if (p2 != 0)
-                memset(p2, 0, n2);
-            COMX(g_pStreamDSBuffer, DSB_UNLOCK, p1, n1, p2, n2);
-        }
-        COMX(g_pStreamDSBuffer, DSB_PLAY, 0, 0, 1);     /* DSBPLAY_LOOPING */
-    }
-    g_bStreamBufferBusy = 0;
-}
-
 /* Index of the block the play cursor is in, or -1 */
 int DSound_GetPlayBlock(void)
 {

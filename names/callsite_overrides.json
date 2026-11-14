@@ -1,0 +1,294 @@
+{
+ "_comment": "Call-site signatures (2026-11-14) for indirect calls whose arguments the decompiler lost: COM method calls through a vtable (`CALL dword ptr [ECX + 0xc]`, __stdcall, the arguments are the pushes before the call) and service-table calls (__cdecl, the `ADD ESP,n` after the call). Ghidra cannot type the interface, so it showed the pushes as stack variables and the call without arguments. tools/apply_call_overrides.py writes them as call-site overrides (HighFunctionDBUtil.writeOverride); arguments are undefined4, the result undefined4. Derived from raw/<prog>/disasm.json and checked against the DirectX method arities (Release 1, CreateSoundBuffer 4, SetVolume 2, Lock 8, Unlock 5, Play 4, ...).",
+ "GRIMFANDANGO.EXE": [
+  {
+   "func": "004d2aa0",
+   "call": "004d2aba",
+   "args": 1,
+   "cc": "__stdcall",
+   "in": "DsndDriver_CreateStreamBuffer"
+  },
+  {
+   "func": "004d2aa0",
+   "call": "004d2b33",
+   "args": 4,
+   "cc": "__stdcall",
+   "in": "DsndDriver_CreateStreamBuffer"
+  },
+  {
+   "func": "004d2aa0",
+   "call": "004d2b48",
+   "args": 2,
+   "cc": "__stdcall",
+   "in": "DsndDriver_CreateStreamBuffer"
+  },
+  {
+   "func": "004d2aa0",
+   "call": "004d2b78",
+   "args": 8,
+   "cc": "__stdcall",
+   "in": "DsndDriver_CreateStreamBuffer"
+  },
+  {
+   "func": "004d2aa0",
+   "call": "004d2bcd",
+   "args": 5,
+   "cc": "__stdcall",
+   "in": "DsndDriver_CreateStreamBuffer"
+  },
+  {
+   "func": "004d2aa0",
+   "call": "004d2bde",
+   "args": 4,
+   "cc": "__stdcall",
+   "in": "DsndDriver_CreateStreamBuffer"
+  },
+  {
+   "func": "004c0ed0",
+   "call": "004c0f1e",
+   "args": 3,
+   "cc": "__stdcall",
+   "in": "DSound_Init"
+  },
+  {
+   "func": "004c0ed0",
+   "call": "004c0f79",
+   "args": 4,
+   "cc": "__stdcall",
+   "in": "DSound_Init"
+  },
+  {
+   "func": "004c0ed0",
+   "call": "004c0f9e",
+   "args": 2,
+   "cc": "__stdcall",
+   "in": "DSound_Init"
+  },
+  {
+   "func": "004c0ed0",
+   "call": "004c1009",
+   "args": 2,
+   "cc": "__stdcall",
+   "in": "DSound_Init"
+  },
+  {
+   "func": "004c0ed0",
+   "call": "004c1035",
+   "args": 3,
+   "cc": "__stdcall",
+   "in": "DSound_Init"
+  },
+  {
+   "func": "004c0ed0",
+   "call": "004c1058",
+   "args": 3,
+   "cc": "__stdcall",
+   "in": "DSound_Init"
+  },
+  {
+   "func": "004c0ed0",
+   "call": "004c1066",
+   "args": 3,
+   "cc": "__stdcall",
+   "in": "DSound_Init"
+  },
+  {
+   "func": "004c0ed0",
+   "call": "004c1074",
+   "args": 4,
+   "cc": "__stdcall",
+   "in": "DSound_Init"
+  },
+  {
+   "func": "004c0ed0",
+   "call": "004c1082",
+   "args": 3,
+   "cc": "__stdcall",
+   "in": "DSound_Init"
+  },
+  {
+   "func": "004767d0",
+   "call": "0047680c",
+   "args": 3,
+   "cc": "__stdcall",
+   "in": "DDraw_CreateSurfaces"
+  },
+  {
+   "func": "004767d0",
+   "call": "0047683c",
+   "args": 4,
+   "cc": "__stdcall",
+   "in": "DDraw_CreateSurfaces"
+  },
+  {
+   "func": "004767d0",
+   "call": "0047692f",
+   "args": 4,
+   "cc": "__stdcall",
+   "in": "DDraw_CreateSurfaces"
+  },
+  {
+   "func": "004767d0",
+   "call": "00476952",
+   "args": 2,
+   "cc": "__stdcall",
+   "in": "DDraw_CreateSurfaces"
+  },
+  {
+   "func": "004767d0",
+   "call": "00476a56",
+   "args": 3,
+   "cc": "__stdcall",
+   "in": "DDraw_CreateSurfaces"
+  },
+  {
+   "func": "004767d0",
+   "call": "00476a79",
+   "args": 2,
+   "cc": "__stdcall",
+   "in": "DDraw_CreateSurfaces"
+  },
+  {
+   "func": "004767d0",
+   "call": "00476b28",
+   "args": 5,
+   "cc": "__stdcall",
+   "in": "DDraw_CreateSurfaces"
+  },
+  {
+   "func": "004767d0",
+   "call": "00476b4b",
+   "args": 2,
+   "cc": "__stdcall",
+   "in": "DDraw_CreateSurfaces"
+  },
+  {
+   "func": "004767d0",
+   "call": "00476b7c",
+   "args": 2,
+   "cc": "__stdcall",
+   "in": "DDraw_CreateSurfaces"
+  },
+  {
+   "func": "004775a0",
+   "call": "004775cd",
+   "args": 4,
+   "cc": "__stdcall",
+   "in": "Input_CreateMouse"
+  },
+  {
+   "func": "004775a0",
+   "call": "004775e5",
+   "args": 2,
+   "cc": "__stdcall",
+   "in": "Input_CreateMouse"
+  },
+  {
+   "func": "004775a0",
+   "call": "0047763c",
+   "args": 3,
+   "cc": "__stdcall",
+   "in": "Input_CreateMouse"
+  },
+  {
+   "func": "004c5ab0",
+   "call": "004c5acf",
+   "args": 1,
+   "cc": "__cdecl",
+   "in": "Zfile_fle_Close"
+  },
+  {
+   "func": "004c5ab0",
+   "call": "004c5aea",
+   "args": 3,
+   "cc": "__cdecl",
+   "in": "Zfile_fle_Close"
+  },
+  {
+   "func": "004d0550",
+   "call": "004d05b4",
+   "args": 3,
+   "cc": "__cdecl",
+   "in": "engine_Initialize"
+  },
+  {
+   "func": "004d0550",
+   "call": "004d05f1",
+   "args": 1,
+   "cc": "__cdecl",
+   "in": "engine_Initialize"
+  },
+  {
+   "func": "00478b40",
+   "call": "00478b79",
+   "args": 2,
+   "cc": "__stdcall",
+   "in": "std3D_DrawRenderList"
+  },
+  {
+   "func": "00478b40",
+   "call": "00478bd2",
+   "args": 2,
+   "cc": "__stdcall",
+   "in": "std3D_DrawRenderList"
+  },
+  {
+   "func": "00478b40",
+   "call": "00478bed",
+   "args": 4,
+   "cc": "__stdcall",
+   "in": "std3D_DrawRenderList"
+  },
+  {
+   "func": "004ce3e0",
+   "call": "004ce45d",
+   "args": 3,
+   "cc": "__cdecl",
+   "in": "bmp_bitmap_Alloc"
+  }
+ ],
+ "IMUSE.DLL": [
+  {
+   "func": "10003930",
+   "call": "1000394a",
+   "args": 1,
+   "cc": "__stdcall",
+   "in": "Im_DSoundCreateBuffer"
+  },
+  {
+   "func": "10003930",
+   "call": "100039c3",
+   "args": 4,
+   "cc": "__stdcall",
+   "in": "Im_DSoundCreateBuffer"
+  },
+  {
+   "func": "10003930",
+   "call": "100039d8",
+   "args": 2,
+   "cc": "__stdcall",
+   "in": "Im_DSoundCreateBuffer"
+  },
+  {
+   "func": "10003930",
+   "call": "10003a08",
+   "args": 8,
+   "cc": "__stdcall",
+   "in": "Im_DSoundCreateBuffer"
+  },
+  {
+   "func": "10003930",
+   "call": "10003a5d",
+   "args": 5,
+   "cc": "__stdcall",
+   "in": "Im_DSoundCreateBuffer"
+  },
+  {
+   "func": "10003930",
+   "call": "10003a6e",
+   "args": 4,
+   "cc": "__stdcall",
+   "in": "Im_DSoundCreateBuffer"
+  }
+ ]
+}

@@ -1583,7 +1583,7 @@ extern undefined4 UINT_008061dc; /* used by 1 fn(s), first 0x00478c00 */
 extern undefined4 UINT_008061e0; /* used by 1 fn(s), first 0x00478c00 */
 extern undefined DAT_008061e8; /* used by 1 fn(s), first 0x00479170 */
 extern undefined4 UINT_008063e8; /* used by 1 fn(s), first 0x00478c00 */
-extern undefined4 UINT_008063ec; /* used by 1 fn(s), first 0x00478770 */
+extern undefined4 UINT_008063ec; /* used by 2 fn(s), first 0x00478770 */
 extern undefined DAT_008063f0; /* used by 2 fn(s), first 0x004782e0 */
 extern undefined DAT_008063f4; /* used by 1 fn(s), first 0x004782e0 */
 extern undefined DAT_008063f8; /* used by 1 fn(s), first 0x004782e0 */
@@ -1595,7 +1595,7 @@ extern undefined4 UINT_00806610; /* used by 1 fn(s), first 0x00478c00 */
 extern int * PTR_00806614; /* used by 1 fn(s), first 0x00478660 */
 extern undefined DAT_00806618; /* used by 1 fn(s), first 0x00478fc0 */
 extern int * PTR_00806918; /* used by 6 fn(s), first 0x00478770 */
-extern undefined4 UINT_0080691c; /* used by 1 fn(s), first 0x00478840 */
+extern undefined4 UINT_0080691c; /* used by 2 fn(s), first 0x00478840 */
 extern uint UINT_00806924; /* used by 2 fn(s), first 0x00478c00 */
 extern undefined4 UINT_00806930; /* used by 2 fn(s), first 0x004782e0 */
 extern undefined4 UINT_00806934; /* used by 3 fn(s), first 0x004782e0 */
@@ -1606,7 +1606,7 @@ extern undefined4 UINT_00806944; /* used by 4 fn(s), first 0x004782e0 */
 extern void * PTR_0080694c; /* used by 4 fn(s), first 0x004782e0 */
 extern undefined4 UINT_00806950; /* used by 2 fn(s), first 0x004782e0 */
 extern undefined DAT_00806958; /* used by 1 fn(s), first 0x004782e0 */
-extern undefined4 UINT_0080695c; /* used by 3 fn(s), first 0x00478770 */
+extern undefined4 UINT_0080695c; /* used by 4 fn(s), first 0x00478770 */
 extern undefined4 UINT_00806960; /* used by 2 fn(s), first 0x00478770 */
 extern int * PTR_00806964; /* used by 1 fn(s), first 0x0047a240 */
 extern int * PTR_00806968; /* used by 5 fn(s), first 0x00478230 */

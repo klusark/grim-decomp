@@ -275,8 +275,6 @@ int DsndDriver_InitDirectSound(void)
 
 
 /* ---- 0x004d2aa0  DsndDriver_CreateStreamBuffer ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Creates the looping secondary stream buffer of N blocks of 0x1800 bytes (3..16), clears it and
    starts it */
@@ -284,72 +282,65 @@ int DsndDriver_InitDirectSound(void)
 void __cdecl DsndDriver_CreateStreamBuffer(int blocks)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
-  int iVar2;
-  uint uVar3;
-  uint uVar4;
-  undefined4 **ppuVar5;
-  undefined4 *puVar6;
-  #define puStack_30 (*(undefined4 **)(_frame + (0x40 - 0x30)))
-  #define ppvStack_2c (*(void ***)(_frame + (0x40 - 0x2c)))
-  #define pvStack_28 (*(void **)(_frame + (0x40 - 0x28)))
-  #define uStack_14 (*(undefined4 *)(_frame + (0x40 - 0x14)))
-  #define uStack_10 (*(undefined4 *)(_frame + (0x40 - 0x10)))
-  #define iStack_c (*(int *)(_frame + (0x40 - 0xc)))
-  #define uStack_8 (*(undefined4 *)(_frame + (0x40 - 0x8)))
-  #define puStack_4 (*(undefined **)(_frame + (0x40 - 0x4)))
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  uint uVar2;
+  undefined4 *puVar3;
+  #define uStack_20 (*(uint *)(_frame + (0x30 - 0x20)))
+  #define uStack_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define puStack_18 (*(undefined4 **)(_frame + (0x30 - 0x18)))
+  #define uStack_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
+  #define uStack_10 (*(undefined4 *)(_frame + (0x30 - 0x10)))
+  #define iStack_c (*(int *)(_frame + (0x30 - 0xc)))
+  #define uStack_8 (*(undefined4 *)(_frame + (0x30 - 0x8)))
+  #define puStack_4 (*(undefined **)(_frame + (0x30 - 0x4)))
   
   _DAT_008dcc4c = 1;
   if (g_pStreamDSBuffer != (void *)0x0) {
-    pvStack_28 = g_pStreamDSBuffer;
-    ppvStack_2c = (void **)0x4d2abd;
-    (**(code_std **)(*(int *)g_pStreamDSBuffer + 8))();
+    (**(code_std **)(*(int *)g_pStreamDSBuffer + 8))(g_pStreamDSBuffer);
   }
-  pvVar1 = g_pStreamDS;
   g_pStreamDSBuffer = (void *)0x0;
+  g_nStreamBlocks = blocks;
   if (blocks < 3) {
-    blocks = 3;
+    g_nStreamBlocks = 3;
   }
-  if (0x10 < blocks) {
-    blocks = 0x10;
+  if (0x10 < g_nStreamBlocks) {
+    g_nStreamBlocks = 0x10;
   }
   uStack_14 = 0x14;
   uStack_10 = 0x10080;
-  iStack_c = blocks * 0x1800;
+  iStack_c = g_nStreamBlocks * 0x1800;
   uStack_8 = 0;
-  pvStack_28 = (void *)0x0;
-  puStack_30 = &uStack_14;
   puStack_4 = &DAT_004f3fc0;
-  ppvStack_2c = &g_pStreamDSBuffer;
-  g_nStreamBlocks = blocks;
-  iVar2 = (**(code_std **)(*(int *)g_pStreamDS + 0xc))();
-  if (iVar2 == 0) {
-    (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x3c))(g_pStreamDSBuffer);
-    uVar3 = g_nStreamBlocks * 0x1800;
-    iVar2 = (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x2c))(g_pStreamDSBuffer);
-    if (iVar2 == 0) {
-      ppuVar5 = &puStack_30;
-      for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-        *ppuVar5 = (undefined4 *)0x0;
-        ppuVar5 = ppuVar5 + 1;
+  iVar1 = (**(code_std **)(*(int *)g_pStreamDS + 0xc))(g_pStreamDS,&uStack_14,&g_pStreamDSBuffer,0);
+  if (iVar1 == 0) {
+    (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x3c))(g_pStreamDSBuffer,0);
+    iVar1 = (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x2c))
+                      (g_pStreamDSBuffer,0,g_nStreamBlocks * 0x1800,&puStack_18,&uStack_1c,&blocks,
+                       &uStack_20,0);
+    if (iVar1 == 0) {
+      puVar3 = puStack_18;
+      for (uVar2 = uStack_1c >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
+        *puVar3 = 0;
+        puVar3 = puVar3 + 1;
       }
-      for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-        *(undefined1 *)ppuVar5 = 0;
-        ppuVar5 = (undefined4 **)((int)ppuVar5 + 1);
+      for (uVar2 = uStack_1c & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
+        *(undefined1 *)puVar3 = 0;
+        puVar3 = (undefined4 *)((int)puVar3 + 1);
       }
-      if (pvVar1 != (void *)0x0) {
-        puVar6 = pvVar1;
-        for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-          *puVar6 = 0;
-          puVar6 = puVar6 + 1;
+      if (blocks != 0) {
+        puVar3 = (undefined4 *)blocks;
+        for (uVar2 = uStack_20 >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
+          *puVar3 = 0;
+          puVar3 = puVar3 + 1;
         }
-        for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-          *(undefined1 *)puVar6 = 0;
-          puVar6 = (undefined4 *)((int)puVar6 + 1);
+        for (uVar2 = uStack_20 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
+          *(undefined1 *)puVar3 = 0;
+          puVar3 = (undefined4 *)((int)puVar3 + 1);
         }
       }
-      (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x4c))(g_pStreamDSBuffer,&puStack_30,uVar3,pvVar1,0);
+      (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x4c))
+                (g_pStreamDSBuffer,puStack_18,uStack_1c,blocks,uStack_20);
     }
     (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x30))(g_pStreamDSBuffer,0,0,1);
   }
@@ -357,15 +348,13 @@ void __cdecl DsndDriver_CreateStreamBuffer(int blocks)
   return;
 }
 #undef iStack_c
-#undef ppvStack_2c
-#undef puStack_30
+#undef puStack_18
 #undef puStack_4
-#undef pvStack_28
 #undef uStack_10
 #undef uStack_14
+#undef uStack_1c
+#undef uStack_20
 #undef uStack_8
-
-#endif
 
 
 /* ---- 0x004d2bf0  DsndDriver_ReleaseDirectSound ---- */

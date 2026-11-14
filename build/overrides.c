@@ -197,60 +197,6 @@ void Input_CreateMouse(void)
     Input_SetAxisRange(0xe, -0x14, 0x14, 0.0);
 }
 
-/* DSound_Init (0x4c0ed0): DirectSound object, priority cooperative level,
- * primary buffer (22050 or 11025 Hz 16-bit stereo), optional 3D listener. */
-undefined4 DSound_Init(void)
-{
-    struct { unsigned size, flags, bytes, reserved, format; } desc;
-    struct { unsigned short tag, channels; unsigned rate, avg; unsigned short align, bits, cb; } wfx;
-    unsigned hwnd;
-    int rate;
-
-    if (g_pDirectSound != 0)
-        return 0;
-    UINT_008d3664 = 0;
-    if (DirectSoundCreate(0, &g_pDirectSound, 0) < 0) {
-        g_pDirectSound = 0;
-        return 0;
-    }
-    hwnd = (unsigned)Win_GetMainHwnd();
-    if (COM(g_pDirectSound, 0x18, hwnd, 2) < 0)
-        return 1;
-    desc.size = 0x14;
-    desc.flags = UINT_008d3664 ? 0x91 : 0x81;   /* PRIMARYBUFFER | CTRLVOLUME [| CTRL3D] */
-    desc.bytes = 0;
-    desc.reserved = 0;
-    desc.format = 0;
-    UINT_008d3654 = hwnd;
-    if (COM(g_pDirectSound, 0xc, &desc, &g_pDSoundPrimary, 0) < 0) {
-        g_pDSoundPrimary = 0;
-        return 1;
-    }
-    COM(g_pDSoundPrimary, 0x18, &UINT_008d3658);          /* GetVolume */
-    rate = UINT_008d3660 ? 0x2b11 : 0x5622;
-    wfx.tag = 1;
-    wfx.channels = 2;
-    wfx.rate = rate;
-    wfx.avg = rate << 2;
-    wfx.align = 4;
-    wfx.bits = 0x10;
-    wfx.cb = 0;
-    COM(g_pDSoundPrimary, 0x38, &wfx);                   /* SetFormat */
-    DSound_SetPrimaryVolume(UINT_004f1000);
-    if (UINT_008d3664 != 0) {
-        if (COM(g_pDSoundPrimary, 0, &DAT_004d8510, &PTR_008d3674) < 0) {
-            UINT_008d3664 = 0;
-            PTR_008d3674 = 0;
-        } else {
-            COM(PTR_008d3674, 0x2c, 0x3f000000, 1);
-            COM(PTR_008d3674, 0x3c, 0, 1);
-        }
-    }
-    COM(g_pDSoundPrimary, 0x30, 0, 0, 0);                /* Play */
-    COM(g_pDirectSound, 0x18, hwnd, 3);                  /* SetCooperativeLevel: exclusive */
-    return 1;
-}
-
 unsigned long __attribute__((stdcall)) GRIM_GetEnv(const char *, char *, unsigned long) __asm__("_GetEnvironmentVariableA@12");
 
 /* Display_InitFromConfig (0x402930): the game normally restores the last display from the registry
