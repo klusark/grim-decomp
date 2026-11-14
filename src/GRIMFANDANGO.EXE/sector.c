@@ -150,27 +150,27 @@ uint __cdecl sputRoom_LoadRoomEntry(uint param_1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  uint uVar2;
+  uint uVar1;
+  int iVar2;
   #define local_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
-  iVar1 = ((code *)stdConffile_Open)(param_1);
-  if (iVar1 == 0) {
+  uVar1 = stdConffile_Open(param_1);
+  if (uVar1 == 0) {
     return 0;
   }
-  uVar2 = stdConffile_ReadLine();
-  if (uVar2 != 0) {
+  uVar1 = stdConffile_ReadLine();
+  if (uVar1 != 0) {
     do {
-      iVar1 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ec740,local_20);
-      if (iVar1 == 1) {
-        iVar1 = Set_IsHandleValid(local_20);
-        if (iVar1 == 0) {
+      iVar2 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ec740,local_20);
+      if (iVar2 == 1) {
+        iVar2 = Set_IsHandleValid(local_20);
+        if (iVar2 == 0) {
           stdConffile_Close();
           return 0;
         }
       }
-      uVar2 = stdConffile_ReadLine();
-    } while (uVar2 != 0);
+      uVar1 = stdConffile_ReadLine();
+    } while (uVar1 != 0);
     stdConffile_Close();
     return 1;
   }

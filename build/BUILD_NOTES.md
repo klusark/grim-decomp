@@ -1625,3 +1625,19 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   durationMs / flags were pushes for later calls, so sputText_MakeTextObjectL and sputText_BlastText (compiled from
   the generated text) passed unaff_EBX / unaff_EDI / unaff_EBP garbage. sputText_CreateActorText stays hand-written:
   its anchor rectangle (ints) is still typed float and read through an `Actor *`. Clean room 0 of 5329.
+
+## LUA.DLL math library generated again; x87 pseudo-ops fptan / fpatan / log2 (2026-11-14)
+
+* raw/ was behind src/ for the 30 functions of names/exe_service_thunk_protos.json (src/ had been edited by hand to
+  return `uint`): the prototypes are now in Ghidra (`tools/apply_logic_protos.py names/exe_service_thunk_protos.json`,
+  LUA.DLL / IMUSE.DLL / CHORE.DLL had to be opened in the bridge first) and re-exported, so build_src.py regenerates the
+  same tree (only local names differ: `uVar1` for `uRet`).
+* math_sin, cos, tan, atan, atan2, exp, log, log10, sqrt, deg, rad, min, max and luaFGetc (overrides.c) are generated
+  again: their twins compute on the x87 values as the original does (fsin, fpatan, f2xm1 / fscale, FYL2X), where the
+  hand-written versions used double precision. Kept: math_abs (its local is `undefined4`, compared as an integer),
+  asin / acos / pow (`_CIasin()` etc. with an empty x87 stack), ceil / floor (the CRT call takes the double as two
+  dwords), mod.
+* ghidra_types.h (build_src.py) lacked `fptan`, `fpatan` and `log2`: the compiler took them as implicit `int`
+  functions and link.py stubbed fptan / fpatan as traps (tan, atan and atan2 crashed the clean room's numbers tests),
+  log2 resolved to nothing useful (log(10) was 1.6e8). They are builtins on long double now. A syntax pass over every
+  src/ module with -Wimplicit-function-declaration finds no other implicit declaration. Clean room 0 of 5390.

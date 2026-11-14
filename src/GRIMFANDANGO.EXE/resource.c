@@ -612,9 +612,10 @@ int __cdecl AddResourcePath(char *dir)
 uint __cdecl Resource_CountCostumeRefs(uint param_1)
 
 {
-  uint uRet;
-  uRet = (uint)Res_CountChildren(0x54534f43,param_1);
-  return uRet;
+  uint uVar1;
+  
+  uVar1 = Res_CountChildren(0x54534f43,param_1);
+  return uVar1;
 }
 
 /* ---- 0x0048d870  Resource_RegisterTypes ---- */

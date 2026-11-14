@@ -67,9 +67,10 @@ void __cdecl stdPlatform_Assert(uint param_1,char *param_2,uint param_3)
 uint __cdecl stdPlatform_AllocHandle(uint param_1)
 
 {
-  uint uRet;
-  uRet = (uint)malloc(param_1);
-  return uRet;
+  undefined *puVar1;
+  
+  puVar1 = malloc(param_1);
+  return (uint)puVar1;
 }
 
 /* ---- 0x00478040  stdPlatform_FreeHandle ---- */
@@ -92,9 +93,10 @@ void __cdecl stdPlatform_FreeHandle(uint param_1)
 uint __cdecl stdPlatform_ReallocHandle(uint param_1,uint param_2)
 
 {
-  uint uRet;
-  uRet = (uint)realloc((undefined4 *)param_1,param_2);
-  return uRet;
+  undefined4 *puVar1;
+  
+  puVar1 = realloc((undefined4 *)param_1,param_2);
+  return (uint)puVar1;
 }
 
 /* ---- 0x00478070  stdPlatform_LockHandle ---- */

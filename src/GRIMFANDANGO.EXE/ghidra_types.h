@@ -56,6 +56,9 @@ typedef int code();
 #define fscale(a,b) ((float10)__builtin_ldexpl((float10)(a), (int)(b)))     /* FSCALE */
 #define fsin(x)    ((float10)__builtin_sinl((float10)(x)))                   /* FSIN */
 #define fcos(x)    ((float10)__builtin_cosl((float10)(x)))                   /* FCOS */
+#define fptan(x)   ((float10)__builtin_tanl((float10)(x)))                   /* FPTAN (the tangent; the 1.0 it pushes is popped) */
+#define log2(x)    ((float10)__builtin_log2l((float10)(x)))                  /* FYL2X with ST1 = 1 (Ghidra shows the product separately) */
+#define fpatan(a,b) ((float10)__builtin_atan2l((float10)(a), (float10)(b)))   /* FPATAN: atan(ST1 / ST0), ST1 = a */
 #define LOCK()     ((void)0)                                  /* x86 LOCK prefix */
 #define UNLOCK()   ((void)0)
 

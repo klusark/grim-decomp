@@ -1334,19 +1334,8 @@ void math_abs(void)
     lua_pushnumber(x);
 }
 
-void math_sin(void)   { lua_pushnumber((float)sin((double)luaL_check_number(1) * MATH_RAD)); }
-void math_cos(void)   { lua_pushnumber((float)cos((double)luaL_check_number(1) * MATH_RAD)); }
-void math_tan(void)   { lua_pushnumber((float)tan((double)luaL_check_number(1) * MATH_RAD)); }
 void math_asin(void)  { lua_pushnumber((float)(asin((double)luaL_check_number(1)) * MATH_DEG)); }
 void math_acos(void)  { lua_pushnumber((float)(acos((double)luaL_check_number(1)) * MATH_DEG)); }
-void math_atan(void)  { lua_pushnumber((float)(atan((double)luaL_check_number(1)) * MATH_DEG)); }
-
-void math_atan2(void)
-{
-    double y = luaL_check_number(1);
-    double x = luaL_check_number(2);
-    lua_pushnumber((float)(atan2(y, x) * MATH_DEG));
-}
 
 void math_ceil(void)  { lua_pushnumber((float)lua_ceil_d((double)luaL_check_number(1))); }
 void math_floor(void) { lua_pushnumber((float)lua_floor_d((double)luaL_check_number(1))); }
@@ -1358,47 +1347,12 @@ void math_mod(void)
     lua_pushnumber((float)fmod(x, y));
 }
 
-void math_sqrt(void)  { lua_pushnumber((float)sqrt((double)luaL_check_number(1))); }
-
 /* pow(x, y); also the tag method of the '^' operator on numbers (installed by lua_mathlibopen) */
 void math_pow(void)
 {
     double x = luaL_check_number(1);
     double y = luaL_check_number(2);
     lua_pushnumber((float)pow(x, y));
-}
-
-void math_log(void)    { lua_pushnumber((float)log((double)luaL_check_number(1))); }
-void math_log10(void)  { lua_pushnumber((float)log10((double)luaL_check_number(1))); }
-void math_exp(void)    { lua_pushnumber((float)exp((double)luaL_check_number(1))); }
-void math_deg(void)    { lua_pushnumber((float)((double)luaL_check_number(1) * MATH_DEG)); }
-void math_rad(void)    { lua_pushnumber((float)((double)luaL_check_number(1) * MATH_RAD)); }
-
-/* min(x, ...) / max(x, ...): the arguments are scanned until lua_lua2C returns no object */
-void math_min(void)
-{
-    float best = luaL_check_number(1);
-    int i = 2;
-    while (lua_lua2C(i) != 0) {
-        float v = luaL_check_number(i);
-        if (v < best)
-            best = v;
-        i++;
-    }
-    lua_pushnumber(best);
-}
-
-void math_max(void)
-{
-    float best = luaL_check_number(1);
-    int i = 2;
-    while (lua_lua2C(i) != 0) {
-        float v = luaL_check_number(i);
-        if (v > best)
-            best = v;
-        i++;
-    }
-    lua_pushnumber(best);
 }
 
 /* random() in [0,1): rand() % 32767 / 32767;  random(n): an integer in [1,n] */
@@ -1711,16 +1665,6 @@ int __cdecl getnarg(int t)
     if (lua_isnumber(v))
         return (int)(long long)lua_getnumber(v);   /* like _ftol */
     return 0xfffe;
-}
-
-/* reads one byte from a stream through the host's read callback: the byte as a signed char, -1 at the end */
-int __cdecl luaFGetc(undefined4 stream)
-{
-    char c;
-    uint got = (*(uint (**)(undefined4, char *, int))(g_dwLuaHS + 0x38))(stream, &c, 1);
-    if (got < 1)
-        return -1;
-    return (int)c;
 }
 
 /* ---- agentJ: precompiled chunk loader/saver helpers (lundump.c, lstate.c) ---- */
