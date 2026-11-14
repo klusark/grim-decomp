@@ -83,8 +83,6 @@ void DsndDriver_module_shutdown(void)
 }
 
 /* ---- 0x004d2550  dsn_initialize ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Opens DirectSound and the mixer and starts the periodic dsn_fill_thread timer Original name
    dsn_initialize (the remaster's GrimFandango (Linux): slot 0 of the "SNDDRIVER=insane_dsnd"
@@ -115,8 +113,6 @@ int __cdecl dsn_initialize(int rate,int unused,void *mix)
                   (int)(0x1234dc / (longlong)((int)(rate + (rate >> 0x1f & 0x3ffU)) >> 10)),2,0);
   return 0;
 }
-#endif
-
 
 /* ---- 0x004d25f0  dsn_terminate ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -136,8 +132,6 @@ void dsn_terminate(void)
 }
 
 /* ---- 0x004d2630  dsn_setvol ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Removing unreachable block (ram,0x004d2765) */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Volume 0..127 through a logarithmic table to IDirectSoundBuffer::SetVolume on the stream buffer
@@ -200,8 +194,6 @@ void __cdecl dsn_setvol(uint volume)
   (**(code_std **)(*(int *)g_pStreamDSBuffer + 0x3c))(g_pStreamDSBuffer,UINT_008db40c);
   return;
 }
-#endif
-
 
 /* ---- 0x004d27b0  dsn_getvol ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */

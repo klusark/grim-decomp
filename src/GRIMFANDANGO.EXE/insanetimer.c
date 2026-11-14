@@ -74,8 +74,6 @@ void InsaneTimer_module_shutdown(void)
 }
 
 /* ---- 0x004cdd80  InsaneTimer_StartThread ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* First caller clears the 20 timer slots and creates the high priority thread timer_thread */
@@ -106,8 +104,6 @@ int InsaneTimer_StartThread(void)
   return 0;
 }
 #undef local_4
-
-#endif
 
 
 /* ---- 0x004cddf0  timer_thread ---- */
@@ -205,8 +201,6 @@ void sys_Enable(void)
 }
 
 /* ---- 0x004cdf10  sys_Alloc ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Finds a free slot (1..19) and fills in callback, period, flags and user data; returns the slot
    number or 0 Original name sys_Alloc (the remaster's GrimFandango (Linux): slot 0 of the
    "TIMER=insane" service table); was InsaneTimer_AddTimer. */
@@ -238,8 +232,6 @@ int __cdecl sys_Alloc(void *callback,int period,uint flags,int user)
   } while ((int)puVar2 < ((unsigned)(uintptr_t)&UINT_008da858));
   return 0;
 }
-#endif
-
 
 /* ---- 0x004cdf80  sys_Free ---- */
 /* Original name sys_Free (the remaster's GrimFandango (Linux): slot 1 of the "TIMER=insane" service
@@ -305,8 +297,6 @@ int __cdecl sys_GetTime(void)
 }
 
 /* ---- 0x004ce060  InsaneTimer_Tick ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Advances the timer clock by one step and runs the due callbacks */
 
@@ -384,8 +374,6 @@ void __cdecl InsaneTimer_Tick(void)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004ce1d0  sys_timer_dispatcher ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -426,8 +414,6 @@ void __cdecl sys_timer_dispatcher(void)
 
 
 /* ---- 0x004ce260  InsaneTimer_RunDeferred ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl InsaneTimer_RunDeferred(void)
 
 {
@@ -462,5 +448,3 @@ void __cdecl InsaneTimer_RunDeferred(void)
     }
   } while( true );
 }
-#endif
-

@@ -530,13 +530,13 @@ undefined4 __cdecl __lc_strtolc(uint *param_1,uint *param_2); /* 0x10011a40 */
 void __cdecl __lc_lctostr(char *param_1,char *param_2); /* 0x10011b50 */
 uint __cdecl toupper(uint param_1); /* 0x10011bc0 */
 uint __cdecl _toupper_lk(uint param_1); /* 0x10011c50 */
-float __cdecl _CIasin(void); /* 0x10011d50 */
+float10 __cdecl _CIasin(float10 x); /* 0x10011d50 */
 void __cdecl _asin(int param_1,uint param_2); /* 0x10011d6d */
-float __cdecl _CIacos(void); /* 0x10011e20 */
+float10 __cdecl _CIacos(float10 x); /* 0x10011e20 */
 void __cdecl _acos(int param_1,uint param_2); /* 0x10011e3d */
 float __cdecl floor(uint param_1,uint param_2); /* 0x10011ef0 */
 float __cdecl ceil(uint param_1,uint param_2); /* 0x10011ff0 */
-float __cdecl _CIpow(void); /* 0x10012130 */
+float10 __cdecl _CIpow(float10 x,float10 y); /* 0x10012130 */
 void FUN_10012152(void); /* 0x10012152 */
 undefined4 __cdecl _ftol_10012325(void); /* 0x10012325 */
 uint __cdecl bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,undefined *param_5); /* 0x10012390 */

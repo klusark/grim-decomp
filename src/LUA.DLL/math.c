@@ -74,40 +74,34 @@ void __cdecl math_tan(void)
 }
 
 /* ---- 0x10006f50  math_asin ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: asin(x) in degrees (CRT _CIasin, result * 180 / pi) */
 
 void __cdecl math_asin(void)
 
 {
-  float fVar1;
+  float10 fVar1;
+  float fVar2;
   
-  luaL_check_number(1);
-  fVar1 = _CIasin();
-  lua_pushnumber(fVar1 * 57.29578);
+  fVar2 = luaL_check_number(1);
+  fVar1 = CI_ASIN((float10)fVar2);
+  lua_pushnumber((float)(fVar1 * (float10)57.29577951308232));
   return;
 }
-#endif
-
 
 /* ---- 0x10006f80  math_acos ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: acos(x) in degrees (CRT _CIacos, result * 180 / pi) */
 
 void __cdecl math_acos(void)
 
 {
-  float fVar1;
+  float10 fVar1;
+  float fVar2;
   
-  luaL_check_number(1);
-  fVar1 = _CIacos();
-  lua_pushnumber(fVar1 * 57.29578);
+  fVar2 = luaL_check_number(1);
+  fVar1 = CI_ACOS((float10)fVar2);
+  lua_pushnumber((float)(fVar1 * (float10)57.29577951308232));
   return;
 }
-#endif
-
 
 /* ---- 0x10006fb0  math_atan ---- */
 /* Lua math library: atan(x) in degrees (fpatan(x, 1) * 180 / pi) */
@@ -211,24 +205,22 @@ void __cdecl math_sqrt(void)
 }
 
 /* ---- 0x100070e0  math_pow ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: pow(x, y); also installed as the 'pow' tag method of numbers (the ^ operator)
     */
 
 void __cdecl math_pow(void)
 
 {
-  float n;
+  float10 fVar1;
+  float fVar2;
+  float fVar3;
   
-  luaL_check_number(1);
-  luaL_check_number(2);
-  n = _CIpow();
-  lua_pushnumber(n);
+  fVar2 = luaL_check_number(1);
+  fVar3 = luaL_check_number(2);
+  fVar1 = CI_POW((float10)fVar2,(float10)fVar3);
+  lua_pushnumber((float)fVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x10007120  math_log ---- */
 /* Lua math library: log(x), natural logarithm */

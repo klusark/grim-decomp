@@ -279,8 +279,6 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
 
 
 /* ---- 0x00472640  rdSprite_DrawThing ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Billboard: builds a camera-facing matrix for the thing position and draws the sprite */
 
@@ -375,8 +373,6 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
 #undef local_30
 #undef local_3c
 #undef local_40
-
-#endif
 
 
 /* ---- 0x004728a0  rdSprite_New ---- */

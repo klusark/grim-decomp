@@ -1230,7 +1230,12 @@ def fix_ftol(body, seh=True):
     # of x. Not a call whose operand is stack garbage (`_ftol((double)CONCAT44(..))`, a program whose _ftol is still on
     # the stack) or has none (`_ftol()`), and not a declaration (column 0).
     body = FTOL_ST0_RE.sub("FTOL(", body)
+    # the other x87 helpers with their operands declared (CI_POW etc., ghidra_types.h); `_CIpow()` stays as it is
+    body = CI_CALL_RE.sub(lambda m: "CI_%s(" % m.group(1).upper(), body)
     return drop_unused_artifacts(body)
+
+
+CI_CALL_RE = re.compile(r"(?m)(?<=[^\w\n])_CI(pow|asin|acos)\((?!\))")
 
 
 FTOL_ST0_RE = re.compile(r"(?m)(?<=[^\w\n])_ftol\((?!\)|\(double\)CONCAT44|in_stack_)")
@@ -2323,6 +2328,14 @@ typedef int code();
 #define ABS(x)     (((x) < 0) ? -(x) : (x))
 #define SQRT(x)    ((float10)__builtin_sqrtl((float10)(x)))   /* FSQRT */
 #define FTOL(x)    ((long long)(x))                /* x87 _ftol: truncate toward zero (the value Ghidra loses in ST0) */
+/* the CRT's x87 helpers _CIpow / _CIasin / _CIacos (operands on the x87 stack, names/protos_fix_2.json): msvcrt's pow,
+   asin and acos on the operands rounded to double, as build/overrides.c's __CIpow shim and the hand-written Lua math */
+extern double (*GRIM_imp_pow)(double, double) __asm__("__imp__pow");
+double asin(double);
+double acos(double);
+#define CI_POW(x, y) ((float10)(*GRIM_imp_pow)((double)(x), (double)(y)))
+#define CI_ASIN(x) ((float10)asin((double)(x)))
+#define CI_ACOS(x) ((float10)acos((double)(x)))
 #define ISNAN(x)   ((x) != (x))                    /* Ghidra NAN(x): unordered compare */
 #define NAN        (__builtin_nanf(""))
 #define f2xm1(x)   ((float10)__builtin_exp2l((float10)(x)) - 1)             /* F2XM1 */

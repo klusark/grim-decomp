@@ -67,24 +67,38 @@ public class ProtoStack extends GhidraScript {
 
 
 # An entry {"registers": {"<param>": "<register>"}} puts the named parameters in registers (custom storage): LUA.DLL's
-# _ftol takes its operand in ST0, which the decompiler then shows as the call's argument.
+# _ftol takes its operand in ST0, which the decompiler then shows as the call's argument. The key "<return>" puts the
+# return value in a register too (the x87 helpers return in ST0; without it Ghidra stores a float10 result through a
+# hidden __return_storage_ptr__, which is dropped).
 REGISTER_SCRIPT = """import ghidra.app.script.GhidraScript;
 import ghidra.program.model.listing.*;
 import ghidra.program.model.symbol.SourceType;
+import java.util.*;
 public class ProtoRegs extends GhidraScript {
   public void run() throws Exception {
     Function f = getFunctionAt(toAddr("%s"));
-    f.setCustomVariableStorage(true);
-    String[] want = "%s".split(",");
+    Map<String, String> want = new HashMap<>();
+    for (String w : "%s".split(",")) { String[] kv = w.split("="); want.put(kv[0], kv[1]); }
+    ghidra.program.model.data.DataType rt = f.getReturnType();
+    List<Parameter> ps = new ArrayList<>();
     for (Parameter p : f.getParameters()) {
-      for (String w : want) {
-        String[] kv = w.split("=");
-        if (!kv[0].equals(p.getName())) continue;
-        VariableStorage st = new VariableStorage(currentProgram, currentProgram.getRegister(kv[1]));
-        p.setDataType(p.getDataType(), st, true, SourceType.USER_DEFINED);
+      if (p.getName().equals("__return_storage_ptr__")) {   // (the hidden result pointer: the result's own type)
+        if (p.getDataType() instanceof ghidra.program.model.data.Pointer)
+          rt = ((ghidra.program.model.data.Pointer) p.getDataType()).getDataType();
+        continue;
       }
+      String r = want.get(p.getName());
+      VariableStorage st = r == null ? p.getVariableStorage()
+          : new VariableStorage(currentProgram, currentProgram.getRegister(r));
+      ps.add(new ParameterImpl(p.getName(), p.getDataType(), st, currentProgram));
     }
+    f.setCustomVariableStorage(true);
+    f.replaceParameters(ps, Function.FunctionUpdateType.CUSTOM_STORAGE, true, SourceType.USER_DEFINED);
+    if (want.containsKey("<return>"))
+      f.setReturn(rt, new VariableStorage(currentProgram, currentProgram.getRegister(want.get("<return>"))),
+                  SourceType.USER_DEFINED);
     for (Parameter p : f.getParameters()) println(p.getName() + " " + p.getVariableStorage());
+    println("return " + f.getReturn().getVariableStorage());
   }
 }"""
 

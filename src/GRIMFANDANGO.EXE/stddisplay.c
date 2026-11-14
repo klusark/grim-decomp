@@ -3395,48 +3395,46 @@ void __cdecl std3D_SetCurrentPalette(void *palette,int flags)
 }
 
 /* ---- 0x0047b610  Palette_FromFloatTable ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Writes n RGB byte triplets from a float colour table */
 
 void __cdecl Palette_FromFloatTable(byte *out,byte *in,int n,double gamma)
 
 {
-  float10 fVar1;
-  longlong lVar2;
-  float fVar3;
+  byte *pbVar1;
+  float10 fVar2;
+  longlong lVar3;
   
   if (0 < n) {
     do {
-      fVar3 = _CIpow();
-      fVar1 = (float10)fVar3 * (float10)255.0;
-      if ((float10)255.0 < fVar1) {
-        fVar1 = (float10)255.0;
+      fVar2 = CI_POW((float10)*in * (float10)0.00392156862745098,(float10)gamma);
+      fVar2 = fVar2 * (float10)255.0;
+      if ((float10)255.0 < fVar2) {
+        fVar2 = (float10)255.0;
       }
-      lVar2 = FTOL(fVar1);
-      *out = (byte)lVar2;
-      fVar3 = _CIpow();
-      fVar1 = (float10)fVar3 * (float10)255.0;
-      if ((float10)255.0 < fVar1) {
-        fVar1 = (float10)255.0;
+      lVar3 = FTOL(fVar2);
+      *out = (byte)lVar3;
+      pbVar1 = in + 2;
+      fVar2 = CI_POW((float10)in[1] * (float10)0.00392156862745098,(float10)gamma);
+      fVar2 = fVar2 * (float10)255.0;
+      if ((float10)255.0 < fVar2) {
+        fVar2 = (float10)255.0;
       }
-      lVar2 = FTOL(fVar1);
-      out[1] = (byte)lVar2;
-      fVar3 = _CIpow();
-      fVar1 = (float10)fVar3 * (float10)255.0;
-      if ((float10)255.0 < fVar1) {
-        fVar1 = (float10)255.0;
+      lVar3 = FTOL(fVar2);
+      out[1] = (byte)lVar3;
+      in = in + 3;
+      fVar2 = CI_POW((float10)*pbVar1 * (float10)0.00392156862745098,(float10)gamma);
+      fVar2 = fVar2 * (float10)255.0;
+      if ((float10)255.0 < fVar2) {
+        fVar2 = (float10)255.0;
       }
-      lVar2 = FTOL(fVar1);
-      out[2] = (byte)lVar2;
+      lVar3 = FTOL(fVar2);
+      out[2] = (byte)lVar3;
       out = out + 3;
       n = n + -1;
     } while (n != 0);
   }
   return;
 }
-#endif
-
 
 /* ---- 0x0047b8a0  stdColor_ColorConvertOneRow ---- */
 /* replaced by the hand-written version in build/overrides.c */

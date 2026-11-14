@@ -857,12 +857,12 @@ void __cdecl Render_BuildColorTable(int param_1,float param_2)
   undefined4 uVar1;
   undefined4 uVar2;
   undefined4 uVar3;
-  longlong lVar4;
-  longlong lVar5;
-  longlong lVar6;
-  float fVar7;
-  float fVar8;
-  float fVar9;
+  float10 fVar4;
+  float10 fVar5;
+  float10 fVar6;
+  longlong lVar7;
+  longlong lVar8;
+  longlong lVar9;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
@@ -880,20 +880,21 @@ void __cdecl Render_BuildColorTable(int param_1,float param_2)
   
   local_24 = 0;
   do {
-    fVar7 = _CIpow();
-    fVar8 = _CIpow();
-    fVar9 = _CIpow();
+    fVar4 = CI_POW((float10)((float)((int)(local_24 & 0xffff) >> 0xb) / 31.0),(float10)param_2);
+    fVar5 = CI_POW((float10)((float)((int)(local_24 & 0xffff) >> 5 & 0x3f) / 63.0),(float10)param_2)
+    ;
+    fVar6 = CI_POW((float10)((float)(local_24 & 0x1f) / 31.0),(float10)param_2);
     uVar1 = *(undefined4 *)(param_1 + 0xc);
     uVar2 = *(undefined4 *)(param_1 + 0x10);
-    lVar4 = FTOL((float10)((float)((1 << ((byte)*(undefined4 *)(param_1 + 8) & 0x1f)) + -1) * fVar7
-                           ));
+    lVar7 = FTOL((float10)((float)((1 << ((byte)*(undefined4 *)(param_1 + 8) & 0x1f)) + -1) *
+                           (float)fVar4));
     uVar3 = *(undefined4 *)(param_1 + 0x14);
-    lVar5 = FTOL((float10)((float)((1 << ((byte)uVar1 & 0x1f)) + -1) * fVar8));
+    lVar8 = FTOL((float10)((float)((1 << ((byte)uVar1 & 0x1f)) + -1) * (float)fVar5));
     uVar1 = *(undefined4 *)(param_1 + 0x18);
-    lVar6 = FTOL((float10)((float)((1 << ((byte)uVar2 & 0x1f)) + -1) * fVar9));
+    lVar9 = FTOL((float10)((float)((1 << ((byte)uVar2 & 0x1f)) + -1) * (float)fVar6));
     (&g_wSputRender_ColorLookup)[local_24] =
-         (ushort)((int)lVar4 << ((byte)uVar3 & 0x1f)) | (ushort)((int)lVar5 << ((byte)uVar1 & 0x1f))
-         | (ushort)((int)lVar6 << ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f));
+         (ushort)((int)lVar7 << ((byte)uVar3 & 0x1f)) | (ushort)((int)lVar8 << ((byte)uVar1 & 0x1f))
+         | (ushort)((int)lVar9 << ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f));
     local_24 = local_24 + 1;
   } while ((int)local_24 < 0x10000);
   g_flSputRender_GammaCorrection = param_2;
@@ -1448,8 +1449,6 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
 
 
 /* ---- 0x004870e0  sputRender_DimRegion ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Original name sputRender_DimRegion (the remaster's GrimFandango (Linux): aligned call in
    sputLua_DimRegion); was Render_FillRect. */
@@ -1515,8 +1514,6 @@ void __cdecl sputRender_DimRegion(int x,int y,int w,int h,float scale)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x00487260  sputRender_SaveScreen ---- */

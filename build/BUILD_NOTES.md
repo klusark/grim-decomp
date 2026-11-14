@@ -1761,3 +1761,23 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
 * Generated again: SmushPlay_GetMovieLength (66.666664f), SpriteAdjuster (-0.2f, 0.01f), sputText_PrintLineL
   (16.666668f), sputCostume_Update (0.001f).
 * Clean room 0 of 5457 with the four overrides removed.
+
+## The CRT's x87 helpers with their operands; 12 more overrides generated again (2026-11-14)
+
+* `_CIpow` (EXE 0x004ae540, LUA.DLL 0x10012130: x in ST1, y in ST0) and LUA.DLL's `_CIasin` / `_CIacos` (x in ST0)
+  return in ST0 (names/protos_fix_2.json). apply_logic_protos.py's `"registers"` takes `"<return>"` for the result's
+  register and drops the `__return_storage_ptr__` Ghidra adds for a float10 result. The decompiler then shows the
+  operands (`_CIpow((float10)*in * 0.00392156862745098, (float10)gamma)`), and build_src.py writes the calls as
+  CI_POW / CI_ASIN / CI_ACOS (ghidra_types.h): msvcrt's pow / asin / acos on the operands rounded to double, as
+  build/overrides.c's __CIpow shim and the hand-written Lua math did. No live function changes.
+* Generated again: Palette_FromFloatTable, math_pow, math_asin, math_acos (MATH_DEG is gone with them).
+  Kept: Render_BuildColorTable (the original rounds each quotient, power and product to a float through memory,
+  FSTP float ptr, which the decompiler folds away).
+* Generated again, their twins the same as the hand-written versions: InsaneTimer_Tick, InsaneTimer_StartThread,
+  InsaneTimer_RunDeferred, sys_Alloc (the slot addresses are symbols now, `&DAT_008da5e8`, not image integers),
+  dsn_initialize, dsn_setvol, sputRender_DimRegion, rdSprite_DrawThing.
+* Kept: rdRaster_Startup and rdModel3_DrawMeshImpl. They multiply by `_DAT_004ddb30` / `_DAT_004ddb70`.., which
+  globals.h declares `undefined4`: C would convert the float's bits as an integer. Those globals need a float type in
+  Ghidra first. DsndDriver_CreateStreamBuffer, DDraw_CreateSurfaces (COM arguments lost), Win_AbortIfAlreadyRunning
+  (GRIM_MULTI), MxInitialize (the hmi helper's x87 operands lost).
+* Clean room 0 of 5457 after each of the three rounds.
