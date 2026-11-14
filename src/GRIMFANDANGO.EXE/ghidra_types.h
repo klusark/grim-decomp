@@ -241,6 +241,8 @@ typedef struct Primitive Primitive;
 typedef struct ProcEntry ProcEntry;
 typedef struct Puck Puck;
 typedef struct ScreenCoord ScreenCoord;
+typedef struct Std3DDevice Std3DDevice;
+typedef struct Std3DTexture Std3DTexture;
 typedef struct TextContext TextContext;
 typedef struct TextObject TextObject;
 typedef struct VBuffer VBuffer;
@@ -718,6 +720,138 @@ _Static_assert(__builtin_offsetof(ScreenCoord, nX) == 0x0, "ScreenCoord.nX");
 _Static_assert(__builtin_offsetof(ScreenCoord, nY) == 0x4, "ScreenCoord.nY");
 _Static_assert(__builtin_offsetof(ScreenCoord, flZ) == 0x8, "ScreenCoord.flZ");
 _Static_assert(sizeof(ScreenCoord) == 0xc, "sizeof ScreenCoord");
+/* Std3DDevice: A Direct3D driver of the display device (0x22c bytes, the table at 0x00900b40). */
+struct Std3DDevice {  /* 0x22c */
+    int nHardware;  /* 0x00: a hardware device: its z-buffer is created in video memory (DDSCAPS 0x4000), else in system memory (0x800) */
+    uint8_t field_0x4, field_0x5, field_0x6, field_0x7;
+    int nHasZBuffer;  /* 0x08: D3D_SelectDriver creates a z-buffer only when set */
+    uint8_t field_0xc, field_0xd, field_0xe, field_0xf;
+    int nPalettedTextures;  /* 0x10: 8-bit paletted textures (std3D_AddToTextureCache's usePalette, the colormap path of rdCache_SendFaceListToHardware) */
+    int nUnknown14;  /* 0x14: tested with nUnknown18 before the hardware path uses alpha (rdCache_SendFaceListToHardware) */
+    int nUnknown18;  /* 0x18: 0: D3D_SelectDriver also picks a 4-bit-alpha texture format */
+    int nUnknown1c;  /* 0x1c: non-zero: textures whose width and height differ are handled apart (std3D_AddToTextureCache) */
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23, field_0x24, field_0x25, field_0x26, field_0x27;
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b;
+    uint dwCaps;  /* 0x2c: bit 0x10 selects the z-buffer mode UINT_00900534 (16 / 2) */
+    int nMinTexWidth;  /* 0x30: D3D_SetTextureLimits */
+    int nMinTexHeight;  /* 0x34 */
+    int nMaxTexWidth;  /* 0x38 */
+    int nMaxTexHeight;  /* 0x3c */
+    uint dwMaxBufferSize;  /* 0x40: execute buffer size (0 = 0x10000) */
+    uint dwMaxVertexCount;  /* 0x44: execute buffer vertices (0 or > 0x1ff: 0x200) */
+    uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint8_t field_0x50, field_0x51, field_0x52, field_0x53, field_0x54, field_0x55, field_0x56, field_0x57;
+    uint8_t field_0x58, field_0x59, field_0x5a, field_0x5b, field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    uint8_t field_0x60, field_0x61, field_0x62, field_0x63, field_0x64, field_0x65, field_0x66, field_0x67;
+    uint8_t field_0x68, field_0x69, field_0x6a, field_0x6b, field_0x6c, field_0x6d, field_0x6e, field_0x6f;
+    uint8_t field_0x70, field_0x71, field_0x72, field_0x73, field_0x74, field_0x75, field_0x76, field_0x77;
+    uint8_t field_0x78, field_0x79, field_0x7a, field_0x7b, field_0x7c, field_0x7d, field_0x7e, field_0x7f;
+    uint8_t field_0x80, field_0x81, field_0x82, field_0x83, field_0x84, field_0x85, field_0x86, field_0x87;
+    uint8_t field_0x88, field_0x89, field_0x8a, field_0x8b, field_0x8c, field_0x8d, field_0x8e, field_0x8f;
+    uint8_t field_0x90, field_0x91, field_0x92, field_0x93, field_0x94, field_0x95, field_0x96, field_0x97;
+    uint8_t field_0x98, field_0x99, field_0x9a, field_0x9b, field_0x9c, field_0x9d, field_0x9e, field_0x9f;
+    uint8_t field_0xa0, field_0xa1, field_0xa2, field_0xa3, field_0xa4, field_0xa5, field_0xa6, field_0xa7;
+    uint8_t field_0xa8, field_0xa9, field_0xaa, field_0xab, field_0xac, field_0xad, field_0xae, field_0xaf;
+    uint8_t field_0xb0, field_0xb1, field_0xb2, field_0xb3, field_0xb4, field_0xb5, field_0xb6, field_0xb7;
+    uint8_t field_0xb8, field_0xb9, field_0xba, field_0xbb, field_0xbc, field_0xbd, field_0xbe, field_0xbf;
+    uint8_t field_0xc0, field_0xc1, field_0xc2, field_0xc3, field_0xc4, field_0xc5, field_0xc6, field_0xc7;
+    uint8_t field_0xc8, field_0xc9, field_0xca, field_0xcb, field_0xcc, field_0xcd, field_0xce, field_0xcf;
+    uint8_t field_0xd0, field_0xd1, field_0xd2, field_0xd3, field_0xd4, field_0xd5, field_0xd6, field_0xd7;
+    uint8_t field_0xd8, field_0xd9, field_0xda, field_0xdb, field_0xdc, field_0xdd, field_0xde, field_0xdf;
+    uint8_t field_0xe0, field_0xe1, field_0xe2, field_0xe3, field_0xe4, field_0xe5, field_0xe6, field_0xe7;
+    uint8_t field_0xe8, field_0xe9, field_0xea, field_0xeb, field_0xec, field_0xed, field_0xee, field_0xef;
+    uint8_t field_0xf0, field_0xf1, field_0xf2, field_0xf3, field_0xf4, field_0xf5, field_0xf6, field_0xf7;
+    uint8_t field_0xf8, field_0xf9, field_0xfa, field_0xfb, field_0xfc, field_0xfd, field_0xfe, field_0xff;
+    uint8_t field_0x100, field_0x101, field_0x102, field_0x103, field_0x104, field_0x105, field_0x106, field_0x107;
+    uint8_t field_0x108, field_0x109, field_0x10a, field_0x10b, field_0x10c, field_0x10d, field_0x10e, field_0x10f;
+    uint8_t field_0x110, field_0x111, field_0x112, field_0x113, field_0x114, field_0x115, field_0x116, field_0x117;
+    uint8_t field_0x118, field_0x119, field_0x11a, field_0x11b, field_0x11c, field_0x11d, field_0x11e, field_0x11f;
+    uint8_t field_0x120, field_0x121, field_0x122, field_0x123, field_0x124, field_0x125, field_0x126, field_0x127;
+    uint8_t field_0x128, field_0x129, field_0x12a, field_0x12b, field_0x12c, field_0x12d, field_0x12e, field_0x12f;
+    uint8_t field_0x130, field_0x131, field_0x132, field_0x133, field_0x134, field_0x135, field_0x136, field_0x137;
+    uint8_t field_0x138, field_0x139, field_0x13a, field_0x13b, field_0x13c, field_0x13d, field_0x13e, field_0x13f;
+    uint8_t field_0x140, field_0x141, field_0x142, field_0x143, field_0x144, field_0x145, field_0x146, field_0x147;
+    uint dwTextureMemTotal;  /* 0x148: texture memory */
+    int nTextureMemFree;  /* 0x14c: texture memory left: D3D_LinkTexture subtracts a texture's nSize, D3D_UnlinkTexture adds it */
+    uint8_t field_0x150, field_0x151, field_0x152, field_0x153, field_0x154, field_0x155, field_0x156, field_0x157;
+    uint8_t field_0x158, field_0x159, field_0x15a, field_0x15b, field_0x15c, field_0x15d, field_0x15e, field_0x15f;
+    uint8_t field_0x160, field_0x161, field_0x162, field_0x163, field_0x164, field_0x165, field_0x166, field_0x167;
+    uint8_t field_0x168, field_0x169, field_0x16a, field_0x16b, field_0x16c, field_0x16d, field_0x16e, field_0x16f;
+    uint8_t field_0x170, field_0x171, field_0x172, field_0x173, field_0x174, field_0x175, field_0x176, field_0x177;
+    uint8_t field_0x178, field_0x179, field_0x17a, field_0x17b, field_0x17c, field_0x17d, field_0x17e, field_0x17f;
+    uint8_t field_0x180, field_0x181, field_0x182, field_0x183, field_0x184, field_0x185, field_0x186, field_0x187;
+    uint8_t field_0x188, field_0x189, field_0x18a, field_0x18b, field_0x18c, field_0x18d, field_0x18e, field_0x18f;
+    uint8_t field_0x190, field_0x191, field_0x192, field_0x193, field_0x194, field_0x195, field_0x196, field_0x197;
+    uint8_t field_0x198, field_0x199, field_0x19a, field_0x19b, field_0x19c, field_0x19d, field_0x19e, field_0x19f;
+    uint8_t field_0x1a0, field_0x1a1, field_0x1a2, field_0x1a3, field_0x1a4, field_0x1a5, field_0x1a6, field_0x1a7;
+    uint8_t field_0x1a8, field_0x1a9, field_0x1aa, field_0x1ab, field_0x1ac, field_0x1ad, field_0x1ae, field_0x1af;
+    uint8_t field_0x1b0, field_0x1b1, field_0x1b2, field_0x1b3, field_0x1b4, field_0x1b5, field_0x1b6, field_0x1b7;
+    uint8_t field_0x1b8, field_0x1b9, field_0x1ba, field_0x1bb, field_0x1bc, field_0x1bd, field_0x1be, field_0x1bf;
+    uint8_t field_0x1c0, field_0x1c1, field_0x1c2, field_0x1c3, field_0x1c4, field_0x1c5, field_0x1c6, field_0x1c7;
+    uint8_t field_0x1c8, field_0x1c9, field_0x1ca, field_0x1cb, field_0x1cc, field_0x1cd, field_0x1ce, field_0x1cf;
+    uint8_t field_0x1d0, field_0x1d1, field_0x1d2, field_0x1d3, field_0x1d4, field_0x1d5, field_0x1d6, field_0x1d7;
+    uint8_t field_0x1d8, field_0x1d9, field_0x1da, field_0x1db, field_0x1dc, field_0x1dd, field_0x1de, field_0x1df;
+    uint8_t field_0x1e0, field_0x1e1, field_0x1e2, field_0x1e3, field_0x1e4, field_0x1e5, field_0x1e6, field_0x1e7;
+    uint8_t field_0x1e8, field_0x1e9, field_0x1ea, field_0x1eb, field_0x1ec, field_0x1ed, field_0x1ee, field_0x1ef;
+    uint dwZBufferBitDepths;  /* 0x1f0: DDBD_* the device supports (0x100 32, 0x400 16, 0x800 8 bits; D3D_CreateZBuffer) */
+    uint8_t field_0x1f4, field_0x1f5, field_0x1f6, field_0x1f7, field_0x1f8, field_0x1f9, field_0x1fa, field_0x1fb;
+    uint8_t field_0x1fc, field_0x1fd, field_0x1fe, field_0x1ff, field_0x200, field_0x201, field_0x202, field_0x203;
+    uint8_t field_0x204, field_0x205, field_0x206, field_0x207, field_0x208, field_0x209, field_0x20a, field_0x20b;
+    uint8_t field_0x20c, field_0x20d, field_0x20e, field_0x20f, field_0x210, field_0x211, field_0x212, field_0x213;
+    uint8_t field_0x214, field_0x215, field_0x216, field_0x217, field_0x218, field_0x219, field_0x21a, field_0x21b;
+    byte aGuid[16];  /* 0x21c: the driver GUID (the registry's Last3DDevice) */
+};
+_Static_assert(__builtin_offsetof(Std3DDevice, nHardware) == 0x0, "Std3DDevice.nHardware");
+_Static_assert(__builtin_offsetof(Std3DDevice, nHasZBuffer) == 0x8, "Std3DDevice.nHasZBuffer");
+_Static_assert(__builtin_offsetof(Std3DDevice, nPalettedTextures) == 0x10, "Std3DDevice.nPalettedTextures");
+_Static_assert(__builtin_offsetof(Std3DDevice, nUnknown14) == 0x14, "Std3DDevice.nUnknown14");
+_Static_assert(__builtin_offsetof(Std3DDevice, nUnknown18) == 0x18, "Std3DDevice.nUnknown18");
+_Static_assert(__builtin_offsetof(Std3DDevice, nUnknown1c) == 0x1c, "Std3DDevice.nUnknown1c");
+_Static_assert(__builtin_offsetof(Std3DDevice, dwCaps) == 0x2c, "Std3DDevice.dwCaps");
+_Static_assert(__builtin_offsetof(Std3DDevice, nMinTexWidth) == 0x30, "Std3DDevice.nMinTexWidth");
+_Static_assert(__builtin_offsetof(Std3DDevice, nMinTexHeight) == 0x34, "Std3DDevice.nMinTexHeight");
+_Static_assert(__builtin_offsetof(Std3DDevice, nMaxTexWidth) == 0x38, "Std3DDevice.nMaxTexWidth");
+_Static_assert(__builtin_offsetof(Std3DDevice, nMaxTexHeight) == 0x3c, "Std3DDevice.nMaxTexHeight");
+_Static_assert(__builtin_offsetof(Std3DDevice, dwMaxBufferSize) == 0x40, "Std3DDevice.dwMaxBufferSize");
+_Static_assert(__builtin_offsetof(Std3DDevice, dwMaxVertexCount) == 0x44, "Std3DDevice.dwMaxVertexCount");
+_Static_assert(__builtin_offsetof(Std3DDevice, dwTextureMemTotal) == 0x148, "Std3DDevice.dwTextureMemTotal");
+_Static_assert(__builtin_offsetof(Std3DDevice, nTextureMemFree) == 0x14c, "Std3DDevice.nTextureMemFree");
+_Static_assert(__builtin_offsetof(Std3DDevice, dwZBufferBitDepths) == 0x1f0, "Std3DDevice.dwZBufferBitDepths");
+_Static_assert(__builtin_offsetof(Std3DDevice, aGuid) == 0x21c, "Std3DDevice.aGuid");
+_Static_assert(sizeof(Std3DDevice) == 0x22c, "sizeof Std3DDevice");
+/* Std3DTexture: A texture in the Direct3D texture cache (0x98 bytes, std3D_AddToTextureCache). */
+struct Std3DTexture {  /* 0x98 */
+    uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
+    uint8_t field_0x8, field_0x9, field_0xa, field_0xb, field_0xc, field_0xd, field_0xe, field_0xf;
+    uint8_t field_0x10, field_0x11, field_0x12, field_0x13, field_0x14, field_0x15, field_0x16, field_0x17;
+    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23, field_0x24, field_0x25, field_0x26, field_0x27;
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
+    uint8_t field_0x30, field_0x31, field_0x32, field_0x33, field_0x34, field_0x35, field_0x36, field_0x37;
+    uint8_t field_0x38, field_0x39, field_0x3a, field_0x3b, field_0x3c, field_0x3d, field_0x3e, field_0x3f;
+    uint8_t field_0x40, field_0x41, field_0x42, field_0x43, field_0x44, field_0x45, field_0x46, field_0x47;
+    uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint8_t field_0x50, field_0x51, field_0x52, field_0x53, field_0x54, field_0x55, field_0x56, field_0x57;
+    uint8_t field_0x58, field_0x59, field_0x5a, field_0x5b, field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    uint8_t field_0x60, field_0x61, field_0x62, field_0x63, field_0x64, field_0x65, field_0x66, field_0x67;
+    uint8_t field_0x68, field_0x69, field_0x6a, field_0x6b, field_0x6c, field_0x6d, field_0x6e, field_0x6f;
+    uint8_t field_0x70, field_0x71, field_0x72, field_0x73;
+    uint dwHandle;  /* 0x74: D3DTEXTUREHANDLE */
+    int nValid;  /* 0x78: 1 while cached */
+    uint8_t field_0x7c, field_0x7d, field_0x7e, field_0x7f, field_0x80, field_0x81, field_0x82, field_0x83;
+    uint8_t field_0x84, field_0x85, field_0x86, field_0x87;
+    int nSize;  /* 0x88: bytes of texture memory (D3D_LinkTexture / D3D_UnlinkTexture) */
+    uint dwFrameStamp;  /* 0x8c: frame of the last use (D3D_EvictTexture drops the oldest) */
+    Std3DTexture *pPrev;  /* 0x90: cache list */
+    Std3DTexture *pNext;  /* 0x94: cache list */
+};
+_Static_assert(__builtin_offsetof(Std3DTexture, dwHandle) == 0x74, "Std3DTexture.dwHandle");
+_Static_assert(__builtin_offsetof(Std3DTexture, nValid) == 0x78, "Std3DTexture.nValid");
+_Static_assert(__builtin_offsetof(Std3DTexture, nSize) == 0x88, "Std3DTexture.nSize");
+_Static_assert(__builtin_offsetof(Std3DTexture, dwFrameStamp) == 0x8c, "Std3DTexture.dwFrameStamp");
+_Static_assert(__builtin_offsetof(Std3DTexture, pPrev) == 0x90, "Std3DTexture.pPrev");
+_Static_assert(__builtin_offsetof(Std3DTexture, pNext) == 0x94, "Std3DTexture.pNext");
+_Static_assert(sizeof(Std3DTexture) == 0x98, "sizeof Std3DTexture");
 /* TextContext: How a text is drawn: font, position, colours, justification (g_SubtitleTextCtx, g_PrintLineTextCtx, g_TextObjectCtx; GetTextParamsFromTable fills it from a Lua table). A text object holds a copy. */
 struct TextContext {  /* 0x30 */
     void *pUnused;  /* 0x00: a pointer (0x008a94b8 in all three contexts of the data), copied with the context but never read */

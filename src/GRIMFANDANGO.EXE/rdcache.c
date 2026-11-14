@@ -411,8 +411,8 @@ uint __cdecl rdCache_SendFaceListToHardware(void)
       local_30 = local_44 | 0x200;
       local_24 = 200;
     }
-    if (((iVar12 != 0xff) && (*(int *)((int)g_pStd3D_CurDevice + 0x18) == 0)) &&
-       (*(int *)((int)g_pStd3D_CurDevice + 0x14) == 0)) {
+    if (((iVar12 != 0xff) && (g_pStd3D_CurDevice->nUnknown18 == 0)) &&
+       (g_pStd3D_CurDevice->nUnknown14 == 0)) {
       local_24 = 0xff;
       local_4c = 1;
     }
@@ -492,7 +492,7 @@ LAB_00406d8d:
             local_28 = uVar16;
           }
         }
-        if (((*material & 1) != 0) && (*(int *)((int)g_pStd3D_CurDevice + 0x10) != 0)) {
+        if (((*material & 1) != 0) && (g_pStd3D_CurDevice->nPalettedTextures != 0)) {
           local_30 = local_30 | 0x400;
         }
         if (material[uVar16 * 0x26 + 0x29] == 0) {

@@ -159,7 +159,7 @@ int __cdecl Display_Select3DDevice(int threeDNum)
       if (iVar2 != 0) {
         g_nRdroid_curAcceleration = g_nRdroid_curAcceleration | 1;
         grimlib_Using3DHardware(1);
-        Reg_SetBinary(s_Last3DDevice_004dd794,(void *)((int)g_pStd3D_CurDevice + 0x21c),0x10);
+        Reg_SetBinary(s_Last3DDevice_004dd794,g_pStd3D_CurDevice->aGuid,0x10);
         return 1;
       }
     }
@@ -3420,11 +3420,11 @@ void __cdecl std3D_SetCurrentPalette(void *palette,int flags)
   if ((*(int *)UINT_00806934 == 1) && (*(int *)(UINT_00806934 + 4) == 0x10)) {
     stdPcx_DecodeRun16(palette,(ushort *)&UINT_00806408,UINT_00806934);
   }
-  if (*(int *)((int)g_pStd3D_CurDevice + 0x10) != 0) {
+  if (g_pStd3D_CurDevice->nPalettedTextures != 0) {
     if ((*(int *)UINT_00806938 == 2) && (*(int *)(UINT_00806938 + 4) == 0x10)) {
       stdPcx_DecodeRun8(palette,((unsigned)(uintptr_t)&DAT_008061e8),UINT_00806938);
     }
-    if (((*(int *)((int)g_pStd3D_CurDevice + 0x18) == 0) && (*(int *)UINT_0080693c == 2)) &&
+    if (((g_pStd3D_CurDevice->nUnknown18 == 0) && (*(int *)UINT_0080693c == 2)) &&
        (*(int *)(UINT_0080693c + 4) == 0x10)) {
       stdPcx_DecodeRunMasked(palette,((unsigned)(uintptr_t)&DAT_00805fd8),UINT_0080693c,flags);
     }

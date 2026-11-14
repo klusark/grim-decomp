@@ -313,7 +313,7 @@ void __cdecl Grim_ShutdownDisplay(void)
 {
   if (g_nDisplayDeviceOpen != 0) {
     grimlib_UnsetDisplay();
-    if (g_pStd3D_CurDevice == (void *)0x0) {
+    if (g_pStd3D_CurDevice == (Std3DDevice *)0x0) {
       stdDisplay_VBufferFree((VBuffer *)UINT_004f5a34);
     }
     else {
@@ -559,7 +559,7 @@ uint __cdecl grimdemo_SetPalette(void *param_1,int param_2)
 {
   stdDisplay_SetPalette((uint)param_1);
   stdDisplay_SetMasterPalette(param_1);
-  if (g_pStd3D_CurDevice != (void *)0x0) {
+  if (g_pStd3D_CurDevice != (Std3DDevice *)0x0) {
     std3D_SetCurrentPalette(param_1,param_2);
   }
   return 1;

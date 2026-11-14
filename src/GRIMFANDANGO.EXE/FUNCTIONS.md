@@ -950,7 +950,7 @@
 | 00417f30 | rdMaterial_LoadEntry | rdmaterial.c | 216 |
 | 00418360 | rdMaterial_Free | rdmaterial.c | 11 |
 | 004183a0 | rdMaterial_FreeEntry | rdmaterial.c | 59 |
-| 004184a0 | rdMaterial_AddToTextureCache | rdmaterial.c | 32 |
+| 004184a0 | rdMaterial_AddToTextureCache | rdmaterial.c | 34 |
 | 00446880 | rdVector_Dot2 | math3d.c | 8 |
 | 004468a0 | rdVector_Dot3 | math3d.c | 8 |
 | 004468d0 | rdVector_Cross3 | math3d.c | 11 |
@@ -1131,10 +1131,10 @@
 | 00478c00 | D3D_SetRenderFlags | std3d.c | 127 |
 | 00479070 | std3D_GetValidDimensions | std3d.c | 39 |
 | 00479110 | std3D_PurgeTextureCache | std3d.c | 17 |
-| 00479170 | std3D_AddToTextureCache | std3d.c | 370 |
+| 00479170 | std3D_AddToTextureCache | std3d.c | 369 |
 | 00479860 | D3D_FreeAllTextures | std3d.c | 33 |
-| 004798e0 | D3D_LinkTexture | std3d.c | 20 |
-| 00479950 | D3D_UnlinkTexture | std3d.c | 33 |
+| 004798e0 | D3D_LinkTexture | std3d.c | 19 |
+| 00479950 | D3D_UnlinkTexture | std3d.c | 32 |
 | 00479a00 | D3D_SetVertexLimit | std3d.c | 32 |
 | 00479a70 | std3D_UpdateFrameCount | std3d.c | 11 |
 | 00479aa0 | std3D_ClearZBuffer | std3d.c | 45 |
@@ -1149,7 +1149,7 @@
 | 0047a850 | D3D_CapsToFilterBits | std3d.c | 26 |
 | 0047a890 | D3D_FilterBitsToMask | std3d.c | 29 |
 | 0047a8e0 | D3D_FilterBitsToEnum | std3d.c | 29 |
-| 0047a930 | D3D_EvictTexture | std3d.c | 56 |
+| 0047a930 | D3D_EvictTexture | std3d.c | 55 |
 | 0047b710 | stdPcx_DecodeRun16 | stdpcx.c | 28 |
 | 0047b780 | stdPcx_DecodeRun8 | stdpcx.c | 29 |
 | 0047b810 | stdPcx_DecodeRunMasked | stdpcx.c | 35 |
