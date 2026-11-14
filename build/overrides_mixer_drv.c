@@ -475,16 +475,6 @@ void dsn_setvol(uint volume)
     COMX(g_pStreamDSBuffer, DSB_SETVOLUME, g_aiStreamVolumeTable[g_dwCurrentVol]);
 }
 
-uint dsn_getvol(void)
-{
-    return g_dwCurrentVol;
-}
-
-int dsn_getrate(void)
-{
-    return 0x5622;
-}
-
 /* Creates the DirectSound object, takes the primary buffer (22050 Hz 16 bit stereo), saves its volume and makes the
  * stream buffer.  Returns 0 or -1. */
 int DsndDriver_InitDirectSound(void)
@@ -687,25 +677,10 @@ void Dsnd_MemFill(void *dst, int value, uint n)
     memset(dst, (byte)value, n);
 }
 
-void Dsnd_MemCopyCdecl(void *dst, void *src, uint n)
-{
-    Dsnd_MemCopy(dst, src, n);
-}
-
-void Dsnd_MemFillCdecl(void *dst, int value, uint n)
-{
-    Dsnd_MemFill(dst, value, n);
-}
-
 /* the lecsmush copy: unaligned head bytes first, then dwords */
 void Insane_MemCopy(void *dst, void *src, uint n)
 {
     memcpy(dst, src, n);
-}
-
-void msc_MemCopy(void *dst, void *src, uint n)
-{
-    Insane_MemCopy(dst, src, n);
 }
 
 #endif /* GRIM_EXE */

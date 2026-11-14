@@ -1811,8 +1811,6 @@ uint __cdecl FUN_00408800(void)
 }
 
 /* ---- 0x00408af0  rdCache_DrawFaceZ ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Software path with z-buffer Original name rdCache_DrawFaceZ (the remaster's GrimFandango (Linux):
    aligned call in rdCache_Flush); was rdCache_DrawMeshZ. */
 
@@ -2273,6 +2271,4 @@ switchD_00408bad_default:
   return 1;
 }
 #undef local_4
-
-#endif
 

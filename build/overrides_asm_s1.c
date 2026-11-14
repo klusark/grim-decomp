@@ -83,14 +83,6 @@ void rdAFRaster_DrawSpanNGonLW_16(int *param_1)
     puVar1[param_1[1] - 1] = g_wRdAFRaster_RGBcolor;
 }
 
-/* ==== rdRaster_EdgeStepFlat (0x0040f750) ====
- * Advances an edge record one scanline: integer x (+0x28) += dx (+0x2c); float attribute +0x10 += +0x14. */
-void rdRaster_EdgeStepFlat(int param_1)
-{
-    *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
-    *(float *)(param_1 + 0x10) = *(float *)(param_1 + 0x14) + *(float *)(param_1 + 0x10);
-}
-
 /* ==== rdAFRaster_SetupNGonLS (0x0040fa20) ====
  * The same as rdAFRaster_SetupNGonLW with the texture span callback (rdAFRaster_DrawNGonLS) and the second edge
  * setup.  Constant of the division: 1.0 (Ghidra's read of the constant at rdata+0x738). */
@@ -166,74 +158,6 @@ void rdAFRaster_DrawNGonLS(int *param_1)
             rdRaster_SpanR_FlatZw_2((int *)node);
         }
     }
-}
-
-/* ==== FUN_004104b0 (0x004104b0) ====
- * Edge step: x (+0x28) += dx (+0x2c), float +0x10 += +0x14, int +0x40 += +0x44. */
-void FUN_004104b0(int param_1)
-{
-    *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
-    *(float *)(param_1 + 0x10) = *(float *)(param_1 + 0x14) + *(float *)(param_1 + 0x10);
-    *(int *)(param_1 + 0x40) = *(int *)(param_1 + 0x40) + *(int *)(param_1 + 0x44);
-}
-
-/* ==== FUN_00411b70 (0x00411b70) ====
- * Edge step: x (+0x28) += dx (+0x2c), float +0x10 += +0x14, int +0x30 += +0x34, int +0x38 += +0x3c. */
-void FUN_00411b70(int param_1)
-{
-    *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
-    *(float *)(param_1 + 0x10) = *(float *)(param_1 + 0x14) + *(float *)(param_1 + 0x10);
-    *(int *)(param_1 + 0x30) = *(int *)(param_1 + 0x30) + *(int *)(param_1 + 0x34);
-    *(int *)(param_1 + 0x38) = *(int *)(param_1 + 0x38) + *(int *)(param_1 + 0x3c);
-}
-
-/* ==== FUN_00415180 (0x00415180) ====
- * Edge step: three float attributes += their deltas (+0x10 += +0x14, +0x18 += +0x1c, +0x20 += +0x24), x (+0x28) += dx.
- * The original keeps the three sums on the x87 stack and stores them at the end: the same values as these statements. */
-void FUN_00415180(int param_1)
-{
-    *(float *)(param_1 + 0x10) = *(float *)(param_1 + 0x14) + *(float *)(param_1 + 0x10);
-    *(float *)(param_1 + 0x18) = *(float *)(param_1 + 0x1c) + *(float *)(param_1 + 0x18);
-    *(float *)(param_1 + 0x20) = *(float *)(param_1 + 0x24) + *(float *)(param_1 + 0x20);
-    *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
-}
-
-/* ==== FUN_004151c0 (0x004151c0) ====
- * Edge step: x (+0x28) += dx (+0x2c) only. */
-void FUN_004151c0(int param_1)
-{
-    *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
-}
-
-/* ==== rdAFRaster_AdvanceLeftEdgeNGonGIT (0x004169f0) ====
- * Edge step: x (+0x28) += dx (+0x2c), float +0x10 += +0x14, int +0x40 += +0x44, float +0x18 += +0x1c,
- * float +0x20 += +0x24. */
-void rdAFRaster_AdvanceLeftEdgeNGonGIT(int param_1)
-{
-    *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
-    *(float *)(param_1 + 0x10) = *(float *)(param_1 + 0x14) + *(float *)(param_1 + 0x10);
-    *(int *)(param_1 + 0x40) = *(int *)(param_1 + 0x40) + *(int *)(param_1 + 0x44);
-    *(float *)(param_1 + 0x18) = *(float *)(param_1 + 0x1c) + *(float *)(param_1 + 0x18);
-    *(float *)(param_1 + 0x20) = *(float *)(param_1 + 0x24) + *(float *)(param_1 + 0x20);
-}
-
-/* ==== rdAFRaster_AdvanceRightEdgeNGonGIT (0x00416a30) ====
- * Edge step: x (+0x28) += dx (+0x2c), int +0x40 += +0x44. */
-void rdAFRaster_AdvanceRightEdgeNGonGIT(int param_1)
-{
-    *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
-    *(int *)(param_1 + 0x40) = *(int *)(param_1 + 0x40) + *(int *)(param_1 + 0x44);
-}
-
-/* ==== FUN_004129f0 (0x004129f0) ====
- * Edge step: x (+0x28) += dx (+0x2c), int +0x30 += +0x34, float +0x10 += +0x14, int +0x38 += +0x3c, int +0x40 += +0x44. */
-void FUN_004129f0(int param_1)
-{
-    *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
-    *(int *)(param_1 + 0x30) = *(int *)(param_1 + 0x30) + *(int *)(param_1 + 0x34);
-    *(float *)(param_1 + 0x10) = *(float *)(param_1 + 0x14) + *(float *)(param_1 + 0x10);
-    *(int *)(param_1 + 0x38) = *(int *)(param_1 + 0x38) + *(int *)(param_1 + 0x3c);
-    *(int *)(param_1 + 0x40) = *(int *)(param_1 + 0x40) + *(int *)(param_1 + 0x44);
 }
 
 /* ==== rdAFRaster_DrawNGonMLAT (0x00411330) ====

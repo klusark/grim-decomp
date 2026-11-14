@@ -224,8 +224,6 @@ void __cdecl dsn_setvol(uint volume)
 
 
 /* ---- 0x004d27b0  dsn_getvol ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name dsn_getvol (the remaster's GrimFandango (Linux): slot 3 of the
    "SNDDRIVER=insane_dsnd" service table); was DsndDriver_GetVolume. */
@@ -235,12 +233,8 @@ uint dsn_getvol(void)
 {
   return g_dwCurrentVol;
 }
-#endif
-
 
 /* ---- 0x004d27c0  dsn_getrate ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name dsn_getrate (the remaster's GrimFandango (Linux): slot 5 of the
    "SNDDRIVER=insane_dsnd" service table); was DsndDriver_GetSampleRate. */
@@ -250,8 +244,6 @@ int dsn_getrate(void)
 {
   return 0x5622;
 }
-#endif
-
 
 /* ---- 0x004d2940  DsndDriver_InitDirectSound ---- */
 /* replaced by the hand-written version in build/overrides.c */
