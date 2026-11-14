@@ -1819,3 +1819,25 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
 * While this ran, Ghidra's native decompile helper grew to ~100 GB of committed memory (after many exports in one
   session) and builds failed to fork (0xC000012D); ending it (Ghidra starts a new one) fixed that.
 * Clean room 0 of 5457 with the four overrides removed.
+
+## The live-code audit of indirect call arguments (2026-11-14)
+
+* tools/audit_call_args.py compares every register-indirect call of the four programs (2046 sites in 705 functions)
+  with the machine code: the decompiler's argument count (the CALLIND p-code inputs, a Ghidra script) against the
+  `ADD ESP` after the call or the pushes before it. 97 calls differed, 68 of them in live (generated) functions.
+* Two were real bugs of the running game and are fixed (names/callsite_overrides.json): rdModel3_Free and
+  rdKeyframe_Free call their unload hook without the model, `(*g_dwModel3Unloader)()`; the original pushes it before
+  the branch both paths share (`PUSH ESI; TEST EAX,EAX; JZ ..; CALL EAX; ADD ESP,4`). Only when a hook is installed.
+* The rest were not changed, and why (read the audit's report with these in mind):
+  - typed service pointers print their arguments from the type, not from the p-code (CosUtil_Write's pFprintf is
+    varargs): forcing a count there removed arguments;
+  - MSVC defers the cleanup of two calls into one `ADD ESP` (LightEd_WriteLightsSection), and pushes values it
+    reloads later (stdGif_Load and the other image loaders: 6 pushes, the call takes 2 and the decompiler agrees);
+  - an argument pushed before a branch serves two calls: a call-site signature on one moved the loss to the other
+    (MeshRequester, SmushPlay_StartMovie, stdBitmap_Write);
+  - a COM call's count, even when right, can make the decompiler lose the stack blocks built for the next calls
+    (D3D_SelectDriver's descriptor for D3D_FindTextureFormat, D3D_SetVertexLimit), and a wrong `__stdcall` count
+    shifts the stack model of everything after it (Text_BuildLineTable, LUA.DLL's newone).
+  So the remaining mismatches in live code are where the decompiler's stack model and the machine code disagree; the
+  generated code of those functions passes the clean room, and each needs a look of its own.
+* Clean room 0 of 5457 with the two hook fixes.
