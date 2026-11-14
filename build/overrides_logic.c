@@ -780,24 +780,6 @@ void stdColor_ColorConvertOneRow(ushort *dst, int dstFormat, ushort *src, int sr
     }
 }
 
-/* ==== Palette_ApplyGamma (0x00474dd0) ====
- * Copies a 256 entry RGB palette, through the gamma curve number `gammaIdx` (a table of doubles, 8 bytes each, at
- * UINT_00803fc0 - 8) when one is selected.  Written by hand because Palette_FromFloatTable takes the gamma as a double
- * (two stack dwords): Ghidra's new prototype made the decompiler print the double built from one dword. */
-int __cdecl Palette_ApplyGamma(void *dst, void *src, int count, int gammaIdx)
-{
-    if (UINT_00803fc0 == 0) {
-        Mem_Copy(dst, src, 0x300);
-        return 0;
-    }
-    if (gammaIdx != 0) {
-        Palette_FromFloatTable((byte *)dst, (byte *)src, 0x100, *(double *)((char *)UINT_00803fc0 + gammaIdx * 8 - 8));
-        return 1;
-    }
-    Mem_Copy(dst, src, 0x300);
-    return 1;
-}
-
 /* ==== Render_BuildColorTable (0x004864a0) ====
  * Builds the 65536 entry colour remap table g_wSputRender_ColorLookup for a gamma value: every RGB565 value is split into its
  * channels, each channel is normalised (r, b / 31, g / 63), raised to `gamma` (msvcrt pow, rounded to float like the

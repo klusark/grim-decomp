@@ -1,0 +1,5 @@
+{
+ "_comment": "The gamma table pointer Palette_ApplyGamma reads (2026-11-14): doubles, entry gammaIdx - 1 is the exponent passed to Palette_FromFloatTable. As undefined4 the decompiler split the double argument into the table's -4 dword and the return address. Nothing in the program sets it.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "globals": [{"addr": "00803fc0", "type": "double *"}]
+}

@@ -42,6 +42,38 @@ public class ProtoPurge extends GhidraScript {
 }"""
 
 
+# Ghidra's x86 __cdecl model aligns an 8-byte stack argument to 8; MSVC does not (Palette_FromFloatTable's double after
+# three dwords sits at [esp+0x10], Ghidra put it at 0x14). An entry {"stack": {"<param>": <offset>}} switches the
+# function to custom storage and puts each named parameter at its offset (the others keep theirs).
+STORAGE_SCRIPT = """import ghidra.app.script.GhidraScript;
+import ghidra.program.model.listing.*;
+import ghidra.program.model.symbol.SourceType;
+public class ProtoStack extends GhidraScript {
+  public void run() throws Exception {
+    Function f = getFunctionAt(toAddr("%s"));
+    f.setCustomVariableStorage(true);
+    String[] want = "%s".split(",");
+    for (Parameter p : f.getParameters()) {
+      for (String w : want) {
+        String[] kv = w.split("=");
+        if (!kv[0].equals(p.getName())) continue;
+        VariableStorage st = new VariableStorage(currentProgram, Integer.parseInt(kv[1]), p.getLength());
+        p.setDataType(p.getDataType(), st, true, SourceType.USER_DEFINED);
+      }
+    }
+    for (Parameter p : f.getParameters()) println(p.getName() + " " + p.getVariableStorage());
+  }
+}"""
+
+
+def fix_stack(path, addr, stack):
+    r = g.post("run_script_inline", code=STORAGE_SCRIPT % (addr, ",".join("%s=%d" % kv for kv in stack.items())),
+               program=path)
+    out = str(r.get("_raw", r) if isinstance(r, dict) else r)
+    m = re.search(r"--- SCRIPT OUTPUT ---\s*(.*?)\s*===", out, re.S)
+    print(addr, "stack:", (m.group(1) if m else out[:300]).replace(chr(13), "").replace(chr(10), "; "))
+
+
 def fix_purges(path, addrs):
     r = g.post("run_script_inline", code=PURGE_SCRIPT % ",".join(addrs), program=path)
     out = str(r.get("_raw", r) if isinstance(r, dict) else r)
@@ -67,5 +99,7 @@ if __name__ == "__main__":
             now = g.get("get_function_by_address", program=path, address=addr)
             m = re.search(r"^Signature: (.*)$", now, re.M)
             print(addr, "->", m.group(1) if m else now[:80], "|", str(r)[:60])
+            if spec.get("stack"):
+                fix_stack(path, addr, spec["stack"])
         if "--dry" not in sys.argv and items:
             fix_purges(path, list(items))

@@ -27,6 +27,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import ghidra_api as g
 import export_raw
 
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 DRY = "--dry" in sys.argv
 
 
@@ -236,6 +238,13 @@ def apply_global(prog, e, log):
     if not g.ok(r):
         log.append(f"FAIL global {e['addr']}: {str(r)[:200]}")
         return
+    if e["type"].rstrip().endswith("*") and not e.get("name"):
+        # Ghidra names it PTR_<addr>; build_src.py declares PTR_ globals with the type in raw/<prog>/ptr_types.json
+        # (as tools/type_pointer_globals.py records it)
+        side = os.path.join(ROOT, "raw", os.path.basename(prog), "ptr_types.json")
+        known = json.load(open(side)) if os.path.exists(side) else {}
+        known[e["addr"].lower()] = e["type"]
+        json.dump(known, open(side, "w"), indent=1)
     if e.get("name"):
         apply_global_name(prog, e, log)
 

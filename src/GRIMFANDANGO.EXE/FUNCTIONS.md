@@ -356,7 +356,7 @@
 | 00474be0 | stdDisplay_VBufferConvertColorFormat | stddisplay.c | 87 |
 | 00474d10 | stdDisplay_SetPalette | stddisplay.c | 30 |
 | 00474d90 | stdDisplay_SetMasterPalette | stddisplay.c | 10 |
-| 00474dd0 | Palette_ApplyGamma | stddisplay.c | 1 |
+| 00474dd0 | Palette_ApplyGamma | stddisplay.c | 17 |
 | 00474e40 | stdDisplay_TextOut | stddisplay.c | 1 |
 | 00475000 | Display_FindClosestDevice | stddisplay.c | 37 |
 | 00475090 | Display_FindClosestMode | stddisplay.c | 46 |

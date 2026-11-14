@@ -1596,3 +1596,24 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   rdModel3_CalcRadii / CalcVertexNormals read. Typing CalcRadii's parameter did not make its twin right (the decompiler
   walks a pointer into the middle of each mesh and stores the radius through it as uint), so no function uses them yet.
 * Clean room 0 of 5329.
+
+## Palette_ApplyGamma generated again: an 8-byte stack argument (2026-11-14)
+
+* Palette_FromFloatTable(out, in, n, double gamma) takes the double at [esp+0x10]; Ghidra's x86 `__cdecl` model
+  aligns 8-byte stack arguments to 8 and put it at 0x14, so Palette_ApplyGamma's pushes of the table entry were read
+  as one table dword plus the return address. A scan of every EXE function found only this one misplaced parameter.
+  names/protos_fix_1.json now carries `"stack": {"gamma": 16}` for it: tools/apply_logic_protos.py switches such a
+  function to custom storage and moves the named parameters.
+* names/types_gamma.json types the table pointer (0x00803fc0) `double *` (Ghidra names it PTR_00803fc0; nothing in
+  the program sets it). tools/apply_types.py records a pointer type given to an unnamed global in
+  raw/<prog>/ptr_types.json, as tools/type_pointer_globals.py does, so build_src declares it with that type (as
+  `undefined *` the decompiler's `PTR + idx - 1` stepped in bytes).
+* build_src.py's fix_double_pieces: `(double)CONCAT44(hi, lo)` (a double loaded as two dwords) becomes
+  `PUN(double, CONCAT44(hi, lo))`; the cast converted the 64-bit integer numerically. The lost-x87 `_ftol(` /
+  `_frnd(` forms are left to fix_ftol. Compiled code affected: Palette_ApplyGamma only (PerfEnd's text changes too,
+  under its override).
+* The hand-written Palette_ApplyGamma (overrides_logic.c) is gone; Palette_FromFloatTable stays (`_CIpow` on an
+  empty x87 stack). Clean room 0 of 5329; the gamma path is never run (the pointer is 0), so the generated text was
+  checked against the machine code.
+* raw/GRIMFANDANGO.EXE/data_items.txt (tools/export_data_items.py; export_changed.py does not refresh it) was a day
+  old: a fresh dump differs in 1,626 lines (later names, new arrays) but changes nothing in src/.
