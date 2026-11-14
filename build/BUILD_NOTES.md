@@ -1539,3 +1539,13 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   service slots on the same globals (the hand-written code named them through `__asm__` aliases, g_dwDsndModuleSize for
   g_dwDsndDriver_share_config and so on). dsn_terminate stays: its twin calls sou_mixer_terminate where the hand-written
   one calls Mixer_Free. Clean room 0 of 5329.
+
+## ScreenCoord: sputLua_WorldToScreenL generated again (2026-11-14)
+
+* rdPrimit3_GetScreenCoord writes two integers (x, y, truncated) and the depth as a float; its output parameter was
+  `float *`, so callers converted the integer bits as floats. names/types_screencoord.json creates
+  `ScreenCoord {int nX; int nY; float flZ;}`, types the parameter `ScreenCoord *` and sputLua_WorldToScreenL's local
+  `local_c` as a ScreenCoord (`locals`, new in tools/apply_types.py: a stack local by its Ghidra name; local types
+  used to be set ad hoc, now they replay with the batch). The twin then pushes `(float)local_c.nX / nY`, and the
+  hand-written version is removed. The overrides of rdPrimit3_GetScreenCoord and sputText_CreateActorText take
+  the struct. Clean room 0 of 5329.

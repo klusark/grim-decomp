@@ -5425,8 +5425,6 @@ void __cdecl sputLua_EnableDebugKeysL(void)
 }
 
 /* ---- 0x0049cf60  sputLua_WorldToScreenL ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: WorldToScreen Original name sputLua_WorldToScreenL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'WorldToScreen'); was Lua_WorldToScreen. */
@@ -5441,8 +5439,7 @@ void __cdecl sputLua_WorldToScreenL(void)
   int iVar4;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
-  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_c (*(ScreenCoord *)(_frame + (0x40 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -5458,8 +5455,8 @@ void __cdecl sputLua_WorldToScreenL(void)
         local_18[2] = lua_getnumber(iVar3);
         iVar1 = rdPrimit3_GetScreenCoord(local_18,&local_c);
         if (iVar1 != 0) {
-          lua_pushnumber((float)PUN(int,(float)local_c));
-          lua_pushnumber((float)(int)local_8);
+          lua_pushnumber((float)local_c.nX);
+          lua_pushnumber((float)local_c.nY);
           return;
         }
         lua_pushnil();
@@ -5471,10 +5468,7 @@ void __cdecl sputLua_WorldToScreenL(void)
 }
 #undef local_18
 #undef local_2c
-#undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0049d030  sputLua_ScreenToWorldL ---- */

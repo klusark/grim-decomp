@@ -169,7 +169,7 @@
 | 0049cea0 | sputLua_LoadL | lua.c | 23 |
 | 0049cef0 | sputLua_SaveL | lua.c | 23 |
 | 0049cf40 | sputLua_EnableDebugKeysL | lua.c | 12 |
-| 0049cf60 | sputLua_WorldToScreenL | lua.c | 1 |
+| 0049cf60 | sputLua_WorldToScreenL | lua.c | 45 |
 | 0049d030 | sputLua_ScreenToWorldL | lua.c | 57 |
 | 0049d220 | sputLua_ConcatFallback | lua.c | 92 |
 | 0049d3a0 | sputLua_ExitL | lua.c | 21 |
