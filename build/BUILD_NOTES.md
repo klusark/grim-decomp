@@ -1899,3 +1899,11 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   the size from the device's free texture memory, so every cached texture took a float's bit pattern off it. Only on the
   Direct3D path, which the clean room does not run.
 * Clean room 0 of 5457.
+
+## Light types (2026-11-14)
+
+* names/types_lights.json: rdLight (0x3c, the renderer's light: id, type, active, direction, intensity, colour, the
+  spot cone's angles and cosines; rdLight_NewEntry's defaults, rdLight_SetAngles) and SetLight (0x68, a set's named
+  light: name, position, rdLight; the array at set+0xbc). sputRoom_GetLight returns a SetLight *, rdLight_NewEntry /
+  rdLight_SetAngles take an rdLight *. lua.c's light API: 71 offset accesses -> 43 (the rest are set fields),
+  rdlight.c 7 -> 0. Clean room 0 of 5457.

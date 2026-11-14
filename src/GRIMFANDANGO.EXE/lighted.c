@@ -892,7 +892,7 @@ void __cdecl LightEd_ReadControl(int hdlg,int id)
     a2 = 0x3fb;
     goto LAB_004bf718;
   case 0x3ed:
-    rdLight_SetAngles((void *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x2c),outer,
+    rdLight_SetAngles((rdLight *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x2c),outer,
                       *(float *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x54));
     if (g_nLightEdBusy != 0) {
       return;
@@ -902,7 +902,7 @@ void __cdecl LightEd_ReadControl(int hdlg,int id)
     a2 = 0x3ff;
     goto LAB_004bf718;
   case 0x3ee:
-    rdLight_SetAngles((void *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x2c),
+    rdLight_SetAngles((rdLight *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x2c),
                       *(float *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x4c),outer);
     if (g_nLightEdBusy != 0) {
       return;

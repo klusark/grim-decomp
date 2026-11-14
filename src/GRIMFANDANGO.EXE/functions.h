@@ -1050,8 +1050,8 @@ float __cdecl rdClip_Face3GT(int *param_1,float *param_2,float *param_3,uint *pa
 uint __cdecl rdClip_Face3GTOrtho(int *param_1,float *param_2,uint *param_3,uint *param_4,uint param_5); /* 0x0044da40 */
 
 /* ===== rdlight.c ===== */
-uint __cdecl rdLight_NewEntry(int param_1); /* 0x00451460 */
-void __cdecl rdLight_SetAngles(void *light,float inner,float outer); /* 0x004514a0 */
+uint __cdecl rdLight_NewEntry(rdLight *light); /* 0x00451460 */
+void __cdecl rdLight_SetAngles(rdLight *light,float inner,float outer); /* 0x004514a0 */
 float __cdecl rdLight_CalcVertexIntensities (int *param_1,float *param_2,int param_3,uint param_4,int *param_5,uint param_6, float *param_7,float *param_8,uint param_9,float param_10); /* 0x00451510 */
 float __cdecl rdLight_CalcFaceIntensity (int *param_1,int param_2,uint param_3,uint param_4,int param_5,float *param_6,int param_7 ,float param_8); /* 0x00451800 */
 
@@ -2039,7 +2039,7 @@ void __cdecl sputRoom_FreeZBuffer(uint param_1); /* 0x004a4980 */
 void __cdecl ZBuffer_FreeData(void *param_1); /* 0x004a4990 */
 
 /* ===== light.c ===== */
-void * __cdecl sputRoom_GetLight(void *set,int index); /* 0x004a5cc0 */
+SetLight * __cdecl sputRoom_GetLight(void *set,int index); /* 0x004a5cc0 */
 int __cdecl sputRoom_FindLightByName(void *set,char *name); /* 0x004a5cf0 */
 
 /* ===== objstate.c ===== */

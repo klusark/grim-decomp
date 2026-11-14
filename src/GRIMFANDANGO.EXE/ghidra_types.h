@@ -241,6 +241,7 @@ typedef struct Primitive Primitive;
 typedef struct ProcEntry ProcEntry;
 typedef struct Puck Puck;
 typedef struct ScreenCoord ScreenCoord;
+typedef struct SetLight SetLight;
 typedef struct Std3DDevice Std3DDevice;
 typedef struct Std3DTexture Std3DTexture;
 typedef struct TextContext TextContext;
@@ -253,6 +254,7 @@ typedef struct WalkPlaneCache WalkPlaneCache;
 typedef struct WalkVertex WalkVertex;
 typedef struct WalkVertexCache WalkVertexCache;
 typedef struct rdGeoset rdGeoset;
+typedef struct rdLight rdLight;
 typedef struct rdMesh rdMesh;
 typedef struct rdModel3 rdModel3;
 
@@ -720,6 +722,43 @@ _Static_assert(__builtin_offsetof(ScreenCoord, nX) == 0x0, "ScreenCoord.nX");
 _Static_assert(__builtin_offsetof(ScreenCoord, nY) == 0x4, "ScreenCoord.nY");
 _Static_assert(__builtin_offsetof(ScreenCoord, flZ) == 0x8, "ScreenCoord.flZ");
 _Static_assert(sizeof(ScreenCoord) == 0xc, "sizeof ScreenCoord");
+/* rdLight: A light of the renderer (0x3c bytes). */
+struct rdLight {  /* 0x3c */
+    uint dwId;  /* 0x00 */
+    int nType;  /* 0x04: 1 ambient .. 3 spot (2 by default, rdLight_NewEntry; SetLightType) */
+    int nActive;  /* 0x08: on (TurnLightOn) */
+    float aDirection[3];  /* 0x0c: spot / directional direction (SetLightRotation, PointLightAt) */
+    float flIntensity;  /* 0x18: 1.0 by default */
+    uint dwColor;  /* 0x1c: 0xRRGGBB, 0xffffff by default */
+    float flInnerAngle;  /* 0x20: spot cone, degrees (rdLight_SetAngles' inner, the Lua umbra) */
+    float flCosInner;  /* 0x24: cos(inner) */
+    float flOuterAngle;  /* 0x28: spot cone outer angle (the Lua penumbra) */
+    float flCosOuter;  /* 0x2c: cos(outer) */
+    float flConeScale;  /* 0x30: 1 / (cos inner - cos outer), set only when that is positive */
+    uint8_t field_0x34, field_0x35, field_0x36, field_0x37, field_0x38, field_0x39, field_0x3a, field_0x3b;
+};
+_Static_assert(__builtin_offsetof(rdLight, dwId) == 0x0, "rdLight.dwId");
+_Static_assert(__builtin_offsetof(rdLight, nType) == 0x4, "rdLight.nType");
+_Static_assert(__builtin_offsetof(rdLight, nActive) == 0x8, "rdLight.nActive");
+_Static_assert(__builtin_offsetof(rdLight, aDirection) == 0xc, "rdLight.aDirection");
+_Static_assert(__builtin_offsetof(rdLight, flIntensity) == 0x18, "rdLight.flIntensity");
+_Static_assert(__builtin_offsetof(rdLight, dwColor) == 0x1c, "rdLight.dwColor");
+_Static_assert(__builtin_offsetof(rdLight, flInnerAngle) == 0x20, "rdLight.flInnerAngle");
+_Static_assert(__builtin_offsetof(rdLight, flCosInner) == 0x24, "rdLight.flCosInner");
+_Static_assert(__builtin_offsetof(rdLight, flOuterAngle) == 0x28, "rdLight.flOuterAngle");
+_Static_assert(__builtin_offsetof(rdLight, flCosOuter) == 0x2c, "rdLight.flCosOuter");
+_Static_assert(__builtin_offsetof(rdLight, flConeScale) == 0x30, "rdLight.flConeScale");
+_Static_assert(sizeof(rdLight) == 0x3c, "sizeof rdLight");
+/* SetLight: A named light of a set (0x68 bytes, the array at set+0xbc). */
+struct SetLight {  /* 0x68 */
+    char aName[32];  /* 0x00: the set file's name (sputRoom_FindLightByName, case-insensitive) */
+    float aPos[3];  /* 0x20: position (SetLightPosition) */
+    rdLight light;  /* 0x2c */
+};
+_Static_assert(__builtin_offsetof(SetLight, aName) == 0x0, "SetLight.aName");
+_Static_assert(__builtin_offsetof(SetLight, aPos) == 0x20, "SetLight.aPos");
+_Static_assert(__builtin_offsetof(SetLight, light) == 0x2c, "SetLight.light");
+_Static_assert(sizeof(SetLight) == 0x68, "sizeof SetLight");
 /* Std3DDevice: A Direct3D driver of the display device (0x22c bytes, the table at 0x00900b40). */
 struct Std3DDevice {  /* 0x22c */
     int nHardware;  /* 0x00: a hardware device: its z-buffer is created in video memory (DDSCAPS 0x4000), else in system memory (0x800) */

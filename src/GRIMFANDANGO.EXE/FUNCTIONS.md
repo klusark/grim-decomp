@@ -239,10 +239,10 @@
 | 004a0290 | sputLua_FindLight | lua.c | 30 |
 | 004a02f0 | sputLua_TurnLightOn | lua.c | 37 |
 | 004a0380 | sputLua_IsLightOn | lua.c | 35 |
-| 004a0400 | sputLua_SetLightType | lua.c | 72 |
+| 004a0400 | sputLua_SetLightType | lua.c | 71 |
 | 004a0530 | sputLua_GetLightType | lua.c | 46 |
 | 004a05e0 | sputLua_SetLightPosition | lua.c | 79 |
-| 004a0760 | sputLua_GetLightPosition | lua.c | 40 |
+| 004a0760 | sputLua_GetLightPosition | lua.c | 41 |
 | 004a0800 | sputLua_SetLightRotation | lua.c | 104 |
 | 004a09a0 | sputLua_GetLightRotation | lua.c | 46 |
 | 004a0a50 | sputLua_SetLightAngles | lua.c | 58 |

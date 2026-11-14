@@ -8365,7 +8365,7 @@ void __cdecl sputLua_TurnLightOn(void)
   int iVar2;
   int iVar3;
   char *name;
-  void *pvVar4;
+  SetLight *pSVar4;
   longlong lVar5;
   float fVar6;
   
@@ -8385,10 +8385,10 @@ void __cdecl sputLua_TurnLightOn(void)
     lVar5 = FTOL((float10)fVar6);
     iVar1 = (int)lVar5;
   }
-  pvVar4 = sputRoom_GetLight((void *)0x0,iVar1);
-  if (pvVar4 != (void *)0x0) {
+  pSVar4 = sputRoom_GetLight((void *)0x0,iVar1);
+  if (pSVar4 != (SetLight *)0x0) {
     iVar1 = lua_isnil(iVar2);
-    *(uint *)((int)pvVar4 + 0x34) = (uint)(iVar1 == 0);
+    (pSVar4->light).nActive = (uint)(iVar1 == 0);
   }
   return;
 }
@@ -8403,7 +8403,7 @@ void __cdecl sputLua_IsLightOn(void)
   int iVar1;
   int iVar2;
   char *name;
-  void *pvVar3;
+  SetLight *pSVar3;
   longlong lVar4;
   float fVar5;
   
@@ -8420,8 +8420,8 @@ void __cdecl sputLua_IsLightOn(void)
     lVar4 = FTOL((float10)fVar5);
     iVar1 = (int)lVar4;
   }
-  pvVar3 = sputRoom_GetLight((void *)0x0,iVar1);
-  if ((pvVar3 != (void *)0x0) && (*(int *)((int)pvVar3 + 0x34) != 0)) {
+  pSVar3 = sputRoom_GetLight((void *)0x0,iVar1);
+  if ((pSVar3 != (SetLight *)0x0) && ((pSVar3->light).nActive != 0)) {
     lua_pushnumber(1.0);
     return;
   }
@@ -8443,7 +8443,7 @@ void __cdecl sputLua_SetLightType(void)
   void *pvVar4;
   int iVar5;
   char *name;
-  void *pvVar6;
+  SetLight *pSVar6;
   uint *puVar7;
   uint *puVar8;
   uint uVar9;
@@ -8467,8 +8467,8 @@ void __cdecl sputLua_SetLightType(void)
     lVar10 = FTOL((float10)fVar11);
     iVar2 = (int)lVar10;
   }
-  pvVar6 = sputRoom_GetLight((void *)0x0,iVar2);
-  if (pvVar6 != (void *)0x0) {
+  pSVar6 = sputRoom_GetLight((void *)0x0,iVar2);
+  if (pSVar6 != (SetLight *)0x0) {
     iVar5 = lua_isstring(iVar3);
     if (iVar5 != 0) {
       puVar7 = (uint *)lua_getstring(iVar3);
@@ -8477,14 +8477,14 @@ void __cdecl sputLua_SetLightType(void)
          (puVar8 = String_ContainsSubstring(puVar7,s_global_004ec5a0), puVar8 == (uint *)0x0)) {
         puVar7 = String_ContainsSubstring(puVar7,&DAT_004ec598);
         if (puVar7 == (uint *)0x0) {
-          *(undefined4 *)((int)pvVar6 + 0x30) = 2;
+          (pSVar6->light).nType = 2;
         }
         else {
-          *(undefined4 *)((int)pvVar6 + 0x30) = 3;
+          (pSVar6->light).nType = 3;
         }
       }
       else {
-        *(undefined4 *)((int)pvVar6 + 0x30) = 1;
+        (pSVar6->light).nType = 1;
       }
       uVar9 = 0;
       if (*(int *)((int)pvVar4 + 0xb0) != 0) {
@@ -8493,8 +8493,7 @@ void __cdecl sputLua_SetLightType(void)
           uVar9 = uVar9 + 1;
           piVar1 = (int *)(*(int *)((int)pvVar4 + 0xac) + 0x48 + iVar3);
           iVar3 = iVar3 + 300;
-          *(undefined4 *)(*(int *)(*piVar1 + iVar2 * 4 + 0x5c) + 4) =
-               *(undefined4 *)((int)pvVar6 + 0x30);
+          *(int *)(*(int *)(*piVar1 + iVar2 * 4 + 0x5c) + 4) = (pSVar6->light).nType;
         } while (uVar9 < *(uint *)((int)pvVar4 + 0xb0));
       }
       return;
@@ -8514,7 +8513,7 @@ void __cdecl sputLua_GetLightType(void)
   int iVar1;
   int iVar2;
   char *name;
-  void *pvVar3;
+  SetLight *pSVar3;
   longlong lVar4;
   float fVar5;
   
@@ -8531,9 +8530,9 @@ void __cdecl sputLua_GetLightType(void)
     lVar4 = FTOL((float10)fVar5);
     iVar1 = (int)lVar4;
   }
-  pvVar3 = sputRoom_GetLight((void *)0x0,iVar1);
-  if (pvVar3 != (void *)0x0) {
-    iVar1 = *(int *)((int)pvVar3 + 0x30);
+  pSVar3 = sputRoom_GetLight((void *)0x0,iVar1);
+  if (pSVar3 != (SetLight *)0x0) {
+    iVar1 = (pSVar3->light).nType;
     if (iVar1 == 1) {
       lua_pushstring(s_parallel_004ec5a8);
       return;
@@ -8568,7 +8567,7 @@ void __cdecl sputLua_SetLightPosition(void)
   int iVar6;
   char *name;
   void *pvVar7;
-  void *pvVar8;
+  SetLight *pSVar8;
   uint uVar9;
   float *pfVar10;
   longlong lVar11;
@@ -8601,15 +8600,15 @@ void __cdecl sputLua_SetLightPosition(void)
   }
   pvVar7 = sputRoom_GetCurrentRoom();
   if ((((pvVar7 != (void *)0x0) &&
-       (pvVar8 = sputRoom_GetLight((void *)0x0,iVar2), pvVar8 != (void *)0x0)) &&
+       (pSVar8 = sputRoom_GetLight((void *)0x0,iVar2), pSVar8 != (SetLight *)0x0)) &&
       (iVar6 = lua_isnumber(iVar3), iVar6 != 0)) &&
      ((iVar6 = lua_isnumber(iVar4), iVar6 != 0 && (iVar6 = lua_isnumber(iVar5), iVar6 != 0)))) {
     fVar12 = lua_getnumber(iVar3);
     fVar13 = lua_getnumber(iVar4);
     fVar14 = lua_getnumber(iVar5);
-    *(float *)((int)pvVar8 + 0x20) = fVar12;
-    *(float *)((int)pvVar8 + 0x24) = fVar13;
-    *(float *)((int)pvVar8 + 0x28) = fVar14;
+    pSVar8->aPos[0] = fVar12;
+    pSVar8->aPos[1] = fVar13;
+    pSVar8->aPos[2] = fVar14;
     uVar9 = 0;
     if (*(int *)((int)pvVar7 + 0xb0) != 0) {
       iVar3 = 0;
@@ -8644,8 +8643,9 @@ void __cdecl sputLua_GetLightPosition(void)
   int iVar2;
   char *name;
   void *pvVar3;
-  longlong lVar4;
-  float fVar5;
+  SetLight *pSVar4;
+  longlong lVar5;
+  float fVar6;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(iVar1);
@@ -8656,17 +8656,17 @@ void __cdecl sputLua_GetLightPosition(void)
     iVar1 = sputRoom_FindLightByName((void *)0x0,name);
   }
   else {
-    fVar5 = lua_getnumber(iVar1);
-    lVar4 = FTOL((float10)fVar5);
-    iVar1 = (int)lVar4;
+    fVar6 = lua_getnumber(iVar1);
+    lVar5 = FTOL((float10)fVar6);
+    iVar1 = (int)lVar5;
   }
   pvVar3 = sputRoom_GetCurrentRoom();
   if (pvVar3 != (void *)0x0) {
-    pvVar3 = sputRoom_GetLight((void *)0x0,iVar1);
-    if (pvVar3 != (void *)0x0) {
-      lua_pushnumber(*(float *)((int)pvVar3 + 0x20));
-      lua_pushnumber(*(float *)((int)pvVar3 + 0x24));
-      lua_pushnumber(*(float *)((int)pvVar3 + 0x28));
+    pSVar4 = sputRoom_GetLight((void *)0x0,iVar1);
+    if (pSVar4 != (SetLight *)0x0) {
+      lua_pushnumber(pSVar4->aPos[0]);
+      lua_pushnumber(pSVar4->aPos[1]);
+      lua_pushnumber(pSVar4->aPos[2]);
       return;
     }
   }
@@ -8691,7 +8691,7 @@ void __cdecl sputLua_SetLightRotation(void)
   void *pvVar6;
   int iVar7;
   char *name;
-  void *pvVar8;
+  SetLight *pSVar8;
   uint uVar9;
   longlong lVar10;
   float fVar11;
@@ -8724,8 +8724,8 @@ void __cdecl sputLua_SetLightRotation(void)
     lVar10 = FTOL((float10)fVar11);
     iVar2 = (int)lVar10;
   }
-  pvVar8 = sputRoom_GetLight((void *)0x0,iVar2);
-  if (pvVar8 != (void *)0x0) {
+  pSVar8 = sputRoom_GetLight((void *)0x0,iVar2);
+  if (pSVar8 != (SetLight *)0x0) {
     iVar7 = lua_isnumber(iVar3);
     if (iVar7 == 0) {
       local_c = 0.0;
@@ -8751,10 +8751,10 @@ void __cdecl sputLua_SetLightRotation(void)
     local_14 = 0x3f800000;
     local_10 = 0;
     rdVector_Rotate3Acc(&local_18,&local_c);
-    *(float *)((int)pvVar8 + 0x38) = local_18;
-    *(uint *)((int)pvVar8 + 0x3c) = local_14;
+    (pSVar8->light).aDirection[0] = local_18;
+    (pSVar8->light).aDirection[1] = PUN(float,local_14);
     uVar9 = 0;
-    *(uint *)((int)pvVar8 + 0x40) = local_10;
+    (pSVar8->light).aDirection[2] = PUN(float,local_10);
     if (*(int *)((int)pvVar6 + 0xb0) != 0) {
       iVar3 = 0;
       do {
@@ -8792,7 +8792,7 @@ void __cdecl sputLua_GetLightRotation(void)
   int iVar1;
   int iVar2;
   char *name;
-  void *pvVar3;
+  SetLight *pSVar3;
   longlong lVar4;
   float fVar5;
   #define local_c (*(float *)(_frame + (0x20 - 0xc)))
@@ -8812,9 +8812,9 @@ void __cdecl sputLua_GetLightRotation(void)
     lVar4 = FTOL((float10)fVar5);
     iVar1 = (int)lVar4;
   }
-  pvVar3 = sputRoom_GetLight((void *)0x0,iVar1);
-  if (pvVar3 != (void *)0x0) {
-    rdVector_ExtractAngles((float *)((int)pvVar3 + 0x38),&local_c);
+  pSVar3 = sputRoom_GetLight((void *)0x0,iVar1);
+  if (pSVar3 != (SetLight *)0x0) {
+    rdVector_ExtractAngles((pSVar3->light).aDirection,&local_c);
     lua_pushnumber(local_c);
     lua_pushnumber(local_8);
     lua_pushnumber(local_4);
@@ -8842,7 +8842,7 @@ void __cdecl sputLua_SetLightAngles(void)
   int iVar3;
   int iVar4;
   char *name;
-  void *pvVar5;
+  SetLight *pSVar5;
   longlong lVar6;
   float fVar7;
   #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
@@ -8865,8 +8865,8 @@ void __cdecl sputLua_SetLightAngles(void)
     lVar6 = FTOL((float10)fVar7);
     iVar1 = (int)lVar6;
   }
-  pvVar5 = sputRoom_GetLight((void *)0x0,iVar1);
-  if (pvVar5 != (void *)0x0) {
+  pSVar5 = sputRoom_GetLight((void *)0x0,iVar1);
+  if (pSVar5 != (SetLight *)0x0) {
     iVar1 = lua_isnumber(iVar2);
     if (iVar1 == 0) {
       local_4 = 0.0;
@@ -8881,7 +8881,7 @@ void __cdecl sputLua_SetLightAngles(void)
     else {
       local_8 = lua_getnumber(iVar3);
     }
-    rdLight_SetAngles((void *)((int)pvVar5 + 0x2c),local_4,local_8);
+    rdLight_SetAngles(&pSVar5->light,local_4,local_8);
   }
   return;
 }
@@ -8899,7 +8899,7 @@ void __cdecl sputLua_GetLightAngles(void)
   int iVar1;
   int iVar2;
   char *name;
-  void *pvVar3;
+  SetLight *pSVar3;
   longlong lVar4;
   float fVar5;
   
@@ -8916,10 +8916,10 @@ void __cdecl sputLua_GetLightAngles(void)
     lVar4 = FTOL((float10)fVar5);
     iVar1 = (int)lVar4;
   }
-  pvVar3 = sputRoom_GetLight((void *)0x0,iVar1);
-  if (pvVar3 != (void *)0x0) {
-    lua_pushnumber(*(float *)((int)pvVar3 + 0x4c));
-    lua_pushnumber(*(float *)((int)pvVar3 + 0x54));
+  pSVar3 = sputRoom_GetLight((void *)0x0,iVar1);
+  if (pSVar3 != (SetLight *)0x0) {
+    lua_pushnumber((pSVar3->light).flInnerAngle);
+    lua_pushnumber((pSVar3->light).flOuterAngle);
     return;
   }
 LAB_004a0bbc:
@@ -8941,7 +8941,7 @@ void __cdecl sputLua_PointLightAt(void)
   int iVar4;
   int iVar5;
   char *name;
-  void *pvVar6;
+  SetLight *pSVar6;
   Actor *pAVar7;
   longlong lVar8;
   float fVar9;
@@ -8972,8 +8972,8 @@ void __cdecl sputLua_PointLightAt(void)
     lVar8 = FTOL((float10)fVar9);
     iVar1 = (int)lVar8;
   }
-  pvVar6 = sputRoom_GetLight((void *)0x0,iVar1);
-  if (pvVar6 != (void *)0x0) {
+  pSVar6 = sputRoom_GetLight((void *)0x0,iVar1);
+  if (pSVar6 != (SetLight *)0x0) {
     iVar1 = lua_isuserdata(iVar2);
     if (((iVar1 == 0) || (iVar1 = lua_tag(iVar2), iVar1 != 0x52544341)) &&
        (iVar1 = lua_isnumber(iVar2), iVar1 == 0)) {
@@ -9004,13 +9004,13 @@ void __cdecl sputLua_PointLightAt(void)
       local_14 = pAVar7->aPos[1];
       local_10 = pAVar7->aPos[2];
     }
-    local_c = local_18 - *(float *)((int)pvVar6 + 0x20);
-    local_8 = local_14 - *(float *)((int)pvVar6 + 0x24);
-    local_4 = local_10 - *(float *)((int)pvVar6 + 0x28);
+    local_c = local_18 - pSVar6->aPos[0];
+    local_8 = local_14 - pSVar6->aPos[1];
+    local_4 = local_10 - pSVar6->aPos[2];
     rdVector_Normalize3Acc(&local_c);
-    *(float *)((int)pvVar6 + 0x38) = local_c;
-    *(float *)((int)pvVar6 + 0x3c) = local_8;
-    *(float *)((int)pvVar6 + 0x40) = local_4;
+    (pSVar6->light).aDirection[0] = local_c;
+    (pSVar6->light).aDirection[1] = local_8;
+    (pSVar6->light).aDirection[2] = local_4;
     return;
   }
   return;
@@ -9040,7 +9040,7 @@ void __cdecl sputLua_SetLightIntensity(void)
   void *pvVar4;
   int iVar5;
   char *name;
-  void *pvVar6;
+  SetLight *pSVar6;
   uint uVar7;
   longlong lVar8;
   float fVar9;
@@ -9063,10 +9063,10 @@ void __cdecl sputLua_SetLightIntensity(void)
     lVar8 = FTOL((float10)fVar9);
     iVar2 = (int)lVar8;
   }
-  pvVar6 = sputRoom_GetLight((void *)0x0,iVar2);
-  if ((pvVar6 != (void *)0x0) && (iVar5 = lua_isnumber(iVar3), iVar5 != 0)) {
+  pSVar6 = sputRoom_GetLight((void *)0x0,iVar2);
+  if ((pSVar6 != (SetLight *)0x0) && (iVar5 = lua_isnumber(iVar3), iVar5 != 0)) {
     fVar9 = lua_getnumber(iVar3);
-    *(float *)((int)pvVar6 + 0x44) = fVar9;
+    (pSVar6->light).flIntensity = fVar9;
     uVar7 = 0;
     if (*(int *)((int)pvVar4 + 0xb0) != 0) {
       iVar5 = 0;
@@ -9095,7 +9095,7 @@ void __cdecl sputLua_GetLightIntensity(void)
   int iVar1;
   int iVar2;
   char *name;
-  void *pvVar3;
+  SetLight *pSVar3;
   longlong lVar4;
   float fVar5;
   
@@ -9113,9 +9113,9 @@ void __cdecl sputLua_GetLightIntensity(void)
     lVar4 = FTOL((float10)fVar5);
     iVar1 = (int)lVar4;
   }
-  pvVar3 = sputRoom_GetLight((void *)0x0,iVar1);
-  if (pvVar3 != (void *)0x0) {
-    lua_pushnumber(*(float *)((int)pvVar3 + 0x44));
+  pSVar3 = sputRoom_GetLight((void *)0x0,iVar1);
+  if (pSVar3 != (SetLight *)0x0) {
+    lua_pushnumber((pSVar3->light).flIntensity);
     return;
   }
 LAB_004a0f08:

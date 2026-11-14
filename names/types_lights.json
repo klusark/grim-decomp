@@ -1,0 +1,124 @@
+{
+ "_comment": "Lights (rdLight.c and the set's lights, 2026-11-14): the renderer's light (rdLight, 0x3c bytes: rdLight_NewEntry sets its defaults, rdLight_SetAngles its spot cone) and the set's named light (SetLight, 0x68 bytes: the array at set+0xbc, its count at set+0xb8; sputRoom_GetLight / sputRoom_FindLightByName), which the Lua light API (sputLua_*Light*) and the light editor work on.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "rdLight",
+   "size": 60,
+   "comment": "A light of the renderer (0x3c bytes).",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwId",
+     ""
+    ],
+    [
+     4,
+     "int",
+     "nType",
+     "1 ambient .. 3 spot (2 by default, rdLight_NewEntry; SetLightType)"
+    ],
+    [
+     8,
+     "int",
+     "nActive",
+     "on (TurnLightOn)"
+    ],
+    [
+     12,
+     "float[3]",
+     "aDirection",
+     "spot / directional direction (SetLightRotation, PointLightAt)"
+    ],
+    [
+     24,
+     "float",
+     "flIntensity",
+     "1.0 by default"
+    ],
+    [
+     28,
+     "uint",
+     "dwColor",
+     "0xRRGGBB, 0xffffff by default"
+    ],
+    [
+     32,
+     "float",
+     "flInnerAngle",
+     "spot cone, degrees (rdLight_SetAngles' inner, the Lua umbra)"
+    ],
+    [
+     36,
+     "float",
+     "flCosInner",
+     "cos(inner)"
+    ],
+    [
+     40,
+     "float",
+     "flOuterAngle",
+     "spot cone outer angle (the Lua penumbra)"
+    ],
+    [
+     44,
+     "float",
+     "flCosOuter",
+     "cos(outer)"
+    ],
+    [
+     48,
+     "float",
+     "flConeScale",
+     "1 / (cos inner - cos outer), set only when that is positive"
+    ]
+   ]
+  },
+  {
+   "name": "SetLight",
+   "size": 104,
+   "comment": "A named light of a set (0x68 bytes, the array at set+0xbc).",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aName",
+     "the set file's name (sputRoom_FindLightByName, case-insensitive)"
+    ],
+    [
+     32,
+     "float[3]",
+     "aPos",
+     "position (SetLightPosition)"
+    ],
+    [
+     44,
+     "rdLight",
+     "light",
+     ""
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "004514a0",
+   "index": 0,
+   "type": "rdLight *",
+   "name": "light"
+  },
+  {
+   "addr": "00451460",
+   "index": 0,
+   "type": "rdLight *",
+   "name": "light"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "004a5cc0",
+   "type": "SetLight *"
+  }
+ ]
+}
