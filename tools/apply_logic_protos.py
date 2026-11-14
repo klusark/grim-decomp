@@ -66,6 +66,37 @@ public class ProtoStack extends GhidraScript {
 }"""
 
 
+# An entry {"registers": {"<param>": "<register>"}} puts the named parameters in registers (custom storage): LUA.DLL's
+# _ftol takes its operand in ST0, which the decompiler then shows as the call's argument.
+REGISTER_SCRIPT = """import ghidra.app.script.GhidraScript;
+import ghidra.program.model.listing.*;
+import ghidra.program.model.symbol.SourceType;
+public class ProtoRegs extends GhidraScript {
+  public void run() throws Exception {
+    Function f = getFunctionAt(toAddr("%s"));
+    f.setCustomVariableStorage(true);
+    String[] want = "%s".split(",");
+    for (Parameter p : f.getParameters()) {
+      for (String w : want) {
+        String[] kv = w.split("=");
+        if (!kv[0].equals(p.getName())) continue;
+        VariableStorage st = new VariableStorage(currentProgram, currentProgram.getRegister(kv[1]));
+        p.setDataType(p.getDataType(), st, true, SourceType.USER_DEFINED);
+      }
+    }
+    for (Parameter p : f.getParameters()) println(p.getName() + " " + p.getVariableStorage());
+  }
+}"""
+
+
+def fix_registers(path, addr, regs):
+    r = g.post("run_script_inline", code=REGISTER_SCRIPT % (addr, ",".join("%s=%s" % kv for kv in regs.items())),
+               program=path)
+    out = str(r.get("_raw", r) if isinstance(r, dict) else r)
+    m = re.search(r"--- SCRIPT OUTPUT ---\s*(.*?)\s*===", out, re.S)
+    print(addr, "registers:", (m.group(1) if m else out[:300]).replace(chr(13), "").replace(chr(10), "; "))
+
+
 def fix_stack(path, addr, stack):
     r = g.post("run_script_inline", code=STORAGE_SCRIPT % (addr, ",".join("%s=%d" % kv for kv in stack.items())),
                program=path)
@@ -101,5 +132,7 @@ if __name__ == "__main__":
             print(addr, "->", m.group(1) if m else now[:80], "|", str(r)[:60])
             if spec.get("stack"):
                 fix_stack(path, addr, spec["stack"])
+            if spec.get("registers"):
+                fix_registers(path, addr, spec["registers"])
         if "--dry" not in sys.argv and items:
             fix_purges(path, list(items))

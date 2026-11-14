@@ -828,8 +828,6 @@ undefined4 __thiscall LState_Save(void *this,int a1)
 
 
 /* ---- 0x100087f0  LState_Restore ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name LState_Restore (the remaster's libLua.so: LState::Restore(reader): caller
    lua_Restore, restores the execution states (ExecutionState_Restore / _New)); was lstate__87f0. */
 
@@ -922,12 +920,8 @@ undefined4 __thiscall LState_Restore(void *this,int a1)
 #undef local_1c
 #undef pvStack_10
 
-#endif
-
 
 /* ---- 0x10008ad0  lua_newstate ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name lua_newstate (the remaster's libLua.so: lua_newstate(): new LState (0xd4 bytes),
    initglobals; only callee of lua_open); was lstate__8ad0. */
 
@@ -949,8 +943,6 @@ undefined4 * lua_newstate(void)
   g_pLuaState = pLVar1;
   return &pLVar2->pExecutionState;
 }
-#endif
-
 
 /* ---- 0x10008b70  LState_attach ---- */
 /* replaced by the hand-written version in build/overrides.c */

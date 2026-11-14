@@ -948,8 +948,6 @@ void __cdecl code_constant(uint param_1)
 }
 
 /* ---- 0x1000b8e0  code_number ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Unidentified function of lua.stx (yacc parser) and code generation Named code_number (not in the
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx static code_number: PUSHNUMBER for
    an integer in 0..65534 (code_oparg), else code_constant(real_constant(f))); was luaY_code_number.
@@ -962,7 +960,7 @@ void __cdecl code_number(float param_1)
   longlong lVar2;
   
   if ((0.0 <= param_1) && (param_1 <= 65534.0)) {
-    lVar2 = _ftol();
+    lVar2 = FTOL((float10)param_1);
     if ((float)(int)(uint)lVar2 == param_1) {
       code_oparg('\x03',3,(uint)lVar2,1);
       return;
@@ -972,8 +970,6 @@ void __cdecl code_number(float param_1)
   code_constant(uVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x1000b950  real_constant ---- */
 /* Unidentified function of lua.stx (yacc parser) and code generation Named real_constant (not in

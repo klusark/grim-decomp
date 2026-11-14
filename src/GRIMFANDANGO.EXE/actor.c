@@ -2743,8 +2743,6 @@ LAB_004a5fa6:
 }
 
 /* ---- 0x004a8500  Puck_GetYawToPoint ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name Puck_GetYawToPoint (the remaster's GrimFandango (Linux): Puck::GetYawToPoint in the
    remaster (a C++ method there); the only unmatched callee of Lua_GetActorYawToPoint; 3 matched
    neighbours agree, 0 disagree); was Actor_GetYawToPoint. */
@@ -2784,6 +2782,4 @@ float __thiscall Puck_GetYawToPoint(Puck *this,float *point)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 

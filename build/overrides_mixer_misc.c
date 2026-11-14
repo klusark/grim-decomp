@@ -269,84 +269,6 @@ extern int g_nAnimDelayTotal __asm__("_g_dwRenderHandler_totalTime");     /* sum
 #define ANIM_MSG(msg) SVC_CALL(g_pAnm_virtherc_services, 3, void, (const char *, ...))(msg)
 #define ANIM_REPORT() (g_pAnm_virtherc_services != 0 && (g_dwAnimDebugFlags & 0x20000) != 0)
 
-/* Creates the player: allocates the AnimPlay object, opens the streamer, sets the frame delay from the frame rate
- * (1193180 / fps, the ticks of the 1.19 MHz clock), resets the state, opens the file and starts the two timers.  Returns
- * 0, or -1 with *out = 0 (and everything released) when a step fails. */
-int anm_Start(void **pout, char *name, int fps, int streamArg1, int streamArg2, uint flags)
-{
-    AnimPlay **out = (AnimPlay **)pout;
-    AnimPlay *p = SVC_CALL(g_pAnm_memory_services, 0, AnimPlay *, (int, const char *, int))(0x70, ANIM_FILE, 0x140);
-    int delay;
-
-    if (p == 0)
-        goto fail;
-    if (SVC_CALL(g_pAnm_streamer_services, 0, int, (void *, int, int))(&p->stream, streamArg1, streamArg2) != 0) {
-        if (ANIM_REPORT())
-            ANIM_MSG(s_AnimPlay_Module__Cannot_allocate_004f1520);
-        goto freeObject;
-    }
-    delay = 0x1234dc / fps;
-    p->flags = flags;
-    p->syncTicks = 0;
-    p->frameDue = 0;
-    p->lagMode = 0;
-    p->started = 0;
-    p->state = 0;
-    p->targetDelay = delay;
-    p->delay = delay;
-    *out = p;
-    if (anm_animator_Initialize(p) != 0) {
-        ANIM_MSG(s_AnimPlay_Module__Cannot_init_Ani_004f1554);
-        goto freeStream;
-    }
-    if (anm_animator_NewAnim(*out, name, flags, -1, -1, 0) != 0) {
-        SVC_CALL(g_pAnm_virtherc_services, 3, void, (const char *, ...))(s_AnimPlay_Module__Cannot_open_fil_004f1584, name);
-        Mem_DumpLog();
-        goto freeStream;
-    }
-    p->timerSync = SVC_CALL(g_pAnimPlay_timer_services, 0, int, (void *, int, int, void *))(frame_Timer, 1, 2, p);
-    if (p->timerSync == 0) {
-        if (ANIM_REPORT())
-            ANIM_MSG(s_AnimPlay_Module__Cannot_allocate_004f15ac);
-        Mem_DumpLog();
-        goto freeStream;
-    }
-    p->timerFrame = SVC_CALL(g_pAnimPlay_timer_services, 0, int, (void *, int, int, void *))(sync_Timer, p->targetDelay, 8, p);
-    if (p->timerFrame != 0) {
-        p->failed = 0;
-        return 0;
-    }
-    if (ANIM_REPORT())
-        ANIM_MSG(s_AnimPlay_Module__Cannot_allocate_004f15d8);
-    SVC_CALL(g_pAnimPlay_timer_services, 1, void, (int))(p->timerSync);
-    Mem_DumpLog();
-freeStream:
-    SVC_CALL(g_pAnm_streamer_services, 1, void, (void *))(&p->stream);
-freeObject:
-    SVC_CALL(g_pAnm_memory_services, 1, void, (void *, const char *, int))(p, ANIM_FILE, 0x175);
-fail:
-    *out = 0;
-    return -1;
-}
-
-/* Stops both timers, closes the file and the streamer and frees the player. */
-void anm_Stop(void **ppIn)
-{
-    AnimPlay **pp = (AnimPlay **)ppIn;
-    AnimPlay *p = *pp;
-
-    SVC_CALL(g_pAnimPlay_timer_services, 1, void, (int))(p->timerSync);
-    SVC_CALL(g_pAnimPlay_timer_services, 1, void, (int))(p->timerFrame);
-    if (g_nAnimLipsyncOn != 0 && g_pAnimPlay_sound_services != 0)
-        SVC_CALL(g_pAnimPlay_sound_services, 3, void, (void))();
-    Mem_DumpLog();
-    SVC_CALL(g_pAnm_streamer_services, 1, void, (void *))(&p->stream);
-    if (*pp != 0)
-        SVC_CALL(g_pAnm_memory_services, 1, void, (void *, const char *, int))(*pp, ANIM_FILE, 0x1d4);
-    *pp = 0;
-    SVC_CALL(g_pAnm_animframe_services, 0, void, (void))();
-}
-
 /* One step of the player, called from the main loop: shows the next frame when the frame timer has marked one as due
  * (state 5 is the first step: it just starts the frame decoder).  The sound position is compared with the frame counter
  * (66.67 ms per frame) and the frame delay is sped up or slowed down by 1/8 or 1/16 of the nominal delay, within 3/4 .. 4/3
@@ -423,37 +345,6 @@ int anm_Render(void *pIn, int a2, int a3, int a4, int a5, int a6, int a7, int a8
         return 1;
     }
     return p->state;
-}
-
-/* Puts the decoder state of a player back to "no file open" (the object is zeroed in parts; the streamer is reset). */
-int anm_animator_Initialize(void *pIn)
-{
-    AnimPlay *p = (AnimPlay *)pIn;
-    SVC_CALL(g_pAnm_streamer_services, 6, void, (void *))(p->stream);
-    p->f0c = 0;
-    p->f28 = 0;
-    p->f34 = 0x6e756c6c;            /* "null" */
-    p->f2c = 1;
-    p->f38 = 0;
-    p->f54 = 0;
-    p->f58 = 0;
-    p->f40 = 0;
-    p->f44 = 0;
-    return 0;
-}
-
-/* Opens the file through the streamer and hands the decoder its buffers; 0 or -1. */
-int anm_animator_NewAnim(void *pIn, char *name, uint flags, int a4, int a5, int a6)
-{
-    AnimPlay *p = (AnimPlay *)pIn;
-
-    p->f40 = a6;
-    p->f3c = flags;
-    if (SVC_CALL(g_pAnm_streamer_services, 2, int, (void *, char *, int))(p->stream, name, 8) != 0)
-        return -1;
-    p->f38 = 1;
-    FUN_004c3d90((int)p, a4, a5);
-    return 0;
 }
 
 /* ===================================================================================================================

@@ -182,26 +182,6 @@ void InsaneTimer_StopThread(void)
     }
 }
 
-int InsaneTimer_module_startup(void)
-{
-    g_pTimerWorkspace = ((void *(*)(const char *, uint))g_pInsaneTimer_share_services[2])(s_MEMORY_workspace_004f14ec, g_dwTimerWorkspaceSize);
-    if (g_pTimerWorkspace == 0) {
-        ((void (*)(const char *))g_pInsaneTimer_share_services[8])(s_Timer_Module__Cannot_allocate_me_004f3c58);
-        return 0xffffffff;
-    }
-    return InsaneTimer_StartThread();
-}
-
-void sys_Disable(void)
-{
-    g_nTimerHold++;
-}
-
-void sys_Enable(void)
-{
-    g_nTimerHold--;
-}
-
 /* callback(slot, user): returns the slot (1..19) or 0 when the table is full */
 int sys_Alloc(void *callback, int period, uint flags, int user)
 {
@@ -368,15 +348,6 @@ int dsn_initialize(int rate, int unused, void *mix)
     return 0;
 }
 
-void dsn_terminate(void)
-{
-    if (g_nStreamTimerId != 0)
-        ((DsndClock *)g_pDsndDriver_timer_services)->removeTimer(g_nStreamTimerId);
-    g_nStreamTimerId = 0;
-    Mixer_Free(g_pDsndMemSvc);
-    DsndDriver_ReleaseDirectSound();
-}
-
 /* volume 0..127 */
 void dsn_setvol(uint volume)
 {
@@ -474,22 +445,6 @@ void DsndDriver_CreateStreamBuffer(int blocks)
     g_bStreamBufferBusy = 0;
 }
 
-void DsndDriver_ReleaseDirectSound(void)
-{
-    if (g_pStreamDSBuffer != 0)
-        COMX(g_pStreamDSBuffer, DSB_RELEASE);
-    g_pStreamDSBuffer = 0;
-    if (g_pStreamDSPrimary != 0 && g_bStreamPrimaryOwned != 0) {
-        COMX(g_pStreamDSPrimary, DSB_SETVOLUME, g_nStreamSavedVolume);
-        COMX(g_pStreamDSPrimary, DSB_RELEASE);
-        g_pStreamDSPrimary = 0;
-        g_bStreamPrimaryOwned = 0;
-    }
-    if (g_pStreamDS != 0)
-        COMX(g_pStreamDS, DS_RELEASE);
-    g_pStreamDS = 0;
-}
-
 /* Index of the block the play cursor is in, or -1 */
 int DSound_GetPlayBlock(void)
 {
@@ -543,25 +498,6 @@ void dsn_fill_thread(void)
         }
     }
     ((DsndClock *)g_pDsndDriver_timer_services)->setPeriod(g_nStreamTimerId, 0x1234dc / (((int)g_dwStreamRate + (((int)g_dwStreamRate >> 31) & 0x3ff)) >> 10));
-}
-
-/* Releases the DirectSound objects of the main sound system (DSound_Init) */
-void DSound_Shutdown(void)
-{
-    if (PTR_008d3674 != 0) {
-        COMX(PTR_008d3674, DS_RELEASE);
-        PTR_008d3674 = 0;
-    }
-    if (g_pDSoundPrimary != 0) {
-        COMX(g_pDirectSound, DS_SETCOOPERATIVELEVEL, UINT_008d3654, 2);
-        COMX(g_pDSoundPrimary, DSB_SETVOLUME, UINT_008d3658);
-        COMX(g_pDSoundPrimary, DSB_RELEASE);
-        g_pDSoundPrimary = 0;
-    }
-    if (g_pDirectSound != 0) {
-        COMX(g_pDirectSound, DS_RELEASE);
-        g_pDirectSound = 0;
-    }
 }
 
 /* IDirectSoundBuffer::SetVolume on the primary buffer: the attenuation in 1/100 dB is (1 - v)^2 * -5000 for a

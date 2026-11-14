@@ -5448,8 +5448,6 @@ undefined4 __cdecl TgRestore(undefined4 *param_1)
 }
 
 /* ---- 0x1000b220  TgSetTrigger ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Unidentified function of stream tracks (Stream_LoadData and friends) - module name inferred
    Original name TgSetTrigger (the remaster's GrimFandango (Linux): the only unmatched callee of
    ImSetTrigger; 1 matched neighbours agree, 0 disagree); was Im_SetTriggerImpl. */
@@ -5531,8 +5529,6 @@ TgSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,i
   } while (iVar2 != 0);
   return 0;
 }
-#endif
-
 
 /* ---- 0x1000b2e0  TgCheckTrigger ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
@@ -5788,8 +5784,6 @@ LAB_1000b52c:
 
 
 /* ---- 0x1000b570  TgDeferCommand ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Unidentified function of stream tracks (Stream_LoadData and friends) - module name inferred
    Original name TgDeferCommand (the remaster's GrimFandango (Linux): the only unmatched callee of
    ImDeferCommand; 1 matched neighbours agree, 0 disagree); was Im_DeferCommandImpl. */
@@ -5832,8 +5826,6 @@ TgDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6
   } while (iVar2 < 8);
   return 0xfffffffa;
 }
-#endif
-
 
 /* ---- 0x1000b5e0  TgIntHandler ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred

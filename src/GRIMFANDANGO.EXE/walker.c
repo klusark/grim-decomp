@@ -841,8 +841,6 @@ void __thiscall Puck_Rotate(Puck *this,float angle)
 
 
 /* ---- 0x004a8450  Puck_PointAt ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name Puck_PointAt (the remaster's GrimFandango (Linux): Puck::PointAt in the remaster (a
    C++ method there); the only unmatched callee of Lua_PointActorAt; the only unmatched callee of
    Lua_TurnActorTo; 6 matched neighbours agree, 0 disagree); was Walker_TurnToPoint. */
@@ -878,8 +876,6 @@ float __thiscall Puck_PointAt(Puck *this,float *point,float maxTurn)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004a85b0  Puck_Constrain ---- */

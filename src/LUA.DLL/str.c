@@ -19,6 +19,7 @@ void str_sub(void)
   int iVar6;
   char *pcVar7;
   longlong lVar8;
+  float fVar9;
   
   pcVar2 = (char *)luaL_check_string(1);
   uVar5 = 0xffffffff;
@@ -30,9 +31,11 @@ void str_sub(void)
     pcVar7 = pcVar7 + 1;
   } while (cVar1 != '\0');
   iVar6 = ~uVar5 - 1;
-  lVar8 = FTOL(luaL_check_number(2));
+  fVar9 = luaL_check_number(2);
+  lVar8 = FTOL((float10)fVar9);
   iVar3 = (int)lVar8;
-  lVar8 = FTOL(luaL_opt_number(3,-1.0));
+  fVar9 = luaL_opt_number(3,-1.0);
+  lVar8 = FTOL((float10)fVar9);
   iVar4 = (int)lVar8;
   if (iVar3 < 0) {
     iVar3 = iVar3 + 1 + iVar6;
@@ -139,9 +142,11 @@ void __cdecl str_rep(void)
   uint *puVar1;
   int iVar2;
   longlong lVar3;
+  float fVar4;
   
   puVar1 = (uint *)luaL_check_string(1);
-  lVar3 = FTOL(luaL_check_number(2));
+  fVar4 = luaL_check_number(2);
+  lVar3 = FTOL((float10)fVar4);
   iVar2 = (int)lVar3;
   luaL_resetbuffer();
   if (0 < iVar2) {
@@ -189,9 +194,11 @@ void __cdecl str_ascii(void)
   uint uVar4;
   char *pcVar5;
   longlong lVar6;
+  float fVar7;
   
   pcVar2 = (char *)luaL_check_string(1);
-  lVar6 = FTOL(luaL_opt_number(2,1.0));
+  fVar7 = luaL_opt_number(2,1.0);
+  lVar6 = FTOL((float10)fVar7);
   uVar4 = (int)lVar6 - 1;
   if (-1 < (int)uVar4) {
     uVar3 = 0xffffffff;
@@ -431,11 +438,13 @@ void __cdecl str_find(void)
   uint uVar10;
   char *pcVar11;
   longlong lVar12;
+  float fVar13;
   #define aiStack_4c (*(int (*)[19])(_frame + (0x60 - 0x4c)))
   
   pcVar3 = (char *)luaL_check_string(1);
   pbVar4 = (byte *)luaL_check_string(2);
-  lVar12 = FTOL(luaL_opt_number(3,1.0));
+  fVar13 = luaL_opt_number(3,1.0);
+  lVar12 = FTOL((float10)fVar13);
   uVar10 = (int)lVar12 - 1;
   if (-1 < (int)uVar10) {
     uVar9 = 0xffffffff;
@@ -755,6 +764,7 @@ void __cdecl str_gsub(void)
   uint uVar6;
   bool bVar7;
   longlong lVar8;
+  float fVar9;
   #define iStack_60 (*(int *)(_frame + (0x70 - 0x60)))
   #define aiStack_4c (*(int (*)[19])(_frame + (0x70 - 0x4c)))
   
@@ -769,7 +779,8 @@ void __cdecl str_gsub(void)
     uVar1 = *puVar5;
     puVar5 = (uint *)((int)puVar5 + 1);
   } while ((char)uVar1 != '\0');
-  lVar8 = FTOL(luaL_opt_number(4,(float)~uVar6));
+  fVar9 = luaL_opt_number(4,(float)~uVar6);
+  lVar8 = FTOL((float10)fVar9);
   bVar7 = (char)*piVar3 == '^';
   if (bVar7) {
     piVar3 = (int *)((int)piVar3 + 1);
@@ -962,8 +973,8 @@ void __cdecl str_format(void)
         case 'o':
         case 'u':
         case 'x':
-          luaL_check_number(iVar5);
-          _ftol();
+          fVar7 = luaL_check_number(iVar5);
+          FTOL((float10)fVar7);
           sprintf(buf,&cStack_c8);
           break;
         case 'q':

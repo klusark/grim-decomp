@@ -708,8 +708,6 @@ TObject * __cdecl luaA_protovalue(TObject *o)
 }
 
 /* ---- 0x10001990  lua_gettask ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 int __cdecl lua_gettask(int obj)
 
 {
@@ -717,13 +715,11 @@ int __cdecl lua_gettask(int obj)
   
                     /* 0x1990  37  lua_gettask */
   if ((obj != 0) && (g_pLuaState->pStack[obj + -1].nTtype == -6)) {
-    lVar1 = _ftol();
+    lVar1 = FTOL((float10)PUN(float,g_pLuaState->pStack[obj + -1].dwValue));
     return (int)lVar1;
   }
   return -1;
 }
-#endif
-
 
 /* ---- 0x100019c0  lua_pushtask ---- */
 undefined4 __cdecl lua_pushtask(int param_1)
@@ -1516,8 +1512,6 @@ uint __cdecl LuaSaveWriter(undefined4 param_1,int param_2)
 }
 
 /* ---- 0x10002760  lua_Restore ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 uint __cdecl lua_Restore(void *readFunc)
 
 {
@@ -1584,8 +1578,6 @@ uint __cdecl lua_Restore(void *readFunc)
 #undef iStack_18
 #undef pLStack_10
 #undef uStack_14
-
-#endif
 
 
 /* ---- 0x10002900  Lua_Terminate ---- */

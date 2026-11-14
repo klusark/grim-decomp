@@ -102,72 +102,6 @@ typedef void (*SndFree)(void *p, const char *file, int line);
  *  Module entry points (LECMODULE insane_sound / SOUND insane)
  * =================================================================================================================== */
 
-int sou_sound_module(int *services, uint moduleSize)
-{
-    int i;
-
-    g_pSndServices = services;
-    g_dwSndModuleSize = moduleSize;
-    ((SndSvcRegister)services[0])(s_LECMODULE_insane_sound_004f3e5c, &g_apfnSoundModule);
-    ((SndSvcRegister)g_pSndServices[0])(s_SOUND_insane_004f3e4c, &g_apfnSoundInterface);
-    g_pSndDriver = 0;
-    g_nSndOpenRate = 0x5622;
-    g_nSndOpenLimit = 64000;
-    g_nSndTrackExtra = 0;
-    g_bSndSwapPan = 0;
-    g_nSndMixCalls = 0;
-    g_dwSndDriverModuleSize = 0;
-    for (i = 0; i < 16; i++)
-        g_adwSndBufferSizes[i] = (i > 0 ? 0 : 100000);
-    g_adwSndBufferSizes[0] = 500000;
-    return 0;
-}
-
-void SoundModule_module_terminate(void)
-{
-    ((SndSvcName)g_pSndServices[1])(s_SOUND_insane_004f3e4c);
-    ((SndSvcName)g_pSndServices[1])(s_LECMODULE_insane_sound_004f3e5c);
-}
-
-/* Gets the workspace allocator, the external sync clock and the sound driver from the module manager and opens the
- * sound system with the configured buffer sizes. */
-int SoundModule_module_startup(void)
-{
-    uint driverSize;
-
-    g_pSndMemory = ((SndSvcGet)g_pSndServices[2])(s_MEMORY_workspace_004f14ec, g_dwSndModuleSize);
-    g_pSndClock = ((SndSvcGet)g_pSndServices[2])(s_TIMER_external_sync_004f3f1c, g_dwSndModuleSize);
-    driverSize = g_dwSndDriverModuleSize;
-    if (driverSize == 0)
-        driverSize = g_dwSndModuleSize;
-    g_pSndDriver = ((SndSvcGet)g_pSndServices[2])(s_SNDDRIVER_driver_004f3f08, driverSize);
-    if (g_pSndMemory == 0) {
-        ((SndSvcName)g_pSndServices[8])(s_Sound_Module__Cannot_allocate_me_004f3ed8);
-        return -1;
-    }
-    if (g_pSndClock == 0) {
-        ((SndSvcName)g_pSndServices[8])(s_Sound_Module__Cannot_allocate_ti_004f3ea8);
-        return -1;
-    }
-    if (g_pSndDriver == 0) {
-        ((SndSvcName)g_pSndServices[8])(s_Sound_Module__Cannot_allocate_sn_004f3e74);
-        return -1;
-    }
-    return engine_Initialize(g_nSndOpenRate, g_nSndOpenLimit, g_adwSndBufferSizes[0], g_adwSndBufferSizes[1],
-                            g_adwSndBufferSizes[2], g_adwSndBufferSizes[3], g_adwSndBufferSizes[4], g_adwSndBufferSizes[5],
-                            g_adwSndBufferSizes[6], g_adwSndBufferSizes[7], g_adwSndBufferSizes[8], g_adwSndBufferSizes[9],
-                            g_adwSndBufferSizes[10], g_adwSndBufferSizes[11], g_adwSndBufferSizes[12],
-                            g_adwSndBufferSizes[13], g_adwSndBufferSizes[14], g_adwSndBufferSizes[15], 0);
-}
-
-void SoundModule_module_shutdown(void)
-{
-    ((SndSvcName)g_pSndServices[3])((const char *)g_pSndMemory);
-    ((SndSvcName)g_pSndServices[3])((const char *)g_pSndDriver);
-    ((SndSvcName)g_pSndServices[3])((const char *)g_pSndClock);
-    SoundModule_Close();
-}
-
 /* rate / limit, then a zero terminated list of voice buffer sizes (one voice per entry).  Opens the driver with
  * sou_engine_fill.  Returns 0 or -1. */
 int engine_Initialize(int rate, int limit, uint size, ...)
@@ -197,26 +131,6 @@ int engine_Initialize(int rate, int limit, uint size, ...)
     g_bSndClass0 = 1;
     ((void (*)(int))g_pSndClock[8])(0);
     return 0;
-}
-
-int SoundModule_Close(void)
-{
-    int i;
-
-    if (g_bSndDriverOpen != 0) {
-        ((void (*)(void))g_pSndDriver[1])();
-        g_bSndDriverOpen = 0;
-    }
-    for (i = 0; i < g_nSndVoiceCount; i++) {
-        if (g_aSndVoices[i].buffer != 0)
-            SND_FREE(g_aSndVoices[i].buffer, 0x1a8);
-        g_aSndVoices[i].buffer = 0;
-        if (g_aSndVoices[i].block != 0)
-            SND_FREE(g_aSndVoices[i].block, 0x1a9);
-        g_aSndVoices[i].block = 0;
-    }
-    g_nSndVoiceCount = 0;
-    return g_nSndMixCalls;
 }
 
 /* Adds a voice with a ring buffer of `size` bytes (reduced when the allocation fails, but never to less than `limit`
@@ -315,27 +229,6 @@ void sou_engine_Start(byte *p, int id, int volume, int pan, uint flags)
  *  Simple accessors
  * =================================================================================================================== */
 
-void sou_engine_Pause(void)
-{
-    g_nSndPause++;
-}
-
-void sou_engine_Resume(void)
-{
-    if (g_nSndPause != 0)
-        g_nSndPause--;
-}
-
-void sou_engine_StopAll(void)
-{
-    int i;
-
-    for (i = 0; i < g_nSndVoiceCount; i++) {
-        g_aSndVoices[i].state = 0;
-        g_aSndVoices[i].id = 0xffffff01;
-    }
-}
-
 int sou_engine_GetHVol(void)
 {
     if (g_pSndDriver != 0)
@@ -370,11 +263,6 @@ count:
         int rate = sou_engine_GetRate();
         return (int)(long long)(samples / ((double)rate * 0.001));
     }
-}
-
-void SoundModule_SyncClock(void)
-{
-    g_nSndSyncTime = ((int (*)(void))g_pSndClock[6])();
 }
 
 /* Adds `ms` (a double count of timer ticks, 1193180 Hz) to the clock and passes the whole ticks to the sync clock;

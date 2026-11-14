@@ -119,8 +119,6 @@ int __cdecl dsn_initialize(int rate,int unused,void *mix)
 
 
 /* ---- 0x004d25f0  dsn_terminate ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name dsn_terminate (the remaster's GrimFandango (Linux): slot 1 of the
    "SNDDRIVER=insane_dsnd" service table); was DsndDriver_Close. */
@@ -136,8 +134,6 @@ void dsn_terminate(void)
   DsndDriver_ReleaseDirectSound();
   return;
 }
-#endif
-
 
 /* ---- 0x004d2630  dsn_setvol ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -381,8 +377,6 @@ void __cdecl DsndDriver_CreateStreamBuffer(int blocks)
 
 
 /* ---- 0x004d2bf0  DsndDriver_ReleaseDirectSound ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
 void DsndDriver_ReleaseDirectSound(void)
@@ -404,5 +398,3 @@ void DsndDriver_ReleaseDirectSound(void)
   g_pStreamDS = (void *)0x0;
   return;
 }
-#endif
-
