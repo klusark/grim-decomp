@@ -548,11 +548,6 @@ int Mixer_ConvertTo16(short *dst, int frames)
     return 0;
 }
 
-void sou_mixer_end(short *dst, int frames)
-{
-    Mixer_ConvertTo16(dst, frames);
-}
-
 /* Callback the sound module hands to the driver: translates a format code to MixVoice arguments.
  * format: 0 = 8 bit mono, 1 = 8 bit stereo, 2 = 16 bit mono, 3 = 16 bit stereo (both signed, "offset binary"
  * flag clear), 4 / 5 = 16 bit mono / stereo with the flag set; anything else passes the code itself for bits,

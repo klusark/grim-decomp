@@ -489,12 +489,12 @@
 | 00407f90 | rdCache_TriCompare | rdcache.c | 15 |
 | 00407fd0 | rdCache_DrawFaceN | rdcache.c | 480 |
 | 00408800 | FUN_00408800 | rdcache.c | 10 |
-| 00408af0 | rdCache_DrawFaceZ | rdcache.c | 1 |
+| 00408af0 | rdCache_DrawFaceZ | rdcache.c | 461 |
 | 00409580 | rdCache_DrawFaceUser | rdmodel.c | 1 |
 | 00409d20 | rdCache_ProcFaceCompare | rdmodel.c | 14 |
 | 0040d140 | rdModel3_DrawHNode | rdmodel.c | 44 |
 | 0040d230 | rdModel3_DrawMeshImpl | rdmodel.c | 1 |
-| 0040d880 | rdModel3_DrawFace | rdmodel.c | 1 |
+| 0040d880 | rdModel3_DrawFace | rdmodel.c | 176 |
 | 00409d50 | rdCache_InsertFace | rdprimit3.c | 1 |
 | 0040dcc0 | rdPrimit3_DrawLine | rdprimit3.c | 1 |
 | 0040dde0 | rdPrimit3_DrawPoint | rdprimit3.c | 1 |
@@ -578,7 +578,7 @@
 | 0040f650 | rdAFRaster_DrawNGonLW | rdraster.c | 1 |
 | 0040f6d0 | rdAFRaster_DrawSpanNGonLW_8 | rdraster.c | 1 |
 | 0040f710 | rdAFRaster_DrawSpanNGonLW_16 | rdraster.c | 1 |
-| 0040f750 | rdRaster_EdgeStepFlat | rdraster.c | 1 |
+| 0040f750 | rdRaster_EdgeStepFlat | rdraster.c | 9 |
 | 0040f770 | rdAFRaster_SetupEdgeNGonLW | rdraster.c | 1 |
 | 0040fa20 | rdAFRaster_SetupNGonLS | rdraster.c | 1 |
 | 0040fa80 | rdAFRaster_DrawNGonLS | rdraster.c | 1 |
@@ -588,7 +588,7 @@
 | 0040ffe0 | rdAFRaster_SetupEdgeNGonFS | rdraster.c | 1 |
 | 00410290 | rdAFRaster_SetupNGonGS | rdraster.c | 1 |
 | 00410330 | rdAFRaster_DrawNGonGS | rdraster.c | 1 |
-| 004104b0 | FUN_004104b0 | rdraster.c | 1 |
+| 004104b0 | FUN_004104b0 | rdraster.c | 11 |
 | 004104e0 | rdAFRaster_SetupEdgeNGonGS | rdraster.c | 1 |
 | 004108b0 | rdAFRaster_SetupNGonLAT | rdraster.c | 1 |
 | 00410970 | rdAFRaster_DrawNGonLAT | rdraster.c | 1 |
@@ -599,7 +599,7 @@
 | 004114f0 | rdAFRaster_DrawSpanNGonMLAT_16 | rdraster.c | 1 |
 | 00411630 | rdAFRaster_SetupNGonFAT | rdraster.c | 1 |
 | 00411740 | rdAFRaster_DrawNGonFAT | rdraster.c | 1 |
-| 00411b70 | FUN_00411b70 | rdraster.c | 1 |
+| 00411b70 | FUN_00411b70 | rdraster.c | 12 |
 | 00411ba0 | rdAFRaster_SetupEdgeNGonFAT | rdraster.c | 1 |
 | 00412090 | rdAFRaster_SetupNGonMFAT | rdraster.c | 1 |
 | 004121a0 | rdAFRaster_DrawNGonMFAT | rdraster.c | 1 |
@@ -607,7 +607,7 @@
 | 004123b0 | rdAFRaster_DrawSpanNGonMFAT_16 | rdraster.c | 1 |
 | 004124f0 | rdAFRaster_SetupNGonGAT | rdraster.c | 1 |
 | 004125c0 | rdAFRaster_DrawNGonGAT | rdraster.c | 1 |
-| 004129f0 | FUN_004129f0 | rdraster.c | 1 |
+| 004129f0 | FUN_004129f0 | rdraster.c | 13 |
 | 00412a30 | rdAFRaster_SetupEdgeNGonGAT | rdraster.c | 1 |
 | 00413040 | rdAFRaster_SetupNGonMGAT | rdraster.c | 1 |
 | 00413110 | rdAFRaster_DrawNGonMGAT | rdraster.c | 1 |
@@ -622,8 +622,8 @@
 | 00414530 | rdAFRaster_DrawSpanNGonMLIT_16 | rdraster.c | 1 |
 | 00414be0 | rdAFRaster_SetupNGonFIT | rdraster.c | 1 |
 | 00414d20 | rdAFRaster_DrawNGonFIT | rdraster.c | 1 |
-| 00415180 | FUN_00415180 | rdraster.c | 1 |
-| 004151c0 | FUN_004151c0 | rdraster.c | 1 |
+| 00415180 | FUN_00415180 | rdraster.c | 12 |
+| 004151c0 | FUN_004151c0 | rdraster.c | 9 |
 | 004151d0 | rdAFRaster_SetupEdgeNGonFIT | rdraster.c | 1 |
 | 004154c0 | rdAFRaster_SetupNGonMFIT | rdraster.c | 1 |
 | 00415600 | rdAFRaster_DrawNGonMFIT | rdraster.c | 1 |
@@ -631,8 +631,8 @@
 | 00415dc0 | rdAFRaster_DrawSpanNGonMFIT_16 | rdraster.c | 1 |
 | 00416470 | rdAFRaster_SetupNGonGIT | rdraster.c | 1 |
 | 00416580 | rdAFRaster_DrawNGonGIT | rdraster.c | 1 |
-| 004169f0 | rdAFRaster_AdvanceLeftEdgeNGonGIT | rdraster.c | 1 |
-| 00416a30 | rdAFRaster_AdvanceRightEdgeNGonGIT | rdraster.c | 1 |
+| 004169f0 | rdAFRaster_AdvanceLeftEdgeNGonGIT | rdraster.c | 15 |
+| 00416a30 | rdAFRaster_AdvanceRightEdgeNGonGIT | rdraster.c | 12 |
 | 00416a50 | rdAFRaster_SetupEdgeNGonGIT | rdraster.c | 1 |
 | 00416e70 | rdAFRaster_SetupNGonMGIT | rdraster.c | 1 |
 | 00416f80 | rdAFRaster_DrawNGonMGIT | rdraster.c | 1 |
@@ -2383,7 +2383,7 @@
 | 004bdca0 | Insane_Blit8To16Doubled | insane.c | 45 |
 | 004bdd50 | Insane_BlitRowsDual | insane.c | 27 |
 | 004bddb0 | Insane_BlitRows16 | insane.c | 1 |
-| 004c3df0 | msc_MemCopy | insane.c | 1 |
+| 004c3df0 | msc_MemCopy | insane.c | 9 |
 | 004c3e10 | Insane_MemCopy | insane.c | 1 |
 | 004bd500 | SmushPlay_Pause | smush.c | 11 |
 | 004bd520 | SmushPlay_Resume | smush.c | 11 |
@@ -2422,7 +2422,7 @@
 | 004d2c60 | DSound_GetPlayBlock | mixer.c | 1 |
 | 004d2d40 | sou_mixer_initialize | mixer.c | 1 |
 | 004d2d90 | sou_mixer_mix | mixer.c | 1 |
-| 004d2e60 | sou_mixer_end | mixer.c | 1 |
+| 004d2e60 | sou_mixer_end | mixer.c | 10 |
 | 004d2e80 | Mixer_InitTables | mixer.c | 1 |
 | 004d2fb0 | Mixer_Free | mixer.c | 1 |
 | 004d3010 | sou_mixer_start | mixer.c | 1 |
@@ -2589,8 +2589,8 @@
 | 004d1690 | SoundModule_SyncClock | soundmodule.c | 1 |
 | 004d16a0 | sou_engine_fill | soundmodule.c | 1 |
 | 004d2340 | SoundModule_AdvanceClock | soundmodule.c | 1 |
-| 004d23e0 | Dsnd_MemCopyCdecl | dsnd.c | 1 |
-| 004d2400 | Dsnd_MemFillCdecl | dsnd.c | 1 |
+| 004d23e0 | Dsnd_MemCopyCdecl | dsnd.c | 6 |
+| 004d2400 | Dsnd_MemFillCdecl | dsnd.c | 6 |
 | 004d2cb0 | Dsnd_MemCopy | dsnd.c | 1 |
 | 004d2ce0 | Dsnd_MemFill | dsnd.c | 1 |
 | 004d2420 | sou_dsnd_module | dsnddriver.c | 1 |
@@ -2600,8 +2600,8 @@
 | 004d2550 | dsn_initialize | dsnddriver.c | 1 |
 | 004d25f0 | dsn_terminate | dsnddriver.c | 1 |
 | 004d2630 | dsn_setvol | dsnddriver.c | 1 |
-| 004d27b0 | dsn_getvol | dsnddriver.c | 1 |
-| 004d27c0 | dsn_getrate | dsnddriver.c | 1 |
+| 004d27b0 | dsn_getvol | dsnddriver.c | 9 |
+| 004d27c0 | dsn_getrate | dsnddriver.c | 9 |
 | 004d2940 | DsndDriver_InitDirectSound | dsnddriver.c | 1 |
 | 004d2aa0 | DsndDriver_CreateStreamBuffer | dsnddriver.c | 1 |
 | 004d2bf0 | DsndDriver_ReleaseDirectSound | dsnddriver.c | 1 |

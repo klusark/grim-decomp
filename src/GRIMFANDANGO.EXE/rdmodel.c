@@ -693,8 +693,6 @@ LAB_0040d640:
 
 
 /* ---- 0x0040d880  rdModel3_DrawFace ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Original name rdModel3_DrawFace (the remaster's GrimFandango (Linux): the only unmatched caller
    of rdLight_CalcFaceIntensity; 3 matched neighbours agree, 0 disagree); was
@@ -870,6 +868,4 @@ LAB_0040dbd3:
 #undef local_20
 #undef local_24
 #undef local_c
-
-#endif
 
