@@ -1,5 +1,5 @@
 {
- "_comment": "Prototype fixes after the stored-prototype rounds (2026-11-14); replay after names/protos_all_dlls.json with tools/apply_logic_protos.py names/protos_fix_1.json. sputActor_GetActorHandle takes the actor only: its callers push lua_pushusertag's tag before the call, which the inferred `int tag` took (sputActor_SetSelectedActor then passed unaff_retaddr). Res_Touch and Str_ToLower return void: no caller uses the value, and what is in EAX at their end is whatever their last callee left (Res_MoveToFront is void, Str_ToLower ends with the terminator). Palette_FromFloatTable's double is at [esp+0x10]: Ghidra's __cdecl model aligned it to 0x14, so Palette_ApplyGamma's push of the table entry was read as the -4 dword plus the return address (\\\"stack\\\": custom storage).",
+ "_comment": "Prototype fixes after the stored-prototype rounds (2026-11-14); replay after names/protos_all_dlls.json with tools/apply_logic_protos.py names/protos_fix_1.json. sputActor_GetActorHandle takes the actor only: its callers push lua_pushusertag's tag before the call, which the inferred `int tag` took (sputActor_SetSelectedActor then passed unaff_retaddr). Res_Touch and Str_ToLower return void: no caller uses the value, and what is in EAX at their end is whatever their last callee left (Res_MoveToFront is void, Str_ToLower ends with the terminator). Palette_FromFloatTable's double is at [esp+0x10]: Ghidra's __cdecl model aligned it to 0x14, so Palette_ApplyGamma's push of the table entry was read as the -4 dword plus the return address (\\\"stack\\\": custom storage). TextObject_New takes (ctx, text) only: the body reads two stack arguments; the inferred durationMs / flags came from caller pushes for later calls (unaff_ registers in sputText_CreateActorText and the Lua text functions).",
  "GRIMFANDANGO.EXE": {
   "00490380": {
    "proto": "int sputActor_GetActorHandle(Actor *actor)",
@@ -19,6 +19,10 @@
    "stack": {
     "gamma": 16
    }
+  },
+  "0048c7e0": {
+   "proto": "TextObject * TextObject_New(TextContext *ctx, char *text)",
+   "cc": "__cdecl"
   }
  }
 }

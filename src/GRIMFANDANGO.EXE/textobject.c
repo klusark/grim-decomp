@@ -36,7 +36,7 @@ void __cdecl sputText_AddToQueue(TextObject *obj,int durationMs,int flags)
 }
 
 /* ---- 0x0048c7e0  TextObject_New ---- */
-TextObject * __cdecl TextObject_New(TextContext *ctx,char *text,int durationMs,int flags)
+TextObject * __cdecl TextObject_New(TextContext *ctx,char *text)
 
 {
   int *piVar1;
