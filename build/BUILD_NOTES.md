@@ -1915,3 +1915,14 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   and per channel the bits, shift and loss, with alpha (the palette pointer shares the red bits' word in indexed
   mode). The overrides in overrides_mixer_video.c take LecPixelFormat * now. video.c: 67 offset accesses -> 0.
   Clean room 0 of 5457.
+
+## Set, camera setup and object state types (2026-11-14)
+
+* names/types_set.json: Set (0x1b08, the 'SET ' resource: name, colormaps, setups, lights, lock, size, sound
+  parameters), Setup (300 bytes: name, camera position, background / z-buffer references, object state list),
+  ObjectState (0xfc: setup, state, two images, list links; ObjectState_Construct's `type` argument is the next state
+  it links in front of, now `next`), ObjectStateImage (0x74: rectangle, file name, bitmap reference, clean copy,
+  frame) and ResRef (0x34, the resource reference; only the data pointer named). sputRoom_GetCurrentRoom (committed
+  as `Set * (void)`), sputRoom_LoadRoom, the sputRoom_* functions taking a set, the ObjectState / ObjectStateImage
+  methods. set.c: 85 offset accesses -> 30, objstate.c 83 -> 13, lua.c 43 -> 7, engine.c 13 -> 7.
+* Clean room 0 of 5457.

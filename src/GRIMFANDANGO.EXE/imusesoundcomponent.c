@@ -25,7 +25,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
   byte bVar4;
   int iVar5;
   int iVar6;
-  void *set;
+  Set *set;
   uint uVar7;
   uint uVar8;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
@@ -47,7 +47,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
     }
     set = sputRoom_GetCurrentRoom();
     uVar7 = SoundsLoadStartSound(iVar2,*(int *)(iVar2 + 0x24),1);
-    if (set == (void *)0x0) {
+    if (set == (Set *)0x0) {
       return;
     }
     sputRoom_GetSoundParameters

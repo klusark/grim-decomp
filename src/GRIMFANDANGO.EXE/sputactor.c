@@ -40,13 +40,14 @@ uint __cdecl sputActor_Save(code *param_1)
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *actor;
   undefined4 *puVar1;
-  CostumeNode *pCVar2;
-  int *piVar3;
-  void *pvVar4;
-  int *piVar5;
-  Actor *pAVar6;
-  int iVar7;
-  int *piVar8;
+  void *pvVar2;
+  CostumeNode *pCVar3;
+  int *piVar4;
+  Set *pSVar5;
+  int *piVar6;
+  Actor *pAVar7;
+  int iVar8;
+  int *piVar9;
   #define iStack_a8 (*(int *)(_frame + (0xc0 - 0xa8)))
   #define iStack_a4 (*(int *)(_frame + (0xc0 - 0xa4)))
   #define iStack_a0 (*(int *)(_frame + (0xc0 - 0xa0)))
@@ -63,13 +64,13 @@ uint __cdecl sputActor_Save(code *param_1)
   (*param_1)(&g_nMaxActors,4);
   (*param_1)(&local_84,4);
   iStack_94 = 0;
-  pAVar6 = g_pActors;
+  pAVar7 = g_pActors;
   if (0 < g_nMaxActors) {
     iStack_98 = 0;
     do {
-      actor = (Actor *)((int)pAVar6->aPos + iStack_98 + -0xc);
-      if (*(int *)(pAVar6->aSetName + iStack_98 + 0x20) != 0) {
-        iStack_8c = ((int)actor - (int)pAVar6) / 0xa8;
+      actor = (Actor *)((int)pAVar7->aPos + iStack_98 + -0xc);
+      if (*(int *)(pAVar7->aSetName + iStack_98 + 0x20) != 0) {
+        iStack_8c = ((int)actor - (int)pAVar7) / 0xa8;
         (*param_1)(&iStack_8c,4);
         (*param_1)((int)actor->pColormapRef + 4,4);
         (*param_1)(&actor->dwFlags,4);
@@ -107,22 +108,22 @@ uint __cdecl sputActor_Save(code *param_1)
         (*param_1)(&uStack_88,4);
         iStack_9c = Actor_CountCostumes(actor);
         (*param_1)(&iStack_9c,4);
-        pCVar2 = actor->pCostumes;
+        pCVar3 = actor->pCostumes;
         if (-1 < iStack_9c + -1) {
-          piVar5 = aiStack_80 + iStack_9c + -1;
-          iVar7 = iStack_9c;
+          piVar6 = aiStack_80 + iStack_9c + -1;
+          iVar8 = iStack_9c;
           do {
-            *piVar5 = (int)pCVar2;
-            pCVar2 = pCVar2->pNext;
-            piVar5 = piVar5 + -1;
-            iVar7 = iVar7 + -1;
-          } while (iVar7 != 0);
+            *piVar6 = (int)pCVar3;
+            pCVar3 = pCVar3->pNext;
+            piVar6 = piVar6 + -1;
+            iVar8 = iVar8 + -1;
+          } while (iVar8 != 0);
         }
         iStack_a8 = 0;
         if (0 < iStack_9c) {
-          piVar5 = aiStack_80;
+          piVar6 = aiStack_80;
           do {
-            puVar1 = (undefined4 *)*piVar5;
+            puVar1 = (undefined4 *)*piVar6;
             (*param_1)(puVar1,4);
             (*param_1)(puVar1 + 3,0xc);
             (*param_1)(puVar1 + 6,4);
@@ -143,63 +144,63 @@ uint __cdecl sputActor_Save(code *param_1)
             (*param_1)(puVar1 + 0x20,4);
             Cos_SaveInstance(*puVar1,param_1);
             iStack_a8 = iStack_a8 + 1;
-            piVar5 = piVar5 + 1;
+            piVar6 = piVar6 + 1;
           } while (iStack_a8 < iStack_9c);
         }
         if (actor->pCostumes != (CostumeNode *)0x0) {
           iStack_a4 = 0;
-          for (pvVar4 = actor->pCostumes->pComponents; pvVar4 != (void *)0x0;
-              pvVar4 = *(void **)((int)pvVar4 + 400)) {
+          for (pvVar2 = actor->pCostumes->pComponents; pvVar2 != (void *)0x0;
+              pvVar2 = *(void **)((int)pvVar2 + 400)) {
             iStack_a4 = iStack_a4 + 1;
           }
           (*param_1)(&iStack_a4,4);
-          for (piVar5 = actor->pCostumes->pComponents; piVar5 != (int *)0x0;
-              piVar5 = (int *)piVar5[100]) {
-            (*param_1)(piVar5 + 0xe,4);
-            (*param_1)(piVar5 + 0xf,4);
-            (*param_1)(piVar5 + 0x12,4);
-            if (*(int *)piVar5[0x10] == 1) {
-              if (*piVar5 == 0) {
+          for (piVar6 = actor->pCostumes->pComponents; piVar6 != (int *)0x0;
+              piVar6 = (int *)piVar6[100]) {
+            (*param_1)(piVar6 + 0xe,4);
+            (*param_1)(piVar6 + 0xf,4);
+            (*param_1)(piVar6 + 0x12,4);
+            if (*(int *)piVar6[0x10] == 1) {
+              if (*piVar6 == 0) {
                 (*g_pStd_HS->pAssertFail)
                           (s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
               }
-              (*param_1)(*(undefined4 *)(piVar5[0x10] + 0x2c),*(int *)(piVar5[1] + 0x54) << 2);
+              (*param_1)(*(undefined4 *)(piVar6[0x10] + 0x2c),*(int *)(piVar6[1] + 0x54) << 2);
             }
             iStack_a0 = 0;
-            if ((piVar5[0x10] == 0) || (iVar7 = *(int *)(piVar5[0x10] + 0x14), iVar7 == 0)) {
+            if ((piVar6[0x10] == 0) || (iVar8 = *(int *)(piVar6[0x10] + 0x14), iVar8 == 0)) {
               (*param_1)(&iStack_a0,4);
             }
             else {
-              piVar8 = (int *)(iVar7 + 0x130);
-              iVar7 = 6;
-              piVar3 = piVar8;
+              piVar9 = (int *)(iVar8 + 0x130);
+              iVar8 = 6;
+              piVar4 = piVar9;
               do {
-                if (*piVar3 != 0) {
+                if (*piVar4 != 0) {
                   iStack_a0 = iStack_a0 + 1;
                 }
-                piVar3 = piVar3 + 0x4d;
-                iVar7 = iVar7 + -1;
-              } while (iVar7 != 0);
+                piVar4 = piVar4 + 0x4d;
+                iVar8 = iVar8 + -1;
+              } while (iVar8 != 0);
               (*param_1)(&iStack_a0,4);
               iStack_a8 = 6;
               do {
-                if (*piVar8 != 0) {
-                  (*param_1)(*piVar8,0x20);
-                  (*param_1)(piVar8 + -0x48,4);
-                  (*param_1)(piVar8 + -0x47,4);
-                  (*param_1)(piVar8 + -0x4a,4);
-                  (*param_1)(piVar8 + -2,4);
-                  (*param_1)(piVar8 + -1,4);
-                  (*param_1)(piVar8 + -0x44,4);
-                  (*param_1)(piVar8 + -0x43,4);
+                if (*piVar9 != 0) {
+                  (*param_1)(*piVar9,0x20);
+                  (*param_1)(piVar9 + -0x48,4);
+                  (*param_1)(piVar9 + -0x47,4);
+                  (*param_1)(piVar9 + -0x4a,4);
+                  (*param_1)(piVar9 + -2,4);
+                  (*param_1)(piVar9 + -1,4);
+                  (*param_1)(piVar9 + -0x44,4);
+                  (*param_1)(piVar9 + -0x43,4);
                 }
-                piVar8 = piVar8 + 0x4d;
+                piVar9 = piVar9 + 0x4d;
                 iStack_a8 = iStack_a8 + -1;
               } while (iStack_a8 != 0);
             }
           }
         }
-        pAVar6 = g_pActors;
+        pAVar7 = g_pActors;
         if (actor->pExtra != (ActorExtra *)0x0) {
           (*param_1)(actor->pExtra,4);
           (*param_1)(actor->pExtra->aLookAt + 1,4);
@@ -219,13 +220,13 @@ uint __cdecl sputActor_Save(code *param_1)
           (*param_1)(actor->pExtra->aDest + 1,4);
           (*param_1)(actor->pExtra->aDest + 2,4);
           (*param_1)(&actor->pExtra->nPathNodes,4);
-          iVar7 = 0;
+          iVar8 = 0;
           do {
-            (*param_1)((int)actor->pExtra->aPath[0] + iVar7,4);
-            (*param_1)((int)actor->pExtra->aPath[0] + iVar7 + 4,4);
-            (*param_1)((int)actor->pExtra->aPath[0] + iVar7 + 8,4);
-            iVar7 = iVar7 + 0xc;
-          } while (iVar7 < 0x168);
+            (*param_1)((int)actor->pExtra->aPath[0] + iVar8,4);
+            (*param_1)((int)actor->pExtra->aPath[0] + iVar8 + 4,4);
+            (*param_1)((int)actor->pExtra->aPath[0] + iVar8 + 8,4);
+            iVar8 = iVar8 + 0xc;
+          } while (iVar8 < 0x168);
           (*param_1)(&actor->pExtra->nPathIndex,4);
           (*param_1)(&actor->pExtra->pPuck,4);
           (*param_1)(&actor->pExtra->nFollowBoxes,4);
@@ -252,44 +253,44 @@ uint __cdecl sputActor_Save(code *param_1)
           (*param_1)(&actor->pExtra->dwTalkColor,4);
           (*param_1)(&actor->pExtra->flTimeScale,4);
           (*param_1)(&actor->pExtra->nInvClipNode,4);
-          pvVar4 = sputRoom_GetCurrentRoom();
-          if (pvVar4 == (void *)0x0) {
+          pSVar5 = sputRoom_GetCurrentRoom();
+          if (pSVar5 == (Set *)0x0) {
             sputActor_ResetShadows(actor);
           }
           iStack_a8 = 0x1f8;
           do {
-            iVar7 = (int)actor->pExtra->aLookAt + iStack_a8;
+            iVar8 = (int)actor->pExtra->aLookAt + iStack_a8;
             iStack_a4 = 0;
-            (*param_1)(iVar7,4);
-            (*param_1)(iVar7 + 4,4);
-            (*param_1)(iVar7 + 8,4);
-            (*param_1)(iVar7 + 0xc,4);
-            (*param_1)(iVar7 + 0x10,4);
-            (*param_1)(iVar7 + 0x14,4);
-            (*param_1)(iVar7 + 0x18,4);
-            (*param_1)(iVar7 + 0x1c,4);
-            (*param_1)(iVar7 + 0x20,4);
-            piVar8 = (int *)(iVar7 + 0x24);
-            iVar7 = 0xc;
-            piVar5 = piVar8;
+            (*param_1)(iVar8,4);
+            (*param_1)(iVar8 + 4,4);
+            (*param_1)(iVar8 + 8,4);
+            (*param_1)(iVar8 + 0xc,4);
+            (*param_1)(iVar8 + 0x10,4);
+            (*param_1)(iVar8 + 0x14,4);
+            (*param_1)(iVar8 + 0x18,4);
+            (*param_1)(iVar8 + 0x1c,4);
+            (*param_1)(iVar8 + 0x20,4);
+            piVar9 = (int *)(iVar8 + 0x24);
+            iVar8 = 0xc;
+            piVar6 = piVar9;
             do {
-              if (*piVar5 != 0) {
+              if (*piVar6 != 0) {
                 iStack_a4 = iStack_a4 + 1;
               }
-              piVar5 = piVar5 + 1;
-              iVar7 = iVar7 + -1;
-            } while (iVar7 != 0);
+              piVar6 = piVar6 + 1;
+              iVar8 = iVar8 + -1;
+            } while (iVar8 != 0);
             (*param_1)(&iStack_a4,4);
-            iVar7 = 0xc;
+            iVar8 = 0xc;
             do {
-              if (*piVar8 != 0) {
-                (*param_1)(*piVar8,0x20);
+              if (*piVar9 != 0) {
+                (*param_1)(*piVar9,0x20);
               }
-              piVar8 = piVar8 + 1;
-              iVar7 = iVar7 + -1;
-            } while (iVar7 != 0);
+              piVar9 = piVar9 + 1;
+              iVar8 = iVar8 + -1;
+            } while (iVar8 != 0);
             iStack_a8 = iStack_a8 + 0x54;
-            pAVar6 = g_pActors;
+            pAVar7 = g_pActors;
           } while (iStack_a8 < 0x3f0);
         }
       }
@@ -299,7 +300,7 @@ uint __cdecl sputActor_Save(code *param_1)
   }
   iStack_90 = -1;
   if (g_pSelectedActor != (Actor *)0x0) {
-    iStack_90 = ((int)g_pSelectedActor - (int)pAVar6) / 0xa8;
+    iStack_90 = ((int)g_pSelectedActor - (int)pAVar7) / 0xa8;
   }
   (*param_1)(&iStack_90,4);
   return 0;
