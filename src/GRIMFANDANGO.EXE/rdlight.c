@@ -187,39 +187,39 @@ rdLight_CalcFaceIntensity
   uint uVar4;
   float *pfVar5;
   float fVar6;
-  #define local_10 (*(float (*)[3])(_frame + (0x20 - 0x10)))
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  #define local_10 (*(float *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   uVar4 = 0;
-  local_10[0] = 0.0;
+  local_10 = 0.0;
   if (param_4 != 0) {
     pfVar5 = (float *)(param_2 + 8);
     do {
       iVar1 = *param_1;
       if (*(int *)(iVar1 + 8) != 0) {
         piVar2 = *(int **)(param_5 + 0x18);
-        local_10[1] = pfVar5[-2] - *(float *)(param_7 + *piVar2 * 0xc);
-        local_10[2] = pfVar5[-1] - *(float *)(param_7 + 4 + *piVar2 * 0xc);
-        fVar3 = *pfVar5 - *(float *)(param_7 + 8 + *piVar2 * 0xc);
-        if (fVar3 * fVar3 + local_10[2] * local_10[2] + local_10[1] * local_10[1] <
+        local_c[0] = pfVar5[-2] - *(float *)(param_7 + *piVar2 * 0xc);
+        local_c[1] = pfVar5[-1] - *(float *)(param_7 + 4 + *piVar2 * 0xc);
+        local_c[2] = *pfVar5 - *(float *)(param_7 + 8 + *piVar2 * 0xc);
+        if (local_c[2] * local_c[2] + local_c[1] * local_c[1] + local_c[0] * local_c[0] <
             *(float *)(iVar1 + 0x34) * *(float *)(iVar1 + 0x34)) {
-          fVar6 = rdVector_Normalize3Acc(local_10 + 1);
-          fVar3 = local_10[1] * *param_6 + param_6[1] * local_10[2] + param_6[2] * fVar3;
+          fVar6 = rdVector_Normalize3Acc(local_c);
+          fVar3 = local_c[0] * *param_6 + param_6[1] * local_c[1] + param_6[2] * local_c[2];
           if (0.0 < fVar3) {
-            local_10[0] = (*(float *)(iVar1 + 0x18) - fVar6 * param_8) * fVar3 + local_10[0];
+            local_10 = (*(float *)(iVar1 + 0x18) - fVar6 * param_8) * fVar3 + local_10;
           }
         }
       }
-      if (1.0 <= local_10[0]) {
-        return local_10[0];
+      if (1.0 <= local_10) {
+        return local_10;
       }
       uVar4 = uVar4 + 1;
       param_1 = param_1 + 1;
       pfVar5 = pfVar5 + 3;
     } while (uVar4 < param_4);
   }
-  return local_10[0];
+  return local_10;
 }
 #undef local_10
-#undef local_4
+#undef local_c
 
