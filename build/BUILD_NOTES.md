@@ -1515,3 +1515,15 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
 * Whole-game autorun on this build (IMUSE + LUA + CHORE prototypes, before the SoundStartVoiceStream removal): PASSED,
   433 s.
 
+
+## Generated again after the DLL prototypes (2026-11-13)
+
+* Re-sweep of the overrides outside the rasteriser / mixer / host files whose twin shows no failure marker, now that
+  every function has a stored prototype. Generated now: Actor_UpdateMovement (overrides_logic.c; the twin uses the typed
+  Actor / ActorExtra / CostumeNode fields at the offsets the hand-written body read), Script_Callback and
+  Im_RunDeferredCommand (overrides_imuse.c; the twins are the hand-written functions).
+* Kept: Im_RunTriggerCommand (the twin still calls a callback with the marker alone; the code pushes eleven words),
+  FUN_100064d0 (reads the dispatcher's ESI), DwTerminate / DwQuery (COM calls through `code *` lose their __stdcall),
+  ihost_get_buffer_info (the slot table's address is a plain number in an arithmetic expression),
+  Cos_AllocCostumeSlot / Cos_AllocInstanceSlot (deliberate fix: the original leaves records undefined after a failed
+  load), and those listed as kept in "Override sweep" above.
