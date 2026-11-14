@@ -182,8 +182,6 @@ uint __cdecl rdPuppet_PlayTrack(int param_1,int param_2)
 }
 
 /* ---- 0x00450720  rdPuppet_FadeInTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_s4.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
@@ -201,12 +199,8 @@ int __cdecl rdPuppet_FadeInTrack(void *puppet,int track,float seconds)
   puVar1[7] = 0x3f800000;
   return 1;
 }
-#endif
-
 
 /* ---- 0x00450780  rdPuppet_FadeOutTrack ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_s4.c): read against the assembly only, NOT differentially tested
    (docs/notes/asm_s*.md). */
 
@@ -224,8 +218,6 @@ int __cdecl rdPuppet_FadeOutTrack(void *puppet,int track,float seconds)
   puVar1[7] = 0x3f800000;
   return 1;
 }
-#endif
-
 
 /* ---- 0x004507e0  rdPuppet_AdvanceTrack ---- */
 /* replaced by the hand-written version in build/overrides.c */
