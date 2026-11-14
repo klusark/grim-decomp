@@ -87,12 +87,12 @@ extern void * g_pDebugFont; /* 0x007fa7a8 */
 extern int g_nDisplayDeviceOpen; /* 0x00803f84 */
 extern int g_nDisplayModeOpen; /* 0x00803f88 */
 extern uint g_dwStdDisplay_numDevices; /* 0x00803f8c */
-extern void * g_pDisplayDevice; /* 0x00803f90 */
+extern DisplayDevice * g_pDisplayDevice; /* 0x00803f90 */
 extern uint g_dwVideoModeCount; /* 0x00803f94 */
-extern void * g_pVideoMode; /* 0x00803f98 */
+extern VideoMode * g_pVideoMode; /* 0x00803f98 */
 extern void * g_pDirectDraw; /* 0x00803fa4 */
-extern void * g_pDDrawPrimary; /* 0x00803fa8 */
-extern void * g_pDDrawBack; /* 0x00803fac */
+extern DDrawSurfaceRec * g_pDDrawPrimary; /* 0x00803fa8 */
+extern DDrawSurfaceRec * g_pDDrawBack; /* 0x00803fac */
 extern int g_nStdControl_bOpen; /* 0x00805f9c */
 extern int g_nInputAcquired; /* 0x00805fa8 */
 extern void * g_pDirectInput; /* 0x00805fac */

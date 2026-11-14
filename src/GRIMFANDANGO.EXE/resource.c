@@ -665,10 +665,11 @@ void __cdecl Resource_ReloadBitmaps(void)
   ushort *pixels;
   int iVar1;
   undefined4 uVar2;
+  VBuffer *surface;
   char *name;
-  void *pvVar3;
+  void *bitmap;
+  int iVar3;
   int iVar4;
-  int iVar5;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
@@ -679,53 +680,52 @@ void __cdecl Resource_ReloadBitmaps(void)
   while (name != (char *)0x0) {
     local_c = (uint)name;
     if (*(int *)(name + 0x20) == 0) {
-      pvVar3 = stdLoadImageData(name,0,0);
-      if (pvVar3 != (void *)0x0) {
-        iVar4 = 0;
+      bitmap = stdLoadImageData(name,0,0);
+      if (bitmap != (void *)0x0) {
+        iVar3 = 0;
         if (0 < *(int *)(name + 100)) {
           do {
-            iVar5 = iVar4 * 4;
-            uVar2 = *(undefined4 *)(*(int *)(name + 0x78) + iVar4 * 4);
-            iVar1 = iVar4 * 4;
-            iVar4 = iVar4 + 1;
+            iVar4 = iVar3 * 4;
+            uVar2 = *(undefined4 *)(*(int *)(name + 0x78) + iVar3 * 4);
+            iVar1 = iVar3 * 4;
+            iVar3 = iVar3 + 1;
             *(undefined4 *)(*(int *)(name + 0x78) + iVar1) =
-                 *(undefined4 *)(*(int *)((int)pvVar3 + 0x78) + iVar5);
-            *(undefined4 *)(*(int *)((int)pvVar3 + 0x78) + -4 + iVar4 * 4) = uVar2;
-          } while (iVar4 < *(int *)(name + 100));
+                 *(undefined4 *)(*(int *)((int)bitmap + 0x78) + iVar4);
+            *(undefined4 *)(*(int *)((int)bitmap + 0x78) + -4 + iVar3 * 4) = uVar2;
+          } while (iVar3 < *(int *)(name + 100));
         }
-        stdBitmap_Free(pvVar3);
+        stdBitmap_Free(bitmap);
       }
-      iVar4 = 0;
+      iVar3 = 0;
       if (0 < *(int *)(name + 100)) {
         do {
-          pvVar3 = *(void **)(*(int *)(name + 0x78) + iVar4 * 4);
-          stdDisplay_VBufferLock(pvVar3);
-          iVar5 = 0;
-          if (0 < *(int *)((int)pvVar3 + 0x10)) {
+          surface = *(VBuffer **)(*(int *)(name + 0x78) + iVar3 * 4);
+          stdDisplay_VBufferLock(surface);
+          iVar4 = 0;
+          if (0 < (surface->format).nHeight) {
             do {
               sputRender_ColorCorrect
-                        ((ushort *)
-                         (iVar5 * *(int *)((int)pvVar3 + 0x18) + *(int *)((int)pvVar3 + 0x5c)),
-                         *(uint *)((int)pvVar3 + 0xc));
-              iVar5 = iVar5 + 1;
-            } while (iVar5 < *(int *)((int)pvVar3 + 0x10));
+                        ((ushort *)(iVar4 * (surface->format).nPitch + (int)surface->pPixels),
+                         (surface->format).nWidth);
+              iVar4 = iVar4 + 1;
+            } while (iVar4 < (surface->format).nHeight);
           }
-          stdDisplay_VBufferUnlock(pvVar3);
-          iVar4 = iVar4 + 1;
-        } while (iVar4 < *(int *)(name + 100));
+          stdDisplay_VBufferUnlock(surface);
+          iVar3 = iVar3 + 1;
+        } while (iVar3 < *(int *)(name + 100));
       }
     }
     pixels = (ushort *)(name + 0x74);
     pixels[0] = 0xf81f;
     pixels[1] = 0;
     sputRender_ColorCorrect(pixels,1);
-    iVar4 = 0;
+    iVar3 = 0;
     if (0 < *(int *)(name + 100)) {
       do {
-        *(undefined4 *)(*(int *)(*(int *)(name + 0x78) + iVar4 * 4) + 0x60) = 0xf81f;
-        sputRender_ColorCorrect((ushort *)(*(int *)(*(int *)(name + 0x78) + iVar4 * 4) + 0x60),1);
-        iVar4 = iVar4 + 1;
-      } while (iVar4 < *(int *)(name + 100));
+        *(undefined4 *)(*(int *)(*(int *)(name + 0x78) + iVar3 * 4) + 0x60) = 0xf81f;
+        sputRender_ColorCorrect((ushort *)(*(int *)(*(int *)(name + 0x78) + iVar3 * 4) + 0x60),1);
+        iVar3 = iVar3 + 1;
+      } while (iVar3 < *(int *)(name + 100));
     }
     local_8 = local_8 + *(int *)(name + 100);
     Res_GetNextType(&local_4,(int *)&local_c,0x444e4b42);

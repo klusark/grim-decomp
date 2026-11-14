@@ -51,7 +51,7 @@ void * __cdecl sputMain_GetSaveGameImage(char *filename)
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
-  void *pvVar2;
+  VBuffer *pVVar2;
   int iVar3;
   uint *puVar4;
   uint *puVar5;
@@ -108,20 +108,20 @@ void * __cdecl sputMain_GetSaveGameImage(char *filename)
     puVar4 = puVar4 + 1;
     puVar5 = puVar5 + 1;
   }
-  pvVar2 = stdDisplay_VBufferNew(&local_4c,0,0,0);
-  if (pvVar2 == (void *)0x0) {
+  pVVar2 = stdDisplay_VBufferNew((VBufferFormat *)&local_4c,0,0,0);
+  if (pVVar2 == (VBuffer *)0x0) {
     gzclose((int)piVar1);
     return (void *)0x0;
   }
   gzread(piVar1,(int)&local_8c,4);
-  if (local_8c != *(uint *)((int)pvVar2 + 0x14)) {
+  if (local_8c != (pVVar2->format).dwSize) {
     (*g_pSputmHS->pAssertFail)
               (s_size_____int_vbuf__rasterInfo_si_004e7ff4,
                s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x6f6);
   }
-  gzread(piVar1,*(int *)((int)pvVar2 + 0x5c),local_8c);
+  gzread(piVar1,(int)pVVar2->pPixels,local_8c);
   gzclose((int)piVar1);
-  return pvVar2;
+  return pVVar2;
 }
 #undef local_38
 #undef local_3c

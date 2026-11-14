@@ -283,22 +283,23 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int param_2,int param_3,in
 
 {
   unsigned char _frame[0xf0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  byte bVar2;
+  byte bVar1;
+  uint uVar2;
+  VBuffer *surface;
   uint uVar3;
-  undefined4 *puVar4;
-  uint uVar5;
-  undefined4 uVar6;
-  int iVar7;
-  byte *pbVar8;
-  uint uVar9;
-  uint *puVar10;
-  undefined4 *puVar11;
+  void *pvVar4;
+  int iVar5;
+  byte *pbVar6;
+  uint uVar7;
+  int *piVar8;
+  VBufferFormat *pVVar9;
+  ColorFormat *pCVar10;
+  void *pvVar11;
   byte *pbVar12;
   #define uStack_e0 (*(uint *)(_frame + (0xf0 - 0xe0)))
   #define uStack_dc (*(uint *)(_frame + (0xf0 - 0xdc)))
   #define pbStack_d8 (*(byte **)(_frame + (0xf0 - 0xd8)))
-  #define uStack_d4 (*(uint *)(_frame + (0xf0 - 0xd4)))
+  #define iStack_d4 (*(int *)(_frame + (0xf0 - 0xd4)))
   #define uStack_d0 (*(uint *)(_frame + (0xf0 - 0xd0)))
   #define local_cc (*(char (*)[4])(_frame + (0xf0 - 0xcc)))
   #define iStack_c8 (*(int *)(_frame + (0xf0 - 0xc8)))
@@ -309,123 +310,124 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int param_2,int param_3,in
   #define uStack_b4 (*(undefined4 *)(_frame + (0xf0 - 0xb4)))
   #define uStack_b0 (*(undefined4 *)(_frame + (0xf0 - 0xb0)))
   #define auStack_ac (*(undefined4 (*)[24])(_frame + (0xf0 - 0xac)))
-  #define auStack_4c (*(uint (*)[5])(_frame + (0xf0 - 0x4c)))
-  #define auStack_38 (*(undefined4 (*)[14])(_frame + (0xf0 - 0x38)))
+  #define VStack_4c (*(VBufferFormat *)(_frame + (0xf0 - 0x4c)))
   
   (*g_pStd_HS->pFread)(param_1,local_cc,0x80);
-  uVar3 = strncmp(local_cc,&DAT_004df5a0,4);
-  if (uVar3 != 0) {
+  uVar2 = strncmp(local_cc,&DAT_004df5a0,4);
+  if (uVar2 != 0) {
     return 0;
   }
   if (iStack_c8 == 0x46) {
     stdBitmap_NewEntry((undefined4 *)param_2,uStack_bc,0,uStack_c4,uStack_c0,auStack_ac);
     *(undefined4 *)(param_2 + 0x6c) = uStack_b8;
     *(undefined4 *)(param_2 + 0x74) = uStack_b0;
-    puVar10 = auStack_4c;
-    for (iVar7 = 0x13; iVar7 != 0; iVar7 = iVar7 + -1) {
-      *puVar10 = 0;
-      puVar10 = puVar10 + 1;
+    pVVar9 = &VStack_4c;
+    for (iVar5 = 0x13; iVar5 != 0; iVar5 = iVar5 + -1) {
+      pVVar9->nWidth = 0;
+      pVVar9 = (VBufferFormat *)&pVVar9->nHeight;
     }
     uStack_e0 = 0;
     *(undefined4 *)(param_2 + 0x70) = uStack_b4;
     if (*(int *)(param_2 + 100) != 0) {
       do {
-        (*g_pStd_HS->pFread)(param_1,&uStack_d4,8);
-        auStack_4c[1] = uStack_d0;
-        auStack_4c[0] = uStack_d4;
-        puVar4 = (undefined4 *)(param_2 + 0x28);
-        puVar11 = auStack_38;
-        for (iVar7 = 0xe; iVar7 != 0; iVar7 = iVar7 + -1) {
-          *puVar11 = *puVar4;
-          puVar4 = puVar4 + 1;
-          puVar11 = puVar11 + 1;
+        (*g_pStd_HS->pFread)(param_1,&iStack_d4,8);
+        VStack_4c.nHeight = uStack_d0;
+        VStack_4c.nWidth = iStack_d4;
+        piVar8 = (int *)(param_2 + 0x28);
+        pCVar10 = &VStack_4c.colorFormat;
+        for (iVar5 = 0xe; iVar5 != 0; iVar5 = iVar5 + -1) {
+          pCVar10->nColorMode = *piVar8;
+          piVar8 = piVar8 + 1;
+          pCVar10 = (ColorFormat *)&pCVar10->nBpp;
         }
-        puVar4 = stdDisplay_VBufferNew(auStack_4c,param_3,param_4,0);
-        if (puVar4 == (undefined4 *)0x0) {
+        surface = stdDisplay_VBufferNew(&VStack_4c,param_3,param_4,0);
+        if (surface == (VBuffer *)0x0) {
           return 0;
         }
-        stdBitmap_SetSurface(param_2,uStack_e0,(uint)puVar4);
-        stdDisplay_VBufferLock(puVar4);
-        iVar7 = *(int *)(param_2 + 0x20);
-        if (iVar7 == 0) {
-          uVar3 = puVar4[9];
-          iVar7 = puVar4[0x17];
-          uVar9 = 0;
-          iVar1 = puVar4[3];
+        stdBitmap_SetSurface(param_2,uStack_e0,(uint)surface);
+        stdDisplay_VBufferLock(surface);
+        iVar5 = *(int *)(param_2 + 0x20);
+        if (iVar5 == 0) {
+          uVar2 = (surface->format).colorFormat.nBpp;
+          pvVar11 = surface->pPixels;
+          uVar7 = 0;
+          iVar5 = (surface->format).nWidth;
           if (uStack_d0 != 0) {
             do {
-              (*g_pStd_HS->pFread)(param_1,iVar7,(uVar3 >> 3) * iVar1);
-              iVar7 = iVar7 + puVar4[6];
-              uVar9 = uVar9 + 1;
-            } while (uVar9 < uStack_d0);
+              (*g_pStd_HS->pFread)(param_1,pvVar11,(uVar2 >> 3) * iVar5);
+              pvVar11 = (void *)((int)pvVar11 + (surface->format).nPitch);
+              uVar7 = uVar7 + 1;
+            } while (uVar7 < uStack_d0);
           }
         }
-        else if (iVar7 == 1) {
-          pbVar8 = (byte *)puVar4[0x17];
-          pbStack_d8 = pbVar8;
-          if (puVar4[5] != 0) {
+        else if (iVar5 == 1) {
+          pbVar6 = surface->pPixels;
+          pbStack_d8 = pbVar6;
+          if ((surface->format).dwSize != 0) {
             do {
-              uVar3 = stdFGetc(param_1);
-              if (((byte)uVar3 & 0xc0) == 0xc0) {
-                uVar9 = uVar3 & 0x3f;
-                uVar5 = stdFGetc(param_1);
-                bVar2 = (byte)uVar5;
-                if (uVar9 != 0) {
-                  pbVar12 = pbVar8;
-                  for (uVar5 = uVar9 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-                    *(uint *)pbVar12 = CONCAT22(CONCAT11(bVar2,bVar2),CONCAT11(bVar2,bVar2));
+              uVar2 = stdFGetc(param_1);
+              if (((byte)uVar2 & 0xc0) == 0xc0) {
+                uVar7 = uVar2 & 0x3f;
+                uVar3 = stdFGetc(param_1);
+                bVar1 = (byte)uVar3;
+                if (uVar7 != 0) {
+                  pbVar12 = pbVar6;
+                  for (uVar3 = uVar7 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
+                    *(uint *)pbVar12 = CONCAT22(CONCAT11(bVar1,bVar1),CONCAT11(bVar1,bVar1));
                     pbVar12 = pbVar12 + 4;
                   }
-                  pbVar8 = pbStack_d8 + uVar9;
-                  for (uVar3 = uVar3 & 3; pbStack_d8 = pbVar8, uVar3 != 0; uVar3 = uVar3 - 1) {
-                    *pbVar12 = bVar2;
+                  pbVar6 = pbStack_d8 + uVar7;
+                  for (uVar2 = uVar2 & 3; pbStack_d8 = pbVar6, uVar2 != 0; uVar2 = uVar2 - 1) {
+                    *pbVar12 = bVar1;
                     pbVar12 = pbVar12 + 1;
                   }
                 }
               }
               else {
-                *pbVar8 = (byte)uVar3;
-                pbVar8 = pbVar8 + 1;
-                pbStack_d8 = pbVar8;
+                *pbVar6 = (byte)uVar2;
+                pbVar6 = pbVar6 + 1;
+                pbStack_d8 = pbVar6;
               }
-            } while ((uint)((int)pbVar8 - puVar4[0x17]) < (uint)puVar4[5]);
+            } while ((uint)((int)pbVar6 - (int)surface->pPixels) < (surface->format).dwSize);
           }
         }
-        else if ((iVar7 == 3) &&
-                ((*g_pStd_HS->pFread)(param_1,&uStack_dc,4), uStack_dc < (uint)puVar4[5])) {
-          uVar6 = (*g_pStd_HS->pAlloc)
-                            (uStack_dc,s_C__grimjedi_Libs_Std_General_Std_004df574,
-                             DAT_004df558 + 0x82);
-          (*g_pStd_HS->pFread)(param_1,uVar6,uStack_dc);
-          *puVar4 = 2;
-          puVar4[5] = uStack_dc;
-          (*g_pStd_HS->pFree)(puVar4[0x17]);
-          puVar4[0x17] = uVar6;
+        else if ((iVar5 == 3) &&
+                ((*g_pStd_HS->pFread)(param_1,&uStack_dc,4), uStack_dc < (surface->format).dwSize))
+        {
+          pvVar4 = (void *)(*g_pStd_HS->pAlloc)
+                                     (uStack_dc,s_C__grimjedi_Libs_Std_General_Std_004df574,
+                                      DAT_004df558 + 0x82);
+          (*g_pStd_HS->pFread)(param_1,pvVar4,uStack_dc);
+          pvVar11 = surface->pPixels;
+          surface->nType = 2;
+          (surface->format).dwSize = uStack_dc;
+          (*g_pStd_HS->pFree)(pvVar11);
+          surface->pPixels = pvVar4;
         }
-        stdDisplay_VBufferUnlock(puVar4);
+        stdDisplay_VBufferUnlock(surface);
         if ((*(byte *)(param_2 + 0x24) & 1) != 0) {
-          stdDisplay_VBufferSetColorKey(puVar4,*(int *)(param_2 + 0x74));
+          stdDisplay_VBufferSetColorKey(surface,*(int *)(param_2 + 0x74));
         }
         uStack_e0 = uStack_e0 + 1;
       } while (uStack_e0 < *(uint *)(param_2 + 100));
     }
     if ((*(byte *)(param_2 + 0x24) & 2) != 0) {
-      iVar7 = (*g_pStd_HS->pAlloc)
+      iVar5 = (*g_pStd_HS->pAlloc)
                         (0x300,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df558 + 0x98);
-      *(int *)(param_2 + 0x60) = iVar7;
-      if (iVar7 == 0) {
+      *(int *)(param_2 + 0x60) = iVar5;
+      if (iVar5 == 0) {
         return 0;
       }
-      (*g_pStd_HS->pFread)(param_1,iVar7,0x300);
+      (*g_pStd_HS->pFread)(param_1,iVar5,0x300);
     }
     return 1;
   }
   return 0;
 }
-#undef auStack_38
-#undef auStack_4c
+#undef VStack_4c
 #undef auStack_ac
 #undef iStack_c8
+#undef iStack_d4
 #undef local_cc
 #undef pbStack_d8
 #undef uStack_b0
@@ -435,7 +437,6 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int param_2,int param_3,in
 #undef uStack_c0
 #undef uStack_c4
 #undef uStack_d0
-#undef uStack_d4
 #undef uStack_dc
 #undef uStack_e0
 
@@ -457,15 +458,15 @@ void __cdecl stdBitmap_Free(void *bitmap)
 void __cdecl stdBitmap_FreeEntry(int param_1)
 
 {
-  void *surface;
+  VBuffer *surface;
   uint uVar1;
   
   if (*(int *)(param_1 + 0x78) != 0) {
     uVar1 = 0;
     if (*(int *)(param_1 + 100) != 0) {
       do {
-        surface = *(void **)(*(int *)(param_1 + 0x78) + uVar1 * 4);
-        if (surface != (void *)0x0) {
+        surface = *(VBuffer **)(*(int *)(param_1 + 0x78) + uVar1 * 4);
+        if (surface != (VBuffer *)0x0) {
           stdDisplay_VBufferFree(surface);
         }
         uVar1 = uVar1 + 1;
@@ -558,7 +559,7 @@ uint __cdecl stdBitmap_AppendToFile(uint param_1,int param_2)
         return 0;
       }
       if (local_78 == 0) {
-        stdDisplay_VBufferLock(*(void **)(iVar7 + *(int *)(param_2 + 0x78)));
+        stdDisplay_VBufferLock(*(VBuffer **)(iVar7 + *(int *)(param_2 + 0x78)));
         uStack_a4 = 0;
         iVar4 = *(int *)(iVar7 + *(int *)(param_2 + 0x78));
         iVar13 = *(int *)(iVar4 + 0x5c);
@@ -573,7 +574,7 @@ uint __cdecl stdBitmap_AppendToFile(uint param_1,int param_2)
             uStack_a4 = uStack_a4 + 1;
           } while (uStack_a4 < uStack_90);
         }
-        stdDisplay_VBufferUnlock(*(void **)(iVar7 + *(int *)(param_2 + 0x78)));
+        stdDisplay_VBufferUnlock(*(VBuffer **)(iVar7 + *(int *)(param_2 + 0x78)));
       }
       else if (local_78 == 1) {
         iVar4 = *(int *)(param_2 + 0x78);
@@ -617,13 +618,13 @@ uint __cdecl stdBitmap_AppendToFile(uint param_1,int param_2)
         }
       }
       else if (local_78 == 3) {
-        stdDisplay_VBufferLock(*(void **)(iVar7 + *(int *)(param_2 + 0x78)));
+        stdDisplay_VBufferLock(*(VBuffer **)(iVar7 + *(int *)(param_2 + 0x78)));
         uStack_9c = *(undefined4 *)(*(int *)(iVar7 + *(int *)(param_2 + 0x78)) + 0x14);
         (*g_pStd_HS->pFwrite)(param_1,&uStack_9c,4);
         (*g_pStd_HS->pFwrite)
                   (param_1,*(undefined4 *)(*(int *)(iVar7 + *(int *)(param_2 + 0x78)) + 0x5c),
                    uStack_9c);
-        stdDisplay_VBufferUnlock(*(void **)(iVar7 + *(int *)(param_2 + 0x78)));
+        stdDisplay_VBufferUnlock(*(VBuffer **)(iVar7 + *(int *)(param_2 + 0x78)));
       }
       uStack_98 = uStack_98 + 1;
       iVar7 = iVar7 + 4;
@@ -688,7 +689,7 @@ int __cdecl stdBitmap_Write(char *filename,void *bitmap)
 void __cdecl stdBitmap_ConvertColorFormat(int *param_1,int param_2)
 
 {
-  void *pvVar1;
+  VBuffer *pVVar1;
   int iVar2;
   int *piVar3;
   int *piVar4;
@@ -711,18 +712,18 @@ void __cdecl stdBitmap_ConvertColorFormat(int *param_1,int param_2)
     iVar2 = 0;
     if (0 < *(int *)(param_2 + 100)) {
       do {
-        piVar3 = *(int **)(*(int *)(param_2 + 0x78) + iVar2 * 4);
-        if (*piVar3 != 2) {
-          pvVar1 = stdDisplay_VBufferConvertColorFormat(param_1,piVar3);
-          *(void **)(*(int *)(param_2 + 0x78) + iVar2 * 4) = pvVar1;
+        pVVar1 = *(VBuffer **)(*(int *)(param_2 + 0x78) + iVar2 * 4);
+        if (pVVar1->nType != 2) {
+          pVVar1 = stdDisplay_VBufferConvertColorFormat((ColorFormat *)param_1,pVVar1);
+          *(VBuffer **)(*(int *)(param_2 + 0x78) + iVar2 * 4) = pVVar1;
           if (*(int *)(*(int *)(param_2 + 0x78) + iVar2 * 4) == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Unable_to_allocate_a_new_frame_w_004df5a8,
                        s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df55c + 0x15);
           }
           if ((*(byte *)(param_2 + 0x24) & 1) != 0) {
-            pvVar1 = *(void **)(*(int *)(param_2 + 0x78) + iVar2 * 4);
-            stdDisplay_VBufferSetColorKey(pvVar1,*(int *)((int)pvVar1 + 0x60));
+            pVVar1 = *(VBuffer **)(*(int *)(param_2 + 0x78) + iVar2 * 4);
+            stdDisplay_VBufferSetColorKey(pVVar1,pVVar1->dwColorKey);
           }
         }
         iVar2 = iVar2 + 1;
@@ -752,7 +753,7 @@ int __cdecl stdBitmap_VBufferToBitmap(void *bitmap,int format,int flags)
   byte bVar1;
   int iVar2;
   int iVar3;
-  void *pvVar4;
+  VBuffer *pVVar4;
   undefined4 *puVar5;
   undefined4 *puVar6;
   
@@ -773,12 +774,12 @@ int __cdecl stdBitmap_VBufferToBitmap(void *bitmap,int format,int flags)
   if (iVar3 == 0) {
     return 0;
   }
-  pvVar4 = stdDisplay_VBufferNew((void *)((int)bitmap + 0xc),format,flags,0);
-  **(undefined4 **)(iVar2 + 0x78) = pvVar4;
-  if ((void *)**(undefined4 **)(iVar2 + 0x78) == (void *)0x0) {
+  pVVar4 = stdDisplay_VBufferNew((VBufferFormat *)((int)bitmap + 0xc),format,flags,0);
+  **(undefined4 **)(iVar2 + 0x78) = pVVar4;
+  if ((VBuffer *)**(undefined4 **)(iVar2 + 0x78) == (VBuffer *)0x0) {
     return 0;
   }
-  Surface_Blit((void *)**(undefined4 **)(iVar2 + 0x78),bitmap,0,0,(int *)0x0,0);
+  Surface_Blit((VBuffer *)**(undefined4 **)(iVar2 + 0x78),bitmap,0,0,(int *)0x0,0);
   stdDisplay_VBufferUnlock(bitmap);
   bVar1 = *(byte *)(iVar2 + 0x24);
   puVar5 = (undefined4 *)(**(int **)(iVar2 + 0x78) + 0x20);
@@ -904,7 +905,7 @@ void __cdecl stdBitmap_DeCompress(int param_1)
   iVar1 = 0;
   if (0 < *(int *)(param_1 + 100)) {
     do {
-      stdDisplay_VBufferDeCompress(*(void **)(*(int *)(param_1 + 0x78) + iVar1 * 4));
+      stdDisplay_VBufferDeCompress(*(VBuffer **)(*(int *)(param_1 + 0x78) + iVar1 * 4));
       iVar1 = iVar1 + 1;
     } while (iVar1 < *(int *)(param_1 + 100));
   }

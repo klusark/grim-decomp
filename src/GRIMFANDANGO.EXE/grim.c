@@ -314,7 +314,7 @@ void __cdecl Grim_ShutdownDisplay(void)
   if (g_nDisplayDeviceOpen != 0) {
     grimlib_UnsetDisplay();
     if (g_pStd3D_CurDevice == (void *)0x0) {
-      stdDisplay_VBufferFree((void *)UINT_004f5a34);
+      stdDisplay_VBufferFree((VBuffer *)UINT_004f5a34);
     }
     else {
       Display_Shutdown3D();
@@ -697,25 +697,25 @@ void __cdecl Grim_OpenRegistry(void)
 void __cdecl Grim_ShowSplash(void)
 
 {
-  void *src;
+  VBuffer *src;
   void *bitmap;
   int iVar1;
   
   bitmap = stdBitmap_Load(s_splash_bm_004dd99c,0,0);
   if ((bitmap != (void *)0x0) &&
-     (src = (void *)**(undefined4 **)((int)bitmap + 0x78), src != (void *)0x0)) {
+     (src = (VBuffer *)**(undefined4 **)((int)bitmap + 0x78), src != (VBuffer *)0x0)) {
     iVar1 = 0;
-    if (0 < *(int *)((int)src + 0x10)) {
+    if (0 < (src->format).nHeight) {
       do {
         sputRender_ColorCorrect
-                  ((ushort *)(iVar1 * *(int *)((int)src + 0x18) + *(int *)((int)src + 0x5c)),
-                   *(uint *)((int)src + 0xc));
+                  ((ushort *)(iVar1 * (src->format).nPitch + (int)src->pPixels),(src->format).nWidth
+                  );
         iVar1 = iVar1 + 1;
-      } while (iVar1 < *(int *)((int)src + 0x10));
+      } while (iVar1 < (src->format).nHeight);
     }
-    Surface_Blit(&g_dwStdDisplay_frontBuffer,src,0,0,(int *)0x0,0);
+    Surface_Blit((VBuffer *)&g_dwStdDisplay_frontBuffer,src,0,0,(int *)0x0,0);
     stdDisplay_Update();
-    Surface_Blit(&g_dwStdDisplay_frontBuffer,src,0,0,(int *)0x0,0);
+    Surface_Blit((VBuffer *)&g_dwStdDisplay_frontBuffer,src,0,0,(int *)0x0,0);
     stdBitmap_Free(bitmap);
   }
   return;

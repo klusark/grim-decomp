@@ -634,7 +634,8 @@ def fix_pieces(body):
     prev = None
     while prev != body:
         prev = body
-        body = re.sub(r"\b([A-Za-z_]\w*)\._(\d+)_(\d+)_\b", r"PIECE(\1,\2,\3)", body)
+        # (the whole member chain: `s.fmt._32_4_` is PIECE(s.fmt,32,4), not s.PIECE(fmt,32,4))
+        body = re.sub(r"(?<![\w.>])([A-Za-z_]\w*(?:(?:\.|->)[A-Za-z_]\w*)*)\._(\d+)_(\d+)_\b", r"PIECE(\1,\2,\3)", body)
         body = re.sub(r"(PIECE\([^()]*\))\._(\d+)_(\d+)_\b", r"PIECE(\1,\2,\3)", body)
     return body
 
@@ -1723,9 +1724,16 @@ def struct_comments(prog):
     return out
 
 
+def gap_bytes(lo, hi):
+    """The undefined bytes lo..hi of a structure, each named as Ghidra names it (`field_0x<off>`): the decompiler
+    refers to them (`&p->field_0x4` while copying a record word by word)."""
+    names = ["field_0x%x" % o for o in range(lo, hi)]
+    return ["    uint8_t %s;" % ", ".join(names[i:i + 8]) for i in range(0, len(names), 8)]
+
+
 def struct_defs(structs, skip, comments=None):
     """C definitions for Ghidra's structures, in an order where a structure held by value comes
-    first. Gaps become `_pad_<off>` bytes; every offset and the size are checked by
+    first. Gaps become `field_0x<off>` bytes (Ghidra's own names for the undefined bytes of a layout, which the decompiled code may name); every offset and the size are checked by
     _Static_assert, so a wrong export cannot silently move a field."""
     names = sorted(n for n in structs if n not in skip)
     deps = {}
@@ -1758,7 +1766,7 @@ def struct_defs(structs, skip, comments=None):
             if off < pos:
                 continue   # overlapping component (should not happen in a structure)
             if off > pos:
-                body.append(f"    uint8_t _pad_{pos:x}[0x{off - pos:x}];")
+                body += gap_bytes(pos, off)
             fname = fn if re.fullmatch(r"[A-Za-z_]\w*", fn) else f"field_0x{off:x}"
             used[fname] += 1
             if used[fname] > 1:
@@ -1774,7 +1782,7 @@ def struct_defs(structs, skip, comments=None):
                 packed = True
             pos = off + sz
         if s["size"] > pos:
-            body.append(f"    uint8_t _pad_{pos:x}[0x{s['size'] - pos:x}];")
+            body += gap_bytes(pos, s["size"])
         attr = " __attribute__((packed))" if packed else ""
         head = (comments or {}).get(n, {}).get("")
         if head:

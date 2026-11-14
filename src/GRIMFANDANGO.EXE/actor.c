@@ -2447,7 +2447,7 @@ void __cdecl sputCostume_InternalDraw3D(int *param_1,float *param_2)
   int iVar2;
   int iVar3;
   int iVar4;
-  uint *puVar5;
+  VBuffer *pVVar5;
   int iVar6;
   int iVar7;
   #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
@@ -2504,8 +2504,8 @@ LAB_004951ab:
             goto LAB_004951ab;
           }
 LAB_004951b3:
-          puVar5 = Render_GetBackBuffer();
-          stdDisplay_VBufferLock(puVar5);
+          pVVar5 = (VBuffer *)Render_GetBackBuffer();
+          stdDisplay_VBufferLock(pVVar5);
         }
         iVar6 = rdThing_Draw(*(void **)(iVar4 + 0x40),param_2);
         if ((iVar6 == 0) || (actor == (Actor *)0x0)) {
@@ -2515,8 +2515,8 @@ LAB_004951b3:
           actor->nScreenBoxValid = 1;
         }
         if (g_nSputRender_b3DAcceleration == 0) {
-          puVar5 = Render_GetBackBuffer();
-          stdDisplay_VBufferUnlock(puVar5);
+          pVVar5 = (VBuffer *)Render_GetBackBuffer();
+          stdDisplay_VBufferUnlock(pVVar5);
         }
       }
       else {
@@ -2531,8 +2531,8 @@ LAB_004951b3:
         iVar6 = *(int *)(*(int *)(iVar7 + 4) + 0x58) + *(int *)(iVar4 + 0x48) * 0xb8;
         iVar2 = *(int *)(*(int *)(*(int *)(iVar4 + 0x40) + 4) + 0x58);
         if (g_nSputRender_b3DAcceleration == 0) {
-          puVar5 = Render_GetBackBuffer();
-          stdDisplay_VBufferLock(puVar5);
+          pVVar5 = (VBuffer *)Render_GetBackBuffer();
+          stdDisplay_VBufferLock(pVVar5);
         }
         if ((*(int *)(iVar4 + 0x3c) != 0) && (**(int **)(iVar4 + 0x40) != 4)) {
           iVar3 = (*(int **)(iVar4 + 0x40))[1];
@@ -2571,8 +2571,8 @@ LAB_004951b3:
           *(undefined4 *)(iVar6 + 0x8c) = uStack_14;
         }
         if (g_nSputRender_b3DAcceleration == 0) {
-          puVar5 = Render_GetBackBuffer();
-          stdDisplay_VBufferUnlock(puVar5);
+          pVVar5 = (VBuffer *)Render_GetBackBuffer();
+          stdDisplay_VBufferUnlock(pVVar5);
         }
       }
       piVar1 = actor->pColormapRef;

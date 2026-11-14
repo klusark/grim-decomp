@@ -155,8 +155,7 @@ void * __cdecl sputResource_LipSyncHandler(int *param_1)
 int __cdecl sputResource_BackgroundHandler(void *msg)
 
 {
-  ushort *pixels;
-  void *surface;
+  VBuffer *surface;
   int iVar1;
   void *pvVar2;
   int iVar3;
@@ -171,23 +170,20 @@ int __cdecl sputResource_BackgroundHandler(void *msg)
       if ((((*(int *)((int)pvVar2 + 0x20) != 3) && (*(int *)((int)pvVar2 + 0x20) == 0)) &&
           (*(int *)((int)pvVar2 + 0x28) == 1)) && (iVar1 = 0, 0 < *(int *)((int)pvVar2 + 100))) {
         do {
-          surface = *(void **)(*(int *)((int)pvVar2 + 0x78) + iVar1 * 4);
+          surface = *(VBuffer **)(*(int *)((int)pvVar2 + 0x78) + iVar1 * 4);
           stdDisplay_VBufferLock(surface);
           iVar3 = 0;
-          if (0 < *(int *)((int)surface + 0x10)) {
+          if (0 < (surface->format).nHeight) {
             do {
               sputRender_ColorCorrect
-                        ((ushort *)
-                         (iVar3 * *(int *)((int)surface + 0x18) + *(int *)((int)surface + 0x5c)),
-                         *(uint *)((int)surface + 0xc));
+                        ((ushort *)(iVar3 * (surface->format).nPitch + (int)surface->pPixels),
+                         (surface->format).nWidth);
               iVar3 = iVar3 + 1;
-            } while (iVar3 < *(int *)((int)surface + 0x10));
+            } while (iVar3 < (surface->format).nHeight);
           }
           stdDisplay_VBufferUnlock(surface);
-          pixels = (ushort *)((int)surface + 0x60);
-          pixels[0] = 0xf81f;
-          pixels[1] = 0;
-          sputRender_ColorCorrect(pixels,1);
+          surface->dwColorKey = 0xf81f;
+          sputRender_ColorCorrect((ushort *)&surface->dwColorKey,1);
           iVar1 = iVar1 + 1;
         } while (iVar1 < *(int *)((int)pvVar2 + 100));
       }

@@ -44,16 +44,17 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
   int iVar5;
   int iVar6;
   uint *puVar7;
-  void *pvVar8;
+  VBuffer *pVVar8;
   int iVar9;
   undefined1 *puVar10;
   uint uVar11;
   int iVar12;
   uint uVar13;
   uint *puVar14;
-  bool bVar15;
-  longlong lVar16;
-  uint uVar17;
+  ColorFormat *pCVar15;
+  bool bVar16;
+  longlong lVar17;
+  uint uVar18;
   #define bStack_14b (*(byte *)(_frame + (0x160 - 0x14b)))
   #define bStack_14a (*(byte *)(_frame + (0x160 - 0x14a)))
   #define bStack_149 (*(byte *)(_frame + (0x160 - 0x149)))
@@ -105,9 +106,7 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
   #define local_58 (*(uint *)(_frame + (0x160 - 0x58)))
   #define local_54 (*(uint *)(_frame + (0x160 - 0x54)))
   #define local_50 (*(uint *)(_frame + (0x160 - 0x50)))
-  #define uStack_4c (*(uint *)(_frame + (0x160 - 0x4c)))
-  #define uStack_48 (*(uint *)(_frame + (0x160 - 0x48)))
-  #define auStack_38 (*(uint (*)[14])(_frame + (0x160 - 0x38)))
+  #define VStack_4c (*(VBufferFormat *)(_frame + (0x160 - 0x4c)))
   
   local_7c = 8;
   local_78 = 8;
@@ -138,12 +137,12 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
   uVar11 = (uStack_ec << 0x10 | uStack_ec & 0xff00) << 8 |
            (uStack_ec >> 0x10 | uStack_ec & 0xff0000) >> 8;
   uStack_ec = uVar11;
-  lVar16 = FTOL((float10)fStack_e8);
+  lVar17 = FTOL((float10)fStack_e8);
   uVar3 = uStack_8e;
   uVar2 = uStack_90;
-  uVar17 = (uint)lVar16;
+  uVar18 = (uint)lVar17;
   uStack_110 = 0;
-  uStack_114 = (uVar17 & 0xff00 | uVar17 << 0x10) << 8 | (uVar17 >> 0x10 | uVar17 & 0xff0000) >> 8;
+  uStack_114 = (uVar18 & 0xff00 | uVar18 << 0x10) << 8 | (uVar18 >> 0x10 | uVar18 & 0xff0000) >> 8;
   fStack_e8 = (float)uStack_114;
   uStack_90 = uStack_8f;
   uStack_8f = uVar2;
@@ -152,10 +151,10 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
   uStack_8e = uStack_8d;
   uStack_8d = uVar3;
   uStack_94 = uVar13;
-  lVar16 = FTOL((float10)(float)CONCAT22(PIECE(uStack_8c,2,2),(undefined2)uStack_8c));
-  uVar17 = (uint)lVar16;
+  lVar17 = FTOL((float10)(float)CONCAT22(PIECE(uStack_8c,2,2),(undefined2)uStack_8c));
+  uVar18 = (uint)lVar17;
   uStack_110 = 0;
-  uStack_114 = (uVar17 & 0xff00 | uVar17 << 0x10) << 8 | (uVar17 >> 0x10 | uVar17 & 0xff0000) >> 8;
+  uStack_114 = (uVar18 & 0xff00 | uVar18 << 0x10) << 8 | (uVar18 >> 0x10 | uVar18 & 0xff0000) >> 8;
   uStack_8c = PUN(undefined4,(float)((float)uStack_114));
   uStack_88 = CONCAT11((undefined1)uStack_88,PIECE(uStack_88,1,1));
   uStack_86 = CONCAT11((undefined1)uStack_86,PIECE(uStack_86,1,1));
@@ -187,25 +186,25 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
         if ((uStack_10a & 0x1000) != 0) {
           iStack_130 = iVar12;
         }
-        uVar17 = (uint)CONCAT21(uStack_10a,cStack_10b);
+        uVar18 = (uint)CONCAT21(uStack_10a,cStack_10b);
         if ((uStack_10a & 0x8000) != 0) {
-          uStack_128 = (uVar17 & 0xff) >> 3;
+          uStack_128 = (uVar18 & 0xff) >> 3;
         }
         if ((uStack_10a & 0x4000) != 0) {
-          uStack_118 = (uVar17 & 0xff) >> 3;
+          uStack_118 = (uVar18 & 0xff) >> 3;
         }
         if ((uStack_10a & 0x2000) != 0) {
-          uStack_11c = (uVar17 & 0xff) >> 3;
+          uStack_11c = (uVar18 & 0xff) >> 3;
         }
         if ((uStack_10a & 0x1000) != 0) {
-          uStack_124 = (uVar17 & 0xff) >> 3;
+          uStack_124 = (uVar18 & 0xff) >> 3;
         }
         *puVar7 = uStack_10a & 0xff;
         if (cStack_10b != '\b') break;
         iVar12 = iVar12 + 1;
         puVar7 = puVar7 + 1;
         if (cStack_10c == '\0') {
-          uVar17 = 0x1f;
+          uVar18 = 0x1f;
           puVar7 = param_2;
           for (iVar6 = 0x1f; iVar6 != 0; iVar6 = iVar6 + -1) {
             *puVar7 = 0;
@@ -213,7 +212,7 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
           }
           iStack_12c = iVar12;
           puVar7 = (uint *)stdFileFromPath(param_1);
-          strncpy(param_2,puVar7,uVar17);
+          strncpy(param_2,puVar7,uVar18);
           *(undefined1 *)((int)param_2 + 0x1f) = 0;
           param_2[8] = 0;
           param_2[9] = 0;
@@ -227,31 +226,31 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
             puVar7 = puVar7 + 1;
             puVar14 = puVar14 + 1;
           }
-          uVar17 = (*g_pStd_HS->pAlloc)
+          uVar18 = (*g_pStd_HS->pAlloc)
                              (4,s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x6d);
-          param_2[0x1e] = uVar17;
-          if (uVar17 == 0) {
+          param_2[0x1e] = uVar18;
+          if (uVar18 == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Unable_to_allocate_memory__004e76d4,
                        s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x6e);
           }
-          uStack_4c = CONCAT12(uStack_8e,CONCAT11(uStack_8f,uStack_90)) & 0xffff;
+          VStack_4c.nWidth = CONCAT12(uStack_8e,CONCAT11(uStack_8f,uStack_90)) & 0xffff;
           puVar7 = param_2 + 10;
-          puVar14 = auStack_38;
+          pCVar15 = &VStack_4c.colorFormat;
           for (iVar6 = 0xe; iVar6 != 0; iVar6 = iVar6 + -1) {
-            *puVar14 = *puVar7;
+            pCVar15->nColorMode = *puVar7;
             puVar7 = puVar7 + 1;
-            puVar14 = puVar14 + 1;
+            pCVar15 = (ColorFormat *)&pCVar15->nBpp;
           }
-          uStack_48 = (uint)CONCAT11(uStack_8d,uStack_8e);
-          pvVar8 = stdDisplay_VBufferNew(&uStack_4c,param_3,param_4,0);
-          *(void **)param_2[0x1e] = pvVar8;
+          VStack_4c.nHeight = (int)CONCAT11(uStack_8d,uStack_8e);
+          pVVar8 = stdDisplay_VBufferNew(&VStack_4c,param_3,param_4,0);
+          *(VBuffer **)param_2[0x1e] = pVVar8;
           if (*(int *)param_2[0x1e] == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Unable_to_allocate_memory__004e76d4,
                        s_C__grimjedi_Libs_Std_General_std_004e77d8,DAT_004e77d0 + 0x76);
           }
-          iVar6 = stdDisplay_VBufferLock(*(void **)param_2[0x1e]);
+          iVar6 = stdDisplay_VBufferLock(*(VBuffer **)param_2[0x1e]);
           if (iVar6 == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Unable_to_lock_VBuffer_memory__004e76b4,
@@ -315,9 +314,9 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
                               iVar12 = iVar12 + 1;
                               puVar7 = (uint *)((int)puVar7 + 3);
                               bVar4 = bStack_14b - 1;
-                              bVar15 = bStack_14b != 0;
+                              bVar16 = bStack_14b != 0;
                               bStack_14b = bVar4;
-                            } while (bVar15);
+                            } while (bVar16);
                           }
                         }
                         else {
@@ -379,7 +378,7 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
               iVar6 = iStack_13c;
             } while (iStack_104 < (int)(uint)CONCAT11(uStack_8d,uStack_8e));
           }
-          stdDisplay_VBufferUnlock(*(void **)param_2[0x1e]);
+          stdDisplay_VBufferUnlock(*(VBuffer **)param_2[0x1e]);
           (*g_pStd_HS->pFclose)(iVar5);
           return 1;
         }
@@ -393,8 +392,8 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
   }
   return 0;
 }
+#undef VStack_4c
 #undef auStack_100
-#undef auStack_38
 #undef bStack_149
 #undef bStack_14a
 #undef bStack_14b
@@ -436,8 +435,6 @@ uint __cdecl stdPic_LoadEntry(char *param_1,uint *param_2,int param_3,int param_
 #undef uStack_124
 #undef uStack_128
 #undef uStack_141
-#undef uStack_48
-#undef uStack_4c
 #undef uStack_86
 #undef uStack_88
 #undef uStack_8c

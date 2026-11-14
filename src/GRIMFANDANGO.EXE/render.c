@@ -232,33 +232,34 @@ sputRender_SetDisplay
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   int iVar2;
-  undefined4 *puVar3;
-  undefined4 *puVar4;
+  int *piVar3;
+  VBufferFormat *pVVar4;
   bool bVar5;
-  #define local_4c (*(undefined4 (*)[19])(_frame + (0x60 - 0x4c)))
+  #define local_4c (*(VBufferFormat *)(_frame + (0x60 - 0x4c)))
   
   sputRender_Close();
   g_pSputRender_Canvas = rdCanvas_New(1,param_1,param_2,param_3,param_4,param_5,param_6,0);
   UINT_008c97a4 = param_2;
   UINT_008c97a0 = param_1;
-  puVar3 = (undefined4 *)(param_1 + 0xc);
-  puVar4 = local_4c;
+  piVar3 = (int *)(param_1 + 0xc);
+  pVVar4 = &local_4c;
   for (iVar2 = 0x13; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar4 = *puVar3;
-    puVar3 = puVar3 + 1;
-    puVar4 = puVar4 + 1;
+    pVVar4->nWidth = *piVar3;
+    piVar3 = piVar3 + 1;
+    pVVar4 = (VBufferFormat *)&pVVar4->nHeight;
   }
-  g_pSputRender_DecompressionBuffer = stdDisplay_VBufferNew(local_4c,0,0,0);
+  g_pSputRender_DecompressionBuffer = stdDisplay_VBufferNew(&local_4c,0,0,0);
   bVar5 = *(int *)(param_1 + 8) != 0;
-  g_pSputRender_CleanBuffer = stdDisplay_VBufferNew(local_4c,(uint)bVar5,(uint)bVar5,0);
+  g_pSputRender_CleanBuffer = stdDisplay_VBufferNew(&local_4c,(uint)bVar5,(uint)bVar5,0);
   if ((g_nSputRender_b3DAcceleration == 0) || (UINT_004e806c != 0)) {
     iVar2 = 0;
   }
   else {
     iVar2 = 1;
   }
-  g_pSputRender_CleanZBuffer = stdDisplay_VBufferNew(local_4c,iVar2,iVar2,0);
-  if ((g_pSputRender_CleanBuffer != (void *)0x0) && (g_pSputRender_CleanZBuffer != (void *)0x0)) {
+  g_pSputRender_CleanZBuffer = stdDisplay_VBufferNew(&local_4c,iVar2,iVar2,0);
+  if ((g_pSputRender_CleanBuffer != (void *)0x0) && (g_pSputRender_CleanZBuffer != (VBuffer *)0x0))
+  {
     UINT_008a94b8 = UINT_0090563c;
     _DAT_008a94c4 = UINT_00905604 >> 3;
     UINT_008a94c0 = UINT_009055f0;
@@ -1128,7 +1129,7 @@ void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
 void __cdecl Render_CopyBackBufferToBackground(void)
 
 {
-  Surface_Blit(g_pSputRender_CleanBuffer,&g_dwStdDisplay_backBuffer,0,0,(int *)0x0,0);
+  Surface_Blit(g_pSputRender_CleanBuffer,(VBuffer *)&g_dwStdDisplay_backBuffer,0,0,(int *)0x0,0);
   return;
 }
 
@@ -1149,7 +1150,8 @@ void __cdecl Render_CleanBuffer(void)
     local_c = 0;
     local_8 = 0x280;
     local_4 = 0x1e0;
-    Surface_Blit(&g_dwStdDisplay_backBuffer,g_pSputRender_CleanBuffer,0,0,(int *)&local_10,0);
+    Surface_Blit((VBuffer *)&g_dwStdDisplay_backBuffer,g_pSputRender_CleanBuffer,0,0,
+                 (int *)&local_10,0);
   }
   return;
 }
@@ -1247,7 +1249,7 @@ void __cdecl sputRender_DrawIrisEffect(float percent,int x,int y)
   uVar2 = UINT_0090563c;
   uVar1 = UINT_009055f8;
   uVar4 = (uint)lVar13;
-  stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+  stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
   puVar7 = (undefined4 *)uVar2;
   iVar8 = iVar3;
   iVar5 = 0;
@@ -1306,7 +1308,7 @@ void __cdecl sputRender_DrawIrisEffect(float percent,int x,int y)
       puVar7 = (undefined4 *)((int)puVar7 + uVar1);
     } while (iVar8 != 0);
   }
-  stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
+  stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
   return;
 }
 
@@ -1370,7 +1372,7 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
   int iVar1;
   uint uVar2;
   void *surface;
-  void *surface_00;
+  VBuffer *surface_00;
   undefined2 *puVar3;
   int iVar4;
   uint *puVar5;
@@ -1404,7 +1406,7 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
   local_4c = w;
   local_48 = h;
   g_dwGrimlib_mode = uVar2;
-  surface_00 = stdDisplay_VBufferNew(&local_4c,0,0,0);
+  surface_00 = stdDisplay_VBufferNew((VBufferFormat *)&local_4c,0,0,0);
   stdDisplay_VBufferLock(surface_00);
   stdDisplay_VBufferLock(surface);
   local_58 = 0;
@@ -1415,8 +1417,7 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
       iVar4 = *(int *)((int)surface + 0x5c);
       iVar1 = *(int *)((int)surface + 0x18);
       x = (float10)0.0;
-      puVar3 = (undefined2 *)
-               (local_58 * *(int *)((int)surface_00 + 0x18) + *(int *)((int)surface_00 + 0x5c));
+      puVar3 = (undefined2 *)(local_58 * (surface_00->format).nPitch + (int)surface_00->pPixels);
       fVar7 = extraout_ST0;
       if (0 < w) {
         local_5c = w;
@@ -1477,7 +1478,7 @@ void __cdecl sputRender_DimRegion(int x,int y,int w,int h,float scale)
   cVar2 = (char)UINT_00905608;
   cVar3 = (char)UINT_0090560c;
   cVar4 = (char)UINT_00905610;
-  stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+  stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
   puVar6 = (ushort *)(UINT_0090563c + y * UINT_009055f8 + x * 2);
   if (0 < h) {
     local_14 = h;
@@ -1504,7 +1505,7 @@ void __cdecl sputRender_DimRegion(int x,int y,int w,int h,float scale)
       local_14 = local_14 - 1;
     } while (local_14 != 0);
   }
-  stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
+  stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
   return;
 }
 #undef local_10
@@ -1585,8 +1586,8 @@ void __cdecl Render_SaveZBufferBmp(char *filename)
 {
   void *bitmap;
   
-  stdDisplay_VBufferLock((void *)UINT_008c97a4);
-  stdDisplay_VBufferUnlock((void *)UINT_008c97a4);
+  stdDisplay_VBufferLock((VBuffer *)UINT_008c97a4);
+  stdDisplay_VBufferUnlock((VBuffer *)UINT_008c97a4);
   bitmap = (void *)stdBitmap_VBufferToBitmap((void *)UINT_008c97a4,0,0);
   stdBitmap_Write(filename,bitmap);
   stdBitmap_Free(bitmap);
@@ -1674,7 +1675,7 @@ void __cdecl Render_DrawProgressBar(float fraction)
   }
   lVar5 = FTOL((float10)fraction * (float10)540.0);
   sputRender_ColorCorrect((ushort *)&local_4,1);
-  stdDisplay_VBufferLock(&g_dwStdDisplay_frontBuffer);
+  stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_frontBuffer);
   iVar3 = 0x21c;
   iVar1 = UINT_00901698 * 0x1c7 + UINT_009016dc;
   puVar2 = (undefined2 *)(iVar1 + 100);
@@ -1706,7 +1707,7 @@ void __cdecl Render_DrawProgressBar(float fraction)
     puVar2 = puVar2 + 1;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
-  stdDisplay_VBufferUnlock(&g_dwStdDisplay_frontBuffer);
+  stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_frontBuffer);
   return;
 }
 #undef local_4
@@ -1774,8 +1775,8 @@ void __cdecl sputRender_DrawLoadingImage(void)
         piVar1 = (int *)(UINT_008a92d4 + 0x70);
         piVar2 = (int *)(UINT_008a92d4 + 0x6c);
         piVar3 = (int *)(UINT_008a92d4 + 0x78);
-        Surface_Blit(&g_dwStdDisplay_frontBuffer,*(void **)(*piVar3 + UINT_008c9824 * 4),*piVar2,
-                     *piVar1,(int *)0x0,1);
+        Surface_Blit((VBuffer *)&g_dwStdDisplay_frontBuffer,
+                     *(VBuffer **)(*piVar3 + UINT_008c9824 * 4),*piVar2,*piVar1,(int *)0x0,1);
         iStack_10 = *piVar2;
         iStack_c = *piVar1;
         uStack_8 = *(undefined4 *)(*(int *)*piVar3 + 0xc);

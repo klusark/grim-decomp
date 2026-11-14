@@ -711,8 +711,9 @@ void __cdecl Engine_SaveGame(void)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  uint *data;
   char *name;
-  void *pvVar1;
+  VBuffer *pVVar1;
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
@@ -752,11 +753,12 @@ void __cdecl Engine_SaveGame(void)
   UINT_008a8770 = (uint)SaveFile_Open(name,&DAT_004ddd78);
   if ((void *)UINT_008a8770 != (void *)0x0) {
     sputLua_SaveGameCallback(SaveGame_Write);
-    pvVar1 = sputRender_ScreenShot(0xfa,0xbc);
-    pvVar1 = stdDisplay_VBufferConvertColorFormat((int *)&local_38,pvVar1);
-    SaveGame_Write((int *)((int)pvVar1 + 0x14),4);
-    SaveGame_Write(*(void **)((int)pvVar1 + 0x5c),*(int *)((int)pvVar1 + 0x14));
-    stdDisplay_VBufferFree(pvVar1);
+    pVVar1 = sputRender_ScreenShot(0xfa,0xbc);
+    pVVar1 = stdDisplay_VBufferConvertColorFormat((ColorFormat *)&local_38,pVVar1);
+    data = &(pVVar1->format).dwSize;
+    SaveGame_Write(data,4);
+    SaveGame_Write(pVVar1->pPixels,*data);
+    stdDisplay_VBufferFree(pVVar1);
     Render_DrawProgressBar(0.2);
     Cos_Save(SaveGame_Write);
     Render_DrawProgressBar(0.3);
@@ -970,10 +972,10 @@ void __cdecl sputRender_Update(void)
       }
       local_1c[0] = sputTime_GetFrameTimeFlex();
       sputActor_UpdateSpeechOnly(local_1c[0]);
-      stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+      stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
       UINT_008a94b8 = UINT_0090563c;
       sputText_Update(0);
-      stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
+      stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
       sputRender_PageFlip();
       return;
     }
@@ -1018,9 +1020,9 @@ void __cdecl sputRender_Update(void)
       PerfEnd(4);
       sputSmush_SetTarget(&g_dwStdDisplay_backBuffer);
       sputSmush_Periodic();
-      stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+      stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
       sputPrimitive_Update(1);
-      stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
+      stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
       for (pvVar5 = *(void **)(PUN(int,(float)fVar8) + 0x128); pvVar5 != (void *)0x0;
           pvVar5 = *(void **)((int)pvVar5 + 0xf8)) {
         ObjectState_Update(pvVar5,1,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
@@ -1042,7 +1044,7 @@ void __cdecl sputRender_Update(void)
         }
         PerfEnd(5);
         if (((byte)g_dwDebugFlags & 1) != 0) {
-          stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+          stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
           if (((byte)g_dwDebugFlags & 8) == 0) {
             Render_DrawDebugGrid();
           }
@@ -1050,7 +1052,7 @@ void __cdecl sputRender_Update(void)
             sputRoom_GetCurrentRoom();
             Sector_DrawAllDebug();
           }
-          stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
+          stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
         }
         PerfBegin(6);
         if (iVar9 != 0) {
@@ -1106,11 +1108,11 @@ void __cdecl sputRender_Update(void)
             }
             else if (*(char *)*puVar10 == '\x01') {
               if (g_nSputRender_b3DAcceleration == 0) {
-                stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+                stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
               }
               Actor_ComputeScreenBox(actor);
               if (g_nSputRender_b3DAcceleration == 0) {
-                stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
+                stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
               }
               sputRender_MarkDirtyRect(actor->aScreenBox,1);
             }
@@ -1136,9 +1138,9 @@ void __cdecl sputRender_Update(void)
           ObjectState_Update(pvVar5,2,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
         }
       }
-      stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+      stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
       sputPrimitive_Update(2);
-      stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
+      stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
       if (((byte)g_dwDebugFlags & 1) != 0) {
         pvVar5 = sputRoom_GetCurrentRoom();
         if (((byte)g_dwDebugFlags & 2) != 0) {
@@ -1178,10 +1180,10 @@ void __cdecl sputRender_Update(void)
           MarkDirtyRect((int *)local_1c,0);
         }
       }
-      stdDisplay_VBufferLock(&g_dwStdDisplay_backBuffer);
+      stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
       UINT_008a94b8 = UINT_0090563c;
       sputText_Update(1);
-      stdDisplay_VBufferUnlock(&g_dwStdDisplay_backBuffer);
+      stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
     }
     g_nSputRender_Reset = 0;
   }

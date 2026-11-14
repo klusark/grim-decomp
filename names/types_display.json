@@ -1,0 +1,553 @@
+{
+ "_comment": "Display buffer records of the Std library (stdDisplay.c, 2026-11-14): the video buffer (VBuffer) that the Surface_* / stdDisplay_VBuffer* functions and DDraw_CreateSurfaces work on, its pixel format, the DirectDraw surface record inside it, the video mode and the display device. Layouts from the code (DDraw_CreateSurfaces fills a VBuffer field by field and copies the front buffer onto the back buffer with Mem_Copy(.., 0xd8); sputRender_DimRegion reads the channel bits and shifts; the DirectDraw fields agree with DDSURFACEDESC). The two global buffers (front 0x00901680, back 0x009055e0) keep their split-up symbols for now: typing them folds the UINT_009016.. / UINT_009055.. globals the overrides name into fields.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "ColorFormat",
+   "size": 56,
+   "comment": "Pixel format of a video mode or buffer (0x38 bytes): colour model, depth, the bits and position of each channel.",
+   "fields": [
+    [
+     0,
+     "int",
+     "nColorMode",
+     "0 = palette indexed, 1 = RGB (DIB_CreateSurface, stdDisplay_VBufferConvertColorFormat)"
+    ],
+    [
+     4,
+     "int",
+     "nBpp",
+     "bits per pixel (8, 16)"
+    ],
+    [
+     8,
+     "uint",
+     "dwRedBits",
+     "bits of red (5)"
+    ],
+    [
+     12,
+     "uint",
+     "dwGreenBits",
+     "bits of green (6 in 565)"
+    ],
+    [
+     16,
+     "uint",
+     "dwBlueBits",
+     "bits of blue"
+    ],
+    [
+     20,
+     "uint",
+     "dwRedShift",
+     "position of red"
+    ],
+    [
+     24,
+     "uint",
+     "dwGreenShift",
+     "position of green"
+    ],
+    [
+     28,
+     "uint",
+     "dwBlueShift",
+     "position of blue"
+    ],
+    [
+     32,
+     "uint",
+     "dwRedLoss",
+     "8 - red bits: the shift that scales an 8-bit channel down"
+    ],
+    [
+     36,
+     "uint",
+     "dwGreenLoss",
+     ""
+    ],
+    [
+     40,
+     "uint",
+     "dwBlueLoss",
+     ""
+    ],
+    [
+     44,
+     "uint",
+     "dwUnknown2c",
+     ""
+    ],
+    [
+     48,
+     "uint",
+     "dwUnknown30",
+     ""
+    ],
+    [
+     52,
+     "uint",
+     "dwUnknown34",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "VBufferFormat",
+   "size": 76,
+   "comment": "Geometry and pixel format of a buffer (0x4c bytes): DDraw_CreateSurfaces copies a VideoMode's format into a VBuffer with Mem_Copy(.., 0x4c); stdDisplay_VBufferNew takes one.",
+   "fields": [
+    [
+     0,
+     "int",
+     "nWidth",
+     "pixels"
+    ],
+    [
+     4,
+     "int",
+     "nHeight",
+     "pixels"
+    ],
+    [
+     8,
+     "uint",
+     "dwSize",
+     "bytes of pixels (LzssDecompress's length in stdDisplay_VBufferDeCompressTo)"
+    ],
+    [
+     12,
+     "int",
+     "nPitch",
+     "bytes per row"
+    ],
+    [
+     16,
+     "int",
+     "nStride",
+     "pixels per row (pitch / bytes per pixel)"
+    ],
+    [
+     20,
+     "ColorFormat",
+     "colorFormat",
+     "pixel format"
+    ]
+   ]
+  },
+  {
+   "name": "DDSurfaceDesc",
+   "size": 108,
+   "comment": "DirectDraw's DDSURFACEDESC (0x6c bytes).",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwSize",
+     "0x6c"
+    ],
+    [
+     4,
+     "uint",
+     "dwFlags",
+     "DDSD_* (1 caps, 0x20 back buffer count)"
+    ],
+    [
+     8,
+     "uint",
+     "dwHeight",
+     ""
+    ],
+    [
+     12,
+     "uint",
+     "dwWidth",
+     ""
+    ],
+    [
+     16,
+     "int",
+     "nPitch",
+     "lPitch"
+    ],
+    [
+     20,
+     "uint",
+     "dwBackBufferCount",
+     ""
+    ],
+    [
+     36,
+     "void *",
+     "pSurface",
+     "lpSurface: the pixels while locked"
+    ],
+    [
+     104,
+     "uint",
+     "dwCaps",
+     "ddsCaps.dwCaps (0x200 primary, 0x4000 video memory, 4 back buffer, 0x18 flip | complex)"
+    ]
+   ]
+  },
+  {
+   "name": "DDrawSurfaceRec",
+   "size": 116,
+   "comment": "A DirectDraw surface with its palette and description (0x74 bytes): the tail of a VBuffer (g_pDDrawPrimary, g_pDDrawBack point at it); DDraw_LockSurface / DDraw_UnlockSurface / DDraw_FillSurface take one.",
+   "fields": [
+    [
+     0,
+     "void *",
+     "pSurface",
+     "IDirectDrawSurface"
+    ],
+    [
+     4,
+     "void *",
+     "pPalette",
+     "IDirectDrawPalette"
+    ],
+    [
+     8,
+     "DDSurfaceDesc",
+     "desc",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "VBuffer",
+   "size": 216,
+   "comment": "A video buffer of the Std library (stdVBuffer, 0xd8 bytes): system memory or a DirectDraw surface; the display's front and back buffers are two of them (0x00901680, 0x009055e0).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nType",
+     "0 = system memory, 1 = DirectDraw surface"
+    ],
+    [
+     4,
+     "int",
+     "nLockCount",
+     "stdDisplay_VBufferLock / Unlock"
+    ],
+    [
+     8,
+     "int",
+     "nVideoMemory",
+     "1 when the surface is in video memory (DDSCAPS_VIDEOMEMORY)"
+    ],
+    [
+     12,
+     "VBufferFormat",
+     "format",
+     "geometry and pixel format"
+    ],
+    [
+     88,
+     "void *",
+     "pPalette",
+     ""
+    ],
+    [
+     92,
+     "void *",
+     "pPixels",
+     "the pixels (system memory, or the surface while locked)"
+    ],
+    [
+     96,
+     "uint",
+     "dwColorKey",
+     "transparent colour (stdDisplay_VBufferSetColorKey)"
+    ],
+    [
+     100,
+     "DDrawSurfaceRec",
+     "ddraw",
+     "the DirectDraw surface"
+    ]
+   ]
+  },
+  {
+   "name": "VideoMode",
+   "size": 84,
+   "comment": "A display mode (0x54 bytes): the entries of a device's mode list; Display_FindClosestMode / Display_CompareVideoModes compare them.",
+   "fields": [
+    [
+     0,
+     "int",
+     "nFullscreen",
+     "0 for the windowed (GDI) mode; compared first by Display_CompareVideoModes"
+    ],
+    [
+     4,
+     "uint",
+     "dwUnknown4",
+     "copied with the mode; not read by the display code"
+    ],
+    [
+     8,
+     "VBufferFormat",
+     "format",
+     "geometry and pixel format"
+    ]
+   ]
+  },
+  {
+   "name": "DisplayDevice",
+   "size": 664,
+   "comment": "A display device (0x298 bytes, the table at 0x00902c60, Display_SelectDevice): GDI window or DirectDraw driver.",
+   "fields": [
+    [
+     256,
+     "int",
+     "nType",
+     "0 = GDI window, 1 = DirectDraw"
+    ],
+    [
+     268,
+     "int",
+     "nPrimary",
+     "the primary display: DirectDraw is created with a NULL GUID"
+    ],
+    [
+     272,
+     "int",
+     "nFullscreen",
+     "0 = windowed only (g_bWindowedMode)"
+    ],
+    [
+     648,
+     "byte[16]",
+     "aGuid",
+     "the driver GUID (also stored as the registry's LastDisplayDevice)"
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "004746d0",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "surface"
+  },
+  {
+   "addr": "004746f0",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "surface"
+  },
+  {
+   "addr": "00474750",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "surface"
+  },
+  {
+   "addr": "004747b0",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "surface"
+  },
+  {
+   "addr": "00474800",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "surface"
+  },
+  {
+   "addr": "00474a60",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "dst"
+  },
+  {
+   "addr": "00474a60",
+   "index": 1,
+   "type": "VBuffer *",
+   "name": "src"
+  },
+  {
+   "addr": "00474ae0",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "surface"
+  },
+  {
+   "addr": "00474b30",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "surface"
+  },
+  {
+   "addr": "00474ba0",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "src"
+  },
+  {
+   "addr": "00474ba0",
+   "index": 1,
+   "type": "VBuffer *",
+   "name": "dst"
+  },
+  {
+   "addr": "004751b0",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "dst"
+  },
+  {
+   "addr": "004751b0",
+   "index": 1,
+   "type": "VBuffer *",
+   "name": "src"
+  },
+  {
+   "addr": "004755e0",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "dst"
+  },
+  {
+   "addr": "004755e0",
+   "index": 1,
+   "type": "VBuffer *",
+   "name": "src"
+  },
+  {
+   "addr": "004758a0",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "dst"
+  },
+  {
+   "addr": "004758a0",
+   "index": 1,
+   "type": "VBuffer *",
+   "name": "src"
+  },
+  {
+   "addr": "00475c90",
+   "index": 0,
+   "type": "VBuffer *",
+   "name": "dst"
+  },
+  {
+   "addr": "00475c90",
+   "index": 1,
+   "type": "VBuffer *",
+   "name": "src"
+  },
+  {
+   "addr": "00474be0",
+   "index": 1,
+   "type": "VBuffer *",
+   "name": "buffer"
+  },
+  {
+   "addr": "00476e40",
+   "index": 1,
+   "type": "VBuffer *",
+   "name": "surface"
+  },
+  {
+   "addr": "00474480",
+   "index": 0,
+   "type": "VBufferFormat *",
+   "name": "format"
+  },
+  {
+   "addr": "00474be0",
+   "index": 0,
+   "type": "ColorFormat *",
+   "name": "want"
+  },
+  {
+   "addr": "00476bf0",
+   "index": 0,
+   "type": "DDrawSurfaceRec *",
+   "name": "rec"
+  },
+  {
+   "addr": "00476c40",
+   "index": 0,
+   "type": "DDrawSurfaceRec *",
+   "name": "rec"
+  },
+  {
+   "addr": "00476cd0",
+   "index": 0,
+   "type": "DDrawSurfaceRec *",
+   "name": "rec"
+  },
+  {
+   "addr": "00476e40",
+   "index": 0,
+   "type": "VideoMode *",
+   "name": "mode"
+  },
+  {
+   "addr": "004767d0",
+   "index": 1,
+   "type": "VideoMode *",
+   "name": "mode"
+  },
+  {
+   "addr": "00475090",
+   "index": 0,
+   "type": "VideoMode *",
+   "name": "wanted"
+  },
+  {
+   "addr": "00475090",
+   "index": 1,
+   "type": "VideoMode *",
+   "name": "modes"
+  },
+  {
+   "addr": "00475140",
+   "index": 0,
+   "type": "VideoMode *",
+   "name": "a"
+  },
+  {
+   "addr": "00475140",
+   "index": 1,
+   "type": "VideoMode *",
+   "name": "b"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "00474480",
+   "type": "VBuffer *"
+  },
+  {
+   "addr": "00474be0",
+   "type": "VBuffer *"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "00803f90",
+   "type": "DisplayDevice *"
+  },
+  {
+   "addr": "00803f98",
+   "type": "VideoMode *"
+  },
+  {
+   "addr": "00803fa8",
+   "type": "DDrawSurfaceRec *"
+  },
+  {
+   "addr": "00803fac",
+   "type": "DDrawSurfaceRec *"
+  }
+ ]
+}

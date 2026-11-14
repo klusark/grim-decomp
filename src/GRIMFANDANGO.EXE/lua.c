@@ -102,7 +102,8 @@ void __cdecl Lua_SetVideoDevices(void)
   lVar6 = FTOL((float10)fVar7);
   UINT_004dd340 = (uint)lVar6;
   puVar5 = (uint *)(UINT_004dd340 * 0x10 + (int)g_pDisplayModes);
-  UINT_004dd344 = Display_FindClosestMode(&UINT_004f4d38,(void *)puVar5[1],*puVar5);
+  UINT_004dd344 =
+       Display_FindClosestMode((VideoMode *)&UINT_004f4d38,(VideoMode *)puVar5[1],*puVar5);
   fVar7 = lua_getnumber(iVar3);
   lVar6 = FTOL((float10)fVar7);
   UINT_004dd348 = (uint)lVar6;
@@ -1762,10 +1763,11 @@ void __cdecl sputText_BlastText(void)
   int iVar1;
   int iVar2;
   char *pcVar3;
-  uint *puVar4;
+  VBuffer *pVVar4;
+  uint *puVar5;
   void *table;
   TextObject *obj;
-  TextContext *pTVar5;
+  TextContext *pTVar6;
   #define local_60 (*(uint *)(_frame + (0x70 - 0x60)))
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
@@ -1782,18 +1784,18 @@ void __cdecl sputText_BlastText(void)
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
     pcVar3 = (char *)lua_getstring(iVar1);
-    puVar4 = Render_GetBackBuffer();
-    stdDisplay_VBufferLock(puVar4);
-    pTVar5 = &g_TextObjectCtx;
-    puVar4 = &local_30;
+    pVVar4 = (VBuffer *)Render_GetBackBuffer();
+    stdDisplay_VBufferLock(pVVar4);
+    pTVar6 = &g_TextObjectCtx;
+    puVar5 = &local_30;
     for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
-      *puVar4 = (uint)pTVar5->pUnused;
-      pTVar5 = (TextContext *)&pTVar5->pClipRect;
-      puVar4 = puVar4 + 1;
+      *puVar5 = (uint)pTVar6->pUnused;
+      pTVar6 = (TextContext *)&pTVar6->pClipRect;
+      puVar5 = puVar5 + 1;
     }
-    puVar4 = Render_GetBackBuffer();
+    puVar5 = Render_GetBackBuffer();
     local_2c = (uint)&local_60;
-    *(uint *)local_30 = puVar4[0x17];
+    *(uint *)local_30 = puVar5[0x17];
     table = (void *)lua_lua2C(2);
     if (table != (void *)0x0) {
       iVar1 = lua_istable((int)table);
@@ -1804,8 +1806,8 @@ void __cdecl sputText_BlastText(void)
     pcVar3 = sputText_ExtractSayLineData(pcVar3,local_50);
     obj = TextObject_New((TextContext *)&local_30,pcVar3);
     TextObject_Draw(obj,0);
-    puVar4 = Render_GetBackBuffer();
-    stdDisplay_VBufferUnlock(puVar4);
+    pVVar4 = (VBuffer *)Render_GetBackBuffer();
+    stdDisplay_VBufferUnlock(pVVar4);
     List_Unlink(obj);
   }
   return;
@@ -10936,14 +10938,14 @@ void __cdecl sputLua_FreeImage(void)
 {
   int iVar1;
   int iVar2;
-  void *surface;
+  VBuffer *surface;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isuserdata(iVar1);
   if (iVar2 != 0) {
     iVar2 = lua_tag(iVar1);
     if (iVar2 == 0x46554256) {
-      surface = (void *)lua_getuserdata(iVar1);
+      surface = (VBuffer *)lua_getuserdata(iVar1);
       stdDisplay_VBufferFree(surface);
     }
   }
@@ -10961,8 +10963,8 @@ void __cdecl sputLua_BlastImage(void)
   int iVar2;
   int iVar3;
   int iVar4;
-  void *src;
-  uint *dst;
+  VBuffer *src;
+  VBuffer *dst;
   longlong lVar5;
   float fVar6;
   int *srcRect;
@@ -10982,7 +10984,7 @@ void __cdecl sputLua_BlastImage(void)
       if (iVar4 != 0) {
         iVar4 = lua_isnumber(iVar3);
         if (iVar4 != 0) {
-          src = (void *)lua_getuserdata(iVar1);
+          src = (VBuffer *)lua_getuserdata(iVar1);
           srcRect = (int *)0x0;
           fVar6 = lua_getnumber(iVar3);
           lVar5 = FTOL((float10)fVar6);
@@ -10990,7 +10992,7 @@ void __cdecl sputLua_BlastImage(void)
           fVar6 = lua_getnumber(iVar2);
           lVar5 = FTOL((float10)fVar6);
           iVar2 = (int)lVar5;
-          dst = Render_GetBackBuffer();
+          dst = (VBuffer *)Render_GetBackBuffer();
           Surface_Blit(dst,src,iVar2,iVar1,srcRect,colorKey);
         }
       }
@@ -11075,7 +11077,7 @@ void __cdecl sputLua_BlastRect(void)
       local_4 = (uint)Render_GetBackBuffer();
       uVar9 = iVar2 - uVar6;
       local_c = (iVar4 - iVar1) + 1;
-      stdDisplay_VBufferLock((void *)local_4);
+      stdDisplay_VBufferLock((VBuffer *)local_4);
       puVar7 = (undefined2 *)
                (iVar1 * *(int *)(local_4 + 0x18) + *(int *)(local_4 + 0x5c) + uVar6 * 2);
       if (uVar9 != 0xffffffff) {
@@ -11112,7 +11114,7 @@ void __cdecl sputLua_BlastRect(void)
         } while (iVar1 != 0);
       }
       local_10 = uVar9;
-      stdDisplay_VBufferUnlock((void *)local_4);
+      stdDisplay_VBufferUnlock((VBuffer *)local_4);
       return;
     }
   }
@@ -11543,7 +11545,7 @@ void __cdecl Lua_LightMgrStartup(void)
   code *a4;
   int a5;
   
-  if (*(int *)((int)g_pDisplayDevice + 0x110) != 0) {
+  if (g_pDisplayDevice->nFullscreen != 0) {
     MessageBeep(0);
     return;
   }

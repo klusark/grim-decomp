@@ -113,18 +113,16 @@ undefined4 * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3)
   byte bVar1;
   uint uVar2;
   undefined4 *bitmap;
-  void *pvVar3;
+  VBuffer *pVVar3;
   uint uVar4;
   uint uVar5;
   uint uVar6;
   int iVar7;
   byte *pbVar8;
   undefined4 *puVar9;
-  int *piVar10;
+  VBufferFormat *pVVar10;
   byte *pbVar11;
-  #define aiStack_cc (*(int (*)[5])(_frame + (0xe0 - 0xcc)))
-  #define uStack_b8 (*(undefined4 *)(_frame + (0xe0 - 0xb8)))
-  #define uStack_b4 (*(uint *)(_frame + (0xe0 - 0xb4)))
+  #define VStack_cc (*(VBufferFormat *)(_frame + (0xe0 - 0xcc)))
   #define acStack_80 (*(char (*)[3])(_frame + (0xe0 - 0x80)))
   #define uStack_7d (*(uint *)(_frame + (0xe0 - 0x7d)))
   #define sStack_78 (*(short *)(_frame + (0xe0 - 0x78)))
@@ -156,20 +154,20 @@ undefined4 * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3)
                         (4,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0x33);
       bitmap[0x1e] = iVar7;
       if (iVar7 != 0) {
-        piVar10 = aiStack_cc;
+        pVVar10 = &VStack_cc;
         for (iVar7 = 0x13; iVar7 != 0; iVar7 = iVar7 + -1) {
-          *piVar10 = 0;
-          piVar10 = piVar10 + 1;
+          pVVar10->nWidth = 0;
+          pVVar10 = (VBufferFormat *)&pVVar10->nHeight;
         }
-        uStack_b8 = 0;
-        uStack_b4 = uStack_7d & 0xff;
-        aiStack_cc[0] = (int)sStack_3e / (int)(uStack_b4 >> 3);
-        aiStack_cc[1] = sStack_76 + 1;
-        pvVar3 = stdDisplay_VBufferNew(aiStack_cc,param_2,param_3,0);
-        *(void **)bitmap[0x1e] = pvVar3;
+        VStack_cc.colorFormat.nColorMode = 0;
+        VStack_cc.colorFormat.nBpp = uStack_7d & 0xff;
+        VStack_cc.nWidth = (int)sStack_3e / (int)((uint)VStack_cc.colorFormat.nBpp >> 3);
+        VStack_cc.nHeight = sStack_76 + 1;
+        pVVar3 = stdDisplay_VBufferNew(&VStack_cc,param_2,param_3,0);
+        *(VBuffer **)bitmap[0x1e] = pVVar3;
         if (*(int *)bitmap[0x1e] != 0) {
           *(int *)(*(int *)bitmap[0x1e] + 0xc) = sStack_78 + 1;
-          stdDisplay_VBufferLock(*(void **)bitmap[0x1e]);
+          stdDisplay_VBufferLock(*(VBuffer **)bitmap[0x1e]);
           pbVar8 = *(byte **)(*(int *)bitmap[0x1e] + 0x5c);
           if (*(int *)(*(int *)bitmap[0x1e] + 0x14) != 0) {
             do {
@@ -198,7 +196,7 @@ undefined4 * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3)
             } while ((uint)((int)pbVar8 - *(int *)(*(int *)bitmap[0x1e] + 0x5c)) <
                      *(uint *)(*(int *)bitmap[0x1e] + 0x14));
           }
-          stdDisplay_VBufferUnlock(*(void **)bitmap[0x1e]);
+          stdDisplay_VBufferUnlock(*(VBuffer **)bitmap[0x1e]);
           iVar7 = (*g_pStd_HS->pAlloc)
                             (0x300,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0x6c);
           bitmap[0x18] = iVar7;
@@ -216,14 +214,12 @@ undefined4 * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3)
   stdBitmap_Free(bitmap);
   return (undefined4 *)0x0;
 }
+#undef VStack_cc
 #undef acStack_80
-#undef aiStack_cc
 #undef sStack_3e
 #undef sStack_76
 #undef sStack_78
 #undef uStack_7d
-#undef uStack_b4
-#undef uStack_b8
 
 
 /* ---- 0x0047ef10  stdPcx_Write ---- */
