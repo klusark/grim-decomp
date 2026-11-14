@@ -1547,7 +1547,7 @@ extern undefined4 g_dwStdDisplay_numDrawBuffers; /* used by 3 fn(s), first 0x004
 extern uint UINT_00803fb0; /* used by 2 fn(s), first 0x004743d0 */
 extern undefined4 UINT_00803fb4; /* used by 2 fn(s), first 0x00476e40 */
 extern undefined4 UINT_00803fb8; /* used by 1 fn(s), first 0x00474d90 */
-extern undefined4 UINT_00803fc0; /* used by 1 fn(s), first 0x00474dd0 */
+extern double * PTR_00803fc0; /* used by 1 fn(s), first 0x00474dd0 */
 extern undefined4 UINT_00803fc8; /* used by 3 fn(s), first 0x00477040 */
 extern undefined DAT_00803fcc; /* used by 1 fn(s), first 0x00477040 */
 extern undefined4 UINT_00803fd0; /* used by 3 fn(s), first 0x00476f10 */
