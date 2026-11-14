@@ -1,0 +1,8 @@
+{
+ "_comment": "rdLight_CalcFaceIntensity's frame (2026-11-14): the sum is one float at -0x10 and the vector to the light the three floats at -0xc..-0x4 passed to rdVector_Normalize3Acc. Typed float[3] at -0x10 (with a separate local_4) the decompiler dropped the store of z to -0x4 and dotted the unnormalised z (clean room render_g3_l2_y0, render_g4_l2_*_y0_w / _f; it was hand-written in overrides_exe.c for it). local_10 first: local_c only exists once -0xc is free. If retyping local_10 in place hangs the decompiler, remove both locals and create the two stack variables with StackFrame.createVariable instead.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "locals": [
+  {"addr": "00451800", "name": "local_10", "type": "float"},
+  {"addr": "00451800", "name": "local_c", "type": "float[3]"}
+ ]
+}

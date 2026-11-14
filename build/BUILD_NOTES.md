@@ -1648,10 +1648,12 @@ grim-autorun's render_modes.lua (its PR 9) draws a box in every geometry / light
 6 of its tests differed on the rebuilt exe:
 
 * **Lighting mode 2 (diffuse), opaque faces at full light** (render_g3_l2_y0, render_g4_l2_t*_y0_w / _f).
-  rdLight_CalcFaceIntensity (0x00451800) was compiled from the generated text, which lost a store: the vector to the
-  light is the three floats at -0xc..-0x4 of the frame (`local_10 + 1`), and its z stayed in a register and was never
-  written to -0x4 (`local_4`). rdVector_Normalize3Acc then normalised (dx, dy, stack garbage) and the dot product used
-  the unnormalised z. Hand-written in overrides_exe.c. (It was never reached before: no other test or game face
+  rdLight_CalcFaceIntensity (0x00451800) was compiled from the generated text, which lost a store: the sum is one
+  float at -0x10 and the vector to the light the three floats at -0xc..-0x4, but Ghidra had a `float[3]` at -0x10 and a
+  separate `local_4` at -0x4, so the pointer passed to rdVector_Normalize3Acc (`local_10 + 1`) did not seem to reach
+  -0x4 and the store of z there was dropped as dead: the vector normalised was (dx, dy, stack garbage) and the dot
+  product used the unnormalised z. The frame is retyped in Ghidra (names/types_rdlight.json: `float` at -0x10,
+  `float[3]` at -0xc) and the function is generated again. (It was never reached before: no other test or game face
   uses mode 2 with the software renderer's light on.)
 * **Geometry mode 1 (points) one pixel off** (render_g1). rdZRaster_DrawNGonLV (overrides_asm_s3.c, ported by reading
   only) rounded each point to the nearest integer: Ghidra prints `fldcw [round down]; fld; fistp; fldcw [default]` as
