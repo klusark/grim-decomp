@@ -2384,7 +2384,7 @@
 | 004bdd50 | Insane_BlitRowsDual | insane.c | 27 |
 | 004bddb0 | Insane_BlitRows16 | insane.c | 1 |
 | 004c3df0 | msc_MemCopy | insane.c | 9 |
-| 004c3e10 | Insane_MemCopy | insane.c | 1 |
+| 004c3e10 | Insane_MemCopy | insane.c | 20 |
 | 004bd500 | SmushPlay_Pause | smush.c | 11 |
 | 004bd520 | SmushPlay_Resume | smush.c | 11 |
 | 004bd560 | SmushPlay_SysConfigureColorLookup | smush.c | 10 |
@@ -2424,7 +2424,7 @@
 | 004d2d90 | sou_mixer_mix | mixer.c | 1 |
 | 004d2e60 | sou_mixer_end | mixer.c | 10 |
 | 004d2e80 | Mixer_InitTables | mixer.c | 1 |
-| 004d2fb0 | Mixer_Free | mixer.c | 1 |
+| 004d2fb0 | Mixer_Free | mixer.c | 13 |
 | 004d3010 | sou_mixer_start | mixer.c | 1 |
 | 004d3040 | Mixer_MixVoice | mixer.c | 1 |
 | 004d31d0 | Mixer_ConvertTo16 | mixer.c | 1 |
@@ -2502,9 +2502,9 @@
 | 004cb550 | inflate_flush | zlib.c | 1 |
 | 004cb690 | inflate_fast | zlib.c | 1 |
 | 004c5ab0 | Zfile_fle_Close | zfile.c | 1 |
-| 004c5e30 | StdFile_fle_Tell | stdfile.c | 1 |
+| 004c5e30 | StdFile_fle_Tell | stdfile.c | 12 |
 | 004c5e90 | fle_Size | stdfile.c | 16 |
-| 004c5f50 | fle_Eof | stdfile.c | 1 |
+| 004c5f50 | fle_Eof | stdfile.c | 13 |
 | 004cc210 | fob_flobdec_blocky16_module | blocky16.c | 16 |
 | 004cc250 | fob_flobdec_blocky16_config | blocky16.c | 1 |
 | 004cc290 | Blocky16_module_terminate | blocky16.c | 12 |
@@ -2537,8 +2537,8 @@
 | 004cdef0 | sys_Disable | insanetimer.c | 1 |
 | 004cdf00 | sys_Enable | insanetimer.c | 1 |
 | 004cdf10 | sys_Alloc | insanetimer.c | 1 |
-| 004cdf80 | sys_Free | insanetimer.c | 1 |
-| 004cdfa0 | sys_Reset | insanetimer.c | 1 |
+| 004cdf80 | sys_Free | insanetimer.c | 11 |
+| 004cdfa0 | sys_Reset | insanetimer.c | 12 |
 | 004cdfd0 | sys_Delay | insanetimer.c | 1 |
 | 004ce000 | sys_GetTime | insanetimer.c | 8 |
 | 004ce060 | InsaneTimer_Tick | insanetimer.c | 1 |

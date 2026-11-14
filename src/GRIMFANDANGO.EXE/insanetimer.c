@@ -254,8 +254,6 @@ int __cdecl sys_Alloc(void *callback,int period,uint flags,int user)
 
 
 /* ---- 0x004cdf80  sys_Free ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sys_Free (the remaster's GrimFandango (Linux): slot 1 of the "TIMER=insane" service
    table); was InsaneTimer_RemoveTimer. */
 
@@ -267,12 +265,8 @@ void __cdecl sys_Free(int slot)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004cdfa0  sys_Reset ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sys_Reset (the remaster's GrimFandango (Linux): slot 4 of the "TIMER=insane"
    service table); was InsaneTimer_SetPeriod. */
 
@@ -285,8 +279,6 @@ void __cdecl sys_Reset(int slot,int period)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004cdfd0  sys_Delay ---- */
 /* replaced by the hand-written version in build/overrides.c */

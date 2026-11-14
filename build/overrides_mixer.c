@@ -612,16 +612,4 @@ int sou_mixer_initialize(int *services, uint tableUnits, int frames)
     return Mixer_InitTables(services, 2, frames * 4, 0);
 }
 
-/* Frees the compander table and the accumulator through services[1](ptr, file, line). */
-int Mixer_Free(int *services)
-{
-    if (g_pMixer_softLTable != 0)
-        ((void (*)(void *, const char *, int))services[1])(g_pMixer_softLTable, s_C__grimsrc_libs_lecsmush_insane__004f4158, 0x379);
-    g_pMixer_softLTable = 0;
-    if (g_pMixer_mixBuf != 0)
-        ((void (*)(void *, const char *, int))services[1])(g_pMixer_mixBuf, s_C__grimsrc_libs_lecsmush_insane__004f4158, 0x37a);
-    g_pMixer_mixBuf = 0;
-    return 0;
-}
-
 #endif /* GRIM_EXE */

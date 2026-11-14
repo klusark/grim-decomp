@@ -224,20 +224,6 @@ int sys_Alloc(void *callback, int period, uint flags, int user)
     return 0;
 }
 
-void sys_Free(int slot)
-{
-    if (0 < slot && slot < 0x14)
-        g_aTimerSlots[slot].callback = 0;
-}
-
-void sys_Reset(int slot, int period)
-{
-    if (0 < slot && slot < 0x14) {
-        g_aTimerSlots[slot].period = period;
-        g_aTimerSlots[slot].elapsed = 0;
-    }
-}
-
 /* Runs the clock for `ticks` ticks of sys_GetTime, one step at a time. */
 void sys_Delay(int ticks)
 {
@@ -613,12 +599,6 @@ void Dsnd_MemCopy(void *dst, void *src, uint n)
 void Dsnd_MemFill(void *dst, int value, uint n)
 {
     memset(dst, (byte)value, n);
-}
-
-/* the lecsmush copy: unaligned head bytes first, then dwords */
-void Insane_MemCopy(void *dst, void *src, uint n)
-{
-    memcpy(dst, src, n);
 }
 
 #endif /* GRIM_EXE */
