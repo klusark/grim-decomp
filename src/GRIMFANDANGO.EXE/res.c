@@ -828,29 +828,21 @@ void __cdecl Res_GetNextType(int *param_1,int *param_2,int param_3)
 }
 
 /* ---- 0x00482200  Res_Touch ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Moves the record owning the data pointer to the front of the LRU list Original name Res_Touch
    (the remaster's GrimFandango (Linux): aligned call in sputRoom_GetSetupBackground,
    sputRoom_GetSetupZBackground, sputRoom_LoadResources); was Res_TouchByData. */
 
-undefined * __cdecl Res_Touch(void *param_1)
+void __cdecl Res_Touch(void *data)
 
 {
   void *res;
-  undefined *extraout_EAX;
-  undefined *puVar1;
   
-  res = Res_FindByData(param_1);
-  puVar1 = (undefined *)0x0;
+  res = Res_FindByData(data);
   if (res != (void *)0x0) {
     Res_MoveToFront(res);
-    puVar1 = extraout_EAX;
   }
-  return puVar1;
+  return;
 }
-#endif
-
 
 /* ---- 0x004824f0  Res_CountChildren ---- */
 int __cdecl Res_CountChildren(uint param_1,uint param_2)

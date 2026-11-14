@@ -607,7 +607,7 @@ undefined * __cdecl PerfEnd(int param_1)
                s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x5b6);
   }
   QueryPerformanceFrequency((int)(_stkneg + 24));
-  dStack_8 = (double)CONCAT44(uStack_14,in_stack_ffffffe8);
+  dStack_8 = PUN(double,CONCAT44(uStack_14,in_stack_ffffffe8));
   QueryPerformanceCounter((int)&lStack_10);
   *(double *)(&g_dwGrimlib_PerfData + param_1 * 0xc) =
        (((double)lStack_10 - *(double *)(&DAT_004e7b48 + param_1 * 0x30)) / dStack_8) * 1000.0;

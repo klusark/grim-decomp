@@ -575,7 +575,7 @@ void __cdecl rdModel3_ClearFrameCounters(void)
    rdPrimit3_GetScreenCoord (the remaster's GrimFandango (Linux): the only unmatched callee of
    Lua_WorldToScreen; 1 matched neighbours agree, 0 disagree); was rdCamera_ProjectPoint. */
 
-int __cdecl rdPrimit3_GetScreenCoord(float *world,float *outScreen)
+int __cdecl rdPrimit3_GetScreenCoord(float *world,ScreenCoord *outScreen)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -591,12 +591,12 @@ int __cdecl rdPrimit3_GetScreenCoord(float *world,float *outScreen)
   iVar1 = rdClip_Point3(*(void **)((int)g_pRdCamera_CurCamera + 0x48),local_c);
   if (iVar1 != 0) {
     (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))((_stkneg + 24),local_c);
-    if (outScreen != (float *)0x0) {
+    if (outScreen != (ScreenCoord *)0x0) {
       lVar2 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
-      *outScreen = PUN(float,lVar2);
+      outScreen->nX = (int)lVar2;
       lVar2 = _ftol((double)CONCAT44(in_stack_ffffffe8,unaff_ESI));
-      outScreen[1] = PUN(float,lVar2);
-      outScreen[2] = fStack_10;
+      outScreen->nY = (int)lVar2;
+      outScreen->flZ = fStack_10;
     }
     return 1;
   }

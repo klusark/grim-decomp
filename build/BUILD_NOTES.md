@@ -1579,3 +1579,49 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   of zz_ims_fx.lua, lua6.lua): EXE 64.2%, LUA.DLL 90.4%, IMUSE.DLL 75.6%, CHORE.DLL 85.0% (with the exclusions). Found on
   the way: `setfallback("function", f)` and then calling a number hangs the rebuilt exe in luaD_call (it returns to the
   same stack slot after the tag method, as the original's decompilation reads); not tested yet whether the original does.
+## ScreenCoord: sputLua_WorldToScreenL generated again (2026-11-14)
+
+* rdPrimit3_GetScreenCoord writes two integers (x, y, truncated) and the depth as a float; its output parameter was
+  `float *`, so callers converted the integer bits as floats. names/types_screencoord.json creates
+  `ScreenCoord {int nX; int nY; float flZ;}`, types the parameter `ScreenCoord *` and sputLua_WorldToScreenL's local
+  `local_c` as a ScreenCoord (`locals`, new in tools/apply_types.py: a stack local by its Ghidra name; local types
+  used to be set ad hoc, now they replay with the batch). The twin then pushes `(float)local_c.nX / nY`, and the
+  hand-written version is removed. The overrides of rdPrimit3_GetScreenCoord and sputText_CreateActorText take
+  the struct. Clean room 0 of 5329.
+
+## Prototype fixes: GetActorHandle, Res_Touch, Str_ToLower (2026-11-14)
+
+* names/protos_fix_1.json (replay after names/protos_all_dlls.json): sputActor_GetActorHandle takes the actor only
+  (the inferred `int tag` was the tag the callers push for the following lua_pushusertag; sputActor_SetSelectedActor
+  then passed unaff_retaddr, the costume callbacks unaff_EDI / unaff_EBX); Res_Touch and Str_ToLower return void (no
+  caller uses the value; EAX at their end is what the last callee left). The hand-written sputActor_SetSelectedActor,
+  Res_Touch and Str_ToLower (overrides_logic.c) are gone: their twins are now the same functions.
+* names/types_rdmodel3.json records rdModel3 (0x90), rdGeoset and rdMesh (0x7c) with the fields
+  rdModel3_CalcRadii / CalcVertexNormals read. Typing CalcRadii's parameter did not make its twin right (the decompiler
+  walks a pointer into the middle of each mesh and stores the radius through it as uint), so no function uses them yet.
+* Clean room 0 of 5329.
+
+## Palette_ApplyGamma generated again: an 8-byte stack argument (2026-11-14)
+
+* Palette_FromFloatTable(out, in, n, double gamma) takes the double at [esp+0x10]; Ghidra's x86 `__cdecl` model
+  aligns 8-byte stack arguments to 8 and put it at 0x14, so Palette_ApplyGamma's pushes of the table entry were read
+  as one table dword plus the return address. A scan of every EXE function found only this one misplaced parameter.
+  names/protos_fix_1.json now carries `"stack": {"gamma": 16}` for it: tools/apply_logic_protos.py switches such a
+  function to custom storage and moves the named parameters.
+* names/types_gamma.json types the table pointer (0x00803fc0) `double *` (Ghidra names it PTR_00803fc0; nothing in
+  the program sets it). tools/apply_types.py records a pointer type given to an unnamed global in
+  raw/<prog>/ptr_types.json, as tools/type_pointer_globals.py does, so build_src declares it with that type (as
+  `undefined *` the decompiler's `PTR + idx - 1` stepped in bytes).
+* build_src.py's fix_double_pieces: `(double)CONCAT44(hi, lo)` (a double loaded as two dwords) becomes
+  `PUN(double, CONCAT44(hi, lo))`; the cast converted the 64-bit integer numerically. The lost-x87 `_ftol(` /
+  `_frnd(` forms are left to fix_ftol. Compiled code affected: Palette_ApplyGamma only (PerfEnd's text changes too,
+  under its override).
+* The hand-written Palette_ApplyGamma (overrides_logic.c) is gone; Palette_FromFloatTable stays (`_CIpow` on an
+  empty x87 stack). Clean room 0 of 5329; the gamma path is never run (the pointer is 0), so the generated text was
+  checked against the machine code.
+* raw/GRIMFANDANGO.EXE/data_items.txt (tools/export_data_items.py; export_changed.py does not refresh it) was a day
+  old: a fresh dump differs in 1,626 lines (later names, new arrays) but changes nothing in src/.
+* TextObject_New takes (ctx, text) only (names/protos_fix_1.json): its body reads two stack arguments; the inferred
+  durationMs / flags were pushes for later calls, so sputText_MakeTextObjectL and sputText_BlastText (compiled from
+  the generated text) passed unaff_EBX / unaff_EDI / unaff_EBP garbage. sputText_CreateActorText stays hand-written:
+  its anchor rectangle (ints) is still typed float and read through an `Actor *`. Clean room 0 of 5329.

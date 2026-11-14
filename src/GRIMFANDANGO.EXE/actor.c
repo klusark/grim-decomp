@@ -104,9 +104,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int 
   byte *pbVar3;
   TextObject *pTVar4;
   int iVar5;
-  int unaff_ESI;
   TextContext *pTVar6;
-  int unaff_EDI;
   undefined4 *puVar7;
   #define local_5c (*(float (*)[2])(_frame + (0x70 - 0x5c)))
   #define local_50 (*(float (*)[3])(_frame + (0x70 - 0x50)))
@@ -148,7 +146,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int 
       pbVar3 = (byte *)sputRoom_GetCurrentRoomName();
       iVar5 = _stricmp((byte *)actor->aSetName,pbVar3);
       if (iVar5 == 0) {
-        iVar5 = rdPrimit3_GetScreenCoord(actor->aPos,local_5c);
+        iVar5 = rdPrimit3_GetScreenCoord(actor->aPos,(ScreenCoord *)local_5c);
         if (iVar5 != 0) {
           local_50[0] = local_5c[0];
           local_50[1] = local_5c[1];
@@ -185,7 +183,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int 
   }
   local_20 = *(int *)(*(int *)local_28 + 8) + y;
   local_24 = x;
-  pTVar4 = TextObject_New((TextContext *)(_frame + (0x70 - 0x30)),text,unaff_EDI,unaff_ESI);
+  pTVar4 = TextObject_New((TextContext *)(_frame + (0x70 - 0x30)),text);
   pTVar4->pActor = pAVar1;
   pAVar1->dwFlags = pAVar1->dwFlags | 4;
   return pTVar4;
@@ -656,8 +654,6 @@ void __cdecl sputActor_UpdateActorSpeech(Actor *actor,float dt)
 
 
 /* ---- 0x00490320  sputActor_SetSelectedActor ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua SetSelectedActor; returns the handle or -1 Original name sputActor_SetSelectedActor (the
    remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetSelectedActor; 1 matched
    neighbours agree, 0 disagree); was Actor_SetSelected. */
@@ -666,19 +662,16 @@ int __cdecl sputActor_SetSelectedActor(int handle)
 
 {
   int iVar1;
-  int unaff_retaddr;
   
   iVar1 = -1;
   if (g_pSelectedActor != (Actor *)0x0) {
-    iVar1 = sputActor_GetActorHandle(g_pSelectedActor,unaff_retaddr);
+    iVar1 = sputActor_GetActorHandle(g_pSelectedActor);
   }
   if ((-1 < handle) && (handle < g_nMaxActors)) {
     g_pSelectedActor = g_pActors + handle;
   }
   return iVar1;
 }
-#endif
-
 
 /* ---- 0x00490360  sputActor_ActorDeref ---- */
 /* Original name sputActor_ActorDeref (the remaster's GrimFandango (Linux): the only unmatched
@@ -703,7 +696,7 @@ Actor * __cdecl sputActor_ActorDeref(int handle)
    callee of Lua_CallCostumeMarkerHandler; the only unmatched callee of
    Lua_CallCostumeOverrideHandler; 3 matched neighbours agree, 1 disagree); was Actor_GetHandle. */
 
-int __cdecl sputActor_GetActorHandle(Actor *actor,int tag)
+int __cdecl sputActor_GetActorHandle(Actor *actor)
 
 {
   return ((int)actor - (int)g_pActors) / 0xa8;

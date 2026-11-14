@@ -74,8 +74,8 @@
 | 0048bbc0 | sputText_GetTextObjectDimensionsL | lua.c | 31 |
 | 0048bc50 | sputText_GetTextCharPositionL | lua.c | 43 |
 | 0048bd10 | sputText_ChangeTextObjectL | lua.c | 54 |
-| 0048be30 | sputText_MakeTextObjectL | lua.c | 69 |
-| 0048bf50 | sputText_BlastText | lua.c | 68 |
+| 0048be30 | sputText_MakeTextObjectL | lua.c | 67 |
+| 0048bf50 | sputText_BlastText | lua.c | 66 |
 | 0048c960 | sputText_GetTranslationModeL | lua.c | 16 |
 | 0048c980 | sputText_SetTranslationModeL | lua.c | 32 |
 | 00495850 | sputCostume_GetKeyLengthL | lua.c | 28 |
@@ -169,15 +169,15 @@
 | 0049cea0 | sputLua_LoadL | lua.c | 23 |
 | 0049cef0 | sputLua_SaveL | lua.c | 23 |
 | 0049cf40 | sputLua_EnableDebugKeysL | lua.c | 12 |
-| 0049cf60 | sputLua_WorldToScreenL | lua.c | 1 |
+| 0049cf60 | sputLua_WorldToScreenL | lua.c | 45 |
 | 0049d030 | sputLua_ScreenToWorldL | lua.c | 57 |
 | 0049d220 | sputLua_ConcatFallback | lua.c | 92 |
 | 0049d3a0 | sputLua_ExitL | lua.c | 21 |
 | 0049d3f0 | sputLua_EnableControlL | lua.c | 21 |
 | 0049d430 | sputLua_DisableControlL | lua.c | 21 |
 | 0049d470 | sputLua_GetControlStateL | lua.c | 49 |
-| 0049d550 | sputLua_DoCostumeOverrideCallback | lua.c | 65 |
-| 0049d670 | sputLua_DoCostumeMarkerCallback | lua.c | 64 |
+| 0049d550 | sputLua_DoCostumeOverrideCallback | lua.c | 64 |
+| 0049d670 | sputLua_DoCostumeMarkerCallback | lua.c | 63 |
 | 0049d7b0 | sputLua_DoUserPaintCallback | lua.c | 55 |
 | 0049d890 | sputLua_DoExitCallback | lua.c | 54 |
 | 0049d970 | sputLua_DoPauseCallback | lua.c | 54 |
@@ -356,7 +356,7 @@
 | 00474be0 | stdDisplay_VBufferConvertColorFormat | stddisplay.c | 87 |
 | 00474d10 | stdDisplay_SetPalette | stddisplay.c | 30 |
 | 00474d90 | stdDisplay_SetMasterPalette | stddisplay.c | 10 |
-| 00474dd0 | Palette_ApplyGamma | stddisplay.c | 1 |
+| 00474dd0 | Palette_ApplyGamma | stddisplay.c | 17 |
 | 00474e40 | stdDisplay_TextOut | stddisplay.c | 1 |
 | 00475000 | Display_FindClosestDevice | stddisplay.c | 37 |
 | 00475090 | Display_FindClosestMode | stddisplay.c | 46 |
@@ -428,7 +428,7 @@
 | 00404120 | wuRegistry_QueryType | reg.c | 20 |
 | 00403ae0 | Str_ComparePtrs | string.c | 30 |
 | 004735b0 | stdFileFromPath | string.c | 14 |
-| 0047b5c0 | Str_ToLower | string.c | 1 |
+| 0047b5c0 | Str_ToLower | string.c | 17 |
 | 0047fd20 | stdFnames_FindMedName | string.c | 22 |
 | 0047fd50 | stdFnames_FindExt | string.c | 23 |
 | 0047fda0 | Str_StripExtension | string.c | 11 |
@@ -1215,7 +1215,7 @@
 | 00481f60 | Res_HashName | res.c | 34 |
 | 00482170 | Res_GetFirstType | res.c | 22 |
 | 004821b0 | Res_GetNextType | res.c | 26 |
-| 00482200 | Res_Touch | res.c | 1 |
+| 00482200 | Res_Touch | res.c | 15 |
 | 004824f0 | Res_CountChildren | res.c | 16 |
 | 00482520 | grimlib_SetCacheMax | res.c | 9 |
 | 0048e230 | sputResource_ReportAllocations | res.c | 9 |
@@ -1429,7 +1429,7 @@
 | 0048fd90 | Actor_UpdateMovement | actor.c | 39 |
 | 0048fe80 | Actor_UpdateLookAt | actor.c | 138 |
 | 00490210 | sputActor_UpdateActorSpeech | actor.c | 1 |
-| 00490320 | sputActor_SetSelectedActor | actor.c | 1 |
+| 00490320 | sputActor_SetSelectedActor | actor.c | 18 |
 | 00490360 | sputActor_ActorDeref | actor.c | 16 |
 | 00490380 | sputActor_GetActorHandle | actor.c | 9 |
 | 004903a0 | sputActor_AllocateActor | actor.c | 87 |
