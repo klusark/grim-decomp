@@ -93,8 +93,8 @@ LAB_004ce7b5:
    0..0xffff translation table fill in both blocky16 decoders); was VideoBitmap_ConvertPixels. */
 
 int __cdecl
-gra_ConvertCopy(byte *src,void *srcFmt,int count,byte *palette,byte *dst,void *dstFmt,
-               byte *expandTable)
+gra_ConvertCopy(byte *src,LecPixelFormat *srcFmt,int count,byte *palette,byte *dst,
+               LecPixelFormat *dstFmt,byte *expandTable)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -105,36 +105,32 @@ gra_ConvertCopy(byte *src,void *srcFmt,int count,byte *palette,byte *dst,void *d
   int iVar5;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  if (((*(int *)((int)srcFmt + 0x10) == *(int *)((int)dstFmt + 0x10)) &&
-      (iVar5 = *(int *)((int)srcFmt + 0x20), iVar5 == *(int *)((int)dstFmt + 0x20))) &&
+  if (((*(int *)&srcFmt->field_0x10 == *(int *)&dstFmt->field_0x10) &&
+      (iVar5 = srcFmt->nColorMode, iVar5 == dstFmt->nColorMode)) &&
      (((iVar5 != 1 && (iVar5 != 2)) ||
-      (((*(int *)((int)srcFmt + 0x30) == *(int *)((int)dstFmt + 0x30) &&
-        (*(int *)((int)srcFmt + 0x34) == *(int *)((int)dstFmt + 0x34))) &&
-       (*(int *)((int)srcFmt + 0x38) == *(int *)((int)dstFmt + 0x38))))))) {
-    msc_MemCopy(dst,src,*(int *)((int)dstFmt + 0xc) * count);
+      (((srcFmt->nRedShift == dstFmt->nRedShift && (srcFmt->nGreenShift == dstFmt->nGreenShift)) &&
+       (srcFmt->nBlueShift == dstFmt->nBlueShift)))))) {
+    msc_MemCopy(dst,src,dstFmt->nBytesPerPixel * count);
     return 0;
   }
   if (expandTable != (byte *)0x0) {
-    if ((*(int *)((int)srcFmt + 0x20) == 0) && (*(int *)((int)srcFmt + 0xc) == 1)) {
-      Video_ExpandIndexed8(dst,src,count,*(int *)((int)dstFmt + 0xc),expandTable);
+    if ((srcFmt->nColorMode == 0) && (srcFmt->nBytesPerPixel == 1)) {
+      Video_ExpandIndexed8(dst,src,count,dstFmt->nBytesPerPixel,expandTable);
       return 0;
     }
-    if (((expandTable != (byte *)0x0) && (*(int *)((int)srcFmt + 0xc) == 2)) &&
-       (*(int *)((int)dstFmt + 0x20) != 0)) {
-      Video_ExpandIndexed16(dst,(ushort *)src,count,*(int *)((int)dstFmt + 0xc),expandTable);
+    if (((expandTable != (byte *)0x0) && (srcFmt->nBytesPerPixel == 2)) && (dstFmt->nColorMode != 0)
+       ) {
+      Video_ExpandIndexed16(dst,(ushort *)src,count,dstFmt->nBytesPerPixel,expandTable);
       return 0;
     }
   }
-  if ((((*(int *)((int)srcFmt + 0x20) != 2) || (*(int *)((int)srcFmt + 0xc) != 4)) ||
-      (*(int *)((int)srcFmt + 0x30) != 0)) ||
-     ((*(int *)((int)srcFmt + 0x34) != 8 || (bVar1 = true, *(int *)((int)srcFmt + 0x38) != 0x10))))
-  {
+  if ((((srcFmt->nColorMode != 2) || (srcFmt->nBytesPerPixel != 4)) || (srcFmt->nRedShift != 0)) ||
+     ((srcFmt->nGreenShift != 8 || (bVar1 = true, srcFmt->nBlueShift != 0x10)))) {
     bVar1 = false;
   }
-  if (((*(int *)((int)dstFmt + 0x20) != 2) || (*(int *)((int)dstFmt + 0xc) != 4)) ||
-     ((*(int *)((int)dstFmt + 0x30) != 0 ||
-      ((*(int *)((int)dstFmt + 0x34) != 8 || (bVar2 = true, *(int *)((int)dstFmt + 0x38) != 0x10))))
-     )) {
+  if (((dstFmt->nColorMode != 2) || (dstFmt->nBytesPerPixel != 4)) ||
+     ((dstFmt->nRedShift != 0 ||
+      ((dstFmt->nGreenShift != 8 || (bVar2 = true, dstFmt->nBlueShift != 0x10)))))) {
     bVar2 = false;
   }
   iVar5 = count;
@@ -162,8 +158,8 @@ gra_ConvertCopy(byte *src,void *srcFmt,int count,byte *palette,byte *dst,void *d
     }
     if (iVar3 != 0) break;
     count = count - iVar5;
-    src = src + *(int *)((int)srcFmt + 0xc) * iVar5;
-    dst = dst + *(int *)((int)dstFmt + 0xc) * iVar5;
+    src = src + srcFmt->nBytesPerPixel * iVar5;
+    dst = dst + dstFmt->nBytesPerPixel * iVar5;
     iVar5 = count;
     if (0x4ff < count) {
       iVar5 = 0x500;

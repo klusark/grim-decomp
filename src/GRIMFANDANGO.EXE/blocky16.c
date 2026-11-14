@@ -897,8 +897,8 @@ void __cdecl Blocky16_BuildExpandTable(void *param_1)
     for (local_8 = 0; (int)local_8 < 0x10000; local_8 = local_8 + 1) {
       *(undefined2 *)(g_pbBlkExpand + local_8 * 2) = (undefined2)local_8;
     }
-    gra_ConvertCopy(g_pbBlkExpand,g_pBlkBitmap0,0x10000,(byte *)0x0,g_pbBlkExpand,param_1,
-                    (byte *)0x0);
+    gra_ConvertCopy(g_pbBlkExpand,(LecPixelFormat *)g_pBlkBitmap0,0x10000,(byte *)0x0,g_pbBlkExpand,
+                    param_1,(byte *)0x0);
   }
   return;
 }

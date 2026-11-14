@@ -1,0 +1,123 @@
+{
+ "_comment": "The LEC video library's pixel format (gra.c of lecsmush/insane, 2026-11-14), which gra_ConvertToLecColor / gra_ConvertFromLecColor / gra_ConvertCopy convert between: bytes per pixel, colour model, and per channel the bits, the shift and the loss (the shift that scales an 8-bit channel down), with an alpha channel. The 555 / 565 shortcuts test it (shifts 10/5/0, 0/5/11, 11/5/0 with 2 bytes per pixel).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "LecPixelFormat",
+   "size": 84,
+   "comment": "A pixel format of the LEC video library (Insane / Smush).",
+   "fields": [
+    [
+     12,
+     "int",
+     "nBytesPerPixel",
+     "2 for the 16-bit shortcuts"
+    ],
+    [
+     32,
+     "int",
+     "nColorMode",
+     "0 palette indexed, 1 RGB"
+    ],
+    [
+     36,
+     "int",
+     "nRedBits",
+     "RGB: bits of red (index into g_aConvert_bitmask); indexed: the palette pointer"
+    ],
+    [
+     40,
+     "int",
+     "nGreenBits",
+     ""
+    ],
+    [
+     44,
+     "int",
+     "nBlueBits",
+     ""
+    ],
+    [
+     48,
+     "int",
+     "nRedShift",
+     ""
+    ],
+    [
+     52,
+     "int",
+     "nGreenShift",
+     ""
+    ],
+    [
+     56,
+     "int",
+     "nBlueShift",
+     ""
+    ],
+    [
+     60,
+     "int",
+     "nRedLoss",
+     "8 - bits"
+    ],
+    [
+     64,
+     "int",
+     "nGreenLoss",
+     ""
+    ],
+    [
+     68,
+     "int",
+     "nBlueLoss",
+     ""
+    ],
+    [
+     72,
+     "int",
+     "nAlphaBits",
+     ""
+    ],
+    [
+     76,
+     "int",
+     "nAlphaShift",
+     ""
+    ],
+    [
+     80,
+     "int",
+     "nAlphaLoss",
+     ""
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "004cf010",
+   "index": 1,
+   "type": "LecPixelFormat *",
+   "name": "fmt"
+  },
+  {
+   "addr": "004cf520",
+   "index": 1,
+   "type": "LecPixelFormat *",
+   "name": "fmt"
+  },
+  {
+   "addr": "004cedc0",
+   "index": 1,
+   "type": "LecPixelFormat *",
+   "name": "srcFmt"
+  },
+  {
+   "addr": "004cedc0",
+   "index": 5,
+   "type": "LecPixelFormat *",
+   "name": "dstFmt"
+  }
+ ]
+}

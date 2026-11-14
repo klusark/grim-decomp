@@ -1907,3 +1907,11 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   light: name, position, rdLight; the array at set+0xbc). sputRoom_GetLight returns a SetLight *, rdLight_NewEntry /
   rdLight_SetAngles take an rdLight *. lua.c's light API: 71 offset accesses -> 43 (the rest are set fields),
   rdlight.c 7 -> 0. Clean room 0 of 5457.
+
+## LEC video pixel format type (2026-11-14)
+
+* names/types_lecformat.json: LecPixelFormat (0x54), the pixel format of the LEC video library (Insane / Smush) that
+  gra_ConvertToLecColor / gra_ConvertFromLecColor / gra_ConvertCopy convert between: bytes per pixel, colour model,
+  and per channel the bits, shift and loss, with alpha (the palette pointer shares the red bits' word in indexed
+  mode). The overrides in overrides_mixer_video.c take LecPixelFormat * now. video.c: 67 offset accesses -> 0.
+  Clean room 0 of 5457.

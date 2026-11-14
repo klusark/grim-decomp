@@ -236,6 +236,7 @@ typedef struct DDSurfaceDesc DDSurfaceDesc;
 typedef struct DDrawSurfaceRec DDrawSurfaceRec;
 typedef struct DisplayDevice DisplayDevice;
 typedef struct GrimServices GrimServices;
+typedef struct LecPixelFormat LecPixelFormat;
 typedef struct PhonemeEntry PhonemeEntry;
 typedef struct Primitive Primitive;
 typedef struct ProcEntry ProcEntry;
@@ -606,6 +607,42 @@ _Static_assert(__builtin_offsetof(DisplayDevice, nPrimary) == 0x10c, "DisplayDev
 _Static_assert(__builtin_offsetof(DisplayDevice, nFullscreen) == 0x110, "DisplayDevice.nFullscreen");
 _Static_assert(__builtin_offsetof(DisplayDevice, aGuid) == 0x288, "DisplayDevice.aGuid");
 _Static_assert(sizeof(DisplayDevice) == 0x298, "sizeof DisplayDevice");
+/* LecPixelFormat: A pixel format of the LEC video library (Insane / Smush). */
+struct LecPixelFormat {  /* 0x54 */
+    uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
+    uint8_t field_0x8, field_0x9, field_0xa, field_0xb;
+    int nBytesPerPixel;  /* 0x0c: 2 for the 16-bit shortcuts */
+    uint8_t field_0x10, field_0x11, field_0x12, field_0x13, field_0x14, field_0x15, field_0x16, field_0x17;
+    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
+    int nColorMode;  /* 0x20: 0 palette indexed, 1 RGB */
+    int nRedBits;  /* 0x24: RGB: bits of red (index into g_aConvert_bitmask); indexed: the palette pointer */
+    int nGreenBits;  /* 0x28 */
+    int nBlueBits;  /* 0x2c */
+    int nRedShift;  /* 0x30 */
+    int nGreenShift;  /* 0x34 */
+    int nBlueShift;  /* 0x38 */
+    int nRedLoss;  /* 0x3c: 8 - bits */
+    int nGreenLoss;  /* 0x40 */
+    int nBlueLoss;  /* 0x44 */
+    int nAlphaBits;  /* 0x48 */
+    int nAlphaShift;  /* 0x4c */
+    int nAlphaLoss;  /* 0x50 */
+};
+_Static_assert(__builtin_offsetof(LecPixelFormat, nBytesPerPixel) == 0xc, "LecPixelFormat.nBytesPerPixel");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nColorMode) == 0x20, "LecPixelFormat.nColorMode");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nRedBits) == 0x24, "LecPixelFormat.nRedBits");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nGreenBits) == 0x28, "LecPixelFormat.nGreenBits");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nBlueBits) == 0x2c, "LecPixelFormat.nBlueBits");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nRedShift) == 0x30, "LecPixelFormat.nRedShift");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nGreenShift) == 0x34, "LecPixelFormat.nGreenShift");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nBlueShift) == 0x38, "LecPixelFormat.nBlueShift");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nRedLoss) == 0x3c, "LecPixelFormat.nRedLoss");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nGreenLoss) == 0x40, "LecPixelFormat.nGreenLoss");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nBlueLoss) == 0x44, "LecPixelFormat.nBlueLoss");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nAlphaBits) == 0x48, "LecPixelFormat.nAlphaBits");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nAlphaShift) == 0x4c, "LecPixelFormat.nAlphaShift");
+_Static_assert(__builtin_offsetof(LecPixelFormat, nAlphaLoss) == 0x50, "LecPixelFormat.nAlphaLoss");
+_Static_assert(sizeof(LecPixelFormat) == 0x54, "sizeof LecPixelFormat");
 /* PhonemeEntry: One entry of g_aPhonemeTable: a phoneme of the lip-sync data and the talk chore it shows (Phoneme_ToTalkChore). */
 struct PhonemeEntry {  /* 0x8 */
     uint dwPhoneme;  /* 0x00: the phoneme as its IPA code point (0x5f '_' silence, 0xe6, 0x28c, ...) */

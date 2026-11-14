@@ -81,7 +81,8 @@ gra_BlitRectLookup(int *param_1,uint *param_2,int param_3,int param_4,int *param
     }
     do {
       local_420 = local_420 - 1;
-      iVar1 = gra_ConvertCopy(src,param_5,local_41c,param_6,dst,param_1,param_7);
+      iVar1 = gra_ConvertCopy(src,(LecPixelFormat *)param_5,local_41c,param_6,dst,
+                              (LecPixelFormat *)param_1,param_7);
       if (iVar1 != 0) {
         return;
       }
@@ -175,7 +176,7 @@ void __cdecl gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4)
    convert_bitmask table into 4-byte colours; called from gra_ConvertCopy in both builds); was
    Video_PixelsToRgba. */
 
-int __cdecl gra_ConvertToLecColor(void *src,void *fmt,int count,byte *palette,byte *dst)
+int __cdecl gra_ConvertToLecColor(void *src,LecPixelFormat *fmt,int count,byte *palette,byte *dst)
 
 {
   byte bVar1;
@@ -196,49 +197,49 @@ int __cdecl gra_ConvertToLecColor(void *src,void *fmt,int count,byte *palette,by
   byte *table;
   uint uVar16;
   
-  iVar14 = *(int *)((int)fmt + 0x20);
-  if ((iVar14 == 1) && (*(int *)((int)fmt + 0xc) == 2)) {
-    iVar15 = *(int *)((int)fmt + 0x30);
-    if ((iVar15 == 10) && ((*(int *)((int)fmt + 0x34) == 5 && (*(int *)((int)fmt + 0x38) == 0)))) {
+  iVar14 = fmt->nColorMode;
+  if ((iVar14 == 1) && (fmt->nBytesPerPixel == 2)) {
+    iVar15 = fmt->nRedShift;
+    if ((iVar15 == 10) && ((fmt->nGreenShift == 5 && (fmt->nBlueShift == 0)))) {
       Video_555ToRgba32((uint *)dst,src,count);
       return 0;
     }
-    if (((iVar15 == 0) && (*(int *)((int)fmt + 0x34) == 5)) && (*(int *)((int)fmt + 0x38) == 0xb)) {
+    if (((iVar15 == 0) && (fmt->nGreenShift == 5)) && (fmt->nBlueShift == 0xb)) {
       Video_565AltToRgba32((uint *)dst,src,count);
       return 0;
     }
-    if (((iVar15 == 0xb) && (*(int *)((int)fmt + 0x34) == 5)) && (*(int *)((int)fmt + 0x38) == 0)) {
+    if (((iVar15 == 0xb) && (fmt->nGreenShift == 5)) && (fmt->nBlueShift == 0)) {
       Video_565ToRgba32((uint *)dst,src,count);
       return 0;
     }
   }
   if (iVar14 == 0) {
-    table = *(byte **)((int)fmt + 0x24);
-    if ((*(byte **)((int)fmt + 0x24) == (byte *)0x0) && (table = palette, palette == (byte *)0x0)) {
+    table = (byte *)fmt->nRedBits;
+    if (((byte *)fmt->nRedBits == (byte *)0x0) && (table = palette, palette == (byte *)0x0)) {
       return -1;
     }
     Video_ExpandIndexed8(dst,src,count,4,table);
     return 0;
   }
   if (iVar14 == 1) {
-    bVar1 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x28) * 4];
-    bVar2 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x24) * 4];
-    bVar3 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x2c) * 4];
-    bVar4 = *(byte *)((int)fmt + 0x30);
-    bVar5 = *(byte *)((int)fmt + 0x34);
-    bVar6 = *(byte *)((int)fmt + 0x38);
-    bVar7 = *(byte *)((int)fmt + 0x3c);
-    bVar8 = *(byte *)((int)fmt + 0x40);
-    bVar9 = *(byte *)((int)fmt + 0x44);
-    iVar14 = *(int *)((int)fmt + 0xc);
+    bVar1 = (&g_aConvert_bitmask)[fmt->nGreenBits * 4];
+    bVar2 = (&g_aConvert_bitmask)[fmt->nRedBits * 4];
+    bVar3 = (&g_aConvert_bitmask)[fmt->nBlueBits * 4];
+    bVar9 = (byte)fmt->nRedShift;
+    bVar4 = (byte)fmt->nGreenShift;
+    bVar5 = (byte)fmt->nBlueShift;
+    bVar6 = (byte)fmt->nRedLoss;
+    bVar7 = (byte)fmt->nGreenLoss;
+    bVar8 = (byte)fmt->nBlueLoss;
+    iVar14 = fmt->nBytesPerPixel;
     if (iVar14 == 2) {
       if (count != 0) {
         do {
           uVar13 = *(ushort *)src;
           src = (void *)((int)src + 2);
-          *dst = (char)(uVar13 >> (bVar4 & 0x1f)) << (bVar7 & 0x1f) & bVar2;
-          dst[1] = (char)(uVar13 >> (bVar5 & 0x1f)) << (bVar8 & 0x1f) & bVar1;
-          dst[2] = (char)(uVar13 >> (bVar6 & 0x1f)) << (bVar9 & 0x1f) & bVar3;
+          *dst = (char)(uVar13 >> (bVar9 & 0x1f)) << (bVar6 & 0x1f) & bVar2;
+          dst[1] = (char)(uVar13 >> (bVar4 & 0x1f)) << (bVar7 & 0x1f) & bVar1;
+          dst[2] = (char)(uVar13 >> (bVar5 & 0x1f)) << (bVar8 & 0x1f) & bVar3;
           dst[3] = 0xff;
           dst = dst + 4;
           count = count + -1;
@@ -252,9 +253,9 @@ int __cdecl gra_ConvertToLecColor(void *src,void *fmt,int count,byte *palette,by
           uVar16 = *(uint *)src;
           src = (void *)((int)src + 3);
           uVar16 = uVar16 & 0xffffff;
-          *dst = (char)(uVar16 >> (bVar4 & 0x1f)) << (bVar7 & 0x1f) & bVar2;
-          dst[1] = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar8 & 0x1f) & bVar1;
-          dst[2] = (char)(uVar16 >> (bVar6 & 0x1f)) << (bVar9 & 0x1f) & bVar3;
+          *dst = (char)(uVar16 >> (bVar9 & 0x1f)) << (bVar6 & 0x1f) & bVar2;
+          dst[1] = (char)(uVar16 >> (bVar4 & 0x1f)) << (bVar7 & 0x1f) & bVar1;
+          dst[2] = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar8 & 0x1f) & bVar3;
           dst[3] = 0xff;
           dst = dst + 4;
           count = count + -1;
@@ -270,9 +271,9 @@ int __cdecl gra_ConvertToLecColor(void *src,void *fmt,int count,byte *palette,by
         do {
           uVar16 = *(uint *)src;
           src = (void *)((int)src + 4);
-          *dst = (char)(uVar16 >> (bVar4 & 0x1f)) << (bVar7 & 0x1f) & bVar2;
-          dst[1] = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar8 & 0x1f) & bVar1;
-          dst[2] = (char)(uVar16 >> (bVar6 & 0x1f)) << (bVar9 & 0x1f) & bVar3;
+          *dst = (char)(uVar16 >> (bVar9 & 0x1f)) << (bVar6 & 0x1f) & bVar2;
+          dst[1] = (char)(uVar16 >> (bVar4 & 0x1f)) << (bVar7 & 0x1f) & bVar1;
+          dst[2] = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar8 & 0x1f) & bVar3;
           dst[3] = 0xff;
           dst = dst + 4;
           count = count + -1;
@@ -285,28 +286,28 @@ int __cdecl gra_ConvertToLecColor(void *src,void *fmt,int count,byte *palette,by
     if (iVar14 != 2) {
       return -1;
     }
-    bVar1 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x28) * 4];
-    bVar2 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x24) * 4];
-    bVar3 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x2c) * 4];
-    bVar4 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x48) * 4];
-    bVar5 = *(byte *)((int)fmt + 0x30);
-    bVar6 = *(byte *)((int)fmt + 0x34);
-    bVar7 = *(byte *)((int)fmt + 0x38);
-    bVar8 = *(byte *)((int)fmt + 0x4c);
-    bVar9 = *(byte *)((int)fmt + 0x3c);
-    bVar10 = *(byte *)((int)fmt + 0x40);
-    bVar11 = *(byte *)((int)fmt + 0x44);
-    bVar12 = *(byte *)((int)fmt + 0x50);
-    iVar14 = *(int *)((int)fmt + 0xc);
+    bVar1 = (&g_aConvert_bitmask)[fmt->nGreenBits * 4];
+    bVar2 = (&g_aConvert_bitmask)[fmt->nRedBits * 4];
+    bVar3 = (&g_aConvert_bitmask)[fmt->nBlueBits * 4];
+    bVar9 = (&g_aConvert_bitmask)[fmt->nAlphaBits * 4];
+    bVar4 = (byte)fmt->nRedShift;
+    bVar5 = (byte)fmt->nGreenShift;
+    bVar6 = (byte)fmt->nBlueShift;
+    bVar7 = (byte)fmt->nAlphaShift;
+    bVar8 = (byte)fmt->nRedLoss;
+    bVar10 = (byte)fmt->nGreenLoss;
+    bVar11 = (byte)fmt->nBlueLoss;
+    bVar12 = (byte)fmt->nAlphaLoss;
+    iVar14 = fmt->nBytesPerPixel;
     if (iVar14 == 2) {
       if (count != 0) {
         do {
           uVar13 = *(ushort *)src;
           src = (void *)((int)src + 2);
-          *dst = (char)(uVar13 >> (bVar5 & 0x1f)) << (bVar9 & 0x1f) & bVar2;
-          dst[1] = (char)(uVar13 >> (bVar6 & 0x1f)) << (bVar10 & 0x1f) & bVar1;
-          dst[2] = (char)(uVar13 >> (bVar7 & 0x1f)) << (bVar11 & 0x1f) & bVar3;
-          dst[3] = (char)(uVar13 >> (bVar8 & 0x1f)) << (bVar12 & 0x1f) & bVar4;
+          *dst = (char)(uVar13 >> (bVar4 & 0x1f)) << (bVar8 & 0x1f) & bVar2;
+          dst[1] = (char)(uVar13 >> (bVar5 & 0x1f)) << (bVar10 & 0x1f) & bVar1;
+          dst[2] = (char)(uVar13 >> (bVar6 & 0x1f)) << (bVar11 & 0x1f) & bVar3;
+          dst[3] = (char)(uVar13 >> (bVar7 & 0x1f)) << (bVar12 & 0x1f) & bVar9;
           dst = dst + 4;
           count = count + -1;
         } while (count != 0);
@@ -319,10 +320,10 @@ int __cdecl gra_ConvertToLecColor(void *src,void *fmt,int count,byte *palette,by
           uVar16 = *(uint *)src;
           src = (void *)((int)src + 3);
           uVar16 = uVar16 & 0xffffff;
-          *dst = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar9 & 0x1f) & bVar2;
-          dst[1] = (char)(uVar16 >> (bVar6 & 0x1f)) << (bVar10 & 0x1f) & bVar1;
-          dst[2] = (char)(uVar16 >> (bVar7 & 0x1f)) << (bVar11 & 0x1f) & bVar3;
-          dst[3] = (char)(uVar16 >> (bVar8 & 0x1f)) << (bVar12 & 0x1f) & bVar4;
+          *dst = (char)(uVar16 >> (bVar4 & 0x1f)) << (bVar8 & 0x1f) & bVar2;
+          dst[1] = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar10 & 0x1f) & bVar1;
+          dst[2] = (char)(uVar16 >> (bVar6 & 0x1f)) << (bVar11 & 0x1f) & bVar3;
+          dst[3] = (char)(uVar16 >> (bVar7 & 0x1f)) << (bVar12 & 0x1f) & bVar9;
           dst = dst + 4;
           count = count + -1;
         } while (count != 0);
@@ -336,10 +337,10 @@ int __cdecl gra_ConvertToLecColor(void *src,void *fmt,int count,byte *palette,by
       for (; count != 0; count = count + -1) {
         uVar16 = *(uint *)src;
         src = (void *)((int)src + 4);
-        *dst = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar9 & 0x1f) & bVar2;
-        dst[1] = (char)(uVar16 >> (bVar6 & 0x1f)) << (bVar10 & 0x1f) & bVar1;
-        dst[2] = (char)(uVar16 >> (bVar7 & 0x1f)) << (bVar11 & 0x1f) & bVar3;
-        dst[3] = (char)(uVar16 >> (bVar8 & 0x1f)) << (bVar12 & 0x1f) & bVar4;
+        *dst = (char)(uVar16 >> (bVar4 & 0x1f)) << (bVar8 & 0x1f) & bVar2;
+        dst[1] = (char)(uVar16 >> (bVar5 & 0x1f)) << (bVar10 & 0x1f) & bVar1;
+        dst[2] = (char)(uVar16 >> (bVar6 & 0x1f)) << (bVar11 & 0x1f) & bVar3;
+        dst[3] = (char)(uVar16 >> (bVar7 & 0x1f)) << (bVar12 & 0x1f) & bVar9;
         dst = dst + 4;
       }
     }
@@ -355,7 +356,7 @@ int __cdecl gra_ConvertToLecColor(void *src,void *fmt,int count,byte *palette,by
 /* Original name gra_ConvertFromLecColor (the remaster's GrimFandango (Linux): gra_SetBitmap's call
    (dst, bitmap, 1, 0, &colour)); was Video_PixelsFromRgba. */
 
-int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byte *src)
+int __cdecl gra_ConvertFromLecColor(void *dst,LecPixelFormat *fmt,int count,int unused,byte *src)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -385,44 +386,41 @@ int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byt
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
-  if (*(int *)((int)fmt + 0x20) == 1) {
-    if (*(int *)((int)fmt + 0xc) == 2) {
-      iVar13 = *(int *)((int)fmt + 0x30);
-      if (((iVar13 == 10) && (*(int *)((int)fmt + 0x34) == 5)) && (*(int *)((int)fmt + 0x38) == 0))
-      {
+  if (fmt->nColorMode == 1) {
+    if (fmt->nBytesPerPixel == 2) {
+      iVar13 = fmt->nRedShift;
+      if (((iVar13 == 10) && (fmt->nGreenShift == 5)) && (fmt->nBlueShift == 0)) {
         Video_Rgba32To555(dst,(uint *)src,count);
         return 0;
       }
-      if (((iVar13 == 0) && (*(int *)((int)fmt + 0x34) == 5)) && (*(int *)((int)fmt + 0x38) == 0xb))
-      {
+      if (((iVar13 == 0) && (fmt->nGreenShift == 5)) && (fmt->nBlueShift == 0xb)) {
         Video_Rgba32To565Alt(dst,(uint *)src,count);
         return 0;
       }
-      if (((iVar13 == 0xb) && (*(int *)((int)fmt + 0x34) == 5)) && (*(int *)((int)fmt + 0x38) == 0))
-      {
+      if (((iVar13 == 0xb) && (fmt->nGreenShift == 5)) && (fmt->nBlueShift == 0)) {
         Video_Rgba32To565(dst,(uint *)src,count);
         return 0;
       }
     }
-    bVar1 = *(byte *)((int)fmt + 0x34);
-    bVar2 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x24) * 4];
-    bVar3 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x28) * 4];
-    bVar4 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x2c) * 4];
-    bVar5 = *(byte *)((int)fmt + 0x30);
-    bVar6 = *(byte *)((int)fmt + 0x38);
-    bVar7 = *(byte *)((int)fmt + 0x3c);
-    bVar8 = *(byte *)((int)fmt + 0x40);
-    bVar9 = *(byte *)((int)fmt + 0x44);
-    iVar13 = *(int *)((int)fmt + 0xc);
+    bVar1 = (byte)fmt->nGreenShift;
+    bVar2 = (&g_aConvert_bitmask)[fmt->nRedBits * 4];
+    bVar3 = (&g_aConvert_bitmask)[fmt->nGreenBits * 4];
+    bVar4 = (&g_aConvert_bitmask)[fmt->nBlueBits * 4];
+    bVar9 = (byte)fmt->nRedShift;
+    bVar5 = (byte)fmt->nBlueShift;
+    bVar6 = (byte)fmt->nRedLoss;
+    bVar7 = (byte)fmt->nGreenLoss;
+    bVar8 = (byte)fmt->nBlueLoss;
+    iVar13 = fmt->nBytesPerPixel;
     if (iVar13 == 1) {
       if (count != 0) {
         pbVar15 = src + 2;
         do {
           *(byte *)dst = (byte)((int)((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >>
-                               (bVar8 & 0x1f)) |
-                         (byte)((int)((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar9 & 0x1f))
-                         | (byte)((int)((uint)(pbVar15[-2] & bVar2) << (bVar5 & 0x1f)) >>
-                                 (bVar7 & 0x1f));
+                               (bVar7 & 0x1f)) |
+                         (byte)((int)((uint)(*pbVar15 & bVar4) << (bVar5 & 0x1f)) >> (bVar8 & 0x1f))
+                         | (byte)((int)((uint)(pbVar15[-2] & bVar2) << (bVar9 & 0x1f)) >>
+                                 (bVar6 & 0x1f));
           dst = (void *)((int)dst + 1);
           count = count + -1;
           pbVar15 = pbVar15 + 4;
@@ -436,9 +434,9 @@ int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byt
         do {
           count = count + -1;
           *(ushort *)dst =
-               (ushort)((int)((uint)(pbVar15[-2] & bVar2) << (bVar5 & 0x1f)) >> (bVar7 & 0x1f)) |
-               (ushort)((int)((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar9 & 0x1f)) |
-               (ushort)((int)((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar8 & 0x1f));
+               (ushort)((int)((uint)(pbVar15[-2] & bVar2) << (bVar9 & 0x1f)) >> (bVar6 & 0x1f)) |
+               (ushort)((int)((uint)(*pbVar15 & bVar4) << (bVar5 & 0x1f)) >> (bVar8 & 0x1f)) |
+               (ushort)((int)((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar7 & 0x1f));
           pbVar15 = pbVar15 + 4;
           dst = (ushort *)((int)dst + 2);
         } while (count != 0);
@@ -450,9 +448,9 @@ int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byt
         puVar16 = dst;
         pbVar15 = src + 2;
         do {
-          uVar14 = ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar8 & 0x1f) |
-                   ((uint)(pbVar15[-2] & bVar2) << (bVar5 & 0x1f)) >> (bVar7 & 0x1f) |
-                   ((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar9 & 0x1f);
+          uVar14 = ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar7 & 0x1f) |
+                   ((uint)(pbVar15[-2] & bVar2) << (bVar9 & 0x1f)) >> (bVar6 & 0x1f) |
+                   ((uint)(*pbVar15 & bVar4) << (bVar5 & 0x1f)) >> (bVar8 & 0x1f);
           *puVar16 = (char)uVar14;
           PIECE(dst,2,1) = (undefined1)(uVar14 >> 0x10);
           puVar16[1] = (char)(uVar14 >> 8);
@@ -472,9 +470,9 @@ int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byt
         pbVar15 = src + 2;
         do {
           count = count + -1;
-          *(uint *)dst = ((uint)(pbVar15[-2] & bVar2) << (bVar5 & 0x1f)) >> (bVar7 & 0x1f) |
-                         ((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar9 & 0x1f) |
-                         ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar8 & 0x1f);
+          *(uint *)dst = ((uint)(pbVar15[-2] & bVar2) << (bVar9 & 0x1f)) >> (bVar6 & 0x1f) |
+                         ((uint)(*pbVar15 & bVar4) << (bVar5 & 0x1f)) >> (bVar8 & 0x1f) |
+                         ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar7 & 0x1f);
           pbVar15 = pbVar15 + 4;
           dst = (uint *)((int)dst + 4);
         } while (count != 0);
@@ -483,32 +481,32 @@ int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byt
     }
   }
   else {
-    if (*(int *)((int)fmt + 0x20) != 2) {
+    if (fmt->nColorMode != 2) {
       return -1;
     }
-    bVar1 = *(byte *)((int)fmt + 0x34);
-    bVar2 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x24) * 4];
-    bVar3 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x28) * 4];
-    bVar4 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x2c) * 4];
-    bVar5 = (&g_aConvert_bitmask)[*(int *)((int)fmt + 0x48) * 4];
-    bVar6 = *(byte *)((int)fmt + 0x38);
-    bVar7 = *(byte *)((int)fmt + 0x4c);
-    bVar8 = *(byte *)((int)fmt + 0x3c);
-    bVar9 = *(byte *)((int)fmt + 0x40);
-    bVar10 = *(byte *)((int)fmt + 0x44);
-    bVar11 = *(byte *)((int)fmt + 0x30);
-    bVar12 = *(byte *)((int)fmt + 0x50);
-    iVar13 = *(int *)((int)fmt + 0xc);
+    bVar1 = (byte)fmt->nGreenShift;
+    bVar2 = (&g_aConvert_bitmask)[fmt->nRedBits * 4];
+    bVar3 = (&g_aConvert_bitmask)[fmt->nGreenBits * 4];
+    bVar4 = (&g_aConvert_bitmask)[fmt->nBlueBits * 4];
+    bVar9 = (&g_aConvert_bitmask)[fmt->nAlphaBits * 4];
+    bVar5 = (byte)fmt->nBlueShift;
+    bVar6 = (byte)fmt->nAlphaShift;
+    bVar7 = (byte)fmt->nRedLoss;
+    bVar8 = (byte)fmt->nGreenLoss;
+    bVar10 = (byte)fmt->nBlueLoss;
+    bVar11 = (byte)fmt->nRedShift;
+    bVar12 = (byte)fmt->nAlphaLoss;
+    iVar13 = fmt->nBytesPerPixel;
     if (iVar13 == 2) {
       if (count != 0) {
         pbVar15 = src + 2;
         do {
           count = count + -1;
           *(ushort *)dst =
-               (ushort)((int)((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar10 & 0x1f)) |
-               (ushort)((int)((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar9 & 0x1f)) |
-               (ushort)((int)((uint)(pbVar15[-2] & bVar2) << (bVar11 & 0x1f)) >> (bVar8 & 0x1f)) |
-               (ushort)((int)((uint)(pbVar15[1] & bVar5) << (bVar7 & 0x1f)) >> (bVar12 & 0x1f));
+               (ushort)((int)((uint)(*pbVar15 & bVar4) << (bVar5 & 0x1f)) >> (bVar10 & 0x1f)) |
+               (ushort)((int)((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar8 & 0x1f)) |
+               (ushort)((int)((uint)(pbVar15[-2] & bVar2) << (bVar11 & 0x1f)) >> (bVar7 & 0x1f)) |
+               (ushort)((int)((uint)(pbVar15[1] & bVar9) << (bVar6 & 0x1f)) >> (bVar12 & 0x1f));
           pbVar15 = pbVar15 + 4;
           dst = (ushort *)((int)dst + 2);
         } while (count != 0);
@@ -520,10 +518,10 @@ int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byt
         puVar16 = dst;
         pbVar15 = src + 2;
         do {
-          uVar14 = ((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar10 & 0x1f) |
-                   ((uint)(pbVar15[-2] & bVar2) << (bVar11 & 0x1f)) >> (bVar8 & 0x1f) |
-                   ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar9 & 0x1f) |
-                   ((uint)(pbVar15[1] & bVar5) << (bVar7 & 0x1f)) >> (bVar12 & 0x1f);
+          uVar14 = ((uint)(*pbVar15 & bVar4) << (bVar5 & 0x1f)) >> (bVar10 & 0x1f) |
+                   ((uint)(pbVar15[-2] & bVar2) << (bVar11 & 0x1f)) >> (bVar7 & 0x1f) |
+                   ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar8 & 0x1f) |
+                   ((uint)(pbVar15[1] & bVar9) << (bVar6 & 0x1f)) >> (bVar12 & 0x1f);
           *puVar16 = (char)uVar14;
           PIECE(dst,2,1) = (undefined1)(uVar14 >> 0x10);
           puVar16[1] = (char)(uVar14 >> 8);
@@ -543,10 +541,10 @@ int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byt
         pbVar15 = src + 2;
         do {
           count = count + -1;
-          *(uint *)dst = ((uint)(pbVar15[1] & bVar5) << (bVar7 & 0x1f)) >> (bVar12 & 0x1f) |
-                         ((uint)(pbVar15[-2] & bVar2) << (bVar11 & 0x1f)) >> (bVar8 & 0x1f) |
-                         ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar9 & 0x1f) |
-                         ((uint)(*pbVar15 & bVar4) << (bVar6 & 0x1f)) >> (bVar10 & 0x1f);
+          *(uint *)dst = ((uint)(pbVar15[1] & bVar9) << (bVar6 & 0x1f)) >> (bVar12 & 0x1f) |
+                         ((uint)(pbVar15[-2] & bVar2) << (bVar11 & 0x1f)) >> (bVar7 & 0x1f) |
+                         ((uint)(pbVar15[-1] & bVar3) << (bVar1 & 0x1f)) >> (bVar8 & 0x1f) |
+                         ((uint)(*pbVar15 & bVar4) << (bVar5 & 0x1f)) >> (bVar10 & 0x1f);
           pbVar15 = pbVar15 + 4;
           dst = (uint *)((int)dst + 4);
         } while (count != 0);

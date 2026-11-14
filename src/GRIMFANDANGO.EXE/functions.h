@@ -2822,13 +2822,13 @@ void __cdecl InsaneTimer_RunDeferred(void); /* 0x004ce260 */
 
 /* ===== videobitmap.c ===== */
 int __cdecl bmp_bitmap_Alloc(void *out,int width,int height,int format); /* 0x004ce3e0 */
-int __cdecl gra_ConvertCopy(byte *src,void *srcFmt,int count,byte *palette,byte *dst,void *dstFmt, byte *expandTable); /* 0x004cedc0 */
+int __cdecl gra_ConvertCopy(byte *src,LecPixelFormat *srcFmt,int count,byte *palette,byte *dst, LecPixelFormat *dstFmt,byte *expandTable); /* 0x004cedc0 */
 
 /* ===== video.c ===== */
 void __cdecl gra_BlitRectLookup(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,byte *param_6, byte *param_7); /* 0x004cea30 */
 void __cdecl gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4); /* 0x004cec40 */
-int __cdecl gra_ConvertToLecColor(void *src,void *fmt,int count,byte *palette,byte *dst); /* 0x004cf010 */
-int __cdecl gra_ConvertFromLecColor(void *dst,void *fmt,int count,int unused,byte *src); /* 0x004cf520 */
+int __cdecl gra_ConvertToLecColor(void *src,LecPixelFormat *fmt,int count,byte *palette,byte *dst); /* 0x004cf010 */
+int __cdecl gra_ConvertFromLecColor(void *dst,LecPixelFormat *fmt,int count,int unused,byte *src); /* 0x004cf520 */
 void __cdecl Video_CopyRectDstFirst (byte *dst,byte *src,int dstX,uint dstY,int srcX,uint srcY,uint width,int rows, uint dstPitch,uint srcPitch); /* 0x004cfdb0 */
 void __cdecl Video_ExpandIndexed8(byte *dst,byte *src,int count,int bytesPerPixel,byte *table); /* 0x004cfdf0 */
 void __cdecl Video_ExpandIndexed16(byte *dst,ushort *src,int count,int bytesPerPixel,byte *table); /* 0x004cfea0 */

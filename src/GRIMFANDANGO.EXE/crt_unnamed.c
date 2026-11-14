@@ -4524,7 +4524,7 @@ void __cdecl gra_SetBitmap(undefined4 *param_1,uint param_2)
     iVar1 = param_1[2];
     pcVar2 = (char *)*param_1;
     iVar3 = param_1[1];
-    gra_ConvertFromLecColor(local_14,param_1,1,0,(byte *)&param_2);
+    gra_ConvertFromLecColor(local_14,(LecPixelFormat *)param_1,1,0,(byte *)&param_2);
     gra_SetBuffer(pcVar2,(int)param_1,iVar1 * iVar3,local_14);
   }
   return;
