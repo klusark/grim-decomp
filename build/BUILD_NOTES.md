@@ -1580,5 +1580,5 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
 * The hand-written Palette_ApplyGamma (overrides_logic.c) is gone; Palette_FromFloatTable stays (`_CIpow` on an
   empty x87 stack). Clean room 0 of 5329; the gamma path is never run (the pointer is 0), so the generated text was
   checked against the machine code.
-* raw/GRIMFANDANGO.EXE/data_items.txt is stale (last full dump 2026-11-13 morning; a fresh one differs in 1,626
-  lines: later names, new arrays). Only the 0x00803fc0 line was updated here; a full refresh is its own change.
+* raw/GRIMFANDANGO.EXE/data_items.txt (tools/export_data_items.py; export_changed.py does not refresh it) was a day
+  old: a fresh dump differs in 1,626 lines (later names, new arrays) but changes nothing in src/.
