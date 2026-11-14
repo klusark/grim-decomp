@@ -86,19 +86,20 @@ jobs:
       - name: Audio device
         uses: LABSN/sound-ci-helpers@v1
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      # (gcc for run.py to build offscreen.exe (cleanroom/tools/offscreen.c); run.py finds this MSYS2 by CR_MSYS2)
+      # (gcc for run.py to build offscreen.exe (cleanroom/tools/offscreen.c), from PATH; before setup-python, whose python
+      # then comes first on PATH)
       - uses: msys2/setup-msys2@v2
         id: msys2
         with:
           msystem: UCRT64
           install: mingw-w64-ucrt-x86_64-gcc
 
-      - name: MSYS2 location
-        run: Add-Content $env:GITHUB_ENV "CR_MSYS2=${{ steps.msys2.outputs.msys2-location }}"
+      - name: MSYS2 on PATH
+        run: Add-Content $env:GITHUB_PATH "${{ steps.msys2.outputs.msys2-location }}\ucrt64\bin"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
 
       # (no CR_VISIBLE: the game runs on offscreen.exe's desktop of its own, as on a desk machine. On the runner's desktop it
       # lost and got back the focus now and then, and WM_ACTIVATEAPP (window.c) calls sputRender_ForceRefresh: the whole
