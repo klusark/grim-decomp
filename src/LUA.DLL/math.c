@@ -29,8 +29,6 @@ void __cdecl math_abs(void)
 
 
 /* ---- 0x10006ee0  math_sin ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: sin(degrees); the argument is converted to radians (x * pi / 180) */
 
 void __cdecl math_sin(void)
@@ -44,12 +42,8 @@ void __cdecl math_sin(void)
   lua_pushnumber((float)fVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x10006f00  math_cos ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: cos(degrees) */
 
 void __cdecl math_cos(void)
@@ -63,12 +57,8 @@ void __cdecl math_cos(void)
   lua_pushnumber((float)fVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x10006f20  math_tan ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: tan(degrees) */
 
 void __cdecl math_tan(void)
@@ -82,8 +72,6 @@ void __cdecl math_tan(void)
   lua_pushnumber((float)fVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x10006f50  math_asin ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -122,8 +110,6 @@ void __cdecl math_acos(void)
 
 
 /* ---- 0x10006fb0  math_atan ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: atan(x) in degrees (fpatan(x, 1) * 180 / pi) */
 
 void __cdecl math_atan(void)
@@ -137,12 +123,8 @@ void __cdecl math_atan(void)
   lua_pushnumber((float)(fVar1 * (float10)57.29577951308232));
   return;
 }
-#endif
-
 
 /* ---- 0x10006fe0  math_atan2 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: atan2(y, x) in degrees */
 
 void __cdecl math_atan2(void)
@@ -158,8 +140,6 @@ void __cdecl math_atan2(void)
   lua_pushnumber((float)(fVar1 * (float10)57.29577951308232));
   return;
 }
-#endif
-
 
 /* ---- 0x10007020  math_ceil ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -218,8 +198,6 @@ void __cdecl math_mod(void)
 
 
 /* ---- 0x100070c0  math_sqrt ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: sqrt(x) */
 
 void __cdecl math_sqrt(void)
@@ -231,8 +209,6 @@ void __cdecl math_sqrt(void)
   lua_pushnumber(SQRT(fVar1));
   return;
 }
-#endif
-
 
 /* ---- 0x100070e0  math_pow ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -255,8 +231,6 @@ void __cdecl math_pow(void)
 
 
 /* ---- 0x10007120  math_log ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: log(x), natural logarithm */
 
 void __cdecl math_log(void)
@@ -270,12 +244,8 @@ void __cdecl math_log(void)
   lua_pushnumber((float)((float10)0.6931471805599453 * fVar1));
   return;
 }
-#endif
-
 
 /* ---- 0x10007140  math_log10 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: log10(x) */
 
 void __cdecl math_log10(void)
@@ -289,12 +259,8 @@ void __cdecl math_log10(void)
   lua_pushnumber((float)((float10)0.3010299956639812 * fVar1));
   return;
 }
-#endif
-
 
 /* ---- 0x10007160  math_exp ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: exp(x) */
 
 void __cdecl math_exp(void)
@@ -311,12 +277,8 @@ void __cdecl math_exp(void)
   lua_pushnumber((float)fVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x10007190  math_deg ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: deg(x), radians to degrees */
 
 void __cdecl math_deg(void)
@@ -328,12 +290,8 @@ void __cdecl math_deg(void)
   lua_pushnumber(fVar1 * 57.29578);
   return;
 }
-#endif
-
 
 /* ---- 0x100071b0  math_rad ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: rad(x), degrees to radians */
 
 void __cdecl math_rad(void)
@@ -345,12 +303,8 @@ void __cdecl math_rad(void)
   lua_pushnumber(fVar1 * 0.017453292);
   return;
 }
-#endif
-
 
 /* ---- 0x100071d0  math_min ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: min(x, ...) */
 
 void __cdecl math_min(void)
@@ -378,12 +332,8 @@ void __cdecl math_min(void)
 }
 #undef fStack_4
 
-#endif
-
 
 /* ---- 0x10007230  math_max ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua math library: max(x, ...) */
 
 void __cdecl math_max(void)
@@ -410,8 +360,6 @@ void __cdecl math_max(void)
   return;
 }
 #undef fStack_4
-
-#endif
 
 
 /* ---- 0x10007290  math_random ---- */

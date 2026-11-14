@@ -14,9 +14,10 @@
 uint __cdecl stdConffile_Open(uint param_1)
 
 {
-  uint uRet;
-  uRet = (uint)stdConffile_OpenMode((byte *)param_1,((unsigned)(uintptr_t)&DAT_004dda54));
-  return uRet;
+  uint uVar1;
+  
+  uVar1 = stdConffile_OpenMode((byte *)param_1,((unsigned)(uintptr_t)&DAT_004dda54));
+  return uVar1;
 }
 
 /* ---- 0x0047c7e0  stdConffile_OpenMode ---- */

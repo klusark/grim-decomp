@@ -172,8 +172,8 @@ rdModel3_LoadEntryText
   puVar2 = (uint *)stdFileFromPath(in_stack_0002048c);
   strncpy(in_stack_00020490,puVar2,uVar17);
   *(undefined1 *)((int)in_stack_00020490 + 0x1f) = 0;
-  iVar3 = ((code *)stdConffile_Open)((uint)in_stack_0002048c);
-  if (iVar3 == 0) {
+  uVar17 = stdConffile_Open((uint)in_stack_0002048c);
+  if (uVar17 == 0) {
     return 0;
   }
   uVar17 = stdConffile_ReadLine();

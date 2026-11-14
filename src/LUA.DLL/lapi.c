@@ -1333,9 +1333,10 @@ char * __cdecl lua_getobjname(int param_1,undefined4 *param_2)
 uint __cdecl checkfunc(TObject *o)
 
 {
-  uint uRet;
-  uRet = (uint)luaO_equalObj(o,g_pLuaState->pTop);
-  return uRet;
+  uint uVar1;
+  
+  uVar1 = luaO_equalObj(o,g_pLuaState->pTop);
+  return uVar1;
 }
 
 /* ---- 0x100024c0  lua_beginblock ---- */
@@ -1507,11 +1508,11 @@ undefined4 __cdecl lua_Save(undefined *param_1)
 uint __cdecl LuaSaveWriter(undefined4 param_1,int param_2)
 
 {
-  uint uRet;
+  uint uVar1;
   
   g_dwLua_totalBytesSaved = g_dwLua_totalBytesSaved + param_2;
-  uRet = (uint)(*g_dwSaveFunc)(param_1,param_2);
-  return uRet;
+  uVar1 = (*g_dwSaveFunc)(param_1,param_2);
+  return uVar1;
 }
 
 /* ---- 0x10002760  lua_Restore ---- */
@@ -1789,7 +1790,7 @@ undefined4 __cdecl lua_iolibopen(void)
   undefined4 uVar1;
   
                     /* 0x5ae0  39  lua_iolibopen */
-  ((code *)luaL_openlib)(&g_pIolib,10);
+  luaL_openlib(&g_pIolib,10);
   lua_recognizelib(((unsigned)(uintptr_t)&g_pIolibtag),5);
   openwithtags();
   lua_pushCclosure(((unsigned)(uintptr_t)errorfb),0);
@@ -1837,7 +1838,7 @@ undefined4 __cdecl lua_mathlibopen(void)
   byte *pbVar3;
   
                     /* 0x7320  50  lua_mathlibopen */
-  ((code *)luaL_openlib)(&g_pMathlib,0x15);
+  luaL_openlib(&g_pMathlib,0x15);
   lua_recognizelib(((unsigned)(uintptr_t)&PTR_s_math_pow_10026fd8),1);
   lua_pushstring(&DAT_10027004);
   lua_setglobal((byte *)s__TRIGMODE_10027074);
@@ -1961,13 +1962,13 @@ undefined4 __cdecl lua_close(void)
 }
 
 /* ---- 0x1000a6e0  lua_strlibopen ---- */
-undefined4 __cdecl lua_strlibopen(void)
+uint __cdecl lua_strlibopen(void)
 
 {
-  undefined4 uVar1;
+  uint uVar1;
   
                     /* 0xa6e0  80  lua_strlibopen */
-  uVar1 = ((code *)luaL_openlib)(&g_pStrlib,9);
+  uVar1 = luaL_openlib(&g_pStrlib,9);
   return uVar1;
 }
 

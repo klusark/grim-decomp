@@ -557,7 +557,7 @@ void * __cdecl sputResource_ZBufferHandler(int *param_1)
   if (param_1[2] == 0x4655425a) {
     iVar1 = *param_1;
     if (iVar1 == 1) {
-      pvVar2 = (void *)((code *)sputRoom_LoadZBuffer)(param_1[1]);
+      pvVar2 = (void *)sputRoom_LoadZBuffer(param_1[1]);
       if (pvVar2 != (void *)0x0) {
         pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
         return pvVar2;

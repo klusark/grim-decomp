@@ -1677,9 +1677,10 @@ void __cdecl FUN_10007a20(void)
 uint __cdecl ihost_get_sound_addr(uint param_1)
 
 {
-  uint uRet;
-  uRet = (uint)FUN_10009530(param_1);
-  return uRet;
+  uint uVar1;
+  
+  uVar1 = FUN_10009530(param_1);
+  return uVar1;
 }
 
 /* ---- 0x10007a70  ihost_get_map_addr ---- */
@@ -1689,9 +1690,10 @@ uint __cdecl ihost_get_sound_addr(uint param_1)
 uint __cdecl ihost_get_map_addr(uint param_1)
 
 {
-  uint uRet;
-  uRet = (uint)FUN_10009560(param_1);
-  return uRet;
+  uint uVar1;
+  
+  uVar1 = FUN_10009560(param_1);
+  return uVar1;
 }
 
 /* ---- 0x10007a80  ihost_get_buffer_info ---- */

@@ -60,9 +60,10 @@ void __cdecl stdFileRead(uint param_1,uint param_2,uint param_3)
 uint __cdecl stdFileWrite(uint param_1,uint param_2,uint param_3)
 
 {
-  uint uRet;
-  uRet = (uint)fwrite(param_2,1,param_3,param_1);
-  return uRet;
+  uint uVar1;
+  
+  uVar1 = fwrite(param_2,1,param_3,param_1);
+  return uVar1;
 }
 
 /* ---- 0x004734a0  stdFileGets ---- */
@@ -87,9 +88,10 @@ void __cdecl stdFileGets(uint param_1,uint param_2,uint param_3)
 uint __cdecl stdFileGetws(uint param_1,uint param_2,uint param_3)
 
 {
-  uint uRet;
-  uRet = (uint)FUN_004adef0((short *)param_2,param_3,param_1);
-  return uRet;
+  short *psVar1;
+  
+  psVar1 = FUN_004adef0((short *)param_2,param_3,param_1);
+  return (uint)psVar1;
 }
 
 /* ---- 0x004734e0  stdFeof ---- */
@@ -123,9 +125,10 @@ undefined * __cdecl stdFtell(uint param_1)
 uint __cdecl stdFseek(uint param_1,uint param_2,uint param_3)
 
 {
-  uint uRet;
-  uRet = (uint)fseek(param_1,param_2,param_3);
-  return uRet;
+  uint uVar1;
+  
+  uVar1 = fseek(param_1,param_2,param_3);
+  return uVar1;
 }
 
 /* ---- 0x00473520  stdFileSize ---- */

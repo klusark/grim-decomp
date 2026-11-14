@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x10002960  luaFGetc ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name luaFGetc (the remaster's libLua.so: reads one char through the service table +0x38,
    -1 at the end); was lauxlib__2960. */
 
@@ -22,8 +20,6 @@ int __cdecl luaFGetc(undefined4 param_1)
   }
   return (int)(char)param_1;
 }
-#endif
-
 
 /* ---- 0x10002990  luaFUngetc ---- */
 /* Original name luaFUngetc (the remaster's libLua.so: -1 stays -1, otherwise seeks back one
@@ -198,11 +194,11 @@ int __cdecl luaL_nonnullarg(int param_1)
 uint __cdecl luaL_openlib(undefined4 *param_1,int param_2)
 
 {
-  uint uRet;
+  uint uVar1;
   
   lua_open();
-  uRet = (uint)lua_openlib(param_1,param_2);
-  return uRet;
+  uVar1 = lua_openlib(param_1,param_2);
+  return uVar1;
 }
 
 /* ---- 0x10002be0  luaL_verror ---- */
