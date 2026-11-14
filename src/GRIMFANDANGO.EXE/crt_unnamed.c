@@ -599,33 +599,39 @@ void __cdecl grimmem_module_terminate(void)
 /* Original name mem_Alloc (the remaster's GrimFandango (Linux): slot 0 of the "MEMORY=insane"
    service table); was FUN_004bdfe0. */
 
-void __cdecl mem_Alloc(uint param_1,uint param_2,uint param_3)
+uint __cdecl mem_Alloc(uint param_1,uint param_2,uint param_3)
 
 {
-  (**(code **)(g_dwSmushPlayHS + 0x20))(param_1,param_2,param_3);
-  return;
+  uint uVar1;
+  
+  uVar1 = (**(code **)(g_dwSmushPlayHS + 0x20))(param_1,param_2,param_3);
+  return uVar1;
 }
 
 /* ---- 0x004be000  mem_Free ---- */
 /* Original name mem_Free (the remaster's GrimFandango (Linux): slot 1 of the "MEMORY=insane"
    service table); was FUN_004be000. */
 
-void __cdecl mem_Free(uint param_1)
+uint __cdecl mem_Free(uint param_1)
 
 {
-  (**(code **)(g_dwSmushPlayHS + 0x24))(param_1);
-  return;
+  uint uVar1;
+  
+  uVar1 = (**(code **)(g_dwSmushPlayHS + 0x24))(param_1);
+  return uVar1;
 }
 
 /* ---- 0x004be020  mem_Realloc ---- */
 /* Original name mem_Realloc (the remaster's GrimFandango (Linux): slot 2 of the "MEMORY=insane"
    service table); was FUN_004be020. */
 
-void __cdecl mem_Realloc(uint param_1,uint param_2,uint param_3,uint param_4)
+uint __cdecl mem_Realloc(uint param_1,uint param_2,uint param_3,uint param_4)
 
 {
-  (**(code **)(g_dwSmushPlayHS + 0x28))(param_1,param_2,param_3,param_4);
-  return;
+  uint uVar1;
+  
+  uVar1 = (**(code **)(g_dwSmushPlayHS + 0x28))(param_1,param_2,param_3,param_4);
+  return uVar1;
 }
 
 /* ---- 0x004be050  grimio_stdio_module ---- */
@@ -659,66 +665,78 @@ void __cdecl grimio_terminate(void)
 /* Original name grimio_Open (the remaster's GrimFandango (Linux): slot 0 of the
    "FILIO=insane_stdio" service table); was FUN_004be0c0. */
 
-void __cdecl grimio_Open(uint param_1,uint param_2)
+uint __cdecl grimio_Open(uint param_1,uint param_2)
 
 {
-  (**(code **)(g_dwSmushPlayHS + 0x30))(param_1,param_2);
-  return;
+  uint uVar1;
+  
+  uVar1 = (**(code **)(g_dwSmushPlayHS + 0x30))(param_1,param_2);
+  return uVar1;
 }
 
 /* ---- 0x004be0e0  grimio_Close ---- */
 /* Original name grimio_Close (the remaster's GrimFandango (Linux): slot 1 of the
    "FILIO=insane_stdio" service table); was FUN_004be0e0. */
 
-void __cdecl grimio_Close(uint param_1)
+uint __cdecl grimio_Close(uint param_1)
 
 {
-  (**(code **)(g_dwSmushPlayHS + 0x34))(param_1);
-  return;
+  uint uVar1;
+  
+  uVar1 = (**(code **)(g_dwSmushPlayHS + 0x34))(param_1);
+  return uVar1;
 }
 
 /* ---- 0x004be100  grimio_Read ---- */
 /* Original name grimio_Read (the remaster's GrimFandango (Linux): slot 2 of the
    "FILIO=insane_stdio" service table); was FUN_004be100. */
 
-void __cdecl grimio_Read(uint param_1,uint param_2,uint param_3)
+uint __cdecl grimio_Read(uint param_1,uint param_2,uint param_3)
 
 {
-  (**(code **)(g_dwSmushPlayHS + 0x38))(param_1,param_2,param_3);
-  return;
+  uint uVar1;
+  
+  uVar1 = (**(code **)(g_dwSmushPlayHS + 0x38))(param_1,param_2,param_3);
+  return uVar1;
 }
 
 /* ---- 0x004be120  grimio_Write ---- */
 /* Original name grimio_Write (the remaster's GrimFandango (Linux): slot 3 of the
    "FILIO=insane_stdio" service table); was FUN_004be120. */
 
-void __cdecl grimio_Write(uint param_1,uint param_2,uint param_3)
+uint __cdecl grimio_Write(uint param_1,uint param_2,uint param_3)
 
 {
-  (**(code **)(g_dwSmushPlayHS + 0x40))(param_1,param_2,param_3);
-  return;
+  uint uVar1;
+  
+  uVar1 = (**(code **)(g_dwSmushPlayHS + 0x40))(param_1,param_2,param_3);
+  return uVar1;
 }
 
 /* ---- 0x004be140  grimio_Tell ---- */
 /* Original name grimio_Tell (the remaster's GrimFandango (Linux): slot 4 of the
    "FILIO=insane_stdio" service table); was FUN_004be140. */
 
-void __cdecl grimio_Tell(uint param_1)
+uint __cdecl grimio_Tell(uint param_1)
 
 {
-  (**(code **)(g_dwSmushPlayHS + 0x48))(param_1);
-  return;
+  uint uVar1;
+  
+  uVar1 = (**(code **)(g_dwSmushPlayHS + 0x48))(param_1);
+  return uVar1;
 }
 
 /* ---- 0x004be160  grimio_Seek ---- */
 /* Original name grimio_Seek (the remaster's GrimFandango (Linux): slot 5 of the
    "FILIO=insane_stdio" service table); was FUN_004be160. */
 
-void __cdecl grimio_Seek(uint param_1,uint param_2,uint param_3)
+uint __cdecl grimio_Seek(uint param_1,uint param_2,uint param_3)
 
 {
-  (**(code **)(g_dwSmushPlayHS + 0x4c))(param_1,param_2,param_3);
-  return;
+  uint uVar1;
+  
+  uVar1 = (**(code **)(g_dwSmushPlayHS + 0x4c))(param_1,param_2,param_3);
+  return uVar1;
 }
 
 /* ---- 0x004bf950  FUN_004bf950 ---- */
@@ -2922,11 +2940,13 @@ uint __cdecl Directory_module_startup(void)
    "LECMODULE=insane_directory" service table; module_shutdown is a static several LEC modules have,
    written with the module prefix); was FUN_004c5330. */
 
-void __cdecl Directory_module_shutdown(void)
+uint __cdecl Directory_module_shutdown(void)
 
 {
-  (*(code *)g_pDirectory_share_services[3])(g_dwDirectory_file_services);
-  return;
+  uint uVar1;
+  
+  uVar1 = (*(code *)g_pDirectory_share_services[3])(g_dwDirectory_file_services);
+  return uVar1;
 }
 
 /* ---- 0x004c5350  FUN_004c5350 ---- */
@@ -3635,11 +3655,13 @@ uint __cdecl StdFile_module_startup(void)
    "LECMODULE=insane_stdfile" service table; module_shutdown is a static several LEC modules have,
    written with the module prefix); was FUN_004c5d90. */
 
-void __cdecl StdFile_module_shutdown(void)
+uint __cdecl StdFile_module_shutdown(void)
 
 {
-  (*(code *)g_pStdFile_share_services[3])(g_pStdFile_filio_services);
-  return;
+  uint uVar1;
+  
+  uVar1 = (*(code *)g_pStdFile_share_services[3])(g_pStdFile_filio_services);
+  return uVar1;
 }
 
 /* ---- 0x004c5db0  StdFile_fle_Open ---- */
@@ -3647,11 +3669,13 @@ void __cdecl StdFile_module_shutdown(void)
    "FILE=insane_stdfile" service table; fle_Open is a static several LEC modules have, written with
    the module prefix); was FUN_004c5db0. */
 
-void __cdecl StdFile_fle_Open(uint param_1,uint param_2)
+uint __cdecl StdFile_fle_Open(uint param_1,uint param_2)
 
 {
-  (*(code *)*g_pStdFile_filio_services)(param_1,param_2);
-  return;
+  uint uVar1;
+  
+  uVar1 = (*(code *)*g_pStdFile_filio_services)(param_1,param_2);
+  return uVar1;
 }
 
 /* ---- 0x004c5dd0  StdFile_fle_Close ---- */
@@ -3659,11 +3683,13 @@ void __cdecl StdFile_fle_Open(uint param_1,uint param_2)
    "FILE=insane_stdfile" service table; fle_Close is a static several LEC modules have, written with
    the module prefix); was FUN_004c5dd0. */
 
-void __cdecl StdFile_fle_Close(uint param_1)
+uint __cdecl StdFile_fle_Close(uint param_1)
 
 {
-  (*(code *)g_pStdFile_filio_services[1])(param_1);
-  return;
+  uint uVar1;
+  
+  uVar1 = (*(code *)g_pStdFile_filio_services[1])(param_1);
+  return uVar1;
 }
 
 /* ---- 0x004c5df0  StdFile_fle_Read ---- */
@@ -3671,11 +3697,13 @@ void __cdecl StdFile_fle_Close(uint param_1)
    "FILE=insane_stdfile" service table; fle_Read is a static several LEC modules have, written with
    the module prefix); was FUN_004c5df0. */
 
-void __cdecl StdFile_fle_Read(uint param_1,uint param_2,uint param_3)
+uint __cdecl StdFile_fle_Read(uint param_1,uint param_2,uint param_3)
 
 {
-  (*(code *)g_pStdFile_filio_services[2])(param_1,param_2,param_3);
-  return;
+  uint uVar1;
+  
+  uVar1 = (*(code *)g_pStdFile_filio_services[2])(param_1,param_2,param_3);
+  return uVar1;
 }
 
 /* ---- 0x004c5e10  StdFile_fle_Write ---- */
@@ -3683,11 +3711,13 @@ void __cdecl StdFile_fle_Read(uint param_1,uint param_2,uint param_3)
    "FILE=insane_stdfile" service table; fle_Write is a static several LEC modules have, written with
    the module prefix); was FUN_004c5e10. */
 
-void __cdecl StdFile_fle_Write(uint param_1,uint param_2,uint param_3)
+uint __cdecl StdFile_fle_Write(uint param_1,uint param_2,uint param_3)
 
 {
-  (*(code *)g_pStdFile_filio_services[3])(param_1,param_2,param_3);
-  return;
+  uint uVar1;
+  
+  uVar1 = (*(code *)g_pStdFile_filio_services[3])(param_1,param_2,param_3);
+  return uVar1;
 }
 
 /* ---- 0x004c5e50  StdFile_fle_Seek ---- */
@@ -3695,11 +3725,13 @@ void __cdecl StdFile_fle_Write(uint param_1,uint param_2,uint param_3)
    "FILE=insane_stdfile" service table; fle_Seek is a static several LEC modules have, written with
    the module prefix); was FUN_004c5e50. */
 
-void __cdecl StdFile_fle_Seek(uint param_1,uint param_2,uint param_3)
+uint __cdecl StdFile_fle_Seek(uint param_1,uint param_2,uint param_3)
 
 {
-  (*(code *)g_pStdFile_filio_services[5])(param_1,param_2,param_3);
-  return;
+  uint uVar1;
+  
+  uVar1 = (*(code *)g_pStdFile_filio_services[5])(param_1,param_2,param_3);
+  return uVar1;
 }
 
 /* ---- 0x004c5e70  StdFile_fle_Flush ---- */
@@ -3707,11 +3739,13 @@ void __cdecl StdFile_fle_Seek(uint param_1,uint param_2,uint param_3)
    "FILE=insane_stdfile" service table; fle_Flush is a static several LEC modules have, written with
    the module prefix); was FUN_004c5e70. */
 
-void __cdecl StdFile_fle_Flush(uint param_1)
+uint __cdecl StdFile_fle_Flush(uint param_1)
 
 {
-  (*(code *)g_pStdFile_filio_services[6])(param_1);
-  return;
+  uint uVar1;
+  
+  uVar1 = (*(code *)g_pStdFile_filio_services[6])(param_1);
+  return uVar1;
 }
 
 /* ---- 0x004c5ee0  fle_GetS ---- */

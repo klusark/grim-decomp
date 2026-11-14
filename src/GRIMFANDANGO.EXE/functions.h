@@ -1087,12 +1087,12 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2); /* 0x00472bd0 */
 undefined * __cdecl stdFileOpen(uint param_1,uint param_2); /* 0x00473430 */
 void __cdecl stdFileClose(uint param_1); /* 0x00473450 */
 void __cdecl stdFileRead(uint param_1,uint param_2,uint param_3); /* 0x00473460 */
-void __cdecl stdFileWrite(uint param_1,uint param_2,uint param_3); /* 0x00473480 */
+uint __cdecl stdFileWrite(uint param_1,uint param_2,uint param_3); /* 0x00473480 */
 void __cdecl stdFileGets(uint param_1,uint param_2,uint param_3); /* 0x004734a0 */
-void __cdecl stdFileGetws(uint param_1,uint param_2,uint param_3); /* 0x004734c0 */
+uint __cdecl stdFileGetws(uint param_1,uint param_2,uint param_3); /* 0x004734c0 */
 uint __cdecl stdFeof(int param_1); /* 0x004734e0 */
 undefined * __cdecl stdFtell(uint param_1); /* 0x004734f0 */
-void __cdecl stdFseek(uint param_1,uint param_2,uint param_3); /* 0x00473500 */
+uint __cdecl stdFseek(uint param_1,uint param_2,uint param_3); /* 0x00473500 */
 undefined * __cdecl stdFileSize(uint param_1); /* 0x00473520 */
 uint __cdecl stdFilePrintf(uint fh,char *fmt,...); /* 0x00473570 */
 uint __cdecl stdFGetc(uint param_1); /* 0x004735f0 */
@@ -1178,9 +1178,9 @@ void __cdecl Plat_Free(void *p); /* 0x00488820 */
 
 /* ===== platsvc.c ===== */
 void __cdecl stdPlatform_Assert(uint param_1,char *param_2,uint param_3); /* 0x00477f10 */
-void __cdecl stdPlatform_AllocHandle(uint param_1); /* 0x00478030 */
+uint __cdecl stdPlatform_AllocHandle(uint param_1); /* 0x00478030 */
 void __cdecl stdPlatform_FreeHandle(uint param_1); /* 0x00478040 */
-void __cdecl stdPlatform_ReallocHandle(uint param_1,uint param_2); /* 0x00478050 */
+uint __cdecl stdPlatform_ReallocHandle(uint param_1,uint param_2); /* 0x00478050 */
 uint __cdecl stdPlatform_LockHandle(uint param_1); /* 0x00478070 */
 
 /* ===== std3d.c ===== */
@@ -1228,7 +1228,7 @@ undefined4 * __cdecl stdPcx_Load(uint param_1,int param_2,int param_3); /* 0x004
 uint __cdecl stdPcx_Write(uint param_1,int param_2); /* 0x0047ef10 */
 
 /* ===== stdconffile.c ===== */
-void __cdecl stdConffile_Open(uint param_1); /* 0x0047c7c0 */
+uint __cdecl stdConffile_Open(uint param_1); /* 0x0047c7c0 */
 uint __cdecl stdConffile_OpenMode(byte *param_1,uint param_2); /* 0x0047c7e0 */
 void __cdecl stdConffile_Close(void); /* 0x0047c8c0 */
 uint __cdecl stdConffile_ReadLine(void); /* 0x0047c920 */
@@ -1322,7 +1322,7 @@ uint __cdecl grimlib_FindResources(void); /* 0x0048d3f0 */
 int __cdecl sputResource_AddResourcePath(char *dir); /* 0x0048d4b0 */
 int __cdecl sputResource_LogToFile(char *param_1); /* 0x0048d550 */
 int __cdecl AddResourcePath(char *dir); /* 0x0048d570 */
-void __cdecl Resource_CountCostumeRefs(uint param_1); /* 0x0048d810 */
+uint __cdecl Resource_CountCostumeRefs(uint param_1); /* 0x0048d810 */
 uint __cdecl Resource_RegisterTypes(void); /* 0x0048d870 */
 void __cdecl sputResource_SetMemoryUsage(int budget,int b); /* 0x0048d8a0 */
 void __cdecl Resource_ReloadBitmaps(void); /* 0x0048df50 */
@@ -2033,7 +2033,7 @@ uint __cdecl sputRoom_ParseLights(void); /* 0x004a5600 */
 uint __cdecl sputRoom_ParseSetups(void); /* 0x004a5890 */
 
 /* ===== zbuffer.c ===== */
-void __cdecl sputRoom_LoadZBuffer(uint param_1); /* 0x004a4920 */
+uint __cdecl sputRoom_LoadZBuffer(uint param_1); /* 0x004a4920 */
 uint __cdecl ZBuffer_LoadFile(char *param_1); /* 0x004a4930 */
 void __cdecl sputRoom_FreeZBuffer(uint param_1); /* 0x004a4980 */
 void __cdecl ZBuffer_FreeData(void *param_1); /* 0x004a4990 */
@@ -2436,17 +2436,17 @@ int __cdecl FUN_004bcb40(uint param_1,int param_2); /* 0x004bcb40 */
 undefined4 __cdecl SmushPlay_FakeBlit(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6, uint param_7); /* 0x004bdad0 */
 uint __cdecl grimmem_memory_module(int *param_1,uint param_2); /* 0x004bdf70 */
 void __cdecl grimmem_module_terminate(void); /* 0x004bdfb0 */
-void __cdecl mem_Alloc(uint param_1,uint param_2,uint param_3); /* 0x004bdfe0 */
-void __cdecl mem_Free(uint param_1); /* 0x004be000 */
-void __cdecl mem_Realloc(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x004be020 */
+uint __cdecl mem_Alloc(uint param_1,uint param_2,uint param_3); /* 0x004bdfe0 */
+uint __cdecl mem_Free(uint param_1); /* 0x004be000 */
+uint __cdecl mem_Realloc(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x004be020 */
 uint __cdecl grimio_stdio_module(int *param_1,uint param_2); /* 0x004be050 */
 void __cdecl grimio_terminate(void); /* 0x004be090 */
-void __cdecl grimio_Open(uint param_1,uint param_2); /* 0x004be0c0 */
-void __cdecl grimio_Close(uint param_1); /* 0x004be0e0 */
-void __cdecl grimio_Read(uint param_1,uint param_2,uint param_3); /* 0x004be100 */
-void __cdecl grimio_Write(uint param_1,uint param_2,uint param_3); /* 0x004be120 */
-void __cdecl grimio_Tell(uint param_1); /* 0x004be140 */
-void __cdecl grimio_Seek(uint param_1,uint param_2,uint param_3); /* 0x004be160 */
+uint __cdecl grimio_Open(uint param_1,uint param_2); /* 0x004be0c0 */
+uint __cdecl grimio_Close(uint param_1); /* 0x004be0e0 */
+uint __cdecl grimio_Read(uint param_1,uint param_2,uint param_3); /* 0x004be100 */
+uint __cdecl grimio_Write(uint param_1,uint param_2,uint param_3); /* 0x004be120 */
+uint __cdecl grimio_Tell(uint param_1); /* 0x004be140 */
+uint __cdecl grimio_Seek(uint param_1,uint param_2,uint param_3); /* 0x004be160 */
 undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4); /* 0x004bf950 */
 uint __cdecl BatchUnsubscribe(int *param_1); /* 0x004c1900 */
 uint __cdecl anm_animplay_module(int *param_1,uint param_2); /* 0x004c1f40 */
@@ -2507,7 +2507,7 @@ int __cdecl fle_StreamerQuerySize(int param_1); /* 0x004c5220 */
 uint __cdecl fle_directory_module(int *param_1,uint param_2); /* 0x004c5280 */
 void __cdecl Directory_module_terminate(void); /* 0x004c52c0 */
 uint __cdecl Directory_module_startup(void); /* 0x004c52f0 */
-void __cdecl Directory_module_shutdown(void); /* 0x004c5330 */
+uint __cdecl Directory_module_shutdown(void); /* 0x004c5330 */
 void __cdecl FUN_004c5350(uint param_1,undefined4 *param_2); /* 0x004c5350 */
 void __cdecl FUN_004c5370(undefined4 *param_1); /* 0x004c5370 */
 int __cdecl fle_Exists(int param_1); /* 0x004c5380 */
@@ -2531,13 +2531,13 @@ void __cdecl Zfile_fle_Flush(int *param_1); /* 0x004c5cb0 */
 uint __cdecl fle_stdfile_module(int *param_1,uint param_2); /* 0x004c5ce0 */
 void __cdecl StdFile_module_terminate(void); /* 0x004c5d20 */
 uint __cdecl StdFile_module_startup(void); /* 0x004c5d50 */
-void __cdecl StdFile_module_shutdown(void); /* 0x004c5d90 */
-void __cdecl StdFile_fle_Open(uint param_1,uint param_2); /* 0x004c5db0 */
-void __cdecl StdFile_fle_Close(uint param_1); /* 0x004c5dd0 */
-void __cdecl StdFile_fle_Read(uint param_1,uint param_2,uint param_3); /* 0x004c5df0 */
-void __cdecl StdFile_fle_Write(uint param_1,uint param_2,uint param_3); /* 0x004c5e10 */
-void __cdecl StdFile_fle_Seek(uint param_1,uint param_2,uint param_3); /* 0x004c5e50 */
-void __cdecl StdFile_fle_Flush(uint param_1); /* 0x004c5e70 */
+uint __cdecl StdFile_module_shutdown(void); /* 0x004c5d90 */
+uint __cdecl StdFile_fle_Open(uint param_1,uint param_2); /* 0x004c5db0 */
+uint __cdecl StdFile_fle_Close(uint param_1); /* 0x004c5dd0 */
+uint __cdecl StdFile_fle_Read(uint param_1,uint param_2,uint param_3); /* 0x004c5df0 */
+uint __cdecl StdFile_fle_Write(uint param_1,uint param_2,uint param_3); /* 0x004c5e10 */
+uint __cdecl StdFile_fle_Seek(uint param_1,uint param_2,uint param_3); /* 0x004c5e50 */
+uint __cdecl StdFile_fle_Flush(uint param_1); /* 0x004c5e70 */
 int __cdecl fle_GetS(uint param_1,int param_2,int param_3); /* 0x004c5ee0 */
 void __cdecl fle_PrintF(uint fh,char *fmt,...); /* 0x004c5f80 */
 uint __cdecl fle_GetC(uint param_1); /* 0x004c5fe0 */

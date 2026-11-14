@@ -1,0 +1,133 @@
+{
+ "_comment": "Functions reached through a function pointer (a service table, a host callback, a resource or costume handler) whose body ends in a call: in the original each is call ...; ret, so the callee's EAX is the function's result, and the callers use it (mem_Alloc, the file services, stdPlatform_AllocHandle, iMUSE's ihost_get_map_addr, ...). Declared void, they lost it: the rebuilt programs worked only while nothing changed EAX between that call and the return. A gcov build does (the counter of the block after the call is updated there), and so would any change of code generation. Found by the coverage build (tools/coverage.sh), 2026-11-14. Applied like logic_protos.json (tools/apply_logic_protos.py).",
+ "GRIMFANDANGO.EXE": {
+  "00473480": {
+   "proto": "uint stdFileWrite(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004734c0": {
+   "proto": "uint stdFileGetws(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00473500": {
+   "proto": "uint stdFseek(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "00478030": {
+   "proto": "uint stdPlatform_AllocHandle(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "00478050": {
+   "proto": "uint stdPlatform_ReallocHandle(uint param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "0047c7c0": {
+   "proto": "uint stdConffile_Open(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "0048d810": {
+   "proto": "uint Resource_CountCostumeRefs(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004a4920": {
+   "proto": "uint sputRoom_LoadZBuffer(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004bdfe0": {
+   "proto": "uint mem_Alloc(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004be000": {
+   "proto": "uint mem_Free(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004be020": {
+   "proto": "uint mem_Realloc(uint param_1,uint param_2,uint param_3,uint param_4)",
+   "cc": "__cdecl"
+  },
+  "004be0c0": {
+   "proto": "uint grimio_Open(uint param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "004be0e0": {
+   "proto": "uint grimio_Close(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004be100": {
+   "proto": "uint grimio_Read(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004be120": {
+   "proto": "uint grimio_Write(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004be140": {
+   "proto": "uint grimio_Tell(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004be160": {
+   "proto": "uint grimio_Seek(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004c5330": {
+   "proto": "uint Directory_module_shutdown()",
+   "cc": "__cdecl"
+  },
+  "004c5d90": {
+   "proto": "uint StdFile_module_shutdown()",
+   "cc": "__cdecl"
+  },
+  "004c5db0": {
+   "proto": "uint StdFile_fle_Open(uint param_1,uint param_2)",
+   "cc": "__cdecl"
+  },
+  "004c5dd0": {
+   "proto": "uint StdFile_fle_Close(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "004c5df0": {
+   "proto": "uint StdFile_fle_Read(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004c5e10": {
+   "proto": "uint StdFile_fle_Write(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004c5e50": {
+   "proto": "uint StdFile_fle_Seek(uint param_1,uint param_2,uint param_3)",
+   "cc": "__cdecl"
+  },
+  "004c5e70": {
+   "proto": "uint StdFile_fle_Flush(uint param_1)",
+   "cc": "__cdecl"
+  }
+ },
+ "LUA.DLL": {
+  "100024a0": {
+   "proto": "uint checkfunc(TObject *o)",
+   "cc": "__cdecl"
+  },
+  "10002730": {
+   "proto": "uint LuaSaveWriter(undefined4 param_1,int param_2)",
+   "cc": "__cdecl"
+  },
+  "10002bc0": {
+   "proto": "uint luaL_openlib(undefined4 *param_1,int param_2)",
+   "cc": "__cdecl"
+  }
+ },
+ "IMUSE.DLL": {
+  "10007a60": {
+   "proto": "uint ihost_get_sound_addr(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "10007a70": {
+   "proto": "uint ihost_get_map_addr(uint param_1)",
+   "cc": "__cdecl"
+  },
+  "1000a010": {
+   "proto": "uint iMUSE_Free(uint param_1)",
+   "cc": "__cdecl"
+  }
+ }
+}

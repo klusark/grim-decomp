@@ -10,11 +10,12 @@
    remaster's GrimFandango (Linux): the load call of the 'ZBUF' resource handler
    (sputResource_ZBufferHandler); the remaster inlined ZBuffer_LoadFile); was ZBuffer_Load. */
 
-void __cdecl sputRoom_LoadZBuffer(uint param_1)
+uint __cdecl sputRoom_LoadZBuffer(uint param_1)
 
 {
-  ZBuffer_LoadFile((char *)param_1);
-  return;
+  uint uRet;
+  uRet = (uint)ZBuffer_LoadFile((char *)param_1);
+  return uRet;
 }
 
 /* ---- 0x004a4930  ZBuffer_LoadFile ---- */

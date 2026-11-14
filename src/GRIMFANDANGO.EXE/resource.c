@@ -609,11 +609,12 @@ int __cdecl AddResourcePath(char *dir)
 /* Callback given to Cos_RegisterSaveVerify: Res_CountChildren for 'COST' resources (checks the
    costumes referenced by a save). */
 
-void __cdecl Resource_CountCostumeRefs(uint param_1)
+uint __cdecl Resource_CountCostumeRefs(uint param_1)
 
 {
-  Res_CountChildren(0x54534f43,param_1);
-  return;
+  uint uRet;
+  uRet = (uint)Res_CountChildren(0x54534f43,param_1);
+  return uRet;
 }
 
 /* ---- 0x0048d870  Resource_RegisterTypes ---- */

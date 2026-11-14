@@ -67,7 +67,7 @@ int __cdecl lua_getlocal(int param_1,int param_2,int *param_3); /* 0x100022c0 */
 undefined4 __cdecl lua_setlocal(int param_1,int param_2); /* 0x10002330 */
 undefined4 __cdecl lua_funcinfo(int param_1,int *param_2,undefined4 *param_3); /* 0x100023c0 */
 char * __cdecl lua_getobjname(int param_1,undefined4 *param_2); /* 0x10002440 */
-void __cdecl checkfunc(TObject *o); /* 0x100024a0 */
+uint __cdecl checkfunc(TObject *o); /* 0x100024a0 */
 LState * __cdecl lua_beginblock(void); /* 0x100024c0 */
 undefined4 __cdecl lua_endblock(void); /* 0x10002510 */
 uint __cdecl lua_ref(int param_1); /* 0x10002560 */
@@ -76,7 +76,7 @@ undefined4 __cdecl lua_setfallback(byte *name,int fallback); /* 0x100025b0 */
 void __cdecl do_unprotectedrun(uint param_1,int param_2,void *param_3); /* 0x100025f0 */
 void luaA_ResetSaveCount(void); /* 0x10002660 */
 undefined4 __cdecl lua_Save(undefined *param_1); /* 0x10002670 */
-void __cdecl LuaSaveWriter(undefined4 param_1,int param_2); /* 0x10002730 */
+uint __cdecl LuaSaveWriter(undefined4 param_1,int param_2); /* 0x10002730 */
 uint __cdecl lua_Restore(void *readFunc); /* 0x10002760 */
 void Lua_Terminate(void); /* 0x10002900 */
 undefined4 Lua_Startup(void); /* 0x10002920 */
@@ -107,7 +107,7 @@ float __cdecl luaL_opt_number(int param_1,float param_2); /* 0x10002ae0 */
 int __cdecl luaL_tablearg(int param_1); /* 0x10002b10 */
 int __cdecl luaL_functionarg(int param_1); /* 0x10002b50 */
 int __cdecl luaL_nonnullarg(int param_1); /* 0x10002b90 */
-void __cdecl luaL_openlib(undefined4 *param_1,int param_2); /* 0x10002bc0 */
+uint __cdecl luaL_openlib(undefined4 *param_1,int param_2); /* 0x10002bc0 */
 void __cdecl luaL_verror(char *fmt,...); /* 0x10002be0 */
 int __cdecl luaL_openspace(int param_1); /* 0x10002c20 */
 void __cdecl Lbuffer_Openspace(int param_1); /* 0x10002c50 */

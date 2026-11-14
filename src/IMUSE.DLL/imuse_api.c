@@ -1674,22 +1674,24 @@ void __cdecl FUN_10007a20(void)
 /* Original name ihost_get_sound_addr (the remaster's GrimFandango (Linux): aligned call in
    sounds_startup); was FUN_10007a60. */
 
-void __cdecl ihost_get_sound_addr(uint param_1)
+uint __cdecl ihost_get_sound_addr(uint param_1)
 
 {
-  FUN_10009530(param_1);
-  return;
+  uint uRet;
+  uRet = (uint)FUN_10009530(param_1);
+  return uRet;
 }
 
 /* ---- 0x10007a70  ihost_get_map_addr ---- */
 /* Original name ihost_get_map_addr (the remaster's GrimFandango (Linux): aligned call in
    sounds_startup); was FUN_10007a70. */
 
-void __cdecl ihost_get_map_addr(uint param_1)
+uint __cdecl ihost_get_map_addr(uint param_1)
 
 {
-  FUN_10009560(param_1);
-  return;
+  uint uRet;
+  uRet = (uint)FUN_10009560(param_1);
+  return uRet;
 }
 
 /* ---- 0x10007a80  ihost_get_buffer_info ---- */

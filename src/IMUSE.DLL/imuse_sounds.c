@@ -153,12 +153,14 @@ void __cdecl FUN_10009f40(int param_1)
    slot in the memory list mlEntries, then the host free service); the remaster inlined FUN_1000a030
    into it); was FUN_1000a010. */
 
-void __cdecl iMUSE_Free(uint param_1)
+uint __cdecl iMUSE_Free(uint param_1)
 
 {
+  uint uRet;
+  
   FUN_1000a030(param_1);
-  (**(code **)(g_dwSounds_pHS + 0x24))(param_1);
-  return;
+  uRet = (uint)(**(code **)(g_dwSounds_pHS + 0x24))(param_1);
+  return uRet;
 }
 
 /* ---- 0x1000a030  FUN_1000a030 ---- */
