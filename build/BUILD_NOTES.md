@@ -1527,3 +1527,10 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   ihost_get_buffer_info (the slot table's address is a plain number in an arithmetic expression),
   Cos_AllocCostumeSlot / Cos_AllocInstanceSlot (deliberate fix: the original leaves records undefined after a failed
   load), and those listed as kept in "Override sweep" above.
+* Overrides whose decompiled twin is now the same text (comments and whitespace aside), generated again:
+  rdCache_DrawFaceZ (the eleven lost rasteriser arguments are back with the stored prototypes; only the 0.0f
+  literal of the TFS call differs from the hand-patched text), rdModel3_DrawFace (only a local's type differs:
+  `undefined1 *` for `int`); the edge steps rdRaster_EdgeStepFlat, FUN_004104b0, FUN_00411b70, FUN_004129f0,
+  FUN_00415180, FUN_004151c0, rdAFRaster_Advance{Left,Right}EdgeNGonGIT (overrides_asm_s1.c); the wrappers
+  Dsnd_Mem{Copy,Fill}Cdecl, msc_MemCopy, dsn_getvol, dsn_getrate (overrides_mixer_drv.c) and sou_mixer_end
+  (overrides_mixer.c). Clean room 0 of 5329.
