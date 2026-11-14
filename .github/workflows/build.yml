@@ -90,13 +90,15 @@ jobs:
         with:
           python-version: "3.12"
 
-      # (gcc for run.py to build offscreen.exe (cleanroom/tools/offscreen.c): run.py looks for it in C:\msys64\ucrt64\bin, the
-      # runner's own MSYS2, which release: false installs into)
+      # (gcc for run.py to build offscreen.exe (cleanroom/tools/offscreen.c); run.py finds this MSYS2 by CR_MSYS2)
       - uses: msys2/setup-msys2@v2
+        id: msys2
         with:
           msystem: UCRT64
-          release: false
           install: mingw-w64-ucrt-x86_64-gcc
+
+      - name: MSYS2 location
+        run: Add-Content $env:GITHUB_ENV "CR_MSYS2=${{ steps.msys2.outputs.msys2-location }}"
 
       # (no CR_VISIBLE: the game runs on offscreen.exe's desktop of its own, as on a desk machine. On the runner's desktop it
       # lost and got back the focus now and then, and WM_ACTIVATEAPP (window.c) calls sputRender_ForceRefresh: the whole
