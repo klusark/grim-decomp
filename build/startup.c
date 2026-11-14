@@ -25,6 +25,29 @@ extern void *__stdcall SetUnhandledExceptionFilter(long (__stdcall *)(GRIM_EXC_P
 extern int __stdcall IsBadReadPtr(const void *, unsigned);
 extern unsigned __stdcall GetEnvironmentVariableA(const char *, char *, unsigned);
 
+#ifdef GRIM_COVERAGE
+/* The coverage build (make COVERAGE=1): each program has its own libgcov, and a DLL writes its counters only when it is
+ * unloaded, at the end of the process teardown. A game that hangs there (the timer thread's wait) and is killed by run.py
+ * loses them: each run counted other lines of the DLLs. So the exe writes all four at exit() and in its crash filter: its
+ * own (__gcov_dump) and the DLLs' (grim_cov_dump, link.py's cov_export.c in each). libgcov marks a dump as done, so the one
+ * at unload adds nothing twice. */
+extern void *__stdcall GetModuleHandleA(const char *);
+extern void *__stdcall GetProcAddress(void *, const char *);
+static void grim_cov_dump_all(void)
+{
+    static const char *const dlls[] = { "lua.dll", "imuse.dll", "chore.dll" };
+    extern void __gcov_dump(void);
+    unsigned i;
+    for (i = 0; i < 3; i++) {
+        void *h = GetModuleHandleA(dlls[i]);
+        void (*dump)(void) = h ? (void (*)(void))GetProcAddress(h, "grim_cov_dump") : 0;
+        if (dump)
+            dump();
+    }
+    __gcov_dump();
+}
+#endif
+
 static long __stdcall grim_crash_filter(GRIM_EXC_PTRS *p)
 {
     char buf[256];
@@ -66,10 +89,7 @@ static long __stdcall grim_crash_filter(GRIM_EXC_PTRS *p)
     WriteFile(h, "\r\n", 2, &wrote, 0);
     CloseHandle(h);
 #ifdef GRIM_COVERAGE
-    {   /* the coverage build (make COVERAGE=1): the counters of a game that crashes count too (a normal exit writes them) */
-        extern void __gcov_dump(void);
-        __gcov_dump();
-    }
+    grim_cov_dump_all();   /* the coverage build: the counters of a game that crashes count too */
 #endif
     return 0;   /* EXCEPTION_CONTINUE_SEARCH */
 }
@@ -77,4 +97,10 @@ static long __stdcall grim_crash_filter(GRIM_EXC_PTRS *p)
 __attribute__((constructor)) static void grim_install_crash_filter(void)
 {
     SetUnhandledExceptionFilter(grim_crash_filter);
+#ifdef GRIM_COVERAGE
+    {
+        extern int __cdecl atexit(void (*)(void));
+        atexit(grim_cov_dump_all);
+    }
+#endif
 }
