@@ -230,13 +230,20 @@ typedef struct Actor Actor;
 typedef struct ActorExtra ActorExtra;
 typedef struct ActorShadow ActorShadow;
 typedef struct BlockyMotionVector BlockyMotionVector;
+typedef struct ColorFormat ColorFormat;
 typedef struct CostumeNode CostumeNode;
+typedef struct DDSurfaceDesc DDSurfaceDesc;
+typedef struct DDrawSurfaceRec DDrawSurfaceRec;
+typedef struct DisplayDevice DisplayDevice;
 typedef struct GrimServices GrimServices;
 typedef struct PhonemeEntry PhonemeEntry;
 typedef struct Puck Puck;
 typedef struct ScreenCoord ScreenCoord;
 typedef struct TextContext TextContext;
 typedef struct TextObject TextObject;
+typedef struct VBuffer VBuffer;
+typedef struct VBufferFormat VBufferFormat;
+typedef struct VideoMode VideoMode;
 typedef struct WalkPlane WalkPlane;
 typedef struct WalkPlaneCache WalkPlaneCache;
 typedef struct WalkVertex WalkVertex;
@@ -331,7 +338,22 @@ struct ActorExtra {  /* 0x4a0 */
     uint dwTalkColor;  /* 0x418: 0xffffff (SetActorTalkColor) */
     float flTimeScale;  /* 0x41c: 1 (SetActorTimeScale) */
     int nInvClipNode;  /* 0x420: -1 (SetActorInvClipNode) */
-    uint8_t _pad_424[0x7c];
+    uint8_t field_0x424, field_0x425, field_0x426, field_0x427, field_0x428, field_0x429, field_0x42a, field_0x42b;
+    uint8_t field_0x42c, field_0x42d, field_0x42e, field_0x42f, field_0x430, field_0x431, field_0x432, field_0x433;
+    uint8_t field_0x434, field_0x435, field_0x436, field_0x437, field_0x438, field_0x439, field_0x43a, field_0x43b;
+    uint8_t field_0x43c, field_0x43d, field_0x43e, field_0x43f, field_0x440, field_0x441, field_0x442, field_0x443;
+    uint8_t field_0x444, field_0x445, field_0x446, field_0x447, field_0x448, field_0x449, field_0x44a, field_0x44b;
+    uint8_t field_0x44c, field_0x44d, field_0x44e, field_0x44f, field_0x450, field_0x451, field_0x452, field_0x453;
+    uint8_t field_0x454, field_0x455, field_0x456, field_0x457, field_0x458, field_0x459, field_0x45a, field_0x45b;
+    uint8_t field_0x45c, field_0x45d, field_0x45e, field_0x45f, field_0x460, field_0x461, field_0x462, field_0x463;
+    uint8_t field_0x464, field_0x465, field_0x466, field_0x467, field_0x468, field_0x469, field_0x46a, field_0x46b;
+    uint8_t field_0x46c, field_0x46d, field_0x46e, field_0x46f, field_0x470, field_0x471, field_0x472, field_0x473;
+    uint8_t field_0x474, field_0x475, field_0x476, field_0x477, field_0x478, field_0x479, field_0x47a, field_0x47b;
+    uint8_t field_0x47c, field_0x47d, field_0x47e, field_0x47f, field_0x480, field_0x481, field_0x482, field_0x483;
+    uint8_t field_0x484, field_0x485, field_0x486, field_0x487, field_0x488, field_0x489, field_0x48a, field_0x48b;
+    uint8_t field_0x48c, field_0x48d, field_0x48e, field_0x48f, field_0x490, field_0x491, field_0x492, field_0x493;
+    uint8_t field_0x494, field_0x495, field_0x496, field_0x497, field_0x498, field_0x499, field_0x49a, field_0x49b;
+    uint8_t field_0x49c, field_0x49d, field_0x49e, field_0x49f;
 };
 _Static_assert(__builtin_offsetof(ActorExtra, aLookAt) == 0x0, "ActorExtra.aLookAt");
 _Static_assert(__builtin_offsetof(ActorExtra, nWalking) == 0xc, "ActorExtra.nWalking");
@@ -378,6 +400,38 @@ struct BlockyMotionVector {  /* 0x4 */
 _Static_assert(__builtin_offsetof(BlockyMotionVector, nX) == 0x0, "BlockyMotionVector.nX");
 _Static_assert(__builtin_offsetof(BlockyMotionVector, nY) == 0x2, "BlockyMotionVector.nY");
 _Static_assert(sizeof(BlockyMotionVector) == 0x4, "sizeof BlockyMotionVector");
+/* ColorFormat: Pixel format of a video mode or buffer (0x38 bytes): colour model, depth, the bits and position of each channel. */
+struct ColorFormat {  /* 0x38 */
+    int nColorMode;  /* 0x00: 0 = palette indexed, 1 = RGB (DIB_CreateSurface, stdDisplay_VBufferConvertColorFormat) */
+    int nBpp;  /* 0x04: bits per pixel (8, 16) */
+    uint dwRedBits;  /* 0x08: bits of red (5) */
+    uint dwGreenBits;  /* 0x0c: bits of green (6 in 565) */
+    uint dwBlueBits;  /* 0x10: bits of blue */
+    uint dwRedShift;  /* 0x14: position of red */
+    uint dwGreenShift;  /* 0x18: position of green */
+    uint dwBlueShift;  /* 0x1c: position of blue */
+    uint dwRedLoss;  /* 0x20: 8 - red bits: the shift that scales an 8-bit channel down */
+    uint dwGreenLoss;  /* 0x24 */
+    uint dwBlueLoss;  /* 0x28 */
+    uint dwUnknown2c;  /* 0x2c */
+    uint dwUnknown30;  /* 0x30 */
+    uint dwUnknown34;  /* 0x34 */
+};
+_Static_assert(__builtin_offsetof(ColorFormat, nColorMode) == 0x0, "ColorFormat.nColorMode");
+_Static_assert(__builtin_offsetof(ColorFormat, nBpp) == 0x4, "ColorFormat.nBpp");
+_Static_assert(__builtin_offsetof(ColorFormat, dwRedBits) == 0x8, "ColorFormat.dwRedBits");
+_Static_assert(__builtin_offsetof(ColorFormat, dwGreenBits) == 0xc, "ColorFormat.dwGreenBits");
+_Static_assert(__builtin_offsetof(ColorFormat, dwBlueBits) == 0x10, "ColorFormat.dwBlueBits");
+_Static_assert(__builtin_offsetof(ColorFormat, dwRedShift) == 0x14, "ColorFormat.dwRedShift");
+_Static_assert(__builtin_offsetof(ColorFormat, dwGreenShift) == 0x18, "ColorFormat.dwGreenShift");
+_Static_assert(__builtin_offsetof(ColorFormat, dwBlueShift) == 0x1c, "ColorFormat.dwBlueShift");
+_Static_assert(__builtin_offsetof(ColorFormat, dwRedLoss) == 0x20, "ColorFormat.dwRedLoss");
+_Static_assert(__builtin_offsetof(ColorFormat, dwGreenLoss) == 0x24, "ColorFormat.dwGreenLoss");
+_Static_assert(__builtin_offsetof(ColorFormat, dwBlueLoss) == 0x28, "ColorFormat.dwBlueLoss");
+_Static_assert(__builtin_offsetof(ColorFormat, dwUnknown2c) == 0x2c, "ColorFormat.dwUnknown2c");
+_Static_assert(__builtin_offsetof(ColorFormat, dwUnknown30) == 0x30, "ColorFormat.dwUnknown30");
+_Static_assert(__builtin_offsetof(ColorFormat, dwUnknown34) == 0x34, "ColorFormat.dwUnknown34");
+_Static_assert(sizeof(ColorFormat) == 0x38, "sizeof ColorFormat");
 /* CostumeNode: One costume of an actor's costume stack (Actor::pCostumes, sputCostume.cpp; from the pool g_pCosNodePool): the CHORE.DLL instance and the actor's chores in it. Costume_InitRecord sets the defaults. */
 struct CostumeNode {  /* 0xb4 */
     uint dwInstance;  /* 0x00: CHORE.DLL costume instance (Cos_CreateCosInstance) */
@@ -414,11 +468,143 @@ _Static_assert(__builtin_offsetof(CostumeNode, nMumbleChore) == 0x78, "CostumeNo
 _Static_assert(__builtin_offsetof(CostumeNode, aCostumeRef) == 0x7c, "CostumeNode.aCostumeRef");
 _Static_assert(__builtin_offsetof(CostumeNode, pNext) == 0xb0, "CostumeNode.pNext");
 _Static_assert(sizeof(CostumeNode) == 0xb4, "sizeof CostumeNode");
+/* DDSurfaceDesc: DirectDraw's DDSURFACEDESC (0x6c bytes). */
+struct DDSurfaceDesc {  /* 0x6c */
+    uint dwSize;  /* 0x00: 0x6c */
+    uint dwFlags;  /* 0x04: DDSD_* (1 caps, 0x20 back buffer count) */
+    uint dwHeight;  /* 0x08 */
+    uint dwWidth;  /* 0x0c */
+    int nPitch;  /* 0x10: lPitch */
+    uint dwBackBufferCount;  /* 0x14 */
+    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23;
+    void *pSurface;  /* 0x24: lpSurface: the pixels while locked */
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
+    uint8_t field_0x30, field_0x31, field_0x32, field_0x33, field_0x34, field_0x35, field_0x36, field_0x37;
+    uint8_t field_0x38, field_0x39, field_0x3a, field_0x3b, field_0x3c, field_0x3d, field_0x3e, field_0x3f;
+    uint8_t field_0x40, field_0x41, field_0x42, field_0x43, field_0x44, field_0x45, field_0x46, field_0x47;
+    uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint8_t field_0x50, field_0x51, field_0x52, field_0x53, field_0x54, field_0x55, field_0x56, field_0x57;
+    uint8_t field_0x58, field_0x59, field_0x5a, field_0x5b, field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    uint8_t field_0x60, field_0x61, field_0x62, field_0x63, field_0x64, field_0x65, field_0x66, field_0x67;
+    uint dwCaps;  /* 0x68: ddsCaps.dwCaps (0x200 primary, 0x4000 video memory, 4 back buffer, 0x18 flip | complex) */
+};
+_Static_assert(__builtin_offsetof(DDSurfaceDesc, dwSize) == 0x0, "DDSurfaceDesc.dwSize");
+_Static_assert(__builtin_offsetof(DDSurfaceDesc, dwFlags) == 0x4, "DDSurfaceDesc.dwFlags");
+_Static_assert(__builtin_offsetof(DDSurfaceDesc, dwHeight) == 0x8, "DDSurfaceDesc.dwHeight");
+_Static_assert(__builtin_offsetof(DDSurfaceDesc, dwWidth) == 0xc, "DDSurfaceDesc.dwWidth");
+_Static_assert(__builtin_offsetof(DDSurfaceDesc, nPitch) == 0x10, "DDSurfaceDesc.nPitch");
+_Static_assert(__builtin_offsetof(DDSurfaceDesc, dwBackBufferCount) == 0x14, "DDSurfaceDesc.dwBackBufferCount");
+_Static_assert(__builtin_offsetof(DDSurfaceDesc, pSurface) == 0x24, "DDSurfaceDesc.pSurface");
+_Static_assert(__builtin_offsetof(DDSurfaceDesc, dwCaps) == 0x68, "DDSurfaceDesc.dwCaps");
+_Static_assert(sizeof(DDSurfaceDesc) == 0x6c, "sizeof DDSurfaceDesc");
+/* DDrawSurfaceRec: A DirectDraw surface with its palette and description (0x74 bytes): the tail of a VBuffer (g_pDDrawPrimary, g_pDDrawBack point at it); DDraw_LockSurface / DDraw_UnlockSurface / DDraw_FillSurface take one. */
+struct DDrawSurfaceRec {  /* 0x74 */
+    void *pSurface;  /* 0x00: IDirectDrawSurface */
+    void *pPalette;  /* 0x04: IDirectDrawPalette */
+    DDSurfaceDesc desc;  /* 0x08 */
+};
+_Static_assert(__builtin_offsetof(DDrawSurfaceRec, pSurface) == 0x0, "DDrawSurfaceRec.pSurface");
+_Static_assert(__builtin_offsetof(DDrawSurfaceRec, pPalette) == 0x4, "DDrawSurfaceRec.pPalette");
+_Static_assert(__builtin_offsetof(DDrawSurfaceRec, desc) == 0x8, "DDrawSurfaceRec.desc");
+_Static_assert(sizeof(DDrawSurfaceRec) == 0x74, "sizeof DDrawSurfaceRec");
+/* DisplayDevice: A display device (0x298 bytes, the table at 0x00902c60, Display_SelectDevice): GDI window or DirectDraw driver. */
+struct DisplayDevice {  /* 0x298 */
+    uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
+    uint8_t field_0x8, field_0x9, field_0xa, field_0xb, field_0xc, field_0xd, field_0xe, field_0xf;
+    uint8_t field_0x10, field_0x11, field_0x12, field_0x13, field_0x14, field_0x15, field_0x16, field_0x17;
+    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23, field_0x24, field_0x25, field_0x26, field_0x27;
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
+    uint8_t field_0x30, field_0x31, field_0x32, field_0x33, field_0x34, field_0x35, field_0x36, field_0x37;
+    uint8_t field_0x38, field_0x39, field_0x3a, field_0x3b, field_0x3c, field_0x3d, field_0x3e, field_0x3f;
+    uint8_t field_0x40, field_0x41, field_0x42, field_0x43, field_0x44, field_0x45, field_0x46, field_0x47;
+    uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint8_t field_0x50, field_0x51, field_0x52, field_0x53, field_0x54, field_0x55, field_0x56, field_0x57;
+    uint8_t field_0x58, field_0x59, field_0x5a, field_0x5b, field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    uint8_t field_0x60, field_0x61, field_0x62, field_0x63, field_0x64, field_0x65, field_0x66, field_0x67;
+    uint8_t field_0x68, field_0x69, field_0x6a, field_0x6b, field_0x6c, field_0x6d, field_0x6e, field_0x6f;
+    uint8_t field_0x70, field_0x71, field_0x72, field_0x73, field_0x74, field_0x75, field_0x76, field_0x77;
+    uint8_t field_0x78, field_0x79, field_0x7a, field_0x7b, field_0x7c, field_0x7d, field_0x7e, field_0x7f;
+    uint8_t field_0x80, field_0x81, field_0x82, field_0x83, field_0x84, field_0x85, field_0x86, field_0x87;
+    uint8_t field_0x88, field_0x89, field_0x8a, field_0x8b, field_0x8c, field_0x8d, field_0x8e, field_0x8f;
+    uint8_t field_0x90, field_0x91, field_0x92, field_0x93, field_0x94, field_0x95, field_0x96, field_0x97;
+    uint8_t field_0x98, field_0x99, field_0x9a, field_0x9b, field_0x9c, field_0x9d, field_0x9e, field_0x9f;
+    uint8_t field_0xa0, field_0xa1, field_0xa2, field_0xa3, field_0xa4, field_0xa5, field_0xa6, field_0xa7;
+    uint8_t field_0xa8, field_0xa9, field_0xaa, field_0xab, field_0xac, field_0xad, field_0xae, field_0xaf;
+    uint8_t field_0xb0, field_0xb1, field_0xb2, field_0xb3, field_0xb4, field_0xb5, field_0xb6, field_0xb7;
+    uint8_t field_0xb8, field_0xb9, field_0xba, field_0xbb, field_0xbc, field_0xbd, field_0xbe, field_0xbf;
+    uint8_t field_0xc0, field_0xc1, field_0xc2, field_0xc3, field_0xc4, field_0xc5, field_0xc6, field_0xc7;
+    uint8_t field_0xc8, field_0xc9, field_0xca, field_0xcb, field_0xcc, field_0xcd, field_0xce, field_0xcf;
+    uint8_t field_0xd0, field_0xd1, field_0xd2, field_0xd3, field_0xd4, field_0xd5, field_0xd6, field_0xd7;
+    uint8_t field_0xd8, field_0xd9, field_0xda, field_0xdb, field_0xdc, field_0xdd, field_0xde, field_0xdf;
+    uint8_t field_0xe0, field_0xe1, field_0xe2, field_0xe3, field_0xe4, field_0xe5, field_0xe6, field_0xe7;
+    uint8_t field_0xe8, field_0xe9, field_0xea, field_0xeb, field_0xec, field_0xed, field_0xee, field_0xef;
+    uint8_t field_0xf0, field_0xf1, field_0xf2, field_0xf3, field_0xf4, field_0xf5, field_0xf6, field_0xf7;
+    uint8_t field_0xf8, field_0xf9, field_0xfa, field_0xfb, field_0xfc, field_0xfd, field_0xfe, field_0xff;
+    int nType;  /* 0x100: 0 = GDI window, 1 = DirectDraw */
+    uint8_t field_0x104, field_0x105, field_0x106, field_0x107, field_0x108, field_0x109, field_0x10a, field_0x10b;
+    int nPrimary;  /* 0x10c: the primary display: DirectDraw is created with a NULL GUID */
+    int nFullscreen;  /* 0x110: 0 = windowed only (g_bWindowedMode) */
+    uint8_t field_0x114, field_0x115, field_0x116, field_0x117, field_0x118, field_0x119, field_0x11a, field_0x11b;
+    uint8_t field_0x11c, field_0x11d, field_0x11e, field_0x11f, field_0x120, field_0x121, field_0x122, field_0x123;
+    uint8_t field_0x124, field_0x125, field_0x126, field_0x127, field_0x128, field_0x129, field_0x12a, field_0x12b;
+    uint8_t field_0x12c, field_0x12d, field_0x12e, field_0x12f, field_0x130, field_0x131, field_0x132, field_0x133;
+    uint8_t field_0x134, field_0x135, field_0x136, field_0x137, field_0x138, field_0x139, field_0x13a, field_0x13b;
+    uint8_t field_0x13c, field_0x13d, field_0x13e, field_0x13f, field_0x140, field_0x141, field_0x142, field_0x143;
+    uint8_t field_0x144, field_0x145, field_0x146, field_0x147, field_0x148, field_0x149, field_0x14a, field_0x14b;
+    uint8_t field_0x14c, field_0x14d, field_0x14e, field_0x14f, field_0x150, field_0x151, field_0x152, field_0x153;
+    uint8_t field_0x154, field_0x155, field_0x156, field_0x157, field_0x158, field_0x159, field_0x15a, field_0x15b;
+    uint8_t field_0x15c, field_0x15d, field_0x15e, field_0x15f, field_0x160, field_0x161, field_0x162, field_0x163;
+    uint8_t field_0x164, field_0x165, field_0x166, field_0x167, field_0x168, field_0x169, field_0x16a, field_0x16b;
+    uint8_t field_0x16c, field_0x16d, field_0x16e, field_0x16f, field_0x170, field_0x171, field_0x172, field_0x173;
+    uint8_t field_0x174, field_0x175, field_0x176, field_0x177, field_0x178, field_0x179, field_0x17a, field_0x17b;
+    uint8_t field_0x17c, field_0x17d, field_0x17e, field_0x17f, field_0x180, field_0x181, field_0x182, field_0x183;
+    uint8_t field_0x184, field_0x185, field_0x186, field_0x187, field_0x188, field_0x189, field_0x18a, field_0x18b;
+    uint8_t field_0x18c, field_0x18d, field_0x18e, field_0x18f, field_0x190, field_0x191, field_0x192, field_0x193;
+    uint8_t field_0x194, field_0x195, field_0x196, field_0x197, field_0x198, field_0x199, field_0x19a, field_0x19b;
+    uint8_t field_0x19c, field_0x19d, field_0x19e, field_0x19f, field_0x1a0, field_0x1a1, field_0x1a2, field_0x1a3;
+    uint8_t field_0x1a4, field_0x1a5, field_0x1a6, field_0x1a7, field_0x1a8, field_0x1a9, field_0x1aa, field_0x1ab;
+    uint8_t field_0x1ac, field_0x1ad, field_0x1ae, field_0x1af, field_0x1b0, field_0x1b1, field_0x1b2, field_0x1b3;
+    uint8_t field_0x1b4, field_0x1b5, field_0x1b6, field_0x1b7, field_0x1b8, field_0x1b9, field_0x1ba, field_0x1bb;
+    uint8_t field_0x1bc, field_0x1bd, field_0x1be, field_0x1bf, field_0x1c0, field_0x1c1, field_0x1c2, field_0x1c3;
+    uint8_t field_0x1c4, field_0x1c5, field_0x1c6, field_0x1c7, field_0x1c8, field_0x1c9, field_0x1ca, field_0x1cb;
+    uint8_t field_0x1cc, field_0x1cd, field_0x1ce, field_0x1cf, field_0x1d0, field_0x1d1, field_0x1d2, field_0x1d3;
+    uint8_t field_0x1d4, field_0x1d5, field_0x1d6, field_0x1d7, field_0x1d8, field_0x1d9, field_0x1da, field_0x1db;
+    uint8_t field_0x1dc, field_0x1dd, field_0x1de, field_0x1df, field_0x1e0, field_0x1e1, field_0x1e2, field_0x1e3;
+    uint8_t field_0x1e4, field_0x1e5, field_0x1e6, field_0x1e7, field_0x1e8, field_0x1e9, field_0x1ea, field_0x1eb;
+    uint8_t field_0x1ec, field_0x1ed, field_0x1ee, field_0x1ef, field_0x1f0, field_0x1f1, field_0x1f2, field_0x1f3;
+    uint8_t field_0x1f4, field_0x1f5, field_0x1f6, field_0x1f7, field_0x1f8, field_0x1f9, field_0x1fa, field_0x1fb;
+    uint8_t field_0x1fc, field_0x1fd, field_0x1fe, field_0x1ff, field_0x200, field_0x201, field_0x202, field_0x203;
+    uint8_t field_0x204, field_0x205, field_0x206, field_0x207, field_0x208, field_0x209, field_0x20a, field_0x20b;
+    uint8_t field_0x20c, field_0x20d, field_0x20e, field_0x20f, field_0x210, field_0x211, field_0x212, field_0x213;
+    uint8_t field_0x214, field_0x215, field_0x216, field_0x217, field_0x218, field_0x219, field_0x21a, field_0x21b;
+    uint8_t field_0x21c, field_0x21d, field_0x21e, field_0x21f, field_0x220, field_0x221, field_0x222, field_0x223;
+    uint8_t field_0x224, field_0x225, field_0x226, field_0x227, field_0x228, field_0x229, field_0x22a, field_0x22b;
+    uint8_t field_0x22c, field_0x22d, field_0x22e, field_0x22f, field_0x230, field_0x231, field_0x232, field_0x233;
+    uint8_t field_0x234, field_0x235, field_0x236, field_0x237, field_0x238, field_0x239, field_0x23a, field_0x23b;
+    uint8_t field_0x23c, field_0x23d, field_0x23e, field_0x23f, field_0x240, field_0x241, field_0x242, field_0x243;
+    uint8_t field_0x244, field_0x245, field_0x246, field_0x247, field_0x248, field_0x249, field_0x24a, field_0x24b;
+    uint8_t field_0x24c, field_0x24d, field_0x24e, field_0x24f, field_0x250, field_0x251, field_0x252, field_0x253;
+    uint8_t field_0x254, field_0x255, field_0x256, field_0x257, field_0x258, field_0x259, field_0x25a, field_0x25b;
+    uint8_t field_0x25c, field_0x25d, field_0x25e, field_0x25f, field_0x260, field_0x261, field_0x262, field_0x263;
+    uint8_t field_0x264, field_0x265, field_0x266, field_0x267, field_0x268, field_0x269, field_0x26a, field_0x26b;
+    uint8_t field_0x26c, field_0x26d, field_0x26e, field_0x26f, field_0x270, field_0x271, field_0x272, field_0x273;
+    uint8_t field_0x274, field_0x275, field_0x276, field_0x277, field_0x278, field_0x279, field_0x27a, field_0x27b;
+    uint8_t field_0x27c, field_0x27d, field_0x27e, field_0x27f, field_0x280, field_0x281, field_0x282, field_0x283;
+    uint8_t field_0x284, field_0x285, field_0x286, field_0x287;
+    byte aGuid[16];  /* 0x288: the driver GUID (also stored as the registry's LastDisplayDevice) */
+};
+_Static_assert(__builtin_offsetof(DisplayDevice, nType) == 0x100, "DisplayDevice.nType");
+_Static_assert(__builtin_offsetof(DisplayDevice, nPrimary) == 0x10c, "DisplayDevice.nPrimary");
+_Static_assert(__builtin_offsetof(DisplayDevice, nFullscreen) == 0x110, "DisplayDevice.nFullscreen");
+_Static_assert(__builtin_offsetof(DisplayDevice, aGuid) == 0x288, "DisplayDevice.aGuid");
+_Static_assert(sizeof(DisplayDevice) == 0x298, "sizeof DisplayDevice");
 /* PhonemeEntry: One entry of g_aPhonemeTable: a phoneme of the lip-sync data and the talk chore it shows (Phoneme_ToTalkChore). */
 struct PhonemeEntry {  /* 0x8 */
     uint dwPhoneme;  /* 0x00: the phoneme as its IPA code point (0x5f '_' silence, 0xe6, 0x28c, ...) */
     ushort wTalkChore;  /* 0x04: index of the costume's talk chore (CostumeNode.aTalkChores) */
-    uint8_t _pad_6[0x2];
+    uint8_t field_0x6, field_0x7;
 };
 _Static_assert(__builtin_offsetof(PhonemeEntry, dwPhoneme) == 0x0, "PhonemeEntry.dwPhoneme");
 _Static_assert(__builtin_offsetof(PhonemeEntry, wTalkChore) == 0x4, "PhonemeEntry.wTalkChore");
@@ -509,6 +695,52 @@ _Static_assert(__builtin_offsetof(TextObject, pActor) == 0x254, "TextObject.pAct
 _Static_assert(__builtin_offsetof(TextObject, dwFlags) == 0x258, "TextObject.dwFlags");
 _Static_assert(__builtin_offsetof(TextObject, nSerial) == 0x25c, "TextObject.nSerial");
 _Static_assert(sizeof(TextObject) == 0x260, "sizeof TextObject");
+/* VBufferFormat: Geometry and pixel format of a buffer (0x4c bytes): DDraw_CreateSurfaces copies a VideoMode's format into a VBuffer with Mem_Copy(.., 0x4c); stdDisplay_VBufferNew takes one. */
+struct VBufferFormat {  /* 0x4c */
+    int nWidth;  /* 0x00: pixels */
+    int nHeight;  /* 0x04: pixels */
+    uint dwSize;  /* 0x08: bytes of pixels (LzssDecompress's length in stdDisplay_VBufferDeCompressTo) */
+    int nPitch;  /* 0x0c: bytes per row */
+    int nStride;  /* 0x10: pixels per row (pitch / bytes per pixel) */
+    ColorFormat colorFormat;  /* 0x14: pixel format */
+};
+_Static_assert(__builtin_offsetof(VBufferFormat, nWidth) == 0x0, "VBufferFormat.nWidth");
+_Static_assert(__builtin_offsetof(VBufferFormat, nHeight) == 0x4, "VBufferFormat.nHeight");
+_Static_assert(__builtin_offsetof(VBufferFormat, dwSize) == 0x8, "VBufferFormat.dwSize");
+_Static_assert(__builtin_offsetof(VBufferFormat, nPitch) == 0xc, "VBufferFormat.nPitch");
+_Static_assert(__builtin_offsetof(VBufferFormat, nStride) == 0x10, "VBufferFormat.nStride");
+_Static_assert(__builtin_offsetof(VBufferFormat, colorFormat) == 0x14, "VBufferFormat.colorFormat");
+_Static_assert(sizeof(VBufferFormat) == 0x4c, "sizeof VBufferFormat");
+/* VBuffer: A video buffer of the Std library (stdVBuffer, 0xd8 bytes): system memory or a DirectDraw surface; the display's front and back buffers are two of them (0x00901680, 0x009055e0). */
+struct VBuffer {  /* 0xd8 */
+    int nType;  /* 0x00: 0 = system memory, 1 = DirectDraw surface */
+    int nLockCount;  /* 0x04: stdDisplay_VBufferLock / Unlock */
+    int nVideoMemory;  /* 0x08: 1 when the surface is in video memory (DDSCAPS_VIDEOMEMORY) */
+    VBufferFormat format;  /* 0x0c: geometry and pixel format */
+    void *pPalette;  /* 0x58 */
+    void *pPixels;  /* 0x5c: the pixels (system memory, or the surface while locked) */
+    uint dwColorKey;  /* 0x60: transparent colour (stdDisplay_VBufferSetColorKey) */
+    DDrawSurfaceRec ddraw;  /* 0x64: the DirectDraw surface */
+};
+_Static_assert(__builtin_offsetof(VBuffer, nType) == 0x0, "VBuffer.nType");
+_Static_assert(__builtin_offsetof(VBuffer, nLockCount) == 0x4, "VBuffer.nLockCount");
+_Static_assert(__builtin_offsetof(VBuffer, nVideoMemory) == 0x8, "VBuffer.nVideoMemory");
+_Static_assert(__builtin_offsetof(VBuffer, format) == 0xc, "VBuffer.format");
+_Static_assert(__builtin_offsetof(VBuffer, pPalette) == 0x58, "VBuffer.pPalette");
+_Static_assert(__builtin_offsetof(VBuffer, pPixels) == 0x5c, "VBuffer.pPixels");
+_Static_assert(__builtin_offsetof(VBuffer, dwColorKey) == 0x60, "VBuffer.dwColorKey");
+_Static_assert(__builtin_offsetof(VBuffer, ddraw) == 0x64, "VBuffer.ddraw");
+_Static_assert(sizeof(VBuffer) == 0xd8, "sizeof VBuffer");
+/* VideoMode: A display mode (0x54 bytes): the entries of a device's mode list; Display_FindClosestMode / Display_CompareVideoModes compare them. */
+struct VideoMode {  /* 0x54 */
+    int nFullscreen;  /* 0x00: 0 for the windowed (GDI) mode; compared first by Display_CompareVideoModes */
+    uint dwUnknown4;  /* 0x04: copied with the mode; not read by the display code */
+    VBufferFormat format;  /* 0x08: geometry and pixel format */
+};
+_Static_assert(__builtin_offsetof(VideoMode, nFullscreen) == 0x0, "VideoMode.nFullscreen");
+_Static_assert(__builtin_offsetof(VideoMode, dwUnknown4) == 0x4, "VideoMode.dwUnknown4");
+_Static_assert(__builtin_offsetof(VideoMode, format) == 0x8, "VideoMode.format");
+_Static_assert(sizeof(VideoMode) == 0x54, "sizeof VideoMode");
 /* WalkPlane: A sector of the set file (WalkPlane.cpp's WalkPlane, 0x84 bytes, made by ParseCollection): a planar polygon of up to 10 vertices with a type and two activity flags. All sectors of the loaded set are on the list g_pWalkPlane_wp_head, the newest first. */
 struct WalkPlane {  /* 0x84 */
     char aName[32];  /* 0x00: sector name (WalkPlane_SetName, WalkPlane_PlaneNamed) */
@@ -581,17 +813,26 @@ _Static_assert(__builtin_offsetof(rdGeoset, pMeshes) == 0x4, "rdGeoset.pMeshes")
 _Static_assert(sizeof(rdGeoset) == 0x8, "sizeof rdGeoset");
 /* rdMesh: One mesh of a model geoset (0x7c bytes) */
 struct rdMesh {  /* 0x7c */
-    uint8_t _pad_0[0x30];
+    uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
+    uint8_t field_0x8, field_0x9, field_0xa, field_0xb, field_0xc, field_0xd, field_0xe, field_0xf;
+    uint8_t field_0x10, field_0x11, field_0x12, field_0x13, field_0x14, field_0x15, field_0x16, field_0x17;
+    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23, field_0x24, field_0x25, field_0x26, field_0x27;
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
     float *pVertices;  /* 0x30: x, y, z per vertex */
-    uint8_t _pad_34[0xc];
+    uint8_t field_0x34, field_0x35, field_0x36, field_0x37, field_0x38, field_0x39, field_0x3a, field_0x3b;
+    uint8_t field_0x3c, field_0x3d, field_0x3e, field_0x3f;
     void *pFaces;  /* 0x40: 0x4c-byte faces: index count +0x14, index array +0x18, normal +0x40 */
     float *pVertexNormals;  /* 0x44: x, y, z per vertex (rdModel3_CalcVertexNormals) */
     uint dwVertices;  /* 0x48 */
-    uint8_t _pad_4c[0x4];
+    uint8_t field_0x4c, field_0x4d, field_0x4e, field_0x4f;
     uint dwFaces;  /* 0x50 */
-    uint8_t _pad_54[0xc];
+    uint8_t field_0x54, field_0x55, field_0x56, field_0x57, field_0x58, field_0x59, field_0x5a, field_0x5b;
+    uint8_t field_0x5c, field_0x5d, field_0x5e, field_0x5f;
     float flRadius;  /* 0x60: largest vertex distance from the origin * 1.1 (rdModel3_CalcRadii) */
-    uint8_t _pad_64[0x18];
+    uint8_t field_0x64, field_0x65, field_0x66, field_0x67, field_0x68, field_0x69, field_0x6a, field_0x6b;
+    uint8_t field_0x6c, field_0x6d, field_0x6e, field_0x6f, field_0x70, field_0x71, field_0x72, field_0x73;
+    uint8_t field_0x74, field_0x75, field_0x76, field_0x77, field_0x78, field_0x79, field_0x7a, field_0x7b;
 };
 _Static_assert(__builtin_offsetof(rdMesh, pVertices) == 0x30, "rdMesh.pVertices");
 _Static_assert(__builtin_offsetof(rdMesh, pFaces) == 0x40, "rdMesh.pFaces");
@@ -603,10 +844,18 @@ _Static_assert(sizeof(rdMesh) == 0x7c, "sizeof rdMesh");
 /* rdModel3: An RDroid model (0x90 bytes, rdModel3_NewEntry) */
 struct rdModel3 {  /* 0x90 */
     char aName[32];  /* 0x00: "UNKNOWN" until loaded */
-    uint8_t _pad_20[0x4];
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23;
     rdGeoset aGeosets[4];  /* 0x24 */
     uint dwGeosets;  /* 0x44 */
-    uint8_t _pad_48[0x48];
+    uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint8_t field_0x50, field_0x51, field_0x52, field_0x53, field_0x54, field_0x55, field_0x56, field_0x57;
+    uint8_t field_0x58, field_0x59, field_0x5a, field_0x5b, field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    uint8_t field_0x60, field_0x61, field_0x62, field_0x63, field_0x64, field_0x65, field_0x66, field_0x67;
+    uint8_t field_0x68, field_0x69, field_0x6a, field_0x6b, field_0x6c, field_0x6d, field_0x6e, field_0x6f;
+    uint8_t field_0x70, field_0x71, field_0x72, field_0x73, field_0x74, field_0x75, field_0x76, field_0x77;
+    uint8_t field_0x78, field_0x79, field_0x7a, field_0x7b, field_0x7c, field_0x7d, field_0x7e, field_0x7f;
+    uint8_t field_0x80, field_0x81, field_0x82, field_0x83, field_0x84, field_0x85, field_0x86, field_0x87;
+    uint8_t field_0x88, field_0x89, field_0x8a, field_0x8b, field_0x8c, field_0x8d, field_0x8e, field_0x8f;
 };
 _Static_assert(__builtin_offsetof(rdModel3, aName) == 0x0, "rdModel3.aName");
 _Static_assert(__builtin_offsetof(rdModel3, aGeosets) == 0x24, "rdModel3.aGeosets");

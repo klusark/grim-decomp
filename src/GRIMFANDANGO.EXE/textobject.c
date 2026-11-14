@@ -36,6 +36,10 @@ void __cdecl sputText_AddToQueue(TextObject *obj,int durationMs,int flags)
 }
 
 /* ---- 0x0048c7e0  TextObject_New ---- */
+/* Allocates a 0x260-byte TextObject from g_pTextEventPool: copies text (max 0x1ff), position and
+   the 0x30-byte TextContext, emergency font override, clip rect (screen size if none), serial = own
+   pointer. Not queued until sputText_AddToQueue. */
+
 TextObject * __cdecl TextObject_New(TextContext *ctx,char *text)
 
 {
@@ -88,6 +92,10 @@ TextObject * __cdecl TextObject_New(TextContext *ctx,char *text)
 }
 
 /* ---- 0x0048c9f0  TextObject_Draw ---- */
+/* Draws one text object (centres it when ctx flag 1 is set, maps fg/bg/fx colours through
+   sputRender_ColorCorrect); invalidate!=0 marks its rect dirty. Called each frame by
+   sputText_Update. Draw has no side effect on the countdown (unlike ScummVM's _created). */
+
 void __cdecl TextObject_Draw(TextObject *obj,int invalidate)
 
 {

@@ -130,7 +130,7 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx)
   void *this;
   Actor *actor;
   float *pfVar2;
-  int *piVar3;
+  VBuffer *pVVar3;
   int iVar4;
   float *pfVar5;
   undefined4 *puVar6;
@@ -154,16 +154,16 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx)
       pfVar5 = pfVar5 + 1;
       pfVar2 = pfVar2 + 1;
     }
-    piVar3 = sputRoom_GetSetupBackground(set,setupIdx);
-    if (piVar3 != (int *)0x0) {
-      if (*piVar3 == 2) {
-        sputRender_Decompress(piVar3);
-        piVar3 = g_pSputRender_DecompressionBuffer;
+    pVVar3 = sputRoom_GetSetupBackground(set,setupIdx);
+    if (pVVar3 != (VBuffer *)0x0) {
+      if (pVVar3->nType == 2) {
+        sputRender_Decompress(pVVar3);
+        pVVar3 = g_pSputRender_DecompressionBuffer;
       }
-      Surface_Blit(g_pSputRender_CleanBuffer,piVar3,0,0,(int *)0x0,0);
+      Surface_Blit(g_pSputRender_CleanBuffer,pVVar3,0,0,(int *)0x0,0);
     }
-    piVar3 = sputRoom_GetSetupZBackground(set,setupIdx);
-    if (piVar3 == (int *)0x0) {
+    pVVar3 = sputRoom_GetSetupZBackground(set,setupIdx);
+    if (pVVar3 == (VBuffer *)0x0) {
       puVar6 = *(undefined4 **)((int)g_pSputRender_CleanZBuffer + 0x5c);
       for (iVar4 = 0x25800; iVar4 != 0; iVar4 = iVar4 + -1) {
         *puVar6 = 0;
@@ -171,7 +171,7 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx)
       }
       g_dwRenderFlags = g_dwRenderFlags | 2;
     }
-    else if (*piVar3 == 2) {
+    else if (pVVar3->nType == 2) {
       puVar6 = (undefined4 *)((int)g_pSputRender_CleanZBuffer + 0xc);
       puVar7 = (undefined4 *)((int)g_pSputRender_DecompressionBuffer + 0xc);
       for (iVar4 = 0x13; iVar4 != 0; iVar4 = iVar4 + -1) {
@@ -180,15 +180,15 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx)
         puVar7 = puVar7 + 1;
       }
       if (*(int *)((int)g_pSputRender_CleanZBuffer + 8) == 0) {
-        stdDisplay_VBufferDeCompressTo(piVar3,g_pSputRender_CleanZBuffer);
+        stdDisplay_VBufferDeCompressTo(pVVar3,g_pSputRender_CleanZBuffer);
       }
       else {
-        stdDisplay_VBufferDeCompressTo(piVar3,g_pSputRender_DecompressionBuffer);
+        stdDisplay_VBufferDeCompressTo(pVVar3,g_pSputRender_DecompressionBuffer);
         Surface_Blit(g_pSputRender_CleanZBuffer,g_pSputRender_DecompressionBuffer,0,0,(int *)0x0,0);
       }
     }
     else {
-      Surface_Blit(g_pSputRender_CleanZBuffer,piVar3,0,0,(int *)0x0,0);
+      Surface_Blit(g_pSputRender_CleanZBuffer,pVVar3,0,0,(int *)0x0,0);
     }
     for (this = *(void **)(iVar1 + 0x128); this != (void *)0x0; this = *(void **)((int)this + 0xf8))
     {

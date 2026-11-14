@@ -1393,7 +1393,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor_, char *text, int x, 
  * text had dropped the file / line arguments of both allocations (the allocator stores them in the block header) and
  * printed the palette entries as unnamed stack slots.  The line numbers are a base word (0x004de1d0, in front of the file
  * name string's data) plus 0xd / 0x2a, like in the other allocations of this file. */
-void * __cdecl stdDisplay_VBufferNew(void *info, int videoMem, int b, int palette)
+VBuffer * __cdecl stdDisplay_VBufferNew(VBufferFormat *info, int videoMem, int b, int palette)
 {
     char *file = s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18;
     int lineBase = (int)*(short *)(file - 0x848);
@@ -1425,7 +1425,7 @@ void * __cdecl stdDisplay_VBufferNew(void *info, int videoMem, int b, int palett
         if (s[0x17] == 0)
             return (void *)0;
         s[1] = 1;
-        return s;
+        return (VBuffer *)s;
     }
     /* a DirectDraw surface */
     s[2] = 0;
@@ -1451,7 +1451,7 @@ void * __cdecl stdDisplay_VBufferNew(void *info, int videoMem, int b, int palett
     s[7] = s[0x1f] / bpp8;
     if (palette == 0) {
         s[0x1a] = 0;
-        return s;
+        return (VBuffer *)s;
     }
     pal = (const byte *)palette + 3;
     entries[3] = 0x40;
@@ -1469,7 +1469,7 @@ void * __cdecl stdDisplay_VBufferNew(void *info, int videoMem, int b, int palett
     hr = (**(int (__stdcall **)(void *, void *))(*(int *)s[0x19] + 0x7c))((void *)s[0x19], (void *)s[0x1a]);   /* SetPalette */
     if (hr != 0)
         return (void *)0;
-    return s;
+    return (VBuffer *)s;
 }
 /* ==== sputActor_AlignToPuck (0x00491230) ====
  * sputActor_AlignToPuck(actor, pos): eases the visible yaw (actor+0x28) toward the walker heading.  Done (returns 1) when under

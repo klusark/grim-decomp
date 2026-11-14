@@ -16,9 +16,7 @@
 #define msc_MemSet msc_MemSet__ghidra
 #define MaterialInstanceSaveLoad FUN_004965b0__ghidra
 #define D3D_CreateViewport D3D_CreateViewport__ghidra
-#define DDraw_CreateSurfaces DDraw_CreateSurfaces__ghidra
 #include "functions.h"
-#undef DDraw_CreateSurfaces
 #undef D3D_CreateViewport
 #undef FUN_004d5fd0
 #undef msc_MemSet
@@ -715,21 +713,6 @@ undefined4 D3D_InitRenderState(void)
     return 1;
 }
 
-
-/* ==== DDraw_CreateSurfaces (0x004767d0) ====
- * (hwnd, video mode record, palette of 256 RGB triples); Ghidra lost the third parameter.  Sets the cooperative level
- * (0x11 exclusive + fullscreen, 0x51 with DDSCL_ALLOWMODEX when a back buffer is wanted (UINT_00803f9c) and mode[0] is
- * set; kept in UINT_00803fb0) and the display mode (SetDisplayMode 0x54: width mode[2], height mode[3], bpp mode[8]).
- * The primary surface record g_dwStdDisplay_frontBuffer (0x00901680, 0xd8 bytes: +0 1, +4 0, +8 in video memory, +0xc copy of
- * mode[2..20], +0x18 pitch, +0x1c pitch in pixels, +0x58 palette, +0x5c 0, +0x64 surface, +0x68 DirectDraw palette,
- * +0x6c DDSURFACEDESC) is created (CreateSurface 0x18: primary, flipping with one back buffer for 3D, else plain
- * primary) and described (GetSurfaceDesc 0x58); g_dwStdDisplay_numDrawBuffers = back buffer count + 1.  With a back buffer the
- * attached surface (GetAttachedSurface 0x30) gets the record g_dwStdDisplay_backBuffer (0x009055e0) the same way.  For a paletted
- * mode (mode[7] == 0) the 256 palette entries (flag PC_RESERVED) start from the system palette (GetDC /
- * GetSystemPaletteEntries / ReleaseDC) and take the given colours; the DirectDraw palette (CreatePalette 0x14, caps
- * 0x4c) is set on the surfaces (SetPalette 0x7c).  Without a back buffer the primary record is copied to g_dwStdDisplay_backBuffer.
- * Returns 1, or 0 when a DirectDraw call fails. */
-/* OVERRIDES: DDraw_CreateSurfaces */
 
 /* ==== WalkPlane_Within (0x004a6980) ====
  * __thiscall (sector, point, checkActive).  With checkActive the sector must be visible (+0x2c) and active (+0x28).

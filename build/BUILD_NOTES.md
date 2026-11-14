@@ -1841,3 +1841,23 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   So the remaining mismatches in live code are where the decompiler's stack model and the machine code disagree; the
   generated code of those functions passes the clean room, and each needs a look of its own.
 * Clean room 0 of 5457 with the two hook fixes.
+
+## Display buffer types (2026-11-14)
+
+* names/types_display.json: the Std library's video buffer and its parts, from stdDisplay.c's code: ColorFormat
+  (0x38: colour model, bpp, bits / shift / loss per channel), VBufferFormat (0x4c: width, height, size, pitch, stride,
+  ColorFormat), DDSurfaceDesc (0x6c, DirectDraw's DDSURFACEDESC), DDrawSurfaceRec (0x74: surface, palette,
+  DDSurfaceDesc), VBuffer (0xd8: type, lock count, video-memory flag, format, palette, pixels, colour key,
+  DDrawSurfaceRec), VideoMode (0x54) and DisplayDevice (0x298, the table at 0x00902c60). 32 parameters (the
+  Surface_* / stdDisplay_VBuffer* / DDraw_* / Display_* functions), 2 returns, 4 globals (g_pDisplayDevice,
+  g_pVideoMode, g_pDDrawPrimary, g_pDDrawBack). stddisplay.c: 217 `((int)p + 0x..)` accesses -> 4; the EXE 1557 -> 1301.
+* Left untyped: the two buffer records themselves (front 0x00901680, back 0x009055e0). Typed, they would fold the
+  UINT_009016.. / UINT_009055.. globals that render.c and the overrides name into fields.
+* build_src.py: a structure's undefined bytes are emitted as `uint8_t field_0x<off>` (Ghidra's names for them), not one
+  `_pad_` array: the decompiler copies a VideoMode word by word through `&p->field_0x4`. And `s.fmt._32_4_` becomes
+  PIECE(s.fmt,32,4) (the member chain), not s.PIECE(fmt,32,4).
+* Fixed on the way: the override removal of DDraw_CreateSurfaces (2026-11-14) left its `/* OVERRIDES: */` marker and the
+  `#define DDraw_CreateSurfaces DDraw_CreateSurfaces__ghidra` rename in overrides_asm_o2.c, so the generated function
+  stayed compiled out and link.py stubbed it with a trap: entering full-screen DirectDraw would have crashed (the clean
+  room runs windowed). Both are gone; no other OVERRIDES marker lacks a definition. Not checked in full-screen.
+* Clean room 0 of 5457.

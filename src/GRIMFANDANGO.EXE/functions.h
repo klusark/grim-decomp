@@ -354,42 +354,42 @@ void __cdecl stdDisplay_ClearMode(void); /* 0x00474310 */
 void __cdecl Display_SuspendForDialog(void); /* 0x00474380 */
 void __cdecl Display_ResumeAfterDialog(void); /* 0x004743d0 */
 int __cdecl stdDisplay_Update(void); /* 0x00474420 */
-void * __cdecl stdDisplay_VBufferNew(void *info,int videoMem,int b,int c); /* 0x00474480 */
-void __cdecl stdDisplay_VBufferFree(void *surface); /* 0x004746d0 */
-void __cdecl Surface_Release(void *surface); /* 0x004746f0 */
-int __cdecl stdDisplay_VBufferLock(void *surface); /* 0x00474750 */
-int __cdecl stdDisplay_VBufferUnlock(void *surface); /* 0x004747b0 */
-int __cdecl Surface_Fill(void *surface,int color,int *rect); /* 0x00474800 */
-int __cdecl Surface_Blit(void *dst,void *src,int x,int y,int *srcRect,int colorKey); /* 0x00474a60 */
-int __cdecl stdDisplay_VBufferSetColorKey(void *surface,int color); /* 0x00474ae0 */
-void __cdecl stdDisplay_VBufferDeCompress(void *surface); /* 0x00474b30 */
-int __cdecl stdDisplay_VBufferDeCompressTo(void *src,void *dst); /* 0x00474ba0 */
-void * __cdecl stdDisplay_VBufferConvertColorFormat(int *param_1,void *param_2); /* 0x00474be0 */
+VBuffer * __cdecl stdDisplay_VBufferNew(VBufferFormat *format,int videoMem,int b,int c); /* 0x00474480 */
+void __cdecl stdDisplay_VBufferFree(VBuffer *surface); /* 0x004746d0 */
+void __cdecl Surface_Release(VBuffer *surface); /* 0x004746f0 */
+int __cdecl stdDisplay_VBufferLock(VBuffer *surface); /* 0x00474750 */
+int __cdecl stdDisplay_VBufferUnlock(VBuffer *surface); /* 0x004747b0 */
+int __cdecl Surface_Fill(VBuffer *surface,int color,int *rect); /* 0x00474800 */
+int __cdecl Surface_Blit(VBuffer *dst,VBuffer *src,int x,int y,int *srcRect,int colorKey); /* 0x00474a60 */
+int __cdecl stdDisplay_VBufferSetColorKey(VBuffer *surface,int color); /* 0x00474ae0 */
+void __cdecl stdDisplay_VBufferDeCompress(VBuffer *surface); /* 0x00474b30 */
+int __cdecl stdDisplay_VBufferDeCompressTo(VBuffer *src,VBuffer *dst); /* 0x00474ba0 */
+VBuffer * __cdecl stdDisplay_VBufferConvertColorFormat(ColorFormat *want,VBuffer *buffer); /* 0x00474be0 */
 int __cdecl stdDisplay_SetPalette(uint param_1); /* 0x00474d10 */
 void __cdecl stdDisplay_SetMasterPalette(void *palette); /* 0x00474d90 */
 int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx); /* 0x00474dd0 */
 int __cdecl stdDisplay_TextOut(char *text,int x,int y); /* 0x00474e40 */
 uint __cdecl Display_FindClosestDevice(uint *param_1); /* 0x00475000 */
-uint __cdecl Display_FindClosestMode(void *wanted,void *modes,uint count); /* 0x00475090 */
-int __cdecl Display_CompareVideoModes(int *param_1,int *param_2); /* 0x00475140 */
-int __cdecl Surface_BlitSoftware(void *dst,void *src,uint x,uint y,int *srcRect,uint flags); /* 0x004751b0 */
-uint __cdecl Surface_BlitDDraw(int param_1,int param_2,uint param_3,uint param_4,uint *param_5,byte param_6); /* 0x004755e0 */
-uint __cdecl Surface_BlitLockedSrc (void *param_1,int param_2,void *param_3,uint param_4,int *param_5,void *param_6); /* 0x004758a0 */
-uint __cdecl Surface_BlitLockedDst (int param_1,void *param_2,void *param_3,uint param_4,int *param_5,void *param_6); /* 0x00475c90 */
+uint __cdecl Display_FindClosestMode(VideoMode *wanted,VideoMode *modes,uint count); /* 0x00475090 */
+int __cdecl Display_CompareVideoModes(VideoMode *a,VideoMode *b); /* 0x00475140 */
+int __cdecl Surface_BlitSoftware(VBuffer *dst,VBuffer *src,uint x,uint y,int *srcRect,uint flags); /* 0x004751b0 */
+uint __cdecl Surface_BlitDDraw(VBuffer *dst,VBuffer *src,uint param_3,uint param_4,uint *param_5,byte param_6); /* 0x004755e0 */
+uint __cdecl Surface_BlitLockedSrc (VBuffer *dst,VBuffer *src,void *param_3,uint param_4,int *param_5,void *param_6); /* 0x004758a0 */
+uint __cdecl Surface_BlitLockedDst (VBuffer *dst,VBuffer *src,void *param_3,uint param_4,int *param_5,void *param_6); /* 0x00475c90 */
 int __cdecl DDraw_Create(uint param_1); /* 0x004760d0 */
 void __cdecl DDraw_Release(void); /* 0x00476190 */
 undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4); /* 0x004761b0 */
 undefined * __stdcall DDraw_EnumModesCallback(int a1,int a2); /* 0x00476390 */
 undefined * __stdcall DDraw_EnumModesCallback320(int a1,int a2); /* 0x004765a0 */
 void * __cdecl DDraw_Get(void); /* 0x004767c0 */
-undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,int *mode,byte *palette); /* 0x004767d0 */
+undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd,VideoMode *mode,byte *palette); /* 0x004767d0 */
 void __cdecl DDraw_ReleaseSurfaces(void); /* 0x00476bc0 */
-uint __cdecl DDraw_LockSurface(undefined4 *param_1); /* 0x00476bf0 */
-uint __cdecl DDraw_UnlockSurface(undefined4 *param_1); /* 0x00476c40 */
+uint __cdecl DDraw_LockSurface(DDrawSurfaceRec *rec); /* 0x00476bf0 */
+uint __cdecl DDraw_UnlockSurface(DDrawSurfaceRec *rec); /* 0x00476c40 */
 uint __cdecl DDraw_Flip(void); /* 0x00476c90 */
-uint __cdecl DDraw_FillSurface(undefined4 *param_1,uint param_2,uint *param_3); /* 0x00476cd0 */
+uint __cdecl DDraw_FillSurface(DDrawSurfaceRec *rec,uint param_2,uint *param_3); /* 0x00476cd0 */
 uint __cdecl DDraw_SetPalette(undefined1 *param_1); /* 0x00476dc0 */
-void * __cdecl DIB_CreateSurface(void *mode,void *surface,void *palette,void *hwnd); /* 0x00476e40 */
+void * __cdecl DIB_CreateSurface(VideoMode *mode,VBuffer *surface,void *palette,void *hwnd); /* 0x00476e40 */
 void __cdecl DIB_ReleaseSurface(void); /* 0x00476ee0 */
 void __cdecl std3D_SetCurrentPalette(void *palette,int flags); /* 0x00478fc0 */
 void __cdecl Palette_FromFloatTable(byte *out,byte *in,int n,double gamma); /* 0x0047b610 */
@@ -2218,7 +2218,7 @@ void __cdecl _un_inc(int param_1,uint param_2); /* 0x004b43d0 */
 uint __cdecl _whiteout(int *param_1,uint param_2); /* 0x004b43f0 */
 uint __cdecl __crtLCMapStringA(int param_1,uint param_2,int param_3,undefined *param_4,int param_5,int param_6, uint param_7,int param_8); /* 0x004b4560 */
 int __cdecl _strncnt(char *param_1,int param_2); /* 0x004b4790 */
-float10 __fastcall _pow_except1(undefined4 param_1,undefined4 param_2,undefined2 param_3,undefined4 param_4, undefined4 param_5,undefined4 param_6,uint param_7,uint param_8); /* 0x004b4ba0 */
+float10 __fastcall _pow_except1(undefined4 param_1,int param_2,ushort param_3,undefined4 param_4,undefined4 param_5, undefined4 param_6,uint param_7,uint param_8); /* 0x004b4ba0 */
 float10 __fastcall _pow_except2(undefined4 param_1,int param_2,ushort param_3,undefined4 param_4,uint param_5, uint param_6); /* 0x004b4bb7 */
 uint __cdecl _pow_special_cases(double param_1,double param_2,double *param_3); /* 0x004b4d90 */
 uint __cdecl _is_integer_double(double param_1); /* 0x004b4fc0 */

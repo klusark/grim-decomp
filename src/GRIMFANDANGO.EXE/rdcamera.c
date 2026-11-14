@@ -543,10 +543,10 @@ void __cdecl rdCamera_AdvanceFrame(void)
       local_c = puVar1[7];
       local_8 = (puVar1[8] - puVar1[6]) + 1;
       local_4 = (puVar1[9] - puVar1[7]) + 1;
-      Surface_Fill((void *)puVar1[4],0,(int *)&local_10);
+      Surface_Fill((VBuffer *)puVar1[4],0,(int *)&local_10);
       return;
     }
-    Surface_Fill((void *)puVar1[4],0,(int *)0x0);
+    Surface_Fill((VBuffer *)puVar1[4],0,(int *)0x0);
   }
   return;
 }

@@ -102,8 +102,8 @@ void __fastcall ObjectStateImage_Clear(int param_1)
   if (*(int *)(param_1 + 0x34) != 0) {
     Res_RemoveReference((void *)(param_1 + 0x34));
   }
-  if (*(void **)(param_1 + 0x68) != (void *)0x0) {
-    stdDisplay_VBufferFree(*(void **)(param_1 + 0x68));
+  if (*(VBuffer **)(param_1 + 0x68) != (VBuffer *)0x0) {
+    stdDisplay_VBufferFree(*(VBuffer **)(param_1 + 0x68));
     *(undefined4 *)(param_1 + 0x68) = 0;
   }
   *(undefined4 *)(param_1 + 0x6c) = 0xffffffff;
@@ -141,8 +141,8 @@ void __thiscall ObjectStateImage_Load(void *this,int load)
     if (*(int *)((int)this + 0x34) != 0) {
       Res_RemoveReference((void *)((int)this + 0x34));
     }
-    if (*(void **)((int)this + 0x68) != (void *)0x0) {
-      stdDisplay_VBufferFree(*(void **)((int)this + 0x68));
+    if (*(VBuffer **)((int)this + 0x68) != (VBuffer *)0x0) {
+      stdDisplay_VBufferFree(*(VBuffer **)((int)this + 0x68));
       *(undefined4 *)((int)this + 0x68) = 0;
     }
   }
@@ -203,20 +203,20 @@ undefined4 __fastcall ObjectStateImage_VBuffer(int param_1)
 void __thiscall ObjectStateImage_SetClean(void *this,void *surface)
 
 {
-  void *dst;
+  VBuffer *dst;
   
-  if (*(void **)((int)this + 0x68) != (void *)0x0) {
-    stdDisplay_VBufferFree(*(void **)((int)this + 0x68));
+  if (*(VBuffer **)((int)this + 0x68) != (VBuffer *)0x0) {
+    stdDisplay_VBufferFree(*(VBuffer **)((int)this + 0x68));
   }
   if (*(int *)((int)this + 0x34) != 0) {
     if (*(int *)((int)this + 0x34) == 0) {
       (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90)
       ;
     }
-    dst = stdDisplay_VBufferNew((void *)(**(int **)(*(int *)((int)this + 0x38) + 0x78) + 0xc),0,0,0)
-    ;
-    *(void **)((int)this + 0x68) = dst;
-    if (dst != (void *)0x0) {
+    dst = stdDisplay_VBufferNew
+                    ((VBufferFormat *)(**(int **)(*(int *)((int)this + 0x38) + 0x78) + 0xc),0,0,0);
+    *(VBuffer **)((int)this + 0x68) = dst;
+    if (dst != (VBuffer *)0x0) {
       Surface_Blit(dst,surface,0,0,(int *)((int)this + 4),0);
     }
   }
@@ -234,6 +234,7 @@ void __thiscall ObjectStateImage_Draw(void *this,void *dst)
   int iVar1;
   int *piVar2;
   void *pvVar3;
+  VBuffer *src;
   int iVar4;
   int iVar5;
   int y;
@@ -261,15 +262,15 @@ void __thiscall ObjectStateImage_Draw(void *this,void *dst)
           y = *(int *)(iVar5 + 0x70);
           iVar5 = *(int *)(iVar5 + 0x6c);
           piVar2 = (int *)0x0;
-          pvVar3 = g_pSputRender_DecompressionBuffer;
+          src = g_pSputRender_DecompressionBuffer;
         }
         else {
           y = *(int *)(iVar5 + 0x70);
           iVar5 = *(int *)(iVar5 + 0x6c);
           piVar2 = (int *)0x0;
-          pvVar3 = (void *)ObjectStateImage_VBuffer((int)this);
+          src = (VBuffer *)ObjectStateImage_VBuffer((int)this);
         }
-        Surface_Blit(dst,pvVar3,iVar5,y,piVar2,iVar1);
+        Surface_Blit(dst,src,iVar5,y,piVar2,iVar1);
         if (iVar4 != 0) {
           sputRender_MarkDirtyRect((int *)((int)this + 4),1);
         }
