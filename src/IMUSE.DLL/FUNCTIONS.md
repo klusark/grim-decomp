@@ -53,7 +53,7 @@
 | 100067a0 | FUN_100067a0 | imuse.c | 5 |
 | 100067b0 | FUN_100067b0 | imuse.c | 70 |
 | 100068b0 | Script_Trans | imuse.c | 1 |
-| 100070e0 | Script_Callback | imuse.c | 1 |
+| 100070e0 | Script_Callback | imuse.c | 15 |
 | 10007110 | FUN_10007110 | imuse.c | 11 |
 | 100089b0 | LoadLip | imuse.c | 82 |
 | 10008b60 | Im_SoundsFreeSlot | imuse.c | 19 |
@@ -115,7 +115,7 @@
 | 1000b5e0 | TgIntHandler | imuse.c | 30 |
 | 1000b630 | TgGetPendCount | imuse.c | 36 |
 | 1000b6a0 | Im_RunTriggerCommand | imuse.c | 1 |
-| 1000b710 | Im_RunDeferredCommand | imuse.c | 1 |
+| 1000b710 | Im_RunDeferredCommand | imuse.c | 27 |
 | 1000bd50 | Im_StrChr | imuse.c | 1 |
 | 1000bd80 | Im_MemCopy | imuse.c | 1 |
 | 1000be80 | Im_StrCmpNoCase | imuse.c | 1 |

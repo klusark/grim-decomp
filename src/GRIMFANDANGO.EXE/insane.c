@@ -401,8 +401,6 @@ Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int param_
 
 
 /* ---- 0x004c3df0  msc_MemCopy ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name msc_MemCopy (the remaster's GrimFandango (Linux): aligned call in anm_DecodeBody,
    fle_StreamerDispense); was Insane_MemCopyCdecl. */
 
@@ -412,8 +410,6 @@ void __cdecl msc_MemCopy(void *dst,void *src,uint n)
   Insane_MemCopy(dst,src,n);
   return;
 }
-#endif
-
 
 /* ---- 0x004c3e10  Insane_MemCopy ---- */
 /* replaced by the hand-written version in build/overrides.c */

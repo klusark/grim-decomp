@@ -11,11 +11,12 @@
    remaster's GrimFandango (Linux): the only unmatched caller of stdConffile_OpenMode; 4 matched
    neighbours agree, 0 disagree); was stdConffile_OpenRead. */
 
-void __cdecl stdConffile_Open(uint param_1)
+uint __cdecl stdConffile_Open(uint param_1)
 
 {
-  stdConffile_OpenMode((byte *)param_1,((unsigned)(uintptr_t)&DAT_004dda54));
-  return;
+  uint uRet;
+  uRet = (uint)stdConffile_OpenMode((byte *)param_1,((unsigned)(uintptr_t)&DAT_004dda54));
+  return uRet;
 }
 
 /* ---- 0x0047c7e0  stdConffile_OpenMode ---- */

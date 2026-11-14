@@ -57,11 +57,12 @@ void __cdecl stdFileRead(uint param_1,uint param_2,uint param_3)
 /* Original name stdFileWrite (the remaster's GrimFandango (Linux): the std.c host file service
    after stdFileRead; fwrite wrapper in both builds); was stdFile_Write. */
 
-void __cdecl stdFileWrite(uint param_1,uint param_2,uint param_3)
+uint __cdecl stdFileWrite(uint param_1,uint param_2,uint param_3)
 
 {
-  fwrite(param_2,1,param_3,param_1);
-  return;
+  uint uRet;
+  uRet = (uint)fwrite(param_2,1,param_3,param_1);
+  return uRet;
 }
 
 /* ---- 0x004734a0  stdFileGets ---- */
@@ -83,11 +84,12 @@ void __cdecl stdFileGets(uint param_1,uint param_2,uint param_3)
 /* Original name stdFileGetws (the remaster's GrimFandango (Linux): same body (fgetws(buf, n, fh));
    between stdFileGets and stdFeof in both builds); was FUN_004734c0. */
 
-void __cdecl stdFileGetws(uint param_1,uint param_2,uint param_3)
+uint __cdecl stdFileGetws(uint param_1,uint param_2,uint param_3)
 
 {
-  FUN_004adef0((short *)param_2,param_3,param_1);
-  return;
+  uint uRet;
+  uRet = (uint)FUN_004adef0((short *)param_2,param_3,param_1);
+  return uRet;
 }
 
 /* ---- 0x004734e0  stdFeof ---- */
@@ -118,11 +120,12 @@ undefined * __cdecl stdFtell(uint param_1)
 /* Original name stdFseek (the remaster's GrimFandango (Linux): the std.c seek service after
    stdFtell in both builds); was stdFile_Seek. */
 
-void __cdecl stdFseek(uint param_1,uint param_2,uint param_3)
+uint __cdecl stdFseek(uint param_1,uint param_2,uint param_3)
 
 {
-  fseek(param_1,param_2,param_3);
-  return;
+  uint uRet;
+  uRet = (uint)fseek(param_1,param_2,param_3);
+  return uRet;
 }
 
 /* ---- 0x00473520  stdFileSize ---- */

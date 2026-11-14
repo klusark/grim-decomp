@@ -54,29 +54,23 @@ char * __cdecl stdFileFromPath(char *path)
 }
 
 /* ---- 0x0047b5c0  Str_ToLower ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-char * __cdecl Str_ToLower(char *s)
+void __cdecl Str_ToLower(char *s)
 
 {
-  char cVar1;
-  undefined4 in_EAX;
-  char *pcVar2;
+  char *pcVar1;
+  char cVar2;
   int iVar3;
   
-  cVar1 = *s;
-  pcVar2 = (char *)CONCAT31((int3)((uint)in_EAX >> 8),cVar1);
-  while (cVar1 != '\0') {
-    iVar3 = tolower((int)(char)pcVar2);
+  cVar2 = *s;
+  while (cVar2 != '\0') {
+    iVar3 = tolower((int)cVar2);
     *s = (char)iVar3;
-    cVar1 = s[1];
-    pcVar2 = (char *)CONCAT31((int3)((uint)iVar3 >> 8),cVar1);
+    pcVar1 = s + 1;
     s = s + 1;
+    cVar2 = *pcVar1;
   }
-  return pcVar2;
+  return;
 }
-#endif
-
 
 /* ---- 0x0047fd20  stdFnames_FindMedName ---- */
 /* Original name stdFnames_FindMedName (the remaster's GrimFandango (Linux): aligned call in

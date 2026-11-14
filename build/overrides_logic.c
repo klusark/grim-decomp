@@ -259,646 +259,6 @@ void rdPrimit3_ClipFace(undefined4 param_1,undefined4 param_2,int param_3,undefi
     clipface_copy_pos(src, dst);
     dst[0] = (clipface_persp() ? (rdClipFn3)rdClip_Face3S : (rdClipFn3)rdClip_Face3SOrtho)(param_1, (float *)dst[3], src[0]);
 }
-/* ==== rdModel3_DrawFace (0x0040d880) ====
- * Allocates a draw cache entry for a mesh of a model, copies its geometry / lighting modes (capped by the global limits),
- * runs the vertices through the clipper or the plain copy (rdPrimit3_ClipFace / rdPrimit3_NoClipFace, 7 and 6 arguments),
- * clips the polygon against the extra plane, derives the lighting mode from the mesh alpha and the keyframe interpolation,
- * and queues it with rdCache_AddProcFace.  The compiler pushed the arguments of the two vertex routines before the branch that
- * selects one of them, so the decompiler printed the call of rdPrimit3_ClipFace with its first argument only (the C version
- * therefore crashed at start-up). */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
-undefined4 rdModel3_DrawFace(int param_1,int param_2)
-
-{
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float fVar1;
-  byte flags;
-  int iVar2;
-  uint uVar3;
-  float *pfVar4;
-  int iVar5;
-  bool bVar6;
-  float fVar7;
-  #define local_24 (*(float *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(float (*)[2])(_frame + (0x40 - 0x20)))
-  #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
-  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
-  
-  iVar2 = rdCache_GetProcEntry();
-  if (iVar2 == 0) {
-    return 0;
-  }
-  uVar3 = *(uint *)(param_1 + 8);
-  if ((int)g_dwGeometryMode < (int)*(uint *)(param_1 + 8)) {
-    uVar3 = g_dwGeometryMode;
-  }
-  *(uint *)(iVar2 + 8) = uVar3;
-  uVar3 = *(uint *)(param_1 + 0xc);
-  if ((int)g_dwLightingMode < (int)*(uint *)(param_1 + 0xc)) {
-    uVar3 = g_dwLightingMode;
-  }
-  *(uint *)(iVar2 + 0xc) = uVar3;
-  uVar3 = *(uint *)(param_1 + 0x10);
-  if ((int)g_dwTextureMode < (int)*(uint *)(param_1 + 0x10)) {
-    uVar3 = g_dwTextureMode;
-  }
-  *(uint *)(iVar2 + 0x10) = uVar3;
-  if ((*(byte *)(param_1 + 4) & 0x10) != 0) {
-    *(undefined4 *)(iVar2 + 0xc) = 1;
-  }
-  UINT_007f1490 = *(uint *)(iVar2 + 0x20);
-  UINT_007f1478 = *(uint *)(iVar2 + 0x24);
-  UINT_007f147c = *(uint *)(iVar2 + 0x28);
-  _g_aVertexSrc = *(undefined4 *)(param_1 + 0x14);
-  _DAT_007f30ac = *(undefined4 *)(param_1 + 0x18);
-  _DAT_007f30b0 = *(undefined4 *)(param_1 + 0x1c);
-  if (g_dwMeshFrustrumCull == 0) {
-    rdPrimit3_NoClipFace
-              (*(undefined4 *)(iVar2 + 8),*(undefined4 *)(iVar2 + 0xc),*(undefined4 *)(iVar2 + 0x10)
-               ,&g_aVertexSrc,&g_dwVertexDst,param_1 + 0x28);
-  }
-  else {
-    rdPrimit3_ClipFace(*(undefined4 *)((int)g_pRdCamera_CurCamera + 0x48),*(undefined4 *)(iVar2 + 8),*(int *)(iVar2 + 0xc),
-               *(undefined4 *)(iVar2 + 0x10),(uint *)&g_aVertexSrc,&g_dwVertexDst,(float *)(param_1 + 0x28));
-  }
-  if (g_dwVertexDst < 3) {
-    return 0;
-  }
-  if (g_dwClipPlaneActive != 0) {
-    rdMatrix_TransformVector34(local_c,(float *)&DAT_004ddb70,(float *)((int)g_pRdCamera_CurCamera + 8));
-    rdMatrix_TransformPoint34(local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCamera_CurCamera + 8));
-    uVar3 = rdClip_FaceToPlane(local_c,local_18,UINT_007f1474,UINT_007f1478,UINT_007f147c,
-                                g_dwVertexDst);
-    if ((int)uVar3 < 2) {
-      return 0;
-    }
-    g_dwVertexDst = uVar3;
-    *(uint *)(iVar2 + 0x1c) = uVar3;
-  }
-  if (*(int *)(iVar2 + 0xc) == 2) {
-    if (param_2 == 0) {
-      fVar7 = *(float *)((int)g_pRdCamera_CurCamera + 0x45c);
-      iVar5 = *(int *)((int)g_pCurMesh + 0x30);
-      pfVar4 = (float *)(param_1 + 0x40);
-    }
-    else {
-      local_24 = -*(float *)(param_1 + 0x40);
-      local_20[0] = -*(float *)(param_1 + 0x44);
-      local_20[1] = -*(float *)(param_1 + 0x48);
-      fVar7 = *(float *)((int)g_pRdCamera_CurCamera + 0x45c);
-      iVar5 = *(int *)((int)g_pCurMesh + 0x30);
-      pfVar4 = &local_24;
-    }
-    fVar7 = rdLight_CalcFaceIntensity
-                      ((int *)&UINT_007f30e0,IMG_ADDR(0x007f1598),IMG_ADDR(0x007f1168),g_dwNumMeshLights,param_1,pfVar4,iVar5,
-                       fVar7);
-    *(float *)(iVar2 + 0x44) = fVar7;
-  }
-  (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(UINT_007f1490,UINT_007f1474,g_dwVertexDst);
-  if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
-    *(undefined4 *)(iVar2 + 0x40) = 0;
-  }
-  else {
-    *(undefined4 *)(iVar2 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
-  }
-  iVar5 = *(int *)(param_1 + 0x24);
-  if ((iVar5 == -1) && (*(int *)(param_1 + 0x20) != 0)) {
-    iVar5 = *(int *)(*(int *)(param_1 + 0x20) + 100);
-  }
-  *(int *)(iVar2 + 0x3c) = iVar5;
-  bVar6 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
-  if (*(float *)(iVar2 + 0x40) < 1.0) {
-    if (*(int *)(iVar2 + 0xc) == 2) {
-      if ((*(float *)(iVar2 + 0x44) < 1.0) || (bVar6)) {
-        if (*(float *)(iVar2 + 0x44) <= 0.0) {
-          *(undefined4 *)(iVar2 + 0xc) = 1;
-        }
-      }
-      else {
-        *(undefined4 *)(iVar2 + 0xc) = 0;
-      }
-      goto LAB_0040dbd3;
-    }
-    if (*(int *)(iVar2 + 0xc) != 3) goto LAB_0040dbd3;
-    pfVar4 = *(float **)(iVar2 + 0x28);
-    fVar7 = *pfVar4;
-    uVar3 = 1;
-    if (1 < g_dwVertexDst) {
-      do {
-        pfVar4 = pfVar4 + 1;
-        fVar1 = *pfVar4 - fVar7;
-        if (fVar1 < 0.0) {
-          fVar1 = -fVar1;
-        }
-      } while ((fVar1 <= 0.015625) && (uVar3 = uVar3 + 1, uVar3 < g_dwVertexDst));
-    }
-    if (uVar3 != g_dwVertexDst) goto LAB_0040dbd3;
-    if (fVar7 != 1.0) {
-      if (fVar7 == 0.0) {
-        *(undefined4 *)(iVar2 + 0xc) = 1;
-        *(undefined4 *)(iVar2 + 0x44) = 0;
-      }
-      else {
-        *(undefined4 *)(iVar2 + 0xc) = 2;
-        *(float *)(iVar2 + 0x44) = fVar7;
-      }
-      goto LAB_0040dbd3;
-    }
-    if (!bVar6) {
-      *(undefined4 *)(iVar2 + 0xc) = 0;
-      goto LAB_0040dbd3;
-    }
-  }
-  else if (!bVar6) {
-    *(undefined4 *)(iVar2 + 0xc) = 0;
-    goto LAB_0040dbd3;
-  }
-  *(undefined4 *)(iVar2 + 0xc) = 2;
-  *(undefined4 *)(iVar2 + 0x44) = 0x3f800000;
-LAB_0040dbd3:
-  flags = 1;
-  if (3 < *(int *)(iVar2 + 8)) {
-    flags = 3;
-  }
-  if (2 < *(int *)(iVar2 + 0xc)) {
-    flags = flags | 4;
-  }
-  *(int *)(iVar2 + 0x50) = param_2;
-  *(undefined4 *)(iVar2 + 4) = *(undefined4 *)(param_1 + 4);
-  *(undefined4 *)(iVar2 + 0x48) = *(undefined4 *)(param_1 + 0x30);
-  *(undefined4 *)(iVar2 + 0x38) = *(undefined4 *)(param_1 + 0x20);
-  rdCache_AddProcFace((void *)0x0,g_dwVertexDst,flags);
-  return 1;
-}
-#undef local_18
-#undef local_20
-#undef local_24
-#undef local_c
-/* ==== rdCache_DrawFaceZ (0x00408af0) ====
- * Draws one cache entry with the z-buffered rasteriser: the polygon mode and the lighting mode select the rdRaster_Draw_*
- * routine (flat or textured, lit or unlit, colour keyed, with or without the alpha pass).  Eleven of the calls were printed
- * without their arguments (find_lost_args: the compiler pushed (cache entry, polygon) once before a conditional jump): they
- * take the same two arguments as their neighbours, and rdZRaster_DrawNGonTFS in the case 1 path a third, 0.0f. */
-/* Software path with z-buffer */
-
-int __cdecl rdCache_DrawFaceZ(void *mesh)
-
-{
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  float fVar2;
-  float fVar3;
-  void *pvVar4;
-  int iVar5;
-  uint uVar6;
-  int iVar7;
-  int iVar8;
-  int iVar9;
-  byte *pbVar10;
-  float fVar11;
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
-  
-  pvVar4 = mesh;
-  iVar7 = *(int *)((int)mesh + 8);
-  if (g_nRdroid_curGeometryMode <= *(int *)((int)mesh + 8)) {
-    iVar7 = g_nRdroid_curGeometryMode;
-  }
-  iVar8 = *(int *)((int)mesh + 0xc);
-  if (g_nRdroid_curLightingMode <= *(int *)((int)mesh + 0xc)) {
-    iVar8 = g_nRdroid_curLightingMode;
-  }
-  mesh = *(void **)((int)mesh + 0x10);
-  if (g_nRdroid_curTextureMode <= (int)mesh) {
-    mesh = (void *)g_nRdroid_curTextureMode;
-  }
-  if (iVar7 == 0) {
-    return 0;
-  }
-  iVar1 = *(int *)((int)pvVar4 + 0x38);
-  if (iVar1 == 0) {
-    pbVar10 = (byte *)0x0;
-  }
-  else {
-    iVar5 = *(int *)((int)pvVar4 + 0x3c);
-    if (iVar5 == -1) {
-      iVar5 = *(int *)(iVar1 + 100);
-      if (iVar5 < 0) {
-LAB_00408b6e:
-        iVar5 = 0;
-      }
-      else {
-        iVar9 = *(int *)(iVar1 + 0x60) + -1;
-        if (iVar9 < iVar5) {
-          iVar5 = iVar9;
-        }
-      }
-    }
-    else {
-      if (iVar5 < 0) goto LAB_00408b6e;
-      iVar9 = *(int *)(iVar1 + 0x60) + -1;
-      if (iVar9 < iVar5) {
-        iVar5 = iVar9;
-      }
-    }
-    pbVar10 = *(byte **)(iVar1 + 0x68 + iVar5 * 4);
-    if ((iVar7 == 4) && ((*pbVar10 & 8) == 0)) {
-      iVar7 = 3;
-    }
-  }
-  if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
-    local_4 = 0.0;
-  }
-  else {
-    local_4 = *(float *)((int)pvVar4 + 0x40);
-  }
-  switch(iVar7) {
-  case 1:
-    if ((-1 < iVar8) && (iVar8 < 5)) {
-      rdZRaster_DrawNGonLV(pvVar4,pbVar10);
-      return 1;
-    }
-    break;
-  case 2:
-    if ((-1 < iVar8) && (iVar8 < 5)) {
-      rdZRaster_DrawNGonLW(pvVar4,pbVar10);
-      return 1;
-    }
-    break;
-  case 3:
-    switch(iVar8) {
-    case 0:
-      if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-        rdZRaster_DrawNGonLS(pvVar4,pbVar10);
-        return 1;
-      }
-      rdZRaster_DrawNGonTLS(pvVar4,pbVar10);
-      return 1;
-    case 1:
-      fVar11 = 0.0;
-      *(undefined4 *)((int)pvVar4 + 0x44) = 0;
-      if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-        rdZRaster_DrawNGonTFS(pvVar4,pbVar10,fVar11);
-        return 1;
-      }
-      break;
-    case 2:
-      fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
-      if (fVar11 < 0.0) {
-        fVar2 = 0.0;
-      }
-      else {
-        fVar2 = fVar11;
-        if (1.0 < fVar11) {
-          fVar2 = 1.0;
-        }
-      }
-      if (local_4 < fVar2) {
-        if (fVar11 < 0.0) {
-          local_4 = 0.0;
-        }
-        else {
-          local_4 = fVar11;
-          if (1.0 < fVar11) {
-            local_4 = 1.0;
-          }
-        }
-      }
-      fVar11 = local_4 * 63.0;
-      *(float *)((int)pvVar4 + 0x44) = fVar11;
-      if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-        rdZRaster_DrawNGonTFS(pvVar4,pbVar10,fVar11);
-        return 1;
-      }
-      break;
-    case 3:
-      uVar6 = 0;
-      if (*(int *)((int)pvVar4 + 0x1c) != 0) {
-        do {
-          fVar11 = *(float *)(*(int *)((int)pvVar4 + 0x28) + uVar6 * 4) +
-                   *(float *)((int)pvVar4 + 0x48);
-          iVar7 = uVar6 * 4;
-          if (fVar11 < 0.0) {
-            fVar2 = 0.0;
-          }
-          else {
-            fVar2 = fVar11;
-            if (1.0 < fVar11) {
-              fVar2 = 1.0;
-            }
-          }
-          fVar3 = local_4;
-          if (local_4 < fVar2) {
-            if (fVar11 < 0.0) {
-              fVar3 = 0.0;
-            }
-            else {
-              fVar3 = fVar11;
-              if (1.0 < fVar11) {
-                fVar3 = 1.0;
-              }
-            }
-          }
-          uVar6 = uVar6 + 1;
-          *(float *)(*(int *)((int)pvVar4 + 0x28) + iVar7) = fVar3 * 63.0;
-        } while (uVar6 < *(uint *)((int)pvVar4 + 0x1c));
-      }
-      if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-        rdZRaster_DrawNGonGS(pvVar4,pbVar10);
-        return 1;
-      }
-      rdZRaster_DrawNGonTGS(pvVar4,pbVar10);
-      return 1;
-    default:
-      goto switchD_00408bad_default;
-    }
-    rdZRaster_DrawNGonFS(pvVar4,pbVar10,fVar11);
-    return 1;
-  case 4:
-    if (mesh == (void *)0x0) {
-      switch(iVar8) {
-      case 0:
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonLAT(pvVar4,pbVar10);
-            return 1;
-          }
-          rdZRaster_DrawNGonTLAT(pvVar4,pbVar10);
-          return 1;
-        }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMLAT(pvVar4,pbVar10);
-          return 1;
-        }
-        rdZRaster_DrawNGonMTLAT(pvVar4,pbVar10);
-        return 1;
-      case 1:
-        if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
-          fVar11 = 0.0;
-        }
-        else if (1.0 < *(float *)((int)pvVar4 + 0x48)) {
-          fVar11 = 1.0;
-        }
-        else {
-          fVar11 = *(float *)((int)pvVar4 + 0x48);
-        }
-        if (local_4 < fVar11) {
-          if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
-            local_4 = 0.0;
-          }
-          else if (1.0 < *(float *)((int)pvVar4 + 0x48)) {
-            local_4 = 1.0;
-          }
-          else {
-            local_4 = *(float *)((int)pvVar4 + 0x48);
-          }
-        }
-        fVar11 = local_4 * 63.0;
-        *(float *)((int)pvVar4 + 0x44) = fVar11;
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonFAT(pvVar4,pbVar10,fVar11);
-            return 1;
-          }
-          rdZRaster_DrawNGonTFAT(pvVar4,pbVar10,fVar11);
-          return 1;
-        }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFAT(pvVar4,pbVar10,fVar11);
-          return 1;
-        }
-        rdZRaster_DrawNGonMTFAT(pvVar4,pbVar10,fVar11);
-        return 1;
-      case 2:
-        fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
-        if (fVar11 < 0.0) {
-          fVar2 = 0.0;
-        }
-        else {
-          fVar2 = fVar11;
-          if (1.0 < fVar11) {
-            fVar2 = 1.0;
-          }
-        }
-        if (local_4 < fVar2) {
-          if (fVar11 < 0.0) {
-            local_4 = 0.0;
-          }
-          else {
-            local_4 = fVar11;
-            if (1.0 < fVar11) {
-              local_4 = 1.0;
-            }
-          }
-        }
-        fVar11 = local_4 * 63.0;
-        *(float *)((int)pvVar4 + 0x44) = fVar11;
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonFAT(pvVar4,pbVar10,fVar11);
-            return 1;
-          }
-          rdZRaster_DrawNGonTFAT(pvVar4,pbVar10,fVar11);
-          return 1;
-        }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFAT(pvVar4,pbVar10,fVar11);
-          return 1;
-        }
-        rdZRaster_DrawNGonMTFAT(pvVar4,pbVar10,fVar11);
-        return 1;
-      case 3:
-        uVar6 = 0;
-        if (*(int *)((int)pvVar4 + 0x1c) != 0) {
-          do {
-            fVar11 = *(float *)(*(int *)((int)pvVar4 + 0x28) + uVar6 * 4) +
-                     *(float *)((int)pvVar4 + 0x48);
-            iVar7 = uVar6 * 4;
-            if (fVar11 < 0.0) {
-              fVar2 = 0.0;
-            }
-            else {
-              fVar2 = fVar11;
-              if (1.0 < fVar11) {
-                fVar2 = 1.0;
-              }
-            }
-            fVar3 = local_4;
-            if (local_4 < fVar2) {
-              if (fVar11 < 0.0) {
-                fVar3 = 0.0;
-              }
-              else {
-                fVar3 = fVar11;
-                if (1.0 < fVar11) {
-                  fVar3 = 1.0;
-                }
-              }
-            }
-            uVar6 = uVar6 + 1;
-            *(float *)(*(int *)((int)pvVar4 + 0x28) + iVar7) = fVar3 * 63.0;
-          } while (uVar6 < *(uint *)((int)pvVar4 + 0x1c));
-        }
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) != 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonMGAT(pvVar4,pbVar10);
-            return 1;
-          }
-          rdZRaster_DrawNGonMTGAT(pvVar4,pbVar10);
-          return 1;
-        }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-          rdZRaster_DrawNGonTGAT(pvVar4,pbVar10);
-          return 1;
-        }
-        rdZRaster_DrawNGonGAT(pvVar4,pbVar10);
-      }
-    }
-    else if (mesh == (void *)0x1) {
-      switch(iVar8) {
-      case 0:
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonLIT(pvVar4,pbVar10);
-            return 1;
-          }
-          rdZRaster_DrawNGonTLIT(pvVar4,pbVar10);
-          return 1;
-        }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMLIT(pvVar4,pbVar10);
-          return 1;
-        }
-        rdZRaster_DrawNGonMTLIT(pvVar4,pbVar10);
-        return 1;
-      case 1:
-        if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
-          fVar11 = 0.0;
-        }
-        else if (1.0 < *(float *)((int)pvVar4 + 0x48)) {
-          fVar11 = 1.0;
-        }
-        else {
-          fVar11 = *(float *)((int)pvVar4 + 0x48);
-        }
-        if (local_4 < fVar11) {
-          if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
-            local_4 = 0.0;
-          }
-          else if (1.0 < *(float *)((int)pvVar4 + 0x48)) {
-            local_4 = 1.0;
-          }
-          else {
-            local_4 = *(float *)((int)pvVar4 + 0x48);
-          }
-        }
-        fVar11 = local_4 * 63.0;
-        *(float *)((int)pvVar4 + 0x44) = fVar11;
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonFIT(pvVar4,pbVar10,fVar11);
-            return 1;
-          }
-          rdZRaster_DrawNGonTFIT(pvVar4,pbVar10,fVar11);
-          return 1;
-        }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFIT(pvVar4,pbVar10,fVar11);
-          return 1;
-        }
-        rdZRaster_DrawNGonMTFIT(pvVar4,pbVar10,fVar11);
-        return 1;
-      case 2:
-        fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
-        if (fVar11 < 0.0) {
-          fVar2 = 0.0;
-        }
-        else {
-          fVar2 = fVar11;
-          if (1.0 < fVar11) {
-            fVar2 = 1.0;
-          }
-        }
-        if (local_4 < fVar2) {
-          if (fVar11 < 0.0) {
-            local_4 = 0.0;
-          }
-          else {
-            local_4 = fVar11;
-            if (1.0 < fVar11) {
-              local_4 = 1.0;
-            }
-          }
-        }
-        fVar11 = local_4 * 63.0;
-        *(float *)((int)pvVar4 + 0x44) = fVar11;
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonFIT(pvVar4,pbVar10,fVar11);
-            return 1;
-          }
-          rdZRaster_DrawNGonTFIT(pvVar4,pbVar10,fVar11);
-          return 1;
-        }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFIT(pvVar4,pbVar10,fVar11);
-          return 1;
-        }
-        rdZRaster_DrawNGonMTFIT(pvVar4,pbVar10,fVar11);
-        return 1;
-      case 3:
-        uVar6 = 0;
-        if (*(int *)((int)pvVar4 + 0x1c) != 0) {
-          do {
-            fVar11 = *(float *)(*(int *)((int)pvVar4 + 0x28) + uVar6 * 4) +
-                     *(float *)((int)pvVar4 + 0x48);
-            iVar7 = uVar6 * 4;
-            if (fVar11 < 0.0) {
-              fVar2 = 0.0;
-            }
-            else {
-              fVar2 = fVar11;
-              if (1.0 < fVar11) {
-                fVar2 = 1.0;
-              }
-            }
-            fVar3 = local_4;
-            if (local_4 < fVar2) {
-              if (fVar11 < 0.0) {
-                fVar3 = 0.0;
-              }
-              else {
-                fVar3 = fVar11;
-                if (1.0 < fVar11) {
-                  fVar3 = 1.0;
-                }
-              }
-            }
-            uVar6 = uVar6 + 1;
-            *(float *)(*(int *)((int)pvVar4 + 0x28) + iVar7) = fVar3 * 63.0;
-          } while (uVar6 < *(uint *)((int)pvVar4 + 0x1c));
-        }
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonGIT(pvVar4,pbVar10);
-            return 1;
-          }
-          rdZRaster_DrawNGonTGIT(pvVar4,pbVar10);
-          return 1;
-        }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMGIT(pvVar4,pbVar10);
-          return 1;
-        }
-        rdZRaster_DrawNGonMTGIT(pvVar4,pbVar10);
-        return 1;
-      }
-    }
-  }
-switchD_00408bad_default:
-  return 1;
-}
-#undef local_4
 /* ==== rdModel3_LoadEntry (0x0040a980) ====
  * Opens the model file; the magic 'MODL' selects rdModel3_LoadEntryBinary, anything else is parsed by rdModel3_LoadEntryText.  The
  * magic was read into the parameter slot of the file name (the C text lost the name for the text loader); both close
@@ -1244,8 +604,8 @@ float10 stdMath_Tan(float deg)
 /* ==== rdPrimit3_GetScreenCoord (0x0040dc30) ====
  * Lua WorldToScreen helper: moves the world point into camera space, rejects it when the view frustum does not contain it
  * and otherwise runs the camera's projection (function pointer at +0x4c) on it.  The screen position is stored as two
- * integers (x and y truncated by _ftol, the decompiler lost both operands) followed by the depth as a float. */
-int rdPrimit3_GetScreenCoord(float *world, float *outScreen)
+ * integers (x and y truncated by _ftol, the decompiler lost both operands) followed by the depth as a float (ScreenCoord). */
+int rdPrimit3_GetScreenCoord(float *world, ScreenCoord *outScreen)
 {
     char *cam = (char *)g_pRdCamera_CurCamera;
     float local[3], proj[3];
@@ -1254,10 +614,10 @@ int rdPrimit3_GetScreenCoord(float *world, float *outScreen)
     if (rdClip_Point3(*(void **)(cam + 0x48), local) == 0)
         return 0;
     ((void (*)(float *, float *))*(code **)(cam + 0x4c))(proj, local);
-    if (outScreen != (float *)0) {
-        ((int *)outScreen)[0] = (int)(long long)proj[0];
-        ((int *)outScreen)[1] = (int)(long long)proj[1];
-        outScreen[2] = proj[2];
+    if (outScreen != (ScreenCoord *)0) {
+        outScreen->nX = (int)(long long)proj[0];
+        outScreen->nY = (int)(long long)proj[1];
+        outScreen->flZ = proj[2];
     }
     return 1;
 }
@@ -1418,24 +778,6 @@ void stdColor_ColorConvertOneRow(ushort *dst, int dstFormat, ushort *src, int sr
             o += 3;
         } while (--count != 0);
     }
-}
-
-/* ==== Palette_ApplyGamma (0x00474dd0) ====
- * Copies a 256 entry RGB palette, through the gamma curve number `gammaIdx` (a table of doubles, 8 bytes each, at
- * UINT_00803fc0 - 8) when one is selected.  Written by hand because Palette_FromFloatTable takes the gamma as a double
- * (two stack dwords): Ghidra's new prototype made the decompiler print the double built from one dword. */
-int __cdecl Palette_ApplyGamma(void *dst, void *src, int count, int gammaIdx)
-{
-    if (UINT_00803fc0 == 0) {
-        Mem_Copy(dst, src, 0x300);
-        return 0;
-    }
-    if (gammaIdx != 0) {
-        Palette_FromFloatTable((byte *)dst, (byte *)src, 0x100, *(double *)((char *)UINT_00803fc0 + gammaIdx * 8 - 8));
-        return 1;
-    }
-    Mem_Copy(dst, src, 0x300);
-    return 1;
 }
 
 /* ==== Render_BuildColorTable (0x004864a0) ====
@@ -2094,36 +1436,6 @@ void __cdecl ShrinkBoxes(float radius)
     }
 }
 
-/* ==== Str_ToLower (0x0047b5c0), Res_Touch (0x00482200), sputActor_SetSelectedActor (0x00490320) ====
- * Small functions the decompiler got wrong only in what they return: Str_ToLower ends with 0 (the last character, the
- * terminator, in EAX), Res_Touch returns whatever Res_MoveToFront left in EAX (that function is declared void) and
- * sputActor_SetSelectedActor passes the actor to sputActor_GetActorHandle without a second argument. */
-char * __cdecl Str_ToLower(char *s)
-{
-    for (; *s != '\0'; s++)
-        *s = (char)tolower((int)(char)*s);
-    return (char *)0;
-}
-
-undefined * __cdecl Res_Touch(void *data)
-{
-    void *res = Res_FindByData(data);
-
-    if (res == (void *)0)
-        return (undefined *)0;
-    return (undefined *)((int (*)(void *))Res_MoveToFront)(res);
-}
-
-int __cdecl sputActor_SetSelectedActor(int handle)
-{
-    int old = -1;
-
-    if (g_pSelectedActor != (void *)0)
-        old = ((int (*)(void *))sputActor_GetActorHandle)(g_pSelectedActor);
-    if (-1 < handle && handle < g_nMaxActors)
-        g_pSelectedActor = (void *)((int)g_pActors + handle * 0xa8);
-    return old;
-}
 /* ==== sputLua_GetActorChoresL (0x00499ff0), sputLua_GetActorLoopingChoresL (0x0049a2a0) ====
  * GetActorChores(actor, costume) returns a table {[i] = i for every chore i of the costume that is playing (status bit 0),
  * count = n}; the looping variant also needs status bit 1.  Written by hand: Ghidra reused one stack slot for the chore
@@ -2178,31 +1490,6 @@ void sputLua_GetActorChoresL(void)
 void sputLua_GetActorLoopingChoresL(void)
 {
     actor_chores_table(3);
-}
-
-/* ==== sputLua_WorldToScreenL (0x0049cf60) ====
- * WorldToScreen(x, y, z) -> screen x, y as numbers, or two nils when the point is not visible.  (rdPrimit3_GetScreenCoord
- * stores the screen position as two integers.) */
-void sputLua_WorldToScreenL(void)
-{
-    int a1 = lua_lua2C(1);
-    int a2 = lua_lua2C(2);
-    int a3 = lua_lua2C(3);
-    float world[3];
-    int screen[3];
-
-    if (lua_isnumber(a1) == 0 || lua_isnumber(a2) == 0 || lua_isnumber(a3) == 0)
-        return;
-    world[0] = lua_getnumber(a1);
-    world[1] = lua_getnumber(a2);
-    world[2] = lua_getnumber(a3);
-    if (rdPrimit3_GetScreenCoord(world, (float *)screen) != 0) {
-        lua_pushnumber((float)screen[0]);
-        lua_pushnumber((float)screen[1]);
-        return;
-    }
-    lua_pushnil();
-    lua_pushnil();
 }
 
 /* ==== sputLua_NotifyControlHandlers (0x0049e0b0) ====
@@ -2299,41 +1586,6 @@ undefined4 sputLua_NotifyControlHandlers(void)
     return 0;
 }
 
-/* ==== Actor_UpdateMovement (0x0048fd90) ====
- * Per frame: remembers the position, rescues the costume, follows the path (actor+8 bit 0), updates the walker, the
- * movement chores, the costumes (dt scaled by the actor's time scale), the look-at (bit 1) and the puck orientation
- * (actor+4 bit 4).  Its callee Actor_PuckOrient takes the actor (Ghidra had typed that parameter float). */
-void Actor_UpdateMovement(Actor *actor_, float dt)
-{
-    /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
-    void *actor = (void *)actor_;
-    char *a = (char *)actor;
-    int costume;
-
-    if (*(int *)(a + 0xa4) != 0)
-        dt = *(float *)(*(int *)(a + 0xa4) + 0x41c) * dt;
-    costume = *(int *)(a + 0xa0);
-    *(undefined4 *)(a + 0x18) = *(undefined4 *)(a + 0xc);
-    *(undefined4 *)(a + 0x1c) = *(undefined4 *)(a + 0x10);
-    *(undefined4 *)(a + 0x20) = *(undefined4 *)(a + 0x14);
-    if (costume != 0 && *(int *)(costume + 0x7c) != 0) {
-        if (*(int *)(costume + 0x7c) == 0) {
-            (*g_pStd_HS->pAssertFail)(s_Bad_costume_Reference_004e9e90, s_main_sputResource_h_004e80a8, 0xb8);
-        }
-        Cos_InstRescue(**(int **)(a + 0xa0), *(int *)(costume + 0x80));
-    }
-    if ((*(byte *)(a + 8) & 1) != 0)
-        Actor_FollowPath(actor);
-    if (*(int *)(a + 0xa4) != 0 && *(int *)(*(int *)(a + 0xa4) + 0x1b4) != 0)
-        Actor_UpdateWalker(actor);
-    Actor_UpdateMoveChores(actor);
-    sputCostume_Update(*(void **)(a + 0xa0), dt);
-    if ((*(byte *)(a + 8) & 2) != 0)
-        Actor_UpdateLookAt(actor, dt);
-    if ((*(byte *)(a + 4) & 0x10) != 0)
-        Actor_PuckOrient(actor);
-}
-
 /* ==== Actor_PuckOrient (0x00490f50) ====
  * ActorPuckOrient, at the end of the actor update when actor+4 & 0x10: rebuilds the actor matrix, takes the angle between its
  * up row (actor+0x50) and the up vector of the walker frame (walker+0x24); over 2 degrees the actor turns about
@@ -2418,7 +1670,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor_, char *text, int x, 
         if (*(int *)(a + 0xa0) == 0 || (*(byte *)(a + 4) & 2) != 0) {
             char *setName = sputRoom_GetCurrentRoomName();
 
-            if (_stricmp((int)(a + 0x7c), setName) == 0 && rdPrimit3_GetScreenCoord((float *)(a + 0xc), (float *)proj) != 0) {
+            if (_stricmp((int)(a + 0x7c), setName) == 0 && rdPrimit3_GetScreenCoord((float *)(a + 0xc), (ScreenCoord *)proj) != 0) {
                 pt[0] = proj[0];
                 pt[1] = proj[1];
             }
@@ -2444,7 +1696,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor_, char *text, int x, 
         y = (UINT_008a94c0 - h) + -10;
     ctx[4] = *(int *)(*(int *)ctx[2] + 8) + y;
     ctx[3] = x;
-    obj = TextObject_New((TextContext *)ctx, text, 0, 0);   /* (the last two parameters are not read: the prototype has them since agent O's rename)*/
+    obj = TextObject_New((TextContext *)ctx, text);
     *(void **)((char *)obj + 0x254) = actor;
     *(uint *)(a + 4) = *(uint *)(a + 4) | 4;
     return obj;
@@ -2513,7 +1765,7 @@ void sputText_PrintLineL(void)
         local_58 = (int)(long long)((long double)(unsigned long long)(len * msTab[1] + msTab[0]) * 16.666668f);
       }
       iVar2 = 0;
-      pvVar3 = TextObject_New((void *)local_5c,pcVar6,0,0);
+      pvVar3 = TextObject_New((void *)local_5c,pcVar6);
       sputText_AddToQueue(pvVar3,local_58,iVar2);
     }
   }
@@ -2929,7 +2181,7 @@ void sputLua_GetVisibleThingsL(void)
         Actor *target = g_pActors + node[0];
         if (target != viewer && (*((byte *)viewer + 4) & 1) == 0 && sputActor_CanActorSeeActor(viewer, target, &dist)) {
             lua_pushobject(tab);
-            lua_pushusertag(sputActor_GetActorHandle(target, 0x52544341), 0x52544341);
+            lua_pushusertag(sputActor_GetActorHandle(target), 0x52544341);
             lua_pushnumber(1.0f);
             lua_settable();
         }
