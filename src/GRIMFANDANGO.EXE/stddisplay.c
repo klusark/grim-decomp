@@ -1609,28 +1609,23 @@ void __cdecl stdDisplay_SetMasterPalette(void *palette)
 }
 
 /* ---- 0x00474dd0  Palette_ApplyGamma ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 int __cdecl Palette_ApplyGamma(void *dst,void *src,int count,int gammaIdx)
 
 {
-  undefined4 unaff_retaddr;
-  
-  if (UINT_00803fc0 == 0) {
+  if (PTR_00803fc0 == (double *)0x0) {
     Mem_Copy(dst,src,0x300);
     return 0;
   }
   if (gammaIdx != 0) {
     Palette_FromFloatTable
               (dst,src,0x100,
-               (double)CONCAT44(unaff_retaddr,*(undefined4 *)((UINT_00803fc0 - 4) + gammaIdx * 8)));
+               PUN(double,CONCAT44(*(undefined4 *)((int)PTR_00803fc0 + gammaIdx * 8 + -4),
+                                *(undefined4 *)(PTR_00803fc0 + gammaIdx + -1))));
     return 1;
   }
   Mem_Copy(dst,src,0x300);
   return 1;
 }
-#endif
-
 
 /* ---- 0x00474e40  stdDisplay_TextOut ---- */
 /* replaced by the hand-written version in build/overrides.c */

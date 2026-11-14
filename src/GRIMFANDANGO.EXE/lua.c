@@ -4444,7 +4444,7 @@ void __cdecl sputLua_GetVisibleThingsL(void)
        (iVar2 = sputActor_CanActorSeeActor((Actor *)local_8,target,&local_4), iVar2 != 0)) {
       lua_pushobject(iVar1);
       uVar5 = 0x52544341;
-      pcVar4 = (char *)sputActor_GetActorHandle(target,0x52544341);
+      pcVar4 = (char *)sputActor_GetActorHandle(target);
       lua_pushusertag(pcVar4,uVar5);
       lua_pushnumber(1.0);
       lua_settable();
@@ -5425,8 +5425,6 @@ void __cdecl sputLua_EnableDebugKeysL(void)
 }
 
 /* ---- 0x0049cf60  sputLua_WorldToScreenL ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_2c */
 /* Lua opcode: WorldToScreen Original name sputLua_WorldToScreenL (the remaster's GrimFandango
    (Linux): Lua / module table entry 'WorldToScreen'); was Lua_WorldToScreen. */
@@ -5441,8 +5439,7 @@ void __cdecl sputLua_WorldToScreenL(void)
   int iVar4;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
-  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_c (*(ScreenCoord *)(_frame + (0x40 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -5458,8 +5455,8 @@ void __cdecl sputLua_WorldToScreenL(void)
         local_18[2] = lua_getnumber(iVar3);
         iVar1 = rdPrimit3_GetScreenCoord(local_18,&local_c);
         if (iVar1 != 0) {
-          lua_pushnumber((float)PUN(int,(float)local_c));
-          lua_pushnumber((float)(int)local_8);
+          lua_pushnumber((float)local_c.nX);
+          lua_pushnumber((float)local_c.nY);
           return;
         }
         lua_pushnil();
@@ -5471,10 +5468,7 @@ void __cdecl sputLua_WorldToScreenL(void)
 }
 #undef local_18
 #undef local_2c
-#undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x0049d030  sputLua_ScreenToWorldL ---- */
@@ -5764,13 +5758,12 @@ void __cdecl sputLua_DoCostumeOverrideCallback(void *actor,int flag)
   int iVar4;
   char *pcVar5;
   char *pcVar6;
-  int unaff_EDI;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   bVar1 = false;
   bVar2 = false;
   lua_beginblock();
-  pcVar3 = (char *)sputActor_GetActorHandle(actor,unaff_EDI);
+  pcVar3 = (char *)sputActor_GetActorHandle(actor);
   iVar4 = lua_getref(g_nLrSystemTable);
   lua_pushobject(iVar4);
   lua_pushstring(s_costumeOverrideHandler_004ec4ac);
@@ -5833,13 +5826,12 @@ void __cdecl sputLua_DoCostumeMarkerCallback(void *actor,uint marker)
   int iVar4;
   uint uVar5;
   uint uVar6;
-  int unaff_EBX;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   
   bVar1 = false;
   bVar2 = false;
   if (marker != 0) {
-    pcVar3 = (char *)sputActor_GetActorHandle(actor,unaff_EBX);
+    pcVar3 = (char *)sputActor_GetActorHandle(actor);
     lua_beginblock();
     iVar4 = lua_getref(g_nLrSystemTable);
     lua_pushobject(iVar4);

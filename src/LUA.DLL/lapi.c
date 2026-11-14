@@ -1330,11 +1330,12 @@ char * __cdecl lua_getobjname(int param_1,undefined4 *param_2)
 /* Original name checkfunc (the remaster's libLua.so: static checkfunc(TObject*): luaO_equalObj(o,
    top), called by lua_getobjname); was FUN_100024a0. */
 
-void __cdecl checkfunc(TObject *o)
+uint __cdecl checkfunc(TObject *o)
 
 {
-  luaO_equalObj(o,g_pLuaState->pTop);
-  return;
+  uint uRet;
+  uRet = (uint)luaO_equalObj(o,g_pLuaState->pTop);
+  return uRet;
 }
 
 /* ---- 0x100024c0  lua_beginblock ---- */
@@ -1503,12 +1504,14 @@ undefined4 __cdecl lua_Save(undefined *param_1)
 /* Original name LuaSaveWriter (the remaster's libLua.so: static LuaSaveWriter(void*, unsigned):
    lua_totalBytesSaved += size, then the save callback); was FUN_10002730. */
 
-void __cdecl LuaSaveWriter(undefined4 param_1,int param_2)
+uint __cdecl LuaSaveWriter(undefined4 param_1,int param_2)
 
 {
+  uint uRet;
+  
   g_dwLua_totalBytesSaved = g_dwLua_totalBytesSaved + param_2;
-  (*g_dwSaveFunc)(param_1,param_2);
-  return;
+  uRet = (uint)(*g_dwSaveFunc)(param_1,param_2);
+  return uRet;
 }
 
 /* ---- 0x10002760  lua_Restore ---- */

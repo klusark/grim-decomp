@@ -639,6 +639,25 @@ def fix_pieces(body):
     return body
 
 
+def fix_double_pieces(body):
+    """`(double)CONCAT44(hi, lo)`: Ghidra's view of a double built from two dword loads (a double pushed as two halves,
+    Palette_ApplyGamma's gamma table entry). The cast converts the 64-bit integer numerically; the code means the
+    bits: PUN(double, CONCAT44(hi, lo)). Not inside _ftol( / _frnd(, whose CONCAT44 of saved registers stands for a
+    lost x87 operand (fix_ftol)."""
+    out, i = [], 0
+    for m in re.finditer(r"\(double\)CONCAT44\(", body):
+        if m.start() < i or re.search(r"_(?:ftol|frnd)\($", body[max(0, m.start() - 6):m.start()]):
+            continue
+        end = match_paren(body, m.end() - 1)
+        if end >= len(body):
+            continue
+        out.append(body[i:m.start()])
+        out.append("PUN(double," + body[m.start() + len("(double)"):end + 1] + ")")
+        i = end + 1
+    out.append(body[i:])
+    return "".join(out)
+
+
 def fix_views(body, vt):
     """`_local_4` is Ghidra's other-width view of local_4 (like `_DAT_x` for globals)."""
     def rep(m):
@@ -1307,6 +1326,7 @@ def fix_function(code, ctx, stats):
     vt.update(local_types(body))
     body = fix_ftol(body)
     body = fix_pieces(body)
+    body = fix_double_pieces(body)
     body = fix_views(body, vt)
     body = fix_pseudo_regs(body)
     body = fix_jumps(body)

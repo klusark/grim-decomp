@@ -604,8 +604,8 @@ float10 stdMath_Tan(float deg)
 /* ==== rdPrimit3_GetScreenCoord (0x0040dc30) ====
  * Lua WorldToScreen helper: moves the world point into camera space, rejects it when the view frustum does not contain it
  * and otherwise runs the camera's projection (function pointer at +0x4c) on it.  The screen position is stored as two
- * integers (x and y truncated by _ftol, the decompiler lost both operands) followed by the depth as a float. */
-int rdPrimit3_GetScreenCoord(float *world, float *outScreen)
+ * integers (x and y truncated by _ftol, the decompiler lost both operands) followed by the depth as a float (ScreenCoord). */
+int rdPrimit3_GetScreenCoord(float *world, ScreenCoord *outScreen)
 {
     char *cam = (char *)g_pRdCamera_CurCamera;
     float local[3], proj[3];
@@ -614,10 +614,10 @@ int rdPrimit3_GetScreenCoord(float *world, float *outScreen)
     if (rdClip_Point3(*(void **)(cam + 0x48), local) == 0)
         return 0;
     ((void (*)(float *, float *))*(code **)(cam + 0x4c))(proj, local);
-    if (outScreen != (float *)0) {
-        ((int *)outScreen)[0] = (int)(long long)proj[0];
-        ((int *)outScreen)[1] = (int)(long long)proj[1];
-        outScreen[2] = proj[2];
+    if (outScreen != (ScreenCoord *)0) {
+        outScreen->nX = (int)(long long)proj[0];
+        outScreen->nY = (int)(long long)proj[1];
+        outScreen->flZ = proj[2];
     }
     return 1;
 }
@@ -778,24 +778,6 @@ void stdColor_ColorConvertOneRow(ushort *dst, int dstFormat, ushort *src, int sr
             o += 3;
         } while (--count != 0);
     }
-}
-
-/* ==== Palette_ApplyGamma (0x00474dd0) ====
- * Copies a 256 entry RGB palette, through the gamma curve number `gammaIdx` (a table of doubles, 8 bytes each, at
- * UINT_00803fc0 - 8) when one is selected.  Written by hand because Palette_FromFloatTable takes the gamma as a double
- * (two stack dwords): Ghidra's new prototype made the decompiler print the double built from one dword. */
-int __cdecl Palette_ApplyGamma(void *dst, void *src, int count, int gammaIdx)
-{
-    if (UINT_00803fc0 == 0) {
-        Mem_Copy(dst, src, 0x300);
-        return 0;
-    }
-    if (gammaIdx != 0) {
-        Palette_FromFloatTable((byte *)dst, (byte *)src, 0x100, *(double *)((char *)UINT_00803fc0 + gammaIdx * 8 - 8));
-        return 1;
-    }
-    Mem_Copy(dst, src, 0x300);
-    return 1;
 }
 
 /* ==== Render_BuildColorTable (0x004864a0) ====
@@ -1454,36 +1436,6 @@ void __cdecl ShrinkBoxes(float radius)
     }
 }
 
-/* ==== Str_ToLower (0x0047b5c0), Res_Touch (0x00482200), sputActor_SetSelectedActor (0x00490320) ====
- * Small functions the decompiler got wrong only in what they return: Str_ToLower ends with 0 (the last character, the
- * terminator, in EAX), Res_Touch returns whatever Res_MoveToFront left in EAX (that function is declared void) and
- * sputActor_SetSelectedActor passes the actor to sputActor_GetActorHandle without a second argument. */
-char * __cdecl Str_ToLower(char *s)
-{
-    for (; *s != '\0'; s++)
-        *s = (char)tolower((int)(char)*s);
-    return (char *)0;
-}
-
-undefined * __cdecl Res_Touch(void *data)
-{
-    void *res = Res_FindByData(data);
-
-    if (res == (void *)0)
-        return (undefined *)0;
-    return (undefined *)((int (*)(void *))Res_MoveToFront)(res);
-}
-
-int __cdecl sputActor_SetSelectedActor(int handle)
-{
-    int old = -1;
-
-    if (g_pSelectedActor != (void *)0)
-        old = ((int (*)(void *))sputActor_GetActorHandle)(g_pSelectedActor);
-    if (-1 < handle && handle < g_nMaxActors)
-        g_pSelectedActor = (void *)((int)g_pActors + handle * 0xa8);
-    return old;
-}
 /* ==== sputLua_GetActorChoresL (0x00499ff0), sputLua_GetActorLoopingChoresL (0x0049a2a0) ====
  * GetActorChores(actor, costume) returns a table {[i] = i for every chore i of the costume that is playing (status bit 0),
  * count = n}; the looping variant also needs status bit 1.  Written by hand: Ghidra reused one stack slot for the chore
@@ -1538,31 +1490,6 @@ void sputLua_GetActorChoresL(void)
 void sputLua_GetActorLoopingChoresL(void)
 {
     actor_chores_table(3);
-}
-
-/* ==== sputLua_WorldToScreenL (0x0049cf60) ====
- * WorldToScreen(x, y, z) -> screen x, y as numbers, or two nils when the point is not visible.  (rdPrimit3_GetScreenCoord
- * stores the screen position as two integers.) */
-void sputLua_WorldToScreenL(void)
-{
-    int a1 = lua_lua2C(1);
-    int a2 = lua_lua2C(2);
-    int a3 = lua_lua2C(3);
-    float world[3];
-    int screen[3];
-
-    if (lua_isnumber(a1) == 0 || lua_isnumber(a2) == 0 || lua_isnumber(a3) == 0)
-        return;
-    world[0] = lua_getnumber(a1);
-    world[1] = lua_getnumber(a2);
-    world[2] = lua_getnumber(a3);
-    if (rdPrimit3_GetScreenCoord(world, (float *)screen) != 0) {
-        lua_pushnumber((float)screen[0]);
-        lua_pushnumber((float)screen[1]);
-        return;
-    }
-    lua_pushnil();
-    lua_pushnil();
 }
 
 /* ==== sputLua_NotifyControlHandlers (0x0049e0b0) ====
@@ -1743,7 +1670,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor_, char *text, int x, 
         if (*(int *)(a + 0xa0) == 0 || (*(byte *)(a + 4) & 2) != 0) {
             char *setName = sputRoom_GetCurrentRoomName();
 
-            if (_stricmp((int)(a + 0x7c), setName) == 0 && rdPrimit3_GetScreenCoord((float *)(a + 0xc), (float *)proj) != 0) {
+            if (_stricmp((int)(a + 0x7c), setName) == 0 && rdPrimit3_GetScreenCoord((float *)(a + 0xc), (ScreenCoord *)proj) != 0) {
                 pt[0] = proj[0];
                 pt[1] = proj[1];
             }
@@ -2254,7 +2181,7 @@ void sputLua_GetVisibleThingsL(void)
         Actor *target = g_pActors + node[0];
         if (target != viewer && (*((byte *)viewer + 4) & 1) == 0 && sputActor_CanActorSeeActor(viewer, target, &dist)) {
             lua_pushobject(tab);
-            lua_pushusertag(sputActor_GetActorHandle(target, 0x52544341), 0x52544341);
+            lua_pushusertag(sputActor_GetActorHandle(target), 0x52544341);
             lua_pushnumber(1.0f);
             lua_settable();
         }

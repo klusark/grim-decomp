@@ -123,22 +123,6 @@ extern void *g_pTimerWorkspace __asm__("_g_dwInsaneTimer_memory_services");
 extern int g_nTimerState __asm__("_DAT_008da5d0");
 extern int g_nTimerStateSrc __asm__("_UINT_008da5d4");
 
-int sys_timer_module(int *services, uint workspaceSize)
-{
-    g_pInsaneTimer_share_services = services;
-    g_dwTimerWorkspaceSize = workspaceSize;
-    ((void (*)(const char *, void *))services[0])(s_LECMODULE_insane_timer_004f3c40, &g_apfnInsaneTimerModule);
-    ((void (*)(const char *, void *))g_pInsaneTimer_share_services[0])(s_TIMER_insane_004f3c30, &g_pInsaneTimer_timer_services);
-    g_nTimerRate = 300;
-    return 0;
-}
-
-void InsaneTimer_module_terminate(void)
-{
-    ((void (*)(const char *))g_pInsaneTimer_share_services[1])(s_TIMER_insane_004f3c30);
-    ((void (*)(const char *))g_pInsaneTimer_share_services[1])(s_LECMODULE_insane_timer_004f3c40);
-}
-
 /* The thread: ticks every 16 ms of timeGetTime, sleeps (an event that is never set) for the time to the next tick,
  * at most 10 ms at a time. */
 undefined * __stdcall timer_thread(int unused)
@@ -206,12 +190,6 @@ int InsaneTimer_module_startup(void)
         return 0xffffffff;
     }
     return InsaneTimer_StartThread();
-}
-
-void InsaneTimer_module_shutdown(void)
-{
-    ((void (*)(void *))g_pInsaneTimer_share_services[3])(g_pTimerWorkspace);
-    InsaneTimer_StopThread();
 }
 
 void sys_Disable(void)
@@ -383,46 +361,6 @@ typedef struct DsndClock {      /* TIMER clock interface (cdecl) */
     void *unused[2];
     void (*setPeriod)(int id, int period);
 } DsndClock;
-
-int sou_dsnd_module(int *services, uint moduleSize)
-{
-    g_pDsndDriver_share_services = services;
-    g_dwDsndModuleSize = moduleSize;
-    ((void (*)(const char *, void *))services[0])(s_LECMODULE_insane_dsnd_004f3fec, &g_apfnDsndDriverModule);
-    ((void (*)(const char *, void *))g_pDsndDriver_share_services[0])(s_SNDDRIVER_insane_dsnd_004f3fd4, &g_pDsndDriver_snddriver_services);
-    _DAT_008db414 = 0xffffffff;
-    _DAT_008db20c = 0xffffffff;
-    _DAT_008dcc38 = 0xffffffff;
-    _DAT_008db42c = 0xffffffff;
-    return 0;
-}
-
-void DsndDriver_module_terminate(void)
-{
-    ((void (*)(const char *))g_pDsndDriver_share_services[1])(s_SNDDRIVER_insane_dsnd_004f3fd4);
-    ((void (*)(const char *))g_pDsndDriver_share_services[1])(s_LECMODULE_insane_dsnd_004f3fec);
-}
-
-int DsndDriver_module_startup(void)
-{
-    g_pDsndDriver_timer_services = ((int *(*)(const char *, uint))g_pDsndDriver_share_services[2])(s_TIMER_clock_004f4054, g_dwDsndModuleSize);
-    if (g_pDsndDriver_timer_services == 0) {
-        ((void (*)(const char *))g_pDsndDriver_share_services[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
-        return 0xffffffff;
-    }
-    g_pDsndMemSvc = ((int *(*)(const char *, uint))g_pDsndDriver_share_services[2])(s_MEMORY_mixertable_004f4004, g_dwDsndModuleSize);
-    if (g_pDsndMemSvc == 0) {
-        ((void (*)(const char *))g_pDsndDriver_share_services[8])(s_DirectSoundDriver_Module__Cannot_004f4018);
-        return 0xffffffff;
-    }
-    return 0;
-}
-
-void DsndDriver_module_shutdown(void)
-{
-    ((void (*)(void *))g_pDsndDriver_share_services[3])(g_pDsndDriver_timer_services);
-    ((void (*)(void *))g_pDsndDriver_share_services[3])(g_pDsndMemSvc);
-}
 
 /* rate: sample rate (at least 22050); mix: callback (frames, sou_mixer_mix) that mixes into the accumulator.
  * Returns 0 or -1. */

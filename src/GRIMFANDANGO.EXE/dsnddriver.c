@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004d2420  sou_dsnd_module ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Entry of LECMODULE insane_dsnd: registers the DirectSound sound driver (SNDDRIVER insane_dsnd)
    Original name sou_dsnd_module (the remaster's GrimFandango (Linux): slot 0 of the
@@ -27,12 +25,8 @@ int __cdecl sou_dsnd_module(int *services,uint moduleSize)
   _DAT_008db42c = 0xffffffff;
   return 0;
 }
-#endif
-
 
 /* ---- 0x004d2480  DsndDriver_module_terminate ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name DsndDriver_module_terminate (the remaster's GrimFandango (Linux): slot 1 of the
    "LECMODULE=insane_dsnd" service table; module_terminate is a static several LEC modules have,
@@ -45,12 +39,8 @@ void DsndDriver_module_terminate(void)
   (*(code *)g_pDsndDriver_share_services[1])(s_LECMODULE_insane_dsnd_004f3fec);
   return;
 }
-#endif
-
 
 /* ---- 0x004d24b0  DsndDriver_module_startup ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Gets the TIMER clock interface and allocates the mixer table Original name
    DsndDriver_module_startup (the remaster's GrimFandango (Linux): the static module_startup of the
@@ -77,12 +67,8 @@ int DsndDriver_module_startup(void)
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x004d2520  DsndDriver_module_shutdown ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name DsndDriver_module_shutdown (the remaster's GrimFandango (Linux): slot 3 of the
    "LECMODULE=insane_dsnd" service table; module_shutdown is a static several LEC modules have,
@@ -95,8 +81,6 @@ void DsndDriver_module_shutdown(void)
   (*(code *)g_pDsndDriver_share_services[3])(g_dwDsndDriver_memory_services);
   return;
 }
-#endif
-
 
 /* ---- 0x004d2550  dsn_initialize ---- */
 /* replaced by the hand-written version in build/overrides.c */

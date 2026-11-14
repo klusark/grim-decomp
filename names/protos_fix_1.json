@@ -1,0 +1,24 @@
+{
+ "_comment": "Prototype fixes after the stored-prototype rounds (2026-11-14); replay after names/protos_all_dlls.json with tools/apply_logic_protos.py names/protos_fix_1.json. sputActor_GetActorHandle takes the actor only: its callers push lua_pushusertag's tag before the call, which the inferred `int tag` took (sputActor_SetSelectedActor then passed unaff_retaddr). Res_Touch and Str_ToLower return void: no caller uses the value, and what is in EAX at their end is whatever their last callee left (Res_MoveToFront is void, Str_ToLower ends with the terminator). Palette_FromFloatTable's double is at [esp+0x10]: Ghidra's __cdecl model aligned it to 0x14, so Palette_ApplyGamma's push of the table entry was read as the -4 dword plus the return address (\\\"stack\\\": custom storage).",
+ "GRIMFANDANGO.EXE": {
+  "00490380": {
+   "proto": "int sputActor_GetActorHandle(Actor *actor)",
+   "cc": "__cdecl"
+  },
+  "00482200": {
+   "proto": "void Res_Touch(void *data)",
+   "cc": "__cdecl"
+  },
+  "0047b5c0": {
+   "proto": "void Str_ToLower(char *s)",
+   "cc": "__cdecl"
+  },
+  "0047b610": {
+   "proto": "void Palette_FromFloatTable(byte *out, byte *in, int n, double gamma)",
+   "cc": "__cdecl",
+   "stack": {
+    "gamma": 16
+   }
+  }
+ }
+}

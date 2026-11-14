@@ -64,11 +64,12 @@ void __cdecl stdPlatform_Assert(uint param_1,char *param_2,uint param_3)
    remaster's GrimFandango (Linux): same body (malloc); the platform handle service set in both
    builds); was PlatSvc_HAlloc. */
 
-void __cdecl stdPlatform_AllocHandle(uint param_1)
+uint __cdecl stdPlatform_AllocHandle(uint param_1)
 
 {
-  malloc(param_1);
-  return;
+  uint uRet;
+  uRet = (uint)malloc(param_1);
+  return uRet;
 }
 
 /* ---- 0x00478040  stdPlatform_FreeHandle ---- */
@@ -88,11 +89,12 @@ void __cdecl stdPlatform_FreeHandle(uint param_1)
    (the remaster's GrimFandango (Linux): same body (realloc); after stdPlatform_FreeHandle in both
    builds); was PlatSvc_HRealloc. */
 
-void __cdecl stdPlatform_ReallocHandle(uint param_1,uint param_2)
+uint __cdecl stdPlatform_ReallocHandle(uint param_1,uint param_2)
 
 {
-  realloc((undefined4 *)param_1,param_2);
-  return;
+  uint uRet;
+  uRet = (uint)realloc((undefined4 *)param_1,param_2);
+  return uRet;
 }
 
 /* ---- 0x00478070  stdPlatform_LockHandle ---- */
