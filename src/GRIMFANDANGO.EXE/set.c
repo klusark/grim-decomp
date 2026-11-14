@@ -1032,7 +1032,7 @@ LAB_004a51bd:
            (pvVar4 = sputResource_Alloc(0x4655425a,(char *)(ref + -8)), pvVar4 != (void *)0x0)) {
           Res_SetReference(piVar10,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x720);
         }
-        if ((*piVar10 != 0) && (Res_Touch((void *)ref[0xe]), *piVar10 == 0)) {
+        if ((*piVar10 != 0) && (((code *)Res_Touch)((void *)ref[0xe]), *piVar10 == 0)) {
           (*g_pStd_HS->pAssertFail)
                     (s_Bad_ZBuffer_Reference_004ec614,s_main_sputResource_h_004e80a8,0x95);
         }

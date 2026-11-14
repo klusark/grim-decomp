@@ -656,8 +656,6 @@ void __cdecl sputActor_UpdateActorSpeech(Actor *actor,float dt)
 
 
 /* ---- 0x00490320  sputActor_SetSelectedActor ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua SetSelectedActor; returns the handle or -1 Original name sputActor_SetSelectedActor (the
    remaster's GrimFandango (Linux): the only unmatched callee of Lua_SetSelectedActor; 1 matched
    neighbours agree, 0 disagree); was Actor_SetSelected. */
@@ -666,19 +664,16 @@ int __cdecl sputActor_SetSelectedActor(int handle)
 
 {
   int iVar1;
-  int unaff_retaddr;
   
   iVar1 = -1;
   if (g_pSelectedActor != (Actor *)0x0) {
-    iVar1 = sputActor_GetActorHandle(g_pSelectedActor,unaff_retaddr);
+    iVar1 = sputActor_GetActorHandle(g_pSelectedActor);
   }
   if ((-1 < handle) && (handle < g_nMaxActors)) {
     g_pSelectedActor = g_pActors + handle;
   }
   return iVar1;
 }
-#endif
-
 
 /* ---- 0x00490360  sputActor_ActorDeref ---- */
 /* Original name sputActor_ActorDeref (the remaster's GrimFandango (Linux): the only unmatched
@@ -703,7 +698,7 @@ Actor * __cdecl sputActor_ActorDeref(int handle)
    callee of Lua_CallCostumeMarkerHandler; the only unmatched callee of
    Lua_CallCostumeOverrideHandler; 3 matched neighbours agree, 1 disagree); was Actor_GetHandle. */
 
-int __cdecl sputActor_GetActorHandle(Actor *actor,int tag)
+int __cdecl sputActor_GetActorHandle(Actor *actor)
 
 {
   return ((int)actor - (int)g_pActors) / 0xa8;

@@ -1549,3 +1549,15 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   used to be set ad hoc, now they replay with the batch). The twin then pushes `(float)local_c.nX / nY`, and the
   hand-written version is removed. The overrides of rdPrimit3_GetScreenCoord and sputText_CreateActorText take
   the struct. Clean room 0 of 5329.
+
+## Prototype fixes: GetActorHandle, Res_Touch, Str_ToLower (2026-11-14)
+
+* names/protos_fix_1.json (replay after names/protos_all_dlls.json): sputActor_GetActorHandle takes the actor only
+  (the inferred `int tag` was the tag the callers push for the following lua_pushusertag; sputActor_SetSelectedActor
+  then passed unaff_retaddr, the costume callbacks unaff_EDI / unaff_EBX); Res_Touch and Str_ToLower return void (no
+  caller uses the value; EAX at their end is what the last callee left). The hand-written sputActor_SetSelectedActor,
+  Res_Touch and Str_ToLower (overrides_logic.c) are gone: their twins are now the same functions.
+* names/types_rdmodel3.json records rdModel3 (0x90), rdGeoset and rdMesh (0x7c) with the fields
+  rdModel3_CalcRadii / CalcVertexNormals read. Typing CalcRadii's parameter did not make its twin right (the decompiler
+  walks a pointer into the middle of each mesh and stores the radius through it as uint), so no function uses them yet.
+* Clean room 0 of 5329.

@@ -230,6 +230,9 @@ typedef struct WalkPlane WalkPlane;
 typedef struct WalkPlaneCache WalkPlaneCache;
 typedef struct WalkVertex WalkVertex;
 typedef struct WalkVertexCache WalkVertexCache;
+typedef struct rdGeoset rdGeoset;
+typedef struct rdMesh rdMesh;
+typedef struct rdModel3 rdModel3;
 
 /* Actor: One record of g_pActors (sputActor.cpp); a handle is the index (sputActor_AllocateActor, sputActor_GetActorHandle). Grows by 0x20 records. */
 struct Actor {  /* 0xa8 */
@@ -557,3 +560,44 @@ struct WalkVertexCache {  /* 0x14 */
 _Static_assert(__builtin_offsetof(WalkVertexCache, nIndex) == 0x0, "WalkVertexCache.nIndex");
 _Static_assert(__builtin_offsetof(WalkVertexCache, vert) == 0x4, "WalkVertexCache.vert");
 _Static_assert(sizeof(WalkVertexCache) == 0x14, "sizeof WalkVertexCache");
+/* rdGeoset: A model geoset: its meshes */
+struct rdGeoset {  /* 0x8 */
+    uint dwMeshes;  /* 0x00 */
+    rdMesh *pMeshes;  /* 0x04 */
+};
+_Static_assert(__builtin_offsetof(rdGeoset, dwMeshes) == 0x0, "rdGeoset.dwMeshes");
+_Static_assert(__builtin_offsetof(rdGeoset, pMeshes) == 0x4, "rdGeoset.pMeshes");
+_Static_assert(sizeof(rdGeoset) == 0x8, "sizeof rdGeoset");
+/* rdMesh: One mesh of a model geoset (0x7c bytes) */
+struct rdMesh {  /* 0x7c */
+    uint8_t _pad_0[0x30];
+    float *pVertices;  /* 0x30: x, y, z per vertex */
+    uint8_t _pad_34[0xc];
+    void *pFaces;  /* 0x40: 0x4c-byte faces: index count +0x14, index array +0x18, normal +0x40 */
+    float *pVertexNormals;  /* 0x44: x, y, z per vertex (rdModel3_CalcVertexNormals) */
+    uint dwVertices;  /* 0x48 */
+    uint8_t _pad_4c[0x4];
+    uint dwFaces;  /* 0x50 */
+    uint8_t _pad_54[0xc];
+    float flRadius;  /* 0x60: largest vertex distance from the origin * 1.1 (rdModel3_CalcRadii) */
+    uint8_t _pad_64[0x18];
+};
+_Static_assert(__builtin_offsetof(rdMesh, pVertices) == 0x30, "rdMesh.pVertices");
+_Static_assert(__builtin_offsetof(rdMesh, pFaces) == 0x40, "rdMesh.pFaces");
+_Static_assert(__builtin_offsetof(rdMesh, pVertexNormals) == 0x44, "rdMesh.pVertexNormals");
+_Static_assert(__builtin_offsetof(rdMesh, dwVertices) == 0x48, "rdMesh.dwVertices");
+_Static_assert(__builtin_offsetof(rdMesh, dwFaces) == 0x50, "rdMesh.dwFaces");
+_Static_assert(__builtin_offsetof(rdMesh, flRadius) == 0x60, "rdMesh.flRadius");
+_Static_assert(sizeof(rdMesh) == 0x7c, "sizeof rdMesh");
+/* rdModel3: An RDroid model (0x90 bytes, rdModel3_NewEntry) */
+struct rdModel3 {  /* 0x90 */
+    char aName[32];  /* 0x00: "UNKNOWN" until loaded */
+    uint8_t _pad_20[0x4];
+    rdGeoset aGeosets[4];  /* 0x24 */
+    uint dwGeosets;  /* 0x44 */
+    uint8_t _pad_48[0x48];
+};
+_Static_assert(__builtin_offsetof(rdModel3, aName) == 0x0, "rdModel3.aName");
+_Static_assert(__builtin_offsetof(rdModel3, aGeosets) == 0x24, "rdModel3.aGeosets");
+_Static_assert(__builtin_offsetof(rdModel3, dwGeosets) == 0x44, "rdModel3.dwGeosets");
+_Static_assert(sizeof(rdModel3) == 0x90, "sizeof rdModel3");

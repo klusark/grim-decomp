@@ -1454,36 +1454,6 @@ void __cdecl ShrinkBoxes(float radius)
     }
 }
 
-/* ==== Str_ToLower (0x0047b5c0), Res_Touch (0x00482200), sputActor_SetSelectedActor (0x00490320) ====
- * Small functions the decompiler got wrong only in what they return: Str_ToLower ends with 0 (the last character, the
- * terminator, in EAX), Res_Touch returns whatever Res_MoveToFront left in EAX (that function is declared void) and
- * sputActor_SetSelectedActor passes the actor to sputActor_GetActorHandle without a second argument. */
-char * __cdecl Str_ToLower(char *s)
-{
-    for (; *s != '\0'; s++)
-        *s = (char)tolower((int)(char)*s);
-    return (char *)0;
-}
-
-undefined * __cdecl Res_Touch(void *data)
-{
-    void *res = Res_FindByData(data);
-
-    if (res == (void *)0)
-        return (undefined *)0;
-    return (undefined *)((int (*)(void *))Res_MoveToFront)(res);
-}
-
-int __cdecl sputActor_SetSelectedActor(int handle)
-{
-    int old = -1;
-
-    if (g_pSelectedActor != (void *)0)
-        old = ((int (*)(void *))sputActor_GetActorHandle)(g_pSelectedActor);
-    if (-1 < handle && handle < g_nMaxActors)
-        g_pSelectedActor = (void *)((int)g_pActors + handle * 0xa8);
-    return old;
-}
 /* ==== sputLua_GetActorChoresL (0x00499ff0), sputLua_GetActorLoopingChoresL (0x0049a2a0) ====
  * GetActorChores(actor, costume) returns a table {[i] = i for every chore i of the costume that is playing (status bit 0),
  * count = n}; the looping variant also needs status bit 1.  Written by hand: Ghidra reused one stack slot for the chore
@@ -2229,7 +2199,7 @@ void sputLua_GetVisibleThingsL(void)
         Actor *target = g_pActors + node[0];
         if (target != viewer && (*((byte *)viewer + 4) & 1) == 0 && sputActor_CanActorSeeActor(viewer, target, &dist)) {
             lua_pushobject(tab);
-            lua_pushusertag(sputActor_GetActorHandle(target, 0x52544341), 0x52544341);
+            lua_pushusertag(sputActor_GetActorHandle(target), 0x52544341);
             lua_pushnumber(1.0f);
             lua_settable();
         }

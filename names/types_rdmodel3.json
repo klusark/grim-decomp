@@ -1,0 +1,94 @@
+{
+ "_comment": "RDroid model records (2026-11-14), only the fields the code reads where they were checked: rdModel3_NewEntry zeroes the 0x90-byte model and copies the name; rdModel3_CalcRadii walks geoset 0's meshes (0x7c bytes) and stores each radius as a float at +0x60 (as int * the twin stored an integer); rdModel3_CalcVertexNormals walks every geoset (8-byte records from +0x24, count at +0x44). Typing rdModel3_CalcRadii's parameter did not help (the decompiler walks a pointer into the middle of each mesh, at dwVertices, and stores puVar4[6] as uint), so no function uses these yet.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "rdMesh",
+   "size": 124,
+   "comment": "One mesh of a model geoset (0x7c bytes)",
+   "fields": [
+    [
+     48,
+     "float *",
+     "pVertices",
+     "x, y, z per vertex"
+    ],
+    [
+     64,
+     "void *",
+     "pFaces",
+     "0x4c-byte faces: index count +0x14, index array +0x18, normal +0x40"
+    ],
+    [
+     68,
+     "float *",
+     "pVertexNormals",
+     "x, y, z per vertex (rdModel3_CalcVertexNormals)"
+    ],
+    [
+     72,
+     "uint",
+     "dwVertices",
+     ""
+    ],
+    [
+     80,
+     "uint",
+     "dwFaces",
+     ""
+    ],
+    [
+     96,
+     "float",
+     "flRadius",
+     "largest vertex distance from the origin * 1.1 (rdModel3_CalcRadii)"
+    ]
+   ]
+  },
+  {
+   "name": "rdGeoset",
+   "size": 8,
+   "comment": "A model geoset: its meshes",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwMeshes",
+     ""
+    ],
+    [
+     4,
+     "rdMesh *",
+     "pMeshes",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "rdModel3",
+   "size": 144,
+   "comment": "An RDroid model (0x90 bytes, rdModel3_NewEntry)",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aName",
+     "\"UNKNOWN\" until loaded"
+    ],
+    [
+     36,
+     "rdGeoset[4]",
+     "aGeosets",
+     ""
+    ],
+    [
+     68,
+     "uint",
+     "dwGeosets",
+     ""
+    ]
+   ]
+  }
+ ],
+ "params": []
+}
