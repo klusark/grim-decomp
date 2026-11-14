@@ -881,7 +881,7 @@ static float p1_light_level(long double s, float sf, float amb)
  * (stored back in +0x28[i]); the level of 1 and 2 is stored in +0x44 and passed (as its raw dword) to the face's draw
  * callback +0x14 (face, cel, level); lighting 0 and 3 pass 0.  Geometry 1 and 2 only call the callback (level 0) for
  * lighting 0..4.  Unknown modes skip the callback.  Returns 1. */
-undefined4 rdCache_DrawFaceUser(byte *param_1)
+uint rdCache_DrawFaceUser(ProcEntry *param_1)
 {
     int p = (int)param_1;
     int geo, light, tex, mat, cel, n;

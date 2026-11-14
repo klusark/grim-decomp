@@ -480,16 +480,16 @@
 | 00406660 | rdCache_FinishFrame | rdcache.c | 13 |
 | 00406670 | rdCache_Reset | rdcache.c | 12 |
 | 00406690 | rdCache_ClearFrameCounters | rdcache.c | 10 |
-| 004066a0 | rdCache_GetProcEntry | rdcache.c | 33 |
+| 004066a0 | rdCache_GetProcEntry | rdcache.c | 37 |
 | 00406770 | rdCache_Flush | rdcache.c | 62 |
 | 00406860 | rdCache_AddProcFace | rdcache.c | 1 |
 | 00406aa0 | rdCache_SendFaceListToHardware | rdcache.c | 1 |
 | 00407ed0 | std3D_ResetRenderList | rdcache.c | 12 |
 | 00407ef0 | rdCache_DrawRenderList | rdcache.c | 29 |
 | 00407f90 | rdCache_TriCompare | rdcache.c | 15 |
-| 00407fd0 | rdCache_DrawFaceN | rdcache.c | 480 |
+| 00407fd0 | rdCache_DrawFaceN | rdcache.c | 478 |
 | 00408800 | FUN_00408800 | rdcache.c | 10 |
-| 00408af0 | rdCache_DrawFaceZ | rdcache.c | 461 |
+| 00408af0 | rdCache_DrawFaceZ | rdcache.c | 459 |
 | 00409580 | rdCache_DrawFaceUser | rdmodel.c | 1 |
 | 00409d20 | rdCache_ProcFaceCompare | rdmodel.c | 14 |
 | 0040d140 | rdModel3_DrawHNode | rdmodel.c | 44 |
@@ -1021,7 +1021,7 @@
 | 00488c00 | Pool_Grow | memory.c | 35 |
 | 00471ee0 | rdPolyline_Draw | rdprimitive.c | 111 |
 | 00472360 | rdPolyline_DrawFace | rdprimitive.c | 158 |
-| 00472640 | rdSprite_DrawThing | rdprimitive.c | 95 |
+| 00472640 | rdSprite_DrawThing | rdprimitive.c | 94 |
 | 004728a0 | rdSprite_New | rdprimitive.c | 20 |
 | 00472910 | rdSprite_NewEntry | rdprimitive.c | 96 |
 | 00472b50 | rdSprite_Free | rdprimitive.c | 9 |
@@ -1700,7 +1700,7 @@
 | 00495e90 | sputCostume_SaveHook | costume.c | 92 |
 | 00496020 | Costume_InstanceHook | costume.c | 13 |
 | 00494890 | sputCostume_SetShadowColor | shadow.c | 30 |
-| 00494bf0 | sputCostume_OutputShadowPoly | shadow.c | 54 |
+| 00494bf0 | sputCostume_OutputShadowPoly | shadow.c | 55 |
 | 004957f0 | sputCostume_Initialize | sputcostume.c | 21 |
 | 00495960 | sputCostume_Terminate | sputcostume.c | 16 |
 | 004959a0 | sputCostume_Startup | sputcostume.c | 166 |

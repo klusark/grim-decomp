@@ -254,6 +254,7 @@ extern int g_nDrawBoxMinY; /* 0x008ddf94 */
 extern int g_nRdCache_lrcExtent; /* 0x008ddf98 */
 extern int g_nDrawBoxMaxY; /* 0x008ddf9c */
 extern uint g_dwRdCache_numProcFaces; /* 0x008ddfa0 */
+extern ProcEntry g_bRdCache_aProcFaces[1024]; /* 0x008ddfc0 */
 extern int g_nRdroid_curLightingMode; /* 0x00900000 */
 extern GrimServices * g_pRdroid_HS; /* 0x00900004 */
 extern int g_nRdroid_curGeometryMode; /* 0x00900008 */
@@ -2379,24 +2380,6 @@ extern undefined4 UINT_008ddf60; /* used by 1 fn(s), first 0x0040a430 */
 extern undefined4 UINT_008ddf84; /* used by 1 fn(s), first 0x0040d230 */
 extern undefined4 UINT_008ddf88; /* used by 1 fn(s), first 0x0040d230 */
 extern undefined4 UINT_008ddf8c; /* used by 1 fn(s), first 0x0040d230 */
-extern undefined g_bRdCache_aProcFaces; /* used by 5 fn(s), first 0x00405620 */
-extern undefined4 UINT_008ddfdc; /* used by 1 fn(s), first 0x00406860 */
-extern undefined4 UINT_008ddfe0; /* used by 2 fn(s), first 0x004066a0 */
-extern undefined DAT_008ddfe4; /* used by 1 fn(s), first 0x004066a0 */
-extern undefined4 UINT_008ddfe8; /* used by 1 fn(s), first 0x004066a0 */
-extern undefined4 UINT_008ddfec; /* used by 1 fn(s), first 0x004066a0 */
-extern undefined4 UINT_008ddff0; /* used by 1 fn(s), first 0x004066a0 */
-extern undefined4 UINT_008ddff4; /* used by 1 fn(s), first 0x004066a0 */
-extern undefined4 UINT_008de00c; /* used by 1 fn(s), first 0x00406860 */
-extern undefined DAT_008de014; /* used by 1 fn(s), first 0x00406860 */
-extern undefined DAT_008de018; /* used by 1 fn(s), first 0x00406860 */
-extern undefined DAT_008de01c; /* used by 1 fn(s), first 0x00406860 */
-extern undefined DAT_008de020; /* used by 1 fn(s), first 0x00406860 */
-extern undefined DAT_008de024; /* used by 1 fn(s), first 0x00406860 */
-extern undefined DAT_008de028; /* used by 1 fn(s), first 0x00406860 */
-extern undefined DAT_008de02c; /* used by 1 fn(s), first 0x00406860 */
-extern undefined DAT_008de030; /* used by 1 fn(s), first 0x00406860 */
-extern undefined DAT_008de034; /* used by 1 fn(s), first 0x00406860 */
 extern undefined g_aRdRaster_OneOverNFixed; /* used by 100 fn(s), first 0x00404e00 */
 extern undefined4 UINT_008fbfc4; /* used by 1 fn(s), first 0x00404b80 */
 extern undefined4 UINT_008fdfc0; /* used by 1 fn(s), first 0x00404b80 */

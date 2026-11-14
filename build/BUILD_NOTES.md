@@ -1861,3 +1861,16 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   stayed compiled out and link.py stubbed it with a trap: entering full-screen DirectDraw would have crashed (the clean
   room runs windowed). Both are gone; no other OVERRIDES marker lacks a definition. Not checked in full-screen.
 * Clean room 0 of 5457.
+
+## Render cache face types (2026-11-14)
+
+* names/types_rdcache.json: ProcEntry (0x78), the render cache's processed face (rdProcEntry), from
+  rdCache_GetProcEntry (which points it at the cache's vertex, texture-vertex and intensity pools), the drawers that
+  fill it and rdCache_DrawFaceN / Z / User that draw it: modes at 8 / 0xc / 0x10 (each clamped to the renderer's
+  limit), vertex count and arrays, the three colour intensity arrays, material and cel, alpha, light. The pool
+  g_bRdCache_aProcFaces (0x008ddfc0) is ProcEntry[1024] (it ends where g_aRdRaster_OneOverNFixed starts); rdCache_GetProcEntry and
+  rdCache_InsertFace return a ProcEntry *, rdCache_DrawFaceN / Z / User take one. rdcache.c: 99 offset accesses -> 7.
+  Ghidra had an unused 84-byte ProcEntry; it is resized.
+* The overrides rdCache_DrawFaceUser (overrides_asm_p1.c) and rdCache_InsertFace (overrides_logic.c) take / return
+  ProcEntry * now (their bodies still work on the bytes).
+* Clean room 0 of 5457.

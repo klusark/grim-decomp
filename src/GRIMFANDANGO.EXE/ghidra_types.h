@@ -237,6 +237,7 @@ typedef struct DDrawSurfaceRec DDrawSurfaceRec;
 typedef struct DisplayDevice DisplayDevice;
 typedef struct GrimServices GrimServices;
 typedef struct PhonemeEntry PhonemeEntry;
+typedef struct ProcEntry ProcEntry;
 typedef struct Puck Puck;
 typedef struct ScreenCoord ScreenCoord;
 typedef struct TextContext TextContext;
@@ -609,6 +610,53 @@ struct PhonemeEntry {  /* 0x8 */
 _Static_assert(__builtin_offsetof(PhonemeEntry, dwPhoneme) == 0x0, "PhonemeEntry.dwPhoneme");
 _Static_assert(__builtin_offsetof(PhonemeEntry, wTalkChore) == 0x4, "PhonemeEntry.wTalkChore");
 _Static_assert(sizeof(PhonemeEntry) == 0x8, "sizeof PhonemeEntry");
+/* ProcEntry: A processed face of the render cache (rdProcEntry, 0x78 bytes): the transformed, clipped and projected polygon with what the rasteriser needs to draw it. */
+struct ProcEntry {  /* 0x78 */
+    uint dwExtraData;  /* 0x00: 0 (rdCache_InsertFace, rdSprite_DrawThing) */
+    uint dwFlags;  /* 0x04: bit 1 tested by the drawers (rdCache_DrawFaceN); 1 from rdCache_InsertFace, 0 from sprites */
+    int nGeometryMode;  /* 0x08: 0 none .. 3 textured, 4 (downgraded to 3 when the cel has no alpha bit); clamped to g_nRdroid_curGeometryMode */
+    int nLightingMode;  /* 0x0c: clamped to g_nRdroid_curLightingMode (0 .. 4) */
+    int nTextureMode;  /* 0x10: clamped to g_nRdroid_curTextureMode */
+    uint8_t field_0x14, field_0x15, field_0x16, field_0x17, field_0x18, field_0x19, field_0x1a, field_0x1b;
+    uint dwNumVertices;  /* 0x1c: vertices after clipping */
+    float *pVertices;  /* 0x20: projected vertices, 3 floats each (the cache's vertex pool) */
+    float *pTexVertices;  /* 0x24: texture coordinates, 2 floats each */
+    float *pIntensities;  /* 0x28: per-vertex light */
+    float *pRedIntensities;  /* 0x2c: per-vertex red (the same array as pIntensities when not coloured) */
+    float *pGreenIntensities;  /* 0x30 */
+    float *pBlueIntensities;  /* 0x34 */
+    void *pMaterial;  /* 0x38: rdMaterial; 0 = untextured */
+    int nCel;  /* 0x3c: the material's cel, -1 = the material's current cel */
+    float flAlpha;  /* 0x40: translucency, used with render option 2 */
+    float flLightIndex;  /* 0x44: flLight * 63: the colormap's light row (rdCache_SendFaceListToHardware) */
+    float flLight;  /* 0x48: face light, clamped to 0 .. 1 */
+    uint8_t field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    int nBackFacing;  /* 0x50: 1 when the face points away from the camera (rdCache_InsertFace: normal . centre > 0) */
+    uint8_t field_0x54, field_0x55, field_0x56, field_0x57, field_0x58, field_0x59, field_0x5a, field_0x5b;
+    uint8_t field_0x5c, field_0x5d, field_0x5e, field_0x5f, field_0x60, field_0x61, field_0x62, field_0x63;
+    uint8_t field_0x64, field_0x65, field_0x66, field_0x67, field_0x68, field_0x69, field_0x6a, field_0x6b;
+    uint8_t field_0x6c, field_0x6d, field_0x6e, field_0x6f, field_0x70, field_0x71, field_0x72, field_0x73;
+    uint8_t field_0x74, field_0x75, field_0x76, field_0x77;
+};
+_Static_assert(__builtin_offsetof(ProcEntry, dwExtraData) == 0x0, "ProcEntry.dwExtraData");
+_Static_assert(__builtin_offsetof(ProcEntry, dwFlags) == 0x4, "ProcEntry.dwFlags");
+_Static_assert(__builtin_offsetof(ProcEntry, nGeometryMode) == 0x8, "ProcEntry.nGeometryMode");
+_Static_assert(__builtin_offsetof(ProcEntry, nLightingMode) == 0xc, "ProcEntry.nLightingMode");
+_Static_assert(__builtin_offsetof(ProcEntry, nTextureMode) == 0x10, "ProcEntry.nTextureMode");
+_Static_assert(__builtin_offsetof(ProcEntry, dwNumVertices) == 0x1c, "ProcEntry.dwNumVertices");
+_Static_assert(__builtin_offsetof(ProcEntry, pVertices) == 0x20, "ProcEntry.pVertices");
+_Static_assert(__builtin_offsetof(ProcEntry, pTexVertices) == 0x24, "ProcEntry.pTexVertices");
+_Static_assert(__builtin_offsetof(ProcEntry, pIntensities) == 0x28, "ProcEntry.pIntensities");
+_Static_assert(__builtin_offsetof(ProcEntry, pRedIntensities) == 0x2c, "ProcEntry.pRedIntensities");
+_Static_assert(__builtin_offsetof(ProcEntry, pGreenIntensities) == 0x30, "ProcEntry.pGreenIntensities");
+_Static_assert(__builtin_offsetof(ProcEntry, pBlueIntensities) == 0x34, "ProcEntry.pBlueIntensities");
+_Static_assert(__builtin_offsetof(ProcEntry, pMaterial) == 0x38, "ProcEntry.pMaterial");
+_Static_assert(__builtin_offsetof(ProcEntry, nCel) == 0x3c, "ProcEntry.nCel");
+_Static_assert(__builtin_offsetof(ProcEntry, flAlpha) == 0x40, "ProcEntry.flAlpha");
+_Static_assert(__builtin_offsetof(ProcEntry, flLightIndex) == 0x44, "ProcEntry.flLightIndex");
+_Static_assert(__builtin_offsetof(ProcEntry, flLight) == 0x48, "ProcEntry.flLight");
+_Static_assert(__builtin_offsetof(ProcEntry, nBackFacing) == 0x50, "ProcEntry.nBackFacing");
+_Static_assert(sizeof(ProcEntry) == 0x78, "sizeof ProcEntry");
 /* Puck: The walker of an actor (Walker.cpp's Puck, 0x60 bytes, ActorExtra::pPuck): position and frame on the walk sectors. Every puck is on the list g_dwPuck_p_head. */
 struct Puck {  /* 0x60 */
     float aPos[3];  /* 0x00: position (Puck_SetPos) */

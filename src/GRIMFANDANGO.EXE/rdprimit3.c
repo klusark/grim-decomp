@@ -12,18 +12,17 @@
    through the current camera, their centre, a new proc face of the material, the face normal from a
    cross product, rdCache_AddProcFace)); was rdPrimit3_DrawPolygon. */
 
-void * __cdecl rdCache_InsertFace(float *verts,int count,void *material)
+ProcEntry * __cdecl rdCache_InsertFace(float *verts,int count,void *material)
 
 {
   unsigned char _frame[0x340] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   uint vertexCount;
-  undefined4 *puVar2;
+  ProcEntry *pPVar2;
   uint uVar3;
   int iVar4;
-  float *out;
-  undefined4 *puVar5;
-  undefined4 *puVar6;
+  float *pfVar5;
+  float *pfVar6;
   #define local_330 (*(float (*)[3])(_frame + (0x340 - 0x330)))
   #define fStack_324 (*(float *)(_frame + (0x340 - 0x324)))
   #define fStack_320 (*(float *)(_frame + (0x340 - 0x320)))
@@ -42,54 +41,54 @@ void * __cdecl rdCache_InsertFace(float *verts,int count,void *material)
   #define fStack_2e8 (*(float *)(_frame + (0x340 - 0x2e8)))
   #define fStack_2e4 (*(float *)(_frame + (0x340 - 0x2e4)))
   #define fStack_2e0 (*(float *)(_frame + (0x340 - 0x2e0)))
-  #define local_180 (*(undefined4 (*)[96])(_frame + (0x340 - 0x180)))
+  #define local_180 (*(float (*)[96])(_frame + (0x340 - 0x180)))
   
   local_330[2] = 0.0;
   local_330[1] = 0.0;
   local_330[0] = 0.0;
   if (0 < count) {
     iVar4 = count;
-    out = &local_300;
+    pfVar5 = &local_300;
     do {
       rdMatrix_TransformPoint34
-                (out,(float *)(((int)verts - (int)&local_300) + (int)out),
+                (pfVar5,(float *)(((int)verts - (int)&local_300) + (int)pfVar5),
                  (float *)((int)g_pRdCamera_CurCamera + 8));
-      local_330[0] = local_330[0] + *out;
+      local_330[0] = local_330[0] + *pfVar5;
       iVar4 = iVar4 + -1;
-      local_330[1] = out[1] + local_330[1];
-      local_330[2] = out[2] + local_330[2];
-      out = out + 3;
+      local_330[1] = pfVar5[1] + local_330[1];
+      local_330[2] = pfVar5[2] + local_330[2];
+      pfVar5 = pfVar5 + 3;
     } while (iVar4 != 0);
   }
   fVar1 = (float)count;
   vertexCount = rdClip_Face3S(*(int **)((int)g_pRdCamera_CurCamera + 0x48),&local_300,count);
   if ((int)vertexCount < 3) {
-    return (void *)0x0;
+    return (ProcEntry *)0x0;
   }
   (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_180,&local_300,vertexCount);
-  puVar2 = (undefined4 *)rdCache_GetProcEntry();
-  *puVar2 = 0;
-  puVar2[0x11] = 0;
-  puVar2[0x12] = 0;
-  puVar2[0xf] = 0;
-  puVar2[1] = 1;
-  puVar2[3] = 1;
-  puVar2[2] = 3;
-  puVar2[7] = vertexCount;
-  puVar5 = local_180;
-  puVar6 = (undefined4 *)puVar2[8];
+  pPVar2 = rdCache_GetProcEntry();
+  pPVar2->dwExtraData = 0;
+  pPVar2->flLightIndex = 0.0;
+  pPVar2->flLight = 0.0;
+  pPVar2->nCel = 0;
+  pPVar2->dwFlags = 1;
+  pPVar2->nLightingMode = 1;
+  pPVar2->nGeometryMode = 3;
+  pPVar2->dwNumVertices = vertexCount;
+  pfVar5 = local_180;
+  pfVar6 = pPVar2->pVertices;
   for (uVar3 = vertexCount * 3 & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
-    *puVar6 = *puVar5;
-    puVar5 = puVar5 + 1;
-    puVar6 = puVar6 + 1;
+    *pfVar6 = *pfVar5;
+    pfVar5 = pfVar5 + 1;
+    pfVar6 = pfVar6 + 1;
   }
   for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *(undefined1 *)puVar6 = *(undefined1 *)puVar5;
-    puVar5 = (undefined4 *)((int)puVar5 + 1);
-    puVar6 = (undefined4 *)((int)puVar6 + 1);
+    *(undefined1 *)pfVar6 = *(undefined1 *)pfVar5;
+    pfVar5 = (float *)((int)pfVar5 + 1);
+    pfVar6 = (float *)((int)pfVar6 + 1);
   }
-  puVar2[0xf] = 0xffffffff;
-  puVar2[0xe] = material;
+  pPVar2->nCel = -1;
+  pPVar2->pMaterial = material;
   fStack_324 = fStack_2f4 - local_300;
   fStack_320 = fStack_2f0 - local_2fc[0];
   fStack_31c = fStack_2ec - local_2fc[1];
@@ -97,11 +96,11 @@ void * __cdecl rdCache_InsertFace(float *verts,int count,void *material)
   fStack_308 = fStack_2e4 - fStack_2f0;
   fStack_304 = fStack_2e0 - fStack_2ec;
   rdVector_Cross3(&fStack_318,&fStack_324,&fStack_30c);
-  puVar2[0x14] = (uint)(0.0 < fStack_310 * (local_330[2] / fVar1) +
-                              fStack_314 * (local_330[1] / fVar1) +
-                              fStack_318 * (local_330[0] / fVar1));
+  pPVar2->nBackFacing =
+       (uint)(0.0 < fStack_310 * (local_330[2] / fVar1) +
+                    fStack_314 * (local_330[1] / fVar1) + fStack_318 * (local_330[0] / fVar1));
   rdCache_AddProcFace((void *)0x0,vertexCount,1);
-  return puVar2;
+  return pPVar2;
 }
 #undef fStack_2e0
 #undef fStack_2e4

@@ -13,175 +13,176 @@
    rdCache_DrawFaceUser (the remaster's GrimFandango (Linux): aligned call in rdCache_Flush); was
    rdModel_ComputeMeshLighting. */
 
-uint __cdecl rdCache_DrawFaceUser(byte *param_1)
+uint __cdecl rdCache_DrawFaceUser(ProcEntry *face)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float fVar1;
-  int iVar2;
-  float fVar3;
+  float *pfVar1;
+  float fVar2;
+  void *pvVar3;
   float fVar4;
-  byte *pbVar5;
-  int iVar6;
-  uint uVar7;
-  int iVar8;
+  float fVar5;
+  ProcEntry *pPVar6;
+  int iVar7;
+  uint uVar8;
   int iVar9;
   int iVar10;
   int iVar11;
+  int iVar12;
   #define local_8 (*(float (*)[2])(_frame + (0x20 - 0x8)))
   
-  pbVar5 = param_1;
-  iVar8 = *(int *)(param_1 + 8);
-  if (g_nRdroid_curGeometryMode <= *(int *)(param_1 + 8)) {
-    iVar8 = g_nRdroid_curGeometryMode;
+  pPVar6 = face;
+  iVar9 = face->nGeometryMode;
+  if (g_nRdroid_curGeometryMode <= face->nGeometryMode) {
+    iVar9 = g_nRdroid_curGeometryMode;
   }
-  iVar11 = *(int *)(param_1 + 0xc);
-  if (g_nRdroid_curLightingMode <= *(int *)(param_1 + 0xc)) {
-    iVar11 = g_nRdroid_curLightingMode;
+  iVar12 = face->nLightingMode;
+  if (g_nRdroid_curLightingMode <= face->nLightingMode) {
+    iVar12 = g_nRdroid_curLightingMode;
   }
-  iVar9 = *(int *)(param_1 + 0x10);
-  if (g_nRdroid_curTextureMode <= *(int *)(param_1 + 0x10)) {
-    iVar9 = g_nRdroid_curTextureMode;
+  iVar10 = face->nTextureMode;
+  if (g_nRdroid_curTextureMode <= face->nTextureMode) {
+    iVar10 = g_nRdroid_curTextureMode;
   }
-  if (iVar8 == 0) {
+  if (iVar9 == 0) {
     return 0;
   }
-  iVar2 = *(int *)(param_1 + 0x38);
-  if (iVar2 == 0) {
-    param_1 = (byte *)0x0;
+  pvVar3 = face->pMaterial;
+  if (pvVar3 == (void *)0x0) {
+    face = (ProcEntry *)0x0;
   }
   else {
-    iVar6 = *(int *)(param_1 + 0x3c);
-    if (iVar6 == -1) {
-      iVar6 = *(int *)(iVar2 + 100);
-      if (iVar6 < 0) {
-        iVar6 = 0;
+    iVar7 = face->nCel;
+    if (iVar7 == -1) {
+      iVar7 = *(int *)((int)pvVar3 + 100);
+      if (iVar7 < 0) {
+        iVar7 = 0;
       }
       else {
-        iVar10 = *(int *)(iVar2 + 0x60) + -1;
-        if (iVar10 < iVar6) {
-          param_1 = *(byte **)(iVar2 + 0x68 + iVar10 * 4);
+        iVar11 = *(int *)((int)pvVar3 + 0x60) + -1;
+        if (iVar11 < iVar7) {
+          face = *(ProcEntry **)((int)pvVar3 + iVar11 * 4 + 0x68);
           goto LAB_0040961e;
         }
       }
-      param_1 = *(byte **)(iVar2 + 0x68 + iVar6 * 4);
+      face = *(ProcEntry **)((int)pvVar3 + iVar7 * 4 + 0x68);
     }
     else {
-      if (iVar6 < 0) {
-        iVar6 = 0;
+      if (iVar7 < 0) {
+        iVar7 = 0;
       }
       else {
-        iVar10 = *(int *)(iVar2 + 0x60) + -1;
-        if (iVar10 < iVar6) {
-          iVar6 = iVar10;
+        iVar11 = *(int *)((int)pvVar3 + 0x60) + -1;
+        if (iVar11 < iVar7) {
+          iVar7 = iVar11;
         }
       }
-      param_1 = *(byte **)(iVar2 + 0x68 + iVar6 * 4);
+      face = *(ProcEntry **)((int)pvVar3 + iVar7 * 4 + 0x68);
     }
 LAB_0040961e:
-    if ((iVar8 == 4) && ((*param_1 & 8) == 0)) {
-      iVar8 = 3;
+    if ((iVar9 == 4) && ((face->dwExtraData & 8) == 0)) {
+      iVar9 = 3;
     }
   }
   if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     local_8[0] = 0.0;
   }
   else {
-    local_8[0] = *(float *)(pbVar5 + 0x40);
+    local_8[0] = pPVar6->flAlpha;
   }
-  switch(iVar8) {
+  switch(iVar9) {
   case 1:
   case 2:
-    if (iVar11 < 0) {
+    if (iVar12 < 0) {
       return 1;
     }
-    if (4 < iVar11) {
+    if (4 < iVar12) {
       return 1;
     }
     break;
   case 3:
-    switch(iVar11) {
+    switch(iVar12) {
     case 0:
       goto switchD_004098a8_caseD_0;
     case 1:
-      if (*(float *)(pbVar5 + 0x48) < 0.0) {
-        fVar1 = 0.0;
+      if (pPVar6->flLight < 0.0) {
+        fVar2 = 0.0;
       }
-      else if (1.0 < *(float *)(pbVar5 + 0x48)) {
-        fVar1 = 1.0;
+      else if (1.0 < pPVar6->flLight) {
+        fVar2 = 1.0;
       }
       else {
-        fVar1 = *(float *)(pbVar5 + 0x48);
+        fVar2 = pPVar6->flLight;
       }
-      if (local_8[0] < fVar1) {
-        if (*(float *)(pbVar5 + 0x48) < 0.0) {
+      if (local_8[0] < fVar2) {
+        if (pPVar6->flLight < 0.0) {
           local_8[0] = 0.0;
         }
-        else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+        else if (1.0 < pPVar6->flLight) {
           local_8[0] = 1.0;
         }
         else {
-          local_8[0] = *(float *)(pbVar5 + 0x48);
+          local_8[0] = pPVar6->flLight;
         }
       }
-      *(float *)(pbVar5 + 0x44) = local_8[0] * 63.0;
-      (**(code **)(pbVar5 + 0x14))(pbVar5,param_1,local_8[0] * 63.0);
+      pPVar6->flLightIndex = local_8[0] * 63.0;
+      (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
       return 1;
     case 2:
-      fVar1 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
-      if (fVar1 < 0.0) {
-        fVar3 = 0.0;
+      fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
+      if (fVar2 < 0.0) {
+        fVar4 = 0.0;
       }
       else {
-        fVar3 = fVar1;
-        if (1.0 < fVar1) {
-          fVar3 = 1.0;
+        fVar4 = fVar2;
+        if (1.0 < fVar2) {
+          fVar4 = 1.0;
         }
       }
-      if (local_8[0] < fVar3) {
-        if (fVar1 < 0.0) {
+      if (local_8[0] < fVar4) {
+        if (fVar2 < 0.0) {
           local_8[0] = 0.0;
         }
         else {
-          local_8[0] = fVar1;
-          if (1.0 < fVar1) {
+          local_8[0] = fVar2;
+          if (1.0 < fVar2) {
             local_8[0] = 1.0;
           }
         }
       }
-      *(float *)(pbVar5 + 0x44) = local_8[0] * 63.0;
-      (**(code **)(pbVar5 + 0x14))(pbVar5,param_1,local_8[0] * 63.0);
+      pPVar6->flLightIndex = local_8[0] * 63.0;
+      (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
       return 1;
     case 3:
-      uVar7 = 0;
-      if (*(int *)(pbVar5 + 0x1c) != 0) {
+      uVar8 = 0;
+      if (pPVar6->dwNumVertices != 0) {
         do {
-          fVar1 = *(float *)(pbVar5 + 0x48) + *(float *)(*(int *)(pbVar5 + 0x28) + uVar7 * 4);
-          iVar8 = uVar7 * 4;
-          if (fVar1 < 0.0) {
-            fVar3 = 0.0;
+          fVar2 = pPVar6->flLight + pPVar6->pIntensities[uVar8];
+          pfVar1 = pPVar6->pIntensities + uVar8;
+          if (fVar2 < 0.0) {
+            fVar4 = 0.0;
           }
           else {
-            fVar3 = fVar1;
-            if (1.0 < fVar1) {
-              fVar3 = 1.0;
+            fVar4 = fVar2;
+            if (1.0 < fVar2) {
+              fVar4 = 1.0;
             }
           }
-          fVar4 = local_8[0];
-          if (local_8[0] < fVar3) {
-            if (fVar1 < 0.0) {
-              fVar4 = 0.0;
+          fVar5 = local_8[0];
+          if (local_8[0] < fVar4) {
+            if (fVar2 < 0.0) {
+              fVar5 = 0.0;
             }
             else {
-              fVar4 = fVar1;
-              if (1.0 < fVar1) {
-                fVar4 = 1.0;
+              fVar5 = fVar2;
+              if (1.0 < fVar2) {
+                fVar5 = 1.0;
               }
             }
           }
-          uVar7 = uVar7 + 1;
-          *(float *)(*(int *)(pbVar5 + 0x28) + iVar8) = fVar4 * 63.0;
-        } while (uVar7 < *(uint *)(pbVar5 + 0x1c));
+          uVar8 = uVar8 + 1;
+          *pfVar1 = fVar5 * 63.0;
+        } while (uVar8 < pPVar6->dwNumVertices);
       }
       break;
     default:
@@ -189,89 +190,89 @@ LAB_0040961e:
     }
     break;
   case 4:
-    if (iVar9 == 0) {
-      switch(iVar11) {
+    if (iVar10 == 0) {
+      switch(iVar12) {
       case 0:
         goto switchD_004098a8_caseD_0;
       case 1:
-        if (*(float *)(pbVar5 + 0x48) < 0.0) {
-          fVar1 = 0.0;
+        if (pPVar6->flLight < 0.0) {
+          fVar2 = 0.0;
         }
-        else if (1.0 < *(float *)(pbVar5 + 0x48)) {
-          fVar1 = 1.0;
+        else if (1.0 < pPVar6->flLight) {
+          fVar2 = 1.0;
         }
         else {
-          fVar1 = *(float *)(pbVar5 + 0x48);
+          fVar2 = pPVar6->flLight;
         }
-        if (local_8[0] < fVar1) {
-          if (*(float *)(pbVar5 + 0x48) < 0.0) {
+        if (local_8[0] < fVar2) {
+          if (pPVar6->flLight < 0.0) {
             local_8[0] = 0.0;
           }
-          else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+          else if (1.0 < pPVar6->flLight) {
             local_8[0] = 1.0;
           }
           else {
-            local_8[0] = *(float *)(pbVar5 + 0x48);
+            local_8[0] = pPVar6->flLight;
           }
         }
-        *(float *)(pbVar5 + 0x44) = local_8[0] * 63.0;
-        (**(code **)(pbVar5 + 0x14))(pbVar5,param_1,local_8[0] * 63.0);
+        pPVar6->flLightIndex = local_8[0] * 63.0;
+        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
         return 1;
       case 2:
-        fVar1 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
-        if (fVar1 < 0.0) {
-          fVar3 = 0.0;
+        fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
+        if (fVar2 < 0.0) {
+          fVar4 = 0.0;
         }
         else {
-          fVar3 = fVar1;
-          if (1.0 < fVar1) {
-            fVar3 = 1.0;
+          fVar4 = fVar2;
+          if (1.0 < fVar2) {
+            fVar4 = 1.0;
           }
         }
-        if (local_8[0] < fVar3) {
-          if (fVar1 < 0.0) {
+        if (local_8[0] < fVar4) {
+          if (fVar2 < 0.0) {
             local_8[0] = 0.0;
           }
           else {
-            local_8[0] = fVar1;
-            if (1.0 < fVar1) {
+            local_8[0] = fVar2;
+            if (1.0 < fVar2) {
               local_8[0] = 1.0;
             }
           }
         }
-        *(float *)(pbVar5 + 0x44) = local_8[0] * 63.0;
-        (**(code **)(pbVar5 + 0x14))(pbVar5,param_1,local_8[0] * 63.0);
+        pPVar6->flLightIndex = local_8[0] * 63.0;
+        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
         return 1;
       case 3:
-        uVar7 = 0;
-        if (*(int *)(pbVar5 + 0x1c) != 0) {
+        uVar8 = 0;
+        if (pPVar6->dwNumVertices != 0) {
           do {
-            fVar1 = *(float *)(pbVar5 + 0x48) + *(float *)(*(int *)(pbVar5 + 0x28) + uVar7 * 4);
-            iVar8 = uVar7 * 4;
-            if (fVar1 < 0.0) {
-              fVar3 = 0.0;
+            fVar2 = pPVar6->flLight + pPVar6->pIntensities[uVar8];
+            pfVar1 = pPVar6->pIntensities + uVar8;
+            if (fVar2 < 0.0) {
+              fVar4 = 0.0;
             }
             else {
-              fVar3 = fVar1;
-              if (1.0 < fVar1) {
-                fVar3 = 1.0;
+              fVar4 = fVar2;
+              if (1.0 < fVar2) {
+                fVar4 = 1.0;
               }
             }
-            fVar4 = local_8[0];
-            if (local_8[0] < fVar3) {
-              if (fVar1 < 0.0) {
-                fVar4 = 0.0;
+            fVar5 = local_8[0];
+            if (local_8[0] < fVar4) {
+              if (fVar2 < 0.0) {
+                fVar5 = 0.0;
               }
               else {
-                fVar4 = fVar1;
-                if (1.0 < fVar1) {
-                  fVar4 = 1.0;
+                fVar5 = fVar2;
+                if (1.0 < fVar2) {
+                  fVar5 = 1.0;
                 }
               }
             }
-            uVar7 = uVar7 + 1;
-            *(float *)(*(int *)(pbVar5 + 0x28) + iVar8) = fVar4 * 63.0;
-          } while (uVar7 < *(uint *)(pbVar5 + 0x1c));
+            uVar8 = uVar8 + 1;
+            *pfVar1 = fVar5 * 63.0;
+          } while (uVar8 < pPVar6->dwNumVertices);
         }
         break;
       default:
@@ -279,92 +280,92 @@ LAB_0040961e:
       }
     }
     else {
-      if (iVar9 != 1) {
+      if (iVar10 != 1) {
         return 1;
       }
-      switch(iVar11) {
+      switch(iVar12) {
       case 0:
 switchD_004098a8_caseD_0:
         break;
       case 1:
-        if (*(float *)(pbVar5 + 0x48) < 0.0) {
-          fVar1 = 0.0;
+        if (pPVar6->flLight < 0.0) {
+          fVar2 = 0.0;
         }
-        else if (1.0 < *(float *)(pbVar5 + 0x48)) {
-          fVar1 = 1.0;
+        else if (1.0 < pPVar6->flLight) {
+          fVar2 = 1.0;
         }
         else {
-          fVar1 = *(float *)(pbVar5 + 0x48);
+          fVar2 = pPVar6->flLight;
         }
-        if (local_8[0] < fVar1) {
-          if (*(float *)(pbVar5 + 0x48) < 0.0) {
+        if (local_8[0] < fVar2) {
+          if (pPVar6->flLight < 0.0) {
             local_8[0] = 0.0;
           }
-          else if (1.0 < *(float *)(pbVar5 + 0x48)) {
+          else if (1.0 < pPVar6->flLight) {
             local_8[0] = 1.0;
           }
           else {
-            local_8[0] = *(float *)(pbVar5 + 0x48);
+            local_8[0] = pPVar6->flLight;
           }
         }
-        *(float *)(pbVar5 + 0x44) = local_8[0] * 63.0;
-        (**(code **)(pbVar5 + 0x14))(pbVar5,param_1,local_8[0] * 63.0);
+        pPVar6->flLightIndex = local_8[0] * 63.0;
+        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
         return 1;
       case 2:
-        fVar1 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
-        if (fVar1 < 0.0) {
-          fVar3 = 0.0;
+        fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
+        if (fVar2 < 0.0) {
+          fVar4 = 0.0;
         }
         else {
-          fVar3 = fVar1;
-          if (1.0 < fVar1) {
-            fVar3 = 1.0;
+          fVar4 = fVar2;
+          if (1.0 < fVar2) {
+            fVar4 = 1.0;
           }
         }
-        if (local_8[0] < fVar3) {
-          if (fVar1 < 0.0) {
+        if (local_8[0] < fVar4) {
+          if (fVar2 < 0.0) {
             local_8[0] = 0.0;
           }
           else {
-            local_8[0] = fVar1;
-            if (1.0 < fVar1) {
+            local_8[0] = fVar2;
+            if (1.0 < fVar2) {
               local_8[0] = 1.0;
             }
           }
         }
-        *(float *)(pbVar5 + 0x44) = local_8[0] * 63.0;
-        (**(code **)(pbVar5 + 0x14))(pbVar5,param_1,local_8[0] * 63.0);
+        pPVar6->flLightIndex = local_8[0] * 63.0;
+        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
         return 1;
       case 3:
-        uVar7 = 0;
-        if (*(int *)(pbVar5 + 0x1c) != 0) {
+        uVar8 = 0;
+        if (pPVar6->dwNumVertices != 0) {
           do {
-            fVar1 = *(float *)(pbVar5 + 0x48) + *(float *)(*(int *)(pbVar5 + 0x28) + uVar7 * 4);
-            iVar8 = uVar7 * 4;
-            if (fVar1 < 0.0) {
-              fVar3 = 0.0;
+            fVar2 = pPVar6->flLight + pPVar6->pIntensities[uVar8];
+            pfVar1 = pPVar6->pIntensities + uVar8;
+            if (fVar2 < 0.0) {
+              fVar4 = 0.0;
             }
             else {
-              fVar3 = fVar1;
-              if (1.0 < fVar1) {
-                fVar3 = 1.0;
+              fVar4 = fVar2;
+              if (1.0 < fVar2) {
+                fVar4 = 1.0;
               }
             }
-            fVar4 = local_8[0];
-            if (local_8[0] < fVar3) {
-              if (fVar1 < 0.0) {
-                fVar4 = 0.0;
+            fVar5 = local_8[0];
+            if (local_8[0] < fVar4) {
+              if (fVar2 < 0.0) {
+                fVar5 = 0.0;
               }
               else {
-                fVar4 = fVar1;
-                if (1.0 < fVar1) {
-                  fVar4 = 1.0;
+                fVar5 = fVar2;
+                if (1.0 < fVar2) {
+                  fVar5 = 1.0;
                 }
               }
             }
-            uVar7 = uVar7 + 1;
-            *(float *)(*(int *)(pbVar5 + 0x28) + iVar8) = fVar4 * 63.0;
-          } while (uVar7 < *(uint *)(pbVar5 + 0x1c));
+            uVar8 = uVar8 + 1;
+            *pfVar1 = fVar5 * 63.0;
+          } while (uVar8 < pPVar6->dwNumVertices);
         }
         break;
       default:
@@ -375,7 +376,7 @@ switchD_004098a8_caseD_0:
   default:
     goto switchD_00409661_default;
   }
-  (**(code **)(pbVar5 + 0x14))(pbVar5,param_1,0);
+  (**(code **)&pPVar6->field_0x14)(pPVar6,face,0);
 switchD_00409661_default:
   return 1;
 }
@@ -704,7 +705,7 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   byte flags;
-  undefined1 *puVar2;
+  ProcEntry *pPVar2;
   uint uVar3;
   float *pfVar4;
   int iVar5;
@@ -715,42 +716,42 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  puVar2 = rdCache_GetProcEntry();
-  if (puVar2 == (undefined1 *)0x0) {
+  pPVar2 = rdCache_GetProcEntry();
+  if (pPVar2 == (ProcEntry *)0x0) {
     return 0;
   }
   uVar3 = *(uint *)(param_1 + 8);
   if ((int)g_dwGeometryMode < (int)*(uint *)(param_1 + 8)) {
     uVar3 = g_dwGeometryMode;
   }
-  *(uint *)(puVar2 + 8) = uVar3;
+  pPVar2->nGeometryMode = uVar3;
   uVar3 = *(uint *)(param_1 + 0xc);
   if ((int)g_dwLightingMode < (int)*(uint *)(param_1 + 0xc)) {
     uVar3 = g_dwLightingMode;
   }
-  *(uint *)(puVar2 + 0xc) = uVar3;
+  pPVar2->nLightingMode = uVar3;
   uVar3 = *(uint *)(param_1 + 0x10);
   if ((int)g_dwTextureMode < (int)*(uint *)(param_1 + 0x10)) {
     uVar3 = g_dwTextureMode;
   }
-  *(uint *)(puVar2 + 0x10) = uVar3;
+  pPVar2->nTextureMode = uVar3;
   if ((*(byte *)(param_1 + 4) & 0x10) != 0) {
-    *(undefined4 *)(puVar2 + 0xc) = 1;
+    pPVar2->nLightingMode = 1;
   }
-  UINT_007f1490 = *(uint *)(puVar2 + 0x20);
-  UINT_007f1478 = *(uint *)(puVar2 + 0x24);
-  UINT_007f147c = *(uint *)(puVar2 + 0x28);
+  UINT_007f1490 = (uint)pPVar2->pVertices;
+  UINT_007f1478 = (uint)pPVar2->pTexVertices;
+  UINT_007f147c = (uint)pPVar2->pIntensities;
   _g_aVertexSrc = *(undefined4 *)(param_1 + 0x14);
   _DAT_007f30ac = *(undefined4 *)(param_1 + 0x18);
   _DAT_007f30b0 = *(undefined4 *)(param_1 + 0x1c);
   if (g_dwMeshFrustrumCull == 0) {
     rdPrimit3_NoClipFace
-              (*(uint *)(puVar2 + 8),*(int *)(puVar2 + 0xc),*(uint *)(puVar2 + 0x10),
+              (pPVar2->nGeometryMode,pPVar2->nLightingMode,pPVar2->nTextureMode,
                (uint *)&g_aVertexSrc,&g_dwVertexDst,(float *)(param_1 + 0x28));
   }
   else {
-    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),*(uint *)(puVar2 + 8),
-                       *(int *)(puVar2 + 0xc),*(uint *)(puVar2 + 0x10),(uint *)&g_aVertexSrc,
+    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),pPVar2->nGeometryMode,
+                       pPVar2->nLightingMode,pPVar2->nTextureMode,(uint *)&g_aVertexSrc,
                        &g_dwVertexDst,(float *)(param_1 + 0x28));
   }
   if (g_dwVertexDst < 3) {
@@ -765,9 +766,9 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
       return 0;
     }
     g_dwVertexDst = uVar3;
-    *(uint *)(puVar2 + 0x1c) = uVar3;
+    pPVar2->dwNumVertices = uVar3;
   }
-  if (*(int *)(puVar2 + 0xc) == 2) {
+  if (pPVar2->nLightingMode == 2) {
     if (param_2 == 0) {
       fVar7 = *(float *)((int)g_pRdCamera_CurCamera + 0x45c);
       iVar5 = *(int *)((int)g_pCurMesh + 0x30);
@@ -784,35 +785,35 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
     fVar7 = rdLight_CalcFaceIntensity
                       ((int *)&UINT_007f30e0,((unsigned)(uintptr_t)&g_aLocalLightPos),((unsigned)(uintptr_t)&g_aLocalLightDir),g_dwNumMeshLights,param_1,pfVar4,
                        iVar5,fVar7);
-    *(float *)(puVar2 + 0x44) = fVar7;
+    pPVar2->flLightIndex = fVar7;
   }
   (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(UINT_007f1490,UINT_007f1474,g_dwVertexDst);
   if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
-    *(undefined4 *)(puVar2 + 0x40) = 0;
+    pPVar2->flAlpha = 0.0;
   }
   else {
-    *(undefined4 *)(puVar2 + 0x40) = *(undefined4 *)((int)g_pRdCamera_CurCamera + 0x54);
+    pPVar2->flAlpha = *(float *)((int)g_pRdCamera_CurCamera + 0x54);
   }
   iVar5 = *(int *)(param_1 + 0x24);
   if ((iVar5 == -1) && (*(int *)(param_1 + 0x20) != 0)) {
     iVar5 = *(int *)(*(int *)(param_1 + 0x20) + 100);
   }
-  *(int *)(puVar2 + 0x3c) = iVar5;
+  pPVar2->nCel = iVar5;
   bVar6 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
-  if (*(float *)(puVar2 + 0x40) < 1.0) {
-    if (*(int *)(puVar2 + 0xc) == 2) {
-      if ((*(float *)(puVar2 + 0x44) < 1.0) || (bVar6)) {
-        if (*(float *)(puVar2 + 0x44) <= 0.0) {
-          *(undefined4 *)(puVar2 + 0xc) = 1;
+  if (pPVar2->flAlpha < 1.0) {
+    if (pPVar2->nLightingMode == 2) {
+      if ((pPVar2->flLightIndex < 1.0) || (bVar6)) {
+        if (pPVar2->flLightIndex <= 0.0) {
+          pPVar2->nLightingMode = 1;
         }
       }
       else {
-        *(undefined4 *)(puVar2 + 0xc) = 0;
+        pPVar2->nLightingMode = 0;
       }
       goto LAB_0040dbd3;
     }
-    if (*(int *)(puVar2 + 0xc) != 3) goto LAB_0040dbd3;
-    pfVar4 = *(float **)(puVar2 + 0x28);
+    if (pPVar2->nLightingMode != 3) goto LAB_0040dbd3;
+    pfVar4 = pPVar2->pIntensities;
     fVar7 = *pfVar4;
     uVar3 = 1;
     if (1 < g_dwVertexDst) {
@@ -827,38 +828,38 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
     if (uVar3 != g_dwVertexDst) goto LAB_0040dbd3;
     if (fVar7 != 1.0) {
       if (fVar7 == 0.0) {
-        *(undefined4 *)(puVar2 + 0xc) = 1;
-        *(undefined4 *)(puVar2 + 0x44) = 0;
+        pPVar2->nLightingMode = 1;
+        pPVar2->flLightIndex = 0.0;
       }
       else {
-        *(undefined4 *)(puVar2 + 0xc) = 2;
-        *(float *)(puVar2 + 0x44) = fVar7;
+        pPVar2->nLightingMode = 2;
+        pPVar2->flLightIndex = fVar7;
       }
       goto LAB_0040dbd3;
     }
     if (!bVar6) {
-      *(undefined4 *)(puVar2 + 0xc) = 0;
+      pPVar2->nLightingMode = 0;
       goto LAB_0040dbd3;
     }
   }
   else if (!bVar6) {
-    *(undefined4 *)(puVar2 + 0xc) = 0;
+    pPVar2->nLightingMode = 0;
     goto LAB_0040dbd3;
   }
-  *(undefined4 *)(puVar2 + 0xc) = 2;
-  *(undefined4 *)(puVar2 + 0x44) = 0x3f800000;
+  pPVar2->nLightingMode = 2;
+  pPVar2->flLightIndex = 1.0;
 LAB_0040dbd3:
   flags = 1;
-  if (3 < *(int *)(puVar2 + 8)) {
+  if (3 < pPVar2->nGeometryMode) {
     flags = 3;
   }
-  if (2 < *(int *)(puVar2 + 0xc)) {
+  if (2 < pPVar2->nLightingMode) {
     flags = flags | 4;
   }
-  *(int *)(puVar2 + 0x50) = param_2;
-  *(undefined4 *)(puVar2 + 4) = *(undefined4 *)(param_1 + 4);
-  *(undefined4 *)(puVar2 + 0x48) = *(undefined4 *)(param_1 + 0x30);
-  *(undefined4 *)(puVar2 + 0x38) = *(undefined4 *)(param_1 + 0x20);
+  pPVar2->nBackFacing = param_2;
+  pPVar2->dwFlags = *(uint *)(param_1 + 4);
+  pPVar2->flLight = *(float *)(param_1 + 0x30);
+  pPVar2->pMaterial = *(void **)(param_1 + 0x20);
   rdCache_AddProcFace((void *)0x0,g_dwVertexDst,flags);
   return 1;
 }
