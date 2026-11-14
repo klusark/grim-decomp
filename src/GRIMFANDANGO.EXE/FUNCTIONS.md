@@ -2415,7 +2415,7 @@
 | 004bf8b0 | LightEd_MoveMarkerActor | lighted.c | 18 |
 | 004bf930 | LightEd_GetLightAngles | lighted.c | 6 |
 | 004bffb0 | LightEd_KeyboardProc | lighted.c | 1 |
-| 004c0ed0 | DSound_Init | mixer.c | 1 |
+| 004c0ed0 | DSound_Init | mixer.c | 88 |
 | 004c1090 | DSound_Shutdown | mixer.c | 19 |
 | 004c1110 | DSound_SetPrimaryVolume | mixer.c | 21 |
 | 004d27d0 | dsn_fill_thread | mixer.c | 1 |
@@ -2501,7 +2501,7 @@
 | 004cb520 | inflate_trees_fixed | zlib.c | 1 |
 | 004cb550 | inflate_flush | zlib.c | 1 |
 | 004cb690 | inflate_fast | zlib.c | 1 |
-| 004c5ab0 | Zfile_fle_Close | zfile.c | 1 |
+| 004c5ab0 | Zfile_fle_Close | zfile.c | 24 |
 | 004c5e30 | StdFile_fle_Tell | stdfile.c | 12 |
 | 004c5e90 | fle_Size | stdfile.c | 16 |
 | 004c5f50 | fle_Eof | stdfile.c | 13 |
@@ -2603,7 +2603,7 @@
 | 004d27b0 | dsn_getvol | dsnddriver.c | 9 |
 | 004d27c0 | dsn_getrate | dsnddriver.c | 9 |
 | 004d2940 | DsndDriver_InitDirectSound | dsnddriver.c | 1 |
-| 004d2aa0 | DsndDriver_CreateStreamBuffer | dsnddriver.c | 1 |
+| 004d2aa0 | DsndDriver_CreateStreamBuffer | dsnddriver.c | 81 |
 | 004d2bf0 | DsndDriver_ReleaseDirectSound | dsnddriver.c | 21 |
 | 004d5e70 | msc_rle_DecompressBlock | rle.c | 1 |
 | 004d5eb0 | msc_rle_DecompressInitialize | rle.c | 10 |

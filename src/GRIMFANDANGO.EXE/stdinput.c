@@ -464,41 +464,21 @@ void __cdecl Input_CreateKeyboard(void)
 void __cdecl Input_CreateMouse(void)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
-  #define pvStack_38 (*(void **)(_frame + (0x50 - 0x38)))
-  #define uStack_34 (*(undefined4 *)(_frame + (0x50 - 0x34)))
-  #define pvStack_30 (*(void **)(_frame + (0x50 - 0x30)))
-  #define puStack_2c (*(undefined **)(_frame + (0x50 - 0x2c)))
-  #define pvStack_28 (*(void **)(_frame + (0x50 - 0x28)))
-  #define puStack_24 (*(undefined **)(_frame + (0x50 - 0x24)))
-  #define ppvStack_20 (*(void ***)(_frame + (0x50 - 0x20)))
   
   if (g_pDirectInput != (void *)0x0) {
-    ppvStack_20 = (void **)0x4775b9;
     GetSystemMetrics(0x2b);
-    ppvStack_20 = &g_pDInputMouse;
-    puStack_24 = &DAT_004d8340;
-    pvStack_28 = g_pDirectInput;
-    puStack_2c = (undefined *)0x4775d0;
-    iVar1 = (**(code_std **)(*(int *)g_pDirectInput + 0xc))();
+    iVar1 = (**(code_std **)(*(int *)g_pDirectInput + 0xc))
+                      (g_pDirectInput,&DAT_004d8340,&g_pDInputMouse,0);
     if (iVar1 == 0) {
-      puStack_2c = &DAT_004d5400;
-      pvStack_30 = g_pDInputMouse;
-      uStack_34 = 0x4775e8;
-      iVar1 = (**(code_std **)(*(int *)g_pDInputMouse + 0x2c))();
+      iVar1 = (**(code_std **)(*(int *)g_pDInputMouse + 0x2c))(g_pDInputMouse,&DAT_004d5400);
       if (iVar1 == 0) {
-        uStack_34 = 5;
         iVar1 = *(int *)g_pDInputMouse;
-        pvStack_38 = (void *)0x4775fe;
-        pvStack_38 = Win_GetMainHwnd();
-        pvStack_30 = (void *)(**(code_std **)(iVar1 + 0x34))(g_pDInputMouse);
-        if (pvStack_30 == (void *)0x0) {
-          pvStack_38 = (void *)0x14;
-          uStack_34 = 0x10;
-          pvStack_28 = (void *)0x20;
-          puStack_2c = pvStack_30;
-          (**(code_std **)(*(int *)g_pDInputMouse + 0x18))(g_pDInputMouse,1,&pvStack_38);
+        Win_GetMainHwnd();
+        iVar1 = (**(code_std **)(iVar1 + 0x34))(g_pDInputMouse);
+        if (iVar1 == 0) {
+          (**(code_std **)(*(int *)g_pDInputMouse + 0x18))(g_pDInputMouse,1,(_stkneg + 16));
           Input_SetAxisRange(0xc,-0xfa,0xfa,0.0);
           Input_SetAxisRange(0xd,-200,200,0.0);
           Input_SetAxisRange(0xe,-0x14,0x14,0.0);
@@ -508,14 +488,6 @@ void __cdecl Input_CreateMouse(void)
   }
   return;
 }
-#undef ppvStack_20
-#undef puStack_24
-#undef puStack_2c
-#undef pvStack_28
-#undef pvStack_30
-#undef pvStack_38
-#undef uStack_34
-
 #endif
 
 

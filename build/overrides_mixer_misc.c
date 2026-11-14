@@ -324,19 +324,6 @@ void gz_putLong(void *file, uint x)
     }
 }
 
-/* Closes a Zfile: the plain file through the file service, or the gzip stream; then frees the object. */
-void Zfile_fle_Close(int *z)
-{
-    if (z[0] != 0) {
-        if (z[1] == 0)
-            SVC_CALL(g_pZf_filio_services, 1, void, (int))(z[0]);
-        else
-            gzclose(z[0]);
-    }
-    if (z != 0)
-        SVC_CALL(g_pZfile_memory_services, 1, void, (int *, const char *, int))(z, s_C__grimsrc_libs_lecsmush_insane__004f1df4, 0x11b);
-}
-
 static int strlen_(const char *s)
 {
     int n = 0;

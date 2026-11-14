@@ -433,30 +433,37 @@ int __cdecl std3D_AddRenderListTris(void *tris,uint count)
 int __cdecl std3D_DrawRenderList(void)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  void **ppvVar2;
-  #define pvStack_38 (*(void **)(_frame + (0x50 - 0x38)))
+  undefined4 unaff_EDI;
+  uint *puVar2;
+  #define auStack_2c (*(uint (*)[4])(_frame + (0x40 - 0x2c)))
+  #define iStack_1c (*(int *)(_frame + (0x40 - 0x1c)))
   
   *(undefined1 *)PTR_00806918 = 0xb;
   *(undefined1 *)((int)PTR_00806918 + 1) = 0;
   *(undefined2 *)((int)PTR_00806918 + 2) = 0;
   PTR_00806918 = PTR_00806918 + 1;
-  pvStack_38 = g_pD3dExecuteBuffer;
-  ppvVar2 = &pvStack_38;
-  iVar1 = (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 0x14))();
+  iVar1 = (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 0x14))(g_pD3dExecuteBuffer,unaff_EDI);
   if (iVar1 != 0) {
     return 0;
   }
-  for (iVar1 = 0xc; ppvVar2 = ppvVar2 + 1, iVar1 != 0; iVar1 = iVar1 + -1) {
-    *ppvVar2 = (void *)0x0;
+  puVar2 = auStack_2c;
+  for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *puVar2 = 0;
+    puVar2 = puVar2 + 1;
   }
-  (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 0x18))(g_pD3dExecuteBuffer,(_frame + (0x50 - 0x34)));
+  auStack_2c[2] = UINT_0080695c;
+  auStack_2c[3] = UINT_0080691c - UINT_008063ec;
+  iStack_1c = (int)PTR_00806918 - UINT_0080691c;
+  auStack_2c[0] = 0x30;
+  (**(code_std **)(*(int *)g_pD3dExecuteBuffer + 0x18))(g_pD3dExecuteBuffer,auStack_2c);
   iVar1 = (**(code_std **)(*(int *)g_pD3dDevice + 0x20))
                     (g_pD3dDevice,g_pD3dExecuteBuffer,PTR_0080660c,2);
   return (uint)(iVar1 == 0);
 }
-#undef pvStack_38
+#undef auStack_2c
+#undef iStack_1c
 
 #endif
 

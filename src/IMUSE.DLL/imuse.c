@@ -1586,72 +1586,64 @@ undefined4 DwTerminate(void)
 void __cdecl Im_DSoundCreateBuffer(int param_1)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  int iVar2;
-  uint uVar3;
-  uint uVar4;
-  undefined4 **ppuVar5;
-  int *piVar6;
-  #define puStack_30 (*(undefined4 **)(_frame + (0x40 - 0x30)))
-  #define ppiStack_2c (*(int ***)(_frame + (0x40 - 0x2c)))
-  #define piStack_28 (*(int **)(_frame + (0x40 - 0x28)))
-  #define uStack_14 (*(undefined4 *)(_frame + (0x40 - 0x14)))
-  #define uStack_10 (*(undefined4 *)(_frame + (0x40 - 0x10)))
-  #define iStack_c (*(int *)(_frame + (0x40 - 0xc)))
-  #define uStack_8 (*(undefined4 *)(_frame + (0x40 - 0x8)))
-  #define puStack_4 (*(undefined **)(_frame + (0x40 - 0x4)))
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
+  uint uVar2;
+  undefined4 *puVar3;
+  #define uStack_20 (*(uint *)(_frame + (0x30 - 0x20)))
+  #define uStack_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define puStack_18 (*(undefined4 **)(_frame + (0x30 - 0x18)))
+  #define uStack_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
+  #define uStack_10 (*(undefined4 *)(_frame + (0x30 - 0x10)))
+  #define iStack_c (*(int *)(_frame + (0x30 - 0xc)))
+  #define uStack_8 (*(undefined4 *)(_frame + (0x30 - 0x8)))
+  #define puStack_4 (*(undefined **)(_frame + (0x30 - 0x4)))
   
   DAT_1002d840 = 1;
   if (PTR_1002d83c != (int *)0x0) {
-    piStack_28 = PTR_1002d83c;
-    ppiStack_2c = (int **)0x1000394d;
-    (**(code_std **)(*PTR_1002d83c + 8))();
+    (**(code_std **)(*PTR_1002d83c + 8))(PTR_1002d83c);
   }
-  piVar1 = PTR_1002d834;
   PTR_1002d83c = (int *)0x0;
+  DAT_1002d824 = param_1;
   if (param_1 < 3) {
-    param_1 = 3;
+    DAT_1002d824 = 3;
   }
-  if (0x10 < param_1) {
-    param_1 = 0x10;
+  if (0x10 < DAT_1002d824) {
+    DAT_1002d824 = 0x10;
   }
   uStack_14 = 0x14;
   uStack_10 = 0x18080;
-  iStack_c = param_1 * 0x1800;
+  iStack_c = DAT_1002d824 * 0x1800;
   uStack_8 = 0;
-  piStack_28 = (int *)0x0;
-  puStack_30 = &uStack_14;
   puStack_4 = &DAT_100170f0;
-  ppiStack_2c = &PTR_1002d83c;
-  DAT_1002d824 = param_1;
-  iVar2 = (**(code_std **)(*PTR_1002d834 + 0xc))();
-  if (iVar2 == 0) {
-    (**(code_std **)(*PTR_1002d83c + 0x3c))(PTR_1002d83c);
-    uVar3 = DAT_1002d824 * 0x1800;
-    iVar2 = (**(code_std **)(*PTR_1002d83c + 0x2c))(PTR_1002d83c);
-    if (iVar2 == 0) {
-      ppuVar5 = &puStack_30;
-      for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-        *ppuVar5 = (undefined4 *)0x0;
-        ppuVar5 = ppuVar5 + 1;
+  iVar1 = (**(code_std **)(*PTR_1002d834 + 0xc))(PTR_1002d834,&uStack_14,&PTR_1002d83c,0);
+  if (iVar1 == 0) {
+    (**(code_std **)(*PTR_1002d83c + 0x3c))(PTR_1002d83c,0);
+    iVar1 = (**(code_std **)(*PTR_1002d83c + 0x2c))
+                      (PTR_1002d83c,0,DAT_1002d824 * 0x1800,&puStack_18,&uStack_1c,&param_1,
+                       &uStack_20,0);
+    if (iVar1 == 0) {
+      puVar3 = puStack_18;
+      for (uVar2 = uStack_1c >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
+        *puVar3 = 0;
+        puVar3 = puVar3 + 1;
       }
-      for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-        *(undefined1 *)ppuVar5 = 0;
-        ppuVar5 = (undefined4 **)((int)ppuVar5 + 1);
+      for (uVar2 = uStack_1c & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
+        *(undefined1 *)puVar3 = 0;
+        puVar3 = (undefined4 *)((int)puVar3 + 1);
       }
-      if (piVar1 != (int *)0x0) {
-        piVar6 = piVar1;
-        for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-          *piVar6 = 0;
-          piVar6 = piVar6 + 1;
+      if (param_1 != 0) {
+        puVar3 = (undefined4 *)param_1;
+        for (uVar2 = uStack_20 >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
+          *puVar3 = 0;
+          puVar3 = puVar3 + 1;
         }
-        for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-          *(undefined1 *)piVar6 = 0;
-          piVar6 = (int *)((int)piVar6 + 1);
+        for (uVar2 = uStack_20 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
+          *(undefined1 *)puVar3 = 0;
+          puVar3 = (undefined4 *)((int)puVar3 + 1);
         }
       }
-      (**(code_std **)(*PTR_1002d83c + 0x4c))(PTR_1002d83c,&puStack_30,uVar3,piVar1,0);
+      (**(code_std **)(*PTR_1002d83c + 0x4c))(PTR_1002d83c,puStack_18,uStack_1c,param_1,uStack_20);
     }
     (**(code_std **)(*PTR_1002d83c + 0x30))(PTR_1002d83c,0,0,1);
   }
@@ -1659,12 +1651,12 @@ void __cdecl Im_DSoundCreateBuffer(int param_1)
   return;
 }
 #undef iStack_c
-#undef piStack_28
-#undef ppiStack_2c
-#undef puStack_30
+#undef puStack_18
 #undef puStack_4
 #undef uStack_10
 #undef uStack_14
+#undef uStack_1c
+#undef uStack_20
 #undef uStack_8
 
 #endif

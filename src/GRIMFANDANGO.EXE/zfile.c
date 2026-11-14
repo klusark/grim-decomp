@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004c5ab0  Zfile_fle_Close ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Closes a Zfile object: the plain file or the gzip stream, then frees the object Original name
    Zfile_fle_Close (the remaster's GrimFandango (Linux): slot 1 of the "FILIO=insane_zfilio" service
    table; fle_Close is a static several LEC modules have, written with the module prefix); was
@@ -16,12 +14,15 @@
 void __cdecl Zfile_fle_Close(int *z)
 
 {
-  if (*z != 0) {
+  int a0;
+  
+  a0 = *z;
+  if (a0 != 0) {
     if (z[1] == 0) {
-      (*(code *)g_pZf_filio_services[1])();
+      (*(code *)g_pZf_filio_services[1])(a0);
     }
     else {
-      gzclose(*z);
+      gzclose(a0);
     }
   }
   if (z != (int *)0x0) {
@@ -29,5 +30,3 @@ void __cdecl Zfile_fle_Close(int *z)
   }
   return;
 }
-#endif
-
