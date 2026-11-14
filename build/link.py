@@ -145,6 +145,9 @@ def link(cc, src, obj, prog, env):
     cflags = ["-std=gnu11", "-fpermissive", "-w", "-fno-builtin", "-ffreestanding", "-fno-common", "-include",
               os.path.join(os.path.dirname(os.path.abspath(__file__)), "compat.h"),
               "-I" + os.path.join(src, prog)]
+    # the coverage build (make COVERAGE=1): the hand-written files are measured too, and the link takes libgcov
+    cov = ["--coverage", "-fprofile-update=atomic", "-g", "-DGRIM_COVERAGE"] if os.environ.get("GRIM_COVERAGE") == "1" else []
+    cflags += cov
     # the original's data: src/<prog>/data.c (tools/datagen.py), compiled with the other modules
     here = os.path.dirname(os.path.abspath(__file__))
     data_o = os.path.join(d, "data.o")
@@ -172,11 +175,12 @@ def link(cc, src, obj, prog, env):
     # linked against the host mingw/msvcrt runtime: it supplies the CRT functions the
     # decompiled code calls and the start-up (DllMainCRTStartup / WinMainCRTStartup)
     ldflags = ["-Wl,--enable-stdcall-fixup", "-Wl,--no-insert-timestamp", "-Wl,--allow-multiple-definition",
-               "-Wl,--disable-dynamicbase"]
+               "-Wl,--disable-dynamicbase"] + cov[:1]
     if prog in IMAGE_BASE:
         ldflags.append("-Wl,--image-base=" + IMAGE_BASE[prog])
     if is_dll:
-        ldflags += ["-shared", "-Wl,--export-all-symbols",
+        # (a coverage DLL keeps its libgcov to itself: exported, the exe would take __gcov_init from it and not its own)
+        ldflags += ["-shared", "-Wl,--export-all-symbols"] + (["-Wl,--exclude-libs,libgcov.a"] if cov else []) + [
                     "-Wl,--out-implib=" + os.path.join(d, "lib" + prog.split(".")[0].lower() + ".a")]
     else:
         ldflags += ["-mwindows"]

@@ -227,8 +227,8 @@ undefined4 __cdecl Sounds_PlatformDevice(undefined4 param_1); /* 0x100078c0 */
 uint __cdecl SoundsInitialize(uint param_1,undefined4 *param_2); /* 0x100078d0 */
 uint __cdecl sounds_startup(void); /* 0x10007920 */
 void __cdecl FUN_10007a20(void); /* 0x10007a20 */
-void __cdecl ihost_get_sound_addr(uint param_1); /* 0x10007a60 */
-void __cdecl ihost_get_map_addr(uint param_1); /* 0x10007a70 */
+uint __cdecl ihost_get_sound_addr(uint param_1); /* 0x10007a60 */
+uint __cdecl ihost_get_map_addr(uint param_1); /* 0x10007a70 */
 int __cdecl ihost_get_buffer_info(int param_1); /* 0x10007a80 */
 int __cdecl ihost_open_sound(uint *param_1,int param_2); /* 0x10007a90 */
 int __cdecl ihost_fseek(int param_1,int param_2,int param_3); /* 0x10007bc0 */
@@ -283,7 +283,7 @@ int __cdecl iMUSE_sounds__9eb0(int param_1,uint param_2); /* 0x10009eb0 */
 int __cdecl FUN_10009ef0(uint param_1,uint *param_2); /* 0x10009ef0 */
 uint __cdecl iMUSE_Malloc(uint param_1); /* 0x10009f10 */
 void __cdecl FUN_10009f40(int param_1); /* 0x10009f40 */
-void __cdecl iMUSE_Free(uint param_1); /* 0x1000a010 */
+uint __cdecl iMUSE_Free(uint param_1); /* 0x1000a010 */
 void __cdecl FUN_1000a030(int param_1); /* 0x1000a030 */
 
 /* ===== imuse_stream.c ===== */

@@ -195,12 +195,14 @@ int __cdecl luaL_nonnullarg(int param_1)
 /* ---- 0x10002bc0  luaL_openlib ---- */
 /* lauxlib.c (argument checking helpers) */
 
-void __cdecl luaL_openlib(undefined4 *param_1,int param_2)
+uint __cdecl luaL_openlib(undefined4 *param_1,int param_2)
 
 {
+  uint uRet;
+  
   lua_open();
-  lua_openlib(param_1,param_2);
-  return;
+  uRet = (uint)lua_openlib(param_1,param_2);
+  return uRet;
 }
 
 /* ---- 0x10002be0  luaL_verror ---- */

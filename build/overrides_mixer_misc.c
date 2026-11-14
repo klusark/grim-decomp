@@ -110,7 +110,7 @@ static float wrap_angle(double sum)
  * the arrow keys move the selected light (x with left / right, y with up / down, z with alt), the numeric keys 2 4 6 8
  * (VK_NUMPAD2 ..) turn it (the first angle with 8 / 2, the second with 6 / 4, alt: the third).  Holding a key makes the steps
  * grow.  Everything else is passed on. */
-int LightEd_KeyboardProc(int code, uint wParam, uint lParam)
+int __stdcall LightEd_KeyboardProc(int code, uint wParam, uint lParam)
 {
     if (code == 0 && g_hLightEdDialog != 0 && Win_IsFocusWithin(g_hLightEdDialog) != 0 && g_nLightEdSelected != -1) {
         uint high = lParam >> 16;
