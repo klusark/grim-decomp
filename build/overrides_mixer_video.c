@@ -306,7 +306,7 @@ void Video_CopyRectDstFirst(byte *dst, byte *src, int dstX, uint dstY, int srcX,
 
 /* pixels in the format `fmt` -> RGBA bytes (R, G, B, A).  Returns 0, or -1 for a format it cannot handle.
  * palette: used for palettised pixels when the format has none. */
-int gra_ConvertToLecColor(void *src, void *fmt_, int count, byte *palette, byte *dst)
+int gra_ConvertToLecColor(void *src, LecPixelFormat *fmt_, int count, byte *palette, byte *dst)
 {
     VideoBitmap *fmt = (VideoBitmap *)fmt_;
     int type = fmt->type;
@@ -359,7 +359,7 @@ int gra_ConvertToLecColor(void *src, void *fmt_, int count, byte *palette, byte 
 }
 
 /* RGBA bytes -> pixels in the format `fmt` (1 to 4 bytes per pixel).  Returns 0 or -1. */
-int gra_ConvertFromLecColor(void *dst, void *fmt_, int count, int unused, byte *src)
+int gra_ConvertFromLecColor(void *dst, LecPixelFormat *fmt_, int count, int unused, byte *src)
 {
     VideoBitmap *fmt = (VideoBitmap *)fmt_;
     int type = fmt->type;
@@ -419,7 +419,7 @@ int gra_ConvertFromLecColor(void *dst, void *fmt_, int count, int unused, byte *
 /* Converts `count` pixels from the format `srcFmt` (src) to `dstFmt` (dst), in pieces of at most 0x500 pixels through the
  * RGBA scratch rows.  Same format: a copy.  `expandTable`: a precomputed table (palette expanded to the destination
  * format, or 16 bit index -> pixel) for the indexed sources.  `palette`: see gra_ConvertToLecColor.  Returns 0 or -1. */
-int gra_ConvertCopy(byte *src, void *srcFmt_, int count, byte *palette, byte *dst, void *dstFmt_,
+int gra_ConvertCopy(byte *src, LecPixelFormat *srcFmt_, int count, byte *palette, byte *dst, LecPixelFormat *dstFmt_,
                               byte *expandTable)
 {
     VideoBitmap *srcFmt = (VideoBitmap *)srcFmt_, *dstFmt = (VideoBitmap *)dstFmt_;

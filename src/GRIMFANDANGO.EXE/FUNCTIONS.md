@@ -2546,7 +2546,7 @@
 | 004ce260 | InsaneTimer_RunDeferred | insanetimer.c | 34 |
 | 004ce3e0 | bmp_bitmap_Alloc | videobitmap.c | 1 |
 | 004cedc0 | gra_ConvertCopy | videobitmap.c | 1 |
-| 004cea30 | gra_BlitRectLookup | video.c | 95 |
+| 004cea30 | gra_BlitRectLookup | video.c | 96 |
 | 004cec40 | gra_SetBuffer | video.c | 63 |
 | 004cf010 | gra_ConvertToLecColor | video.c | 1 |
 | 004cf520 | gra_ConvertFromLecColor | video.c | 1 |
