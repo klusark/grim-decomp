@@ -455,7 +455,7 @@
 | 00404320 | rdFinishFrame | rdroid.c | 12 |
 | 00404330 | rdClearPreStatistics | rdroid.c | 12 |
 | 00404350 | rdroid_SetColormap | rdroid.c | 11 |
-| 00404b80 | rdRaster_Startup | rdroid.c | 1 |
+| 00404b80 | rdRaster_Startup | rdroid.c | 37 |
 | 00404380 | rdColormap_SetCurrent | rdcolormap.c | 9 |
 | 004043c0 | rdColormap_Load | rdcolormap.c | 26 |
 | 00404420 | rdColormap_LoadEntry | rdcolormap.c | 141 |
@@ -494,7 +494,7 @@
 | 00409d20 | rdCache_ProcFaceCompare | rdmodel.c | 14 |
 | 0040d140 | rdModel3_DrawHNode | rdmodel.c | 44 |
 | 0040d230 | rdModel3_DrawMeshImpl | rdmodel.c | 1 |
-| 0040d880 | rdModel3_DrawFace | rdmodel.c | 176 |
+| 0040d880 | rdModel3_DrawFace | rdmodel.c | 174 |
 | 00409d50 | rdCache_InsertFace | rdprimit3.c | 1 |
 | 0040dcc0 | rdPrimit3_DrawLine | rdprimit3.c | 58 |
 | 0040dde0 | rdPrimit3_DrawPoint | rdprimit3.c | 39 |
@@ -525,7 +525,7 @@
 | 0040a860 | rdModel3_ClearFrameCounters | rdcamera.c | 10 |
 | 0040dc30 | rdPrimit3_GetScreenCoord | rdcamera.c | 35 |
 | 0040a870 | rdModel3_ActivateClipPlane | renderer.c | 9 |
-| 0040a880 | rdModel3_SetClipPlane | renderer.c | 15 |
+| 0040a880 | rdModel3_SetClipPlane | renderer.c | 14 |
 | 0040a8c0 | rdModel3_NewEntry | rdmodel3.c | 19 |
 | 0040a8f0 | rdModel3_Load | rdmodel3.c | 40 |
 | 0040a980 | rdModel3_LoadEntry | rdmodel3.c | 1 |
@@ -1675,7 +1675,7 @@
 | 004922d0 | GetOuttaTheBox | collision.c | 83 |
 | 00492510 | Collision_PointInBox | collision.c | 1 |
 | 004925c0 | FindObjectCorners | collision.c | 38 |
-| 00492680 | TestCollision | collision.c | 94 |
+| 00492680 | TestCollision | collision.c | 93 |
 | 00492a50 | Collision_PickDetour | collision.c | 41 |
 | 004939a0 | Collision_UpdateMovedActors | collision.c | 36 |
 | 004939f0 | Collision_TestActorAgainstOthers | collision.c | 1 |

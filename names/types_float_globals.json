@@ -1,0 +1,110 @@
+{
+ "_comment": "Globals the x87 code reads as floats (`FLD/FMUL float ptr [addr]` in raw/GRIMFANDANGO.EXE/disasm.json, otherwise only dword moves) that Ghidra had untyped or uint (2026-11-14): globals.h declared them undefined4 / uint, so a twin's `x * _DAT_004ddb30` converted the float's bits as an integer (rdRaster_Startup, rdModel3_DrawMeshImpl were hand-written for it).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "globals": [
+  {
+   "addr": "004dda90",
+   "type": "float"
+  },
+  {
+   "addr": "004dda98",
+   "type": "float"
+  },
+  {
+   "addr": "004ddb30",
+   "type": "float"
+  },
+  {
+   "addr": "004ddb70",
+   "type": "float"
+  },
+  {
+   "addr": "004ddb74",
+   "type": "float"
+  },
+  {
+   "addr": "004ddb78",
+   "type": "float"
+  },
+  {
+   "addr": "007f0fd8",
+   "type": "float"
+  },
+  {
+   "addr": "007f0fdc",
+   "type": "float"
+  },
+  {
+   "addr": "007f0fe0",
+   "type": "float"
+  },
+  {
+   "addr": "007f3208",
+   "type": "float"
+  },
+  {
+   "addr": "007f320c",
+   "type": "float"
+  },
+  {
+   "addr": "007f3210",
+   "type": "float"
+  },
+  {
+   "addr": "007f4ad4",
+   "type": "float"
+  },
+  {
+   "addr": "007f4b48",
+   "type": "float"
+  },
+  {
+   "addr": "007f4b4c",
+   "type": "float"
+  },
+  {
+   "addr": "007f4b50",
+   "type": "float"
+  },
+  {
+   "addr": "007f4b64",
+   "type": "float"
+  },
+  {
+   "addr": "007f5010",
+   "type": "float"
+  },
+  {
+   "addr": "007f501c",
+   "type": "float"
+  },
+  {
+   "addr": "007f5028",
+   "type": "float"
+  },
+  {
+   "addr": "008ca320",
+   "type": "float"
+  },
+  {
+   "addr": "008ca324",
+   "type": "float"
+  },
+  {
+   "addr": "008ca328",
+   "type": "float"
+  },
+  {
+   "addr": "00900044",
+   "type": "float"
+  },
+  {
+   "addr": "00900580",
+   "type": "float"
+  },
+  {
+   "addr": "00900584",
+   "type": "float"
+  }
+ ]
+}

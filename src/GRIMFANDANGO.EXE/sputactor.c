@@ -653,7 +653,7 @@ uint __cdecl sputActor_Restore(code *param_1)
             }
             ppAVar6 = ppAVar6 + 1;
             iVar13 = iVar13 + 1;
-          } while ((int)ppAVar6 < ((unsigned)(uintptr_t)&DAT_008ca320));
+          } while ((int)ppAVar6 < ((unsigned)(uintptr_t)&FLOAT_008ca320));
         }
         pTVar7 = pAVar14->pExtra->pText;
         if (pTVar7 != (TextObject *)0x0) {

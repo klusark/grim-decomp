@@ -504,9 +504,9 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
     if ((g_dwMeshFrustrumCull != 2) &&
        ((g_dwClipPlaneActive == 0 ||
         (-*(float *)((int)g_pCurMesh + 0x60) <=
-         (*a - _DAT_007f3208) * _DAT_004ddb70 +
-         (matrix[0xb] - _DAT_007f3210) * _DAT_004ddb78 +
-         (matrix[10] - _DAT_007f320c) * _DAT_004ddb74)))) {
+         (*a - FLOAT_007f3208) * FLOAT_004ddb70 +
+         (matrix[0xb] - FLOAT_007f3210) * FLOAT_004ddb78 +
+         (matrix[10] - FLOAT_007f320c) * FLOAT_004ddb74)))) {
       rdMatrix_Multiply34(local_30,(float *)((int)g_pRdCamera_CurCamera + 8),matrix);
       rdMatrix_TransformPointLst34
                 (local_30,*(float **)((int)g_pCurMesh + 0x30),(float *)&g_aRdModel3_View,
@@ -647,16 +647,16 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
       local_54[0] = (float)UINT_008ddf84;
       local_54[1] = (float)UINT_008ddf88;
       local_54[2] = (float)UINT_008ddf8c;
-      rdMatrix_TransformPoint34((float *)&DAT_007f0fd8,local_54,local_84);
+      rdMatrix_TransformPoint34(&FLOAT_007f0fd8,local_54,local_84);
       iVar11 = *(int *)((int)mesh + 0x40);
       uVar9 = 0;
       if (*(int *)((int)mesh + 0x50) != 0) {
         do {
           iVar6 = *(int *)((int)g_pCurMesh + 0x30);
           iVar1 = **(int **)(iVar11 + 0x18);
-          if (*(float *)(iVar11 + 0x44) * (_DAT_007f0fdc - *(float *)(iVar6 + iVar1 * 0xc + 4)) +
-              (_DAT_007f0fd8 - *(float *)(iVar6 + iVar1 * 0xc)) * *(float *)(iVar11 + 0x40) +
-              *(float *)(iVar11 + 0x48) * (_DAT_007f0fe0 - *(float *)(iVar6 + 8 + iVar1 * 0xc)) <=
+          if (*(float *)(iVar11 + 0x44) * (FLOAT_007f0fdc - *(float *)(iVar6 + iVar1 * 0xc + 4)) +
+              (FLOAT_007f0fd8 - *(float *)(iVar6 + iVar1 * 0xc)) * *(float *)(iVar11 + 0x40) +
+              *(float *)(iVar11 + 0x48) * (FLOAT_007f0fe0 - *(float *)(iVar6 + 8 + iVar1 * 0xc)) <=
               0.0) {
             iVar6 = 1;
             if (((*(byte *)(iVar11 + 4) & 1) != 0) || (((byte)g_dwRdroid_curRenderOptions & 1) == 0)
@@ -757,10 +757,8 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
     return 0;
   }
   if (g_dwClipPlaneActive != 0) {
-    rdMatrix_TransformVector34
-              (local_c,(float *)&DAT_004ddb70,(float *)((int)g_pRdCamera_CurCamera + 8));
-    rdMatrix_TransformPoint34
-              (local_18,(float *)&DAT_007f3208,(float *)((int)g_pRdCamera_CurCamera + 8));
+    rdMatrix_TransformVector34(local_c,&FLOAT_004ddb70,(float *)((int)g_pRdCamera_CurCamera + 8));
+    rdMatrix_TransformPoint34(local_18,&FLOAT_007f3208,(float *)((int)g_pRdCamera_CurCamera + 8));
     uVar3 = rdClip_FaceToPlane(local_c,local_18,(float *)UINT_007f1474,(uint *)UINT_007f1478,
                                (float *)UINT_007f147c,(uint *)g_dwVertexDst);
     if ((int)uVar3 < 2) {

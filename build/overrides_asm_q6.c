@@ -396,7 +396,7 @@ extern int g_dwRdNRaster_mipMapNum;            /* mip level */
 extern int g_dwRdNRaster_dUdXModifier, g_dwRdNRaster_dVdXModifier; /* u / v rounding bias (0x8000 / 0x7fff) */
 extern float g_dwRdNRaster_dOneOverZdX, g_dwRdNRaster_dOneOverZdY, g_dwRdNRaster_dUOverZdX, g_dwRdNRaster_dUOverZdY, g_dwRdNRaster_dVOverZdX, g_dwRdNRaster_dVOverZdY;  /* plane gradients */
 extern float g_dwRdNRaster_aOneOverZ[], g_dwRdNRaster_aUOverZ[], g_dwRdNRaster_aVOverZ[];  /* per vertex 1/z, u/z, v/z (Grad_Flat_2) */
-extern float DAT_004dda90, g_aRdroid_MipDistances, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
+extern float FLOAT_004dda90, g_aRdroid_MipDistances, FLOAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
 
 /* _ftol: truncation of the x87 value to a 64-bit integer, low dword */
 static int q6_ftol(long double x)
@@ -475,10 +475,10 @@ static void q6_mip_level(float dist, int mode, int *level)
         *level = dist > g_aRdroid_MipDistances ? 1 : 0;
         break;
     case 2:
-        *level = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
+        *level = !(dist > FLOAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
         break;
     case 3:
-        *level = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
+        *level = !(dist > FLOAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > FLOAT_004dda98) ? 2 : 3;
         break;
     }
 }

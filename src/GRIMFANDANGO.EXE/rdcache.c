@@ -462,7 +462,7 @@ LAB_00406d8d:
           }
         }
         else if (uVar13 == 3) {
-          if (_DAT_004dda90 < *(float *)(puVar14 + 100)) {
+          if (FLOAT_004dda90 < *(float *)(puVar14 + 100)) {
             if (*(float *)(puVar14 + 100) <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
             uVar15 = 2;
             local_28 = uVar15;
@@ -473,9 +473,9 @@ LAB_00406d8d:
           }
         }
         else if (uVar13 == 4) {
-          if (_DAT_004dda90 < *(float *)(puVar14 + 100)) {
+          if (FLOAT_004dda90 < *(float *)(puVar14 + 100)) {
             if (*(float *)(puVar14 + 100) <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
-            if (_DAT_004dda98 < *(float *)(puVar14 + 100)) {
+            if (FLOAT_004dda98 < *(float *)(puVar14 + 100)) {
               uVar15 = 3;
               local_28 = uVar15;
             }
@@ -801,12 +801,12 @@ LAB_00407a22:
               lVar16 = FTOL((float10)(int)local_18 * (float10)(float)local_5c);
               local_18 = local_18 + (int)lVar16;
             }
-            if (_DAT_00900044 < 1.0) {
-              lVar16 = FTOL((float10)(int)local_1c * (float10)_DAT_00900044);
+            if (FLOAT_00900044 < 1.0) {
+              lVar16 = FTOL((float10)(int)local_1c * (float10)FLOAT_00900044);
               local_1c = (uint)lVar16;
-              lVar16 = FTOL((float10)(int)local_10 * (float10)_DAT_00900044);
+              lVar16 = FTOL((float10)(int)local_10 * (float10)FLOAT_00900044);
               uVar13 = (uint)lVar16;
-              lVar16 = FTOL((float10)(int)local_18 * (float10)_DAT_00900044);
+              lVar16 = FTOL((float10)(int)local_18 * (float10)FLOAT_00900044);
               local_18 = (uint)lVar16;
             }
             if ((int)local_1c < 0) {
@@ -1141,12 +1141,12 @@ LAB_004071fa:
               lVar16 = FTOL((float10)(int)local_18 * (float10)(float)local_5c);
               local_18 = uVar13 + (int)lVar16;
             }
-            if (_DAT_00900044 < 1.0) {
-              lVar16 = FTOL((float10)(int)local_1c * (float10)_DAT_00900044);
+            if (FLOAT_00900044 < 1.0) {
+              lVar16 = FTOL((float10)(int)local_1c * (float10)FLOAT_00900044);
               uVar15 = (uint)lVar16;
-              lVar16 = FTOL((float10)(int)local_10 * (float10)_DAT_00900044);
+              lVar16 = FTOL((float10)(int)local_10 * (float10)FLOAT_00900044);
               local_10 = (uint)lVar16;
-              lVar16 = FTOL((float10)(int)local_18 * (float10)_DAT_00900044);
+              lVar16 = FTOL((float10)(int)local_18 * (float10)FLOAT_00900044);
               local_18 = (uint)lVar16;
             }
             if ((int)uVar15 < 0) {

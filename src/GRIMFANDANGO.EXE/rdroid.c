@@ -220,8 +220,6 @@ uint __cdecl rdroid_SetColormap(uint param_1)
 }
 
 /* ---- 0x00404b80  rdRaster_Startup ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Fills the 1/n float table and its fixed-point twin used by the span rasterizer Original name
    rdRaster_Startup (the remaster's GrimFandango (Linux): the last call of rdStartup, same body
@@ -252,12 +250,10 @@ void __cdecl rdRaster_Startup(void)
   do {
     iVar1 = iVar2 + 4;
     *(float *)((int)&UINT_008fdfc0 + iVar2) =
-         *(float *)((int)&g_dwRdRaster_aOneOverNFlex + iVar2) * _DAT_004ddb30;
+         *(float *)((int)&g_dwRdRaster_aOneOverNFlex + iVar2) * FLOAT_004ddb30;
     iVar2 = iVar1;
   } while (iVar1 < 0x40);
   return;
 }
 #undef local_4
-
-#endif
 

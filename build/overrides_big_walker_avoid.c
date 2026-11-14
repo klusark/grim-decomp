@@ -150,7 +150,7 @@ uint Walker_AvoidActorPath(Actor *self_, Actor *other_, undefined4 *pts, uint co
 hit:
     /* the four corners of the other actor's box (grown by this actor's radius + 0.02) */
     frame = sputActor_GetOrientMatrix(other);
-    rdMatrix_TransformPoint34(WAV_P(0xbc), (float *)&DAT_008ca320, frame);
+    rdMatrix_TransformPoint34(WAV_P(0xbc), (float *)&FLOAT_008ca320, frame);
     WalkPlane_SnapTo(WalkPlane_PlaneClosest(WAV_P(0xbc), 0xffffffff), WAV_P(0xbc));
     {
         uint32_t z = WAV_U(0xc4);

@@ -355,7 +355,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
       local_100 = uVar19;
       if (iVar16 != 0) {
         pfVar10 = sputActor_GetOrientMatrix(other);
-        rdMatrix_TransformPoint34(local_58,(float *)&DAT_008ca320,pfVar10);
+        rdMatrix_TransformPoint34(local_58,&FLOAT_008ca320,pfVar10);
         pWVar12 = WalkPlane_PlaneClosest(local_58,0xffffffff);
         WalkPlane_SnapTo(pWVar12,local_58);
         pfVar17 = &local_4c;

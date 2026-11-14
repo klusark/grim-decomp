@@ -64,7 +64,7 @@ undefined4 Collision_TestActorAgainstOthers(Actor *param_1_)
     /* the body still works on byte offsets (names/types_actor.json typed the parameter) */
     void *param_1 = (void *)param_1_;
     char *self = (char *)param_1;
-    float *g320 = (float *)&DAT_008ca320;   /* hit point */
+    float *g320 = (float *)&FLOAT_008ca320;   /* hit point */
     float *g338 = (float *)&DAT_008ca338;   /* position after */
     float *g348 = (float *)&DAT_008ca348;   /* position before */
     void **cursor;

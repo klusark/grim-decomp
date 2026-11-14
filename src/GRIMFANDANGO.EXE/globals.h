@@ -420,9 +420,9 @@ extern undefined2 DAT_004dda58; /* used by 1 fn(s), first 0x004039a0 */
 extern undefined2 DAT_004dda5c; /* used by 1 fn(s), first 0x00403bf0 */
 extern char s_Version_004dda60[]; /* used by 1 fn(s), first 0x004038a0 */
 extern char s_C__grimjedi_Libs_W32Util_Wuregis_004dda68[]; /* used by 2 fn(s), first 0x004039a0 */
-extern undefined DAT_004dda90; /* used by 7 fn(s), first 0x00406aa0 */
+extern float FLOAT_004dda90; /* used by 7 fn(s), first 0x00406aa0 */
 extern undefined g_aRdroid_MipDistances; /* used by 7 fn(s), first 0x00406aa0 */
-extern undefined DAT_004dda98; /* used by 7 fn(s), first 0x00406aa0 */
+extern float FLOAT_004dda98; /* used by 7 fn(s), first 0x00406aa0 */
 extern undefined4 g_dwRdColormap_colorInfo; /* used by 1 fn(s), first 0x004025b0 */
 extern undefined4 UINT_004ddaac; /* used by 1 fn(s), first 0x00404420 */
 extern undefined4 UINT_004ddab4; /* used by 4 fn(s), first 0x00489840 */
@@ -439,13 +439,13 @@ extern undefined DAT_004ddb10; /* used by 1 fn(s), first 0x00404420 */
 extern undefined DAT_004ddb18; /* used by 22 fn(s), first 0x00404420 */
 extern undefined DAT_004ddb1c; /* used by 1 fn(s), first 0x0047b250 */
 extern char s_GREYRAMP_CMP_004ddb20[]; /* used by 1 fn(s), first 0x00404a40 */
-extern undefined DAT_004ddb30; /* used by 1 fn(s), first 0x00404b80 */
+extern float FLOAT_004ddb30; /* used by 1 fn(s), first 0x00404b80 */
 extern undefined2 DAT_004ddb3c; /* used by 1 fn(s), first 0x00409f50 */
 extern undefined2 DAT_004ddb40; /* used by 1 fn(s), first 0x00409fb0 */
 extern char s_C__grimjedi_Libs_RDroid_Engine_R_004ddb44[]; /* used by 2 fn(s), first 0x00409f50 */
-extern undefined DAT_004ddb70; /* used by 1 fn(s), first 0x0040d880 */
-extern undefined DAT_004ddb74; /* used by 2 fn(s), first 0x0040a880 */
-extern undefined DAT_004ddb78; /* used by 2 fn(s), first 0x0040a880 */
+extern float FLOAT_004ddb70; /* used by 3 fn(s), first 0x0040a880 */
+extern float FLOAT_004ddb74; /* used by 2 fn(s), first 0x0040a880 */
+extern float FLOAT_004ddb78; /* used by 2 fn(s), first 0x0040a880 */
 extern undefined2 DAT_004ddb7c; /* used by 1 fn(s), first 0x0040a8f0 */
 extern undefined2 DAT_004ddb84; /* used by 1 fn(s), first 0x0040b8e0 */
 extern undefined2 DAT_004ddb88; /* used by 1 fn(s), first 0x0040c280 */
@@ -1341,9 +1341,9 @@ extern undefined4 g_dwNumUsedVertices; /* used by 3 fn(s), first 0x00406670 */
 extern undefined4 g_dwNumUsedTexVertices; /* used by 3 fn(s), first 0x00406670 */
 extern undefined4 g_dwNumUsedIntensities; /* used by 3 fn(s), first 0x00406670 */
 extern undefined4 g_dwCurGeo; /* used by 2 fn(s), first 0x0040cf20 */
-extern undefined DAT_007f0fd8; /* used by 1 fn(s), first 0x0040d230 */
-extern undefined DAT_007f0fdc; /* used by 1 fn(s), first 0x0040d230 */
-extern undefined DAT_007f0fe0; /* used by 1 fn(s), first 0x0040d230 */
+extern float FLOAT_007f0fd8; /* used by 1 fn(s), first 0x0040d230 */
+extern float FLOAT_007f0fdc; /* used by 1 fn(s), first 0x0040d230 */
+extern float FLOAT_007f0fe0; /* used by 1 fn(s), first 0x0040d230 */
 extern undefined DAT_007f0fe8; /* used by 1 fn(s), first 0x0040d230 */
 extern undefined g_aLocalLightDir; /* used by 1 fn(s), first 0x0040d230 */
 extern undefined4 g_dwVertexDst; /* used by 1 fn(s), first 0x0040d880 */
@@ -1378,9 +1378,9 @@ extern undefined4 g_dwNumGeoLights; /* used by 2 fn(s), first 0x0040cf20 */
 extern undefined4 g_dwNumMeshLights; /* used by 2 fn(s), first 0x0040d230 */
 extern undefined g_dwMaxGeoRadius; /* used by 1 fn(s), first 0x0040c970 */
 extern uint g_dwClipPlaneActive; /* used by 3 fn(s), first 0x0040a870 */
-extern undefined DAT_007f3208; /* used by 1 fn(s), first 0x0040d880 */
-extern undefined DAT_007f320c; /* used by 2 fn(s), first 0x0040a880 */
-extern undefined DAT_007f3210; /* used by 2 fn(s), first 0x0040a880 */
+extern float FLOAT_007f3208; /* used by 3 fn(s), first 0x0040a880 */
+extern float FLOAT_007f320c; /* used by 2 fn(s), first 0x0040a880 */
+extern float FLOAT_007f3210; /* used by 2 fn(s), first 0x0040a880 */
 extern undefined4 UINT_007f3214; /* used by 6 fn(s), first 0x00410970 */
 extern uint g_dwMaterialsLoader; /* used by 2 fn(s), first 0x00417e90 */
 extern uint g_dwMaterialsUnloader; /* used by 2 fn(s), first 0x00417ea0 */
@@ -1447,7 +1447,7 @@ extern undefined4 g_dwRdClip_faceStatus; /* used by 10 fn(s), first 0x004478c0 *
 extern undefined DAT_007f4ac8; /* used by 21 fn(s), first 0x00453e30 */
 extern undefined4 UINT_007f4acc; /* used by 21 fn(s), first 0x00453e30 */
 extern undefined4 UINT_007f4ad0; /* used by 2 fn(s), first 0x00451fa0 */
-extern undefined DAT_007f4ad4; /* used by 21 fn(s), first 0x00453e30 */
+extern float FLOAT_007f4ad4; /* used by 21 fn(s), first 0x00453e30 */
 extern undefined4 UINT_007f4adc; /* used by 42 fn(s), first 0x00452150 */
 extern undefined DAT_007f4ae4; /* used by 21 fn(s), first 0x00453e30 */
 extern undefined DAT_007f4aec; /* used by 21 fn(s), first 0x00453e30 */
@@ -1462,14 +1462,14 @@ extern undefined DAT_007f4b38; /* used by 21 fn(s), first 0x00453e30 */
 extern uint UINT_007f4b3c; /* used by 42 fn(s), first 0x00452150 */
 extern undefined4 UINT_007f4b40; /* used by 1 fn(s), first 0x00452070 */
 extern undefined4 UINT_007f4b44; /* used by 21 fn(s), first 0x00453e30 */
-extern undefined4 UINT_007f4b48; /* used by 21 fn(s), first 0x00453e30 */
-extern undefined4 UINT_007f4b4c; /* used by 21 fn(s), first 0x00453e30 */
-extern undefined4 UINT_007f4b50; /* used by 21 fn(s), first 0x00453e30 */
+extern float FLOAT_007f4b48; /* used by 21 fn(s), first 0x00453e30 */
+extern float FLOAT_007f4b4c; /* used by 21 fn(s), first 0x00453e30 */
+extern float FLOAT_007f4b50; /* used by 21 fn(s), first 0x00453e30 */
 extern undefined4 UINT_007f4b54; /* used by 42 fn(s), first 0x00452150 */
 extern undefined DAT_007f4b58; /* used by 21 fn(s), first 0x00453e30 */
 extern undefined DAT_007f4b5c; /* used by 21 fn(s), first 0x00453e30 */
 extern undefined DAT_007f4b60; /* used by 21 fn(s), first 0x00453e30 */
-extern undefined DAT_007f4b64; /* used by 21 fn(s), first 0x00453e30 */
+extern float FLOAT_007f4b64; /* used by 21 fn(s), first 0x00453e30 */
 extern uint UINT_007f4b68; /* used by 14 fn(s), first 0x00453310 */
 extern uint UINT_007f4b6c; /* used by 42 fn(s), first 0x00452150 */
 extern uint UINT_007f4b70; /* used by 42 fn(s), first 0x00452150 */
@@ -1503,13 +1503,13 @@ extern undefined DAT_007f5000; /* used by 1 fn(s), first 0x00472640 */
 extern undefined DAT_007f5004; /* used by 1 fn(s), first 0x00472640 */
 extern undefined DAT_007f5008; /* used by 1 fn(s), first 0x00472640 */
 extern undefined DAT_007f500c; /* used by 1 fn(s), first 0x00472640 */
-extern undefined DAT_007f5010; /* used by 1 fn(s), first 0x00472640 */
+extern float FLOAT_007f5010; /* used by 1 fn(s), first 0x00472640 */
 extern undefined DAT_007f5014; /* used by 1 fn(s), first 0x00472640 */
 extern undefined DAT_007f5018; /* used by 1 fn(s), first 0x00472640 */
-extern undefined DAT_007f501c; /* used by 1 fn(s), first 0x00472640 */
+extern float FLOAT_007f501c; /* used by 1 fn(s), first 0x00472640 */
 extern undefined DAT_007f5020; /* used by 1 fn(s), first 0x00472640 */
 extern undefined DAT_007f5024; /* used by 1 fn(s), first 0x00472640 */
-extern undefined DAT_007f5028; /* used by 1 fn(s), first 0x00472640 */
+extern float FLOAT_007f5028; /* used by 1 fn(s), first 0x00472640 */
 extern undefined DAT_007f502c; /* used by 1 fn(s), first 0x00472640 */
 extern undefined4 UINT_007f5180; /* used by 1 fn(s), first 0x00472640 */
 extern undefined4 UINT_007f5184; /* used by 1 fn(s), first 0x00472640 */
@@ -1843,9 +1843,9 @@ extern undefined DAT_008ca1f8; /* used by 2 fn(s), first 0x0048d4e0 */
 extern undefined4 g_dwSputResStartup; /* used by 2 fn(s), first 0x0048d790 */
 extern undefined4 g_dwPrdMatLoader; /* used by 2 fn(s), first 0x0048d790 */
 extern undefined4 g_dwPrdMatUnloader; /* used by 2 fn(s), first 0x0048d790 */
-extern undefined DAT_008ca320; /* used by 4 fn(s), first 0x004917e0 */
-extern undefined DAT_008ca324; /* used by 2 fn(s), first 0x00492680 */
-extern undefined DAT_008ca328; /* used by 2 fn(s), first 0x00492680 */
+extern float FLOAT_008ca320; /* used by 4 fn(s), first 0x004917e0 */
+extern float FLOAT_008ca324; /* used by 3 fn(s), first 0x00492680 */
+extern float FLOAT_008ca328; /* used by 3 fn(s), first 0x00492680 */
 extern uint g_dwSputActHS; /* used by 11 fn(s), first 0x0048e2c0 */
 extern undefined DAT_008ca338; /* used by 1 fn(s), first 0x004939f0 */
 extern undefined DAT_008ca33c; /* used by 1 fn(s), first 0x004939f0 */
@@ -2408,7 +2408,7 @@ extern undefined4 UINT_00900028; /* used by 1 fn(s), first 0x00406aa0 */
 extern undefined DAT_0090002c; /* used by 1 fn(s), first 0x00406aa0 */
 extern undefined DAT_00900030; /* used by 1 fn(s), first 0x00406aa0 */
 extern undefined DAT_00900034; /* used by 1 fn(s), first 0x00406aa0 */
-extern undefined DAT_00900044; /* used by 1 fn(s), first 0x00406aa0 */
+extern float FLOAT_00900044; /* used by 1 fn(s), first 0x00406aa0 */
 extern undefined4 g_dwRdroid_curVertexColorMode; /* used by 2 fn(s), first 0x004041e0 */
 extern undefined4 g_dwRdroid_curProcFaceUserData; /* used by 2 fn(s), first 0x004041e0 */
 extern undefined g_bRdroid_curCullFlags; /* used by 3 fn(s), first 0x0040d230 */
@@ -2434,8 +2434,8 @@ extern undefined DAT_0090055c; /* used by 1 fn(s), first 0x00479cc0 */
 extern undefined DAT_00900560; /* used by 1 fn(s), first 0x00479cc0 */
 extern undefined DAT_00900564; /* used by 1 fn(s), first 0x00479cc0 */
 extern undefined DAT_00900568; /* used by 1 fn(s), first 0x004782e0 */
-extern undefined4 UINT_00900580; /* used by 1 fn(s), first 0x00479cc0 */
-extern undefined4 UINT_00900584; /* used by 1 fn(s), first 0x00479cc0 */
+extern float FLOAT_00900580; /* used by 1 fn(s), first 0x00479cc0 */
+extern float FLOAT_00900584; /* used by 1 fn(s), first 0x00479cc0 */
 extern undefined DAT_009005a0; /* used by 1 fn(s), first 0x00479cc0 */
 extern undefined DAT_009005a4; /* used by 1 fn(s), first 0x00479cc0 */
 extern undefined DAT_009005c0; /* used by 1 fn(s), first 0x00479cc0 */
@@ -2759,13 +2759,7 @@ extern undefined4 in_stack_ffffffe2; /* used by 1 fn(s), first 0x004b9b1c */
 /* ---- re-typed views of the symbols above ---- */
 #define _DAT_004dd34c (*(undefined4 *)&DAT_004dd34c) /* same address as DAT_004dd34c, other width */
 #define _g_dwDeadmanCounter (*(undefined4 *)&g_dwDeadmanCounter) /* same address as g_dwDeadmanCounter, other width */
-#define _DAT_004dda90 (*(undefined4 *)&DAT_004dda90) /* same address as DAT_004dda90, other width */
 #define _g_aRdroid_MipDistances (*(undefined4 *)&g_aRdroid_MipDistances) /* same address as g_aRdroid_MipDistances, other width */
-#define _DAT_004dda98 (*(undefined4 *)&DAT_004dda98) /* same address as DAT_004dda98, other width */
-#define _DAT_004ddb30 (*(undefined4 *)&DAT_004ddb30) /* same address as DAT_004ddb30, other width */
-#define _DAT_004ddb70 (*(undefined4 *)&DAT_004ddb70) /* same address as DAT_004ddb70, other width */
-#define _DAT_004ddb74 (*(undefined4 *)&DAT_004ddb74) /* same address as DAT_004ddb74, other width */
-#define _DAT_004ddb78 (*(undefined4 *)&DAT_004ddb78) /* same address as DAT_004ddb78, other width */
 #define _DAT_004dee54 (*(int *)&DAT_004dee54) /* same address as DAT_004dee54, other width */
 #define _DAT_004ed534 (*(undefined4 *)&DAT_004ed534) /* same address as DAT_004ed534, other width */
 #define _DAT_004efba0 (*(undefined4 *)&DAT_004efba0) /* same address as DAT_004efba0, other width */
@@ -2788,9 +2782,6 @@ extern undefined4 in_stack_ffffffe2; /* used by 1 fn(s), first 0x004b9b1c */
 #define _DAT_005e6f8c (*(undefined4 *)&DAT_005e6f8c) /* same address as DAT_005e6f8c, other width */
 #define _DAT_005e6f90 (*(undefined4 *)&DAT_005e6f90) /* same address as DAT_005e6f90, other width */
 #define _g_dwRdCache_drawnFaces (*(undefined4 *)&g_dwRdCache_drawnFaces) /* same address as g_dwRdCache_drawnFaces, other width */
-#define _DAT_007f0fd8 (*(undefined4 *)&DAT_007f0fd8) /* same address as DAT_007f0fd8, other width */
-#define _DAT_007f0fdc (*(undefined4 *)&DAT_007f0fdc) /* same address as DAT_007f0fdc, other width */
-#define _DAT_007f0fe0 (*(undefined4 *)&DAT_007f0fe0) /* same address as DAT_007f0fe0, other width */
 #define _g_aVertexSrc (*(undefined4 *)&g_aVertexSrc) /* same address as g_aVertexSrc, other width */
 #define _DAT_007f30ac (*(undefined4 *)&DAT_007f30ac) /* same address as DAT_007f30ac, other width */
 #define _DAT_007f30b0 (*(undefined4 *)&DAT_007f30b0) /* same address as DAT_007f30b0, other width */
@@ -2799,19 +2790,13 @@ extern undefined4 in_stack_ffffffe2; /* used by 1 fn(s), first 0x004b9b1c */
 #define _DAT_007f30bc (*(undefined4 *)&DAT_007f30bc) /* same address as DAT_007f30bc, other width */
 #define _DAT_007f30c0 (*(undefined4 *)&DAT_007f30c0) /* same address as DAT_007f30c0, other width */
 #define _g_dwMaxGeoRadius (*(undefined4 *)&g_dwMaxGeoRadius) /* same address as g_dwMaxGeoRadius, other width */
-#define _DAT_007f3208 (*(undefined4 *)&DAT_007f3208) /* same address as DAT_007f3208, other width */
-#define _DAT_007f320c (*(undefined4 *)&DAT_007f320c) /* same address as DAT_007f320c, other width */
-#define _DAT_007f3210 (*(undefined4 *)&DAT_007f3210) /* same address as DAT_007f3210, other width */
 #define _g_dwEndVOverZ (*(undefined4 *)&g_dwEndVOverZ) /* same address as g_dwEndVOverZ, other width */
 #define _g_dwEndOneOverZ (*(float *)&g_dwEndOneOverZ) /* same address as g_dwEndOneOverZ, other width */
 #define _g_dwEndUOverZ (*(undefined4 *)&g_dwEndUOverZ) /* same address as g_dwEndUOverZ, other width */
-#define _DAT_007f4ad4 (*(undefined4 *)&DAT_007f4ad4) /* same address as DAT_007f4ad4, other width */
 #define _DAT_007f4b38 (*(float *)&DAT_007f4b38) /* same address as DAT_007f4b38, other width */
-#define _DAT_007f4b64 (*(undefined4 *)&DAT_007f4b64) /* same address as DAT_007f4b64, other width */
+#define _DAT_007f4b58 (*(float *)&DAT_007f4b58) /* same address as DAT_007f4b58, other width */
+#define _DAT_007f4b5c (*(float *)&DAT_007f4b5c) /* same address as DAT_007f4b5c, other width */
 #define _DAT_007f5004 (*(undefined4 *)&DAT_007f5004) /* same address as DAT_007f5004, other width */
-#define _DAT_007f5010 (*(undefined4 *)&DAT_007f5010) /* same address as DAT_007f5010, other width */
-#define _DAT_007f501c (*(undefined4 *)&DAT_007f501c) /* same address as DAT_007f501c, other width */
-#define _DAT_007f5028 (*(undefined4 *)&DAT_007f5028) /* same address as DAT_007f5028, other width */
 #define _DAT_007f6490 (*(undefined4 *)&DAT_007f6490) /* same address as DAT_007f6490, other width */
 #define _DAT_007feac8 (*(undefined4 *)&DAT_007feac8) /* same address as DAT_007feac8, other width */
 #define _DAT_007feacc (*(undefined4 *)&DAT_007feacc) /* same address as DAT_007feacc, other width */
@@ -2866,9 +2851,6 @@ extern undefined4 in_stack_ffffffe2; /* used by 1 fn(s), first 0x004b9b1c */
 #define _g_pSputtextHS (*(GrimServices * *)&g_pSputtextHS) /* same address as g_pSputtextHS, other width */
 #define _g_pSputConHS (*(uint *)&g_pSputConHS) /* same address as g_pSputConHS, other width */
 #define _DAT_008ca1f8 (*(undefined4 *)&DAT_008ca1f8) /* same address as DAT_008ca1f8, other width */
-#define _DAT_008ca320 (*(undefined4 *)&DAT_008ca320) /* same address as DAT_008ca320, other width */
-#define _DAT_008ca324 (*(undefined4 *)&DAT_008ca324) /* same address as DAT_008ca324, other width */
-#define _DAT_008ca328 (*(undefined4 *)&DAT_008ca328) /* same address as DAT_008ca328, other width */
 #define _DAT_008ca338 (*(undefined4 *)&DAT_008ca338) /* same address as DAT_008ca338, other width */
 #define _DAT_008ca33c (*(undefined4 *)&DAT_008ca33c) /* same address as DAT_008ca33c, other width */
 #define _DAT_008ca340 (*(undefined4 *)&DAT_008ca340) /* same address as DAT_008ca340, other width */
@@ -2972,7 +2954,6 @@ extern undefined4 in_stack_ffffffe2; /* used by 1 fn(s), first 0x004b9b1c */
 #define _DAT_0090002c (*(float *)&DAT_0090002c) /* same address as DAT_0090002c, other width */
 #define _DAT_00900030 (*(float *)&DAT_00900030) /* same address as DAT_00900030, other width */
 #define _DAT_00900034 (*(float *)&DAT_00900034) /* same address as DAT_00900034, other width */
-#define _DAT_00900044 (*(undefined4 *)&DAT_00900044) /* same address as DAT_00900044, other width */
 #define _g_bRdroid_curCullFlags (*(undefined *)&g_bRdroid_curCullFlags) /* same address as g_bRdroid_curCullFlags, other width */
 #define _DAT_0090052c (*(undefined4 *)&DAT_0090052c) /* same address as DAT_0090052c, other width */
 #define _DAT_00900540 (*(undefined4 *)&DAT_00900540) /* same address as DAT_00900540, other width */
@@ -2986,6 +2967,7 @@ extern undefined4 in_stack_ffffffe2; /* used by 1 fn(s), first 0x004b9b1c */
 #define _DAT_00900560 (*(undefined4 *)&DAT_00900560) /* same address as DAT_00900560, other width */
 #define _DAT_00900564 (*(undefined4 *)&DAT_00900564) /* same address as DAT_00900564, other width */
 #define _DAT_00900568 (*(undefined4 *)&DAT_00900568) /* same address as DAT_00900568, other width */
+#define _DAT_009005e0 (*(undefined4 *)&DAT_009005e0) /* same address as DAT_009005e0, other width */
 #define _DAT_00901400 (*(undefined4 *)&DAT_00901400) /* same address as DAT_00901400, other width */
 #define _DAT_00901408 (*(undefined4 *)&DAT_00901408) /* same address as DAT_00901408, other width */
 #define _DAT_00901458 (*(undefined4 *)&DAT_00901458) /* same address as DAT_00901458, other width */

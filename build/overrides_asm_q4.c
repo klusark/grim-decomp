@@ -66,7 +66,7 @@ extern int g_dwRdZRaster_texPitch;            /* width of the mip level (selects
 extern int g_dwRdZRaster_dUdXModifier;            /* u rounding bias */
 extern unsigned char *g_dwRdZRaster_pPixels; /* texels of the mip level */
 extern int g_dwRdZRaster_texRowShift;            /* log2 width of the mip level */
-extern float DAT_004dda90, g_aRdroid_MipDistances, DAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
+extern float FLOAT_004dda90, g_aRdroid_MipDistances, FLOAT_004dda98;  /* mip distance thresholds (10, 20, 40) */
 extern void Mem_DumpLog(void);       /* an empty function: the 8 bpp "span filler" of the FlatLit drivers */
 
 typedef struct q4_edge {
@@ -649,10 +649,10 @@ void rdZRaster_CalcAffineGradients(int dbits)
             g_dwRdZRaster_mipMapNum = dist > g_aRdroid_MipDistances ? 1 : 0;
             break;
         case 2:
-            g_dwRdZRaster_mipMapNum = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
+            g_dwRdZRaster_mipMapNum = !(dist > FLOAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : 2;
             break;
         case 3:
-            g_dwRdZRaster_mipMapNum = !(dist > DAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > DAT_004dda98) ? 2 : 3;
+            g_dwRdZRaster_mipMapNum = !(dist > FLOAT_004dda90) ? 0 : !(dist > g_aRdroid_MipDistances) ? 1 : !(dist > FLOAT_004dda98) ? 2 : 3;
             break;
         }
         if (dudx > 0.0f)

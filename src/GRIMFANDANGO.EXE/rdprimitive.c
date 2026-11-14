@@ -340,13 +340,13 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
         return 0;
       }
       *(float *)&DAT_007f5000 = PUN(float,puVar4[-1]) - *(float *)(iVar1 + 0x34);
-      _DAT_007f5004 = *puVar4;
+      _DAT_007f5004 = PUN(float,*puVar4);
       *(float *)&DAT_007f5008 = PUN(float,puVar4[1]) - *(float *)(iVar1 + 0x34);
-      _DAT_007f5010 = *puVar4;
+      FLOAT_007f5010 = PUN(float,*puVar4);
       *(float *)&DAT_007f500c = PUN(float,puVar4[-1]) + *(float *)(iVar1 + 0x34);
-      _DAT_007f501c = *puVar4;
+      FLOAT_007f501c = PUN(float,*puVar4);
       *(float *)&DAT_007f5014 = PUN(float,puVar4[1]) - *(float *)(iVar1 + 0x34);
-      _DAT_007f5028 = *puVar4;
+      FLOAT_007f5028 = PUN(float,*puVar4);
       *(float *)&DAT_007f5018 = PUN(float,puVar4[-1]) + *(float *)(iVar1 + 0x34);
       *(float *)&DAT_007f5020 = PUN(float,puVar4[1]) + *(float *)(iVar1 + 0x34);
       *(float *)&DAT_007f5024 = PUN(float,puVar4[-1]) - *(float *)(iVar1 + 0x34);
