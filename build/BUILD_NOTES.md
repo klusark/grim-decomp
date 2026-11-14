@@ -1641,3 +1641,21 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   functions and link.py stubbed fptan / fpatan as traps (tan, atan and atan2 crashed the clean room's numbers tests),
   log2 resolved to nothing useful (log(10) was 1.6e8). They are builtins on long double now. A syntax pass over every
   src/ module with -Wimplicit-function-declaration finds no other implicit declaration. Clean room 0 of 5390.
+
+## Clean room render_modes: diffuse face light and z-buffered points (2026-11-14)
+
+grim-autorun's render_modes.lua (its PR 9) draws a box in every geometry / lighting / texture mode of rdCache_DrawFaceZ;
+6 of its tests differed on the rebuilt exe:
+
+* **Lighting mode 2 (diffuse), opaque faces at full light** (render_g3_l2_y0, render_g4_l2_t*_y0_w / _f).
+  rdLight_CalcFaceIntensity (0x00451800) was compiled from the generated text, which lost a store: the vector to the
+  light is the three floats at -0xc..-0x4 of the frame (`local_10 + 1`), and its z stayed in a register and was never
+  written to -0x4 (`local_4`). rdVector_Normalize3Acc then normalised (dx, dy, stack garbage) and the dot product used
+  the unnormalised z. Hand-written in overrides_exe.c. (It was never reached before: no other test or game face
+  uses mode 2 with the software renderer's light on.)
+* **Geometry mode 1 (points) one pixel off** (render_g1). rdZRaster_DrawNGonLV (overrides_asm_s3.c, ported by reading
+  only) rounded each point to the nearest integer: Ghidra prints `fldcw [round down]; fld; fistp; fldcw [default]` as
+  `ROUND()`. It rounds down now, as its no-z twin rdNRaster_DrawNGonLV (overrides_asm_q6.c, differentially tested) does;
+  a vertex at (346.17, 281.71) is pixel (346, 281) as in the original, not (346, 282).
+
+Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
