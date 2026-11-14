@@ -474,56 +474,6 @@ void * __cdecl ThingInstancer(void *cosInst, int componentIdx, int create)
     return ref;
 }
 
-/* ==== SpriteInstancer (0x004985c0): sprite component instance ====
- * Same scheme as ThingInstancer without sharing: create == 0 drops a reference (rdThing and block freed on
- * the last).  Otherwise Cos_InstComponentInfo(cosInst, idx, &tag, &record, &parent) (outputs into locals, the original
- * reuses its parameter slots), a zeroed 0x194 byte block: +0x34 = record[0], a new rdThing (its +0x30 cleared) with the
- * polyline record[0], the parent's instance data at +0x44 / +0x48 or root (+0x38 = 1, +0x48 = -1), one reference. */
-undefined4 * SpriteInstancer(int cosInst, undefined4 *componentIdx, int create)
-{
-    int tag = create;
-    undefined4 *record = componentIdx;
-    int parent = cosInst;
-    int *inst;
-    int *ref;
-    int *thing;
-    int i;
-
-    if (create == 0) {
-        inst = (int *)Cos_InstGetInstanceData(cosInst, componentIdx, 0);
-        inst[0x50 / 4] = inst[0x50 / 4] - 1;
-        if (inst[0x50 / 4] == 0) {
-            rdThing_Free(inst[0x40 / 4]);
-            (*g_pSputCosHS->pFree)(inst);
-        }
-        return 0;
-    }
-    Cos_InstComponentInfo(cosInst, componentIdx, &tag, &record, &parent);
-    ref = (int *)(*g_pSputCosHS->pAlloc)(0x194, s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0, 0x1070);
-    for (i = 0; i < 0x65; i++)
-        ref[i] = 0;
-    ref[0x34 / 4] = record[0];
-    thing = (int *)rdThing_New(0);
-    ref[0x40 / 4] = (int)thing;
-    thing[0x30 / 4] = 0;
-    rdThing_SetPolyline((undefined4 *)ref[0x40 / 4], record[0]);
-    if (parent >= 0) {
-        int *p = (int *)Cos_InstGetInstanceData(cosInst, parent, 0);
-
-        ref[0x44 / 4] = p[0];
-        ref[0x48 / 4] = p[1];
-        ref[0x50 / 4] = ref[0x50 / 4] + 1;
-        ref[0x38 / 4] = 0;
-        return (undefined4 *)ref;
-    }
-    ref[0x44 / 4] = 0;
-    ref[0x50 / 4] = ref[0x50 / 4] + 1;
-    ref[0x48 / 4] = -1;
-    ref[0x38 / 4] = 1;
-    return (undefined4 *)ref;
-}
-
-
 /* ==== sputLua_Startup (0x0049de00) ====
  * Once (UINT_008cab80 set means done: returns 1): calls the hook in UINT_008cab58, reads the registry value
  * "TextAllowed" (default DAT_004f5a98) and sets lua_assume_binary unless it equals DAT_004ec554 (_stricmp), opens the

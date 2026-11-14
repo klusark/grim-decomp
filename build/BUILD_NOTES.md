@@ -1673,3 +1673,13 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
 * A TObject value union (float / uint) in Ghidra was tried and taken back: ghidra_types.h has structures only, and the
   pointer stores became `(TValue)ptr` casts.
 * Clean room 5451 of 5457, the same 6 render_g* tests as without the change.
+
+## SpriteInstancer and the puppet fades generated again (2026-11-14)
+
+* SpriteInstancer (overrides_asm_o2.c): the twin passes its parameter slots as Cos_InstComponentInfo's outputs
+  (`&param_3`, `&param_2`, `&param_1`) and reads them back, which is valid C and what the original does.
+* rdPuppet_FadeInTrack / FadeOutTrack (overrides_asm_s4.c): the twin's `puVar1[7] = (uint)(1.0 / seconds)` becomes a
+  PUN of the float (build_src fix_casts); the division is rounded to a float once, at the store, as in the x87 code.
+* Kept in overrides_asm_o2.c: sputLua_Startup (the mod API calls of the build; the twin passes 0x4ea890 / 0x49d140 as
+  numbers), std3D_DrawRenderList (the D3DEXECUTEDATA block is lost: `&stack0xffffffcc`).
+* Clean room 5451 of 5457, the same 6 render_g* tests as without the change.
