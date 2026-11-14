@@ -65,10 +65,10 @@ void __cdecl rdCache_ClearFrameCounters(void)
    full Original name rdCache_GetProcEntry (the remaster's GrimFandango (Linux): aligned call in
    rdModel3_DrawFace, rdSprite_Draw); was rdCache_AllocMesh. */
 
-undefined1 * __cdecl rdCache_GetProcEntry(void)
+ProcEntry * __cdecl rdCache_GetProcEntry(void)
 
 {
-  int iVar1;
+  ProcEntry *pPVar1;
   uint uVar2;
   
   if (0x3ff < g_dwRdCache_numProcFaces) {
@@ -76,23 +76,27 @@ undefined1 * __cdecl rdCache_GetProcEntry(void)
   }
   uVar2 = g_dwRdCache_numProcFaces;
   if (0x8000 - g_dwNumUsedVertices < 0x20) {
-    return (undefined1 *)0x0;
+    return (ProcEntry *)0x0;
   }
   if (0x8000 - g_dwNumUsedTexVertices < 0x20) {
-    return (undefined1 *)0x0;
+    return (ProcEntry *)0x0;
   }
   if (0x8000 - g_dwNumUsedIntensities < 0x20) {
-    return (undefined1 *)0x0;
+    return (ProcEntry *)0x0;
   }
-  iVar1 = g_dwRdCache_numProcFaces * 0x78;
-  (&UINT_008ddfe0)[g_dwRdCache_numProcFaces * 0x1e] =
-       (uint)(&g_aRdCache_Vertices + g_dwNumUsedVertices * 0xc);
-  *(undefined **)(&DAT_008ddfe4 + iVar1) = &DAT_0068bfb0 + g_dwNumUsedTexVertices * 8;
-  (&UINT_008ddfe8)[uVar2 * 0x1e] = (uint)(&g_aRdCache_Intensities + g_dwNumUsedIntensities * 4);
-  (&UINT_008ddfec)[uVar2 * 0x1e] = (uint)(&g_aRdCache_Intensities + g_dwNumUsedIntensities * 4);
-  (&UINT_008ddff0)[uVar2 * 0x1e] = (uint)(&g_aGreenIntensities + g_dwNumUsedIntensities * 4);
-  (&UINT_008ddff4)[uVar2 * 0x1e] = (uint)(&g_aBlueIntensities + g_dwNumUsedIntensities * 4);
-  return &g_bRdCache_aProcFaces + iVar1;
+  pPVar1 = g_bRdCache_aProcFaces + g_dwRdCache_numProcFaces;
+  g_bRdCache_aProcFaces[g_dwRdCache_numProcFaces].pVertices =
+       (float *)(&g_aRdCache_Vertices + g_dwNumUsedVertices * 0xc);
+  g_bRdCache_aProcFaces[uVar2].pTexVertices = (float *)(&DAT_0068bfb0 + g_dwNumUsedTexVertices * 8);
+  g_bRdCache_aProcFaces[uVar2].pIntensities =
+       (float *)(&g_aRdCache_Intensities + g_dwNumUsedIntensities * 4);
+  g_bRdCache_aProcFaces[uVar2].pRedIntensities =
+       (float *)(&g_aRdCache_Intensities + g_dwNumUsedIntensities * 4);
+  g_bRdCache_aProcFaces[uVar2].pGreenIntensities =
+       (float *)(&g_aGreenIntensities + g_dwNumUsedIntensities * 4);
+  g_bRdCache_aProcFaces[uVar2].pBlueIntensities =
+       (float *)(&g_aBlueIntensities + g_dwNumUsedIntensities * 4);
+  return pPVar1;
 }
 
 /* ---- 0x00406770  rdCache_Flush ---- */
@@ -103,43 +107,43 @@ undefined1 * __cdecl rdCache_GetProcEntry(void)
 void __cdecl rdCache_Flush(void)
 
 {
-  byte *pbVar1;
+  ProcEntry *pPVar1;
   uint uVar2;
   
   if (g_dwRdCache_numProcFaces != 0) {
     if (g_nRdroid_curSortingMethod == 2) {
-      qsort(&g_bRdCache_aProcFaces,g_dwRdCache_numProcFaces,0x78,rdCache_ProcFaceCompare);
+      qsort(g_bRdCache_aProcFaces,g_dwRdCache_numProcFaces,0x78,rdCache_ProcFaceCompare);
     }
     if (g_nRdroid_curAcceleration < 1) {
       if (g_nRdroid_curOcclusionMethod == 0) {
         if (g_nRdroid_curZBufferMethod == 0) {
           uVar2 = 0;
-          pbVar1 = &g_bRdCache_aProcFaces;
+          pPVar1 = g_bRdCache_aProcFaces;
           if (g_dwRdCache_numProcFaces != 0) {
             do {
-              if ((*pbVar1 & 1) == 0) {
-                rdCache_DrawFaceN(pbVar1);
+              if ((pPVar1->dwExtraData & 1) == 0) {
+                rdCache_DrawFaceN(pPVar1);
               }
               else {
-                rdCache_DrawFaceUser(pbVar1);
+                rdCache_DrawFaceUser(pPVar1);
               }
-              pbVar1 = pbVar1 + 0x78;
+              pPVar1 = pPVar1 + 1;
               uVar2 = uVar2 + 1;
             } while (uVar2 < g_dwRdCache_numProcFaces);
           }
         }
         else if (g_nRdroid_curZBufferMethod == 2) {
           uVar2 = 0;
-          pbVar1 = &g_bRdCache_aProcFaces;
+          pPVar1 = g_bRdCache_aProcFaces;
           if (g_dwRdCache_numProcFaces != 0) {
             do {
-              if ((*pbVar1 & 1) == 0) {
-                rdCache_DrawFaceZ(pbVar1);
+              if ((pPVar1->dwExtraData & 1) == 0) {
+                rdCache_DrawFaceZ(pPVar1);
               }
               else {
-                rdCache_DrawFaceUser(pbVar1);
+                rdCache_DrawFaceUser(pPVar1);
               }
-              pbVar1 = pbVar1 + 0x78;
+              pPVar1 = pPVar1 + 1;
               uVar2 = uVar2 + 1;
             } while (uVar2 < g_dwRdCache_numProcFaces);
           }
@@ -170,79 +174,77 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  float fVar1;
   float fVar2;
-  float fVar3;
-  float *pfVar4;
+  float *pfVar3;
+  float fVar4;
   float fVar5;
-  float fVar6;
-  uint uVar7;
-  float fVar8;
-  uint uVar9;
-  longlong lVar10;
+  uint uVar6;
+  float fVar7;
+  uint uVar8;
+  longlong lVar9;
   #define local_10 (*(float (*)[3])(_frame + (0x20 - 0x10)))
   
-  uVar7 = g_dwRdCache_numProcFaces;
+  uVar6 = g_dwRdCache_numProcFaces;
   if (0x3ff < g_dwRdCache_numProcFaces) {
     return 0;
   }
-  iVar1 = g_dwRdCache_numProcFaces * 0x78;
-  pfVar4 = (float *)(&UINT_008ddfe0)[g_dwRdCache_numProcFaces * 0x1e];
-  *(void **)(&g_bRdCache_aProcFaces + iVar1) = mesh;
-  (&UINT_008ddfdc)[uVar7 * 0x1e] = vertexCount;
-  *(uint *)(&DAT_008de034 + iVar1) = g_dwRdroid_curProcFaceUserData;
-  local_10[1] = *pfVar4;
-  fVar2 = pfVar4[1];
-  *(undefined4 *)(&DAT_008de030 + iVar1) = 0;
-  *(undefined4 *)(&DAT_008de02c + iVar1) = 0;
-  fVar3 = pfVar4[2];
-  uVar9 = 1;
-  *(float *)(&DAT_008de028 + iVar1) = fVar3;
-  *(float *)(&DAT_008de024 + iVar1) = fVar3;
-  local_10[0] = fVar2;
+  pfVar3 = g_bRdCache_aProcFaces[g_dwRdCache_numProcFaces].pVertices;
+  g_bRdCache_aProcFaces[g_dwRdCache_numProcFaces].dwExtraData = (uint)mesh;
+  g_bRdCache_aProcFaces[uVar6].dwNumVertices = vertexCount;
+  *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x74 = g_dwRdroid_curProcFaceUserData;
+  local_10[1] = *pfVar3;
+  fVar1 = pfVar3[1];
+  *(undefined4 *)&g_bRdCache_aProcFaces[uVar6].field_0x70 = 0;
+  *(undefined4 *)&g_bRdCache_aProcFaces[uVar6].field_0x6c = 0;
+  fVar2 = pfVar3[2];
+  uVar8 = 1;
+  *(float *)&g_bRdCache_aProcFaces[uVar6].field_0x68 = PUN(int,(float)(fVar2));
+  *(float *)&g_bRdCache_aProcFaces[uVar6].field_0x64 = PUN(int,(float)(fVar2));
+  local_10[0] = fVar1;
   local_10[2] = local_10[1];
   if (1 < vertexCount) {
     do {
-      fVar3 = pfVar4[3];
-      fVar5 = pfVar4[4];
-      fVar6 = pfVar4[5];
-      fVar8 = fVar3;
-      if ((local_10[2] <= fVar3) && (fVar8 = local_10[2], local_10[1] <= fVar3)) {
-        local_10[1] = fVar3;
+      fVar2 = pfVar3[3];
+      fVar4 = pfVar3[4];
+      fVar5 = pfVar3[5];
+      fVar7 = fVar2;
+      if ((local_10[2] <= fVar2) && (fVar7 = local_10[2], local_10[1] <= fVar2)) {
+        local_10[1] = fVar2;
       }
-      local_10[2] = fVar8;
-      if (fVar2 <= fVar5) {
-        if (local_10[0] < fVar5) {
-          *(uint *)(&DAT_008de030 + iVar1) = uVar9;
-          local_10[0] = fVar5;
+      local_10[2] = fVar7;
+      if (fVar1 <= fVar4) {
+        if (local_10[0] < fVar4) {
+          *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x70 = uVar8;
+          local_10[0] = fVar4;
         }
       }
       else {
-        *(uint *)(&DAT_008de02c + iVar1) = uVar9;
-        fVar2 = fVar5;
+        *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x6c = uVar8;
+        fVar1 = fVar4;
       }
-      if (*(float *)(&DAT_008de024 + iVar1) <= fVar6) {
-        if (*(float *)(&DAT_008de028 + iVar1) < fVar6) {
-          *(float *)(&DAT_008de028 + iVar1) = fVar6;
+      if (*(float *)&g_bRdCache_aProcFaces[uVar6].field_0x64 <= fVar5) {
+        if (*(float *)&g_bRdCache_aProcFaces[uVar6].field_0x68 < fVar5) {
+          *(float *)&g_bRdCache_aProcFaces[uVar6].field_0x68 = PUN(int,(float)(fVar5));
         }
       }
       else {
-        *(float *)(&DAT_008de024 + iVar1) = fVar6;
+        *(float *)&g_bRdCache_aProcFaces[uVar6].field_0x64 = PUN(int,(float)(fVar5));
       }
-      uVar9 = uVar9 + 1;
-      pfVar4 = pfVar4 + 3;
-    } while (uVar9 < vertexCount);
+      uVar8 = uVar8 + 1;
+      pfVar3 = pfVar3 + 3;
+    } while (uVar8 < vertexCount);
   }
   if (local_10[2] < local_10[1]) {
-    if (fVar2 < local_10[0]) {
-      lVar10 = FTOL((float10)ROUND(local_10[2]));
-      *(int *)(&DAT_008de014 + iVar1) = (int)lVar10;
-      lVar10 = FTOL((float10)ROUND(local_10[1]));
-      *(int *)(&DAT_008de018 + iVar1) = (int)lVar10;
-      lVar10 = FTOL((float10)ROUND(fVar2));
-      *(int *)(&DAT_008de01c + iVar1) = (int)lVar10;
-      lVar10 = FTOL((float10)ROUND(local_10[0]));
-      *(int *)(&DAT_008de020 + iVar1) = (int)lVar10;
+    if (fVar1 < local_10[0]) {
+      lVar9 = FTOL((float10)ROUND(local_10[2]));
+      *(int *)&g_bRdCache_aProcFaces[uVar6].field_0x54 = (int)lVar9;
+      lVar9 = FTOL((float10)ROUND(local_10[1]));
+      *(int *)&g_bRdCache_aProcFaces[uVar6].field_0x58 = (int)lVar9;
+      lVar9 = FTOL((float10)ROUND(fVar1));
+      *(int *)&g_bRdCache_aProcFaces[uVar6].field_0x5c = (int)lVar9;
+      lVar9 = FTOL((float10)ROUND(local_10[0]));
+      *(int *)&g_bRdCache_aProcFaces[uVar6].field_0x60 = (int)lVar9;
       if ((flags & 1) != 0) {
         g_dwNumUsedVertices = g_dwNumUsedVertices + vertexCount;
       }
@@ -252,19 +254,19 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
       if ((flags & 4) != 0) {
         g_dwNumUsedIntensities = g_dwNumUsedIntensities + vertexCount;
       }
-      (&UINT_008de00c)[uVar7 * 0x1e] = g_dwRdColormap_pIdentityMap;
+      *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x4c = g_dwRdColormap_pIdentityMap;
       g_dwRdCache_numProcFaces = g_dwRdCache_numProcFaces + 1;
-      if (*(uint *)(&DAT_008de014 + iVar1) < (uint)g_nRdCache_ulcExtent) {
-        g_nRdCache_ulcExtent = *(uint *)(&DAT_008de014 + iVar1);
+      if (*(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x54 < (uint)g_nRdCache_ulcExtent) {
+        g_nRdCache_ulcExtent = *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x54;
       }
-      if ((uint)g_nRdCache_lrcExtent < *(uint *)(&DAT_008de018 + iVar1)) {
-        g_nRdCache_lrcExtent = *(uint *)(&DAT_008de018 + iVar1);
+      if ((uint)g_nRdCache_lrcExtent < *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x58) {
+        g_nRdCache_lrcExtent = *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x58;
       }
-      if (*(uint *)(&DAT_008de01c + iVar1) < (uint)g_nDrawBoxMinY) {
-        g_nDrawBoxMinY = *(uint *)(&DAT_008de01c + iVar1);
+      if (*(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x5c < (uint)g_nDrawBoxMinY) {
+        g_nDrawBoxMinY = *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x5c;
       }
-      if ((uint)g_nDrawBoxMaxY < *(uint *)(&DAT_008de020 + iVar1)) {
-        g_nDrawBoxMaxY = *(uint *)(&DAT_008de020 + iVar1);
+      if ((uint)g_nDrawBoxMaxY < *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x60) {
+        g_nDrawBoxMaxY = *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x60;
       }
       return 1;
     }
@@ -291,26 +293,27 @@ uint __cdecl rdCache_SendFaceListToHardware(void)
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   uint *material;
-  int iVar2;
-  float fVar3;
+  float *pfVar2;
+  float *pfVar3;
   float fVar4;
-  bool bVar5;
+  float fVar5;
   bool bVar6;
   bool bVar7;
   bool bVar8;
-  uint uVar9;
-  int *piVar10;
-  int iVar11;
+  bool bVar9;
+  uint uVar10;
+  int *piVar11;
   int iVar12;
   uint uVar13;
-  undefined1 *puVar14;
-  uint uVar15;
+  int iVar14;
+  ProcEntry *pPVar15;
+  uint uVar16;
   float10 extraout_ST0;
   float10 extraout_ST0_00;
   float10 extraout_ST0_01;
   float10 extraout_ST0_02;
-  longlong lVar16;
   longlong lVar17;
+  longlong lVar18;
   #define local_7c (*(float (*)[3])(_frame + (0x90 - 0x7c)))
   #define local_70 (*(uint *)(_frame + (0x90 - 0x70)))
   #define local_6c (*(uint *)(_frame + (0x90 - 0x6c)))
@@ -340,10 +343,10 @@ uint __cdecl rdCache_SendFaceListToHardware(void)
   #define local_c (*(uint *)(_frame + (0x90 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x90 - 0x8)))
   
-  bVar5 = false;
   bVar6 = false;
-  bVar8 = false;
   bVar7 = false;
+  bVar9 = false;
+  bVar8 = false;
   local_4c = 0;
   local_44 = 0x33;
   if (g_nRdroid_curZBufferMethod == 1) {
@@ -356,87 +359,87 @@ uint __cdecl rdCache_SendFaceListToHardware(void)
     local_44 = 0x833;
   }
   if (((0.0 < _DAT_0090002c) || (0.0 < _DAT_00900030)) || (0.0 < _DAT_00900034)) {
-    bVar5 = true;
-    bVar8 = true;
+    bVar6 = true;
+    bVar9 = true;
     local_58 = PUN(uint,(float)(_DAT_0090002c - (_DAT_00900034 * 0.5 + _DAT_00900030 * 0.5)));
     local_20 = _DAT_0090002c * 0.5;
     local_60 = PUN(uint,(float)(_DAT_00900030 - (local_20 + _DAT_00900034 * 0.5)));
     local_5c = PUN(uint,(float)(_DAT_00900034 - (local_20 + _DAT_00900030 * 0.5)));
   }
   if (((g_dwRdroid_curColorEffects != 0) || (UINT_00900024 != 0)) || (UINT_00900028 != 0)) {
-    bVar6 = true;
     bVar7 = true;
+    bVar8 = true;
   }
-  if (((bVar5) || (bVar6)) || (g_dwRdroid_curVertexColorMode == 1)) {
+  if (((bVar6) || (bVar7)) || (g_dwRdroid_curVertexColorMode == 1)) {
     local_44 = local_44 | 0x8000;
   }
   std3D_ResetRenderList();
-  puVar14 = &g_bRdCache_aProcFaces;
+  pPVar15 = g_bRdCache_aProcFaces;
   local_64 = 0;
   if (g_dwRdCache_numProcFaces == 0) {
     rdCache_DrawRenderList();
     return 1;
   }
   do {
-    uVar15 = local_28;
+    uVar16 = local_28;
     if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
       local_c = 0;
     }
     else {
-      local_c = *(uint *)(puVar14 + 0x40);
+      local_c = PUN(uint,(float)pPVar15->flAlpha);
     }
     local_30 = local_44;
-    if (g_dwStd3D_maxVertices <= g_dwTotalVerts + *(int *)(puVar14 + 0x1c)) {
+    if (g_dwStd3D_maxVertices <= g_dwTotalVerts + pPVar15->dwNumVertices) {
       rdCache_DrawRenderList();
       std3D_ResetRenderList();
     }
-    uVar9 = g_dwTotalVerts;
-    local_8 = *(uint *)(puVar14 + 8);
+    uVar10 = g_dwTotalVerts;
+    local_8 = pPVar15->nGeometryMode;
     if (g_nRdroid_curGeometryMode <= (int)local_8) {
       local_8 = g_nRdroid_curGeometryMode;
     }
-    local_34 = *(uint *)(puVar14 + 0xc);
+    local_34 = pPVar15->nLightingMode;
     if (g_nRdroid_curLightingMode <= (int)local_34) {
       local_34 = g_nRdroid_curLightingMode;
     }
-    if ((puVar14[4] & 2) == 0) {
-      iVar11 = 0xff;
+    if ((pPVar15->dwFlags & 2) == 0) {
+      iVar12 = 0xff;
       local_24 = 0xff;
     }
     else {
-      iVar11 = 200;
+      iVar12 = 200;
       local_30 = local_44 | 0x200;
       local_24 = 200;
     }
-    if (((iVar11 != 0xff) && (*(int *)((int)g_pStd3D_CurDevice + 0x18) == 0)) &&
+    if (((iVar12 != 0xff) && (*(int *)((int)g_pStd3D_CurDevice + 0x18) == 0)) &&
        (*(int *)((int)g_pStd3D_CurDevice + 0x14) == 0)) {
       local_24 = 0xff;
       local_4c = 1;
     }
-    local_20 = *(float *)(puVar14 + 0x38);
-    if (local_20 != 0.0) {
-      iVar11 = *(int *)(puVar14 + 0x3c);
-      if (iVar11 == -1) {
-        iVar11 = *(int *)(PUN(int,(float)local_20) + 100);
-        if (iVar11 < 0) {
+    local_20 = (float)pPVar15->pMaterial;
+    if (PUN(void *,(float)local_20) != (void *)0x0) {
+      iVar12 = pPVar15->nCel;
+      if (iVar12 == -1) {
+        iVar12 = *(int *)(PUN(int,(float)local_20) + 100);
+        if (iVar12 < 0) {
 LAB_00406cbf:
-          iVar11 = 0;
+          iVar12 = 0;
         }
         else {
-          iVar12 = *(int *)(PUN(int,(float)local_20) + 0x60) + -1;
-          if (iVar12 < iVar11) {
-            iVar11 = iVar12;
+          iVar14 = *(int *)(PUN(int,(float)local_20) + 0x60) + -1;
+          if (iVar14 < iVar12) {
+            iVar12 = iVar14;
           }
         }
       }
       else {
-        if (iVar11 < 0) goto LAB_00406cbf;
-        iVar12 = *(int *)(PUN(int,(float)local_20) + 0x60) + -1;
-        if (iVar12 < iVar11) {
-          iVar11 = iVar12;
+        if (iVar12 < 0) goto LAB_00406cbf;
+        iVar14 = *(int *)(PUN(int,(float)local_20) + 0x60) + -1;
+        if (iVar14 < iVar12) {
+          iVar12 = iVar14;
         }
       }
-      local_2c = *(undefined4 *)(PUN(int,(float)local_20) + 0x68 + iVar11 * 4);
+      local_2c = *(undefined4 *)(PUN(int,(float)local_20) + iVar12 * 4 + 0x68);
       if ((local_8 == 4) && ((*(byte *)local_2c & 8) == 0)) {
         local_8 = 3;
       }
@@ -447,340 +450,334 @@ LAB_00406cbf:
         material = *(uint **)(local_2c + 0x1c);
         uVar13 = material[6];
         if (uVar13 == 1) {
-          uVar15 = 0;
-          local_28 = uVar15;
+          uVar16 = 0;
+          local_28 = uVar16;
         }
         else if (uVar13 == 2) {
-          if (_g_aRdroid_MipDistances < *(float *)(puVar14 + 100)) {
+          if (_g_aRdroid_MipDistances < *(float *)&pPVar15->field_0x64) {
 LAB_00406d8d:
-            uVar15 = 1;
-            local_28 = uVar15;
+            uVar16 = 1;
+            local_28 = uVar16;
           }
           else {
-            uVar15 = 0;
-            local_28 = uVar15;
+            uVar16 = 0;
+            local_28 = uVar16;
           }
         }
         else if (uVar13 == 3) {
-          if (FLOAT_004dda90 < *(float *)(puVar14 + 100)) {
-            if (*(float *)(puVar14 + 100) <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
-            uVar15 = 2;
-            local_28 = uVar15;
+          if (FLOAT_004dda90 < *(float *)&pPVar15->field_0x64) {
+            if (*(float *)&pPVar15->field_0x64 <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
+            uVar16 = 2;
+            local_28 = uVar16;
           }
           else {
-            uVar15 = 0;
-            local_28 = uVar15;
+            uVar16 = 0;
+            local_28 = uVar16;
           }
         }
         else if (uVar13 == 4) {
-          if (FLOAT_004dda90 < *(float *)(puVar14 + 100)) {
-            if (*(float *)(puVar14 + 100) <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
-            if (FLOAT_004dda98 < *(float *)(puVar14 + 100)) {
-              uVar15 = 3;
-              local_28 = uVar15;
+          if (FLOAT_004dda90 < *(float *)&pPVar15->field_0x64) {
+            if (*(float *)&pPVar15->field_0x64 <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
+            if (FLOAT_004dda98 < *(float *)&pPVar15->field_0x64) {
+              uVar16 = 3;
+              local_28 = uVar16;
             }
             else {
-              uVar15 = 2;
-              local_28 = uVar15;
+              uVar16 = 2;
+              local_28 = uVar16;
             }
           }
           else {
-            uVar15 = 0;
-            local_28 = uVar15;
+            uVar16 = 0;
+            local_28 = uVar16;
           }
         }
         if (((*material & 1) != 0) && (*(int *)((int)g_pStd3D_CurDevice + 0x10) != 0)) {
           local_30 = local_30 | 0x400;
         }
-        if (material[uVar15 * 0x26 + 0x29] == 0) {
-          std3D_SetCurrentPalette((void *)(*(int *)(puVar14 + 0x4c) + 0x30),0x5a);
+        if (material[uVar16 * 0x26 + 0x29] == 0) {
+          std3D_SetCurrentPalette((void *)(*(int *)&pPVar15->field_0x4c + 0x30),0x5a);
         }
-        iVar11 = rdMaterial_AddToTextureCache(PUN(void *,(float)local_20),material,uVar15,local_4c);
-        if (iVar11 == 0) {
+        iVar12 = rdMaterial_AddToTextureCache(PUN(void *,(float)local_20),material,uVar16,local_4c);
+        if (iVar12 == 0) {
           rdCache_DrawRenderList();
           std3D_ResetRenderList();
           std3D_PurgeTextureCache();
-          iVar11 = rdMaterial_AddToTextureCache(PUN(void *,(float)local_20),material,uVar15,local_4c);
-          if (iVar11 == 0) {
+          iVar12 = rdMaterial_AddToTextureCache(PUN(void *,(float)local_20),material,uVar16,local_4c);
+          if (iVar12 == 0) {
             return 0;
           }
         }
         if (local_4c == 0) {
-          iVar11 = uVar15 * 0x26 + 0xb;
+          iVar12 = uVar16 * 0x26 + 0xb;
         }
         else {
-          iVar11 = uVar15 * 0x26 + 0xa3;
+          iVar12 = uVar16 * 0x26 + 0xa3;
         }
-        local_40 = (uint)(material + iVar11);
+        local_40 = (uint)(material + iVar12);
         std3D_GetValidDimensions
-                  (*(uint *)(material[uVar15 + 7] + 0xc),*(uint *)(material[uVar15 + 7] + 0x10),
+                  (*(uint *)(material[uVar16 + 7] + 0xc),*(uint *)(material[uVar16 + 7] + 0x10),
                    &local_38,&local_3c);
-        local_7c[0] = (float)(local_38 << ((byte)uVar15 & 0x1f));
-        local_7c[1] = (float)(local_3c << ((byte)uVar15 & 0x1f));
+        local_7c[0] = (float)(local_38 << ((byte)uVar16 & 0x1f));
+        local_7c[1] = (float)(local_3c << ((byte)uVar16 & 0x1f));
       }
       if (local_8 == 3) {
-        fVar3 = (float)local_c;
+        fVar4 = (float)local_c;
         if (local_34 == 1) {
-          if (*(float *)(puVar14 + 0x48) < 0.0) {
+          if (pPVar15->flLight < 0.0) {
             fVar1 = 0.0;
           }
-          else if (1.0 < *(float *)(puVar14 + 0x48)) {
+          else if (1.0 < pPVar15->flLight) {
             fVar1 = 1.0;
           }
           else {
-            fVar1 = *(float *)(puVar14 + 0x48);
+            fVar1 = pPVar15->flLight;
           }
           if ((float)local_c < fVar1) {
-            if (*(float *)(puVar14 + 0x48) < 0.0) {
+            if (pPVar15->flLight < 0.0) {
 LAB_00407a17:
-              fVar3 = 0.0;
+              fVar4 = 0.0;
             }
-            else if (1.0 < *(float *)(puVar14 + 0x48)) {
+            else if (1.0 < pPVar15->flLight) {
 LAB_00407a0f:
-              fVar3 = 1.0;
+              fVar4 = 1.0;
             }
             else {
-              fVar3 = *(float *)(puVar14 + 0x48);
+              fVar4 = pPVar15->flLight;
             }
           }
 LAB_00407a22:
-          *(float *)(puVar14 + 0x44) = fVar3 * 63.0;
+          pPVar15->flLightIndex = fVar4 * 63.0;
         }
         else {
           if (local_34 == 2) {
-            fVar1 = *(float *)(puVar14 + 0x48) + *(float *)(puVar14 + 0x44);
+            fVar1 = pPVar15->flLight + pPVar15->flLightIndex;
             if (fVar1 < 0.0) {
-              fVar4 = 0.0;
+              fVar5 = 0.0;
             }
             else {
-              fVar4 = fVar1;
+              fVar5 = fVar1;
               if (1.0 < fVar1) {
-                fVar4 = 1.0;
+                fVar5 = 1.0;
               }
             }
-            if ((float)local_c < fVar4) {
+            if ((float)local_c < fVar5) {
               if (fVar1 < 0.0) goto LAB_00407a17;
-              fVar3 = fVar1;
+              fVar4 = fVar1;
               if (1.0 < fVar1) goto LAB_00407a0f;
             }
             goto LAB_00407a22;
           }
           if (local_34 == 3) {
             if (g_dwRdroid_curVertexColorMode == 1) {
-              uVar15 = 0;
-              if (*(int *)(puVar14 + 0x1c) != 0) {
+              uVar16 = 0;
+              if (pPVar15->dwNumVertices != 0) {
                 do {
-                  fVar3 = *(float *)(puVar14 + 0x48) +
-                          *(float *)(*(int *)(puVar14 + 0x28) + uVar15 * 4);
-                  if (fVar3 < 0.0) {
+                  fVar4 = pPVar15->flLight + pPVar15->pIntensities[uVar16];
+                  if (fVar4 < 0.0) {
                     fVar1 = 0.0;
                   }
                   else {
-                    fVar1 = fVar3;
-                    if (1.0 < fVar3) {
+                    fVar1 = fVar4;
+                    if (1.0 < fVar4) {
                       fVar1 = 1.0;
                     }
                   }
-                  fVar4 = (float)local_c;
+                  fVar5 = (float)local_c;
                   if ((float)local_c < fVar1) {
-                    if (fVar3 < 0.0) {
-                      fVar4 = 0.0;
+                    if (fVar4 < 0.0) {
+                      fVar5 = 0.0;
                     }
                     else {
-                      fVar4 = fVar3;
-                      if (1.0 < fVar3) {
-                        fVar4 = 1.0;
+                      fVar5 = fVar4;
+                      if (1.0 < fVar4) {
+                        fVar5 = 1.0;
                       }
                     }
                   }
-                  *(float *)(*(int *)(puVar14 + 0x28) + uVar15 * 4) = fVar4 * 63.0;
-                  fVar3 = *(float *)(puVar14 + 0x48) +
-                          *(float *)(*(int *)(puVar14 + 0x2c) + uVar15 * 4);
-                  if (fVar3 < 0.0) {
+                  pPVar15->pIntensities[uVar16] = fVar5 * 63.0;
+                  fVar4 = pPVar15->flLight + pPVar15->pRedIntensities[uVar16];
+                  if (fVar4 < 0.0) {
                     fVar1 = 0.0;
                   }
                   else {
-                    fVar1 = fVar3;
-                    if (1.0 < fVar3) {
+                    fVar1 = fVar4;
+                    if (1.0 < fVar4) {
                       fVar1 = 1.0;
                     }
                   }
-                  fVar4 = (float)local_c;
+                  fVar5 = (float)local_c;
                   if ((float)local_c < fVar1) {
-                    if (fVar3 < 0.0) {
-                      fVar4 = 0.0;
+                    if (fVar4 < 0.0) {
+                      fVar5 = 0.0;
                     }
                     else {
-                      fVar4 = fVar3;
-                      if (1.0 < fVar3) {
-                        fVar4 = 1.0;
+                      fVar5 = fVar4;
+                      if (1.0 < fVar4) {
+                        fVar5 = 1.0;
                       }
                     }
                   }
-                  *(float *)(*(int *)(puVar14 + 0x2c) + uVar15 * 4) = fVar4 * 63.0;
-                  fVar3 = *(float *)(*(int *)(puVar14 + 0x30) + uVar15 * 4) +
-                          *(float *)(puVar14 + 0x48);
-                  if (fVar3 < 0.0) {
+                  pPVar15->pRedIntensities[uVar16] = fVar5 * 63.0;
+                  fVar4 = pPVar15->pGreenIntensities[uVar16] + pPVar15->flLight;
+                  if (fVar4 < 0.0) {
                     fVar1 = 0.0;
                   }
                   else {
-                    fVar1 = fVar3;
-                    if (1.0 < fVar3) {
+                    fVar1 = fVar4;
+                    if (1.0 < fVar4) {
                       fVar1 = 1.0;
                     }
                   }
-                  fVar4 = (float)local_c;
+                  fVar5 = (float)local_c;
                   if ((float)local_c < fVar1) {
-                    if (fVar3 < 0.0) {
-                      fVar4 = 0.0;
+                    if (fVar4 < 0.0) {
+                      fVar5 = 0.0;
                     }
                     else {
-                      fVar4 = fVar3;
-                      if (1.0 < fVar3) {
-                        fVar4 = 1.0;
+                      fVar5 = fVar4;
+                      if (1.0 < fVar4) {
+                        fVar5 = 1.0;
                       }
                     }
                   }
-                  *(float *)(*(int *)(puVar14 + 0x30) + uVar15 * 4) = fVar4 * 63.0;
-                  fVar3 = *(float *)(puVar14 + 0x48) +
-                          *(float *)(*(int *)(puVar14 + 0x34) + uVar15 * 4);
-                  iVar11 = uVar15 * 4;
-                  if (fVar3 < 0.0) {
+                  pPVar15->pGreenIntensities[uVar16] = fVar5 * 63.0;
+                  fVar4 = pPVar15->flLight + pPVar15->pBlueIntensities[uVar16];
+                  pfVar2 = pPVar15->pBlueIntensities + uVar16;
+                  if (fVar4 < 0.0) {
                     fVar1 = 0.0;
                   }
                   else {
-                    fVar1 = fVar3;
-                    if (1.0 < fVar3) {
+                    fVar1 = fVar4;
+                    if (1.0 < fVar4) {
                       fVar1 = 1.0;
                     }
                   }
-                  fVar4 = (float)local_c;
+                  fVar5 = (float)local_c;
                   if ((float)local_c < fVar1) {
-                    if (fVar3 < 0.0) {
-                      fVar4 = 0.0;
+                    if (fVar4 < 0.0) {
+                      fVar5 = 0.0;
                     }
                     else {
-                      fVar4 = fVar3;
-                      if (1.0 < fVar3) {
-                        fVar4 = 1.0;
+                      fVar5 = fVar4;
+                      if (1.0 < fVar4) {
+                        fVar5 = 1.0;
                       }
                     }
                   }
-                  uVar15 = uVar15 + 1;
-                  *(float *)(*(int *)(puVar14 + 0x34) + iVar11) = fVar4 * 63.0;
-                } while (uVar15 < *(uint *)(puVar14 + 0x1c));
+                  uVar16 = uVar16 + 1;
+                  *pfVar2 = fVar5 * 63.0;
+                } while (uVar16 < pPVar15->dwNumVertices);
               }
             }
             else {
-              uVar15 = 0;
-              if (*(int *)(puVar14 + 0x1c) != 0) {
+              uVar16 = 0;
+              if (pPVar15->dwNumVertices != 0) {
                 do {
-                  fVar3 = *(float *)(puVar14 + 0x48) +
-                          *(float *)(*(int *)(puVar14 + 0x28) + uVar15 * 4);
-                  iVar11 = uVar15 * 4;
-                  if (fVar3 < 0.0) {
+                  fVar4 = pPVar15->flLight + pPVar15->pIntensities[uVar16];
+                  pfVar2 = pPVar15->pIntensities + uVar16;
+                  if (fVar4 < 0.0) {
                     fVar1 = 0.0;
                   }
                   else {
-                    fVar1 = fVar3;
-                    if (1.0 < fVar3) {
+                    fVar1 = fVar4;
+                    if (1.0 < fVar4) {
                       fVar1 = 1.0;
                     }
                   }
-                  fVar4 = (float)local_c;
+                  fVar5 = (float)local_c;
                   if ((float)local_c < fVar1) {
-                    if (fVar3 < 0.0) {
-                      fVar4 = 0.0;
+                    if (fVar4 < 0.0) {
+                      fVar5 = 0.0;
                     }
                     else {
-                      fVar4 = fVar3;
-                      if (1.0 < fVar3) {
-                        fVar4 = 1.0;
+                      fVar5 = fVar4;
+                      if (1.0 < fVar4) {
+                        fVar5 = 1.0;
                       }
                     }
                   }
-                  uVar15 = uVar15 + 1;
-                  *(float *)(*(int *)(puVar14 + 0x28) + iVar11) = fVar4 * 63.0;
-                } while (uVar15 < *(uint *)(puVar14 + 0x1c));
+                  uVar16 = uVar16 + 1;
+                  *pfVar2 = fVar5 * 63.0;
+                } while (uVar16 < pPVar15->dwNumVertices);
               }
             }
           }
         }
         local_8 = 0;
-        if (*(int *)(puVar14 + 0x1c) != 0) {
+        if (pPVar15->dwNumVertices != 0) {
           local_20 = (float)(local_24 << 8);
           local_24 = 0;
           do {
-            iVar11 = *(int *)(puVar14 + 0x20);
+            pfVar2 = pPVar15->pVertices;
             *(float *)(&g_aHWVertices + g_dwTotalVerts * 0x20) =
-                 ROUND(*(float *)(local_24 + *(int *)(puVar14 + 0x20)));
-            local_14 = *(uint *)(local_24 + 4 + iVar11);
-            iVar11 = *(int *)(puVar14 + 0x20);
+                 ROUND(*(float *)(local_24 + (int)pPVar15->pVertices));
+            local_14 = *(uint *)(local_24 + 4 + (int)pfVar2);
+            pfVar2 = pPVar15->pVertices;
             iVar12 = g_dwTotalVerts * 0x20;
             *(float *)(&DAT_006f0fbc + iVar12) = ROUND((float)local_14);
-            if (*(float *)(local_24 + 8 + iVar11) == 0.0) {
-              fVar3 = 0.0;
+            if (*(float *)(local_24 + 8 + (int)pfVar2) == 0.0) {
+              fVar4 = 0.0;
             }
             else {
               local_14 = 0xffffffff;
               if (UINT_00900534 == 0x10) {
                 local_14 = 1;
               }
-              fVar3 = 1.0 / ((float)(int)local_14 + *(float *)(local_24 + 8 + iVar11));
+              fVar4 = 1.0 / ((float)(int)local_14 + *(float *)(local_24 + 8 + (int)pfVar2));
             }
-            *(float *)(&DAT_006f0fc0 + iVar12) = fVar3;
-            *(float *)(&DAT_006f0fc4 + iVar12) = fVar3 * 0.03125;
+            *(float *)(&DAT_006f0fc0 + iVar12) = fVar4;
+            *(float *)(&DAT_006f0fc4 + iVar12) = fVar4 * 0.03125;
             *(undefined4 *)(&DAT_006f0fcc + iVar12) = 0;
             if (local_34 == 0) {
-              iVar11 = *(int *)(local_2c + 4) * 3 + *(int *)(puVar14 + 0x4c);
-              local_1c = (uint)*(byte *)(iVar11 + 0x30);
-              local_10 = (uint)*(byte *)(iVar11 + 0x31);
-              local_18 = (uint)*(byte *)(iVar11 + 0x32);
+              iVar14 = *(int *)(local_2c + 4) * 3 + *(int *)&pPVar15->field_0x4c;
+              local_1c = (uint)*(byte *)(iVar14 + 0x30);
+              local_10 = (uint)*(byte *)(iVar14 + 0x31);
+              local_18 = (uint)*(byte *)(iVar14 + 0x32);
             }
             else if (local_34 == 3) {
               if (g_dwRdroid_curVertexColorMode != 1) {
-                iVar11 = *(int *)(local_2c + 4) * 3 + *(int *)(puVar14 + 0x4c);
-                local_14 = (uint)*(byte *)(iVar11 + 0x30);
-                lVar16 = FTOL((float10)local_14 *
-                               (float10)*(float *)(*(int *)(puVar14 + 0x28) + local_8 * 4) *
-                               (float10)0.015625);
-                local_1c = (uint)lVar16;
-                local_14 = (uint)*(byte *)(iVar11 + 0x31);
-                lVar16 = FTOL((float10)local_14 * extraout_ST0_01);
-                local_10 = (uint)lVar16;
-                local_14 = (uint)*(byte *)(iVar11 + 0x32);
-                lVar16 = FTOL((float10)local_14 * extraout_ST0_02);
-                local_18 = (uint)lVar16;
+                iVar14 = *(int *)(local_2c + 4) * 3 + *(int *)&pPVar15->field_0x4c;
+                local_14 = (uint)*(byte *)(iVar14 + 0x30);
+                lVar17 = FTOL((float10)local_14 *
+                               (float10)pPVar15->pIntensities[local_8] * (float10)0.015625);
+                local_1c = (uint)lVar17;
+                local_14 = (uint)*(byte *)(iVar14 + 0x31);
+                lVar17 = FTOL((float10)local_14 * extraout_ST0_01);
+                local_10 = (uint)lVar17;
+                local_14 = (uint)*(byte *)(iVar14 + 0x32);
+                lVar17 = FTOL((float10)local_14 * extraout_ST0_02);
+                local_18 = (uint)lVar17;
               }
             }
             else {
-              iVar11 = *(int *)(local_2c + 4) * 3;
-              local_14 = (uint)*(byte *)(iVar11 + 0x30 + *(int *)(puVar14 + 0x4c));
-              iVar11 = iVar11 + *(int *)(puVar14 + 0x4c);
-              lVar16 = FTOL((float10)local_14 *
-                             (float10)*(float *)(puVar14 + 0x44) * (float10)0.015625);
-              local_1c = (uint)lVar16;
-              local_14 = (uint)*(byte *)(iVar11 + 0x31);
-              lVar16 = FTOL((float10)local_14 * extraout_ST0);
-              local_10 = (uint)lVar16;
-              local_14 = (uint)*(byte *)(iVar11 + 0x32);
-              lVar16 = FTOL((float10)local_14 * extraout_ST0_00);
-              local_18 = (uint)lVar16;
+              iVar14 = *(int *)(local_2c + 4) * 3;
+              local_14 = (uint)*(byte *)(iVar14 + 0x30 + *(int *)&pPVar15->field_0x4c);
+              iVar14 = iVar14 + *(int *)&pPVar15->field_0x4c;
+              lVar17 = FTOL((float10)local_14 * (float10)pPVar15->flLightIndex * (float10)0.015625)
+              ;
+              local_1c = (uint)lVar17;
+              local_14 = (uint)*(byte *)(iVar14 + 0x31);
+              lVar17 = FTOL((float10)local_14 * extraout_ST0);
+              local_10 = (uint)lVar17;
+              local_14 = (uint)*(byte *)(iVar14 + 0x32);
+              lVar17 = FTOL((float10)local_14 * extraout_ST0_00);
+              local_18 = (uint)lVar17;
             }
-            uVar15 = *(uint *)(puVar14 + 0x4c);
+            uVar16 = *(uint *)&pPVar15->field_0x4c;
             uVar13 = local_10;
-            if (uVar15 != g_dwRdColormap_pCurMap) {
-              lVar16 = FTOL((float10)(int)local_1c * (float10)*(float *)(uVar15 + 0x24));
-              local_1c = (uint)lVar16 & 0xff;
-              lVar16 = FTOL((float10)(int)local_10 * (float10)*(float *)(uVar15 + 0x28));
-              uVar13 = (uint)lVar16 & 0xff;
+            if (uVar16 != g_dwRdColormap_pCurMap) {
+              lVar17 = FTOL((float10)(int)local_1c * (float10)*(float *)(uVar16 + 0x24));
+              local_1c = (uint)lVar17 & 0xff;
+              lVar17 = FTOL((float10)(int)local_10 * (float10)*(float *)(uVar16 + 0x28));
+              uVar13 = (uint)lVar17 & 0xff;
               local_10 = uVar13;
-              lVar16 = FTOL((float10)(int)local_18 *
-                             (float10)*(float *)(*(int *)(puVar14 + 0x4c) + 0x2c));
-              local_18 = (uint)lVar16 & 0xff;
+              lVar17 = FTOL((float10)(int)local_18 *
+                             (float10)*(float *)(*(int *)&pPVar15->field_0x4c + 0x2c));
+              local_18 = (uint)lVar17 & 0xff;
             }
             local_30 = local_30 | 0x8000;
-            if (bVar7) {
+            if (bVar8) {
               if (g_dwRdroid_curColorEffects == 0) {
                 local_1c = 0;
               }
@@ -792,22 +789,22 @@ LAB_00407a22:
                 local_18 = 0;
               }
             }
-            if (bVar8) {
-              lVar16 = FTOL((float10)(int)local_1c * (float10)(float)local_58);
-              local_1c = local_1c + (int)lVar16;
-              lVar16 = FTOL((float10)(int)local_10 * (float10)(float)local_60);
-              uVar13 = uVar13 + (int)lVar16;
+            if (bVar9) {
+              lVar17 = FTOL((float10)(int)local_1c * (float10)(float)local_58);
+              local_1c = local_1c + (int)lVar17;
+              lVar17 = FTOL((float10)(int)local_10 * (float10)(float)local_60);
+              uVar13 = uVar13 + (int)lVar17;
               local_10 = uVar13;
-              lVar16 = FTOL((float10)(int)local_18 * (float10)(float)local_5c);
-              local_18 = local_18 + (int)lVar16;
+              lVar17 = FTOL((float10)(int)local_18 * (float10)(float)local_5c);
+              local_18 = local_18 + (int)lVar17;
             }
             if (FLOAT_00900044 < 1.0) {
-              lVar16 = FTOL((float10)(int)local_1c * (float10)FLOAT_00900044);
-              local_1c = (uint)lVar16;
-              lVar16 = FTOL((float10)(int)local_10 * (float10)FLOAT_00900044);
-              uVar13 = (uint)lVar16;
-              lVar16 = FTOL((float10)(int)local_18 * (float10)FLOAT_00900044);
-              local_18 = (uint)lVar16;
+              lVar17 = FTOL((float10)(int)local_1c * (float10)FLOAT_00900044);
+              local_1c = (uint)lVar17;
+              lVar17 = FTOL((float10)(int)local_10 * (float10)FLOAT_00900044);
+              uVar13 = (uint)lVar17;
+              lVar17 = FTOL((float10)(int)local_18 * (float10)FLOAT_00900044);
+              local_18 = (uint)lVar17;
             }
             if ((int)local_1c < 0) {
               local_1c = 0;
@@ -833,39 +830,39 @@ LAB_00407a22:
             g_dwTotalVerts = g_dwTotalVerts + 1;
             *(uint *)(&DAT_006f0fc8 + iVar12) =
                  ((local_1c | PUN(uint,(float)local_20)) << 8 | local_10) << 8 | local_18;
-            uVar15 = *(uint *)(puVar14 + 0x1c);
+            uVar16 = pPVar15->dwNumVertices;
             *(undefined4 *)(&DAT_006f0fd0 + iVar12) = 0;
             *(undefined4 *)(&DAT_006f0fd4 + iVar12) = 0;
             local_8 = local_8 + 1;
             local_24 = local_24 + 0xc;
-          } while (local_8 < uVar15);
+          } while (local_8 < uVar16);
         }
-        uVar15 = *(uint *)(puVar14 + 0x1c);
-        if (uVar15 < 4) {
-          iVar11 = g_dwTotalSolidTris * 0x14;
-          *(uint *)(&DAT_00606fa8 + iVar11) = uVar9;
-          *(uint *)(&DAT_00606fa4 + iVar11) = uVar9 + 1;
-          *(uint *)(&g_aHWSolidTris + iVar11) = uVar9 + 2;
+        uVar16 = pPVar15->dwNumVertices;
+        if (uVar16 < 4) {
+          iVar12 = g_dwTotalSolidTris * 0x14;
+          *(uint *)(&DAT_00606fa8 + iVar12) = uVar10;
+          *(uint *)(&DAT_00606fa4 + iVar12) = uVar10 + 1;
+          *(uint *)(&g_aHWSolidTris + iVar12) = uVar10 + 2;
           g_dwTotalSolidTris = g_dwTotalSolidTris + 1;
-          *(uint *)(&DAT_00606fac + iVar11) = local_30;
-          *(undefined4 *)(&DAT_00606fb0 + iVar11) = 0;
+          *(uint *)(&DAT_00606fac + iVar12) = local_30;
+          *(undefined4 *)(&DAT_00606fb0 + iVar12) = 0;
         }
         else {
-          local_20 = (float)(uVar15 - 2);
+          local_20 = (float)(uVar16 - 2);
           uVar13 = 0;
-          local_34 = uVar15 - 1;
-          uVar15 = 0;
+          local_34 = uVar16 - 1;
+          uVar16 = 0;
           local_8 = 1;
           if (0 < PUN(int,(float)local_20)) {
-            piVar10 = (int *)(&DAT_00606fa4 + g_dwTotalSolidTris * 0x14);
+            piVar11 = (int *)(&DAT_00606fa4 + g_dwTotalSolidTris * 0x14);
             g_dwTotalSolidTris = g_dwTotalSolidTris + PUN(int,(float)local_20);
             do {
-              piVar10[1] = uVar13 + uVar9;
-              *piVar10 = local_8 + uVar9;
-              piVar10[-1] = uVar9 + local_34;
-              piVar10[2] = local_30;
-              piVar10[3] = 0;
-              if ((~uVar15 & 1) == 0) {
+              piVar11[1] = uVar13 + uVar10;
+              *piVar11 = local_8 + uVar10;
+              piVar11[-1] = uVar10 + local_34;
+              piVar11[2] = local_30;
+              piVar11[3] = 0;
+              if ((~uVar16 & 1) == 0) {
                 uVar13 = local_34;
                 local_34 = local_34 - 1;
               }
@@ -873,255 +870,251 @@ LAB_00407a22:
                 uVar13 = local_8;
                 local_8 = local_8 + 1;
               }
-              piVar10 = piVar10 + 5;
-              uVar15 = uVar15 + 1;
-            } while ((int)uVar15 < PUN(int,(float)local_20));
+              piVar11 = piVar11 + 5;
+              uVar16 = uVar16 + 1;
+            } while ((int)uVar16 < PUN(int,(float)local_20));
           }
         }
       }
       else {
         if (local_8 != 4) goto LAB_00407e89;
-        fVar3 = (float)local_c;
+        fVar4 = (float)local_c;
         if (local_34 == 1) {
-          if (*(float *)(puVar14 + 0x48) < 0.0) {
+          if (pPVar15->flLight < 0.0) {
             fVar1 = 0.0;
           }
-          else if (1.0 < *(float *)(puVar14 + 0x48)) {
+          else if (1.0 < pPVar15->flLight) {
             fVar1 = 1.0;
           }
           else {
-            fVar1 = *(float *)(puVar14 + 0x48);
+            fVar1 = pPVar15->flLight;
           }
           if ((float)local_c < fVar1) {
-            if (*(float *)(puVar14 + 0x48) < 0.0) {
+            if (pPVar15->flLight < 0.0) {
 LAB_004071ef:
-              fVar3 = 0.0;
+              fVar4 = 0.0;
             }
-            else if (1.0 < *(float *)(puVar14 + 0x48)) {
+            else if (1.0 < pPVar15->flLight) {
 LAB_004071e7:
-              fVar3 = 1.0;
+              fVar4 = 1.0;
             }
             else {
-              fVar3 = *(float *)(puVar14 + 0x48);
+              fVar4 = pPVar15->flLight;
             }
           }
 LAB_004071fa:
-          *(float *)(puVar14 + 0x44) = fVar3 * 255.0;
+          pPVar15->flLightIndex = fVar4 * 255.0;
         }
         else {
           if (local_34 == 2) {
-            fVar1 = *(float *)(puVar14 + 0x48) + *(float *)(puVar14 + 0x44);
+            fVar1 = pPVar15->flLight + pPVar15->flLightIndex;
             if (fVar1 < 0.0) {
-              fVar4 = 0.0;
+              fVar5 = 0.0;
             }
             else {
-              fVar4 = fVar1;
+              fVar5 = fVar1;
               if (1.0 < fVar1) {
-                fVar4 = 1.0;
+                fVar5 = 1.0;
               }
             }
-            if ((float)local_c < fVar4) {
+            if ((float)local_c < fVar5) {
               if (fVar1 < 0.0) goto LAB_004071ef;
-              fVar3 = fVar1;
+              fVar4 = fVar1;
               if (1.0 < fVar1) goto LAB_004071e7;
             }
             goto LAB_004071fa;
           }
           if (local_34 == 3) {
             if (g_dwRdroid_curVertexColorMode == 1) {
-              uVar15 = 0;
-              if (*(int *)(puVar14 + 0x1c) != 0) {
+              uVar16 = 0;
+              if (pPVar15->dwNumVertices != 0) {
                 do {
-                  fVar3 = *(float *)(puVar14 + 0x48) +
-                          *(float *)(*(int *)(puVar14 + 0x2c) + uVar15 * 4);
-                  if (fVar3 < 0.0) {
+                  fVar4 = pPVar15->flLight + pPVar15->pRedIntensities[uVar16];
+                  if (fVar4 < 0.0) {
                     fVar1 = 0.0;
                   }
                   else {
-                    fVar1 = fVar3;
-                    if (1.0 < fVar3) {
+                    fVar1 = fVar4;
+                    if (1.0 < fVar4) {
                       fVar1 = 1.0;
                     }
                   }
-                  fVar4 = (float)local_c;
+                  fVar5 = (float)local_c;
                   if ((float)local_c < fVar1) {
-                    if (fVar3 < 0.0) {
-                      fVar4 = 0.0;
+                    if (fVar4 < 0.0) {
+                      fVar5 = 0.0;
                     }
                     else {
-                      fVar4 = fVar3;
-                      if (1.0 < fVar3) {
-                        fVar4 = 1.0;
+                      fVar5 = fVar4;
+                      if (1.0 < fVar4) {
+                        fVar5 = 1.0;
                       }
                     }
                   }
-                  *(float *)(*(int *)(puVar14 + 0x2c) + uVar15 * 4) = fVar4 * 255.0;
-                  fVar3 = *(float *)(*(int *)(puVar14 + 0x30) + uVar15 * 4) +
-                          *(float *)(puVar14 + 0x48);
-                  if (fVar3 < 0.0) {
+                  pPVar15->pRedIntensities[uVar16] = fVar5 * 255.0;
+                  fVar4 = pPVar15->pGreenIntensities[uVar16] + pPVar15->flLight;
+                  if (fVar4 < 0.0) {
                     fVar1 = 0.0;
                   }
                   else {
-                    fVar1 = fVar3;
-                    if (1.0 < fVar3) {
+                    fVar1 = fVar4;
+                    if (1.0 < fVar4) {
                       fVar1 = 1.0;
                     }
                   }
-                  fVar4 = (float)local_c;
+                  fVar5 = (float)local_c;
                   if ((float)local_c < fVar1) {
-                    if (fVar3 < 0.0) {
-                      fVar4 = 0.0;
+                    if (fVar4 < 0.0) {
+                      fVar5 = 0.0;
                     }
                     else {
-                      fVar4 = fVar3;
-                      if (1.0 < fVar3) {
-                        fVar4 = 1.0;
+                      fVar5 = fVar4;
+                      if (1.0 < fVar4) {
+                        fVar5 = 1.0;
                       }
                     }
                   }
-                  *(float *)(*(int *)(puVar14 + 0x30) + uVar15 * 4) = fVar4 * 255.0;
-                  fVar3 = *(float *)(puVar14 + 0x48) +
-                          *(float *)(*(int *)(puVar14 + 0x34) + uVar15 * 4);
-                  iVar11 = uVar15 * 4;
-                  if (fVar3 < 0.0) {
+                  pPVar15->pGreenIntensities[uVar16] = fVar5 * 255.0;
+                  fVar4 = pPVar15->flLight + pPVar15->pBlueIntensities[uVar16];
+                  pfVar2 = pPVar15->pBlueIntensities + uVar16;
+                  if (fVar4 < 0.0) {
                     fVar1 = 0.0;
                   }
                   else {
-                    fVar1 = fVar3;
-                    if (1.0 < fVar3) {
+                    fVar1 = fVar4;
+                    if (1.0 < fVar4) {
                       fVar1 = 1.0;
                     }
                   }
-                  fVar4 = (float)local_c;
+                  fVar5 = (float)local_c;
                   if ((float)local_c < fVar1) {
-                    if (fVar3 < 0.0) {
-                      fVar4 = 0.0;
+                    if (fVar4 < 0.0) {
+                      fVar5 = 0.0;
                     }
                     else {
-                      fVar4 = fVar3;
-                      if (1.0 < fVar3) {
-                        fVar4 = 1.0;
+                      fVar5 = fVar4;
+                      if (1.0 < fVar4) {
+                        fVar5 = 1.0;
                       }
                     }
                   }
-                  uVar15 = uVar15 + 1;
-                  *(float *)(*(int *)(puVar14 + 0x34) + iVar11) = fVar4 * 255.0;
-                } while (uVar15 < *(uint *)(puVar14 + 0x1c));
+                  uVar16 = uVar16 + 1;
+                  *pfVar2 = fVar5 * 255.0;
+                } while (uVar16 < pPVar15->dwNumVertices);
               }
             }
             else {
-              uVar15 = 0;
-              if (*(int *)(puVar14 + 0x1c) != 0) {
+              uVar16 = 0;
+              if (pPVar15->dwNumVertices != 0) {
                 do {
-                  fVar3 = *(float *)(puVar14 + 0x48) +
-                          *(float *)(*(int *)(puVar14 + 0x28) + uVar15 * 4);
-                  iVar11 = uVar15 * 4;
-                  if (fVar3 < 0.0) {
+                  fVar4 = pPVar15->flLight + pPVar15->pIntensities[uVar16];
+                  pfVar2 = pPVar15->pIntensities + uVar16;
+                  if (fVar4 < 0.0) {
                     fVar1 = 0.0;
                   }
                   else {
-                    fVar1 = fVar3;
-                    if (1.0 < fVar3) {
+                    fVar1 = fVar4;
+                    if (1.0 < fVar4) {
                       fVar1 = 1.0;
                     }
                   }
-                  fVar4 = (float)local_c;
+                  fVar5 = (float)local_c;
                   if ((float)local_c < fVar1) {
-                    if (fVar3 < 0.0) {
-                      fVar4 = 0.0;
+                    if (fVar4 < 0.0) {
+                      fVar5 = 0.0;
                     }
                     else {
-                      fVar4 = fVar3;
-                      if (1.0 < fVar3) {
-                        fVar4 = 1.0;
+                      fVar5 = fVar4;
+                      if (1.0 < fVar4) {
+                        fVar5 = 1.0;
                       }
                     }
                   }
-                  uVar15 = uVar15 + 1;
-                  *(float *)(*(int *)(puVar14 + 0x28) + iVar11) = fVar4 * 255.0;
-                } while (uVar15 < *(uint *)(puVar14 + 0x1c));
+                  uVar16 = uVar16 + 1;
+                  *pfVar2 = fVar5 * 255.0;
+                } while (uVar16 < pPVar15->dwNumVertices);
               }
             }
           }
         }
         local_8 = 0;
-        if (*(int *)(puVar14 + 0x1c) != 0) {
-          local_2c = *(uint *)(puVar14 + 0x20);
+        if (pPVar15->dwNumVertices != 0) {
+          local_2c = (uint)pPVar15->pVertices;
           local_20 = (float)(local_24 << 8);
           local_24 = 0;
           do {
-            iVar11 = *(int *)(puVar14 + 0x20);
+            uVar13 = local_8;
+            pfVar2 = pPVar15->pVertices;
             *(float *)(&g_aHWVertices + g_dwTotalVerts * 0x20) =
                  ROUND(*(float *)(local_24 + local_2c));
-            uVar13 = g_dwTotalVerts;
-            uVar15 = *(uint *)(puVar14 + 0x20);
+            uVar16 = g_dwTotalVerts;
+            pfVar3 = pPVar15->pVertices;
             *(float *)(&DAT_006f0fbc + g_dwTotalVerts * 0x20) =
-                 ROUND(*(float *)(local_24 + 4 + iVar11));
-            if (*(float *)(local_24 + 8 + uVar15) == 0.0) {
-              fVar3 = 0.0;
-              local_2c = uVar15;
+                 ROUND(*(float *)(local_24 + 4 + (int)pfVar2));
+            if (*(float *)(local_24 + 8 + (int)pfVar3) == 0.0) {
+              fVar4 = 0.0;
+              local_2c = (uint)pfVar3;
             }
             else {
               local_2c = 0xffffffff;
               if (UINT_00900534 == 0x10) {
                 local_2c = 1;
               }
-              *(float *)(local_24 + 8 + uVar15) =
-                   (float)(int)local_2c + *(float *)(local_24 + 8 + uVar15);
-              fVar3 = 1.0 / *(float *)(local_24 + 8 + *(uint *)(puVar14 + 0x20));
-              uVar13 = g_dwTotalVerts;
-              local_2c = *(uint *)(puVar14 + 0x20);
+              *(float *)(local_24 + 8 + (int)pfVar3) =
+                   (float)(int)local_2c + *(float *)(local_24 + 8 + (int)pfVar3);
+              fVar4 = 1.0 / *(float *)(local_24 + 8 + (int)pPVar15->pVertices);
+              uVar16 = g_dwTotalVerts;
+              local_2c = (uint)pPVar15->pVertices;
             }
-            local_14 = uVar13 * 0x20;
-            *(float *)(&DAT_006f0fc0 + local_14) = fVar3;
-            *(float *)(&DAT_006f0fc4 + local_14) = fVar3;
+            local_14 = uVar16 * 0x20;
+            *(float *)(&DAT_006f0fc0 + local_14) = fVar4;
+            *(float *)(&DAT_006f0fc4 + local_14) = fVar4;
             *(undefined4 *)(&DAT_006f0fcc + local_14) = 0;
             if (local_34 == 0) {
               local_10 = 0xff;
-              uVar15 = local_10;
+              uVar16 = local_10;
               local_1c = local_10;
               local_18 = local_10;
             }
             else if (local_34 == 3) {
               if (g_dwRdroid_curVertexColorMode == 1) {
-                iVar11 = local_8 * 4;
-                lVar16 = FTOL((float10)*(float *)(*(int *)(puVar14 + 0x2c) + local_8 * 4));
-                local_1c = (uint)lVar16;
-                lVar17 = FTOL((float10)*(float *)(*(int *)(puVar14 + 0x30) + iVar11));
-                local_10 = (uint)lVar17;
-                lVar17 = FTOL((float10)*(float *)(*(int *)(puVar14 + 0x34) + iVar11));
-                local_18 = (uint)lVar17;
-                uVar15 = (uint)lVar16;
+                lVar17 = FTOL((float10)pPVar15->pRedIntensities[local_8]);
+                local_1c = (uint)lVar17;
+                lVar18 = FTOL((float10)pPVar15->pGreenIntensities[uVar13]);
+                local_10 = (uint)lVar18;
+                lVar18 = FTOL((float10)pPVar15->pBlueIntensities[uVar13]);
+                local_18 = (uint)lVar18;
+                uVar16 = (uint)lVar17;
               }
               else {
-                lVar16 = FTOL((float10)*(float *)(*(int *)(puVar14 + 0x28) + local_8 * 4));
-                local_1c = (uint)lVar16;
-                uVar15 = local_1c;
+                lVar17 = FTOL((float10)pPVar15->pIntensities[local_8]);
+                local_1c = (uint)lVar17;
+                uVar16 = local_1c;
                 local_18 = local_1c;
                 local_10 = local_1c;
               }
             }
             else {
-              lVar16 = FTOL((float10)*(float *)(puVar14 + 0x44));
-              local_1c = (uint)lVar16;
-              uVar15 = local_1c;
+              lVar17 = FTOL((float10)pPVar15->flLightIndex);
+              local_1c = (uint)lVar17;
+              uVar16 = local_1c;
               local_18 = local_1c;
               local_10 = local_1c;
             }
-            uVar13 = *(uint *)(puVar14 + 0x4c);
+            uVar13 = *(uint *)&pPVar15->field_0x4c;
             if (uVar13 != g_dwRdColormap_pCurMap) {
-              lVar16 = FTOL((float10)(int)local_1c * (float10)*(float *)(uVar13 + 0x24));
-              uVar15 = (uint)lVar16 & 0xff;
-              local_1c = uVar15;
-              lVar16 = FTOL((float10)(int)local_10 * (float10)*(float *)(uVar13 + 0x28));
-              local_10 = (uint)lVar16 & 0xff;
-              lVar16 = FTOL((float10)(int)local_18 * (float10)*(float *)(uVar13 + 0x2c));
-              local_18 = (uint)lVar16 & 0xff;
+              lVar17 = FTOL((float10)(int)local_1c * (float10)*(float *)(uVar13 + 0x24));
+              uVar16 = (uint)lVar17 & 0xff;
+              local_1c = uVar16;
+              lVar17 = FTOL((float10)(int)local_10 * (float10)*(float *)(uVar13 + 0x28));
+              local_10 = (uint)lVar17 & 0xff;
+              lVar17 = FTOL((float10)(int)local_18 * (float10)*(float *)(uVar13 + 0x2c));
+              local_18 = (uint)lVar17 & 0xff;
               local_30 = local_30 | 0x8000;
             }
-            if (bVar7) {
+            if (bVar8) {
               if (g_dwRdroid_curColorEffects == 0) {
-                uVar15 = 0;
+                uVar16 = 0;
                 local_1c = 0;
               }
               if (UINT_00900024 == 0) {
@@ -1132,30 +1125,30 @@ LAB_004071fa:
               }
             }
             uVar13 = local_18;
-            if (bVar8) {
-              lVar16 = FTOL((float10)(int)local_1c * (float10)(float)local_58);
-              uVar15 = uVar15 + (int)lVar16;
-              local_1c = uVar15;
-              lVar16 = FTOL((float10)(int)local_10 * (float10)(float)local_60);
-              local_10 = local_10 + (int)lVar16;
-              lVar16 = FTOL((float10)(int)local_18 * (float10)(float)local_5c);
-              local_18 = uVar13 + (int)lVar16;
+            if (bVar9) {
+              lVar17 = FTOL((float10)(int)local_1c * (float10)(float)local_58);
+              uVar16 = uVar16 + (int)lVar17;
+              local_1c = uVar16;
+              lVar17 = FTOL((float10)(int)local_10 * (float10)(float)local_60);
+              local_10 = local_10 + (int)lVar17;
+              lVar17 = FTOL((float10)(int)local_18 * (float10)(float)local_5c);
+              local_18 = uVar13 + (int)lVar17;
             }
             if (FLOAT_00900044 < 1.0) {
-              lVar16 = FTOL((float10)(int)local_1c * (float10)FLOAT_00900044);
-              uVar15 = (uint)lVar16;
-              lVar16 = FTOL((float10)(int)local_10 * (float10)FLOAT_00900044);
-              local_10 = (uint)lVar16;
-              lVar16 = FTOL((float10)(int)local_18 * (float10)FLOAT_00900044);
-              local_18 = (uint)lVar16;
+              lVar17 = FTOL((float10)(int)local_1c * (float10)FLOAT_00900044);
+              uVar16 = (uint)lVar17;
+              lVar17 = FTOL((float10)(int)local_10 * (float10)FLOAT_00900044);
+              local_10 = (uint)lVar17;
+              lVar17 = FTOL((float10)(int)local_18 * (float10)FLOAT_00900044);
+              local_18 = (uint)lVar17;
             }
-            if ((int)uVar15 < 0) {
-              uVar15 = 0;
+            if ((int)uVar16 < 0) {
+              uVar16 = 0;
             }
-            else if (0xff < (int)uVar15) {
-              uVar15 = 0xff;
+            else if (0xff < (int)uVar16) {
+              uVar16 = 0xff;
             }
-            local_1c = uVar15 & 0xff;
+            local_1c = uVar16 & 0xff;
             if ((int)local_10 < 0) {
               local_10 = 0;
             }
@@ -1170,45 +1163,44 @@ LAB_004071fa:
               local_18 = 0xff;
             }
             local_18 = local_18 & 0xff;
-            iVar2 = *(int *)(puVar14 + 0x24);
+            pfVar2 = pPVar15->pTexVertices;
             *(uint *)(&DAT_006f0fc8 + local_14) =
                  ((local_1c | PUN(uint,(float)local_20)) << 8 | local_10) << 8 | local_18;
-            iVar11 = local_8 * 8;
-            iVar12 = local_8 * 8;
             g_dwTotalVerts = g_dwTotalVerts + 1;
-            local_8 = local_8 + 1;
-            *(float *)(&DAT_006f0fd0 + local_14) = *(float *)(iVar2 + iVar11) / local_7c[0];
-            uVar15 = *(uint *)(puVar14 + 0x1c);
-            *(float *)(&DAT_006f0fd4 + local_14) = *(float *)(iVar2 + iVar12 + 4) / local_7c[1];
+            uVar13 = local_8 + 1;
+            *(float *)(&DAT_006f0fd0 + local_14) = pfVar2[local_8 * 2] / local_7c[0];
+            uVar16 = pPVar15->dwNumVertices;
+            *(float *)(&DAT_006f0fd4 + local_14) = pfVar2[local_8 * 2 + 1] / local_7c[1];
             local_24 = local_24 + 0xc;
-          } while (local_8 < uVar15);
+            local_8 = uVar13;
+          } while (uVar13 < uVar16);
         }
-        uVar15 = *(uint *)(puVar14 + 0x1c);
-        if (uVar15 < 4) {
-          iVar11 = g_dwTotalNormalTris * 0x14;
-          *(uint *)(&DAT_006cbfb8 + iVar11) = uVar9;
-          *(uint *)(&DAT_006cbfb4 + iVar11) = uVar9 + 1;
-          *(uint *)(&g_aHWNormalTris + iVar11) = uVar9 + 2;
+        uVar16 = pPVar15->dwNumVertices;
+        if (uVar16 < 4) {
+          iVar12 = g_dwTotalNormalTris * 0x14;
+          *(uint *)(&DAT_006cbfb8 + iVar12) = uVar10;
+          *(uint *)(&DAT_006cbfb4 + iVar12) = uVar10 + 1;
+          *(uint *)(&g_aHWNormalTris + iVar12) = uVar10 + 2;
           g_dwTotalNormalTris = g_dwTotalNormalTris + 1;
-          *(uint *)(&DAT_006cbfbc + iVar11) = local_30;
-          *(uint *)(&DAT_006cbfc0 + iVar11) = local_40;
+          *(uint *)(&DAT_006cbfbc + iVar12) = local_30;
+          *(uint *)(&DAT_006cbfc0 + iVar12) = local_40;
         }
         else {
-          local_20 = (float)(uVar15 - 2);
+          local_20 = (float)(uVar16 - 2);
           uVar13 = 0;
-          local_34 = uVar15 - 1;
-          uVar15 = 0;
+          local_34 = uVar16 - 1;
+          uVar16 = 0;
           local_8 = 1;
           if (0 < PUN(int,(float)local_20)) {
-            piVar10 = (int *)(&DAT_006cbfb4 + g_dwTotalNormalTris * 0x14);
+            piVar11 = (int *)(&DAT_006cbfb4 + g_dwTotalNormalTris * 0x14);
             g_dwTotalNormalTris = g_dwTotalNormalTris + PUN(int,(float)local_20);
             do {
-              piVar10[1] = uVar13 + uVar9;
-              *piVar10 = local_8 + uVar9;
-              piVar10[-1] = uVar9 + local_34;
-              piVar10[2] = local_30;
-              piVar10[3] = local_40;
-              if ((~uVar15 & 1) == 0) {
+              piVar11[1] = uVar13 + uVar10;
+              *piVar11 = local_8 + uVar10;
+              piVar11[-1] = uVar10 + local_34;
+              piVar11[2] = local_30;
+              piVar11[3] = local_40;
+              if ((~uVar16 & 1) == 0) {
                 uVar13 = local_34;
                 local_34 = local_34 - 1;
               }
@@ -1216,15 +1208,15 @@ LAB_004071fa:
                 uVar13 = local_8;
                 local_8 = local_8 + 1;
               }
-              piVar10 = piVar10 + 5;
-              uVar15 = uVar15 + 1;
-            } while ((int)uVar15 < PUN(int,(float)local_20));
+              piVar11 = piVar11 + 5;
+              uVar16 = uVar16 + 1;
+            } while ((int)uVar16 < PUN(int,(float)local_20));
           }
         }
       }
     }
 LAB_00407e89:
-    puVar14 = puVar14 + 0x78;
+    pPVar15 = pPVar15 + 1;
     local_64 = local_64 + 1;
     if (g_dwRdCache_numProcFaces <= local_64) {
       rdCache_DrawRenderList();
@@ -1331,474 +1323,472 @@ int __cdecl rdCache_TriCompare(int param_1,int param_2)
    rasterizer entry for each face Original name rdCache_DrawFaceN (the remaster's GrimFandango
    (Linux): aligned call in rdCache_Flush); was rdCache_DrawMesh. */
 
-int __cdecl rdCache_DrawFaceN(void *mesh)
+int __cdecl rdCache_DrawFaceN(ProcEntry *face)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float fVar1;
-  int iVar2;
-  float fVar3;
+  float *pfVar1;
+  float fVar2;
+  void *pvVar3;
   float fVar4;
-  void *pvVar5;
-  int iVar6;
-  uint uVar7;
-  int iVar8;
+  float fVar5;
+  ProcEntry *pPVar6;
+  int iVar7;
+  uint uVar8;
   int iVar9;
   int iVar10;
-  byte *pbVar11;
+  int iVar11;
+  byte *pbVar12;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  pvVar5 = mesh;
-  iVar8 = *(int *)((int)mesh + 8);
-  if (g_nRdroid_curGeometryMode <= *(int *)((int)mesh + 8)) {
-    iVar8 = g_nRdroid_curGeometryMode;
+  pPVar6 = face;
+  iVar9 = face->nGeometryMode;
+  if (g_nRdroid_curGeometryMode <= face->nGeometryMode) {
+    iVar9 = g_nRdroid_curGeometryMode;
   }
-  iVar9 = *(int *)((int)mesh + 0xc);
-  if (g_nRdroid_curLightingMode <= *(int *)((int)mesh + 0xc)) {
-    iVar9 = g_nRdroid_curLightingMode;
+  iVar10 = face->nLightingMode;
+  if (g_nRdroid_curLightingMode <= face->nLightingMode) {
+    iVar10 = g_nRdroid_curLightingMode;
   }
-  mesh = *(void **)((int)mesh + 0x10);
-  if (g_nRdroid_curTextureMode <= (int)mesh) {
-    mesh = (void *)g_nRdroid_curTextureMode;
+  face = (ProcEntry *)face->nTextureMode;
+  if (g_nRdroid_curTextureMode <= (int)face) {
+    face = (ProcEntry *)g_nRdroid_curTextureMode;
   }
-  if (iVar8 == 0) {
+  if (iVar9 == 0) {
     return 0;
   }
-  iVar2 = *(int *)((int)pvVar5 + 0x38);
-  if (iVar2 == 0) {
-    pbVar11 = (byte *)0x0;
+  pvVar3 = pPVar6->pMaterial;
+  if (pvVar3 == (void *)0x0) {
+    pbVar12 = (byte *)0x0;
     goto LAB_00408067;
   }
-  iVar6 = *(int *)((int)pvVar5 + 0x3c);
-  if (iVar6 == -1) {
-    iVar6 = *(int *)(iVar2 + 100);
-    if (iVar6 < 0) {
+  iVar7 = pPVar6->nCel;
+  if (iVar7 == -1) {
+    iVar7 = *(int *)((int)pvVar3 + 100);
+    if (iVar7 < 0) {
 LAB_0040804e:
-      iVar6 = 0;
+      iVar7 = 0;
     }
     else {
-      iVar10 = *(int *)(iVar2 + 0x60) + -1;
-      if (iVar10 < iVar6) {
-        iVar6 = iVar10;
+      iVar11 = *(int *)((int)pvVar3 + 0x60) + -1;
+      if (iVar11 < iVar7) {
+        iVar7 = iVar11;
       }
     }
   }
   else {
-    if (iVar6 < 0) goto LAB_0040804e;
-    iVar10 = *(int *)(iVar2 + 0x60) + -1;
-    if (iVar10 < iVar6) {
-      iVar6 = iVar10;
+    if (iVar7 < 0) goto LAB_0040804e;
+    iVar11 = *(int *)((int)pvVar3 + 0x60) + -1;
+    if (iVar11 < iVar7) {
+      iVar7 = iVar11;
     }
   }
-  pbVar11 = *(byte **)(iVar2 + 0x68 + iVar6 * 4);
-  if ((iVar8 == 4) && ((*pbVar11 & 8) == 0)) {
-    iVar8 = 3;
+  pbVar12 = *(byte **)((int)pvVar3 + iVar7 * 4 + 0x68);
+  if ((iVar9 == 4) && ((*pbVar12 & 8) == 0)) {
+    iVar9 = 3;
   }
 LAB_00408067:
   if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     local_4 = 0.0;
   }
   else {
-    local_4 = *(float *)((int)pvVar5 + 0x40);
+    local_4 = pPVar6->flAlpha;
   }
-  switch(iVar8) {
+  switch(iVar9) {
   case 1:
-    if ((-1 < iVar9) && (iVar9 < 5)) {
-      rdNRaster_DrawNGonLV((int)pvVar5,(int)pbVar11);
+    if ((-1 < iVar10) && (iVar10 < 5)) {
+      rdNRaster_DrawNGonLV((int)pPVar6,(int)pbVar12);
       return 1;
     }
     break;
   case 2:
-    if ((-1 < iVar9) && (iVar9 < 5)) {
-      rdNRaster_DrawNGonLW((int)pvVar5,(int)pbVar11);
+    if ((-1 < iVar10) && (iVar10 < 5)) {
+      rdNRaster_DrawNGonLW((int)pPVar6,(int)pbVar12);
       return 1;
     }
     break;
   case 3:
-    switch(iVar9) {
+    switch(iVar10) {
     case 0:
-      if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-        rdNRaster_DrawNGonLS((int)pvVar5,(int)pbVar11);
+      if ((pPVar6->dwFlags & 2) == 0) {
+        rdNRaster_DrawNGonLS((int)pPVar6,(int)pbVar12);
         return 1;
       }
-      rdNRaster_DrawNGonTLS((int)pvVar5,(int)pbVar11);
+      rdNRaster_DrawNGonTLS((int)pPVar6,(int)pbVar12);
       return 1;
     case 1:
-      if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
-        fVar1 = 0.0;
+      if (pPVar6->flLight < 0.0) {
+        fVar2 = 0.0;
       }
-      else if (1.0 < *(float *)((int)pvVar5 + 0x48)) {
-        fVar1 = 1.0;
+      else if (1.0 < pPVar6->flLight) {
+        fVar2 = 1.0;
       }
       else {
-        fVar1 = *(float *)((int)pvVar5 + 0x48);
+        fVar2 = pPVar6->flLight;
       }
-      if (local_4 < fVar1) {
-        if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
+      if (local_4 < fVar2) {
+        if (pPVar6->flLight < 0.0) {
           local_4 = 0.0;
         }
-        else if (1.0 < *(float *)((int)pvVar5 + 0x48)) {
+        else if (1.0 < pPVar6->flLight) {
           local_4 = 1.0;
         }
         else {
-          local_4 = *(float *)((int)pvVar5 + 0x48);
+          local_4 = pPVar6->flLight;
         }
       }
-      fVar1 = local_4 * 63.0;
-      *(float *)((int)pvVar5 + 0x44) = fVar1;
-      if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-        rdNRaster_DrawNGonFS((int)pvVar5,(int)pbVar11,fVar1);
+      fVar2 = local_4 * 63.0;
+      pPVar6->flLightIndex = fVar2;
+      if ((pPVar6->dwFlags & 2) == 0) {
+        rdNRaster_DrawNGonFS((int)pPVar6,(int)pbVar12,fVar2);
         return 1;
       }
-      rdNRaster_DrawNGonTFS((int)pvVar5,(int)pbVar11,fVar1);
+      rdNRaster_DrawNGonTFS((int)pPVar6,(int)pbVar12,fVar2);
       return 1;
     case 2:
-      fVar1 = *(float *)((int)pvVar5 + 0x48) + *(float *)((int)pvVar5 + 0x44);
-      if (fVar1 < 0.0) {
-        fVar3 = 0.0;
+      fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
+      if (fVar2 < 0.0) {
+        fVar4 = 0.0;
       }
       else {
-        fVar3 = fVar1;
-        if (1.0 < fVar1) {
-          fVar3 = 1.0;
+        fVar4 = fVar2;
+        if (1.0 < fVar2) {
+          fVar4 = 1.0;
         }
       }
-      if (local_4 < fVar3) {
-        if (fVar1 < 0.0) {
+      if (local_4 < fVar4) {
+        if (fVar2 < 0.0) {
           local_4 = 0.0;
         }
         else {
-          local_4 = fVar1;
-          if (1.0 < fVar1) {
+          local_4 = fVar2;
+          if (1.0 < fVar2) {
             local_4 = 1.0;
           }
         }
       }
-      fVar1 = local_4 * 63.0;
-      *(float *)((int)pvVar5 + 0x44) = fVar1;
-      if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-        rdNRaster_DrawNGonFS((int)pvVar5,(int)pbVar11,fVar1);
+      fVar2 = local_4 * 63.0;
+      pPVar6->flLightIndex = fVar2;
+      if ((pPVar6->dwFlags & 2) == 0) {
+        rdNRaster_DrawNGonFS((int)pPVar6,(int)pbVar12,fVar2);
         return 1;
       }
-      rdNRaster_DrawNGonTFS((int)pvVar5,(int)pbVar11,fVar1);
+      rdNRaster_DrawNGonTFS((int)pPVar6,(int)pbVar12,fVar2);
       return 1;
     case 3:
-      uVar7 = 0;
-      if (*(int *)((int)pvVar5 + 0x1c) != 0) {
+      uVar8 = 0;
+      if (pPVar6->dwNumVertices != 0) {
         do {
-          fVar1 = *(float *)((int)pvVar5 + 0x48) +
-                  *(float *)(*(int *)((int)pvVar5 + 0x28) + uVar7 * 4);
-          iVar8 = uVar7 * 4;
-          if (fVar1 < 0.0) {
-            fVar3 = 0.0;
+          fVar2 = pPVar6->flLight + pPVar6->pIntensities[uVar8];
+          pfVar1 = pPVar6->pIntensities + uVar8;
+          if (fVar2 < 0.0) {
+            fVar4 = 0.0;
           }
           else {
-            fVar3 = fVar1;
-            if (1.0 < fVar1) {
-              fVar3 = 1.0;
+            fVar4 = fVar2;
+            if (1.0 < fVar2) {
+              fVar4 = 1.0;
             }
           }
-          fVar4 = local_4;
-          if (local_4 < fVar3) {
-            if (fVar1 < 0.0) {
-              fVar4 = 0.0;
+          fVar5 = local_4;
+          if (local_4 < fVar4) {
+            if (fVar2 < 0.0) {
+              fVar5 = 0.0;
             }
             else {
-              fVar4 = fVar1;
-              if (1.0 < fVar1) {
-                fVar4 = 1.0;
+              fVar5 = fVar2;
+              if (1.0 < fVar2) {
+                fVar5 = 1.0;
               }
             }
           }
-          uVar7 = uVar7 + 1;
-          *(float *)(*(int *)((int)pvVar5 + 0x28) + iVar8) = fVar4 * 63.0;
-        } while (uVar7 < *(uint *)((int)pvVar5 + 0x1c));
+          uVar8 = uVar8 + 1;
+          *pfVar1 = fVar5 * 63.0;
+        } while (uVar8 < pPVar6->dwNumVertices);
       }
-      if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-        rdNRaster_DrawNGonGS((int)pvVar5,(int)pbVar11);
+      if ((pPVar6->dwFlags & 2) == 0) {
+        rdNRaster_DrawNGonGS((int)pPVar6,(int)pbVar12);
         return 1;
       }
-      rdNRaster_DrawNGonTGS((int)pvVar5,(int)pbVar11);
+      rdNRaster_DrawNGonTGS((int)pPVar6,(int)pbVar12);
       return 1;
     }
     break;
   case 4:
-    if (mesh == (void *)0x0) {
-      switch(iVar9) {
+    if (face == (ProcEntry *)0x0) {
+      switch(iVar10) {
       case 0:
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdNRaster_DrawNGonLAT((int)pvVar5,(int)pbVar11);
+        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+          if ((pPVar6->dwFlags & 2) == 0) {
+            rdNRaster_DrawNGonLAT((int)pPVar6,(int)pbVar12);
             return 1;
           }
-          rdNRaster_DrawNGonTLAT((int)pvVar5,(int)pbVar11);
+          rdNRaster_DrawNGonTLAT((int)pPVar6,(int)pbVar12);
           return 1;
         }
-        if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdNRaster_DrawNGonMLAT((int)pvVar5,(int)pbVar11);
+        if ((pPVar6->dwFlags & 2) == 0) {
+          rdNRaster_DrawNGonMLAT((int)pPVar6,(int)pbVar12);
           return 1;
         }
-        rdNRaster_DrawNGonMTLAT((int)pvVar5,(int)pbVar11);
+        rdNRaster_DrawNGonMTLAT((int)pPVar6,(int)pbVar12);
         return 1;
       case 1:
-        if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
-          fVar1 = 0.0;
+        if (pPVar6->flLight < 0.0) {
+          fVar2 = 0.0;
         }
-        else if (1.0 < *(float *)((int)pvVar5 + 0x48)) {
-          fVar1 = 1.0;
+        else if (1.0 < pPVar6->flLight) {
+          fVar2 = 1.0;
         }
         else {
-          fVar1 = *(float *)((int)pvVar5 + 0x48);
+          fVar2 = pPVar6->flLight;
         }
-        if (local_4 < fVar1) {
-          if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
+        if (local_4 < fVar2) {
+          if (pPVar6->flLight < 0.0) {
             local_4 = 0.0;
           }
-          else if (1.0 < *(float *)((int)pvVar5 + 0x48)) {
+          else if (1.0 < pPVar6->flLight) {
             local_4 = 1.0;
           }
           else {
-            local_4 = *(float *)((int)pvVar5 + 0x48);
+            local_4 = pPVar6->flLight;
           }
         }
-        fVar1 = local_4 * 63.0;
-        *(float *)((int)pvVar5 + 0x44) = fVar1;
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdNRaster_DrawNGonFAT((int)pvVar5,(int)pbVar11,fVar1);
+        fVar2 = local_4 * 63.0;
+        pPVar6->flLightIndex = fVar2;
+        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+          if ((pPVar6->dwFlags & 2) == 0) {
+            rdNRaster_DrawNGonFAT((int)pPVar6,(int)pbVar12,fVar2);
             return 1;
           }
-          rdNRaster_DrawNGonTFAT((int)pvVar5,(int)pbVar11,fVar1);
+          rdNRaster_DrawNGonTFAT((int)pPVar6,(int)pbVar12,fVar2);
           return 1;
         }
-        if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdNRaster_DrawNGonMFAT((int)pvVar5,(int)pbVar11,fVar1);
+        if ((pPVar6->dwFlags & 2) == 0) {
+          rdNRaster_DrawNGonMFAT((int)pPVar6,(int)pbVar12,fVar2);
           return 1;
         }
-        rdNRaster_DrawNGonMTFAT((int)pvVar5,(int)pbVar11,fVar1);
+        rdNRaster_DrawNGonMTFAT((int)pPVar6,(int)pbVar12,fVar2);
         return 1;
       case 2:
-        fVar1 = *(float *)((int)pvVar5 + 0x48) + *(float *)((int)pvVar5 + 0x44);
-        if (fVar1 < 0.0) {
-          fVar3 = 0.0;
+        fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
+        if (fVar2 < 0.0) {
+          fVar4 = 0.0;
         }
         else {
-          fVar3 = fVar1;
-          if (1.0 < fVar1) {
-            fVar3 = 1.0;
+          fVar4 = fVar2;
+          if (1.0 < fVar2) {
+            fVar4 = 1.0;
           }
         }
-        if (local_4 < fVar3) {
-          if (fVar1 < 0.0) {
+        if (local_4 < fVar4) {
+          if (fVar2 < 0.0) {
             local_4 = 0.0;
           }
           else {
-            local_4 = fVar1;
-            if (1.0 < fVar1) {
+            local_4 = fVar2;
+            if (1.0 < fVar2) {
               local_4 = 1.0;
             }
           }
         }
-        fVar1 = local_4 * 63.0;
-        *(float *)((int)pvVar5 + 0x44) = fVar1;
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdNRaster_DrawNGonFAT((int)pvVar5,(int)pbVar11,fVar1);
+        fVar2 = local_4 * 63.0;
+        pPVar6->flLightIndex = fVar2;
+        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+          if ((pPVar6->dwFlags & 2) == 0) {
+            rdNRaster_DrawNGonFAT((int)pPVar6,(int)pbVar12,fVar2);
             return 1;
           }
-          rdNRaster_DrawNGonTFAT((int)pvVar5,(int)pbVar11,fVar1);
+          rdNRaster_DrawNGonTFAT((int)pPVar6,(int)pbVar12,fVar2);
           return 1;
         }
-        if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdNRaster_DrawNGonMFAT((int)pvVar5,(int)pbVar11,fVar1);
+        if ((pPVar6->dwFlags & 2) == 0) {
+          rdNRaster_DrawNGonMFAT((int)pPVar6,(int)pbVar12,fVar2);
           return 1;
         }
-        rdNRaster_DrawNGonMTFAT((int)pvVar5,(int)pbVar11,fVar1);
+        rdNRaster_DrawNGonMTFAT((int)pPVar6,(int)pbVar12,fVar2);
         return 1;
       case 3:
-        uVar7 = 0;
-        if (*(int *)((int)pvVar5 + 0x1c) != 0) {
+        uVar8 = 0;
+        if (pPVar6->dwNumVertices != 0) {
           do {
-            fVar1 = *(float *)((int)pvVar5 + 0x48) +
-                    *(float *)(*(int *)((int)pvVar5 + 0x28) + uVar7 * 4);
-            iVar8 = uVar7 * 4;
-            if (fVar1 < 0.0) {
-              fVar3 = 0.0;
+            fVar2 = pPVar6->flLight + pPVar6->pIntensities[uVar8];
+            pfVar1 = pPVar6->pIntensities + uVar8;
+            if (fVar2 < 0.0) {
+              fVar4 = 0.0;
             }
             else {
-              fVar3 = fVar1;
-              if (1.0 < fVar1) {
-                fVar3 = 1.0;
+              fVar4 = fVar2;
+              if (1.0 < fVar2) {
+                fVar4 = 1.0;
               }
             }
-            fVar4 = local_4;
-            if (local_4 < fVar3) {
-              if (fVar1 < 0.0) {
-                fVar4 = 0.0;
+            fVar5 = local_4;
+            if (local_4 < fVar4) {
+              if (fVar2 < 0.0) {
+                fVar5 = 0.0;
               }
               else {
-                fVar4 = fVar1;
-                if (1.0 < fVar1) {
-                  fVar4 = 1.0;
+                fVar5 = fVar2;
+                if (1.0 < fVar2) {
+                  fVar5 = 1.0;
                 }
               }
             }
-            uVar7 = uVar7 + 1;
-            *(float *)(*(int *)((int)pvVar5 + 0x28) + iVar8) = fVar4 * 63.0;
-          } while (uVar7 < *(uint *)((int)pvVar5 + 0x1c));
+            uVar8 = uVar8 + 1;
+            *pfVar1 = fVar5 * 63.0;
+          } while (uVar8 < pPVar6->dwNumVertices);
         }
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) != 0) {
-          if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdNRaster_DrawNGonMGAT((int)pvVar5,(int)pbVar11);
+        if ((**(byte **)(pbVar12 + 0x1c) & 1) != 0) {
+          if ((pPVar6->dwFlags & 2) == 0) {
+            rdNRaster_DrawNGonMGAT((int)pPVar6,(int)pbVar12);
             return 1;
           }
-          rdNRaster_DrawNGonMTGAT((int)pvVar5,(int)pbVar11);
+          rdNRaster_DrawNGonMTGAT((int)pPVar6,(int)pbVar12);
           return 1;
         }
-        if ((*(byte *)((int)pvVar5 + 4) & 2) != 0) {
-          rdNRaster_DrawNGonTGAT((int)pvVar5,(int)pbVar11);
+        if ((pPVar6->dwFlags & 2) != 0) {
+          rdNRaster_DrawNGonTGAT((int)pPVar6,(int)pbVar12);
           return 1;
         }
-        rdNRaster_DrawNGonGAT((int)pvVar5,(int)pbVar11);
+        rdNRaster_DrawNGonGAT((int)pPVar6,(int)pbVar12);
       }
     }
-    else if (mesh == (void *)0x1) {
-      switch(iVar9) {
+    else if (face == (ProcEntry *)0x1) {
+      switch(iVar10) {
       case 0:
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdNRaster_DrawNGonLIT((int)pvVar5,(int)pbVar11);
+        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+          if ((pPVar6->dwFlags & 2) == 0) {
+            rdNRaster_DrawNGonLIT((int)pPVar6,(int)pbVar12);
             return 1;
           }
-          rdNRaster_DrawNGonTLIT((int)pvVar5,(int)pbVar11);
+          rdNRaster_DrawNGonTLIT((int)pPVar6,(int)pbVar12);
           return 1;
         }
-        if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdNRaster_DrawNGonMLIT((int)pvVar5,(int)pbVar11);
+        if ((pPVar6->dwFlags & 2) == 0) {
+          rdNRaster_DrawNGonMLIT((int)pPVar6,(int)pbVar12);
           return 1;
         }
-        rdNRaster_DrawNGonMTLIT((int)pvVar5,(int)pbVar11);
+        rdNRaster_DrawNGonMTLIT((int)pPVar6,(int)pbVar12);
         return 1;
       case 1:
-        if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
-          fVar1 = 0.0;
+        if (pPVar6->flLight < 0.0) {
+          fVar2 = 0.0;
         }
-        else if (1.0 < *(float *)((int)pvVar5 + 0x48)) {
-          fVar1 = 1.0;
+        else if (1.0 < pPVar6->flLight) {
+          fVar2 = 1.0;
         }
         else {
-          fVar1 = *(float *)((int)pvVar5 + 0x48);
+          fVar2 = pPVar6->flLight;
         }
-        if (local_4 < fVar1) {
-          if (*(float *)((int)pvVar5 + 0x48) < 0.0) {
+        if (local_4 < fVar2) {
+          if (pPVar6->flLight < 0.0) {
             local_4 = 0.0;
           }
-          else if (1.0 < *(float *)((int)pvVar5 + 0x48)) {
+          else if (1.0 < pPVar6->flLight) {
             local_4 = 1.0;
           }
           else {
-            local_4 = *(float *)((int)pvVar5 + 0x48);
+            local_4 = pPVar6->flLight;
           }
         }
-        fVar1 = local_4 * 63.0;
-        *(float *)((int)pvVar5 + 0x44) = fVar1;
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdNRaster_DrawNGonFIT((int)pvVar5,(int)pbVar11,fVar1);
+        fVar2 = local_4 * 63.0;
+        pPVar6->flLightIndex = fVar2;
+        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+          if ((pPVar6->dwFlags & 2) == 0) {
+            rdNRaster_DrawNGonFIT((int)pPVar6,(int)pbVar12,fVar2);
             return 1;
           }
-          rdNRaster_DrawNGonTFIT((int)pvVar5,(int)pbVar11,fVar1);
+          rdNRaster_DrawNGonTFIT((int)pPVar6,(int)pbVar12,fVar2);
           return 1;
         }
-        if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdNRaster_DrawNGonMFIT((int)pvVar5,(int)pbVar11,fVar1);
+        if ((pPVar6->dwFlags & 2) == 0) {
+          rdNRaster_DrawNGonMFIT((int)pPVar6,(int)pbVar12,fVar2);
           return 1;
         }
-        rdNRaster_DrawNGonMTFIT((int)pvVar5,(int)pbVar11,fVar1);
+        rdNRaster_DrawNGonMTFIT((int)pPVar6,(int)pbVar12,fVar2);
         return 1;
       case 2:
-        fVar1 = *(float *)((int)pvVar5 + 0x48) + *(float *)((int)pvVar5 + 0x44);
-        if (fVar1 < 0.0) {
-          fVar3 = 0.0;
+        fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
+        if (fVar2 < 0.0) {
+          fVar4 = 0.0;
         }
         else {
-          fVar3 = fVar1;
-          if (1.0 < fVar1) {
-            fVar3 = 1.0;
+          fVar4 = fVar2;
+          if (1.0 < fVar2) {
+            fVar4 = 1.0;
           }
         }
-        if (local_4 < fVar3) {
-          if (fVar1 < 0.0) {
+        if (local_4 < fVar4) {
+          if (fVar2 < 0.0) {
             local_4 = 0.0;
           }
           else {
-            local_4 = fVar1;
-            if (1.0 < fVar1) {
+            local_4 = fVar2;
+            if (1.0 < fVar2) {
               local_4 = 1.0;
             }
           }
         }
-        fVar1 = local_4 * 63.0;
-        *(float *)((int)pvVar5 + 0x44) = fVar1;
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdNRaster_DrawNGonFIT((int)pvVar5,(int)pbVar11,fVar1);
+        fVar2 = local_4 * 63.0;
+        pPVar6->flLightIndex = fVar2;
+        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+          if ((pPVar6->dwFlags & 2) == 0) {
+            rdNRaster_DrawNGonFIT((int)pPVar6,(int)pbVar12,fVar2);
             return 1;
           }
-          rdNRaster_DrawNGonTFIT((int)pvVar5,(int)pbVar11,fVar1);
+          rdNRaster_DrawNGonTFIT((int)pPVar6,(int)pbVar12,fVar2);
           return 1;
         }
-        if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdNRaster_DrawNGonMFIT((int)pvVar5,(int)pbVar11,fVar1);
+        if ((pPVar6->dwFlags & 2) == 0) {
+          rdNRaster_DrawNGonMFIT((int)pPVar6,(int)pbVar12,fVar2);
           return 1;
         }
-        rdNRaster_DrawNGonMTFIT((int)pvVar5,(int)pbVar11,fVar1);
+        rdNRaster_DrawNGonMTFIT((int)pPVar6,(int)pbVar12,fVar2);
         return 1;
       case 3:
-        uVar7 = 0;
-        if (*(int *)((int)pvVar5 + 0x1c) != 0) {
+        uVar8 = 0;
+        if (pPVar6->dwNumVertices != 0) {
           do {
-            fVar1 = *(float *)((int)pvVar5 + 0x48) +
-                    *(float *)(*(int *)((int)pvVar5 + 0x28) + uVar7 * 4);
-            iVar8 = uVar7 * 4;
-            if (fVar1 < 0.0) {
-              fVar3 = 0.0;
+            fVar2 = pPVar6->flLight + pPVar6->pIntensities[uVar8];
+            pfVar1 = pPVar6->pIntensities + uVar8;
+            if (fVar2 < 0.0) {
+              fVar4 = 0.0;
             }
             else {
-              fVar3 = fVar1;
-              if (1.0 < fVar1) {
-                fVar3 = 1.0;
+              fVar4 = fVar2;
+              if (1.0 < fVar2) {
+                fVar4 = 1.0;
               }
             }
-            fVar4 = local_4;
-            if (local_4 < fVar3) {
-              if (fVar1 < 0.0) {
-                fVar4 = 0.0;
+            fVar5 = local_4;
+            if (local_4 < fVar4) {
+              if (fVar2 < 0.0) {
+                fVar5 = 0.0;
               }
               else {
-                fVar4 = fVar1;
-                if (1.0 < fVar1) {
-                  fVar4 = 1.0;
+                fVar5 = fVar2;
+                if (1.0 < fVar2) {
+                  fVar5 = 1.0;
                 }
               }
             }
-            uVar7 = uVar7 + 1;
-            *(float *)(*(int *)((int)pvVar5 + 0x28) + iVar8) = fVar4 * 63.0;
-          } while (uVar7 < *(uint *)((int)pvVar5 + 0x1c));
+            uVar8 = uVar8 + 1;
+            *pfVar1 = fVar5 * 63.0;
+          } while (uVar8 < pPVar6->dwNumVertices);
         }
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-            rdNRaster_DrawNGonGIT((int)pvVar5,(int)pbVar11);
+        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+          if ((pPVar6->dwFlags & 2) == 0) {
+            rdNRaster_DrawNGonGIT((int)pPVar6,(int)pbVar12);
             return 1;
           }
-          rdNRaster_DrawNGonTGIT((int)pvVar5,(int)pbVar11);
+          rdNRaster_DrawNGonTGIT((int)pPVar6,(int)pbVar12);
           return 1;
         }
-        if ((*(byte *)((int)pvVar5 + 4) & 2) == 0) {
-          rdNRaster_DrawNGonMGIT((int)pvVar5,(int)pbVar11);
+        if ((pPVar6->dwFlags & 2) == 0) {
+          rdNRaster_DrawNGonMGIT((int)pPVar6,(int)pbVar12);
           return 1;
         }
-        rdNRaster_DrawNGonMTGIT((int)pvVar5,(int)pbVar11);
+        rdNRaster_DrawNGonMTGIT((int)pPVar6,(int)pbVar12);
         return 1;
       }
     }
@@ -1824,455 +1814,453 @@ uint __cdecl FUN_00408800(void)
 /* Software path with z-buffer Original name rdCache_DrawFaceZ (the remaster's GrimFandango (Linux):
    aligned call in rdCache_Flush); was rdCache_DrawMeshZ. */
 
-int __cdecl rdCache_DrawFaceZ(void *mesh)
+int __cdecl rdCache_DrawFaceZ(ProcEntry *face)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  float fVar2;
+  float *pfVar1;
+  void *pvVar2;
   float fVar3;
-  void *pvVar4;
-  int iVar5;
-  uint uVar6;
-  int iVar7;
+  float fVar4;
+  ProcEntry *pPVar5;
+  int iVar6;
+  uint uVar7;
   int iVar8;
   int iVar9;
-  byte *pbVar10;
-  float fVar11;
+  int iVar10;
+  byte *pbVar11;
+  float fVar12;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  pvVar4 = mesh;
-  iVar7 = *(int *)((int)mesh + 8);
-  if (g_nRdroid_curGeometryMode <= *(int *)((int)mesh + 8)) {
-    iVar7 = g_nRdroid_curGeometryMode;
+  pPVar5 = face;
+  iVar8 = face->nGeometryMode;
+  if (g_nRdroid_curGeometryMode <= face->nGeometryMode) {
+    iVar8 = g_nRdroid_curGeometryMode;
   }
-  iVar8 = *(int *)((int)mesh + 0xc);
-  if (g_nRdroid_curLightingMode <= *(int *)((int)mesh + 0xc)) {
-    iVar8 = g_nRdroid_curLightingMode;
+  iVar9 = face->nLightingMode;
+  if (g_nRdroid_curLightingMode <= face->nLightingMode) {
+    iVar9 = g_nRdroid_curLightingMode;
   }
-  mesh = *(void **)((int)mesh + 0x10);
-  if (g_nRdroid_curTextureMode <= (int)mesh) {
-    mesh = (void *)g_nRdroid_curTextureMode;
+  face = (ProcEntry *)face->nTextureMode;
+  if (g_nRdroid_curTextureMode <= (int)face) {
+    face = (ProcEntry *)g_nRdroid_curTextureMode;
   }
-  if (iVar7 == 0) {
+  if (iVar8 == 0) {
     return 0;
   }
-  iVar1 = *(int *)((int)pvVar4 + 0x38);
-  if (iVar1 == 0) {
-    pbVar10 = (byte *)0x0;
+  pvVar2 = pPVar5->pMaterial;
+  if (pvVar2 == (void *)0x0) {
+    pbVar11 = (byte *)0x0;
   }
   else {
-    iVar5 = *(int *)((int)pvVar4 + 0x3c);
-    if (iVar5 == -1) {
-      iVar5 = *(int *)(iVar1 + 100);
-      if (iVar5 < 0) {
+    iVar6 = pPVar5->nCel;
+    if (iVar6 == -1) {
+      iVar6 = *(int *)((int)pvVar2 + 100);
+      if (iVar6 < 0) {
 LAB_00408b6e:
-        iVar5 = 0;
+        iVar6 = 0;
       }
       else {
-        iVar9 = *(int *)(iVar1 + 0x60) + -1;
-        if (iVar9 < iVar5) {
-          iVar5 = iVar9;
+        iVar10 = *(int *)((int)pvVar2 + 0x60) + -1;
+        if (iVar10 < iVar6) {
+          iVar6 = iVar10;
         }
       }
     }
     else {
-      if (iVar5 < 0) goto LAB_00408b6e;
-      iVar9 = *(int *)(iVar1 + 0x60) + -1;
-      if (iVar9 < iVar5) {
-        iVar5 = iVar9;
+      if (iVar6 < 0) goto LAB_00408b6e;
+      iVar10 = *(int *)((int)pvVar2 + 0x60) + -1;
+      if (iVar10 < iVar6) {
+        iVar6 = iVar10;
       }
     }
-    pbVar10 = *(byte **)(iVar1 + 0x68 + iVar5 * 4);
-    if ((iVar7 == 4) && ((*pbVar10 & 8) == 0)) {
-      iVar7 = 3;
+    pbVar11 = *(byte **)((int)pvVar2 + iVar6 * 4 + 0x68);
+    if ((iVar8 == 4) && ((*pbVar11 & 8) == 0)) {
+      iVar8 = 3;
     }
   }
   if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     local_4 = 0.0;
   }
   else {
-    local_4 = *(float *)((int)pvVar4 + 0x40);
+    local_4 = pPVar5->flAlpha;
   }
-  switch(iVar7) {
+  switch(iVar8) {
   case 1:
-    if ((-1 < iVar8) && (iVar8 < 5)) {
-      rdZRaster_DrawNGonLV((int)pvVar4,(int)pbVar10);
+    if ((-1 < iVar9) && (iVar9 < 5)) {
+      rdZRaster_DrawNGonLV((int)pPVar5,(int)pbVar11);
       return 1;
     }
     break;
   case 2:
-    if ((-1 < iVar8) && (iVar8 < 5)) {
-      rdZRaster_DrawNGonLW((int)pvVar4,(int)pbVar10);
+    if ((-1 < iVar9) && (iVar9 < 5)) {
+      rdZRaster_DrawNGonLW((int)pPVar5,(int)pbVar11);
       return 1;
     }
     break;
   case 3:
-    switch(iVar8) {
+    switch(iVar9) {
     case 0:
-      if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-        rdZRaster_DrawNGonLS((int)pvVar4,(int)pbVar10);
+      if ((pPVar5->dwFlags & 2) == 0) {
+        rdZRaster_DrawNGonLS((int)pPVar5,(int)pbVar11);
         return 1;
       }
-      rdZRaster_DrawNGonTLS((int)pvVar4,(int)pbVar10);
+      rdZRaster_DrawNGonTLS((int)pPVar5,(int)pbVar11);
       return 1;
     case 1:
-      fVar11 = 0.0;
-      *(undefined4 *)((int)pvVar4 + 0x44) = 0;
-      if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-        rdZRaster_DrawNGonTFS((int)pvVar4,(int)pbVar10,0.0);
+      fVar12 = 0.0;
+      pPVar5->flLightIndex = 0.0;
+      if ((pPVar5->dwFlags & 2) != 0) {
+        rdZRaster_DrawNGonTFS((int)pPVar5,(int)pbVar11,0.0);
         return 1;
       }
       break;
     case 2:
-      fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
-      if (fVar11 < 0.0) {
-        fVar2 = 0.0;
+      fVar12 = pPVar5->flLight + pPVar5->flLightIndex;
+      if (fVar12 < 0.0) {
+        fVar3 = 0.0;
       }
       else {
-        fVar2 = fVar11;
-        if (1.0 < fVar11) {
-          fVar2 = 1.0;
+        fVar3 = fVar12;
+        if (1.0 < fVar12) {
+          fVar3 = 1.0;
         }
       }
-      if (local_4 < fVar2) {
-        if (fVar11 < 0.0) {
+      if (local_4 < fVar3) {
+        if (fVar12 < 0.0) {
           local_4 = 0.0;
         }
         else {
-          local_4 = fVar11;
-          if (1.0 < fVar11) {
+          local_4 = fVar12;
+          if (1.0 < fVar12) {
             local_4 = 1.0;
           }
         }
       }
-      fVar11 = local_4 * 63.0;
-      *(float *)((int)pvVar4 + 0x44) = fVar11;
-      if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-        rdZRaster_DrawNGonTFS((int)pvVar4,(int)pbVar10,fVar11);
+      fVar12 = local_4 * 63.0;
+      pPVar5->flLightIndex = fVar12;
+      if ((pPVar5->dwFlags & 2) != 0) {
+        rdZRaster_DrawNGonTFS((int)pPVar5,(int)pbVar11,fVar12);
         return 1;
       }
       break;
     case 3:
-      uVar6 = 0;
-      if (*(int *)((int)pvVar4 + 0x1c) != 0) {
+      uVar7 = 0;
+      if (pPVar5->dwNumVertices != 0) {
         do {
-          fVar11 = *(float *)(*(int *)((int)pvVar4 + 0x28) + uVar6 * 4) +
-                   *(float *)((int)pvVar4 + 0x48);
-          iVar7 = uVar6 * 4;
-          if (fVar11 < 0.0) {
-            fVar2 = 0.0;
+          fVar12 = pPVar5->pIntensities[uVar7] + pPVar5->flLight;
+          pfVar1 = pPVar5->pIntensities + uVar7;
+          if (fVar12 < 0.0) {
+            fVar3 = 0.0;
           }
           else {
-            fVar2 = fVar11;
-            if (1.0 < fVar11) {
-              fVar2 = 1.0;
+            fVar3 = fVar12;
+            if (1.0 < fVar12) {
+              fVar3 = 1.0;
             }
           }
-          fVar3 = local_4;
-          if (local_4 < fVar2) {
-            if (fVar11 < 0.0) {
-              fVar3 = 0.0;
+          fVar4 = local_4;
+          if (local_4 < fVar3) {
+            if (fVar12 < 0.0) {
+              fVar4 = 0.0;
             }
             else {
-              fVar3 = fVar11;
-              if (1.0 < fVar11) {
-                fVar3 = 1.0;
+              fVar4 = fVar12;
+              if (1.0 < fVar12) {
+                fVar4 = 1.0;
               }
             }
           }
-          uVar6 = uVar6 + 1;
-          *(float *)(*(int *)((int)pvVar4 + 0x28) + iVar7) = fVar3 * 63.0;
-        } while (uVar6 < *(uint *)((int)pvVar4 + 0x1c));
+          uVar7 = uVar7 + 1;
+          *pfVar1 = fVar4 * 63.0;
+        } while (uVar7 < pPVar5->dwNumVertices);
       }
-      if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-        rdZRaster_DrawNGonGS((int)pvVar4,(int)pbVar10);
+      if ((pPVar5->dwFlags & 2) == 0) {
+        rdZRaster_DrawNGonGS((int)pPVar5,(int)pbVar11);
         return 1;
       }
-      rdZRaster_DrawNGonTGS((int)pvVar4,(int)pbVar10);
+      rdZRaster_DrawNGonTGS((int)pPVar5,(int)pbVar11);
       return 1;
     default:
       goto switchD_00408bad_default;
     }
-    rdZRaster_DrawNGonFS((int)pvVar4,(int)pbVar10,fVar11);
+    rdZRaster_DrawNGonFS((int)pPVar5,(int)pbVar11,fVar12);
     return 1;
   case 4:
-    if (mesh == (void *)0x0) {
-      switch(iVar8) {
+    if (face == (ProcEntry *)0x0) {
+      switch(iVar9) {
       case 0:
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonLAT((int)pvVar4,(int)pbVar10);
+        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+          if ((pPVar5->dwFlags & 2) == 0) {
+            rdZRaster_DrawNGonLAT((int)pPVar5,(int)pbVar11);
             return 1;
           }
-          rdZRaster_DrawNGonTLAT((int)pvVar4,(int)pbVar10);
+          rdZRaster_DrawNGonTLAT((int)pPVar5,(int)pbVar11);
           return 1;
         }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMLAT((int)pvVar4,(int)pbVar10);
+        if ((pPVar5->dwFlags & 2) == 0) {
+          rdZRaster_DrawNGonMLAT((int)pPVar5,(int)pbVar11);
           return 1;
         }
-        rdZRaster_DrawNGonMTLAT((int)pvVar4,(int)pbVar10);
+        rdZRaster_DrawNGonMTLAT((int)pPVar5,(int)pbVar11);
         return 1;
       case 1:
-        if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
-          fVar11 = 0.0;
+        if (pPVar5->flLight < 0.0) {
+          fVar12 = 0.0;
         }
-        else if (1.0 < *(float *)((int)pvVar4 + 0x48)) {
-          fVar11 = 1.0;
+        else if (1.0 < pPVar5->flLight) {
+          fVar12 = 1.0;
         }
         else {
-          fVar11 = *(float *)((int)pvVar4 + 0x48);
+          fVar12 = pPVar5->flLight;
         }
-        if (local_4 < fVar11) {
-          if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
+        if (local_4 < fVar12) {
+          if (pPVar5->flLight < 0.0) {
             local_4 = 0.0;
           }
-          else if (1.0 < *(float *)((int)pvVar4 + 0x48)) {
+          else if (1.0 < pPVar5->flLight) {
             local_4 = 1.0;
           }
           else {
-            local_4 = *(float *)((int)pvVar4 + 0x48);
+            local_4 = pPVar5->flLight;
           }
         }
-        fVar11 = local_4 * 63.0;
-        *(float *)((int)pvVar4 + 0x44) = fVar11;
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonFAT((int)pvVar4,(int)pbVar10,fVar11);
+        fVar12 = local_4 * 63.0;
+        pPVar5->flLightIndex = fVar12;
+        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+          if ((pPVar5->dwFlags & 2) == 0) {
+            rdZRaster_DrawNGonFAT((int)pPVar5,(int)pbVar11,fVar12);
             return 1;
           }
-          rdZRaster_DrawNGonTFAT((int)pvVar4,(int)pbVar10,fVar11);
+          rdZRaster_DrawNGonTFAT((int)pPVar5,(int)pbVar11,fVar12);
           return 1;
         }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFAT((int)pvVar4,(int)pbVar10,fVar11);
+        if ((pPVar5->dwFlags & 2) == 0) {
+          rdZRaster_DrawNGonMFAT((int)pPVar5,(int)pbVar11,fVar12);
           return 1;
         }
-        rdZRaster_DrawNGonMTFAT((int)pvVar4,(int)pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFAT((int)pPVar5,(int)pbVar11,fVar12);
         return 1;
       case 2:
-        fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
-        if (fVar11 < 0.0) {
-          fVar2 = 0.0;
+        fVar12 = pPVar5->flLight + pPVar5->flLightIndex;
+        if (fVar12 < 0.0) {
+          fVar3 = 0.0;
         }
         else {
-          fVar2 = fVar11;
-          if (1.0 < fVar11) {
-            fVar2 = 1.0;
+          fVar3 = fVar12;
+          if (1.0 < fVar12) {
+            fVar3 = 1.0;
           }
         }
-        if (local_4 < fVar2) {
-          if (fVar11 < 0.0) {
+        if (local_4 < fVar3) {
+          if (fVar12 < 0.0) {
             local_4 = 0.0;
           }
           else {
-            local_4 = fVar11;
-            if (1.0 < fVar11) {
+            local_4 = fVar12;
+            if (1.0 < fVar12) {
               local_4 = 1.0;
             }
           }
         }
-        fVar11 = local_4 * 63.0;
-        *(float *)((int)pvVar4 + 0x44) = fVar11;
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonFAT((int)pvVar4,(int)pbVar10,fVar11);
+        fVar12 = local_4 * 63.0;
+        pPVar5->flLightIndex = fVar12;
+        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+          if ((pPVar5->dwFlags & 2) == 0) {
+            rdZRaster_DrawNGonFAT((int)pPVar5,(int)pbVar11,fVar12);
             return 1;
           }
-          rdZRaster_DrawNGonTFAT((int)pvVar4,(int)pbVar10,fVar11);
+          rdZRaster_DrawNGonTFAT((int)pPVar5,(int)pbVar11,fVar12);
           return 1;
         }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFAT((int)pvVar4,(int)pbVar10,fVar11);
+        if ((pPVar5->dwFlags & 2) == 0) {
+          rdZRaster_DrawNGonMFAT((int)pPVar5,(int)pbVar11,fVar12);
           return 1;
         }
-        rdZRaster_DrawNGonMTFAT((int)pvVar4,(int)pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFAT((int)pPVar5,(int)pbVar11,fVar12);
         return 1;
       case 3:
-        uVar6 = 0;
-        if (*(int *)((int)pvVar4 + 0x1c) != 0) {
+        uVar7 = 0;
+        if (pPVar5->dwNumVertices != 0) {
           do {
-            fVar11 = *(float *)(*(int *)((int)pvVar4 + 0x28) + uVar6 * 4) +
-                     *(float *)((int)pvVar4 + 0x48);
-            iVar7 = uVar6 * 4;
-            if (fVar11 < 0.0) {
-              fVar2 = 0.0;
+            fVar12 = pPVar5->pIntensities[uVar7] + pPVar5->flLight;
+            pfVar1 = pPVar5->pIntensities + uVar7;
+            if (fVar12 < 0.0) {
+              fVar3 = 0.0;
             }
             else {
-              fVar2 = fVar11;
-              if (1.0 < fVar11) {
-                fVar2 = 1.0;
+              fVar3 = fVar12;
+              if (1.0 < fVar12) {
+                fVar3 = 1.0;
               }
             }
-            fVar3 = local_4;
-            if (local_4 < fVar2) {
-              if (fVar11 < 0.0) {
-                fVar3 = 0.0;
+            fVar4 = local_4;
+            if (local_4 < fVar3) {
+              if (fVar12 < 0.0) {
+                fVar4 = 0.0;
               }
               else {
-                fVar3 = fVar11;
-                if (1.0 < fVar11) {
-                  fVar3 = 1.0;
+                fVar4 = fVar12;
+                if (1.0 < fVar12) {
+                  fVar4 = 1.0;
                 }
               }
             }
-            uVar6 = uVar6 + 1;
-            *(float *)(*(int *)((int)pvVar4 + 0x28) + iVar7) = fVar3 * 63.0;
-          } while (uVar6 < *(uint *)((int)pvVar4 + 0x1c));
+            uVar7 = uVar7 + 1;
+            *pfVar1 = fVar4 * 63.0;
+          } while (uVar7 < pPVar5->dwNumVertices);
         }
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) != 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonMGAT((int)pvVar4,(int)pbVar10);
+        if ((**(byte **)(pbVar11 + 0x1c) & 1) != 0) {
+          if ((pPVar5->dwFlags & 2) == 0) {
+            rdZRaster_DrawNGonMGAT((int)pPVar5,(int)pbVar11);
             return 1;
           }
-          rdZRaster_DrawNGonMTGAT((int)pvVar4,(int)pbVar10);
+          rdZRaster_DrawNGonMTGAT((int)pPVar5,(int)pbVar11);
           return 1;
         }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) != 0) {
-          rdZRaster_DrawNGonTGAT((int)pvVar4,(int)pbVar10);
+        if ((pPVar5->dwFlags & 2) != 0) {
+          rdZRaster_DrawNGonTGAT((int)pPVar5,(int)pbVar11);
           return 1;
         }
-        rdZRaster_DrawNGonGAT((int)pvVar4,(int)pbVar10);
+        rdZRaster_DrawNGonGAT((int)pPVar5,(int)pbVar11);
       }
     }
-    else if (mesh == (void *)0x1) {
-      switch(iVar8) {
+    else if (face == (ProcEntry *)0x1) {
+      switch(iVar9) {
       case 0:
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonLIT((int)pvVar4,(int)pbVar10);
+        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+          if ((pPVar5->dwFlags & 2) == 0) {
+            rdZRaster_DrawNGonLIT((int)pPVar5,(int)pbVar11);
             return 1;
           }
-          rdZRaster_DrawNGonTLIT((int)pvVar4,(int)pbVar10);
+          rdZRaster_DrawNGonTLIT((int)pPVar5,(int)pbVar11);
           return 1;
         }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMLIT((int)pvVar4,(int)pbVar10);
+        if ((pPVar5->dwFlags & 2) == 0) {
+          rdZRaster_DrawNGonMLIT((int)pPVar5,(int)pbVar11);
           return 1;
         }
-        rdZRaster_DrawNGonMTLIT((int)pvVar4,(int)pbVar10);
+        rdZRaster_DrawNGonMTLIT((int)pPVar5,(int)pbVar11);
         return 1;
       case 1:
-        if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
-          fVar11 = 0.0;
+        if (pPVar5->flLight < 0.0) {
+          fVar12 = 0.0;
         }
-        else if (1.0 < *(float *)((int)pvVar4 + 0x48)) {
-          fVar11 = 1.0;
+        else if (1.0 < pPVar5->flLight) {
+          fVar12 = 1.0;
         }
         else {
-          fVar11 = *(float *)((int)pvVar4 + 0x48);
+          fVar12 = pPVar5->flLight;
         }
-        if (local_4 < fVar11) {
-          if (*(float *)((int)pvVar4 + 0x48) < 0.0) {
+        if (local_4 < fVar12) {
+          if (pPVar5->flLight < 0.0) {
             local_4 = 0.0;
           }
-          else if (1.0 < *(float *)((int)pvVar4 + 0x48)) {
+          else if (1.0 < pPVar5->flLight) {
             local_4 = 1.0;
           }
           else {
-            local_4 = *(float *)((int)pvVar4 + 0x48);
+            local_4 = pPVar5->flLight;
           }
         }
-        fVar11 = local_4 * 63.0;
-        *(float *)((int)pvVar4 + 0x44) = fVar11;
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonFIT((int)pvVar4,(int)pbVar10,fVar11);
+        fVar12 = local_4 * 63.0;
+        pPVar5->flLightIndex = fVar12;
+        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+          if ((pPVar5->dwFlags & 2) == 0) {
+            rdZRaster_DrawNGonFIT((int)pPVar5,(int)pbVar11,fVar12);
             return 1;
           }
-          rdZRaster_DrawNGonTFIT((int)pvVar4,(int)pbVar10,fVar11);
+          rdZRaster_DrawNGonTFIT((int)pPVar5,(int)pbVar11,fVar12);
           return 1;
         }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFIT((int)pvVar4,(int)pbVar10,fVar11);
+        if ((pPVar5->dwFlags & 2) == 0) {
+          rdZRaster_DrawNGonMFIT((int)pPVar5,(int)pbVar11,fVar12);
           return 1;
         }
-        rdZRaster_DrawNGonMTFIT((int)pvVar4,(int)pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFIT((int)pPVar5,(int)pbVar11,fVar12);
         return 1;
       case 2:
-        fVar11 = *(float *)((int)pvVar4 + 0x48) + *(float *)((int)pvVar4 + 0x44);
-        if (fVar11 < 0.0) {
-          fVar2 = 0.0;
+        fVar12 = pPVar5->flLight + pPVar5->flLightIndex;
+        if (fVar12 < 0.0) {
+          fVar3 = 0.0;
         }
         else {
-          fVar2 = fVar11;
-          if (1.0 < fVar11) {
-            fVar2 = 1.0;
+          fVar3 = fVar12;
+          if (1.0 < fVar12) {
+            fVar3 = 1.0;
           }
         }
-        if (local_4 < fVar2) {
-          if (fVar11 < 0.0) {
+        if (local_4 < fVar3) {
+          if (fVar12 < 0.0) {
             local_4 = 0.0;
           }
           else {
-            local_4 = fVar11;
-            if (1.0 < fVar11) {
+            local_4 = fVar12;
+            if (1.0 < fVar12) {
               local_4 = 1.0;
             }
           }
         }
-        fVar11 = local_4 * 63.0;
-        *(float *)((int)pvVar4 + 0x44) = fVar11;
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonFIT((int)pvVar4,(int)pbVar10,fVar11);
+        fVar12 = local_4 * 63.0;
+        pPVar5->flLightIndex = fVar12;
+        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+          if ((pPVar5->dwFlags & 2) == 0) {
+            rdZRaster_DrawNGonFIT((int)pPVar5,(int)pbVar11,fVar12);
             return 1;
           }
-          rdZRaster_DrawNGonTFIT((int)pvVar4,(int)pbVar10,fVar11);
+          rdZRaster_DrawNGonTFIT((int)pPVar5,(int)pbVar11,fVar12);
           return 1;
         }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMFIT((int)pvVar4,(int)pbVar10,fVar11);
+        if ((pPVar5->dwFlags & 2) == 0) {
+          rdZRaster_DrawNGonMFIT((int)pPVar5,(int)pbVar11,fVar12);
           return 1;
         }
-        rdZRaster_DrawNGonMTFIT((int)pvVar4,(int)pbVar10,fVar11);
+        rdZRaster_DrawNGonMTFIT((int)pPVar5,(int)pbVar11,fVar12);
         return 1;
       case 3:
-        uVar6 = 0;
-        if (*(int *)((int)pvVar4 + 0x1c) != 0) {
+        uVar7 = 0;
+        if (pPVar5->dwNumVertices != 0) {
           do {
-            fVar11 = *(float *)(*(int *)((int)pvVar4 + 0x28) + uVar6 * 4) +
-                     *(float *)((int)pvVar4 + 0x48);
-            iVar7 = uVar6 * 4;
-            if (fVar11 < 0.0) {
-              fVar2 = 0.0;
+            fVar12 = pPVar5->pIntensities[uVar7] + pPVar5->flLight;
+            pfVar1 = pPVar5->pIntensities + uVar7;
+            if (fVar12 < 0.0) {
+              fVar3 = 0.0;
             }
             else {
-              fVar2 = fVar11;
-              if (1.0 < fVar11) {
-                fVar2 = 1.0;
+              fVar3 = fVar12;
+              if (1.0 < fVar12) {
+                fVar3 = 1.0;
               }
             }
-            fVar3 = local_4;
-            if (local_4 < fVar2) {
-              if (fVar11 < 0.0) {
-                fVar3 = 0.0;
+            fVar4 = local_4;
+            if (local_4 < fVar3) {
+              if (fVar12 < 0.0) {
+                fVar4 = 0.0;
               }
               else {
-                fVar3 = fVar11;
-                if (1.0 < fVar11) {
-                  fVar3 = 1.0;
+                fVar4 = fVar12;
+                if (1.0 < fVar12) {
+                  fVar4 = 1.0;
                 }
               }
             }
-            uVar6 = uVar6 + 1;
-            *(float *)(*(int *)((int)pvVar4 + 0x28) + iVar7) = fVar3 * 63.0;
-          } while (uVar6 < *(uint *)((int)pvVar4 + 0x1c));
+            uVar7 = uVar7 + 1;
+            *pfVar1 = fVar4 * 63.0;
+          } while (uVar7 < pPVar5->dwNumVertices);
         }
-        if ((**(byte **)(pbVar10 + 0x1c) & 1) == 0) {
-          if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-            rdZRaster_DrawNGonGIT((int)pvVar4,(int)pbVar10);
+        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+          if ((pPVar5->dwFlags & 2) == 0) {
+            rdZRaster_DrawNGonGIT((int)pPVar5,(int)pbVar11);
             return 1;
           }
-          rdZRaster_DrawNGonTGIT((int)pvVar4,(int)pbVar10);
+          rdZRaster_DrawNGonTGIT((int)pPVar5,(int)pbVar11);
           return 1;
         }
-        if ((*(byte *)((int)pvVar4 + 4) & 2) == 0) {
-          rdZRaster_DrawNGonMGIT((int)pvVar4,(int)pbVar10);
+        if ((pPVar5->dwFlags & 2) == 0) {
+          rdZRaster_DrawNGonMGIT((int)pPVar5,(int)pbVar11);
           return 1;
         }
-        rdZRaster_DrawNGonMTGIT((int)pvVar4,(int)pbVar10);
+        rdZRaster_DrawNGonMTGIT((int)pPVar5,(int)pbVar11);
         return 1;
       }
     }

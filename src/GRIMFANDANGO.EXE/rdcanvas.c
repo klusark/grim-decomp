@@ -567,18 +567,18 @@ void __cdecl rdActive_BuildEdges(void)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  byte *pbVar8;
+  ProcEntry *pPVar8;
   undefined *puVar9;
   uint uVar10;
   uint *puVar11;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar10 = 0;
-  pbVar8 = &g_bRdCache_aProcFaces;
+  pPVar8 = g_bRdCache_aProcFaces;
   if (g_dwRdCache_numProcFaces != 0) {
     do {
-      rdActive_AddActiveFace(pbVar8);
-      pbVar8 = pbVar8 + 0x78;
+      rdActive_AddActiveFace((byte *)pPVar8);
+      pPVar8 = pPVar8 + 1;
       uVar10 = uVar10 + 1;
     } while (uVar10 < g_dwRdCache_numProcFaces);
   }

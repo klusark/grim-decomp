@@ -1,0 +1,157 @@
+{
+ "_comment": "The render cache's processed faces (rdCache.c, 2026-11-14): rdCache_GetProcEntry hands out a ProcEntry (0x78 bytes) of the pool g_bRdCache_aProcFaces (0x008ddfc0, 1024 of them) with its vertex, texture-vertex and intensity arrays set; the drawers (rdModel3_DrawFace, rdSprite_Draw, rdPolyline_DrawFace, rdCache_InsertFace) fill it and rdCache_DrawFaceN / Z / User and the hardware path draw it. The first 0x2c bytes match the Jones engine's rdProcEntry (geometry / lighting / texture modes at 8 / 0xc / 0x10, each clamped to the renderer's limit in rdCache_DrawFaceN); after that Grim's record has the three colour intensity arrays, the material at 0x38 and its cel at 0x3c.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "ProcEntry",
+   "size": 120,
+   "comment": "A processed face of the render cache (rdProcEntry, 0x78 bytes): the transformed, clipped and projected polygon with what the rasteriser needs to draw it.",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwExtraData",
+     "0 (rdCache_InsertFace, rdSprite_DrawThing)"
+    ],
+    [
+     4,
+     "uint",
+     "dwFlags",
+     "bit 1 tested by the drawers (rdCache_DrawFaceN); 1 from rdCache_InsertFace, 0 from sprites"
+    ],
+    [
+     8,
+     "int",
+     "nGeometryMode",
+     "0 none .. 3 textured, 4 (downgraded to 3 when the cel has no alpha bit); clamped to g_nRdroid_curGeometryMode"
+    ],
+    [
+     12,
+     "int",
+     "nLightingMode",
+     "clamped to g_nRdroid_curLightingMode (0 .. 4)"
+    ],
+    [
+     16,
+     "int",
+     "nTextureMode",
+     "clamped to g_nRdroid_curTextureMode"
+    ],
+    [
+     28,
+     "uint",
+     "dwNumVertices",
+     "vertices after clipping"
+    ],
+    [
+     32,
+     "float *",
+     "pVertices",
+     "projected vertices, 3 floats each (the cache's vertex pool)"
+    ],
+    [
+     36,
+     "float *",
+     "pTexVertices",
+     "texture coordinates, 2 floats each"
+    ],
+    [
+     40,
+     "float *",
+     "pIntensities",
+     "per-vertex light"
+    ],
+    [
+     44,
+     "float *",
+     "pRedIntensities",
+     "per-vertex red (the same array as pIntensities when not coloured)"
+    ],
+    [
+     48,
+     "float *",
+     "pGreenIntensities",
+     ""
+    ],
+    [
+     52,
+     "float *",
+     "pBlueIntensities",
+     ""
+    ],
+    [
+     56,
+     "void *",
+     "pMaterial",
+     "rdMaterial; 0 = untextured"
+    ],
+    [
+     60,
+     "int",
+     "nCel",
+     "the material's cel, -1 = the material's current cel"
+    ],
+    [
+     64,
+     "float",
+     "flAlpha",
+     "translucency, used with render option 2"
+    ],
+    [
+     68,
+     "float",
+     "flLightIndex",
+     "flLight * 63: the colormap's light row (rdCache_SendFaceListToHardware)"
+    ],
+    [
+     72,
+     "float",
+     "flLight",
+     "face light, clamped to 0 .. 1"
+    ],
+    [
+     80,
+     "int",
+     "nBackFacing",
+     "1 when the face points away from the camera (rdCache_InsertFace: normal . centre > 0)"
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "00407fd0",
+   "index": 0,
+   "type": "ProcEntry *",
+   "name": "face"
+  },
+  {
+   "addr": "00408af0",
+   "index": 0,
+   "type": "ProcEntry *",
+   "name": "face"
+  },
+  {
+   "addr": "00409580",
+   "index": 0,
+   "type": "ProcEntry *",
+   "name": "face"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "004066a0",
+   "type": "ProcEntry *"
+  },
+  {
+   "addr": "00409d50",
+   "type": "ProcEntry *"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "008ddfc0",
+   "type": "ProcEntry[1024]"
+  }
+ ]
+}

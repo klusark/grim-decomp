@@ -49,7 +49,7 @@ sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,Ac
   unsigned char _frame[0xd0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   int count_00;
-  void *pvVar2;
+  ProcEntry *pPVar2;
   void **ppvVar3;
   #define local_b4 (*(uint *)(_frame + (0xd0 - 0xb4)))
   #define local_90 (*(float (*)[36])(_frame + (0xd0 - 0x90)))
@@ -62,23 +62,24 @@ sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,Ac
     }
     count_00 = WalkPlane_ClipPoly(*ppvVar3,verts,count,local_90);
     if ((2 < count_00) &&
-       (pvVar2 = rdCache_InsertFace(local_90,count_00,g_pShadowMaterial), pvVar2 != (void *)0x0)) {
-      fVar1 = (float)*(uint *)((int)pvVar2 + 0x54);
+       (pPVar2 = rdCache_InsertFace(local_90,count_00,g_pShadowMaterial), pPVar2 != (ProcEntry *)0x0
+       )) {
+      fVar1 = (float)*(uint *)&pPVar2->field_0x54;
       if (*minXY < fVar1) {
         fVar1 = *minXY;
       }
       *minXY = fVar1;
-      fVar1 = (float)*(uint *)((int)pvVar2 + 0x5c);
+      fVar1 = (float)*(uint *)&pPVar2->field_0x5c;
       if (minXY[1] < fVar1) {
         fVar1 = minXY[1];
       }
       minXY[1] = fVar1;
-      fVar1 = (float)*(uint *)((int)pvVar2 + 0x58);
+      fVar1 = (float)*(uint *)&pPVar2->field_0x58;
       if (fVar1 < *maxXY) {
         fVar1 = *maxXY;
       }
       *maxXY = fVar1;
-      fVar1 = (float)*(uint *)((int)pvVar2 + 0x60);
+      fVar1 = (float)*(uint *)&pPVar2->field_0x60;
       if (fVar1 < maxXY[1]) {
         fVar1 = maxXY[1];
       }

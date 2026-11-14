@@ -505,26 +505,26 @@ void __cdecl rdCache_AdvanceFrame(void); /* 0x00406650 */
 void __cdecl rdCache_FinishFrame(void); /* 0x00406660 */
 void __cdecl rdCache_Reset(void); /* 0x00406670 */
 void __cdecl rdCache_ClearFrameCounters(void); /* 0x00406690 */
-undefined1 * __cdecl rdCache_GetProcEntry(void); /* 0x004066a0 */
+ProcEntry * __cdecl rdCache_GetProcEntry(void); /* 0x004066a0 */
 void __cdecl rdCache_Flush(void); /* 0x00406770 */
 int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags); /* 0x00406860 */
 uint __cdecl rdCache_SendFaceListToHardware(void); /* 0x00406aa0 */
 void __cdecl std3D_ResetRenderList(void); /* 0x00407ed0 */
 void __cdecl rdCache_DrawRenderList(void); /* 0x00407ef0 */
 int __cdecl rdCache_TriCompare(int param_1,int param_2); /* 0x00407f90 */
-int __cdecl rdCache_DrawFaceN(void *mesh); /* 0x00407fd0 */
+int __cdecl rdCache_DrawFaceN(ProcEntry *face); /* 0x00407fd0 */
 uint __cdecl FUN_00408800(void); /* 0x00408800 */
-int __cdecl rdCache_DrawFaceZ(void *mesh); /* 0x00408af0 */
+int __cdecl rdCache_DrawFaceZ(ProcEntry *face); /* 0x00408af0 */
 
 /* ===== rdmodel.c ===== */
-uint __cdecl rdCache_DrawFaceUser(byte *param_1); /* 0x00409580 */
+uint __cdecl rdCache_DrawFaceUser(ProcEntry *face); /* 0x00409580 */
 uint __cdecl rdCache_ProcFaceCompare(int param_1,int param_2); /* 0x00409d20 */
 void __cdecl rdModel3_DrawHNode(int param_1); /* 0x0040d140 */
 void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix); /* 0x0040d230 */
 uint __cdecl rdModel3_DrawFace(int param_1,int param_2); /* 0x0040d880 */
 
 /* ===== rdprimit3.c ===== */
-void * __cdecl rdCache_InsertFace(float *verts,int count,void *material); /* 0x00409d50 */
+ProcEntry * __cdecl rdCache_InsertFace(float *verts,int count,void *material); /* 0x00409d50 */
 undefined4 __cdecl rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,uint color, uint pattern); /* 0x0040dcc0 */
 void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint a5); /* 0x0040dde0 */
 void __cdecl rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *param_5,uint *param_6, float *param_7); /* 0x0040deb0 */

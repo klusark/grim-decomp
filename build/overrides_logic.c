@@ -268,7 +268,7 @@ undefined4 rdModel3_LoadEntry(int name, undefined4 model)
  * which gets the material and a back-face flag from the plane through the first three camera-space vertices (dot of its
  * normal with the centroid > 0).  The decompiler printed the stack arrays as separate locals that the C compiler does not lay
  * out one after the other (the vertex array ran over the neighbouring variables). */
-void * __cdecl rdCache_InsertFace(float *verts, int count, void *material)
+ProcEntry * __cdecl rdCache_InsertFace(float *verts, int count, void *material)
 {
     float cv[96], proj[96], cen[3], e1[3], e2[3], n[3], avg[3];
     char *cam = (char *)g_pRdCamera_CurCamera;
@@ -315,7 +315,7 @@ void * __cdecl rdCache_InsertFace(float *verts, int count, void *material)
     avg[2] = (float)((long double)cen[2] / count);
     e[0x14] = (((long double)n[0] * avg[0] + (long double)n[1] * avg[1]) + (long double)n[2] * avg[2]) > 0.0L ? 1 : 0;
     rdCache_AddProcFace((void *)0, vc, 1);
-    return e;
+    return (ProcEntry *)e;
 }
 /* ==== rdModel3_CalcRadii (0x0040c8c0) ====
  * Computes the bounding radius of every mesh of a model (the largest vertex distance from the origin, kept in a float
