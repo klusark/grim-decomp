@@ -1004,7 +1004,7 @@
 | 00451460 | rdLight_NewEntry | rdlight.c | 19 |
 | 004514a0 | rdLight_SetAngles | rdlight.c | 25 |
 | 00451510 | rdLight_CalcVertexIntensities | rdlight.c | 1 |
-| 00451800 | rdLight_CalcFaceIntensity | rdlight.c | 1 |
+| 00451800 | rdLight_CalcFaceIntensity | rdlight.c | 54 |
 | 00451b80 | rdPrimit2_DrawLine | rdprimit2.c | 105 |
 | 00451f20 | rdPrimit2_DrawRectangle | rdprimit2.c | 13 |
 | 0045ff00 | Mem_DumpLog | memory.c | 7 |
