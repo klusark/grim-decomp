@@ -1200,10 +1200,10 @@ int __cdecl std3D_DrawRenderList(void); /* 0x00478b40 */
 void __cdecl D3D_SetRenderFlags(uint flags); /* 0x00478c00 */
 void __cdecl std3D_GetValidDimensions(uint param_1,uint param_2,uint *param_3,uint *param_4); /* 0x00479070 */
 void __cdecl std3D_PurgeTextureCache(void); /* 0x00479110 */
-int __cdecl std3D_AddToTextureCache(void *surface,void *texture,int usePalette,int colorKey); /* 0x00479170 */
+int __cdecl std3D_AddToTextureCache(void *surface,Std3DTexture *texture,int usePalette,int colorKey); /* 0x00479170 */
 void __cdecl D3D_FreeAllTextures(void); /* 0x00479860 */
-void __cdecl D3D_LinkTexture(void *param_1); /* 0x004798e0 */
-void __cdecl D3D_UnlinkTexture(void *param_1); /* 0x00479950 */
+void __cdecl D3D_LinkTexture(Std3DTexture *texture); /* 0x004798e0 */
+void __cdecl D3D_UnlinkTexture(Std3DTexture *texture); /* 0x00479950 */
 uint __cdecl D3D_SetVertexLimit(void); /* 0x00479a00 */
 void __cdecl std3D_UpdateFrameCount(int param_1); /* 0x00479a70 */
 uint __cdecl std3D_ClearZBuffer(void); /* 0x00479aa0 */

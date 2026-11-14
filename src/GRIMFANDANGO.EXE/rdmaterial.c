@@ -330,7 +330,7 @@ void __cdecl rdMaterial_FreeEntry(int param_1)
             (**(code_std **)(*(int *)puVar4[-1] + 8))((int *)puVar4[-1]);
             puVar4[0x1d] = 0;
             puVar4[0x22] = 0;
-            D3D_UnlinkTexture(puVar4 + -1);
+            D3D_UnlinkTexture((Std3DTexture *)(puVar4 + -1));
           }
           uVar3 = uVar3 + 1;
           puVar4 = puVar4 + 0x26;
@@ -365,14 +365,16 @@ int __cdecl rdMaterial_AddToTextureCache(void *a,uint *material,int cel,int alt)
       return 1;
     }
     iVar1 = std3D_AddToTextureCache
-                      ((void *)material[cel + 7],material + cel * 0x26 + 0xb,*material & 1,0);
+                      ((void *)material[cel + 7],(Std3DTexture *)(material + cel * 0x26 + 0xb),
+                       *material & 1,0);
     if (iVar1 == 0) {
       return 0;
     }
   }
   else if (material[cel * 0x26 + 0xc1] == 0) {
     iVar1 = std3D_AddToTextureCache
-                      ((void *)material[cel + 7],material + cel * 0x26 + 0xa3,*material & 1,alt);
+                      ((void *)material[cel + 7],(Std3DTexture *)(material + cel * 0x26 + 0xa3),
+                       *material & 1,alt);
     if (iVar1 == 0) {
       return 0;
     }

@@ -102,8 +102,8 @@ extern void * g_pD3dDevice; /* 0x008061e4 */
 extern void * g_pDirect3D; /* 0x00806608 */
 extern uint g_dwD3dRenderFlags; /* 0x00806920 */
 extern uint g_dwD3dDriverCount; /* 0x00806928 */
-extern void * g_pStd3D_CurDevice; /* 0x0080692c */
-extern void * g_pD3dTextureList; /* 0x00806948 */
+extern Std3DDevice * g_pStd3D_CurDevice; /* 0x0080692c */
+extern Std3DTexture * g_pD3dTextureList; /* 0x00806948 */
 extern void * g_pD3dExecuteBuffer; /* 0x00806954 */
 extern GrimServices g_aLowLevelHS; /* 0x00825e90 */
 extern char g_szGrimlib_aFilename[128]; /* 0x008a86f0 */
@@ -1604,7 +1604,7 @@ extern undefined4 UINT_00806938; /* used by 3 fn(s), first 0x004782e0 */
 extern undefined4 UINT_0080693c; /* used by 3 fn(s), first 0x004782e0 */
 extern undefined4 g_dwStd3D_maxVertices; /* used by 3 fn(s), first 0x00406aa0 */
 extern undefined4 UINT_00806944; /* used by 4 fn(s), first 0x004782e0 */
-extern void * PTR_0080694c; /* used by 4 fn(s), first 0x004782e0 */
+extern Std3DTexture * PTR_0080694c; /* used by 4 fn(s), first 0x004782e0 */
 extern undefined4 UINT_00806950; /* used by 2 fn(s), first 0x004782e0 */
 extern undefined DAT_00806958; /* used by 1 fn(s), first 0x004782e0 */
 extern undefined4 UINT_0080695c; /* used by 4 fn(s), first 0x00478770 */

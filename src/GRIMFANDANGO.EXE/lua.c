@@ -13,7 +13,7 @@
 void __cdecl sputLua_Is3DHardwareEnabledL(void)
 
 {
-  if (g_pStd3D_CurDevice != (void *)0x0) {
+  if (g_pStd3D_CurDevice != (Std3DDevice *)0x0) {
     lua_pushnumber(1.0);
     return;
   }
@@ -36,7 +36,7 @@ void __cdecl Lua_SetHardwareState(void)
   iVar2 = lua_lua2C(1);
   uVar1 = UINT_00901758;
   uVar3 = UINT_00900530;
-  if (g_pStd3D_CurDevice == (void *)0x0) {
+  if (g_pStd3D_CurDevice == (Std3DDevice *)0x0) {
     uVar3 = 0xffffffff;
   }
   iVar2 = lua_isnil(iVar2);
@@ -59,7 +59,7 @@ void __cdecl Lua_GetVideoDevices(void)
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   
   lua_pushnumber((float)UINT_00901758);
-  if (g_pStd3D_CurDevice != (void *)0x0) {
+  if (g_pStd3D_CurDevice != (Std3DDevice *)0x0) {
     lua_pushnumber((float)UINT_00900530);
     return;
   }
@@ -88,7 +88,7 @@ void __cdecl Lua_SetVideoDevices(void)
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
   uVar1 = UINT_00901758;
-  if (g_pStd3D_CurDevice == (void *)0x0) {
+  if (g_pStd3D_CurDevice == (Std3DDevice *)0x0) {
     local_4 = 0xffffffff;
   }
   else {

@@ -79,7 +79,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
     return 0;
   }
   UINT_00900530 = driverIdx;
-  g_pStd3D_CurDevice = &UINT_00900b40 + driverIdx * 0x8b;
+  g_pStd3D_CurDevice = (Std3DDevice *)(&UINT_00900b40 + driverIdx * 0x8b);
   if (((useZBuffer == 0) || (*(int *)(&DAT_00900b48 + driverIdx * 0x22c) == 0)) ||
      ((g_dwD3dRenderFlags & 0x1800) == 0)) {
     UINT_004dee60 = 0;
@@ -91,7 +91,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
     if (uVar1 == 0) {
       return 0;
     }
-    UINT_00900534 = (-(uint)((*(uint *)((int)g_pStd3D_CurDevice + 0x2c) & 0x10) != 0) & 0xe) + 2;
+    UINT_00900534 = (-(uint)((g_pStd3D_CurDevice->dwCaps & 0x10) != 0) & 0xe) + 2;
   }
   piStack_a0 = PTR_00905644;
   uStack_a4 = 0x4783ca;
@@ -118,7 +118,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   if (uVar1 == 0) {
     return 0;
   }
-  _DAT_008063fc = *(int *)((int)g_pStd3D_CurDevice + 0x40);
+  _DAT_008063fc = g_pStd3D_CurDevice->dwMaxBufferSize;
   if (_DAT_008063fc == 0) {
     _DAT_008063fc = 0x10000;
   }
@@ -126,7 +126,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   _DAT_008063f4 = 1;
   _DAT_008063f8 = 0;
   UINT_00806400 = 0;
-  g_dwStd3D_maxVertices = *(uint *)((int)g_pStd3D_CurDevice + 0x44);
+  g_dwStd3D_maxVertices = g_pStd3D_CurDevice->dwMaxVertexCount;
   if ((g_dwStd3D_maxVertices == 0) || (0x1ff < g_dwStd3D_maxVertices)) {
     g_dwStd3D_maxVertices = 0x200;
   }
@@ -135,21 +135,21 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   UINT_004dee58 = 1;
   UINT_00806944 = 0;
   D3D_SetTextureLimits
-            (*(int *)((int)g_pStd3D_CurDevice + 0x30),*(int *)((int)g_pStd3D_CurDevice + 0x34),
-             *(int *)((int)g_pStd3D_CurDevice + 0x38),*(int *)((int)g_pStd3D_CurDevice + 0x3c));
-  g_pD3dTextureList = (void *)0x0;
-  PTR_0080694c = (void *)0x0;
+            (g_pStd3D_CurDevice->nMinTexWidth,g_pStd3D_CurDevice->nMinTexHeight,
+             g_pStd3D_CurDevice->nMaxTexWidth,g_pStd3D_CurDevice->nMaxTexHeight);
+  g_pD3dTextureList = (Std3DTexture *)0x0;
+  PTR_0080694c = (Std3DTexture *)0x0;
   _DAT_00900568 =
        D3D_FindTextureFormat(&(g_pVideoMode->format).colorFormat.nColorMode,((unsigned)(uintptr_t)&DAT_00900620),UINT_00806930);
   UINT_00806934 = (uint)(&DAT_00900620 + _DAT_00900568 * 0xa4);
-  if (*(int *)((int)g_pStd3D_CurDevice + 0x10) != 0) {
+  if (g_pStd3D_CurDevice->nPalettedTextures != 0) {
     pvStack_ac = (void *)0x2;
     pcStack_a8 = (code *)0x10;
     uStack_a4 = 5;
     piStack_a0 = (int *)0x5;
     _DAT_009014d8 = D3D_FindTextureFormat((int *)&pvStack_ac,((unsigned)(uintptr_t)&DAT_00900620),UINT_00806930);
     UINT_00806938 = (uint)(&DAT_00900620 + _DAT_009014d8 * 0xa4);
-    if (*(int *)((int)g_pStd3D_CurDevice + 0x18) == 0) {
+    if (g_pStd3D_CurDevice->nUnknown18 == 0) {
       pvStack_ac = (void *)0x2;
       pcStack_a8 = (code *)0x10;
       uStack_a4 = 4;
@@ -206,7 +206,7 @@ void __cdecl D3D_ReleaseDriver(void)
       (**(code_std **)(*(int *)g_pD3dDevice + 8))(g_pD3dDevice);
       g_pD3dDevice = (void *)0x0;
     }
-    g_pStd3D_CurDevice = (void *)0x0;
+    g_pStd3D_CurDevice = (Std3DDevice *)0x0;
     UINT_00806970 = 0;
   }
   return;
@@ -614,8 +614,8 @@ void __cdecl std3D_GetValidDimensions(uint param_1,uint param_2,uint *param_3,ui
     param_2 = UINT_004dee50;
   }
   if (((param_1 < UINT_004dee48) || (param_2 < UINT_004dee4c)) ||
-     ((*(int *)((int)g_pStd3D_CurDevice + 0x1c) != 0 && (param_1 != param_2)))) {
-    if ((*(int *)((int)g_pStd3D_CurDevice + 0x1c) != 0) && (param_1 != param_2)) {
+     ((g_pStd3D_CurDevice->nUnknown1c != 0 && (param_1 != param_2)))) {
+    if ((g_pStd3D_CurDevice->nUnknown1c != 0) && (param_1 != param_2)) {
       if (param_1 <= param_2) {
         param_1 = param_2;
       }
@@ -643,12 +643,12 @@ void __cdecl std3D_GetValidDimensions(uint param_1,uint param_2,uint *param_3,ui
 void __cdecl std3D_PurgeTextureCache(void)
 
 {
-  while (g_pD3dTextureList != (void *)0x0) {
-    (**(code_std **)(**(int **)((int)g_pD3dTextureList + 4) + 8))(*(int **)((int)g_pD3dTextureList + 4))
-    ;
+  while (g_pD3dTextureList != (Std3DTexture *)0x0) {
+    (**(code_std **)(**(int **)&g_pD3dTextureList->field_0x4 + 8))
+              (*(int **)&g_pD3dTextureList->field_0x4);
     (**(code_std **)(**(int **)g_pD3dTextureList + 8))(*(int **)g_pD3dTextureList);
-    *(undefined4 *)((int)g_pD3dTextureList + 0x78) = 0;
-    *(undefined4 *)((int)g_pD3dTextureList + 0x8c) = 0;
+    g_pD3dTextureList->nValid = 0;
+    g_pD3dTextureList->dwFrameStamp = 0;
     D3D_UnlinkTexture(g_pD3dTextureList);
   }
   return;
@@ -660,7 +660,7 @@ void __cdecl std3D_PurgeTextureCache(void)
    limits and converts 8-bit sources to 16-bit Original name std3D_AddToTextureCache (the remaster's
    GrimFandango (Linux): aligned call in rdMaterial_AddToTextureCache); was D3D_CreateTexture. */
 
-int __cdecl std3D_AddToTextureCache(void *surface,void *texture,int usePalette,int colorKey)
+int __cdecl std3D_AddToTextureCache(void *surface,Std3DTexture *texture,int usePalette,int colorKey)
 
 {
   unsigned char _frame[0x170] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -722,8 +722,7 @@ int __cdecl std3D_AddToTextureCache(void *surface,void *texture,int usePalette,i
   }
   local_c = (uint)pvVar3;
   if (((pvVar3 < UINT_004dee48) || (pvVar6 < UINT_004dee4c)) ||
-     ((surface_00 = surface, *(int *)((int)g_pStd3D_CurDevice + 0x1c) != 0 && (pvVar3 != pvVar6))))
-  {
+     ((surface_00 = surface, g_pStd3D_CurDevice->nUnknown1c != 0 && (pvVar3 != pvVar6)))) {
     puVar8 = (uint *)((int)surface + 0xc);
     puVar12 = &local_f0;
     for (iVar4 = 0x13; iVar4 != 0; iVar4 = iVar4 + -1) {
@@ -731,7 +730,7 @@ int __cdecl std3D_AddToTextureCache(void *surface,void *texture,int usePalette,i
       puVar8 = puVar8 + 1;
       puVar12 = puVar12 + 1;
     }
-    if ((*(int *)((int)g_pStd3D_CurDevice + 0x1c) == 0) || (pvVar3 == pvVar6)) {
+    if ((g_pStd3D_CurDevice->nUnknown1c == 0) || (pvVar3 == pvVar6)) {
       if (pvVar3 < UINT_004dee48) {
         pvVar3 = (void *)UINT_004dee48;
       }
@@ -781,18 +780,18 @@ int __cdecl std3D_AddToTextureCache(void *surface,void *texture,int usePalette,i
   }
   surface = pvVar6;
   fStack_1c = (float)((int)surface * local_c);
-  if ((usePalette == 0) || (*(int *)((int)g_pStd3D_CurDevice + 0x10) == 0)) {
+  if ((usePalette == 0) || (g_pStd3D_CurDevice->nPalettedTextures == 0)) {
     if (colorKey == 0) {
-      *(undefined4 *)((int)texture + 0x7c) = 0;
+      *(undefined4 *)&texture->field_0x7c = 0;
       uVar10 = UINT_00806934;
     }
     else {
-      *(undefined4 *)((int)texture + 0x7c) = 1;
+      *(undefined4 *)&texture->field_0x7c = 1;
       uVar10 = UINT_0080693c;
     }
   }
   else {
-    *(undefined4 *)((int)texture + 0x7c) = 1;
+    *(undefined4 *)&texture->field_0x7c = 1;
     uVar10 = UINT_00806938;
     if (colorKey != 0) {
       uVar10 = UINT_0080693c;
@@ -821,7 +820,7 @@ int __cdecl std3D_AddToTextureCache(void *surface,void *texture,int usePalette,i
   iVar4 = (surface_00->format).colorFormat.nColorMode;
   if (iVar4 == 0) {
     stdDisplay_VBufferLock(surface_00);
-    if ((usePalette == 0) || (*(int *)((int)g_pStd3D_CurDevice + 0x10) == 0)) {
+    if ((usePalette == 0) || (g_pStd3D_CurDevice->nPalettedTextures == 0)) {
       if (colorKey == 0) {
         pvVar3 = (void *)0x0;
         if (surface != (void *)0x0) {
@@ -913,7 +912,7 @@ LAB_00479709:
   }
   iVar4 = (**(code_std **)(*(int *)local_8 + 0x80))(local_8,0);
   if (iVar4 == 0) {
-    if ((usePalette != 0) && (*(int *)((int)g_pStd3D_CurDevice + 0x10) == 0)) {
+    if ((usePalette != 0) && (g_pStd3D_CurDevice->nPalettedTextures == 0)) {
       iVar4 = (surface_00->format).colorFormat.nColorMode;
       if (iVar4 == 0) {
         local_28 = UINT_00806408 & 0xffff;
@@ -929,7 +928,7 @@ LAB_00479709:
     if (iVar4 == 0) {
       iVar4 = (**(code_std **)(*(int *)local_8 + 0x58))(local_8,&local_a4);
       if (iVar4 == 0) {
-        Mem_Copy((void *)((int)texture + 8),&local_a4,0x6c);
+        Mem_Copy(&texture->field_0x8,&local_a4,0x6c);
         local_a0 = 0x1007;
         local_3c = 0x4005000;
         iVar4 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&local_a4,&local_18,0);
@@ -955,13 +954,13 @@ LAB_00479709:
               stdDisplay_VBufferFree((VBuffer *)local_30);
             }
             *(uint *)texture = local_14;
-            *(uint *)((int)texture + 4) = local_18;
-            *(uint *)((int)texture + 0x74) = local_2c;
-            *(uint *)((int)texture + 0x80) = uVar10;
-            *(void **)((int)texture + 0x84) = surface;
-            *(float *)((int)texture + 0x88) = fStack_1c;
-            *(undefined4 *)((int)texture + 0x78) = 1;
-            *(uint *)((int)texture + 0x8c) = UINT_004dee58;
+            *(uint *)&texture->field_0x4 = local_18;
+            texture->dwHandle = local_2c;
+            *(uint *)&texture->field_0x80 = uVar10;
+            *(void **)&texture->field_0x84 = surface;
+            texture->nSize = (int)fStack_1c;
+            texture->nValid = 1;
+            texture->dwFrameStamp = UINT_004dee58;
             D3D_LinkTexture(texture);
             return 1;
           }
@@ -995,10 +994,10 @@ LAB_0047940a:
     (**(code_std **)(*(int *)local_14 + 8))(local_14);
   }
   *(undefined4 *)texture = 0;
-  *(undefined4 *)((int)texture + 4) = 0;
-  *(undefined4 *)((int)texture + 0x74) = 0;
-  *(undefined4 *)((int)texture + 0x78) = 0;
-  *(undefined4 *)((int)texture + 0x8c) = 0;
+  *(undefined4 *)&texture->field_0x4 = 0;
+  texture->dwHandle = 0;
+  texture->nValid = 0;
+  texture->dwFrameStamp = 0;
   return 0;
 }
 #undef fStack_1c
@@ -1031,90 +1030,88 @@ void __cdecl D3D_FreeAllTextures(void)
 
 {
   int *piVar1;
-  int *piVar2;
+  Std3DTexture *pSVar2;
+  Std3DTexture *pSVar3;
   
-  piVar2 = g_pD3dTextureList;
-  while (piVar2 != (int *)0x0) {
-    piVar1 = (int *)piVar2[1];
+  pSVar3 = g_pD3dTextureList;
+  while (pSVar3 != (Std3DTexture *)0x0) {
+    piVar1 = *(int **)&pSVar3->field_0x4;
     if (piVar1 != (int *)0x0) {
       (**(code_std **)(*piVar1 + 8))(piVar1);
-      piVar2[1] = 0;
+      *(undefined4 *)&pSVar3->field_0x4 = 0;
     }
-    piVar1 = (int *)*piVar2;
+    piVar1 = *(int **)pSVar3;
     if (piVar1 != (int *)0x0) {
       (**(code_std **)(*piVar1 + 8))(piVar1);
-      *piVar2 = 0;
+      *(int *)pSVar3 = 0;
     }
-    piVar2[0x1e] = 0;
-    piVar2[0x23] = 0;
-    piVar1 = (int *)piVar2[0x25];
-    piVar2[0x25] = 0;
-    piVar2[0x24] = 0;
-    piVar2 = piVar1;
+    pSVar3->nValid = 0;
+    pSVar3->dwFrameStamp = 0;
+    pSVar2 = pSVar3->pNext;
+    pSVar3->pNext = (Std3DTexture *)0x0;
+    pSVar3->pPrev = (Std3DTexture *)0x0;
+    pSVar3 = pSVar2;
   }
-  g_pD3dTextureList = (void *)0x0;
-  PTR_0080694c = (void *)0x0;
+  g_pD3dTextureList = (Std3DTexture *)0x0;
+  PTR_0080694c = (Std3DTexture *)0x0;
   UINT_00806944 = 0;
-  *(undefined4 *)((int)g_pStd3D_CurDevice + 0x14c) =
-       *(undefined4 *)((int)g_pStd3D_CurDevice + 0x148);
+  g_pStd3D_CurDevice->nTextureMemFree = g_pStd3D_CurDevice->dwTextureMemTotal;
   UINT_004dee58 = 1;
   return;
 }
 
 /* ---- 0x004798e0  D3D_LinkTexture ---- */
-void __cdecl D3D_LinkTexture(void *param_1)
+void __cdecl D3D_LinkTexture(Std3DTexture *texture)
 
 {
-  if (g_pD3dTextureList == (void *)0x0) {
-    PTR_0080694c = param_1;
-    g_pD3dTextureList = param_1;
-    *(undefined4 *)((int)param_1 + 0x90) = 0;
-    *(undefined4 *)((int)param_1 + 0x94) = 0;
+  if (g_pD3dTextureList == (Std3DTexture *)0x0) {
+    PTR_0080694c = texture;
+    g_pD3dTextureList = texture;
+    texture->pPrev = (Std3DTexture *)0x0;
+    texture->pNext = (Std3DTexture *)0x0;
   }
   else {
-    *(void **)((int)PTR_0080694c + 0x94) = param_1;
-    *(void **)((int)param_1 + 0x90) = PTR_0080694c;
-    *(undefined4 *)((int)param_1 + 0x94) = 0;
-    PTR_0080694c = param_1;
+    PTR_0080694c->pNext = texture;
+    texture->pPrev = PTR_0080694c;
+    texture->pNext = (Std3DTexture *)0x0;
+    PTR_0080694c = texture;
   }
   UINT_00806944 = UINT_00806944 + 1;
-  *(int *)((int)g_pStd3D_CurDevice + 0x14c) =
-       *(int *)((int)g_pStd3D_CurDevice + 0x14c) - *(int *)((int)param_1 + 0x88);
+  g_pStd3D_CurDevice->nTextureMemFree = g_pStd3D_CurDevice->nTextureMemFree - texture->nSize;
   return;
 }
 
 /* ---- 0x00479950  D3D_UnlinkTexture ---- */
-void __cdecl D3D_UnlinkTexture(void *param_1)
+void __cdecl D3D_UnlinkTexture(Std3DTexture *texture)
 
 {
-  void *pvVar1;
+  Std3DTexture *pSVar1;
   
-  if (param_1 == g_pD3dTextureList) {
-    g_pD3dTextureList = *(void **)((int)param_1 + 0x94);
-    if (g_pD3dTextureList == (void *)0x0) {
-      PTR_0080694c = (void *)0x0;
+  if (texture == g_pD3dTextureList) {
+    g_pD3dTextureList = texture->pNext;
+    if (g_pD3dTextureList == (Std3DTexture *)0x0) {
+      PTR_0080694c = (Std3DTexture *)0x0;
     }
     else {
-      *(undefined4 *)((int)g_pD3dTextureList + 0x90) = 0;
-      if (*(int *)((int)g_pD3dTextureList + 0x94) == 0) {
+      g_pD3dTextureList->pPrev = (Std3DTexture *)0x0;
+      if (g_pD3dTextureList->pNext == (Std3DTexture *)0x0) {
         PTR_0080694c = g_pD3dTextureList;
       }
     }
   }
   else {
-    pvVar1 = *(void **)((int)param_1 + 0x90);
-    if (param_1 == PTR_0080694c) {
-      PTR_0080694c = pvVar1;
-      *(undefined4 *)((int)pvVar1 + 0x94) = 0;
+    pSVar1 = texture->pPrev;
+    if (texture == PTR_0080694c) {
+      PTR_0080694c = pSVar1;
+      pSVar1->pNext = (Std3DTexture *)0x0;
     }
     else {
-      *(undefined4 *)((int)pvVar1 + 0x94) = *(undefined4 *)((int)param_1 + 0x94);
-      *(undefined4 *)(*(int *)((int)param_1 + 0x94) + 0x90) = *(undefined4 *)((int)param_1 + 0x90);
+      pSVar1->pNext = texture->pNext;
+      texture->pNext->pPrev = texture->pPrev;
     }
   }
   UINT_00806944 = UINT_00806944 - 1;
-  *(int *)((int)g_pStd3D_CurDevice + 0x14c) =
-       *(int *)((int)g_pStd3D_CurDevice + 0x14c) + *(int *)((int)param_1 + 0x88);
+  g_pStd3D_CurDevice->nTextureMemFree = g_pStd3D_CurDevice->nTextureMemFree + texture->nSize;
   return;
 }
 
@@ -1160,8 +1157,8 @@ void __cdecl std3D_UpdateFrameCount(int param_1)
 
 {
   *(uint *)(param_1 + 0x8c) = UINT_004dee58;
-  D3D_UnlinkTexture((void *)param_1);
-  D3D_LinkTexture((void *)param_1);
+  D3D_UnlinkTexture((Std3DTexture *)param_1);
+  D3D_LinkTexture((Std3DTexture *)param_1);
   return;
 }
 
@@ -1442,7 +1439,7 @@ uint __cdecl D3D_InitRenderState(void)
   *(undefined4 *)(local_4c + 100) = 0x19;
   uVar2 = D3D_FilterBitsToEnum((byte)UINT_00900534);
   *(uint *)(uVar1 + 0x68) = uVar2;
-  iVar3 = *(int *)((int)g_pStd3D_CurDevice + 0x14);
+  iVar3 = g_pStd3D_CurDevice->nUnknown14;
   *(undefined4 *)(uVar1 + 0x6c) = 0x21;
   if (iVar3 == 0) {
     *(undefined4 *)(uVar1 + 0x70) = 0;
@@ -1612,14 +1609,14 @@ uint __cdecl D3D_CreateZBuffer(int param_1,int param_2)
   PTR_00806964[0x1c] = 0x20000;
   PTR_00806964[5] = param_1;
   PTR_00806964[4] = param_2;
-  if (*(int *)g_pStd3D_CurDevice == 0) {
+  if (g_pStd3D_CurDevice->nHardware == 0) {
     uVar2 = PTR_00806964[0x1c] | 0x800;
   }
   else {
     uVar2 = PTR_00806964[0x1c] | 0x4000;
   }
   PTR_00806964[0x1c] = uVar2;
-  uVar2 = *(uint *)((int)g_pStd3D_CurDevice + 0x1f0);
+  uVar2 = g_pStd3D_CurDevice->dwZBufferBitDepths;
   if ((uVar2 & 0x100) == 0) {
     if ((uVar2 & 0x400) == 0) {
       if ((uVar2 & 0x800) == 0) {
@@ -1973,51 +1970,50 @@ int __cdecl D3D_EvictTexture(uint size)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  undefined4 *puVar2;
+  Std3DTexture *pSVar2;
   uint uVar3;
-  undefined4 *puVar4;
+  Std3DTexture *pSVar4;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar3 = 0xffffffff;
-  puVar4 = (undefined4 *)0x0;
-  for (puVar2 = g_pD3dTextureList; puVar2 != (undefined4 *)0x0; puVar2 = (undefined4 *)puVar2[0x25])
-  {
-    if (puVar2[0x23] != UINT_004dee58) {
-      uVar1 = puVar2[0x22];
+  pSVar4 = (Std3DTexture *)0x0;
+  for (pSVar2 = g_pD3dTextureList; pSVar2 != (Std3DTexture *)0x0; pSVar2 = pSVar2->pNext) {
+    if (pSVar2->dwFrameStamp != UINT_004dee58) {
+      uVar1 = pSVar2->nSize;
       if (uVar1 == size) {
-        (**(code_std **)(*(int *)puVar2[1] + 8))((int *)puVar2[1]);
-        (**(code_std **)(*(int *)*puVar2 + 8))((int *)*puVar2);
-        puVar2[0x1e] = 0;
-        puVar2[0x23] = 0;
-        D3D_UnlinkTexture(puVar2);
+        (**(code_std **)(**(int **)&pSVar2->field_0x4 + 8))(*(int **)&pSVar2->field_0x4);
+        (**(code_std **)(**(int **)pSVar2 + 8))(*(int **)pSVar2);
+        pSVar2->nValid = 0;
+        pSVar2->dwFrameStamp = 0;
+        D3D_UnlinkTexture(pSVar2);
         return 1;
       }
       if ((size < uVar1) && (uVar1 - size < uVar3)) {
         uVar3 = uVar1 - size;
-        puVar4 = puVar2;
+        pSVar4 = pSVar2;
       }
     }
   }
-  puVar2 = g_pD3dTextureList;
-  if (puVar4 == (undefined4 *)0x0) {
-    while (puVar4 = puVar2, puVar4 != (undefined4 *)0x0) {
-      puVar2 = (undefined4 *)puVar4[0x25];
-      if (puVar4[0x23] != UINT_004dee58) {
-        (**(code_std **)(*(int *)puVar4[1] + 8))((int *)puVar4[1]);
-        (**(code_std **)(*(int *)*puVar4 + 8))((int *)*puVar4);
-        puVar4[0x1e] = 0;
-        puVar4[0x23] = 0;
-        D3D_UnlinkTexture(puVar4);
+  pSVar2 = g_pD3dTextureList;
+  if (pSVar4 == (Std3DTexture *)0x0) {
+    while (pSVar4 = pSVar2, pSVar4 != (Std3DTexture *)0x0) {
+      pSVar2 = pSVar4->pNext;
+      if (pSVar4->dwFrameStamp != UINT_004dee58) {
+        (**(code_std **)(**(int **)&pSVar4->field_0x4 + 8))(*(int **)&pSVar4->field_0x4);
+        (**(code_std **)(**(int **)pSVar4 + 8))(*(int **)pSVar4);
+        pSVar4->nValid = 0;
+        pSVar4->dwFrameStamp = 0;
+        D3D_UnlinkTexture(pSVar4);
       }
     }
     (**(code_std **)(*PTR_00806968 + 0xc))(PTR_00806968);
     return 1;
   }
-  (**(code_std **)(*(int *)puVar4[1] + 8))((int *)puVar4[1]);
-  (**(code_std **)(*(int *)*puVar4 + 8))((int *)*puVar4);
-  puVar4[0x1e] = 0;
-  puVar4[0x23] = 0;
-  D3D_UnlinkTexture(puVar4);
+  (**(code_std **)(**(int **)&pSVar4->field_0x4 + 8))(*(int **)&pSVar4->field_0x4);
+  (**(code_std **)(**(int **)pSVar4 + 8))(*(int **)pSVar4);
+  pSVar4->nValid = 0;
+  pSVar4->dwFrameStamp = 0;
+  D3D_UnlinkTexture(pSVar4);
   return 1;
 }
 #undef local_4

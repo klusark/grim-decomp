@@ -1885,3 +1885,17 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
 * build_src.py drops a class qualifier the function's name starts with (`Primitive::PrimitiveObject_Construct`), not
   only one followed by `_` (`Puck::Puck_SetPos`).
 * Clean room 0 of 5457.
+
+## Direct3D device and texture-cache types (2026-11-14)
+
+* names/types_std3d.json: Std3DDevice (0x22c, the driver table at 0x00900b40: hardware / z-buffer / paletted-texture
+  flags, texture size limits, execute buffer size and vertices, texture memory, z-buffer depths, GUID) and
+  Std3DTexture (0x98, the texture cache's record: handle, valid, size, frame stamp, list links). g_pStd3D_CurDevice,
+  g_pD3dTextureList and its tail, std3D_AddToTextureCache's texture, D3D_LinkTexture / D3D_UnlinkTexture.
+  std3d.c: 57 offset accesses -> 3.
+* Fixes std3D_AddToTextureCache: it wrote a texture's size as the bits of a float (`*(float *)(texture + 0x88) =
+  fStack_1c`, the stack slot reused for `(float)(w * h)`); the original stores the integer (MOV [EDI+0x88],ECX). With the
+  field typed int the decompiler converts the value back: `texture->nSize = (int)fStack_1c`. D3D_LinkTexture subtracts
+  the size from the device's free texture memory, so every cached texture took a float's bit pattern off it. Only on the
+  Direct3D path, which the clean room does not run.
+* Clean room 0 of 5457.

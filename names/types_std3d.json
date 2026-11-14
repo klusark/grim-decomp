@@ -1,0 +1,192 @@
+{
+ "_comment": "Direct3D device and texture-cache records (std3D.c, 2026-11-14). Std3DDevice: the table at 0x00900b40 (0x22c bytes per driver, D3D_SelectDriver: g_pStd3D_CurDevice = &table[driverIdx]); Std3DTexture: the 0x98-byte texture record std3D_AddToTextureCache fills and D3D_LinkTexture / D3D_UnlinkTexture keep in the cache list (g_pD3dTextureList, its tail at 0x0080694c). Typing Std3DTexture.nSize as int also fixes std3D_AddToTextureCache: the original stores the size from an integer register (MOV [EDI+0x88],ECX), the generated code stored the float bits of a reused stack slot, `*(float *)(texture + 0x88) = fStack_1c` with fStack_1c = (float)(w * h), so the device's free texture memory went wrong by a float's bit pattern per texture.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "Std3DDevice",
+   "size": 556,
+   "comment": "A Direct3D driver of the display device (0x22c bytes, the table at 0x00900b40).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nHardware",
+     "a hardware device: its z-buffer is created in video memory (DDSCAPS 0x4000), else in system memory (0x800)"
+    ],
+    [
+     8,
+     "int",
+     "nHasZBuffer",
+     "D3D_SelectDriver creates a z-buffer only when set"
+    ],
+    [
+     16,
+     "int",
+     "nPalettedTextures",
+     "8-bit paletted textures (std3D_AddToTextureCache's usePalette, the colormap path of rdCache_SendFaceListToHardware)"
+    ],
+    [
+     20,
+     "int",
+     "nUnknown14",
+     "tested with nUnknown18 before the hardware path uses alpha (rdCache_SendFaceListToHardware)"
+    ],
+    [
+     24,
+     "int",
+     "nUnknown18",
+     "0: D3D_SelectDriver also picks a 4-bit-alpha texture format"
+    ],
+    [
+     28,
+     "int",
+     "nUnknown1c",
+     "non-zero: textures whose width and height differ are handled apart (std3D_AddToTextureCache)"
+    ],
+    [
+     44,
+     "uint",
+     "dwCaps",
+     "bit 0x10 selects the z-buffer mode UINT_00900534 (16 / 2)"
+    ],
+    [
+     48,
+     "int",
+     "nMinTexWidth",
+     "D3D_SetTextureLimits"
+    ],
+    [
+     52,
+     "int",
+     "nMinTexHeight",
+     ""
+    ],
+    [
+     56,
+     "int",
+     "nMaxTexWidth",
+     ""
+    ],
+    [
+     60,
+     "int",
+     "nMaxTexHeight",
+     ""
+    ],
+    [
+     64,
+     "uint",
+     "dwMaxBufferSize",
+     "execute buffer size (0 = 0x10000)"
+    ],
+    [
+     68,
+     "uint",
+     "dwMaxVertexCount",
+     "execute buffer vertices (0 or > 0x1ff: 0x200)"
+    ],
+    [
+     328,
+     "uint",
+     "dwTextureMemTotal",
+     "texture memory"
+    ],
+    [
+     332,
+     "int",
+     "nTextureMemFree",
+     "texture memory left: D3D_LinkTexture subtracts a texture's nSize, D3D_UnlinkTexture adds it"
+    ],
+    [
+     496,
+     "uint",
+     "dwZBufferBitDepths",
+     "DDBD_* the device supports (0x100 32, 0x400 16, 0x800 8 bits; D3D_CreateZBuffer)"
+    ],
+    [
+     540,
+     "byte[16]",
+     "aGuid",
+     "the driver GUID (the registry's Last3DDevice)"
+    ]
+   ]
+  },
+  {
+   "name": "Std3DTexture",
+   "size": 152,
+   "comment": "A texture in the Direct3D texture cache (0x98 bytes, std3D_AddToTextureCache).",
+   "fields": [
+    [
+     116,
+     "uint",
+     "dwHandle",
+     "D3DTEXTUREHANDLE"
+    ],
+    [
+     120,
+     "int",
+     "nValid",
+     "1 while cached"
+    ],
+    [
+     136,
+     "int",
+     "nSize",
+     "bytes of texture memory (D3D_LinkTexture / D3D_UnlinkTexture)"
+    ],
+    [
+     140,
+     "uint",
+     "dwFrameStamp",
+     "frame of the last use (D3D_EvictTexture drops the oldest)"
+    ],
+    [
+     144,
+     "Std3DTexture *",
+     "pPrev",
+     "cache list"
+    ],
+    [
+     148,
+     "Std3DTexture *",
+     "pNext",
+     "cache list"
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "00479170",
+   "index": 1,
+   "type": "Std3DTexture *",
+   "name": "texture"
+  },
+  {
+   "addr": "004798e0",
+   "index": 0,
+   "type": "Std3DTexture *",
+   "name": "texture"
+  },
+  {
+   "addr": "00479950",
+   "index": 0,
+   "type": "Std3DTexture *",
+   "name": "texture"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "0080694c",
+   "type": "Std3DTexture *"
+  },
+  {
+   "addr": "0080692c",
+   "type": "Std3DDevice *"
+  },
+  {
+   "addr": "00806948",
+   "type": "Std3DTexture *"
+  }
+ ]
+}
