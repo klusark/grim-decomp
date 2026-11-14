@@ -349,7 +349,7 @@ void __cdecl Costume_ApplyScale(void *actor,void *componentList)
       if (fVar6 < 0.0) {
         fVar5 = -fVar6;
       }
-      if (fVar5 <= 1e-05) {
+      if (fVar5 <= 1e-05f) {
         fVar6 = 0.0;
       }
       if (fVar6 == 0.0) {
@@ -456,8 +456,6 @@ void __cdecl sputCostume_Draw2D(int param_1)
 
 
 /* ---- 0x00495730  sputCostume_Update ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name sputCostume_Update (the remaster's GrimFandango (Linux): the only unmatched caller
    of rdPuppet_Advance; 1 matched neighbours agree, 0 disagree); was Costume_UpdateAll. */
 
@@ -489,14 +487,12 @@ void __cdecl sputCostume_Update(CostumeNode *costumeList,float dt)
         pvVar1 = *(void **)((int)pvVar1 + 400)) {
       puppet = *(void **)(*(int *)((int)pvVar1 + 0x40) + 0x14);
       if (puppet != (void *)0x0) {
-        rdPuppet_UpdateTracks(puppet,(float)(uVar4 & 0xffffffff) * 0.001);
+        rdPuppet_UpdateTracks(puppet,(float)(uVar4 & 0xffffffff) * 0.001f);
       }
     }
   }
   return;
 }
-#endif
-
 
 /* ---- 0x00495e90  sputCostume_SaveHook ---- */
 /* Callback given to Cos_RegisterSaveHook (costume editor): asks for a .lua/.def file name and

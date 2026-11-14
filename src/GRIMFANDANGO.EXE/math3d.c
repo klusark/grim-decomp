@@ -692,7 +692,7 @@ void __cdecl rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float
   if (fVar1 < 0.0) {
     fVar2 = -fVar1;
   }
-  if (fVar2 <= 1e-05) {
+  if (fVar2 <= 1e-05f) {
     fVar1 = 0.0;
   }
   if (fVar1 == 0.0) {
@@ -707,7 +707,7 @@ void __cdecl rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float
     if (fVar1 < 0.0) {
       fVar2 = -fVar1;
     }
-    if (fVar2 <= 1e-05) {
+    if (fVar2 <= 1e-05f) {
       fVar1 = 0.0;
     }
     if (fVar1 != 0.0) {
@@ -864,7 +864,7 @@ void __cdecl rdMatrix_ExtractAngles34(float *param_1,float *param_2)
   fVar2 = param_1[5];
   fVar5 = SQRT(fVar8);
   fVar6 = -param_1[1];
-  if (0.001 <= fVar5) {
+  if (0.001f <= fVar5) {
     fVar7 = stdMath_ArcSin3(fVar4 / fVar5);
     fVar7 = 90.0 - fVar7;
     if (0.0 < fVar3) {
@@ -881,7 +881,7 @@ void __cdecl rdMatrix_ExtractAngles34(float *param_1,float *param_2)
     param_2[2] = fVar7;
     param_2[1] = 0.0;
   }
-  if (0.001 <= fVar5) {
+  if (0.001f <= fVar5) {
     fVar8 = fVar8 / fVar5;
     if (fVar8 < 1.0) {
       fVar8 = stdMath_ArcSin3(fVar8);
@@ -898,7 +898,7 @@ void __cdecl rdMatrix_ExtractAngles34(float *param_1,float *param_2)
     *param_2 = -*param_2;
   }
   fVar4 = -fVar4;
-  if (0.001 <= fVar5) {
+  if (0.001f <= fVar5) {
     fVar9 = (fVar6 * fVar3 + fVar4 * -fVar9) / SQRT(fVar4 * fVar4 + fVar3 * fVar3);
     if (fVar9 < 1.0) {
       if (-1.0 < fVar9) {
@@ -1412,7 +1412,7 @@ uint __cdecl rdMath_PointsCollinear(float *param_1,float *param_2,float *param_3
   if (fVar1 < 0.0) {
     fVar1 = -fVar1;
   }
-  if ((0.999 <= fVar1) && (fVar1 <= 1.001)) {
+  if ((0.999f <= fVar1) && (fVar1 <= 1.001f)) {
     return 1;
   }
   return 0;

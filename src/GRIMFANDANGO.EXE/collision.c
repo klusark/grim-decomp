@@ -38,7 +38,7 @@ GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax
       }
       fVar1 = 3.4028235e+38;
       if (fVar2 < 3.4028235e+38) {
-        local_8 = ymax - -0.01;
+        local_8 = ymax - -0.01f;
         local_c = local_18;
         local_4 = local_14[1];
         fVar1 = fVar2;
@@ -50,7 +50,7 @@ GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_8 = ymin - 0.01;
+        local_8 = ymin - 0.01f;
         local_c = local_18;
         local_4 = local_14[1];
         fVar1 = fVar2;
@@ -62,7 +62,7 @@ GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_c = xmax - -0.01;
+        local_c = xmax - -0.01f;
         local_8 = local_14[0];
         local_4 = local_14[1];
         fVar1 = fVar2;
@@ -74,7 +74,7 @@ GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_c = xmin - 0.01;
+        local_c = xmin - 0.01f;
         local_8 = local_14[0];
         local_4 = local_14[1];
       }

@@ -64,7 +64,7 @@ undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *param_2)
   }
   actor = pAVar2;
   if (fVar6 < PUN(float,pAVar2)) {
-    actor = PUN(Actor *,(float)((PUN(float,pAVar2) - fVar6) * 0.1 + fVar6));
+    actor = PUN(Actor *,(float)((PUN(float,pAVar2) - fVar6) * 0.1f + fVar6));
   }
   fVar6 = pAVar4->aRot[2];
   if (local_48[0] <= 0.0) {
@@ -360,7 +360,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
         WalkPlane_SnapTo(pWVar12,local_58);
         pfVar17 = &local_4c;
         pfVar10 = sputActor_GetOrientMatrix(other);
-        local_124 = PUN(uint,(float)(local_104 - -0.02));
+        local_124 = PUN(uint,(float)(local_104 - -0.02f));
         fVar26 = 6.713914e-39;
         FindObjectCorners(PUN(int,(float)zmin),PUN(float,local_124),pfVar10,PUN(float,local_50),pfVar17);
         puVar21 = &local_1c;
@@ -1020,11 +1020,11 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
       Puck_InvXform(this,&local_c);
       if (local_c <= 0.0) {
         if (local_34 < 3.0) {
-          local_34 = (local_34 - -90.0) - -90.2;
+          local_34 = (local_34 - -90.0) - -90.2f;
         }
       }
       else if (3.0 < local_34) {
-        local_34 = -90.2 - (90.0 - local_34);
+        local_34 = -90.2f - (90.0 - local_34);
       }
       Puck_Rotate(this,local_34);
       puVar4 = Puck_Forward(this,step,1,1);
@@ -1036,8 +1036,8 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
   Puck_SetPos(this,&local_24);
   this->pSector = pWVar3;
   Puck_OrientToPlane(this,(int)pWVar3);
-  if (0.02 <= step) {
-    step = 0.02;
+  if (0.02f <= step) {
+    step = 0.02f;
   }
   puVar4 = Puck_Forward(this,step,1,1);
   this_00->nActive = 1;
@@ -1278,7 +1278,7 @@ undefined4 __cdecl Planner_FindPath(float *param_1,float *param_2,WalkPlane *pla
     plane->nActive = 0;
     if ((local_1f4 - *param_1) * (local_1f4 - *param_1) +
         (local_1ec - param_1[2]) * (local_1ec - param_1[2]) +
-        (local_1f0 - param_1[1]) * (local_1f0 - param_1[1]) <= 0.0001) {
+        (local_1f0 - param_1[1]) * (local_1f0 - param_1[1]) <= 0.0001f) {
       local_1f8 = 0;
     }
     else {
@@ -1574,7 +1574,7 @@ uint __cdecl TightenPath(void)
       pWVar3 = Planner_SharedSector(&local_c,from);
       pWVar4 = Planner_SharedSector(&local_c,(float *)puVar7);
       if (((pWVar4 != (WalkPlane *)0x0) && (pWVar3 != (WalkPlane *)0x0)) &&
-         (0.0025000002 <
+         (0.0025000002f <
           (local_4 - PUN(float,puVar7[-1])) * (local_4 - PUN(float,puVar7[-1])) +
           (local_8 - PUN(float,puVar7[-2])) * (local_8 - PUN(float,puVar7[-2])) +
           (local_c - *pfVar5) * (local_c - *pfVar5))) {
@@ -1594,7 +1594,7 @@ uint __cdecl TightenPath(void)
     do {
       if (((PUN(float,puVar7[1]) - PUN(float,puVar7[4])) * (PUN(float,puVar7[1]) - PUN(float,puVar7[4])) +
            (PUN(float,*puVar7) - PUN(float,puVar7[3])) * (PUN(float,*puVar7) - PUN(float,puVar7[3])) +
-           (PUN(float,puVar7[-1]) - PUN(float,puVar7[2])) * (PUN(float,puVar7[-1]) - PUN(float,puVar7[2])) < 0.0001)
+           (PUN(float,puVar7[-1]) - PUN(float,puVar7[2])) * (PUN(float,puVar7[-1]) - PUN(float,puVar7[2])) < 0.0001f)
          && (pWVar3 = Planner_SharedSector((float *)(puVar7 + -1),(float *)(puVar7 + 2)),
             uVar8 = g_dwTotWorkingPathPoints, pWVar3 != (WalkPlane *)0x0)) {
         bVar2 = true;

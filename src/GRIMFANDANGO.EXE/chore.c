@@ -48,7 +48,7 @@ void __cdecl sputCostume_FadeKeysIn(void *cosInst,int chore,int ms)
                 *(undefined4 *)(iVar1 + 0x18) = 0;
               }
               rdPuppet_FadeInTrack
-                        (*(void **)(*(int *)(*piVar3 + 0x40) + 0x14),track,(float)ms * 0.001);
+                        (*(void **)(*(int *)(*piVar3 + 0x40) + 0x14),track,(float)ms * 0.001f);
               break;
             }
             iVar4 = iVar4 + 0x134;
@@ -108,7 +108,7 @@ void __cdecl sputCostume_FadeKeysOut(void *cosInst,int chore,int ms)
             }
             if (*(int *)(iVar1 + iVar4 + 0x130) == piVar3[2]) {
               rdPuppet_FadeOutTrack
-                        (*(void **)(*(int *)(*piVar3 + 0x40) + 0x14),track,(float)ms * 0.001);
+                        (*(void **)(*(int *)(*piVar3 + 0x40) + 0x14),track,(float)ms * 0.001f);
               break;
             }
             iVar4 = iVar4 + 0x134;

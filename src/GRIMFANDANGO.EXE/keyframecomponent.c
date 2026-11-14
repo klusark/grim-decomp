@@ -63,7 +63,7 @@ LAB_00497960:
   switch(*(undefined4 *)(&g_aKeyCommands + param_4 * 4)) {
   case 0:
     if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
+      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001f);
     }
     rdPuppet_ResetTrack((int)puppet,track);
     rdPuppet_SetStatus((int)puppet,track,0x20);
@@ -71,7 +71,7 @@ LAB_00497960:
     return;
   case 1:
     if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
+      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001f);
     }
     if ((*(byte *)((int)puppet + track * 0x134 + 8) & 0xc) == 0) {
       rdPuppet_PlayTrack((int)puppet,track);
@@ -80,7 +80,7 @@ LAB_00497960:
     break;
   case 2:
     if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
+      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001f);
     }
     rdPuppet_ResetTrack((int)puppet,track);
     rdPuppet_SetStatus((int)puppet,track,0x40);
@@ -88,7 +88,7 @@ LAB_00497960:
     return;
   case 3:
     if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001);
+      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001f);
     }
     rdPuppet_ResetTrack((int)puppet,track);
     rdPuppet_SetStatus((int)puppet,track,0x80);
@@ -99,7 +99,7 @@ LAB_00497960:
     if (bVar2) {
       fVar1 = (float)param_5;
 LAB_00497bc4:
-      rdPuppet_AdvanceTrack(puppet,track,fVar1 * 0.001);
+      rdPuppet_AdvanceTrack(puppet,track,fVar1 * 0.001f);
       return;
     }
     break;

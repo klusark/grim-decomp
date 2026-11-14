@@ -42,7 +42,7 @@ uint __cdecl rdPolyline_Draw(int param_1,float *param_2)
   local_38[1] = *(float *)(iVar1 + 0x20);
   local_38[2] = 0.0;
   rdMatrix_TransformPoint34(local_88 + 1,local_38,local_78);
-  *(float *)&DAT_007f4e84 = local_88[2] - -0.001;
+  *(float *)&DAT_007f4e84 = local_88[2] - -0.001f;
   *(float *)&DAT_007f4e80 = local_88[1] - *(float *)(iVar1 + 0x28);
   *(float *)&DAT_007f4e88 = local_7c - *(float *)(iVar1 + 0x28);
   *(float *)&DAT_007f4e8c = local_88[1] + *(float *)(iVar1 + 0x28);
@@ -56,7 +56,7 @@ uint __cdecl rdPolyline_Draw(int param_1,float *param_2)
   *(float *)&DAT_007f4e9c = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4ea8 = *(float *)&DAT_007f4e84;
   rdPolyline_DrawFace(param_1,iVar1 + 0x84,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
-  *(float *)&DAT_007f4e84 = local_54[1] - -0.001;
+  *(float *)&DAT_007f4e84 = local_54[1] - -0.001f;
   *(float *)&DAT_007f4e80 = local_54[0] - *(float *)(iVar1 + 0x24);
   *(float *)&DAT_007f4e88 = local_54[2] - *(float *)(iVar1 + 0x24);
   *(float *)&DAT_007f4e8c = local_54[0] + *(float *)(iVar1 + 0x24);

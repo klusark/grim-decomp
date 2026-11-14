@@ -1066,13 +1066,13 @@ int __stdcall LightEd_KeyboardProc(int code,uint wParam,uint lParam)
     uVar3 = (~(lParam >> 0x10) & 0xffff) >> 0xf;
     uVar1 = (&UINT_008d1730)[g_nLightEdSelected * 5];
     if ((uVar3 & (g_dwLightEdLastKey & 0xffff) == wParam) == 0) {
-      g_flLightEdMoveStep = 0.01;
+      g_flLightEdMoveStep = 0.01f;
       g_flLightEdAngleStep = 1.0;
       g_dwLightEdLastKey = CONCAT22(PIECE(g_dwLightEdLastKey,2,2),-(ushort)(uVar3 != 0) & (ushort)wParam)
       ;
     }
     else {
-      g_flLightEdMoveStep = g_flLightEdMoveStep - -0.005;
+      g_flLightEdMoveStep = g_flLightEdMoveStep - -0.005f;
       g_flLightEdAngleStep = g_flLightEdAngleStep - -0.5;
     }
     switch(wParam) {

@@ -81,19 +81,19 @@ uint __cdecl SpriteRequester(uint param_1,int param_2,int param_3,float param_4,
       uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
       if (uVar2 != 0) {
         puVar3 = atoi(uVar2);
-        local_44 = (float)(int)puVar3 * 0.01;
+        local_44 = (float)(int)puVar3 * 0.01f;
         uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
-        local_50[2] = (float)(int)puVar3 * 0.01;
+        local_50[2] = (float)(int)puVar3 * 0.01f;
         uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
-        local_50[0] = (float)(int)puVar3 * 0.01;
+        local_50[0] = (float)(int)puVar3 * 0.01f;
         uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
-        local_50[1] = (float)(int)puVar3 * 0.01;
+        local_50[1] = (float)(int)puVar3 * 0.01f;
         uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
-        param_4 = (float)(int)puVar3 * 0.01;
+        param_4 = (float)(int)puVar3 * 0.01f;
       }
     }
     piVar6 = (int *)(*g_pSputCosHS->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1026)
@@ -249,8 +249,6 @@ uint * __cdecl SpriteInstancer(int param_1,uint *param_2,int param_3)
 }
 
 /* ---- 0x004986e0  SpriteAdjuster ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Costume tag handler for 'Sprite' (registered by sputCostume_Startup through
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the sprite's Width and Height.
    Original name SpriteAdjuster (the remaster's GrimFandango (Linux): strings: '%s,%d,%d,%d,%d,%d');
@@ -282,25 +280,25 @@ uint __cdecl SpriteAdjuster(uint *param_1,uint param_2)
   local_2c = (uint)&DAT_004ea870;
   local_28 = (uint)&DAT_004ea86c;
   local_24 = (uint)&DAT_004ea868;
-  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x4c) * (float10)100.0 - (float10)-0.2);
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x4c) * (float10)100.0 - (float10)-0.2f);
   local_48 = (uint)lVar4;
-  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x50) * (float10)100.0 - (float10)-0.2);
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x50) * (float10)100.0 - (float10)-0.2f);
   local_44 = (uint)lVar4;
-  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xac) * (float10)100.0 - (float10)-0.2);
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xac) * (float10)100.0 - (float10)-0.2f);
   local_40 = (uint)lVar4;
-  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xb0) * (float10)100.0 - (float10)-0.2);
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xb0) * (float10)100.0 - (float10)-0.2f);
   local_3c = (uint)lVar4;
-  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xb4) * (float10)100.0 - (float10)-0.2);
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xb4) * (float10)100.0 - (float10)-0.2f);
   local_38 = (uint)lVar4;
   iVar2 = grimPlat_SpinDialog(param_2,(int)&local_34,&local_48,5);
   if (iVar2 != 0) {
-    *(float *)(*piVar1 + 0x4c) = (float)(int)local_48 * 0.01;
-    *(float *)(*piVar1 + 0x50) = (float)(int)local_44 * 0.01;
+    *(float *)(*piVar1 + 0x4c) = (float)(int)local_48 * 0.01f;
+    *(float *)(*piVar1 + 0x50) = (float)(int)local_44 * 0.01f;
     *(float *)(*piVar1 + 0x54) = *(float *)(*piVar1 + 0x4c) * 0.5;
     *(float *)(*piVar1 + 0x58) = *(float *)(*piVar1 + 0x50) * 0.5;
-    *(float *)(*piVar1 + 0xac) = (float)(int)local_40 * 0.01;
-    *(float *)(*piVar1 + 0xb0) = (float)(int)local_3c * 0.01;
-    *(float *)(*piVar1 + 0xb4) = (float)(int)local_38 * 0.01;
+    *(float *)(*piVar1 + 0xac) = (float)(int)local_40 * 0.01f;
+    *(float *)(*piVar1 + 0xb0) = (float)(int)local_3c * 0.01f;
+    *(float *)(*piVar1 + 0xb4) = (float)(int)local_38 * 0.01f;
     puVar3 = (uint *)strtok((byte *)param_2,&DAT_004ea52c);
     sprintf((char *)local_20,s__s__d__d__d__d__d_004ea854,puVar3,local_48,local_44,local_40,local_3c
             ,local_38);
@@ -321,6 +319,4 @@ uint __cdecl SpriteAdjuster(uint *param_1,uint param_2)
 #undef local_40
 #undef local_44
 #undef local_48
-
-#endif
 

@@ -643,7 +643,7 @@ void __cdecl Render_DrawDebugGrid(void)
     local_c[1] = local_1c;
     rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                        UINT_008c97c8 & 0xffff,0xff00ff00);
-    local_1c = local_1c - -0.1;
+    local_1c = local_1c - -0.1f;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
   iVar1 = 0x14;
@@ -657,7 +657,7 @@ void __cdecl Render_DrawDebugGrid(void)
     local_c[0] = local_1c;
     rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                        UINT_008c97c8 & 0xffff,0xff00ff00);
-    local_1c = local_1c - -0.1;
+    local_1c = local_1c - -0.1f;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
   local_c[0] = 0.0;
@@ -777,7 +777,7 @@ void __cdecl sputRender_ReverseProject(int x,int y,float *outPos)
                                 (*(int *)(UINT_008c97a4 + 0x5c) +
                                 (*(int *)(UINT_008c97a4 + 0xc) * y + x) * 2) <<
                         ((byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14) &
-                        0x1f)) * 1.5258789e-05;
+                        0x1f)) * 1.5258789e-05f;
     fVar1 = *(float *)((int)g_pRdCamera_CurCamera + 0x3c) * fVar2;
     local_8[0] = 1.0 / fVar2 - 1.0;
     local_c = (1.0 / fVar1) * ((float)x - *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 8));
