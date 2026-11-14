@@ -11,15 +11,26 @@
 #include "globals.h"
 #include "functions.h"
 
+/* (DAT_00900524 / DAT_00900526, globals.h: the x87 control words default and round down, Services_SetCurrent) */
+static int s3_floor_i(float x)
+{
+    int r;
+    __asm__ volatile("fldcw %2\n\tflds %1\n\tfistpl %0\n\tfldcw %3"
+                     : "=m"(r) : "m"(x), "m"(DAT_00900526), "m"(DAT_00900524) : "memory");
+    return r;
+}
+
 /* ==== rdZRaster_DrawNGonLV (0x0042dba0) ====
  * Draws a list of points into the current camera's target (no depth test).  param_1 is the point list record:
  * the pointer to the points at +0x20 (12 bytes each: x float, y float, z float) and the count at +0x1c.  param_2 + 4
  * holds the colour: a byte for an 8 bit target (g_bRdZRaster_color) or a 16 bit pixel from the palette table of the
  * material at param_1 + 0x4c (`*(...+0x348) + 0x7e00 + index * 2`, g_wRdZRaster_RGBcolor).  The target is the camera's
  * surface at +0x5c with a row pitch at +0x18 (bytes for 8 bit, pixels for 16 bit: `pitch >> 1` there, unsigned).
- * Each point is rounded to the nearest integer (ROUND = FRNDINT, round half to even) and written if the target depth
- * is 8 or 16 bpp (camera surface +0x24 of the surface at camera + 4 + 4).  The colour is written for each point
- * in the order of the list; other depths write nothing. */
+ * Each point is rounded down (y, then x: `fldcw [round down]; fld m32; fistp m32; fldcw [default]`, as its no-z twin
+ * rdNRaster_DrawNGonLV, build/overrides_asm_q6.c) and written if the target depth is 8 or 16 bpp (camera surface +0x24
+ * of the surface at camera + 4 + 4).  The colour is written for each point in the order of the list; other depths
+ * write nothing.  (Ghidra prints the FISTP as ROUND() and drops the FLDCW around it: this port first rounded to the
+ * nearest integer, and a point at x.5 or more landed one pixel right or down of the original's, clean room render_g1.) */
 void rdZRaster_DrawNGonLV(int param_1, int param_2)
 {
     int *cam;          /* *(g_pRdCamera_CurCamera + 4) + 4 : the surface record */
@@ -36,8 +47,8 @@ void rdZRaster_DrawNGonLV(int param_1, int param_2)
         g_bRdZRaster_color = *(uint8_t *)(param_2 + 4);
         for (i = 0; i < (int)g_dwRdZRaster_numVertices; i++) {
             pt = (float *)((char *)g_pRdZRaster_aVertices + i * 12);
-            *(uint8_t *)((uintptr_t)(*(int *)((int)cam + 0x18) * (int)ROUND(pt[1]) +
-                                     *(int *)((int)cam + 0x5c) + (int)ROUND(pt[0]))) = g_bRdZRaster_color;
+            int y = s3_floor_i(pt[1]), x = s3_floor_i(pt[0]);
+            *(uint8_t *)((uintptr_t)(*(int *)((int)cam + 0x18) * y + *(int *)((int)cam + 0x5c) + x)) = g_bRdZRaster_color;
         }
     }
     else if (bpp == 16) {
@@ -45,9 +56,9 @@ void rdZRaster_DrawNGonLV(int param_1, int param_2)
                                                 (uint)*(uint8_t *)(param_2 + 4) * 2);
         for (i = 0; i < (int)g_dwRdZRaster_numVertices; i++) {
             pt = (float *)((char *)g_pRdZRaster_aVertices + i * 12);
+            int y = s3_floor_i(pt[1]), x = s3_floor_i(pt[0]);
             *(uint16_t *)(uintptr_t)(*(int *)((int)cam + 0x5c) +
-                                     ((*(uint *)((int)cam + 0x18) >> 1) * (int)ROUND(pt[1]) +
-                                      (int)ROUND(pt[0])) * 2) = g_wRdZRaster_RGBcolor;
+                                     ((*(uint *)((int)cam + 0x18) >> 1) * y + x) * 2) = g_wRdZRaster_RGBcolor;
         }
     }
 }

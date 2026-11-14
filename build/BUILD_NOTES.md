@@ -1662,3 +1662,22 @@ runner failed with 5 of 5333: `camera`, `camera_set` and `setups` crashed the ga
   GRIM_SIMTIME tick), msc_MemSet (returns the count; the twin is void), Zfile_fle_Close (the twin calls the close service
   without its argument).
 * Clean room 5451 of 5457, the same 6 render_g* tests as without the change.
+## Clean room render_modes: diffuse face light and z-buffered points (2026-11-14)
+
+grim-autorun's render_modes.lua (its PR 9) draws a box in every geometry / lighting / texture mode of rdCache_DrawFaceZ;
+6 of its tests differed on the rebuilt exe:
+
+* **Lighting mode 2 (diffuse), opaque faces at full light** (render_g3_l2_y0, render_g4_l2_t*_y0_w / _f).
+  rdLight_CalcFaceIntensity (0x00451800) was compiled from the generated text, which lost a store: the sum is one
+  float at -0x10 and the vector to the light the three floats at -0xc..-0x4, but Ghidra had a `float[3]` at -0x10 and a
+  separate `local_4` at -0x4, so the pointer passed to rdVector_Normalize3Acc (`local_10 + 1`) did not seem to reach
+  -0x4 and the store of z there was dropped as dead: the vector normalised was (dx, dy, stack garbage) and the dot
+  product used the unnormalised z. The frame is retyped in Ghidra (names/types_rdlight.json: `float` at -0x10,
+  `float[3]` at -0xc) and the function is generated again. (It was never reached before: no other test or game face
+  uses mode 2 with the software renderer's light on.)
+* **Geometry mode 1 (points) one pixel off** (render_g1). rdZRaster_DrawNGonLV (overrides_asm_s3.c, ported by reading
+  only) rounded each point to the nearest integer: Ghidra prints `fldcw [round down]; fld; fistp; fldcw [default]` as
+  `ROUND()`. It rounds down now, as its no-z twin rdNRaster_DrawNGonLV (overrides_asm_q6.c, differentially tested) does;
+  a vertex at (346.17, 281.71) is pixel (346, 281) as in the original, not (346, 282).
+
+Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
