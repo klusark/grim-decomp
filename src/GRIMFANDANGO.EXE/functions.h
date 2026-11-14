@@ -554,7 +554,7 @@ void __cdecl rdCamera_SetAmbientLight(void *camera,float ambient); /* 0x0040a750
 void __cdecl rdCamera_AddLight(void *camera,void *light,float *pos); /* 0x0040a760 */
 void __cdecl rdCamera_AdvanceFrame(void); /* 0x0040a7d0 */
 void __cdecl rdModel3_ClearFrameCounters(void); /* 0x0040a860 */
-int __cdecl rdPrimit3_GetScreenCoord(float *world,float *outScreen); /* 0x0040dc30 */
+int __cdecl rdPrimit3_GetScreenCoord(float *world,ScreenCoord *outScreen); /* 0x0040dc30 */
 
 /* ===== renderer.c ===== */
 void __cdecl rdModel3_ActivateClipPlane(uint param_1); /* 0x0040a870 */

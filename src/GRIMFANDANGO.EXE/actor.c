@@ -148,7 +148,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int 
       pbVar3 = (byte *)sputRoom_GetCurrentRoomName();
       iVar5 = _stricmp((byte *)actor->aSetName,pbVar3);
       if (iVar5 == 0) {
-        iVar5 = rdPrimit3_GetScreenCoord(actor->aPos,local_5c);
+        iVar5 = rdPrimit3_GetScreenCoord(actor->aPos,(ScreenCoord *)local_5c);
         if (iVar5 != 0) {
           local_50[0] = local_5c[0];
           local_50[1] = local_5c[1];

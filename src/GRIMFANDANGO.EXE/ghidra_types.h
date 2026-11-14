@@ -223,6 +223,7 @@ typedef struct CostumeNode CostumeNode;
 typedef struct GrimServices GrimServices;
 typedef struct PhonemeEntry PhonemeEntry;
 typedef struct Puck Puck;
+typedef struct ScreenCoord ScreenCoord;
 typedef struct TextContext TextContext;
 typedef struct TextObject TextObject;
 typedef struct WalkPlane WalkPlane;
@@ -430,6 +431,16 @@ _Static_assert(__builtin_offsetof(Puck, pPrev) == 0x54, "Puck.pPrev");
 _Static_assert(__builtin_offsetof(Puck, pNext) == 0x58, "Puck.pNext");
 _Static_assert(__builtin_offsetof(Puck, pSector) == 0x5c, "Puck.pSector");
 _Static_assert(sizeof(Puck) == 0x60, "sizeof Puck");
+/* ScreenCoord: rdPrimit3_GetScreenCoord's output */
+struct ScreenCoord {  /* 0xc */
+    int nX;  /* 0x00: screen x (truncated) */
+    int nY;  /* 0x04: screen y (truncated) */
+    float flZ;  /* 0x08: camera-space depth */
+};
+_Static_assert(__builtin_offsetof(ScreenCoord, nX) == 0x0, "ScreenCoord.nX");
+_Static_assert(__builtin_offsetof(ScreenCoord, nY) == 0x4, "ScreenCoord.nY");
+_Static_assert(__builtin_offsetof(ScreenCoord, flZ) == 0x8, "ScreenCoord.flZ");
+_Static_assert(sizeof(ScreenCoord) == 0xc, "sizeof ScreenCoord");
 /* TextContext: How a text is drawn: font, position, colours, justification (g_SubtitleTextCtx, g_PrintLineTextCtx, g_TextObjectCtx; GetTextParamsFromTable fills it from a Lua table). A text object holds a copy. */
 struct TextContext {  /* 0x30 */
     void *pUnused;  /* 0x00: a pointer (0x008a94b8 in all three contexts of the data), copied with the context but never read */

@@ -10,7 +10,8 @@ A batch is one JSON object:
    "protos":  [{"addr": "00490360", "proto": "Actor * sputActor_ActorDeref(int handle)", "cc": "__cdecl"}],
    "returns": [{"addr": "00490380", "type": "Actor *"}],      # only where the committed signature is complete
    "globals": [{"addr": "008ca758", "type": "Actor *"}],
-   "this":    [{"addr": "004a8310", "type": "Puck *"}]}           # the implicit this of a __thiscall function
+   "this":    [{"addr": "004a8310", "type": "Puck *"}],          # the implicit this of a __thiscall function
+   "locals":  [{"addr": "0049cf60", "name": "local_c", "type": "ScreenCoord"}]}   # a stack local, by its Ghidra name
 Structures of all the batches given are applied first, in dependency order (held by value before the holder); a new
 one is created with its pointers to other batch structures as void * and typed after, so pointer cycles work
 (Actor -> ActorExtra -> TextObject -> Actor). Every entry is idempotent. A new structure changes no decompilation by
@@ -271,6 +272,17 @@ def apply_this(prog, e, log):
         log.append(f"FAIL this {e['addr']}: {str(r)[:200]}")
 
 
+def apply_local(prog, e, log):
+    """A stack local of one function (Ghidra's name for it, local_<offset>): the decompiler keeps the type it is given.
+    Journaled per function address."""
+    if DRY:
+        return
+    r = g.post("set_local_variable_type", program=prog, function_address=e["addr"], variable_name=e["name"],
+               new_type=e["type"])
+    if not g.ok(r):
+        log.append(f"FAIL local {e['addr']} {e['name']}: {str(r)[:200]}")
+
+
 def struct_order(items):
     """Structures held by value come before their holders."""
     names = {s["name"] for _, _, s in items}
@@ -323,6 +335,8 @@ def main(paths):
             apply_return(prog, e, log)
         for e in b.get("globals", []):
             apply_global(prog, e, log)
+        for e in b.get("locals", []):
+            apply_local(prog, e, log)
         print(p, "params", len(b.get("params", [])), "returns", len(b.get("returns", [])),
               "globals", len(b.get("globals", [])))
     for line in log:

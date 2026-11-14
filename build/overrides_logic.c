@@ -604,8 +604,8 @@ float10 stdMath_Tan(float deg)
 /* ==== rdPrimit3_GetScreenCoord (0x0040dc30) ====
  * Lua WorldToScreen helper: moves the world point into camera space, rejects it when the view frustum does not contain it
  * and otherwise runs the camera's projection (function pointer at +0x4c) on it.  The screen position is stored as two
- * integers (x and y truncated by _ftol, the decompiler lost both operands) followed by the depth as a float. */
-int rdPrimit3_GetScreenCoord(float *world, float *outScreen)
+ * integers (x and y truncated by _ftol, the decompiler lost both operands) followed by the depth as a float (ScreenCoord). */
+int rdPrimit3_GetScreenCoord(float *world, ScreenCoord *outScreen)
 {
     char *cam = (char *)g_pRdCamera_CurCamera;
     float local[3], proj[3];
@@ -614,10 +614,10 @@ int rdPrimit3_GetScreenCoord(float *world, float *outScreen)
     if (rdClip_Point3(*(void **)(cam + 0x48), local) == 0)
         return 0;
     ((void (*)(float *, float *))*(code **)(cam + 0x4c))(proj, local);
-    if (outScreen != (float *)0) {
-        ((int *)outScreen)[0] = (int)(long long)proj[0];
-        ((int *)outScreen)[1] = (int)(long long)proj[1];
-        outScreen[2] = proj[2];
+    if (outScreen != (ScreenCoord *)0) {
+        outScreen->nX = (int)(long long)proj[0];
+        outScreen->nY = (int)(long long)proj[1];
+        outScreen->flZ = proj[2];
     }
     return 1;
 }
@@ -1540,31 +1540,6 @@ void sputLua_GetActorLoopingChoresL(void)
     actor_chores_table(3);
 }
 
-/* ==== sputLua_WorldToScreenL (0x0049cf60) ====
- * WorldToScreen(x, y, z) -> screen x, y as numbers, or two nils when the point is not visible.  (rdPrimit3_GetScreenCoord
- * stores the screen position as two integers.) */
-void sputLua_WorldToScreenL(void)
-{
-    int a1 = lua_lua2C(1);
-    int a2 = lua_lua2C(2);
-    int a3 = lua_lua2C(3);
-    float world[3];
-    int screen[3];
-
-    if (lua_isnumber(a1) == 0 || lua_isnumber(a2) == 0 || lua_isnumber(a3) == 0)
-        return;
-    world[0] = lua_getnumber(a1);
-    world[1] = lua_getnumber(a2);
-    world[2] = lua_getnumber(a3);
-    if (rdPrimit3_GetScreenCoord(world, (float *)screen) != 0) {
-        lua_pushnumber((float)screen[0]);
-        lua_pushnumber((float)screen[1]);
-        return;
-    }
-    lua_pushnil();
-    lua_pushnil();
-}
-
 /* ==== sputLua_NotifyControlHandlers (0x0049e0b0) ====
  * Calls system.buttonHandler / system.axisHandler (a function, or a table holding the function under the same name, which
  * is then called with the table as first argument) for every enabled control (16 byte records at 0x004e87c8: flags, input
@@ -1743,7 +1718,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor_, char *text, int x, 
         if (*(int *)(a + 0xa0) == 0 || (*(byte *)(a + 4) & 2) != 0) {
             char *setName = sputRoom_GetCurrentRoomName();
 
-            if (_stricmp((int)(a + 0x7c), setName) == 0 && rdPrimit3_GetScreenCoord((float *)(a + 0xc), (float *)proj) != 0) {
+            if (_stricmp((int)(a + 0x7c), setName) == 0 && rdPrimit3_GetScreenCoord((float *)(a + 0xc), (ScreenCoord *)proj) != 0) {
                 pt[0] = proj[0];
                 pt[1] = proj[1];
             }
