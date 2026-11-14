@@ -74,8 +74,8 @@
 | 0048bbc0 | sputText_GetTextObjectDimensionsL | lua.c | 31 |
 | 0048bc50 | sputText_GetTextCharPositionL | lua.c | 43 |
 | 0048bd10 | sputText_ChangeTextObjectL | lua.c | 54 |
-| 0048be30 | sputText_MakeTextObjectL | lua.c | 69 |
-| 0048bf50 | sputText_BlastText | lua.c | 68 |
+| 0048be30 | sputText_MakeTextObjectL | lua.c | 67 |
+| 0048bf50 | sputText_BlastText | lua.c | 66 |
 | 0048c960 | sputText_GetTranslationModeL | lua.c | 16 |
 | 0048c980 | sputText_SetTranslationModeL | lua.c | 32 |
 | 00495850 | sputCostume_GetKeyLengthL | lua.c | 28 |

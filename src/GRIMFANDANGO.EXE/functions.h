@@ -1778,7 +1778,7 @@ void __cdecl Text_DrawChar(void *ctx,void *font,int ch); /* 0x004ab710 */
 
 /* ===== textobject.c ===== */
 void __cdecl sputText_AddToQueue(TextObject *obj,int durationMs,int flags); /* 0x0048c470 */
-TextObject * __cdecl TextObject_New(TextContext *ctx,char *text,int durationMs,int flags); /* 0x0048c7e0 */
+TextObject * __cdecl TextObject_New(TextContext *ctx,char *text); /* 0x0048c7e0 */
 void __cdecl TextObject_Draw(TextObject *obj,int invalidate); /* 0x0048c9f0 */
 TextObject * __cdecl sputText_FindSerialNumber(int serial); /* 0x0048cba0 */
 

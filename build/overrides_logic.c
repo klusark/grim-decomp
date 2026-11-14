@@ -1696,7 +1696,7 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor_, char *text, int x, 
         y = (UINT_008a94c0 - h) + -10;
     ctx[4] = *(int *)(*(int *)ctx[2] + 8) + y;
     ctx[3] = x;
-    obj = TextObject_New((TextContext *)ctx, text, 0, 0);   /* (the last two parameters are not read: the prototype has them since agent O's rename)*/
+    obj = TextObject_New((TextContext *)ctx, text);
     *(void **)((char *)obj + 0x254) = actor;
     *(uint *)(a + 4) = *(uint *)(a + 4) | 4;
     return obj;
@@ -1765,7 +1765,7 @@ void sputText_PrintLineL(void)
         local_58 = (int)(long long)((long double)(unsigned long long)(len * msTab[1] + msTab[0]) * 16.666668f);
       }
       iVar2 = 0;
-      pvVar3 = TextObject_New((void *)local_5c,pcVar6,0,0);
+      pvVar3 = TextObject_New((void *)local_5c,pcVar6);
       sputText_AddToQueue(pvVar3,local_58,iVar2);
     }
   }

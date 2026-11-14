@@ -1357,7 +1357,7 @@ void __cdecl sputText_PrintLineL(void)
         local_58 = (int)lVar8;
       }
       iVar2 = 0;
-      obj = TextObject_New((TextContext *)local_5c,pcVar5,local_58,0);
+      obj = TextObject_New((TextContext *)local_5c,pcVar5);
       sputText_AddToQueue(obj,local_58,iVar2);
     }
   }
@@ -1645,9 +1645,7 @@ void __cdecl sputText_MakeTextObjectL(void)
   char *pcVar3;
   void *table;
   TextObject *obj;
-  int unaff_EBX;
   TextContext *pTVar4;
-  int unaff_EDI;
   undefined4 *puVar5;
   #define local_78 (*(uint *)(_frame + (0x90 - 0x78)))
   #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
@@ -1682,7 +1680,7 @@ void __cdecl sputText_MakeTextObjectL(void)
       }
     }
     pcVar3 = sputText_ExtractSayLineData(pcVar3,local_50);
-    obj = TextObject_New((TextContext *)(_frame + (0x90 - 0x30)),pcVar3,unaff_EBX,unaff_EDI);
+    obj = TextObject_New((TextContext *)(_frame + (0x90 - 0x30)),pcVar3);
     lua_pushusertag((char *)obj,0x54584554);
     iVar1 = Text_GetStringWidth(&obj->ctx,obj->aText);
     lua_pushnumber((float)iVar1);
@@ -1716,9 +1714,7 @@ void __cdecl sputText_BlastText(void)
   uint *puVar4;
   void *table;
   TextObject *obj;
-  int unaff_EBP;
   TextContext *pTVar5;
-  int unaff_EDI;
   #define local_60 (*(uint *)(_frame + (0x70 - 0x60)))
   #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
@@ -1755,7 +1751,7 @@ void __cdecl sputText_BlastText(void)
       }
     }
     pcVar3 = sputText_ExtractSayLineData(pcVar3,local_50);
-    obj = TextObject_New((TextContext *)&local_30,pcVar3,unaff_EBP,unaff_EDI);
+    obj = TextObject_New((TextContext *)&local_30,pcVar3);
     TextObject_Draw(obj,0);
     puVar4 = Render_GetBackBuffer();
     stdDisplay_VBufferUnlock(puVar4);
