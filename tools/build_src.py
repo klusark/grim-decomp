@@ -146,7 +146,7 @@ def read_text(path):
     return CLASS_QUAL_RE.sub(r"\2", text)
 
 
-CLASS_QUAL_RE = re.compile(r"\b([A-Za-z]\w*)::(\1_\w+)\b")
+CLASS_QUAL_RE = re.compile(r"\b([A-Za-z]\w*)::(\1\w+)\b")   # (Primitive::PrimitiveObject_Construct too)
 
 
 # A function returning bool/char/short leaves only AL/AX defined in EAX when gcc compiles it; the original (MSVC) code that

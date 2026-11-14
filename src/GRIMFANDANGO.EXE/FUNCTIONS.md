@@ -1577,7 +1577,7 @@
 | 0048a8a0 | PrimitiveQueue_moveTo | primitives.c | 37 |
 | 0048a960 | PrimitiveQueue_moveEndpoint | primitives.c | 23 |
 | 0048a9a0 | PrimitiveQueue_changeDimensions | primitives.c | 24 |
-| 0048aa20 | PrimitiveQueue_drawPrimitive | primitives.c | 64 |
+| 0048aa20 | PrimitiveQueue_drawPrimitive | primitives.c | 59 |
 | 0048ab50 | PrimitiveQueue_markDirty | primitives.c | 47 |
 | 0048abc0 | PrimitiveQueue_resetId | primitives.c | 9 |
 | 00489580 | sputPrimitive_Initialize | sputprimitive.c | 19 |

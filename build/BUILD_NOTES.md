@@ -1874,3 +1874,14 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
 * The overrides rdCache_DrawFaceUser (overrides_asm_p1.c) and rdCache_InsertFace (overrides_logic.c) take / return
   ProcEntry * now (their bodies still work on the bytes).
 * Clean room 0 of 5457.
+
+## 2D primitive types (2026-11-14)
+
+* names/types_primitives.json: Primitive (0x30), a node of the Lua primitive queue (next, prev, type, id, layer, the
+  two corners, colour, line pattern, filled), from PrimitiveObject_Construct (the remaster has the same body),
+  PrimitiveQueue_drawPrimitive and the PrimitiveQueue_change* setters. PrimitiveObject_Construct's `this` and its
+  third argument (the type, was `unused`), PrimitiveQueue_addObject / findPrimitive's results, findPrimitive's
+  `after`, markDirty's and drawPrimitive's `prim`. primitives.c: 86 offset accesses -> 0.
+* build_src.py drops a class qualifier the function's name starts with (`Primitive::PrimitiveObject_Construct`), not
+  only one followed by `_` (`Puck::Puck_SetPos`).
+* Clean room 0 of 5457.
