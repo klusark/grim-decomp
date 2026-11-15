@@ -22,8 +22,6 @@ void __cdecl Dsnd_MemFillCdecl(void *dst,int value,uint n)
 }
 
 /* ---- 0x004d2cb0  Dsnd_MemCopy ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* memcpy for the Smush audio code; __fastcall with two unused register arguments (ECX, EDX) */
 
 void __cdecl Dsnd_MemCopy(void *dst,void *src,uint n)
@@ -52,12 +50,8 @@ void __cdecl Dsnd_MemCopy(void *dst,void *src,uint n)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d2ce0  Dsnd_MemFill ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* memset with a byte value for the Smush audio code; __fastcall with two unused register arguments
     */
 
@@ -96,5 +90,3 @@ void __cdecl Dsnd_MemFill(void *dst,int value,uint n)
   }
   return;
 }
-#endif
-

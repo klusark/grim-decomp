@@ -294,59 +294,10 @@ int DSound_GetPlayBlock(void)
     return -1;
 }
 
-/* The timer callback that keeps the stream buffer filled: if the play cursor has left the block behind the one written
- * last, locks the next block, mixes into it (through the scratch buffer when the lock wraps around the end of the
- * buffer) and unlocks it.  Finally re-arms the timer. */
-void dsn_fill_thread(void)
-{
-    int block = DSound_GetPlayBlock();
-
-    if (block != -1 && block != (g_nStreamLastBlock + 1) % g_nStreamBlocks) {
-        void *p1, *p2;
-        uint n1, n2;
-
-        if (g_nStreamLastBlock < 0)
-            g_nStreamLastBlock = block;
-        g_nStreamLastBlock = (g_nStreamLastBlock + 1) % g_nStreamBlocks;
-        if (COMX(g_pStreamDSBuffer, DSB_LOCK, g_nStreamLastBlock * 0x1800, 0x1800, &p1, &n1, &p2, &n2, 0) == 0) {
-            int frames;
-            void *out;
-            int wraps = p2 != 0 && n2 != 0;
-
-            if (wraps) {
-                frames = 0x600;
-                out = g_abStreamScratch;
-            } else {
-                frames = ((int)n1 + (((int)n1 >> 31) & 3)) >> 2;
-                out = p1;
-            }
-            sou_mixer_start();
-            ((void (*)(int, void *))g_pfnStreamMix)(frames, sou_mixer_mix);
-            sou_mixer_end(out, frames);
-            if (wraps) {
-                memcpy(p1, g_abStreamScratch, n1);
-                memcpy(p2, g_abStreamScratch + n1, n2);
-            }
-            COMX(g_pStreamDSBuffer, DSB_UNLOCK, p1, n1, p2, n2);
-        }
-    }
-    ((DsndClock *)g_pDsndDriver_timer_services)->setPeriod(g_nStreamTimerId, 0x1234dc / (((int)g_dwStreamRate + (((int)g_dwStreamRate >> 31) & 0x3ff)) >> 10));
-}
-
 /* ===================================================================================================================
  *  memcpy / memset of the Smush code.  Hand-written assembly in the original (cdecl, dst / src / count at ebp+8..): the
  *  fill routine pops the wrong registers when the count is not a multiple of 4 and would crash there; nothing calls it
  *  (or its wrapper), the C versions simply fill / copy.
  * =================================================================================================================== */
-
-void Dsnd_MemCopy(void *dst, void *src, uint n)
-{
-    memcpy(dst, src, n);
-}
-
-void Dsnd_MemFill(void *dst, int value, uint n)
-{
-    memset(dst, (byte)value, n);
-}
 
 #endif /* GRIM_EXE */

@@ -699,8 +699,6 @@ LAB_004ccb89:
 
 
 /* ---- 0x004ccd00  Blocky16_DecodeFrame ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Decodes one Blocky16 frame into the buffers g_pFob_blk16_render_buffer, g_pFob_blk16_delta_buffer
    and g_pFob_blk16_key_buffer using g_stBlockyDecState, g_asBlockyMotion, g_aBlockySplit4 and
    g_aBlockySplit8 and gives it to the output g_pFob_blit_routine; bitmaps g_pBlkBitmap0,
@@ -872,8 +870,6 @@ LAB_004ccf67:
 }
 #undef local_4
 #undef local_8
-
-#endif
 
 
 /* ---- 0x004cd1e0  Blocky16_BuildExpandTable ---- */
