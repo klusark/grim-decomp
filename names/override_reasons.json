@@ -79,5 +79,6 @@
   "Collision_PointInBox": "stack aliasing: the original copies the box out of its parameter slots (rep movsd into the outgoing arguments), then reuses those slots for the moved end point; the decompiler orders the stores before the copy, so the twin passes the moved point as the box",
   "ImSoundCall": "commands 0x11 and 0x14 read argument 15, four words beyond what any caller pushes (garbage in the original); the hand-written version takes a11, equal to every argument the two callers pass",
   "Im_MixLoopC": "the byte-swapped big-endian sample is sign-extended (MOVSX EAX,AX); the decompiler prints (int)CONCAT11(lo, hi), which C zero-extends: negative samples come out as 65536 - |x|",
-  "Im_MixLoopD": "the byte-swapped big-endian sample is sign-extended (MOVSX EAX,AX); the decompiler prints (int)CONCAT11(lo, hi), which C zero-extends: negative samples come out as 65536 - |x|"
+  "Im_MixLoopD": "the byte-swapped big-endian sample is sign-extended (MOVSX EAX,AX); the decompiler prints (int)CONCAT11(lo, hi), which C zero-extends: negative samples come out as 65536 - |x|",
+  "rdCache_AddProcFace": "x87: the screen box is the bounds rounded UP (FLDCW round-up, FRNDINT, FLDCW back, _ftol); the decompiler's ROUND rounds to nearest (draw, shadow and lighting tests differ)"
 }
