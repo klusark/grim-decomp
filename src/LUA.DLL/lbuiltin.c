@@ -531,13 +531,13 @@ void __cdecl luaI_findscript(void)
     for (pLVar3 = LState_next(g_dwL_Main); pLVar3 != (LState *)0x0; pLVar3 = LState_next(pLVar3)) {
       if (pLVar3->nTaskId == iVar4) {
         lua_pushobject(iVar1);
-        lua_pushnumber(1.0);
+        lua_pushnumber(1.0f);
         return;
       }
     }
   }
   lua_pushnil();
-  lua_pushnumber(0.0);
+  lua_pushnumber(0.0f);
   return;
 }
 #undef iStack_8
@@ -691,7 +691,7 @@ void __cdecl tonumber(void)
   #define uStack_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  fVar6 = luaL_opt_number(2,10.0);
+  fVar6 = luaL_opt_number(2,10.0f);
   lVar5 = FTOL((float10)fVar6);
   uVar3 = (uint)lVar5;
   if (uVar3 == 10) {
@@ -874,7 +874,7 @@ void __cdecl luaI_call(void)
   if (0 < iVar5) {
     do {
       lua_pushobject(iVar2);
-      lua_pushnumber((float)iStack_c - -1.0);
+      lua_pushnumber((float)iStack_c - -1.0f);
       iVar4 = lua_rawgettable();
       if ((iVar5 == 0xfffe) && (iVar7 = lua_isnil(iVar4), iVar7 != 0)) break;
       lua_pushobject(iVar4);
@@ -1091,7 +1091,7 @@ void __cdecl luaI_collectgarbage(void)
   longlong lVar2;
   float fVar3;
   
-  fVar3 = luaL_opt_number(1,0.0);
+  fVar3 = luaL_opt_number(1,0.0f);
   lVar2 = FTOL((float10)fVar3);
   iVar1 = lua_collectgarbage((int)lVar2);
   lua_pushnumber((float)iVar1);

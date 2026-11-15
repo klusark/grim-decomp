@@ -469,9 +469,9 @@ void __cdecl LoadHeader(undefined4 *param_1)
   uVar3 = ezgetc((int *)puVar1);
   if (uVar3 == 4) {
     ezread(puVar1,&param_1,4);
-    if (PUN(float,param_1) != 1.2345679e-24) {
+    if (PUN(float,param_1) != 1.2345679e-24f) {
       lundump__d360((undefined1 *)&param_1);
-      if (PUN(float,param_1) != 1.2345679e-24) {
+      if (PUN(float,param_1) != 1.2345679e-24f) {
         luaL_verror(s_unknown_float_representation_in_b_10028098,puVar1[4]);
       }
       puVar2[1] = 1;

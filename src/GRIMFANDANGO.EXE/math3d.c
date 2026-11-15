@@ -52,7 +52,7 @@ void __cdecl rdVector_Normalize3(float *param_1,float *param_2)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar1 = SQRT(*param_2 * *param_2 + param_2[2] * param_2[2] + param_2[1] * param_2[1]);
-  if (fVar1 != 0.0) {
+  if (fVar1 != 0.0f) {
     *param_1 = *param_2 / fVar1;
     param_1[1] = param_2[1] / fVar1;
     param_1[2] = param_2[2] / fVar1;
@@ -83,8 +83,8 @@ float __cdecl rdVector_Normalize3Acc(float *param_1)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar1 = SQRT(*param_1 * *param_1 + param_1[2] * param_1[2] + param_1[1] * param_1[1]);
-  if (fVar1 != 0.0) {
-    fVar2 = 1.0 / fVar1;
+  if (fVar1 != 0.0f) {
+    fVar2 = 1.0f / fVar1;
     *param_1 = fVar2 * *param_1;
     param_1[1] = param_1[1] * fVar2;
     param_1[2] = param_1[2] * fVar2;
@@ -111,21 +111,21 @@ float __cdecl rdVector_Normalize3QuickAcc(float *param_1)
   #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
   #define local_c (*(float (*)[2])(_frame + (0x40 - 0xc)))
   
-  if (0.0 <= *param_1) {
+  if (0.0f <= *param_1) {
     local_28[2] = *param_1;
   }
   else {
     local_28[2] = -*param_1;
   }
   local_c[0] = local_28[2];
-  if (0.0 <= param_1[1]) {
+  if (0.0f <= param_1[1]) {
     local_28[1] = param_1[1];
   }
   else {
     local_28[1] = -param_1[1];
   }
   local_c[1] = local_28[1];
-  if (0.0 <= param_1[2]) {
+  if (0.0f <= param_1[2]) {
     local_28[0] = param_1[2];
   }
   else {
@@ -154,8 +154,8 @@ float __cdecl rdVector_Normalize3QuickAcc(float *param_1)
       local_c[1] = local_28[2];
     }
   }
-  fVar1 = local_1c[0] * 0.25 + local_c[1] * 0.34375 + local_c[0];
-  fVar2 = 1.0 / fVar1;
+  fVar1 = local_1c[0] * 0.25f + local_c[1] * 0.34375f + local_c[0];
+  fVar2 = 1.0f / fVar1;
   *param_1 = *param_1 * fVar2;
   param_1[1] = param_1[1] * fVar2;
   param_1[2] = param_1[2] * fVar2;
@@ -195,7 +195,7 @@ void __cdecl rdVector_ExtractAngles(float *matrix,float *outAngles)
 {
   float fVar1;
   
-  outAngles[2] = 0.0;
+  outAngles[2] = 0.0f;
   fVar1 = stdMath_ArcSin3(matrix[2]);
   *outAngles = fVar1;
   fVar1 = stdMath_ArcTan4(matrix[1],*matrix);
@@ -379,8 +379,8 @@ rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,uint *param_4,fl
       }
       fVar2 = (pfVar8[1] - param_2[1]) * param_1[1] +
               (*pfVar8 - *param_2) * *param_1 + (pfVar8[2] - param_2[2]) * param_1[2];
-      if ((local_18[0] < 0.0) || (fVar2 < 0.0)) {
-        if ((0.0 <= local_18[0]) && (fVar2 < 0.0)) {
+      if ((local_18[0] < 0.0f) || (fVar2 < 0.0f)) {
+        if ((0.0f <= local_18[0]) && (fVar2 < 0.0f)) {
           fVar1 = -(local_18[0] / (fVar2 - local_18[0]));
           *puVar13 = PUN(uint,(float)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7));
           *puVar14 = PUN(uint,(float)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]));
@@ -394,7 +394,7 @@ rdClip_FaceToPlane(float *param_1,float *param_2,float *param_3,uint *param_4,fl
           }
           goto LAB_0044ed90;
         }
-        if ((local_18[0] < 0.0) && (0.0 <= fVar2)) {
+        if ((local_18[0] < 0.0f) && (0.0f <= fVar2)) {
           fVar1 = -(local_18[0] / (fVar2 - local_18[0]));
           *puVar13 = PUN(uint,(float)((*pfVar8 - *pfVar7) * fVar1 + *pfVar7));
           *puVar14 = PUN(uint,(float)((pfVar8[1] - pfVar7[1]) * fVar1 + pfVar7[1]));
@@ -458,7 +458,7 @@ LAB_0044ed90:
       pfVar6 = PUN(float *,(float)local_18[1]);
       local_18[0] = fVar2;
       local_18[2] = PUN(float,pfVar11);
-    } while (local_c[2] != 0.0);
+    } while (local_c[2] != 0.0f);
   }
   if (0 < (int)local_20) {
     iVar10 = (int)&g_dwWorkVerts - (int)param_3;
@@ -595,9 +595,9 @@ void __cdecl rdMatrix_BuildRotate34(float *param_1,uint *param_2)
   param_1[6] = local_10[1] * local_1c[2] * PUN(float,param_2) + local_1c[1] * local_10[0];
   param_1[7] = -PUN(float,param_2) * local_10[1] * local_10[0] + local_1c[1] * local_1c[2];
   param_1[8] = local_10[1] * local_1c[0];
-  param_1[9] = 0.0;
-  param_1[10] = 0.0;
-  param_1[0xb] = 0.0;
+  param_1[9] = 0.0f;
+  param_1[10] = 0.0f;
+  param_1[0xb] = 0.0f;
   return;
 }
 #undef local_10
@@ -687,36 +687,36 @@ void __cdecl rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
   stdMath_SinCos(param_3,local_28,&param_3);
-  fVar1 = 1.0 - param_2[2];
+  fVar1 = 1.0f - param_2[2];
   fVar2 = fVar1;
-  if (fVar1 < 0.0) {
+  if (fVar1 < 0.0f) {
     fVar2 = -fVar1;
   }
   if (fVar2 <= 1e-05f) {
-    fVar1 = 0.0;
+    fVar1 = 0.0f;
   }
-  if (fVar1 == 0.0) {
+  if (fVar1 == 0.0f) {
     *param_1 = param_3;
     param_1[4] = param_3;
     param_1[3] = -local_28[0];
     param_1[1] = local_28[0];
   }
   else {
-    fVar1 = param_2[2] - -1.0;
+    fVar1 = param_2[2] - -1.0f;
     fVar2 = fVar1;
-    if (fVar1 < 0.0) {
+    if (fVar1 < 0.0f) {
       fVar2 = -fVar1;
     }
     if (fVar2 <= 1e-05f) {
-      fVar1 = 0.0;
+      fVar1 = 0.0f;
     }
-    if (fVar1 != 0.0) {
+    if (fVar1 != 0.0f) {
       fVar6 = *param_2 * *param_2;
       fVar8 = param_2[1] * param_2[1];
       fVar7 = fVar6 * param_3;
-      fVar9 = (1.0 - fVar6) - fVar8;
+      fVar9 = (1.0f - fVar6) - fVar8;
       fVar10 = fVar8 * param_3;
-      fVar11 = 1.0 - param_3;
+      fVar11 = 1.0f - param_3;
       fVar1 = param_2[1];
       fVar2 = param_2[1];
       fVar3 = *param_2;
@@ -724,11 +724,11 @@ void __cdecl rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float
       fVar5 = *param_2;
       fVar12 = param_2[2] * *param_2 * fVar11;
       fVar13 = param_2[1] * param_2[2] * fVar11;
-      *param_1 = (fVar7 * fVar9 + fVar10) / (1.0 - fVar9) + fVar6;
+      *param_1 = (fVar7 * fVar9 + fVar10) / (1.0f - fVar9) + fVar6;
       fVar11 = fVar1 * fVar3 * fVar11;
-      param_1[9] = 0.0;
-      param_1[10] = 0.0;
-      param_1[4] = (fVar10 * fVar9 + fVar7) / (1.0 - fVar9) + fVar8;
+      param_1[9] = 0.0f;
+      param_1[10] = 0.0f;
+      param_1[4] = (fVar10 * fVar9 + fVar7) / (1.0f - fVar9) + fVar8;
       param_1[8] = fVar10 + fVar7 + fVar9;
       param_1[1] = fVar4 * local_28[0] + fVar11;
       param_1[3] = fVar11 - fVar4 * local_28[0];
@@ -736,7 +736,7 @@ void __cdecl rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float
       param_1[5] = fVar13 + local_28[0] * fVar5;
       param_1[6] = fVar12 + fVar2 * local_28[0];
       param_1[7] = fVar13 - local_28[0] * fVar5;
-      param_1[0xb] = 0.0;
+      param_1[0xb] = 0.0f;
       return;
     }
     *param_1 = param_3;
@@ -744,14 +744,14 @@ void __cdecl rdMatrix_BuildFromVectorAngle34(float *param_1,float *param_2,float
     param_1[1] = -local_28[0];
     param_1[3] = local_28[0];
   }
-  param_1[2] = 0.0;
-  param_1[5] = 0.0;
-  param_1[6] = 0.0;
-  param_1[7] = 0.0;
-  param_1[8] = 1.0;
-  param_1[9] = 0.0;
-  param_1[10] = 0.0;
-  param_1[0xb] = 0.0;
+  param_1[2] = 0.0f;
+  param_1[5] = 0.0f;
+  param_1[6] = 0.0f;
+  param_1[7] = 0.0f;
+  param_1[8] = 1.0f;
+  param_1[9] = 0.0f;
+  param_1[10] = 0.0f;
+  param_1[0xb] = 0.0f;
   return;
 }
 #undef local_10
@@ -792,21 +792,21 @@ void __cdecl rdMatrix_LookAt(float *param_1,float *param_2,float *param_3,uint p
   param_1[5] = param_3[2] - param_2[2];
   rdVector_Normalize3Acc(pfVar1);
   rdMatrix_BuildFromVectorAngle34(local_30,pfVar1,PUN(float,param_4));
-  fVar2 = *pfVar1 * 0.0 + param_1[4] * 0.0 + param_1[5] * 1.0;
-  if (fVar2 < 0.0) {
+  fVar2 = *pfVar1 * 0.0f + param_1[4] * 0.0f + param_1[5] * 1.0f;
+  if (fVar2 < 0.0f) {
     fVar2 = -fVar2;
   }
   if (fVar2 <= 0.999) {
     v = (float *)&DAT_004d7540;
   }
-  else if (param_1[5] <= 0.0) {
+  else if (param_1[5] <= 0.0f) {
     v = (float *)&DAT_004d7530;
   }
   else {
-    local_3c[0] = -0.0;
-    local_3c[1] = -1.0;
+    local_3c[0] = -0.0f;
+    local_3c[1] = -1.0f;
     v = local_3c;
-    local_3c[2] = -0.0;
+    local_3c[2] = -0.0f;
   }
   rdMatrix_TransformVector34(&local_48,v,local_30);
   *param_1 = param_1[4] * local_44[1] - param_1[5] * local_44[0];
@@ -866,53 +866,53 @@ void __cdecl rdMatrix_ExtractAngles34(float *param_1,float *param_2)
   fVar6 = -param_1[1];
   if (0.001f <= fVar5) {
     fVar7 = stdMath_ArcSin3(fVar4 / fVar5);
-    fVar7 = 90.0 - fVar7;
-    if (0.0 < fVar3) {
+    fVar7 = 90.0f - fVar7;
+    if (0.0f < fVar3) {
       fVar7 = -fVar7;
     }
     param_2[1] = fVar7;
   }
   else {
     fVar7 = stdMath_ArcSin3(--fVar9);
-    fVar7 = 90.0 - fVar7;
-    if (((0.0 < fVar6) && (0.0 < fVar2)) || ((fVar6 < 0.0 && (fVar2 < 0.0)))) {
+    fVar7 = 90.0f - fVar7;
+    if (((0.0f < fVar6) && (0.0f < fVar2)) || ((fVar6 < 0.0f && (fVar2 < 0.0f)))) {
       fVar7 = -fVar7;
     }
     param_2[2] = fVar7;
-    param_2[1] = 0.0;
+    param_2[1] = 0.0f;
   }
   if (0.001f <= fVar5) {
     fVar8 = fVar8 / fVar5;
-    if (fVar8 < 1.0) {
+    if (fVar8 < 1.0f) {
       fVar8 = stdMath_ArcSin3(fVar8);
-      *param_2 = 90.0 - fVar8;
+      *param_2 = 90.0f - fVar8;
     }
     else {
-      *param_2 = 0.0;
+      *param_2 = 0.0f;
     }
   }
   else {
-    *param_2 = 90.0;
+    *param_2 = 90.0f;
   }
-  if (fVar2 < 0.0) {
+  if (fVar2 < 0.0f) {
     *param_2 = -*param_2;
   }
   fVar4 = -fVar4;
   if (0.001f <= fVar5) {
     fVar9 = (fVar6 * fVar3 + fVar4 * -fVar9) / SQRT(fVar4 * fVar4 + fVar3 * fVar3);
-    if (fVar9 < 1.0) {
-      if (-1.0 < fVar9) {
+    if (fVar9 < 1.0f) {
+      if (-1.0f < fVar9) {
         fVar9 = stdMath_ArcSin3(fVar9);
-        param_2[2] = 90.0 - fVar9;
+        param_2[2] = 90.0f - fVar9;
       }
       else {
-        param_2[2] = 180.0;
+        param_2[2] = 180.0f;
       }
     }
     else {
-      param_2[2] = 0.0;
+      param_2[2] = 0.0f;
     }
-    if (-fVar1 < 0.0) {
+    if (-fVar1 < 0.0f) {
       param_2[2] = -param_2[2];
       return;
     }
@@ -1331,7 +1331,7 @@ void __cdecl rdMath_CalcSurfaceNormal(float *param_1,float *param_2,float *param
   param_1[1] = local_18 * local_8[1] - local_14[1] * local_c;
   param_1[2] = local_14[0] * local_c - local_18 * local_8[0];
   rdVector_Normalize3Acc(param_1);
-  rdMath_ClampVector(param_1,1e-06);
+  rdMath_ClampVector(param_1,1e-06f);
   return;
 }
 #undef local_14
@@ -1352,33 +1352,33 @@ void __cdecl rdMath_ClampVector(float *param_1,float param_2)
   float fVar1;
   
   fVar1 = *param_1;
-  if (*param_1 < 0.0) {
+  if (*param_1 < 0.0f) {
     fVar1 = -fVar1;
   }
   if (param_2 <= fVar1) {
     fVar1 = *param_1;
   }
   else {
-    fVar1 = 0.0;
+    fVar1 = 0.0f;
   }
   *param_1 = fVar1;
   fVar1 = param_1[1];
-  if (param_1[1] < 0.0) {
+  if (param_1[1] < 0.0f) {
     fVar1 = -fVar1;
   }
   if (param_2 <= fVar1) {
     fVar1 = param_1[1];
   }
   else {
-    fVar1 = 0.0;
+    fVar1 = 0.0f;
   }
   param_1[1] = fVar1;
   fVar1 = param_1[2];
-  if (param_1[2] < 0.0) {
+  if (param_1[2] < 0.0f) {
     fVar1 = -fVar1;
   }
   if (fVar1 < param_2) {
-    param_1[2] = 0.0;
+    param_1[2] = 0.0f;
     return;
   }
   param_1[2] = param_1[2];
@@ -1409,7 +1409,7 @@ uint __cdecl rdMath_PointsCollinear(float *param_1,float *param_2,float *param_3
   rdVector_Normalize3Acc(&local_c);
   rdVector_Normalize3Acc(&local_18);
   fVar1 = local_14[1] * local_8[1] + local_14[0] * local_8[0] + local_18 * local_c;
-  if (fVar1 < 0.0) {
+  if (fVar1 < 0.0f) {
     fVar1 = -fVar1;
   }
   if ((0.999f <= fVar1) && (fVar1 <= 1.001f)) {

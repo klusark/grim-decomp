@@ -241,7 +241,7 @@ void __cdecl luaV_pack(int firstel,int nvararg,TObject *tab)
   if (0 < nvararg) {
     do {
       iVar1 = pTVar5->nTtype;
-      local_10.dwValue = PUN(uint,(float)(((float)firstel - -1.0)));
+      local_10.dwValue = PUN(uint,(float)(((float)firstel - -1.0f)));
       uVar2 = pTVar5->dwValue;
       local_10.nTtype = -1;
       pTVar4 = luaH_set((Hash *)tab->dwValue,&local_10);

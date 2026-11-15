@@ -275,7 +275,7 @@ uint __cdecl luaY_lex(float *param_1)
       if (uVar4 == 0) {
         return 0x2e;
       }
-      local_8 = 0.0;
+      local_8 = 0.0f;
       goto LAB_10006398;
     case 0x30:
     case 0x31:
@@ -287,7 +287,7 @@ uint __cdecl luaY_lex(float *param_1)
     case 0x37:
     case 0x38:
     case 0x39:
-      local_8 = 0.0;
+      local_8 = 0.0f;
       do {
         local_8 = (double)(int)(*puVar2 - 0x30) - local_8 * -10.0;
         luaL_addchar((char)*puVar2);

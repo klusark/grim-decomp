@@ -240,8 +240,8 @@ void __cdecl rdRaster_Startup(void)
   local_4 = 1;
   iVar2 = 0;
   do {
-    *(float *)((int)&UINT_008fe004 + iVar2) = (float)((float10)1.0 / (float10)(int)local_4);
-    lVar3 = FTOL(((float10)1.0 / (float10)(int)local_4) * (float10)65536.0);
+    *(float *)((int)&UINT_008fe004 + iVar2) = (float)((float10)1.0f / (float10)(int)local_4);
+    lVar3 = FTOL(((float10)1.0f / (float10)(int)local_4) * (float10)65536.0f);
     *(int *)((int)&UINT_008fbfc4 + iVar2) = (int)lVar3;
     iVar2 = iVar2 + 4;
     local_4 = local_4 + 1;

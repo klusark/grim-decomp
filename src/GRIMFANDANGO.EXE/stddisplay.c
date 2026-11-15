@@ -3511,17 +3511,17 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
   
   g_dwStdColor_ColorConvertOneRow_row = g_dwStdColor_ColorConvertOneRow_row + 1;
   bVar10 = (byte)*(undefined4 *)(srcFormat + 8);
-  lVar13 = FTOL(((float10)1.0 / (float10)((1 << (bVar10 & 0x1f)) + -1)) *
+  lVar13 = FTOL(((float10)1.0f / (float10)((1 << (bVar10 & 0x1f)) + -1)) *
                  (float10)((1 << ((byte)*(undefined4 *)(dstFormat + 8) & 0x1f)) + -1) *
-                 (float10)65536.0);
-  lVar14 = FTOL(((float10)1.0 /
+                 (float10)65536.0f);
+  lVar14 = FTOL(((float10)1.0f /
                  (float10)((1 << ((byte)*(undefined4 *)(srcFormat + 0xc) & 0x1f)) + -1)) *
                  (float10)((1 << ((byte)*(undefined4 *)(dstFormat + 0xc) & 0x1f)) + -1) *
-                 (float10)65536.0);
-  lVar15 = FTOL(((float10)1.0 /
+                 (float10)65536.0f);
+  lVar15 = FTOL(((float10)1.0f /
                  (float10)((1 << ((byte)*(undefined4 *)(srcFormat + 0x10) & 0x1f)) + -1)) *
                  (float10)((1 << ((byte)*(undefined4 *)(dstFormat + 0x10) & 0x1f)) + -1) *
-                 (float10)65536.0);
+                 (float10)65536.0f);
   bVar11 = (byte)*(undefined4 *)(dstFormat + 0x14);
   bVar12 = (byte)*(undefined4 *)(dstFormat + 0x18);
   if ((*(int *)(srcFormat + 4) == 0x18) && (*(int *)(dstFormat + 4) == 0x10)) {

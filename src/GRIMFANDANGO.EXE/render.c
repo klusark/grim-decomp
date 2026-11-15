@@ -632,12 +632,12 @@ void __cdecl Render_DrawDebugGrid(void)
   #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   iVar1 = 0x14;
-  local_1c = -1.0;
+  local_1c = -1.0f;
   do {
-    local_c[0] = -1.0;
-    local_c[2] = 0.0;
-    local_18[0] = 1.0;
-    local_18[2] = 0.0;
+    local_c[0] = -1.0f;
+    local_c[2] = 0.0f;
+    local_18[0] = 1.0f;
+    local_18[2] = 0.0f;
     local_18[1] = local_1c;
     local_c[1] = local_1c;
     rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
@@ -646,12 +646,12 @@ void __cdecl Render_DrawDebugGrid(void)
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
   iVar1 = 0x14;
-  local_1c = -1.0;
+  local_1c = -1.0f;
   do {
-    local_c[1] = -1.0;
-    local_c[2] = 0.0;
-    local_18[1] = 1.0;
-    local_18[2] = 0.0;
+    local_c[1] = -1.0f;
+    local_c[2] = 0.0f;
+    local_18[1] = 1.0f;
+    local_18[2] = 0.0f;
     local_18[0] = local_1c;
     local_c[0] = local_1c;
     rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
@@ -659,28 +659,28 @@ void __cdecl Render_DrawDebugGrid(void)
     local_1c = local_1c - -0.1f;
     iVar1 = iVar1 + -1;
   } while (iVar1 != 0);
-  local_c[0] = 0.0;
-  local_c[1] = 0.0;
-  local_c[2] = 0.0;
-  local_18[0] = 2.0;
-  local_18[1] = 0.0;
-  local_18[2] = 0.0;
+  local_c[0] = 0.0f;
+  local_c[1] = 0.0f;
+  local_c[2] = 0.0f;
+  local_18[0] = 2.0f;
+  local_18[1] = 0.0f;
+  local_18[2] = 0.0f;
   rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,(uint)DAT_008c97c6
                      ,0xffffffff);
-  local_c[0] = 0.0;
-  local_c[1] = 0.0;
-  local_c[2] = 0.0;
-  local_18[0] = 0.0;
-  local_18[1] = 2.0;
-  local_18[2] = 0.0;
+  local_c[0] = 0.0f;
+  local_c[1] = 0.0f;
+  local_c[2] = 0.0f;
+  local_18[0] = 0.0f;
+  local_18[1] = 2.0f;
+  local_18[2] = 0.0f;
   rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,(uint)DAT_008c97c6
                      ,0xffffffff);
-  local_c[0] = 0.0;
-  local_c[1] = 0.0;
-  local_c[2] = 0.0;
-  local_18[0] = 0.0;
-  local_18[1] = 0.0;
-  local_18[2] = 2.0;
+  local_c[0] = 0.0f;
+  local_c[1] = 0.0f;
+  local_c[2] = 0.0f;
+  local_18[0] = 0.0f;
+  local_18[1] = 0.0f;
+  local_18[2] = 2.0f;
   rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,(uint)DAT_008c97c6
                      ,0xffffffff);
   return;
@@ -778,9 +778,9 @@ void __cdecl sputRender_ReverseProject(int x,int y,float *outPos)
                                 (*(int *)(UINT_008c97a4 + 0xc) * y + x) * 2) <<
                         ((byte)g_pRdCamera_CurCamera->pCanvas->dwExtra & 0x1f)) * 1.5258789e-05f;
     fVar1 = g_pRdCamera_CurCamera->flFovY * fVar2;
-    local_8[0] = 1.0 / fVar2 - 1.0;
-    local_c = (1.0 / fVar1) * ((float)x - g_pRdCamera_CurCamera->pCanvas->flCenterX);
-    local_8[1] = (-1.0 / fVar1) * ((float)y - g_pRdCamera_CurCamera->pCanvas->flCenterY);
+    local_8[0] = 1.0f / fVar2 - 1.0f;
+    local_c = (1.0f / fVar1) * ((float)x - g_pRdCamera_CurCamera->pCanvas->flCenterX);
+    local_8[1] = (-1.0f / fVar1) * ((float)y - g_pRdCamera_CurCamera->pCanvas->flCenterY);
     rdMatrix_TransformPoint34(outPos,&local_c,g_pSputRender_Camera + 0xc);
   }
   return;
@@ -877,10 +877,10 @@ void __cdecl Render_BuildColorTable(int param_1,float param_2)
   
   local_24 = 0;
   do {
-    fVar4 = CI_POW((float10)((float)((int)(local_24 & 0xffff) >> 0xb) / 31.0),(float10)param_2);
-    fVar5 = CI_POW((float10)((float)((int)(local_24 & 0xffff) >> 5 & 0x3f) / 63.0),(float10)param_2)
+    fVar4 = CI_POW((float10)((float)((int)(local_24 & 0xffff) >> 0xb) / 31.0f),(float10)param_2);
+    fVar5 = CI_POW((float10)((float)((int)(local_24 & 0xffff) >> 5 & 0x3f) / 63.0f),(float10)param_2)
     ;
-    fVar6 = CI_POW((float10)((float)(local_24 & 0x1f) / 31.0),(float10)param_2);
+    fVar6 = CI_POW((float10)((float)(local_24 & 0x1f) / 31.0f),(float10)param_2);
     uVar1 = *(undefined4 *)(param_1 + 0xc);
     uVar2 = *(undefined4 *)(param_1 + 0x10);
     lVar7 = FTOL((float10)((float)((1 << ((byte)*(undefined4 *)(param_1 + 8) & 0x1f)) + -1) *
@@ -1231,7 +1231,7 @@ void __cdecl sputRender_DrawIrisEffect(float percent,int x,int y)
   longlong lVar12;
   longlong lVar13;
   
-  if ((percent < 0.0) || (1.0 < percent)) {
+  if ((percent < 0.0f) || (1.0f < percent)) {
     (*g_pSputRendHS->pAssertFail)
               (s__percent____0_0f______percent____004e80ec,
                s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0x9f2);
@@ -1406,19 +1406,19 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
   stdDisplay_VBufferLock(surface);
   local_58 = 0;
   if (0 < h) {
-    fVar7 = (float10)0.0;
+    fVar7 = (float10)0.0f;
     do {
       lVar8 = FTOL(fVar7);
       pvVar1 = surface->pPixels;
       iVar4 = (surface->format).nPitch;
-      x = (float10)0.0;
+      x = (float10)0.0f;
       puVar3 = (undefined2 *)(local_58 * (surface_00->format).nPitch + (int)surface_00->pPixels);
       fVar7 = extraout_ST0;
       if (0 < w) {
         local_5c = w;
         do {
           lVar9 = FTOL(x);
-          x = extraout_ST0_00 + (float10)(640.0 / (float)w);
+          x = extraout_ST0_00 + (float10)(640.0f / (float)w);
           *puVar3 = *(undefined2 *)((int)pvVar1 + (int)lVar9 * 2 + (int)lVar8 * iVar4);
           puVar3 = puVar3 + 1;
           local_5c = local_5c - 1;
@@ -1426,7 +1426,7 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
         } while (local_5c != 0);
       }
       local_58 = local_58 + 1;
-      fVar7 = fVar7 + (float10)(480.0 / (float)h);
+      fVar7 = fVar7 + (float10)(480.0f / (float)h);
     } while ((int)local_58 < h);
   }
   stdDisplay_VBufferUnlock(surface_00);
@@ -1665,10 +1665,10 @@ void __cdecl Render_DrawProgressBar(float fraction)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0xffe0;
-  if (1.0 < fraction) {
-    fraction = 1.0;
+  if (1.0f < fraction) {
+    fraction = 1.0f;
   }
-  lVar5 = FTOL((float10)fraction * (float10)540.0);
+  lVar5 = FTOL((float10)fraction * (float10)540.0f);
   sputRender_ColorCorrect((ushort *)&local_4,1);
   stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_frontBuffer);
   iVar3 = 0x21c;

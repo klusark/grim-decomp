@@ -14,7 +14,7 @@ void __cdecl sputLua_Is3DHardwareEnabledL(void)
 
 {
   if (g_pStd3D_CurDevice != (Std3DDevice *)0x0) {
-    lua_pushnumber(1.0);
+    lua_pushnumber(1.0f);
     return;
   }
                     /* WARNING: Could not recover jumptable at 0x00401cb8. Too many branches */
@@ -63,7 +63,7 @@ void __cdecl Lua_GetVideoDevices(void)
     lua_pushnumber((float)UINT_00900530);
     return;
   }
-  lua_pushnumber(-1.0);
+  lua_pushnumber(-1.0f);
   return;
 }
 #undef local_10
@@ -146,7 +146,7 @@ void __cdecl Lua_Enumerate3DDevices(void)
   iVar2 = lua_createtable();
   if (((&UINT_00902d6c)[iVar1 * 0xa6] != 0) || ((&UINT_00902d68)[iVar1 * 0xa6] == 0)) {
     lua_pushobject(iVar2);
-    lua_pushnumber(-1.0);
+    lua_pushnumber(-1.0f);
     lua_pushstring(s__engn003_Software_004dd688);
     lua_settable();
     if ((&UINT_00902d68)[iVar1 * 0xa6] == 0) goto LAB_00401f9e;
@@ -1441,7 +1441,7 @@ void __cdecl sputText_IsMessageGoingL(void)
       pTVar1 = g_pTextQueue;
       iVar2 = sputActor_GetNumActorsTalking();
       if (iVar2 != 0) {
-        lua_pushnumber(1.0);
+        lua_pushnumber(1.0f);
         return;
       }
       for (; pTVar1 != (TextObject *)0x0; pTVar1 = pTVar1->pNext) {
@@ -1454,7 +1454,7 @@ void __cdecl sputText_IsMessageGoingL(void)
       if (((pAVar4 != (Actor *)0x0) && (pAVar4->pExtra != (ActorExtra *)0x0)) &&
          (pAVar4->pExtra->nTalking != 0)) {
 LAB_0048ba30:
-        lua_pushnumber(1.0);
+        lua_pushnumber(1.0f);
         return;
       }
     }
@@ -1899,7 +1899,7 @@ void __cdecl sputCostume_GetKeyLengthL(void)
     (*g_pStd_HS->pAssertFail)(s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3)
     ;
   }
-  lua_pushnumber(((float)*(uint *)(iVar1 + 0x34) / *(float *)(piVar3[1] + 0x30)) * 1000.0);
+  lua_pushnumber(((float)*(uint *)(iVar1 + 0x34) / *(float *)(piVar3[1] + 0x30)) * 1000.0f);
   return;
 }
 
@@ -1979,7 +1979,7 @@ void __cdecl sputLua_GetDiskFreeSpaceL(void)
   #define local_4 (*(undefined1 (*)[4])(_frame + (0x30 - 0x4)))
   
   GetDiskFreeSpaceA(0,(int)(local_18 + 1),(int)local_18,(int)(local_18 + 2),(int)local_4);
-  lua_pushnumber((float)PUN(uint,(float)local_18[0]) * 0.0009765625 * (float)PUN(int,(float)local_18[1]) * 0.0009765625 *
+  lua_pushnumber((float)PUN(uint,(float)local_18[0]) * 0.0009765625f * (float)PUN(int,(float)local_18[1]) * 0.0009765625f *
                  (float)PUN(int,(float)local_18[2]));
   return;
 }
@@ -1994,7 +1994,7 @@ void __cdecl sputLua_GetDiskFreeSpaceL(void)
 void __cdecl sputLua_Test(void)
 
 {
-  ShrinkBoxes(0.005);
+  ShrinkBoxes(0.005f);
   return;
 }
 
@@ -2546,7 +2546,7 @@ void __cdecl sputLua_WalkActorVectorL(void)
             local_c = 0;
             local_8 = 0;
             local_3c = 0;
-            local_38[1] = 0.0;
+            local_38[1] = 0.0f;
             local_4 = 0;
             Matrix_BuildTransform(local_30,(uint)&local_3c);
           }
@@ -2568,12 +2568,12 @@ void __cdecl sputLua_WalkActorVectorL(void)
           rdVector_Normalize3Acc(local_48);
           fVar11 = stdMath_ArcSin3(local_48[1]);
           fVar1 = actor->pExtra->flTurnRate;
-          if (actor->pExtra->flTurnRate < 0.0) {
+          if (actor->pExtra->flTurnRate < 0.0f) {
             fVar1 = -fVar1;
           }
           fVar12 = sputTime_GetFrameTimeFlex();
           Puck_PointAt(actor->pExtra->pPuck,local_54,fVar12 * fVar1 + fVar12 * fVar1);
-          if (90.0 - fVar11 < 90.0) {
+          if (90.0f - fVar11 < 90.0f) {
             actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
             sputActor_Forward(actor);
           }
@@ -2788,7 +2788,7 @@ void __cdecl sputLua_IsActorMovingL(void)
       iVar1 = lua_getuserdata(iVar1);
       pAVar3 = sputActor_ActorDeref(iVar1);
       if ((pAVar3->dwMoveFlags & 1) != 0) {
-        lua_pushnumber(1.0);
+        lua_pushnumber(1.0f);
         return;
       }
       lua_pushnil();
@@ -2821,8 +2821,8 @@ void __cdecl sputLua_IsActorTurningL(void)
       if (actor->pExtra == (ActorExtra *)0x0) {
         sputActor_AllocateActorExtra(actor);
       }
-      if (actor->pExtra->flYawLeft != 0.0) {
-        lua_pushnumber(1.0);
+      if (actor->pExtra->flYawLeft != 0.0f) {
+        lua_pushnumber(1.0f);
       }
       lua_pushnil();
     }
@@ -2915,7 +2915,7 @@ void __cdecl sputLua_IsActorRestingL(void)
         sputActor_AllocateActorExtra(actor);
       }
       if (actor->pExtra->nResting != 0) {
-        lua_pushnumber(1.0);
+        lua_pushnumber(1.0f);
         return;
       }
       lua_pushnil();
@@ -2977,7 +2977,7 @@ void __cdecl sputLua_IsActorChoringL(void)
                    (((iVar1 != 0 || ((uVar6 & 2) == 0)) && (local_4 = uVar8, (uVar6 & 2) != 0)))) {
                   local_8 = uVar8;
                   lua_pushnumber((float)(int)uVar8);
-                  lua_pushnumber(1.0);
+                  lua_pushnumber(1.0f);
                   return;
                 }
                 uVar8 = uVar8 + 1;
@@ -3001,7 +3001,7 @@ void __cdecl sputLua_IsActorChoringL(void)
             }
             lua_pushobject(iVar2);
             if ((uVar6 & 2) != 0) {
-              lua_pushnumber(1.0);
+              lua_pushnumber(1.0f);
               return;
             }
           }
@@ -3050,13 +3050,13 @@ void __cdecl sputLua_GetActorChoresL(void)
     if (iVar1 == 0) {
       return;
     }
-    fVar6 = 0.0;
+    fVar6 = 0.0f;
     if (local_18 != 0) {
       iVar1 = lua_createtable();
       fVar4 = (float)Cos_InstCountChores(*(int *)local_18);
-      local_14[0] = 0.0;
+      local_14[0] = 0.0f;
       local_14[2] = fVar4;
-      if (fVar4 != 0.0) {
+      if (fVar4 != 0.0f) {
         do {
           uVar5 = Cos_InstChoreStatus(*(int *)local_18,PUN(uint,(float)fVar6));
           if ((uVar5 & 1) != 0) {
@@ -3160,13 +3160,13 @@ void __cdecl sputLua_GetActorLoopingChoresL(void)
     if (iVar1 == 0) {
       return;
     }
-    fVar6 = 0.0;
+    fVar6 = 0.0f;
     if (local_18 != 0) {
       iVar1 = lua_createtable();
       fVar4 = (float)Cos_InstCountChores(*(int *)local_18);
-      local_14[0] = 0.0;
+      local_14[0] = 0.0f;
       local_14[2] = fVar4;
-      if (fVar4 != 0.0) {
+      if (fVar4 != 0.0f) {
         do {
           uVar5 = Cos_InstChoreStatus(*(int *)local_18,PUN(uint,(float)fVar6));
           if (((uVar5 & 1) != 0) && ((uVar5 & 2) != 0)) {
@@ -3289,7 +3289,7 @@ void __cdecl sputLua_SetActorCostumeL(void)
       iVar5 = sputActor_SetCostume(actor,name,iVar2);
     }
     if (iVar5 != 0) {
-      lua_pushnumber(1.0);
+      lua_pushnumber(1.0f);
       return;
     }
     lua_pushnil();
@@ -3471,7 +3471,7 @@ void __cdecl sputLua_PlayActorChoreL(void)
             lVar5 = FTOL((float10)fVar6);
             iVar1 = Cos_InstPlayChore(*(int *)local_4,(uint)lVar5,iVar1,iVar3);
             if (iVar1 != 0) {
-              lua_pushnumber(1.0);
+              lua_pushnumber(1.0f);
               return;
             }
           }
@@ -3521,7 +3521,7 @@ void __cdecl sputLua_CompleteActorChoreL(void)
             lVar5 = FTOL((float10)fVar6);
             iVar1 = Cos_InstCompleteChore(*(int *)local_4,(uint)lVar5);
             if (iVar1 != 0) {
-              lua_pushnumber(1.0);
+              lua_pushnumber(1.0f);
               return;
             }
           }
@@ -3573,7 +3573,7 @@ void __cdecl sputLua_PlayActorChoreLoopingL(void)
             lVar5 = FTOL((float10)fVar6);
             iVar1 = Cos_InstPlayChore(*(int *)local_4,(uint)lVar5,iVar1,iVar3);
             if (iVar1 != 0) {
-              lua_pushnumber(1.0);
+              lua_pushnumber(1.0f);
               return;
             }
           }
@@ -3635,7 +3635,7 @@ void __cdecl sputLua_ActorLookAtL(void)
           actor->pExtra->aLookAt[0] = fVar8;
           iVar3 = lua_isnumber(iVar2);
           if (iVar3 == 0) {
-            fVar8 = 0.0;
+            fVar8 = 0.0f;
           }
           else {
             fVar8 = lua_getnumber(iVar2);
@@ -3648,7 +3648,7 @@ void __cdecl sputLua_ActorLookAtL(void)
             actor->dwMoveFlags = actor->dwMoveFlags | 2;
             return;
           }
-          actor->pExtra->aLookAt[2] = 0.0;
+          actor->pExtra->aLookAt[2] = 0.0f;
           actor->dwMoveFlags = actor->dwMoveFlags | 2;
           return;
         }
@@ -3674,13 +3674,13 @@ void __cdecl sputLua_ActorLookAtL(void)
       }
       else {
         pAVar1 = actor->pExtra;
-        if (((pAVar1->aLookAt[0] == 0.0) && (pAVar1->aLookAt[1] == 0.0)) &&
-           (pAVar1->aLookAt[2] == 0.0)) {
+        if (((pAVar1->aLookAt[0] == 0.0f) && (pAVar1->aLookAt[1] == 0.0f)) &&
+           (pAVar1->aLookAt[2] == 0.0f)) {
           return;
         }
-        pAVar1->aLookAt[0] = 0.0;
-        pAVar1->aLookAt[1] = 0.0;
-        pAVar1->aLookAt[2] = 0.0;
+        pAVar1->aLookAt[0] = 0.0f;
+        pAVar1->aLookAt[1] = 0.0f;
+        pAVar1->aLookAt[2] = 0.0f;
         iVar2 = lua_isnumber(iVar4);
         if (iVar2 != 0) {
           fVar8 = lua_getnumber(iVar4);
@@ -3717,7 +3717,7 @@ void __cdecl sputLua_IsActorLookingL(void)
       iVar1 = lua_getuserdata(iVar1);
       pAVar3 = sputActor_ActorDeref(iVar1);
       if ((pAVar3->dwMoveFlags & 2) != 0) {
-        lua_pushnumber(1.0);
+        lua_pushnumber(1.0f);
         return;
       }
       lua_pushnil();
@@ -4042,8 +4042,8 @@ void __cdecl sputLua_SetActorTurnRateL(void)
         if (actor->pExtra == (ActorExtra *)0x0) {
           sputActor_AllocateActorExtra(actor);
         }
-        if (actor->pExtra->flTurnRate < 0.0) {
-          fVar4 = fVar4 * -1.0;
+        if (actor->pExtra->flTurnRate < 0.0f) {
+          fVar4 = fVar4 * -1.0f;
         }
         actor->pExtra->flTurnRate = fVar4;
       }
@@ -4456,14 +4456,14 @@ void __cdecl sputLua_CanActorSeeL(void)
     local_c[0] = lua_getnumber(iVar2);
     iVar2 = lua_isnumber(iVar1);
     if (iVar2 == 0) {
-      local_c[1] = 0.0;
+      local_c[1] = 0.0f;
     }
     else {
       local_c[1] = lua_getnumber(iVar1);
     }
     iVar1 = lua_isnumber(iVar3);
     if (iVar1 == 0) {
-      local_c[2] = 0.0;
+      local_c[2] = 0.0f;
     }
     else {
       local_c[2] = lua_getnumber(iVar3);
@@ -4530,7 +4530,7 @@ void __cdecl sputLua_GetVisibleThingsL(void)
       uVar5 = 0x52544341;
       pcVar4 = (char *)sputActor_GetActorHandle(target);
       lua_pushusertag(pcVar4,uVar5);
-      lua_pushnumber(1.0);
+      lua_pushnumber(1.0f);
       lua_settable();
     }
   }
@@ -5117,7 +5117,7 @@ int __cdecl sputLua_Boot(int flag,char *str)
     lua_pushnil();
   }
   else {
-    lua_pushnumber(1.0);
+    lua_pushnumber(1.0f);
   }
   if (str == (char *)0x0) {
     lua_pushnil();
@@ -5212,7 +5212,7 @@ void __cdecl sputLua_JustLoadedL(void)
   
   uVar1 = grimlib_JustLoaded();
   if (uVar1 != 0) {
-    lua_pushnumber(1.0);
+    lua_pushnumber(1.0f);
     return;
   }
                     /* WARNING: Could not recover jumptable at 0x0049ca98. Too many branches */
@@ -5332,7 +5332,7 @@ void __cdecl sputLua_CheckForFileL(void)
       return;
     }
     (*g_pSputLuaHS->pFclose)(iVar2);
-    lua_pushnumber(1.0);
+    lua_pushnumber(1.0f);
   }
   return;
 }
@@ -5433,12 +5433,12 @@ void __cdecl sputLua_SearchForFileOrSwapCDsL(void)
             iVar5 = (*(code *)*ppvVar1)(iVar5,puVar6);
           } while (iVar5 == 0);
           (*g_pSputLuaHS->pFclose)(iVar5);
-          lua_pushnumber(1.0);
-          lua_pushnumber(1.0);
+          lua_pushnumber(1.0f);
+          lua_pushnumber(1.0f);
           return;
         }
         (*g_pSputLuaHS->pFclose)(iVar5);
-        lua_pushnumber(1.0);
+        lua_pushnumber(1.0f);
         lua_pushnil();
       }
     }
@@ -5821,10 +5821,10 @@ void __cdecl sputLua_GetControlStateL(void)
           lua_pushnil();
         }
         else {
-          lua_pushnumber(1.0);
+          lua_pushnumber(1.0f);
         }
         if (local_8 != 0) {
-          lua_pushnumber(1.0);
+          lua_pushnumber(1.0f);
           return;
         }
         lua_pushnil();
@@ -5900,7 +5900,7 @@ void __cdecl sputLua_DoCostumeOverrideCallback(void *actor,int flag)
       lua_pushnil();
     }
     else {
-      lua_pushnumber(1.0);
+      lua_pushnumber(1.0f);
     }
     lua_callfunction((int)pcVar6);
   }
@@ -6435,15 +6435,15 @@ uint __cdecl sputLua_Startup(void)
   g_dwLrTypeFunction = lua_ref(1);
   lua_pushCclosure(((unsigned)(uintptr_t)sputLua_TypeOverride),0);
   lua_setglobal(&DAT_004ec54c);
-  lua_pushnumber(0.0);
+  lua_pushnumber(0.0f);
   lua_setglobal(&DAT_004ec544);
-  lua_pushnumber(4096.0);
+  lua_pushnumber(4096.0f);
   lua_setglobal(&DAT_004ec53c);
-  lua_pushnumber(8192.0);
+  lua_pushnumber(8192.0f);
   lua_setglobal(s_CAMERA_004ec534);
-  lua_pushnumber(16384.0);
+  lua_pushnumber(16384.0f);
   lua_setglobal(s_SPECIAL_004ec52c);
-  lua_pushnumber(32768.0);
+  lua_pushnumber(32768.0f);
   lua_setglobal(&DAT_004ec528);
   iVar1 = lua_setfallback(s_concat_004ec520,sputLua_ConcatFallback);
   lua_pushobject(iVar1);
@@ -6628,7 +6628,7 @@ uint __cdecl sputLua_NotifyControlHandlers(void)
       local_3c = 1;
     }
   }
-  fVar5 = 0.0;
+  fVar5 = 0.0f;
   if (g_nSputControl_numControlSymbols != 0) {
     puVar8 = &UINT_004e87d0;
     do {
@@ -6649,7 +6649,7 @@ uint __cdecl sputLua_NotifyControlHandlers(void)
           }
         }
         else {
-          local_30[0] = 0.0;
+          local_30[0] = 0.0f;
           fVar6 = (float)stdControl_ReadKey(puVar8[-1],(int *)local_30,(int *)&local_20);
           if ((fVar6 != (float)*puVar8) && (local_44 != 0)) {
             if (bVar1) {
@@ -6657,11 +6657,11 @@ uint __cdecl sputLua_NotifyControlHandlers(void)
             }
             local_1c[1] = fVar5;
             lua_pushnumber((float)PUN(uint,(float)fVar5));
-            if (fVar6 == 0.0) {
+            if (fVar6 == 0.0f) {
               lua_pushnil();
             }
             else {
-              lua_pushnumber(1.0);
+              lua_pushnumber(1.0f);
             }
             lua_pushnumber((float)PUN(uint,(float)local_30[0]));
             lua_pushnumber((float)(int)local_20);
@@ -6790,11 +6790,11 @@ void __cdecl sputLua_SetSoundPosition(void)
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
   set = sputRoom_GetCurrentRoom();
-  local_20[0] = 8.0;
-  local_20[1] = 1.0;
+  local_20[0] = 8.0f;
+  local_20[1] = 1.0f;
   local_24 = CONCAT31(PIECE(local_24,1,3),10);
   local_28 = CONCAT31(PIECE(local_28,1,3),0x7f);
-  local_20[2] = 1.5;
+  local_20[2] = 1.5f;
   if (set != (Set *)0x0) {
     sputRoom_GetSoundParameters
               (set,local_20,(char *)&local_24,(char *)&local_28,local_20 + 2,local_20 + 1);
@@ -6909,7 +6909,7 @@ void __cdecl sputLua_StartFullScreenMovieL(void)
     uVar4 = lua_getstring(iVar1);
     uVar5 = grimlib_PlayMovie(uVar4,iVar2,uVar5,uVar6,uVar7);
     if (uVar5 == 1) {
-      lua_pushnumber(1.0);
+      lua_pushnumber(1.0f);
       return;
     }
   }
@@ -6945,7 +6945,7 @@ void __cdecl sputLua_IsMoviePlayingL(void)
   
   iVar1 = sputSmush_MoviePlaying();
   if (iVar1 != 0) {
-    lua_pushnumber(1.0);
+    lua_pushnumber(1.0f);
     return;
   }
                     /* WARNING: Could not recover jumptable at 0x0049e978. Too many branches */
@@ -7067,11 +7067,11 @@ void __cdecl sputLua_QueryDialog(void)
       iVar1 = lua_isnil(iVar3);
       iVar1 = grimPlat_QueryDialog(text,caption,(iVar1 != 0) + 3);
       if (iVar1 == 2) {
-        lua_pushnumber(0.0);
+        lua_pushnumber(0.0f);
         return;
       }
       if (iVar1 != 7) {
-        lua_pushnumber(1.0);
+        lua_pushnumber(1.0f);
         return;
       }
     }
@@ -7204,7 +7204,7 @@ void __cdecl sputLua_ReadRegistryValue(void)
     name = (char *)lua_getstring(iVar1);
     iVar1 = wuRegistry_QueryType(name);
     if (iVar1 == 3) {
-      n = wuRegistry_GetFloat(name,0.0);
+      n = wuRegistry_GetFloat(name,0.0f);
       lua_pushnumber(n);
       return;
     }
@@ -7292,7 +7292,7 @@ void __cdecl sputLua_IsSectorActiveL(void)
       pWVar4 = WalkPlane_PlaneNamed(name);
     }
     if ((pWVar4 != (WalkPlane *)0x0) && (pWVar4->nVisible != 0)) {
-      lua_pushnumber(1.0);
+      lua_pushnumber(1.0f);
     }
   }
 LAB_0049eea2:
@@ -7652,7 +7652,7 @@ void __cdecl sputLua_SetActorScaleL(void)
         pAVar4->flScale = fVar5;
         return;
       }
-      pAVar4->flScale = 1.0;
+      pAVar4->flScale = 1.0f;
     }
   }
   return;
@@ -7686,7 +7686,7 @@ void __cdecl sputLua_SetActorTimeScaleL(void)
       }
       iVar2 = lua_isnumber(iVar3);
       if (iVar2 == 0) {
-        fVar5 = 1.0;
+        fVar5 = 1.0f;
       }
       else {
         fVar5 = lua_getnumber(iVar3);
@@ -7694,7 +7694,7 @@ void __cdecl sputLua_SetActorTimeScaleL(void)
       actor->pExtra->flTimeScale = fVar5;
       pAVar1 = actor->pExtra;
       fVar5 = pAVar1->flTimeScale;
-      if (pAVar1->flTimeScale < 0.0) {
+      if (pAVar1->flTimeScale < 0.0f) {
         fVar5 = -fVar5;
       }
       pAVar1->flTimeScale = fVar5;
@@ -7993,10 +7993,10 @@ void __cdecl sputLua_PointActorAtL(void)
   }
   Puck_PointAt(actor->pExtra->pPuck,local_c,3.4028235e+38);
   pAVar1 = actor->pExtra;
-  if (pAVar1->flTurnRate <= 0.0) {
+  if (pAVar1->flTurnRate <= 0.0f) {
     return;
   }
-  pAVar1->flTurnRate = pAVar1->flTurnRate * -1.0;
+  pAVar1->flTurnRate = pAVar1->flTurnRate * -1.0f;
   return;
 }
 #undef local_10
@@ -8059,16 +8059,16 @@ LAB_0049fd1e:
     sputActor_EnablePuck(actor,1);
   }
   fVar1 = actor->pExtra->flTurnRate;
-  if (actor->pExtra->flTurnRate < 0.0) {
+  if (actor->pExtra->flTurnRate < 0.0f) {
     fVar1 = -fVar1;
   }
   fVar8 = sputTime_GetFrameTimeFlex();
   fVar9 = Puck_PointAt(actor->pExtra->pPuck,local_c,fVar8 * fVar1);
-  if (fVar9 < 0.0) {
+  if (fVar9 < 0.0f) {
     fVar9 = -fVar9;
   }
   if (fVar8 * fVar1 <= fVar9) {
-    lua_pushnumber(1.0);
+    lua_pushnumber(1.0f);
     return;
   }
 LAB_0049fde2:
@@ -8201,7 +8201,7 @@ void __cdecl sputLua_GetAngleBetweenVectorsL(void)
       rdVector_Normalize3Acc(local_18);
       fVar4 = stdMath_ArcSin3(local_18[2] * local_c[2] +
                               local_18[1] * local_c[1] + local_18[0] * local_c[0]);
-      lua_pushnumber(90.0 - fVar4);
+      lua_pushnumber(90.0f - fVar4);
       return;
     }
   }
@@ -8268,7 +8268,7 @@ void __cdecl sputLua_GetAngleBetweenActorsL(void)
             rdVector_Normalize3Acc(&local_c);
             rdVector_Normalize3Acc(&local_18);
             fVar7 = stdMath_ArcSin3(local_10 * local_4 + local_14 * local_8 + local_18 * local_c);
-            lua_pushnumber(90.0 - fVar7);
+            lua_pushnumber(90.0f - fVar7);
             return;
           }
         }
@@ -8418,7 +8418,7 @@ void __cdecl sputLua_IsLightOn(void)
   }
   pSVar3 = sputRoom_GetLight((Set *)0x0,iVar1);
   if ((pSVar3 != (SetLight *)0x0) && ((pSVar3->light).nActive != 0)) {
-    lua_pushnumber(1.0);
+    lua_pushnumber(1.0f);
     return;
   }
 LAB_004a03f5:
@@ -8722,26 +8722,26 @@ void __cdecl sputLua_SetLightRotation(void)
   if (pSVar7 != (SetLight *)0x0) {
     iVar6 = lua_isnumber(iVar2);
     if (iVar6 == 0) {
-      local_c = 0.0;
+      local_c = 0.0f;
     }
     else {
       local_c = lua_getnumber(iVar2);
     }
     iVar2 = lua_isnumber(iVar3);
     if (iVar2 == 0) {
-      local_8 = 0.0;
+      local_8 = 0.0f;
     }
     else {
       local_8 = lua_getnumber(iVar3);
     }
     iVar2 = lua_isnumber(iVar4);
     if (iVar2 == 0) {
-      local_4 = 0.0;
+      local_4 = 0.0f;
     }
     else {
       local_4 = lua_getnumber(iVar4);
     }
-    local_18 = 0.0;
+    local_18 = 0.0f;
     local_14 = 0x3f800000;
     local_10 = 0;
     rdVector_Rotate3Acc(&local_18,&local_c);
@@ -8863,14 +8863,14 @@ void __cdecl sputLua_SetLightAngles(void)
   if (pSVar5 != (SetLight *)0x0) {
     iVar1 = lua_isnumber(iVar2);
     if (iVar1 == 0) {
-      local_4 = 0.0;
+      local_4 = 0.0f;
     }
     else {
       local_4 = lua_getnumber(iVar2);
     }
     iVar1 = lua_isnumber(iVar3);
     if (iVar1 == 0) {
-      local_8 = 0.0;
+      local_8 = 0.0f;
     }
     else {
       local_8 = lua_getnumber(iVar3);
@@ -8978,14 +8978,14 @@ void __cdecl sputLua_PointLightAt(void)
       local_18 = lua_getnumber(iVar2);
       iVar1 = lua_isnumber(iVar3);
       if (iVar1 == 0) {
-        local_14 = 0.0;
+        local_14 = 0.0f;
       }
       else {
         local_14 = lua_getnumber(iVar3);
       }
       iVar1 = lua_isnumber(iVar4);
       if (iVar1 == 0) {
-        local_10 = 0.0;
+        local_10 = 0.0f;
       }
       else {
         local_10 = lua_getnumber(iVar4);
@@ -9597,15 +9597,15 @@ void __cdecl sputLua_GetSpeechMode(void)
   uVar1 = sputActor_GetSpeechMode();
   if ((uVar1 & 2) == 0) {
     if ((uVar1 & 1) != 0) {
-      lua_pushnumber(1.0);
+      lua_pushnumber(1.0f);
       return;
     }
   }
   else if ((uVar1 & 1) != 0) {
-    lua_pushnumber(3.0);
+    lua_pushnumber(3.0f);
     return;
   }
-  lua_pushnumber(2.0);
+  lua_pushnumber(2.0f);
   return;
 }
 
@@ -9629,7 +9629,7 @@ void __cdecl sputLua_ActorShadow(void)
       actor = sputActor_ActorDeref(iVar1);
       iVar1 = sputActor_ActorHasShadow(actor);
       if (iVar1 != 0) {
-        lua_pushnumber(1.0);
+        lua_pushnumber(1.0f);
         return;
       }
     }
@@ -9831,7 +9831,7 @@ void __cdecl sputLua_ActorDistToShadowPlane(void)
               pAVar1->aShadows[iVar3].aPlane[2] * actor->aPos[2] +
               pAVar1->aShadows[iVar3].aPlane[0] * actor->aPos[0] + pAVar1->aShadows[iVar3].aPlane[3]
       ;
-      if (fVar6 < 0.0) {
+      if (fVar6 < 0.0f) {
         fVar6 = -fVar6;
       }
       lua_pushnumber(fVar6);
@@ -10391,10 +10391,10 @@ void __cdecl sputLua_HardwareAccelerated(void)
 
 {
   if (g_nSputRender_b3DAcceleration != 0) {
-    lua_pushnumber(1.0);
+    lua_pushnumber(1.0f);
     return;
   }
-  lua_pushnumber(0.0);
+  lua_pushnumber(0.0f);
   return;
 }
 
@@ -11393,7 +11393,7 @@ void __cdecl sputLua_FindFileOnAnyCD(void)
       (*g_pSputLuaHS->pFree)(a2);
     }
     if (bVar2) {
-      lua_pushnumber(1.0);
+      lua_pushnumber(1.0f);
       return;
     }
   }

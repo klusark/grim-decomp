@@ -40,7 +40,7 @@ ARCH     := -m32 -march=i686
 #                         _errno, malloc, ... itself
 OPT      ?= -O0          # make OPT=-O2 ; extra flags: make EXTRA_CFLAGS=...
 GHIDRA_CFLAGS := $(OPT) $(ARCH) -std=gnu11 -fpermissive -w -Wno-error=incompatible-pointer-types -Wno-error=int-conversion -Wno-error=implicit-function-declaration -fno-builtin -fno-strict-aliasing \
-            -fwrapv -fsingle-precision-constant -fno-common -ffreestanding -include compat.h -I.
+            -fwrapv -fno-common -ffreestanding -include compat.h -I.
 
 # Per-module optimisation (see BUILD_NOTES.md, "Performance"): opt.mk sets OPT_<PROG>/<module> variables, e.g.
 #   OPT_GRIMFANDANGO.EXE/insane := -O2

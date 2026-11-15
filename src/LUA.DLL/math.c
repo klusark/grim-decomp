@@ -17,7 +17,7 @@ void __cdecl math_abs(void)
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
   uStack_4 = PUN(undefined4,(float)(luaL_check_number(1)));
-  if (uStack_4 < 0.0) {
+  if (uStack_4 < 0.0f) {
     uStack_4 = -uStack_4;
   }
   lua_pushnumber(PUN(float,uStack_4));
@@ -233,7 +233,7 @@ void __cdecl math_log(void)
   
   fVar2 = luaL_check_number(1);
   fVar1 = (float10)log2((float10)fVar2);
-  lua_pushnumber((float)((float10)0.6931471805599453 * fVar1));
+  lua_pushnumber((float)((float10)0.6931471805599453f * fVar1));
   return;
 }
 
@@ -248,7 +248,7 @@ void __cdecl math_log10(void)
   
   fVar2 = luaL_check_number(1);
   fVar1 = (float10)log2((float10)fVar2);
-  lua_pushnumber((float)((float10)0.3010299956639812 * fVar1));
+  lua_pushnumber((float)((float10)0.3010299956639812f * fVar1));
   return;
 }
 
@@ -263,8 +263,8 @@ void __cdecl math_exp(void)
   float fVar3;
   
   fVar3 = luaL_check_number(1);
-  fVar1 = ROUND((float10)1.4426950408889634 * (float10)fVar3);
-  fVar2 = (float10)f2xm1((float10)1.4426950408889634 * (float10)fVar3 - fVar1);
+  fVar1 = ROUND((float10)1.4426950408889634f * (float10)fVar3);
+  fVar2 = (float10)f2xm1((float10)1.4426950408889634f * (float10)fVar3 - fVar1);
   fVar1 = (float10)fscale((float10)1 + fVar2,fVar1);
   lua_pushnumber((float)fVar1);
   return;
@@ -279,7 +279,7 @@ void __cdecl math_deg(void)
   float fVar1;
   
   fVar1 = luaL_check_number(1);
-  lua_pushnumber(fVar1 * 57.29578);
+  lua_pushnumber(fVar1 * 57.29578f);
   return;
 }
 
@@ -292,7 +292,7 @@ void __cdecl math_rad(void)
   float fVar1;
   
   fVar1 = luaL_check_number(1);
-  lua_pushnumber(fVar1 * 0.017453292);
+  lua_pushnumber(fVar1 * 0.017453292f);
   return;
 }
 
@@ -368,9 +368,9 @@ void __cdecl math_random(void)
   float fVar3;
   
   uVar1 = FUN_10012360();
-  n = (float)((int)uVar1 % 0x7fff) * 3.051851e-05;
-  fVar3 = luaL_opt_number(1,0.0);
-  if ((float10)fVar3 == (float10)0.0) {
+  n = (float)((int)uVar1 % 0x7fff) * 3.051851e-05f;
+  fVar3 = luaL_opt_number(1,0.0f);
+  if ((float10)fVar3 == (float10)0.0f) {
     lua_pushnumber(n);
     return;
   }

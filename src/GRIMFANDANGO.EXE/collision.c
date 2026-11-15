@@ -33,7 +33,7 @@ GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax
     fVar1 = 3.4028235e+38;
     if (local_14[0] < ymax) {
       fVar2 = ymax - local_14[0];
-      if (fVar2 < 0.0) {
+      if (fVar2 < 0.0f) {
         fVar2 = -fVar2;
       }
       fVar1 = 3.4028235e+38;
@@ -46,7 +46,7 @@ GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax
     }
     if (ymin < local_14[0]) {
       fVar2 = ymin - local_14[0];
-      if (fVar2 < 0.0) {
+      if (fVar2 < 0.0f) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
@@ -58,7 +58,7 @@ GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax
     }
     if (local_18 < xmax) {
       fVar2 = xmax - local_18;
-      if (fVar2 < 0.0) {
+      if (fVar2 < 0.0f) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
@@ -70,7 +70,7 @@ GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax
     }
     if (xmin < local_18) {
       fVar2 = xmin - local_18;
-      if (fVar2 < 0.0) {
+      if (fVar2 < 0.0f) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
@@ -171,7 +171,7 @@ FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *
     do {
       rdMatrix_TransformPoint34Acc(param_5,param_3);
       param_5[2] = param_4;
-      *pfVar2 = 1.4013e-45;
+      *pfVar2 = 1.4013e-45f;
       pfVar2 = pfVar2 + 1;
       param_5 = param_5 + 3;
       iVar1 = iVar1 + -1;
@@ -218,13 +218,13 @@ TestCollision(float *from,float *to,float *hit,float xmin,float ymin,float zmin,
   fVar3 = local_c[1] - local_24[1];
   fVar4 = local_c[2] - local_24[2];
   if (((ymax < local_24[1]) && (local_c[1] < ymax)) &&
-     (fVar1 = (ymax - local_24[1]) / fVar3, fVar1 < 1.0)) {
+     (fVar1 = (ymax - local_24[1]) / fVar3, fVar1 < 1.0f)) {
     fVar5 = fVar1 * fVar2 + local_24[0];
     if ((xmin < fVar5) &&
        (fVar6 = fVar1 * fVar3 + local_24[1], fVar7 = fVar1 * fVar4 + local_24[2], fVar5 < xmax))
     goto LAB_00492801;
   }
-  fVar1 = 1.0;
+  fVar1 = 1.0f;
   fVar5 = FLOAT_008ca320;
   fVar6 = FLOAT_008ca324;
   fVar7 = FLOAT_008ca328;
@@ -262,7 +262,7 @@ LAB_00492801:
       FLOAT_008ca328 = fVar5 * fVar4 + local_24[2];
     }
   }
-  if (fVar1 == 1.0) {
+  if (fVar1 == 1.0f) {
     return 0;
   }
   return 1;
@@ -410,7 +410,7 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
   pfVar6 = sputActor_GetOrientMatrix(param_1);
   rdMatrix_TransformVector34(local_98,(float *)(iVar10 + 0x78),pfVar6);
   fVar3 = local_98[0] + param_1->aPos[0];
-  local_5c[2] = 0.0;
+  local_5c[2] = 0.0f;
   local_68[0] = param_1->aPos[1] + local_98[1];
   local_68[1] = param_1->aPos[2] + local_98[2];
   fVar4 = *(float *)(iVar10 + 0x5c) * param_1->pExtra->flCollisionScale;
@@ -442,7 +442,7 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
             _DAT_008ca350 = param_1->aPos[2];
             rdVector_Normalize3Acc(local_2c + 2);
             uVar5 = param_1->dwMoveFlags;
-            local_20[2] = (local_2c[2] * (1.0 - (fVar12 - local_8c[0]) / fVar4) * fVar4 + fVar3) -
+            local_20[2] = (local_2c[2] * (1.0f - (fVar12 - local_8c[0]) / fVar4) * fVar4 + fVar3) -
                           local_98[0];
             sputActor_SetActorPosition(param_1,local_20 + 2);
             _DAT_008ca338 = *pfVar6;
@@ -484,7 +484,7 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
             pfVar8 = sputActor_GetOrientMatrix(actor);
             pfVar7 = local_8c + 1;
             pfVar11 = local_50 + 2;
-            fVar12 = 6.726548e-39;
+            fVar12 = 6.726548e-39f;
             rdMatrix_TransformVectorOrtho34(pfVar11,pfVar7,pfVar8);
             local_50[2] = local_50[2] + *pfVar6;
             pfVar6 = local_80 + 1;
@@ -503,7 +503,7 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
                                         ,pfVar6);
             if (iVar10 == 0) {
               pfVar6 = actor->aPos;
-              fVar13 = 6.726705e-39;
+              fVar13 = 6.726705e-39f;
               pfVar9 = sputActor_GetOrientMatrix(actor);
               pfVar7 = local_44 + 2;
               pfVar11 = (float *)(_stkneg + 16);
@@ -545,7 +545,7 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
               sputActor_ActorWalkTo(param_1,(int)&local_c,pAVar2->aDest,actor);
             }
           }
-          in_stack_ffffff28 = 6.727223e-39;
+          in_stack_ffffff28 = 6.727223e-39f;
           in_stack_ffffff2c = param_1;
           sputLua_CollisionHandler
                     ((int)param_1,(int)actor,(float *)&DAT_008ca348,&FLOAT_008ca320,
@@ -622,139 +622,139 @@ Collision_BoxSlide(float *from,float *to,float xmin,float ymin,float zmin,float 
   fVar10 = *from - *to;
   fVar1 = from[1] - to[1];
   fVar3 = from[2] - to[2];
-  fVar11 = fVar10 * -10.0 + *to;
-  fVar2 = fVar1 * -10.0 + to[1];
-  fVar6 = fVar3 * -10.0 + to[2];
+  fVar11 = fVar10 * -10.0f + *to;
+  fVar2 = fVar1 * -10.0f + to[1];
+  fVar6 = fVar3 * -10.0f + to[2];
   *to = fVar11;
   fVar5 = 3.4028235e+38;
   to[1] = fVar2;
   to[2] = fVar6;
   if (xmax - 0.002 < fVar11) {
     fVar4 = fVar10;
-    if (fVar10 < 0.0) {
+    if (fVar10 < 0.0f) {
       fVar4 = -fVar10;
     }
     fVar4 = (xmax - *from) / fVar4;
     fVar7 = fVar4;
-    if (fVar4 < 0.0) {
+    if (fVar4 < 0.0f) {
       fVar7 = -fVar4;
     }
     fVar5 = 3.4028235e+38;
     if (fVar7 < 3.4028235e+38) {
       fVar5 = -fVar4;
       iVar9 = 1;
-      local_3c = 1.0;
-      local_38[0] = 0.0;
-      local_38[1] = 0.0;
+      local_3c = 1.0f;
+      local_38[0] = 0.0f;
+      local_38[1] = 0.0f;
     }
   }
   if (fVar11 < xmin - -0.002) {
     fVar11 = fVar10;
-    if (fVar10 < 0.0) {
+    if (fVar10 < 0.0f) {
       fVar11 = -fVar10;
     }
     fVar11 = (xmin - *from) / fVar11;
     fVar4 = fVar11;
-    if (fVar11 < 0.0) {
+    if (fVar11 < 0.0f) {
       fVar4 = -fVar11;
     }
     fVar7 = fVar5;
-    if (fVar5 < 0.0) {
+    if (fVar5 < 0.0f) {
       fVar7 = -fVar5;
     }
     if (fVar4 < fVar7) {
       iVar9 = 2;
-      local_3c = -1.0;
-      local_38[0] = 0.0;
-      local_38[1] = 0.0;
+      local_3c = -1.0f;
+      local_38[0] = 0.0f;
+      local_38[1] = 0.0f;
       fVar5 = fVar11;
     }
   }
   if (ymax - 0.002 < fVar2) {
     fVar11 = fVar1;
-    if (fVar1 < 0.0) {
+    if (fVar1 < 0.0f) {
       fVar11 = -fVar1;
     }
     fVar11 = (ymax - from[1]) / fVar11;
     fVar4 = fVar11;
-    if (fVar11 < 0.0) {
+    if (fVar11 < 0.0f) {
       fVar4 = -fVar11;
     }
     fVar7 = fVar5;
-    if (fVar5 < 0.0) {
+    if (fVar5 < 0.0f) {
       fVar7 = -fVar5;
     }
     if (fVar4 < fVar7) {
       fVar5 = -fVar11;
       iVar9 = 3;
-      local_3c = 0.0;
-      local_38[0] = 1.0;
-      local_38[1] = 0.0;
+      local_3c = 0.0f;
+      local_38[0] = 1.0f;
+      local_38[1] = 0.0f;
     }
   }
   if (fVar2 < ymin - -0.002) {
     fVar11 = fVar1;
-    if (fVar1 < 0.0) {
+    if (fVar1 < 0.0f) {
       fVar11 = -fVar1;
     }
     fVar11 = (ymin - from[1]) / fVar11;
     fVar2 = fVar11;
-    if (fVar11 < 0.0) {
+    if (fVar11 < 0.0f) {
       fVar2 = -fVar11;
     }
     fVar4 = fVar5;
-    if (fVar5 < 0.0) {
+    if (fVar5 < 0.0f) {
       fVar4 = -fVar5;
     }
     if (fVar2 < fVar4) {
       iVar9 = 4;
-      local_3c = 0.0;
-      local_38[0] = -1.0;
-      local_38[1] = 0.0;
+      local_3c = 0.0f;
+      local_38[0] = -1.0f;
+      local_38[1] = 0.0f;
       fVar5 = fVar11;
     }
   }
   if (zmax - 0.002 < fVar6) {
     fVar11 = fVar3;
-    if (fVar3 < 0.0) {
+    if (fVar3 < 0.0f) {
       fVar11 = -fVar3;
     }
     fVar11 = (zmax - from[2]) / fVar11;
     fVar2 = fVar11;
-    if (fVar11 < 0.0) {
+    if (fVar11 < 0.0f) {
       fVar2 = -fVar11;
     }
     fVar4 = fVar5;
-    if (fVar5 < 0.0) {
+    if (fVar5 < 0.0f) {
       fVar4 = -fVar5;
     }
     if (fVar2 < fVar4) {
       fVar5 = -fVar11;
       iVar9 = 5;
-      local_3c = 0.0;
-      local_38[0] = 0.0;
-      local_38[1] = 1.0;
+      local_3c = 0.0f;
+      local_38[0] = 0.0f;
+      local_38[1] = 1.0f;
     }
   }
   if (fVar6 < zmin - -0.002) {
     fVar11 = fVar3;
-    if (fVar3 < 0.0) {
+    if (fVar3 < 0.0f) {
       fVar11 = -fVar3;
     }
     fVar11 = (zmin - from[2]) / fVar11;
     fVar2 = fVar11;
-    if (fVar11 < 0.0) {
+    if (fVar11 < 0.0f) {
       fVar2 = -fVar11;
     }
     fVar6 = fVar5;
-    if (fVar5 < 0.0) {
+    if (fVar5 < 0.0f) {
       fVar6 = -fVar5;
     }
     if (fVar2 < fVar6) {
       iVar9 = 6;
-      local_3c = 0.0;
-      local_38[0] = 0.0;
-      local_38[1] = -1.0;
+      local_3c = 0.0f;
+      local_38[0] = 0.0f;
+      local_38[1] = -1.0f;
       fVar5 = fVar11;
     }
   }
@@ -768,30 +768,30 @@ Collision_BoxSlide(float *from,float *to,float xmin,float ymin,float zmin,float 
   FLOAT_008ca324 = out[1];
   FLOAT_008ca328 = out[2];
   fVar11 = fVar5;
-  if (fVar5 < 0.0) {
+  if (fVar5 < 0.0f) {
     fVar11 = -fVar5;
   }
   local_48 = fVar10 * fVar11;
   fVar10 = fVar5;
-  if (fVar5 < 0.0) {
+  if (fVar5 < 0.0f) {
     fVar10 = -fVar5;
   }
   local_44[0] = fVar1 * fVar10;
-  if (fVar5 < 0.0) {
+  if (fVar5 < 0.0f) {
     fVar5 = -fVar5;
   }
   local_44[1] = fVar3 * fVar5;
   fVar10 = rdVector_Normalize3Acc(&local_48);
   fVar11 = rdVector_Dot3(&local_48,&local_3c);
   fVar11 = stdMath_ArcSin3(fVar11);
-  if (90.0 - fVar11 < 90.0) {
+  if (90.0f - fVar11 < 90.0f) {
     return 0;
   }
   xmin = local_38[1] * local_44[0] - local_38[0] * local_44[1];
   ymin = local_3c * local_44[1] - local_38[1] * local_48;
   zmin = local_38[0] * local_48 - local_3c * local_44[0];
   rdVector_Normalize3Acc(&xmin);
-  rdMatrix_BuildFromVectorAngle34(local_30,&xmin,(90.0 - fVar11) - 90.0);
+  rdMatrix_BuildFromVectorAngle34(local_30,&xmin,(90.0f - fVar11) - 90.0f);
   rdMatrix_TransformVector34Acc(&local_48,local_30);
   *pfVar8 = fVar10 * local_48 + *pfVar8;
   pfVar8[1] = fVar10 * local_44[0] + pfVar8[1];

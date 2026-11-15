@@ -476,7 +476,7 @@ void __cdecl setloc(void)
   longlong lVar4;
   float fVar5;
   
-  fVar5 = luaL_opt_number(2,0.0);
+  fVar5 = luaL_opt_number(2,0.0f);
   lVar4 = FTOL((float10)fVar5);
   iVar1 = (int)lVar4;
   if ((iVar1 < 0) || (5 < iVar1)) {

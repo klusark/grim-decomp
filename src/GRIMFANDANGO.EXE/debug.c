@@ -33,12 +33,12 @@ uint __cdecl sputControl_StandardHandler(void)
       }
       pSVar2 = sputRoom_GetCurrentRoom();
       camera = *(rdCamera **)&pSVar2->pSetups[pSVar2->nCurSetup].field_0x48;
-      fov = camera->flFov - 0.5;
+      fov = camera->flFov - 0.5f;
     }
     else {
       pSVar2 = sputRoom_GetCurrentRoom();
       camera = *(rdCamera **)&pSVar2->pSetups[pSVar2->nCurSetup].field_0x48;
-      fov = camera->flFov - -0.5;
+      fov = camera->flFov - -0.5f;
     }
     rdCamera_SetFOV(camera,fov);
     return 1;

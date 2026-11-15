@@ -2039,3 +2039,19 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   the original has the double (`FMUL qword ptr`): -fsingle-precision-constant (build/Makefile) makes every unsuffixed
   literal a float, and Ghidra prints an 8-byte constant without a suffix. Off by up to 6 samples at 10^8.
 * Clean room 0 of 5457.
+
+## Double constants compile as doubles: no -fsingle-precision-constant (2026-11-15)
+
+* build/Makefile compiled the generated code with -fsingle-precision-constant (since 9de84ca, for the Lua header check),
+  which makes every unsuffixed literal a float. Ghidra prints an 8-byte constant (`FMUL double ptr [0x4dab70]`) as a plain
+  `0.001`, so the generated code computed with the float 0.001 where the original has the double: sou_engine_QueryTime
+  was off by up to 6 samples at 10^8 (build/mixdiff/snd_test.c), and so were FindObjectCorners / rdMatrix_LookAt
+  (0.999), WalkPlane_AddVertex (1e-08), sputRender_SegmentPlaneIntersect (0.1), Palette_FromFloatTable (1/255),
+  luaH_new, the Lua math library's degree factors, and 20 inexact literals in all.
+* The flag is gone and build_src.py's fix_float_literals writes the `f` itself: every literal gets it (the exact ones
+  too, so the arithmetic stays float as with the flag), except the values the function reads as an 8-byte constant and
+  values no float has. Literals of no constant operand at all (95: floats Ghidra propagated from immediates,
+  `MOV dword ptr [ESP+8],0x3ecccccd`) are floats, as before. Without the `f` everywhere, dropping the flag alone
+  changed 18 modules and 2 clean-room tests; with it, only the 7 modules that hold those doubles change (collision,
+  math3d, plane, sector, sound, stddisplay, walker; .text compared byte for byte with the build before).
+* snd_test: 0 differences now (6 before). Clean room 0 of 5457.

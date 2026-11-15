@@ -127,7 +127,7 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
   longlong lVar3;
   
   if (g_pDSoundPrimary != (void *)0x0) {
-    lVar3 = FTOL(((float10)1.0 - (float10)PUN(float,volume)) * ((float10)1.0 - (float10)PUN(float,volume))
+    lVar3 = FTOL(((float10)1.0f - (float10)PUN(float,volume)) * ((float10)1.0f - (float10)PUN(float,volume))
                   * (float10)-5000.0);
     pvVar1 = Win_GetMainHwnd();
     iVar2 = (**(code_std **)(*(int *)g_pDirectSound + 0x18))(g_pDirectSound,pvVar1,2);

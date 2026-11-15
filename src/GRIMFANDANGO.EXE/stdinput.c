@@ -175,14 +175,14 @@ void __cdecl stdControl_ReadControls(void)
     g_dwCurReadTime = timeGetTime();
     uVar1 = g_dwCurReadTime - g_dwLastReadTime;
     if (uVar1 != 0) {
-      *(float *)&DAT_004dea44 = 1.0 / (float)uVar1;
+      *(float *)&DAT_004dea44 = 1.0f / (float)uVar1;
       puVar3 = &UINT_00803fd0;
       UINT_00805fc8 = uVar1;
       for (iVar2 = 0xf; iVar2 != 0; iVar2 = iVar2 + -1) {
         *puVar3 = 0;
         puVar3 = puVar3 + 1;
       }
-      *(float *)&DAT_004dea48 = *(float *)&DAT_004dea44 * 1000.0;
+      *(float *)&DAT_004dea48 = *(float *)&DAT_004dea44 * 1000.0f;
       Input_PollKeyboard();
       if (UINT_00805fb8 != 0) {
         Input_PollJoysticks();
@@ -208,15 +208,15 @@ float __cdecl stdControl_ReadAxis(int inputId)
   int iVar5;
   
   if (g_nInputAcquired == 0) {
-    return 0.0;
+    return 0.0f;
   }
   iVar5 = inputId * 0x18;
   if (((&g_dwStdControl_aAxes)[inputId * 6] & 2) == 0) {
-    return 0.0;
+    return 0.0f;
   }
   iVar3 = (&UINT_00803fd0)[inputId] - *(int *)(&DAT_0090150c + iVar5);
   if (iVar3 == 0) {
-    return 0.0;
+    return 0.0f;
   }
   if ((((&g_dwStdControl_aAxes)[inputId * 6] & 8) == 0) && (*(int *)(&DAT_00901510 + iVar5) != 0)) {
     iVar4 = iVar3;
@@ -224,18 +224,18 @@ float __cdecl stdControl_ReadAxis(int inputId)
       iVar4 = -iVar3;
     }
     if (iVar4 < *(int *)(&DAT_00901510 + iVar5)) {
-      return 0.0;
+      return 0.0f;
     }
   }
   fVar1 = (float)iVar3 * *(float *)(&DAT_00901514 + iVar5);
   fVar2 = fVar1;
-  if (fVar1 < 0.0) {
+  if (fVar1 < 0.0f) {
     fVar2 = -fVar1;
   }
   if (fVar2 <= 1e-05f) {
-    fVar1 = 0.0;
+    fVar1 = 0.0f;
   }
-  if ((g_dwStdControl_bControlsIdle != 0) && (fVar1 != 0.0)) {
+  if ((g_dwStdControl_bControlsIdle != 0) && (fVar1 != 0.0f)) {
     g_dwStdControl_bControlsIdle = 0;
   }
   return fVar1;
@@ -366,19 +366,19 @@ void __cdecl Input_InitJoysticks(void)
             uVar3 = 0xe;
           }
           (&UINT_00901668)[a1] = uVar3;
-          Input_SetAxisRange(axis + -2,local_170,local_16c,0.1);
-          Input_SetAxisRange(axis + -1,local_168,local_164,0.1);
+          Input_SetAxisRange(axis + -2,local_170,local_16c,0.1f);
+          Input_SetAxisRange(axis + -1,local_168,local_164,0.1f);
           if ((local_134 & 1) != 0) {
-            Input_SetAxisRange(axis,local_160,local_15c,0.1);
+            Input_SetAxisRange(axis,local_160,local_15c,0.1f);
           }
           if ((local_134 & 2) != 0) {
-            Input_SetAxisRange(axis + 1,local_14c,local_148,0.1);
+            Input_SetAxisRange(axis + 1,local_14c,local_148,0.1f);
           }
           if ((local_134 & 4) != 0) {
-            Input_SetAxisRange(axis + 2,local_144,local_140,0.1);
+            Input_SetAxisRange(axis + 2,local_144,local_140,0.1f);
           }
           if ((local_134 & 8) != 0) {
-            Input_SetAxisRange(axis + 3,local_13c,local_138,0.1);
+            Input_SetAxisRange(axis + 3,local_13c,local_138,0.1f);
           }
           if ((local_134 & 0x10) != 0) {
             *puVar4 = 1;
@@ -479,9 +479,9 @@ void __cdecl Input_CreateMouse(void)
         iVar1 = (**(code_std **)(iVar1 + 0x34))(g_pDInputMouse);
         if (iVar1 == 0) {
           (**(code_std **)(*(int *)g_pDInputMouse + 0x18))(g_pDInputMouse,1,(_stkneg + 16));
-          Input_SetAxisRange(0xc,-0xfa,0xfa,0.0);
-          Input_SetAxisRange(0xd,-200,200,0.0);
-          Input_SetAxisRange(0xe,-0x14,0x14,0.0);
+          Input_SetAxisRange(0xc,-0xfa,0xfa,0.0f);
+          Input_SetAxisRange(0xd,-200,200,0.0f);
+          Input_SetAxisRange(0xe,-0x14,0x14,0.0f);
         }
       }
     }
@@ -1044,8 +1044,8 @@ void __cdecl Input_SetAxisRange(int axis,int min,int max,float deadZone)
   *(int *)(&DAT_00901508 + iVar2) = max;
   *(int *)(&DAT_0090150c + iVar2) = iVar1;
   fVar3 = (float10)(max - iVar1);
-  *(float *)(&DAT_00901514 + iVar2) = (float)((float10)1.0 / fVar3);
-  if (deadZone != 0.0) {
+  *(float *)(&DAT_00901514 + iVar2) = (float)((float10)1.0f / fVar3);
+  if (deadZone != 0.0f) {
     lVar4 = FTOL((float10)deadZone * fVar3);
     *(int *)(&DAT_00901510 + iVar2) = (int)lVar4;
     return;

@@ -95,7 +95,7 @@ LAB_00497960:
     rdPuppet_PlayTrack((int)puppet,track);
     return;
   case 4:
-    rdPuppet_FadeInTrack(puppet,track,1.0);
+    rdPuppet_FadeInTrack(puppet,track,1.0f);
     if (bVar2) {
       fVar1 = (float)param_5;
 LAB_00497bc4:
@@ -104,21 +104,21 @@ LAB_00497bc4:
     }
     break;
   case 5:
-    rdPuppet_FadeInTrack(puppet,track,0.5);
+    rdPuppet_FadeInTrack(puppet,track,0.5f);
     if (bVar2) {
       fVar1 = (float)param_5;
       goto LAB_00497bc4;
     }
     break;
   case 6:
-    rdPuppet_FadeInTrack(puppet,track,0.25);
+    rdPuppet_FadeInTrack(puppet,track,0.25f);
     if (bVar2) {
       fVar1 = (float)param_5;
       goto LAB_00497bc4;
     }
     break;
   case 7:
-    rdPuppet_FadeInTrack(puppet,track,0.125);
+    rdPuppet_FadeInTrack(puppet,track,0.125f);
     if (bVar2) {
       fVar1 = (float)param_5;
       goto LAB_00497bc4;
@@ -142,16 +142,16 @@ LAB_00497bc4:
     }
     break;
   case 0xb:
-    rdPuppet_FadeOutTrack(puppet,track,1.0);
+    rdPuppet_FadeOutTrack(puppet,track,1.0f);
     return;
   case 0xc:
-    rdPuppet_FadeOutTrack(puppet,track,0.5);
+    rdPuppet_FadeOutTrack(puppet,track,0.5f);
     return;
   case 0xd:
-    rdPuppet_FadeOutTrack(puppet,track,0.25);
+    rdPuppet_FadeOutTrack(puppet,track,0.25f);
     return;
   case 0xe:
-    rdPuppet_FadeOutTrack(puppet,track,0.125);
+    rdPuppet_FadeOutTrack(puppet,track,0.125f);
   }
   return;
 }

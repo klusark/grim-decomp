@@ -34,7 +34,7 @@ void str_sub(void)
   fVar9 = luaL_check_number(2);
   lVar8 = FTOL((float10)fVar9);
   iVar3 = (int)lVar8;
-  fVar9 = luaL_opt_number(3,-1.0);
+  fVar9 = luaL_opt_number(3,-1.0f);
   lVar8 = FTOL((float10)fVar9);
   iVar4 = (int)lVar8;
   if (iVar3 < 0) {
@@ -197,7 +197,7 @@ void __cdecl str_ascii(void)
   float fVar7;
   
   pcVar2 = (char *)luaL_check_string(1);
-  fVar7 = luaL_opt_number(2,1.0);
+  fVar7 = luaL_opt_number(2,1.0f);
   lVar6 = FTOL((float10)fVar7);
   uVar4 = (int)lVar6 - 1;
   if (-1 < (int)uVar4) {
@@ -443,7 +443,7 @@ void __cdecl str_find(void)
   
   pcVar3 = (char *)luaL_check_string(1);
   pbVar4 = (byte *)luaL_check_string(2);
-  fVar13 = luaL_opt_number(3,1.0);
+  fVar13 = luaL_opt_number(3,1.0f);
   lVar12 = FTOL((float10)fVar13);
   uVar10 = (int)lVar12 - 1;
   if (-1 < (int)uVar10) {

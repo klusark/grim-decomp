@@ -303,25 +303,25 @@ rdColormap_BuildRGB16
     fVar14 = (float10)PUN(float,(byte)*puVar7);
     puVar7 = (ushort *)((int)puVar7 + 3);
     param_1 = (undefined2 *)0x40;
-    fVar15 = ((float10)uVar6 - fVar14) * (float10)0.015625;
-    fVar16 = ((float10)(param_4 & 0xff) - (float10)*pbVar1) * (float10)0.015625;
+    fVar15 = ((float10)uVar6 - fVar14) * (float10)0.015625f;
+    fVar16 = ((float10)(param_4 & 0xff) - (float10)*pbVar1) * (float10)0.015625f;
     puVar11 = param_2;
     do {
-      if (fVar15 + fVar14 <= (float10)0.0) {
+      if (fVar15 + fVar14 <= (float10)0.0f) {
         fVar3 = (float10)0.5;
       }
       else {
         fVar3 = (float10)-0.5;
       }
       lVar17 = FTOL((fVar15 + fVar14) - fVar3);
-      if (fVar15 <= (float10)0.0) {
+      if (fVar15 <= (float10)0.0f) {
         fVar14 = (float10)0.5;
       }
       else {
         fVar14 = (float10)-0.5;
       }
       lVar18 = FTOL(fVar15 - fVar14);
-      if (extraout_ST0 <= (float10)0.0) {
+      if (extraout_ST0 <= (float10)0.0f) {
         fVar3 = (float10)0.5;
       }
       else {
@@ -375,9 +375,9 @@ uint __cdecl rdColormap_BuildGrayRamp(rdColormap *colormap)
   strncpy((uint *)colormap,(uint *)s_GREYRAMP_CMP_004ddb20,0x1f);
   colormap->aName[0x1f] = '\0';
   colormap->dwFlags = 0;
-  colormap->aTint[0] = 1.0;
-  colormap->aTint[1] = 1.0;
-  colormap->aTint[2] = 1.0;
+  colormap->aTint[0] = 1.0f;
+  colormap->aTint[1] = 1.0f;
+  colormap->aTint[2] = 1.0f;
   uVar3 = (*g_pRdroid_HS->pAlloc)
                     (0x4100,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddae0 + 0x10);
   *(uint *)&colormap->field_0x334 = uVar3;

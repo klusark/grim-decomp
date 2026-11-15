@@ -43,9 +43,9 @@ ProcEntry * __cdecl rdCache_InsertFace(float *verts,int count,void *material)
   #define fStack_2e0 (*(float *)(_frame + (0x340 - 0x2e0)))
   #define local_180 (*(float (*)[96])(_frame + (0x340 - 0x180)))
   
-  local_330[2] = 0.0;
-  local_330[1] = 0.0;
-  local_330[0] = 0.0;
+  local_330[2] = 0.0f;
+  local_330[1] = 0.0f;
+  local_330[0] = 0.0f;
   if (0 < count) {
     iVar4 = count;
     pfVar5 = &local_300;
@@ -68,8 +68,8 @@ ProcEntry * __cdecl rdCache_InsertFace(float *verts,int count,void *material)
   (*g_pRdCamera_CurCamera->pfnProjectLst)(local_180,&local_300,vertexCount);
   pPVar2 = rdCache_GetProcEntry();
   pPVar2->dwExtraData = 0;
-  pPVar2->flLightIndex = 0.0;
-  pPVar2->flLight = 0.0;
+  pPVar2->flLightIndex = 0.0f;
+  pPVar2->flLight = 0.0f;
   pPVar2->nCel = 0;
   pPVar2->dwFlags = 1;
   pPVar2->nLightingMode = 1;
@@ -97,7 +97,7 @@ ProcEntry * __cdecl rdCache_InsertFace(float *verts,int count,void *material)
   fStack_304 = fStack_2e0 - fStack_2ec;
   rdVector_Cross3(&fStack_318,&fStack_324,&fStack_30c);
   pPVar2->nBackFacing =
-       (uint)(0.0 < fStack_310 * (local_330[2] / fVar1) +
+       (uint)(0.0f < fStack_310 * (local_330[2] / fVar1) +
                     fStack_314 * (local_330[1] / fVar1) + fStack_318 * (local_330[0] / fVar1));
   rdCache_AddProcFace((void *)0x0,vertexCount,1);
   return pPVar2;
@@ -206,7 +206,7 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
   local_24[0] = local_30 + radius;
   local_24[1] = local_2c[0];
   local_24[2] = local_2c[1];
-  if (0.0 < local_2c[0]) {
+  if (0.0f < local_2c[0]) {
     (*g_pRdCamera_CurCamera->pfnProject)(&local_18,&local_30);
     (*g_pRdCamera_CurCamera->pfnProject)(afStack_c,local_24);
     fVar3 = afStack_c[0] - local_18;
@@ -337,11 +337,11 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
             puVar10[2] = puVar8[2];
             iVar3 = *(int *)(param_5[1] + uVar7 * 4);
             pfVar1 = (float *)(param_5[5] + iVar3 * 4);
-            if (*(float *)(param_5[5] + iVar3 * 4) < 0.0) {
-              fVar2 = 0.0;
+            if (*(float *)(param_5[5] + iVar3 * 4) < 0.0f) {
+              fVar2 = 0.0f;
             }
-            else if (1.0 < *pfVar1) {
-              fVar2 = 1.0;
+            else if (1.0f < *pfVar1) {
+              fVar2 = 1.0f;
             }
             else {
               fVar2 = *pfVar1;
@@ -364,11 +364,11 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
             puVar10[2] = puVar8[2];
             fVar2 = *(float *)(param_5[5] + *(int *)(param_5[1] + uVar7 * 4) * 4) +
                     *(float *)(param_5[6] + uVar7 * 4);
-            if (fVar2 < 0.0) {
-              fVar2 = 0.0;
+            if (fVar2 < 0.0f) {
+              fVar2 = 0.0f;
             }
-            else if (1.0 < fVar2) {
-              fVar2 = 1.0;
+            else if (1.0f < fVar2) {
+              fVar2 = 1.0f;
             }
             uVar7 = uVar7 + 1;
             iVar9 = iVar9 + 0xc;
@@ -445,11 +445,11 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
               *(float *)(iVar9 + 4 + puVar6[4]) = *(float *)(iVar9 + 4 + puVar6[4]) + param_7[1];
               iVar9 = *(int *)(puVar5[1] + (int)param_5 * 4);
               pfVar1 = (float *)(puVar5[5] + iVar9 * 4);
-              if (*(float *)(puVar5[5] + iVar9 * 4) < 0.0) {
-                fVar2 = 0.0;
+              if (*(float *)(puVar5[5] + iVar9 * 4) < 0.0f) {
+                fVar2 = 0.0f;
               }
-              else if (1.0 < *pfVar1) {
-                fVar2 = 1.0;
+              else if (1.0f < *pfVar1) {
+                fVar2 = 1.0f;
               }
               else {
                 fVar2 = *pfVar1;
@@ -481,11 +481,11 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
               *(float *)(iVar9 + 4 + puVar6[4]) = *(float *)(iVar9 + 4 + puVar6[4]) + param_7[1];
               fVar2 = *(float *)(puVar5[5] + *(int *)(puVar5[1] + (int)param_5 * 4) * 4) +
                       *(float *)(puVar5[6] + (int)param_5 * 4);
-              if (fVar2 < 0.0) {
-                fVar2 = 0.0;
+              if (fVar2 < 0.0f) {
+                fVar2 = 0.0f;
               }
-              else if (1.0 < fVar2) {
-                fVar2 = 1.0;
+              else if (1.0f < fVar2) {
+                fVar2 = 1.0f;
               }
               param_6 = param_6 + 3;
               *(float *)(puVar6[5] + (int)param_5 * 4) = fVar2;
@@ -630,11 +630,11 @@ rdPrimit3_NoClipFace
             puVar11[2] = puVar1[2];
             iVar4 = *(int *)(param_4[1] + uVar9 * 4);
             pfVar2 = (float *)(param_4[5] + iVar4 * 4);
-            if (*(float *)(param_4[5] + iVar4 * 4) < 0.0) {
-              fVar3 = 0.0;
+            if (*(float *)(param_4[5] + iVar4 * 4) < 0.0f) {
+              fVar3 = 0.0f;
             }
-            else if (1.0 < *pfVar2) {
-              fVar3 = 1.0;
+            else if (1.0f < *pfVar2) {
+              fVar3 = 1.0f;
             }
             else {
               fVar3 = *pfVar2;
@@ -659,11 +659,11 @@ rdPrimit3_NoClipFace
             puVar11[2] = puVar1[2];
             fVar3 = *(float *)(param_4[5] + *(int *)(param_4[1] + uVar9 * 4) * 4) +
                     *(float *)(param_4[6] + uVar9 * 4);
-            if (fVar3 < 0.0) {
-              fVar3 = 0.0;
+            if (fVar3 < 0.0f) {
+              fVar3 = 0.0f;
             }
-            else if (1.0 < fVar3) {
-              fVar3 = 1.0;
+            else if (1.0f < fVar3) {
+              fVar3 = 1.0f;
             }
             uVar9 = uVar9 + 1;
             iVar10 = iVar10 + 0xc;
@@ -728,11 +728,11 @@ LAB_0040e982:
               *(float *)(iVar10 + 4 + puVar8[4]) = *(float *)(iVar10 + 4 + puVar8[4]) + param_6[1];
               iVar10 = *(int *)(puVar7[1] + (int)param_5 * 4);
               pfVar2 = (float *)(puVar7[5] + iVar10 * 4);
-              if (*(float *)(puVar7[5] + iVar10 * 4) < 0.0) {
-                fVar3 = 0.0;
+              if (*(float *)(puVar7[5] + iVar10 * 4) < 0.0f) {
+                fVar3 = 0.0f;
               }
-              else if (1.0 < *pfVar2) {
-                fVar3 = 1.0;
+              else if (1.0f < *pfVar2) {
+                fVar3 = 1.0f;
               }
               else {
                 fVar3 = *pfVar2;
@@ -763,11 +763,11 @@ LAB_0040e982:
               *(float *)(iVar10 + 4 + puVar8[4]) = *(float *)(iVar10 + 4 + puVar8[4]) + param_6[1];
               fVar3 = *(float *)(puVar7[5] + *(int *)(puVar7[1] + (int)param_5 * 4) * 4) +
                       *(float *)(puVar7[6] + (int)param_5 * 4);
-              if (fVar3 < 0.0) {
-                fVar3 = 0.0;
+              if (fVar3 < 0.0f) {
+                fVar3 = 0.0f;
               }
-              else if (1.0 < fVar3) {
-                fVar3 = 1.0;
+              else if (1.0f < fVar3) {
+                fVar3 = 1.0f;
               }
               param_4 = param_4 + 3;
               *(float *)(puVar8[5] + (int)param_5 * 4) = fVar3;

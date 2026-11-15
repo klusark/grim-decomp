@@ -744,7 +744,7 @@ void __cdecl Engine_SaveGame(void)
   local_4 = 0;
   UINT_008a8c7c = 0;
   sputRender_AllowLoadImage(0);
-  Render_DrawProgressBar(0.1);
+  Render_DrawProgressBar(0.1f);
   name = g_pSaveFileName;
   if (g_pSaveFileName == (char *)0x0) {
     name = s_grim_sav_004e7fc8;
@@ -758,22 +758,22 @@ void __cdecl Engine_SaveGame(void)
     SaveGame_Write(data,4);
     SaveGame_Write(pVVar1->pPixels,*data);
     stdDisplay_VBufferFree(pVVar1);
-    Render_DrawProgressBar(0.2);
+    Render_DrawProgressBar(0.2f);
     Cos_Save(SaveGame_Write);
-    Render_DrawProgressBar(0.3);
+    Render_DrawProgressBar(0.3f);
     (*(code *)UINT_008a86e0)(SaveGame_Write);
-    Render_DrawProgressBar(0.4);
+    Render_DrawProgressBar(0.4f);
     (*(code *)UINT_008a87e8)(SaveGame_Write);
     (*(code *)UINT_008a8640)(SaveGame_Write);
-    Render_DrawProgressBar(0.5);
+    Render_DrawProgressBar(0.5f);
     (*(code *)UINT_008a86c0)(SaveGame_Write);
     (*(code *)UINT_008a87c8)(SaveGame_Write);
     (*(code *)UINT_008a8808)(SaveGame_Write);
     (*(code *)UINT_008a8828)(SaveGame_Write);
     SaveGame_Write(&g_dwGrimlib_prevmode,4);
-    Render_DrawProgressBar(0.75);
+    Render_DrawProgressBar(0.75f);
     lua_Save((int *)SaveGame_Write);
-    Render_DrawProgressBar(1.0);
+    Render_DrawProgressBar(1.0f);
     if (g_pfnIMuseSaveHook != (void *)0x0) {
       (*(code *)g_pfnIMuseSaveHook)(SaveGame_Write);
     }
@@ -822,7 +822,7 @@ void __cdecl Engine_LoadGame(void)
   UINT_008a8770 = (uint)SaveFile_Open(name,&DAT_004ddb18);
   if ((void *)UINT_008a8770 != (void *)0x0) {
     sputRender_AllowLoadImage(0);
-    Render_DrawProgressBar(0.1);
+    Render_DrawProgressBar(0.1f);
     ImStopAllSounds();
     sputSmush_StopMovie();
     sputSmush_Periodic();
@@ -833,12 +833,12 @@ void __cdecl Engine_LoadGame(void)
     gzseek((undefined4 *)UINT_008a8770,local_18,1);
     SaveGame_Read(&local_14,4);
     gzseek((undefined4 *)UINT_008a8770,local_14,1);
-    Render_DrawProgressBar(0.2);
+    Render_DrawProgressBar(0.2f);
     Cos_Restore(SaveGame_Read);
-    Render_DrawProgressBar(0.3);
+    Render_DrawProgressBar(0.3f);
     (*(code *)UINT_008a86e4)(SaveGame_Read);
     (*(code *)UINT_008a87ec)(SaveGame_Read);
-    Render_DrawProgressBar(0.4);
+    Render_DrawProgressBar(0.4f);
     (*(code *)UINT_008a8644)(SaveGame_Read);
     (*(code *)UINT_008a86c4)(SaveGame_Read);
     (*(code *)UINT_008a87cc)(SaveGame_Read);
@@ -846,9 +846,9 @@ void __cdecl Engine_LoadGame(void)
     (*(code *)UINT_008a882c)(SaveGame_Read);
     g_dwGrimlib_mode = 4;
     SaveGame_Read(&g_dwGrimlib_prevmode,4);
-    Render_DrawProgressBar(0.75);
+    Render_DrawProgressBar(0.75f);
     lua_Restore(SaveGame_Read);
-    Render_DrawProgressBar(1.0);
+    Render_DrawProgressBar(1.0f);
     if (g_pfnIMuseRestoreHook != (void *)0x0) {
       (*(code *)g_pfnIMuseRestoreHook)(SaveGame_Read);
     }
@@ -959,9 +959,9 @@ void __cdecl sputRender_Update(void)
       if (uVar6 != 0) {
         iVar11 = 0;
         g_dwGrimlib_mode = 2;
-        local_1c[0] = 0.0;
-        local_1c[1] = 0.0;
-        local_1c[2] = 8.96831e-43;
+        local_1c[0] = 0.0f;
+        local_1c[1] = 0.0f;
+        local_1c[2] = 8.96831e-43f;
         if (0 < g_nNumPages) {
           do {
             DirtyRect_Add((int *)local_1c,1,iVar11);
@@ -1057,7 +1057,7 @@ void __cdecl sputRender_Update(void)
           puVar12 = &g_dwDrawItems + iVar11 + -1;
           do {
             actor = g_pActors + *(int *)(*puVar12 + 8);
-            if (g_pActors[*(int *)(*puVar12 + 8)].flScale != 1.0) {
+            if (g_pActors[*(int *)(*puVar12 + 8)].flScale != 1.0f) {
               fStack_8 = actor->flScale;
               pfVar9 = &fStack_c;
               fStack_4 = actor->flScale;
@@ -1114,8 +1114,8 @@ void __cdecl sputRender_Update(void)
               }
               sputRender_MarkDirtyRect(actor->aScreenBox,1);
             }
-            if (actor->flScale != 1.0) {
-              fStack_c = 1.0 / actor->flScale;
+            if (actor->flScale != 1.0f) {
+              fStack_c = 1.0f / actor->flScale;
               pfVar9 = &fStack_c;
               fStack_8 = fStack_c;
               fStack_4 = fStack_c;
@@ -1151,31 +1151,31 @@ void __cdecl sputRender_Update(void)
       }
       if ((g_dwRenderFlags & 4) != 0) {
         uVar6 = sputTime_GetGameTime();
-        local_1c[1] = 0.0;
+        local_1c[1] = 0.0f;
         local_1c[0] = (float)(uVar6 - g_dwIrisStart) / g_flIrisDuration;
-        if (local_1c[0] < 0.0) {
+        if (local_1c[0] < 0.0f) {
           local_1c[0] = -local_1c[0];
         }
-        if (local_1c[0] <= 1.0) {
+        if (local_1c[0] <= 1.0f) {
           g_dwRenderFlags = g_dwRenderFlags & 0xfffffff7;
         }
         else {
-          local_1c[0] = 1.0;
-          if (0.0 <= g_flIrisDuration) {
+          local_1c[0] = 1.0f;
+          if (0.0f <= g_flIrisDuration) {
             g_dwRenderFlags = g_dwRenderFlags | 8;
           }
           else {
             g_dwRenderFlags = g_dwRenderFlags & 0xfffffffb;
           }
         }
-        if (g_flIrisDuration <= 0.0) {
-          local_1c[0] = 1.0 - local_1c[0];
+        if (g_flIrisDuration <= 0.0f) {
+          local_1c[0] = 1.0f - local_1c[0];
         }
         sputRender_DrawIrisEffect(local_1c[0],g_nIrisX,g_nIrisY);
-        if (g_flIrisDuration < 0.0) {
-          local_1c[1] = 0.0;
-          local_1c[0] = 0.0;
-          local_1c[2] = 8.96831e-43;
+        if (g_flIrisDuration < 0.0f) {
+          local_1c[1] = 0.0f;
+          local_1c[0] = 0.0f;
+          local_1c[2] = 8.96831e-43f;
           MarkDirtyRect((int *)local_1c,0);
         }
       }

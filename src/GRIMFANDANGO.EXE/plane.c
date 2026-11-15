@@ -32,7 +32,7 @@ sputRender_SegmentPlaneIntersect(float *out,float *p1,float *p2,float a,float b,
   fVar5 = a * *p1 + c * p1[2] + b * p1[1] + d;
   fVar6 = fVar5 - (a * *p2 + c * p2[2] + b * p2[1] + d);
   fVar7 = fVar6;
-  if (fVar6 < 0.0) {
+  if (fVar6 < 0.0f) {
     fVar7 = -fVar6;
   }
   if (fVar7 < 0.1) {
