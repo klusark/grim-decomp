@@ -343,30 +343,30 @@ undefined4 sounds_restore(code *param_1, uint param_2)
         return 1;
     if (read(&g_aVoxFxName, 0x28) != 0)
         return 1;
-    ((void (*)(void *))FUN_10009700)(&DAT_1001e98c);
+    ((void (*)(void *))Im_DiscardMessage)(&DAT_1001e98c);
     ImStopAllSounds();
-    ((void (*)(void *))FUN_10009700)(&DAT_1001e97c);
+    ((void (*)(void *))Im_DiscardMessage)(&DAT_1001e97c);
     ImFlushSounds();
-    ((void (*)(void *))FUN_10009700)(&DAT_1001e970);
+    ((void (*)(void *))Im_DiscardMessage)(&DAT_1001e970);
     SoundsCloseVoiceFile();
-    ((void (*)(void *))FUN_10009700)(&DAT_1001e958);
-    FUN_10008e60();
-    ((void (*)(void *))FUN_10009700)(&DAT_1001e944);
+    ((void (*)(void *))Im_DiscardMessage)(&DAT_1001e958);
+    Sounds_FreeAll();
+    ((void (*)(void *))Im_DiscardMessage)(&DAT_1001e944);
     iMUSE_SetVoiceEffect((uint *)&g_aVoxFxName);
     g_aLastVoiceFilename = 0;
     read(&size, 4);
     read(buf, size);
     if (ImRestore(buf) != 0) {
-        ((void (*)(void *))FUN_10009700)(&DAT_1001e930);
+        ((void (*)(void *))Im_DiscardMessage)(&DAT_1001e930);
         read(&size, 4);
         read(buf, size);
         if (ImRestoreScript((int)buf) != 0) {
-            ((void (*)(void *))FUN_10009700)(&DAT_1001e910);
+            ((void (*)(void *))Im_DiscardMessage)(&DAT_1001e910);
             for (sound = ImGetNextSound(0); sound != 0; sound = ImGetNextSound(sound))
                 if ((int)sound < 0x2711)
                     ImStopSound(sound);
             SoundsCloseVoiceFile();
-            ((void (*)(void *))FUN_10009700)(&DAT_1001e958);
+            ((void (*)(void *))Im_DiscardMessage)(&DAT_1001e958);
             if (read(&count, 4) == 0 && count != 0) {
                 for (i = 0; i < count; i++) {                  /* name, handle, priority: start them again */
                     if (read(name, 0x20) != 0 || read(&value, 4) != 0)

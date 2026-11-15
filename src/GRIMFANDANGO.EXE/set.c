@@ -110,7 +110,7 @@ void __cdecl sputRender_SyncCamera(Set *set,int setupIdx)
   if (g_pSputRender_Canvas != (rdCanvas *)0x0) {
     rdCamera_SetCanvas(*(rdCamera **)&pSVar1[setupIdx].field_0x48,g_pSputRender_Canvas);
   }
-  rdCamera_SetAspectRatio(*(rdCamera **)&pSVar1[setupIdx].field_0x48,1.0);
+  rdCamera_SetAspectRatio(*(rdCamera **)&pSVar1[setupIdx].field_0x48,1.0f);
   rdCamera_Update((float *)&pSVar1[setupIdx].field_0x50);
   return;
 }
@@ -255,7 +255,7 @@ void __cdecl Set_DrawDebugLights(int param_1)
         rdMatrix_LookAt(local_30,pfVar2 + -0x10,(float *)&local_6c,0);
         local_5c = pfVar2[-7] * 0.1f;
         vec = &local_60;
-        local_60 = (1.0 - pfVar2[-2]) * local_5c;
+        local_60 = (1.0f - pfVar2[-2]) * local_5c;
         local_48 = -local_60;
         iVar1 = 4;
         local_58[0] = local_60;
@@ -485,7 +485,7 @@ int __cdecl sputRoom_Save(void *writeFn)
         (*pcVar3)(&local_10,4);
         (*pcVar3)(&pSVar4->nCurSetup,4);
         (*pcVar3)(&pSVar4->nLocked,4);
-        fStack_4 = 0.0;
+        fStack_4 = 0.0f;
         if (0 < pSVar4->nSetups) {
           do {
             pSVar1 = pSVar4->pSetups;
@@ -566,7 +566,7 @@ int __cdecl sputRoom_Restore(void *readFn)
   if (iVar3 != 0) {
     return 1;
   }
-  fStack_64 = 0.0;
+  fStack_64 = 0.0f;
   if (0 < local_60) {
     do {
       (*(code *)readFn)(&pvStack_5c,4);
@@ -667,7 +667,7 @@ int __cdecl sputRoom_Restore(void *readFn)
         this->nActive = uStack_74;
         (*(code *)readFn)(&fStack_64,4);
         fVar2 = fStack_64;
-        if (fStack_64 == 0.0) {
+        if (fStack_64 == 0.0f) {
           fVar2 = 0.005f;
         }
         this->flHeight = fVar2;
@@ -1049,7 +1049,7 @@ LAB_004a51bd:
     }
     if (*(int *)(ref_00[-3].aTag + 0x1c) == 0) {
       prVar7 = rdCamera_New(*(float *)(ref_00[-3].aTag + 0x10),1,*(float *)(ref_00[-3].aTag + 0x14),
-                            *(float *)(ref_00[-3].aTag + 0x18),1.0);
+                            *(float *)(ref_00[-3].aTag + 0x18),1.0f);
       *(rdCamera **)(ref_00[-3].aTag + 0x1c) = prVar7;
       if (prVar7 == (rdCamera *)0x0) {
         return 0;

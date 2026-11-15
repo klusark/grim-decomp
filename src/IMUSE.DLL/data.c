@@ -11,7 +11,6 @@
 unsigned char grim_data_anchor_imuse_dll[0] __attribute__((section(".data$grim_0"), aligned(16)));
 
 /* functions the data points at */
-extern char f_FUN_10009700[] __asm__("_FUN_10009700");
 extern char f_FUN_1000ba80[] __asm__("_FUN_1000ba80");
 extern char f_FUN_1000d1f0[] __asm__("_FUN_1000d1f0");
 extern char f_FUN_1000e500[] __asm__("_FUN_1000e500");
@@ -20,6 +19,7 @@ extern char f_FUN_10011be0[] __asm__("_FUN_10011be0");
 extern char f_FUN_10012350[] __asm__("_FUN_10012350");
 extern char f_FUN_10012550[] __asm__("_FUN_10012550");
 extern char f_FUN_10012840[] __asm__("_FUN_10012840");
+extern char f_Im_DiscardMessage[] __asm__("_Im_DiscardMessage");
 extern char f_exit[] __asm__("_exit");
 
 /* every span, declared first: the pointers refer forward and back */
@@ -1931,7 +1931,7 @@ extern unsigned char DAT_10034808[4];
 /* 0x1001e9b8, 8 bytes */ GRIM_DATA("1001e9b8") unsigned char DAT_1001e9b8[8] = { 0x70, 0x45, 0x6e, 0x74, 0x72, 0x79 };
 /* 0x1001e9c0, 16 bytes */ GRIM_DATA("1001e9c0") unsigned char DAT_1001e9c0[16] = { 0x56, 0x49, 0x4d, 0x41, 0x00, 0x00, 0x00, 0x00, 0x75, 0x98, 0x00, 0x00, 0x73, 0x98 };
 /* 0x1001e9d0, 16 bytes */ GRIM_DATA("1001e9d0") void *DAT_1001e9d0[4] = {
-    (void *)f_FUN_1000ba80, (void *)f_FUN_10009700, (void *)f_FUN_10009700, 0
+    (void *)f_FUN_1000ba80, (void *)f_Im_DiscardMessage, (void *)f_Im_DiscardMessage, 0
 };
 /* 0x1001e9e0, 8 bytes */ GRIM_DATA("1001e9e0") void *PTR_exit_1001e9e0[2] = {
     (void *)f_exit, 0

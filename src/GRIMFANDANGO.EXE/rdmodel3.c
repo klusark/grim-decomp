@@ -425,7 +425,7 @@ rdModel3_LoadEntryText
                       do {
                         uVar19 = stdConffile_ReadLine();
                         if (uVar19 == 0) goto LAB_0040b8c4;
-                        FUN_00450220(puVar2);
+                        rdFace_NewEntry(puVar2);
                         strtok((byte *)g_dwStdConffile_aLine,&DAT_004dd918);
                         uVar19 = strtok((byte *)0x0,&DAT_004dd918);
                         puVar11 = atoi(uVar19);
@@ -1193,12 +1193,12 @@ void __cdecl rdModel3_CalcBoundingBoxes(uint param_1)
   fVar1 = *(float *)(uVar4 + 100) - *(float *)(uVar4 + 0x70);
   fVar2 = *(float *)(uVar4 + 0x68) - *(float *)(uVar4 + 0x74);
   *(float *)(uVar4 + 0x78) =
-       (*(float *)(uVar4 + 0x6c) - *(float *)(uVar4 + 0x60)) * 0.5 + *(float *)(uVar4 + 0x60);
+       (*(float *)(uVar4 + 0x6c) - *(float *)(uVar4 + 0x60)) * 0.5f + *(float *)(uVar4 + 0x60);
   *(float *)(uVar4 + 0x7c) =
-       (*(float *)(uVar4 + 0x70) - *(float *)(uVar4 + 100)) * 0.5 + *(float *)(uVar4 + 100);
+       (*(float *)(uVar4 + 0x70) - *(float *)(uVar4 + 100)) * 0.5f + *(float *)(uVar4 + 100);
   *(float *)(uVar4 + 0x80) =
-       (*(float *)(uVar4 + 0x74) - *(float *)(uVar4 + 0x68)) * 0.5 + *(float *)(uVar4 + 0x68);
-  *(float *)(uVar4 + 0x5c) = SQRT(fVar2 * fVar2 + fVar1 * fVar1 + fVar3 * fVar3) * 0.5;
+       (*(float *)(uVar4 + 0x74) - *(float *)(uVar4 + 0x68)) * 0.5f + *(float *)(uVar4 + 0x68);
+  *(float *)(uVar4 + 0x5c) = SQRT(fVar2 * fVar2 + fVar1 * fVar1 + fVar3 * fVar3) * 0.5f;
   return;
 }
 #undef local_4
@@ -1313,7 +1313,7 @@ void __cdecl rdModel3_CalcRadii(int param_1)
     piVar4 = (int *)(*(int *)(param_1 + 0x28) + 0x48);
     do {
       pfVar3 = (float *)piVar4[-6];
-      fVar1 = 0.0;
+      fVar1 = 0.0f;
       for (iVar5 = *piVar4; iVar5 != 0; iVar5 = iVar5 + -1) {
         fVar2 = SQRT(*pfVar3 * *pfVar3 + pfVar3[2] * pfVar3[2] + pfVar3[1] * pfVar3[1]);
         if (fVar1 < fVar2) {
@@ -1543,15 +1543,15 @@ void __cdecl rdModel3_CalcVertexNormals(int param_1)
           local_38 = 0;
           if (puVar13[6] != 0) {
             do {
-              local_20[0] = 0.0;
-              local_20[1] = 0.0;
-              fVar1 = 0.0;
-              fVar2 = 0.0;
-              fVar3 = 0.0;
-              fVar4 = 0.0;
-              local_44[0] = 0.0;
-              if (PUN(float,puVar13[8]) == 0.0) {
-                fVar1 = 0.0;
+              local_20[0] = 0.0f;
+              local_20[1] = 0.0f;
+              fVar1 = 0.0f;
+              fVar2 = 0.0f;
+              fVar3 = 0.0f;
+              fVar4 = 0.0f;
+              local_44[0] = 0.0f;
+              if (PUN(float,puVar13[8]) == 0.0f) {
+                fVar1 = 0.0f;
               }
               else {
                 puVar17 = (uint *)(puVar13[4] + 0x14);
@@ -1566,7 +1566,7 @@ void __cdecl rdModel3_CalcVertexNormals(int param_1)
                         fVar1 = PUN(float,puVar17[0xb]) + fVar1;
                         fVar2 = PUN(float,puVar17[0xc]) + fVar2;
                         fVar3 = PUN(float,puVar17[0xd]) + fVar3;
-                        fVar4 = fVar4 - -1.0;
+                        fVar4 = fVar4 - -1.0f;
                         break;
                       }
                       uVar11 = uVar11 + 1;
@@ -1578,14 +1578,14 @@ void __cdecl rdModel3_CalcVertexNormals(int param_1)
                   local_44[0] = fVar4;
                   local_20[0] = fVar2;
                   local_20[1] = fVar3;
-                } while (fVar12 != 0.0);
+                } while (fVar12 != 0.0f);
               }
-              if (local_44[0] == 0.0) {
-                *pfVar16 = 1.0;
-                pfVar16[1] = 0.0;
-                pfVar16[2] = 0.0;
+              if (local_44[0] == 0.0f) {
+                *pfVar16 = 1.0f;
+                pfVar16[1] = 0.0f;
+                pfVar16[2] = 0.0f;
               }
-              else if (local_44[0] == 1.0) {
+              else if (local_44[0] == 1.0f) {
                 iVar8 = puVar13[4];
                 uVar11 = *(uint *)(iVar8 + 0x14);
                 iVar8 = *(int *)(iVar8 + 0x18);

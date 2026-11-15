@@ -6,8 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x004d5e70  msc_rle_DecompressBlock ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Decodes a number of bytes of a run-length coded stream into a buffer
    Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
    Original name msc_rle_DecompressBlock (the remaster's GrimFandango (Linux): same body
@@ -31,8 +29,6 @@ void __cdecl msc_rle_DecompressBlock(byte *param_1,uint param_2,int param_3)
   Mem_DumpLog();
   return;
 }
-#endif
-
 
 /* ---- 0x004d5eb0  msc_rle_DecompressInitialize ---- */
 /* Starts reading a run-length coded byte stream Original name msc_rle_DecompressInitialize (the

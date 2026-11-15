@@ -651,7 +651,7 @@ int __cdecl stdDisplay_Startup(void)
   (&UINT_00902d74)[g_dwStdDisplay_numDevices * 0xa6] = 2000000;
   (&UINT_00902d78)[g_dwStdDisplay_numDevices * 0xa6] = 2000000;
   g_dwStdDisplay_numDevices = g_dwStdDisplay_numDevices + 1;
-  iVar1 = DirectDrawEnumerateA(((unsigned)(uintptr_t)FUN_004761b0),0);
+  iVar1 = DirectDrawEnumerateA(((unsigned)(uintptr_t)stdDisplay_EnumDevicesCallback),0);
   return (uint)(iVar1 == 0);
 }
 
@@ -2708,13 +2708,14 @@ void __cdecl DDraw_Release(void)
   return;
 }
 
-/* ---- 0x004761b0  FUN_004761b0 ---- */
+/* ---- 0x004761b0  stdDisplay_EnumDevicesCallback ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+/* DirectDrawEnumerate callback (guid, description, driver name, context): fills display device
+   record g_dwStdDisplay_numDevices (at most 16, 0x298 bytes each). Hand-written in
+   build/overrides_asm_o2.c; was FUN_004761b0. */
 
-undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
+undefined * __stdcall stdDisplay_EnumDevicesCallback(int a1,int a2,int a3,int a4)
 
 {
   unsigned char _frame[0x2f0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3511,17 +3512,17 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
   
   g_dwStdColor_ColorConvertOneRow_row = g_dwStdColor_ColorConvertOneRow_row + 1;
   bVar10 = (byte)*(undefined4 *)(srcFormat + 8);
-  lVar13 = FTOL(((float10)1.0 / (float10)((1 << (bVar10 & 0x1f)) + -1)) *
+  lVar13 = FTOL(((float10)1.0f / (float10)((1 << (bVar10 & 0x1f)) + -1)) *
                  (float10)((1 << ((byte)*(undefined4 *)(dstFormat + 8) & 0x1f)) + -1) *
-                 (float10)65536.0);
-  lVar14 = FTOL(((float10)1.0 /
+                 (float10)65536.0f);
+  lVar14 = FTOL(((float10)1.0f /
                  (float10)((1 << ((byte)*(undefined4 *)(srcFormat + 0xc) & 0x1f)) + -1)) *
                  (float10)((1 << ((byte)*(undefined4 *)(dstFormat + 0xc) & 0x1f)) + -1) *
-                 (float10)65536.0);
-  lVar15 = FTOL(((float10)1.0 /
+                 (float10)65536.0f);
+  lVar15 = FTOL(((float10)1.0f /
                  (float10)((1 << ((byte)*(undefined4 *)(srcFormat + 0x10) & 0x1f)) + -1)) *
                  (float10)((1 << ((byte)*(undefined4 *)(dstFormat + 0x10) & 0x1f)) + -1) *
-                 (float10)65536.0);
+                 (float10)65536.0f);
   bVar11 = (byte)*(undefined4 *)(dstFormat + 0x14);
   bVar12 = (byte)*(undefined4 *)(dstFormat + 0x18);
   if ((*(int *)(srcFormat + 4) == 0x18) && (*(int *)(dstFormat + 4) == 0x10)) {

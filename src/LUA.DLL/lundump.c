@@ -81,11 +81,11 @@ undefined4 * __cdecl LoadFunction(int *param_1)
   pTVar2->pFileName = pTVar4;
   puVar6 = puVar1;
   uVar3 = LoadSize((int *)puVar1);
-  pbVar5 = (byte *)lundump__d030(uVar3,puVar6);
+  pbVar5 = (byte *)LoadBlock(uVar3,puVar6);
   pTVar2->pCode = pbVar5;
   LoadConstants((int)pTVar2,param_1);
   LoadLocals((int)pTVar2,puVar1);
-  lundump__d3c0((int)pTVar2,param_1);
+  LoadFunctions((int)pTVar2,param_1);
   return &pTVar2->pNext;
 }
 
@@ -140,10 +140,11 @@ void __cdecl unexpectedEOZ(int param_1)
   return;
 }
 
-/* ---- 0x1000d030  lundump__d030 ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d030  LoadBlock ---- */
+/* LoadBlock (Lua 3.1 lundump.c): allocates `size` bytes (the host allocator, service +0x20) and
+   reads them from the stream (ezread); was lundump__d030. */
 
-undefined4 * __cdecl lundump__d030(uint param_1,uint *param_2)
+undefined4 * __cdecl LoadBlock(uint param_1,uint *param_2)
 
 {
   undefined4 *puVar1;
@@ -227,14 +228,15 @@ uint * __cdecl Undump_LoadString(uint *param_1)
   }
   puVar2 = (uint *)luaL_openspace(uVar1);
   ezread(param_1,puVar2,uVar1);
-  lundump__d130(puVar2,uVar1);
+  Undump_InvertBytes(puVar2,uVar1);
   return puVar2;
 }
 
-/* ---- 0x1000d130  lundump__d130 ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d130  Undump_InvertBytes ---- */
+/* Complements `n` bytes in place (byte-wise up to dword alignment, then dwords): Grim's precompiled
+   scripts store their code inverted; was lundump__d130. */
 
-void __cdecl lundump__d130(uint *param_1,uint param_2)
+void __cdecl Undump_InvertBytes(uint *param_1,uint param_2)
 
 {
   uint uVar1;
@@ -360,23 +362,24 @@ float __cdecl luaU_LoadNumber(undefined4 *param_1)
   if (param_1[2] != 0) {
     ezread((uint *)*param_1,&param_1,4);
     if (puVar1[1] != 0) {
-      lundump__d360((undefined1 *)&param_1);
+      Undump_Swap4((undefined1 *)&param_1);
     }
     return PUN(float,param_1);
   }
   ezread((uint *)*param_1,(undefined4 *)&local_8,8);
   if (puVar1[1] != 0) {
-    lundump__d380((undefined1 *)&local_8);
+    Undump_Swap8((undefined1 *)&local_8);
   }
   return (float)local_8;
 }
 #undef local_8
 
 
-/* ---- 0x1000d360  lundump__d360 ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d360  Undump_Swap4 ---- */
+/* Reverses the byte order of the 4 bytes at p (a word of a chunk saved on the other byte order);
+   was lundump__d360. */
 
-int __cdecl lundump__d360(undefined1 *param_1)
+int __cdecl Undump_Swap4(undefined1 *param_1)
 
 {
   undefined1 uVar1;
@@ -390,10 +393,10 @@ int __cdecl lundump__d360(undefined1 *param_1)
   return (int)(param_1 + 2);
 }
 
-/* ---- 0x1000d380  lundump__d380 ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d380  Undump_Swap8 ---- */
+/* Reverses the byte order of the 8 bytes at p; was lundump__d380. */
 
-int __cdecl lundump__d380(undefined1 *param_1)
+int __cdecl Undump_Swap8(undefined1 *param_1)
 
 {
   undefined1 uVar1;
@@ -413,10 +416,12 @@ int __cdecl lundump__d380(undefined1 *param_1)
   return (int)(param_1 + 4);
 }
 
-/* ---- 0x1000d3c0  lundump__d3c0 ---- */
-/* Unidentified function of lundump.c (precompiled chunk loader) */
+/* ---- 0x1000d3c0  LoadFunctions ---- */
+/* LoadFunctions (Lua 3.1 lundump.c): while the next byte is '#' (ID_FUN), reads the constant index
+   and the nested function (LoadFunction) and stores it in the function's constant table; was
+   lundump__d3c0. */
 
-void __cdecl lundump__d3c0(int param_1,int *param_2)
+void __cdecl LoadFunctions(int param_1,int *param_2)
 
 {
   int *piVar1;
@@ -469,9 +474,9 @@ void __cdecl LoadHeader(undefined4 *param_1)
   uVar3 = ezgetc((int *)puVar1);
   if (uVar3 == 4) {
     ezread(puVar1,&param_1,4);
-    if (PUN(float,param_1) != 1.2345679e-24) {
-      lundump__d360((undefined1 *)&param_1);
-      if (PUN(float,param_1) != 1.2345679e-24) {
+    if (PUN(float,param_1) != 1.2345679e-24f) {
+      Undump_Swap4((undefined1 *)&param_1);
+      if (PUN(float,param_1) != 1.2345679e-24f) {
         luaL_verror(s_unknown_float_representation_in_b_10028098,puVar1[4]);
       }
       puVar2[1] = 1;
@@ -482,7 +487,7 @@ void __cdecl LoadHeader(undefined4 *param_1)
   if (uVar3 == 8) {
     ezread(puVar1,(undefined4 *)&local_8,8);
     if (local_8 != 1.2345679083165624e-24) {
-      lundump__d380((undefined1 *)&local_8);
+      Undump_Swap8((undefined1 *)&local_8);
       if (local_8 != 1.2345679083165624e-24) {
         luaL_verror(s_unknown_float_representation_in_b_10028098,puVar1[4]);
       }

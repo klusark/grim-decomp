@@ -1,6 +1,6 @@
 # IMUSE.DLL function index
 
-434 functions, 288 with real names.
+434 functions, 317 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -26,7 +26,7 @@
 | 10003c70 | FdStopFade | imuse.c | 20 |
 | 10003cb0 | FdIntHandler | imuse.c | 53 |
 | 10004820 | Im_ApplyFXPreset | imuse.c | 69 |
-| 10004970 | FUN_10004970 | imuse.c | 17 |
+| 10004970 | ImFx_Terminate | imuse.c | 19 |
 | 100049b0 | GrInitialize | imuse.c | 21 |
 | 100049e0 | GrSetGroupVol | imuse.c | 42 |
 | 10004a80 | GrGetGroupEffVol | imuse.c | 11 |
@@ -43,32 +43,32 @@
 | 10005b80 | Im_MixLoopC | imuse.c | 1 |
 | 10005db0 | Im_MixLoopD | imuse.c | 1 |
 | 10006070 | ScriptCall | imuse.c | 80 |
-| 10006360 | FUN_10006360 | imuse.c | 25 |
-| 100063d0 | FUN_100063d0 | imuse.c | 17 |
-| 10006400 | FUN_10006400 | imuse.c | 29 |
-| 10006470 | FUN_10006470 | imuse.c | 24 |
-| 100064d0 | FUN_100064d0 | imuse.c | 1 |
-| 10006560 | FUN_10006560 | imuse.c | 1 |
+| 10006360 | Script_Init | imuse.c | 28 |
+| 100063d0 | Script_Terminate | imuse.c | 20 |
+| 10006400 | Script_Save | imuse.c | 33 |
+| 10006470 | Script_Restore | imuse.c | 28 |
+| 100064d0 | Script_Update | imuse.c | 1 |
+| 10006560 | Script_SetState | imuse.c | 1 |
 | 10006620 | Script_SetSequence | imuse.c | 1 |
-| 100067a0 | FUN_100067a0 | imuse.c | 5 |
-| 100067b0 | FUN_100067b0 | imuse.c | 70 |
+| 100067a0 | Script_NullCallback | imuse.c | 8 |
+| 100067b0 | Script_Attribute | imuse.c | 74 |
 | 100068b0 | Script_Trans | imuse.c | 1 |
 | 100070e0 | Script_Callback | imuse.c | 15 |
-| 10007110 | FUN_10007110 | imuse.c | 11 |
+| 10007110 | Script_StopLocalMusic | imuse.c | 14 |
 | 100089b0 | LoadLip | imuse.c | 82 |
 | 10008b60 | Im_SoundsFreeSlot | imuse.c | 19 |
 | 10008bb0 | iMUSE_GetPhoneme | imuse.c | 35 |
-| 10008c40 | FUN_10008c40 | imuse.c | 46 |
-| 10008ce0 | FUN_10008ce0 | imuse.c | 1 |
+| 10008c40 | Lip_PhonemeAtTime | imuse.c | 50 |
+| 10008ce0 | Timer_Start | imuse.c | 1 |
 | 10008e00 | timer_callback | imuse.c | 15 |
-| 10008e30 | FUN_10008e30 | imuse.c | 10 |
-| 10008e60 | FUN_10008e60 | imuse.c | 27 |
+| 10008e30 | Timer_Stop | imuse.c | 12 |
+| 10008e60 | Sounds_FreeAll | imuse.c | 30 |
 | 100093d0 | Im_SoundsPrepare | imuse.c | 61 |
-| 10009530 | FUN_10009530 | imuse.c | 8 |
-| 10009560 | FUN_10009560 | imuse.c | 8 |
+| 10009530 | Sounds_GetSoundAddr | imuse.c | 11 |
+| 10009560 | Sounds_GetMapAddr | imuse.c | 11 |
 | 100095d0 | grimSound_LipSyncLoad | imuse.c | 40 |
 | 100096b0 | grimSound_LipSyncFree | imuse.c | 17 |
-| 10009700 | FUN_10009700 | imuse.c | 5 |
+| 10009700 | Im_DiscardMessage | imuse.c | 7 |
 | 10009710 | iRes_FOPEN | imuse.c | 148 |
 | 10009b20 | iRes_FCLOSE | imuse.c | 28 |
 | 10009b90 | iRes_FREAD | imuse.c | 141 |
@@ -145,8 +145,8 @@
 | 100045c0 | FmSeek | imuse_dsound.c | 18 |
 | 10004600 | FmRead | imuse_dsound.c | 18 |
 | 10004640 | FmGetBufInfo | imuse_dsound.c | 14 |
-| 10004660 | FUN_10004660 | imuse_dsound.c | 44 |
-| 10004750 | FUN_10004750 | imuse_dsound.c | 40 |
+| 10004660 | ImFx_Initialize | imuse_dsound.c | 47 |
+| 10004750 | ImFx_SelectPreset | imuse_dsound.c | 43 |
 | 10003d70 | ImInitFilelist | imuse_api.c | 20 |
 | 10003dc0 | ImSaveFilelist | imuse_api.c | 50 |
 | 10003e50 | ImRestoreFilelist | imuse_api.c | 61 |
@@ -158,8 +158,8 @@
 | 100042b0 | ImCloseAll | imuse_api.c | 17 |
 | 100042f0 | ImFindSound | imuse_api.c | 41 |
 | 10004380 | ImFlushSounds | imuse_api.c | 34 |
-| 10004460 | FUN_10004460 | imuse_api.c | 15 |
-| 100044b0 | FUN_100044b0 | imuse_api.c | 32 |
+| 10004460 | ImList_AddHead | imuse_api.c | 18 |
+| 100044b0 | ImList_Remove | imuse_api.c | 35 |
 | 10004aa0 | ImInitialize | imuse_api.c | 29 |
 | 10004b20 | ImPrintf | imuse_api.c | 7 |
 | 10004b40 | ImPause | imuse_api.c | 15 |
@@ -210,10 +210,10 @@
 | 100075d0 | SoundsIsSoundInUse | imuse_api.c | 21 |
 | 10007640 | SoundsIsSoundPlaying | imuse_api.c | 11 |
 | 10007670 | SoundsFillStreamsWhileMusicCritical | imuse_api.c | 1 |
-| 100076b0 | FUN_100076b0 | imuse_api.c | 21 |
-| 10007700 | FUN_10007700 | imuse_api.c | 29 |
+| 100076b0 | Sounds_IsMusicCritical | imuse_api.c | 24 |
+| 10007700 | Sounds_QueryMusicStream | imuse_api.c | 33 |
 | 10007790 | SoundsFloodMusicBuffer | imuse_api.c | 1 |
-| 100077c0 | FUN_100077c0 | imuse_api.c | 23 |
+| 100077c0 | Sounds_IsMusicBufferFull | imuse_api.c | 25 |
 | 10007810 | SoundsPeriodic | imuse_api.c | 30 |
 | 10007830 | SoundsGetMusicPosition | imuse_api.c | 23 |
 | 100078a0 | SoundsSetMuscriptLocal | imuse_api.c | 9 |
@@ -221,7 +221,7 @@
 | 100078c0 | Sounds_PlatformDevice | imuse_api.c | 7 |
 | 100078d0 | SoundsInitialize | imuse_api.c | 15 |
 | 10007920 | sounds_startup | imuse_api.c | 42 |
-| 10007a20 | FUN_10007a20 | imuse_api.c | 22 |
+| 10007a20 | Sounds_MlInit | imuse_api.c | 24 |
 | 10007a60 | ihost_get_sound_addr | imuse_api.c | 11 |
 | 10007a70 | ihost_get_map_addr | imuse_api.c | 11 |
 | 10007a80 | ihost_get_buffer_info | imuse_api.c | 1 |
@@ -229,7 +229,7 @@
 | 10007bc0 | ihost_fseek | imuse_api.c | 35 |
 | 10007ca0 | ihost_read | imuse_api.c | 241 |
 | 10008140 | sounds_shutdown | imuse_api.c | 41 |
-| 100081f0 | FUN_100081f0 | imuse_api.c | 25 |
+| 100081f0 | Sounds_MlFreeAll | imuse_api.c | 26 |
 | 10008250 | sounds_save | imuse_api.c | 166 |
 | 10008580 | sounds_restore | imuse_api.c | 1 |
 | 10008860 | sounds_pause | imuse_api.c | 13 |
@@ -266,12 +266,12 @@
 | 10008990 | SoundGetVoiceTime | soundgetvoicetime.c | 11 |
 | 10009e10 | iRes_FTELL | imuse_sounds.c | 16 |
 | 10009e40 | iRes_FSEEK | imuse_sounds.c | 27 |
-| 10009eb0 | iMUSE_sounds__9eb0 | imuse_sounds.c | 15 |
-| 10009ef0 | FUN_10009ef0 | imuse_sounds.c | 8 |
+| 10009eb0 | iMUSE_sounds__9eb0 | imuse_sounds.c | 16 |
+| 10009ef0 | Sounds_CompareRange | imuse_sounds.c | 11 |
 | 10009f10 | iMUSE_Malloc | imuse_sounds.c | 14 |
-| 10009f40 | FUN_10009f40 | imuse_sounds.c | 51 |
+| 10009f40 | Sounds_MlAdd | imuse_sounds.c | 53 |
 | 1000a010 | iMUSE_Free | imuse_sounds.c | 13 |
-| 1000a030 | FUN_1000a030 | imuse_sounds.c | 24 |
+| 1000a030 | Sounds_MlRemove | imuse_sounds.c | 25 |
 | 1000a210 | StStartStream | imuse_stream.c | 50 |
 | 1000a2d0 | StStopStream | imuse_stream.c | 13 |
 | 1000a420 | StReadData | imuse_stream.c | 44 |

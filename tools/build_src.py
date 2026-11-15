@@ -1326,9 +1326,13 @@ def drop_unused_artifacts(body):
 # ---- float constants of the x87 code (`FMUL float ptr [0x4d87f0]`) ------------------------------------------------
 # Ghidra prints a 4-byte constant as its shortest decimal (`(float10)16.666668`), which C reads as a double: a
 # different value whenever the float is not exact in decimal (16.666668 is 16.666667938232422 as a float). The x87
-# code loads the float, so the literal is written as a float literal (`16.666668f`, the same float again). Only for
-# the constants the function reads with a `float ptr` operand (raw/<prog>/disasm.json), and not when it also reads an
-# 8-byte constant of that float value (the literal could be the double).
+# code loads the float, so the literal is written as a float literal (`16.666668f`, the same float again). An 8-byte
+# constant (`FMUL double ptr [0x4dab70]`, 0.001) is printed the same way and stays a double literal. So every literal
+# gets the `f` (the exact ones too), except the values the function reads as an 8-byte constant
+# (raw/<prog>/disasm.json; also when it reads the same value as a float somewhere else: the literal could be either).
+# Literals of no constant operand at all are float values Ghidra propagated from immediates (`MOV dword ptr [ESP+8],
+# 0x3ecccccd` then `FLD dword ptr [ESP+8]`): floats too. (build/Makefile no longer compiles with
+# -fsingle-precision-constant, which made every unsuffixed literal a float, the 8-byte constants included.)
 _SECTION_BYTES = {}
 FLOAT_OPERAND_RE = re.compile(r"\b(float|double) ptr \[0x([0-9a-f]{8})\]")
 COMMENT_LINE_RE = re.compile(r"^\s*(?:/\*|\*/|\*\s|\*$|#)")
@@ -1352,29 +1356,28 @@ def image_bytes(addr, n):
 
 
 def fix_float_literals(body):
+    if not FLOAT_LITERAL_RE.search(body):
+        return body
     if CUR_PROG not in _DISASM:
         int_float_conversions(CUR_FN_ADDR)        # (loads the disassembly)
-    text = _DISASM[CUR_PROG].get(CUR_FN_ADDR)
-    if not text or not FLOAT_LITERAL_RE.search(body):
-        return body
-    floats, doubles = set(), set()
+    text = _DISASM[CUR_PROG].get(CUR_FN_ADDR) or ""
+    doubles = set()
     for kind, a in FLOAT_OPERAND_RE.findall(text):
-        b = image_bytes(int(a, 16), 4 if kind == "float" else 8)
-        if b is not None:
-            (floats if kind == "float" else doubles).add(struct.unpack("<f" if kind == "float" else "<d", b)[0])
-    if not floats:
-        return body
+        if kind == "double":
+            b = image_bytes(int(a, 16), 8)
+            if b is not None:
+                doubles.add(abs(struct.unpack("<d", b)[0]))
     as_float = lambda v: struct.unpack("<f", struct.pack("<f", v))[0]
-    # (by magnitude: the literal's sign is printed apart from it, `- (float10)-0.2` or `-(x) * 0.2`)
-    floats = {abs(f) for f in floats}
-    doubles_f = {abs(as_float(d)) for d in doubles if abs(d) < 3.4e38}
 
     def sub(m):
         v = float(m.group(1))
         if abs(v) >= 3.4e38:
             return m.group(0)
-        f = as_float(v)
-        if f == v or f not in floats or f in doubles_f:   # exact, not a float constant, or ambiguous
+        # (by magnitude: the literal's sign is printed apart from it, `- (float10)-0.2` or `-(x) * 0.2`)
+        # an 8-byte constant of the function, or a value no float has (it underflows): a double; everything else is
+        # a float literal, the exact ones too (`0.5f`: a float operand keeps the arithmetic in float, as the x87 code
+        # that loads a dword has it)
+        if abs(v) in doubles or (v != 0 and as_float(v) == 0):
             return m.group(0)
         return m.group(1) + "f"
     out = []

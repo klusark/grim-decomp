@@ -43,8 +43,14 @@ uint __cdecl Res_SysInitialize(uint param_1,undefined4 *param_2)
   return uVar1;
 }
 
-/* ---- 0x00480020  FUN_00480020 ---- */
-undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,undefined4 *param_4)
+/* ---- 0x00480020  Res_SysInitializeBody ---- */
+/* The body of Res_SysInitialize (((unsigned)(uintptr_t)Res_SysInitialize) loads its arguments into ECX / EDX and falls through to
+   here): stores the low-level services, and on the first call (EDX 0) fills the SysModuleIface with
+   the Res_Sys* entry points and clears the resource lists. Returns 0, or 1 when called again; was
+   FUN_00480020. */
+
+undefined4 __fastcall
+Res_SysInitializeBody(uint param_1,int param_2,undefined4 param_3,undefined4 *param_4)
 
 {
   undefined4 uVar1;

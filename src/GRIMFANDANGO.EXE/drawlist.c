@@ -39,8 +39,11 @@ undefined * __cdecl DrawList_Alloc(void)
   return (undefined *)0x0;
 }
 
-/* ---- 0x004862b0  FUN_004862b0 ---- */
-uint __cdecl FUN_004862b0(int *param_1,int *param_2)
+/* ---- 0x004862b0  Render_CompareDrawDepth ---- */
+/* qsort comparator of Render_BuildActorDrawList: 1 when the depth (+4) of the first entry is less
+   than the second's, else 0; was FUN_004862b0. */
+
+uint __cdecl Render_CompareDrawDepth(int *param_1,int *param_2)
 
 {
   if (*(float *)(*param_1 + 4) < *(float *)(*param_2 + 4)) {

@@ -634,12 +634,12 @@ float __cdecl lua_getnumber(int param_1)
   
                     /* 0x1860  31  lua_getnumber */
   if (param_1 == 0) {
-    return 0.0;
+    return 0.0f;
   }
   if (g_pLuaState->pStack[param_1 + -1].nTtype != -1) {
     iVar1 = luaV_tonumber(&g_pLuaState->pStack[param_1 + -1].nTtype);
     if (iVar1 != 0) {
-      return 0.0;
+      return 0.0f;
     }
   }
   return PUN(float,g_pLuaState->pStack[param_1 + -1].dwValue);
@@ -1835,12 +1835,12 @@ undefined4 __cdecl lua_mathlibopen(void)
   lua_pushstring(&DAT_10027004);
   lua_setglobal((byte *)s__TRIGMODE_10027074);
   lua_pushCclosure(((unsigned)(uintptr_t)math_pow),0);
-  lua_pushnumber(0.0);
+  lua_pushnumber(0.0f);
   pbVar3 = &DAT_10027070;
   iVar1 = lua_pop();
   iVar1 = lua_tag(iVar1);
   lua_settagmethod(iVar1,pbVar3);
-  lua_pushnumber(3.1415927);
+  lua_pushnumber(3.1415927f);
   uVar2 = lua_setglobal(&DAT_1002706c);
   return uVar2;
 }

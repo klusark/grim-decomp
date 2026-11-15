@@ -669,7 +669,7 @@ switchD_1000acd8_caseD_1f:
       break;
     case 0x4a:
       fVar9 = *pfVar9;
-      if (PUN(float,fVar9) == 0.0) {
+      if (PUN(float,fVar9) == 0.0f) {
         fVar9 = -1;
       }
       break;
@@ -677,7 +677,7 @@ switchD_1000acd8_caseD_1f:
       fVar9 = adjust_functioncall(pfVar9[-1],1);
       break;
     case 0x4c:
-      if (PUN(float,*pfVar9) != 0.0) {
+      if (PUN(float,*pfVar9) != 0.0f) {
         *(char *)(*(int *)(*(int *)g_pLuaState->pCurrState + 0x10) + *pfVar9) =
              *(char *)(pfVar9 + -1);
         goto switchD_1000acd8_caseD_1f;
@@ -959,7 +959,7 @@ void __cdecl code_number(float param_1)
   uint uVar1;
   longlong lVar2;
   
-  if ((0.0 <= param_1) && (param_1 <= 65534.0)) {
+  if ((0.0f <= param_1) && (param_1 <= 65534.0f)) {
     lVar2 = FTOL((float10)param_1);
     if ((float)(int)(uint)lVar2 == param_1) {
       code_oparg('\x03',3,(uint)lVar2,1);

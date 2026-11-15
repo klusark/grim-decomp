@@ -1926,10 +1926,12 @@ Im_ApplyFXPreset(undefined2 *param_1,uint param_2,undefined2 *param_3,int *param
   return DAT_1002dd7c;
 }
 
-/* ---- 0x10004970  FUN_10004970 ---- */
+/* ---- 0x10004970  ImFx_Terminate ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Stops the HMI voice-effects library: releases the preset, frees the preset library and calls
+   hmiFXUnInitSystem (when ImFx_Initialize ran); was FUN_10004970. */
 
-void __cdecl FUN_10004970(void)
+void __cdecl ImFx_Terminate(void)
 
 {
   if (_DAT_1002dd78 != 0) {
@@ -2753,28 +2755,28 @@ undefined4 __cdecl ScriptCall(int cmd,...)
     break;
   case 1:
     _DAT_1002e330 = 0;
-    uVar2 = FUN_100063d0();
+    uVar2 = Script_Terminate();
     return uVar2;
   case 2:
-    iVar4 = FUN_10006400((undefined4 *)local_28[0],(int)local_28[1]);
+    iVar4 = Script_Save((undefined4 *)local_28[0],(int)local_28[1]);
     return iVar4;
   case 3:
-    iVar4 = FUN_10006470((undefined4 *)local_28[0]);
+    iVar4 = Script_Restore((undefined4 *)local_28[0]);
     return iVar4;
   case 4:
-    uVar2 = FUN_100064d0();
+    uVar2 = Script_Update();
     return uVar2;
   case 5:
-    uVar2 = FUN_10006560((int)local_28[0]);
+    uVar2 = Script_SetState((int)local_28[0]);
     return uVar2;
   case 6:
     uVar2 = Script_SetSequence((int)local_28[0]);
     return uVar2;
   case 7:
-    uVar2 = FUN_100067a0();
+    uVar2 = Script_NullCallback();
     return uVar2;
   case 8:
-    uVar2 = FUN_100067b0((uint)local_28[0],local_28[1]);
+    uVar2 = Script_Attribute((uint)local_28[0],local_28[1]);
     return uVar2;
   default:
     ImPrintf((char *)((unsigned)(uintptr_t)&DAT_1001e68c));
@@ -2785,8 +2787,8 @@ undefined4 __cdecl ScriptCall(int cmd,...)
     return 0xffffffff;
   }
   _DAT_1002e330 = 1;
-  uVar2 = FUN_10006360((int)local_28[0],local_28[1],local_28[2],local_28[3],uStack_18,uStack_14,
-                       uStack_10,uStack_c);
+  uVar2 = Script_Init((int)local_28[0],local_28[1],local_28[2],local_28[3],uStack_18,uStack_14,
+                      uStack_10,uStack_c);
   return uVar2;
 }
 #undef local_28
@@ -2796,12 +2798,15 @@ undefined4 __cdecl ScriptCall(int cmd,...)
 #undef uStack_c
 
 
-/* ---- 0x10006360  FUN_10006360 ---- */
+/* ---- 0x10006360  Script_Init ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Initialises the music script: installs Script_Callback as the trigger callback, takes the
+   local-music flag, sets up the file list (ImInitFilelist) and the two host callbacks, clears the
+   0xe4 attributes and the current state / sequence / cue point; was FUN_10006360. */
 
 undefined4 __cdecl
-FUN_10006360(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,undefined4 param_6,
-            undefined4 param_7,undefined4 param_8)
+Script_Init(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,undefined4 param_6,
+           undefined4 param_7,undefined4 param_8)
 
 {
   int iVar1;
@@ -2823,14 +2828,17 @@ FUN_10006360(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,und
   return 0;
 }
 
-/* ---- 0x100063d0  FUN_100063d0 ---- */
-undefined4 FUN_100063d0(void)
+/* ---- 0x100063d0  Script_Terminate ---- */
+/* Ends the music script: stops the local music (Script_StopLocalMusic) and clears the state, the
+   attributes, the sequence and the cue point; was FUN_100063d0. */
+
+undefined4 Script_Terminate(void)
 
 {
   int iVar1;
   undefined4 *puVar2;
   
-  FUN_10007110();
+  Script_StopLocalMusic();
   g_dwCurrentState = 0;
   puVar2 = &DAT_1002df78;
   for (iVar1 = 0xe4; iVar1 != 0; iVar1 = iVar1 + -1) {
@@ -2842,8 +2850,12 @@ undefined4 FUN_100063d0(void)
   return 0;
 }
 
-/* ---- 0x10006400  FUN_10006400 ---- */
-int __cdecl FUN_10006400(undefined4 *param_1,int param_2)
+/* ---- 0x10006400  Script_Save ---- */
+/* Saves the music script state into `buf` (at least 0x39c bytes): state, sequence, cue point, the
+   attributes, then the file list (ImSaveFilelist). Returns the bytes written or -1; was
+   FUN_10006400. */
+
+int __cdecl Script_Save(undefined4 *param_1,int param_2)
 
 {
   undefined4 uVar1;
@@ -2873,8 +2885,12 @@ int __cdecl FUN_10006400(undefined4 *param_1,int param_2)
   return iVar3;
 }
 
-/* ---- 0x10006470  FUN_10006470 ---- */
-int __cdecl FUN_10006470(undefined4 *param_1)
+/* ---- 0x10006470  Script_Restore ---- */
+/* Restores what Script_Save wrote: unloads and closes everything, reads state, sequence, cue point
+   and the attributes, then the file list (ImRestoreFilelist). Returns the bytes read; was
+   FUN_10006470. */
+
+int __cdecl Script_Restore(undefined4 *param_1)
 
 {
   undefined4 *puVar1;
@@ -2899,10 +2915,14 @@ int __cdecl FUN_10006470(undefined4 *param_1)
   return iVar4 + iVar3;
 }
 
-/* ---- 0x100064d0  FUN_100064d0 ---- */
+/* ---- 0x100064d0  Script_Update ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-undefined4 FUN_100064d0(void)
+/* Dispatcher command 4, once per frame: ends a sequence the trigger callback flagged as ended, and
+   the current sequence when no music stream is playing; then ImFlushSounds. Hand-written in
+   build/overrides_imuse_r1.c (Script_SetSequence takes a register argument); was FUN_100064d0. */
+
+undefined4 Script_Update(void)
 
 {
   uint uVar1;
@@ -2934,10 +2954,14 @@ LAB_10006549:
 #endif
 
 
-/* ---- 0x10006560  FUN_10006560 ---- */
+/* ---- 0x10006560  Script_SetState ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __cdecl FUN_10006560(int param_1)
+/* Sets the music state by id (-1: only returns it): finds the state record, and unless it is
+   current or a sequence plays, transitions to its file (Script_Trans). Returns the current state's
+   id. Hand-written in build/overrides_imuse_r1.c; was FUN_10006560. */
+
+int __cdecl Script_SetState(int param_1)
 
 {
   uint uVar1;
@@ -3064,15 +3088,22 @@ int __cdecl Script_SetSequence(int param_1)
 #endif
 
 
-/* ---- 0x100067a0  FUN_100067a0 ---- */
-undefined4 FUN_100067a0(void)
+/* ---- 0x100067a0  Script_NullCallback ---- */
+/* Returns 0: passed as the two script callbacks ImInitializeScript takes, and called by the
+   dispatcher; was FUN_100067a0. */
+
+undefined4 Script_NullCallback(void)
 
 {
   return 0;
 }
 
-/* ---- 0x100067b0  FUN_100067b0 ---- */
-undefined4 __cdecl FUN_100067b0(uint param_1,char *param_2)
+/* ---- 0x100067b0  Script_Attribute ---- */
+/* Script attributes: (-1, 0 / 1) pauses / resumes, (-1, -1) clears all; (10000, buf) copies the
+   state and sequence names into buf and returns 0xde; (n < 0xe4, v) sets attribute n to v (unless v
+   is -1) and returns it; was FUN_100067b0. */
+
+undefined4 __cdecl Script_Attribute(uint param_1,char *param_2)
 
 {
   char cVar1;
@@ -3455,8 +3486,11 @@ void __cdecl Script_Callback(char *marker)
   return;
 }
 
-/* ---- 0x10007110  FUN_10007110 ---- */
-void FUN_10007110(void)
+/* ---- 0x10007110  Script_StopLocalMusic ---- */
+/* When the music is local (not streamed by the game): stops all sounds, unloads and closes them;
+   was FUN_10007110. */
+
+void Script_StopLocalMusic(void)
 
 {
   if (g_dwLocalMusic != 0) {
@@ -3585,7 +3619,7 @@ int __cdecl iMUSE_GetPhoneme(int param_1,int param_2)
                     /* 0x8bb0  78  iMUSE_GetPhoneme */
   if (param_1 == g_dwLipStreamID) {
     iVar1 = SoundGetVoiceTime();
-    iVar1 = FUN_10008c40(param_1,iVar1 + param_2);
+    iVar1 = Lip_PhonemeAtTime(param_1,iVar1 + param_2);
     return iVar1;
   }
   if (((param_1 == g_dwLipSfx1ID) || (param_1 == g_dwLipSfx2ID)) || (param_1 == g_dwLipSfx3ID)) {
@@ -3603,15 +3637,19 @@ int __cdecl iMUSE_GetPhoneme(int param_1,int param_2)
     if (iVar1 != 0) {
 LAB_10008c0e:
       uVar3 = ImGetParam(iVar1,0x1a00);
-      iVar1 = FUN_10008c40(param_1,uVar3 + param_2);
+      iVar1 = Lip_PhonemeAtTime(param_1,uVar3 + param_2);
       return iVar1;
     }
   }
   return 0;
 }
 
-/* ---- 0x10008c40  FUN_10008c40 ---- */
-int __cdecl FUN_10008c40(int param_1,int param_2)
+/* ---- 0x10008c40  Lip_PhonemeAtTime ---- */
+/* The phoneme of the lip-sync track of sound `id` (the stream, 10000, or one of the three sound
+   effects) at time t (in 16ths): the entry whose time range holds it, 0x5f (rest) when none does;
+   was FUN_10008c40. */
+
+int __cdecl Lip_PhonemeAtTime(int param_1,int param_2)
 
 {
   undefined *puVar1;
@@ -3658,12 +3696,15 @@ int __cdecl FUN_10008c40(int param_1,int param_2)
   return 0x5f;
 }
 
-/* ---- 0x10008ce0  FUN_10008ce0 ---- */
+/* ---- 0x10008ce0  Timer_Start ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Starts iMUSE's multimedia timer (timeBeginPeriod / timeSetEvent with timer_callback, at least 50
+   ms resolution) and waits up to 3 x 4 s for its first tick, restarting it when none comes. Returns
+   the tick count, 0 on failure. Hand-written; was FUN_10008ce0. */
 
-int __cdecl FUN_10008ce0(void)
+int __cdecl Timer_Start(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3742,10 +3783,12 @@ undefined4 __stdcall timer_callback(int a1,int a2,int a3,int a4,int a5)
   return uVar1;
 }
 
-/* ---- 0x10008e30  FUN_10008e30 ---- */
+/* ---- 0x10008e30  Timer_Stop ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Kills the multimedia timer (timeKillEvent / timeEndPeriod) and runs timer_callback once more; was
+   FUN_10008e30. */
 
-void __cdecl FUN_10008e30(void)
+void __cdecl Timer_Stop(void)
 
 {
   timeKillEvent(_DAT_10031d28);
@@ -3754,8 +3797,11 @@ void __cdecl FUN_10008e30(void)
   return;
 }
 
-/* ---- 0x10008e60  FUN_10008e60 ---- */
-void __cdecl FUN_10008e60(void)
+/* ---- 0x10008e60  Sounds_FreeAll ---- */
+/* Frees the 32 sound slots (their sound data through the host's free) and clears the handle counter
+   and the sound cache; was FUN_10008e60. */
+
+void __cdecl Sounds_FreeAll(void)
 
 {
   undefined1 *puVar1;
@@ -3846,8 +3892,11 @@ void __cdecl Im_SoundsPrepare(uint param_1)
 #undef local_c
 
 
-/* ---- 0x10009530  FUN_10009530 ---- */
-uint __cdecl FUN_10009530(int param_1)
+/* ---- 0x10009530  Sounds_GetSoundAddr ---- */
+/* The sound data address of sound slot `id` (100..0x84), 0 otherwise; ihost_get_sound_addr returns
+   it; was FUN_10009530. */
+
+uint __cdecl Sounds_GetSoundAddr(int param_1)
 
 {
   if ((99 < param_1) && (param_1 < 0x85)) {
@@ -3856,8 +3905,11 @@ uint __cdecl FUN_10009530(int param_1)
   return 0;
 }
 
-/* ---- 0x10009560  FUN_10009560 ---- */
-uint __cdecl FUN_10009560(int param_1)
+/* ---- 0x10009560  Sounds_GetMapAddr ---- */
+/* The map address of sound slot `id` (100..0x84), 0 otherwise; ihost_get_map_addr returns it; was
+   FUN_10009560. */
+
+uint __cdecl Sounds_GetMapAddr(int param_1)
 
 {
   if ((99 < param_1) && (param_1 < 0x85)) {
@@ -3927,8 +3979,10 @@ undefined4 __cdecl grimSound_LipSyncFree(int param_1)
   return uVar1;
 }
 
-/* ---- 0x10009700  FUN_10009700 ---- */
-void __cdecl FUN_10009700(char *fmt,...)
+/* ---- 0x10009700  Im_DiscardMessage ---- */
+/* An empty printf: stored in a table of message functions; was FUN_10009700. */
+
+void __cdecl Im_DiscardMessage(char *fmt,...)
 
 {
   return;
@@ -4358,7 +4412,7 @@ int __cdecl iMUSE_SetVoiceEffect(uint *param_1)
     g_dwUseVoxFx = 0;
     return 0;
   }
-  g_dwUseVoxFx = FUN_10004750((uint)param_1);
+  g_dwUseVoxFx = ImFx_SelectPreset((uint)param_1);
   return g_dwUseVoxFx;
 }
 

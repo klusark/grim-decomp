@@ -311,15 +311,15 @@ void __cdecl LightEd_AddLight(void)
   g_pLightEdSet->aLights[a4].light.nType = 2;
   pSVar4->aLights[a4].light.nActive = 1;
   light = &pSVar4->aLights[a4].light;
-  light->aDirection[0] = 0.0;
-  light->aDirection[1] = 0.0;
-  light->aDirection[2] = 0.0;
-  light->flIntensity = 1.0;
+  light->aDirection[0] = 0.0f;
+  light->aDirection[1] = 0.0f;
+  light->aDirection[2] = 0.0f;
+  light->flIntensity = 1.0f;
   light->dwColor = 0xffffff;
-  light->flInnerAngle = 0.0;
-  light->flCosInner = 0.0;
-  light->flOuterAngle = 0.0;
-  light->flCosOuter = 0.0;
+  light->flInnerAngle = 0.0f;
+  light->flCosInner = 0.0f;
+  light->flOuterAngle = 0.0f;
+  light->flCosOuter = 0.0f;
   pSVar4 = g_pLightEdSet;
   (&UINT_008d1730)[a4 * 5] = (uint)(g_pLightEdSet->aLights + a4);
   (&UINT_008d1734)[a4 * 5] = 1;
@@ -824,16 +824,16 @@ void __cdecl LightEd_RefreshControl(int param_1,float param_2,uint param_3,int p
   if (g_pLightEdSet == (Set *)0x0) {
     return;
   }
-  if (param_2 == 1.42792e-42) {
+  if (param_2 == 1.42792e-42f) {
     a2 = 0x3ec;
     local_50 = 1000;
   }
-  else if (param_2 == 1.43353e-42) {
+  else if (param_2 == 1.43353e-42f) {
     a2 = 0x3ed;
     local_50 = 100;
   }
   else {
-    if (param_2 != 1.43493e-42) {
+    if (param_2 != 1.43493e-42f) {
       return;
     }
     a2 = 0x3ee;
@@ -843,10 +843,10 @@ void __cdecl LightEd_RefreshControl(int param_1,float param_2,uint param_3,int p
   fVar1 = atof(local_4c);
   switch(param_3) {
   case 0:
-    fVar1 = fVar1 * (float)local_50 - -1.0;
+    fVar1 = fVar1 * (float)local_50 - -1.0f;
     break;
   case 1:
-    fVar1 = fVar1 * (float)local_50 - 1.0;
+    fVar1 = fVar1 * (float)local_50 - 1.0f;
     break;
   default:
     goto switchD_004bf4ef_caseD_2;
@@ -893,7 +893,7 @@ void __cdecl LightEd_ReadControl(int hdlg,int id)
     if (g_nLightEdBusy != 0) {
       return;
     }
-    lVar1 = FTOL((float10)outer * (float10)1000.0);
+    lVar1 = FTOL((float10)outer * (float10)1000.0f);
     a5 = (uint)lVar1 & 0xffff;
     a2 = 0x3fb;
     goto LAB_004bf718;
@@ -903,7 +903,7 @@ void __cdecl LightEd_ReadControl(int hdlg,int id)
     if (g_nLightEdBusy != 0) {
       return;
     }
-    lVar1 = FTOL((float10)outer * (float10)100.0);
+    lVar1 = FTOL((float10)outer * (float10)100.0f);
     a5 = (uint)lVar1 & 0xffff;
     a2 = 0x3ff;
     goto LAB_004bf718;
@@ -913,7 +913,7 @@ void __cdecl LightEd_ReadControl(int hdlg,int id)
     if (g_nLightEdBusy != 0) {
       return;
     }
-    lVar1 = FTOL((float10)outer * (float10)100.0);
+    lVar1 = FTOL((float10)outer * (float10)100.0f);
     a5 = (uint)lVar1 & 0xffff;
     a2 = 0x400;
 LAB_004bf718:
@@ -980,7 +980,7 @@ void __cdecl LightEd_SetLightAngle(int param_1,short param_2,uint param_3)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  local_c = 0.0;
+  local_c = 0.0f;
   (&UINT_008d1738)[param_1 * 5 + (int)param_2] = param_3;
   local_8 = 0x3f800000;
   local_4 = 0;
@@ -1074,13 +1074,13 @@ int __stdcall LightEd_KeyboardProc(int code,uint wParam,uint lParam)
     uVar1 = (&UINT_008d1730)[g_nLightEdSelected * 5];
     if ((uVar3 & (g_dwLightEdLastKey & 0xffff) == wParam) == 0) {
       g_flLightEdMoveStep = 0.01f;
-      g_flLightEdAngleStep = 1.0;
+      g_flLightEdAngleStep = 1.0f;
       g_dwLightEdLastKey = CONCAT22(PIECE(g_dwLightEdLastKey,2,2),-(ushort)(uVar3 != 0) & (ushort)wParam)
       ;
     }
     else {
       g_flLightEdMoveStep = g_flLightEdMoveStep - -0.005f;
-      g_flLightEdAngleStep = g_flLightEdAngleStep - -0.5;
+      g_flLightEdAngleStep = g_flLightEdAngleStep - -0.5f;
     }
     switch(wParam) {
     case 0x12:
@@ -1130,13 +1130,13 @@ LAB_004c0263:
     case 0x62:
       if (uVar3 != 0) {
         lParam = PUN(uint,(float)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] + g_flLightEdAngleStep));
-        if (PUN(float,lParam) <= 360.0) {
+        if (PUN(float,lParam) <= 360.0f) {
           if (PUN(float,lParam) < -180.0) {
-            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0f));
           }
         }
         else {
-          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0f));
         }
         local_18 = PUN(float,lParam);
         iVar2 = 0x3f2;
@@ -1147,25 +1147,25 @@ LAB_004c0263:
       if (uVar3 != 0) {
         if (uVar4 == 0) {
           lParam = PUN(uint,(float)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] - g_flLightEdAngleStep));
-          if (PUN(float,lParam) <= 360.0) {
+          if (PUN(float,lParam) <= 360.0f) {
             if (PUN(float,lParam) < -180.0) {
-              lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+              lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0f));
             }
           }
           else {
-            lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+            lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0f));
           }
           LightEd_SetDlgFloat((int)g_hLightEdDialog,0x3f4,PUN(float,lParam),1);
           return 1;
         }
         lParam = PUN(uint,(float)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] - g_flLightEdAngleStep));
-        if (PUN(float,lParam) <= 360.0) {
+        if (PUN(float,lParam) <= 360.0f) {
           if (PUN(float,lParam) < -180.0) {
-            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0f));
           }
         }
         else {
-          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0f));
         }
         local_18 = PUN(float,lParam);
         iVar2 = 0x3f5;
@@ -1178,25 +1178,25 @@ LAB_004c041f:
       if (uVar3 != 0) {
         if (uVar4 != 0) {
           lParam = PUN(uint,(float)((float)(&UINT_008d1740)[g_nLightEdSelected * 5] + g_flLightEdAngleStep));
-          if (PUN(float,lParam) <= 360.0) {
+          if (PUN(float,lParam) <= 360.0f) {
             if (PUN(float,lParam) < -180.0) {
-              lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+              lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0f));
             }
           }
           else {
-            lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+            lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0f));
           }
           LightEd_SetDlgFloat((int)g_hLightEdDialog,0x3f5,PUN(float,lParam),1);
           return 1;
         }
         lParam = PUN(uint,(float)((float)(&UINT_008d173c)[g_nLightEdSelected * 5] + g_flLightEdAngleStep));
-        if (PUN(float,lParam) <= 360.0) {
+        if (PUN(float,lParam) <= 360.0f) {
           if (PUN(float,lParam) < -180.0) {
-            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0f));
           }
         }
         else {
-          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0f));
         }
         local_18 = PUN(float,lParam);
         iVar2 = 0x3f4;
@@ -1206,13 +1206,13 @@ LAB_004c041f:
     case 0x68:
       if (uVar3 != 0) {
         lParam = PUN(uint,(float)((float)(&UINT_008d1738)[g_nLightEdSelected * 5] - g_flLightEdAngleStep));
-        if (PUN(float,lParam) <= 360.0) {
+        if (PUN(float,lParam) <= 360.0f) {
           if (PUN(float,lParam) < -180.0) {
-            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0));
+            lParam = PUN(uint,(float)(PUN(float,lParam) - -360.0f));
           }
         }
         else {
-          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0));
+          lParam = PUN(uint,(float)(PUN(float,lParam) - 360.0f));
         }
         LightEd_SetDlgFloat((int)g_hLightEdDialog,0x3f2,PUN(float,lParam),1);
         return 1;

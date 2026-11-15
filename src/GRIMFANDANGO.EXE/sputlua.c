@@ -133,7 +133,7 @@ void __cdecl sputLua_Update(void)
   g_dwSputLua_Update_movieTimeMsec = SmushPlay_GetMovieTime();
   uVar1 = sputTime_GetFrameTime();
   g_dwSputLua_Update_collectionTime = g_dwSputLua_Update_collectionTime + uVar1;
-  if (10000.0 < (float)g_dwSputLua_Update_collectionTime) {
+  if (10000.0f < (float)g_dwSputLua_Update_collectionTime) {
     lua_collectgarbage(0);
     g_dwSputLua_Update_collectionTime = 0;
   }
@@ -378,7 +378,7 @@ void __cdecl sputLua_StartMovieL(void)
     uVar7 = lua_getstring(iVar1);
     uVar8 = grimlib_PlayMovie(uVar7,iVar2,uVar11,uVar6,uVar8);
     if (uVar8 == 1) {
-      lua_pushnumber(1.0);
+      lua_pushnumber(1.0f);
       return;
     }
   }
@@ -569,7 +569,7 @@ void __cdecl sputLua_ImGetParam(void)
   if (iVar3 == 0) {
     iVar3 = lua_isstring(iVar2);
     if (iVar3 == 0) {
-      lua_pushnumber(-1.0);
+      lua_pushnumber(-1.0f);
       return;
     }
     fVar6 = lua_getnumber(iVar2);
@@ -683,7 +683,7 @@ void __cdecl sputLua_ImFadeParam(void)
   if (iVar5 == 0) {
     iVar5 = lua_isnumber(iVar1);
     if (iVar5 == 0) {
-      lua_pushnumber(0.0);
+      lua_pushnumber(0.0f);
       return;
     }
   }

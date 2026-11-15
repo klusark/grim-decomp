@@ -88,7 +88,7 @@ void __cdecl Timer_Reset(void)
 {
   g_dwSputTime_gameTime_ms = 0;
   g_dwSputTime_frameTime_ms = 0;
-  g_flSputTime_frameTimeSeconds = 0.0;
+  g_flSputTime_frameTimeSeconds = 0.0f;
   g_dwLastClockTime = timeGetTime();
   return;
 }

@@ -39,23 +39,23 @@ rdCamera_NewEntry(rdCamera *camera,float fov,int projType,float aspectX,float as
                      (0x34,s_C__grimjedi_Libs_RDroid_Engine_R_004ddb44,DAT_004ddb40 + 1);
   camera->pFrustum = prVar1;
   if (prVar1 != (rdClipFrustum *)0x0) {
-    if (fov < 5.0) {
-      fov = 5.0;
+    if (fov < 5.0f) {
+      fov = 5.0f;
     }
-    else if (179.0 < fov) {
-      fov = 179.0;
+    else if (179.0f < fov) {
+      fov = 179.0f;
     }
     camera->flFov = fov;
     prVar1->nClipFar = projType;
     camera->pFrustum->flZNear = aspectX;
     camera->pFrustum->flZFar = aspectY;
     camera->flAspect = zoom;
-    camera->flOrthoScale = 1.0;
+    camera->flOrthoScale = 1.0f;
     camera->pCanvas = (rdCanvas *)0x0;
-    camera->flAmbientLight = 0.0;
+    camera->flAmbientLight = 0.0f;
     camera->dwNumLights = 0;
-    camera->flAttenuationMin = 0.2;
-    camera->flAttenuationMax = 0.1;
+    camera->flAttenuationMin = 0.2f;
+    camera->flAttenuationMax = 0.1f;
     rdCamera_SetProjectType(camera,1);
     return 1;
   }
@@ -116,11 +116,11 @@ uint __cdecl rdCamera_SetCurrent(void *param_1)
 void __cdecl rdCamera_SetFOV(rdCamera *camera,float fov)
 
 {
-  if (fov < 5.0) {
-    fov = 5.0;
+  if (fov < 5.0f) {
+    fov = 5.0f;
   }
-  else if (179.0 < fov) {
-    fov = 179.0;
+  else if (179.0f < fov) {
+    fov = 179.0f;
   }
   camera->flFov = fov;
   rdCamera_BuildFOV(&camera->nProjectType);
@@ -136,7 +136,7 @@ int __cdecl rdCamera_SetProjectType(rdCamera *camera,int type)
 {
   camera->nProjectType = type;
   if (type == 0) {
-    if (camera->flAspect == 1.0) {
+    if (camera->flAspect == 1.0f) {
       camera->pfnProject = rdCamera_OrthoProjectSquare;
       camera->pfnProjectLst = rdCamera_OrthoProjectSquareLst;
     }
@@ -146,7 +146,7 @@ int __cdecl rdCamera_SetProjectType(rdCamera *camera,int type)
     }
   }
   else if (type == 1) {
-    if (camera->flAspect == 1.0) {
+    if (camera->flAspect == 1.0f) {
       camera->pfnProject = rdCamera_PerspProjectSquare;
       camera->pfnProjectLst = rdCamera_PerspProjectSquareLst;
     }
@@ -170,7 +170,7 @@ void __cdecl rdCamera_SetAspectRatio(rdCamera *camera,float zoom)
 {
   camera->flAspect = zoom;
   if (camera->nProjectType == 0) {
-    if (zoom == 1.0) {
+    if (zoom == 1.0f) {
       camera->pfnProject = rdCamera_OrthoProjectSquare;
       camera->pfnProjectLst = rdCamera_OrthoProjectSquareLst;
       rdCamera_BuildFOV(&camera->nProjectType);
@@ -180,7 +180,7 @@ void __cdecl rdCamera_SetAspectRatio(rdCamera *camera,float zoom)
     camera->pfnProjectLst = rdCamera_OrthoProjectLst;
   }
   else if (camera->nProjectType == 1) {
-    if (zoom == 1.0) {
+    if (zoom == 1.0f) {
       camera->pfnProject = rdCamera_PerspProjectSquare;
       camera->pfnProjectLst = rdCamera_PerspProjectSquareLst;
       rdCamera_BuildFOV(&camera->nProjectType);
@@ -221,8 +221,8 @@ uint __cdecl rdCamera_BuildFOV(int *param_1)
     return 0;
   }
   if (*param_1 == 0) {
-    fVar2 = (float)(*(int *)(iVar1 + 0x20) - *(int *)(iVar1 + 0x18)) * 0.5;
-    fVar3 = (float)(*(int *)(iVar1 + 0x24) - *(int *)(iVar1 + 0x1c)) * 0.5;
+    fVar2 = (float)(*(int *)(iVar1 + 0x20) - *(int *)(iVar1 + 0x18)) * 0.5f;
+    fVar3 = (float)(*(int *)(iVar1 + 0x24) - *(int *)(iVar1 + 0x1c)) * 0.5f;
     *(float *)(param_1[0x12] + 0xc) = -(fVar2 / (float)param_1[0x11]);
     *(float *)(param_1[0x12] + 0x10) = (fVar3 / (float)param_1[0x11]) / (float)param_1[0x10];
     *(float *)(param_1[0x12] + 0x14) = fVar2 / (float)param_1[0x11];
@@ -234,17 +234,17 @@ uint __cdecl rdCamera_BuildFOV(int *param_1)
     *(undefined4 *)(param_1[0x12] + 0x28) = 0;
   }
   else if (*param_1 == 1) {
-    fVar2 = (float)(*(int *)(iVar1 + 0x20) - *(int *)(iVar1 + 0x18)) * 0.5;
-    fVar3 = (float)(*(int *)(iVar1 + 0x24) - *(int *)(iVar1 + 0x1c)) * 0.5;
-    fVar4 = (float10)stdMath_Tan((float)param_1[0xe] * 0.5);
+    fVar2 = (float)(*(int *)(iVar1 + 0x20) - *(int *)(iVar1 + 0x18)) * 0.5f;
+    fVar3 = (float)(*(int *)(iVar1 + 0x24) - *(int *)(iVar1 + 0x1c)) * 0.5f;
+    fVar4 = (float10)stdMath_Tan((float)param_1[0xe] * 0.5f);
     param_1[0xf] = PUN(int,(float)(fVar2 / (float)fVar4));
     *(float *)(param_1[0x12] + 0x1c) = (fVar3 / (fVar2 / (float)fVar4)) / (float)param_1[0x10];
     *(float *)(param_1[0x12] + 0x24) = -fVar2 / (float)param_1[0xf];
     *(float *)(param_1[0x12] + 0x20) = (-fVar3 / (float)param_1[0xf]) / (float)param_1[0x10];
     *(float *)(param_1[0x12] + 0x28) = fVar2 / (float)param_1[0xf];
-    *(float *)(param_1[0x12] + 0x2c) = ((fVar3 - -1.0) / (float)param_1[0xf]) / (float)param_1[0x10]
+    *(float *)(param_1[0x12] + 0x2c) = ((fVar3 - -1.0f) / (float)param_1[0xf]) / (float)param_1[0x10]
     ;
-    *(float *)(param_1[0x12] + 0x30) = -(fVar2 - -1.0) / (float)param_1[0xf];
+    *(float *)(param_1[0x12] + 0x30) = -(fVar2 - -1.0f) / (float)param_1[0xf];
     return 1;
   }
   return 1;

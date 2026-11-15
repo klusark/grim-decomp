@@ -2774,9 +2774,9 @@ extern undefined4 in_stack_ffffffe2; /* used by 1 fn(s), first 0x004b9b1c */
 #define _DAT_007f30c0 (*(undefined4 *)&DAT_007f30c0) /* same address as DAT_007f30c0, other width */
 #define _g_dwMaxGeoRadius (*(undefined4 *)&g_dwMaxGeoRadius) /* same address as g_dwMaxGeoRadius, other width */
 #define _g_dwEndVOverZ (*(undefined4 *)&g_dwEndVOverZ) /* same address as g_dwEndVOverZ, other width */
-#define _g_dwEndOneOverZ (*(float *)&g_dwEndOneOverZ) /* same address as g_dwEndOneOverZ, other width */
+#define _g_dwEndOneOverZ (*(undefined4 *)&g_dwEndOneOverZ) /* same address as g_dwEndOneOverZ, other width */
 #define _g_dwEndUOverZ (*(undefined4 *)&g_dwEndUOverZ) /* same address as g_dwEndUOverZ, other width */
-#define _DAT_007f4b38 (*(float *)&DAT_007f4b38) /* same address as DAT_007f4b38, other width */
+#define _DAT_007f4b38 (*(undefined4 *)&DAT_007f4b38) /* same address as DAT_007f4b38, other width */
 #define _DAT_007f4b58 (*(float *)&DAT_007f4b58) /* same address as DAT_007f4b58, other width */
 #define _DAT_007f4b5c (*(float *)&DAT_007f4b5c) /* same address as DAT_007f4b5c, other width */
 #define _DAT_007f5004 (*(undefined4 *)&DAT_007f5004) /* same address as DAT_007f5004, other width */

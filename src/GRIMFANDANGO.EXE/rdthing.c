@@ -53,7 +53,7 @@ int __cdecl rdModel3_Draw(rdThing *thing,float *position)
       g_dwCurTextureMode = g_nRdroid_curGeometryMode;
     }
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
-       (g_pRdCamera_CurCamera->flAmbientLight < 1.0)) {
+       (g_pRdCamera_CurCamera->flAmbientLight < 1.0f)) {
       UINT_007f30dc = g_pCurThing->nLightingMode;
       if (g_nRdroid_curLightingMode <= g_pCurThing->nLightingMode) {
         UINT_007f30dc = g_nRdroid_curLightingMode;
@@ -76,7 +76,7 @@ int __cdecl rdModel3_Draw(rdThing *thing,float *position)
           prVar1 = *pprVar8;
           if (prVar1->nActive != 0) {
             if (prVar1->nType < 2) {
-              fVar2 = 0.0;
+              fVar2 = 0.0f;
             }
             else {
               fVar2 = (position[0xb] - pfVar6[1]) * (position[0xb] - pfVar6[1]) +
@@ -232,7 +232,7 @@ void __cdecl rdThing_SetModel3(rdThing *thing,rdModel3 *model)
                                s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde10 + 0x10);
   thing->pHierarchyRot = pfVar1;
   for (uVar4 = model->nNumHierarchyNodes * 3 & 0x3fffffff; uVar4 != 0; uVar4 = uVar4 - 1) {
-    *pfVar1 = 0.0;
+    *pfVar1 = 0.0f;
     pfVar1 = pfVar1 + 1;
   }
   for (iVar5 = 0; iVar5 != 0; iVar5 = iVar5 + -1) {

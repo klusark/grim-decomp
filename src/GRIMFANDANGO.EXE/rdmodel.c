@@ -82,7 +82,7 @@ LAB_0040961e:
     }
   }
   if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
-    local_8[0] = 0.0;
+    local_8[0] = 0.0f;
   }
   else {
     local_8[0] = pPVar6->flAlpha;
@@ -102,53 +102,53 @@ LAB_0040961e:
     case 0:
       goto switchD_004098a8_caseD_0;
     case 1:
-      if (pPVar6->flLight < 0.0) {
-        fVar2 = 0.0;
+      if (pPVar6->flLight < 0.0f) {
+        fVar2 = 0.0f;
       }
-      else if (1.0 < pPVar6->flLight) {
-        fVar2 = 1.0;
+      else if (1.0f < pPVar6->flLight) {
+        fVar2 = 1.0f;
       }
       else {
         fVar2 = pPVar6->flLight;
       }
       if (local_8[0] < fVar2) {
-        if (pPVar6->flLight < 0.0) {
-          local_8[0] = 0.0;
+        if (pPVar6->flLight < 0.0f) {
+          local_8[0] = 0.0f;
         }
-        else if (1.0 < pPVar6->flLight) {
-          local_8[0] = 1.0;
+        else if (1.0f < pPVar6->flLight) {
+          local_8[0] = 1.0f;
         }
         else {
           local_8[0] = pPVar6->flLight;
         }
       }
-      pPVar6->flLightIndex = local_8[0] * 63.0;
-      (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
+      pPVar6->flLightIndex = local_8[0] * 63.0f;
+      (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0f);
       return 1;
     case 2:
       fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
-      if (fVar2 < 0.0) {
-        fVar4 = 0.0;
+      if (fVar2 < 0.0f) {
+        fVar4 = 0.0f;
       }
       else {
         fVar4 = fVar2;
-        if (1.0 < fVar2) {
-          fVar4 = 1.0;
+        if (1.0f < fVar2) {
+          fVar4 = 1.0f;
         }
       }
       if (local_8[0] < fVar4) {
-        if (fVar2 < 0.0) {
-          local_8[0] = 0.0;
+        if (fVar2 < 0.0f) {
+          local_8[0] = 0.0f;
         }
         else {
           local_8[0] = fVar2;
-          if (1.0 < fVar2) {
-            local_8[0] = 1.0;
+          if (1.0f < fVar2) {
+            local_8[0] = 1.0f;
           }
         }
       }
-      pPVar6->flLightIndex = local_8[0] * 63.0;
-      (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
+      pPVar6->flLightIndex = local_8[0] * 63.0f;
+      (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0f);
       return 1;
     case 3:
       uVar8 = 0;
@@ -156,29 +156,29 @@ LAB_0040961e:
         do {
           fVar2 = pPVar6->flLight + pPVar6->pIntensities[uVar8];
           pfVar1 = pPVar6->pIntensities + uVar8;
-          if (fVar2 < 0.0) {
-            fVar4 = 0.0;
+          if (fVar2 < 0.0f) {
+            fVar4 = 0.0f;
           }
           else {
             fVar4 = fVar2;
-            if (1.0 < fVar2) {
-              fVar4 = 1.0;
+            if (1.0f < fVar2) {
+              fVar4 = 1.0f;
             }
           }
           fVar5 = local_8[0];
           if (local_8[0] < fVar4) {
-            if (fVar2 < 0.0) {
-              fVar5 = 0.0;
+            if (fVar2 < 0.0f) {
+              fVar5 = 0.0f;
             }
             else {
               fVar5 = fVar2;
-              if (1.0 < fVar2) {
-                fVar5 = 1.0;
+              if (1.0f < fVar2) {
+                fVar5 = 1.0f;
               }
             }
           }
           uVar8 = uVar8 + 1;
-          *pfVar1 = fVar5 * 63.0;
+          *pfVar1 = fVar5 * 63.0f;
         } while (uVar8 < pPVar6->dwNumVertices);
       }
       break;
@@ -192,53 +192,53 @@ LAB_0040961e:
       case 0:
         goto switchD_004098a8_caseD_0;
       case 1:
-        if (pPVar6->flLight < 0.0) {
-          fVar2 = 0.0;
+        if (pPVar6->flLight < 0.0f) {
+          fVar2 = 0.0f;
         }
-        else if (1.0 < pPVar6->flLight) {
-          fVar2 = 1.0;
+        else if (1.0f < pPVar6->flLight) {
+          fVar2 = 1.0f;
         }
         else {
           fVar2 = pPVar6->flLight;
         }
         if (local_8[0] < fVar2) {
-          if (pPVar6->flLight < 0.0) {
-            local_8[0] = 0.0;
+          if (pPVar6->flLight < 0.0f) {
+            local_8[0] = 0.0f;
           }
-          else if (1.0 < pPVar6->flLight) {
-            local_8[0] = 1.0;
+          else if (1.0f < pPVar6->flLight) {
+            local_8[0] = 1.0f;
           }
           else {
             local_8[0] = pPVar6->flLight;
           }
         }
-        pPVar6->flLightIndex = local_8[0] * 63.0;
-        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
+        pPVar6->flLightIndex = local_8[0] * 63.0f;
+        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0f);
         return 1;
       case 2:
         fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
-        if (fVar2 < 0.0) {
-          fVar4 = 0.0;
+        if (fVar2 < 0.0f) {
+          fVar4 = 0.0f;
         }
         else {
           fVar4 = fVar2;
-          if (1.0 < fVar2) {
-            fVar4 = 1.0;
+          if (1.0f < fVar2) {
+            fVar4 = 1.0f;
           }
         }
         if (local_8[0] < fVar4) {
-          if (fVar2 < 0.0) {
-            local_8[0] = 0.0;
+          if (fVar2 < 0.0f) {
+            local_8[0] = 0.0f;
           }
           else {
             local_8[0] = fVar2;
-            if (1.0 < fVar2) {
-              local_8[0] = 1.0;
+            if (1.0f < fVar2) {
+              local_8[0] = 1.0f;
             }
           }
         }
-        pPVar6->flLightIndex = local_8[0] * 63.0;
-        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
+        pPVar6->flLightIndex = local_8[0] * 63.0f;
+        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0f);
         return 1;
       case 3:
         uVar8 = 0;
@@ -246,29 +246,29 @@ LAB_0040961e:
           do {
             fVar2 = pPVar6->flLight + pPVar6->pIntensities[uVar8];
             pfVar1 = pPVar6->pIntensities + uVar8;
-            if (fVar2 < 0.0) {
-              fVar4 = 0.0;
+            if (fVar2 < 0.0f) {
+              fVar4 = 0.0f;
             }
             else {
               fVar4 = fVar2;
-              if (1.0 < fVar2) {
-                fVar4 = 1.0;
+              if (1.0f < fVar2) {
+                fVar4 = 1.0f;
               }
             }
             fVar5 = local_8[0];
             if (local_8[0] < fVar4) {
-              if (fVar2 < 0.0) {
-                fVar5 = 0.0;
+              if (fVar2 < 0.0f) {
+                fVar5 = 0.0f;
               }
               else {
                 fVar5 = fVar2;
-                if (1.0 < fVar2) {
-                  fVar5 = 1.0;
+                if (1.0f < fVar2) {
+                  fVar5 = 1.0f;
                 }
               }
             }
             uVar8 = uVar8 + 1;
-            *pfVar1 = fVar5 * 63.0;
+            *pfVar1 = fVar5 * 63.0f;
           } while (uVar8 < pPVar6->dwNumVertices);
         }
         break;
@@ -285,53 +285,53 @@ LAB_0040961e:
 switchD_004098a8_caseD_0:
         break;
       case 1:
-        if (pPVar6->flLight < 0.0) {
-          fVar2 = 0.0;
+        if (pPVar6->flLight < 0.0f) {
+          fVar2 = 0.0f;
         }
-        else if (1.0 < pPVar6->flLight) {
-          fVar2 = 1.0;
+        else if (1.0f < pPVar6->flLight) {
+          fVar2 = 1.0f;
         }
         else {
           fVar2 = pPVar6->flLight;
         }
         if (local_8[0] < fVar2) {
-          if (pPVar6->flLight < 0.0) {
-            local_8[0] = 0.0;
+          if (pPVar6->flLight < 0.0f) {
+            local_8[0] = 0.0f;
           }
-          else if (1.0 < pPVar6->flLight) {
-            local_8[0] = 1.0;
+          else if (1.0f < pPVar6->flLight) {
+            local_8[0] = 1.0f;
           }
           else {
             local_8[0] = pPVar6->flLight;
           }
         }
-        pPVar6->flLightIndex = local_8[0] * 63.0;
-        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
+        pPVar6->flLightIndex = local_8[0] * 63.0f;
+        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0f);
         return 1;
       case 2:
         fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
-        if (fVar2 < 0.0) {
-          fVar4 = 0.0;
+        if (fVar2 < 0.0f) {
+          fVar4 = 0.0f;
         }
         else {
           fVar4 = fVar2;
-          if (1.0 < fVar2) {
-            fVar4 = 1.0;
+          if (1.0f < fVar2) {
+            fVar4 = 1.0f;
           }
         }
         if (local_8[0] < fVar4) {
-          if (fVar2 < 0.0) {
-            local_8[0] = 0.0;
+          if (fVar2 < 0.0f) {
+            local_8[0] = 0.0f;
           }
           else {
             local_8[0] = fVar2;
-            if (1.0 < fVar2) {
-              local_8[0] = 1.0;
+            if (1.0f < fVar2) {
+              local_8[0] = 1.0f;
             }
           }
         }
-        pPVar6->flLightIndex = local_8[0] * 63.0;
-        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0);
+        pPVar6->flLightIndex = local_8[0] * 63.0f;
+        (**(code **)&pPVar6->field_0x14)(pPVar6,face,local_8[0] * 63.0f);
         return 1;
       case 3:
         uVar8 = 0;
@@ -339,29 +339,29 @@ switchD_004098a8_caseD_0:
           do {
             fVar2 = pPVar6->flLight + pPVar6->pIntensities[uVar8];
             pfVar1 = pPVar6->pIntensities + uVar8;
-            if (fVar2 < 0.0) {
-              fVar4 = 0.0;
+            if (fVar2 < 0.0f) {
+              fVar4 = 0.0f;
             }
             else {
               fVar4 = fVar2;
-              if (1.0 < fVar2) {
-                fVar4 = 1.0;
+              if (1.0f < fVar2) {
+                fVar4 = 1.0f;
               }
             }
             fVar5 = local_8[0];
             if (local_8[0] < fVar4) {
-              if (fVar2 < 0.0) {
-                fVar5 = 0.0;
+              if (fVar2 < 0.0f) {
+                fVar5 = 0.0f;
               }
               else {
                 fVar5 = fVar2;
-                if (1.0 < fVar2) {
-                  fVar5 = 1.0;
+                if (1.0f < fVar2) {
+                  fVar5 = 1.0f;
                 }
               }
             }
             uVar8 = uVar8 + 1;
-            *pfVar1 = fVar5 * 63.0;
+            *pfVar1 = fVar5 * 63.0f;
           } while (uVar8 < pPVar6->dwNumVertices);
         }
         break;
@@ -586,7 +586,7 @@ void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh,float *matrix)
               fVar3 = prVar7->aLightPositions[iVar5 * 3 + 1] - matrix[10];
               fVar2 = prVar7->aLightPositions[iVar5 * 3 + 2] - matrix[0xb];
               if (piVar1[1] < 2) {
-                fVar11 = 0.0;
+                fVar11 = 0.0f;
               }
               else {
                 fVar11 = fVar2 * fVar2 + fVar3 * fVar3 + fVar11 * fVar11;
@@ -650,7 +650,7 @@ void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh,float *matrix)
           iVar5 = **(int **)((int)pvVar10 + 0x18);
           if (*(float *)((int)pvVar10 + 0x44) * (FLOAT_007f0fdc - pfVar6[iVar5 * 3 + 1]) +
               (FLOAT_007f0fd8 - pfVar6[iVar5 * 3]) * *(float *)((int)pvVar10 + 0x40) +
-              *(float *)((int)pvVar10 + 0x48) * (FLOAT_007f0fe0 - pfVar6[iVar5 * 3 + 2]) <= 0.0) {
+              *(float *)((int)pvVar10 + 0x48) * (FLOAT_007f0fe0 - pfVar6[iVar5 * 3 + 2]) <= 0.0f) {
             iVar5 = 1;
             if (((*(byte *)((int)pvVar10 + 4) & 1) != 0) ||
                (((byte)g_dwRdroid_curRenderOptions & 1) == 0)) goto LAB_0040d640;
@@ -782,7 +782,7 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
   }
   (*g_pRdCamera_CurCamera->pfnProjectLst)(UINT_007f1490,UINT_007f1474,g_dwVertexDst);
   if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
-    pPVar2->flAlpha = 0.0;
+    pPVar2->flAlpha = 0.0f;
   }
   else {
     pPVar2->flAlpha = g_pRdCamera_CurCamera->flAmbientLight;
@@ -793,10 +793,10 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
   }
   pPVar2->nCel = iVar5;
   bVar6 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
-  if (pPVar2->flAlpha < 1.0) {
+  if (pPVar2->flAlpha < 1.0f) {
     if (pPVar2->nLightingMode == 2) {
-      if ((pPVar2->flLightIndex < 1.0) || (bVar6)) {
-        if (pPVar2->flLightIndex <= 0.0) {
+      if ((pPVar2->flLightIndex < 1.0f) || (bVar6)) {
+        if (pPVar2->flLightIndex <= 0.0f) {
           pPVar2->nLightingMode = 1;
         }
       }
@@ -813,16 +813,16 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
       do {
         pfVar4 = pfVar4 + 1;
         fVar1 = *pfVar4 - fVar7;
-        if (fVar1 < 0.0) {
+        if (fVar1 < 0.0f) {
           fVar1 = -fVar1;
         }
-      } while ((fVar1 <= 0.015625) && (uVar3 = uVar3 + 1, uVar3 < g_dwVertexDst));
+      } while ((fVar1 <= 0.015625f) && (uVar3 = uVar3 + 1, uVar3 < g_dwVertexDst));
     }
     if (uVar3 != g_dwVertexDst) goto LAB_0040dbd3;
-    if (fVar7 != 1.0) {
-      if (fVar7 == 0.0) {
+    if (fVar7 != 1.0f) {
+      if (fVar7 == 0.0f) {
         pPVar2->nLightingMode = 1;
-        pPVar2->flLightIndex = 0.0;
+        pPVar2->flLightIndex = 0.0f;
       }
       else {
         pPVar2->nLightingMode = 2;
@@ -840,7 +840,7 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
     goto LAB_0040dbd3;
   }
   pPVar2->nLightingMode = 2;
-  pPVar2->flLightIndex = 1.0;
+  pPVar2->flLightIndex = 1.0f;
 LAB_0040dbd3:
   flags = 1;
   if (3 < pPVar2->nGeometryMode) {

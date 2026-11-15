@@ -331,7 +331,7 @@ void __cdecl Lua_LightMgrShutdown(void); /* 0x004be2a0 */
 
 /* ===== choreface.c ===== */
 int __cdecl ChoreFace_Toggle(int show); /* 0x00402120 */
-uint __cdecl FUN_00402200(void); /* 0x00402200 */
+uint __cdecl ChoreFace_CallSavedHook(void); /* 0x00402200 */
 void __cdecl ChoreFace_OnCommand(uint param_1,int param_2); /* 0x00402290 */
 
 /* ===== stddisplay.c ===== */
@@ -378,7 +378,7 @@ uint __cdecl Surface_BlitLockedSrc (VBuffer *dst,VBuffer *src,void *param_3,uint
 uint __cdecl Surface_BlitLockedDst (VBuffer *dst,VBuffer *src,void *param_3,uint param_4,int *param_5,void *param_6); /* 0x00475c90 */
 int __cdecl DDraw_Create(uint param_1); /* 0x004760d0 */
 void __cdecl DDraw_Release(void); /* 0x00476190 */
-undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4); /* 0x004761b0 */
+undefined * __stdcall stdDisplay_EnumDevicesCallback(int a1,int a2,int a3,int a4); /* 0x004761b0 */
 undefined * __stdcall DDraw_EnumModesCallback(int a1,int a2); /* 0x00476390 */
 undefined * __stdcall DDraw_EnumModesCallback320(int a1,int a2); /* 0x004765a0 */
 void * __cdecl DDraw_Get(void); /* 0x004767c0 */
@@ -513,7 +513,7 @@ void __cdecl std3D_ResetRenderList(void); /* 0x00407ed0 */
 void __cdecl rdCache_DrawRenderList(void); /* 0x00407ef0 */
 int __cdecl rdCache_TriCompare(int param_1,int param_2); /* 0x00407f90 */
 int __cdecl rdCache_DrawFaceN(ProcEntry *face); /* 0x00407fd0 */
-uint __cdecl FUN_00408800(void); /* 0x00408800 */
+uint __cdecl rdCache_DrawNGonTFATThunk(void); /* 0x00408800 */
 int __cdecl rdCache_DrawFaceZ(ProcEntry *face); /* 0x00408af0 */
 
 /* ===== rdmodel.c ===== */
@@ -629,7 +629,7 @@ void __cdecl rdAFRaster_DrawNGonFS(int param_1); /* 0x0040ff20 */
 uint __cdecl rdAFRaster_SetupEdgeNGonFS(uint *param_1,int *param_2,int param_3,int param_4); /* 0x0040ffe0 */
 void __cdecl rdAFRaster_SetupNGonGS(float *param_1,int param_2); /* 0x00410290 */
 void __cdecl rdAFRaster_DrawNGonGS(int param_1); /* 0x00410330 */
-void __cdecl FUN_004104b0(int param_1); /* 0x004104b0 */
+void __cdecl rdRaster_EdgeStepLight(int param_1); /* 0x004104b0 */
 uint __cdecl rdAFRaster_SetupEdgeNGonGS(uint *param_1,int *param_2,int param_3,int param_4); /* 0x004104e0 */
 void __cdecl rdAFRaster_SetupNGonLAT(int *param_1,int param_2); /* 0x004108b0 */
 void __cdecl rdAFRaster_DrawNGonLAT(int param_1); /* 0x00410970 */
@@ -640,7 +640,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMLAT_8(int *param_1); /* 0x004113e0 */
 void __cdecl rdAFRaster_DrawSpanNGonMLAT_16(int *param_1); /* 0x004114f0 */
 void __cdecl rdAFRaster_SetupNGonFAT(int *param_1,int param_2,float param_3); /* 0x00411630 */
 void __cdecl rdAFRaster_DrawNGonFAT(int param_1); /* 0x00411740 */
-void __cdecl FUN_00411b70(int param_1); /* 0x00411b70 */
+void __cdecl rdRaster_EdgeStepTex(int param_1); /* 0x00411b70 */
 uint __cdecl rdAFRaster_SetupEdgeNGonFAT(uint *param_1,int *param_2,int param_3,int param_4); /* 0x00411ba0 */
 void __cdecl rdAFRaster_SetupNGonMFAT(int *param_1,int param_2,float param_3); /* 0x00412090 */
 void __cdecl rdAFRaster_DrawNGonMFAT(int param_1); /* 0x004121a0 */
@@ -648,7 +648,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMFAT_8(int *param_1); /* 0x00412280 */
 void __cdecl rdAFRaster_DrawSpanNGonMFAT_16(int *param_1); /* 0x004123b0 */
 void __cdecl rdAFRaster_SetupNGonGAT(int *param_1,int param_2); /* 0x004124f0 */
 void __cdecl rdAFRaster_DrawNGonGAT(int param_1); /* 0x004125c0 */
-void __cdecl FUN_004129f0(int param_1); /* 0x004129f0 */
+void __cdecl rdRaster_EdgeStepTexLight(int param_1); /* 0x004129f0 */
 uint __cdecl rdAFRaster_SetupEdgeNGonGAT(uint *param_1,int *param_2,int param_3,int param_4); /* 0x00412a30 */
 void __cdecl rdAFRaster_SetupNGonMGAT(int *param_1,int param_2); /* 0x00413040 */
 void __cdecl rdAFRaster_DrawNGonMGAT(int param_1); /* 0x00413110 */
@@ -663,8 +663,8 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_8(uint *param_1); /* 0x00413ee0 */
 void __cdecl rdAFRaster_DrawSpanNGonMLIT_16(uint *param_1); /* 0x00414530 */
 void __cdecl rdAFRaster_SetupNGonFIT(int *param_1,int param_2,float param_3); /* 0x00414be0 */
 void __cdecl rdAFRaster_DrawNGonFIT(int param_1); /* 0x00414d20 */
-void __cdecl FUN_00415180(int param_1); /* 0x00415180 */
-void __cdecl FUN_004151c0(int param_1); /* 0x004151c0 */
+void __cdecl rdAFRaster_AdvanceLeftEdgeNGonIT(int param_1); /* 0x00415180 */
+void __cdecl rdAFRaster_AdvanceRightEdgeNGonIT(int param_1); /* 0x004151c0 */
 uint __cdecl rdAFRaster_SetupEdgeNGonFIT(uint *param_1,int *param_2,int param_3,int param_4); /* 0x004151d0 */
 void __cdecl rdAFRaster_SetupNGonMFIT(int *param_1,int param_2,float param_3); /* 0x004154c0 */
 void __cdecl rdAFRaster_DrawNGonMFIT(int param_1); /* 0x00415600 */
@@ -1027,7 +1027,7 @@ void __cdecl rdMatrix_TransformVector34Acc(float *vec,float *m); /* 0x0044ffc0 *
 void __cdecl rdMatrix_TransformPoint34(float *out,float *a,float *b); /* 0x00450060 */
 void __cdecl rdMatrix_TransformPoint34Acc(float *vec,float *m); /* 0x004500d0 */
 void __cdecl rdMatrix_TransformPointLst34(float *m,float *in,float *out,int count); /* 0x00450170 */
-uint __cdecl FUN_00450220(undefined4 *param_1); /* 0x00450220 */
+uint __cdecl rdFace_NewEntry(undefined4 *param_1); /* 0x00450220 */
 void __cdecl rdFace_FreeEntry(int param_1); /* 0x00450260 */
 void __cdecl rdMath_CalcSurfaceNormal(float *param_1,float *param_2,float *param_3,float *param_4); /* 0x00450290 */
 void __cdecl rdMath_ClampVector(float *param_1,float param_2); /* 0x00450380 */
@@ -1309,7 +1309,7 @@ void __cdecl sputResource_ReportAllocations(void); /* 0x0048e230 */
 
 /* ===== resource.c ===== */
 uint __cdecl Res_SysInitialize(uint param_1,undefined4 *param_2); /* 0x00480010 */
-undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,undefined4 *param_4); /* 0x00480020 */
+undefined4 __fastcall Res_SysInitializeBody(uint param_1,int param_2,undefined4 param_3,undefined4 *param_4); /* 0x00480020 */
 void __cdecl Res_SysTerminate(void); /* 0x004800a0 */
 uint __cdecl Res_SysStartup(void); /* 0x004800b0 */
 void __cdecl Res_SysShutdown(void); /* 0x00480140 */
@@ -1642,7 +1642,7 @@ void __cdecl ShrinkBoxes(float radius); /* 0x004a9d00 */
 /* ===== drawlist.c ===== */
 void __cdecl DrawList_Reset(void); /* 0x00486250 */
 undefined * __cdecl DrawList_Alloc(void); /* 0x00486280 */
-uint __cdecl FUN_004862b0(int *param_1,int *param_2); /* 0x004862b0 */
+uint __cdecl Render_CompareDrawDepth(int *param_1,int *param_2); /* 0x004862b0 */
 
 /* ===== plane.c ===== */
 int __cdecl sputRender_SegmentPlaneIntersect(float *out,float *p1,float *p2,float a,float b,float c,float d); /* 0x00486a10 */

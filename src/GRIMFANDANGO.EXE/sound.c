@@ -139,7 +139,7 @@ uint __cdecl SetSoundPosition(int param_1)
     local_4 = *(float *)(param_1 + 0x10) - pSVar2[iVar1].aPos[2];
     fVar9 = rdVector_Normalize3QuickAcc(&local_c);
     fVar7 = (float10)fVar9 - (float10)*(float *)(param_1 + 0x20);
-    if ((float10)0.0 <= fVar7) {
+    if ((float10)0.0f <= fVar7) {
       uVar6 = *(uint *)(param_1 + 0x18);
       uVar5 = *(uint *)(param_1 + 0x14);
       lVar8 = FTOL(((float10)*(float *)(param_1 + 0x1c) - fVar7) *
@@ -155,13 +155,13 @@ uint __cdecl SetSoundPosition(int param_1)
             (float10)*(float *)&pSVar2[iVar1].field_0x54 * (float10)local_8 +
             (float10)*(float *)&pSVar2[iVar1].field_0x50 * (float10)local_c) *
             (float10)pSVar3->flSoundPanScale;
-    if (fVar7 < (float10)-1.0) {
-      fVar7 = (float10)-1.0;
+    if (fVar7 < (float10)-1.0f) {
+      fVar7 = (float10)-1.0f;
     }
-    else if ((float10)1.0 < fVar7) {
-      fVar7 = (float10)1.0;
+    else if ((float10)1.0f < fVar7) {
+      fVar7 = (float10)1.0f;
     }
-    lVar8 = FTOL((fVar7 - (float10)-1.0) * (float10)64.0);
+    lVar8 = FTOL((fVar7 - (float10)-1.0f) * (float10)64.0f);
     uVar6 = (uint)lVar8;
     if (0x7f < uVar6) {
       uVar6 = 0x7f;

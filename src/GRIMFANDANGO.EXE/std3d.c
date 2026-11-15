@@ -748,8 +748,8 @@ std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,in
     }
     local_28 = local_c;
     uStack_24 = 0;
-    local_38 = (float)(int)ROUND(PUN(float,pVVar3) / (float)(int)local_c - -0.5);
-    fStack_1c = PUN(float,pVVar7) / (float)(int)pVVar6 - -0.5;
+    local_38 = (float)(int)ROUND(PUN(float,pVVar3) / (float)(int)local_c - -0.5f);
+    fStack_1c = PUN(float,pVVar7) / (float)(int)pVVar6 - -0.5f;
     uVar10 = (uint)ROUND(fStack_1c);
     local_f0 = local_f0 * (int)local_38;
     local_ec = local_ec * uVar10;
@@ -760,18 +760,18 @@ std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,in
       local_34 = 0;
       fStack_1c = (float)uVar10;
       do {
-        if (local_38 != 0.0) {
+        if (local_38 != 0.0f) {
           iVar4 = 0;
           fVar9 = local_38;
           do {
             Surface_Blit((VBuffer *)local_30,surface,iVar4,local_34,(int *)0x0,0);
             iVar4 = iVar4 + local_c;
             fVar9 = (float)((int)fVar9 + -1);
-          } while (fVar9 != 0.0);
+          } while (fVar9 != 0.0f);
         }
         local_34 = (int)&pVVar6->nType + local_34;
         fStack_1c = (float)((int)fStack_1c - 1);
-      } while (fStack_1c != 0.0);
+      } while (fStack_1c != 0.0f);
     }
     local_c = local_f0;
     surface = (VBuffer *)local_ec;
@@ -1326,7 +1326,7 @@ void __cdecl D3D_SetViewportRect(uint *param_1)
   pfVar4 = &FLOAT_00900580;
   UINT_00900604 = uVar1;
   for (iVar2 = 0x20; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *pfVar4 = 0.0;
+    *pfVar4 = 0.0f;
     pfVar4 = pfVar4 + 1;
   }
   FLOAT_00900584 = (float)(int)UINT_00900604;
@@ -1545,8 +1545,8 @@ undefined4 __cdecl D3D_CreateViewport(uint width,uint height)
   }
   fStack_10 = (float)PUN(uint,(float)fStack_10);
   uStack_58 = uStack_c;
-  fVar1 = fStack_10 * 0.5;
-  fVar2 = (float)uStack_c * 0.5;
+  fVar1 = fStack_10 * 0.5f;
+  fVar2 = (float)uStack_c * 0.5f;
   puVar5 = auStack_40;
   for (iVar4 = 0xb; iVar4 != 0; iVar4 = iVar4 + -1) {
     *puVar5 = 0;

@@ -34,7 +34,7 @@ undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *param_2)
   local_48[0] = pfVar5[3];
   local_48[1] = pfVar5[4];
   local_48[2] = pfVar5[5];
-  if (actor->pExtra->flOffsetYaw != 0.0) {
+  if (actor->pExtra->flOffsetYaw != 0.0f) {
     fVar6 = actor->pExtra->flOffsetYaw;
     pfVar5 = sputActor_GetOrientMatrix(actor);
     rdMatrix_BuildFromVectorAngle34(local_30,pfVar5 + 6,fVar6);
@@ -44,19 +44,19 @@ undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *param_2)
   local_48[1] = param_2[1] + local_48[1];
   local_48[2] = param_2[2] + local_48[2];
   Puck_InvXform((Puck *)param_2,local_48);
-  local_48[2] = 0.0;
+  local_48[2] = 0.0f;
   rdVector_Normalize3Acc(local_48);
   fVar6 = stdMath_ArcSin3(local_48[1]);
-  pAVar2 = PUN(Actor *,(float)(90.0 - fVar6));
-  if (PUN(float,pAVar2) < 0.5) {
-    actor->pExtra->flYawLeft = 0.0;
+  pAVar2 = PUN(Actor *,(float)(90.0f - fVar6));
+  if (PUN(float,pAVar2) < 0.5f) {
+    actor->pExtra->flYawLeft = 0.0f;
     return 1;
   }
   actor->pExtra->flYawLeft = PUN(float,pAVar2);
   pAVar1 = actor->pExtra;
-  if (pAVar1->flTurnRate <= 0.0) {
+  if (pAVar1->flTurnRate <= 0.0f) {
     fVar6 = 3.4028235e+38;
-    pAVar1->flTurnRate = pAVar1->flTurnRate * -1.0;
+    pAVar1->flTurnRate = pAVar1->flTurnRate * -1.0f;
   }
   else {
     fVar6 = sputTime_GetFrameTimeFlex();
@@ -67,7 +67,7 @@ undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *param_2)
     actor = PUN(Actor *,(float)((PUN(float,pAVar2) - fVar6) * 0.1f + fVar6));
   }
   fVar6 = pAVar4->aRot[2];
-  if (local_48[0] <= 0.0) {
+  if (local_48[0] <= 0.0f) {
     fVar3 = pAVar4->aRot[1] - PUN(float,actor);
   }
   else {
@@ -291,7 +291,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
   local_7c[1] = *(float *)(PUN(int,(float)zmin) + 100) * pAVar1->flCollisionScale - local_104;
   local_7c[2] = *(float *)(PUN(int,(float)zmin) + 0x68) * pAVar1->flCollisionScale - local_104;
   pfVar10 = other->aPos;
-  fVar25 = 6.713119e-39;
+  fVar25 = 6.713119e-39f;
   pfVar11 = sputActor_GetOrientMatrix(other);
   fVar26 = local_f4;
   pfVar17 = local_7c;
@@ -302,9 +302,9 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
     pfVar15 = pfVar15 + 1;
   }
   GetOuttaTheBox(PUN(float *,(float)fVar26),in_stack_fffffecc,in_stack_fffffed0,in_stack_fffffed4,
-                 in_stack_fffffed8,6.71289e-39,fVar25,pfVar11,pfVar10);
+                 in_stack_fffffed8,6.71289e-39f,fVar25,pfVar11,pfVar10);
   pfVar10 = other->aPos;
-  fVar26 = 6.713184e-39;
+  fVar26 = 6.713184e-39f;
   pfVar11 = sputActor_GetOrientMatrix(other);
   pfVar17 = local_7c;
   pfVar15 = (float *)(_stkneg + 28);
@@ -314,11 +314,11 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
     pfVar15 = pfVar15 + 1;
   }
   GetOuttaTheBox((float *)pts,in_stack_fffffecc,in_stack_fffffed0,in_stack_fffffed4,
-                 in_stack_fffffed8,6.71289e-39,fVar26,pfVar11,pfVar10);
+                 in_stack_fffffed8,6.71289e-39f,fVar26,pfVar11,pfVar10);
   local_d0 = *PUN(float *,(float)local_f4);
   local_cc[0] = *(float *)(PUN(int,(float)local_f4) + 4);
   local_cc[1] = *(float *)(PUN(int,(float)local_f4) + 8);
-  fVar26 = 6.713289e-39;
+  fVar26 = 6.713289e-39f;
   pWVar12 = WalkPlane_PlaneAt(&local_d0,0xffffffff);
   if (pWVar12 == (WalkPlane *)0x0) {
     return 0;
@@ -341,7 +341,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
       *pfVar10 = pfVar17[-2];
       pfVar10[1] = pfVar17[-1];
       pfVar10[2] = *pfVar17;
-      fVar25 = 6.713547e-39;
+      fVar25 = 6.713547e-39f;
       pfVar11 = sputActor_GetOrientMatrix(other);
       pfVar10 = local_7c;
       pfVar15 = (float *)(_stkneg + 32);
@@ -351,7 +351,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
         pfVar15 = pfVar15 + 1;
       }
       iVar16 = TestCollision(local_64,local_a0,local_88,in_stack_fffffed0,in_stack_fffffed4,
-                             in_stack_fffffed8,6.71289e-39,fVar26,fVar25,pfVar11);
+                             in_stack_fffffed8,6.71289e-39f,fVar26,fVar25,pfVar11);
       local_100 = uVar19;
       if (iVar16 != 0) {
         pfVar10 = sputActor_GetOrientMatrix(other);
@@ -361,17 +361,17 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
         pfVar17 = &local_4c;
         pfVar10 = sputActor_GetOrientMatrix(other);
         local_124 = PUN(uint,(float)(local_104 - -0.02f));
-        fVar26 = 6.713914e-39;
+        fVar26 = 6.713914e-39f;
         FindObjectCorners(PUN(int,(float)zmin),PUN(float,local_124),pfVar10,PUN(float,local_50),pfVar17);
         puVar21 = &local_1c;
         pfVar17 = &local_4c;
-        local_f4 = 5.60519e-45;
+        local_f4 = 5.60519e-45f;
         do {
           *puVar21 = 0;
           local_a0[0] = local_e8 + *pfVar17;
           local_a0[1] = pfVar17[1] + local_e4[0];
           local_a0[2] = local_e4[1] + pfVar17[2];
-          fVar25 = 6.714029e-39;
+          fVar25 = 6.714029e-39f;
           pfVar13 = sputActor_GetOrientMatrix(other);
           pfVar15 = local_88;
           pfVar11 = local_7c;
@@ -394,7 +394,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
           pfVar17 = pfVar17 + 3;
           puVar21 = puVar21 + 1;
           local_f4 = PUN(float,(PUN(int,(float)local_f4) + -1));
-        } while (local_f4 != 0.0);
+        } while (local_f4 != 0.0f);
         fVar25 = PUN(float,Collision_PickDetour(local_64,&local_d0,(int)&local_4c));
         if (fVar25 == -NAN) {
           return uVar19;
@@ -418,7 +418,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
         (&local_1c)[PUN(int,(float)fVar25)] = 0;
         pfVar17 = out + local_100 * 3;
         pfVar10 = pfVar17 + -3;
-        fVar27 = 6.714508e-39;
+        fVar27 = 6.714508e-39f;
         local_f4 = PUN(float,pfVar17);
         p10 = sputActor_GetOrientMatrix(other);
         pfVar23 = local_7c;
@@ -430,7 +430,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
         }
         iVar16 = Collision_PointInBox
                            (pfVar10,&local_d0,local_88,PUN(float,pfVar15),in_stack_fffffed0,fVar26,zmin,
-                            6.714319e-39,fVar27,p10,pfVar11);
+                            6.714319e-39f,fVar27,p10,pfVar11);
         if (iVar16 != 0) {
           uVar19 = GetPath(&local_fc);
           if ((int)uVar19 < 1) {
@@ -486,7 +486,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
         }
 LAB_00491fa5:
         if (iVar16 != 0) {
-          local_f8 = 1.4013e-45;
+          local_f8 = 1.4013e-45f;
           local_104 = fVar24;
         }
         if (local_104 == fVar25) {
@@ -506,7 +506,7 @@ LAB_00491fa5:
               local_94[0] = *(float *)(PUN(int,(float)local_fc) + 0xc + iVar20) + local_e8;
               local_94[1] = *(float *)(PUN(int,(float)local_fc) + 0x10 + iVar20) + local_e4[0];
               local_94[2] = *(float *)(PUN(int,(float)local_fc) + 0x14 + iVar20) + local_e4[1];
-              fVar27 = 6.715614e-39;
+              fVar27 = 6.715614e-39f;
               pfVar11 = sputActor_GetOrientMatrix(other);
               pfVar17 = local_7c;
               pfVar15 = (float *)(_stkneg + 32);
@@ -517,7 +517,7 @@ LAB_00491fa5:
               }
               pfVar15 = local_88;
               iVar18 = TestCollision(local_ac,local_94,pfVar15,in_stack_fffffed0,fVar26,zmin,
-                                     6.715423e-39,PUN(float,pfVar10),fVar27,pfVar11);
+                                     6.715423e-39f,PUN(float,pfVar10),fVar27,pfVar11);
               if (iVar18 != 0) {
                 return 0;
               }
@@ -541,7 +541,7 @@ LAB_00491fa5:
           pfVar17 = &local_e8;
           local_f4 = PUN(float,(out + local_100 * 3));
           pfVar10 = (float *)(PUN(int,(float)local_f4) + -0xc);
-          fVar27 = 6.715863e-39;
+          fVar27 = 6.715863e-39f;
           pfVar13 = sputActor_GetOrientMatrix(other);
           pfVar11 = local_7c;
           pfVar23 = (float *)(_stkneg + 28);
@@ -552,7 +552,7 @@ LAB_00491fa5:
           }
           iVar16 = Collision_PointInBox
                              (pfVar10,&local_d0,local_88,PUN(float,pfVar15),in_stack_fffffed0,fVar26,
-                              zmin,6.715423e-39,fVar27,pfVar13,pfVar17);
+                              zmin,6.715423e-39f,fVar27,pfVar13,pfVar17);
           if (iVar16 != 0) break;
           uVar19 = PUN(int,(float)local_f8) + 4 + PUN(int,(float)local_104);
           uVar14 = (int)uVar19 >> 0x1f;
@@ -563,7 +563,7 @@ LAB_00491fa5:
         }
         uVar19 = GetPath(&local_ec);
         iVar16 = 0;
-        local_f8 = 0.0;
+        local_f8 = 0.0f;
         if (0 < (int)(uVar19 - 1)) {
           do {
             local_94[0] = local_e8 + *(float *)(local_ec + iVar16);
@@ -572,7 +572,7 @@ LAB_00491fa5:
             local_ac[0] = *(float *)(local_ec + 0xc + iVar16) + local_e8;
             local_ac[1] = *(float *)(local_ec + 0x10 + iVar16) + local_e4[0];
             local_ac[2] = *(float *)(local_ec + 0x14 + iVar16) + local_e4[1];
-            fVar25 = 6.716198e-39;
+            fVar25 = 6.716198e-39f;
             pfVar15 = sputActor_GetOrientMatrix(other);
             pfVar10 = local_7c;
             pfVar17 = (float *)(_stkneg + 32);
@@ -582,7 +582,7 @@ LAB_00491fa5:
               pfVar17 = pfVar17 + 1;
             }
             iVar22 = TestCollision(local_94,local_ac,local_88,in_stack_fffffed0,fVar26,zmin,
-                                   6.715423e-39,fVar27,fVar25,pfVar15);
+                                   6.715423e-39f,fVar27,fVar25,pfVar15);
             if (iVar22 != 0) {
               return 0;
             }
@@ -676,17 +676,17 @@ void __cdecl sputActor_SetWalkSystemFadeTime(int ms)
 Puck * __thiscall Puck_Construct(Puck *this,float radius)
 
 {
-  this->aPos[0] = 0.0;
-  this->aPos[1] = 0.0;
-  this->aPos[2] = 0.0;
+  this->aPos[0] = 0.0f;
+  this->aPos[1] = 0.0f;
+  this->aPos[2] = 0.0f;
   rdMatrix_Build34(this->aFrame,(uint *)this,this->aPos);
-  this->aConstraint[1] = 1.0;
+  this->aConstraint[1] = 1.0f;
   this->flRadius = radius;
   this->pSector = (WalkPlane *)0x0;
-  this->flStep = 0.0;
+  this->flStep = 0.0f;
   this->nConstrained = 0;
-  this->aConstraint[0] = 0.0;
-  this->aConstraint[2] = 0.0;
+  this->aConstraint[0] = 0.0f;
+  this->aConstraint[2] = 0.0f;
   this->pNext = (Puck *)0x0;
   this->pPrev = (Puck *)0x0;
   this->pNext = g_dwPuck_p_head;
@@ -863,12 +863,12 @@ float __thiscall Puck_PointAt(Puck *this,float *point,float maxTurn)
   Puck_InvXform(this,&local_c);
   rdVector_Normalize3Acc(&local_c);
   fVar1 = stdMath_ArcSin3(local_8);
-  point = PUN(float *,(float)(90.0 - fVar1));
+  point = PUN(float *,(float)(90.0f - fVar1));
   if (maxTurn < PUN(float,point)) {
     point = PUN(float *,(float)maxTurn);
   }
-  if (0.0 < local_c) {
-    point = PUN(float *,(float)(PUN(float,point) * -1.0));
+  if (0.0f < local_c) {
+    point = PUN(float *,(float)(PUN(float,point) * -1.0f));
   }
   Puck_Rotate(this,PUN(float,point));
   return PUN(float,point);
@@ -947,21 +947,21 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
   if (this->nConstrained != 0) {
     fVar5 = rdVector_Dot3(this->aFrame,this->aConstraint);
     fVar5 = stdMath_ArcSin3(fVar5);
-    local_48 = (90.0 - fVar5) - 90.0;
+    local_48 = (90.0f - fVar5) - 90.0f;
     fVar5 = local_48;
-    if (local_48 < 0.0) {
+    if (local_48 < 0.0f) {
       fVar5 = -local_48;
     }
     if (this->flRadius < fVar5) {
       return (undefined *)0x0;
     }
     fVar5 = rdVector_Dot3(this->aFrame + 3,this->aConstraint);
-    if (fVar5 <= 0.0) {
+    if (fVar5 <= 0.0f) {
       local_48 = -local_48;
     }
     Puck_Rotate(this,local_48);
   }
-  local_30 = 0.0;
+  local_30 = 0.0f;
   local_2c = PUN(uint,(float)step);
   local_28 = 0;
   Puck_Xform(this,&local_30);
@@ -990,13 +990,13 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
     pWVar3 = this->pSector;
     if ((pWVar3->dwType & 0x100) == 0) {
       fVar5 = local_34;
-      if (local_34 < 0.0) {
+      if (local_34 < 0.0f) {
         fVar5 = -local_34;
       }
       if ((this->flRadius <= fVar5) || (this->nConstrained != 0)) {
         this->flStep = this->flStep - step;
       }
-      else if (((0.0 < local_34) && (turnLeftOk != 0)) || ((local_34 < 0.0 && (turnRightOk != 0))))
+      else if (((0.0f < local_34) && (turnLeftOk != 0)) || ((local_34 < 0.0f && (turnRightOk != 0))))
       {
         Puck_Rotate(this,local_34);
         this_00->nActive = 1;
@@ -1018,13 +1018,13 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
       local_8 = PUN(uint,(float)pWVar1->aPos[1]);
       local_4 = PUN(uint,(float)pWVar1->aPos[2]);
       Puck_InvXform(this,&local_c);
-      if (local_c <= 0.0) {
-        if (local_34 < 3.0) {
-          local_34 = (local_34 - -90.0) - -90.2f;
+      if (local_c <= 0.0f) {
+        if (local_34 < 3.0f) {
+          local_34 = (local_34 - -90.0f) - -90.2f;
         }
       }
-      else if (3.0 < local_34) {
-        local_34 = -90.2f - (90.0 - local_34);
+      else if (3.0f < local_34) {
+        local_34 = -90.2f - (90.0f - local_34);
       }
       Puck_Rotate(this,local_34);
       puVar4 = Puck_Forward(this,step,1,1);
@@ -1129,40 +1129,40 @@ void __thiscall Puck_Draw(Puck *this,int color)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  local_c = 0.0;
+  local_c = 0.0f;
   local_8 = 0;
   local_4 = 0;
-  local_18 = 0.0;
+  local_18 = 0.0f;
   local_14 = 0x3dcccccd;
   local_10 = 0;
   Puck_Xform(this,&local_c);
   Puck_Xform(this,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
                     );
-  local_c = 0.05;
+  local_c = 0.05f;
   local_8 = 0x3d4ccccd;
   local_4 = 0;
-  local_18 = 0.0;
+  local_18 = 0.0f;
   local_14 = 0x3dcccccd;
   local_10 = 0;
   Puck_Xform(this,&local_c);
   Puck_Xform(this,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
                     );
-  local_c = -0.05;
+  local_c = -0.05f;
   local_8 = 0x3d4ccccd;
   local_4 = 0;
-  local_18 = 0.0;
+  local_18 = 0.0f;
   local_14 = 0x3dcccccd;
   local_10 = 0;
   Puck_Xform(this,&local_c);
   Puck_Xform(this,&local_18);
   rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
                     );
-  local_c = 0.0;
+  local_c = 0.0f;
   local_8 = 0;
   local_4 = 0x3d4ccccd;
-  local_18 = 0.0;
+  local_18 = 0.0f;
   local_14 = 0;
   local_10 = 0;
   Puck_Xform(this,&local_c);

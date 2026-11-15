@@ -1216,8 +1216,8 @@ void rdAFRaster_CalcPerspGradients(int *rec, int mode)
 }
 
 /* ==== the selectors (Select_TexLit, Select_FlatLit_4 / 5 / 8 .. 13): fill the polygon record and its callbacks ==== */
-extern void rdRaster_EdgeStepFlat(int), FUN_004104b0(int), FUN_00411b70(int), FUN_004129f0(int);
-extern void FUN_00415180(int), FUN_004151c0(int), rdAFRaster_AdvanceLeftEdgeNGonGIT(int), rdAFRaster_AdvanceRightEdgeNGonGIT(int);
+extern void rdRaster_EdgeStepFlat(int), rdRaster_EdgeStepLight(int), rdRaster_EdgeStepTex(int), rdRaster_EdgeStepTexLight(int);
+extern void rdAFRaster_AdvanceLeftEdgeNGonIT(int), rdAFRaster_AdvanceRightEdgeNGonIT(int), rdAFRaster_AdvanceLeftEdgeNGonGIT(int), rdAFRaster_AdvanceRightEdgeNGonGIT(int);
 extern void rdAFRaster_DrawNGonFS(int), rdAFRaster_DrawNGonFAT(int), rdAFRaster_DrawNGonMFAT(int), rdAFRaster_DrawNGonLIT(int), rdAFRaster_DrawNGonMLIT(int);
 extern void rdAFRaster_DrawNGonFIT(int), rdAFRaster_DrawNGonMFIT(int), rdAFRaster_DrawNGonGIT(int), rdAFRaster_DrawNGonMGIT(int);
 int rdAFRaster_SetupEdgeNGonFS(int *, int *, int, int), rdAFRaster_SetupEdgeNGonFAT(int *, int *, int, int);
@@ -1491,17 +1491,17 @@ int rdAFRaster_SetupEdgeNGonLS(int *n, int *r, int i0, int i1) { return q6_esetu
 /* OVERRIDES: rdAFRaster_SetupEdgeNGonFS */
 int rdAFRaster_SetupEdgeNGonFS(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, 0, rdRaster_EdgeStepFlat, rdRaster_EdgeStepFlat); }
 /* OVERRIDES: rdAFRaster_SetupEdgeNGonGS */
-int rdAFRaster_SetupEdgeNGonGS(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_LIGHT, FUN_004104b0, FUN_004104b0); }
+int rdAFRaster_SetupEdgeNGonGS(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_LIGHT, rdRaster_EdgeStepLight, rdRaster_EdgeStepLight); }
 /* OVERRIDES: rdAFRaster_SetupEdgeNGonLAT */
-int rdAFRaster_SetupEdgeNGonLAT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV, FUN_00411b70, FUN_00411b70); }
+int rdAFRaster_SetupEdgeNGonLAT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV, rdRaster_EdgeStepTex, rdRaster_EdgeStepTex); }
 /* OVERRIDES: rdAFRaster_SetupEdgeNGonFAT */
-int rdAFRaster_SetupEdgeNGonFAT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV, FUN_00411b70, FUN_00411b70); }
+int rdAFRaster_SetupEdgeNGonFAT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV, rdRaster_EdgeStepTex, rdRaster_EdgeStepTex); }
 /* OVERRIDES: rdAFRaster_SetupEdgeNGonGAT */
-int rdAFRaster_SetupEdgeNGonGAT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV | Q6E_LIGHT, FUN_004129f0, FUN_004129f0); }
+int rdAFRaster_SetupEdgeNGonGAT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_UV | Q6E_LIGHT, rdRaster_EdgeStepTexLight, rdRaster_EdgeStepTexLight); }
 /* OVERRIDES: rdAFRaster_SetupEdgeNGonLIT */
-int rdAFRaster_SetupEdgeNGonLIT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_PERSP | Q6E_DIV, FUN_00415180, FUN_004151c0); }
+int rdAFRaster_SetupEdgeNGonLIT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_PERSP | Q6E_DIV, rdAFRaster_AdvanceLeftEdgeNGonIT, rdAFRaster_AdvanceRightEdgeNGonIT); }
 /* OVERRIDES: rdAFRaster_SetupEdgeNGonFIT */
-int rdAFRaster_SetupEdgeNGonFIT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_PERSP | Q6E_DIV, FUN_00415180, FUN_004151c0); }
+int rdAFRaster_SetupEdgeNGonFIT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_PERSP | Q6E_DIV, rdAFRaster_AdvanceLeftEdgeNGonIT, rdAFRaster_AdvanceRightEdgeNGonIT); }
 /* OVERRIDES: rdAFRaster_SetupEdgeNGonGIT */
 int rdAFRaster_SetupEdgeNGonGIT(int *n, int *r, int i0, int i1) { return q6_esetup(n, r, i0, i1, Q6E_PERSP | Q6E_LIGHT, rdAFRaster_AdvanceLeftEdgeNGonGIT, rdAFRaster_AdvanceRightEdgeNGonGIT); }
 

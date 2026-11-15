@@ -262,10 +262,10 @@ sputActor_SetActorHead
       pCVar1->aHeadJoints[2] = joint3;
       pCVar1->flMaxYaw = maxYaw;
       fVar3 = maxRoll;
-      if (maxRoll < 0.0) {
+      if (maxRoll < 0.0f) {
         fVar3 = -maxRoll;
       }
-      stdMath_SinCos(fVar3 * 0.5,(float *)&actor,&pCVar1->flViewCos);
+      stdMath_SinCos(fVar3 * 0.5f,(float *)&actor,&pCVar1->flViewCos);
     }
   }
   return;
@@ -307,7 +307,7 @@ int __cdecl sputActor_CanActorSeePoint(Actor *actor,float *point,float *outDista
     local_48[0] = local_3c[0];
     *outDistance = fVar4;
     local_48[1] = local_3c[1];
-    local_48[2] = 0.0;
+    local_48[2] = 0.0f;
     rdVector_Normalize3Acc(local_48);
     pfVar3 = sputActor_GetOrientMatrix(actor);
     fVar4 = pfVar3[3] * local_48[0];
@@ -374,15 +374,15 @@ void __cdecl sputActor_Turn(Actor *actor,float param_2)
   }
   pAVar2 = actor->pExtra;
   fVar1 = pAVar2->flYawLeft;
-  if (pAVar2->flYawLeft < 0.0) {
+  if (pAVar2->flYawLeft < 0.0f) {
     fVar1 = -fVar1;
   }
   fVar3 = fVar3 + fVar3;
-  if (fVar3 < 0.0) {
+  if (fVar3 < 0.0f) {
     fVar3 = -fVar3;
   }
   if (fVar1 <= fVar3) {
-    if (0.0 < param_2) {
+    if (0.0f < param_2) {
       pAVar2->nTurning = 1;
       return;
     }
@@ -488,9 +488,9 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
   }
   if (((pCVar1 != (CostumeNode *)0x0) && (piVar8 = pCVar1->aHeadJoints, -1 < pCVar1->aHeadJoints[0])
       ) && (pCVar1->pMainModel != (void *)0x0)) {
-    local_c0[0] = 0.0;
-    local_c0[1] = 1.0;
-    local_c0[2] = 0.0;
+    local_c0[0] = 0.0f;
+    local_c0[1] = 1.0f;
+    local_c0[2] = 0.0f;
     if (actor->nScreenBoxValid == 0) {
       pfVar6 = sputActor_GetOrientMatrix(actor);
       rdPuppet_UpdateFrame(pCVar1->pMainModel,pfVar6);
@@ -501,7 +501,7 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
     rdPuppet_BuildJointMatrices(pCVar1->pMainModel,pfVar7,index,pfVar6);
     rdMatrix_InvertOrtho34(afStack_90,afStack_60);
     a = actor->pExtra;
-    if (((a->aLookAt[0] == 0.0) && (a->aLookAt[1] == 0.0)) && (a->aLookAt[2] == 0.0)) {
+    if (((a->aLookAt[0] == 0.0f) && (a->aLookAt[1] == 0.0f)) && (a->aLookAt[2] == 0.0f)) {
       pfVar6 = afStack_90;
       bVar5 = true;
       pfVar7 = sputActor_GetOrientMatrix(actor);
@@ -516,9 +516,9 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
     fStack_c8 = pCVar1->flLookRate * dt;
     fVar10 = rdVector_Dot2(local_c0,afStack_a8);
     fVar10 = stdMath_ArcSin1(fVar10);
-    fVar10 = 90.0 - fVar10;
+    fVar10 = 90.0f - fVar10;
     fVar3 = fVar10;
-    if (fVar10 < 0.0) {
+    if (fVar10 < 0.0f) {
       fVar3 = -fVar10;
     }
     if (fVar3 < fStack_c8) {
@@ -526,7 +526,7 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
         actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffd;
       }
       fStack_c8 = fVar10;
-      if (fVar10 <= 0.0) {
+      if (fVar10 <= 0.0f) {
         fStack_c8 = -fVar10;
       }
     }
@@ -635,7 +635,7 @@ void __cdecl sputActor_UpdateActorSpeech(Actor *actor,float dt)
     }
   }
   pAVar2 = actor->pExtra;
-  lVar6 = FTOL((float10)dt * (float10)-1000.0);
+  lVar6 = FTOL((float10)dt * (float10)-1000.0f);
   pAVar2->nTalkTime = pAVar2->nTalkTime + (int)lVar6;
   if ((actor->pExtra->aVoiceFile[0] == '\0') || (iVar4 = Actor_IsVoicePlaying(actor), iVar4 != 0)) {
     if (actor->pExtra->aVoiceFile[0] != '\0') {
@@ -772,7 +772,7 @@ int sputActor_AllocateActor(void)
   }
   pAVar4->nMatrixDirty = 1;
   rdMatrix_Identity34(pAVar4->aOrient);
-  pAVar4->flScale = 1.0;
+  pAVar4->flScale = 1.0f;
   pAVar4->pCostumes = (CostumeNode *)0x0;
   puVar2 = (undefined4 *)
            (**(code **)(g_dwSputActHS + 0x20))
@@ -823,20 +823,20 @@ void __cdecl sputActor_AllocateActorExtra(Actor *actor)
   }
   pAVar1 = actor->pExtra;
   for (iVar2 = 0x128; iVar2 != 0; iVar2 = iVar2 + -1) {
-    pAVar1->aLookAt[0] = 0.0;
+    pAVar1->aLookAt[0] = 0.0f;
     pAVar1 = (ActorExtra *)(pAVar1->aLookAt + 1);
   }
-  actor->pExtra->flWalkRate = 0.4;
-  actor->pExtra->flTurnRate = 135.0;
+  actor->pExtra->flWalkRate = 0.4f;
+  actor->pExtra->flTurnRate = 135.0f;
   actor->pExtra->nWalkDominate = 0;
-  actor->pExtra->flPuckRadius = 60.0;
-  actor->pExtra->flCollisionScale = 1.0;
-  actor->pExtra->flTimeScale = 1.0;
+  actor->pExtra->flPuckRadius = 60.0f;
+  actor->pExtra->flCollisionScale = 1.0f;
+  actor->pExtra->flTimeScale = 1.0f;
   actor->pExtra->dwTalkColor = 0xffffff;
   actor->pExtra->nInvClipNode = -1;
-  actor->pExtra->aClipNormal[0] = 0.0;
-  actor->pExtra->aClipNormal[1] = 0.0;
-  actor->pExtra->aClipNormal[2] = 1.0;
+  actor->pExtra->aClipNormal[0] = 0.0f;
+  actor->pExtra->aClipNormal[1] = 0.0f;
+  actor->pExtra->aClipNormal[2] = 1.0f;
   return;
 }
 
@@ -975,18 +975,18 @@ void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *param_2,int par
     local_24[1] = this->aPos[1] + local_24[1];
     local_24[2] = this->aPos[2] + local_24[2];
     Puck_InvXform(this,local_24);
-    local_24[2] = 0.0;
+    local_24[2] = 0.0f;
     rdVector_Normalize3Acc(local_24);
     fVar2 = stdMath_ArcSin3(local_24[1]);
-    fVar2 = 90.0 - fVar2;
+    fVar2 = 90.0f - fVar2;
     local_40 = fVar2;
-    if (0.0 < local_24[0]) {
+    if (0.0f < local_24[0]) {
       local_40 = -fVar2;
     }
     Puck_Rotate(this,local_40);
     pAVar1 = actor->pExtra;
-    if ((0.0 < pAVar1->flTurnRate) && (param_3 != 0)) {
-      pAVar1->flTurnRate = pAVar1->flTurnRate * -1.0;
+    if ((0.0f < pAVar1->flTurnRate) && (param_3 != 0)) {
+      pAVar1->flTurnRate = pAVar1->flTurnRate * -1.0f;
     }
     actor->pExtra->flYawLeft = fVar2;
     actor->aRot[2] = PUN(float,param_2[2]);
@@ -1201,19 +1201,19 @@ void __cdecl Actor_PuckOrient(Actor *actor)
     local_54[2] = pPVar4->aFrame[8];
     fVar7 = rdVector_Dot3(local_48,local_54);
     fVar7 = stdMath_ArcSin3(fVar7);
-    pAVar5 = PUN(Actor *,(float)(90.0 - fVar7));
+    pAVar5 = PUN(Actor *,(float)(90.0f - fVar7));
     pAVar6 = pAVar5;
-    if (PUN(float,pAVar5) < 0.0) {
+    if (PUN(float,pAVar5) < 0.0f) {
       pAVar6 = PUN(Actor *,(float)-PUN(float,pAVar5));
     }
     if (2.0 < PUN(float,pAVar6)) {
       fVar7 = sputTime_GetFrameTimeFlex();
       pAVar6 = PUN(Actor *,(float)(fVar7 * actor->pExtra->flTurnRate));
       actor = pAVar5;
-      if ((0.0 < PUN(float,pAVar5)) && (PUN(float,pAVar6) < PUN(float,pAVar5))) {
+      if ((0.0f < PUN(float,pAVar5)) && (PUN(float,pAVar6) < PUN(float,pAVar5))) {
         actor = pAVar6;
       }
-      if ((PUN(float,actor) < 0.0) && (PUN(float,actor) < -PUN(float,pAVar6))) {
+      if ((PUN(float,actor) < 0.0f) && (PUN(float,actor) < -PUN(float,pAVar6))) {
         actor = PUN(Actor *,(float)-PUN(float,pAVar6));
       }
       local_3c[0] = local_54[2] * local_48[1] - local_54[1] * local_48[2];
@@ -1277,7 +1277,7 @@ void __cdecl Actor_UpdateWalker(Actor *actor)
   actor->pExtra->nAlignTurn = iVar4;
   pAVar2 = actor->pExtra;
   if ((pAVar2->nTurning == 0) && (pAVar2->nAlignTurn == 0)) {
-    if (pAVar2->flYawLeft <= 0.0) {
+    if (pAVar2->flYawLeft <= 0.0f) {
       iVar4 = 1;
     }
     else {
@@ -1782,12 +1782,12 @@ void __cdecl Actor_FollowPath(Actor *actor)
   fVar3 = actor->aPos[1] - pAVar6->aWaypoint[1];
   fVar4 = actor->aPos[2] - pAVar6->aWaypoint[2];
   fVar2 = pAVar6->flWalkRate;
-  if (pAVar6->flWalkRate < 0.0) {
+  if (pAVar6->flWalkRate < 0.0f) {
     fVar2 = -fVar2;
   }
   pAVar6 = actor->pExtra;
   fVar7 = sputTime_GetFrameTimeFlex();
-  fVar2 = fVar7 * pAVar6->flTimeScale * fVar2 * 1.25;
+  fVar2 = fVar7 * pAVar6->flTimeScale * fVar2 * 1.25f;
   if (SQRT(fVar4 * fVar4 + fVar3 * fVar3 + fVar5 * fVar5) < fVar2) {
     do {
       if (pAVar6->nPathNodes <= pAVar6->nPathIndex) break;
@@ -2043,8 +2043,8 @@ void __cdecl sputCostume_DrawActorShadow(Actor *actor)
          ((iVar1 = shadow->nValid, iVar1 == 0 ||
           (((fVar2 = actor->aPos[1] * shadow->aPlane[1] +
                      actor->aPos[2] * shadow->aPlane[2] + actor->aPos[0] * shadow->aPlane[0] +
-                     shadow->aPlane[3], iVar1 != -1 || (fVar2 <= 0.0)) &&
-           ((iVar1 != 1 || (0.0 <= fVar2)))))))) {
+                     shadow->aPlane[3], iVar1 != -1 || (fVar2 <= 0.0f)) &&
+           ((iVar1 != 1 || (0.0f <= fVar2)))))))) {
         sputCostume_DrawMeshShadow(actor->pCostumes,shadow);
       }
       iVar3 = iVar3 + 0x54;
@@ -2149,7 +2149,7 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
     pcVar10 = sputRender_SetPaletteFunc();
     (*pcVar10)(iVar13,uVar14);
     fVar7 = actor->flScale;
-    if (fVar7 != 1.0) {
+    if (fVar7 != 1.0f) {
       pfVar12 = &fStack_c;
       fStack_c = fVar7;
       fStack_8 = fVar7;
@@ -2331,10 +2331,10 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
   
   if (costumeList != (CostumeNode *)0x0) {
     pMVar1 = costumeList->pComponents;
-    local_fc[0] = 640.0;
-    local_fc[1] = 480.0;
-    local_e4[0] = 0.0;
-    local_e4[2] = 0.0;
+    local_fc[0] = 640.0f;
+    local_fc[1] = 480.0f;
+    local_e4[0] = 0.0f;
+    local_e4[2] = 0.0f;
     for (; pMVar1 != (ModelComponent *)0x0; pMVar1 = pMVar1->pNext) {
       prVar2 = pMVar1->pThing;
       prVar3 = prVar2->pModel;
@@ -2765,9 +2765,9 @@ float __thiscall Puck_GetYawToPoint(Puck *this,float *point)
   Puck_InvXform(this,&local_18);
   rdVector_Normalize3Acc(&local_18);
   fVar2 = stdMath_ArcSin3(local_14);
-  point = PUN(float *,(float)(90.0 - fVar2));
-  if (0.0 < local_18) {
-    point = PUN(float *,(float)(PUN(float,point) * -1.0));
+  point = PUN(float *,(float)(90.0f - fVar2));
+  if (0.0f < local_18) {
+    point = PUN(float *,(float)(PUN(float,point) * -1.0f));
   }
   puVar1 = Puck_Rot(this);
   return *(float *)(puVar1 + 4) + PUN(float,point);

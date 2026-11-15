@@ -63,23 +63,23 @@ float __cdecl stdMath_NormalizeAngle(float degrees)
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(float (*)[2])(_frame + (0x30 - 0xc)))
   
-  if (0.0 <= degrees) {
-    if (degrees < 360.0) {
+  if (0.0f <= degrees) {
+    if (degrees < 360.0f) {
       return degrees;
     }
-    fVar2 = Math_Floor(degrees / 360.0);
-    local_c[0] = degrees - fVar2 * 360.0;
+    fVar2 = Math_Floor(degrees / 360.0f);
+    local_c[0] = degrees - fVar2 * 360.0f;
   }
   else {
     fVar2 = -degrees;
-    if (360.0 <= fVar2) {
-      fVar1 = Math_Floor(fVar2 / 360.0);
-      fVar2 = fVar2 - fVar1 * 360.0;
+    if (360.0f <= fVar2) {
+      fVar1 = Math_Floor(fVar2 / 360.0f);
+      fVar2 = fVar2 - fVar1 * 360.0f;
     }
-    local_c[0] = 360.0 - fVar2;
+    local_c[0] = 360.0f - fVar2;
   }
-  if (local_c[0] == 360.0) {
-    local_c[0] = 0.0;
+  if (local_c[0] == 360.0f) {
+    local_c[0] = 0.0f;
   }
   return local_c[0];
 }
@@ -103,8 +103,8 @@ float __cdecl stdMath_NormalizeAngleAcute(float param_1)
   #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
   
   local_8 = stdMath_NormalizeAngle(param_1);
-  if (180.0 < local_8) {
-    local_8 = -(360.0 - local_8);
+  if (180.0f < local_8) {
+    local_8 = -(360.0f - local_8);
   }
   return local_8;
 }
@@ -143,9 +143,9 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
   #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   
   fVar4 = stdMath_NormalizeAngle(param_1);
-  if (90.0 <= fVar4) {
-    if (180.0 <= fVar4) {
-      if (270.0 <= fVar4) {
+  if (90.0f <= fVar4) {
+    if (180.0f <= fVar4) {
+      if (270.0f <= fVar4) {
         local_1c = 3;
       }
       else {
@@ -301,9 +301,9 @@ float10 stdMath_Tan(float param_1)
   #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   
   fVar4 = stdMath_NormalizeAngle(param_1);
-  if (90.0 <= fVar4) {
-    if (180.0 <= fVar4) {
-      if (270.0 <= fVar4) {
+  if (90.0f <= fVar4) {
+    if (180.0f <= fVar4) {
+      if (270.0f <= fVar4) {
         local_1c = 3;
       }
       else {
@@ -317,7 +317,7 @@ float10 stdMath_Tan(float param_1)
   else {
     local_1c = 0;
   }
-  fVar4 = (fVar4 / 360.0) * 16384.0;
+  fVar4 = (fVar4 / 360.0f) * 16384.0f;
   fVar5 = Math_Floor(fVar4);
   fVar5 = fVar4 - fVar5;
   lVar3 = FTOL((float10)fVar4);
@@ -396,7 +396,7 @@ float __cdecl stdMath_ArcSin1(float x)
   #define local_14 (*(float (*)[3])(_frame + (0x30 - 0x14)))
   #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
   
-  if (0.0 <= x) {
+  if (0.0f <= x) {
     local_14[0] = x;
   }
   else {
@@ -407,11 +407,11 @@ float __cdecl stdMath_ArcSin1(float x)
     local_8 = (fVar1 * 0.212749f + local_14[0]) * 57.295784f;
   }
   else {
-    fVar1 = Math_Sqrt(1.0 - local_14[0] * local_14[0]);
+    fVar1 = Math_Sqrt(1.0f - local_14[0] * local_14[0]);
     fVar2 = stdMath_FlexPower(fVar1,3);
-    local_8 = 90.0 - (fVar2 * 0.212749f + fVar1) * 57.295784f;
+    local_8 = 90.0f - (fVar2 * 0.212749f + fVar1) * 57.295784f;
   }
-  if (0.0 > x) {
+  if (0.0f > x) {
     local_8 = -local_8;
   }
   return local_8;
@@ -458,7 +458,7 @@ float __cdecl stdMath_ArcSin3(float param_1)
   #define local_14 (*(float (*)[3])(_frame + (0x40 - 0x14)))
   #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   
-  if (0.0 <= param_1) {
+  if (0.0f <= param_1) {
     local_14[0] = param_1;
   }
   else {
@@ -468,16 +468,16 @@ float __cdecl stdMath_ArcSin3(float param_1)
     fVar1 = stdMath_FlexPower(local_14[0],3);
     fVar2 = stdMath_FlexPower(local_14[0],5);
     fVar3 = stdMath_FlexPower(local_14[0],7);
-    local_8 = (fVar3 * 0.066797f + fVar2 * 0.075f + fVar1 / 6.0 + local_14[0]) * 57.295784f;
+    local_8 = (fVar3 * 0.066797f + fVar2 * 0.075f + fVar1 / 6.0f + local_14[0]) * 57.295784f;
   }
   else {
-    fVar1 = Math_Sqrt(1.0 - local_14[0] * local_14[0]);
+    fVar1 = Math_Sqrt(1.0f - local_14[0] * local_14[0]);
     fVar2 = stdMath_FlexPower(fVar1,3);
     fVar3 = stdMath_FlexPower(fVar1,5);
     fVar4 = stdMath_FlexPower(fVar1,7);
-    local_8 = 90.0 - (fVar4 * 0.066797f + fVar3 * 0.075f + fVar2 / 6.0 + fVar1) * 57.295784f;
+    local_8 = 90.0f - (fVar4 * 0.066797f + fVar3 * 0.075f + fVar2 / 6.0f + fVar1) * 57.295784f;
   }
-  if (0.0 > param_1) {
+  if (0.0f > param_1) {
     local_8 = -local_8;
   }
   return local_8;
@@ -519,17 +519,17 @@ float __cdecl stdMath_ArcTan4(float y,float x)
   #define local_c (*(float *)(_frame + (0x50 - 0xc)))
   #define local_8 (*(float *)(_frame + (0x50 - 0x8)))
   
-  if ((x == 0.0) && (y == 0.0)) {
-    local_c = 0.0;
+  if ((x == 0.0f) && (y == 0.0f)) {
+    local_c = 0.0f;
   }
   else {
-    if (0.0 <= y) {
+    if (0.0f <= y) {
       local_24[2] = y;
     }
     else {
       local_24[2] = -y;
     }
-    if (0.0 <= x) {
+    if (0.0f <= x) {
       local_24[0] = x;
     }
     else {
@@ -541,7 +541,7 @@ float __cdecl stdMath_ArcTan4(float y,float x)
     else {
       local_8 = local_24[2] / local_24[0];
     }
-    if (0.0 <= local_8) {
+    if (0.0f <= local_8) {
       local_28 = local_8;
     }
     else {
@@ -551,16 +551,16 @@ float __cdecl stdMath_ArcTan4(float y,float x)
     fVar2 = stdMath_FlexPower(local_28,5);
     fVar3 = stdMath_FlexPower(local_28,7);
     fVar4 = stdMath_FlexPower(local_28,9);
-    local_c = (fVar4 * 0.063235f + ((fVar2 / 5.0 + (local_28 - fVar1 / 3.0)) - fVar3 / 7.0)) *
+    local_c = (fVar4 * 0.063235f + ((fVar2 / 5.0f + (local_28 - fVar1 / 3.0f)) - fVar3 / 7.0f)) *
               57.295784f;
     if (local_24[0] <= local_24[2]) {
-      local_c = 90.0 - local_c;
+      local_c = 90.0f - local_c;
     }
-    local_c = 90.0 - local_c;
-    if (y < 0.0) {
-      local_c = 180.0 - local_c;
+    local_c = 90.0f - local_c;
+    if (y < 0.0f) {
+      local_c = 180.0f - local_c;
     }
-    if (0.0 <= x) {
+    if (0.0f <= x) {
       local_c = -local_c;
     }
   }

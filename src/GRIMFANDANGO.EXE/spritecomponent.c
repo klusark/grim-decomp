@@ -52,10 +52,10 @@ uint __cdecl SpriteRequester(uint param_1,int param_2,int param_3,float param_4,
   local_2c = 0;
   local_28 = 0;
   local_24 = 0;
-  local_40[0] = 0.0;
-  local_40[1] = 0.0;
-  local_40[2] = 0.0;
-  if ((param_3 != 0) && (param_4 == 216341.2)) {
+  local_40[0] = 0.0f;
+  local_40[1] = 0.0f;
+  local_40[2] = 0.0f;
+  if ((param_3 != 0) && (param_4 == 216341.2f)) {
     if (param_5 == (char *)0x0) {
       if (g_bMaterialPath != '\0') {
         grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bMaterialPath));
@@ -280,22 +280,22 @@ uint __cdecl SpriteAdjuster(uint *param_1,uint param_2)
   local_2c = (uint)&DAT_004ea870;
   local_28 = (uint)&DAT_004ea86c;
   local_24 = (uint)&DAT_004ea868;
-  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x4c) * (float10)100.0 - (float10)-0.2f);
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x4c) * (float10)100.0f - (float10)-0.2f);
   local_48 = (uint)lVar4;
-  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x50) * (float10)100.0 - (float10)-0.2f);
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x50) * (float10)100.0f - (float10)-0.2f);
   local_44 = (uint)lVar4;
-  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xac) * (float10)100.0 - (float10)-0.2f);
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xac) * (float10)100.0f - (float10)-0.2f);
   local_40 = (uint)lVar4;
-  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xb0) * (float10)100.0 - (float10)-0.2f);
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xb0) * (float10)100.0f - (float10)-0.2f);
   local_3c = (uint)lVar4;
-  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xb4) * (float10)100.0 - (float10)-0.2f);
+  lVar4 = FTOL((float10)*(float *)(*piVar1 + 0xb4) * (float10)100.0f - (float10)-0.2f);
   local_38 = (uint)lVar4;
   iVar2 = grimPlat_SpinDialog(param_2,(int)&local_34,&local_48,5);
   if (iVar2 != 0) {
     *(float *)(*piVar1 + 0x4c) = (float)(int)local_48 * 0.01f;
     *(float *)(*piVar1 + 0x50) = (float)(int)local_44 * 0.01f;
-    *(float *)(*piVar1 + 0x54) = *(float *)(*piVar1 + 0x4c) * 0.5;
-    *(float *)(*piVar1 + 0x58) = *(float *)(*piVar1 + 0x50) * 0.5;
+    *(float *)(*piVar1 + 0x54) = *(float *)(*piVar1 + 0x4c) * 0.5f;
+    *(float *)(*piVar1 + 0x58) = *(float *)(*piVar1 + 0x50) * 0.5f;
     *(float *)(*piVar1 + 0xac) = (float)(int)local_40 * 0.01f;
     *(float *)(*piVar1 + 0xb0) = (float)(int)local_3c * 0.01f;
     *(float *)(*piVar1 + 0xb4) = (float)(int)local_38 * 0.01f;

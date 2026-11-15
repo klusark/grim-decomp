@@ -13,7 +13,7 @@
  * floating-point expression): `long double` is a value the original kept on the x87 stack, `float` one it stored, so the
  * rounding happens at the same points and the samples come out the same bit for bit, under any x87 precision setting the
  * process runs with (tools/hmifx_check.c compares them with the DLLs').  The structures keep the original layouts: IMUSE.DLL
- * reads a preset's effect list (+0x450) and an effect's routing (+0x0c) and link (+0x18) itself (FUN_10004750), and it
+ * reads a preset's effect list (+0x450) and an effect's routing (+0x0c) and link (+0x18) itself (ImFx_SelectPreset), and it
  * hands over its own system block (+0x08 heap size, +0x10 / +0x14 allocator) and process block (DAT_1002dd08).
  *
  * The exports are __stdcall, except hmiFXMalloc / hmiFXFree, which are cdecl (in the DLL and at IMUSE.DLL's call sites).

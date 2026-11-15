@@ -792,19 +792,19 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
     uVar6 = (uint)a3 >> 0x10;
     iVar4 = GetDlgItem(a1,0x3fb);
     if (a4 == iVar4) {
-      LightEd_RefreshControl(a1,1.42792e-42,uVar3,uVar6);
+      LightEd_RefreshControl(a1,1.42792e-42f,uVar3,uVar6);
       return (undefined *)0x1;
     }
     iVar4 = GetDlgItem(a1,0x3ff);
     if (a4 == iVar4) {
-      LightEd_RefreshControl(a1,1.43353e-42,uVar3,uVar6);
+      LightEd_RefreshControl(a1,1.43353e-42f,uVar3,uVar6);
       return (undefined *)0x1;
     }
     iVar4 = GetDlgItem(a1,0x400);
     if (a4 != iVar4) {
       return (undefined *)0x0;
     }
-    LightEd_RefreshControl(a1,1.43493e-42,uVar3,uVar6);
+    LightEd_RefreshControl(a1,1.43493e-42f,uVar3,uVar6);
     return (undefined *)0x1;
   }
   sVar2 = (short)((uint)a3 >> 0x10);
@@ -4653,8 +4653,6 @@ int __cdecl msc_error_SaveString(char *fmt,...)
 }
 
 /* ---- 0x004d5fd0  FUN_004d5fd0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
     */
 
@@ -4687,8 +4685,6 @@ void __cdecl FUN_004d5fd0(byte *dst,int value,int count)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d6030  FUN_004d6030 ---- */
 /* not in the source: names/lib_replace.json (dead): original C runtime code that nothing live reaches */

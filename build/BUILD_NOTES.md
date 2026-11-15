@@ -2039,3 +2039,50 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   the original has the double (`FMUL qword ptr`): -fsingle-precision-constant (build/Makefile) makes every unsuffixed
   literal a float, and Ghidra prints an 8-byte constant without a suffix. Off by up to 6 samples at 10^8.
 * Clean room 0 of 5457.
+
+## Double constants compile as doubles: no -fsingle-precision-constant (2026-11-15)
+
+* build/Makefile compiled the generated code with -fsingle-precision-constant (since 9de84ca, for the Lua header check),
+  which makes every unsuffixed literal a float. Ghidra prints an 8-byte constant (`FMUL double ptr [0x4dab70]`) as a plain
+  `0.001`, so the generated code computed with the float 0.001 where the original has the double: sou_engine_QueryTime
+  was off by up to 6 samples at 10^8 (build/mixdiff/snd_test.c), and so were FindObjectCorners / rdMatrix_LookAt
+  (0.999), WalkPlane_AddVertex (1e-08), sputRender_SegmentPlaneIntersect (0.1), Palette_FromFloatTable (1/255),
+  luaH_new, the Lua math library's degree factors, and 20 inexact literals in all.
+* The flag is gone and build_src.py's fix_float_literals writes the `f` itself: every literal gets it (the exact ones
+  too, so the arithmetic stays float as with the flag), except the values the function reads as an 8-byte constant and
+  values no float has. Literals of no constant operand at all (95: floats Ghidra propagated from immediates,
+  `MOV dword ptr [ESP+8],0x3ecccccd`) are floats, as before. Without the `f` everywhere, dropping the flag alone
+  changed 18 modules and 2 clean-room tests; with it, only the 7 modules that hold those doubles change (collision,
+  math3d, plane, sector, sound, stddisplay, walker; .text compared byte for byte with the build before).
+* snd_test: 0 differences now (6 before). Clean room 0 of 5457.
+
+## stdPic_LoadEntry, msc_rle_DecompressBlock and the memset loop generated again; docs/OVERRIDES.md (2026-11-15)
+
+* Generated again, the twin matching the original machine code (build/mixdiff/twin.sh): stdPic_LoadEntry
+  (big_stdpic_loadinto/pic_test.c, 20,000 files of all eight kinds, the overlong packet lists included;
+  build/overrides_big_stdpic_loadinto.c is gone), msc_rle_DecompressBlock and FUN_004d5fd0 (asm_s5/small_test.c,
+  12,301 cases; the baseline assembly is 13b2e41's). msc_rle_DecompressBlock passes the stale `extraout_ECX` to
+  msc_rle_DecompressGetbyte, which ignores its register argument. FUN_004d5fd0's `@FUN_004d5fd0@20` alias in
+  overrides_asm_o2.c is gone with it: Ghidra's prototype is cdecl now.
+* Tested and kept (the results are in names/override_reasons.json): the input, display, costume-instance and GIF
+  encoder twins of asm_s5 (they crash or differ), the five matrix / clip helpers of asm_p2 (x87 rounding).
+* docs/OVERRIDES.md (tools/overrides_report.py) lists every hand-written function left, 548, with the reason it stays:
+  the 363 rasteriser span fillers, 63 with a recorded reason (names/override_reasons.json), 10 hooks, 67 x87-exact
+  ports, 14 asm() blocks and 31 that need a repair in Ghidra first.
+* Clean room 0 of 5457.
+
+## The last unnamed game functions named (2026-11-15)
+
+* names/final_names.json: the 11 FUN_ of the EXE outside the C runtime (rdFace_NewEntry, Res_SysInitializeBody -
+  the body Res_SysInitialize falls through to -, Render_CompareDrawDepth, stdDisplay_EnumDevicesCallback, the five
+  non-z-buffered edge steps rdRaster_EdgeStepLight / Tex / TexLight and rdAFRaster_AdvanceLeft / RightEdgeNGonIT, and
+  two dead ones), LUA.DLL's 8 module-level names (LoadBlock, LoadFunctions, Undump_InvertBytes, Undump_Swap4 / 8,
+  LState_CodeLength, and the C runtime's _fpmath / _cfltcvt_init that sat in lzio.c), and IMUSE.DLL's 29 live FUN_
+  (the music script Script_Init / Terminate / Save / Restore / Update / SetState / Attribute, the voice-effect set-up
+  ImFx_Initialize / SelectPreset / Terminate, Timer_Start / Stop, the sounds module's loaded-memory list
+  Sounds_Ml*, the music stream queries, the lip-sync lookup, the list helpers ImList_AddHead / Remove).
+* Each keeps its module (names/orig_modules.json pins the new names: build_src.py would otherwise file Script_* into
+  a script.c), and its plate comment ends "was FUN_...".
+* What stays FUN_: the C runtime (EXE 195 in crt_unnamed.c, LUA.DLL 163, IMUSE.DLL 101; most of it dead, kept out of
+  the build by names/lib_replace.json) and CHORE.DLL's 152 dead runtime copies.
+* Clean room 0 of 5457.

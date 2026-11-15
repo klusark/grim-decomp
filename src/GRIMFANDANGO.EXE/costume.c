@@ -249,10 +249,10 @@ void __cdecl Costume_InitRecord(CostumeNode *node)
   node->aHeadJoints[0] = -1;
   node->aHeadJoints[1] = -1;
   node->aHeadJoints[2] = -1;
-  node->flMaxPitch = 30.0;
-  node->flMaxYaw = 90.0;
-  node->flViewCos = -0.35;
-  node->flLookRate = 360.0;
+  node->flMaxPitch = 30.0f;
+  node->flMaxYaw = 90.0f;
+  node->flViewCos = -0.35f;
+  node->flLookRate = 360.0f;
   node->nWalkChore = -1;
   node->nTurnLeftChore = -1;
   node->nTurnRightChore = -1;
@@ -323,7 +323,7 @@ void __cdecl Costume_ApplyScale(Actor *actor,ModelComponent *componentList)
   int iVar9;
   
   for (; componentList != (ModelComponent *)0x0; componentList = componentList->pNext) {
-    if (actor->flScale != 1.0) {
+    if (actor->flScale != 1.0f) {
       prVar1 = componentList->pThing;
       prVar2 = prVar1->pModel;
       prVar2->flRadius = prVar2->flRadius * actor->flScale;
@@ -343,18 +343,18 @@ void __cdecl Costume_ApplyScale(Actor *actor,ModelComponent *componentList)
           } while (uVar8 < prVar2->aGeosets[iVar7].dwMeshes);
         }
       }
-      fVar4 = 1.0 / actor->flScale;
-      fVar5 = 1.0 - fVar4;
+      fVar4 = 1.0f / actor->flScale;
+      fVar5 = 1.0f - fVar4;
       actor->flScale = fVar4;
       fVar4 = fVar5;
-      if (fVar5 < 0.0) {
+      if (fVar5 < 0.0f) {
         fVar4 = -fVar5;
       }
       if (fVar4 <= 1e-05f) {
-        fVar5 = 0.0;
+        fVar5 = 0.0f;
       }
-      if (fVar5 == 0.0) {
-        actor->flScale = 1.0;
+      if (fVar5 == 0.0f) {
+        actor->flScale = 1.0f;
       }
     }
   }
@@ -468,13 +468,13 @@ void __cdecl sputCostume_Update(CostumeNode *costumeList,float dt)
   CostumeNode *pCVar4;
   ulonglong uVar5;
   
-  if (dt * 1000.0 <= 0.0) {
+  if (dt * 1000.0f <= 0.0f) {
     fVar3 = (float10)-0.5;
   }
   else {
     fVar3 = (float10)0.5;
   }
-  uVar5 = FTOL(fVar3 - (float10)dt * (float10)-1000.0);
+  uVar5 = FTOL(fVar3 - (float10)dt * (float10)-1000.0f);
   if (costumeList != (CostumeNode *)0x0) {
     pvVar1 = costumeList->pMainModel;
     pCVar4 = costumeList;

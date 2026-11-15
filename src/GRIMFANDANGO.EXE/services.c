@@ -368,7 +368,7 @@ void __cdecl stdPlatform_InitServices(GrimServices *svc)
   svc->pPrintf = stdPlatform_Printf;
   svc->pWarning = stdPlatform_Printf;
   svc->pError = stdPlatform_Printf;
-  svc->flVersion = 1000.0;
+  svc->flVersion = 1000.0f;
   svc->pDebug = (void *)0x0;
   svc->pAssertFail = stdPlatform_Assert;
   svc->pFn_1c = (void *)0x0;

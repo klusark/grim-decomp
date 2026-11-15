@@ -185,7 +185,7 @@ int __cdecl ImLoadSound(char *param_1,uint param_2)
           *(undefined1 *)(iVar3 + 0xc + (int)piVar4) = 0;
           piVar4[2] = iVar2;
           piVar4[0xc] = 1;
-          FUN_10004460((int *)&g_pLoadedList,piVar4);
+          ImList_AddHead((int *)&g_pLoadedList,piVar4);
           return iVar2;
         }
         if (0x1f < iVar3) break;
@@ -293,7 +293,7 @@ int __cdecl ImOpenSound(char *param_1,uint param_2)
           *(undefined1 *)(iVar3 + 0xc + (int)piVar4) = 0;
           piVar4[2] = iVar2;
           piVar4[0xc] = 1;
-          FUN_10004460((int *)&g_pOpenedList,piVar4);
+          ImList_AddHead((int *)&g_pOpenedList,piVar4);
           return iVar2;
         }
         if (0x1f < iVar3) break;
@@ -419,7 +419,7 @@ uint __cdecl ImFlushSounds(void)
         (*g_dwUnloadSoundFunc)(piVar2[2]);
       }
       piVar2[2] = 0;
-      in_EAX = FUN_100044b0((int *)&g_pLoadedList,piVar2);
+      in_EAX = ImList_Remove((int *)&g_pLoadedList,piVar2);
     }
   }
   while (piVar2 = piVar1, piVar2 != (int *)0x0) {
@@ -431,14 +431,17 @@ uint __cdecl ImFlushSounds(void)
         (*g_dwCloseSoundFunc)(piVar2[2]);
       }
       piVar2[2] = 0;
-      in_EAX = FUN_100044b0((int *)&g_pOpenedList,piVar2);
+      in_EAX = ImList_Remove((int *)&g_pOpenedList,piVar2);
     }
   }
   return in_EAX;
 }
 
-/* ---- 0x10004460  FUN_10004460 ---- */
-undefined4 __cdecl FUN_10004460(int *param_1,int *param_2)
+/* ---- 0x10004460  ImList_AddHead ---- */
+/* Links `node` (next at +0, previous at +4, both 0: not in a list) in front of the list `*head`. 0,
+   or -5 (logged) when the node is in a list already; was FUN_10004460. */
+
+undefined4 __cdecl ImList_AddHead(int *param_1,int *param_2)
 
 {
   if (((param_2 != (int *)0x0) && (*param_2 == 0)) && (param_2[1] == 0)) {
@@ -454,8 +457,11 @@ undefined4 __cdecl FUN_10004460(int *param_1,int *param_2)
   return 0xfffffffb;
 }
 
-/* ---- 0x100044b0  FUN_100044b0 ---- */
-undefined4 __cdecl FUN_100044b0(int *param_1,int *param_2)
+/* ---- 0x100044b0  ImList_Remove ---- */
+/* Unlinks `node` from the list `*head`. 0, -5 for a null node or empty list, -3 when the node is
+   not in the list (both logged); was FUN_100044b0. */
+
+undefined4 __cdecl ImList_Remove(int *param_1,int *param_2)
 
 {
   int *piVar1;
@@ -1373,12 +1379,12 @@ undefined4 __cdecl SoundsFillStreamsWhileMusicCritical(int param_1)
                     /* 0x7670  56  SoundsFillStreamsWhileMusicCritical */
   uVar2 = 0;
   if (_g_bImuseInitialized != 0) {
-    iVar1 = FUN_100076b0();
+    iVar1 = Sounds_IsMusicCritical();
     uVar2 = 0;
     if (iVar1 != 0) {
       do {
         ImProcessStreams();
-        iVar1 = FUN_100076b0();
+        iVar1 = Sounds_IsMusicCritical();
       } while (iVar1 != 0);
       uVar2 = 0;
       if (0 < param_1) {
@@ -1394,8 +1400,11 @@ undefined4 __cdecl SoundsFillStreamsWhileMusicCritical(int param_1)
 #endif
 
 
-/* ---- 0x100076b0  FUN_100076b0 ---- */
-undefined4 FUN_100076b0(void)
+/* ---- 0x100076b0  Sounds_IsMusicCritical ---- */
+/* 1 when the music stream plays and its free space is at most its critical size
+   (SoundsFillStreamsWhileMusicCritical loops while it is); was FUN_100076b0. */
+
+undefined4 Sounds_IsMusicCritical(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1405,7 +1414,7 @@ undefined4 FUN_100076b0(void)
   #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = FUN_10007700(&local_4,&local_8,&local_c,&local_10);
+  iVar1 = Sounds_QueryMusicStream(&local_4,&local_8,&local_c,&local_10);
   if (((iVar1 != 0) && (local_10 == 0)) && (local_c <= local_8)) {
     return 1;
   }
@@ -1417,9 +1426,13 @@ undefined4 FUN_100076b0(void)
 #undef local_c
 
 
-/* ---- 0x10007700  FUN_10007700 ---- */
+/* ---- 0x10007700  Sounds_QueryMusicStream ---- */
+/* Finds the first music stream (param 0x1800 == 1 with 0x400 == 3 or 4) and queries it
+   (ImQueryStream: buffer size, critical size, free space, paused). 1 when there is one; was
+   FUN_10007700. */
+
 undefined4 __cdecl
-FUN_10007700(undefined4 *param_1,undefined4 *param_2,int *param_3,undefined4 *param_4)
+Sounds_QueryMusicStream(undefined4 *param_1,undefined4 *param_2,int *param_3,undefined4 *param_4)
 
 {
   uint uVar1;
@@ -1461,10 +1474,10 @@ int __cdecl SoundsFloodMusicBuffer(void)
                     /* 0x7790  57  SoundsFloodMusicBuffer */
   iVar1 = 0;
   if (_g_bImuseInitialized != 0) {
-    iVar1 = FUN_100077c0();
+    iVar1 = Sounds_IsMusicBufferFull();
     while (iVar1 == 0) {
       ImProcessStreams();
-      iVar1 = FUN_100077c0();
+      iVar1 = Sounds_IsMusicBufferFull();
     }
   }
   return iVar1;
@@ -1472,10 +1485,12 @@ int __cdecl SoundsFloodMusicBuffer(void)
 #endif
 
 
-/* ---- 0x100077c0  FUN_100077c0 ---- */
+/* ---- 0x100077c0  Sounds_IsMusicBufferFull ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* 0 while the music stream plays and has room for another gulp (free space at most buffer size -
+   gulp size), else 1 (SoundsFloodMusicBuffer loops until it is); was FUN_100077c0. */
 
-undefined4 FUN_100077c0(void)
+undefined4 Sounds_IsMusicBufferFull(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1485,7 +1500,7 @@ undefined4 FUN_100077c0(void)
   #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  iVar1 = FUN_10007700(&local_c,&local_4,&local_8,&local_10);
+  iVar1 = Sounds_QueryMusicStream(&local_c,&local_4,&local_8,&local_10);
   if (((iVar1 != 0) && (local_10 == 0)) && (local_8 <= local_c - _g_dwImMusicGulpSize)) {
     return 0;
   }
@@ -1614,9 +1629,9 @@ uint __cdecl sounds_startup(void)
   undefined4 *puVar2;
   
   if (DAT_100336bc != 0) {
-    FUN_10007a20();
+    Sounds_MlInit();
     if (_g_dwEffectsHeapSize != 0) {
-      FUN_10004660(_g_dwEffectsHeapSize);
+      ImFx_Initialize(_g_dwEffectsHeapSize);
     }
     puVar2 = (undefined4 *)&g_bSoundCache;
     for (iVar1 = 0x200; iVar1 != 0; iVar1 = iVar1 + -1) {
@@ -1628,7 +1643,7 @@ uint __cdecl sounds_startup(void)
       *puVar2 = 0;
       puVar2 = puVar2 + 1;
     }
-    iVar1 = FUN_10008ce0();
+    iVar1 = Timer_Start();
     if (iVar1 == 0) {
       return 1;
     }
@@ -1640,16 +1655,18 @@ uint __cdecl sounds_startup(void)
     ImInitialize();
     SoundsAllocateBuffer(2,_g_dwImMusicBufferSize,_g_dwImMusicGulpSize,_g_dwImMusicCriticalSize);
     SoundsAllocateBuffer(1,_g_dwImVoiceBufferSize,_g_dwImVoiceGulpSize,_g_dwImVoiceCriticalSize);
-    ImInitializeScript(((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)FUN_100067a0),((unsigned)(uintptr_t)ihost_open_sound),((unsigned)(uintptr_t)ihost_close_sound),0,0,_g_bMuscriptLocal);
+    ImInitializeScript(((unsigned)(uintptr_t)Script_NullCallback),((unsigned)(uintptr_t)Script_NullCallback),((unsigned)(uintptr_t)ihost_open_sound),((unsigned)(uintptr_t)ihost_close_sound),0,0,_g_bMuscriptLocal);
     _g_bImuseInitialized = 1;
   }
   return 0;
 }
 
-/* ---- 0x10007a20  FUN_10007a20 ---- */
+/* ---- 0x10007a20  Sounds_MlInit ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Allocates the sounds module's list of 20 loaded-memory entries (g_dwMlEntries) and clears it; was
+   FUN_10007a20. */
 
-void __cdecl FUN_10007a20(void)
+void __cdecl Sounds_MlInit(void)
 
 {
   int iVar1;
@@ -1679,7 +1696,7 @@ uint __cdecl ihost_get_sound_addr(uint param_1)
 {
   uint uVar1;
   
-  uVar1 = FUN_10009530(param_1);
+  uVar1 = Sounds_GetSoundAddr(param_1);
   return uVar1;
 }
 
@@ -1692,7 +1709,7 @@ uint __cdecl ihost_get_map_addr(uint param_1)
 {
   uint uVar1;
   
-  uVar1 = FUN_10009560(param_1);
+  uVar1 = Sounds_GetMapAddr(param_1);
   return uVar1;
 }
 
@@ -2075,12 +2092,12 @@ void __cdecl sounds_shutdown(void)
   int *piVar1;
   
   if (DAT_100336bc != 0) {
-    FUN_10008e30();
+    Timer_Stop();
     ImStopAllSounds();
     ImRefreshScript();
     ImHeartbeat();
     if (_g_dwEffectsHeapSize != 0) {
-      FUN_10004970();
+      ImFx_Terminate();
     }
     if (_DAT_10031e58 != 0) {
       (**(code **)(g_dwSounds_pHS + 0x24))(_DAT_10031e58);
@@ -2101,16 +2118,17 @@ void __cdecl sounds_shutdown(void)
       piVar1 = piVar1 + 4;
     } while ((int)piVar1 < ((unsigned)(uintptr_t)&g_dwMlEntryCount));
     ImTerminate();
-    FUN_10008e60();
-    FUN_100081f0();
+    Sounds_FreeAll();
+    Sounds_MlFreeAll();
   }
   return;
 }
 
-/* ---- 0x100081f0  FUN_100081f0 ---- */
+/* ---- 0x100081f0  Sounds_MlFreeAll ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Frees every block in the loaded-memory list and the list itself; was FUN_100081f0. */
 
-void __cdecl FUN_100081f0(void)
+void __cdecl Sounds_MlFreeAll(void)
 
 {
   int *piVar1;
@@ -2343,34 +2361,34 @@ undefined4 sounds_restore(code *param_1,uint param_2)
   if (((uint)(byte)(uVar2)) != 0) {
     return 1;
   }
-  FUN_10009700((char *)((unsigned)(uintptr_t)&DAT_1001e98c));
+  Im_DiscardMessage((char *)((unsigned)(uintptr_t)&DAT_1001e98c));
   ImStopAllSounds();
-  FUN_10009700((char *)((unsigned)(uintptr_t)&DAT_1001e97c));
+  Im_DiscardMessage((char *)((unsigned)(uintptr_t)&DAT_1001e97c));
   ImFlushSounds();
-  FUN_10009700((char *)((unsigned)(uintptr_t)&DAT_1001e970));
+  Im_DiscardMessage((char *)((unsigned)(uintptr_t)&DAT_1001e970));
   SoundsCloseVoiceFile();
-  FUN_10009700((char *)((unsigned)(uintptr_t)&DAT_1001e958));
-  FUN_10008e60();
-  FUN_10009700((char *)((unsigned)(uintptr_t)&DAT_1001e944));
+  Im_DiscardMessage((char *)((unsigned)(uintptr_t)&DAT_1001e958));
+  Sounds_FreeAll();
+  Im_DiscardMessage((char *)((unsigned)(uintptr_t)&DAT_1001e944));
   iMUSE_SetVoiceEffect((uint *)&g_aVoxFxName);
   g_aLastVoiceFilename = 0;
   (*pcVar1)(&uStack_28,4);
   (*pcVar1)(a1,uStack_28);
   iVar3 = ImRestore(a1);
   if (iVar3 != 0) {
-    FUN_10009700((char *)((unsigned)(uintptr_t)&DAT_1001e930));
+    Im_DiscardMessage((char *)((unsigned)(uintptr_t)&DAT_1001e930));
     (*pcVar1)(&uStack_28,4);
     (*pcVar1)(a1,uStack_28);
     iVar3 = ImRestoreScript((int)a1);
     if (iVar3 != 0) {
-      FUN_10009700((char *)((unsigned)(uintptr_t)&DAT_1001e910));
+      Im_DiscardMessage((char *)((unsigned)(uintptr_t)&DAT_1001e910));
       for (uVar4 = ImGetNextSound(0); uVar4 != 0; uVar4 = ImGetNextSound(uVar4)) {
         if ((int)uVar4 < 0x2711) {
           ImStopSound(uVar4);
         }
       }
       SoundsCloseVoiceFile();
-      FUN_10009700((char *)((unsigned)(uintptr_t)&DAT_1001e958));
+      Im_DiscardMessage((char *)((unsigned)(uintptr_t)&DAT_1001e958));
       uVar2 = (*pcVar1)(&iStack_2c,4);
       if ((((uint)(byte)(uVar2)) == 0) && (iStack_2c != 0)) {
         iVar3 = 0;

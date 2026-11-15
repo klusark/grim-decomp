@@ -14,15 +14,15 @@ uint __cdecl rdLight_NewEntry(rdLight *light)
 {
   light->nType = 2;
   light->nActive = 1;
-  light->aDirection[0] = 0.0;
-  light->aDirection[1] = 0.0;
-  light->aDirection[2] = 0.0;
-  light->flIntensity = 1.0;
+  light->aDirection[0] = 0.0f;
+  light->aDirection[1] = 0.0f;
+  light->aDirection[2] = 0.0f;
+  light->flIntensity = 1.0f;
   light->dwColor = 0xffffff;
-  light->flInnerAngle = 0.0;
-  light->flCosInner = 0.0;
-  light->flOuterAngle = 0.0;
-  light->flCosOuter = 0.0;
+  light->flInnerAngle = 0.0f;
+  light->flCosInner = 0.0f;
+  light->flOuterAngle = 0.0f;
+  light->flCosOuter = 0.0f;
   return 1;
 }
 
@@ -45,8 +45,8 @@ void __cdecl rdLight_SetAngles(rdLight *light,float inner,float outer)
   stdMath_SinCos(inner,(float *)&local_4,&light->flCosInner);
   stdMath_SinCos(outer,(float *)&local_4,&light->flCosOuter);
   fVar1 = light->flCosInner - light->flCosOuter;
-  if (0.0 < fVar1) {
-    light->flConeScale = 1.0 / fVar1;
+  if (0.0f < fVar1) {
+    light->flConeScale = 1.0f / fVar1;
   }
   return;
 }
@@ -79,7 +79,7 @@ rdLight_CalcVertexIntensities
   #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  local_28[0] = 0.0;
+  local_28[0] = 0.0f;
   if (param_9 != 0) {
     local_2c = param_6;
     iVar5 = param_6 - (int)param_5;
@@ -87,7 +87,7 @@ rdLight_CalcVertexIntensities
     pfVar7 = (float *)(param_5 + 2);
     local_1c = param_9;
     do {
-      local_28[1] = 0.0;
+      local_28[1] = 0.0f;
       *param_8 = *(float *)(iVar4 + (int)param_8);
       if (param_4 != 0) {
         param_5 = param_1;
@@ -96,7 +96,7 @@ rdLight_CalcVertexIntensities
         do {
           iVar2 = *param_5;
           if (*(int *)(iVar2 + 4) < 2) {
-            fVar3 = 0.0;
+            fVar3 = 0.0f;
           }
           else {
             local_c[0] = *param_7 - *(float *)local_2c;
@@ -111,7 +111,7 @@ rdLight_CalcVertexIntensities
             case 0:
             case 1:
               fVar3 = *pfVar6 * *pfVar7 + pfVar6[-1] * pfVar7[-1] + pfVar6[-2] * pfVar7[-2];
-              if (0.0 < fVar3) {
+              if (0.0f < fVar3) {
                 fVar3 = *(float *)(iVar2 + 0x18) * fVar3;
 LAB_0045173f:
                 *param_8 = fVar3 + *param_8;
@@ -120,7 +120,7 @@ LAB_0045173f:
             case 2:
               fVar8 = rdVector_Normalize3Acc(local_c);
               fVar3 = *pfVar7 * local_c[2] + pfVar7[-1] * local_c[1] + pfVar7[-2] * local_c[0];
-              if (0.0 < fVar3) {
+              if (0.0f < fVar3) {
                 fVar3 = (*(float *)(iVar2 + 0x18) - fVar8 * param_10) * fVar3;
                 goto LAB_0045173f;
               }
@@ -131,7 +131,7 @@ LAB_0045173f:
               if (*(float *)(iVar2 + 0x2c) < fVar3) {
                 fVar1 = *(float *)(iVar2 + 0x18);
                 if (fVar3 < *(float *)(iVar2 + 0x24)) {
-                  fVar1 = (1.0 - (*(float *)(iVar2 + 0x24) - fVar3) * *(float *)(iVar2 + 0x30)) *
+                  fVar1 = (1.0f - (*(float *)(iVar2 + 0x24) - fVar3) * *(float *)(iVar2 + 0x30)) *
                           fVar1;
                 }
                 fVar3 = (fVar1 - fVar8 * param_10) *
@@ -140,10 +140,10 @@ LAB_0045173f:
               }
             }
           }
-          if (1.0 < *param_8) {
-            *param_8 = 1.0;
+          if (1.0f < *param_8) {
+            *param_8 = 1.0f;
           }
-          if (*param_8 == 1.0) break;
+          if (*param_8 == 1.0f) break;
           param_5 = param_5 + 1;
           local_28[1] = (float)(PUN(int,(float)local_28[1]) + 1);
           param_7 = param_7 + 3;
@@ -191,7 +191,7 @@ rdLight_CalcFaceIntensity
   #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   uVar4 = 0;
-  local_10 = 0.0;
+  local_10 = 0.0f;
   if (param_4 != 0) {
     pfVar5 = (float *)(param_2 + 8);
     do {
@@ -205,12 +205,12 @@ rdLight_CalcFaceIntensity
             *(float *)(iVar1 + 0x34) * *(float *)(iVar1 + 0x34)) {
           fVar6 = rdVector_Normalize3Acc(local_c);
           fVar3 = local_c[0] * *param_6 + param_6[1] * local_c[1] + param_6[2] * local_c[2];
-          if (0.0 < fVar3) {
+          if (0.0f < fVar3) {
             local_10 = (*(float *)(iVar1 + 0x18) - fVar6 * param_8) * fVar3 + local_10;
           }
         }
       }
-      if (1.0 <= local_10) {
+      if (1.0f <= local_10) {
         return local_10;
       }
       uVar4 = uVar4 + 1;
