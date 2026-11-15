@@ -706,7 +706,6 @@ LAB_004ccb89:
 int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,byte *hdr,byte flags)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   ushort uVar1;
   byte *pbVar2;
   byte *pbVar3;
@@ -718,8 +717,8 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
   int iVar7;
   uint uVar8;
   LecPixelFormat *srcFmt;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   uVar8 = (uint)*(short *)(hdr + 8);
   iVar7 = (int)*(short *)(hdr + 0xc);
@@ -866,9 +865,6 @@ LAB_004ccf67:
   g_nBlkLastSeq = (int)*(short *)(hdr + 0x10);
   return palette;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x004cd1e0  Blocky16_BuildExpandTable ---- */
 /* Makes the 64K entry table that converts 16 bit pixels to the display format when the display
@@ -877,8 +873,7 @@ LAB_004ccf67:
 void __cdecl Blocky16_BuildExpandTable(LecPixelFormat *fmt)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_8;
   
   if (((((g_pbBlkExpand != (byte *)0x0) && (fmt->nBytesPerPixel == 2)) &&
        ((fmt->nColorMode == 1 || (fmt->nColorMode == 2)))) &&
@@ -898,8 +893,6 @@ void __cdecl Blocky16_BuildExpandTable(LecPixelFormat *fmt)
   }
   return;
 }
-#undef local_8
-
 
 /* ---- 0x004cd300  Blocky16_DecodeHalfRows16 ---- */
 /* Decodes a method 1 frame: 16 bit pixels of every second row, the rows between are averaged */
@@ -907,7 +900,6 @@ void __cdecl Blocky16_BuildExpandTable(LecPixelFormat *fmt)
 void __cdecl Blocky16_DecodeHalfRows16(void *dst,ushort *src,int width,int height)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   ushort uVar1;
   int iVar2;
   undefined4 uVar3;
@@ -924,10 +916,10 @@ void __cdecl Blocky16_DecodeHalfRows16(void *dst,ushort *src,int width,int heigh
   undefined2 *puVar10;
   uint *puVar11;
   undefined4 *puVar12;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   uVar7 = width * 2;
   if (0 < height) {
@@ -978,11 +970,6 @@ void __cdecl Blocky16_DecodeHalfRows16(void *dst,ushort *src,int width,int heigh
   }
   return;
 }
-#undef local_10
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004cd450  Blocky16_DecodeHalfRows8 ---- */
 /* Decodes a method 7 frame: 8 bit indexes of every second row through a colour table, the rows
@@ -991,7 +978,6 @@ void __cdecl Blocky16_DecodeHalfRows16(void *dst,ushort *src,int width,int heigh
 void __cdecl Blocky16_DecodeHalfRows8(void *dst,byte *src,int width,int height,int palette)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   ushort uVar2;
   int iVar3;
@@ -1009,10 +995,10 @@ void __cdecl Blocky16_DecodeHalfRows8(void *dst,byte *src,int width,int height,i
   undefined2 *puVar11;
   uint *puVar12;
   undefined4 *puVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   uVar8 = width * 2;
   if (0 < height) {
@@ -1065,11 +1051,6 @@ void __cdecl Blocky16_DecodeHalfRows8(void *dst,byte *src,int width,int height,i
   }
   return;
 }
-#undef local_10
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004cd550  Blocky16_DecodeBlocks ---- */
 /* replaced by the hand-written version in build/overrides.c */

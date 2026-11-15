@@ -151,7 +151,7 @@ extern undefined g_dwDpProcessTrack_curLevel; /* used by 1 fn(s), first 0x100025
 extern undefined g_dwDpProcessTrack_pauseFlag; /* used by 1 fn(s), first 0x10002570 */
 extern undefined4 g_dwGoToNextRegion_fadeSize; /* used by 1 fn(s), first 0x10002a60 */
 extern undefined4 g_dwMemAddr; /* used by 2 fn(s), first 0x10001f10 */
-extern undefined4 g_dwPrepareToJump_fadeSize; /* used by 1 fn(s), first 0x10003250 */
+extern uint g_dwPrepareToJump_fadeSize; /* used by 1 fn(s), first 0x10003250 */
 extern undefined g_dwDpProcessTrack_bufSize; /* used by 1 fn(s), first 0x10002570 */
 extern undefined4 DAT_1002d814; /* used by 1 fn(s), first 0x10002a60 */
 extern int * DAT_1002d818; /* used by 2 fn(s), first 0x100036b0 */
@@ -221,7 +221,7 @@ extern undefined4 g_dwIm_initialized; /* used by 2 fn(s), first 0x10004aa0 */
 extern undefined4 g_dwIntFlag; /* used by 2 fn(s), first 0x10004aa0 */
 extern undefined4 g_dwOutChannelCount; /* used by 3 fn(s), first 0x10005360 */
 extern undefined4 g_dwDataSizeInBytes; /* used by 2 fn(s), first 0x10005300 */
-extern undefined4 g_dwSoftLTable; /* used by 3 fn(s), first 0x10005360 */
+extern undefined2 * g_dwSoftLTable; /* used by 3 fn(s), first 0x10005360 */
 extern uint g_dwMixBufSize; /* used by 2 fn(s), first 0x10005360 */
 extern undefined DAT_1002df28; /* used by 1 fn(s), first 0x10005360 */
 extern undefined g_aMxEndMix_wavHeader; /* used by 1 fn(s), first 0x10005610 */
@@ -468,10 +468,10 @@ extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x10011020 */
 #define _DAT_10031d48 (*(undefined4 *)&DAT_10031d48) /* same address as DAT_10031d48, other width */
 #define _DAT_10031d4c (*(undefined4 *)&DAT_10031d4c) /* same address as DAT_10031d4c, other width */
 #define _g_bMuscriptRemote (*(undefined4 *)&g_bMuscriptRemote) /* same address as g_bMuscriptRemote, other width */
-#define _DAT_10031e58 (*(undefined4 *)&DAT_10031e58) /* same address as DAT_10031e58, other width */
-#define _DAT_10031e5c (*(undefined4 *)&DAT_10031e5c) /* same address as DAT_10031e5c, other width */
-#define _g_dwVoxFxBuf (*(undefined4 *)&g_dwVoxFxBuf) /* same address as g_dwVoxFxBuf, other width */
-#define _DAT_10031e64 (*(undefined4 *)&DAT_10031e64) /* same address as DAT_10031e64, other width */
+#define _DAT_10031e58 (*(undefined4 * *)&DAT_10031e58) /* same address as DAT_10031e58, other width */
+#define _DAT_10031e5c (*(undefined4 * *)&DAT_10031e5c) /* same address as DAT_10031e5c, other width */
+#define _g_dwVoxFxBuf (*(undefined4 * *)&g_dwVoxFxBuf) /* same address as g_dwVoxFxBuf, other width */
+#define _DAT_10031e64 (*(uint *)&DAT_10031e64) /* same address as DAT_10031e64, other width */
 #define _DAT_10031e68 (*(undefined4 *)&DAT_10031e68) /* same address as DAT_10031e68, other width */
 #define _DAT_10031e6c (*(undefined4 *)&DAT_10031e6c) /* same address as DAT_10031e6c, other width */
 #define _DAT_10031e80 (*(undefined4 *)&DAT_10031e80) /* same address as DAT_10031e80, other width */
@@ -479,7 +479,7 @@ extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x10011020 */
 #define _DAT_10032308 (*(undefined4 *)&DAT_10032308) /* same address as DAT_10032308, other width */
 #define _DAT_10032f50 (*(undefined4 *)&DAT_10032f50) /* same address as DAT_10032f50, other width */
 #define _DAT_10032f54 (*(undefined4 *)&DAT_10032f54) /* same address as DAT_10032f54, other width */
-#define _DAT_10032f58 (*(undefined4 * *)&DAT_10032f58) /* same address as DAT_10032f58, other width */
+#define _DAT_10032f58 (*(char * *)&DAT_10032f58) /* same address as DAT_10032f58, other width */
 #define _DAT_10032fe4 (*(undefined4 *)&DAT_10032fe4) /* same address as DAT_10032fe4, other width */
 #define _DAT_10032fe8 (*(undefined4 *)&DAT_10032fe8) /* same address as DAT_10032fe8, other width */
 #define _DAT_10032fec (*(undefined4 *)&DAT_10032fec) /* same address as DAT_10032fec, other width */
@@ -489,7 +489,7 @@ extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x10011020 */
 #define _DAT_10033018 (*(undefined4 *)&DAT_10033018) /* same address as DAT_10033018, other width */
 #define _DAT_1003301c (*(undefined4 *)&DAT_1003301c) /* same address as DAT_1003301c, other width */
 #define _DAT_10033020 (*(undefined4 *)&DAT_10033020) /* same address as DAT_10033020, other width */
-#define _DAT_10033028 (*(undefined4 *)&DAT_10033028) /* same address as DAT_10033028, other width */
+#define _DAT_10033028 (*(int * *)&DAT_10033028) /* same address as DAT_10033028, other width */
 #define _DAT_10033038 (*(undefined4 *)&DAT_10033038) /* same address as DAT_10033038, other width */
 #define _DAT_10033044 (*(undefined4 *)&DAT_10033044) /* same address as DAT_10033044, other width */
 #define _DAT_10033360 (*(undefined4 *)&DAT_10033360) /* same address as DAT_10033360, other width */

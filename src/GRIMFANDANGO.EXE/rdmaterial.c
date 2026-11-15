@@ -301,13 +301,12 @@ void __cdecl rdMaterial_Free(uint material)
 void __cdecl rdMaterial_FreeEntry(int material)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   uint *puVar2;
   uint uVar3;
   uint *puVar4;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   uVar3 = 0;
   if (*(int *)(material + 0x60) != 0) {
@@ -349,9 +348,6 @@ void __cdecl rdMaterial_FreeEntry(int material)
   }
   return;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x004184a0  rdMaterial_AddToTextureCache ---- */
 /* Touches the cel's Direct3D texture or creates it (D3D_CreateTexture) on first use Original name

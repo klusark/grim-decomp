@@ -16,12 +16,11 @@
 uint __cdecl sputControl_StandardHandler(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fov;
   int iVar1;
   Set *pSVar2;
   rdCamera *camera;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   if ((g_nGrimlib_bDebugKeys != 0) &&
      (iVar1 = stdControl_ReadKey(0x1d,(int *)0x0,(int *)0x0), iVar1 != 0)) {
@@ -45,5 +44,3 @@ uint __cdecl sputControl_StandardHandler(void)
   }
   return 0;
 }
-#undef local_4
-

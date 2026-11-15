@@ -1122,7 +1122,6 @@ void SoundModule_SyncClock(void)
 void __cdecl sou_engine_fill(int frames,void *mix)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   undefined1 uVar2;
   byte bVar3;
@@ -1140,11 +1139,11 @@ void __cdecl sou_engine_fill(int frames,void *mix)
   int iVar14;
   int iVar15;
   bool bVar16;
-  #define local_24 (*(int *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(int *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(int *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(int *)(_frame + (0x40 - 0x18)))
-  #define local_10 (*(int *)(_frame + (0x40 - 0x10)))
+  int local_24;
+  int local_20;
+  int local_1c;
+  int local_18;
+  int local_10;
   
   g_dwSound_ticks = g_dwSound_ticks + 1;
   SoundModule_AdvanceClock(((double)frames * 1193180.0) / (double)(int)g_dwSou_sample_rate);
@@ -1573,12 +1572,6 @@ LAB_004d2124:
   }
   return;
 }
-#undef local_10
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-
 #endif
 
 

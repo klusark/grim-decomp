@@ -17,7 +17,6 @@ undefined4 __cdecl
 rdClip_Line2(int canvas,undefined4 *x0,undefined4 *y0,undefined4 *x1,undefined4 *y1)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   float fVar2;
   bool bVar3;
@@ -30,11 +29,11 @@ rdClip_Line2(int canvas,undefined4 *x0,undefined4 *y0,undefined4 *x1,undefined4 
   float10 x_00;
   float10 x_01;
   longlong lVar8;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   canvas_00 = canvas;
   uVar4 = rdClip_CalcOutcode2(canvas,*x0,*y0);
@@ -135,12 +134,6 @@ rdClip_Line2(int canvas,undefined4 *x0,undefined4 *y0,undefined4 *x1,undefined4 
   }
   return 0;
 }
-#undef local_10
-#undef local_14
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -574,7 +567,6 @@ int __cdecl rdClip_Line3(rdClipFrustum *frustum,float *p0,float *p1,int *clipped
 uint __cdecl rdClip_Face3W(int *frustum,float *verts,uint count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -592,8 +584,8 @@ uint __cdecl rdClip_Face3W(int *frustum,float *verts,uint count)
   float *pfVar15;
   uint uVar16;
   uint uVar17;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   uVar12 = 0;
   puVar14 = &g_dwWorkVerts;
@@ -959,9 +951,6 @@ uint __cdecl rdClip_Face3W(int *frustum,float *verts,uint count)
   }
   return uVar12;
 }
-#undef local_4
-#undef local_8
-
 #endif
 
 
@@ -1289,7 +1278,6 @@ int __cdecl rdClip_Face3WOrtho(int *frustum,float *verts,int count)
 uint __cdecl rdClip_Face3S(int *frustum,float *verts,uint count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -1307,8 +1295,8 @@ uint __cdecl rdClip_Face3S(int *frustum,float *verts,uint count)
   float *pfVar15;
   uint uVar16;
   uint uVar17;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   uVar12 = 0;
   puVar14 = &g_dwWorkVerts;
@@ -1674,9 +1662,6 @@ uint __cdecl rdClip_Face3S(int *frustum,float *verts,uint count)
   }
   return uVar12;
 }
-#undef local_4
-#undef local_8
-
 #endif
 
 
@@ -2476,7 +2461,6 @@ uint __cdecl rdClip_Face3GS(int *frustum,float *verts,float *ivert,uint count)
 uint __cdecl rdClip_Face3GSOrtho(int *frustum,float *verts,float *ivert,uint count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -2491,9 +2475,9 @@ uint __cdecl rdClip_Face3GSOrtho(int *frustum,float *verts,float *ivert,uint cou
   float *pfVar12;
   int iVar13;
   int iVar14;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  float local_8;
+  uint local_4;
   
   local_4 = 0;
   puVar8 = &g_dwWorkVerts;
@@ -2853,10 +2837,6 @@ uint __cdecl rdClip_Face3GSOrtho(int *frustum,float *verts,float *ivert,uint cou
   }
   return local_4;
 }
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -2870,7 +2850,6 @@ uint __cdecl rdClip_Face3GSOrtho(int *frustum,float *verts,float *ivert,uint cou
 uint __cdecl rdClip_Face3T(int *frustum,float *verts,float *tverts,uint count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -2888,10 +2867,10 @@ uint __cdecl rdClip_Face3T(int *frustum,float *verts,float *tverts,uint count)
   float *pfVar15;
   float *pfVar16;
   uint uVar17;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  float local_4;
   
   g_dwRdClip_faceStatus = 0;
   local_10 = 0;
@@ -3345,11 +3324,6 @@ uint __cdecl rdClip_Face3T(int *frustum,float *verts,float *tverts,uint count)
   }
   return local_10;
 }
-#undef local_10
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -3363,7 +3337,6 @@ uint __cdecl rdClip_Face3T(int *frustum,float *verts,float *tverts,uint count)
 uint __cdecl rdClip_Face3TOrtho(int *frustum,float *verts,float *tverts,uint count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -3379,9 +3352,9 @@ uint __cdecl rdClip_Face3TOrtho(int *frustum,float *verts,float *tverts,uint cou
   int iVar13;
   int iVar14;
   float *pfVar15;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   g_dwRdClip_faceStatus = 0;
   local_c = 0;
@@ -3765,10 +3738,6 @@ uint __cdecl rdClip_Face3TOrtho(int *frustum,float *verts,float *tverts,uint cou
   }
   return local_c;
 }
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -4353,7 +4322,6 @@ uint __cdecl rdClip_Face3GT(int *frustum,float *verts,float *tverts,uint *ivert,
 uint __cdecl rdClip_Face3GTOrtho(int *frustum,float *verts,uint *tverts,uint *ivert,uint count)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -4372,11 +4340,11 @@ uint __cdecl rdClip_Face3GTOrtho(int *frustum,float *verts,uint *tverts,uint *iv
   uint *puVar16;
   int iVar17;
   int iVar18;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   g_dwSourceIVert = (uint)ivert;
   g_dwSourceVert = (uint)verts;
@@ -4822,11 +4790,5 @@ uint __cdecl rdClip_Face3GTOrtho(int *frustum,float *verts,uint *tverts,uint *iv
   }
   return uVar7;
 }
-#undef local_10
-#undef local_14
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 

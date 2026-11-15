@@ -47,9 +47,8 @@ void __cdecl rdVector_Cross3(float *out,float *a,float *b)
 float10 __cdecl rdVector_Normalize3(float *out,float *v)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float10 fVar1;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   fVar1 = SQRT((float10)*v * (float10)*v +
                (float10)v[2] * (float10)v[2] + (float10)v[1] * (float10)v[1]);
@@ -64,8 +63,6 @@ float10 __cdecl rdVector_Normalize3(float *out,float *v)
   out[2] = v[2];
   return fVar1;
 }
-#undef local_4
-
 #endif
 
 
@@ -78,10 +75,9 @@ float10 __cdecl rdVector_Normalize3(float *out,float *v)
 float __cdecl rdVector_Normalize3Acc(float *v)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   fVar1 = SQRT(*v * *v + v[2] * v[2] + v[1] * v[1]);
   if (fVar1 != 0.0f) {
@@ -92,8 +88,6 @@ float __cdecl rdVector_Normalize3Acc(float *v)
   }
   return fVar1;
 }
-#undef local_4
-
 
 /* ---- 0x00446a10  rdVector_Normalize3QuickAcc ---- */
 /* Rough vector length: with the absolute values sorted max >= mid >= min, len = max + 0.34375 * mid
@@ -213,7 +207,6 @@ void __cdecl rdVector_ExtractAngles(float *matrix,float *outAngles)
 uint __cdecl rdClip_SphereInFrustrum(int *frustum,float *center,float radius)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   int iVar3;
@@ -222,9 +215,9 @@ uint __cdecl rdClip_SphereInFrustrum(int *frustum,float *center,float radius)
   float fVar6;
   float fVar7;
   float *pfVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   pfVar8 = center;
   fVar5 = radius + center[1];
@@ -304,10 +297,6 @@ uint __cdecl rdClip_SphereInFrustrum(int *frustum,float *center,float radius)
   }
   return (uint)!bVar4;
 }
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -837,7 +826,6 @@ void __cdecl rdMatrix_LookAt(float *out,float *from,float *to,uint roll)
 void __cdecl rdMatrix_ExtractAngles34(float *m,float *outAngles)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -847,15 +835,15 @@ void __cdecl rdMatrix_ExtractAngles34(float *m,float *outAngles)
   float fVar7;
   float fVar8;
   float fVar9;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  uint local_28;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   fVar3 = m[3];
   fVar4 = m[4];
@@ -920,16 +908,6 @@ void __cdecl rdMatrix_ExtractAngles34(float *m,float *outAngles)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_28
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x0044f880  rdMatrix_Identity34 ---- */
 /* Original name rdMatrix_Identity34 (the remaster's GrimFandango (Linux): the only unmatched callee
@@ -1155,7 +1133,6 @@ void __cdecl rdMatrix_TransformVectorOrtho34(float *out,float *v,float *m)
 void __cdecl rdMatrix_TransformVector34Acc(float *vec,float *m)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -1165,9 +1142,9 @@ void __cdecl rdMatrix_TransformVector34Acc(float *vec,float *m)
   float fVar7;
   float fVar8;
   float fVar9;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   fVar1 = m[7];
   fVar2 = m[4];
@@ -1183,10 +1160,6 @@ void __cdecl rdMatrix_TransformVector34Acc(float *vec,float *m)
   vec[2] = fVar7 * fVar9 + vec[2] * fVar4 + fVar3 * fVar8;
   return;
 }
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x00450060  rdMatrix_TransformPoint34 ---- */
 /* out = a * R + t for a 3x4 matrix (rotation in [0..8], translation in [9..11]). Was misnamed
@@ -1212,7 +1185,6 @@ void __cdecl rdMatrix_TransformPoint34(float *out,float *a,float *b)
 void __cdecl rdMatrix_TransformPoint34Acc(float *vec,float *m)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -1224,9 +1196,9 @@ void __cdecl rdMatrix_TransformPoint34Acc(float *vec,float *m)
   float fVar9;
   float fVar10;
   float fVar11;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   fVar1 = m[7];
   fVar2 = m[4];
@@ -1244,10 +1216,6 @@ void __cdecl rdMatrix_TransformPoint34Acc(float *vec,float *m)
   vec[2] = fVar8 * fVar10 + vec[2] * fVar4 + fVar3 * fVar9 + fVar11;
   return;
 }
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x00450170  rdMatrix_TransformPointLst34 ---- */
 /* Original name rdMatrix_TransformPointLst34 (the remaster's GrimFandango (Linux): aligned call in

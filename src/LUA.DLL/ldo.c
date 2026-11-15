@@ -207,7 +207,6 @@ void __cdecl luaD_deletestates(int pExecutionState)
 uint __cdecl luaD_call(int pos,int nres)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint a1;
   ExecutionState *pEVar1;
   ExecutionState *pEVar2;
@@ -218,7 +217,7 @@ uint __cdecl luaD_call(int pos,int nres)
   int iVar7;
   int iVar8;
   TObject *pTVar9;
-  #define pEStack_14 (*(ExecutionState **)(_frame + (0x30 - 0x14)))
+  ExecutionState *pEStack_14;
   
   iVar6 = nres;
   pEStack_14 = g_pLuaState->pExecutionState;
@@ -352,8 +351,6 @@ LAB_10004474:
     }
   } while( true );
 }
-#undef pEStack_14
-
 
 /* ---- 0x100044e0  callC ---- */
 /* Named callC (not in the remaster, gcc inlined it there): Lua 3.1 source name (ldo.c: saves the C

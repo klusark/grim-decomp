@@ -925,7 +925,6 @@ void __cdecl Set_FreeSetup(uint set,int setup)
 int __cdecl sputRoom_LoadResources(Set *set)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   ResRef *ref;
   char cVar1;
   Setup *pSVar2;
@@ -945,8 +944,8 @@ int __cdecl sputRoom_LoadResources(Set *set)
   char *pcVar14;
   ResRef **ppRVar15;
   rdLight *light;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   pSVar4 = set;
   set->dwSize = 0x1b08;
@@ -1081,9 +1080,6 @@ LAB_004a51bd:
     }
   } while( true );
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x004a54a0  Set_RegisterHandle ---- */
 /* Adds a set to the 32-entry handle table at g_SetHandles (0x24 bytes each) if not already present

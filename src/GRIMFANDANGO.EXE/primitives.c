@@ -341,13 +341,12 @@ int __thiscall PrimitiveQueue_changeDimensions(void *this,int id,int w,int h)
 void __stdcall PrimitiveQueue_drawPrimitive(Primitive *prim,void *canvas)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   uint uVar2;
   int iVar3;
   int y1;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_8;
   
   iVar1 = prim->nType;
   if (iVar1 != 0) {
@@ -391,9 +390,6 @@ void __stdcall PrimitiveQueue_drawPrimitive(Primitive *prim,void *canvas)
   rdPrimit2_DrawLine(canvas,prim->nX1,prim->nY1,prim->nX2,prim->nY2,prim->nColor,prim->nPattern);
   return;
 }
-#undef local_10
-#undef local_8
-
 
 /* ---- 0x0048ab50  PrimitiveQueue_markDirty ---- */
 /* Marks the primitive's bounding rectangle dirty on the last buffer Original name

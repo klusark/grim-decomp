@@ -166,7 +166,7 @@ extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x100093b0 */
 #define _DAT_100138b8 (*(undefined4 * *)&DAT_100138b8) /* same address as DAT_100138b8, other width */
 #define _DAT_100143f8 (*(undefined4 *)&DAT_100143f8) /* same address as DAT_100143f8, other width */
 #define _DAT_100143fc (*(undefined4 *)&DAT_100143fc) /* same address as DAT_100143fc, other width */
-#define _DAT_10014400 (*(undefined4 * *)&DAT_10014400) /* same address as DAT_10014400, other width */
+#define _DAT_10014400 (*(char * *)&DAT_10014400) /* same address as DAT_10014400, other width */
 #define _DAT_10014408 (*(undefined4 *)&DAT_10014408) /* same address as DAT_10014408, other width */
 #define _DAT_1001440c (*(undefined4 *)&DAT_1001440c) /* same address as DAT_1001440c, other width */
 #define _DAT_10014478 (*(int *)&DAT_10014478) /* same address as DAT_10014478, other width */
@@ -180,7 +180,7 @@ extern undefined4 in_stack_ffffffbc; /* used by 1 fn(s), first 0x100093b0 */
 #define _DAT_100144a8 (*(undefined4 *)&DAT_100144a8) /* same address as DAT_100144a8, other width */
 #define _DAT_100144ac (*(undefined4 *)&DAT_100144ac) /* same address as DAT_100144ac, other width */
 #define _DAT_100144b0 (*(undefined4 *)&DAT_100144b0) /* same address as DAT_100144b0, other width */
-#define _DAT_100144b8 (*(undefined4 *)&DAT_100144b8) /* same address as DAT_100144b8, other width */
+#define _DAT_100144b8 (*(int * *)&DAT_100144b8) /* same address as DAT_100144b8, other width */
 #define _DAT_100144c8 (*(undefined4 *)&DAT_100144c8) /* same address as DAT_100144c8, other width */
 #define _DAT_100144d4 (*(undefined4 *)&DAT_100144d4) /* same address as DAT_100144d4, other width */
 #define _DAT_100144d8 (*(undefined4 *)&DAT_100144d8) /* same address as DAT_100144d8, other width */

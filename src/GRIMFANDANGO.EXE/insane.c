@@ -187,7 +187,6 @@ uint __cdecl smushplay_GetInfo(int file,int header)
 uint __cdecl Insane_PrepareFrame(int *player,undefined4 *smush_pInternalBitmap,uint *rect)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int srcPitch;
   ushort *src;
@@ -199,9 +198,9 @@ uint __cdecl Insane_PrepareFrame(int *player,undefined4 *smush_pInternalBitmap,u
   int iVar5;
   uint uVar6;
   uint uVar7;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_8;
   
   if ((player != (int *)0x0) && (smush_pInternalBitmap != (undefined4 *)0x0)) {
     _DAT_008d16c0 = 0;
@@ -259,10 +258,6 @@ uint __cdecl Insane_PrepareFrame(int *player,undefined4 *smush_pInternalBitmap,u
   _DAT_008d16ac = 0;
   return 0;
 }
-#undef local_14
-#undef local_18
-#undef local_8
-
 
 /* ---- 0x004bdca0  Insane_Blit8To16Doubled ---- */
 /* Pixel-doubling conversion of 8-bit frame rows into a 16-bit destination */
@@ -273,14 +268,13 @@ Insane_Blit8To16Doubled
           ,int param_7,int param_8)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   uint uVar2;
   uint uVar3;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   local_10 = 0;
   do {
@@ -305,11 +299,6 @@ Insane_Blit8To16Doubled
   } while ((int)local_10 < param_8);
   return CONCAT44(param_2,param_4 - param_7);
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004bdd50  Insane_BlitRowsDual ---- */
 /* Copies frame rows to two destinations (front and back buffer) */

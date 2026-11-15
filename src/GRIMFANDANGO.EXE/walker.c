@@ -1467,7 +1467,6 @@ uint __cdecl FindExitPoints(WalkPlane *plane,float *pos,uint *outCount)
 undefined4 __cdecl Planner_PortalPoint(WalkPlane *planeA,WalkPlane *planeB,float *point,float *out)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   WalkVertex *pWVar1;
   float fVar2;
   float fVar3;
@@ -1475,7 +1474,7 @@ undefined4 __cdecl Planner_PortalPoint(WalkPlane *planeA,WalkPlane *planeB,float
   int iVar5;
   int iVar6;
   WalkVertex **ppWVar7;
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  float local_4;
   
   iVar6 = 0;
   local_4 = 3.4028235e+38;
@@ -1527,8 +1526,6 @@ undefined4 __cdecl Planner_PortalPoint(WalkPlane *planeA,WalkPlane *planeB,float
   }
   return 1;
 }
-#undef local_4
-
 
 /* ---- 0x004a9aa0  TightenPath ---- */
 /* Original name TightenPath (the remaster's GrimFandango (Linux): same body (for more than 3

@@ -141,7 +141,7 @@
 | 100039f0 | getglobal | lbuiltin.c | 14 |
 | 10003a10 | rawgetglobal | lbuiltin.c | 14 |
 | 10003a30 | luatag | lbuiltin.c | 12 |
-| 10003a60 | luaI_call | lbuiltin.c | 60 |
+| 10003a60 | luaI_call | lbuiltin.c | 57 |
 | 10003ba0 | getnarg | lbuiltin.c | 22 |
 | 10003bf0 | settag | lbuiltin.c | 16 |
 | 10003c20 | newtag | lbuiltin.c | 11 |
@@ -161,7 +161,7 @@
 | 100040c0 | luaD_taskHook | ldo.c | 8 |
 | 100040e0 | luaD_callTM | ldo.c | 18 |
 | 10004160 | luaD_deletestates | ldo.c | 15 |
-| 10004180 | luaD_call | ldo.c | 153 |
+| 10004180 | luaD_call | ldo.c | 150 |
 | 100044e0 | callC | ldo.c | 38 |
 | 10004580 | callCclosure | ldo.c | 31 |
 | 10004600 | luaD_travallstacks | ldo.c | 16 |
@@ -220,7 +220,7 @@
 | 10005c30 | luaX_setinput | llex.c | 19 |
 | 10005c70 | firstline | llex.c | 36 |
 | 10005cf0 | luaX_lasttoken | llex.c | 12 |
-| 10005d00 | luaY_lex | llex.c | 540 |
+| 10005d00 | luaY_lex | llex.c | 535 |
 | 10006890 | inclinenumber | llex.c | 125 |
 | 10006b10 | skipspace | llex.c | 25 |
 | 10006b60 | checkcond | llex.c | 19 |
@@ -245,8 +245,8 @@
 | 10007160 | math_exp | math.c | 16 |
 | 10007190 | math_deg | math.c | 11 |
 | 100071b0 | math_rad | math.c | 11 |
-| 100071d0 | math_min | math.c | 27 |
-| 10007230 | math_max | math.c | 27 |
+| 100071d0 | math_min | math.c | 24 |
+| 10007230 | math_max | math.c | 24 |
 | 10007290 | math_random | math.c | 1 |
 | 10007300 | math_randomseed | math.c | 1 |
 | 100073b0 | luaM_malloc | lmem.c | 11 |
@@ -276,7 +276,7 @@
 | 10008c00 | LState_Destruct | lstate.c | 13 |
 | 10008d40 | luaS_init | lstring.c | 18 |
 | 10008d90 | luaS_createudata | lstring.c | 11 |
-| 10008dc0 | insert | lstring.c | 91 |
+| 10008dc0 | insert | lstring.c | 88 |
 | 10008f10 | hash | lstring.c | 23 |
 | 10008f50 | grow | lstring.c | 50 |
 | 10009000 | newone | lstring.c | 68 |
@@ -285,7 +285,7 @@
 | 10009130 | luaS_free | lstring.c | 35 |
 | 10009180 | luaS_writestrings | lstring.c | 68 |
 | 10009290 | luaS_resolvestrings | lstring.c | 28 |
-| 100092e0 | luaS_count | lstring.c | 53 |
+| 100092e0 | luaS_count | lstring.c | 50 |
 | 10009370 | luaS_collector | lstring.c | 38 |
 | 100093e0 | remove_from_list | lstring.c | 17 |
 | 10009410 | luaS_collectudata | lstring.c | 34 |
@@ -425,7 +425,7 @@
 | 1000db10 | ExecutionState_CleanUp | lvm.c | 18 |
 | 1000db40 | ExecutionState_Save | lvm.c | 23 |
 | 1000dbd0 | ExecutionState_Restore | lvm.c | 47 |
-| 1000dd10 | ExecutionState_New | lvm.c | 35 |
+| 1000dd10 | ExecutionState_New | lvm.c | 32 |
 | 1000dd90 | ExecutionState_Delete | lvm.c | 10 |
 | 1000ddb0 | ExecutionState_Construct | lvm.c | 14 |
 | 1000dde0 | ExecutionState_getaux | lvm.c | 8 |

@@ -335,11 +335,10 @@ undefined * __cdecl grimlib_CharacterCallback(int ch)
 void __cdecl grimlib_UpdateManual(int draw,int frameMs)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint reserved;
   float fVar1;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   if (UINT_008a8c7c != 0) {
     Engine_SaveGame();
@@ -389,9 +388,6 @@ void __cdecl grimlib_UpdateManual(int draw,int frameMs)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x00482ae0  gimlib_SetImuseState ---- */
 /* Lua ImSetState Original name gimlib_SetImuseState (the remaster's GrimFandango (Linux): aligned
@@ -443,12 +439,11 @@ void __cdecl grimlib_Display(void)
 uint __cdecl Engine_RegisterSubsystems(uint services,undefined4 *entries,int modules,int count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
   undefined4 *puVar4;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   iVar3 = 0;
   local_4 = 0;
@@ -476,18 +471,15 @@ uint __cdecl Engine_RegisterSubsystems(uint services,undefined4 *entries,int mod
   }
   return local_4;
 }
-#undef local_4
-
 
 /* ---- 0x00482d60  Engine_InitSubsystems ---- */
 uint __cdecl Engine_InitSubsystems(int modules,int count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   undefined4 *puVar3;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   iVar2 = 0;
   if (count < 1) {
@@ -513,8 +505,6 @@ uint __cdecl Engine_InitSubsystems(int modules,int count)
   }
   return 1;
 }
-#undef local_4
-
 
 /* ---- 0x00482dd0  Engine_ShutdownSubsystems ---- */
 /* Calls the +0xc entry of each 0x20-byte subsystem record in reverse order */

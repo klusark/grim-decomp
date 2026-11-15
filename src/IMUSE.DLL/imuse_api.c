@@ -1841,7 +1841,6 @@ int __cdecl ihost_fseek(int sound,int offset,int whence)
 undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *size)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   int iVar2;
   int iVar3;
@@ -1852,7 +1851,7 @@ undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *si
   undefined4 *puVar8;
   undefined4 *puVar9;
   undefined4 *puVar10;
-  #define uStack_c (*(uint *)(_frame + (0x20 - 0xc)))
+  uint uStack_c;
   
   puVar4 = *(undefined4 **)(&g_aStreamID + (int)(sound + -0x9c4) * 0x28);
   if (puVar4 == (undefined4 *)0x0) {
@@ -2072,8 +2071,6 @@ undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *si
   puVar4 = (undefined4 *)iRes_FREAD(puVar4,buf,(uint)size);
   return puVar4;
 }
-#undef uStack_c
-
 
 /* ---- 0x10008140  sounds_shutdown ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -2705,7 +2702,6 @@ LAB_10009063:
 int CachePurgeOldestStoppedSound(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   uint uVar2;
   int iVar3;
@@ -2713,8 +2709,8 @@ int CachePurgeOldestStoppedSound(void)
   char *pcVar5;
   undefined4 *puVar6;
   bool bVar7;
-  #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int iStack_8;
+  int iStack_4;
   
   iStack_8 = timeGetTime();
   iVar4 = -1;
@@ -2758,9 +2754,6 @@ int CachePurgeOldestStoppedSound(void)
   }
   return iVar4;
 }
-#undef iStack_4
-#undef iStack_8
-
 
 /* ---- 0x1000b940  ImFile_Read ---- */
 /* not in the source: names/lib_replace.json (host): the system C runtime (msvcrt.dll) has it */

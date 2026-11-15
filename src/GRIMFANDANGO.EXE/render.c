@@ -847,7 +847,6 @@ void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
 void __cdecl Render_BuildColorTable(int fmt,float gamma)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   undefined4 uVar2;
   undefined4 uVar3;
@@ -857,20 +856,20 @@ void __cdecl Render_BuildColorTable(int fmt,float gamma)
   longlong lVar7;
   longlong lVar8;
   longlong lVar9;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   local_24 = 0;
   do {
@@ -893,21 +892,6 @@ void __cdecl Render_BuildColorTable(int fmt,float gamma)
   g_flSputRender_GammaCorrection = gamma;
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -1448,7 +1432,6 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
 void __cdecl sputRender_DimRegion(int x,int y,int w,int h,float scale)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   ushort uVar1;
   char cVar2;
   char cVar3;
@@ -1458,13 +1441,13 @@ void __cdecl sputRender_DimRegion(int x,int y,int w,int h,float scale)
   longlong lVar7;
   longlong lVar8;
   longlong lVar9;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   cVar2 = (char)UINT_00905608;
   cVar3 = (char)UINT_0090560c;
@@ -1499,14 +1482,6 @@ void __cdecl sputRender_DimRegion(int x,int y,int w,int h,float scale)
   stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x00487260  sputRender_SaveScreen ---- */
 /* Lua SaveScreen Original name sputRender_SaveScreen (the remaster's GrimFandango (Linux): the only

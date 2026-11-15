@@ -15,7 +15,6 @@
 void __cdecl Chore_AdvanceTime(Costume *pCostume,CosInstance *pInst,int choreNum,int dt,int hInst)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   ChoreInstance *pCVar1;
   ChoreKey *pKey;
   Chore *pCVar2;
@@ -24,7 +23,7 @@ void __cdecl Chore_AdvanceTime(Costume *pCostume,CosInstance *pInst,int choreNum
   int *piVar5;
   int iVar6;
   int iVar7;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int local_4;
   
   iVar3 = choreNum;
   pCVar2 = pCostume->pChores;
@@ -79,8 +78,6 @@ void __cdecl Chore_AdvanceTime(Costume *pCostume,CosInstance *pInst,int choreNum
     pCVar1->nTime = 0;
   } while( true );
 }
-#undef local_4
-
 
 /* ---- 0x10005530  Chore_ApplyKey ---- */
 /* Calls the OnKey handler (ComponentTag +0x2c, slot 0) of the component's tag for one key that

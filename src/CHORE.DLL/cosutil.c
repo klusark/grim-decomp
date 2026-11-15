@@ -322,7 +322,6 @@ void * __cdecl CosUtil_RegisterBitmapMunger(void *munger)
 int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   Costume *pCostume;
   int *piVar2;
@@ -340,7 +339,7 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
   char *pcVar14;
   uint uVar15;
   ChoreTrack **ppCVar16;
-  #define piStack_c (*(int **)(_frame + (0x20 - 0xc)))
+  int *piStack_c;
   
                     /* 0x2260  15  CosUtil_DeleteComponent */
   pCostume = CosUtil_PtrFromHandle(hCostume);
@@ -536,8 +535,6 @@ int __cdecl CosUtil_DeleteComponent(uint hCostume,uint compNum)
   (*(code *)g_pSvcChore->pFree)(puVar4);
   return 1;
 }
-#undef piStack_c
-
 
 /* ---- 0x100026a0  CosUtil_AdjustComponent ---- */
 /* Export (costume editor): calls the Edit handler (ComponentTag +0x3c, slot 4) of component

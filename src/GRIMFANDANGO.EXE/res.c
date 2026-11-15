@@ -153,13 +153,12 @@ uint __cdecl Res_SetPurgable(void *data,int unlock)
 int __cdecl Res_SysPurgeBySize(uint bytesWanted,uint *bytesFreed)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Resource *pRVar1;
   bool bVar2;
   Resource *res;
   int iVar3;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   local_4 = 0;
   bVar2 = true;
@@ -193,9 +192,6 @@ LAB_0048065f:
   }
   return local_4;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x00480680  Res_Dump ---- */
 /* Dumps 'Resource %12s size %7ld REFERENCED' lines for every loaded resource Original name Res_Dump
@@ -205,14 +201,13 @@ LAB_0048065f:
 int __cdecl Res_Dump(char *filename,int type)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   Resource *res;
   int fh;
   char *pcVar2;
   int iVar3;
   int iVar4;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   local_4 = 0;
   iVar4 = 0;
@@ -239,8 +234,6 @@ int __cdecl Res_Dump(char *filename,int type)
   }
   return 0;
 }
-#undef local_4
-
 
 /* ---- 0x00480740  Res_Log ---- */
 /* Original name Res_Log (the remaster's GrimFandango (Linux): same body (open the log file for

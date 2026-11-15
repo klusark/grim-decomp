@@ -9,7 +9,6 @@
 void __cdecl Glyph_Blit16(int fmt,uint font,int *glyph)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   int iVar2;
   int *piVar3;
@@ -24,8 +23,8 @@ void __cdecl Glyph_Blit16(int fmt,uint font,int *glyph)
   int iVar12;
   char *pcVar13;
   undefined2 *puVar14;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   iVar2 = *(int *)(fmt + 0xc);
   iVar9 = *(int *)(fmt + 0x10);
@@ -75,15 +74,11 @@ LAB_004ab9af:
     iVar9 = iVar9 + -1;
   } while( true );
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x004ab9d0  Glyph_Blit8 ---- */
 void __cdecl Glyph_Blit8(int fmt,int font,int *glyph)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   int iVar2;
   int iVar3;
@@ -94,8 +89,8 @@ void __cdecl Glyph_Blit8(int fmt,int font,int *glyph)
   int iVar8;
   undefined1 *puVar9;
   int iVar10;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   iVar8 = *(int *)(fmt + 0x10);
   iVar2 = *(int *)(fmt + 0xc);
@@ -150,15 +145,11 @@ void __cdecl Glyph_Blit8(int fmt,int font,int *glyph)
   }
   return;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x004abae0  Glyph_Blit16Clipped ---- */
 void __cdecl Glyph_Blit16Clipped(int fmt,uint font,int *glyph)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   int iVar2;
   int iVar3;
@@ -177,14 +168,14 @@ void __cdecl Glyph_Blit16Clipped(int fmt,uint font,int *glyph)
   undefined2 *puVar16;
   uint uVar17;
   char *pcVar18;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   iVar2 = *(int *)(*glyph + 0xc);
   iVar3 = *(int *)(*glyph + 0x14);
@@ -249,21 +240,11 @@ LAB_004abc47:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004abc80  Glyph_Blit8Clipped ---- */
 void __cdecl Glyph_Blit8Clipped(int fmt,int font,int *glyph)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int *piVar2;
   int iVar3;
@@ -278,12 +259,12 @@ void __cdecl Glyph_Blit8Clipped(int fmt,int font,int *glyph)
   int iVar12;
   int iVar13;
   int iVar14;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   iVar10 = *(int *)(fmt + 0x10);
   iVar8 = glyph[3] + (int)*(char *)(fmt + 5);
@@ -360,10 +341,3 @@ void __cdecl Glyph_Blit8Clipped(int fmt,int font,int *glyph)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_4
-#undef local_8
-#undef local_c
-

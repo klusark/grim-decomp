@@ -301,7 +301,6 @@ int __cdecl Cos_FreeCosInstance(int hInst)
 int __cdecl Cos_CreateCosInstance(int hCostume,int userData)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   CosInstance *pCVar1;
   int iVar2;
   code *pcVar3;
@@ -315,7 +314,7 @@ int __cdecl Cos_CreateCosInstance(int hCostume,int userData)
   uint *puVar11;
   uint uVar12;
   int iVar13;
-  #define uStack_c (*(uint *)(_frame + (0x20 - 0xc)))
+  uint uStack_c;
   
                     /* 0x1a80  25  Cos_CreateCosInstance */
   iVar5 = Cos_HandleToIndex(hCostume);
@@ -449,8 +448,6 @@ joined_r0x10001cd0:
     }
   } while( true );
 }
-#undef uStack_c
-
 
 /* ---- 0x10001d70  Cos_InstGetInstanceData ---- */
 /* Export: instance data of component `compNum` of the instance (and its tag id through outTagId), 0
@@ -1062,14 +1059,13 @@ int __cdecl Cos_InstCompleteChore(int hInst,uint choreNum)
 int __cdecl Cos_InstCompleteChores(int hInst)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   CosInstance *pInst;
   Costume *pCostume;
   int iVar1;
   byte *pbVar2;
   int iVar3;
   uint choreNum;
-  #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int iStack_4;
   
                     /* 0x3430  33  Cos_InstCompleteChores */
   iVar1 = Cos_InstHandleToIndex(hInst);
@@ -1093,8 +1089,6 @@ int __cdecl Cos_InstCompleteChores(int hInst)
   }
   return 1;
 }
-#undef iStack_4
-
 
 /* ---- 0x100034c0  Cos_InstPlayChore ---- */
 /* Export: starts chore `choreNum`: flags 1 (playing), | 2 when `loop`, | 4 (advanced by
@@ -1516,13 +1510,12 @@ int __cdecl Cos_RestoreInstance(int hInst,void *io)
 uint __cdecl Cos_CollectUsedTags(Costume *pCostume)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   uint *puVar3;
   uint *puVar4;
   int iVar5;
-  #define uStack_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint uStack_4;
   
   iVar5 = 0;
   uVar1 = 0;
@@ -1552,8 +1545,6 @@ uint __cdecl Cos_CollectUsedTags(Costume *pCostume)
   }
   return uVar1;
 }
-#undef uStack_4
-
 
 /* ---- 0x10003c90  Cos_AddKey ---- */
 /* Adds a key at `time` to the track of component `comp` in chore `choreNum` (assert 'pCostume !=
@@ -2459,14 +2450,13 @@ void __cdecl Cos_InitChoreInstances(Chore *pChores,ChoreInstance *pChoreInstance
 void __cdecl Cos_FreeCostume(int hCostume)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Costume *pCVar1;
   CosComponent *pComponent;
   char *pcVar2;
   uint uVar3;
   int iVar4;
   int iVar5;
-  #define uStack_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint uStack_4;
   
   pCVar1 = CosUtil_PtrFromHandle(hCostume);
   uVar3 = 0;
@@ -2506,8 +2496,6 @@ void __cdecl Cos_FreeCostume(int hCostume)
   g_aCostumes[iVar4].nFree = 1;
   return;
 }
-#undef uStack_4
-
 
 /* ---- 0x10004d70  Cos_FreeComponent ---- */
 /* Frees one component: calls the tag's Destroy handler (ComponentTag +0x34, slot 2: (costume

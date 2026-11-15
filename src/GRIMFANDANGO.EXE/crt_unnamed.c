@@ -1597,7 +1597,6 @@ anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *src,uin
               uint *param_7,uint param_8,uint param_9,uint param_10,byte *param_11,int param_12)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   byte bVar2;
   byte bVar3;
@@ -1611,10 +1610,10 @@ anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *src,uin
   int iVar11;
   uint uVar12;
   uint *puVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   puVar7 = src;
   bVar6 = false;
@@ -1768,11 +1767,6 @@ LAB_004c3182:
     }
   } while( true );
 }
-#undef local_10
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004c34d0  anm_PreloadPut ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -4149,7 +4143,6 @@ uint __cdecl FUN_004cbf40(void)
 void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param_4)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   uint uVar2;
   uint uVar3;
@@ -4159,16 +4152,16 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
   uint uVar7;
   short *psVar8;
   undefined2 *puVar9;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   iVar6 = 0;
   if (g_dwDWave_bDeltaTableInitialized == 0) {
@@ -4271,17 +4264,6 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004cd3f0  FUN_004cd3f0 ---- */
 int __cdecl FUN_004cd3f0(uint param_1,uint param_2)
@@ -4395,10 +4377,9 @@ bmp_bitmap_AllocRaw(int *param_1,int param_2,int param_3,int param_4,int param_5
                    undefined4 *param_7)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   undefined4 *puVar2;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   local_4 = 0;
   if (param_4 == 0) {
@@ -4453,8 +4434,6 @@ bmp_bitmap_AllocRaw(int *param_1,int param_2,int param_3,int param_4,int param_5
   }
   return 0;
 }
-#undef local_4
-
 
 /* ---- 0x004ce980  bmp_bitmap_Free ---- */
 /* Original name bmp_bitmap_Free (the remaster's GrimFandango (Linux): slot 2 of the "BITMAP=insane"

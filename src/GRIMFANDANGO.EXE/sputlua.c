@@ -125,10 +125,9 @@ void __cdecl sputLua_GetPointSectorL(void)
 void __cdecl sputLua_Update(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  uint local_1c;
   
   g_dwSputLua_Update_movieTimeMsec = SmushPlay_GetMovieTime();
   uVar1 = sputTime_GetFrameTime();
@@ -152,8 +151,6 @@ void __cdecl sputLua_Update(void)
   lua_updatetasks(0);
   return;
 }
-#undef local_1c
-
 #endif
 
 
@@ -248,11 +245,10 @@ void __cdecl sputLua_FunctionNameL(void)
 void __cdecl sputLua_TypeOverride(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_14;
+  uint local_4;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isuserdata(iVar1);
@@ -289,9 +285,6 @@ LAB_0049d199:
   lua_pushobject(iVar2);
   return;
 }
-#undef local_14
-#undef local_4
-
 
 /* ---- 0x0049e500  sputLua_Terminate ---- */
 /* Module slot 1 of sputLua: clears g_pSputLuaHS and calls the Lua shutdown hook if the Lua state
@@ -487,7 +480,6 @@ void __cdecl sputLua_ImStartRecording(void)
 void __cdecl sputLua_ImStartSound(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -495,8 +487,8 @@ void __cdecl sputLua_ImStartSound(void)
   longlong lVar5;
   longlong lVar6;
   float fVar7;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_18;
+  uint local_4;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -518,9 +510,6 @@ void __cdecl sputLua_ImStartSound(void)
   }
   return;
 }
-#undef local_18
-#undef local_4
-
 
 /* ---- 0x004a1030  sputLua_ImStopSound ---- */
 /* Lua opcode: ImStopSound */
@@ -553,15 +542,14 @@ void __cdecl sputLua_ImStopSound(void)
 void __cdecl sputLua_ImGetParam(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
   uint uVar4;
   longlong lVar5;
   float fVar6;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_10;
+  uint local_4;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -589,9 +577,6 @@ void __cdecl sputLua_ImGetParam(void)
   lua_pushnumber((float)(int)uVar4);
   return;
 }
-#undef local_10
-#undef local_4
-
 
 /* ---- 0x004a1140  sputLua_ImSetParam ---- */
 /* Lua opcode: ImSetParam */
@@ -664,7 +649,6 @@ void __cdecl sputLua_ImSetParam(void)
 void __cdecl sputLua_ImFadeParam(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -673,7 +657,7 @@ void __cdecl sputLua_ImFadeParam(void)
   uint uVar6;
   longlong lVar7;
   float fVar8;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -739,8 +723,6 @@ void __cdecl sputLua_ImFadeParam(void)
   }
   return;
 }
-#undef local_4
-
 
 /* ---- 0x004a1590  sputLua_ImStartVoice ---- */
 /* Lua opcode: ImStartVoice */
@@ -784,13 +766,12 @@ void __cdecl sputLua_ImStartVoice(void)
 void __cdecl sputLua_ImSetSequence(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   longlong lVar3;
   float fVar4;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  uint local_4;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(iVar1);
@@ -802,9 +783,6 @@ void __cdecl sputLua_ImSetSequence(void)
   }
   return;
 }
-#undef local_4
-#undef local_c
-
 
 /* ---- 0x004a1710  sputLua_ImSetAttribute ---- */
 /* WARNING: Variable defined which should be unmapped: local_14 */
@@ -813,15 +791,14 @@ void __cdecl sputLua_ImSetSequence(void)
 void __cdecl sputLua_ImSetAttribute(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
   longlong lVar4;
   longlong lVar5;
   float fVar6;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_14;
+  uint local_4;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -839,9 +816,6 @@ void __cdecl sputLua_ImSetAttribute(void)
   }
   return;
 }
-#undef local_14
-#undef local_4
-
 
 /* ---- 0x004a17b0  sputLua_ImSetVoiceEffect ---- */
 /* Lua opcodes: vfx, ImSetVoiceEffect

@@ -15,7 +15,6 @@
 int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *textObj)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   int iVar2;
   int iVar3;
@@ -23,8 +22,8 @@ int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *text
   uint uVar5;
   longlong lVar6;
   float fVar7;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   piVar1 = ctx->pClipRect;
   lua_pushobject((int)table);
@@ -185,9 +184,6 @@ int __cdecl GetTextParamsFromTable(TextContext *ctx,void *table,TextObject *text
   }
   return -1;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x0048c8d0  sputText_ExtractSayLineData ---- */
 /* Splits a '/id/text' dialogue line: copies the id into outId and returns the text according to
@@ -635,15 +631,14 @@ uint __cdecl Text_WrapLines(uint *defaultFont)
 void __cdecl Text_CopyRunes(byte *dst,undefined4 *src,int count,int stride)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   uint uVar2;
   int iVar3;
   byte *pbVar4;
   undefined1 *puVar5;
   undefined1 *puVar6;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   puVar1 = src;
   puVar6 = (undefined1 *)*src;
@@ -675,9 +670,6 @@ void __cdecl Text_CopyRunes(byte *dst,undefined4 *src,int count,int stride)
   }
   return;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x004aaf30  Text_BuildLineTable ---- */
 /* Reads a .LAF font: header (data size, ..., first/last char), the char index table, 0x5c-byte
@@ -822,7 +814,6 @@ text_FindNextBreak(TextContext *param_1,FontData *font,char *text,int *outWidth,
                   int maxWidth)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   TextContext *ctx;
   char *pcVar2;
@@ -835,13 +826,13 @@ text_FindNextBreak(TextContext *param_1,FontData *font,char *text,int *outWidth,
   undefined3 extraout_var_02;
   TextContext *pTVar6;
   int iVar7;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   int ch;
   
   local_c = (uint)text;
@@ -980,14 +971,6 @@ LAB_004ab344:
     pTVar6 = param_1;
   } while( true );
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004ab510  Font_GlyphAdvance ---- */
 uint __cdecl Font_GlyphAdvance(TextContext *ctx,FontData *font,int ch)
@@ -1120,7 +1103,6 @@ LAB_004ab66a:
 void __cdecl Text_DrawChar(TextContext *ctx,FontData *font,int ch)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int *piVar2;
   int iVar3;
@@ -1132,11 +1114,11 @@ void __cdecl Text_DrawChar(TextContext *ctx,FontData *font,int ch)
   uint uVar8;
   uint uVar9;
   int *fmt;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   glyph = ctx;
   local_c = 0;
@@ -1203,9 +1185,3 @@ void __cdecl Text_DrawChar(TextContext *ctx,FontData *font,int ch)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_4
-#undef local_8
-#undef local_c
-

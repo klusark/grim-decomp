@@ -16,15 +16,12 @@
 void __cdecl LuaVarChanger(uint cosInst,char *name,uint tag,int value)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   lua_pushnumber((float)value);
   lua_setglobal(name);
   return;
 }
-#undef local_4
-
 
 /* ---- 0x004976a0  LuaVarAdjuster ---- */
 /* Costume tag handler for 'Lua Variable' (registered by sputCostume_Startup through

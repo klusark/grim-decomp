@@ -87,9 +87,8 @@ void __fastcall PrimitiveQueue_purge(int *primitiveQ)
 Primitive * __thiscall PrimitiveQueue_addObject(void *this,int id,int layer)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Primitive *pPVar1;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  uint local_10;
   
   if (*(int *)((int)this + 4) == 0) {
     pPVar1 = Plat_Alloc(0x30);
@@ -122,8 +121,6 @@ Primitive * __thiscall PrimitiveQueue_addObject(void *this,int id,int layer)
   pPVar1 = *(Primitive **)((int)this + 4);
   return pPVar1;
 }
-#undef local_10
-
 
 /* ---- 0x0048a9f0  PrimitiveQueue_draw ---- */
 /* Original name PrimitiveQueue_draw (the remaster's GrimFandango (Linux): same body (drawPrimitive

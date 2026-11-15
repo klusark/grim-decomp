@@ -45,7 +45,6 @@ TaggedString * __cdecl luaS_createudata(void *udata,int tag)
 TaggedString * __cdecl insert(char *buff,int tag,StringTable *tb)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   byte *h;
   TaggedString *pTVar2;
@@ -56,7 +55,7 @@ TaggedString * __cdecl insert(char *buff,int tag,StringTable *tb)
   uint uVar7;
   char *pcVar8;
   bool bVar9;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_8;
   
   h = hash((byte *)buff,tag);
   uVar3 = tb->nSize;
@@ -128,8 +127,6 @@ LAB_10008e86:
     uVar7 = local_8;
   } while( true );
 }
-#undef local_8
-
 
 /* ---- 0x10008f10  hash ---- */
 /* Named hash (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstring.c: h = h*31
@@ -448,7 +445,6 @@ void __cdecl luaS_resolvestrings(int *LState_string_root)
 int __cdecl luaS_count(int *LState_string_root,uint *n)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   undefined *puVar2;
   uint *puVar3;
@@ -456,7 +452,7 @@ int __cdecl luaS_count(int *LState_string_root,uint *n)
   uint uVar5;
   int iVar6;
   char *pcVar7;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int local_4;
   
   puVar3 = n;
   local_4 = 0;
@@ -493,8 +489,6 @@ int __cdecl luaS_count(int *LState_string_root,uint *n)
     }
   } while( true );
 }
-#undef local_4
-
 
 /* ---- 0x10009370  luaS_collector ---- */
 /* Original name luaS_collector (the remaster's libLua.so: caller lua_collectgarbage); was

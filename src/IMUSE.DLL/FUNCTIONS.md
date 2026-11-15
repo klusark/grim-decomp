@@ -4,16 +4,16 @@
 
 | address | name | module | lines |
 |---|---|---|---|
-| 10001000 | AudioLib_DetectRawFormat | imuse.c | 223 |
+| 10001000 | AudioLib_DetectRawFormat | imuse.c | 215 |
 | 100013c0 | AudioLib_ParseWaveFileHeader | imuse.c | 271 |
 | 100017e0 | AudioLib_CreateWaveFileHeader | imuse.c | 101 |
 | 10001ba0 | AudioLib_ResetCompressor | imuse.c | 13 |
 | 10001bc0 | AudioLib_UncompressBlock | imuse.c | 32 |
-| 10001c30 | Im_ConvertBlockImpl | imuse.c | 139 |
+| 10001c30 | Im_ConvertBlockImpl | imuse.c | 131 |
 | 10001f10 | DpInitialize | imuse.c | 33 |
 | 10002260 | DpSwitchStream | imuse.c | 135 |
-| 10002570 | DpProcessTrack | imuse.c | 155 |
-| 10002a60 | GoToNextRegion | imuse.c | 128 |
+| 10002570 | DpProcessTrack | imuse.c | 151 |
+| 10002a60 | GoToNextRegion | imuse.c | 125 |
 | 10002d30 | Im_DispatchFetchNext | imuse.c | 168 |
 | 100036b0 | DwInitialize | imuse.c | 26 |
 | 10003730 | DwQuery | imuse.c | 90 |
@@ -71,7 +71,7 @@
 | 10009700 | Im_DiscardMessage | imuse.c | 7 |
 | 10009710 | iRes_FOPEN | imuse.c | 148 |
 | 10009b20 | iRes_FCLOSE | imuse.c | 28 |
-| 10009b90 | iRes_FREAD | imuse.c | 140 |
+| 10009b90 | iRes_FREAD | imuse.c | 136 |
 | 1000a070 | iMUSE_DeclareBufferSizes | imuse.c | 25 |
 | 1000a0f0 | iMUSE_GetMemoryFootprint | imuse.c | 8 |
 | 1000a100 | iMUSE_GetSoundCacheSize | imuse.c | 8 |
@@ -108,8 +108,8 @@
 | 1000b1a0 | TgSave | imuse.c | 30 |
 | 1000b1e0 | TgRestore | imuse.c | 28 |
 | 1000b220 | TgSetTrigger | imuse.c | 81 |
-| 1000b2e0 | TgCheckTrigger | imuse.c | 60 |
-| 1000b380 | TgClearTrigger | imuse.c | 61 |
+| 1000b2e0 | TgCheckTrigger | imuse.c | 56 |
+| 1000b380 | TgClearTrigger | imuse.c | 58 |
 | 1000b430 | TgProcessMarker | imuse.c | 126 |
 | 1000b570 | TgDeferCommand | imuse.c | 42 |
 | 1000b5e0 | TgIntHandler | imuse.c | 30 |
@@ -131,7 +131,7 @@
 | 100030d0 | iMUSE_Dispatch__30d0 | imuse_dispatch.c | 24 |
 | 10003130 | PredictStream | imuse_dispatch.c | 38 |
 | 100031d0 | iMUSE_Dispatch__31d0 | imuse_dispatch.c | 27 |
-| 10003250 | PrepareToJump | imuse_dispatch.c | 86 |
+| 10003250 | PrepareToJump | imuse_dispatch.c | 83 |
 | 10003430 | iMUSE_Dispatch__3430 | imuse_dispatch.c | 27 |
 | 100034b0 | iMUSE_Dispatch__34b0 | imuse_dispatch.c | 18 |
 | 10003510 | iMUSE_Dispatch__3510 | imuse_dispatch.c | 21 |
@@ -227,7 +227,7 @@
 | 10007a80 | ihost_get_buffer_info | imuse_api.c | 8 |
 | 10007a90 | ihost_open_sound | imuse_api.c | 72 |
 | 10007bc0 | ihost_fseek | imuse_api.c | 34 |
-| 10007ca0 | ihost_read | imuse_api.c | 241 |
+| 10007ca0 | ihost_read | imuse_api.c | 238 |
 | 10008140 | sounds_shutdown | imuse_api.c | 41 |
 | 100081f0 | Sounds_MlFreeAll | imuse_api.c | 26 |
 | 10008250 | sounds_save | imuse_api.c | 166 |
@@ -235,7 +235,7 @@
 | 10008860 | sounds_pause | imuse_api.c | 13 |
 | 100088a0 | sounds_resume | imuse_api.c | 12 |
 | 10008ec0 | CacheGetSoundId | imuse_api.c | 228 |
-| 100092f0 | CachePurgeOldestStoppedSound | imuse_api.c | 65 |
+| 100092f0 | CachePurgeOldestStoppedSound | imuse_api.c | 61 |
 | 1000b940 | ImFile_Read | imuse_api.c | 1 |
 | 1000b980 | ImFile_ReadImpl | imuse_api.c | 1 |
 | 1000ba20 | FUN_1000ba20 | imuse_api.c | 1 |

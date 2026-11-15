@@ -313,8 +313,7 @@ ObjectState_Construct
           (ObjectState *this,ObjectState *next,char *bitmapName,char *zbufName,int setupIdx)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  uint local_10;
   
   ObjectStateImage_Construct(&this->image);
   ObjectStateImage_Construct(&this->zImage);
@@ -331,8 +330,6 @@ ObjectState_Construct
   this->nSize = 0xfc;
   return this;
 }
-#undef local_10
-
 
 /* ---- 0x004aa4c0  ObjectState_Destruct ---- */
 void __fastcall ObjectState_Destruct(ObjectState *state)

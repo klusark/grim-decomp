@@ -227,7 +227,6 @@ int __cdecl rdPuppet_FadeOutTrack(void *puppet,int track,float seconds)
 void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint *puVar1;
   float fVar2;
   float fVar3;
@@ -236,8 +235,8 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
   uint uVar6;
   uint *puVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  float local_8;
   
   local_8 = 0.0f;
   bVar4 = false;
@@ -344,9 +343,6 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -362,12 +358,11 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
 void __cdecl rdPuppet_UpdateTracks(void *puppet,float seconds)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   float fVar2;
   uint *puVar3;
   uint track;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  uint local_14;
   
   if (*(int *)puppet == 0) {
     track = 0;
@@ -405,8 +400,6 @@ void __cdecl rdPuppet_UpdateTracks(void *puppet,float seconds)
   }
   return;
 }
-#undef local_14
-
 #endif
 
 

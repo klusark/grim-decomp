@@ -340,7 +340,6 @@ void __cdecl sou_mixer_end(short *dst,int frames)
 int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   undefined2 *puVar2;
   undefined1 *puVar3;
@@ -348,7 +347,7 @@ int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused)
   float10 fVar5;
   float10 extraout_ST0;
   longlong lVar6;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   puVar3 = &DAT_008dcc70;
   local_4 = 0;
@@ -395,8 +394,6 @@ int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused)
   }
   return 0;
 }
-#undef local_4
-
 #endif
 
 

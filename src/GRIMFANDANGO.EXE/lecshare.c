@@ -446,7 +446,6 @@ uint __cdecl BatchSubscribe(int *batch,char *name)
 uint __cdecl GetCatalogEntry(char *type,uint index)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   int iVar2;
   uint uVar3;
@@ -456,7 +455,7 @@ uint __cdecl GetCatalogEntry(char *type,uint index)
   uint uVar7;
   char *pcVar8;
   bool bVar9;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   uVar4 = UINT_008d56f8;
   uVar7 = 1;
@@ -545,8 +544,6 @@ LAB_004c1b0c:
     }
   } while( true );
 }
-#undef local_4
-
 
 /* ---- 0x004c1b60  GetCatalogCount ---- */
 /* Original name GetCatalogCount (the remaster's GrimFandango (Linux): aligned call in Subscribe);
@@ -555,14 +552,13 @@ LAB_004c1b0c:
 uint __cdecl GetCatalogCount(char *type)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   int iVar2;
   uint uVar3;
   uint uVar4;
   uint *puVar5;
   char *pcVar6;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   local_4 = 0;
   puVar5 = &UINT_008d56f0 + UINT_008d56f8 * 3;
@@ -597,8 +593,6 @@ LAB_004c1bc7:
     uVar4 = uVar4 - 1;
   } while( true );
 }
-#undef local_4
-
 
 /* ---- 0x004c1be0  LecShare_FindEntry ---- */
 uint * __cdecl LecShare_FindEntry(uint name)

@@ -73,12 +73,11 @@ ResType * __cdecl ResType_Find(int fourcc)
 int __cdecl res_DefaultHandler(ResMsg *msg)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int fh;
   uint n;
   void *data;
   void *buf;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   local_4 = 0;
   if (msg->nOp == 1) {
@@ -106,8 +105,6 @@ int __cdecl res_DefaultHandler(ResMsg *msg)
   }
   return local_4;
 }
-#undef local_4
-
 
 /* ---- 0x0048d8c0  sputResource_LipSyncHandler ---- */
 /* Resource type handler for 'SYNC' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports

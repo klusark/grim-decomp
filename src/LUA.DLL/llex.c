@@ -106,7 +106,6 @@ int luaX_lasttoken(void)
 uint __cdecl luaY_lex(float *value)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   uint *LS;
   double dVar2;
@@ -116,9 +115,9 @@ uint __cdecl luaY_lex(float *value)
   int *piVar6;
   longlong lVar7;
   undefined1 c;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(double *)(_frame + (0x30 - 0x10)))
-  #define local_8 (*(double *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  double local_10;
+  double local_8;
   
   LS = g_pLuaState->pLexState;
   luaL_resetbuffer();
@@ -635,10 +634,6 @@ LAB_10006241:
   uVar4 = *LS;
   goto joined_r0x100060f4;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-
 
 /* ---- 0x10006890  inclinenumber ---- */
 /* llex.c: handles the $debug / $nodebug / $if pragmas Original name inclinenumber (the remaster's

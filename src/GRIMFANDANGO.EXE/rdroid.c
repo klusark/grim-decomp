@@ -229,11 +229,10 @@ uint __cdecl rdroid_SetColormap(uint colormap)
 void __cdecl rdRaster_Startup(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   longlong lVar3;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   g_dwRdRaster_aOneOverNFlex = 0x7f7fc99e;
   _g_aRdRaster_OneOverNFixed = 0x7fffffff;
@@ -255,5 +254,3 @@ void __cdecl rdRaster_Startup(void)
   } while (iVar1 < 0x40);
   return;
 }
-#undef local_4
-
