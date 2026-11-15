@@ -3,6 +3,8 @@
  *   BASE_ASM=<tools/gen_asm.py output for 0047bc20> build/difftest/asm_p2/build.sh \
  *     build/difftest/asm_p2/angle_test.c OUT.exe stdMath_NormalizeAngle
  * (no commit's asm_funcs.s has the function: names/asm_funcs.json set to ["0047bc20"] for one gen_asm.py run).
+ * math.c is compiled with build/opt.mk's OPT_FAST (-O2 ...): pass those flags as EXTRA_CFLAGS, a test at -O0 says
+ * nothing about the build (the generated twin passes at -O0 and differs at -O2).
  * Inputs: random bit patterns, random angles, and the values a few ULPs around every multiple of 360 up to
  * +-360*4096 (where the result rounds to 360.0f and the compare decides). */
 #include <stdio.h>

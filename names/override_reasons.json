@@ -67,6 +67,7 @@
   "SaveGame_Write": "save-game trace hook (sg_trace_rec)",
   "Main_Service": "the frame-time hook of the scripted tests (g_fixedFrameMs)",
   "Math_Sqrt": "x87: FLD x; FSQRT; RET, the result stays in ST0 unrounded",
+  "stdMath_NormalizeAngle": "x87: stores the result in a float local and compares that with 360.0; math.c is built at -O2 (build/opt.mk), where the twin compares the 80-bit value (build/difftest/asm_p2/angle_test.c with those flags: 78,316 of 2,270,369 differ, the hand-written C 0; the walker is held up on stairs, autorun ch02)",
   "rdVector_Normalize3": "x87: leaves |v| unrounded in ST0 for its caller",
   "Script_SetState": "the twin passes unaff_EDI / unaff_ESI / the return address on to Script_Trans (register arguments of the dispatcher)",
   "Script_Trans": "its callers pass register arguments (the dispatcher ESI); the twin reads unaff_ registers",

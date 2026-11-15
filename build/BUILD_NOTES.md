@@ -2329,7 +2329,7 @@ D3D_FindClosestDriver picks: here "Direct3D HAL"). The default stays the softwar
   the clean room on each: overrides.c (the Lua math and error functions: Lua errors crash), overrides_asm_o2.c and
   overrides_imuse.c (boot), overrides_mixer_video.c (movies), overrides_asm_p1.c (54 tests), overrides_logic.c (212),
   overrides_asm_q3.c and overrides_cleanroom.c (12 each), overrides_big_engine_renderframe.c (2) fail. The other groups
-  pass the clean room, which does not see x87 rounding, so their twin tests decide:
+  pass the clean room, which does not see x87 rounding, so their twin tests decide (none is exact):
   - asm_p2 (math_test.c, 100,000 cases each): the twins differ as recorded (rdClip_FaceToPlane 191,390,
     rdLight_CalcVertexIntensities 120,831, rdMatrix_BuildFromVectorAngle34 32,673, rdMatrix_Build34 17,799,
     rdMatrix_BuildRotate34 17,706, rdClip_SphereInFrustrum 2,485, rdCanvas_DrawPoint 1,611); the hand-written C: 0.
@@ -2339,17 +2339,17 @@ D3D_FindClosestDriver picks: here "Direct3D HAL"). The default stays the softwar
   - rdPuppet_UpdateTracks (no test): its twin compares a track's weight after storing it as a float, the original the
     unrounded x87 value (a weight of 0.99999998 ends the fade a frame early in the twin). Script_Update and
     rdVector_Normalize3 keep their recorded reasons.
-* **Generated again:** stdMath_NormalizeAngle. Its twin now keeps the result in the `_frame` array, so it is rounded to
-  float before the compare with 360, as the original does (and the hand-written `volatile` did).
-  build/difftest/asm_p2/angle_test.c (new): the original machine code (no commit's asm_funcs.s has the function:
-  tools/gen_asm.py with names/asm_funcs.json set to ["0047bc20"] for one run gives it) against the C, on random bit
-  patterns, random angles and 33 values around every multiple of 360 up to 360 * 4096: 2,270,369 cases, 0 differences
-  for the twin at -O0 and with link.py's flags (a mutant without the 360 test: 48,620). At -O2 the twin compares the
-  80-bit value and gives 360 for 15,786 inputs, as the old comment said; the build compiles at -O0 (OPT=-O2 would need
-  the hand-written version back).
-* docs/OVERRIDES.md: 529 functions (524 + the six Direct3D ones of the window mode, which had no recorded reason and
+* **stdMath_NormalizeAngle: tried and put back.** Its twin keeps the result in the `_frame` array, and at -O0 it is
+  exact: build/difftest/asm_p2/angle_test.c (new; the original machine code, which no commit's asm_funcs.s has:
+  tools/gen_asm.py with names/asm_funcs.json set to ["0047bc20"] for one run gives it) on random bit patterns, random
+  angles and 33 values around every multiple of 360 up to 360 * 4096 gave 0 differences in 2,270,369 cases, and the
+  clean room 0 of 5490. But math.c is compiled with build/opt.mk's OPT_FAST (-O2 ...), where the twin compares the 80-bit
+  value with 360: 78,316 differences with those flags (the hand-written C: 0), and the whole-game autorun stopped in
+  ch02 with Manny held up on the stairs (the bug the hand-written version was made for). Twin tests have to use the
+  module's flags from build/opt.mk; the other twins of this round differ at -O0 already.
+* docs/OVERRIDES.md: 530 functions (524 + the six Direct3D ones of the window mode, which had no recorded reason and
   showed as `repair`: the 16-bit display emulation and the two functions whose COM calls lose their arguments, now in
-  names/override_reasons.json; - stdMath_NormalizeAngle).
+  names/override_reasons.json).
 * **Parameters** (names/params_r2_{exe,lua,imuse}.py -> .json): the costume requesters' file name (`filename`; NULL asks
   for one), SpriteRequester's five, sputLua_RestoreIndirector's saved `id`, Dlg_MakeDialogTemplate's DLGTEMPLATE fields
   (style, items, x, y, cx, cy, title, font, pointSize, outSize), text_FindNextBreak's `context`; Lua 3.1's names in

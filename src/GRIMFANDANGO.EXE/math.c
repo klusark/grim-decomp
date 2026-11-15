@@ -43,6 +43,8 @@ float __cdecl stdMath_FlexPower(float x,int n)
 
 
 /* ---- 0x0047bc20  stdMath_NormalizeAngle ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Variable defined which should be unmapped: local_1c */
 /* Original name stdMath_NormalizeAngle (the remaster's GrimFandango (Linux): same body (angle into
    0 .. 360 with floor(angle / 360))); was Math_NormalizeAngle360. */
@@ -80,6 +82,8 @@ float __cdecl stdMath_NormalizeAngle(float degrees)
 #undef local_10
 #undef local_1c
 #undef local_c
+
+#endif
 
 
 /* ---- 0x0047bce0  stdMath_NormalizeAngleAcute ---- */

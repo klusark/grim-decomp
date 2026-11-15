@@ -7,14 +7,14 @@ Every function below is built from the hand-written C of `build/overrides*.c`; `
 | Category | Count | Meaning |
 |---|---|---|
 | rasteriser | 363 | rdraster.c span fillers: the original switches the x87 control word part-way through each span (24-bit truncation), which generated C cannot express; built from macro templates and tested against the original (build/difftest/asm_q4 .. q6). Kept on purpose. |
-| documented | 79 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
+| documented | 80 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
 | hook | 10 | the build's own test and mod hooks, host-runtime handling (kept on purpose) |
 | x87 | 63 | x87-exact ports (float rounding through memory, FCOMP compares, ST0 results) the generated C does not match |
 | assembly | 14 | top-level asm(): a register convention C cannot declare |
 
-Total: 529.
+Total: 530.
 
-## GRIMFANDANGO.EXE (490)
+## GRIMFANDANGO.EXE (491)
 
 363 rasteriser span fillers of rdraster.c are not listed one by one.
 
@@ -60,6 +60,7 @@ Total: 529.
 | `stdMath_ArcSin3` | 0047c4a0 | math.c | overrides_cleanroom.c | x87 | stdMath_ArcSin3 (0x47c4a0): |
 | `stdMath_ArcTan4` | 0047c5f0 | math.c | overrides_cleanroom.c | x87 | stdMath_ArcTan4 (0x47c5f0): |
 | `stdMath_FlexPower` | 0047bbe0 | math.c | overrides_cleanroom.c | x87 | stdMath_FlexPower (0x47bbe0): |
+| `stdMath_NormalizeAngle` | 0047bc20 | math.c | overrides_exe.c | documented | x87: stores the result in a float local and compares that with 360.0; math.c is built at -O2 (build/opt.mk), where the twin compares the 80-bit value (build/difftest/asm_p2/angle_test.c with those flags: 78,316 of 2,270,369 differ, the hand-written C 0; the walker is held up on stairs, autorun ch02) |
 | `stdMath_NormalizeAngleAcute` | 0047bce0 | math.c | overrides_cleanroom.c | x87 | stdMath_NormalizeAngleAcute (0x47bce0): |
 | `stdMath_SinCos` | 0047bd20 | math.c | overrides_logic.c | x87 |  |
 | `stdMath_Tan` | 0047c120 | math.c | overrides_logic.c | x87 |  |

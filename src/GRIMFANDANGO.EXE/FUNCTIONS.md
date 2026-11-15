@@ -1047,7 +1047,7 @@
 | 004c12d0 | stdFileUtil_FindNext | stdfileutil.c | 72 |
 | 004735d0 | stdCalcBitPos | math.c | 14 |
 | 0047bbe0 | stdMath_FlexPower | math.c | 1 |
-| 0047bc20 | stdMath_NormalizeAngle | math.c | 38 |
+| 0047bc20 | stdMath_NormalizeAngle | math.c | 1 |
 | 0047bce0 | stdMath_NormalizeAngleAcute | math.c | 1 |
 | 0047bd20 | stdMath_SinCos | math.c | 1 |
 | 0047c100 | Math_Floor | math.c | 11 |
