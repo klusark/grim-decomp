@@ -482,7 +482,7 @@
 | 00406690 | rdCache_ClearFrameCounters | rdcache.c | 10 |
 | 004066a0 | rdCache_GetProcEntry | rdcache.c | 37 |
 | 00406770 | rdCache_Flush | rdcache.c | 62 |
-| 00406860 | rdCache_AddProcFace | rdcache.c | 1 |
+| 00406860 | rdCache_AddProcFace | rdcache.c | 110 |
 | 00406aa0 | rdCache_SendFaceListToHardware | rdcache.c | 1 |
 | 00407ed0 | std3D_ResetRenderList | rdcache.c | 12 |
 | 00407ef0 | rdCache_DrawRenderList | rdcache.c | 29 |
@@ -1050,7 +1050,7 @@
 | 0047bc20 | stdMath_NormalizeAngle | math.c | 1 |
 | 0047bce0 | stdMath_NormalizeAngleAcute | math.c | 1 |
 | 0047bd20 | stdMath_SinCos | math.c | 1 |
-| 0047c100 | Math_Floor | math.c | 1 |
+| 0047c100 | Math_Floor | math.c | 11 |
 | 0047c120 | stdMath_Tan | math.c | 1 |
 | 0047c3b0 | stdMath_ArcSin1 | math.c | 1 |
 | 0047c490 | Math_Sqrt | math.c | 1 |

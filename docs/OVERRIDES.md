@@ -7,14 +7,14 @@ Every function below is built from the hand-written C of `build/overrides*.c`; `
 | Category | Count | Meaning |
 |---|---|---|
 | rasteriser | 363 | rdraster.c span fillers: the original switches the x87 control word part-way through each span (24-bit truncation), which generated C cannot express; built from macro templates and tested against the original (build/difftest/asm_q4 .. q6). Kept on purpose. |
-| documented | 73 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
+| documented | 74 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
 | hook | 10 | the build's own test and mod hooks, host-runtime handling (kept on purpose) |
-| x87 | 66 | x87-exact ports (float rounding through memory, FCOMP compares, ST0 results) the generated C does not match |
+| x87 | 63 | x87-exact ports (float rounding through memory, FCOMP compares, ST0 results) the generated C does not match |
 | assembly | 14 | top-level asm(): a register convention C cannot declare |
 
-Total: 526.
+Total: 524.
 
-## GRIMFANDANGO.EXE (487)
+## GRIMFANDANGO.EXE (485)
 
 363 rasteriser span fillers of rdraster.c are not listed one by one.
 
@@ -55,7 +55,6 @@ Total: 526.
 | `sputLua_GetActorLoopingChoresL` | 0049a2a0 | lua.c | overrides_logic.c | x87 |  |
 | `sputLua_GetVisibleThingsL` | 0049b9e0 | lua.c | overrides_logic.c | documented | the original's bug cannot be copied: when the argument is neither nil nor an actor it reads an uninitialised stack slot as the viewer (on the original a leftover actor pointer, varying from run to run; in the rebuild a null pointer, which crashed, grim_tools cleanroom args_GetVisibleThings_tab); the hand-written version takes the selected actor there |
 | `sputLua_Startup` | 0049de00 | lua.c | overrides_asm_o2.c | documented | registers the build's mod API functions |
-| `Math_Floor` | 0047c100 | math.c | overrides_exe.c | documented | x87: FRNDINT under the round-down control word, which the decompiler does not see |
 | `Math_Sqrt` | 0047c490 | math.c | overrides_cleanroom.c | documented | x87: FLD x; FSQRT; RET, the result stays in ST0 unrounded |
 | `stdMath_ArcSin1` | 0047c3b0 | math.c | overrides_cleanroom.c | x87 | stdMath_ArcSin1 (0x47c3b0): |
 | `stdMath_ArcSin3` | 0047c4a0 | math.c | overrides_cleanroom.c | x87 | stdMath_ArcSin3 (0x47c4a0): |
@@ -75,11 +74,10 @@ Total: 526.
 | `DSound_GetPlayBlock` | 004d2c60 | mixer.c | overrides_mixer_drv.c | documented | GRIM_SIMTIME hook: the play cursor follows the simulated clock |
 | `Mixer_InitTables` | 004d2e80 | mixer.c | overrides_mixer.c | documented | twin test: 54 of 54 differ |
 | `ThingInstancer` | 00496950 | modelcomponent.c | overrides_asm_o2.c | documented | twin test: crashes |
-| `rdCache_AddProcFace` | 00406860 | rdcache.c | overrides_logic.c | documented | x87: the screen box is the bounds rounded UP (FLDCW round-up, FRNDINT, FLDCW back, _ftol); the decompiler's ROUND rounds to nearest (draw, shadow and lighting tests differ) |
-| `rdCache_SendFaceListToHardware` | 00406aa0 | rdcache.c | overrides_asm_q3.c | x87 |  |
+| `rdCache_SendFaceListToHardware` | 00406aa0 | rdcache.c | overrides_asm_q3.c | documented | x87; its twin does not compile: it stores the entry's material pointer into a float local (local_20) |
 | `rdCamera_BuildFOV` | 0040a280 | rdcamera.c | overrides_logic.c | x87 | Computes the projection of an rdCamera from its canvas size and the frustum planes (the record the camera points to at +0x48). |
 | `rdActive_AddActiveFace` | 00405770 | rdcanvas.c | overrides_asm_p1.c | x87 | Takes the next polygon record of the canvas (UINT_00565f38 + g_dwNumActiveFaces * 0x204, at most 0x400; |
-| `rdActive_BuildSpans` | 00404e00 | rdcanvas.c | overrides_asm_p1.c | x87 | Walks the edge crossings of one scanline from left to right and keeps the list of polygons covering the current x, front polygon first. |
+| `rdActive_BuildSpans` | 00404e00 | rdcanvas.c | overrides_asm_p1.c | documented | x87; twin test (build/difftest/asm_p1/test_canvas.c, with its FIST under the round-down word as floor): 645 of 1,000 cases differ |
 | `rdCanvas_DrawPoint` | 00451dd0 | rdcanvas.c | overrides_asm_p2.c | x87 |  |
 | `rdClip_Face3GS` | 00449aa0 | rdclip.c | overrides_asm_q2.c | x87 |  |
 | `rdClip_Face3GSOrtho` | 0044a6d0 | rdclip.c | overrides_asm_q1.c | x87 |  |
@@ -100,7 +98,7 @@ Total: 526.
 | `rdModel3_CalcVertexNormals` | 0040cc30 | rdmodel3.c | overrides_logic.c | x87 | Averages the normals of the faces that share a vertex into the mesh's vertex normal array and normalises them. |
 | `rdCache_InsertFace` | 00409d50 | rdprimit3.c | overrides_logic.c | x87 | Draws a world-space polygon with the 3D primitives: |
 | `rdPrimit3_NoClipFace` | 0040e500 | rdprimit3.c | overrides_asm_p1.c | x87 | Copies a face that needs no clipping into the output vertex pools. |
-| `rdPuppet_AdvanceTrack` | 004507e0 | rdpuppet.c | overrides_asm_q3.c | x87 |  |
+| `rdPuppet_AdvanceTrack` | 004507e0 | rdpuppet.c | overrides_asm_q3.c | documented | x87; twin test (build/difftest/asm_q3/puppet_test.c, with its FRNDINT under the round-down word as floor): 20,746 differences in 20,000 cases |
 | `rdPuppet_UpdateFrame` | 00450ba0 | rdpuppet.c | overrides_asm_q3.c | x87 |  |
 | `rdPuppet_UpdateTracks` | 00450a90 | rdpuppet.c | overrides_asm_s4.c | x87 | Advances the six tracks of a puppet by `seconds` (scaled by each track's rate at +0x10). |
 | `Render_BuildColorTable` | 004864a0 | render.c | overrides_logic.c | x87 | Builds the 65536 entry colour remap table g_wSputRender_ColorLookup for a gamma value: |

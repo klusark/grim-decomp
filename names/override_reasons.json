@@ -67,7 +67,6 @@
   "SaveGame_Write": "save-game trace hook (sg_trace_rec)",
   "Main_Service": "the frame-time hook of the scripted tests (g_fixedFrameMs)",
   "Math_Sqrt": "x87: FLD x; FSQRT; RET, the result stays in ST0 unrounded",
-  "Math_Floor": "x87: FRNDINT under the round-down control word, which the decompiler does not see",
   "stdMath_NormalizeAngle": "x87: stores the result in a float local and compares that with 360.0",
   "rdVector_Normalize3": "x87: leaves |v| unrounded in ST0 for its caller",
   "Script_SetState": "the twin passes unaff_EDI / unaff_ESI / the return address on to Script_Trans (register arguments of the dispatcher)",
@@ -79,5 +78,7 @@
   "ImSoundCall": "commands 0x11 and 0x14 read argument 15, four words beyond what any caller pushes (garbage in the original); the hand-written version takes a11, equal to every argument the two callers pass",
   "Im_MixLoopC": "the byte-swapped big-endian sample is sign-extended (MOVSX EAX,AX); the decompiler prints (int)CONCAT11(lo, hi), which C zero-extends: negative samples come out as 65536 - |x|",
   "Im_MixLoopD": "the byte-swapped big-endian sample is sign-extended (MOVSX EAX,AX); the decompiler prints (int)CONCAT11(lo, hi), which C zero-extends: negative samples come out as 65536 - |x|",
-  "rdCache_AddProcFace": "x87: the screen box is the bounds rounded UP (FLDCW round-up, FRNDINT, FLDCW back, _ftol); the decompiler's ROUND rounds to nearest (draw, shadow and lighting tests differ)"
+  "rdPuppet_AdvanceTrack": "x87; twin test (build/difftest/asm_q3/puppet_test.c, with its FRNDINT under the round-down word as floor): 20,746 differences in 20,000 cases",
+  "rdActive_BuildSpans": "x87; twin test (build/difftest/asm_p1/test_canvas.c, with its FIST under the round-down word as floor): 645 of 1,000 cases differ",
+  "rdCache_SendFaceListToHardware": "x87; its twin does not compile: it stores the entry's material pointer into a float local (local_20)"
 }

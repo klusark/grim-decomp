@@ -317,7 +317,7 @@ void __cdecl rdActive_BuildSpans(void)
             fVar7 = (*(float *)(piVar2[0x7c] + 0x10) - *(float *)(piVar2[0x7b] + 0x10)) *
                     (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9 - uVar14 >> 0x10];
             piVar2[0x61] = (int)fVar7;
-            piVar2[0x67] = (int)ROUND(fVar7 * 65536.0f);
+            piVar2[0x67] = (int)ROUND_DOWN(fVar7 * 65536.0f);
           }
           if (piVar17 == (int *)0x0) {
             piVar2[0x7f] = 0;

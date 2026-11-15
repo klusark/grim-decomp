@@ -1210,6 +1210,40 @@ def seh_strip_allowed():
 _SEH_OK = None
 
 
+# the control words stdStartup derives from the game's own (names/override_reasons.json rdCache_AddProcFace): the
+# original switches to one of them around an FRNDINT or a FIST and back to the default (0x00900524) after it
+ROUND_MODE_CW = {"0090052a": "UP", "00900526": "DOWN", "00900528": "TRUNC", "00900524": ""}
+FLDCW_RE = re.compile(r"FLDCW word ptr \[0x([0-9a-f]{8})\]")
+
+
+def fix_round_modes(body):
+    """`ROUND(x)` is FRNDINT (or FIST) under the current rounding mode, which Ghidra does not track: rint rounds to
+    nearest. When every FRNDINT / FIST of the function runs under one switched control word (in address order, between
+    its FLDCW and the FLDCW back), each ROUND becomes ROUND_UP / ROUND_DOWN / ROUND_TRUNC. A function that mixes modes,
+    or loads a control word from anywhere else, is left alone."""
+    if "ROUND(" not in body:
+        return body
+    if CUR_PROG not in _DISASM:
+        int_float_conversions(CUR_FN_ADDR)        # (loads the disassembly)
+    text = _DISASM[CUR_PROG].get(CUR_FN_ADDR) or ""
+    if isinstance(text, list):
+        text = "\n".join(text)
+    if "FLDCW" not in text:
+        return body
+    mode, seen = "", set()
+    for ln in text.split("\n"):
+        if "FLDCW" in ln:
+            m = FLDCW_RE.search(ln)
+            if not m or m.group(1) not in ROUND_MODE_CW:
+                return body
+            mode = ROUND_MODE_CW[m.group(1)]
+        elif re.search(r"\b(FRNDINT|FISTP?|FISTTP)\b", ln):
+            seen.add(mode)
+    if len(seen) != 1 or "" in seen:
+        return body
+    return re.sub(r"\bROUND\(", "ROUND_%s(" % seen.pop(), body)
+
+
 def fix_ftol(body, seh=True):
     if seh and seh_strip_allowed():
         body = strip_seh_frames(body)
@@ -1404,6 +1438,7 @@ def fix_function(code, ctx, stats):
                     vt[n] = t
     vt.update(local_types(body))
     body = fix_ftol(body)
+    body = fix_round_modes(body)
     body = fix_float_literals(body)
     body = fix_pieces(body)
     body = fix_double_pieces(body)
@@ -2352,6 +2387,11 @@ typedef int code();
 
 /* x87 / Ghidra pseudo-ops */
 #define ROUND(x)   ((float10)__builtin_rintl((float10)(x)))   /* FRNDINT */
+/* FRNDINT / FIST under a switched control word (tools/build_src.py fix_round_modes: the original loads the round-up,
+ * round-down or truncate word of stdStartup around them) */
+#define ROUND_UP(x)    ((float10)__builtin_ceill((float10)(x)))
+#define ROUND_DOWN(x)  ((float10)__builtin_floorl((float10)(x)))
+#define ROUND_TRUNC(x) ((float10)__builtin_truncl((float10)(x)))
 #define ABS(x)     (((x) < 0) ? -(x) : (x))
 #define SQRT(x)    ((float10)__builtin_sqrtl((float10)(x)))   /* FSQRT */
 #define FTOL(x)    ((long long)(x))                /* x87 _ftol: truncate toward zero (the value Ghidra loses in ST0) */

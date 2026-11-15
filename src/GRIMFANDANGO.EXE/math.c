@@ -236,8 +236,6 @@ void __cdecl stdMath_SinCos(float deg,float *outSin,float *outCos)
 
 
 /* ---- 0x0047c100  Math_Floor ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* floor(x) as a float: FRNDINT under the floor control word DAT_00900526 (Services_SetCurrent sets
    0x077f), then back to the default word. Called Math_Round before; the decompiler prints a plain
    ROUND() because it does not see FLDCW. */
@@ -247,10 +245,8 @@ float __cdecl Math_Floor(float x)
 {
   uint local_8;
   
-  return ROUND(x);
+  return ROUND_DOWN(x);
 }
-#endif
-
 
 /* ---- 0x0047c120  stdMath_Tan ---- */
 /* replaced by the hand-written version in build/overrides.c */
