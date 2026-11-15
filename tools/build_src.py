@@ -1437,9 +1437,11 @@ NEG_STACK_RE = re.compile(r"(&?)STACK0X\((0xffff[0-9a-f]{4})\)")
 def float_frame_locals(body):
     """Frame-array locals Ghidra left as undefined4 but the code uses as float
     (assigned a number-returning call, compared with a float literal, pushed as a number)."""
+    def uses_float(n):
+        return re.search(r"\b%s\s*=\s*(?:luaL_\w*number|lua_getnumber)\(|\b%s\s*[<>]=?\s*-?\d+\.\d+|lua_pushnumber\(%s\)" % (n, n, n), body)
     for m in re.finditer(r"#define (\w+) \(\*\(undefined4 \*\)\(_frame", body):
         n = m.group(1)
-        if re.search(r"%s\s*=\s*(?:luaL_\w*number|lua_getnumber)\(|%s\s*[<>]=?\s*-?\d+\.\d+|lua_pushnumber\(%s\)" % (n, n, n), body):
+        if uses_float(n):
             body = body.replace("#define %s (*(undefined4 *)" % n, "#define %s (*(float *)" % n, 1)
     return body
 
@@ -1980,7 +1982,7 @@ def build(prog):
                 pp = parse_params(sig)
                 if pp and pp[1] not in ctx.protos:
                     ctx.protos[pp[1]] = (pp[0], pp[2], pp[3])
-                    ccm = re.search(r"(__thiscall|__fastcall|__stdcall)", sig.split('(')[0])
+                    ccm = re.search(r"\b(__thiscall|__fastcall|__stdcall)\b", sig.split('(')[0])
                     if ccm:
                         ctx.cc[pp[1]] = ccm.group(1)
                     for t, _ in pp[2]:

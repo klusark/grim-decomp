@@ -16,7 +16,6 @@
 void __cdecl rdAFRaster_CalcAffineGradients(float *rec,int mode)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   float *pfVar2;
   float *pfVar3;
@@ -39,15 +38,15 @@ void __cdecl rdAFRaster_CalcAffineGradients(float *rec,int mode)
   float *pfVar20;
   float *pfVar21;
   longlong lVar22;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   fVar5 = *rec;
   iVar19 = *(int *)(PUN(int,(float)fVar5) + 0x1c);
@@ -234,16 +233,6 @@ LAB_0040ec61:
   rec[0x69] = 4.59163e-41f;
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -679,7 +668,6 @@ void __cdecl rdRaster_EdgeStepFlat(int edge)
 uint __cdecl rdAFRaster_SetupEdgeNGonLW(uint *edge,int *r,int i0,int i1)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   float fVar3;
@@ -690,10 +678,10 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLW(uint *edge,int *r,int i0,int i1)
   int iVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar7 = edge;
   iVar4 = *r;
@@ -754,11 +742,6 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLW(uint *edge,int *r,int i0,int i1)
   puVar7[4] = (uint)(PUN(float,local_8) * fVar3 + PUN(float,r[i0 + 1]));
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -893,7 +876,6 @@ void __cdecl rdAFRaster_DrawNGonLS(int *poly)
 uint __cdecl rdAFRaster_SetupEdgeNGonLS(uint *edge,int *r,int i0,int i1)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   float fVar3;
@@ -904,10 +886,10 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLS(uint *edge,int *r,int i0,int i1)
   int iVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar7 = edge;
   iVar4 = *r;
@@ -968,11 +950,6 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLS(uint *edge,int *r,int i0,int i1)
   puVar7[4] = (uint)(PUN(float,local_8) * fVar3 + PUN(float,r[i0 + 1]));
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -1084,7 +1061,6 @@ void __cdecl rdAFRaster_DrawNGonFS(int poly)
 uint __cdecl rdAFRaster_SetupEdgeNGonFS(uint *edge,int *r,int i0,int i1)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   float fVar3;
@@ -1095,10 +1071,10 @@ uint __cdecl rdAFRaster_SetupEdgeNGonFS(uint *edge,int *r,int i0,int i1)
   int iVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar7 = edge;
   iVar4 = *r;
@@ -1159,11 +1135,6 @@ uint __cdecl rdAFRaster_SetupEdgeNGonFS(uint *edge,int *r,int i0,int i1)
   puVar7[4] = (uint)(PUN(float,local_8) * fVar3 + PUN(float,r[i0 + 1]));
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -1323,7 +1294,6 @@ void __cdecl rdRaster_EdgeStepLight(int edge)
 uint __cdecl rdAFRaster_SetupEdgeNGonGS(uint *edge,int *r,int i0,int i1)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   uint uVar2;
   uint uVar3;
@@ -1334,10 +1304,10 @@ uint __cdecl rdAFRaster_SetupEdgeNGonGS(uint *edge,int *r,int i0,int i1)
   uint uVar8;
   int iVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   iVar4 = *r;
   iVar10 = i0 * 0xc;
@@ -1404,11 +1374,6 @@ uint __cdecl rdAFRaster_SetupEdgeNGonGS(uint *edge,int *r,int i0,int i1)
   edge[4] = (uint)(fVar6 * fVar5 + PUN(float,r[i1 + 1]));
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -1555,7 +1520,6 @@ void __cdecl rdAFRaster_DrawNGonLAT(int poly)
 uint __cdecl rdAFRaster_SetupEdgeNGonLAT(uint *edge,int *r,int i0,int i1)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   uint uVar2;
   uint uVar3;
@@ -1566,10 +1530,10 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLAT(uint *edge,int *r,int i0,int i1)
   uint uVar8;
   int iVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   iVar4 = *r;
   iVar10 = i0 * 0xc;
@@ -1647,11 +1611,6 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLAT(uint *edge,int *r,int i0,int i1)
   edge[4] = (uint)(fVar6 * fVar5 + PUN(float,r[i1 + 1]));
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -1739,7 +1698,6 @@ void __cdecl rdAFRaster_DrawNGonMLAT(int poly)
 void __cdecl rdAFRaster_DrawSpanNGonMLAT_8(int *node)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   uint uVar2;
   int iVar3;
@@ -1752,13 +1710,13 @@ void __cdecl rdAFRaster_DrawSpanNGonMLAT_8(int *node)
   int iVar10;
   int iVar11;
   uint uVar12;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = g_dwRdAFRaster_dOneOverZdXFixed;
   uVar2 = g_pRdCamera_CurCamera->pCanvas->dwExtra;
@@ -1790,14 +1748,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMLAT_8(int *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -1812,7 +1762,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMLAT_8(int *node)
 void __cdecl rdAFRaster_DrawSpanNGonMLAT_16(int *node)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   uint uVar2;
   int iVar3;
@@ -1825,13 +1774,13 @@ void __cdecl rdAFRaster_DrawSpanNGonMLAT_16(int *node)
   uint uVar10;
   undefined2 *puVar11;
   int iVar12;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = g_dwRdAFRaster_dOneOverZdXFixed;
   uVar2 = g_pRdCamera_CurCamera->pCanvas->dwExtra;
@@ -1865,14 +1814,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMLAT_16(int *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -2038,7 +1979,6 @@ void __cdecl rdRaster_EdgeStepTex(int edge)
 uint __cdecl rdAFRaster_SetupEdgeNGonFAT(uint *edge,int *r,int i0,int i1)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   uint uVar2;
   uint uVar3;
@@ -2049,10 +1989,10 @@ uint __cdecl rdAFRaster_SetupEdgeNGonFAT(uint *edge,int *r,int i0,int i1)
   uint uVar8;
   int iVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   iVar4 = *r;
   iVar10 = i0 * 0xc;
@@ -2130,11 +2070,6 @@ uint __cdecl rdAFRaster_SetupEdgeNGonFAT(uint *edge,int *r,int i0,int i1)
   edge[4] = (uint)(fVar6 * fVar5 + PUN(float,r[i1 + 1]));
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -2229,7 +2164,6 @@ void __cdecl rdAFRaster_DrawNGonMFAT(int poly)
 void __cdecl rdAFRaster_DrawSpanNGonMFAT_8(int *node)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   uint uVar2;
   int iVar3;
@@ -2242,13 +2176,13 @@ void __cdecl rdAFRaster_DrawSpanNGonMFAT_8(int *node)
   int iVar10;
   int iVar11;
   uint uVar12;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = g_dwRdAFRaster_dOneOverZdXFixed;
   uVar2 = g_pRdCamera_CurCamera->pCanvas->dwExtra;
@@ -2281,14 +2215,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMFAT_8(int *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -2303,7 +2229,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMFAT_8(int *node)
 void __cdecl rdAFRaster_DrawSpanNGonMFAT_16(int *node)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   uint uVar2;
   int iVar3;
@@ -2316,13 +2241,13 @@ void __cdecl rdAFRaster_DrawSpanNGonMFAT_16(int *node)
   uint uVar10;
   undefined2 *puVar11;
   int iVar12;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = g_dwRdAFRaster_dOneOverZdXFixed;
   uVar2 = g_pRdCamera_CurCamera->pCanvas->dwExtra;
@@ -2356,14 +2281,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMFAT_16(int *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -2532,7 +2449,6 @@ void __cdecl rdRaster_EdgeStepTexLight(int edge)
 uint __cdecl rdAFRaster_SetupEdgeNGonGAT(uint *edge,int *r,int i0,int i1)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   uint uVar2;
   uint uVar3;
@@ -2544,11 +2460,11 @@ uint __cdecl rdAFRaster_SetupEdgeNGonGAT(uint *edge,int *r,int i0,int i1)
   int iVar9;
   uint uVar10;
   int iVar11;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   iVar4 = *r;
   iVar11 = i0 * 0xc;
@@ -2635,12 +2551,6 @@ uint __cdecl rdAFRaster_SetupEdgeNGonGAT(uint *edge,int *r,int i0,int i1)
   edge[4] = (uint)(fVar7 * fVar6 + PUN(float,r[i1 + 1]));
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -2737,7 +2647,6 @@ void __cdecl rdAFRaster_DrawNGonMGAT(int poly)
 void __cdecl rdAFRaster_DrawSpanNGonMGAT_8(int *node)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   uint uVar2;
   int iVar3;
@@ -2752,15 +2661,15 @@ void __cdecl rdAFRaster_DrawSpanNGonMGAT_8(int *node)
   int iVar12;
   int iVar13;
   uint uVar14;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdAFRaster_dOneOverZdXFixed;
   uVar2 = g_pRdCamera_CurCamera->pCanvas->dwExtra;
@@ -2796,16 +2705,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMGAT_8(int *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -2820,7 +2719,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMGAT_8(int *node)
 void __cdecl rdAFRaster_DrawSpanNGonMGAT_16(int *node)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   uint uVar2;
   int iVar3;
@@ -2835,15 +2733,15 @@ void __cdecl rdAFRaster_DrawSpanNGonMGAT_16(int *node)
   uint uVar12;
   undefined2 *puVar13;
   int iVar14;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = g_dwRdAFRaster_dOneOverZdXFixed;
   uVar2 = g_pRdCamera_CurCamera->pCanvas->dwExtra;
@@ -2881,16 +2779,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMGAT_16(int *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -3045,7 +2933,6 @@ void __cdecl rdAFRaster_DrawNGonLIT(int poly)
 uint __cdecl rdAFRaster_SetupEdgeNGonLIT(uint *edge,int *r,int i0,int i1)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   uint *puVar3;
@@ -3058,9 +2945,9 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLIT(uint *edge,int *r,int i0,int i1)
   int iVar10;
   uint uVar11;
   int iVar12;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar9 = edge;
   iVar5 = *r;
@@ -3120,10 +3007,6 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLIT(uint *edge,int *r,int i0,int i1)
                         65536.0f);
   return 1;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -3222,7 +3105,6 @@ void __cdecl rdAFRaster_DrawNGonMLIT(int poly)
 void __cdecl rdAFRaster_DrawSpanNGonMLIT_8(uint *node)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   float fVar2;
   float fVar3;
@@ -3240,26 +3122,26 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_8(uint *node)
   int iVar15;
   uint *puVar16;
   char *pcVar17;
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdAFRaster_dOneOverZdXFixed;
   if ((*node & 0xf) == 0) {
@@ -3424,27 +3306,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_8(uint *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -3460,7 +3321,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_8(uint *node)
 void __cdecl rdAFRaster_DrawSpanNGonMLIT_16(uint *node)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   VBuffer *pVVar3;
@@ -3477,26 +3337,26 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_16(uint *node)
   int iVar14;
   uint *puVar15;
   undefined2 *puVar16;
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdAFRaster_dOneOverZdXFixed;
   if ((*node & 0xf) == 0) {
@@ -3665,27 +3525,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_16(uint *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -3873,7 +3712,6 @@ void __cdecl rdAFRaster_AdvanceRightEdgeNGonIT(int edge)
 uint __cdecl rdAFRaster_SetupEdgeNGonFIT(uint *edge,int *r,int i0,int i1)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   uint *puVar3;
@@ -3886,9 +3724,9 @@ uint __cdecl rdAFRaster_SetupEdgeNGonFIT(uint *edge,int *r,int i0,int i1)
   int iVar10;
   uint uVar11;
   int iVar12;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar9 = edge;
   iVar5 = *r;
@@ -3948,10 +3786,6 @@ uint __cdecl rdAFRaster_SetupEdgeNGonFIT(uint *edge,int *r,int i0,int i1)
                         65536.0f);
   return 1;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -4056,7 +3890,6 @@ void __cdecl rdAFRaster_DrawNGonMFIT(int poly)
 void __cdecl rdAFRaster_DrawSpanNGonMFIT_8(uint *node)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   VBuffer *pVVar3;
@@ -4073,26 +3906,26 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_8(uint *node)
   int iVar14;
   uint *puVar15;
   undefined1 *puVar16;
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdAFRaster_dOneOverZdXFixed;
   if ((*node & 0xf) == 0) {
@@ -4260,27 +4093,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_8(uint *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -4296,7 +4108,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_8(uint *node)
 void __cdecl rdAFRaster_DrawSpanNGonMFIT_16(uint *node)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   VBuffer *pVVar3;
@@ -4313,26 +4124,26 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_16(uint *node)
   int iVar14;
   uint *puVar15;
   undefined2 *puVar16;
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdAFRaster_dOneOverZdXFixed;
   if ((*node & 0xf) == 0) {
@@ -4501,27 +4312,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_16(uint *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -4713,7 +4503,6 @@ void __cdecl rdAFRaster_AdvanceRightEdgeNGonGIT(int edge)
 uint __cdecl rdAFRaster_SetupEdgeNGonGIT(uint *edge,int *r,int i0,int i1)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   int iVar3;
@@ -4723,10 +4512,10 @@ uint __cdecl rdAFRaster_SetupEdgeNGonGIT(uint *edge,int *r,int i0,int i1)
   uint uVar7;
   int iVar8;
   int iVar9;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   iVar3 = *r;
   iVar9 = i0 * 0xc;
@@ -4794,11 +4583,6 @@ uint __cdecl rdAFRaster_SetupEdgeNGonGIT(uint *edge,int *r,int i0,int i1)
   edge[0x10] = (int)ROUND((fVar4 * fVar5 + *(float *)(*(int *)(iVar3 + 0x28) + i1 * 4)) * 65536.0f);
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -4903,7 +4687,6 @@ void __cdecl rdAFRaster_DrawNGonMGIT(int poly)
 void __cdecl rdAFRaster_DrawSpanNGonMGIT_8(uint *node)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   VBuffer *pVVar3;
@@ -4920,28 +4703,28 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_8(uint *node)
   int iVar14;
   uint *puVar15;
   undefined1 *puVar16;
-  #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_5c;
+  uint local_58;
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdAFRaster_dOneOverZdXFixed;
   if ((*node & 0xf) == 0) {
@@ -5117,29 +4900,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_8(uint *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_5c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -5155,7 +4915,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_8(uint *node)
 void __cdecl rdAFRaster_DrawSpanNGonMGIT_16(uint *node)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   VBuffer *pVVar3;
@@ -5172,28 +4931,28 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_16(uint *node)
   int iVar14;
   uint *puVar15;
   undefined2 *puVar16;
-  #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_5c;
+  uint local_58;
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdAFRaster_dOneOverZdXFixed;
   if ((*node & 0xf) == 0) {
@@ -5373,29 +5132,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_16(uint *node)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_5c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -5411,7 +5147,6 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_16(uint *node)
 void __cdecl rdNRaster_CalcAffineGradients(float dbits)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   float *pfVar2;
   float *pfVar3;
@@ -5431,15 +5166,15 @@ void __cdecl rdNRaster_CalcAffineGradients(float dbits)
   float fVar17;
   uint uVar18;
   longlong lVar19;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   pfVar1 = g_pRdNRaster_aVertices;
   iVar15 = g_nRdNRaster_yMinVert;
@@ -5604,16 +5339,6 @@ LAB_0041894c:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -5629,7 +5354,6 @@ LAB_0041894c:
 void __cdecl rdNRaster_CalcPerspGradients(float dbits)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   float fVar2;
   float fVar3;
@@ -5646,16 +5370,16 @@ void __cdecl rdNRaster_CalcPerspGradients(float dbits)
   uint uVar14;
   float *pfVar15;
   longlong lVar16;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   pfVar6 = g_pRdNRaster_aVertices;
   iVar11 = g_nRdNRaster_yMinVert;
@@ -5863,17 +5587,6 @@ LAB_00418ede:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -5887,13 +5600,12 @@ LAB_00418ede:
 void __cdecl rdNRaster_DrawNGonLV(int poly,int mat)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   VBuffer *pVVar2;
   int iVar3;
   int iVar4;
   int iVar5;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_8;
   
   g_pRdNRaster_aVertices = *(float **)(poly + 0x20);
   iVar5 = (g_pRdCamera_CurCamera->pCanvas->pVBuffer->format).colorFormat.nBpp;
@@ -5941,8 +5653,6 @@ void __cdecl rdNRaster_DrawNGonLV(int poly,int mat)
   }
   return;
 }
-#undef local_8
-
 #endif
 
 
@@ -5956,7 +5666,6 @@ void __cdecl rdNRaster_DrawNGonLV(int poly,int mat)
 void __cdecl rdNRaster_DrawNGonLW(int poly,int mat)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -5964,12 +5673,12 @@ void __cdecl rdNRaster_DrawNGonLW(int poly,int mat)
   int iVar5;
   int iVar6;
   ushort color;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   g_pRdNRaster_aVertices = *(float **)(poly + 0x20);
   iVar6 = (g_pRdCamera_CurCamera->pCanvas->pVBuffer->format).colorFormat.nBpp;
@@ -6027,13 +5736,6 @@ void __cdecl rdNRaster_DrawNGonLW(int poly,int mat)
                     (int)ROUND(fVar2),(int)ROUND(fVar1),color,0xffffffff);
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -6185,7 +5887,6 @@ void __cdecl rdNRaster_DrawScanLineNGonLS_16(uint *left,uint *right)
 uint __cdecl rdNRaster_SetupLeftEdgeNGonLS(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -6193,11 +5894,11 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonLS(int *e)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -6234,12 +5935,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonLS(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -6254,7 +5949,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonLS(int *e)
 uint __cdecl rdNRaster_SetupRightEdgeNGonLS(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -6262,11 +5956,11 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonLS(int *e)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -6303,12 +5997,6 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonLS(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -6652,7 +6340,6 @@ void __cdecl rdNRaster_DrawScanLineNGonFS_16(uint *left,uint *right)
 uint __cdecl rdNRaster_SetupLeftEdgeNGonFS(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -6660,11 +6347,11 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonFS(int *e)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -6701,12 +6388,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonFS(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -6722,7 +6403,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonFS(int *e)
 uint __cdecl rdNRaster_SetupRightEdgeNGonFS(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -6730,11 +6410,11 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonFS(int *e)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -6771,12 +6451,6 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonFS(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -7089,7 +6763,6 @@ void __cdecl rdNRaster_DrawNGonGS(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonGS_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   uint uVar3;
@@ -7098,8 +6771,8 @@ void __cdecl rdNRaster_DrawScanLineNGonGS_8(uint *left,uint *right)
   uint uVar6;
   int iVar7;
   uint uVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar3 = uVar8;
@@ -7134,9 +6807,6 @@ void __cdecl rdNRaster_DrawScanLineNGonGS_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -7152,7 +6822,6 @@ void __cdecl rdNRaster_DrawScanLineNGonGS_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonGS_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   uint uVar3;
@@ -7160,8 +6829,8 @@ void __cdecl rdNRaster_DrawScanLineNGonGS_16(uint *left,uint *right)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar7 = *left;
   uVar3 = uVar7;
@@ -7198,9 +6867,6 @@ void __cdecl rdNRaster_DrawScanLineNGonGS_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -7216,18 +6882,17 @@ void __cdecl rdNRaster_DrawScanLineNGonGS_16(uint *left,uint *right)
 uint __cdecl rdNRaster_SetupLeftEdgeNGonGS(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -7270,12 +6935,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonGS(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -7291,17 +6950,16 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonGS(int *e)
 uint __cdecl rdNRaster_SetupRightEdgeNGonGS(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -7344,11 +7002,6 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonGS(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -7476,7 +7129,6 @@ void __cdecl rdNRaster_DrawNGonTGS(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonTGS_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   uint uVar3;
@@ -7485,8 +7137,8 @@ void __cdecl rdNRaster_DrawScanLineNGonTGS_8(uint *left,uint *right)
   uint uVar6;
   uint *puVar7;
   uint uVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar3 = uVar8;
@@ -7524,9 +7176,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTGS_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -7542,7 +7191,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTGS_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonTGS_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   uint uVar3;
@@ -7550,8 +7198,8 @@ void __cdecl rdNRaster_DrawScanLineNGonTGS_16(uint *left,uint *right)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar7 = *left;
   uVar3 = uVar7;
@@ -7592,9 +7240,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTGS_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -7764,7 +7409,6 @@ void __cdecl rdNRaster_DrawNGonLAT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonLAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -7773,8 +7417,8 @@ void __cdecl rdNRaster_DrawScanLineNGonLAT_8(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -7818,9 +7462,6 @@ void __cdecl rdNRaster_DrawScanLineNGonLAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -7836,7 +7477,6 @@ void __cdecl rdNRaster_DrawScanLineNGonLAT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonLAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -7845,8 +7485,8 @@ void __cdecl rdNRaster_DrawScanLineNGonLAT_16(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -7894,9 +7534,6 @@ void __cdecl rdNRaster_DrawScanLineNGonLAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -7912,18 +7549,17 @@ void __cdecl rdNRaster_DrawScanLineNGonLAT_16(uint *left,uint *right)
 uint __cdecl rdNRaster_SetupLeftEdgeNGonLAT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -7973,12 +7609,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonLAT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -7994,18 +7624,17 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonLAT(int *e)
 uint __cdecl rdNRaster_SetupRightEdgeNGonLAT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -8055,12 +7684,6 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonLAT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -8201,7 +7824,6 @@ void __cdecl rdNRaster_DrawNGonTLAT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonTLAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -8210,8 +7832,8 @@ void __cdecl rdNRaster_DrawScanLineNGonTLAT_8(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -8257,9 +7879,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTLAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -8275,7 +7894,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTLAT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonTLAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -8284,8 +7902,8 @@ void __cdecl rdNRaster_DrawScanLineNGonTLAT_16(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -8336,9 +7954,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTLAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -8477,7 +8092,6 @@ void __cdecl rdNRaster_DrawNGonMLAT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonMLAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -8486,8 +8100,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMLAT_8(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -8534,9 +8148,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMLAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -8552,7 +8163,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMLAT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMLAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -8561,8 +8171,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMLAT_16(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -8611,9 +8221,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMLAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -8754,7 +8361,6 @@ void __cdecl rdNRaster_DrawNGonMTLAT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonMTLAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -8763,8 +8369,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLAT_8(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -8811,9 +8417,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -8829,7 +8432,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLAT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMTLAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -8838,8 +8440,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLAT_16(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -8892,9 +8494,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -9062,7 +8661,6 @@ void __cdecl rdNRaster_DrawNGonFAT(int poly,int mat,float light)
 void __cdecl rdNRaster_DrawScanLineNGonFAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -9071,8 +8669,8 @@ void __cdecl rdNRaster_DrawScanLineNGonFAT_16(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -9120,9 +8718,6 @@ void __cdecl rdNRaster_DrawScanLineNGonFAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -9138,18 +8733,17 @@ void __cdecl rdNRaster_DrawScanLineNGonFAT_16(uint *left,uint *right)
 uint __cdecl rdNRaster_SetupLeftEdgeNGonFAT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -9199,12 +8793,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonFAT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -9220,18 +8808,17 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonFAT(int *e)
 uint __cdecl rdNRaster_SetupRightEdgeNGonFAT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -9281,12 +8868,6 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonFAT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -9430,7 +9011,6 @@ void __cdecl rdNRaster_DrawNGonTFAT(int poly,int mat,float light)
 void __cdecl rdNRaster_DrawScanLineNGonTFAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -9439,8 +9019,8 @@ void __cdecl rdNRaster_DrawScanLineNGonTFAT_8(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -9487,9 +9067,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTFAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -9505,7 +9082,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTFAT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonTFAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -9514,8 +9090,8 @@ void __cdecl rdNRaster_DrawScanLineNGonTFAT_16(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -9570,9 +9146,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTFAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -9714,7 +9287,6 @@ void __cdecl rdNRaster_DrawNGonMFAT(int poly,int mat,float light)
 void __cdecl rdNRaster_DrawScanLineNGonMFAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -9723,8 +9295,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMFAT_8(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -9772,9 +9344,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMFAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -9790,7 +9359,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMFAT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMFAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -9799,8 +9367,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMFAT_16(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -9849,9 +9417,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMFAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -9995,7 +9560,6 @@ void __cdecl rdNRaster_DrawNGonMTFAT(int poly,int mat,float light)
 void __cdecl rdNRaster_DrawScanLineNGonMTFAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -10004,8 +9568,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFAT_8(uint *left,uint *right)
   byte bVar6;
   uint uVar7;
   int iVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -10054,9 +9618,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -10072,7 +9633,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFAT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMTFAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -10082,8 +9642,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFAT_16(uint *left,uint *right)
   byte bVar7;
   uint uVar8;
   int iVar9;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -10138,9 +9698,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -10319,7 +9876,6 @@ void __cdecl rdNRaster_DrawNGonGAT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonGAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -10331,9 +9887,9 @@ void __cdecl rdNRaster_DrawScanLineNGonGAT_16(uint *left,uint *right)
   byte bVar9;
   uint uVar10;
   int iVar11;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar6 = uVar8;
@@ -10390,10 +9946,6 @@ void __cdecl rdNRaster_DrawScanLineNGonGAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -10409,18 +9961,17 @@ void __cdecl rdNRaster_DrawScanLineNGonGAT_16(uint *left,uint *right)
 uint __cdecl rdNRaster_SetupLeftEdgeNGonGAT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   uint uVar5;
   int iVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar4 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -10475,12 +10026,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonGAT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -10496,18 +10041,17 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonGAT(int *e)
 uint __cdecl rdNRaster_SetupRightEdgeNGonGAT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   uint uVar5;
   int iVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar4 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -10562,12 +10106,6 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonGAT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -10722,7 +10260,6 @@ void __cdecl rdNRaster_DrawNGonTGAT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonTGAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -10734,9 +10271,9 @@ void __cdecl rdNRaster_DrawScanLineNGonTGAT_8(uint *left,uint *right)
   byte bVar9;
   uint uVar10;
   int iVar11;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar6 = uVar8;
@@ -10793,10 +10330,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTGAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -10816,7 +10349,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTGAT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonTGAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -10828,9 +10360,9 @@ void __cdecl rdNRaster_DrawScanLineNGonTGAT_16(uint *left,uint *right)
   byte bVar9;
   uint uVar10;
   int iVar11;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar6 = uVar8;
@@ -10891,10 +10423,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTGAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -11047,7 +10575,6 @@ void __cdecl rdNRaster_DrawNGonMGAT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonMGAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -11059,8 +10586,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMGAT_8(uint *left,uint *right)
   byte bVar9;
   uint uVar10;
   int iVar11;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar6 = uVar8;
@@ -11117,9 +10644,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMGAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -11135,7 +10659,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMGAT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMGAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -11147,8 +10670,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMGAT_16(uint *left,uint *right)
   byte bVar9;
   uint uVar10;
   int iVar11;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar6 = uVar8;
@@ -11208,9 +10731,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMGAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -11365,7 +10885,6 @@ void __cdecl rdNRaster_DrawNGonMTGAT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonMTGAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -11377,8 +10896,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGAT_8(uint *left,uint *right)
   byte bVar9;
   uint uVar10;
   int iVar11;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar6 = uVar8;
@@ -11438,9 +10957,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -11456,7 +10972,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGAT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMTGAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -11468,8 +10983,8 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGAT_16(uint *left,uint *right)
   byte bVar9;
   uint uVar10;
   int iVar11;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar6 = uVar8;
@@ -11533,9 +11048,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -11699,7 +11211,6 @@ void __cdecl rdNRaster_DrawNGonLIT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -11715,20 +11226,20 @@ void __cdecl rdNRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
   uint uVar13;
   uint *puVar14;
   uint *puVar15;
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar13 = *left;
   if ((uVar13 & 0xffff) != 0) {
@@ -11898,21 +11409,6 @@ void __cdecl rdNRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -11929,18 +11425,17 @@ void __cdecl rdNRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
 uint __cdecl rdNRaster_SetupLeftEdgeNGonLIT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -11989,12 +11484,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonLIT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -12010,7 +11499,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonLIT(int *e)
 uint __cdecl rdNRaster_SetupRightEdgeNGonLIT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -12018,11 +11506,11 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonLIT(int *e)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -12059,12 +11547,6 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonLIT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -12204,7 +11686,6 @@ void __cdecl rdNRaster_DrawNGonTLIT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -12221,21 +11702,21 @@ void __cdecl rdNRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
   uint *puVar14;
   uint uVar15;
   uint *puVar16;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar13 = *left;
   if ((uVar13 & 0xffff) != 0) {
@@ -12404,22 +11885,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -12435,7 +11900,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -12451,21 +11915,21 @@ void __cdecl rdNRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
   uint uVar13;
   uint *puVar14;
   uint *puVar15;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar11 = *left;
   if ((uVar11 & 0xffff) != 0) {
@@ -12642,22 +12106,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -12795,7 +12243,6 @@ void __cdecl rdNRaster_DrawNGonMLIT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   char cVar2;
   VBuffer *pVVar3;
@@ -12813,21 +12260,21 @@ void __cdecl rdNRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
   uint *puVar15;
   uint uVar16;
   char *pcVar17;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar16 = *left;
   if ((uVar16 & 0xffff) != 0) {
@@ -12991,22 +12438,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -13022,7 +12453,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -13039,20 +12469,20 @@ void __cdecl rdNRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
   uint *puVar14;
   uint uVar15;
   uint *puVar16;
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar11 = *left;
   if ((uVar11 & 0xffff) != 0) {
@@ -13223,21 +12653,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -13377,7 +12792,6 @@ void __cdecl rdNRaster_DrawNGonMTLIT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -13393,21 +12807,21 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
   uint uVar13;
   uint *puVar14;
   byte *pbVar15;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar13 = *left;
   if ((uVar13 & 0xffff) != 0) {
@@ -13574,22 +12988,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -13605,7 +13003,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -13622,20 +13019,20 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
   uint *puVar14;
   uint uVar15;
   uint *puVar16;
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar11 = *left;
   if ((uVar11 & 0xffff) != 0) {
@@ -13821,21 +13218,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -14002,7 +13384,6 @@ void __cdecl rdNRaster_DrawNGonFIT(int poly,int mat,float light)
 void __cdecl rdNRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   float fVar2;
   float fVar3;
@@ -14018,20 +13399,20 @@ void __cdecl rdNRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
   uint uVar13;
   uint *puVar14;
   uint *puVar15;
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar13 = *left;
   if ((uVar13 & 0xffff) != 0) {
@@ -14203,21 +13584,6 @@ void __cdecl rdNRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -14234,18 +13600,17 @@ void __cdecl rdNRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
 uint __cdecl rdNRaster_SetupLeftEdgeNGonFIT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -14294,12 +13659,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonFIT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -14315,7 +13674,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonFIT(int *e)
 uint __cdecl rdNRaster_SetupRightEdgeNGonFIT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -14323,11 +13681,11 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonFIT(int *e)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -14364,12 +13722,6 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonFIT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -14512,7 +13864,6 @@ void __cdecl rdNRaster_DrawNGonTFIT(int poly,int mat,float light)
 void __cdecl rdNRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   float fVar2;
   float fVar3;
@@ -14529,21 +13880,21 @@ void __cdecl rdNRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
   uint *puVar14;
   uint uVar15;
   uint *puVar16;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar13 = *left;
   if ((uVar13 & 0xffff) != 0) {
@@ -14720,22 +14071,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -14751,7 +14086,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   float fVar2;
   float fVar3;
@@ -14767,21 +14101,21 @@ void __cdecl rdNRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
   uint uVar13;
   uint *puVar14;
   uint *puVar15;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar11 = *left;
   if ((uVar11 & 0xffff) != 0) {
@@ -14972,22 +14306,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -15128,7 +14446,6 @@ void __cdecl rdNRaster_DrawNGonMFIT(int poly,int mat,float light)
 void __cdecl rdNRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   float fVar2;
   float fVar3;
@@ -15144,21 +14461,21 @@ void __cdecl rdNRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
   uint uVar13;
   uint *puVar14;
   undefined1 *puVar15;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar13 = *left;
   if ((uVar13 & 0xffff) != 0) {
@@ -15327,22 +14644,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -15358,7 +14659,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   float fVar2;
   float fVar3;
@@ -15375,20 +14675,20 @@ void __cdecl rdNRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
   uint *puVar14;
   uint uVar15;
   uint *puVar16;
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar11 = *left;
   if ((uVar11 & 0xffff) != 0) {
@@ -15561,21 +14861,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -15718,7 +15003,6 @@ void __cdecl rdNRaster_DrawNGonMTFIT(int poly,int mat,float light)
 void __cdecl rdNRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   float fVar2;
   float fVar3;
@@ -15734,21 +15018,21 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
   uint uVar13;
   uint *puVar14;
   byte *pbVar15;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar13 = *left;
   if ((uVar13 & 0xffff) != 0) {
@@ -15923,22 +15207,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -15954,7 +15222,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   float fVar2;
   float fVar3;
@@ -15971,20 +15238,20 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
   uint *puVar14;
   uint uVar15;
   uint *puVar16;
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar11 = *left;
   if ((uVar11 & 0xffff) != 0) {
@@ -16172,21 +15439,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -16364,7 +15616,6 @@ void __cdecl rdNRaster_DrawNGonGIT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   float fVar3;
@@ -16376,9 +15627,9 @@ void __cdecl rdNRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
   uint uVar9;
   uint uVar10;
   uint uVar11;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar11 = *left;
   if ((uVar11 & 0xffff) != 0) {
@@ -16560,10 +15811,6 @@ void __cdecl rdNRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -16580,18 +15827,17 @@ void __cdecl rdNRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
 uint __cdecl rdNRaster_SetupLeftEdgeNGonGIT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -16647,12 +15893,6 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonGIT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -16668,18 +15908,17 @@ uint __cdecl rdNRaster_SetupLeftEdgeNGonGIT(int *e)
 uint __cdecl rdNRaster_SetupRightEdgeNGonGIT(int *e)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = e[3];
   if (e[3] != g_nRdNRaster_yMaxVert) {
@@ -16722,12 +15961,6 @@ uint __cdecl rdNRaster_SetupRightEdgeNGonGIT(int *e)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -16881,7 +16114,6 @@ void __cdecl rdNRaster_DrawNGonTGIT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   float fVar3;
@@ -16900,23 +16132,23 @@ void __cdecl rdNRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
   uint uVar16;
   uint uVar17;
   uint *puVar18;
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar16 = *left;
   if ((uVar16 & 0xffff) != 0) {
@@ -17104,24 +16336,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -17137,7 +16351,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   float fVar3;
@@ -17154,23 +16367,23 @@ void __cdecl rdNRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
   uint *puVar14;
   uint uVar15;
   uint uVar16;
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar15 = *left;
   if ((uVar15 & 0xffff) != 0) {
@@ -17376,24 +16589,6 @@ void __cdecl rdNRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -17545,7 +16740,6 @@ void __cdecl rdNRaster_DrawNGonMGIT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   float fVar3;
@@ -17563,23 +16757,23 @@ void __cdecl rdNRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
   uint uVar15;
   uint uVar16;
   undefined1 *puVar17;
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar15 = *left;
   if ((uVar15 & 0xffff) != 0) {
@@ -17763,24 +16957,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -17796,7 +16972,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   float fVar3;
@@ -17814,22 +16989,22 @@ void __cdecl rdNRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
   uint uVar15;
   uint uVar16;
   int iVar17;
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar15 = *left;
   if ((uVar15 & 0xffff) != 0) {
@@ -18017,23 +17192,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -18185,7 +17343,6 @@ void __cdecl rdNRaster_DrawNGonMTGIT(int poly,int mat)
 void __cdecl rdNRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   float fVar3;
@@ -18203,23 +17360,23 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
   uint uVar15;
   uint uVar16;
   byte *pbVar17;
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar15 = *left;
   if ((uVar15 & 0xffff) != 0) {
@@ -18409,24 +17566,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -18442,7 +17581,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
 void __cdecl rdNRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   float fVar3;
@@ -18460,22 +17598,22 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
   uint uVar15;
   uint uVar16;
   int iVar17;
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar15 = *left;
   if ((uVar15 & 0xffff) != 0) {
@@ -18675,23 +17813,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -18707,7 +17828,6 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
 void __cdecl rdZRaster_CalcAffineGradients(float dbits)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -18725,15 +17845,15 @@ void __cdecl rdZRaster_CalcAffineGradients(float dbits)
   float fVar15;
   uint uVar16;
   int iVar17;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   piVar9 = g_pRdZRaster_aVertices;
   if (g_dwRdZRaster_numVertices == 3) {
@@ -18894,16 +18014,6 @@ LAB_0042d542:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -18919,7 +18029,6 @@ LAB_0042d542:
 void __cdecl rdZRaster_CalcPerspGradients(float dbits)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   float fVar2;
   float fVar3;
@@ -18945,15 +18054,15 @@ void __cdecl rdZRaster_CalcPerspGradients(float dbits)
   float10 extraout_ST0;
   float10 extraout_ST1;
   longlong lVar23;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   piVar12 = g_pRdZRaster_aVertices;
   if (g_dwRdZRaster_numVertices == 3) {
@@ -19153,16 +18262,6 @@ LAB_0042da90:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -19177,13 +18276,12 @@ LAB_0042da90:
 void __cdecl rdZRaster_DrawNGonLV(int poly,int mat)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   VBuffer *pVVar2;
   int iVar3;
   int iVar4;
   int iVar5;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_8;
   
   g_pRdZRaster_aVertices = *(int **)(poly + 0x20);
   iVar5 = (g_pRdCamera_CurCamera->pCanvas->pVBuffer->format).colorFormat.nBpp;
@@ -19231,8 +18329,6 @@ void __cdecl rdZRaster_DrawNGonLV(int poly,int mat)
   }
   return;
 }
-#undef local_8
-
 #endif
 
 
@@ -19246,7 +18342,6 @@ void __cdecl rdZRaster_DrawNGonLV(int poly,int mat)
 void __cdecl rdZRaster_DrawNGonLW(int poly,int mat)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -19254,12 +18349,12 @@ void __cdecl rdZRaster_DrawNGonLW(int poly,int mat)
   int iVar5;
   int iVar6;
   ushort color;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   g_pRdZRaster_aVertices = *(int **)(poly + 0x20);
   iVar6 = (g_pRdCamera_CurCamera->pCanvas->pVBuffer->format).colorFormat.nBpp;
@@ -19317,13 +18412,6 @@ void __cdecl rdZRaster_DrawNGonLW(int poly,int mat)
                     (int)ROUND(fVar2),(int)ROUND(fVar1),color,0xffffffff);
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -19459,7 +18547,6 @@ void __cdecl rdZRaster_DrawNGonLS(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonLS_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   VBuffer *pVVar3;
@@ -19472,9 +18559,9 @@ void __cdecl rdZRaster_DrawScanLineNGonLS_8(uint *left,uint *right)
   ushort *puVar10;
   ushort uVar11;
   int iVar12;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -19509,10 +18596,6 @@ void __cdecl rdZRaster_DrawScanLineNGonLS_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -19527,7 +18610,6 @@ void __cdecl rdZRaster_DrawScanLineNGonLS_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonLS_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -19539,9 +18621,9 @@ void __cdecl rdZRaster_DrawScanLineNGonLS_16(uint *left,uint *right)
   int iVar9;
   undefined2 *puVar10;
   int iVar11;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar4 = uVar1;
@@ -19578,10 +18660,6 @@ void __cdecl rdZRaster_DrawScanLineNGonLS_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -19596,18 +18674,17 @@ void __cdecl rdZRaster_DrawScanLineNGonLS_16(uint *left,uint *right)
 uint __cdecl rdZRaster_SetupLeftEdgeNGonLS(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -19650,12 +18727,6 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonLS(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -19670,18 +18741,17 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonLS(int *edge)
 uint __cdecl rdZRaster_SetupRightEdgeNGonLS(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -19724,12 +18794,6 @@ uint __cdecl rdZRaster_SetupRightEdgeNGonLS(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -19868,7 +18932,6 @@ void __cdecl rdZRaster_DrawNGonTLS(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonTLS_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   VBuffer *pVVar3;
@@ -19880,8 +18943,8 @@ void __cdecl rdZRaster_DrawScanLineNGonTLS_8(uint *left,uint *right)
   uint uVar9;
   uint *puVar10;
   ushort uVar11;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -19918,9 +18981,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTLS_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -19935,7 +18995,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTLS_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonTLS_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -19946,8 +19005,8 @@ void __cdecl rdZRaster_DrawScanLineNGonTLS_16(uint *left,uint *right)
   uint uVar8;
   uint *puVar9;
   ushort *puVar10;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar4 = uVar1;
@@ -19989,9 +19048,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTLS_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -20130,7 +19186,6 @@ void __cdecl rdZRaster_DrawNGonFS(int poly,int mat,float light)
 void __cdecl rdZRaster_DrawScanLineNGonFS_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   VBuffer *pVVar3;
@@ -20143,9 +19198,9 @@ void __cdecl rdZRaster_DrawScanLineNGonFS_8(uint *left,uint *right)
   ushort *puVar10;
   ushort uVar11;
   int iVar12;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -20180,10 +19235,6 @@ void __cdecl rdZRaster_DrawScanLineNGonFS_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -20198,7 +19249,6 @@ void __cdecl rdZRaster_DrawScanLineNGonFS_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonFS_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -20210,9 +19260,9 @@ void __cdecl rdZRaster_DrawScanLineNGonFS_16(uint *left,uint *right)
   int iVar9;
   undefined2 *puVar10;
   int iVar11;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar4 = uVar1;
@@ -20249,10 +19299,6 @@ void __cdecl rdZRaster_DrawScanLineNGonFS_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -20267,18 +19313,17 @@ void __cdecl rdZRaster_DrawScanLineNGonFS_16(uint *left,uint *right)
 uint __cdecl rdZRaster_SetupLeftEdgeNGonFS(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -20321,12 +19366,6 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonFS(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -20341,18 +19380,17 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonFS(int *edge)
 uint __cdecl rdZRaster_SetupRightEdgeNGonFS(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -20395,12 +19433,6 @@ uint __cdecl rdZRaster_SetupRightEdgeNGonFS(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -20543,7 +19575,6 @@ void __cdecl rdZRaster_DrawNGonTFS(int poly,int mat,float light)
 void __cdecl rdZRaster_DrawScanLineNGonTFS_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   VBuffer *pVVar3;
@@ -20555,8 +19586,8 @@ void __cdecl rdZRaster_DrawScanLineNGonTFS_8(uint *left,uint *right)
   uint uVar9;
   uint *puVar10;
   ushort uVar11;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar5 = uVar1;
@@ -20593,9 +19624,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTFS_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -20610,7 +19638,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTFS_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonTFS_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -20621,8 +19648,8 @@ void __cdecl rdZRaster_DrawScanLineNGonTFS_16(uint *left,uint *right)
   uint uVar8;
   uint *puVar9;
   ushort *puVar10;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  uint local_8;
   
   uVar1 = *left;
   uVar4 = uVar1;
@@ -20664,9 +19691,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTFS_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -20812,7 +19836,6 @@ void __cdecl rdZRaster_DrawNGonGS(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonGS_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -20825,10 +19848,10 @@ void __cdecl rdZRaster_DrawScanLineNGonGS_8(uint *left,uint *right)
   ushort *puVar10;
   uint uVar11;
   ushort uVar12;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar5 = left;
   uVar1 = *left;
@@ -20874,11 +19897,6 @@ void __cdecl rdZRaster_DrawScanLineNGonGS_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -20893,7 +19911,6 @@ void __cdecl rdZRaster_DrawScanLineNGonGS_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonGS_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -20907,10 +19924,10 @@ void __cdecl rdZRaster_DrawScanLineNGonGS_16(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   undefined2 *puVar13;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar5 = left;
   uVar1 = *left;
@@ -20959,11 +19976,6 @@ void __cdecl rdZRaster_DrawScanLineNGonGS_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -20978,18 +19990,17 @@ void __cdecl rdZRaster_DrawScanLineNGonGS_16(uint *left,uint *right)
 uint __cdecl rdZRaster_SetupLeftEdgeNGonGS(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -21038,12 +20049,6 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonGS(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -21058,18 +20063,17 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonGS(int *edge)
 uint __cdecl rdZRaster_SetupRightEdgeNGonGS(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -21118,12 +20122,6 @@ uint __cdecl rdZRaster_SetupRightEdgeNGonGS(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -21276,7 +20274,6 @@ void __cdecl rdZRaster_DrawNGonTGS(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonTGS_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   uint uVar2;
   VBuffer *pVVar3;
@@ -21290,10 +20287,10 @@ void __cdecl rdZRaster_DrawScanLineNGonTGS_8(uint *left,uint *right)
   int iVar11;
   ushort uVar12;
   uint uVar13;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar7 = left;
   uVar2 = *left;
@@ -21343,11 +20340,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTGS_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -21362,7 +20354,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTGS_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonTGS_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   uint uVar2;
   VBuffer *pVVar3;
@@ -21376,11 +20367,11 @@ void __cdecl rdZRaster_DrawScanLineNGonTGS_16(uint *left,uint *right)
   ushort *puVar11;
   uint uVar12;
   int iVar13;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar6 = left;
   uVar2 = *left;
@@ -21433,12 +20424,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTGS_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -21640,7 +20625,6 @@ void __cdecl rdZRaster_DrawNGonLAT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonLAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   longlong lVar3;
@@ -21654,12 +20638,12 @@ void __cdecl rdZRaster_DrawScanLineNGonLAT_8(uint *left,uint *right)
   ushort *puVar11;
   ushort uVar12;
   int iVar13;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   uVar7 = uVar6;
@@ -21713,13 +20697,6 @@ void __cdecl rdZRaster_DrawScanLineNGonLAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -21734,7 +20711,6 @@ void __cdecl rdZRaster_DrawScanLineNGonLAT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonLAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   rdCanvas *prVar1;
   longlong lVar2;
   longlong lVar3;
@@ -21748,11 +20724,11 @@ void __cdecl rdZRaster_DrawScanLineNGonLAT_16(uint *left,uint *right)
   uint uVar11;
   ushort uVar12;
   int iVar13;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   uVar7 = uVar6;
@@ -21810,12 +20786,6 @@ void __cdecl rdZRaster_DrawScanLineNGonLAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -21830,18 +20800,17 @@ void __cdecl rdZRaster_DrawScanLineNGonLAT_16(uint *left,uint *right)
 uint __cdecl rdZRaster_SetupLeftEdgeNGonLAT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   uint uVar5;
   int iVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar4 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -21896,12 +20865,6 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonLAT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -21916,18 +20879,17 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonLAT(int *edge)
 uint __cdecl rdZRaster_SetupRightEdgeNGonLAT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   uint uVar5;
   int iVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar4 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -21982,12 +20944,6 @@ uint __cdecl rdZRaster_SetupRightEdgeNGonLAT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -22136,7 +21092,6 @@ void __cdecl rdZRaster_DrawNGonTLAT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonTLAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   longlong lVar3;
@@ -22150,12 +21105,12 @@ void __cdecl rdZRaster_DrawScanLineNGonTLAT_8(uint *left,uint *right)
   ushort *puVar11;
   ushort uVar12;
   int iVar13;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   uVar7 = uVar6;
@@ -22210,13 +21165,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTLAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -22231,7 +21179,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTLAT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonTLAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   rdCanvas *prVar1;
   longlong lVar2;
   longlong lVar3;
@@ -22245,13 +21192,13 @@ void __cdecl rdZRaster_DrawScanLineNGonTLAT_16(uint *left,uint *right)
   uint uVar11;
   ushort *puVar12;
   int iVar13;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   uVar7 = uVar6;
@@ -22312,14 +21259,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTLAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -22466,7 +21405,6 @@ void __cdecl rdZRaster_DrawNGonMLAT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonMLAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   VBuffer *pVVar2;
   VBuffer *pVVar3;
@@ -22482,11 +21420,11 @@ void __cdecl rdZRaster_DrawScanLineNGonMLAT_8(uint *left,uint *right)
   uint uVar13;
   ushort uVar14;
   int iVar15;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar9 = uVar8;
@@ -22540,12 +21478,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMLAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -22560,7 +21492,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMLAT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMLAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   rdCanvas *prVar2;
   longlong lVar3;
@@ -22575,12 +21506,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMLAT_16(uint *left,uint *right)
   uint uVar12;
   ushort uVar13;
   int iVar14;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = *left;
   uVar8 = uVar7;
@@ -22636,13 +21567,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMLAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -22791,7 +21715,6 @@ void __cdecl rdZRaster_DrawNGonMTLAT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonMTLAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   VBuffer *pVVar2;
   VBuffer *pVVar3;
@@ -22807,12 +21730,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLAT_8(uint *left,uint *right)
   uint uVar13;
   ushort uVar14;
   int iVar15;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar9 = uVar8;
@@ -22866,13 +21789,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -22887,7 +21803,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLAT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMTLAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   rdCanvas *prVar2;
   longlong lVar3;
@@ -22902,12 +21817,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLAT_16(uint *left,uint *right)
   uint uVar12;
   ushort uVar13;
   int iVar14;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = *left;
   uVar8 = uVar7;
@@ -22968,13 +21883,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -23182,7 +22090,6 @@ void __cdecl rdZRaster_DrawNGonFAT(int poly,int mat,float light)
 void __cdecl rdZRaster_DrawScanLineNGonFAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   longlong lVar3;
@@ -23196,12 +22103,12 @@ void __cdecl rdZRaster_DrawScanLineNGonFAT_8(uint *left,uint *right)
   ushort *puVar11;
   ushort uVar12;
   int iVar13;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   uVar7 = uVar6;
@@ -23255,13 +22162,6 @@ void __cdecl rdZRaster_DrawScanLineNGonFAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -23276,7 +22176,6 @@ void __cdecl rdZRaster_DrawScanLineNGonFAT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonFAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   rdCanvas *prVar1;
   longlong lVar2;
   longlong lVar3;
@@ -23290,12 +22189,12 @@ void __cdecl rdZRaster_DrawScanLineNGonFAT_16(uint *left,uint *right)
   uint uVar11;
   ushort uVar12;
   int iVar13;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   uVar7 = uVar6;
@@ -23353,13 +22252,6 @@ void __cdecl rdZRaster_DrawScanLineNGonFAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -23374,18 +22266,17 @@ void __cdecl rdZRaster_DrawScanLineNGonFAT_16(uint *left,uint *right)
 uint __cdecl rdZRaster_SetupLeftEdgeNGonFAT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   uint uVar5;
   int iVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar4 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -23440,12 +22331,6 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonFAT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -23460,18 +22345,17 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonFAT(int *edge)
 uint __cdecl rdZRaster_SetupRightEdgeNGonFAT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   uint uVar5;
   int iVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar4 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -23526,12 +22410,6 @@ uint __cdecl rdZRaster_SetupRightEdgeNGonFAT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -23683,7 +22561,6 @@ void __cdecl rdZRaster_DrawNGonTFAT(int poly,int mat,float light)
 void __cdecl rdZRaster_DrawScanLineNGonTFAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   longlong lVar3;
@@ -23697,12 +22574,12 @@ void __cdecl rdZRaster_DrawScanLineNGonTFAT_8(uint *left,uint *right)
   ushort *puVar11;
   ushort uVar12;
   int iVar13;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   uVar7 = uVar6;
@@ -23759,13 +22636,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTFAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -23780,7 +22650,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTFAT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonTFAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   longlong lVar3;
@@ -23794,13 +22663,13 @@ void __cdecl rdZRaster_DrawScanLineNGonTFAT_16(uint *left,uint *right)
   ushort *puVar11;
   ushort uVar12;
   int iVar13;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   uVar7 = uVar6;
@@ -23863,14 +22732,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTFAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -24020,7 +22881,6 @@ void __cdecl rdZRaster_DrawNGonMFAT(int poly,int mat,float light)
 void __cdecl rdZRaster_DrawScanLineNGonMFAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   VBuffer *pVVar2;
   VBuffer *pVVar3;
@@ -24036,12 +22896,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMFAT_8(uint *left,uint *right)
   uint uVar13;
   ushort uVar14;
   int iVar15;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar9 = uVar8;
@@ -24095,13 +22955,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMFAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -24116,7 +22969,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMFAT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMFAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   rdCanvas *prVar2;
   longlong lVar3;
@@ -24131,12 +22983,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMFAT_16(uint *left,uint *right)
   uint uVar12;
   ushort uVar13;
   int iVar14;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = *left;
   uVar8 = uVar7;
@@ -24192,13 +23044,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMFAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -24350,7 +23195,6 @@ void __cdecl rdZRaster_DrawNGonMTFAT(int poly,int mat,float light)
 void __cdecl rdZRaster_DrawScanLineNGonMTFAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   VBuffer *pVVar2;
   VBuffer *pVVar3;
@@ -24366,12 +23210,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFAT_8(uint *left,uint *right)
   uint uVar13;
   ushort uVar14;
   int iVar15;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar9 = uVar8;
@@ -24426,13 +23270,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -24447,7 +23284,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFAT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMTFAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   rdCanvas *prVar2;
   longlong lVar3;
@@ -24462,12 +23298,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFAT_16(uint *left,uint *right)
   uint uVar12;
   ushort uVar13;
   int iVar14;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = *left;
   uVar8 = uVar7;
@@ -24528,13 +23364,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -24753,7 +23582,6 @@ void __cdecl rdZRaster_DrawNGonGAT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonGAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   longlong lVar3;
@@ -24769,14 +23597,14 @@ void __cdecl rdZRaster_DrawScanLineNGonGAT_8(uint *left,uint *right)
   int iVar13;
   ushort uVar14;
   int iVar15;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = *left;
   uVar8 = uVar7;
@@ -24840,15 +23668,6 @@ void __cdecl rdZRaster_DrawScanLineNGonGAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -25004,18 +23823,17 @@ void __cdecl rdZRaster_DrawScanLineNGonGAT_16(uint *left,uint *right)
 uint __cdecl rdZRaster_SetupLeftEdgeNGonGAT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   uint uVar5;
   int iVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar4 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -25076,12 +23894,6 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonGAT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -25096,18 +23908,17 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonGAT(int *edge)
 uint __cdecl rdZRaster_SetupRightEdgeNGonGAT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   uint uVar5;
   int iVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar4 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -25168,12 +23979,6 @@ uint __cdecl rdZRaster_SetupRightEdgeNGonGAT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -25336,7 +24141,6 @@ void __cdecl rdZRaster_DrawNGonTGAT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonTGAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   longlong lVar3;
@@ -25352,14 +24156,14 @@ void __cdecl rdZRaster_DrawScanLineNGonTGAT_8(uint *left,uint *right)
   int iVar13;
   ushort uVar14;
   int iVar15;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = *left;
   uVar8 = uVar7;
@@ -25425,15 +24229,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTGAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -25448,7 +24243,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTGAT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonTGAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   longlong lVar3;
@@ -25464,15 +24258,15 @@ void __cdecl rdZRaster_DrawScanLineNGonTGAT_16(uint *left,uint *right)
   int iVar13;
   ushort uVar14;
   int iVar15;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = *left;
   uVar8 = uVar7;
@@ -25541,16 +24335,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTGAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -25711,7 +24495,6 @@ void __cdecl rdZRaster_DrawNGonMGAT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonMGAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   int iVar2;
   VBuffer *pVVar3;
@@ -25729,14 +24512,14 @@ void __cdecl rdZRaster_DrawScanLineNGonMGAT_8(uint *left,uint *right)
   ushort *puVar15;
   ushort uVar16;
   int iVar17;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar10 = *left;
   uVar11 = uVar10;
@@ -25799,15 +24582,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMGAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -25822,7 +24596,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMGAT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMGAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -25838,14 +24611,14 @@ void __cdecl rdZRaster_DrawScanLineNGonMGAT_16(uint *left,uint *right)
   ushort uVar13;
   int iVar14;
   int iVar15;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   uVar9 = uVar8;
@@ -25910,15 +24683,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMGAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -26081,7 +24845,6 @@ void __cdecl rdZRaster_DrawNGonMTGAT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonMTGAT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   int iVar2;
   VBuffer *pVVar3;
@@ -26099,14 +24862,14 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGAT_8(uint *left,uint *right)
   ushort *puVar15;
   ushort uVar16;
   int iVar17;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar10 = *left;
   uVar11 = uVar10;
@@ -26170,15 +24933,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGAT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -26193,7 +24947,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGAT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMTGAT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   int iVar2;
   VBuffer *pVVar3;
@@ -26210,14 +24963,14 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGAT_16(uint *left,uint *right)
   ushort *puVar14;
   ushort uVar15;
   int iVar16;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = *left;
   uVar10 = uVar9;
@@ -26286,15 +25039,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGAT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -26486,7 +25230,6 @@ void __cdecl rdZRaster_DrawNGonLIT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonLIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -26505,24 +25248,24 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_8(uint *left,uint *right)
   uint *puVar16;
   uint uVar17;
   ushort *puVar18;
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -26709,25 +25452,6 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -26743,7 +25467,6 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -26762,24 +25485,24 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
   uint *puVar16;
   uint uVar17;
   ushort *puVar18;
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -26969,25 +25692,6 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -27003,18 +25707,17 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
 uint __cdecl rdZRaster_SetupLeftEdgeNGonLIT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -27066,12 +25769,6 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonLIT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -27086,7 +25783,6 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonLIT(int *edge)
 uint __cdecl rdZRaster_SetupRightEdgeNGonLIT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -27094,11 +25790,11 @@ uint __cdecl rdZRaster_SetupRightEdgeNGonLIT(int *edge)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -27136,12 +25832,6 @@ uint __cdecl rdZRaster_SetupRightEdgeNGonLIT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -27280,7 +25970,6 @@ void __cdecl rdZRaster_DrawNGonTLIT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -27299,24 +25988,24 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
   uint *puVar16;
   uint uVar17;
   uint *puVar18;
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -27506,25 +26195,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -27540,7 +26210,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -27558,26 +26227,26 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
   uint uVar15;
   uint *puVar16;
   uint uVar17;
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -27780,27 +26449,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -27937,7 +26585,6 @@ void __cdecl rdZRaster_DrawNGonMLIT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   VBuffer *pVVar2;
   VBuffer *pVVar3;
@@ -27957,24 +26604,24 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
   uint *puVar17;
   uint uVar18;
   ushort *puVar19;
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -28158,25 +26805,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -28192,7 +26820,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -28211,25 +26838,25 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
   uint *puVar16;
   uint uVar17;
   ushort *puVar18;
-  #define local_50 (*(uint *)(_frame + (0x60 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -28414,26 +27041,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -28572,7 +27179,6 @@ void __cdecl rdZRaster_DrawNGonMTLIT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -28591,25 +27197,25 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
   uint *puVar16;
   uint uVar17;
   uint *puVar18;
-  #define local_50 (*(uint *)(_frame + (0x60 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -28793,26 +27399,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -28828,7 +27414,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   float fVar2;
   float fVar3;
@@ -28846,25 +27431,25 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
   uint uVar15;
   uint *puVar16;
   ushort *puVar17;
-  #define local_50 (*(uint *)(_frame + (0x60 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -29061,26 +27646,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -29275,7 +27840,6 @@ void __cdecl rdZRaster_DrawNGonFIT(int poly,int mat,float light)
 void __cdecl rdZRaster_DrawScanLineNGonFIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -29294,24 +27858,24 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_8(uint *left,uint *right)
   uint *puVar16;
   uint uVar17;
   ushort *puVar18;
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -29498,25 +28062,6 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -29532,7 +28077,6 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -29551,24 +28095,24 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
   uint *puVar16;
   uint uVar17;
   ushort *puVar18;
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -29758,25 +28302,6 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -29792,18 +28317,17 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
 uint __cdecl rdZRaster_SetupLeftEdgeNGonFIT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -29855,12 +28379,6 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonFIT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -29875,7 +28393,6 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonFIT(int *edge)
 uint __cdecl rdZRaster_SetupRightEdgeNGonFIT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -29883,11 +28400,11 @@ uint __cdecl rdZRaster_SetupRightEdgeNGonFIT(int *edge)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -29925,12 +28442,6 @@ uint __cdecl rdZRaster_SetupRightEdgeNGonFIT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -30072,7 +28583,6 @@ void __cdecl rdZRaster_DrawNGonTFIT(int poly,int mat,float light)
 void __cdecl rdZRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -30091,24 +28601,24 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
   uint *puVar16;
   uint uVar17;
   uint *puVar18;
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -30304,25 +28814,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -30338,7 +28829,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -30356,26 +28846,26 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
   uint uVar15;
   uint *puVar16;
   uint uVar17;
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -30590,27 +29080,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -30750,7 +29219,6 @@ void __cdecl rdZRaster_DrawNGonMFIT(int poly,int mat,float light)
 void __cdecl rdZRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -30769,25 +29237,25 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
   uint *puVar16;
   uint uVar17;
   ushort *puVar18;
-  #define local_50 (*(uint *)(_frame + (0x60 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar14 = *left;
@@ -30971,26 +29439,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -31006,7 +29454,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -31025,25 +29472,25 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
   uint *puVar16;
   uint uVar17;
   ushort *puVar18;
-  #define local_50 (*(uint *)(_frame + (0x60 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -31228,26 +29675,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -31389,7 +29816,6 @@ void __cdecl rdZRaster_DrawNGonMTFIT(int poly,int mat,float light)
 void __cdecl rdZRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   float fVar3;
@@ -31408,25 +29834,25 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
   uint *puVar16;
   uint uVar17;
   uint *puVar18;
-  #define local_50 (*(uint *)(_frame + (0x60 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -31616,26 +30042,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -31651,7 +30057,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   float fVar2;
   float fVar3;
@@ -31669,25 +30074,25 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
   uint uVar15;
   uint *puVar16;
   ushort *puVar17;
-  #define local_50 (*(uint *)(_frame + (0x60 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar15 = *left;
@@ -31884,26 +30289,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -32109,7 +30494,6 @@ void __cdecl rdZRaster_DrawNGonGIT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonGIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -32130,27 +30514,27 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_8(uint *left,uint *right)
   ushort uVar18;
   uint uVar19;
   ushort *puVar20;
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_58;
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar19 = *left;
@@ -32353,28 +30737,6 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -32390,7 +30752,6 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -32411,27 +30772,27 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
   ushort uVar18;
   uint uVar19;
   ushort *puVar20;
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_58;
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar19 = *left;
@@ -32636,28 +30997,6 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -32673,18 +31012,17 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
 uint __cdecl rdZRaster_SetupLeftEdgeNGonGIT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -32742,12 +31080,6 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonGIT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -32762,18 +31094,17 @@ uint __cdecl rdZRaster_SetupLeftEdgeNGonGIT(int *edge)
 uint __cdecl rdZRaster_SetupRightEdgeNGonGIT(int *edge)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = edge[3];
   if (edge[3] != g_dwRdZRaster_yMaxVert) {
@@ -32817,12 +31148,6 @@ uint __cdecl rdZRaster_SetupRightEdgeNGonGIT(int *edge)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -32975,7 +31300,6 @@ void __cdecl rdZRaster_DrawNGonTGIT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -32996,27 +31320,27 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
   ushort uVar18;
   uint uVar19;
   uint *puVar20;
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_58;
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar19 = *left;
@@ -33225,28 +31549,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -33262,7 +31564,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -33283,27 +31584,27 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
   uint *puVar18;
   ushort uVar19;
   uint uVar20;
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_58;
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar20 = *left;
@@ -33533,28 +31834,6 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -33705,7 +31984,6 @@ void __cdecl rdZRaster_DrawNGonMGIT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -33726,27 +32004,27 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
   ushort uVar18;
   uint uVar19;
   uint uVar20;
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_58;
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar19 = *left;
@@ -33944,28 +32222,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -33981,7 +32237,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   float fVar3;
@@ -34001,27 +32256,27 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
   ushort uVar17;
   uint uVar18;
   uint uVar19;
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_58;
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar18 = *left;
@@ -34223,28 +32478,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -34397,7 +32630,6 @@ void __cdecl rdZRaster_DrawNGonMTGIT(int poly,int mat)
 void __cdecl rdZRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -34419,27 +32651,27 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
   ushort uVar19;
   uint uVar20;
   uint *puVar21;
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_58;
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar20 = *left;
@@ -34643,28 +32875,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -34680,7 +32890,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
 void __cdecl rdZRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -34702,27 +32911,27 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
   ushort uVar19;
   uint uVar20;
   uint *puVar21;
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  uint local_58;
+  uint local_54;
+  uint local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdZRaster_dOneOverZdXFixed;
   uVar20 = *left;
@@ -34934,28 +33143,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -34968,7 +33155,6 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
 void __cdecl rdRaster_SpanR_FlatZw(int *span)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   uint uVar2;
   uint uVar3;
@@ -34978,7 +33164,7 @@ void __cdecl rdRaster_SpanR_FlatZw(int *span)
   int iVar7;
   uint uVar8;
   uint uVar9;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_8;
   
   uVar2 = g_dwRdAFRaster_dOneOverZdXFixed;
   pVVar1 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
@@ -35008,8 +33194,6 @@ void __cdecl rdRaster_SpanR_FlatZw(int *span)
   }
   return;
 }
-#undef local_8
-
 #endif
 
 
@@ -35022,7 +33206,6 @@ void __cdecl rdRaster_SpanR_FlatZw(int *span)
 void __cdecl rdRaster_SpanR_FlatZw_2(int *span)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   uint uVar2;
   uint uVar3;
@@ -35031,7 +33214,7 @@ void __cdecl rdRaster_SpanR_FlatZw_2(int *span)
   uint uVar6;
   uint uVar7;
   undefined4 *puVar8;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_8;
   
   uVar2 = g_dwRdAFRaster_dOneOverZdXFixed;
   pVVar1 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
@@ -35060,8 +33243,6 @@ void __cdecl rdRaster_SpanR_FlatZw_2(int *span)
   }
   return;
 }
-#undef local_8
-
 #endif
 
 
@@ -36161,7 +34342,6 @@ void __cdecl rdRaster_SpanR16_TexLit_9(int *span)
 void __cdecl rdRaster_SpanP16_Tex(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -36171,10 +34351,10 @@ void __cdecl rdRaster_SpanP16_Tex(uint *span)
   uint uVar7;
   int iVar8;
   uint uVar9;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdAFRaster_aRGBMap;
   if ((*span & 0xf) == 0) {
@@ -36358,11 +34538,6 @@ void __cdecl rdRaster_SpanP16_Tex(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -36377,7 +34552,6 @@ void __cdecl rdRaster_SpanP16_Tex(uint *span)
 void __cdecl rdRaster_SpanP16_Tex_2(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -36388,10 +34562,10 @@ void __cdecl rdRaster_SpanP16_Tex_2(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -36572,11 +34746,6 @@ void __cdecl rdRaster_SpanP16_Tex_2(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -36591,7 +34760,6 @@ void __cdecl rdRaster_SpanP16_Tex_2(uint *span)
 void __cdecl rdRaster_SpanP16_Tex_3(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -36602,10 +34770,10 @@ void __cdecl rdRaster_SpanP16_Tex_3(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -36786,11 +34954,6 @@ void __cdecl rdRaster_SpanP16_Tex_3(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -36805,7 +34968,6 @@ void __cdecl rdRaster_SpanP16_Tex_3(uint *span)
 void __cdecl rdRaster_SpanP16_Tex_4(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -36816,10 +34978,10 @@ void __cdecl rdRaster_SpanP16_Tex_4(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -37000,11 +35162,6 @@ void __cdecl rdRaster_SpanP16_Tex_4(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -37019,7 +35176,6 @@ void __cdecl rdRaster_SpanP16_Tex_4(uint *span)
 void __cdecl rdRaster_SpanP16_TexLit(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -37030,10 +35186,10 @@ void __cdecl rdRaster_SpanP16_TexLit(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -37214,11 +35370,6 @@ void __cdecl rdRaster_SpanP16_TexLit(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -37233,7 +35384,6 @@ void __cdecl rdRaster_SpanP16_TexLit(uint *span)
 void __cdecl rdRaster_SpanP16_Tex_5(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -37244,10 +35394,10 @@ void __cdecl rdRaster_SpanP16_Tex_5(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -37428,11 +35578,6 @@ void __cdecl rdRaster_SpanP16_Tex_5(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -37447,7 +35592,6 @@ void __cdecl rdRaster_SpanP16_Tex_5(uint *span)
 void __cdecl rdRaster_SpanP16_Tex_6(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -37458,10 +35602,10 @@ void __cdecl rdRaster_SpanP16_Tex_6(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -37642,11 +35786,6 @@ void __cdecl rdRaster_SpanP16_Tex_6(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -37661,7 +35800,6 @@ void __cdecl rdRaster_SpanP16_Tex_6(uint *span)
 void __cdecl rdRaster_SpanP16_Tex_7(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -37671,10 +35809,10 @@ void __cdecl rdRaster_SpanP16_Tex_7(uint *span)
   uint uVar7;
   int iVar8;
   uint uVar9;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdAFRaster_aRGBMap;
   if ((*span & 0xf) == 0) {
@@ -37858,11 +35996,6 @@ void __cdecl rdRaster_SpanP16_Tex_7(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -37877,7 +36010,6 @@ void __cdecl rdRaster_SpanP16_Tex_7(uint *span)
 void __cdecl rdRaster_SpanP16_Tex_8(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -37888,10 +36020,10 @@ void __cdecl rdRaster_SpanP16_Tex_8(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -38072,11 +36204,6 @@ void __cdecl rdRaster_SpanP16_Tex_8(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -38091,7 +36218,6 @@ void __cdecl rdRaster_SpanP16_Tex_8(uint *span)
 void __cdecl rdRaster_SpanP16_Tex_9(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -38102,10 +36228,10 @@ void __cdecl rdRaster_SpanP16_Tex_9(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -38286,11 +36412,6 @@ void __cdecl rdRaster_SpanP16_Tex_9(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -38305,7 +36426,6 @@ void __cdecl rdRaster_SpanP16_Tex_9(uint *span)
 void __cdecl rdRaster_SpanP16_Tex_10(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -38316,10 +36436,10 @@ void __cdecl rdRaster_SpanP16_Tex_10(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -38500,11 +36620,6 @@ void __cdecl rdRaster_SpanP16_Tex_10(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -38519,7 +36634,6 @@ void __cdecl rdRaster_SpanP16_Tex_10(uint *span)
 void __cdecl rdRaster_SpanP16_TexLit_2(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -38530,10 +36644,10 @@ void __cdecl rdRaster_SpanP16_TexLit_2(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -38714,11 +36828,6 @@ void __cdecl rdRaster_SpanP16_TexLit_2(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -38733,7 +36842,6 @@ void __cdecl rdRaster_SpanP16_TexLit_2(uint *span)
 void __cdecl rdRaster_SpanP16_Tex_11(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -38744,10 +36852,10 @@ void __cdecl rdRaster_SpanP16_Tex_11(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -38928,11 +37036,6 @@ void __cdecl rdRaster_SpanP16_Tex_11(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -38947,7 +37050,6 @@ void __cdecl rdRaster_SpanP16_Tex_11(uint *span)
 void __cdecl rdRaster_SpanP16_Tex_12(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -38958,10 +37060,10 @@ void __cdecl rdRaster_SpanP16_Tex_12(uint *span)
   uint uVar8;
   uint uVar9;
   int iVar10;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar9 = 0;
@@ -39142,11 +37244,6 @@ void __cdecl rdRaster_SpanP16_Tex_12(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -39161,7 +37258,6 @@ void __cdecl rdRaster_SpanP16_Tex_12(uint *span)
 void __cdecl rdRaster_SpanP16_TexLit_3(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -39171,10 +37267,10 @@ void __cdecl rdRaster_SpanP16_TexLit_3(uint *span)
   uint uVar7;
   uint uVar8;
   uint uVar9;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar9 = g_dwRdAFRaster_aRGBMap;
   if ((*span & 0xf) == 0) {
@@ -39376,11 +37472,6 @@ void __cdecl rdRaster_SpanP16_TexLit_3(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -39395,7 +37486,6 @@ void __cdecl rdRaster_SpanP16_TexLit_3(uint *span)
 void __cdecl rdRaster_SpanP16_TexLit_4(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -39408,10 +37498,10 @@ void __cdecl rdRaster_SpanP16_TexLit_4(uint *span)
   uint uVar10;
   uint uVar11;
   uint uVar12;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar11 = 0;
@@ -39610,11 +37700,6 @@ void __cdecl rdRaster_SpanP16_TexLit_4(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -39629,7 +37714,6 @@ void __cdecl rdRaster_SpanP16_TexLit_4(uint *span)
 void __cdecl rdRaster_SpanP16_TexLit_5(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -39642,10 +37726,10 @@ void __cdecl rdRaster_SpanP16_TexLit_5(uint *span)
   uint uVar10;
   uint uVar11;
   uint uVar12;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar11 = 0;
@@ -39844,11 +37928,6 @@ void __cdecl rdRaster_SpanP16_TexLit_5(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -39863,7 +37942,6 @@ void __cdecl rdRaster_SpanP16_TexLit_5(uint *span)
 void __cdecl rdRaster_SpanP16_TexLit_6(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -39876,10 +37954,10 @@ void __cdecl rdRaster_SpanP16_TexLit_6(uint *span)
   uint uVar10;
   uint uVar11;
   uint uVar12;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar11 = 0;
@@ -40078,11 +38156,6 @@ void __cdecl rdRaster_SpanP16_TexLit_6(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -40097,7 +38170,6 @@ void __cdecl rdRaster_SpanP16_TexLit_6(uint *span)
 void __cdecl rdRaster_SpanP16_TexLit_7(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -40110,10 +38182,10 @@ void __cdecl rdRaster_SpanP16_TexLit_7(uint *span)
   uint uVar10;
   uint uVar11;
   uint uVar12;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar11 = 0;
@@ -40312,11 +38384,6 @@ void __cdecl rdRaster_SpanP16_TexLit_7(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -40331,7 +38398,6 @@ void __cdecl rdRaster_SpanP16_TexLit_7(uint *span)
 void __cdecl rdRaster_SpanP16_TexLit_8(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -40344,10 +38410,10 @@ void __cdecl rdRaster_SpanP16_TexLit_8(uint *span)
   uint uVar10;
   uint uVar11;
   uint uVar12;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar11 = 0;
@@ -40546,11 +38612,6 @@ void __cdecl rdRaster_SpanP16_TexLit_8(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -40565,7 +38626,6 @@ void __cdecl rdRaster_SpanP16_TexLit_8(uint *span)
 void __cdecl rdRaster_SpanP16_TexLit_9(uint *span)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -40578,10 +38638,10 @@ void __cdecl rdRaster_SpanP16_TexLit_9(uint *span)
   uint uVar10;
   uint uVar11;
   uint uVar12;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((*span & 0xf) == 0) {
     uVar11 = 0;
@@ -40780,11 +38840,6 @@ void __cdecl rdRaster_SpanP16_TexLit_9(uint *span)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -40797,7 +38852,6 @@ void __cdecl rdRaster_SpanP16_TexLit_9(uint *span)
 void __cdecl rdRaster_Span16_TexLitZw(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   longlong lVar3;
@@ -40809,9 +38863,9 @@ void __cdecl rdRaster_Span16_TexLitZw(uint *left,uint *right)
   byte bVar9;
   uint uVar10;
   int iVar11;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar7 = *left;
   if ((uVar7 & 0xffff) != 0) {
@@ -40891,10 +38945,6 @@ void __cdecl rdRaster_Span16_TexLitZw(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -40907,7 +38957,6 @@ void __cdecl rdRaster_Span16_TexLitZw(uint *left,uint *right)
 void __cdecl rdRaster_Span16_TexLitZw_2(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -40924,9 +38973,9 @@ void __cdecl rdRaster_Span16_TexLitZw_2(uint *left,uint *right)
   int iVar14;
   uint uVar15;
   uint uVar16;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   if ((uVar8 & 0xffff) != 0) {
@@ -41015,10 +39064,6 @@ LAB_004605e4:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -41031,7 +39076,6 @@ LAB_004605e4:
 void __cdecl rdRaster_Span16_TexLitZw_3(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -41048,9 +39092,9 @@ void __cdecl rdRaster_Span16_TexLitZw_3(uint *left,uint *right)
   int iVar14;
   uint uVar15;
   uint uVar16;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   if ((uVar8 & 0xffff) != 0) {
@@ -41139,10 +39183,6 @@ LAB_00460994:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -41155,7 +39195,6 @@ LAB_00460994:
 void __cdecl rdRaster_Span16_TexLitZw_4(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -41172,9 +39211,9 @@ void __cdecl rdRaster_Span16_TexLitZw_4(uint *left,uint *right)
   int iVar14;
   uint uVar15;
   uint uVar16;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   if ((uVar8 & 0xffff) != 0) {
@@ -41263,10 +39302,6 @@ LAB_00460d44:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -41279,7 +39314,6 @@ LAB_00460d44:
 void __cdecl rdRaster_Span16_TexLitZw_5(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -41296,9 +39330,9 @@ void __cdecl rdRaster_Span16_TexLitZw_5(uint *left,uint *right)
   int iVar14;
   uint uVar15;
   uint uVar16;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   if ((uVar8 & 0xffff) != 0) {
@@ -41387,10 +39421,6 @@ LAB_004610f4:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -41403,7 +39433,6 @@ LAB_004610f4:
 void __cdecl rdRaster_Span16_TexLitZw_6(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -41420,9 +39449,9 @@ void __cdecl rdRaster_Span16_TexLitZw_6(uint *left,uint *right)
   int iVar14;
   uint uVar15;
   uint uVar16;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   if ((uVar8 & 0xffff) != 0) {
@@ -41511,10 +39540,6 @@ LAB_004614a4:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -41527,7 +39552,6 @@ LAB_004614a4:
 void __cdecl rdRaster_Span16_TexLitZw_7(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -41544,9 +39568,9 @@ void __cdecl rdRaster_Span16_TexLitZw_7(uint *left,uint *right)
   int iVar14;
   uint uVar15;
   uint uVar16;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   if ((uVar8 & 0xffff) != 0) {
@@ -41635,10 +39659,6 @@ LAB_00461854:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -41651,7 +39671,6 @@ LAB_00461854:
 void __cdecl rdRaster_Span16_TexLitZw_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   bool bVar3;
@@ -41668,9 +39687,9 @@ void __cdecl rdRaster_Span16_TexLitZw_8(uint *left,uint *right)
   int iVar14;
   uint uVar15;
   uint uVar16;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar8 = *left;
   if ((uVar8 & 0xffff) != 0) {
@@ -41759,10 +39778,6 @@ LAB_00461c04:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -41777,7 +39792,6 @@ LAB_00461c04:
 void __cdecl rdRaster_Span16_TexZw(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   float fVar3;
@@ -41792,18 +39806,18 @@ void __cdecl rdRaster_Span16_TexZw(uint *left,uint *right)
   uint uVar12;
   uint uVar13;
   uint uVar14;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar13 = *left;
   if ((uVar13 & 0xffff) != 0) {
@@ -42031,19 +40045,6 @@ void __cdecl rdRaster_Span16_TexZw(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -42058,7 +40059,6 @@ void __cdecl rdRaster_Span16_TexZw(uint *left,uint *right)
 void __cdecl rdRaster_Span16_TexLitZw_9(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -42075,18 +40075,18 @@ void __cdecl rdRaster_Span16_TexLitZw_9(uint *left,uint *right)
   uint uVar14;
   uint uVar15;
   uint uVar16;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar15 = *left;
   if ((uVar15 & 0xffff) != 0) {
@@ -42347,19 +40347,6 @@ LAB_004631ea:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -42374,7 +40361,6 @@ LAB_004631ea:
 void __cdecl rdRaster_Span16_TexLitZw_10(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -42391,18 +40377,18 @@ void __cdecl rdRaster_Span16_TexLitZw_10(uint *left,uint *right)
   uint uVar14;
   uint uVar15;
   uint uVar16;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar15 = *left;
   if ((uVar15 & 0xffff) != 0) {
@@ -42663,19 +40649,6 @@ LAB_00463cda:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -42690,7 +40663,6 @@ LAB_00463cda:
 void __cdecl rdRaster_Span16_TexLitZw_11(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -42707,18 +40679,18 @@ void __cdecl rdRaster_Span16_TexLitZw_11(uint *left,uint *right)
   uint uVar14;
   uint uVar15;
   uint uVar16;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar15 = *left;
   if ((uVar15 & 0xffff) != 0) {
@@ -42979,19 +40951,6 @@ LAB_004647ca:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -43006,7 +40965,6 @@ LAB_004647ca:
 void __cdecl rdRaster_Span16_TexLitZw_12(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -43023,18 +40981,18 @@ void __cdecl rdRaster_Span16_TexLitZw_12(uint *left,uint *right)
   uint uVar14;
   uint uVar15;
   uint uVar16;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar15 = *left;
   if ((uVar15 & 0xffff) != 0) {
@@ -43295,19 +41253,6 @@ LAB_004652ba:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -43322,7 +41267,6 @@ LAB_004652ba:
 void __cdecl rdRaster_Span16_TexLitZw_13(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -43339,18 +41283,18 @@ void __cdecl rdRaster_Span16_TexLitZw_13(uint *left,uint *right)
   uint uVar14;
   uint uVar15;
   uint uVar16;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar15 = *left;
   if ((uVar15 & 0xffff) != 0) {
@@ -43611,19 +41555,6 @@ LAB_00465daa:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -43638,7 +41569,6 @@ LAB_00465daa:
 void __cdecl rdRaster_Span16_TexLitZw_14(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -43655,18 +41585,18 @@ void __cdecl rdRaster_Span16_TexLitZw_14(uint *left,uint *right)
   uint uVar14;
   uint uVar15;
   uint uVar16;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar15 = *left;
   if ((uVar15 & 0xffff) != 0) {
@@ -43927,19 +41857,6 @@ LAB_0046689a:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -43952,7 +41869,6 @@ LAB_0046689a:
 void __cdecl rdRaster_Span16_TexLitZw_15(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   longlong lVar3;
@@ -43962,9 +41878,9 @@ void __cdecl rdRaster_Span16_TexLitZw_15(uint *left,uint *right)
   byte bVar7;
   uint uVar8;
   int iVar9;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar5 = *left;
   if ((uVar5 & 0xffff) != 0) {
@@ -44034,10 +41950,6 @@ void __cdecl rdRaster_Span16_TexLitZw_15(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -44050,7 +41962,6 @@ void __cdecl rdRaster_Span16_TexLitZw_15(uint *left,uint *right)
 void __cdecl rdRaster_Span16_TexLitZw_16(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -44064,9 +41975,9 @@ void __cdecl rdRaster_Span16_TexLitZw_16(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -44143,10 +42054,6 @@ LAB_00466ec0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -44159,7 +42066,6 @@ LAB_00466ec0:
 void __cdecl rdRaster_Span16_TexLitZw_17(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -44173,9 +42079,9 @@ void __cdecl rdRaster_Span16_TexLitZw_17(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -44252,10 +42158,6 @@ LAB_004671c0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -44268,7 +42170,6 @@ LAB_004671c0:
 void __cdecl rdRaster_Span16_TexLitZw_18(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -44282,9 +42183,9 @@ void __cdecl rdRaster_Span16_TexLitZw_18(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -44361,10 +42262,6 @@ LAB_004674c0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -44377,7 +42274,6 @@ LAB_004674c0:
 void __cdecl rdRaster_Span16_TexLitZw_19(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -44391,9 +42287,9 @@ void __cdecl rdRaster_Span16_TexLitZw_19(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -44470,10 +42366,6 @@ LAB_004677c0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -44486,7 +42378,6 @@ LAB_004677c0:
 void __cdecl rdRaster_Span16_TexLitZw_20(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -44500,9 +42391,9 @@ void __cdecl rdRaster_Span16_TexLitZw_20(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -44579,10 +42470,6 @@ LAB_00467ac0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -44595,7 +42482,6 @@ LAB_00467ac0:
 void __cdecl rdRaster_Span16_TexLitZw_21(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -44609,9 +42495,9 @@ void __cdecl rdRaster_Span16_TexLitZw_21(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -44688,10 +42574,6 @@ LAB_00467dc0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -44704,7 +42586,6 @@ LAB_00467dc0:
 void __cdecl rdRaster_Span16_TexLitZw_22(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -44718,9 +42599,9 @@ void __cdecl rdRaster_Span16_TexLitZw_22(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -44797,10 +42678,6 @@ LAB_004680c0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -44815,7 +42692,6 @@ LAB_004680c0:
 void __cdecl rdRaster_Span16_TexZw_2(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   float fVar2;
   float fVar3;
@@ -44830,18 +42706,18 @@ void __cdecl rdRaster_Span16_TexZw_2(uint *left,uint *right)
   uint uVar12;
   uint uVar13;
   uint uVar14;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar7 = left;
   uVar13 = *left;
@@ -45055,19 +42931,6 @@ void __cdecl rdRaster_Span16_TexZw_2(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -45082,7 +42945,6 @@ void __cdecl rdRaster_Span16_TexZw_2(uint *left,uint *right)
 void __cdecl rdRaster_Span16_TexZw_3(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -45098,18 +42960,18 @@ void __cdecl rdRaster_Span16_TexZw_3(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -45349,19 +43211,6 @@ LAB_004693e4:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -45376,7 +43225,6 @@ LAB_004693e4:
 void __cdecl rdRaster_Span16_TexZw_4(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -45392,18 +43240,18 @@ void __cdecl rdRaster_Span16_TexZw_4(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -45643,19 +43491,6 @@ LAB_00469d44:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -45670,7 +43505,6 @@ LAB_00469d44:
 void __cdecl rdRaster_Span16_TexZw_5(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -45686,18 +43520,18 @@ void __cdecl rdRaster_Span16_TexZw_5(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -45937,19 +43771,6 @@ LAB_0046a6a4:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -45964,7 +43785,6 @@ LAB_0046a6a4:
 void __cdecl rdRaster_Span16_TexLitZw_23(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -45980,18 +43800,18 @@ void __cdecl rdRaster_Span16_TexLitZw_23(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -46231,19 +44051,6 @@ LAB_0046b004:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -46258,7 +44065,6 @@ LAB_0046b004:
 void __cdecl rdRaster_Span16_TexZw_6(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -46274,18 +44080,18 @@ void __cdecl rdRaster_Span16_TexZw_6(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -46525,19 +44331,6 @@ LAB_0046b964:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -46552,7 +44345,6 @@ LAB_0046b964:
 void __cdecl rdRaster_Span16_TexZw_7(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -46568,18 +44360,18 @@ void __cdecl rdRaster_Span16_TexZw_7(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -46819,19 +44611,6 @@ LAB_0046c2c4:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -46844,7 +44623,6 @@ LAB_0046c2c4:
 void __cdecl rdRaster_Span16_TexLitZw_24(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   longlong lVar2;
   longlong lVar3;
@@ -46854,9 +44632,9 @@ void __cdecl rdRaster_Span16_TexLitZw_24(uint *left,uint *right)
   byte bVar7;
   uint uVar8;
   int iVar9;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar5 = *left;
   if ((uVar5 & 0xffff) != 0) {
@@ -46926,10 +44704,6 @@ void __cdecl rdRaster_Span16_TexLitZw_24(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -46942,7 +44716,6 @@ void __cdecl rdRaster_Span16_TexLitZw_24(uint *left,uint *right)
 void __cdecl rdRaster_Span16_TexLitZw_25(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -46956,9 +44729,9 @@ void __cdecl rdRaster_Span16_TexLitZw_25(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -47035,10 +44808,6 @@ LAB_0046c8d0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -47051,7 +44820,6 @@ LAB_0046c8d0:
 void __cdecl rdRaster_Span16_TexLitZw_26(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -47065,9 +44833,9 @@ void __cdecl rdRaster_Span16_TexLitZw_26(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -47144,10 +44912,6 @@ LAB_0046cbd0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -47160,7 +44924,6 @@ LAB_0046cbd0:
 void __cdecl rdRaster_Span16_TexLitZw_27(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -47174,9 +44937,9 @@ void __cdecl rdRaster_Span16_TexLitZw_27(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -47253,10 +45016,6 @@ LAB_0046ced0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -47269,7 +45028,6 @@ LAB_0046ced0:
 void __cdecl rdRaster_Span16_TexLitZw_28(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -47283,9 +45041,9 @@ void __cdecl rdRaster_Span16_TexLitZw_28(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -47362,10 +45120,6 @@ LAB_0046d1d0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -47378,7 +45132,6 @@ LAB_0046d1d0:
 void __cdecl rdRaster_Span16_TexLitZw_29(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -47392,9 +45145,9 @@ void __cdecl rdRaster_Span16_TexLitZw_29(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -47471,10 +45224,6 @@ LAB_0046d4d0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -47487,7 +45236,6 @@ LAB_0046d4d0:
 void __cdecl rdRaster_Span16_TexLitZw_30(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   longlong lVar3;
@@ -47501,9 +45249,9 @@ void __cdecl rdRaster_Span16_TexLitZw_30(uint *left,uint *right)
   uint uVar11;
   int iVar12;
   uint uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   uVar6 = *left;
   if ((uVar6 & 0xffff) != 0) {
@@ -47580,10 +45328,6 @@ LAB_0046d7d0:
   }
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -47598,7 +45342,6 @@ LAB_0046d7d0:
 void __cdecl rdRaster_Span16_TexZw_8(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   float fVar2;
   float fVar3;
@@ -47613,18 +45356,18 @@ void __cdecl rdRaster_Span16_TexZw_8(uint *left,uint *right)
   uint uVar12;
   uint uVar13;
   uint uVar14;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar7 = left;
   uVar13 = *left;
@@ -47838,19 +45581,6 @@ void __cdecl rdRaster_Span16_TexZw_8(uint *left,uint *right)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -47865,7 +45595,6 @@ void __cdecl rdRaster_Span16_TexZw_8(uint *left,uint *right)
 void __cdecl rdRaster_Span16_TexZw_9(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -47881,18 +45610,18 @@ void __cdecl rdRaster_Span16_TexZw_9(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -48132,19 +45861,6 @@ LAB_0046eaf4:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -48159,7 +45875,6 @@ LAB_0046eaf4:
 void __cdecl rdRaster_Span16_TexZw_10(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -48175,18 +45890,18 @@ void __cdecl rdRaster_Span16_TexZw_10(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -48426,19 +46141,6 @@ LAB_0046f454:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -48453,7 +46155,6 @@ LAB_0046f454:
 void __cdecl rdRaster_Span16_TexZw_11(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -48469,18 +46170,18 @@ void __cdecl rdRaster_Span16_TexZw_11(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -48720,19 +46421,6 @@ LAB_0046fdb4:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -48747,7 +46435,6 @@ LAB_0046fdb4:
 void __cdecl rdRaster_Span16_TexLitZw_31(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -48763,18 +46450,18 @@ void __cdecl rdRaster_Span16_TexLitZw_31(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -49014,19 +46701,6 @@ LAB_00470714:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -49041,7 +46715,6 @@ LAB_00470714:
 void __cdecl rdRaster_Span16_TexZw_12(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -49057,18 +46730,18 @@ void __cdecl rdRaster_Span16_TexZw_12(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -49308,19 +46981,6 @@ LAB_00471074:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -49335,7 +46995,6 @@ LAB_00471074:
 void __cdecl rdRaster_Span16_TexZw_13(uint *left,uint *right)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   VBuffer *pVVar1;
   bool bVar2;
   float fVar3;
@@ -49351,18 +47010,18 @@ void __cdecl rdRaster_Span16_TexZw_13(uint *left,uint *right)
   uint uVar13;
   uint uVar14;
   uint uVar15;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   puVar8 = left;
   uVar14 = *left;
@@ -49602,18 +47261,5 @@ LAB_004719d4:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_8
-#undef local_c
-
 #endif
 

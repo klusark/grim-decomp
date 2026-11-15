@@ -47,7 +47,19 @@ def rewrite(body):
             return body, ""  # not a plausible stack frame: leave the function alone
         dims = re.sub(r"\s+", "", m.group("dims") or "")
         items.append((m, name, off, m.group("type"), m.group("stars"), dims))
-        frame = max(frame, off)
+    # Only a function whose locals depend on the layout gets the frame: a local whose address is taken (`&local_30`
+    # passed as a structure), an array (indexed past its end into its neighbours), a piece of a local
+    # (`local_10._4_4_`), a structure held by value or two locals that overlap. Locals used only by name are plain C
+    # locals then (gcc may place them anywhere: nothing can see where).
+    decl_spans = [(m.start(), m.end()) for m, *_ in items]
+    code = "".join(body[a:b] for a, b in zip([0] + [e for _, e in decl_spans], [s for s, _ in decl_spans] + [len(body)]))
+    used = [it for it in items if re.search(r"\b%s\b" % it[1], code)]
+    if not needs_layout(used, code):
+        return body, ""
+    # (a function that keeps the frame keeps all its locals there, the unused ones too: the deepest one decides
+    # which of the addresses below the frame negative_stack_into_frame maps onto the locals, Res_FOpen's LabFile)
+    for it in items:
+        frame = max(frame, it[2])
     frame = (frame + 15) & ~15
     frame += 16  # slack for a last slot wider than its offset suggests
     out = body
@@ -67,3 +79,26 @@ def rewrite(body):
     out = out[:brace + 1] + decl + out[brace + 1:]
     trailer = "\n" + "\n".join(f"#undef {n}" for n in sorted(set(names))) + "\n"
     return out, trailer
+
+
+PRIM_SIZE = {"char": 1, "uchar": 1, "byte": 1, "bool": 1, "undefined": 1, "undefined1": 1, "short": 2, "ushort": 2,
+             "word": 2, "undefined2": 2, "int": 4, "uint": 4, "long": 4, "ulong": 4, "dword": 4, "float": 4,
+             "undefined4": 4, "undefined3": 3, "double": 8, "longlong": 8, "ulonglong": 8, "qword": 8, "undefined8": 8,
+             "float10": 10, "undefined5": 5, "undefined6": 6, "undefined7": 7}
+
+
+def needs_layout(items, code):
+    """True when the frame's layout can be observed: see rewrite. items: the used (m, name, off, type, stars, dims)."""
+    if "_stkneg" in code or "STACK0X" in code:
+        return True     # addresses below or around the frame are mapped onto it (negative_stack_into_frame)
+    spans = []
+    for m, name, off, typ, stars, dims in items:
+        if dims or re.search(r"&\s*%s\b|\b%s\._|PIECE\(\s*%s\b" % (name, name, name), code):
+            return True
+        base = typ.split()[-1]
+        size = 4 if stars else PRIM_SIZE.get(base)
+        if size is None:
+            return True     # a structure held by value: its extent is not known here
+        spans.append((off - size, off))
+    spans.sort()
+    return any(a[1] > b[0] for a, b in zip(spans, spans[1:]))

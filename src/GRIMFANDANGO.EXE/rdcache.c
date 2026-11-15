@@ -1326,7 +1326,6 @@ int __cdecl rdCache_TriCompare(int a,int b)
 int __cdecl rdCache_DrawFaceN(ProcEntry *face)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   float fVar2;
   rdMaterial *prVar3;
@@ -1339,7 +1338,7 @@ int __cdecl rdCache_DrawFaceN(ProcEntry *face)
   int iVar9;
   int iVar10;
   byte *mat;
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  float local_4;
   
   poly = face;
   iVar8 = face->nGeometryMode;
@@ -1795,8 +1794,6 @@ LAB_00408067:
   }
   return 1;
 }
-#undef local_4
-
 
 /* ---- 0x00408800  rdCache_DrawNGonTFATThunk ---- */
 /* Passes its stack arguments on to rdNRaster_DrawNGonTFAT and returns 1. Nothing references it
@@ -1820,7 +1817,6 @@ uint __cdecl rdCache_DrawNGonTFATThunk(void)
 int __cdecl rdCache_DrawFaceZ(ProcEntry *face)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   rdMaterial *prVar2;
   float fVar3;
@@ -1833,7 +1829,7 @@ int __cdecl rdCache_DrawFaceZ(ProcEntry *face)
   int iVar9;
   byte *mat;
   float fVar10;
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  float local_4;
   
   poly = face;
   iVar7 = face->nGeometryMode;
@@ -2271,5 +2267,3 @@ LAB_00408b6e:
 switchD_00408bad_default:
   return 1;
 }
-#undef local_4
-

@@ -357,7 +357,6 @@ int __cdecl gra_ConvertToLecColor(void *src,LecPixelFormat *fmt,int count,byte *
 int __cdecl gra_ConvertFromLecColor(void *dst,LecPixelFormat *fmt,int count,int unused,byte *src)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   byte bVar2;
   byte bVar3;
@@ -374,15 +373,15 @@ int __cdecl gra_ConvertFromLecColor(void *dst,LecPixelFormat *fmt,int count,int 
   uint uVar14;
   byte *pbVar15;
   undefined1 *puVar16;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   if (fmt->nColorMode == 1) {
     if (fmt->nBytesPerPixel == 2) {
@@ -551,16 +550,6 @@ int __cdecl gra_ConvertFromLecColor(void *dst,LecPixelFormat *fmt,int count,int 
   }
   return 0;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004cfdb0  Video_CopyRectDstFirst ---- */
 /* The remaster calls this function gra_CopyRect (GrimFandango (Linux): the same-format copy of
@@ -657,7 +646,6 @@ void __cdecl Video_ExpandIndexed8(byte *dst,byte *src,int count,int bytesPerPixe
 void __cdecl Video_ExpandIndexed16(byte *dst,ushort *src,int count,int bytesPerPixel,byte *table)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   bool bVar2;
   int iVar3;
@@ -668,9 +656,9 @@ void __cdecl Video_ExpandIndexed16(byte *dst,ushort *src,int count,int bytesPerP
   uint uVar6;
   uint *unaff_ESI;
   uint local_res0;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   cVar5 = (char)local_res0;
   if (cVar5 == '\x01') {
@@ -730,10 +718,6 @@ void __cdecl Video_ExpandIndexed16(byte *dst,ushort *src,int count,int bytesPerP
   }
   return;
 }
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004cff60  Video_Rgba32To555 ---- */
 void __cdecl Video_Rgba32To555(ushort *dst,uint *src,uint count)
@@ -972,7 +956,6 @@ Video_CopyRect(byte *src,byte *dst,int srcX,uint srcY,int dstX,uint dstY,uint wi
               uint srcPitch,uint dstPitch)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   uint uVar2;
   uint uVar3;
@@ -981,8 +964,8 @@ Video_CopyRect(byte *src,byte *dst,int srcX,uint srcY,int dstX,uint dstY,uint wi
   int iVar6;
   byte *pbVar7;
   byte *pbVar8;
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  uint local_38;
+  uint local_34;
   
   uVar3 = (srcY & 0xffff) * (srcPitch & 0xffff);
   pbVar7 = src + (CONCAT22((short)(srcY >> 0x10),(short)uVar3) | uVar3 & 0xffff0000) + srcX;
@@ -1046,6 +1029,3 @@ Video_CopyRect(byte *src,byte *dst,int srcX,uint srcY,int dstX,uint dstY,uint wi
   }
   return;
 }
-#undef local_34
-#undef local_38
-

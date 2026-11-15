@@ -30,9 +30,8 @@ int __cdecl stdCalcBitPos(int n)
 float __cdecl stdMath_FlexPower(float x,int n)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
+  uint local_c;
+  float local_8;
   
   local_8 = x;
   for (local_c = 0; (int)local_c < n + -1; local_c = local_c + 1) {
@@ -40,9 +39,6 @@ float __cdecl stdMath_FlexPower(float x,int n)
   }
   return local_8;
 }
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -99,8 +95,7 @@ float __cdecl stdMath_NormalizeAngle(float degrees)
 float __cdecl stdMath_NormalizeAngleAcute(float deg)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
+  float local_8;
   
   local_8 = stdMath_NormalizeAngle(deg);
   if (180.0f < local_8) {
@@ -108,8 +103,6 @@ float __cdecl stdMath_NormalizeAngleAcute(float deg)
   }
   return local_8;
 }
-#undef local_8
-
 #endif
 
 
@@ -125,22 +118,21 @@ float __cdecl stdMath_NormalizeAngleAcute(float deg)
 void __cdecl stdMath_SinCos(float deg,float *outSin,float *outCos)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   longlong lVar3;
   float fVar4;
   float fVar5;
-  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
+  uint local_30;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  float local_8;
   
   fVar4 = stdMath_NormalizeAngle(deg);
   if (90.0f <= fVar4) {
@@ -240,17 +232,6 @@ void __cdecl stdMath_SinCos(float deg,float *outSin,float *outCos)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_30
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -264,13 +245,10 @@ void __cdecl stdMath_SinCos(float deg,float *outSin,float *outCos)
 float __cdecl Math_Floor(float x)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_8;
   
   return ROUND(x);
 }
-#undef local_8
-
 #endif
 
 

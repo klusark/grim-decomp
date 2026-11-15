@@ -109,7 +109,7 @@ float __fastcall FUN_100120fa(undefined4 param_1)
 {
   float10 fVar1;
   
-  fVar1 = (float10)((code *)FUN_10019b30)(param_1,((unsigned)(uintptr_t)&DAT_100288f0));
+  fVar1 = (float10)((int (__fastcall *)(undefined4, int))FUN_10019b30)(param_1,((unsigned)(uintptr_t)&DAT_100288f0));
   return (float)fVar1;
 }
 #endif

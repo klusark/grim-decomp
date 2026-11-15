@@ -1014,13 +1014,12 @@ void __cdecl rdModel3_Free(int model)
 void __cdecl rdModel3_FreeEntry(int model)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint *puVar2;
   int *piVar3;
   int face;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   if (model != 0) {
     puVar2 = (uint *)(model + 0x24);
@@ -1088,9 +1087,6 @@ void __cdecl rdModel3_FreeEntry(int model)
   }
   return;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x0040c280  rdModel3_BuildShadowModel ---- */
 /* Allocates 0xc0 bytes per mesh and fills the 8 corner points of its bounding box from the min/max
@@ -1101,13 +1097,12 @@ void __cdecl rdModel3_FreeEntry(int model)
 void __cdecl rdModel3_BuildShadowModel(int model)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   int iVar2;
   uint uVar3;
   int iVar4;
   uint *puVar5;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   local_4 = 0;
   if (*(int *)(model + 0x44) == 0) {
@@ -1192,8 +1187,6 @@ void __cdecl rdModel3_BuildShadowModel(int model)
     }
   } while( true );
 }
-#undef local_4
-
 
 /* ---- 0x0040c520  rdModel3_CalcBoundingBoxes ---- */
 /* Computes the min/max box of every mesh, of the whole model (through
@@ -1203,7 +1196,6 @@ void __cdecl rdModel3_BuildShadowModel(int model)
 void __cdecl rdModel3_CalcBoundingBoxes(uint model)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -1213,7 +1205,7 @@ void __cdecl rdModel3_CalcBoundingBoxes(uint model)
   int iVar6;
   int iVar7;
   uint *puVar8;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   model_00 = model;
   *(undefined4 *)(model + 0x60) = 0x7f7fc99e;
@@ -1293,8 +1285,6 @@ void __cdecl rdModel3_CalcBoundingBoxes(uint model)
   *(float *)(model_00 + 0x5c) = SQRT(fVar2 * fVar2 + fVar1 * fVar1 + fVar3 * fVar3) * 0.5f;
   return;
 }
-#undef local_4
-
 
 /* ---- 0x0040c710  rdModel3_CalcModelBoundingBox ---- */
 /* Recursively composes the node matrices (angles, offset, pivot) and accumulates the transformed
@@ -1391,14 +1381,13 @@ void __cdecl rdModel3_CalcModelBoundingBox(int model,int node,float *matrix)
 void __cdecl rdModel3_CalcRadii(int model)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float *pfVar3;
   int *piVar4;
   int iVar5;
   uint uVar6;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   uVar6 = 0;
   if (*(int *)(model + 0x24) != 0) {
@@ -1422,8 +1411,6 @@ void __cdecl rdModel3_CalcRadii(int model)
   rdModel3_BuildExpandedRadius(model,*(int *)(model + 0x58),g_flRdroid_identMatrix34);
   return;
 }
-#undef local_4
-
 #endif
 
 
@@ -1507,7 +1494,6 @@ void __cdecl rdModel3_BuildExpandedRadius(int model,int node,float *matrix)
 void __cdecl rdModel3_CalcFaceNormals(uint model)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
   uint *puVar3;
@@ -1516,12 +1502,12 @@ void __cdecl rdModel3_CalcFaceNormals(uint model)
   int *piVar6;
   uint uVar7;
   uint *puVar8;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   local_4 = 0;
   puVar3 = (uint *)(model + 0x24);
@@ -1577,13 +1563,6 @@ void __cdecl rdModel3_CalcFaceNormals(uint model)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x0040cc30  rdModel3_CalcVertexNormals ---- */
 /* replaced by the hand-written version in build/overrides.c */

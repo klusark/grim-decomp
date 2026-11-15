@@ -9,14 +9,13 @@
 void __cdecl LightMgr_Refresh(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Set *pSVar1;
   int iVar2;
   uint *puVar3;
   int iVar4;
   char *pcVar5;
   undefined4 *puVar6;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   iVar4 = 0;
   local_4 = 0;
@@ -50,8 +49,6 @@ void __cdecl LightMgr_Refresh(void)
   UINT_008d3644 = pSVar1->nLights;
   return;
 }
-#undef local_4
-
 
 /* ---- 0x004beee0  LightMgr_UpdateDialog ---- */
 void __cdecl LightMgr_UpdateDialog(uint hDlg)

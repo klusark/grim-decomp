@@ -364,10 +364,9 @@ ExecutionState_Restore(ExecutionState *this,int a1,int a2,int a3)
 ExecutionState * __cdecl ExecutionState_New(int size)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   ExecutionState *pEVar1;
   int iVar2;
-  #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  undefined4 local_4;
   
   pEVar1 = g_pExecutionState_pFreeStates;
   if (g_pExecutionState_pFreeStates == (ExecutionState *)0x0) {
@@ -391,8 +390,6 @@ ExecutionState * __cdecl ExecutionState_New(int size)
   g_pExecutionState_pFreeStates = pEVar1->pPrev;
   return pEVar1;
 }
-#undef local_4
-
 
 /* ---- 0x1000dd90  ExecutionState_Delete ---- */
 /* Original name ExecutionState_Delete (the remaster's libLua.so: ExecutionState::operator delete:

@@ -187,21 +187,20 @@ uint __cdecl smushplay_GetInfo(int file,int header)
 uint __cdecl Insane_PrepareFrame(int *player,undefined4 *smush_pInternalBitmap,uint *rect)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int srcPitch;
-  ushort *src;
+  uint *src;
   int iVar2;
   int width;
   int iVar3;
   int iVar4;
-  undefined4 *dst;
+  uint *dst;
   int iVar5;
   uint uVar6;
   uint uVar7;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_18;
+  uint local_14;
+  uint local_8;
   
   if ((player != (int *)0x0) && (smush_pInternalBitmap != (undefined4 *)0x0)) {
     _DAT_008d16c0 = 0;
@@ -242,74 +241,63 @@ uint __cdecl Insane_PrepareFrame(int *player,undefined4 *smush_pInternalBitmap,u
     srcPitch = smush_pInternalBitmap[5];
     width = (iVar4 / iVar3) * smush_pInternalBitmap[3];
     iVar4 = player[5];
-    src = (ushort *)*smush_pInternalBitmap;
-    dst = (undefined4 *)(player[3] * uVar7 * iVar3 + uVar6 * iVar5 * iVar4 + *player);
+    src = (uint *)*smush_pInternalBitmap;
+    dst = (uint *)(player[3] * uVar7 * iVar3 + uVar6 * iVar5 * iVar4 + *player);
     if ((_g_bMovieFlags & 4) == 0) {
       if ((_g_bMovieFlags & 2) == 0) {
-        Insane_BlitRows16(src,srcPitch,(int)dst,iVar4,width,iVar2);
+        Insane_BlitRows16((ushort *)src,srcPitch,(int)dst,iVar4,width,iVar2);
       }
       else {
         Insane_BlitRowsDual((int)src,srcPitch,dst,iVar4,width,iVar2);
       }
     }
     else {
-      ((code *)Insane_Blit8To16Doubled)(src,srcPitch,dst,iVar4,width,iVar2);
+      Insane_Blit8To16Doubled(src,srcPitch,dst,iVar4,width,iVar2);
     }
   }
   _DAT_008d16ac = 0;
   return 0;
 }
-#undef local_14
-#undef local_18
-#undef local_8
-
 
 /* ---- 0x004bdca0  Insane_Blit8To16Doubled ---- */
 /* Pixel-doubling conversion of 8-bit frame rows into a 16-bit destination */
 
-undefined8 __fastcall
-Insane_Blit8To16Doubled
-          (undefined4 param_1,undefined4 param_2,uint *param_3,int param_4,uint *param_5,int param_6
-          ,int param_7,int param_8)
+void __cdecl
+Insane_Blit8To16Doubled(uint *src,int srcPitch,uint *dst,int dstPitch,int width,int rows)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   uint uVar2;
   uint uVar3;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint *puVar4;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   local_10 = 0;
   do {
-    iVar1 = (int)param_3 + param_7;
+    iVar1 = (int)src + width;
     do {
-      uVar3 = *param_3;
+      uVar3 = *src;
       uVar2 = (uVar3 & 0xff00) << 8 | uVar3 & 0xff;
       uVar2 = uVar2 << 8 | uVar2;
-      *param_5 = uVar2;
-      param_5 = (uint *)((int)param_5 + param_6);
+      *dst = uVar2;
+      puVar4 = (uint *)((int)dst + dstPitch);
       uVar3 = uVar3 & 0xff000000 | uVar3 >> 8 & 0xff00;
-      *param_5 = uVar2;
-      param_3 = param_3 + 1;
+      *puVar4 = uVar2;
+      src = src + 1;
       uVar3 = uVar3 | uVar3 >> 8;
-      param_5[1] = uVar3;
-      param_5 = (uint *)((int)param_5 + (8 - param_6));
-      param_5[-1] = uVar3;
-    } while ((int)param_3 < iVar1);
-    param_3 = (uint *)((int)param_3 + (param_4 - param_7));
-    param_5 = (uint *)((int)param_5 + param_7 * -2 + param_6 * 2);
+      puVar4[1] = uVar3;
+      dst = (uint *)((int)puVar4 + (8 - dstPitch));
+      dst[-1] = uVar3;
+    } while ((int)src < iVar1);
+    src = (uint *)((int)src + (srcPitch - width));
+    dst = (uint *)((int)dst + width * -2 + dstPitch * 2);
     local_10 = local_10 + 1;
-  } while ((int)local_10 < param_8);
-  return CONCAT44(param_2,param_4 - param_7);
+  } while ((int)local_10 < rows);
+  return;
 }
-#undef local_10
-#undef local_14
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004bdd50  Insane_BlitRowsDual ---- */
 /* Copies frame rows to two destinations (front and back buffer) */

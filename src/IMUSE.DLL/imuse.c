@@ -16,7 +16,6 @@ AudioLib_DetectRawFormat
           (ushort *data,uint size,undefined4 *outBits,undefined4 *outChannels,undefined4 *outFlags)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte *pbVar1;
   ushort *puVar2;
   byte bVar3;
@@ -37,12 +36,12 @@ AudioLib_DetectRawFormat
   int iVar18;
   byte *pbVar19;
   int iVar20;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
   
   local_20 = 0;
   local_1c = 0;
@@ -222,13 +221,6 @@ joined_r0x10001355:
 switchD_100012ad_default:
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-
 
 /* ---- 0x100013c0  AudioLib_ParseWaveFileHeader ---- */
 /* Drives Im_VimaDecodeBlock over a compressed sound chunk Original name
@@ -663,7 +655,6 @@ void __cdecl
 Im_ConvertBlockImpl(short *dst,undefined2 *src,byte *codes,int count,uint channels,int step)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   ushort uVar2;
   uint uVar3;
@@ -674,12 +665,12 @@ Im_ConvertBlockImpl(short *dst,undefined2 *src,byte *codes,int count,uint channe
   uint uVar8;
   short *psVar9;
   short *psVar10;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(short **)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(undefined2 **)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(int *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  uint local_24;
+  short *local_20;
+  undefined2 *local_1c;
+  int local_18;
+  uint local_14;
+  uint local_8;
   
   iVar7 = 0;
   if (DAT_10024dc0 == 0) {
@@ -788,13 +779,6 @@ Im_ConvertBlockImpl(short *dst,undefined2 *src,byte *codes,int count,uint channe
   }
   return;
 }
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_8
-
 
 /* ---- 0x10001f10  DpInitialize ---- */
 /* iMUSE_Dispatch.c: allocates the dispatch slots Original name DpInitialize (the remaster's
@@ -977,7 +961,6 @@ void __cdecl
 DpProcessTrack(int *track,uint trIntHandler_outFramesNeeded,uint trIntHandler_outSampleRate)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *dp;
   uint uVar1;
   uint uVar2;
@@ -985,8 +968,8 @@ DpProcessTrack(int *track,uint trIntHandler_outFramesNeeded,uint trIntHandler_ou
   short *src;
   uint uVar4;
   uint uVar5;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   dp = (int *)track[2];
   if ((dp[0x207] != 0) && (dp[0x209] != 0)) {
@@ -1121,9 +1104,6 @@ LAB_100028ef:
     trIntHandler_outFramesNeeded = trIntHandler_outFramesNeeded - uVar2;
   } while( true );
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x10002a60  GoToNextRegion ---- */
 /* WARNING: Removing unreachable block (ram,0x10002cfb) */
@@ -1133,7 +1113,6 @@ LAB_100028ef:
 int __cdecl GoToNextRegion(int *dp)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *head;
   int iVar1;
   int iVar2;
@@ -1142,7 +1121,7 @@ int __cdecl GoToNextRegion(int *dp)
   uint size;
   int *jump;
   undefined4 *puVar5;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int local_4;
   
   local_4 = -1;
   if (DAT_1002d814 == 0) {
@@ -1252,8 +1231,6 @@ LAB_10002d11:
   LeaveCriticalSection(((unsigned)(uintptr_t)&DAT_1002d7f0));
   return local_4;
 }
-#undef local_4
-
 
 /* ---- 0x10002d30  Im_DispatchFetchNext ---- */
 /* Advances a dispatch through its sound regions / jumps and fetches the next data */
@@ -2169,12 +2146,11 @@ ImSoundCall(uint cmd,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int
 undefined4 __cdecl MxInitialize(undefined4 *info)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined2 *puVar1;
   int iVar2;
   undefined1 *puVar3;
   longlong lVar4;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int local_4;
   
   iVar2 = 0;
   puVar3 = &g_bPanTable;
@@ -2212,8 +2188,6 @@ undefined4 __cdecl MxInitialize(undefined4 *info)
   }
   return 0;
 }
-#undef local_4
-
 #endif
 
 
@@ -4161,7 +4135,6 @@ undefined4 __cdecl iRes_FCLOSE(undefined4 *f)
 uint __cdecl iRes_FREAD(undefined4 *f,undefined4 *buf,uint size)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   undefined4 uVar3;
@@ -4177,8 +4150,8 @@ uint __cdecl iRes_FREAD(undefined4 *f,undefined4 *buf,uint size)
   byte *pbVar13;
   undefined4 *puVar14;
   bool bVar15;
-  #define local_c (*(byte **)(_frame + (0x20 - 0xc)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  byte *local_c;
+  uint local_4;
   
   local_c = (byte *)0x0;
   local_4 = 0;
@@ -4292,9 +4265,6 @@ uint __cdecl iRes_FREAD(undefined4 *f,undefined4 *buf,uint size)
     }
   } while( true );
 }
-#undef local_4
-#undef local_c
-
 
 /* ---- 0x1000a070  iMUSE_DeclareBufferSizes ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -5574,15 +5544,14 @@ TgSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,i
 int __cdecl TgCheckTrigger(int sound,byte *marker,int opcode)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   byte *pbVar2;
   int iVar3;
   byte *pbVar4;
   int *piVar5;
   bool bVar6;
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int local_8;
+  int local_4;
   
   local_8 = 0;
   piVar5 = &g_dwTrigs;
@@ -5623,9 +5592,6 @@ LAB_1000b35f:
     }
   } while( true );
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x1000b380  TgClearTrigger ---- */
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
@@ -5635,14 +5601,13 @@ LAB_1000b35f:
 undefined4 __cdecl TgClearTrigger(int sound,byte *marker,int opcode)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   byte *pbVar2;
   int iVar3;
   byte *pbVar4;
   int *piVar5;
   bool bVar6;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int local_4;
   
   piVar5 = &g_dwTrigs;
   local_4 = 8;
@@ -5687,8 +5652,6 @@ LAB_1000b40c:
     }
   } while( true );
 }
-#undef local_4
-
 
 /* ---- 0x1000b430  TgProcessMarker ---- */
 /* Matches a marker name against the trigger table and runs the stored commands Original name

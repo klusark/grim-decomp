@@ -280,15 +280,14 @@ LAB_00492801:
 int __cdecl Collision_PickDetour(float *from,float *to,int corners)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float *pfVar2;
   int iVar3;
   int iVar4;
   int *piVar5;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   iVar4 = -1;
   local_4 = 0x7f7fffff;
@@ -311,10 +310,6 @@ int __cdecl Collision_PickDetour(float *from,float *to,int corners)
   } while (iVar3 < 4);
   return iVar4;
 }
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004939a0  Collision_UpdateMovedActors ---- */
 uint __cdecl Collision_UpdateMovedActors(void)

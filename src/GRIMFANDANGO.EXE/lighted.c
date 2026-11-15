@@ -12,16 +12,15 @@
 void __cdecl LightEd_SyncFromSet(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   Set *pSVar2;
   int iVar3;
   uint uVar4;
   int iVar5;
   char *pcVar6;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   g_pLightEdSet->nLights = UINT_008d3644;
   local_4 = 0;
@@ -70,10 +69,6 @@ void __cdecl LightEd_SyncFromSet(void)
   }
   return;
 }
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004be4c0  LightEd_ResetLight ---- */
 void __cdecl LightEd_ResetLight(int index,int mode)
@@ -130,7 +125,6 @@ void __cdecl LightEd_ResetLight(int index,int mode)
 void __cdecl LightEd_DeleteLight(uint index)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   int iVar2;
   int iVar3;
@@ -141,8 +135,8 @@ void __cdecl LightEd_DeleteLight(uint index)
   int iVar8;
   char *pcVar9;
   char *pcVar10;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   if (index < (uint)g_pLightEdSet->nLights) {
     local_4 = index + 1;
@@ -213,9 +207,6 @@ void __cdecl LightEd_DeleteLight(uint index)
   }
   return;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x004be730  LightEd_MakeUniqueName ---- */
 /* newlight%d, skipping names already used in the set */
@@ -1060,12 +1051,11 @@ void __cdecl LightEd_GetLightAngles(int light,float *outAngles)
 int __stdcall LightEd_KeyboardProc(int code,uint wParam,uint lParam)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
   uint uVar3;
   uint uVar4;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  float local_18;
   
   if ((((code == 0) && (g_hLightEdDialog != (void *)0x0)) &&
       (iVar2 = Win_IsFocusWithin(g_hLightEdDialog), iVar2 != 0)) && (g_nLightEdSelected != -1)) {
@@ -1224,7 +1214,5 @@ switchD_004c008d_caseD_13:
   iVar2 = CallNextHookEx((int)g_hLightEdHook,code,wParam,lParam);
   return iVar2;
 }
-#undef local_18
-
 #endif
 

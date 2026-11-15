@@ -11,7 +11,7 @@
 | 100016e0 | Cos_Load | costume.c | 40 |
 | 10001770 | Cos_LoadEntry | costume.c | 117 |
 | 10001a30 | Cos_FreeCosInstance | costume.c | 18 |
-| 10001a80 | Cos_CreateCosInstance | costume.c | 161 |
+| 10001a80 | Cos_CreateCosInstance | costume.c | 158 |
 | 10001d70 | Cos_InstGetInstanceData | costume.c | 22 |
 | 10001e00 | Cos_RegisterInstanceHook | costume.c | 12 |
 | 10001e10 | Cos_RegisterSaveHook | costume.c | 13 |
@@ -34,7 +34,7 @@
 | 10003300 | Cos_InstPauseChores | costume.c | 26 |
 | 10003360 | Cos_InstPauseChore | costume.c | 16 |
 | 100033b0 | Cos_InstCompleteChore | costume.c | 23 |
-| 10003430 | Cos_InstCompleteChores | costume.c | 38 |
+| 10003430 | Cos_InstCompleteChores | costume.c | 35 |
 | 100034c0 | Cos_InstPlayChore | costume.c | 24 |
 | 10003530 | Cos_InstUpdateChore | costume.c | 19 |
 | 100035a0 | Cos_InstUpdateChores | costume.c | 28 |
@@ -46,7 +46,7 @@
 | 10003890 | Cos_SaveInstance | costume.c | 45 |
 | 10003970 | Cos_Restore | costume.c | 95 |
 | 10003b40 | Cos_RestoreInstance | costume.c | 44 |
-| 10003c20 | Cos_CollectUsedTags | costume.c | 45 |
+| 10003c20 | Cos_CollectUsedTags | costume.c | 42 |
 | 10003c90 | Cos_AddKey | costume.c | 110 |
 | 10003e50 | Cos_CompareKeys | costume.c | 11 |
 | 10003e70 | Cos_InitComponentStates | costume.c | 126 |
@@ -61,7 +61,7 @@
 | 10004970 | Cos_ReadKeysSection | costume.c | 107 |
 | 10004bb0 | Cos_ReadLine | costume.c | 37 |
 | 10004c40 | Cos_InitChoreInstances | costume.c | 22 |
-| 10004c70 | Cos_FreeCostume | costume.c | 57 |
+| 10004c70 | Cos_FreeCostume | costume.c | 54 |
 | 10004d70 | Cos_FreeComponent | costume.c | 50 |
 | 10004e50 | Cos_AllocCostumeSlot | costume.c | 1 |
 | 10004f30 | Cos_AllocTagSlot | costume.c | 16 |
@@ -80,7 +80,7 @@
 | 10002040 | CosUtil_PtrFromHandle | cosutil.c | 11 |
 | 10002060 | CosUtil_RegisterCompNotifier | cosutil.c | 13 |
 | 10002070 | CosUtil_RegisterBitmapMunger | cosutil.c | 12 |
-| 10002260 | CosUtil_DeleteComponent | cosutil.c | 225 |
+| 10002260 | CosUtil_DeleteComponent | cosutil.c | 222 |
 | 100026a0 | CosUtil_AdjustComponent | cosutil.c | 32 |
 | 10002740 | CosUtil_ComponentHasAdjuster | cosutil.c | 26 |
 | 100027e0 | CosUtil_AddComponent | cosutil.c | 46 |
@@ -99,7 +99,7 @@
 | 100030b0 | CosUtil_ChoreName | cosutil.c | 12 |
 | 100030f0 | CosUtil_CountTags | cosutil.c | 8 |
 | 10003100 | CosUtil_TagInfo | cosutil.c | 16 |
-| 100053e0 | Chore_AdvanceTime | chore.c | 75 |
+| 100053e0 | Chore_AdvanceTime | chore.c | 72 |
 | 10005530 | Chore_ApplyKey | chore.c | 21 |
 | 100055a0 | msvc_strncpy | msvc.c | 1 |
 | 100056a0 | msvc_strrchr | msvc.c | 1 |

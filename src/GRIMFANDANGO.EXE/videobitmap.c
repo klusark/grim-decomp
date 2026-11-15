@@ -14,11 +14,10 @@
 int __cdecl bmp_bitmap_Alloc(void *out,int width,int height,int format)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   undefined4 uVar3;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int local_4;
   
   local_4 = 0;
   switch(format) {
@@ -79,8 +78,6 @@ LAB_004ce7b5:
   iVar2 = (**(code **)(&DAT_004ce808 + (format + 1) * 4))();
   return iVar2;
 }
-#undef local_4
-
 #endif
 
 
@@ -95,13 +92,12 @@ gra_ConvertCopy(byte *src,LecPixelFormat *srcFmt,int count,byte *palette,byte *d
                LecPixelFormat *dstFmt,byte *expandTable)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   bool bVar2;
   int iVar3;
   uint uVar4;
   int iVar5;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   if (((*(int *)&srcFmt->field_0x10 == *(int *)&dstFmt->field_0x10) &&
       (iVar5 = srcFmt->nColorMode, iVar5 == dstFmt->nColorMode)) &&
@@ -168,5 +164,3 @@ gra_ConvertCopy(byte *src,LecPixelFormat *srcFmt,int count,byte *palette,byte *d
   }
   return -1;
 }
-#undef local_4
-

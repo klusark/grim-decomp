@@ -398,14 +398,13 @@ int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *predictStream_j
 void __cdecl PrepareToJump(int *format,undefined4 *region,int jump,int now)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *head;
   undefined4 *puVar1;
   undefined4 uVar2;
   undefined4 *puVar3;
   int iVar4;
   uint uVar5;
-  #define local_4 (*(undefined4 **)(_frame + (0x20 - 0x4)))
+  undefined4 *local_4;
   
   local_4 = (undefined4 *)0x0;
   if ((region[3] + region[4] == *(int *)(jump + 8)) && (iVar4 = region[1], iVar4 != 0)) {
@@ -476,8 +475,6 @@ void __cdecl PrepareToJump(int *format,undefined4 *region,int jump,int now)
   }
   return;
 }
-#undef local_4
-
 
 /* ---- 0x10003430  iMUSE_Dispatch__3430 ---- */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */

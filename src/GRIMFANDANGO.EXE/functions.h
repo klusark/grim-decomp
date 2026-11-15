@@ -2633,7 +2633,7 @@ void __cdecl SmushPlay_SysShutdown(void); /* 0x004bd4d0 */
 void __cdecl SmushPlay_SysSetVideoCallbacks(uint *sputVideoCallBacks); /* 0x004bd540 */
 uint __cdecl smushplay_GetInfo(int file,int header); /* 0x004bd7c0 */
 uint __cdecl Insane_PrepareFrame(int *player,undefined4 *smush_pInternalBitmap,uint *rect); /* 0x004bdb00 */
-undefined8 __fastcall Insane_Blit8To16Doubled (undefined4 param_1,undefined4 param_2,uint *param_3,int param_4,uint *param_5,int param_6 ,int param_7,int param_8); /* 0x004bdca0 */
+void __cdecl Insane_Blit8To16Doubled(uint *src,int srcPitch,uint *dst,int dstPitch,int width,int rows); /* 0x004bdca0 */
 void __cdecl Insane_BlitRowsDual(int src,int srcPitch,undefined4 *dst,int dstPitch,int width,int rows); /* 0x004bdd50 */
 void __cdecl Insane_BlitRows16(ushort *src,int srcPitch,int dst,int dstPitch,int width,int rows); /* 0x004bddb0 */
 void __cdecl msc_MemCopy(void *dst,void *src,uint n); /* 0x004c3df0 */

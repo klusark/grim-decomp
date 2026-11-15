@@ -236,7 +236,6 @@ undefined8 __cdecl
 rdColormap_BuildRGB16(undefined2 *table,ushort *palette,uint r,uint g,uint b,int fmt)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte *pbVar1;
   byte bVar2;
   float10 fVar3;
@@ -260,10 +259,10 @@ rdColormap_BuildRGB16(undefined2 *table,ushort *palette,uint r,uint g,uint b,int
   longlong lVar17;
   longlong lVar18;
   longlong lVar19;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   uVar6 = r & 0xff;
   uVar8 = 0;
@@ -344,11 +343,6 @@ rdColormap_BuildRGB16(undefined2 *table,ushort *palette,uint r,uint g,uint b,int
   } while (r != 0);
   return CONCAT44((int)((ulonglong)lVar19 >> 0x20),1);
 }
-#undef local_10
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 

@@ -246,11 +246,10 @@ sputActor_SetActorHead
           (Actor *actor,int joint1,int joint2,int joint3,float maxRoll,float maxPitch,float maxYaw)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   CostumeNode *pCVar1;
   uint uVar2;
   float fVar3;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  uint local_14;
   
   pCVar1 = actor->pCostumes;
   if ((pCVar1 != (CostumeNode *)0x0) && (pCVar1->pMainModel != (void *)0x0)) {
@@ -270,8 +269,6 @@ sputActor_SetActorHead
   }
   return;
 }
-#undef local_14
-
 
 /* ---- 0x0048fa60  sputActor_CanActorSeePoint ---- */
 /* True when the point lies within the head joint's view cone (cosine threshold at costume+0x24 set
@@ -1761,7 +1758,6 @@ void __cdecl sputActor_LeaveSector(int a1,int a2)
 void __cdecl Actor_FollowPath(Actor *actor)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float (*pafVar1) [3];
   float fVar2;
   float fVar3;
@@ -1769,9 +1765,9 @@ void __cdecl Actor_FollowPath(Actor *actor)
   float fVar5;
   ActorExtra *pAVar6;
   float fVar7;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   pAVar6 = actor->pExtra;
   fVar5 = actor->aPos[0] - pAVar6->aWaypoint[0];
@@ -1810,10 +1806,6 @@ void __cdecl Actor_FollowPath(Actor *actor)
   sputActor_Forward(actor);
   return;
 }
-#undef local_10
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004933c0  sputActor_SetWalkDominate ---- */
 /* Original name sputActor_SetWalkDominate (the remaster's GrimFandango (Linux): the only unmatched

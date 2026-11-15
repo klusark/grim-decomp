@@ -1268,7 +1268,6 @@ int __cdecl stdDisplay_VBufferUnlock(VBuffer *surface)
 int __cdecl Surface_Fill(VBuffer *surface,int color,int *rect)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined1 uVar1;
   uint uVar2;
   int iVar3;
@@ -1277,7 +1276,7 @@ int __cdecl Surface_Fill(VBuffer *surface,int color,int *rect)
   undefined4 *puVar6;
   int *piVar7;
   undefined4 *puVar8;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_8;
   
   if (surface->nType == 0) {
     iVar3 = (surface->format).colorFormat.nBpp;
@@ -1394,8 +1393,6 @@ int __cdecl Surface_Fill(VBuffer *surface,int color,int *rect)
   }
   return 1;
 }
-#undef local_8
-
 
 /* ---- 0x00474a60  Surface_Blit ---- */
 int __cdecl Surface_Blit(VBuffer *dst,VBuffer *src,int x,int y,int *srcRect,int colorKey)
@@ -1727,12 +1724,11 @@ int __cdecl stdDisplay_TextOut(char *text,int x,int y)
 uint __cdecl Display_FindClosestDevice(uint *want)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   uint *puVar3;
   uint uVar4;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   uVar1 = 0;
   if (g_dwStdDisplay_numDevices == 0) {
@@ -1759,20 +1755,17 @@ uint __cdecl Display_FindClosestDevice(uint *want)
   }
   return local_4;
 }
-#undef local_4
-
 
 /* ---- 0x00475090  Display_FindClosestMode ---- */
 uint __cdecl Display_FindClosestMode(VideoMode *wanted,VideoMode *modes,uint count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   uint uVar2;
   uint uVar3;
   int *piVar4;
   uint uVar5;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   uVar2 = 0;
   if (g_dwVideoModeCount == 0) {
@@ -1809,8 +1802,6 @@ uint __cdecl Display_FindClosestMode(VideoMode *wanted,VideoMode *modes,uint cou
   }
   return local_4;
 }
-#undef local_4
-
 
 /* ---- 0x00475140  Display_CompareVideoModes ---- */
 /* qsort comparator of Display_SelectDevice for the video mode list. */
@@ -2230,7 +2221,6 @@ uint __cdecl
 Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *x,uint y,int *srcRect,void *flags)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   VBuffer *pVVar2;
   uint uVar3;
@@ -2247,7 +2237,7 @@ Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *x,uint y,int *srcRect,void
   char *pcVar14;
   void *pvVar15;
   int iVar16;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   pVVar2 = src;
   if (dst->nLockCount == 0) {
@@ -2424,15 +2414,12 @@ Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *x,uint y,int *srcRect,void
   }
   return 0;
 }
-#undef local_4
-
 
 /* ---- 0x00475c90  Surface_BlitLockedDst ---- */
 uint __cdecl
 Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *x,uint y,int *srcRect,void *flags)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   void *pvVar2;
   int iVar3;
@@ -2451,7 +2438,7 @@ Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *x,uint y,int *srcRect,void
   short *psVar14;
   char *pcVar15;
   int iVar16;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   surface = src;
   pVVar4 = dst;
@@ -2644,8 +2631,6 @@ Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *x,uint y,int *srcRect,void
   }
   return 0;
 }
-#undef local_4
-
 
 /* ---- 0x004760d0  DDraw_Create ---- */
 int __cdecl DDraw_Create(uint device)

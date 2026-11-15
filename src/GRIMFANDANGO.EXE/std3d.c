@@ -1212,12 +1212,11 @@ uint __cdecl std3D_ClearZBuffer(void)
 uint __cdecl D3D_FindClosestDriver(int *drivers,int count,uint flags)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   uint uVar3;
   int *piVar4;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   uVar1 = 0;
   if (flags == 0) {
@@ -1246,20 +1245,17 @@ uint __cdecl D3D_FindClosestDriver(int *drivers,int count,uint flags)
   }
   return local_4;
 }
-#undef local_4
-
 
 /* ---- 0x00479be0  D3D_FindTextureFormat ---- */
 uint __cdecl D3D_FindTextureFormat(int *formats,int count,uint bpp)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   uint uVar2;
   int *piVar3;
   uint uVar4;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   uVar2 = 0;
   if (bpp == 0) {
@@ -1302,9 +1298,6 @@ uint __cdecl D3D_FindTextureFormat(int *formats,int count,uint bpp)
   }
   return local_4;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x00479cc0  D3D_SetViewportRect ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
@@ -1967,12 +1960,11 @@ uint __cdecl D3D_FilterBitsToEnum(byte bits)
 int __cdecl D3D_EvictTexture(uint size)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   Std3DTexture *pSVar2;
   uint uVar3;
   Std3DTexture *pSVar4;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   uVar3 = 0xffffffff;
   pSVar4 = (Std3DTexture *)0x0;
@@ -2015,5 +2007,3 @@ int __cdecl D3D_EvictTexture(uint size)
   D3D_UnlinkTexture(pSVar4);
   return 1;
 }
-#undef local_4
-

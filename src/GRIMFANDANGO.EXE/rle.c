@@ -50,9 +50,8 @@ void __cdecl msc_rle_DecompressInitialize(int *src)
 uint __fastcall msc_rle_DecompressGetbyte(undefined4 param_1)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  #define local_1 (*(undefined1 *)(_frame + (0x20 - 0x1)))
+  undefined1 local_1;
   
   if (g_dwMsc_uncompress_state == 2) {
     g_dwMsc_uncompress_count = (byte)((byte)*g_pMsc_uncompress_data >> 1) + 1;
@@ -83,5 +82,3 @@ uint __fastcall msc_rle_DecompressGetbyte(undefined4 param_1)
   }
   return uVar1;
 }
-#undef local_1
-

@@ -160,7 +160,6 @@ void rdActive_DrawScene(void)
 void __cdecl rdActive_BuildSpans(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int *piVar2;
   int iVar3;
@@ -178,16 +177,16 @@ void __cdecl rdActive_BuildSpans(void)
   int *piVar15;
   int *piVar16;
   int *piVar17;
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
   
   if ((g_dwNumActiveEdges != 0) &&
      (piVar17 = (int *)0x0, piVar13 = (int *)UINT_004f6f20,
@@ -509,17 +508,6 @@ LAB_004055a9:
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_8
-#undef local_c
-
 #endif
 
 
@@ -559,7 +547,6 @@ void __cdecl rdActive_FlushSpans(void)
 void __cdecl rdActive_BuildEdges(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   undefined4 uVar2;
   int iVar3;
@@ -571,7 +558,7 @@ void __cdecl rdActive_BuildEdges(void)
   undefined *puVar8;
   uint uVar9;
   uint *puVar10;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   uVar9 = 0;
   face = g_bRdCache_aProcFaces;
@@ -640,8 +627,6 @@ void __cdecl rdActive_BuildEdges(void)
   }
   return;
 }
-#undef local_4
-
 
 /* ---- 0x00405770  rdActive_AddActiveFace ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -652,7 +637,6 @@ void __cdecl rdActive_BuildEdges(void)
 uint __cdecl rdActive_AddActiveFace(byte *face)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float *rec;
   float fVar2;
@@ -664,7 +648,7 @@ uint __cdecl rdActive_AddActiveFace(byte *face)
   byte *mat;
   int iVar8;
   int iVar9;
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  float local_4;
   
   pbVar4 = face;
   uVar7 = g_dwNumActiveFaces;
@@ -1342,8 +1326,6 @@ LAB_0040585d:
   g_dwNumActiveFaces = g_dwNumActiveFaces + 1;
   return 1;
 }
-#undef local_4
-
 #endif
 
 

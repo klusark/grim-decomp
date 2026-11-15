@@ -850,7 +850,6 @@ void __cdecl luatag(void)
 void __cdecl luaI_call(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int table;
   uint *puVar2;
@@ -858,7 +857,7 @@ void __cdecl luaI_call(void)
   int iVar4;
   int o;
   int iVar5;
-  #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
+  int iStack_c;
   
   iVar1 = luaL_nonnullarg(1);
   table = luaL_tablearg(2);
@@ -903,8 +902,6 @@ void __cdecl luaI_call(void)
   }
   return;
 }
-#undef iStack_c
-
 
 /* ---- 0x10003ba0  getnarg ---- */
 /* Named getnarg (not in the remaster, gcc inlined it there): Lua 3.1 source name (lbuiltin.c:

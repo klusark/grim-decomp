@@ -59,14 +59,13 @@ undefined * __cdecl FadeOutChore(void *cosInst,int chore,int ms)
 void __cdecl sputCostume_PrintCostumeInfo(CostumeNode *costume)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   CostumeNode **ppCVar1;
   ModelComponent *pMVar2;
   rdModel3 *prVar3;
   int iVar4;
   uint uVar5;
   CostumeNode *pCVar6;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   pCVar6 = costume;
   if (costume != (CostumeNode *)0x0) {
@@ -100,8 +99,6 @@ void __cdecl sputCostume_PrintCostumeInfo(CostumeNode *costume)
   }
   return;
 }
-#undef local_4
-
 
 /* ---- 0x00494dc0  sputCostume_FreeCostumeNodes ---- */
 /* Original name sputCostume_FreeCostumeNodes (the remaster's GrimFandango (Linux): aligned call in
@@ -279,12 +276,11 @@ void __cdecl Costume_InitRecord(CostumeNode *node)
 void * __cdecl Costume_GetMainModel(void *cosInst)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   uint uVar2;
   int iVar3;
   uint uVar4;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   pvVar1 = cosInst;
   uVar2 = Cos_InstCountComponents((int)cosInst);
@@ -301,8 +297,6 @@ void * __cdecl Costume_GetMainModel(void *cosInst)
   } while (uVar4 < uVar2);
   return (void *)0x0;
 }
-#undef local_4
-
 
 /* ---- 0x00495510  Costume_ApplyScale ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -370,14 +364,13 @@ void __cdecl Costume_ApplyScale(Actor *actor,ModelComponent *componentList)
 void __cdecl Costume_ApplyComponentState(void *cosInst)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *pvVar2;
   int iVar3;
   int *piVar4;
   uint uVar5;
   int iVar6;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   pvVar2 = cosInst;
   iVar3 = Cos_InstCountComponents((int)cosInst);
@@ -405,8 +398,6 @@ void __cdecl Costume_ApplyComponentState(void *cosInst)
   }
   return;
 }
-#undef local_4
-
 
 /* ---- 0x004956a0  sputCostume_BuildThingStateMatrices ---- */
 /* Recursively positions a model hung on a parent model's node Original name

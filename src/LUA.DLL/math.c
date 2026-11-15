@@ -13,8 +13,7 @@
 void __cdecl math_abs(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  undefined4 uStack_4;
   
   uStack_4 = PUN(undefined4,(float)(luaL_check_number(1)));
   if (uStack_4 < 0.0f) {
@@ -23,8 +22,6 @@ void __cdecl math_abs(void)
   lua_pushnumber(PUN(float,uStack_4));
   return;
 }
-#undef uStack_4
-
 #endif
 
 
@@ -302,11 +299,10 @@ void __cdecl math_rad(void)
 void __cdecl math_min(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int numArg;
   float fVar2;
-  #define fStack_4 (*(float *)(_frame + (0x20 - 0x4)))
+  float fStack_4;
   
   fStack_4 = luaL_check_number(1);
   numArg = 2;
@@ -322,8 +318,6 @@ void __cdecl math_min(void)
   lua_pushnumber(fStack_4);
   return;
 }
-#undef fStack_4
-
 
 /* ---- 0x10007230  math_max ---- */
 /* Lua math library: max(x, ...) */
@@ -331,11 +325,10 @@ void __cdecl math_min(void)
 void __cdecl math_max(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int numArg;
   float fVar2;
-  #define fStack_4 (*(float *)(_frame + (0x20 - 0x4)))
+  float fStack_4;
   
   fStack_4 = luaL_check_number(1);
   numArg = 2;
@@ -351,8 +344,6 @@ void __cdecl math_max(void)
   lua_pushnumber(fStack_4);
   return;
 }
-#undef fStack_4
-
 
 /* ---- 0x10007290  math_random ---- */
 /* replaced by the hand-written version in build/overrides.c */

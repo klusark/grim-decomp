@@ -56,13 +56,12 @@ void __cdecl Sector_DrawAllDebug(void)
 void __cdecl sputLua_CollisionHandler(int self,int other,float *a,float *b,float *c)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   bool bVar2;
   int iVar3;
   int iVar4;
   int iVar5;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   bVar1 = false;
   bVar2 = false;
@@ -114,8 +113,6 @@ void __cdecl sputLua_CollisionHandler(int self,int other,float *a,float *b,float
   lua_endblock();
   return;
 }
-#undef local_4
-
 
 /* ---- 0x004a4b00  SetFile_Parse ---- */
 /* Remembers the set being parsed (g_dwLoadingRoom), stores its base file name (+0, 0x7f chars) and
@@ -280,7 +277,6 @@ uint __cdecl sputRoom_ParseSectors(void)
 void __cdecl WalkPlane_BuildCache(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   WalkVertex *pWVar2;
   WalkPlane *pWVar3;
@@ -288,7 +284,7 @@ void __cdecl WalkPlane_BuildCache(void)
   int iVar5;
   int iVar6;
   int iVar7;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   WalkPlane_DestroyCache();
   g_nVertexCacheSize = 0;
@@ -346,8 +342,6 @@ void __cdecl WalkPlane_BuildCache(void)
   g_dwWpCacheBuilt = 1;
   return;
 }
-#undef local_4
-
 
 /* ---- 0x004a6330  WalkPlane_DestroyCache ---- */
 /* Original name WalkPlane_DestroyCache (the remaster's GrimFandango (Linux): same body (clear the
@@ -939,7 +933,6 @@ int __thiscall WalkPlane_Within(WalkPlane *this,float *point,int checkActive)
 int __thiscall WalkPlane_ClosestPoint(WalkPlane *this,int a1)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -950,10 +943,10 @@ int __thiscall WalkPlane_ClosestPoint(WalkPlane *this,int a1)
   float *pfVar8;
   int iVar9;
   float *pfVar10;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   WalkPlane_Project(this,a1);
   iVar7 = this->nNumVerts;
@@ -1024,11 +1017,6 @@ int __thiscall WalkPlane_ClosestPoint(WalkPlane *this,int a1)
   }
   return iVar7;
 }
-#undef local_10
-#undef local_4
-#undef local_8
-#undef local_c
-
 #endif
 
 

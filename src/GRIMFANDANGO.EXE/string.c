@@ -279,7 +279,6 @@ uint * __cdecl String_ContainsSubstring(uint *s,char *sub)
 byte * __cdecl FindMatch(char *str,char *pattern)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   byte bVar2;
   bool bVar3;
@@ -292,7 +291,7 @@ byte * __cdecl FindMatch(char *str,char *pattern)
   byte *pbVar10;
   char *pcVar11;
   byte *pbVar12;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   uVar7 = 0xffffffff;
   bVar4 = false;
@@ -435,8 +434,6 @@ LAB_004c1d16:
     bVar6 = *pbVar9;
   } while( true );
 }
-#undef local_4
-
 
 /* ---- 0x004c1e00  Str_ModuleNameLength ---- */
 /* Length of a module name up to the first '.' or '=' (trailing spaces before '=' trimmed) */

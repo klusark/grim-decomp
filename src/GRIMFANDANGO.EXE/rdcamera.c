@@ -207,14 +207,13 @@ void __cdecl rdCamera_SetAspectRatio(rdCamera *camera,float zoom)
 uint __cdecl rdCamera_BuildFOV(int *cam)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float fVar2;
   float fVar3;
   float10 fVar4;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_14;
+  uint local_8;
+  uint local_4;
   
   iVar1 = cam[1];
   if (iVar1 == 0) {
@@ -248,10 +247,6 @@ uint __cdecl rdCamera_BuildFOV(int *cam)
   }
   return 1;
 }
-#undef local_14
-#undef local_4
-#undef local_8
-
 #endif
 
 
@@ -303,14 +298,13 @@ void __cdecl rdCamera_OrthoProject(float *out,float *v)
 void __cdecl rdCamera_OrthoProjectLst(float *out,float *v,int count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   float fVar4;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   fVar3 = g_pRdCamera_CurCamera->flOrthoScale;
   fVar1 = g_pRdCamera_CurCamera->flAspect;
@@ -325,10 +319,6 @@ void __cdecl rdCamera_OrthoProjectLst(float *out,float *v,int count)
   }
   return;
 }
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x0040a530  rdCamera_OrthoProjectSquare ---- */
 /* Projects one point orthographically, square pixels. Selected by
@@ -355,13 +345,12 @@ void __cdecl rdCamera_OrthoProjectSquare(float *out,float *v)
 void __cdecl rdCamera_OrthoProjectSquareLst(float *out,float *v,int count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   fVar1 = g_pRdCamera_CurCamera->flOrthoScale;
   fVar2 = g_pRdCamera_CurCamera->pCanvas->flCenterX;
@@ -375,10 +364,6 @@ void __cdecl rdCamera_OrthoProjectSquareLst(float *out,float *v,int count)
   }
   return;
 }
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x0040a5e0  rdCamera_PerspProject ---- */
 /* Perspective-projects one point (x*focal/y + cx, cy - z*aspect*focal/y) with the aspect ratio.
@@ -409,13 +394,12 @@ void __cdecl rdCamera_PerspProject(float *out,float *v)
 void __cdecl rdCamera_PerspProjectLst(float *out,float *v,int count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   float fVar4;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   fVar2 = g_pRdCamera_CurCamera->pCanvas->flCenterX;
   fVar3 = g_pRdCamera_CurCamera->pCanvas->flCenterY;
@@ -430,9 +414,6 @@ void __cdecl rdCamera_PerspProjectLst(float *out,float *v,int count)
   }
   return;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x0040a6a0  rdCamera_PerspProjectSquare ---- */
 /* Perspective-projects one point, square pixels. Selected by
@@ -461,12 +442,11 @@ void __cdecl rdCamera_PerspProjectSquare(float *out,float *v)
 void __cdecl rdCamera_PerspProjectSquareLst(float *out,float *v,int count)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_8;
+  uint local_4;
   
   fVar1 = g_pRdCamera_CurCamera->pCanvas->flCenterX;
   fVar2 = g_pRdCamera_CurCamera->pCanvas->flCenterY;
@@ -480,9 +460,6 @@ void __cdecl rdCamera_PerspProjectSquareLst(float *out,float *v,int count)
   }
   return;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x0040a750  rdCamera_SetAmbientLight ---- */
 /* Lua SetAmbientLight */

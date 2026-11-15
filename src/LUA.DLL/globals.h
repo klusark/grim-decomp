@@ -324,7 +324,7 @@ extern undefined4 DAT_100299b8; /* used by 1 fn(s), first 0x1001d340 */
 extern undefined DAT_10029a48; /* used by 2 fn(s), first 0x1001d340 */
 extern undefined DAT_10029a60; /* used by 1 fn(s), first 0x1001db30 */
 extern undefined DAT_10029a78; /* used by 2 fn(s), first 0x10013fd0 */
-extern undefined4 DAT_10029af0; /* used by 1 fn(s), first 0x10020aa0 */
+extern int DAT_10029af0; /* used by 1 fn(s), first 0x10020aa0 */
 extern undefined4 DAT_10029af4; /* used by 1 fn(s), first 0x10020aa0 */
 extern undefined4 DAT_10029afc; /* used by 1 fn(s), first 0x10020cb0 */
 extern undefined *PTR_LOOP_10029b00; /* used by 5 fn(s), first 0x1001d2b0 */
@@ -404,7 +404,7 @@ extern undefined4 DAT_1002c000; /* used by 1 fn(s), first 0x100117e0 */
 extern undefined2 DAT_1002c004; /* used by 1 fn(s), first 0x100117e0 */
 extern undefined4 DAT_1002c008; /* used by 1 fn(s), first 0x100117e0 */
 extern undefined4 DAT_1002c00c; /* used by 2 fn(s), first 0x10012cb0 */
-extern undefined4 * DAT_1002c010; /* used by 3 fn(s), first 0x10012cb0 */
+extern char * DAT_1002c010; /* used by 3 fn(s), first 0x10012cb0 */
 extern undefined4 DAT_1002c018; /* used by 3 fn(s), first 0x10012e80 */
 extern undefined4 DAT_1002c01c; /* used by 4 fn(s), first 0x10012e80 */
 extern undefined4 DAT_1002c080; /* used by 1 fn(s), first 0x10015060 */
@@ -497,10 +497,10 @@ extern undefined DAT_1002c5b0; /* used by 1 fn(s), first 0x10017870 */
 extern code *DAT_1002c5b4; /* used by 1 fn(s), first 0x10020a10 */
 extern code *DAT_1002c5b8; /* used by 1 fn(s), first 0x10020a10 */
 extern code *DAT_1002c5bc; /* used by 1 fn(s), first 0x10020a10 */
-extern undefined4 DAT_1002c5c0; /* used by 1 fn(s), first 0x10020aa0 */
-extern undefined4 DAT_1002c5c4; /* used by 1 fn(s), first 0x10020aa0 */
-extern undefined4 DAT_1002c5c8; /* used by 1 fn(s), first 0x10020aa0 */
-extern undefined4 DAT_1002c5cc; /* used by 1 fn(s), first 0x10020aa0 */
+extern code * DAT_1002c5c0; /* used by 1 fn(s), first 0x10020aa0 */
+extern code * DAT_1002c5c4; /* used by 1 fn(s), first 0x10020aa0 */
+extern code * DAT_1002c5c8; /* used by 1 fn(s), first 0x10020aa0 */
+extern code * DAT_1002c5cc; /* used by 1 fn(s), first 0x10020aa0 */
 extern undefined4 DAT_1002c5d4; /* used by 8 fn(s), first 0x10015440 */
 extern undefined DAT_1002c5d8; /* used by 2 fn(s), first 0x1001cc00 */
 extern undefined4 DAT_1002c5dc; /* used by 1 fn(s), first 0x100155f0 */

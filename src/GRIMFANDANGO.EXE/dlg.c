@@ -15,7 +15,6 @@ Dlg_MakeItemTemplate
           uint *outSize)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   undefined4 *a5;
   uint *puVar2;
@@ -24,8 +23,8 @@ Dlg_MakeItemTemplate
   undefined4 *puVar5;
   uint *puVar6;
   undefined4 *puVar7;
-  #define local_c (*(undefined4 *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
+  undefined4 local_c;
+  undefined4 local_8;
   
   local_c = CONCAT22(y,x);
   local_8 = CONCAT22(cy,cx);
@@ -102,9 +101,6 @@ Dlg_MakeItemTemplate
   free((int)PIECE(cx,0,4));
   return puVar2;
 }
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004881a0  Dlg_MakeDialogTemplate ---- */
 /* Builds a DLGTEMPLATE header (style, item count, x, y, w, h, title, font, point size) */
@@ -115,7 +111,6 @@ Dlg_MakeDialogTemplate
           ushort param_6,int param_7,int param_8,ushort param_9,uint *param_10)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   int iVar2;
   uint *puVar3;
@@ -125,9 +120,9 @@ Dlg_MakeDialogTemplate
   undefined4 *puVar7;
   uint *puVar8;
   undefined4 *puVar9;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_c (*(undefined4 *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(undefined4 *)(_frame + (0x30 - 0x8)))
+  uint local_14;
+  undefined4 local_c;
+  undefined4 local_8;
   
   local_14 = (uint)param_1;
   if (param_8 != 0) {
@@ -217,7 +212,3 @@ Dlg_MakeDialogTemplate
   }
   return puVar3;
 }
-#undef local_14
-#undef local_8
-#undef local_c
-

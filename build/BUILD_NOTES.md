@@ -2242,3 +2242,25 @@ whole-game autorun).
 * docs/OVERRIDES.md: 526 hand-written functions, none in `repair`. datacmp: 2 differences, both pointers stored
   unaligned inside DirectInput's data-format tables (DAT_004d5370 +0x15, DAT_004d5400 +0x15): the same targets
   (&DAT_004d4370, &DAT_004d5390) at this build's addresses; datacmp compares aligned pointers by target only.
+
+## `_frame` only where the layout can be seen; two dead patterns in build_src (2026-11-15)
+
+* tools/frame_locals.py turned every offset-named local (`local_30`, `uStack_14`, ...) into a view into one byte
+  array, `#define local_14 (*(uint *)(_frame + (0x30 - 0x14)))`, so that locals the original treats as one block keep
+  Ghidra's offsets. That matters only when the code can observe the layout: a local whose address is taken, an array
+  (indexed past its end into its neighbours), a piece of a local (`local_10._4_4_`), a structure held by value, two
+  locals that overlap, or addresses below the frame mapped onto it (`_stkneg`, STACK0X). A function with none of
+  these keeps Ghidra's declarations as plain C locals: 924 -> 496 functions with a `_frame` (the 496: address taken
+  239, array 120, both 98, the rest overlaps, pieces and stack offsets). A function that keeps the frame keeps all its
+  locals there, the unused ones too: the deepest local decides which addresses below the frame
+  negative_stack_into_frame maps onto the locals. (Dropping Res_FOpen's unused `local_21c` cut its LabFile at -0x218
+  off from `local_214` .. `local_208`, its fields: every file handle was garbage, the first try crashed at start-up.)
+* tools/build_src.py had two patterns with a backspace character (0x08) where `\b` was meant, so they never matched:
+  float_frame_locals' "assigned a number / compared with a float literal" tests (no change in the output now), and
+  the calling convention of every function's prototype (`ctx.cc`, empty since the first commit). With `ctx.cc` filled,
+  a call whose arguments do not match the prototype is cast with the callee's convention instead of `(code *)`: that
+  exposed Insane_Blit8To16Doubled's prototype, `__fastcall` with 8 parameters where the code is `__cdecl` with 6 (the
+  call pushes six, the body reads [EBP+8] up); it is `void Insane_Blit8To16Doubled(uint *src, int srcPitch, uint
+  *dst, int dstPitch, int width, int rows)` now and Insane_PrepareFrame calls it directly. The other two such casts
+  are in code that is not compiled (sputRender_Update's twin, a dead C runtime function of LUA.DLL).
+* Clean room 0 of 5490; the whole-game autorun passes (432 s).
