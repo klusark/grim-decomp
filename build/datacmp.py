@@ -113,7 +113,7 @@ def compare(prog, old, new):
     unused, n_unused = set(), 0
     up = os.path.join(ROOT, "names", "data_unused.json")
     if os.path.exists(up):
-        unused = {(int(r["addr"], 16), r["name"]) for r in json.load(open(up)).get(prog, [])}
+        unused = {(int(r["addr"], 16), r["size"]) for r in json.load(open(up)).get(prog, [])}   # (address, size)
     first = {}
     for a, sp in new_spans:
         if sp.sec is not None and sp.sec["key"] not in first:
@@ -134,7 +134,7 @@ def compare(prog, old, new):
             continue
         ob, nb = old.read(ov, n), new.read(nv, n)
         nbytes += n
-        if (sp.start, sp.name) in unused:
+        if (sp.start, sp.end - sp.start) in unused:
             # names/data_unused.json: zero in the new build, whatever the old one held
             if nb.strip(b"\0"):
                 bad.append((sp.name, sp.start, "unused", nb[:4].hex()))

@@ -506,7 +506,7 @@ uint __cdecl Text_WrapLines(uint *defaultFont)
   local_414 = 0;
   local_410 = uVar4;
   if (uVar4 != 0) {
-    puVar8 = &UINT_004eca04;
+    puVar8 = g_adwTextWrapTable;
     puVar12 = &local_400;
     for (uVar7 = uVar4; uVar7 != 0; uVar7 = uVar7 - 1) {
       *puVar12 = *puVar8;
@@ -595,7 +595,7 @@ uint __cdecl Text_WrapLines(uint *defaultFont)
             uVar4 = puVar5[6];
           }
           puVar5[6] = uVar4;
-          Text_CopyRunes((byte *)((int)&UINT_004eca04 + iVar3),(undefined4 *)(pcVar10 + 2),1,
+          Text_CopyRunes((byte *)((int)g_adwTextWrapTable + iVar3),(undefined4 *)(pcVar10 + 2),1,
                          (int)&local_43e);
           iVar6 = iVar6 + *(int *)(pcVar10 + 6) * *(int *)(pcVar10 + 10);
         }

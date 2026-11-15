@@ -9,6 +9,7 @@
 extern float g_flRdroid_identMatrix34[12]; /* 0x004d75a0 */
 extern int g_anColorDither[4][4]; /* 0x004d86a0 */
 extern uint g_aCrc_table[256]; /* 0x004d98a8 */
+extern ushort g_awZlibStaticLtree[576]; /* 0x004d9e50 */
 extern short g_wAdpcmStepTable[89]; /* 0x004daa58 */
 extern byte g_abAdpcmStepBits[89]; /* 0x004dab10 */
 extern float g_aSinTable[4096]; /* 0x004df600 */
@@ -27,7 +28,7 @@ extern int g_nSubtitleDefaultY; /* 0x004e848c */
 extern TextContext g_PrintLineTextCtx; /* 0x004e8498 */
 extern TextContext g_SubtitleTextCtx; /* 0x004e84c8 */
 extern TextContext g_TextObjectCtx; /* 0x004e84f8 */
-extern uint g_dwSputControl_aControlSymbols; /* 0x004e87c8 */
+extern ControlSymbol g_aControlSymbols[167]; /* 0x004e87c8 */
 extern int g_nSputControl_numControlSymbols; /* 0x004e9238 */
 extern char ** g_ppRequiredLabs; /* 0x004e99b0 */
 extern int g_nRequiredLabCount; /* 0x004e9a28 */
@@ -40,6 +41,8 @@ extern uint g_dwSmSpeechMode; /* 0x004e9dfc */
 extern int g_nTextRate; /* 0x004e9e00 */
 extern int g_nWALKSYSTEM_FADE_TIME; /* 0x004e9e04 */
 extern char g_szConfigKeyPrefix[8]; /* 0x004ea884 */
+extern uint g_adwTextWrapTable[385]; /* 0x004eca04 */
+extern ushort g_awCrtCtype[257]; /* 0x004ed32a */
 extern int g_nLightEdSelected; /* 0x004f0d10 */
 extern float g_flLightEdMoveStep; /* 0x004f0d18 */
 extern float g_flLightEdAngleStep; /* 0x004f0d1c */
@@ -320,7 +323,6 @@ extern undefined DAT_004d9ca8; /* used by 1 fn(s), first 0x004c7c50 */
 extern undefined DAT_004d9cf8; /* used by 1 fn(s), first 0x004c9fa0 */
 extern undefined DAT_004d9d70; /* used by 1 fn(s), first 0x004c9fa0 */
 extern undefined DAT_004d9e38; /* used by 2 fn(s), first 0x004c9640 */
-extern undefined DAT_004d9e50; /* used by 1 fn(s), first 0x004c8e90 */
 extern undefined DAT_004da2d0; /* used by 1 fn(s), first 0x004c8e90 */
 extern undefined DAT_004da347; /* used by 1 fn(s), first 0x004c9fa0 */
 extern undefined DAT_004da348; /* used by 2 fn(s), first 0x004c70c0 */
@@ -677,9 +679,6 @@ extern char s_fxcolor_004e87a8[]; /* used by 1 fn(s), first 0x0048c500 */
 extern char s_bgcolor_004e87b0[]; /* used by 1 fn(s), first 0x0048c500 */
 extern char s_fgcolor_004e87b8[]; /* used by 1 fn(s), first 0x0048c500 */
 extern undefined DAT_004e87c0; /* used by 1 fn(s), first 0x0048c500 */
-extern undefined DAT_004e87cc; /* used by 2 fn(s), first 0x0048d090 */
-extern undefined4 UINT_004e87d0; /* used by 1 fn(s), first 0x0049e0b0 */
-extern undefined *PTR_s_KEY_ESCAPE_004e87d4; /* used by 1 fn(s), first 0x0049e460 */
 extern int g_dwPurgeAmount; /* used by 2 fn(s), first 0x0048d350 */
 extern char s_DEBUG_Loops__004e9a98[]; /* used by 1 fn(s), first 0x0048d870 */
 extern char s_C__grimsrc_libs_grimlib_Main_spu_004e9c30[]; /* used by 2 fn(s), first 0x0048d350 */
@@ -877,7 +876,6 @@ extern char s_numsectors_004ec9a8[]; /* used by 1 fn(s), first 0x004a7bc0 */
 extern char s_edge_index___num_verts_004ec9b8[]; /* used by 1 fn(s), first 0x004a9070 */
 extern char s_C__grimsrc_libs_grimlib_Engine_O_004ec9d0[]; /* used by 1 fn(s), first 0x004aa130 */
 extern undefined4 UINT_004eca00; /* used by 1 fn(s), first 0x004aac40 */
-extern undefined4 UINT_004eca04; /* used by 1 fn(s), first 0x004aac40 */
 extern char s_c_____0______c______0______ppTex_004ed008[]; /* used by 1 fn(s), first 0x004aa9b0 */
 extern char s__ppText______void___0__004ed03c[]; /* used by 1 fn(s), first 0x004aa9b0 */
 extern char s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054[]; /* used by 5 fn(s), first 0x004aa9b0 */
@@ -902,9 +900,8 @@ extern undefined *PTR_FUN_004ed310; /* used by 2 fn(s), first 0x004ac6b0 */
 extern undefined *PTR_FUN_004ed314; /* used by 2 fn(s), first 0x004ac6b0 */
 extern undefined *PTR_FUN_004ed318; /* used by 1 fn(s), first 0x004ac6b0 */
 extern undefined *PTR_FUN_004ed31c; /* used by 1 fn(s), first 0x004ac6b0 */
-extern undefined *PTR_DAT_004ed320; /* used by 16 fn(s), first 0x004ac790 */
-extern undefined *PTR_DAT_004ed324; /* used by 1 fn(s), first 0x004b69e0 */
-extern undefined DAT_004ed32a; /* used by 2 fn(s), first 0x004b0fa0 */
+extern undefined *PTR_g_awCrtCtype_004ed320; /* used by 16 fn(s), first 0x004ac790 */
+extern undefined *PTR_g_awCrtCtype_004ed324; /* used by 1 fn(s), first 0x004b69e0 */
 extern undefined4 UINT_004ed52c; /* used by 15 fn(s), first 0x004ac790 */
 extern undefined DAT_004ed530; /* used by 7 fn(s), first 0x004b05f0 */
 extern undefined DAT_004ed534; /* used by 1 fn(s), first 0x004b64f0 */

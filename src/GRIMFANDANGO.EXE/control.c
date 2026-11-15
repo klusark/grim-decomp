@@ -13,15 +13,15 @@
 void __cdecl sputControl_EnableControl(int control)
 
 {
-  uint *puVar1;
+  ControlSymbol *pCVar1;
   
   if ((uint)control <= g_nSputControl_numControlSymbols - 1U) {
-    puVar1 = &g_dwSputControl_aControlSymbols + control * 4;
-    if ((*puVar1 & 2) != 0) {
-      stdControl_EnableAxis(*(uint *)(&DAT_004e87cc + control * 0x10));
+    pCVar1 = g_aControlSymbols + control;
+    if ((pCVar1->dwFlags & 2) != 0) {
+      stdControl_EnableAxis(g_aControlSymbols[control].nId);
     }
-    if ((*puVar1 & 1) == 0) {
-      *puVar1 = *puVar1 | 1;
+    if ((pCVar1->dwFlags & 1) == 0) {
+      pCVar1->dwFlags = pCVar1->dwFlags | 1;
     }
   }
   return;
@@ -38,9 +38,9 @@ void __cdecl sputControl_DisableControl(int control)
   uint uVar1;
   
   if ((uint)control <= g_nSputControl_numControlSymbols - 1U) {
-    uVar1 = (&g_dwSputControl_aControlSymbols)[control * 4];
+    uVar1 = g_aControlSymbols[control].dwFlags;
     if ((uVar1 & 1) != 0) {
-      (&g_dwSputControl_aControlSymbols)[control * 4] = uVar1 & 0xfffffffe;
+      g_aControlSymbols[control].dwFlags = uVar1 & 0xfffffffe;
     }
   }
   return;

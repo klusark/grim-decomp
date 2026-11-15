@@ -2111,3 +2111,21 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   EXE 2857 -> 2626, LUA.DLL 1076 -> 1034, IMUSE.DLL 690 -> 672, CHORE.DLL 268 -> 259. What is left is mostly the C
   runtime and leaf functions with scalar parameters, which no call names.
 * Clean room 0 of 5457.
+
+## Data tables typed: the control symbols, the DirectX error names (2026-11-15)
+
+* names/types_data_tables.json, names/data_table_names.json: ControlSymbol (16 bytes: flags - 1 enabled, 4 a key,
+  8 an inverted axis -, the key / axis id, the axis's last value, the name) and g_aControlSymbols[167] at
+  0x004e87c8 (was g_dwSputControl_aControlSymbols, a uint; the table starts 12 bytes before PTR_s_KEY_ESCAPE, and
+  g_nSputControl_numControlSymbols = 167 follows it); DxErrorName {HRESULT, name} and the two DirectX error tables
+  g_aD3DErrorNames[121] / g_aDDErrorNames[93]; g_adwTextWrapTable (uint[385], Text_WrapLines), g_awCrtCtype (the C
+  runtime's _ctype, ushort[257]) and g_awZlibStaticLtree (zlib's static_ltree, ushort[576], unused and zero here).
+  sputLua_NotifyControlHandlers (hand-written) walks g_aControlSymbols[0].dwValue.
+* datagen.py and datacmp.py match names/data_unused.json's spans by address and size, not by name: Ghidra's
+  automatic names change with the types (DAT_004d9e50 is USHORT_ARRAY_004d9e50 once typed, then a real name).
+  `DATAGEN_TOP=n python -I tools/datagen.py report PROG` lists the n largest untyped spans.
+* EXE untyped initialised bytes 44,205 -> 39,299. The largest left are not the game's: the C runtime's tables
+  (UINT_004eda18, 8,200 bytes), the PE import directory and import address table (DAT_004dad18, 0x004d7000),
+  DirectInput's object data formats in the code section (0x004d4370) and the constant pool at 0x004d7600 (floats,
+  doubles and DirectX GUIDs in one span).
+* datacmp.py: 0 differences in all four programs. Clean room 0 of 5457.

@@ -5815,8 +5815,8 @@ void __cdecl sputLua_GetControlStateL(void)
     lVar4 = FTOL((float10)fVar5);
     uVar3 = (uint)lVar4;
     if (uVar3 <= g_nSputControl_numControlSymbols - 1U) {
-      if (((&g_dwSputControl_aControlSymbols)[uVar3 * 4] & 4) != 0) {
-        iVar1 = stdControl_ReadKey(*(int *)(&DAT_004e87cc + uVar3 * 0x10),&local_4,(int *)&local_8);
+      if ((g_aControlSymbols[uVar3].dwFlags & 4) != 0) {
+        iVar1 = stdControl_ReadKey(g_aControlSymbols[uVar3].nId,&local_4,(int *)&local_8);
         if (iVar1 == 0) {
           lua_pushnil();
         }
@@ -5830,8 +5830,8 @@ void __cdecl sputLua_GetControlStateL(void)
         lua_pushnil();
         return;
       }
-      local_c = stdControl_ReadAxis(*(int *)(&DAT_004e87cc + uVar3 * 0x10));
-      if (((&g_dwSputControl_aControlSymbols)[uVar3 * 4] & 8) != 0) {
+      local_c = stdControl_ReadAxis(g_aControlSymbols[uVar3].nId);
+      if ((g_aControlSymbols[uVar3].dwFlags & 8) != 0) {
         local_c = -local_c;
       }
       lua_pushnumber(local_c);
@@ -6630,12 +6630,12 @@ uint __cdecl sputLua_NotifyControlHandlers(void)
   }
   fVar5 = 0.0f;
   if (g_nSputControl_numControlSymbols != 0) {
-    puVar8 = &UINT_004e87d0;
+    puVar8 = &g_aControlSymbols[0].dwValue;
     do {
-      if ((puVar8[-2] & 1) != 0) {
-        if ((puVar8[-2] & 4) == 0) {
+      if ((((ControlSymbol *)(puVar8 + -2))->dwFlags & 1) != 0) {
+        if ((((ControlSymbol *)(puVar8 + -2))->dwFlags & 4) == 0) {
           fVar6 = stdControl_ReadAxis(puVar8[-1]);
-          if ((puVar8[-2] & 8) != 0) {
+          if ((((ControlSymbol *)(puVar8 + -2))->dwFlags & 8) != 0) {
             fVar6 = -fVar6;
           }
           if ((fVar6 != (float)*puVar8) && (local_3c != 0)) {
@@ -6737,7 +6737,7 @@ void __cdecl Lua_CreateControlsTable(uint param_1)
   int iVar1;
   int iVar2;
   uint uVar3;
-  undefined **ppuVar4;
+  char **ppcVar4;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   
   iVar1 = lua_createtable();
@@ -6748,14 +6748,14 @@ void __cdecl Lua_CreateControlsTable(uint param_1)
   lua_settable();
   uVar3 = 0;
   if (g_nSputControl_numControlSymbols != 0) {
-    ppuVar4 = &PTR_s_KEY_ESCAPE_004e87d4;
+    ppcVar4 = &g_aControlSymbols[0].pName;
     do {
       lua_pushobject(iVar1);
-      lua_pushstring(*ppuVar4);
+      lua_pushstring(*ppcVar4);
       lua_pushnumber((float)uVar3);
       lua_settable();
       uVar3 = uVar3 + 1;
-      ppuVar4 = ppuVar4 + 4;
+      ppcVar4 = ppcVar4 + 4;
     } while (uVar3 < (uint)g_nSputControl_numControlSymbols);
   }
   return;

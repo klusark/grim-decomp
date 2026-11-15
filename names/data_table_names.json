@@ -1,0 +1,44 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004e87c8",
+  "global": "g_aControlSymbols",
+  "type": "ControlSymbol[167]",
+  "comment": "The engine's 167 input controls (keys, mouse and joystick axes) by index; system.controls (Lua_CreateControlsTable) maps their names to the indices; was g_dwSputControl_aControlSymbols."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004dee68",
+  "global": "g_aD3DErrorNames",
+  "type": "DxErrorName[121]",
+  "comment": "Direct3D HRESULTs and their names (D3D_OK, D3DERR_BADMAJORVERSION, ...)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ddee8",
+  "global": "g_aDDErrorNames",
+  "type": "DxErrorName[93]",
+  "comment": "DirectDraw HRESULTs and their names (DD_OK, DDERR_ALREADYINITIALIZED, ...)."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004eca04",
+  "global": "g_adwTextWrapTable",
+  "type": "uint[385]",
+  "comment": "385 dwords Text_WrapLines copies into its frame (the start of its line table) and reads runes from (Text_CopyRunes); was UINT_004eca04."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004d9e50",
+  "global": "g_awZlibStaticLtree",
+  "type": "ushort[576]",
+  "comment": "zlib 1.1.3's static_ltree (trees.c): 288 ct_data {freq / code, dad / len} of the fixed literal / length codes."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004ed32a",
+  "global": "g_awCrtCtype",
+  "type": "ushort[257]",
+  "comment": "The MSVC C runtime's _ctype: the character class bits of EOF and the 256 characters (_pctype points one entry in)."
+ }
+]
