@@ -62,7 +62,8 @@ def load_protos(prog):
     for line in open(os.path.join(ROOT, "src", prog, "functions.h"), encoding="utf-8", errors="replace"):
         m = PROTO_RE.match(line.strip())
         if m:
-            protos[m.group("name")] = {"addr": m.group("addr"), "params": split_params(m.group("params"))}
+            protos[m.group("name")] = {"addr": m.group("addr"), "params": split_params(m.group("params")),
+                                       "cc": m.group("cc")}
     return protos
 
 
@@ -118,8 +119,8 @@ def main():
         changed = 0
         for fn, body in bodies.items():
             pr = protos.get(fn)
-            if not pr:
-                continue
+            if not pr or not pr.get("cc"):
+                continue    # (custom storage: see names_from_overrides.py)
             ps = pr["params"]
             for idx, (pt, pn) in enumerate(ps):
                 if not re.fullmatch(r"param_\d+", pn) or norm(pt) not in {norm(x) for x in UNTYPED}:
@@ -204,7 +205,7 @@ def main():
         changed = 0
         for fn, body in bodies.items():
             pr = protos.get(fn)
-            if not pr:
+            if not pr or not pr.get("cc"):
                 continue
             for idx, (pt, pn) in enumerate(pr["params"]):
                 if not re.fullmatch(r"param_\d+", pn) or (fn, idx) in assigned or (fn, idx) in named:

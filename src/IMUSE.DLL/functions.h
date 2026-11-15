@@ -39,16 +39,16 @@ void __cdecl Mixer_MxMix(short *param_1,int param_2,int param_3,int param_4,int 
 undefined4 __cdecl MxEndMix(int *trIntHandler_outPtr,int trIntHandler_outFramesNeeded); /* 0x10005610 */
 void __cdecl Im_MixLoopA(short *param_1,int param_2,uint param_3,uint param_4,int param_5,int param_6); /* 0x100057a0 */
 void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,int param_5); /* 0x100059a0 */
-void __cdecl Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5,int param_6); /* 0x10005b80 */
-void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param_4,int param_5); /* 0x10005db0 */
+void __cdecl Im_MixLoopC(undefined2 *src,int param_2,uint count,int out,int wl,int wr); /* 0x10005b80 */
+void __cdecl Im_MixLoopD(undefined2 *src,int param_2,uint count,uint out,int vol); /* 0x10005db0 */
 undefined4 __cdecl ScriptCall(int cmd,...); /* 0x10006070 */
 undefined4 __cdecl Script_Init(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,undefined4 param_6, undefined4 param_7,undefined4 param_8); /* 0x10006360 */
 undefined4 Script_Terminate(void); /* 0x100063d0 */
 int __cdecl Script_Save(undefined4 *param_1,int param_2); /* 0x10006400 */
 int __cdecl Script_Restore(undefined4 *param_1); /* 0x10006470 */
 undefined4 Script_Update(void); /* 0x100064d0 */
-int __cdecl Script_SetState(int param_1); /* 0x10006560 */
-int __cdecl Script_SetSequence(int param_1); /* 0x10006620 */
+int __cdecl Script_SetState(int id); /* 0x10006560 */
+int __cdecl Script_SetSequence(int id); /* 0x10006620 */
 undefined4 Script_NullCallback(void); /* 0x100067a0 */
 undefined4 __cdecl Script_Attribute(uint param_1,char *param_2); /* 0x100067b0 */
 void __cdecl Script_Trans(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uint param_6, uint param_7,uint param_8); /* 0x100068b0 */
@@ -113,7 +113,7 @@ undefined4 * __cdecl TgProcessMarker(int param_1,char *param_2); /* 0x1000b430 *
 undefined4 __cdecl TgDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8, int p9); /* 0x1000b570 */
 void TgIntHandler(void); /* 0x1000b5e0 */
 int __cdecl TgGetPendCount(int param_1); /* 0x1000b630 */
-void __cdecl Im_RunTriggerCommand(undefined4 *param_1,undefined4 param_2); /* 0x1000b6a0 */
+void __cdecl Im_RunTriggerCommand(undefined4 *slot,undefined4 marker); /* 0x1000b6a0 */
 void __cdecl Im_RunDeferredCommand(int param_1); /* 0x1000b710 */
 char * __cdecl Im_StrChr(char *param_1,char param_2); /* 0x1000bd50 */
 uint * __cdecl Im_MemCopy(uint *param_1,uint *param_2,uint param_3); /* 0x1000bd80 */
@@ -257,7 +257,7 @@ void __cdecl ImFile_Lock(uint param_1); /* 0x1000c590 */
 void __cdecl FUN_1000c5d0(int param_1,int param_2); /* 0x1000c5d0 */
 void __cdecl ImFile_Unlock(uint param_1); /* 0x1000c600 */
 void __cdecl FUN_1000c640(int param_1,int param_2); /* 0x1000c640 */
-int __cdecl FUN_1000c670(int *param_1,char *param_2,undefined4 *param_3); /* 0x1000c670 */
+int __cdecl FUN_1000c670(int *stream,char *format,undefined4 *args); /* 0x1000c670 */
 void __cdecl FUN_1000d000(uint param_1,int *param_2,int *param_3); /* 0x1000d000 */
 void __cdecl FUN_1000d050(uint param_1,int param_2,int *param_3,int *param_4); /* 0x1000d050 */
 void __cdecl FUN_1000d090(char *param_1,int param_2,int *param_3,int *param_4); /* 0x1000d090 */

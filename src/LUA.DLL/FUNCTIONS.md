@@ -305,7 +305,7 @@
 | 100097f0 | luaI_singlematch | str.c | 85 |
 | 100099e0 | bracket_end | str.c | 19 |
 | 10009a10 | matchclass | str.c | 92 |
-| 10009cb0 | str_find | str.c | 81 |
+| 10009cb0 | str_find | str.c | 80 |
 | 10009e40 | push_captures | str.c | 1 |
 | 10009ea0 | match | str.c | 1 |
 | 1000a030 | capture_to_close | str.c | 24 |

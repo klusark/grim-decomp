@@ -60,8 +60,8 @@ void __cdecl rdLight_SetAngles(rdLight *light,float inner,float outer)
 
 float __cdecl
 rdLight_CalcVertexIntensities
-          (int *param_1,float *param_2,int param_3,uint param_4,int *param_5,uint param_6,
-          float *param_7,float *param_8,uint param_9,float param_10)
+          (int *lights,float *lpos,int ldir,uint nlights,int *normals,uint verts,float *base,
+          float *out,uint nverts,float k)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -80,29 +80,29 @@ rdLight_CalcVertexIntensities
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
   local_28[0] = 0.0f;
-  if (param_9 != 0) {
-    local_2c = param_6;
-    iVar5 = param_6 - (int)param_5;
-    iVar4 = (int)param_7 - (int)param_8;
-    pfVar7 = (float *)(param_5 + 2);
-    local_1c = param_9;
+  if (nverts != 0) {
+    local_2c = verts;
+    iVar5 = verts - (int)normals;
+    iVar4 = (int)base - (int)out;
+    pfVar7 = (float *)(normals + 2);
+    local_1c = nverts;
     do {
       local_28[1] = 0.0f;
-      *param_8 = *(float *)(iVar4 + (int)param_8);
-      if (param_4 != 0) {
-        param_5 = param_1;
-        param_7 = param_2;
-        pfVar6 = (float *)(param_3 + 8);
+      *out = *(float *)(iVar4 + (int)out);
+      if (nlights != 0) {
+        normals = lights;
+        base = lpos;
+        pfVar6 = (float *)(ldir + 8);
         do {
-          iVar2 = *param_5;
+          iVar2 = *normals;
           if (*(int *)(iVar2 + 4) < 2) {
             fVar3 = 0.0f;
           }
           else {
-            local_c[0] = *param_7 - *(float *)local_2c;
-            local_c[1] = *(float *)(((int)param_2 - param_3) + -4 + (int)pfVar6) -
+            local_c[0] = *base - *(float *)local_2c;
+            local_c[1] = *(float *)(((int)lpos - ldir) + -4 + (int)pfVar6) -
                          *(float *)(iVar5 + -4 + (int)pfVar7);
-            local_c[2] = *(float *)(((int)param_2 - param_3) + (int)pfVar6) -
+            local_c[2] = *(float *)(((int)lpos - ldir) + (int)pfVar6) -
                          *(float *)(iVar5 + (int)pfVar7);
             fVar3 = local_c[2] * local_c[2] + local_c[1] * local_c[1] + local_c[0] * local_c[0];
           }
@@ -114,14 +114,14 @@ rdLight_CalcVertexIntensities
               if (0.0f < fVar3) {
                 fVar3 = *(float *)(iVar2 + 0x18) * fVar3;
 LAB_0045173f:
-                *param_8 = fVar3 + *param_8;
+                *out = fVar3 + *out;
               }
               break;
             case 2:
               fVar8 = rdVector_Normalize3Acc(local_c);
               fVar3 = *pfVar7 * local_c[2] + pfVar7[-1] * local_c[1] + pfVar7[-2] * local_c[0];
               if (0.0f < fVar3) {
-                fVar3 = (*(float *)(iVar2 + 0x18) - fVar8 * param_10) * fVar3;
+                fVar3 = (*(float *)(iVar2 + 0x18) - fVar8 * k) * fVar3;
                 goto LAB_0045173f;
               }
               break;
@@ -134,30 +134,30 @@ LAB_0045173f:
                   fVar1 = (1.0f - (*(float *)(iVar2 + 0x24) - fVar3) * *(float *)(iVar2 + 0x30)) *
                           fVar1;
                 }
-                fVar3 = (fVar1 - fVar8 * param_10) *
+                fVar3 = (fVar1 - fVar8 * k) *
                         (*pfVar7 * *pfVar6 + pfVar6[-2] * pfVar7[-2] + pfVar6[-1] * pfVar7[-1]);
                 goto LAB_0045173f;
               }
             }
           }
-          if (1.0f < *param_8) {
-            *param_8 = 1.0f;
+          if (1.0f < *out) {
+            *out = 1.0f;
           }
-          if (*param_8 == 1.0f) break;
-          param_5 = param_5 + 1;
+          if (*out == 1.0f) break;
+          normals = normals + 1;
           local_28[1] = (float)(PUN(int,(float)local_28[1]) + 1);
-          param_7 = param_7 + 3;
+          base = base + 3;
           pfVar6 = pfVar6 + 3;
-        } while (PUN(uint,(float)local_28[1]) < param_4);
+        } while (PUN(uint,(float)local_28[1]) < nlights);
       }
       pfVar7 = pfVar7 + 3;
-      local_28[0] = local_28[0] + *param_8;
+      local_28[0] = local_28[0] + *out;
       local_2c = local_2c + 0xc;
-      param_8 = param_8 + 1;
+      out = out + 1;
       local_1c = local_1c - 1;
     } while (local_1c != 0);
   }
-  return local_28[0] / (float)param_9;
+  return local_28[0] / (float)nverts;
 }
 #undef local_18
 #undef local_1c

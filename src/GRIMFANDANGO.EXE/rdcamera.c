@@ -204,7 +204,7 @@ void __cdecl rdCamera_SetAspectRatio(rdCamera *camera,float zoom)
    rdCamera_SetCanvas; the only unmatched callee of rdCamera_SetProjectType; 2 matched neighbours
    agree, 0 disagree); was rdCamera_BuildProjection. */
 
-uint __cdecl rdCamera_BuildFOV(int *param_1)
+uint __cdecl rdCamera_BuildFOV(int *cam)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -216,35 +216,34 @@ uint __cdecl rdCamera_BuildFOV(int *param_1)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  iVar1 = param_1[1];
+  iVar1 = cam[1];
   if (iVar1 == 0) {
     return 0;
   }
-  if (*param_1 == 0) {
+  if (*cam == 0) {
     fVar2 = (float)(*(int *)(iVar1 + 0x20) - *(int *)(iVar1 + 0x18)) * 0.5f;
     fVar3 = (float)(*(int *)(iVar1 + 0x24) - *(int *)(iVar1 + 0x1c)) * 0.5f;
-    *(float *)(param_1[0x12] + 0xc) = -(fVar2 / (float)param_1[0x11]);
-    *(float *)(param_1[0x12] + 0x10) = (fVar3 / (float)param_1[0x11]) / (float)param_1[0x10];
-    *(float *)(param_1[0x12] + 0x14) = fVar2 / (float)param_1[0x11];
-    *(float *)(param_1[0x12] + 0x18) = -(fVar3 / (float)param_1[0x11]) / (float)param_1[0x10];
-    param_1[0xf] = 0;
-    *(undefined4 *)(param_1[0x12] + 0x1c) = 0;
-    *(undefined4 *)(param_1[0x12] + 0x20) = 0;
-    *(undefined4 *)(param_1[0x12] + 0x24) = 0;
-    *(undefined4 *)(param_1[0x12] + 0x28) = 0;
+    *(float *)(cam[0x12] + 0xc) = -(fVar2 / (float)cam[0x11]);
+    *(float *)(cam[0x12] + 0x10) = (fVar3 / (float)cam[0x11]) / (float)cam[0x10];
+    *(float *)(cam[0x12] + 0x14) = fVar2 / (float)cam[0x11];
+    *(float *)(cam[0x12] + 0x18) = -(fVar3 / (float)cam[0x11]) / (float)cam[0x10];
+    cam[0xf] = 0;
+    *(undefined4 *)(cam[0x12] + 0x1c) = 0;
+    *(undefined4 *)(cam[0x12] + 0x20) = 0;
+    *(undefined4 *)(cam[0x12] + 0x24) = 0;
+    *(undefined4 *)(cam[0x12] + 0x28) = 0;
   }
-  else if (*param_1 == 1) {
+  else if (*cam == 1) {
     fVar2 = (float)(*(int *)(iVar1 + 0x20) - *(int *)(iVar1 + 0x18)) * 0.5f;
     fVar3 = (float)(*(int *)(iVar1 + 0x24) - *(int *)(iVar1 + 0x1c)) * 0.5f;
-    fVar4 = (float10)stdMath_Tan((float)param_1[0xe] * 0.5f);
-    param_1[0xf] = PUN(int,(float)(fVar2 / (float)fVar4));
-    *(float *)(param_1[0x12] + 0x1c) = (fVar3 / (fVar2 / (float)fVar4)) / (float)param_1[0x10];
-    *(float *)(param_1[0x12] + 0x24) = -fVar2 / (float)param_1[0xf];
-    *(float *)(param_1[0x12] + 0x20) = (-fVar3 / (float)param_1[0xf]) / (float)param_1[0x10];
-    *(float *)(param_1[0x12] + 0x28) = fVar2 / (float)param_1[0xf];
-    *(float *)(param_1[0x12] + 0x2c) = ((fVar3 - -1.0f) / (float)param_1[0xf]) / (float)param_1[0x10]
-    ;
-    *(float *)(param_1[0x12] + 0x30) = -(fVar2 - -1.0f) / (float)param_1[0xf];
+    fVar4 = stdMath_Tan((float)cam[0xe] * 0.5f);
+    cam[0xf] = PUN(int,(float)(fVar2 / (float)fVar4));
+    *(float *)(cam[0x12] + 0x1c) = (fVar3 / (fVar2 / (float)fVar4)) / (float)cam[0x10];
+    *(float *)(cam[0x12] + 0x24) = -fVar2 / (float)cam[0xf];
+    *(float *)(cam[0x12] + 0x20) = (-fVar3 / (float)cam[0xf]) / (float)cam[0x10];
+    *(float *)(cam[0x12] + 0x28) = fVar2 / (float)cam[0xf];
+    *(float *)(cam[0x12] + 0x2c) = ((fVar3 - -1.0f) / (float)cam[0xf]) / (float)cam[0x10];
+    *(float *)(cam[0x12] + 0x30) = -(fVar2 - -1.0f) / (float)cam[0xf];
     return 1;
   }
   return 1;

@@ -105,7 +105,7 @@ int luaX_lasttoken(void)
    luaY_lex (the remaster's libLua.so: string 'ambiguous syntax (decimal point x string
    concatenation)' (the bison yylex renamed luaY_lex)); was luaX_lex. */
 
-uint __cdecl luaY_lex(float *param_1)
+uint __cdecl luaY_lex(float *value)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -163,7 +163,7 @@ uint __cdecl luaY_lex(float *param_1)
       luaL_addchar(0);
       pTVar6 = luaS_new(g_dwLState_Mbuffbase);
       if (pTVar6->nMarked < 0x100) {
-        *param_1 = PUN(float,pTVar6);
+        *value = PUN(float,pTVar6);
         return 0x112;
       }
       return pTVar6->nMarked;
@@ -340,7 +340,7 @@ LAB_10006398:
       uVar4 = toupper(*puVar2);
       if (uVar4 != 0x45) {
 LAB_10006563:
-        *param_1 = (float)local_8;
+        *value = (float)local_8;
         return 0x111;
       }
       local_14 = 0;
@@ -507,7 +507,7 @@ LAB_10006563:
           piVar7[1] = (int)((byte *)piVar7[1] + 1);
         }
         *puVar2 = uVar4;
-        uVar4 = read_long_string(puVar2,param_1);
+        uVar4 = read_long_string(puVar2,value);
         return uVar4;
       }
       return 0x5b;
@@ -560,7 +560,7 @@ joined_r0x100060f4:
     *puVar2 = uVar4;
     luaL_addchar(0);
     pTVar6 = luaS_new(g_dwLState_Mbuffbase + 1);
-    *param_1 = PUN(float,pTVar6);
+    *value = PUN(float,pTVar6);
     *(undefined1 *)(g_dwLState_Mbuffnext + -1 + g_dwLState_Mbuffer) = uVar9;
     return 0x113;
   }

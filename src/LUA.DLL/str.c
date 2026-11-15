@@ -429,72 +429,71 @@ void __cdecl str_find(void)
   char cVar1;
   byte bVar2;
   char *pcVar3;
-  byte *pbVar4;
-  int iVar5;
-  byte *pbVar6;
-  char *pcVar7;
-  uint *puVar8;
+  byte *pat;
+  int iVar4;
+  byte *pbVar5;
+  char *pcVar6;
+  uint *puVar7;
+  uint uVar8;
   uint uVar9;
-  uint uVar10;
-  char *pcVar11;
-  longlong lVar12;
-  float fVar13;
+  char *pcVar10;
+  longlong lVar11;
+  float fVar12;
   #define aiStack_4c (*(int (*)[19])(_frame + (0x60 - 0x4c)))
   
   pcVar3 = (char *)luaL_check_string(1);
-  pbVar4 = (byte *)luaL_check_string(2);
-  fVar13 = luaL_opt_number(3,1.0f);
-  lVar12 = FTOL((float10)fVar13);
-  uVar10 = (int)lVar12 - 1;
-  if (-1 < (int)uVar10) {
-    uVar9 = 0xffffffff;
-    pcVar11 = pcVar3;
+  pat = (byte *)luaL_check_string(2);
+  fVar12 = luaL_opt_number(3,1.0f);
+  lVar11 = FTOL((float10)fVar12);
+  uVar9 = (int)lVar11 - 1;
+  if (-1 < (int)uVar9) {
+    uVar8 = 0xffffffff;
+    pcVar10 = pcVar3;
     do {
-      if (uVar9 == 0) break;
-      uVar9 = uVar9 - 1;
-      cVar1 = *pcVar11;
-      pcVar11 = pcVar11 + 1;
+      if (uVar8 == 0) break;
+      uVar8 = uVar8 - 1;
+      cVar1 = *pcVar10;
+      pcVar10 = pcVar10 + 1;
     } while (cVar1 != '\0');
-    if (uVar10 <= ~uVar9 - 1) goto LAB_10009d07;
+    if (uVar9 <= ~uVar8 - 1) goto LAB_10009d07;
   }
   luaL_argerror(3,((unsigned)(uintptr_t)&s_out_of_range_10027970));
 LAB_10009d07:
-  iVar5 = lua_lua2C(4);
-  if ((iVar5 == 0) && (pbVar6 = strpbrk(pbVar4,(byte *)s___________100279c4), pbVar6 != (byte *)0x0)
-     ) {
-    bVar2 = *pbVar4;
+  iVar4 = lua_lua2C(4);
+  if ((iVar4 == 0) && (pbVar5 = strpbrk(pat,(byte *)s___________100279c4), pbVar5 != (byte *)0x0)) {
+    bVar2 = *pat;
     if (bVar2 == 0x5e) {
-      pbVar4 = pbVar4 + 1;
+      pat = pat + 1;
     }
-    pcVar11 = pcVar3 + uVar10;
+    pcVar10 = pcVar3 + uVar9;
     aiStack_4c[0] = 0;
-    pcVar7 = match(pcVar11,(int *)pbVar4,aiStack_4c);
+    pcVar6 = match(pcVar10,(int *)pat,aiStack_4c);
     while( true ) {
-      if (pcVar7 != (char *)0x0) {
-        lua_pushnumber((float)(int)(pcVar11 + (1 - (int)pcVar3)));
-        lua_pushnumber((float)((int)pcVar7 - (int)pcVar3));
+      if (pcVar6 != (char *)0x0) {
+        lua_pushnumber((float)(int)(pcVar10 + (1 - (int)pcVar3)));
+        lua_pushnumber((float)((int)pcVar6 - (int)pcVar3));
         push_captures(aiStack_4c);
         return;
       }
-      cVar1 = *pcVar11;
-      pcVar11 = pcVar11 + 1;
+      cVar1 = *pcVar10;
+      pcVar10 = pcVar10 + 1;
       if ((cVar1 == '\0') || (bVar2 == 0x5e)) break;
       aiStack_4c[0] = 0;
-      pcVar7 = match(pcVar11,(int *)pbVar4,aiStack_4c);
+      pcVar6 = match(pcVar10,(int *)pat,aiStack_4c);
     }
   }
   else {
-    puVar8 = FUN_100129a0((uint *)(pcVar3 + uVar10),(char *)pbVar4);
-    if (puVar8 != (uint *)0x0) {
-      lua_pushnumber((float)((int)puVar8 + (1 - (int)pcVar3)));
-      uVar10 = 0xffffffff;
+    puVar7 = FUN_100129a0((uint *)(pcVar3 + uVar9),(char *)pat);
+    if (puVar7 != (uint *)0x0) {
+      lua_pushnumber((float)((int)puVar7 + (1 - (int)pcVar3)));
+      uVar9 = 0xffffffff;
       do {
-        if (uVar10 == 0) break;
-        uVar10 = uVar10 - 1;
-        bVar2 = *pbVar4;
-        pbVar4 = pbVar4 + 1;
+        if (uVar9 == 0) break;
+        uVar9 = uVar9 - 1;
+        bVar2 = *pat;
+        pat = pat + 1;
       } while (bVar2 != 0);
-      lua_pushnumber((float)((int)puVar8 + ((~uVar10 - 1) - (int)pcVar3)));
+      lua_pushnumber((float)((int)puVar7 + ((~uVar9 - 1) - (int)pcVar3)));
     }
   }
   return;
@@ -545,80 +544,79 @@ void __cdecl push_captures(int *ms)
 /* recursive pattern matcher; errors 'too many captures' Original name match (the remaster's
    libLua.so: static match: string 'too many captures'); was str_match. */
 
-char * __cdecl match(char *param_1,int *param_2,int *param_3)
+char * __cdecl match(char *s,int *pat,int *cap)
 
 {
   char cVar1;
-  int *piVar2;
+  int *cap_00;
+  char *pcVar2;
   char *pcVar3;
-  char *pcVar4;
-  int iVar5;
+  int iVar4;
   
-  piVar2 = param_3;
+  cap_00 = cap;
   do {
     while( true ) {
-      switch((int)((char)*param_2)) {
+      switch((int)((char)*pat)) {
       case '\0':
       case '$':
-        if (((char)*param_2 == '\0') ||
-           ((*(char *)((int)param_2 + 1) == '\0' && (*param_1 == '\0')))) {
-          return param_1;
+        if (((char)*pat == '\0') || ((*(char *)((int)pat + 1) == '\0' && (*s == '\0')))) {
+          return s;
         }
         break;
       case '(':
-        if (8 < *piVar2) {
+        if (8 < *cap_00) {
           lua_error((byte *)s_too_many_captures_100279e4);
         }
-        piVar2[*piVar2 * 2 + 1] = (int)param_1;
-        piVar2[*piVar2 * 2 + 2] = -1;
-        *piVar2 = *piVar2 + 1;
-        pcVar3 = match(param_1,(int *)((int)param_2 + 1),piVar2);
-        if (pcVar3 != (char *)0x0) {
-          return pcVar3;
+        cap_00[*cap_00 * 2 + 1] = (int)s;
+        cap_00[*cap_00 * 2 + 2] = -1;
+        *cap_00 = *cap_00 + 1;
+        pcVar2 = match(s,(int *)((int)pat + 1),cap_00);
+        if (pcVar2 != (char *)0x0) {
+          return pcVar2;
         }
-        *piVar2 = *piVar2 + -1;
+        *cap_00 = *cap_00 + -1;
         return (char *)0x0;
       case ')':
-        iVar5 = capture_to_close(piVar2);
-        piVar2[iVar5 * 2 + 2] = (int)param_1 - piVar2[iVar5 * 2 + 1];
-        pcVar3 = match(param_1,(int *)((int)param_2 + 1),piVar2);
-        if (pcVar3 != (char *)0x0) {
-          return pcVar3;
+        iVar4 = capture_to_close(cap_00);
+        cap_00[iVar4 * 2 + 2] = (int)s - cap_00[iVar4 * 2 + 1];
+        pcVar2 = match(s,(int *)((int)pat + 1),cap_00);
+        if (pcVar2 != (char *)0x0) {
+          return pcVar2;
         }
-        piVar2[iVar5 * 2 + 2] = -1;
+        cap_00[iVar4 * 2 + 2] = -1;
         return (char *)0x0;
       }
-      pcVar3 = matchitem(param_1,(char *)param_2,piVar2,(int *)&param_3);
-      cVar1 = (char)*param_3;
+      pcVar2 = matchitem(s,(char *)pat,cap_00,(int *)&cap);
+      cVar1 = (char)*cap;
       if (cVar1 != '*') break;
-      if (pcVar3 != (char *)0x0) {
+      if (pcVar2 != (char *)0x0) {
 LAB_10009f49:
-        pcVar3 = match(pcVar3,param_2,piVar2);
-        if (pcVar3 != (char *)0x0) {
-          return pcVar3;
+        pcVar2 = match(pcVar2,pat,cap_00);
+        if (pcVar2 != (char *)0x0) {
+          return pcVar2;
         }
       }
 LAB_10009f5e:
-      param_2 = (int *)((int)param_3 + 1);
+      pat = (int *)((int)cap + 1);
     }
     if (cVar1 == '-') {
-      pcVar4 = match(param_1,(int *)((int)param_3 + 1),piVar2);
-      if (pcVar4 != (char *)0x0) {
-        return pcVar4;
+      pcVar3 = match(s,(int *)((int)cap + 1),cap_00);
+      if (pcVar3 != (char *)0x0) {
+        return pcVar3;
       }
     }
     else {
-      param_2 = param_3;
+      pat = cap;
       if (cVar1 == '?') {
-        if (pcVar3 != (char *)0x0) {
-          param_2 = (int *)((int)param_3 + 1);
+        if (pcVar2 != (char *)0x0) {
+          pat = (int *)((int)cap + 1);
           goto LAB_10009f49;
         }
         goto LAB_10009f5e;
       }
     }
-    param_1 = pcVar3;
-    if (pcVar3 == (char *)0x0) {
+    s = pcVar2;
+    if (pcVar2 == (char *)0x0) {
       return (char *)0x0;
     }
   } while( true );
@@ -757,59 +755,59 @@ void __cdecl str_gsub(void)
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  uint *puVar2;
-  int *piVar3;
-  int iVar4;
-  uint *puVar5;
-  uint uVar6;
-  bool bVar7;
-  longlong lVar8;
-  float fVar9;
+  uint *s;
+  int *pat;
+  int iVar2;
+  uint *puVar3;
+  uint uVar4;
+  bool bVar5;
+  longlong lVar6;
+  float fVar7;
   #define iStack_60 (*(int *)(_frame + (0x70 - 0x60)))
   #define aiStack_4c (*(int (*)[19])(_frame + (0x70 - 0x4c)))
   
-  puVar2 = (uint *)luaL_check_string(1);
-  piVar3 = (int *)luaL_check_string(2);
-  iVar4 = lua_lua2C(3);
-  uVar6 = 0xffffffff;
-  puVar5 = puVar2;
+  s = (uint *)luaL_check_string(1);
+  pat = (int *)luaL_check_string(2);
+  iVar2 = lua_lua2C(3);
+  uVar4 = 0xffffffff;
+  puVar3 = s;
   do {
-    if (uVar6 == 0) break;
-    uVar6 = uVar6 - 1;
-    uVar1 = *puVar5;
-    puVar5 = (uint *)((int)puVar5 + 1);
+    if (uVar4 == 0) break;
+    uVar4 = uVar4 - 1;
+    uVar1 = *puVar3;
+    puVar3 = (uint *)((int)puVar3 + 1);
   } while ((char)uVar1 != '\0');
-  fVar9 = luaL_opt_number(4,(float)~uVar6);
-  lVar8 = FTOL((float10)fVar9);
-  bVar7 = (char)*piVar3 == '^';
-  if (bVar7) {
-    piVar3 = (int *)((int)piVar3 + 1);
+  fVar7 = luaL_opt_number(4,(float)~uVar4);
+  lVar6 = FTOL((float10)fVar7);
+  bVar5 = (char)*pat == '^';
+  if (bVar5) {
+    pat = (int *)((int)pat + 1);
   }
   iStack_60 = 0;
   luaL_resetbuffer();
-  if ((int)lVar8 < 1) {
+  if ((int)lVar6 < 1) {
 LAB_1000a2b7:
-    addstr(puVar2);
+    addstr(s);
     closeandpush();
     lua_pushnumber((float)iStack_60);
     return;
   }
   do {
     aiStack_4c[0] = 0;
-    puVar5 = (uint *)match((char *)puVar2,piVar3,aiStack_4c);
-    if (puVar5 == (uint *)0x0) {
+    puVar3 = (uint *)match((char *)s,pat,aiStack_4c);
+    if (puVar3 == (uint *)0x0) {
 LAB_1000a291:
-      if ((char)*puVar2 == '\0') goto LAB_1000a2b7;
-      puVar5 = (uint *)((int)puVar2 + 1);
-      luaL_addchar((char)*puVar2);
+      if ((char)*s == '\0') goto LAB_1000a2b7;
+      puVar3 = (uint *)((int)s + 1);
+      luaL_addchar((char)*s);
     }
     else {
       iStack_60 = iStack_60 + 1;
-      add_s(iVar4,aiStack_4c);
-      if ((puVar5 == (uint *)0x0) || (puVar5 <= puVar2)) goto LAB_1000a291;
+      add_s(iVar2,aiStack_4c);
+      if ((puVar3 == (uint *)0x0) || (puVar3 <= s)) goto LAB_1000a291;
     }
-    puVar2 = puVar5;
-    if ((bVar7) || ((int)lVar8 <= iStack_60)) goto LAB_1000a2b7;
+    s = puVar3;
+    if ((bVar5) || ((int)lVar6 <= iStack_60)) goto LAB_1000a2b7;
   } while( true );
 }
 #undef aiStack_4c
@@ -909,8 +907,8 @@ void __cdecl str_format(void)
   uint uVar4;
   char *buf;
   int iVar5;
-  uint *puVar6;
-  float fVar7;
+  uint *s;
+  float fVar6;
   #define aiStack_114 (*(int (*)[2])(_frame + (0x130 - 0x114)))
   #define iStack_10c (*(int *)(_frame + (0x130 - 0x10c)))
   #define iStack_104 (*(int *)(_frame + (0x130 - 0x104)))
@@ -927,7 +925,7 @@ void __cdecl str_format(void)
       return;
     }
     if (cVar1 == '%') {
-      puVar6 = (uint *)(pcVar2 + 1);
+      s = (uint *)(pcVar2 + 1);
       if (pcVar2[1] == '%') {
         pcVar2 = pcVar2 + 2;
         luaL_addchar(0x25);
@@ -935,23 +933,23 @@ void __cdecl str_format(void)
       else {
         cStack_c8 = '%';
         aiStack_114[0] = 0;
-        pcVar3 = match((char *)puVar6,(int *)s__d_____________d_______d___10027aa4,aiStack_114);
+        pcVar3 = match((char *)s,(int *)s__d_____________d_______d___10027aa4,aiStack_114);
         if ((3 < iStack_10c) || (3 < iStack_104)) {
           lua_error((byte *)s_invalid_format__width_or_precisi_10027a74);
         }
         if (DAT_10028b5c < 2) {
-          uVar4 = (byte)PTR_DAT_10028950[(uint)(byte)*puVar6 * 2] & 4;
+          uVar4 = (byte)PTR_DAT_10028950[(uint)(byte)*s * 2] & 4;
         }
         else {
-          uVar4 = _isctype((uint)(byte)*puVar6,4);
+          uVar4 = _isctype((uint)(byte)*s,4);
         }
         if ((uVar4 != 0) && (pcVar2[2] == '$')) {
-          iVar5 = (char)(byte)*puVar6 + -0x30;
-          puVar6 = (uint *)(pcVar2 + 3);
+          iVar5 = (char)(byte)*s + -0x30;
+          s = (uint *)(pcVar2 + 3);
         }
         iVar5 = iVar5 + 1;
-        strncpy(&uStack_c7,puVar6,(uint)(pcVar3 + (1 - (int)puVar6)));
-        pcVar3[(int)&uStack_c7 + (1 - (int)puVar6)] = '\0';
+        strncpy(&uStack_c7,s,(uint)(pcVar3 + (1 - (int)s)));
+        pcVar3[(int)&uStack_c7 + (1 - (int)s)] = '\0';
         buf = (char *)luaL_openspace(1000);
         pcVar2 = pcVar3 + 1;
         switch(*pcVar3) {
@@ -960,8 +958,8 @@ void __cdecl str_format(void)
         case 'e':
         case 'f':
         case 'g':
-          fVar7 = luaL_check_number(iVar5);
-          sprintf(buf,&cStack_c8,(double)fVar7);
+          fVar6 = luaL_check_number(iVar5);
+          sprintf(buf,&cStack_c8,(double)fVar6);
           break;
         default:
           lua_error((byte *)s_invalid_option_in__format__10027a58);
@@ -973,8 +971,8 @@ void __cdecl str_format(void)
         case 'o':
         case 'u':
         case 'x':
-          fVar7 = luaL_check_number(iVar5);
-          FTOL((float10)fVar7);
+          fVar6 = luaL_check_number(iVar5);
+          FTOL((float10)fVar6);
           sprintf(buf,&cStack_c8);
           break;
         case 'q':

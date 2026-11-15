@@ -1338,7 +1338,7 @@ int __cdecl rdCache_DrawFaceN(ProcEntry *face)
   int iVar9;
   int iVar10;
   int iVar11;
-  byte *pbVar12;
+  byte *mat;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   pPVar6 = face;
@@ -1359,7 +1359,7 @@ int __cdecl rdCache_DrawFaceN(ProcEntry *face)
   }
   prVar3 = pPVar6->pMaterial;
   if (prVar3 == (rdMaterial *)0x0) {
-    pbVar12 = (byte *)0x0;
+    mat = (byte *)0x0;
     goto LAB_00408067;
   }
   iVar7 = pPVar6->nCel;
@@ -1383,8 +1383,8 @@ LAB_0040804e:
       iVar7 = iVar11;
     }
   }
-  pbVar12 = prVar3->aCels[iVar7];
-  if ((iVar9 == 4) && ((*pbVar12 & 8) == 0)) {
+  mat = prVar3->aCels[iVar7];
+  if ((iVar9 == 4) && ((*mat & 8) == 0)) {
     iVar9 = 3;
   }
 LAB_00408067:
@@ -1397,13 +1397,13 @@ LAB_00408067:
   switch(iVar9) {
   case 1:
     if ((-1 < iVar10) && (iVar10 < 5)) {
-      rdNRaster_DrawNGonLV((int)pPVar6,(int)pbVar12);
+      rdNRaster_DrawNGonLV((int)pPVar6,(int)mat);
       return 1;
     }
     break;
   case 2:
     if ((-1 < iVar10) && (iVar10 < 5)) {
-      rdNRaster_DrawNGonLW((int)pPVar6,(int)pbVar12);
+      rdNRaster_DrawNGonLW((int)pPVar6,(int)mat);
       return 1;
     }
     break;
@@ -1411,10 +1411,10 @@ LAB_00408067:
     switch(iVar10) {
     case 0:
       if ((pPVar6->dwFlags & 2) == 0) {
-        rdNRaster_DrawNGonLS((int)pPVar6,(int)pbVar12);
+        rdNRaster_DrawNGonLS((int)pPVar6,(int)mat);
         return 1;
       }
-      rdNRaster_DrawNGonTLS((int)pPVar6,(int)pbVar12);
+      rdNRaster_DrawNGonTLS((int)pPVar6,(int)mat);
       return 1;
     case 1:
       if (pPVar6->flLight < 0.0f) {
@@ -1440,10 +1440,10 @@ LAB_00408067:
       fVar2 = local_4 * 63.0f;
       pPVar6->flLightIndex = fVar2;
       if ((pPVar6->dwFlags & 2) == 0) {
-        rdNRaster_DrawNGonFS((int)pPVar6,(int)pbVar12,fVar2);
+        rdNRaster_DrawNGonFS((int)pPVar6,(int)mat,fVar2);
         return 1;
       }
-      rdNRaster_DrawNGonTFS((int)pPVar6,(int)pbVar12,fVar2);
+      rdNRaster_DrawNGonTFS((int)pPVar6,(int)mat,fVar2);
       return 1;
     case 2:
       fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
@@ -1470,10 +1470,10 @@ LAB_00408067:
       fVar2 = local_4 * 63.0f;
       pPVar6->flLightIndex = fVar2;
       if ((pPVar6->dwFlags & 2) == 0) {
-        rdNRaster_DrawNGonFS((int)pPVar6,(int)pbVar12,fVar2);
+        rdNRaster_DrawNGonFS((int)pPVar6,(int)mat,fVar2);
         return 1;
       }
-      rdNRaster_DrawNGonTFS((int)pPVar6,(int)pbVar12,fVar2);
+      rdNRaster_DrawNGonTFS((int)pPVar6,(int)mat,fVar2);
       return 1;
     case 3:
       uVar8 = 0;
@@ -1507,10 +1507,10 @@ LAB_00408067:
         } while (uVar8 < pPVar6->dwNumVertices);
       }
       if ((pPVar6->dwFlags & 2) == 0) {
-        rdNRaster_DrawNGonGS((int)pPVar6,(int)pbVar12);
+        rdNRaster_DrawNGonGS((int)pPVar6,(int)mat);
         return 1;
       }
-      rdNRaster_DrawNGonTGS((int)pPVar6,(int)pbVar12);
+      rdNRaster_DrawNGonTGS((int)pPVar6,(int)mat);
       return 1;
     }
     break;
@@ -1518,19 +1518,19 @@ LAB_00408067:
     if (face == (ProcEntry *)0x0) {
       switch(iVar10) {
       case 0:
-        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar6->dwFlags & 2) == 0) {
-            rdNRaster_DrawNGonLAT((int)pPVar6,(int)pbVar12);
+            rdNRaster_DrawNGonLAT((int)pPVar6,(int)mat);
             return 1;
           }
-          rdNRaster_DrawNGonTLAT((int)pPVar6,(int)pbVar12);
+          rdNRaster_DrawNGonTLAT((int)pPVar6,(int)mat);
           return 1;
         }
         if ((pPVar6->dwFlags & 2) == 0) {
-          rdNRaster_DrawNGonMLAT((int)pPVar6,(int)pbVar12);
+          rdNRaster_DrawNGonMLAT((int)pPVar6,(int)mat);
           return 1;
         }
-        rdNRaster_DrawNGonMTLAT((int)pPVar6,(int)pbVar12);
+        rdNRaster_DrawNGonMTLAT((int)pPVar6,(int)mat);
         return 1;
       case 1:
         if (pPVar6->flLight < 0.0f) {
@@ -1555,19 +1555,19 @@ LAB_00408067:
         }
         fVar2 = local_4 * 63.0f;
         pPVar6->flLightIndex = fVar2;
-        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar6->dwFlags & 2) == 0) {
-            rdNRaster_DrawNGonFAT((int)pPVar6,(int)pbVar12,fVar2);
+            rdNRaster_DrawNGonFAT((int)pPVar6,(int)mat,fVar2);
             return 1;
           }
-          rdNRaster_DrawNGonTFAT((int)pPVar6,(int)pbVar12,fVar2);
+          rdNRaster_DrawNGonTFAT((int)pPVar6,(int)mat,fVar2);
           return 1;
         }
         if ((pPVar6->dwFlags & 2) == 0) {
-          rdNRaster_DrawNGonMFAT((int)pPVar6,(int)pbVar12,fVar2);
+          rdNRaster_DrawNGonMFAT((int)pPVar6,(int)mat,fVar2);
           return 1;
         }
-        rdNRaster_DrawNGonMTFAT((int)pPVar6,(int)pbVar12,fVar2);
+        rdNRaster_DrawNGonMTFAT((int)pPVar6,(int)mat,fVar2);
         return 1;
       case 2:
         fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
@@ -1593,19 +1593,19 @@ LAB_00408067:
         }
         fVar2 = local_4 * 63.0f;
         pPVar6->flLightIndex = fVar2;
-        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar6->dwFlags & 2) == 0) {
-            rdNRaster_DrawNGonFAT((int)pPVar6,(int)pbVar12,fVar2);
+            rdNRaster_DrawNGonFAT((int)pPVar6,(int)mat,fVar2);
             return 1;
           }
-          rdNRaster_DrawNGonTFAT((int)pPVar6,(int)pbVar12,fVar2);
+          rdNRaster_DrawNGonTFAT((int)pPVar6,(int)mat,fVar2);
           return 1;
         }
         if ((pPVar6->dwFlags & 2) == 0) {
-          rdNRaster_DrawNGonMFAT((int)pPVar6,(int)pbVar12,fVar2);
+          rdNRaster_DrawNGonMFAT((int)pPVar6,(int)mat,fVar2);
           return 1;
         }
-        rdNRaster_DrawNGonMTFAT((int)pPVar6,(int)pbVar12,fVar2);
+        rdNRaster_DrawNGonMTFAT((int)pPVar6,(int)mat,fVar2);
         return 1;
       case 3:
         uVar8 = 0;
@@ -1638,37 +1638,37 @@ LAB_00408067:
             *pfVar1 = fVar5 * 63.0f;
           } while (uVar8 < pPVar6->dwNumVertices);
         }
-        if ((**(byte **)(pbVar12 + 0x1c) & 1) != 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) != 0) {
           if ((pPVar6->dwFlags & 2) == 0) {
-            rdNRaster_DrawNGonMGAT((int)pPVar6,(int)pbVar12);
+            rdNRaster_DrawNGonMGAT((int)pPVar6,(int)mat);
             return 1;
           }
-          rdNRaster_DrawNGonMTGAT((int)pPVar6,(int)pbVar12);
+          rdNRaster_DrawNGonMTGAT((int)pPVar6,(int)mat);
           return 1;
         }
         if ((pPVar6->dwFlags & 2) != 0) {
-          rdNRaster_DrawNGonTGAT((int)pPVar6,(int)pbVar12);
+          rdNRaster_DrawNGonTGAT((int)pPVar6,(int)mat);
           return 1;
         }
-        rdNRaster_DrawNGonGAT((int)pPVar6,(int)pbVar12);
+        rdNRaster_DrawNGonGAT((int)pPVar6,(int)mat);
       }
     }
     else if (face == (ProcEntry *)0x1) {
       switch(iVar10) {
       case 0:
-        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar6->dwFlags & 2) == 0) {
-            rdNRaster_DrawNGonLIT((int)pPVar6,(int)pbVar12);
+            rdNRaster_DrawNGonLIT((int)pPVar6,(int)mat);
             return 1;
           }
-          rdNRaster_DrawNGonTLIT((int)pPVar6,(int)pbVar12);
+          rdNRaster_DrawNGonTLIT((int)pPVar6,(int)mat);
           return 1;
         }
         if ((pPVar6->dwFlags & 2) == 0) {
-          rdNRaster_DrawNGonMLIT((int)pPVar6,(int)pbVar12);
+          rdNRaster_DrawNGonMLIT((int)pPVar6,(int)mat);
           return 1;
         }
-        rdNRaster_DrawNGonMTLIT((int)pPVar6,(int)pbVar12);
+        rdNRaster_DrawNGonMTLIT((int)pPVar6,(int)mat);
         return 1;
       case 1:
         if (pPVar6->flLight < 0.0f) {
@@ -1693,19 +1693,19 @@ LAB_00408067:
         }
         fVar2 = local_4 * 63.0f;
         pPVar6->flLightIndex = fVar2;
-        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar6->dwFlags & 2) == 0) {
-            rdNRaster_DrawNGonFIT((int)pPVar6,(int)pbVar12,fVar2);
+            rdNRaster_DrawNGonFIT((int)pPVar6,(int)mat,fVar2);
             return 1;
           }
-          rdNRaster_DrawNGonTFIT((int)pPVar6,(int)pbVar12,fVar2);
+          rdNRaster_DrawNGonTFIT((int)pPVar6,(int)mat,fVar2);
           return 1;
         }
         if ((pPVar6->dwFlags & 2) == 0) {
-          rdNRaster_DrawNGonMFIT((int)pPVar6,(int)pbVar12,fVar2);
+          rdNRaster_DrawNGonMFIT((int)pPVar6,(int)mat,fVar2);
           return 1;
         }
-        rdNRaster_DrawNGonMTFIT((int)pPVar6,(int)pbVar12,fVar2);
+        rdNRaster_DrawNGonMTFIT((int)pPVar6,(int)mat,fVar2);
         return 1;
       case 2:
         fVar2 = pPVar6->flLight + pPVar6->flLightIndex;
@@ -1731,19 +1731,19 @@ LAB_00408067:
         }
         fVar2 = local_4 * 63.0f;
         pPVar6->flLightIndex = fVar2;
-        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar6->dwFlags & 2) == 0) {
-            rdNRaster_DrawNGonFIT((int)pPVar6,(int)pbVar12,fVar2);
+            rdNRaster_DrawNGonFIT((int)pPVar6,(int)mat,fVar2);
             return 1;
           }
-          rdNRaster_DrawNGonTFIT((int)pPVar6,(int)pbVar12,fVar2);
+          rdNRaster_DrawNGonTFIT((int)pPVar6,(int)mat,fVar2);
           return 1;
         }
         if ((pPVar6->dwFlags & 2) == 0) {
-          rdNRaster_DrawNGonMFIT((int)pPVar6,(int)pbVar12,fVar2);
+          rdNRaster_DrawNGonMFIT((int)pPVar6,(int)mat,fVar2);
           return 1;
         }
-        rdNRaster_DrawNGonMTFIT((int)pPVar6,(int)pbVar12,fVar2);
+        rdNRaster_DrawNGonMTFIT((int)pPVar6,(int)mat,fVar2);
         return 1;
       case 3:
         uVar8 = 0;
@@ -1776,19 +1776,19 @@ LAB_00408067:
             *pfVar1 = fVar5 * 63.0f;
           } while (uVar8 < pPVar6->dwNumVertices);
         }
-        if ((**(byte **)(pbVar12 + 0x1c) & 1) == 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar6->dwFlags & 2) == 0) {
-            rdNRaster_DrawNGonGIT((int)pPVar6,(int)pbVar12);
+            rdNRaster_DrawNGonGIT((int)pPVar6,(int)mat);
             return 1;
           }
-          rdNRaster_DrawNGonTGIT((int)pPVar6,(int)pbVar12);
+          rdNRaster_DrawNGonTGIT((int)pPVar6,(int)mat);
           return 1;
         }
         if ((pPVar6->dwFlags & 2) == 0) {
-          rdNRaster_DrawNGonMGIT((int)pPVar6,(int)pbVar12);
+          rdNRaster_DrawNGonMGIT((int)pPVar6,(int)mat);
           return 1;
         }
-        rdNRaster_DrawNGonMTGIT((int)pPVar6,(int)pbVar12);
+        rdNRaster_DrawNGonMTGIT((int)pPVar6,(int)mat);
         return 1;
       }
     }
@@ -1831,8 +1831,8 @@ int __cdecl rdCache_DrawFaceZ(ProcEntry *face)
   int iVar8;
   int iVar9;
   int iVar10;
-  byte *pbVar11;
-  float fVar12;
+  byte *mat;
+  float fVar11;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   pPVar5 = face;
@@ -1853,7 +1853,7 @@ int __cdecl rdCache_DrawFaceZ(ProcEntry *face)
   }
   prVar2 = pPVar5->pMaterial;
   if (prVar2 == (rdMaterial *)0x0) {
-    pbVar11 = (byte *)0x0;
+    mat = (byte *)0x0;
   }
   else {
     iVar6 = pPVar5->nCel;
@@ -1877,8 +1877,8 @@ LAB_00408b6e:
         iVar6 = iVar10;
       }
     }
-    pbVar11 = prVar2->aCels[iVar6];
-    if ((iVar8 == 4) && ((*pbVar11 & 8) == 0)) {
+    mat = prVar2->aCels[iVar6];
+    if ((iVar8 == 4) && ((*mat & 8) == 0)) {
       iVar8 = 3;
     }
   }
@@ -1891,13 +1891,13 @@ LAB_00408b6e:
   switch(iVar8) {
   case 1:
     if ((-1 < iVar9) && (iVar9 < 5)) {
-      rdZRaster_DrawNGonLV((int)pPVar5,(int)pbVar11);
+      rdZRaster_DrawNGonLV((int)pPVar5,(int)mat);
       return 1;
     }
     break;
   case 2:
     if ((-1 < iVar9) && (iVar9 < 5)) {
-      rdZRaster_DrawNGonLW((int)pPVar5,(int)pbVar11);
+      rdZRaster_DrawNGonLW((int)pPVar5,(int)mat);
       return 1;
     }
     break;
@@ -1905,45 +1905,45 @@ LAB_00408b6e:
     switch(iVar9) {
     case 0:
       if ((pPVar5->dwFlags & 2) == 0) {
-        rdZRaster_DrawNGonLS((int)pPVar5,(int)pbVar11);
+        rdZRaster_DrawNGonLS((int)pPVar5,(int)mat);
         return 1;
       }
-      rdZRaster_DrawNGonTLS((int)pPVar5,(int)pbVar11);
+      rdZRaster_DrawNGonTLS((int)pPVar5,(int)mat);
       return 1;
     case 1:
-      fVar12 = 0.0f;
+      fVar11 = 0.0f;
       pPVar5->flLightIndex = 0.0f;
       if ((pPVar5->dwFlags & 2) != 0) {
-        rdZRaster_DrawNGonTFS((int)pPVar5,(int)pbVar11,0.0f);
+        rdZRaster_DrawNGonTFS((int)pPVar5,(int)mat,0.0f);
         return 1;
       }
       break;
     case 2:
-      fVar12 = pPVar5->flLight + pPVar5->flLightIndex;
-      if (fVar12 < 0.0f) {
+      fVar11 = pPVar5->flLight + pPVar5->flLightIndex;
+      if (fVar11 < 0.0f) {
         fVar3 = 0.0f;
       }
       else {
-        fVar3 = fVar12;
-        if (1.0f < fVar12) {
+        fVar3 = fVar11;
+        if (1.0f < fVar11) {
           fVar3 = 1.0f;
         }
       }
       if (local_4 < fVar3) {
-        if (fVar12 < 0.0f) {
+        if (fVar11 < 0.0f) {
           local_4 = 0.0f;
         }
         else {
-          local_4 = fVar12;
-          if (1.0f < fVar12) {
+          local_4 = fVar11;
+          if (1.0f < fVar11) {
             local_4 = 1.0f;
           }
         }
       }
-      fVar12 = local_4 * 63.0f;
-      pPVar5->flLightIndex = fVar12;
+      fVar11 = local_4 * 63.0f;
+      pPVar5->flLightIndex = fVar11;
       if ((pPVar5->dwFlags & 2) != 0) {
-        rdZRaster_DrawNGonTFS((int)pPVar5,(int)pbVar11,fVar12);
+        rdZRaster_DrawNGonTFS((int)pPVar5,(int)mat,fVar11);
         return 1;
       }
       break;
@@ -1951,25 +1951,25 @@ LAB_00408b6e:
       uVar7 = 0;
       if (pPVar5->dwNumVertices != 0) {
         do {
-          fVar12 = pPVar5->pIntensities[uVar7] + pPVar5->flLight;
+          fVar11 = pPVar5->pIntensities[uVar7] + pPVar5->flLight;
           pfVar1 = pPVar5->pIntensities + uVar7;
-          if (fVar12 < 0.0f) {
+          if (fVar11 < 0.0f) {
             fVar3 = 0.0f;
           }
           else {
-            fVar3 = fVar12;
-            if (1.0f < fVar12) {
+            fVar3 = fVar11;
+            if (1.0f < fVar11) {
               fVar3 = 1.0f;
             }
           }
           fVar4 = local_4;
           if (local_4 < fVar3) {
-            if (fVar12 < 0.0f) {
+            if (fVar11 < 0.0f) {
               fVar4 = 0.0f;
             }
             else {
-              fVar4 = fVar12;
-              if (1.0f < fVar12) {
+              fVar4 = fVar11;
+              if (1.0f < fVar11) {
                 fVar4 = 1.0f;
               }
             }
@@ -1979,45 +1979,45 @@ LAB_00408b6e:
         } while (uVar7 < pPVar5->dwNumVertices);
       }
       if ((pPVar5->dwFlags & 2) == 0) {
-        rdZRaster_DrawNGonGS((int)pPVar5,(int)pbVar11);
+        rdZRaster_DrawNGonGS((int)pPVar5,(int)mat);
         return 1;
       }
-      rdZRaster_DrawNGonTGS((int)pPVar5,(int)pbVar11);
+      rdZRaster_DrawNGonTGS((int)pPVar5,(int)mat);
       return 1;
     default:
       goto switchD_00408bad_default;
     }
-    rdZRaster_DrawNGonFS((int)pPVar5,(int)pbVar11,fVar12);
+    rdZRaster_DrawNGonFS((int)pPVar5,(int)mat,fVar11);
     return 1;
   case 4:
     if (face == (ProcEntry *)0x0) {
       switch(iVar9) {
       case 0:
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar5->dwFlags & 2) == 0) {
-            rdZRaster_DrawNGonLAT((int)pPVar5,(int)pbVar11);
+            rdZRaster_DrawNGonLAT((int)pPVar5,(int)mat);
             return 1;
           }
-          rdZRaster_DrawNGonTLAT((int)pPVar5,(int)pbVar11);
+          rdZRaster_DrawNGonTLAT((int)pPVar5,(int)mat);
           return 1;
         }
         if ((pPVar5->dwFlags & 2) == 0) {
-          rdZRaster_DrawNGonMLAT((int)pPVar5,(int)pbVar11);
+          rdZRaster_DrawNGonMLAT((int)pPVar5,(int)mat);
           return 1;
         }
-        rdZRaster_DrawNGonMTLAT((int)pPVar5,(int)pbVar11);
+        rdZRaster_DrawNGonMTLAT((int)pPVar5,(int)mat);
         return 1;
       case 1:
         if (pPVar5->flLight < 0.0f) {
-          fVar12 = 0.0f;
+          fVar11 = 0.0f;
         }
         else if (1.0f < pPVar5->flLight) {
-          fVar12 = 1.0f;
+          fVar11 = 1.0f;
         }
         else {
-          fVar12 = pPVar5->flLight;
+          fVar11 = pPVar5->flLight;
         }
-        if (local_4 < fVar12) {
+        if (local_4 < fVar11) {
           if (pPVar5->flLight < 0.0f) {
             local_4 = 0.0f;
           }
@@ -2028,83 +2028,83 @@ LAB_00408b6e:
             local_4 = pPVar5->flLight;
           }
         }
-        fVar12 = local_4 * 63.0f;
-        pPVar5->flLightIndex = fVar12;
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+        fVar11 = local_4 * 63.0f;
+        pPVar5->flLightIndex = fVar11;
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar5->dwFlags & 2) == 0) {
-            rdZRaster_DrawNGonFAT((int)pPVar5,(int)pbVar11,fVar12);
+            rdZRaster_DrawNGonFAT((int)pPVar5,(int)mat,fVar11);
             return 1;
           }
-          rdZRaster_DrawNGonTFAT((int)pPVar5,(int)pbVar11,fVar12);
+          rdZRaster_DrawNGonTFAT((int)pPVar5,(int)mat,fVar11);
           return 1;
         }
         if ((pPVar5->dwFlags & 2) == 0) {
-          rdZRaster_DrawNGonMFAT((int)pPVar5,(int)pbVar11,fVar12);
+          rdZRaster_DrawNGonMFAT((int)pPVar5,(int)mat,fVar11);
           return 1;
         }
-        rdZRaster_DrawNGonMTFAT((int)pPVar5,(int)pbVar11,fVar12);
+        rdZRaster_DrawNGonMTFAT((int)pPVar5,(int)mat,fVar11);
         return 1;
       case 2:
-        fVar12 = pPVar5->flLight + pPVar5->flLightIndex;
-        if (fVar12 < 0.0f) {
+        fVar11 = pPVar5->flLight + pPVar5->flLightIndex;
+        if (fVar11 < 0.0f) {
           fVar3 = 0.0f;
         }
         else {
-          fVar3 = fVar12;
-          if (1.0f < fVar12) {
+          fVar3 = fVar11;
+          if (1.0f < fVar11) {
             fVar3 = 1.0f;
           }
         }
         if (local_4 < fVar3) {
-          if (fVar12 < 0.0f) {
+          if (fVar11 < 0.0f) {
             local_4 = 0.0f;
           }
           else {
-            local_4 = fVar12;
-            if (1.0f < fVar12) {
+            local_4 = fVar11;
+            if (1.0f < fVar11) {
               local_4 = 1.0f;
             }
           }
         }
-        fVar12 = local_4 * 63.0f;
-        pPVar5->flLightIndex = fVar12;
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+        fVar11 = local_4 * 63.0f;
+        pPVar5->flLightIndex = fVar11;
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar5->dwFlags & 2) == 0) {
-            rdZRaster_DrawNGonFAT((int)pPVar5,(int)pbVar11,fVar12);
+            rdZRaster_DrawNGonFAT((int)pPVar5,(int)mat,fVar11);
             return 1;
           }
-          rdZRaster_DrawNGonTFAT((int)pPVar5,(int)pbVar11,fVar12);
+          rdZRaster_DrawNGonTFAT((int)pPVar5,(int)mat,fVar11);
           return 1;
         }
         if ((pPVar5->dwFlags & 2) == 0) {
-          rdZRaster_DrawNGonMFAT((int)pPVar5,(int)pbVar11,fVar12);
+          rdZRaster_DrawNGonMFAT((int)pPVar5,(int)mat,fVar11);
           return 1;
         }
-        rdZRaster_DrawNGonMTFAT((int)pPVar5,(int)pbVar11,fVar12);
+        rdZRaster_DrawNGonMTFAT((int)pPVar5,(int)mat,fVar11);
         return 1;
       case 3:
         uVar7 = 0;
         if (pPVar5->dwNumVertices != 0) {
           do {
-            fVar12 = pPVar5->pIntensities[uVar7] + pPVar5->flLight;
+            fVar11 = pPVar5->pIntensities[uVar7] + pPVar5->flLight;
             pfVar1 = pPVar5->pIntensities + uVar7;
-            if (fVar12 < 0.0f) {
+            if (fVar11 < 0.0f) {
               fVar3 = 0.0f;
             }
             else {
-              fVar3 = fVar12;
-              if (1.0f < fVar12) {
+              fVar3 = fVar11;
+              if (1.0f < fVar11) {
                 fVar3 = 1.0f;
               }
             }
             fVar4 = local_4;
             if (local_4 < fVar3) {
-              if (fVar12 < 0.0f) {
+              if (fVar11 < 0.0f) {
                 fVar4 = 0.0f;
               }
               else {
-                fVar4 = fVar12;
-                if (1.0f < fVar12) {
+                fVar4 = fVar11;
+                if (1.0f < fVar11) {
                   fVar4 = 1.0f;
                 }
               }
@@ -2113,49 +2113,49 @@ LAB_00408b6e:
             *pfVar1 = fVar4 * 63.0f;
           } while (uVar7 < pPVar5->dwNumVertices);
         }
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) != 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) != 0) {
           if ((pPVar5->dwFlags & 2) == 0) {
-            rdZRaster_DrawNGonMGAT((int)pPVar5,(int)pbVar11);
+            rdZRaster_DrawNGonMGAT((int)pPVar5,(int)mat);
             return 1;
           }
-          rdZRaster_DrawNGonMTGAT((int)pPVar5,(int)pbVar11);
+          rdZRaster_DrawNGonMTGAT((int)pPVar5,(int)mat);
           return 1;
         }
         if ((pPVar5->dwFlags & 2) != 0) {
-          rdZRaster_DrawNGonTGAT((int)pPVar5,(int)pbVar11);
+          rdZRaster_DrawNGonTGAT((int)pPVar5,(int)mat);
           return 1;
         }
-        rdZRaster_DrawNGonGAT((int)pPVar5,(int)pbVar11);
+        rdZRaster_DrawNGonGAT((int)pPVar5,(int)mat);
       }
     }
     else if (face == (ProcEntry *)0x1) {
       switch(iVar9) {
       case 0:
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar5->dwFlags & 2) == 0) {
-            rdZRaster_DrawNGonLIT((int)pPVar5,(int)pbVar11);
+            rdZRaster_DrawNGonLIT((int)pPVar5,(int)mat);
             return 1;
           }
-          rdZRaster_DrawNGonTLIT((int)pPVar5,(int)pbVar11);
+          rdZRaster_DrawNGonTLIT((int)pPVar5,(int)mat);
           return 1;
         }
         if ((pPVar5->dwFlags & 2) == 0) {
-          rdZRaster_DrawNGonMLIT((int)pPVar5,(int)pbVar11);
+          rdZRaster_DrawNGonMLIT((int)pPVar5,(int)mat);
           return 1;
         }
-        rdZRaster_DrawNGonMTLIT((int)pPVar5,(int)pbVar11);
+        rdZRaster_DrawNGonMTLIT((int)pPVar5,(int)mat);
         return 1;
       case 1:
         if (pPVar5->flLight < 0.0f) {
-          fVar12 = 0.0f;
+          fVar11 = 0.0f;
         }
         else if (1.0f < pPVar5->flLight) {
-          fVar12 = 1.0f;
+          fVar11 = 1.0f;
         }
         else {
-          fVar12 = pPVar5->flLight;
+          fVar11 = pPVar5->flLight;
         }
-        if (local_4 < fVar12) {
+        if (local_4 < fVar11) {
           if (pPVar5->flLight < 0.0f) {
             local_4 = 0.0f;
           }
@@ -2166,83 +2166,83 @@ LAB_00408b6e:
             local_4 = pPVar5->flLight;
           }
         }
-        fVar12 = local_4 * 63.0f;
-        pPVar5->flLightIndex = fVar12;
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+        fVar11 = local_4 * 63.0f;
+        pPVar5->flLightIndex = fVar11;
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar5->dwFlags & 2) == 0) {
-            rdZRaster_DrawNGonFIT((int)pPVar5,(int)pbVar11,fVar12);
+            rdZRaster_DrawNGonFIT((int)pPVar5,(int)mat,fVar11);
             return 1;
           }
-          rdZRaster_DrawNGonTFIT((int)pPVar5,(int)pbVar11,fVar12);
+          rdZRaster_DrawNGonTFIT((int)pPVar5,(int)mat,fVar11);
           return 1;
         }
         if ((pPVar5->dwFlags & 2) == 0) {
-          rdZRaster_DrawNGonMFIT((int)pPVar5,(int)pbVar11,fVar12);
+          rdZRaster_DrawNGonMFIT((int)pPVar5,(int)mat,fVar11);
           return 1;
         }
-        rdZRaster_DrawNGonMTFIT((int)pPVar5,(int)pbVar11,fVar12);
+        rdZRaster_DrawNGonMTFIT((int)pPVar5,(int)mat,fVar11);
         return 1;
       case 2:
-        fVar12 = pPVar5->flLight + pPVar5->flLightIndex;
-        if (fVar12 < 0.0f) {
+        fVar11 = pPVar5->flLight + pPVar5->flLightIndex;
+        if (fVar11 < 0.0f) {
           fVar3 = 0.0f;
         }
         else {
-          fVar3 = fVar12;
-          if (1.0f < fVar12) {
+          fVar3 = fVar11;
+          if (1.0f < fVar11) {
             fVar3 = 1.0f;
           }
         }
         if (local_4 < fVar3) {
-          if (fVar12 < 0.0f) {
+          if (fVar11 < 0.0f) {
             local_4 = 0.0f;
           }
           else {
-            local_4 = fVar12;
-            if (1.0f < fVar12) {
+            local_4 = fVar11;
+            if (1.0f < fVar11) {
               local_4 = 1.0f;
             }
           }
         }
-        fVar12 = local_4 * 63.0f;
-        pPVar5->flLightIndex = fVar12;
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+        fVar11 = local_4 * 63.0f;
+        pPVar5->flLightIndex = fVar11;
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar5->dwFlags & 2) == 0) {
-            rdZRaster_DrawNGonFIT((int)pPVar5,(int)pbVar11,fVar12);
+            rdZRaster_DrawNGonFIT((int)pPVar5,(int)mat,fVar11);
             return 1;
           }
-          rdZRaster_DrawNGonTFIT((int)pPVar5,(int)pbVar11,fVar12);
+          rdZRaster_DrawNGonTFIT((int)pPVar5,(int)mat,fVar11);
           return 1;
         }
         if ((pPVar5->dwFlags & 2) == 0) {
-          rdZRaster_DrawNGonMFIT((int)pPVar5,(int)pbVar11,fVar12);
+          rdZRaster_DrawNGonMFIT((int)pPVar5,(int)mat,fVar11);
           return 1;
         }
-        rdZRaster_DrawNGonMTFIT((int)pPVar5,(int)pbVar11,fVar12);
+        rdZRaster_DrawNGonMTFIT((int)pPVar5,(int)mat,fVar11);
         return 1;
       case 3:
         uVar7 = 0;
         if (pPVar5->dwNumVertices != 0) {
           do {
-            fVar12 = pPVar5->pIntensities[uVar7] + pPVar5->flLight;
+            fVar11 = pPVar5->pIntensities[uVar7] + pPVar5->flLight;
             pfVar1 = pPVar5->pIntensities + uVar7;
-            if (fVar12 < 0.0f) {
+            if (fVar11 < 0.0f) {
               fVar3 = 0.0f;
             }
             else {
-              fVar3 = fVar12;
-              if (1.0f < fVar12) {
+              fVar3 = fVar11;
+              if (1.0f < fVar11) {
                 fVar3 = 1.0f;
               }
             }
             fVar4 = local_4;
             if (local_4 < fVar3) {
-              if (fVar12 < 0.0f) {
+              if (fVar11 < 0.0f) {
                 fVar4 = 0.0f;
               }
               else {
-                fVar4 = fVar12;
-                if (1.0f < fVar12) {
+                fVar4 = fVar11;
+                if (1.0f < fVar11) {
                   fVar4 = 1.0f;
                 }
               }
@@ -2251,19 +2251,19 @@ LAB_00408b6e:
             *pfVar1 = fVar4 * 63.0f;
           } while (uVar7 < pPVar5->dwNumVertices);
         }
-        if ((**(byte **)(pbVar11 + 0x1c) & 1) == 0) {
+        if ((**(byte **)(mat + 0x1c) & 1) == 0) {
           if ((pPVar5->dwFlags & 2) == 0) {
-            rdZRaster_DrawNGonGIT((int)pPVar5,(int)pbVar11);
+            rdZRaster_DrawNGonGIT((int)pPVar5,(int)mat);
             return 1;
           }
-          rdZRaster_DrawNGonTGIT((int)pPVar5,(int)pbVar11);
+          rdZRaster_DrawNGonTGIT((int)pPVar5,(int)mat);
           return 1;
         }
         if ((pPVar5->dwFlags & 2) == 0) {
-          rdZRaster_DrawNGonMGIT((int)pPVar5,(int)pbVar11);
+          rdZRaster_DrawNGonMGIT((int)pPVar5,(int)mat);
           return 1;
         }
-        rdZRaster_DrawNGonMTGIT((int)pPVar5,(int)pbVar11);
+        rdZRaster_DrawNGonMTGIT((int)pPVar5,(int)mat);
         return 1;
       }
     }

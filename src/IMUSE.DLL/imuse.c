@@ -2547,8 +2547,7 @@ void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,in
 #if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
-void __cdecl
-Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5,int param_6)
+void __cdecl Im_MixLoopC(undefined2 *src,int param_2,uint count,int out,int wl,int wr)
 
 {
   undefined2 uVar1;
@@ -2559,67 +2558,67 @@ Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5
   uint uVar6;
   uint uVar7;
   
-  piVar4 = g_pMixBuf + param_4 * 2;
-  uVar2 = (uint)(param_2 << 0x10) / param_3;
+  piVar4 = g_pMixBuf + out * 2;
+  uVar2 = (uint)(param_2 << 0x10) / count;
   if (uVar2 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
-      uVar1 = param_1[2];
-      iVar5 = (int)CONCAT11((char)*param_1,(char)((ushort)*param_1 >> 8));
-      *piVar4 = *piVar4 + param_5 * iVar5;
-      param_1 = param_1 + 1;
+      uVar1 = src[2];
+      iVar5 = (int)CONCAT11((char)*src,(char)((ushort)*src >> 8));
+      *piVar4 = *piVar4 + wl * iVar5;
+      src = src + 1;
       iVar3 = (int)(short)(CONCAT11((char)uVar1,(char)((ushort)uVar1 >> 8)) + iVar5 >> 1);
-      piVar4[1] = piVar4[1] + param_6 * iVar5;
-      piVar4[2] = piVar4[2] + param_5 * iVar3;
-      piVar4[3] = piVar4[3] + param_6 * iVar3;
+      piVar4[1] = piVar4[1] + wr * iVar5;
+      piVar4[2] = piVar4[2] + wl * iVar3;
+      piVar4[3] = piVar4[3] + wr * iVar3;
       piVar4 = piVar4 + 4;
     }
-    iVar5 = (int)CONCAT11((char)*param_1,(char)((ushort)*param_1 >> 8));
-    iVar3 = param_5 * iVar5;
-    iVar5 = param_6 * iVar5;
+    iVar5 = (int)CONCAT11((char)*src,(char)((ushort)*src >> 8));
+    iVar3 = wl * iVar5;
+    iVar5 = wr * iVar5;
     *piVar4 = *piVar4 + iVar3;
     piVar4[1] = piVar4[1] + iVar5;
     piVar4[2] = piVar4[2] + iVar3;
     piVar4[3] = piVar4[3] + iVar5;
   }
   else if (uVar2 == 0x10000) {
-    if (param_3 != 0) {
+    if (count != 0) {
       do {
-        iVar3 = (int)CONCAT11((char)*param_1,(char)((ushort)*param_1 >> 8));
-        *piVar4 = *piVar4 + param_5 * iVar3;
-        param_1 = param_1 + 1;
-        piVar4[1] = piVar4[1] + param_6 * iVar3;
-        param_3 = param_3 - 1;
+        iVar3 = (int)CONCAT11((char)*src,(char)((ushort)*src >> 8));
+        *piVar4 = *piVar4 + wl * iVar3;
+        src = src + 1;
+        piVar4[1] = piVar4[1] + wr * iVar3;
+        count = count - 1;
         piVar4 = piVar4 + 2;
-      } while (param_3 != 0);
+      } while (count != 0);
       return;
     }
   }
   else if (uVar2 == 0x20000) {
-    if (param_3 != 0) {
+    if (count != 0) {
       do {
-        iVar3 = (int)CONCAT11((char)*param_1,(char)((ushort)*param_1 >> 8));
-        *piVar4 = *piVar4 + param_5 * iVar3;
-        param_1 = param_1 + 2;
-        piVar4[1] = piVar4[1] + param_6 * iVar3;
-        param_3 = param_3 - 1;
+        iVar3 = (int)CONCAT11((char)*src,(char)((ushort)*src >> 8));
+        *piVar4 = *piVar4 + wl * iVar3;
+        src = src + 2;
+        piVar4[1] = piVar4[1] + wr * iVar3;
+        count = count - 1;
         piVar4 = piVar4 + 2;
-      } while (param_3 != 0);
+      } while (count != 0);
       return;
     }
   }
   else {
     uVar6 = 0;
-    if (param_3 != 0) {
+    if (count != 0) {
       do {
-        iVar3 = (int)CONCAT11((char)*param_1,(char)((ushort)*param_1 >> 8));
-        *piVar4 = *piVar4 + param_5 * iVar3;
+        iVar3 = (int)CONCAT11((char)*src,(char)((ushort)*src >> 8));
+        *piVar4 = *piVar4 + wl * iVar3;
         uVar7 = uVar6 + uVar2;
-        piVar4[1] = piVar4[1] + param_6 * iVar3;
+        piVar4[1] = piVar4[1] + wr * iVar3;
         piVar4 = piVar4 + 2;
         uVar6 = uVar7 & 0xffff;
-        param_1 = param_1 + ((int)uVar7 >> 0x10);
-        param_3 = param_3 - 1;
-      } while (param_3 != 0);
+        src = src + ((int)uVar7 >> 0x10);
+        count = count - 1;
+      } while (count != 0);
       return;
     }
   }
@@ -2633,7 +2632,7 @@ Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5
 #if 0
 /* Unidentified function of iMUSE_Mixer.c (software mixing / resampling) */
 
-void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param_4,int param_5)
+void __cdecl Im_MixLoopD(undefined2 *src,int param_2,uint count,uint out,int vol)
 
 {
   undefined2 uVar1;
@@ -2646,37 +2645,37 @@ void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param
   uint uVar8;
   uint uVar9;
   
-  piVar4 = g_pMixBuf + param_4 * 2;
-  uVar3 = (uint)(param_2 << 0x10) / param_3;
+  piVar4 = g_pMixBuf + out * 2;
+  uVar3 = (uint)(param_2 << 0x10) / count;
   if (uVar3 == 0x8000) {
     while (param_2 = param_2 + -1, param_2 != 0) {
-      uVar1 = param_1[2];
-      iVar7 = (int)CONCAT11((char)*param_1,(char)((ushort)*param_1 >> 8));
-      uVar2 = param_1[3];
-      iVar5 = (int)CONCAT11((char)param_1[1],(char)((ushort)param_1[1] >> 8));
-      param_1 = param_1 + 2;
-      *piVar4 = *piVar4 + param_5 * iVar7;
-      piVar4[1] = piVar4[1] + param_5 * iVar5;
+      uVar1 = src[2];
+      iVar7 = (int)CONCAT11((char)*src,(char)((ushort)*src >> 8));
+      uVar2 = src[3];
+      iVar5 = (int)CONCAT11((char)src[1],(char)((ushort)src[1] >> 8));
+      src = src + 2;
+      *piVar4 = *piVar4 + vol * iVar7;
+      piVar4[1] = piVar4[1] + vol * iVar5;
       piVar4[2] = piVar4[2] +
-                  (short)(CONCAT11((char)uVar1,(char)((ushort)uVar1 >> 8)) + iVar7 >> 1) * param_5;
+                  (short)(CONCAT11((char)uVar1,(char)((ushort)uVar1 >> 8)) + iVar7 >> 1) * vol;
       piVar4[3] = piVar4[3] +
-                  (short)(CONCAT11((char)uVar2,(char)((ushort)uVar2 >> 8)) + iVar5 >> 1) * param_5;
+                  (short)(CONCAT11((char)uVar2,(char)((ushort)uVar2 >> 8)) + iVar5 >> 1) * vol;
       piVar4 = piVar4 + 4;
     }
-    iVar5 = CONCAT11((char)*param_1,(char)((ushort)*param_1 >> 8)) * param_5;
-    iVar7 = CONCAT11((char)param_1[1],(char)((ushort)param_1[1] >> 8)) * param_5;
+    iVar5 = CONCAT11((char)*src,(char)((ushort)*src >> 8)) * vol;
+    iVar7 = CONCAT11((char)src[1],(char)((ushort)src[1] >> 8)) * vol;
     *piVar4 = *piVar4 + iVar5;
     piVar4[1] = piVar4[1] + iVar7;
     piVar4[2] = piVar4[2] + iVar5;
     piVar4[3] = piVar4[3] + iVar7;
   }
   else if (uVar3 == 0x10000) {
-    iVar7 = param_3 * 2;
+    iVar7 = count * 2;
     if (iVar7 != 0) {
       do {
-        uVar1 = *param_1;
-        param_1 = param_1 + 1;
-        *piVar4 = *piVar4 + CONCAT11((char)uVar1,(char)((ushort)uVar1 >> 8)) * param_5;
+        uVar1 = *src;
+        src = src + 1;
+        *piVar4 = *piVar4 + CONCAT11((char)uVar1,(char)((ushort)uVar1 >> 8)) * vol;
         iVar7 = iVar7 + -1;
         piVar4 = piVar4 + 1;
       } while (iVar7 != 0);
@@ -2684,32 +2683,32 @@ void __cdecl Im_MixLoopD(undefined2 *param_1,int param_2,uint param_3,uint param
     }
   }
   else if (uVar3 == 0x20000) {
-    if (param_3 != 0) {
+    if (count != 0) {
       do {
-        puVar6 = param_1 + 1;
-        *piVar4 = *piVar4 + CONCAT11((char)*param_1,(char)((ushort)*param_1 >> 8)) * param_5;
-        param_1 = param_1 + 4;
-        piVar4[1] = piVar4[1] + CONCAT11((char)*puVar6,(char)((ushort)*puVar6 >> 8)) * param_5;
-        param_3 = param_3 - 1;
+        puVar6 = src + 1;
+        *piVar4 = *piVar4 + CONCAT11((char)*src,(char)((ushort)*src >> 8)) * vol;
+        src = src + 4;
+        piVar4[1] = piVar4[1] + CONCAT11((char)*puVar6,(char)((ushort)*puVar6 >> 8)) * vol;
+        count = count - 1;
         piVar4 = piVar4 + 2;
-      } while (param_3 != 0);
+      } while (count != 0);
       return;
     }
   }
   else {
     uVar8 = 0;
-    if (param_3 != 0) {
-      param_4 = param_3;
+    if (count != 0) {
+      out = count;
       do {
-        uVar1 = param_1[1];
-        *piVar4 = *piVar4 + param_5 * CONCAT11((char)*param_1,(char)((ushort)*param_1 >> 8));
+        uVar1 = src[1];
+        *piVar4 = *piVar4 + vol * CONCAT11((char)*src,(char)((ushort)*src >> 8));
         uVar9 = uVar8 + uVar3 * 2;
-        piVar4[1] = piVar4[1] + param_5 * CONCAT11((char)uVar1,(char)((ushort)uVar1 >> 8));
+        piVar4[1] = piVar4[1] + vol * CONCAT11((char)uVar1,(char)((ushort)uVar1 >> 8));
         uVar8 = uVar9 & 0xffff;
-        param_1 = param_1 + ((int)uVar9 >> 0x10);
-        param_4 = param_4 - 1;
+        src = src + ((int)uVar9 >> 0x10);
+        out = out - 1;
         piVar4 = piVar4 + 2;
-      } while (param_4 != 0);
+      } while (out != 0);
       return;
     }
   }
@@ -2963,7 +2962,7 @@ LAB_10006549:
    current or a sequence plays, transitions to its file (Script_Trans). Returns the current state's
    id. Hand-written in build/overrides_imuse_r1.c; was FUN_10006560. */
 
-int __cdecl Script_SetState(int param_1)
+int __cdecl Script_SetState(int id)
 
 {
   uint uVar1;
@@ -2975,13 +2974,13 @@ int __cdecl Script_SetState(int param_1)
   uint unaff_retaddr;
   uint in_stack_00000008;
   
-  if (param_1 == -1) {
+  if (id == -1) {
     return g_aImStateTable[g_dwCurrentState].nId;
   }
   uVar4 = 0;
   piVar2 = &g_aImStateTable[0].nId;
   do {
-    if (param_1 == *piVar2) {
+    if (id == *piVar2) {
       ImPrintf(g_aImStateTable[uVar4].aName);
       ImPrintf(&DAT_100171b0);
       uVar1 = g_dwCurrentState;
@@ -2992,7 +2991,7 @@ int __cdecl Script_SetState(int param_1)
         else {
           pIVar3 = g_aImStateTable + uVar4;
         }
-        Script_Trans(pIVar3->aFilename,uVar4,0,unaff_EDI,unaff_ESI,unaff_retaddr,param_1,
+        Script_Trans(pIVar3->aFilename,uVar4,0,unaff_EDI,unaff_ESI,unaff_retaddr,id,
                      in_stack_00000008);
       }
       g_dwCurrentState = uVar1;
@@ -3013,7 +3012,7 @@ int __cdecl Script_SetState(int param_1)
    the music script module (prefixed: the bridge refuses the bare name next to ImSetSequence);
    strings: 'SEQ_NULL' | 'ERR: bogus sequence...'); was FUN_10006620. */
 
-int __cdecl Script_SetSequence(int param_1)
+int __cdecl Script_SetSequence(int id)
 
 {
   int iVar1;
@@ -3026,11 +3025,11 @@ int __cdecl Script_SetSequence(int param_1)
   uint unaff_retaddr;
   uint in_stack_00000008;
   
-  if (param_1 == -1) {
+  if (id == -1) {
     return g_aImSeqTable[g_dwCurrentSequence].nId;
   }
-  iVar4 = param_1;
-  if (param_1 == 0) {
+  iVar4 = id;
+  if (id == 0) {
     iVar4 = 2000;
   }
   iVar5 = 0;
@@ -3050,15 +3049,15 @@ int __cdecl Script_SetSequence(int param_1)
             else {
               pIVar3 = g_aImStateTable + g_dwCurrentState;
             }
-            Script_Trans(pIVar3->aFilename,g_dwCurrentState,1,unaff_EDI,unaff_ESI,unaff_retaddr,
-                         param_1,in_stack_00000008);
+            Script_Trans(pIVar3->aFilename,g_dwCurrentState,1,unaff_EDI,unaff_ESI,unaff_retaddr,id,
+                         in_stack_00000008);
             g_dwCurrentSequence = 0;
             iVar4 = g_dwCurrentSequence;
             iVar1 = g_dwCurrentCuePoint;
           }
           else {
             Script_Trans(g_aImSeqTable[g_dwCurrentCuePoint].aFilename,0,1,unaff_EDI,unaff_ESI,
-                         unaff_retaddr,param_1,in_stack_00000008);
+                         unaff_retaddr,id,in_stack_00000008);
             iVar4 = g_dwCurrentCuePoint;
             g_dwCurrentSequence = g_dwCurrentCuePoint;
             g_dwCurrentCuePoint = 0;
@@ -3069,7 +3068,7 @@ int __cdecl Script_SetSequence(int param_1)
         else if ((g_dwCurrentSequence == 0) ||
                 ((iVar1 = iVar5, g_aImSeqTable[g_dwCurrentSequence].nTransType != 4 &&
                  (g_aImSeqTable[g_dwCurrentSequence].nTransType != 6)))) {
-          Script_Trans(g_aImSeqTable[iVar5].aFilename,0,1,unaff_EDI,unaff_ESI,unaff_retaddr,param_1,
+          Script_Trans(g_aImSeqTable[iVar5].aFilename,0,1,unaff_EDI,unaff_ESI,unaff_retaddr,id,
                        in_stack_00000008);
           g_dwCurrentCuePoint = 0;
           (&DAT_1002e25c)[iVar5] = 1;
@@ -5725,8 +5724,8 @@ undefined4 * __cdecl TgProcessMarker(int param_1,char *param_2)
   char *pcVar10;
   byte *pbVar11;
   char *pcVar12;
-  int *piVar13;
-  bool bVar14;
+  int *slot;
+  bool bVar13;
   #define local_100 (*(char (*)[256])(_frame + (0x110 - 0x100)))
   
   uVar7 = 0xffffffff;
@@ -5763,23 +5762,23 @@ undefined4 * __cdecl TgProcessMarker(int param_1,char *param_2)
       pcVar10 = pcVar10 + 1;
       pcVar12 = pcVar12 + 1;
     }
-    piVar13 = &g_dwTrigs;
+    slot = &g_dwTrigs;
     do {
-      if ((*piVar13 != 0) && (param_1 == *piVar13)) {
-        pbVar11 = (byte *)(piVar13 + 1);
-        if ((char)piVar13[1] != '\0') {
+      if ((*slot != 0) && (param_1 == *slot)) {
+        pbVar11 = (byte *)(slot + 1);
+        if ((char)slot[1] != '\0') {
           pbVar5 = (byte *)&g_dwTgProcessMarker_textCopy;
           do {
             bVar2 = *pbVar5;
-            bVar14 = bVar2 < *pbVar11;
+            bVar13 = bVar2 < *pbVar11;
             if (bVar2 != *pbVar11) {
 LAB_1000b4d7:
-              iVar6 = (1 - (uint)bVar14) - (uint)(bVar14 != 0);
+              iVar6 = (1 - (uint)bVar13) - (uint)(bVar13 != 0);
               goto LAB_1000b4dc;
             }
             if (bVar2 == 0) break;
             bVar2 = pbVar5[1];
-            bVar14 = bVar2 < pbVar11[1];
+            bVar13 = bVar2 < pbVar11[1];
             if (bVar2 != pbVar11[1]) goto LAB_1000b4d7;
             pbVar5 = pbVar5 + 2;
             pbVar11 = pbVar11 + 2;
@@ -5797,7 +5796,7 @@ LAB_1000b4dc:
           cVar1 = *(char *)((int)&g_dwTgProcessMarker_textCopy + iVar3);
         }
         local_100[iVar6] = '\0';
-        Im_RunTriggerCommand(piVar13,&g_dwTgProcessMarker_textCopy);
+        Im_RunTriggerCommand(slot,&g_dwTgProcessMarker_textCopy);
         iVar6 = 0;
         cVar1 = local_100[0];
         while (cVar1 != '\0') {
@@ -5809,7 +5808,7 @@ LAB_1000b4dc:
         *(undefined1 *)((int)&g_dwTgProcessMarker_textCopy + iVar6) = 0;
       }
 LAB_1000b52c:
-      piVar13 = piVar13 + 0x4d;
+      slot = slot + 0x4d;
       iVar9 = iVar9 + -1;
     } while (iVar9 != 0);
     puVar4 = (undefined4 *)((int)g_dwMidProcessing + -1);
@@ -5951,28 +5950,28 @@ int __cdecl TgGetPendCount(int param_1)
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
-void __cdecl Im_RunTriggerCommand(undefined4 *param_1,undefined4 param_2)
+void __cdecl Im_RunTriggerCommand(undefined4 *slot,undefined4 marker)
 
 {
   code *cmd;
   int a2;
   undefined4 uVar1;
   
-  cmd = (code *)param_1[0x41];
-  *param_1 = 0;
+  cmd = (code *)slot[0x41];
+  *slot = 0;
   if (cmd == (code *)0x0) {
     if (DAT_100336a8 != (code *)0x0) {
-      uVar1 = param_1[0x4b];
-      (*DAT_100336a8)(param_2,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1);
+      uVar1 = slot[0x4b];
+      (*DAT_100336a8)(marker,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1,uVar1);
     }
     return;
   }
-  a2 = param_1[0x4b];
+  a2 = slot[0x4b];
   if (cmd < (code *)0x1e) {
     ImSoundCall((uint)cmd,a2,a2,a2,a2,a2,a2,a2,a2,a2,a2);
     return;
   }
-  (*cmd)(param_2);
+  (*cmd)(marker);
   return;
 }
 #endif

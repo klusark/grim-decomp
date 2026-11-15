@@ -2137,3 +2137,18 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
 * README.md: the numbers of the coverage table, the hand-written functions (docs/OVERRIDES.md), the stubs (32 dead C
   runtime fragments), the types, the parameters and the data brought up to date; docs/STATUS.md sums up where the
   reconstruction stands, how a change is checked and what is left.
+
+## 480 more parameters named, from the hand-written definitions (2026-11-15)
+
+* tools/names_from_overrides.py: a hand-written function's prototype in functions.h keeps Ghidra's `param_N`; where
+  the definition in build/overrides*.c has as many parameters, each takes the hand-written name (types unchanged; the
+  hand-written C is what is built). The rasteriser's macro-built fillers take the names of a named sibling of the same
+  family and parameter types (left / right edges, rec / mat / light, node). names/params_overrides_{exe,lua,imuse}.json:
+  457 + 7 + 16.
+* Caught on the way: setting a parameter of a function with custom storage (no calling convention in functions.h)
+  makes Ghidra commit it with __cdecl's storage: stdMath_Tan's float10 result became a hidden return pointer
+  (`float10 * __cdecl stdMath_Tan(float10 *__return_storage_ptr__, float deg)`, and overrides_logic.c no longer
+  compiled). Restored (ST0 result, the argument at [ESP+4], custom storage); both naming tools now skip functions
+  without a calling convention. The prototypes of this round and of the previous one change in nothing but names
+  (and the 12 intended types).
+* `param_N` in the prototypes: EXE 2626 -> 2168, LUA.DLL 1034 -> 1027, IMUSE.DLL 672 -> 656. Clean room 0 of 5457.

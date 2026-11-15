@@ -1108,7 +1108,7 @@ int __cdecl lua_stackedfunction(int param_1)
 /* ---- 0x100020f0  lua_printstack ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-undefined4 __cdecl lua_printstack(int param_1)
+undefined4 __cdecl lua_printstack(int out)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1121,13 +1121,13 @@ undefined4 __cdecl lua_printstack(int param_1)
   
                     /* 0x20f0  56  lua_printstack */
   iVar3 = lua_stackedfunction(1);
-  iVar2 = param_1;
+  iVar2 = out;
   iVar1 = 2;
   do {
     if (iVar3 == 0) {
       return 0;
     }
-    lua_funcinfo(iVar3,&param_1,&local_4);
+    lua_funcinfo(iVar3,&out,&local_4);
     if (iVar2 != 0) {
       pcVar4 = s_Active_Stack__10026254;
       if (iVar1 != 2) {
@@ -1149,36 +1149,36 @@ undefined4 __cdecl lua_printstack(int param_1)
     else {
       if (local_4 == 0) {
         if (iVar2 != 0) {
-          (**(code **)(g_dwLuaHS + 0x54))(iVar2,s_main_of__s_10026244,param_1);
-          param_1 = 0;
+          (**(code **)(g_dwLuaHS + 0x54))(iVar2,s_main_of__s_10026244,out);
+          out = 0;
           goto LAB_10002208;
         }
       }
       else if (local_4 < 0) {
         if (iVar2 != 0) {
-          (**(code **)(g_dwLuaHS + 0x54))(iVar2,&DAT_10026240,param_1);
-          param_1 = 0;
+          (**(code **)(g_dwLuaHS + 0x54))(iVar2,&DAT_10026240,out);
+          out = 0;
           goto LAB_10002208;
         }
       }
       else if (iVar2 != 0) {
-        (**(code **)(g_dwLuaHS + 0x54))(iVar2,s_function___s__d__1002622c,param_1,local_4);
+        (**(code **)(g_dwLuaHS + 0x54))(iVar2,s_function___s__d__1002622c,out,local_4);
       }
-      param_1 = 0;
+      out = 0;
     }
 LAB_10002208:
     iVar3 = lua_currentline(iVar3);
     if ((0 < iVar3) && (iVar2 != 0)) {
       (**(code **)(g_dwLuaHS + 0x54))(iVar2,s_at_line__d_10026204,iVar3);
     }
-    if (param_1 == 0) {
+    if (out == 0) {
 LAB_1000224a:
       if (iVar2 != 0) {
         (**(code **)(g_dwLuaHS + 0x54))(iVar2,&DAT_100261f0);
       }
     }
     else if (iVar2 != 0) {
-      (**(code **)(g_dwLuaHS + 0x54))(iVar2,s__in_file__s__100261f4,param_1);
+      (**(code **)(g_dwLuaHS + 0x54))(iVar2,s__in_file__s__100261f4,out);
       goto LAB_1000224a;
     }
     iVar3 = lua_stackedfunction(iVar1);

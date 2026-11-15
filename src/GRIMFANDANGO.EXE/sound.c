@@ -12,11 +12,11 @@
 void __cdecl sputRoom_RelocateSounds(void)
 
 {
-  undefined4 *puVar1;
+  undefined4 *entry;
   
   PositionedSounds_DropFinished();
-  for (puVar1 = g_pSoundEventList; puVar1 != (undefined4 *)0x0; puVar1 = (undefined4 *)*puVar1) {
-    SetSoundPosition((int)puVar1);
+  for (entry = g_pSoundEventList; entry != (undefined4 *)0x0; entry = (undefined4 *)*entry) {
+    SetSoundPosition((int)entry);
   }
   return;
 }
@@ -31,14 +31,14 @@ sputRoom_SetSoundPosition
 
 {
   int iVar1;
-  undefined *puVar2;
+  undefined *entry;
   
   iVar1 = SoundsIsSoundPlaying(param_1);
   if (iVar1 == 0) {
     return;
   }
-  puVar2 = PositionedSound_Add(param_1,param_2,param_3,param_4,param_5,param_6);
-  SetSoundPosition((int)puVar2);
+  entry = PositionedSound_Add(param_1,param_2,param_3,param_4,param_5,param_6);
+  SetSoundPosition((int)entry);
   return;
 }
 
@@ -112,7 +112,7 @@ PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,u
    param 0x700. Original name SetSoundPosition (the remaster's GrimFandango (Linux): aligned call in
    sputRoom_RelocateSounds, sputRoom_SetSoundPosition); was PositionedSound_Apply. */
 
-uint __cdecl SetSoundPosition(int param_1)
+uint __cdecl SetSoundPosition(int entry)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -134,22 +134,22 @@ uint __cdecl SetSoundPosition(int param_1)
   if (pSVar3 != (Set *)0x0) {
     iVar1 = pSVar3->nCurSetup;
     pSVar2 = pSVar3->pSetups;
-    local_c = *(float *)(param_1 + 8) - pSVar2[iVar1].aPos[0];
-    local_8 = *(float *)(param_1 + 0xc) - pSVar2[iVar1].aPos[1];
-    local_4 = *(float *)(param_1 + 0x10) - pSVar2[iVar1].aPos[2];
+    local_c = *(float *)(entry + 8) - pSVar2[iVar1].aPos[0];
+    local_8 = *(float *)(entry + 0xc) - pSVar2[iVar1].aPos[1];
+    local_4 = *(float *)(entry + 0x10) - pSVar2[iVar1].aPos[2];
     fVar9 = rdVector_Normalize3QuickAcc(&local_c);
-    fVar7 = (float10)fVar9 - (float10)*(float *)(param_1 + 0x20);
+    fVar7 = (float10)fVar9 - (float10)*(float *)(entry + 0x20);
     if ((float10)0.0f <= fVar7) {
-      uVar6 = *(uint *)(param_1 + 0x18);
-      uVar5 = *(uint *)(param_1 + 0x14);
-      lVar8 = FTOL(((float10)*(float *)(param_1 + 0x1c) - fVar7) *
-                    ((float10)(uVar6 - uVar5) / (float10)*(float *)(param_1 + 0x1c)) +
+      uVar6 = *(uint *)(entry + 0x18);
+      uVar5 = *(uint *)(entry + 0x14);
+      lVar8 = FTOL(((float10)*(float *)(entry + 0x1c) - fVar7) *
+                    ((float10)(uVar6 - uVar5) / (float10)*(float *)(entry + 0x1c)) +
                     (float10)(int)uVar5);
       uVar4 = (uint)lVar8;
       if ((uVar5 <= uVar4) && (uVar5 = uVar4, uVar6 < uVar4)) {
         uVar5 = uVar6;
       }
-      SoundsSetParam(*(int *)(param_1 + 4),0x600,uVar5);
+      SoundsSetParam(*(int *)(entry + 4),0x600,uVar5);
     }
     fVar7 = ((float10)*(float *)&pSVar2[iVar1].field_0x58 * (float10)local_4 +
             (float10)*(float *)&pSVar2[iVar1].field_0x54 * (float10)local_8 +
@@ -166,7 +166,7 @@ uint __cdecl SetSoundPosition(int param_1)
     if (0x7f < uVar6) {
       uVar6 = 0x7f;
     }
-    SoundsSetParam(*(int *)(param_1 + 4),0x700,uVar6);
+    SoundsSetParam(*(int *)(entry + 4),0x700,uVar6);
     return 1;
   }
   return 0;

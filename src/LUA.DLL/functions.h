@@ -60,7 +60,7 @@ undefined4 __cdecl lua_pausetasks(void); /* 0x10001db0 */
 undefined4 __cdecl lua_unpausetasks(void); /* 0x10001de0 */
 int __cdecl lua_updatetasks(int param_1); /* 0x10001e10 */
 int __cdecl lua_stackedfunction(int param_1); /* 0x10002090 */
-undefined4 __cdecl lua_printstack(int param_1); /* 0x100020f0 */
+undefined4 __cdecl lua_printstack(int out); /* 0x100020f0 */
 uint __cdecl lua_currentline(int param_1); /* 0x10002280 */
 int lua_currenttask(void); /* 0x100022b0 */
 int __cdecl lua_getlocal(int param_1,int local_number,int *param_3); /* 0x100022c0 */
@@ -170,7 +170,7 @@ uint __cdecl luaD_call(int pos,int nres); /* 0x10004180 */
 int __cdecl callC(undefined *param_1,int param_2); /* 0x100044e0 */
 int __cdecl callCclosure(int param_1,undefined *param_2,int param_3); /* 0x10004580 */
 void __cdecl luaD_travallstacks(undefined *markobject); /* 0x10004600 */
-void __cdecl message(byte *param_1); /* 0x100046a0 */
+void __cdecl message(byte *msg); /* 0x100046a0 */
 undefined4 __cdecl luaD_protectedrun(void *param_1); /* 0x100046e0 */
 void __cdecl do_callinc(void *nres); /* 0x100047c0 */
 void __cdecl luaD_gcIM(TObject *o); /* 0x10004810 */
@@ -233,7 +233,7 @@ void luaX_init(void); /* 0x10005c00 */
 void __cdecl luaX_setinput(undefined4 param_1); /* 0x10005c30 */
 void __cdecl firstline(int param_1); /* 0x10005c70 */
 int luaX_lasttoken(void); /* 0x10005cf0 */
-uint __cdecl luaY_lex(float *param_1); /* 0x10005d00 */
+uint __cdecl luaY_lex(float *value); /* 0x10005d00 */
 void __cdecl inclinenumber(uint *param_1); /* 0x10006890 */
 void __cdecl skipspace(uint *param_1); /* 0x10006b10 */
 uint __cdecl checkcond(byte *param_1); /* 0x10006b60 */
@@ -332,7 +332,7 @@ uint * __cdecl bracket_end(char *param_1); /* 0x100099e0 */
 uint __cdecl matchclass(uint param_1,uint param_2); /* 0x10009a10 */
 void __cdecl str_find(void); /* 0x10009cb0 */
 void __cdecl push_captures(int *ms); /* 0x10009e40 */
-char * __cdecl match(char *param_1,int *param_2,int *param_3); /* 0x10009ea0 */
+char * __cdecl match(char *s,int *pat,int *cap); /* 0x10009ea0 */
 int __cdecl capture_to_close(int *param_1); /* 0x1000a030 */
 char * __cdecl matchitem(char *param_1,char *param_2,int *param_3,int *param_4); /* 0x1000a060 */
 int __cdecl check_cap(int param_1,int *param_2); /* 0x1000a150 */
@@ -448,7 +448,7 @@ void __cdecl LoadFunctions(int param_1,int *param_2); /* 0x1000d3c0 */
 void __cdecl LoadHeader(undefined4 *param_1); /* 0x1000d420 */
 void __cdecl LoadSignature(int *param_1); /* 0x1000d570 */
 undefined4 __cdecl luaV_tonumber(int *param_1); /* 0x1000d5c0 */
-undefined4 __cdecl luaV_tostring(int *param_1); /* 0x1000d620 */
+undefined4 __cdecl luaV_tostring(int *o); /* 0x1000d620 */
 
 /* ===== lvm.c ===== */
 void __cdecl luaV_closure(uint nelems); /* 0x1000d6d0 */

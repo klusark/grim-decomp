@@ -558,7 +558,7 @@ undefined4 __cdecl luaV_tonumber(int *param_1)
 /* Original name luaV_tostring (the remaster's libLua.so: sprintf of the number, luaS_new; caller
    lua_getstring); was lundump__d620. */
 
-undefined4 __cdecl luaV_tostring(int *param_1)
+undefined4 __cdecl luaV_tostring(int *o)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -567,10 +567,10 @@ undefined4 __cdecl luaV_tostring(int *param_1)
   longlong lVar3;
   #define local_3c (*(char (*)[60])(_frame + (0x50 - 0x3c)))
   
-  if (*param_1 != -1) {
+  if (*o != -1) {
     return 1;
   }
-  fVar1 = (float)param_1[1];
+  fVar1 = (float)o[1];
   if ((-2.1474836e+09f <= fVar1) && (fVar1 <= 2.1474836e+09f)) {
     lVar3 = FTOL((float10)fVar1);
     if ((float)(int)lVar3 == fVar1) {
@@ -578,11 +578,11 @@ undefined4 __cdecl luaV_tostring(int *param_1)
       goto LAB_1000d6ae;
     }
   }
-  sprintf(local_3c,&DAT_10028178,(double)(float)param_1[1]);
+  sprintf(local_3c,&DAT_10028178,(double)(float)o[1]);
 LAB_1000d6ae:
   pTVar2 = luaS_new(local_3c);
-  param_1[1] = (int)pTVar2;
-  *param_1 = -2;
+  o[1] = (int)pTVar2;
+  *o = -2;
   return 0;
 }
 #undef local_3c

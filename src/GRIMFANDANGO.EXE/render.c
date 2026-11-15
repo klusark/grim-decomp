@@ -844,7 +844,7 @@ void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
 /* Fills the 65536-entry 16-bit remap table g_wSputRender_ColorLookup for the pixel format and gamma
     */
 
-void __cdecl Render_BuildColorTable(int param_1,float param_2)
+void __cdecl Render_BuildColorTable(int fmt,float gamma)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -874,24 +874,23 @@ void __cdecl Render_BuildColorTable(int param_1,float param_2)
   
   local_24 = 0;
   do {
-    fVar4 = CI_POW((float10)((float)((int)(local_24 & 0xffff) >> 0xb) / 31.0f),(float10)param_2);
-    fVar5 = CI_POW((float10)((float)((int)(local_24 & 0xffff) >> 5 & 0x3f) / 63.0f),(float10)param_2)
-    ;
-    fVar6 = CI_POW((float10)((float)(local_24 & 0x1f) / 31.0f),(float10)param_2);
-    uVar1 = *(undefined4 *)(param_1 + 0xc);
-    uVar2 = *(undefined4 *)(param_1 + 0x10);
-    lVar7 = FTOL((float10)((float)((1 << ((byte)*(undefined4 *)(param_1 + 8) & 0x1f)) + -1) *
+    fVar4 = CI_POW((float10)((float)((int)(local_24 & 0xffff) >> 0xb) / 31.0f),(float10)gamma);
+    fVar5 = CI_POW((float10)((float)((int)(local_24 & 0xffff) >> 5 & 0x3f) / 63.0f),(float10)gamma);
+    fVar6 = CI_POW((float10)((float)(local_24 & 0x1f) / 31.0f),(float10)gamma);
+    uVar1 = *(undefined4 *)(fmt + 0xc);
+    uVar2 = *(undefined4 *)(fmt + 0x10);
+    lVar7 = FTOL((float10)((float)((1 << ((byte)*(undefined4 *)(fmt + 8) & 0x1f)) + -1) *
                            (float)fVar4));
-    uVar3 = *(undefined4 *)(param_1 + 0x14);
+    uVar3 = *(undefined4 *)(fmt + 0x14);
     lVar8 = FTOL((float10)((float)((1 << ((byte)uVar1 & 0x1f)) + -1) * (float)fVar5));
-    uVar1 = *(undefined4 *)(param_1 + 0x18);
+    uVar1 = *(undefined4 *)(fmt + 0x18);
     lVar9 = FTOL((float10)((float)((1 << ((byte)uVar2 & 0x1f)) + -1) * (float)fVar6));
     (&g_wSputRender_ColorLookup)[local_24] =
          (ushort)((int)lVar7 << ((byte)uVar3 & 0x1f)) | (ushort)((int)lVar8 << ((byte)uVar1 & 0x1f))
-         | (ushort)((int)lVar9 << ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f));
+         | (ushort)((int)lVar9 << ((byte)*(undefined4 *)(fmt + 0x1c) & 0x1f));
     local_24 = local_24 + 1;
   } while ((int)local_24 < 0x10000);
-  g_flSputRender_GammaCorrection = param_2;
+  g_flSputRender_GammaCorrection = gamma;
   return;
 }
 #undef local_10

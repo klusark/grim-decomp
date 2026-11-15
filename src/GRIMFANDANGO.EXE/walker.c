@@ -15,7 +15,7 @@
    orientation vector, rotated by the costume's +0x24 angle with rdMatrix_BuildFromVectorAngle34,
    offset by the puck position, into the puck's space with Puck_InvXform)); was Walker_UpdateYaw. */
 
-undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *param_2)
+undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *pos)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -40,10 +40,10 @@ undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *param_2)
     rdMatrix_BuildFromVectorAngle34(local_30,pfVar5 + 6,fVar6);
     rdMatrix_TransformVector34Acc(local_48,local_30);
   }
-  local_48[0] = local_48[0] + *param_2;
-  local_48[1] = param_2[1] + local_48[1];
-  local_48[2] = param_2[2] + local_48[2];
-  Puck_InvXform((Puck *)param_2,local_48);
+  local_48[0] = local_48[0] + *pos;
+  local_48[1] = pos[1] + local_48[1];
+  local_48[2] = pos[2] + local_48[2];
+  Puck_InvXform((Puck *)pos,local_48);
   local_48[2] = 0.0f;
   rdVector_Normalize3Acc(local_48);
   fVar6 = stdMath_ArcSin3(local_48[1]);
