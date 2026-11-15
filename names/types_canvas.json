@@ -1,0 +1,152 @@
+{
+ "_comment": "The renderer's canvas and the rest of rdModel3 (2026-11-14). rdCanvas (0x28, rdCanvas_New / rdCanvas_NewEntry: flags, colour and z buffers, centre, clip rectangle; rdCanvas_DrawPoint's override reads the rectangle as cv[6..9]); rdModel3's current geoset, hierarchy nodes, radius and insert offset (rdModel3_Draw, rdThing_SetModel3, which sizes the thing's per-node arrays by the node count).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "rdCanvas",
+   "size": 40,
+   "comment": "A drawing surface of the renderer (0x28 bytes).",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwFlags",
+     "bit 0: an explicit clip rectangle"
+    ],
+    [
+     4,
+     "VBuffer *",
+     "pVBuffer",
+     ""
+    ],
+    [
+     8,
+     "float",
+     "flCenterX",
+     "centre of the clip rectangle"
+    ],
+    [
+     12,
+     "float",
+     "flCenterY",
+     ""
+    ],
+    [
+     16,
+     "VBuffer *",
+     "pZBuffer",
+     ""
+    ],
+    [
+     20,
+     "uint",
+     "dwExtra",
+     ""
+    ],
+    [
+     24,
+     "int",
+     "nX0",
+     "clip rectangle, inclusive"
+    ],
+    [
+     28,
+     "int",
+     "nY0",
+     ""
+    ],
+    [
+     32,
+     "int",
+     "nX1",
+     ""
+    ],
+    [
+     36,
+     "int",
+     "nY1",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "rdModel3",
+   "size": 144,
+   "comment": "A 3D model.",
+   "fields": [
+    [
+     80,
+     "int",
+     "nCurGeoset",
+     "the geoset drawn"
+    ],
+    [
+     84,
+     "int",
+     "nNumHierarchyNodes",
+     ""
+    ],
+    [
+     88,
+     "void *",
+     "pHierarchyNodes",
+     ""
+    ],
+    [
+     92,
+     "float",
+     "flRadius",
+     "bounding radius"
+    ],
+    [
+     120,
+     "float[3]",
+     "aInsertOffset",
+     "rdModel3_Draw transforms it with the position"
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "00471bd0",
+   "index": 1,
+   "type": "rdModel3 *",
+   "name": "model"
+  },
+  {
+   "addr": "004859c0",
+   "index": 0,
+   "type": "Set *",
+   "name": "set"
+  },
+  {
+   "addr": "004a5eb0",
+   "index": 1,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "00451950",
+   "index": 0,
+   "type": "rdCanvas *",
+   "name": "canvas"
+  },
+  {
+   "addr": "004c0550",
+   "index": 0,
+   "type": "rdCanvas *",
+   "name": "canvas"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "007f30d4",
+   "type": "rdModel3 *"
+  },
+  {
+   "addr": "008c97a8",
+   "type": "rdCanvas *"
+  }
+ ]
+}

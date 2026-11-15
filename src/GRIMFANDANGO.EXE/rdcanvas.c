@@ -1350,12 +1350,13 @@ LAB_0040585d:
 /* ---- 0x00451950  rdCanvas_DrawLine ---- */
 /* Bresenham line, 8 and 16 bpp, with a 32-bit stipple pattern */
 
-void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort color,uint pattern)
+void __cdecl
+rdCanvas_DrawLine(rdCanvas *canvas,int x0,int y0,int x1,int y1,ushort color,uint pattern)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  int iVar2;
+  VBuffer *pVVar2;
   int iVar3;
   int iVar4;
   int iVar5;
@@ -1370,9 +1371,9 @@ void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort c
   
   iVar4 = y0;
   iVar3 = x0;
-  iVar2 = *(int *)((int)canvas + 4);
+  pVVar2 = canvas->pVBuffer;
   local_10 = 0x80000000;
-  if (*(int *)(iVar2 + 0x24) == 8) {
+  if ((pVVar2->format).colorFormat.nBpp == 8) {
     iVar9 = x1 - x0;
     iVar7 = y1 - y0;
     y0 = x0;
@@ -1386,7 +1387,7 @@ void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort c
       iVar9 = -iVar9;
     }
     if ((pattern & 0x80000000) != 0) {
-      *(undefined1 *)(*(int *)(iVar2 + 0x18) * iVar4 + *(int *)(iVar2 + 0x5c) + iVar3) =
+      *(undefined1 *)((int)pVVar2->pPixels + iVar3 + (pVVar2->format).nPitch * iVar4) =
            (undefined1)color;
     }
     uVar8 = 0;
@@ -1407,8 +1408,8 @@ void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort c
       }
       if ((pattern & local_10) != 0) {
         *(undefined1 *)
-         (*(int *)(*(int *)((int)canvas + 4) + 0x18) * x0 +
-          *(int *)(*(int *)((int)canvas + 4) + 0x5c) + y0) = (undefined1)color;
+         ((int)canvas->pVBuffer->pPixels + y0 + (canvas->pVBuffer->format).nPitch * x0) =
+             (undefined1)color;
       }
     }
   }
@@ -1426,7 +1427,7 @@ void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort c
       iVar9 = -iVar9;
     }
     if ((pattern & 0x80000000) != 0) {
-      *(ushort *)(*(int *)(iVar2 + 0x5c) + (*(int *)(iVar2 + 0x1c) * iVar4 + iVar3) * 2) = color;
+      *(ushort *)((int)pVVar2->pPixels + ((pVVar2->format).nStride * iVar4 + iVar3) * 2) = color;
     }
     uVar8 = 0;
     while ((y0 != x1 || (x0 != y1))) {
@@ -1446,8 +1447,8 @@ void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort c
       }
       if ((pattern & local_10) != 0) {
         *(ushort *)
-         (*(int *)(*(int *)((int)canvas + 4) + 0x5c) +
-         (*(int *)(*(int *)((int)canvas + 4) + 0x1c) * x0 + y0) * 2) = color;
+         ((int)canvas->pVBuffer->pPixels + ((canvas->pVBuffer->format).nStride * x0 + y0) * 2) =
+             color;
       }
     }
   }
@@ -1520,15 +1521,16 @@ rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,ui
             uint param_7,uint param_8)
 
 {
-  uint *canvas;
+  rdCanvas *canvas;
   
-  canvas = (uint *)(*g_pRdroid_HS->pAlloc)
-                             (0x28,s_C__grimjedi_Libs_RDroid_Engine_R_004f0edc,DAT_004f0ed8 + 4);
-  if (canvas == (uint *)0x0) {
+  canvas = (rdCanvas *)
+           (*g_pRdroid_HS->pAlloc)
+                     (0x28,s_C__grimjedi_Libs_RDroid_Engine_R_004f0edc,DAT_004f0ed8 + 4);
+  if (canvas == (rdCanvas *)0x0) {
     return (uint *)0x0;
   }
   rdCanvas_NewEntry(canvas,param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8);
-  return canvas;
+  return &canvas->dwFlags;
 }
 
 /* ---- 0x004c0550  rdCanvas_NewEntry ---- */
@@ -1537,28 +1539,28 @@ rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,ui
    rectangle, extra) and body); was rdCanvas_Init. */
 
 int __cdecl
-rdCanvas_NewEntry(uint *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0,uint x1,uint y1
-                 ,uint extra)
+rdCanvas_NewEntry(rdCanvas *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0,uint x1,
+                 uint y1,uint extra)
 
 {
-  canvas[4] = zSurface;
-  *canvas = flags;
-  canvas[1] = surface;
-  canvas[5] = extra;
+  canvas->pZBuffer = (VBuffer *)zSurface;
+  canvas->dwFlags = flags;
+  canvas->pVBuffer = (VBuffer *)surface;
+  canvas->dwExtra = extra;
   if ((flags & 1) == 0) {
-    canvas[6] = 0;
-    canvas[7] = 0;
-    canvas[8] = *(int *)(surface + 0xc) - 1;
-    canvas[9] = *(int *)(surface + 0x10) - 1;
+    canvas->nX0 = 0;
+    canvas->nY0 = 0;
+    canvas->nX1 = *(int *)(surface + 0xc) + -1;
+    canvas->nY1 = *(int *)(surface + 0x10) + -1;
   }
   else {
-    canvas[6] = x0;
-    canvas[7] = y0;
-    canvas[8] = x1;
-    canvas[9] = y1;
+    canvas->nX0 = x0;
+    canvas->nY0 = y0;
+    canvas->nX1 = x1;
+    canvas->nY1 = y1;
   }
-  canvas[2] = PUN(uint,(float)((float)(int)canvas[6] + (float)(int)((canvas[8] - canvas[6]) + 1) * 0.5));
-  canvas[3] = PUN(uint,(float)((float)(int)canvas[7] + (float)(int)((canvas[9] - canvas[7]) + 1) * 0.5));
+  canvas->flCenterX = (float)canvas->nX0 + (float)((canvas->nX1 - canvas->nX0) + 1) * 0.5;
+  canvas->flCenterY = (float)canvas->nY0 + (float)((canvas->nY1 - canvas->nY0) + 1) * 0.5;
   return 1;
 }
 

@@ -494,10 +494,10 @@ void __cdecl rdActive_BuildSpans(void); /* 0x00404e00 */
 void __cdecl rdActive_FlushSpans(void); /* 0x004055d0 */
 void __cdecl rdActive_BuildEdges(void); /* 0x00405620 */
 uint __cdecl rdActive_AddActiveFace(byte *param_1); /* 0x00405770 */
-void __cdecl rdCanvas_DrawLine(void *canvas,int x0,int y0,int x1,int y1,ushort color,uint pattern); /* 0x00451950 */
+void __cdecl rdCanvas_DrawLine(rdCanvas *canvas,int x0,int y0,int x1,int y1,ushort color,uint pattern); /* 0x00451950 */
 void __cdecl rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,uint param_4,float param_5,int param_6, int param_7); /* 0x00451dd0 */
 uint * __cdecl rdCanvas_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6, uint param_7,uint param_8); /* 0x004c04f0 */
-int __cdecl rdCanvas_NewEntry(uint *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0,uint x1,uint y1 ,uint extra); /* 0x004c0550 */
+int __cdecl rdCanvas_NewEntry(rdCanvas *canvas,uint flags,uint surface,uint zSurface,uint x0,uint y0,uint x1, uint y1,uint extra); /* 0x004c0550 */
 void __cdecl rdCanvas_Free(int param_1); /* 0x004c0610 */
 
 /* ===== rdcache.c ===== */
@@ -606,7 +606,7 @@ uint __cdecl rdThing_New(uint param_1); /* 0x00471a40 */
 uint __cdecl rdThing_NewEntry(undefined4 *param_1,uint param_2); /* 0x00471a80 */
 void __cdecl rdThing_Free(int param_1); /* 0x00471af0 */
 void __cdecl rdThing_FreeEntry(int *param_1); /* 0x00471b10 */
-void __cdecl rdThing_SetModel3(rdThing *thing,void *model); /* 0x00471bd0 */
+void __cdecl rdThing_SetModel3(rdThing *thing,rdModel3 *model); /* 0x00471bd0 */
 uint __cdecl rdThing_SetCamera(undefined4 *param_1,uint param_2); /* 0x00471d40 */
 uint __cdecl rdThing_SetPolyline(undefined4 *param_1,uint param_2); /* 0x00471d60 */
 int __cdecl rdThing_Draw(rdThing *thing,float *frame); /* 0x00471d80 */
@@ -1433,7 +1433,7 @@ void * __cdecl grimlib_MakeCurrentSetup(uint setup); /* 0x00482820 */
 void __cdecl sputRender_SyncCamera(void *set,int setupIdx); /* 0x00483aa0 */
 void __cdecl sputRender_UseSetup(void *set,int setupIdx); /* 0x00483b50 */
 void __cdecl Set_DrawDebugLights(int param_1); /* 0x00485780 */
-void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx); /* 0x004859c0 */
+void __cdecl Set_DrawDebugCameras(Set *set,uint setupIdx); /* 0x004859c0 */
 void __cdecl sputRoom_SetSoundParameters (int param_1,uint param_2,byte param_3,byte param_4,uint param_5,uint param_6); /* 0x004a4010 */
 void __cdecl sputRoom_GetSoundParameters(Set *set,float *minVol,char *maxVol,char *c,float *d,float *e); /* 0x004a4050 */
 void __cdecl sputRoom_SetCurrentRoom(Set *set,int param_2); /* 0x004a40f0 */
@@ -1590,7 +1590,7 @@ void __cdecl sputActor_FreeActor(Actor *actor); /* 0x004947c0 */
 void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *shadow); /* 0x00494940 */
 void __cdecl sputCostume_Draw3D(uint param_1,uint param_2); /* 0x00495080 */
 void __cdecl sputCostume_InternalDraw3D(int *param_1,float *param_2); /* 0x004950a0 */
-void __cdecl sputRoom_RemoveActor(char *setName,void *actor); /* 0x004a5eb0 */
+void __cdecl sputRoom_RemoveActor(char *setName,Actor *actor); /* 0x004a5eb0 */
 void __cdecl sputRoom_AddActor(Actor *actor,char *setName); /* 0x004a5f60 */
 float __thiscall Puck_GetYawToPoint(Puck *this,float *point); /* 0x004a8500 */
 

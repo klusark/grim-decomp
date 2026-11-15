@@ -75,7 +75,7 @@ extern uint g_dwRegValueCount; /* 0x004f5ea4 */
 extern void * g_pRegRootKey; /* 0x004f5eb0 */
 extern rdCamera * g_pRdCamera_CurCamera; /* 0x007f0fc8 */
 extern rdMesh * g_pCurMesh; /* 0x007f30a0 */
-extern void * g_pCurModel3; /* 0x007f30d4 */
+extern rdModel3 * g_pCurModel3; /* 0x007f30d4 */
 extern rdThing * g_pCurThing; /* 0x007f31e0 */
 extern int g_nRdNRaster_numVertices; /* 0x007f424c */
 extern int g_nRdNRaster_yMinVert; /* 0x007f42e8 */
@@ -124,7 +124,7 @@ extern float * g_pSputRender_Camera; /* 0x008c977c */
 extern int g_nSputRender_b3DAcceleration; /* 0x008c9784 */
 extern uint g_dwRenderFlags; /* 0x008c9798 */
 extern void * g_pDirtyRectList; /* 0x008c979c */
-extern void * g_pSputRender_Canvas; /* 0x008c97a8 */
+extern rdCanvas * g_pSputRender_Canvas; /* 0x008c97a8 */
 extern VBuffer * g_pSputRender_DecompressionBuffer; /* 0x008c97ac */
 extern VBuffer * g_pSputRender_CleanBuffer; /* 0x008c97b0 */
 extern VBuffer * g_pSputRender_CleanZBuffer; /* 0x008c97b4 */

@@ -238,7 +238,8 @@ sputRender_SetDisplay
   #define local_4c (*(VBufferFormat *)(_frame + (0x60 - 0x4c)))
   
   sputRender_Close();
-  g_pSputRender_Canvas = rdCanvas_New(1,param_1,param_2,param_3,param_4,param_5,param_6,0);
+  g_pSputRender_Canvas =
+       (rdCanvas *)rdCanvas_New(1,param_1,param_2,param_3,param_4,param_5,param_6,0);
   UINT_008c97a4 = param_2;
   UINT_008c97a0 = param_1;
   piVar3 = (int *)(param_1 + 0xc);
@@ -298,9 +299,9 @@ sputRender_SetDisplay
 void __cdecl sputRender_Close(void)
 
 {
-  if (g_pSputRender_Canvas != (void *)0x0) {
+  if (g_pSputRender_Canvas != (rdCanvas *)0x0) {
     rdCanvas_Free((int)g_pSputRender_Canvas);
-    g_pSputRender_Canvas = (void *)0x0;
+    g_pSputRender_Canvas = (rdCanvas *)0x0;
   }
   if (g_pSputRender_CleanBuffer != (VBuffer *)0x0) {
     stdDisplay_VBufferFree(g_pSputRender_CleanBuffer);
@@ -695,7 +696,7 @@ void __cdecl Render_DrawDebugGrid(void)
 int __cdecl Render_CanvasIsPaletted(void)
 
 {
-  return (uint)(**(int **)((int)g_pSputRender_Canvas + 4) == 1);
+  return (uint)(g_pSputRender_Canvas->pVBuffer->nType == 1);
 }
 
 /* ---- 0x00486120  Render_BuildActorDrawList ---- */
