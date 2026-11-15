@@ -1123,7 +1123,7 @@ void __cdecl sputRender_Update(void)
         PerfEnd(7);
         for (pOVar1 = pSVar10->pObjectStates; pOVar1 != (ObjectState *)0x0; pOVar1 = pOVar1->pNext)
         {
-          ((code *)ObjectState_Update)(pOVar1,2,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4)
+          ((int (__thiscall *)(ObjectState *, int, void *, void *))ObjectState_Update)(pOVar1,2,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4)
           ;
         }
       }

@@ -2380,7 +2380,7 @@
 | 004bd540 | SmushPlay_SysSetVideoCallbacks | insane.c | 18 |
 | 004bd7c0 | smushplay_GetInfo | insane.c | 33 |
 | 004bdb00 | Insane_PrepareFrame | insane.c | 78 |
-| 004bdca0 | Insane_Blit8To16Doubled | insane.c | 39 |
+| 004bdca0 | Insane_Blit8To16Doubled | insane.c | 38 |
 | 004bdd50 | Insane_BlitRowsDual | insane.c | 27 |
 | 004bddb0 | Insane_BlitRows16 | insane.c | 1 |
 | 004c3df0 | msc_MemCopy | insane.c | 9 |
