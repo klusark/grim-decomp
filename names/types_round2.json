@@ -1,0 +1,338 @@
+{
+ "_comment": "Raw offset accesses, round 2 (2026-11-15): a set's lock reference, the costume's main model, a material's reference count, the keyframe records (the binary KEYF layout, the same as ScummVM's KeyframeAnim::loadBinary less its 4-byte tag), and locals holding a set, a bitmap or a keyframe. Model hierarchy nodes (0xb8, the text loader's sscanf: the same fields as ScummVM's ModelNode).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "rdHierarchyNode",
+   "size": 184,
+   "comment": "One node of a model's hierarchy (0xb8 bytes, rdModel3_LoadEntryText).",
+   "fields": [
+    [
+     0,
+     "char[64]",
+     "aName",
+     ""
+    ],
+    [
+     64,
+     "uint",
+     "dwFlags",
+     ""
+    ],
+    [
+     68,
+     "int",
+     "nIndex",
+     "its own index"
+    ],
+    [
+     72,
+     "uint",
+     "dwType",
+     ""
+    ],
+    [
+     76,
+     "int",
+     "nMesh",
+     "-1: none"
+    ],
+    [
+     84,
+     "rdHierarchyNode *",
+     "pParent",
+     ""
+    ],
+    [
+     88,
+     "int",
+     "nNumChildren",
+     ""
+    ],
+    [
+     92,
+     "rdHierarchyNode *",
+     "pChild",
+     ""
+    ],
+    [
+     96,
+     "rdHierarchyNode *",
+     "pSibling",
+     ""
+    ],
+    [
+     100,
+     "float[3]",
+     "aPivot",
+     ""
+    ],
+    [
+     112,
+     "float[3]",
+     "aPos",
+     ""
+    ],
+    [
+     124,
+     "float[3]",
+     "aRot",
+     "pitch, yaw, roll"
+    ],
+    [
+     136,
+     "float[12]",
+     "aMatrix",
+     "rdMatrix34 from aRot and aPos (rdThing_SetModel3)"
+    ]
+   ]
+  },
+  {
+   "name": "rdKeyframeEntry",
+   "size": 56,
+   "comment": "One key of a keyframe node (0x38 bytes, read as they are from the file).",
+   "fields": [
+    [
+     0,
+     "float",
+     "flFrame",
+     ""
+    ],
+    [
+     4,
+     "uint",
+     "dwFlags",
+     ""
+    ],
+    [
+     8,
+     "float[3]",
+     "aPos",
+     ""
+    ],
+    [
+     20,
+     "float",
+     "flPitch",
+     ""
+    ],
+    [
+     24,
+     "float",
+     "flYaw",
+     ""
+    ],
+    [
+     28,
+     "float",
+     "flRoll",
+     ""
+    ],
+    [
+     32,
+     "float[3]",
+     "aDPos",
+     "position change per frame"
+    ],
+    [
+     44,
+     "float",
+     "flDPitch",
+     ""
+    ],
+    [
+     48,
+     "float",
+     "flDYaw",
+     ""
+    ],
+    [
+     52,
+     "float",
+     "flDRoll",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "rdKeyframeNode",
+   "size": 44,
+   "comment": "The keys of one mesh of a keyframe (0x2c bytes).",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aMeshName",
+     ""
+    ],
+    [
+     36,
+     "int",
+     "nNumEntries",
+     ""
+    ],
+    [
+     40,
+     "rdKeyframeEntry *",
+     "pEntries",
+     "nNumEntries keys (rdKeyframe_LoadEntryBinary)"
+    ]
+   ]
+  },
+  {
+   "name": "rdKeyframe",
+   "size": 132,
+   "fields": [
+    [
+     36,
+     "uint",
+     "dwFlags",
+     ""
+    ],
+    [
+     44,
+     "int",
+     "nType",
+     ""
+    ],
+    [
+     48,
+     "float",
+     "flFps",
+     "15 for every keyframe resource (sputResource_KeyframeHandler)"
+    ],
+    [
+     52,
+     "int",
+     "nNumFrames",
+     ""
+    ],
+    [
+     56,
+     "int",
+     "nNumNodes",
+     ""
+    ],
+    [
+     60,
+     "rdKeyframeNode *",
+     "pNodes",
+     "nNumNodes nodes"
+    ]
+   ]
+  },
+  {
+   "name": "rdMaterial",
+   "size": 176,
+   "fields": [
+    [
+     36,
+     "int",
+     "nRefs",
+     "sputResource_MatLoader / MatUnloader: references; the resource is purgable at 0"
+    ]
+   ]
+  },
+  {
+   "name": "CostumeNode",
+   "size": 180,
+   "fields": [
+    [
+     4,
+     "rdThing *",
+     "pMainModel",
+     "Costume_GetMainModel; a pushed costume with the same model takes over the head settings"
+    ]
+   ]
+  },
+  {
+   "name": "Set",
+   "size": 6920,
+   "fields": [
+    [
+     6848,
+     "ResRef",
+     "lockRef",
+     "LockSet / UnLockSet: sputRoom_UnReference keeps the resources while it is valid"
+    ]
+   ]
+  },
+  {
+   "name": "rdModel3",
+   "size": 144,
+   "fields": [
+    [
+     88,
+     "rdHierarchyNode *",
+     "pHierarchyNodes",
+     "nNumHierarchyNodes nodes"
+    ]
+   ]
+  }
+ ],
+ "returns": [
+  {
+   "addr": "00495020",
+   "type": "rdThing *",
+   "_fn": "Costume_GetMainModel"
+  },
+  {
+   "addr": "0048e170",
+   "type": "rdMaterial *",
+   "_fn": "sputResource_MatLoader"
+  }
+ ],
+ "params": [
+  {
+   "addr": "0048e1b0",
+   "index": 0,
+   "type": "rdMaterial *",
+   "_fn": "sputResource_MatUnloader",
+   "name": "material"
+  }
+ ],
+ "locals": [
+  {
+   "addr": "0049dcb0",
+   "name": "data",
+   "type": "Set *",
+   "_fn": "sputLua_LockSet"
+  },
+  {
+   "addr": "0049dd10",
+   "name": "pvVar3",
+   "type": "Set *",
+   "_fn": "sputLua_UnLockSet"
+  },
+  {
+   "addr": "0049dbb0",
+   "name": "pvVar7",
+   "type": "Set *",
+   "_fn": "sputLua_GetCurrentSetupL"
+  },
+  {
+   "addr": "004aa310",
+   "name": "pvVar1",
+   "type": "stdBitmap *",
+   "_fn": "ObjectStateImage_Draw"
+  },
+  {
+   "addr": "0048dc60",
+   "name": "pvVar2",
+   "type": "rdKeyframe *",
+   "_fn": "sputResource_KeyframeHandler"
+  },
+  {
+   "addr": "004a3db0",
+   "name": "pvVar4",
+   "type": "stdBitmap *",
+   "_fn": "sputRoom_GetSetupBackground"
+  },
+  {
+   "addr": "00480520",
+   "name": "res",
+   "type": "Resource *",
+   "_fn": "Res_Load"
+  }
+ ]
+}

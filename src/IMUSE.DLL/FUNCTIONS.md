@@ -266,7 +266,7 @@
 | 10008990 | SoundGetVoiceTime | soundgetvoicetime.c | 11 |
 | 10009e10 | iRes_FTELL | imuse_sounds.c | 16 |
 | 10009e40 | iRes_FSEEK | imuse_sounds.c | 27 |
-| 10009eb0 | iMUSE_sounds__9eb0 | imuse_sounds.c | 16 |
+| 10009eb0 | iMUSE_sounds__9eb0 | imuse_sounds.c | 15 |
 | 10009ef0 | Sounds_CompareRange | imuse_sounds.c | 11 |
 | 10009f10 | iMUSE_Malloc | imuse_sounds.c | 14 |
 | 10009f40 | Sounds_MlAdd | imuse_sounds.c | 53 |

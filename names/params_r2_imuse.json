@@ -1,0 +1,134 @@
+{
+ "_comment": "Parameter names, round 2 (tools/names_batch.py): the live param_N left.",
+ "program": "/v101/IMUSE.DLL",
+ "params": [
+  {
+   "addr": "10002170",
+   "index": 0,
+   "type": "int",
+   "name": "track",
+   "_fn": "DpStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "100030d0",
+   "index": 0,
+   "type": "int",
+   "name": "map",
+   "_fn": "iMUSE_Dispatch__30d0",
+   "_names_only": true
+  },
+  {
+   "addr": "100030d0",
+   "index": 1,
+   "type": "int",
+   "name": "id",
+   "_fn": "iMUSE_Dispatch__30d0",
+   "_names_only": true
+  },
+  {
+   "addr": "100030d0",
+   "index": 2,
+   "type": "int",
+   "name": "prev",
+   "_fn": "iMUSE_Dispatch__30d0",
+   "_names_only": true
+  },
+  {
+   "addr": "100031d0",
+   "index": 0,
+   "type": "int *",
+   "name": "map",
+   "_fn": "iMUSE_Dispatch__31d0",
+   "_names_only": true
+  },
+  {
+   "addr": "100031d0",
+   "index": 1,
+   "type": "int",
+   "name": "region",
+   "_fn": "iMUSE_Dispatch__31d0",
+   "_names_only": true
+  },
+  {
+   "addr": "10003430",
+   "index": 0,
+   "type": "int *",
+   "name": "dispatch",
+   "_fn": "iMUSE_Dispatch__3430",
+   "_names_only": true
+  },
+  {
+   "addr": "10003430",
+   "index": 1,
+   "type": "int",
+   "name": "region",
+   "_fn": "iMUSE_Dispatch__3430",
+   "_names_only": true
+  },
+  {
+   "addr": "100034b0",
+   "index": 0,
+   "type": "int *",
+   "name": "dispatch",
+   "_fn": "iMUSE_Dispatch__34b0",
+   "_names_only": true
+  },
+  {
+   "addr": "10003510",
+   "index": 0,
+   "type": "int *",
+   "name": "dispatch",
+   "_fn": "iMUSE_Dispatch__3510",
+   "_names_only": true
+  },
+  {
+   "addr": "10003510",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "iMUSE_Dispatch__3510",
+   "_names_only": true
+  },
+  {
+   "addr": "100035a0",
+   "index": 0,
+   "type": "uint *",
+   "name": "size",
+   "_fn": "iMUSE_Dispatch__35a0",
+   "_names_only": true
+  },
+  {
+   "addr": "10003640",
+   "index": 0,
+   "type": "int",
+   "name": "buf",
+   "_fn": "iMUSE_Dispatch__3640",
+   "_names_only": true
+  },
+  {
+   "addr": "10009eb0",
+   "index": 0,
+   "type": "int",
+   "name": "res",
+   "_fn": "iMUSE_sounds__9eb0",
+   "_names_only": true
+  },
+  {
+   "addr": "10009eb0",
+   "index": 1,
+   "type": "uint",
+   "name": "offset",
+   "_fn": "iMUSE_sounds__9eb0",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b710",
+   "index": 0,
+   "type": "int",
+   "name": "entry",
+   "_fn": "Im_RunDeferredCommand",
+   "_names_only": true
+  }
+ ]
+}

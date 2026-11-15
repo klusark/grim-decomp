@@ -746,7 +746,7 @@ uint __cdecl sputActor_Restore(code *read)
 void __cdecl sputActor_SetWalkChore(Actor *actor,int chore,CostumeNode *costume)
 
 {
-  void **ppvVar1;
+  rdThing **pprVar1;
   uint uVar2;
   CostumeNode *pCVar3;
   
@@ -755,13 +755,13 @@ void __cdecl sputActor_SetWalkChore(Actor *actor,int chore,CostumeNode *costume)
     if (costume == (CostumeNode *)0x0) {
       costume = pCVar3;
     }
-    ppvVar1 = &pCVar3->pMainModel;
+    pprVar1 = &pCVar3->pMainModel;
     if (pCVar3 != (CostumeNode *)0x0) {
       do {
-        if ((pCVar3->pMainModel != *ppvVar1) || (-1 < pCVar3->nWalkChore)) break;
+        if ((pCVar3->pMainModel != *pprVar1) || (-1 < pCVar3->nWalkChore)) break;
         pCVar3 = pCVar3->pNext;
       } while (pCVar3 != (CostumeNode *)0x0);
-      if ((pCVar3 != (CostumeNode *)0x0) && (pCVar3->pMainModel == *ppvVar1)) {
+      if ((pCVar3 != (CostumeNode *)0x0) && (pCVar3->pMainModel == *pprVar1)) {
         if (chore == pCVar3->nWalkChore) {
           return;
         }

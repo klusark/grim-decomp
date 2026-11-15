@@ -183,9 +183,9 @@
 | 0049d970 | sputLua_DoPauseCallback | lua.c | 51 |
 | 0049da50 | sputLua_DoCharacterCallback | lua.c | 64 |
 | 0049db70 | sputLua_MakeCurrentSetupL | lua.c | 20 |
-| 0049dbb0 | sputLua_GetCurrentSetupL | lua.c | 43 |
+| 0049dbb0 | sputLua_GetCurrentSetupL | lua.c | 44 |
 | 0049dc70 | sputLua_MakeCurrentSetL | lua.c | 20 |
-| 0049dcb0 | sputLua_LockSet | lua.c | 24 |
+| 0049dcb0 | sputLua_LockSet | lua.c | 23 |
 | 0049dd10 | sputLua_UnLockSet | lua.c | 22 |
 | 0049dd70 | sputLua_MessagePrintL | lua.c | 24 |
 | 0049ddd0 | Lua_Print_NoOp | lua.c | 1 |
@@ -223,7 +223,7 @@
 | 0049f480 | sputLua_SetCameraInterestL | lua.c | 42 |
 | 0049f550 | sputLua_SetActorScaleL | lua.c | 31 |
 | 0049f5d0 | sputLua_SetActorTimeScaleL | lua.c | 43 |
-| 0049f690 | sputLua_GetActorNodeLocationL | lua.c | 69 |
+| 0049f690 | sputLua_GetActorNodeLocationL | lua.c | 68 |
 | 0049f810 | sputLua_GetActorScaleL | lua.c | 22 |
 | 0049f860 | sputLua_GetActorTimeScaleL | lua.c | 26 |
 | 0049f8d0 | sputLua_SetCameraFOVL | lua.c | 23 |
@@ -529,7 +529,7 @@
 | 0040a8c0 | rdModel3_NewEntry | rdmodel3.c | 22 |
 | 0040a8f0 | rdModel3_Load | rdmodel3.c | 40 |
 | 0040a980 | rdModel3_LoadEntry | rdmodel3.c | 31 |
-| 0040aa20 | rdModel3_LoadEntryText | rdmodel3.c | 588 |
+| 0040aa20 | rdModel3_LoadEntryText | rdmodel3.c | 585 |
 | 0040b8e0 | rdModel3_LoadEntryBinary | rdmodel3.c | 277 |
 | 0040c090 | rdModel3_LoadPostProcess | rdmodel3.c | 14 |
 | 0040c0d0 | rdModel3_Free | rdmodel3.c | 16 |
@@ -558,7 +558,7 @@
 | 00450ba0 | rdPuppet_UpdateFrame | rdpuppet.c | 1 |
 | 004c0630 | rdKeyframe_NewEntry | rdpuppet.c | 21 |
 | 004c0660 | rdKeyframe_Load | rdpuppet.c | 50 |
-| 004c0770 | rdKeyframe_LoadEntry | rdpuppet.c | 264 |
+| 004c0770 | rdKeyframe_LoadEntry | rdpuppet.c | 267 |
 | 004c0ce0 | rdKeyframe_LoadEntryBinary | rdpuppet.c | 72 |
 | 004c0e40 | rdKeyframe_Free | rdpuppet.c | 16 |
 | 004c0e70 | rdKeyframe_FreeEntry | rdpuppet.c | 27 |
@@ -567,7 +567,7 @@
 | 00471a80 | rdThing_NewEntry | rdthing.c | 27 |
 | 00471af0 | rdThing_Free | rdthing.c | 9 |
 | 00471b10 | rdThing_FreeEntry | rdthing.c | 43 |
-| 00471bd0 | rdThing_SetModel3 | rdthing.c | 73 |
+| 00471bd0 | rdThing_SetModel3 | rdthing.c | 72 |
 | 00471d40 | rdThing_SetCamera | rdthing.c | 9 |
 | 00471d60 | rdThing_SetPolyline | rdthing.c | 10 |
 | 00471d80 | rdThing_Draw | rdthing.c | 32 |
@@ -1102,7 +1102,7 @@
 | 004876b0 | grimPlat_GetDefaultOpenPath | plat.c | 8 |
 | 004876c0 | grimPlat_OpenFileRequest | plat.c | 64 |
 | 004877d0 | grimPlat_SaveFileRequest | plat.c | 62 |
-| 004878c0 | grimPlat_SpinDialog | plat.c | 128 |
+| 004878c0 | grimPlat_SpinDialog | plat.c | 129 |
 | 00487c10 | grimPlat_TreeDialog | plat.c | 100 |
 | 00487e30 | grimPlat_InputDialog | plat.c | 91 |
 | 00488370 | Plat_PromptDialogProc | plat.c | 43 |
@@ -1260,7 +1260,7 @@
 | 0048da40 | sputResource_CostumeHandler | restype.c | 34 |
 | 0048dab0 | sputResource_ColormapHandler | restype.c | 82 |
 | 0048dbd0 | sputResource_FontHandler | restype.c | 37 |
-| 0048dc60 | sputResource_KeyframeHandler | restype.c | 51 |
+| 0048dc60 | sputResource_KeyframeHandler | restype.c | 52 |
 | 0048dd20 | sputResource_MaterialHandler | restype.c | 46 |
 | 0048de10 | sputResource_ModelHandler | restype.c | 34 |
 | 0048de70 | sputResource_SetHandler | restype.c | 34 |
@@ -1418,7 +1418,7 @@
 | 00486070 | sputRender_Startup | sputrender.c | 24 |
 | 004860d0 | sputRender_Shutdown | sputrender.c | 15 |
 | 00485290 | Actor_ComputeScreenBox | actor.c | 31 |
-| 00485320 | Actor_DrawDebugWalker | actor.c | 48 |
+| 00485320 | Actor_DrawDebugWalker | actor.c | 49 |
 | 0048b2e0 | sputText_CreateActorText | actor.c | 1 |
 | 0048f930 | sputActor_SetCostume | actor.c | 28 |
 | 0048f9d0 | sputActor_SetActorHead | actor.c | 32 |
@@ -1427,7 +1427,7 @@
 | 0048fbd0 | sputActor_Turn | actor.c | 39 |
 | 0048fc80 | sputActor_Forward | actor.c | 15 |
 | 0048fd90 | Actor_UpdateMovement | actor.c | 39 |
-| 0048fe80 | Actor_UpdateLookAt | actor.c | 138 |
+| 0048fe80 | Actor_UpdateLookAt | actor.c | 135 |
 | 00490210 | sputActor_UpdateActorSpeech | actor.c | 1 |
 | 00490320 | sputActor_SetSelectedActor | actor.c | 18 |
 | 00490360 | sputActor_ActorDeref | actor.c | 16 |
@@ -1478,7 +1478,7 @@
 | 00485e50 | DirtyRect_Flush | dirtyrect.c | 84 |
 | 00486020 | DirtyRect_Clear | dirtyrect.c | 16 |
 | 00485a40 | Setup_DrawDebugCamera | setup.c | 47 |
-| 004a3db0 | sputRoom_GetSetupBackground | setup.c | 73 |
+| 004a3db0 | sputRoom_GetSetupBackground | setup.c | 74 |
 | 004a3ef0 | sputRoom_GetSetupZBackground | setup.c | 59 |
 | 00485dc0 | Sector_DrawAllDebug | sector.c | 41 |
 | 0049c750 | sputLua_CollisionHandler | sector.c | 64 |
@@ -1688,7 +1688,7 @@
 | 00494dc0 | sputCostume_FreeCostumeNodes | costume.c | 21 |
 | 00494e10 | sputCostume_PopCostume | costume.c | 17 |
 | 00494e50 | sputCostume_SetCostume | costume.c | 12 |
-| 00494e80 | sputCostume_PushCostume | costume.c | 61 |
+| 00494e80 | sputCostume_PushCostume | costume.c | 62 |
 | 00494f90 | Costume_AllocRecord | costume.c | 9 |
 | 00494fb0 | Costume_InitRecord | costume.c | 38 |
 | 00495020 | Costume_GetMainModel | costume.c | 26 |
@@ -1696,7 +1696,7 @@
 | 004955e0 | Costume_ApplyComponentState | costume.c | 40 |
 | 004956a0 | sputCostume_BuildThingStateMatrices | costume.c | 19 |
 | 004956f0 | sputCostume_Draw2D | costume.c | 24 |
-| 00495730 | sputCostume_Update | costume.c | 37 |
+| 00495730 | sputCostume_Update | costume.c | 38 |
 | 00495e90 | sputCostume_SaveHook | costume.c | 92 |
 | 00496020 | Costume_InstanceHook | costume.c | 13 |
 | 00494890 | sputCostume_SetShadowColor | shadow.c | 32 |
@@ -1748,7 +1748,7 @@
 | 00498160 | SmushChanger | smushcomponent.c | 14 |
 | 00498190 | SmushRequester | smushcomponent.c | 73 |
 | 00498180 | CostumeTag_Nop | costumetag.c | 8 |
-| 00498280 | SpriteRequester | spritecomponent.c | 154 |
+| 00498280 | SpriteRequester | spritecomponent.c | 153 |
 | 00498550 | SpriteChanger | spritecomponent.c | 17 |
 | 00498580 | SpriteFreer | spritecomponent.c | 13 |
 | 004985c0 | SpriteInstancer | spritecomponent.c | 51 |

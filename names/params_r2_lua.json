@@ -1,0 +1,78 @@
+{
+ "_comment": "Parameter names, round 2 (tools/names_batch.py): the live param_N left.",
+ "program": "/LUA.DLL",
+ "params": [
+  {
+   "addr": "10001e10",
+   "index": 0,
+   "type": "int",
+   "name": "loop",
+   "_fn": "lua_updatetasks",
+   "_names_only": true
+  },
+  {
+   "addr": "100022c0",
+   "index": 0,
+   "type": "int",
+   "name": "funcObj",
+   "_fn": "lua_getlocal",
+   "_names_only": true
+  },
+  {
+   "addr": "10002330",
+   "index": 0,
+   "type": "int",
+   "name": "funcObj",
+   "_fn": "lua_setlocal",
+   "_names_only": true
+  },
+  {
+   "addr": "100046e0",
+   "index": 0,
+   "type": "void *",
+   "name": "nResults",
+   "_fn": "luaD_protectedrun",
+   "_names_only": true
+  },
+  {
+   "addr": "10004a50",
+   "index": 0,
+   "type": "int *",
+   "name": "z",
+   "_fn": "protectedparser",
+   "_names_only": true
+  },
+  {
+   "addr": "10004a50",
+   "index": 1,
+   "type": "int",
+   "name": "bin",
+   "_fn": "protectedparser",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ce50",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "func",
+   "_fn": "fillvalids",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d420",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "zio",
+   "_fn": "LoadHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "1000df40",
+   "index": 0,
+   "type": "int *",
+   "name": "state",
+   "_fn": "ExecutionState_CrunchOpcodes",
+   "_names_only": true
+  }
+ ]
+}

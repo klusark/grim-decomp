@@ -47,10 +47,11 @@ void __cdecl Actor_DrawDebugWalker(Actor *actor)
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Puck *this;
-  ActorExtra *pAVar1;
+  rdModel3 *prVar1;
+  ActorExtra *pAVar2;
   float *b;
-  int iVar2;
   int iVar3;
+  int iVar4;
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
@@ -60,26 +61,26 @@ void __cdecl Actor_DrawDebugWalker(Actor *actor)
       Puck_Draw(this,UINT_008c97e0 & 0xffff);
     }
     if ((actor->dwMoveFlags & 1) != 0) {
-      pAVar1 = actor->pExtra;
-      iVar3 = 0;
-      if (pAVar1->nPathNodes != 1 && -1 < pAVar1->nPathNodes + -1) {
-        iVar2 = 0x48;
+      pAVar2 = actor->pExtra;
+      iVar4 = 0;
+      if (pAVar2->nPathNodes != 1 && -1 < pAVar2->nPathNodes + -1) {
+        iVar3 = 0x48;
         do {
-          rdPrimit3_DrawLine((float *)((int)pAVar1->aLookAt + iVar2),
-                             (float *)((int)pAVar1->aLookAt + iVar2 + 0xc),(int *)0x0,(int *)0x0,
+          rdPrimit3_DrawLine((float *)((int)pAVar2->aLookAt + iVar3),
+                             (float *)((int)pAVar2->aLookAt + iVar3 + 0xc),(int *)0x0,(int *)0x0,
                              (int *)0x0,(int *)0x0,UINT_008c97d4 & 0xffff,0xffffffff);
-          pAVar1 = actor->pExtra;
-          iVar3 = iVar3 + 1;
-          iVar2 = iVar2 + 0xc;
-        } while (iVar3 < pAVar1->nPathNodes + -1);
+          pAVar2 = actor->pExtra;
+          iVar4 = iVar4 + 1;
+          iVar3 = iVar3 + 0xc;
+        } while (iVar4 < pAVar2->nPathNodes + -1);
       }
     }
     if (actor->pExtra->nCollided != 0) {
-      iVar3 = *(int *)((int)actor->pCostumes->pMainModel + 4);
+      prVar1 = actor->pCostumes->pMainModel->pModel;
       b = sputActor_GetOrientMatrix(actor);
-      rdMatrix_TransformPoint34(local_c,(float *)(iVar3 + 0x78),b);
-      rdPrimit3_DrawPoint(local_c,*(float *)(iVar3 + 0x5c) * actor->pExtra->flCollisionScale,
-                          0x41200000,0xffff,0xffffffff);
+      rdMatrix_TransformPoint34(local_c,prVar1->aInsertOffset,b);
+      rdPrimit3_DrawPoint(local_c,prVar1->flRadius * actor->pExtra->flCollisionScale,0x41200000,
+                          0xffff,0xffffffff);
     }
   }
   return;
@@ -252,8 +253,8 @@ sputActor_SetActorHead
   uint local_14;
   
   pCVar1 = actor->pCostumes;
-  if ((pCVar1 != (CostumeNode *)0x0) && (pCVar1->pMainModel != (void *)0x0)) {
-    uVar2 = *(uint *)(*(int *)((int)pCVar1->pMainModel + 4) + 0x54);
+  if ((pCVar1 != (CostumeNode *)0x0) && (pCVar1->pMainModel != (rdThing *)0x0)) {
+    uVar2 = pCVar1->pMainModel->pModel->nNumHierarchyNodes;
     if (((uint)joint1 <= uVar2) && (((uint)joint2 <= uVar2 && ((uint)joint3 <= uVar2)))) {
       pCVar1->aHeadJoints[0] = joint1;
       pCVar1->aHeadJoints[1] = joint2;
@@ -293,7 +294,7 @@ int __cdecl sputActor_CanActorSeePoint(Actor *actor,float *point,float *outDista
   
   pCVar1 = actor->pCostumes;
   if (((pCVar1 != (CostumeNode *)0x0) && (index = pCVar1->aHeadJoints[0], -1 < (int)index)) &&
-     (pCVar1->pMainModel != (void *)0x0)) {
+     (pCVar1->pMainModel != (rdThing *)0x0)) {
     pfVar3 = local_30;
     frame = sputActor_GetOrientMatrix(actor);
     rdPuppet_BuildJointMatrices(pCVar1->pMainModel,frame,index,pfVar3);
@@ -456,15 +457,14 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
   unsigned char _frame[0xe0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   CostumeNode *pCVar1;
   ActorExtra *a;
-  int iVar2;
+  float fVar2;
   float fVar3;
-  float fVar4;
-  bool bVar5;
+  bool bVar4;
+  float *pfVar5;
   float *pfVar6;
-  float *pfVar7;
-  int *piVar8;
-  int iVar9;
-  float fVar10;
+  int *piVar7;
+  int iVar8;
+  float fVar9;
   uint index;
   #define fStack_c8 (*(float *)(_frame + (0xe0 - 0xc8)))
   #define local_c4 (*(uint *)(_frame + (0xe0 - 0xc4)))
@@ -477,32 +477,32 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
   #define afStack_60 (*(float (*)[12])(_frame + (0xe0 - 0x60)))
   #define afStack_30 (*(float (*)[12])(_frame + (0xe0 - 0x30)))
   
-  bVar5 = false;
+  bVar4 = false;
   pCVar1 = actor->pCostumes;
   if (actor->pExtra == (ActorExtra *)0x0) {
     (**(code **)(g_dwSputActHS + 0x18))
               (s_pActor__pExtra_004e9ea8,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x47a);
   }
-  if (((pCVar1 != (CostumeNode *)0x0) && (piVar8 = pCVar1->aHeadJoints, -1 < pCVar1->aHeadJoints[0])
-      ) && (pCVar1->pMainModel != (void *)0x0)) {
+  if (((pCVar1 != (CostumeNode *)0x0) && (piVar7 = pCVar1->aHeadJoints, -1 < pCVar1->aHeadJoints[0])
+      ) && (pCVar1->pMainModel != (rdThing *)0x0)) {
     local_c0[0] = 0.0f;
     local_c0[1] = 1.0f;
     local_c0[2] = 0.0f;
     if (actor->nScreenBoxValid == 0) {
-      pfVar6 = sputActor_GetOrientMatrix(actor);
-      rdPuppet_UpdateFrame(pCVar1->pMainModel,pfVar6);
+      pfVar5 = sputActor_GetOrientMatrix(actor);
+      rdPuppet_UpdateFrame(pCVar1->pMainModel,pfVar5);
     }
     index = pCVar1->aHeadJoints[2];
-    pfVar6 = afStack_60;
-    pfVar7 = sputActor_GetOrientMatrix(actor);
-    rdPuppet_BuildJointMatrices(pCVar1->pMainModel,pfVar7,index,pfVar6);
+    pfVar5 = afStack_60;
+    pfVar6 = sputActor_GetOrientMatrix(actor);
+    rdPuppet_BuildJointMatrices(pCVar1->pMainModel,pfVar6,index,pfVar5);
     rdMatrix_InvertOrtho34(afStack_90,afStack_60);
     a = actor->pExtra;
     if (((a->aLookAt[0] == 0.0f) && (a->aLookAt[1] == 0.0f)) && (a->aLookAt[2] == 0.0f)) {
-      pfVar6 = afStack_90;
-      bVar5 = true;
-      pfVar7 = sputActor_GetOrientMatrix(actor);
-      rdMatrix_TransformVector34(afStack_a8,pfVar7 + 3,pfVar6);
+      pfVar5 = afStack_90;
+      bVar4 = true;
+      pfVar6 = sputActor_GetOrientMatrix(actor);
+      rdMatrix_TransformVector34(afStack_a8,pfVar6 + 3,pfVar5);
     }
     else {
       rdMatrix_TransformPoint34(afStack_a8,a->aLookAt,afStack_90);
@@ -511,66 +511,64 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
     rdVector_Cross3(afStack_9c,local_c0,afStack_a8);
     rdVector_Normalize3Acc(afStack_9c);
     fStack_c8 = pCVar1->flLookRate * dt;
-    fVar10 = rdVector_Dot2(local_c0,afStack_a8);
-    fVar10 = stdMath_ArcSin1(fVar10);
-    fVar10 = 90.0f - fVar10;
-    fVar3 = fVar10;
-    if (fVar10 < 0.0f) {
-      fVar3 = -fVar10;
+    fVar9 = rdVector_Dot2(local_c0,afStack_a8);
+    fVar9 = stdMath_ArcSin1(fVar9);
+    fVar9 = 90.0f - fVar9;
+    fVar2 = fVar9;
+    if (fVar9 < 0.0f) {
+      fVar2 = -fVar9;
     }
-    if (fVar3 < fStack_c8) {
-      if (bVar5) {
+    if (fVar2 < fStack_c8) {
+      if (bVar4) {
         actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffd;
       }
-      fStack_c8 = fVar10;
-      if (fVar10 <= 0.0f) {
-        fStack_c8 = -fVar10;
+      fStack_c8 = fVar9;
+      if (fVar9 <= 0.0f) {
+        fStack_c8 = -fVar9;
       }
     }
     rdMatrix_BuildFromVectorAngle34(afStack_30,afStack_9c,fStack_c8);
     rdMatrix_TransformPoint34Acc(local_c0,afStack_30);
     rdVector_ExtractAngles(local_c0,&fStack_b4);
     if ((actor->dwMoveFlags & 2) == 0) {
-      iVar9 = 3;
+      iVar8 = 3;
       do {
-        iVar9 = iVar9 + -1;
-        *(undefined4 *)(*(int *)((int)pCVar1->pMainModel + 0x24) + 4 + *piVar8 * 0xc) = 0;
-        *(undefined4 *)(*(int *)((int)pCVar1->pMainModel + 0x24) + *piVar8 * 0xc) = 0;
-        *(undefined4 *)(*(int *)((int)pCVar1->pMainModel + 0x24) + 8 + *piVar8 * 0xc) = 0;
-        piVar8 = piVar8 + 1;
-      } while (iVar9 != 0);
-      *(undefined4 *)((int)pCVar1->pMainModel + 0x1c) = 0;
+        iVar8 = iVar8 + -1;
+        pCVar1->pMainModel->pHierarchyRot[*piVar7 * 3 + 1] = 0.0f;
+        pCVar1->pMainModel->pHierarchyRot[*piVar7 * 3] = 0.0f;
+        pCVar1->pMainModel->pHierarchyRot[*piVar7 * 3 + 2] = 0.0f;
+        piVar7 = piVar7 + 1;
+      } while (iVar8 != 0);
+      pCVar1->pMainModel->dwFrameTrue = 0;
       return;
     }
-    iVar9 = 3;
-    fVar3 = pCVar1->flMaxYaw * 0.33333334f;
-    fVar10 = pCVar1->flMaxPitch * 0.33333334f;
+    iVar8 = 3;
+    fVar2 = pCVar1->flMaxYaw * 0.33333334f;
+    fVar9 = pCVar1->flMaxPitch * 0.33333334f;
     do {
-      iVar2 = *(int *)((int)pCVar1->pMainModel + 0x24);
-      *(float *)(iVar2 + 4 + *piVar8 * 0xc) =
-           fStack_b0 * 0.33333334f + *(float *)(iVar2 + 4 + *piVar8 * 0xc);
-      iVar2 = *(int *)((int)pCVar1->pMainModel + 0x24);
-      *(float *)(iVar2 + *piVar8 * 0xc) = fStack_b4 * 0.33333334f + *(float *)(iVar2 + *piVar8 * 0xc)
-      ;
-      *(undefined4 *)(*(int *)((int)pCVar1->pMainModel + 0x24) + 8 + *piVar8 * 0xc) = 0;
-      iVar2 = *(int *)((int)pCVar1->pMainModel + 0x24);
-      pfVar6 = (float *)(iVar2 + 4 + *piVar8 * 0xc);
-      fVar4 = -fVar3;
-      if ((-fVar3 <= *(float *)(iVar2 + 4 + *piVar8 * 0xc)) && (fVar4 = fVar3, *pfVar6 <= fVar3)) {
-        fVar4 = *pfVar6;
+      pfVar5 = pCVar1->pMainModel->pHierarchyRot;
+      pfVar5[*piVar7 * 3 + 1] = fStack_b0 * 0.33333334f + pfVar5[*piVar7 * 3 + 1];
+      pfVar5 = pCVar1->pMainModel->pHierarchyRot;
+      pfVar5[*piVar7 * 3] = fStack_b4 * 0.33333334f + pfVar5[*piVar7 * 3];
+      pCVar1->pMainModel->pHierarchyRot[*piVar7 * 3 + 2] = 0.0f;
+      pfVar6 = pCVar1->pMainModel->pHierarchyRot;
+      pfVar5 = pfVar6 + *piVar7 * 3 + 1;
+      fVar3 = -fVar2;
+      if ((-fVar2 <= pfVar6[*piVar7 * 3 + 1]) && (fVar3 = fVar2, *pfVar5 <= fVar2)) {
+        fVar3 = *pfVar5;
       }
-      *pfVar6 = fVar4;
-      iVar2 = *(int *)((int)pCVar1->pMainModel + 0x24);
-      pfVar6 = (float *)(iVar2 + *piVar8 * 0xc);
-      fVar4 = -fVar10;
-      if ((-fVar10 <= *(float *)(iVar2 + *piVar8 * 0xc)) && (fVar4 = fVar10, *pfVar6 <= fVar10)) {
-        fVar4 = *pfVar6;
+      *pfVar5 = fVar3;
+      pfVar6 = pCVar1->pMainModel->pHierarchyRot;
+      pfVar5 = pfVar6 + *piVar7 * 3;
+      fVar3 = -fVar9;
+      if ((-fVar9 <= pfVar6[*piVar7 * 3]) && (fVar3 = fVar9, *pfVar5 <= fVar9)) {
+        fVar3 = *pfVar5;
       }
-      *pfVar6 = fVar4;
-      piVar8 = piVar8 + 1;
-      iVar9 = iVar9 + -1;
-    } while (iVar9 != 0);
-    *(undefined4 *)((int)pCVar1->pMainModel + 0x1c) = 0;
+      *pfVar5 = fVar3;
+      piVar7 = piVar7 + 1;
+      iVar8 = iVar8 + -1;
+    } while (iVar8 != 0);
+    pCVar1->pMainModel->dwFrameTrue = 0;
   }
   return;
 }
@@ -596,7 +594,7 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
 void __cdecl sputActor_UpdateActorSpeech(Actor *actor,float dt)
 
 {
-  void **ppvVar1;
+  rdThing **pprVar1;
   ActorExtra *pAVar2;
   ushort uVar3;
   int iVar4;
@@ -617,14 +615,14 @@ void __cdecl sputActor_UpdateActorSpeech(Actor *actor,float dt)
     else {
       uVar3 = Phoneme_ToTalkChore(actor,iVar4);
       pCVar5 = actor->pCostumes;
-      ppvVar1 = &pCVar5->pMainModel;
+      pprVar1 = &pCVar5->pMainModel;
       if (pCVar5 != (CostumeNode *)0x0) {
         do {
-          if ((pCVar5->pMainModel != *ppvVar1) ||
+          if ((pCVar5->pMainModel != *pprVar1) ||
              (-1 < pCVar5->aTalkChores[CONCAT22(extraout_var,uVar3)])) break;
           pCVar5 = pCVar5->pNext;
         } while (pCVar5 != (CostumeNode *)0x0);
-        if ((pCVar5 != (CostumeNode *)0x0) && (pCVar5->pMainModel == *ppvVar1)) {
+        if ((pCVar5 != (CostumeNode *)0x0) && (pCVar5->pMainModel == *pprVar1)) {
           Cos_InstCompleteChore
                     (pCVar5->dwInstance,pCVar5->aTalkChores[CONCAT22(extraout_var,uVar3)]);
         }
@@ -1029,7 +1027,7 @@ void __cdecl sputActor_SetReflection(Actor *actor,float angle)
 void __cdecl sputActor_SetTurnChores(Actor *actor,int leftChore,int rightChore,CostumeNode *costume)
 
 {
-  void **ppvVar1;
+  rdThing **pprVar1;
   uint uVar2;
   CostumeNode *pCVar3;
   
@@ -1038,13 +1036,13 @@ void __cdecl sputActor_SetTurnChores(Actor *actor,int leftChore,int rightChore,C
     if (costume == (CostumeNode *)0x0) {
       costume = pCVar3;
     }
-    ppvVar1 = &pCVar3->pMainModel;
+    pprVar1 = &pCVar3->pMainModel;
     if (pCVar3 != (CostumeNode *)0x0) {
       do {
-        if ((pCVar3->pMainModel != *ppvVar1) || (-1 < pCVar3->nTurnLeftChore)) break;
+        if ((pCVar3->pMainModel != *pprVar1) || (-1 < pCVar3->nTurnLeftChore)) break;
         pCVar3 = pCVar3->pNext;
       } while (pCVar3 != (CostumeNode *)0x0);
-      if ((pCVar3 != (CostumeNode *)0x0) && (pCVar3->pMainModel == *ppvVar1)) {
+      if ((pCVar3 != (CostumeNode *)0x0) && (pCVar3->pMainModel == *pprVar1)) {
         if (leftChore != pCVar3->nTurnLeftChore) {
           uVar2 = Cos_InstChoreStatus(pCVar3->dwInstance,pCVar3->nTurnLeftChore);
           if ((uVar2 != 0) &&
@@ -1080,7 +1078,7 @@ void __cdecl sputActor_SetTurnChores(Actor *actor,int leftChore,int rightChore,C
 void __cdecl sputActor_SetRestChore(Actor *actor,int chore,CostumeNode *costume)
 
 {
-  void **ppvVar1;
+  rdThing **pprVar1;
   uint uVar2;
   CostumeNode *pCVar3;
   
@@ -1089,13 +1087,13 @@ void __cdecl sputActor_SetRestChore(Actor *actor,int chore,CostumeNode *costume)
     if (costume == (CostumeNode *)0x0) {
       costume = pCVar3;
     }
-    ppvVar1 = &pCVar3->pMainModel;
+    pprVar1 = &pCVar3->pMainModel;
     if (pCVar3 != (CostumeNode *)0x0) {
       do {
-        if ((pCVar3->pMainModel != *ppvVar1) || (-1 < pCVar3->nRestChore)) break;
+        if ((pCVar3->pMainModel != *pprVar1) || (-1 < pCVar3->nRestChore)) break;
         pCVar3 = pCVar3->pNext;
       } while (pCVar3 != (CostumeNode *)0x0);
-      if ((pCVar3 != (CostumeNode *)0x0) && (pCVar3->pMainModel == *ppvVar1)) {
+      if ((pCVar3 != (CostumeNode *)0x0) && (pCVar3->pMainModel == *pprVar1)) {
         if (chore == pCVar3->nRestChore) {
           return;
         }
@@ -1298,9 +1296,9 @@ void __cdecl Actor_UpdateWalker(Actor *actor)
 void __cdecl Actor_UpdateMoveChores(Actor *actor)
 
 {
-  void **ppvVar1;
+  rdThing **pprVar1;
   int iVar2;
-  void *pvVar3;
+  rdThing *prVar3;
   ActorExtra *pAVar4;
   uint uVar5;
   int iVar6;
@@ -1313,13 +1311,13 @@ void __cdecl Actor_UpdateMoveChores(Actor *actor)
   if (pCVar7 == (CostumeNode *)0x0) {
     return;
   }
-  ppvVar1 = &pCVar7->pMainModel;
+  pprVar1 = &pCVar7->pMainModel;
   if (pCVar7 != (CostumeNode *)0x0) {
     do {
-      if ((pCVar7->pMainModel != *ppvVar1) || (-1 < pCVar7->nWalkChore)) break;
+      if ((pCVar7->pMainModel != *pprVar1) || (-1 < pCVar7->nWalkChore)) break;
       pCVar7 = pCVar7->pNext;
     } while (pCVar7 != (CostumeNode *)0x0);
-    if ((pCVar7 != (CostumeNode *)0x0) && (pCVar7->pMainModel == *ppvVar1)) {
+    if ((pCVar7 != (CostumeNode *)0x0) && (pCVar7->pMainModel == *pprVar1)) {
       uVar5 = Cos_InstChoreStatus(pCVar7->dwInstance,pCVar7->nWalkChore);
       iVar2 = actor->pExtra->nWalking;
       if (iVar2 == 0) {
@@ -1339,14 +1337,14 @@ LAB_00491477:
     actor->pExtra->nTurning = 0;
   }
   pCVar7 = actor->pCostumes;
-  pvVar3 = pCVar7->pMainModel;
+  prVar3 = pCVar7->pMainModel;
   if (pCVar7 != (CostumeNode *)0x0) {
     do {
-      if ((pCVar7->pMainModel != pvVar3) || (-1 < pCVar7->nTurnLeftChore)) break;
+      if ((pCVar7->pMainModel != prVar3) || (-1 < pCVar7->nTurnLeftChore)) break;
       pCVar7 = pCVar7->pNext;
     } while (pCVar7 != (CostumeNode *)0x0);
     if (pCVar7 != (CostumeNode *)0x0) {
-      if ((pCVar7->pMainModel == pvVar3) && (-1 < pCVar7->nTurnLeftChore)) {
+      if ((pCVar7->pMainModel == prVar3) && (-1 < pCVar7->nTurnLeftChore)) {
         uVar5 = Cos_InstChoreStatus(pCVar7->dwInstance,pCVar7->nTurnLeftChore);
         iVar2 = actor->pExtra->nTurning;
         if (iVar2 < 1) {
@@ -1361,7 +1359,7 @@ LAB_00491517:
         }
         else if (iVar2 < 1) goto LAB_00491517;
       }
-      if (((pCVar7 != (CostumeNode *)0x0) && (pCVar7->pMainModel == pvVar3)) &&
+      if (((pCVar7 != (CostumeNode *)0x0) && (pCVar7->pMainModel == prVar3)) &&
          (-1 < pCVar7->nTurnRightChore)) {
         uVar5 = Cos_InstChoreStatus(pCVar7->dwInstance,pCVar7->nTurnRightChore);
         iVar2 = actor->pExtra->nTurning;
@@ -1387,13 +1385,13 @@ LAB_0049157a:
     pAVar4->nResting = 1;
   }
   pCVar7 = actor->pCostumes;
-  ppvVar1 = &pCVar7->pMainModel;
+  pprVar1 = &pCVar7->pMainModel;
   if (pCVar7 != (CostumeNode *)0x0) {
     do {
-      if ((pCVar7->pMainModel != *ppvVar1) || (-1 < pCVar7->nRestChore)) break;
+      if ((pCVar7->pMainModel != *pprVar1) || (-1 < pCVar7->nRestChore)) break;
       pCVar7 = pCVar7->pNext;
     } while (pCVar7 != (CostumeNode *)0x0);
-    if (((pCVar7 != (CostumeNode *)0x0) && (pCVar7->pMainModel == *ppvVar1)) &&
+    if (((pCVar7 != (CostumeNode *)0x0) && (pCVar7->pMainModel == *pprVar1)) &&
        (-1 < pCVar7->nRestChore)) {
       iVar6 = Cos_InstChoreStatus(pCVar7->dwInstance,pCVar7->nRestChore);
       iVar2 = actor->pExtra->nResting;
@@ -1426,7 +1424,7 @@ sputActor_SayLine(Actor *actor,char *text,int background,int volume,int pan,int 
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void **ppvVar1;
+  rdThing **pprVar1;
   uint *puVar2;
   char cVar3;
   byte bVar4;
@@ -1620,9 +1618,9 @@ LAB_00492e6b:
   }
   if (((actor != (Actor *)0x0) && (pAVar6 = actor->pExtra, pAVar6 != (ActorExtra *)0x0)) &&
      ((pCVar12 = actor->pCostumes, pCVar12 != (CostumeNode *)0x0 && (pAVar6->nLipSync != 0)))) {
-    ppvVar1 = &pCVar12->pMainModel;
+    pprVar1 = &pCVar12->pMainModel;
     if (pCVar12 != (CostumeNode *)0x0) {
-      while (pCVar12->pMainModel == *ppvVar1) {
+      while (pCVar12->pMainModel == *pprVar1) {
         iVar8 = 1;
         piVar14 = pCVar12->aTalkChores;
         do {
@@ -1632,19 +1630,19 @@ LAB_00492e6b:
         } while (iVar8 < 10);
         if ((iVar8 < 10) || (pCVar12 = pCVar12->pNext, pCVar12 == (CostumeNode *)0x0)) break;
       }
-      if ((pCVar12 != (CostumeNode *)0x0) && (pCVar12->pMainModel == *ppvVar1)) goto LAB_00492fe7;
+      if ((pCVar12 != (CostumeNode *)0x0) && (pCVar12->pMainModel == *pprVar1)) goto LAB_00492fe7;
     }
     pAVar6->nLipSync = 0;
   }
 LAB_00492fe7:
   if (((actor->pExtra->aVoiceFile[0] == '\0') || (actor->pExtra->nLipSync == 0)) &&
      (pCVar12 = actor->pCostumes, pCVar12 != (CostumeNode *)0x0)) {
-    ppvVar1 = &pCVar12->pMainModel;
+    pprVar1 = &pCVar12->pMainModel;
     do {
-      if ((pCVar12->pMainModel != *ppvVar1) || (-1 < pCVar12->nMumbleChore)) break;
+      if ((pCVar12->pMainModel != *pprVar1) || (-1 < pCVar12->nMumbleChore)) break;
       pCVar12 = pCVar12->pNext;
     } while (pCVar12 != (CostumeNode *)0x0);
-    if (((pCVar12 != (CostumeNode *)0x0) && (pCVar12->pMainModel == *ppvVar1)) &&
+    if (((pCVar12 != (CostumeNode *)0x0) && (pCVar12->pMainModel == *pprVar1)) &&
        (-1 < pCVar12->nMumbleChore)) {
       Cos_InstPlayChore(pCVar12->dwInstance,pCVar12->nMumbleChore,1,0);
     }
@@ -1663,7 +1661,7 @@ LAB_00492fe7:
 void __cdecl sputActor_ShutUp(Actor *actor)
 
 {
-  void **ppvVar1;
+  rdThing **pprVar1;
   ActorExtra *pAVar2;
   TextObject *obj;
   int iVar3;
@@ -1685,13 +1683,13 @@ void __cdecl sputActor_ShutUp(Actor *actor)
     }
     pCVar4 = actor->pCostumes;
     if (pCVar4 != (CostumeNode *)0x0) {
-      ppvVar1 = &pCVar4->pMainModel;
+      pprVar1 = &pCVar4->pMainModel;
       if (pCVar4 != (CostumeNode *)0x0) {
         do {
-          if ((pCVar4->pMainModel != *ppvVar1) || (-1 < pCVar4->nMumbleChore)) break;
+          if ((pCVar4->pMainModel != *pprVar1) || (-1 < pCVar4->nMumbleChore)) break;
           pCVar4 = pCVar4->pNext;
         } while (pCVar4 != (CostumeNode *)0x0);
-        if (((pCVar4 != (CostumeNode *)0x0) && (pCVar4->pMainModel == *ppvVar1)) &&
+        if (((pCVar4 != (CostumeNode *)0x0) && (pCVar4->pMainModel == *pprVar1)) &&
            (-1 < pCVar4->nMumbleChore)) {
           iVar3 = Cos_InstChoreStatus(pCVar4->dwInstance,pCVar4->nMumbleChore);
           if (iVar3 != 0) {
@@ -1700,13 +1698,13 @@ void __cdecl sputActor_ShutUp(Actor *actor)
         }
       }
       pCVar4 = actor->pCostumes;
-      ppvVar1 = &pCVar4->pMainModel;
+      pprVar1 = &pCVar4->pMainModel;
       if (pCVar4 != (CostumeNode *)0x0) {
         do {
-          if ((pCVar4->pMainModel != *ppvVar1) || (-1 < pCVar4->aTalkChores[0])) break;
+          if ((pCVar4->pMainModel != *pprVar1) || (-1 < pCVar4->aTalkChores[0])) break;
           pCVar4 = pCVar4->pNext;
         } while (pCVar4 != (CostumeNode *)0x0);
-        if (((pCVar4 != (CostumeNode *)0x0) && (pCVar4->pMainModel == *ppvVar1)) &&
+        if (((pCVar4 != (CostumeNode *)0x0) && (pCVar4->pMainModel == *pprVar1)) &&
            (-1 < pCVar4->aTalkChores[0])) {
           Cos_InstCompleteChore(pCVar4->dwInstance,pCVar4->aTalkChores[0]);
         }
@@ -2331,7 +2329,7 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
         local_f4 = 0;
         local_ec = 0;
         do {
-          iVar4 = *(int *)(local_ec + 0x4c + (int)prVar3->pHierarchyNodes);
+          iVar4 = *(int *)((int)prVar3->pHierarchyNodes->aPivot + (local_ec - 0x18));
           if (((iVar4 != -1) &&
               (prVar5 = prVar3->aGeosets[0].pMeshes, *(int *)&prVar5[iVar4].field_0x54 != 0)) &&
              (*(int *)((int)prVar2->pHierarchyExtra + iVar4 * 4) != 0)) {

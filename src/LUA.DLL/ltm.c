@@ -346,7 +346,7 @@ void luaT_setfallback(void)
    fillvalids(e, func): for each tag from LUA_T_NIL to LUA_T_USERDATA that validevent allows, stores
    func as its method e; called by luaT_setfallback); was luaT_gettmbyObj. */
 
-void __cdecl fillvalids(int n,undefined4 *param_2)
+void __cdecl fillvalids(int n,undefined4 *func)
 
 {
   int iVar1;
@@ -358,8 +358,8 @@ void __cdecl fillvalids(int n,undefined4 *param_2)
   do {
     iVar1 = validevent(t,n);
     if (iVar1 != 0) {
-      *(undefined4 *)(g_dwLState_IMtable + iVar2) = *param_2;
-      *(undefined4 *)(g_dwLState_IMtable + 4 + iVar2) = param_2[1];
+      *(undefined4 *)(g_dwLState_IMtable + iVar2) = *func;
+      *(undefined4 *)(g_dwLState_IMtable + 4 + iVar2) = func[1];
     }
     t = t + 1;
     iVar2 = iVar2 + -0x90;

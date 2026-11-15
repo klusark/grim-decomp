@@ -1,0 +1,174 @@
+{
+ "_comment": "Parameter names, round 2 (tools/names_batch.py): the live param_N left.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "params": [
+  {
+   "addr": "004960a0",
+   "index": 4,
+   "type": "char *",
+   "name": "filename",
+   "_fn": "BitmapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00496460",
+   "index": 4,
+   "type": "char *",
+   "name": "filename",
+   "_fn": "ColormapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00496b60",
+   "index": 4,
+   "type": "char *",
+   "name": "filename",
+   "_fn": "ThingRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497e10",
+   "index": 4,
+   "type": "uint",
+   "name": "filename",
+   "_fn": "KeyframeRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00498280",
+   "index": 0,
+   "type": "uint",
+   "name": "cosInst",
+   "_fn": "SpriteRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00498280",
+   "index": 1,
+   "type": "int",
+   "name": "tag",
+   "_fn": "SpriteRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00498280",
+   "index": 2,
+   "type": "int",
+   "name": "parent",
+   "_fn": "SpriteRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00498280",
+   "index": 3,
+   "type": "float",
+   "name": "type",
+   "_fn": "SpriteRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00498280",
+   "index": 4,
+   "type": "char *",
+   "name": "filename",
+   "_fn": "SpriteRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "0049e020",
+   "index": 1,
+   "type": "TextObject *",
+   "name": "id",
+   "_fn": "sputLua_RestoreIndirector",
+   "_names_only": true
+  },
+  {
+   "addr": "004881a0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "style",
+   "_fn": "Dlg_MakeDialogTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "004881a0",
+   "index": 1,
+   "type": "ushort",
+   "name": "items",
+   "_fn": "Dlg_MakeDialogTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "004881a0",
+   "index": 2,
+   "type": "ushort",
+   "name": "x",
+   "_fn": "Dlg_MakeDialogTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "004881a0",
+   "index": 3,
+   "type": "ushort",
+   "name": "y",
+   "_fn": "Dlg_MakeDialogTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "004881a0",
+   "index": 4,
+   "type": "ushort",
+   "name": "cx",
+   "_fn": "Dlg_MakeDialogTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "004881a0",
+   "index": 5,
+   "type": "ushort",
+   "name": "cy",
+   "_fn": "Dlg_MakeDialogTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "004881a0",
+   "index": 6,
+   "type": "int",
+   "name": "title",
+   "_fn": "Dlg_MakeDialogTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "004881a0",
+   "index": 7,
+   "type": "int",
+   "name": "font",
+   "_fn": "Dlg_MakeDialogTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "004881a0",
+   "index": 8,
+   "type": "ushort",
+   "name": "pointSize",
+   "_fn": "Dlg_MakeDialogTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "004881a0",
+   "index": 9,
+   "type": "uint *",
+   "name": "outSize",
+   "_fn": "Dlg_MakeDialogTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab210",
+   "index": 0,
+   "type": "TextContext *",
+   "name": "context",
+   "_fn": "text_FindNextBreak",
+   "_names_only": true
+  }
+ ]
+}

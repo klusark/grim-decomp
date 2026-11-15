@@ -67,7 +67,7 @@
   "SaveGame_Write": "save-game trace hook (sg_trace_rec)",
   "Main_Service": "the frame-time hook of the scripted tests (g_fixedFrameMs)",
   "Math_Sqrt": "x87: FLD x; FSQRT; RET, the result stays in ST0 unrounded",
-  "stdMath_NormalizeAngle": "x87: stores the result in a float local and compares that with 360.0",
+  "stdMath_NormalizeAngle": "x87: stores the result in a float local and compares that with 360.0; math.c is built at -O2 (build/opt.mk), where the twin compares the 80-bit value (build/difftest/asm_p2/angle_test.c with those flags: 78,316 of 2,270,369 differ, the hand-written C 0; the walker is held up on stairs, autorun ch02)",
   "rdVector_Normalize3": "x87: leaves |v| unrounded in ST0 for its caller",
   "Script_SetState": "the twin passes unaff_EDI / unaff_ESI / the return address on to Script_Trans (register arguments of the dispatcher)",
   "Script_Trans": "its callers pass register arguments (the dispatcher ESI); the twin reads unaff_ registers",
@@ -80,5 +80,12 @@
   "Im_MixLoopD": "the byte-swapped big-endian sample is sign-extended (MOVSX EAX,AX); the decompiler prints (int)CONCAT11(lo, hi), which C zero-extends: negative samples come out as 65536 - |x|",
   "rdPuppet_AdvanceTrack": "x87; twin test (build/difftest/asm_q3/puppet_test.c, with its FRNDINT under the round-down word as floor): 20,746 differences in 20,000 cases",
   "rdActive_BuildSpans": "x87; twin test (build/difftest/asm_p1/test_canvas.c, with its FIST under the round-down word as floor): 645 of 1,000 cases differ",
-  "rdCache_SendFaceListToHardware": "x87; its twin does not compile: it stores the entry's material pointer into a float local (local_20)"
+  "rdCache_SendFaceListToHardware": "x87; its twin does not compile: it stores the entry's material pointer into a float local (local_20)",
+  "_d3d": "Direct3D mode on today's Windows (build/overrides_ddraw16.c, overrides_std3d.c; BUILD_NOTES \"The Direct3D renderer in a window\")",
+  "DDraw_Create": "the build's 16-bit display emulation: offers each 32-bit mode again as 16-bit (Windows 10/11 list no 16-bit modes)",
+  "DDraw_CreateSurfaces": "the build's 16-bit display emulation: 16-bit off-screen primary and back buffer; GDI presentation in a window",
+  "DDraw_Flip": "the build's 16-bit display emulation: converts the 16-bit picture to the screen and swaps the buffers' contents",
+  "DDraw_ReleaseSurfaces": "the build's 16-bit display emulation: also releases the real primary and the spare surface",
+  "D3D_SelectDriver": "lost call arguments: its COM calls (QueryInterface, EnumTextureFormats, CreateViewport, ...) decompile without their arguments (tools/audit_call_args.py)",
+  "D3D_SetVertexLimit": "lost call arguments: IDirectDraw2::GetAvailableVidMem decompiles without its arguments"
 }

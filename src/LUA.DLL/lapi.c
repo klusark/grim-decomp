@@ -964,7 +964,7 @@ undefined4 __cdecl lua_unpausetasks(void)
 /* ---- 0x10001e10  lua_updatetasks ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-int __cdecl lua_updatetasks(int param_1)
+int __cdecl lua_updatetasks(int loop)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1061,7 +1061,7 @@ LAB_1000201b:
       g_pLuaState = pLVar1;
       pLVar2 = LState_next(pLVar2);
       if (pLVar2 == (LState *)0x0) {
-        if ((param_1 == 0) || (pLVar2 = LState_next(g_pLuaState), pLVar2 == (LState *)0x0)) {
+        if ((loop == 0) || (pLVar2 = LState_next(g_pLuaState), pLVar2 == (LState *)0x0)) {
           pLVar2 = LState_next(g_pLuaState);
           return pLVar2 != (LState *)0x0;
         }
@@ -1210,7 +1210,7 @@ int lua_currenttask(void)
 }
 
 /* ---- 0x100022c0  lua_getlocal ---- */
-int __cdecl lua_getlocal(int param_1,int local_number,int *name)
+int __cdecl lua_getlocal(int funcObj,int local_number,int *name)
 
 {
   TObject *pTVar1;
@@ -1220,16 +1220,16 @@ int __cdecl lua_getlocal(int param_1,int local_number,int *name)
   char *pcVar4;
   
                     /* 0x22c0  30  lua_getlocal */
-  iVar2 = lua_tag(param_1);
+  iVar2 = lua_tag(funcObj);
   if (iVar2 == -4) {
     pTVar1 = g_pLuaState->pStack;
-    pTVar3 = luaA_protovalue(pTVar1 + param_1 + -1);
+    pTVar3 = luaA_protovalue(pTVar1 + funcObj + -1);
     func = (TProtoFunc *)pTVar3->dwValue;
-    iVar2 = lua_currentline(param_1);
+    iVar2 = lua_currentline(funcObj);
     pcVar4 = luaF_getlocalname(func,local_number,iVar2);
     *name = (int)pcVar4;
     if (pcVar4 != (char *)0x0) {
-      return (((local_number * 8 + 8) - (int)g_pLuaState->pStack) + (int)(pTVar1 + param_1 + -1) >>
+      return (((local_number * 8 + 8) - (int)g_pLuaState->pStack) + (int)(pTVar1 + funcObj + -1) >>
              3) + 1;
     }
   }
@@ -1237,7 +1237,7 @@ int __cdecl lua_getlocal(int param_1,int local_number,int *name)
 }
 
 /* ---- 0x10002330  lua_setlocal ---- */
-undefined4 __cdecl lua_setlocal(int param_1,int local_number)
+undefined4 __cdecl lua_setlocal(int funcObj,int local_number)
 
 {
   TObject *o;
@@ -1247,12 +1247,12 @@ undefined4 __cdecl lua_setlocal(int param_1,int local_number)
   char *pcVar3;
   
                     /* 0x2330  75  lua_setlocal */
-  iVar1 = lua_tag(param_1);
+  iVar1 = lua_tag(funcObj);
   if (iVar1 == -4) {
-    o = g_pLuaState->pStack + param_1 + -1;
+    o = g_pLuaState->pStack + funcObj + -1;
     pTVar2 = luaA_protovalue(o);
     func = (TProtoFunc *)pTVar2->dwValue;
-    iVar1 = lua_currentline(param_1);
+    iVar1 = lua_currentline(funcObj);
     pcVar3 = luaF_getlocalname(func,local_number,iVar1);
     checkCparams(1);
     g_pLuaState->pTop = g_pLuaState->pTop + -1;

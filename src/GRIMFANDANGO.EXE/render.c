@@ -733,7 +733,7 @@ void __cdecl Render_BuildActorDrawList(void)
       if (pAVar1->pCostumes == (CostumeNode *)0x0) {
         *(int *)(puVar4 + 8) = ((int)pAVar1 - (int)g_pActors) / 0xa8;
         if ((pAVar1->pCostumes == (CostumeNode *)0x0) ||
-           (pAVar1->pCostumes->pMainModel == (void *)0x0)) {
+           (pAVar1->pCostumes->pMainModel == (rdThing *)0x0)) {
           *puVar4 = 0xff;
         }
         else {

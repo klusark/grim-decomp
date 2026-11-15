@@ -106,14 +106,14 @@ LAB_0048030d:
 void * __cdecl Res_Load(int type,char *name)
 
 {
-  void *res;
+  Resource *res;
   void *pvVar1;
   
   pvVar1 = (void *)0x0;
   res = res_Load(type,name,(int *)&name);
-  if (res != (void *)0x0) {
+  if (res != (Resource *)0x0) {
     Res_MoveToFront(res);
-    pvVar1 = *(void **)((int)res + 0x14);
+    pvVar1 = res->pData;
   }
   return pvVar1;
 }

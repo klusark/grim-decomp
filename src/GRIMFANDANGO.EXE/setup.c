@@ -67,11 +67,12 @@ void * __cdecl sputRoom_GetSetupBackground(Set *set,int setupIdx)
   char cVar1;
   Setup *pSVar2;
   int iVar3;
-  void *pvVar4;
-  uint uVar5;
+  stdBitmap *pvVar4;
+  void *pvVar5;
   uint uVar6;
-  char *pcVar7;
+  uint uVar7;
   char *pcVar8;
+  char *pcVar9;
   
   pSVar2 = set->pSetups;
   ref = &pSVar2[setupIdx].background;
@@ -79,38 +80,38 @@ void * __cdecl sputRoom_GetSetupBackground(Set *set,int setupIdx)
     iVar3 = _stricmp(&pSVar2[setupIdx].field_0x80,&DAT_004ec60c);
     if (iVar3 != 0) {
       pvVar4 = sputResource_Alloc(0x444e4b42,&pSVar2[setupIdx].field_0x80);
-      if (pvVar4 != (void *)0x0) {
+      if (pvVar4 != (stdBitmap *)0x0) {
         Res_SetReference(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa2);
       }
     }
     if (ref->nValid != 0) goto LAB_004a3eb6;
-    pvVar4 = sputResource_Alloc(0x444e4b42,s_dfltroom_bm_004ec5d4);
-    Res_SetReference(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xaa);
+    pvVar5 = sputResource_Alloc(0x444e4b42,s_dfltroom_bm_004ec5d4);
+    Res_SetReference(ref,pvVar5,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xaa);
     if (ref->nValid == 0) {
       return (void *)0x0;
     }
-    uVar5 = 0xffffffff;
-    pcVar7 = &DAT_004ec60c;
+    uVar6 = 0xffffffff;
+    pcVar8 = &DAT_004ec60c;
     do {
-      pcVar8 = pcVar7;
-      if (uVar5 == 0) break;
-      uVar5 = uVar5 - 1;
-      pcVar8 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar8;
+      pcVar9 = pcVar8;
+      if (uVar6 == 0) break;
+      uVar6 = uVar6 - 1;
+      pcVar9 = pcVar8 + 1;
+      cVar1 = *pcVar8;
+      pcVar8 = pcVar9;
     } while (cVar1 != '\0');
-    uVar5 = ~uVar5;
-    pcVar7 = pcVar8 + -uVar5;
-    pcVar8 = &pSVar2[setupIdx].field_0x80;
-    for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-      *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
-      pcVar7 = pcVar7 + 4;
+    uVar6 = ~uVar6;
+    pcVar8 = pcVar9 + -uVar6;
+    pcVar9 = &pSVar2[setupIdx].field_0x80;
+    for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+      *(undefined4 *)pcVar9 = *(undefined4 *)pcVar8;
       pcVar8 = pcVar8 + 4;
+      pcVar9 = pcVar9 + 4;
     }
-    for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *pcVar8 = *pcVar7;
-      pcVar7 = pcVar7 + 1;
+    for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
+      *pcVar9 = *pcVar8;
       pcVar8 = pcVar8 + 1;
+      pcVar9 = pcVar9 + 1;
     }
     pSVar2[setupIdx].field_0xa0 = 0;
   }
@@ -121,11 +122,11 @@ void * __cdecl sputRoom_GetSetupBackground(Set *set,int setupIdx)
     (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
   }
 LAB_004a3eb6:
-  pvVar4 = pSVar2[setupIdx].background.pData;
+  pvVar5 = pSVar2[setupIdx].background.pData;
   if (ref->nValid == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
   }
-  return *(void **)(*(int *)((int)pvVar4 + 0x78) +
+  return *(void **)(*(int *)((int)pvVar5 + 0x78) +
                    *(int *)((int)pSVar2[setupIdx].background.pData + 0x68) * 4);
 }
 

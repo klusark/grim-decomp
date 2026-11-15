@@ -114,7 +114,7 @@ undefined4 __cdecl TgDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,i
 void TgIntHandler(void); /* 0x1000b5e0 */
 int __cdecl TgGetPendCount(int sound); /* 0x1000b630 */
 void __cdecl Im_RunTriggerCommand(undefined4 *slot,undefined4 marker); /* 0x1000b6a0 */
-void __cdecl Im_RunDeferredCommand(int param_1); /* 0x1000b710 */
+void __cdecl Im_RunDeferredCommand(int entry); /* 0x1000b710 */
 char * __cdecl Im_StrChr(char *param_1,char param_2); /* 0x1000bd50 */
 uint * __cdecl Im_MemCopy(uint *param_1,uint *param_2,uint param_3); /* 0x1000bd80 */
 uint __cdecl Im_StrCmpNoCase(byte *param_1,byte *param_2); /* 0x1000be80 */
@@ -125,20 +125,20 @@ undefined4 * __cdecl DpGetDp(int index); /* 0x10001ff0 */
 undefined4 __cdecl DpSave(undefined4 *buf,uint size); /* 0x10002010 */
 undefined4 __cdecl DpBeginRestore(undefined4 *buf); /* 0x10002040 */
 undefined4 DpConcludeRestore(void); /* 0x100020c0 */
-undefined4 __cdecl DpStartSound(int param_1,uint group); /* 0x10002170 */
+undefined4 __cdecl DpStartSound(int track,uint group); /* 0x10002170 */
 undefined4 __cdecl DpStopTrack(int track); /* 0x10002200 */
 void DpPredictStreams(void); /* 0x10002a00 */
 int __cdecl ConvertMap(undefined4 *src,undefined4 *dst); /* 0x10002fe0 */
-uint __cdecl iMUSE_Dispatch__30d0(int param_1,int param_2,int param_3); /* 0x100030d0 */
+uint __cdecl iMUSE_Dispatch__30d0(int map,int id,int prev); /* 0x100030d0 */
 void __cdecl PredictStream(int *dp); /* 0x10003130 */
-int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *predictStream_jumpHook); /* 0x100031d0 */
+int * __cdecl iMUSE_Dispatch__31d0(int *map,int region,int *predictStream_jumpHook); /* 0x100031d0 */
 void __cdecl PrepareToJump(int *format,undefined4 *region,int jump,int now); /* 0x10003250 */
-void __cdecl iMUSE_Dispatch__3430(int *param_1,int param_2); /* 0x10003430 */
-int __cdecl iMUSE_Dispatch__34b0(int *param_1); /* 0x100034b0 */
-int __cdecl iMUSE_Dispatch__3510(int *param_1,int param_2); /* 0x10003510 */
+void __cdecl iMUSE_Dispatch__3430(int *dispatch,int region); /* 0x10003430 */
+int __cdecl iMUSE_Dispatch__34b0(int *dispatch); /* 0x100034b0 */
+int __cdecl iMUSE_Dispatch__3510(int *dispatch,int count); /* 0x10003510 */
 undefined4 * iMUSE_Dispatch__3570(void); /* 0x10003570 */
-int __cdecl iMUSE_Dispatch__35a0(uint *param_1); /* 0x100035a0 */
-void __cdecl iMUSE_Dispatch__3640(int param_1); /* 0x10003640 */
+int __cdecl iMUSE_Dispatch__35a0(uint *size); /* 0x100035a0 */
+void __cdecl iMUSE_Dispatch__3640(int buf); /* 0x10003640 */
 
 /* ===== imuse_dsound.c ===== */
 int iMUSE_dsound__3a80(void); /* 0x10003a80 */
@@ -279,7 +279,7 @@ uint SoundGetVoiceTime(void); /* 0x10008990 */
 /* ===== imuse_sounds.c ===== */
 undefined4 __cdecl iRes_FTELL(undefined *f); /* 0x10009e10 */
 undefined4 __cdecl iRes_FSEEK(undefined *f,int offset,int whence); /* 0x10009e40 */
-int __cdecl iMUSE_sounds__9eb0(int param_1,uint param_2); /* 0x10009eb0 */
+int __cdecl iMUSE_sounds__9eb0(int res,uint offset); /* 0x10009eb0 */
 int __cdecl Sounds_CompareRange(uint value,uint *range); /* 0x10009ef0 */
 uint __cdecl iMUSE_Malloc(uint size); /* 0x10009f10 */
 void __cdecl Sounds_MlAdd(int block); /* 0x10009f40 */

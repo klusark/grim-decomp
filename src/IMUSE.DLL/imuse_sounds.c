@@ -55,16 +55,15 @@ undefined4 __cdecl iRes_FSEEK(undefined *f,int offset,int whence)
 /* ---- 0x10009eb0  iMUSE_sounds__9eb0 ---- */
 /* Unidentified function of iMUSE_sounds.c (sound resource slots) */
 
-int __cdecl iMUSE_sounds__9eb0(int param_1,uint param_2)
+int __cdecl iMUSE_sounds__9eb0(int res,uint offset)
 
 {
   uint uVar1;
   
-  if (param_2 < *(uint *)(param_1 + 4)) {
-    uVar1 = bsearch(param_2,*(uint *)(param_1 + 0x1c),*(uint *)(param_1 + 0xc),4,Sounds_CompareRange
-                   );
+  if (offset < *(uint *)(res + 4)) {
+    uVar1 = bsearch(offset,*(uint *)(res + 0x1c),*(uint *)(res + 0xc),4,Sounds_CompareRange);
     if (uVar1 != 0) {
-      return (int)(uVar1 - *(int *)(param_1 + 0x1c)) >> 2;
+      return (int)(uVar1 - *(int *)(res + 0x1c)) >> 2;
     }
   }
   return -1;

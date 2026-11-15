@@ -1119,7 +1119,7 @@ int __cdecl GoToNextRegion(int *dp)
   undefined4 *puVar3;
   uint uVar4;
   uint size;
-  int *jump;
+  int *prev;
   undefined4 *puVar5;
   int local_4;
   
@@ -1132,23 +1132,23 @@ int __cdecl GoToNextRegion(int *dp)
   iVar1 = Im_DispatchFetchNext(dp);
   if (((iVar1 == 0) && (iVar1 = local_4, dp[6] == 0)) &&
      ((dp[0x207] == 0 || (dp[5] == *(int *)(dp[0x209] + 0xc))))) {
-    jump = (int *)0x0;
+    prev = (int *)0x0;
     do {
       do {
         while( true ) {
-          jump = (int *)iMUSE_Dispatch__30d0((int)(dp + 7),dp[5],(int)jump);
-          if (jump == (int *)0x0) goto LAB_10002d11;
-          iVar2 = *jump;
+          prev = (int *)iMUSE_Dispatch__30d0((int)(dp + 7),dp[5],(int)prev);
+          if (prev == (int *)0x0) goto LAB_10002d11;
+          iVar2 = *prev;
           if (0x4a554d50 < iVar2) break;
           if (iVar2 == 0x4a554d50) {
-            iVar2 = UtCheckHook((int *)(*dp + 0x38),jump[4]);
+            iVar2 = UtCheckHook((int *)(*dp + 0x38),prev[4]);
             if (iVar2 == 0) {
-              dp[5] = jump[3];
+              dp[5] = prev[3];
               if (dp[0x207] != 0) {
                 puVar3 = (undefined4 *)dp[0x209];
                 head = dp + 0x209;
                 if ((puVar3[4] != 0) || (puVar3[1] == 0)) {
-                  PrepareToJump(dp,puVar3,(int)jump,1);
+                  PrepareToJump(dp,puVar3,(int)prev,1);
                 }
                 *(undefined4 *)(*head + 8) = 0;
                 UtRemoveFromList(head,(int *)*head);
@@ -1197,25 +1197,25 @@ int __cdecl GoToNextRegion(int *dp)
                   UtRemoveFromList(dp + 0x209,(int *)dp[0x209]);
                 }
               }
-              jump = (int *)0x0;
+              prev = (int *)0x0;
             }
           }
           else {
             if (iVar2 != 0x46524d54) goto LAB_10002d11;
-            dp[4] = (uint)(jump[3] == 0);
-            dp[1] = jump[4];
-            dp[2] = jump[5];
-            dp[3] = jump[6];
+            dp[4] = (uint)(prev[3] == 0);
+            dp[1] = prev[4];
+            dp[2] = prev[5];
+            dp[3] = prev[6];
           }
         }
         if (iVar2 == 0x5245474e) {
-          dp[6] = jump[3];
+          dp[6] = prev[3];
           goto LAB_10002d0d;
         }
       } while (iVar2 == 0x53594e43);
       if (iVar2 != 0x54455854) goto LAB_10002d11;
       iVar2 = *(int *)(*dp + 0xc);
-      TgProcessMarker(iVar2,(char *)(jump + 3));
+      TgProcessMarker(iVar2,(char *)(prev + 3));
       if (iVar2 != *(int *)(*dp + 0xc)) {
         local_4 = -3;
         iVar1 = local_4;
@@ -5835,22 +5835,22 @@ void TgIntHandler(void)
 {
   int iVar1;
   int iVar2;
-  int *piVar3;
+  int *entry;
   
-  piVar3 = &DAT_10032cc0;
+  entry = &DAT_10032cc0;
   if (g_dwDefersOn != 0) {
     g_dwDefersOn = 0;
     iVar2 = 8;
     do {
-      if (*piVar3 != 0) {
-        iVar1 = *piVar3 + -1;
+      if (*entry != 0) {
+        iVar1 = *entry + -1;
         g_dwDefersOn = 1;
-        *piVar3 = iVar1;
+        *entry = iVar1;
         if (iVar1 == 0) {
-          Im_RunDeferredCommand((int)piVar3);
+          Im_RunDeferredCommand((int)entry);
         }
       }
-      piVar3 = piVar3 + 0xc;
+      entry = entry + 0xc;
       iVar2 = iVar2 + -1;
     } while (iVar2 != 0);
   }
@@ -5930,22 +5930,22 @@ void __cdecl Im_RunTriggerCommand(undefined4 *slot,undefined4 marker)
 /* Unidentified function of stream tracks (Im_RefillStreamTrack and friends) - module name inferred
     */
 
-void __cdecl Im_RunDeferredCommand(int param_1)
+void __cdecl Im_RunDeferredCommand(int entry)
 
 {
   code *cmd;
   int a2;
   
-  cmd = *(code **)(param_1 + 4);
+  cmd = *(code **)(entry + 4);
   if (cmd == (code *)0x0) {
     if (DAT_100336a8 == (code *)0x0) {
       return;
     }
-    a2 = *(int *)(param_1 + 0x2c);
+    a2 = *(int *)(entry + 0x2c);
     cmd = DAT_100336a8;
   }
   else {
-    a2 = *(int *)(param_1 + 0x2c);
+    a2 = *(int *)(entry + 0x2c);
     if (cmd < (code *)0x1e) {
       ImSoundCall((uint)cmd,a2,a2,a2,a2,a2,a2,a2,a2,a2,a2);
       return;

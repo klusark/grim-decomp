@@ -810,7 +810,7 @@ uint __cdecl Text_BuildLineTable(uint text,int *outFont)
    Text_GetStringHeight, Text_GetStringWidth); was Text_LayoutString. */
 
 char * __cdecl
-text_FindNextBreak(TextContext *param_1,FontData *font,char *text,int *outWidth,uint *outBreak,
+text_FindNextBreak(TextContext *context,FontData *font,char *text,int *outWidth,uint *outBreak,
                   int maxWidth)
 
 {
@@ -836,11 +836,11 @@ text_FindNextBreak(TextContext *param_1,FontData *font,char *text,int *outWidth,
   int ch;
   
   local_c = (uint)text;
-  ctx = param_1;
-  uVar1 = param_1->dwFlags;
-  iVar7 = *param_1->pClipRect;
-  local_10 = param_1->nX - iVar7;
-  uVar4 = (param_1->pClipRect[2] + iVar7) - param_1->nX;
+  ctx = context;
+  uVar1 = context->dwFlags;
+  iVar7 = *context->pClipRect;
+  local_10 = context->nX - iVar7;
+  uVar4 = (context->pClipRect[2] + iVar7) - context->nX;
   if ((uVar1 & 1) == 0) {
     if ((uVar1 & 2) != 0) goto LAB_004ab257;
   }
@@ -855,45 +855,45 @@ LAB_004ab257:
   iVar7 = 0;
   uVar4 = 0;
   local_14 = 0;
-  param_1 = (TextContext *)0x0;
+  context = (TextContext *)0x0;
   local_18 = 0;
   local_1c = 0;
   cVar3 = Text_NextChar(&text);
   ch = ((uint)(byte)(cVar3));
-  pTVar6 = param_1;
+  pTVar6 = context;
   do {
-    param_1 = pTVar6;
+    context = pTVar6;
     pcVar2 = text;
     if (ch == 0) {
 LAB_004ab425:
       text = pcVar2;
       if (ch == 0) {
-        pTVar6 = (TextContext *)((int)&param_1->pUnused + uVar4 + local_14);
+        pTVar6 = (TextContext *)((int)&context->pUnused + uVar4 + local_14);
         if (((int)local_10 < (int)pTVar6) && ((uVar1 & 4) != 0)) {
           text = (char *)local_c;
           if (local_1c == 0) {
             local_1c = iVar7 + local_18;
             text = (char *)0x0;
-            param_1 = pTVar6;
+            context = pTVar6;
           }
         }
         else {
           local_1c = local_1c + iVar7 + local_18;
           text = (char *)0x0;
-          param_1 = pTVar6;
+          context = pTVar6;
         }
       }
       if (maxWidth != 0) {
         if (text == (char *)0x0) {
           if ((uVar1 & 1) == 0) {
-            pTVar6 = param_1;
+            pTVar6 = context;
             if ((uVar1 & 2) != 0) {
-              pTVar6 = (TextContext *)-(int)param_1;
+              pTVar6 = (TextContext *)-(int)context;
             }
             ctx->nX = (int)&pTVar6->pUnused + ctx->nX;
           }
           else {
-            ctx->nX = (int)param_1 / 2 + ctx->nX;
+            ctx->nX = (int)context / 2 + ctx->nX;
           }
         }
         else {
@@ -904,18 +904,18 @@ LAB_004ab425:
         *outBreak = local_1c;
       }
       if (outWidth != (int *)0x0) {
-        *outWidth = (int)param_1;
+        *outWidth = (int)context;
       }
       return text;
     }
     if (((ch == 0x20) || (ch == 0xfe)) && ((uVar1 & 4) != 0)) {
-      param_1 = (TextContext *)((int)&pTVar6->pUnused + uVar4 + local_14);
-      if ((int)local_10 < (int)param_1) {
-        param_1 = pTVar6;
+      context = (TextContext *)((int)&pTVar6->pUnused + uVar4 + local_14);
+      if ((int)local_10 < (int)context) {
+        context = pTVar6;
         pcVar2 = (char *)local_c;
         if (local_1c == 0) {
           local_1c = iVar7 + local_18;
-          param_1 = (TextContext *)((int)&pTVar6->pUnused + uVar4 + local_14);
+          context = (TextContext *)((int)&pTVar6->pUnused + uVar4 + local_14);
           pcVar2 = text;
         }
       }
@@ -941,21 +941,21 @@ LAB_004ab425:
           if (ch != 0) goto LAB_004ab344;
         }
         local_1c = local_1c + iVar7;
-        param_1 = (TextContext *)((int)&param_1->pUnused + uVar4);
+        context = (TextContext *)((int)&context->pUnused + uVar4);
         pcVar2 = text;
       }
       goto LAB_004ab425;
     }
 LAB_004ab344:
     if ((ch == 0xd) || (ch == 10)) {
-      pTVar6 = (TextContext *)((int)&param_1->pUnused + uVar4 + local_14);
+      pTVar6 = (TextContext *)((int)&context->pUnused + uVar4 + local_14);
       if (((int)local_10 < (int)pTVar6) && ((uVar1 & 4) != 0)) {
         text = (char *)local_c;
         pcVar2 = text;
       }
       else {
         local_1c = local_1c + iVar7 + local_18;
-        param_1 = pTVar6;
+        context = pTVar6;
         pcVar2 = text;
         if ((ch == 0xd) && (*text == '\n')) {
           pcVar2 = text + 1;
@@ -968,7 +968,7 @@ LAB_004ab344:
     local_18 = local_18 + 1;
     cVar3 = Text_NextChar(&text);
     ch = ((uint)(byte)(cVar3));
-    pTVar6 = param_1;
+    pTVar6 = context;
   } while( true );
 }
 
@@ -1024,7 +1024,7 @@ void __cdecl Text_DrawString(TextContext *ctx,void *font,char *text)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  TextContext *ctx_00;
+  TextContext *context;
   char cVar2;
   int iVar3;
   undefined3 extraout_var;
@@ -1038,7 +1038,7 @@ void __cdecl Text_DrawString(TextContext *ctx,void *font,char *text)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  ctx_00 = ctx;
+  context = ctx;
   ch = 0;
   local_10 = ctx->dwFlags;
   g_bLookup = (undefined1)ctx->dwBgColor;
@@ -1047,15 +1047,15 @@ void __cdecl Text_DrawString(TextContext *ctx,void *font,char *text)
   DAT_008d097f = (undefined1)ctx->dwFgColor;
   if (text == (char *)0x0) {
 LAB_004ab6fb:
-    ctx_00->dwFlags = local_10;
+    context->dwFlags = local_10;
     return;
   }
   uVar5 = local_10 & 1;
   local_8 = uVar5;
   do {
-    local_c = (uint)text_FindNextBreak(ctx_00,font,text,(int *)&ctx,&local_14,0);
-    iVar1 = ctx_00->nX;
-    local_4 = ctx_00->nY;
+    local_c = (uint)text_FindNextBreak(context,font,text,(int *)&ctx,&local_14,0);
+    iVar1 = context->nX;
+    local_4 = context->nY;
     if (uVar5 == 0) {
       iVar3 = iVar1;
       pTVar4 = ctx;
@@ -1066,7 +1066,7 @@ LAB_004ab6fb:
 LAB_004ab66a:
       iVar3 = iVar1 - (int)pTVar4;
     }
-    ctx_00->nX = iVar3;
+    context->nX = iVar3;
     local_18 = 0;
     iVar3 = ch;
     if (0 < (int)local_14) {
@@ -1074,7 +1074,7 @@ LAB_004ab66a:
         cVar2 = Text_NextChar(&text);
         ch = ((uint)(byte)(cVar2));
         if ((iVar3 != 10) || (ch != 0xd)) {
-          Text_DrawChar(ctx_00,font,ch);
+          Text_DrawChar(context,font,ch);
         }
         local_18 = local_18 + 1;
         iVar3 = ch;
@@ -1082,9 +1082,9 @@ LAB_004ab66a:
       } while ((int)local_18 < (int)local_14);
     }
     if (local_c == 0) goto LAB_004ab6fb;
-    ctx_00->nX = iVar1;
-    ctx_00->nY = (*(int *)(*(int *)ctx_00->pFont + 4) * ctx_00->nScaleY + 0xffffU >> 0x10) + local_4
-    ;
+    context->nX = iVar1;
+    context->nY = (*(int *)(*(int *)context->pFont + 4) * context->nScaleY + 0xffffU >> 0x10) +
+                  local_4;
     text = (char *)local_c;
   } while( true );
 }

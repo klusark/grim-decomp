@@ -88,7 +88,7 @@ void __cdecl sputActor_UpdateActors(float dt)
             actor->pExtra->nCollided = 0;
           }
           if ((actor->pCostumes != (CostumeNode *)0x0) &&
-             (actor->pCostumes->pMainModel != (void *)0x0)) {
+             (actor->pCostumes->pMainModel != (rdThing *)0x0)) {
             (&g_pDrawableActors)[g_nTotActors] = actor;
             g_nTotActors = g_nTotActors + 1;
           }
