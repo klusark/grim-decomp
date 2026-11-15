@@ -252,6 +252,7 @@ void * __cdecl sputResource_ColormapHandler(int *param_1)
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
+  rdColormap *data;
   void *pvVar2;
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
@@ -287,13 +288,11 @@ void * __cdecl sputResource_ColormapHandler(int *param_1)
   }
   iVar1 = *param_1;
   if (iVar1 == 1) {
-    pvVar2 = rdColormap_Load((char *)param_1[1]);
-    if (pvVar2 != (void *)0x0) {
-      rdColormap_BuildRGB16
-                (*(undefined2 **)((int)pvVar2 + 0x348),(ushort *)((int)pvVar2 + 0x30),0,0,0,
-                 (int)&local_38);
-      sputRender_ColorCorrect(*(ushort **)((int)pvVar2 + 0x348),0x4000);
-      pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
+    data = rdColormap_Load((char *)param_1[1]);
+    if (data != (rdColormap *)0x0) {
+      rdColormap_BuildRGB16(data->pRGB16,(ushort *)data->aPalette,0,0,0,(int)&local_38);
+      sputRender_ColorCorrect(data->pRGB16,0x4000);
+      pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],data);
       return pvVar2;
     }
   }
@@ -428,7 +427,7 @@ void * __cdecl sputResource_KeyframeHandler(int *param_1)
 void * __cdecl sputResource_MaterialHandler(int *param_1)
 
 {
-  void *material;
+  rdMaterial *material;
   int iVar1;
   void *pvVar2;
   
@@ -438,8 +437,9 @@ void * __cdecl sputResource_MaterialHandler(int *param_1)
   }
   iVar1 = *param_1;
   if (iVar1 == 1) {
-    material = (void *)(**(code **)(g_dwSputResHS + 0x20))
-                                 (0xb0,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0x49f);
+    material = (rdMaterial *)
+               (**(code **)(g_dwSputResHS + 0x20))
+                         (0xb0,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0x49f);
     iVar1 = rdMaterial_LoadEntry((char *)param_1[1],material,0,0);
     if (iVar1 == 0) {
       iVar1 = rdMaterial_LoadEntry(s_dflt_mat_004e9c68,material,0,0);

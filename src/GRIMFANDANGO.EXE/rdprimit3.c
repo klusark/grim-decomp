@@ -52,7 +52,7 @@ ProcEntry * __cdecl rdCache_InsertFace(float *verts,int count,void *material)
     do {
       rdMatrix_TransformPoint34
                 (pfVar5,(float *)(((int)verts - (int)&local_300) + (int)pfVar5),
-                 (float *)((int)g_pRdCamera_CurCamera + 8));
+                 g_pRdCamera_CurCamera->aView);
       local_330[0] = local_330[0] + *pfVar5;
       iVar4 = iVar4 + -1;
       local_330[1] = pfVar5[1] + local_330[1];
@@ -61,11 +61,11 @@ ProcEntry * __cdecl rdCache_InsertFace(float *verts,int count,void *material)
     } while (iVar4 != 0);
   }
   fVar1 = (float)count;
-  vertexCount = rdClip_Face3S(*(int **)((int)g_pRdCamera_CurCamera + 0x48),&local_300,count);
+  vertexCount = rdClip_Face3S(&g_pRdCamera_CurCamera->pFrustum->nClipFar,&local_300,count);
   if ((int)vertexCount < 3) {
     return (ProcEntry *)0x0;
   }
-  (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_180,&local_300,vertexCount);
+  (*g_pRdCamera_CurCamera->pfnProjectLst)(local_180,&local_300,vertexCount);
   pPVar2 = rdCache_GetProcEntry();
   pPVar2->dwExtraData = 0;
   pPVar2->flLightIndex = 0.0;
@@ -149,12 +149,12 @@ rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,u
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  rdMatrix_TransformPoint34(local_18,a,(float *)((int)g_pRdCamera_CurCamera + 8));
-  rdMatrix_TransformPoint34(local_c,b,(float *)((int)g_pRdCamera_CurCamera + 8));
-  iVar1 = rdClip_Line3(*(void **)((int)g_pRdCamera_CurCamera + 0x48),local_18,local_c,clipA,clipB);
+  rdMatrix_TransformPoint34(local_18,a,g_pRdCamera_CurCamera->aView);
+  rdMatrix_TransformPoint34(local_c,b,g_pRdCamera_CurCamera->aView);
+  iVar1 = rdClip_Line3(g_pRdCamera_CurCamera->pFrustum,local_18,local_c,clipA,clipB);
   if (iVar1 != 0) {
-    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(&local_30,local_18);
-    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(&fStack_24,local_c);
+    (*g_pRdCamera_CurCamera->pfnProject)(&local_30,local_18);
+    (*g_pRdCamera_CurCamera->pfnProject)(&fStack_24,local_c);
     lVar2 = FTOL((float10)local_30);
     lVar3 = FTOL((float10)fStack_2c);
     if (outA != (int *)0x0) {
@@ -169,8 +169,8 @@ rdPrimit3_DrawLine(float *a,float *b,int *outA,int *outB,int *clipA,int *clipB,u
       outB[1] = (int)lVar5;
       outB[2] = iStack_1c;
     }
-    rdCanvas_DrawLine(*(void **)((int)g_pRdCamera_CurCamera + 4),(int)lVar2,(int)lVar3,(int)lVar4,
-                      (int)lVar5,(ushort)color,pattern);
+    rdCanvas_DrawLine(g_pRdCamera_CurCamera->pCanvas,(int)lVar2,(int)lVar3,(int)lVar4,(int)lVar5,
+                      (ushort)color,pattern);
     return 1;
   }
   return 0;
@@ -202,19 +202,18 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
   #define fStack_14 (*(float *)(_frame + (0x40 - 0x14)))
   #define afStack_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  rdMatrix_TransformPoint34(&local_30,world,(float *)((int)g_pRdCamera_CurCamera + 8));
+  rdMatrix_TransformPoint34(&local_30,world,g_pRdCamera_CurCamera->aView);
   local_24[0] = local_30 + radius;
   local_24[1] = local_2c[0];
   local_24[2] = local_2c[1];
   if (0.0 < local_2c[0]) {
-    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(&local_18,&local_30);
-    (**(code **)((int)g_pRdCamera_CurCamera + 0x4c))(afStack_c,local_24);
+    (*g_pRdCamera_CurCamera->pfnProject)(&local_18,&local_30);
+    (*g_pRdCamera_CurCamera->pfnProject)(afStack_c,local_24);
     fVar3 = afStack_c[0] - local_18;
     lVar2 = FTOL((float10)fStack_14 - (float10)-0.5);
     iVar1 = (int)lVar2;
     lVar2 = FTOL((float10)local_18 - (float10)-0.5);
-    rdCanvas_DrawPoint(*(void **)((int)g_pRdCamera_CurCamera + 4),(int)lVar2,iVar1,PUN(uint,(float)fVar3),
-                       PUN(float,a3),a4,a5);
+    rdCanvas_DrawPoint(g_pRdCamera_CurCamera->pCanvas,(int)lVar2,iVar1,PUN(uint,(float)fVar3),PUN(float,a3),a4,a5);
   }
   return;
 }
@@ -284,7 +283,7 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
         puVar10[2] = puVar8[2];
       } while (uVar7 < *param_5);
     }
-    if (*(int *)g_pRdCamera_CurCamera != 1) {
+    if (g_pRdCamera_CurCamera->nProjectType != 1) {
       uVar7 = rdClip_Face3WOrtho((int *)param_1,(float *)param_6[3],*param_5);
       *param_6 = uVar7;
       return;
@@ -377,7 +376,7 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
           } while (uVar7 < *param_5);
         }
       }
-      if (*(int *)g_pRdCamera_CurCamera != 1) {
+      if (g_pRdCamera_CurCamera->nProjectType != 1) {
         uVar7 = rdClip_Face3GSOrtho((int *)param_1,(float *)param_6[3],(float *)param_6[5],*param_5)
         ;
         *param_6 = uVar7;
@@ -416,7 +415,7 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
             *(float *)(param_6[4] + 4 + iVar3) = *(float *)(param_6[4] + 4 + iVar9) + param_7[1];
           } while (uVar7 < *puVar5);
         }
-        if (*(int *)g_pRdCamera_CurCamera == 1) {
+        if (g_pRdCamera_CurCamera->nProjectType == 1) {
           rdClip_Face3T((int *)param_1,(float *)param_6[3],(float *)param_6[4],(float *)*puVar5);
           *param_6 = extraout_EAX_01;
           return;
@@ -494,7 +493,7 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
             } while (param_5 < (uint *)*puVar5);
           }
         }
-        if (*(int *)g_pRdCamera_CurCamera != 1) {
+        if (g_pRdCamera_CurCamera->nProjectType != 1) {
           uVar7 = rdClip_Face3GTOrtho((int *)param_1,(float *)puVar6[3],(uint *)puVar6[4],
                                       (uint *)puVar6[5],*puVar5);
           *puVar6 = uVar7;
@@ -510,7 +509,7 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
 switchD_0040dec1_default:
     return;
   }
-  if (*(int *)g_pRdCamera_CurCamera != 1) {
+  if (g_pRdCamera_CurCamera->nProjectType != 1) {
     uVar7 = rdClip_Face3SOrtho((int *)param_1,(float *)param_6[3],*param_5);
     *param_6 = uVar7;
     return;

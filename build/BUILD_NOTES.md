@@ -1926,3 +1926,18 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   as `Set * (void)`), sputRoom_LoadRoom, the sputRoom_* functions taking a set, the ObjectState / ObjectStateImage
   methods. set.c: 85 offset accesses -> 30, objstate.c 83 -> 13, lua.c 43 -> 7, engine.c 13 -> 7.
 * Clean room 0 of 5457.
+
+## Renderer types: camera, clip frustum, thing, mesh, material, colormap (2026-11-14)
+
+* names/types_render.json: rdCamera (0x464: projection type, canvas, view matrix, fov, aspect, frustum, the two
+  projection functions, ambient light, 64 lights and their positions, attenuation), rdClipFrustum (0x34), rdThing
+  (0x4c: type, model, puppet, the per-node hierarchy arrays, geoset, mode limits, owner), rdMesh (name, modes, vertex /
+  texture-vertex / face arrays and counts, radius), rdMaterial (0xb0: type, name, cels), rdColormap (0x350: name,
+  flags, tint, palette, light-level / transparency / 16-bit tables) and rdLight's two attenuation fields. Sizes checked
+  against the allocations (0x464, 0x34, 0x4c, 0xb0, 0x350). g_pRdCamera_CurCamera, g_pCurThing, g_pCurMesh and the
+  camera / clip / thing / material / colormap functions. The EXE: 721 offset accesses -> 530.
+* The projection pointers are `code *` (as `void *` the calls through them did not compile: rdPrimit3_GetScreenCoord,
+  rdModel3_DrawFace, rdSprite_Draw, ... became trap stubs until they were retyped).
+* build_src.py: a cast of a float member to a pointer (`(void *)cam->flAmbientLight`, a reused pointer slot in
+  rdSprite_DrawThing) is a PUN: C has no float -> pointer conversion.
+* Clean room 0 of 5457.

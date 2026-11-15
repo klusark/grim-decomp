@@ -37,12 +37,12 @@ void __cdecl sputRender_DrawDebuggingToggle(void)
     g_dwDebugFlags = g_dwDebugFlags & 0xfffffffe;
   }
   if ((g_dwDebugFlags & 1) == 0) {
-    local_10 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x18);
-    local_c = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c);
-    local_8 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x20) -
-              *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x18)) + 1;
-    local_4 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x24) -
-              *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c)) + 1;
+    local_10 = *(uint *)((int)g_pRdCamera_CurCamera->pCanvas + 0x18);
+    local_c = *(uint *)((int)g_pRdCamera_CurCamera->pCanvas + 0x1c);
+    local_8 = (*(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x20) -
+              *(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x18)) + 1;
+    local_4 = (*(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x24) -
+              *(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x1c)) + 1;
     bufferIdx = 0;
     if (0 < g_nNumPages) {
       do {
@@ -270,7 +270,7 @@ sputRender_SetDisplay
     pSVar1 = sputRoom_GetCurrentRoom();
     if (pSVar1 != (Set *)0x0) {
       rdCamera_SetAmbientLight
-                (*(void **)&pSVar1->pSetups[pSVar1->nCurSetup].field_0x48,g_flAmbientLight);
+                (*(rdCamera **)&pSVar1->pSetups[pSVar1->nCurSetup].field_0x48,g_flAmbientLight);
     }
     UINT_008c9780 = (uint)&DAT_00905600;
     Render_InitColorConstants(((unsigned)(uintptr_t)&g_dwRdColormap_colorInfo));
@@ -772,17 +772,18 @@ void __cdecl sputRender_ReverseProject(int x,int y,float *outPos)
   #define local_c (*(float *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(float (*)[2])(_frame + (0x20 - 0x8)))
   
-  if ((g_pRdCamera_CurCamera != (void *)0x0) && (*(int *)((int)g_pRdCamera_CurCamera + 4) != 0)) {
+  if ((g_pRdCamera_CurCamera != (rdCamera *)0x0) && (g_pRdCamera_CurCamera->pCanvas != (void *)0x0))
+  {
     fVar2 = (float)(int)((uint)*(ushort *)
                                 (*(int *)(UINT_008c97a4 + 0x5c) +
                                 (*(int *)(UINT_008c97a4 + 0xc) * y + x) * 2) <<
-                        ((byte)*(undefined4 *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x14) &
-                        0x1f)) * 1.5258789e-05f;
-    fVar1 = *(float *)((int)g_pRdCamera_CurCamera + 0x3c) * fVar2;
+                        ((byte)*(undefined4 *)((int)g_pRdCamera_CurCamera->pCanvas + 0x14) & 0x1f))
+            * 1.5258789e-05;
+    fVar1 = g_pRdCamera_CurCamera->flFovY * fVar2;
     local_8[0] = 1.0 / fVar2 - 1.0;
-    local_c = (1.0 / fVar1) * ((float)x - *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 8));
-    local_8[1] = (-1.0 / fVar1) *
-                 ((float)y - *(float *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0xc));
+    local_c = (1.0 / fVar1) * ((float)x - *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 8));
+    local_8[1] = (-1.0 / fVar1) * ((float)y - *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 0xc))
+    ;
     rdMatrix_TransformPoint34(outPos,&local_c,g_pSputRender_Camera + 0xc);
   }
   return;
@@ -822,12 +823,12 @@ void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
       if ((redrawDepth != 0) && ((pSVar1->zBackground).dwHandle != 0)) {
         g_dwRenderFlags = g_dwRenderFlags & 0xfffffffd;
       }
-      local_10 = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x18);
-      local_c = *(uint *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c);
-      local_8 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x20) -
-                *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x18)) + 1;
-      local_4 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x24) -
-                *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c)) + 1;
+      local_10 = *(uint *)((int)g_pRdCamera_CurCamera->pCanvas + 0x18);
+      local_c = *(uint *)((int)g_pRdCamera_CurCamera->pCanvas + 0x1c);
+      local_8 = (*(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x20) -
+                *(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x18)) + 1;
+      local_4 = (*(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x24) -
+                *(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x1c)) + 1;
       iVar3 = 0;
       if (0 < g_nNumPages) {
         do {

@@ -235,7 +235,7 @@
 | 0049fe40 | sputLua_SnapToPlane | lua.c | 38 |
 | 0049ff00 | sputLua_GetAngleBetweenVectorsL | lua.c | 64 |
 | 004a00a0 | sputLua_GetAngleBetweenActorsL | lua.c | 72 |
-| 004a0230 | sputLua_SetAmbientLight | lua.c | 27 |
+| 004a0230 | sputLua_SetAmbientLight | lua.c | 28 |
 | 004a0290 | sputLua_FindLight | lua.c | 30 |
 | 004a02f0 | sputLua_TurnLightOn | lua.c | 37 |
 | 004a0380 | sputLua_IsLightOn | lua.c | 35 |
@@ -457,7 +457,7 @@
 | 00404350 | rdroid_SetColormap | rdroid.c | 11 |
 | 00404b80 | rdRaster_Startup | rdroid.c | 37 |
 | 00404380 | rdColormap_SetCurrent | rdcolormap.c | 9 |
-| 004043c0 | rdColormap_Load | rdcolormap.c | 26 |
+| 004043c0 | rdColormap_Load | rdcolormap.c | 29 |
 | 00404420 | rdColormap_LoadEntry | rdcolormap.c | 141 |
 | 00404730 | rdColormap_Free | rdcolormap.c | 7 |
 | 00404750 | rdColormap_FreeEntry | rdcolormap.c | 23 |
@@ -494,14 +494,14 @@
 | 00409d20 | rdCache_ProcFaceCompare | rdmodel.c | 14 |
 | 0040d140 | rdModel3_DrawHNode | rdmodel.c | 44 |
 | 0040d230 | rdModel3_DrawMeshImpl | rdmodel.c | 1 |
-| 0040d880 | rdModel3_DrawFace | rdmodel.c | 174 |
+| 0040d880 | rdModel3_DrawFace | rdmodel.c | 175 |
 | 00409d50 | rdCache_InsertFace | rdprimit3.c | 1 |
 | 0040dcc0 | rdPrimit3_DrawLine | rdprimit3.c | 58 |
-| 0040dde0 | rdPrimit3_DrawPoint | rdprimit3.c | 39 |
+| 0040dde0 | rdPrimit3_DrawPoint | rdprimit3.c | 38 |
 | 0040deb0 | rdPrimit3_ClipFace | rdprimit3.c | 1 |
 | 0040e500 | rdPrimit3_NoClipFace | rdprimit3.c | 1 |
-| 00409f50 | rdCamera_New | rdcamera.c | 14 |
-| 00409fb0 | rdCamera_NewEntry | rdcamera.c | 37 |
+| 00409f50 | rdCamera_New | rdcamera.c | 15 |
+| 00409fb0 | rdCamera_NewEntry | rdcamera.c | 38 |
 | 0040a080 | rdCamera_Free | rdcamera.c | 11 |
 | 0040a0a0 | rdCamera_FreeEntry | rdcamera.c | 12 |
 | 0040a0c0 | rdCamera_SetCanvas | rdcamera.c | 7 |
@@ -567,7 +567,7 @@
 | 00471a80 | rdThing_NewEntry | rdthing.c | 27 |
 | 00471af0 | rdThing_Free | rdthing.c | 9 |
 | 00471b10 | rdThing_FreeEntry | rdthing.c | 43 |
-| 00471bd0 | rdThing_SetModel3 | rdthing.c | 74 |
+| 00471bd0 | rdThing_SetModel3 | rdthing.c | 73 |
 | 00471d40 | rdThing_SetCamera | rdthing.c | 9 |
 | 00471d60 | rdThing_SetPolyline | rdthing.c | 10 |
 | 00471d80 | rdThing_Draw | rdthing.c | 32 |
@@ -946,8 +946,8 @@
 | 004710e0 | rdRaster_Span16_TexZw_13 | rdraster.c | 1 |
 | 00417e90 | rdMaterial_RegisterLoader | rdmaterial.c | 13 |
 | 00417ea0 | rdMaterial_RegisterUnloader | rdmaterial.c | 12 |
-| 00417eb0 | rdMaterial_Load | rdmaterial.c | 21 |
-| 00417f30 | rdMaterial_LoadEntry | rdmaterial.c | 216 |
+| 00417eb0 | rdMaterial_Load | rdmaterial.c | 22 |
+| 00417f30 | rdMaterial_LoadEntry | rdmaterial.c | 219 |
 | 00418360 | rdMaterial_Free | rdmaterial.c | 11 |
 | 004183a0 | rdMaterial_FreeEntry | rdmaterial.c | 59 |
 | 004184a0 | rdMaterial_AddToTextureCache | rdmaterial.c | 34 |
@@ -1021,7 +1021,7 @@
 | 00488c00 | Pool_Grow | memory.c | 35 |
 | 00471ee0 | rdPolyline_Draw | rdprimitive.c | 111 |
 | 00472360 | rdPolyline_DrawFace | rdprimitive.c | 158 |
-| 00472640 | rdSprite_DrawThing | rdprimitive.c | 94 |
+| 00472640 | rdSprite_DrawThing | rdprimitive.c | 93 |
 | 004728a0 | rdSprite_New | rdprimitive.c | 20 |
 | 00472910 | rdSprite_NewEntry | rdprimitive.c | 96 |
 | 00472b50 | rdSprite_Free | rdprimitive.c | 9 |
@@ -1258,10 +1258,10 @@
 | 0048d8c0 | sputResource_LipSyncHandler | restype.c | 34 |
 | 0048d930 | sputResource_BackgroundHandler | restype.c | 57 |
 | 0048da40 | sputResource_CostumeHandler | restype.c | 34 |
-| 0048dab0 | sputResource_ColormapHandler | restype.c | 83 |
+| 0048dab0 | sputResource_ColormapHandler | restype.c | 82 |
 | 0048dbd0 | sputResource_FontHandler | restype.c | 37 |
 | 0048dc60 | sputResource_KeyframeHandler | restype.c | 52 |
-| 0048dd20 | sputResource_MaterialHandler | restype.c | 45 |
+| 0048dd20 | sputResource_MaterialHandler | restype.c | 46 |
 | 0048de10 | sputResource_ModelHandler | restype.c | 34 |
 | 0048de70 | sputResource_SetHandler | restype.c | 34 |
 | 0048dee0 | sputResource_ZBufferHandler | restype.c | 33 |
@@ -1345,7 +1345,7 @@
 | 004a4c60 | sputRoom_FreeRoomEntry | set.c | 33 |
 | 004a4d10 | Set_FreeSetups | set.c | 24 |
 | 004a4d80 | Set_FreeSetup | set.c | 16 |
-| 004a4fe0 | sputRoom_LoadResources | set.c | 165 |
+| 004a4fe0 | sputRoom_LoadResources | set.c | 167 |
 | 004a54a0 | Set_RegisterHandle | set.c | 23 |
 | 004a5500 | Set_FindHandle | set.c | 24 |
 | 004a55d0 | Set_IsHandleValid | set.c | 14 |
@@ -1386,7 +1386,7 @@
 | 00485bd0 | Render_DrawDebugGrid | render.c | 67 |
 | 00486100 | Render_CanvasIsPaletted | render.c | 5 |
 | 00486120 | Render_BuildActorDrawList | render.c | 58 |
-| 004862e0 | sputRender_ReverseProject | render.c | 31 |
+| 004862e0 | sputRender_ReverseProject | render.c | 32 |
 | 004863b0 | sputRender_PreRendered | render.c | 52 |
 | 004864a0 | Render_BuildColorTable | render.c | 1 |
 | 00486620 | sputRender_ColorCorrect | render.c | 38 |

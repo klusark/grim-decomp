@@ -8311,7 +8311,8 @@ void __cdecl sputLua_SetAmbientLight(void)
     pSVar3 = sputRoom_GetCurrentRoom();
     if (pSVar3 != (Set *)0x0) {
       ambient = lua_getnumber(iVar1);
-      rdCamera_SetAmbientLight(*(void **)&pSVar3->pSetups[pSVar3->nCurSetup].field_0x48,ambient);
+      ((int (*)(rdCamera *, float))rdCamera_SetAmbientLight)(*(rdCamera **)&pSVar3->pSetups[pSVar3->nCurSetup].field_0x48,ambient)
+      ;
     }
   }
   return;

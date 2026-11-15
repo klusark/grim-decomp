@@ -253,15 +253,15 @@ void __cdecl LightEd_AddLight(void)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   undefined4 *puVar2;
-  void *pvVar3;
-  char cVar4;
+  rdLight *light;
+  char cVar3;
   int a4;
-  void *pvVar5;
+  void *pvVar4;
+  uint uVar5;
   uint uVar6;
-  uint uVar7;
-  int iVar8;
+  int iVar7;
+  char *pcVar8;
   char *pcVar9;
-  char *pcVar10;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
   
@@ -271,68 +271,68 @@ void __cdecl LightEd_AddLight(void)
   }
   a4 = *(int *)((int)g_pLightEdSet + 0xb8);
   LightEd_MakeUniqueName((int)g_pLightEdSet,local_20);
-  uVar6 = 0xffffffff;
-  iVar8 = a4 * 0x68;
-  pcVar9 = local_20;
+  uVar5 = 0xffffffff;
+  iVar7 = a4 * 0x68;
+  pcVar8 = local_20;
   do {
-    pcVar10 = pcVar9;
-    if (uVar6 == 0) break;
-    uVar6 = uVar6 - 1;
-    pcVar10 = pcVar9 + 1;
-    cVar4 = *pcVar9;
-    pcVar9 = pcVar10;
-  } while (cVar4 != '\0');
-  uVar6 = ~uVar6;
-  pcVar9 = pcVar10 + -uVar6;
-  pcVar10 = (char *)((int)g_pLightEdSet + iVar8 + 0xbc);
-  for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
-    *(undefined4 *)pcVar10 = *(undefined4 *)pcVar9;
+    pcVar9 = pcVar8;
+    if (uVar5 == 0) break;
+    uVar5 = uVar5 - 1;
+    pcVar9 = pcVar8 + 1;
+    cVar3 = *pcVar8;
+    pcVar8 = pcVar9;
+  } while (cVar3 != '\0');
+  uVar5 = ~uVar5;
+  pcVar8 = pcVar9 + -uVar5;
+  pcVar9 = (char *)((int)g_pLightEdSet + iVar7 + 0xbc);
+  for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+    *(undefined4 *)pcVar9 = *(undefined4 *)pcVar8;
+    pcVar8 = pcVar8 + 4;
     pcVar9 = pcVar9 + 4;
-    pcVar10 = pcVar10 + 4;
   }
-  for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-    *pcVar10 = *pcVar9;
+  for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+    *pcVar9 = *pcVar8;
+    pcVar8 = pcVar8 + 1;
     pcVar9 = pcVar9 + 1;
-    pcVar10 = pcVar10 + 1;
   }
-  uVar6 = 0;
+  uVar5 = 0;
   puVar1 = (undefined4 *)
            (*(int *)((int)g_pLightEdSet + 0xac) + 0x2c + *(int *)((int)g_pLightEdSet + 0xb4) * 300);
-  puVar2 = (undefined4 *)((int)g_pLightEdSet + iVar8 + 0xdc);
+  puVar2 = (undefined4 *)((int)g_pLightEdSet + iVar7 + 0xdc);
   *puVar2 = *puVar1;
   puVar2[1] = puVar1[1];
   puVar2[2] = puVar1[2];
   *(int *)((int)g_pLightEdSet + 0xb8) = *(int *)((int)g_pLightEdSet + 0xb8) + 1;
-  pvVar3 = g_pLightEdSet;
-  *(undefined4 *)((int)g_pLightEdSet + iVar8 + 0xec) = 2;
-  *(undefined4 *)((int)pvVar3 + iVar8 + 0xf0) = 1;
-  pvVar3 = (void *)((int)pvVar3 + iVar8 + 0xe8);
-  *(undefined4 *)((int)pvVar3 + 0xc) = 0;
-  *(undefined4 *)((int)pvVar3 + 0x10) = 0;
-  *(undefined4 *)((int)pvVar3 + 0x14) = 0;
-  *(undefined4 *)((int)pvVar3 + 0x18) = 0x3f800000;
-  *(undefined4 *)((int)pvVar3 + 0x1c) = 0xffffff;
-  *(undefined4 *)((int)pvVar3 + 0x20) = 0;
-  *(undefined4 *)((int)pvVar3 + 0x24) = 0;
-  *(undefined4 *)((int)pvVar3 + 0x28) = 0;
-  *(undefined4 *)((int)pvVar3 + 0x2c) = 0;
-  pvVar5 = g_pLightEdSet;
-  (&UINT_008d1730)[a4 * 5] = (int)g_pLightEdSet + iVar8 + 0xbc;
+  pvVar4 = g_pLightEdSet;
+  *(undefined4 *)((int)g_pLightEdSet + iVar7 + 0xec) = 2;
+  *(undefined4 *)((int)pvVar4 + iVar7 + 0xf0) = 1;
+  light = (rdLight *)((int)pvVar4 + iVar7 + 0xe8);
+  light->aDirection[0] = 0.0;
+  light->aDirection[1] = 0.0;
+  light->aDirection[2] = 0.0;
+  light->flIntensity = 1.0;
+  light->dwColor = 0xffffff;
+  light->flInnerAngle = 0.0;
+  light->flCosInner = 0.0;
+  light->flOuterAngle = 0.0;
+  light->flCosOuter = 0.0;
+  pvVar4 = g_pLightEdSet;
+  (&UINT_008d1730)[a4 * 5] = (int)g_pLightEdSet + iVar7 + 0xbc;
   (&UINT_008d1734)[a4 * 5] = 1;
   (&UINT_008d1738)[a4 * 5] = 0;
   (&UINT_008d173c)[a4 * 5] = 0;
   (&UINT_008d1740)[a4 * 5] = 0;
-  if (*(int *)((int)pvVar5 + 0xb0) != 0) {
+  if (*(int *)((int)pvVar4 + 0xb0) != 0) {
     local_24 = 0;
     do {
-      rdCamera_AddLight(*(void **)(*(int *)((int)pvVar5 + 0xac) + 0x48 + local_24),pvVar3,
-                        (float *)((int)pvVar5 + iVar8 + 0xdc));
-      uVar6 = uVar6 + 1;
+      rdCamera_AddLight(*(rdCamera **)(*(int *)((int)pvVar4 + 0xac) + 0x48 + local_24),light,
+                        (float *)((int)pvVar4 + iVar7 + 0xdc));
+      uVar5 = uVar5 + 1;
       local_24 = local_24 + 300;
-      pvVar5 = g_pLightEdSet;
-    } while (uVar6 < *(uint *)((int)g_pLightEdSet + 0xb0));
+      pvVar4 = g_pLightEdSet;
+    } while (uVar5 < *(uint *)((int)g_pLightEdSet + 0xb0));
   }
-  SendDlgItemMessageA((int)g_hLightEdDialog,1000,0x180,0,(int)pvVar5 + iVar8 + 0xbc);
+  SendDlgItemMessageA((int)g_hLightEdDialog,1000,0x180,0,(int)pvVar4 + iVar7 + 0xbc);
   SendDlgItemMessageA((int)g_hLightEdDialog,1000,0x186,a4,0);
   LightEd_UpdateDialog((int)g_hLightEdDialog);
   return;

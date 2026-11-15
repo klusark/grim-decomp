@@ -73,7 +73,7 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
   byte *extraout_EAX_00;
   int iVar4;
   undefined4 *ref;
-  void *thing;
+  rdThing *thing;
   undefined4 *puVar5;
   int iVar6;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
@@ -125,10 +125,10 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
     puVar5 = puVar5 + 1;
   }
   Res_SetReference(ref,pvVar1,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa91);
-  thing = (void *)rdThing_New(0);
+  thing = (rdThing *)rdThing_New(0);
   rdThing_SetModel3(thing,pvVar1);
   puVar5 = rdPuppet_New(thing);
-  *(undefined4 **)((int)thing + 0x14) = puVar5;
+  thing->pPuppet = puVar5;
   ref[0x10] = thing;
   ref[0xf] = *(undefined4 *)(componentIdx + 0x34);
   if (-1 < local_4) {

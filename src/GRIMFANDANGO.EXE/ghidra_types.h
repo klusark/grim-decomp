@@ -259,10 +259,15 @@ typedef struct WalkPlane WalkPlane;
 typedef struct WalkPlaneCache WalkPlaneCache;
 typedef struct WalkVertex WalkVertex;
 typedef struct WalkVertexCache WalkVertexCache;
+typedef struct rdCamera rdCamera;
+typedef struct rdClipFrustum rdClipFrustum;
+typedef struct rdColormap rdColormap;
 typedef struct rdGeoset rdGeoset;
 typedef struct rdLight rdLight;
+typedef struct rdMaterial rdMaterial;
 typedef struct rdMesh rdMesh;
 typedef struct rdModel3 rdModel3;
+typedef struct rdThing rdThing;
 
 /* Actor: One record of g_pActors (sputActor.cpp); a handle is the index (sputActor_AllocateActor, sputActor_GetActorHandle). Grows by 0x20 records. */
 struct Actor {  /* 0xa8 */
@@ -833,7 +838,8 @@ struct rdLight {  /* 0x3c */
     float flOuterAngle;  /* 0x28: spot cone outer angle (the Lua penumbra) */
     float flCosOuter;  /* 0x2c: cos(outer) */
     float flConeScale;  /* 0x30: 1 / (cos inner - cos outer), set only when that is positive */
-    uint8_t field_0x34, field_0x35, field_0x36, field_0x37, field_0x38, field_0x39, field_0x3a, field_0x3b;
+    float flFalloffMin;  /* 0x34: intensity / camera attenuationMin (rdCamera_AddLight) */
+    float flFalloffMax;  /* 0x38: intensity / camera attenuationMax */
 };
 _Static_assert(__builtin_offsetof(rdLight, dwId) == 0x0, "rdLight.dwId");
 _Static_assert(__builtin_offsetof(rdLight, nType) == 0x4, "rdLight.nType");
@@ -846,6 +852,8 @@ _Static_assert(__builtin_offsetof(rdLight, flCosInner) == 0x24, "rdLight.flCosIn
 _Static_assert(__builtin_offsetof(rdLight, flOuterAngle) == 0x28, "rdLight.flOuterAngle");
 _Static_assert(__builtin_offsetof(rdLight, flCosOuter) == 0x2c, "rdLight.flCosOuter");
 _Static_assert(__builtin_offsetof(rdLight, flConeScale) == 0x30, "rdLight.flConeScale");
+_Static_assert(__builtin_offsetof(rdLight, flFalloffMin) == 0x34, "rdLight.flFalloffMin");
+_Static_assert(__builtin_offsetof(rdLight, flFalloffMax) == 0x38, "rdLight.flFalloffMax");
 _Static_assert(sizeof(rdLight) == 0x3c, "sizeof rdLight");
 /* SetLight: A named light of a set (0x68 bytes, the array at set+0xbc). */
 struct SetLight {  /* 0x68 */
@@ -1242,6 +1250,96 @@ struct WalkVertexCache {  /* 0x14 */
 _Static_assert(__builtin_offsetof(WalkVertexCache, nIndex) == 0x0, "WalkVertexCache.nIndex");
 _Static_assert(__builtin_offsetof(WalkVertexCache, vert) == 0x4, "WalkVertexCache.vert");
 _Static_assert(sizeof(WalkVertexCache) == 0x14, "sizeof WalkVertexCache");
+/* rdCamera: A camera of the renderer (0x464 bytes). */
+struct rdCamera {  /* 0x464 */
+    int nProjectType;  /* 0x00: 0 orthographic, 1 perspective */
+    void *pCanvas;  /* 0x04: rdCanvas (rdCamera_SetCanvas) */
+    float aView[12];  /* 0x08: view matrix (rdMatrix34, rdCamera_Update) */
+    float flFov;  /* 0x38: degrees, 5 .. 179 */
+    float flFovY;  /* 0x3c */
+    float flAspect;  /* 0x40: rdCamera_SetAspectRatio's zoom; 1 picks the square projections */
+    float flOrthoScale;  /* 0x44: 1.0 */
+    rdClipFrustum *pFrustum;  /* 0x48 */
+    code *pfnProject;  /* 0x4c: projects one point (rdCamera_PerspProject ...) */
+    code *pfnProjectLst;  /* 0x50: projects a list */
+    float flAmbientLight;  /* 0x54 */
+    uint dwNumLights;  /* 0x58: up to 64 */
+    rdLight *aLights[64];  /* 0x5c */
+    float aLightPositions[192];  /* 0x15c: 3 floats per light */
+    float flAttenuationMin;  /* 0x45c: 0.2 */
+    float flAttenuationMax;  /* 0x460: 0.1 */
+};
+_Static_assert(__builtin_offsetof(rdCamera, nProjectType) == 0x0, "rdCamera.nProjectType");
+_Static_assert(__builtin_offsetof(rdCamera, pCanvas) == 0x4, "rdCamera.pCanvas");
+_Static_assert(__builtin_offsetof(rdCamera, aView) == 0x8, "rdCamera.aView");
+_Static_assert(__builtin_offsetof(rdCamera, flFov) == 0x38, "rdCamera.flFov");
+_Static_assert(__builtin_offsetof(rdCamera, flFovY) == 0x3c, "rdCamera.flFovY");
+_Static_assert(__builtin_offsetof(rdCamera, flAspect) == 0x40, "rdCamera.flAspect");
+_Static_assert(__builtin_offsetof(rdCamera, flOrthoScale) == 0x44, "rdCamera.flOrthoScale");
+_Static_assert(__builtin_offsetof(rdCamera, pFrustum) == 0x48, "rdCamera.pFrustum");
+_Static_assert(__builtin_offsetof(rdCamera, pfnProject) == 0x4c, "rdCamera.pfnProject");
+_Static_assert(__builtin_offsetof(rdCamera, pfnProjectLst) == 0x50, "rdCamera.pfnProjectLst");
+_Static_assert(__builtin_offsetof(rdCamera, flAmbientLight) == 0x54, "rdCamera.flAmbientLight");
+_Static_assert(__builtin_offsetof(rdCamera, dwNumLights) == 0x58, "rdCamera.dwNumLights");
+_Static_assert(__builtin_offsetof(rdCamera, aLights) == 0x5c, "rdCamera.aLights");
+_Static_assert(__builtin_offsetof(rdCamera, aLightPositions) == 0x15c, "rdCamera.aLightPositions");
+_Static_assert(__builtin_offsetof(rdCamera, flAttenuationMin) == 0x45c, "rdCamera.flAttenuationMin");
+_Static_assert(__builtin_offsetof(rdCamera, flAttenuationMax) == 0x460, "rdCamera.flAttenuationMax");
+_Static_assert(sizeof(rdCamera) == 0x464, "sizeof rdCamera");
+/* rdClipFrustum: The camera's clip volume (0x34 bytes, rdCamera.pFrustum). */
+struct rdClipFrustum {  /* 0x34 */
+    int nClipFar;  /* 0x00: clip against zFar too */
+    float flZNear;  /* 0x04 */
+    float flZFar;  /* 0x08 */
+    float flOrthoLeft;  /* 0x0c: orthographic bounds */
+    float flOrthoTop;  /* 0x10 */
+    float flOrthoRight;  /* 0x14 */
+    float flOrthoBottom;  /* 0x18 */
+    float flFarTop;  /* 0x1c: perspective: edge slopes (x or z per unit of depth) */
+    float flBottom;  /* 0x20 */
+    float flFarLeft;  /* 0x24 */
+    float flRight;  /* 0x28 */
+    float flNearTop;  /* 0x2c */
+    float flNearLeft;  /* 0x30 */
+};
+_Static_assert(__builtin_offsetof(rdClipFrustum, nClipFar) == 0x0, "rdClipFrustum.nClipFar");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flZNear) == 0x4, "rdClipFrustum.flZNear");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flZFar) == 0x8, "rdClipFrustum.flZFar");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flOrthoLeft) == 0xc, "rdClipFrustum.flOrthoLeft");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flOrthoTop) == 0x10, "rdClipFrustum.flOrthoTop");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flOrthoRight) == 0x14, "rdClipFrustum.flOrthoRight");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flOrthoBottom) == 0x18, "rdClipFrustum.flOrthoBottom");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flFarTop) == 0x1c, "rdClipFrustum.flFarTop");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flBottom) == 0x20, "rdClipFrustum.flBottom");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flFarLeft) == 0x24, "rdClipFrustum.flFarLeft");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flRight) == 0x28, "rdClipFrustum.flRight");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flNearTop) == 0x2c, "rdClipFrustum.flNearTop");
+_Static_assert(__builtin_offsetof(rdClipFrustum, flNearLeft) == 0x30, "rdClipFrustum.flNearLeft");
+_Static_assert(sizeof(rdClipFrustum) == 0x34, "sizeof rdClipFrustum");
+/* rdColormap: A colormap (the 'CMP' file): palette, light levels, transparency. */
+struct rdColormap {  /* 0x350 */
+    char aName[32];  /* 0x00 */
+    uint dwFlags;  /* 0x20: 4: has a transparency table */
+    float aTint[3];  /* 0x24 */
+    byte aPalette[768];  /* 0x30: 256 RGB triplets */
+    uint8_t field_0x330, field_0x331, field_0x332, field_0x333, field_0x334, field_0x335, field_0x336, field_0x337;
+    byte *pLightLevels;  /* 0x338: 0x10000 bytes, aligned to 256 */
+    byte *pLightLevelsAlloc;  /* 0x33c: the allocation */
+    byte *pTransparency;  /* 0x340: 0x8000 bytes when dwFlags & 4 */
+    byte *pTransparencyAlloc;  /* 0x344 */
+    ushort *pRGB16;  /* 0x348: 16-bit colour table */
+    uint8_t field_0x34c, field_0x34d, field_0x34e, field_0x34f;
+};
+_Static_assert(__builtin_offsetof(rdColormap, aName) == 0x0, "rdColormap.aName");
+_Static_assert(__builtin_offsetof(rdColormap, dwFlags) == 0x20, "rdColormap.dwFlags");
+_Static_assert(__builtin_offsetof(rdColormap, aTint) == 0x24, "rdColormap.aTint");
+_Static_assert(__builtin_offsetof(rdColormap, aPalette) == 0x30, "rdColormap.aPalette");
+_Static_assert(__builtin_offsetof(rdColormap, pLightLevels) == 0x338, "rdColormap.pLightLevels");
+_Static_assert(__builtin_offsetof(rdColormap, pLightLevelsAlloc) == 0x33c, "rdColormap.pLightLevelsAlloc");
+_Static_assert(__builtin_offsetof(rdColormap, pTransparency) == 0x340, "rdColormap.pTransparency");
+_Static_assert(__builtin_offsetof(rdColormap, pTransparencyAlloc) == 0x344, "rdColormap.pTransparencyAlloc");
+_Static_assert(__builtin_offsetof(rdColormap, pRGB16) == 0x348, "rdColormap.pRGB16");
+_Static_assert(sizeof(rdColormap) == 0x350, "sizeof rdColormap");
 /* rdGeoset: A model geoset: its meshes */
 struct rdGeoset {  /* 0x8 */
     uint dwMeshes;  /* 0x00 */
@@ -1250,34 +1348,63 @@ struct rdGeoset {  /* 0x8 */
 _Static_assert(__builtin_offsetof(rdGeoset, dwMeshes) == 0x0, "rdGeoset.dwMeshes");
 _Static_assert(__builtin_offsetof(rdGeoset, pMeshes) == 0x4, "rdGeoset.pMeshes");
 _Static_assert(sizeof(rdGeoset) == 0x8, "sizeof rdGeoset");
-/* rdMesh: One mesh of a model geoset (0x7c bytes) */
-struct rdMesh {  /* 0x7c */
-    uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
-    uint8_t field_0x8, field_0x9, field_0xa, field_0xb, field_0xc, field_0xd, field_0xe, field_0xf;
-    uint8_t field_0x10, field_0x11, field_0x12, field_0x13, field_0x14, field_0x15, field_0x16, field_0x17;
-    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
-    uint8_t field_0x20, field_0x21, field_0x22, field_0x23, field_0x24, field_0x25, field_0x26, field_0x27;
-    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
-    float *pVertices;  /* 0x30: x, y, z per vertex */
+/* rdMaterial: A material (0xb0 bytes, the 'MAT ' file). */
+struct rdMaterial {  /* 0xb0 */
+    uint dwType;  /* 0x00 */
+    char aName[32];  /* 0x04 */
+    uint8_t field_0x24, field_0x25, field_0x26, field_0x27, field_0x28, field_0x29, field_0x2a, field_0x2b;
+    uint8_t field_0x2c, field_0x2d, field_0x2e, field_0x2f, field_0x30, field_0x31, field_0x32, field_0x33;
     uint8_t field_0x34, field_0x35, field_0x36, field_0x37, field_0x38, field_0x39, field_0x3a, field_0x3b;
-    uint8_t field_0x3c, field_0x3d, field_0x3e, field_0x3f;
-    void *pFaces;  /* 0x40: 0x4c-byte faces: index count +0x14, index array +0x18, normal +0x40 */
-    float *pVertexNormals;  /* 0x44: x, y, z per vertex (rdModel3_CalcVertexNormals) */
-    uint dwVertices;  /* 0x48 */
-    uint8_t field_0x4c, field_0x4d, field_0x4e, field_0x4f;
-    uint dwFaces;  /* 0x50 */
+    uint8_t field_0x3c, field_0x3d, field_0x3e, field_0x3f, field_0x40, field_0x41, field_0x42, field_0x43;
+    uint8_t field_0x44, field_0x45, field_0x46, field_0x47, field_0x48, field_0x49, field_0x4a, field_0x4b;
+    uint8_t field_0x4c, field_0x4d, field_0x4e, field_0x4f, field_0x50, field_0x51, field_0x52, field_0x53;
     uint8_t field_0x54, field_0x55, field_0x56, field_0x57, field_0x58, field_0x59, field_0x5a, field_0x5b;
     uint8_t field_0x5c, field_0x5d, field_0x5e, field_0x5f;
-    float flRadius;  /* 0x60: largest vertex distance from the origin * 1.1 (rdModel3_CalcRadii) */
+    int nNumCels;  /* 0x60: rdCache_DrawFaceN clamps the cel to it */
+    int nCurCel;  /* 0x64: the cel shown when a face asks for -1 */
+    void *aCels[16];  /* 0x68: per-cel texture records */
+    int nNumTextures;  /* 0xa8: from the file header */
+    uint8_t field_0xac, field_0xad, field_0xae, field_0xaf;
+};
+_Static_assert(__builtin_offsetof(rdMaterial, dwType) == 0x0, "rdMaterial.dwType");
+_Static_assert(__builtin_offsetof(rdMaterial, aName) == 0x4, "rdMaterial.aName");
+_Static_assert(__builtin_offsetof(rdMaterial, nNumCels) == 0x60, "rdMaterial.nNumCels");
+_Static_assert(__builtin_offsetof(rdMaterial, nCurCel) == 0x64, "rdMaterial.nCurCel");
+_Static_assert(__builtin_offsetof(rdMaterial, aCels) == 0x68, "rdMaterial.aCels");
+_Static_assert(__builtin_offsetof(rdMaterial, nNumTextures) == 0xa8, "rdMaterial.nNumTextures");
+_Static_assert(sizeof(rdMaterial) == 0xb0, "sizeof rdMaterial");
+/* rdMesh: One mesh of a model geoset (0x7c bytes). */
+struct rdMesh {  /* 0x7c */
+    char aName[32];  /* 0x00 */
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23;
+    int nGeometryMode;  /* 0x24 */
+    int nLightingMode;  /* 0x28 */
+    int nTextureMode;  /* 0x2c */
+    float *pVertices;  /* 0x30: 3 floats each (rdModel3_CalcRadii) */
+    float *pTexVertices;  /* 0x34 */
+    uint8_t field_0x38, field_0x39, field_0x3a, field_0x3b, field_0x3c, field_0x3d, field_0x3e, field_0x3f;
+    void *pFaces;  /* 0x40: 0x4c-byte faces: index count +0x14, index array +0x18, normal +0x40 */
+    float *pVertexNormals;  /* 0x44: x, y, z per vertex (rdModel3_CalcVertexNormals) */
+    uint dwNumVertices;  /* 0x48 */
+    uint8_t field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint dwNumFaces;  /* 0x50 */
+    uint8_t field_0x54, field_0x55, field_0x56, field_0x57, field_0x58, field_0x59, field_0x5a, field_0x5b;
+    uint8_t field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    float flRadius;  /* 0x60: bounding radius x 1.1 (rdModel3_CalcRadii) */
     uint8_t field_0x64, field_0x65, field_0x66, field_0x67, field_0x68, field_0x69, field_0x6a, field_0x6b;
     uint8_t field_0x6c, field_0x6d, field_0x6e, field_0x6f, field_0x70, field_0x71, field_0x72, field_0x73;
     uint8_t field_0x74, field_0x75, field_0x76, field_0x77, field_0x78, field_0x79, field_0x7a, field_0x7b;
 };
+_Static_assert(__builtin_offsetof(rdMesh, aName) == 0x0, "rdMesh.aName");
+_Static_assert(__builtin_offsetof(rdMesh, nGeometryMode) == 0x24, "rdMesh.nGeometryMode");
+_Static_assert(__builtin_offsetof(rdMesh, nLightingMode) == 0x28, "rdMesh.nLightingMode");
+_Static_assert(__builtin_offsetof(rdMesh, nTextureMode) == 0x2c, "rdMesh.nTextureMode");
 _Static_assert(__builtin_offsetof(rdMesh, pVertices) == 0x30, "rdMesh.pVertices");
+_Static_assert(__builtin_offsetof(rdMesh, pTexVertices) == 0x34, "rdMesh.pTexVertices");
 _Static_assert(__builtin_offsetof(rdMesh, pFaces) == 0x40, "rdMesh.pFaces");
 _Static_assert(__builtin_offsetof(rdMesh, pVertexNormals) == 0x44, "rdMesh.pVertexNormals");
-_Static_assert(__builtin_offsetof(rdMesh, dwVertices) == 0x48, "rdMesh.dwVertices");
-_Static_assert(__builtin_offsetof(rdMesh, dwFaces) == 0x50, "rdMesh.dwFaces");
+_Static_assert(__builtin_offsetof(rdMesh, dwNumVertices) == 0x48, "rdMesh.dwNumVertices");
+_Static_assert(__builtin_offsetof(rdMesh, dwNumFaces) == 0x50, "rdMesh.dwNumFaces");
 _Static_assert(__builtin_offsetof(rdMesh, flRadius) == 0x60, "rdMesh.flRadius");
 _Static_assert(sizeof(rdMesh) == 0x7c, "sizeof rdMesh");
 /* rdModel3: An RDroid model (0x90 bytes, rdModel3_NewEntry) */
@@ -1300,3 +1427,38 @@ _Static_assert(__builtin_offsetof(rdModel3, aName) == 0x0, "rdModel3.aName");
 _Static_assert(__builtin_offsetof(rdModel3, aGeosets) == 0x24, "rdModel3.aGeosets");
 _Static_assert(__builtin_offsetof(rdModel3, dwGeosets) == 0x44, "rdModel3.dwGeosets");
 _Static_assert(sizeof(rdModel3) == 0x90, "sizeof rdModel3");
+/* rdThing: A drawable of the renderer (0x4c bytes): a model with its puppet, or a camera / polyline. */
+struct rdThing {  /* 0x4c */
+    int nType;  /* 0x00: 1 model (rdThing_SetModel3) */
+    void *pModel;  /* 0x04: rdModel3 */
+    uint8_t field_0x8, field_0x9, field_0xa, field_0xb, field_0xc, field_0xd, field_0xe, field_0xf;
+    uint8_t field_0x10, field_0x11, field_0x12, field_0x13;
+    void *pPuppet;  /* 0x14: rdPuppet (its tracks are freed with the thing) */
+    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
+    float *pHierarchyMatrices;  /* 0x20: one rdMatrix34 per hierarchy node */
+    float *pHierarchyRot;  /* 0x24: 3 floats per node */
+    int *pHierarchyFlags;  /* 0x28: one word per node */
+    void *pHierarchyExtra;  /* 0x2c: freed with the thing */
+    int nGeoset;  /* 0x30: -1 */
+    int nCurGeoset;  /* 0x34: -1 = the model's current geoset */
+    int nGeometryMode;  /* 0x38: 4 by default (the thing's limit for its faces) */
+    int nLightingMode;  /* 0x3c: 3 */
+    int nTextureMode;  /* 0x40: 2 */
+    int nFrustumCull;  /* 0x44: 1: cull against the frustum */
+    void *pOwner;  /* 0x48: rdThing_NewEntry's second argument */
+};
+_Static_assert(__builtin_offsetof(rdThing, nType) == 0x0, "rdThing.nType");
+_Static_assert(__builtin_offsetof(rdThing, pModel) == 0x4, "rdThing.pModel");
+_Static_assert(__builtin_offsetof(rdThing, pPuppet) == 0x14, "rdThing.pPuppet");
+_Static_assert(__builtin_offsetof(rdThing, pHierarchyMatrices) == 0x20, "rdThing.pHierarchyMatrices");
+_Static_assert(__builtin_offsetof(rdThing, pHierarchyRot) == 0x24, "rdThing.pHierarchyRot");
+_Static_assert(__builtin_offsetof(rdThing, pHierarchyFlags) == 0x28, "rdThing.pHierarchyFlags");
+_Static_assert(__builtin_offsetof(rdThing, pHierarchyExtra) == 0x2c, "rdThing.pHierarchyExtra");
+_Static_assert(__builtin_offsetof(rdThing, nGeoset) == 0x30, "rdThing.nGeoset");
+_Static_assert(__builtin_offsetof(rdThing, nCurGeoset) == 0x34, "rdThing.nCurGeoset");
+_Static_assert(__builtin_offsetof(rdThing, nGeometryMode) == 0x38, "rdThing.nGeometryMode");
+_Static_assert(__builtin_offsetof(rdThing, nLightingMode) == 0x3c, "rdThing.nLightingMode");
+_Static_assert(__builtin_offsetof(rdThing, nTextureMode) == 0x40, "rdThing.nTextureMode");
+_Static_assert(__builtin_offsetof(rdThing, nFrustumCull) == 0x44, "rdThing.nFrustumCull");
+_Static_assert(__builtin_offsetof(rdThing, pOwner) == 0x48, "rdThing.pOwner");
+_Static_assert(sizeof(rdThing) == 0x4c, "sizeof rdThing");

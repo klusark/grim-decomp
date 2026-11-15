@@ -73,9 +73,10 @@ extern int g_bDebugChordHeld; /* 0x004f5a88 */
 extern char ** g_ppRegValueNames; /* 0x004f5ea0 */
 extern uint g_dwRegValueCount; /* 0x004f5ea4 */
 extern void * g_pRegRootKey; /* 0x004f5eb0 */
-extern void * g_pRdCamera_CurCamera; /* 0x007f0fc8 */
+extern rdCamera * g_pRdCamera_CurCamera; /* 0x007f0fc8 */
+extern rdMesh * g_pCurMesh; /* 0x007f30a0 */
 extern void * g_pCurModel3; /* 0x007f30d4 */
-extern void * g_pCurThing; /* 0x007f31e0 */
+extern rdThing * g_pCurThing; /* 0x007f31e0 */
 extern int g_nRdNRaster_numVertices; /* 0x007f424c */
 extern int g_nRdNRaster_yMinVert; /* 0x007f42e8 */
 extern int g_nRdNRaster_leftVertexStep; /* 0x007f42ec */
@@ -1358,7 +1359,6 @@ extern undefined g_aLocalLightPos; /* used by 1 fn(s), first 0x0040d230 */
 extern undefined4 g_dwMeshFrustrumCull; /* used by 2 fn(s), first 0x0040d230 */
 extern undefined4 UINT_007f189c; /* used by 2 fn(s), first 0x0040cf20 */
 extern undefined g_aRdModel3_View; /* used by 1 fn(s), first 0x0040d230 */
-extern void * g_pCurMesh; /* used by 2 fn(s), first 0x0040d230 */
 extern undefined4 g_dwThingFrustrumCull; /* used by 2 fn(s), first 0x0040cf20 */
 extern undefined g_aVertexSrc; /* used by 1 fn(s), first 0x0040d880 */
 extern undefined DAT_007f30ac; /* used by 1 fn(s), first 0x0040d880 */

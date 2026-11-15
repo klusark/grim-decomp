@@ -37,7 +37,7 @@ uint __cdecl rdPolyline_Draw(int param_1,float *param_2)
   local_20 = (uint)&DAT_007f4e80;
   local_18 = 0;
   local_14 = 0;
-  rdMatrix_Multiply34(local_78,(float *)((int)g_pRdCamera_CurCamera + 8),param_2);
+  rdMatrix_Multiply34(local_78,g_pRdCamera_CurCamera->aView,param_2);
   local_38[0] = 0.0;
   local_38[1] = *(float *)(iVar1 + 0x20);
   local_38[2] = 0.0;
@@ -164,7 +164,7 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
     }
     pPVar3->nGeometryMode = uVar7;
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
-       (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
+       (g_pRdCamera_CurCamera->flAmbientLight < 1.0)) {
       iVar1 = *(int *)(param_2 + 0xc);
       iVar9 = g_nRdroid_curLightingMode;
       if (iVar1 <= g_nRdroid_curLightingMode) {
@@ -190,15 +190,15 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
       uVar5 = g_nRdroid_curTextureMode;
     }
     pPVar3->nTextureMode = uVar5;
-    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),uVar7,pPVar3->nLightingMode,
-                       uVar5,param_4,&local_2c,(float *)(param_2 + 0x28));
+    rdPrimit3_ClipFace((uint)g_pRdCamera_CurCamera->pFrustum,uVar7,pPVar3->nLightingMode,uVar5,
+                       param_4,&local_2c,(float *)(param_2 + 0x28));
     if (2 < local_2c) {
-      (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_4,local_20,local_2c);
+      (*g_pRdCamera_CurCamera->pfnProjectLst)(local_4,local_20,local_2c);
       if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
         pPVar3->flAlpha = 0.0;
       }
       else {
-        pPVar3->flAlpha = *(float *)((int)g_pRdCamera_CurCamera + 0x54);
+        pPVar3->flAlpha = g_pRdCamera_CurCamera->flAmbientLight;
       }
       iVar1 = pPVar3->nLightingMode;
       if (iVar1 != 0) {
@@ -295,25 +295,24 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
   #define local_30 (*(float (*)[12])(_frame + (0x50 - 0x30)))
   
   iVar1 = *(int *)((int)thing + 4);
-  rdMatrix_TransformPoint34
-            (local_3c,(float *)((int)sprite + 0x24),(float *)((int)g_pRdCamera_CurCamera + 8));
+  rdMatrix_TransformPoint34(local_3c,(float *)((int)sprite + 0x24),g_pRdCamera_CurCamera->aView);
   if ((g_bRdroid_curCullFlags & 2) == 0) {
     uVar2 = *(uint *)((int)thing + 0x44);
   }
   else {
     uVar2 = rdClip_SphereInFrustrum
-                      (*(int **)((int)g_pRdCamera_CurCamera + 0x48),local_3c,
-                       *(float *)(iVar1 + 0x3c));
+                      (&g_pRdCamera_CurCamera->pFrustum->nClipFar,local_3c,*(float *)(iVar1 + 0x3c))
+    ;
   }
   if (uVar2 == 2) {
     return 0;
   }
-  rdMatrix_Multiply34(local_30,(float *)((int)g_pRdCamera_CurCamera + 8),sprite);
+  rdMatrix_Multiply34(local_30,g_pRdCamera_CurCamera->aView,sprite);
   if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     sprite = (void *)0x0;
   }
   else {
-    sprite = *(void **)((int)g_pRdCamera_CurCamera + 0x54);
+    sprite = PUN(void *,(float)g_pRdCamera_CurCamera->flAmbientLight);
   }
   if (PUN(float,sprite) < 1.0) {
     if (0.0 < PUN(float,sprite)) {
@@ -351,9 +350,9 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
       *(float *)&DAT_007f5020 = PUN(float,puVar4[1]) + *(float *)(iVar1 + 0x34);
       *(float *)&DAT_007f5024 = PUN(float,puVar4[-1]) - *(float *)(iVar1 + 0x34);
       *(float *)&DAT_007f502c = PUN(float,puVar4[1]) + *(float *)(iVar1 + 0x34);
-      uVar2 = rdClip_Face3S(*(int **)((int)g_pRdCamera_CurCamera + 0x48),(float *)&DAT_007f5000,4);
+      uVar2 = rdClip_Face3S(&g_pRdCamera_CurCamera->pFrustum->nClipFar,(float *)&DAT_007f5000,4);
       if (2 < uVar2) {
-        (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(pPVar3->pVertices,&DAT_007f5000,uVar2);
+        (*g_pRdCamera_CurCamera->pfnProjectLst)(pPVar3->pVertices,&DAT_007f5000,uVar2);
         pPVar3->nLightingMode = (int)thing;
         pPVar3->flAlpha = PUN(float,sprite);
         pPVar3->nGeometryMode = 3;
@@ -408,7 +407,7 @@ rdSprite_NewEntry(int param_1,int param_2,uint param_3,char *param_4,uint param_
 {
   float fVar1;
   float fVar2;
-  void *pvVar3;
+  rdMaterial *prVar3;
   int iVar4;
   uint uVar5;
   undefined4 *puVar6;
@@ -428,9 +427,9 @@ rdSprite_NewEntry(int param_1,int param_2,uint param_3,char *param_4,uint param_
   *(undefined4 *)(param_1 + 0x60) = 1;
   *(uint *)(param_1 + 0x6c) = param_9;
   *(uint *)(param_1 + 0x8c) = param_10;
-  pvVar3 = rdMaterial_Load(param_4,0,0);
-  *(void **)(param_1 + 0x7c) = pvVar3;
-  if (pvVar3 == (void *)0x0) {
+  prVar3 = rdMaterial_Load(param_4,0,0);
+  *(rdMaterial **)(param_1 + 0x7c) = prVar3;
+  if (prVar3 == (rdMaterial *)0x0) {
     return 0;
   }
   *(undefined4 *)(param_1 + 0x70) = 4;
@@ -568,9 +567,9 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
   #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
   
   iVar1 = *(int *)(param_1 + 4);
-  rdMatrix_TransformPoint34(&local_64,param_2 + 9,(float *)((int)g_pRdCamera_CurCamera + 8));
+  rdMatrix_TransformPoint34(&local_64,param_2 + 9,g_pRdCamera_CurCamera->aView);
   rdMatrix_TransformVector34(&local_70,(float *)(iVar1 + 0xac),param_2);
-  rdMatrix_TransformVector34Acc(&local_70,(float *)((int)g_pRdCamera_CurCamera + 8));
+  rdMatrix_TransformVector34Acc(&local_70,g_pRdCamera_CurCamera->aView);
   if (0.0 <= local_70) {
     local_78[0] = -*(float *)(iVar1 + 0x54);
   }
@@ -582,8 +581,8 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
   }
   else {
     uVar4 = rdClip_SphereInFrustrum
-                      (*(int **)((int)g_pRdCamera_CurCamera + 0x48),&local_64,
-                       *(float *)(iVar1 + 0x24));
+                      (&g_pRdCamera_CurCamera->pFrustum->nClipFar,&local_64,*(float *)(iVar1 + 0x24)
+                      );
   }
   if ((uVar4 != 2) && (pPVar5 = rdCache_GetProcEntry(), pPVar5 != (ProcEntry *)0x0)) {
     *(float *)&DAT_007f5f0c = local_6c[0] + local_60[0];
@@ -621,7 +620,7 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
     *(float *)&DAT_007f5f30 = *(float *)&DAT_007f5f0c;
     pPVar5->nGeometryMode = uVar8;
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
-       (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
+       (g_pRdCamera_CurCamera->flAmbientLight < 1.0)) {
       iVar2 = *(int *)(iVar1 + 0x68);
       iVar10 = g_nRdroid_curLightingMode;
       if (iVar2 <= g_nRdroid_curLightingMode) {
@@ -647,15 +646,15 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
       uVar7 = g_nRdroid_curTextureMode;
     }
     pPVar5->nTextureMode = uVar7;
-    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),uVar8,pPVar5->nLightingMode,
-                       uVar7,&local_2c,&local_58,(float *)(iVar1 + 0x84));
+    rdPrimit3_ClipFace((uint)g_pRdCamera_CurCamera->pFrustum,uVar8,pPVar5->nLightingMode,uVar7,
+                       &local_2c,&local_58,(float *)(iVar1 + 0x84));
     if (2 < local_58) {
-      (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(local_30,local_4c,local_58);
+      (*g_pRdCamera_CurCamera->pfnProjectLst)(local_30,local_4c,local_58);
       if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
         pPVar5->flAlpha = 0.0;
       }
       else {
-        pPVar5->flAlpha = *(float *)((int)g_pRdCamera_CurCamera + 0x54);
+        pPVar5->flAlpha = g_pRdCamera_CurCamera->flAmbientLight;
       }
       iVar2 = pPVar5->nLightingMode;
       if (iVar2 != 0) {

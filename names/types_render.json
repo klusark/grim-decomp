@@ -1,0 +1,595 @@
+{
+ "_comment": "The RDroid renderer's camera, clip frustum, things, meshes, materials and colormaps (2026-11-14). Layouts from the code; where an offset agrees with the Jones engine's record of the same name and the code uses it the same way, the field takes that meaning. rdCamera: rdCamera_NewEntry (frustum allocated at +0x48, fov clamped 5..179, attenuation 0.2 / 0.1), rdCamera_SetAspectRatio (the two projection functions), rdCamera_AddLight (64 lights and their positions). rdClipFrustum: rdClip_Point3 / rdClip_Line3. rdThing: rdThing_NewEntry (defaults), rdThing_SetModel3 / FreeEntry (per-node arrays). rdMesh: rdModel3_CalcRadii and the mesh drawers. rdMaterial: rdMaterial_LoadEntry and rdCache_DrawFaceN's cel choice. rdColormap: rdColormap_LoadEntry (header, palette, light-level and transparency tables).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "rdClipFrustum",
+   "size": 52,
+   "comment": "The camera's clip volume (0x34 bytes, rdCamera.pFrustum).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nClipFar",
+     "clip against zFar too"
+    ],
+    [
+     4,
+     "float",
+     "flZNear",
+     ""
+    ],
+    [
+     8,
+     "float",
+     "flZFar",
+     ""
+    ],
+    [
+     12,
+     "float",
+     "flOrthoLeft",
+     "orthographic bounds"
+    ],
+    [
+     16,
+     "float",
+     "flOrthoTop",
+     ""
+    ],
+    [
+     20,
+     "float",
+     "flOrthoRight",
+     ""
+    ],
+    [
+     24,
+     "float",
+     "flOrthoBottom",
+     ""
+    ],
+    [
+     28,
+     "float",
+     "flFarTop",
+     "perspective: edge slopes (x or z per unit of depth)"
+    ],
+    [
+     32,
+     "float",
+     "flBottom",
+     ""
+    ],
+    [
+     36,
+     "float",
+     "flFarLeft",
+     ""
+    ],
+    [
+     40,
+     "float",
+     "flRight",
+     ""
+    ],
+    [
+     44,
+     "float",
+     "flNearTop",
+     ""
+    ],
+    [
+     48,
+     "float",
+     "flNearLeft",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "rdCamera",
+   "size": 1124,
+   "comment": "A camera of the renderer (0x464 bytes).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nProjectType",
+     "0 orthographic, 1 perspective"
+    ],
+    [
+     4,
+     "void *",
+     "pCanvas",
+     "rdCanvas (rdCamera_SetCanvas)"
+    ],
+    [
+     8,
+     "float[12]",
+     "aView",
+     "view matrix (rdMatrix34, rdCamera_Update)"
+    ],
+    [
+     56,
+     "float",
+     "flFov",
+     "degrees, 5 .. 179"
+    ],
+    [
+     60,
+     "float",
+     "flFovY",
+     ""
+    ],
+    [
+     64,
+     "float",
+     "flAspect",
+     "rdCamera_SetAspectRatio's zoom; 1 picks the square projections"
+    ],
+    [
+     68,
+     "float",
+     "flOrthoScale",
+     "1.0"
+    ],
+    [
+     72,
+     "rdClipFrustum *",
+     "pFrustum",
+     ""
+    ],
+    [
+     76,
+     "code *",
+     "pfnProject",
+     "projects one point (rdCamera_PerspProject ...)"
+    ],
+    [
+     80,
+     "code *",
+     "pfnProjectLst",
+     "projects a list"
+    ],
+    [
+     84,
+     "float",
+     "flAmbientLight",
+     ""
+    ],
+    [
+     88,
+     "uint",
+     "dwNumLights",
+     "up to 64"
+    ],
+    [
+     92,
+     "rdLight *[64]",
+     "aLights",
+     ""
+    ],
+    [
+     348,
+     "float[192]",
+     "aLightPositions",
+     "3 floats per light"
+    ],
+    [
+     1116,
+     "float",
+     "flAttenuationMin",
+     "0.2"
+    ],
+    [
+     1120,
+     "float",
+     "flAttenuationMax",
+     "0.1"
+    ]
+   ]
+  },
+  {
+   "name": "rdLight",
+   "size": 60,
+   "comment": "A light of the renderer (0x3c bytes).",
+   "fields": [
+    [
+     52,
+     "float",
+     "flFalloffMin",
+     "intensity / camera attenuationMin (rdCamera_AddLight)"
+    ],
+    [
+     56,
+     "float",
+     "flFalloffMax",
+     "intensity / camera attenuationMax"
+    ]
+   ]
+  },
+  {
+   "name": "rdThing",
+   "size": 76,
+   "comment": "A drawable of the renderer (0x4c bytes): a model with its puppet, or a camera / polyline.",
+   "fields": [
+    [
+     0,
+     "int",
+     "nType",
+     "1 model (rdThing_SetModel3)"
+    ],
+    [
+     4,
+     "void *",
+     "pModel",
+     "rdModel3"
+    ],
+    [
+     20,
+     "void *",
+     "pPuppet",
+     "rdPuppet (its tracks are freed with the thing)"
+    ],
+    [
+     32,
+     "float *",
+     "pHierarchyMatrices",
+     "one rdMatrix34 per hierarchy node"
+    ],
+    [
+     36,
+     "float *",
+     "pHierarchyRot",
+     "3 floats per node"
+    ],
+    [
+     40,
+     "int *",
+     "pHierarchyFlags",
+     "one word per node"
+    ],
+    [
+     44,
+     "void *",
+     "pHierarchyExtra",
+     "freed with the thing"
+    ],
+    [
+     48,
+     "int",
+     "nGeoset",
+     "-1"
+    ],
+    [
+     52,
+     "int",
+     "nCurGeoset",
+     "-1 = the model's current geoset"
+    ],
+    [
+     56,
+     "int",
+     "nGeometryMode",
+     "4 by default (the thing's limit for its faces)"
+    ],
+    [
+     60,
+     "int",
+     "nLightingMode",
+     "3"
+    ],
+    [
+     64,
+     "int",
+     "nTextureMode",
+     "2"
+    ],
+    [
+     68,
+     "int",
+     "nFrustumCull",
+     "1: cull against the frustum"
+    ],
+    [
+     72,
+     "void *",
+     "pOwner",
+     "rdThing_NewEntry's second argument"
+    ]
+   ]
+  },
+  {
+   "name": "rdMesh",
+   "size": 124,
+   "comment": "One mesh of a model geoset (0x7c bytes).",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aName",
+     ""
+    ],
+    [
+     36,
+     "int",
+     "nGeometryMode",
+     ""
+    ],
+    [
+     40,
+     "int",
+     "nLightingMode",
+     ""
+    ],
+    [
+     44,
+     "int",
+     "nTextureMode",
+     ""
+    ],
+    [
+     48,
+     "float *",
+     "pVertices",
+     "3 floats each (rdModel3_CalcRadii)"
+    ],
+    [
+     52,
+     "float *",
+     "pTexVertices",
+     ""
+    ],
+    [
+     64,
+     "void *",
+     "pFaces",
+     ""
+    ],
+    [
+     72,
+     "uint",
+     "dwNumVertices",
+     ""
+    ],
+    [
+     80,
+     "uint",
+     "dwNumFaces",
+     ""
+    ],
+    [
+     96,
+     "float",
+     "flRadius",
+     "bounding radius x 1.1 (rdModel3_CalcRadii)"
+    ]
+   ]
+  },
+  {
+   "name": "rdMaterial",
+   "size": 176,
+   "comment": "A material (0xb0 bytes, the 'MAT ' file).",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwType",
+     ""
+    ],
+    [
+     4,
+     "char[32]",
+     "aName",
+     ""
+    ],
+    [
+     96,
+     "int",
+     "nNumCels",
+     "rdCache_DrawFaceN clamps the cel to it"
+    ],
+    [
+     100,
+     "int",
+     "nCurCel",
+     "the cel shown when a face asks for -1"
+    ],
+    [
+     104,
+     "void *[16]",
+     "aCels",
+     "per-cel texture records"
+    ],
+    [
+     168,
+     "int",
+     "nNumTextures",
+     "from the file header"
+    ]
+   ]
+  },
+  {
+   "name": "rdColormap",
+   "size": 848,
+   "comment": "A colormap (the 'CMP' file): palette, light levels, transparency.",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aName",
+     ""
+    ],
+    [
+     32,
+     "uint",
+     "dwFlags",
+     "4: has a transparency table"
+    ],
+    [
+     36,
+     "float[3]",
+     "aTint",
+     ""
+    ],
+    [
+     48,
+     "byte[768]",
+     "aPalette",
+     "256 RGB triplets"
+    ],
+    [
+     824,
+     "byte *",
+     "pLightLevels",
+     "0x10000 bytes, aligned to 256"
+    ],
+    [
+     828,
+     "byte *",
+     "pLightLevelsAlloc",
+     "the allocation"
+    ],
+    [
+     832,
+     "byte *",
+     "pTransparency",
+     "0x8000 bytes when dwFlags & 4"
+    ],
+    [
+     836,
+     "byte *",
+     "pTransparencyAlloc",
+     ""
+    ],
+    [
+     840,
+     "ushort *",
+     "pRGB16",
+     "16-bit colour table"
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "00409fb0",
+   "index": 0,
+   "type": "rdCamera *",
+   "name": "camera"
+  },
+  {
+   "addr": "0040a0c0",
+   "index": 0,
+   "type": "rdCamera *",
+   "name": "camera"
+  },
+  {
+   "addr": "0040a100",
+   "index": 0,
+   "type": "rdCamera *",
+   "name": "camera"
+  },
+  {
+   "addr": "0040a150",
+   "index": 0,
+   "type": "rdCamera *",
+   "name": "camera"
+  },
+  {
+   "addr": "0040a1d0",
+   "index": 0,
+   "type": "rdCamera *",
+   "name": "camera"
+  },
+  {
+   "addr": "0040a750",
+   "index": 0,
+   "type": "rdCamera *",
+   "name": "camera"
+  },
+  {
+   "addr": "0040a760",
+   "index": 0,
+   "type": "rdCamera *",
+   "name": "camera"
+  },
+  {
+   "addr": "0040a760",
+   "index": 1,
+   "type": "rdLight *",
+   "name": "light"
+  },
+  {
+   "addr": "00446ec0",
+   "index": 0,
+   "type": "rdClipFrustum *",
+   "name": "frustum"
+  },
+  {
+   "addr": "00446f80",
+   "index": 0,
+   "type": "rdClipFrustum *",
+   "name": "frustum"
+  },
+  {
+   "addr": "00471bd0",
+   "index": 0,
+   "type": "rdThing *",
+   "name": "thing"
+  },
+  {
+   "addr": "0040cf20",
+   "index": 0,
+   "type": "rdThing *",
+   "name": "thing"
+  },
+  {
+   "addr": "00471d80",
+   "index": 0,
+   "type": "rdThing *",
+   "name": "thing"
+  },
+  {
+   "addr": "00417f30",
+   "index": 1,
+   "type": "rdMaterial *",
+   "name": "material"
+  },
+  {
+   "addr": "00404420",
+   "index": 1,
+   "type": "rdColormap *",
+   "name": "cmp"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "00409f50",
+   "type": "rdCamera *"
+  },
+  {
+   "addr": "00417eb0",
+   "type": "rdMaterial *"
+  },
+  {
+   "addr": "004043c0",
+   "type": "rdColormap *"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "007f0fc8",
+   "type": "rdCamera *"
+  },
+  {
+   "addr": "007f31e0",
+   "type": "rdThing *"
+  },
+  {
+   "addr": "007f30a0",
+   "type": "rdMesh *"
+  }
+ ]
+}

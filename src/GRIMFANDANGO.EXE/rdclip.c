@@ -174,51 +174,51 @@ uint __cdecl rdClip_CalcOutcode2(int canvas,int x,int y)
    Original name rdClip_Point3 (the remaster's GrimFandango (Linux): aligned call in
    rdPrimit3_GetScreenCoord); was rdClip_PointInFrustum. */
 
-int __cdecl rdClip_Point3(void *frustum,float *point)
+int __cdecl rdClip_Point3(rdClipFrustum *frustum,float *point)
 
 {
   float fVar1;
   int iVar2;
   
-  if (point[1] < *(float *)((int)frustum + 4)) {
+  if (point[1] < frustum->flZNear) {
     return 0;
   }
-  if ((*(int *)frustum != 0) && (*(float *)((int)frustum + 8) < point[1])) {
+  if ((frustum->nClipFar != 0) && (frustum->flZFar < point[1])) {
     return 0;
   }
-  iVar2 = *(int *)g_pRdCamera_CurCamera;
+  iVar2 = g_pRdCamera_CurCamera->nProjectType;
   if (iVar2 == 1) {
-    fVar1 = *(float *)((int)frustum + 0x24) * point[1];
+    fVar1 = frustum->flFarLeft * point[1];
   }
   else {
-    fVar1 = *(float *)((int)frustum + 0xc);
+    fVar1 = frustum->flOrthoLeft;
   }
   if (*point < fVar1) {
     return 0;
   }
   if (iVar2 == 1) {
-    fVar1 = *(float *)((int)frustum + 0x28) * point[1];
+    fVar1 = frustum->flRight * point[1];
   }
   else {
-    fVar1 = *(float *)((int)frustum + 0x14);
+    fVar1 = frustum->flOrthoRight;
   }
   if (fVar1 < *point) {
     return 0;
   }
   if (iVar2 == 1) {
-    fVar1 = *(float *)((int)frustum + 0x1c) * point[1];
+    fVar1 = frustum->flFarTop * point[1];
   }
   else {
-    fVar1 = *(float *)((int)frustum + 0x10);
+    fVar1 = frustum->flOrthoTop;
   }
   if (fVar1 < point[2]) {
     return 0;
   }
   if (iVar2 == 1) {
-    fVar1 = *(float *)((int)frustum + 0x20) * point[1];
+    fVar1 = frustum->flBottom * point[1];
   }
   else {
-    fVar1 = *(float *)((int)frustum + 0x18);
+    fVar1 = frustum->flOrthoBottom;
   }
   if (point[2] < fVar1) {
     return 0;
@@ -227,7 +227,7 @@ int __cdecl rdClip_Point3(void *frustum,float *point)
 }
 
 /* ---- 0x00446f80  rdClip_Line3 ---- */
-int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *clipped1)
+int __cdecl rdClip_Line3(rdClipFrustum *frustum,float *p0,float *p1,int *clipped0,int *clipped1)
 
 {
   float fVar1;
@@ -237,13 +237,13 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
   float fVar5;
   float fVar6;
   
-  if ((p0[1] < *(float *)((int)frustum + 4)) && (p1[1] < *(float *)((int)frustum + 4))) {
+  if ((p0[1] < frustum->flZNear) && (p1[1] < frustum->flZNear)) {
     return 0;
   }
-  if (*(float *)((int)frustum + 4) <= p0[1]) {
-    if (p1[1] < *(float *)((int)frustum + 4)) {
-      fVar3 = (*(float *)((int)frustum + 4) - p0[1]) / (p1[1] - p0[1]);
-      p1[1] = *(float *)((int)frustum + 4);
+  if (frustum->flZNear <= p0[1]) {
+    if (p1[1] < frustum->flZNear) {
+      fVar3 = (frustum->flZNear - p0[1]) / (p1[1] - p0[1]);
+      p1[1] = frustum->flZNear;
       p1[2] = (p1[2] - p0[2]) * fVar3 + p0[2];
       *p1 = (*p1 - *p0) * fVar3 + *p0;
       if (clipped1 != (int *)0x0) {
@@ -252,22 +252,22 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
     }
   }
   else {
-    fVar3 = (*(float *)((int)frustum + 4) - p0[1]) / (p1[1] - p0[1]);
-    p0[1] = *(float *)((int)frustum + 4);
+    fVar3 = (frustum->flZNear - p0[1]) / (p1[1] - p0[1]);
+    p0[1] = frustum->flZNear;
     p0[2] = (p1[2] - p0[2]) * fVar3 + p0[2];
     *p0 = (*p1 - *p0) * fVar3 + *p0;
     if (clipped0 != (int *)0x0) {
       *clipped0 = 1;
     }
   }
-  if (*(int *)frustum != 0) {
-    if ((*(float *)((int)frustum + 8) < p0[1]) && (*(float *)((int)frustum + 8) < p1[1])) {
+  if (frustum->nClipFar != 0) {
+    if ((frustum->flZFar < p0[1]) && (frustum->flZFar < p1[1])) {
       return 0;
     }
-    if (p0[1] <= *(float *)((int)frustum + 8)) {
-      if (*(float *)((int)frustum + 8) < p1[1]) {
-        fVar3 = (*(float *)((int)frustum + 8) - p0[1]) / (p1[1] - p0[1]);
-        p1[1] = *(float *)((int)frustum + 8);
+    if (p0[1] <= frustum->flZFar) {
+      if (frustum->flZFar < p1[1]) {
+        fVar3 = (frustum->flZFar - p0[1]) / (p1[1] - p0[1]);
+        p1[1] = frustum->flZFar;
         p1[2] = (p1[2] - p0[2]) * fVar3 + p0[2];
         *p1 = (*p1 - *p0) * fVar3 + *p0;
         if (clipped1 != (int *)0x0) {
@@ -276,8 +276,8 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
       }
     }
     else {
-      fVar3 = (*(float *)((int)frustum + 8) - p0[1]) / (p1[1] - p0[1]);
-      p0[1] = *(float *)((int)frustum + 8);
+      fVar3 = (frustum->flZFar - p0[1]) / (p1[1] - p0[1]);
+      p0[1] = frustum->flZFar;
       p0[2] = (p1[2] - p0[2]) * fVar3 + p0[2];
       *p0 = (*p1 - *p0) * fVar3 + *p0;
       if (clipped0 != (int *)0x0) {
@@ -285,8 +285,8 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
       }
     }
   }
-  fVar3 = *(float *)((int)frustum + 0x24) * p0[1];
-  fVar4 = *(float *)((int)frustum + 0x24) * p1[1];
+  fVar3 = frustum->flFarLeft * p0[1];
+  fVar4 = frustum->flFarLeft * p1[1];
   if ((*p0 < fVar3) && (*p1 < fVar4)) {
     return 0;
   }
@@ -294,12 +294,12 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
     if (*p1 < fVar4) {
       fVar3 = p1[1] - p0[1];
       fVar1 = *p1 - *p0;
-      fVar4 = *(float *)((int)frustum + 0x24) * fVar3 - fVar1;
+      fVar4 = frustum->flFarLeft * fVar3 - fVar1;
       fVar5 = p1[1] * *p0 - p0[1] * *p1;
       if (fVar4 != 0.0) {
         fVar5 = fVar5 / fVar4;
       }
-      fVar4 = *(float *)((int)frustum + 0x24) * fVar5;
+      fVar4 = frustum->flFarLeft * fVar5;
       fVar2 = fVar3;
       if (fVar3 < 0.0) {
         fVar2 = -fVar3;
@@ -325,12 +325,12 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
   else {
     fVar3 = p1[1] - p0[1];
     fVar1 = *p1 - *p0;
-    fVar4 = *(float *)((int)frustum + 0x24) * fVar3 - fVar1;
+    fVar4 = frustum->flFarLeft * fVar3 - fVar1;
     fVar5 = p1[1] * *p0 - p0[1] * *p1;
     if (fVar4 != 0.0) {
       fVar5 = fVar5 / fVar4;
     }
-    fVar4 = *(float *)((int)frustum + 0x24) * fVar5;
+    fVar4 = frustum->flFarLeft * fVar5;
     fVar2 = fVar3;
     if (fVar3 < 0.0) {
       fVar2 = -fVar3;
@@ -352,8 +352,8 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
       *clipped0 = 1;
     }
   }
-  fVar3 = *(float *)((int)frustum + 0x28) * p0[1];
-  fVar4 = *(float *)((int)frustum + 0x28) * p1[1];
+  fVar3 = frustum->flRight * p0[1];
+  fVar4 = frustum->flRight * p1[1];
   if ((fVar3 < *p0) && (fVar4 < *p1)) {
     return 0;
   }
@@ -361,12 +361,12 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
     if (fVar4 < *p1) {
       fVar3 = p1[1] - p0[1];
       fVar1 = *p1 - *p0;
-      fVar4 = *(float *)((int)frustum + 0x28) * fVar3 - fVar1;
+      fVar4 = frustum->flRight * fVar3 - fVar1;
       fVar5 = p1[1] * *p0 - p0[1] * *p1;
       if (fVar4 != 0.0) {
         fVar5 = fVar5 / fVar4;
       }
-      fVar4 = *(float *)((int)frustum + 0x28) * fVar5;
+      fVar4 = frustum->flRight * fVar5;
       fVar2 = fVar3;
       if (fVar3 < 0.0) {
         fVar2 = -fVar3;
@@ -392,12 +392,12 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
   else {
     fVar3 = p1[1] - p0[1];
     fVar1 = *p1 - *p0;
-    fVar4 = *(float *)((int)frustum + 0x28) * fVar3 - fVar1;
+    fVar4 = frustum->flRight * fVar3 - fVar1;
     fVar5 = p1[1] * *p0 - p0[1] * *p1;
     if (fVar4 != 0.0) {
       fVar5 = fVar5 / fVar4;
     }
-    fVar4 = *(float *)((int)frustum + 0x28) * fVar5;
+    fVar4 = frustum->flRight * fVar5;
     fVar2 = fVar3;
     if (fVar3 < 0.0) {
       fVar2 = -fVar3;
@@ -419,8 +419,8 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
       *clipped0 = 1;
     }
   }
-  fVar3 = *(float *)((int)frustum + 0x1c) * p0[1];
-  fVar4 = *(float *)((int)frustum + 0x1c) * p1[1];
+  fVar3 = frustum->flFarTop * p0[1];
+  fVar4 = frustum->flFarTop * p1[1];
   if ((fVar3 < p0[2]) && (fVar4 < p1[2])) {
     return 0;
   }
@@ -428,12 +428,12 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
     if (fVar4 < p1[2]) {
       fVar3 = p1[1] - p0[1];
       fVar1 = p1[2] - p0[2];
-      fVar4 = *(float *)((int)frustum + 0x1c) * fVar3 - fVar1;
+      fVar4 = frustum->flFarTop * fVar3 - fVar1;
       fVar5 = p0[2] * p1[1] - p1[2] * p0[1];
       if (fVar4 != 0.0) {
         fVar5 = fVar5 / fVar4;
       }
-      fVar4 = *(float *)((int)frustum + 0x1c) * fVar5;
+      fVar4 = frustum->flFarTop * fVar5;
       fVar2 = fVar3;
       if (fVar3 < 0.0) {
         fVar2 = -fVar3;
@@ -461,12 +461,12 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
   else {
     fVar3 = p1[1] - p0[1];
     fVar1 = p1[2] - p0[2];
-    fVar4 = *(float *)((int)frustum + 0x1c) * fVar3 - fVar1;
+    fVar4 = frustum->flFarTop * fVar3 - fVar1;
     fVar5 = p0[2] * p1[1] - p1[2] * p0[1];
     if (fVar4 != 0.0) {
       fVar5 = fVar5 / fVar4;
     }
-    fVar4 = *(float *)((int)frustum + 0x1c) * fVar5;
+    fVar4 = frustum->flFarTop * fVar5;
     fVar2 = fVar3;
     if (fVar3 < 0.0) {
       fVar2 = -fVar3;
@@ -489,8 +489,8 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
       *clipped0 = 1;
     }
   }
-  fVar3 = *(float *)((int)frustum + 0x20) * p0[1];
-  fVar4 = *(float *)((int)frustum + 0x20) * p1[1];
+  fVar3 = frustum->flBottom * p0[1];
+  fVar4 = frustum->flBottom * p1[1];
   if ((p0[2] < fVar3) && (p1[2] < fVar4)) {
     return 0;
   }
@@ -498,12 +498,12 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
     if (p1[2] < fVar4) {
       fVar3 = p1[1] - p0[1];
       fVar1 = p1[2] - p0[2];
-      fVar4 = *(float *)((int)frustum + 0x20) * fVar3 - fVar1;
+      fVar4 = frustum->flBottom * fVar3 - fVar1;
       fVar5 = p0[2] * p1[1] - p1[2] * p0[1];
       if (fVar4 != 0.0) {
         fVar5 = fVar5 / fVar4;
       }
-      fVar4 = *(float *)((int)frustum + 0x20) * fVar5;
+      fVar4 = frustum->flBottom * fVar5;
       fVar2 = fVar3;
       if (fVar3 < 0.0) {
         fVar2 = -fVar3;
@@ -531,12 +531,12 @@ int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *cl
   else {
     fVar3 = p1[1] - p0[1];
     fVar1 = p1[2] - p0[2];
-    fVar4 = *(float *)((int)frustum + 0x20) * fVar3 - fVar1;
+    fVar4 = frustum->flBottom * fVar3 - fVar1;
     fVar5 = p0[2] * p1[1] - p1[2] * p0[1];
     if (fVar4 != 0.0) {
       fVar5 = fVar5 / fVar4;
     }
-    fVar4 = *(float *)((int)frustum + 0x20) * fVar5;
+    fVar4 = frustum->flBottom * fVar5;
     fVar2 = fVar3;
     if (fVar3 < 0.0) {
       fVar2 = -fVar3;

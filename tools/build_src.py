@@ -608,6 +608,8 @@ def fix_casts(body, vt, ctx):
         ok = type_kind(type_of(operand, vt, ctx))
         if ok is None and tk == "int" and not has_fist and float_member(operand.strip()):
             ok = "float"   # `(uint)p->aPos[0]` copies a float member's bits (WalkPlane_BuildCache, types_10.md)
+        if ok is None and tk == "ptr" and float_member(operand.strip()):
+            ok = "float"   # `(void *)cam->flAmbientLight` (a reused pointer slot): no float -> pointer conversion exists in C
         if tk == "float" and FLOAT_BITS_MEMBER_RE.search(operand.strip()):
             new = f"PUN({T},{operand.strip()})"  # a member that holds a float's bits (FLOAT_BITS_MEMBERS)
         elif tk == "float" and ok == "int" and (not has_fild or operand.strip() in float_slots) \

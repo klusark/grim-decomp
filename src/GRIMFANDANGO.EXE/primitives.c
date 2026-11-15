@@ -13,7 +13,7 @@ void __cdecl sputPrimitive_Update(uint layerMask)
 
 {
   if (g_nSputPrimitive_Paused == 0) {
-    PrimitiveQueue_draw(&g_dwPrimitiveQ,*(void **)((int)g_pRdCamera_CurCamera + 4),layerMask);
+    PrimitiveQueue_draw(&g_dwPrimitiveQ,g_pRdCamera_CurCamera->pCanvas,layerMask);
   }
   return;
 }
