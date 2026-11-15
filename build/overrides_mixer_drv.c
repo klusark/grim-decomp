@@ -237,47 +237,6 @@ typedef struct DsndClock {      /* TIMER clock interface (cdecl) */
     void (*setPeriod)(int id, int period);
 } DsndClock;
 
-/* Creates the DirectSound object, takes the primary buffer (22050 Hz 16 bit stereo), saves its volume and makes the
- * stream buffer.  Returns 0 or -1. */
-int DsndDriver_InitDirectSound(void)
-{
-    int hr;
-    struct { uint size, flags, bytes, reserved, format; } desc;
-
-    if (g_pStreamDS != 0)
-        return 0;
-    hr = DirectSoundCreate(0, &g_pStreamDS, 0);
-    if (hr != 0) {
-        g_pStreamDS = 0;
-        ((void (*)(const char *, ...))Lua_Stub)(s_Cannot_create_DirectSound_object_004f40d0, hr);
-        return 0xffffffff;
-    }
-    hr = COMX(g_pStreamDS, DS_SETCOOPERATIVELEVEL, Win_GetMainHwnd(), 3);
-    if (hr != 0) {
-        ((void (*)(const char *, ...))Lua_Stub)(s_DirectSound__Error__08X_while_se_004f4098, hr);
-        return 0xffffffff;
-    }
-    desc.size = 0x14;
-    desc.flags = 0x81;                  /* DSBCAPS_PRIMARYBUFFER | DSBCAPS_CTRLVOLUME */
-    desc.bytes = 0;
-    desc.reserved = 0;
-    desc.format = 0;
-    hr = COMX(g_pStreamDS, DS_CREATESOUNDBUFFER, &desc, &g_pStreamDSPrimary, 0);
-    if (hr != 0) {
-        ((void (*)(const char *, ...))Lua_Stub)(s_DirectSound__Error__08X_while_cr_004f4060, hr);
-        return 0xffffffff;
-    }
-    if (COMX(g_pStreamDSPrimary, DSB_SETFORMAT, g_StreamFormat) != 0)
-        return 0xffffffff;
-    if (COMX(g_pStreamDSPrimary, DSB_GETVOLUME, &g_nStreamSavedVolume) != 0)
-        return 0xffffffff;
-    if (COMX(g_pStreamDSPrimary, DSB_SETVOLUME, 0) != 0)
-        return 0xffffffff;
-    DsndDriver_CreateStreamBuffer(3);
-    g_bStreamPrimaryOwned = 1;
-    return 0;
-}
-
 /* Index of the block the play cursor is in, or -1 */
 int DSound_GetPlayBlock(void)
 {

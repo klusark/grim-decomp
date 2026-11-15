@@ -61,7 +61,7 @@
 | 10001de0 | lua_unpausetasks | lapi.c | 11 |
 | 10001e10 | lua_updatetasks | lapi.c | 1 |
 | 10002090 | lua_stackedfunction | lapi.c | 25 |
-| 100020f0 | lua_printstack | lapi.c | 1 |
+| 100020f0 | lua_printstack | lapi.c | 80 |
 | 10002280 | lua_currentline | lapi.c | 12 |
 | 100022b0 | lua_currenttask | lapi.c | 6 |
 | 100022c0 | lua_getlocal | lapi.c | 25 |
@@ -161,7 +161,7 @@
 | 100040c0 | luaD_taskHook | ldo.c | 8 |
 | 100040e0 | luaD_callTM | ldo.c | 18 |
 | 10004160 | luaD_deletestates | ldo.c | 15 |
-| 10004180 | luaD_call | ldo.c | 1 |
+| 10004180 | luaD_call | ldo.c | 153 |
 | 100044e0 | callC | ldo.c | 38 |
 | 10004580 | callCclosure | ldo.c | 31 |
 | 10004600 | luaD_travallstacks | ldo.c | 16 |
@@ -220,7 +220,7 @@
 | 10005c30 | luaX_setinput | llex.c | 19 |
 | 10005c70 | firstline | llex.c | 36 |
 | 10005cf0 | luaX_lasttoken | llex.c | 12 |
-| 10005d00 | luaY_lex | llex.c | 1 |
+| 10005d00 | luaY_lex | llex.c | 540 |
 | 10006890 | inclinenumber | llex.c | 125 |
 | 10006b10 | skipspace | llex.c | 25 |
 | 10006b60 | checkcond | llex.c | 19 |
@@ -307,14 +307,14 @@
 | 10009a10 | matchclass | str.c | 92 |
 | 10009cb0 | str_find | str.c | 80 |
 | 10009e40 | push_captures | str.c | 1 |
-| 10009ea0 | match | str.c | 1 |
+| 10009ea0 | match | str.c | 80 |
 | 1000a030 | capture_to_close | str.c | 24 |
 | 1000a060 | matchitem | str.c | 44 |
 | 1000a150 | check_cap | str.c | 15 |
 | 1000a180 | matchbalance | str.c | 32 |
 | 1000a1d0 | str_gsub | str.c | 65 |
 | 1000a2e0 | add_s | str.c | 76 |
-| 1000a440 | str_format | str.c | 1 |
+| 1000a440 | str_format | str.c | 123 |
 | 1000a680 | luaI_addquoted | str.c | 26 |
 | 1000a6f0 | luaY_syntaxerror | lparser.c | 15 |
 | 1000a730 | luaY_error | lparser.c | 13 |

@@ -201,8 +201,6 @@ void __cdecl luaD_deletestates(int pExecutionState)
 }
 
 /* ---- 0x10004180  luaD_call ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Dispatches a call at the given stack position: C function, Lua closure or task mark ('unexpected
    cmark' otherwise) */
 
@@ -355,8 +353,6 @@ LAB_10004474:
   } while( true );
 }
 #undef pEStack_14
-
-#endif
 
 
 /* ---- 0x100044e0  callC ---- */

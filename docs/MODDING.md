@@ -8,9 +8,9 @@ repository.
 
 This guide shows how to build it, run it, look around the code, and change the game in three ways:
 
-1. **no rebuild** - override Lua scripts, set files and other resources with loose files (example mods c and d);
-2. **rebuild** - change engine behaviour in C (example mod a);
-3. **rebuild** - add new C functions that Lua scripts can call (example mod b).
+1. **no rebuild** - override Lua scripts, set files and other resources with loose files (example mods b and c);
+2. **rebuild** - change engine behaviour in C (the hand-written functions of `build/overrides*.c`, section 8);
+3. **rebuild** - add new C functions that Lua scripts can call (example mod a).
 
 Everything in this document was run on this machine; the numbers in the "before / after" tables are measurements,
 not estimates. Windows paths are written with forward slashes (`C:/GOG Games/GRIMDATA`) because every tool here runs
@@ -171,7 +171,6 @@ Environment variables read by the rebuilt EXE (set them before `tools/run_game.s
 | `GRIM_LUA_FILE=<file>` | the **Lua test hook**: every complete line appended to this file runs as Lua once per frame (also while a menu pauses the engine) | `GRIM_lua_cmd_poll` |
 | `GRIM_LUA_LOG=<file>` | target of `grimlog("text")` and of the hook's `rc=0: <line>` result lines | same |
 | `GRIM_DISPLAY_DEVICE=<n>` | pick another enumerated display device (1 = DirectDraw); default 0 = windowed DIB, software renderer | `Display_InitFromConfig` |
-| `GRIM_WALK_SCALE=<float>` | example mod 10 a: walk speed factor | `overrides.c` |
 | `GRIM_MODS=1` | the Lua functions of example mod 10 b; off = the original exe's builtins (`tools/run_game.sh` sets it) | `GRIM_ModsOn`, `overrides.c` |
 | `GRIM_INI=<file>`, `GRIM_IMUSE_REALTIME=1`, `GRIM_SMUSH_REALTIME=1` | settings from an ini file instead of the registry; iMUSE, or the movies, on real time under `GRIM_SIMTIME` (grim_tools/cleanroom, `build/cleanroom/README.md`) | `build/cleanroom/`, `overrides.c`, `overrides_mixer_drv.c` |
 | `GRIM_SAVETRACE=<file>` | log every `SaveGame_Write` / `SaveGame_Read` (offset, size, caller) = the layout of a save; read it with `tools/savetrace.py` (BUILD_NOTES "Saves of the original game") | `overrides.c` |
@@ -255,7 +254,7 @@ python -I tools/lab.py pack    mymod.lab file1 file2 ...                        
 
 `.LAB` is `LABN`, version 0x10000, count, name-table size, 16-byte entries (name offset, data offset, size, 0), names,
 data. A packed archive is picked up like any other `*.LAB` in the working directory (alphabetical order decides
-priority, e.g. `ZZMOD.LAB` wins over every other archive; tested: `ZZMOD.LAB` holding only the patched `mo.set` of example d
+priority, e.g. `ZZMOD.LAB` wins over every other archive; tested: `ZZMOD.LAB` holding only the patched `mo.set` of example c
 in a mod directory gives the same picture as the loose file). Loose files are simpler while you iterate, an archive
 is how you would distribute a mod.
 
@@ -299,7 +298,7 @@ tools/run_game.sh -d C:/Users/Joel/mymod -t dev
 
 (An original that guards itself with `CheckFirstTime("<its own name>")`, like `_colors.lua`, must not be
 loaded under the same name by your replacement: the guard would then skip the original body.) The same method works for
-set files (example mod d) and for anything the game opens by name.
+set files (example mod c) and for anything the game opens by name.
 
 Debug hook: **Backspace + F12** in the game window runs `dofile("grimpatch.bin")` (`Win_WndProc`), a developer feature of
 the original; a loose `grimpatch.bin` in the working directory is a way to inject a script into a running game
@@ -385,7 +384,7 @@ Names below are Ghidra names (see README for the naming conventions); `src/<PROG
 | **Renderer** | `rdroid.c`, `rdcache.c` (batching, `rdCache_Flush`), `rdraster.c` (~340 software rasterizer variants `rdRaster_<Role><Bpp>_<Features>`, auto-named), `rdcanvas.c`, `rdclip.c`, `rdprimit3.c`, `rdmodel.c` (`rdModel3_DrawMeshImpl`), `rdmodel3.c` (`.3do` loader, `rdModel3_*`), `rdthing.c`, `rdpuppet.c` (animation tracks), `rdlight.c`, `rdmaterial.c`, `rdcolormap.c`, `render.c` (`Render_*` back buffer, progress bar), `sputrender.c`, `stddisplay.c`/`std3d.c` (DirectDraw/Direct3D, DIB) | the default display device is a windowed DIB with the **software** rasterizer (`Display_InitFromConfig` in `overrides.c`). |
 | **Sets, setups, sectors, camera** | `set.c` (`grimlib_MakeCurrentSet`, `sputRender_UseSetup`, `sputRender_SyncCamera`), `setup.c`, `sector.c` + `sputroom.c` (`SetFile_Parse*`: the text `.set` format: `section: setups / colormaps / lights / sectors`), `rdcamera.c` (`rdCamera_*` projection) | camera setups come from the set file (position, interest, roll, fov, nclip, fclip); Lua: `MakeCurrentSet`, `GetCameraPosition`, ... |
 | **Actors, costumes, chores** | `actor.c` (`Actor_*`; record 0xa8 bytes, `extra` 0x4a0 bytes with walk/turn rates and the walker), `actors.c`, `sputactor.c`; costumes and chores: **`CHORE.DLL`** (`Cos_*`, `src/CHORE.DLL/costume.c`) driven by `costume.c`, `sputcostume.c` and the tag handlers `*component.c` (`ModelComponent_*`, `MeshComponent_*`, `KeyframeComponent_*`, `SpriteComponent_*`, `ImuseSoundComponent_*`, `LuaVarComponent_*`) | a costume is a list of chores; a chore is a set of keyed tracks (`.cos` file). Lua: `PlayActorChore`, `SetActorCostume`, ... asm: `actor.c`, `walker.c`. |
-| **Walker and path planning** | `walker.c` (`Walker_*`: sector-constrained movement, turning, `Planner_*` path search over sectors), `actor.c` (`Actor_UpdateWalker`, `Actor_FollowPath`, `sputActor_Forward`), `collision.c` | walk step = frame time x actor time scale x walk rate (extra+0x18); example mod a changes it. |
+| **Walker and path planning** | `walker.c` (`Walker_*`: sector-constrained movement, turning, `Planner_*` path search over sectors), `actor.c` (`Actor_UpdateWalker`, `Actor_FollowPath`, `sputActor_Forward`), `collision.c` | walk step = frame time x actor time scale x walk rate (extra+0x18). |
 | **Sound (iMUSE)** | **`IMUSE.DLL`** (iMUSE core, `hmi.c` HMI SOS audio, streams, DirectSound), EXE `imuse.c`/`imusemodule.c`/`mixer.c`/`sound.c` (positioned sounds), Lua `Im*` | HMI libraries come from the working directory (6). |
 | **Movies (Smush)** | `movie.c` (`Movie_*`), `smush.c`, `insane.c` + `lecshare.c` (the LecShare module registry and the INSANE player), `sputsmush.c` | `GRIM_NOMOVIE=1` skips them; Lua: `StartMovie`, `StartFullscreenMovie`. |
 | **Text, fonts, localisation** | `text.c` (`Text_*`, `Text_LoadNativeFont`), `textobject.c` (`TextObject_*`, 0x260-byte text objects), `sputtext.c`, `glyph.c` (`Glyph_Blit*`), `polyglot.c` (`GRIM.TAB`, `/sytx123/` string ids) | Lua: `SayLine`, `MakeTextObject`, `PrintLine`, ... |
@@ -394,70 +393,27 @@ Names below are Ghidra names (see README for the naming conventions); `src/<PROG
 
 ## 10. Example mods
 
-All four were built, run and measured on this machine. The "clean" runs use a mod directory without any modification
+All three were built, run and measured on this machine. The "clean" runs use a mod directory without any modification
 (`tools/mkmoddir.sh C:/Users/Joel/agentD_clean`), so nothing in the installation is touched.
 
-### a) Change walking speed in C - `GRIM_WALK_SCALE` / `SetWalkSpeedScale`
+### a) Add a new Lua function: `GetEngineVersionString`
 
-*Where the speed comes from.* `Actor_UpdateWalker` (0x491110) computes the step of every walking actor as
-`frameSeconds x actor time scale (extra+0x41c) x walk rate (extra+0x18)` and hands it, as float bits, to
-`Puck_Forward`; Lua's `SetActorWalkRate` only stores the rate. The function is assembled, so the mod rewrites it
-in `build/overrides.c` from the disassembly (float arguments of `Puck_Rotate`/`Puck_Forward` travel in
-integer slots, hence `float_bits()`) and multiplies the step by a global:
+(It exists only with `GRIM_MODS=1`, which `tools/run_game.sh` sets: the default build has the original's builtins.)
 
-```c
-static float g_fWalkSpeedScale = 1.0f;                  // GRIM_WALK_SCALE=<float> sets the start value
-...
-ACT_I(ACT_I(actor, 0xa4), 0xc) = (int)Puck_Forward(walker,
-        float_bits(dt * ACT_F(extra, 0x41c) * ACT_F(extra, 0x18) * g_fWalkSpeedScale), a2, a3);
-```
-
-*Build steps* (the override removes an assembled function, so the assembly is regenerated):
-
-```bash
-python -I tools/build_src.py && python -I tools/gen_asm.py GRIMFANDANGO.EXE --select && python -I tools/build_src.py
-make -C build link
-cp build/obj/GRIMFANDANGO.EXE/grimfandango.exe build/obj/LUA.DLL/lua.dll build/obj/IMUSE.DLL/imuse.dll build/obj/CHORE.DLL/chore.dll build/run/
-```
-
-*Measure* (`mods/walk_speed/measure_walk.lua` walks Manny forward for 90 frames with `WalkActorForward` and divides the
-distance by `GetTickCount()` time):
-
-```bash
-tools/run_game.sh -d C:/Users/Joel/agentD_clean -t dev                      # wait for READY (5), then
-cat mods/walk_speed/measure_walk.lua >> ~/grim_cmd.lua                      # runs once; result in ~/grim_log.txt
-```
-
-| Run | Measured | Actor walk rate |
-|---|---|---|
-| before (`GRIM_WALK_SCALE` unset, engine scale 1) | 0.409 units/s | 0.4 |
-| after (`GRIM_WALK_SCALE=2 tools/run_game.sh ...`, engine scale 2) | 0.744 units/s | 0.4 |
-| after, scale set from Lua at run time (`SetWalkSpeedScale(2)`, see b) | 0.820 units/s | 0.4 |
-
-(Frame-time jitter makes a 90-frame measurement good to about 10 %; the ratio is the point.) The same effect in pure Lua,
-no rebuild, is example c.
-
-### b) Add new Lua functions: `GetEngineVersionString`, `SetWalkSpeedScale`, `GetWalkSpeedScale`
-
-(They exist only with `GRIM_MODS=1`, which `tools/run_game.sh` sets: the default build has the original's builtins.)
-
-Implemented exactly as the recipe in 8 (`build/overrides.c`: three `static int Lua_...(void)` functions, the `mod_api[]`
-table, `GRIM_RegisterModApiLib` / `GRIM_RegisterModApi`, plus the two entries in `names/asm_patches.json`). Before the build the names are
-unknown globals; after it:
+Implemented exactly as the recipe in 8 (`build/overrides.c`: a `static int Lua_...(void)` function, the `mod_api[]`
+table, `GRIM_RegisterModApiLib` / `GRIM_RegisterModApi`, plus the two entries in `names/asm_patches.json`). Before the build the name is
+an unknown global; after it:
 
 ```text
-$ tools/lua_cmd.sh 'grimlog("version: "..GetEngineVersionString()) grimlog("scale "..GetWalkSpeedScale())'
+$ tools/lua_cmd.sh 'grimlog("version: "..GetEngineVersionString())'
 version: Grim Fandango GOG v1.01 decompilation rebuild, built Oct 29 2026 20:39:18
-scale 1
-$ tools/lua_cmd.sh 'SetWalkSpeedScale(2) grimlog("scale "..GetWalkSpeedScale())'
-scale 2
 ```
 
-Checked in the same run: `Save("x.gsv")`, then `Load("x.gsv")`, then `GetEngineVersionString()` still works (the functions
-are in the save/restore table because they were registered with `lua_openlib`), and they are plain globals for
+Checked in the same run: `Save("x.gsv")`, then `Load("x.gsv")`, then `GetEngineVersionString()` still works (the function
+is in the save/restore table because it was registered with `lua_openlib`), and it is a plain global for
 scripts (`if GetEngineVersionString then ... end`).
 
-### c) A Lua-only mod with loose files, no rebuild: magenta, faster Manny
+### b) A Lua-only mod with loose files, no rebuild: magenta, faster Manny
 
 `mods/magenta_manny/_local.lua` replaces `_local.lua` (the last boot script, 7). It runs the original, then sets the two
 globals `_manny.lua` passes to `set_walk_rate` whenever Manny's walk chore changes, and re-applies a talk colour after
@@ -492,7 +448,7 @@ tools/lua_cmd.sh 'manny:say_line("Cold boot magenta")'   # the text shows ~1 s l
 
 ![magenta Manny](modding_magenta_manny.png)
 
-### d) Override a set file with a loose copy: wider camera (`mo.set`)
+### c) Override a set file with a loose copy: wider camera (`mo.set`)
 
 Set files are plain text (6/9), so a modified copy of Manny's office, with the field of view of the first setup
 (`mo_ddtws`) lowered from 75.178 to 45 degrees, makes everything rendered in 3D (Manny) larger against the pre-rendered

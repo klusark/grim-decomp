@@ -1238,8 +1238,6 @@ void __cdecl Actor_PuckOrient(Actor *actor)
 
 
 /* ---- 0x00491110  Actor_UpdateWalker ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Actor_UpdateWalker(Actor *actor)
 
 {
@@ -1292,8 +1290,6 @@ void __cdecl Actor_UpdateWalker(Actor *actor)
   actor->aPos[2] = fVar4;
   return;
 }
-#endif
-
 
 /* ---- 0x004913f0  Actor_UpdateMoveChores ---- */
 /* Actor_UpdateMoveChores (after Actor_UpdateWalker): costume record [10] walk, [0xb] left turn,

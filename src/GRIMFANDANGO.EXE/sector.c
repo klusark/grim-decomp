@@ -2316,8 +2316,6 @@ LAB_004a903f:
 
 
 /* ---- 0x004a9070  WalkPlane_DistToEdge ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Source: Engine/WalkPlane.cpp (line 1736, from __FILE__/__LINE__ passed to the allocator) Original
    name WalkPlane_DistToEdge (the remaster's GrimFandango (Linux): same body (assert "edge_index <
    num_verts", WalkPlane.cpp; the distance of the point to the edge)); was Sector_EdgeDistance. */
@@ -2377,8 +2375,6 @@ float __thiscall WalkPlane_DistToEdge(WalkPlane *this,int edge,float *point)
 #undef fStack_8
 #undef local_30
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004a9180  WalkPlane_RemoveShortEdge ---- */

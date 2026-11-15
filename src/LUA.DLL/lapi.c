@@ -1106,8 +1106,6 @@ int __cdecl lua_stackedfunction(int level)
 }
 
 /* ---- 0x100020f0  lua_printstack ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 undefined4 __cdecl lua_printstack(int out)
 
 {
@@ -1187,8 +1185,6 @@ LAB_1000224a:
 }
 #undef local_4
 #undef local_8
-
-#endif
 
 
 /* ---- 0x10002280  lua_currentline ---- */

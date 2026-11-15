@@ -9,7 +9,7 @@
 | 100010d0 | Cos_NewEntry | costume.c | 18 |
 | 100016a0 | Cos_New | costume.c | 17 |
 | 100016e0 | Cos_Load | costume.c | 40 |
-| 10001770 | Cos_LoadEntry | costume.c | 1 |
+| 10001770 | Cos_LoadEntry | costume.c | 117 |
 | 10001a30 | Cos_FreeCosInstance | costume.c | 18 |
 | 10001a80 | Cos_CreateCosInstance | costume.c | 161 |
 | 10001d70 | Cos_InstGetInstanceData | costume.c | 22 |

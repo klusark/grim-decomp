@@ -72,8 +72,6 @@ undefined4 * __cdecl rdModel3_Load(uint name)
 }
 
 /* ---- 0x0040a980  rdModel3_LoadEntry ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Opens the file; the magic 'MODL' selects rdModel3_LoadBinary, anything else is parsed by
    rdModel3_LoadText. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c).
    Original name rdModel3_LoadEntry (the remaster's GrimFandango (Linux): same body (open, 'LDOM'
@@ -105,12 +103,8 @@ uint __cdecl rdModel3_LoadEntry(int name,uint model)
   uVar1 = rdModel3_LoadEntryText((char *)path,(rdModel3 *)model);
   return uVar1;
 }
-#endif
-
 
 /* ---- 0x0040aa20  rdModel3_LoadEntryText ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Function: __alloca_probe replaced with injection: alloca_probe */
 /* Parser of the text .3do format (stdConffile 'section:' lines). Source file Rdmodel3.c
    (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
@@ -699,12 +693,8 @@ LAB_0040b8c4:
 #undef uStack_20474
 #undef uStack_20488
 
-#endif
-
 
 /* ---- 0x0040b8e0  rdModel3_LoadEntryBinary ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Reader of the binary 'MODL' model format (materials, geometry sets, meshes, hierarchy nodes).
    Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). Original name
    rdModel3_LoadEntryBinary (the remaster's GrimFandango (Linux): the only unmatched callee of
@@ -981,8 +971,6 @@ uint __cdecl rdModel3_LoadEntryBinary(int f,int model)
 #undef local_1c
 #undef local_8
 #undef uStack_4
-
-#endif
 
 
 /* ---- 0x0040c090  rdModel3_LoadPostProcess ---- */

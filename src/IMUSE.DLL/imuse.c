@@ -1454,8 +1454,6 @@ undefined4 __cdecl DwInitialize(undefined4 services,undefined4 *trInitialize_wav
 }
 
 /* ---- 0x10003730  DwQuery ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Fills the DirectSound stream buffer from the mixer once per tick Original name DwQuery (the
    remaster's GrimFandango (Linux): aligned call in TrIntHandler); was Im_DSoundHeartbeat. */
 
@@ -1546,8 +1544,6 @@ int __cdecl DwQuery(int **buf_out,uint *count_out,int *rate_out)
   }
   return (int)ppiVar3;
 }
-#endif
-
 
 /* ---- 0x100038d0  DwTerminate ---- */
 /* Original name DwTerminate (the remaster's GrimFandango (Linux): called by TrTerminate at the same

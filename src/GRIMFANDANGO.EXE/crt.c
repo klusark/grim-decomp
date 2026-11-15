@@ -186,7 +186,7 @@
 
 
 /* ---- 0x004addf0  __alloca_probe ---- */
-/* not in the source: Microsoft's C runtime (module crt, which build/link.py does not link; the system msvcrt.dll has it) */
+/* replaced by the hand-written version in build/overrides*.c; the original C runtime code is not kept */
 
 
 /* ---- 0x004ade30  strchr ---- */

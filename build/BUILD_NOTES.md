@@ -2196,3 +2196,49 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   stack slot the decompiler lost. Its reason, and those of the functions renamed since (Script_Update,
   stdDisplay_EnumDevicesCallback, Script_SetState, Script_Trans), are in names/override_reasons.json.
 * docs/OVERRIDES.md: 545 hand-written functions (repair 26). datacmp 0 differences; clean room 0 of 5457.
+
+## The 26 "repair" overrides: 19 generated again, 7 with their reason; the walk-speed mod removed (2026-11-15)
+
+The functions that stayed hand-written without a recorded reason (docs/OVERRIDES.md category `repair`), one by one:
+what Ghidra had wrong, fixed in the project, then the override removed and checked (clean room 0 of 5490, the
+whole-game autorun).
+
+* **Lost call arguments** (names/callsite_overrides.json, tools/apply_call_overrides.py): str_format's two sprintf
+  calls (`%s`, `%d`: 3 arguments; LUA.DLL's first entries); rdModel3_LoadEntry's two pFclose calls (one PUSH shared
+  by both paths); sputLua_NotifyControlHandlers' `CALL EBP` (lua_isfunction through a register); DwQuery's Lock (8)
+  and Unlock (5) and DsndDriver_InitDirectSound's SetCooperativeLevel (3) are COM __stdcall: as __cdecl the
+  decompiler's stack tracking was off by their arguments, so DwQuery wrote *buf_out / *rate_out into Lock's own
+  arguments (a division by zero in DpProcessTrack, every sound test) and InitDirectSound built its DSBUFFERDESC below
+  the stack pointer (never filled: smv_late).
+* **MSVC's stack probe**: FUN_004addf0 is `__alloca_probe` with Ghidra's `alloca_probe` call fixup. Its callers'
+  frames come out right: rdModel3_LoadEntryText (0x20488 bytes of locals) had eight `param_N` and `in_stack_` reads
+  for its locals; it takes (char *path, rdModel3 *model). The assembled alias in overrides_r2.c is now
+  `___alloca_probe`.
+* **Prototypes**: rdClip_Face3GS / Face3T / Face3GT return the vertex count (uint, like their Ortho twins) and take a
+  uint count (they were `float` / `float *`, rdPrimit3_ClipFace read extraout_EAX); Cos_ReadComponentsSection takes
+  3 arguments (ADD ESP,0xc; Cos_LoadEntry passed unaff_EDI as a fourth); rdVector_Normalize3 returns float10 in ST0
+  (custom storage, like stdMath_Tan: a plain float10 return becomes a hidden return pointer), so
+  WalkPlane_DistToEdge reads the length; the hand-written rdVector_Normalize3 returns it as a long double.
+* **Types**: ControlSymbol +8 is a union ControlValue {int nState; float fValue} (a button's key state, an axis's
+  value): sputLua_NotifyControlHandlers compares and stores each as its own type. tools/export_raw.py exports unions
+  (an inline script: the bridge's get_struct_layout reads structures only; structs.json `"kind": "union"`),
+  tools/build_src.py emits them, tools/apply_types.py creates them (a batch's `"unions"`, names/types_data_tables.json).
+  ProcEntry 0x4c..0x77 typed (dwColormap, the screen box dwMinX .. dwMaxY, flMinZ / flMaxZ, the extreme-y vertex
+  indices, dwUserData; names/types_rdcache.json). Stack locals: sputLua_NotifyControlHandlers (the handlers and tables
+  as ints, the FILD qword temporaries as longlong: the loop counter had been a float), sputLua_GetShrinkPosition (pos
+  is float[3]: z was a register copy that WalkPlane_ClosestPoint's result never reached).
+* **Generated again** (18): anm_Render, DsndDriver_InitDirectSound, sputLua_GetShrinkPosition,
+  sputLua_NotifyControlHandlers, rdModel3_LoadEntry, rdModel3_LoadEntryBinary, rdModel3_LoadEntryText,
+  rdPrimit3_ClipFace, WalkPlane_DistToEdge, sou_engine_start_stream, lua_printstack, luaD_call, luaY_lex, match,
+  str_format, DwQuery, sounds_restore, Cos_LoadEntry.
+* **The walk-speed mod is gone** (GRIM_WALK_SCALE, SetWalkSpeedScale / GetWalkSpeedScale, mods/walk_speed, docs/MODDING.md
+  example a): Actor_UpdateWalker is generated again (19th). GetEngineVersionString stays the mod API's example.
+* **Kept, with the reason in names/override_reasons.json** (7): Insane_BlitRows16 (fast path),
+  sputLua_GetVisibleThingsL (its uninitialised read cannot be copied: a substitute viewer), Collision_PointInBox (the
+  box is copied out of its parameter slots before they are reused; the decompiler orders the stores first),
+  ImSoundCall (commands 0x11 / 0x14 read a word no caller pushes), Im_MixLoopC / Im_MixLoopD (MOVSX of the
+  byte-swapped sample printed as a zero-extending `(int)CONCAT11`), rdCache_AddProcFace (the screen box is rounded up
+  under a FLDCW round-up control word; ROUND rounds to nearest).
+* docs/OVERRIDES.md: 526 hand-written functions, none in `repair`. datacmp: 2 differences, both pointers stored
+  unaligned inside DirectInput's data-format tables (DAT_004d5370 +0x15, DAT_004d5400 +0x15): the same targets
+  (&DAT_004d4370, &DAT_004d5390) at this build's addresses; datacmp compares aligned pointers by target only.

@@ -151,8 +151,6 @@ int __cdecl Cos_Load(char *fileName)
 }
 
 /* ---- 0x10001770  Cos_LoadEntry ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export: loads the text costume file `name` into the costume `handle` (sections tags, components,
    chores, keys). Hand-written in build/overrides_asm_o2_chore.c, which has the details. */
 
@@ -269,8 +267,6 @@ LAB_10001a10:
 #undef auStack_4
 #undef auStack_8
 #undef uStack_10
-
-#endif
 
 
 /* ---- 0x10001a30  Cos_FreeCosInstance ---- */

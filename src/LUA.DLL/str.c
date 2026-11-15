@@ -539,8 +539,6 @@ void __cdecl push_captures(int *ms)
 
 
 /* ---- 0x10009ea0  match ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* recursive pattern matcher; errors 'too many captures' Original name match (the remaster's
    libLua.so: static match: string 'too many captures'); was str_match. */
 
@@ -621,8 +619,6 @@ LAB_10009f5e:
     }
   } while( true );
 }
-#endif
-
 
 /* ---- 0x1000a030  capture_to_close ---- */
 /* Named capture_to_close (not in the remaster, gcc inlined it there): Lua 3.1 source name
@@ -893,8 +889,6 @@ LAB_1000a36b:
 }
 
 /* ---- 0x1000a440  str_format ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name str_format (the remaster's libLua.so: strlib entry 'format'); was FUN_1000a440. */
 
 void __cdecl str_format(void)
@@ -1017,8 +1011,6 @@ LAB_1000a5fe:
 #undef iStack_104
 #undef iStack_10c
 #undef uStack_c7
-
-#endif
 
 
 /* ---- 0x1000a680  luaI_addquoted ---- */

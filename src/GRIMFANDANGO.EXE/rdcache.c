@@ -164,6 +164,8 @@ void __cdecl rdCache_Flush(void)
 }
 
 /* ---- 0x00406860  rdCache_AddProcFace ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* Appends a mesh to the cache list and computes its screen bounds / depth Original name
    rdCache_AddProcFace (the remaster's GrimFandango (Linux): aligned call in rdModel3_DrawFace,
    rdSprite_Draw); was rdCache_AddMesh. */
@@ -273,6 +275,8 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
   return 0;
 }
 #undef local_10
+
+#endif
 
 
 /* ---- 0x00406aa0  rdCache_SendFaceListToHardware ---- */

@@ -7,26 +7,23 @@ Every function below is built from the hand-written C of `build/overrides*.c`; `
 | Category | Count | Meaning |
 |---|---|---|
 | rasteriser | 363 | rdraster.c span fillers: the original switches the x87 control word part-way through each span (24-bit truncation), which generated C cannot express; built from macro templates and tested against the original (build/difftest/asm_q4 .. q6). Kept on purpose. |
-| documented | 66 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
+| documented | 73 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
 | hook | 10 | the build's own test and mod hooks, host-runtime handling (kept on purpose) |
 | x87 | 66 | x87-exact ports (float rounding through memory, FCOMP compares, ST0 results) the generated C does not match |
 | assembly | 14 | top-level asm(): a register convention C cannot declare |
-| repair | 26 | Ghidra's text is wrong for it (lost or register arguments, unrecovered jump tables): needs a fix in the Ghidra project before it can be generated again |
 
-Total: 545.
+Total: 526.
 
-## GRIMFANDANGO.EXE (498)
+## GRIMFANDANGO.EXE (487)
 
 363 rasteriser span fillers of rdraster.c are not listed one by one.
 
 | Function | Address | Module | Hand-written in | Category | Why |
 |---|---|---|---|---|---|
 | `Actor_PuckOrient` | 00490f50 | actor.c | overrides_logic.c | x87 | ActorPuckOrient, at the end of the actor update when actor+4 & 0x10: |
-| `Actor_UpdateWalker` | 00491110 | actor.c | overrides.c | repair | Actor_UpdateWalker (0x491110), rewritten from the disassembly with the walk speed scale added. |
 | `sputActor_UpdateActorSpeech` | 00490210 | actor.c | overrides_logic.c | x87 | Lip sync: while the actor speaks (talk flag +0x1dc, voice handle +0x1c8) the current phoneme is read from iMUSE and the matching talk chore is completed; |
 | `sputCostume_DrawMeshShadow` | 00494940 | actor.c | overrides_logic.c | x87 | Draws the actor's shadow onto one shadow plane: |
 | `sputText_CreateActorText` | 0048b2e0 | actor.c | overrides_logic.c | documented | the generated text passes unaff_EBX / unaff_EDI / unaff_EBP to its callees |
-| `anm_Render` | 004c27a0 | animplay.c | overrides_mixer_misc.c | repair | One step of the player, called from the main loop: |
 | `Blocky16_DecodeBlock8` | 004cd610 | blocky16.c | overrides_mixer_codec.c | documented | register convention of the block decoders (ESI / EDI in and out); only reachable through Blocky16_DecodeBlocks |
 | `Blocky16_DecodeBlocks` | 004cd550 | blocky16.c | overrides_mixer_codec.c | documented | register convention: source and destination in ESI / EDI, both returned advanced; the twin calls the block decoder with unaff_EDI / unaff_ESI and crashes |
 | `block16_RenderBlock2` | 004cdb80 | blocky16.c | overrides_mixer_codec.c | documented | register convention of the block decoders (ESI / EDI in and out) |
@@ -35,19 +32,18 @@ Total: 545.
 | `fob_flobdec_blocky16_config` | 004cc250 | blocky16.c | overrides_mixer_codec.c | documented | walks its varargs through REGISTER0X(0x10) (ESP); twin test: 7,612 of 30,000 differ |
 | `MaterialInstanceSaveLoad` | 004965b0 | cmapcomponent.c | overrides_asm_o2.c | documented | called with five arguments, Ghidra sees in_stack_ reads; twin test: crashes |
 | `Collision_BoxSlide` | 00494100 | collision.c | overrides_logic.c | assembly | True when the segment from `a` to `b` (both moved by `offset`) does not hit the box (xmin, ymin, zmin, xmax, ymax, zmax passed by value, then one more pointer for TestCollision) and BuildPath accepts a plan between the t |
-| `Collision_PointInBox` | 00492510 | collision.c | overrides_logic.c | repair | True when the segment from `a` to `b` (both moved by `offset`) does not hit the box (xmin, ymin, zmin, xmax, ymax, zmax passed by value, then one more pointer for TestCollision) and BuildPath accepts a plan between the t |
+| `Collision_PointInBox` | 00492510 | collision.c | overrides_logic.c | documented | stack aliasing: the original copies the box out of its parameter slots (rep movsd into the outgoing arguments), then reuses those slots for the moved end point; the decompiler orders the stores before the copy, so the twin passes the moved point as the box |
 | `Collision_TestActorAgainstOthers` | 004939f0 | collision.c | overrides_big_collision_others.c | documented | x87-exact: the twin differs in NaN compares |
 | `Costume_ApplyScale` | 00495510 | costume.c | overrides.c | documented | deliberate fix: the same scale factor for all components, the reciprocal stored once per call |
 | `_CIpow` | 004ae540 | crt.c | overrides.c | assembly | MSVC 6 pow family (_CIpow takes its operands on the x87 stack, _pow on the C stack). |
+| `__alloca_probe` | 004addf0 | crt.c | overrides_r2.c | assembly | Round r2 (2026-11-09): |
 | `_input` | 004b3620 | crt.c | overrides.c | assembly | libmsvcrt.a has no import entry for sscanf (mingw has its own), so ask msvcrt.dll for it extern void *__attribute__((stdcall)) GRIM_LoadLibraryA(const char *) __asm__("_LoadLibraryA@4"); |
 | `_pow` | 004ae562 | crt.c | overrides.c | assembly | MSVC 6 pow family (_CIpow takes its operands on the x87 stack, _pow on the C stack). |
-| `FUN_004addf0` | 004addf0 | crt_unnamed.c | overrides_r2.c | assembly | Round r2 (2026-11-09): |
 | `msc_MemSet` | 004d5e50 | crt_unnamed.c | overrides_asm_o2.c | documented | the original returns the count, left in EAX by the callee's pushad / popad; twin test: 1,448 of 12,301 differ |
-| `DsndDriver_InitDirectSound` | 004d2940 | dsnddriver.c | overrides_mixer_drv.c | repair | Creates the DirectSound object, takes the primary buffer (22050 Hz 16 bit stereo), saves its volume and makes the stream buffer. |
 | `Engine_LoadGame` | 00483240 | engine.c | overrides.c | hook |  |
 | `sputRender_Update` | 00484260 | engine.c | overrides_big_engine_renderframe.c | x87 | Draws one frame. mode (g_dwGrimlib_mode) 0: |
 | `Main_Service` | 004016a0 | game.c | overrides_exe.c | documented | the frame-time hook of the scripted tests (g_fixedFrameMs) |
-| `Insane_BlitRows16` | 004bddb0 | insane.c | fastpaths.c | repair | Insane_BlitRows16 (0x4bddb0): |
+| `Insane_BlitRows16` | 004bddb0 | insane.c | fastpaths.c | documented | fast path: the per-pixel copy of a movie frame dominated the movie loop; the hand-written copy gives the same pixels |
 | `InsaneTimer_StopThread` | 004cde80 | insanetimer.c | overrides_mixer_drv.c | documented | the twin compares unaff_ESI with STILL_ACTIVE where the original reads the exit code it just stored (its test passes only because the recorded calls do not depend on it) |
 | `sys_Delay` | 004cdfd0 | insanetimer.c | overrides_mixer_drv.c | documented | GRIM_SIMTIME hook |
 | `sys_timer_dispatcher` | 004ce1d0 | insanetimer.c | overrides_mixer_drv.c | documented | setjmp / longjmp through unaff_ registers |
@@ -57,9 +53,7 @@ Total: 545.
 | `Lua_Print_NoOp` | 0049ddd0 | lua.c | overrides.c | documented | the debug log of the scripted tests (GRIM_DEBUGLOG); the retail game registers an empty function |
 | `sputLua_GetActorChoresL` | 00499ff0 | lua.c | overrides_logic.c | x87 |  |
 | `sputLua_GetActorLoopingChoresL` | 0049a2a0 | lua.c | overrides_logic.c | x87 |  |
-| `sputLua_GetShrinkPosition` | 00498ea0 | lua.c | overrides_exe.c | repair | GetShrinkPos(x, y, z, amount) -> x, y, z of the nearest point of the shrunken walk sectors (nil if there is none) |
-| `sputLua_GetVisibleThingsL` | 0049b9e0 | lua.c | overrides_logic.c | repair | GetVisibleThings([actor]): |
-| `sputLua_NotifyControlHandlers` | 0049e0b0 | lua.c | overrides_logic.c | repair | Calls system.buttonHandler / system.axisHandler (a function, or a table holding the function under the same name, which is then called with the table as first argument) for every enabled control (16 byte records at 0x004 |
+| `sputLua_GetVisibleThingsL` | 0049b9e0 | lua.c | overrides_logic.c | documented | the original's bug cannot be copied: when the argument is neither nil nor an actor it reads an uninitialised stack slot as the viewer (on the original a leftover actor pointer, varying from run to run; in the rebuild a null pointer, which crashed, grim_tools cleanroom args_GetVisibleThings_tab); the hand-written version takes the selected actor there |
 | `sputLua_Startup` | 0049de00 | lua.c | overrides_asm_o2.c | documented | registers the build's mod API functions |
 | `Math_Floor` | 0047c100 | math.c | overrides_exe.c | documented | x87: FRNDINT under the round-down control word, which the decompiler does not see |
 | `Math_Sqrt` | 0047c490 | math.c | overrides_cleanroom.c | documented | x87: FLD x; FSQRT; RET, the result stays in ST0 unrounded |
@@ -81,7 +75,7 @@ Total: 545.
 | `DSound_GetPlayBlock` | 004d2c60 | mixer.c | overrides_mixer_drv.c | documented | GRIM_SIMTIME hook: the play cursor follows the simulated clock |
 | `Mixer_InitTables` | 004d2e80 | mixer.c | overrides_mixer.c | documented | twin test: 54 of 54 differ |
 | `ThingInstancer` | 00496950 | modelcomponent.c | overrides_asm_o2.c | documented | twin test: crashes |
-| `rdCache_AddProcFace` | 00406860 | rdcache.c | overrides_logic.c | repair |  |
+| `rdCache_AddProcFace` | 00406860 | rdcache.c | overrides_logic.c | documented | x87: the screen box is the bounds rounded UP (FLDCW round-up, FRNDINT, FLDCW back, _ftol); the decompiler's ROUND rounds to nearest (draw, shadow and lighting tests differ) |
 | `rdCache_SendFaceListToHardware` | 00406aa0 | rdcache.c | overrides_asm_q3.c | x87 |  |
 | `rdCamera_BuildFOV` | 0040a280 | rdcamera.c | overrides_logic.c | x87 | Computes the projection of an rdCamera from its canvas size and the frustum planes (the record the camera points to at +0x48). |
 | `rdActive_AddActiveFace` | 00405770 | rdcanvas.c | overrides_asm_p1.c | x87 | Takes the next polygon record of the canvas (UINT_00565f38 + g_dwNumActiveFaces * 0x204, at most 0x400; |
@@ -104,11 +98,7 @@ Total: 545.
 | `rdModel3_DrawMeshImpl` | 0040d230 | rdmodel.c | overrides_asm_p1.c | x87 | Draws one mesh of a model with the model matrix (12 floats, translation at +9). |
 | `rdModel3_CalcRadii` | 0040c8c0 | rdmodel3.c | overrides_logic.c | x87 |  |
 | `rdModel3_CalcVertexNormals` | 0040cc30 | rdmodel3.c | overrides_logic.c | x87 | Averages the normals of the faces that share a vertex into the mesh's vertex normal array and normalises them. |
-| `rdModel3_LoadEntry` | 0040a980 | rdmodel3.c | overrides_logic.c | repair | Opens the model file; |
-| `rdModel3_LoadEntryBinary` | 0040b8e0 | rdmodel3.c | overrides_asm_p1.c | repair | Reads a binary model (param_1: |
-| `rdModel3_LoadEntryText` | 0040aa20 | rdmodel3.c | overrides_asm_q3.c | repair |  |
 | `rdCache_InsertFace` | 00409d50 | rdprimit3.c | overrides_logic.c | x87 | Draws a world-space polygon with the 3D primitives: |
-| `rdPrimit3_ClipFace` | 0040deb0 | rdprimit3.c | overrides_logic.c | repair |  |
 | `rdPrimit3_NoClipFace` | 0040e500 | rdprimit3.c | overrides_asm_p1.c | x87 | Copies a face that needs no clipping into the output vertex pools. |
 | `rdPuppet_AdvanceTrack` | 004507e0 | rdpuppet.c | overrides_asm_q3.c | x87 |  |
 | `rdPuppet_UpdateFrame` | 00450ba0 | rdpuppet.c | overrides_asm_q3.c | x87 |  |
@@ -119,13 +109,11 @@ Total: 545.
 | `SaveGame_Write` | 004831f0 | savegame.c | overrides.c | documented | save-game trace hook (sg_trace_rec) |
 | `ShrinkBoxes` | 004a9d00 | sector.c | overrides_logic.c | x87 | ShrinkBoxes(radius), called by Lua ShrinkBoxes after WalkPlane_BuildCache. |
 | `WalkPlane_ClosestPoint` | 004a6b30 | sector.c | overrides_cleanroom.c | x87 | WalkPlane_ClosestPoint (0x4a6b30, __thiscall sector, point): |
-| `WalkPlane_DistToEdge` | 004a9070 | sector.c | overrides.c | repair | WalkPlane_DistToEdge (0x4a9070): |
 | `WalkPlane_Within` | 004a6980 | sector.c | overrides_asm_o2.c | x87 |  |
 | `stdStartup` | 004733a0 | services.c | overrides_logic.c | x87 | Stores the module service table and captures the x87 control word the game runs with: |
 | `SetSoundPosition` | 004a4e80 | sound.c | overrides_logic.c | x87 | Moves the volume and pan of one positioned sound (entry: |
 | `SoundModule_AdvanceClock` | 004d2340 | soundmodule.c | overrides_mixer_snd.c | documented | twin test: 233 of 4,998 differ |
 | `sou_engine_fill` | 004d16a0 | soundmodule.c | overrides_mixer_snd.c | documented | twin test: 1,604 of 4,998 differ |
-| `sou_engine_start_stream` | 004d1180 | soundmodule.c | overrides_mixer_snd.c | repair | One SAUD / PSAD sound chunk. |
 | `sputLua_Update` | 0049c8f0 | sputlua.c | overrides_exe.c | hook | Per frame: stores system.frameTime and system.movieTime in the Lua "system" table, collects garbage every 10 s and runs the Lua tasks (lua_updatetasks). |
 | `D3D_CreateViewport` | 0047a130 | std3d.c | overrides_asm_o2.c | x87 |  |
 | `D3D_InitRenderState` | 00479db0 | std3d.c | overrides_asm_o2.c | documented | twin test: crashes (the execute buffer descriptor comes from unaff_ registers) |
@@ -157,7 +145,7 @@ Total: 545.
 | `gz_open` | 004c3e60 | zlib.c | overrides_mixer_misc.c | documented | undecided: misc_test's group needs the overrides rebuilt with -Dmalloc=test_malloc, which twin.sh does not do |
 | `gz_putLong` | 004c49c0 | zlib.c | overrides_mixer_misc.c | documented | undecided: misc_test's group needs the overrides rebuilt with -Dmalloc=test_malloc, which twin.sh does not do |
 
-## LUA.DLL (23)
+## LUA.DLL (18)
 
 | Function | Address | Module | Hand-written in | Category | Why |
 |---|---|---|---|---|---|
@@ -165,14 +153,11 @@ Total: 545.
 | `_input` | 1001b2d0 | crt.c | overrides.c | assembly | libmsvcrt.a has no import entry for sscanf (mingw has its own), so ask msvcrt.dll for it extern void *__attribute__((stdcall)) GRIM_LoadLibraryA(const char *) __asm__("_LoadLibraryA@4"); |
 | `_pow` | 10012152 | crt.c | overrides.c | assembly | MSVC 6 pow family (_CIpow takes its operands on the x87 stack, _pow on the C stack). |
 | `FUN_100120fa` | 100120fa | crt_unnamed.c | overrides.c | assembly | LUA.DLL's fmod (math.mod): |
-| `lua_printstack` | 100020f0 | lapi.c | overrides.c | repair |  |
 | `lua_setfallback` | 100025b0 | lapi.c | overrides.c | x87 | lua_setfallback (lbuiltin.c, Lua 3.1 compat): |
 | `lua_updatetasks` | 10001e10 | lapi.c | overrides_lua_core.c | x87 | The task scheduler: runs every task (lua_State linked by LState_next = next task) once. |
-| `luaD_call` | 10004180 | ldo.c | overrides.c | repair | ---- agentJ: luaD_call (LUA.DLL 0x10004180), the Lua call dispatcher ---- luaD_call(pos, nres) runs the function at stack position `pos` (1-based; |
 | `luaD_protectedrun` | 100046e0 | ldo.c | overrides_lua_core.c | x87 | Calls the function on the C stack (do_callinc(nResults)) under a setjmp. |
 | `message` | 100046a0 | ldo.c | overrides.c | x87 | message (ldo.c): calls the error tag method (the global tag-method object, tag + value) with the message. |
 | `protectedparser` | 10004a50 | ldo.c | overrides_lua_core.c | x87 | Parses (luaY_parser) or undumps (luaU_undump1, param_2 != 0) one chunk from the stream param_1 under a setjmp. |
-| `luaY_lex` | 10005d00 | llex.c | overrides.c | repair |  |
 | `luaO_equalObj` | 100074b0 | lobject.c | overrides.c | documented | TEST AH,0x40 after FCOMPP: an unordered compare counts as equal, the twin's == does not |
 | `luaV_tostring` | 1000d620 | lundump.c | overrides.c | documented | its twin converts the word as an integer and its sprintf lost the number |
 | `math_abs` | 10006ea0 | math.c | overrides.c | documented | its local is undefined4, compared as an integer |
@@ -181,21 +166,18 @@ Total: 545.
 | `math_mod` | 10007080 | math.c | overrides.c | x87 |  |
 | `math_random` | 10007290 | math.c | overrides.c | x87 | random() in [0,1): rand() % 32767 / 32767; |
 | `math_randomseed` | 10007300 | math.c | overrides.c | x87 |  |
-| `match` | 10009ea0 | str.c | overrides.c | repair | ---- agentJ: match (LUA.DLL 0x10009ea0) ---- Lua 3.1 pattern matcher: |
 | `push_captures` | 10009e40 | str.c | overrides.c | x87 | push_captures (lstrlib.c push_captures): |
-| `str_format` | 1000a440 | str.c | overrides.c | repair | ---- agentJ: string.format (LUA.DLL 0x1000a440) ---- format(fmt, ...): |
 
-## IMUSE.DLL (19)
+## IMUSE.DLL (17)
 
 | Function | Address | Module | Hand-written in | Category | Why |
 |---|---|---|---|---|---|
-| `DwQuery` | 10003730 | imuse.c | overrides_imuse.c | repair | Called twice per 20 ms heartbeat step by TrIntHandler, alternating between two phases (DAT_1002d848 toggles): |
-| `ImSoundCall` | 10004f70 | imuse.c | overrides_imuse.c | repair | Command dispatcher: cmd = number of the Im* call, a2..a11 = ten argument words. |
+| `ImSoundCall` | 10004f70 | imuse.c | overrides_imuse.c | documented | commands 0x11 and 0x14 read argument 15, four words beyond what any caller pushes (garbage in the original); the hand-written version takes a11, equal to every argument the two callers pass |
 | `ImWaveHalt` | 10004f50 | imuse.c | overrides.c | assembly | The iMUSE re-entrancy guard (g_dwWvSlicingHalted, Enter/Leave around nearly every Im* call) is a plain counter: |
 | `ImWaveProceed` | 10004f60 | imuse.c | overrides.c | assembly | The iMUSE re-entrancy guard (g_dwWvSlicingHalted, Enter/Leave around nearly every Im* call) is a plain counter: |
 | `Im_DSoundCreateBuffer` | 10003930 | imuse.c | overrides.c | documented | mutes the buffer under GRIM_SIMTIME |
-| `Im_MixLoopC` | 10005b80 | imuse.c | overrides_imuse.c | repair |  |
-| `Im_MixLoopD` | 10005db0 | imuse.c | overrides_imuse.c | repair |  |
+| `Im_MixLoopC` | 10005b80 | imuse.c | overrides_imuse.c | documented | the byte-swapped big-endian sample is sign-extended (MOVSX EAX,AX); the decompiler prints (int)CONCAT11(lo, hi), which C zero-extends: negative samples come out as 65536 - |x| |
+| `Im_MixLoopD` | 10005db0 | imuse.c | overrides_imuse.c | documented | the byte-swapped big-endian sample is sign-extended (MOVSX EAX,AX); the decompiler prints (int)CONCAT11(lo, hi), which C zero-extends: negative samples come out as 65536 - |x| |
 | `Im_RunTriggerCommand` | 1000b6a0 | imuse.c | overrides_imuse.c | documented | the twin calls the callback with the marker alone; the code pushes eleven words |
 | `MxInitialize` | 10005360 | imuse.c | overrides_imuse.c | x87 |  |
 | `Script_SetSequence` | 10006620 | imuse.c | overrides_imuse_r1.c | assembly | id = sequence id (-1: |
@@ -206,15 +188,13 @@ Total: 545.
 | `FUN_1000c670` | 1000c670 | imuse_api.c | overrides.c | x87 | not the CRT port's own vsprintf |
 | `SoundsFillStreamsWhileMusicCritical` | 10007670 | imuse_api.c | overrides.c | hook |  |
 | `SoundsFloodMusicBuffer` | 10007790 | imuse_api.c | overrides.c | hook |  |
-| `sounds_restore` | 10008580 | imuse_api.c | overrides_imuse.c | repair | The sounds module's restore callback (SoundsInitialize registers it): |
 | `iMUSE_dsound__3a80` | 10003a80 | imuse_dsound.c | overrides.c | assembly | the 20 ms of real time between heartbeats ImHeartbeat insists on ImHeartbeat(); |
 
-## CHORE.DLL (5)
+## CHORE.DLL (4)
 
 | Function | Address | Module | Hand-written in | Category | Why |
 |---|---|---|---|---|---|
 | `Cos_AllocCostumeSlot` | 10004e50 | costume.c | overrides_s1_chore.c | documented | deliberate fix: the original leaves records undefined after a failed allocation |
 | `Cos_AllocInstanceSlot` | 10005090 | costume.c | overrides_s1_chore.c | documented | deliberate fix: the original leaves records undefined after a failed allocation |
-| `Cos_LoadEntry` | 10001770 | costume.c | overrides_asm_o2_chore.c | repair | Loads the text costume `name` into the costume of `handle`: |
 | `msvc_stricmp` | 10005740 | msvc.c | overrides.c | hook |  |
 | `FUN_10006b30` | 10006b30 | region_10006120.c | overrides.c | assembly | libmsvcrt.a has no import entry for sscanf (mingw has its own), so ask msvcrt.dll for it extern void *__attribute__((stdcall)) GRIM_LoadLibraryA(const char *) __asm__("_LoadLibraryA@4"); |

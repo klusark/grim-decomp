@@ -2034,8 +2034,6 @@ void sputLua_UnShrinkBoxes(void)
 }
 
 /* ---- 0x00498ea0  sputLua_GetShrinkPosition ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Lua opcode: GetShrinkPos Original name sputLua_GetShrinkPosition (the remaster's GrimFandango
    (Linux): Lua / module table entry 'GetShrinkPos'); was Lua_GetShrinkPos. */
 
@@ -2102,8 +2100,6 @@ void __cdecl sputLua_GetShrinkPosition(void)
 #undef local_14
 #undef local_18
 #undef local_1c
-
-#endif
 
 
 /* ---- 0x00499000  sputLua_SetSoundParametersL ---- */

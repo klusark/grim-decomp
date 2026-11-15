@@ -200,33 +200,4 @@ float stdMath_NormalizeAngle(float degrees)
  * WalkPlane_PlaneClosest / WalkPlane_ClosestPoint read and update, and the z pushed back is the input one.  (Test,
  * ShrinkBoxes and UnShrinkBoxes are generated since 2026-11-13.) */
 
-/* GetShrinkPos(x, y, z, amount) -> x, y, z of the nearest point of the shrunken walk sectors (nil if there is none) */
-void sputLua_GetShrinkPosition(void)
-{
-    int a1 = lua_lua2C(1), a2 = lua_lua2C(2), a3 = lua_lua2C(3), a4 = lua_lua2C(4);
-    float pos[3];
-    float amount;
-    WalkPlane *sector;
-
-    if (!lua_isnumber(a1) || !lua_isnumber(a2) || !lua_isnumber(a3) || !lua_isnumber(a4))
-        return;
-    pos[0] = lua_getnumber(a1);
-    pos[1] = lua_getnumber(a2);
-    pos[2] = lua_getnumber(a3);
-    amount = lua_getnumber(a4);
-    WalkPlane_BuildCache();
-    ShrinkBoxes(amount);
-    sector = WalkPlane_PlaneClosest(pos, 0x1000);
-    if (sector != 0)
-        WalkPlane_ClosestPoint(sector, (int)pos);
-    sputLua_UnShrinkBoxes();
-    if (sector == 0) {
-        lua_pushnil();
-        return;
-    }
-    lua_pushnumber(pos[0]);
-    lua_pushnumber(pos[1]);
-    lua_pushnumber(pos[2]);
-}
-
 #endif /* GRIM_EXE */

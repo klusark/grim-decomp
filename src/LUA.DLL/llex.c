@@ -99,8 +99,6 @@ int luaX_lasttoken(void)
 }
 
 /* ---- 0x10005d00  luaY_lex ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* llex.c: main tokenizer; numbers are returned through the float out-parameter Original name
    luaY_lex (the remaster's libLua.so: string 'ambiguous syntax (decimal point x string
    concatenation)' (the bison yylex renamed luaY_lex)); was luaX_lex. */
@@ -640,8 +638,6 @@ LAB_10006241:
 #undef local_10
 #undef local_14
 #undef local_8
-
-#endif
 
 
 /* ---- 0x10006890  inclinenumber ---- */

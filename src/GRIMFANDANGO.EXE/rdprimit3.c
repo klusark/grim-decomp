@@ -226,8 +226,6 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
 
 
 /* ---- 0x0040deb0  rdPrimit3_ClipFace ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Clips one face against the frustum; the switch selects the vertex attribute set from the
    geometry/lighting modes */
 
@@ -516,8 +514,6 @@ switchD_0040dec1_default:
   *procFace = uVar7;
   return;
 }
-#endif
-
 
 /* ---- 0x0040e500  rdPrimit3_NoClipFace ---- */
 /* replaced by the hand-written version in build/overrides.c */

@@ -13,7 +13,7 @@
  */
 #ifdef GRIM_EXE
 
-/* OVERRIDES: FUN_004addf0 */
+/* OVERRIDES: __alloca_probe */
 /* __chkstk / _alloca_probe of the MSVC 6 runtime (0x004addf0): EAX = the number of bytes to allocate on the stack; it
  * touches every page from the caller's ESP down to ESP - EAX in order (so that the guard page grows the stack), sets
  * ESP = caller's ESP - EAX, keeps ECX and returns through the saved return address.  The register calling convention
@@ -22,12 +22,12 @@
  * probes with `or dword [ecx], 0` (a store of the unchanged value) where the original reads (`test [ecx], eax`),
  * for a multiple of 4 KiB the original probes the last page twice, and EAX on return is the old ESP instead of the
  * return address (EAX is scratch for __chkstk callers).  Nothing in the rebuilt exe calls it (its three callers,
- * rdModel3_LoadEntryText, ShrinkBoxes and the runtime's _chsize, are gcc C or dead); the symbol stays
- * defined so that any future reference gets a working probe.  A tail jump: the stack is untouched, so ___chkstk sees
- * exactly the entry state the original saw. */
+ * rdModel3_LoadEntryText, ShrinkBoxes and the runtime's _chsize, are gcc C or dead:
+ * Ghidra applies its alloca_probe call fixup); the symbol stays defined so that any future reference gets a working
+ * probe.  A tail jump: the stack is untouched, so ___chkstk sees exactly the entry state the original saw. */
 __asm__(".text\n"
-        "\t.globl _FUN_004addf0\n"
-        "_FUN_004addf0:\n"
+        "\t.globl ___alloca_probe\n"
+        "___alloca_probe:\n"
         "\tjmp ___chkstk\n");
 
 #endif
