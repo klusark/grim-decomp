@@ -6,15 +6,15 @@
 |---|---|---|---|
 | 10001000 | AudioLib_DetectRawFormat | imuse.c | 223 |
 | 100013c0 | AudioLib_ParseWaveFileHeader | imuse.c | 271 |
-| 100017e0 | AudioLib_CreateWaveFileHeader | imuse.c | 102 |
+| 100017e0 | AudioLib_CreateWaveFileHeader | imuse.c | 101 |
 | 10001ba0 | AudioLib_ResetCompressor | imuse.c | 13 |
 | 10001bc0 | AudioLib_UncompressBlock | imuse.c | 32 |
-| 10001c30 | Im_ConvertBlockImpl | imuse.c | 140 |
+| 10001c30 | Im_ConvertBlockImpl | imuse.c | 139 |
 | 10001f10 | DpInitialize | imuse.c | 33 |
-| 10002260 | DpSwitchStream | imuse.c | 136 |
+| 10002260 | DpSwitchStream | imuse.c | 135 |
 | 10002570 | DpProcessTrack | imuse.c | 155 |
 | 10002a60 | GoToNextRegion | imuse.c | 128 |
-| 10002d30 | Im_DispatchFetchNext | imuse.c | 169 |
+| 10002d30 | Im_DispatchFetchNext | imuse.c | 168 |
 | 100036b0 | DwInitialize | imuse.c | 26 |
 | 10003730 | DwQuery | imuse.c | 1 |
 | 100038d0 | DwTerminate | imuse.c | 1 |
@@ -25,7 +25,7 @@
 | 10003b40 | FdFadeParam | imuse.c | 53 |
 | 10003c70 | FdStopFade | imuse.c | 20 |
 | 10003cb0 | FdIntHandler | imuse.c | 53 |
-| 10004820 | Im_ApplyFXPreset | imuse.c | 69 |
+| 10004820 | Im_ApplyFXPreset | imuse.c | 68 |
 | 10004970 | ImFx_Terminate | imuse.c | 19 |
 | 100049b0 | GrInitialize | imuse.c | 21 |
 | 100049e0 | GrSetGroupVol | imuse.c | 42 |
@@ -36,9 +36,9 @@
 | 10005360 | MxInitialize | imuse.c | 1 |
 | 10005490 | MxTerminate | imuse.c | 10 |
 | 100054c0 | MxBeginMix | imuse.c | 22 |
-| 100054f0 | Mixer_MxMix | imuse.c | 44 |
+| 100054f0 | Mixer_MxMix | imuse.c | 43 |
 | 10005610 | MxEndMix | imuse.c | 79 |
-| 100057a0 | Im_MixLoopA | imuse.c | 71 |
+| 100057a0 | Im_MixLoopA | imuse.c | 70 |
 | 100059a0 | Im_MixLoopB | imuse.c | 72 |
 | 10005b80 | Im_MixLoopC | imuse.c | 1 |
 | 10005db0 | Im_MixLoopD | imuse.c | 1 |
@@ -63,16 +63,16 @@
 | 10008e00 | timer_callback | imuse.c | 15 |
 | 10008e30 | Timer_Stop | imuse.c | 12 |
 | 10008e60 | Sounds_FreeAll | imuse.c | 30 |
-| 100093d0 | Im_SoundsPrepare | imuse.c | 61 |
+| 100093d0 | Im_SoundsPrepare | imuse.c | 60 |
 | 10009530 | Sounds_GetSoundAddr | imuse.c | 11 |
 | 10009560 | Sounds_GetMapAddr | imuse.c | 11 |
-| 100095d0 | grimSound_LipSyncLoad | imuse.c | 40 |
+| 100095d0 | grimSound_LipSyncLoad | imuse.c | 39 |
 | 100096b0 | grimSound_LipSyncFree | imuse.c | 17 |
 | 10009700 | Im_DiscardMessage | imuse.c | 7 |
 | 10009710 | iRes_FOPEN | imuse.c | 148 |
 | 10009b20 | iRes_FCLOSE | imuse.c | 28 |
-| 10009b90 | iRes_FREAD | imuse.c | 141 |
-| 1000a070 | iMUSE_DeclareBufferSizes | imuse.c | 24 |
+| 10009b90 | iRes_FREAD | imuse.c | 140 |
+| 1000a070 | iMUSE_DeclareBufferSizes | imuse.c | 25 |
 | 1000a0f0 | iMUSE_GetMemoryFootprint | imuse.c | 8 |
 | 1000a100 | iMUSE_GetSoundCacheSize | imuse.c | 8 |
 | 1000a110 | iMUSE_SetHook | imuse.c | 14 |
@@ -81,7 +81,7 @@
 | 1000a1e0 | StInitialize | imuse.c | 17 |
 | 1000a300 | StProcessStreams | imuse.c | 73 |
 | 1000a580 | StGetValidSize | imuse.c | 15 |
-| 1000a5e0 | StQueryStream | imuse.c | 18 |
+| 1000a5e0 | StQueryStream | imuse.c | 19 |
 | 1000a620 | StFeedStream | imuse.c | 55 |
 | 1000a6d0 | Stream_LoadData | imuse.c | 69 |
 | 1000a7e0 | TrInitialize | imuse.c | 49 |
@@ -96,7 +96,7 @@
 | 1000abb0 | TrStopSound | imuse.c | 25 |
 | 1000ac00 | TrStopAllSounds | imuse.c | 18 |
 | 1000ac20 | TrGetNextSound | imuse.c | 24 |
-| 1000ac60 | TrQueryStream | imuse.c | 29 |
+| 1000ac60 | TrQueryStream | imuse.c | 31 |
 | 1000ace0 | TrFeedStream | imuse.c | 29 |
 | 1000ad50 | TrStopTrack | imuse.c | 13 |
 | 1000ada0 | TrSetParam | imuse.c | 95 |
@@ -113,7 +113,7 @@
 | 1000b430 | TgProcessMarker | imuse.c | 126 |
 | 1000b570 | TgDeferCommand | imuse.c | 42 |
 | 1000b5e0 | TgIntHandler | imuse.c | 30 |
-| 1000b630 | TgGetPendCount | imuse.c | 36 |
+| 1000b630 | TgGetPendCount | imuse.c | 34 |
 | 1000b6a0 | Im_RunTriggerCommand | imuse.c | 1 |
 | 1000b710 | Im_RunDeferredCommand | imuse.c | 27 |
 | 1000bd50 | Im_StrChr | imuse.c | 1 |
@@ -182,7 +182,7 @@
 | 10004e50 | ImDeferCommand | imuse_api.c | 11 |
 | 10004e80 | ImStartStream | imuse_api.c | 16 |
 | 10004ec0 | ImSwitchStream | imuse_api.c | 9 |
-| 10004f00 | ImQueryStream | imuse_api.c | 10 |
+| 10004f00 | ImQueryStream | imuse_api.c | 11 |
 | 10004f30 | ImFeedStream | imuse_api.c | 9 |
 | 10005190 | ImHeartbeat | imuse_api.c | 69 |
 | 10005300 | ImStartRecording | imuse_api.c | 15 |
@@ -211,7 +211,7 @@
 | 10007640 | SoundsIsSoundPlaying | imuse_api.c | 11 |
 | 10007670 | SoundsFillStreamsWhileMusicCritical | imuse_api.c | 1 |
 | 100076b0 | Sounds_IsMusicCritical | imuse_api.c | 24 |
-| 10007700 | Sounds_QueryMusicStream | imuse_api.c | 33 |
+| 10007700 | Sounds_QueryMusicStream | imuse_api.c | 35 |
 | 10007790 | SoundsFloodMusicBuffer | imuse_api.c | 1 |
 | 100077c0 | Sounds_IsMusicBufferFull | imuse_api.c | 25 |
 | 10007810 | SoundsPeriodic | imuse_api.c | 30 |
@@ -226,7 +226,7 @@
 | 10007a70 | ihost_get_map_addr | imuse_api.c | 11 |
 | 10007a80 | ihost_get_buffer_info | imuse_api.c | 1 |
 | 10007a90 | ihost_open_sound | imuse_api.c | 72 |
-| 10007bc0 | ihost_fseek | imuse_api.c | 35 |
+| 10007bc0 | ihost_fseek | imuse_api.c | 34 |
 | 10007ca0 | ihost_read | imuse_api.c | 241 |
 | 10008140 | sounds_shutdown | imuse_api.c | 41 |
 | 100081f0 | Sounds_MlFreeAll | imuse_api.c | 26 |

@@ -3,116 +3,116 @@
 #include "ghidra_types.h"
 
 /* ===== imuse.c ===== */
-void __cdecl AudioLib_DetectRawFormat (ushort *param_1,uint param_2,undefined4 *param_3,undefined4 *param_4,undefined4 *param_5); /* 0x10001000 */
-uint * __cdecl AudioLib_ParseWaveFileHeader (uint *param_1,int *param_2,uint *param_3,uint *param_4,uint *param_5,int *param_6, uint *param_7); /* 0x100013c0 */
-int __cdecl AudioLib_CreateWaveFileHeader (undefined4 *param_1,int param_2,uint param_3,uint param_4,uint param_5,uint param_6); /* 0x100017e0 */
-void __cdecl AudioLib_ResetCompressor(undefined1 *param_1); /* 0x10001ba0 */
-void __cdecl AudioLib_UncompressBlock(byte *param_1,undefined2 *param_2,byte *local_c,uint param_4); /* 0x10001bc0 */
-void __cdecl Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4,uint param_5, int param_6); /* 0x10001c30 */
+void __cdecl AudioLib_DetectRawFormat (ushort *data,uint size,undefined4 *outBits,undefined4 *outChannels,undefined4 *outFlags); /* 0x10001000 */
+uint * __cdecl AudioLib_ParseWaveFileHeader (uint *header,int *outFormat,uint *outRate,uint *outBits,uint *outChannels,int *outFlags, uint *outDataSize); /* 0x100013c0 */
+int __cdecl AudioLib_CreateWaveFileHeader (undefined4 *header,int format,uint rate,uint byteRate,uint blockAlign,uint dataSize); /* 0x100017e0 */
+void __cdecl AudioLib_ResetCompressor(undefined1 *state); /* 0x10001ba0 */
+void __cdecl AudioLib_UncompressBlock(byte *dst,undefined2 *src,byte *local_c,uint size); /* 0x10001bc0 */
+void __cdecl Im_ConvertBlockImpl(short *dst,undefined2 *src,byte *codes,int count,uint channels,int step); /* 0x10001c30 */
 undefined4 DpInitialize(void); /* 0x10001f10 */
-undefined4 __cdecl DpSwitchStream(int param_1,undefined4 param_2,uint param_3,uint param_4,uint param_5); /* 0x10002260 */
-void __cdecl DpProcessTrack(int *param_1,uint trIntHandler_outFramesNeeded,uint trIntHandler_outSampleRate); /* 0x10002570 */
-int __cdecl GoToNextRegion(int *param_1); /* 0x10002a60 */
-int __cdecl Im_DispatchFetchNext(int *param_1); /* 0x10002d30 */
-undefined4 __cdecl DwInitialize(undefined4 param_1,undefined4 *trInitialize_waveDriverInfo); /* 0x100036b0 */
+undefined4 __cdecl DpSwitchStream(int sound,undefined4 offset,uint fade,uint flags,uint hookFlags); /* 0x10002260 */
+void __cdecl DpProcessTrack(int *track,uint trIntHandler_outFramesNeeded,uint trIntHandler_outSampleRate); /* 0x10002570 */
+int __cdecl GoToNextRegion(int *dp); /* 0x10002a60 */
+int __cdecl Im_DispatchFetchNext(int *dp); /* 0x10002d30 */
+undefined4 __cdecl DwInitialize(undefined4 services,undefined4 *trInitialize_waveDriverInfo); /* 0x100036b0 */
 int __cdecl DwQuery(int **buf_out,uint *count_out,int *rate_out); /* 0x10003730 */
 undefined4 DwTerminate(void); /* 0x100038d0 */
-void __cdecl Im_DSoundCreateBuffer(int param_1); /* 0x10003930 */
+void __cdecl Im_DSoundCreateBuffer(int blocks); /* 0x10003930 */
 undefined4 FdInitialize(void); /* 0x10003ac0 */
-undefined4 __cdecl FdSave(undefined4 *param_1,uint param_2); /* 0x10003ae0 */
-undefined4 __cdecl FdRestore(undefined4 *param_1); /* 0x10003b10 */
-undefined4 __cdecl FdFadeParam(int param_1,int param_2,uint param_3,int param_4); /* 0x10003b40 */
-void __cdecl FdStopFade(int param_1,int param_2); /* 0x10003c70 */
+undefined4 __cdecl FdSave(undefined4 *buf,uint size); /* 0x10003ae0 */
+undefined4 __cdecl FdRestore(undefined4 *buf); /* 0x10003b10 */
+undefined4 __cdecl FdFadeParam(int sound,int param,uint value,int time); /* 0x10003b40 */
+void __cdecl FdStopFade(int sound,int param); /* 0x10003c70 */
 uint FdIntHandler(void); /* 0x10003cb0 */
-undefined4 __cdecl Im_ApplyFXPreset(undefined2 *param_1,uint param_2,undefined2 *param_3,int *param_4,int *param_5, int param_6); /* 0x10004820 */
+undefined4 __cdecl Im_ApplyFXPreset(undefined2 *src,uint frames,undefined2 *dst,int *outBuf,int *outSize,int stereo); /* 0x10004820 */
 void __cdecl ImFx_Terminate(void); /* 0x10004970 */
 undefined4 GrInitialize(void); /* 0x100049b0 */
-undefined4 __cdecl GrSetGroupVol(uint param_1,uint param_2); /* 0x100049e0 */
-undefined4 __cdecl GrGetGroupEffVol(uint param_1); /* 0x10004a80 */
+undefined4 __cdecl GrSetGroupVol(uint group,uint vol); /* 0x100049e0 */
+undefined4 __cdecl GrGetGroupEffVol(uint group); /* 0x10004a80 */
 void ImWaveHalt(void); /* 0x10004f50 */
 int ImWaveProceed(void); /* 0x10004f60 */
 uint __cdecl ImSoundCall(uint cmd,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10,int a11); /* 0x10004f70 */
-undefined4 __cdecl MxInitialize(undefined4 *param_1); /* 0x10005360 */
+undefined4 __cdecl MxInitialize(undefined4 *info); /* 0x10005360 */
 undefined4 MxTerminate(void); /* 0x10005490 */
 undefined4 MxBeginMix(void); /* 0x100054c0 */
-void __cdecl Mixer_MxMix(short *param_1,int param_2,int param_3,int param_4,int param_5,uint param_6,uint param_7 ,int param_8,int param_9); /* 0x100054f0 */
+void __cdecl Mixer_MxMix(short *src,int frames,int bits,int channels,int compressed,uint rate,uint outPos,int vol ,int pan); /* 0x100054f0 */
 undefined4 __cdecl MxEndMix(int *trIntHandler_outPtr,int trIntHandler_outFramesNeeded); /* 0x10005610 */
-void __cdecl Im_MixLoopA(short *param_1,int param_2,uint param_3,uint param_4,int param_5,int param_6); /* 0x100057a0 */
-void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,int param_5); /* 0x100059a0 */
-void __cdecl Im_MixLoopC(undefined2 *src,int param_2,uint count,int out,int wl,int wr); /* 0x10005b80 */
-void __cdecl Im_MixLoopD(undefined2 *src,int param_2,uint count,uint out,int vol); /* 0x10005db0 */
+void __cdecl Im_MixLoopA(short *src,int frames,uint rate,uint outPos,int volL,int volR); /* 0x100057a0 */
+void __cdecl Im_MixLoopB(short *src,int frames,uint rate,uint outPos,int vol); /* 0x100059a0 */
+void __cdecl Im_MixLoopC(undefined2 *src,int frames,uint count,int out,int wl,int wr); /* 0x10005b80 */
+void __cdecl Im_MixLoopD(undefined2 *src,int frames,uint count,uint out,int vol); /* 0x10005db0 */
 undefined4 __cdecl ScriptCall(int cmd,...); /* 0x10006070 */
-undefined4 __cdecl Script_Init(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,undefined4 param_6, undefined4 param_7,undefined4 param_8); /* 0x10006360 */
+undefined4 __cdecl Script_Init(int callbacks,uint loadSound,uint unloadSound,uint openSound,uint closeSound, undefined4 hostCallback1,undefined4 hostCallback2,undefined4 localMusic); /* 0x10006360 */
 undefined4 Script_Terminate(void); /* 0x100063d0 */
-int __cdecl Script_Save(undefined4 *param_1,int param_2); /* 0x10006400 */
-int __cdecl Script_Restore(undefined4 *param_1); /* 0x10006470 */
+int __cdecl Script_Save(undefined4 *buf,int size); /* 0x10006400 */
+int __cdecl Script_Restore(undefined4 *buf); /* 0x10006470 */
 undefined4 Script_Update(void); /* 0x100064d0 */
 int __cdecl Script_SetState(int id); /* 0x10006560 */
 int __cdecl Script_SetSequence(int id); /* 0x10006620 */
 undefined4 Script_NullCallback(void); /* 0x100067a0 */
-undefined4 __cdecl Script_Attribute(uint param_1,char *param_2); /* 0x100067b0 */
-void __cdecl Script_Trans(char *param_1,uint param_2,int param_3,uint param_4,int param_5,uint param_6, uint param_7,uint param_8); /* 0x100068b0 */
+undefined4 __cdecl Script_Attribute(uint attr,char *value); /* 0x100067b0 */
+void __cdecl Script_Trans(char *file,uint state,int sequence,uint param_4,int param_5,uint param_6,uint param_7, uint param_8); /* 0x100068b0 */
 void __cdecl Script_Callback(char *marker); /* 0x100070e0 */
 void Script_StopLocalMusic(void); /* 0x10007110 */
-undefined4 __cdecl LoadLip(undefined4 param_1,char *param_2); /* 0x100089b0 */
-void __cdecl Im_SoundsFreeSlot(int param_1); /* 0x10008b60 */
-int __cdecl iMUSE_GetPhoneme(int param_1,int param_2); /* 0x10008bb0 */
-int __cdecl Lip_PhonemeAtTime(int param_1,int param_2); /* 0x10008c40 */
+undefined4 __cdecl LoadLip(undefined4 name,char *sound); /* 0x100089b0 */
+void __cdecl Im_SoundsFreeSlot(int sound); /* 0x10008b60 */
+int __cdecl iMUSE_GetPhoneme(int sound,int offset); /* 0x10008bb0 */
+int __cdecl Lip_PhonemeAtTime(int sound,int time); /* 0x10008c40 */
 int __cdecl Timer_Start(void); /* 0x10008ce0 */
 undefined4 __stdcall timer_callback(int a1,int a2,int a3,int a4,int a5); /* 0x10008e00 */
 void __cdecl Timer_Stop(void); /* 0x10008e30 */
 void __cdecl Sounds_FreeAll(void); /* 0x10008e60 */
-void __cdecl Im_SoundsPrepare(uint param_1); /* 0x100093d0 */
-uint __cdecl Sounds_GetSoundAddr(int param_1); /* 0x10009530 */
-uint __cdecl Sounds_GetMapAddr(int param_1); /* 0x10009560 */
-uint * __cdecl grimSound_LipSyncLoad(uint *param_1); /* 0x100095d0 */
-undefined4 __cdecl grimSound_LipSyncFree(int param_1); /* 0x100096b0 */
+void __cdecl Im_SoundsPrepare(uint sound); /* 0x100093d0 */
+uint __cdecl Sounds_GetSoundAddr(int sound); /* 0x10009530 */
+uint __cdecl Sounds_GetMapAddr(int sound); /* 0x10009560 */
+uint * __cdecl grimSound_LipSyncLoad(uint *name); /* 0x100095d0 */
+undefined4 __cdecl grimSound_LipSyncFree(int lip); /* 0x100096b0 */
 void __cdecl Im_DiscardMessage(char *fmt,...); /* 0x10009700 */
-int * __cdecl iRes_FOPEN(uint *param_1,char *param_2); /* 0x10009710 */
-undefined4 __cdecl iRes_FCLOSE(undefined4 *param_1); /* 0x10009b20 */
-uint __cdecl iRes_FREAD(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x10009b90 */
-void __cdecl iMUSE_DeclareBufferSizes (uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6, uint param_7,uint param_8,uint param_9,uint param_10,uint param_11,uint param_12); /* 0x1000a070 */
+int * __cdecl iRes_FOPEN(uint *name,char *mode); /* 0x10009710 */
+undefined4 __cdecl iRes_FCLOSE(undefined4 *f); /* 0x10009b20 */
+uint __cdecl iRes_FREAD(undefined4 *f,undefined4 *buf,uint size); /* 0x10009b90 */
+void __cdecl iMUSE_DeclareBufferSizes (uint voiceBufferSize,uint voiceGulpSize,uint voiceCriticalSize,uint musicBufferSize, uint musicGulpSize,uint musicCriticalSize,uint largeFadeSize,uint largeFadeCount, uint smallFadeSize,uint smallFadeCount,uint nonPurgeCacheSize,uint waveMixCount); /* 0x1000a070 */
 uint __cdecl iMUSE_GetMemoryFootprint(void); /* 0x1000a0f0 */
 uint __cdecl iMUSE_GetSoundCacheSize(void); /* 0x1000a100 */
-uint __cdecl iMUSE_SetHook(uint *param_1,uint param_2); /* 0x1000a110 */
-uint __cdecl iMUSE_GetHook(uint *param_1); /* 0x1000a140 */
-int __cdecl iMUSE_SetVoiceEffect(uint *param_1); /* 0x1000a160 */
+uint __cdecl iMUSE_SetHook(uint *name,uint hook); /* 0x1000a110 */
+uint __cdecl iMUSE_GetHook(uint *name); /* 0x1000a140 */
+int __cdecl iMUSE_SetVoiceEffect(uint *name); /* 0x1000a160 */
 undefined4 StInitialize(void); /* 0x1000a1e0 */
 undefined4 StProcessStreams(void); /* 0x1000a300 */
-int __cdecl StGetValidSize(int param_1); /* 0x1000a580 */
-undefined4 __cdecl StQueryStream(int param_1,undefined4 *param_2,undefined4 *param_3,int *param_4,undefined4 *param_5); /* 0x1000a5e0 */
-undefined4 __cdecl StFeedStream(int param_1,undefined4 *param_2,uint param_3,undefined4 param_4); /* 0x1000a620 */
-undefined4 __cdecl Stream_LoadData(uint *param_1); /* 0x1000a6d0 */
+int __cdecl StGetValidSize(int stream); /* 0x1000a580 */
+undefined4 __cdecl StQueryStream(int stream,undefined4 *outBufSize,undefined4 *outCriticalSize,int *outFreeSpace, undefined4 *outPaused); /* 0x1000a5e0 */
+undefined4 __cdecl StFeedStream(int stream,undefined4 *data,uint size,undefined4 paused); /* 0x1000a620 */
+undefined4 __cdecl Stream_LoadData(uint *stream); /* 0x1000a6d0 */
 undefined4 TrInitialize(void); /* 0x1000a7e0 */
 int TrTerminate(void); /* 0x1000a8a0 */
 void TrPause(void); /* 0x1000a8d0 */
 void TrResume(void); /* 0x1000a8f0 */
-int __cdecl TrSave(undefined4 *param_1,uint param_2); /* 0x1000a910 */
-int __cdecl TrRestore(undefined4 *param_1); /* 0x1000a970 */
+int __cdecl TrSave(undefined4 *buf,uint size); /* 0x1000a910 */
+int __cdecl TrRestore(undefined4 *buf); /* 0x1000a970 */
 undefined4 TrUpdateVols(void); /* 0x1000aa00 */
 void TrIntHandler(void); /* 0x1000aa40 */
-undefined4 __cdecl TrStartSound(int param_1,int param_2,uint param_3); /* 0x1000ab00 */
-undefined4 __cdecl TrStopSound(int param_1); /* 0x1000abb0 */
+undefined4 __cdecl TrStartSound(int sound,int priority,uint group); /* 0x1000ab00 */
+undefined4 __cdecl TrStopSound(int sound); /* 0x1000abb0 */
 undefined4 TrStopAllSounds(void); /* 0x1000ac00 */
-uint __cdecl TrGetNextSound(uint param_1); /* 0x1000ac20 */
-undefined4 __cdecl TrQueryStream(int param_1,undefined4 *param_2,undefined4 *param_3,int *param_4,undefined4 *param_5); /* 0x1000ac60 */
-undefined4 __cdecl TrFeedStream(int param_1,undefined4 *param_2,uint param_3,undefined4 param_4); /* 0x1000ace0 */
-void __cdecl TrStopTrack(int *param_1); /* 0x1000ad50 */
-undefined4 __cdecl TrSetParam(int param_1,int param_2,uint param_3); /* 0x1000ada0 */
-uint __cdecl TrGetParam(int param_1,int param_2); /* 0x1000af50 */
-undefined4 __cdecl TrSetHook(int param_1,uint param_2); /* 0x1000b0a0 */
-undefined4 __cdecl TrGetHook(int param_1); /* 0x1000b0e0 */
-int * __cdecl Im_AllocTrackOrSteal(int param_1); /* 0x1000b110 */
+uint __cdecl TrGetNextSound(uint sound); /* 0x1000ac20 */
+undefined4 __cdecl TrQueryStream(int sound,undefined4 *outBufSize,undefined4 *outCriticalSize,int *outFreeSpace, undefined4 *outPaused); /* 0x1000ac60 */
+undefined4 __cdecl TrFeedStream(int sound,undefined4 *data,uint size,undefined4 paused); /* 0x1000ace0 */
+void __cdecl TrStopTrack(int *track); /* 0x1000ad50 */
+undefined4 __cdecl TrSetParam(int sound,int param,uint value); /* 0x1000ada0 */
+uint __cdecl TrGetParam(int sound,int param); /* 0x1000af50 */
+undefined4 __cdecl TrSetHook(int sound,uint hook); /* 0x1000b0a0 */
+undefined4 __cdecl TrGetHook(int sound); /* 0x1000b0e0 */
+int * __cdecl Im_AllocTrackOrSteal(int priority); /* 0x1000b110 */
 undefined4 TgInitialize(void); /* 0x1000b170 */
-undefined4 __cdecl TgSave(undefined4 *param_1,int param_2); /* 0x1000b1a0 */
-undefined4 __cdecl TgRestore(undefined4 *param_1); /* 0x1000b1e0 */
+undefined4 __cdecl TgSave(undefined4 *buf,int size); /* 0x1000b1a0 */
+undefined4 __cdecl TgRestore(undefined4 *buf); /* 0x1000b1e0 */
 undefined4 __cdecl TgSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7, int p8,int p9); /* 0x1000b220 */
-int __cdecl TgCheckTrigger(int param_1,byte *param_2,int param_3); /* 0x1000b2e0 */
-undefined4 __cdecl TgClearTrigger(int param_1,byte *param_2,int param_3); /* 0x1000b380 */
-undefined4 * __cdecl TgProcessMarker(int param_1,char *param_2); /* 0x1000b430 */
+int __cdecl TgCheckTrigger(int sound,byte *marker,int opcode); /* 0x1000b2e0 */
+undefined4 __cdecl TgClearTrigger(int sound,byte *marker,int opcode); /* 0x1000b380 */
+undefined4 * __cdecl TgProcessMarker(int sound,char *marker); /* 0x1000b430 */
 undefined4 __cdecl TgDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8, int p9); /* 0x1000b570 */
 void TgIntHandler(void); /* 0x1000b5e0 */
-int __cdecl TgGetPendCount(int param_1); /* 0x1000b630 */
+int __cdecl TgGetPendCount(int sound); /* 0x1000b630 */
 void __cdecl Im_RunTriggerCommand(undefined4 *slot,undefined4 marker); /* 0x1000b6a0 */
 void __cdecl Im_RunDeferredCommand(int param_1); /* 0x1000b710 */
 char * __cdecl Im_StrChr(char *param_1,char param_2); /* 0x1000bd50 */
@@ -121,18 +121,18 @@ uint __cdecl Im_StrCmpNoCase(byte *param_1,byte *param_2); /* 0x1000be80 */
 
 /* ===== imuse_dispatch.c ===== */
 undefined4 DpTerminate(void); /* 0x10001fd0 */
-undefined4 * __cdecl DpGetDp(int param_1); /* 0x10001ff0 */
-undefined4 __cdecl DpSave(undefined4 *param_1,uint param_2); /* 0x10002010 */
-undefined4 __cdecl DpBeginRestore(undefined4 *param_1); /* 0x10002040 */
+undefined4 * __cdecl DpGetDp(int index); /* 0x10001ff0 */
+undefined4 __cdecl DpSave(undefined4 *buf,uint size); /* 0x10002010 */
+undefined4 __cdecl DpBeginRestore(undefined4 *buf); /* 0x10002040 */
 undefined4 DpConcludeRestore(void); /* 0x100020c0 */
-undefined4 __cdecl DpStartSound(int param_1,uint param_2); /* 0x10002170 */
-undefined4 __cdecl DpStopTrack(int param_1); /* 0x10002200 */
+undefined4 __cdecl DpStartSound(int param_1,uint group); /* 0x10002170 */
+undefined4 __cdecl DpStopTrack(int track); /* 0x10002200 */
 void DpPredictStreams(void); /* 0x10002a00 */
-int __cdecl ConvertMap(undefined4 *param_1,undefined4 *param_2); /* 0x10002fe0 */
+int __cdecl ConvertMap(undefined4 *src,undefined4 *dst); /* 0x10002fe0 */
 uint __cdecl iMUSE_Dispatch__30d0(int param_1,int param_2,int param_3); /* 0x100030d0 */
-void __cdecl PredictStream(int *param_1); /* 0x10003130 */
+void __cdecl PredictStream(int *dp); /* 0x10003130 */
 int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *predictStream_jumpHook); /* 0x100031d0 */
-void __cdecl PrepareToJump(int *param_1,undefined4 *param_2,int param_3,int param_4); /* 0x10003250 */
+void __cdecl PrepareToJump(int *format,undefined4 *region,int jump,int now); /* 0x10003250 */
 void __cdecl iMUSE_Dispatch__3430(int *param_1,int param_2); /* 0x10003430 */
 int __cdecl iMUSE_Dispatch__34b0(int *param_1); /* 0x100034b0 */
 int __cdecl iMUSE_Dispatch__3510(int *param_1,int param_2); /* 0x10003510 */
@@ -142,55 +142,55 @@ void __cdecl iMUSE_Dispatch__3640(int param_1); /* 0x10003640 */
 
 /* ===== imuse_dsound.c ===== */
 int iMUSE_dsound__3a80(void); /* 0x10003a80 */
-undefined4 __cdecl FmGetSoundAddr(uint param_1); /* 0x10004540 */
-undefined4 __cdecl FmGetMapAddr(uint param_1); /* 0x10004570 */
-undefined4 __cdecl FmValidateSoundId(uint param_1); /* 0x100045a0 */
-undefined4 __cdecl FmSeek(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x100045c0 */
-undefined4 __cdecl FmRead(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x10004600 */
-undefined4 __cdecl FmGetBufInfo(int param_1); /* 0x10004640 */
+undefined4 __cdecl FmGetSoundAddr(uint sound); /* 0x10004540 */
+undefined4 __cdecl FmGetMapAddr(uint sound); /* 0x10004570 */
+undefined4 __cdecl FmValidateSoundId(uint sound); /* 0x100045a0 */
+undefined4 __cdecl FmSeek(uint sound,undefined4 offset,undefined4 whence); /* 0x100045c0 */
+undefined4 __cdecl FmRead(uint sound,undefined4 buf,undefined4 size); /* 0x10004600 */
+undefined4 __cdecl FmGetBufInfo(int slot); /* 0x10004640 */
 uint __cdecl ImFx_Initialize(uint heapSize); /* 0x10004660 */
-int __cdecl ImFx_SelectPreset(uint param_1); /* 0x10004750 */
+int __cdecl ImFx_SelectPreset(uint preset); /* 0x10004750 */
 
 /* ===== imuse_api.c ===== */
-uint __cdecl ImInitFilelist(uint param_1,uint param_2,uint param_3,uint param_4); /* 0x10003d70 */
-int __cdecl ImSaveFilelist(int *param_1,uint param_2); /* 0x10003dc0 */
-int __cdecl ImRestoreFilelist(int *param_1); /* 0x10003e50 */
-int __cdecl ImLoadSound(char *param_1,uint param_2); /* 0x10003f90 */
-undefined4 __cdecl ImUnloadSound(int param_1); /* 0x100040b0 */
+uint __cdecl ImInitFilelist(uint loadSound,uint unloadSound,uint openSound,uint closeSound); /* 0x10003d70 */
+int __cdecl ImSaveFilelist(int *buf,uint size); /* 0x10003dc0 */
+int __cdecl ImRestoreFilelist(int *buf); /* 0x10003e50 */
+int __cdecl ImLoadSound(char *name,uint flags); /* 0x10003f90 */
+undefined4 __cdecl ImUnloadSound(int sound); /* 0x100040b0 */
 undefined4 __cdecl ImUnloadAll(void); /* 0x10004100 */
-int __cdecl ImOpenSound(char *param_1,uint param_2); /* 0x10004140 */
-undefined4 __cdecl ImCloseSound(int param_1); /* 0x10004260 */
+int __cdecl ImOpenSound(char *name,uint flags); /* 0x10004140 */
+undefined4 __cdecl ImCloseSound(int sound); /* 0x10004260 */
 undefined4 __cdecl ImCloseAll(void); /* 0x100042b0 */
-int __cdecl ImFindSound(char *param_1); /* 0x100042f0 */
+int __cdecl ImFindSound(char *name); /* 0x100042f0 */
 uint __cdecl ImFlushSounds(void); /* 0x10004380 */
-undefined4 __cdecl ImList_AddHead(int *param_1,int *param_2); /* 0x10004460 */
-undefined4 __cdecl ImList_Remove(int *param_1,int *param_2); /* 0x100044b0 */
+undefined4 __cdecl ImList_AddHead(int *head,int *node); /* 0x10004460 */
+undefined4 __cdecl ImList_Remove(int *head,int *node); /* 0x100044b0 */
 undefined4 ImInitialize(void); /* 0x10004aa0 */
 undefined4 __cdecl ImPrintf(char *fmt,...); /* 0x10004b20 */
 int ImPause(void); /* 0x10004b40 */
 int ImResume(void); /* 0x10004b60 */
-int __cdecl ImSave(undefined4 *param_1,int param_2); /* 0x10004ba0 */
-int __cdecl ImRestore(int *param_1); /* 0x10004c10 */
-undefined4 __cdecl ImSetGroupVol(uint param_1,uint param_2); /* 0x10004c60 */
-undefined4 __cdecl ImStartSound(uint param_1,int param_2); /* 0x10004c80 */
-undefined4 __cdecl ImStopSound(int param_1); /* 0x10004cd0 */
+int __cdecl ImSave(undefined4 *buf,int size); /* 0x10004ba0 */
+int __cdecl ImRestore(int *buf); /* 0x10004c10 */
+undefined4 __cdecl ImSetGroupVol(uint group,uint vol); /* 0x10004c60 */
+undefined4 __cdecl ImStartSound(uint sound,int priority); /* 0x10004c80 */
+undefined4 __cdecl ImStopSound(int sound); /* 0x10004cd0 */
 undefined4 ImStopAllSounds(void); /* 0x10004ce0 */
-uint __cdecl ImGetNextSound(uint param_1); /* 0x10004d00 */
-undefined4 __cdecl ImSetParam(int param_1,int param_2,uint param_3); /* 0x10004d10 */
-uint __cdecl ImGetParam(int param_1,int param_2); /* 0x10004d30 */
-undefined4 __cdecl ImFadeParam(int param_1,int param_2,uint param_3,int param_4); /* 0x10004d90 */
-undefined4 __cdecl ImSetHook(int param_1,uint param_2); /* 0x10004db0 */
-undefined4 __cdecl ImGetHook(int param_1); /* 0x10004dd0 */
+uint __cdecl ImGetNextSound(uint sound); /* 0x10004d00 */
+undefined4 __cdecl ImSetParam(int sound,int param,uint value); /* 0x10004d10 */
+uint __cdecl ImGetParam(int sound,int param); /* 0x10004d30 */
+undefined4 __cdecl ImFadeParam(int sound,int param,uint value,int time); /* 0x10004d90 */
+undefined4 __cdecl ImSetHook(int sound,uint hook); /* 0x10004db0 */
+undefined4 __cdecl ImGetHook(int sound); /* 0x10004dd0 */
 undefined4 __cdecl ImSetTrigger(int sound,char *marker,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7, int p8,int p9); /* 0x10004de0 */
-int __cdecl ImCheckTrigger(int param_1,byte *param_2,int param_3); /* 0x10004e10 */
-undefined4 __cdecl ImClearTrigger(int param_1,byte *param_2,int param_3); /* 0x10004e30 */
+int __cdecl ImCheckTrigger(int sound,byte *marker,int opcode); /* 0x10004e10 */
+undefined4 __cdecl ImClearTrigger(int sound,byte *marker,int opcode); /* 0x10004e30 */
 undefined4 __cdecl ImDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8, int p9); /* 0x10004e50 */
-undefined4 __cdecl ImStartStream(uint param_1,int param_2,uint param_3); /* 0x10004e80 */
-undefined4 __cdecl ImSwitchStream(int sound,undefined4 offset,uint fade,uint flags,uint param_5); /* 0x10004ec0 */
-undefined4 __cdecl ImQueryStream(int param_1,undefined4 *param_2,undefined4 *param_3,int *param_4,undefined4 *param_5); /* 0x10004f00 */
-undefined4 __cdecl ImFeedStream(int param_1,undefined4 *param_2,uint param_3,undefined4 param_4); /* 0x10004f30 */
+undefined4 __cdecl ImStartStream(uint sound,int priority,uint group); /* 0x10004e80 */
+undefined4 __cdecl ImSwitchStream(int sound,undefined4 offset,uint fade,uint flags,uint hookFlags); /* 0x10004ec0 */
+undefined4 __cdecl ImQueryStream(int sound,undefined4 *outBufSize,undefined4 *outCriticalSize,int *outFreeSpace, undefined4 *outPaused); /* 0x10004f00 */
+undefined4 __cdecl ImFeedStream(int sound,undefined4 *data,uint size,undefined4 paused); /* 0x10004f30 */
 uint __cdecl ImHeartbeat(void); /* 0x10005190 */
-uint __cdecl ImStartRecording(uint param_1,int param_2); /* 0x10005300 */
+uint __cdecl ImStartRecording(uint filename,int append); /* 0x10005300 */
 uint __cdecl ImStopRecording(void); /* 0x10005350 */
 undefined4 __cdecl ImInitializeScript(int a1,int a2,int a3,int a4,int a5,int a6,int a7); /* 0x10007130 */
 undefined4 __cdecl ImTerminateScript(void); /* 0x10007170 */
@@ -201,45 +201,45 @@ undefined4 __cdecl ImSetState(int a1); /* 0x100071c0 */
 undefined4 __cdecl ImSetSequence(int a1); /* 0x100071d0 */
 undefined4 __cdecl ImSetCuePoint(int a1); /* 0x100071e0 */
 undefined4 __cdecl ImSetAttribute(int a1,int a2); /* 0x100071f0 */
-undefined4 __cdecl SoundsAllocateBuffer(int param_1,undefined4 param_2,undefined4 param_3,undefined4 param_4); /* 0x10007210 */
-undefined4 __cdecl ihost_close_sound(int param_1); /* 0x10007250 */
-int * __cdecl SoundsRegisterVoice(char *param_1); /* 0x100072b0 */
+undefined4 __cdecl SoundsAllocateBuffer(int slot,undefined4 size,undefined4 gulpSize,undefined4 criticalSize); /* 0x10007210 */
+undefined4 __cdecl ihost_close_sound(int sound); /* 0x10007250 */
+int * __cdecl SoundsRegisterVoice(char *name); /* 0x100072b0 */
 undefined4 __cdecl SoundsCloseVoiceFile(void); /* 0x100073c0 */
 int * __cdecl SoundsReOpenVoiceFile(void); /* 0x100073f0 */
-undefined4 __cdecl SoundsLoadStartSound(uint *param_1,int param_2,uint param_3); /* 0x10007410 */
-undefined4 __cdecl SoundsLoadProcessStartSound(uint *param_1,int param_2,uint param_3); /* 0x10007470 */
-undefined4 __cdecl SoundsStopSound(uint *param_1); /* 0x10007500 */
-uint __cdecl SoundsGetParam(uint *param_1,int param_2); /* 0x10007520 */
-undefined4 __cdecl SoundsSetParam(uint *param_1,int param_2,uint param_3); /* 0x10007550 */
-uint __cdecl SoundsFadeParam(uint *param_1,int param_2,uint param_3,int param_4); /* 0x10007580 */
-int __cdecl SoundsIsSoundInUse(uint *param_1); /* 0x100075d0 */
-int __cdecl SoundsIsSoundPlaying(uint *param_1); /* 0x10007640 */
-undefined4 __cdecl SoundsFillStreamsWhileMusicCritical(int param_1); /* 0x10007670 */
+undefined4 __cdecl SoundsLoadStartSound(uint *name,int priority,uint group); /* 0x10007410 */
+undefined4 __cdecl SoundsLoadProcessStartSound(uint *name,int priority,uint group); /* 0x10007470 */
+undefined4 __cdecl SoundsStopSound(uint *name); /* 0x10007500 */
+uint __cdecl SoundsGetParam(uint *name,int param); /* 0x10007520 */
+undefined4 __cdecl SoundsSetParam(uint *name,int param,uint value); /* 0x10007550 */
+uint __cdecl SoundsFadeParam(uint *name,int param,uint value,int ms); /* 0x10007580 */
+int __cdecl SoundsIsSoundInUse(uint *name); /* 0x100075d0 */
+int __cdecl SoundsIsSoundPlaying(uint *name); /* 0x10007640 */
+undefined4 __cdecl SoundsFillStreamsWhileMusicCritical(int passes); /* 0x10007670 */
 undefined4 Sounds_IsMusicCritical(void); /* 0x100076b0 */
-undefined4 __cdecl Sounds_QueryMusicStream(undefined4 *param_1,undefined4 *param_2,int *param_3,undefined4 *param_4); /* 0x10007700 */
+undefined4 __cdecl Sounds_QueryMusicStream (undefined4 *outBufSize,undefined4 *outCriticalSize,int *outFreeSpace, undefined4 *outPaused); /* 0x10007700 */
 int __cdecl SoundsFloodMusicBuffer(void); /* 0x10007790 */
 undefined4 Sounds_IsMusicBufferFull(void); /* 0x100077c0 */
 void __cdecl SoundsPeriodic(void); /* 0x10007810 */
 uint __cdecl SoundsGetMusicPosition(void); /* 0x10007830 */
-undefined4 __cdecl SoundsSetMuscriptLocal(undefined4 param_1); /* 0x100078a0 */
-undefined4 __cdecl SoundsSetMuscriptRemote(undefined4 param_1); /* 0x100078b0 */
-undefined4 __cdecl Sounds_PlatformDevice(undefined4 param_1); /* 0x100078c0 */
-uint __cdecl SoundsInitialize(uint param_1,undefined4 *param_2); /* 0x100078d0 */
+undefined4 __cdecl SoundsSetMuscriptLocal(undefined4 local); /* 0x100078a0 */
+undefined4 __cdecl SoundsSetMuscriptRemote(undefined4 remote); /* 0x100078b0 */
+undefined4 __cdecl Sounds_PlatformDevice(undefined4 device); /* 0x100078c0 */
+uint __cdecl SoundsInitialize(uint services,undefined4 *iface); /* 0x100078d0 */
 uint __cdecl sounds_startup(void); /* 0x10007920 */
 void __cdecl Sounds_MlInit(void); /* 0x10007a20 */
-uint __cdecl ihost_get_sound_addr(uint param_1); /* 0x10007a60 */
-uint __cdecl ihost_get_map_addr(uint param_1); /* 0x10007a70 */
-int __cdecl ihost_get_buffer_info(int param_1); /* 0x10007a80 */
-int __cdecl ihost_open_sound(uint *param_1,int param_2); /* 0x10007a90 */
-int __cdecl ihost_fseek(int param_1,int param_2,int param_3); /* 0x10007bc0 */
-undefined4 * __cdecl ihost_read(undefined4 *param_1,undefined4 *param_2,undefined4 *param_3); /* 0x10007ca0 */
+uint __cdecl ihost_get_sound_addr(uint sound); /* 0x10007a60 */
+uint __cdecl ihost_get_map_addr(uint sound); /* 0x10007a70 */
+int __cdecl ihost_get_buffer_info(int slot); /* 0x10007a80 */
+int __cdecl ihost_open_sound(uint *name,int sound); /* 0x10007a90 */
+int __cdecl ihost_fseek(int sound,int offset,int whence); /* 0x10007bc0 */
+undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *size); /* 0x10007ca0 */
 void __cdecl sounds_shutdown(void); /* 0x10008140 */
 void __cdecl Sounds_MlFreeAll(void); /* 0x100081f0 */
-uint __cdecl sounds_save(code *param_1); /* 0x10008250 */
+uint __cdecl sounds_save(code *write); /* 0x10008250 */
 undefined4 sounds_restore(code *param_1,uint param_2); /* 0x10008580 */
 uint __cdecl sounds_pause(void); /* 0x10008860 */
 uint __cdecl sounds_resume(void); /* 0x100088a0 */
-int __cdecl CacheGetSoundId(uint *param_1); /* 0x10008ec0 */
+int __cdecl CacheGetSoundId(uint *name); /* 0x10008ec0 */
 int CachePurgeOldestStoppedSound(void); /* 0x100092f0 */
 int __cdecl ImFile_Read(int *recordFile,int param_2,int param_3); /* 0x1000b940 */
 int __cdecl ImFile_ReadImpl(int *param_1,int param_2,int param_3); /* 0x1000b980 */
@@ -277,27 +277,27 @@ undefined4 __cdecl SoundStopVoiceStream(void); /* 0x10008970 */
 uint SoundGetVoiceTime(void); /* 0x10008990 */
 
 /* ===== imuse_sounds.c ===== */
-undefined4 __cdecl iRes_FTELL(undefined *param_1); /* 0x10009e10 */
-undefined4 __cdecl iRes_FSEEK(undefined *param_1,int param_2,int param_3); /* 0x10009e40 */
+undefined4 __cdecl iRes_FTELL(undefined *f); /* 0x10009e10 */
+undefined4 __cdecl iRes_FSEEK(undefined *f,int offset,int whence); /* 0x10009e40 */
 int __cdecl iMUSE_sounds__9eb0(int param_1,uint param_2); /* 0x10009eb0 */
-int __cdecl Sounds_CompareRange(uint param_1,uint *param_2); /* 0x10009ef0 */
-uint __cdecl iMUSE_Malloc(uint param_1); /* 0x10009f10 */
-void __cdecl Sounds_MlAdd(int param_1); /* 0x10009f40 */
-uint __cdecl iMUSE_Free(uint param_1); /* 0x1000a010 */
-void __cdecl Sounds_MlRemove(int param_1); /* 0x1000a030 */
+int __cdecl Sounds_CompareRange(uint value,uint *range); /* 0x10009ef0 */
+uint __cdecl iMUSE_Malloc(uint size); /* 0x10009f10 */
+void __cdecl Sounds_MlAdd(int block); /* 0x10009f40 */
+uint __cdecl iMUSE_Free(uint block); /* 0x1000a010 */
+void __cdecl Sounds_MlRemove(int block); /* 0x1000a030 */
 
 /* ===== imuse_stream.c ===== */
-uint * __cdecl StStartStream(uint param_1,uint param_2,uint param_3); /* 0x1000a210 */
-undefined4 __cdecl StStopStream(undefined4 *param_1); /* 0x1000a2d0 */
-int __cdecl StReadData(int param_1,uint param_2); /* 0x1000a420 */
-int __cdecl StViewData(int param_1,int param_2,uint param_3); /* 0x1000a490 */
-undefined4 __cdecl StEraseFromFront(int param_1,uint param_2); /* 0x1000a500 */
-undefined4 __cdecl StEraseFromMid(int param_1,uint param_2); /* 0x1000a540 */
-undefined4 __cdecl StSpliceStream(undefined4 *param_1,undefined4 param_2,undefined4 param_3); /* 0x1000a5a0 */
-undefined4 __cdecl UtAddToList(int *trackList,int *param_2); /* 0x1000b760 */
-undefined4 __cdecl UtRemoveFromList(int *param_1,int *param_2); /* 0x1000b7a0 */
-undefined4 __cdecl UtReadLongHilo(undefined1 *param_1); /* 0x1000b810 */
-undefined4 __cdecl UtCheckHook(int *param_1,int param_2); /* 0x1000b840 */
+uint * __cdecl StStartStream(uint sound,uint slot,uint offset); /* 0x1000a210 */
+undefined4 __cdecl StStopStream(undefined4 *stream); /* 0x1000a2d0 */
+int __cdecl StReadData(int stream,uint size); /* 0x1000a420 */
+int __cdecl StViewData(int stream,int offset,uint size); /* 0x1000a490 */
+undefined4 __cdecl StEraseFromFront(int stream,uint size); /* 0x1000a500 */
+undefined4 __cdecl StEraseFromMid(int stream,uint offset); /* 0x1000a540 */
+undefined4 __cdecl StSpliceStream(undefined4 *stream,undefined4 offset,undefined4 sound); /* 0x1000a5a0 */
+undefined4 __cdecl UtAddToList(int *trackList,int *node); /* 0x1000b760 */
+undefined4 __cdecl UtRemoveFromList(int *head,int *node); /* 0x1000b7a0 */
+undefined4 __cdecl UtReadLongHilo(undefined1 *p); /* 0x1000b810 */
+undefined4 __cdecl UtCheckHook(int *hook,int value); /* 0x1000b840 */
 int __cdecl FUN_1000b8d0(undefined1 *param_1,char *fmt,undefined4 *param_3); /* 0x1000b8d0 */
 
 /* ===== hmi.c ===== */

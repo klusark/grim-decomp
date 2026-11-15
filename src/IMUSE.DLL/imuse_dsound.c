@@ -28,7 +28,7 @@ int iMUSE_dsound__3a80(void)
 /* Original name FmGetSoundAddr (the remaster's GrimFandango (Linux): aligned call in
    DpProcessTrack); was iMUSE_dsound__4540. */
 
-undefined4 __cdecl FmGetSoundAddr(uint param_1)
+undefined4 __cdecl FmGetSoundAddr(uint sound)
 
 {
   code *pcVar1;
@@ -36,9 +36,9 @@ undefined4 __cdecl FmGetSoundAddr(uint param_1)
   undefined4 uVar3;
   
   pcVar1 = DAT_100336a4;
-  iVar2 = FmValidateSoundId(param_1);
+  iVar2 = FmValidateSoundId(sound);
   if ((iVar2 != 0) && (pcVar1 != (code *)0x0)) {
-    uVar3 = (*pcVar1)(param_1);
+    uVar3 = (*pcVar1)(sound);
     return uVar3;
   }
   return 0;
@@ -48,7 +48,7 @@ undefined4 __cdecl FmGetSoundAddr(uint param_1)
 /* Original name FmGetMapAddr (the remaster's GrimFandango (Linux): aligned call in ImStartSound);
    was iMUSE_dsound__4570. */
 
-undefined4 __cdecl FmGetMapAddr(uint param_1)
+undefined4 __cdecl FmGetMapAddr(uint sound)
 
 {
   code *pcVar1;
@@ -56,9 +56,9 @@ undefined4 __cdecl FmGetMapAddr(uint param_1)
   undefined4 uVar3;
   
   pcVar1 = g_dwImuseInitData;
-  iVar2 = FmValidateSoundId(param_1);
+  iVar2 = FmValidateSoundId(sound);
   if ((iVar2 != 0) && (pcVar1 != (code *)0x0)) {
-    uVar3 = (*pcVar1)(param_1);
+    uVar3 = (*pcVar1)(sound);
     return uVar3;
   }
   return 0;
@@ -68,10 +68,10 @@ undefined4 __cdecl FmGetMapAddr(uint param_1)
 /* Original name FmValidateSoundId (the remaster's GrimFandango (Linux): aligned call in
    FmGetMapAddr, FmGetSoundAddr, ImStartStream); was iMUSE_dsound__45a0. */
 
-undefined4 __cdecl FmValidateSoundId(uint param_1)
+undefined4 __cdecl FmValidateSoundId(uint sound)
 
 {
-  if ((param_1 != 0) && (param_1 < 0xfffffff0)) {
+  if ((sound != 0) && (sound < 0xfffffff0)) {
     return 1;
   }
   return 0;
@@ -81,7 +81,7 @@ undefined4 __cdecl FmValidateSoundId(uint param_1)
 /* Original name FmSeek (the remaster's GrimFandango (Linux): aligned call in LoadData,
    StStartStream); was iMUSE_dsound__45c0. */
 
-undefined4 __cdecl FmSeek(uint param_1,undefined4 param_2,undefined4 param_3)
+undefined4 __cdecl FmSeek(uint sound,undefined4 offset,undefined4 whence)
 
 {
   code *pcVar1;
@@ -89,9 +89,9 @@ undefined4 __cdecl FmSeek(uint param_1,undefined4 param_2,undefined4 param_3)
   undefined4 uVar3;
   
   pcVar1 = DAT_100336ac;
-  iVar2 = FmValidateSoundId(param_1);
+  iVar2 = FmValidateSoundId(sound);
   if ((iVar2 != 0) && (pcVar1 != (code *)0x0)) {
-    uVar3 = (*pcVar1)(param_1,param_2,param_3);
+    uVar3 = (*pcVar1)(sound,offset,whence);
     return uVar3;
   }
   return 0;
@@ -101,7 +101,7 @@ undefined4 __cdecl FmSeek(uint param_1,undefined4 param_2,undefined4 param_3)
 /* Original name FmRead (the remaster's GrimFandango (Linux): aligned call in LoadData); was
    iMUSE_dsound__4600. */
 
-undefined4 __cdecl FmRead(uint param_1,undefined4 param_2,undefined4 param_3)
+undefined4 __cdecl FmRead(uint sound,undefined4 buf,undefined4 size)
 
 {
   code *pcVar1;
@@ -109,9 +109,9 @@ undefined4 __cdecl FmRead(uint param_1,undefined4 param_2,undefined4 param_3)
   undefined4 uVar3;
   
   pcVar1 = DAT_100336b0;
-  iVar2 = FmValidateSoundId(param_1);
+  iVar2 = FmValidateSoundId(sound);
   if ((iVar2 != 0) && (pcVar1 != (code *)0x0)) {
-    uVar3 = (*pcVar1)(param_1,param_2,param_3);
+    uVar3 = (*pcVar1)(sound,buf,size);
     return uVar3;
   }
   return 0;
@@ -121,13 +121,13 @@ undefined4 __cdecl FmRead(uint param_1,undefined4 param_2,undefined4 param_3)
 /* Original name FmGetBufInfo (the remaster's GrimFandango (Linux): aligned call in StStartStream);
    was iMUSE_dsound__4640. */
 
-undefined4 __cdecl FmGetBufInfo(int param_1)
+undefined4 __cdecl FmGetBufInfo(int slot)
 
 {
   undefined4 uVar1;
   
-  if ((param_1 != 0) && (DAT_100336b4 != (code *)0x0)) {
-    uVar1 = (*DAT_100336b4)(param_1);
+  if ((slot != 0) && (DAT_100336b4 != (code *)0x0)) {
+    uVar1 = (*DAT_100336b4)(slot);
     return uVar1;
   }
   return 0;
@@ -188,7 +188,7 @@ uint __cdecl ImFx_Initialize(uint heapSize)
    chain of effects decides mono or stereo output, locks the preset and returns the channel count (0
    when the preset cannot be made); was FUN_10004750. */
 
-int __cdecl ImFx_SelectPreset(uint param_1)
+int __cdecl ImFx_SelectPreset(uint preset)
 
 {
   int iVar1;
@@ -198,7 +198,7 @@ int __cdecl ImFx_SelectPreset(uint param_1)
     hmiFXPresetRelease(DAT_1002dd74);
   }
   _DAT_1002dd08 = 0x20;
-  _DAT_1002dd10 = param_1;
+  _DAT_1002dd10 = preset;
   iVar1 = hmiFXPresetProcess(DAT_1002dd2c,&DAT_1002dd08);
   if (iVar1 != 0) {
     DAT_1002dd74 = 0;
@@ -208,7 +208,7 @@ int __cdecl ImFx_SelectPreset(uint param_1)
   DAT_1002dd74 = _DAT_1002dd0c;
   iVar1 = *(int *)(_DAT_1002dd0c + 0x450);
   if (iVar1 == 0) {
-    uVar2 = param_1 & 0xff;
+    uVar2 = preset & 0xff;
   }
   else {
     do {

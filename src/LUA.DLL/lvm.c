@@ -398,11 +398,11 @@ ExecutionState * __cdecl ExecutionState_New(int size)
 /* Original name ExecutionState_Delete (the remaster's libLua.so: ExecutionState::operator delete:
    puts the state on the free list (+0xc)); was lvm__dd90. */
 
-void __cdecl ExecutionState_Delete(int param_1)
+void __cdecl ExecutionState_Delete(int es)
 
 {
-  *(ExecutionState **)(param_1 + 0xc) = g_pExecutionState_pFreeStates;
-  g_pExecutionState_pFreeStates = (ExecutionState *)param_1;
+  *(ExecutionState **)(es + 0xc) = g_pExecutionState_pFreeStates;
+  g_pExecutionState_pFreeStates = (ExecutionState *)es;
   return;
 }
 
@@ -864,16 +864,16 @@ LAB_1000e37f:
     *(undefined4 *)(*(int *)param_1[7] + -4) = 0x3f800000;
     goto switchD_1000dfaf_default;
   case 0x5d:
-    comparison(0xffffffff,0xfffffff9,0xfffffff9,0xb);
+    comparison(-1,-7,-7,0xb);
     goto switchD_1000dfaf_default;
   case 0x5e:
-    comparison(0xffffffff,0xffffffff,0xfffffff9,0xc);
+    comparison(-1,-1,-7,0xc);
     goto switchD_1000dfaf_default;
   case 0x5f:
-    comparison(0xfffffff9,0xfffffff9,0xffffffff,0xd);
+    comparison(-7,-7,-1,0xd);
     goto switchD_1000dfaf_default;
   case 0x60:
-    comparison(0xfffffff9,0xffffffff,0xffffffff,0xe);
+    comparison(-7,-1,-1,0xe);
     goto switchD_1000dfaf_default;
   case 0x61:
     iVar14 = *(int *)param_1[7];
@@ -943,7 +943,7 @@ LAB_1000e37f:
       luaC_checkGC();
     }
     else {
-      call_binTM(0xf,s_unexpected_type_for_concatenatio_100281a0);
+      call_binTM(0xf,(byte *)s_unexpected_type_for_concatenatio_100281a0);
       luaC_checkGC();
     }
     goto switchD_1000dfaf_default;
@@ -1131,7 +1131,7 @@ LAB_1000e9fd:
    source name (lvm.c static strconc(l, r): luaL_openspace(strlen(l) + strlen(r) + 1), strcpy,
    strcat); was luaV_strconc. */
 
-TaggedString * __cdecl strconc(char *param_1,char *param_2)
+TaggedString * __cdecl strconc(char *l,char *r)
 
 {
   char cVar1;
@@ -1144,7 +1144,7 @@ TaggedString * __cdecl strconc(char *param_1,char *param_2)
   char *pcVar8;
   
   uVar4 = 0xffffffff;
-  pcVar2 = param_1;
+  pcVar2 = l;
   do {
     if (uVar4 == 0) break;
     uVar4 = uVar4 - 1;
@@ -1152,7 +1152,7 @@ TaggedString * __cdecl strconc(char *param_1,char *param_2)
     pcVar2 = pcVar2 + 1;
   } while (cVar1 != '\0');
   uVar5 = 0xffffffff;
-  pcVar2 = param_2;
+  pcVar2 = r;
   do {
     if (uVar5 == 0) break;
     uVar5 = uVar5 - 1;
@@ -1162,12 +1162,12 @@ TaggedString * __cdecl strconc(char *param_1,char *param_2)
   pcVar2 = (char *)luaL_openspace(~uVar5 + (~uVar4 - 1));
   uVar5 = 0xffffffff;
   do {
-    pcVar7 = param_1;
+    pcVar7 = l;
     if (uVar5 == 0) break;
     uVar5 = uVar5 - 1;
-    pcVar7 = param_1 + 1;
-    cVar1 = *param_1;
-    param_1 = pcVar7;
+    pcVar7 = l + 1;
+    cVar1 = *l;
+    l = pcVar7;
   } while (cVar1 != '\0');
   uVar5 = ~uVar5;
   pcVar7 = pcVar7 + -uVar5;
@@ -1184,12 +1184,12 @@ TaggedString * __cdecl strconc(char *param_1,char *param_2)
   }
   uVar5 = 0xffffffff;
   do {
-    pcVar7 = param_2;
+    pcVar7 = r;
     if (uVar5 == 0) break;
     uVar5 = uVar5 - 1;
-    pcVar7 = param_2 + 1;
-    cVar1 = *param_2;
-    param_2 = pcVar7;
+    pcVar7 = r + 1;
+    cVar1 = *r;
+    r = pcVar7;
   } while (cVar1 != '\0');
   uVar5 = ~uVar5;
   pcVar7 = pcVar7 + -uVar5;
@@ -1213,26 +1213,26 @@ TaggedString * __cdecl strconc(char *param_1,char *param_2)
    luaV_gettable) Original name call_binTM (the remaster's libLua.so: static call_binTM(int, char*):
    caller of luaT_efectivetag from the VM's arithmetic); was luaV_call_binTM. */
 
-void __cdecl call_binTM(int param_1,byte *param_2)
+void __cdecl call_binTM(int event,byte *msg)
 
 {
   int iVar1;
   TObject *f;
   
   iVar1 = luaT_efectivetag(g_pLuaState->pTop + -2);
-  iVar1 = param_1 + iVar1 * -0x12;
+  iVar1 = event + iVar1 * -0x12;
   f = (TObject *)(g_dwLState_IMtable + iVar1 * 8);
   if (*(int *)(g_dwLState_IMtable + iVar1 * 8) == -7) {
     iVar1 = luaT_efectivetag(g_pLuaState->pTop + -1);
-    iVar1 = param_1 + iVar1 * -0x12;
+    iVar1 = event + iVar1 * -0x12;
     f = (TObject *)(g_dwLState_IMtable + iVar1 * 8);
     if ((*(int *)(g_dwLState_IMtable + iVar1 * 8) == -7) &&
-       (f = (TObject *)(g_dwLState_IMtable + param_1 * 8),
-       *(int *)(g_dwLState_IMtable + param_1 * 8) == -7)) {
-      lua_error(param_2);
+       (f = (TObject *)(g_dwLState_IMtable + event * 8),
+       *(int *)(g_dwLState_IMtable + event * 8) == -7)) {
+      lua_error(msg);
     }
   }
-  lua_pushstring((&g_pLuaT_eventname)[param_1]);
+  lua_pushstring((&g_pLuaT_eventname)[event]);
   luaD_callTM(f,3,1);
   return;
 }
@@ -1242,10 +1242,10 @@ void __cdecl call_binTM(int param_1,byte *param_2)
    call_arith: call_binTM(event, "unexpected type in arithmetic operation")); was luaV_call_arith.
     */
 
-void __cdecl call_arith(int param_1)
+void __cdecl call_arith(int event)
 
 {
-  call_binTM(param_1,s_unexpected_type_in_arithmetic_op_1002825c);
+  call_binTM(event,(byte *)s_unexpected_type_in_arithmetic_op_1002825c);
   return;
 }
 
@@ -1254,7 +1254,7 @@ void __cdecl call_arith(int param_1)
    comparison(ltue, equl, gtue, event): numbers or strings (strcoll), else call_binTM "unexpected
    type in comparison"); was luaV_comparison. */
 
-void __cdecl comparison(int param_1,int param_2,int param_3,int param_4)
+void __cdecl comparison(int op_lt,int op_eq,int op_gt,int event)
 
 {
   TObject **ppTVar1;
@@ -1278,7 +1278,7 @@ void __cdecl comparison(int param_1,int param_2,int param_3,int param_4)
   }
   else {
     if ((pTVar2[-2].nTtype != -2) || (pTVar2[-1].nTtype != -2)) {
-      call_binTM(param_4,s_unexpected_type_in_comparison_10028284);
+      call_binTM(event,(byte *)s_unexpected_type_in_comparison_10028284);
       return;
     }
     iVar3 = strcoll((byte *)(pTVar2[-2].dwValue + 0x18),(byte *)(pTVar2[-1].dwValue + 0x18));
@@ -1287,12 +1287,12 @@ void __cdecl comparison(int param_1,int param_2,int param_3,int param_4)
   *ppTVar1 = pTVar2 + -1;
   pTVar2[-2].dwValue = 0x3f800000;
   if (iVar3 < 0) {
-    (*ppTVar1)[-1].nTtype = param_1;
+    (*ppTVar1)[-1].nTtype = op_lt;
     return;
   }
   if (iVar3 != 0) {
-    param_2 = param_3;
+    op_eq = op_gt;
   }
-  (*ppTVar1)[-1].nTtype = param_2;
+  (*ppTVar1)[-1].nTtype = op_eq;
   return;
 }

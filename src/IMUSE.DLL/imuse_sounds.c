@@ -11,15 +11,15 @@
    iRes_FSEEK; called by ihost_fseek / ihost_read here (the remaster inlined it)); was
    iMUSE_sounds__9e10. */
 
-undefined4 __cdecl iRes_FTELL(undefined *param_1)
+undefined4 __cdecl iRes_FTELL(undefined *f)
 
 {
   undefined4 uVar1;
   
-  if (((undefined *)((unsigned)(uintptr_t)&DAT_1003039f) < param_1) && (param_1 < &DAT_10031520)) {
-    return *(undefined4 *)(param_1 + 8);
+  if ((&DAT_1003039f < f) && (f < &DAT_10031520)) {
+    return *(undefined4 *)(f + 8);
   }
-  uVar1 = (**(code **)(g_dwSounds_pHS + 0x48))(param_1);
+  uVar1 = (**(code **)(g_dwSounds_pHS + 0x48))(f);
   return uVar1;
 }
 
@@ -28,27 +28,27 @@ undefined4 __cdecl iRes_FTELL(undefined *param_1)
    the MCMP handle array the host fseek service +0x4c, else the position at +8 by whence 0 / 1 / 2
    with the size at +4)); was iMUSE_sounds__9e40. */
 
-undefined4 __cdecl iRes_FSEEK(undefined *param_1,int param_2,int param_3)
+undefined4 __cdecl iRes_FSEEK(undefined *f,int offset,int whence)
 
 {
   undefined4 uVar1;
   
-  if ((param_1 < &g_aMcmpFileHandles) || ((undefined *)((unsigned)(uintptr_t)&DAT_1003151f) < param_1)) {
-    uVar1 = (**(code **)(g_dwSounds_pHS + 0x4c))(param_1,param_2,param_3);
+  if ((f < &g_aMcmpFileHandles) || (&DAT_1003151f < f)) {
+    uVar1 = (**(code **)(g_dwSounds_pHS + 0x4c))(f,offset,whence);
     return uVar1;
   }
-  if (param_3 == 0) {
-    *(int *)(param_1 + 8) = param_2;
+  if (whence == 0) {
+    *(int *)(f + 8) = offset;
     return 0;
   }
-  if (param_3 != 1) {
-    if (param_3 != 2) {
+  if (whence != 1) {
+    if (whence != 2) {
       return 1;
     }
-    *(int *)(param_1 + 8) = *(int *)(param_1 + 4) + param_2;
+    *(int *)(f + 8) = *(int *)(f + 4) + offset;
     return 0;
   }
-  *(int *)(param_1 + 8) = *(int *)(param_1 + 8) + param_2;
+  *(int *)(f + 8) = *(int *)(f + 8) + offset;
   return 0;
 }
 
@@ -74,13 +74,13 @@ int __cdecl iMUSE_sounds__9eb0(int param_1,uint param_2)
 /* Search comparator: 0 when value lies in [range[0], range[1]), -1 below it, 1 above it; was
    FUN_10009ef0. */
 
-int __cdecl Sounds_CompareRange(uint param_1,uint *param_2)
+int __cdecl Sounds_CompareRange(uint value,uint *range)
 
 {
-  if ((*param_2 <= param_1) && (param_1 < param_2[1])) {
+  if ((*range <= value) && (value < range[1])) {
     return 0;
   }
-  return (-(uint)(param_1 < *param_2) & 0xfffffffe) + 1;
+  return (-(uint)(value < *range) & 0xfffffffe) + 1;
 }
 
 /* ---- 0x10009f10  iMUSE_Malloc ---- */
@@ -88,15 +88,15 @@ int __cdecl Sounds_CompareRange(uint param_1,uint *param_2)
    service in sounds.c, then the pointer into the memory list mlEntries, which doubles when full);
    the remaster inlined FUN_10009f40 into it); was FUN_10009f10. */
 
-uint __cdecl iMUSE_Malloc(uint param_1)
+uint __cdecl iMUSE_Malloc(uint size)
 
 {
-  uint uVar1;
+  uint block;
   
-  uVar1 = (**(code **)(g_dwSounds_pHS + 0x20))
-                    (param_1,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0xad5);
-  Sounds_MlAdd(uVar1);
-  return uVar1;
+  block = (**(code **)(g_dwSounds_pHS + 0x20))(size,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0xad5)
+  ;
+  Sounds_MlAdd(block);
+  return block;
 }
 
 /* ---- 0x10009f40  Sounds_MlAdd ---- */
@@ -104,7 +104,7 @@ uint __cdecl iMUSE_Malloc(uint param_1)
 /* Adds a block to the loaded-memory list: appends while there is room, else reuses a free slot or
    doubles the list; was FUN_10009f40. */
 
-void __cdecl Sounds_MlAdd(int param_1)
+void __cdecl Sounds_MlAdd(int block)
 
 {
   int iVar1;
@@ -113,7 +113,7 @@ void __cdecl Sounds_MlAdd(int param_1)
   
   if (_g_dwMlEntries != (int *)0x0) {
     if (_g_dwMlListSize < _g_dwMlEntryCount) {
-      _g_dwMlEntries[_g_dwMlListSize] = param_1;
+      _g_dwMlEntries[_g_dwMlListSize] = block;
       _g_dwMlListSize = _g_dwMlListSize + 1;
       return;
     }
@@ -142,13 +142,13 @@ void __cdecl Sounds_MlAdd(int param_1)
           *(undefined1 *)piVar3 = 0;
           piVar3 = (int *)((int)piVar3 + 1);
         }
-        _g_dwMlEntries[_g_dwMlListSize] = param_1;
+        _g_dwMlEntries[_g_dwMlListSize] = block;
         _g_dwMlListSize = _g_dwMlListSize + 1;
         return;
       }
     }
     else {
-      *piVar3 = param_1;
+      *piVar3 = block;
     }
   }
   return;
@@ -159,13 +159,13 @@ void __cdecl Sounds_MlAdd(int param_1)
    slot in the memory list mlEntries, then the host free service); the remaster inlined FUN_1000a030
    into it); was FUN_1000a010. */
 
-uint __cdecl iMUSE_Free(uint param_1)
+uint __cdecl iMUSE_Free(uint block)
 
 {
   uint uVar1;
   
-  Sounds_MlRemove(param_1);
-  uVar1 = (**(code **)(g_dwSounds_pHS + 0x24))(param_1);
+  Sounds_MlRemove(block);
+  uVar1 = (**(code **)(g_dwSounds_pHS + 0x24))(block);
   return uVar1;
 }
 
@@ -173,7 +173,7 @@ uint __cdecl iMUSE_Free(uint param_1)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Clears the loaded-memory list's slot that holds `block`; was FUN_1000a030. */
 
-void __cdecl Sounds_MlRemove(int param_1)
+void __cdecl Sounds_MlRemove(int block)
 
 {
   int iVar1;
@@ -184,7 +184,7 @@ void __cdecl Sounds_MlRemove(int param_1)
     piVar2 = _g_dwMlEntries;
     if (0 < _g_dwMlListSize) {
       do {
-        if (*piVar2 == param_1) break;
+        if (*piVar2 == block) break;
         piVar2 = piVar2 + 1;
         iVar1 = iVar1 + 1;
       } while (iVar1 < _g_dwMlListSize);

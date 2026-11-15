@@ -247,6 +247,7 @@ extern undefined g_dwMlEntryCount; /* used by 3 fn(s), first 0x10007a20 */
 extern undefined g_aLipSfx2Data; /* used by 2 fn(s), first 0x100089b0 */
 extern undefined g_bLipStreamData; /* used by 2 fn(s), first 0x100089b0 */
 extern undefined g_aLipSfx3Data; /* used by 2 fn(s), first 0x100089b0 */
+extern undefined DAT_1003039f; /* used by 2 fn(s), first 0x10009b20 */
 extern undefined g_aMcmpFileHandles; /* used by 3 fn(s), first 0x10009710 */
 extern undefined DAT_100303a4; /* used by 1 fn(s), first 0x10009710 */
 extern undefined DAT_100303a8; /* used by 1 fn(s), first 0x10009710 */
@@ -261,6 +262,7 @@ extern undefined DAT_100303c8; /* used by 1 fn(s), first 0x10009710 */
 extern undefined DAT_100303cc; /* used by 1 fn(s), first 0x10009710 */
 extern undefined DAT_100303d0; /* used by 1 fn(s), first 0x10009710 */
 extern undefined DAT_10030429; /* used by 1 fn(s), first 0x10009710 */
+extern undefined DAT_1003151f; /* used by 2 fn(s), first 0x10009b90 */
 extern undefined DAT_10031520; /* used by 2 fn(s), first 0x10009b20 */
 extern undefined g_bSoundCache; /* used by 6 fn(s), first 0x100075d0 */
 extern undefined4 DAT_10031548; /* used by 6 fn(s), first 0x10007410 */
@@ -593,10 +595,8 @@ extern unsigned char DAT_1002ebe4[]; /* 0x1002ebe4 */
 extern unsigned char DAT_1002ebe8[]; /* 0x1002ebe8 */
 extern unsigned char DAT_1002ebec[]; /* 0x1002ebec */
 extern unsigned char DAT_1002fbb8[]; /* 0x1002fbb8 */
-extern unsigned char DAT_1003039f[]; /* 0x1003039f */
 extern unsigned char DAT_100303d4[]; /* 0x100303d4 */
 extern unsigned char DAT_100303da[]; /* 0x100303da */
-extern unsigned char DAT_1003151f[]; /* 0x1003151f */
 extern unsigned char DAT_10031547[]; /* 0x10031547 */
 extern unsigned char DAT_10031554[]; /* 0x10031554 */
 extern unsigned char DAT_10031558[]; /* 0x10031558 */

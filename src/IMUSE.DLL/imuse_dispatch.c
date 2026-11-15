@@ -20,30 +20,30 @@ undefined4 DpTerminate(void)
 /* Original name DpGetDp (the remaster's GrimFandango (Linux): aligned call in TrInitialize,
    TrRestore); was iMUSE_Dispatch__1ff0. */
 
-undefined4 * __cdecl DpGetDp(int param_1)
+undefined4 * __cdecl DpGetDp(int index)
 
 {
-  return &g_dwDispatches + param_1 * 0x215;
+  return &g_dwDispatches + index * 0x215;
 }
 
 /* ---- 0x10002010  DpSave ---- */
 /* Original name DpSave (the remaster's GrimFandango (Linux): aligned call in TrSave); was
    iMUSE_Dispatch__2010. */
 
-undefined4 __cdecl DpSave(undefined4 *param_1,uint param_2)
+undefined4 __cdecl DpSave(undefined4 *buf,uint size)
 
 {
   int iVar1;
   undefined4 *puVar2;
   
-  if (param_2 < 0x8540) {
+  if (size < 0x8540) {
     return 0xfffffffb;
   }
   puVar2 = &g_dwDispatches;
   for (iVar1 = 0x2150; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *param_1 = *puVar2;
+    *buf = *puVar2;
     puVar2 = puVar2 + 1;
-    param_1 = param_1 + 1;
+    buf = buf + 1;
   }
   return 0x8540;
 }
@@ -52,7 +52,7 @@ undefined4 __cdecl DpSave(undefined4 *param_1,uint param_2)
 /* Original name DpBeginRestore (the remaster's GrimFandango (Linux): aligned call in TrRestore);
    was iMUSE_Dispatch__2040. */
 
-undefined4 __cdecl DpBeginRestore(undefined4 *param_1)
+undefined4 __cdecl DpBeginRestore(undefined4 *buf)
 
 {
   int iVar1;
@@ -61,8 +61,8 @@ undefined4 __cdecl DpBeginRestore(undefined4 *param_1)
   
   puVar2 = &g_dwDispatches;
   for (iVar3 = 0x2150; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar2 = *param_1;
-    param_1 = param_1 + 1;
+    *puVar2 = *buf;
+    buf = buf + 1;
     puVar2 = puVar2 + 1;
   }
   iVar3 = 0;
@@ -134,34 +134,34 @@ undefined4 DpConcludeRestore(void)
 /* Original name DpStartSound (the remaster's GrimFandango (Linux): aligned call in TrStartSound);
    was iMUSE_Dispatch__2170. */
 
-undefined4 __cdecl DpStartSound(int param_1,uint param_2)
+undefined4 __cdecl DpStartSound(int param_1,uint group)
 
 {
-  int *piVar1;
-  uint *puVar2;
-  int iVar3;
+  int *dp;
+  uint *puVar1;
+  int iVar2;
   
-  piVar1 = *(int **)(param_1 + 8);
-  piVar1[0x20b] = 0;
-  *(undefined1 *)(piVar1 + 7) = 0;
-  piVar1[6] = 0;
-  piVar1[5] = 0;
-  if (param_2 == 0) {
-    piVar1[0x207] = 0;
+  dp = *(int **)(param_1 + 8);
+  dp[0x20b] = 0;
+  *(undefined1 *)(dp + 7) = 0;
+  dp[6] = 0;
+  dp[5] = 0;
+  if (group == 0) {
+    dp[0x207] = 0;
   }
   else {
-    puVar2 = StStartStream(*(uint *)(param_1 + 0xc),param_2,0x4000);
-    piVar1[0x207] = (int)puVar2;
-    if (puVar2 == (uint *)0x0) {
+    puVar1 = StStartStream(*(uint *)(param_1 + 0xc),group,0x4000);
+    dp[0x207] = (int)puVar1;
+    if (puVar1 == (uint *)0x0) {
       return 0xffffffff;
     }
-    piVar1[0x208] = param_2;
-    piVar1[0x209] = 0;
-    piVar1[0x20a] = 0;
+    dp[0x208] = group;
+    dp[0x209] = 0;
+    dp[0x20a] = 0;
   }
-  iVar3 = GoToNextRegion(piVar1);
-  if ((iVar3 != 0) && (iVar3 != -3)) {
-    DpStopTrack(*piVar1);
+  iVar2 = GoToNextRegion(dp);
+  if ((iVar2 != 0) && (iVar2 != -3)) {
+    DpStopTrack(*dp);
     return 0xffffffff;
   }
   return 0;
@@ -171,26 +171,26 @@ undefined4 __cdecl DpStartSound(int param_1,uint param_2)
 /* Original name DpStopTrack (the remaster's GrimFandango (Linux): aligned call in DpStartSound,
    TrStopTrack); was iMUSE_Dispatch__2200. */
 
-undefined4 __cdecl DpStopTrack(int param_1)
+undefined4 __cdecl DpStopTrack(int track)
 
 {
-  int *piVar1;
+  int *head;
+  int iVar1;
   int iVar2;
-  int iVar3;
   
-  iVar2 = *(int *)(param_1 + 8);
-  if (*(undefined4 **)(iVar2 + 0x81c) != (undefined4 *)0x0) {
-    StStopStream(*(undefined4 **)(iVar2 + 0x81c));
-    piVar1 = (int *)(iVar2 + 0x824);
-    iVar3 = *(int *)(iVar2 + 0x824);
-    while (iVar3 != 0) {
-      *(undefined4 *)(iVar3 + 8) = 0;
-      UtRemoveFromList(piVar1,(int *)*piVar1);
-      iVar3 = *piVar1;
+  iVar1 = *(int *)(track + 8);
+  if (*(undefined4 **)(iVar1 + 0x81c) != (undefined4 *)0x0) {
+    StStopStream(*(undefined4 **)(iVar1 + 0x81c));
+    head = (int *)(iVar1 + 0x824);
+    iVar2 = *(int *)(iVar1 + 0x824);
+    while (iVar2 != 0) {
+      *(undefined4 *)(iVar2 + 8) = 0;
+      UtRemoveFromList(head,(int *)*head);
+      iVar2 = *head;
     }
   }
-  if (*(int *)(iVar2 + 0x82c) != 0) {
-    iMUSE_Dispatch__3640(*(int *)(iVar2 + 0x82c));
+  if (*(int *)(iVar1 + 0x82c) != 0) {
+    iMUSE_Dispatch__3640(*(int *)(iVar1 + 0x82c));
   }
   return 0;
 }
@@ -202,20 +202,20 @@ undefined4 __cdecl DpStopTrack(int param_1)
 void DpPredictStreams(void)
 
 {
-  int *piVar1;
-  int iVar2;
+  int *dp;
+  int iVar1;
   
-  piVar1 = &g_dwDispatches;
+  dp = &g_dwDispatches;
   ImWaveHalt();
-  iVar2 = 0;
+  iVar1 = 0;
   if (0 < g_dwTrackCount) {
     do {
-      if (((*(int *)(*piVar1 + 0xc) != 0) && (piVar1[0x207] != 0)) && (piVar1[0x209] != 0)) {
-        PredictStream(piVar1);
+      if (((*(int *)(*dp + 0xc) != 0) && (dp[0x207] != 0)) && (dp[0x209] != 0)) {
+        PredictStream(dp);
       }
-      iVar2 = iVar2 + 1;
-      piVar1 = piVar1 + 0x215;
-    } while (iVar2 < g_dwTrackCount);
+      iVar1 = iVar1 + 1;
+      dp = dp + 0x215;
+    } while (iVar1 < g_dwTrackCount);
   }
   ImWaveProceed();
   return;
@@ -227,7 +227,7 @@ void DpPredictStreams(void)
    records skipped as strings); called by the region fetch (GoToNextRegion in the remaster, which
    inlined v1.01's Im_DispatchFetchNext)); was iMUSE_Dispatch__2fe0. */
 
-int __cdecl ConvertMap(undefined4 *param_1,undefined4 *param_2)
+int __cdecl ConvertMap(undefined4 *src,undefined4 *dst)
 
 {
   int *piVar1;
@@ -237,61 +237,61 @@ int __cdecl ConvertMap(undefined4 *param_1,undefined4 *param_2)
   uint uVar5;
   uint uVar6;
   int *piVar7;
-  int *piVar8;
-  undefined4 *puVar9;
+  int *p;
+  undefined4 *puVar8;
   
-  iVar3 = UtReadLongHilo((undefined1 *)param_1);
+  iVar3 = UtReadLongHilo((undefined1 *)src);
   if (iVar3 != 0x4d415020) {
     return -1;
   }
-  iVar3 = UtReadLongHilo((undefined1 *)(param_1 + 1));
+  iVar3 = UtReadLongHilo((undefined1 *)(src + 1));
   uVar6 = iVar3 + 8;
   if (uVar6 < 0x801) {
-    puVar9 = param_2;
+    puVar8 = dst;
     for (uVar5 = uVar6 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *puVar9 = *param_1;
-      param_1 = param_1 + 1;
-      puVar9 = puVar9 + 1;
+      *puVar8 = *src;
+      src = src + 1;
+      puVar8 = puVar8 + 1;
     }
     for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-      *(undefined1 *)puVar9 = *(undefined1 *)param_1;
-      param_1 = (undefined4 *)((int)param_1 + 1);
-      puVar9 = (undefined4 *)((int)puVar9 + 1);
+      *(undefined1 *)puVar8 = *(undefined1 *)src;
+      src = (undefined4 *)((int)src + 1);
+      puVar8 = (undefined4 *)((int)puVar8 + 1);
     }
-    uVar4 = UtReadLongHilo((undefined1 *)param_2);
-    *param_2 = uVar4;
-    uVar4 = UtReadLongHilo((undefined1 *)(param_2 + 1));
-    param_2[1] = uVar4;
-    piVar8 = param_2 + 2;
-    piVar1 = (int *)(iVar3 + 8 + (int)param_2);
-    while (piVar8 < piVar1) {
-      iVar3 = UtReadLongHilo((undefined1 *)piVar8);
-      *piVar8 = iVar3;
-      uVar6 = UtReadLongHilo((undefined1 *)(piVar8 + 1));
-      piVar8[1] = uVar6;
-      piVar7 = piVar8 + 2;
+    uVar4 = UtReadLongHilo((undefined1 *)dst);
+    *dst = uVar4;
+    uVar4 = UtReadLongHilo((undefined1 *)(dst + 1));
+    dst[1] = uVar4;
+    p = dst + 2;
+    piVar1 = (int *)(iVar3 + 8 + (int)dst);
+    while (p < piVar1) {
+      iVar3 = UtReadLongHilo((undefined1 *)p);
+      *p = iVar3;
+      uVar6 = UtReadLongHilo((undefined1 *)(p + 1));
+      p[1] = uVar6;
+      piVar7 = p + 2;
       if (iVar3 == 0x54455854) {
         iVar3 = UtReadLongHilo((undefined1 *)piVar7);
         *piVar7 = iVar3;
-        piVar7 = piVar8 + 3;
-        piVar8 = (int *)((int)piVar8 + 0xd);
+        piVar7 = p + 3;
+        p = (int *)((int)p + 0xd);
         cVar2 = (char)*piVar7;
         while (cVar2 != '\0') {
-          iVar3 = *piVar8;
-          piVar8 = (int *)((int)piVar8 + 1);
+          iVar3 = *p;
+          p = (int *)((int)p + 1);
           cVar2 = (char)iVar3;
         }
       }
       else {
-        piVar8 = piVar7;
+        p = piVar7;
         for (uVar6 = uVar6 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-          iVar3 = UtReadLongHilo((undefined1 *)piVar8);
-          *piVar8 = iVar3;
-          piVar8 = piVar8 + 1;
+          iVar3 = UtReadLongHilo((undefined1 *)p);
+          *p = iVar3;
+          p = p + 1;
         }
       }
     }
-    return -(uint)(piVar8 != piVar1);
+    return -(uint)(p != piVar1);
   }
   return -1;
 }
@@ -327,34 +327,34 @@ uint __cdecl iMUSE_Dispatch__30d0(int param_1,int param_2,int param_3)
 /* Original name PredictStream (the remaster's GrimFandango (Linux): aligned call in
    DpPredictStreams, DpProcessTrack); was iMUSE_Dispatch__3130. */
 
-void __cdecl PredictStream(int *param_1)
+void __cdecl PredictStream(int *dp)
 
 {
-  undefined4 *puVar1;
+  undefined4 *region;
+  int iVar1;
   int iVar2;
+  int *jump;
   int iVar3;
-  int *piVar4;
-  int iVar5;
   
-  if ((param_1[0x207] != 0) && (param_1[0x209] != 0)) {
-    iVar5 = 0;
-    iVar2 = 0;
-    for (iVar3 = param_1[0x209]; iVar3 != 0; iVar3 = *(int *)(iVar3 + 4)) {
-      iVar5 = iVar5 + *(int *)(iVar3 + 0x10);
-      iVar2 = iVar3;
+  if ((dp[0x207] != 0) && (dp[0x209] != 0)) {
+    iVar3 = 0;
+    iVar1 = 0;
+    for (iVar2 = dp[0x209]; iVar2 != 0; iVar2 = *(int *)(iVar2 + 4)) {
+      iVar3 = iVar3 + *(int *)(iVar2 + 0x10);
+      iVar1 = iVar2;
     }
-    iVar3 = StGetValidSize(param_1[0x207]);
-    *(int *)(iVar2 + 0x10) = *(int *)(iVar2 + 0x10) + (iVar3 - iVar5);
-    _g_dwPredictStream_jumpHook = *(undefined4 *)(*param_1 + 0x38);
-    for (puVar1 = (undefined4 *)param_1[0x209]; puVar1 != (undefined4 *)0x0;
-        puVar1 = (undefined4 *)puVar1[1]) {
-      if (puVar1[5] == 0) {
-        piVar4 = iMUSE_Dispatch__31d0(param_1 + 7,(int)puVar1,(int *)&g_dwPredictStream_jumpHook);
-        if (piVar4 == (int *)0x0) {
-          iMUSE_Dispatch__3430(param_1,(int)puVar1);
+    iVar2 = StGetValidSize(dp[0x207]);
+    *(int *)(iVar1 + 0x10) = *(int *)(iVar1 + 0x10) + (iVar2 - iVar3);
+    _g_dwPredictStream_jumpHook = *(undefined4 *)(*dp + 0x38);
+    for (region = (undefined4 *)dp[0x209]; region != (undefined4 *)0x0;
+        region = (undefined4 *)region[1]) {
+      if (region[5] == 0) {
+        jump = iMUSE_Dispatch__31d0(dp + 7,(int)region,(int *)&g_dwPredictStream_jumpHook);
+        if (jump == (int *)0x0) {
+          iMUSE_Dispatch__3430(dp,(int)region);
         }
         else {
-          PrepareToJump(param_1,puVar1,(int)piVar4,0);
+          PrepareToJump(dp,region,(int)jump,0);
         }
       }
     }
@@ -395,83 +395,83 @@ int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *predictStream_j
 /* Original name PrepareToJump (the remaster's GrimFandango (Linux): aligned call in GoToNextRegion,
    PredictStream); was iMUSE_Dispatch__3250. */
 
-void __cdecl PrepareToJump(int *param_1,undefined4 *param_2,int param_3,int param_4)
+void __cdecl PrepareToJump(int *format,undefined4 *region,int jump,int now)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  undefined4 *puVar2;
-  undefined4 uVar3;
-  undefined4 *puVar4;
-  int iVar5;
-  uint uVar6;
+  int *head;
+  undefined4 *puVar1;
+  undefined4 uVar2;
+  undefined4 *puVar3;
+  int iVar4;
+  uint uVar5;
   #define local_4 (*(undefined4 **)(_frame + (0x20 - 0x4)))
   
   local_4 = (undefined4 *)0x0;
-  if ((param_2[3] + param_2[4] == *(int *)(param_3 + 8)) && (iVar5 = param_2[1], iVar5 != 0)) {
-    if (*(int *)(iVar5 + 0x14) == 0) {
-      if (*(int *)(iVar5 + 0xc) == *(int *)(param_3 + 0xc)) {
+  if ((region[3] + region[4] == *(int *)(jump + 8)) && (iVar4 = region[1], iVar4 != 0)) {
+    if (*(int *)(iVar4 + 0x14) == 0) {
+      if (*(int *)(iVar4 + 0xc) == *(int *)(jump + 0xc)) {
         return;
       }
     }
-    else if (((*(int *)(iVar5 + 0xc) == *(int *)(param_3 + 8)) && (*(int *)(iVar5 + 4) != 0)) &&
-            (*(int *)(*(int *)(iVar5 + 4) + 0xc) == *(int *)(param_3 + 0xc))) {
+    else if (((*(int *)(iVar4 + 0xc) == *(int *)(jump + 8)) && (*(int *)(iVar4 + 4) != 0)) &&
+            (*(int *)(*(int *)(iVar4 + 4) + 0xc) == *(int *)(jump + 0xc))) {
       return;
     }
   }
   g_dwPrepareToJump_fadeSize =
-       ((uint)(*(int *)(param_3 + 0x14) * param_1[2]) / 1000) * param_1[1] * param_1[3] >> 3;
-  if ((param_4 != 0) ||
-     ((g_dwPrepareToJump_fadeSize - param_2[3]) + *(int *)(param_3 + 8) <= (uint)param_2[4])) {
-    uVar6 = (param_2[3] - *(int *)(param_3 + 8)) + param_2[4];
-    if (uVar6 <= g_dwPrepareToJump_fadeSize) {
-      g_dwPrepareToJump_fadeSize = uVar6;
+       ((uint)(*(int *)(jump + 0x14) * format[2]) / 1000) * format[1] * format[3] >> 3;
+  if ((now != 0) ||
+     ((g_dwPrepareToJump_fadeSize - region[3]) + *(int *)(jump + 8) <= (uint)region[4])) {
+    uVar5 = (region[3] - *(int *)(jump + 8)) + region[4];
+    if (uVar5 <= g_dwPrepareToJump_fadeSize) {
+      g_dwPrepareToJump_fadeSize = uVar5;
     }
     g_dwPrepareToJump_fadeSize =
          g_dwPrepareToJump_fadeSize -
-         ((param_1[1] >> 3) * param_1[3] - 1U & g_dwPrepareToJump_fadeSize);
-    if ((*(uint *)(param_3 + 8) < 2000) && (*(uint *)(param_3 + 8) < *(uint *)(param_3 + 0xc))) {
+         ((format[1] >> 3) * format[3] - 1U & g_dwPrepareToJump_fadeSize);
+    if ((*(uint *)(jump + 8) < 2000) && (*(uint *)(jump + 8) < *(uint *)(jump + 0xc))) {
       g_dwPrepareToJump_fadeSize = 0;
     }
-    if (param_1[0x20d] != 0) {
+    if (format[0x20d] != 0) {
       g_dwPrepareToJump_fadeSize = 0;
     }
     if (((g_dwPrepareToJump_fadeSize == 0) ||
         (local_4 = iMUSE_Dispatch__3570(), local_4 != (undefined4 *)0x0)) &&
-       (puVar4 = iMUSE_Dispatch__3570(), puVar4 != (undefined4 *)0x0)) {
-      iVar5 = *(int *)(param_3 + 8) - param_2[3];
-      param_2[4] = iVar5;
-      uVar6 = g_dwPrepareToJump_fadeSize + iVar5;
-      for (puVar2 = (undefined4 *)param_1[0x209]; puVar2 != param_2;
-          puVar2 = (undefined4 *)puVar2[1]) {
-        uVar6 = uVar6 + puVar2[4];
+       (puVar3 = iMUSE_Dispatch__3570(), puVar3 != (undefined4 *)0x0)) {
+      iVar4 = *(int *)(jump + 8) - region[3];
+      region[4] = iVar4;
+      uVar5 = g_dwPrepareToJump_fadeSize + iVar4;
+      for (puVar1 = (undefined4 *)format[0x209]; puVar1 != region; puVar1 = (undefined4 *)puVar1[1])
+      {
+        uVar5 = uVar5 + puVar1[4];
       }
-      StEraseFromMid(param_1[0x207],uVar6);
-      piVar1 = param_2 + 1;
-      iVar5 = param_2[1];
-      while (iVar5 != 0) {
-        *(undefined4 *)(iVar5 + 8) = 0;
-        UtRemoveFromList(piVar1,(int *)*piVar1);
-        iVar5 = *piVar1;
+      StEraseFromMid(format[0x207],uVar5);
+      head = region + 1;
+      iVar4 = region[1];
+      while (iVar4 != 0) {
+        *(undefined4 *)(iVar4 + 8) = 0;
+        UtRemoveFromList(head,(int *)*head);
+        iVar4 = *head;
       }
-      StSpliceStream((undefined4 *)param_1[0x207],*(undefined4 *)(*param_1 + 0xc),
-                     *(undefined4 *)(param_3 + 0xc));
+      StSpliceStream((undefined4 *)format[0x207],*(undefined4 *)(*format + 0xc),
+                     *(undefined4 *)(jump + 0xc));
       if (g_dwPrepareToJump_fadeSize != 0) {
-        *piVar1 = (int)local_4;
-        *local_4 = param_2;
+        *head = (int)local_4;
+        *local_4 = region;
         local_4[1] = 0;
-        local_4[3] = *(undefined4 *)(param_3 + 8);
+        local_4[3] = *(undefined4 *)(jump + 8);
         local_4[4] = g_dwPrepareToJump_fadeSize;
         local_4[5] = 1;
-        param_2 = local_4;
+        region = local_4;
       }
-      param_2[1] = puVar4;
-      *puVar4 = param_2;
-      puVar4[1] = 0;
-      uVar3 = *(undefined4 *)(param_3 + 0xc);
-      puVar4[4] = 0;
-      puVar4[3] = uVar3;
-      puVar4[5] = 0;
+      region[1] = puVar3;
+      *puVar3 = region;
+      puVar3[1] = 0;
+      uVar2 = *(undefined4 *)(jump + 0xc);
+      puVar3[4] = 0;
+      puVar3[3] = uVar2;
+      puVar3[5] = 0;
     }
   }
   return;
@@ -485,22 +485,22 @@ void __cdecl PrepareToJump(int *param_1,undefined4 *param_2,int param_3,int para
 void __cdecl iMUSE_Dispatch__3430(int *param_1,int param_2)
 
 {
-  int *piVar1;
-  int iVar2;
-  uint uVar3;
+  int *head;
+  int iVar1;
+  uint offset;
   
-  piVar1 = (int *)(param_2 + 4);
+  head = (int *)(param_2 + 4);
   if (*(int *)(param_2 + 4) != 0) {
-    uVar3 = *(uint *)(param_2 + 0x10);
-    for (iVar2 = param_1[0x209]; iVar2 != param_2; iVar2 = *(int *)(iVar2 + 4)) {
-      uVar3 = uVar3 + *(int *)(iVar2 + 0x10);
+    offset = *(uint *)(param_2 + 0x10);
+    for (iVar1 = param_1[0x209]; iVar1 != param_2; iVar1 = *(int *)(iVar1 + 4)) {
+      offset = offset + *(int *)(iVar1 + 0x10);
     }
-    StEraseFromMid(param_1[0x207],uVar3);
-    iVar2 = *piVar1;
-    while (iVar2 != 0) {
-      *(undefined4 *)(iVar2 + 8) = 0;
-      UtRemoveFromList(piVar1,(int *)*piVar1);
-      iVar2 = *piVar1;
+    StEraseFromMid(param_1[0x207],offset);
+    iVar1 = *head;
+    while (iVar1 != 0) {
+      *(undefined4 *)(iVar1 + 8) = 0;
+      UtRemoveFromList(head,(int *)*head);
+      iVar1 = *head;
     }
     StSpliceStream((undefined4 *)param_1[0x207],*(undefined4 *)(*param_1 + 0xc),
                    *(int *)(param_2 + 0xc) + *(int *)(param_2 + 0x10));

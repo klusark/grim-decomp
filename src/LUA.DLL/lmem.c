@@ -31,26 +31,26 @@ void __cdecl luaM_free(void *block)
 /* ---- 0x100073f0  luaM_growaux ---- */
 /* lmem.c (memory through the service table) */
 
-uint __cdecl luaM_growaux(undefined4 *param_1,uint param_2,int param_3,byte *param_4,uint param_5)
+uint __cdecl luaM_growaux(undefined4 *block,uint nelems,int size,byte *errormsg,uint limit)
 
 {
   undefined4 uVar1;
   uint uVar2;
   
-  if (param_5 <= param_2) {
-    lua_error(param_4);
+  if (limit <= nelems) {
+    lua_error(errormsg);
   }
-  if (param_2 == 0) {
+  if (nelems == 0) {
     uVar2 = 0x20;
   }
   else {
-    uVar2 = param_2 * 2;
+    uVar2 = nelems * 2;
   }
-  if (param_5 < uVar2) {
-    uVar2 = param_5;
+  if (limit < uVar2) {
+    uVar2 = limit;
   }
   uVar1 = (**(code **)(g_dwLuaHS + 0x28))
-                    (*param_1,param_3 * uVar2,s_C__grimsrc_libs_lua_src_lmem_cpp_10027080,0x22);
-  *param_1 = uVar1;
+                    (*block,size * uVar2,s_C__grimsrc_libs_lua_src_lmem_cpp_10027080,0x22);
+  *block = uVar1;
   return uVar2;
 }

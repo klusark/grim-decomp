@@ -10,7 +10,7 @@
    Original name StStartStream (the remaster's GrimFandango (Linux): aligned call in
    DpConcludeRestore, DpStartSound); was iMUSE_stream__a210. */
 
-uint * __cdecl StStartStream(uint param_1,uint param_2,uint param_3)
+uint * __cdecl StStartStream(uint sound,uint slot,uint offset)
 
 {
   uint *puVar1;
@@ -19,11 +19,11 @@ uint * __cdecl StStartStream(uint param_1,uint param_2,uint param_3)
   int iVar4;
   uint *puVar5;
   
-  puVar1 = (uint *)FmGetBufInfo(param_2);
-  if ((puVar1 != (uint *)0x0) && (param_3 < (uint)((int)puVar1[1] >> 2))) {
+  puVar1 = (uint *)FmGetBufInfo(slot);
+  if ((puVar1 != (uint *)0x0) && (offset < (uint)((int)puVar1[1] >> 2))) {
     piVar2 = &g_dwStreams;
     iVar4 = 0;
-    while ((*piVar2 == 0 || (piVar2[3] != param_2))) {
+    while ((*piVar2 == 0 || (piVar2[3] != slot))) {
       piVar2 = piVar2 + 0xc;
       iVar4 = iVar4 + 1;
       if (2 < iVar4) {
@@ -31,16 +31,16 @@ uint * __cdecl StStartStream(uint param_1,uint param_2,uint param_3)
         iVar4 = 0;
         do {
           if (*puVar5 == 0) {
-            *puVar5 = param_1;
+            *puVar5 = sound;
             puVar5[1] = 0;
-            uVar3 = FmSeek(param_1,0,2);
+            uVar3 = FmSeek(sound,0,2);
             puVar5[2] = uVar3;
-            puVar5[3] = param_2;
+            puVar5[3] = slot;
             puVar5[4] = *puVar1;
-            puVar5[5] = (puVar1[1] - param_3) - 4;
+            puVar5[5] = (puVar1[1] - offset) - 4;
             puVar5[6] = puVar1[2];
             uVar3 = puVar1[3];
-            puVar5[8] = param_3;
+            puVar5[8] = offset;
             puVar5[7] = uVar3;
             puVar5[9] = 0;
             puVar5[10] = 0;
@@ -62,11 +62,11 @@ uint * __cdecl StStartStream(uint param_1,uint param_2,uint param_3)
    Original name StStopStream (the remaster's GrimFandango (Linux): aligned call in DpStopTrack);
    was iMUSE_stream__a2d0. */
 
-undefined4 __cdecl StStopStream(undefined4 *param_1)
+undefined4 __cdecl StStopStream(undefined4 *stream)
 
 {
-  *param_1 = 0;
-  if (g_dwLastStreamLoaded == param_1) {
+  *stream = 0;
+  if (g_dwLastStreamLoaded == stream) {
     g_dwLastStreamLoaded = (undefined4 *)0x0;
   }
   return 0;
@@ -77,7 +77,7 @@ undefined4 __cdecl StStopStream(undefined4 *param_1)
    Original name StReadData (the remaster's GrimFandango (Linux): aligned call in DpProcessTrack,
    DpSwitchStream, GoToNextRegion); was iMUSE_stream__a420. */
 
-int __cdecl StReadData(int param_1,uint param_2)
+int __cdecl StReadData(int stream,uint size)
 
 {
   uint uVar1;
@@ -86,16 +86,16 @@ int __cdecl StReadData(int param_1,uint param_2)
   undefined4 *puVar4;
   undefined4 *puVar5;
   
-  uVar1 = StGetValidSize(param_1);
-  if ((uVar1 < param_2) || (*(uint *)(param_1 + 0x20) < param_2)) {
+  uVar1 = StGetValidSize(stream);
+  if ((uVar1 < size) || (*(uint *)(stream + 0x20) < size)) {
     iVar2 = 0;
   }
   else {
-    iVar2 = *(int *)(param_1 + 0x14);
-    if ((uint)(iVar2 - *(int *)(param_1 + 0x28)) < param_2) {
-      uVar3 = (param_2 - iVar2) + *(int *)(param_1 + 0x28);
-      puVar4 = *(undefined4 **)(param_1 + 0x10);
-      puVar5 = (undefined4 *)((int)*(undefined4 **)(param_1 + 0x10) + iVar2);
+    iVar2 = *(int *)(stream + 0x14);
+    if ((uint)(iVar2 - *(int *)(stream + 0x28)) < size) {
+      uVar3 = (size - iVar2) + *(int *)(stream + 0x28);
+      puVar4 = *(undefined4 **)(stream + 0x10);
+      puVar5 = (undefined4 *)((int)*(undefined4 **)(stream + 0x10) + iVar2);
       for (uVar1 = uVar3 >> 2; uVar1 != 0; uVar1 = uVar1 - 1) {
         *puVar5 = *puVar4;
         puVar4 = puVar4 + 1;
@@ -107,11 +107,11 @@ int __cdecl StReadData(int param_1,uint param_2)
         puVar5 = (undefined4 *)((int)puVar5 + 1);
       }
     }
-    iVar2 = *(int *)(param_1 + 0x10) + *(int *)(param_1 + 0x28);
-    uVar1 = *(int *)(param_1 + 0x28) + param_2;
-    *(uint *)(param_1 + 0x28) = uVar1;
-    if (*(uint *)(param_1 + 0x14) <= uVar1) {
-      *(uint *)(param_1 + 0x28) = uVar1 - *(uint *)(param_1 + 0x14);
+    iVar2 = *(int *)(stream + 0x10) + *(int *)(stream + 0x28);
+    uVar1 = *(int *)(stream + 0x28) + size;
+    *(uint *)(stream + 0x28) = uVar1;
+    if (*(uint *)(stream + 0x14) <= uVar1) {
+      *(uint *)(stream + 0x28) = uVar1 - *(uint *)(stream + 0x14);
       return iVar2;
     }
   }
@@ -124,7 +124,7 @@ int __cdecl StReadData(int param_1,uint param_2)
    returns buffer + offset); called by the region fetch as in the remaster's GoToNextRegion); was
    iMUSE_stream__a490. */
 
-int __cdecl StViewData(int param_1,int param_2,uint param_3)
+int __cdecl StViewData(int stream,int offset,uint size)
 
 {
   int iVar1;
@@ -134,17 +134,17 @@ int __cdecl StViewData(int param_1,int param_2,uint param_3)
   undefined4 *puVar5;
   undefined4 *puVar6;
   
-  uVar2 = StGetValidSize(param_1);
-  if ((param_3 + param_2 <= uVar2) && (param_3 <= *(uint *)(param_1 + 0x20))) {
-    iVar1 = *(int *)(param_1 + 0x14);
-    iVar4 = *(int *)(param_1 + 0x28) + param_2;
+  uVar2 = StGetValidSize(stream);
+  if ((size + offset <= uVar2) && (size <= *(uint *)(stream + 0x20))) {
+    iVar1 = *(int *)(stream + 0x14);
+    iVar4 = *(int *)(stream + 0x28) + offset;
     if (iVar1 <= iVar4) {
       iVar4 = iVar4 - iVar1;
     }
-    if ((uint)(iVar1 - iVar4) < param_3) {
-      uVar3 = (param_3 + iVar4) - iVar1;
-      puVar5 = *(undefined4 **)(param_1 + 0x10);
-      puVar6 = (undefined4 *)((int)*(undefined4 **)(param_1 + 0x10) + iVar1);
+    if ((uint)(iVar1 - iVar4) < size) {
+      uVar3 = (size + iVar4) - iVar1;
+      puVar5 = *(undefined4 **)(stream + 0x10);
+      puVar6 = (undefined4 *)((int)*(undefined4 **)(stream + 0x10) + iVar1);
       for (uVar2 = uVar3 >> 2; uVar2 != 0; uVar2 = uVar2 - 1) {
         *puVar6 = *puVar5;
         puVar5 = puVar5 + 1;
@@ -156,7 +156,7 @@ int __cdecl StViewData(int param_1,int param_2,uint param_3)
         puVar6 = (undefined4 *)((int)puVar6 + 1);
       }
     }
-    return *(int *)(param_1 + 0x10) + iVar4;
+    return *(int *)(stream + 0x10) + iVar4;
   }
   return 0;
 }
@@ -166,20 +166,20 @@ int __cdecl StViewData(int param_1,int param_2,uint param_3)
    Original name StEraseFromFront (the remaster's GrimFandango (Linux): aligned call in
    DpSwitchStream, StFeedStream); was iMUSE_stream__a500. */
 
-undefined4 __cdecl StEraseFromFront(int param_1,uint param_2)
+undefined4 __cdecl StEraseFromFront(int stream,uint size)
 
 {
   uint uVar1;
   
   g_dwBailFlag = 1;
-  uVar1 = StGetValidSize(param_1);
-  if (uVar1 < param_2) {
+  uVar1 = StGetValidSize(stream);
+  if (uVar1 < size) {
     return 0xffffffff;
   }
-  uVar1 = *(int *)(param_1 + 0x28) + param_2;
-  *(uint *)(param_1 + 0x28) = uVar1;
-  if (*(uint *)(param_1 + 0x14) <= uVar1) {
-    *(uint *)(param_1 + 0x28) = uVar1 - *(uint *)(param_1 + 0x14);
+  uVar1 = *(int *)(stream + 0x28) + size;
+  *(uint *)(stream + 0x28) = uVar1;
+  if (*(uint *)(stream + 0x14) <= uVar1) {
+    *(uint *)(stream + 0x28) = uVar1 - *(uint *)(stream + 0x14);
   }
   return 0;
 }
@@ -189,20 +189,20 @@ undefined4 __cdecl StEraseFromFront(int param_1,uint param_2)
    Original name StEraseFromMid (the remaster's GrimFandango (Linux): aligned call in
    PrepareToJump); was iMUSE_stream__a540. */
 
-undefined4 __cdecl StEraseFromMid(int param_1,uint param_2)
+undefined4 __cdecl StEraseFromMid(int stream,uint offset)
 
 {
   uint uVar1;
   
   g_dwBailFlag = 1;
-  uVar1 = StGetValidSize(param_1);
-  if (uVar1 < param_2) {
+  uVar1 = StGetValidSize(stream);
+  if (uVar1 < offset) {
     return 0xffffffff;
   }
-  uVar1 = *(int *)(param_1 + 0x28) + param_2;
-  *(uint *)(param_1 + 0x24) = uVar1;
-  if (*(uint *)(param_1 + 0x14) <= uVar1) {
-    *(uint *)(param_1 + 0x24) = uVar1 - *(uint *)(param_1 + 0x14);
+  uVar1 = *(int *)(stream + 0x28) + offset;
+  *(uint *)(stream + 0x24) = uVar1;
+  if (*(uint *)(stream + 0x14) <= uVar1) {
+    *(uint *)(stream + 0x24) = uVar1 - *(uint *)(stream + 0x14);
   }
   return 0;
 }
@@ -212,15 +212,15 @@ undefined4 __cdecl StEraseFromMid(int param_1,uint param_2)
    Original name StSpliceStream (the remaster's GrimFandango (Linux): aligned call in
    DpConcludeRestore, DpSwitchStream, PrepareToJump); was iMUSE_stream__a5a0. */
 
-undefined4 __cdecl StSpliceStream(undefined4 *param_1,undefined4 param_2,undefined4 param_3)
+undefined4 __cdecl StSpliceStream(undefined4 *stream,undefined4 offset,undefined4 sound)
 
 {
   g_dwBailFlag = 1;
-  *param_1 = param_2;
-  param_1[1] = param_3;
-  param_1[2] = 0;
-  param_1[0xb] = 0;
-  if (g_dwLastStreamLoaded == param_1) {
+  *stream = offset;
+  stream[1] = sound;
+  stream[2] = 0;
+  stream[0xb] = 0;
+  if (g_dwLastStreamLoaded == stream) {
     g_dwLastStreamLoaded = (undefined4 *)0x0;
   }
   return 0;
@@ -231,16 +231,16 @@ undefined4 __cdecl StSpliceStream(undefined4 *param_1,undefined4 param_2,undefin
    Original name UtAddToList (the remaster's GrimFandango (Linux): aligned call in TrRestore,
    TrStartSound); was iMUSE_stream__b760. */
 
-undefined4 __cdecl UtAddToList(int *trackList,int *param_2)
+undefined4 __cdecl UtAddToList(int *trackList,int *node)
 
 {
-  if (((param_2 != (int *)0x0) && (*param_2 == 0)) && (param_2[1] == 0)) {
-    param_2[1] = *trackList;
+  if (((node != (int *)0x0) && (*node == 0)) && (node[1] == 0)) {
+    node[1] = *trackList;
     if ((undefined4 *)*trackList != (undefined4 *)0x0) {
-      *(undefined4 *)*trackList = param_2;
+      *(undefined4 *)*trackList = node;
     }
-    *param_2 = 0;
-    *trackList = (int)param_2;
+    *node = 0;
+    *trackList = (int)node;
     return 0;
   }
   return 0xfffffffb;
@@ -251,34 +251,34 @@ undefined4 __cdecl UtAddToList(int *trackList,int *param_2)
    Original name UtRemoveFromList (the remaster's GrimFandango (Linux): aligned call in DpStopTrack,
    GoToNextRegion, TrStopTrack); was iMUSE_stream__b7a0. */
 
-undefined4 __cdecl UtRemoveFromList(int *param_1,int *param_2)
+undefined4 __cdecl UtRemoveFromList(int *head,int *node)
 
 {
   int *piVar1;
   
-  piVar1 = (int *)*param_1;
-  if ((param_2 == (int *)0x0) || (piVar1 == (int *)0x0)) {
+  piVar1 = (int *)*head;
+  if ((node == (int *)0x0) || (piVar1 == (int *)0x0)) {
     return 0xfffffffb;
   }
   do {
-    if (piVar1 == param_2) break;
+    if (piVar1 == node) break;
     piVar1 = (int *)piVar1[1];
   } while (piVar1 != (int *)0x0);
   if (piVar1 == (int *)0x0) {
     return 0xfffffffd;
   }
-  if ((int *)param_2[1] != (int *)0x0) {
-    *(int *)param_2[1] = *param_2;
+  if ((int *)node[1] != (int *)0x0) {
+    *(int *)node[1] = *node;
   }
-  if (*param_2 != 0) {
-    *(int *)(*param_2 + 4) = param_2[1];
-    param_2[1] = 0;
-    *param_2 = 0;
+  if (*node != 0) {
+    *(int *)(*node + 4) = node[1];
+    node[1] = 0;
+    *node = 0;
     return 0;
   }
-  *param_1 = param_2[1];
-  param_2[1] = 0;
-  *param_2 = 0;
+  *head = node[1];
+  node[1] = 0;
+  *node = 0;
   return 0;
 }
 
@@ -287,10 +287,10 @@ undefined4 __cdecl UtRemoveFromList(int *param_1,int *param_2)
    32-bit read *p << 24 | p[1] << 16 | p[2] << 8 | p[3]); called by the MAP converter (ConvertMap)
    and the region code in both builds); was iMUSE_stream__b810. */
 
-undefined4 __cdecl UtReadLongHilo(undefined1 *param_1)
+undefined4 __cdecl UtReadLongHilo(undefined1 *p)
 
 {
-  return CONCAT31(CONCAT21(CONCAT11(*param_1,param_1[1]),param_1[2]),param_1[3]);
+  return CONCAT31(CONCAT21(CONCAT11(*p,p[1]),p[2]),p[3]);
 }
 
 /* ---- 0x1000b840  UtCheckHook ---- */
@@ -299,17 +299,17 @@ undefined4 __cdecl UtReadLongHilo(undefined1 *param_1)
    (PredictStream in the remaster, inlined there) and GoToNextRegion in both builds); was
    iMUSE_stream__b840. */
 
-undefined4 __cdecl UtCheckHook(int *param_1,int param_2)
+undefined4 __cdecl UtCheckHook(int *hook,int value)
 
 {
-  if (param_2 == 0) {
-    if (*param_1 != 0x80) {
+  if (value == 0) {
+    if (*hook != 0x80) {
       return 0;
     }
-    *param_1 = 0;
+    *hook = 0;
   }
-  else if (param_2 == *param_1) {
-    *param_1 = 0;
+  else if (value == *hook) {
+    *hook = 0;
     return 0;
   }
   return 0xffffffff;

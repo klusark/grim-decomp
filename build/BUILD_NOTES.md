@@ -2152,3 +2152,20 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   without a calling convention. The prototypes of this round and of the previous one change in nothing but names
   (and the 12 intended types).
 * `param_N` in the prototypes: EXE 2626 -> 2168, LUA.DLL 1034 -> 1027, IMUSE.DLL 672 -> 656. Clean room 0 of 5457.
+
+## LUA.DLL's and IMUSE.DLL's parameters named (2026-11-15)
+
+* names/params_lua31.py (-> names/params_lua31.json, tools/names_batch.py): 286 parameters of LUA.DLL with the
+  names of the Lua 3.1 sources (lua_isnil(o), luaL_opt_number(numArg, def), luaM_growaux(block, nelems, size,
+  errormsg, limit), the lexer's LS, the undumper's Z, the parser's op / builtin / arg / delta, ...).
+* names/params_imuse_api.py (-> names/params_imuse_api.json): 344 parameters of IMUSE.DLL from what the functions do
+  with them (sound, param, value, time, hook, marker / opcode of the triggers, the stream queries' out-pointers,
+  save / restore buffers, the buffer sizes of iMUSE_DeclareBufferSizes, ...). sounds_restore (custom storage) is
+  left alone.
+* A rename lost two of Ghidra's automatic data labels (DAT_1003039f / DAT_1003151f, the bytes just inside the MCMP
+  file-handle table that iRes_FCLOSE / FREAD / FTELL / FSEEK compare against): the decompiler then printed the
+  original address as a constant, `(undefined *)0x1003039f < f`, which the rebuilt DLL would compare with the wrong
+  address. They are user labels now. No live function casts an image address constant to a pointer (checked in all
+  four programs).
+* All four programs' .text sections are byte-identical to the build before (names only); datacmp 0 differences.
+  `param_N` in the prototypes: LUA.DLL 1027 -> 745, IMUSE.DLL 656 -> 314. Clean room 0 of 5457.

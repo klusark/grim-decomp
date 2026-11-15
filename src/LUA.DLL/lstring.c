@@ -345,7 +345,7 @@ void __cdecl luaS_free(TaggedString *l)
 /* Original name luaS_writestrings (the remaster's libLua.so: callee SaveObject, caller
    SaveGlobals); was lstring__9180. */
 
-void __cdecl luaS_writestrings(undefined *param_1,int *LState_string_root)
+void __cdecl luaS_writestrings(undefined *writer,int *LState_string_root)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -359,7 +359,7 @@ void __cdecl luaS_writestrings(undefined *param_1,int *LState_string_root)
   #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
-  a2 = param_1;
+  a2 = writer;
   local_c = 0x3d;
   piVar4 = LState_string_root;
   do {
@@ -391,9 +391,9 @@ void __cdecl luaS_writestrings(undefined *param_1,int *LState_string_root)
               iVar1 = *piVar5;
               piVar5 = (int *)((int)piVar5 + 1);
             } while ((char)iVar1 != '\0');
-            param_1 = (undefined *)(~uVar2 - 1);
-            (*(code *)a2)(&param_1,4);
-            (*(code *)a2)(LState_string_root + 6,param_1);
+            writer = (undefined *)(~uVar2 - 1);
+            (*(code *)a2)(&writer,4);
+            (*(code *)a2)(LState_string_root + 6,writer);
           }
         }
         iVar3 = iVar3 + 1;
@@ -445,7 +445,7 @@ void __cdecl luaS_resolvestrings(int *LState_string_root)
 /* Original name luaS_count (the remaster's libLua.so: caller SaveGlobals (string count for the save
    file)); was lstring__92e0. */
 
-int __cdecl luaS_count(int *LState_string_root,uint *param_2)
+int __cdecl luaS_count(int *LState_string_root,uint *n)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -458,10 +458,10 @@ int __cdecl luaS_count(int *LState_string_root,uint *param_2)
   char *pcVar7;
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
-  puVar3 = param_2;
+  puVar3 = n;
   local_4 = 0;
-  *param_2 = 0;
-  param_2 = (uint *)0x3d;
+  *n = 0;
+  n = (uint *)0x3d;
   do {
     iVar6 = 0;
     if (0 < *LState_string_root) {
@@ -487,8 +487,8 @@ int __cdecl luaS_count(int *LState_string_root,uint *param_2)
       } while (iVar6 < *LState_string_root);
     }
     LState_string_root = LState_string_root + 3;
-    param_2 = (uint *)((int)param_2 + -1);
-    if (param_2 == (uint *)0x0) {
+    n = (uint *)((int)n + -1);
+    if (n == (uint *)0x0) {
       return local_4;
     }
   } while( true );

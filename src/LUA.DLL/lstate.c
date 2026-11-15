@@ -119,13 +119,13 @@ LAB_100077c9:
 /* Original name comparePtrIDs (the remaster's libLua.so: static comparePtrIDs: compares the ids at
    +4); was FUN_10007810. */
 
-uint __cdecl comparePtrIDs(int param_1,int param_2)
+uint __cdecl comparePtrIDs(int a,int b)
 
 {
-  if (*(uint *)(param_1 + 4) < *(uint *)(param_2 + 4)) {
+  if (*(uint *)(a + 4) < *(uint *)(b + 4)) {
     return 0xffffffff;
   }
-  return (uint)(*(uint *)(param_2 + 4) < *(uint *)(param_1 + 4));
+  return (uint)(*(uint *)(b + 4) < *(uint *)(a + 4));
 }
 
 /* ---- 0x10007830  LState_SaveObject ---- */
@@ -248,7 +248,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint *puVar1;
   Hash *t;
-  int a2;
+  int reader;
   undefined4 *puVar2;
   char *str;
   TaggedString *pTVar3;
@@ -270,7 +270,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   #define iStack_8 (*(int *)(_frame + (0x40 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x40 - 0x4)))
   
-  a2 = a1;
+  reader = a1;
   (*(code *)a1)(&g_dwLState_stringPtrTotal,4);
   (*(code *)a1)(&g_dwLState_closurePtrTotal,4);
   (*(code *)a1)(&g_dwLState_tablePtrTotal,4);
@@ -288,10 +288,10 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   if (g_dwLState_stringPtrTotal != 0) {
     puStack_2c = puVar2 + 1;
     do {
-      (*(code *)a2)(puStack_2c,4);
-      (*(code *)a2)(&iStack_14,4);
-      (*(code *)a2)(&puStack_28,4);
-      (*(code *)a2)(&pvStack_1c,4);
+      (*(code *)reader)(puStack_2c,4);
+      (*(code *)reader)(&iStack_14,4);
+      (*(code *)reader)(&puStack_28,4);
+      (*(code *)reader)(&pvStack_1c,4);
       if (iStack_14 == -1) {
         puVar4 = puStack_28;
         if (puStack_28 == (undefined4 *)0x0) {
@@ -299,13 +299,13 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
         }
         pTVar3 = luaS_createudata(pvStack_1c,(int)puVar4);
         if (lua_restorehook != (code *)0x0) {
-          uVar7 = (*lua_restorehook)((pTVar3->globalval).nTtype,(pTVar3->globalval).dwValue,a2);
+          uVar7 = (*lua_restorehook)((pTVar3->globalval).nTtype,(pTVar3->globalval).dwValue,reader);
           (pTVar3->globalval).dwValue = uVar7;
         }
       }
       else {
-        (*(code *)a2)(&puStack_24,4);
-        (*(code *)a2)(str,puStack_24);
+        (*(code *)reader)(&puStack_24,4);
+        (*(code *)reader)(str,puStack_24);
         *(char *)((int)puStack_24 + (int)str) = '\0';
         pTVar3 = luaS_new(str);
         (pTVar3->globalval).dwValue = (uint)pvStack_1c;
@@ -328,8 +328,8 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
     puStack_28 = g_dwLState_aClosurePtrs + 1;
     puStack_2c = g_dwLState_aClosurePtrs;
     do {
-      (*(code *)a2)(puStack_28,4);
-      (*(code *)a2)(&iStack_14,4);
+      (*(code *)reader)(puStack_28,4);
+      (*(code *)reader)(&iStack_14,4);
       puVar4 = (undefined4 *)
                (**(code **)(g_dwLuaHS + 0x20))
                          (iStack_14 * 8 + 0x14,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x211);
@@ -338,7 +338,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
       uVar7 = 0;
       puVar2 = puVar4 + 3;
       do {
-        LState_LoadObject((int)puVar2,a2);
+        LState_LoadObject((int)puVar2,reader);
         uVar7 = uVar7 + 1;
         puVar2 = puVar2 + 2;
       } while (uVar7 <= (uint)puVar4[2]);
@@ -357,8 +357,8 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   if (g_dwLState_tablePtrTotal != 0) {
     puVar4 = puVar2 + 1;
     do {
-      (*(code *)a2)(puVar4,4);
-      puVar5 = luaH_load((undefined *)a2);
+      (*(code *)reader)(puVar4,4);
+      puVar5 = luaH_load((undefined *)reader);
       *puVar2 = puVar5;
       puVar2 = puVar2 + 2;
       puVar4 = puVar4 + 2;
@@ -374,26 +374,26 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
     puStack_24 = g_dwLState_aProtoPtrs + 1;
     puStack_2c = g_dwLState_aProtoPtrs;
     do {
-      (*(code *)a2)(puStack_24,4);
+      (*(code *)reader)(puStack_24,4);
       puVar2 = (undefined4 *)
                (**(code **)(g_dwLuaHS + 0x20))
                          (0x20,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x235);
       luaO_insertlist(&g_dwLState_rootproto,puVar2);
-      (*(code *)a2)(puVar2 + 6,4);
-      (*(code *)a2)(puVar2 + 5,4);
+      (*(code *)reader)(puVar2 + 6,4);
+      (*(code *)reader)(puVar2 + 5,4);
       puVar1 = puVar2 + 3;
-      (*(code *)a2)(puVar1,4);
+      (*(code *)reader)(puVar1,4);
       uVar6 = (**(code **)(g_dwLuaHS + 0x20))
                         (*puVar1 << 3,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x23a);
       puVar2[2] = uVar6;
       uVar7 = 0;
       if (*puVar1 != 0) {
         do {
-          LState_LoadObject(puVar2[2] + uVar7 * 8,a2);
+          LState_LoadObject(puVar2[2] + uVar7 * 8,reader);
           uVar7 = uVar7 + 1;
         } while (uVar7 < *puVar1);
       }
-      (*(code *)a2)(&puStack_28,4);
+      (*(code *)reader)(&puStack_28,4);
       puVar4 = (undefined4 *)0x0;
       if (puStack_28 == (undefined4 *)0x0) {
         puVar2[7] = 0;
@@ -405,16 +405,16 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
       }
       if (puStack_28 != (undefined4 *)0x0) {
         do {
-          (*(code *)a2)(puVar2[7] + (int)puVar4 * 8,4);
-          (*(code *)a2)(puVar2[7] + 4 + (int)puVar4 * 8,4);
+          (*(code *)reader)(puVar2[7] + (int)puVar4 * 8,4);
+          (*(code *)reader)(puVar2[7] + 4 + (int)puVar4 * 8,4);
           puVar4 = (undefined4 *)((int)puVar4 + 1);
         } while (puVar4 < puStack_28);
       }
-      (*(code *)a2)(&iStack_14,4);
+      (*(code *)reader)(&iStack_14,4);
       uVar6 = (**(code **)(g_dwLuaHS + 0x20))
                         (iStack_14,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x250);
       puVar2[4] = uVar6;
-      (*(code *)a2)(uVar6,iStack_14);
+      (*(code *)reader)(uVar6,iStack_14);
       *puStack_2c = puVar2;
       puStack_2c = puStack_2c + 2;
       puStack_24 = puStack_24 + 2;
@@ -476,7 +476,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   if (uStack_c != 0) {
     do {
       iStack_14 = -2;
-      (*(code *)a2)(&puStack_10,4);
+      (*(code *)reader)(&puStack_10,4);
       LState_ResolveObject((int)&iStack_14);
       puVar2 = puStack_10;
       if (puStack_10 == (undefined4 *)0x0) {
@@ -489,9 +489,9 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
     } while (uVar7 < uStack_c);
   }
   *puVar2 = 0;
-  (*(code *)a2)(&g_dwLState_lstate_class_initialized,4);
-  LState_LoadResolvedObject(((unsigned)(uintptr_t)&g_dwLState_errorim),a2);
-  (*(code *)a2)(&g_dwLState_IMtable_size,4);
+  (*(code *)reader)(&g_dwLState_lstate_class_initialized,4);
+  LState_LoadResolvedObject(((unsigned)(uintptr_t)&g_dwLState_errorim),reader);
+  (*(code *)reader)(&g_dwLState_IMtable_size,4);
   g_dwLState_IMtable =
        (**(code **)(g_dwLuaHS + 0x20))
                  (g_dwLState_IMtable_size * 0x90,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2b6);
@@ -502,7 +502,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
       iVar9 = 0x12;
       iVar8 = g_dwLState_IMtable + local_20;
       do {
-        LState_LoadResolvedObject(iVar8,a2);
+        LState_LoadResolvedObject(iVar8,reader);
         iVar8 = iVar8 + 8;
         iVar9 = iVar9 + -1;
       } while (iVar9 != 0);
@@ -510,8 +510,8 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
       local_20 = local_20 + 0x90;
     } while ((uint)a1 < g_dwLState_IMtable_size);
   }
-  (*(code *)a2)(&g_dwLState_last_tag,4);
-  (*(code *)a2)(&g_dwLState_refSize,4);
+  (*(code *)reader)(&g_dwLState_last_tag,4);
+  (*(code *)reader)(&g_dwLState_refSize,4);
   g_dwLState_refArray =
        (**(code **)(g_dwLuaHS + 0x20))
                  (g_dwLState_refSize * 0xc,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2c2);
@@ -519,23 +519,23 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   if (g_dwLState_refSize != 0) {
     iVar8 = 0;
     do {
-      LState_LoadResolvedObject(g_dwLState_refArray + iVar8,a2);
-      (*(code *)a2)(g_dwLState_refArray + 8 + iVar8,4);
+      LState_LoadResolvedObject(g_dwLState_refArray + iVar8,reader);
+      (*(code *)reader)(g_dwLState_refArray + 8 + iVar8,4);
       uVar7 = uVar7 + 1;
       iVar8 = iVar8 + 0xc;
     } while (uVar7 < g_dwLState_refSize);
   }
-  (*(code *)a2)(&g_dwLState_GCthreshold,4);
-  (*(code *)a2)(&g_dwLState_nblocks,4);
-  (*(code *)a2)(&g_dwLState_Mbuffsize,4);
+  (*(code *)reader)(&g_dwLState_GCthreshold,4);
+  (*(code *)reader)(&g_dwLState_nblocks,4);
+  (*(code *)reader)(&g_dwLState_Mbuffsize,4);
   g_dwLState_Mbuffer =
        (**(code **)(g_dwLuaHS + 0x20))
                  (g_dwLState_Mbuffsize,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x2ce);
-  (*(code *)a2)(g_dwLState_Mbuffer,g_dwLState_Mbuffsize);
-  (*(code *)a2)(&iStack_4,4);
+  (*(code *)reader)(g_dwLState_Mbuffer,g_dwLState_Mbuffsize);
+  (*(code *)reader)(&iStack_4,4);
   g_dwLState_Mbuffbase = iStack_4 + g_dwLState_Mbuffer;
-  (*(code *)a2)(&g_dwLState_Mbuffnext,4);
-  (*(code *)a2)(&g_dwLState_numThreads,4);
+  (*(code *)reader)(&g_dwLState_Mbuffnext,4);
+  (*(code *)reader)(&g_dwLState_numThreads,4);
   return 0;
 }
 #undef iStack_14
@@ -563,7 +563,7 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   undefined4 *puVar2;
-  int a2;
+  int writer;
   int iVar3;
   uint uVar4;
   int iVar5;
@@ -586,7 +586,7 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
   local_24 = 0;
   local_10 = 0;
   local_10 = luaS_count(g_dwLState_string_root,&local_8);
-  a2 = a1;
+  writer = a1;
   for (puVar1 = g_dwLState_rootcl; puVar2 = g_dwLState_roottable, puVar1 != (undefined4 *)0x0;
       puVar1 = (undefined4 *)*puVar1) {
     local_28 = local_28 + 1;
@@ -603,41 +603,41 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
     local_1c = local_1c + 1;
   }
   (*(code *)a1)(&local_10,4);
-  (*(code *)a2)(&local_28,4);
-  (*(code *)a2)(&local_24,4);
-  (*(code *)a2)(&local_20,4);
-  (*(code *)a2)(&local_1c,4);
-  (*(code *)a2)(&local_8,4);
+  (*(code *)writer)(&local_28,4);
+  (*(code *)writer)(&local_24,4);
+  (*(code *)writer)(&local_20,4);
+  (*(code *)writer)(&local_1c,4);
+  (*(code *)writer)(&local_8,4);
   luaA_ResetSaveCount();
-  luaS_writestrings((undefined *)a2,g_dwLState_string_root);
+  luaS_writestrings((undefined *)writer,g_dwLState_string_root);
   luaA_ResetSaveCount();
   for (puStack_30 = g_dwLState_rootcl; puStack_30 != (undefined4 *)0x0;
       puStack_30 = (undefined4 *)*puStack_30) {
-    (*(code *)a2)(&puStack_30,4);
-    (*(code *)a2)(puStack_30 + 2,4);
+    (*(code *)writer)(&puStack_30,4);
+    (*(code *)writer)(puStack_30 + 2,4);
     uVar4 = 0;
     do {
-      LState_SaveObject((int)(puStack_30 + uVar4 * 2 + 3),a2);
+      LState_SaveObject((int)(puStack_30 + uVar4 * 2 + 3),writer);
       uVar4 = uVar4 + 1;
     } while (uVar4 <= (uint)puStack_30[2]);
   }
   luaA_ResetSaveCount();
   for (puStack_2c = g_dwLState_roottable; puStack_2c != (undefined4 *)0x0;
       puStack_2c = (undefined4 *)*puStack_2c) {
-    (*(code *)a2)(&puStack_2c,4);
-    luaH_save((undefined *)a2,(int)puStack_2c);
+    (*(code *)writer)(&puStack_2c,4);
+    luaH_save((undefined *)writer,(int)puStack_2c);
   }
   luaA_ResetSaveCount();
   for (puStack_34 = g_dwLState_rootproto; puStack_34 != (undefined4 *)0x0;
       puStack_34 = (undefined4 *)*puStack_34) {
-    (*(code *)a2)(&puStack_34,4);
-    (*(code *)a2)(puStack_34 + 6,4);
-    (*(code *)a2)(puStack_34 + 5,4);
-    (*(code *)a2)(puStack_34 + 3,4);
+    (*(code *)writer)(&puStack_34,4);
+    (*(code *)writer)(puStack_34 + 6,4);
+    (*(code *)writer)(puStack_34 + 5,4);
+    (*(code *)writer)(puStack_34 + 3,4);
     uVar4 = 0;
     if (puStack_34[3] != 0) {
       do {
-        LState_SaveObject(puStack_34[2] + uVar4 * 8,a2);
+        LState_SaveObject(puStack_34[2] + uVar4 * 8,writer);
         uVar4 = uVar4 + 1;
       } while (uVar4 < (uint)puStack_34[3]);
     }
@@ -650,40 +650,40 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
         iVar5 = *(int *)(puStack_34[7] + -4 + a1 * 8);
       }
     }
-    (*(code *)a2)(&a1,4);
+    (*(code *)writer)(&a1,4);
     uVar4 = 0;
     if (a1 != 0) {
       do {
-        (*(code *)a2)(puStack_34[7] + uVar4 * 8,4);
-        (*(code *)a2)(puStack_34[7] + 4 + uVar4 * 8,4);
+        (*(code *)writer)(puStack_34[7] + uVar4 * 8,4);
+        (*(code *)writer)(puStack_34[7] + 4 + uVar4 * 8,4);
         uVar4 = uVar4 + 1;
       } while (uVar4 < (uint)a1);
     }
     pbStack_c = LState_CodeLength((int)puStack_34);
-    (*(code *)a2)(&pbStack_c,4);
-    (*(code *)a2)(puStack_34[4],pbStack_c);
+    (*(code *)writer)(&pbStack_c,4);
+    (*(code *)writer)(puStack_34[4],pbStack_c);
   }
   luaA_ResetSaveCount();
   puVar2 = g_dwLState_rootglobal;
   puVar1 = _DAT_1002bf0c;
   while (_DAT_1002bf0c = puVar2, apuStack_18[0] = _DAT_1002bf0c, _DAT_1002bf0c != (undefined4 *)0x0)
   {
-    (*(code *)a2)(apuStack_18,4);
+    (*(code *)writer)(apuStack_18,4);
     puVar1 = _DAT_1002bf0c;
     puVar2 = (undefined4 *)*apuStack_18[0];
   }
   _DAT_1002bf0c = puVar1;
   luaA_ResetSaveCount();
-  (*(code *)a2)(&g_dwLState_lstate_class_initialized,4);
-  LState_SaveObject(((unsigned)(uintptr_t)&g_dwLState_errorim),a2);
-  (*(code *)a2)(&g_dwLState_IMtable_size,4);
+  (*(code *)writer)(&g_dwLState_lstate_class_initialized,4);
+  LState_SaveObject(((unsigned)(uintptr_t)&g_dwLState_errorim),writer);
+  (*(code *)writer)(&g_dwLState_IMtable_size,4);
   uVar4 = 0;
   iVar5 = g_dwLState_IMtable;
   if (g_dwLState_IMtable_size != 0) {
     do {
       iVar3 = 0x12;
       do {
-        LState_SaveObject(iVar5,a2);
+        LState_SaveObject(iVar5,writer);
         iVar5 = iVar5 + 8;
         iVar3 = iVar3 + -1;
       } while (iVar3 != 0);
@@ -691,25 +691,25 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
     } while (uVar4 < g_dwLState_IMtable_size);
   }
   uVar4 = 0;
-  (*(code *)a2)(&g_dwLState_last_tag,4);
-  (*(code *)a2)(&g_dwLState_refSize,4);
+  (*(code *)writer)(&g_dwLState_last_tag,4);
+  (*(code *)writer)(&g_dwLState_refSize,4);
   if (g_dwLState_refSize != 0) {
     iVar5 = 0;
     do {
-      LState_SaveObject(g_dwLState_refArray + iVar5,a2);
-      (*(code *)a2)(g_dwLState_refArray + 8 + iVar5,4);
+      LState_SaveObject(g_dwLState_refArray + iVar5,writer);
+      (*(code *)writer)(g_dwLState_refArray + 8 + iVar5,4);
       uVar4 = uVar4 + 1;
       iVar5 = iVar5 + 0xc;
     } while (uVar4 < g_dwLState_refSize);
   }
-  (*(code *)a2)(&g_dwLState_GCthreshold,4);
-  (*(code *)a2)(&g_dwLState_nblocks,4);
-  (*(code *)a2)(&g_dwLState_Mbuffsize,4);
-  (*(code *)a2)(g_dwLState_Mbuffer,g_dwLState_Mbuffsize);
+  (*(code *)writer)(&g_dwLState_GCthreshold,4);
+  (*(code *)writer)(&g_dwLState_nblocks,4);
+  (*(code *)writer)(&g_dwLState_Mbuffsize,4);
+  (*(code *)writer)(g_dwLState_Mbuffer,g_dwLState_Mbuffsize);
   iStack_4 = g_dwLState_Mbuffbase - g_dwLState_Mbuffer;
-  (*(code *)a2)(&iStack_4,4);
-  (*(code *)a2)(&g_dwLState_Mbuffnext,4);
-  (*(code *)a2)(&g_dwLState_numThreads,4);
+  (*(code *)writer)(&iStack_4,4);
+  (*(code *)writer)(&g_dwLState_Mbuffnext,4);
+  (*(code *)writer)(&g_dwLState_numThreads,4);
   luaA_ResetSaveCount();
   return 0;
 }
@@ -732,14 +732,14 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
    prototype) by their sizes in g_aOpcodeDirectory (asserting each opcode is in range) up to the end
    opcode 0, plus the 2-byte header; was lstate__85e0. */
 
-byte * __cdecl LState_CodeLength(int param_1)
+byte * __cdecl LState_CodeLength(int tf)
 
 {
   uint uVar1;
   byte *pbVar2;
   byte *pbVar3;
   
-  pbVar2 = (byte *)(*(int *)(param_1 + 0x10) + 2);
+  pbVar2 = (byte *)(*(int *)(tf + 0x10) + 2);
   pbVar3 = pbVar2;
   do {
     uVar1 = (uint)*pbVar3;

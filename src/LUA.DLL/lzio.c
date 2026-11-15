@@ -8,19 +8,18 @@
 /* ---- 0x1000edc0  luaZ_mopen ---- */
 /* Unidentified function of lvm.c (virtual machine) */
 
-undefined4 * __cdecl
-luaZ_mopen(undefined4 *param_1,int param_2,undefined4 param_3,undefined4 param_4)
+undefined4 * __cdecl luaZ_mopen(undefined4 *z,int b,undefined4 size,undefined4 name)
 
 {
-  if (param_2 == 0) {
+  if (b == 0) {
     return (undefined4 *)0x0;
   }
-  param_1[1] = param_2;
-  *param_1 = param_3;
-  param_1[2] = zmfilbuf;
-  param_1[3] = 0;
-  param_1[4] = param_4;
-  return param_1;
+  z[1] = b;
+  *z = size;
+  z[2] = zmfilbuf;
+  z[3] = 0;
+  z[4] = name;
+  return z;
 }
 
 /* ---- 0x1000edf0  zmfilbuf ---- */
@@ -36,7 +35,7 @@ undefined4 zmfilbuf(void)
 /* ---- 0x1000ee00  luaZ_sopen ---- */
 /* Unidentified function of lvm.c (virtual machine) */
 
-undefined4 * __cdecl luaZ_sopen(undefined4 *param_1,char *param_2,undefined4 param_3)
+undefined4 * __cdecl luaZ_sopen(undefined4 *z,char *s,undefined4 name)
 
 {
   char cVar1;
@@ -44,62 +43,62 @@ undefined4 * __cdecl luaZ_sopen(undefined4 *param_1,char *param_2,undefined4 par
   uint uVar3;
   char *pcVar4;
   
-  if (param_2 == (char *)0x0) {
+  if (s == (char *)0x0) {
     return (undefined4 *)0x0;
   }
   uVar3 = 0xffffffff;
-  pcVar4 = param_2;
+  pcVar4 = s;
   do {
     if (uVar3 == 0) break;
     uVar3 = uVar3 - 1;
     cVar1 = *pcVar4;
     pcVar4 = pcVar4 + 1;
   } while (cVar1 != '\0');
-  puVar2 = luaZ_mopen(param_1,(int)param_2,~uVar3 - 1,param_3);
+  puVar2 = luaZ_mopen(z,(int)s,~uVar3 - 1,name);
   return puVar2;
 }
 
 /* ---- 0x1000ee30  luaZ_Fopen ---- */
-undefined4 * __cdecl luaZ_Fopen(undefined4 *param_1,int param_2,undefined4 param_3)
+undefined4 * __cdecl luaZ_Fopen(undefined4 *z,int f,undefined4 name)
 
 {
                     /* 0xee30  5  luaZ_Fopen */
-  if (param_2 == 0) {
+  if (f == 0) {
     return (undefined4 *)0x0;
   }
-  param_1[3] = param_2;
-  *param_1 = 0;
-  param_1[1] = param_1 + 5;
-  param_1[2] = zffilbuf;
-  param_1[4] = param_3;
-  return param_1;
+  z[3] = f;
+  *z = 0;
+  z[1] = z + 5;
+  z[2] = zffilbuf;
+  z[4] = name;
+  return z;
 }
 
 /* ---- 0x1000ee60  zffilbuf ---- */
 /* Original name zffilbuf (the remaster's libLua.so: static zffilbuf: refills 256 bytes through the
    service table +0x38); was FUN_1000ee60. */
 
-uint __cdecl zffilbuf(int *param_1)
+uint __cdecl zffilbuf(int *z)
 
 {
   byte *pbVar1;
   int iVar2;
   
-  pbVar1 = (byte *)(param_1 + 5);
-  iVar2 = (**(code **)(g_dwLuaHS + 0x38))(param_1[3],pbVar1,0x100);
+  pbVar1 = (byte *)(z + 5);
+  iVar2 = (**(code **)(g_dwLuaHS + 0x38))(z[3],pbVar1,0x100);
   if (iVar2 == 0) {
     return 0xffffffff;
   }
-  param_1[1] = (int)pbVar1;
-  *param_1 = iVar2 + -1;
-  param_1[1] = (int)param_1 + 0x15;
+  z[1] = (int)pbVar1;
+  *z = iVar2 + -1;
+  z[1] = (int)z + 0x15;
   return (uint)*pbVar1;
 }
 
 /* ---- 0x1000eea0  luaZ_read ---- */
 /* Unidentified function of lzio.c (input streams) */
 
-uint __cdecl luaZ_read(uint *param_1,undefined4 *param_2,uint param_3)
+uint __cdecl luaZ_read(uint *z,undefined4 *b,uint n)
 
 {
   int iVar1;
@@ -108,39 +107,39 @@ uint __cdecl luaZ_read(uint *param_1,undefined4 *param_2,uint param_3)
   undefined4 *puVar4;
   undefined4 *puVar5;
   
-  if (param_3 == 0) {
+  if (n == 0) {
     return 0;
   }
   do {
-    if (*param_1 == 0) {
-      iVar1 = (*(code *)param_1[2])(param_1);
+    if (*z == 0) {
+      iVar1 = (*(code *)z[2])(z);
       if (iVar1 == -1) {
-        return param_3;
+        return n;
       }
-      *param_1 = *param_1 + 1;
-      param_1[1] = param_1[1] - 1;
+      *z = *z + 1;
+      z[1] = z[1] - 1;
     }
-    uVar2 = *param_1;
-    if ((int)param_3 <= (int)*param_1) {
-      uVar2 = param_3;
+    uVar2 = *z;
+    if ((int)n <= (int)*z) {
+      uVar2 = n;
     }
-    puVar4 = (undefined4 *)param_1[1];
-    puVar5 = param_2;
+    puVar4 = (undefined4 *)z[1];
+    puVar5 = b;
     for (uVar3 = uVar2 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
       *puVar5 = *puVar4;
       puVar4 = puVar4 + 1;
       puVar5 = puVar5 + 1;
     }
-    param_2 = (undefined4 *)((int)param_2 + uVar2);
+    b = (undefined4 *)((int)b + uVar2);
     for (uVar3 = uVar2 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
       *(undefined1 *)puVar5 = *(undefined1 *)puVar4;
       puVar4 = (undefined4 *)((int)puVar4 + 1);
       puVar5 = (undefined4 *)((int)puVar5 + 1);
     }
-    param_3 = param_3 - uVar2;
-    *param_1 = *param_1 - uVar2;
-    param_1[1] = param_1[1] + uVar2;
-  } while (param_3 != 0);
+    n = n - uVar2;
+    *z = *z - uVar2;
+    z[1] = z[1] + uVar2;
+  } while (n != 0);
   return 0;
 }
 
