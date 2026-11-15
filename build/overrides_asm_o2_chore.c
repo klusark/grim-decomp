@@ -59,7 +59,7 @@ undefined4 Cos_LoadEntry(char *name, int handle)
         goto fail;
     if (Cos_ReadLine(file, COS_LINE, 0x400) == 0 || msvc_sscanf(COS_LINE, (char *)IMG_ADDR(0x1001024c)) != 0)
         goto fail;
-    if (Cos_ReadComponentsSection(file, handle, name, 0) == 0)
+    if (Cos_ReadComponentsSection(file, handle, name) == 0)
         goto fail;
     if (Cos_ReadLine(file, COS_LINE, 0x400) == 0 || msvc_sscanf(COS_LINE, (char *)IMG_ADDR(0x1001023c)) != 0)
         goto fail;

@@ -44,24 +44,25 @@ void __cdecl rdVector_Cross3(float *out,float *a,float *b)
 /* Original name rdVector_Normalize3 (the remaster's GrimFandango (Linux): same body (out = v / |v|,
    or a copy of v when the length is 0); the remaster returns the length); was Vec3_NormalizeTo. */
 
-void __cdecl rdVector_Normalize3(float *out,float *v)
+float10 __cdecl rdVector_Normalize3(float *out,float *v)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float fVar1;
+  float10 fVar1;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  fVar1 = SQRT(*v * *v + v[2] * v[2] + v[1] * v[1]);
-  if (fVar1 != 0.0f) {
-    *out = *v / fVar1;
-    out[1] = v[1] / fVar1;
-    out[2] = v[2] / fVar1;
-    return;
+  fVar1 = SQRT((float10)*v * (float10)*v +
+               (float10)v[2] * (float10)v[2] + (float10)v[1] * (float10)v[1]);
+  if (fVar1 != (float10)0.0f) {
+    *out = (float)((float10)*v / fVar1);
+    out[1] = (float)((float10)v[1] / fVar1);
+    out[2] = (float)((float10)v[2] / fVar1);
+    return fVar1;
   }
   *out = *v;
   out[1] = v[1];
   out[2] = v[2];
-  return;
+  return fVar1;
 }
 #undef local_4
 

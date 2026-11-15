@@ -2051,14 +2051,13 @@ void __cdecl sputLua_GetShrinkPosition(void)
   WalkPlane *this;
   float fVar6;
   float fVar7;
-  float n;
+  float fVar8;
   float radius;
   #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float (*)[2])(_frame + (0x30 - 0xc)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  float pos [3];
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -2074,21 +2073,22 @@ void __cdecl sputLua_GetShrinkPosition(void)
         if (iVar5 != 0) {
           fVar6 = lua_getnumber(iVar1);
           fVar7 = lua_getnumber(iVar2);
-          n = lua_getnumber(iVar3);
+          fVar8 = lua_getnumber(iVar3);
           radius = lua_getnumber(iVar4);
-          local_c[0] = fVar6;
-          local_c[1] = fVar7;
+          pos[0] = fVar6;
+          pos[1] = fVar7;
+          pos[2] = fVar8;
           WalkPlane_BuildCache();
           ShrinkBoxes(radius);
-          this = WalkPlane_PlaneClosest(local_c,0x1000);
+          this = WalkPlane_PlaneClosest(pos,0x1000);
           if (this != (WalkPlane *)0x0) {
-            WalkPlane_ClosestPoint(this,(int)local_c);
+            WalkPlane_ClosestPoint(this,(int)pos);
           }
           sputLua_UnShrinkBoxes();
           if (this != (WalkPlane *)0x0) {
-            lua_pushnumber(local_c[0]);
-            lua_pushnumber(local_c[1]);
-            lua_pushnumber(n);
+            lua_pushnumber(pos[0]);
+            lua_pushnumber(pos[1]);
+            lua_pushnumber(pos[2]);
             return;
           }
           lua_pushnil();
@@ -2102,8 +2102,6 @@ void __cdecl sputLua_GetShrinkPosition(void)
 #undef local_14
 #undef local_18
 #undef local_1c
-#undef local_4
-#undef local_c
 
 #endif
 
@@ -6541,8 +6539,6 @@ TextObject * __cdecl sputLua_RestoreIndirector(int tag,TextObject *param_2)
 }
 
 /* ---- 0x0049e0b0  sputLua_NotifyControlHandlers ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_58 */
 /* Calls system.buttonHandler / system.axisHandler for every enabled control whose state changed
    (last value kept at control+8) Original name sputLua_NotifyControlHandlers (the remaster's
@@ -6694,8 +6690,6 @@ uint __cdecl sputLua_NotifyControlHandlers(void)
 #undef local_40
 #undef local_44
 #undef local_58
-
-#endif
 
 
 /* ---- 0x0049e380  Lua_CreateSystemTable ---- */

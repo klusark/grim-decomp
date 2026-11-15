@@ -1,6 +1,6 @@
 # GRIMFANDANGO.EXE function index
 
-2604 functions, 2408 with real names.
+2604 functions, 2409 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -192,7 +192,7 @@
 | 0049de00 | sputLua_Startup | lua.c | 1 |
 | 0049dfa0 | sputLua_SaveIndirector | lua.c | 37 |
 | 0049e020 | sputLua_RestoreIndirector | lua.c | 40 |
-| 0049e0b0 | sputLua_NotifyControlHandlers | lua.c | 1 |
+| 0049e0b0 | sputLua_NotifyControlHandlers | lua.c | 152 |
 | 0049e380 | Lua_CreateSystemTable | lua.c | 32 |
 | 0049e460 | Lua_CreateControlsTable | lua.c | 36 |
 | 0049e590 | sputLua_SetSoundPosition | lua.c | 116 |
@@ -482,7 +482,7 @@
 | 00406690 | rdCache_ClearFrameCounters | rdcache.c | 10 |
 | 004066a0 | rdCache_GetProcEntry | rdcache.c | 37 |
 | 00406770 | rdCache_Flush | rdcache.c | 62 |
-| 00406860 | rdCache_AddProcFace | rdcache.c | 1 |
+| 00406860 | rdCache_AddProcFace | rdcache.c | 110 |
 | 00406aa0 | rdCache_SendFaceListToHardware | rdcache.c | 1 |
 | 00407ed0 | std3D_ResetRenderList | rdcache.c | 12 |
 | 00407ef0 | rdCache_DrawRenderList | rdcache.c | 29 |
@@ -1887,6 +1887,7 @@
 | 004adcc0 | bsearch | crt.c | 1 |
 | 004add60 | strncmp | crt.c | 1 |
 | 004adda0 | sscanf | crt.c | 1 |
+| 004addf0 | __alloca_probe | crt.c | 1 |
 | 004ade30 | strchr | crt.c | 1 |
 | 004adf70 | _snprintf | crt.c | 1 |
 | 004adfe0 | _strupr | crt.c | 1 |
@@ -2064,7 +2065,6 @@
 | 004acd10 | FUN_004acd10 | crt_unnamed.c | 1 |
 | 004acf30 | FUN_004acf30 | crt_unnamed.c | 1 |
 | 004ad2b0 | FUN_004ad2b0 | crt_unnamed.c | 1 |
-| 004addf0 | FUN_004addf0 | crt_unnamed.c | 1 |
 | 004adef0 | FUN_004adef0 | crt_unnamed.c | 1 |
 | 004ae410 | FUN_004ae410 | crt_unnamed.c | 1 |
 | 004ae735 | FUN_004ae735 | crt_unnamed.c | 1 |

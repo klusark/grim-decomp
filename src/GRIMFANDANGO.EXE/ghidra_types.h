@@ -1049,13 +1049,17 @@ struct ProcEntry {  /* 0x78 */
     float flAlpha;  /* 0x40: translucency, used with render option 2 */
     float flLightIndex;  /* 0x44: flLight * 63: the colormap's light row (rdCache_SendFaceListToHardware) */
     float flLight;  /* 0x48: face light, clamped to 0 .. 1 */
-    uint8_t field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint dwColormap;  /* 0x4c: the colormap the face is drawn with (rdCache_AddProcFace: g_dwRdColormap_pIdentityMap) */
     int nBackFacing;  /* 0x50: 1 when the face points away from the camera (rdCache_InsertFace: normal . centre > 0) */
-    uint8_t field_0x54, field_0x55, field_0x56, field_0x57, field_0x58, field_0x59, field_0x5a, field_0x5b;
-    uint8_t field_0x5c, field_0x5d, field_0x5e, field_0x5f, field_0x60, field_0x61, field_0x62, field_0x63;
-    uint8_t field_0x64, field_0x65, field_0x66, field_0x67, field_0x68, field_0x69, field_0x6a, field_0x6b;
-    uint8_t field_0x6c, field_0x6d, field_0x6e, field_0x6f, field_0x70, field_0x71, field_0x72, field_0x73;
-    uint8_t field_0x74, field_0x75, field_0x76, field_0x77;
+    uint dwMinX;  /* 0x54: screen bounds (rdCache_AddProcFace): the smallest x of the vertices, rounded */
+    uint dwMaxX;  /* 0x58: the largest x, rounded */
+    uint dwMinY;  /* 0x5c: the smallest y, rounded */
+    uint dwMaxY;  /* 0x60: the largest y, rounded */
+    float flMinZ;  /* 0x64: the smallest z of the vertices */
+    float flMaxZ;  /* 0x68: the largest z */
+    uint dwMinYVertex;  /* 0x6c: index of the vertex with the smallest y */
+    uint dwMaxYVertex;  /* 0x70: index of the vertex with the largest y */
+    uint dwUserData;  /* 0x74: g_dwRdroid_curProcFaceUserData when the face was added */
 };
 _Static_assert(__builtin_offsetof(ProcEntry, dwExtraData) == 0x0, "ProcEntry.dwExtraData");
 _Static_assert(__builtin_offsetof(ProcEntry, dwFlags) == 0x4, "ProcEntry.dwFlags");
@@ -1074,7 +1078,17 @@ _Static_assert(__builtin_offsetof(ProcEntry, nCel) == 0x3c, "ProcEntry.nCel");
 _Static_assert(__builtin_offsetof(ProcEntry, flAlpha) == 0x40, "ProcEntry.flAlpha");
 _Static_assert(__builtin_offsetof(ProcEntry, flLightIndex) == 0x44, "ProcEntry.flLightIndex");
 _Static_assert(__builtin_offsetof(ProcEntry, flLight) == 0x48, "ProcEntry.flLight");
+_Static_assert(__builtin_offsetof(ProcEntry, dwColormap) == 0x4c, "ProcEntry.dwColormap");
 _Static_assert(__builtin_offsetof(ProcEntry, nBackFacing) == 0x50, "ProcEntry.nBackFacing");
+_Static_assert(__builtin_offsetof(ProcEntry, dwMinX) == 0x54, "ProcEntry.dwMinX");
+_Static_assert(__builtin_offsetof(ProcEntry, dwMaxX) == 0x58, "ProcEntry.dwMaxX");
+_Static_assert(__builtin_offsetof(ProcEntry, dwMinY) == 0x5c, "ProcEntry.dwMinY");
+_Static_assert(__builtin_offsetof(ProcEntry, dwMaxY) == 0x60, "ProcEntry.dwMaxY");
+_Static_assert(__builtin_offsetof(ProcEntry, flMinZ) == 0x64, "ProcEntry.flMinZ");
+_Static_assert(__builtin_offsetof(ProcEntry, flMaxZ) == 0x68, "ProcEntry.flMaxZ");
+_Static_assert(__builtin_offsetof(ProcEntry, dwMinYVertex) == 0x6c, "ProcEntry.dwMinYVertex");
+_Static_assert(__builtin_offsetof(ProcEntry, dwMaxYVertex) == 0x70, "ProcEntry.dwMaxYVertex");
+_Static_assert(__builtin_offsetof(ProcEntry, dwUserData) == 0x74, "ProcEntry.dwUserData");
 _Static_assert(sizeof(ProcEntry) == 0x78, "sizeof ProcEntry");
 /* Puck: The walker of an actor (Walker.cpp's Puck, 0x60 bytes, ActorExtra::pPuck): position and frame on the walk sectors. Every puck is on the list g_dwPuck_p_head. */
 struct Puck {  /* 0x60 */

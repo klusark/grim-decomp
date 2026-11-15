@@ -164,11 +164,11 @@ extern int * PTR_1002d830; /* used by 2 fn(s), first 0x100036b0 */
 extern int * PTR_1002d834; /* used by 2 fn(s), first 0x100036b0 */
 extern int * PTR_1002d838; /* used by 1 fn(s), first 0x100038d0 */
 extern int * PTR_1002d83c; /* used by 4 fn(s), first 0x10003730 */
-extern int * DAT_1002d840; /* used by 2 fn(s), first 0x10003730 */
+extern int ** DAT_1002d840; /* used by 2 fn(s), first 0x10003730 */
 extern undefined4 DAT_1002d844; /* used by 3 fn(s), first 0x100036b0 */
 extern undefined4 DAT_1002d848; /* used by 1 fn(s), first 0x10003730 */
 extern undefined4 g_dwCurrentWriteIndex; /* used by 1 fn(s), first 0x10003730 */
-extern int * DAT_1002d850; /* used by 1 fn(s), first 0x10003730 */
+extern int ** DAT_1002d850; /* used by 1 fn(s), first 0x10003730 */
 extern undefined4 * DAT_1002d854; /* used by 1 fn(s), first 0x10003730 */
 extern uint g_dwFadesOn; /* used by 4 fn(s), first 0x10003ac0 */
 extern undefined4 g_dwFades; /* used by 5 fn(s), first 0x10003ac0 */

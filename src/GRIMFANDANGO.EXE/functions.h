@@ -564,7 +564,7 @@ void __cdecl rdModel3_SetClipPlane(undefined4 *normal,undefined4 *point); /* 0x0
 void __cdecl rdModel3_NewEntry(rdModel3 *model); /* 0x0040a8c0 */
 undefined4 * __cdecl rdModel3_Load(uint name); /* 0x0040a8f0 */
 uint __cdecl rdModel3_LoadEntry(int name,uint model); /* 0x0040a980 */
-uint __cdecl rdModel3_LoadEntryText (uint param_1,uint param_2,uint param_3,int param_4,uint param_5,uint param_6,uint param_7 ,uint param_8); /* 0x0040aa20 */
+uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model); /* 0x0040aa20 */
 uint __cdecl rdModel3_LoadEntryBinary(int f,int model); /* 0x0040b8e0 */
 void __cdecl rdModel3_LoadPostProcess(uint model); /* 0x0040c090 */
 void __cdecl rdModel3_Free(int model); /* 0x0040c0d0 */
@@ -999,7 +999,7 @@ int __cdecl rdMaterial_AddToTextureCache(void *a,uint *material,int cel,int alt)
 float __cdecl rdVector_Dot2(float *a,float *b); /* 0x00446880 */
 float __cdecl rdVector_Dot3(float *a,float *b); /* 0x004468a0 */
 void __cdecl rdVector_Cross3(float *out,float *a,float *b); /* 0x004468d0 */
-void __cdecl rdVector_Normalize3(float *out,float *v); /* 0x00446920 */
+float10 __cdecl rdVector_Normalize3(float *out,float *v); /* 0x00446920 */
 float __cdecl rdVector_Normalize3Acc(float *v); /* 0x004469a0 */
 float __cdecl rdVector_Normalize3QuickAcc(float *v); /* 0x00446a10 */
 void __cdecl rdVector_Rotate3Acc(float *vec,float *rot); /* 0x00446ba0 */
@@ -1042,11 +1042,11 @@ uint __cdecl rdClip_Face3W(int *frustum,float *verts,uint count); /* 0x004478c0 
 int __cdecl rdClip_Face3WOrtho(int *frustum,float *verts,int count); /* 0x00448260 */
 uint __cdecl rdClip_Face3S(int *frustum,float *verts,uint count); /* 0x004489b0 */
 int __cdecl rdClip_Face3SOrtho(int *frustum,float *verts,int count); /* 0x00449350 */
-float __cdecl rdClip_Face3GS(int *frustum,float *verts,float *ivert,float *count); /* 0x00449aa0 */
+uint __cdecl rdClip_Face3GS(int *frustum,float *verts,float *ivert,uint count); /* 0x00449aa0 */
 uint __cdecl rdClip_Face3GSOrtho(int *frustum,float *verts,float *ivert,uint count); /* 0x0044a6d0 */
-float __cdecl rdClip_Face3T(int *frustum,float *verts,float *tverts,float *count); /* 0x0044b0a0 */
+uint __cdecl rdClip_Face3T(int *frustum,float *verts,float *tverts,uint count); /* 0x0044b0a0 */
 uint __cdecl rdClip_Face3TOrtho(int *frustum,float *verts,float *tverts,uint count); /* 0x0044be80 */
-float __cdecl rdClip_Face3GT(int *frustum,float *verts,float *tverts,uint *ivert,float *count); /* 0x0044c9d0 */
+uint __cdecl rdClip_Face3GT(int *frustum,float *verts,float *tverts,uint *ivert,uint count); /* 0x0044c9d0 */
 uint __cdecl rdClip_Face3GTOrtho(int *frustum,float *verts,uint *tverts,uint *ivert,uint count); /* 0x0044da40 */
 
 /* ===== rdlight.c ===== */
@@ -2132,6 +2132,7 @@ void __cdecl qsort_swap(undefined1 *param_1,undefined1 *param_2,int param_3); /*
 void * __cdecl bsearch(void *key,void *base,uint num,uint width,code *compare); /* 0x004adcc0 */
 uint __cdecl strncmp(char *param_1,char *param_2,int param_3); /* 0x004add60 */
 int __cdecl sscanf(char *str,char *fmt,...); /* 0x004adda0 */
+int __alloca_probe(void); /* 0x004addf0 */
 uint * __cdecl strchr(uint *param_1,char param_2); /* 0x004ade30 */
 int __cdecl _snprintf(char *buf,uint n,char *fmt,...); /* 0x004adf70 */
 char * __cdecl _strupr(char *param_1); /* 0x004adfe0 */
@@ -2311,7 +2312,6 @@ void __cdecl FUN_004acc10(uint param_1); /* 0x004acc10 */
 void __cdecl FUN_004acd10(void); /* 0x004acd10 */
 void __cdecl FUN_004acf30(void); /* 0x004acf30 */
 void __cdecl FUN_004ad2b0(void); /* 0x004ad2b0 */
-int FUN_004addf0(void); /* 0x004addf0 */
 short * __cdecl FUN_004adef0(short *param_1,int param_2,uint param_3); /* 0x004adef0 */
 uint * __cdecl FUN_004ae410(uint *param_1,uint *param_2,uint param_3); /* 0x004ae410 */
 float __cdecl FUN_004ae735(void); /* 0x004ae735 */

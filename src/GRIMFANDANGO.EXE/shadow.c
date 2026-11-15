@@ -66,22 +66,22 @@ sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,Ac
     if ((2 < count_00) &&
        (pPVar2 = rdCache_InsertFace(local_90,count_00,g_pShadowMaterial), pPVar2 != (ProcEntry *)0x0
        )) {
-      fVar1 = (float)*(uint *)&pPVar2->field_0x54;
+      fVar1 = (float)pPVar2->dwMinX;
       if (*minXY < fVar1) {
         fVar1 = *minXY;
       }
       *minXY = fVar1;
-      fVar1 = (float)*(uint *)&pPVar2->field_0x5c;
+      fVar1 = (float)pPVar2->dwMinY;
       if (minXY[1] < fVar1) {
         fVar1 = minXY[1];
       }
       minXY[1] = fVar1;
-      fVar1 = (float)*(uint *)&pPVar2->field_0x58;
+      fVar1 = (float)pPVar2->dwMaxX;
       if (fVar1 < *maxXY) {
         fVar1 = *maxXY;
       }
       *maxXY = fVar1;
-      fVar1 = (float)*(uint *)&pPVar2->field_0x60;
+      fVar1 = (float)pPVar2->dwMaxY;
       if (fVar1 < maxXY[1]) {
         fVar1 = maxXY[1];
       }

@@ -164,8 +164,6 @@ void __cdecl rdCache_Flush(void)
 }
 
 /* ---- 0x00406860  rdCache_AddProcFace ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Appends a mesh to the cache list and computes its screen bounds / depth Original name
    rdCache_AddProcFace (the remaster's GrimFandango (Linux): aligned call in rdModel3_DrawFace,
    rdSprite_Draw); was rdCache_AddMesh. */
@@ -192,15 +190,15 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
   pfVar3 = g_bRdCache_aProcFaces[g_dwRdCache_numProcFaces].pVertices;
   g_bRdCache_aProcFaces[g_dwRdCache_numProcFaces].dwExtraData = (uint)mesh;
   g_bRdCache_aProcFaces[uVar6].dwNumVertices = vertexCount;
-  *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x74 = g_dwRdroid_curProcFaceUserData;
+  g_bRdCache_aProcFaces[uVar6].dwUserData = g_dwRdroid_curProcFaceUserData;
   local_10[1] = *pfVar3;
   fVar1 = pfVar3[1];
-  *(undefined4 *)&g_bRdCache_aProcFaces[uVar6].field_0x70 = 0;
-  *(undefined4 *)&g_bRdCache_aProcFaces[uVar6].field_0x6c = 0;
+  g_bRdCache_aProcFaces[uVar6].dwMaxYVertex = 0;
+  g_bRdCache_aProcFaces[uVar6].dwMinYVertex = 0;
   fVar2 = pfVar3[2];
   uVar8 = 1;
-  *(float *)&g_bRdCache_aProcFaces[uVar6].field_0x68 = PUN(int,(float)(fVar2));
-  *(float *)&g_bRdCache_aProcFaces[uVar6].field_0x64 = PUN(int,(float)(fVar2));
+  g_bRdCache_aProcFaces[uVar6].flMaxZ = fVar2;
+  g_bRdCache_aProcFaces[uVar6].flMinZ = fVar2;
   local_10[0] = fVar1;
   local_10[2] = local_10[1];
   if (1 < vertexCount) {
@@ -215,21 +213,21 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
       local_10[2] = fVar7;
       if (fVar1 <= fVar4) {
         if (local_10[0] < fVar4) {
-          *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x70 = uVar8;
+          g_bRdCache_aProcFaces[uVar6].dwMaxYVertex = uVar8;
           local_10[0] = fVar4;
         }
       }
       else {
-        *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x6c = uVar8;
+        g_bRdCache_aProcFaces[uVar6].dwMinYVertex = uVar8;
         fVar1 = fVar4;
       }
-      if (*(float *)&g_bRdCache_aProcFaces[uVar6].field_0x64 <= fVar5) {
-        if (*(float *)&g_bRdCache_aProcFaces[uVar6].field_0x68 < fVar5) {
-          *(float *)&g_bRdCache_aProcFaces[uVar6].field_0x68 = PUN(int,(float)(fVar5));
+      if (g_bRdCache_aProcFaces[uVar6].flMinZ <= fVar5) {
+        if (g_bRdCache_aProcFaces[uVar6].flMaxZ < fVar5) {
+          g_bRdCache_aProcFaces[uVar6].flMaxZ = fVar5;
         }
       }
       else {
-        *(float *)&g_bRdCache_aProcFaces[uVar6].field_0x64 = PUN(int,(float)(fVar5));
+        g_bRdCache_aProcFaces[uVar6].flMinZ = fVar5;
       }
       uVar8 = uVar8 + 1;
       pfVar3 = pfVar3 + 3;
@@ -238,13 +236,13 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
   if (local_10[2] < local_10[1]) {
     if (fVar1 < local_10[0]) {
       lVar9 = FTOL((float10)ROUND(local_10[2]));
-      *(int *)&g_bRdCache_aProcFaces[uVar6].field_0x54 = (int)lVar9;
+      g_bRdCache_aProcFaces[uVar6].dwMinX = (uint)lVar9;
       lVar9 = FTOL((float10)ROUND(local_10[1]));
-      *(int *)&g_bRdCache_aProcFaces[uVar6].field_0x58 = (int)lVar9;
+      g_bRdCache_aProcFaces[uVar6].dwMaxX = (uint)lVar9;
       lVar9 = FTOL((float10)ROUND(fVar1));
-      *(int *)&g_bRdCache_aProcFaces[uVar6].field_0x5c = (int)lVar9;
+      g_bRdCache_aProcFaces[uVar6].dwMinY = (uint)lVar9;
       lVar9 = FTOL((float10)ROUND(local_10[0]));
-      *(int *)&g_bRdCache_aProcFaces[uVar6].field_0x60 = (int)lVar9;
+      g_bRdCache_aProcFaces[uVar6].dwMaxY = (uint)lVar9;
       if ((flags & 1) != 0) {
         g_dwNumUsedVertices = g_dwNumUsedVertices + vertexCount;
       }
@@ -254,19 +252,19 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
       if ((flags & 4) != 0) {
         g_dwNumUsedIntensities = g_dwNumUsedIntensities + vertexCount;
       }
-      *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x4c = g_dwRdColormap_pIdentityMap;
+      g_bRdCache_aProcFaces[uVar6].dwColormap = g_dwRdColormap_pIdentityMap;
       g_dwRdCache_numProcFaces = g_dwRdCache_numProcFaces + 1;
-      if (*(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x54 < (uint)g_nRdCache_ulcExtent) {
-        g_nRdCache_ulcExtent = *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x54;
+      if (g_bRdCache_aProcFaces[uVar6].dwMinX < (uint)g_nRdCache_ulcExtent) {
+        g_nRdCache_ulcExtent = g_bRdCache_aProcFaces[uVar6].dwMinX;
       }
-      if ((uint)g_nRdCache_lrcExtent < *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x58) {
-        g_nRdCache_lrcExtent = *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x58;
+      if ((uint)g_nRdCache_lrcExtent < g_bRdCache_aProcFaces[uVar6].dwMaxX) {
+        g_nRdCache_lrcExtent = g_bRdCache_aProcFaces[uVar6].dwMaxX;
       }
-      if (*(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x5c < (uint)g_nDrawBoxMinY) {
-        g_nDrawBoxMinY = *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x5c;
+      if (g_bRdCache_aProcFaces[uVar6].dwMinY < (uint)g_nDrawBoxMinY) {
+        g_nDrawBoxMinY = g_bRdCache_aProcFaces[uVar6].dwMinY;
       }
-      if ((uint)g_nDrawBoxMaxY < *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x60) {
-        g_nDrawBoxMaxY = *(uint *)&g_bRdCache_aProcFaces[uVar6].field_0x60;
+      if ((uint)g_nDrawBoxMaxY < g_bRdCache_aProcFaces[uVar6].dwMaxY) {
+        g_nDrawBoxMaxY = g_bRdCache_aProcFaces[uVar6].dwMaxY;
       }
       return 1;
     }
@@ -275,8 +273,6 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
   return 0;
 }
 #undef local_10
-
-#endif
 
 
 /* ---- 0x00406aa0  rdCache_SendFaceListToHardware ---- */
@@ -454,7 +450,7 @@ LAB_00406cbf:
           local_28 = uVar16;
         }
         else if (uVar13 == 2) {
-          if (_g_aRdroid_MipDistances < *(float *)&pPVar15->field_0x64) {
+          if (_g_aRdroid_MipDistances < pPVar15->flMinZ) {
 LAB_00406d8d:
             uVar16 = 1;
             local_28 = uVar16;
@@ -465,8 +461,8 @@ LAB_00406d8d:
           }
         }
         else if (uVar13 == 3) {
-          if (FLOAT_004dda90 < *(float *)&pPVar15->field_0x64) {
-            if (*(float *)&pPVar15->field_0x64 <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
+          if (FLOAT_004dda90 < pPVar15->flMinZ) {
+            if (pPVar15->flMinZ <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
             uVar16 = 2;
             local_28 = uVar16;
           }
@@ -476,9 +472,9 @@ LAB_00406d8d:
           }
         }
         else if (uVar13 == 4) {
-          if (FLOAT_004dda90 < *(float *)&pPVar15->field_0x64) {
-            if (*(float *)&pPVar15->field_0x64 <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
-            if (FLOAT_004dda98 < *(float *)&pPVar15->field_0x64) {
+          if (FLOAT_004dda90 < pPVar15->flMinZ) {
+            if (pPVar15->flMinZ <= _g_aRdroid_MipDistances) goto LAB_00406d8d;
+            if (FLOAT_004dda98 < pPVar15->flMinZ) {
               uVar16 = 3;
               local_28 = uVar16;
             }
@@ -496,7 +492,7 @@ LAB_00406d8d:
           local_30 = local_30 | 0x400;
         }
         if (material[uVar16 * 0x26 + 0x29] == 0) {
-          std3D_SetCurrentPalette((void *)(*(int *)&pPVar15->field_0x4c + 0x30),0x5a);
+          std3D_SetCurrentPalette((void *)(pPVar15->dwColormap + 0x30),0x5a);
         }
         iVar12 = rdMaterial_AddToTextureCache(PUN(void *,(float)local_20),material,uVar16,local_4c);
         if (iVar12 == 0) {
@@ -730,14 +726,14 @@ LAB_00407a22:
             *(float *)(&DAT_006f0fc4 + iVar12) = fVar4 * 0.03125f;
             *(undefined4 *)(&DAT_006f0fcc + iVar12) = 0;
             if (local_34 == 0) {
-              iVar14 = *(int *)(local_2c + 4) * 3 + *(int *)&pPVar15->field_0x4c;
+              iVar14 = *(int *)(local_2c + 4) * 3 + pPVar15->dwColormap;
               local_1c = (uint)*(byte *)(iVar14 + 0x30);
               local_10 = (uint)*(byte *)(iVar14 + 0x31);
               local_18 = (uint)*(byte *)(iVar14 + 0x32);
             }
             else if (local_34 == 3) {
               if (g_dwRdroid_curVertexColorMode != 1) {
-                iVar14 = *(int *)(local_2c + 4) * 3 + *(int *)&pPVar15->field_0x4c;
+                iVar14 = *(int *)(local_2c + 4) * 3 + pPVar15->dwColormap;
                 local_14 = (uint)*(byte *)(iVar14 + 0x30);
                 lVar17 = FTOL((float10)local_14 *
                                (float10)pPVar15->pIntensities[local_8] * (float10)0.015625f);
@@ -752,8 +748,8 @@ LAB_00407a22:
             }
             else {
               iVar14 = *(int *)(local_2c + 4) * 3;
-              local_14 = (uint)*(byte *)(iVar14 + 0x30 + *(int *)&pPVar15->field_0x4c);
-              iVar14 = iVar14 + *(int *)&pPVar15->field_0x4c;
+              local_14 = (uint)*(byte *)(iVar14 + 0x30 + pPVar15->dwColormap);
+              iVar14 = iVar14 + pPVar15->dwColormap;
               lVar17 = FTOL((float10)local_14 * (float10)pPVar15->flLightIndex * (float10)0.015625f)
               ;
               local_1c = (uint)lVar17;
@@ -764,7 +760,7 @@ LAB_00407a22:
               lVar17 = FTOL((float10)local_14 * extraout_ST0_00);
               local_18 = (uint)lVar17;
             }
-            uVar16 = *(uint *)&pPVar15->field_0x4c;
+            uVar16 = pPVar15->dwColormap;
             uVar13 = local_10;
             if (uVar16 != g_dwRdColormap_pCurMap) {
               lVar17 = FTOL((float10)(int)local_1c * (float10)*(float *)(uVar16 + 0x24));
@@ -773,7 +769,7 @@ LAB_00407a22:
               uVar13 = (uint)lVar17 & 0xff;
               local_10 = uVar13;
               lVar17 = FTOL((float10)(int)local_18 *
-                             (float10)*(float *)(*(int *)&pPVar15->field_0x4c + 0x2c));
+                             (float10)*(float *)(pPVar15->dwColormap + 0x2c));
               local_18 = (uint)lVar17 & 0xff;
             }
             local_30 = local_30 | 0x8000;
@@ -1101,7 +1097,7 @@ LAB_004071fa:
               local_18 = local_1c;
               local_10 = local_1c;
             }
-            uVar13 = *(uint *)&pPVar15->field_0x4c;
+            uVar13 = pPVar15->dwColormap;
             if (uVar13 != g_dwRdColormap_pCurMap) {
               lVar17 = FTOL((float10)(int)local_1c * (float10)*(float *)(uVar13 + 0x24));
               uVar16 = (uint)lVar17 & 0xff;

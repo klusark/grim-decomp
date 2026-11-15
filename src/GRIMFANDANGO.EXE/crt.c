@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: crt.c
- * functions 0x004ac550 .. 0x004d5ad0 (214 functions)
+ * functions 0x004ac550 .. 0x004d5ad0 (215 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -182,6 +182,10 @@
 
 
 /* ---- 0x004adda0  sscanf ---- */
+/* not in the source: Microsoft's C runtime (module crt, which build/link.py does not link; the system msvcrt.dll has it) */
+
+
+/* ---- 0x004addf0  __alloca_probe ---- */
 /* not in the source: Microsoft's C runtime (module crt, which build/link.py does not link; the system msvcrt.dll has it) */
 
 

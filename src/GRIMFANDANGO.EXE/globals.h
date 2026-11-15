@@ -288,6 +288,8 @@ extern undefined2 g_aBlockySplit4; /* 0x0091f0a0, undefined2 in Ghidra */
 extern short g_asBlockyMotion; /* 0x009270a0 */
 
 /* ---- unnamed data (type inferred from use) ---- */
+extern undefined4 in_stack_00000004; /* used by 1 fn(s), first 0x004bbc10 */
+extern undefined4 in_stack_00000008; /* used by 1 fn(s), first 0x004bbc10 */
 extern undefined DAT_004891a0; /* used by 1 fn(s), first 0x00488fb0 */
 extern code LAB_004af680;  /* code label (address only) */ /* used by 2 fn(s), first 0x004af6a2 */
 extern undefined DAT_004ce808; /* used by 1 fn(s), first 0x004ce3e0 */
@@ -453,10 +455,11 @@ extern float FLOAT_004ddb70; /* used by 3 fn(s), first 0x0040a880 */
 extern float FLOAT_004ddb74; /* used by 2 fn(s), first 0x0040a880 */
 extern float FLOAT_004ddb78; /* used by 2 fn(s), first 0x0040a880 */
 extern undefined2 DAT_004ddb7c; /* used by 1 fn(s), first 0x0040a8f0 */
+extern undefined2 DAT_004ddb80; /* used by 1 fn(s), first 0x0040aa20 */
 extern undefined2 DAT_004ddb84; /* used by 1 fn(s), first 0x0040b8e0 */
 extern undefined2 DAT_004ddb88; /* used by 1 fn(s), first 0x0040c280 */
 extern char s_UNKNOWN_004ddb8c[]; /* used by 2 fn(s), first 0x0040a8c0 */
-extern char s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94[]; /* used by 3 fn(s), first 0x0040a8f0 */
+extern char s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94[]; /* used by 4 fn(s), first 0x0040a8f0 */
 extern char s__d___x__x__d__d__d__d__d__f__f___004ddbc4[]; /* used by 1 fn(s), first 0x0040aa20 */
 extern char s_hierarchy_nodes__d_004ddbfc[]; /* used by 1 fn(s), first 0x0040aa20 */
 extern undefined DAT_004ddc10; /* used by 1 fn(s), first 0x0040aa20 */
@@ -481,6 +484,7 @@ extern char s_geosets__d_004ddcf8[]; /* used by 1 fn(s), first 0x0040aa20 */
 extern char s_insert_offset__f__f__f_004ddd04[]; /* used by 1 fn(s), first 0x0040aa20 */
 extern char s_radius__f_004ddd1c[]; /* used by 1 fn(s), first 0x0040aa20 */
 extern char s__d___s_004ddd28[]; /* used by 1 fn(s), first 0x0040aa20 */
+extern char s_numMaterials___MAX_MATS_004ddd30[]; /* used by 1 fn(s), first 0x0040aa20 */
 extern char s_materials__d_004ddd48[]; /* used by 1 fn(s), first 0x0040aa20 */
 extern char s_3do__d__d_004ddd58[]; /* used by 1 fn(s), first 0x0040aa20 */
 extern char s_section___s_004ddd64[]; /* used by 3 fn(s), first 0x0040aa20 */
@@ -1432,11 +1436,11 @@ extern undefined4 g_dwRdZRaster_aVOverZ; /* used by 4 fn(s), first 0x0042d5f0 */
 extern undefined4 g_dwRdZRaster_rightVertexStep; /* used by 39 fn(s), first 0x0042e010 */
 extern undefined4 g_dwRdZRaster_aTexVertices; /* used by 32 fn(s), first 0x0042d190 */
 extern undefined4 g_dwRdZRaster_aOneOverZ; /* used by 23 fn(s), first 0x0042d190 */
-extern undefined4 g_dwSourceIVert; /* used by 4 fn(s), first 0x00449aa0 */
-extern undefined4 g_dwSourceTVert; /* used by 4 fn(s), first 0x0044b0a0 */
-extern undefined4 g_dwDestTVert; /* used by 4 fn(s), first 0x0044b0a0 */
+extern uint g_dwSourceIVert; /* used by 4 fn(s), first 0x00449aa0 */
+extern uint g_dwSourceTVert; /* used by 4 fn(s), first 0x0044b0a0 */
+extern uint g_dwDestTVert; /* used by 4 fn(s), first 0x0044b0a0 */
 extern uint g_dwDestVert; /* used by 10 fn(s), first 0x004478c0 */
-extern undefined4 g_dwDestIVert; /* used by 4 fn(s), first 0x00449aa0 */
+extern uint g_dwDestIVert; /* used by 4 fn(s), first 0x00449aa0 */
 extern undefined4 g_dwWorkTVerts; /* used by 5 fn(s), first 0x0044b0a0 */
 extern undefined4 UINT_007f46bc; /* used by 1 fn(s), first 0x0044ea50 */
 extern uint g_dwSourceVert; /* used by 10 fn(s), first 0x004478c0 */

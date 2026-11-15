@@ -242,10 +242,7 @@ rdPrimit3_ClipFace(uint frustum,uint geoMode,int lightMode,uint texMode,uint *pr
   uint uVar4;
   uint *puVar5;
   uint *puVar6;
-  uint extraout_EAX;
-  uint extraout_EAX_00;
   uint uVar7;
-  uint extraout_EAX_01;
   undefined4 *puVar8;
   int iVar9;
   undefined4 *puVar10;
@@ -382,8 +379,8 @@ rdPrimit3_ClipFace(uint frustum,uint geoMode,int lightMode,uint texMode,uint *pr
         *procFace = uVar7;
         return;
       }
-      rdClip_Face3GS((int *)frustum,(float *)procFace[3],(float *)procFace[5],(float *)*procVerts);
-      *procFace = extraout_EAX;
+      uVar7 = rdClip_Face3GS((int *)frustum,(float *)procFace[3],(float *)procFace[5],*procVerts);
+      *procFace = uVar7;
       return;
     default:
       goto switchD_0040dec1_default;
@@ -416,8 +413,8 @@ rdPrimit3_ClipFace(uint frustum,uint geoMode,int lightMode,uint texMode,uint *pr
           } while (uVar7 < *puVar5);
         }
         if (g_pRdCamera_CurCamera->nProjectType == 1) {
-          rdClip_Face3T((int *)frustum,(float *)procFace[3],(float *)procFace[4],(float *)*puVar5);
-          *procFace = extraout_EAX_01;
+          uVar7 = rdClip_Face3T((int *)frustum,(float *)procFace[3],(float *)procFace[4],*puVar5);
+          *procFace = uVar7;
           return;
         }
         uVar7 = rdClip_Face3TOrtho((int *)frustum,(float *)procFace[3],(float *)procFace[4],*puVar5)
@@ -500,9 +497,9 @@ rdPrimit3_ClipFace(uint frustum,uint geoMode,int lightMode,uint texMode,uint *pr
           *puVar6 = uVar7;
           return;
         }
-        rdClip_Face3GT((int *)frustum,(float *)puVar6[3],(float *)puVar6[4],(uint *)puVar6[5],
-                       (float *)*puVar5);
-        *puVar6 = extraout_EAX_00;
+        uVar7 = rdClip_Face3GT((int *)frustum,(float *)puVar6[3],(float *)puVar6[4],
+                               (uint *)puVar6[5],*puVar5);
+        *puVar6 = uVar7;
         return;
       }
     }
