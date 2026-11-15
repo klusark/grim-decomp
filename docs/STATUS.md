@@ -1,0 +1,51 @@
+# Where the reconstruction stands (2026-11-15)
+
+A one-page summary; build/BUILD_NOTES.md has the history and the details of every step.
+
+## What is true
+
+* **All four programs build from the tracked tree** (`src/`, `build/`): no original machine code, no `raw/` at build
+  time. CI builds them and runs the clean-room tests on every pull request.
+* **They match the original.** grim_tools' clean-room tests (`run.py decomp`): 5457 of 5457 the same. The whole game
+  plays through on them (grim_tools' autorun, chapters 1 to 65, `grimW_work/wg_start.sh`).
+* **Names.** Every function of the game, LEC and engine code is named; the `FUN_` left are C runtime (most of it dead,
+  kept out of the build). Coverage table: README.md.
+* **Generated code.** Everything is Ghidra's C except 548 hand-written functions, each listed with the reason in
+  docs/OVERRIDES.md:
+
+  | Why it stays hand-written | Count |
+  |---|---|
+  | The rasteriser's span fillers: the original switches the x87 control word part-way through a span (24-bit truncation); kept on purpose, differentially tested | 363 |
+  | A recorded reason: a twin test result, a deliberate fix, a hook (names/override_reasons.json) | 63 |
+  | x87-exact ports (rounding to float through memory, FCOMP compares, values left in ST0) | 67 |
+  | The build's own hooks (GRIM_SIMTIME, the debug log, host file handling) | 10 |
+  | asm() blocks (register conventions C cannot declare) | 14 |
+  | Ghidra's text needs a repair first (register arguments, lost arguments, unrecovered jump tables) | 31 |
+
+* **Types.** The engine's records are typed (actors, costumes, sets, walk sectors, the renderer, text, resources,
+  Lua's objects, states, call frames and parser). Raw `((int)p + 0x..)` accesses: EXE 76, LUA.DLL 0, a few byte
+  streams in IMUSE.DLL; what is left in the EXE is data whose type is only known at run time (resource data by fourcc,
+  costume instance data), name buffers and the C runtime.
+
+## How a change is checked
+
+1. `python -I tools/export_changed.py`, `python -I tools/build_src.py`, `make -C build -j8 && make -C build link`.
+2. The clean-room tests on the four built programs (`run.py decomp`): 0 differences is the bar.
+3. For a function whose hand-written version is replaced by generated code: `build/mixdiff/twin.sh` runs the
+   existing differential test of build/mixdiff or build/difftest against the generated twin and the original machine
+   code.
+4. For data: `python -I build/datacmp.py OLD NEW` (0 differences, the layout pinned).
+
+## What is left
+
+* **31 hand-written functions that need a Ghidra repair** before their twins can replace them (docs/OVERRIDES.md,
+  category `repair`): mostly register arguments the decompiler does not model and calls whose arguments it loses.
+  Each needs its own fix (a custom storage prototype, a call-site override) and a twin test.
+* **Parameters.** `param_N` in the prototypes: EXE 2626, LUA.DLL 1034, IMUSE.DLL 672, CHORE.DLL 259. Most are the C
+  runtime and scalar leaf parameters; naming them is reading each function.
+* **Data.** Untyped initialised bytes: EXE 39,299 (the C runtime's tables, the PE import directory, DirectInput's data
+  formats, a constant pool of floats, doubles and GUIDs), LUA.DLL 16,286, IMUSE.DLL 19,399, CHORE.DLL 14,236.
+  `DATAGEN_TOP=n python -I tools/datagen.py report PROG` lists the largest spans.
+* **Not planned:** generating the 363 rasteriser span fillers (see above), and dropping the x87 exactness: the
+  rasteriser test shows the difference is small (about 13,000 colour bytes in 1.5 million random spans without the
+  precision switch), but the clean-room tests compare exactly and would lose their meaning.

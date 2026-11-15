@@ -2129,3 +2129,11 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   DirectInput's object data formats in the code section (0x004d4370) and the constant pool at 0x004d7600 (floats,
   doubles and DirectX GUIDs in one span).
 * datacmp.py: 0 differences in all four programs. Clean room 0 of 5457.
+
+## Final checks; docs/STATUS.md (2026-11-15)
+
+* Whole-game run (grimW_work/wg_start.sh, grim_tools' autorun chapters 1 - 65, GRIM_SIMTIME=17) on the build of
+  #40 - #47: AUTORUN RESULT PASSED at 364 s of game time. Clean room 0 of 5457.
+* README.md: the numbers of the coverage table, the hand-written functions (docs/OVERRIDES.md), the stubs (32 dead C
+  runtime fragments), the types, the parameters and the data brought up to date; docs/STATUS.md sums up where the
+  reconstruction stands, how a change is checked and what is left.
