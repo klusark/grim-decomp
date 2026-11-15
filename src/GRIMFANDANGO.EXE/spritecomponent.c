@@ -11,7 +11,7 @@
    mat file for sprite') and creates the polyline. Original name SpriteRequester (the remaster's
    GrimFandango (Linux): strings: 'Select mat file for sprite...'); was SpriteComponent_Create. */
 
-uint __cdecl SpriteRequester(uint param_1,int param_2,int param_3,float param_4,char *param_5)
+uint __cdecl SpriteRequester(uint cosInst,int tag,int parent,float type,char *filename)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -55,8 +55,8 @@ uint __cdecl SpriteRequester(uint param_1,int param_2,int param_3,float param_4,
   local_40[0] = 0.0f;
   local_40[1] = 0.0f;
   local_40[2] = 0.0f;
-  if ((param_3 != 0) && (param_4 == 216341.2f)) {
-    if (param_5 == (char *)0x0) {
+  if ((parent != 0) && (type == 216341.2f)) {
+    if (filename == (char *)0x0) {
       if (g_bMaterialPath != '\0') {
         grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bMaterialPath));
       }
@@ -71,10 +71,10 @@ uint __cdecl SpriteRequester(uint param_1,int param_2,int param_3,float param_4,
       strncpy((uint *)&g_bMaterialPath,puVar4,uVar2);
       DAT_008ca9b7 = 0;
       name = stdFnames_FindMedName(g_szGrimlib_aFilename);
-      param_5 = name;
+      filename = name;
     }
     else {
-      strncpy((uint *)&local_20,(uint *)param_5,0x1f);
+      strncpy((uint *)&local_20,(uint *)filename,0x1f);
       local_1 = 0;
       name = &local_20;
       strtok(&local_20,&DAT_004ea52c);
@@ -93,7 +93,7 @@ uint __cdecl SpriteRequester(uint param_1,int param_2,int param_3,float param_4,
         local_50[1] = (float)(int)puVar3 * 0.01f;
         uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
         puVar3 = atoi(uVar2);
-        param_4 = (float)(int)puVar3 * 0.01f;
+        type = (float)(int)puVar3 * 0.01f;
       }
     }
     piVar5 = (int *)(*g_pSputCosHS->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1026)
@@ -106,7 +106,7 @@ uint __cdecl SpriteRequester(uint param_1,int param_2,int param_3,float param_4,
       }
       local_40[0] = local_50[0];
       local_40[1] = local_50[1];
-      local_40[2] = param_4;
+      local_40[2] = type;
       iVar6 = rdSprite_New(0,(uint)name,(uint)name,PUN(uint,(float)local_44),PUN(uint,(float)local_50[2]),5,0,1,0,
                            (uint)local_40);
       *piVar5 = iVar6;
@@ -135,8 +135,7 @@ uint __cdecl SpriteRequester(uint param_1,int param_2,int param_3,float param_4,
       local_30 = 0;
       local_2c = 0;
       iVar6 = Cos_RegisterComponent
-                        (param_1,(int)param_5,(int)piVar5,param_2,param_3,0x4853454d,(int)&local_34)
-      ;
+                        (cosInst,(int)filename,(int)piVar5,tag,parent,0x4853454d,(int)&local_34);
       if (iVar6 != 0) {
         return 1;
       }

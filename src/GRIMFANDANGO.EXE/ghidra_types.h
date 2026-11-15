@@ -288,7 +288,10 @@ typedef struct rdCanvas rdCanvas;
 typedef struct rdClipFrustum rdClipFrustum;
 typedef struct rdColormap rdColormap;
 typedef struct rdGeoset rdGeoset;
+typedef struct rdHierarchyNode rdHierarchyNode;
 typedef struct rdKeyframe rdKeyframe;
+typedef struct rdKeyframeEntry rdKeyframeEntry;
+typedef struct rdKeyframeNode rdKeyframeNode;
 typedef struct rdLight rdLight;
 typedef struct rdMaterial rdMaterial;
 typedef struct rdMesh rdMesh;
@@ -570,7 +573,7 @@ _Static_assert(sizeof(ControlSymbol) == 0x10, "sizeof ControlSymbol");
 /* CostumeNode: One costume of an actor's costume stack (Actor::pCostumes, sputCostume.cpp; from the pool g_pCosNodePool): the CHORE.DLL instance and the actor's chores in it. Costume_InitRecord sets the defaults. */
 struct CostumeNode {  /* 0xb4 */
     uint dwInstance;  /* 0x00: CHORE.DLL costume instance (Cos_CreateCosInstance) */
-    void *pMainModel;  /* 0x04: Costume_GetMainModel; a pushed costume with the same model takes over the head settings */
+    rdThing *pMainModel;  /* 0x04: Costume_GetMainModel; a pushed costume with the same model takes over the head settings */
     ModelComponent *pComponents;  /* 0x08: model / sprite components drawn with the actor, linked at +0x190 */
     int aHeadJoints[3];  /* 0x0c: SetActorHead, -1 none */
     float flLookRate;  /* 0x18: 360 (SetActorLookRate) */
@@ -1292,13 +1295,7 @@ struct Set {  /* 0x1b08 */
     int nLights;  /* 0xb8 */
     SetLight aLights[64];  /* 0xbc */
     RoomActors *pRoomActors;  /* 0x1abc: its actor list (sputRoom_FreeRoomEntry) */
-    int nLocked;  /* 0x1ac0: sputRoom_UnReference keeps the resources while it is set */
-    uint8_t field_0x1ac4, field_0x1ac5, field_0x1ac6, field_0x1ac7, field_0x1ac8, field_0x1ac9, field_0x1aca, field_0x1acb;
-    uint8_t field_0x1acc, field_0x1acd, field_0x1ace, field_0x1acf, field_0x1ad0, field_0x1ad1, field_0x1ad2, field_0x1ad3;
-    uint8_t field_0x1ad4, field_0x1ad5, field_0x1ad6, field_0x1ad7, field_0x1ad8, field_0x1ad9, field_0x1ada, field_0x1adb;
-    uint8_t field_0x1adc, field_0x1add, field_0x1ade, field_0x1adf, field_0x1ae0, field_0x1ae1, field_0x1ae2, field_0x1ae3;
-    uint8_t field_0x1ae4, field_0x1ae5, field_0x1ae6, field_0x1ae7, field_0x1ae8, field_0x1ae9, field_0x1aea, field_0x1aeb;
-    uint8_t field_0x1aec, field_0x1aed, field_0x1aee, field_0x1aef, field_0x1af0, field_0x1af1, field_0x1af2, field_0x1af3;
+    ResRef lockRef;  /* 0x1ac0: sputRoom_UnReference keeps the resources while it is set */
     uint dwSize;  /* 0x1af4: 0x1b08 (Set_InitRecord) */
     char cSoundMaxVolume;  /* 0x1af8: sputRoom_GetSoundParameters */
     char cSound1af9;  /* 0x1af9 */
@@ -1318,7 +1315,7 @@ _Static_assert(__builtin_offsetof(Set, nCurSetup) == 0xb4, "Set.nCurSetup");
 _Static_assert(__builtin_offsetof(Set, nLights) == 0xb8, "Set.nLights");
 _Static_assert(__builtin_offsetof(Set, aLights) == 0xbc, "Set.aLights");
 _Static_assert(__builtin_offsetof(Set, pRoomActors) == 0x1abc, "Set.pRoomActors");
-_Static_assert(__builtin_offsetof(Set, nLocked) == 0x1ac0, "Set.nLocked");
+_Static_assert(__builtin_offsetof(Set, lockRef) == 0x1ac0, "Set.lockRef");
 _Static_assert(__builtin_offsetof(Set, dwSize) == 0x1af4, "Set.dwSize");
 _Static_assert(__builtin_offsetof(Set, cSoundMaxVolume) == 0x1af8, "Set.cSoundMaxVolume");
 _Static_assert(__builtin_offsetof(Set, cSound1af9) == 0x1af9, "Set.cSound1af9");
@@ -1827,13 +1824,48 @@ struct rdGeoset {  /* 0x8 */
 _Static_assert(__builtin_offsetof(rdGeoset, dwMeshes) == 0x0, "rdGeoset.dwMeshes");
 _Static_assert(__builtin_offsetof(rdGeoset, pMeshes) == 0x4, "rdGeoset.pMeshes");
 _Static_assert(sizeof(rdGeoset) == 0x8, "sizeof rdGeoset");
+/* rdHierarchyNode: One node of a model's hierarchy (0xb8 bytes, rdModel3_LoadEntryText). */
+struct rdHierarchyNode {  /* 0xb8 */
+    char aName[64];  /* 0x00 */
+    uint dwFlags;  /* 0x40 */
+    int nIndex;  /* 0x44: its own index */
+    uint dwType;  /* 0x48 */
+    int nMesh;  /* 0x4c: -1: none */
+    uint8_t field_0x50, field_0x51, field_0x52, field_0x53;
+    rdHierarchyNode *pParent;  /* 0x54 */
+    int nNumChildren;  /* 0x58 */
+    rdHierarchyNode *pChild;  /* 0x5c */
+    rdHierarchyNode *pSibling;  /* 0x60 */
+    float aPivot[3];  /* 0x64 */
+    float aPos[3];  /* 0x70 */
+    float aRot[3];  /* 0x7c: pitch, yaw, roll */
+    float aMatrix[12];  /* 0x88: rdMatrix34 from aRot and aPos (rdThing_SetModel3) */
+};
+_Static_assert(__builtin_offsetof(rdHierarchyNode, aName) == 0x0, "rdHierarchyNode.aName");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, dwFlags) == 0x40, "rdHierarchyNode.dwFlags");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, nIndex) == 0x44, "rdHierarchyNode.nIndex");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, dwType) == 0x48, "rdHierarchyNode.dwType");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, nMesh) == 0x4c, "rdHierarchyNode.nMesh");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, pParent) == 0x54, "rdHierarchyNode.pParent");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, nNumChildren) == 0x58, "rdHierarchyNode.nNumChildren");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, pChild) == 0x5c, "rdHierarchyNode.pChild");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, pSibling) == 0x60, "rdHierarchyNode.pSibling");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, aPivot) == 0x64, "rdHierarchyNode.aPivot");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, aPos) == 0x70, "rdHierarchyNode.aPos");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, aRot) == 0x7c, "rdHierarchyNode.aRot");
+_Static_assert(__builtin_offsetof(rdHierarchyNode, aMatrix) == 0x88, "rdHierarchyNode.aMatrix");
+_Static_assert(sizeof(rdHierarchyNode) == 0xb8, "sizeof rdHierarchyNode");
 /* rdKeyframe: A keyframe animation (rdKeyframe_Load). */
 struct rdKeyframe {  /* 0x84 */
     char aName[32];  /* 0x00 */
-    uint8_t field_0x20, field_0x21, field_0x22, field_0x23, field_0x24, field_0x25, field_0x26, field_0x27;
-    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
-    uint8_t field_0x30, field_0x31, field_0x32, field_0x33, field_0x34, field_0x35, field_0x36, field_0x37;
-    uint8_t field_0x38, field_0x39, field_0x3a, field_0x3b, field_0x3c, field_0x3d, field_0x3e, field_0x3f;
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23;
+    uint dwFlags;  /* 0x24 */
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b;
+    int nType;  /* 0x2c */
+    float flFps;  /* 0x30: 15 for every keyframe resource (sputResource_KeyframeHandler) */
+    int nNumFrames;  /* 0x34 */
+    int nNumNodes;  /* 0x38 */
+    rdKeyframeNode *pNodes;  /* 0x3c: nNumNodes nodes */
     uint8_t field_0x40, field_0x41, field_0x42, field_0x43, field_0x44, field_0x45, field_0x46, field_0x47;
     uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
     uint8_t field_0x50, field_0x51, field_0x52, field_0x53, field_0x54, field_0x55, field_0x56, field_0x57;
@@ -1845,19 +1877,60 @@ struct rdKeyframe {  /* 0x84 */
     uint8_t field_0x80, field_0x81, field_0x82, field_0x83;
 };
 _Static_assert(__builtin_offsetof(rdKeyframe, aName) == 0x0, "rdKeyframe.aName");
+_Static_assert(__builtin_offsetof(rdKeyframe, dwFlags) == 0x24, "rdKeyframe.dwFlags");
+_Static_assert(__builtin_offsetof(rdKeyframe, nType) == 0x2c, "rdKeyframe.nType");
+_Static_assert(__builtin_offsetof(rdKeyframe, flFps) == 0x30, "rdKeyframe.flFps");
+_Static_assert(__builtin_offsetof(rdKeyframe, nNumFrames) == 0x34, "rdKeyframe.nNumFrames");
+_Static_assert(__builtin_offsetof(rdKeyframe, nNumNodes) == 0x38, "rdKeyframe.nNumNodes");
+_Static_assert(__builtin_offsetof(rdKeyframe, pNodes) == 0x3c, "rdKeyframe.pNodes");
 _Static_assert(sizeof(rdKeyframe) == 0x84, "sizeof rdKeyframe");
+/* rdKeyframeEntry: One key of a keyframe node (0x38 bytes, read as they are from the file). */
+struct rdKeyframeEntry {  /* 0x38 */
+    float flFrame;  /* 0x00 */
+    uint dwFlags;  /* 0x04 */
+    float aPos[3];  /* 0x08 */
+    float flPitch;  /* 0x14 */
+    float flYaw;  /* 0x18 */
+    float flRoll;  /* 0x1c */
+    float aDPos[3];  /* 0x20: position change per frame */
+    float flDPitch;  /* 0x2c */
+    float flDYaw;  /* 0x30 */
+    float flDRoll;  /* 0x34 */
+};
+_Static_assert(__builtin_offsetof(rdKeyframeEntry, flFrame) == 0x0, "rdKeyframeEntry.flFrame");
+_Static_assert(__builtin_offsetof(rdKeyframeEntry, dwFlags) == 0x4, "rdKeyframeEntry.dwFlags");
+_Static_assert(__builtin_offsetof(rdKeyframeEntry, aPos) == 0x8, "rdKeyframeEntry.aPos");
+_Static_assert(__builtin_offsetof(rdKeyframeEntry, flPitch) == 0x14, "rdKeyframeEntry.flPitch");
+_Static_assert(__builtin_offsetof(rdKeyframeEntry, flYaw) == 0x18, "rdKeyframeEntry.flYaw");
+_Static_assert(__builtin_offsetof(rdKeyframeEntry, flRoll) == 0x1c, "rdKeyframeEntry.flRoll");
+_Static_assert(__builtin_offsetof(rdKeyframeEntry, aDPos) == 0x20, "rdKeyframeEntry.aDPos");
+_Static_assert(__builtin_offsetof(rdKeyframeEntry, flDPitch) == 0x2c, "rdKeyframeEntry.flDPitch");
+_Static_assert(__builtin_offsetof(rdKeyframeEntry, flDYaw) == 0x30, "rdKeyframeEntry.flDYaw");
+_Static_assert(__builtin_offsetof(rdKeyframeEntry, flDRoll) == 0x34, "rdKeyframeEntry.flDRoll");
+_Static_assert(sizeof(rdKeyframeEntry) == 0x38, "sizeof rdKeyframeEntry");
+/* rdKeyframeNode: The keys of one mesh of a keyframe (0x2c bytes). */
+struct rdKeyframeNode {  /* 0x2c */
+    char aMeshName[32];  /* 0x00 */
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23;
+    int nNumEntries;  /* 0x24 */
+    rdKeyframeEntry *pEntries;  /* 0x28: nNumEntries keys (rdKeyframe_LoadEntryBinary) */
+};
+_Static_assert(__builtin_offsetof(rdKeyframeNode, aMeshName) == 0x0, "rdKeyframeNode.aMeshName");
+_Static_assert(__builtin_offsetof(rdKeyframeNode, nNumEntries) == 0x24, "rdKeyframeNode.nNumEntries");
+_Static_assert(__builtin_offsetof(rdKeyframeNode, pEntries) == 0x28, "rdKeyframeNode.pEntries");
+_Static_assert(sizeof(rdKeyframeNode) == 0x2c, "sizeof rdKeyframeNode");
 /* rdMaterial: A material (0xb0 bytes, the 'MAT ' file). */
 struct rdMaterial {  /* 0xb0 */
     uint dwType;  /* 0x00 */
     char aName[32];  /* 0x04 */
-    uint8_t field_0x24, field_0x25, field_0x26, field_0x27, field_0x28, field_0x29, field_0x2a, field_0x2b;
-    uint8_t field_0x2c, field_0x2d, field_0x2e, field_0x2f, field_0x30, field_0x31, field_0x32, field_0x33;
-    uint8_t field_0x34, field_0x35, field_0x36, field_0x37, field_0x38, field_0x39, field_0x3a, field_0x3b;
-    uint8_t field_0x3c, field_0x3d, field_0x3e, field_0x3f, field_0x40, field_0x41, field_0x42, field_0x43;
-    uint8_t field_0x44, field_0x45, field_0x46, field_0x47, field_0x48, field_0x49, field_0x4a, field_0x4b;
-    uint8_t field_0x4c, field_0x4d, field_0x4e, field_0x4f, field_0x50, field_0x51, field_0x52, field_0x53;
-    uint8_t field_0x54, field_0x55, field_0x56, field_0x57, field_0x58, field_0x59, field_0x5a, field_0x5b;
-    uint8_t field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    int nRefs;  /* 0x24: sputResource_MatLoader / MatUnloader: references; the resource is purgable at 0 */
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
+    uint8_t field_0x30, field_0x31, field_0x32, field_0x33, field_0x34, field_0x35, field_0x36, field_0x37;
+    uint8_t field_0x38, field_0x39, field_0x3a, field_0x3b, field_0x3c, field_0x3d, field_0x3e, field_0x3f;
+    uint8_t field_0x40, field_0x41, field_0x42, field_0x43, field_0x44, field_0x45, field_0x46, field_0x47;
+    uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint8_t field_0x50, field_0x51, field_0x52, field_0x53, field_0x54, field_0x55, field_0x56, field_0x57;
+    uint8_t field_0x58, field_0x59, field_0x5a, field_0x5b, field_0x5c, field_0x5d, field_0x5e, field_0x5f;
     int nNumCels;  /* 0x60: rdCache_DrawFaceN clamps the cel to it */
     int nCurCel;  /* 0x64: the cel shown when a face asks for -1 */
     void *aCels[16];  /* 0x68: per-cel texture records */
@@ -1866,6 +1939,7 @@ struct rdMaterial {  /* 0xb0 */
 };
 _Static_assert(__builtin_offsetof(rdMaterial, dwType) == 0x0, "rdMaterial.dwType");
 _Static_assert(__builtin_offsetof(rdMaterial, aName) == 0x4, "rdMaterial.aName");
+_Static_assert(__builtin_offsetof(rdMaterial, nRefs) == 0x24, "rdMaterial.nRefs");
 _Static_assert(__builtin_offsetof(rdMaterial, nNumCels) == 0x60, "rdMaterial.nNumCels");
 _Static_assert(__builtin_offsetof(rdMaterial, nCurCel) == 0x64, "rdMaterial.nCurCel");
 _Static_assert(__builtin_offsetof(rdMaterial, aCels) == 0x68, "rdMaterial.aCels");
@@ -1915,7 +1989,7 @@ struct rdModel3 {  /* 0x90 */
     uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
     int nCurGeoset;  /* 0x50: the geoset drawn */
     int nNumHierarchyNodes;  /* 0x54 */
-    void *pHierarchyNodes;  /* 0x58 */
+    rdHierarchyNode *pHierarchyNodes;  /* 0x58: nNumHierarchyNodes nodes */
     float flRadius;  /* 0x5c: bounding radius */
     uint8_t field_0x60, field_0x61, field_0x62, field_0x63, field_0x64, field_0x65, field_0x66, field_0x67;
     uint8_t field_0x68, field_0x69, field_0x6a, field_0x6b, field_0x6c, field_0x6d, field_0x6e, field_0x6f;

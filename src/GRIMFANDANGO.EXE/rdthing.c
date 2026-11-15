@@ -218,7 +218,6 @@ void __cdecl rdThing_SetModel3(rdThing *thing,rdModel3 *model)
   void *pvVar3;
   uint uVar4;
   int iVar5;
-  uint *angles;
   
   thing->nType = 1;
   thing->pModel = model;
@@ -267,10 +266,10 @@ void __cdecl rdThing_SetModel3(rdThing *thing,rdModel3 *model)
         }
         uVar4 = 0;
         if (model->nNumHierarchyNodes != 0) {
-          angles = (uint *)((int)model->pHierarchyNodes + 0x7c);
+          pfVar1 = model->pHierarchyNodes->aRot;
           do {
-            rdMatrix_Build34((float *)(angles + 3),angles,(float *)(angles + -3));
-            angles = angles + 0x2e;
+            rdMatrix_Build34(pfVar1 + 3,(uint *)pfVar1,pfVar1 + -3);
+            pfVar1 = pfVar1 + 0x2e;
             uVar4 = uVar4 + 1;
           } while (uVar4 < (uint)model->nNumHierarchyNodes);
         }

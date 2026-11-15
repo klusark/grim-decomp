@@ -362,22 +362,23 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *self)
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   unsigned char _stkneg[240] __attribute__((aligned(16)));  /* the original frame below the return address */
   float (*pafVar1) [3];
+  rdModel3 *prVar2;
   Actor *actor;
-  ActorExtra *pAVar2;
-  float fVar3;
+  ActorExtra *pAVar3;
   float fVar4;
-  uint uVar5;
-  float *pfVar6;
+  float fVar5;
+  uint uVar6;
   float *pfVar7;
   float *pfVar8;
   float *pfVar9;
-  int iVar10;
-  float *pfVar11;
+  float *pfVar10;
+  int iVar11;
+  float *pfVar12;
   float in_stack_ffffff24;
   float in_stack_ffffff28;
   Actor *in_stack_ffffff2c;
-  float fVar12;
   float fVar13;
+  float fVar14;
   #define local_b0 (*(uint *)(_frame + (0xc0 - 0xb0)))
   #define local_ac (*(uint *)(_frame + (0xc0 - 0xac)))
   #define local_a8 (*(uint *)(_frame + (0xc0 - 0xa8)))
@@ -399,74 +400,74 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *self)
   #define local_8 (*(uint *)(_frame + (0xc0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xc0 - 0x4)))
   
-  iVar10 = *(int *)((int)self->pCostumes->pMainModel + 4);
-  pfVar6 = sputActor_GetOrientMatrix(self);
-  rdMatrix_TransformVector34(local_98,(float *)(iVar10 + 0x78),pfVar6);
-  fVar3 = local_98[0] + self->aPos[0];
+  prVar2 = self->pCostumes->pMainModel->pModel;
+  pfVar7 = sputActor_GetOrientMatrix(self);
+  rdMatrix_TransformVector34(local_98,prVar2->aInsertOffset,pfVar7);
+  fVar4 = local_98[0] + self->aPos[0];
   local_5c[2] = 0.0f;
   local_68[0] = self->aPos[1] + local_98[1];
   local_68[1] = self->aPos[2] + local_98[2];
-  fVar4 = *(float *)(iVar10 + 0x5c) * self->pExtra->flCollisionScale;
+  fVar5 = prVar2->flRadius * self->pExtra->flCollisionScale;
   if (0 < g_nTotActors) {
     local_74[1] = PUN(float,&g_pDrawableActors);
     do {
       actor = *(Actor **)local_74[1];
       if (((actor != self) && (actor->pExtra != (ActorExtra *)0x0)) &&
          (actor->pExtra->nCollisionMode != 0)) {
-        iVar10 = *(int *)((int)actor->pCostumes->pMainModel + 4);
-        pfVar6 = (float *)(iVar10 + 0x78);
-        pfVar7 = sputActor_GetOrientMatrix(actor);
-        rdMatrix_TransformPoint34(local_68 + 2,pfVar6,pfVar7);
-        local_50[1] = fVar3 - local_68[2];
+        prVar2 = actor->pCostumes->pMainModel->pModel;
+        pfVar7 = prVar2->aInsertOffset;
+        pfVar8 = sputActor_GetOrientMatrix(actor);
+        rdMatrix_TransformPoint34(local_68 + 2,pfVar7,pfVar8);
+        local_50[1] = fVar4 - local_68[2];
         local_50[0] = local_68[0] - local_5c[0];
-        fVar13 = local_68[1] - local_5c[1];
-        fVar12 = SQRT(fVar13 * fVar13 + local_50[0] * local_50[0] + local_50[1] * local_50[1]);
-        local_8c[0] = *(float *)(iVar10 + 0x5c) * actor->pExtra->flCollisionScale;
-        if (fVar12 < local_8c[0] + fVar4) {
+        fVar14 = local_68[1] - local_5c[1];
+        fVar13 = SQRT(fVar14 * fVar14 + local_50[0] * local_50[0] + local_50[1] * local_50[1]);
+        local_8c[0] = prVar2->flRadius * actor->pExtra->flCollisionScale;
+        if (fVar13 < local_8c[0] + fVar5) {
           if (actor->pExtra->nCollisionMode == 2) {
             self->pExtra->nCollided = 1;
-            pfVar6 = self->aPos;
+            pfVar7 = self->aPos;
             actor->pExtra->nCollided = 1;
-            local_2c[2] = fVar3 - local_68[2];
+            local_2c[2] = fVar4 - local_68[2];
             local_20[0] = local_68[0] - local_5c[0];
             local_20[1] = local_68[1] - local_5c[1];
-            _DAT_008ca348 = *pfVar6;
+            _DAT_008ca348 = *pfVar7;
             _DAT_008ca34c = self->aPos[1];
             _DAT_008ca350 = self->aPos[2];
             rdVector_Normalize3Acc(local_2c + 2);
-            uVar5 = self->dwMoveFlags;
-            local_20[2] = (local_2c[2] * (1.0f - (fVar12 - local_8c[0]) / fVar4) * fVar4 + fVar3) -
+            uVar6 = self->dwMoveFlags;
+            local_20[2] = (local_2c[2] * (1.0f - (fVar13 - local_8c[0]) / fVar5) * fVar5 + fVar4) -
                           local_98[0];
             sputActor_SetActorPosition(self,local_20 + 2);
-            _DAT_008ca338 = *pfVar6;
+            _DAT_008ca338 = *pfVar7;
             _DAT_008ca33c = self->aPos[1];
             _DAT_008ca340 = self->aPos[2];
-            FLOAT_008ca320 = *pfVar6;
+            FLOAT_008ca320 = *pfVar7;
             FLOAT_008ca324 = self->aPos[1];
             FLOAT_008ca328 = self->aPos[2];
-            if ((uVar5 & 1) != 0) {
+            if ((uVar6 & 1) != 0) {
               self->dwMoveFlags = self->dwMoveFlags | 1;
             }
           }
           else {
             local_8c[1] = local_50[1];
             local_8c[2] = local_50[0];
-            local_80[0] = fVar13;
-            pfVar7 = sputActor_GetOrientMatrix(actor);
-            rdMatrix_TransformVectorOrtho34(local_a4,local_8c + 1,pfVar7);
-            local_a4[0] = local_a4[0] + *pfVar6;
-            local_a4[1] = local_a4[1] + *(float *)(iVar10 + 0x7c);
-            local_a4[2] = local_a4[2] + *(float *)(iVar10 + 0x80);
-            pAVar2 = actor->pExtra;
-            local_44[2] = *(float *)(iVar10 + 0x60) * pAVar2->flCollisionScale - fVar4;
-            local_2c[0] = *(float *)(iVar10 + 0x70) * pAVar2->flCollisionScale + fVar4;
-            local_2c[1] = *(float *)(iVar10 + 0x74) * pAVar2->flCollisionScale + fVar4;
-            if ((((local_a4[2] <= *(float *)(iVar10 + 0x68) * pAVar2->flCollisionScale - fVar4) ||
-                 (local_a4[1] <= *(float *)(iVar10 + 100) * pAVar2->flCollisionScale - fVar4)) ||
-                ((local_2c[0] <= local_a4[1] ||
-                 ((local_a4[0] <= local_44[2] ||
-                  (*(float *)(iVar10 + 0x6c) * pAVar2->flCollisionScale + fVar4 <= local_a4[0]))))))
-               || (local_2c[1] <= local_a4[2])) goto LAB_004940c6;
+            local_80[0] = fVar14;
+            pfVar8 = sputActor_GetOrientMatrix(actor);
+            rdMatrix_TransformVectorOrtho34(local_a4,local_8c + 1,pfVar8);
+            local_a4[0] = local_a4[0] + *pfVar7;
+            local_a4[1] = local_a4[1] + prVar2->aInsertOffset[1];
+            local_a4[2] = local_a4[2] + prVar2->aInsertOffset[2];
+            pAVar3 = actor->pExtra;
+            local_44[2] = *(float *)&prVar2->field_0x60 * pAVar3->flCollisionScale - fVar5;
+            local_2c[0] = *(float *)&prVar2->field_0x70 * pAVar3->flCollisionScale + fVar5;
+            local_2c[1] = *(float *)&prVar2->field_0x74 * pAVar3->flCollisionScale + fVar5;
+            if ((((local_a4[2] <= *(float *)&prVar2->field_0x68 * pAVar3->flCollisionScale - fVar5)
+                 || (local_a4[1] <= *(float *)&prVar2->field_0x64 * pAVar3->flCollisionScale - fVar5
+                    )) || ((local_2c[0] <= local_a4[1] ||
+                           ((local_a4[0] <= local_44[2] ||
+                            (*(float *)&prVar2->field_0x6c * pAVar3->flCollisionScale + fVar5 <=
+                             local_a4[0])))))) || (local_2c[1] <= local_a4[2])) goto LAB_004940c6;
             self->pExtra->nCollided = 1;
             _DAT_008ca348 = self->aPos[0];
             _DAT_008ca34c = self->aPos[1];
@@ -474,68 +475,68 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *self)
             local_8c[1] = (local_98[0] + self->aPrevPos[0]) - local_68[2];
             local_8c[2] = (self->aPrevPos[1] + local_98[1]) - local_5c[0];
             local_80[0] = (self->aPrevPos[2] + local_98[2]) - local_5c[1];
-            pfVar8 = sputActor_GetOrientMatrix(actor);
-            pfVar7 = local_8c + 1;
-            pfVar11 = local_50 + 2;
-            fVar12 = 6.726548e-39f;
-            rdMatrix_TransformVectorOrtho34(pfVar11,pfVar7,pfVar8);
-            local_50[2] = local_50[2] + *pfVar6;
-            pfVar6 = local_80 + 1;
-            local_44[0] = local_44[0] + *(float *)(iVar10 + 0x7c);
-            local_44[1] = local_44[1] + *(float *)(iVar10 + 0x80);
-            pfVar8 = local_44 + 2;
-            pfVar9 = (float *)(_stkneg + 20);
-            for (iVar10 = 6; iVar10 != 0; iVar10 = iVar10 + -1) {
-              *pfVar9 = *pfVar8;
-              pfVar8 = pfVar8 + 1;
+            pfVar9 = sputActor_GetOrientMatrix(actor);
+            pfVar8 = local_8c + 1;
+            pfVar12 = local_50 + 2;
+            fVar13 = 6.726548e-39f;
+            rdMatrix_TransformVectorOrtho34(pfVar12,pfVar8,pfVar9);
+            local_50[2] = local_50[2] + *pfVar7;
+            pfVar7 = local_80 + 1;
+            local_44[0] = local_44[0] + prVar2->aInsertOffset[1];
+            local_44[1] = local_44[1] + prVar2->aInsertOffset[2];
+            pfVar9 = local_44 + 2;
+            pfVar10 = (float *)(_stkneg + 20);
+            for (iVar11 = 6; iVar11 != 0; iVar11 = iVar11 + -1) {
+              *pfVar10 = *pfVar9;
               pfVar9 = pfVar9 + 1;
+              pfVar10 = pfVar10 + 1;
             }
-            pfVar8 = local_50 + 2;
-            iVar10 = Collision_BoxSlide(local_a4,pfVar8,in_stack_ffffff24,in_stack_ffffff28,
-                                        (float)in_stack_ffffff2c,fVar12,(float)pfVar11,(float)pfVar7
-                                        ,pfVar6);
-            if (iVar10 == 0) {
-              pfVar6 = actor->aPos;
-              fVar13 = 6.726705e-39f;
-              pfVar9 = sputActor_GetOrientMatrix(actor);
-              pfVar7 = local_44 + 2;
-              pfVar11 = (float *)(_stkneg + 16);
-              for (iVar10 = 6; iVar10 != 0; iVar10 = iVar10 + -1) {
-                *pfVar11 = *pfVar7;
-                pfVar7 = pfVar7 + 1;
-                pfVar11 = pfVar11 + 1;
+            pfVar9 = local_50 + 2;
+            iVar11 = Collision_BoxSlide(local_a4,pfVar9,in_stack_ffffff24,in_stack_ffffff28,
+                                        (float)in_stack_ffffff2c,fVar13,(float)pfVar12,(float)pfVar8
+                                        ,pfVar7);
+            if (iVar11 == 0) {
+              pfVar7 = actor->aPos;
+              fVar14 = 6.726705e-39f;
+              pfVar10 = sputActor_GetOrientMatrix(actor);
+              pfVar8 = local_44 + 2;
+              pfVar12 = (float *)(_stkneg + 16);
+              for (iVar11 = 6; iVar11 != 0; iVar11 = iVar11 + -1) {
+                *pfVar12 = *pfVar8;
+                pfVar8 = pfVar8 + 1;
+                pfVar12 = pfVar12 + 1;
               }
-              GetOuttaTheBox(local_a4,(float)pfVar8,in_stack_ffffff24,in_stack_ffffff28,
-                             (float)in_stack_ffffff2c,fVar12,fVar13,pfVar9,pfVar6);
+              GetOuttaTheBox(local_a4,(float)pfVar9,in_stack_ffffff24,in_stack_ffffff28,
+                             (float)in_stack_ffffff2c,fVar13,fVar14,pfVar10,pfVar7);
               local_80[1] = local_a4[0];
               local_80[2] = local_a4[1];
             }
-            pfVar6 = sputActor_GetOrientMatrix(actor);
-            rdMatrix_TransformPoint34Acc(local_80 + 1,pfVar6);
+            pfVar7 = sputActor_GetOrientMatrix(actor);
+            rdMatrix_TransformPoint34Acc(local_80 + 1,pfVar7);
             local_80[1] = local_80[1] - local_98[0];
             local_80[2] = local_80[2] - local_98[1];
             self->aPrevPos[0] = self->aPos[0];
-            fVar12 = self->aPos[2];
+            fVar13 = self->aPos[2];
             self->aPrevPos[1] = self->aPos[1];
-            self->aPrevPos[2] = fVar12;
-            pfVar6 = sputActor_GetOrientMatrix(actor);
-            rdMatrix_TransformPoint34Acc(&FLOAT_008ca320,pfVar6);
+            self->aPrevPos[2] = fVar13;
+            pfVar7 = sputActor_GetOrientMatrix(actor);
+            rdMatrix_TransformPoint34Acc(&FLOAT_008ca320,pfVar7);
             FLOAT_008ca320 = FLOAT_008ca320 - local_98[0];
             FLOAT_008ca324 = FLOAT_008ca324 - local_98[1];
             FLOAT_008ca328 = FLOAT_008ca328 - local_98[2];
-            uVar5 = self->dwMoveFlags;
+            uVar6 = self->dwMoveFlags;
             sputActor_SetActorPosition(self,local_80 + 1);
             _DAT_008ca338 = self->aPos[0];
             _DAT_008ca33c = self->aPos[1];
             _DAT_008ca340 = self->aPos[2];
-            if ((uVar5 & 1) != 0) {
-              pAVar2 = self->pExtra;
+            if ((uVar6 & 1) != 0) {
+              pAVar3 = self->pExtra;
               self->dwMoveFlags = self->dwMoveFlags | 1;
-              pafVar1 = pAVar2->aPath + pAVar2->nPathNodes + -1;
+              pafVar1 = pAVar3->aPath + pAVar3->nPathNodes + -1;
               local_c = (uint)(*pafVar1)[0];
               local_8 = (uint)(*pafVar1)[1];
               local_4 = (uint)(*pafVar1)[2];
-              sputActor_ActorWalkTo(self,(int)&local_c,pAVar2->aDest,actor);
+              sputActor_ActorWalkTo(self,(int)&local_c,pAVar3->aDest,actor);
             }
           }
           in_stack_ffffff28 = 6.727223e-39f;

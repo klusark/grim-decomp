@@ -473,7 +473,7 @@ void __cdecl message(byte *msg)
 #if 0
 /* setjmp-protected call (do_protectedrun) */
 
-undefined4 __cdecl luaD_protectedrun(void *param_1)
+undefined4 __cdecl luaD_protectedrun(void *nResults)
 
 {
   unsigned char _stkneg[112] __attribute__((aligned(16)));  /* the original frame below the return address */
@@ -499,7 +499,7 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
   iVar7 = _setjmp3((undefined4 *)(_stkneg + 24),0,in_stack_ffffffa8,in_stack_ffffffac);
   pLVar6 = g_pLuaState;
   if (iVar7 == 0) {
-    do_callinc(param_1);
+    do_callinc(nResults);
     uVar8 = 0;
   }
   else {
@@ -607,7 +607,7 @@ int __cdecl do_main(int *z,int bin)
    remaster's libLua.so: static protectedparser(ZIO*, int): the only caller of luaY_parser /
    luaU_undump1 / luaV_closure here); was luaD_protectedparser. */
 
-undefined4 __cdecl protectedparser(int *param_1,int param_2)
+undefined4 __cdecl protectedparser(int *z,int bin)
 
 {
   unsigned char _stkneg[96] __attribute__((aligned(16)));  /* the original frame below the return address */
@@ -622,12 +622,12 @@ undefined4 __cdecl protectedparser(int *param_1,int param_2)
   g_pLuaState->pErrorJmp = (_stkneg + 24);
   iVar3 = _setjmp3((undefined4 *)(_stkneg + 24),0,unaff_ESI,in_stack_ffffffb8);
   if (iVar3 == 0) {
-    if (param_2 == 0) {
-      uVar4 = luaY_parser((int)param_1);
+    if (bin == 0) {
+      uVar4 = luaY_parser((int)z);
       bVar2 = false;
     }
     else {
-      uVar4 = luaU_undump1(param_1);
+      uVar4 = luaU_undump1(z);
       bVar2 = false;
     }
   }

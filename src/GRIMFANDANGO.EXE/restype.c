@@ -372,42 +372,43 @@ void * __cdecl sputResource_KeyframeHandler(ResMsg *msg)
 
 {
   int iVar1;
-  void *pvVar2;
-  int iVar3;
+  rdKeyframe *pvVar2;
+  void *pvVar3;
   int iVar4;
+  int iVar5;
   
   if (msg->dwType != 0x4659454b) {
     return (void *)0x0;
   }
-  iVar3 = msg->nOp;
-  if (iVar3 == 1) {
-    pvVar2 = (void *)rdKeyframe_Load(msg->pName);
-    if (pvVar2 == (void *)0x0) {
+  iVar4 = msg->nOp;
+  if (iVar4 == 1) {
+    pvVar2 = (rdKeyframe *)rdKeyframe_Load(msg->pName);
+    if (pvVar2 == (rdKeyframe *)0x0) {
       return (void *)0x0;
     }
-    *(undefined4 *)((int)pvVar2 + 0x30) = 0x41700000;
-    pvVar2 = Res_SysAddHandle(msg->dwType,msg->pName,pvVar2);
-    return pvVar2;
+    pvVar2->flFps = 15.0f;
+    pvVar3 = Res_SysAddHandle(msg->dwType,msg->pName,pvVar2);
+    return pvVar3;
   }
-  if (iVar3 == 2) {
+  if (iVar4 == 2) {
     rdKeyframe_Free((int)msg->pData);
   }
   else {
-    if (iVar3 != 3) {
+    if (iVar4 != 3) {
       return (void *)0x0;
     }
-    pvVar2 = msg->pData;
+    pvVar3 = msg->pData;
     msg->nSize = 0x84;
-    iVar3 = 0;
-    if (0 < *(int *)((int)pvVar2 + 0x38)) {
-      iVar4 = 0;
+    iVar4 = 0;
+    if (0 < *(int *)((int)pvVar3 + 0x38)) {
+      iVar5 = 0;
       do {
-        iVar4 = iVar4 + 0x2c;
+        iVar5 = iVar5 + 0x2c;
         iVar1 = msg->nSize + 0x2c;
         msg->nSize = iVar1;
-        iVar3 = iVar3 + 1;
-        msg->nSize = iVar1 + *(int *)(*(int *)((int)pvVar2 + 0x3c) + -8 + iVar4) * 0x38;
-      } while (iVar3 < *(int *)((int)pvVar2 + 0x38));
+        iVar4 = iVar4 + 1;
+        msg->nSize = iVar1 + *(int *)(*(int *)((int)pvVar3 + 0x3c) + -8 + iVar5) * 0x38;
+      } while (iVar4 < *(int *)((int)pvVar3 + 0x38));
       return (void *)0x1;
     }
   }

@@ -56,7 +56,7 @@ int * __cdecl ColormapInstancer(int inst,int component,int create)
 /* Registers a 'cmap' colormap component (CMAP resource, 0x34-byte ResRef); with no name a file
    dialog asks for one (editor) */
 
-int __cdecl ColormapRequester(uint cosInst,int tag,int parent,int type,char *param_5)
+int __cdecl ColormapRequester(uint cosInst,int tag,int parent,int type,char *filename)
 
 {
   uint *puVar1;
@@ -68,12 +68,12 @@ int __cdecl ColormapRequester(uint cosInst,int tag,int parent,int type,char *par
   uint uVar5;
   char *name;
   
-  pcVar2 = param_5;
+  pcVar2 = filename;
   if (((type != 0x4c444f4d) && (type != 0x4c444d4d)) && (type != 0x74727073)) {
     return 0;
   }
-  name = param_5;
-  if (param_5 == (char *)0x0) {
+  name = filename;
+  if (filename == (char *)0x0) {
     if (g_bColormapPath != '\0') {
       grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bColormapPath));
     }
@@ -86,7 +86,7 @@ int __cdecl ColormapRequester(uint cosInst,int tag,int parent,int type,char *par
     puVar1 = (uint *)grimPlat_GetDefaultOpenPath();
     strncpy((uint *)&g_bColormapPath,puVar1,uVar5);
     DAT_008ca937 = 0;
-    param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
+    filename = stdFnames_FindMedName(g_szGrimlib_aFilename);
     name = g_szGrimlib_aFilename;
   }
   data = sputResource_Alloc(0x50414d43,name);
@@ -99,7 +99,7 @@ int __cdecl ColormapRequester(uint cosInst,int tag,int parent,int type,char *par
     }
     Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x93a);
     if (pcVar2 == (char *)0x0) {
-      pcVar2 = param_5;
+      pcVar2 = filename;
     }
     iVar3 = Cos_RegisterComponent(cosInst,(int)pcVar2,(int)ref,tag,parent,type,((unsigned)(uintptr_t)&DAT_004e9f20));
     return (uint)(iVar3 != 0);

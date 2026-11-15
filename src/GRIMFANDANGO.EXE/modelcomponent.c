@@ -179,7 +179,7 @@ uint __cdecl ThingStopper(int inst)
    x y' text or asks for a .3do file ('Select model file to add...') and loads it as a model
    resource. */
 
-int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *param_5)
+int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *filename)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -197,7 +197,7 @@ int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *param_
   #define local_1f (*(undefined4 *)(_frame + (0x40 - 0x1f)))
   #define local_1 (*(undefined1 *)(_frame + (0x40 - 0x1)))
   
-  pcVar4 = param_5;
+  pcVar4 = filename;
   local_20 = DAT_004f5a98;
   local_24 = 1;
   puVar5 = &local_1f;
@@ -210,7 +210,7 @@ int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *param_
   if ((parent != 0) && (type != 0x4853454d)) {
     return 0;
   }
-  if (param_5 == (char *)0x0) {
+  if (filename == (char *)0x0) {
     if (g_bModelPath != '\0') {
       grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bModelPath));
     }
@@ -223,11 +223,11 @@ int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *param_
     puVar2 = (uint *)grimPlat_GetDefaultOpenPath();
     strncpy((uint *)&g_bModelPath,puVar2,uVar1);
     DAT_008caa37 = 0;
-    param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
+    filename = stdFnames_FindMedName(g_szGrimlib_aFilename);
     data = sputResource_Alloc(0x4c444f4d,g_szGrimlib_aFilename);
   }
   else {
-    strncpy((uint *)&local_20,(uint *)param_5,0x1f);
+    strncpy((uint *)&local_20,(uint *)filename,0x1f);
     local_1 = 0;
     name = (char *)strtok(&local_20,&DAT_004ea52c);
     uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
@@ -248,7 +248,7 @@ int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *param_
   Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xafc);
   ref[1].nValid = local_24;
   if (pcVar4 == (char *)0x0) {
-    pcVar4 = param_5;
+    pcVar4 = filename;
   }
   iVar3 = Cos_RegisterComponent(cosInst,(int)pcVar4,(int)ref,tag,parent,type,((unsigned)(uintptr_t)&DAT_004e9f08));
   return (uint)(iVar3 != 0);

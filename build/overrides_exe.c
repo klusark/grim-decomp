@@ -154,32 +154,6 @@ long double rdVector_Normalize3(float *out, float *v)
     return len;                                         /* in ST0, unrounded, as the original leaves it */
 }
 
-/* ==== stdMath_NormalizeAngle (0x0047bc20) ====
- * Angle in degrees brought into [0, 360).  By hand because of the test at the end: the original stores the result in a
- * float local and compares *that* with 360.0 (a value that rounds to 360.0f is turned into 0).  Compiled from Ghidra's
- * text, gcc -O2 compares the 80-bit register value instead, 360 comes through unchanged for angles just below a
- * multiple of 360 and the walker was "held up" on stairs.  The volatile store is the rounding to float.
- * A NaN input takes the negative branch (the x87 compare is unordered), as in the original. */
-float stdMath_NormalizeAngle(float degrees)
-{
-    volatile float result;
-    float t;
-
-    if (0.0f <= degrees) {
-        if (degrees < 360.0f)
-            return degrees;
-        result = degrees - Math_Floor(degrees / 360.0f) * 360.0f;
-    } else {
-        t = -degrees;
-        if (360.0f <= t)
-            t = t - Math_Floor(t / 360.0f) * 360.0f;
-        result = 360.0f - t;
-    }
-    if (result == 360.0f)
-        result = 0.0f;
-    return result;
-}
-
 /* ==== sputLua_GetShrinkPosition (0x00498ea0) ====
  * GetShrinkPos(x, y, z, amount) returns the point of the walk sectors, shrunk by `amount` metres, nearest to (x, y, z).
  * By hand because Ghidra splits the position into a float[2] and a separate z: the z never reaches the frame that

@@ -219,19 +219,19 @@ int __cdecl grimPlat_SpinDialog(int hwnd,int title,undefined4 *fields,uint count
   uint uVar1;
   short sVar2;
   int *piVar3;
+  uint *outSize;
   uint *puVar4;
-  uint *puVar5;
+  undefined4 *puVar5;
   undefined4 *puVar6;
-  undefined4 *puVar7;
   void *a3;
-  int iVar8;
+  int iVar7;
+  uint uVar8;
   uint uVar9;
-  uint uVar10;
-  int *piVar11;
-  undefined4 *puVar12;
-  int iVar13;
-  undefined4 *puVar14;
-  ushort uVar15;
+  int *piVar10;
+  undefined4 *puVar11;
+  int iVar12;
+  undefined4 *puVar13;
+  ushort uVar14;
   code *a4;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
@@ -244,89 +244,90 @@ int __cdecl grimPlat_SpinDialog(int hwnd,int title,undefined4 *fields,uint count
     _DAT_008c9848 = hwnd;
     _DAT_008c984c = title;
     UINT_008c9854 = count;
-    uVar10 = (count + 1) * 0xc;
-    piVar3 = (int *)malloc(uVar10);
-    puVar4 = (uint *)malloc(uVar10);
-    puVar5 = Dlg_MakeDialogTemplate
+    uVar9 = (count + 1) * 0xc;
+    piVar3 = (int *)malloc(uVar9);
+    outSize = (uint *)malloc(uVar9);
+    puVar4 = Dlg_MakeDialogTemplate
                        ((undefined4 *)0x90c80884,(short)(count + 1) * 3 - 1,0,0,0x8a,
-                        (short)count * 0x14 + 0x19,hwnd,((unsigned)(uintptr_t)&s_MS_Sans_Serif_004e8184),8,puVar4);
-    *piVar3 = (int)puVar5;
-    uVar10 = *puVar4;
-    iVar13 = 0;
+                        (short)count * 0x14 + 0x19,hwnd,((unsigned)(uintptr_t)&s_MS_Sans_Serif_004e8184),8,outSize);
+    *piVar3 = (int)puVar4;
+    uVar9 = *outSize;
+    iVar12 = 0;
     hwnd = 1;
     if (0 < (int)count) {
-      puVar5 = puVar4 + 1;
-      piVar11 = piVar3 + 1;
-      iVar8 = title - (int)fields;
+      puVar4 = outSize + 1;
+      piVar10 = piVar3 + 1;
+      iVar7 = title - (int)fields;
       do {
-        sVar2 = (short)iVar13;
-        uVar15 = sVar2 * 0x14 + 5;
-        puVar6 = Dlg_MakeItemTemplate
-                           (0x50000082,5,uVar15,0x32,0xe,sVar2 + 0x41e,*(int *)(iVar8 + (int)fields)
-                            ,((unsigned)(uintptr_t)&s_STATIC_004e817c),puVar5);
-        *piVar11 = (int)puVar6;
-        uVar9 = *puVar5;
+        sVar2 = (short)iVar12;
+        uVar14 = sVar2 * 0x14 + 5;
+        puVar5 = Dlg_MakeItemTemplate
+                           (0x50000082,5,uVar14,0x32,0xe,sVar2 + 0x41e,*(int *)(iVar7 + (int)fields)
+                            ,((unsigned)(uintptr_t)&s_STATIC_004e817c),puVar4);
+        *piVar10 = (int)puVar5;
+        uVar8 = *puVar4;
         sprintf(local_20,&DAT_004ddc18,*fields);
-        puVar6 = Dlg_MakeItemTemplate
-                           (0x50810003,0x41,uVar15,0x32,0xe,sVar2 + 0x3ec,(int)local_20,((unsigned)(uintptr_t)&DAT_004e8174),
-                            puVar5 + 1);
-        piVar11[1] = (int)puVar6;
-        uVar1 = puVar5[1];
-        puVar6 = Dlg_MakeItemTemplate
-                           (0x500000b6,0x55,uVar15,0x32,0xe,sVar2 + 0x450,0,((unsigned)(uintptr_t)&s_msctls_updown32_004e8164),puVar5 + 2);
-        piVar11[2] = (int)puVar6;
-        uVar10 = uVar10 + uVar9 + uVar1 + puVar5[2];
+        puVar5 = Dlg_MakeItemTemplate
+                           (0x50810003,0x41,uVar14,0x32,0xe,sVar2 + 0x3ec,(int)local_20,((unsigned)(uintptr_t)&DAT_004e8174),
+                            puVar4 + 1);
+        piVar10[1] = (int)puVar5;
+        uVar1 = puVar4[1];
+        puVar5 = Dlg_MakeItemTemplate
+                           (0x500000b6,0x55,uVar14,0x32,0xe,sVar2 + 0x450,0,((unsigned)(uintptr_t)&s_msctls_updown32_004e8164),puVar4 + 2);
+        piVar10[2] = (int)puVar5;
+        uVar9 = uVar9 + uVar8 + uVar1 + puVar4[2];
         hwnd = hwnd + 3;
-        piVar11 = piVar11 + 3;
-        puVar5 = puVar5 + 3;
-        iVar13 = iVar13 + 1;
+        piVar10 = piVar10 + 3;
+        puVar4 = puVar4 + 3;
+        iVar12 = iVar12 + 1;
         fields = fields + 1;
-      } while (iVar13 < (int)count);
+      } while (iVar12 < (int)count);
     }
-    uVar15 = (short)iVar13 * 0x14 + 5;
-    puVar6 = Dlg_MakeItemTemplate(0x50010001,5,uVar15,0x32,0xe,1,((unsigned)(uintptr_t)&DAT_004e8158),((unsigned)(uintptr_t)&s_BUTTON_004e815c),puVar4 + hwnd);
-    piVar3[hwnd] = (int)puVar6;
-    uVar9 = puVar4[hwnd];
-    iVar13 = hwnd + 1;
-    puVar6 = Dlg_MakeItemTemplate
-                       (0x50010000,0x41,uVar15,0x32,0xe,2,((unsigned)(uintptr_t)&s_Cancel_004e8150),((unsigned)(uintptr_t)&s_BUTTON_004e815c),puVar4 + iVar13);
-    piVar3[iVar13] = (int)puVar6;
+    uVar14 = (short)iVar12 * 0x14 + 5;
+    puVar5 = Dlg_MakeItemTemplate(0x50010001,5,uVar14,0x32,0xe,1,((unsigned)(uintptr_t)&DAT_004e8158),((unsigned)(uintptr_t)&s_BUTTON_004e815c),outSize + hwnd);
+    piVar3[hwnd] = (int)puVar5;
+    uVar8 = outSize[hwnd];
+    iVar12 = hwnd + 1;
+    puVar5 = Dlg_MakeItemTemplate
+                       (0x50010000,0x41,uVar14,0x32,0xe,2,((unsigned)(uintptr_t)&s_Cancel_004e8150),((unsigned)(uintptr_t)&s_BUTTON_004e815c),outSize + iVar12);
+    piVar3[iVar12] = (int)puVar5;
     hwnd = hwnd + 2;
-    puVar6 = (undefined4 *)malloc(uVar10 + uVar9 + puVar4[iVar13]);
+    puVar5 = (undefined4 *)malloc(uVar9 + uVar8 + outSize[iVar12]);
     if (0 < hwnd) {
-      puVar7 = puVar6;
-      piVar11 = piVar3;
+      puVar6 = puVar5;
+      piVar10 = piVar3;
       do {
-        uVar10 = *(uint *)(((int)puVar4 - (int)piVar3) + (int)piVar11);
-        puVar12 = (undefined4 *)*piVar11;
-        puVar14 = puVar7;
-        for (uVar9 = uVar10 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
-          *puVar14 = *puVar12;
-          puVar12 = puVar12 + 1;
-          puVar14 = puVar14 + 1;
+        uVar9 = *(uint *)(((int)outSize - (int)piVar3) + (int)piVar10);
+        puVar11 = (undefined4 *)*piVar10;
+        puVar13 = puVar6;
+        for (uVar8 = uVar9 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
+          *puVar13 = *puVar11;
+          puVar11 = puVar11 + 1;
+          puVar13 = puVar13 + 1;
         }
-        for (uVar10 = uVar10 & 3; uVar10 != 0; uVar10 = uVar10 - 1) {
-          *(undefined1 *)puVar14 = *(undefined1 *)puVar12;
-          puVar12 = (undefined4 *)((int)puVar12 + 1);
-          puVar14 = (undefined4 *)((int)puVar14 + 1);
+        for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
+          *(undefined1 *)puVar13 = *(undefined1 *)puVar11;
+          puVar11 = (undefined4 *)((int)puVar11 + 1);
+          puVar13 = (undefined4 *)((int)puVar13 + 1);
         }
-        puVar7 = (undefined4 *)((int)puVar7 + *(int *)(((int)puVar4 - (int)piVar3) + (int)piVar11));
-        free(*piVar11);
-        piVar11 = piVar11 + 1;
+        puVar6 = (undefined4 *)((int)puVar6 + *(int *)(((int)outSize - (int)piVar3) + (int)piVar10))
+        ;
+        free(*piVar10);
+        piVar10 = piVar10 + 1;
         hwnd = hwnd + -1;
       } while (hwnd != 0);
     }
-    iVar13 = 0;
+    iVar12 = 0;
     a4 = Plat_PromptDialogProc;
     a3 = Win_GetMainHwnd();
-    puVar7 = puVar6;
-    uVar10 = Win_GetInstance();
-    iVar13 = DialogBoxIndirectParamA(uVar10,(int)puVar7,(int)a3,(int)a4,iVar13);
-    free((int)puVar6);
+    puVar6 = puVar5;
+    uVar9 = Win_GetInstance();
+    iVar12 = DialogBoxIndirectParamA(uVar9,(int)puVar6,(int)a3,(int)a4,iVar12);
+    free((int)puVar5);
     free((int)piVar3);
-    free((int)puVar4);
+    free((int)outSize);
     UINT_004e814c = 1;
-    return (uint)(iVar13 == 1);
+    return (uint)(iVar12 == 1);
   }
   return 0;
 }

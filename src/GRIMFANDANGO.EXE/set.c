@@ -483,7 +483,7 @@ int __cdecl sputRoom_Save(void *writeFn)
       if (iVar4 != 0) {
         (*pcVar3)(&local_10,4);
         (*pcVar3)(&data->nCurSetup,4);
-        (*pcVar3)(&data->nLocked,4);
+        (*pcVar3)(&data->lockRef,4);
         fStack_4 = 0.0f;
         if (0 < data->nSetups) {
           do {
@@ -790,7 +790,7 @@ void __cdecl sputRoom_UnReference(Set *set)
   int iVar3;
   int iVar4;
   
-  if (set->nLocked == 0) {
+  if ((set->lockRef).nValid == 0) {
     if ((set->pColormaps != (ResRef *)0x0) && (iVar3 = 0, 0 < set->nColormaps)) {
       iVar4 = 0;
       do {

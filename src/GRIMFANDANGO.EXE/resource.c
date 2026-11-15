@@ -814,16 +814,16 @@ void __cdecl Resource_RebuildColormaps(void)
    (+0x24), locking it on the first one. Original name sputResource_MatLoader (the remaster's
    GrimFandango (Linux): aligned call in sputResource_Startup); was Resource_MaterialLoadHook. */
 
-void * __cdecl sputResource_MatLoader(char *name)
+rdMaterial * __cdecl sputResource_MatLoader(char *name)
 
 {
-  void *data;
+  rdMaterial *data;
   
   data = sputResource_Alloc(0x2054414d,name);
-  if ((data != (void *)0x0) && (*(int *)((int)data + 0x24) == 0)) {
+  if ((data != (rdMaterial *)0x0) && (data->nRefs == 0)) {
     Res_SetPurgable(data,0);
   }
-  *(int *)((int)data + 0x24) = *(int *)((int)data + 0x24) + 1;
+  data->nRefs = data->nRefs + 1;
   return data;
 }
 
@@ -832,14 +832,14 @@ void * __cdecl sputResource_MatLoader(char *name)
    the count reaches 0. Original name sputResource_MatUnloader (the remaster's GrimFandango (Linux):
    aligned call in sputResource_Startup); was Resource_MaterialFreeHook. */
 
-void __cdecl sputResource_MatUnloader(void *data)
+void __cdecl sputResource_MatUnloader(rdMaterial *material)
 
 {
-  if (*(int *)((int)data + 0x24) != 0) {
-    *(int *)((int)data + 0x24) = *(int *)((int)data + 0x24) + -1;
+  if (material->nRefs != 0) {
+    material->nRefs = material->nRefs + -1;
   }
-  if ((data != (void *)0x0) && (*(int *)((int)data + 0x24) == 0)) {
-    Res_SetPurgable(data,1);
+  if ((material != (rdMaterial *)0x0) && (material->nRefs == 0)) {
+    Res_SetPurgable(material,1);
   }
   return;
 }

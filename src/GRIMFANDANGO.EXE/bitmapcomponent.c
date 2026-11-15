@@ -11,7 +11,7 @@
    sputCostume_Startup through Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a bitmap key or
    asks for an image file (.pcx/.gif/.lbm) and loads it as a bitmap resource. */
 
-uint __cdecl BitmapRequester(uint cosInst,int tag,int parent,int type,char *param_5)
+uint __cdecl BitmapRequester(uint cosInst,int tag,int parent,int type,char *filename)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -41,7 +41,7 @@ uint __cdecl BitmapRequester(uint cosInst,int tag,int parent,int type,char *para
   local_2c = 0;
   local_28 = 0;
   local_24 = 0;
-  if (param_5 == (char *)0x0) {
+  if (filename == (char *)0x0) {
     if (g_bBitmapPath != '\0') {
       grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bBitmapPath));
     }
@@ -58,7 +58,7 @@ uint __cdecl BitmapRequester(uint cosInst,int tag,int parent,int type,char *para
     name = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   else {
-    strncpy(local_20,(uint *)param_5,0x1f);
+    strncpy(local_20,(uint *)filename,0x1f);
     local_1 = 0;
     name = (char *)strtok((byte *)local_20,&DAT_004ea52c);
   }
@@ -129,10 +129,10 @@ uint __cdecl BitmapRequester(uint cosInst,int tag,int parent,int type,char *para
     local_24 = (uint)(data + 0x60);
   }
   local_28 = -(uint)((char *)local_24 != (char *)0x0) & g_dwLECBitmaps;
-  if (param_5 == (char *)0x0) {
-    param_5 = name;
+  if (filename == (char *)0x0) {
+    filename = name;
   }
-  iVar7 = Cos_RegisterComponent(cosInst,(int)param_5,(int)ref,tag,parent,type,(int)&local_34);
+  iVar7 = Cos_RegisterComponent(cosInst,(int)filename,(int)ref,tag,parent,type,(int)&local_34);
   if (iVar7 != 0) {
     if (local_30 != 0) {
       (*g_pSputCosHS->pFree)(local_30);

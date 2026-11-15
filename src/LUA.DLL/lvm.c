@@ -524,7 +524,7 @@ void __cdecl adjust_varargs(int firstel)
    ran without a break_here() ...', 'WARNING: Lua nesting level now %d inside breakable section!');
    was luaV_execute. */
 
-int __fastcall ExecutionState_CrunchOpcodes(int *param_1)
+int __fastcall ExecutionState_CrunchOpcodes(int *state)
 
 {
   byte bVar1;
@@ -549,49 +549,49 @@ int __fastcall ExecutionState_CrunchOpcodes(int *param_1)
   }
   g_pLuaState->nNestingLevel = g_pLuaState->nNestingLevel + 1;
 switchD_1000dfaf_default:
-  iVar14 = param_1[10];
-  param_1[10] = iVar14 + 1;
+  iVar14 = state[10];
+  state[10] = iVar14 + 1;
   if (9999999 < iVar14) {
     lua_error((byte *)s_WARNING__Killing_Lua_script_that_100281c4);
   }
-  pbVar2 = (byte *)param_1[8];
+  pbVar2 = (byte *)state[8];
   bVar1 = *pbVar2;
   pbVar8 = pbVar2 + 1;
-  param_1[9] = (uint)bVar1;
-  param_1[8] = (int)pbVar8;
+  state[9] = (uint)bVar1;
+  state[8] = (int)pbVar8;
   switch((uint)bVar1) {
   case 0:
     goto switchD_1000dfaf_caseD_0;
   case 1:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     do {
-      **(undefined4 **)param_1[7] = 0xfffffff9;
-      *(int *)param_1[7] = *(int *)param_1[7] + 8;
-      iVar14 = param_1[9];
-      param_1[9] = iVar14 + -1;
+      **(undefined4 **)state[7] = 0xfffffff9;
+      *(int *)state[7] = *(int *)state[7] + 8;
+      iVar14 = state[9];
+      state[9] = iVar14 + -1;
     } while (iVar14 != 0);
     goto switchD_1000dfaf_default;
   case 2:
-    **(undefined4 **)param_1[7] = 0xfffffff9;
-    *(int *)param_1[7] = *(int *)param_1[7] + 8;
+    **(undefined4 **)state[7] = 0xfffffff9;
+    *(int *)state[7] = *(int *)state[7] + 8;
     goto switchD_1000dfaf_default;
   case 3:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     break;
   case 4:
   case 5:
   case 6:
-    param_1[9] = param_1[9] + -4;
+    state[9] = state[9] + -4;
     break;
   case 7:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
     break;
   case 8:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e1a7;
   case 9:
   case 10:
@@ -601,37 +601,37 @@ switchD_1000dfaf_default:
   case 0xe:
   case 0xf:
   case 0x10:
-    param_1[9] = param_1[9] + -9;
+    state[9] = state[9] + -9;
     goto LAB_1000e1a7;
   case 0x11:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e1a7:
-    iVar14 = param_1[9];
-    iVar11 = param_1[0xb];
-    puVar4 = *(undefined4 **)param_1[7];
+    iVar14 = state[9];
+    iVar11 = state[0xb];
+    puVar4 = *(undefined4 **)state[7];
     *puVar4 = *(undefined4 *)(iVar11 + iVar14 * 8);
     puVar4[1] = *(undefined4 *)(iVar11 + 4 + iVar14 * 8);
-    *(int *)param_1[7] = *(int *)param_1[7] + 8;
+    *(int *)state[7] = *(int *)state[7] + 8;
     goto switchD_1000dfaf_default;
   case 0x12:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e1da;
   case 0x13:
   case 0x14:
-    param_1[9] = param_1[9] + -0x13;
+    state[9] = state[9] + -0x13;
 LAB_1000e1da:
-    iVar14 = param_1[9];
-    iVar11 = *param_1;
-    puVar4 = *(undefined4 **)param_1[7];
+    iVar14 = state[9];
+    iVar11 = *state;
+    puVar4 = *(undefined4 **)state[7];
     *puVar4 = *(undefined4 *)(iVar11 + 0x14 + iVar14 * 8);
     puVar4[1] = *(undefined4 *)(iVar11 + 0x18 + iVar14 * 8);
-    *(int *)param_1[7] = *(int *)param_1[7] + 8;
+    *(int *)state[7] = *(int *)state[7] + 8;
     goto switchD_1000dfaf_default;
   case 0x15:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e058;
   case 0x16:
   case 0x17:
@@ -641,19 +641,19 @@ LAB_1000e1da:
   case 0x1b:
   case 0x1c:
   case 0x1d:
-    param_1[9] = param_1[9] + -0x16;
+    state[9] = state[9] + -0x16;
 LAB_1000e058:
-    iVar14 = param_1[2];
-    iVar11 = param_1[9];
-    iVar6 = ((int *)param_1[7])[1];
-    puVar4 = *(undefined4 **)param_1[7];
+    iVar14 = state[2];
+    iVar11 = state[9];
+    iVar6 = ((int *)state[7])[1];
+    puVar4 = *(undefined4 **)state[7];
     *puVar4 = *(undefined4 *)(iVar6 + (iVar14 + iVar11) * 8);
     puVar4[1] = *(undefined4 *)(iVar6 + 4 + (iVar14 + iVar11) * 8);
-    *(int *)param_1[7] = *(int *)param_1[7] + 8;
+    *(int *)state[7] = *(int *)state[7] + 8;
     goto switchD_1000dfaf_default;
   case 0x1e:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e0aa;
   case 0x1f:
   case 0x20:
@@ -663,19 +663,19 @@ LAB_1000e058:
   case 0x24:
   case 0x25:
   case 0x26:
-    param_1[9] = param_1[9] + -0x1f;
+    state[9] = state[9] + -0x1f;
     goto LAB_1000e0aa;
   case 0x27:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e0aa:
-    luaV_getglobal(*(TaggedString **)(param_1[0xb] + 4 + param_1[9] * 8));
+    luaV_getglobal(*(TaggedString **)(state[0xb] + 4 + state[9] * 8));
     goto switchD_1000dfaf_default;
   case 0x28:
     goto switchD_1000dfaf_caseD_28;
   case 0x29:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e0ed;
   case 0x2a:
   case 0x2b:
@@ -685,24 +685,24 @@ LAB_1000e0aa:
   case 0x2f:
   case 0x30:
   case 0x31:
-    param_1[9] = param_1[9] + -0x2a;
+    state[9] = state[9] + -0x2a;
     goto LAB_1000e0ed;
   case 0x32:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e0ed:
-    iVar14 = param_1[9];
-    iVar11 = param_1[0xb];
-    puVar4 = *(undefined4 **)param_1[7];
+    iVar14 = state[9];
+    iVar11 = state[0xb];
+    puVar4 = *(undefined4 **)state[7];
     *puVar4 = *(undefined4 *)(iVar11 + iVar14 * 8);
     puVar4[1] = *(undefined4 *)(iVar11 + 4 + iVar14 * 8);
-    *(int *)param_1[7] = *(int *)param_1[7] + 8;
+    *(int *)state[7] = *(int *)state[7] + 8;
 switchD_1000dfaf_caseD_28:
     luaV_gettable();
     goto switchD_1000dfaf_default;
   case 0x33:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e13f;
   case 0x34:
   case 0x35:
@@ -712,47 +712,47 @@ switchD_1000dfaf_caseD_28:
   case 0x39:
   case 0x3a:
   case 0x3b:
-    param_1[9] = param_1[9] + -0x34;
+    state[9] = state[9] + -0x34;
     goto LAB_1000e13f;
   case 0x3c:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e13f:
-    iVar14 = param_1[9];
-    puVar4 = *(undefined4 **)param_1[7];
-    iVar11 = param_1[0xb];
+    iVar14 = state[9];
+    puVar4 = *(undefined4 **)state[7];
+    iVar11 = state[0xb];
     uVar12 = puVar4[-2];
     uVar3 = puVar4[-1];
     *puVar4 = *(undefined4 *)(iVar11 + iVar14 * 8);
     puVar4[1] = *(undefined4 *)(iVar11 + 4 + iVar14 * 8);
-    *(int *)param_1[7] = *(int *)param_1[7] + 8;
+    *(int *)state[7] = *(int *)state[7] + 8;
     luaV_gettable();
-    puVar4 = *(undefined4 **)param_1[7];
+    puVar4 = *(undefined4 **)state[7];
     *puVar4 = uVar12;
     puVar4[1] = uVar3;
-    *(int *)param_1[7] = *(int *)param_1[7] + 8;
+    *(int *)state[7] = *(int *)state[7] + 8;
     goto switchD_1000dfaf_default;
   case 0x3d:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e420;
   case 0x3e:
   case 0x3f:
-    param_1[9] = param_1[9] + -0x3e;
+    state[9] = state[9] + -0x3e;
     goto LAB_1000e420;
   case 0x40:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e420:
     luaC_checkGC();
-    pHVar10 = luaH_new(param_1[9]);
-    *(Hash **)(*(int *)param_1[7] + 4) = pHVar10;
-    **(undefined4 **)param_1[7] = 0xfffffffd;
-    *(int *)param_1[7] = *(int *)param_1[7] + 8;
+    pHVar10 = luaH_new(state[9]);
+    *(Hash **)(*(int *)state[7] + 4) = pHVar10;
+    **(undefined4 **)state[7] = 0xfffffffd;
+    *(int *)state[7] = *(int *)state[7] + 8;
     goto switchD_1000dfaf_default;
   case 0x41:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e20d;
   case 0x42:
   case 0x43:
@@ -762,19 +762,19 @@ LAB_1000e420:
   case 0x47:
   case 0x48:
   case 0x49:
-    param_1[9] = param_1[9] + -0x42;
+    state[9] = state[9] + -0x42;
 LAB_1000e20d:
-    *(int *)param_1[7] = *(int *)param_1[7] + -8;
-    iVar14 = param_1[2];
-    iVar11 = param_1[9];
-    puVar4 = *(undefined4 **)param_1[7];
-    iVar6 = ((int *)param_1[7])[1];
+    *(int *)state[7] = *(int *)state[7] + -8;
+    iVar14 = state[2];
+    iVar11 = state[9];
+    puVar4 = *(undefined4 **)state[7];
+    iVar6 = ((int *)state[7])[1];
     *(undefined4 *)(iVar6 + (iVar14 + iVar11) * 8) = *puVar4;
     *(undefined4 *)(iVar6 + 4 + (iVar14 + iVar11) * 8) = puVar4[1];
     goto switchD_1000dfaf_default;
   case 0x4a:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e263;
   case 0x4b:
   case 0x4c:
@@ -784,81 +784,81 @@ LAB_1000e20d:
   case 0x50:
   case 0x51:
   case 0x52:
-    param_1[9] = param_1[9] + -0x4b;
+    state[9] = state[9] + -0x4b;
     goto LAB_1000e263;
   case 0x53:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e263:
-    luaV_setglobal(*(TaggedString **)(param_1[0xb] + 4 + param_1[9] * 8));
+    luaV_setglobal(*(TaggedString **)(state[0xb] + 4 + state[9] * 8));
     goto switchD_1000dfaf_default;
   case 0x54:
-    luaV_settable((TObject *)(*(int *)param_1[7] + -0x18),1);
+    luaV_settable((TObject *)(*(int *)state[7] + -0x18),1);
     goto switchD_1000dfaf_default;
   case 0x55:
     bVar1 = *pbVar8;
-    iVar14 = *(int *)param_1[7];
-    param_1[8] = (int)(pbVar2 + 2);
+    iVar14 = *(int *)state[7];
+    state[8] = (int)(pbVar2 + 2);
     luaV_settable((TObject *)(iVar14 - ((uint)bVar1 * 8 + 0x18)),2);
     goto switchD_1000dfaf_default;
   case 0x56:
-    param_1[9] = (uint)*pbVar8 << 6;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8 << 6;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e2ed;
   case 0x57:
-    param_1[9] = 0;
+    state[9] = 0;
     goto LAB_1000e2ed;
   case 0x58:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = ((uint)pbVar2[1] + (uint)pbVar2[2] * 0x100) * 0x40;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = ((uint)pbVar2[1] + (uint)pbVar2[2] * 0x100) * 0x40;
 LAB_1000e2ed:
-    uVar16 = (uint)*(byte *)param_1[8];
-    param_1[8] = (int)((byte *)param_1[8] + 1);
-    iVar11 = *(int *)param_1[7];
+    uVar16 = (uint)*(byte *)state[8];
+    state[8] = (int)((byte *)state[8] + 1);
+    iVar11 = *(int *)state[7];
     iVar14 = uVar16 * 8;
     for (; uVar16 != 0; uVar16 = uVar16 - 1) {
-      **(undefined4 **)param_1[7] = 0xffffffff;
-      *(float *)(*(int *)param_1[7] + 4) = (float)(int)uVar16 + (float)param_1[9];
-      pTVar9 = *(TObject **)param_1[7];
+      **(undefined4 **)state[7] = 0xffffffff;
+      *(float *)(*(int *)state[7] + 4) = (float)(int)uVar16 + (float)state[9];
+      pTVar9 = *(TObject **)state[7];
       iVar6 = pTVar9[-1].nTtype;
       uVar5 = pTVar9[-1].dwValue;
       pTVar9 = luaH_set(*(Hash **)((iVar11 - (iVar14 + 8)) + 4),pTVar9);
       pTVar9->nTtype = iVar6;
       pTVar9->dwValue = uVar5;
-      *(int *)param_1[7] = *(int *)param_1[7] + -8;
+      *(int *)state[7] = *(int *)state[7] + -8;
     }
     goto switchD_1000dfaf_default;
   case 0x59:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e37f;
   case 0x5a:
-    param_1[9] = 0;
+    state[9] = 0;
 LAB_1000e37f:
-    iVar14 = param_1[9];
-    iVar11 = *(int *)param_1[7];
+    iVar14 = state[9];
+    iVar11 = *(int *)state[7];
     do {
-      iVar6 = *(int *)param_1[7];
+      iVar6 = *(int *)state[7];
       iVar7 = *(int *)(iVar6 + -8);
       uVar16 = *(uint *)(iVar6 + -4);
       pTVar9 = luaH_set(*(Hash **)(iVar11 + iVar14 * -0x10 + -0x14),(TObject *)(iVar6 + -0x10));
       pTVar9->nTtype = iVar7;
       pTVar9->dwValue = uVar16;
-      *(int *)param_1[7] = *(int *)param_1[7] + -0x10;
-      iVar6 = param_1[9];
-      param_1[9] = iVar6 + -1;
+      *(int *)state[7] = *(int *)state[7] + -0x10;
+      iVar6 = state[9];
+      state[9] = iVar6 + -1;
     } while (iVar6 != 0);
     goto switchD_1000dfaf_default;
   case 0x5b:
   case 0x5c:
-    uVar16 = luaO_equalObj((TObject *)(*(int *)param_1[7] + -0x10),
-                           (TObject *)(*(int *)param_1[7] + -8));
-    *(int *)param_1[7] = *(int *)param_1[7] + -8;
-    if (param_1[9] == 0x5c) {
+    uVar16 = luaO_equalObj((TObject *)(*(int *)state[7] + -0x10),(TObject *)(*(int *)state[7] + -8))
+    ;
+    *(int *)state[7] = *(int *)state[7] + -8;
+    if (state[9] == 0x5c) {
       uVar16 = (uint)(uVar16 == 0);
     }
-    *(uint *)(*(int *)param_1[7] + -8) = (-(uint)(uVar16 != 0) & 6) - 7;
-    *(undefined4 *)(*(int *)param_1[7] + -4) = 0x3f800000;
+    *(uint *)(*(int *)state[7] + -8) = (-(uint)(uVar16 != 0) & 6) - 7;
+    *(undefined4 *)(*(int *)state[7] + -4) = 0x3f800000;
     goto switchD_1000dfaf_default;
   case 0x5d:
     comparison(-1,-7,-7,0xb);
@@ -873,52 +873,52 @@ LAB_1000e37f:
     comparison(-7,-1,-1,0xe);
     goto switchD_1000dfaf_default;
   case 0x61:
-    iVar14 = *(int *)param_1[7];
+    iVar14 = *(int *)state[7];
     if (((*(int *)(iVar14 + -8) == -1) ||
         (iVar11 = luaV_tonumber((int *)(iVar14 + -8)), iVar11 == 0)) &&
        ((*(int *)(iVar14 + -0x10) == -1 ||
         (iVar11 = luaV_tonumber((int *)(iVar14 + -0x10)), iVar11 == 0)))) {
       *(float *)(iVar14 + -0xc) = *(float *)(iVar14 + -4) + *(float *)(iVar14 + -0xc);
-      *(int *)param_1[7] = *(int *)param_1[7] + -8;
+      *(int *)state[7] = *(int *)state[7] + -8;
     }
     else {
       call_arith(5);
     }
     goto switchD_1000dfaf_default;
   case 0x62:
-    iVar14 = *(int *)param_1[7];
+    iVar14 = *(int *)state[7];
     if (((*(int *)(iVar14 + -8) == -1) ||
         (iVar11 = luaV_tonumber((int *)(iVar14 + -8)), iVar11 == 0)) &&
        ((*(int *)(iVar14 + -0x10) == -1 ||
         (iVar11 = luaV_tonumber((int *)(iVar14 + -0x10)), iVar11 == 0)))) {
       *(float *)(iVar14 + -0xc) = *(float *)(iVar14 + -0xc) - *(float *)(iVar14 + -4);
-      *(int *)param_1[7] = *(int *)param_1[7] + -8;
+      *(int *)state[7] = *(int *)state[7] + -8;
     }
     else {
       call_arith(6);
     }
     goto switchD_1000dfaf_default;
   case 99:
-    iVar14 = *(int *)param_1[7];
+    iVar14 = *(int *)state[7];
     if (((*(int *)(iVar14 + -8) == -1) ||
         (iVar11 = luaV_tonumber((int *)(iVar14 + -8)), iVar11 == 0)) &&
        ((*(int *)(iVar14 + -0x10) == -1 ||
         (iVar11 = luaV_tonumber((int *)(iVar14 + -0x10)), iVar11 == 0)))) {
       *(float *)(iVar14 + -0xc) = *(float *)(iVar14 + -4) * *(float *)(iVar14 + -0xc);
-      *(int *)param_1[7] = *(int *)param_1[7] + -8;
+      *(int *)state[7] = *(int *)state[7] + -8;
     }
     else {
       call_arith(7);
     }
     goto switchD_1000dfaf_default;
   case 100:
-    iVar14 = *(int *)param_1[7];
+    iVar14 = *(int *)state[7];
     if (((*(int *)(iVar14 + -8) == -1) ||
         (iVar11 = luaV_tonumber((int *)(iVar14 + -8)), iVar11 == 0)) &&
        ((*(int *)(iVar14 + -0x10) == -1 ||
         (iVar11 = luaV_tonumber((int *)(iVar14 + -0x10)), iVar11 == 0)))) {
       *(float *)(iVar14 + -0xc) = *(float *)(iVar14 + -0xc) / *(float *)(iVar14 + -4);
-      *(int *)param_1[7] = *(int *)param_1[7] + -8;
+      *(int *)state[7] = *(int *)state[7] + -8;
     }
     else {
       call_arith(8);
@@ -928,7 +928,7 @@ LAB_1000e37f:
     call_arith(9);
     goto switchD_1000dfaf_default;
   case 0x66:
-    iVar14 = *(int *)param_1[7];
+    iVar14 = *(int *)state[7];
     if (((*(int *)(iVar14 + -0x10) == -2) ||
         (iVar11 = luaV_tostring((int *)(iVar14 + -0x10)), iVar11 == 0)) &&
        ((*(int *)(iVar14 + -8) == -2 || (iVar11 = luaV_tostring((int *)(iVar14 + -8)), iVar11 == 0))
@@ -936,7 +936,7 @@ LAB_1000e37f:
       uVar12 = strconc((char *)(*(int *)(iVar14 + -0xc) + 0x18),
                        (char *)(*(int *)(iVar14 + -4) + 0x18));
       *(undefined4 *)(iVar14 + -0xc) = uVar12;
-      *(int *)param_1[7] = *(int *)param_1[7] + -8;
+      *(int *)state[7] = *(int *)state[7] + -8;
       luaC_checkGC();
     }
     else {
@@ -945,179 +945,179 @@ LAB_1000e37f:
     }
     goto switchD_1000dfaf_default;
   case 0x67:
-    if ((*(int *)(*(int *)param_1[7] + -8) == -1) ||
-       (iVar14 = luaV_tonumber((int *)(*(int *)param_1[7] + -8)), iVar14 == 0)) {
-      *(float *)(*(int *)param_1[7] + -4) = -*(float *)(*(int *)param_1[7] + -4);
+    if ((*(int *)(*(int *)state[7] + -8) == -1) ||
+       (iVar14 = luaV_tonumber((int *)(*(int *)state[7] + -8)), iVar14 == 0)) {
+      *(float *)(*(int *)state[7] + -4) = -*(float *)(*(int *)state[7] + -4);
     }
     else {
-      **(undefined4 **)param_1[7] = 0xfffffff9;
-      *(int *)param_1[7] = *(int *)param_1[7] + 8;
+      **(undefined4 **)state[7] = 0xfffffff9;
+      *(int *)state[7] = *(int *)state[7] + 8;
       call_arith(10);
     }
     goto switchD_1000dfaf_default;
   case 0x68:
-    *(uint *)(*(int *)param_1[7] + -8) =
-         (-(uint)(*(int *)(*(int *)param_1[7] + -8) != -7) & 0xfffffffa) - 1;
-    *(undefined4 *)(*(int *)param_1[7] + -4) = 0x3f800000;
+    *(uint *)(*(int *)state[7] + -8) =
+         (-(uint)(*(int *)(*(int *)state[7] + -8) != -7) & 0xfffffffa) - 1;
+    *(undefined4 *)(*(int *)state[7] + -4) = 0x3f800000;
     goto switchD_1000dfaf_default;
   case 0x69:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e756;
   case 0x6a:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e756:
-    piVar13 = (int *)param_1[7];
+    piVar13 = (int *)state[7];
     piVar15 = (int *)(*piVar13 + -8);
     if (*piVar15 == -7) {
 LAB_1000e7b5:
       *piVar13 = (int)piVar15;
     }
     else {
-      param_1[8] = param_1[8] + param_1[9];
+      state[8] = state[8] + state[9];
     }
     goto switchD_1000dfaf_default;
   case 0x6b:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e798;
   case 0x6c:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e798:
-    piVar13 = (int *)param_1[7];
+    piVar13 = (int *)state[7];
     piVar15 = (int *)(*piVar13 + -8);
     if (*piVar15 != -7) goto LAB_1000e7b5;
-    param_1[8] = param_1[8] + param_1[9];
+    state[8] = state[8] + state[9];
     goto switchD_1000dfaf_default;
   case 0x6d:
     bVar1 = *pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
-    param_1[9] = (uint)bVar1;
-    param_1[8] = (int)(pbVar2 + 2 + bVar1);
+    state[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)bVar1;
+    state[8] = (int)(pbVar2 + 2 + bVar1);
     goto switchD_1000dfaf_default;
   case 0x6e:
-    param_1[8] = (int)(pbVar2 + 3);
+    state[8] = (int)(pbVar2 + 3);
     iVar14 = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
-    param_1[9] = iVar14;
-    param_1[8] = (int)(pbVar2 + 3 + iVar14);
+    state[9] = iVar14;
+    state[8] = (int)(pbVar2 + 3 + iVar14);
     goto switchD_1000dfaf_default;
   case 0x6f:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e81c;
   case 0x70:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e81c:
-    *(int *)param_1[7] = *(int *)param_1[7] + -8;
-    if (**(int **)param_1[7] == -7) {
-      param_1[8] = param_1[8] + param_1[9];
+    *(int *)state[7] = *(int *)state[7] + -8;
+    if (**(int **)state[7] == -7) {
+      state[8] = state[8] + state[9];
     }
     goto switchD_1000dfaf_default;
   case 0x71:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e869;
   case 0x72:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e869:
-    *(int *)param_1[7] = *(int *)param_1[7] + -8;
-    if (**(int **)param_1[7] != -7) {
-      param_1[8] = param_1[8] - param_1[9];
+    *(int *)state[7] = *(int *)state[7] + -8;
+    if (**(int **)state[7] != -7) {
+      state[8] = state[8] - state[9];
     }
     goto switchD_1000dfaf_default;
   case 0x73:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e8b6;
   case 0x74:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e8b6:
-    *(int *)param_1[7] = *(int *)param_1[7] + -8;
-    if (**(int **)param_1[7] == -7) {
-      param_1[8] = param_1[8] - param_1[9];
+    *(int *)state[7] = *(int *)state[7] + -8;
+    if (**(int **)state[7] == -7) {
+      state[8] = state[8] - state[9];
     }
     goto switchD_1000dfaf_default;
   case 0x75:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e8ef;
   case 0x76:
   case 0x77:
-    param_1[9] = param_1[9] + -0x76;
+    state[9] = state[9] + -0x76;
 LAB_1000e8ef:
-    luaV_closure(param_1[9]);
+    luaV_closure(state[9]);
     luaC_checkGC();
     goto switchD_1000dfaf_default;
   case 0x78:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e9a0;
   case 0x79:
   case 0x7a:
-    param_1[9] = param_1[9] + -0x79;
+    state[9] = state[9] + -0x79;
 LAB_1000e9a0:
-    iVar14 = *(int *)param_1[7];
-    iVar11 = ((int *)param_1[7])[1];
-    bVar1 = *(byte *)param_1[8];
-    param_1[8] = (int)((byte *)param_1[8] + 1);
+    iVar14 = *(int *)state[7];
+    iVar11 = ((int *)state[7])[1];
+    bVar1 = *(byte *)state[8];
+    state[8] = (int)((byte *)state[8] + 1);
     iVar14 = -((iVar14 - iVar11 >> 3) - (uint)bVar1);
     goto LAB_1000e9fd;
   case 0x7b:
     goto switchD_1000dfaf_caseD_7b;
   case 0x7c:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e92a;
   case 0x7d:
-    param_1[8] = (int)(pbVar2 + 3);
-    param_1[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
+    state[8] = (int)(pbVar2 + 3);
+    state[9] = (uint)pbVar2[1] + (uint)pbVar2[2] * 0x100;
 LAB_1000e92a:
-    iVar14 = ((int *)param_1[7])[1];
-    if (*(int *)(iVar14 + -8 + param_1[2] * 8) != -0xc) {
-      luaD_openstack((*(int *)param_1[7] - iVar14 >> 3) - param_1[2]);
-      iVar14 = param_1[2];
-      param_1[2] = iVar14 + 1;
-      *(undefined4 *)(*(int *)(param_1[7] + 4) + -8 + (iVar14 + 1) * 8) = 0xfffffff4;
+    iVar14 = ((int *)state[7])[1];
+    if (*(int *)(iVar14 + -8 + state[2] * 8) != -0xc) {
+      luaD_openstack((*(int *)state[7] - iVar14 >> 3) - state[2]);
+      iVar14 = state[2];
+      state[2] = iVar14 + 1;
+      *(undefined4 *)(*(int *)(state[7] + 4) + -8 + (iVar14 + 1) * 8) = 0xfffffff4;
     }
-    *(int *)(*(int *)(param_1[7] + 4) + -4 + param_1[2] * 8) = param_1[9];
+    *(int *)(*(int *)(state[7] + 4) + -4 + state[2] * 8) = state[9];
     if (lua_linehook != 0) {
-      luaD_lineHook(param_1[9]);
+      luaD_lineHook(state[9]);
     }
     goto switchD_1000dfaf_default;
   case 0x7e:
-    param_1[9] = (uint)*pbVar8;
-    param_1[8] = (int)(pbVar2 + 2);
+    state[9] = (uint)*pbVar8;
+    state[8] = (int)(pbVar2 + 2);
     goto LAB_1000e3dc;
   case 0x7f:
   case 0x80:
-    param_1[9] = param_1[9] + -0x7f;
+    state[9] = state[9] + -0x7f;
 LAB_1000e3dc:
-    *(int *)param_1[7] = *(int *)param_1[7] + (-1 - param_1[9]) * 8;
+    *(int *)state[7] = *(int *)state[7] + (-1 - state[9]) * 8;
   default:
     goto switchD_1000dfaf_default;
   }
-  **(undefined4 **)param_1[7] = 0xffffffff;
-  *(float *)(*(int *)param_1[7] + 4) = (float)param_1[9];
-  *(int *)param_1[7] = *(int *)param_1[7] + 8;
+  **(undefined4 **)state[7] = 0xffffffff;
+  *(float *)(*(int *)state[7] + 4) = (float)state[9];
+  *(int *)state[7] = *(int *)state[7] + 8;
   goto switchD_1000dfaf_default;
 switchD_1000dfaf_caseD_0:
-  *(int *)param_1[7] = ((int *)param_1[7])[1] + param_1[2] * 8;
+  *(int *)state[7] = ((int *)state[7])[1] + state[2] * 8;
 switchD_1000dfaf_caseD_7b:
   if (lua_callhook != 0) {
-    luaD_callHook(param_1[2],0,1);
+    luaD_callHook(state[2],0,1);
   }
-  if (param_1[9] == 0x7b) {
-    uVar16 = (uint)*(byte *)param_1[8];
+  if (state[9] == 0x7b) {
+    uVar16 = (uint)*(byte *)state[8];
   }
   else {
     uVar16 = 0;
   }
-  iVar14 = param_1[2] + uVar16;
+  iVar14 = state[2] + uVar16;
 LAB_1000e9fd:
   g_pLuaState->nNestingLevel = g_pLuaState->nNestingLevel + -1;
   return iVar14;

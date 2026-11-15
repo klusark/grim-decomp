@@ -134,14 +134,14 @@ undefined4 DpConcludeRestore(void)
 /* Original name DpStartSound (the remaster's GrimFandango (Linux): aligned call in TrStartSound);
    was iMUSE_Dispatch__2170. */
 
-undefined4 __cdecl DpStartSound(int param_1,uint group)
+undefined4 __cdecl DpStartSound(int track,uint group)
 
 {
   int *dp;
   uint *puVar1;
   int iVar2;
   
-  dp = *(int **)(param_1 + 8);
+  dp = *(int **)(track + 8);
   dp[0x20b] = 0;
   *(undefined1 *)(dp + 7) = 0;
   dp[6] = 0;
@@ -150,7 +150,7 @@ undefined4 __cdecl DpStartSound(int param_1,uint group)
     dp[0x207] = 0;
   }
   else {
-    puVar1 = StStartStream(*(uint *)(param_1 + 0xc),group,0x4000);
+    puVar1 = StStartStream(*(uint *)(track + 0xc),group,0x4000);
     dp[0x207] = (int)puVar1;
     if (puVar1 == (uint *)0x0) {
       return 0xffffffff;
@@ -299,24 +299,24 @@ int __cdecl ConvertMap(undefined4 *src,undefined4 *dst)
 /* ---- 0x100030d0  iMUSE_Dispatch__30d0 ---- */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
-uint __cdecl iMUSE_Dispatch__30d0(int param_1,int param_2,int param_3)
+uint __cdecl iMUSE_Dispatch__30d0(int map,int id,int prev)
 
 {
   uint uVar1;
   
-  if (param_3 == 0) {
-    uVar1 = param_1 + 8;
+  if (prev == 0) {
+    uVar1 = map + 8;
     do {
-      if (*(int *)(uVar1 + 8) == param_2) {
+      if (*(int *)(uVar1 + 8) == id) {
         return uVar1;
       }
       uVar1 = uVar1 + 8 + *(int *)(uVar1 + 4);
-    } while (uVar1 < (uint)(*(int *)(param_1 + 4) + 8 + param_1));
+    } while (uVar1 < (uint)(*(int *)(map + 4) + 8 + map));
   }
   else {
-    uVar1 = *(int *)(param_3 + 4) + 8 + param_3;
-    if (uVar1 < (uint)(*(int *)(param_1 + 4) + 8 + param_1)) {
-      return uVar1 & (*(int *)(uVar1 + 8) != param_2) - 1;
+    uVar1 = *(int *)(prev + 4) + 8 + prev;
+    if (uVar1 < (uint)(*(int *)(map + 4) + 8 + map)) {
+      return uVar1 & (*(int *)(uVar1 + 8) != id) - 1;
     }
   }
   return 0;
@@ -366,7 +366,7 @@ void __cdecl PredictStream(int *dp)
 /* WARNING: Removing unreachable block (ram,0x10003234) */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
-int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *predictStream_jumpHook)
+int * __cdecl iMUSE_Dispatch__31d0(int *map,int region,int *predictStream_jumpHook)
 
 {
   uint uVar1;
@@ -375,12 +375,12 @@ int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *predictStream_j
   int iVar4;
   int *piVar5;
   
-  uVar1 = *(uint *)(param_2 + 0xc);
-  iVar2 = param_1[1];
-  iVar3 = *(int *)(param_2 + 0x10);
-  piVar5 = param_1 + 2;
+  uVar1 = *(uint *)(region + 0xc);
+  iVar2 = map[1];
+  iVar3 = *(int *)(region + 0x10);
+  piVar5 = map + 2;
   while( true ) {
-    if ((int *)(iVar2 + 8 + (int)param_1) <= piVar5) {
+    if ((int *)(iVar2 + 8 + (int)map) <= piVar5) {
       return (int *)0x0;
     }
     if ((((*piVar5 == 0x4a554d50) && (uVar1 < (uint)piVar5[2])) &&
@@ -479,28 +479,28 @@ void __cdecl PrepareToJump(int *format,undefined4 *region,int jump,int now)
 /* ---- 0x10003430  iMUSE_Dispatch__3430 ---- */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
-void __cdecl iMUSE_Dispatch__3430(int *param_1,int param_2)
+void __cdecl iMUSE_Dispatch__3430(int *dispatch,int region)
 
 {
   int *head;
   int iVar1;
   uint offset;
   
-  head = (int *)(param_2 + 4);
-  if (*(int *)(param_2 + 4) != 0) {
-    offset = *(uint *)(param_2 + 0x10);
-    for (iVar1 = param_1[0x209]; iVar1 != param_2; iVar1 = *(int *)(iVar1 + 4)) {
+  head = (int *)(region + 4);
+  if (*(int *)(region + 4) != 0) {
+    offset = *(uint *)(region + 0x10);
+    for (iVar1 = dispatch[0x209]; iVar1 != region; iVar1 = *(int *)(iVar1 + 4)) {
       offset = offset + *(int *)(iVar1 + 0x10);
     }
-    StEraseFromMid(param_1[0x207],offset);
+    StEraseFromMid(dispatch[0x207],offset);
     iVar1 = *head;
     while (iVar1 != 0) {
       *(undefined4 *)(iVar1 + 8) = 0;
       UtRemoveFromList(head,(int *)*head);
       iVar1 = *head;
     }
-    StSpliceStream((undefined4 *)param_1[0x207],*(undefined4 *)(*param_1 + 0xc),
-                   *(int *)(param_2 + 0xc) + *(int *)(param_2 + 0x10));
+    StSpliceStream((undefined4 *)dispatch[0x207],*(undefined4 *)(*dispatch + 0xc),
+                   *(int *)(region + 0xc) + *(int *)(region + 0x10));
   }
   return;
 }
@@ -508,42 +508,42 @@ void __cdecl iMUSE_Dispatch__3430(int *param_1,int param_2)
 /* ---- 0x100034b0  iMUSE_Dispatch__34b0 ---- */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
-int __cdecl iMUSE_Dispatch__34b0(int *param_1)
+int __cdecl iMUSE_Dispatch__34b0(int *dispatch)
 
 {
   int iVar1;
   uint uVar2;
   
-  iVar1 = *(int *)(*param_1 + 0x20);
-  if (param_1[0x214] == 0) {
-    uVar2 = param_1[0x20d];
+  iVar1 = *(int *)(*dispatch + 0x20);
+  if (dispatch[0x214] == 0) {
+    uVar2 = dispatch[0x20d];
     if (uVar2 < 2) {
       uVar2 = 2;
     }
-    param_1[0x214] = -(int)(0x7f0000 / (ulonglong)uVar2);
+    dispatch[0x214] = -(int)(0x7f0000 / (ulonglong)uVar2);
   }
-  return (0x80 - (param_1[0x213] >> 0x10)) * iVar1 >> 7;
+  return (0x80 - (dispatch[0x213] >> 0x10)) * iVar1 >> 7;
 }
 
 /* ---- 0x10003510  iMUSE_Dispatch__3510 ---- */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
-int __cdecl iMUSE_Dispatch__3510(int *param_1,int param_2)
+int __cdecl iMUSE_Dispatch__3510(int *dispatch,int count)
 
 {
   int iVar1;
   int iVar2;
   int iVar3;
   
-  iVar1 = param_1[0x213];
-  iVar2 = *(int *)(*param_1 + 0x20);
-  iVar3 = iVar1 + param_1[0x214] * param_2;
-  param_1[0x213] = iVar3;
+  iVar1 = dispatch[0x213];
+  iVar2 = *(int *)(*dispatch + 0x20);
+  iVar3 = iVar1 + dispatch[0x214] * count;
+  dispatch[0x213] = iVar3;
   if (iVar3 < 0) {
-    param_1[0x213] = 0;
+    dispatch[0x213] = 0;
   }
-  if (0x7f0000 < param_1[0x213]) {
-    param_1[0x213] = 0x7f0000;
+  if (0x7f0000 < dispatch[0x213]) {
+    dispatch[0x213] = 0x7f0000;
   }
   return iVar2 * ((iVar1 >> 0x10) + 1) >> 7;
 }
@@ -578,16 +578,16 @@ undefined4 * iMUSE_Dispatch__3570(void)
 /* ---- 0x100035a0  iMUSE_Dispatch__35a0 ---- */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
-int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
+int __cdecl iMUSE_Dispatch__35a0(uint *size)
 
 {
   int iVar1;
   int *piVar2;
   
-  if (g_dwImLargeFadeSize < *param_1) {
-    *param_1 = g_dwImLargeFadeSize;
+  if (g_dwImLargeFadeSize < *size) {
+    *size = g_dwImLargeFadeSize;
   }
-  if (g_dwImSmallFadeSize < *param_1) {
+  if (g_dwImSmallFadeSize < *size) {
     iVar1 = 0;
     piVar2 = PTR_10024dc8;
     if (0 < g_dwImLargeFadeCount) {
@@ -600,7 +600,7 @@ int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
         piVar2 = piVar2 + 1;
       } while (iVar1 < g_dwImLargeFadeCount);
     }
-    *param_1 = g_dwImSmallFadeSize;
+    *size = g_dwImSmallFadeSize;
   }
   iVar1 = 0;
   piVar2 = g_pSmallFadeFlags;
@@ -621,7 +621,7 @@ int __cdecl iMUSE_Dispatch__35a0(uint *param_1)
 /* ---- 0x10003640  iMUSE_Dispatch__3640 ---- */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
-void __cdecl iMUSE_Dispatch__3640(int param_1)
+void __cdecl iMUSE_Dispatch__3640(int buf)
 
 {
   int iVar1;
@@ -631,7 +631,7 @@ void __cdecl iMUSE_Dispatch__3640(int param_1)
   iVar2 = g_dwLargeFadeBufs;
   if (0 < g_dwImLargeFadeCount) {
     do {
-      if (param_1 == iVar2) {
+      if (buf == iVar2) {
         PTR_10024dc8[iVar1] = 0;
         return;
       }
@@ -642,7 +642,7 @@ void __cdecl iMUSE_Dispatch__3640(int param_1)
   iVar1 = 0;
   iVar2 = g_dwSmallFadeBufs;
   if (0 < g_dwImSmallFadeCount) {
-    while (param_1 != iVar2) {
+    while (buf != iVar2) {
       iVar1 = iVar1 + 1;
       iVar2 = iVar2 + g_dwImSmallFadeSize;
       if (g_dwImSmallFadeCount <= iVar1) {

@@ -5534,11 +5534,11 @@ void __cdecl sputLua_ConcatFallback(void)
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   uint uVar2;
-  void *pvVar3;
+  rdThing *prVar3;
   int iVar4;
   char *fmt;
   Actor *pAVar5;
-  undefined1 *puVar6;
+  rdModel3 *prVar6;
   uint uVar7;
   uint *puVar8;
   int iVar9;
@@ -5589,13 +5589,13 @@ LAB_0049d34b:
         iVar4 = lua_getuserdata(uVar2);
         pAVar5 = sputActor_ActorDeref(iVar4);
         if ((pAVar5->pCostumes == (CostumeNode *)0x0) ||
-           (pvVar3 = pAVar5->pCostumes->pMainModel, pvVar3 == (void *)0x0)) {
-          puVar6 = &DAT_004f5a98;
+           (prVar3 = pAVar5->pCostumes->pMainModel, prVar3 == (rdThing *)0x0)) {
+          prVar6 = (rdModel3 *)&DAT_004f5a98;
         }
         else {
-          puVar6 = *(undefined1 **)((int)pvVar3 + 4);
+          prVar6 = prVar3->pModel;
         }
-        sprintf(pcVar10,s__actor_d__s__004ec494,iVar4,puVar6);
+        sprintf(pcVar10,s__actor_d__s__004ec494,iVar4,prVar6);
       }
       else {
         sprintf(pcVar10,s__nil__004ec4a4);
@@ -6130,7 +6130,8 @@ void __cdecl sputLua_GetCurrentSetupL(void)
   byte *pbVar4;
   Set *pSVar5;
   char *pcVar6;
-  void *pvVar7;
+  Set *pvVar7;
+  void *pvVar8;
   uint local_10;
   uint local_4;
   
@@ -6152,10 +6153,10 @@ void __cdecl sputLua_GetCurrentSetupL(void)
     }
     pcVar6 = (char *)lua_getstring(iVar1);
     pvVar7 = Res_Loaded(0x20544553,pcVar6);
-    if (pvVar7 != (void *)0x0) {
+    if (pvVar7 != (Set *)0x0) {
       pcVar6 = (char *)lua_getstring(iVar1);
-      pvVar7 = sputResource_Alloc(0x20544553,pcVar6);
-      lua_pushnumber((float)*(int *)((int)pvVar7 + 0xb4));
+      pvVar8 = sputResource_Alloc(0x20544553,pcVar6);
+      lua_pushnumber((float)*(int *)((int)pvVar8 + 0xb4));
     }
   }
   return;
@@ -6194,16 +6195,15 @@ void __cdecl sputLua_LockSet(void)
   int iVar1;
   int iVar2;
   char *name;
-  void *data;
+  Set *data;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
     name = (char *)lua_getstring(iVar1);
     data = sputResource_Alloc(0x20544553,name);
-    if ((data != (void *)0x0) && (*(int *)((int)data + 0x1ac0) == 0)) {
-      Res_SetReference((ResRef *)((int)data + 0x1ac0),data,
-                       s_C__grimsrc_libs_grimlib_Scripts__004ec38c,0x14b9);
+    if ((data != (Set *)0x0) && ((data->lockRef).nValid == 0)) {
+      Res_SetReference(&data->lockRef,data,s_C__grimsrc_libs_grimlib_Scripts__004ec38c,0x14b9);
     }
   }
   return;
@@ -6219,15 +6219,15 @@ void __cdecl sputLua_UnLockSet(void)
   int iVar1;
   int iVar2;
   char *name;
-  void *pvVar3;
+  Set *pvVar3;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
     name = (char *)lua_getstring(iVar1);
     pvVar3 = sputResource_Alloc(0x20544553,name);
-    if ((pvVar3 != (void *)0x0) && (*(int *)((int)pvVar3 + 0x1ac0) != 0)) {
-      Res_RemoveReference((ResRef *)((int)pvVar3 + 0x1ac0));
+    if ((pvVar3 != (Set *)0x0) && ((pvVar3->lockRef).nValid != 0)) {
+      Res_RemoveReference(&pvVar3->lockRef);
     }
   }
   return;
@@ -6382,7 +6382,7 @@ uint __cdecl sputLua_SaveIndirector(int tag,uint value)
    name sputLua_RestoreIndirector (the remaster's GrimFandango (Linux): aligned call in
    sputLua_Startup); was Lua_RestoreUserdataHook. */
 
-TextObject * __cdecl sputLua_RestoreIndirector(int tag,TextObject *param_2)
+TextObject * __cdecl sputLua_RestoreIndirector(int tag,TextObject *id)
 
 {
   TextObject *pTVar1;
@@ -6390,33 +6390,33 @@ TextObject * __cdecl sputLua_RestoreIndirector(int tag,TextObject *param_2)
   uint uVar3;
   
   if (tag == 0x54415453) {
-    if (param_2 == (TextObject *)0xffffffff) {
-      param_2 = (TextObject *)0x0;
+    if (id == (TextObject *)0xffffffff) {
+      id = (TextObject *)0x0;
     }
     else {
-      uVar3 = (uint)param_2 & 0xffff;
+      uVar3 = (uint)id & 0xffff;
       pSVar2 = sputRoom_GetCurrentRoom();
-      param_2 = (TextObject *)pSVar2->pSetups[(uint)param_2 >> 0x10].pObjectStates;
+      id = (TextObject *)pSVar2->pSetups[(uint)id >> 0x10].pObjectStates;
       if (uVar3 != 0) {
         do {
-          param_2 = *(TextObject **)((int)param_2->aText + 0xf0);
+          id = *(TextObject **)((int)id->aText + 0xf0);
           uVar3 = uVar3 - 1;
         } while (uVar3 != 0);
-        return param_2;
+        return id;
       }
     }
   }
   else {
     if (tag == 0x544e4f46) {
-      pTVar1 = Res_HandleFromSerialNumber(param_2);
+      pTVar1 = Res_HandleFromSerialNumber(id);
       return pTVar1;
     }
     if (tag == 0x54584554) {
-      pTVar1 = sputText_FindSerialNumber((int)param_2);
+      pTVar1 = sputText_FindSerialNumber((int)id);
       return pTVar1;
     }
   }
-  return param_2;
+  return id;
 }
 
 /* ---- 0x0049e0b0  sputLua_NotifyControlHandlers ---- */
@@ -7593,7 +7593,7 @@ void __cdecl sputLua_GetActorNodeLocationL(void)
         iVar1 = lua_getuserdata(iVar1);
         actor = sputActor_ActorDeref(iVar1);
         if ((actor->pCostumes != (CostumeNode *)0x0) &&
-           (actor->pCostumes->pMainModel != (void *)0x0)) {
+           (actor->pCostumes->pMainModel != (rdThing *)0x0)) {
           if (actor->nScreenBoxValid == 0) {
             pfVar4 = sputActor_GetOrientMatrix(actor);
             rdPuppet_UpdateFrame(actor->pCostumes->pMainModel,pfVar4);
@@ -7606,8 +7606,7 @@ void __cdecl sputLua_GetActorNodeLocationL(void)
           rdPuppet_BuildJointMatrices(actor->pCostumes->pMainModel,frame,index,pfVar4);
           fVar6 = lua_getnumber(iVar2);
           lVar5 = FTOL((float10)fVar6);
-          pfVar4 = (float *)(*(int *)(*(int *)((int)actor->pCostumes->pMainModel + 4) + 0x58) + 100
-                            + (int)lVar5 * 0xb8);
+          pfVar4 = actor->pCostumes->pMainModel->pModel->pHierarchyNodes[(int)lVar5].aPivot;
           local_3c = *pfVar4;
           local_38[0] = pfVar4[1];
           local_38[1] = pfVar4[2];

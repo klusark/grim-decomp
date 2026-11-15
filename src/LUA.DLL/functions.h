@@ -58,13 +58,13 @@ undefined4 __cdecl lua_tag(int o); /* 0x10001ca0 */
 LState * __cdecl lua_settag(int tag); /* 0x10001d30 */
 undefined4 __cdecl lua_pausetasks(void); /* 0x10001db0 */
 undefined4 __cdecl lua_unpausetasks(void); /* 0x10001de0 */
-int __cdecl lua_updatetasks(int param_1); /* 0x10001e10 */
+int __cdecl lua_updatetasks(int loop); /* 0x10001e10 */
 int __cdecl lua_stackedfunction(int level); /* 0x10002090 */
 undefined4 __cdecl lua_printstack(int out); /* 0x100020f0 */
 uint __cdecl lua_currentline(int func); /* 0x10002280 */
 int lua_currenttask(void); /* 0x100022b0 */
-int __cdecl lua_getlocal(int param_1,int local_number,int *name); /* 0x100022c0 */
-undefined4 __cdecl lua_setlocal(int param_1,int local_number); /* 0x10002330 */
+int __cdecl lua_getlocal(int funcObj,int local_number,int *name); /* 0x100022c0 */
+undefined4 __cdecl lua_setlocal(int funcObj,int local_number); /* 0x10002330 */
 undefined4 __cdecl lua_funcinfo(int func,int *filename,undefined4 *linedefined); /* 0x100023c0 */
 char * __cdecl lua_getobjname(int o,undefined4 *name); /* 0x10002440 */
 uint __cdecl checkfunc(TObject *o); /* 0x100024a0 */
@@ -171,11 +171,11 @@ int __cdecl callC(undefined *f,int base); /* 0x100044e0 */
 int __cdecl callCclosure(int cl,undefined *f,int base); /* 0x10004580 */
 void __cdecl luaD_travallstacks(undefined *markobject); /* 0x10004600 */
 void __cdecl message(byte *msg); /* 0x100046a0 */
-undefined4 __cdecl luaD_protectedrun(void *param_1); /* 0x100046e0 */
+undefined4 __cdecl luaD_protectedrun(void *nResults); /* 0x100046e0 */
 void __cdecl do_callinc(void *nres); /* 0x100047c0 */
 void __cdecl luaD_gcIM(TObject *o); /* 0x10004810 */
 int __cdecl do_main(int *z,int bin); /* 0x100049b0 */
-undefined4 __cdecl protectedparser(int *param_1,int param_2); /* 0x10004a50 */
+undefined4 __cdecl protectedparser(int *z,int bin); /* 0x10004a50 */
 
 /* ===== lfunc.c ===== */
 Closure * __cdecl luaF_newclosure(int nelems); /* 0x10004ba0 */
@@ -424,7 +424,7 @@ void errorFB(void); /* 0x1000cbf0 */
 void nilFB(void); /* 0x1000cc10 */
 void typeFB(void); /* 0x1000cc20 */
 void luaT_setfallback(void); /* 0x1000cc30 */
-void __cdecl fillvalids(int n,undefined4 *param_2); /* 0x1000ce50 */
+void __cdecl fillvalids(int n,undefined4 *func); /* 0x1000ce50 */
 
 /* ===== lundump.c ===== */
 undefined4 __cdecl luaU_undump1(int *Z); /* 0x1000cea0 */
@@ -445,7 +445,7 @@ float __cdecl luaU_LoadNumber(undefined4 *Z); /* 0x1000d2f0 */
 int __cdecl Undump_Swap4(undefined1 *p); /* 0x1000d360 */
 int __cdecl Undump_Swap8(undefined1 *p); /* 0x1000d380 */
 void __cdecl LoadFunctions(int tf,int *Z); /* 0x1000d3c0 */
-void __cdecl LoadHeader(undefined4 *param_1); /* 0x1000d420 */
+void __cdecl LoadHeader(undefined4 *zio); /* 0x1000d420 */
 void __cdecl LoadSignature(int *Z); /* 0x1000d570 */
 undefined4 __cdecl luaV_tonumber(int *obj); /* 0x1000d5c0 */
 undefined4 __cdecl luaV_tostring(int *o); /* 0x1000d620 */
@@ -468,7 +468,7 @@ int __thiscall ExecutionState_setvalues(ExecutionState *this,int a1,int a2,int a
 void __fastcall ExecutionState_resetcounter(ExecutionState *es); /* 0x1000de20 */
 int __fastcall ExecutionState_execute(int *es); /* 0x1000de30 */
 void __cdecl adjust_varargs(int firstel); /* 0x1000dee0 */
-int __fastcall ExecutionState_CrunchOpcodes(int *param_1); /* 0x1000df40 */
+int __fastcall ExecutionState_CrunchOpcodes(int *state); /* 0x1000df40 */
 TaggedString * __cdecl strconc(char *l,char *r); /* 0x1000ebc0 */
 void __cdecl call_binTM(int event,byte *msg); /* 0x1000ec50 */
 void __cdecl call_arith(int event); /* 0x1000ecf0 */

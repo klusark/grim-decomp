@@ -198,7 +198,7 @@ void __cdecl sputLua_MessagePrintL(void); /* 0x0049dd70 */
 void __cdecl Lua_Print_NoOp(void); /* 0x0049ddd0 */
 uint __cdecl sputLua_Startup(void); /* 0x0049de00 */
 uint __cdecl sputLua_SaveIndirector(int tag,uint value); /* 0x0049dfa0 */
-TextObject * __cdecl sputLua_RestoreIndirector(int tag,TextObject *param_2); /* 0x0049e020 */
+TextObject * __cdecl sputLua_RestoreIndirector(int tag,TextObject *id); /* 0x0049e020 */
 uint __cdecl sputLua_NotifyControlHandlers(void); /* 0x0049e0b0 */
 uint __cdecl Lua_CreateSystemTable(void); /* 0x0049e380 */
 void __cdecl Lua_CreateControlsTable(uint systemRef); /* 0x0049e460 */
@@ -1327,8 +1327,8 @@ uint __cdecl Resource_RegisterTypes(void); /* 0x0048d870 */
 void __cdecl sputResource_SetMemoryUsage(int budget,int b); /* 0x0048d8a0 */
 void __cdecl Resource_ReloadBitmaps(void); /* 0x0048df50 */
 void __cdecl Resource_RebuildColormaps(void); /* 0x0048e0a0 */
-void * __cdecl sputResource_MatLoader(char *name); /* 0x0048e170 */
-void __cdecl sputResource_MatUnloader(void *data); /* 0x0048e1b0 */
+rdMaterial * __cdecl sputResource_MatLoader(char *name); /* 0x0048e170 */
+void __cdecl sputResource_MatUnloader(rdMaterial *material); /* 0x0048e1b0 */
 
 /* ===== lab.c ===== */
 void __cdecl Res_FileCloseAll(void); /* 0x00480120 */
@@ -1654,7 +1654,7 @@ void __cdecl CacheRect_FreeAll(void); /* 0x00486cb0 */
 
 /* ===== dlg.c ===== */
 undefined4 * __cdecl Dlg_MakeItemTemplate (uint style,ushort x,ushort y,ushort cx,ushort cy,ushort id,int className,int text, uint *outSize); /* 0x00488010 */
-uint * __cdecl Dlg_MakeDialogTemplate (undefined4 *param_1,ushort param_2,ushort param_3,ushort param_4,ushort param_5, ushort param_6,int param_7,int param_8,ushort param_9,uint *param_10); /* 0x004881a0 */
+uint * __cdecl Dlg_MakeDialogTemplate (undefined4 *style,ushort items,ushort x,ushort y,ushort cx,ushort cy,int title,int font, ushort pointSize,uint *outSize); /* 0x004881a0 */
 
 /* ===== spew.c ===== */
 void __cdecl Spew_Startup(void); /* 0x00488840 */
@@ -1770,7 +1770,7 @@ uint __cdecl Text_DrawFormatted(TextContext *ctx,char *fmt,...); /* 0x004aabb0 *
 uint __cdecl Text_WrapLines(uint *defaultFont); /* 0x004aac40 */
 void __cdecl Text_CopyRunes(byte *dst,undefined4 *src,int count,int stride); /* 0x004aae90 */
 uint __cdecl Text_BuildLineTable(uint text,int *outFont); /* 0x004aaf30 */
-char * __cdecl text_FindNextBreak(TextContext *param_1,FontData *font,char *text,int *outWidth,uint *outBreak, int maxWidth); /* 0x004ab210 */
+char * __cdecl text_FindNextBreak(TextContext *context,FontData *font,char *text,int *outWidth,uint *outBreak, int maxWidth); /* 0x004ab210 */
 uint __cdecl Font_GlyphAdvance(TextContext *ctx,FontData *font,int ch); /* 0x004ab510 */
 uint __cdecl Font_GlyphWidth(int ctx,int font,uint ch); /* 0x004ab570 */
 void __cdecl Text_DrawString(TextContext *ctx,void *font,char *text); /* 0x004ab5d0 */
@@ -1876,7 +1876,7 @@ CostumeNode * __cdecl sputCostume_SetCostume(CostumeNode *list,void *costumeRes,
 CostumeNode * __cdecl sputCostume_PushCostume(CostumeNode *list,void *costumeRes,int flags); /* 0x00494e80 */
 CostumeNode * __cdecl Costume_AllocRecord(void); /* 0x00494f90 */
 void __cdecl Costume_InitRecord(CostumeNode *node); /* 0x00494fb0 */
-void * __cdecl Costume_GetMainModel(void *cosInst); /* 0x00495020 */
+rdThing * __cdecl Costume_GetMainModel(void *cosInst); /* 0x00495020 */
 void __cdecl Costume_ApplyScale(Actor *actor,ModelComponent *componentList); /* 0x00495510 */
 void __cdecl Costume_ApplyComponentState(void *cosInst); /* 0x004955e0 */
 void __cdecl sputCostume_BuildThingStateMatrices(ModelComponent *component,float *frame); /* 0x004956a0 */
@@ -1899,12 +1899,12 @@ void __cdecl sputCostume_Shutdown(void); /* 0x004988a0 */
 void __cdecl BitmapChanger(uint cosInst,int *inst,uint tag,int frame); /* 0x00496060 */
 
 /* ===== bitmapcomponent.c ===== */
-uint __cdecl BitmapRequester(uint cosInst,int tag,int parent,int type,char *param_5); /* 0x004960a0 */
+uint __cdecl BitmapRequester(uint cosInst,int tag,int parent,int type,char *filename); /* 0x004960a0 */
 undefined4 BitmapFreer(undefined4 param_1,undefined4 param_2,ResRef *ref); /* 0x00496340 */
 
 /* ===== cmapcomponent.c ===== */
 int * __cdecl ColormapInstancer(int inst,int component,int create); /* 0x00496370 */
-int __cdecl ColormapRequester(uint cosInst,int tag,int parent,int type,char *param_5); /* 0x00496460 */
+int __cdecl ColormapRequester(uint cosInst,int tag,int parent,int type,char *filename); /* 0x00496460 */
 undefined4 ColormapFreer(undefined4 param_1,undefined4 param_2,ResRef *ref); /* 0x00496580 */
 uint __cdecl MaterialInstanceSaveLoad(void); /* 0x004965b0 */
 
@@ -1918,7 +1918,7 @@ uint __cdecl ThingAdjuster(int *comp,uint text); /* 0x00496890 */
 void __cdecl ThingChanger(uint cosInst,int inst,uint tag,int command); /* 0x00496930 */
 void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create); /* 0x00496950 */
 uint __cdecl ThingStopper(int inst); /* 0x00496b40 */
-int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *param_5); /* 0x00496b60 */
+int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *filename); /* 0x00496b60 */
 undefined4 ThingFreer(undefined4 param_1,undefined4 param_2,ResRef *ref); /* 0x00496d10 */
 
 /* ===== meshcomponent.c ===== */
@@ -1949,7 +1949,7 @@ int __cdecl IMuseRequester(uint cosInst,int tag,int parent,int type); /* 0x00497
 void __cdecl KeyframeChanger(uint cosInst,int *inst,uint tag,int command,uint ms,uint value2,uint value3, uint hookData); /* 0x00497890 */
 void __cdecl sputCostume_PuppetHook(int data,int track,uint marker); /* 0x00497cb0 */
 int * __cdecl KeyframeInstancer(int inst,int component,int create); /* 0x00497d10 */
-int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint param_5); /* 0x00497e10 */
+int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint filename); /* 0x00497e10 */
 uint __cdecl KeyframeAdjuster(int *comp,uint text); /* 0x00498000 */
 undefined4 KeyframeFreer(undefined4 param_1,undefined4 param_2,ResRef *ref); /* 0x004980b0 */
 uint __cdecl KeyframeStopper(int *inst); /* 0x004980e0 */
@@ -1963,7 +1963,7 @@ int __cdecl SmushRequester(uint cosInst,int tag,int parent,int type,char *name);
 uint __cdecl CostumeTag_Nop(void); /* 0x00498180 */
 
 /* ===== spritecomponent.c ===== */
-uint __cdecl SpriteRequester(uint param_1,int param_2,int param_3,float param_4,char *param_5); /* 0x00498280 */
+uint __cdecl SpriteRequester(uint cosInst,int tag,int parent,float type,char *filename); /* 0x00498280 */
 void __cdecl SpriteChanger(uint cosInst,int inst,uint tag,int command); /* 0x00498550 */
 uint __cdecl SpriteFreer(uint tag,uint inst,int *data); /* 0x00498580 */
 uint * __cdecl SpriteInstancer(int comp,uint *inst,int create); /* 0x004985c0 */

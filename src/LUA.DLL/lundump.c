@@ -451,7 +451,7 @@ void __cdecl LoadFunctions(int tf,int *Z)
    ("too new" / "too old"), the float size and test number "unknown float representation"); was
    luaU_loadheader. */
 
-void __cdecl LoadHeader(undefined4 *param_1)
+void __cdecl LoadHeader(undefined4 *zio)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -460,8 +460,8 @@ void __cdecl LoadHeader(undefined4 *param_1)
   uint uVar2;
   #define local_8 (*(double *)(_frame + (0x20 - 0x8)))
   
-  puVar1 = param_1;
-  Z = (uint *)*param_1;
+  puVar1 = zio;
+  Z = (uint *)*zio;
   LoadSignature((int *)Z);
   uVar2 = ezgetc((int *)Z);
   if (0x31 < (int)uVar2) {
@@ -472,10 +472,10 @@ void __cdecl LoadHeader(undefined4 *param_1)
   }
   uVar2 = ezgetc((int *)Z);
   if (uVar2 == 4) {
-    ezread(Z,&param_1,4);
-    if (PUN(float,param_1) != 1.2345679e-24f) {
-      Undump_Swap4((undefined1 *)&param_1);
-      if (PUN(float,param_1) != 1.2345679e-24f) {
+    ezread(Z,&zio,4);
+    if (PUN(float,zio) != 1.2345679e-24f) {
+      Undump_Swap4((undefined1 *)&zio);
+      if (PUN(float,zio) != 1.2345679e-24f) {
         luaL_verror(s_unknown_float_representation_in_b_10028098,Z[4]);
       }
       puVar1[1] = 1;

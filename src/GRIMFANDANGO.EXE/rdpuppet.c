@@ -449,17 +449,15 @@ void __cdecl rdPuppet_UpdateFrame(rdThing *thing,float *frame)
   float fVar7;
   bool bVar8;
   int iVar9;
-  undefined4 *puVar10;
+  float *pfVar10;
   int iVar11;
-  float *pfVar12;
-  int iVar13;
-  uint *puVar14;
-  uint uVar15;
-  byte *pbVar16;
-  int *piVar17;
-  undefined4 *puVar18;
-  undefined4 *puVar19;
-  float fVar20;
+  int iVar12;
+  int *piVar13;
+  uint uVar14;
+  byte *pbVar15;
+  float *pfVar16;
+  float *pfVar17;
+  float fVar18;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_74 (*(float (*)[3])(_frame + (0xa0 - 0x74)))
   #define local_68 (*(uint *)(_frame + (0xa0 - 0x68)))
@@ -479,55 +477,55 @@ void __cdecl rdPuppet_UpdateFrame(rdThing *thing,float *frame)
   piVar5 = thing->pPuppet;
   if (thing->nFrozen == 0) {
     if ((piVar5 == (int *)0x0) || (*piVar5 != 0)) {
-      uVar15 = 0;
+      uVar14 = 0;
       if (prVar4->nNumHierarchyNodes != 0) {
-        puVar10 = (undefined4 *)((int)prVar4->pHierarchyNodes + 0x88);
-        iVar13 = 0;
+        pfVar10 = prVar4->pHierarchyNodes->aMatrix;
+        iVar12 = 0;
         do {
-          puVar18 = puVar10;
-          puVar19 = (undefined4 *)(iVar13 + (int)thing->pHierarchyMatrices);
+          pfVar16 = pfVar10;
+          pfVar17 = (float *)(iVar12 + (int)thing->pHierarchyMatrices);
           for (iVar9 = 0xc; iVar9 != 0; iVar9 = iVar9 + -1) {
-            *puVar19 = *puVar18;
-            puVar18 = puVar18 + 1;
-            puVar19 = puVar19 + 1;
+            *pfVar17 = *pfVar16;
+            pfVar16 = pfVar16 + 1;
+            pfVar17 = pfVar17 + 1;
           }
-          puVar10 = puVar10 + 0x2e;
-          uVar15 = uVar15 + 1;
-          iVar13 = iVar13 + 0x30;
-        } while (uVar15 < (uint)prVar4->nNumHierarchyNodes);
+          pfVar10 = pfVar10 + 0x2e;
+          uVar14 = uVar14 + 1;
+          iVar12 = iVar12 + 0x30;
+        } while (uVar14 < (uint)prVar4->nNumHierarchyNodes);
       }
     }
     else {
       local_64 = 6;
-      pbVar16 = (byte *)(piVar5 + 2);
+      pbVar15 = (byte *)(piVar5 + 2);
       do {
-        if (*(int *)pbVar16 != 0) {
-          iVar13 = *(int *)(pbVar16 + 0x128);
-          local_74[1] = PUN(float,(pbVar16 + 0x20));
+        if (*(int *)pbVar15 != 0) {
+          iVar12 = *(int *)(pbVar15 + 0x128);
+          local_74[1] = PUN(float,(pbVar15 + 0x20));
           local_74[2] = 0.0f;
-          if (*(int *)(iVar13 + 0x38) != 0) {
-            piVar17 = (int *)(*(int *)(iVar13 + 0x3c) + 0x24);
+          if (*(int *)(iVar12 + 0x38) != 0) {
+            piVar13 = (int *)(*(int *)(iVar12 + 0x3c) + 0x24);
             do {
               bVar8 = false;
-              if (*piVar17 != 0) {
-                if ((uint)piVar17[-1] < 0x40) {
-                  iVar9 = *(int *)(pbVar16 + piVar17[-1] * 4 + 0x20);
+              if (*piVar13 != 0) {
+                if ((uint)piVar13[-1] < 0x40) {
+                  iVar9 = *(int *)(pbVar15 + piVar13[-1] * 4 + 0x20);
                 }
                 else {
                   iVar9 = 0;
                 }
-                iVar1 = *piVar17 + -1;
+                iVar1 = *piVar13 + -1;
                 if (iVar9 != iVar1) {
                   iVar11 = iVar9 + 1;
-                  if (*(float *)(piVar17[1] + iVar11 * 0x38) <= *(float *)(pbVar16 + 0x120)) {
-                    pfVar12 = (float *)(piVar17[1] + (iVar9 + 2) * 0x38);
+                  if (*(float *)(piVar13[1] + iVar11 * 0x38) <= *(float *)(pbVar15 + 0x120)) {
+                    pfVar10 = (float *)(piVar13[1] + (iVar9 + 2) * 0x38);
                     do {
                       if (iVar11 == iVar1) {
                         bVar8 = true;
                       }
-                      else if (*pfVar12 <= *(float *)(pbVar16 + 0x120)) {
+                      else if (*pfVar10 <= *(float *)(pbVar15 + 0x120)) {
                         iVar11 = iVar11 + 1;
-                        pfVar12 = pfVar12 + 0xe;
+                        pfVar10 = pfVar10 + 0xe;
                       }
                       else {
                         bVar8 = true;
@@ -541,18 +539,18 @@ void __cdecl rdPuppet_UpdateFrame(rdThing *thing,float *frame)
               }
               local_74[2] = PUN(float,(PUN(int,(float)local_74[2]) + 1));
               local_74[1] = PUN(float,(PUN(int,(float)local_74[1]) + 4));
-              piVar17 = piVar17 + 0xb;
-            } while (PUN(uint,(float)local_74[2]) < PUN(uint,(float)*(float *)(iVar13 + 0x38)));
+              piVar13 = piVar13 + 0xb;
+            } while (PUN(uint,(float)local_74[2]) < PUN(uint,(float)*(float *)(iVar12 + 0x38)));
           }
         }
-        pbVar16 = pbVar16 + 0x134;
+        pbVar15 = pbVar15 + 0x134;
         local_64 = local_64 - 1;
       } while (local_64 != 0);
       local_5c[2] = 0.0f;
       if (prVar4->nNumHierarchyNodes != 0) {
         local_50 = 0;
         local_60 = 0;
-        puVar14 = (uint *)((int)prVar4->pHierarchyNodes + 0x44);
+        piVar13 = &prVar4->pHierarchyNodes->nIndex;
         do {
           local_3c[0] = 0.0f;
           local_3c[1] = 0.0f;
@@ -571,76 +569,76 @@ void __cdecl rdPuppet_UpdateFrame(rdThing *thing,float *frame)
           local_18[2] = 0.0f;
           local_c[2] = 0.0f;
           local_5c[1] = 8.40779e-45f;
-          pbVar16 = (byte *)(piVar5 + 2);
+          pbVar15 = (byte *)(piVar5 + 2);
           do {
-            iVar13 = *(int *)(pbVar16 + 0x128);
-            if (iVar13 != 0) {
-              if ((puVar14[1] & *(uint *)(iVar13 + 0x2c)) == 0) {
-                fVar20 = *(float *)(pbVar16 + 8);
+            iVar12 = *(int *)(pbVar15 + 0x128);
+            if (iVar12 != 0) {
+              if ((piVar13[1] & *(uint *)(iVar12 + 0x2c)) == 0) {
+                fVar18 = *(float *)(pbVar15 + 8);
               }
               else {
-                fVar20 = *(float *)(pbVar16 + 0xc);
+                fVar18 = *(float *)(pbVar15 + 0xc);
               }
-              if ((((((*pbVar16 & 2) != 0) && (uVar15 = *puVar14, uVar15 < *(uint *)(iVar13 + 0x38))
-                    ) && (iVar9 = *(int *)(iVar13 + 0x3c) + uVar15 * 0x2c,
+              if ((((((*pbVar15 & 2) != 0) && (uVar14 = *piVar13, uVar14 < *(uint *)(iVar12 + 0x38))
+                    ) && (iVar9 = *(int *)(iVar12 + 0x3c) + uVar14 * 0x2c,
                          *(int *)(iVar9 + 0x24) != 0)) &&
-                  ((PUN(int,(float)local_74[2]) <= PUN(int,(float)fVar20) &&
-                   ((PUN(int,(float)local_5c[0]) <= PUN(int,(float)fVar20) || (local_74[0] < 1.0f)))))) &&
-                 (uVar15 < *(uint *)(iVar13 + 0x38))) {
-                pfVar12 = (float *)(*(int *)(iVar9 + 0x28) +
-                                   *(int *)(pbVar16 + uVar15 * 4 + 0x20) * 0x38);
-                if ((*(uint *)(iVar13 + 0x24) & 0x100) == 0) {
-                  fVar7 = *(float *)(pbVar16 + 0x120) - *pfVar12;
+                  ((PUN(int,(float)local_74[2]) <= PUN(int,(float)fVar18) &&
+                   ((PUN(int,(float)local_5c[0]) <= PUN(int,(float)fVar18) || (local_74[0] < 1.0f)))))) &&
+                 (uVar14 < *(uint *)(iVar12 + 0x38))) {
+                pfVar10 = (float *)(*(int *)(iVar9 + 0x28) +
+                                   *(int *)(pbVar15 + uVar14 * 4 + 0x20) * 0x38);
+                if ((*(uint *)(iVar12 + 0x24) & 0x100) == 0) {
+                  fVar7 = *(float *)(pbVar15 + 0x120) - *pfVar10;
                 }
                 else {
                   fVar7 = 0.0f;
                 }
-                if ((PUN(uint,(float)pfVar12[1]) & 1) == 0) {
-                  local_24[0] = pfVar12[2];
-                  local_24[1] = pfVar12[3];
-                  local_24[2] = pfVar12[4];
+                if ((PUN(uint,(float)pfVar10[1]) & 1) == 0) {
+                  local_24[0] = pfVar10[2];
+                  local_24[1] = pfVar10[3];
+                  local_24[2] = pfVar10[4];
                 }
                 else {
-                  local_24[0] = pfVar12[8] * fVar7 + pfVar12[2];
-                  local_24[1] = pfVar12[9] * fVar7 + pfVar12[3];
-                  local_24[2] = pfVar12[10] * fVar7 + pfVar12[4];
+                  local_24[0] = pfVar10[8] * fVar7 + pfVar10[2];
+                  local_24[1] = pfVar10[9] * fVar7 + pfVar10[3];
+                  local_24[2] = pfVar10[10] * fVar7 + pfVar10[4];
                 }
-                if ((PUN(uint,(float)pfVar12[1]) & 2) == 0) {
-                  local_30[0] = pfVar12[5];
-                  fVar6 = pfVar12[6];
-                  fVar7 = pfVar12[7];
+                if ((PUN(uint,(float)pfVar10[1]) & 2) == 0) {
+                  local_30[0] = pfVar10[5];
+                  fVar6 = pfVar10[6];
+                  fVar7 = pfVar10[7];
                 }
                 else {
-                  local_30[0] = pfVar12[0xb] * fVar7 + pfVar12[5];
-                  fVar6 = pfVar12[0xc] * fVar7 + pfVar12[6];
-                  fVar7 = pfVar12[0xd] * fVar7 + pfVar12[7];
+                  local_30[0] = pfVar10[0xb] * fVar7 + pfVar10[5];
+                  fVar6 = pfVar10[0xc] * fVar7 + pfVar10[6];
+                  fVar7 = pfVar10[0xd] * fVar7 + pfVar10[7];
                 }
-                local_24[0] = local_24[0] - PUN(float,puVar14[0xb]);
-                local_24[1] = local_24[1] - PUN(float,puVar14[0xc]);
-                local_24[2] = local_24[2] - PUN(float,puVar14[0xd]);
-                fVar2 = PUN(float,puVar14[0xf]);
-                fVar3 = PUN(float,puVar14[0x10]);
-                local_30[0] = stdMath_NormalizeAngleAcute(local_30[0] - PUN(float,puVar14[0xe]));
+                local_24[0] = local_24[0] - PUN(float,piVar13[0xb]);
+                local_24[1] = local_24[1] - PUN(float,piVar13[0xc]);
+                local_24[2] = local_24[2] - PUN(float,piVar13[0xd]);
+                fVar2 = PUN(float,piVar13[0xf]);
+                fVar3 = PUN(float,piVar13[0x10]);
+                local_30[0] = stdMath_NormalizeAngleAcute(local_30[0] - PUN(float,piVar13[0xe]));
                 local_30[1] = stdMath_NormalizeAngleAcute(fVar6 - fVar2);
                 local_30[2] = stdMath_NormalizeAngleAcute(fVar7 - fVar3);
-                if (*(float *)(pbVar16 + 0x18) < 1.0f) {
-                  local_24[0] = *(float *)(pbVar16 + 0x18) * local_24[0];
-                  local_24[1] = *(float *)(pbVar16 + 0x18) * local_24[1];
-                  local_24[2] = *(float *)(pbVar16 + 0x18) * local_24[2];
-                  local_30[0] = *(float *)(pbVar16 + 0x18) * local_30[0];
-                  local_30[1] = *(float *)(pbVar16 + 0x18) * local_30[1];
-                  local_30[2] = *(float *)(pbVar16 + 0x18) * local_30[2];
+                if (*(float *)(pbVar15 + 0x18) < 1.0f) {
+                  local_24[0] = *(float *)(pbVar15 + 0x18) * local_24[0];
+                  local_24[1] = *(float *)(pbVar15 + 0x18) * local_24[1];
+                  local_24[2] = *(float *)(pbVar15 + 0x18) * local_24[2];
+                  local_30[0] = *(float *)(pbVar15 + 0x18) * local_30[0];
+                  local_30[1] = *(float *)(pbVar15 + 0x18) * local_30[1];
+                  local_30[2] = *(float *)(pbVar15 + 0x18) * local_30[2];
                 }
-                if (fVar20 == local_5c[0]) {
+                if (fVar18 == local_5c[0]) {
                   local_3c[0] = local_24[0] + local_3c[0];
                   local_3c[1] = local_24[1] + local_3c[1];
                   local_3c[2] = local_24[2] + local_3c[2];
                   local_48[0] = local_30[0] + local_48[0];
                   local_48[1] = local_30[1] + local_48[1];
                   local_48[2] = local_30[2] + local_48[2];
-                  local_74[0] = local_74[0] + *(float *)(pbVar16 + 0x18);
+                  local_74[0] = local_74[0] + *(float *)(pbVar15 + 0x18);
                 }
-                else if (PUN(int,(float)local_5c[0]) < PUN(int,(float)fVar20)) {
+                else if (PUN(int,(float)local_5c[0]) < PUN(int,(float)fVar18)) {
                   local_18[0] = local_3c[0];
                   local_18[1] = local_3c[1];
                   local_18[2] = local_3c[2];
@@ -652,21 +650,21 @@ void __cdecl rdPuppet_UpdateFrame(rdThing *thing,float *frame)
                   local_3c[1] = local_24[1];
                   local_3c[2] = local_24[2];
                   local_48[0] = local_30[0];
-                  local_74[0] = *(float *)(pbVar16 + 0x18);
+                  local_74[0] = *(float *)(pbVar15 + 0x18);
                   local_74[2] = local_5c[0];
                   local_48[1] = local_30[1];
                   local_48[2] = local_30[2];
-                  local_5c[0] = fVar20;
+                  local_5c[0] = fVar18;
                 }
-                else if (PUN(int,(float)local_74[2]) < PUN(int,(float)fVar20)) {
+                else if (PUN(int,(float)local_74[2]) < PUN(int,(float)fVar18)) {
                   local_18[0] = local_24[0];
                   local_18[1] = local_24[1];
                   local_18[2] = local_24[2];
                   local_c[0] = local_30[0];
                   local_c[1] = local_30[1];
-                  local_74[1] = *(float *)(pbVar16 + 0x18);
+                  local_74[1] = *(float *)(pbVar15 + 0x18);
                   local_c[2] = local_30[2];
-                  local_74[2] = fVar20;
+                  local_74[2] = fVar18;
                 }
                 else {
                   local_18[0] = local_24[0] + local_18[0];
@@ -675,62 +673,62 @@ void __cdecl rdPuppet_UpdateFrame(rdThing *thing,float *frame)
                   local_c[0] = local_30[0] + local_c[0];
                   local_c[1] = local_30[1] + local_c[1];
                   local_c[2] = local_30[2] + local_c[2];
-                  local_74[1] = local_74[1] + *(float *)(pbVar16 + 0x18);
+                  local_74[1] = local_74[1] + *(float *)(pbVar15 + 0x18);
                 }
               }
             }
-            pbVar16 = pbVar16 + 0x134;
+            pbVar15 = pbVar15 + 0x134;
             local_5c[1] = PUN(float,(PUN(int,(float)local_5c[1]) + -1));
           } while (local_5c[1] != 0.0f);
           if ((1.0f <= local_74[0]) || (local_74[1] <= 0.0f)) {
             if (1.0f < local_74[0]) {
-              fVar20 = 1.0f / local_74[0];
-              local_3c[0] = local_3c[0] * fVar20;
-              local_3c[1] = local_3c[1] * fVar20;
-              local_3c[2] = local_3c[2] * fVar20;
-              local_48[0] = local_48[0] * fVar20;
-              local_48[1] = local_48[1] * fVar20;
-              local_48[2] = local_48[2] * fVar20;
+              fVar18 = 1.0f / local_74[0];
+              local_3c[0] = local_3c[0] * fVar18;
+              local_3c[1] = local_3c[1] * fVar18;
+              local_3c[2] = local_3c[2] * fVar18;
+              local_48[0] = local_48[0] * fVar18;
+              local_48[1] = local_48[1] * fVar18;
+              local_48[2] = local_48[2] * fVar18;
             }
           }
           else {
             if (1.0f < local_74[1]) {
-              fVar20 = 1.0f / local_74[1];
-              local_18[0] = local_18[0] * fVar20;
-              local_18[1] = local_18[1] * fVar20;
-              local_18[2] = local_18[2] * fVar20;
-              local_c[0] = local_c[0] * fVar20;
-              local_c[1] = local_c[1] * fVar20;
-              local_c[2] = local_c[2] * fVar20;
+              fVar18 = 1.0f / local_74[1];
+              local_18[0] = local_18[0] * fVar18;
+              local_18[1] = local_18[1] * fVar18;
+              local_18[2] = local_18[2] * fVar18;
+              local_c[0] = local_c[0] * fVar18;
+              local_c[1] = local_c[1] * fVar18;
+              local_c[2] = local_c[2] * fVar18;
             }
-            fVar20 = 1.0f - local_74[0];
-            local_3c[0] = local_18[0] * fVar20 + local_3c[0];
-            local_3c[1] = local_18[1] * fVar20 + local_3c[1];
-            local_3c[2] = local_18[2] * fVar20 + local_3c[2];
-            local_48[0] = local_c[0] * fVar20 + local_48[0];
-            local_48[1] = local_c[1] * fVar20 + local_48[1];
-            local_48[2] = local_c[2] * fVar20 + local_48[2];
+            fVar18 = 1.0f - local_74[0];
+            local_3c[0] = local_18[0] * fVar18 + local_3c[0];
+            local_3c[1] = local_18[1] * fVar18 + local_3c[1];
+            local_3c[2] = local_18[2] * fVar18 + local_3c[2];
+            local_48[0] = local_c[0] * fVar18 + local_48[0];
+            local_48[1] = local_c[1] * fVar18 + local_48[1];
+            local_48[2] = local_c[2] * fVar18 + local_48[2];
           }
           local_48[0] = stdMath_NormalizeAngleAcute(local_48[0]);
           local_48[1] = stdMath_NormalizeAngleAcute(local_48[1]);
-          fVar20 = stdMath_NormalizeAngleAcute(local_48[2]);
-          local_3c[0] = PUN(float,puVar14[0xb]) + local_3c[0];
-          local_3c[1] = PUN(float,puVar14[0xc]) + local_3c[1];
-          local_3c[2] = PUN(float,puVar14[0xd]) + local_3c[2];
-          local_48[0] = PUN(float,puVar14[0xe]) + local_48[0];
-          local_48[1] = PUN(float,puVar14[0xf]) + local_48[1];
-          local_48[2] = PUN(float,puVar14[0x10]) + fVar20;
+          fVar18 = stdMath_NormalizeAngleAcute(local_48[2]);
+          local_3c[0] = PUN(float,piVar13[0xb]) + local_3c[0];
+          local_3c[1] = PUN(float,piVar13[0xc]) + local_3c[1];
+          local_3c[2] = PUN(float,piVar13[0xd]) + local_3c[2];
+          local_48[0] = PUN(float,piVar13[0xe]) + local_48[0];
+          local_48[1] = PUN(float,piVar13[0xf]) + local_48[1];
+          local_48[2] = PUN(float,piVar13[0x10]) + fVar18;
           rdMatrix_Build34((float *)(local_50 + (int)thing->pHierarchyMatrices),(uint *)local_48,
                            local_3c);
-          uVar15 = (int)thing->pHierarchyRot + local_60;
+          uVar14 = (int)thing->pHierarchyRot + local_60;
           if (((*(float *)((int)thing->pHierarchyRot + local_60) != 0.0f) ||
-              (*(float *)(uVar15 + 4) != 0.0f)) || (*(float *)(uVar15 + 8) != 0.0f)) {
-            Matrix_BuildTransform((float *)(local_50 + (int)thing->pHierarchyMatrices),uVar15);
+              (*(float *)(uVar14 + 4) != 0.0f)) || (*(float *)(uVar14 + 8) != 0.0f)) {
+            Matrix_BuildTransform((float *)(local_50 + (int)thing->pHierarchyMatrices),uVar14);
           }
           local_5c[2] = PUN(float,(PUN(int,(float)local_5c[2]) + 1));
           local_60 = local_60 + 0xc;
           local_50 = local_50 + 0x30;
-          puVar14 = puVar14 + 0x2e;
+          piVar13 = piVar13 + 0x2e;
         } while (PUN(uint,(float)local_5c[2]) < (uint)prVar4->nNumHierarchyNodes);
       }
     }
@@ -844,10 +842,10 @@ uint __cdecl rdKeyframe_LoadEntry(char *path,rdKeyframe *keyframe)
   rdKeyframe *prVar2;
   uint *puVar3;
   int iVar4;
-  undefined4 *puVar5;
+  rdKeyframeNode *prVar5;
   byte *pbVar6;
   uint uVar7;
-  uint uVar8;
+  rdKeyframeEntry *prVar8;
   byte *pbVar9;
   undefined1 *puVar10;
   bool bVar11;
@@ -857,18 +855,18 @@ uint __cdecl rdKeyframe_LoadEntry(char *path,rdKeyframe *keyframe)
   #define uStack_60 (*(uint *)(_frame + (0x80 - 0x60)))
   #define pcStack_5c (*(char **)(_frame + (0x80 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x80 - 0x58)))
-  #define uStack_54 (*(undefined4 *)(_frame + (0x80 - 0x54)))
-  #define uStack_50 (*(undefined4 *)(_frame + (0x80 - 0x50)))
-  #define uStack_4c (*(undefined4 *)(_frame + (0x80 - 0x4c)))
-  #define uStack_48 (*(undefined4 *)(_frame + (0x80 - 0x48)))
-  #define uStack_44 (*(undefined4 *)(_frame + (0x80 - 0x44)))
-  #define uStack_40 (*(undefined4 *)(_frame + (0x80 - 0x40)))
-  #define uStack_3c (*(undefined4 *)(_frame + (0x80 - 0x3c)))
-  #define uStack_38 (*(undefined4 *)(_frame + (0x80 - 0x38)))
-  #define uStack_34 (*(undefined4 *)(_frame + (0x80 - 0x34)))
-  #define uStack_30 (*(undefined4 *)(_frame + (0x80 - 0x30)))
-  #define uStack_2c (*(undefined4 *)(_frame + (0x80 - 0x2c)))
-  #define uStack_28 (*(undefined4 *)(_frame + (0x80 - 0x28)))
+  #define fStack_54 (*(float *)(_frame + (0x80 - 0x54)))
+  #define fStack_50 (*(float *)(_frame + (0x80 - 0x50)))
+  #define fStack_4c (*(float *)(_frame + (0x80 - 0x4c)))
+  #define fStack_48 (*(float *)(_frame + (0x80 - 0x48)))
+  #define fStack_44 (*(float *)(_frame + (0x80 - 0x44)))
+  #define fStack_40 (*(float *)(_frame + (0x80 - 0x40)))
+  #define fStack_3c (*(float *)(_frame + (0x80 - 0x3c)))
+  #define fStack_38 (*(float *)(_frame + (0x80 - 0x38)))
+  #define fStack_34 (*(float *)(_frame + (0x80 - 0x34)))
+  #define fStack_30 (*(float *)(_frame + (0x80 - 0x30)))
+  #define fStack_2c (*(float *)(_frame + (0x80 - 0x2c)))
+  #define fStack_28 (*(float *)(_frame + (0x80 - 0x28)))
   #define auStack_24 (*(undefined1 (*)[4])(_frame + (0x80 - 0x24)))
   #define auStack_20 (*(uint (*)[8])(_frame + (0x80 - 0x20)))
   
@@ -888,45 +886,48 @@ uint __cdecl rdKeyframe_LoadEntry(char *path,rdKeyframe *keyframe)
     if (iVar4 == 1) {
       uVar12 = stdConffile_ReadLine();
       if (uVar12 != 0) {
-        iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_flags__x_004f0ff0,&prVar2->field_0x24);
+        iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_flags__x_004f0ff0,&prVar2->dwFlags);
         if (iVar4 == 1) {
           uVar12 = stdConffile_ReadLine();
           if (uVar12 != 0) {
-            iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_type__x_004f0fe4,&prVar2->field_0x2c);
+            iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_type__x_004f0fe4,&prVar2->nType);
             if (iVar4 == 1) {
               uVar12 = stdConffile_ReadLine();
               if (uVar12 != 0) {
                 iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_frames__d_004f0fd8,
-                               &prVar2->field_0x34);
+                               &prVar2->nNumFrames);
                 if (iVar4 == 1) {
                   uVar12 = stdConffile_ReadLine();
                   if (uVar12 != 0) {
                     iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_fps__f_004f0fd0,&local_58);
                     if (iVar4 == 1) {
-                      *(uint *)&prVar2->field_0x30 = local_58;
+                      prVar2->flFps = PUN(float,local_58);
                       uVar12 = stdConffile_ReadLine();
                       if (uVar12 != 0) {
                         iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_joints__d_004f0fc4,&keyframe)
                         ;
                         if (iVar4 == 1) {
-                          puVar5 = (undefined4 *)
+                          prVar5 = (rdKeyframeNode *)
                                    (*g_pRdroid_HS->pAlloc)
                                              ((int)keyframe * 0x2c,
                                               s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
                                               DAT_004f0f0c + 0x42);
-                          *(undefined4 **)&prVar2->field_0x3c = puVar5;
-                          if (puVar5 != (undefined4 *)0x0) {
+                          prVar2->pNodes = prVar5;
+                          if (prVar5 != (rdKeyframeNode *)0x0) {
                             for (uVar12 = (int)keyframe * 0xb & 0x3fffffff; uVar12 != 0;
                                 uVar12 = uVar12 - 1) {
-                              *puVar5 = 0;
-                              puVar5 = puVar5 + 1;
+                              prVar5->aMeshName[0] = '\0';
+                              prVar5->aMeshName[1] = '\0';
+                              prVar5->aMeshName[2] = '\0';
+                              prVar5->aMeshName[3] = '\0';
+                              prVar5 = (rdKeyframeNode *)(prVar5->aMeshName + 4);
                             }
                             for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
-                              *(undefined1 *)puVar5 = 0;
-                              puVar5 = (undefined4 *)((int)puVar5 + 1);
+                              prVar5->aMeshName[0] = '\0';
+                              prVar5 = (rdKeyframeNode *)(prVar5->aMeshName + 1);
                             }
                             *(rdKeyframe **)&prVar2->field_0x28 = keyframe;
-                            *(rdKeyframe **)&prVar2->field_0x38 = keyframe;
+                            prVar2->nNumNodes = (int)keyframe;
                             uVar12 = stdConffile_ReadLine();
                             if (uVar12 != 0) {
                               iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64,
@@ -998,57 +999,57 @@ LAB_004c099f:
                                       iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                      s_mesh_name__s_004f0f80,auStack_20);
                                       if (iVar4 != 1) break;
-                                      puVar3 = (uint *)(*(int *)&prVar2->field_0x3c +
-                                                       uStack_64 * 0x2c);
-                                      strncpy(puVar3,auStack_20,0x1f);
-                                      *(undefined1 *)((int)puVar3 + 0x1f) = 0;
+                                      prVar5 = prVar2->pNodes + uStack_64;
+                                      strncpy((uint *)prVar5,auStack_20,0x1f);
+                                      prVar5->aMeshName[0x1f] = '\0';
                                       uVar12 = stdConffile_ReadLine();
                                       if (uVar12 == 0) break;
                                       iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                      s_entries__d_004f0f74,&uStack_60);
                                       if (iVar4 != 1) break;
-                                      puVar3[8] = uStack_64;
-                                      puVar3[9] = uStack_60;
-                                      uVar12 = (*g_pRdroid_HS->pAlloc)
+                                      *(uint *)&prVar5->field_0x20 = uStack_64;
+                                      prVar5->nNumEntries = uStack_60;
+                                      prVar8 = (rdKeyframeEntry *)
+                                               (*g_pRdroid_HS->pAlloc)
                                                          (uStack_60 * 0x38,
                                                                                                                     
                                                   s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
                                                   DAT_004f0f0c + 0x9b);
-                                      puVar3[10] = uVar12;
-                                      if (uVar12 == 0) break;
-                                      uVar7 = 0;
-                                      if (puVar3[9] != 0) {
+                                      prVar5->pEntries = prVar8;
+                                      if (prVar8 == (rdKeyframeEntry *)0x0) break;
+                                      uVar12 = 0;
+                                      if (prVar5->nNumEntries != 0) {
                                         do {
-                                          uVar8 = stdConffile_ReadLine();
-                                          if (uVar8 == 0) goto LAB_004c0cbf;
+                                          uVar7 = stdConffile_ReadLine();
+                                          if (uVar7 == 0) goto LAB_004c0cbf;
                                           iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                          s__d___f__x__f__f__f__f__f__f_004f0f54,
-                                                         auStack_24,uVar12,uVar12 + 4,&uStack_54,
-                                                         &uStack_50,&uStack_4c,&uStack_48,&uStack_44
-                                                         ,&uStack_40);
+                                                         auStack_24,prVar8,&prVar8->dwFlags,
+                                                         &fStack_54,&fStack_50,&fStack_4c,&fStack_48
+                                                         ,&fStack_44,&fStack_40);
                                           if (iVar4 != 9) goto LAB_004c0cbf;
-                                          *(undefined4 *)(uVar12 + 8) = uStack_54;
-                                          *(undefined4 *)(uVar12 + 0xc) = uStack_50;
-                                          *(undefined4 *)(uVar12 + 0x10) = uStack_4c;
-                                          *(undefined4 *)(uVar12 + 0x14) = uStack_48;
-                                          *(undefined4 *)(uVar12 + 0x18) = uStack_44;
-                                          *(undefined4 *)(uVar12 + 0x1c) = uStack_40;
-                                          uVar8 = stdConffile_ReadLine();
-                                          if (uVar8 == 0) goto LAB_004c0cbf;
+                                          prVar8->aPos[0] = fStack_54;
+                                          prVar8->aPos[1] = fStack_50;
+                                          prVar8->aPos[2] = fStack_4c;
+                                          prVar8->flPitch = fStack_48;
+                                          prVar8->flYaw = fStack_44;
+                                          prVar8->flRoll = fStack_40;
+                                          uVar7 = stdConffile_ReadLine();
+                                          if (uVar7 == 0) goto LAB_004c0cbf;
                                           iVar4 = sscanf((char *)g_dwStdConffile_aLine,
-                                                         s__f__f__f__f__f__f_004f0f40,&uStack_3c,
-                                                         &uStack_38,&uStack_34,&uStack_30,&uStack_2c
-                                                         ,&uStack_28);
+                                                         s__f__f__f__f__f__f_004f0f40,&fStack_3c,
+                                                         &fStack_38,&fStack_34,&fStack_30,&fStack_2c
+                                                         ,&fStack_28);
                                           if (iVar4 != 6) goto LAB_004c0cbf;
-                                          *(undefined4 *)(uVar12 + 0x20) = uStack_3c;
-                                          *(undefined4 *)(uVar12 + 0x24) = uStack_38;
-                                          *(undefined4 *)(uVar12 + 0x28) = uStack_34;
-                                          *(undefined4 *)(uVar12 + 0x2c) = uStack_30;
-                                          *(undefined4 *)(uVar12 + 0x30) = uStack_2c;
-                                          *(undefined4 *)(uVar12 + 0x34) = uStack_28;
-                                          uVar12 = uVar12 + 0x38;
-                                          uVar7 = uVar7 + 1;
-                                        } while (uVar7 < puVar3[9]);
+                                          prVar8->aDPos[0] = fStack_3c;
+                                          prVar8->aDPos[1] = fStack_38;
+                                          prVar8->aDPos[2] = fStack_34;
+                                          prVar8->flDPitch = fStack_30;
+                                          prVar8->flDYaw = fStack_2c;
+                                          prVar8->flDRoll = fStack_28;
+                                          prVar8 = prVar8 + 1;
+                                          uVar12 = uVar12 + 1;
+                                        } while (uVar12 < (uint)prVar5->nNumEntries);
                                       }
                                       path = path + 1;
                                       if (pcStack_5c <= path) {
@@ -1079,20 +1080,20 @@ LAB_004c0cbf:
 }
 #undef auStack_20
 #undef auStack_24
+#undef fStack_28
+#undef fStack_2c
+#undef fStack_30
+#undef fStack_34
+#undef fStack_38
+#undef fStack_3c
+#undef fStack_40
+#undef fStack_44
+#undef fStack_48
+#undef fStack_4c
+#undef fStack_50
+#undef fStack_54
 #undef local_58
 #undef pcStack_5c
-#undef uStack_28
-#undef uStack_2c
-#undef uStack_30
-#undef uStack_34
-#undef uStack_38
-#undef uStack_3c
-#undef uStack_40
-#undef uStack_44
-#undef uStack_48
-#undef uStack_4c
-#undef uStack_50
-#undef uStack_54
 #undef uStack_60
 #undef uStack_64
 #undef uStack_68

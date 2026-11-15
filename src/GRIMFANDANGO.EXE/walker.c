@@ -219,11 +219,11 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
   float in_stack_fffffed0;
   float in_stack_fffffed4;
   float in_stack_fffffed8;
-  float zmin;
+  rdModel3 *prVar25;
   #define local_124 (*(uint *)(_frame + (0x140 - 0x124)))
-  float fVar25;
   float fVar26;
   float fVar27;
+  float fVar28;
   #define local_104 (*(float *)(_frame + (0x140 - 0x104)))
   #define local_100 (*(uint *)(_frame + (0x140 - 0x100)))
   #define local_fc (*(float *)(_frame + (0x140 - 0xfc)))
@@ -276,24 +276,24 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
     } while (uVar19 != 0);
     return count;
   }
-  iVar16 = *(int *)((int)self->pCostumes->pMainModel + 4);
-  local_104 = self->pExtra->flCollisionScale * *(float *)(iVar16 + 0x5c);
+  prVar25 = self->pCostumes->pMainModel->pModel;
+  local_104 = self->pExtra->flCollisionScale * prVar25->flRadius;
   pfVar10 = sputActor_GetOrientMatrix(self);
-  rdMatrix_TransformVector34(local_c,(float *)(iVar16 + 0x78),pfVar10);
-  zmin = *(float *)((int)other->pCostumes->pMainModel + 4);
+  rdMatrix_TransformVector34(local_c,prVar25->aInsertOffset,pfVar10);
+  prVar25 = other->pCostumes->pMainModel->pModel;
   pfVar10 = sputActor_GetOrientMatrix(other);
-  rdMatrix_TransformPoint34(local_88,(float *)(PUN(int,(float)zmin) + 0x78),pfVar10);
+  rdMatrix_TransformPoint34(local_88,prVar25->aInsertOffset,pfVar10);
   pfVar10 = sputActor_GetOrientMatrix(other);
-  rdMatrix_TransformVector34(&local_e8,(float *)(PUN(int,(float)zmin) + 0x78),pfVar10);
+  rdMatrix_TransformVector34(&local_e8,prVar25->aInsertOffset,pfVar10);
   pAVar1 = other->pExtra;
-  local_7c[0] = *(float *)(PUN(int,(float)zmin) + 0x60) * pAVar1->flCollisionScale - local_104;
+  local_7c[0] = *(float *)&prVar25->field_0x60 * pAVar1->flCollisionScale - local_104;
   local_f4 = PUN(float,(pts + count * 3 + -3));
-  local_7c[1] = *(float *)(PUN(int,(float)zmin) + 100) * pAVar1->flCollisionScale - local_104;
-  local_7c[2] = *(float *)(PUN(int,(float)zmin) + 0x68) * pAVar1->flCollisionScale - local_104;
+  local_7c[1] = *(float *)&prVar25->field_0x64 * pAVar1->flCollisionScale - local_104;
+  local_7c[2] = *(float *)&prVar25->field_0x68 * pAVar1->flCollisionScale - local_104;
   pfVar10 = other->aPos;
-  fVar25 = 6.713119e-39f;
+  fVar26 = 6.713119e-39f;
   pfVar11 = sputActor_GetOrientMatrix(other);
-  fVar26 = local_f4;
+  fVar27 = local_f4;
   pfVar17 = local_7c;
   pfVar15 = (float *)(_stkneg + 28);
   for (iVar16 = 6; iVar16 != 0; iVar16 = iVar16 + -1) {
@@ -301,10 +301,10 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
     pfVar17 = pfVar17 + 1;
     pfVar15 = pfVar15 + 1;
   }
-  GetOuttaTheBox(PUN(float *,(float)fVar26),in_stack_fffffecc,in_stack_fffffed0,in_stack_fffffed4,
-                 in_stack_fffffed8,6.71289e-39f,fVar25,pfVar11,pfVar10);
+  GetOuttaTheBox(PUN(float *,(float)fVar27),in_stack_fffffecc,in_stack_fffffed0,in_stack_fffffed4,
+                 in_stack_fffffed8,6.71289e-39f,fVar26,pfVar11,pfVar10);
   pfVar10 = other->aPos;
-  fVar26 = 6.713184e-39f;
+  fVar27 = 6.713184e-39f;
   pfVar11 = sputActor_GetOrientMatrix(other);
   pfVar17 = local_7c;
   pfVar15 = (float *)(_stkneg + 28);
@@ -314,11 +314,11 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
     pfVar15 = pfVar15 + 1;
   }
   GetOuttaTheBox((float *)pts,in_stack_fffffecc,in_stack_fffffed0,in_stack_fffffed4,
-                 in_stack_fffffed8,6.71289e-39f,fVar26,pfVar11,pfVar10);
+                 in_stack_fffffed8,6.71289e-39f,fVar27,pfVar11,pfVar10);
   local_d0 = *PUN(float *,(float)local_f4);
   local_cc[0] = *(float *)(PUN(int,(float)local_f4) + 4);
   local_cc[1] = *(float *)(PUN(int,(float)local_f4) + 8);
-  fVar26 = 6.713289e-39f;
+  fVar27 = 6.713289e-39f;
   pWVar12 = WalkPlane_PlaneAt(&local_d0,0xffffffff);
   if (pWVar12 == (WalkPlane *)0x0) {
     return 0;
@@ -341,7 +341,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
       *pfVar10 = pfVar17[-2];
       pfVar10[1] = pfVar17[-1];
       pfVar10[2] = *pfVar17;
-      fVar25 = 6.713547e-39f;
+      fVar26 = 6.713547e-39f;
       pfVar11 = sputActor_GetOrientMatrix(other);
       pfVar10 = local_7c;
       pfVar15 = (float *)(_stkneg + 32);
@@ -351,7 +351,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
         pfVar15 = pfVar15 + 1;
       }
       iVar16 = TestCollision(local_64,local_a0,local_88,in_stack_fffffed0,in_stack_fffffed4,
-                             in_stack_fffffed8,6.71289e-39f,fVar26,fVar25,pfVar11);
+                             in_stack_fffffed8,6.71289e-39f,fVar27,fVar26,pfVar11);
       local_100 = uVar19;
       if (iVar16 != 0) {
         pfVar10 = sputActor_GetOrientMatrix(other);
@@ -361,8 +361,8 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
         pfVar17 = &local_4c;
         pfVar10 = sputActor_GetOrientMatrix(other);
         local_124 = PUN(uint,(float)(local_104 - -0.02f));
-        fVar26 = 6.713914e-39f;
-        FindObjectCorners(PUN(int,(float)zmin),PUN(float,local_124),pfVar10,PUN(float,local_50),pfVar17);
+        fVar27 = 6.713914e-39f;
+        FindObjectCorners((int)prVar25,PUN(float,local_124),pfVar10,PUN(float,local_50),pfVar17);
         puVar21 = &local_1c;
         pfVar17 = &local_4c;
         local_f4 = 5.60519e-45f;
@@ -371,7 +371,7 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
           local_a0[0] = local_e8 + *pfVar17;
           local_a0[1] = pfVar17[1] + local_e4[0];
           local_a0[2] = local_e4[1] + pfVar17[2];
-          fVar25 = 6.714029e-39f;
+          fVar26 = 6.714029e-39f;
           pfVar13 = sputActor_GetOrientMatrix(other);
           pfVar15 = local_88;
           pfVar11 = local_7c;
@@ -381,8 +381,8 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
             pfVar11 = pfVar11 + 1;
             pfVar23 = pfVar23 + 1;
           }
-          iVar16 = TestCollision(local_64,local_a0,pfVar15,in_stack_fffffed0,fVar26,zmin,
-                                 PUN(float,local_124),PUN(float,pfVar10),fVar25,pfVar13);
+          iVar16 = TestCollision(local_64,local_a0,pfVar15,in_stack_fffffed0,fVar27,PUN(float,prVar25),
+                                 PUN(float,local_124),PUN(float,pfVar10),fVar26,pfVar13);
           if (iVar16 == 0) {
             pfVar10 = (float *)(pts + local_f0 * 3);
             local_124 = 0x491c4c;
@@ -395,11 +395,11 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
           puVar21 = puVar21 + 1;
           local_f4 = PUN(float,(PUN(int,(float)local_f4) + -1));
         } while (local_f4 != 0.0f);
-        fVar25 = PUN(float,Collision_PickDetour(local_64,&local_d0,(int)&local_4c));
-        if (fVar25 == -NAN) {
+        fVar26 = PUN(float,Collision_PickDetour(local_64,&local_d0,(int)&local_4c));
+        if (fVar26 == -NAN) {
           return uVar19;
         }
-        BuildPath((float *)(pts + local_f0 * 3),&local_4c + PUN(int,(float)fVar25) * 3,0);
+        BuildPath((float *)(pts + local_f0 * 3),&local_4c + PUN(int,(float)fVar26) * 3,0);
         uVar14 = GetPath(&local_fc);
         if (0 < (int)uVar14) {
           local_100 = uVar19 + uVar14;
@@ -415,10 +415,10 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
           } while (uVar14 != 0);
         }
         pfVar11 = &local_e8;
-        (&local_1c)[PUN(int,(float)fVar25)] = 0;
+        (&local_1c)[PUN(int,(float)fVar26)] = 0;
         pfVar17 = out + local_100 * 3;
         pfVar10 = pfVar17 + -3;
-        fVar27 = 6.714508e-39f;
+        fVar28 = 6.714508e-39f;
         local_f4 = PUN(float,pfVar17);
         p10 = sputActor_GetOrientMatrix(other);
         pfVar23 = local_7c;
@@ -429,8 +429,8 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
           pfVar13 = pfVar13 + 1;
         }
         iVar16 = Collision_PointInBox
-                           (pfVar10,&local_d0,local_88,PUN(float,pfVar15),in_stack_fffffed0,fVar26,zmin,
-                            6.714319e-39f,fVar27,p10,pfVar11);
+                           (pfVar10,&local_d0,local_88,PUN(float,pfVar15),in_stack_fffffed0,fVar27,
+                            PUN(float,prVar25),6.714319e-39f,fVar28,p10,pfVar11);
         if (iVar16 != 0) {
           uVar19 = GetPath(&local_fc);
           if ((int)uVar19 < 1) {
@@ -447,19 +447,19 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
           } while (uVar19 != 0);
           return uVar14;
         }
-        uVar19 = (int)(PUN(int,(float)fVar25) + 3U) >> 0x1f;
-        fVar27 = PUN(float,(((PUN(int,(float)fVar25) + 3U ^ uVar19) - uVar19 & 3 ^ uVar19) - uVar19));
-        uVar19 = (int)(PUN(int,(float)fVar25) + 5U) >> 0x1f;
-        fVar24 = PUN(float,(((PUN(int,(float)fVar25) + 5U ^ uVar19) - uVar19 & 3 ^ uVar19) - uVar19));
-        local_f0 = BuildPath(pfVar10,&local_4c + PUN(int,(float)fVar27) * 3,0);
+        uVar19 = (int)(PUN(int,(float)fVar26) + 3U) >> 0x1f;
+        fVar28 = PUN(float,(((PUN(int,(float)fVar26) + 3U ^ uVar19) - uVar19 & 3 ^ uVar19) - uVar19));
+        uVar19 = (int)(PUN(int,(float)fVar26) + 5U) >> 0x1f;
+        fVar24 = PUN(float,(((PUN(int,(float)fVar26) + 5U ^ uVar19) - uVar19 & 3 ^ uVar19) - uVar19));
+        local_f0 = BuildPath(pfVar10,&local_4c + PUN(int,(float)fVar28) * 3,0);
         iVar16 = BuildPath(pfVar10,&local_4c + PUN(int,(float)fVar24) * 3,0);
         if (iVar16 != 0) {
           if (local_f0 == 0) goto LAB_00491fa5;
-          local_104 = *pfVar10 - (&local_4c)[PUN(int,(float)fVar27) * 3];
-          fVar3 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar27) * 3]);
-          fVar4 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar27) * 3]);
-          fVar5 = PUN(float,(&local_48)[PUN(int,(float)fVar27) * 3]) - local_cc[0];
-          fVar6 = PUN(float,(&local_44)[PUN(int,(float)fVar27) * 3]) - local_cc[1];
+          local_104 = *pfVar10 - (&local_4c)[PUN(int,(float)fVar28) * 3];
+          fVar3 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar28) * 3]);
+          fVar4 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar28) * 3]);
+          fVar5 = PUN(float,(&local_48)[PUN(int,(float)fVar28) * 3]) - local_cc[0];
+          fVar6 = PUN(float,(&local_44)[PUN(int,(float)fVar28) * 3]) - local_cc[1];
           fVar7 = *(float *)(PUN(int,(float)local_f4) + -8) - PUN(float,(&local_48)[PUN(int,(float)fVar24) * 3]);
           local_f8 = *(float *)(PUN(int,(float)local_f4) + -4) - PUN(float,(&local_44)[PUN(int,(float)fVar24) * 3]);
           local_ec = PUN(uint,(float)((&local_4c)[PUN(int,(float)fVar24) * 3] - local_d0));
@@ -471,8 +471,8 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
               (*pfVar10 - (&local_4c)[PUN(int,(float)fVar24) * 3]) * (*pfVar10 - (&local_4c)[PUN(int,(float)fVar24) * 3])
               <= fVar6 * fVar6 +
                  fVar5 * fVar5 +
-                 ((&local_4c)[PUN(int,(float)fVar27) * 3] - local_d0) *
-                 ((&local_4c)[PUN(int,(float)fVar27) * 3] - local_d0) +
+                 ((&local_4c)[PUN(int,(float)fVar28) * 3] - local_d0) *
+                 ((&local_4c)[PUN(int,(float)fVar28) * 3] - local_d0) +
                  fVar4 * fVar4 + fVar3 * fVar3 + local_104 * local_104) {
             local_f0 = 0;
           }
@@ -482,14 +482,14 @@ uint __cdecl Walker_AvoidActorPath(Actor *self,Actor *other,undefined4 *pts,uint
         }
         if (local_f0 != 0) {
           local_f8 = -NAN;
-          local_104 = fVar27;
+          local_104 = fVar28;
         }
 LAB_00491fa5:
         if (iVar16 != 0) {
           local_f8 = 1.4013e-45f;
           local_104 = fVar24;
         }
-        if (local_104 == fVar25) {
+        if (local_104 == fVar26) {
           return local_100;
         }
         while( true ) {
@@ -506,7 +506,7 @@ LAB_00491fa5:
               local_94[0] = *(float *)(PUN(int,(float)local_fc) + 0xc + iVar20) + local_e8;
               local_94[1] = *(float *)(PUN(int,(float)local_fc) + 0x10 + iVar20) + local_e4[0];
               local_94[2] = *(float *)(PUN(int,(float)local_fc) + 0x14 + iVar20) + local_e4[1];
-              fVar27 = 6.715614e-39f;
+              fVar28 = 6.715614e-39f;
               pfVar11 = sputActor_GetOrientMatrix(other);
               pfVar17 = local_7c;
               pfVar15 = (float *)(_stkneg + 32);
@@ -516,8 +516,8 @@ LAB_00491fa5:
                 pfVar15 = pfVar15 + 1;
               }
               pfVar15 = local_88;
-              iVar18 = TestCollision(local_ac,local_94,pfVar15,in_stack_fffffed0,fVar26,zmin,
-                                     6.715423e-39f,PUN(float,pfVar10),fVar27,pfVar11);
+              iVar18 = TestCollision(local_ac,local_94,pfVar15,in_stack_fffffed0,fVar27,
+                                     PUN(float,prVar25),6.715423e-39f,PUN(float,pfVar10),fVar28,pfVar11);
               if (iVar18 != 0) {
                 return 0;
               }
@@ -541,7 +541,7 @@ LAB_00491fa5:
           pfVar17 = &local_e8;
           local_f4 = PUN(float,(out + local_100 * 3));
           pfVar10 = (float *)(PUN(int,(float)local_f4) + -0xc);
-          fVar27 = 6.715863e-39f;
+          fVar28 = 6.715863e-39f;
           pfVar13 = sputActor_GetOrientMatrix(other);
           pfVar11 = local_7c;
           pfVar23 = (float *)(_stkneg + 28);
@@ -551,13 +551,13 @@ LAB_00491fa5:
             pfVar23 = pfVar23 + 1;
           }
           iVar16 = Collision_PointInBox
-                             (pfVar10,&local_d0,local_88,PUN(float,pfVar15),in_stack_fffffed0,fVar26,
-                              zmin,6.715423e-39f,fVar27,pfVar13,pfVar17);
+                             (pfVar10,&local_d0,local_88,PUN(float,pfVar15),in_stack_fffffed0,fVar27,
+                              PUN(float,prVar25),6.715423e-39f,fVar28,pfVar13,pfVar17);
           if (iVar16 != 0) break;
           uVar19 = PUN(int,(float)local_f8) + 4 + PUN(int,(float)local_104);
           uVar14 = (int)uVar19 >> 0x1f;
           local_104 = PUN(float,(((uVar19 ^ uVar14) - uVar14 & 3 ^ uVar14) - uVar14));
-          if (local_104 == fVar25) {
+          if (local_104 == fVar26) {
             return local_100;
           }
         }
@@ -572,7 +572,7 @@ LAB_00491fa5:
             local_ac[0] = *(float *)(local_ec + 0xc + iVar16) + local_e8;
             local_ac[1] = *(float *)(local_ec + 0x10 + iVar16) + local_e4[0];
             local_ac[2] = *(float *)(local_ec + 0x14 + iVar16) + local_e4[1];
-            fVar25 = 6.716198e-39f;
+            fVar26 = 6.716198e-39f;
             pfVar15 = sputActor_GetOrientMatrix(other);
             pfVar10 = local_7c;
             pfVar17 = (float *)(_stkneg + 32);
@@ -581,8 +581,8 @@ LAB_00491fa5:
               pfVar10 = pfVar10 + 1;
               pfVar17 = pfVar17 + 1;
             }
-            iVar22 = TestCollision(local_94,local_ac,local_88,in_stack_fffffed0,fVar26,zmin,
-                                   6.715423e-39f,fVar27,fVar25,pfVar15);
+            iVar22 = TestCollision(local_94,local_ac,local_88,in_stack_fffffed0,fVar27,
+                                   PUN(float,prVar25),6.715423e-39f,fVar28,fVar26,pfVar15);
             if (iVar22 != 0) {
               return 0;
             }

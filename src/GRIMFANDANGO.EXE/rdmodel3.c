@@ -126,7 +126,7 @@ uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
   undefined *puVar11;
   char *pcVar12;
   undefined *puVar13;
-  int iVar14;
+  rdHierarchyNode *prVar14;
   uint uVar15;
   undefined *puVar16;
   uint *puVar17;
@@ -151,16 +151,16 @@ uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
   #define uStack_2044c (*(uint *)(_frame + (0x204a0 - 0x2044c)))
   #define uStack_20448 (*(uint *)(_frame + (0x204a0 - 0x20448)))
   #define fStack_20444 (*(float *)(_frame + (0x204a0 - 0x20444)))
-  #define uStack_20440 (*(undefined4 *)(_frame + (0x204a0 - 0x20440)))
-  #define uStack_2043c (*(undefined4 *)(_frame + (0x204a0 - 0x2043c)))
+  #define fStack_20440 (*(float *)(_frame + (0x204a0 - 0x20440)))
+  #define fStack_2043c (*(float *)(_frame + (0x204a0 - 0x2043c)))
   #define uStack_20438 (*(undefined4 *)(_frame + (0x204a0 - 0x20438)))
-  #define uStack_20434 (*(undefined4 *)(_frame + (0x204a0 - 0x20434)))
+  #define fStack_20434 (*(float *)(_frame + (0x204a0 - 0x20434)))
   #define fStack_20430 (*(float *)(_frame + (0x204a0 - 0x20430)))
-  #define uStack_2042c (*(undefined4 *)(_frame + (0x204a0 - 0x2042c)))
+  #define fStack_2042c (*(float *)(_frame + (0x204a0 - 0x2042c)))
   #define iStack_20428 (*(int *)(_frame + (0x204a0 - 0x20428)))
-  #define uStack_20424 (*(undefined4 *)(_frame + (0x204a0 - 0x20424)))
+  #define fStack_20424 (*(float *)(_frame + (0x204a0 - 0x20424)))
   #define iStack_20420 (*(int *)(_frame + (0x204a0 - 0x20420)))
-  #define uStack_2041c (*(undefined4 *)(_frame + (0x204a0 - 0x2041c)))
+  #define fStack_2041c (*(float *)(_frame + (0x204a0 - 0x2041c)))
   #define fStack_20418 (*(float *)(_frame + (0x204a0 - 0x20418)))
   #define uStack_20414 (*(uint *)(_frame + (0x204a0 - 0x20414)))
   #define iStack_20410 (*(int *)(_frame + (0x204a0 - 0x20410)))
@@ -585,60 +585,57 @@ uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
                 (uVar20 = stdConffile_ReadLine(), uVar20 != 0)) &&
                (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_hierarchy_nodes__d_004ddbfc,
                                &uStack_20458), iVar3 == 1)) {
-              pvVar10 = (void *)(*g_pRdroid_HS->pAlloc)
-                                          (uStack_20458 * 0xb8,
-                                           s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94,
-                                           DAT_004ddb80 + 0x1ef);
-              model->pHierarchyNodes = pvVar10;
-              if (pvVar10 != (void *)0x0) {
+              prVar14 = (rdHierarchyNode *)
+                        (*g_pRdroid_HS->pAlloc)
+                                  (uStack_20458 * 0xb8,s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94,
+                                   DAT_004ddb80 + 0x1ef);
+              model->pHierarchyNodes = prVar14;
+              if (prVar14 != (rdHierarchyNode *)0x0) {
                 uVar20 = 0;
                 model->nNumHierarchyNodes = uStack_20458;
                 if (uStack_20458 != 0) {
                   iVar3 = 0;
                   do {
-                    pvVar10 = model->pHierarchyNodes;
-                    *(uint *)(iVar3 + 0x44 + (int)pvVar10) = uVar20;
-                    iVar9 = iVar3 + (int)pvVar10;
+                    prVar14 = model->pHierarchyNodes;
+                    *(uint *)((int)prVar14->aPivot + iVar3 + -0x20) = uVar20;
+                    pcVar18 = prVar14->aName + iVar3;
                     uVar4 = stdConffile_ReadLine();
                     if ((uVar4 == 0) ||
-                       (iVar14 = sscanf((char *)g_dwStdConffile_aLine,
-                                        s__d___x__x__d__d__d__d__d__f__f___004ddbc4,&iStack_20478,
-                                        iVar9 + 0x40,iVar9 + 0x48,iVar9 + 0x4c,&iStack_20428,
-                                        &iStack_20410,&iStack_20420,iVar9 + 0x58,&fStack_2047c,
-                                        &fStack_20484,&fStack_20480,&uStack_20440,&uStack_2043c,
-                                        &uStack_20434,&uStack_2042c,&uStack_20424,&uStack_2041c,
-                                        iVar9), iVar14 != 0x12)) goto LAB_0040b8c4;
+                       (iVar9 = sscanf((char *)g_dwStdConffile_aLine,
+                                       s__d___x__x__d__d__d__d__d__f__f___004ddbc4,&iStack_20478,
+                                       pcVar18 + 0x40,pcVar18 + 0x48,pcVar18 + 0x4c,&iStack_20428,
+                                       &iStack_20410,&iStack_20420,pcVar18 + 0x58,&fStack_2047c,
+                                       &fStack_20484,&fStack_20480,&fStack_20440,&fStack_2043c,
+                                       &fStack_20434,&fStack_2042c,&fStack_20424,&fStack_2041c,
+                                       pcVar18), iVar9 != 0x12)) goto LAB_0040b8c4;
                     if (iStack_20428 == -1) {
-                      *(undefined4 *)(iVar9 + 0x54) = 0;
+                      *(rdHierarchyNode **)(pcVar18 + 0x54) = (rdHierarchyNode *)0x0;
                     }
                     else {
-                      *(void **)(iVar9 + 0x54) =
-                           (void *)((int)model->pHierarchyNodes + iStack_20428 * 0xb8);
+                      *(rdHierarchyNode **)(pcVar18 + 0x54) = model->pHierarchyNodes + iStack_20428;
                     }
                     if (iStack_20410 == -1) {
-                      *(undefined4 *)(iVar9 + 0x5c) = 0;
+                      *(rdHierarchyNode **)(pcVar18 + 0x5c) = (rdHierarchyNode *)0x0;
                     }
                     else {
-                      *(void **)(iVar9 + 0x5c) =
-                           (void *)((int)model->pHierarchyNodes + iStack_20410 * 0xb8);
+                      *(rdHierarchyNode **)(pcVar18 + 0x5c) = model->pHierarchyNodes + iStack_20410;
                     }
                     if (iStack_20420 == -1) {
-                      *(undefined4 *)(iVar9 + 0x60) = 0;
+                      *(rdHierarchyNode **)(pcVar18 + 0x60) = (rdHierarchyNode *)0x0;
                     }
                     else {
-                      *(void **)(iVar9 + 0x60) =
-                           (void *)((int)model->pHierarchyNodes + iStack_20420 * 0xb8);
+                      *(rdHierarchyNode **)(pcVar18 + 0x60) = model->pHierarchyNodes + iStack_20420;
                     }
                     uVar20 = uVar20 + 1;
-                    *(float *)(iVar9 + 0x70) = fStack_2047c;
-                    *(float *)(iVar9 + 0x74) = fStack_20484;
-                    *(float *)(iVar9 + 0x78) = fStack_20480;
-                    *(undefined4 *)(iVar9 + 0x7c) = uStack_20440;
-                    *(undefined4 *)(iVar9 + 0x80) = uStack_2043c;
-                    *(undefined4 *)(iVar9 + 0x84) = uStack_20434;
-                    *(undefined4 *)(iVar9 + 100) = uStack_2042c;
-                    *(undefined4 *)(iVar9 + 0x68) = uStack_20424;
-                    *(undefined4 *)(iVar9 + 0x6c) = uStack_2041c;
+                    *(float *)(pcVar18 + 0x70) = fStack_2047c;
+                    *(float *)(pcVar18 + 0x74) = fStack_20484;
+                    *(float *)(pcVar18 + 0x78) = fStack_20480;
+                    *(float *)(pcVar18 + 0x7c) = fStack_20440;
+                    *(float *)(pcVar18 + 0x80) = fStack_2043c;
+                    *(float *)(pcVar18 + 0x84) = fStack_20434;
+                    *(float *)(pcVar18 + 100) = fStack_2042c;
+                    *(float *)(pcVar18 + 0x68) = fStack_20424;
+                    *(float *)(pcVar18 + 0x6c) = fStack_2041c;
                     iVar3 = iVar3 + 0xb8;
                   } while (uVar20 < uStack_20458);
                 }
@@ -661,7 +658,13 @@ LAB_0040b8c4:
 #undef auStack_20404
 #undef auStack_20408
 #undef fStack_20418
+#undef fStack_2041c
+#undef fStack_20424
+#undef fStack_2042c
 #undef fStack_20430
+#undef fStack_20434
+#undef fStack_2043c
+#undef fStack_20440
 #undef fStack_20444
 #undef fStack_2047c
 #undef fStack_20480
@@ -675,13 +678,7 @@ LAB_0040b8c4:
 #undef puStack_20450
 #undef uStack_2040c
 #undef uStack_20414
-#undef uStack_2041c
-#undef uStack_20424
-#undef uStack_2042c
-#undef uStack_20434
 #undef uStack_20438
-#undef uStack_2043c
-#undef uStack_20440
 #undef uStack_20448
 #undef uStack_2044c
 #undef uStack_20454

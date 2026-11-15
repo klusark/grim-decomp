@@ -227,7 +227,7 @@ int * __cdecl KeyframeInstancer(int inst,int component,int create)
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a key from 'name priority tagged' text or
    asks for a .key file and loads it as a Keyframe resource. */
 
-int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint param_5)
+int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint filename)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -261,7 +261,7 @@ int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint para
     if (parent == 0) {
       return 0;
     }
-    if (param_5 == 0) {
+    if (filename == 0) {
       if (g_bKeyframePath != '\0') {
         grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bKeyframePath));
       }
@@ -279,7 +279,7 @@ int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint para
       data = sputResource_Alloc(0x4659454b,g_szGrimlib_aFilename);
     }
     else {
-      strncpy((uint *)&local_20,(uint *)param_5,0x1f);
+      strncpy((uint *)&local_20,(uint *)filename,0x1f);
       local_1 = 0;
       name = (char *)strtok(&local_20,&DAT_004ea52c);
       data = sputResource_Alloc(0x4659454b,name);
@@ -301,10 +301,10 @@ int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint para
       Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xf29);
       ref[1].pData = (void *)local_2c;
       ref[1].nValid = local_28;
-      if (param_5 == 0) {
-        param_5 = local_24;
+      if (filename == 0) {
+        filename = local_24;
       }
-      iVar3 = Cos_RegisterComponent(cosInst,param_5,(int)ref,tag,parent,type,((unsigned)(uintptr_t)&DAT_004e9fe0));
+      iVar3 = Cos_RegisterComponent(cosInst,filename,(int)ref,tag,parent,type,((unsigned)(uintptr_t)&DAT_004e9fe0));
       return (uint)(iVar3 != 0);
     }
   }

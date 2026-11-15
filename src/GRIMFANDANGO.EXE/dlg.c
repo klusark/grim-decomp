@@ -107,8 +107,8 @@ Dlg_MakeItemTemplate
 
 uint * __cdecl
 Dlg_MakeDialogTemplate
-          (undefined4 *param_1,ushort param_2,ushort param_3,ushort param_4,ushort param_5,
-          ushort param_6,int param_7,int param_8,ushort param_9,uint *param_10)
+          (undefined4 *style,ushort items,ushort x,ushort y,ushort cx,ushort cy,int title,int font,
+          ushort pointSize,uint *outSize)
 
 {
   byte bVar1;
@@ -124,46 +124,46 @@ Dlg_MakeDialogTemplate
   undefined4 local_c;
   undefined4 local_8;
   
-  local_14 = (uint)param_1;
-  if (param_8 != 0) {
-    local_14 = (uint)param_1 | 0x40;
+  local_14 = (uint)style;
+  if (font != 0) {
+    local_14 = (uint)style | 0x40;
   }
-  local_c = CONCAT22(param_3,param_2);
-  local_8 = CONCAT22(param_5,param_4);
-  if (param_7 == 0) {
-    PIECE(param_2,0,4) = 2;
-    PIECE(param_4,0,4) = (undefined4 *)malloc(2);
-    *(undefined2 *)PIECE(param_4,0,4) = 0;
-  }
-  else {
-    iVar2 = MultiByteToWideChar(0,1,param_7,-1,0,0);
-    PIECE(param_2,0,4) = iVar2 * 2;
-    PIECE(param_4,0,4) = (undefined4 *)malloc(PIECE(param_2,0,4));
-    MultiByteToWideChar(0,1,param_7,-1,(int)PIECE(param_4,0,4),iVar2);
-  }
-  if (param_8 == 0) {
-    PIECE(param_3,0,4) = 0;
-    param_1 = (undefined4 *)0x0;
-    param_5 = 0;
+  local_c = CONCAT22(x,items);
+  local_8 = CONCAT22(cx,y);
+  if (title == 0) {
+    PIECE(items,0,4) = 2;
+    PIECE(y,0,4) = (undefined4 *)malloc(2);
+    *(undefined2 *)PIECE(y,0,4) = 0;
   }
   else {
-    iVar2 = MultiByteToWideChar(0,1,param_8,-1,0,0);
-    PIECE(param_3,0,4) = iVar2 * 2;
-    param_1 = (undefined4 *)malloc(PIECE(param_3,0,4));
-    MultiByteToWideChar(0,1,param_8,-1,(int)param_1,iVar2);
-    param_5 = param_9;
+    iVar2 = MultiByteToWideChar(0,1,title,-1,0,0);
+    PIECE(items,0,4) = iVar2 * 2;
+    PIECE(y,0,4) = (undefined4 *)malloc(PIECE(items,0,4));
+    MultiByteToWideChar(0,1,title,-1,(int)PIECE(y,0,4),iVar2);
   }
-  *param_10 = PIECE(param_2,0,4) + 0x16;
-  if (param_8 != 0) {
-    *param_10 = PIECE(param_3,0,4) + 2 + PIECE(param_2,0,4) + 0x16;
+  if (font == 0) {
+    PIECE(x,0,4) = 0;
+    style = (undefined4 *)0x0;
+    cx = 0;
   }
-  bVar1 = (byte)*param_10;
+  else {
+    iVar2 = MultiByteToWideChar(0,1,font,-1,0,0);
+    PIECE(x,0,4) = iVar2 * 2;
+    style = (undefined4 *)malloc(PIECE(x,0,4));
+    MultiByteToWideChar(0,1,font,-1,(int)style,iVar2);
+    cx = pointSize;
+  }
+  *outSize = PIECE(items,0,4) + 0x16;
+  if (font != 0) {
+    *outSize = PIECE(x,0,4) + 2 + PIECE(items,0,4) + 0x16;
+  }
+  bVar1 = (byte)*outSize;
   while ((bVar1 & 3) != 0) {
-    *param_10 = *param_10 + 1;
-    bVar1 = (byte)*param_10;
+    *outSize = *outSize + 1;
+    bVar1 = (byte)*outSize;
   }
-  puVar3 = (uint *)malloc(*param_10);
-  uVar5 = *param_10;
+  puVar3 = (uint *)malloc(*outSize);
+  uVar5 = *outSize;
   puVar8 = puVar3;
   for (uVar4 = uVar5 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
     *puVar8 = 0;
@@ -177,38 +177,38 @@ Dlg_MakeDialogTemplate
   puVar3[1] = 0;
   puVar3[2] = local_c;
   puVar3[3] = local_8;
-  *(ushort *)(puVar3 + 4) = param_6;
+  *(ushort *)(puVar3 + 4) = cy;
   *(undefined2 *)((int)puVar3 + 0x12) = 0;
   *(undefined2 *)(puVar3 + 5) = 0;
-  puVar7 = PIECE(param_4,0,4);
+  puVar7 = PIECE(y,0,4);
   puVar9 = (undefined4 *)((int)puVar3 + 0x16);
-  for (uVar5 = PIECE(param_2,0,4) >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
+  for (uVar5 = PIECE(items,0,4) >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
     *puVar9 = *puVar7;
     puVar7 = puVar7 + 1;
     puVar9 = puVar9 + 1;
   }
-  for (uVar5 = PIECE(param_2,0,4) & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+  for (uVar5 = PIECE(items,0,4) & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
     *(undefined1 *)puVar9 = *(undefined1 *)puVar7;
     puVar7 = (undefined4 *)((int)puVar7 + 1);
     puVar9 = (undefined4 *)((int)puVar9 + 1);
   }
-  free((int)PIECE(param_4,0,4));
-  if (param_8 != 0) {
-    puVar6 = (ushort *)((int)puVar3 + 0x16 + PIECE(param_2,0,4));
-    *puVar6 = param_5;
-    puVar7 = param_1;
+  free((int)PIECE(y,0,4));
+  if (font != 0) {
+    puVar6 = (ushort *)((int)puVar3 + 0x16 + PIECE(items,0,4));
+    *puVar6 = cx;
+    puVar7 = style;
     puVar6 = puVar6 + 1;
-    for (uVar5 = PIECE(param_3,0,4) >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
+    for (uVar5 = PIECE(x,0,4) >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
       *(undefined4 *)puVar6 = *puVar7;
       puVar7 = puVar7 + 1;
       puVar6 = puVar6 + 2;
     }
-    for (PIECE(param_3,0,4) = PIECE(param_3,0,4) & 3; PIECE(param_3,0,4) != 0; PIECE(param_3,0,4) = PIECE(param_3,0,4) - 1) {
+    for (PIECE(x,0,4) = PIECE(x,0,4) & 3; PIECE(x,0,4) != 0; PIECE(x,0,4) = PIECE(x,0,4) - 1) {
       *(undefined1 *)puVar6 = *(undefined1 *)puVar7;
       puVar7 = (undefined4 *)((int)puVar7 + 1);
       puVar6 = (ushort *)((int)puVar6 + 1);
     }
-    free((int)param_1);
+    free((int)style);
   }
   return puVar3;
 }

@@ -2320,3 +2320,54 @@ D3D_FindClosestDriver picks: here "Direct3D HAL"). The default stays the softwar
 * **Not working yet:** fullscreen (`GRIM_3D=2`): IDirect3DDevice::Execute fails with E_OUTOFMEMORY in two runs of three,
   which a stand-alone program with the game's own execute buffer, render states, z-buffer and exclusive mode does not
   reproduce; and the game sometimes hangs on exit in that mode.
+
+## Round 2 of the hand-written functions; the last live parameters; raw accesses 76 -> 46 (2026-11-15)
+
+* **The x87 and documented overrides tried again** (after the `_frame` and ROUND changes). Of the 115 in those two
+  categories (hooks, deliberate fixes and register conventions left out), 75 have a twin without decompiler markers
+  (`unaff_`, `in_ST0`, `in_stack_`, `extraout_`). Removed together they break the boot; removed by override file, with
+  the clean room on each: overrides.c (the Lua math and error functions: Lua errors crash), overrides_asm_o2.c and
+  overrides_imuse.c (boot), overrides_mixer_video.c (movies), overrides_asm_p1.c (54 tests), overrides_logic.c (212),
+  overrides_asm_q3.c and overrides_cleanroom.c (12 each), overrides_big_engine_renderframe.c (2) fail. The other groups
+  pass the clean room, which does not see x87 rounding, so their twin tests decide:
+  - asm_p2 (math_test.c, 100,000 cases each): the twins differ as recorded (rdClip_FaceToPlane 191,390,
+    rdLight_CalcVertexIntensities 120,831, rdMatrix_BuildFromVectorAngle34 32,673, rdMatrix_Build34 17,799,
+    rdMatrix_BuildRotate34 17,706, rdClip_SphereInFrustrum 2,485, rdCanvas_DrawPoint 1,611); the hand-written C: 0.
+  - asm_q2 (clip_test.c): the clippers' output vertices differ in the last bit. asm_q1: the twins crash the test.
+  - snd_test: sou_engine_fill / SoundModule_AdvanceClock 2,495 of 4,998 (6 for today's build); misc_test:
+    LightEd_KeyboardProc differs and crashes it.
+  - rdPuppet_UpdateTracks (no test): its twin compares a track's weight after storing it as a float, the original the
+    unrounded x87 value (a weight of 0.99999998 ends the fade a frame early in the twin). Script_Update and
+    rdVector_Normalize3 keep their recorded reasons.
+* **Generated again:** stdMath_NormalizeAngle. Its twin now keeps the result in the `_frame` array, so it is rounded to
+  float before the compare with 360, as the original does (and the hand-written `volatile` did).
+  build/difftest/asm_p2/angle_test.c (new): the original machine code (no commit's asm_funcs.s has the function:
+  tools/gen_asm.py with names/asm_funcs.json set to ["0047bc20"] for one run gives it) against the C, on random bit
+  patterns, random angles and 33 values around every multiple of 360 up to 360 * 4096: 2,270,369 cases, 0 differences
+  for the twin at -O0 and with link.py's flags (a mutant without the 360 test: 48,620). At -O2 the twin compares the
+  80-bit value and gives 360 for 15,786 inputs, as the old comment said; the build compiles at -O0 (OPT=-O2 would need
+  the hand-written version back).
+* docs/OVERRIDES.md: 529 functions (524 + the six Direct3D ones of the window mode, which had no recorded reason and
+  showed as `repair`: the 16-bit display emulation and the two functions whose COM calls lose their arguments, now in
+  names/override_reasons.json; - stdMath_NormalizeAngle).
+* **Parameters** (names/params_r2_{exe,lua,imuse}.py -> .json): the costume requesters' file name (`filename`; NULL asks
+  for one), SpriteRequester's five, sputLua_RestoreIndirector's saved `id`, Dlg_MakeDialogTemplate's DLGTEMPLATE fields
+  (style, items, x, y, cx, cy, title, font, pointSize, outSize), text_FindNextBreak's `context`; Lua 3.1's names in
+  LUA.DLL (lua_getlocal / lua_setlocal `funcObj`, luaD_protectedrun `nResults`, protectedparser `z` / `bin`, fillvalids
+  `func`, LoadHeader `zio`, ExecutionState_CrunchOpcodes `state`, lua_updatetasks `loop`); iMUSE's dispatcher helpers
+  (track, map / id / prev, region, dispatch, count, size, buf, res / offset, entry). In live code 16 `param_N` are left
+  (EXE 11, IMUSE.DLL 5): parameters never read, the costume Freers (custom storage) and the hand-written Script_Trans.
+  zlib (the system libz), tmpnam, TranslateName, parse_cmdline and iMUSE's file layer are C runtime, not built.
+* **Types** (names/types_round2.json):
+  * rdHierarchyNode (0xb8, rdModel3_LoadEntryText's sscanf: the fields of ScummVM's ModelNode reader: name, flags,
+    type, mesh, parent / child / sibling, children, pivot, position, rotation, then the node's base rdMatrix34 that
+    rdThing_SetModel3 builds); rdModel3.pHierarchyNodes is one.
+  * rdKeyframe +0x24 .. +0x3c (flags, type, fps: 15 for every keyframe resource, frames, nodes), rdKeyframeNode (0x2c)
+    and rdKeyframeEntry (0x38): the binary KEYF layout, the same as ScummVM's KeyframeAnim::loadBinary less its tag.
+  * Set +0x1ac0 is a ResRef (lockRef: LockSet / UnLockSet), rdMaterial +0x24 nRefs (the material hooks' reference
+    count), CostumeNode.pMainModel and Costume_GetMainModel are rdThing *; sputResource_MatLoader / MatUnloader take
+    an rdMaterial *.
+  * Locals: the set of sputLua_LockSet / UnLockSet / GetCurrentSetupL, the bitmap of ObjectStateImage_Draw and
+    sputRoom_GetSetupBackground, the keyframe of sputResource_KeyframeHandler, Res_Load's Resource.
+  * Raw `((int)p + 0x..)` accesses in the EXE: 76 -> 46.
+* Clean room 0 of 5490.

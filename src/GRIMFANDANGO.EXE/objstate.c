@@ -238,48 +238,48 @@ void __thiscall ObjectStateImage_SetClean(ObjectStateImage *this,void *surface)
 void __thiscall ObjectStateImage_Draw(ObjectStateImage *this,void *dst)
 
 {
-  void *pvVar1;
-  int iVar2;
-  int *piVar3;
-  VBuffer *pVVar4;
-  int iVar5;
+  int iVar1;
+  int *piVar2;
+  VBuffer *pVVar3;
+  int iVar4;
   int x;
   int y;
+  stdBitmap *pvVar1;
   
   if ((this->aName[0] != '\0') && (dst != (void *)0x0)) {
-    iVar2 = (this->ref).nValid;
-    iVar5 = this->nDrawn;
-    if (iVar2 != 0) {
-      if (iVar2 == 0) {
+    iVar1 = (this->ref).nValid;
+    iVar4 = this->nDrawn;
+    if (iVar1 != 0) {
+      if (iVar1 == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
       }
       pvVar1 = (this->ref).pData;
-      iVar2 = *(int *)((int)pvVar1 + 0x68);
-      this->nFrame = iVar2;
-      if (iVar2 == -1) {
-        iVar5 = 0;
+      iVar1 = pvVar1->nCurFrame;
+      this->nFrame = iVar1;
+      if (iVar1 == -1) {
+        iVar4 = 0;
       }
-      iVar2 = ObjectStateImage_VBuffer(this);
-      if (iVar2 != 0) {
-        piVar3 = (int *)ObjectStateImage_VBuffer(this);
-        iVar2 = iVar5;
-        if (*piVar3 == 2) {
-          pVVar4 = (VBuffer *)ObjectStateImage_VBuffer(this);
-          sputRender_Decompress(pVVar4);
-          y = *(int *)((int)pvVar1 + 0x70);
-          x = *(int *)((int)pvVar1 + 0x6c);
-          piVar3 = (int *)0x0;
-          pVVar4 = g_pSputRender_DecompressionBuffer;
+      iVar1 = ObjectStateImage_VBuffer(this);
+      if (iVar1 != 0) {
+        piVar2 = (int *)ObjectStateImage_VBuffer(this);
+        iVar1 = iVar4;
+        if (*piVar2 == 2) {
+          pVVar3 = (VBuffer *)ObjectStateImage_VBuffer(this);
+          sputRender_Decompress(pVVar3);
+          y = pvVar1->nY;
+          x = pvVar1->nX;
+          piVar2 = (int *)0x0;
+          pVVar3 = g_pSputRender_DecompressionBuffer;
         }
         else {
-          y = *(int *)((int)pvVar1 + 0x70);
-          x = *(int *)((int)pvVar1 + 0x6c);
-          piVar3 = (int *)0x0;
-          pVVar4 = (VBuffer *)ObjectStateImage_VBuffer(this);
+          y = pvVar1->nY;
+          x = pvVar1->nX;
+          piVar2 = (int *)0x0;
+          pVVar3 = (VBuffer *)ObjectStateImage_VBuffer(this);
         }
-        Surface_Blit(dst,pVVar4,x,y,piVar3,iVar2);
-        if (iVar5 != 0) {
+        Surface_Blit(dst,pVVar3,x,y,piVar2,iVar1);
+        if (iVar4 != 0) {
           sputRender_MarkDirtyRect(&this->nX,1);
         }
       }
