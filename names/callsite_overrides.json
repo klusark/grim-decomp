@@ -338,6 +338,20 @@
    "args": 4,
    "cc": "__stdcall",
    "in": "Im_DSoundCreateBuffer"
+  },
+  {
+   "func": "10003730",
+   "call": "1000386c",
+   "args": 8,
+   "cc": "__stdcall",
+   "in": "DwQuery"
+  },
+  {
+   "func": "10003730",
+   "call": "100037f5",
+   "args": 5,
+   "cc": "__stdcall",
+   "in": "DwQuery"
   }
  ],
  "LUA.DLL": [
