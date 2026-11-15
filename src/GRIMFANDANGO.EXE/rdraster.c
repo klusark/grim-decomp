@@ -986,7 +986,7 @@ void __cdecl rdAFRaster_SetupNGonFS(float *rec,int mat,float light)
     } while (uVar6 < *(uint *)((int)fVar3 + 0x1c));
   }
   bVar2 = *(byte *)(*(int *)(mat + 4) + *(int *)(*(int *)((int)*rec + 0x4c) + 0x330) +
-                   (int)ROUND(light) * 0x100);
+                   (int)ROUND_DOWN(light) * 0x100);
   rec[0x6d] = PUN(float,rdAFRaster_DrawNGonFS);
   rec[0x74] = PUN(float,(uint)bVar2);
   rec[0x7a] = PUN(float,rdAFRaster_SetupEdgeNGonFS);
@@ -1724,7 +1724,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMLAT_8(int *node)
   iVar4 = node[6];
   uVar12 = node[3];
   iVar10 = node[5];
-  iVar11 = (int)ROUND(PUN(float,node[7]) * 65536.0f);
+  iVar11 = (int)ROUND_DOWN(PUN(float,node[7]) * 65536.0f);
   prVar5 = g_pRdCamera_CurCamera->pCanvas;
   pcVar7 = (char *)((int)prVar5->pVBuffer->pPixels +
                    *node + (prVar5->pVBuffer->format).nPitch * node[2]);
@@ -1788,7 +1788,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMLAT_16(int *node)
   uVar10 = node[3];
   iVar4 = node[6];
   iVar7 = node[5];
-  iVar12 = (int)ROUND(PUN(float,node[7]) * 65536.0f);
+  iVar12 = (int)ROUND_DOWN(PUN(float,node[7]) * 65536.0f);
   prVar5 = g_pRdCamera_CurCamera->pCanvas;
   puVar9 = (undefined2 *)
            ((int)prVar5->pVBuffer->pPixels +
@@ -1836,10 +1836,10 @@ void __cdecl rdAFRaster_SetupNGonFAT(int *rec,int mat,float light)
   rdAFRaster_CalcAffineGradients((float *)rec,*(int *)(*(int *)(mat + 0x1c) + 0x18) + -1);
   rec[0x71] = *(int *)(*(int *)(*(int *)(mat + 0x1c) + 0x1c + rec[0x70] * 4) + 0x5c);
   if (iVar1 == 8) {
-    rec[0x77] = *(int *)(*(int *)(*rec + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    rec[0x77] = *(int *)(*(int *)(*rec + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    rec[0x78] = *(int *)(*(int *)(*rec + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    rec[0x78] = *(int *)(*(int *)(*rec + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   iVar1 = rec[0x70];
   rec[0x73] = *(int *)(*(int *)(*(int *)(mat + 0x1c) + 0x1c + iVar1 * 4) + 0x18);
@@ -2092,10 +2092,10 @@ void __cdecl rdAFRaster_SetupNGonMFAT(int *rec,int mat,float light)
   rdAFRaster_CalcAffineGradients((float *)rec,*(int *)(*(int *)(mat + 0x1c) + 0x18) + -1);
   rec[0x71] = *(int *)(*(int *)(*(int *)(mat + 0x1c) + 0x1c + rec[0x70] * 4) + 0x5c);
   if (iVar1 == 8) {
-    rec[0x77] = *(int *)(*(int *)(*rec + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    rec[0x77] = *(int *)(*(int *)(*rec + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    rec[0x78] = *(int *)(*(int *)(*rec + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    rec[0x78] = *(int *)(*(int *)(*rec + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   iVar1 = rec[0x70];
   rec[0x73] = *(int *)(*(int *)(*(int *)(mat + 0x1c) + 0x1c + iVar1 * 4) + 0x18);
@@ -2190,7 +2190,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMFAT_8(int *node)
   iVar4 = node[6];
   uVar12 = node[3];
   iVar10 = node[5];
-  iVar11 = (int)ROUND(PUN(float,node[7]) * 65536.0f);
+  iVar11 = (int)ROUND_DOWN(PUN(float,node[7]) * 65536.0f);
   prVar5 = g_pRdCamera_CurCamera->pCanvas;
   puVar7 = (undefined1 *)
            ((int)prVar5->pVBuffer->pPixels + *node + (prVar5->pVBuffer->format).nPitch * node[2]);
@@ -2255,7 +2255,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMFAT_16(int *node)
   uVar10 = node[3];
   iVar4 = node[6];
   iVar7 = node[5];
-  iVar12 = (int)ROUND(PUN(float,node[7]) * 65536.0f);
+  iVar12 = (int)ROUND_DOWN(PUN(float,node[7]) * 65536.0f);
   prVar5 = g_pRdCamera_CurCamera->pCanvas;
   puVar9 = (undefined2 *)
            ((int)prVar5->pVBuffer->pPixels +
@@ -2677,7 +2677,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMGAT_8(int *node)
   iVar4 = node[6];
   uVar14 = node[3];
   iVar12 = node[5];
-  iVar13 = (int)ROUND(PUN(float,node[7]) * 65536.0f);
+  iVar13 = (int)ROUND_DOWN(PUN(float,node[7]) * 65536.0f);
   iVar5 = node[9];
   iVar6 = node[8];
   prVar7 = g_pRdCamera_CurCamera->pCanvas;
@@ -2749,7 +2749,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMGAT_16(int *node)
   uVar12 = node[3];
   iVar4 = node[6];
   iVar8 = node[5];
-  iVar14 = (int)ROUND(PUN(float,node[7]) * 65536.0f);
+  iVar14 = (int)ROUND_DOWN(PUN(float,node[7]) * 65536.0f);
   iVar5 = node[9];
   iVar10 = node[8];
   prVar6 = g_pRdCamera_CurCamera->pCanvas;
@@ -3171,7 +3171,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_8(uint *node)
   local_30 = node[7];
   fVar2 = (float)node[3];
   fVar3 = (float)node[4];
-  local_8 = (uint)ROUND((float)local_30 * 65536.0f);
+  local_8 = (uint)ROUND_DOWN((float)local_30 * 65536.0f);
   pVVar4 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pVVar5 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
   local_18 = (uint)((1.0f / (float)local_30) * fVar2);
@@ -3196,13 +3196,13 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_8(uint *node)
     fVar7 = fVar6 * fVar2;
     fVar6 = fVar6 * fVar3;
     bVar11 = (byte)g_dwRdAFRaster_mipMapNum;
-    local_2c = (int)ROUND((fVar7 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_40]
+    local_2c = (int)ROUND_DOWN((fVar7 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_40]
                           * 65536.0) >> (bVar11 & 0x1f);
-    local_30 = (int)ROUND((fVar6 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_40]
+    local_30 = (int)ROUND_DOWN((fVar6 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_40]
                           * 65536.0) >> (bVar11 & 0x1f);
-    puVar14 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+    puVar14 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                       g_dwRdAFRaster_dUdXModifier);
-    puVar16 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar11 & 0x1f)) +
+    puVar16 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar11 & 0x1f)) +
                       g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_40) {
       do {
@@ -3233,12 +3233,12 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_8(uint *node)
       fVar3 = (1.0f / (float)local_c) * (float)local_10;
       fVar2 = (1.0f / (float)local_c) * (float)local_14;
       bVar11 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_2c = (int)ROUND((fVar3 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-      local_30 = (int)ROUND((fVar2 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-      puVar14 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+      local_2c = (int)ROUND_DOWN((fVar3 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+      local_30 = (int)ROUND_DOWN((fVar2 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
       local_40 = 0x10;
-      puVar16 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
       do {
         cVar1 = *(char *)(((int)((uint)puVar14 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -3271,17 +3271,17 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_8(uint *node)
       fVar2 = 1.0f / ((fVar3 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
                     (float)local_c);
       bVar11 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_2c = (int)ROUND((((fVar3 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+      local_2c = (int)ROUND_DOWN((((fVar3 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
                              (float)local_10) * fVar2 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar15] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_30 = (int)ROUND((((fVar3 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+      local_30 = (int)ROUND_DOWN((((fVar3 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
                              (float)local_14) * fVar2 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar15] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar14 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar15) {
@@ -3386,7 +3386,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_16(uint *node)
   local_34 = node[7];
   fVar1 = (float)node[3];
   fVar2 = (float)node[4];
-  local_8 = (uint)ROUND((float)local_34 * 65536.0f);
+  local_8 = (uint)ROUND_DOWN((float)local_34 * 65536.0f);
   pVVar3 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pVVar4 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
   puVar13 = (uint *)((int)pVVar3->pPixels +
@@ -3412,13 +3412,13 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_16(uint *node)
     fVar6 = fVar5 * fVar1;
     fVar5 = fVar5 * fVar2;
     bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-    local_30 = (int)ROUND((fVar6 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+    local_30 = (int)ROUND_DOWN((fVar6 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
                           * 65536.0) >> (bVar10 & 0x1f);
-    local_34 = (int)ROUND((fVar5 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+    local_34 = (int)ROUND_DOWN((fVar5 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
                           * 65536.0) >> (bVar10 & 0x1f);
-    puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+    puVar13 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                       g_dwRdAFRaster_dUdXModifier);
-    puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+    puVar15 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                       g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_44) {
       do {
@@ -3450,12 +3450,12 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_16(uint *node)
       fVar2 = (1.0f / (float)local_c) * (float)local_10;
       fVar1 = (1.0f / (float)local_c) * (float)local_14;
       bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar2 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-      local_34 = (int)ROUND((fVar1 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+      local_30 = (int)ROUND_DOWN((fVar2 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+      local_34 = (int)ROUND_DOWN((fVar1 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
       local_44 = 0x10;
-      puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
       do {
         bVar10 = *(byte *)(((int)((uint)puVar13 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -3489,17 +3489,17 @@ void __cdecl rdAFRaster_DrawSpanNGonMLIT_16(uint *node)
       fVar1 = 1.0f / ((fVar2 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
                     (float)local_c);
       bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_30 = (int)ROUND((((fVar2 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+      local_30 = (int)ROUND_DOWN((((fVar2 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
                              (float)local_10) * fVar1 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      local_34 = (int)ROUND((((fVar2 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+      local_34 = (int)ROUND_DOWN((((fVar2 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
                              (float)local_14) * fVar1 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
-      puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar14) {
@@ -3549,10 +3549,10 @@ void __cdecl rdAFRaster_SetupNGonFIT(int *rec,int mat,float light)
   rec[0x6b] = (int)(PUN(float,rec[99]) * 16.0f);
   rec[0x6c] = (int)(PUN(float,rec[0x65]) * 16.0f);
   if (iVar1 == 8) {
-    rec[0x77] = *(int *)(*(int *)(*rec + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    rec[0x77] = *(int *)(*(int *)(*rec + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    rec[0x78] = *(int *)(*(int *)(*rec + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    rec[0x78] = *(int *)(*(int *)(*rec + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   iVar1 = rec[0x70];
   rec[0x71] = *(int *)(*(int *)(*(int *)(mat + 0x1c) + 0x1c + iVar1 * 4) + 0x5c);
@@ -3810,10 +3810,10 @@ void __cdecl rdAFRaster_SetupNGonMFIT(int *rec,int mat,float light)
   rec[0x6b] = (int)(PUN(float,rec[99]) * 16.0f);
   rec[0x6c] = (int)(PUN(float,rec[0x65]) * 16.0f);
   if (iVar1 == 8) {
-    rec[0x77] = *(int *)(*(int *)(*rec + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    rec[0x77] = *(int *)(*(int *)(*rec + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    rec[0x78] = *(int *)(*(int *)(*rec + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    rec[0x78] = *(int *)(*(int *)(*rec + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   iVar1 = rec[0x70];
   rec[0x71] = *(int *)(*(int *)(*(int *)(mat + 0x1c) + 0x1c + iVar1 * 4) + 0x5c);
@@ -3955,7 +3955,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_8(uint *node)
   local_34 = node[7];
   fVar1 = (float)node[3];
   fVar2 = (float)node[4];
-  local_8 = (uint)ROUND((float)local_34 * 65536.0f);
+  local_8 = (uint)ROUND_DOWN((float)local_34 * 65536.0f);
   pVVar3 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pVVar4 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
   local_18 = (uint)((1.0f / (float)local_34) * fVar1);
@@ -3980,13 +3980,13 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_8(uint *node)
     fVar6 = fVar5 * fVar1;
     fVar5 = fVar5 * fVar2;
     bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-    local_30 = (int)ROUND((fVar6 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+    local_30 = (int)ROUND_DOWN((fVar6 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
                           * 65536.0) >> (bVar10 & 0x1f);
-    local_34 = (int)ROUND((fVar5 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+    local_34 = (int)ROUND_DOWN((fVar5 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
                           * 65536.0) >> (bVar10 & 0x1f);
-    puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+    puVar13 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                       g_dwRdAFRaster_dUdXModifier);
-    puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+    puVar15 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                       g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_44) {
       do {
@@ -4018,12 +4018,12 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_8(uint *node)
       fVar2 = (1.0f / (float)local_c) * (float)local_10;
       fVar1 = (1.0f / (float)local_c) * (float)local_14;
       bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar2 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-      local_34 = (int)ROUND((fVar1 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+      local_30 = (int)ROUND_DOWN((fVar2 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+      local_34 = (int)ROUND_DOWN((fVar1 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
       local_44 = 0x10;
-      puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
       do {
         bVar10 = *(byte *)(((int)((uint)puVar13 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -4057,17 +4057,17 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_8(uint *node)
       fVar1 = 1.0f / ((fVar2 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
                     (float)local_c);
       bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_30 = (int)ROUND((((fVar2 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+      local_30 = (int)ROUND_DOWN((((fVar2 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
                              (float)local_10) * fVar1 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      local_34 = (int)ROUND((((fVar2 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+      local_34 = (int)ROUND_DOWN((((fVar2 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
                              (float)local_14) * fVar1 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
-      puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar14) {
@@ -4173,7 +4173,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_16(uint *node)
   local_34 = node[7];
   fVar1 = (float)node[3];
   fVar2 = (float)node[4];
-  local_8 = (uint)ROUND((float)local_34 * 65536.0f);
+  local_8 = (uint)ROUND_DOWN((float)local_34 * 65536.0f);
   pVVar3 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pVVar4 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
   puVar13 = (uint *)((int)pVVar3->pPixels +
@@ -4199,13 +4199,13 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_16(uint *node)
     fVar6 = fVar5 * fVar1;
     fVar5 = fVar5 * fVar2;
     bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-    local_30 = (int)ROUND((fVar6 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+    local_30 = (int)ROUND_DOWN((fVar6 - (float)local_18) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
                           * 65536.0) >> (bVar10 & 0x1f);
-    local_34 = (int)ROUND((fVar5 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
+    local_34 = (int)ROUND_DOWN((fVar5 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_44]
                           * 65536.0) >> (bVar10 & 0x1f);
-    puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+    puVar13 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                       g_dwRdAFRaster_dUdXModifier);
-    puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+    puVar15 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                       g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_44) {
       do {
@@ -4237,12 +4237,12 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_16(uint *node)
       fVar2 = (1.0f / (float)local_c) * (float)local_10;
       fVar1 = (1.0f / (float)local_c) * (float)local_14;
       bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar2 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-      local_34 = (int)ROUND((fVar1 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+      local_30 = (int)ROUND_DOWN((fVar2 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+      local_34 = (int)ROUND_DOWN((fVar1 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
       local_44 = 0x10;
-      puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
       do {
         bVar10 = *(byte *)(((int)((uint)puVar13 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -4276,17 +4276,17 @@ void __cdecl rdAFRaster_DrawSpanNGonMFIT_16(uint *node)
       fVar1 = 1.0f / ((fVar2 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
                     (float)local_c);
       bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_30 = (int)ROUND((((fVar2 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+      local_30 = (int)ROUND_DOWN((((fVar2 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
                              (float)local_10) * fVar1 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      local_34 = (int)ROUND((((fVar2 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+      local_34 = (int)ROUND_DOWN((((fVar2 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
                              (float)local_14) * fVar1 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
-      puVar15 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar14) {
@@ -4756,7 +4756,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_8(uint *node)
   fVar2 = (float)node[4];
   uVar12 = node[9];
   local_8 = node[8];
-  local_c = (uint)ROUND((float)local_38 * 65536.0f);
+  local_c = (uint)ROUND_DOWN((float)local_38 * 65536.0f);
   pVVar3 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pVVar4 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
   local_1c = (uint)((1.0f / (float)local_38) * fVar1);
@@ -4781,13 +4781,13 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_8(uint *node)
     fVar6 = fVar5 * fVar1;
     fVar5 = fVar5 * fVar2;
     bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-    local_34 = (int)ROUND((fVar6 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
+    local_34 = (int)ROUND_DOWN((fVar6 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
                           * 65536.0) >> (bVar10 & 0x1f);
-    local_38 = (int)ROUND((fVar5 - (float)local_20) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
+    local_38 = (int)ROUND_DOWN((fVar5 - (float)local_20) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
                           * 65536.0) >> (bVar10 & 0x1f);
-    puVar11 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+    puVar11 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                       g_dwRdAFRaster_dUdXModifier);
-    puVar15 = (uint *)(((int)ROUND((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
+    puVar15 = (uint *)(((int)ROUND_DOWN((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
                       g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_4c) {
       do {
@@ -4821,12 +4821,12 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_8(uint *node)
       fVar2 = (1.0f / (float)local_10) * (float)local_14;
       fVar1 = (1.0f / (float)local_10) * (float)local_18;
       bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_34 = (int)ROUND((fVar2 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-      local_38 = (int)ROUND((fVar1 - (float)local_20) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-      puVar11 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+      local_34 = (int)ROUND_DOWN((fVar2 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+      local_38 = (int)ROUND_DOWN((fVar1 - (float)local_20) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+      puVar11 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
       local_4c = 0x10;
-      puVar15 = (uint *)(((int)ROUND((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
       do {
         bVar10 = *(byte *)(((int)((uint)puVar11 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -4862,17 +4862,17 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_8(uint *node)
       fVar1 = 1.0f / ((fVar2 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
                     (float)local_10);
       bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_34 = (int)ROUND((((fVar2 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+      local_34 = (int)ROUND_DOWN((((fVar2 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
                              (float)local_14) * fVar1 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      local_38 = (int)ROUND((((fVar2 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+      local_38 = (int)ROUND_DOWN((((fVar2 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
                              (float)local_18) * fVar1 - (float)local_20) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar11 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar11 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
-      puVar15 = (uint *)(((int)ROUND((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar14) {
@@ -4984,7 +4984,7 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_16(uint *node)
   fVar2 = (float)node[4];
   uVar11 = node[9];
   local_8 = node[8];
-  local_c = (uint)ROUND((float)local_38 * 65536.0f);
+  local_c = (uint)ROUND_DOWN((float)local_38 * 65536.0f);
   pVVar3 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pVVar4 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
   puVar16 = (undefined2 *)
@@ -5010,13 +5010,13 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_16(uint *node)
     fVar6 = fVar5 * fVar1;
     fVar5 = fVar5 * fVar2;
     bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-    local_34 = (int)ROUND((fVar6 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
+    local_34 = (int)ROUND_DOWN((fVar6 - (float)local_1c) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
                           * 65536.0) >> (bVar10 & 0x1f);
-    local_38 = (int)ROUND((fVar5 - (float)local_20) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
+    local_38 = (int)ROUND_DOWN((fVar5 - (float)local_20) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_4c]
                           * 65536.0) >> (bVar10 & 0x1f);
-    puVar13 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+    puVar13 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                       g_dwRdAFRaster_dUdXModifier);
-    puVar15 = (uint *)(((int)ROUND((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
+    puVar15 = (uint *)(((int)ROUND_DOWN((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
                       g_dwRdAFRaster_dVdXModifier);
     if (0 < (int)local_4c) {
       do {
@@ -5051,12 +5051,12 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_16(uint *node)
       fVar2 = (1.0f / (float)local_10) * (float)local_14;
       fVar1 = (1.0f / (float)local_10) * (float)local_18;
       bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_34 = (int)ROUND((fVar2 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-      local_38 = (int)ROUND((fVar1 - (float)local_20) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+      local_34 = (int)ROUND_DOWN((fVar2 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+      local_38 = (int)ROUND_DOWN((fVar1 - (float)local_20) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
       local_4c = 0x10;
-      puVar15 = (uint *)(((int)ROUND((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
       do {
         bVar10 = *(byte *)(((int)((uint)puVar13 & g_dwRdAFRaster_uWrap) >> 0x10) +
@@ -5093,17 +5093,17 @@ void __cdecl rdAFRaster_DrawSpanNGonMGIT_16(uint *node)
       fVar1 = 1.0f / ((fVar2 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
                     (float)local_10);
       bVar10 = (byte)g_dwRdAFRaster_mipMapNum;
-      local_34 = (int)ROUND((((fVar2 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+      local_34 = (int)ROUND_DOWN((((fVar2 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
                              (float)local_14) * fVar1 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      local_38 = (int)ROUND((((fVar2 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+      local_38 = (int)ROUND_DOWN((((fVar2 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
                              (float)local_18) * fVar1 - (float)local_20) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[iVar14] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dUdXModifier);
-      puVar15 = (uint *)(((int)ROUND((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_20 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdAFRaster_dVdXModifier);
     }
     if (-1 < iVar14) {
@@ -5623,8 +5623,8 @@ void __cdecl rdNRaster_DrawNGonLV(int poly,int mat)
         iVar5 = iVar5 + 1;
         *(undefined1 *)
          ((int)pVVar2->pPixels +
-         (int)ROUND(*pfVar1) +
-         (pVVar2->format).nPitch * (int)ROUND(*(float *)((int)g_pRdNRaster_aVertices + iVar3))) =
+         (int)ROUND_DOWN(*pfVar1) +
+         (pVVar2->format).nPitch * (int)ROUND_DOWN(*(float *)((int)g_pRdNRaster_aVertices + iVar3))) =
              g_bRdNRaster_color;
       } while (iVar5 < g_nRdNRaster_numVertices);
       return;
@@ -5646,7 +5646,7 @@ void __cdecl rdNRaster_DrawNGonLV(int poly,int mat)
         *(undefined2 *)
          ((int)pVVar2->pPixels +
          (((uint)(pVVar2->format).nPitch >> 1) *
-          (int)ROUND(*(float *)((int)g_pRdNRaster_aVertices + iVar3)) + (int)ROUND(*pfVar1)) * 2) =
+          (int)ROUND_DOWN(*(float *)((int)g_pRdNRaster_aVertices + iVar3)) + (int)ROUND_DOWN(*pfVar1)) * 2) =
              g_wRdNRaster_RGBcolor;
       } while (iVar5 < g_nRdNRaster_numVertices);
     }
@@ -5690,10 +5690,10 @@ void __cdecl rdNRaster_DrawNGonLW(int poly,int mat)
       iVar5 = 0;
       do {
         rdCanvas_DrawLine(g_pRdCamera_CurCamera->pCanvas,
-                          (int)ROUND(*(float *)((int)g_pRdNRaster_aVertices + iVar5)),
-                          (int)ROUND(((float *)((int)g_pRdNRaster_aVertices + iVar5))[1]),
-                          (int)ROUND(*(float *)((int)g_pRdNRaster_aVertices + iVar5 + 0xc)),
-                          (int)ROUND(*(float *)((int)g_pRdNRaster_aVertices + iVar5 + 0x10)),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdNRaster_aVertices + iVar5)),
+                          (int)ROUND_DOWN(((float *)((int)g_pRdNRaster_aVertices + iVar5))[1]),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdNRaster_aVertices + iVar5 + 0xc)),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdNRaster_aVertices + iVar5 + 0x10)),
                           (ushort)g_bRdNRaster_color,0xffffffff);
         iVar6 = iVar6 + 1;
         iVar5 = iVar5 + 0xc;
@@ -5717,10 +5717,10 @@ void __cdecl rdNRaster_DrawNGonLW(int poly,int mat)
       iVar5 = 0;
       do {
         rdCanvas_DrawLine(g_pRdCamera_CurCamera->pCanvas,
-                          (int)ROUND(*(float *)((int)g_pRdNRaster_aVertices + iVar5)),
-                          (int)ROUND(((float *)((int)g_pRdNRaster_aVertices + iVar5))[1]),
-                          (int)ROUND(*(float *)((int)g_pRdNRaster_aVertices + iVar5 + 0xc)),
-                          (int)ROUND(*(float *)((int)g_pRdNRaster_aVertices + iVar5 + 0x10)),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdNRaster_aVertices + iVar5)),
+                          (int)ROUND_DOWN(((float *)((int)g_pRdNRaster_aVertices + iVar5))[1]),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdNRaster_aVertices + iVar5 + 0xc)),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdNRaster_aVertices + iVar5 + 0x10)),
                           g_wRdNRaster_RGBcolor,0xffffffff);
         iVar6 = iVar6 + 1;
         iVar5 = iVar5 + 0xc;
@@ -5732,8 +5732,8 @@ void __cdecl rdNRaster_DrawNGonLW(int poly,int mat)
     fVar4 = g_pRdNRaster_aVertices[iVar6 * 3];
     color = g_wRdNRaster_RGBcolor;
   }
-  rdCanvas_DrawLine(g_pRdCamera_CurCamera->pCanvas,(int)ROUND(fVar4),(int)ROUND(fVar3),
-                    (int)ROUND(fVar2),(int)ROUND(fVar1),color,0xffffffff);
+  rdCanvas_DrawLine(g_pRdCamera_CurCamera->pCanvas,(int)ROUND_DOWN(fVar4),(int)ROUND_DOWN(fVar3),
+                    (int)ROUND_DOWN(fVar2),(int)ROUND_DOWN(fVar1),color,0xffffffff);
   return;
 }
 #endif
@@ -6173,13 +6173,13 @@ void __cdecl rdNRaster_DrawNGonFS(int poly,int mat,float light)
   if (iVar1 == 8) {
     g_bRdNRaster_color =
          *(undefined1 *)
-          (*(int *)(mat + 4) + *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100);
+          (*(int *)(mat + 4) + *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100);
   }
   else if (iVar1 == 0x10) {
     g_wRdNRaster_RGBcolor =
          *(undefined2 *)
           (*(int *)(*(int *)(poly + 0x4c) + 0x348) +
-          (*(int *)(mat + 4) + (int)ROUND(light) * 0x100) * 2);
+          (*(int *)(mat + 4) + (int)ROUND_DOWN(light) * 0x100) * 2);
   }
   g_pRdNRaster_aVertices = *(float **)(poly + 0x20);
   g_nRdNRaster_numVertices = *(int *)(poly + 0x1c);
@@ -6486,14 +6486,14 @@ void __cdecl rdNRaster_DrawNGonTFS(int poly,int mat,float light)
   if (iVar1 == 8) {
     g_bRdNRaster_color =
          *(undefined1 *)
-          (*(int *)(mat + 4) + *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100);
+          (*(int *)(mat + 4) + *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100);
   }
   else if (iVar1 == 0x10) {
     g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + 0x7e00;
     g_wRdNRaster_RGBcolor =
          *(ushort *)
           (*(int *)(*(int *)(poly + 0x4c) + 0x348) +
-          (*(int *)(mat + 4) + (int)ROUND(light) * 0x100) * 2);
+          (*(int *)(mat + 4) + (int)ROUND_DOWN(light) * 0x100) * 2);
     g_dwRdNRaster_aRGBToPalette = *(uint *)(*(int *)(poly + 0x4c) + 0x34c);
     g_bRdNRaster_color = *(undefined1 *)(g_dwRdNRaster_aRGBToPalette + g_wRdNRaster_RGBcolor);
   }
@@ -8538,10 +8538,10 @@ void __cdecl rdNRaster_DrawNGonFAT(int poly,int mat,float light)
   g_pRdNRaster_aVertices = *(float **)(poly + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   g_nRdNRaster_numVertices = *(int *)(poly + 0x1c);
   g_nRdNRaster_yMinVert = *(int *)(poly + 0x6c);
@@ -8912,10 +8912,10 @@ void __cdecl rdNRaster_DrawNGonTFAT(int poly,int mat,float light)
   g_pRdNRaster_aVertices = *(float **)(poly + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdNRaster_aRGBMap = (int)ROUND(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
+    g_dwRdNRaster_aRGBMap = (int)ROUND_DOWN(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
     g_dwRdNRaster_aRGBToPalette = *(uint *)(*(int *)(poly + 0x4c) + 0x34c);
   }
   g_dwRdNRaster_aAlphaMap = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
@@ -9190,10 +9190,10 @@ void __cdecl rdNRaster_DrawNGonMFAT(int poly,int mat,float light)
   g_pRdNRaster_aVertices = *(float **)(poly + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   g_nRdNRaster_numVertices = *(int *)(poly + 0x1c);
   g_nRdNRaster_yMinVert = *(int *)(poly + 0x6c);
@@ -9461,10 +9461,10 @@ void __cdecl rdNRaster_DrawNGonMTFAT(int poly,int mat,float light)
   g_pRdNRaster_aVertices = *(float **)(poly + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdNRaster_aRGBMap = (int)ROUND(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
+    g_dwRdNRaster_aRGBMap = (int)ROUND_DOWN(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
     g_dwRdNRaster_aRGBToPalette = *(uint *)(*(int *)(poly + 0x4c) + 0x34c);
   }
   g_dwRdNRaster_aAlphaMap = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
@@ -11303,15 +11303,15 @@ void __cdecl rdNRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar1;
       bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-      puVar15 = (uint *)((int)ROUND((fVar4 - (float)local_c) *
+      puVar15 = (uint *)((int)ROUND_DOWN((fVar4 - (float)local_c) *
                                     (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                         (bVar9 & 0x1f));
-      local_20 = (int)ROUND((fVar3 - (float)local_10) *
+      local_20 = (int)ROUND_DOWN((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_28) {
         do {
@@ -11340,13 +11340,13 @@ void __cdecl rdNRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar1 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar15 = (uint *)((int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f)
+        puVar15 = (uint *)((int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f)
                           );
-        local_20 = (int)ROUND((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        local_20 = (int)ROUND_DOWN((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_28 = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           uVar13 = (uint)puVar12 & g_dwRdNRaster_uWrap;
@@ -11377,15 +11377,15 @@ void __cdecl rdNRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
         fVar5 = 1.0f / (((float)iVar8 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar15 = (uint *)((int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX -
+        puVar15 = (uint *)((int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dUOverZdX -
                                          _g_dwRdNRaster_uOverZStep) + PUN(float,right)) * fVar5 -
                                        (float)local_c) / fVar1) * 65536.0f) >> (bVar9 & 0x1f));
-        local_20 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_20 = (int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar5 - (float)local_10) / fVar1) * 65536.0f) >>
                    (bVar9 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = (uint *)local_1c;
@@ -11778,15 +11778,15 @@ void __cdecl rdNRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar1;
       bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-      local_20 = (int)ROUND((fVar4 - (float)local_c) *
+      local_20 = (int)ROUND_DOWN((fVar4 - (float)local_c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      local_24 = (int)ROUND((fVar3 - (float)local_10) *
+      local_24 = (int)ROUND_DOWN((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       pbVar12 = pbVar11;
       if (0 < (int)local_2c) {
@@ -11817,12 +11817,12 @@ void __cdecl rdNRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar1 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_20 = (int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        local_24 = (int)ROUND((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        local_20 = (int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        local_24 = (int)ROUND_DOWN((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         pbVar12 = pbVar11;
         do {
@@ -11854,15 +11854,15 @@ void __cdecl rdNRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
         fVar5 = 1.0f / (((float)iVar8 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_20 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_20 = (int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                 PUN(float,right)) * fVar5 - (float)local_c) / fVar1) * 65536.0f) >>
                    (bVar9 & 0x1f);
-        local_24 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_24 = (int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar5 - (float)local_10) / fVar1) * 65536.0f) >>
                    (bVar9 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = (uint *)local_1c;
@@ -11992,15 +11992,15 @@ void __cdecl rdNRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar1;
       bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-      local_20 = (int)ROUND((fVar4 - (float)local_c) *
+      local_20 = (int)ROUND_DOWN((fVar4 - (float)local_c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      local_24 = (int)ROUND((fVar3 - (float)local_10) *
+      local_24 = (int)ROUND_DOWN((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
@@ -12032,12 +12032,12 @@ void __cdecl rdNRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar1 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        local_20 = (int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        local_24 = (int)ROUND((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        local_20 = (int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        local_24 = (int)ROUND_DOWN((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar15 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           uVar11 = (uint)puVar14 & g_dwRdNRaster_uWrap;
@@ -12071,15 +12071,15 @@ void __cdecl rdNRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
         fVar5 = 1.0f / (((float)iVar8 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        local_20 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_20 = (int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                 PUN(float,right)) * fVar5 - (float)local_c) / fVar1) * 65536.0f) >>
                    (bVar10 & 0x1f);
-        local_24 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_24 = (int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar5 - (float)local_10) / fVar1) * 65536.0f) >>
                    (bVar10 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar15 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = puVar9;
@@ -12336,15 +12336,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
       fVar5 = fVar4 * fVar7;
       fVar4 = fVar4 * fVar1;
       bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-      local_20 = (int)ROUND((fVar5 - (float)local_c) *
+      local_20 = (int)ROUND_DOWN((fVar5 - (float)local_c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_24 = (int)ROUND((fVar4 - (float)local_10) *
+      local_24 = (int)ROUND_DOWN((fVar4 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
@@ -12372,12 +12372,12 @@ void __cdecl rdNRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar1 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_20 = (int)ROUND((fVar6 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_24 = (int)ROUND((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_20 = (int)ROUND_DOWN((fVar6 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_24 = (int)ROUND_DOWN((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar15 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           cVar2 = *(char *)(((int)((uint)puVar13 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -12407,15 +12407,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
         fVar6 = 1.0f / (((float)iVar9 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_20 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_20 = (int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                 PUN(float,right)) * fVar6 - (float)local_c) / fVar1) * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_24 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_24 = (int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar6 - (float)local_10) / fVar1) * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar15 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = puVar10;
@@ -12547,15 +12547,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar1;
       bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-      puVar16 = (uint *)((int)ROUND((fVar4 - (float)local_c) *
+      puVar16 = (uint *)((int)ROUND_DOWN((fVar4 - (float)local_c) *
                                     (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                         (bVar10 & 0x1f));
-      local_24 = (int)ROUND((fVar3 - (float)local_10) *
+      local_24 = (int)ROUND_DOWN((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
@@ -12584,13 +12584,13 @@ void __cdecl rdNRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar1 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar16 = (uint *)((int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >>
+        puVar16 = (uint *)((int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >>
                           (bVar10 & 0x1f));
-        local_24 = (int)ROUND((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           bVar10 = *(byte *)(((int)((uint)puVar13 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -12621,15 +12621,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
         fVar5 = 1.0f / (((float)iVar8 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar16 = (uint *)((int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX -
+        puVar16 = (uint *)((int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dUOverZdX -
                                          _g_dwRdNRaster_uOverZStep) + PUN(float,right)) * fVar5 -
                                        (float)local_c) / fVar1) * 65536.0f) >> (bVar10 & 0x1f));
-        local_24 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_24 = (int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar5 - (float)local_10) / fVar1) * 65536.0f) >>
                    (bVar10 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = puVar9;
@@ -12883,15 +12883,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar1;
       bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-      local_24 = (int)ROUND((fVar4 - (float)local_c) *
+      local_24 = (int)ROUND_DOWN((fVar4 - (float)local_c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      local_28 = (int)ROUND((fVar3 - (float)local_10) *
+      local_28 = (int)ROUND_DOWN((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_30) {
         do {
@@ -12920,12 +12920,12 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar1 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        local_28 = (int)ROUND((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        local_28 = (int)ROUND_DOWN((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_30 = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -12956,15 +12956,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
         fVar5 = 1.0f / (((float)iVar8 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_24 = (int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                 PUN(float,right)) * fVar5 - (float)local_c) / fVar1) * 65536.0f) >>
                    (bVar9 & 0x1f);
-        local_28 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_28 = (int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar5 - (float)local_10) / fVar1) * 65536.0f) >>
                    (bVar9 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = (uint *)local_1c;
@@ -13097,15 +13097,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar1;
       bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-      puVar16 = (uint *)((int)ROUND((fVar4 - (float)local_c) *
+      puVar16 = (uint *)((int)ROUND_DOWN((fVar4 - (float)local_c) *
                                     (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                         (bVar10 & 0x1f));
-      local_24 = (int)ROUND((fVar3 - (float)local_10) *
+      local_24 = (int)ROUND_DOWN((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
@@ -13139,13 +13139,13 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar1 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar16 = (uint *)((int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >>
+        puVar16 = (uint *)((int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >>
                           (bVar10 & 0x1f));
-        local_24 = (int)ROUND((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar1 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           bVar10 = *(byte *)(((int)((uint)puVar13 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -13181,15 +13181,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
         fVar5 = 1.0f / (((float)iVar8 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar16 = (uint *)((int)ROUND(((((fVar1 * _g_dwRdNRaster_dUOverZdX -
+        puVar16 = (uint *)((int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dUOverZdX -
                                          _g_dwRdNRaster_uOverZStep) + PUN(float,right)) * fVar5 -
                                        (float)local_c) / fVar1) * 65536.0f) >> (bVar10 & 0x1f));
-        local_24 = (int)ROUND(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_24 = (int)ROUND_DOWN(((((fVar1 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                 (float)local_8) * fVar5 - (float)local_10) / fVar1) * 65536.0f) >>
                    (bVar10 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = puVar9;
@@ -13261,10 +13261,10 @@ void __cdecl rdNRaster_DrawNGonFIT(int poly,int mat,float light)
   g_pRdNRaster_aVertices = *(float **)(poly + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   g_nRdNRaster_numVertices = *(int *)(poly + 0x1c);
   g_nRdNRaster_yMinVert = *(int *)(poly + 0x6c);
@@ -13476,15 +13476,15 @@ void __cdecl rdNRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-      puVar15 = (uint *)((int)ROUND((fVar3 - (float)local_c) *
+      puVar15 = (uint *)((int)ROUND_DOWN((fVar3 - (float)local_c) *
                                     (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                         (bVar9 & 0x1f));
-      local_20 = (int)ROUND((fVar2 - (float)local_10) *
+      local_20 = (int)ROUND_DOWN((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_28) {
         do {
@@ -13513,13 +13513,13 @@ void __cdecl rdNRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar4 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar15 = (uint *)((int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f)
+        puVar15 = (uint *)((int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f)
                           );
-        local_20 = (int)ROUND((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        local_20 = (int)ROUND_DOWN((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_28 = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           uVar13 = (uint)puVar12 & g_dwRdNRaster_uWrap;
@@ -13550,17 +13550,17 @@ void __cdecl rdNRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
         fVar4 = 1.0f / ((fVar5 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar15 = (uint *)((int)ROUND((((fVar5 * _g_dwRdNRaster_dUOverZdX -
+        puVar15 = (uint *)((int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dUOverZdX -
                                         _g_dwRdNRaster_uOverZStep) + PUN(float,right)) * fVar4 -
                                       (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8]
                                       * 65536.0) >> (bVar9 & 0x1f));
-        local_20 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_20 = (int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0f) >>
                    (bVar9 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = (uint *)local_1c;
@@ -13765,10 +13765,10 @@ void __cdecl rdNRaster_DrawNGonTFIT(int poly,int mat,float light)
   g_pRdNRaster_aVertices = *(float **)(poly + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdNRaster_aRGBMap = (int)ROUND(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
+    g_dwRdNRaster_aRGBMap = (int)ROUND_DOWN(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
     g_dwRdNRaster_aRGBToPalette = *(uint *)(*(int *)(poly + 0x4c) + 0x34c);
   }
   g_dwRdNRaster_aAlphaMap = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
@@ -13956,15 +13956,15 @@ void __cdecl rdNRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-      local_20 = (int)ROUND((fVar3 - (float)local_c) *
+      local_20 = (int)ROUND_DOWN((fVar3 - (float)local_c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      local_24 = (int)ROUND((fVar2 - (float)local_10) *
+      local_24 = (int)ROUND_DOWN((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       pbVar12 = pbVar11;
       if (0 < (int)local_2c) {
@@ -13997,12 +13997,12 @@ void __cdecl rdNRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar4 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_20 = (int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        local_24 = (int)ROUND((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        local_20 = (int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        local_24 = (int)ROUND_DOWN((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         pbVar12 = pbVar11;
         do {
@@ -14036,17 +14036,17 @@ void __cdecl rdNRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
         fVar4 = 1.0f / ((fVar5 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_20 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_20 = (int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                PUN(float,right)) * fVar4 - (float)local_c) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0f) >>
                    (bVar9 & 0x1f);
-        local_24 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0f) >>
                    (bVar9 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = (uint *)local_1c;
@@ -14178,15 +14178,15 @@ void __cdecl rdNRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-      local_20 = (int)ROUND((fVar3 - (float)local_c) *
+      local_20 = (int)ROUND_DOWN((fVar3 - (float)local_c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      local_24 = (int)ROUND((fVar2 - (float)local_10) *
+      local_24 = (int)ROUND_DOWN((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
@@ -14222,12 +14222,12 @@ void __cdecl rdNRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar4 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        local_20 = (int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        local_24 = (int)ROUND((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        local_20 = (int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        local_24 = (int)ROUND_DOWN((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar15 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           uVar11 = (uint)puVar14 & g_dwRdNRaster_uWrap;
@@ -14265,17 +14265,17 @@ void __cdecl rdNRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
         fVar4 = 1.0f / ((fVar5 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        local_20 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_20 = (int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                PUN(float,right)) * fVar4 - (float)local_c) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0f) >>
                    (bVar10 & 0x1f);
-        local_24 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0f) >>
                    (bVar10 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar15 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar15 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = puVar9;
@@ -14349,10 +14349,10 @@ void __cdecl rdNRaster_DrawNGonMFIT(int poly,int mat,float light)
   g_pRdNRaster_aVertices = *(float **)(poly + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    g_dwRdNRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   g_nRdNRaster_numVertices = *(int *)(poly + 0x1c);
   g_nRdNRaster_yMinVert = *(int *)(poly + 0x6c);
@@ -14537,15 +14537,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-      local_24 = (int)ROUND((fVar3 - (float)local_c) *
+      local_24 = (int)ROUND_DOWN((fVar3 - (float)local_c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      local_28 = (int)ROUND((fVar2 - (float)local_10) *
+      local_28 = (int)ROUND_DOWN((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_30) {
         do {
@@ -14574,12 +14574,12 @@ void __cdecl rdNRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar4 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        local_28 = (int)ROUND((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        local_28 = (int)ROUND_DOWN((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_30 = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -14610,17 +14610,17 @@ void __cdecl rdNRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
         fVar4 = 1.0f / ((fVar5 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                PUN(float,right)) * fVar4 - (float)local_c) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0f) >>
                    (bVar9 & 0x1f);
-        local_28 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_28 = (int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0f) >>
                    (bVar9 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = (uint *)local_1c;
@@ -14753,15 +14753,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-      puVar16 = (uint *)((int)ROUND((fVar3 - (float)local_c) *
+      puVar16 = (uint *)((int)ROUND_DOWN((fVar3 - (float)local_c) *
                                     (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                         (bVar10 & 0x1f));
-      local_24 = (int)ROUND((fVar2 - (float)local_10) *
+      local_24 = (int)ROUND_DOWN((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
@@ -14790,13 +14790,13 @@ void __cdecl rdNRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar4 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar16 = (uint *)((int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >>
+        puVar16 = (uint *)((int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >>
                           (bVar10 & 0x1f));
-        local_24 = (int)ROUND((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           bVar10 = *(byte *)(((int)((uint)puVar13 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -14827,17 +14827,17 @@ void __cdecl rdNRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
         fVar4 = 1.0f / ((fVar5 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar16 = (uint *)((int)ROUND((((fVar5 * _g_dwRdNRaster_dUOverZdX -
+        puVar16 = (uint *)((int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dUOverZdX -
                                         _g_dwRdNRaster_uOverZStep) + PUN(float,right)) * fVar4 -
                                       (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8]
                                       * 65536.0) >> (bVar10 & 0x1f));
-        local_24 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0f) >>
                    (bVar10 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = puVar9;
@@ -14904,10 +14904,10 @@ void __cdecl rdNRaster_DrawNGonMTFIT(int poly,int mat,float light)
   g_pRdNRaster_aVertices = *(float **)(poly + 0x20);
   g_dwRdNRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdNRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdNRaster_aRGBMap = (int)ROUND(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
+    g_dwRdNRaster_aRGBMap = (int)ROUND_DOWN(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
     g_dwRdNRaster_aRGBToPalette = *(uint *)(*(int *)(poly + 0x4c) + 0x34c);
   }
   g_dwRdNRaster_aAlphaMap = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
@@ -15094,15 +15094,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-      local_24 = (int)ROUND((fVar3 - (float)local_c) *
+      local_24 = (int)ROUND_DOWN((fVar3 - (float)local_c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      local_28 = (int)ROUND((fVar2 - (float)local_10) *
+      local_28 = (int)ROUND_DOWN((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_30] * 65536.0f) >>
                  (bVar9 & 0x1f);
-      puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_30) {
         do {
@@ -15133,12 +15133,12 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar4 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        local_28 = (int)ROUND((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        local_28 = (int)ROUND_DOWN((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar9 & 0x1f);
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_30 = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           bVar9 = *(byte *)(((int)((uint)puVar12 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -15171,17 +15171,17 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
         fVar4 = 1.0f / ((fVar5 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar9 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                PUN(float,right)) * fVar4 - (float)local_c) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0f) >>
                    (bVar9 & 0x1f);
-        local_28 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_28 = (int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0f) >>
                    (bVar9 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar9 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = (uint *)local_1c;
@@ -15316,15 +15316,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-      puVar16 = (uint *)((int)ROUND((fVar3 - (float)local_c) *
+      puVar16 = (uint *)((int)ROUND_DOWN((fVar3 - (float)local_c) *
                                     (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                         (bVar10 & 0x1f));
-      local_24 = (int)ROUND((fVar2 - (float)local_10) *
+      local_24 = (int)ROUND_DOWN((fVar2 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_2c] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_2c) {
         do {
@@ -15358,13 +15358,13 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,left)) * PUN(float,right);
         fVar4 = (1.0f / PUN(float,left)) * (float)local_8;
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar16 = (uint *)((int)ROUND((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >>
+        puVar16 = (uint *)((int)ROUND_DOWN((fVar5 - (float)local_c) * 0.0625f * 65536.0f) >>
                           (bVar10 & 0x1f));
-        local_24 = (int)ROUND((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar4 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_2c = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           bVar10 = *(byte *)(((int)((uint)puVar13 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -15400,17 +15400,17 @@ void __cdecl rdNRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
         fVar4 = 1.0f / ((fVar5 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar10 = (byte)g_dwRdNRaster_mipMapNum;
-        puVar16 = (uint *)((int)ROUND((((fVar5 * _g_dwRdNRaster_dUOverZdX -
+        puVar16 = (uint *)((int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dUOverZdX -
                                         _g_dwRdNRaster_uOverZStep) + PUN(float,right)) * fVar4 -
                                       (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8]
                                       * 65536.0) >> (bVar10 & 0x1f));
-        local_24 = (int)ROUND((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar5 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar8] * 65536.0f) >>
                    (bVar10 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       left = puVar9;
@@ -15701,12 +15701,12 @@ void __cdecl rdNRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
       g_dwEndU = (uint)((float)g_dwEndZ * _g_dwEndUOverZ);
       g_dwEndV = (uint)((float)g_dwEndZ * _g_dwEndVOverZ);
       bVar7 = (byte)g_dwRdNRaster_mipMapNum;
-      g_dwUStep = (int)ROUND(((float)g_dwEndU - *(float *)&g_dwCurU) * *(float *)&g_dwOneOverStartScrap * 65536.0f) >>
+      g_dwUStep = (int)ROUND_DOWN(((float)g_dwEndU - *(float *)&g_dwCurU) * *(float *)&g_dwOneOverStartScrap * 65536.0f) >>
                   (bVar7 & 0x1f);
-      g_dwVStep = (int)ROUND(((float)g_dwEndV - *(float *)&g_dwCurV) * *(float *)&g_dwOneOverStartScrap * 65536.0f) >>
+      g_dwVStep = (int)ROUND_DOWN(((float)g_dwEndV - *(float *)&g_dwCurV) * *(float *)&g_dwOneOverStartScrap * 65536.0f) >>
                   (bVar7 & 0x1f);
-      g_dwFixU = ((int)ROUND(*(float *)&g_dwCurU * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dUdXModifier;
-      g_dwFixV = ((int)ROUND(*(float *)&g_dwCurV * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dVdXModifier;
+      g_dwFixU = ((int)ROUND_DOWN(*(float *)&g_dwCurU * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dUdXModifier;
+      g_dwFixV = ((int)ROUND_DOWN(*(float *)&g_dwCurV * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dVdXModifier;
       if (0 < (int)g_dwStartScrap) {
         do {
           *(undefined2 *)g_pWDest =
@@ -15739,11 +15739,11 @@ void __cdecl rdNRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
       g_dwEndZ = (uint)(1.0f / _g_dwEndOneOverZ);
       g_dwEndU = (uint)((float)g_dwEndZ * _g_dwEndUOverZ);
       g_dwEndV = (uint)((float)g_dwEndZ * _g_dwEndVOverZ);
-      g_dwUStep = (int)ROUND(((float)g_dwEndU - *(float *)&g_dwCurU) * 0.0625f * 65536.0f) >> (bVar7 & 0x1f);
-      g_dwVStep = (int)ROUND(((float)g_dwEndV - *(float *)&g_dwCurV) * 0.0625f * 65536.0f) >> (bVar7 & 0x1f);
-      g_dwFixU = ((int)ROUND(*(float *)&g_dwCurU * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dUdXModifier;
+      g_dwUStep = (int)ROUND_DOWN(((float)g_dwEndU - *(float *)&g_dwCurU) * 0.0625f * 65536.0f) >> (bVar7 & 0x1f);
+      g_dwVStep = (int)ROUND_DOWN(((float)g_dwEndV - *(float *)&g_dwCurV) * 0.0625f * 65536.0f) >> (bVar7 & 0x1f);
+      g_dwFixU = ((int)ROUND_DOWN(*(float *)&g_dwCurU * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dUdXModifier;
       iVar6 = 0x10;
-      g_dwFixV = ((int)ROUND(*(float *)&g_dwCurV * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dVdXModifier;
+      g_dwFixV = ((int)ROUND_DOWN(*(float *)&g_dwCurV * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dVdXModifier;
       do {
         *(undefined2 *)g_pWDest =
              *(undefined2 *)
@@ -15782,12 +15782,12 @@ void __cdecl rdNRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
         g_dwEndZ = (uint)(1.0f / _g_dwEndOneOverZ);
         g_dwEndU = (uint)((float)g_dwEndZ * _g_dwEndUOverZ);
         g_dwEndV = (uint)((float)g_dwEndZ * _g_dwEndVOverZ);
-        g_dwUStep = (int)ROUND(((float)g_dwEndU - *(float *)&g_dwCurU) * *(float *)&g_dwOneOverEndScrap * 65536.0f) >>
+        g_dwUStep = (int)ROUND_DOWN(((float)g_dwEndU - *(float *)&g_dwCurU) * *(float *)&g_dwOneOverEndScrap * 65536.0f) >>
                     (bVar7 & 0x1f);
-        g_dwVStep = (int)ROUND(((float)g_dwEndV - *(float *)&g_dwCurV) * *(float *)&g_dwOneOverEndScrap * 65536.0f) >>
+        g_dwVStep = (int)ROUND_DOWN(((float)g_dwEndV - *(float *)&g_dwCurV) * *(float *)&g_dwOneOverEndScrap * 65536.0f) >>
                     (bVar7 & 0x1f);
-        g_dwFixU = ((int)ROUND(*(float *)&g_dwCurU * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dUdXModifier;
-        g_dwFixV = ((int)ROUND(*(float *)&g_dwCurV * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dVdXModifier;
+        g_dwFixU = ((int)ROUND_DOWN(*(float *)&g_dwCurU * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dUdXModifier;
+        g_dwFixV = ((int)ROUND_DOWN(*(float *)&g_dwCurV * 65536.0f) >> (bVar7 & 0x1f)) + g_dwRdNRaster_dVdXModifier;
       }
       iVar6 = 0;
       if (-1 < (int)g_dwEndScrap) {
@@ -16219,15 +16219,15 @@ void __cdecl rdNRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar13 = (byte)g_dwRdNRaster_mipMapNum;
-      local_24 = (int)ROUND((fVar4 - (float)local_10) *
+      local_24 = (int)ROUND_DOWN((fVar4 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0f) >>
                  (bVar13 & 0x1f);
-      local_28 = (int)ROUND((fVar3 - (float)local_14) *
+      local_28 = (int)ROUND_DOWN((fVar3 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0f) >>
                  (bVar13 & 0x1f);
-      puVar10 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
+      puVar10 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
+      puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       pbVar12 = pbVar11;
       if (0 < (int)local_34) {
@@ -16260,12 +16260,12 @@ void __cdecl rdNRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,left)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,left)) * (float)local_c;
         bVar13 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
-        local_28 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
+        local_28 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_34 = 0x10;
-        puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         pbVar12 = pbVar11;
         do {
@@ -16300,17 +16300,17 @@ void __cdecl rdNRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar13 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar13 & 0x1f);
-        local_28 = (int)ROUND((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_28 = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar13 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar9) {
@@ -16455,15 +16455,15 @@ void __cdecl rdNRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-      local_24 = (int)ROUND((fVar4 - (float)local_c) *
+      local_24 = (int)ROUND_DOWN((fVar4 - (float)local_c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_28 = (int)ROUND((fVar3 - (float)local_10) *
+      local_28 = (int)ROUND_DOWN((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar10 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_34) {
         do {
@@ -16501,12 +16501,12 @@ void __cdecl rdNRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,right)) * PUN(float,left);
         fVar5 = (1.0f / PUN(float,right)) * (float)local_8;
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((fVar6 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_28 = (int)ROUND((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar6 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_28 = (int)ROUND_DOWN((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_34 = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           *(undefined2 *)g_pWDest =
@@ -16546,17 +16546,17 @@ void __cdecl rdNRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,right));
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                PUN(float,left)) * fVar5 - (float)local_c) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_28 = (int)ROUND((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_28 = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar9) {
@@ -16844,15 +16844,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-      local_28 = (int)ROUND((fVar4 - (float)local_10) *
+      local_28 = (int)ROUND_DOWN((fVar4 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_2c = (int)ROUND((fVar3 - (float)local_14) *
+      local_2c = (int)ROUND_DOWN((fVar3 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar10 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar10 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_38) {
         do {
@@ -16883,12 +16883,12 @@ void __cdecl rdNRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,left)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,left)) * (float)local_c;
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_28 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_2c = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_28 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_2c = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_38 = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           bVar11 = *(byte *)(((int)((uint)puVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -16921,17 +16921,17 @@ void __cdecl rdNRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_28 = (int)ROUND((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_28 = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_2c = (int)ROUND((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_2c = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar9) {
@@ -17076,15 +17076,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-      local_24 = (int)ROUND((fVar4 - (float)local_c) *
+      local_24 = (int)ROUND_DOWN((fVar4 - (float)local_c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_28 = (int)ROUND((fVar3 - (float)local_10) *
+      local_28 = (int)ROUND_DOWN((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar10 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_34) {
         do {
@@ -17116,12 +17116,12 @@ void __cdecl rdNRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,right)) * PUN(float,left);
         fVar5 = (1.0f / PUN(float,right)) * (float)local_8;
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((fVar6 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_28 = (int)ROUND((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar6 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_28 = (int)ROUND_DOWN((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_34 = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           bVar11 = *(byte *)(((int)((uint)puVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -17155,17 +17155,17 @@ void __cdecl rdNRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,right));
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                PUN(float,left)) * fVar5 - (float)local_c) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar17] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_28 = (int)ROUND((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_28 = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar17] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar17) {
@@ -17447,15 +17447,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-      local_28 = (int)ROUND((fVar4 - (float)local_10) *
+      local_28 = (int)ROUND_DOWN((fVar4 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_2c = (int)ROUND((fVar3 - (float)local_14) *
+      local_2c = (int)ROUND_DOWN((fVar3 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_38] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar10 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar10 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_38) {
         do {
@@ -17488,12 +17488,12 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,left)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,left)) * (float)local_c;
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_28 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_2c = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_28 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_2c = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_38 = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           bVar11 = *(byte *)(((int)((uint)puVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -17528,17 +17528,17 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,left));
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_28 = (int)ROUND((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_28 = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_2c = (int)ROUND((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_2c = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar9) {
@@ -17685,15 +17685,15 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-      local_24 = (int)ROUND((fVar4 - (float)local_c) *
+      local_24 = (int)ROUND_DOWN((fVar4 - (float)local_c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_28 = (int)ROUND((fVar3 - (float)local_10) *
+      local_28 = (int)ROUND_DOWN((fVar3 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_34] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar10 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dUdXModifier);
-      puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdNRaster_dVdXModifier);
       if (0 < (int)local_34) {
         do {
@@ -17729,12 +17729,12 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,right)) * PUN(float,left);
         fVar5 = (1.0f / PUN(float,right)) * (float)local_8;
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((fVar6 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_28 = (int)ROUND((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar6 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_28 = (int)ROUND_DOWN((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
         local_34 = 0x10;
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
         do {
           bVar11 = *(byte *)(((int)((uint)puVar10 & g_dwRdNRaster_uWrap) >> 0x10) +
@@ -17772,17 +17772,17 @@ void __cdecl rdNRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdNRaster_dOneOverZdX - _g_dwRdNRaster_oneOverZStep) +
                       PUN(float,right));
         bVar11 = (byte)g_dwRdNRaster_mipMapNum;
-        local_24 = (int)ROUND((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dUOverZdX - _g_dwRdNRaster_uOverZStep) +
                                PUN(float,left)) * fVar5 - (float)local_c) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar17] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_28 = (int)ROUND((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
+        local_28 = (int)ROUND_DOWN((((fVar6 * _g_dwRdNRaster_dVOverZdX - _g_dwRdNRaster_vOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar17] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar10 = (uint *)(((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar10 = (uint *)(((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dUdXModifier);
-        puVar14 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdNRaster_dVdXModifier);
       }
       if (-1 < iVar17) {
@@ -18299,8 +18299,8 @@ void __cdecl rdZRaster_DrawNGonLV(int poly,int mat)
         iVar5 = iVar5 + 1;
         *(undefined1 *)
          ((int)pVVar2->pPixels +
-         (int)ROUND(*pfVar1) +
-         (pVVar2->format).nPitch * (int)ROUND(*(float *)((int)g_pRdZRaster_aVertices + iVar3))) =
+         (int)ROUND_DOWN(*pfVar1) +
+         (pVVar2->format).nPitch * (int)ROUND_DOWN(*(float *)((int)g_pRdZRaster_aVertices + iVar3))) =
              g_bRdZRaster_color;
       } while (iVar5 < (int)g_dwRdZRaster_numVertices);
       return;
@@ -18322,7 +18322,7 @@ void __cdecl rdZRaster_DrawNGonLV(int poly,int mat)
         *(undefined2 *)
          ((int)pVVar2->pPixels +
          (((uint)(pVVar2->format).nPitch >> 1) *
-          (int)ROUND(*(float *)((int)g_pRdZRaster_aVertices + iVar3)) + (int)ROUND(*pfVar1)) * 2) =
+          (int)ROUND_DOWN(*(float *)((int)g_pRdZRaster_aVertices + iVar3)) + (int)ROUND_DOWN(*pfVar1)) * 2) =
              g_wRdZRaster_RGBcolor;
       } while (iVar5 < (int)g_dwRdZRaster_numVertices);
     }
@@ -18366,10 +18366,10 @@ void __cdecl rdZRaster_DrawNGonLW(int poly,int mat)
       iVar5 = 0;
       do {
         rdCanvas_DrawLine(g_pRdCamera_CurCamera->pCanvas,
-                          (int)ROUND(*(float *)((int)g_pRdZRaster_aVertices + iVar5)),
-                          (int)ROUND(((float *)((int)g_pRdZRaster_aVertices + iVar5))[1]),
-                          (int)ROUND(*(float *)((int)g_pRdZRaster_aVertices + iVar5 + 0xc)),
-                          (int)ROUND(*(float *)((int)g_pRdZRaster_aVertices + iVar5 + 0x10)),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdZRaster_aVertices + iVar5)),
+                          (int)ROUND_DOWN(((float *)((int)g_pRdZRaster_aVertices + iVar5))[1]),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdZRaster_aVertices + iVar5 + 0xc)),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdZRaster_aVertices + iVar5 + 0x10)),
                           (ushort)g_bRdZRaster_color,0xffffffff);
         iVar6 = iVar6 + 1;
         iVar5 = iVar5 + 0xc;
@@ -18393,10 +18393,10 @@ void __cdecl rdZRaster_DrawNGonLW(int poly,int mat)
       iVar5 = 0;
       do {
         rdCanvas_DrawLine(g_pRdCamera_CurCamera->pCanvas,
-                          (int)ROUND(*(float *)((int)g_pRdZRaster_aVertices + iVar5)),
-                          (int)ROUND(((float *)((int)g_pRdZRaster_aVertices + iVar5))[1]),
-                          (int)ROUND(*(float *)((int)g_pRdZRaster_aVertices + iVar5 + 0xc)),
-                          (int)ROUND(*(float *)((int)g_pRdZRaster_aVertices + iVar5 + 0x10)),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdZRaster_aVertices + iVar5)),
+                          (int)ROUND_DOWN(((float *)((int)g_pRdZRaster_aVertices + iVar5))[1]),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdZRaster_aVertices + iVar5 + 0xc)),
+                          (int)ROUND_DOWN(*(float *)((int)g_pRdZRaster_aVertices + iVar5 + 0x10)),
                           g_wRdZRaster_RGBcolor,0xffffffff);
         iVar6 = iVar6 + 1;
         iVar5 = iVar5 + 0xc;
@@ -18408,8 +18408,8 @@ void __cdecl rdZRaster_DrawNGonLW(int poly,int mat)
     fVar4 = (float)g_pRdZRaster_aVertices[iVar6 * 3];
     color = g_wRdZRaster_RGBcolor;
   }
-  rdCanvas_DrawLine(g_pRdCamera_CurCamera->pCanvas,(int)ROUND(fVar4),(int)ROUND(fVar3),
-                    (int)ROUND(fVar2),(int)ROUND(fVar1),color,0xffffffff);
+  rdCanvas_DrawLine(g_pRdCamera_CurCamera->pCanvas,(int)ROUND_DOWN(fVar4),(int)ROUND_DOWN(fVar3),
+                    (int)ROUND_DOWN(fVar2),(int)ROUND_DOWN(fVar1),color,0xffffffff);
   return;
 }
 #endif
@@ -18576,7 +18576,7 @@ void __cdecl rdZRaster_DrawScanLineNGonLS_8(uint *left,uint *right)
   iVar9 = (uVar8 >> 0x10) - iVar7;
   if (0 < iVar9) {
     fVar4 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9];
-    iVar12 = (int)ROUND((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05f + (float)left[4]) *
+    iVar12 = (int)ROUND_DOWN((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05f + (float)left[4]) *
                         65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar3 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
@@ -18590,7 +18590,7 @@ void __cdecl rdZRaster_DrawScanLineNGonLS_8(uint *left,uint *right)
       }
       puVar6 = puVar6 + 1;
       puVar10 = puVar10 + 1;
-      iVar12 = iVar12 + (int)ROUND(fVar4 * 65536.0f);
+      iVar12 = iVar12 + (int)ROUND_DOWN(fVar4 * 65536.0f);
       iVar9 = iVar9 + -1;
     } while (iVar9 != 0);
   }
@@ -18638,7 +18638,7 @@ void __cdecl rdZRaster_DrawScanLineNGonLS_16(uint *left,uint *right)
   iVar9 = (uVar8 >> 0x10) - iVar6;
   if (0 < iVar9) {
     fVar3 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9];
-    iVar11 = (int)ROUND((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05f + (float)left[4]) *
+    iVar11 = (int)ROUND_DOWN((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05f + (float)left[4]) *
                         65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     puVar10 = (undefined2 *)
@@ -18654,7 +18654,7 @@ void __cdecl rdZRaster_DrawScanLineNGonLS_16(uint *left,uint *right)
       }
       puVar10 = puVar10 + 1;
       puVar5 = puVar5 + 1;
-      iVar11 = iVar11 + (int)ROUND(fVar3 * 65536.0f);
+      iVar11 = iVar11 + (int)ROUND_DOWN(fVar3 * 65536.0f);
       iVar9 = iVar9 + -1;
     } while (iVar9 != 0);
   }
@@ -18963,7 +18963,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTLS_8(uint *left,uint *right)
     pVVar3 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     pbVar6 = (byte *)((int)pVVar2->pPixels + iVar7 + (pVVar2->format).nPitch * left[0x10]);
     puVar8 = (ushort *)((pVVar3->format).nPitch * left[0x10] + iVar7 * 2 + (int)pVVar3->pPixels);
-    left = (uint *)(int)ROUND((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05f + (float)left[4])
+    left = (uint *)(int)ROUND_DOWN((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05f + (float)left[4])
                               * 65536.0);
     right = puVar10;
     do {
@@ -18973,7 +18973,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTLS_8(uint *left,uint *right)
                            g_dwRdZRaster_aAlphaMap + (uint)g_bRdZRaster_color * 0x100);
         *puVar8 = uVar11;
       }
-      left = (uint *)((int)left + (int)ROUND(fVar4 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar4 * 65536.0f));
       pbVar6 = pbVar6 + 1;
       puVar8 = puVar8 + 1;
       right = (uint *)((int)right + -1);
@@ -19027,7 +19027,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTLS_16(uint *left,uint *right)
               (((uint)(pVVar2->format).nPitch >> 1) * left[0x10] + iVar6) * 2);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar5 = (ushort *)((pVVar2->format).nPitch * left[0x10] + iVar6 * 2 + (int)pVVar2->pPixels);
-    left = (uint *)(int)ROUND((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05f + (float)left[4])
+    left = (uint *)(int)ROUND_DOWN((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05f + (float)left[4])
                               * 65536.0);
     right = puVar9;
     do {
@@ -19042,7 +19042,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTLS_16(uint *left,uint *right)
       }
       puVar10 = puVar10 + 1;
       puVar5 = puVar5 + 1;
-      left = (uint *)((int)left + (int)ROUND(fVar3 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar3 * 65536.0f));
       right = (uint *)((int)right + -1);
     } while (right != (uint *)0x0);
   }
@@ -19088,13 +19088,13 @@ void __cdecl rdZRaster_DrawNGonFS(int poly,int mat,float light)
   if (iVar2 == 8) {
     g_bRdZRaster_color =
          *(undefined1 *)
-          (*(int *)(mat + 4) + *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100);
+          (*(int *)(mat + 4) + *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100);
   }
   else if (iVar2 == 0x10) {
     g_wRdZRaster_RGBcolor =
          *(undefined2 *)
           (*(int *)(*(int *)(poly + 0x4c) + 0x348) +
-          (*(int *)(mat + 4) + (int)ROUND(light) * 0x100) * 2);
+          (*(int *)(mat + 4) + (int)ROUND_DOWN(light) * 0x100) * 2);
   }
   g_pRdZRaster_aVertices = *(int **)(poly + 0x20);
   uVar5 = *(uint *)(poly + 0x1c);
@@ -19215,7 +19215,7 @@ void __cdecl rdZRaster_DrawScanLineNGonFS_8(uint *left,uint *right)
   iVar9 = (uVar8 >> 0x10) - iVar7;
   if (0 < iVar9) {
     fVar4 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9];
-    iVar12 = (int)ROUND((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05f + (float)left[4]) *
+    iVar12 = (int)ROUND_DOWN((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05f + (float)left[4]) *
                         65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar3 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
@@ -19229,7 +19229,7 @@ void __cdecl rdZRaster_DrawScanLineNGonFS_8(uint *left,uint *right)
       }
       puVar6 = puVar6 + 1;
       puVar10 = puVar10 + 1;
-      iVar12 = iVar12 + (int)ROUND(fVar4 * 65536.0f);
+      iVar12 = iVar12 + (int)ROUND_DOWN(fVar4 * 65536.0f);
       iVar9 = iVar9 + -1;
     } while (iVar9 != 0);
   }
@@ -19277,7 +19277,7 @@ void __cdecl rdZRaster_DrawScanLineNGonFS_16(uint *left,uint *right)
   iVar9 = (uVar8 >> 0x10) - iVar6;
   if (0 < iVar9) {
     fVar3 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9];
-    iVar11 = (int)ROUND((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05f + (float)left[4]) *
+    iVar11 = (int)ROUND_DOWN((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05f + (float)left[4]) *
                         65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     puVar10 = (undefined2 *)
@@ -19293,7 +19293,7 @@ void __cdecl rdZRaster_DrawScanLineNGonFS_16(uint *left,uint *right)
       }
       puVar10 = puVar10 + 1;
       puVar5 = puVar5 + 1;
-      iVar11 = iVar11 + (int)ROUND(fVar3 * 65536.0f);
+      iVar11 = iVar11 + (int)ROUND_DOWN(fVar3 * 65536.0f);
       iVar9 = iVar9 + -1;
     } while (iVar9 != 0);
   }
@@ -19473,14 +19473,14 @@ void __cdecl rdZRaster_DrawNGonTFS(int poly,int mat,float light)
   if (iVar2 == 8) {
     g_bRdZRaster_color =
          *(undefined1 *)
-          (*(int *)(mat + 4) + *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100);
+          (*(int *)(mat + 4) + *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100);
   }
   else if (iVar2 == 0x10) {
     g_dwRdZRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + 0x7e00;
     g_wRdZRaster_RGBcolor =
          *(ushort *)
           (*(int *)(*(int *)(poly + 0x4c) + 0x348) +
-          (*(int *)(mat + 4) + (int)ROUND(light) * 0x100) * 2);
+          (*(int *)(mat + 4) + (int)ROUND_DOWN(light) * 0x100) * 2);
     g_dwRdZRaster_aRGBToPalette = *(uint *)(*(int *)(poly + 0x4c) + 0x34c);
     g_bRdZRaster_color = *(undefined1 *)(g_wRdZRaster_RGBcolor + g_dwRdZRaster_aRGBToPalette);
   }
@@ -19606,7 +19606,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTFS_8(uint *left,uint *right)
     pVVar3 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     pbVar6 = (byte *)((int)pVVar2->pPixels + iVar7 + (pVVar2->format).nPitch * left[0x10]);
     puVar8 = (ushort *)((pVVar3->format).nPitch * left[0x10] + iVar7 * 2 + (int)pVVar3->pPixels);
-    left = (uint *)(int)ROUND((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05f + (float)left[4])
+    left = (uint *)(int)ROUND_DOWN((fVar4 * (float)(int)(uVar5 - uVar1) * 1.5258789e-05f + (float)left[4])
                               * 65536.0);
     right = puVar10;
     do {
@@ -19616,7 +19616,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTFS_8(uint *left,uint *right)
                            g_dwRdZRaster_aAlphaMap + (uint)g_bRdZRaster_color * 0x100);
         *puVar8 = uVar11;
       }
-      left = (uint *)((int)left + (int)ROUND(fVar4 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar4 * 65536.0f));
       pbVar6 = pbVar6 + 1;
       puVar8 = puVar8 + 1;
       right = (uint *)((int)right + -1);
@@ -19670,7 +19670,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTFS_16(uint *left,uint *right)
               (((uint)(pVVar2->format).nPitch >> 1) * left[0x10] + iVar6) * 2);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar5 = (ushort *)((pVVar2->format).nPitch * left[0x10] + iVar6 * 2 + (int)pVVar2->pPixels);
-    left = (uint *)(int)ROUND((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05f + (float)left[4])
+    left = (uint *)(int)ROUND_DOWN((fVar3 * (float)(int)(uVar4 - uVar1) * 1.5258789e-05f + (float)left[4])
                               * 65536.0);
     right = puVar9;
     do {
@@ -19685,7 +19685,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTFS_16(uint *left,uint *right)
       }
       puVar10 = puVar10 + 1;
       puVar5 = puVar5 + 1;
-      left = (uint *)((int)left + (int)ROUND(fVar3 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar3 * 65536.0f));
       right = (uint *)((int)right + -1);
     } while (right != (uint *)0x0);
   }
@@ -19875,7 +19875,7 @@ void __cdecl rdZRaster_DrawScanLineNGonGS_8(uint *left,uint *right)
     lVar3 = (longlong)(int)(uVar6 - uVar1) * (longlong)(int)left;
     iVar7 = ((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + puVar5[0xe];
     fVar4 = ((float)right[4] - (float)puVar5[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_8];
-    right = (uint *)(int)ROUND((fVar4 * (float)(int)(uVar6 - uVar1) * 1.5258789e-05f +
+    right = (uint *)(int)ROUND_DOWN((fVar4 * (float)(int)(uVar6 - uVar1) * 1.5258789e-05f +
                                (float)puVar5[4]) * 65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     puVar8 = (undefined1 *)((int)pVVar2->pPixels + iVar9 + (pVVar2->format).nPitch * puVar5[0x10]);
@@ -19888,7 +19888,7 @@ void __cdecl rdZRaster_DrawScanLineNGonGS_8(uint *left,uint *right)
                    ((iVar7 >> 8 & 0x3f00U) + g_dwRdZRaster_aMonoMap + (uint)g_bRdZRaster_color);
         *puVar10 = uVar12;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar4 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar4 * 65536.0f));
       puVar8 = puVar8 + 1;
       puVar10 = puVar10 + 1;
       iVar7 = iVar7 + (int)left;
@@ -19951,7 +19951,7 @@ void __cdecl rdZRaster_DrawScanLineNGonGS_16(uint *left,uint *right)
     lVar3 = (longlong)(int)(uVar6 - uVar1) * (longlong)(int)left;
     iVar7 = ((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + puVar5[0xe];
     fVar4 = ((float)right[4] - (float)puVar5[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_8];
-    iVar12 = (int)ROUND((fVar4 * (float)(int)(uVar6 - uVar1) * 1.5258789e-05f + (float)puVar5[4]) *
+    iVar12 = (int)ROUND_DOWN((fVar4 * (float)(int)(uVar6 - uVar1) * 1.5258789e-05f + (float)puVar5[4]) *
                         65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     puVar13 = (undefined2 *)
@@ -19970,7 +19970,7 @@ void __cdecl rdZRaster_DrawScanLineNGonGS_16(uint *left,uint *right)
       iVar7 = iVar7 + (int)left;
       puVar13 = puVar13 + 1;
       puVar8 = puVar8 + 1;
-      iVar12 = iVar12 + (int)ROUND(fVar4 * 65536.0f);
+      iVar12 = iVar12 + (int)ROUND_DOWN(fVar4 * 65536.0f);
       local_8 = local_8 - 1;
     } while (local_8 != 0);
   }
@@ -20315,7 +20315,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTGS_8(uint *left,uint *right)
     pfVar1 = (float *)(right + 4);
     right = (uint *)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) + puVar7[0xe]);
     fVar6 = (*pfVar1 - (float)puVar7[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
-    local_8 = (uint)ROUND((fVar6 * (float)(int)(uVar8 - uVar2) * 1.5258789e-05f + (float)puVar7[4]) *
+    local_8 = (uint)ROUND_DOWN((fVar6 * (float)(int)(uVar8 - uVar2) * 1.5258789e-05f + (float)puVar7[4]) *
                           65536.0f);
     pVVar3 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar4 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
@@ -20333,7 +20333,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTGS_8(uint *left,uint *right)
       }
       right = (uint *)((int)right + (int)left);
       pbVar9 = pbVar9 + 1;
-      local_8 = local_8 + (int)ROUND(fVar6 * 65536.0f);
+      local_8 = local_8 + (int)ROUND_DOWN(fVar6 * 65536.0f);
       puVar10 = puVar10 + 1;
       local_c = local_c - 1;
     } while (local_c != 0);
@@ -20396,7 +20396,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTGS_16(uint *left,uint *right)
     pfVar1 = (float *)(right + 4);
     right = (uint *)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + puVar6[0xe]);
     fVar5 = (*pfVar1 - (float)puVar6[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
-    iVar13 = (int)ROUND((fVar5 * (float)(int)(uVar7 - uVar2) * 1.5258789e-05f + (float)puVar6[4]) *
+    iVar13 = (int)ROUND_DOWN((fVar5 * (float)(int)(uVar7 - uVar2) * 1.5258789e-05f + (float)puVar6[4]) *
                         65536.0f);
     pVVar3 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     puVar11 = (ushort *)
@@ -20418,7 +20418,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTGS_16(uint *left,uint *right)
       right = (uint *)((int)right + (int)left);
       puVar11 = puVar11 + 1;
       puVar8 = puVar8 + 1;
-      iVar13 = iVar13 + (int)ROUND(fVar5 * 65536.0f);
+      iVar13 = iVar13 + (int)ROUND_DOWN(fVar5 * 65536.0f);
       local_c = local_c - 1;
     } while (local_c != 0);
   }
@@ -20668,7 +20668,7 @@ void __cdecl rdZRaster_DrawScanLineNGonLAT_8(uint *left,uint *right)
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     lVar3 = (longlong)iVar5 * (longlong)(int)uVar7;
     fVar4 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10];
-    right = (uint *)(int)ROUND(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
     uVar10 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[10]) >>
              (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
     iVar5 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xc]) >>
@@ -20687,7 +20687,7 @@ void __cdecl rdZRaster_DrawScanLineNGonLAT_8(uint *left,uint *right)
                    (iVar5 >> (0x10U - (char)g_dwRdZRaster_texRowShift & 0x1f) & g_dwRdZRaster_vWrap)
                    );
       }
-      right = (uint *)((int)right + (int)ROUND(fVar4 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar4 * 65536.0f));
       uVar10 = uVar10 + ((int)uVar6 >> (bVar9 & 0x1f));
       puVar8 = puVar8 + 1;
       puVar11 = puVar11 + 1;
@@ -20763,7 +20763,7 @@ void __cdecl rdZRaster_DrawScanLineNGonLAT_16(uint *left,uint *right)
     puVar8 = (ushort *)
              ((prVar1->pZBuffer->format).nPitch * left[0x10] + iVar13 * 2 +
              (int)prVar1->pZBuffer->pPixels);
-    left = (uint *)(int)ROUND(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
+    left = (uint *)(int)ROUND_DOWN(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
     do {
       uVar12 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
       if (*puVar8 < uVar12) {
@@ -20777,7 +20777,7 @@ void __cdecl rdZRaster_DrawScanLineNGonLAT_16(uint *left,uint *right)
                              g_dwRdZRaster_vWrap)) * 2);
       }
       right = (uint *)((int)right + 2);
-      left = (uint *)((int)left + (int)ROUND(fVar4 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar4 * 65536.0f));
       puVar8 = puVar8 + 1;
       uVar11 = uVar11 + ((int)uVar6 >> (bVar9 & 0x1f));
       iVar10 = iVar10 + ((int)uVar7 >> (bVar9 & 0x1f));
@@ -21135,7 +21135,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTLAT_8(uint *left,uint *right)
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     lVar3 = (longlong)iVar5 * (longlong)(int)uVar7;
     fVar4 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10];
-    right = (uint *)(int)ROUND(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
     uVar10 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[10]) >>
              (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
     iVar5 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xc]) >>
@@ -21155,7 +21155,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTLAT_8(uint *left,uint *right)
                                           & g_dwRdZRaster_vWrap)) * 0x100);
         *puVar11 = uVar12;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar4 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar4 * 65536.0f));
       uVar10 = uVar10 + ((int)uVar6 >> (bVar9 & 0x1f));
       pbVar8 = pbVar8 + 1;
       puVar11 = puVar11 + 1;
@@ -21223,7 +21223,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTLAT_16(uint *left,uint *right)
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     lVar3 = (longlong)iVar5 * (longlong)(int)uVar7;
     fVar4 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
-    right = (uint *)(int)ROUND(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
     uVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[10]) >>
              (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
     iVar5 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xc]) >>
@@ -21249,7 +21249,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTLAT_16(uint *left,uint *right)
                     * 2);
         *puVar8 = uVar10;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar4 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar4 * 65536.0f));
       uVar11 = uVar11 + ((int)uVar6 >> (bVar9 & 0x1f));
       puVar12 = puVar12 + 1;
       puVar8 = puVar8 + 1;
@@ -21449,7 +21449,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMLAT_8(uint *left,uint *right)
     uVar9 = (uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10;
     lVar5 = (longlong)iVar7 * (longlong)(int)uVar9;
     fVar6 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
-    right = (uint *)(int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar6 + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar6 + (float)left[4]) * 65536.0f);
     uVar13 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
              (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
@@ -21468,7 +21468,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMLAT_8(uint *left,uint *right)
         *pcVar10 = cVar1;
         *puVar12 = uVar14;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar6 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar6 * 65536.0f));
       pcVar10 = pcVar10 + 1;
       left = (uint *)((int)left + ((int)uVar9 >> (bVar11 & 0x1f)));
       puVar12 = puVar12 + 1;
@@ -21546,7 +21546,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMLAT_16(uint *left,uint *right)
     puVar9 = (ushort *)
              ((prVar2->pZBuffer->format).nPitch * left[0x10] + iVar14 * 2 +
              (int)prVar2->pZBuffer->pPixels);
-    left = (uint *)(int)ROUND(((float)iVar6 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+    left = (uint *)(int)ROUND_DOWN(((float)iVar6 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     do {
       uVar13 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
       if ((*puVar9 < uVar13) &&
@@ -21558,7 +21558,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMLAT_16(uint *left,uint *right)
         *puVar9 = uVar13;
       }
       right = (uint *)((int)right + 2);
-      left = (uint *)((int)left + (int)ROUND(fVar5 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar5 * 65536.0f));
       puVar9 = puVar9 + 1;
       uVar12 = uVar12 + ((int)uVar7 >> (bVar10 & 0x1f));
       iVar11 = iVar11 + ((int)uVar8 >> (bVar10 & 0x1f));
@@ -21760,7 +21760,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLAT_8(uint *left,uint *right)
     uVar9 = (uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10;
     lVar5 = (longlong)iVar7 * (longlong)(int)uVar9;
     fVar6 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
-    right = (uint *)(int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar6 + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar6 + (float)left[4]) * 65536.0f);
     uVar13 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
              (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
@@ -21779,7 +21779,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLAT_8(uint *left,uint *right)
         *pbVar10 = *(byte *)((uint)*pbVar10 + g_dwRdZRaster_aAlphaMap + local_10 * 0x100);
         *puVar12 = uVar14;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar6 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar6 * 65536.0f));
       pbVar10 = pbVar10 + 1;
       left = (uint *)((int)left + ((int)uVar9 >> (bVar11 & 0x1f)));
       puVar12 = puVar12 + 1;
@@ -21857,7 +21857,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLAT_16(uint *left,uint *right)
     puVar9 = (ushort *)
              ((prVar2->pZBuffer->format).nPitch * left[0x10] + iVar14 * 2 +
              (int)prVar2->pZBuffer->pPixels);
-    left = (uint *)(int)ROUND(((float)iVar6 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+    left = (uint *)(int)ROUND_DOWN(((float)iVar6 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     do {
       uVar13 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
       if ((*puVar9 < uVar13) &&
@@ -21874,7 +21874,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLAT_16(uint *left,uint *right)
         *puVar9 = uVar13;
       }
       right = (uint *)((int)right + 2);
-      left = (uint *)((int)left + (int)ROUND(fVar5 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar5 * 65536.0f));
       puVar9 = puVar9 + 1;
       uVar12 = uVar12 + ((int)uVar7 >> (bVar10 & 0x1f));
       iVar11 = iVar11 + ((int)uVar8 >> (bVar10 & 0x1f));
@@ -21929,10 +21929,10 @@ void __cdecl rdZRaster_DrawNGonFAT(int poly,int mat,float light)
   g_pRdZRaster_aVertices = *(int **)(poly + 0x20);
   g_dwRdZRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdZRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    g_dwRdZRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   g_dwRdZRaster_numVertices = *(uint *)(poly + 0x1c);
   g_dwRdZRaster_yMinVert = *(uint *)(poly + 0x6c);
@@ -22133,7 +22133,7 @@ void __cdecl rdZRaster_DrawScanLineNGonFAT_8(uint *left,uint *right)
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     lVar3 = (longlong)iVar5 * (longlong)(int)uVar7;
     fVar4 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10];
-    right = (uint *)(int)ROUND(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
     uVar10 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[10]) >>
              (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
     iVar5 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xc]) >>
@@ -22152,7 +22152,7 @@ void __cdecl rdZRaster_DrawScanLineNGonFAT_8(uint *left,uint *right)
                              g_dwRdZRaster_vWrap)) + g_dwRdZRaster_aMonoMap);
         *puVar11 = uVar12;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar4 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar4 * 65536.0f));
       uVar10 = uVar10 + ((int)uVar6 >> (bVar9 & 0x1f));
       puVar8 = puVar8 + 1;
       puVar11 = puVar11 + 1;
@@ -22229,7 +22229,7 @@ void __cdecl rdZRaster_DrawScanLineNGonFAT_16(uint *left,uint *right)
     puVar8 = (ushort *)
              ((prVar1->pZBuffer->format).nPitch * left[0x10] + iVar13 * 2 +
              (int)prVar1->pZBuffer->pPixels);
-    left = (uint *)(int)ROUND(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
+    left = (uint *)(int)ROUND_DOWN(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
     do {
       uVar12 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
       if (*puVar8 < uVar12) {
@@ -22243,7 +22243,7 @@ void __cdecl rdZRaster_DrawScanLineNGonFAT_16(uint *left,uint *right)
         *puVar8 = uVar12;
       }
       right = (uint *)((int)right + 2);
-      left = (uint *)((int)left + (int)ROUND(fVar4 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar4 * 65536.0f));
       puVar8 = puVar8 + 1;
       uVar11 = uVar11 + ((int)uVar6 >> (bVar9 & 0x1f));
       iVar10 = iVar10 + ((int)uVar7 >> (bVar9 & 0x1f));
@@ -22456,10 +22456,10 @@ void __cdecl rdZRaster_DrawNGonTFAT(int poly,int mat,float light)
   g_pRdZRaster_aVertices = *(int **)(poly + 0x20);
   g_dwRdZRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdZRaster_aRGBMap = (int)ROUND(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
+    g_dwRdZRaster_aRGBMap = (int)ROUND_DOWN(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
     g_dwRdZRaster_aRGBToPalette = *(uint *)(*(int *)(poly + 0x4c) + 0x34c);
   }
   g_dwRdZRaster_aAlphaMap = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
@@ -22604,7 +22604,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTFAT_8(uint *left,uint *right)
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     lVar3 = (longlong)iVar5 * (longlong)(int)uVar7;
     fVar4 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10];
-    right = (uint *)(int)ROUND(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
     uVar10 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[10]) >>
              (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
     iVar5 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xc]) >>
@@ -22626,7 +22626,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTFAT_8(uint *left,uint *right)
                            0x100);
         *puVar11 = uVar12;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar4 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar4 * 65536.0f));
       uVar10 = uVar10 + ((int)uVar6 >> (bVar9 & 0x1f));
       pbVar8 = pbVar8 + 1;
       puVar11 = puVar11 + 1;
@@ -22694,7 +22694,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTFAT_16(uint *left,uint *right)
     uVar7 = (uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10;
     lVar3 = (longlong)iVar5 * (longlong)(int)uVar7;
     fVar4 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
-    right = (uint *)(int)ROUND(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN(((float)iVar5 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
     iVar5 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xc]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dVdXModifier;
     uVar10 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[10]) >>
@@ -22722,7 +22722,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTFAT_16(uint *left,uint *right)
                                                   g_dwRdZRaster_aRGBToPalette) * 0x100) * 2);
         *puVar8 = uVar12;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar4 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar4 * 65536.0f));
       uVar10 = uVar10 + ((int)uVar6 >> (bVar9 & 0x1f));
       puVar11 = puVar11 + 1;
       puVar8 = puVar8 + 1;
@@ -22778,10 +22778,10 @@ void __cdecl rdZRaster_DrawNGonMFAT(int poly,int mat,float light)
   g_pRdZRaster_aVertices = *(int **)(poly + 0x20);
   g_dwRdZRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdZRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    g_dwRdZRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   g_dwRdZRaster_numVertices = *(uint *)(poly + 0x1c);
   g_dwRdZRaster_yMinVert = *(uint *)(poly + 0x6c);
@@ -22926,7 +22926,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMFAT_8(uint *left,uint *right)
     uVar9 = (uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10;
     lVar5 = (longlong)iVar7 * (longlong)(int)uVar9;
     fVar6 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
-    right = (uint *)(int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar6 + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar6 + (float)left[4]) * 65536.0f);
     uVar13 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
              (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
@@ -22945,7 +22945,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMFAT_8(uint *left,uint *right)
         *puVar10 = *(undefined1 *)(local_10 + g_dwRdZRaster_aMonoMap);
         *puVar12 = uVar14;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar6 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar6 * 65536.0f));
       puVar10 = puVar10 + 1;
       left = (uint *)((int)left + ((int)uVar9 >> (bVar11 & 0x1f)));
       puVar12 = puVar12 + 1;
@@ -23023,7 +23023,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMFAT_16(uint *left,uint *right)
     puVar9 = (ushort *)
              ((prVar2->pZBuffer->format).nPitch * left[0x10] + iVar14 * 2 +
              (int)prVar2->pZBuffer->pPixels);
-    left = (uint *)(int)ROUND(((float)iVar6 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+    left = (uint *)(int)ROUND_DOWN(((float)iVar6 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     do {
       uVar13 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
       if ((*puVar9 < uVar13) &&
@@ -23035,7 +23035,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMFAT_16(uint *left,uint *right)
         *puVar9 = uVar13;
       }
       right = (uint *)((int)right + 2);
-      left = (uint *)((int)left + (int)ROUND(fVar5 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar5 * 65536.0f));
       puVar9 = puVar9 + 1;
       uVar12 = uVar12 + ((int)uVar7 >> (bVar10 & 0x1f));
       iVar11 = iVar11 + ((int)uVar8 >> (bVar10 & 0x1f));
@@ -23090,10 +23090,10 @@ void __cdecl rdZRaster_DrawNGonMTFAT(int poly,int mat,float light)
   g_pRdZRaster_aVertices = *(int **)(poly + 0x20);
   g_dwRdZRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdZRaster_aRGBMap = (int)ROUND(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
+    g_dwRdZRaster_aRGBMap = (int)ROUND_DOWN(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
     g_dwRdZRaster_aRGBToPalette = *(uint *)(*(int *)(poly + 0x4c) + 0x34c);
   }
   g_dwRdZRaster_aAlphaMap = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
@@ -23240,7 +23240,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFAT_8(uint *left,uint *right)
     uVar9 = (uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10;
     lVar5 = (longlong)iVar7 * (longlong)(int)uVar9;
     fVar6 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
-    right = (uint *)(int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar6 + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar6 + (float)left[4]) * 65536.0f);
     uVar13 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
              (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
@@ -23260,7 +23260,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFAT_8(uint *left,uint *right)
                             + g_dwRdZRaster_aMonoMap);
         *puVar12 = uVar14;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar6 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar6 * 65536.0f));
       pbVar10 = pbVar10 + 1;
       left = (uint *)((int)left + ((int)uVar9 >> (bVar11 & 0x1f)));
       puVar12 = puVar12 + 1;
@@ -23338,7 +23338,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFAT_16(uint *left,uint *right)
     puVar9 = (ushort *)
              ((prVar2->pZBuffer->format).nPitch * left[0x10] + iVar14 * 2 +
              (int)prVar2->pZBuffer->pPixels);
-    left = (uint *)(int)ROUND(((float)iVar6 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+    left = (uint *)(int)ROUND_DOWN(((float)iVar6 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     do {
       uVar13 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
       if ((*puVar9 < uVar13) &&
@@ -23355,7 +23355,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFAT_16(uint *left,uint *right)
         *puVar9 = uVar13;
       }
       right = (uint *)((int)right + 2);
-      left = (uint *)((int)left + (int)ROUND(fVar5 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar5 * 65536.0f));
       puVar9 = puVar9 + 1;
       uVar12 = uVar12 + ((int)uVar7 >> (bVar10 & 0x1f));
       iVar11 = iVar11 + ((int)uVar8 >> (bVar10 & 0x1f));
@@ -23633,7 +23633,7 @@ void __cdecl rdZRaster_DrawScanLineNGonGAT_8(uint *left,uint *right)
       local_8 = 0;
     }
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10];
-    right = (uint *)(int)ROUND((fVar5 * (float)iVar6 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((fVar5 * (float)iVar6 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     uVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[10]) >>
              (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
     iVar13 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xc]) >>
@@ -23657,7 +23657,7 @@ void __cdecl rdZRaster_DrawScanLineNGonGAT_8(uint *left,uint *right)
                             g_dwRdZRaster_vWrap)));
         *puVar12 = uVar14;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar5 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar5 * 65536.0f));
       uVar11 = uVar11 + ((int)uVar7 >> (bVar10 & 0x1f));
       iVar13 = iVar13 + ((int)uVar8 >> (bVar10 & 0x1f));
       left = (uint *)((int)left + local_8);
@@ -23751,8 +23751,8 @@ void __cdecl rdZRaster_DrawScanLineNGonGAT_16(uint *left,uint *right)
                (int)((ulonglong)((longlong)iVar9 * (longlong)(int)local_c) >> 0x20) << 0x10) +
                left[0xe];
     fVar7 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_18];
-    local_24 = (uint)ROUND(fVar7 * 65536.0f);
-    right = (uint *)(int)ROUND((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+    local_24 = (uint)ROUND_DOWN(fVar7 * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     local_8 = ((int)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) + left[0xc]) >>
               (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier;
     local_1c = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
@@ -24192,7 +24192,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTGAT_8(uint *left,uint *right)
       local_8 = 0;
     }
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_10];
-    right = (uint *)(int)ROUND((fVar5 * (float)iVar6 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((fVar5 * (float)iVar6 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     uVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[10]) >>
              (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
     iVar13 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xc]) >>
@@ -24218,7 +24218,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTGAT_8(uint *left,uint *right)
                                                   g_dwRdZRaster_vWrap))) * 0x100);
         *puVar12 = uVar14;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar5 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar5 * 65536.0f));
       uVar11 = uVar11 + ((int)uVar7 >> (bVar10 & 0x1f));
       iVar13 = iVar13 + ((int)uVar8 >> (bVar10 & 0x1f));
       left = (uint *)((int)left + local_8);
@@ -24295,7 +24295,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTGAT_16(uint *left,uint *right)
       local_8 = 0;
     }
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[local_c];
-    right = (uint *)(int)ROUND((fVar5 * (float)iVar6 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((fVar5 * (float)iVar6 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     iVar13 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xc]) >>
              (bVar10 & 0x1f)) + g_dwRdZRaster_dVdXModifier;
     uVar11 = ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[10]) >>
@@ -24324,7 +24324,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTGAT_16(uint *left,uint *right)
                     ((int)left >> 0x10 & 0x3fU) * 0x100) * 2);
         *puVar9 = uVar14;
       }
-      right = (uint *)((int)right + (int)ROUND(fVar5 * 65536.0f));
+      right = (uint *)((int)right + (int)ROUND_DOWN(fVar5 * 65536.0f));
       uVar11 = uVar11 + ((int)uVar7 >> (bVar10 & 0x1f));
       iVar13 = iVar13 + ((int)uVar8 >> (bVar10 & 0x1f));
       left = (uint *)((int)left + local_8);
@@ -24559,7 +24559,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMGAT_8(uint *left,uint *right)
     pVVar4 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar12 = (undefined1 *)((int)pVVar3->pPixels + iVar17 + (pVVar3->format).nPitch * left[0x10]);
     puVar15 = (ushort *)((pVVar4->format).nPitch * left[0x10] + iVar17 * 2 + (int)pVVar4->pPixels);
-    left = (uint *)(int)ROUND((fVar8 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+    left = (uint *)(int)ROUND_DOWN((fVar8 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     do {
       uVar16 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
       if ((*puVar15 < uVar16) &&
@@ -24571,7 +24571,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMGAT_8(uint *left,uint *right)
                     (local_18 + g_dwRdZRaster_aMonoMap + ((int)local_c >> 8 & 0x3f00U));
         *puVar15 = uVar16;
       }
-      left = (uint *)((int)left + (int)ROUND(fVar8 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar8 * 65536.0f));
       uVar14 = uVar14 + ((int)uVar10 >> (bVar13 & 0x1f));
       puVar12 = puVar12 + 1;
       right = (uint *)((int)right + ((int)uVar11 >> (bVar13 & 0x1f)));
@@ -24659,7 +24659,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMGAT_16(uint *left,uint *right)
                     (((uint)(pVVar2->format).nPitch >> 1) * left[0x10] + iVar15) * 2);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar10 = (ushort *)((pVVar2->format).nPitch * left[0x10] + iVar15 * 2 + (int)pVVar2->pPixels);
-    left = (uint *)(int)ROUND((fVar6 * (float)iVar7 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+    left = (uint *)(int)ROUND_DOWN((fVar6 * (float)iVar7 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     do {
       uVar13 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
       if ((*puVar10 < uVar13) &&
@@ -24673,7 +24673,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMGAT_16(uint *left,uint *right)
         *puVar10 = uVar13;
       }
       right = (uint *)((int)right + 2);
-      left = (uint *)((int)left + (int)ROUND(fVar6 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar6 * 65536.0f));
       uVar12 = uVar12 + ((int)uVar8 >> (bVar11 & 0x1f));
       iVar14 = iVar14 + ((int)uVar9 >> (bVar11 & 0x1f));
       puVar10 = puVar10 + 1;
@@ -24909,7 +24909,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGAT_8(uint *left,uint *right)
     pVVar4 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     pbVar12 = (byte *)((int)pVVar3->pPixels + iVar17 + (pVVar3->format).nPitch * left[0x10]);
     puVar15 = (ushort *)((pVVar4->format).nPitch * left[0x10] + iVar17 * 2 + (int)pVVar4->pPixels);
-    left = (uint *)(int)ROUND((fVar8 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+    left = (uint *)(int)ROUND_DOWN((fVar8 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     do {
       uVar16 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
       if ((*puVar15 < uVar16) &&
@@ -24922,7 +24922,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGAT_8(uint *left,uint *right)
                             *(byte *)((uint)*pbVar12 + g_dwRdZRaster_aAlphaMap + local_18 * 0x100));
         *puVar15 = uVar16;
       }
-      left = (uint *)((int)left + (int)ROUND(fVar8 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar8 * 65536.0f));
       uVar14 = uVar14 + ((int)uVar10 >> (bVar13 & 0x1f));
       pbVar12 = pbVar12 + 1;
       right = (uint *)((int)right + ((int)uVar11 >> (bVar13 & 0x1f)));
@@ -25012,7 +25012,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGAT_16(uint *left,uint *right)
               (((uint)(pVVar3->format).nPitch >> 1) * left[0x10] + iVar16) * 2);
     pVVar3 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar11 = (ushort *)((pVVar3->format).nPitch * left[0x10] + iVar16 * 2 + (int)pVVar3->pPixels);
-    left = (uint *)(int)ROUND((fVar7 * (float)iVar8 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+    left = (uint *)(int)ROUND_DOWN((fVar7 * (float)iVar8 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     do {
       uVar15 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
       if ((*puVar11 < uVar15) &&
@@ -25028,7 +25028,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGAT_16(uint *left,uint *right)
                     ((int)local_c >> 0x10 & 0x3fU) * 0x100) * 2);
         *puVar11 = uVar15;
       }
-      left = (uint *)((int)left + (int)ROUND(fVar7 * 65536.0f));
+      left = (uint *)((int)left + (int)ROUND_DOWN(fVar7 * 65536.0f));
       uVar13 = uVar13 + ((int)uVar9 >> (bVar12 & 0x1f));
       puVar14 = puVar14 + 1;
       right = (uint *)((int)right + ((int)uVar10 >> (bVar12 & 0x1f)));
@@ -25309,7 +25309,7 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_8(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4];
     local_2c = (uint)(fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6]);
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    puVar13 = (uint *)(int)ROUND(fVar6 * 65536.0f);
+    puVar13 = (uint *)(int)ROUND_DOWN(fVar6 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     local_10 = (uint)((1.0f / fVar6) * (float)local_2c);
@@ -25333,15 +25333,15 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-      local_2c = (int)ROUND((fVar4 - (float)local_10) *
+      local_2c = (int)ROUND_DOWN((fVar4 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_30 = (int)ROUND((fVar3 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar3 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_3c) {
         do {
@@ -25374,12 +25374,12 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_8(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_2c = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_30 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_2c = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_30 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_3c = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar14 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -25414,17 +25414,17 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_8(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_2c = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_2c = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar10) {
@@ -25546,7 +25546,7 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
     local_30 = (uint)(fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4]);
     local_24 = (uint)(fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6]);
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    right = (uint *)(int)ROUND((float)local_30 * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((float)local_30 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar13 = (uint *)((int)pVVar1->pPixels +
@@ -25570,15 +25570,15 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-      local_24 = (int)ROUND((fVar4 - (float)local_14) *
+      local_24 = (int)ROUND_DOWN((fVar4 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_30 = (int)ROUND((fVar3 - (float)local_18) *
+      local_30 = (int)ROUND_DOWN((fVar3 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_3c) {
         do {
@@ -25612,12 +25612,12 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
         fVar3 = (1.0f / (float)local_8) * (float)local_c;
         fVar5 = (1.0f / (float)local_8) * (float)local_10;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_24 = (int)ROUND((fVar3 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_30 = (int)ROUND((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar3 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_30 = (int)ROUND_DOWN((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_3c = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar14 = (ushort)((int)right >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -25653,17 +25653,17 @@ void __cdecl rdZRaster_DrawScanLineNGonLIT_16(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar3 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_24 = (int)ROUND((((fVar3 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar3 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_30 = (int)ROUND((((fVar3 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar3 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar5 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar10) {
@@ -26049,7 +26049,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4];
     local_2c = (uint)(fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6]);
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    puVar16 = (uint *)(int)ROUND(fVar6 * 65536.0f);
+    puVar16 = (uint *)(int)ROUND_DOWN(fVar6 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     pbVar13 = (byte *)((int)pVVar1->pPixels + uVar17 + (pVVar1->format).nPitch * left[0x10]);
@@ -26073,15 +26073,15 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-      local_2c = (int)ROUND((fVar4 - (float)local_10) *
+      local_2c = (int)ROUND_DOWN((fVar4 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_30 = (int)ROUND((fVar3 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar3 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_3c) {
         do {
@@ -26115,12 +26115,12 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_2c = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_30 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_2c = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_30 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_3c = 0x10;
-        puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar14 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -26156,17 +26156,17 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_8(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_2c = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_2c = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar10) {
@@ -26290,7 +26290,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4];
     local_30 = (uint)(fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6]);
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    puVar13 = (uint *)(int)ROUND(fVar6 * 65536.0f);
+    puVar13 = (uint *)(int)ROUND_DOWN(fVar6 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     local_20 = (int)pVVar1->pPixels +
@@ -26315,15 +26315,15 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar4 - (float)local_10) *
+      local_30 = (int)ROUND_DOWN((fVar4 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_34 = (int)ROUND((fVar3 - (float)local_14) *
+      local_34 = (int)ROUND_DOWN((fVar3 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_40) {
         do {
@@ -26361,12 +26361,12 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_34 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_40 = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar14 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -26406,17 +26406,17 @@ void __cdecl rdZRaster_DrawScanLineNGonTLIT_16(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_34 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar10) {
@@ -26665,7 +26665,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
     local_30 = (uint)(fVar6 * _g_dwRdZRaster_dOneOverZdX + (float)left[4]);
     fVar7 = fVar6 * _g_dwRdZRaster_dUOverZdX + (float)left[6];
     fVar6 = fVar6 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    right = (uint *)(int)ROUND((float)local_30 * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((float)local_30 * 65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar3 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     local_14 = (uint)((1.0f / (float)local_30) * fVar7);
@@ -26689,15 +26689,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
       fVar5 = fVar4 * fVar7;
       fVar4 = fVar4 * fVar6;
       bVar13 = (byte)g_dwRdZRaster_mipMapNum;
-      local_2c = (int)ROUND((fVar5 - (float)local_14) *
+      local_2c = (int)ROUND_DOWN((fVar5 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar13 & 0x1f);
-      local_30 = (int)ROUND((fVar4 - (float)local_18) *
+      local_30 = (int)ROUND_DOWN((fVar4 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar13 & 0x1f);
-      puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar17 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
+      puVar17 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_3c) {
         do {
@@ -26729,12 +26729,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
         fVar7 = (1.0f / (float)local_8) * (float)local_c;
         fVar6 = (1.0f / (float)local_8) * (float)local_10;
         bVar13 = (byte)g_dwRdZRaster_mipMapNum;
-        local_2c = (int)ROUND((fVar7 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
-        local_30 = (int)ROUND((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
+        local_2c = (int)ROUND_DOWN((fVar7 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
+        local_30 = (int)ROUND_DOWN((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_3c = 0x10;
-        puVar17 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar17 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar10 = (ushort)((int)right >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -26768,17 +26768,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_8(uint *left,uint *right)
         fVar6 = 1.0f / ((fVar7 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar13 = (byte)g_dwRdZRaster_mipMapNum;
-        local_2c = (int)ROUND((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_2c = (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar6 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar12] * 65536.0f) >>
                    (bVar13 & 0x1f);
-        local_30 = (int)ROUND((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar6 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar12] * 65536.0f) >>
                    (bVar13 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar17 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar17 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar12) {
@@ -26900,7 +26900,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
     local_34 = (uint)(fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4]);
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    right = (uint *)(int)ROUND((float)local_34 * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((float)local_34 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar14 = (uint *)((int)pVVar1->pPixels +
@@ -26925,15 +26925,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar5;
       bVar12 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar4 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar4 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar12 & 0x1f);
-      local_34 = (int)ROUND((fVar3 - (float)local_18) *
+      local_34 = (int)ROUND_DOWN((fVar3 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar12 & 0x1f);
-      puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_40) {
         do {
@@ -26965,12 +26965,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
         fVar6 = (1.0f / (float)local_8) * (float)local_c;
         fVar5 = (1.0f / (float)local_8) * (float)local_10;
         bVar12 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar6 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
-        local_34 = (int)ROUND((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar6 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_40 = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar9 = (ushort)((int)right >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -27004,17 +27004,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMLIT_16(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar12 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar12 & 0x1f);
-        local_34 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar5 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar12 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar11) {
@@ -27259,7 +27259,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
     local_34 = (uint)(fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4]);
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    right = (uint *)(int)ROUND((float)local_34 * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((float)local_34 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     pbVar13 = (byte *)((int)pVVar1->pPixels + uVar17 + (pVVar1->format).nPitch * left[0x10]);
@@ -27283,15 +27283,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar4 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar4 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_34 = (int)ROUND((fVar3 - (float)local_18) *
+      local_34 = (int)ROUND_DOWN((fVar3 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar18 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar18 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_40) {
         do {
@@ -27323,12 +27323,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
         fVar6 = (1.0f / (float)local_8) * (float)local_c;
         fVar5 = (1.0f / (float)local_8) * (float)local_10;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar6 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_34 = (int)ROUND((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar6 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_40 = 0x10;
-        puVar18 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar14 = (ushort)((int)right >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -27362,17 +27362,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_8(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_34 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar5 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar18 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar10) {
@@ -27492,7 +27492,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
     local_34 = (uint)(fVar4 * _g_dwRdZRaster_dOneOverZdX + (float)left[4]);
     local_30 = (uint)(fVar4 * _g_dwRdZRaster_dUOverZdX + (float)left[6]);
     fVar4 = fVar4 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    right = (uint *)(int)ROUND((float)local_34 * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((float)local_34 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     puVar17 = (ushort *)
               ((int)pVVar1->pPixels +
@@ -27517,15 +27517,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar3 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar3 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_20] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      local_34 = (int)ROUND((fVar2 - (float)local_18) *
+      local_34 = (int)ROUND_DOWN((fVar2 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_20] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar12 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar12 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_20) {
         local_40 = local_20;
@@ -27562,12 +27562,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
         fVar2 = (1.0f / (float)local_8) * (float)local_c;
         fVar4 = (1.0f / (float)local_8) * (float)local_10;
         bVar10 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar2 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        local_34 = (int)ROUND((fVar4 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar2 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar4 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_40 = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar13 = (ushort)((int)right >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -27605,17 +27605,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMTLIT_16(uint *left,uint *right)
         fVar4 = 1.0f / ((fVar2 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar10 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar2 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar2 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar4 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar10 & 0x1f);
-        local_34 = (int)ROUND((((fVar2 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar2 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar4 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar10 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar9) {
@@ -27687,10 +27687,10 @@ void __cdecl rdZRaster_DrawNGonFIT(int poly,int mat,float light)
   g_pRdZRaster_aVertices = *(int **)(poly + 0x20);
   g_dwRdZRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdZRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    g_dwRdZRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   g_dwRdZRaster_numVertices = *(uint *)(poly + 0x1c);
   g_dwRdZRaster_yMinVert = *(uint *)(poly + 0x6c);
@@ -27919,7 +27919,7 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_8(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4];
     local_2c = (uint)(fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6]);
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    puVar13 = (uint *)(int)ROUND(fVar6 * 65536.0f);
+    puVar13 = (uint *)(int)ROUND_DOWN(fVar6 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     local_10 = (uint)((1.0f / fVar6) * (float)local_2c);
@@ -27943,15 +27943,15 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-      local_2c = (int)ROUND((fVar4 - (float)local_10) *
+      local_2c = (int)ROUND_DOWN((fVar4 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_30 = (int)ROUND((fVar3 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar3 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_3c) {
         do {
@@ -27984,12 +27984,12 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_8(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_2c = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_30 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_2c = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_30 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_3c = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar14 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -28024,17 +28024,17 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_8(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_2c = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_2c = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar10) {
@@ -28156,7 +28156,7 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
     local_30 = (uint)(fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4]);
     local_24 = (uint)(fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6]);
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    right = (uint *)(int)ROUND((float)local_30 * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((float)local_30 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar13 = (uint *)((int)pVVar1->pPixels +
@@ -28180,15 +28180,15 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-      local_24 = (int)ROUND((fVar4 - (float)local_14) *
+      local_24 = (int)ROUND_DOWN((fVar4 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_30 = (int)ROUND((fVar3 - (float)local_18) *
+      local_30 = (int)ROUND_DOWN((fVar3 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_3c) {
         do {
@@ -28222,12 +28222,12 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
         fVar3 = (1.0f / (float)local_8) * (float)local_c;
         fVar5 = (1.0f / (float)local_8) * (float)local_10;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_24 = (int)ROUND((fVar3 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_30 = (int)ROUND((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_24 = (int)ROUND_DOWN((fVar3 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_30 = (int)ROUND_DOWN((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_3c = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar14 = (ushort)((int)right >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -28263,17 +28263,17 @@ void __cdecl rdZRaster_DrawScanLineNGonFIT_16(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar3 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_24 = (int)ROUND((((fVar3 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_24 = (int)ROUND_DOWN((((fVar3 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_30 = (int)ROUND((((fVar3 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar3 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar5 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar10) {
@@ -28483,10 +28483,10 @@ void __cdecl rdZRaster_DrawNGonTFIT(int poly,int mat,float light)
   g_pRdZRaster_aVertices = *(int **)(poly + 0x20);
   g_dwRdZRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdZRaster_aRGBMap = (int)ROUND(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
+    g_dwRdZRaster_aRGBMap = (int)ROUND_DOWN(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
     g_dwRdZRaster_aRGBToPalette = *(uint *)(*(int *)(poly + 0x4c) + 0x34c);
   }
   g_dwRdZRaster_numVertices = *(uint *)(poly + 0x1c);
@@ -28662,7 +28662,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4];
     local_2c = (uint)(fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6]);
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    puVar16 = (uint *)(int)ROUND(fVar6 * 65536.0f);
+    puVar16 = (uint *)(int)ROUND_DOWN(fVar6 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     pbVar13 = (byte *)((int)pVVar1->pPixels + uVar17 + (pVVar1->format).nPitch * left[0x10]);
@@ -28686,15 +28686,15 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-      local_2c = (int)ROUND((fVar4 - (float)local_10) *
+      local_2c = (int)ROUND_DOWN((fVar4 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_30 = (int)ROUND((fVar3 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar3 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_3c] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_3c) {
         do {
@@ -28730,12 +28730,12 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_2c = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_30 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_2c = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_30 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_3c = 0x10;
-        puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar14 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -28773,17 +28773,17 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_8(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_2c = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_2c = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar10) {
@@ -28909,7 +28909,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4];
     local_30 = (uint)(fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6]);
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    puVar13 = (uint *)(int)ROUND(fVar6 * 65536.0f);
+    puVar13 = (uint *)(int)ROUND_DOWN(fVar6 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     local_20 = (int)pVVar1->pPixels +
@@ -28934,15 +28934,15 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar7;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar4 - (float)local_10) *
+      local_30 = (int)ROUND_DOWN((fVar4 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_34 = (int)ROUND((fVar3 - (float)local_14) *
+      local_34 = (int)ROUND_DOWN((fVar3 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_40) {
         do {
@@ -28984,12 +28984,12 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_34 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_40 = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar14 = (ushort)((int)left >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -29033,17 +29033,17 @@ void __cdecl rdZRaster_DrawScanLineNGonTFIT_16(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_8) * fVar5 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_34 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar10) {
@@ -29121,10 +29121,10 @@ void __cdecl rdZRaster_DrawNGonMFIT(int poly,int mat,float light)
   g_pRdZRaster_aVertices = *(int **)(poly + 0x20);
   g_dwRdZRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdZRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND(light) * 0x200;
+    g_dwRdZRaster_aRGBMap = *(int *)(*(int *)(poly + 0x4c) + 0x348) + (int)ROUND_DOWN(light) * 0x200;
   }
   g_dwRdZRaster_numVertices = *(uint *)(poly + 0x1c);
   g_dwRdZRaster_yMinVert = *(uint *)(poly + 0x6c);
@@ -29299,7 +29299,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
     local_34 = (uint)(fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4]);
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    right = (uint *)(int)ROUND((float)local_34 * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((float)local_34 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     local_14 = (uint)((1.0f / (float)local_34) * fVar6);
@@ -29323,15 +29323,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar5;
       bVar12 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar4 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar4 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar12 & 0x1f);
-      local_34 = (int)ROUND((fVar3 - (float)local_18) *
+      local_34 = (int)ROUND_DOWN((fVar3 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar12 & 0x1f);
-      puVar15 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
+      puVar15 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_40) {
         do {
@@ -29363,12 +29363,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
         fVar6 = (1.0f / (float)local_8) * (float)local_c;
         fVar5 = (1.0f / (float)local_8) * (float)local_10;
         bVar12 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar6 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
-        local_34 = (int)ROUND((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
-        puVar15 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar6 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
+        puVar15 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_40 = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar9 = (ushort)((int)right >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -29402,17 +29402,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_8(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar12 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar12 & 0x1f);
-        local_34 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar5 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar12 & 0x1f);
-        puVar15 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
+        puVar15 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar11) {
@@ -29534,7 +29534,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
     local_34 = (uint)(fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4]);
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    right = (uint *)(int)ROUND((float)local_34 * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((float)local_34 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar14 = (uint *)((int)pVVar1->pPixels +
@@ -29559,15 +29559,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar5;
       bVar12 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar4 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar4 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar12 & 0x1f);
-      local_34 = (int)ROUND((fVar3 - (float)local_18) *
+      local_34 = (int)ROUND_DOWN((fVar3 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar12 & 0x1f);
-      puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
+      puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_40) {
         do {
@@ -29599,12 +29599,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
         fVar6 = (1.0f / (float)local_8) * (float)local_c;
         fVar5 = (1.0f / (float)local_8) * (float)local_10;
         bVar12 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar6 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
-        local_34 = (int)ROUND((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar6 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar12 & 0x1f);
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_40 = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar9 = (ushort)((int)right >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -29638,17 +29638,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMFIT_16(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar12 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar12 & 0x1f);
-        local_34 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar5 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar12 & 0x1f);
-        puVar14 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
+        puVar14 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar12 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar11) {
@@ -29716,10 +29716,10 @@ void __cdecl rdZRaster_DrawNGonMTFIT(int poly,int mat,float light)
   g_pRdZRaster_aVertices = *(int **)(poly + 0x20);
   g_dwRdZRaster_aTexVertices = *(uint *)(poly + 0x24);
   if (iVar1 == 8) {
-    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND(light) * 0x100;
+    g_dwRdZRaster_aMonoMap = *(int *)(*(int *)(poly + 0x4c) + 0x330) + (int)ROUND_DOWN(light) * 0x100;
   }
   else if (iVar1 == 0x10) {
-    g_dwRdZRaster_aRGBMap = (int)ROUND(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
+    g_dwRdZRaster_aRGBMap = (int)ROUND_DOWN(light) * 0x200 + *(int *)(*(int *)(poly + 0x4c) + 0x348);
     g_dwRdZRaster_aRGBToPalette = *(uint *)(*(int *)(poly + 0x4c) + 0x34c);
   }
   g_dwRdZRaster_aAlphaMap = *(uint *)(g_dwRdColormap_pCurMap + 0x338);
@@ -29896,7 +29896,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
     local_34 = (uint)(fVar5 * _g_dwRdZRaster_dOneOverZdX + (float)left[4]);
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)left[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    right = (uint *)(int)ROUND((float)local_34 * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((float)local_34 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     pbVar13 = (byte *)((int)pVVar1->pPixels + uVar17 + (pVVar1->format).nPitch * left[0x10]);
@@ -29920,15 +29920,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar4 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar4 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      local_34 = (int)ROUND((fVar3 - (float)local_18) *
+      local_34 = (int)ROUND_DOWN((fVar3 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_40] * 65536.0f) >>
                  (bVar11 & 0x1f);
-      puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar18 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+      puVar18 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_40) {
         do {
@@ -29962,12 +29962,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
         fVar6 = (1.0f / (float)local_8) * (float)local_c;
         fVar5 = (1.0f / (float)local_8) * (float)local_10;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar6 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        local_34 = (int)ROUND((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar6 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar5 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_40 = 0x10;
-        puVar18 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar14 = (ushort)((int)right >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -30003,17 +30003,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_8(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar5 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        local_34 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar5 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar11 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar18 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar11 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar10) {
@@ -30135,7 +30135,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
     local_34 = (uint)(fVar4 * _g_dwRdZRaster_dOneOverZdX + (float)left[4]);
     local_30 = (uint)(fVar4 * _g_dwRdZRaster_dUOverZdX + (float)left[6]);
     fVar4 = fVar4 * _g_dwRdZRaster_dVOverZdX + (float)left[8];
-    right = (uint *)(int)ROUND((float)local_34 * 65536.0f);
+    right = (uint *)(int)ROUND_DOWN((float)local_34 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     puVar17 = (ushort *)
               ((int)pVVar1->pPixels +
@@ -30160,15 +30160,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
       fVar3 = fVar2 * fVar6;
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar3 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar3 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_20] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      local_34 = (int)ROUND((fVar2 - (float)local_18) *
+      local_34 = (int)ROUND_DOWN((fVar2 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_20] * 65536.0f) >>
                  (bVar10 & 0x1f);
-      puVar12 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar12 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_20) {
         local_40 = local_20;
@@ -30205,12 +30205,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
         fVar2 = (1.0f / (float)local_8) * (float)local_c;
         fVar4 = (1.0f / (float)local_8) * (float)local_10;
         bVar10 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar2 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        local_34 = (int)ROUND((fVar4 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar2 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar4 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_40 = 0x10;
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar13 = (ushort)((int)right >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -30248,17 +30248,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMTFIT_16(uint *left,uint *right)
         fVar4 = 1.0f / ((fVar2 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar10 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar2 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar2 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar4 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar10 & 0x1f);
-        local_34 = (int)ROUND((((fVar2 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar2 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar4 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >>
                    (bVar10 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar10 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar9) {
@@ -30585,7 +30585,7 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_8(uint *left,uint *right)
     }
     lVar3 = (longlong)(int)(uVar19 - *left) * (longlong)(int)local_38;
     puVar12 = (uint *)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xe]);
-    local_18 = (uint)ROUND(fVar6 * 65536.0f);
+    local_18 = (uint)ROUND_DOWN(fVar6 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     local_10 = (uint)((1.0f / fVar6) * (float)local_34);
@@ -30608,15 +30608,15 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_8(uint *left,uint *right)
       fVar5 = fVar4 * fVar8;
       fVar4 = fVar4 * fVar7;
       bVar13 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar5 - (float)local_10) *
+      local_30 = (int)ROUND_DOWN((fVar5 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_24] * 65536.0f) >>
                  (bVar13 & 0x1f);
-      local_34 = (int)ROUND((fVar4 - (float)local_14) *
+      local_34 = (int)ROUND_DOWN((fVar4 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_24] * 65536.0f) >>
                  (bVar13 & 0x1f);
-      puVar12 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
+      puVar12 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar17 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
+      puVar17 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_24) {
         local_44 = local_24;
@@ -30653,12 +30653,12 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_8(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,left)) * (float)local_8;
         fVar4 = (1.0f / PUN(float,left)) * (float)local_c;
         bVar13 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
-        local_34 = (int)ROUND((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_44 = 0x10;
-        puVar17 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar17 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar18 = (ushort)((int)local_18 >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -30696,17 +30696,17 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_8(uint *left,uint *right)
         fVar4 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       PUN(float,left));
         bVar13 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar13 & 0x1f);
-        local_34 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_c) * fVar4 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar13 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar17 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar17 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar11) {
@@ -30843,7 +30843,7 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
     }
     lVar3 = (longlong)(int)(uVar19 - *left) * (longlong)(int)local_38;
     puVar12 = (uint *)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xe]);
-    local_1c = (uint)ROUND((float)local_34 * 65536.0f);
+    local_1c = (uint)ROUND_DOWN((float)local_34 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar13 = (uint *)((int)pVVar1->pPixels +
@@ -30868,15 +30868,15 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
       fVar5 = fVar4 * fVar8;
       fVar4 = fVar4 * fVar6;
       bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar5 - (float)local_14) *
+      local_30 = (int)ROUND_DOWN((fVar5 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      local_34 = (int)ROUND((fVar4 - (float)local_18) *
+      local_34 = (int)ROUND_DOWN((fVar4 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+      puVar13 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+      puVar12 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_28) {
         local_44 = local_28;
@@ -30913,12 +30913,12 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
         fVar4 = (1.0f / (float)local_8) * (float)local_c;
         fVar6 = (1.0f / (float)local_8) * (float)local_10;
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        local_34 = (int)ROUND((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_44 = 0x10;
-        puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar18 = (ushort)((int)local_1c >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -30956,17 +30956,17 @@ void __cdecl rdZRaster_DrawScanLineNGonGIT_16(uint *left,uint *right)
         fVar6 = 1.0f / ((fVar4 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar4 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar4 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar6 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        local_34 = (int)ROUND((((fVar4 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar4 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar6 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        puVar13 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar13 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar12 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar11) {
@@ -31391,7 +31391,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
     }
     lVar3 = (longlong)(int)(uVar19 - *left) * (longlong)(int)local_38;
     puVar12 = (uint *)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xe]);
-    local_18 = (uint)ROUND(fVar6 * 65536.0f);
+    local_18 = (uint)ROUND_DOWN(fVar6 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     local_10 = (uint)((1.0f / fVar6) * (float)local_34);
@@ -31414,15 +31414,15 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
       fVar5 = fVar4 * fVar8;
       fVar4 = fVar4 * fVar7;
       bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-      local_30 = (int)ROUND((fVar5 - (float)local_10) *
+      local_30 = (int)ROUND_DOWN((fVar5 - (float)local_10) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_24] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      local_34 = (int)ROUND((fVar4 - (float)local_14) *
+      local_34 = (int)ROUND_DOWN((fVar4 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_24] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      puVar12 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar14 & 0x1f)) +
+      puVar12 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar20 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+      puVar20 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_24) {
         local_44 = local_24;
@@ -31461,12 +31461,12 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,left)) * (float)local_8;
         fVar4 = (1.0f / PUN(float,left)) * (float)local_c;
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        local_34 = (int)ROUND((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar14 & 0x1f)) +
+        local_30 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        local_34 = (int)ROUND_DOWN((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_44 = 0x10;
-        puVar20 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar20 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar18 = (ushort)((int)local_18 >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -31506,17 +31506,17 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_8(uint *left,uint *right)
         fVar4 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       PUN(float,left));
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_30 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_30 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_8) * fVar4 - (float)local_10) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        local_34 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_c) * fVar4 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        puVar12 = (uint *)(((int)ROUND((float)local_10 * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar20 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar20 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar11) {
@@ -31656,7 +31656,7 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
     lVar3 = (longlong)(int)(uVar20 - *left) * (longlong)(int)local_3c;
     puVar18 = PUN(uint *,(float)((float)local_38 * 65536.0f));
     puVar12 = (uint *)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xe]);
-    local_1c = (uint)ROUND(PUN(float,puVar18));
+    local_1c = (uint)ROUND_DOWN(PUN(float,puVar18));
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar13 = (ushort *)
@@ -31681,15 +31681,15 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
       fVar5 = fVar4 * fVar8;
       fVar4 = fVar4 * fVar6;
       bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-      local_34 = (int)ROUND((fVar5 - (float)local_14) *
+      local_34 = (int)ROUND_DOWN((fVar5 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      local_38 = (int)ROUND((fVar4 - (float)local_18) *
+      local_38 = (int)ROUND_DOWN((fVar4 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+      puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      right = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+      right = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                       g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_28) {
         local_48 = local_28;
@@ -31734,12 +31734,12 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
         fVar4 = (1.0f / (float)local_8) * (float)local_c;
         fVar6 = (1.0f / (float)local_8) * (float)local_10;
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_34 = (int)ROUND((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        local_38 = (int)ROUND((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+        local_34 = (int)ROUND_DOWN((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        local_38 = (int)ROUND_DOWN((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_48 = 0x10;
-        right = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+        right = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
         do {
           uVar19 = (ushort)((int)local_1c >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -31785,17 +31785,17 @@ void __cdecl rdZRaster_DrawScanLineNGonTGIT_16(uint *left,uint *right)
         fVar6 = 1.0f / ((fVar4 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_34 = (int)ROUND((((fVar4 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar4 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar6 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        local_38 = (int)ROUND((((fVar4 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_38 = (int)ROUND_DOWN((((fVar4 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar6 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        puVar18 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar18 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        right = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+        right = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar11) {
@@ -32075,7 +32075,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
     }
     lVar3 = (longlong)(int)(uVar19 - *left) * (longlong)(int)local_3c;
     puVar12 = (uint *)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xe]);
-    local_8 = (uint)ROUND((float)local_38 * 65536.0f);
+    local_8 = (uint)ROUND_DOWN((float)local_38 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar17 = (uint *)((int)pVVar1->pPixels + uVar20 + (pVVar1->format).nPitch * left[0x10]);
@@ -32100,15 +32100,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
       fVar5 = fVar4 * fVar7;
       fVar4 = fVar4 * fVar6;
       bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-      local_34 = (int)ROUND((fVar5 - (float)local_18) *
+      local_34 = (int)ROUND_DOWN((fVar5 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_48] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      local_38 = (int)ROUND((fVar4 - (float)local_1c) *
+      local_38 = (int)ROUND_DOWN((fVar4 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_48] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      puVar17 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+      puVar17 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar12 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar14 & 0x1f)) +
+      puVar12 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_48) {
         do {
@@ -32142,12 +32142,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
         fVar7 = (1.0f / (float)local_c) * (float)local_10;
         fVar6 = (1.0f / (float)local_c) * (float)local_14;
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_34 = (int)ROUND((fVar7 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        local_38 = (int)ROUND((fVar6 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        puVar17 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+        local_34 = (int)ROUND_DOWN((fVar7 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        local_38 = (int)ROUND_DOWN((fVar6 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        puVar17 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_48 = 0x10;
-        puVar12 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar18 = (ushort)((int)local_8 >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -32183,17 +32183,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_8(uint *left,uint *right)
         fVar6 = 1.0f / ((fVar7 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_c);
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_34 = (int)ROUND((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_10) * fVar6 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        local_38 = (int)ROUND((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_38 = (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_14) * fVar6 - (float)local_1c) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        puVar17 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar17 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar12 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar12 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar11) {
@@ -32327,7 +32327,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
     }
     lVar2 = (longlong)(int)(uVar18 - *left) * (longlong)(int)local_3c;
     puVar11 = (uint *)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[0xe]);
-    local_8 = (uint)ROUND((float)local_38 * 65536.0f);
+    local_8 = (uint)ROUND_DOWN((float)local_38 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     puVar16 = (uint *)((int)pVVar1->pPixels +
                       (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + uVar19) * 2);
@@ -32353,15 +32353,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
       fVar4 = fVar3 * fVar6;
       fVar3 = fVar3 * fVar5;
       bVar13 = (byte)g_dwRdZRaster_mipMapNum;
-      local_34 = (int)ROUND((fVar4 - (float)local_18) *
+      local_34 = (int)ROUND_DOWN((fVar4 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_48] * 65536.0f) >>
                  (bVar13 & 0x1f);
-      local_38 = (int)ROUND((fVar3 - (float)local_1c) *
+      local_38 = (int)ROUND_DOWN((fVar3 - (float)local_1c) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_48] * 65536.0f) >>
                  (bVar13 & 0x1f);
-      puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
+      puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      puVar11 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar13 & 0x1f)) +
+      puVar11 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar13 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_48) {
         do {
@@ -32396,12 +32396,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
         fVar6 = (1.0f / (float)local_c) * (float)local_10;
         fVar5 = (1.0f / (float)local_c) * (float)local_14;
         bVar13 = (byte)g_dwRdZRaster_mipMapNum;
-        local_34 = (int)ROUND((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
-        local_38 = (int)ROUND((fVar5 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
+        local_34 = (int)ROUND_DOWN((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
+        local_38 = (int)ROUND_DOWN((fVar5 - (float)local_1c) * 0.0625f * 65536.0f) >> (bVar13 & 0x1f);
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_48 = 0x10;
-        puVar11 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar11 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
         do {
           uVar17 = (ushort)((int)local_8 >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -32438,17 +32438,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMGIT_16(uint *left,uint *right)
         fVar5 = 1.0f / ((fVar6 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_c);
         bVar13 = (byte)g_dwRdZRaster_mipMapNum;
-        local_34 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_10) * fVar5 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar13 & 0x1f);
-        local_38 = (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_38 = (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_14) * fVar5 - (float)local_1c) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >>
                    (bVar13 & 0x1f);
-        puVar16 = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar16 = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        puVar11 = (uint *)(((int)ROUND((float)local_1c * 65536.0f) >> (bVar13 & 0x1f)) +
+        puVar11 = (uint *)(((int)ROUND_DOWN((float)local_1c * 65536.0f) >> (bVar13 & 0x1f)) +
                           g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar10) {
@@ -32723,7 +32723,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
     lVar3 = (longlong)(int)(uVar20 - *left) * (longlong)(int)local_3c;
     puVar21 = PUN(uint *,(float)((float)local_38 * 65536.0f));
     puVar12 = (uint *)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xe]);
-    local_1c = (uint)ROUND(PUN(float,puVar21));
+    local_1c = (uint)ROUND_DOWN(PUN(float,puVar21));
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     pbVar13 = (byte *)((int)pVVar1->pPixels + uVar15 + (pVVar1->format).nPitch * left[0x10]);
@@ -32746,15 +32746,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
       fVar5 = fVar4 * fVar8;
       fVar4 = fVar4 * fVar6;
       bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-      local_34 = (int)ROUND((fVar5 - (float)local_14) *
+      local_34 = (int)ROUND_DOWN((fVar5 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      local_38 = (int)ROUND((fVar4 - (float)local_18) *
+      local_38 = (int)ROUND_DOWN((fVar4 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      puVar21 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+      puVar21 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      right = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+      right = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                       g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_28) {
         local_48 = local_28;
@@ -32791,12 +32791,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
         fVar4 = (1.0f / (float)local_8) * (float)local_c;
         fVar6 = (1.0f / (float)local_8) * (float)local_10;
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_34 = (int)ROUND((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        local_38 = (int)ROUND((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        puVar21 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+        local_34 = (int)ROUND_DOWN((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        local_38 = (int)ROUND_DOWN((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        puVar21 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_48 = 0x10;
-        right = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+        right = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
         do {
           uVar19 = (ushort)((int)local_1c >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -32834,17 +32834,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_8(uint *left,uint *right)
         fVar6 = 1.0f / ((fVar4 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_34 = (int)ROUND((((fVar4 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar4 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar6 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        local_38 = (int)ROUND((((fVar4 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_38 = (int)ROUND_DOWN((((fVar4 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar6 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        puVar21 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar21 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        right = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+        right = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar11) {
@@ -32983,7 +32983,7 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
     lVar3 = (longlong)(int)(uVar20 - *left) * (longlong)(int)local_3c;
     puVar21 = PUN(uint *,(float)((float)local_38 * 65536.0f));
     puVar12 = (uint *)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[0xe]);
-    local_1c = (uint)ROUND(PUN(float,puVar21));
+    local_1c = (uint)ROUND_DOWN(PUN(float,puVar21));
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
     puVar13 = (ushort *)
@@ -33008,15 +33008,15 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
       fVar5 = fVar4 * fVar8;
       fVar4 = fVar4 * fVar6;
       bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-      local_34 = (int)ROUND((fVar5 - (float)local_14) *
+      local_34 = (int)ROUND_DOWN((fVar5 - (float)local_14) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      local_38 = (int)ROUND((fVar4 - (float)local_18) *
+      local_38 = (int)ROUND_DOWN((fVar4 - (float)local_18) *
                             (float)(&g_dwRdRaster_aOneOverNFlex)[local_28] * 65536.0f) >>
                  (bVar14 & 0x1f);
-      puVar21 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+      puVar21 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dUdXModifier);
-      right = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+      right = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                       g_dwRdZRaster_dVdXModifier);
       if (0 < (int)local_28) {
         local_48 = local_28;
@@ -33055,12 +33055,12 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
         fVar4 = (1.0f / (float)local_8) * (float)local_c;
         fVar6 = (1.0f / (float)local_8) * (float)local_10;
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_34 = (int)ROUND((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        local_38 = (int)ROUND((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
-        puVar21 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+        local_34 = (int)ROUND_DOWN((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        local_38 = (int)ROUND_DOWN((fVar6 - (float)local_18) * 0.0625f * 65536.0f) >> (bVar14 & 0x1f);
+        puVar21 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
         local_48 = 0x10;
-        right = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+        right = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
         do {
           uVar19 = (ushort)((int)local_1c >> ((byte)g_dwRdZRaster_zScaleShift & 0x1f));
@@ -33100,17 +33100,17 @@ void __cdecl rdZRaster_DrawScanLineNGonMTGIT_16(uint *left,uint *right)
         fVar6 = 1.0f / ((fVar4 * _g_dwRdZRaster_dOneOverZdX - _g_dwRdZRaster_oneOverZStep) +
                       (float)local_8);
         bVar14 = (byte)g_dwRdZRaster_mipMapNum;
-        local_34 = (int)ROUND((((fVar4 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+        local_34 = (int)ROUND_DOWN((((fVar4 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                                (float)local_c) * fVar6 - (float)local_14) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        local_38 = (int)ROUND((((fVar4 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+        local_38 = (int)ROUND_DOWN((((fVar4 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                                (float)local_10) * fVar6 - (float)local_18) *
                               (float)(&g_dwRdRaster_aOneOverNFlex)[iVar11] * 65536.0f) >>
                    (bVar14 & 0x1f);
-        puVar21 = (uint *)(((int)ROUND((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
+        puVar21 = (uint *)(((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar14 & 0x1f)) +
                           g_dwRdZRaster_dUdXModifier);
-        right = (uint *)(((int)ROUND((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
+        right = (uint *)(((int)ROUND_DOWN((float)local_18 * 65536.0f) >> (bVar14 & 0x1f)) +
                         g_dwRdZRaster_dVdXModifier);
       }
       if (-1 < iVar11) {
@@ -33169,7 +33169,7 @@ void __cdecl rdRaster_SpanR_FlatZw(int *span)
   uVar2 = g_dwRdAFRaster_dOneOverZdXFixed;
   pVVar1 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
   puVar4 = (undefined4 *)(span[2] * (pVVar1->format).nPitch + *span * 2 + (int)pVVar1->pPixels);
-  UINT_007f4b74 = (uint)ROUND(PUN(float,span[7]) * 65536.0f);
+  UINT_007f4b74 = (uint)ROUND_DOWN(PUN(float,span[7]) * 65536.0f);
   uVar3 = span[1];
   uVar6 = UINT_007f4b74;
   UINT_007f4ad0 = uVar3;
@@ -33220,7 +33220,7 @@ void __cdecl rdRaster_SpanR_FlatZw_2(int *span)
   pVVar1 = g_pRdCamera_CurCamera->pCanvas->pZBuffer;
   puVar8 = (undefined4 *)(span[2] * (pVVar1->format).nPitch + *span * 2 + (int)pVVar1->pPixels);
   UINT_007f4b40 = g_pRdCamera_CurCamera->pCanvas->dwExtra;
-  UINT_007f4b74 = (uint)ROUND(PUN(float,span[7]) * 65536.0f);
+  UINT_007f4b74 = (uint)ROUND_DOWN(PUN(float,span[7]) * 65536.0f);
   UINT_007f4ad0 = span[1];
   bVar4 = (byte)UINT_007f4b40;
   uVar5 = UINT_007f4b74;
@@ -34409,14 +34409,14 @@ void __cdecl rdRaster_SpanP16_Tex(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar4 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4b6c =
-         ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
          UINT_007f4b54 * (uVar7 - 1);
     UINT_007f4b70 =
-         ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) +
+         ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) +
          g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar7 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_008dde40 = uVar7;
@@ -34456,16 +34456,16 @@ void __cdecl rdRaster_SpanP16_Tex(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
     UINT_008dde40 = 0x10;
     UINT_007f4b6c =
          UINT_007f4b54 * 0xf +
-         ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     UINT_007f4b70 =
          UINT_007f4adc * 0xf +
-         g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f));
+         g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f));
     iVar8 = 0x10;
     do {
       iVar8 = iVar8 + -1;
@@ -34509,13 +34509,13 @@ void __cdecl rdRaster_SpanP16_Tex(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     UINT_007f4b6c = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -34618,12 +34618,12 @@ void __cdecl rdRaster_SpanP16_Tex_2(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -34663,14 +34663,14 @@ void __cdecl rdRaster_SpanP16_Tex_2(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -34715,13 +34715,13 @@ void __cdecl rdRaster_SpanP16_Tex_2(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -34826,12 +34826,12 @@ void __cdecl rdRaster_SpanP16_Tex_3(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -34871,14 +34871,14 @@ void __cdecl rdRaster_SpanP16_Tex_3(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -34923,13 +34923,13 @@ void __cdecl rdRaster_SpanP16_Tex_3(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35034,12 +35034,12 @@ void __cdecl rdRaster_SpanP16_Tex_4(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -35079,14 +35079,14 @@ void __cdecl rdRaster_SpanP16_Tex_4(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -35131,13 +35131,13 @@ void __cdecl rdRaster_SpanP16_Tex_4(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35242,12 +35242,12 @@ void __cdecl rdRaster_SpanP16_TexLit(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -35287,14 +35287,14 @@ void __cdecl rdRaster_SpanP16_TexLit(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -35339,13 +35339,13 @@ void __cdecl rdRaster_SpanP16_TexLit(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35450,12 +35450,12 @@ void __cdecl rdRaster_SpanP16_Tex_5(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -35495,14 +35495,14 @@ void __cdecl rdRaster_SpanP16_Tex_5(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -35547,13 +35547,13 @@ void __cdecl rdRaster_SpanP16_Tex_5(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35658,12 +35658,12 @@ void __cdecl rdRaster_SpanP16_Tex_6(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -35703,14 +35703,14 @@ void __cdecl rdRaster_SpanP16_Tex_6(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -35755,13 +35755,13 @@ void __cdecl rdRaster_SpanP16_Tex_6(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35867,14 +35867,14 @@ void __cdecl rdRaster_SpanP16_Tex_7(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar4 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4b6c =
-         ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
          UINT_007f4b54 * (uVar7 - 1);
     UINT_007f4b70 =
-         ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) +
+         ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) +
          g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar7 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_008dde40 = uVar7;
@@ -35914,16 +35914,16 @@ void __cdecl rdRaster_SpanP16_Tex_7(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
     UINT_008dde40 = 0x10;
     UINT_007f4b6c =
          UINT_007f4b54 * 0xf +
-         ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     UINT_007f4b70 =
          UINT_007f4adc * 0xf +
-         g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f));
+         g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f));
     iVar8 = 0x10;
     do {
       iVar8 = iVar8 + -1;
@@ -35967,13 +35967,13 @@ void __cdecl rdRaster_SpanP16_Tex_7(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     UINT_007f4b6c = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36076,12 +36076,12 @@ void __cdecl rdRaster_SpanP16_Tex_8(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -36121,14 +36121,14 @@ void __cdecl rdRaster_SpanP16_Tex_8(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -36173,13 +36173,13 @@ void __cdecl rdRaster_SpanP16_Tex_8(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36284,12 +36284,12 @@ void __cdecl rdRaster_SpanP16_Tex_9(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -36329,14 +36329,14 @@ void __cdecl rdRaster_SpanP16_Tex_9(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -36381,13 +36381,13 @@ void __cdecl rdRaster_SpanP16_Tex_9(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36492,12 +36492,12 @@ void __cdecl rdRaster_SpanP16_Tex_10(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -36537,14 +36537,14 @@ void __cdecl rdRaster_SpanP16_Tex_10(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -36589,13 +36589,13 @@ void __cdecl rdRaster_SpanP16_Tex_10(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36700,12 +36700,12 @@ void __cdecl rdRaster_SpanP16_TexLit_2(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -36745,14 +36745,14 @@ void __cdecl rdRaster_SpanP16_TexLit_2(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -36797,13 +36797,13 @@ void __cdecl rdRaster_SpanP16_TexLit_2(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36908,12 +36908,12 @@ void __cdecl rdRaster_SpanP16_Tex_11(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -36953,14 +36953,14 @@ void __cdecl rdRaster_SpanP16_Tex_11(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -37005,13 +37005,13 @@ void __cdecl rdRaster_SpanP16_Tex_11(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -37116,12 +37116,12 @@ void __cdecl rdRaster_SpanP16_Tex_12(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -37161,14 +37161,14 @@ void __cdecl rdRaster_SpanP16_Tex_12(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -37213,13 +37213,13 @@ void __cdecl rdRaster_SpanP16_Tex_12(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -37327,15 +37327,15 @@ void __cdecl rdRaster_SpanP16_TexLit_3(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     iVar4 = uVar8 - 1;
     UINT_007f4b6c =
-         ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
          UINT_007f4b54 * iVar4;
     UINT_007f4b70 =
-         ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+         ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
          g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     UINT_007f4b68 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -37380,16 +37380,16 @@ void __cdecl rdRaster_SpanP16_TexLit_3(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     UINT_007f4b6c =
          UINT_007f4b54 * 0xf +
-         ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     UINT_007f4b70 =
          UINT_007f4adc * 0xf +
-         g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+         g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     UINT_007f4b68 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     do {
@@ -37438,13 +37438,13 @@ void __cdecl rdRaster_SpanP16_TexLit_3(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     UINT_007f4b6c = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -37556,13 +37556,13 @@ void __cdecl rdRaster_SpanP16_TexLit_4(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -37607,14 +37607,14 @@ void __cdecl rdRaster_SpanP16_TexLit_4(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -37664,13 +37664,13 @@ void __cdecl rdRaster_SpanP16_TexLit_4(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -37784,13 +37784,13 @@ void __cdecl rdRaster_SpanP16_TexLit_5(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -37835,14 +37835,14 @@ void __cdecl rdRaster_SpanP16_TexLit_5(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -37892,13 +37892,13 @@ void __cdecl rdRaster_SpanP16_TexLit_5(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38012,13 +38012,13 @@ void __cdecl rdRaster_SpanP16_TexLit_6(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -38063,14 +38063,14 @@ void __cdecl rdRaster_SpanP16_TexLit_6(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -38120,13 +38120,13 @@ void __cdecl rdRaster_SpanP16_TexLit_6(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38240,13 +38240,13 @@ void __cdecl rdRaster_SpanP16_TexLit_7(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -38291,14 +38291,14 @@ void __cdecl rdRaster_SpanP16_TexLit_7(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -38348,13 +38348,13 @@ void __cdecl rdRaster_SpanP16_TexLit_7(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38468,13 +38468,13 @@ void __cdecl rdRaster_SpanP16_TexLit_8(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -38519,14 +38519,14 @@ void __cdecl rdRaster_SpanP16_TexLit_8(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -38576,13 +38576,13 @@ void __cdecl rdRaster_SpanP16_TexLit_8(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38696,13 +38696,13 @@ void __cdecl rdRaster_SpanP16_TexLit_9(uint *span)
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -38747,14 +38747,14 @@ void __cdecl rdRaster_SpanP16_TexLit_9(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -38804,13 +38804,13 @@ void __cdecl rdRaster_SpanP16_TexLit_9(uint *span)
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38896,7 +38896,7 @@ void __cdecl rdRaster_Span16_TexLitZw(uint *left,uint *right)
       UINT_007f4cb4 = 0;
     }
     fVar6 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar10];
-    UINT_007f4c54 = (uint)ROUND(fVar6 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar6 * 65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar2->pPixels + (((uint)(pVVar2->format).nPitch >> 1) * left[0x10] + iVar11) * 2;
@@ -38905,7 +38905,7 @@ void __cdecl rdRaster_Span16_TexLitZw(uint *left,uint *right)
     iVar11 = uVar10 - 1;
     UINT_007f4cfc =
          UINT_007f4c54 * iVar11 +
-         (int)ROUND((fVar6 * (float)iVar8 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+         (int)ROUND_DOWN((fVar6 * (float)iVar8 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     UINT_007f4cf4 =
          ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
          (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar11;
@@ -39006,7 +39006,7 @@ void __cdecl rdRaster_Span16_TexLitZw_2(uint *left,uint *right)
     }
     fVar7 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar2->pPixels + (((uint)(pVVar2->format).nPitch >> 1) * left[0x10] + iVar14) * 2;
@@ -39014,7 +39014,7 @@ void __cdecl rdRaster_Span16_TexLitZw_2(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar2->format).nPitch * left[0x10] + iVar14 * 2 + (int)pVVar2->pPixels;
     iVar14 = UINT_007f4cac - 1;
     uVar16 = UINT_007f4c54 * iVar14 +
-             (int)ROUND((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     uVar8 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
             (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar14;
     uVar12 = ((int)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) + left[0xc]) >>
@@ -39125,7 +39125,7 @@ void __cdecl rdRaster_Span16_TexLitZw_3(uint *left,uint *right)
     }
     fVar7 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar2->pPixels + (((uint)(pVVar2->format).nPitch >> 1) * left[0x10] + iVar14) * 2;
@@ -39133,7 +39133,7 @@ void __cdecl rdRaster_Span16_TexLitZw_3(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar2->format).nPitch * left[0x10] + iVar14 * 2 + (int)pVVar2->pPixels;
     iVar14 = UINT_007f4cac - 1;
     uVar16 = UINT_007f4c54 * iVar14 +
-             (int)ROUND((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     uVar8 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
             (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar14;
     uVar12 = ((int)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) + left[0xc]) >>
@@ -39244,7 +39244,7 @@ void __cdecl rdRaster_Span16_TexLitZw_4(uint *left,uint *right)
     }
     fVar7 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar2->pPixels + (((uint)(pVVar2->format).nPitch >> 1) * left[0x10] + iVar14) * 2;
@@ -39252,7 +39252,7 @@ void __cdecl rdRaster_Span16_TexLitZw_4(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar2->format).nPitch * left[0x10] + iVar14 * 2 + (int)pVVar2->pPixels;
     iVar14 = UINT_007f4cac - 1;
     uVar16 = UINT_007f4c54 * iVar14 +
-             (int)ROUND((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     uVar8 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
             (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar14;
     uVar12 = ((int)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) + left[0xc]) >>
@@ -39363,7 +39363,7 @@ void __cdecl rdRaster_Span16_TexLitZw_5(uint *left,uint *right)
     }
     fVar7 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar2->pPixels + (((uint)(pVVar2->format).nPitch >> 1) * left[0x10] + iVar14) * 2;
@@ -39371,7 +39371,7 @@ void __cdecl rdRaster_Span16_TexLitZw_5(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar2->format).nPitch * left[0x10] + iVar14 * 2 + (int)pVVar2->pPixels;
     iVar14 = UINT_007f4cac - 1;
     uVar16 = UINT_007f4c54 * iVar14 +
-             (int)ROUND((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     uVar8 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
             (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar14;
     uVar12 = ((int)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) + left[0xc]) >>
@@ -39482,7 +39482,7 @@ void __cdecl rdRaster_Span16_TexLitZw_6(uint *left,uint *right)
     }
     fVar7 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar2->pPixels + (((uint)(pVVar2->format).nPitch >> 1) * left[0x10] + iVar14) * 2;
@@ -39490,7 +39490,7 @@ void __cdecl rdRaster_Span16_TexLitZw_6(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar2->format).nPitch * left[0x10] + iVar14 * 2 + (int)pVVar2->pPixels;
     iVar14 = UINT_007f4cac - 1;
     uVar16 = UINT_007f4c54 * iVar14 +
-             (int)ROUND((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     uVar8 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
             (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar14;
     uVar12 = ((int)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) + left[0xc]) >>
@@ -39601,7 +39601,7 @@ void __cdecl rdRaster_Span16_TexLitZw_7(uint *left,uint *right)
     }
     fVar7 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar2->pPixels + (((uint)(pVVar2->format).nPitch >> 1) * left[0x10] + iVar14) * 2;
@@ -39609,7 +39609,7 @@ void __cdecl rdRaster_Span16_TexLitZw_7(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar2->format).nPitch * left[0x10] + iVar14 * 2 + (int)pVVar2->pPixels;
     iVar14 = UINT_007f4cac - 1;
     uVar16 = UINT_007f4c54 * iVar14 +
-             (int)ROUND((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     uVar8 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
             (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar14;
     uVar12 = ((int)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) + left[0xc]) >>
@@ -39720,7 +39720,7 @@ void __cdecl rdRaster_Span16_TexLitZw_8(uint *left,uint *right)
     }
     fVar7 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar2->pPixels + (((uint)(pVVar2->format).nPitch >> 1) * left[0x10] + iVar14) * 2;
@@ -39728,7 +39728,7 @@ void __cdecl rdRaster_Span16_TexLitZw_8(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar2->format).nPitch * left[0x10] + iVar14 * 2 + (int)pVVar2->pPixels;
     iVar14 = UINT_007f4cac - 1;
     uVar16 = UINT_007f4c54 * iVar14 +
-             (int)ROUND((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN((fVar7 * (float)iVar9 * 1.5258789e-05f + (float)left[4]) * 65536.0f);
     uVar8 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[10]) >>
             (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar14;
     uVar12 = ((int)(((uint)lVar5 >> 0x10 | (int)((ulonglong)lVar5 >> 0x20) << 0x10) + left[0xc]) >>
@@ -39868,7 +39868,7 @@ void __cdecl rdRaster_Span16_TexZw(uint *left,uint *right)
     lVar2 = (longlong)(int)(uVar13 - *left) * (longlong)(int)UINT_007f4cb4;
     UINT_007f4cf0 = left[0xe] + ((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10);
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + uVar14) * 2;
@@ -39891,19 +39891,19 @@ void __cdecl rdRaster_Span16_TexZw(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar10 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+           (int)ROUND_DOWN((fVar4 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
                       65536.0f) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+           (int)ROUND_DOWN((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
                       65536.0f) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       UINT_007f4cfc = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar9;
       UINT_007f4cf4 =
-           ((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier +
+           ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier +
            UINT_007f4cdc * iVar9;
       UINT_007f4cf8 =
            UINT_007f4c44 * iVar9 +
-           g_dwRdZRaster_dVdXModifier + ((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f));
+           g_dwRdZRaster_dVdXModifier + ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f));
       UINT_007f4cf0 = UINT_007f4cf0 + UINT_007f4cb4 * iVar9;
       UINT_007f4cb0 = uVar8;
       do {
@@ -39943,16 +39943,16 @@ void __cdecl rdRaster_Span16_TexZw(uint *left,uint *right)
         fVar6 = (1.0f / PUN(float,right)) * PUN(float,left);
         fVar5 = (1.0f / PUN(float,right)) * (float)local_8;
         bVar10 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
         UINT_007f4cb0 = 0x10;
         UINT_007f4cfc = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         UINT_007f4cf4 =
              UINT_007f4cdc * 0xf +
-             ((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
+             ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
         UINT_007f4cf8 =
              UINT_007f4c44 * 0xf +
-             g_dwRdZRaster_dVdXModifier + ((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f))
+             g_dwRdZRaster_dVdXModifier + ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f))
         ;
         UINT_007f4cf0 = UINT_007f4cb4 * 0xf + UINT_007f4cf0;
         iVar9 = 0x10;
@@ -39997,17 +39997,17 @@ void __cdecl rdRaster_Span16_TexZw(uint *left,uint *right)
                       PUN(float,right));
         bVar10 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          PUN(float,left)) * fVar5 - (float)local_c) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >> (bVar10 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >> (bVar10 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
+             ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar9 = local_20 - 1;
@@ -40137,7 +40137,7 @@ void __cdecl rdRaster_Span16_TexLitZw_9(uint *left,uint *right)
     lVar3 = (longlong)(int)(uVar15 - *left) * (longlong)(int)UINT_007f4cb4;
     UINT_007f4cf0 = left[0xe] + ((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10);
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar8 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar8 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + uVar16) * 2;
@@ -40160,18 +40160,18 @@ void __cdecl rdRaster_Span16_TexLitZw_9(uint *left,uint *right)
       fVar4 = fVar4 * fVar6;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar13 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar15 = ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar15 = ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar16 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
       UINT_007f4cf0 = UINT_007f4cf0 + UINT_007f4cb4 * iVar10;
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
@@ -40223,16 +40223,16 @@ LAB_00462bae:
         fVar7 = (1.0f / PUN(float,right)) * PUN(float,left);
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar16 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar15 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
         UINT_007f4cf0 = UINT_007f4cb4 * 0xf + UINT_007f4cf0;
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar16;
@@ -40287,17 +40287,17 @@ LAB_00462ecc:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          PUN(float,left)) * fVar6 - (float)local_c) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_8) * fVar6 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
+             ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = local_1c - 1;
@@ -40439,7 +40439,7 @@ void __cdecl rdRaster_Span16_TexLitZw_10(uint *left,uint *right)
     lVar3 = (longlong)(int)(uVar15 - *left) * (longlong)(int)UINT_007f4cb4;
     UINT_007f4cf0 = left[0xe] + ((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10);
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar8 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar8 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + uVar16) * 2;
@@ -40462,18 +40462,18 @@ void __cdecl rdRaster_Span16_TexLitZw_10(uint *left,uint *right)
       fVar4 = fVar4 * fVar6;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar13 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar15 = ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar15 = ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar16 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
       UINT_007f4cf0 = UINT_007f4cf0 + UINT_007f4cb4 * iVar10;
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
@@ -40525,16 +40525,16 @@ LAB_0046369e:
         fVar7 = (1.0f / PUN(float,right)) * PUN(float,left);
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar16 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar15 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
         UINT_007f4cf0 = UINT_007f4cb4 * 0xf + UINT_007f4cf0;
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar16;
@@ -40589,17 +40589,17 @@ LAB_004639bc:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          PUN(float,left)) * fVar6 - (float)local_c) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_8) * fVar6 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
+             ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = local_1c - 1;
@@ -40741,7 +40741,7 @@ void __cdecl rdRaster_Span16_TexLitZw_11(uint *left,uint *right)
     lVar3 = (longlong)(int)(uVar15 - *left) * (longlong)(int)UINT_007f4cb4;
     UINT_007f4cf0 = left[0xe] + ((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10);
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar8 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar8 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + uVar16) * 2;
@@ -40764,18 +40764,18 @@ void __cdecl rdRaster_Span16_TexLitZw_11(uint *left,uint *right)
       fVar4 = fVar4 * fVar6;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar13 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar15 = ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar15 = ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar16 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
       UINT_007f4cf0 = UINT_007f4cf0 + UINT_007f4cb4 * iVar10;
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
@@ -40827,16 +40827,16 @@ LAB_0046418e:
         fVar7 = (1.0f / PUN(float,right)) * PUN(float,left);
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar16 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar15 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
         UINT_007f4cf0 = UINT_007f4cb4 * 0xf + UINT_007f4cf0;
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar16;
@@ -40891,17 +40891,17 @@ LAB_004644ac:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          PUN(float,left)) * fVar6 - (float)local_c) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_8) * fVar6 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
+             ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = local_1c - 1;
@@ -41043,7 +41043,7 @@ void __cdecl rdRaster_Span16_TexLitZw_12(uint *left,uint *right)
     lVar3 = (longlong)(int)(uVar15 - *left) * (longlong)(int)UINT_007f4cb4;
     UINT_007f4cf0 = left[0xe] + ((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10);
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar8 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar8 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + uVar16) * 2;
@@ -41066,18 +41066,18 @@ void __cdecl rdRaster_Span16_TexLitZw_12(uint *left,uint *right)
       fVar4 = fVar4 * fVar6;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar13 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar15 = ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar15 = ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar16 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
       UINT_007f4cf0 = UINT_007f4cf0 + UINT_007f4cb4 * iVar10;
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
@@ -41129,16 +41129,16 @@ LAB_00464c7e:
         fVar7 = (1.0f / PUN(float,right)) * PUN(float,left);
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar16 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar15 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
         UINT_007f4cf0 = UINT_007f4cb4 * 0xf + UINT_007f4cf0;
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar16;
@@ -41193,17 +41193,17 @@ LAB_00464f9c:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          PUN(float,left)) * fVar6 - (float)local_c) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_8) * fVar6 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
+             ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = local_1c - 1;
@@ -41345,7 +41345,7 @@ void __cdecl rdRaster_Span16_TexLitZw_13(uint *left,uint *right)
     lVar3 = (longlong)(int)(uVar15 - *left) * (longlong)(int)UINT_007f4cb4;
     UINT_007f4cf0 = left[0xe] + ((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10);
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar8 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar8 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + uVar16) * 2;
@@ -41368,18 +41368,18 @@ void __cdecl rdRaster_Span16_TexLitZw_13(uint *left,uint *right)
       fVar4 = fVar4 * fVar6;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar13 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar15 = ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar15 = ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar16 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
       UINT_007f4cf0 = UINT_007f4cf0 + UINT_007f4cb4 * iVar10;
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
@@ -41431,16 +41431,16 @@ LAB_0046576e:
         fVar7 = (1.0f / PUN(float,right)) * PUN(float,left);
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar16 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar15 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
         UINT_007f4cf0 = UINT_007f4cb4 * 0xf + UINT_007f4cf0;
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar16;
@@ -41495,17 +41495,17 @@ LAB_00465a8c:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          PUN(float,left)) * fVar6 - (float)local_c) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_8) * fVar6 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
+             ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = local_1c - 1;
@@ -41647,7 +41647,7 @@ void __cdecl rdRaster_Span16_TexLitZw_14(uint *left,uint *right)
     lVar3 = (longlong)(int)(uVar15 - *left) * (longlong)(int)UINT_007f4cb4;
     UINT_007f4cf0 = left[0xe] + ((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10);
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar8 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar8 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + uVar16) * 2;
@@ -41670,18 +41670,18 @@ void __cdecl rdRaster_Span16_TexLitZw_14(uint *left,uint *right)
       fVar4 = fVar4 * fVar6;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar5 - (float)local_c) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar13 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar15 = ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar15 = ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar16 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
       UINT_007f4cf0 = UINT_007f4cf0 + UINT_007f4cb4 * iVar10;
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
@@ -41733,16 +41733,16 @@ LAB_0046625e:
         fVar7 = (1.0f / PUN(float,right)) * PUN(float,left);
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar7 - (float)local_c) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar16 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar15 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f));
         UINT_007f4cf0 = UINT_007f4cb4 * 0xf + UINT_007f4cf0;
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar16;
@@ -41797,17 +41797,17 @@ LAB_0046657c:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          PUN(float,left)) * fVar6 - (float)local_c) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar7 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_8) * fVar6 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
+             ((int)ROUND_DOWN((float)local_c * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = local_1c - 1;
@@ -41907,7 +41907,7 @@ void __cdecl rdRaster_Span16_TexLitZw_15(uint *left,uint *right)
     UINT_007f4c44 = (int)uVar5 >> (bVar7 & 0x1f);
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar5;
     fVar4 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
-    UINT_007f4c54 = (uint)ROUND(fVar4 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar4 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar9) * 2;
@@ -41916,7 +41916,7 @@ void __cdecl rdRaster_Span16_TexLitZw_15(uint *left,uint *right)
     iVar9 = uVar8 - 1;
     UINT_007f4cfc =
          UINT_007f4c54 * iVar9 +
-         (int)ROUND(((float)iVar6 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
+         (int)ROUND_DOWN(((float)iVar6 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
     UINT_007f4cf4 =
          ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[10]) >>
          (bVar7 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar9;
@@ -42004,7 +42004,7 @@ void __cdecl rdRaster_Span16_TexLitZw_16(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -42012,7 +42012,7 @@ void __cdecl rdRaster_Span16_TexLitZw_16(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -42108,7 +42108,7 @@ void __cdecl rdRaster_Span16_TexLitZw_17(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -42116,7 +42116,7 @@ void __cdecl rdRaster_Span16_TexLitZw_17(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -42212,7 +42212,7 @@ void __cdecl rdRaster_Span16_TexLitZw_18(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -42220,7 +42220,7 @@ void __cdecl rdRaster_Span16_TexLitZw_18(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -42316,7 +42316,7 @@ void __cdecl rdRaster_Span16_TexLitZw_19(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -42324,7 +42324,7 @@ void __cdecl rdRaster_Span16_TexLitZw_19(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -42420,7 +42420,7 @@ void __cdecl rdRaster_Span16_TexLitZw_20(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -42428,7 +42428,7 @@ void __cdecl rdRaster_Span16_TexLitZw_20(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -42524,7 +42524,7 @@ void __cdecl rdRaster_Span16_TexLitZw_21(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -42532,7 +42532,7 @@ void __cdecl rdRaster_Span16_TexLitZw_21(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -42628,7 +42628,7 @@ void __cdecl rdRaster_Span16_TexLitZw_22(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -42636,7 +42636,7 @@ void __cdecl rdRaster_Span16_TexLitZw_22(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -42761,7 +42761,7 @@ void __cdecl rdRaster_Span16_TexZw_2(uint *left,uint *right)
     fVar5 = fVar4 * _g_dwRdZRaster_dUOverZdX + (float)puVar7[6];
     fVar4 = fVar4 * _g_dwRdZRaster_dVOverZdX + (float)puVar7[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar6 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar7[0x10] + uVar14) * 2;
@@ -42784,19 +42784,19 @@ void __cdecl rdRaster_Span16_TexZw_2(uint *left,uint *right)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+           (int)ROUND_DOWN((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
                       65536.0f) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+           (int)ROUND_DOWN((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
                       65536.0f) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       UINT_007f4cfc = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar9;
       UINT_007f4cf4 =
-           ((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier +
+           ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier +
            UINT_007f4cdc * iVar9;
       UINT_007f4cf8 =
            UINT_007f4c44 * iVar9 +
-           g_dwRdZRaster_dVdXModifier + ((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f));
+           g_dwRdZRaster_dVdXModifier + ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f));
       UINT_007f4cb0 = uVar8;
       do {
         uVar8 = uVar8 - 1;
@@ -42833,17 +42833,17 @@ void __cdecl rdRaster_Span16_TexZw_2(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar4 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar10 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
         UINT_007f4cb0 = 0x10;
         UINT_007f4cfc = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         UINT_007f4cf4 =
              UINT_007f4cdc * 0xf +
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
              UINT_007f4c44 * 0xf +
-             g_dwRdZRaster_dVdXModifier + ((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f))
+             g_dwRdZRaster_dVdXModifier + ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f))
         ;
         iVar9 = 0x10;
         do {
@@ -42885,18 +42885,18 @@ void __cdecl rdRaster_Span16_TexZw_2(uint *left,uint *right)
                       PUN(float,right));
         bVar10 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar5 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar5 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar4 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >> (bVar10 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar5 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar5 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar4 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >> (bVar10 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar9 = (int)left + -1;
@@ -43015,7 +43015,7 @@ void __cdecl rdRaster_Span16_TexZw_3(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -43038,18 +43038,18 @@ void __cdecl rdRaster_Span16_TexZw_3(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -43096,16 +43096,16 @@ LAB_00468e7b:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -43155,18 +43155,18 @@ LAB_0046912c:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;
@@ -43295,7 +43295,7 @@ void __cdecl rdRaster_Span16_TexZw_4(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -43318,18 +43318,18 @@ void __cdecl rdRaster_Span16_TexZw_4(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -43376,16 +43376,16 @@ LAB_004697db:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -43435,18 +43435,18 @@ LAB_00469a8c:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;
@@ -43575,7 +43575,7 @@ void __cdecl rdRaster_Span16_TexZw_5(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -43598,18 +43598,18 @@ void __cdecl rdRaster_Span16_TexZw_5(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -43656,16 +43656,16 @@ LAB_0046a13b:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -43715,18 +43715,18 @@ LAB_0046a3ec:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;
@@ -43855,7 +43855,7 @@ void __cdecl rdRaster_Span16_TexLitZw_23(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -43878,18 +43878,18 @@ void __cdecl rdRaster_Span16_TexLitZw_23(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -43936,16 +43936,16 @@ LAB_0046aa9b:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -43995,18 +43995,18 @@ LAB_0046ad4c:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;
@@ -44135,7 +44135,7 @@ void __cdecl rdRaster_Span16_TexZw_6(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -44158,18 +44158,18 @@ void __cdecl rdRaster_Span16_TexZw_6(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -44216,16 +44216,16 @@ LAB_0046b3fb:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -44275,18 +44275,18 @@ LAB_0046b6ac:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;
@@ -44415,7 +44415,7 @@ void __cdecl rdRaster_Span16_TexZw_7(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -44438,18 +44438,18 @@ void __cdecl rdRaster_Span16_TexZw_7(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -44496,16 +44496,16 @@ LAB_0046bd5b:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -44555,18 +44555,18 @@ LAB_0046c00c:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;
@@ -44661,7 +44661,7 @@ void __cdecl rdRaster_Span16_TexLitZw_24(uint *left,uint *right)
     UINT_007f4c44 = (int)uVar5 >> (bVar7 & 0x1f);
     lVar3 = (longlong)iVar6 * (longlong)(int)uVar5;
     fVar4 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
-    UINT_007f4c54 = (uint)ROUND(fVar4 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar4 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar9) * 2;
@@ -44670,7 +44670,7 @@ void __cdecl rdRaster_Span16_TexLitZw_24(uint *left,uint *right)
     iVar9 = uVar8 - 1;
     UINT_007f4cfc =
          UINT_007f4c54 * iVar9 +
-         (int)ROUND(((float)iVar6 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
+         (int)ROUND_DOWN(((float)iVar6 * 1.5258789e-05f * fVar4 + (float)left[4]) * 65536.0f);
     UINT_007f4cf4 =
          ((int)(((uint)lVar2 >> 0x10 | (int)((ulonglong)lVar2 >> 0x20) << 0x10) + left[10]) >>
          (bVar7 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar9;
@@ -44758,7 +44758,7 @@ void __cdecl rdRaster_Span16_TexLitZw_25(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -44766,7 +44766,7 @@ void __cdecl rdRaster_Span16_TexLitZw_25(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -44862,7 +44862,7 @@ void __cdecl rdRaster_Span16_TexLitZw_26(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -44870,7 +44870,7 @@ void __cdecl rdRaster_Span16_TexLitZw_26(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -44966,7 +44966,7 @@ void __cdecl rdRaster_Span16_TexLitZw_27(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -44974,7 +44974,7 @@ void __cdecl rdRaster_Span16_TexLitZw_27(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -45070,7 +45070,7 @@ void __cdecl rdRaster_Span16_TexLitZw_28(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -45078,7 +45078,7 @@ void __cdecl rdRaster_Span16_TexLitZw_28(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -45174,7 +45174,7 @@ void __cdecl rdRaster_Span16_TexLitZw_29(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -45182,7 +45182,7 @@ void __cdecl rdRaster_Span16_TexLitZw_29(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -45278,7 +45278,7 @@ void __cdecl rdRaster_Span16_TexLitZw_30(uint *left,uint *right)
     lVar4 = (longlong)iVar7 * (longlong)(int)uVar6;
     fVar5 = ((float)right[4] - (float)left[4]) * (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4cac]
     ;
-    UINT_007f4c54 = (uint)ROUND(fVar5 * 65536.0f);
+    UINT_007f4c54 = (uint)ROUND_DOWN(fVar5 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * left[0x10] + iVar12) * 2;
@@ -45286,7 +45286,7 @@ void __cdecl rdRaster_Span16_TexLitZw_30(uint *left,uint *right)
     UINT_007f4ca4 = (pVVar1->format).nPitch * left[0x10] + iVar12 * 2 + (int)pVVar1->pPixels;
     iVar12 = UINT_007f4cac - 1;
     uVar13 = UINT_007f4c54 * iVar12 +
-             (int)ROUND(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
+             (int)ROUND_DOWN(((float)iVar7 * 1.5258789e-05f * fVar5 + (float)left[4]) * 65536.0f);
     uVar6 = ((int)(((uint)lVar3 >> 0x10 | (int)((ulonglong)lVar3 >> 0x20) << 0x10) + left[10]) >>
             (bVar9 & 0x1f)) + g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar12;
     uVar10 = ((int)(((uint)lVar4 >> 0x10 | (int)((ulonglong)lVar4 >> 0x20) << 0x10) + left[0xc]) >>
@@ -45411,7 +45411,7 @@ void __cdecl rdRaster_Span16_TexZw_8(uint *left,uint *right)
     fVar5 = fVar4 * _g_dwRdZRaster_dUOverZdX + (float)puVar7[6];
     fVar4 = fVar4 * _g_dwRdZRaster_dVOverZdX + (float)puVar7[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar6 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar6 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar7[0x10] + uVar14) * 2;
@@ -45434,19 +45434,19 @@ void __cdecl rdRaster_Span16_TexZw_8(uint *left,uint *right)
       fVar2 = fVar2 * fVar4;
       bVar10 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+           (int)ROUND_DOWN((fVar3 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
                       65536.0f) >> (bVar10 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
+           (int)ROUND_DOWN((fVar2 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8] *
                       65536.0f) >> (bVar10 & 0x1f);
       iVar9 = uVar8 - 1;
       UINT_007f4cfc = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar9;
       UINT_007f4cf4 =
-           ((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier +
+           ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier +
            UINT_007f4cdc * iVar9;
       UINT_007f4cf8 =
            UINT_007f4c44 * iVar9 +
-           g_dwRdZRaster_dVdXModifier + ((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f));
+           g_dwRdZRaster_dVdXModifier + ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f));
       UINT_007f4cb0 = uVar8;
       do {
         uVar8 = uVar8 - 1;
@@ -45483,17 +45483,17 @@ void __cdecl rdRaster_Span16_TexZw_8(uint *left,uint *right)
         fVar5 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar4 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar10 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar5 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar4 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar10 & 0x1f);
         UINT_007f4cb0 = 0x10;
         UINT_007f4cfc = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         UINT_007f4cf4 =
              UINT_007f4cdc * 0xf +
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
              UINT_007f4c44 * 0xf +
-             g_dwRdZRaster_dVdXModifier + ((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f))
+             g_dwRdZRaster_dVdXModifier + ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f))
         ;
         iVar9 = 0x10;
         do {
@@ -45535,18 +45535,18 @@ void __cdecl rdRaster_Span16_TexZw_8(uint *left,uint *right)
                       PUN(float,right));
         bVar10 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar5 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar5 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar4 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >> (bVar10 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar5 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar5 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar4 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar9] * 65536.0f) >> (bVar10 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar10 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar9 = (int)left + -1;
@@ -45665,7 +45665,7 @@ void __cdecl rdRaster_Span16_TexZw_9(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -45688,18 +45688,18 @@ void __cdecl rdRaster_Span16_TexZw_9(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -45746,16 +45746,16 @@ LAB_0046e58b:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -45805,18 +45805,18 @@ LAB_0046e83c:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;
@@ -45945,7 +45945,7 @@ void __cdecl rdRaster_Span16_TexZw_10(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -45968,18 +45968,18 @@ void __cdecl rdRaster_Span16_TexZw_10(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -46026,16 +46026,16 @@ LAB_0046eeeb:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -46085,18 +46085,18 @@ LAB_0046f19c:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;
@@ -46225,7 +46225,7 @@ void __cdecl rdRaster_Span16_TexZw_11(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -46248,18 +46248,18 @@ void __cdecl rdRaster_Span16_TexZw_11(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -46306,16 +46306,16 @@ LAB_0046f84b:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -46365,18 +46365,18 @@ LAB_0046fafc:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;
@@ -46505,7 +46505,7 @@ void __cdecl rdRaster_Span16_TexLitZw_31(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -46528,18 +46528,18 @@ void __cdecl rdRaster_Span16_TexLitZw_31(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -46586,16 +46586,16 @@ LAB_004701ab:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -46645,18 +46645,18 @@ LAB_0047045c:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;
@@ -46785,7 +46785,7 @@ void __cdecl rdRaster_Span16_TexZw_12(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -46808,18 +46808,18 @@ void __cdecl rdRaster_Span16_TexZw_12(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -46866,16 +46866,16 @@ LAB_00470b0b:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -46925,18 +46925,18 @@ LAB_00470dbc:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;
@@ -47065,7 +47065,7 @@ void __cdecl rdRaster_Span16_TexZw_13(uint *left,uint *right)
     fVar6 = fVar5 * _g_dwRdZRaster_dUOverZdX + (float)puVar8[6];
     fVar5 = fVar5 * _g_dwRdZRaster_dVOverZdX + (float)puVar8[8];
     UINT_007f4c54 = g_dwRdZRaster_dOneOverZdXFixed;
-    UINT_007f4cfc = (uint)ROUND(fVar7 * 65536.0f);
+    UINT_007f4cfc = (uint)ROUND_DOWN(fVar7 * 65536.0f);
     pVVar1 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
     UINT_007f4cc4 =
          (int)pVVar1->pPixels + (((uint)(pVVar1->format).nPitch >> 1) * puVar8[0x10] + uVar15) * 2;
@@ -47088,18 +47088,18 @@ void __cdecl rdRaster_Span16_TexZw_13(uint *left,uint *right)
       fVar3 = fVar3 * fVar5;
       bVar11 = (byte)g_dwRdZRaster_mipMapNum;
       UINT_007f4cdc =
-           (int)ROUND((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar4 - (float)local_10) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       UINT_007f4c44 =
-           (int)ROUND((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
+           (int)ROUND_DOWN((fVar3 - (float)local_14) * (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9] *
                       65536.0f) >> (bVar11 & 0x1f);
       iVar10 = uVar9 - 1;
       uVar15 = UINT_007f4cfc + g_dwRdZRaster_dOneOverZdXFixed * iVar10;
-      uVar12 = ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+      uVar12 = ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                g_dwRdZRaster_dUdXModifier + UINT_007f4cdc * iVar10;
       uVar14 = UINT_007f4c44 * iVar10 +
                g_dwRdZRaster_dVdXModifier +
-               ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+               ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
       iVar10 = uVar9 - 1;
       UINT_007f4cb0 = uVar9;
       UINT_007f4cf4 = uVar12;
@@ -47146,16 +47146,16 @@ LAB_0047146b:
         fVar6 = (1.0f / PUN(float,right)) * (float)local_8;
         fVar5 = (1.0f / PUN(float,right)) * (float)local_c;
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
-        UINT_007f4cdc = (int)ROUND((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
-        UINT_007f4c44 = (int)ROUND((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4cdc = (int)ROUND_DOWN((fVar6 - (float)local_10) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
+        UINT_007f4c44 = (int)ROUND_DOWN((fVar5 - (float)local_14) * 0.0625f * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cb0 = 0x10;
         uVar9 = UINT_007f4c54 * 0xf + UINT_007f4cfc;
         uVar15 = UINT_007f4cdc * 0xf +
-                 ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
+                 ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) +
                  g_dwRdZRaster_dUdXModifier;
         uVar14 = UINT_007f4c44 * 0xf +
                  g_dwRdZRaster_dVdXModifier +
-                 ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
+                 ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f));
         iVar10 = 0xf;
         UINT_007f4cf4 = uVar15;
         UINT_007f4cf8 = uVar14;
@@ -47205,18 +47205,18 @@ LAB_0047171c:
                       PUN(float,right));
         bVar11 = (byte)g_dwRdZRaster_mipMapNum;
         UINT_007f4cdc =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dUOverZdX - _g_dwRdZRaster_uOverZStep) +
                          (float)local_8) * fVar5 - (float)local_10) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4c44 =
-             (int)ROUND((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
+             (int)ROUND_DOWN((((fVar6 * _g_dwRdZRaster_dVOverZdX - _g_dwRdZRaster_vOverZStep) +
                          (float)local_c) * fVar5 - (float)local_14) *
                         (float)(&g_dwRdRaster_aOneOverNFlex)[iVar10] * 65536.0f) >> (bVar11 & 0x1f);
         UINT_007f4cf4 =
-             ((int)ROUND((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
+             ((int)ROUND_DOWN((float)local_10 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dUdXModifier
         ;
         UINT_007f4cf8 =
-             ((int)ROUND((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
+             ((int)ROUND_DOWN((float)local_14 * 65536.0f) >> (bVar11 & 0x1f)) + g_dwRdZRaster_dVdXModifier
         ;
       }
       iVar10 = (int)left + -1;

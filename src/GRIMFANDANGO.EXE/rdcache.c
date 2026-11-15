@@ -237,13 +237,13 @@ int __cdecl rdCache_AddProcFace(void *mesh,uint vertexCount,byte flags)
   }
   if (local_10[2] < local_10[1]) {
     if (fVar1 < local_10[0]) {
-      lVar9 = FTOL((float10)ROUND(local_10[2]));
+      lVar9 = FTOL((float10)ROUND_UP(local_10[2]));
       g_bRdCache_aProcFaces[uVar6].dwMinX = (uint)lVar9;
-      lVar9 = FTOL((float10)ROUND(local_10[1]));
+      lVar9 = FTOL((float10)ROUND_UP(local_10[1]));
       g_bRdCache_aProcFaces[uVar6].dwMaxX = (uint)lVar9;
-      lVar9 = FTOL((float10)ROUND(fVar1));
+      lVar9 = FTOL((float10)ROUND_UP(fVar1));
       g_bRdCache_aProcFaces[uVar6].dwMinY = (uint)lVar9;
-      lVar9 = FTOL((float10)ROUND(local_10[0]));
+      lVar9 = FTOL((float10)ROUND_UP(local_10[0]));
       g_bRdCache_aProcFaces[uVar6].dwMaxY = (uint)lVar9;
       if ((flags & 1) != 0) {
         g_dwNumUsedVertices = g_dwNumUsedVertices + vertexCount;
@@ -711,11 +711,11 @@ LAB_00407a22:
           do {
             pfVar2 = pPVar15->pVertices;
             *(float *)(&g_aHWVertices + g_dwTotalVerts * 0x20) =
-                 ROUND(*(float *)(local_24 + (int)pPVar15->pVertices));
+                 ROUND_UP(*(float *)(local_24 + (int)pPVar15->pVertices));
             local_14 = *(uint *)(local_24 + 4 + (int)pfVar2);
             pfVar2 = pPVar15->pVertices;
             iVar12 = g_dwTotalVerts * 0x20;
-            *(float *)(&DAT_006f0fbc + iVar12) = ROUND((float)local_14);
+            *(float *)(&DAT_006f0fbc + iVar12) = ROUND_UP((float)local_14);
             if (*(float *)(local_24 + 8 + (int)pfVar2) == 0.0f) {
               fVar4 = 0.0f;
             }
@@ -1046,11 +1046,11 @@ LAB_004071fa:
             uVar13 = local_8;
             pfVar2 = pPVar15->pVertices;
             *(float *)(&g_aHWVertices + g_dwTotalVerts * 0x20) =
-                 ROUND(*(float *)(local_24 + local_2c));
+                 ROUND_UP(*(float *)(local_24 + local_2c));
             uVar16 = g_dwTotalVerts;
             pfVar3 = pPVar15->pVertices;
             *(float *)(&DAT_006f0fbc + g_dwTotalVerts * 0x20) =
-                 ROUND(*(float *)(local_24 + 4 + (int)pfVar2));
+                 ROUND_UP(*(float *)(local_24 + 4 + (int)pfVar2));
             if (*(float *)(local_24 + 8 + (int)pfVar3) == 0.0f) {
               fVar4 = 0.0f;
               local_2c = (uint)pfVar3;

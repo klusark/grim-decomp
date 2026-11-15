@@ -247,7 +247,7 @@ float __cdecl Math_Floor(float x)
 {
   uint local_8;
   
-  return ROUND(x);
+  return ROUND_DOWN(x);
 }
 #endif
 

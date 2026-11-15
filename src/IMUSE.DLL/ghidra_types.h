@@ -47,6 +47,11 @@ typedef int code();
 
 /* x87 / Ghidra pseudo-ops */
 #define ROUND(x)   ((float10)__builtin_rintl((float10)(x)))   /* FRNDINT */
+/* FRNDINT / FIST under a switched control word (tools/build_src.py fix_round_modes: the original loads the round-up,
+ * round-down or truncate word of stdStartup around them) */
+#define ROUND_UP(x)    ((float10)__builtin_ceill((float10)(x)))
+#define ROUND_DOWN(x)  ((float10)__builtin_floorl((float10)(x)))
+#define ROUND_TRUNC(x) ((float10)__builtin_truncl((float10)(x)))
 #define ABS(x)     (((x) < 0) ? -(x) : (x))
 #define SQRT(x)    ((float10)__builtin_sqrtl((float10)(x)))   /* FSQRT */
 #define FTOL(x)    ((long long)(x))                /* x87 _ftol: truncate toward zero (the value Ghidra loses in ST0) */

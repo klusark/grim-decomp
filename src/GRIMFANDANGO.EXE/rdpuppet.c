@@ -251,7 +251,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet,int track,float dt)
       if ((uVar5 & 0x20) == 0) {
         if ((uVar5 & 0x40) == 0) {
           if ((uVar5 & 0x80) == 0) {
-            local_8 = ROUND(fVar2 / fVar3);
+            local_8 = ROUND_DOWN(fVar2 / fVar3);
             puVar1[0x48] = PUN(uint,(float)((float)puVar1[0x48] -
                                  (float)*(uint *)(puVar1[0x4a] + 0x34) * local_8));
             uVar5 = *(uint *)(*(int *)(*(int *)((int)puppet + 4) + 4) + 0x54);

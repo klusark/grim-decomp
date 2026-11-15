@@ -748,9 +748,9 @@ std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,in
     }
     local_28 = local_c;
     uStack_24 = 0;
-    local_38 = (float)(int)ROUND(PUN(float,pVVar3) / (float)(int)local_c - -0.5f);
+    local_38 = (float)(int)ROUND_DOWN(PUN(float,pVVar3) / (float)(int)local_c - -0.5f);
     fStack_1c = PUN(float,pVVar7) / (float)(int)pVVar6 - -0.5f;
-    uVar10 = (uint)ROUND(fStack_1c);
+    uVar10 = (uint)ROUND_DOWN(fStack_1c);
     local_f0 = local_f0 * (int)local_38;
     local_ec = local_ec * uVar10;
     local_34 = uVar10;
