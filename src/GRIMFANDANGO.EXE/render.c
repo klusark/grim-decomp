@@ -62,10 +62,10 @@ void __cdecl sputRender_DrawDebuggingToggle(void)
    grimlib_SetPaletteCallback, same body (stores sputRender_pSetPaletteFunc)); was
    Render_SetUserCallback. */
 
-void __cdecl sputRender_SetPaletteCallback(uint param_1)
+void __cdecl sputRender_SetPaletteCallback(uint callback)
 
 {
-  g_dwSputRender_pSetPaletteFunc = param_1;
+  g_dwSputRender_pSetPaletteFunc = callback;
   return;
 }
 
@@ -75,10 +75,10 @@ void __cdecl sputRender_SetPaletteCallback(uint param_1)
    sputRender_pPageFlipFunc, same body; grimlib_SetPageFlipCallback jumps to it); was
    Render_SetFlipCallback. */
 
-void __cdecl sputRender_SetPageFlipCallback(void *param_1)
+void __cdecl sputRender_SetPageFlipCallback(void *callback)
 
 {
-  g_pSputRender_PageFlipFunc = param_1;
+  g_pSputRender_PageFlipFunc = callback;
   return;
 }
 
@@ -124,10 +124,10 @@ int __cdecl sputRender_Restore(void *readFn)
 /* Original name sputRender_Using3DHardware (the remaster's GrimFandango (Linux): same body
    (sputRender_b3DAcceleration = flag)); was Render_SetZBufferEnabled. */
 
-void __cdecl sputRender_Using3DHardware(int param_1)
+void __cdecl sputRender_Using3DHardware(int hardware)
 
 {
-  g_nSputRender_b3DAcceleration = param_1;
+  g_nSputRender_b3DAcceleration = hardware;
   return;
 }
 
@@ -222,7 +222,7 @@ void __cdecl MarkDirtyRect(int *rect,int flag)
    rdCanvas_New; 3 matched neighbours agree, 1 disagree); was Render_Open. */
 
 uint __cdecl
-sputRender_SetDisplay(uint surface,uint zSurface,uint x0,uint y0,uint x1,uint y1,int param_7)
+sputRender_SetDisplay(uint surface,uint zSurface,uint x0,uint y0,uint x1,uint y1,int format)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -261,8 +261,8 @@ sputRender_SetDisplay(uint surface,uint zSurface,uint x0,uint y0,uint x1,uint y1
     UINT_008a94c0 = UINT_009055f0;
     UINT_008a94bc = *(uint *)(UINT_008c97a0 + 0xc);
     _DAT_008a94cc = UINT_009055f8;
-    *(uint *)(param_7 + 0xc) = *(uint *)(param_7 + 0xc) | 2;
-    Render_SetPixelFormat((uint *)param_7);
+    *(uint *)(format + 0xc) = *(uint *)(format + 0xc) | 2;
+    Render_SetPixelFormat((uint *)format);
     pSVar1 = sputRoom_GetCurrentRoom();
     if (pSVar1 != (Set *)0x0) {
       rdCamera_SetAmbientLight
@@ -333,7 +333,7 @@ void __cdecl sputRender_PageFlip(void)
 /* ---- 0x004849d0  Render_SetPixelFormat ---- */
 /* Copies the 7-dword pixel format and pushes each component shift/mask into RDroid */
 
-void __cdecl Render_SetPixelFormat(uint *param_1)
+void __cdecl Render_SetPixelFormat(uint *format)
 
 {
   int iVar1;
@@ -341,8 +341,8 @@ void __cdecl Render_SetPixelFormat(uint *param_1)
   
   puVar2 = &g_dwRenderVars;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = *param_1;
-    param_1 = param_1 + 1;
+    *puVar2 = *format;
+    format = format + 1;
     puVar2 = puVar2 + 1;
   }
   rdSetGeometryMode(g_dwRenderVars);
@@ -450,169 +450,169 @@ uint __cdecl sputRender_ControlHandler(void)
 /* Builds the 16-bit colour constants (black, white, greys, red, green, blue, text colours) for the
    current pixel format */
 
-void __cdecl Render_InitColorConstants(int param_1)
+void __cdecl Render_InitColorConstants(int format)
 
 {
   Render_BuildColorTable(UINT_008c9780,g_flSputRender_GammaCorrection);
   g_abSputRender_colorMap[2] =
        (&g_wSputRender_ColorLookup)
-       [(0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97c8,0,2) =
        (&g_wSputRender_ColorLookup)
-       [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0x80 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0x80 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0x80 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0x80 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0x80 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   DAT_008c97c6 = (&g_wSputRender_ColorLookup)
-                 [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-                  ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-                  (0xff >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-                  ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
-                  (0xff >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-                  ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU];
+                 [(0xff >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+                  ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+                  (0xff >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+                  ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU |
+                  (0xff >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+                  ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97c8,2,2) =
        (&g_wSputRender_ColorLookup)
-       [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
-        (0xff >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU];
+       [(0xff >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU |
+        (0xff >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97cc,0,2) =
        (&g_wSputRender_ColorLookup)
-       [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU];
+       [(0xff >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97cc,2,2) =
        (&g_wSputRender_ColorLookup)
-       [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0xff >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d0,0,2) =
        (&g_wSputRender_ColorLookup)
-       [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0xff >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d4,0,2) =
        (&g_wSputRender_ColorLookup)
-       [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU];
+       [(0x80 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d4,2,2) =
        (&g_wSputRender_ColorLookup)
-       [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0x80 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   _DAT_008c97d8 =
        (&g_wSputRender_ColorLookup)
-       [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0x80 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU];
+       [(0x80 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0x80 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU];
   _DAT_008c97da =
        (&g_wSputRender_ColorLookup)
-       [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0x80 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d0,2,2) =
        (&g_wSputRender_ColorLookup)
-       [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0x80 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU];
+       [(0x80 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0x80 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU];
   _DAT_008c97dc =
        (&g_wSputRender_ColorLookup)
-       [(0x80 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0x80 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0x80 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0x80 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   _DAT_008c97de =
        (&g_wSputRender_ColorLookup)
-       [(0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0xc0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0xc0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0xc0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e0,0,2) =
        (&g_wSputRender_ColorLookup)
-       [(0xdc >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0xc0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0xdc >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0xc0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0xc0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e0,2,2) =
        (&g_wSputRender_ColorLookup)
-       [(0xf0 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0xca >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0xa6 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0xf0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0xca >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0xa6 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e4,0,2) =
        (&g_wSputRender_ColorLookup)
-       [(0xb4 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0xb4 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0xb4 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0xb4 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0xb4 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0xb4 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e4,2,2) =
        (&g_wSputRender_ColorLookup)
-       [(100 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (100 >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (100 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(100 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (100 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (100 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e8,0,2) =
        (&g_wSputRender_ColorLookup)
-       [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0xff >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU];
+       [(0xff >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0xff >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e8,2,2) =
        (&g_wSputRender_ColorLookup)
-       [(0xff >> ((byte)*(undefined4 *)(param_1 + 0x28) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x1c) & 0x1f) & 0xffffU |
-        (0xff >> ((byte)*(undefined4 *)(param_1 + 0x24) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x18) & 0x1f) & 0xffffU |
-        (0 >> ((byte)*(undefined4 *)(param_1 + 0x20) & 0x1f)) <<
-        ((byte)*(undefined4 *)(param_1 + 0x14) & 0x1f) & 0xffffU];
+       [(0xff >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
+        (0xff >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
+        (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
+        ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   Resource_ReloadBitmaps();
   Resource_RebuildColormaps();
   return;
@@ -1014,7 +1014,7 @@ void __cdecl sputRender_Decompress(VBuffer *vbuf)
    unmatched callee of Lua_DimScreen; 2 matched neighbours agree, 1 disagree); was
    Render_DimBackground. */
 
-void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
+void __cdecl sputRender_Dim(ushort *dst,byte shift)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1038,7 +1038,7 @@ void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  if ((g_dwGrimlib_mode != 4) || (param_1 != (ushort *)0x0)) {
+  if ((g_dwGrimlib_mode != 4) || (dst != (ushort *)0x0)) {
     if (g_dwGrimlib_mode == 3) {
       sputSmush_SetTarget(&g_dwStdDisplay_backBuffer);
     }
@@ -1059,7 +1059,7 @@ void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
     local_1c = 0;
     if (0 < (surface->format).nHeight) {
       do {
-        param_1 = (ushort *)(local_1c * (surface->format).nPitch + (int)surface->pPixels);
+        dst = (ushort *)(local_1c * (surface->format).nPitch + (int)surface->pPixels);
         local_20 = 0;
         if (0 < (surface->format).nWidth) {
           do {
@@ -1068,7 +1068,7 @@ void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
               uVar8 = 0;
             }
             else {
-              uVar8 = (uint)*param_1;
+              uVar8 = (uint)*dst;
             }
             bVar6 = (byte)(surface->format).colorFormat.dwRedLoss;
             uVar9 = (uVar8 >> ((byte)(surface->format).colorFormat.dwRedShift & 0x1f)) <<
@@ -1084,14 +1084,14 @@ void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
             if (((int)uVar8 < (int)uVar10) && (uVar8 = uVar4, (int)uVar4 < (int)uVar9)) {
               uVar8 = uVar9;
             }
-            iVar5 = (int)uVar8 >> (param_2 & 0x1f);
-            *param_1 = (ushort)((iVar5 >> (bVar6 & 0x1f)) <<
-                               ((byte)(surface->format).colorFormat.dwRedShift & 0x1f)) |
-                       (ushort)((iVar5 >> (bVar7 & 0x1f)) <<
-                               ((byte)(surface->format).colorFormat.dwGreenShift & 0x1f)) |
-                       (ushort)(iVar5 >> ((byte)(surface->format).colorFormat.dwBlueLoss & 0x1f));
+            iVar5 = (int)uVar8 >> (shift & 0x1f);
+            *dst = (ushort)((iVar5 >> (bVar6 & 0x1f)) <<
+                           ((byte)(surface->format).colorFormat.dwRedShift & 0x1f)) |
+                   (ushort)((iVar5 >> (bVar7 & 0x1f)) <<
+                           ((byte)(surface->format).colorFormat.dwGreenShift & 0x1f)) |
+                   (ushort)(iVar5 >> ((byte)(surface->format).colorFormat.dwBlueLoss & 0x1f));
             local_20 = local_20 + 1;
-            param_1 = param_1 + 1;
+            dst = dst + 1;
           } while ((int)local_20 < (surface->format).nWidth);
         }
         local_1c = local_1c + 1;
@@ -1198,10 +1198,10 @@ code * __cdecl sputRender_SetPaletteFunc(void)
 /* Original name sputRender_SetPageFlip (the remaster's GrimFandango (Linux): aligned call in
    sputLua_EngineDisplay); was Render_SetDrawEnabled. */
 
-void __cdecl sputRender_SetPageFlip(int param_1)
+void __cdecl sputRender_SetPageFlip(int flip)
 
 {
-  g_nDoTheFlip = param_1;
+  g_nDoTheFlip = flip;
   return;
 }
 
@@ -1708,10 +1708,10 @@ void __cdecl Render_DrawProgressBar(float fraction)
 /* Original name sputRender_AllowLoadImage (the remaster's GrimFandango (Linux): the only unpaired
    writer of LoadImageAllowed on both sides, same body); was Render_SetWaitCursorEnabled. */
 
-void __cdecl sputRender_AllowLoadImage(uint param_1)
+void __cdecl sputRender_AllowLoadImage(uint allow)
 
 {
-  g_dwLoadImageAllowed = param_1;
+  g_dwLoadImageAllowed = allow;
   return;
 }
 

@@ -11,13 +11,13 @@
    (the remaster's GrimFandango (Linux): slot 0 of the "LECMODULE=insane_blocky16_flobdec" service
    table); was Blocky16_Register. */
 
-uint __cdecl fob_flobdec_blocky16_module(int *param_1,uint param_2)
+uint __cdecl fob_flobdec_blocky16_module(int *services,uint config)
 
 {
-  g_pBlocky16_share_services = param_1;
-  g_dwBlocky16_share_config = param_2;
-  (*(code *)*param_1)(s_LECMODULE_insane_blocky16_flobde_004f3a04,
-                      &PTR_fob_flobdec_blocky16_module_004f34b8);
+  g_pBlocky16_share_services = services;
+  g_dwBlocky16_share_config = config;
+  (*(code *)*services)
+            (s_LECMODULE_insane_blocky16_flobde_004f3a04,&PTR_fob_flobdec_blocky16_module_004f34b8);
   (*(code *)*g_pBlocky16_share_services)
             (s_FLOBDEC_insane_blocky16_004f39ec,&g_pBlock16_flobdec_services);
   return 0;
@@ -116,14 +116,14 @@ void __cdecl Blocky16_module_shutdown(void)
    "FLOBDEC=insane_blocky16" service table; flobdec_Info is a static several LEC modules have,
    written with the module prefix); was Blocky16_GetInfoString. */
 
-char * __cdecl Blocky16_flobdec_Info(int param_1)
+char * __cdecl Blocky16_flobdec_Info(int what)
 
 {
-  if (param_1 == 0) {
+  if (what == 0) {
     return s_Blocky16_Tile_004f3ab0;
   }
-  if (param_1 != 1) {
-    if (param_1 != 2) {
+  if (what != 1) {
+    if (what != 2) {
       return &DAT_004f5a98;
     }
     return s_This_module_decompresses_the_blo_004f3aec;
@@ -148,19 +148,19 @@ uint __cdecl Blocky16_flobdec_GetID(void)
    slot 4 of the "FLOBDEC=insane_blocky16" service table; flobdec_DecodeHeader is a static several
    LEC modules have, written with the module prefix); was Blocky16_Prepare. */
 
-uint __cdecl Blocky16_flobdec_DecodeHeader(int param_1)
+uint __cdecl Blocky16_flobdec_DecodeHeader(int hdr)
 
 {
   short sVar1;
-  uint uVar2;
+  uint height;
   
-  sVar1 = *(short *)(param_1 + 2);
-  uVar2 = (int)*(short *)(param_1 + 4) + 7U & 0xfffffff8;
-  if ((((*(short *)(param_1 + 6) != g_nGlobal_bm_type) || (g_pBlkBitmap0 == (LecPixelFormat *)0x0))
-      || ((int)sVar1 != *(int *)&g_pBlkBitmap0->field_0x4)) ||
-     (uVar2 != *(uint *)&g_pBlkBitmap0->field_0x8)) {
+  sVar1 = *(short *)(hdr + 2);
+  height = (int)*(short *)(hdr + 4) + 7U & 0xfffffff8;
+  if ((((*(short *)(hdr + 6) != g_nGlobal_bm_type) || (g_pBlkBitmap0 == (LecPixelFormat *)0x0)) ||
+      ((int)sVar1 != *(int *)&g_pBlkBitmap0->field_0x4)) ||
+     (height != *(uint *)&g_pBlkBitmap0->field_0x8)) {
     Blocky16_flobdec_Reset();
-    AllocBuffers((int)sVar1,uVar2,(int)*(short *)(param_1 + 6));
+    AllocBuffers((int)sVar1,height,(int)*(short *)(hdr + 6));
   }
   return 0;
 }
@@ -171,24 +171,24 @@ uint __cdecl Blocky16_flobdec_DecodeHeader(int param_1)
    (Linux): same body (three bitmaps, maketiles(4)/(8), shift = 0); blocky16 flobdec_DecodeHeader's
    callee); was Blocky16_AllocBuffers. */
 
-int __cdecl AllocBuffers(int param_1,int param_2,int param_3)
+int __cdecl AllocBuffers(int width,int height,int depth)
 
 {
   int iVar1;
   
-  g_nFob_buffersize = param_2 * param_1;
+  g_nFob_buffersize = height * width;
   fob_block_maketiles(4);
   fob_block_maketiles(8);
   g_nFob_translation_shiftr = 0;
   g_nFob_translation_shiftg = 0;
   g_nFob_translation_shiftb = 0;
-  iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap0,param_1,param_2,param_3);
+  iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap0,width,height,depth);
   if (iVar1 == 0) {
-    iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap1,param_1,param_2,param_3);
+    iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap1,width,height,depth);
     if (iVar1 == 0) {
-      iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap2,param_1,param_2,param_3);
+      iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap2,width,height,depth);
       if (iVar1 == 0) {
-        g_nGlobal_bm_type = param_3;
+        g_nGlobal_bm_type = depth;
         g_pFob_blk16_key_buffer = *(byte **)g_pBlkBitmap0;
         g_pFob_blk16_delta_buffer = (byte *)*g_pBlkBitmap1;
         g_pFob_blk16_render_buffer = (byte *)*g_pBlkBitmap2;
@@ -247,7 +247,7 @@ void __cdecl Blocky16_flobdec_Reset(void)
 
 void __cdecl
 Blocky16_flobdec_DecodeBody
-          (void *dst,uint *clip,int x,int y,int palette,byte *hdr,uint param_7,byte flags)
+          (void *dst,uint *clip,int x,int y,int palette,byte *hdr,uint size,byte flags)
 
 {
   Blocky16_DecodeFrame(dst,clip,x,y,palette,hdr,flags);
@@ -261,24 +261,23 @@ Blocky16_flobdec_DecodeBody
    written with the module prefix); was Blocky16_GetFrameInfo. */
 
 uint __cdecl
-Blocky16_flobdec_GetVal
-          (short *param_1,int param_2,int *param_3,int *param_4,int *param_5,int *param_6)
+Blocky16_flobdec_GetVal(short *hdr,int what,int *outWidth,int *outHeight,int *outX,int *outY)
 
 {
-  if (param_2 != 0x100) {
+  if (what != 0x100) {
     return 0xffffffff;
   }
-  if (param_3 != (int *)0x0) {
-    *param_3 = (int)*param_1;
+  if (outWidth != (int *)0x0) {
+    *outWidth = (int)*hdr;
   }
-  if (param_4 != (int *)0x0) {
-    *param_4 = (int)param_1[2];
+  if (outHeight != (int *)0x0) {
+    *outHeight = (int)hdr[2];
   }
-  if (param_5 != (int *)0x0) {
-    *param_5 = (int)param_1[4];
+  if (outX != (int *)0x0) {
+    *outX = (int)hdr[4];
   }
-  if (param_6 != (int *)0x0) {
-    *param_6 = (int)param_1[6];
+  if (outY != (int *)0x0) {
+    *outY = (int)hdr[6];
   }
   return 0;
 }
@@ -290,7 +289,7 @@ Blocky16_flobdec_GetVal
    tables for the width); the same call in the decoder when header +0x10 is 0, before the two
    gra_SetBuffer calls); was Blocky16_BuildPixelOffsets. */
 
-void __cdecl fob_blk16_configure(uint param_1)
+void __cdecl fob_blk16_configure(uint width)
 
 {
   int iVar1;
@@ -303,13 +302,13 @@ void __cdecl fob_blk16_configure(uint param_1)
   short sVar8;
   byte *pbVar9;
   
-  if (param_1 != g_dwFob_blk16_configure_old_mod) {
-    g_dwFob_blk16_configure_old_mod = param_1;
+  if (width != g_dwFob_blk16_configure_old_mod) {
+    g_dwFob_blk16_configure_old_mod = width;
     pBVar2 = g_aBlockyMotionVectors;
     psVar4 = &g_asBlockyMotion;
     do {
       pBVar3 = pBVar2 + 1;
-      sVar8 = (short)param_1;
+      sVar8 = (short)width;
       *psVar4 = pBVar2->nY * sVar8 + pBVar2->nX;
       pBVar2 = pBVar3;
       psVar4 = psVar4 + 1;
@@ -905,7 +904,7 @@ void __cdecl Blocky16_BuildExpandTable(LecPixelFormat *fmt)
 /* ---- 0x004cd300  Blocky16_DecodeHalfRows16 ---- */
 /* Decodes a method 1 frame: 16 bit pixels of every second row, the rows between are averaged */
 
-void __cdecl Blocky16_DecodeHalfRows16(void *dst,ushort *src,int param_3,int param_4)
+void __cdecl Blocky16_DecodeHalfRows16(void *dst,ushort *src,int width,int height)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -930,17 +929,17 @@ void __cdecl Blocky16_DecodeHalfRows16(void *dst,ushort *src,int param_3,int par
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar7 = param_3 * 2;
-  if (0 < param_4) {
-    local_10 = param_4 + 1U >> 1;
+  uVar7 = width * 2;
+  if (0 < height) {
+    local_10 = height + 1U >> 1;
     puVar12 = (undefined4 *)((int)dst + uVar7);
     do {
       puVar11 = puVar12 + 1;
       uVar1 = *src;
       src = src + 1;
       *puVar12 = CONCAT22(uVar1,uVar1);
-      if (0 < param_3 + -2) {
-        uVar8 = param_3 - 1U >> 1;
+      if (0 < width + -2) {
+        uVar8 = width - 1U >> 1;
         uVar5 = (uint)uVar1;
         do {
           uVar9 = (uint)*src;
@@ -957,24 +956,24 @@ void __cdecl Blocky16_DecodeHalfRows16(void *dst,ushort *src,int param_3,int par
     } while (local_10 != 0);
   }
   msc_MemCopy(dst,(undefined4 *)((int)dst + uVar7),uVar7);
-  puVar10 = (undefined2 *)((int)dst + param_3 * 4);
-  if (param_4 != 2 && -1 < param_4 + -2) {
-    uVar7 = param_4 - 1U >> 1;
-    iVar2 = param_3;
+  puVar10 = (undefined2 *)((int)dst + width * 4);
+  if (height != 2 && -1 < height + -2) {
+    uVar7 = height - 1U >> 1;
+    iVar2 = width;
     uVar3 = extraout_ECX;
     uVar4 = extraout_EDX;
     do {
       for (; iVar2 != 0; iVar2 = iVar2 + -1) {
-        iVar6 = FUN_004cd3f0(CONCAT22((short)((uint)uVar4 >> 0x10),puVar10[param_3]),
-                             CONCAT22((short)((uint)uVar3 >> 0x10),puVar10[-param_3]));
+        iVar6 = FUN_004cd3f0(CONCAT22((short)((uint)uVar4 >> 0x10),puVar10[width]),
+                             CONCAT22((short)((uint)uVar3 >> 0x10),puVar10[-width]));
         *puVar10 = (short)iVar6;
         puVar10 = puVar10 + 1;
         uVar3 = extraout_ECX_00;
         uVar4 = extraout_EDX_00;
       }
-      puVar10 = puVar10 + param_3;
+      puVar10 = puVar10 + width;
       uVar7 = uVar7 - 1;
-      iVar2 = param_3;
+      iVar2 = width;
     } while (uVar7 != 0);
   }
   return;
@@ -989,7 +988,7 @@ void __cdecl Blocky16_DecodeHalfRows16(void *dst,ushort *src,int param_3,int par
 /* Decodes a method 7 frame: 8 bit indexes of every second row through a colour table, the rows
    between are averaged */
 
-void __cdecl Blocky16_DecodeHalfRows8(void *dst,byte *src,int param_3,int param_4,int param_5)
+void __cdecl Blocky16_DecodeHalfRows8(void *dst,byte *src,int width,int height,int palette)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1015,23 +1014,23 @@ void __cdecl Blocky16_DecodeHalfRows8(void *dst,byte *src,int param_3,int param_
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar8 = param_3 * 2;
-  if (0 < param_4) {
-    local_10 = param_4 + 1U >> 1;
+  uVar8 = width * 2;
+  if (0 < height) {
+    local_10 = height + 1U >> 1;
     puVar13 = (undefined4 *)((int)dst + uVar8);
     do {
       bVar1 = *src;
       src = src + 1;
       puVar12 = puVar13 + 1;
-      uVar2 = *(ushort *)(param_5 + (uint)bVar1 * 2);
+      uVar2 = *(ushort *)(palette + (uint)bVar1 * 2);
       *puVar13 = CONCAT22(uVar2,uVar2);
-      if (0 < param_3 + -2) {
-        uVar9 = param_3 - 1U >> 1;
+      if (0 < width + -2) {
+        uVar9 = width - 1U >> 1;
         uVar6 = (uint)uVar2;
         do {
           bVar1 = *src;
           src = src + 1;
-          uVar10 = (uint)*(ushort *)(param_5 + (uint)bVar1 * 2);
+          uVar10 = (uint)*(ushort *)(palette + (uint)bVar1 * 2);
           uVar6 = FUN_004cd3f0(uVar6,uVar10);
           *puVar12 = uVar6 & 0xffff | uVar10 << 0x10;
           puVar12 = puVar12 + 1;
@@ -1044,24 +1043,24 @@ void __cdecl Blocky16_DecodeHalfRows8(void *dst,byte *src,int param_3,int param_
     } while (local_10 != 0);
   }
   msc_MemCopy(dst,(undefined4 *)((int)dst + uVar8),uVar8);
-  puVar11 = (undefined2 *)((int)dst + param_3 * 4);
-  if (param_4 != 2 && -1 < param_4 + -2) {
-    uVar8 = param_4 - 1U >> 1;
-    iVar3 = param_3;
+  puVar11 = (undefined2 *)((int)dst + width * 4);
+  if (height != 2 && -1 < height + -2) {
+    uVar8 = height - 1U >> 1;
+    iVar3 = width;
     uVar4 = extraout_ECX;
     uVar5 = extraout_EDX;
     do {
       for (; iVar3 != 0; iVar3 = iVar3 + -1) {
-        iVar7 = FUN_004cd3f0(CONCAT22((short)((uint)uVar5 >> 0x10),puVar11[param_3]),
-                             CONCAT22((short)((uint)uVar4 >> 0x10),puVar11[-param_3]));
+        iVar7 = FUN_004cd3f0(CONCAT22((short)((uint)uVar5 >> 0x10),puVar11[width]),
+                             CONCAT22((short)((uint)uVar4 >> 0x10),puVar11[-width]));
         *puVar11 = (short)iVar7;
         puVar11 = puVar11 + 1;
         uVar4 = extraout_ECX_00;
         uVar5 = extraout_EDX_00;
       }
-      puVar11 = puVar11 + param_3;
+      puVar11 = puVar11 + width;
       uVar8 = uVar8 - 1;
-      iVar3 = param_3;
+      iVar3 = width;
     } while (uVar8 != 0);
   }
   return;

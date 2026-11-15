@@ -11,16 +11,16 @@
    std.c service between stdFPutc and stdLoadImageData in both builds; the earlier hand-made name
    stdBitmap_Load is the remaster's name of 0x47aa50); was stdBitmap_Load. */
 
-stdBitmap * __cdecl stdLoadImage(char *filename,int param_2,int b)
+stdBitmap * __cdecl stdLoadImage(char *filename,int videoMem,int b)
 
 {
-  stdBitmap *psVar1;
+  stdBitmap *bitmap;
   
-  psVar1 = stdLoadImageData(filename,param_2,b);
-  if (psVar1 != (stdBitmap *)0x0) {
-    stdBitmap_DeCompress((int)psVar1);
+  bitmap = stdLoadImageData(filename,videoMem,b);
+  if (bitmap != (stdBitmap *)0x0) {
+    stdBitmap_DeCompress((int)bitmap);
   }
-  return psVar1;
+  return bitmap;
 }
 
 /* ---- 0x00473660  stdLoadImageData ---- */
@@ -257,22 +257,22 @@ stdBitmap * __cdecl stdBitmap_Load(char *name,int a,int b)
 void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c)
 
 {
-  uint uVar1;
-  void *pvVar2;
-  uint *puVar3;
-  uint uVar4;
+  uint f;
+  void *pvVar1;
+  uint *puVar2;
+  uint uVar3;
   
-  uVar1 = (*g_pStd_HS->pFopen)(filename,&DAT_004ddb18);
-  if (uVar1 == 0) {
+  f = (*g_pStd_HS->pFopen)(filename,&DAT_004ddb18);
+  if (f == 0) {
     return (void *)0x0;
   }
-  pvVar2 = (void *)stdBitmap_LoadEntryFromFile(uVar1,a,b,c);
-  uVar4 = 0x1f;
-  puVar3 = (uint *)stdFileFromPath(filename);
-  strncpy((uint *)a,puVar3,uVar4);
+  pvVar1 = (void *)stdBitmap_LoadEntryFromFile(f,a,b,c);
+  uVar3 = 0x1f;
+  puVar2 = (uint *)stdFileFromPath(filename);
+  strncpy((uint *)a,puVar2,uVar3);
   *(undefined1 *)(a + 0x1f) = 0;
-  (*g_pStd_HS->pFclose)(uVar1);
-  return pvVar2;
+  (*g_pStd_HS->pFclose)(f);
+  return pvVar1;
 }
 
 /* ---- 0x0047ab20  stdBitmap_LoadEntryFromFile ---- */
@@ -281,7 +281,7 @@ void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c)
    0x80-byte header, magic 'BM  ', version 0x46, then the frames); called by stdBitmap_LoadFromFile
    in both builds); was stdBitmap_LoadBM. */
 
-uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int a,int videoMem,int b)
+uint __cdecl stdBitmap_LoadEntryFromFile(uint f,int a,int videoMem,int b)
 
 {
   unsigned char _frame[0xf0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -314,7 +314,7 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int a,int videoMem,int b)
   #define auStack_ac (*(undefined4 (*)[24])(_frame + (0xf0 - 0xac)))
   #define VStack_4c (*(VBufferFormat *)(_frame + (0xf0 - 0x4c)))
   
-  (*g_pStd_HS->pFread)(param_1,local_cc,0x80);
+  (*g_pStd_HS->pFread)(f,local_cc,0x80);
   uVar2 = strncmp(local_cc,&DAT_004df5a0,4);
   if (uVar2 != 0) {
     return 0;
@@ -332,7 +332,7 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int a,int videoMem,int b)
     *(undefined4 *)(a + 0x70) = uStack_b4;
     if (*(int *)(a + 100) != 0) {
       do {
-        (*g_pStd_HS->pFread)(param_1,&iStack_d4,8);
+        (*g_pStd_HS->pFread)(f,&iStack_d4,8);
         VStack_4c.nHeight = uStack_d0;
         VStack_4c.nWidth = iStack_d4;
         piVar8 = (int *)(a + 0x28);
@@ -356,7 +356,7 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int a,int videoMem,int b)
           iVar5 = (surface->format).nWidth;
           if (uStack_d0 != 0) {
             do {
-              (*g_pStd_HS->pFread)(param_1,pvVar11,(uVar2 >> 3) * iVar5);
+              (*g_pStd_HS->pFread)(f,pvVar11,(uVar2 >> 3) * iVar5);
               pvVar11 = (void *)((int)pvVar11 + (surface->format).nPitch);
               uVar7 = uVar7 + 1;
             } while (uVar7 < uStack_d0);
@@ -367,10 +367,10 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int a,int videoMem,int b)
           pbStack_d8 = pbVar6;
           if ((surface->format).dwSize != 0) {
             do {
-              uVar2 = stdFGetc(param_1);
+              uVar2 = stdFGetc(f);
               if (((byte)uVar2 & 0xc0) == 0xc0) {
                 uVar7 = uVar2 & 0x3f;
-                uVar3 = stdFGetc(param_1);
+                uVar3 = stdFGetc(f);
                 bVar1 = (byte)uVar3;
                 if (uVar7 != 0) {
                   pbVar12 = pbVar6;
@@ -394,12 +394,11 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int a,int videoMem,int b)
           }
         }
         else if ((iVar5 == 3) &&
-                ((*g_pStd_HS->pFread)(param_1,&uStack_dc,4), uStack_dc < (surface->format).dwSize))
-        {
+                ((*g_pStd_HS->pFread)(f,&uStack_dc,4), uStack_dc < (surface->format).dwSize)) {
           pvVar4 = (void *)(*g_pStd_HS->pAlloc)
                                      (uStack_dc,s_C__grimjedi_Libs_Std_General_Std_004df574,
                                       DAT_004df558 + 0x82);
-          (*g_pStd_HS->pFread)(param_1,pvVar4,uStack_dc);
+          (*g_pStd_HS->pFread)(f,pvVar4,uStack_dc);
           pvVar11 = surface->pPixels;
           surface->nType = 2;
           (surface->format).dwSize = uStack_dc;
@@ -420,7 +419,7 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint param_1,int a,int videoMem,int b)
       if (iVar5 == 0) {
         return 0;
       }
-      (*g_pStd_HS->pFread)(param_1,iVar5,0x300);
+      (*g_pStd_HS->pFread)(f,iVar5,0x300);
     }
     return 1;
   }
@@ -487,7 +486,7 @@ void __cdecl stdBitmap_FreeEntry(int bitmap)
    (the remaster's GrimFandango (Linux): same body (the 0x80-byte "BM  " version 0x46 header, then
    the frames); called by stdBitmap_Write in both builds); was stdBitmap_WriteBM. */
 
-uint __cdecl stdBitmap_AppendToFile(uint param_1,int param_2)
+uint __cdecl stdBitmap_AppendToFile(uint f,int bitmap)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -532,54 +531,54 @@ uint __cdecl stdBitmap_AppendToFile(uint param_1,int param_2)
   }
   strncpy(&local_80,(uint *)&DAT_004df5a0,4);
   local_7c = 0x46;
-  local_78 = *(uint *)(param_2 + 0x20);
-  local_74 = *(uint *)(param_2 + 0x24);
-  local_70 = *(uint *)(param_2 + 100);
-  local_6c = *(uint *)(param_2 + 0x6c);
-  local_68 = *(uint *)(param_2 + 0x70);
-  local_64 = *(uint *)(param_2 + 0x74);
-  puVar10 = (undefined4 *)(param_2 + 0x28);
+  local_78 = *(uint *)(bitmap + 0x20);
+  local_74 = *(uint *)(bitmap + 0x24);
+  local_70 = *(uint *)(bitmap + 100);
+  local_6c = *(uint *)(bitmap + 0x6c);
+  local_68 = *(uint *)(bitmap + 0x70);
+  local_64 = *(uint *)(bitmap + 0x74);
+  puVar10 = (undefined4 *)(bitmap + 0x28);
   puVar12 = local_60;
   for (iVar7 = 0xe; iVar7 != 0; iVar7 = iVar7 + -1) {
     *puVar12 = *puVar10;
     puVar10 = puVar10 + 1;
     puVar12 = puVar12 + 1;
   }
-  iVar7 = (*g_pStd_HS->pFwrite)(param_1,&local_80,0x80);
+  iVar7 = (*g_pStd_HS->pFwrite)(f,&local_80,0x80);
   if (iVar7 != 0x80) {
     return 0;
   }
   iVar7 = 0;
   uStack_98 = 0;
-  if (*(int *)(param_2 + 100) != 0) {
+  if (*(int *)(bitmap + 100) != 0) {
     do {
-      piVar3 = (int *)(*(int *)(param_2 + 0x78) + iVar7);
+      piVar3 = (int *)(*(int *)(bitmap + 0x78) + iVar7);
       iStack_94 = *(int *)(*piVar3 + 0xc);
       uStack_90 = *(uint *)(*piVar3 + 0x10);
-      iVar4 = (*g_pStd_HS->pFwrite)(param_1,&iStack_94,8);
+      iVar4 = (*g_pStd_HS->pFwrite)(f,&iStack_94,8);
       if (iVar4 != 8) {
         return 0;
       }
       if (local_78 == 0) {
-        stdDisplay_VBufferLock(*(VBuffer **)(iVar7 + *(int *)(param_2 + 0x78)));
+        stdDisplay_VBufferLock(*(VBuffer **)(iVar7 + *(int *)(bitmap + 0x78)));
         uStack_a4 = 0;
-        iVar4 = *(int *)(iVar7 + *(int *)(param_2 + 0x78));
+        iVar4 = *(int *)(iVar7 + *(int *)(bitmap + 0x78));
         iVar13 = *(int *)(iVar4 + 0x5c);
         iVar4 = (*(uint *)(iVar4 + 0x24) >> 3) * iStack_94;
         if (uStack_90 != 0) {
           do {
-            iVar5 = (*g_pStd_HS->pFwrite)(param_1,iVar13,iVar4);
+            iVar5 = (*g_pStd_HS->pFwrite)(f,iVar13,iVar4);
             if (iVar5 != iVar4) {
               return 0;
             }
-            iVar13 = iVar13 + *(int *)(*(int *)(iVar7 + *(int *)(param_2 + 0x78)) + 0x18);
+            iVar13 = iVar13 + *(int *)(*(int *)(iVar7 + *(int *)(bitmap + 0x78)) + 0x18);
             uStack_a4 = uStack_a4 + 1;
           } while (uStack_a4 < uStack_90);
         }
-        stdDisplay_VBufferUnlock(*(VBuffer **)(iVar7 + *(int *)(param_2 + 0x78)));
+        stdDisplay_VBufferUnlock(*(VBuffer **)(iVar7 + *(int *)(bitmap + 0x78)));
       }
       else if (local_78 == 1) {
-        iVar4 = *(int *)(param_2 + 0x78);
+        iVar4 = *(int *)(bitmap + 0x78);
         uStack_8c = 0;
         iStack_88 = *(int *)(*(int *)(iVar7 + iVar4) + 0x5c);
         if (*(int *)(*(int *)(iVar7 + iVar4) + 0x10) != 0) {
@@ -605,36 +604,34 @@ uint __cdecl stdBitmap_AppendToFile(uint param_1,int param_2)
                   } while (bVar2 == pbVar1[uVar6]);
                 }
                 if ((1 < bVar8) || (0xbf < bVar2)) {
-                  stdFPutc(CONCAT31(uVar9,bVar8) | 0xc0,param_1);
+                  stdFPutc(CONCAT31(uVar9,bVar8) | 0xc0,f);
                   uVar9 = extraout_var;
                 }
-                stdFPutc(CONCAT31(uVar9,*pbVar1),param_1);
+                stdFPutc(CONCAT31(uVar9,*pbVar1),f);
                 uVar14 = uVar14 + uStack_a0;
-                iVar4 = *(int *)(param_2 + 0x78);
+                iVar4 = *(int *)(bitmap + 0x78);
                 iVar13 = *(int *)(iVar7 + iVar4);
               } while (uVar14 < *(uint *)(iVar13 + 0xc));
             }
-            iVar4 = *(int *)(param_2 + 0x78);
+            iVar4 = *(int *)(bitmap + 0x78);
             uStack_8c = uStack_8c + 1;
           } while (uStack_8c < *(uint *)(*(int *)(iVar4 + iVar7) + 0x10));
         }
       }
       else if (local_78 == 3) {
-        stdDisplay_VBufferLock(*(VBuffer **)(iVar7 + *(int *)(param_2 + 0x78)));
-        uStack_9c = *(undefined4 *)(*(int *)(iVar7 + *(int *)(param_2 + 0x78)) + 0x14);
-        (*g_pStd_HS->pFwrite)(param_1,&uStack_9c,4);
+        stdDisplay_VBufferLock(*(VBuffer **)(iVar7 + *(int *)(bitmap + 0x78)));
+        uStack_9c = *(undefined4 *)(*(int *)(iVar7 + *(int *)(bitmap + 0x78)) + 0x14);
+        (*g_pStd_HS->pFwrite)(f,&uStack_9c,4);
         (*g_pStd_HS->pFwrite)
-                  (param_1,*(undefined4 *)(*(int *)(iVar7 + *(int *)(param_2 + 0x78)) + 0x5c),
-                   uStack_9c);
-        stdDisplay_VBufferUnlock(*(VBuffer **)(iVar7 + *(int *)(param_2 + 0x78)));
+                  (f,*(undefined4 *)(*(int *)(iVar7 + *(int *)(bitmap + 0x78)) + 0x5c),uStack_9c);
+        stdDisplay_VBufferUnlock(*(VBuffer **)(iVar7 + *(int *)(bitmap + 0x78)));
       }
       uStack_98 = uStack_98 + 1;
       iVar7 = iVar7 + 4;
-    } while (uStack_98 < *(uint *)(param_2 + 100));
+    } while (uStack_98 < *(uint *)(bitmap + 100));
   }
-  if (((*(byte *)(param_2 + 0x24) & 2) != 0) &&
-     (iVar7 = (*g_pStd_HS->pFwrite)(param_1,*(undefined4 *)(param_2 + 0x60),0x300), iVar7 != 0x300))
-  {
+  if (((*(byte *)(bitmap + 0x24) & 2) != 0) &&
+     (iVar7 = (*g_pStd_HS->pFwrite)(f,*(undefined4 *)(bitmap + 0x60),0x300), iVar7 != 0x300)) {
     return 0;
   }
   return 1;
@@ -667,19 +664,19 @@ uint __cdecl stdBitmap_AppendToFile(uint param_1,int param_2)
 int __cdecl stdBitmap_Write(char *filename,void *bitmap)
 
 {
+  uint f;
   uint uVar1;
-  uint uVar2;
   
-  uVar1 = (*g_pStd_HS->pFopen)(filename,&DAT_004ddb1c);
-  if (uVar1 == 0) {
+  f = (*g_pStd_HS->pFopen)(filename,&DAT_004ddb1c);
+  if (f == 0) {
     return 0;
   }
-  uVar2 = stdBitmap_AppendToFile(uVar1,(int)bitmap);
-  if (uVar2 == 0) {
+  uVar1 = stdBitmap_AppendToFile(f,(int)bitmap);
+  if (uVar1 == 0) {
     (*g_pStd_HS->pFclose)();
     return 0;
   }
-  (*g_pStd_HS->pFclose)(uVar1);
+  (*g_pStd_HS->pFclose)(f);
   return 1;
 }
 
@@ -688,7 +685,7 @@ int __cdecl stdBitmap_Write(char *filename,void *bitmap)
    stdBitmap_ConvertColorFormat (the remaster's GrimFandango (Linux): aligned call in
    sputRender_SaveDrawBuffer, sputRender_SaveScreen); was stdBitmap_CopyFrom. */
 
-void __cdecl stdBitmap_ConvertColorFormat(int *want,int param_2)
+void __cdecl stdBitmap_ConvertColorFormat(int *want,int have)
 
 {
   VBuffer *pVVar1;
@@ -698,7 +695,7 @@ void __cdecl stdBitmap_ConvertColorFormat(int *want,int param_2)
   int *srcFormat;
   bool bVar5;
   
-  srcFormat = (int *)(param_2 + 0x28);
+  srcFormat = (int *)(have + 0x28);
   iVar2 = 0x38;
   bVar5 = true;
   piVar3 = want;
@@ -712,28 +709,28 @@ void __cdecl stdBitmap_ConvertColorFormat(int *want,int param_2)
   } while (bVar5);
   if ((!bVar5) && ((*srcFormat != 0 || (*want != 0)))) {
     iVar2 = 0;
-    if (0 < *(int *)(param_2 + 100)) {
+    if (0 < *(int *)(have + 100)) {
       do {
-        pVVar1 = *(VBuffer **)(*(int *)(param_2 + 0x78) + iVar2 * 4);
+        pVVar1 = *(VBuffer **)(*(int *)(have + 0x78) + iVar2 * 4);
         if (pVVar1->nType != 2) {
           pVVar1 = stdDisplay_VBufferConvertColorFormat((ColorFormat *)want,pVVar1);
-          *(VBuffer **)(*(int *)(param_2 + 0x78) + iVar2 * 4) = pVVar1;
-          if (*(int *)(*(int *)(param_2 + 0x78) + iVar2 * 4) == 0) {
+          *(VBuffer **)(*(int *)(have + 0x78) + iVar2 * 4) = pVVar1;
+          if (*(int *)(*(int *)(have + 0x78) + iVar2 * 4) == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Unable_to_allocate_a_new_frame_w_004df5a8,
                        s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df55c + 0x15);
           }
-          if ((*(byte *)(param_2 + 0x24) & 1) != 0) {
-            pVVar1 = *(VBuffer **)(*(int *)(param_2 + 0x78) + iVar2 * 4);
+          if ((*(byte *)(have + 0x24) & 1) != 0) {
+            pVVar1 = *(VBuffer **)(*(int *)(have + 0x78) + iVar2 * 4);
             stdDisplay_VBufferSetColorKey(pVVar1,pVVar1->dwColorKey);
           }
         }
         iVar2 = iVar2 + 1;
-      } while (iVar2 < *(int *)(param_2 + 100));
+      } while (iVar2 < *(int *)(have + 100));
     }
-    if ((*(byte *)(param_2 + 0x24) & 1) != 0) {
-      iVar2 = stdColor_ColorConvertOnePixel((int)want,*(uint *)(param_2 + 0x74),(int)srcFormat);
-      *(int *)(param_2 + 0x74) = iVar2;
+    if ((*(byte *)(have + 0x24) & 1) != 0) {
+      iVar2 = stdColor_ColorConvertOnePixel((int)want,*(uint *)(have + 0x74),(int)srcFormat);
+      *(int *)(have + 0x74) = iVar2;
     }
     for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
       *srcFormat = *want;
@@ -823,27 +820,27 @@ stdBitmap * __cdecl stdBitmap_VBufferToBitmap(VBuffer *vbuf,int format,int flags
    stdBitmap_Init. */
 
 uint __cdecl
-stdBitmap_NewEntry(undefined4 *param_1,uint param_2,uint param_3,uint param_4,uint param_5,
-                  undefined4 *param_6)
+stdBitmap_NewEntry(undefined4 *bitmap,uint width,uint height,uint frames,uint flags,
+                  undefined4 *format)
 
 {
   undefined4 *puVar1;
   int iVar2;
   uint uVar3;
   
-  puVar1 = param_1;
+  puVar1 = bitmap;
   for (iVar2 = 0x1f; iVar2 != 0; iVar2 = iVar2 + -1) {
     *puVar1 = 0;
     puVar1 = puVar1 + 1;
   }
   puVar1 = (undefined4 *)
            (*g_pStd_HS->pAlloc)
-                     (param_2 * 4,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df570 + 0xb);
-  param_1[0x1e] = puVar1;
+                     (width * 4,s_C__grimjedi_Libs_Std_General_Std_004df574,DAT_004df570 + 0xb);
+  bitmap[0x1e] = puVar1;
   if (puVar1 == (undefined4 *)0x0) {
     return 0;
   }
-  for (uVar3 = param_2 & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
+  for (uVar3 = width & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
     *puVar1 = 0;
     puVar1 = puVar1 + 1;
   }
@@ -851,24 +848,24 @@ stdBitmap_NewEntry(undefined4 *param_1,uint param_2,uint param_3,uint param_4,ui
     *(undefined1 *)puVar1 = 0;
     puVar1 = (undefined4 *)((int)puVar1 + 1);
   }
-  param_1[9] = param_5;
-  param_1[8] = param_4;
-  puVar1 = param_1 + 10;
+  bitmap[9] = flags;
+  bitmap[8] = frames;
+  puVar1 = bitmap + 10;
   for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar1 = *param_6;
-    param_6 = param_6 + 1;
+    *puVar1 = *format;
+    format = format + 1;
     puVar1 = puVar1 + 1;
   }
-  param_1[0x19] = param_2;
-  param_1[0x18] = param_3;
+  bitmap[0x19] = width;
+  bitmap[0x18] = height;
   return 1;
 }
 
 /* ---- 0x0047b540  stdBitmap_SetSurface ---- */
-void __cdecl stdBitmap_SetSurface(int param_1,int param_2,uint surface)
+void __cdecl stdBitmap_SetSurface(int bitmap,int frame,uint surface)
 
 {
-  *(uint *)(*(int *)(param_1 + 0x78) + param_2 * 4) = surface;
+  *(uint *)(*(int *)(bitmap + 0x78) + frame * 4) = surface;
   return;
 }
 
@@ -904,19 +901,19 @@ int __cdecl stdBitmap_MemUsage(stdBitmap *bitmap)
 /* Original name stdBitmap_DeCompress (the remaster's GrimFandango (Linux): aligned call in
    stdLoadImage, stdWriteImage); was stdBitmap_DecompressAll. */
 
-void __cdecl stdBitmap_DeCompress(int param_1)
+void __cdecl stdBitmap_DeCompress(int bitmap)
 
 {
   int iVar1;
   
   iVar1 = 0;
-  if (0 < *(int *)(param_1 + 100)) {
+  if (0 < *(int *)(bitmap + 100)) {
     do {
-      stdDisplay_VBufferDeCompress(*(VBuffer **)(*(int *)(param_1 + 0x78) + iVar1 * 4));
+      stdDisplay_VBufferDeCompress(*(VBuffer **)(*(int *)(bitmap + 0x78) + iVar1 * 4));
       iVar1 = iVar1 + 1;
-    } while (iVar1 < *(int *)(param_1 + 100));
+    } while (iVar1 < *(int *)(bitmap + 100));
   }
-  *(undefined4 *)(param_1 + 0x20) = 0;
+  *(undefined4 *)(bitmap + 0x20) = 0;
   return;
 }
 
@@ -925,17 +922,17 @@ void __cdecl stdBitmap_DeCompress(int param_1)
    (the remaster's GrimFandango (Linux): the call on rdroid_curColorEffects in rdOpen, same body
    (ten words cleared, +0x24 = 1.0f)); was stdBitmap_InitHeader. */
 
-void __cdecl stdPalEffects_ResetEffect(undefined4 *param_1)
+void __cdecl stdPalEffects_ResetEffect(undefined4 *effect)
 
 {
   int iVar1;
   undefined4 *puVar2;
   
-  puVar2 = param_1;
+  puVar2 = effect;
   for (iVar1 = 10; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  param_1[9] = 0x3f800000;
+  effect[9] = 0x3f800000;
   return;
 }

@@ -125,17 +125,17 @@ void __cdecl sputLua_CollisionHandler(int self,int other,float *a,float *b,float
    inlined it into sputRoom_LoadRoom; the earlier hand-made name, back from the orig-names guess
    sputRoom_LoadRoom, which is 0x4a49a0); was sputRoom_LoadRoom. */
 
-int __cdecl SetFile_Parse(char *path,uint param_2)
+int __cdecl SetFile_Parse(char *path,uint set)
 
 {
   uint *puVar1;
   uint uVar2;
   
   uVar2 = 0x7f;
-  g_dwLoadingRoom = param_2;
+  g_dwLoadingRoom = set;
   puVar1 = (uint *)stdFnames_FindMedName(path);
-  strncpy((uint *)param_2,puVar1,uVar2);
-  *(undefined1 *)(param_2 + 0x7f) = 0;
+  strncpy((uint *)set,puVar1,uVar2);
+  *(undefined1 *)(set + 0x7f) = 0;
   uVar2 = sputRoom_LoadRoomEntry((uint)path);
   return (uint)(uVar2 != 0);
 }
@@ -146,7 +146,7 @@ int __cdecl SetFile_Parse(char *path,uint param_2)
    Original name sputRoom_LoadRoomEntry (the remaster's GrimFandango (Linux): aligned call in
    SetFile_Parse); was SetFile_ParseSections. */
 
-uint __cdecl sputRoom_LoadRoomEntry(uint param_1)
+uint __cdecl sputRoom_LoadRoomEntry(uint path)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -154,7 +154,7 @@ uint __cdecl sputRoom_LoadRoomEntry(uint param_1)
   int iVar2;
   #define local_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
-  uVar1 = stdConffile_Open(param_1);
+  uVar1 = stdConffile_Open(path);
   if (uVar1 == 0) {
     return 0;
   }
@@ -1689,7 +1689,7 @@ void __cdecl WalkPlane_AllActive(void)
    MAX_DB_VERTS - 2", WalkPlane.cpp; find an equal vertex in vert_db or take a free one, count the
    references)); was SectorVertexPool_GetOrAdd. */
 
-WalkVertex * __cdecl WalkPlane_AddVertex(uint param_1,float *param_2)
+WalkVertex * __cdecl WalkPlane_AddVertex(uint plane,float *v)
 
 {
   WalkVertex *pWVar1;
@@ -1707,9 +1707,8 @@ WalkVertex * __cdecl WalkPlane_AddVertex(uint param_1,float *param_2)
   pfVar2 = g_aWalkPlane_vert_db[0].aPos;
   do {
     if (((float)((WalkVertex *)(pfVar2 + -1))->nRefs != 0.0f) &&
-       ((param_2[2] - pfVar2[2]) * (param_2[2] - pfVar2[2]) +
-        (param_2[1] - pfVar2[1]) * (param_2[1] - pfVar2[1]) +
-        (*param_2 - *pfVar2) * (*param_2 - *pfVar2) < 1e-08)) {
+       ((v[2] - pfVar2[2]) * (v[2] - pfVar2[2]) +
+        (v[1] - pfVar2[1]) * (v[1] - pfVar2[1]) + (*v - *pfVar2) * (*v - *pfVar2) < 1e-08)) {
       pWVar4 = g_aWalkPlane_vert_db + iVar3;
       pWVar4->nRefs = pWVar4->nRefs + 1;
       return pWVar4;
@@ -1729,9 +1728,9 @@ WalkVertex * __cdecl WalkPlane_AddVertex(uint param_1,float *param_2)
   } while ((int)pWVar1 < ((unsigned)(uintptr_t)&g_dwWorkingPath));
   pWVar4->nRefs = 1;
   g_dwWalkPlane_tot_verts = g_dwWalkPlane_tot_verts + 1;
-  pWVar4->aPos[0] = *param_2;
-  pWVar4->aPos[1] = param_2[1];
-  pWVar4->aPos[2] = param_2[2];
+  pWVar4->aPos[0] = *v;
+  pWVar4->aPos[1] = v[1];
+  pWVar4->aPos[2] = v[2];
   return pWVar4;
 }
 
@@ -1739,12 +1738,12 @@ WalkVertex * __cdecl WalkPlane_AddVertex(uint param_1,float *param_2)
 /* Original name WalkPlane_RemoveVertex (the remaster's GrimFandango (Linux): same body (decrement
    the reference count, tot_verts - 1 when it reaches 0)); was SectorVertexPool_Release. */
 
-void __cdecl WalkPlane_RemoveVertex(int *param_1)
+void __cdecl WalkPlane_RemoveVertex(int *vertex)
 
 {
   int iVar1;
   
-  if ((0 < *param_1) && (iVar1 = *param_1 + -1, *param_1 = iVar1, iVar1 == 0)) {
+  if ((0 < *vertex) && (iVar1 = *vertex + -1, *vertex = iVar1, iVar1 == 0)) {
     g_dwWalkPlane_tot_verts = g_dwWalkPlane_tot_verts - 1;
   }
   return;

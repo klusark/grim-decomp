@@ -9,10 +9,10 @@
 /* Original name rdModel3_ActivateClipPlane (the remaster's GrimFandango (Linux): aligned call in
    sputCostume_InternalDraw3D); was Renderer_EnableClipPlane. */
 
-void __cdecl rdModel3_ActivateClipPlane(uint param_1)
+void __cdecl rdModel3_ActivateClipPlane(uint active)
 
 {
-  g_dwClipPlaneActive = param_1;
+  g_dwClipPlaneActive = active;
   return;
 }
 
@@ -20,14 +20,14 @@ void __cdecl rdModel3_ActivateClipPlane(uint param_1)
 /* Original name rdModel3_SetClipPlane (the remaster's GrimFandango (Linux): aligned call in
    sputCostume_InternalDraw3D); was Renderer_SetClipPlane. */
 
-void __cdecl rdModel3_SetClipPlane(undefined4 *param_1,undefined4 *param_2)
+void __cdecl rdModel3_SetClipPlane(undefined4 *normal,undefined4 *point)
 
 {
-  FLOAT_004ddb70 = PUN(float,*param_1);
-  FLOAT_004ddb74 = PUN(float,param_1[1]);
-  FLOAT_004ddb78 = PUN(float,param_1[2]);
-  FLOAT_007f3208 = PUN(float,*param_2);
-  FLOAT_007f320c = PUN(float,param_2[1]);
-  FLOAT_007f3210 = PUN(float,param_2[2]);
+  FLOAT_004ddb70 = PUN(float,*normal);
+  FLOAT_004ddb74 = PUN(float,normal[1]);
+  FLOAT_004ddb78 = PUN(float,normal[2]);
+  FLOAT_007f3208 = PUN(float,*point);
+  FLOAT_007f320c = PUN(float,point[1]);
+  FLOAT_007f3210 = PUN(float,point[2]);
   return;
 }

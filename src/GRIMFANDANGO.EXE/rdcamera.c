@@ -65,12 +65,12 @@ rdCamera_NewEntry(rdCamera *camera,float fov,int projType,float aspectX,float as
 /* ---- 0x0040a080  rdCamera_Free ---- */
 /* Frees a camera: its projection block and the camera itself. */
 
-void __cdecl rdCamera_Free(int param_1)
+void __cdecl rdCamera_Free(int camera)
 
 {
-  if (param_1 != 0) {
-    rdCamera_FreeEntry(param_1);
-    (*g_pRdroid_HS->pFree)(param_1);
+  if (camera != 0) {
+    rdCamera_FreeEntry(camera);
+    (*g_pRdroid_HS->pFree)(camera);
   }
   return;
 }
@@ -80,11 +80,11 @@ void __cdecl rdCamera_Free(int param_1)
    rdCamera_FreeEntry (the remaster's GrimFandango (Linux): same body (frees the projection record
    at +0x48)); was rdCamera_FreeProjection. */
 
-void __cdecl rdCamera_FreeEntry(int param_1)
+void __cdecl rdCamera_FreeEntry(int camera)
 
 {
-  if (*(int *)(param_1 + 0x48) != 0) {
-    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x48));
+  if (*(int *)(camera + 0x48) != 0) {
+    (*g_pRdroid_HS->pFree)(*(int *)(camera + 0x48));
   }
   return;
 }
@@ -99,11 +99,11 @@ void __cdecl rdCamera_SetCanvas(rdCamera *camera,void *canvas)
 }
 
 /* ---- 0x0040a0e0  rdCamera_SetCurrent ---- */
-uint __cdecl rdCamera_SetCurrent(void *param_1)
+uint __cdecl rdCamera_SetCurrent(void *camera)
 
 {
-  if (g_pRdCamera_CurCamera != param_1) {
-    g_pRdCamera_CurCamera = param_1;
+  if (g_pRdCamera_CurCamera != camera) {
+    g_pRdCamera_CurCamera = camera;
   }
   return 1;
 }
@@ -282,16 +282,16 @@ void __cdecl rdCamera_Update(float *frame)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void __cdecl rdCamera_OrthoProject(float *param_1,float *param_2)
+void __cdecl rdCamera_OrthoProject(float *out,float *v)
 
 {
   rdCanvas *prVar1;
   
   prVar1 = g_pRdCamera_CurCamera->pCanvas;
-  *param_1 = g_pRdCamera_CurCamera->flOrthoScale * *param_2 + prVar1->flCenterX;
-  param_1[1] = -(param_2[2] * g_pRdCamera_CurCamera->flOrthoScale) * g_pRdCamera_CurCamera->flAspect
-               + prVar1->flCenterY;
-  param_1[2] = param_2[1];
+  *out = g_pRdCamera_CurCamera->flOrthoScale * *v + prVar1->flCenterX;
+  out[1] = -(v[2] * g_pRdCamera_CurCamera->flOrthoScale) * g_pRdCamera_CurCamera->flAspect +
+           prVar1->flCenterY;
+  out[2] = v[1];
   return;
 }
 
@@ -300,7 +300,7 @@ void __cdecl rdCamera_OrthoProject(float *param_1,float *param_2)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void __cdecl rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
+void __cdecl rdCamera_OrthoProjectLst(float *out,float *v,int count)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -316,12 +316,12 @@ void __cdecl rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
   fVar1 = g_pRdCamera_CurCamera->flAspect;
   fVar2 = g_pRdCamera_CurCamera->pCanvas->flCenterY;
   fVar4 = g_pRdCamera_CurCamera->pCanvas->flCenterX;
-  for (; param_3 != 0; param_3 = param_3 + -1) {
-    *param_1 = fVar3 * *param_2 + fVar4;
-    param_1[1] = fVar2 - param_2[2] * fVar1 * fVar3;
-    param_1[2] = param_2[1];
-    param_1 = param_1 + 3;
-    param_2 = param_2 + 3;
+  for (; count != 0; count = count + -1) {
+    *out = fVar3 * *v + fVar4;
+    out[1] = fVar2 - v[2] * fVar1 * fVar3;
+    out[2] = v[1];
+    out = out + 3;
+    v = v + 3;
   }
   return;
 }
@@ -335,15 +335,15 @@ void __cdecl rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void __cdecl rdCamera_OrthoProjectSquare(float *param_1,float *param_2)
+void __cdecl rdCamera_OrthoProjectSquare(float *out,float *v)
 
 {
   rdCanvas *prVar1;
   
   prVar1 = g_pRdCamera_CurCamera->pCanvas;
-  *param_1 = g_pRdCamera_CurCamera->flOrthoScale * *param_2 + prVar1->flCenterX;
-  param_1[1] = prVar1->flCenterY - param_2[2] * g_pRdCamera_CurCamera->flOrthoScale;
-  param_1[2] = param_2[1];
+  *out = g_pRdCamera_CurCamera->flOrthoScale * *v + prVar1->flCenterX;
+  out[1] = prVar1->flCenterY - v[2] * g_pRdCamera_CurCamera->flOrthoScale;
+  out[2] = v[1];
   return;
 }
 
@@ -352,7 +352,7 @@ void __cdecl rdCamera_OrthoProjectSquare(float *param_1,float *param_2)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void __cdecl rdCamera_OrthoProjectSquareLst(float *param_1,float *param_2,int param_3)
+void __cdecl rdCamera_OrthoProjectSquareLst(float *out,float *v,int count)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -366,12 +366,12 @@ void __cdecl rdCamera_OrthoProjectSquareLst(float *param_1,float *param_2,int pa
   fVar1 = g_pRdCamera_CurCamera->flOrthoScale;
   fVar2 = g_pRdCamera_CurCamera->pCanvas->flCenterX;
   fVar3 = g_pRdCamera_CurCamera->pCanvas->flCenterY;
-  for (; param_3 != 0; param_3 = param_3 + -1) {
-    *param_1 = fVar1 * *param_2 + fVar2;
-    param_1[1] = fVar3 - param_2[2] * fVar1;
-    param_1[2] = param_2[1];
-    param_1 = param_1 + 3;
-    param_2 = param_2 + 3;
+  for (; count != 0; count = count + -1) {
+    *out = fVar1 * *v + fVar2;
+    out[1] = fVar3 - v[2] * fVar1;
+    out[2] = v[1];
+    out = out + 3;
+    v = v + 3;
   }
   return;
 }
@@ -385,19 +385,19 @@ void __cdecl rdCamera_OrthoProjectSquareLst(float *param_1,float *param_2,int pa
    Selected by rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1
    perspective; 'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void __cdecl rdCamera_PerspProject(float *param_1,float *param_2)
+void __cdecl rdCamera_PerspProject(float *out,float *v)
 
 {
   float fVar1;
   rdCanvas *prVar2;
   float fVar3;
   
-  fVar3 = g_pRdCamera_CurCamera->flFovY / param_2[1];
+  fVar3 = g_pRdCamera_CurCamera->flFovY / v[1];
   prVar2 = g_pRdCamera_CurCamera->pCanvas;
   fVar1 = g_pRdCamera_CurCamera->flAspect;
-  *param_1 = fVar3 * *param_2 + prVar2->flCenterX;
-  param_1[1] = prVar2->flCenterY - param_2[2] * fVar1 * fVar3;
-  param_1[2] = param_2[1];
+  *out = fVar3 * *v + prVar2->flCenterX;
+  out[1] = prVar2->flCenterY - v[2] * fVar1 * fVar3;
+  out[2] = v[1];
   return;
 }
 
@@ -406,7 +406,7 @@ void __cdecl rdCamera_PerspProject(float *param_1,float *param_2)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void __cdecl rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
+void __cdecl rdCamera_PerspProjectLst(float *out,float *v,int count)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -419,14 +419,14 @@ void __cdecl rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
   
   fVar2 = g_pRdCamera_CurCamera->pCanvas->flCenterX;
   fVar3 = g_pRdCamera_CurCamera->pCanvas->flCenterY;
-  for (; param_3 != 0; param_3 = param_3 + -1) {
-    fVar4 = g_pRdCamera_CurCamera->flFovY / param_2[1];
+  for (; count != 0; count = count + -1) {
+    fVar4 = g_pRdCamera_CurCamera->flFovY / v[1];
     fVar1 = g_pRdCamera_CurCamera->flAspect;
-    *param_1 = fVar4 * *param_2 + fVar2;
-    param_1[1] = fVar3 - param_2[2] * fVar1 * fVar4;
-    param_1[2] = param_2[1];
-    param_1 = param_1 + 3;
-    param_2 = param_2 + 3;
+    *out = fVar4 * *v + fVar2;
+    out[1] = fVar3 - v[2] * fVar1 * fVar4;
+    out[2] = v[1];
+    out = out + 3;
+    v = v + 3;
   }
   return;
 }
@@ -439,17 +439,17 @@ void __cdecl rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void __cdecl rdCamera_PerspProjectSquare(float *param_1,float *param_2)
+void __cdecl rdCamera_PerspProjectSquare(float *out,float *v)
 
 {
   rdCanvas *prVar1;
   float fVar2;
   
-  fVar2 = g_pRdCamera_CurCamera->flFovY / param_2[1];
+  fVar2 = g_pRdCamera_CurCamera->flFovY / v[1];
   prVar1 = g_pRdCamera_CurCamera->pCanvas;
-  *param_1 = fVar2 * *param_2 + prVar1->flCenterX;
-  param_1[1] = prVar1->flCenterY - param_2[2] * fVar2;
-  param_1[2] = param_2[1];
+  *out = fVar2 * *v + prVar1->flCenterX;
+  out[1] = prVar1->flCenterY - v[2] * fVar2;
+  out[2] = v[1];
   return;
 }
 
@@ -458,7 +458,7 @@ void __cdecl rdCamera_PerspProjectSquare(float *param_1,float *param_2)
    rdCamera_SetProjectType/rdCamera_SetAspectRatio (camera type 0 orthographic, 1 perspective;
    'Square' when the pixel aspect (+0x40) is 1.0). */
 
-void __cdecl rdCamera_PerspProjectSquareLst(float *param_1,float *param_2,int param_3)
+void __cdecl rdCamera_PerspProjectSquareLst(float *out,float *v,int count)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -470,13 +470,13 @@ void __cdecl rdCamera_PerspProjectSquareLst(float *param_1,float *param_2,int pa
   
   fVar1 = g_pRdCamera_CurCamera->pCanvas->flCenterX;
   fVar2 = g_pRdCamera_CurCamera->pCanvas->flCenterY;
-  for (; param_3 != 0; param_3 = param_3 + -1) {
-    fVar3 = g_pRdCamera_CurCamera->flFovY / param_2[1];
-    *param_1 = fVar3 * *param_2 + fVar1;
-    param_1[1] = fVar2 - param_2[2] * fVar3;
-    param_1[2] = param_2[1];
-    param_1 = param_1 + 3;
-    param_2 = param_2 + 3;
+  for (; count != 0; count = count + -1) {
+    fVar3 = g_pRdCamera_CurCamera->flFovY / v[1];
+    *out = fVar3 * *v + fVar1;
+    out[1] = fVar2 - v[2] * fVar3;
+    out[2] = v[1];
+    out = out + 3;
+    v = v + 3;
   }
   return;
 }

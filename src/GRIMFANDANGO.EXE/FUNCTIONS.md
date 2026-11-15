@@ -64,7 +64,7 @@
 | 0048b230 | sputText_GetActorTalkColorL | lua.c | 27 |
 | 0048b2a0 | sputText_SetSayLineDefaultsL | lua.c | 19 |
 | 0048b4c0 | sputText_SayLineL | lua.c | 86 |
-| 0048b6a0 | Lua_ParseSayLineTable | lua.c | 61 |
+| 0048b6a0 | Lua_ParseSayLineTable | lua.c | 62 |
 | 0048b830 | sputText_PrintLineL | lua.c | 83 |
 | 0048b9a0 | sputText_IsMessageGoingL | lua.c | 41 |
 | 0048ba90 | sputText_ExpireTextQueueL | lua.c | 18 |
@@ -330,7 +330,7 @@
 | 00402930 | Display_InitFromConfig | stddisplay.c | 1 |
 | 004029b0 | Display_GetLastFromRegistry | stddisplay.c | 133 |
 | 00402b60 | Display_PickDefault | stddisplay.c | 45 |
-| 004730d0 | stdDisplay_BuildBitmapInfo8 | stddisplay.c | 62 |
+| 004730d0 | stdDisplay_BuildBitmapInfo8 | stddisplay.c | 61 |
 | 00473180 | stdDisplay_BuildBitmapInfo16 | stddisplay.c | 42 |
 | 004731f0 | DIB_CreateSection565 | stddisplay.c | 54 |
 | 00473270 | Palette_SwapRedBlue | stddisplay.c | 60 |
@@ -363,8 +363,8 @@
 | 00475140 | Display_CompareVideoModes | stddisplay.c | 30 |
 | 004751b0 | Surface_BlitSoftware | stddisplay.c | 208 |
 | 004755e0 | Surface_BlitDDraw | stddisplay.c | 169 |
-| 004758a0 | Surface_BlitLockedSrc | stddisplay.c | 204 |
-| 00475c90 | Surface_BlitLockedDst | stddisplay.c | 222 |
+| 004758a0 | Surface_BlitLockedSrc | stddisplay.c | 200 |
+| 00475c90 | Surface_BlitLockedDst | stddisplay.c | 218 |
 | 004760d0 | DDraw_Create | stddisplay.c | 37 |
 | 00476190 | DDraw_Release | stddisplay.c | 9 |
 | 004761b0 | stdDisplay_EnumDevicesCallback | stddisplay.c | 1 |
@@ -535,7 +535,7 @@
 | 0040c0d0 | rdModel3_Free | rdmodel3.c | 16 |
 | 0040c100 | rdModel3_FreeEntry | rdmodel3.c | 83 |
 | 0040c280 | rdModel3_BuildShadowModel | rdmodel3.c | 101 |
-| 0040c520 | rdModel3_CalcBoundingBoxes | rdmodel3.c | 96 |
+| 0040c520 | rdModel3_CalcBoundingBoxes | rdmodel3.c | 99 |
 | 0040c710 | rdModel3_CalcModelBoundingBox | rdmodel3.c | 83 |
 | 0040c8c0 | rdModel3_CalcRadii | rdmodel3.c | 1 |
 | 0040c970 | rdModel3_BuildExpandedRadius | rdmodel3.c | 70 |
@@ -571,7 +571,7 @@
 | 00471d40 | rdThing_SetCamera | rdthing.c | 9 |
 | 00471d60 | rdThing_SetPolyline | rdthing.c | 10 |
 | 00471d80 | rdThing_Draw | rdthing.c | 32 |
-| 00471e00 | rdThing_AccumulateMatrices | rdthing.c | 47 |
+| 00471e00 | rdThing_AccumulateMatrices | rdthing.c | 45 |
 | 0040ea50 | rdAFRaster_CalcAffineGradients | rdraster.c | 1 |
 | 0040ef90 | rdAFRaster_CalcPerspGradients | rdraster.c | 1 |
 | 0040f5f0 | rdAFRaster_SetupNGonLW | rdraster.c | 1 |
@@ -972,7 +972,7 @@
 | 0044f880 | rdMatrix_Identity34 | math3d.c | 17 |
 | 0044f8a0 | rdMatrix_Multiply34 | math3d.c | 21 |
 | 0044fa70 | rdMatrix_PreMultiply34 | math3d.c | 50 |
-| 0044fc60 | rdMatrix_PostMultiply34 | math3d.c | 50 |
+| 0044fc60 | rdMatrix_PostMultiply34 | math3d.c | 47 |
 | 0044fe50 | Matrix_BuildTransform | math3d.c | 14 |
 | 0044fe80 | rdMatrix_PostTranslate34 | math3d.c | 11 |
 | 0044feb0 | rdMatrix_PreScale34 | math3d.c | 15 |
@@ -1061,10 +1061,10 @@
 | 00473810 | stdWriteImage | stdbitmap.c | 108 |
 | 0047aa50 | stdBitmap_Load | stdbitmap.c | 21 |
 | 0047aab0 | stdBitmap_LoadFromFile | stdbitmap.c | 22 |
-| 0047ab20 | stdBitmap_LoadEntryFromFile | stdbitmap.c | 166 |
+| 0047ab20 | stdBitmap_LoadEntryFromFile | stdbitmap.c | 165 |
 | 0047ae70 | stdBitmap_Free | stdbitmap.c | 7 |
 | 0047ae90 | stdBitmap_FreeEntry | stdbitmap.c | 28 |
-| 0047aef0 | stdBitmap_AppendToFile | stdbitmap.c | 175 |
+| 0047aef0 | stdBitmap_AppendToFile | stdbitmap.c | 173 |
 | 0047b250 | stdBitmap_Write | stdbitmap.c | 22 |
 | 0047b2b0 | stdBitmap_ConvertColorFormat | stdbitmap.c | 59 |
 | 0047b380 | stdBitmap_VBufferToBitmap | stdbitmap.c | 70 |
@@ -1102,7 +1102,7 @@
 | 004876b0 | grimPlat_GetDefaultOpenPath | plat.c | 8 |
 | 004876c0 | grimPlat_OpenFileRequest | plat.c | 64 |
 | 004877d0 | grimPlat_SaveFileRequest | plat.c | 62 |
-| 004878c0 | grimPlat_SpinDialog | plat.c | 129 |
+| 004878c0 | grimPlat_SpinDialog | plat.c | 128 |
 | 00487c10 | grimPlat_TreeDialog | plat.c | 100 |
 | 00487e30 | grimPlat_InputDialog | plat.c | 91 |
 | 00488370 | Plat_PromptDialogProc | plat.c | 43 |
@@ -1270,7 +1270,7 @@
 | 00480a00 | Res_FClose | resfile.c | 29 |
 | 00480a70 | Res_FRead | resfile.c | 77 |
 | 00480bb0 | Res_FGets | resfile.c | 67 |
-| 00480ce0 | Res_FWrite | resfile.c | 24 |
+| 00480ce0 | Res_FWrite | resfile.c | 23 |
 | 00480d50 | Res_FEOF | resfile.c | 24 |
 | 00480dc0 | Res_FTell | resfile.c | 25 |
 | 00480e30 | Res_FSeek | resfile.c | 53 |
@@ -1331,7 +1331,7 @@
 | 00483b50 | sputRender_UseSetup | set.c | 93 |
 | 00485780 | Set_DrawDebugLights | set.c | 92 |
 | 004859c0 | Set_DrawDebugCameras | set.c | 25 |
-| 004a4010 | sputRoom_SetSoundParameters | set.c | 16 |
+| 004a4010 | sputRoom_SetSoundParameters | set.c | 15 |
 | 004a4050 | sputRoom_GetSoundParameters | set.c | 15 |
 | 004a40f0 | sputRoom_SetCurrentRoom | set.c | 28 |
 | 004a41b0 | sputRoom_GetCurrentRoom | set.c | 8 |
@@ -1354,7 +1354,7 @@
 | 004a6100 | Set_NormalizeName | set.c | 49 |
 | 004a7100 | WalkPlane_KillCollection | set.c | 26 |
 | 004a7150 | WalkPlane_SetCollection | set.c | 58 |
-| 00482540 | grimlib_GameInitialize | enginemodule.c | 29 |
+| 00482540 | grimlib_GameInitialize | enginemodule.c | 30 |
 | 00482b60 | grimlib_GameTerminate | enginemodule.c | 21 |
 | 00482ba0 | grimlib_GameStartup | enginemodule.c | 41 |
 | 00482cc0 | grimlib_GameShutdown | enginemodule.c | 17 |
@@ -1506,7 +1506,7 @@
 | 004a7390 | WalkPlane_JumpOut | sector.c | 82 |
 | 004a7520 | WalkPlane_GetConstraintVector | sector.c | 203 |
 | 004a7a90 | WalkPlane_AllActive | sector.c | 13 |
-| 004a7ab0 | WalkPlane_AddVertex | sector.c | 50 |
+| 004a7ab0 | WalkPlane_AddVertex | sector.c | 49 |
 | 004a7ba0 | WalkPlane_RemoveVertex | sector.c | 13 |
 | 004a7bc0 | ParseCollection | sector.c | 368 |
 | 004a8cb0 | WalkPlane_ClipPoly | sector.c | 194 |
@@ -1543,7 +1543,7 @@
 | 00489090 | sputSmush_Restore | movie.c | 21 |
 | 004891b0 | sputSmush_Periodic | movie.c | 44 |
 | 00489280 | sputSmush_SetTarget | movie.c | 12 |
-| 004892a0 | sputSmush_StartMovie | movie.c | 33 |
+| 004892a0 | sputSmush_StartMovie | movie.c | 32 |
 | 00489370 | sputSmush_StopMovie | movie.c | 12 |
 | 00489390 | sputSmush_GetMovieLength | movie.c | 20 |
 | 004893d0 | sputSmush_StartVideo | movie.c | 14 |
@@ -1676,7 +1676,7 @@
 | 00492510 | Collision_PointInBox | collision.c | 1 |
 | 004925c0 | FindObjectCorners | collision.c | 37 |
 | 00492680 | TestCollision | collision.c | 93 |
-| 00492a50 | Collision_PickDetour | collision.c | 41 |
+| 00492a50 | Collision_PickDetour | collision.c | 40 |
 | 004939a0 | Collision_UpdateMovedActors | collision.c | 36 |
 | 004939f0 | Collision_TestActorAgainstOthers | collision.c | 1 |
 | 00494100 | Collision_BoxSlide | collision.c | 1 |
@@ -1706,7 +1706,7 @@
 | 004959a0 | sputCostume_Startup | sputcostume.c | 166 |
 | 004988a0 | sputCostume_Shutdown | sputcostume.c | 28 |
 | 00496060 | BitmapChanger | component.c | 12 |
-| 004960a0 | BitmapRequester | bitmapcomponent.c | 149 |
+| 004960a0 | BitmapRequester | bitmapcomponent.c | 148 |
 | 00496340 | BitmapFreer | bitmapcomponent.c | 16 |
 | 00496370 | ColormapInstancer | cmapcomponent.c | 45 |
 | 00496460 | ColormapRequester | cmapcomponent.c | 53 |
@@ -1714,7 +1714,7 @@
 | 004965b0 | MaterialInstanceSaveLoad | cmapcomponent.c | 1 |
 | 004965d0 | MaterialChanger | materialcomponent.c | 12 |
 | 004965e0 | MaterialInstancer | materialcomponent.c | 27 |
-| 00496670 | MaterialRequester | materialcomponent.c | 110 |
+| 00496670 | MaterialRequester | materialcomponent.c | 109 |
 | 00496890 | ThingAdjuster | modelcomponent.c | 33 |
 | 00496930 | ThingChanger | modelcomponent.c | 10 |
 | 00496950 | ThingInstancer | modelcomponent.c | 1 |
@@ -1790,9 +1790,9 @@
 | 004a3d70 | sputTime_Startup | sputtime.c | 15 |
 | 004a3da0 | sputTime_Shutdown | sputtime.c | 10 |
 | 004a3fe0 | sputRoom_RelocateSounds | sound.c | 14 |
-| 004a40a0 | sputRoom_SetSoundPosition | sound.c | 19 |
+| 004a40a0 | sputRoom_SetSoundPosition | sound.c | 18 |
 | 004a4dc0 | PositionedSounds_DropFinished | sound.c | 33 |
-| 004a4e20 | PositionedSound_Add | sound.c | 21 |
+| 004a4e20 | PositionedSound_Add | sound.c | 20 |
 | 004a4e80 | SetSoundPosition | sound.c | 1 |
 | 004d0c20 | sou_engine_GetRate | sound.c | 17 |
 | 004d0cf0 | sou_engine_QueryTime | sound.c | 33 |
@@ -2462,7 +2462,7 @@
 | 004c43a0 | gzread | zlib.c | 106 |
 | 004c45b0 | gzwrite | zlib.c | 34 |
 | 004c4690 | gz_do_flush | zlib.c | 40 |
-| 004c4750 | gzseek | zlib.c | 81 |
+| 004c4750 | gzseek | zlib.c | 80 |
 | 004c48a0 | gzrewind | zlib.c | 22 |
 | 004c4920 | gz_getLong | zlib.c | 17 |
 | 004c4970 | gzclose | zlib.c | 18 |
@@ -2516,7 +2516,7 @@
 | 004cc410 | AllocBuffers | blocky16.c | 44 |
 | 004cc590 | Blocky16_flobdec_Reset | blocky16.c | 26 |
 | 004cc620 | Blocky16_flobdec_DecodeBody | blocky16.c | 13 |
-| 004cc650 | Blocky16_flobdec_GetVal | blocky16.c | 27 |
+| 004cc650 | Blocky16_flobdec_GetVal | blocky16.c | 26 |
 | 004cc6a0 | fob_blk16_configure | blocky16.c | 79 |
 | 004cc7d0 | fob_block_maketiles | blocky16.c | 1 |
 | 004ccd00 | Blocky16_DecodeFrame | blocky16.c | 172 |

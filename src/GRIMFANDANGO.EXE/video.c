@@ -13,8 +13,8 @@
     */
 
 void __cdecl
-gra_BlitRectLookup(LecPixelFormat *pLecPixelFormat,uint *param_2,int param_3,int param_4,int *srcFmt
-                  ,byte *palette,byte *expandTable)
+gra_BlitRectLookup(LecPixelFormat *pLecPixelFormat,uint *clip,int x,int y,int *srcFmt,byte *palette,
+                  byte *expandTable)
 
 {
   unsigned char _frame[0x430] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -33,8 +33,8 @@ gra_BlitRectLookup(LecPixelFormat *pLecPixelFormat,uint *param_2,int param_3,int
   #define local_404 (*(uint *)(_frame + (0x430 - 0x404)))
   #define local_400 (*(byte (*)[1024])(_frame + (0x430 - 0x400)))
   
-  if (param_2 == (uint *)0x0) {
-    param_2 = &local_410;
+  if (clip == (uint *)0x0) {
+    clip = &local_410;
     local_410 = 0;
     local_40c = 0;
     local_408 = *(uint *)&pLecPixelFormat->field_0x4;
@@ -43,29 +43,29 @@ gra_BlitRectLookup(LecPixelFormat *pLecPixelFormat,uint *param_2,int param_3,int
   local_420 = 0;
   local_41c = srcFmt[1];
   local_418 = srcFmt[2];
-  uVar2 = *param_2 - param_3;
+  uVar2 = *clip - x;
   if (0 < (int)uVar2) {
     local_41c = local_41c - uVar2;
-    param_3 = param_3 + uVar2;
+    x = x + uVar2;
     local_420 = uVar2;
   }
-  iVar3 = param_2[1] - param_4;
+  iVar3 = clip[1] - y;
   iVar1 = 0;
   if (0 < iVar3) {
     local_418 = local_418 - iVar3;
-    param_4 = param_4 + iVar3;
+    y = y + iVar3;
     iVar1 = iVar3;
   }
-  if ((int)(param_2[2] + *param_2) < (int)(local_41c + param_3)) {
-    local_41c = (param_2[2] + *param_2) - param_3;
+  if ((int)(clip[2] + *clip) < (int)(local_41c + x)) {
+    local_41c = (clip[2] + *clip) - x;
   }
-  iVar3 = param_2[3] + param_2[1];
-  if (iVar3 < (int)(local_418 + param_4)) {
-    local_418 = iVar3 - param_4;
+  iVar3 = clip[3] + clip[1];
+  if (iVar3 < (int)(local_418 + y)) {
+    local_418 = iVar3 - y;
   }
   if ((0 < (int)local_41c) && (0 < (int)local_418)) {
-    dst = (byte *)(param_3 * pLecPixelFormat->nBytesPerPixel +
-                   param_4 * *(uint *)&pLecPixelFormat->field_0x14 + *(int *)pLecPixelFormat);
+    dst = (byte *)(x * pLecPixelFormat->nBytesPerPixel + y * *(uint *)&pLecPixelFormat->field_0x14 +
+                  *(int *)pLecPixelFormat);
     src = (byte *)(iVar1 * srcFmt[5] + local_420 * srcFmt[3] + *srcFmt);
     if (((srcFmt[4] == *(int *)&pLecPixelFormat->field_0x10) &&
         (iVar1 = srcFmt[8], iVar1 == pLecPixelFormat->nColorMode)) &&
@@ -112,7 +112,7 @@ gra_BlitRectLookup(LecPixelFormat *pLecPixelFormat,uint *param_2,int param_3,int
    remaster's GrimFandango (Linux): gra_SetBitmap's call (buffer, bitmap, w*h, colour)); was
    Video_FillPixels. */
 
-void __cdecl gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4)
+void __cdecl gra_SetBuffer(char *dst,int format,int count,char *value)
 
 {
   char cVar1;
@@ -121,52 +121,52 @@ void __cdecl gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4)
   undefined4 in_EDX;
   undefined3 uVar4;
   
-  iVar2 = *(int *)(param_2 + 0xc) + -1;
+  iVar2 = *(int *)(format + 0xc) + -1;
   uVar3 = (undefined3)((uint)iVar2 >> 8);
   uVar4 = (undefined3)((uint)in_EDX >> 8);
   switch(iVar2) {
   case 0:
-    msc_MemSet((uint)param_1,CONCAT31(uVar3,*param_4),param_3);
+    msc_MemSet((uint)dst,CONCAT31(uVar3,*value),count);
     return;
   case 1:
-    if (*param_4 == param_4[1]) {
-      msc_MemSet((uint)param_1,CONCAT31(uVar3,*param_4),param_3 * 2);
+    if (*value == value[1]) {
+      msc_MemSet((uint)dst,CONCAT31(uVar3,*value),count * 2);
       return;
     }
-    if (param_3 != 0) {
+    if (count != 0) {
       do {
-        *(undefined2 *)param_1 = *(undefined2 *)param_4;
-        param_1 = param_1 + 2;
-        param_3 = param_3 + -1;
-      } while (param_3 != 0);
+        *(undefined2 *)dst = *(undefined2 *)value;
+        dst = dst + 2;
+        count = count + -1;
+      } while (count != 0);
       return;
     }
     break;
   case 2:
-    if ((*param_4 == param_4[1]) && (param_4[2] == param_4[1])) {
-      msc_MemSet((uint)param_1,CONCAT31(uVar4,*param_4),param_3 * 3);
+    if ((*value == value[1]) && (value[2] == value[1])) {
+      msc_MemSet((uint)dst,CONCAT31(uVar4,*value),count * 3);
       return;
     }
-    if (param_3 != 0) {
+    if (count != 0) {
       do {
-        *param_1 = *param_4;
-        param_1[1] = param_4[1];
-        param_1[2] = param_4[2];
-        param_1 = param_1 + 3;
-        param_3 = param_3 + -1;
-      } while (param_3 != 0);
+        *dst = *value;
+        dst[1] = value[1];
+        dst[2] = value[2];
+        dst = dst + 3;
+        count = count + -1;
+      } while (count != 0);
       return;
     }
     break;
   case 3:
-    cVar1 = param_4[1];
-    if (((*param_4 == cVar1) && (param_4[2] == cVar1)) && (param_4[3] == cVar1)) {
-      msc_MemSet((uint)param_1,CONCAT31(uVar4,*param_4),param_3 * 4);
+    cVar1 = value[1];
+    if (((*value == cVar1) && (value[2] == cVar1)) && (value[3] == cVar1)) {
+      msc_MemSet((uint)dst,CONCAT31(uVar4,*value),count * 4);
       return;
     }
-    for (; param_3 != 0; param_3 = param_3 + -1) {
-      *(undefined4 *)param_1 = *(undefined4 *)param_4;
-      param_1 = param_1 + 4;
+    for (; count != 0; count = count + -1) {
+      *(undefined4 *)dst = *(undefined4 *)value;
+      dst = dst + 4;
     }
   }
   return;

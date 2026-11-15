@@ -12,22 +12,22 @@
    "FILIO=insane_zfilio", ...)); was LecShare_Startup. */
 
 undefined ** __cdecl
-LecShare_Initialize(undefined *param_1,undefined4 *param_2,uint param_3,uint param_4)
+LecShare_Initialize(undefined *nop,undefined4 *registry,uint version,uint flags)
 
 {
   undefined4 *puVar1;
   code *pcVar2;
   
-  if (param_1 != (undefined *)0x0) {
-    PTR_LecShare_Nop_004f1220 = param_1;
+  if (nop != (undefined *)0x0) {
+    PTR_LecShare_Nop_004f1220 = nop;
   }
-  LecShare_Reset(param_3,param_4);
+  LecShare_Reset(version,flags);
   g_dwPrivateData = 0;
-  pcVar2 = (code *)*param_2;
+  pcVar2 = (code *)*registry;
   while (pcVar2 != (code *)0x0) {
-    (*pcVar2)(&g_pLecShareServices,param_2[1]);
-    puVar1 = param_2 + 2;
-    param_2 = param_2 + 2;
+    (*pcVar2)(&g_pLecShareServices,registry[1]);
+    puVar1 = registry + 2;
+    registry = registry + 2;
     pcVar2 = (code *)*puVar1;
   }
   g_dwPrivateData = 1;
@@ -145,7 +145,7 @@ uint __cdecl LecShare_Shutdown(void)
 /* ---- 0x004c1590  LecShare_Reset ---- */
 /* Zeroes the 0x605-dword registry and stores the application name and version */
 
-void __cdecl LecShare_Reset(uint param_1,uint param_2)
+void __cdecl LecShare_Reset(uint version,uint flags)
 
 {
   int iVar1;
@@ -156,8 +156,8 @@ void __cdecl LecShare_Reset(uint param_1,uint param_2)
     *puVar2 = 0;
     puVar2 = puVar2 + 1;
   }
-  UINT_008d56ec = param_1;
-  UINT_008d56f0 = param_2;
+  UINT_008d56ec = version;
+  UINT_008d56f0 = flags;
   return;
 }
 
@@ -207,7 +207,7 @@ int __cdecl LecShare_Publish(char *name,void *vtable)
    (g_pLecShareServices); the original is Unpublish (the bridge takes no bare one-word name; as
    LecShare_Subscribe)); was LecShare_Unregister. */
 
-uint __cdecl LecShare_Unpublish(uint param_1)
+uint __cdecl LecShare_Unpublish(uint name)
 
 {
   int iVar1;
@@ -215,7 +215,7 @@ uint __cdecl LecShare_Unpublish(uint param_1)
   uint uVar3;
   
   uVar3 = UINT_008d56f8;
-  Str_StripNonPrintable((byte *)param_1);
+  Str_StripNonPrintable((byte *)name);
   puVar2 = &UINT_008d56f0 + uVar3 * 3;
   if (uVar3 == 0) {
     return 1;
@@ -223,7 +223,7 @@ uint __cdecl LecShare_Unpublish(uint param_1)
   do {
     uVar3 = uVar3 - 1;
     if ((char *)*puVar2 != (char *)0x0) {
-      iVar1 = Str_CompareNoCase((char *)*puVar2,(char *)param_1);
+      iVar1 = Str_CompareNoCase((char *)*puVar2,(char *)name);
       if (iVar1 == 0) {
         uVar3 = puVar2[2];
         *puVar2 = 0;
@@ -372,7 +372,7 @@ void * __cdecl LecShare_Subscribe(char *name,char *pattern)
    original is Unsubscribe (the bridge takes no bare one-word name; as LecShare_Subscribe)); was
    LecShare_Release. */
 
-uint __cdecl LecShare_Unsubscribe(uint param_1)
+uint __cdecl LecShare_Unsubscribe(uint handle)
 
 {
   uint *puVar1;
@@ -385,7 +385,7 @@ uint __cdecl LecShare_Unsubscribe(uint param_1)
   }
   do {
     uVar2 = uVar2 - 1;
-    if (param_1 == puVar1[1]) {
+    if (handle == puVar1[1]) {
       puVar1[2] = puVar1[2] - 1;
       return 0;
     }
@@ -399,42 +399,42 @@ uint __cdecl LecShare_Unsubscribe(uint param_1)
    remaster's GrimFandango (Linux): strings: "LecShare:BatchSubscribe Couldn't subscribe to %s
    interface.); was LecShare_BatchSubscribe. */
 
-uint __cdecl BatchSubscribe(int *param_1,char *param_2)
+uint __cdecl BatchSubscribe(int *batch,char *name)
 
 {
   int *piVar1;
   char *pattern;
   void *pvVar2;
   
-  if (*param_1 == 0) {
+  if (*batch == 0) {
     return 0;
   }
   while( true ) {
-    pattern = (char *)param_1[2];
+    pattern = (char *)batch[2];
     if ((pattern == (char *)0x0) || (*pattern == '\0')) {
-      *(undefined4 *)*param_1 = 0;
+      *(undefined4 *)*batch = 0;
     }
     else {
-      pvVar2 = LecShare_Subscribe((char *)param_1[1],pattern);
-      *(void **)*param_1 = pvVar2;
+      pvVar2 = LecShare_Subscribe((char *)batch[1],pattern);
+      *(void **)*batch = pvVar2;
     }
-    if (((*(int *)*param_1 == 0) && (param_2 != (char *)0x0)) && (*param_2 != '\0')) {
-      pvVar2 = LecShare_Subscribe((char *)param_1[1],param_2);
-      *(void **)*param_1 = pvVar2;
+    if (((*(int *)*batch == 0) && (name != (char *)0x0)) && (*name != '\0')) {
+      pvVar2 = LecShare_Subscribe((char *)batch[1],name);
+      *(void **)*batch = pvVar2;
     }
-    if (*(int *)*param_1 == 0) {
-      pvVar2 = LecShare_Subscribe((char *)param_1[1],(char *)0x0);
-      *(void **)*param_1 = pvVar2;
+    if (*(int *)*batch == 0) {
+      pvVar2 = LecShare_Subscribe((char *)batch[1],(char *)0x0);
+      *(void **)*batch = pvVar2;
     }
-    if (*(int *)*param_1 == 0) break;
-    piVar1 = param_1 + 3;
-    param_1 = param_1 + 3;
+    if (*(int *)*batch == 0) break;
+    piVar1 = batch + 3;
+    batch = batch + 3;
     if (*piVar1 == 0) {
       return 0;
     }
   }
   if (PTR_LecShare_Nop_004f1220 != (undefined *)0x0) {
-    (*(code *)PTR_LecShare_Nop_004f1220)(s_LecShare_BatchSubscribe_Couldn_t_004f125c,param_1[1]);
+    (*(code *)PTR_LecShare_Nop_004f1220)(s_LecShare_BatchSubscribe_Couldn_t_004f125c,batch[1]);
   }
   return 1;
 }
@@ -443,7 +443,7 @@ uint __cdecl BatchSubscribe(int *param_1,char *param_2)
 /* Original name GetCatalogEntry (the remaster's GrimFandango (Linux): aligned call in Subscribe);
    was LecShare_Subscribe. */
 
-uint __cdecl GetCatalogEntry(char *param_1,uint param_2)
+uint __cdecl GetCatalogEntry(char *type,uint index)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -464,44 +464,44 @@ uint __cdecl GetCatalogEntry(char *param_1,uint param_2)
   if (UINT_008d56f8 == 0) {
     return 0;
   }
-  if ((int)param_2 < 0) {
+  if ((int)index < 0) {
     return 0;
   }
   if (UINT_008d6f00 == 0) {
 LAB_004c1a7f:
     puVar6 = &UINT_008d56fc;
-    uVar5 = param_2;
+    uVar5 = index;
   }
   else {
-    if (param_1 == (char *)0x0) {
+    if (type == (char *)0x0) {
       if (g_bGetCatalogEntry_pLastType != '\0') goto LAB_004c1a7f;
     }
     else {
-      iVar2 = Str_CompareNoCase(param_1,&g_bGetCatalogEntry_pLastType);
+      iVar2 = Str_CompareNoCase(type,&g_bGetCatalogEntry_pLastType);
       if (iVar2 != 0) goto LAB_004c1a7f;
     }
-    if (param_2 == UINT_008d6efc) {
+    if (index == UINT_008d6efc) {
       return *(uint *)UINT_008d6f00;
     }
-    if ((int)param_2 < (int)UINT_008d6efc) {
+    if ((int)index < (int)UINT_008d6efc) {
       local_4 = 0xffffffff;
       uVar7 = 0xffffffff;
       uVar4 = (int)(UINT_008d6f00 - 0x8d56fc) / 0xc;
       puVar6 = (uint *)(UINT_008d6f00 - 0xc);
-      uVar5 = (UINT_008d6efc - param_2) - 1;
+      uVar5 = (UINT_008d6efc - index) - 1;
     }
     else {
       uVar4 = uVar4 + (-1 - (int)(UINT_008d6f00 - 0x8d56fc) / 0xc);
       puVar6 = (uint *)(UINT_008d6f00 + 0xc);
-      uVar5 = param_2 + (-1 - UINT_008d6efc);
+      uVar5 = index + (-1 - UINT_008d6efc);
     }
   }
-  UINT_008d6efc = param_2;
-  if (param_1 == (char *)0x0) {
+  UINT_008d6efc = index;
+  if (type == (char *)0x0) {
     g_bGetCatalogEntry_pLastType = '\0';
   }
   else {
-    strncpy((uint *)&g_bGetCatalogEntry_pLastType,(uint *)param_1,99);
+    strncpy((uint *)&g_bGetCatalogEntry_pLastType,(uint *)type,99);
     DAT_008d36e3 = 0;
   }
   if (uVar4 == 0) {
@@ -511,7 +511,7 @@ LAB_004c1a7f:
   do {
     uVar4 = uVar4 - 1;
     if ((byte *)*puVar6 != (byte *)0x0) {
-      if (param_1 == (char *)0x0) {
+      if (type == (char *)0x0) {
 LAB_004c1b0c:
         bVar9 = uVar5 == 0;
         uVar5 = uVar5 - 1;
@@ -523,7 +523,7 @@ LAB_004c1b0c:
       else {
         iVar2 = Str_ModuleNameLength((byte *)*puVar6);
         uVar3 = 0xffffffff;
-        pcVar8 = param_1;
+        pcVar8 = type;
         do {
           if (uVar3 == 0) break;
           uVar3 = uVar3 - 1;
@@ -533,7 +533,7 @@ LAB_004c1b0c:
         uVar7 = local_4;
         if (~uVar3 - 1 == iVar2) {
           iVar2 = Str_ModuleNameLength((byte *)*puVar6);
-          iVar2 = Str_CompareNoCaseN(param_1,(char *)*puVar6,iVar2);
+          iVar2 = Str_CompareNoCaseN(type,(char *)*puVar6,iVar2);
           if (iVar2 == 0) goto LAB_004c1b0c;
         }
       }
@@ -552,7 +552,7 @@ LAB_004c1b0c:
 /* Original name GetCatalogCount (the remaster's GrimFandango (Linux): aligned call in Subscribe);
    was LecShare_CountMatching. */
 
-uint __cdecl GetCatalogCount(char *param_1)
+uint __cdecl GetCatalogCount(char *type)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -572,14 +572,14 @@ uint __cdecl GetCatalogCount(char *param_1)
       return local_4;
     }
     if ((byte *)*puVar5 != (byte *)0x0) {
-      if (param_1 == (char *)0x0) {
+      if (type == (char *)0x0) {
 LAB_004c1bc7:
         local_4 = local_4 + 1;
       }
       else {
         iVar2 = Str_ModuleNameLength((byte *)*puVar5);
         uVar3 = 0xffffffff;
-        pcVar6 = param_1;
+        pcVar6 = type;
         do {
           if (uVar3 == 0) break;
           uVar3 = uVar3 - 1;
@@ -588,7 +588,7 @@ LAB_004c1bc7:
         } while (cVar1 != '\0');
         if (~uVar3 - 1 == iVar2) {
           iVar2 = Str_ModuleNameLength((byte *)*puVar5);
-          iVar2 = Str_CompareNoCaseN(param_1,(char *)*puVar5,iVar2);
+          iVar2 = Str_CompareNoCaseN(type,(char *)*puVar5,iVar2);
           if (iVar2 == 0) goto LAB_004c1bc7;
         }
       }
@@ -601,7 +601,7 @@ LAB_004c1bc7:
 
 
 /* ---- 0x004c1be0  LecShare_FindEntry ---- */
-uint * __cdecl LecShare_FindEntry(uint param_1)
+uint * __cdecl LecShare_FindEntry(uint name)
 
 {
   int iVar1;
@@ -615,7 +615,7 @@ uint * __cdecl LecShare_FindEntry(uint param_1)
   }
   do {
     uVar3 = uVar3 - 1;
-    iVar1 = Str_CompareNoCase((char *)*puVar2,(char *)param_1);
+    iVar1 = Str_CompareNoCase((char *)*puVar2,(char *)name);
     if (iVar1 == 0) {
       return puVar2;
     }

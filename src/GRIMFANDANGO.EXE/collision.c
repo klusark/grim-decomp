@@ -146,30 +146,30 @@ Collision_PointInBox
    corners of the box +0x60 .. +0x70 grown by the radius, transformed by the matrix)); was
    Collision_BoxCorners. */
 
-void __cdecl FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *vec)
+void __cdecl FindObjectCorners(int box,float pad,float *matrix,float z,float *vec)
 
 {
   int iVar1;
   float *pfVar2;
   
-  if (0.999 <= param_3[8]) {
-    *vec = *(float *)(param_1 + 0x60) - param_2;
-    vec[1] = *(float *)(param_1 + 100) - param_2;
-    vec[2] = *(float *)(param_1 + 0x68);
+  if (0.999 <= matrix[8]) {
+    *vec = *(float *)(box + 0x60) - pad;
+    vec[1] = *(float *)(box + 100) - pad;
+    vec[2] = *(float *)(box + 0x68);
     pfVar2 = vec + 0xc;
     iVar1 = 4;
-    vec[3] = param_2 + *(float *)(param_1 + 0x6c);
-    vec[4] = *(float *)(param_1 + 100) - param_2;
-    vec[5] = *(float *)(param_1 + 0x68);
-    vec[6] = param_2 + *(float *)(param_1 + 0x6c);
-    vec[7] = param_2 + *(float *)(param_1 + 0x70);
-    vec[8] = *(float *)(param_1 + 0x68);
-    vec[9] = *(float *)(param_1 + 0x60) - param_2;
-    vec[10] = param_2 + *(float *)(param_1 + 0x70);
-    vec[0xb] = *(float *)(param_1 + 0x68);
+    vec[3] = pad + *(float *)(box + 0x6c);
+    vec[4] = *(float *)(box + 100) - pad;
+    vec[5] = *(float *)(box + 0x68);
+    vec[6] = pad + *(float *)(box + 0x6c);
+    vec[7] = pad + *(float *)(box + 0x70);
+    vec[8] = *(float *)(box + 0x68);
+    vec[9] = *(float *)(box + 0x60) - pad;
+    vec[10] = pad + *(float *)(box + 0x70);
+    vec[0xb] = *(float *)(box + 0x68);
     do {
-      rdMatrix_TransformPoint34Acc(vec,param_3);
-      vec[2] = param_4;
+      rdMatrix_TransformPoint34Acc(vec,matrix);
+      vec[2] = z;
       *pfVar2 = 1.4013e-45f;
       pfVar2 = pfVar2 + 1;
       vec = vec + 3;
@@ -277,7 +277,7 @@ LAB_00492801:
 /* ---- 0x00492a50  Collision_PickDetour ---- */
 /* Chooses the detour corner that keeps the path shortest */
 
-int __cdecl Collision_PickDetour(float *param_1,float *param_2,int param_3)
+int __cdecl Collision_PickDetour(float *from,float *to,int corners)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -293,16 +293,15 @@ int __cdecl Collision_PickDetour(float *param_1,float *param_2,int param_3)
   iVar4 = -1;
   local_4 = 0x7f7fffff;
   iVar3 = 0;
-  pfVar2 = (float *)(param_3 + 8);
-  piVar5 = (int *)(param_3 + 0x30);
+  pfVar2 = (float *)(corners + 8);
+  piVar5 = (int *)(corners + 0x30);
   do {
     if ((*piVar5 != 0) &&
-       (fVar1 = (pfVar2[-2] - *param_2) * (pfVar2[-2] - *param_2) +
-                (*pfVar2 - param_2[2]) * (*pfVar2 - param_2[2]) +
-                (pfVar2[-1] - param_2[1]) * (pfVar2[-1] - param_2[1]) +
-                (param_1[2] - *pfVar2) * (param_1[2] - *pfVar2) +
-                (param_1[1] - pfVar2[-1]) * (param_1[1] - pfVar2[-1]) +
-                (*param_1 - pfVar2[-2]) * (*param_1 - pfVar2[-2]), fVar1 < PUN(float,local_4))) {
+       (fVar1 = (pfVar2[-2] - *to) * (pfVar2[-2] - *to) +
+                (*pfVar2 - to[2]) * (*pfVar2 - to[2]) + (pfVar2[-1] - to[1]) * (pfVar2[-1] - to[1])
+                + (from[2] - *pfVar2) * (from[2] - *pfVar2) +
+                  (from[1] - pfVar2[-1]) * (from[1] - pfVar2[-1]) +
+                  (*from - pfVar2[-2]) * (*from - pfVar2[-2]), fVar1 < PUN(float,local_4))) {
       iVar4 = iVar3;
       local_4 = PUN(uint,(float)fVar1);
     }
@@ -321,36 +320,36 @@ int __cdecl Collision_PickDetour(float *param_1,float *param_2,int param_3)
 uint __cdecl Collision_UpdateMovedActors(void)
 
 {
-  Actor *pAVar1;
-  int iVar2;
-  void **ppvVar3;
-  int iVar4;
+  Actor *self;
+  int iVar1;
+  void **ppvVar2;
+  int iVar3;
+  float *pfVar4;
   float *pfVar5;
-  float *pfVar6;
-  bool bVar7;
+  bool bVar6;
   
-  iVar4 = 0;
+  iVar3 = 0;
   if (0 < g_nTotActors) {
-    ppvVar3 = &g_pDrawableActors;
+    ppvVar2 = &g_pDrawableActors;
     do {
-      pAVar1 = *ppvVar3;
-      iVar2 = 0xc;
-      bVar7 = true;
-      pfVar5 = pAVar1->aPos;
-      pfVar6 = pAVar1->aPrevPos;
+      self = *ppvVar2;
+      iVar1 = 0xc;
+      bVar6 = true;
+      pfVar4 = self->aPos;
+      pfVar5 = self->aPrevPos;
       do {
-        if (iVar2 == 0) break;
-        iVar2 = iVar2 + -1;
-        bVar7 = *(char *)pfVar5 == *(char *)pfVar6;
+        if (iVar1 == 0) break;
+        iVar1 = iVar1 + -1;
+        bVar6 = *(char *)pfVar4 == *(char *)pfVar5;
+        pfVar4 = (float *)((int)pfVar4 + 1);
         pfVar5 = (float *)((int)pfVar5 + 1);
-        pfVar6 = (float *)((int)pfVar6 + 1);
-      } while (bVar7);
-      if (!bVar7) {
-        Collision_TestActorAgainstOthers(pAVar1);
+      } while (bVar6);
+      if (!bVar6) {
+        Collision_TestActorAgainstOthers(self);
       }
-      iVar4 = iVar4 + 1;
-      ppvVar3 = ppvVar3 + 1;
-    } while (iVar4 < g_nTotActors);
+      iVar3 = iVar3 + 1;
+      ppvVar2 = ppvVar2 + 1;
+    } while (iVar3 < g_nTotActors);
   }
   return 1;
 }
@@ -362,7 +361,7 @@ uint __cdecl Collision_UpdateMovedActors(void)
 /* Ported to C (build/overrides_big_collision_others.c): differential test vs model stand-ins, 0
    differences (docs/notes/big_collision_others.md). */
 
-uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
+uint __cdecl Collision_TestActorAgainstOthers(Actor *self)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -405,19 +404,19 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
   #define local_8 (*(uint *)(_frame + (0xc0 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0xc0 - 0x4)))
   
-  iVar10 = *(int *)((int)param_1->pCostumes->pMainModel + 4);
-  pfVar6 = sputActor_GetOrientMatrix(param_1);
+  iVar10 = *(int *)((int)self->pCostumes->pMainModel + 4);
+  pfVar6 = sputActor_GetOrientMatrix(self);
   rdMatrix_TransformVector34(local_98,(float *)(iVar10 + 0x78),pfVar6);
-  fVar3 = local_98[0] + param_1->aPos[0];
+  fVar3 = local_98[0] + self->aPos[0];
   local_5c[2] = 0.0f;
-  local_68[0] = param_1->aPos[1] + local_98[1];
-  local_68[1] = param_1->aPos[2] + local_98[2];
-  fVar4 = *(float *)(iVar10 + 0x5c) * param_1->pExtra->flCollisionScale;
+  local_68[0] = self->aPos[1] + local_98[1];
+  local_68[1] = self->aPos[2] + local_98[2];
+  fVar4 = *(float *)(iVar10 + 0x5c) * self->pExtra->flCollisionScale;
   if (0 < g_nTotActors) {
     local_74[1] = PUN(float,&g_pDrawableActors);
     do {
       actor = *(Actor **)local_74[1];
-      if (((actor != param_1) && (actor->pExtra != (ActorExtra *)0x0)) &&
+      if (((actor != self) && (actor->pExtra != (ActorExtra *)0x0)) &&
          (actor->pExtra->nCollisionMode != 0)) {
         iVar10 = *(int *)((int)actor->pCostumes->pMainModel + 4);
         pfVar6 = (float *)(iVar10 + 0x78);
@@ -430,28 +429,28 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
         local_8c[0] = *(float *)(iVar10 + 0x5c) * actor->pExtra->flCollisionScale;
         if (fVar12 < local_8c[0] + fVar4) {
           if (actor->pExtra->nCollisionMode == 2) {
-            param_1->pExtra->nCollided = 1;
-            pfVar6 = param_1->aPos;
+            self->pExtra->nCollided = 1;
+            pfVar6 = self->aPos;
             actor->pExtra->nCollided = 1;
             local_2c[2] = fVar3 - local_68[2];
             local_20[0] = local_68[0] - local_5c[0];
             local_20[1] = local_68[1] - local_5c[1];
             _DAT_008ca348 = *pfVar6;
-            _DAT_008ca34c = param_1->aPos[1];
-            _DAT_008ca350 = param_1->aPos[2];
+            _DAT_008ca34c = self->aPos[1];
+            _DAT_008ca350 = self->aPos[2];
             rdVector_Normalize3Acc(local_2c + 2);
-            uVar5 = param_1->dwMoveFlags;
+            uVar5 = self->dwMoveFlags;
             local_20[2] = (local_2c[2] * (1.0f - (fVar12 - local_8c[0]) / fVar4) * fVar4 + fVar3) -
                           local_98[0];
-            sputActor_SetActorPosition(param_1,local_20 + 2);
+            sputActor_SetActorPosition(self,local_20 + 2);
             _DAT_008ca338 = *pfVar6;
-            _DAT_008ca33c = param_1->aPos[1];
-            _DAT_008ca340 = param_1->aPos[2];
+            _DAT_008ca33c = self->aPos[1];
+            _DAT_008ca340 = self->aPos[2];
             FLOAT_008ca320 = *pfVar6;
-            FLOAT_008ca324 = param_1->aPos[1];
-            FLOAT_008ca328 = param_1->aPos[2];
+            FLOAT_008ca324 = self->aPos[1];
+            FLOAT_008ca328 = self->aPos[2];
             if ((uVar5 & 1) != 0) {
-              param_1->dwMoveFlags = param_1->dwMoveFlags | 1;
+              self->dwMoveFlags = self->dwMoveFlags | 1;
             }
           }
           else {
@@ -473,13 +472,13 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
                  ((local_a4[0] <= local_44[2] ||
                   (*(float *)(iVar10 + 0x6c) * pAVar2->flCollisionScale + fVar4 <= local_a4[0]))))))
                || (local_2c[1] <= local_a4[2])) goto LAB_004940c6;
-            param_1->pExtra->nCollided = 1;
-            _DAT_008ca348 = param_1->aPos[0];
-            _DAT_008ca34c = param_1->aPos[1];
-            _DAT_008ca350 = param_1->aPos[2];
-            local_8c[1] = (local_98[0] + param_1->aPrevPos[0]) - local_68[2];
-            local_8c[2] = (param_1->aPrevPos[1] + local_98[1]) - local_5c[0];
-            local_80[0] = (param_1->aPrevPos[2] + local_98[2]) - local_5c[1];
+            self->pExtra->nCollided = 1;
+            _DAT_008ca348 = self->aPos[0];
+            _DAT_008ca34c = self->aPos[1];
+            _DAT_008ca350 = self->aPos[2];
+            local_8c[1] = (local_98[0] + self->aPrevPos[0]) - local_68[2];
+            local_8c[2] = (self->aPrevPos[1] + local_98[1]) - local_5c[0];
+            local_80[0] = (self->aPrevPos[2] + local_98[2]) - local_5c[1];
             pfVar8 = sputActor_GetOrientMatrix(actor);
             pfVar7 = local_8c + 1;
             pfVar11 = local_50 + 2;
@@ -520,34 +519,34 @@ uint __cdecl Collision_TestActorAgainstOthers(Actor *param_1)
             rdMatrix_TransformPoint34Acc(local_80 + 1,pfVar6);
             local_80[1] = local_80[1] - local_98[0];
             local_80[2] = local_80[2] - local_98[1];
-            param_1->aPrevPos[0] = param_1->aPos[0];
-            fVar12 = param_1->aPos[2];
-            param_1->aPrevPos[1] = param_1->aPos[1];
-            param_1->aPrevPos[2] = fVar12;
+            self->aPrevPos[0] = self->aPos[0];
+            fVar12 = self->aPos[2];
+            self->aPrevPos[1] = self->aPos[1];
+            self->aPrevPos[2] = fVar12;
             pfVar6 = sputActor_GetOrientMatrix(actor);
             rdMatrix_TransformPoint34Acc(&FLOAT_008ca320,pfVar6);
             FLOAT_008ca320 = FLOAT_008ca320 - local_98[0];
             FLOAT_008ca324 = FLOAT_008ca324 - local_98[1];
             FLOAT_008ca328 = FLOAT_008ca328 - local_98[2];
-            uVar5 = param_1->dwMoveFlags;
-            sputActor_SetActorPosition(param_1,local_80 + 1);
-            _DAT_008ca338 = param_1->aPos[0];
-            _DAT_008ca33c = param_1->aPos[1];
-            _DAT_008ca340 = param_1->aPos[2];
+            uVar5 = self->dwMoveFlags;
+            sputActor_SetActorPosition(self,local_80 + 1);
+            _DAT_008ca338 = self->aPos[0];
+            _DAT_008ca33c = self->aPos[1];
+            _DAT_008ca340 = self->aPos[2];
             if ((uVar5 & 1) != 0) {
-              pAVar2 = param_1->pExtra;
-              param_1->dwMoveFlags = param_1->dwMoveFlags | 1;
+              pAVar2 = self->pExtra;
+              self->dwMoveFlags = self->dwMoveFlags | 1;
               pafVar1 = pAVar2->aPath + pAVar2->nPathNodes + -1;
               local_c = (uint)(*pafVar1)[0];
               local_8 = (uint)(*pafVar1)[1];
               local_4 = (uint)(*pafVar1)[2];
-              sputActor_ActorWalkTo(param_1,(int)&local_c,pAVar2->aDest,actor);
+              sputActor_ActorWalkTo(self,(int)&local_c,pAVar2->aDest,actor);
             }
           }
           in_stack_ffffff28 = 6.727223e-39f;
-          in_stack_ffffff2c = param_1;
+          in_stack_ffffff2c = self;
           sputLua_CollisionHandler
-                    ((int)param_1,(int)actor,(float *)&DAT_008ca348,&FLOAT_008ca320,
+                    ((int)self,(int)actor,(float *)&DAT_008ca348,&FLOAT_008ca320,
                      (float *)&DAT_008ca338);
         }
       }

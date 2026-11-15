@@ -36,10 +36,10 @@ uint __cdecl SmushPlay_Resume(void)
 /* Original name SmushPlay_SysConfigureColorLookup (the remaster's GrimFandango (Linux): aligned
    call in sputSmush_Periodic); was Smush_Idle. */
 
-void __cdecl SmushPlay_SysConfigureColorLookup(uint param_1)
+void __cdecl SmushPlay_SysConfigureColorLookup(uint lookup)
 
 {
-  _g_pSmushplay_UserLookup = param_1;
+  _g_pSmushplay_UserLookup = lookup;
   return;
 }
 
@@ -245,10 +245,10 @@ int __cdecl SmushPlay_UpdateMovie(int *outDone)
 /* Original name SmushPlay_SetTranslationTable (the remaster's GrimFandango (Linux): aligned call in
    sputSmush_Periodic, sputSmush_StartMovie); was Smush_SetColorTable. */
 
-void __cdecl SmushPlay_SetTranslationTable(uint param_1)
+void __cdecl SmushPlay_SetTranslationTable(uint table)
 
 {
-  g_dwSmushPlay_TranslationTable = param_1;
+  g_dwSmushPlay_TranslationTable = table;
   return;
 }
 
@@ -256,20 +256,20 @@ void __cdecl SmushPlay_SetTranslationTable(uint param_1)
 /* Original name SmushPlay_GetFrameRect (the remaster's GrimFandango (Linux): aligned call in
    sputSmush_Periodic); was Smush_GetFrameRect. */
 
-uint __cdecl SmushPlay_GetFrameRect(uint *param_1,uint *param_2)
+uint __cdecl SmushPlay_GetFrameRect(uint *outWidth,uint *outHeight)
 
 {
-  if (param_1 != (uint *)0x0) {
-    *param_1 = UINT_008d11e0;
-    param_1[1] = UINT_008d11e4;
-    param_1[2] = UINT_008d11e8;
-    param_1[3] = UINT_008d11ec;
+  if (outWidth != (uint *)0x0) {
+    *outWidth = UINT_008d11e0;
+    outWidth[1] = UINT_008d11e4;
+    outWidth[2] = UINT_008d11e8;
+    outWidth[3] = UINT_008d11ec;
   }
-  if (param_2 != (uint *)0x0) {
-    *param_2 = UINT_008d1638;
-    param_2[1] = UINT_008d163c;
-    param_2[2] = UINT_008d1640;
-    param_2[3] = UINT_008d1644;
+  if (outHeight != (uint *)0x0) {
+    *outHeight = UINT_008d1638;
+    outHeight[1] = UINT_008d163c;
+    outHeight[2] = UINT_008d1640;
+    outHeight[3] = UINT_008d1644;
   }
   return 0;
 }
@@ -284,19 +284,19 @@ int __cdecl SmushPlay_GetMovieLength(char *path)
 
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  longlong lVar2;
+  int file;
+  longlong lVar1;
   #define auStack_428 (*(undefined1 (*)[2])(_frame + (0x440 - 0x428)))
   #define sStack_426 (*(short *)(_frame + (0x440 - 0x426)))
   
-  iVar1 = (*(code *)*g_pSmushPlay_file_services)(path,&DAT_004dda54);
-  if (iVar1 == 0) {
+  file = (*(code *)*g_pSmushPlay_file_services)(path,&DAT_004dda54);
+  if (file == 0) {
     return 0;
   }
-  smushplay_GetInfo(iVar1,(int)auStack_428);
-  (*(code *)g_pSmushPlay_file_services[1])(iVar1);
-  lVar2 = FTOL((float10)(int)sStack_426 * (float10)66.666664f);
-  return (int)lVar2;
+  smushplay_GetInfo(file,(int)auStack_428);
+  (*(code *)g_pSmushPlay_file_services[1])(file);
+  lVar1 = FTOL((float10)(int)sStack_426 * (float10)66.666664f);
+  return (int)lVar1;
 }
 #undef auStack_428
 #undef sStack_426

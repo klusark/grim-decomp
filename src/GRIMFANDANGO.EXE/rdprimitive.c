@@ -121,7 +121,7 @@ uint __cdecl rdPolyline_Draw(int thing,float *b)
 /* ---- 0x00472360  rdPolyline_DrawFace ---- */
 /* Allocates a cache mesh for one polyline face, clips and adds it */
 
-void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4 *param_4)
+void __cdecl rdPolyline_DrawFace(int thing,int polyline,uint param_3,undefined4 *outUv)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -130,13 +130,13 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
   byte flags;
   ProcEntry *pPVar3;
   int iVar4;
+  uint texMode;
   uint uVar5;
-  uint uVar6;
-  uint uVar7;
-  float *pfVar8;
-  int iVar9;
-  uint uVar10;
-  bool bVar11;
+  uint geoMode;
+  float *pfVar6;
+  int iVar7;
+  uint uVar8;
+  bool bVar9;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
@@ -149,29 +149,29 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
     local_4 = (uint)pPVar3->pVertices;
     local_1c = (uint)pPVar3->pTexVertices;
     local_18 = (uint)pPVar3->pIntensities;
-    *param_4 = *(undefined4 *)(param_2 + 0x14);
-    param_4[1] = *(undefined4 *)(param_2 + 0x18);
-    param_4[2] = *(undefined4 *)(param_2 + 0x1c);
-    uVar6 = *(uint *)(param_2 + 8);
-    uVar10 = g_nRdroid_curGeometryMode;
-    if ((int)uVar6 <= g_nRdroid_curGeometryMode) {
-      uVar10 = uVar6;
+    *outUv = *(undefined4 *)(polyline + 0x14);
+    outUv[1] = *(undefined4 *)(polyline + 0x18);
+    outUv[2] = *(undefined4 *)(polyline + 0x1c);
+    uVar5 = *(uint *)(polyline + 8);
+    uVar8 = g_nRdroid_curGeometryMode;
+    if ((int)uVar5 <= g_nRdroid_curGeometryMode) {
+      uVar8 = uVar5;
     }
-    uVar7 = *(uint *)(param_1 + 0x38);
-    if (((int)uVar10 < (int)*(uint *)(param_1 + 0x38)) &&
-       (uVar7 = uVar6, g_nRdroid_curGeometryMode < (int)uVar6)) {
-      uVar7 = g_nRdroid_curGeometryMode;
+    geoMode = *(uint *)(thing + 0x38);
+    if (((int)uVar8 < (int)*(uint *)(thing + 0x38)) &&
+       (geoMode = uVar5, g_nRdroid_curGeometryMode < (int)uVar5)) {
+      geoMode = g_nRdroid_curGeometryMode;
     }
-    pPVar3->nGeometryMode = uVar7;
+    pPVar3->nGeometryMode = geoMode;
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
        (g_pRdCamera_CurCamera->flAmbientLight < 1.0f)) {
-      iVar1 = *(int *)(param_2 + 0xc);
-      iVar9 = g_nRdroid_curLightingMode;
+      iVar1 = *(int *)(polyline + 0xc);
+      iVar7 = g_nRdroid_curLightingMode;
       if (iVar1 <= g_nRdroid_curLightingMode) {
-        iVar9 = iVar1;
+        iVar7 = iVar1;
       }
-      iVar4 = *(int *)(param_1 + 0x3c);
-      if ((iVar9 < iVar4) && (iVar4 = iVar1, g_nRdroid_curLightingMode < iVar1)) {
+      iVar4 = *(int *)(thing + 0x3c);
+      if ((iVar7 < iVar4) && (iVar4 = iVar1, g_nRdroid_curLightingMode < iVar1)) {
         iVar4 = g_nRdroid_curLightingMode;
       }
       pPVar3->nLightingMode = iVar4;
@@ -179,19 +179,19 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
     else {
       pPVar3->nLightingMode = 0;
     }
-    uVar6 = *(uint *)(param_2 + 0x10);
-    uVar10 = g_nRdroid_curTextureMode;
-    if ((int)uVar6 <= g_nRdroid_curTextureMode) {
-      uVar10 = uVar6;
+    uVar5 = *(uint *)(polyline + 0x10);
+    uVar8 = g_nRdroid_curTextureMode;
+    if ((int)uVar5 <= g_nRdroid_curTextureMode) {
+      uVar8 = uVar5;
     }
-    uVar5 = *(uint *)(param_1 + 0x40);
-    if (((int)uVar10 < (int)*(uint *)(param_1 + 0x40)) &&
-       (uVar5 = uVar6, g_nRdroid_curTextureMode < (int)uVar6)) {
-      uVar5 = g_nRdroid_curTextureMode;
+    texMode = *(uint *)(thing + 0x40);
+    if (((int)uVar8 < (int)*(uint *)(thing + 0x40)) &&
+       (texMode = uVar5, g_nRdroid_curTextureMode < (int)uVar5)) {
+      texMode = g_nRdroid_curTextureMode;
     }
-    pPVar3->nTextureMode = uVar5;
-    rdPrimit3_ClipFace((uint)g_pRdCamera_CurCamera->pFrustum,uVar7,pPVar3->nLightingMode,uVar5,
-                       param_4,&local_2c,(float *)(param_2 + 0x28));
+    pPVar3->nTextureMode = texMode;
+    rdPrimit3_ClipFace((uint)g_pRdCamera_CurCamera->pFrustum,geoMode,pPVar3->nLightingMode,texMode,
+                       outUv,&local_2c,(float *)(polyline + 0x28));
     if (2 < local_2c) {
       (*g_pRdCamera_CurCamera->pfnProjectLst)(local_4,local_20,local_2c);
       if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
@@ -202,10 +202,10 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
       }
       iVar1 = pPVar3->nLightingMode;
       if (iVar1 != 0) {
-        bVar11 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
+        bVar9 = g_dwRdColormap_pIdentityMap != g_dwRdColormap_pCurMap;
         if (pPVar3->flAlpha < 1.0f) {
           if (iVar1 == 2) {
-            if ((pPVar3->flLightIndex < 1.0f) || (bVar11)) {
+            if ((pPVar3->flLightIndex < 1.0f) || (bVar9)) {
               if (pPVar3->flLightIndex <= 0.0f) {
                 pPVar3->nLightingMode = 1;
               }
@@ -215,19 +215,19 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
             }
           }
           else if (iVar1 == 3) {
-            pfVar8 = pPVar3->pIntensities;
-            fVar2 = *pfVar8;
-            uVar6 = 1;
+            pfVar6 = pPVar3->pIntensities;
+            fVar2 = *pfVar6;
+            uVar5 = 1;
             if (1 < local_2c) {
               do {
-                pfVar8 = pfVar8 + 1;
-                if (*pfVar8 != fVar2) break;
-                uVar6 = uVar6 + 1;
-              } while (uVar6 < local_2c);
+                pfVar6 = pfVar6 + 1;
+                if (*pfVar6 != fVar2) break;
+                uVar5 = uVar5 + 1;
+              } while (uVar5 < local_2c);
             }
-            if (uVar6 == local_2c) {
+            if (uVar5 == local_2c) {
               if (fVar2 == 1.0f) {
-                if (bVar11) {
+                if (bVar9) {
                   pPVar3->nLightingMode = 2;
                   pPVar3->flLightIndex = 1.0f;
                 }
@@ -246,7 +246,7 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
             }
           }
         }
-        else if (bVar11) {
+        else if (bVar9) {
           pPVar3->nLightingMode = 2;
           pPVar3->flLightIndex = 1.0f;
         }
@@ -261,11 +261,11 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
       if (2 < pPVar3->nLightingMode) {
         flags = flags | 4;
       }
-      pPVar3->nCel = *(int *)(param_1 + 0x30);
+      pPVar3->nCel = *(int *)(thing + 0x30);
       pPVar3->nBackFacing = 0;
-      pPVar3->dwFlags = *(uint *)(param_2 + 4);
-      pPVar3->flLight = *(float *)(param_2 + 0x30);
-      pPVar3->pMaterial = *(rdMaterial **)(param_2 + 0x20);
+      pPVar3->dwFlags = *(uint *)(polyline + 4);
+      pPVar3->flLight = *(float *)(polyline + 0x30);
+      pPVar3->pMaterial = *(rdMaterial **)(polyline + 0x20);
       rdCache_AddProcFace((void *)0x0,local_2c,flags);
     }
   }
@@ -380,20 +380,20 @@ int __cdecl rdSprite_DrawThing(rdThing *thing,void *sprite)
    neighbours agree, 0 disagree); was rdPolyline_New. */
 
 int __cdecl
-rdSprite_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
-            uint param_7,uint param_8,uint param_9,uint param_10)
+rdSprite_New(uint type,uint name,uint material,uint width,uint height,uint geoMode,uint lightMode,
+            uint texMode,uint extraLight,uint offset)
 
 {
-  int iVar1;
+  int sprite;
   
-  iVar1 = (*g_pRdroid_HS->pAlloc)(0xb8,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,DAT_004dde5c + 4)
-  ;
-  if (iVar1 == 0) {
+  sprite = (*g_pRdroid_HS->pAlloc)
+                     (0xb8,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,DAT_004dde5c + 4);
+  if (sprite == 0) {
     return 0;
   }
-  rdSprite_NewEntry(iVar1,param_2,param_1,(char *)param_3,param_4,param_5,param_6,param_7,param_8,
-                    param_9,(undefined4 *)param_10);
-  return iVar1;
+  rdSprite_NewEntry(sprite,name,type,(char *)material,width,height,geoMode,lightMode,texMode,
+                    extraLight,(undefined4 *)offset);
+  return sprite;
 }
 
 /* ---- 0x00472910  rdSprite_NewEntry ---- */
@@ -402,8 +402,8 @@ rdSprite_New(uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,ui
    rdMaterial_Load; 1 matched neighbours agree, 0 disagree); was rdPolyline_Init. */
 
 uint __cdecl
-rdSprite_NewEntry(int param_1,int param_2,uint param_3,char *param_4,uint param_5,uint param_6,
-                 uint param_7,uint param_8,uint param_9,uint param_10,undefined4 *param_11)
+rdSprite_NewEntry(int sprite,int name,uint type,char *material,uint width,uint height,uint geoMode,
+                 uint lightMode,uint texMode,uint extraLight,undefined4 *offset)
 
 {
   float fVar1;
@@ -413,80 +413,80 @@ rdSprite_NewEntry(int param_1,int param_2,uint param_3,char *param_4,uint param_
   uint uVar5;
   undefined4 *puVar6;
   
-  if (param_2 != 0) {
-    strncpy((uint *)param_1,(uint *)param_2,0x1f);
-    *(undefined1 *)(param_1 + 0x1f) = 0;
+  if (name != 0) {
+    strncpy((uint *)sprite,(uint *)name,0x1f);
+    *(undefined1 *)(sprite + 0x1f) = 0;
   }
-  *(uint *)(param_1 + 0x4c) = param_5;
-  *(uint *)(param_1 + 0x20) = param_3;
-  *(uint *)(param_1 + 0x50) = param_6;
-  *(undefined4 *)(param_1 + 0xac) = *param_11;
-  *(undefined4 *)(param_1 + 0xb0) = param_11[1];
-  *(undefined4 *)(param_1 + 0xb4) = param_11[2];
-  *(uint *)(param_1 + 0x68) = param_8;
-  *(uint *)(param_1 + 100) = param_7;
-  *(undefined4 *)(param_1 + 0x60) = 1;
-  *(uint *)(param_1 + 0x6c) = param_9;
-  *(uint *)(param_1 + 0x8c) = param_10;
-  prVar3 = rdMaterial_Load(param_4,0,0);
-  *(rdMaterial **)(param_1 + 0x7c) = prVar3;
+  *(uint *)(sprite + 0x4c) = width;
+  *(uint *)(sprite + 0x20) = type;
+  *(uint *)(sprite + 0x50) = height;
+  *(undefined4 *)(sprite + 0xac) = *offset;
+  *(undefined4 *)(sprite + 0xb0) = offset[1];
+  *(undefined4 *)(sprite + 0xb4) = offset[2];
+  *(uint *)(sprite + 0x68) = lightMode;
+  *(uint *)(sprite + 100) = geoMode;
+  *(undefined4 *)(sprite + 0x60) = 1;
+  *(uint *)(sprite + 0x6c) = texMode;
+  *(uint *)(sprite + 0x8c) = extraLight;
+  prVar3 = rdMaterial_Load(material,0,0);
+  *(rdMaterial **)(sprite + 0x7c) = prVar3;
   if (prVar3 == (rdMaterial *)0x0) {
     return 0;
   }
-  *(undefined4 *)(param_1 + 0x70) = 4;
+  *(undefined4 *)(sprite + 0x70) = 4;
   iVar4 = (*g_pRdroid_HS->pAlloc)
                     (0x10,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,DAT_004dde60 + 0x2a);
-  *(int *)(param_1 + 0x74) = iVar4;
+  *(int *)(sprite + 0x74) = iVar4;
   if (iVar4 != 0) {
-    if (*(int *)(param_1 + 100) < 4) {
+    if (*(int *)(sprite + 100) < 4) {
       uVar5 = 0;
-      if (*(int *)(param_1 + 0x70) != 0) {
+      if (*(int *)(sprite + 0x70) != 0) {
         do {
-          *(uint *)(*(int *)(param_1 + 0x74) + uVar5 * 4) = uVar5;
+          *(uint *)(*(int *)(sprite + 0x74) + uVar5 * 4) = uVar5;
           uVar5 = uVar5 + 1;
-        } while (uVar5 < *(uint *)(param_1 + 0x70));
+        } while (uVar5 < *(uint *)(sprite + 0x70));
       }
 LAB_00472af2:
-      *(float *)(param_1 + 0x54) = *(float *)(param_1 + 0x4c) * 0.5f;
-      *(float *)(param_1 + 0x58) = *(float *)(param_1 + 0x50) * 0.5f;
-      *(undefined4 *)(param_1 + 0x84) = 0;
-      *(undefined4 *)(param_1 + 0x88) = 0;
-      *(float *)(param_1 + 0x24) =
-           SQRT(*(float *)(param_1 + 0x58) * *(float *)(param_1 + 0x58) +
-                *(float *)(param_1 + 0x54) * *(float *)(param_1 + 0x54));
+      *(float *)(sprite + 0x54) = *(float *)(sprite + 0x4c) * 0.5f;
+      *(float *)(sprite + 0x58) = *(float *)(sprite + 0x50) * 0.5f;
+      *(undefined4 *)(sprite + 0x84) = 0;
+      *(undefined4 *)(sprite + 0x88) = 0;
+      *(float *)(sprite + 0x24) =
+           SQRT(*(float *)(sprite + 0x58) * *(float *)(sprite + 0x58) +
+                *(float *)(sprite + 0x54) * *(float *)(sprite + 0x54));
       return 1;
     }
     iVar4 = (*g_pRdroid_HS->pAlloc)
-                      (*(int *)(param_1 + 0x70) << 2,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,
+                      (*(int *)(sprite + 0x70) << 2,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,
                        DAT_004dde60 + 0x31);
-    *(int *)(param_1 + 0x78) = iVar4;
+    *(int *)(sprite + 0x78) = iVar4;
     if (iVar4 != 0) {
       uVar5 = 0;
-      if (*(int *)(param_1 + 0x70) != 0) {
+      if (*(int *)(sprite + 0x70) != 0) {
         do {
-          *(uint *)(*(int *)(param_1 + 0x74) + uVar5 * 4) = uVar5;
-          *(uint *)(*(int *)(param_1 + 0x78) + uVar5 * 4) = uVar5;
+          *(uint *)(*(int *)(sprite + 0x74) + uVar5 * 4) = uVar5;
+          *(uint *)(*(int *)(sprite + 0x78) + uVar5 * 4) = uVar5;
           uVar5 = uVar5 + 1;
-        } while (uVar5 < *(uint *)(param_1 + 0x70));
+        } while (uVar5 < *(uint *)(sprite + 0x70));
       }
       puVar6 = (undefined4 *)
                (*g_pRdroid_HS->pAlloc)
-                         (*(int *)(param_1 + 0x70) << 3,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,
+                         (*(int *)(sprite + 0x70) << 3,s_C__grimjedi_Libs_RDroid_Primitiv_004dde64,
                           DAT_004dde60 + 0x3d);
-      *(undefined4 **)(param_1 + 0xa8) = puVar6;
+      *(undefined4 **)(sprite + 0xa8) = puVar6;
       if (puVar6 != (undefined4 *)0x0) {
-        iVar4 = *(int *)(*(int *)(*(int *)(*(int *)(param_1 + 0x7c) + 0x68) + 0x1c) + 0x1c);
+        iVar4 = *(int *)(*(int *)(*(int *)(*(int *)(sprite + 0x7c) + 0x68) + 0x1c) + 0x1c);
         uVar5 = *(uint *)(iVar4 + 0x10);
         fVar1 = (float)*(uint *)(iVar4 + 0xc) - 0.5f;
         *puVar6 = 0x3f000000;
         fVar2 = (float)uVar5 - 0.5f;
-        *(float *)(*(int *)(param_1 + 0xa8) + 4) = fVar2;
-        *(float *)(*(int *)(param_1 + 0xa8) + 8) = fVar1;
-        *(float *)(*(int *)(param_1 + 0xa8) + 0xc) = fVar2;
-        *(float *)(*(int *)(param_1 + 0xa8) + 0x10) = fVar1;
-        *(undefined4 *)(*(int *)(param_1 + 0xa8) + 0x14) = 0x3f000000;
-        *(undefined4 *)(*(int *)(param_1 + 0xa8) + 0x18) = 0x3f000000;
-        *(undefined4 *)(*(int *)(param_1 + 0xa8) + 0x1c) = 0x3f000000;
+        *(float *)(*(int *)(sprite + 0xa8) + 4) = fVar2;
+        *(float *)(*(int *)(sprite + 0xa8) + 8) = fVar1;
+        *(float *)(*(int *)(sprite + 0xa8) + 0xc) = fVar2;
+        *(float *)(*(int *)(sprite + 0xa8) + 0x10) = fVar1;
+        *(undefined4 *)(*(int *)(sprite + 0xa8) + 0x14) = 0x3f000000;
+        *(undefined4 *)(*(int *)(sprite + 0xa8) + 0x18) = 0x3f000000;
+        *(undefined4 *)(*(int *)(sprite + 0xa8) + 0x1c) = 0x3f000000;
         goto LAB_00472af2;
       }
     }
@@ -495,12 +495,12 @@ LAB_00472af2:
 }
 
 /* ---- 0x00472b50  rdSprite_Free ---- */
-void __cdecl rdSprite_Free(int param_1)
+void __cdecl rdSprite_Free(int sprite)
 
 {
-  if (param_1 != 0) {
-    rdSprite_FreeEntry(param_1);
-    (*g_pRdroid_HS->pFree)(param_1);
+  if (sprite != 0) {
+    rdSprite_FreeEntry(sprite);
+    (*g_pRdroid_HS->pFree)(sprite);
   }
   return;
 }
@@ -509,20 +509,20 @@ void __cdecl rdSprite_Free(int param_1)
 /* Original name rdSprite_FreeEntry (the remaster's GrimFandango (Linux): same body (frees the +0xa8
    and +0x74 arrays through rdroid_pHS)); was rdSprite_FreeContents. */
 
-void __cdecl rdSprite_FreeEntry(int param_1)
+void __cdecl rdSprite_FreeEntry(int sprite)
 
 {
-  if (*(int *)(param_1 + 0xa8) != 0) {
-    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0xa8));
-    *(undefined4 *)(param_1 + 0xa8) = 0;
+  if (*(int *)(sprite + 0xa8) != 0) {
+    (*g_pRdroid_HS->pFree)(*(int *)(sprite + 0xa8));
+    *(undefined4 *)(sprite + 0xa8) = 0;
   }
-  if (*(int *)(param_1 + 0x74) != 0) {
-    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x74));
-    *(undefined4 *)(param_1 + 0x74) = 0;
+  if (*(int *)(sprite + 0x74) != 0) {
+    (*g_pRdroid_HS->pFree)(*(int *)(sprite + 0x74));
+    *(undefined4 *)(sprite + 0x74) = 0;
   }
-  if (*(int *)(param_1 + 0x78) != 0) {
-    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x78));
-    *(undefined4 *)(param_1 + 0x78) = 0;
+  if (*(int *)(sprite + 0x78) != 0) {
+    (*g_pRdroid_HS->pFree)(*(int *)(sprite + 0x78));
+    *(undefined4 *)(sprite + 0x78) = 0;
   }
   return;
 }
@@ -531,7 +531,7 @@ void __cdecl rdSprite_FreeEntry(int param_1)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Frustum tests the sprite, builds the quad in the cache and clips it */
 
-uint __cdecl rdSprite_Draw(int thing,float *param_2)
+uint __cdecl rdSprite_Draw(int thing,float *matrix)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -541,13 +541,13 @@ uint __cdecl rdSprite_Draw(int thing,float *param_2)
   uint uVar4;
   ProcEntry *pPVar5;
   int iVar6;
-  uint uVar7;
+  uint texMode;
   byte flags;
-  uint uVar8;
-  float *pfVar9;
-  int iVar10;
-  uint uVar11;
-  bool bVar12;
+  uint geoMode;
+  float *pfVar7;
+  int iVar8;
+  uint uVar9;
+  bool bVar10;
   #define local_7c (*(uint *)(_frame + (0x90 - 0x7c)))
   #define local_78 (*(float (*)[2])(_frame + (0x90 - 0x78)))
   #define local_70 (*(float *)(_frame + (0x90 - 0x70)))
@@ -568,8 +568,8 @@ uint __cdecl rdSprite_Draw(int thing,float *param_2)
   #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
   
   iVar1 = *(int *)(thing + 4);
-  rdMatrix_TransformPoint34(&local_64,param_2 + 9,g_pRdCamera_CurCamera->aView);
-  rdMatrix_TransformVector34(&local_70,(float *)(iVar1 + 0xac),param_2);
+  rdMatrix_TransformPoint34(&local_64,matrix + 9,g_pRdCamera_CurCamera->aView);
+  rdMatrix_TransformVector34(&local_70,(float *)(iVar1 + 0xac),matrix);
   rdMatrix_TransformVector34Acc(&local_70,g_pRdCamera_CurCamera->aView);
   if (0.0f <= local_70) {
     local_78[0] = -*(float *)(iVar1 + 0x54);
@@ -606,29 +606,29 @@ uint __cdecl rdSprite_Draw(int thing,float *param_2)
     local_48 = (uint)pPVar5->pTexVertices;
     local_44 = (uint)pPVar5->pIntensities;
     uVar4 = *(uint *)(iVar1 + 100);
-    uVar11 = g_nRdroid_curGeometryMode;
+    uVar9 = g_nRdroid_curGeometryMode;
     if ((int)uVar4 <= g_nRdroid_curGeometryMode) {
-      uVar11 = uVar4;
+      uVar9 = uVar4;
     }
-    uVar8 = *(uint *)(thing + 0x38);
-    if (((int)uVar11 < (int)*(uint *)(thing + 0x38)) &&
-       (uVar8 = uVar4, g_nRdroid_curGeometryMode < (int)uVar4)) {
-      uVar8 = g_nRdroid_curGeometryMode;
+    geoMode = *(uint *)(thing + 0x38);
+    if (((int)uVar9 < (int)*(uint *)(thing + 0x38)) &&
+       (geoMode = uVar4, g_nRdroid_curGeometryMode < (int)uVar4)) {
+      geoMode = g_nRdroid_curGeometryMode;
     }
     *(float *)&DAT_007f5f18 = *(float *)&DAT_007f5f0c;
     *(float *)&DAT_007f5f1c = *(float *)&DAT_007f5f10;
     *(float *)&DAT_007f5f24 = *(float *)&DAT_007f5f0c;
     *(float *)&DAT_007f5f30 = *(float *)&DAT_007f5f0c;
-    pPVar5->nGeometryMode = uVar8;
+    pPVar5->nGeometryMode = geoMode;
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
        (g_pRdCamera_CurCamera->flAmbientLight < 1.0f)) {
       iVar2 = *(int *)(iVar1 + 0x68);
-      iVar10 = g_nRdroid_curLightingMode;
+      iVar8 = g_nRdroid_curLightingMode;
       if (iVar2 <= g_nRdroid_curLightingMode) {
-        iVar10 = iVar2;
+        iVar8 = iVar2;
       }
       iVar6 = *(int *)(thing + 0x3c);
-      if ((iVar10 < iVar6) && (iVar6 = iVar2, g_nRdroid_curLightingMode < iVar2)) {
+      if ((iVar8 < iVar6) && (iVar6 = iVar2, g_nRdroid_curLightingMode < iVar2)) {
         iVar6 = g_nRdroid_curLightingMode;
       }
       pPVar5->nLightingMode = iVar6;
@@ -637,17 +637,17 @@ uint __cdecl rdSprite_Draw(int thing,float *param_2)
       pPVar5->nLightingMode = 0;
     }
     uVar4 = *(uint *)(iVar1 + 0x6c);
-    uVar11 = g_nRdroid_curTextureMode;
+    uVar9 = g_nRdroid_curTextureMode;
     if ((int)uVar4 <= g_nRdroid_curTextureMode) {
-      uVar11 = uVar4;
+      uVar9 = uVar4;
     }
-    uVar7 = *(uint *)(thing + 0x40);
-    if (((int)uVar11 < (int)*(uint *)(thing + 0x40)) &&
-       (uVar7 = uVar4, g_nRdroid_curTextureMode < (int)uVar4)) {
-      uVar7 = g_nRdroid_curTextureMode;
+    texMode = *(uint *)(thing + 0x40);
+    if (((int)uVar9 < (int)*(uint *)(thing + 0x40)) &&
+       (texMode = uVar4, g_nRdroid_curTextureMode < (int)uVar4)) {
+      texMode = g_nRdroid_curTextureMode;
     }
-    pPVar5->nTextureMode = uVar7;
-    rdPrimit3_ClipFace((uint)g_pRdCamera_CurCamera->pFrustum,uVar8,pPVar5->nLightingMode,uVar7,
+    pPVar5->nTextureMode = texMode;
+    rdPrimit3_ClipFace((uint)g_pRdCamera_CurCamera->pFrustum,geoMode,pPVar5->nLightingMode,texMode,
                        &local_2c,&local_58,(float *)(iVar1 + 0x84));
     if (2 < local_58) {
       (*g_pRdCamera_CurCamera->pfnProjectLst)(local_30,local_4c,local_58);
@@ -659,10 +659,10 @@ uint __cdecl rdSprite_Draw(int thing,float *param_2)
       }
       iVar2 = pPVar5->nLightingMode;
       if (iVar2 != 0) {
-        bVar12 = g_dwRdColormap_pIdentityMap == g_dwRdColormap_pCurMap;
+        bVar10 = g_dwRdColormap_pIdentityMap == g_dwRdColormap_pCurMap;
         if (pPVar5->flAlpha < 1.0f) {
           if (iVar2 == 2) {
-            if ((pPVar5->flLightIndex < 1.0f) || (!bVar12)) {
+            if ((pPVar5->flLightIndex < 1.0f) || (!bVar10)) {
               if (pPVar5->flLightIndex <= 0.0f) {
                 pPVar5->nLightingMode = 1;
               }
@@ -672,19 +672,19 @@ uint __cdecl rdSprite_Draw(int thing,float *param_2)
             }
           }
           else if (iVar2 == 3) {
-            pfVar9 = pPVar5->pIntensities;
-            fVar3 = *pfVar9;
+            pfVar7 = pPVar5->pIntensities;
+            fVar3 = *pfVar7;
             uVar4 = 1;
             if (1 < local_58) {
               do {
-                pfVar9 = pfVar9 + 1;
-                if (*pfVar9 != fVar3) break;
+                pfVar7 = pfVar7 + 1;
+                if (*pfVar7 != fVar3) break;
                 uVar4 = uVar4 + 1;
               } while (uVar4 < local_58);
             }
             if (uVar4 == local_58) {
               if (fVar3 == 1.0f) {
-                if (bVar12) {
+                if (bVar10) {
                   pPVar5->nLightingMode = 0;
                 }
                 else {
@@ -704,7 +704,7 @@ uint __cdecl rdSprite_Draw(int thing,float *param_2)
           }
         }
         else {
-          pPVar5->nLightingMode = (-(uint)bVar12 & 0xfffffffe) + 2;
+          pPVar5->nLightingMode = (-(uint)bVar10 & 0xfffffffe) + 2;
         }
       }
       flags = 1;

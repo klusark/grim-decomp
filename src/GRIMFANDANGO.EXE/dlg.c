@@ -11,8 +11,8 @@
 
 undefined4 * __cdecl
 Dlg_MakeItemTemplate
-          (uint param_1,ushort param_2,ushort param_3,ushort param_4,ushort param_5,ushort param_6,
-          int param_7,int param_8,uint *param_9)
+          (uint style,ushort x,ushort y,ushort cx,ushort cy,ushort id,int className,int text,
+          uint *outSize)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -27,39 +27,39 @@ Dlg_MakeItemTemplate
   #define local_c (*(undefined4 *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
   
-  local_c = CONCAT22(param_3,param_2);
-  local_8 = CONCAT22(param_5,param_4);
-  if (param_8 == 0) {
-    PIECE(param_2,0,4) = 2;
-    PIECE(param_4,0,4) = (undefined4 *)malloc(2);
-    *(undefined2 *)PIECE(param_4,0,4) = 0;
+  local_c = CONCAT22(y,x);
+  local_8 = CONCAT22(cy,cx);
+  if (text == 0) {
+    PIECE(x,0,4) = 2;
+    PIECE(cx,0,4) = (undefined4 *)malloc(2);
+    *(undefined2 *)PIECE(cx,0,4) = 0;
   }
   else {
-    iVar1 = MultiByteToWideChar(0,1,param_8,-1,0,0);
-    PIECE(param_2,0,4) = iVar1 * 2;
-    PIECE(param_4,0,4) = (undefined4 *)malloc(PIECE(param_2,0,4));
-    MultiByteToWideChar(0,1,param_8,-1,(int)PIECE(param_4,0,4),iVar1);
+    iVar1 = MultiByteToWideChar(0,1,text,-1,0,0);
+    PIECE(x,0,4) = iVar1 * 2;
+    PIECE(cx,0,4) = (undefined4 *)malloc(PIECE(x,0,4));
+    MultiByteToWideChar(0,1,text,-1,(int)PIECE(cx,0,4),iVar1);
   }
-  if (param_7 == 0) {
-    PIECE(param_3,0,4) = 2;
+  if (className == 0) {
+    PIECE(y,0,4) = 2;
     a5 = (undefined4 *)malloc(2);
     *(undefined2 *)a5 = 0;
   }
   else {
-    iVar1 = MultiByteToWideChar(0,1,param_7,-1,0,0);
-    PIECE(param_3,0,4) = iVar1 * 2;
-    a5 = (undefined4 *)malloc(PIECE(param_3,0,4));
-    MultiByteToWideChar(0,1,param_7,-1,(int)a5,iVar1);
+    iVar1 = MultiByteToWideChar(0,1,className,-1,0,0);
+    PIECE(y,0,4) = iVar1 * 2;
+    a5 = (undefined4 *)malloc(PIECE(y,0,4));
+    MultiByteToWideChar(0,1,className,-1,(int)a5,iVar1);
   }
-  uVar4 = PIECE(param_2,0,4) + 0x13 + PIECE(param_3,0,4);
-  *param_9 = uVar4;
+  uVar4 = PIECE(x,0,4) + 0x13 + PIECE(y,0,4);
+  *outSize = uVar4;
   if ((uVar4 & 3) != 0) {
     do {
-      *param_9 = *param_9 + 1;
-    } while ((*param_9 & 3) != 0);
+      *outSize = *outSize + 1;
+    } while ((*outSize & 3) != 0);
   }
-  puVar2 = (uint *)malloc(*param_9);
-  uVar4 = *param_9;
+  puVar2 = (uint *)malloc(*outSize);
+  uVar4 = *outSize;
   puVar6 = puVar2;
   for (uVar3 = uVar4 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
     *puVar6 = 0;
@@ -69,37 +69,37 @@ Dlg_MakeItemTemplate
     *(undefined1 *)puVar6 = 0;
     puVar6 = (uint *)((int)puVar6 + 1);
   }
-  *puVar2 = param_1;
+  *puVar2 = style;
   puVar2[1] = 0;
   puVar2[2] = local_c;
   puVar2[3] = local_8;
-  *(ushort *)(puVar2 + 4) = param_6;
-  puVar5 = PIECE(param_4,0,4);
+  *(ushort *)(puVar2 + 4) = id;
+  puVar5 = PIECE(cx,0,4);
   puVar7 = (undefined4 *)((int)puVar2 + 0x12);
-  for (uVar4 = PIECE(param_2,0,4) >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
+  for (uVar4 = PIECE(x,0,4) >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
     *puVar7 = *puVar5;
     puVar5 = puVar5 + 1;
     puVar7 = puVar7 + 1;
   }
-  for (uVar4 = PIECE(param_2,0,4) & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
+  for (uVar4 = PIECE(x,0,4) & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
     *(undefined1 *)puVar7 = *(undefined1 *)puVar5;
     puVar5 = (undefined4 *)((int)puVar5 + 1);
     puVar7 = (undefined4 *)((int)puVar7 + 1);
   }
   puVar5 = a5;
-  puVar7 = (undefined4 *)(PIECE(param_2,0,4) + (int)puVar2 + 0x12);
-  for (uVar4 = PIECE(param_3,0,4) >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
+  puVar7 = (undefined4 *)(PIECE(x,0,4) + (int)puVar2 + 0x12);
+  for (uVar4 = PIECE(y,0,4) >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
     *puVar7 = *puVar5;
     puVar5 = puVar5 + 1;
     puVar7 = puVar7 + 1;
   }
-  for (PIECE(param_3,0,4) = PIECE(param_3,0,4) & 3; PIECE(param_3,0,4) != 0; PIECE(param_3,0,4) = PIECE(param_3,0,4) - 1) {
+  for (PIECE(y,0,4) = PIECE(y,0,4) & 3; PIECE(y,0,4) != 0; PIECE(y,0,4) = PIECE(y,0,4) - 1) {
     *(undefined1 *)puVar7 = *(undefined1 *)puVar5;
     puVar5 = (undefined4 *)((int)puVar5 + 1);
     puVar7 = (undefined4 *)((int)puVar7 + 1);
   }
   free((int)a5);
-  free((int)PIECE(param_4,0,4));
+  free((int)PIECE(cx,0,4));
   return puVar2;
 }
 #undef local_8

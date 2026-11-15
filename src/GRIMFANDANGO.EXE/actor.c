@@ -359,7 +359,7 @@ int __cdecl sputActor_CanActorSeeActor(Actor *viewer,Actor *target,float *outDis
    GrimFandango (Linux): the only unmatched callee of Lua_TurnActor; 2 matched neighbours agree, 0
    disagree); was Actor_TurnKey. */
 
-void __cdecl sputActor_Turn(Actor *actor,float param_2)
+void __cdecl sputActor_Turn(Actor *actor,float dir)
 
 {
   float fVar1;
@@ -368,7 +368,7 @@ void __cdecl sputActor_Turn(Actor *actor,float param_2)
   
   pAVar2 = actor->pExtra;
   fVar3 = sputTime_GetFrameTimeFlex();
-  fVar3 = pAVar2->flTurnRate * fVar3 * pAVar2->flTimeScale * param_2;
+  fVar3 = pAVar2->flTurnRate * fVar3 * pAVar2->flTimeScale * dir;
   if (pAVar2->pPuck == (Puck *)0x0) {
     sputActor_EnablePuck(actor,1);
   }
@@ -382,7 +382,7 @@ void __cdecl sputActor_Turn(Actor *actor,float param_2)
     fVar3 = -fVar3;
   }
   if (fVar1 <= fVar3) {
-    if (0.0f < param_2) {
+    if (0.0f < dir) {
       pAVar2->nTurning = 1;
       return;
     }
@@ -413,13 +413,13 @@ void __cdecl sputActor_Forward(Actor *actor)
    Actor_UpdateWalker, Actor_UpdateMoveChores, costume update with dt * time scale, Actor_PuckOrient
    when actor+4 & 0x10. */
 
-void __cdecl Actor_UpdateMovement(Actor *actor,float param_2)
+void __cdecl Actor_UpdateMovement(Actor *actor,float dt)
 
 {
   CostumeNode *pCVar1;
   
   if (actor->pExtra != (ActorExtra *)0x0) {
-    param_2 = actor->pExtra->flTimeScale * param_2;
+    dt = actor->pExtra->flTimeScale * dt;
   }
   pCVar1 = actor->pCostumes;
   actor->aPrevPos[0] = actor->aPos[0];
@@ -439,9 +439,9 @@ void __cdecl Actor_UpdateMovement(Actor *actor,float param_2)
     Actor_UpdateWalker(actor);
   }
   Actor_UpdateMoveChores(actor);
-  sputCostume_Update(actor->pCostumes,param_2);
+  sputCostume_Update(actor->pCostumes,dt);
   if ((actor->dwMoveFlags & 2) != 0) {
-    Actor_UpdateLookAt(actor,param_2);
+    Actor_UpdateLookAt(actor,dt);
   }
   if ((actor->dwFlags & 0x10) != 0) {
     Actor_PuckOrient(actor);
@@ -847,7 +847,7 @@ void __cdecl sputActor_AllocateActorExtra(Actor *actor)
    callee of Lua_SetActorFollowBoxes; 1 matched neighbours agree, 1 disagree); was
    Actor_SetFollowBoxes. */
 
-void __cdecl sputActor_EnableWalkSystem(Actor *actor,int param_2)
+void __cdecl sputActor_EnableWalkSystem(Actor *actor,int enable)
 
 {
   Puck *pPVar1;
@@ -855,7 +855,7 @@ void __cdecl sputActor_EnableWalkSystem(Actor *actor,int param_2)
   if (actor->pExtra == (ActorExtra *)0x0) {
     sputActor_AllocateActorExtra(actor);
   }
-  if (param_2 != 0) {
+  if (enable != 0) {
     actor->pExtra->nFollowBoxes = 1;
     sputActor_EnablePuck(actor,1);
     Puck_Validate(actor->pExtra->pPuck);
@@ -875,7 +875,7 @@ void __cdecl sputActor_EnableWalkSystem(Actor *actor,int param_2)
    Actor_TurnKey; the only unmatched callee of Actor_WalkForward; 7 matched neighbours agree, 0
    disagree); was Actor_CreateWalker. */
 
-void __cdecl sputActor_EnablePuck(Actor *actor,int param_2)
+void __cdecl sputActor_EnablePuck(Actor *actor,int enable)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -885,7 +885,7 @@ void __cdecl sputActor_EnablePuck(Actor *actor,int param_2)
   #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   
   this = (Puck *)0x0;
-  if ((param_2 == 0) && (pPVar1 = actor->pExtra->pPuck, pPVar1 != (Puck *)0x0)) {
+  if ((enable == 0) && (pPVar1 = actor->pExtra->pPuck, pPVar1 != (Puck *)0x0)) {
     Puck_Destruct(pPVar1);
     Plat_Free(pPVar1);
     actor->pExtra->pPuck = (Puck *)0x0;
@@ -957,7 +957,7 @@ void __cdecl sputActor_SetActorPosition(Actor *actor,float *pos)
    sputActor_SetActorRotation (the remaster's GrimFandango (Linux): the only unmatched callee of
    Lua_SetActorRot; 2 matched neighbours agree, 0 disagree); was Actor_SetRot. */
 
-void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *param_2,int param_3)
+void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *angles,int turn)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -970,7 +970,7 @@ void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *param_2,int par
   
   actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
   if ((actor->pExtra != (ActorExtra *)0x0) && (this = actor->pExtra->pPuck, this != (Puck *)0x0)) {
-    rdMatrix_BuildRotate34(local_30,param_2);
+    rdMatrix_BuildRotate34(local_30,angles);
     local_24[0] = local_24[0] + this->aPos[0];
     local_24[1] = this->aPos[1] + local_24[1];
     local_24[2] = this->aPos[2] + local_24[2];
@@ -985,18 +985,18 @@ void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *param_2,int par
     }
     Puck_Rotate(this,local_40);
     pAVar1 = actor->pExtra;
-    if ((0.0f < pAVar1->flTurnRate) && (param_3 != 0)) {
+    if ((0.0f < pAVar1->flTurnRate) && (turn != 0)) {
       pAVar1->flTurnRate = pAVar1->flTurnRate * -1.0f;
     }
     actor->pExtra->flYawLeft = fVar2;
-    actor->aRot[2] = PUN(float,param_2[2]);
-    actor->aRot[0] = PUN(float,*param_2);
+    actor->aRot[2] = PUN(float,angles[2]);
+    actor->aRot[0] = PUN(float,*angles);
     actor->nMatrixDirty = 0;
     return;
   }
-  actor->aRot[0] = PUN(float,*param_2);
-  actor->aRot[1] = PUN(float,param_2[1]);
-  fVar2 = PUN(float,param_2[2]);
+  actor->aRot[0] = PUN(float,*angles);
+  actor->aRot[1] = PUN(float,angles[1]);
+  fVar2 = PUN(float,angles[2]);
   actor->nMatrixDirty = 0;
   actor->aRot[2] = fVar2;
   return;
@@ -1174,13 +1174,13 @@ void __cdecl Actor_PuckOrient(Actor *actor)
 
 {
   unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float *pfVar1;
-  float *pfVar2;
-  float *pfVar3;
-  Puck *pPVar4;
-  Actor *pAVar5;
-  Actor *pAVar6;
-  float fVar7;
+  float *pos;
+  float *outAngles;
+  float *out;
+  Puck *pPVar1;
+  Actor *pAVar2;
+  Actor *pAVar3;
+  float fVar4;
   #define local_68 (*(uint *)(_frame + (0x80 - 0x68)))
   #define local_54 (*(float (*)[3])(_frame + (0x80 - 0x54)))
   #define local_48 (*(float (*)[3])(_frame + (0x80 - 0x48)))
@@ -1188,42 +1188,42 @@ void __cdecl Actor_PuckOrient(Actor *actor)
   #define local_30 (*(float (*)[12])(_frame + (0x80 - 0x30)))
   
   if (((actor != (Actor *)0x0) && (actor->pExtra != (ActorExtra *)0x0)) &&
-     (pPVar4 = actor->pExtra->pPuck, pPVar4 != (Puck *)0x0)) {
-    pfVar1 = actor->aPos;
-    pfVar2 = actor->aRot;
-    pfVar3 = actor->aOrient;
-    rdMatrix_Build34(pfVar3,(uint *)pfVar2,pfVar1);
+     (pPVar1 = actor->pExtra->pPuck, pPVar1 != (Puck *)0x0)) {
+    pos = actor->aPos;
+    outAngles = actor->aRot;
+    out = actor->aOrient;
+    rdMatrix_Build34(out,(uint *)outAngles,pos);
     local_48[0] = actor->aOrient[6];
     local_48[1] = actor->aOrient[7];
     local_48[2] = actor->aOrient[8];
-    local_54[0] = pPVar4->aFrame[6];
-    local_54[1] = pPVar4->aFrame[7];
-    local_54[2] = pPVar4->aFrame[8];
-    fVar7 = rdVector_Dot3(local_48,local_54);
-    fVar7 = stdMath_ArcSin3(fVar7);
-    pAVar5 = PUN(Actor *,(float)(90.0f - fVar7));
-    pAVar6 = pAVar5;
-    if (PUN(float,pAVar5) < 0.0f) {
-      pAVar6 = PUN(Actor *,(float)-PUN(float,pAVar5));
+    local_54[0] = pPVar1->aFrame[6];
+    local_54[1] = pPVar1->aFrame[7];
+    local_54[2] = pPVar1->aFrame[8];
+    fVar4 = rdVector_Dot3(local_48,local_54);
+    fVar4 = stdMath_ArcSin3(fVar4);
+    pAVar2 = PUN(Actor *,(float)(90.0f - fVar4));
+    pAVar3 = pAVar2;
+    if (PUN(float,pAVar2) < 0.0f) {
+      pAVar3 = PUN(Actor *,(float)-PUN(float,pAVar2));
     }
-    if (2.0 < PUN(float,pAVar6)) {
-      fVar7 = sputTime_GetFrameTimeFlex();
-      pAVar6 = PUN(Actor *,(float)(fVar7 * actor->pExtra->flTurnRate));
-      actor = pAVar5;
-      if ((0.0f < PUN(float,pAVar5)) && (PUN(float,pAVar6) < PUN(float,pAVar5))) {
-        actor = pAVar6;
+    if (2.0 < PUN(float,pAVar3)) {
+      fVar4 = sputTime_GetFrameTimeFlex();
+      pAVar3 = PUN(Actor *,(float)(fVar4 * actor->pExtra->flTurnRate));
+      actor = pAVar2;
+      if ((0.0f < PUN(float,pAVar2)) && (PUN(float,pAVar3) < PUN(float,pAVar2))) {
+        actor = pAVar3;
       }
-      if ((PUN(float,actor) < 0.0f) && (PUN(float,actor) < -PUN(float,pAVar6))) {
-        actor = PUN(Actor *,(float)-PUN(float,pAVar6));
+      if ((PUN(float,actor) < 0.0f) && (PUN(float,actor) < -PUN(float,pAVar3))) {
+        actor = PUN(Actor *,(float)-PUN(float,pAVar3));
       }
       local_3c[0] = local_54[2] * local_48[1] - local_54[1] * local_48[2];
       local_3c[1] = local_54[0] * local_48[2] - local_54[2] * local_48[0];
       local_3c[2] = local_54[1] * local_48[0] - local_54[0] * local_48[1];
       rdVector_Normalize3Acc(local_3c);
       rdMatrix_BuildFromVectorAngle34(local_30,local_3c,PUN(float,actor));
-      rdMatrix_PostMultiply34(pfVar3,local_30);
-      rdMatrix_ExtractAngles34(pfVar3,pfVar2);
-      rdMatrix_Build34(pfVar3,(uint *)pfVar2,pfVar1);
+      rdMatrix_PostMultiply34(out,local_30);
+      rdMatrix_ExtractAngles34(out,outAngles);
+      rdMatrix_Build34(out,(uint *)outAngles,pos);
     }
   }
   return;
@@ -1836,14 +1836,14 @@ void __cdecl sputActor_SetWalkDominate(Actor *actor,int dominate)
    unmatched callee of Lua_SetActorConstrain; 1 matched neighbours agree, 0 disagree); was
    Actor_SetConstrain. */
 
-void __cdecl sputActor_SetActorConstrain(Actor *actor,int param_2)
+void __cdecl sputActor_SetActorConstrain(Actor *actor,int constrain)
 
 {
   Puck *this;
   
-  if ((((actor->dwMoveFlags & 1) == 0) || (param_2 == 0)) &&
+  if ((((actor->dwMoveFlags & 1) == 0) || (constrain == 0)) &&
      (this = actor->pExtra->pPuck, this != (Puck *)0x0)) {
-    Puck_Constrain(this,param_2);
+    Puck_Constrain(this,constrain);
   }
   return;
 }
@@ -1906,7 +1906,7 @@ void __cdecl sputActor_ActivateActorShadow(Actor *actor,int shadowIdx,int active
    callee of Lua_SetActorShadowPlane; 1 matched neighbours agree, 0 disagree); was
    Actor_SetShadowPlane. */
 
-void __cdecl sputActor_SetShadowPlane(Actor *actor,char *param_2)
+void __cdecl sputActor_SetShadowPlane(Actor *actor,char *planeName)
 
 {
   ActorShadow *pAVar1;
@@ -1919,7 +1919,7 @@ void __cdecl sputActor_SetShadowPlane(Actor *actor,char *param_2)
   WalkPlane *pWVar8;
   
   pAVar1 = actor->pExtra->aShadows + actor->pExtra->nActiveShadow;
-  pWVar8 = WalkPlane_PlaneNamed(param_2);
+  pWVar8 = WalkPlane_PlaneNamed(planeName);
   if (pWVar8 != (WalkPlane *)0x0) {
     pAVar1->aPlane[0] = pWVar8->aNormal[0];
     pAVar1->aPlane[1] = pWVar8->aNormal[1];
@@ -2191,7 +2191,7 @@ int __cdecl Actor_CountCostumes(Actor *actor)
    callee of Lua_SetActorClipPlane; 1 matched neighbours agree, 1 disagree); was Actor_SetClipPlane.
     */
 
-void __cdecl sputActor_SetClipPlane(Actor *actor,undefined4 *param_2,undefined4 *local_c)
+void __cdecl sputActor_SetClipPlane(Actor *actor,undefined4 *normal,undefined4 *local_c)
 
 {
   ActorExtra *pAVar1;
@@ -2200,9 +2200,9 @@ void __cdecl sputActor_SetClipPlane(Actor *actor,undefined4 *param_2,undefined4 
     sputActor_AllocateActorExtra(actor);
   }
   pAVar1 = actor->pExtra;
-  pAVar1->aClipNormal[0] = PUN(float,*param_2);
-  pAVar1->aClipNormal[1] = PUN(float,param_2[1]);
-  pAVar1->aClipNormal[2] = PUN(float,param_2[2]);
+  pAVar1->aClipNormal[0] = PUN(float,*normal);
+  pAVar1->aClipNormal[1] = PUN(float,normal[1]);
+  pAVar1->aClipNormal[2] = PUN(float,normal[2]);
   pAVar1 = actor->pExtra;
   pAVar1->aClipPoint[0] = PUN(float,*local_c);
   pAVar1->aClipPoint[1] = PUN(float,local_c[1]);
@@ -2214,13 +2214,13 @@ void __cdecl sputActor_SetClipPlane(Actor *actor,undefined4 *param_2,undefined4 
 /* Original name sputActor_SetClipPlaneActive (the remaster's GrimFandango (Linux): aligned call in
    sputLua_SetActorClipActive); was Actor_SetClipActive. */
 
-void __cdecl sputActor_SetClipPlaneActive(Actor *actor,int param_2)
+void __cdecl sputActor_SetClipPlaneActive(Actor *actor,int active)
 
 {
   if (actor->pExtra == (ActorExtra *)0x0) {
     sputActor_AllocateActorExtra(actor);
   }
-  actor->pExtra->nClipPlaneActive = param_2;
+  actor->pExtra->nClipPlaneActive = active;
   return;
 }
 
@@ -2229,14 +2229,14 @@ void __cdecl sputActor_SetClipPlaneActive(Actor *actor,int param_2)
    sputActor_PushCostume, sputActor_SetCostume, sputLua_SetActorFrustrumCull); was
    Actor_SetFrustumCull. */
 
-void __cdecl sputActor_SetFrustrumCull(Actor *actor,int param_2)
+void __cdecl sputActor_SetFrustrumCull(Actor *actor,int cull)
 
 {
   ModelComponent *pMVar1;
   uint uVar2;
   
   if (actor != (Actor *)0x0) {
-    if (param_2 == 0) {
+    if (cull == 0) {
       uVar2 = actor->dwFlags & 0xfffffffb;
     }
     else {
@@ -2246,7 +2246,7 @@ void __cdecl sputActor_SetFrustrumCull(Actor *actor,int param_2)
     if (actor->pCostumes != (CostumeNode *)0x0) {
       for (pMVar1 = actor->pCostumes->pComponents; pMVar1 != (ModelComponent *)0x0;
           pMVar1 = pMVar1->pNext) {
-        pMVar1->pThing->nFrustumCull = param_2;
+        pMVar1->pThing->nFrustumCull = cull;
       }
     }
   }
@@ -2422,10 +2422,10 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
 /* Original name sputCostume_Draw3D (the remaster's GrimFandango (Linux): aligned call in
    sputActor_DrawToClean, sputRender_Update); was Actor_DrawCostumes. */
 
-void __cdecl sputCostume_Draw3D(uint pCostumes,uint param_2)
+void __cdecl sputCostume_Draw3D(uint pCostumes,uint matrix)
 
 {
-  sputCostume_InternalDraw3D((int *)pCostumes,(float *)param_2);
+  sputCostume_InternalDraw3D((int *)pCostumes,(float *)matrix);
   return;
 }
 
@@ -2440,7 +2440,7 @@ void __cdecl sputCostume_Draw3D(uint pCostumes,uint param_2)
    sputCostume_InternalDraw3D (the remaster's GrimFandango (Linux): aligned call in
    sputCostume_Draw3D); was Actor_DrawCostumeMeshes. */
 
-void __cdecl sputCostume_InternalDraw3D(int *param_1,float *param_2)
+void __cdecl sputCostume_InternalDraw3D(int *costumes,float *matrix)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2461,12 +2461,12 @@ void __cdecl sputCostume_InternalDraw3D(int *param_1,float *param_2)
   #define iStack_8 (*(int *)(_frame + (0x30 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x30 - 0x4)))
   
-  iVar4 = param_1[1];
-  for (piVar1 = param_1; (piVar1 != (int *)0x0 && (piVar1[1] == iVar4));
+  iVar4 = costumes[1];
+  for (piVar1 = costumes; (piVar1 != (int *)0x0 && (piVar1[1] == iVar4));
       piVar1 = (int *)piVar1[0x2c]) {
     Costume_ApplyComponentState((void *)*piVar1);
   }
-  iVar4 = Cos_InstGetUserData(*param_1);
+  iVar4 = Cos_InstGetUserData(*costumes);
   actor = g_pActors + iVar4;
   if ((actor->pExtra == (ActorExtra *)0x0) || (actor->pExtra->nClipPlaneActive == 0)) {
     rdModel3_ActivateClipPlane(0);
@@ -2475,17 +2475,17 @@ void __cdecl sputCostume_InternalDraw3D(int *param_1,float *param_2)
     rdModel3_ActivateClipPlane(1);
     rdModel3_SetClipPlane(actor->pExtra->aClipNormal,actor->pExtra->aClipPoint);
   }
-  Costume_ApplyScale(actor,(ModelComponent *)param_1[2]);
-  iVar4 = param_1[2];
+  Costume_ApplyScale(actor,(ModelComponent *)costumes[2]);
+  iVar4 = costumes[2];
   do {
     if (iVar4 == 0) {
       sputCostume_DrawActorShadow(actor);
-      iVar4 = param_1[1];
-      for (piVar1 = param_1; (piVar1 != (int *)0x0 && (piVar1[1] == iVar4));
+      iVar4 = costumes[1];
+      for (piVar1 = costumes; (piVar1 != (int *)0x0 && (piVar1[1] == iVar4));
           piVar1 = (int *)piVar1[0x2c]) {
         Costume_ApplyComponentState((void *)*piVar1);
       }
-      Costume_ApplyScale(actor,(ModelComponent *)param_1[2]);
+      Costume_ApplyScale(actor,(ModelComponent *)costumes[2]);
       return;
     }
     if (*(int *)(iVar4 + 0x38) != 0) {
@@ -2509,7 +2509,7 @@ LAB_004951b3:
           pVVar5 = (VBuffer *)Render_GetBackBuffer();
           stdDisplay_VBufferLock(pVVar5);
         }
-        iVar6 = rdThing_Draw(*(rdThing **)(iVar4 + 0x40),param_2);
+        iVar6 = rdThing_Draw(*(rdThing **)(iVar4 + 0x40),matrix);
         if ((iVar6 == 0) || (actor == (Actor *)0x0)) {
           actor->nScreenBoxValid = 0;
         }
@@ -2528,7 +2528,7 @@ LAB_004951b3:
            (rdroid_SetColormap(*(uint *)(iVar6 + 0x4c)), g_nSputRender_b3DAcceleration != 0)) {
           std3D_SetCurrentPalette((void *)(*(int *)(iVar6 + 0x4c) + 0x30),0);
         }
-        sputCostume_BuildThingStateMatrices(*(ModelComponent **)(iVar4 + 0x44),param_2);
+        sputCostume_BuildThingStateMatrices(*(ModelComponent **)(iVar4 + 0x44),matrix);
         iVar7 = *(int *)(*(int *)(iVar4 + 0x44) + 0x40);
         iVar6 = *(int *)(*(int *)(iVar7 + 4) + 0x58) + *(int *)(iVar4 + 0x48) * 0xb8;
         iVar2 = *(int *)(*(int *)(*(int *)(iVar4 + 0x40) + 4) + 0x58);
@@ -2599,7 +2599,7 @@ LAB_004951b3:
       iStack_c = g_nDrawBoxMinY;
       iStack_4 = g_nDrawBoxMaxY - g_nDrawBoxMinY;
       sputRender_MarkDirtyRect(&iStack_10,1);
-      if ((*(int *)(iVar4 + 0x40) == param_1[1]) && (actor != (Actor *)0x0)) {
+      if ((*(int *)(iVar4 + 0x40) == costumes[1]) && (actor != (Actor *)0x0)) {
         actor->aScreenBox[0] = iStack_10;
         actor->aScreenBox[1] = iStack_c;
         actor->aScreenBox[2] = iStack_8;

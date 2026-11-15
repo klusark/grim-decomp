@@ -11,20 +11,20 @@
    PolyglotInitialize, same body (reads the .tab file through the polyglot pHS)); was
    Polyglot_LoadTable. */
 
-void __cdecl PolyglotConfigure(undefined *param_1)
+void __cdecl PolyglotConfigure(undefined *filename)
 
 {
   int iVar1;
   int iVar2;
-  char *pcVar3;
-  undefined *puVar4;
-  uint *puVar5;
-  uint *puVar6;
+  char *s;
+  undefined *puVar3;
+  uint *puVar4;
+  uint *s_00;
   
-  g_pTabFilename = param_1;
-  iVar1 = (*g_pPolyglot_HS->pFopen)(param_1,&DAT_004ddb18);
+  g_pTabFilename = filename;
+  iVar1 = (*g_pPolyglot_HS->pFopen)(filename,&DAT_004ddb18);
   if (iVar1 != 0) {
-    (*g_pPolyglot_HS->pFread)(iVar1,&param_1,4);
+    (*g_pPolyglot_HS->pFread)(iVar1,&filename,4);
     (*g_pPolyglot_HS->pFseek)(iVar1,0,2);
     iVar2 = (*g_pPolyglot_HS->pFtell)(iVar1);
     (*g_pPolyglot_HS->pFseek)(iVar1,0,0);
@@ -32,40 +32,40 @@ void __cdecl PolyglotConfigure(undefined *param_1)
          (char *)(*g_pPolyglot_HS->pAlloc)(iVar2,s_C__grimsrc_libs_grimlib_Engine_p_004e8038,0x8f);
     (*g_pPolyglot_HS->pFread)(iVar1,g_pLanguageMalloc,iVar2);
     (*g_pPolyglot_HS->pFclose)(iVar1);
-    pcVar3 = g_pLanguageMalloc;
-    if (param_1 == (undefined *)0x454e4352) {
+    s = g_pLanguageMalloc;
+    if (filename == (undefined *)0x454e4352) {
       iVar2 = iVar2 + -4;
       iVar1 = 0;
       if (0 < iVar2) {
         do {
           g_pLanguageMalloc[iVar1] = g_pLanguageMalloc[iVar1 + 4] ^ 0xdd;
           iVar1 = iVar1 + 1;
-          pcVar3 = g_pLanguageMalloc;
+          s = g_pLanguageMalloc;
         } while (iVar1 < iVar2);
       }
     }
     do {
-      puVar4 = Str_FindChar(pcVar3,0xd);
+      puVar3 = Str_FindChar(s,0xd);
       g_dwLineCount = g_dwLineCount + 1;
-      pcVar3 = puVar4 + 2;
-    } while (puVar4 + 2 < g_pLanguageMalloc + iVar2 + -1);
+      s = puVar3 + 2;
+    } while (puVar3 + 2 < g_pLanguageMalloc + iVar2 + -1);
     g_dwLanguageLine =
          (*g_pPolyglot_HS->pAlloc)
                    (g_dwLineCount * 4,s_C__grimsrc_libs_grimlib_Engine_p_004e8038,0xa2);
     iVar1 = 0;
-    puVar6 = (uint *)g_pLanguageMalloc;
+    s_00 = (uint *)g_pLanguageMalloc;
     do {
-      puVar4 = Str_FindChar((char *)puVar6,0xd);
-      *puVar4 = 0;
-      puVar5 = strchr(puVar6,'\t');
-      if (puVar5 != (uint *)0x0) {
-        *(undefined1 *)puVar5 = 0;
+      puVar3 = Str_FindChar((char *)s_00,0xd);
+      *puVar3 = 0;
+      puVar4 = strchr(s_00,'\t');
+      if (puVar4 != (uint *)0x0) {
+        *(undefined1 *)puVar4 = 0;
       }
-      _strupr((char *)puVar6);
-      *(uint **)(g_dwLanguageLine + iVar1) = puVar6;
-      puVar6 = (uint *)(puVar4 + 2);
+      _strupr((char *)s_00);
+      *(uint **)(g_dwLanguageLine + iVar1) = s_00;
+      s_00 = (uint *)(puVar3 + 2);
       iVar1 = iVar1 + 4;
-    } while (puVar6 < g_pLanguageMalloc + iVar2 + -1);
+    } while (s_00 < g_pLanguageMalloc + iVar2 + -1);
     qsort((void *)g_dwLanguageLine,g_dwLineCount,4,Str_ComparePtrs);
   }
   return;

@@ -10,19 +10,19 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl sputControl_Initialize(uint param_1,undefined4 *param_2)
+uint __cdecl sputControl_Initialize(uint services,undefined4 *iface)
 
 {
   if (g_dwSputConInitialize == 0) {
-    _g_pSputConHS = param_1;
-    *param_2 = sputControl_Initialize;
-    param_2[1] = sputControl_Terminate;
-    param_2[2] = sputControl_Startup;
-    param_2[3] = sputControl_Shutdown;
-    param_2[4] = 0;
-    param_2[5] = 0;
-    param_2[6] = 0;
-    param_2[7] = 0;
+    _g_pSputConHS = services;
+    *iface = sputControl_Initialize;
+    iface[1] = sputControl_Terminate;
+    iface[2] = sputControl_Startup;
+    iface[3] = sputControl_Shutdown;
+    iface[4] = 0;
+    iface[5] = 0;
+    iface[6] = 0;
+    iface[7] = 0;
     g_dwSputConInitialize = 1;
   }
   return 0;

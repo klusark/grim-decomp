@@ -10,7 +10,7 @@
 /* W32Util/wuregistry: creates/opens the game key; if its Version value differs from ours the key is
    deleted and recreated. Then caches all value names. */
 
-void __cdecl Reg_Open(void *param_1,uint param_2,char *param_3)
+void __cdecl Reg_Open(void *rootKey,uint subKey,char *version)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -21,13 +21,13 @@ void __cdecl Reg_Open(void *param_1,uint param_2,char *param_3)
   #define abStack_80 (*(byte (*)[128])(_frame + (0xa0 - 0x80)))
   
   _DAT_004f5ea8 = 1;
-  UINT_004f5eac = param_2;
-  g_pRegRootKey = param_1;
-  iVar1 = RegCreateKeyExA((int)param_1,param_2,0,((unsigned)(uintptr_t)&DAT_004f5a98),0,0xf003f,0,(int)&local_88,(int)local_84);
+  UINT_004f5eac = subKey;
+  g_pRegRootKey = rootKey;
+  iVar1 = RegCreateKeyExA((int)rootKey,subKey,0,((unsigned)(uintptr_t)&DAT_004f5a98),0,0xf003f,0,(int)&local_88,(int)local_84);
   if (iVar1 == 0) {
     iVar2 = wuRegistry_GetStr(s_Version_004dda60,(char *)abStack_80,0x80,(char *)0x0);
     if (iVar2 != 0) {
-      iVar2 = _stricmp(abStack_80,(byte *)param_3);
+      iVar2 = _stricmp(abStack_80,(byte *)version);
       if (iVar2 != 0) {
         RegDeleteKeyA((int)g_pRegRootKey,UINT_004f5eac);
         iVar1 = RegCreateKeyExA((int)g_pRegRootKey,UINT_004f5eac,0,((unsigned)(uintptr_t)&DAT_004f5a98),0,0xf003f,0,
@@ -36,7 +36,7 @@ void __cdecl Reg_Open(void *param_1,uint param_2,char *param_3)
     }
   }
   if (iVar1 == 0) {
-    wuRegistry_SaveStr(s_Version_004dda60,param_3);
+    wuRegistry_SaveStr(s_Version_004dda60,version);
     RegCloseKey(local_88);
   }
   Reg_CacheValueNames();

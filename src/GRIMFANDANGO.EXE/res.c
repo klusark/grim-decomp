@@ -512,17 +512,17 @@ void * __cdecl res_Load(int type,char *name,int *status)
    after a successful load in both builds (hash the name, walk from pNewestResNode for type and
    hash); the remaster inlined Res_FindByNameInList into it); was Res_FindByNameFrom. */
 
-undefined * __cdecl res_LocateResByName(uint param_1,uint param_2)
+undefined * __cdecl res_LocateResByName(uint type,uint name)
 
 {
   int *piVar1;
   
-  piVar1 = Res_FindByNameInList(param_1,(char *)param_2,(int *)g_pNewestResNode);
+  piVar1 = Res_FindByNameInList(type,(char *)name,(int *)g_pNewestResNode);
   return (undefined *)piVar1;
 }
 
 /* ---- 0x00481320  Res_FindByNameInList ---- */
-int * __cdecl Res_FindByNameInList(int param_1,char *name,int *newestResNode)
+int * __cdecl Res_FindByNameInList(int type,char *name,int *newestResNode)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -539,7 +539,7 @@ int * __cdecl Res_FindByNameInList(int param_1,char *name,int *newestResNode)
     return (int *)0x0;
   }
   do {
-    if ((newestResNode[4] == param_1) && (newestResNode[3] == uVar2)) {
+    if ((newestResNode[4] == type) && (newestResNode[3] == uVar2)) {
       pbVar3 = (byte *)newestResNode[2];
       pbVar5 = local_104;
       do {
@@ -782,7 +782,7 @@ uint __cdecl Res_HashName(char *name,char *outLower)
 /* Original name Res_GetFirstType (the remaster's GrimFandango (Linux): aligned call in
    sputRoom_Save); was Res_FindByHandleOrNull. */
 
-void __cdecl Res_GetFirstType(int *param_1,int *param_2,int param_3)
+void __cdecl Res_GetFirstType(int *outIter,int *outData,int type)
 
 {
   Resource *pRVar1;
@@ -790,15 +790,15 @@ void __cdecl Res_GetFirstType(int *param_1,int *param_2,int param_3)
   pRVar1 = g_pNewestResNode;
   while( true ) {
     if (pRVar1 == (Resource *)0x0) {
-      *param_2 = 0;
-      *param_1 = 0;
+      *outData = 0;
+      *outIter = 0;
       return;
     }
-    if (pRVar1->dwType == param_3) break;
+    if (pRVar1->dwType == type) break;
     pRVar1 = pRVar1->pNext;
   }
-  *param_1 = (int)pRVar1->pNext;
-  *param_2 = (int)pRVar1->pData;
+  *outIter = (int)pRVar1->pNext;
+  *outData = (int)pRVar1->pData;
   return;
 }
 
@@ -806,27 +806,27 @@ void __cdecl Res_GetFirstType(int *param_1,int *param_2,int param_3)
 /* Original name Res_GetNextType (the remaster's GrimFandango (Linux): aligned call in
    sputRoom_Save); was Res_NextInList. */
 
-void __cdecl Res_GetNextType(int *param_1,int *param_2,int param_3)
+void __cdecl Res_GetNextType(int *iter,int *outData,int type)
 
 {
   int *piVar1;
   
-  piVar1 = (int *)*param_1;
+  piVar1 = (int *)*iter;
   if (piVar1 == (int *)0x0) {
-    *param_2 = 0;
-    *param_1 = 0;
+    *outData = 0;
+    *iter = 0;
     return;
   }
   do {
-    if (piVar1[4] == param_3) {
-      *param_1 = *piVar1;
-      *param_2 = piVar1[5];
+    if (piVar1[4] == type) {
+      *iter = *piVar1;
+      *outData = piVar1[5];
       return;
     }
     piVar1 = (int *)*piVar1;
   } while (piVar1 != (int *)0x0);
-  *param_2 = 0;
-  *param_1 = 0;
+  *outData = 0;
+  *iter = 0;
   return;
 }
 
@@ -848,7 +848,7 @@ void __cdecl Res_Touch(void *data)
 }
 
 /* ---- 0x004824f0  Res_CountChildren ---- */
-int __cdecl Res_CountChildren(uint param_1,uint param_2)
+int __cdecl Res_CountChildren(uint type,uint name)
 
 {
   int iVar1;
@@ -856,7 +856,7 @@ int __cdecl Res_CountChildren(uint param_1,uint param_2)
   int iVar3;
   
   iVar3 = 0;
-  puVar2 = res_LocateResByName(param_1,param_2);
+  puVar2 = res_LocateResByName(type,name);
   if (puVar2 != (undefined *)0x0) {
     for (iVar1 = *(int *)(puVar2 + 0x24); iVar1 != 0; iVar1 = *(int *)(iVar1 + 0x30)) {
       iVar3 = iVar3 + 1;
@@ -869,10 +869,10 @@ int __cdecl Res_CountChildren(uint param_1,uint param_2)
 /* Cache limit in megabytes (shifted left by 20) Original name grimlib_SetCacheMax (the remaster's
    GrimFandango (Linux): max_ram = MB << 20); was Res_SetCacheSizeMB. */
 
-void __cdecl grimlib_SetCacheMax(int param_1)
+void __cdecl grimlib_SetCacheMax(int megabytes)
 
 {
-  g_dwMax_ram = param_1 << 0x14;
+  g_dwMax_ram = megabytes << 0x14;
   return;
 }
 

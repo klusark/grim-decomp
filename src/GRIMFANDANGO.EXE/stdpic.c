@@ -31,7 +31,7 @@ uint __cdecl stdPic_Load(uint name,uint a,uint b)
    GrimFandango (Linux): the only unmatched callee of stdPic_Load; 1 matched neighbours agree, 0
    disagree); was stdPic_LoadInto. */
 
-uint __cdecl stdPic_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int param_4)
+uint __cdecl stdPic_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int sysMem)
 
 {
   unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -248,7 +248,7 @@ uint __cdecl stdPic_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int para
             pCVar18 = (ColorFormat *)&pCVar18->nBpp;
           }
           VStack_4c.nHeight = (int)CONCAT11(uStack_8d,uStack_8e);
-          pVVar10 = stdDisplay_VBufferNew(&VStack_4c,videoMem,param_4,0);
+          pVVar10 = stdDisplay_VBufferNew(&VStack_4c,videoMem,sysMem,0);
           *bitmap->ppFrames = pVVar10;
           if (*bitmap->ppFrames == (VBuffer *)0x0) {
             (*g_pStd_HS->pAssertFail)

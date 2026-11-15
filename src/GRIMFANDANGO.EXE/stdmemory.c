@@ -10,10 +10,10 @@
 #if 0
 /* Asserts the 0x12345678 guard word stored in front of every stdMemory allocation */
 
-void __cdecl stdMemory_CheckMagic(int param_1)
+void __cdecl stdMemory_CheckMagic(int p)
 
 {
-  if (*(int *)(param_1 + -4) != 0x12345678) {
+  if (*(int *)(p + -4) != 0x12345678) {
     (*g_pStd_HS->pAssertFail)
               (s_allocation__magic____0x12345678_004e7948,
                s_C__grimjedi_Libs_Std_General_Std_004e7968,DAT_004e7940 + 3);

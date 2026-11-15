@@ -10,18 +10,18 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl sputPrimitive_Initialize(uint param_1,undefined4 *param_2)
+uint __cdecl sputPrimitive_Initialize(uint services,undefined4 *iface)
 
 {
-  _g_pSputPrimitiveHS = param_1;
-  *param_2 = sputPrimitive_Initialize;
-  param_2[1] = sputPrimitive_Terminate;
-  param_2[2] = sputPrimitive_Startup;
-  param_2[3] = sputPrimitive_Shutdown;
-  param_2[4] = sputPrimitive_Save;
-  param_2[5] = sputPrimitive_Restore;
-  param_2[6] = 0;
-  param_2[7] = 0;
+  _g_pSputPrimitiveHS = services;
+  *iface = sputPrimitive_Initialize;
+  iface[1] = sputPrimitive_Terminate;
+  iface[2] = sputPrimitive_Startup;
+  iface[3] = sputPrimitive_Shutdown;
+  iface[4] = sputPrimitive_Save;
+  iface[5] = sputPrimitive_Restore;
+  iface[6] = 0;
+  iface[7] = 0;
   g_dwSputPrimitiveInitialize = 1;
   return 0;
 }
@@ -31,7 +31,7 @@ uint __cdecl sputPrimitive_Initialize(uint param_1,undefined4 *param_2)
    is handed for every field. Original name sputPrimitive_Save (the remaster's GrimFandango (Linux):
    aligned call in sputPrimitive_Initialize); was sputPrimitive_SaveState. */
 
-uint __cdecl sputPrimitive_Save(code *param_1)
+uint __cdecl sputPrimitive_Save(code *write)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -39,17 +39,17 @@ uint __cdecl sputPrimitive_Save(code *param_1)
   code *pcVar2;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  pcVar2 = param_1;
+  pcVar2 = write;
   local_4 = 0;
   for (puVar1 = (undefined4 *)g_dwPrimitiveQ; puVar1 != (undefined4 *)0x0;
       puVar1 = (undefined4 *)*puVar1) {
     local_4 = local_4 + 1;
   }
-  (*param_1)(&local_4,4);
+  (*write)(&local_4,4);
   for (puVar1 = (undefined4 *)g_dwPrimitiveQ; puVar1 != (undefined4 *)0x0;
       puVar1 = (undefined4 *)*puVar1) {
-    param_1 = (code *)puVar1[2];
-    (*pcVar2)(&param_1,4);
+    write = (code *)puVar1[2];
+    (*pcVar2)(&write,4);
     (*pcVar2)(puVar1 + 3,4);
     (*pcVar2)(puVar1 + 4,4);
     (*pcVar2)(puVar1 + 5,8);

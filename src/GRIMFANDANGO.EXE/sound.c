@@ -26,18 +26,17 @@ void __cdecl sputRoom_RelocateSounds(void)
    SoundChanger, sputActor_SayLine, sputLua_SetSoundPosition); was Sound_SetPosition. */
 
 void __cdecl
-sputRoom_SetSoundPosition
-          (uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5,uint param_6)
+sputRoom_SetSoundPosition(uint sound,undefined **pos,uint minVol,uint maxVol,uint near,uint far)
 
 {
   int iVar1;
   undefined *entry;
   
-  iVar1 = SoundsIsSoundPlaying(param_1);
+  iVar1 = SoundsIsSoundPlaying(sound);
   if (iVar1 == 0) {
     return;
   }
-  entry = PositionedSound_Add(param_1,param_2,param_3,param_4,param_5,param_6);
+  entry = PositionedSound_Add(sound,pos,minVol,maxVol,near,far);
   SetSoundPosition((int)entry);
   return;
 }
@@ -79,23 +78,22 @@ void __cdecl PositionedSounds_DropFinished(void)
 
 /* ---- 0x004a4e20  PositionedSound_Add ---- */
 undefined * __cdecl
-PositionedSound_Add(uint param_1,undefined **param_2,uint param_3,uint param_4,uint param_5,
-                   uint param_6)
+PositionedSound_Add(uint sound,undefined **pos,uint minVol,uint maxVol,uint near,uint far)
 
 {
   int *piVar1;
   
   PositionedSounds_DropFinished();
   piVar1 = Memory_AllocFixed((int *)g_pSoundPool);
-  piVar1[1] = param_1;
+  piVar1[1] = sound;
   *piVar1 = (int)g_pSoundEventList;
-  piVar1[2] = (int)*param_2;
-  piVar1[3] = (int)param_2[1];
-  piVar1[4] = (int)param_2[2];
-  piVar1[5] = param_3;
-  piVar1[6] = param_4;
-  piVar1[7] = param_5;
-  piVar1[8] = param_6;
+  piVar1[2] = (int)*pos;
+  piVar1[3] = (int)pos[1];
+  piVar1[4] = (int)pos[2];
+  piVar1[5] = minVol;
+  piVar1[6] = maxVol;
+  piVar1[7] = near;
+  piVar1[8] = far;
   g_pSoundEventList = piVar1;
   return (undefined *)piVar1;
 }

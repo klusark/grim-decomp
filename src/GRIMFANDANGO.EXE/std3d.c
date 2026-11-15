@@ -598,40 +598,40 @@ void __cdecl D3D_SetRenderFlags(uint flags)
 /* Original name std3D_GetValidDimensions (the remaster's GrimFandango (Linux): aligned call in
    rdCache_SendFaceListToHardware); was D3D_ClampTextureSize. */
 
-void __cdecl std3D_GetValidDimensions(uint param_1,uint param_2,uint *param_3,uint *param_4)
+void __cdecl std3D_GetValidDimensions(uint width,uint height,uint *outWidth,uint *outHeight)
 
 {
-  if (param_1 == 0) {
-    param_1 = 1;
+  if (width == 0) {
+    width = 1;
   }
-  else if (UINT_004dee50 < param_1) {
-    param_1 = UINT_004dee50;
+  else if (UINT_004dee50 < width) {
+    width = UINT_004dee50;
   }
-  if (param_2 == 0) {
-    param_2 = 1;
+  if (height == 0) {
+    height = 1;
   }
-  else if (UINT_004dee50 < param_2) {
-    param_2 = UINT_004dee50;
+  else if (UINT_004dee50 < height) {
+    height = UINT_004dee50;
   }
-  if (((param_1 < UINT_004dee48) || (param_2 < UINT_004dee4c)) ||
-     ((g_pStd3D_CurDevice->nUnknown1c != 0 && (param_1 != param_2)))) {
-    if ((g_pStd3D_CurDevice->nUnknown1c != 0) && (param_1 != param_2)) {
-      if (param_1 <= param_2) {
-        param_1 = param_2;
+  if (((width < UINT_004dee48) || (height < UINT_004dee4c)) ||
+     ((g_pStd3D_CurDevice->nUnknown1c != 0 && (width != height)))) {
+    if ((g_pStd3D_CurDevice->nUnknown1c != 0) && (width != height)) {
+      if (width <= height) {
+        width = height;
       }
-      *param_3 = param_1;
-      *param_4 = param_1;
+      *outWidth = width;
+      *outHeight = width;
       return;
     }
-    if (param_1 < UINT_004dee48) {
-      param_1 = UINT_004dee48;
+    if (width < UINT_004dee48) {
+      width = UINT_004dee48;
     }
-    if (param_2 < UINT_004dee4c) {
-      param_2 = UINT_004dee4c;
+    if (height < UINT_004dee4c) {
+      height = UINT_004dee4c;
     }
   }
-  *param_3 = param_1;
-  *param_4 = param_2;
+  *outWidth = width;
+  *outHeight = height;
   return;
 }
 
@@ -1209,7 +1209,7 @@ uint __cdecl std3D_ClearZBuffer(void)
 
 
 /* ---- 0x00479b50  D3D_FindClosestDriver ---- */
-uint __cdecl D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
+uint __cdecl D3D_FindClosestDriver(int *drivers,int count,uint flags)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1220,19 +1220,19 @@ uint __cdecl D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar1 = 0;
-  if (param_3 == 0) {
+  if (flags == 0) {
     return uVar1;
   }
   uVar3 = 0;
   local_4 = 0;
-  if (param_3 != 0) {
-    piVar4 = (int *)(param_2 + 8);
+  if (flags != 0) {
+    piVar4 = (int *)(count + 8);
     do {
       uVar2 = 0;
-      if ((param_1[1] == 0) || (piVar4[-1] == param_1[1])) {
+      if ((drivers[1] == 0) || (piVar4[-1] == drivers[1])) {
         uVar2 = 1;
-        if (((param_1[2] == 0) || (*piVar4 == param_1[2])) &&
-           ((uVar2 = 2, (piVar4[7] & param_1[9]) != 0 && (uVar2 = 3, piVar4[-2] == *param_1)))) {
+        if (((drivers[2] == 0) || (*piVar4 == drivers[2])) &&
+           ((uVar2 = 2, (piVar4[7] & drivers[9]) != 0 && (uVar2 = 3, piVar4[-2] == *drivers)))) {
           return uVar1;
         }
       }
@@ -1242,7 +1242,7 @@ uint __cdecl D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
       }
       piVar4 = piVar4 + 0x8b;
       uVar1 = uVar1 + 1;
-    } while (uVar1 < param_3);
+    } while (uVar1 < flags);
   }
   return local_4;
 }
@@ -1250,7 +1250,7 @@ uint __cdecl D3D_FindClosestDriver(int *param_1,int param_2,uint param_3)
 
 
 /* ---- 0x00479be0  D3D_FindTextureFormat ---- */
-uint __cdecl D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
+uint __cdecl D3D_FindTextureFormat(int *formats,int count,uint bpp)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1262,20 +1262,20 @@ uint __cdecl D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar2 = 0;
-  if (param_3 == 0) {
+  if (bpp == 0) {
     return uVar2;
   }
   local_8 = 0;
   local_4 = 0;
-  if (param_3 != 0) {
-    piVar3 = (int *)(param_2 + 8);
-    iVar1 = *param_1;
+  if (bpp != 0) {
+    piVar3 = (int *)(count + 8);
+    iVar1 = *formats;
     do {
       uVar4 = 0;
-      if ((piVar3[-2] == iVar1) && (uVar4 = 1, piVar3[-1] == param_1[1])) {
+      if ((piVar3[-2] == iVar1) && (uVar4 = 1, piVar3[-1] == formats[1])) {
         uVar4 = 2;
         if (iVar1 == 1) {
-          if (((*piVar3 == param_1[2]) && (piVar3[1] == param_1[3])) && (piVar3[2] == param_1[4])) {
+          if (((*piVar3 == formats[2]) && (piVar3[1] == formats[3])) && (piVar3[2] == formats[4])) {
             return uVar2;
           }
         }
@@ -1286,8 +1286,8 @@ uint __cdecl D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
           if (piVar3[-2] == 2) {
             uVar4 = 3;
           }
-          if (((*piVar3 == param_1[2]) && (piVar3[1] == param_1[3])) &&
-             ((piVar3[2] == param_1[4] && (piVar3[9] == param_1[0xb])))) {
+          if (((*piVar3 == formats[2]) && (piVar3[1] == formats[3])) &&
+             ((piVar3[2] == formats[4] && (piVar3[9] == formats[0xb])))) {
             return uVar2;
           }
         }
@@ -1298,7 +1298,7 @@ uint __cdecl D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
       }
       piVar3 = piVar3 + 0x29;
       uVar2 = uVar2 + 1;
-    } while (uVar2 < param_3);
+    } while (uVar2 < bpp);
   }
   return local_4;
 }
@@ -1585,7 +1585,7 @@ undefined4 __cdecl D3D_CreateViewport(uint width,uint height)
 /* ---- 0x0047a240  D3D_CreateZBuffer ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-uint __cdecl D3D_CreateZBuffer(int param_1,int param_2)
+uint __cdecl D3D_CreateZBuffer(int width,int height)
 
 {
   int iVar1;
@@ -1606,8 +1606,8 @@ uint __cdecl D3D_CreateZBuffer(int param_1,int param_2)
   PTR_00806964[2] = 0x6c;
   PTR_00806964[3] = 0x47;
   PTR_00806964[0x1c] = 0x20000;
-  PTR_00806964[5] = param_1;
-  PTR_00806964[4] = param_2;
+  PTR_00806964[5] = width;
+  PTR_00806964[4] = height;
   if (g_pStd3D_CurDevice->nHardware == 0) {
     uVar2 = PTR_00806964[0x1c] | 0x800;
   }
@@ -1872,90 +1872,90 @@ LAB_0047a825:
 }
 
 /* ---- 0x0047a850  D3D_CapsToFilterBits ---- */
-uint __cdecl D3D_CapsToFilterBits(uint param_1)
+uint __cdecl D3D_CapsToFilterBits(uint caps)
 
 {
   byte bVar1;
   
-  bVar1 = (param_1 & 0x4000) != 0;
-  if ((param_1 & 0x2000) != 0) {
+  bVar1 = (caps & 0x4000) != 0;
+  if ((caps & 0x2000) != 0) {
     bVar1 = bVar1 | 2;
   }
-  if ((param_1 & 0x1000) != 0) {
+  if ((caps & 0x1000) != 0) {
     bVar1 = bVar1 | 4;
   }
-  if ((param_1 & 0x800) != 0) {
+  if ((caps & 0x800) != 0) {
     bVar1 = bVar1 | 8;
   }
-  if ((param_1 & 0x400) != 0) {
+  if ((caps & 0x400) != 0) {
     bVar1 = bVar1 | 0x10;
   }
-  if ((param_1 & 0x200) != 0) {
+  if ((caps & 0x200) != 0) {
     bVar1 = bVar1 | 0x20;
   }
-  if ((param_1 & 0x100) != 0) {
+  if ((caps & 0x100) != 0) {
     bVar1 = bVar1 | 0x40;
   }
   return (uint)bVar1;
 }
 
 /* ---- 0x0047a890  D3D_FilterBitsToMask ---- */
-uint __cdecl D3D_FilterBitsToMask(byte param_1)
+uint __cdecl D3D_FilterBitsToMask(byte bits)
 
 {
   byte bVar1;
   
-  bVar1 = (param_1 & 1) != 0;
-  if ((param_1 & 4) != 0) {
+  bVar1 = (bits & 1) != 0;
+  if ((bits & 4) != 0) {
     bVar1 = bVar1 | 4;
   }
-  if ((param_1 & 2) != 0) {
+  if ((bits & 2) != 0) {
     bVar1 = bVar1 | 2;
   }
-  if ((param_1 & 8) != 0) {
+  if ((bits & 8) != 0) {
     bVar1 = bVar1 | 8;
   }
-  if ((param_1 & 0x10) != 0) {
+  if ((bits & 0x10) != 0) {
     bVar1 = bVar1 | 0x10;
   }
-  if ((param_1 & 0x20) != 0) {
+  if ((bits & 0x20) != 0) {
     bVar1 = bVar1 | 0x20;
   }
-  if ((param_1 & 0x40) != 0) {
+  if ((bits & 0x40) != 0) {
     bVar1 = bVar1 | 0x40;
   }
-  if ((param_1 & 0x80) != 0) {
+  if ((bits & 0x80) != 0) {
     bVar1 = bVar1 | 0x80;
   }
   return (uint)bVar1;
 }
 
 /* ---- 0x0047a8e0  D3D_FilterBitsToEnum ---- */
-uint __cdecl D3D_FilterBitsToEnum(byte param_1)
+uint __cdecl D3D_FilterBitsToEnum(byte bits)
 
 {
   byte bVar1;
   
-  bVar1 = (param_1 & 1) != 0;
-  if ((param_1 & 4) != 0) {
+  bVar1 = (bits & 1) != 0;
+  if ((bits & 4) != 0) {
     bVar1 = 3;
   }
-  if ((param_1 & 2) != 0) {
+  if ((bits & 2) != 0) {
     bVar1 = bVar1 | 2;
   }
-  if ((param_1 & 8) != 0) {
+  if ((bits & 8) != 0) {
     bVar1 = bVar1 | 4;
   }
-  if ((param_1 & 0x10) != 0) {
+  if ((bits & 0x10) != 0) {
     bVar1 = bVar1 | 5;
   }
-  if ((param_1 & 0x20) != 0) {
+  if ((bits & 0x20) != 0) {
     bVar1 = bVar1 | 6;
   }
-  if ((param_1 & 0x40) != 0) {
+  if ((bits & 0x40) != 0) {
     bVar1 = 7;
   }
-  if ((param_1 & 0x80) != 0) {
+  if ((bits & 0x80) != 0) {
     bVar1 = bVar1 | 8;
   }
   return (uint)bVar1;

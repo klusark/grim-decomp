@@ -14,18 +14,18 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
-  uint uVar2;
+  uint f;
   stdBitmap *bitmap;
-  int iVar3;
-  void *pvVar4;
-  uint uVar5;
-  uint *puVar6;
-  VBuffer **ppVVar7;
-  VBuffer *pVVar8;
-  int iVar9;
-  byte bVar10;
+  int iVar2;
+  void *pvVar3;
+  uint uVar4;
+  uint *puVar5;
+  VBuffer **ppVVar6;
+  VBuffer *pVVar7;
+  int iVar8;
+  byte bVar9;
+  int iVar10;
   int iVar11;
-  int iVar12;
   #define cStack_81 (*(char *)(_frame + (0xa0 - 0x81)))
   #define iStack_80 (*(int *)(_frame + (0xa0 - 0x80)))
   #define iStack_7c (*(int *)(_frame + (0xa0 - 0x7c)))
@@ -51,63 +51,63 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
   #define auStack_50 (*(undefined1 (*)[4])(_frame + (0xa0 - 0x50)))
   #define VStack_4c (*(VBufferFormat *)(_frame + (0xa0 - 0x4c)))
   
-  uVar2 = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
-  if (uVar2 == 0) {
+  f = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
+  if (f == 0) {
     return (stdBitmap *)0x0;
   }
-  uStack_6c = uVar2;
+  uStack_6c = f;
   bitmap = (stdBitmap *)
            (*g_pStd_HS->pAlloc)
                      (0x7c,s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x13);
   if (bitmap != (stdBitmap *)0x0) {
     bitmap->pPalette = (void *)0x0;
     bitmap->ppFrames = (VBuffer **)0x0;
-    (*g_pStd_HS->pFread)(uVar2,&cStack_5c,3);
-    iVar3 = toupper((int)cStack_5c);
-    if (((iVar3 == 0x47) && (iVar3 = toupper((int)cStack_5b), iVar3 == 0x49)) &&
-       (iVar3 = toupper((int)cStack_5a), iVar3 == 0x46)) {
-      (*g_pStd_HS->pFread)(uVar2,&cStack_59,3);
-      (*g_pStd_HS->pFread)(uVar2,auStack_56,2);
-      (*g_pStd_HS->pFread)(uVar2,auStack_54,2);
-      (*g_pStd_HS->pFread)(uVar2,&bStack_52,1);
-      (*g_pStd_HS->pFread)(uVar2,&uStack_51,1);
-      (*g_pStd_HS->pFread)(uVar2,auStack_50,1);
+    (*g_pStd_HS->pFread)(f,&cStack_5c,3);
+    iVar2 = toupper((int)cStack_5c);
+    if (((iVar2 == 0x47) && (iVar2 = toupper((int)cStack_5b), iVar2 == 0x49)) &&
+       (iVar2 = toupper((int)cStack_5a), iVar2 == 0x46)) {
+      (*g_pStd_HS->pFread)(f,&cStack_59,3);
+      (*g_pStd_HS->pFread)(f,auStack_56,2);
+      (*g_pStd_HS->pFread)(f,auStack_54,2);
+      (*g_pStd_HS->pFread)(f,&bStack_52,1);
+      (*g_pStd_HS->pFread)(f,&uStack_51,1);
+      (*g_pStd_HS->pFread)(f,auStack_50,1);
       if ((bStack_52 & 0x80) != 0) {
-        pvVar4 = (void *)(*g_pStd_HS->pAlloc)
+        pvVar3 = (void *)(*g_pStd_HS->pAlloc)
                                    (0x300,s_C__grimjedi_Libs_Std_General_Std_004e7884,
                                     DAT_004e787c + 0x3b);
-        bitmap->pPalette = pvVar4;
-        if (pvVar4 == (void *)0x0) goto LAB_0047e02f;
-        (*g_pStd_HS->pFread)(uVar2,pvVar4,(short)(1 << (bStack_52 & 7) + 1) * 3);
+        bitmap->pPalette = pvVar3;
+        if (pvVar3 == (void *)0x0) goto LAB_0047e02f;
+        (*g_pStd_HS->pFread)(f,pvVar3,(short)(1 << (bStack_52 & 7) + 1) * 3);
       }
       if (((cStack_59 == '8') && (cStack_58 == '9')) &&
-         (iVar3 = toupper((int)cStack_57), iVar3 == 0x41)) {
-        uVar5 = stdFGetc(uVar2);
-        cVar1 = (char)uVar5;
+         (iVar2 = toupper((int)cStack_57), iVar2 == 0x41)) {
+        uVar4 = stdFGetc(f);
+        cVar1 = (char)uVar4;
         while (cVar1 == '!') {
-          uVar5 = stdFGetc(uVar2);
-          cVar1 = (char)uVar5;
+          uVar4 = stdFGetc(f);
+          cVar1 = (char)uVar4;
           while (cVar1 != '\0') {
-            uVar5 = stdFGetc(uVar2);
-            cVar1 = (char)uVar5;
+            uVar4 = stdFGetc(f);
+            cVar1 = (char)uVar4;
           }
-          uVar5 = stdFGetc(uVar2);
-          cVar1 = (char)uVar5;
+          uVar4 = stdFGetc(f);
+          cVar1 = (char)uVar4;
         }
       }
       else {
-        uVar5 = stdFGetc(uVar2);
-        cVar1 = (char)uVar5;
+        uVar4 = stdFGetc(f);
+        cVar1 = (char)uVar4;
       }
       if (cVar1 == ',') {
-        (*g_pStd_HS->pFread)(uVar2,&sStack_66,2);
-        (*g_pStd_HS->pFread)(uVar2,auStack_64,2);
-        (*g_pStd_HS->pFread)(uVar2,&sStack_62,2);
-        (*g_pStd_HS->pFread)(uVar2,&sStack_60,2);
-        (*g_pStd_HS->pFread)(uVar2,abStack_5e,1);
-        uVar5 = 0x1f;
-        puVar6 = (uint *)stdFileFromPath(path);
-        strncpy((uint *)bitmap,puVar6,uVar5);
+        (*g_pStd_HS->pFread)(f,&sStack_66,2);
+        (*g_pStd_HS->pFread)(f,auStack_64,2);
+        (*g_pStd_HS->pFread)(f,&sStack_62,2);
+        (*g_pStd_HS->pFread)(f,&sStack_60,2);
+        (*g_pStd_HS->pFread)(f,abStack_5e,1);
+        uVar4 = 0x1f;
+        puVar5 = (uint *)stdFileFromPath(path);
+        strncpy((uint *)bitmap,puVar5,uVar4);
         bitmap->aName[0x1f] = '\0';
         bitmap->nType = 0;
         bitmap->dwPalFlags = 2;
@@ -115,91 +115,91 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
         bitmap->nCurFrame = 0;
         (bitmap->colorFormat).nColorMode = 0;
         (bitmap->colorFormat).nBpp = 8;
-        ppVVar7 = (VBuffer **)
+        ppVVar6 = (VBuffer **)
                   (*g_pStd_HS->pAlloc)
                             (4,s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x73);
-        bitmap->ppFrames = ppVVar7;
-        if (ppVVar7 != (VBuffer **)0x0) {
+        bitmap->ppFrames = ppVVar6;
+        if (ppVVar6 != (VBuffer **)0x0) {
           VStack_4c.nWidth = (int)sStack_62;
           VStack_4c.nHeight = (int)sStack_60;
           VStack_4c.colorFormat.nColorMode = 0;
           VStack_4c.colorFormat.nBpp = 8;
-          pVVar8 = stdDisplay_VBufferNew(&VStack_4c,videoMem,b,0);
-          *bitmap->ppFrames = pVVar8;
+          pVVar7 = stdDisplay_VBufferNew(&VStack_4c,videoMem,b,0);
+          *bitmap->ppFrames = pVVar7;
           if (*bitmap->ppFrames != (VBuffer *)0x0) {
             if ((abStack_5e[0] & 0x80) != 0) {
-              bVar10 = abStack_5e[0] & 7;
+              bVar9 = abStack_5e[0] & 7;
               if (bitmap->pPalette == (void *)0x0) {
-                pvVar4 = (void *)(*g_pStd_HS->pAlloc)
+                pvVar3 = (void *)(*g_pStd_HS->pAlloc)
                                            (0x300,s_C__grimjedi_Libs_Std_General_Std_004e7884,
                                             DAT_004e787c + 0x8a);
-                bitmap->pPalette = pvVar4;
-                if (pvVar4 == (void *)0x0) goto LAB_0047e02f;
+                bitmap->pPalette = pvVar3;
+                if (pvVar3 == (void *)0x0) goto LAB_0047e02f;
               }
-              (*g_pStd_HS->pFread)(uVar2,bitmap->pPalette,(short)(1 << bVar10 + 1) * 3);
+              (*g_pStd_HS->pFread)(f,bitmap->pPalette,(short)(1 << bVar9 + 1) * 3);
             }
-            iVar3 = (*g_pStd_HS->pAlloc)
+            iVar2 = (*g_pStd_HS->pAlloc)
                               (((*bitmap->ppFrames)->format).nWidth + (int)sStack_66,
                                s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x95);
-            iStack_7c = iVar3;
-            if (iVar3 != 0) {
-              (*g_pStd_HS->pFread)(uVar2,&cStack_81,1);
+            iStack_7c = iVar2;
+            if (iVar2 != 0) {
+              (*g_pStd_HS->pFread)(f,&cStack_81,1);
               stdGif_LzwInitDecoder((short)cStack_81);
-              iVar11 = 0;
+              iVar10 = 0;
               iStack_74 = (-(uint)((abStack_5e[0] & 2) != 0) & 7) + 1;
               iStack_80 = 0;
               stdDisplay_VBufferLock(*bitmap->ppFrames);
               iStack_70 = 0;
-              pVVar8 = *bitmap->ppFrames;
-              if (0 < (pVVar8->format).nHeight) {
+              pVVar7 = *bitmap->ppFrames;
+              if (0 < (pVVar7->format).nHeight) {
                 piStack_78 = (int *)&DAT_004e780c;
                 do {
-                  iVar3 = 0;
-                  if (0 < (pVVar8->format).nWidth + (int)sStack_66) {
+                  iVar2 = 0;
+                  if (0 < (pVVar7->format).nWidth + (int)sStack_66) {
                     do {
-                      uVar5 = stdGif_LzwDecodeNext(uVar2);
-                      *(char *)(iVar3 + iStack_7c) = (char)uVar5;
-                      if ((uVar5 & 0xff) == 0xffffffff) {
+                      uVar4 = stdGif_LzwDecodeNext(f);
+                      *(char *)(iVar2 + iStack_7c) = (char)uVar4;
+                      if ((uVar4 & 0xff) == 0xffffffff) {
                         (*g_pStd_HS->pFree)(iStack_7c);
                         goto LAB_0047e02f;
                       }
-                      iVar3 = iVar3 + 1;
-                    } while (iVar3 < ((*bitmap->ppFrames)->format).nWidth + (int)sStack_66);
+                      iVar2 = iVar2 + 1;
+                    } while (iVar2 < ((*bitmap->ppFrames)->format).nWidth + (int)sStack_66);
                   }
-                  pVVar8 = *bitmap->ppFrames;
-                  if (iVar11 <= (pVVar8->format).nHeight) {
-                    iVar3 = (pVVar8->format).nWidth;
-                    iVar9 = 0;
-                    if (0 < iVar3) {
+                  pVVar7 = *bitmap->ppFrames;
+                  if (iVar10 <= (pVVar7->format).nHeight) {
+                    iVar2 = (pVVar7->format).nWidth;
+                    iVar8 = 0;
+                    if (0 < iVar2) {
                       do {
-                        iVar12 = iStack_7c + iVar9;
-                        iVar9 = iVar9 + 1;
-                        *(undefined1 *)((int)pVVar8->pPixels + iVar9 + iVar11 * iVar3 + -1) =
-                             *(undefined1 *)(iVar12 + sStack_66);
-                        pVVar8 = *bitmap->ppFrames;
-                        iVar3 = (pVVar8->format).nWidth;
-                        iVar11 = iStack_80;
-                        uVar2 = uStack_6c;
-                      } while (iVar9 < iVar3);
+                        iVar11 = iStack_7c + iVar8;
+                        iVar8 = iVar8 + 1;
+                        *(undefined1 *)((int)pVVar7->pPixels + iVar8 + iVar10 * iVar2 + -1) =
+                             *(undefined1 *)(iVar11 + sStack_66);
+                        pVVar7 = *bitmap->ppFrames;
+                        iVar2 = (pVVar7->format).nWidth;
+                        iVar10 = iStack_80;
+                        f = uStack_6c;
+                      } while (iVar8 < iVar2);
                     }
                   }
-                  iVar11 = iVar11 + iStack_74;
-                  pVVar8 = *bitmap->ppFrames;
-                  iVar9 = (pVVar8->format).nHeight;
-                  if (iVar9 <= iVar11) {
-                    iVar11 = piStack_78[1];
+                  iVar10 = iVar10 + iStack_74;
+                  pVVar7 = *bitmap->ppFrames;
+                  iVar8 = (pVVar7->format).nHeight;
+                  if (iVar8 <= iVar10) {
+                    iVar10 = piStack_78[1];
                     iStack_74 = piStack_78[2];
                     piStack_78 = piStack_78 + 2;
                   }
                   iStack_70 = iStack_70 + 1;
-                  iVar3 = iStack_7c;
-                  iStack_80 = iVar11;
-                } while (iStack_70 < iVar9);
+                  iVar2 = iStack_7c;
+                  iStack_80 = iVar10;
+                } while (iStack_70 < iVar8);
               }
               stdDisplay_VBufferUnlock(*bitmap->ppFrames);
-              (*g_pStd_HS->pFree)(iVar3);
-              (*g_pStd_HS->pFread)(uVar2,&cStack_81,1);
-              (*g_pStd_HS->pFclose)(uVar2);
+              (*g_pStd_HS->pFree)(iVar2);
+              (*g_pStd_HS->pFread)(f,&cStack_81,1);
+              (*g_pStd_HS->pFclose)(f);
               return bitmap;
             }
           }
@@ -208,7 +208,7 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
     }
   }
 LAB_0047e02f:
-  (*g_pStd_HS->pFclose)(uVar2);
+  (*g_pStd_HS->pFclose)(f);
   if (bitmap != (stdBitmap *)0x0) {
     stdBitmap_Free(bitmap);
   }
@@ -390,15 +390,15 @@ uint __cdecl stdGif_Write(uint filename,int bitmap)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Sets the clear/end codes and code size from the root code size */
 
-uint __cdecl stdGif_LzwInitDecoder(short param_1)
+uint __cdecl stdGif_LzwInitDecoder(short bits)
 
 {
   uint uVar1;
   int iVar2;
   undefined4 *puVar3;
   
-  _DAT_00811b2c = 1 << ((byte)param_1 & 0x1f);
-  PIECE(UINT_0080cbe4,0,2) = param_1 + 1;
+  _DAT_00811b2c = 1 << ((byte)bits & 0x1f);
+  PIECE(UINT_0080cbe4,0,2) = bits + 1;
   UINT_00812ecc = 0;
   _DAT_00812ebc = _DAT_00811b2c + 1;
   _DAT_0080cbe8 = _DAT_00811b2c + 2;
@@ -427,7 +427,7 @@ uint __cdecl stdGif_LzwInitDecoder(short param_1)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Returns the next decoded pixel, walking the prefix/suffix tables */
 
-uint __cdecl stdGif_LzwDecodeNext(uint param_1)
+uint __cdecl stdGif_LzwDecodeNext(uint f)
 
 {
   short sVar1;
@@ -440,7 +440,7 @@ uint __cdecl stdGif_LzwDecodeNext(uint param_1)
     PTR_00812ec0 = (int *)((int)PTR_00812ec0 + -1);
     return CONCAT22((short)((uint)PTR_00812ec0 >> 0x10),(ushort)*(byte *)PTR_00812ec0);
   }
-  uVar2 = getcode(param_1);
+  uVar2 = getcode(f);
   if (-1 < (short)uVar2) {
     if ((short)uVar2 == _DAT_00811b2c) {
       puVar5 = (undefined4 *)PTR_UINT_004e7874;
@@ -450,7 +450,7 @@ uint __cdecl stdGif_LzwDecodeNext(uint param_1)
       }
       UINT_00812ecc = 1;
       _DAT_0080cbec = CONCAT22(DAT_0080cbec_2,(short)_DAT_0080cbe8 + -1);
-      uVar2 = getcode(param_1);
+      uVar2 = getcode(f);
       if ((short)uVar2 == -1) {
         return uVar2;
       }
@@ -497,7 +497,7 @@ uint __cdecl stdGif_LzwDecodeNext(uint param_1)
    maxcode up to 12 bits, the clear flag resets it, data sub-blocks read through the std file
    service); the LZW code reader of stdGif_Load in both builds); was stdGif_LzwReadCode. */
 
-uint __cdecl getcode(uint param_1)
+uint __cdecl getcode(uint f)
 
 {
   char cVar1;
@@ -527,7 +527,7 @@ uint __cdecl getcode(uint param_1)
     DAT_008155f4 = (short)(1 << ((byte)UINT_0080cbe4 & 0x1f)) + -1;
   }
   if (DAT_00812ed0 == 0) {
-    uVar3 = stdGif_ReadByte(param_1);
+    uVar3 = stdGif_ReadByte(f);
     if ((short)uVar3 == 0xffff) goto LAB_0047e760;
     DAT_00815600 = (byte)uVar3;
   }
@@ -538,7 +538,7 @@ uint __cdecl getcode(uint param_1)
   sVar2 = ((DAT_00812ed0 & 7) - 8) + (short)_DAT_00812ec4;
   bVar6 = bVar5;
   if (7 < sVar2) {
-    uVar3 = stdGif_ReadByte(param_1);
+    uVar3 = stdGif_ReadByte(f);
     if ((short)uVar3 == 0xffff) goto LAB_0047e760;
     DAT_00815600 = (byte)uVar3;
     bVar6 = cVar1 + 0x10;
@@ -547,7 +547,7 @@ uint __cdecl getcode(uint param_1)
     sVar2 = sVar2 + -8;
   }
   if (0 < sVar2) {
-    uVar3 = stdGif_ReadByte(param_1);
+    uVar3 = stdGif_ReadByte(f);
     if ((short)uVar3 == 0xffff) {
 LAB_0047e760:
       return CONCAT22((short)(uVar3 >> 0x10),0xffff);
@@ -564,7 +564,7 @@ LAB_0047e760:
 /* ---- 0x0047e770  stdGif_ReadByte ---- */
 /* Reads the next byte from the GIF sub-block stream */
 
-uint __cdecl stdGif_ReadByte(uint param_1)
+uint __cdecl stdGif_ReadByte(uint f)
 
 {
   int in_EAX;
@@ -572,11 +572,11 @@ uint __cdecl stdGif_ReadByte(uint param_1)
   
   if (DAT_00811b28 == DAT_008155f0) {
     DAT_008155f0 = 0;
-    iVar1 = (*g_pStd_HS->pFread)(param_1,&DAT_008155f0,1);
+    iVar1 = (*g_pStd_HS->pFread)(f,&DAT_008155f0,1);
     if (iVar1 != 1) {
       return CONCAT22((short)((uint)iVar1 >> 0x10),0xffff);
     }
-    in_EAX = (*g_pStd_HS->pFread)(param_1,&DAT_0080cbf8,(int)DAT_008155f0);
+    in_EAX = (*g_pStd_HS->pFread)(f,&DAT_0080cbf8,(int)DAT_008155f0);
     if (in_EAX != DAT_008155f0) {
       return CONCAT22((short)((uint)in_EAX >> 0x10),0xffff);
     }
@@ -635,7 +635,7 @@ uint __cdecl stdGif_LzwInitEncoder(uint file,uint bits)
    output buffer at the bit offset with the lmask / rmask tables); the LZW code writer of
    stdGif_Write in both builds); was stdGif_LzwWriteCode. */
 
-void __cdecl putcode(uint param_1,short param_2)
+void __cdecl putcode(uint f,short code)
 
 {
   undefined4 uVar1;
@@ -650,11 +650,11 @@ void __cdecl putcode(uint param_1,short param_2)
   sVar2 = (short)DAT_00812ed0 >> 3;
   DAT_00812ed0 = DAT_00812ed0 + _DAT_00812ec4;
   (&DAT_0080cbf8)[(short)(sVar2 + 1)] =
-       (char)param_2 << (sbyte)uVar5 & (&DAT_004e7858)[(short)uVar5] |
+       (char)code << (sbyte)uVar5 & (&DAT_004e7858)[(short)uVar5] |
        (&DAT_004e7868)[(short)uVar5] & (&DAT_0080cbf8)[(short)(sVar2 + 1)];
   sVar3 = sVar2 + 2;
   sVar7 = (uVar5 - 8) + (short)_DAT_00812ec4;
-  sVar6 = param_2 >> (8U - (sbyte)uVar5 & 0x1f);
+  sVar6 = code >> (8U - (sbyte)uVar5 & 0x1f);
   if (7 < sVar7) {
     iVar4 = (int)sVar3;
     sVar3 = sVar2 + 3;
@@ -663,20 +663,20 @@ void __cdecl putcode(uint param_1,short param_2)
     sVar7 = sVar7 + -8;
   }
   if (sVar3 == 0x100) {
-    stdGif_WriteSubBlock(param_1,0xff);
+    stdGif_WriteSubBlock(f,0xff);
     DAT_00812ed0 = DAT_00812ed0 + -0x7f8;
     sVar3 = 1;
   }
   if (0 < sVar7) {
     if (sVar3 == 0xff) {
-      stdGif_WriteSubBlock(param_1,0xfe);
+      stdGif_WriteSubBlock(f,0xfe);
       DAT_00812ed0 = DAT_00812ed0 + -0x7f0;
       sVar3 = 1;
     }
     (&DAT_0080cbf8)[sVar3] = (char)sVar6;
   }
   if (DAT_00812ed0 == 0x7f0) {
-    stdGif_WriteSubBlock(param_1,0xfe);
+    stdGif_WriteSubBlock(f,0xfe);
     DAT_00812ed0 = 0;
   }
   if ((DAT_008155f4 < DAT_0080cbec) || (0 < (int)UINT_00812ecc)) {
@@ -773,7 +773,7 @@ uint __cdecl stdGif_LzwEncodePixel(uint file,byte pixel)
 
 
 /* ---- 0x0047eba0  stdGif_LzwClearTable ---- */
-void __cdecl stdGif_LzwClearTable(uint param_1)
+void __cdecl stdGif_LzwClearTable(uint f)
 
 {
   int iVar1;
@@ -786,14 +786,14 @@ void __cdecl stdGif_LzwClearTable(uint param_1)
     puVar2 = puVar2 + 1;
   }
   DAT_0080cbec = DAT_0080cbe8;
-  putcode(param_1,DAT_00811b2c);
+  putcode(f,DAT_00811b2c);
   return;
 }
 
 /* ---- 0x0047ebe0  stdGif_LzwFinishEncode ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-uint __cdecl stdGif_LzwFinishEncode(uint param_1)
+uint __cdecl stdGif_LzwFinishEncode(uint f)
 
 {
   undefined2 extraout_var;
@@ -802,11 +802,11 @@ uint __cdecl stdGif_LzwFinishEncode(uint param_1)
   undefined2 uVar2;
   
   _DAT_008155f8 = 0;
-  putcode(param_1,DAT_00811b24);
-  putcode(param_1,DAT_00812ebc);
+  putcode(f,DAT_00811b24);
+  putcode(f,DAT_00812ebc);
   uVar2 = extraout_var;
   if (DAT_00812ed0 != 1) {
-    stdGif_WriteSubBlock(param_1,(short)(DAT_00812ed0 + 7 >> 3));
+    stdGif_WriteSubBlock(f,(short)(DAT_00812ed0 + 7 >> 3));
     uVar2 = extraout_var_00;
   }
   uVar1 = CONCAT22(uVar2,DAT_008155f8);
@@ -816,14 +816,14 @@ uint __cdecl stdGif_LzwFinishEncode(uint param_1)
 /* ---- 0x0047ec40  stdGif_WriteSubBlock ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __cdecl stdGif_WriteSubBlock(uint param_1,short param_2)
+void __cdecl stdGif_WriteSubBlock(uint f,short size)
 
 {
   int iVar1;
   
-  DAT_0080cbf8 = (undefined1)param_2;
-  iVar1 = (*g_pStd_HS->pFwrite)(param_1,&DAT_0080cbf8,param_2 + 1);
-  if (iVar1 != param_2 + 1) {
+  DAT_0080cbf8 = (undefined1)size;
+  iVar1 = (*g_pStd_HS->pFwrite)(f,&DAT_0080cbf8,size + 1);
+  if (iVar1 != size + 1) {
     _DAT_008155f8 = _DAT_008155f8 + 1;
   }
   return;

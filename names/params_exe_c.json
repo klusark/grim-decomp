@@ -1,0 +1,1750 @@
+{
+ "_comment": "GRIMFANDANGO.EXE parameter names from what each function does with them (part c), 2026-11-15.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "params": [
+  {
+   "addr": "0044da40",
+   "index": 0,
+   "type": "int *",
+   "name": "frustum",
+   "_fn": "rdClip_Face3GTOrtho",
+   "_names_only": true
+  },
+  {
+   "addr": "0044da40",
+   "index": 1,
+   "type": "float *",
+   "name": "verts",
+   "_fn": "rdClip_Face3GTOrtho",
+   "_names_only": true
+  },
+  {
+   "addr": "0044da40",
+   "index": 2,
+   "type": "uint *",
+   "name": "tverts",
+   "_fn": "rdClip_Face3GTOrtho",
+   "_names_only": true
+  },
+  {
+   "addr": "0044da40",
+   "index": 3,
+   "type": "uint *",
+   "name": "ivert",
+   "_fn": "rdClip_Face3GTOrtho",
+   "_names_only": true
+  },
+  {
+   "addr": "0044da40",
+   "index": 4,
+   "type": "uint",
+   "name": "count",
+   "_fn": "rdClip_Face3GTOrtho",
+   "_names_only": true
+  },
+  {
+   "addr": "00404380",
+   "index": 0,
+   "type": "uint",
+   "name": "colormap",
+   "_fn": "rdColormap_SetCurrent",
+   "_names_only": true
+  },
+  {
+   "addr": "00404730",
+   "index": 0,
+   "type": "uint",
+   "name": "colormap",
+   "_fn": "rdColormap_Free",
+   "_names_only": true
+  },
+  {
+   "addr": "00404750",
+   "index": 0,
+   "type": "int",
+   "name": "colormap",
+   "_fn": "rdColormap_FreeEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00404b30",
+   "index": 0,
+   "type": "int",
+   "name": "colormap",
+   "_fn": "rdColormap_Size",
+   "_names_only": true
+  },
+  {
+   "addr": "00451800",
+   "index": 0,
+   "type": "int *",
+   "name": "lights",
+   "_fn": "rdLight_CalcFaceIntensity",
+   "_names_only": true
+  },
+  {
+   "addr": "00451800",
+   "index": 1,
+   "type": "int",
+   "name": "verts",
+   "_fn": "rdLight_CalcFaceIntensity",
+   "_names_only": true
+  },
+  {
+   "addr": "00451800",
+   "index": 2,
+   "type": "uint",
+   "name": "numLights",
+   "_fn": "rdLight_CalcFaceIntensity",
+   "_names_only": true
+  },
+  {
+   "addr": "00451800",
+   "index": 4,
+   "type": "int",
+   "name": "face",
+   "_fn": "rdLight_CalcFaceIntensity",
+   "_names_only": true
+  },
+  {
+   "addr": "00451800",
+   "index": 5,
+   "type": "float *",
+   "name": "normal",
+   "_fn": "rdLight_CalcFaceIntensity",
+   "_names_only": true
+  },
+  {
+   "addr": "00451800",
+   "index": 6,
+   "type": "int",
+   "name": "vertices",
+   "_fn": "rdLight_CalcFaceIntensity",
+   "_names_only": true
+  },
+  {
+   "addr": "00451800",
+   "index": 7,
+   "type": "float",
+   "name": "scale",
+   "_fn": "rdLight_CalcFaceIntensity",
+   "_names_only": true
+  },
+  {
+   "addr": "00417e90",
+   "index": 0,
+   "type": "uint",
+   "name": "loader",
+   "_fn": "rdMaterial_RegisterLoader",
+   "_names_only": true
+  },
+  {
+   "addr": "00417ea0",
+   "index": 0,
+   "type": "uint",
+   "name": "unloader",
+   "_fn": "rdMaterial_RegisterUnloader",
+   "_names_only": true
+  },
+  {
+   "addr": "00418360",
+   "index": 0,
+   "type": "uint",
+   "name": "material",
+   "_fn": "rdMaterial_Free",
+   "_names_only": true
+  },
+  {
+   "addr": "004183a0",
+   "index": 0,
+   "type": "int",
+   "name": "material",
+   "_fn": "rdMaterial_FreeEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00409d20",
+   "index": 0,
+   "type": "int",
+   "name": "a",
+   "_fn": "rdCache_ProcFaceCompare",
+   "_names_only": true
+  },
+  {
+   "addr": "00409d20",
+   "index": 1,
+   "type": "int",
+   "name": "b",
+   "_fn": "rdCache_ProcFaceCompare",
+   "_names_only": true
+  },
+  {
+   "addr": "0040d880",
+   "index": 0,
+   "type": "int",
+   "name": "face",
+   "_fn": "rdModel3_DrawFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040d880",
+   "index": 1,
+   "type": "int",
+   "name": "backFacing",
+   "_fn": "rdModel3_DrawFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040a8f0",
+   "index": 0,
+   "type": "uint",
+   "name": "name",
+   "_fn": "rdModel3_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0040b8e0",
+   "index": 0,
+   "type": "int",
+   "name": "f",
+   "_fn": "rdModel3_LoadEntryBinary",
+   "_names_only": true
+  },
+  {
+   "addr": "0040b8e0",
+   "index": 1,
+   "type": "int",
+   "name": "model",
+   "_fn": "rdModel3_LoadEntryBinary",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c090",
+   "index": 0,
+   "type": "uint",
+   "name": "model",
+   "_fn": "rdModel3_LoadPostProcess",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c0d0",
+   "index": 0,
+   "type": "int",
+   "name": "model",
+   "_fn": "rdModel3_Free",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c100",
+   "index": 0,
+   "type": "int",
+   "name": "model",
+   "_fn": "rdModel3_FreeEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c280",
+   "index": 0,
+   "type": "int",
+   "name": "model",
+   "_fn": "rdModel3_BuildShadowModel",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c520",
+   "index": 0,
+   "type": "uint",
+   "name": "model",
+   "_fn": "rdModel3_CalcBoundingBoxes",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c710",
+   "index": 0,
+   "type": "int",
+   "name": "model",
+   "_fn": "rdModel3_CalcModelBoundingBox",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c710",
+   "index": 1,
+   "type": "int",
+   "name": "node",
+   "_fn": "rdModel3_CalcModelBoundingBox",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c710",
+   "index": 2,
+   "type": "float *",
+   "name": "matrix",
+   "_fn": "rdModel3_CalcModelBoundingBox",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c970",
+   "index": 0,
+   "type": "int",
+   "name": "model",
+   "_fn": "rdModel3_BuildExpandedRadius",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c970",
+   "index": 1,
+   "type": "int",
+   "name": "node",
+   "_fn": "rdModel3_BuildExpandedRadius",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c970",
+   "index": 2,
+   "type": "float *",
+   "name": "matrix",
+   "_fn": "rdModel3_BuildExpandedRadius",
+   "_names_only": true
+  },
+  {
+   "addr": "0040cad0",
+   "index": 0,
+   "type": "uint",
+   "name": "model",
+   "_fn": "rdModel3_CalcFaceNormals",
+   "_names_only": true
+  },
+  {
+   "addr": "0040ce90",
+   "index": 0,
+   "type": "int",
+   "name": "node",
+   "_fn": "rdModel3_CountNodeChildren",
+   "_names_only": true
+  },
+  {
+   "addr": "0040deb0",
+   "index": 0,
+   "type": "uint",
+   "name": "frustum",
+   "_fn": "rdPrimit3_ClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040deb0",
+   "index": 1,
+   "type": "uint",
+   "name": "geoMode",
+   "_fn": "rdPrimit3_ClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040deb0",
+   "index": 2,
+   "type": "int",
+   "name": "lightMode",
+   "_fn": "rdPrimit3_ClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040deb0",
+   "index": 3,
+   "type": "uint",
+   "name": "texMode",
+   "_fn": "rdPrimit3_ClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040deb0",
+   "index": 4,
+   "type": "uint *",
+   "name": "procVerts",
+   "_fn": "rdPrimit3_ClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040deb0",
+   "index": 5,
+   "type": "uint *",
+   "name": "procFace",
+   "_fn": "rdPrimit3_ClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040deb0",
+   "index": 6,
+   "type": "float *",
+   "name": "offset",
+   "_fn": "rdPrimit3_ClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040e500",
+   "index": 0,
+   "type": "uint",
+   "name": "geoMode",
+   "_fn": "rdPrimit3_NoClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040e500",
+   "index": 1,
+   "type": "int",
+   "name": "lightMode",
+   "_fn": "rdPrimit3_NoClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040e500",
+   "index": 2,
+   "type": "uint",
+   "name": "texMode",
+   "_fn": "rdPrimit3_NoClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040e500",
+   "index": 3,
+   "type": "uint *",
+   "name": "procVerts",
+   "_fn": "rdPrimit3_NoClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040e500",
+   "index": 4,
+   "type": "uint *",
+   "name": "procFace",
+   "_fn": "rdPrimit3_NoClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "0040e500",
+   "index": 5,
+   "type": "float *",
+   "name": "offset",
+   "_fn": "rdPrimit3_NoClipFace",
+   "_names_only": true
+  },
+  {
+   "addr": "00472360",
+   "index": 0,
+   "type": "int",
+   "name": "thing",
+   "_fn": "rdPolyline_DrawFace",
+   "_names_only": true
+  },
+  {
+   "addr": "00472360",
+   "index": 1,
+   "type": "int",
+   "name": "polyline",
+   "_fn": "rdPolyline_DrawFace",
+   "_names_only": true
+  },
+  {
+   "addr": "00472360",
+   "index": 2,
+   "type": "uint",
+   "name": "geoMode",
+   "_fn": "rdPolyline_DrawFace",
+   "_names_only": true
+  },
+  {
+   "addr": "00472360",
+   "index": 3,
+   "type": "undefined4 *",
+   "name": "outUv",
+   "_fn": "rdPolyline_DrawFace",
+   "_names_only": true
+  },
+  {
+   "addr": "004728a0",
+   "index": 0,
+   "type": "uint",
+   "name": "type",
+   "_fn": "rdSprite_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004728a0",
+   "index": 1,
+   "type": "uint",
+   "name": "name",
+   "_fn": "rdSprite_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004728a0",
+   "index": 2,
+   "type": "uint",
+   "name": "material",
+   "_fn": "rdSprite_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004728a0",
+   "index": 3,
+   "type": "uint",
+   "name": "width",
+   "_fn": "rdSprite_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004728a0",
+   "index": 4,
+   "type": "uint",
+   "name": "height",
+   "_fn": "rdSprite_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004728a0",
+   "index": 5,
+   "type": "uint",
+   "name": "geoMode",
+   "_fn": "rdSprite_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004728a0",
+   "index": 6,
+   "type": "uint",
+   "name": "lightMode",
+   "_fn": "rdSprite_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004728a0",
+   "index": 7,
+   "type": "uint",
+   "name": "texMode",
+   "_fn": "rdSprite_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004728a0",
+   "index": 8,
+   "type": "uint",
+   "name": "extraLight",
+   "_fn": "rdSprite_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004728a0",
+   "index": 9,
+   "type": "uint",
+   "name": "offset",
+   "_fn": "rdSprite_New",
+   "_names_only": true
+  },
+  {
+   "addr": "00472910",
+   "index": 0,
+   "type": "int",
+   "name": "sprite",
+   "_fn": "rdSprite_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472910",
+   "index": 1,
+   "type": "int",
+   "name": "name",
+   "_fn": "rdSprite_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472910",
+   "index": 2,
+   "type": "uint",
+   "name": "type",
+   "_fn": "rdSprite_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472910",
+   "index": 3,
+   "type": "char *",
+   "name": "material",
+   "_fn": "rdSprite_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472910",
+   "index": 4,
+   "type": "uint",
+   "name": "width",
+   "_fn": "rdSprite_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472910",
+   "index": 5,
+   "type": "uint",
+   "name": "height",
+   "_fn": "rdSprite_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472910",
+   "index": 6,
+   "type": "uint",
+   "name": "geoMode",
+   "_fn": "rdSprite_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472910",
+   "index": 7,
+   "type": "uint",
+   "name": "lightMode",
+   "_fn": "rdSprite_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472910",
+   "index": 8,
+   "type": "uint",
+   "name": "texMode",
+   "_fn": "rdSprite_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472910",
+   "index": 9,
+   "type": "uint",
+   "name": "extraLight",
+   "_fn": "rdSprite_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472910",
+   "index": 10,
+   "type": "undefined4 *",
+   "name": "offset",
+   "_fn": "rdSprite_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472b50",
+   "index": 0,
+   "type": "int",
+   "name": "sprite",
+   "_fn": "rdSprite_Free",
+   "_names_only": true
+  },
+  {
+   "addr": "00472b70",
+   "index": 0,
+   "type": "int",
+   "name": "sprite",
+   "_fn": "rdSprite_FreeEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00472bd0",
+   "index": 1,
+   "type": "float *",
+   "name": "matrix",
+   "_fn": "rdSprite_Draw",
+   "_names_only": true
+  },
+  {
+   "addr": "004506a0",
+   "index": 2,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "rdPuppet_SetStatus",
+   "_names_only": true
+  },
+  {
+   "addr": "004506d0",
+   "index": 1,
+   "type": "int",
+   "name": "track",
+   "_fn": "rdPuppet_SetCallback",
+   "_names_only": true
+  },
+  {
+   "addr": "004506d0",
+   "index": 2,
+   "type": "uint",
+   "name": "callback",
+   "_fn": "rdPuppet_SetCallback",
+   "_names_only": true
+  },
+  {
+   "addr": "00450b50",
+   "index": 1,
+   "type": "int",
+   "name": "track",
+   "_fn": "rdPuppet_ResetTrack",
+   "_names_only": true
+  },
+  {
+   "addr": "004c0660",
+   "index": 0,
+   "type": "char *",
+   "name": "name",
+   "_fn": "rdKeyframe_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "004c0ce0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "rdKeyframe_LoadEntryBinary",
+   "_names_only": true
+  },
+  {
+   "addr": "004c0ce0",
+   "index": 1,
+   "type": "int",
+   "name": "keyframe",
+   "_fn": "rdKeyframe_LoadEntryBinary",
+   "_names_only": true
+  },
+  {
+   "addr": "004c0e40",
+   "index": 0,
+   "type": "int",
+   "name": "keyframe",
+   "_fn": "rdKeyframe_Free",
+   "_names_only": true
+  },
+  {
+   "addr": "004c0e70",
+   "index": 0,
+   "type": "int",
+   "name": "keyframe",
+   "_fn": "rdKeyframe_FreeEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00404290",
+   "index": 0,
+   "type": "uint",
+   "name": "options",
+   "_fn": "rdSetRenderOptions",
+   "_names_only": true
+  },
+  {
+   "addr": "004042b0",
+   "index": 0,
+   "type": "int",
+   "name": "mode",
+   "_fn": "rdSetLightingMode",
+   "_names_only": true
+  },
+  {
+   "addr": "004042c0",
+   "index": 0,
+   "type": "int",
+   "name": "mode",
+   "_fn": "rdSetTextureMode",
+   "_names_only": true
+  },
+  {
+   "addr": "004042d0",
+   "index": 0,
+   "type": "int",
+   "name": "method",
+   "_fn": "rdSetSortingMethod",
+   "_names_only": true
+  },
+  {
+   "addr": "004042e0",
+   "index": 0,
+   "type": "int",
+   "name": "method",
+   "_fn": "rdSetOcclusionMethod",
+   "_names_only": true
+  },
+  {
+   "addr": "004042f0",
+   "index": 0,
+   "type": "int",
+   "name": "method",
+   "_fn": "rdSetZBufferMethod",
+   "_names_only": true
+  },
+  {
+   "addr": "00404350",
+   "index": 0,
+   "type": "uint",
+   "name": "colormap",
+   "_fn": "rdroid_SetColormap",
+   "_names_only": true
+  },
+  {
+   "addr": "00471a40",
+   "index": 0,
+   "type": "uint",
+   "name": "parent",
+   "_fn": "rdThing_New",
+   "_names_only": true
+  },
+  {
+   "addr": "00471a80",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "thing",
+   "_fn": "rdThing_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00471a80",
+   "index": 1,
+   "type": "uint",
+   "name": "parent",
+   "_fn": "rdThing_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00471af0",
+   "index": 0,
+   "type": "int",
+   "name": "thing",
+   "_fn": "rdThing_Free",
+   "_names_only": true
+  },
+  {
+   "addr": "00471b10",
+   "index": 0,
+   "type": "int *",
+   "name": "thing",
+   "_fn": "rdThing_FreeEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00471d40",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "thing",
+   "_fn": "rdThing_SetCamera",
+   "_names_only": true
+  },
+  {
+   "addr": "00471d40",
+   "index": 1,
+   "type": "uint",
+   "name": "camera",
+   "_fn": "rdThing_SetCamera",
+   "_names_only": true
+  },
+  {
+   "addr": "00471d60",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "thing",
+   "_fn": "rdThing_SetPolyline",
+   "_names_only": true
+  },
+  {
+   "addr": "00471d60",
+   "index": 1,
+   "type": "uint",
+   "name": "polyline",
+   "_fn": "rdThing_SetPolyline",
+   "_names_only": true
+  },
+  {
+   "addr": "00471e00",
+   "index": 0,
+   "type": "int",
+   "name": "thing",
+   "_fn": "rdThing_AccumulateMatrices",
+   "_names_only": true
+  },
+  {
+   "addr": "00471e00",
+   "index": 1,
+   "type": "int",
+   "name": "node",
+   "_fn": "rdThing_AccumulateMatrices",
+   "_names_only": true
+  },
+  {
+   "addr": "004038a0",
+   "index": 0,
+   "type": "void *",
+   "name": "rootKey",
+   "_fn": "Reg_Open",
+   "_names_only": true
+  },
+  {
+   "addr": "004038a0",
+   "index": 1,
+   "type": "uint",
+   "name": "subKey",
+   "_fn": "Reg_Open",
+   "_names_only": true
+  },
+  {
+   "addr": "004038a0",
+   "index": 2,
+   "type": "char *",
+   "name": "version",
+   "_fn": "Reg_Open",
+   "_names_only": true
+  },
+  {
+   "addr": "00483a80",
+   "index": 0,
+   "type": "uint",
+   "name": "callback",
+   "_fn": "sputRender_SetPaletteCallback",
+   "_names_only": true
+  },
+  {
+   "addr": "00483a90",
+   "index": 0,
+   "type": "void *",
+   "name": "callback",
+   "_fn": "sputRender_SetPageFlipCallback",
+   "_names_only": true
+  },
+  {
+   "addr": "00483ea0",
+   "index": 0,
+   "type": "int",
+   "name": "hardware",
+   "_fn": "sputRender_Using3DHardware",
+   "_names_only": true
+  },
+  {
+   "addr": "00484030",
+   "index": 6,
+   "type": "int",
+   "name": "format",
+   "_fn": "sputRender_SetDisplay",
+   "_names_only": true
+  },
+  {
+   "addr": "004849d0",
+   "index": 0,
+   "type": "uint *",
+   "name": "format",
+   "_fn": "Render_SetPixelFormat",
+   "_names_only": true
+  },
+  {
+   "addr": "00484c40",
+   "index": 0,
+   "type": "int",
+   "name": "format",
+   "_fn": "Render_InitColorConstants",
+   "_names_only": true
+  },
+  {
+   "addr": "004867d0",
+   "index": 0,
+   "type": "ushort *",
+   "name": "dst",
+   "_fn": "sputRender_Dim",
+   "_names_only": true
+  },
+  {
+   "addr": "004867d0",
+   "index": 1,
+   "type": "byte",
+   "name": "shift",
+   "_fn": "sputRender_Dim",
+   "_names_only": true
+  },
+  {
+   "addr": "00486b30",
+   "index": 0,
+   "type": "int",
+   "name": "flip",
+   "_fn": "sputRender_SetPageFlip",
+   "_names_only": true
+  },
+  {
+   "addr": "004874c0",
+   "index": 0,
+   "type": "uint",
+   "name": "allow",
+   "_fn": "sputRender_AllowLoadImage",
+   "_names_only": true
+  },
+  {
+   "addr": "0040a870",
+   "index": 0,
+   "type": "uint",
+   "name": "active",
+   "_fn": "rdModel3_ActivateClipPlane",
+   "_names_only": true
+  },
+  {
+   "addr": "0040a880",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "normal",
+   "_fn": "rdModel3_SetClipPlane",
+   "_names_only": true
+  },
+  {
+   "addr": "0040a880",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "point",
+   "_fn": "rdModel3_SetClipPlane",
+   "_names_only": true
+  },
+  {
+   "addr": "00481300",
+   "index": 0,
+   "type": "uint",
+   "name": "type",
+   "_fn": "res_LocateResByName",
+   "_names_only": true
+  },
+  {
+   "addr": "00481300",
+   "index": 1,
+   "type": "uint",
+   "name": "name",
+   "_fn": "res_LocateResByName",
+   "_names_only": true
+  },
+  {
+   "addr": "00481320",
+   "index": 0,
+   "type": "int",
+   "name": "type",
+   "_fn": "Res_FindByNameInList",
+   "_names_only": true
+  },
+  {
+   "addr": "00482170",
+   "index": 0,
+   "type": "int *",
+   "name": "outIter",
+   "_fn": "Res_GetFirstType",
+   "_names_only": true
+  },
+  {
+   "addr": "00482170",
+   "index": 1,
+   "type": "int *",
+   "name": "outData",
+   "_fn": "Res_GetFirstType",
+   "_names_only": true
+  },
+  {
+   "addr": "00482170",
+   "index": 2,
+   "type": "int",
+   "name": "type",
+   "_fn": "Res_GetFirstType",
+   "_names_only": true
+  },
+  {
+   "addr": "004821b0",
+   "index": 0,
+   "type": "int *",
+   "name": "iter",
+   "_fn": "Res_GetNextType",
+   "_names_only": true
+  },
+  {
+   "addr": "004821b0",
+   "index": 1,
+   "type": "int *",
+   "name": "outData",
+   "_fn": "Res_GetNextType",
+   "_names_only": true
+  },
+  {
+   "addr": "004821b0",
+   "index": 2,
+   "type": "int",
+   "name": "type",
+   "_fn": "Res_GetNextType",
+   "_names_only": true
+  },
+  {
+   "addr": "004824f0",
+   "index": 0,
+   "type": "uint",
+   "name": "type",
+   "_fn": "Res_CountChildren",
+   "_names_only": true
+  },
+  {
+   "addr": "004824f0",
+   "index": 1,
+   "type": "uint",
+   "name": "name",
+   "_fn": "Res_CountChildren",
+   "_names_only": true
+  },
+  {
+   "addr": "00482520",
+   "index": 0,
+   "type": "int",
+   "name": "megabytes",
+   "_fn": "grimlib_SetCacheMax",
+   "_names_only": true
+  },
+  {
+   "addr": "00480bb0",
+   "index": 0,
+   "type": "int",
+   "name": "f",
+   "_fn": "Res_FGets",
+   "_names_only": true
+  },
+  {
+   "addr": "00480bb0",
+   "index": 1,
+   "type": "char *",
+   "name": "buf",
+   "_fn": "Res_FGets",
+   "_names_only": true
+  },
+  {
+   "addr": "00480bb0",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "Res_FGets",
+   "_names_only": true
+  },
+  {
+   "addr": "00480ce0",
+   "index": 0,
+   "type": "int",
+   "name": "f",
+   "_fn": "Res_FWrite",
+   "_names_only": true
+  },
+  {
+   "addr": "00480ce0",
+   "index": 1,
+   "type": "uint",
+   "name": "buf",
+   "_fn": "Res_FWrite",
+   "_names_only": true
+  },
+  {
+   "addr": "00480ce0",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "Res_FWrite",
+   "_names_only": true
+  },
+  {
+   "addr": "00480d50",
+   "index": 0,
+   "type": "int",
+   "name": "f",
+   "_fn": "Res_FEOF",
+   "_names_only": true
+  },
+  {
+   "addr": "00480dc0",
+   "index": 0,
+   "type": "int",
+   "name": "f",
+   "_fn": "Res_FTell",
+   "_names_only": true
+  },
+  {
+   "addr": "00480010",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "Res_SysInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00480010",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "Res_SysInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00480020",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "Res_SysInitializeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "00480020",
+   "index": 1,
+   "type": "int",
+   "name": "again",
+   "_fn": "Res_SysInitializeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "00480020",
+   "index": 2,
+   "type": "undefined4",
+   "name": "reserved",
+   "_fn": "Res_SysInitializeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "00480020",
+   "index": 3,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "Res_SysInitializeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "00482260",
+   "index": 0,
+   "type": "code *",
+   "name": "write",
+   "_fn": "Res_SysSave",
+   "_names_only": true
+  },
+  {
+   "addr": "00482380",
+   "index": 0,
+   "type": "code *",
+   "name": "read",
+   "_fn": "Res_SysLoad",
+   "_names_only": true
+  },
+  {
+   "addr": "0048d810",
+   "index": 0,
+   "type": "uint",
+   "name": "name",
+   "_fn": "Resource_CountCostumeRefs",
+   "_names_only": true
+  },
+  {
+   "addr": "0048e170",
+   "index": 0,
+   "type": "char *",
+   "name": "name",
+   "_fn": "sputResource_MatLoader",
+   "_names_only": true
+  },
+  {
+   "addr": "0048d8c0",
+   "index": 0,
+   "type": "int *",
+   "name": "msg",
+   "_fn": "sputResource_LipSyncHandler",
+   "_names_only": true
+  },
+  {
+   "addr": "0048dab0",
+   "index": 0,
+   "type": "int *",
+   "name": "msg",
+   "_fn": "sputResource_ColormapHandler",
+   "_names_only": true
+  },
+  {
+   "addr": "0048dd20",
+   "index": 0,
+   "type": "int *",
+   "name": "msg",
+   "_fn": "sputResource_MaterialHandler",
+   "_names_only": true
+  },
+  {
+   "addr": "0048de10",
+   "index": 0,
+   "type": "int *",
+   "name": "msg",
+   "_fn": "sputResource_ModelHandler",
+   "_names_only": true
+  },
+  {
+   "addr": "0048de70",
+   "index": 0,
+   "type": "int *",
+   "name": "msg",
+   "_fn": "sputResource_SetHandler",
+   "_names_only": true
+  },
+  {
+   "addr": "0048dee0",
+   "index": 0,
+   "type": "int *",
+   "name": "msg",
+   "_fn": "sputResource_ZBufferHandler",
+   "_names_only": true
+  },
+  {
+   "addr": "0048e1e0",
+   "index": 0,
+   "type": "int *",
+   "name": "msg",
+   "_fn": "sputResource_MemoryHandler",
+   "_names_only": true
+  },
+  {
+   "addr": "004d5e70",
+   "index": 2,
+   "type": "int",
+   "name": "count",
+   "_fn": "msc_rle_DecompressBlock",
+   "_names_only": true
+  },
+  {
+   "addr": "004d5eb0",
+   "index": 0,
+   "type": "int *",
+   "name": "src",
+   "_fn": "msc_rle_DecompressInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00488d80",
+   "index": 0,
+   "type": "code *",
+   "name": "read",
+   "_fn": "FileUtil_SysRestore",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4b00",
+   "index": 1,
+   "type": "uint",
+   "name": "set",
+   "_fn": "SetFile_Parse",
+   "_names_only": true
+  },
+  {
+   "addr": "004a5550",
+   "index": 0,
+   "type": "uint",
+   "name": "path",
+   "_fn": "sputRoom_LoadRoomEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "004a7ab0",
+   "index": 0,
+   "type": "uint",
+   "name": "plane",
+   "_fn": "WalkPlane_AddVertex",
+   "_names_only": true
+  },
+  {
+   "addr": "004a7ab0",
+   "index": 1,
+   "type": "float *",
+   "name": "v",
+   "_fn": "WalkPlane_AddVertex",
+   "_names_only": true
+  },
+  {
+   "addr": "004a7ba0",
+   "index": 0,
+   "type": "int *",
+   "name": "vertex",
+   "_fn": "WalkPlane_RemoveVertex",
+   "_names_only": true
+  },
+  {
+   "addr": "004036d0",
+   "index": 0,
+   "type": "uint",
+   "name": "fn",
+   "_fn": "defaultAtExit",
+   "_names_only": true
+  },
+  {
+   "addr": "00403730",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "defaultFileClose",
+   "_names_only": true
+  },
+  {
+   "addr": "004037a0",
+   "index": 0,
+   "type": "int",
+   "name": "f",
+   "_fn": "defaultFileEOF",
+   "_names_only": true
+  },
+  {
+   "addr": "004037b0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "defaultFileTell",
+   "_names_only": true
+  },
+  {
+   "addr": "00403870",
+   "index": 0,
+   "type": "uint",
+   "name": "handle",
+   "_fn": "defaultLockHandle",
+   "_names_only": true
+  },
+  {
+   "addr": "00485780",
+   "index": 0,
+   "type": "int",
+   "name": "set",
+   "_fn": "Set_DrawDebugLights",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4010",
+   "index": 0,
+   "type": "int",
+   "name": "set",
+   "_fn": "sputRoom_SetSoundParameters",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4010",
+   "index": 1,
+   "type": "uint",
+   "name": "reverb",
+   "_fn": "sputRoom_SetSoundParameters",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4010",
+   "index": 2,
+   "type": "byte",
+   "name": "volume",
+   "_fn": "sputRoom_SetSoundParameters",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4010",
+   "index": 3,
+   "type": "byte",
+   "name": "pan",
+   "_fn": "sputRoom_SetSoundParameters",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4010",
+   "index": 4,
+   "type": "uint",
+   "name": "param1",
+   "_fn": "sputRoom_SetSoundParameters",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4010",
+   "index": 5,
+   "type": "uint",
+   "name": "param2",
+   "_fn": "sputRoom_SetSoundParameters",
+   "_names_only": true
+  },
+  {
+   "addr": "004a40f0",
+   "index": 1,
+   "type": "int",
+   "name": "force",
+   "_fn": "sputRoom_SetCurrentRoom",
+   "_names_only": true
+  },
+  {
+   "addr": "004a49a0",
+   "index": 0,
+   "type": "char *",
+   "name": "name",
+   "_fn": "sputRoom_LoadRoom",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4c40",
+   "index": 0,
+   "type": "uint",
+   "name": "set",
+   "_fn": "sputRoom_FreeRoom",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4d10",
+   "index": 0,
+   "type": "int",
+   "name": "set",
+   "_fn": "Set_FreeSetups",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4d80",
+   "index": 0,
+   "type": "uint",
+   "name": "set",
+   "_fn": "Set_FreeSetup",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4d80",
+   "index": 1,
+   "type": "int",
+   "name": "setup",
+   "_fn": "Set_FreeSetup",
+   "_names_only": true
+  },
+  {
+   "addr": "004a60c0",
+   "index": 0,
+   "type": "int",
+   "name": "name",
+   "_fn": "Set_FindNameInList",
+   "_names_only": true
+  },
+  {
+   "addr": "004a7100",
+   "index": 0,
+   "type": "void *",
+   "name": "collection",
+   "_fn": "WalkPlane_KillCollection",
+   "_names_only": true
+  },
+  {
+   "addr": "00485a40",
+   "index": 0,
+   "type": "int",
+   "name": "setup",
+   "_fn": "Setup_DrawDebugCamera",
+   "_names_only": true
+  },
+  {
+   "addr": "004bd560",
+   "index": 0,
+   "type": "uint",
+   "name": "lookup",
+   "_fn": "SmushPlay_SysConfigureColorLookup",
+   "_names_only": true
+  },
+  {
+   "addr": "004bde90",
+   "index": 0,
+   "type": "uint",
+   "name": "table",
+   "_fn": "SmushPlay_SetTranslationTable",
+   "_names_only": true
+  },
+  {
+   "addr": "004bdea0",
+   "index": 0,
+   "type": "uint *",
+   "name": "outWidth",
+   "_fn": "SmushPlay_GetFrameRect",
+   "_names_only": true
+  },
+  {
+   "addr": "004bdea0",
+   "index": 1,
+   "type": "uint *",
+   "name": "outHeight",
+   "_fn": "SmushPlay_GetFrameRect",
+   "_names_only": true
+  },
+  {
+   "addr": "00498140",
+   "index": 0,
+   "type": "uint",
+   "name": "tag",
+   "_fn": "SmushFreer",
+   "_names_only": true
+  },
+  {
+   "addr": "00498140",
+   "index": 1,
+   "type": "uint",
+   "name": "inst",
+   "_fn": "SmushFreer",
+   "_names_only": true
+  },
+  {
+   "addr": "00498140",
+   "index": 2,
+   "type": "uint",
+   "name": "data",
+   "_fn": "SmushFreer",
+   "_names_only": true
+  },
+  {
+   "addr": "00498160",
+   "index": 0,
+   "type": "uint",
+   "name": "cosInst",
+   "_fn": "SmushChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00498160",
+   "index": 1,
+   "type": "uint",
+   "name": "name",
+   "_fn": "SmushChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00498160",
+   "index": 2,
+   "type": "uint",
+   "name": "tag",
+   "_fn": "SmushChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00498160",
+   "index": 3,
+   "type": "int",
+   "name": "loop",
+   "_fn": "SmushChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00498190",
+   "index": 0,
+   "type": "uint",
+   "name": "cosInst",
+   "_fn": "SmushRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00498190",
+   "index": 1,
+   "type": "int",
+   "name": "tag",
+   "_fn": "SmushRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00498190",
+   "index": 2,
+   "type": "int",
+   "name": "parent",
+   "_fn": "SmushRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00498190",
+   "index": 3,
+   "type": "int",
+   "name": "type",
+   "_fn": "SmushRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00498190",
+   "index": 4,
+   "type": "char *",
+   "name": "name",
+   "_fn": "SmushRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "004a40a0",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "sputRoom_SetSoundPosition",
+   "_names_only": true
+  },
+  {
+   "addr": "004a40a0",
+   "index": 1,
+   "type": "undefined **",
+   "name": "pos",
+   "_fn": "sputRoom_SetSoundPosition",
+   "_names_only": true
+  },
+  {
+   "addr": "004a40a0",
+   "index": 2,
+   "type": "uint",
+   "name": "minVol",
+   "_fn": "sputRoom_SetSoundPosition",
+   "_names_only": true
+  },
+  {
+   "addr": "004a40a0",
+   "index": 3,
+   "type": "uint",
+   "name": "maxVol",
+   "_fn": "sputRoom_SetSoundPosition",
+   "_names_only": true
+  },
+  {
+   "addr": "004a40a0",
+   "index": 4,
+   "type": "uint",
+   "name": "near",
+   "_fn": "sputRoom_SetSoundPosition",
+   "_names_only": true
+  },
+  {
+   "addr": "004a40a0",
+   "index": 5,
+   "type": "uint",
+   "name": "far",
+   "_fn": "sputRoom_SetSoundPosition",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4e20",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "PositionedSound_Add",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4e20",
+   "index": 1,
+   "type": "undefined **",
+   "name": "pos",
+   "_fn": "PositionedSound_Add",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4e20",
+   "index": 2,
+   "type": "uint",
+   "name": "minVol",
+   "_fn": "PositionedSound_Add",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4e20",
+   "index": 3,
+   "type": "uint",
+   "name": "maxVol",
+   "_fn": "PositionedSound_Add",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4e20",
+   "index": 4,
+   "type": "uint",
+   "name": "near",
+   "_fn": "PositionedSound_Add",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4e20",
+   "index": 5,
+   "type": "uint",
+   "name": "far",
+   "_fn": "PositionedSound_Add",
+   "_names_only": true
+  }
+ ]
+}

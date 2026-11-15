@@ -10,13 +10,13 @@
    rdMaterial_RegisterLoader (the remaster's GrimFandango (Linux): swaps pMaterialsLoader); was
    rdMaterial_SetLoadHook. */
 
-uint __cdecl rdMaterial_RegisterLoader(uint param_1)
+uint __cdecl rdMaterial_RegisterLoader(uint loader)
 
 {
   uint uVar1;
   
   uVar1 = g_dwMaterialsLoader;
-  g_dwMaterialsLoader = param_1;
+  g_dwMaterialsLoader = loader;
   return uVar1;
 }
 
@@ -24,13 +24,13 @@ uint __cdecl rdMaterial_RegisterLoader(uint param_1)
 /* Original name rdMaterial_RegisterUnloader (the remaster's GrimFandango (Linux): swaps
    pMaterialsUnloader); was rdMaterial_SetFreeHook. */
 
-uint __cdecl rdMaterial_RegisterUnloader(uint param_1)
+uint __cdecl rdMaterial_RegisterUnloader(uint unloader)
 
 {
   uint uVar1;
   
   uVar1 = g_dwMaterialsUnloader;
-  g_dwMaterialsUnloader = param_1;
+  g_dwMaterialsUnloader = unloader;
   return uVar1;
 }
 
@@ -280,15 +280,15 @@ LAB_0041833a:
 
 
 /* ---- 0x00418360  rdMaterial_Free ---- */
-void __cdecl rdMaterial_Free(uint param_1)
+void __cdecl rdMaterial_Free(uint material)
 
 {
   if (g_dwMaterialsUnloader != 0) {
-    (*(code_std *)g_dwMaterialsUnloader)(param_1);
+    (*(code_std *)g_dwMaterialsUnloader)(material);
     return;
   }
-  rdMaterial_FreeEntry(param_1);
-  (*g_pRdroid_HS->pFree)(param_1);
+  rdMaterial_FreeEntry(material);
+  (*g_pRdroid_HS->pFree)(material);
   return;
 }
 
@@ -298,7 +298,7 @@ void __cdecl rdMaterial_Free(uint param_1)
    entries, the texture VBuffers of every cel, then the +0xac array); called by the material
    resource handler's free message in both builds); was rdMaterial_FreeContents. */
 
-void __cdecl rdMaterial_FreeEntry(int param_1)
+void __cdecl rdMaterial_FreeEntry(int material)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -310,17 +310,17 @@ void __cdecl rdMaterial_FreeEntry(int param_1)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar3 = 0;
-  if (*(int *)(param_1 + 0x60) != 0) {
-    puVar1 = (undefined4 *)(param_1 + 0x68);
+  if (*(int *)(material + 0x60) != 0) {
+    puVar1 = (undefined4 *)(material + 0x68);
     do {
       (*g_pRdroid_HS->pFree)(*puVar1);
       uVar3 = uVar3 + 1;
       puVar1 = puVar1 + 1;
-    } while (uVar3 < *(uint *)(param_1 + 0x60));
+    } while (uVar3 < *(uint *)(material + 0x60));
   }
   local_4 = 0;
-  if (*(int *)(param_1 + 0xa8) != 0) {
-    puVar2 = (uint *)(*(int *)(param_1 + 0xac) + 0x18);
+  if (*(int *)(material + 0xa8) != 0) {
+    puVar2 = (uint *)(*(int *)(material + 0xac) + 0x18);
     do {
       uVar3 = 0;
       if (*puVar2 != 0) {
@@ -342,10 +342,10 @@ void __cdecl rdMaterial_FreeEntry(int param_1)
       }
       puVar2 = puVar2 + 0x13b;
       local_4 = local_4 + 1;
-    } while (local_4 < *(uint *)(param_1 + 0xa8));
+    } while (local_4 < *(uint *)(material + 0xa8));
   }
-  if (*(int *)(param_1 + 0xac) != 0) {
-    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0xac));
+  if (*(int *)(material + 0xac) != 0) {
+    (*g_pRdroid_HS->pFree)(*(int *)(material + 0xac));
   }
   return;
 }

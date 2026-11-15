@@ -567,74 +567,74 @@ void __cdecl rdActive_BuildEdges(void)
   uint uVar5;
   int iVar6;
   uint uVar7;
-  ProcEntry *pPVar8;
-  undefined *puVar9;
-  uint uVar10;
-  uint *puVar11;
+  ProcEntry *face;
+  undefined *puVar8;
+  uint uVar9;
+  uint *puVar10;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar10 = 0;
-  pPVar8 = g_bRdCache_aProcFaces;
+  uVar9 = 0;
+  face = g_bRdCache_aProcFaces;
   if (g_dwRdCache_numProcFaces != 0) {
     do {
-      rdActive_AddActiveFace((byte *)pPVar8);
-      pPVar8 = pPVar8 + 1;
-      uVar10 = uVar10 + 1;
-    } while (uVar10 < g_dwRdCache_numProcFaces);
+      rdActive_AddActiveFace((byte *)face);
+      face = face + 1;
+      uVar9 = uVar9 + 1;
+    } while (uVar9 < g_dwRdCache_numProcFaces);
   }
-  puVar11 = &UINT_00565f38;
-  puVar9 = &DAT_0050df38;
+  puVar10 = &UINT_00565f38;
+  puVar8 = &DAT_0050df38;
   local_4 = 0;
   if (g_dwNumActiveFaces != 0) {
     do {
-      uVar10 = *puVar11;
-      uVar4 = *(uint *)(uVar10 + 0x1c);
+      uVar9 = *puVar10;
+      uVar4 = *(uint *)(uVar9 + 0x1c);
       uVar7 = 0;
       if (uVar4 != 0) {
         do {
           uVar1 = uVar7 + 1;
           uVar5 = ~-(uint)(uVar4 - 1 < uVar1) & uVar1;
           uVar4 = uVar5;
-          if (*(int *)(*puVar11 + 0x50) == 0) {
+          if (*(int *)(*puVar10 + 0x50) == 0) {
             uVar4 = uVar7;
             uVar7 = uVar5;
           }
-          iVar6 = (*(code *)puVar11[0x7a])(puVar9,puVar11,uVar4,uVar7);
+          iVar6 = (*(code *)puVar10[0x7a])(puVar8,puVar10,uVar4,uVar7);
           if (iVar6 != 0) {
-            *(uint **)(puVar9 + 4) = puVar11;
-            iVar6 = *(int *)(&g_apNewActiveEdges + *(int *)(puVar9 + 8) * 4);
-            if ((iVar6 == 0) || (*(int *)(puVar9 + 0x28) <= *(int *)(iVar6 + 0x28))) {
-              *(int *)(puVar9 + 0x50) = iVar6;
-              *(undefined **)(&g_apNewActiveEdges + *(int *)(puVar9 + 8) * 4) = puVar9;
+            *(uint **)(puVar8 + 4) = puVar10;
+            iVar6 = *(int *)(&g_apNewActiveEdges + *(int *)(puVar8 + 8) * 4);
+            if ((iVar6 == 0) || (*(int *)(puVar8 + 0x28) <= *(int *)(iVar6 + 0x28))) {
+              *(int *)(puVar8 + 0x50) = iVar6;
+              *(undefined **)(&g_apNewActiveEdges + *(int *)(puVar8 + 8) * 4) = puVar8;
             }
             else {
               for (iVar3 = *(int *)(iVar6 + 0x50);
-                  (iVar3 != 0 && (*(int *)(iVar3 + 0x28) < *(int *)(puVar9 + 0x28)));
+                  (iVar3 != 0 && (*(int *)(iVar3 + 0x28) < *(int *)(puVar8 + 0x28)));
                   iVar3 = *(int *)(iVar3 + 0x50)) {
                 iVar6 = iVar3;
               }
-              *(undefined4 *)(puVar9 + 0x50) = *(undefined4 *)(iVar6 + 0x50);
-              *(undefined **)(iVar6 + 0x50) = puVar9;
+              *(undefined4 *)(puVar8 + 0x50) = *(undefined4 *)(iVar6 + 0x50);
+              *(undefined **)(iVar6 + 0x50) = puVar8;
             }
-            uVar7 = *(uint *)(puVar9 + 8);
-            uVar4 = *(int *)(puVar9 + 0xc) + -1 + uVar7;
+            uVar7 = *(uint *)(puVar8 + 8);
+            uVar4 = *(int *)(puVar8 + 0xc) + -1 + uVar7;
             uVar2 = *(undefined4 *)(&g_apRemoveActiveEdges + uVar4 * 4);
-            *(undefined **)(&g_apRemoveActiveEdges + uVar4 * 4) = puVar9;
-            *(undefined4 *)(puVar9 + 0x54) = uVar2;
+            *(undefined **)(&g_apRemoveActiveEdges + uVar4 * 4) = puVar8;
+            *(undefined4 *)(puVar8 + 0x54) = uVar2;
             if (uVar7 < g_dwYMinEdge) {
               g_dwYMinEdge = uVar7;
             }
             if (g_dwYMaxEdge < uVar4) {
               g_dwYMaxEdge = uVar4;
             }
-            puVar9 = puVar9 + 0x58;
+            puVar8 = puVar8 + 0x58;
             g_dwNumActiveEdges = g_dwNumActiveEdges + 1;
           }
-          uVar4 = *(uint *)(uVar10 + 0x1c);
+          uVar4 = *(uint *)(uVar9 + 0x1c);
           uVar7 = uVar1;
         } while (uVar1 < uVar4);
       }
-      puVar11 = puVar11 + 0x81;
+      puVar10 = puVar10 + 0x81;
       local_4 = local_4 + 1;
     } while (local_4 < g_dwNumActiveFaces);
   }
@@ -649,7 +649,7 @@ void __cdecl rdActive_BuildEdges(void)
 /* Original name rdActive_AddActiveFace (the remaster's GrimFandango (Linux): aligned call in
    rdActive_BuildEdges); was rdCanvas_PreparePolygon. */
 
-uint __cdecl rdActive_AddActiveFace(byte *param_1)
+uint __cdecl rdActive_AddActiveFace(byte *face)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -666,18 +666,18 @@ uint __cdecl rdActive_AddActiveFace(byte *param_1)
   int iVar9;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  pbVar4 = param_1;
+  pbVar4 = face;
   uVar7 = g_dwNumActiveFaces;
   if (0x3ff < g_dwNumActiveFaces) {
     return 0;
   }
-  local_4 = *(float *)(param_1 + 8);
+  local_4 = *(float *)(face + 8);
   if (g_nRdroid_curGeometryMode <= PUN(int,(float)local_4)) {
     local_4 = PUN(float,g_nRdroid_curGeometryMode);
   }
-  param_1 = *(byte **)(param_1 + 0xc);
-  if (g_nRdroid_curLightingMode <= (int)param_1) {
-    param_1 = (byte *)g_nRdroid_curLightingMode;
+  face = *(byte **)(face + 0xc);
+  if (g_nRdroid_curLightingMode <= (int)face) {
+    face = (byte *)g_nRdroid_curLightingMode;
   }
   iVar8 = *(int *)(pbVar4 + 0x10);
   if (g_nRdroid_curTextureMode <= *(int *)(pbVar4 + 0x10)) {
@@ -733,7 +733,7 @@ LAB_0040585d:
     local_4 = *(float *)(pbVar4 + 0x40);
   }
   if (fVar5 == 2.8026e-45f) {
-    if ((-1 < (int)param_1) && ((int)param_1 < 5)) {
+    if ((-1 < (int)face) && ((int)face < 5)) {
       if ((*pbVar4 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
           rdAFRaster_SetupNGonLW(rec,(int)mat);
@@ -745,7 +745,7 @@ LAB_0040585d:
     }
   }
   else if (fVar5 == 4.2039e-45f) {
-    switch((int)(param_1)) {
+    switch((int)(face)) {
     case 0x0:
       if ((*pbVar4 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
@@ -865,7 +865,7 @@ LAB_0040585d:
   else if (fVar5 == 5.60519e-45f) {
     if ((**(byte **)(mat + 0x1c) & 1) == 0) {
       if (iVar8 == 0) {
-        switch((int)(param_1)) {
+        switch((int)(face)) {
         case 0x0:
           if ((*pbVar4 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
@@ -983,7 +983,7 @@ LAB_0040585d:
         }
       }
       else if ((0 < iVar8) && (iVar8 < 3)) {
-        switch((int)(param_1)) {
+        switch((int)(face)) {
         case 0x0:
           if ((*pbVar4 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
@@ -1102,7 +1102,7 @@ LAB_0040585d:
       }
     }
     else if (iVar8 == 0) {
-      switch((int)(param_1)) {
+      switch((int)(face)) {
       case 0x0:
         if ((*pbVar4 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
@@ -1220,7 +1220,7 @@ LAB_0040585d:
       }
     }
     else if ((0 < iVar8) && (iVar8 < 3)) {
-      switch((int)(param_1)) {
+      switch((int)(face)) {
       case 0x0:
         if ((*pbVar4 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
@@ -1465,9 +1465,7 @@ rdCanvas_DrawLine(rdCanvas *canvas,int x0,int y0,int x1,int y1,ushort color,uint
 #if 0
 /* Clips a point with radius against the canvas rect and draws it */
 
-void __cdecl
-rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,uint param_4,float param_5,int param_6,
-                  int param_7)
+void __cdecl rdCanvas_DrawPoint(void *canvas,int x,int y,uint radius,float step,int color,int flags)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1482,24 +1480,23 @@ rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,uint param_4,float para
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  lVar2 = FTOL((float10)PUN(float,param_4) - (float10)-0.5);
+  lVar2 = FTOL((float10)PUN(float,radius) - (float10)-0.5);
   iVar1 = (int)lVar2;
-  if ((((*(int *)((int)param_1 + 0x18) <= iVar1 + param_2) &&
-       (param_2 - iVar1 <= *(int *)((int)param_1 + 0x20))) &&
-      (*(int *)((int)param_1 + 0x1c) <= iVar1 + param_3)) &&
-     (param_3 - iVar1 <= *(int *)((int)param_1 + 0x24))) {
+  if ((((*(int *)((int)canvas + 0x18) <= iVar1 + x) && (x - iVar1 <= *(int *)((int)canvas + 0x20)))
+      && (*(int *)((int)canvas + 0x1c) <= iVar1 + y)) && (y - iVar1 <= *(int *)((int)canvas + 0x24))
+     ) {
     stdMath_SinCos(0.0f,(float *)&local_4,(float *)&local_8);
-    lVar2 = FTOL((float10)PUN(float,local_8) * (float10)PUN(float,param_4) - (float10)-0.5);
-    lVar3 = FTOL((float10)PUN(float,local_4) * (float10)PUN(float,param_4) - (float10)-0.5);
-    iVar1 = (int)lVar2 + param_2;
-    y1 = (int)lVar3 + param_3;
-    for (deg = param_5; deg <= 360.0f; deg = deg + param_5) {
+    lVar2 = FTOL((float10)PUN(float,local_8) * (float10)PUN(float,radius) - (float10)-0.5);
+    lVar3 = FTOL((float10)PUN(float,local_4) * (float10)PUN(float,radius) - (float10)-0.5);
+    iVar1 = (int)lVar2 + x;
+    y1 = (int)lVar3 + y;
+    for (deg = step; deg <= 360.0f; deg = deg + step) {
       stdMath_SinCos(deg,(float *)&local_4,(float *)&local_8);
-      lVar2 = FTOL((float10)PUN(float,local_8) * (float10)PUN(float,param_4) - (float10)-0.5);
-      x2 = (int)lVar2 + param_2;
-      lVar2 = FTOL((float10)PUN(float,local_4) * (float10)PUN(float,param_4) - (float10)-0.5);
-      y2 = (int)lVar2 + param_3;
-      rdPrimit2_DrawLine(param_1,iVar1,y1,x2,y2,param_6,param_7);
+      lVar2 = FTOL((float10)PUN(float,local_8) * (float10)PUN(float,radius) - (float10)-0.5);
+      x2 = (int)lVar2 + x;
+      lVar2 = FTOL((float10)PUN(float,local_4) * (float10)PUN(float,radius) - (float10)-0.5);
+      y2 = (int)lVar2 + y;
+      rdPrimit2_DrawLine(canvas,iVar1,y1,x2,y2,color,flags);
       iVar1 = x2;
       y1 = y2;
     }
@@ -1564,12 +1561,12 @@ rdCanvas_NewEntry(rdCanvas *canvas,uint flags,uint surface,uint zSurface,uint x0
 }
 
 /* ---- 0x004c0610  rdCanvas_Free ---- */
-void __cdecl rdCanvas_Free(int param_1)
+void __cdecl rdCanvas_Free(int canvas)
 
 {
-  if (param_1 != 0) {
+  if (canvas != 0) {
     Mem_DumpLog();
-    (*g_pRdroid_HS->pFree)(param_1);
+    (*g_pRdroid_HS->pFree)(canvas);
   }
   return;
 }

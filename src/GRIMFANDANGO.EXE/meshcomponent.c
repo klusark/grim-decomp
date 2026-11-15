@@ -12,16 +12,16 @@
    handler slot (changer) of the same costume tag registration in sputCostume_Startup); was
    MeshComponent_OnKey. */
 
-void __cdecl MeshChanger(uint param_1,int *param_2,uint param_3,int param_4)
+void __cdecl MeshChanger(uint cosInst,int *inst,uint tag,int command)
 
 {
   int iVar1;
   int iVar2;
   
-  iVar1 = *(int *)(&DAT_004e9f38 + param_4 * 4);
-  iVar2 = *(int *)(*param_2 + 0x40);
-  param_2[2] = (uint)(iVar1 != 0);
-  *(uint *)(*(int *)(iVar2 + 0x2c) + param_2[1] * 4) = (uint)(iVar1 != 0);
+  iVar1 = *(int *)(&DAT_004e9f38 + command * 4);
+  iVar2 = *(int *)(*inst + 0x40);
+  inst[2] = (uint)(iVar1 != 0);
+  *(uint *)(*(int *)(iVar2 + 0x2c) + inst[1] * 4) = (uint)(iVar1 != 0);
   return;
 }
 
@@ -63,10 +63,10 @@ int * __cdecl MeshInstancer(int inst,int component,int create)
    MeshStopper (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same
    costume tag registration in sputCostume_Startup); was MeshComponent_Stop. */
 
-void __cdecl MeshStopper(int param_1)
+void __cdecl MeshStopper(int inst)
 
 {
-  *(undefined4 *)(param_1 + 8) = 1;
+  *(undefined4 *)(inst + 8) = 1;
   return;
 }
 
@@ -75,7 +75,7 @@ void __cdecl MeshStopper(int param_1)
    editor shows 'Select mesh node to add' Original name MeshRequester (the remaster's GrimFandango
    (Linux): strings: 'Mesh %d (%s)' | 'Select mesh node to add...'); was MeshComponent_Create. */
 
-uint __cdecl MeshRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5)
+uint __cdecl MeshRequester(uint cosInst,int tag,int *parent,int type,char *name)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -100,15 +100,15 @@ uint __cdecl MeshRequester(uint param_1,int param_2,int *param_3,int param_4,cha
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   local_8 = 1;
-  if ((param_3 == (int *)0x0) || ((param_4 != 0x4c444f4d && (param_4 != 0x4c444d4d)))) {
+  if ((parent == (int *)0x0) || ((type != 0x4c444f4d && (type != 0x4c444d4d)))) {
     return 0;
   }
-  if (*param_3 == 0) {
+  if (*parent == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
   }
-  iVar7 = param_3[1];
+  iVar7 = parent[1];
   buf = (char *)(*g_pSputCosHS->pAlloc)(0x2d,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xb94);
-  if (param_5 == (char *)0x0) {
+  if (name == (char *)0x0) {
     items = (char **)(*g_pSputCosHS->pAlloc)
                                (*(int *)(iVar7 + 0x54) << 2,
                                 s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xbb1);
@@ -149,7 +149,7 @@ uint __cdecl MeshRequester(uint param_1,int param_2,int *param_3,int param_4,cha
         iVar6 = *(int *)(iVar7 + 0x58);
         if (*(int *)(iVar11 + 0x50 + iVar6) <= *(int *)(iStack_4 + 0x50 + iVar6)) break;
         sprintf(buf,s_Mesh__d___s__004ea64c,puVar14,iVar11 + iVar6);
-        MeshRequester(param_1,param_2,param_3,param_4,buf);
+        MeshRequester(cosInst,tag,parent,type,buf);
         puVar14 = puVar14 + 1;
         iVar11 = iVar11 + 0xb8;
       } while (puVar14 < *(undefined **)(iVar7 + 0x54));
@@ -169,15 +169,15 @@ uint __cdecl MeshRequester(uint param_1,int param_2,int *param_3,int param_4,cha
   }
   else {
     uVar8 = 0xffffffff;
-    pcVar9 = param_5;
+    pcVar9 = name;
     do {
       if (uVar8 == 0) break;
       uVar8 = uVar8 - 1;
       cVar1 = *pcVar9;
       pcVar9 = pcVar9 + 1;
     } while (cVar1 != '\0');
-    uVar3 = isdigit((int)*param_5);
-    pcVar9 = param_5;
+    uVar3 = isdigit((int)*name);
+    pcVar9 = name;
     for (uVar12 = 0; (uVar3 == 0 && (uVar12 <= ~uVar8 - 1)); uVar12 = uVar12 + 1) {
       pcVar13 = pcVar9 + 1;
       pcVar9 = pcVar9 + 1;
@@ -193,12 +193,12 @@ LAB_004970d4:
     if ((-1 < (int)puVar4) && ((int)puVar4 < *(int *)(iVar7 + 0x54))) {
       uVar8 = 0xffffffff;
       do {
-        pcVar9 = param_5;
+        pcVar9 = name;
         if (uVar8 == 0) break;
         uVar8 = uVar8 - 1;
-        pcVar9 = param_5 + 1;
-        cVar1 = *param_5;
-        param_5 = pcVar9;
+        pcVar9 = name + 1;
+        cVar1 = *name;
+        name = pcVar9;
       } while (cVar1 != '\0');
       uVar8 = ~uVar8;
       pcVar9 = pcVar9 + -uVar8;
@@ -216,8 +216,8 @@ LAB_004970d4:
     }
   }
   iVar7 = Cos_RegisterComponent
-                    (param_1,(int)buf,(int)puVar4 << 0x10 | (uint)param_3 & 0xffff,param_2,
-                     (int)param_3,param_4,((unsigned)(uintptr_t)&DAT_004e9f48));
+                    (cosInst,(int)buf,(int)puVar4 << 0x10 | (uint)parent & 0xffff,tag,(int)parent,
+                     type,((unsigned)(uintptr_t)&DAT_004e9f48));
   if (iVar7 == 0) {
     (*g_pSputCosHS->pFree)();
     return 0;
@@ -234,11 +234,11 @@ LAB_004970d4:
 /* Original name MeshAdjuster (the remaster's GrimFandango (Linux): the same handler slot (adjuster)
    of the same costume tag registration in sputCostume_Startup); was FUN_00497180. */
 
-int __cdecl MeshAdjuster(uint param_1,uint param_2)
+int __cdecl MeshAdjuster(uint comp,uint text)
 
 {
   uint *puVar1;
   
-  puVar1 = strchr((uint *)param_2,')');
+  puVar1 = strchr((uint *)text,')');
   return (uint)(puVar1 == (uint *)0x0);
 }

@@ -13,110 +13,110 @@ void * __cdecl LabDir_Open(char *dir)
 {
   unsigned char _frame[0x130] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
-  undefined4 *puVar2;
+  undefined4 *scan;
+  uint uVar2;
   uint uVar3;
-  uint uVar4;
-  int *piVar5;
-  int iVar6;
-  uint *puVar7;
-  int iVar8;
+  int *piVar4;
+  int iVar5;
+  uint *puVar6;
+  int iVar7;
+  int *piVar8;
   int *piVar9;
-  int *piVar10;
-  char *pcVar11;
+  char *pcVar10;
   #define local_114 (*(uint *)(_frame + (0x130 - 0x114)))
   #define local_110 (*(uint *)(_frame + (0x130 - 0x110)))
   #define local_10c (*(char (*)[260])(_frame + (0x130 - 0x10c)))
   #define local_8 (*(uint *)(_frame + (0x130 - 0x8)))
   
-  iVar8 = 0;
-  piVar5 = (int *)0x0;
-  iVar6 = 0;
-  puVar2 = DirScan_Create((uint)dir,1,&DAT_004f5a98);
-  uVar3 = DirScan_Next((int)puVar2,local_10c);
-  while (uVar3 != 0) {
+  iVar7 = 0;
+  piVar4 = (int *)0x0;
+  iVar5 = 0;
+  scan = DirScan_Create((uint)dir,1,&DAT_004f5a98);
+  uVar2 = DirScan_Next((int)scan,local_10c);
+  while (uVar2 != 0) {
     if (local_8 == 0) {
-      uVar3 = 0xffffffff;
-      iVar8 = iVar8 + 1;
-      pcVar11 = local_10c;
+      uVar2 = 0xffffffff;
+      iVar7 = iVar7 + 1;
+      pcVar10 = local_10c;
       do {
-        if (uVar3 == 0) break;
-        uVar3 = uVar3 - 1;
-        cVar1 = *pcVar11;
-        pcVar11 = pcVar11 + 1;
+        if (uVar2 == 0) break;
+        uVar2 = uVar2 - 1;
+        cVar1 = *pcVar10;
+        pcVar10 = pcVar10 + 1;
       } while (cVar1 != '\0');
-      iVar6 = iVar6 + ~uVar3;
+      iVar5 = iVar5 + ~uVar2;
     }
-    uVar3 = DirScan_Next((int)puVar2,local_10c);
+    uVar2 = DirScan_Next((int)scan,local_10c);
   }
-  if (iVar8 != 0) {
-    if (iVar6 < 1) {
-      iVar6 = 1;
+  if (iVar7 != 0) {
+    if (iVar5 < 1) {
+      iVar5 = 1;
     }
-    piVar5 = Lab_AllocRecord();
-    uVar3 = 0xffffffff;
+    piVar4 = Lab_AllocRecord();
+    uVar2 = 0xffffffff;
     do {
-      pcVar11 = dir;
-      if (uVar3 == 0) break;
-      uVar3 = uVar3 - 1;
-      pcVar11 = dir + 1;
+      pcVar10 = dir;
+      if (uVar2 == 0) break;
+      uVar2 = uVar2 - 1;
+      pcVar10 = dir + 1;
       cVar1 = *dir;
-      dir = pcVar11;
+      dir = pcVar10;
     } while (cVar1 != '\0');
-    uVar3 = ~uVar3;
-    piVar9 = (int *)(pcVar11 + -uVar3);
-    piVar10 = piVar5 + 2;
-    for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *piVar10 = *piVar9;
+    uVar2 = ~uVar2;
+    piVar8 = (int *)(pcVar10 + -uVar2);
+    piVar9 = piVar4 + 2;
+    for (uVar3 = uVar2 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
+      *piVar9 = *piVar8;
+      piVar8 = piVar8 + 1;
       piVar9 = piVar9 + 1;
-      piVar10 = piVar10 + 1;
     }
-    for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-      *(char *)piVar10 = (char)*piVar9;
+    for (uVar2 = uVar2 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
+      *(char *)piVar9 = (char)*piVar8;
+      piVar8 = (int *)((int)piVar8 + 1);
       piVar9 = (int *)((int)piVar9 + 1);
-      piVar10 = (int *)((int)piVar10 + 1);
     }
-    piVar5[0x45] = 1;
-    iVar8 = (**(code **)(g_dwResHS + 0x20))
-                      ((iVar8 + 1) * 0xc,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xc63);
-    piVar5[0x46] = iVar8;
-    if (iVar8 != 0) {
-      iVar6 = (**(code **)(g_dwResHS + 0x20))
-                        (iVar6,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xc67);
-      piVar5[0x47] = iVar6;
-      if (iVar6 == 0) {
-        (**(code **)(g_dwResHS + 0x24))(piVar5[0x46]);
-        piVar5[0x46] = 0;
+    piVar4[0x45] = 1;
+    iVar7 = (**(code **)(g_dwResHS + 0x20))
+                      ((iVar7 + 1) * 0xc,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xc63);
+    piVar4[0x46] = iVar7;
+    if (iVar7 != 0) {
+      iVar5 = (**(code **)(g_dwResHS + 0x20))
+                        (iVar5,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xc67);
+      piVar4[0x47] = iVar5;
+      if (iVar5 == 0) {
+        (**(code **)(g_dwResHS + 0x24))(piVar4[0x46]);
+        piVar4[0x46] = 0;
       }
       else {
-        puVar7 = (uint *)piVar5[0x46];
-        iVar6 = 0;
-        DirScan_Reset((int)puVar2);
-        uVar3 = DirScan_Next((int)puVar2,local_10c);
-        while (uVar3 != 0) {
+        puVar6 = (uint *)piVar4[0x46];
+        iVar5 = 0;
+        DirScan_Reset((int)scan);
+        uVar2 = DirScan_Next((int)scan,local_10c);
+        while (uVar2 != 0) {
           if (local_8 == 0) {
-            puVar7[1] = iVar6 + piVar5[0x47];
-            uVar3 = Res_HashName(local_10c,(char *)(iVar6 + piVar5[0x47]));
-            *puVar7 = uVar3;
-            uVar3 = 0xffffffff;
-            puVar7 = puVar7 + 3;
-            pcVar11 = local_10c;
+            puVar6[1] = iVar5 + piVar4[0x47];
+            uVar2 = Res_HashName(local_10c,(char *)(iVar5 + piVar4[0x47]));
+            *puVar6 = uVar2;
+            uVar2 = 0xffffffff;
+            puVar6 = puVar6 + 3;
+            pcVar10 = local_10c;
             do {
-              if (uVar3 == 0) break;
-              uVar3 = uVar3 - 1;
-              cVar1 = *pcVar11;
-              pcVar11 = pcVar11 + 1;
+              if (uVar2 == 0) break;
+              uVar2 = uVar2 - 1;
+              cVar1 = *pcVar10;
+              pcVar10 = pcVar10 + 1;
             } while (cVar1 != '\0');
-            iVar6 = iVar6 + ~uVar3;
+            iVar5 = iVar5 + ~uVar2;
           }
-          uVar3 = DirScan_Next((int)puVar2,local_10c);
+          uVar2 = DirScan_Next((int)scan,local_10c);
         }
-        puVar7[1] = 0;
-        *puVar7 = 0;
+        puVar6[1] = 0;
+        *puVar6 = 0;
       }
     }
   }
-  DirScan_Destroy((int)puVar2);
-  return piVar5;
+  DirScan_Destroy((int)scan);
+  return piVar4;
 }
 #undef local_10c
 #undef local_110

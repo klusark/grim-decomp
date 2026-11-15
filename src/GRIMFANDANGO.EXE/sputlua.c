@@ -161,21 +161,21 @@ void __cdecl sputLua_Update(void)
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl sputLua_Initialize(GrimServices *param_1,undefined4 *param_2)
+uint __cdecl sputLua_Initialize(GrimServices *services,undefined4 *iface)
 
 {
   int iVar1;
   
-  g_pSputLuaHS = param_1;
-  *param_2 = sputLua_Initialize;
-  param_2[1] = sputLua_Terminate;
-  param_2[2] = sputLua_Startup;
-  param_2[3] = sputLua_Shutdown;
-  param_2[4] = 0;
-  param_2[5] = 0;
-  param_2[6] = 0;
-  param_2[7] = 0;
-  iVar1 = lua_Initialize((int)param_1,(int *)&g_aLuaMS);
+  g_pSputLuaHS = services;
+  *iface = sputLua_Initialize;
+  iface[1] = sputLua_Terminate;
+  iface[2] = sputLua_Startup;
+  iface[3] = sputLua_Shutdown;
+  iface[4] = 0;
+  iface[5] = 0;
+  iface[6] = 0;
+  iface[7] = 0;
+  iVar1 = lua_Initialize((int)services,(int *)&g_aLuaMS);
   if (iVar1 != 0) {
     g_dwSputLuaInitialize = 0;
     return 1;
@@ -341,11 +341,11 @@ void __cdecl sputLua_StartMovieL(void)
   int iVar4;
   int iVar5;
   uint x;
+  uint name;
   uint uVar6;
-  uint uVar7;
-  longlong lVar8;
-  float fVar9;
-  uint uVar10;
+  longlong lVar7;
+  float fVar8;
+  uint flags;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -356,28 +356,28 @@ void __cdecl sputLua_StartMovieL(void)
     SoundsFloodMusicBuffer();
     iVar5 = lua_isnumber(iVar4);
     if (iVar5 == 0) {
-      uVar7 = 0xffffffff;
+      uVar6 = 0xffffffff;
     }
     else {
-      fVar9 = lua_getnumber(iVar4);
-      lVar8 = FTOL((float10)fVar9);
-      uVar7 = (uint)lVar8;
+      fVar8 = lua_getnumber(iVar4);
+      lVar7 = FTOL((float10)fVar8);
+      uVar6 = (uint)lVar7;
     }
     iVar4 = lua_isnumber(iVar3);
     if (iVar4 == 0) {
       x = 0xffffffff;
     }
     else {
-      fVar9 = lua_getnumber(iVar3);
-      lVar8 = FTOL((float10)fVar9);
-      x = (uint)lVar8;
+      fVar8 = lua_getnumber(iVar3);
+      lVar7 = FTOL((float10)fVar8);
+      x = (uint)lVar7;
     }
     iVar2 = lua_isnil(iVar2);
-    uVar10 = (uint)(iVar2 == 0);
+    flags = (uint)(iVar2 == 0);
     iVar2 = 0;
-    uVar6 = lua_getstring(iVar1);
-    uVar7 = grimlib_PlayMovie(uVar6,iVar2,uVar10,x,uVar7);
-    if (uVar7 == 1) {
+    name = lua_getstring(iVar1);
+    uVar6 = grimlib_PlayMovie(name,iVar2,flags,x,uVar6);
+    if (uVar6 == 1) {
       lua_pushnumber(1.0f);
       return;
     }

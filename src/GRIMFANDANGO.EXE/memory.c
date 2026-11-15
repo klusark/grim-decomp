@@ -91,24 +91,24 @@ void __cdecl Mem_CheckAlloc(void *p,char *file,int line)
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl Memory_SysInitialize(GrimServices *param_1,undefined4 *param_2)
+uint __cdecl Memory_SysInitialize(GrimServices *services,undefined4 *iface)
 
 {
   uint uVar1;
   
-  g_pMemoryHS = param_1;
+  g_pMemoryHS = services;
   uVar1 = 1;
   if (g_dwMemorySysInitialized == 0) {
     g_dwMemorySysInitialized = 1;
-    if (param_2 != (undefined4 *)0x0) {
-      *param_2 = Memory_SysInitialize;
-      param_2[1] = Memory_SysTerminate;
-      param_2[2] = Memory_SysStartup;
-      param_2[3] = Memory_SysShutdown;
-      param_2[4] = 0;
-      param_2[5] = 0;
-      param_2[6] = 0;
-      param_2[7] = 0;
+    if (iface != (undefined4 *)0x0) {
+      *iface = Memory_SysInitialize;
+      iface[1] = Memory_SysTerminate;
+      iface[2] = Memory_SysStartup;
+      iface[3] = Memory_SysShutdown;
+      iface[4] = 0;
+      iface[5] = 0;
+      iface[6] = 0;
+      iface[7] = 0;
     }
     uVar1 = 0;
   }
@@ -164,47 +164,47 @@ void __cdecl Memory_SysShutdown(void)
    Memory_AllocatePool (the remaster's GrimFandango (Linux): aligned call in Res_SysStartup,
    sputRoom_Startup, sputText_Startup); was Pool_Create. */
 
-void ** __cdecl Memory_AllocatePool(int param_1,void *param_2,void *param_3)
+void ** __cdecl Memory_AllocatePool(int size,void *count,void *name)
 
 {
-  void **ppvVar1;
-  int iVar2;
-  void **ppvVar3;
+  void **pool;
+  int iVar1;
+  void **ppvVar2;
   
-  if (param_1 == 0) {
+  if (size == 0) {
     (*g_pMemoryHS->pAssertFail)
               (s_itemSize___0_004e82cc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x349);
   }
-  if (param_3 == (void *)0x0) {
+  if (name == (void *)0x0) {
     (*g_pMemoryHS->pAssertFail)
               (s_itemGrowBy___0_004e82bc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x34b);
   }
-  ppvVar1 = (void **)(*g_pMemoryHS->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x34f);
-  if (ppvVar1 == (void **)0x0) {
+  pool = (void **)(*g_pMemoryHS->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x34f);
+  if (pool == (void **)0x0) {
     (*g_pMemoryHS->pAssertFail)(s_pPool_004e82b4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x350);
   }
-  ppvVar3 = ppvVar1;
-  for (iVar2 = 9; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *ppvVar3 = (void *)0x0;
-    ppvVar3 = ppvVar3 + 1;
+  ppvVar2 = pool;
+  for (iVar1 = 9; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *ppvVar2 = (void *)0x0;
+    ppvVar2 = ppvVar2 + 1;
   }
-  ppvVar1[1] = g_pFirstPool;
-  g_pFirstPool = ppvVar1;
-  *ppvVar1 = ppvVar1;
-  ppvVar1[2] = (void *)(param_1 + 7U & 0xfffffff8);
-  ppvVar1[3] = (void *)0x0;
-  ppvVar1[5] = (void *)0x0;
-  ppvVar1[6] = param_3;
-  ppvVar1[7] = (void *)0x0;
-  if (param_2 != (void *)0x0) {
-    Pool_Grow((int)ppvVar1,(int)param_2);
+  pool[1] = g_pFirstPool;
+  g_pFirstPool = pool;
+  *pool = pool;
+  pool[2] = (void *)(size + 7U & 0xfffffff8);
+  pool[3] = (void *)0x0;
+  pool[5] = (void *)0x0;
+  pool[6] = name;
+  pool[7] = (void *)0x0;
+  if (count != (void *)0x0) {
+    Pool_Grow((int)pool,(int)count);
   }
-  if (ppvVar1[5] != param_2) {
+  if (pool[5] != count) {
     (*g_pMemoryHS->pAssertFail)
               (s_pPool__poolItems____itemCount_004e8294,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,
                0x362);
   }
-  return ppvVar1;
+  return pool;
 }
 
 /* ---- 0x00488a70  Memory_FreePool ---- */
@@ -212,7 +212,7 @@ void ** __cdecl Memory_AllocatePool(int param_1,void *param_2,void *param_3)
    name Memory_FreePool (the remaster's GrimFandango (Linux): aligned call in sputCostume_Shutdown,
    sputRoom_Shutdown, sputText_Shutdown); was Pool_Destroy. */
 
-void __cdecl Memory_FreePool(void **param_1)
+void __cdecl Memory_FreePool(void **pool)
 
 {
   undefined4 *puVar1;
@@ -220,31 +220,31 @@ void __cdecl Memory_FreePool(void **param_1)
   void **ppvVar3;
   undefined4 *puVar4;
   
-  if (param_1 == (void **)0x0) {
+  if (pool == (void **)0x0) {
     (*g_pMemoryHS->pAssertFail)(&DAT_004e82f4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x380);
   }
-  if (*param_1 != param_1) {
+  if (*pool != pool) {
     (*g_pMemoryHS->pAssertFail)
               (s_pPool__pPool____pPool_004e82dc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x381);
   }
   ppvVar2 = (void **)0x0;
-  for (ppvVar3 = g_pFirstPool; (ppvVar3 != (void **)0x0 && (ppvVar3 != param_1));
-      ppvVar3 = ppvVar3[1]) {
+  for (ppvVar3 = g_pFirstPool; (ppvVar3 != (void **)0x0 && (ppvVar3 != pool)); ppvVar3 = ppvVar3[1])
+  {
     ppvVar2 = ppvVar3;
   }
   if (ppvVar2 == (void **)0x0) {
-    g_pFirstPool = param_1[1];
+    g_pFirstPool = pool[1];
   }
   else {
-    ppvVar2[1] = param_1[1];
+    ppvVar2[1] = pool[1];
   }
-  puVar4 = param_1[8];
+  puVar4 = pool[8];
   while (puVar4 != (undefined4 *)0x0) {
     puVar1 = (undefined4 *)*puVar4;
     (*g_pMemoryHS->pFree)(puVar4);
     puVar4 = puVar1;
   }
-  (*g_pMemoryHS->pFree)(param_1);
+  (*g_pMemoryHS->pFree)(pool);
   return;
 }
 
@@ -253,32 +253,32 @@ void __cdecl Memory_FreePool(void **param_1)
    header + 8). Original name Memory_AllocFixed (the remaster's GrimFandango (Linux): aligned call
    in Res_SysRegisterHandler, sputText_Restore); was Pool_Alloc. */
 
-int * __cdecl Memory_AllocFixed(int *param_1)
+int * __cdecl Memory_AllocFixed(int *pool)
 
 {
   int *piVar1;
   uint uVar2;
   
-  if (param_1 == (int *)0x0) {
+  if (pool == (int *)0x0) {
     (*g_pMemoryHS->pAssertFail)(&DAT_004e82f4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x42a);
   }
-  if ((int *)*param_1 != param_1) {
+  if ((int *)*pool != pool) {
     (*g_pMemoryHS->pAssertFail)
               (s_pPool__pPool____pPool_004e82dc,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x42b);
   }
-  if (param_1[3] == param_1[5]) {
-    Pool_Grow((int)param_1,param_1[6]);
+  if (pool[3] == pool[5]) {
+    Pool_Grow((int)pool,pool[6]);
   }
-  piVar1 = (int *)param_1[7];
+  piVar1 = (int *)pool[7];
   if (piVar1 != (int *)0x0) {
-    param_1[7] = *piVar1;
+    pool[7] = *piVar1;
     *piVar1 = 0;
-    uVar2 = param_1[3] + 1;
-    param_1[3] = uVar2;
-    if (uVar2 < (uint)param_1[4]) {
-      uVar2 = param_1[4];
+    uVar2 = pool[3] + 1;
+    pool[3] = uVar2;
+    if (uVar2 < (uint)pool[4]) {
+      uVar2 = pool[4];
     }
-    param_1[4] = uVar2;
+    pool[4] = uVar2;
     if (piVar1 != (int *)0x0) {
       return piVar1 + 2;
     }
@@ -311,7 +311,7 @@ void __cdecl Pool_Free(void *item)
 /* ---- 0x00488c00  Pool_Grow ---- */
 /* Allocates one chunk of `count` items and threads them onto the free list. */
 
-void __cdecl Pool_Grow(int param_1,int param_2)
+void __cdecl Pool_Grow(int pool,int count)
 
 {
   int *piVar1;
@@ -320,27 +320,27 @@ void __cdecl Pool_Grow(int param_1,int param_2)
   
   puVar2 = (undefined4 *)
            (*g_pMemoryHS->pAlloc)
-                     ((*(int *)(param_1 + 8) + 8) * param_2 + 8,
+                     ((*(int *)(pool + 8) + 8) * count + 8,
                       s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x906);
   if (puVar2 != (undefined4 *)0x0) {
-    *puVar2 = *(undefined4 *)(param_1 + 0x20);
-    *(undefined4 **)(param_1 + 0x20) = puVar2;
-    puVar2[1] = param_1;
-    *(int *)(param_1 + 0x14) = *(int *)(param_1 + 0x14) + param_2;
+    *puVar2 = *(undefined4 *)(pool + 0x20);
+    *(undefined4 **)(pool + 0x20) = puVar2;
+    puVar2[1] = pool;
+    *(int *)(pool + 0x14) = *(int *)(pool + 0x14) + count;
     piVar1 = puVar2 + 2;
-    while (param_2 != 0) {
-      param_2 = param_2 + -1;
-      if (param_2 == 0) {
-        iVar3 = *(int *)(param_1 + 0x1c);
+    while (count != 0) {
+      count = count + -1;
+      if (count == 0) {
+        iVar3 = *(int *)(pool + 0x1c);
       }
       else {
-        iVar3 = (int)piVar1 + *(int *)(param_1 + 8) + 8;
+        iVar3 = (int)piVar1 + *(int *)(pool + 8) + 8;
       }
       *piVar1 = iVar3;
-      piVar1[1] = param_1;
+      piVar1[1] = pool;
       piVar1 = (int *)*piVar1;
     }
-    *(undefined4 **)(param_1 + 0x1c) = puVar2 + 2;
+    *(undefined4 **)(pool + 0x1c) = puVar2 + 2;
   }
   return;
 }

@@ -220,7 +220,7 @@ uint __cdecl Res_FRead(int fh,void *buf,uint n)
    GrimFandango (Linux): the same file-services slot filled by Res_OverrideFileCalls); was
    ResFile_Gets. */
 
-char * __cdecl Res_FGets(int param_1,char *param_2,uint param_3)
+char * __cdecl Res_FGets(int f,char *buf,uint size)
 
 {
   int iVar1;
@@ -230,9 +230,9 @@ char * __cdecl Res_FGets(int param_1,char *param_2,uint param_3)
   char cVar5;
   char *pcVar6;
   
-  iVar3 = param_1;
+  iVar3 = f;
   cVar5 = '\0';
-  param_1 = 0;
+  f = 0;
   iVar1 = iVar3 * 0x102c;
   if ((iVar3 < 1) || (0x80 < iVar3)) {
     (**(code **)(g_dwResHS + 0x18))
@@ -244,43 +244,43 @@ char * __cdecl Res_FGets(int param_1,char *param_2,uint param_3)
     return (char *)0x0;
   }
   if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
-    pcVar4 = (char *)(**(code **)(g_dwLowLevelHS + 0x3c))(uVar2,param_2,param_3);
+    pcVar4 = (char *)(**(code **)(g_dwLowLevelHS + 0x3c))(uVar2,buf,size);
     return pcVar4;
   }
-  if (*(uint *)(&DAT_00824f20 + iVar1) < param_3) {
+  if (*(uint *)(&DAT_00824f20 + iVar1) < size) {
     ResFile_FillBuffer((ResFile *)(&DAT_00824f14 + iVar1));
   }
-  if (*(uint *)(&DAT_00824f20 + iVar1) < param_3) {
-    param_3 = *(uint *)(&DAT_00824f20 + iVar1) + 1;
+  if (*(uint *)(&DAT_00824f20 + iVar1) < size) {
+    size = *(uint *)(&DAT_00824f20 + iVar1) + 1;
   }
   pcVar4 = (char *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00824f40) + *(int *)(&DAT_00824f1c + iVar1));
-  pcVar6 = param_2;
-  while (param_3 = param_3 - 1, 0 < (int)param_3) {
+  pcVar6 = buf;
+  while (size = size - 1, 0 < (int)size) {
     cVar5 = *pcVar4;
     pcVar4 = pcVar4 + 1;
-    param_1 = param_1 + 1;
+    f = f + 1;
     if ((cVar5 == '\n') || (cVar5 == '\r')) break;
     *pcVar6 = cVar5;
     pcVar6 = pcVar6 + 1;
   }
-  if (param_3 != 0) {
+  if (size != 0) {
     *pcVar6 = '\n';
     pcVar6 = pcVar6 + 1;
   }
   *pcVar6 = '\0';
   if ((cVar5 == '\r') && (*pcVar4 == '\n')) {
-    param_1 = param_1 + 1;
+    f = f + 1;
   }
   iVar3 = *(int *)(&DAT_00824f18 + iVar1);
-  *(int *)(&DAT_00824f18 + iVar1) = iVar3 + param_1;
-  *(int *)(&DAT_00824f1c + iVar1) = *(int *)(&DAT_00824f1c + iVar1) + param_1;
-  *(int *)(&DAT_00824f20 + iVar1) = *(int *)(&DAT_00824f20 + iVar1) - param_1;
-  if ((*(int *)(&DAT_00824f24 + iVar1) <= iVar3 + param_1) && (*param_2 == '\0')) {
+  *(int *)(&DAT_00824f18 + iVar1) = iVar3 + f;
+  *(int *)(&DAT_00824f1c + iVar1) = *(int *)(&DAT_00824f1c + iVar1) + f;
+  *(int *)(&DAT_00824f20 + iVar1) = *(int *)(&DAT_00824f20 + iVar1) - f;
+  if ((*(int *)(&DAT_00824f24 + iVar1) <= iVar3 + f) && (*buf == '\0')) {
     *(undefined4 *)(&DAT_00824f2c + iVar1) = 1;
     return (char *)0x0;
   }
   *(undefined4 *)(&DAT_00824f2c + iVar1) = 0;
-  return param_2;
+  return buf;
 }
 
 /* ---- 0x00480ce0  Res_FWrite ---- */
@@ -288,21 +288,20 @@ char * __cdecl Res_FGets(int param_1,char *param_2,uint param_3)
    (the remaster's GrimFandango (Linux): the same file-services slot filled by
    Res_OverrideFileCalls); was ResFile_Write. */
 
-uint __cdecl Res_FWrite(int param_1,uint param_2,uint param_3)
+uint __cdecl Res_FWrite(int f,uint buf,uint size)
 
 {
   uint uVar1;
   
-  if (param_1 != 0) {
-    if ((param_1 < 1) || (0x80 < param_1)) {
+  if (f != 0) {
+    if ((f < 1) || (0x80 < f)) {
       (**(code **)(g_dwResHS + 0x18))
                 (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                  s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x81b);
     }
-    if ((*(int *)(&DAT_00824f14 + param_1 * 0x102c) != 0) &&
-       (*(int *)(&DAT_00824f30 + param_1 * 0x102c) != 0)) {
-      uVar1 = (**(code **)(g_dwLowLevelHS + 0x40))
-                        (*(int *)(&DAT_00824f14 + param_1 * 0x102c),param_2,param_3);
+    if ((*(int *)(&DAT_00824f14 + f * 0x102c) != 0) && (*(int *)(&DAT_00824f30 + f * 0x102c) != 0))
+    {
+      uVar1 = (**(code **)(g_dwLowLevelHS + 0x40))(*(int *)(&DAT_00824f14 + f * 0x102c),buf,size);
       return uVar1;
     }
   }
@@ -313,14 +312,14 @@ uint __cdecl Res_FWrite(int param_1,uint param_2,uint param_3)
 /* pFeof of the resource file services. Original name Res_FEOF (the remaster's GrimFandango (Linux):
    the same file-services slot filled by Res_OverrideFileCalls); was ResFile_Eof. */
 
-uint __cdecl Res_FEOF(int param_1)
+uint __cdecl Res_FEOF(int f)
 
 {
   int iVar1;
   uint uVar2;
   
-  iVar1 = param_1 * 0x102c;
-  if ((param_1 < 1) || (0x80 < param_1)) {
+  iVar1 = f * 0x102c;
+  if ((f < 1) || (0x80 < f)) {
     (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x84c);
@@ -340,14 +339,14 @@ uint __cdecl Res_FEOF(int param_1)
    start) or of the real file. Original name Res_FTell (the remaster's GrimFandango (Linux): the
    same file-services slot filled by Res_OverrideFileCalls); was ResFile_Tell. */
 
-uint __cdecl Res_FTell(int param_1)
+uint __cdecl Res_FTell(int f)
 
 {
   int iVar1;
   uint uVar2;
   
-  iVar1 = param_1 * 0x102c;
-  if ((param_1 < 1) || (0x80 < param_1)) {
+  iVar1 = f * 0x102c;
+  if ((f < 1) || (0x80 < f)) {
     (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x87e);

@@ -1,0 +1,1686 @@
+{
+ "_comment": "GRIMFANDANGO.EXE parameter names from what each function does with them (part a), 2026-11-15.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "params": [
+  {
+   "addr": "0048fbd0",
+   "index": 1,
+   "type": "float",
+   "name": "dir",
+   "_fn": "sputActor_Turn",
+   "_names_only": true
+  },
+  {
+   "addr": "0048fd90",
+   "index": 1,
+   "type": "float",
+   "name": "dt",
+   "_fn": "Actor_UpdateMovement",
+   "_names_only": true
+  },
+  {
+   "addr": "004906b0",
+   "index": 1,
+   "type": "int",
+   "name": "enable",
+   "_fn": "sputActor_EnableWalkSystem",
+   "_names_only": true
+  },
+  {
+   "addr": "00490730",
+   "index": 1,
+   "type": "int",
+   "name": "enable",
+   "_fn": "sputActor_EnablePuck",
+   "_names_only": true
+  },
+  {
+   "addr": "00490900",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "angles",
+   "_fn": "sputActor_SetActorRotation",
+   "_names_only": true
+  },
+  {
+   "addr": "00490900",
+   "index": 2,
+   "type": "int",
+   "name": "turn",
+   "_fn": "sputActor_SetActorRotation",
+   "_names_only": true
+  },
+  {
+   "addr": "004933e0",
+   "index": 1,
+   "type": "int",
+   "name": "constrain",
+   "_fn": "sputActor_SetActorConstrain",
+   "_names_only": true
+  },
+  {
+   "addr": "00493570",
+   "index": 1,
+   "type": "char *",
+   "name": "planeName",
+   "_fn": "sputActor_SetShadowPlane",
+   "_names_only": true
+  },
+  {
+   "addr": "004946b0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "normal",
+   "_fn": "sputActor_SetClipPlane",
+   "_names_only": true
+  },
+  {
+   "addr": "00494710",
+   "index": 1,
+   "type": "int",
+   "name": "active",
+   "_fn": "sputActor_SetClipPlaneActive",
+   "_names_only": true
+  },
+  {
+   "addr": "00494780",
+   "index": 1,
+   "type": "int",
+   "name": "cull",
+   "_fn": "sputActor_SetFrustrumCull",
+   "_names_only": true
+  },
+  {
+   "addr": "00495080",
+   "index": 1,
+   "type": "uint",
+   "name": "matrix",
+   "_fn": "sputCostume_Draw3D",
+   "_names_only": true
+  },
+  {
+   "addr": "004950a0",
+   "index": 0,
+   "type": "int *",
+   "name": "costumes",
+   "_fn": "sputCostume_InternalDraw3D",
+   "_names_only": true
+  },
+  {
+   "addr": "004950a0",
+   "index": 1,
+   "type": "float *",
+   "name": "matrix",
+   "_fn": "sputCostume_InternalDraw3D",
+   "_names_only": true
+  },
+  {
+   "addr": "004960a0",
+   "index": 0,
+   "type": "uint",
+   "name": "cosInst",
+   "_fn": "BitmapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "004960a0",
+   "index": 1,
+   "type": "int",
+   "name": "tag",
+   "_fn": "BitmapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "004960a0",
+   "index": 2,
+   "type": "int",
+   "name": "parent",
+   "_fn": "BitmapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "004960a0",
+   "index": 3,
+   "type": "int",
+   "name": "type",
+   "_fn": "BitmapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "004960a0",
+   "index": 4,
+   "type": "char *",
+   "name": "name",
+   "_fn": "BitmapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc210",
+   "index": 0,
+   "type": "int *",
+   "name": "services",
+   "_fn": "fob_flobdec_blocky16_module",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc210",
+   "index": 1,
+   "type": "uint",
+   "name": "config",
+   "_fn": "fob_flobdec_blocky16_module",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc370",
+   "index": 0,
+   "type": "int",
+   "name": "what",
+   "_fn": "Blocky16_flobdec_Info",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc3c0",
+   "index": 0,
+   "type": "int",
+   "name": "hdr",
+   "_fn": "Blocky16_flobdec_DecodeHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc410",
+   "index": 0,
+   "type": "int",
+   "name": "width",
+   "_fn": "AllocBuffers",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc410",
+   "index": 1,
+   "type": "int",
+   "name": "height",
+   "_fn": "AllocBuffers",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc410",
+   "index": 2,
+   "type": "int",
+   "name": "depth",
+   "_fn": "AllocBuffers",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc620",
+   "index": 6,
+   "type": "uint",
+   "name": "size",
+   "_fn": "Blocky16_flobdec_DecodeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc650",
+   "index": 0,
+   "type": "short *",
+   "name": "hdr",
+   "_fn": "Blocky16_flobdec_GetVal",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc650",
+   "index": 1,
+   "type": "int",
+   "name": "what",
+   "_fn": "Blocky16_flobdec_GetVal",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc650",
+   "index": 2,
+   "type": "int *",
+   "name": "outWidth",
+   "_fn": "Blocky16_flobdec_GetVal",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc650",
+   "index": 3,
+   "type": "int *",
+   "name": "outHeight",
+   "_fn": "Blocky16_flobdec_GetVal",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc650",
+   "index": 4,
+   "type": "int *",
+   "name": "outX",
+   "_fn": "Blocky16_flobdec_GetVal",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc650",
+   "index": 5,
+   "type": "int *",
+   "name": "outY",
+   "_fn": "Blocky16_flobdec_GetVal",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc6a0",
+   "index": 0,
+   "type": "uint",
+   "name": "width",
+   "_fn": "fob_blk16_configure",
+   "_names_only": true
+  },
+  {
+   "addr": "004cd300",
+   "index": 2,
+   "type": "int",
+   "name": "width",
+   "_fn": "Blocky16_DecodeHalfRows16",
+   "_names_only": true
+  },
+  {
+   "addr": "004cd300",
+   "index": 3,
+   "type": "int",
+   "name": "height",
+   "_fn": "Blocky16_DecodeHalfRows16",
+   "_names_only": true
+  },
+  {
+   "addr": "004cd450",
+   "index": 2,
+   "type": "int",
+   "name": "width",
+   "_fn": "Blocky16_DecodeHalfRows8",
+   "_names_only": true
+  },
+  {
+   "addr": "004cd450",
+   "index": 3,
+   "type": "int",
+   "name": "height",
+   "_fn": "Blocky16_DecodeHalfRows8",
+   "_names_only": true
+  },
+  {
+   "addr": "004cd450",
+   "index": 4,
+   "type": "int",
+   "name": "palette",
+   "_fn": "Blocky16_DecodeHalfRows8",
+   "_names_only": true
+  },
+  {
+   "addr": "00402290",
+   "index": 1,
+   "type": "int",
+   "name": "command",
+   "_fn": "ChoreFace_OnCommand",
+   "_names_only": true
+  },
+  {
+   "addr": "00496460",
+   "index": 0,
+   "type": "uint",
+   "name": "cosInst",
+   "_fn": "ColormapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00496460",
+   "index": 1,
+   "type": "int",
+   "name": "tag",
+   "_fn": "ColormapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00496460",
+   "index": 2,
+   "type": "int",
+   "name": "parent",
+   "_fn": "ColormapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00496460",
+   "index": 3,
+   "type": "int",
+   "name": "type",
+   "_fn": "ColormapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00496460",
+   "index": 4,
+   "type": "char *",
+   "name": "name",
+   "_fn": "ColormapRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "004925c0",
+   "index": 0,
+   "type": "int",
+   "name": "box",
+   "_fn": "FindObjectCorners",
+   "_names_only": true
+  },
+  {
+   "addr": "004925c0",
+   "index": 1,
+   "type": "float",
+   "name": "pad",
+   "_fn": "FindObjectCorners",
+   "_names_only": true
+  },
+  {
+   "addr": "004925c0",
+   "index": 2,
+   "type": "float *",
+   "name": "matrix",
+   "_fn": "FindObjectCorners",
+   "_names_only": true
+  },
+  {
+   "addr": "004925c0",
+   "index": 3,
+   "type": "float",
+   "name": "z",
+   "_fn": "FindObjectCorners",
+   "_names_only": true
+  },
+  {
+   "addr": "00492a50",
+   "index": 0,
+   "type": "float *",
+   "name": "from",
+   "_fn": "Collision_PickDetour",
+   "_names_only": true
+  },
+  {
+   "addr": "00492a50",
+   "index": 1,
+   "type": "float *",
+   "name": "to",
+   "_fn": "Collision_PickDetour",
+   "_names_only": true
+  },
+  {
+   "addr": "00492a50",
+   "index": 2,
+   "type": "int",
+   "name": "corners",
+   "_fn": "Collision_PickDetour",
+   "_names_only": true
+  },
+  {
+   "addr": "004939f0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "self",
+   "_fn": "Collision_TestActorAgainstOthers",
+   "_names_only": true
+  },
+  {
+   "addr": "00496060",
+   "index": 0,
+   "type": "uint",
+   "name": "cosInst",
+   "_fn": "BitmapChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00496060",
+   "index": 1,
+   "type": "int *",
+   "name": "inst",
+   "_fn": "BitmapChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00496060",
+   "index": 2,
+   "type": "uint",
+   "name": "tag",
+   "_fn": "BitmapChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00496060",
+   "index": 3,
+   "type": "int",
+   "name": "frame",
+   "_fn": "BitmapChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "0048d030",
+   "index": 0,
+   "type": "uint",
+   "name": "key",
+   "_fn": "Controls_DebugKeysHook",
+   "_names_only": true
+  },
+  {
+   "addr": "00493410",
+   "index": 1,
+   "type": "uint",
+   "name": "chore",
+   "_fn": "FadeInChore",
+   "_names_only": true
+  },
+  {
+   "addr": "00493410",
+   "index": 2,
+   "type": "int",
+   "name": "ms",
+   "_fn": "FadeInChore",
+   "_names_only": true
+  },
+  {
+   "addr": "00493450",
+   "index": 1,
+   "type": "int",
+   "name": "chore",
+   "_fn": "FadeOutChore",
+   "_names_only": true
+  },
+  {
+   "addr": "00493450",
+   "index": 2,
+   "type": "int",
+   "name": "ms",
+   "_fn": "FadeOutChore",
+   "_names_only": true
+  },
+  {
+   "addr": "004956f0",
+   "index": 0,
+   "type": "int",
+   "name": "cosInst",
+   "_fn": "sputCostume_Draw2D",
+   "_names_only": true
+  },
+  {
+   "addr": "00495e90",
+   "index": 1,
+   "type": "uint *",
+   "name": "costume",
+   "_fn": "sputCostume_SaveHook",
+   "_names_only": true
+  },
+  {
+   "addr": "00495e90",
+   "index": 2,
+   "type": "uint",
+   "name": "f",
+   "_fn": "sputCostume_SaveHook",
+   "_names_only": true
+  },
+  {
+   "addr": "00496020",
+   "index": 0,
+   "type": "int",
+   "name": "cosInst",
+   "_fn": "Costume_InstanceHook",
+   "_names_only": true
+  },
+  {
+   "addr": "00496020",
+   "index": 1,
+   "type": "int",
+   "name": "create",
+   "_fn": "Costume_InstanceHook",
+   "_names_only": true
+  },
+  {
+   "addr": "00402560",
+   "index": 1,
+   "type": "uint",
+   "name": "arg",
+   "_fn": "DebugLog_Write",
+   "_names_only": true
+  },
+  {
+   "addr": "00488de0",
+   "index": 0,
+   "type": "uint",
+   "name": "dir",
+   "_fn": "DirScan_Create",
+   "_names_only": true
+  },
+  {
+   "addr": "00488de0",
+   "index": 1,
+   "type": "int",
+   "name": "mode",
+   "_fn": "DirScan_Create",
+   "_names_only": true
+  },
+  {
+   "addr": "00488de0",
+   "index": 2,
+   "type": "char *",
+   "name": "pattern",
+   "_fn": "DirScan_Create",
+   "_names_only": true
+  },
+  {
+   "addr": "00488e70",
+   "index": 0,
+   "type": "int",
+   "name": "scan",
+   "_fn": "DirScan_Destroy",
+   "_names_only": true
+  },
+  {
+   "addr": "00488eb0",
+   "index": 0,
+   "type": "int",
+   "name": "scan",
+   "_fn": "DirScan_Reset",
+   "_names_only": true
+  },
+  {
+   "addr": "00488ee0",
+   "index": 0,
+   "type": "int",
+   "name": "scan",
+   "_fn": "DirScan_Next",
+   "_names_only": true
+  },
+  {
+   "addr": "00488ee0",
+   "index": 1,
+   "type": "char *",
+   "name": "outEntry",
+   "_fn": "DirScan_Next",
+   "_names_only": true
+  },
+  {
+   "addr": "00488010",
+   "index": 0,
+   "type": "uint",
+   "name": "style",
+   "_fn": "Dlg_MakeItemTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "00488010",
+   "index": 1,
+   "type": "ushort",
+   "name": "x",
+   "_fn": "Dlg_MakeItemTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "00488010",
+   "index": 2,
+   "type": "ushort",
+   "name": "y",
+   "_fn": "Dlg_MakeItemTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "00488010",
+   "index": 3,
+   "type": "ushort",
+   "name": "cx",
+   "_fn": "Dlg_MakeItemTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "00488010",
+   "index": 4,
+   "type": "ushort",
+   "name": "cy",
+   "_fn": "Dlg_MakeItemTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "00488010",
+   "index": 5,
+   "type": "ushort",
+   "name": "id",
+   "_fn": "Dlg_MakeItemTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "00488010",
+   "index": 6,
+   "type": "int",
+   "name": "className",
+   "_fn": "Dlg_MakeItemTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "00488010",
+   "index": 7,
+   "type": "int",
+   "name": "text",
+   "_fn": "Dlg_MakeItemTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "00488010",
+   "index": 8,
+   "type": "uint *",
+   "name": "outSize",
+   "_fn": "Dlg_MakeItemTemplate",
+   "_names_only": true
+  },
+  {
+   "addr": "004862b0",
+   "index": 0,
+   "type": "int *",
+   "name": "a",
+   "_fn": "Render_CompareDrawDepth",
+   "_names_only": true
+  },
+  {
+   "addr": "004862b0",
+   "index": 1,
+   "type": "int *",
+   "name": "b",
+   "_fn": "Render_CompareDrawDepth",
+   "_names_only": true
+  },
+  {
+   "addr": "00482720",
+   "index": 0,
+   "type": "uint",
+   "name": "callback",
+   "_fn": "grimlib_SetDebugToggleCallback",
+   "_names_only": true
+  },
+  {
+   "addr": "00482730",
+   "index": 0,
+   "type": "uint",
+   "name": "callback",
+   "_fn": "grimlib_SetPaletteCallback",
+   "_names_only": true
+  },
+  {
+   "addr": "00482740",
+   "index": 0,
+   "type": "uint",
+   "name": "callback",
+   "_fn": "grimlib_SetShutdownCallback",
+   "_names_only": true
+  },
+  {
+   "addr": "00482750",
+   "index": 0,
+   "type": "uint",
+   "name": "callback",
+   "_fn": "grimlib_SetPageFlipCallback",
+   "_names_only": true
+  },
+  {
+   "addr": "00482760",
+   "index": 0,
+   "type": "uint",
+   "name": "hardware",
+   "_fn": "grimlib_Using3DHardware",
+   "_names_only": true
+  },
+  {
+   "addr": "004827a0",
+   "index": 0,
+   "type": "int",
+   "name": "services",
+   "_fn": "grimlib_Open",
+   "_names_only": true
+  },
+  {
+   "addr": "00482cf0",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "Engine_RegisterSubsystems",
+   "_names_only": true
+  },
+  {
+   "addr": "00482cf0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "entries",
+   "_fn": "Engine_RegisterSubsystems",
+   "_names_only": true
+  },
+  {
+   "addr": "00482cf0",
+   "index": 2,
+   "type": "int",
+   "name": "modules",
+   "_fn": "Engine_RegisterSubsystems",
+   "_names_only": true
+  },
+  {
+   "addr": "00482cf0",
+   "index": 3,
+   "type": "int",
+   "name": "count",
+   "_fn": "Engine_RegisterSubsystems",
+   "_names_only": true
+  },
+  {
+   "addr": "00482d60",
+   "index": 0,
+   "type": "int",
+   "name": "modules",
+   "_fn": "Engine_InitSubsystems",
+   "_names_only": true
+  },
+  {
+   "addr": "00482d60",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "Engine_InitSubsystems",
+   "_names_only": true
+  },
+  {
+   "addr": "00482dd0",
+   "index": 0,
+   "type": "int",
+   "name": "modules",
+   "_fn": "Engine_ShutdownSubsystems",
+   "_names_only": true
+  },
+  {
+   "addr": "00482dd0",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "Engine_ShutdownSubsystems",
+   "_names_only": true
+  },
+  {
+   "addr": "00482e00",
+   "index": 0,
+   "type": "int",
+   "name": "modules",
+   "_fn": "Engine_ResetSubsystems",
+   "_names_only": true
+  },
+  {
+   "addr": "00482e00",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "Engine_ResetSubsystems",
+   "_names_only": true
+  },
+  {
+   "addr": "00482e30",
+   "index": 0,
+   "type": "int",
+   "name": "slot",
+   "_fn": "PerfBegin",
+   "_names_only": true
+  },
+  {
+   "addr": "00482e80",
+   "index": 0,
+   "type": "int",
+   "name": "slot",
+   "_fn": "PerfEnd",
+   "_names_only": true
+  },
+  {
+   "addr": "00482f00",
+   "index": 0,
+   "type": "uint",
+   "name": "name",
+   "_fn": "grimlib_PlayMovie",
+   "_names_only": true
+  },
+  {
+   "addr": "00482f00",
+   "index": 1,
+   "type": "int",
+   "name": "loop",
+   "_fn": "grimlib_PlayMovie",
+   "_names_only": true
+  },
+  {
+   "addr": "00482f00",
+   "index": 2,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "grimlib_PlayMovie",
+   "_names_only": true
+  },
+  {
+   "addr": "00482f90",
+   "index": 0,
+   "type": "char *",
+   "name": "filename",
+   "_fn": "grimlib_Save",
+   "_names_only": true
+  },
+  {
+   "addr": "00482fb0",
+   "index": 0,
+   "type": "char *",
+   "name": "filename",
+   "_fn": "grimlib_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0048d1c0",
+   "index": 0,
+   "type": "undefined4",
+   "name": "dt",
+   "_fn": "sputControl_Update",
+   "_names_only": true
+  },
+  {
+   "addr": "0048d1c0",
+   "index": 1,
+   "type": "undefined4",
+   "name": "reserved",
+   "_fn": "sputControl_Update",
+   "_names_only": true
+  },
+  {
+   "addr": "00482540",
+   "index": 0,
+   "type": "GrimServices *",
+   "name": "services",
+   "_fn": "grimlib_GameInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00482540",
+   "index": 1,
+   "type": "undefined **",
+   "name": "iface",
+   "_fn": "grimlib_GameInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00488c80",
+   "index": 0,
+   "type": "GrimServices *",
+   "name": "services",
+   "_fn": "FileUtil_SysInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00488c80",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "FileUtil_SysInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00488d30",
+   "index": 0,
+   "type": "code *",
+   "name": "write",
+   "_fn": "FileUtil_SysSave",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab910",
+   "index": 2,
+   "type": "int *",
+   "name": "glyph",
+   "_fn": "Glyph_Blit16",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab9d0",
+   "index": 2,
+   "type": "int *",
+   "name": "glyph",
+   "_fn": "Glyph_Blit8",
+   "_names_only": true
+  },
+  {
+   "addr": "004abae0",
+   "index": 2,
+   "type": "int *",
+   "name": "glyph",
+   "_fn": "Glyph_Blit16Clipped",
+   "_names_only": true
+  },
+  {
+   "addr": "004abc80",
+   "index": 2,
+   "type": "int *",
+   "name": "glyph",
+   "_fn": "Glyph_Blit8Clipped",
+   "_names_only": true
+  },
+  {
+   "addr": "004018b0",
+   "index": 0,
+   "type": "int",
+   "name": "hwnd",
+   "_fn": "Grim_FatalMessageBox",
+   "_names_only": true
+  },
+  {
+   "addr": "004018b0",
+   "index": 1,
+   "type": "int",
+   "name": "text",
+   "_fn": "Grim_FatalMessageBox",
+   "_names_only": true
+  },
+  {
+   "addr": "004018b0",
+   "index": 2,
+   "type": "int",
+   "name": "caption",
+   "_fn": "Grim_FatalMessageBox",
+   "_names_only": true
+  },
+  {
+   "addr": "004018b0",
+   "index": 3,
+   "type": "int",
+   "name": "type",
+   "_fn": "Grim_FatalMessageBox",
+   "_names_only": true
+  },
+  {
+   "addr": "00402060",
+   "index": 0,
+   "type": "void *",
+   "name": "palette",
+   "_fn": "grimdemo_SetPalette",
+   "_names_only": true
+  },
+  {
+   "addr": "00497840",
+   "index": 0,
+   "type": "uint",
+   "name": "cosInst",
+   "_fn": "IMuseRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497840",
+   "index": 1,
+   "type": "int",
+   "name": "tag",
+   "_fn": "IMuseRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497840",
+   "index": 2,
+   "type": "int",
+   "name": "parent",
+   "_fn": "IMuseRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497840",
+   "index": 3,
+   "type": "int",
+   "name": "type",
+   "_fn": "IMuseRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "004971a0",
+   "index": 4,
+   "type": "uint",
+   "name": "value1",
+   "_fn": "SoundChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "004971a0",
+   "index": 5,
+   "type": "uint",
+   "name": "value2",
+   "_fn": "SoundChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "004971a0",
+   "index": 6,
+   "type": "uint",
+   "name": "value3",
+   "_fn": "SoundChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00497320",
+   "index": 0,
+   "type": "int *",
+   "name": "comp",
+   "_fn": "SoundAdjuster",
+   "_names_only": true
+  },
+  {
+   "addr": "00497320",
+   "index": 1,
+   "type": "uint",
+   "name": "text",
+   "_fn": "SoundAdjuster",
+   "_names_only": true
+  },
+  {
+   "addr": "00497460",
+   "index": 0,
+   "type": "uint",
+   "name": "cosInst",
+   "_fn": "SoundRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497460",
+   "index": 1,
+   "type": "int",
+   "name": "tag",
+   "_fn": "SoundRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497460",
+   "index": 2,
+   "type": "int",
+   "name": "parent",
+   "_fn": "SoundRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497460",
+   "index": 3,
+   "type": "int",
+   "name": "type",
+   "_fn": "SoundRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497460",
+   "index": 4,
+   "type": "char *",
+   "name": "name",
+   "_fn": "SoundRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497640",
+   "index": 0,
+   "type": "uint",
+   "name": "tag",
+   "_fn": "SoundFreer",
+   "_names_only": true
+  },
+  {
+   "addr": "00497640",
+   "index": 1,
+   "type": "uint",
+   "name": "inst",
+   "_fn": "SoundFreer",
+   "_names_only": true
+  },
+  {
+   "addr": "00497640",
+   "index": 2,
+   "type": "uint",
+   "name": "data",
+   "_fn": "SoundFreer",
+   "_names_only": true
+  },
+  {
+   "addr": "00497660",
+   "index": 0,
+   "type": "int",
+   "name": "name",
+   "_fn": "SoundStopper",
+   "_names_only": true
+  },
+  {
+   "addr": "004bd3a0",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "SmushPlay_SysInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004bd7c0",
+   "index": 0,
+   "type": "int",
+   "name": "file",
+   "_fn": "smushplay_GetInfo",
+   "_names_only": true
+  },
+  {
+   "addr": "004bd7c0",
+   "index": 1,
+   "type": "int",
+   "name": "header",
+   "_fn": "smushplay_GetInfo",
+   "_names_only": true
+  },
+  {
+   "addr": "004bdb00",
+   "index": 0,
+   "type": "int *",
+   "name": "player",
+   "_fn": "Insane_PrepareFrame",
+   "_names_only": true
+  },
+  {
+   "addr": "004bdb00",
+   "index": 2,
+   "type": "uint *",
+   "name": "rect",
+   "_fn": "Insane_PrepareFrame",
+   "_names_only": true
+  },
+  {
+   "addr": "004bdd50",
+   "index": 0,
+   "type": "int",
+   "name": "src",
+   "_fn": "Insane_BlitRowsDual",
+   "_names_only": true
+  },
+  {
+   "addr": "004bdd50",
+   "index": 1,
+   "type": "int",
+   "name": "srcPitch",
+   "_fn": "Insane_BlitRowsDual",
+   "_names_only": true
+  },
+  {
+   "addr": "004bdd50",
+   "index": 2,
+   "type": "undefined4 *",
+   "name": "dst",
+   "_fn": "Insane_BlitRowsDual",
+   "_names_only": true
+  },
+  {
+   "addr": "004bdd50",
+   "index": 3,
+   "type": "int",
+   "name": "dstPitch",
+   "_fn": "Insane_BlitRowsDual",
+   "_names_only": true
+  },
+  {
+   "addr": "004bdd50",
+   "index": 4,
+   "type": "int",
+   "name": "width",
+   "_fn": "Insane_BlitRowsDual",
+   "_names_only": true
+  },
+  {
+   "addr": "004bdd50",
+   "index": 5,
+   "type": "int",
+   "name": "rows",
+   "_fn": "Insane_BlitRowsDual",
+   "_names_only": true
+  },
+  {
+   "addr": "004bddb0",
+   "index": 0,
+   "type": "ushort *",
+   "name": "src",
+   "_fn": "Insane_BlitRows16",
+   "_names_only": true
+  },
+  {
+   "addr": "004bddb0",
+   "index": 1,
+   "type": "int",
+   "name": "srcPitch",
+   "_fn": "Insane_BlitRows16",
+   "_names_only": true
+  },
+  {
+   "addr": "004bddb0",
+   "index": 2,
+   "type": "int",
+   "name": "dst",
+   "_fn": "Insane_BlitRows16",
+   "_names_only": true
+  },
+  {
+   "addr": "004bddb0",
+   "index": 3,
+   "type": "int",
+   "name": "dstPitch",
+   "_fn": "Insane_BlitRows16",
+   "_names_only": true
+  },
+  {
+   "addr": "004bddb0",
+   "index": 4,
+   "type": "int",
+   "name": "width",
+   "_fn": "Insane_BlitRows16",
+   "_names_only": true
+  },
+  {
+   "addr": "004bddb0",
+   "index": 5,
+   "type": "int",
+   "name": "rows",
+   "_fn": "Insane_BlitRows16",
+   "_names_only": true
+  },
+  {
+   "addr": "00497890",
+   "index": 0,
+   "type": "uint",
+   "name": "cosInst",
+   "_fn": "KeyframeChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00497890",
+   "index": 1,
+   "type": "int *",
+   "name": "inst",
+   "_fn": "KeyframeChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00497890",
+   "index": 2,
+   "type": "uint",
+   "name": "tag",
+   "_fn": "KeyframeChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00497890",
+   "index": 3,
+   "type": "int",
+   "name": "command",
+   "_fn": "KeyframeChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00497890",
+   "index": 4,
+   "type": "uint",
+   "name": "ms",
+   "_fn": "KeyframeChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00497890",
+   "index": 5,
+   "type": "uint",
+   "name": "value2",
+   "_fn": "KeyframeChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00497890",
+   "index": 6,
+   "type": "uint",
+   "name": "value3",
+   "_fn": "KeyframeChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00497890",
+   "index": 7,
+   "type": "uint",
+   "name": "hookData",
+   "_fn": "KeyframeChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00497cb0",
+   "index": 0,
+   "type": "int",
+   "name": "data",
+   "_fn": "sputCostume_PuppetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "00497cb0",
+   "index": 1,
+   "type": "int",
+   "name": "track",
+   "_fn": "sputCostume_PuppetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "00497e10",
+   "index": 0,
+   "type": "uint",
+   "name": "cosInst",
+   "_fn": "KeyframeRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497e10",
+   "index": 1,
+   "type": "int",
+   "name": "tag",
+   "_fn": "KeyframeRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497e10",
+   "index": 2,
+   "type": "int",
+   "name": "parent",
+   "_fn": "KeyframeRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497e10",
+   "index": 3,
+   "type": "int",
+   "name": "type",
+   "_fn": "KeyframeRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00497e10",
+   "index": 4,
+   "type": "uint",
+   "name": "name",
+   "_fn": "KeyframeRequester",
+   "_names_only": true
+  },
+  {
+   "addr": "00498000",
+   "index": 0,
+   "type": "int *",
+   "name": "comp",
+   "_fn": "KeyframeAdjuster",
+   "_names_only": true
+  },
+  {
+   "addr": "00498000",
+   "index": 1,
+   "type": "uint",
+   "name": "text",
+   "_fn": "KeyframeAdjuster",
+   "_names_only": true
+  },
+  {
+   "addr": "004980e0",
+   "index": 0,
+   "type": "int *",
+   "name": "inst",
+   "_fn": "KeyframeStopper",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1390",
+   "index": 0,
+   "type": "undefined *",
+   "name": "nop",
+   "_fn": "LecShare_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1390",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "registry",
+   "_fn": "LecShare_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1390",
+   "index": 2,
+   "type": "uint",
+   "name": "version",
+   "_fn": "LecShare_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1390",
+   "index": 3,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "LecShare_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1590",
+   "index": 0,
+   "type": "uint",
+   "name": "version",
+   "_fn": "LecShare_Reset",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1590",
+   "index": 1,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "LecShare_Reset",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1650",
+   "index": 0,
+   "type": "uint",
+   "name": "name",
+   "_fn": "LecShare_Unpublish",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1800",
+   "index": 0,
+   "type": "uint",
+   "name": "handle",
+   "_fn": "LecShare_Unsubscribe",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1850",
+   "index": 0,
+   "type": "int *",
+   "name": "batch",
+   "_fn": "BatchSubscribe",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1850",
+   "index": 1,
+   "type": "char *",
+   "name": "name",
+   "_fn": "BatchSubscribe",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1990",
+   "index": 0,
+   "type": "char *",
+   "name": "type",
+   "_fn": "GetCatalogEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1990",
+   "index": 1,
+   "type": "uint",
+   "name": "index",
+   "_fn": "GetCatalogEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1b60",
+   "index": 0,
+   "type": "char *",
+   "name": "type",
+   "_fn": "GetCatalogCount",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1be0",
+   "index": 0,
+   "type": "uint",
+   "name": "name",
+   "_fn": "LecShare_FindEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "004bef10",
+   "index": 0,
+   "type": "int",
+   "name": "hDlg",
+   "_fn": "LightEd_FillListBox",
+   "_names_only": true
+  },
+  {
+   "addr": "004befe0",
+   "index": 0,
+   "type": "int",
+   "name": "hDlg",
+   "_fn": "LightEd_UpdateDialog",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf2f0",
+   "index": 0,
+   "type": "int",
+   "name": "hDlg",
+   "_fn": "LightEd_EnableControls",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf3f0",
+   "index": 0,
+   "type": "int",
+   "name": "hDlg",
+   "_fn": "LightEd_SetDlgFloat",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf3f0",
+   "index": 1,
+   "type": "int",
+   "name": "id",
+   "_fn": "LightEd_SetDlgFloat",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf3f0",
+   "index": 2,
+   "type": "float",
+   "name": "value",
+   "_fn": "LightEd_SetDlgFloat",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf3f0",
+   "index": 3,
+   "type": "int",
+   "name": "force",
+   "_fn": "LightEd_SetDlgFloat",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf460",
+   "index": 0,
+   "type": "int",
+   "name": "hDlg",
+   "_fn": "LightEd_RefreshControl",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf460",
+   "index": 1,
+   "type": "float",
+   "name": "id",
+   "_fn": "LightEd_RefreshControl",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf460",
+   "index": 2,
+   "type": "uint",
+   "name": "kind",
+   "_fn": "LightEd_RefreshControl",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf460",
+   "index": 3,
+   "type": "int",
+   "name": "pos",
+   "_fn": "LightEd_RefreshControl",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf760",
+   "index": 1,
+   "type": "short",
+   "name": "axis",
+   "_fn": "LightEd_SetLightPosComponent",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf760",
+   "index": 2,
+   "type": "uint",
+   "name": "value",
+   "_fn": "LightEd_SetLightPosComponent",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf7d0",
+   "index": 1,
+   "type": "short",
+   "name": "axis",
+   "_fn": "LightEd_SetLightAngle",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf7d0",
+   "index": 2,
+   "type": "uint",
+   "name": "value",
+   "_fn": "LightEd_SetLightAngle",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf850",
+   "index": 0,
+   "type": "int",
+   "name": "enabled",
+   "_fn": "LightEd_SetAllEnabled",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf930",
+   "index": 0,
+   "type": "int",
+   "name": "light",
+   "_fn": "LightEd_GetLightAngles",
+   "_names_only": true
+  },
+  {
+   "addr": "004beee0",
+   "index": 0,
+   "type": "uint",
+   "name": "hDlg",
+   "_fn": "LightMgr_UpdateDialog",
+   "_names_only": true
+  }
+ ]
+}

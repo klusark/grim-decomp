@@ -12,7 +12,7 @@
    Original name stdPlatform_Assert (the remaster's GrimFandango (Linux): strings: '%s(%d):  %s\n');
    was PlatSvc_AssertFail. */
 
-void __cdecl stdPlatform_Assert(uint param_1,char *param_2,uint param_3)
+void __cdecl stdPlatform_Assert(uint msg,char *file,uint line)
 
 {
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -32,7 +32,7 @@ void __cdecl stdPlatform_Assert(uint param_1,char *param_2,uint param_3)
   }
   g_dwStdPlatform_Assert_enteredOnce = 1;
   iVar4 = 0;
-  cVar2 = *param_2;
+  cVar2 = *file;
   while (cVar2 != '\0') {
     if (cVar2 == '\\') {
       bVar3 = true;
@@ -40,12 +40,12 @@ void __cdecl stdPlatform_Assert(uint param_1,char *param_2,uint param_3)
     }
     iVar1 = iVar4 + 1;
     iVar4 = iVar4 + 1;
-    cVar2 = param_2[iVar1];
+    cVar2 = file[iVar1];
   }
   if (bVar3) {
     iVar5 = iVar5 + 1;
   }
-  _snprintf(acStack_200,0x200,s__s__d____s_004dee38,param_2 + iVar5,param_3,param_1);
+  _snprintf(acStack_200,0x200,s__s__d____s_004dee38,file + iVar5,line,msg);
   fp = fopen(((unsigned)(uintptr_t)&DAT_004dee28),((unsigned)(uintptr_t)&DAT_004dee34));
   if (fp != (undefined *)0x0) {
     fprintf(fp,acStack_200);
@@ -64,12 +64,12 @@ void __cdecl stdPlatform_Assert(uint param_1,char *param_2,uint param_3)
    remaster's GrimFandango (Linux): same body (malloc); the platform handle service set in both
    builds); was PlatSvc_HAlloc. */
 
-uint __cdecl stdPlatform_AllocHandle(uint param_1)
+uint __cdecl stdPlatform_AllocHandle(uint size)
 
 {
   undefined *puVar1;
   
-  puVar1 = malloc(param_1);
+  puVar1 = malloc(size);
   return (uint)puVar1;
 }
 
@@ -78,10 +78,10 @@ uint __cdecl stdPlatform_AllocHandle(uint param_1)
    remaster's GrimFandango (Linux): same body (free); after stdPlatform_AllocHandle in both builds);
    was PlatSvc_HFree. */
 
-void __cdecl stdPlatform_FreeHandle(uint param_1)
+void __cdecl stdPlatform_FreeHandle(uint handle)
 
 {
-  free(param_1);
+  free(handle);
   return;
 }
 
@@ -90,12 +90,12 @@ void __cdecl stdPlatform_FreeHandle(uint param_1)
    (the remaster's GrimFandango (Linux): same body (realloc); after stdPlatform_FreeHandle in both
    builds); was PlatSvc_HRealloc. */
 
-uint __cdecl stdPlatform_ReallocHandle(uint param_1,uint param_2)
+uint __cdecl stdPlatform_ReallocHandle(uint handle,uint size)
 
 {
   undefined4 *puVar1;
   
-  puVar1 = realloc((undefined4 *)param_1,param_2);
+  puVar1 = realloc((undefined4 *)handle,size);
   return (uint)puVar1;
 }
 
@@ -104,8 +104,8 @@ uint __cdecl stdPlatform_ReallocHandle(uint param_1,uint param_2)
    Original name stdPlatform_LockHandle (the remaster's GrimFandango (Linux): same body (returns the
    handle); after stdPlatform_ReallocHandle in both builds); was PlatSvc_HLock. */
 
-uint __cdecl stdPlatform_LockHandle(uint param_1)
+uint __cdecl stdPlatform_LockHandle(uint handle)
 
 {
-  return param_1;
+  return handle;
 }

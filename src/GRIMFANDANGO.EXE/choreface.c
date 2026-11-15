@@ -81,10 +81,10 @@ uint __cdecl ChoreFace_CallSavedHook(void)
    pop/push the selected actor costume (forces windowed mode while editing), >=7 sets
    g_fixedFrameMs. */
 
-void __cdecl ChoreFace_OnCommand(uint flags,int param_2)
+void __cdecl ChoreFace_OnCommand(uint flags,int command)
 
 {
-  switch(param_2) {
+  switch(command) {
   case 0:
     goto switchD_00402299_caseD_0;
   case 1:
@@ -115,7 +115,7 @@ switchD_00402299_caseD_0:
   case 6:
     return;
   default:
-    g_fixedFrameMs = param_2 + -7;
+    g_fixedFrameMs = command + -7;
     return;
   }
 }

@@ -21,7 +21,7 @@ undefined * __stdcall Win_WinMain(int a1,int a2,int a3,int a4)
    Backspace-chord debug keys (C choreface, F fps, P profile, S screenshot, T reset textures, Z
    z-buffer dump, F12 grimpatch.bin, NumLock spew). */
 
-undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int ch)
+undefined * __cdecl Win_WndProc(uint hwnd,uint msg,int ch)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -35,9 +35,9 @@ undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int ch)
   
   uVar2 = UINT_004f5a94;
   uVar1 = UINT_004f5a90;
-  if (0x10 < param_2) {
-    if (param_2 < 0x1d) {
-      if (param_2 == 0x1c) {
+  if (0x10 < msg) {
+    if (msg < 0x1d) {
+      if (msg == 0x1c) {
         if ((ch == 0) && (INT_004dd38c != 0)) {
           if (g_bWindowedMode == 0) {
             grimlib_SetPause(1);
@@ -69,12 +69,12 @@ undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int ch)
         stdControl_ShowMouseCursor(g_bWindowedMode);
         return (undefined *)0x0;
       }
-      if (param_2 == 0x14) {
+      if (msg == 0x14) {
         return (undefined *)0x1;
       }
     }
-    else if (param_2 < 0x101) {
-      if (param_2 == 0x100) {
+    else if (msg < 0x101) {
+      if (msg == 0x100) {
         switch(ch) {
         case 8:
           if (g_nGrimlib_bDebugKeys != 0) {
@@ -137,19 +137,19 @@ undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int ch)
           return (undefined *)0x1;
         }
       }
-      else if ((param_2 == 0x20) && (g_bWindowedMode == 0)) {
+      else if ((msg == 0x20) && (g_bWindowedMode == 0)) {
         SetCursor(0);
         return (undefined *)0x1;
       }
     }
-    else if (param_2 < 0x219) {
-      if (param_2 == 0x218) {
+    else if (msg < 0x219) {
+      if (msg == 0x218) {
         if (ch == 0) {
           return (undefined *)0x0;
         }
       }
       else {
-        switch(param_2) {
+        switch(msg) {
         case 0x101:
           if (ch == 8) {
             g_bDebugChordHeld = 0;
@@ -171,7 +171,7 @@ undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int ch)
     }
     return (undefined *)0x0;
   }
-  if (param_2 == 0x10) {
+  if (msg == 0x10) {
     iVar6 = ChoreFace_Toggle(0);
     if (iVar6 != 0) {
       pvVar3 = Win_GetMainHwnd();
@@ -185,7 +185,7 @@ undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int ch)
 switchD_0040336f_caseD_105:
     return (undefined *)0x1;
   }
-  if (param_2 != 6) {
+  if (msg != 6) {
     return (undefined *)0x0;
   }
   if (g_dwZg_App_bAppActive == 0) {
@@ -214,10 +214,10 @@ LAB_0040303f:
 
 
 /* ---- 0x00473360  Win_SetMainHwnd ---- */
-void __cdecl Win_SetMainHwnd(void *param_1)
+void __cdecl Win_SetMainHwnd(void *hwnd)
 
 {
-  g_pMainHwnd = param_1;
+  g_pMainHwnd = hwnd;
   return;
 }
 
@@ -229,10 +229,10 @@ void * __cdecl Win_GetMainHwnd(void)
 }
 
 /* ---- 0x00473380  Win_SetInstance ---- */
-void __cdecl Win_SetInstance(uint param_1)
+void __cdecl Win_SetInstance(uint hInstance)
 
 {
-  UINT_007f608c = param_1;
+  UINT_007f608c = hInstance;
   return;
 }
 
@@ -249,13 +249,13 @@ uint __cdecl Win_GetInstance(void)
 /* Window-message filter: true for WM_SYSCOMMAND with SC_KEYMENU (0xf100) or SC_SCREENSAVE (0xf140).
     */
 
-uint __cdecl Win_IsSysCommandBlocked(uint param_1,int param_2,int param_3)
+uint __cdecl Win_IsSysCommandBlocked(uint hwnd,int cmd,int lParam)
 
 {
-  if (param_2 != 0x112) {
+  if (cmd != 0x112) {
     return 0;
   }
-  if ((param_3 != 0xf100) && (param_3 != 0xf140)) {
+  if ((lParam != 0xf100) && (lParam != 0xf140)) {
     return 0;
   }
   return 1;
@@ -371,7 +371,7 @@ int __cdecl Win_SetWindowedSize(int fullscreen,int w,int h)
 }
 
 /* ---- 0x004ac160  Win_AddMessageHook ---- */
-void __cdecl Win_AddMessageHook(void *param_1)
+void __cdecl Win_AddMessageHook(void *hook)
 
 {
   int *piVar1;
@@ -384,7 +384,7 @@ void __cdecl Win_AddMessageHook(void *param_1)
     piVar1 = piVar1 + 2;
     iVar2 = iVar2 + 1;
   } while ((int)piVar1 < ((unsigned)(uintptr_t)&UINT_008d0a6c));
-  (&g_pWinMessageHooks)[iVar2 * 2] = param_1;
+  (&g_pWinMessageHooks)[iVar2 * 2] = hook;
   (&g_nWinMessageHookOn)[iVar2 * 2] = 1;
   UINT_008d0a7c = UINT_008d0a7c + 1;
   return;
@@ -413,7 +413,7 @@ undefined4 __cdecl Win_RemoveMessageHook(void *hook)
 /* ---- 0x004ac1f0  Win_CreateMainWindow ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-uint __cdecl Win_CreateMainWindow(uint param_1,uint param_2,int param_3)
+uint __cdecl Win_CreateMainWindow(uint hInstance,uint title,int nCmdShow)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -437,16 +437,16 @@ uint __cdecl Win_CreateMainWindow(uint param_1,uint param_2,int param_3)
   #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
   local_30 = 0x30;
-  local_1c = param_1;
+  local_1c = hInstance;
   local_8 = (uint)s_wKernel_004ed080;
   local_c = 0;
   local_28 = (uint)Win_KernelWndProc;
   local_2c = 3;
-  local_18 = LoadIconA(param_1,((unsigned)(uintptr_t)&s_APPICON_004ed088));
+  local_18 = LoadIconA(hInstance,((unsigned)(uintptr_t)&s_APPICON_004ed088));
   if (local_18 == 0) {
     local_18 = LoadIconA(0,0x7f00);
   }
-  local_4 = LoadIconA(param_1,((unsigned)(uintptr_t)&s_APPICON_004ed088));
+  local_4 = LoadIconA(hInstance,((unsigned)(uintptr_t)&s_APPICON_004ed088));
   if (local_4 == 0) {
     local_4 = LoadIconA(0,0x7f00);
   }
@@ -458,22 +458,22 @@ uint __cdecl Win_CreateMainWindow(uint param_1,uint param_2,int param_3)
   if ((short)iVar1 == 0) {
     return 0;
   }
-  iVar1 = FindWindowA(((unsigned)(uintptr_t)&s_wKernel_004ed080),param_3);
+  iVar1 = FindWindowA(((unsigned)(uintptr_t)&s_wKernel_004ed080),nCmdShow);
   if (iVar1 != 0) {
     exit(0xffffffff);
   }
   a12 = 0;
   a10 = 0;
   a9 = 0;
-  a11 = param_1;
+  a11 = hInstance;
   iVar1 = GetSystemMetrics(1);
   a7 = GetSystemMetrics(0);
   g_pWinMainHwnd =
-       (void *)CreateWindowExA(0x40000,((unsigned)(uintptr_t)&s_wKernel_004ed080),param_3,-0x70000000,0,0,a7,iVar1,a9,a10,a11,a12);
+       (void *)CreateWindowExA(0x40000,((unsigned)(uintptr_t)&s_wKernel_004ed080),nCmdShow,-0x70000000,0,0,a7,iVar1,a9,a10,a11,a12);
   if (g_pWinMainHwnd == (void *)0x0) {
     return 0;
   }
-  UINT_008d09e4 = param_1;
+  UINT_008d09e4 = hInstance;
   ShowWindow((int)g_pWinMainHwnd,1);
   UpdateWindow((int)g_pWinMainHwnd);
   return 1;

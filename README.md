@@ -195,9 +195,9 @@ Files in src/: 218
   and LUA.DLL's call frames (`ExecutionState`) and parser state (`FuncState`); plus the hand-made GrimServices and
   CHORE.DLL records (build/BUILD_NOTES.md, the types sections). Raw `((int)p + 0x..)` accesses left: EXE 76 (data
   whose type depends on run time: resource data by fourcc, costume instance data; name buffers; C runtime), LUA.DLL 0,
-  IMUSE.DLL a few byte streams. Parameters: `param_N` names left in the prototypes EXE 2626, LUA.DLL 1034, IMUSE.DLL
-  672, CHORE.DLL 259 (tools/propagate_params.py named 298 from their calls; the rest is mostly C runtime and scalar
-  leaf parameters that no call names).
+  IMUSE.DLL a few byte streams. Parameters: named (tools/propagate_params.py,
+  tools/names_from_overrides.py, names/params_*.py); 81 `param_N` are left in live game code, the rest of the
+  prototypes' `param_N` (EXE 1059, LUA.DLL 745, IMUSE.DLL 314, CHORE.DLL 259) are the C runtime.
 * Data types: `src/<prog>/data.c` gives values to every span typed as a scalar, a structure or an array of either.
   Typed so far: the EXE's sine, tangent and CRC-32 tables, LUA.DLL's parser tables and hash sizes
   (docs/notes/types_4.md); iMUSE's state, sequence and file-alias tables, the text contexts, the phoneme table and

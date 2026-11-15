@@ -32,8 +32,8 @@ uint __cdecl Phoneme_ToTalkChore(void *unused,int phoneme)
 /* Original name ComparePhonemes (the remaster's GrimFandango (Linux): aligned call in
    sputActor_Startup); was FUN_00490e50. */
 
-int __cdecl ComparePhonemes(int *param_1,int *param_2)
+int __cdecl ComparePhonemes(int *a,int *b)
 
 {
-  return *param_1 - *param_2;
+  return *a - *b;
 }

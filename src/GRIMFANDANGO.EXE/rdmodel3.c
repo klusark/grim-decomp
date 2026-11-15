@@ -36,7 +36,7 @@ void __cdecl rdModel3_NewEntry(rdModel3 *model)
    GrimFandango (Linux): same body (loader hook, 0x90-byte model, load, post-process, free on
    failure); sputResource_ModelHandler's call); was rdModel3_New. */
 
-undefined4 * __cdecl rdModel3_Load(uint param_1)
+undefined4 * __cdecl rdModel3_Load(uint name)
 
 {
   undefined4 *puVar1;
@@ -45,7 +45,7 @@ undefined4 * __cdecl rdModel3_Load(uint param_1)
   undefined4 *puVar4;
   
   if (g_dwModel3Loader != 0) {
-    puVar1 = (undefined4 *)(*(code *)g_dwModel3Loader)(param_1,0);
+    puVar1 = (undefined4 *)(*(code *)g_dwModel3Loader)(name,0);
     if (puVar1 == (undefined4 *)0x0) {
       return (undefined4 *)0x0;
     }
@@ -61,7 +61,7 @@ undefined4 * __cdecl rdModel3_Load(uint param_1)
       *puVar4 = 0;
       puVar4 = puVar4 + 1;
     }
-    uVar2 = rdModel3_LoadEntry(param_1,(uint)puVar1);
+    uVar2 = rdModel3_LoadEntry(name,(uint)puVar1);
     if (uVar2 != 0) {
       rdModel3_LoadPostProcess((uint)puVar1);
       return puVar1;
@@ -83,32 +83,32 @@ uint __cdecl rdModel3_LoadEntry(int name,uint model)
 
 {
   int iVar1;
-  int iVar2;
-  uint uVar3;
+  int f;
+  uint uVar2;
   int unaff_ESI;
   uint unaff_EDI;
   uint unaff_retaddr;
   uint in_stack_0000000c;
   
   iVar1 = name;
-  iVar2 = (*g_pRdroid_HS->pFopen)(name,&DAT_004ddb18);
-  if (iVar2 == 0) {
+  f = (*g_pRdroid_HS->pFopen)(name,&DAT_004ddb18);
+  if (f == 0) {
     return 0;
   }
-  (*g_pRdroid_HS->pFread)(iVar2,&name,4);
+  (*g_pRdroid_HS->pFread)(f,&name,4);
   if (name == 0x4d4f444c) {
-    uVar3 = rdModel3_LoadEntryBinary(iVar2,model);
-    if (uVar3 != 0) {
+    uVar2 = rdModel3_LoadEntryBinary(f,model);
+    if (uVar2 != 0) {
       (*g_pRdroid_HS->pFclose)();
       return 1;
     }
-    (*g_pRdroid_HS->pFclose)(iVar2);
+    (*g_pRdroid_HS->pFclose)(f);
     return 0;
   }
-  (*g_pRdroid_HS->pFclose)(iVar2);
-  uVar3 = rdModel3_LoadEntryText
+  (*g_pRdroid_HS->pFclose)(f);
+  uVar2 = rdModel3_LoadEntryText
                     (iVar1,model,unaff_EDI,unaff_ESI,unaff_retaddr,name,model,in_stack_0000000c);
-  return uVar3;
+  return uVar2;
 }
 #endif
 
@@ -608,7 +608,7 @@ LAB_0040b8c4:
    rdModel3_LoadEntryBinary (the remaster's GrimFandango (Linux): the only unmatched callee of
    rdModel3_LoadEntry; 2 matched neighbours agree, 1 disagree); was rdModel3_LoadBinary. */
 
-uint __cdecl rdModel3_LoadEntryBinary(int param_1,int param_2)
+uint __cdecl rdModel3_LoadEntryBinary(int f,int model)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -635,12 +635,12 @@ uint __cdecl rdModel3_LoadEntryBinary(int param_1,int param_2)
   #define local_8 (*(int *)(_frame + (0x40 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x40 - 0x4)))
   
-  iVar12 = param_2;
-  iVar9 = param_1;
+  iVar12 = model;
+  iVar9 = f;
   uVar14 = 0;
   local_1c = 0;
-  rdModel3_NewEntry((rdModel3 *)param_2);
-  (*g_pRdroid_HS->pFread)(param_1,&local_8,4);
+  rdModel3_NewEntry((rdModel3 *)model);
+  (*g_pRdroid_HS->pFread)(f,&local_8,4);
   *(int *)(iVar12 + 0x4c) = local_8;
   *(undefined4 *)(iVar12 + 0x48) = 0;
   if (local_8 != 0) {
@@ -651,16 +651,16 @@ uint __cdecl rdModel3_LoadEntryBinary(int param_1,int param_2)
   uVar10 = local_1c;
   if (*(int *)(iVar12 + 0x4c) != 0) {
     do {
-      (*g_pRdroid_HS->pFread)(param_1,uVar10,0x20);
+      (*g_pRdroid_HS->pFread)(f,uVar10,0x20);
       uVar10 = uVar10 + 0x20;
       uVar14 = uVar14 + 1;
     } while (uVar14 < *(uint *)(iVar12 + 0x4c));
   }
-  (*g_pRdroid_HS->pFread)(param_1,iVar12,0x20);
-  (*g_pRdroid_HS->pFread)(param_1,iVar12 + 0x20,4);
+  (*g_pRdroid_HS->pFread)(f,iVar12,0x20);
+  (*g_pRdroid_HS->pFread)(f,iVar12 + 0x20,4);
   piVar1 = (int *)(iVar12 + 0x44);
-  (*g_pRdroid_HS->pFread)(param_1,piVar1,4);
-  param_1 = 0;
+  (*g_pRdroid_HS->pFread)(f,piVar1,4);
+  f = 0;
   if (0 < *piVar1) {
     piVar11 = (int *)(iVar12 + 0x24);
     do {
@@ -778,12 +778,12 @@ uint __cdecl rdModel3_LoadEntryBinary(int param_1,int param_2)
           (*g_pRdroid_HS->pFread)(iVar9,iVar12 + 100,0x18);
           iStack_14 = iStack_14 + 0x7c;
           iStack_24 = iStack_24 + 1;
-          iVar12 = param_2;
+          iVar12 = model;
         } while (iStack_24 < *piVar11);
       }
-      param_1 = param_1 + 1;
+      f = f + 1;
       piVar11 = piVar11 + 2;
-    } while (param_1 < *piVar1);
+    } while (f < *piVar1);
   }
   (*g_pRdroid_HS->pFread)(iVar9,iVar12 + 0x50,4);
   piVar11 = (int *)(iVar12 + 0x54);
@@ -793,26 +793,26 @@ uint __cdecl rdModel3_LoadEntryBinary(int param_1,int param_2)
                     );
   *(undefined4 *)(iVar12 + 0x58) = uVar5;
   iVar8 = 0;
-  param_1 = 0;
+  f = 0;
   if (0 < *piVar11) {
     do {
       iVar13 = iVar8 + *(int *)(iVar12 + 0x58);
       (*g_pRdroid_HS->pFread)(iVar9,iVar13,0xb8);
       if (*(int *)(iVar13 + 0x54) != 0) {
-        (*g_pRdroid_HS->pFread)(iVar9,&param_2,4);
-        *(int *)(iVar13 + 0x54) = *(int *)(iVar12 + 0x58) + param_2 * 0xb8;
+        (*g_pRdroid_HS->pFread)(iVar9,&model,4);
+        *(int *)(iVar13 + 0x54) = *(int *)(iVar12 + 0x58) + model * 0xb8;
       }
       if (*(int *)(iVar13 + 0x5c) != 0) {
-        (*g_pRdroid_HS->pFread)(iVar9,&param_2,4);
-        *(int *)(iVar13 + 0x5c) = *(int *)(iVar12 + 0x58) + param_2 * 0xb8;
+        (*g_pRdroid_HS->pFread)(iVar9,&model,4);
+        *(int *)(iVar13 + 0x5c) = *(int *)(iVar12 + 0x58) + model * 0xb8;
       }
       if (*(int *)(iVar13 + 0x60) != 0) {
-        (*g_pRdroid_HS->pFread)(iVar9,&param_2,4);
-        *(int *)(iVar13 + 0x60) = *(int *)(iVar12 + 0x58) + param_2 * 0xb8;
+        (*g_pRdroid_HS->pFread)(iVar9,&model,4);
+        *(int *)(iVar13 + 0x60) = *(int *)(iVar12 + 0x58) + model * 0xb8;
       }
-      param_1 = param_1 + 1;
+      f = f + 1;
       iVar8 = iVar8 + 0xb8;
-    } while (param_1 < *(int *)(iVar12 + 0x54));
+    } while (f < *(int *)(iVar12 + 0x54));
   }
   (*g_pRdroid_HS->pFread)(iVar9,iVar12 + 0x5c,4);
   (*g_pRdroid_HS->pFread)(iVar9,iVar12 + 0x60,0x18);
@@ -834,16 +834,16 @@ uint __cdecl rdModel3_LoadEntryBinary(int param_1,int param_2)
       uVar14 = uVar14 + 1;
     } while (uVar14 < *(uint *)(iVar12 + 0x4c));
   }
-  param_1 = 0;
+  f = 0;
   if (0 < *piVar1) {
     piVar11 = (int *)(iVar12 + 0x24);
     do {
       iStack_24 = 0;
       if (0 < *piVar11) {
-        param_2 = 0;
+        model = 0;
         do {
           iVar8 = 0;
-          iVar9 = param_2 + piVar11[1];
+          iVar9 = model + piVar11[1];
           if (0 < *(int *)(iVar9 + 0x50)) {
             iVar13 = 0;
             do {
@@ -860,12 +860,12 @@ uint __cdecl rdModel3_LoadEntryBinary(int param_1,int param_2)
             } while (iVar8 < *(int *)(iVar9 + 0x50));
           }
           iStack_24 = iStack_24 + 1;
-          param_2 = param_2 + 0x7c;
+          model = model + 0x7c;
         } while (iStack_24 < *piVar11);
       }
-      param_1 = param_1 + 1;
+      f = f + 1;
       piVar11 = piVar11 + 2;
-    } while (param_1 < *piVar1);
+    } while (f < *piVar1);
   }
   if (local_1c != 0) {
     (*g_pRdroid_HS->pFree)(local_1c);
@@ -887,15 +887,15 @@ uint __cdecl rdModel3_LoadEntryBinary(int param_1,int param_2)
 /* Computes everything derived after loading: bounding boxes, radii, face and vertex normals, node
    child counts. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
-void __cdecl rdModel3_LoadPostProcess(uint param_1)
+void __cdecl rdModel3_LoadPostProcess(uint model)
 
 {
-  rdModel3_CalcBoundingBoxes(param_1);
-  rdModel3_CalcRadii(param_1);
-  rdModel3_CalcFaceNormals(param_1);
-  rdModel3_CalcVertexNormals(param_1);
-  rdModel3_CountNodeChildren(param_1);
-  rdModel3_BuildShadowModel(param_1);
+  rdModel3_CalcBoundingBoxes(model);
+  rdModel3_CalcRadii(model);
+  rdModel3_CalcFaceNormals(model);
+  rdModel3_CalcVertexNormals(model);
+  rdModel3_CountNodeChildren(model);
+  rdModel3_BuildShadowModel(model);
   return;
 }
 
@@ -903,16 +903,16 @@ void __cdecl rdModel3_LoadPostProcess(uint param_1)
 /* Frees a model (custom free hook if installed, else rdModel3_FreeEntry and the record). Source
    file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
-void __cdecl rdModel3_Free(int param_1)
+void __cdecl rdModel3_Free(int model)
 
 {
-  if (param_1 != 0) {
+  if (model != 0) {
     if (g_dwModel3Unloader != 0) {
-      (*(code *)g_dwModel3Unloader)(param_1);
+      (*(code *)g_dwModel3Unloader)(model);
       return;
     }
-    rdModel3_FreeEntry(param_1);
-    (*g_pRdroid_HS->pFree)(param_1);
+    rdModel3_FreeEntry(model);
+    (*g_pRdroid_HS->pFree)(model);
   }
   return;
 }
@@ -921,21 +921,21 @@ void __cdecl rdModel3_Free(int param_1)
 /* Frees the contents of a model: materials, geometry sets, meshes, vertices, faces, hierarchy
    nodes. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
-void __cdecl rdModel3_FreeEntry(int param_1)
+void __cdecl rdModel3_FreeEntry(int model)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint *puVar2;
   int *piVar3;
-  int iVar4;
+  int face;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  if (param_1 != 0) {
-    puVar2 = (uint *)(param_1 + 0x24);
+  if (model != 0) {
+    puVar2 = (uint *)(model + 0x24);
     local_4 = 0;
-    if (*(int *)(param_1 + 0x44) != 0) {
+    if (*(int *)(model + 0x44) != 0) {
       do {
         local_8 = 0;
         if (*puVar2 != 0) {
@@ -947,13 +947,13 @@ void __cdecl rdModel3_FreeEntry(int param_1)
             if (*piVar3 != 0) {
               (*g_pRdroid_HS->pFree)(*piVar3);
             }
-            iVar4 = piVar3[3];
-            if (iVar4 != 0) {
+            face = piVar3[3];
+            if (face != 0) {
               uVar1 = 0;
               if (piVar3[7] != 0) {
                 do {
-                  rdFace_FreeEntry(iVar4);
-                  iVar4 = iVar4 + 0x4c;
+                  rdFace_FreeEntry(face);
+                  face = face + 0x4c;
                   uVar1 = uVar1 + 1;
                 } while (uVar1 < (uint)piVar3[7]);
               }
@@ -980,20 +980,20 @@ void __cdecl rdModel3_FreeEntry(int param_1)
         }
         puVar2 = puVar2 + 2;
         local_4 = local_4 + 1;
-      } while (local_4 < *(uint *)(param_1 + 0x44));
+      } while (local_4 < *(uint *)(model + 0x44));
     }
-    if (*(int *)(param_1 + 0x58) != 0) {
-      (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x58));
+    if (*(int *)(model + 0x58) != 0) {
+      (*g_pRdroid_HS->pFree)(*(int *)(model + 0x58));
     }
     uVar1 = 0;
-    if (*(int *)(param_1 + 0x4c) != 0) {
+    if (*(int *)(model + 0x4c) != 0) {
       do {
-        rdMaterial_Free(*(uint *)(*(int *)(param_1 + 0x48) + uVar1 * 4));
+        rdMaterial_Free(*(uint *)(*(int *)(model + 0x48) + uVar1 * 4));
         uVar1 = uVar1 + 1;
-      } while (uVar1 < *(uint *)(param_1 + 0x4c));
+      } while (uVar1 < *(uint *)(model + 0x4c));
     }
-    if (*(int *)(param_1 + 0x48) != 0) {
-      (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x48));
+    if (*(int *)(model + 0x48) != 0) {
+      (*g_pRdroid_HS->pFree)(*(int *)(model + 0x48));
     }
   }
   return;
@@ -1008,7 +1008,7 @@ void __cdecl rdModel3_FreeEntry(int param_1)
    rdModel3_BuildShadowModel (the remaster's GrimFandango (Linux): aligned call in
    rdModel3_LoadPostProcess); was rdModel3_BuildBoundingBoxCorners. */
 
-void __cdecl rdModel3_BuildShadowModel(int param_1)
+void __cdecl rdModel3_BuildShadowModel(int model)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1020,10 +1020,10 @@ void __cdecl rdModel3_BuildShadowModel(int param_1)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
-  if (*(int *)(param_1 + 0x44) == 0) {
+  if (*(int *)(model + 0x44) == 0) {
     return;
   }
-  puVar5 = (uint *)(param_1 + 0x24);
+  puVar5 = (uint *)(model + 0x24);
   do {
     uVar3 = 0;
     if (*puVar5 != 0) {
@@ -1097,7 +1097,7 @@ void __cdecl rdModel3_BuildShadowModel(int param_1)
     }
     local_4 = local_4 + 1;
     puVar5 = puVar5 + 2;
-    if (*(uint *)(param_1 + 0x44) <= local_4) {
+    if (*(uint *)(model + 0x44) <= local_4) {
       return;
     }
   } while( true );
@@ -1110,94 +1110,97 @@ void __cdecl rdModel3_BuildShadowModel(int param_1)
    rdModel3_CalcModelBoundingBox), and the model's center and radius. Source file Rdmodel3.c
    (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
-void __cdecl rdModel3_CalcBoundingBoxes(uint param_1)
+void __cdecl rdModel3_CalcBoundingBoxes(uint model)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
-  uint uVar4;
-  int iVar5;
-  float *pfVar6;
+  uint model_00;
+  int iVar4;
+  float *pfVar5;
+  int iVar6;
   int iVar7;
-  int iVar8;
-  uint *puVar9;
+  uint *puVar8;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  uVar4 = param_1;
-  *(undefined4 *)(param_1 + 0x60) = 0x7f7fc99e;
-  *(undefined4 *)(param_1 + 100) = 0x7f7fc99e;
-  *(undefined4 *)(param_1 + 0x68) = 0x7f7fc99e;
-  *(undefined4 *)(param_1 + 0x6c) = 0xff7fc99e;
-  *(undefined4 *)(param_1 + 0x70) = 0xff7fc99e;
-  *(undefined4 *)(param_1 + 0x74) = 0xff7fc99e;
+  model_00 = model;
+  *(undefined4 *)(model + 0x60) = 0x7f7fc99e;
+  *(undefined4 *)(model + 100) = 0x7f7fc99e;
+  *(undefined4 *)(model + 0x68) = 0x7f7fc99e;
+  *(undefined4 *)(model + 0x6c) = 0xff7fc99e;
+  *(undefined4 *)(model + 0x70) = 0xff7fc99e;
+  *(undefined4 *)(model + 0x74) = 0xff7fc99e;
   local_4 = 0;
-  if (*(int *)(param_1 + 0x44) != 0) {
-    puVar9 = (uint *)(param_1 + 0x24);
+  if (*(int *)(model + 0x44) != 0) {
+    puVar8 = (uint *)(model + 0x24);
     do {
-      iVar7 = 0;
-      param_1 = 0;
-      if (*puVar9 != 0) {
+      iVar6 = 0;
+      model = 0;
+      if (*puVar8 != 0) {
         do {
-          iVar5 = iVar7 + puVar9[1];
-          iVar8 = *(int *)(iVar5 + 0x48);
-          *(undefined4 *)(iVar5 + 100) = 0x7f7fc99e;
-          *(undefined4 *)(iVar5 + 0x68) = 0x7f7fc99e;
-          *(undefined4 *)(iVar5 + 0x6c) = 0x7f7fc99e;
-          *(undefined4 *)(iVar5 + 0x70) = 0xff7fc99e;
-          *(undefined4 *)(iVar5 + 0x74) = 0xff7fc99e;
-          *(undefined4 *)(iVar5 + 0x78) = 0xff7fc99e;
-          if (iVar8 != 0) {
-            pfVar6 = *(float **)(iVar5 + 0x30);
+          iVar4 = iVar6 + puVar8[1];
+          iVar7 = *(int *)(iVar4 + 0x48);
+          *(undefined4 *)(iVar4 + 100) = 0x7f7fc99e;
+          *(undefined4 *)(iVar4 + 0x68) = 0x7f7fc99e;
+          *(undefined4 *)(iVar4 + 0x6c) = 0x7f7fc99e;
+          *(undefined4 *)(iVar4 + 0x70) = 0xff7fc99e;
+          *(undefined4 *)(iVar4 + 0x74) = 0xff7fc99e;
+          *(undefined4 *)(iVar4 + 0x78) = 0xff7fc99e;
+          if (iVar7 != 0) {
+            pfVar5 = *(float **)(iVar4 + 0x30);
             do {
-              if (*pfVar6 < *(float *)(iVar5 + 100)) {
-                *(float *)(iVar5 + 100) = *pfVar6;
+              if (*pfVar5 < *(float *)(iVar4 + 100)) {
+                *(float *)(iVar4 + 100) = *pfVar5;
               }
-              if (pfVar6[1] < *(float *)(iVar5 + 0x68)) {
-                *(float *)(iVar5 + 0x68) = pfVar6[1];
+              if (pfVar5[1] < *(float *)(iVar4 + 0x68)) {
+                *(float *)(iVar4 + 0x68) = pfVar5[1];
               }
-              if (pfVar6[2] < *(float *)(iVar5 + 0x6c)) {
-                *(float *)(iVar5 + 0x6c) = pfVar6[2];
+              if (pfVar5[2] < *(float *)(iVar4 + 0x6c)) {
+                *(float *)(iVar4 + 0x6c) = pfVar5[2];
               }
-              if (*(float *)(iVar5 + 0x70) < *pfVar6) {
-                *(float *)(iVar5 + 0x70) = *pfVar6;
+              if (*(float *)(iVar4 + 0x70) < *pfVar5) {
+                *(float *)(iVar4 + 0x70) = *pfVar5;
               }
-              if (*(float *)(iVar5 + 0x74) < pfVar6[1]) {
-                *(float *)(iVar5 + 0x74) = pfVar6[1];
+              if (*(float *)(iVar4 + 0x74) < pfVar5[1]) {
+                *(float *)(iVar4 + 0x74) = pfVar5[1];
               }
-              if (*(float *)(iVar5 + 0x78) < pfVar6[2]) {
-                *(float *)(iVar5 + 0x78) = pfVar6[2];
+              if (*(float *)(iVar4 + 0x78) < pfVar5[2]) {
+                *(float *)(iVar4 + 0x78) = pfVar5[2];
               }
-              pfVar6 = pfVar6 + 3;
-              iVar8 = iVar8 + -1;
-            } while (iVar8 != 0);
+              pfVar5 = pfVar5 + 3;
+              iVar7 = iVar7 + -1;
+            } while (iVar7 != 0);
           }
-          param_1 = param_1 + 1;
-          iVar7 = iVar7 + 0x7c;
-        } while (param_1 < *puVar9);
+          model = model + 1;
+          iVar6 = iVar6 + 0x7c;
+        } while (model < *puVar8);
       }
       local_4 = local_4 + 1;
-      puVar9 = puVar9 + 2;
-    } while (local_4 < *(uint *)(uVar4 + 0x44));
+      puVar8 = puVar8 + 2;
+    } while (local_4 < *(uint *)(model_00 + 0x44));
   }
-  *(undefined4 *)(uVar4 + 0x60) = 0x7f7fc99e;
-  *(undefined4 *)(uVar4 + 100) = 0x7f7fc99e;
-  *(undefined4 *)(uVar4 + 0x68) = 0x7f7fc99e;
-  *(undefined4 *)(uVar4 + 0x6c) = 0xff7fc99e;
-  *(undefined4 *)(uVar4 + 0x70) = 0xff7fc99e;
-  *(undefined4 *)(uVar4 + 0x74) = 0xff7fc99e;
-  rdModel3_CalcModelBoundingBox(uVar4,*(int *)(uVar4 + 0x58),g_flRdroid_identMatrix34);
-  fVar3 = *(float *)(uVar4 + 0x60) - *(float *)(uVar4 + 0x6c);
-  fVar1 = *(float *)(uVar4 + 100) - *(float *)(uVar4 + 0x70);
-  fVar2 = *(float *)(uVar4 + 0x68) - *(float *)(uVar4 + 0x74);
-  *(float *)(uVar4 + 0x78) =
-       (*(float *)(uVar4 + 0x6c) - *(float *)(uVar4 + 0x60)) * 0.5f + *(float *)(uVar4 + 0x60);
-  *(float *)(uVar4 + 0x7c) =
-       (*(float *)(uVar4 + 0x70) - *(float *)(uVar4 + 100)) * 0.5f + *(float *)(uVar4 + 100);
-  *(float *)(uVar4 + 0x80) =
-       (*(float *)(uVar4 + 0x74) - *(float *)(uVar4 + 0x68)) * 0.5f + *(float *)(uVar4 + 0x68);
-  *(float *)(uVar4 + 0x5c) = SQRT(fVar2 * fVar2 + fVar1 * fVar1 + fVar3 * fVar3) * 0.5f;
+  *(undefined4 *)(model_00 + 0x60) = 0x7f7fc99e;
+  *(undefined4 *)(model_00 + 100) = 0x7f7fc99e;
+  *(undefined4 *)(model_00 + 0x68) = 0x7f7fc99e;
+  *(undefined4 *)(model_00 + 0x6c) = 0xff7fc99e;
+  *(undefined4 *)(model_00 + 0x70) = 0xff7fc99e;
+  *(undefined4 *)(model_00 + 0x74) = 0xff7fc99e;
+  rdModel3_CalcModelBoundingBox(model_00,*(int *)(model_00 + 0x58),g_flRdroid_identMatrix34);
+  fVar3 = *(float *)(model_00 + 0x60) - *(float *)(model_00 + 0x6c);
+  fVar1 = *(float *)(model_00 + 100) - *(float *)(model_00 + 0x70);
+  fVar2 = *(float *)(model_00 + 0x68) - *(float *)(model_00 + 0x74);
+  *(float *)(model_00 + 0x78) =
+       (*(float *)(model_00 + 0x6c) - *(float *)(model_00 + 0x60)) * 0.5f +
+       *(float *)(model_00 + 0x60);
+  *(float *)(model_00 + 0x7c) =
+       (*(float *)(model_00 + 0x70) - *(float *)(model_00 + 100)) * 0.5f + *(float *)(model_00 + 100)
+  ;
+  *(float *)(model_00 + 0x80) =
+       (*(float *)(model_00 + 0x74) - *(float *)(model_00 + 0x68)) * 0.5f +
+       *(float *)(model_00 + 0x68);
+  *(float *)(model_00 + 0x5c) = SQRT(fVar2 * fVar2 + fVar1 * fVar1 + fVar3 * fVar3) * 0.5f;
   return;
 }
 #undef local_4
@@ -1210,7 +1213,7 @@ void __cdecl rdModel3_CalcBoundingBoxes(uint param_1)
    remaster's GrimFandango (Linux): the only unmatched callee of rdModel3_CalcBoundingBoxes; 1
    matched neighbours agree, 0 disagree); was rdModel3_AccumulateNodeBounds. */
 
-void __cdecl rdModel3_CalcModelBoundingBox(int param_1,int param_2,float *param_3)
+void __cdecl rdModel3_CalcModelBoundingBox(int model,int node,float *matrix)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1225,57 +1228,57 @@ void __cdecl rdModel3_CalcModelBoundingBox(int param_1,int param_2,float *param_
   #define local_60 (*(float (*)[12])(_frame + (0xc0 - 0x60)))
   #define local_30 (*(float (*)[12])(_frame + (0xc0 - 0x30)))
   
-  rdMatrix_Build34(local_30,(uint *)(param_2 + 0x7c),(float *)(param_2 + 0x70));
-  rdMatrix_BuildTranslate34(local_90,(float *)(param_2 + 100));
+  rdMatrix_Build34(local_30,(uint *)(node + 0x7c),(float *)(node + 0x70));
+  rdMatrix_BuildTranslate34(local_90,(float *)(node + 100));
   rdMatrix_PostMultiply34(local_90,local_30);
-  iVar3 = *(int *)(param_2 + 0x54);
+  iVar3 = *(int *)(node + 0x54);
   if (iVar3 != 0) {
     local_9c[0] = -*(float *)(iVar3 + 100);
     local_9c[1] = -*(float *)(iVar3 + 0x68);
     local_9c[2] = -*(float *)(iVar3 + 0x6c);
     rdMatrix_PostTranslate34((int)local_90,local_9c);
   }
-  rdMatrix_Multiply34(local_60,param_3,local_90);
-  iVar3 = *(int *)(param_2 + 0x4c);
+  rdMatrix_Multiply34(local_60,matrix,local_90);
+  iVar3 = *(int *)(node + 0x4c);
   if (iVar3 != -1) {
-    iVar1 = *(int *)(param_1 + 0x28);
+    iVar1 = *(int *)(model + 0x28);
     uVar2 = 0;
     a = *(float **)(iVar1 + 0x30 + iVar3 * 0x7c);
     if (*(int *)(iVar1 + 0x48 + iVar3 * 0x7c) != 0) {
       do {
         rdMatrix_TransformPoint34(&local_a8,a,local_60);
-        if (*(float *)(param_1 + 0x6c) < local_a8) {
-          *(float *)(param_1 + 0x6c) = local_a8;
+        if (*(float *)(model + 0x6c) < local_a8) {
+          *(float *)(model + 0x6c) = local_a8;
         }
-        if (*(float *)(param_1 + 0x70) < local_a4[0]) {
-          *(float *)(param_1 + 0x70) = local_a4[0];
+        if (*(float *)(model + 0x70) < local_a4[0]) {
+          *(float *)(model + 0x70) = local_a4[0];
         }
-        if (*(float *)(param_1 + 0x74) < local_a4[1]) {
-          *(float *)(param_1 + 0x74) = local_a4[1];
+        if (*(float *)(model + 0x74) < local_a4[1]) {
+          *(float *)(model + 0x74) = local_a4[1];
         }
-        if (local_a8 < *(float *)(param_1 + 0x60)) {
-          *(float *)(param_1 + 0x60) = local_a8;
+        if (local_a8 < *(float *)(model + 0x60)) {
+          *(float *)(model + 0x60) = local_a8;
         }
-        if (local_a4[0] < *(float *)(param_1 + 100)) {
-          *(float *)(param_1 + 100) = local_a4[0];
+        if (local_a4[0] < *(float *)(model + 100)) {
+          *(float *)(model + 100) = local_a4[0];
         }
-        if (local_a4[1] < *(float *)(param_1 + 0x68)) {
-          *(float *)(param_1 + 0x68) = local_a4[1];
+        if (local_a4[1] < *(float *)(model + 0x68)) {
+          *(float *)(model + 0x68) = local_a4[1];
         }
         a = a + 3;
         uVar2 = uVar2 + 1;
       } while (uVar2 < *(uint *)(iVar1 + iVar3 * 0x7c + 0x48));
     }
   }
-  if (*(int *)(param_2 + 0x58) != 0) {
-    iVar3 = *(int *)(param_2 + 0x5c);
+  if (*(int *)(node + 0x58) != 0) {
+    iVar3 = *(int *)(node + 0x5c);
     uVar2 = 0;
-    if (*(int *)(param_2 + 0x58) != 0) {
+    if (*(int *)(node + 0x58) != 0) {
       do {
-        rdModel3_CalcModelBoundingBox(param_1,iVar3,local_60);
+        rdModel3_CalcModelBoundingBox(model,iVar3,local_60);
         iVar3 = *(int *)(iVar3 + 0x60);
         uVar2 = uVar2 + 1;
-      } while (uVar2 < *(uint *)(param_2 + 0x58));
+      } while (uVar2 < *(uint *)(node + 0x58));
     }
   }
   return;
@@ -1342,7 +1345,7 @@ void __cdecl rdModel3_CalcRadii(int model)
    rdModel3_CalcRadii; 1 matched neighbours agree, 0 disagree); was rdModel3_AccumulateNodeRadius.
     */
 
-void __cdecl rdModel3_BuildExpandedRadius(int param_1,int param_2,float *param_3)
+void __cdecl rdModel3_BuildExpandedRadius(int model,int node,float *matrix)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1357,20 +1360,20 @@ void __cdecl rdModel3_BuildExpandedRadius(int param_1,int param_2,float *param_3
   #define local_60 (*(float (*)[12])(_frame + (0xc0 - 0x60)))
   #define local_30 (*(float (*)[12])(_frame + (0xc0 - 0x30)))
   
-  rdMatrix_Build34(local_30,(uint *)(param_2 + 0x7c),(float *)(param_2 + 0x70));
-  rdMatrix_BuildTranslate34(local_90,(float *)(param_2 + 100));
+  rdMatrix_Build34(local_30,(uint *)(node + 0x7c),(float *)(node + 0x70));
+  rdMatrix_BuildTranslate34(local_90,(float *)(node + 100));
   rdMatrix_PostMultiply34(local_90,local_30);
-  iVar4 = *(int *)(param_2 + 0x54);
+  iVar4 = *(int *)(node + 0x54);
   if (iVar4 != 0) {
     local_9c[0] = -*(float *)(iVar4 + 100);
     local_9c[1] = -*(float *)(iVar4 + 0x68);
     local_9c[2] = -*(float *)(iVar4 + 0x6c);
     rdMatrix_PostTranslate34((int)local_90,local_9c);
   }
-  rdMatrix_Multiply34(local_60,param_3,local_90);
-  iVar4 = *(int *)(param_2 + 0x4c);
+  rdMatrix_Multiply34(local_60,matrix,local_90);
+  iVar4 = *(int *)(node + 0x4c);
   if (iVar4 != -1) {
-    iVar1 = *(int *)(param_1 + 0x28);
+    iVar1 = *(int *)(model + 0x28);
     uVar3 = 0;
     a = *(float **)(iVar1 + 0x30 + iVar4 * 0x7c);
     if (*(int *)(iVar1 + 0x48 + iVar4 * 0x7c) != 0) {
@@ -1386,15 +1389,15 @@ void __cdecl rdModel3_BuildExpandedRadius(int param_1,int param_2,float *param_3
       } while (uVar3 < *(uint *)(iVar1 + iVar4 * 0x7c + 0x48));
     }
   }
-  if (*(int *)(param_2 + 0x58) != 0) {
-    iVar4 = *(int *)(param_2 + 0x5c);
+  if (*(int *)(node + 0x58) != 0) {
+    iVar4 = *(int *)(node + 0x5c);
     uVar3 = 0;
-    if (*(int *)(param_2 + 0x58) != 0) {
+    if (*(int *)(node + 0x58) != 0) {
       do {
-        rdModel3_BuildExpandedRadius(param_1,iVar4,local_60);
+        rdModel3_BuildExpandedRadius(model,iVar4,local_60);
         iVar4 = *(int *)(iVar4 + 0x60);
         uVar3 = uVar3 + 1;
-      } while (uVar3 < *(uint *)(param_2 + 0x58));
+      } while (uVar3 < *(uint *)(node + 0x58));
     }
   }
   return;
@@ -1411,7 +1414,7 @@ void __cdecl rdModel3_BuildExpandedRadius(int param_1,int param_2,float *param_3
    rdMath_PointsCollinear). Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c).
     */
 
-void __cdecl rdModel3_CalcFaceNormals(uint param_1)
+void __cdecl rdModel3_CalcFaceNormals(uint model)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1431,9 +1434,9 @@ void __cdecl rdModel3_CalcFaceNormals(uint param_1)
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   local_4 = 0;
-  puVar3 = (uint *)(param_1 + 0x24);
-  uVar5 = param_1;
-  if (*(int *)(param_1 + 0x44) != 0) {
+  puVar3 = (uint *)(model + 0x24);
+  uVar5 = model;
+  if (*(int *)(model + 0x44) != 0) {
     do {
       local_c = 0;
       if (*puVar3 != 0) {
@@ -1480,7 +1483,7 @@ void __cdecl rdModel3_CalcFaceNormals(uint param_1)
       }
       puVar3 = puVar3 + 2;
       local_4 = local_4 + 1;
-    } while (local_4 < *(uint *)(param_1 + 0x44));
+    } while (local_4 < *(uint *)(model + 0x44));
   }
   return;
 }
@@ -1517,8 +1520,8 @@ void __cdecl rdModel3_CalcVertexNormals(int model)
   undefined4 *puVar13;
   uint *puVar14;
   uint *puVar15;
-  float *pfVar16;
-  uint *puVar17;
+  float *v;
+  uint *puVar16;
   #define local_44 (*(float (*)[3])(_frame + (0x60 - 0x44)))
   #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
@@ -1538,7 +1541,7 @@ void __cdecl rdModel3_CalcVertexNormals(int model)
       if (*puVar15 != 0) {
         puVar13 = (undefined4 *)(puVar15[1] + 0x30);
         do {
-          pfVar16 = (float *)puVar13[5];
+          v = (float *)puVar13[5];
           local_38 = 0;
           if (puVar13[6] != 0) {
             do {
@@ -1553,26 +1556,26 @@ void __cdecl rdModel3_CalcVertexNormals(int model)
                 fVar1 = 0.0f;
               }
               else {
-                puVar17 = (uint *)(puVar13[4] + 0x14);
+                puVar16 = (uint *)(puVar13[4] + 0x14);
                 fVar12 = PUN(float,puVar13[8]);
                 do {
                   local_44[0] = fVar12;
                   uVar11 = 0;
-                  if (*puVar17 != 0) {
-                    puVar14 = (uint *)puVar17[1];
+                  if (*puVar16 != 0) {
+                    puVar14 = (uint *)puVar16[1];
                     do {
                       if (*puVar14 == local_38) {
-                        fVar1 = PUN(float,puVar17[0xb]) + fVar1;
-                        fVar2 = PUN(float,puVar17[0xc]) + fVar2;
-                        fVar3 = PUN(float,puVar17[0xd]) + fVar3;
+                        fVar1 = PUN(float,puVar16[0xb]) + fVar1;
+                        fVar2 = PUN(float,puVar16[0xc]) + fVar2;
+                        fVar3 = PUN(float,puVar16[0xd]) + fVar3;
                         fVar4 = fVar4 - -1.0f;
                         break;
                       }
                       uVar11 = uVar11 + 1;
                       puVar14 = puVar14 + 1;
-                    } while (uVar11 < *puVar17);
+                    } while (uVar11 < *puVar16);
                   }
-                  puVar17 = puVar17 + 0x13;
+                  puVar16 = puVar16 + 0x13;
                   fVar12 = PUN(float,(PUN(int,(float)local_44[0]) + -1));
                   local_44[0] = fVar4;
                   local_20[0] = fVar2;
@@ -1580,9 +1583,9 @@ void __cdecl rdModel3_CalcVertexNormals(int model)
                 } while (fVar12 != 0.0f);
               }
               if (local_44[0] == 0.0f) {
-                *pfVar16 = 1.0f;
-                pfVar16[1] = 0.0f;
-                pfVar16[2] = 0.0f;
+                *v = 1.0f;
+                v[1] = 0.0f;
+                v[2] = 0.0f;
               }
               else if (local_44[0] == 1.0f) {
                 iVar8 = puVar13[4];
@@ -1599,19 +1602,18 @@ void __cdecl rdModel3_CalcVertexNormals(int model)
                 iVar8 = *(int *)(iVar8 + (int)(1 % (ulonglong)uVar11) * 4);
                 fVar6 = pfVar9[iVar8 * 3 + 2];
                 fVar7 = pfVar9[iVar8 * 3];
-                pfVar16[1] = (pfVar9[1] - pfVar9[iVar8 * 3 + 1]) +
-                             (pfVar9[1] - pfVar9[iVar10 * 3 + 1]);
-                pfVar16[2] = (fVar1 - fVar6) + (fVar2 - fVar12);
-                *pfVar16 = (fVar4 - fVar5) + (fVar3 - fVar7);
-                rdVector_Normalize3Acc(pfVar16);
+                v[1] = (pfVar9[1] - pfVar9[iVar8 * 3 + 1]) + (pfVar9[1] - pfVar9[iVar10 * 3 + 1]);
+                v[2] = (fVar1 - fVar6) + (fVar2 - fVar12);
+                *v = (fVar4 - fVar5) + (fVar3 - fVar7);
+                rdVector_Normalize3Acc(v);
               }
               else {
-                *pfVar16 = fVar1 / local_44[0];
-                pfVar16[1] = local_20[0] / local_44[0];
-                pfVar16[2] = local_20[1] / local_44[0];
-                rdVector_Normalize3Acc(pfVar16);
+                *v = fVar1 / local_44[0];
+                v[1] = local_20[0] / local_44[0];
+                v[2] = local_20[1] / local_44[0];
+                rdVector_Normalize3Acc(v);
               }
-              pfVar16 = pfVar16 + 3;
+              v = v + 3;
               local_38 = local_38 + 1;
             } while (local_38 < (uint)puVar13[6]);
           }
@@ -1643,7 +1645,7 @@ void __cdecl rdModel3_CalcVertexNormals(int model)
 /* Counts the children of every hierarchy node (follows the sibling chain at +0x54). Source file
    Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
-void __cdecl rdModel3_CountNodeChildren(int param_1)
+void __cdecl rdModel3_CountNodeChildren(int node)
 
 {
   int iVar1;
@@ -1653,10 +1655,10 @@ void __cdecl rdModel3_CountNodeChildren(int param_1)
   uint uVar5;
   
   uVar5 = 0;
-  if (*(int *)(param_1 + 0x54) != 0) {
+  if (*(int *)(node + 0x54) != 0) {
     iVar4 = 0;
     do {
-      iVar2 = *(int *)(param_1 + 0x58);
+      iVar2 = *(int *)(node + 0x58);
       *(undefined4 *)(iVar2 + 0x50 + iVar4) = 0;
       iVar2 = iVar2 + iVar4;
       piVar3 = (int *)(iVar2 + 0x54);
@@ -1668,7 +1670,7 @@ void __cdecl rdModel3_CountNodeChildren(int param_1)
       }
       uVar5 = uVar5 + 1;
       iVar4 = iVar4 + 0xb8;
-    } while (uVar5 < *(uint *)(param_1 + 0x54));
+    } while (uVar5 < *(uint *)(node + 0x54));
   }
   return;
 }

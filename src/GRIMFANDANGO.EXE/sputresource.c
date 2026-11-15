@@ -10,23 +10,23 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined * __cdecl sputResource_Initialize(uint param_1,undefined **param_2)
+undefined * __cdecl sputResource_Initialize(uint services,undefined **iface)
 
 {
   undefined *puVar1;
   
-  g_dwSputResHS = param_1;
-  *param_2 = sputResource_Initialize;
-  param_2[1] = sputResource_Terminate;
-  param_2[2] = sputResource_Startup;
-  param_2[3] = sputResource_Shutdown;
-  puVar1 = (undefined *)Res_SysInitialize(param_1,(undefined4 *)&g_aResModServices);
+  g_dwSputResHS = services;
+  *iface = sputResource_Initialize;
+  iface[1] = sputResource_Terminate;
+  iface[2] = sputResource_Startup;
+  iface[3] = sputResource_Shutdown;
+  puVar1 = (undefined *)Res_SysInitialize(services,(undefined4 *)&g_aResModServices);
   if (puVar1 == (undefined *)0x0) {
     _DAT_008ca1f8 = 1;
-    param_2[4] = (undefined *)UINT_008ca1e8;
-    param_2[5] = (undefined *)UINT_008ca1ec;
-    param_2[6] = (undefined *)UINT_008ca1f0;
-    param_2[7] = (undefined *)UINT_008ca1f4;
+    iface[4] = (undefined *)UINT_008ca1e8;
+    iface[5] = (undefined *)UINT_008ca1ec;
+    iface[6] = (undefined *)UINT_008ca1f0;
+    iface[7] = (undefined *)UINT_008ca1f4;
   }
   return puVar1;
 }

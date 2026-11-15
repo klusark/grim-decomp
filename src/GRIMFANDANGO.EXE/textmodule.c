@@ -87,18 +87,18 @@ void __cdecl Text_SysShutdown(void)
    handed for every field. Original name Text_SysSave (the remaster's GrimFandango (Linux): aligned
    call in Text_SysInitialize); was TextModule_SaveState. */
 
-uint __cdecl Text_SysSave(code *param_1)
+uint __cdecl Text_SysSave(code *write)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0x42747854;
-  (*param_1)(&local_4,4);
+  (*write)(&local_4,4);
   local_4 = 1;
-  (*param_1)(&local_4,4);
+  (*write)(&local_4,4);
   local_4 = 0;
-  (*param_1)(&local_4,4);
+  (*write)(&local_4,4);
   return 0;
 }
 #undef local_4
@@ -108,20 +108,20 @@ uint __cdecl Text_SysSave(code *param_1)
 /* Expects 'TxtB', 1, 0 from the read function Original name Text_SysRestore (the remaster's
    GrimFandango (Linux): aligned call in Text_SysInitialize); was TextModule_CheckHeader. */
 
-uint __cdecl Text_SysRestore(code *param_1)
+uint __cdecl Text_SysRestore(code *read)
 
 {
   code *pcVar1;
   uint uVar2;
   
-  pcVar1 = param_1;
+  pcVar1 = read;
   uVar2 = 1;
-  (*param_1)(&param_1,4);
-  if (param_1 == (code *)0x42747854) {
-    (*pcVar1)(&param_1,4);
-    if (param_1 == (code *)0x1) {
-      (*pcVar1)(&param_1,4);
-      if (param_1 == (code *)0x0) {
+  (*read)(&read,4);
+  if (read == (code *)0x42747854) {
+    (*pcVar1)(&read,4);
+    if (read == (code *)0x1) {
+      (*pcVar1)(&read,4);
+      if (read == (code *)0x0) {
         uVar2 = 0;
       }
     }

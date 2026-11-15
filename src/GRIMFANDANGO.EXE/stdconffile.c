@@ -11,12 +11,12 @@
    remaster's GrimFandango (Linux): the only unmatched caller of stdConffile_OpenMode; 4 matched
    neighbours agree, 0 disagree); was stdConffile_OpenRead. */
 
-uint __cdecl stdConffile_Open(uint param_1)
+uint __cdecl stdConffile_Open(uint path)
 
 {
   uint uVar1;
   
-  uVar1 = stdConffile_OpenMode((byte *)param_1,((unsigned)(uintptr_t)&DAT_004dda54));
+  uVar1 = stdConffile_OpenMode((byte *)path,((unsigned)(uintptr_t)&DAT_004dda54));
   return uVar1;
 }
 
@@ -25,7 +25,7 @@ uint __cdecl stdConffile_Open(uint param_1)
    first (stdConffile_Push) and allocates the 0x400-byte line buffer. The name 'none' means no file.
    Source file Stdconffile.c (C:\grimjedi\Libs\Std\General\Stdconffile.c). */
 
-uint __cdecl stdConffile_OpenMode(byte *param_1,uint param_2)
+uint __cdecl stdConffile_OpenMode(byte *path,uint mode)
 
 {
   byte bVar1;
@@ -38,7 +38,7 @@ uint __cdecl stdConffile_OpenMode(byte *param_1,uint param_2)
     stdConffile_Push();
   }
   pbVar4 = &DAT_004e7630;
-  pbVar2 = param_1;
+  pbVar2 = path;
   do {
     bVar1 = *pbVar2;
     bVar5 = bVar1 < *pbVar4;
@@ -60,7 +60,7 @@ LAB_0047c827:
     UINT_0080cbd0 = 0;
   }
   else {
-    UINT_0080cbd0 = (*g_pStd_HS->pFopen)(param_1,param_2);
+    UINT_0080cbd0 = (*g_pStd_HS->pFopen)(path,mode);
     if ((int)UINT_0080cbd0 < 1) {
       UINT_0080cbd0 = 0;
       if (g_dwStdConffile_bOpen != 0) {
@@ -71,7 +71,7 @@ LAB_0047c827:
   }
   g_dwStdConffile_aLine =
        (*g_pStd_HS->pAlloc)(0x400,s_C__grimjedi_Libs_Std_General_Std_004e7604,DAT_004e7600 + 0x1d);
-  strncpy((uint *)&g_bStdConffile_pFilename,(uint *)param_1,0x7f);
+  strncpy((uint *)&g_bStdConffile_pFilename,(uint *)path,0x7f);
   DAT_0090051f = 0;
   g_dwStdConffile_linenum = 0;
   g_dwStdConffile_bOpen = 1;

@@ -22,6 +22,9 @@ A one-page summary; build/BUILD_NOTES.md has the history and the details of ever
   | asm() blocks (register conventions C cannot declare) | 14 |
   | Ghidra's text needs a repair first (register arguments, lost arguments, unrecovered jump tables) | 31 |
 
+* **Parameters.** Named in the prototypes, from the calls (tools/propagate_params.py), the hand-written definitions
+  (tools/names_from_overrides.py), the Lua 3.1 sources and what each function does with them (names/params_*.py,
+  tools/names_batch.py); a naming round leaves the four programs' .text byte-identical.
 * **Types.** The engine's records are typed (actors, costumes, sets, walk sectors, the renderer, text, resources,
   Lua's objects, states, call frames and parser). Raw `((int)p + 0x..)` accesses: EXE 76, LUA.DLL 0, a few byte
   streams in IMUSE.DLL; what is left in the EXE is data whose type is only known at run time (resource data by fourcc,
@@ -41,8 +44,10 @@ A one-page summary; build/BUILD_NOTES.md has the history and the details of ever
 * **31 hand-written functions that need a Ghidra repair** before their twins can replace them (docs/OVERRIDES.md,
   category `repair`): mostly register arguments the decompiler does not model and calls whose arguments it loses.
   Each needs its own fix (a custom storage prototype, a call-site override) and a twin test.
-* **Parameters.** `param_N` in the prototypes: EXE 2626, LUA.DLL 1034, IMUSE.DLL 672, CHORE.DLL 259. Most are the C
-  runtime and scalar leaf parameters; naming them is reading each function.
+* **Parameters.** In live game code 81 `param_N` are left (EXE 48, LUA.DLL 9, IMUSE.DLL 24): names that collide
+  with a local, custom-storage functions (which a parameter edit would turn into __cdecl) and `undefined **`
+  parameters the bridge will not retype. The rest of the `param_N` in the prototypes (EXE 1059, LUA.DLL 745,
+  IMUSE.DLL 314, CHORE.DLL 259 in all) are the C runtime, most of it dead.
 * **Data.** Untyped initialised bytes: EXE 39,299 (the C runtime's tables, the PE import directory, DirectInput's data
   formats, a constant pool of floats, doubles and GUIDs), LUA.DLL 16,286, IMUSE.DLL 19,399, CHORE.DLL 14,236.
   `DATAGEN_TOP=n python -I tools/datagen.py report PROG` lists the largest spans.

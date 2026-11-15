@@ -90,7 +90,7 @@ undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *pos)
 /* Original name sputActor_ActorWalkTo (the remaster's GrimFandango (Linux): aligned call in
    sputLua_WalkActorToAvoidingL, sputLua_WalkActorToL); was Walker_ReplanPath. */
 
-void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *local_c,Actor *other)
+void __cdecl sputActor_ActorWalkTo(Actor *actor,int flags,undefined4 *local_c,Actor *other)
 
 {
   unsigned char _frame[0x2f0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -117,11 +117,11 @@ void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *local_c,
   actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
   from = actor->pExtra->pPuck;
   if ((from != (Puck *)0x0) && (g_pWalkPlane_wp_head != (WalkPlane *)0x0)) {
-    this = WalkPlane_PlaneClosest((float *)param_2,0x1000);
+    this = WalkPlane_PlaneClosest((float *)flags,0x1000);
     if (this != (WalkPlane *)0x0) {
-      WalkPlane_ClosestPoint(this,param_2);
+      WalkPlane_ClosestPoint(this,flags);
     }
-    iVar4 = BuildPath(from->aPos,(float *)param_2,1);
+    iVar4 = BuildPath(from->aPos,(float *)flags,1);
     if (iVar4 != 0) {
       uVar5 = GetPath(&local_2d4);
       if (0 < (int)uVar5) {
@@ -1068,27 +1068,27 @@ void __thiscall Puck_OrientToPlane(Puck *this,int a1)
 
 {
   float *pfVar1;
-  float *pfVar2;
-  float *pfVar3;
-  float fVar4;
-  float fVar5;
+  float *v;
+  float *v_00;
+  float fVar2;
+  float fVar3;
   
   pfVar1 = this->aFrame + 6;
-  fVar4 = this->aFrame[5];
-  pfVar2 = this->aFrame + 3;
-  pfVar3 = this->aFrame;
+  fVar2 = this->aFrame[5];
+  v = this->aFrame + 3;
+  v_00 = this->aFrame;
   *pfVar1 = *(float *)(a1 + 0x60);
   this->aFrame[7] = *(float *)(a1 + 100);
   this->aFrame[8] = *(float *)(a1 + 0x68);
-  fVar5 = *pfVar1;
-  *pfVar3 = this->aFrame[8] * this->aFrame[4] - this->aFrame[7] * this->aFrame[5];
-  this->aFrame[1] = fVar4 * fVar5 - this->aFrame[8] * this->aFrame[3];
-  this->aFrame[2] = this->aFrame[7] * *pfVar2 - *pfVar1 * this->aFrame[4];
-  rdVector_Normalize3Acc(pfVar3);
-  *pfVar2 = this->aFrame[7] * this->aFrame[2] - this->aFrame[8] * this->aFrame[1];
-  this->aFrame[4] = *pfVar3 * this->aFrame[8] - *pfVar1 * this->aFrame[2];
-  this->aFrame[5] = this->aFrame[1] * *pfVar1 - this->aFrame[7] * *pfVar3;
-  rdVector_Normalize3Acc(pfVar2);
+  fVar3 = *pfVar1;
+  *v_00 = this->aFrame[8] * this->aFrame[4] - this->aFrame[7] * this->aFrame[5];
+  this->aFrame[1] = fVar2 * fVar3 - this->aFrame[8] * this->aFrame[3];
+  this->aFrame[2] = this->aFrame[7] * *v - *pfVar1 * this->aFrame[4];
+  rdVector_Normalize3Acc(v_00);
+  *v = this->aFrame[7] * this->aFrame[2] - this->aFrame[8] * this->aFrame[1];
+  this->aFrame[4] = *v_00 * this->aFrame[8] - *pfVar1 * this->aFrame[2];
+  this->aFrame[5] = this->aFrame[1] * *pfVar1 - this->aFrame[7] * *v_00;
+  rdVector_Normalize3Acc(v);
   return;
 }
 
@@ -1100,15 +1100,15 @@ void __thiscall Puck_OrientToPlane(Puck *this,int a1)
 void __fastcall Puck_Normalize(Puck *puck)
 
 {
-  float *pfVar1;
-  float fVar2;
+  float *v;
+  float fVar1;
   
-  pfVar1 = puck->aFrame + 3;
-  rdVector_Normalize3Acc(pfVar1);
-  fVar2 = puck->aFrame[8];
+  v = puck->aFrame + 3;
+  rdVector_Normalize3Acc(v);
+  fVar1 = puck->aFrame[8];
   puck->aFrame[0] = puck->aFrame[4] * puck->aFrame[8] - puck->aFrame[7] * puck->aFrame[5];
-  puck->aFrame[1] = puck->aFrame[5] * puck->aFrame[6] - *pfVar1 * fVar2;
-  puck->aFrame[2] = *pfVar1 * puck->aFrame[7] - puck->aFrame[4] * puck->aFrame[6];
+  puck->aFrame[1] = puck->aFrame[5] * puck->aFrame[6] - *v * fVar1;
+  puck->aFrame[2] = *v * puck->aFrame[7] - puck->aFrame[4] * puck->aFrame[6];
   rdVector_Normalize3Acc(puck->aFrame);
   return;
 }
@@ -1238,7 +1238,7 @@ int __cdecl BuildPath(float *from,float *to,int flags)
    FindPath is a static two remaster files have, so it keeps the module prefix); was
    Planner_SearchSectors. */
 
-undefined4 __cdecl Planner_FindPath(float *param_1,float *param_2,WalkPlane *plane)
+undefined4 __cdecl Planner_FindPath(float *from,float *to,WalkPlane *plane)
 
 {
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1260,32 +1260,32 @@ undefined4 __cdecl Planner_FindPath(float *param_1,float *param_2,WalkPlane *pla
     return 1;
   }
   if (plane == (WalkPlane *)0x0) {
-    plane = WalkPlane_PlaneAt(param_1,0x1000);
+    plane = WalkPlane_PlaneAt(from,0x1000);
   }
   uVar1 = g_dwTotWorkingPathPoints;
   if (plane != (WalkPlane *)0x0) {
     iVar2 = g_dwTotWorkingPathPoints * 3;
     g_dwTotWorkingPathPoints = g_dwTotWorkingPathPoints + 1;
-    (&g_dwWorkingPath)[iVar2] = PUN(uint,(float)*param_1);
-    (&UINT_008cf0b4)[uVar1 * 3] = PUN(uint,(float)param_1[1]);
-    (&UINT_008cf0b8)[uVar1 * 3] = PUN(uint,(float)param_1[2]);
-    iVar2 = WalkPlane_Within(plane,param_2,1);
+    (&g_dwWorkingPath)[iVar2] = PUN(uint,(float)*from);
+    (&UINT_008cf0b4)[uVar1 * 3] = PUN(uint,(float)from[1]);
+    (&UINT_008cf0b8)[uVar1 * 3] = PUN(uint,(float)from[2]);
+    iVar2 = WalkPlane_Within(plane,to,1);
     if (iVar2 != 0) {
       return 1;
     }
     local_1e8 = g_dwTotWorkingPathPoints;
-    WalkPlane_Intersection(plane,(int)param_1,(int)param_2,(int)&local_1f4);
+    WalkPlane_Intersection(plane,(int)from,(int)to,(int)&local_1f4);
     plane->nActive = 0;
-    if ((local_1f4 - *param_1) * (local_1f4 - *param_1) +
-        (local_1ec - param_1[2]) * (local_1ec - param_1[2]) +
-        (local_1f0 - param_1[1]) * (local_1f0 - param_1[1]) <= 0.0001f) {
+    if ((local_1f4 - *from) * (local_1f4 - *from) +
+        (local_1ec - from[2]) * (local_1ec - from[2]) +
+        (local_1f0 - from[1]) * (local_1f0 - from[1]) <= 0.0001f) {
       local_1f8 = 0;
     }
     else {
       local_1f8 = (uint)WalkPlane_PlaneAt(&local_1f4,0x1000);
     }
     if (local_1f8 != 0) {
-      iVar2 = Planner_FindPath(&local_1f4,param_2,(WalkPlane *)local_1f8);
+      iVar2 = Planner_FindPath(&local_1f4,to,(WalkPlane *)local_1f8);
       if (iVar2 != 0) {
         return 1;
       }
@@ -1293,7 +1293,7 @@ undefined4 __cdecl Planner_FindPath(float *param_1,float *param_2,WalkPlane *pla
         *(undefined4 *)(local_1f8 + 0x2c) = 0;
       }
     }
-    local_1e4 = FindExitPoints(plane,param_2,(uint *)local_1e0);
+    local_1e4 = FindExitPoints(plane,to,(uint *)local_1e0);
     local_1fc = 0;
     if (0 < (int)local_1e4) {
       point = local_1e0;
@@ -1301,8 +1301,8 @@ undefined4 __cdecl Planner_FindPath(float *param_1,float *param_2,WalkPlane *pla
         planeB = WalkPlane_PlaneAt(point,0x1000);
         if (planeB != (WalkPlane *)0x0) {
           g_dwTotWorkingPathPoints = local_1e8;
-          iVar2 = Planner_PortalPoint(plane,planeB,param_2,&local_1f4);
-          if ((iVar2 != 0) && (iVar2 = Planner_FindPath(&local_1f4,param_2,planeB), iVar2 != 0)) {
+          iVar2 = Planner_PortalPoint(plane,planeB,to,&local_1f4);
+          if ((iVar2 != 0) && (iVar2 = Planner_FindPath(&local_1f4,to,planeB), iVar2 != 0)) {
             return 1;
           }
         }
@@ -1332,7 +1332,7 @@ undefined4 __cdecl Planner_FindPath(float *param_1,float *param_2,WalkPlane *pla
    active walkable plane the vertices inside the current plane, without duplicates); called by
    FindPath in both builds); was Planner_CollectSharedCorners. */
 
-uint __cdecl FindExitPoints(WalkPlane *plane,float *param_2,uint *param_3)
+uint __cdecl FindExitPoints(WalkPlane *plane,float *pos,uint *outCount)
 
 {
   unsigned char _frame[0x200] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1394,10 +1394,10 @@ uint __cdecl FindExitPoints(WalkPlane *plane,float *param_2,uint *param_3)
           }
           if (uVar7 == uVar11) {
             pWVar4 = *ppWVar10;
-            fVar1 = *param_2;
-            fVar2 = param_2[1];
+            fVar1 = *pos;
+            fVar2 = pos[1];
             uVar11 = uVar11 + 1;
-            fVar3 = param_2[2];
+            fVar3 = pos[2];
             (&local_1e0)[uVar7 * 4] = PUN(uint,(float)pWVar4->aPos[0]);
             (&local_1dc)[uVar7 * 4] = PUN(uint,(float)pWVar4->aPos[1]);
             (&local_1d8)[uVar7 * 4] = PUN(uint,(float)pWVar4->aPos[2]);
@@ -1416,17 +1416,17 @@ uint __cdecl FindExitPoints(WalkPlane *plane,float *param_2,uint *param_3)
     }
   }
   iVar6 = 1;
-  *param_3 = local_1e0;
-  param_3[1] = local_1dc;
-  param_3[2] = local_1d8;
-  param_3[3] = local_1d4;
+  *outCount = local_1e0;
+  outCount[1] = local_1dc;
+  outCount[2] = local_1d8;
+  outCount[3] = local_1d4;
   if (1 < (int)uVar11) {
     puVar8 = &local_1d0;
     do {
       fVar1 = PUN(float,puVar8[3]);
       uVar7 = iVar6 - 1;
       if (-1 < (int)uVar7) {
-        puVar9 = param_3 + iVar6 * 4;
+        puVar9 = outCount + iVar6 * 4;
         do {
           if (PUN(float,puVar9[-1]) <= fVar1) break;
           uVar7 = uVar7 - 1;
@@ -1437,7 +1437,7 @@ uint __cdecl FindExitPoints(WalkPlane *plane,float *param_2,uint *param_3)
           puVar9 = puVar9 + -4;
         } while (uVar7 < 0x80000000);
       }
-      puVar9 = param_3 + (uVar7 + 1) * 4;
+      puVar9 = outCount + (uVar7 + 1) * 4;
       iVar6 = iVar6 + 1;
       *puVar9 = *puVar8;
       puVar9[1] = puVar8[1];

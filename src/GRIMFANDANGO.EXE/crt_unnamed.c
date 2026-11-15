@@ -3469,40 +3469,40 @@ int * Zfile_fle_Open(char *param_1,char *mode)
 int __cdecl Zfile_fle_Read(int *param_1,uint param_2,int param_3)
 
 {
-  undefined4 *puVar1;
-  int *piVar2;
-  int iVar3;
-  uint uVar4;
+  undefined4 *file;
+  int *piVar1;
+  int iVar2;
+  uint uVar3;
   
-  piVar2 = param_1;
-  uVar4 = 0;
-  puVar1 = (undefined4 *)*param_1;
-  if (puVar1 != (undefined4 *)0x0) {
+  piVar1 = param_1;
+  uVar3 = 0;
+  file = (undefined4 *)*param_1;
+  if (file != (undefined4 *)0x0) {
     if (param_1[1] != 0) {
       if (param_1[3] != param_1[4]) {
-        uVar4 = gzseek(puVar1,param_1[4],0);
-        if ((int)uVar4 < 0) {
-          FUN_004c4a00(*piVar2,(int *)&param_1);
+        uVar3 = gzseek(file,param_1[4],0);
+        if ((int)uVar3 < 0) {
+          FUN_004c4a00(*piVar1,(int *)&param_1);
         }
         else {
-          piVar2[3] = piVar2[4];
+          piVar1[3] = piVar1[4];
         }
       }
-      iVar3 = param_3;
-      if (-1 < (int)uVar4) {
-        uVar4 = gzread((int *)*piVar2,param_2,param_3);
+      iVar2 = param_3;
+      if (-1 < (int)uVar3) {
+        uVar3 = gzread((int *)*piVar1,param_2,param_3);
       }
-      if (-1 < (int)uVar4) {
-        piVar2[4] = piVar2[4] + iVar3;
-        piVar2[3] = piVar2[3] + iVar3;
-        return uVar4;
+      if (-1 < (int)uVar3) {
+        piVar1[4] = piVar1[4] + iVar2;
+        piVar1[3] = piVar1[3] + iVar2;
+        return uVar3;
       }
-      FUN_004c4a00(*piVar2,(int *)&param_1);
-      return uVar4;
+      FUN_004c4a00(*piVar1,(int *)&param_1);
+      return uVar3;
     }
-    uVar4 = (*(code *)g_pZf_filio_services[2])(puVar1,param_2,param_3);
+    uVar3 = (*(code *)g_pZf_filio_services[2])(file,param_2,param_3);
   }
-  return uVar4;
+  return uVar3;
 }
 
 /* ---- 0x004c5bc0  Zfile_fle_Write ---- */
@@ -3513,21 +3513,21 @@ int __cdecl Zfile_fle_Read(int *param_1,uint param_2,int param_3)
 uint __cdecl Zfile_fle_Write(int *param_1,uint param_2,int param_3)
 
 {
-  undefined4 *puVar1;
-  uint uVar2;
+  undefined4 *file;
+  uint uVar1;
   
-  uVar2 = 0;
-  puVar1 = (undefined4 *)*param_1;
-  if (puVar1 != (undefined4 *)0x0) {
+  uVar1 = 0;
+  file = (undefined4 *)*param_1;
+  if (file != (undefined4 *)0x0) {
     if (param_1[1] != 0) {
-      uVar2 = gzwrite(puVar1,param_2,param_3);
+      uVar1 = gzwrite(file,param_2,param_3);
       param_1[3] = param_1[3] + param_3;
       param_1[4] = param_1[4] + param_3;
-      return uVar2;
+      return uVar1;
     }
-    uVar2 = (*(code *)g_pZf_filio_services[3])(puVar1,param_2,param_3);
+    uVar1 = (*(code *)g_pZf_filio_services[3])(file,param_2,param_3);
   }
-  return uVar2;
+  return uVar1;
 }
 
 /* ---- 0x004c5c20  Zfile_fle_Tell ---- */
@@ -4509,8 +4509,8 @@ void __cdecl gra_SetBitmap(undefined4 *fmt,uint param_2)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  char *pcVar2;
-  int iVar3;
+  char *dst;
+  int iVar2;
   #define local_14 (*(char (*)[20])(_frame + (0x30 - 0x14)))
   
   if (0 < (int)fmt[5]) {
@@ -4519,10 +4519,10 @@ void __cdecl gra_SetBitmap(undefined4 *fmt,uint param_2)
       return;
     }
     iVar1 = fmt[2];
-    pcVar2 = (char *)*fmt;
-    iVar3 = fmt[1];
+    dst = (char *)*fmt;
+    iVar2 = fmt[1];
     gra_ConvertFromLecColor(local_14,(LecPixelFormat *)fmt,1,0,(byte *)&param_2);
-    gra_SetBuffer(pcVar2,(int)fmt,iVar1 * iVar3,local_14);
+    gra_SetBuffer(dst,(int)fmt,iVar1 * iVar2,local_14);
   }
   return;
 }

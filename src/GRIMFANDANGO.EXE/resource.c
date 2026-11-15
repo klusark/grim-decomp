@@ -11,25 +11,25 @@
    sputResource_Initialize; 1 matched neighbours agree, 0 disagree); was
    Resource_RegisterFilioModule. */
 
-uint __cdecl Res_SysInitialize(uint param_1,undefined4 *param_2)
+uint __cdecl Res_SysInitialize(uint services,undefined4 *iface)
 
 {
   uint uVar1;
   
-  g_dwResHS = param_1;
-  g_dwLowLevelHS = param_1;
+  g_dwResHS = services;
+  g_dwLowLevelHS = services;
   uVar1 = 1;
   if (g_dwResSysInitialized == 0) {
     g_dwResSysInitialized = 1;
-    if (param_2 != (undefined4 *)0x0) {
-      *param_2 = Res_SysInitialize;
-      param_2[1] = Res_SysTerminate;
-      param_2[2] = Res_SysStartup;
-      param_2[3] = Res_SysShutdown;
-      param_2[4] = Res_SysSave;
-      param_2[5] = Res_SysLoad;
-      param_2[6] = 0;
-      param_2[7] = 0;
+    if (iface != (undefined4 *)0x0) {
+      *iface = Res_SysInitialize;
+      iface[1] = Res_SysTerminate;
+      iface[2] = Res_SysStartup;
+      iface[3] = Res_SysShutdown;
+      iface[4] = Res_SysSave;
+      iface[5] = Res_SysLoad;
+      iface[6] = 0;
+      iface[7] = 0;
     }
     g_dwResNodePool = 0;
     g_dwResTypePool = 0;
@@ -50,24 +50,24 @@ uint __cdecl Res_SysInitialize(uint param_1,undefined4 *param_2)
    FUN_00480020. */
 
 undefined4 __fastcall
-Res_SysInitializeBody(uint param_1,int param_2,undefined4 param_3,undefined4 *param_4)
+Res_SysInitializeBody(uint services,int again,undefined4 reserved,undefined4 *iface)
 
 {
   undefined4 uVar1;
   
   uVar1 = 1;
-  g_dwLowLevelHS = param_1;
-  if (param_2 == 0) {
+  g_dwLowLevelHS = services;
+  if (again == 0) {
     g_dwResSysInitialized = 1;
-    if (param_4 != (undefined4 *)0x0) {
-      *param_4 = Res_SysInitialize;
-      param_4[1] = Res_SysTerminate;
-      param_4[2] = Res_SysStartup;
-      param_4[3] = Res_SysShutdown;
-      param_4[4] = Res_SysSave;
-      param_4[5] = Res_SysLoad;
-      param_4[6] = 0;
-      param_4[7] = 0;
+    if (iface != (undefined4 *)0x0) {
+      *iface = Res_SysInitialize;
+      iface[1] = Res_SysTerminate;
+      iface[2] = Res_SysStartup;
+      iface[3] = Res_SysShutdown;
+      iface[4] = Res_SysSave;
+      iface[5] = Res_SysLoad;
+      iface[6] = 0;
+      iface[7] = 0;
     }
     g_dwResNodePool = 0;
     g_dwResTypePool = 0;
@@ -146,7 +146,7 @@ void __cdecl Res_SysShutdown(void)
    is handed for every field. Original name Res_SysSave (the remaster's GrimFandango (Linux):
    strings: 'TEMP'); was Resource_Filio_SaveState. */
 
-uint __cdecl Res_SysSave(code *param_1)
+uint __cdecl Res_SysSave(code *write)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -165,15 +165,15 @@ uint __cdecl Res_SysSave(code *param_1)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
-  pcVar2 = param_1;
-  for (pRVar6 = g_pNewestResNode; param_1 = pcVar2, pRVar6 != (Resource *)0x0;
-      pRVar6 = pRVar6->pNext) {
+  pcVar2 = write;
+  for (pRVar6 = g_pNewestResNode; write = pcVar2, pRVar6 != (Resource *)0x0; pRVar6 = pRVar6->pNext)
+  {
     if (((pRVar6->pRefs != (ResRef *)0x0) &&
         (puVar4 = String_ContainsSubstring((uint *)pRVar6->pName,&DAT_004e7b14),
         puVar4 == (uint *)0x0)) || ((pRVar6->bFlags & 8) != 0)) {
       local_4 = local_4 + 1;
     }
-    pcVar2 = param_1;
+    pcVar2 = write;
   }
   uVar3 = (*pcVar2)(&local_4,4);
   if (((uint)(byte)(uVar3)) != 0) {
@@ -196,10 +196,10 @@ uint __cdecl Res_SysSave(code *param_1)
         cVar1 = *pcVar7;
         pcVar7 = pcVar7 + 1;
       } while (cVar1 != '\0');
-      param_1 = (code *)(~uVar5 - 1);
-      uVar3 = (*pcVar2)(&param_1,4);
+      write = (code *)(~uVar5 - 1);
+      uVar3 = (*pcVar2)(&write,4);
       if (((((uint)(byte)(uVar3)) != 0) ||
-          (uVar3 = (*pcVar2)(pRVar6->pName,param_1), ((uint)(byte)(uVar3)) != 0)) ||
+          (uVar3 = (*pcVar2)(pRVar6->pName,write), ((uint)(byte)(uVar3)) != 0)) ||
          (uVar3 = (*pcVar2)(&pRVar6->dwType,4), ((uint)(byte)(uVar3)) != 0)) {
         return 1;
       }
@@ -224,7 +224,7 @@ uint __cdecl Res_SysSave(code *param_1)
    is handed; returns non-zero on a short read. Original name Res_SysLoad (the remaster's
    GrimFandango (Linux): aligned call in Res_SysInitialize); was Resource_Filio_RestoreState. */
 
-uint __cdecl Res_SysLoad(code *param_1)
+uint __cdecl Res_SysLoad(code *read)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -242,7 +242,7 @@ uint __cdecl Res_SysLoad(code *param_1)
   #define iStack_104 (*(int *)(_frame + (0x120 - 0x104)))
   #define acStack_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
   
-  uVar1 = (*param_1)(&local_10c,4);
+  uVar1 = (*read)(&local_10c,4);
   if (((uint)(byte)(uVar1)) != 0) {
     return 1;
   }
@@ -251,22 +251,22 @@ uint __cdecl Res_SysLoad(code *param_1)
     return 0;
   }
   while( true ) {
-    uVar1 = (*param_1)(&iStack_110,4);
+    uVar1 = (*read)(&iStack_110,4);
     if ((((uint)(byte)(uVar1)) != 0) || (0xff < iStack_110)) {
       return 1;
     }
-    uVar1 = (*param_1)(acStack_100,iStack_110);
+    uVar1 = (*read)(acStack_100,iStack_110);
     if (((uint)(byte)(uVar1)) != 0) {
       return 1;
     }
     acStack_100[iStack_110] = '\0';
-    uVar1 = (*param_1)(&iStack_108,4);
+    uVar1 = (*read)(&iStack_108,4);
     if (((uint)(byte)(uVar1)) != 0) break;
     pvVar2 = res_Load(iStack_108,acStack_100,&iStack_104);
     if (iStack_104 == 0) {
       return 1;
     }
-    uVar1 = (*param_1)((int)pvVar2 + 0x18,4);
+    uVar1 = (*read)((int)pvVar2 + 0x18,4);
     if (((uint)(byte)(uVar1)) != 0) {
       return 1;
     }
@@ -618,12 +618,12 @@ int __cdecl AddResourcePath(char *dir)
 /* Callback given to Cos_RegisterSaveVerify: Res_CountChildren for 'COST' resources (checks the
    costumes referenced by a save). */
 
-uint __cdecl Resource_CountCostumeRefs(uint param_1)
+uint __cdecl Resource_CountCostumeRefs(uint name)
 
 {
   uint uVar1;
   
-  uVar1 = Res_CountChildren(0x54534f43,param_1);
+  uVar1 = Res_CountChildren(0x54534f43,name);
   return uVar1;
 }
 
@@ -814,12 +814,12 @@ void __cdecl Resource_RebuildColormaps(void)
    (+0x24), locking it on the first one. Original name sputResource_MatLoader (the remaster's
    GrimFandango (Linux): aligned call in sputResource_Startup); was Resource_MaterialLoadHook. */
 
-void * __cdecl sputResource_MatLoader(char *param_1)
+void * __cdecl sputResource_MatLoader(char *name)
 
 {
   void *data;
   
-  data = sputResource_Alloc(0x2054414d,param_1);
+  data = sputResource_Alloc(0x2054414d,name);
   if ((data != (void *)0x0) && (*(int *)((int)data + 0x24) == 0)) {
     Res_SetPurgable(data,0);
   }

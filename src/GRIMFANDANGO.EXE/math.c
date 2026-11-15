@@ -96,13 +96,13 @@ float __cdecl stdMath_NormalizeAngle(float degrees)
 /* Original name stdMath_NormalizeAngleAcute (the remaster's GrimFandango (Linux): same body
    (normalised to 0 .. 360, then above 180 to -(360 - a))); was Math_NormalizeAngle180. */
 
-float __cdecl stdMath_NormalizeAngleAcute(float param_1)
+float __cdecl stdMath_NormalizeAngleAcute(float deg)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
   
-  local_8 = stdMath_NormalizeAngle(param_1);
+  local_8 = stdMath_NormalizeAngle(deg);
   if (180.0f < local_8) {
     local_8 = -(360.0f - local_8);
   }
@@ -261,13 +261,13 @@ void __cdecl stdMath_SinCos(float deg,float *outSin,float *outCos)
    0x077f), then back to the default word. Called Math_Round before; the decompiler prints a plain
    ROUND() because it does not see FLDCW. */
 
-float __cdecl Math_Floor(float param_1)
+float __cdecl Math_Floor(float x)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
-  return ROUND(param_1);
+  return ROUND(x);
 }
 #undef local_8
 
@@ -427,10 +427,10 @@ float __cdecl stdMath_ArcSin1(float x)
 /* ---- 0x0047c490  Math_Sqrt ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-float __cdecl Math_Sqrt(float param_1)
+float __cdecl Math_Sqrt(float x)
 
 {
-  return SQRT(param_1);
+  return SQRT(x);
 }
 #endif
 
@@ -443,7 +443,7 @@ float __cdecl Math_Sqrt(float param_1)
    Lua_GetAngleBetweenActors; the only unmatched callee of Lua_GetAngleBetweenVectors; 5 matched
    neighbours agree, 0 disagree); was Math_AsinDegreesSeries. */
 
-float __cdecl stdMath_ArcSin3(float param_1)
+float __cdecl stdMath_ArcSin3(float x)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -459,11 +459,11 @@ float __cdecl stdMath_ArcSin3(float param_1)
   #define local_14 (*(float (*)[3])(_frame + (0x40 - 0x14)))
   #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   
-  if (0.0f <= param_1) {
-    local_14[0] = param_1;
+  if (0.0f <= x) {
+    local_14[0] = x;
   }
   else {
-    local_14[0] = -param_1;
+    local_14[0] = -x;
   }
   if (local_14[0] <= 0.70710677f) {
     fVar1 = stdMath_FlexPower(local_14[0],3);
@@ -478,7 +478,7 @@ float __cdecl stdMath_ArcSin3(float param_1)
     fVar4 = stdMath_FlexPower(fVar1,7);
     local_8 = 90.0f - (fVar4 * 0.066797f + fVar3 * 0.075f + fVar2 / 6.0f + fVar1) * 57.295784f;
   }
-  if (0.0f > param_1) {
+  if (0.0f > x) {
     local_8 = -local_8;
   }
   return local_8;

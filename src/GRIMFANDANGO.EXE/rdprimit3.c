@@ -192,9 +192,9 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  longlong lVar2;
-  float fVar3;
+  int y;
+  longlong lVar1;
+  float radius_00;
   #define local_30 (*(float *)(_frame + (0x40 - 0x30)))
   #define local_2c (*(float (*)[2])(_frame + (0x40 - 0x2c)))
   #define local_24 (*(float (*)[3])(_frame + (0x40 - 0x24)))
@@ -209,11 +209,11 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
   if (0.0f < local_2c[0]) {
     (*g_pRdCamera_CurCamera->pfnProject)(&local_18,&local_30);
     (*g_pRdCamera_CurCamera->pfnProject)(afStack_c,local_24);
-    fVar3 = afStack_c[0] - local_18;
-    lVar2 = FTOL((float10)fStack_14 - (float10)-0.5);
-    iVar1 = (int)lVar2;
-    lVar2 = FTOL((float10)local_18 - (float10)-0.5);
-    rdCanvas_DrawPoint(g_pRdCamera_CurCamera->pCanvas,(int)lVar2,iVar1,PUN(uint,(float)fVar3),PUN(float,a3),a4,a5);
+    radius_00 = afStack_c[0] - local_18;
+    lVar1 = FTOL((float10)fStack_14 - (float10)-0.5);
+    y = (int)lVar1;
+    lVar1 = FTOL((float10)local_18 - (float10)-0.5);
+    rdCanvas_DrawPoint(g_pRdCamera_CurCamera->pCanvas,(int)lVar1,y,PUN(uint,(float)radius_00),PUN(float,a3),a4,a5);
   }
   return;
 }
@@ -232,8 +232,8 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
    geometry/lighting modes */
 
 void __cdecl
-rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *param_5,uint *param_6,
-                  float *param_7)
+rdPrimit3_ClipFace(uint frustum,uint geoMode,int lightMode,uint texMode,uint *procVerts,
+                  uint *procFace,float *offset)
 
 {
   float *pfVar1;
@@ -250,94 +250,94 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
   int iVar9;
   undefined4 *puVar10;
   
-  puVar6 = param_6;
-  puVar5 = param_5;
-  switch(param_2) {
+  puVar6 = procFace;
+  puVar5 = procVerts;
+  switch(geoMode) {
   case 0:
     uVar7 = 0;
-    if (*param_5 != 0) {
+    if (*procVerts != 0) {
       iVar9 = 0;
       do {
-        puVar8 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar7 * 4) * 0xc);
-        puVar10 = (undefined4 *)(iVar9 + param_6[3]);
+        puVar8 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar7 * 4) * 0xc);
+        puVar10 = (undefined4 *)(iVar9 + procFace[3]);
         uVar7 = uVar7 + 1;
         iVar9 = iVar9 + 0xc;
         *puVar10 = *puVar8;
         puVar10[1] = puVar8[1];
         puVar10[2] = puVar8[2];
-      } while (uVar7 < *param_5);
+      } while (uVar7 < *procVerts);
     }
     break;
   case 1:
   case 2:
     uVar7 = 0;
-    if (*param_5 != 0) {
+    if (*procVerts != 0) {
       iVar9 = 0;
       do {
-        puVar8 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar7 * 4) * 0xc);
-        puVar10 = (undefined4 *)(iVar9 + param_6[3]);
+        puVar8 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar7 * 4) * 0xc);
+        puVar10 = (undefined4 *)(iVar9 + procFace[3]);
         uVar7 = uVar7 + 1;
         iVar9 = iVar9 + 0xc;
         *puVar10 = *puVar8;
         puVar10[1] = puVar8[1];
         puVar10[2] = puVar8[2];
-      } while (uVar7 < *param_5);
+      } while (uVar7 < *procVerts);
     }
     if (g_pRdCamera_CurCamera->nProjectType != 1) {
-      uVar7 = rdClip_Face3WOrtho((int *)param_1,(float *)param_6[3],*param_5);
-      *param_6 = uVar7;
+      uVar7 = rdClip_Face3WOrtho((int *)frustum,(float *)procFace[3],*procVerts);
+      *procFace = uVar7;
       return;
     }
-    uVar7 = rdClip_Face3W((int *)param_1,(float *)param_6[3],*param_5);
-    *param_6 = uVar7;
+    uVar7 = rdClip_Face3W((int *)frustum,(float *)procFace[3],*procVerts);
+    *procFace = uVar7;
     return;
   case 3:
-    switch(param_3) {
+    switch(lightMode) {
     case 0:
     case 1:
       uVar7 = 0;
-      if (*param_5 != 0) {
+      if (*procVerts != 0) {
         iVar9 = 0;
         do {
-          puVar8 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar7 * 4) * 0xc);
-          puVar10 = (undefined4 *)(iVar9 + param_6[3]);
+          puVar8 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar7 * 4) * 0xc);
+          puVar10 = (undefined4 *)(iVar9 + procFace[3]);
           uVar7 = uVar7 + 1;
           iVar9 = iVar9 + 0xc;
           *puVar10 = *puVar8;
           puVar10[1] = puVar8[1];
           puVar10[2] = puVar8[2];
-        } while (uVar7 < *param_5);
+        } while (uVar7 < *procVerts);
       }
       break;
     case 2:
       uVar7 = 0;
-      if (*param_5 != 0) {
+      if (*procVerts != 0) {
         iVar9 = 0;
         do {
-          puVar8 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar7 * 4) * 0xc);
-          puVar10 = (undefined4 *)(iVar9 + param_6[3]);
+          puVar8 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar7 * 4) * 0xc);
+          puVar10 = (undefined4 *)(iVar9 + procFace[3]);
           uVar7 = uVar7 + 1;
           iVar9 = iVar9 + 0xc;
           *puVar10 = *puVar8;
           puVar10[1] = puVar8[1];
           puVar10[2] = puVar8[2];
-        } while (uVar7 < *param_5);
+        } while (uVar7 < *procVerts);
       }
       break;
     case 3:
-      if (param_5[6] == 0) {
+      if (procVerts[6] == 0) {
         uVar7 = 0;
-        if (*param_5 != 0) {
+        if (*procVerts != 0) {
           iVar9 = 0;
           do {
-            puVar8 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar7 * 4) * 0xc);
-            puVar10 = (undefined4 *)(iVar9 + param_6[3]);
+            puVar8 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar7 * 4) * 0xc);
+            puVar10 = (undefined4 *)(iVar9 + procFace[3]);
             *puVar10 = *puVar8;
             puVar10[1] = puVar8[1];
             puVar10[2] = puVar8[2];
-            iVar3 = *(int *)(param_5[1] + uVar7 * 4);
-            pfVar1 = (float *)(param_5[5] + iVar3 * 4);
-            if (*(float *)(param_5[5] + iVar3 * 4) < 0.0f) {
+            iVar3 = *(int *)(procVerts[1] + uVar7 * 4);
+            pfVar1 = (float *)(procVerts[5] + iVar3 * 4);
+            if (*(float *)(procVerts[5] + iVar3 * 4) < 0.0f) {
               fVar2 = 0.0f;
             }
             else if (1.0f < *pfVar1) {
@@ -348,22 +348,22 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
             }
             uVar7 = uVar7 + 1;
             iVar9 = iVar9 + 0xc;
-            *(float *)((param_6[5] - 4) + uVar7 * 4) = fVar2;
-          } while (uVar7 < *param_5);
+            *(float *)((procFace[5] - 4) + uVar7 * 4) = fVar2;
+          } while (uVar7 < *procVerts);
         }
       }
       else {
         uVar7 = 0;
-        if (*param_5 != 0) {
+        if (*procVerts != 0) {
           iVar9 = 0;
           do {
-            puVar8 = (undefined4 *)(param_5[3] + *(int *)(param_5[1] + uVar7 * 4) * 0xc);
-            puVar10 = (undefined4 *)(iVar9 + param_6[3]);
+            puVar8 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar7 * 4) * 0xc);
+            puVar10 = (undefined4 *)(iVar9 + procFace[3]);
             *puVar10 = *puVar8;
             puVar10[1] = puVar8[1];
             puVar10[2] = puVar8[2];
-            fVar2 = *(float *)(param_5[5] + *(int *)(param_5[1] + uVar7 * 4) * 4) +
-                    *(float *)(param_5[6] + uVar7 * 4);
+            fVar2 = *(float *)(procVerts[5] + *(int *)(procVerts[1] + uVar7 * 4) * 4) +
+                    *(float *)(procVerts[6] + uVar7 * 4);
             if (fVar2 < 0.0f) {
               fVar2 = 0.0f;
             }
@@ -372,78 +372,79 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
             }
             uVar7 = uVar7 + 1;
             iVar9 = iVar9 + 0xc;
-            *(float *)((param_6[5] - 4) + uVar7 * 4) = fVar2;
-          } while (uVar7 < *param_5);
+            *(float *)((procFace[5] - 4) + uVar7 * 4) = fVar2;
+          } while (uVar7 < *procVerts);
         }
       }
       if (g_pRdCamera_CurCamera->nProjectType != 1) {
-        uVar7 = rdClip_Face3GSOrtho((int *)param_1,(float *)param_6[3],(float *)param_6[5],*param_5)
-        ;
-        *param_6 = uVar7;
+        uVar7 = rdClip_Face3GSOrtho((int *)frustum,(float *)procFace[3],(float *)procFace[5],
+                                    *procVerts);
+        *procFace = uVar7;
         return;
       }
-      rdClip_Face3GS((int *)param_1,(float *)param_6[3],(float *)param_6[5],(float *)*param_5);
-      *param_6 = extraout_EAX;
+      rdClip_Face3GS((int *)frustum,(float *)procFace[3],(float *)procFace[5],(float *)*procVerts);
+      *procFace = extraout_EAX;
       return;
     default:
       goto switchD_0040dec1_default;
     }
     break;
   case 4:
-    if (-1 < param_3) {
-      if (param_3 < 3) {
+    if (-1 < lightMode) {
+      if (lightMode < 3) {
         uVar7 = 0;
-        if (*param_5 != 0) {
-          param_5 = (uint *)0x0;
+        if (*procVerts != 0) {
+          procVerts = (uint *)0x0;
           do {
             puVar8 = (undefined4 *)(puVar5[3] + *(int *)(puVar5[1] + uVar7 * 4) * 0xc);
-            puVar10 = (undefined4 *)((int)param_5 + param_6[3]);
+            puVar10 = (undefined4 *)((int)procVerts + procFace[3]);
             *puVar10 = *puVar8;
             puVar10[1] = puVar8[1];
             puVar10[2] = puVar8[2];
             uVar4 = puVar5[4];
             iVar9 = *(int *)(puVar5[2] + uVar7 * 4);
-            puVar8 = (undefined4 *)(uVar7 * 8 + param_6[4]);
+            puVar8 = (undefined4 *)(uVar7 * 8 + procFace[4]);
             *puVar8 = *(undefined4 *)(uVar4 + iVar9 * 8);
             puVar8[1] = *(undefined4 *)(uVar4 + 4 + iVar9 * 8);
-            pfVar1 = (float *)(param_6[4] + uVar7 * 8);
-            *pfVar1 = *param_7 + *pfVar1;
+            pfVar1 = (float *)(procFace[4] + uVar7 * 8);
+            *pfVar1 = *offset + *pfVar1;
             iVar9 = uVar7 * 8;
             iVar3 = uVar7 * 8;
             uVar7 = uVar7 + 1;
-            param_5 = param_5 + 3;
-            *(float *)(param_6[4] + 4 + iVar3) = *(float *)(param_6[4] + 4 + iVar9) + param_7[1];
+            procVerts = procVerts + 3;
+            *(float *)(procFace[4] + 4 + iVar3) = *(float *)(procFace[4] + 4 + iVar9) + offset[1];
           } while (uVar7 < *puVar5);
         }
         if (g_pRdCamera_CurCamera->nProjectType == 1) {
-          rdClip_Face3T((int *)param_1,(float *)param_6[3],(float *)param_6[4],(float *)*puVar5);
-          *param_6 = extraout_EAX_01;
+          rdClip_Face3T((int *)frustum,(float *)procFace[3],(float *)procFace[4],(float *)*puVar5);
+          *procFace = extraout_EAX_01;
           return;
         }
-        uVar7 = rdClip_Face3TOrtho((int *)param_1,(float *)param_6[3],(float *)param_6[4],*puVar5);
-        *param_6 = uVar7;
+        uVar7 = rdClip_Face3TOrtho((int *)frustum,(float *)procFace[3],(float *)procFace[4],*puVar5)
+        ;
+        *procFace = uVar7;
       }
-      else if (param_3 == 3) {
-        if (param_5[6] == 0) {
-          uVar7 = *param_5;
-          param_5 = (uint *)0x0;
+      else if (lightMode == 3) {
+        if (procVerts[6] == 0) {
+          uVar7 = *procVerts;
+          procVerts = (uint *)0x0;
           if (uVar7 != 0) {
-            param_6 = (uint *)0x0;
+            procFace = (uint *)0x0;
             do {
-              puVar8 = (undefined4 *)(puVar5[3] + *(int *)(puVar5[1] + (int)param_5 * 4) * 0xc);
-              puVar10 = (undefined4 *)((int)param_6 + puVar6[3]);
+              puVar8 = (undefined4 *)(puVar5[3] + *(int *)(puVar5[1] + (int)procVerts * 4) * 0xc);
+              puVar10 = (undefined4 *)((int)procFace + puVar6[3]);
               *puVar10 = *puVar8;
               puVar10[1] = puVar8[1];
               puVar10[2] = puVar8[2];
               uVar7 = puVar6[4];
-              iVar9 = (int)param_5 * 8;
-              iVar3 = *(int *)(puVar5[2] + (int)param_5 * 4);
+              iVar9 = (int)procVerts * 8;
+              iVar3 = *(int *)(puVar5[2] + (int)procVerts * 4);
               uVar4 = puVar5[4];
               *(undefined4 *)(iVar9 + uVar7) = *(undefined4 *)(uVar4 + iVar3 * 8);
               ((undefined4 *)(iVar9 + uVar7))[1] = *(undefined4 *)(uVar4 + 4 + iVar3 * 8);
-              *(float *)(puVar6[4] + iVar9) = *param_7 + *(float *)(puVar6[4] + iVar9);
-              *(float *)(iVar9 + 4 + puVar6[4]) = *(float *)(iVar9 + 4 + puVar6[4]) + param_7[1];
-              iVar9 = *(int *)(puVar5[1] + (int)param_5 * 4);
+              *(float *)(puVar6[4] + iVar9) = *offset + *(float *)(puVar6[4] + iVar9);
+              *(float *)(iVar9 + 4 + puVar6[4]) = *(float *)(iVar9 + 4 + puVar6[4]) + offset[1];
+              iVar9 = *(int *)(puVar5[1] + (int)procVerts * 4);
               pfVar1 = (float *)(puVar5[5] + iVar9 * 4);
               if (*(float *)(puVar5[5] + iVar9 * 4) < 0.0f) {
                 fVar2 = 0.0f;
@@ -454,52 +455,52 @@ rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param_4,uint *para
               else {
                 fVar2 = *pfVar1;
               }
-              param_6 = param_6 + 3;
-              *(float *)(puVar6[5] + (int)param_5 * 4) = fVar2;
-              param_5 = (uint *)((int)param_5 + 1);
-            } while (param_5 < (uint *)*puVar5);
+              procFace = procFace + 3;
+              *(float *)(puVar6[5] + (int)procVerts * 4) = fVar2;
+              procVerts = (uint *)((int)procVerts + 1);
+            } while (procVerts < (uint *)*puVar5);
           }
         }
         else {
-          uVar7 = *param_5;
-          param_5 = (uint *)0x0;
+          uVar7 = *procVerts;
+          procVerts = (uint *)0x0;
           if (uVar7 != 0) {
-            param_6 = (uint *)0x0;
+            procFace = (uint *)0x0;
             do {
-              puVar8 = (undefined4 *)(puVar5[3] + *(int *)(puVar5[1] + (int)param_5 * 4) * 0xc);
-              puVar10 = (undefined4 *)((int)param_6 + puVar6[3]);
+              puVar8 = (undefined4 *)(puVar5[3] + *(int *)(puVar5[1] + (int)procVerts * 4) * 0xc);
+              puVar10 = (undefined4 *)((int)procFace + puVar6[3]);
               *puVar10 = *puVar8;
               puVar10[1] = puVar8[1];
               puVar10[2] = puVar8[2];
               uVar7 = puVar6[4];
-              iVar9 = (int)param_5 * 8;
-              iVar3 = *(int *)(puVar5[2] + (int)param_5 * 4);
+              iVar9 = (int)procVerts * 8;
+              iVar3 = *(int *)(puVar5[2] + (int)procVerts * 4);
               uVar4 = puVar5[4];
               *(undefined4 *)(iVar9 + uVar7) = *(undefined4 *)(uVar4 + iVar3 * 8);
               ((undefined4 *)(iVar9 + uVar7))[1] = *(undefined4 *)(uVar4 + 4 + iVar3 * 8);
-              *(float *)(puVar6[4] + iVar9) = *param_7 + *(float *)(puVar6[4] + iVar9);
-              *(float *)(iVar9 + 4 + puVar6[4]) = *(float *)(iVar9 + 4 + puVar6[4]) + param_7[1];
-              fVar2 = *(float *)(puVar5[5] + *(int *)(puVar5[1] + (int)param_5 * 4) * 4) +
-                      *(float *)(puVar5[6] + (int)param_5 * 4);
+              *(float *)(puVar6[4] + iVar9) = *offset + *(float *)(puVar6[4] + iVar9);
+              *(float *)(iVar9 + 4 + puVar6[4]) = *(float *)(iVar9 + 4 + puVar6[4]) + offset[1];
+              fVar2 = *(float *)(puVar5[5] + *(int *)(puVar5[1] + (int)procVerts * 4) * 4) +
+                      *(float *)(puVar5[6] + (int)procVerts * 4);
               if (fVar2 < 0.0f) {
                 fVar2 = 0.0f;
               }
               else if (1.0f < fVar2) {
                 fVar2 = 1.0f;
               }
-              param_6 = param_6 + 3;
-              *(float *)(puVar6[5] + (int)param_5 * 4) = fVar2;
-              param_5 = (uint *)((int)param_5 + 1);
-            } while (param_5 < (uint *)*puVar5);
+              procFace = procFace + 3;
+              *(float *)(puVar6[5] + (int)procVerts * 4) = fVar2;
+              procVerts = (uint *)((int)procVerts + 1);
+            } while (procVerts < (uint *)*puVar5);
           }
         }
         if (g_pRdCamera_CurCamera->nProjectType != 1) {
-          uVar7 = rdClip_Face3GTOrtho((int *)param_1,(float *)puVar6[3],(uint *)puVar6[4],
+          uVar7 = rdClip_Face3GTOrtho((int *)frustum,(float *)puVar6[3],(uint *)puVar6[4],
                                       (uint *)puVar6[5],*puVar5);
           *puVar6 = uVar7;
           return;
         }
-        rdClip_Face3GT((int *)param_1,(float *)puVar6[3],(float *)puVar6[4],(uint *)puVar6[5],
+        rdClip_Face3GT((int *)frustum,(float *)puVar6[3],(float *)puVar6[4],(uint *)puVar6[5],
                        (float *)*puVar5);
         *puVar6 = extraout_EAX_00;
         return;
@@ -510,12 +511,12 @@ switchD_0040dec1_default:
     return;
   }
   if (g_pRdCamera_CurCamera->nProjectType != 1) {
-    uVar7 = rdClip_Face3SOrtho((int *)param_1,(float *)param_6[3],*param_5);
-    *param_6 = uVar7;
+    uVar7 = rdClip_Face3SOrtho((int *)frustum,(float *)procFace[3],*procVerts);
+    *procFace = uVar7;
     return;
   }
-  uVar7 = rdClip_Face3S((int *)param_1,(float *)param_6[3],*param_5);
-  *param_6 = uVar7;
+  uVar7 = rdClip_Face3S((int *)frustum,(float *)procFace[3],*procVerts);
+  *procFace = uVar7;
   return;
 }
 #endif
@@ -530,7 +531,7 @@ switchD_0040dec1_default:
 
 void __cdecl
 rdPrimit3_NoClipFace
-          (uint param_1,int param_2,uint param_3,uint *param_4,uint *param_5,float *param_6)
+          (uint geoMode,int lightMode,uint texMode,uint *procVerts,uint *procFace,float *offset)
 
 {
   undefined4 *puVar1;
@@ -545,92 +546,92 @@ rdPrimit3_NoClipFace
   int iVar10;
   undefined4 *puVar11;
   
-  puVar8 = param_5;
-  puVar7 = param_4;
-  switch(param_1) {
+  puVar8 = procFace;
+  puVar7 = procVerts;
+  switch(geoMode) {
   case 0:
     uVar9 = 0;
-    if (*param_4 != 0) {
+    if (*procVerts != 0) {
       iVar10 = 0;
       do {
-        puVar1 = (undefined4 *)(param_4[3] + *(int *)(param_4[1] + uVar9 * 4) * 0xc);
-        puVar11 = (undefined4 *)(iVar10 + param_5[3]);
+        puVar1 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar9 * 4) * 0xc);
+        puVar11 = (undefined4 *)(iVar10 + procFace[3]);
         uVar9 = uVar9 + 1;
         iVar10 = iVar10 + 0xc;
         *puVar11 = *puVar1;
         puVar11[1] = puVar1[1];
         puVar11[2] = puVar1[2];
-      } while (uVar9 < *param_4);
-      *param_5 = *param_4;
+      } while (uVar9 < *procVerts);
+      *procFace = *procVerts;
       return;
     }
     break;
   case 1:
   case 2:
     uVar9 = 0;
-    if (*param_4 != 0) {
+    if (*procVerts != 0) {
       iVar10 = 0;
       do {
-        puVar1 = (undefined4 *)(param_4[3] + *(int *)(param_4[1] + uVar9 * 4) * 0xc);
-        puVar11 = (undefined4 *)(iVar10 + param_5[3]);
+        puVar1 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar9 * 4) * 0xc);
+        puVar11 = (undefined4 *)(iVar10 + procFace[3]);
         uVar9 = uVar9 + 1;
         iVar10 = iVar10 + 0xc;
         *puVar11 = *puVar1;
         puVar11[1] = puVar1[1];
         puVar11[2] = puVar1[2];
-      } while (uVar9 < *param_4);
-      *param_5 = *param_4;
+      } while (uVar9 < *procVerts);
+      *procFace = *procVerts;
       return;
     }
     break;
   case 3:
-    switch(param_2) {
+    switch(lightMode) {
     case 0:
     case 1:
       uVar9 = 0;
-      if (*param_4 != 0) {
+      if (*procVerts != 0) {
         iVar10 = 0;
         do {
-          puVar1 = (undefined4 *)(param_4[3] + *(int *)(param_4[1] + uVar9 * 4) * 0xc);
-          puVar11 = (undefined4 *)(iVar10 + param_5[3]);
+          puVar1 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar9 * 4) * 0xc);
+          puVar11 = (undefined4 *)(iVar10 + procFace[3]);
           uVar9 = uVar9 + 1;
           iVar10 = iVar10 + 0xc;
           *puVar11 = *puVar1;
           puVar11[1] = puVar1[1];
           puVar11[2] = puVar1[2];
-        } while (uVar9 < *param_4);
+        } while (uVar9 < *procVerts);
         goto LAB_0040e609;
       }
       break;
     case 2:
       uVar9 = 0;
-      if (*param_4 != 0) {
+      if (*procVerts != 0) {
         iVar10 = 0;
         do {
-          puVar1 = (undefined4 *)(param_4[3] + *(int *)(param_4[1] + uVar9 * 4) * 0xc);
-          puVar11 = (undefined4 *)(iVar10 + param_5[3]);
+          puVar1 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar9 * 4) * 0xc);
+          puVar11 = (undefined4 *)(iVar10 + procFace[3]);
           uVar9 = uVar9 + 1;
           iVar10 = iVar10 + 0xc;
           *puVar11 = *puVar1;
           puVar11[1] = puVar1[1];
           puVar11[2] = puVar1[2];
-        } while (uVar9 < *param_4);
+        } while (uVar9 < *procVerts);
       }
       break;
     case 3:
-      if (param_4[6] == 0) {
+      if (procVerts[6] == 0) {
         uVar9 = 0;
-        if (*param_4 != 0) {
+        if (*procVerts != 0) {
           iVar10 = 0;
           do {
-            puVar1 = (undefined4 *)(param_4[3] + *(int *)(param_4[1] + uVar9 * 4) * 0xc);
-            puVar11 = (undefined4 *)(iVar10 + param_5[3]);
+            puVar1 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar9 * 4) * 0xc);
+            puVar11 = (undefined4 *)(iVar10 + procFace[3]);
             *puVar11 = *puVar1;
             puVar11[1] = puVar1[1];
             puVar11[2] = puVar1[2];
-            iVar4 = *(int *)(param_4[1] + uVar9 * 4);
-            pfVar2 = (float *)(param_4[5] + iVar4 * 4);
-            if (*(float *)(param_4[5] + iVar4 * 4) < 0.0f) {
+            iVar4 = *(int *)(procVerts[1] + uVar9 * 4);
+            pfVar2 = (float *)(procVerts[5] + iVar4 * 4);
+            if (*(float *)(procVerts[5] + iVar4 * 4) < 0.0f) {
               fVar3 = 0.0f;
             }
             else if (1.0f < *pfVar2) {
@@ -641,24 +642,24 @@ rdPrimit3_NoClipFace
             }
             uVar9 = uVar9 + 1;
             iVar10 = iVar10 + 0xc;
-            *(float *)((param_5[5] - 4) + uVar9 * 4) = fVar3;
-          } while (uVar9 < *param_4);
-          *param_5 = *param_4;
+            *(float *)((procFace[5] - 4) + uVar9 * 4) = fVar3;
+          } while (uVar9 < *procVerts);
+          *procFace = *procVerts;
           return;
         }
       }
       else {
         uVar9 = 0;
-        if (*param_4 != 0) {
+        if (*procVerts != 0) {
           iVar10 = 0;
           do {
-            puVar1 = (undefined4 *)(param_4[3] + *(int *)(param_4[1] + uVar9 * 4) * 0xc);
-            puVar11 = (undefined4 *)(iVar10 + param_5[3]);
+            puVar1 = (undefined4 *)(procVerts[3] + *(int *)(procVerts[1] + uVar9 * 4) * 0xc);
+            puVar11 = (undefined4 *)(iVar10 + procFace[3]);
             *puVar11 = *puVar1;
             puVar11[1] = puVar1[1];
             puVar11[2] = puVar1[2];
-            fVar3 = *(float *)(param_4[5] + *(int *)(param_4[1] + uVar9 * 4) * 4) +
-                    *(float *)(param_4[6] + uVar9 * 4);
+            fVar3 = *(float *)(procVerts[5] + *(int *)(procVerts[1] + uVar9 * 4) * 4) +
+                    *(float *)(procVerts[6] + uVar9 * 4);
             if (fVar3 < 0.0f) {
               fVar3 = 0.0f;
             }
@@ -667,9 +668,9 @@ rdPrimit3_NoClipFace
             }
             uVar9 = uVar9 + 1;
             iVar10 = iVar10 + 0xc;
-            *(float *)((param_5[5] - 4) + uVar9 * 4) = fVar3;
-          } while (uVar9 < *param_4);
-          *param_5 = *param_4;
+            *(float *)((procFace[5] - 4) + uVar9 * 4) = fVar3;
+          } while (uVar9 < *procVerts);
+          *procFace = *procVerts;
           return;
         }
       }
@@ -679,54 +680,54 @@ LAB_0040e982:
     default:
       goto switchD_0040e511_default;
     }
-    *param_5 = *param_4;
+    *procFace = *procVerts;
     return;
   case 4:
-    if (-1 < param_2) {
-      if (param_2 < 3) {
+    if (-1 < lightMode) {
+      if (lightMode < 3) {
         uVar9 = 0;
-        if (*param_4 != 0) {
-          param_4 = (uint *)0x0;
+        if (*procVerts != 0) {
+          procVerts = (uint *)0x0;
           do {
             puVar1 = (undefined4 *)(puVar7[3] + *(int *)(puVar7[1] + uVar9 * 4) * 0xc);
-            puVar11 = (undefined4 *)((int)param_4 + param_5[3]);
+            puVar11 = (undefined4 *)((int)procVerts + procFace[3]);
             *puVar11 = *puVar1;
             puVar11[1] = puVar1[1];
             puVar11[2] = puVar1[2];
             uVar5 = puVar7[4];
             iVar10 = uVar9 * 8;
             iVar4 = *(int *)(puVar7[2] + uVar9 * 4);
-            uVar6 = param_5[4];
+            uVar6 = procFace[4];
             *(undefined4 *)(iVar10 + uVar6) = *(undefined4 *)(uVar5 + iVar4 * 8);
             ((undefined4 *)(iVar10 + uVar6))[1] = *(undefined4 *)(uVar5 + 4 + iVar4 * 8);
             uVar9 = uVar9 + 1;
-            *(float *)(param_5[4] + iVar10) = *param_6 + *(float *)(param_5[4] + iVar10);
-            param_4 = param_4 + 3;
-            *(float *)(iVar10 + 4 + param_5[4]) = *(float *)(iVar10 + 4 + param_5[4]) + param_6[1];
+            *(float *)(procFace[4] + iVar10) = *offset + *(float *)(procFace[4] + iVar10);
+            procVerts = procVerts + 3;
+            *(float *)(iVar10 + 4 + procFace[4]) = *(float *)(iVar10 + 4 + procFace[4]) + offset[1];
           } while (uVar9 < *puVar7);
         }
-        *param_5 = *puVar7;
+        *procFace = *puVar7;
       }
-      else if (param_2 == 3) {
-        if (param_4[6] == 0) {
-          param_5 = (uint *)0x0;
-          if (*param_4 != 0) {
-            param_4 = (uint *)0x0;
+      else if (lightMode == 3) {
+        if (procVerts[6] == 0) {
+          procFace = (uint *)0x0;
+          if (*procVerts != 0) {
+            procVerts = (uint *)0x0;
             do {
-              puVar1 = (undefined4 *)(puVar7[3] + *(int *)(puVar7[1] + (int)param_5 * 4) * 0xc);
-              puVar11 = (undefined4 *)((int)param_4 + puVar8[3]);
+              puVar1 = (undefined4 *)(puVar7[3] + *(int *)(puVar7[1] + (int)procFace * 4) * 0xc);
+              puVar11 = (undefined4 *)((int)procVerts + puVar8[3]);
               *puVar11 = *puVar1;
               puVar11[1] = puVar1[1];
               puVar11[2] = puVar1[2];
               uVar9 = puVar8[4];
-              iVar10 = (int)param_5 * 8;
-              iVar4 = *(int *)(puVar7[2] + (int)param_5 * 4);
+              iVar10 = (int)procFace * 8;
+              iVar4 = *(int *)(puVar7[2] + (int)procFace * 4);
               uVar5 = puVar7[4];
               *(undefined4 *)(iVar10 + uVar9) = *(undefined4 *)(uVar5 + iVar4 * 8);
               ((undefined4 *)(iVar10 + uVar9))[1] = *(undefined4 *)(uVar5 + 4 + iVar4 * 8);
-              *(float *)(puVar8[4] + iVar10) = *param_6 + *(float *)(puVar8[4] + iVar10);
-              *(float *)(iVar10 + 4 + puVar8[4]) = *(float *)(iVar10 + 4 + puVar8[4]) + param_6[1];
-              iVar10 = *(int *)(puVar7[1] + (int)param_5 * 4);
+              *(float *)(puVar8[4] + iVar10) = *offset + *(float *)(puVar8[4] + iVar10);
+              *(float *)(iVar10 + 4 + puVar8[4]) = *(float *)(iVar10 + 4 + puVar8[4]) + offset[1];
+              iVar10 = *(int *)(puVar7[1] + (int)procFace * 4);
               pfVar2 = (float *)(puVar7[5] + iVar10 * 4);
               if (*(float *)(puVar7[5] + iVar10 * 4) < 0.0f) {
                 fVar3 = 0.0f;
@@ -737,42 +738,42 @@ LAB_0040e982:
               else {
                 fVar3 = *pfVar2;
               }
-              param_4 = param_4 + 3;
-              *(float *)(puVar8[5] + (int)param_5 * 4) = fVar3;
-              param_5 = (uint *)((int)param_5 + 1);
-            } while (param_5 < (uint *)*puVar7);
+              procVerts = procVerts + 3;
+              *(float *)(puVar8[5] + (int)procFace * 4) = fVar3;
+              procFace = (uint *)((int)procFace + 1);
+            } while (procFace < (uint *)*puVar7);
           }
         }
         else {
-          param_5 = (uint *)0x0;
-          if (*param_4 != 0) {
-            param_4 = (uint *)0x0;
+          procFace = (uint *)0x0;
+          if (*procVerts != 0) {
+            procVerts = (uint *)0x0;
             do {
-              puVar1 = (undefined4 *)(puVar7[3] + *(int *)(puVar7[1] + (int)param_5 * 4) * 0xc);
-              puVar11 = (undefined4 *)((int)param_4 + puVar8[3]);
+              puVar1 = (undefined4 *)(puVar7[3] + *(int *)(puVar7[1] + (int)procFace * 4) * 0xc);
+              puVar11 = (undefined4 *)((int)procVerts + puVar8[3]);
               *puVar11 = *puVar1;
               puVar11[1] = puVar1[1];
               puVar11[2] = puVar1[2];
               uVar9 = puVar8[4];
-              iVar10 = (int)param_5 * 8;
-              iVar4 = *(int *)(puVar7[2] + (int)param_5 * 4);
+              iVar10 = (int)procFace * 8;
+              iVar4 = *(int *)(puVar7[2] + (int)procFace * 4);
               uVar5 = puVar7[4];
               *(undefined4 *)(iVar10 + uVar9) = *(undefined4 *)(uVar5 + iVar4 * 8);
               ((undefined4 *)(iVar10 + uVar9))[1] = *(undefined4 *)(uVar5 + 4 + iVar4 * 8);
-              *(float *)(puVar8[4] + iVar10) = *param_6 + *(float *)(puVar8[4] + iVar10);
-              *(float *)(iVar10 + 4 + puVar8[4]) = *(float *)(iVar10 + 4 + puVar8[4]) + param_6[1];
-              fVar3 = *(float *)(puVar7[5] + *(int *)(puVar7[1] + (int)param_5 * 4) * 4) +
-                      *(float *)(puVar7[6] + (int)param_5 * 4);
+              *(float *)(puVar8[4] + iVar10) = *offset + *(float *)(puVar8[4] + iVar10);
+              *(float *)(iVar10 + 4 + puVar8[4]) = *(float *)(iVar10 + 4 + puVar8[4]) + offset[1];
+              fVar3 = *(float *)(puVar7[5] + *(int *)(puVar7[1] + (int)procFace * 4) * 4) +
+                      *(float *)(puVar7[6] + (int)procFace * 4);
               if (fVar3 < 0.0f) {
                 fVar3 = 0.0f;
               }
               else if (1.0f < fVar3) {
                 fVar3 = 1.0f;
               }
-              param_4 = param_4 + 3;
-              *(float *)(puVar8[5] + (int)param_5 * 4) = fVar3;
-              param_5 = (uint *)((int)param_5 + 1);
-            } while (param_5 < (uint *)*puVar7);
+              procVerts = procVerts + 3;
+              *(float *)(puVar8[5] + (int)procFace * 4) = fVar3;
+              procFace = (uint *)((int)procFace + 1);
+            } while (procFace < (uint *)*puVar7);
             *puVar8 = *puVar7;
             return;
           }
@@ -785,7 +786,7 @@ switchD_0040e511_default:
     return;
   }
 LAB_0040e609:
-  *param_5 = *param_4;
+  *procFace = *procVerts;
   return;
 }
 #endif

@@ -15,20 +15,20 @@
 void __cdecl grimdemo_EnableDebugging(int enable)
 
 {
-  void *pvVar1;
-  char *pcVar2;
-  char *pcVar3;
-  uint uVar4;
+  void *hwnd;
+  char *text;
+  char *caption;
+  uint type;
   
   if (enable != 0) {
     if (UINT_004f5a54 == 0) {
       if (((UINT_004f5a18 != 0) && (g_nDeveloper != 0)) &&
          (UINT_004f44e0 = Res_FOpen(s_debug_log_004dd46c,&DAT_004dd478), UINT_004f44e0 == 0)) {
-        pcVar3 = s_Uh_oh__004dd464;
-        pcVar2 = s_Unable_to_open_debug_log_in_the_c_004dd424;
-        uVar4 = UINT_004f44e0;
-        pvVar1 = Win_GetMainHwnd();
-        Grim_FatalMessageBox((int)pvVar1,(int)pcVar2,(int)pcVar3,uVar4);
+        caption = s_Uh_oh__004dd464;
+        text = s_Unable_to_open_debug_log_in_the_c_004dd424;
+        type = UINT_004f44e0;
+        hwnd = Win_GetMainHwnd();
+        Grim_FatalMessageBox((int)hwnd,(int)text,(int)caption,type);
         return;
       }
       if (UINT_004f5a1c != 0) {
@@ -190,9 +190,9 @@ char * __cdecl grimdemo_DebugPrint(char *fmt,...)
 }
 
 /* ---- 0x00402560  DebugLog_Write ---- */
-void __cdecl DebugLog_Write(char *fmt,uint param_2)
+void __cdecl DebugLog_Write(char *fmt,uint arg)
 
 {
-  Res_FPrintf(UINT_004f44e0,fmt,param_2);
+  Res_FPrintf(UINT_004f44e0,fmt,arg);
   return;
 }
