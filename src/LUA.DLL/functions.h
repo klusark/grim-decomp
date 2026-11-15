@@ -287,7 +287,7 @@ undefined4 __stdcall LState_LoadResolvedObject(int a1,int a2); /* 0x10007910 */
 undefined4 __stdcall LState_GlobalEndRestore(int a1); /* 0x10007930 */
 undefined4 __stdcall LState_GlobalBeginRestore(int a1); /* 0x100079d0 */
 undefined4 __stdcall LState_SaveGlobals(int a1); /* 0x100081c0 */
-byte * __cdecl lstate__85e0(int param_1); /* 0x100085e0 */
+byte * __cdecl LState_CodeLength(int param_1); /* 0x100085e0 */
 undefined4 __thiscall LState_Save(void *this,int a1); /* 0x10008640 */
 undefined4 __thiscall LState_Restore(void *this,int a1); /* 0x100087f0 */
 undefined4 * lua_newstate(void); /* 0x10008ad0 */
@@ -433,18 +433,18 @@ undefined4 * __cdecl LoadFunction(int *param_1); /* 0x1000cf30 */
 uint __cdecl LoadWord(int *param_1); /* 0x1000cfa0 */
 uint __cdecl ezgetc(int *param_1); /* 0x1000cfd0 */
 void __cdecl unexpectedEOZ(int param_1); /* 0x1000d010 */
-undefined4 * __cdecl lundump__d030(uint param_1,uint *param_2); /* 0x1000d030 */
+undefined4 * __cdecl LoadBlock(uint param_1,uint *param_2); /* 0x1000d030 */
 uint __cdecl ezread(uint *param_1,undefined4 *param_2,uint param_3); /* 0x1000d060 */
 uint __cdecl LoadSize(int *param_1); /* 0x1000d090 */
 undefined4 __cdecl LoadTString(uint *param_1); /* 0x1000d0d0 */
 uint * __cdecl Undump_LoadString(uint *param_1); /* 0x1000d0f0 */
-void __cdecl lundump__d130(uint *param_1,uint param_2); /* 0x1000d130 */
+void __cdecl Undump_InvertBytes(uint *param_1,uint param_2); /* 0x1000d130 */
 void __cdecl LoadLocals(int param_1,uint *param_2); /* 0x1000d1a0 */
 void __cdecl LoadConstants(int param_1,undefined4 *param_2); /* 0x1000d230 */
 float __cdecl luaU_LoadNumber(undefined4 *param_1); /* 0x1000d2f0 */
-int __cdecl lundump__d360(undefined1 *param_1); /* 0x1000d360 */
-int __cdecl lundump__d380(undefined1 *param_1); /* 0x1000d380 */
-void __cdecl lundump__d3c0(int param_1,int *param_2); /* 0x1000d3c0 */
+int __cdecl Undump_Swap4(undefined1 *param_1); /* 0x1000d360 */
+int __cdecl Undump_Swap8(undefined1 *param_1); /* 0x1000d380 */
+void __cdecl LoadFunctions(int param_1,int *param_2); /* 0x1000d3c0 */
 void __cdecl LoadHeader(undefined4 *param_1); /* 0x1000d420 */
 void __cdecl LoadSignature(int *param_1); /* 0x1000d570 */
 undefined4 __cdecl luaV_tonumber(int *param_1); /* 0x1000d5c0 */
@@ -481,8 +481,8 @@ undefined4 * __cdecl luaZ_sopen(undefined4 *param_1,char *param_2,undefined4 par
 undefined4 * __cdecl luaZ_Fopen(undefined4 *param_1,int param_2,undefined4 param_3); /* 0x1000ee30 */
 uint __cdecl zffilbuf(int *param_1); /* 0x1000ee60 */
 uint __cdecl luaZ_read(uint *param_1,undefined4 *param_2,uint param_3); /* 0x1000eea0 */
-void lzio__ef20(void); /* 0x1000ef20 */
-void lzio__ef40(void); /* 0x1000ef40 */
+void _fpmath(void); /* 0x1000ef20 */
+void _cfltcvt_init(void); /* 0x1000ef40 */
 
 /* ===== crt.c ===== */
 longlong __cdecl _ftol(float10 x); /* 0x1000ef80 */

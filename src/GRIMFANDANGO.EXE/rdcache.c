@@ -1798,8 +1798,11 @@ LAB_00408067:
 #undef local_4
 
 
-/* ---- 0x00408800  FUN_00408800 ---- */
-uint __cdecl FUN_00408800(void)
+/* ---- 0x00408800  rdCache_DrawNGonTFATThunk ---- */
+/* Passes its stack arguments on to rdNRaster_DrawNGonTFAT and returns 1. Nothing references it
+   (dead code); was FUN_00408800. */
+
+uint __cdecl rdCache_DrawNGonTFATThunk(void)
 
 {
   int unaff_retaddr;

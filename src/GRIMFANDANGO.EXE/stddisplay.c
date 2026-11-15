@@ -651,7 +651,7 @@ int __cdecl stdDisplay_Startup(void)
   (&UINT_00902d74)[g_dwStdDisplay_numDevices * 0xa6] = 2000000;
   (&UINT_00902d78)[g_dwStdDisplay_numDevices * 0xa6] = 2000000;
   g_dwStdDisplay_numDevices = g_dwStdDisplay_numDevices + 1;
-  iVar1 = DirectDrawEnumerateA(((unsigned)(uintptr_t)FUN_004761b0),0);
+  iVar1 = DirectDrawEnumerateA(((unsigned)(uintptr_t)stdDisplay_EnumDevicesCallback),0);
   return (uint)(iVar1 == 0);
 }
 
@@ -2708,13 +2708,14 @@ void __cdecl DDraw_Release(void)
   return;
 }
 
-/* ---- 0x004761b0  FUN_004761b0 ---- */
+/* ---- 0x004761b0  stdDisplay_EnumDevicesCallback ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
-    */
+/* DirectDrawEnumerate callback (guid, description, driver name, context): fills display device
+   record g_dwStdDisplay_numDevices (at most 16, 0x298 bytes each). Hand-written in
+   build/overrides_asm_o2.c; was FUN_004761b0. */
 
-undefined * __stdcall FUN_004761b0(int a1,int a2,int a3,int a4)
+undefined * __stdcall stdDisplay_EnumDevicesCallback(int a1,int a2,int a3,int a4)
 
 {
   unsigned char _frame[0x2f0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

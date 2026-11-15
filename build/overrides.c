@@ -592,7 +592,7 @@ __asm__(".text\n"
  * hardware: a WINMM timer thread calls ImHeartbeat every 20 ms of real time, and a block of the DirectSound ring is refilled
  * only when the play cursor has left it. A sound that lasts 7 s therefore lasts 7 s of real time = 700 s of game time, and
  * the scripts that wait for the end of a sound (wait_for_sound, the shots of kill_hector) time out. With GRIM_SIMTIME set:
- *   - no timer thread (FUN_10008ce0 reports success at once, the timer callback never runs): nothing races with the main thread;
+ *   - no timer thread (Timer_Start reports success at once, the timer callback never runs): nothing races with the main thread;
  *   - the play cursor (iMUSE_dsound__3a80) is a counter of bytes that advances by game time (avg bytes/s of the stream format);
  *   - the EXE calls GRIM_ImSimStep(ms) once per frame (GRIM_lua_cmd_poll): the cursor moves and ImHeartbeat runs once per 20 ms
  *     of game time (fades, mixing, retiring of finished tracks), whatever the real time between the calls;
@@ -661,12 +661,12 @@ int SoundsFloodMusicBuffer(void)
 {
     int r = 0;
     if (_g_bImuseInitialized != 0) {
-        r = FUN_100077c0();
+        r = Sounds_IsMusicBufferFull();
         while (r == 0) {
             ImProcessStreams();
             if (GRIM_ImSimOn())
                 grim_sim_tick(20);
-            r = FUN_100077c0();
+            r = Sounds_IsMusicBufferFull();
         }
     }
     return r;
@@ -674,12 +674,12 @@ int SoundsFloodMusicBuffer(void)
 undefined4 SoundsFillStreamsWhileMusicCritical(int n)
 {
     undefined4 r = 0;
-    if (_g_bImuseInitialized != 0 && FUN_100076b0() != 0) {
+    if (_g_bImuseInitialized != 0 && Sounds_IsMusicCritical() != 0) {
         do {
             ImProcessStreams();
             if (GRIM_ImSimOn())
                 grim_sim_tick(20);
-        } while (FUN_100076b0() != 0);
+        } while (Sounds_IsMusicCritical() != 0);
         r = 0;
         for (; n > 0; n--) {
             r = ImProcessStreams();
@@ -691,13 +691,13 @@ undefined4 SoundsFillStreamsWhileMusicCritical(int n)
 }
 /* ==== end GRIM_SIMTIME ================================================================================================ */
 
-/* FUN_10008ce0 (iMUSE heartbeat timer start-up): the decompiler lost the TIMECAPS
+/* Timer_Start (iMUSE heartbeat timer start-up): the decompiler lost the TIMECAPS
  * structure it reads back from the stack (wPeriodMin/wPeriodMax became unaff_ESI /
  * unaff_EDI, which made the period 0). Rewritten from the disassembly:
  * period = min(max(wPeriodMin, 50), wPeriodMax). The heartbeat callback
  * (timer_callback, __stdcall with five arguments) must fire within 4 s, retried
  * twice, or the function reports failure. */
-int FUN_10008ce0(void)
+int Timer_Start(void)
 {
     unsigned caps[2];
     unsigned period, lo;

@@ -1305,11 +1305,11 @@ void __cdecl rdAFRaster_DrawNGonGS(int param_1)
 #endif
 
 
-/* ---- 0x004104b0  FUN_004104b0 ---- */
-/* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
-   (docs/notes/asm_s*.md). */
+/* ---- 0x004104b0  rdRaster_EdgeStepLight ---- */
+/* Edge step of the non-z-buffered Gouraud polygons: rdAFRaster_SetupEdgeNGonGS steps both edges
+   with it (light per row). Hand-written in build/overrides_asm_q6.c; was FUN_004104b0. */
 
-void __cdecl FUN_004104b0(int param_1)
+void __cdecl rdRaster_EdgeStepLight(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
@@ -1360,7 +1360,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonGS(uint *param_1,int *param_2,int param_3,i
   if (0 < (int)uVar8) {
     *param_1 = 1;
     param_1[2] = uVar2;
-    param_1[0x12] = (uint)FUN_004104b0;
+    param_1[0x12] = (uint)rdRaster_EdgeStepLight;
     if ((int)uVar8 < 2) {
       param_1[10] = (int)ROUND(*(float *)(iVar10 + *(int *)(iVar4 + 0x20)) * 65536.0f);
       param_1[0x10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x28) + param_3 * 4) * 65536.0f);
@@ -1388,7 +1388,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonGS(uint *param_1,int *param_2,int param_3,i
   *param_1 = 0;
   param_1[2] = uVar3;
   param_1[3] = -uVar8;
-  param_1[0x12] = (uint)FUN_004104b0;
+  param_1[0x12] = (uint)rdRaster_EdgeStepLight;
   if ((int)-uVar8 < 2) {
     param_1[10] = (int)ROUND(*(float *)(iVar9 + *(int *)(iVar4 + 0x20)) * 65536.0f);
     param_1[0x10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x28) + param_4 * 4) * 65536.0f);
@@ -1595,7 +1595,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLAT(uint *param_1,int *param_2,int param_3,
   if (0 < (int)uVar8) {
     *param_1 = 1;
     param_1[2] = uVar2;
-    param_1[0x12] = (uint)FUN_00411b70;
+    param_1[0x12] = (uint)rdRaster_EdgeStepTex;
     if ((int)uVar8 < 2) {
       param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar10) * 65536.0f);
       param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8) * 65536.0f);
@@ -1629,7 +1629,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLAT(uint *param_1,int *param_2,int param_3,
   *param_1 = 0;
   param_1[2] = uVar3;
   param_1[3] = -uVar8;
-  param_1[0x12] = (uint)FUN_00411b70;
+  param_1[0x12] = (uint)rdRaster_EdgeStepTex;
   if ((int)-uVar8 < 2) {
     param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar9) * 65536.0f);
     param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8) * 65536.0f);
@@ -2026,11 +2026,11 @@ void __cdecl rdAFRaster_DrawNGonFAT(int param_1)
 #endif
 
 
-/* ---- 0x00411b70  FUN_00411b70 ---- */
-/* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
-   (docs/notes/asm_s*.md). */
+/* ---- 0x00411b70  rdRaster_EdgeStepTex ---- */
+/* Edge step of the non-z-buffered affine textured polygons (u, v per row):
+   rdAFRaster_SetupEdgeNGonLAT / FAT. Hand-written in build/overrides_asm_q6.c; was FUN_00411b70. */
 
-void __cdecl FUN_00411b70(int param_1)
+void __cdecl rdRaster_EdgeStepTex(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
@@ -2082,7 +2082,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonFAT(uint *param_1,int *param_2,int param_3,
   if (0 < (int)uVar8) {
     *param_1 = 1;
     param_1[2] = uVar2;
-    param_1[0x12] = (uint)FUN_00411b70;
+    param_1[0x12] = (uint)rdRaster_EdgeStepTex;
     if ((int)uVar8 < 2) {
       param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar10) * 65536.0f);
       param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8) * 65536.0f);
@@ -2116,7 +2116,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonFAT(uint *param_1,int *param_2,int param_3,
   *param_1 = 0;
   param_1[2] = uVar3;
   param_1[3] = -uVar8;
-  param_1[0x12] = (uint)FUN_00411b70;
+  param_1[0x12] = (uint)rdRaster_EdgeStepTex;
   if ((int)-uVar8 < 2) {
     param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar9) * 65536.0f);
     param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8) * 65536.0f);
@@ -2523,11 +2523,11 @@ void __cdecl rdAFRaster_DrawNGonGAT(int param_1)
 #endif
 
 
-/* ---- 0x004129f0  FUN_004129f0 ---- */
-/* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
-   (docs/notes/asm_s*.md). */
+/* ---- 0x004129f0  rdRaster_EdgeStepTexLight ---- */
+/* Edge step of the non-z-buffered affine textured, Gouraud-lit polygons (u, v and light per row):
+   rdAFRaster_SetupEdgeNGonGAT. Hand-written in build/overrides_asm_q6.c; was FUN_004129f0. */
 
-void __cdecl FUN_004129f0(int param_1)
+void __cdecl rdRaster_EdgeStepTexLight(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
@@ -2582,7 +2582,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonGAT(uint *param_1,int *param_2,int param_3,
   if (0 < (int)uVar10) {
     *param_1 = 1;
     param_1[2] = uVar2;
-    param_1[0x12] = (uint)FUN_004129f0;
+    param_1[0x12] = (uint)rdRaster_EdgeStepTexLight;
     if ((int)uVar10 < 2) {
       param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar11) * 65536.0f);
       param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_3 * 8) * 65536.0f);
@@ -2621,7 +2621,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonGAT(uint *param_1,int *param_2,int param_3,
   *param_1 = 0;
   param_1[2] = uVar3;
   param_1[3] = -uVar10;
-  param_1[0x12] = (uint)FUN_004129f0;
+  param_1[0x12] = (uint)rdRaster_EdgeStepTexLight;
   if ((int)-uVar10 < 2) {
     param_1[10] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x20) + iVar9) * 65536.0f);
     param_1[0xc] = (int)ROUND(*(float *)(*(int *)(iVar4 + 0x24) + param_4 * 8) * 65536.0f);
@@ -3101,7 +3101,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLIT(uint *param_1,int *param_2,int param_3,
   if (0 < (int)uVar11) {
     *param_1 = 1;
     param_1[2] = uVar1;
-    param_1[0x12] = (uint)FUN_00415180;
+    param_1[0x12] = (uint)rdAFRaster_AdvanceLeftEdgeNGonIT;
     fVar4 = fVar4 - *(float *)(*(int *)(iVar5 + 0x20) + 4 + iVar12);
     if ((int)uVar11 < 2) {
       puVar3 = *(uint **)(*(int *)(iVar5 + 0x20) + iVar12);
@@ -3132,7 +3132,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonLIT(uint *param_1,int *param_2,int param_3,
   *param_1 = 0;
   param_1[2] = uVar2;
   param_1[3] = -uVar11;
-  param_1[0x12] = (uint)FUN_004151c0;
+  param_1[0x12] = (uint)rdAFRaster_AdvanceRightEdgeNGonIT;
   iVar12 = *(int *)(iVar5 + 0x20);
   if ((int)-uVar11 < 2) {
     param_1[10] = (int)ROUND(*(float *)(iVar10 + iVar12) * 65536.0f);
@@ -3863,11 +3863,12 @@ void __cdecl rdAFRaster_DrawNGonFIT(int param_1)
 #endif
 
 
-/* ---- 0x00415180  FUN_00415180 ---- */
-/* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
-   (docs/notes/asm_s*.md). */
+/* ---- 0x00415180  rdAFRaster_AdvanceLeftEdgeNGonIT ---- */
+/* Left edge step of the non-z-buffered perspective textured polygons (rdAFRaster_SetupEdgeNGonLIT /
+   FIT), the counterpart of rdAFRaster_AdvanceLeftEdgeNGonGIT without light. Hand-written in
+   build/overrides_asm_q6.c; was FUN_00415180. */
 
-void __cdecl FUN_00415180(int param_1)
+void __cdecl rdAFRaster_AdvanceLeftEdgeNGonIT(int param_1)
 
 {
   *(float *)(param_1 + 0x10) = *(float *)(param_1 + 0x14) + *(float *)(param_1 + 0x10);
@@ -3877,11 +3878,12 @@ void __cdecl FUN_00415180(int param_1)
   return;
 }
 
-/* ---- 0x004151c0  FUN_004151c0 ---- */
-/* Ported to C (build/overrides_asm_s1.c): read against the assembly only, NOT differentially tested
-   (docs/notes/asm_s*.md). */
+/* ---- 0x004151c0  rdAFRaster_AdvanceRightEdgeNGonIT ---- */
+/* Right edge step of the non-z-buffered perspective textured polygons (rdAFRaster_SetupEdgeNGonLIT
+   / FIT), the counterpart of rdAFRaster_AdvanceRightEdgeNGonGIT without light. Hand-written in
+   build/overrides_asm_q6.c; was FUN_004151c0. */
 
-void __cdecl FUN_004151c0(int param_1)
+void __cdecl rdAFRaster_AdvanceRightEdgeNGonIT(int param_1)
 
 {
   *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + *(int *)(param_1 + 0x2c);
@@ -3932,7 +3934,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonFIT(uint *param_1,int *param_2,int param_3,
   if (0 < (int)uVar11) {
     *param_1 = 1;
     param_1[2] = uVar1;
-    param_1[0x12] = (uint)FUN_00415180;
+    param_1[0x12] = (uint)rdAFRaster_AdvanceLeftEdgeNGonIT;
     fVar4 = fVar4 - *(float *)(*(int *)(iVar5 + 0x20) + 4 + iVar12);
     if ((int)uVar11 < 2) {
       puVar3 = *(uint **)(*(int *)(iVar5 + 0x20) + iVar12);
@@ -3963,7 +3965,7 @@ uint __cdecl rdAFRaster_SetupEdgeNGonFIT(uint *param_1,int *param_2,int param_3,
   *param_1 = 0;
   param_1[2] = uVar2;
   param_1[3] = -uVar11;
-  param_1[0x12] = (uint)FUN_004151c0;
+  param_1[0x12] = (uint)rdAFRaster_AdvanceRightEdgeNGonIT;
   iVar12 = *(int *)(iVar5 + 0x20);
   if ((int)-uVar11 < 2) {
     param_1[10] = (int)ROUND(*(float *)(iVar10 + iVar12) * 65536.0f);

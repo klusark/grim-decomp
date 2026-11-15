@@ -425,7 +425,7 @@ rdModel3_LoadEntryText
                       do {
                         uVar19 = stdConffile_ReadLine();
                         if (uVar19 == 0) goto LAB_0040b8c4;
-                        FUN_00450220(puVar2);
+                        rdFace_NewEntry(puVar2);
                         strtok((byte *)g_dwStdConffile_aLine,&DAT_004dd918);
                         uVar19 = strtok((byte *)0x0,&DAT_004dd918);
                         puVar11 = atoi(uVar19);

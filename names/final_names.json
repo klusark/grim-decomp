@@ -1,0 +1,338 @@
+[
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00402200",
+  "old": "FUN_00402200",
+  "name": "ChoreFace_CallSavedHook",
+  "comment": "Calls the function pointer ChoreFace_Toggle saves (UINT_004f5a70) and returns 1. Nothing references it (dead code); was FUN_00402200."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00408800",
+  "old": "FUN_00408800",
+  "name": "rdCache_DrawNGonTFATThunk",
+  "comment": "Passes its stack arguments on to rdNRaster_DrawNGonTFAT and returns 1. Nothing references it (dead code); was FUN_00408800."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00450220",
+  "old": "FUN_00450220",
+  "name": "rdFace_NewEntry",
+  "comment": "Resets a 0x4c-byte face record (rdFace_NewEntry of the Jedi Knight RDroid library): type, geometry / lighting / texture modes, material and the vertex lists 0, material index (+0x24) -1. Called by rdModel3_LoadEntryText for every face it reads; was FUN_00450220."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00480020",
+  "old": "FUN_00480020",
+  "name": "Res_SysInitializeBody",
+  "comment": "The body of Res_SysInitialize (0x00480010 loads its arguments into ECX / EDX and falls through to here): stores the low-level services, and on the first call (EDX 0) fills the SysModuleIface with the Res_Sys* entry points and clears the resource lists. Returns 0, or 1 when called again; was FUN_00480020."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004862b0",
+  "old": "FUN_004862b0",
+  "name": "Render_CompareDrawDepth",
+  "comment": "qsort comparator of Render_BuildActorDrawList: 1 when the depth (+4) of the first entry is less than the second's, else 0; was FUN_004862b0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004761b0",
+  "old": "FUN_004761b0",
+  "name": "stdDisplay_EnumDevicesCallback",
+  "comment": "DirectDrawEnumerate callback (guid, description, driver name, context): fills display device record g_dwStdDisplay_numDevices (at most 16, 0x298 bytes each). Hand-written in build/overrides_asm_o2.c; was FUN_004761b0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004104b0",
+  "old": "FUN_004104b0",
+  "name": "rdRaster_EdgeStepLight",
+  "comment": "Edge step of the non-z-buffered Gouraud polygons: rdAFRaster_SetupEdgeNGonGS steps both edges with it (light per row). Hand-written in build/overrides_asm_q6.c; was FUN_004104b0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00411b70",
+  "old": "FUN_00411b70",
+  "name": "rdRaster_EdgeStepTex",
+  "comment": "Edge step of the non-z-buffered affine textured polygons (u, v per row): rdAFRaster_SetupEdgeNGonLAT / FAT. Hand-written in build/overrides_asm_q6.c; was FUN_00411b70."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004129f0",
+  "old": "FUN_004129f0",
+  "name": "rdRaster_EdgeStepTexLight",
+  "comment": "Edge step of the non-z-buffered affine textured, Gouraud-lit polygons (u, v and light per row): rdAFRaster_SetupEdgeNGonGAT. Hand-written in build/overrides_asm_q6.c; was FUN_004129f0."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "00415180",
+  "old": "FUN_00415180",
+  "name": "rdAFRaster_AdvanceLeftEdgeNGonIT",
+  "comment": "Left edge step of the non-z-buffered perspective textured polygons (rdAFRaster_SetupEdgeNGonLIT / FIT), the counterpart of rdAFRaster_AdvanceLeftEdgeNGonGIT without light. Hand-written in build/overrides_asm_q6.c; was FUN_00415180."
+ },
+ {
+  "program": "/v101/GRIMFANDANGO.EXE",
+  "addr": "004151c0",
+  "old": "FUN_004151c0",
+  "name": "rdAFRaster_AdvanceRightEdgeNGonIT",
+  "comment": "Right edge step of the non-z-buffered perspective textured polygons (rdAFRaster_SetupEdgeNGonLIT / FIT), the counterpart of rdAFRaster_AdvanceRightEdgeNGonGIT without light. Hand-written in build/overrides_asm_q6.c; was FUN_004151c0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d030",
+  "old": "lundump__d030",
+  "name": "LoadBlock",
+  "comment": "LoadBlock (Lua 3.1 lundump.c): allocates `size` bytes (the host allocator, service +0x20) and reads them from the stream (ezread); was lundump__d030."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d130",
+  "old": "lundump__d130",
+  "name": "Undump_InvertBytes",
+  "comment": "Complements `n` bytes in place (byte-wise up to dword alignment, then dwords): Grim's precompiled scripts store their code inverted; was lundump__d130."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d360",
+  "old": "lundump__d360",
+  "name": "Undump_Swap4",
+  "comment": "Reverses the byte order of the 4 bytes at p (a word of a chunk saved on the other byte order); was lundump__d360."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d380",
+  "old": "lundump__d380",
+  "name": "Undump_Swap8",
+  "comment": "Reverses the byte order of the 8 bytes at p; was lundump__d380."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000d3c0",
+  "old": "lundump__d3c0",
+  "name": "LoadFunctions",
+  "comment": "LoadFunctions (Lua 3.1 lundump.c): while the next byte is '#' (ID_FUN), reads the constant index and the nested function (LoadFunction) and stores it in the function's constant table; was lundump__d3c0."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ef20",
+  "old": "lzio__ef20",
+  "name": "_fpmath",
+  "comment": "MSVC C runtime _fpmath: _cfltcvt_init, then the floating-point start-up of the runtime. (Placed with lzio.c by address only.); was lzio__ef20."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "1000ef40",
+  "old": "lzio__ef40",
+  "name": "_cfltcvt_init",
+  "comment": "MSVC C runtime _cfltcvt_init: fills the floating-point conversion table (_cfltcvt, _cropzeros, _fassign, _forcdecpt, _positive, _cldcvt) that printf / scanf use; was lzio__ef40."
+ },
+ {
+  "program": "/LUA.DLL",
+  "addr": "100085e0",
+  "old": "lstate__85e0",
+  "name": "LState_CodeLength",
+  "comment": "Length in bytes of a function's code: walks the opcodes from +2 of the code block (+0x10 of the prototype) by their sizes in g_aOpcodeDirectory (asserting each opcode is in range) up to the end opcode 0, plus the 2-byte header; was lstate__85e0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10004660",
+  "old": "FUN_10004660",
+  "name": "ImFx_Initialize",
+  "comment": "Starts the HMI voice-effects library (hmiFXInitSystem with iMUSE_Malloc / iMUSE_Free) and loads the preset library IMUSE.PSL; sets the input and output formats (22050 Hz, 16 bit, mono in, stereo 44100 out). 1 on success (or when already running), 0 on failure; was FUN_10004660."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10004750",
+  "old": "FUN_10004750",
+  "name": "ImFx_SelectPreset",
+  "comment": "Releases the current voice-effect preset and processes preset `n` (hmiFXPresetProcess); from its chain of effects decides mono or stereo output, locks the preset and returns the channel count (0 when the preset cannot be made); was FUN_10004750."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10004970",
+  "old": "FUN_10004970",
+  "name": "ImFx_Terminate",
+  "comment": "Stops the HMI voice-effects library: releases the preset, frees the preset library and calls hmiFXUnInitSystem (when ImFx_Initialize ran); was FUN_10004970."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10006360",
+  "old": "FUN_10006360",
+  "name": "Script_Init",
+  "comment": "Initialises the music script: installs Script_Callback as the trigger callback, takes the local-music flag, sets up the file list (ImInitFilelist) and the two host callbacks, clears the 0xe4 attributes and the current state / sequence / cue point; was FUN_10006360."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100063d0",
+  "old": "FUN_100063d0",
+  "name": "Script_Terminate",
+  "comment": "Ends the music script: stops the local music (Script_StopLocalMusic) and clears the state, the attributes, the sequence and the cue point; was FUN_100063d0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10006400",
+  "old": "FUN_10006400",
+  "name": "Script_Save",
+  "comment": "Saves the music script state into `buf` (at least 0x39c bytes): state, sequence, cue point, the attributes, then the file list (ImSaveFilelist). Returns the bytes written or -1; was FUN_10006400."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10006470",
+  "old": "FUN_10006470",
+  "name": "Script_Restore",
+  "comment": "Restores what Script_Save wrote: unloads and closes everything, reads state, sequence, cue point and the attributes, then the file list (ImRestoreFilelist). Returns the bytes read; was FUN_10006470."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100064d0",
+  "old": "FUN_100064d0",
+  "name": "Script_Update",
+  "comment": "Dispatcher command 4, once per frame: ends a sequence the trigger callback flagged as ended, and the current sequence when no music stream is playing; then ImFlushSounds. Hand-written in build/overrides_imuse_r1.c (Script_SetSequence takes a register argument); was FUN_100064d0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10006560",
+  "old": "FUN_10006560",
+  "name": "Script_SetState",
+  "comment": "Sets the music state by id (-1: only returns it): finds the state record, and unless it is current or a sequence plays, transitions to its file (Script_Trans). Returns the current state's id. Hand-written in build/overrides_imuse_r1.c; was FUN_10006560."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100067a0",
+  "old": "FUN_100067a0",
+  "name": "Script_NullCallback",
+  "comment": "Returns 0: passed as the two script callbacks ImInitializeScript takes, and called by the dispatcher; was FUN_100067a0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100067b0",
+  "old": "FUN_100067b0",
+  "name": "Script_Attribute",
+  "comment": "Script attributes: (-1, 0 / 1) pauses / resumes, (-1, -1) clears all; (10000, buf) copies the state and sequence names into buf and returns 0xde; (n < 0xe4, v) sets attribute n to v (unless v is -1) and returns it; was FUN_100067b0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10007110",
+  "old": "FUN_10007110",
+  "name": "Script_StopLocalMusic",
+  "comment": "When the music is local (not streamed by the game): stops all sounds, unloads and closes them; was FUN_10007110."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10008c40",
+  "old": "FUN_10008c40",
+  "name": "Lip_PhonemeAtTime",
+  "comment": "The phoneme of the lip-sync track of sound `id` (the stream, 10000, or one of the three sound effects) at time t (in 16ths): the entry whose time range holds it, 0x5f (rest) when none does; was FUN_10008c40."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10008ce0",
+  "old": "FUN_10008ce0",
+  "name": "Timer_Start",
+  "comment": "Starts iMUSE's multimedia timer (timeBeginPeriod / timeSetEvent with timer_callback, at least 50 ms resolution) and waits up to 3 x 4 s for its first tick, restarting it when none comes. Returns the tick count, 0 on failure. Hand-written; was FUN_10008ce0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10008e30",
+  "old": "FUN_10008e30",
+  "name": "Timer_Stop",
+  "comment": "Kills the multimedia timer (timeKillEvent / timeEndPeriod) and runs timer_callback once more; was FUN_10008e30."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10008e60",
+  "old": "FUN_10008e60",
+  "name": "Sounds_FreeAll",
+  "comment": "Frees the 32 sound slots (their sound data through the host's free) and clears the handle counter and the sound cache; was FUN_10008e60."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10009530",
+  "old": "FUN_10009530",
+  "name": "Sounds_GetSoundAddr",
+  "comment": "The sound data address of sound slot `id` (100..0x84), 0 otherwise; ihost_get_sound_addr returns it; was FUN_10009530."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10009560",
+  "old": "FUN_10009560",
+  "name": "Sounds_GetMapAddr",
+  "comment": "The map address of sound slot `id` (100..0x84), 0 otherwise; ihost_get_map_addr returns it; was FUN_10009560."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10009700",
+  "old": "FUN_10009700",
+  "name": "Im_DiscardMessage",
+  "comment": "An empty printf: stored in a table of message functions; was FUN_10009700."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10004460",
+  "old": "FUN_10004460",
+  "name": "ImList_AddHead",
+  "comment": "Links `node` (next at +0, previous at +4, both 0: not in a list) in front of the list `*head`. 0, or -5 (logged) when the node is in a list already; was FUN_10004460."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100044b0",
+  "old": "FUN_100044b0",
+  "name": "ImList_Remove",
+  "comment": "Unlinks `node` from the list `*head`. 0, -5 for a null node or empty list, -3 when the node is not in the list (both logged); was FUN_100044b0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10007700",
+  "old": "FUN_10007700",
+  "name": "Sounds_QueryMusicStream",
+  "comment": "Finds the first music stream (param 0x1800 == 1 with 0x400 == 3 or 4) and queries it (ImQueryStream: buffer size, critical size, free space, paused). 1 when there is one; was FUN_10007700."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100076b0",
+  "old": "FUN_100076b0",
+  "name": "Sounds_IsMusicCritical",
+  "comment": "1 when the music stream plays and its free space is at most its critical size (SoundsFillStreamsWhileMusicCritical loops while it is); was FUN_100076b0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100077c0",
+  "old": "FUN_100077c0",
+  "name": "Sounds_IsMusicBufferFull",
+  "comment": "0 while the music stream plays and has room for another gulp (free space at most buffer size - gulp size), else 1 (SoundsFloodMusicBuffer loops until it is); was FUN_100077c0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10007a20",
+  "old": "FUN_10007a20",
+  "name": "Sounds_MlInit",
+  "comment": "Allocates the sounds module's list of 20 loaded-memory entries (g_dwMlEntries) and clears it; was FUN_10007a20."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "100081f0",
+  "old": "FUN_100081f0",
+  "name": "Sounds_MlFreeAll",
+  "comment": "Frees every block in the loaded-memory list and the list itself; was FUN_100081f0."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10009f40",
+  "old": "FUN_10009f40",
+  "name": "Sounds_MlAdd",
+  "comment": "Adds a block to the loaded-memory list: appends while there is room, else reuses a free slot or doubles the list; was FUN_10009f40."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1000a030",
+  "old": "FUN_1000a030",
+  "name": "Sounds_MlRemove",
+  "comment": "Clears the loaded-memory list's slot that holds `block`; was FUN_1000a030."
+ },
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "10009ef0",
+  "old": "FUN_10009ef0",
+  "name": "Sounds_CompareRange",
+  "comment": "Search comparator: 0 when value lies in [range[0], range[1]), -1 below it, 1 above it; was FUN_10009ef0."
+ }
+]

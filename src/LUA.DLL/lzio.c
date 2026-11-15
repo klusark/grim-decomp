@@ -144,23 +144,25 @@ uint __cdecl luaZ_read(uint *param_1,undefined4 *param_2,uint param_3)
   return 0;
 }
 
-/* ---- 0x1000ef20  lzio__ef20 ---- */
+/* ---- 0x1000ef20  _fpmath ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-/* Unidentified function of lzio.c (input streams) */
+/* MSVC C runtime _fpmath: _cfltcvt_init, then the floating-point start-up of the runtime. (Placed
+   with lzio.c by address only.); was lzio__ef20. */
 
-void lzio__ef20(void)
+void _fpmath(void)
 
 {
-  lzio__ef40();
+  _cfltcvt_init();
   _DAT_1002bf8c = FUN_10012f30();
   FUN_10012ec0();
   return;
 }
 
-/* ---- 0x1000ef40  lzio__ef40 ---- */
-/* Unidentified function of lzio.c (input streams) */
+/* ---- 0x1000ef40  _cfltcvt_init ---- */
+/* MSVC C runtime _cfltcvt_init: fills the floating-point conversion table (_cfltcvt, _cropzeros,
+   _fassign, _forcdecpt, _positive, _cldcvt) that printf / scanf use; was lzio__ef40. */
 
-void lzio__ef40(void)
+void _cfltcvt_init(void)
 
 {
   PTR_FUN_10028b7c = FUN_10012fc0;

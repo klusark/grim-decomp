@@ -719,7 +719,7 @@ void __cdecl Render_BuildActorDrawList(void)
   pRVar2 = pSVar3->pRoomActors->pActors;
   do {
     if (pRVar2 == (RoomActorNode *)0x0) {
-      qsort(&g_dwDrawItems,g_dwTotDrawItems,4,FUN_004862b0);
+      qsort(&g_dwDrawItems,g_dwTotDrawItems,4,Render_CompareDrawDepth);
       return;
     }
     pAVar1 = g_pActors + pRVar2->nActor;

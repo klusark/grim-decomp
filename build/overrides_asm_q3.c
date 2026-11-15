@@ -590,7 +590,7 @@ undefined4 rdModel3_LoadEntryText(char *path, char *m)
                 int mi, n, k;
                 if (!Q3_READ())
                     goto fail;
-                FUN_00450220((undefined4 *)fp);
+                rdFace_NewEntry((undefined4 *)fp);
                 Q3_TOK(Q3_LINEBUF, Q3_WS);
                 mi = Q3_ATOI(Q3_TOK(0, Q3_WS));
                 Q3U(fp, 0) = f;

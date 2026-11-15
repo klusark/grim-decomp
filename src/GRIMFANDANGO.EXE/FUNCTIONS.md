@@ -1,6 +1,6 @@
 # GRIMFANDANGO.EXE function index
 
-2604 functions, 2397 with real names.
+2604 functions, 2408 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -322,7 +322,7 @@
 | 004be260 | Lua_LightMgrSetChange | lua.c | 18 |
 | 004be2a0 | Lua_LightMgrShutdown | lua.c | 20 |
 | 00402120 | ChoreFace_Toggle | choreface.c | 58 |
-| 00402200 | FUN_00402200 | choreface.c | 6 |
+| 00402200 | ChoreFace_CallSavedHook | choreface.c | 9 |
 | 00402290 | ChoreFace_OnCommand | choreface.c | 42 |
 | 00402580 | Display_Shutdown3D | stddisplay.c | 14 |
 | 004025b0 | Display_Select | stddisplay.c | 107 |
@@ -367,7 +367,7 @@
 | 00475c90 | Surface_BlitLockedDst | stddisplay.c | 224 |
 | 004760d0 | DDraw_Create | stddisplay.c | 37 |
 | 00476190 | DDraw_Release | stddisplay.c | 9 |
-| 004761b0 | FUN_004761b0 | stddisplay.c | 1 |
+| 004761b0 | stdDisplay_EnumDevicesCallback | stddisplay.c | 1 |
 | 00476390 | DDraw_EnumModesCallback | stddisplay.c | 100 |
 | 004765a0 | DDraw_EnumModesCallback320 | stddisplay.c | 100 |
 | 004767c0 | DDraw_Get | stddisplay.c | 5 |
@@ -488,7 +488,7 @@
 | 00407ef0 | rdCache_DrawRenderList | rdcache.c | 29 |
 | 00407f90 | rdCache_TriCompare | rdcache.c | 15 |
 | 00407fd0 | rdCache_DrawFaceN | rdcache.c | 478 |
-| 00408800 | FUN_00408800 | rdcache.c | 10 |
+| 00408800 | rdCache_DrawNGonTFATThunk | rdcache.c | 13 |
 | 00408af0 | rdCache_DrawFaceZ | rdcache.c | 459 |
 | 00409580 | rdCache_DrawFaceUser | rdmodel.c | 1 |
 | 00409d20 | rdCache_ProcFaceCompare | rdmodel.c | 14 |
@@ -588,7 +588,7 @@
 | 0040ffe0 | rdAFRaster_SetupEdgeNGonFS | rdraster.c | 1 |
 | 00410290 | rdAFRaster_SetupNGonGS | rdraster.c | 1 |
 | 00410330 | rdAFRaster_DrawNGonGS | rdraster.c | 1 |
-| 004104b0 | FUN_004104b0 | rdraster.c | 11 |
+| 004104b0 | rdRaster_EdgeStepLight | rdraster.c | 11 |
 | 004104e0 | rdAFRaster_SetupEdgeNGonGS | rdraster.c | 1 |
 | 004108b0 | rdAFRaster_SetupNGonLAT | rdraster.c | 1 |
 | 00410970 | rdAFRaster_DrawNGonLAT | rdraster.c | 1 |
@@ -599,7 +599,7 @@
 | 004114f0 | rdAFRaster_DrawSpanNGonMLAT_16 | rdraster.c | 1 |
 | 00411630 | rdAFRaster_SetupNGonFAT | rdraster.c | 1 |
 | 00411740 | rdAFRaster_DrawNGonFAT | rdraster.c | 1 |
-| 00411b70 | FUN_00411b70 | rdraster.c | 12 |
+| 00411b70 | rdRaster_EdgeStepTex | rdraster.c | 12 |
 | 00411ba0 | rdAFRaster_SetupEdgeNGonFAT | rdraster.c | 1 |
 | 00412090 | rdAFRaster_SetupNGonMFAT | rdraster.c | 1 |
 | 004121a0 | rdAFRaster_DrawNGonMFAT | rdraster.c | 1 |
@@ -607,7 +607,7 @@
 | 004123b0 | rdAFRaster_DrawSpanNGonMFAT_16 | rdraster.c | 1 |
 | 004124f0 | rdAFRaster_SetupNGonGAT | rdraster.c | 1 |
 | 004125c0 | rdAFRaster_DrawNGonGAT | rdraster.c | 1 |
-| 004129f0 | FUN_004129f0 | rdraster.c | 13 |
+| 004129f0 | rdRaster_EdgeStepTexLight | rdraster.c | 13 |
 | 00412a30 | rdAFRaster_SetupEdgeNGonGAT | rdraster.c | 1 |
 | 00413040 | rdAFRaster_SetupNGonMGAT | rdraster.c | 1 |
 | 00413110 | rdAFRaster_DrawNGonMGAT | rdraster.c | 1 |
@@ -622,8 +622,8 @@
 | 00414530 | rdAFRaster_DrawSpanNGonMLIT_16 | rdraster.c | 1 |
 | 00414be0 | rdAFRaster_SetupNGonFIT | rdraster.c | 1 |
 | 00414d20 | rdAFRaster_DrawNGonFIT | rdraster.c | 1 |
-| 00415180 | FUN_00415180 | rdraster.c | 12 |
-| 004151c0 | FUN_004151c0 | rdraster.c | 9 |
+| 00415180 | rdAFRaster_AdvanceLeftEdgeNGonIT | rdraster.c | 13 |
+| 004151c0 | rdAFRaster_AdvanceRightEdgeNGonIT | rdraster.c | 10 |
 | 004151d0 | rdAFRaster_SetupEdgeNGonFIT | rdraster.c | 1 |
 | 004154c0 | rdAFRaster_SetupNGonMFIT | rdraster.c | 1 |
 | 00415600 | rdAFRaster_DrawNGonMFIT | rdraster.c | 1 |
@@ -982,7 +982,7 @@
 | 00450060 | rdMatrix_TransformPoint34 | math3d.c | 14 |
 | 004500d0 | rdMatrix_TransformPoint34Acc | math3d.c | 43 |
 | 00450170 | rdMatrix_TransformPointLst34 | math3d.c | 15 |
-| 00450220 | FUN_00450220 | math3d.c | 18 |
+| 00450220 | rdFace_NewEntry | math3d.c | 22 |
 | 00450260 | rdFace_FreeEntry | math3d.c | 14 |
 | 00450290 | rdMath_CalcSurfaceNormal | math3d.c | 34 |
 | 00450380 | rdMath_ClampVector | math3d.c | 43 |
@@ -1220,7 +1220,7 @@
 | 00482520 | grimlib_SetCacheMax | res.c | 9 |
 | 0048e230 | sputResource_ReportAllocations | res.c | 9 |
 | 00480010 | Res_SysInitialize | resource.c | 36 |
-| 00480020 | FUN_00480020 | resource.c | 30 |
+| 00480020 | Res_SysInitializeBody | resource.c | 36 |
 | 004800a0 | Res_SysTerminate | resource.c | 11 |
 | 004800b0 | Res_SysStartup | resource.c | 20 |
 | 00480140 | Res_SysShutdown | resource.c | 23 |
@@ -1515,7 +1515,7 @@
 | 004a9d00 | ShrinkBoxes | sector.c | 1 |
 | 00486250 | DrawList_Reset | drawlist.c | 16 |
 | 00486280 | DrawList_Alloc | drawlist.c | 14 |
-| 004862b0 | FUN_004862b0 | drawlist.c | 8 |
+| 004862b0 | Render_CompareDrawDepth | drawlist.c | 11 |
 | 00486a10 | sputRender_SegmentPlaneIntersect | plane.c | 41 |
 | 00486b40 | sputRender_CreateCacheRect | cacherect.c | 65 |
 | 00486c50 | sputRender_RestoreCacheRect | cacherect.c | 20 |

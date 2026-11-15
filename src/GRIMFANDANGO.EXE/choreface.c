@@ -65,8 +65,11 @@ LAB_004021fb:
   return 1;
 }
 
-/* ---- 0x00402200  FUN_00402200 ---- */
-uint __cdecl FUN_00402200(void)
+/* ---- 0x00402200  ChoreFace_CallSavedHook ---- */
+/* Calls the function pointer ChoreFace_Toggle saves (UINT_004f5a70) and returns 1. Nothing
+   references it (dead code); was FUN_00402200. */
+
+uint __cdecl ChoreFace_CallSavedHook(void)
 
 {
   (*(code *)UINT_004f5a70)();

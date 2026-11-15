@@ -44,6 +44,7 @@ extern char f_errorfb[] __asm__("_errorfb");
 extern char f_exit[] __asm__("_exit");
 extern char f_foreach[] __asm__("_foreach");
 extern char f_foreachvar[] __asm__("_foreachvar");
+extern char f_fpmath[] __asm__("__fpmath");
 extern char f_getglobal[] __asm__("_getglobal");
 extern char f_gettagmethod[] __asm__("_gettagmethod");
 extern char f_internaldofile[] __asm__("_internaldofile");
@@ -77,7 +78,6 @@ extern char f_luaT_setfallback[] __asm__("_luaT_setfallback");
 extern char f_lua_pausetasks[] __asm__("_lua_pausetasks");
 extern char f_lua_unpausetasks[] __asm__("_lua_unpausetasks");
 extern char f_luatag[] __asm__("_luatag");
-extern char f_lzio__ef20[] __asm__("_lzio__ef20");
 extern char f_math_abs[] __asm__("_math_abs");
 extern char f_math_acos[] __asm__("_math_acos");
 extern char f_math_asin[] __asm__("_math_asin");
@@ -758,7 +758,7 @@ extern char s_WARNING__Killing_Lua_script_that_100281c4[88];
 extern char s_WARNING__Lua_nesting_level_now___1002821c[64];
 extern char s_unexpected_type_in_arithmetic_op_1002825c[40];
 extern char s_unexpected_type_in_comparison_10028284[40];
-extern void *PTR_lzio__ef20_100282ac[4];
+extern void *PTR__fpmath_100282ac[4];
 extern unsigned char DAT_100282bc[4];
 extern unsigned char DAT_100282c0[4];
 extern unsigned char DAT_100282c4[11];
@@ -2273,8 +2273,8 @@ extern unsigned char DAT_1002d720[4];
 /* 0x1002821c, 64 bytes */ GRIM_DATA("1002821c") char s_WARNING__Lua_nesting_level_now___1002821c[64] = "WARNING: Lua nesting level now %d inside breakable section!\n";
 /* 0x1002825c, 40 bytes */ GRIM_DATA("1002825c") char s_unexpected_type_in_arithmetic_op_1002825c[40] = "unexpected type in arithmetic operation";
 /* 0x10028284, 40 bytes */ GRIM_DATA("10028284") char s_unexpected_type_in_comparison_10028284[40] = "unexpected type in comparison\000\000\000u\230\000\000s\230";
-/* 0x100282ac, 16 bytes */ GRIM_DATA("100282ac") void *PTR_lzio__ef20_100282ac[4] = {
-    (void *)f_lzio__ef20, (void *)f_luaI_breakhere, (void *)f_luaI_breakhere, (void *)0x19930520
+/* 0x100282ac, 16 bytes */ GRIM_DATA("100282ac") void *PTR__fpmath_100282ac[4] = {
+    (void *)f_fpmath, (void *)f_luaI_breakhere, (void *)f_luaI_breakhere, (void *)0x19930520
 };
 /* 0x100282bc, 4 bytes, unused (dead) */ GRIM_DATA("100282bc") unsigned char DAT_100282bc[4];
 /* 0x100282c0, 4 bytes, unused (dead) */ GRIM_DATA("100282c0") unsigned char DAT_100282c0[4];

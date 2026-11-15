@@ -7,11 +7,11 @@ Every function below is built from the hand-written C of `build/overrides*.c`; `
 | Category | Count | Meaning |
 |---|---|---|
 | rasteriser | 363 | rdraster.c span fillers: the original switches the x87 control word part-way through each span (24-bit truncation), which generated C cannot express; built from macro templates and tested against the original (build/difftest/asm_q4 .. q6). Kept on purpose. |
-| documented | 63 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
+| documented | 61 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
 | hook | 10 | the build's own test and mod hooks, host-runtime handling (kept on purpose) |
 | x87 | 67 | x87-exact ports (float rounding through memory, FCOMP compares, ST0 results) the generated C does not match |
 | assembly | 14 | top-level asm(): a register convention C cannot declare |
-| repair | 31 | Ghidra's text is wrong for it (lost or register arguments, unrecovered jump tables): needs a fix in the Ghidra project before it can be generated again |
+| repair | 33 | Ghidra's text is wrong for it (lost or register arguments, unrecovered jump tables): needs a fix in the Ghidra project before it can be generated again |
 
 Total: 548.
 
@@ -131,8 +131,8 @@ Total: 548.
 | `D3D_InitRenderState` | 00479db0 | std3d.c | overrides_asm_o2.c | documented | twin test: crashes (the execute buffer descriptor comes from unaff_ registers) |
 | `std3D_DrawRenderList` | 00478b40 | std3d.c | overrides_asm_o2.c | documented | the execute-buffer descriptor comes from EDI |
 | `Display_InitFromConfig` | 00402930 | stddisplay.c | overrides.c | hook | Display_InitFromConfig (0x402930): |
-| `FUN_004761b0` | 004761b0 | stddisplay.c | overrides_asm_o2.c | documented | twin test: crashes (DirectDrawEnumerate callback, unaff_ registers) |
 | `stdColor_ColorConvertOneRow` | 0047b8a0 | stddisplay.c | overrides_logic.c | x87 | Converts `count` pixels between the RGB layouts described by two format records (bits per pixel at +4, bits per channel at +8 / +0xc / +0x10, left shifts at +0x14 / +0x18 / +0x1c, expansion shifts for 24 bit at +0x20 / + |
+| `stdDisplay_EnumDevicesCallback` | 004761b0 | stddisplay.c | overrides_asm_o2.c | repair | (guid, description, driver name, context): |
 | `stdDisplay_TextOut` | 00474e40 | stddisplay.c | overrides_asm_o2.c | documented | twin test: crashes (unaff_ registers) |
 | `stdDisplay_Update` | 00474420 | stddisplay.c | fastpaths.c | hook |  |
 | `stdDisplay_VBufferNew` | 00474480 | stddisplay.c | overrides_logic.c | repair | Std/Win95/Stddisplay.c: |
@@ -192,9 +192,6 @@ Total: 548.
 |---|---|---|---|---|---|
 | `DwQuery` | 10003730 | imuse.c | overrides_imuse.c | repair | Called twice per 20 ms heartbeat step by TrIntHandler, alternating between two phases (DAT_1002d848 toggles): |
 | `DwTerminate` | 100038d0 | imuse.c | overrides_imuse.c | repair | Releases the two DirectSound objects (COM Release, vtable slot 2, __stdcall) and frees the scratch block. |
-| `FUN_100064d0` | 100064d0 | imuse.c | overrides_imuse_r1.c | documented | calls Script_SetSequence with a hidden register argument (the dispatcher's ESI) |
-| `FUN_10006560` | 10006560 | imuse.c | overrides_imuse_r1.c | repair |  |
-| `FUN_10008ce0` | 10008ce0 | imuse.c | overrides.c | hook | FUN_10008ce0 (iMUSE heartbeat timer start-up): |
 | `ImSoundCall` | 10004f70 | imuse.c | overrides_imuse.c | repair | Command dispatcher: cmd = number of the Im* call, a2..a11 = ten argument words. |
 | `ImWaveHalt` | 10004f50 | imuse.c | overrides.c | assembly | The iMUSE re-entrancy guard (g_dwWvSlicingHalted, Enter/Leave around nearly every Im* call) is a plain counter: |
 | `ImWaveProceed` | 10004f60 | imuse.c | overrides.c | assembly | The iMUSE re-entrancy guard (g_dwWvSlicingHalted, Enter/Leave around nearly every Im* call) is a plain counter: |
@@ -204,7 +201,10 @@ Total: 548.
 | `Im_RunTriggerCommand` | 1000b6a0 | imuse.c | overrides_imuse.c | documented | the twin calls the callback with the marker alone; the code pushes eleven words |
 | `MxInitialize` | 10005360 | imuse.c | overrides_imuse.c | x87 |  |
 | `Script_SetSequence` | 10006620 | imuse.c | overrides_imuse_r1.c | assembly | id = sequence id (-1: |
+| `Script_SetState` | 10006560 | imuse.c | overrides_imuse_r1.c | repair |  |
 | `Script_Trans` | 100068b0 | imuse.c | overrides_imuse_r1.c | repair |  |
+| `Script_Update` | 100064d0 | imuse.c | overrides_imuse_r1.c | repair |  |
+| `Timer_Start` | 10008ce0 | imuse.c | overrides.c | hook | Timer_Start (iMUSE heartbeat timer start-up): |
 | `FUN_1000c670` | 1000c670 | imuse_api.c | overrides.c | x87 | not the CRT port's own vsprintf |
 | `SoundsFillStreamsWhileMusicCritical` | 10007670 | imuse_api.c | overrides.c | hook |  |
 | `SoundsFloodMusicBuffer` | 10007790 | imuse_api.c | overrides.c | hook |  |

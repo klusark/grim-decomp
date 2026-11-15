@@ -482,7 +482,7 @@ undefined4 sputLua_Startup(void)
 }
 
 
-/* ==== FUN_004761b0 (0x004761b0): DirectDrawEnumerate callback ====
+/* ==== stdDisplay_EnumDevicesCallback (0x004761b0): DirectDrawEnumerate callback ====
  * (guid, description, driver name, context): fills display device record g_dwStdDisplay_numDevices (at most 16, 0x298
  * bytes each at 0x00902c60): name at +0, description at +0x80 (127 characters each), +0x100 = 1, +0x104 has a GUID,
  * +0x10c primary (no GUID), +0x110 = 1, GUID at +0x288.  Creates the DirectDraw object, sets the cooperative level twice
@@ -491,7 +491,7 @@ undefined4 sputLua_Startup(void)
  * SetCooperativeLevel passes 8 (DDSCL_NORMAL) instead of the original 0x11: the build's patch (names/asm_patches.json,
  * 0x00476297) is kept.  Returns 1 (DDENUMRET_OK) when DirectDrawCreate or GetCaps fail or the device was added (only
  * then the count goes up and the object is released), 0 (cancel) when there is no room or a cooperative level fails. */
-undefined * __stdcall FUN_004761b0(int a1, int a2, int a3, int a4)
+undefined * __stdcall stdDisplay_EnumDevicesCallback(int a1, int a2, int a3, int a4)
 {
     uint n = g_dwStdDisplay_numDevices;
     byte *rec;

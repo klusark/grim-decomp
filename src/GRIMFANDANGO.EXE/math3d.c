@@ -1268,8 +1268,12 @@ void __cdecl rdMatrix_TransformPointLst34(float *m,float *in,float *out,int coun
   return;
 }
 
-/* ---- 0x00450220  FUN_00450220 ---- */
-uint __cdecl FUN_00450220(undefined4 *param_1)
+/* ---- 0x00450220  rdFace_NewEntry ---- */
+/* Resets a 0x4c-byte face record (rdFace_NewEntry of the Jedi Knight RDroid library): type,
+   geometry / lighting / texture modes, material and the vertex lists 0, material index (+0x24) -1.
+   Called by rdModel3_LoadEntryText for every face it reads; was FUN_00450220. */
+
+uint __cdecl rdFace_NewEntry(undefined4 *param_1)
 
 {
   *param_1 = 0;

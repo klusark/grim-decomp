@@ -241,7 +241,7 @@ extern char s_WARNING__Killing_Lua_script_that_100281c4[]; /* used by 1 fn(s), f
 extern char s_WARNING__Lua_nesting_level_now___1002821c[]; /* used by 1 fn(s), first 0x1000df40 */
 extern char s_unexpected_type_in_arithmetic_op_1002825c[]; /* used by 1 fn(s), first 0x1000ecf0 */
 extern char s_unexpected_type_in_comparison_10028284[]; /* used by 1 fn(s), first 0x1000ed10 */
-extern undefined *PTR_lzio__ef20_100282ac; /* used by 1 fn(s), first 0x10015590 */
+extern undefined *PTR__fpmath_100282ac; /* used by 1 fn(s), first 0x10015590 */
 extern undefined4 DAT_100282bc; /* used by 2 fn(s), first 0x1000f45d */
 extern undefined4 DAT_100282c0; /* used by 2 fn(s), first 0x1000f45d */
 extern int DAT_100282c4; /* used by 2 fn(s), first 0x1000f45d */

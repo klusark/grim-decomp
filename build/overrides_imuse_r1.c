@@ -1,5 +1,5 @@
 /* IMUSE.DLL, last assembled functions (agent r1): the script layer's music state / sequence transitions.
- *   FUN_10006560 (state), Script_SetSequence (sequence), Script_Trans (the transition itself), FUN_100064d0 (end-of-sequence check,
+ *   Script_SetState (state), Script_SetSequence (sequence), Script_Trans (the transition itself), Script_Update (end-of-sequence check,
  *   compiled from the decompiler's C before; written here because it is the one caller that passes another frame word).
  * Written from the disassembly (git show 85dd22f:src/IMUSE.DLL/asm_funcs.s).  Notes: docs/notes/imuse_r1.md.
  *
@@ -16,9 +16,9 @@
  * What really reads the stack beyond the pushed arguments is ImSetTrigger: it stores its 13th argument word (p9) in all ten
  * parameter words of the trigger (build/overrides_imuse.c), and Script_Trans pushes only 3..8 of the 13.  The 13th word
  * then lies in Script_Trans's own frame or above it, at a place fixed by the number of pushed words n:
- *     n = 3  [entry+0x14] the caller's saved ESI = the ESI register of the caller's caller (FUN_10006560 / Script_SetSequence
+ *     n = 3  [entry+0x14] the caller's saved ESI = the ESI register of the caller's caller (Script_SetState / Script_SetSequence
  *            push ESI first): 0xffffffff when called from the dispatcher ScriptCall (`or esi,-1` in its prologue;
- *            FUN_100064d0 does not touch ESI before its first call either), 0 at FUN_100064d0's second call
+ *            Script_Update does not touch ESI before its first call either), 0 at Script_Update's second call
  *     n = 5  [entry+0x0c] argument 3                   n = 6  [entry+0x08] slot 2 = the fade time
  *     n = 7  [entry+0x04] slot 1 = the hook value      n = 8  [entry]      Script_Trans's return address (in the original
  *            image, which loads at its preferred base 0x10000000: 0x100065f3, 0x100066eb, 0x1000672c or 0x10006778)
@@ -235,12 +235,12 @@ void Script_Trans(char *entry, int index, int no_attr, uint caller_esi, uint ret
     ImSetParam(snd, 0x400, 4);
 }
 
-/* ==== FUN_10006560 (0x10006560): ImSetState through the dispatcher (command 5) ====
+/* ==== Script_SetState (0x10006560): ImSetState through the dispatcher (command 5) ====
  * id = state id (-1: return the current state's id).  Unknown id: 0.  Prints the state's name; a different state starts the
  * transition unless a sequence is playing (then only the current state changes).  Returns the id of the current state.
  * Called only by the dispatcher ScriptCall, whose ESI is 0xffffffff: the word ImSetTrigger reads for n = 3. */
-/* OVERRIDES: FUN_10006560 */
-int FUN_10006560(int id)
+/* OVERRIDES: Script_SetState */
+int Script_SetState(int id)
 {
     int i;
 
@@ -259,7 +259,7 @@ int FUN_10006560(int id)
     return IMW(STATE_TAB + 0x24 + IMW(CUR_STATE) * ENT_SIZE);
 }
 
-/* ==== Script_SetSequence (0x10006620): ImSetSequence (command 5 of the dispatcher, and FUN_100064d0) ====
+/* ==== Script_SetSequence (0x10006620): ImSetSequence (command 5 of the dispatcher, and Script_Update) ====
  * id = sequence id (-1: return the current one's id; 0 = 2000 = no sequence).  Unknown id: prints an error, returns -1.
  * Starting a sequence while the current one is of type 4 or 6 only queues it (PENDING_SEQ).  Sequence 0 ends the sequence:
  * the queued one starts, or the music of the current state comes back.  Returns the id of the current sequence.
@@ -316,12 +316,12 @@ int Script_SetSequence(int id)   /* (the record's nId: int since types round 5) 
     return Im_SetSequence(id, 0xffffffffu);   /* the dispatcher's ESI */
 }
 
-/* ==== FUN_100064d0 (0x100064d0): dispatcher command 4, run once per frame by the game ====
+/* ==== Script_Update (0x100064d0): dispatcher command 4, run once per frame by the game ====
  * If the trigger callback flagged the end of a sequence: end it (Script_SetSequence(0)).  Then if no music stream is playing
  * (param 0x1800 set and 0x1900 == 2) while a sequence is current, end the sequence too.  ImFlushSounds, return 0.
  * Its ESI is the dispatcher's (0xffffffff) at the first call and the loop variable (0: no stream found) at the second. */
-/* OVERRIDES: FUN_100064d0 */
-undefined4 FUN_100064d0(void)
+/* OVERRIDES: Script_Update */
+undefined4 Script_Update(void)
 {
     uint s;
 

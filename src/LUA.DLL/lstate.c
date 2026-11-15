@@ -659,7 +659,7 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
         uVar4 = uVar4 + 1;
       } while (uVar4 < (uint)a1);
     }
-    pbStack_c = lstate__85e0((int)puStack_34);
+    pbStack_c = LState_CodeLength((int)puStack_34);
     (*(code *)a2)(&pbStack_c,4);
     (*(code *)a2)(puStack_34[4],pbStack_c);
   }
@@ -727,10 +727,12 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
 #undef puStack_34
 
 
-/* ---- 0x100085e0  lstate__85e0 ---- */
-/* Unidentified function of lstate.c (Grim execution states / tasks) */
+/* ---- 0x100085e0  LState_CodeLength ---- */
+/* Length in bytes of a function's code: walks the opcodes from +2 of the code block (+0x10 of the
+   prototype) by their sizes in g_aOpcodeDirectory (asserting each opcode is in range) up to the end
+   opcode 0, plus the 2-byte header; was lstate__85e0. */
 
-byte * __cdecl lstate__85e0(int param_1)
+byte * __cdecl LState_CodeLength(int param_1)
 
 {
   uint uVar1;

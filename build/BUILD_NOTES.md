@@ -2070,3 +2070,19 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   the 363 rasteriser span fillers, 63 with a recorded reason (names/override_reasons.json), 10 hooks, 67 x87-exact
   ports, 14 asm() blocks and 31 that need a repair in Ghidra first.
 * Clean room 0 of 5457.
+
+## The last unnamed game functions named (2026-11-15)
+
+* names/final_names.json: the 11 FUN_ of the EXE outside the C runtime (rdFace_NewEntry, Res_SysInitializeBody -
+  the body Res_SysInitialize falls through to -, Render_CompareDrawDepth, stdDisplay_EnumDevicesCallback, the five
+  non-z-buffered edge steps rdRaster_EdgeStepLight / Tex / TexLight and rdAFRaster_AdvanceLeft / RightEdgeNGonIT, and
+  two dead ones), LUA.DLL's 8 module-level names (LoadBlock, LoadFunctions, Undump_InvertBytes, Undump_Swap4 / 8,
+  LState_CodeLength, and the C runtime's _fpmath / _cfltcvt_init that sat in lzio.c), and IMUSE.DLL's 29 live FUN_
+  (the music script Script_Init / Terminate / Save / Restore / Update / SetState / Attribute, the voice-effect set-up
+  ImFx_Initialize / SelectPreset / Terminate, Timer_Start / Stop, the sounds module's loaded-memory list
+  Sounds_Ml*, the music stream queries, the lip-sync lookup, the list helpers ImList_AddHead / Remove).
+* Each keeps its module (names/orig_modules.json pins the new names: build_src.py would otherwise file Script_* into
+  a script.c), and its plate comment ends "was FUN_...".
+* What stays FUN_: the C runtime (EXE 195 in crt_unnamed.c, LUA.DLL 163, IMUSE.DLL 101; most of it dead, kept out of
+  the build by names/lib_replace.json) and CHORE.DLL's 152 dead runtime copies.
+* Clean room 0 of 5457.

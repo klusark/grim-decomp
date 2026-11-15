@@ -133,10 +133,13 @@ undefined4 __cdecl FmGetBufInfo(int param_1)
   return 0;
 }
 
-/* ---- 0x10004660  FUN_10004660 ---- */
+/* ---- 0x10004660  ImFx_Initialize ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Starts the HMI voice-effects library (hmiFXInitSystem with iMUSE_Malloc / iMUSE_Free) and loads
+   the preset library IMUSE.PSL; sets the input and output formats (22050 Hz, 16 bit, mono in,
+   stereo 44100 out). 1 on success (or when already running), 0 on failure; was FUN_10004660. */
 
-uint __cdecl FUN_10004660(uint param_1)
+uint __cdecl ImFx_Initialize(uint param_1)
 
 {
   int iVar1;
@@ -179,10 +182,13 @@ uint __cdecl FUN_10004660(uint param_1)
   return 1;
 }
 
-/* ---- 0x10004750  FUN_10004750 ---- */
+/* ---- 0x10004750  ImFx_SelectPreset ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+/* Releases the current voice-effect preset and processes preset `n` (hmiFXPresetProcess); from its
+   chain of effects decides mono or stereo output, locks the preset and returns the channel count (0
+   when the preset cannot be made); was FUN_10004750. */
 
-int __cdecl FUN_10004750(uint param_1)
+int __cdecl ImFx_SelectPreset(uint param_1)
 
 {
   int iVar1;
