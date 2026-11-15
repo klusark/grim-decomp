@@ -9,6 +9,8 @@ into files that follow the original module layout.
 The Ghidra project is the system of record. Every name, prototype, struct and
 plate comment lives there; this tree is regenerated from it.
 
+**Where it stands:** [docs/STATUS.md](docs/STATUS.md) (one page: what is true, how a change is checked, what is left).
+
 **The rebuilt executable runs the real game** (boots to Manny's office, walks, dialogue, inventory, movies, save/load).
 To learn the code and change the game - build/run loop, how the game finds its Lua scripts and data (loose files
 override `.LAB` contents), how to add a Lua API function, a subsystem map and three worked example mods -
@@ -34,6 +36,9 @@ read **[docs/MODDING.md](docs/MODDING.md)**; the 319 Lua functions the engine re
 | `build/` | Makefile, `link.py`, `datacmp.py` (compares the data of two builds span by span), `compat.h`, shims, `BUILD_NOTES.md`. |
 | `build/overrides_hmifx.c`, `tools/hmifx_check.c` | HMI's voice-effects library (HMIFXLIB.DLL and the effects of HMIFXFP.DLL that IMUSE.PSL uses) in C, and the check that compares it with the DLLs sample for sample. |
 | `tools/stats.py` | Coverage table (below): how much is named. |
+| `docs/OVERRIDES.md`, `tools/overrides_report.py` | Every function still built from hand-written C, and why it stays (reasons in `names/override_reasons.json`). |
+| `build/mixdiff/twin.sh` | Differential test of *generated* code: a function's generated twin against the original machine code, the rest of the current build linked behind it (build/BUILD_NOTES.md). |
+| `tools/propagate_params.py` | Names (and pointer-types) `param_N` parameters from the calls that pass them on. |
 | `tools/coverage.sh`, `tools/covreport.py` | Line coverage of the four programs under grim_tools' clean-room tests: the gcov build (`make COVERAGE=1 OBJ=obj-cov`), the run, the report in `build/coverage/`, without the code of `tools/coverage_exclude.json` that the game cannot run (build/BUILD_NOTES.md, "Coverage build"). Windows (MSYS2) or Linux (mingw-w64 and Wine). |
 | `tools/lab.py`, `tools/luadump.py`, `tools/list_lua_api.py` | List/extract/pack `.LAB` archives; dump precompiled Lua 3.1 scripts; list the Lua API (`docs/LUA_API.md`). |
 | `tools/run_game.sh`, `tools/lua_cmd.sh`, `tools/grim_shot.ps1`, `tools/mkmoddir.sh` | Start the rebuilt game with the test knobs, run Lua in it, screenshot it, create a mod directory. |
@@ -85,8 +90,11 @@ the real Win32/DirectX import libraries (`build/stdcall_names.json`). No functio
 included, is compiled C (much of
 it hand-written in `build/overrides*.c` where Ghidra's C is wrong about x87 results, register calling conventions and
 lost arguments), verified against the original machine code by differential tests and the clean-room tests
-(`grim_tools/cleanroom`, `run.py decomp`: all 5167 the same as the original). The result is playable. What is still stubbed:
-11 MSVC runtime helpers (the host runtime replaces them) in the EXE.
+(`grim_tools/cleanroom`, `run.py decomp`: all 5457 the same as the original) and the whole-game autorun (chapters 1
+to 65 of grim_tools' autorun on the rebuilt programs). The result is playable. 548 functions are still built from
+hand-written C instead of their generated twins; docs/OVERRIDES.md lists each with the reason (363 of them are the
+rasteriser's span fillers, whose x87 control-word switches generated C cannot express). What is stubbed: 32 dead C
+runtime fragments in the EXE that only other dead code and data refer to.
 
 ## What the binary tells us about the original source
 
@@ -130,12 +138,12 @@ Output of `tools/stats.py` (regenerate after changes):
 
 | Program | Functions | Named | of which auto/module-level | Unnamed (FUN_) |
 |---|---|---|---|---|
-| GRIMFANDANGO.EXE | 2671 | 2464 | 119 | 207 |
-| LUA.DLL | 852 | 689 | 43 | 163 |
-| IMUSE.DLL | 451 | 305 | 22 | 146 |
+| GRIMFANDANGO.EXE | 2671 | 2475 | 122 | 196 (all of them C runtime, most of it dead) |
+| LUA.DLL | 852 | 689 | 35 | 163 (C runtime) |
+| IMUSE.DLL | 451 | 334 | 22 | 117 (C runtime) |
 | CHORE.DLL | 264 | 112 | 0 | 152 (all of them dead MSVC runtime copies) |
 
-Files in src/: 214
+Files in src/: 218
 
 ## Known gaps
 
@@ -163,9 +171,10 @@ Files in src/: 214
   docs/notes/orig_summary.md sums up the series).
   The software rasteriser has its original `rdNRaster_*` / `rdZRaster_*` /
   `rdAFRaster_*` names, paired through the dispatch tables (260 of 351); the
-  91 generated `rdRaster_*` names left are span fillers only v1.01 has. Of
-  the EXE's 207 `FUN_` left, 187 are C runtime / zlib (most of it dead) or
-  folded copies; 20 are LEC and game code the remaster has no symbol for.
+  91 generated `rdRaster_*` names left are span fillers only v1.01 has. The
+  EXE's 196 `FUN_` left are C runtime / zlib (most of it dead) or folded
+  copies; the game and LEC code is all named (names/final_names.json named the
+  last ones, with IMUSE.DLL's music script, voice effects and timer).
   402 EXE functions keep hand-made names: the platform layer (DirectX /
   Win32), helpers the remaster inlined, LEC helpers and the light editor.
   The remaster's ELFs carry no DWARF, so no struct or field names come from
@@ -180,12 +189,22 @@ Files in src/: 214
   (docs/notes/types_3.md), Lua 3.1's objects in LUA.DLL (`TObject`, `TaggedString`, `Hash`, `Node`, `TProtoFunc`,
   `Closure`, `LocVar`, `StringTable`, and 50 functions of the GC, strings, tables, functions, VM and API; docs/notes/types_8.md) and its state,
   `LState` (one per Lua task: stack, C stack, parser, task list; `g_pLuaState`; docs/notes/types_9.md), the walk sectors
-  `WalkPlane` with their shared vertex pool and the shrink cache (docs/notes/types_10.md), plus
-  the hand-made GrimServices and CHORE.DLL records. Most parameters are still Ghidra's inferred `int`/`undefined4`.
+  `WalkPlane` with their shared vertex pool and the shrink cache (docs/notes/types_10.md), the renderer
+  (camera, clip frustum, thing, mesh, material, colormap, canvas, model, the render cache faces, Direct3D's device and
+  texture cache, lights), sets, costumes and their model components, bitmaps, fonts, resources and the archive files,
+  and LUA.DLL's call frames (`ExecutionState`) and parser state (`FuncState`); plus the hand-made GrimServices and
+  CHORE.DLL records (build/BUILD_NOTES.md, the types sections). Raw `((int)p + 0x..)` accesses left: EXE 76 (data
+  whose type depends on run time: resource data by fourcc, costume instance data; name buffers; C runtime), LUA.DLL 0,
+  IMUSE.DLL a few byte streams. Parameters: `param_N` names left in the prototypes EXE 2626, LUA.DLL 1034, IMUSE.DLL
+  672, CHORE.DLL 259 (tools/propagate_params.py named 298 from their calls; the rest is mostly C runtime and scalar
+  leaf parameters that no call names).
 * Data types: `src/<prog>/data.c` gives values to every span typed as a scalar, a structure or an array of either.
   Typed so far: the EXE's sine, tangent and CRC-32 tables, LUA.DLL's parser tables and hash sizes
   (docs/notes/types_4.md); iMUSE's state, sequence and file-alias tables, the text contexts, the phoneme table and
   Blocky16's motion vectors (docs/notes/types_5.md); the ADPCM step tables, the colour dither matrix and Lua's
   validevents (docs/notes/types_6.md); VIMA's ADPCM tables in the EXE and IMUSE.DLL (docs/notes/types_7.md).
-  Untyped initialised bytes left: EXE 44,137, LUA 16,286, IMUSE 19,399, CHORE 14,236. The data only zlib and
+  The input controls (`g_aControlSymbols`), the DirectX error-name tables, the text wrap table and the C runtime's
+  `_ctype` (build/BUILD_NOTES.md, "Data tables typed"). Untyped initialised bytes left: EXE 39,299 (mostly the C
+  runtime's tables, the PE import directory, DirectInput's data formats and a constant pool), LUA 16,286,
+  IMUSE 19,399, CHORE 14,236. The data only zlib and
   the dead C runtime read (about 32 KB in all) is zero in data.c (docs/notes/data_unused.md).
