@@ -81,9 +81,9 @@
     ],
     [
      56,
-     "void *",
+     "rdMaterial *",
      "pMaterial",
-     "rdMaterial; 0 = untextured"
+     "0 = untextured"
     ],
     [
      60,
@@ -110,10 +110,70 @@
      "face light, clamped to 0 .. 1"
     ],
     [
+     76,
+     "uint",
+     "dwColormap",
+     "the colormap the face is drawn with (rdCache_AddProcFace: g_dwRdColormap_pIdentityMap)"
+    ],
+    [
      80,
      "int",
      "nBackFacing",
      "1 when the face points away from the camera (rdCache_InsertFace: normal . centre > 0)"
+    ],
+    [
+     84,
+     "uint",
+     "dwMinX",
+     "screen bounds (rdCache_AddProcFace): the smallest x of the vertices, rounded"
+    ],
+    [
+     88,
+     "uint",
+     "dwMaxX",
+     "the largest x, rounded"
+    ],
+    [
+     92,
+     "uint",
+     "dwMinY",
+     "the smallest y, rounded"
+    ],
+    [
+     96,
+     "uint",
+     "dwMaxY",
+     "the largest y, rounded"
+    ],
+    [
+     100,
+     "float",
+     "flMinZ",
+     "the smallest z of the vertices"
+    ],
+    [
+     104,
+     "float",
+     "flMaxZ",
+     "the largest z"
+    ],
+    [
+     108,
+     "uint",
+     "dwMinYVertex",
+     "index of the vertex with the smallest y"
+    ],
+    [
+     112,
+     "uint",
+     "dwMaxYVertex",
+     "index of the vertex with the largest y"
+    ],
+    [
+     116,
+     "uint",
+     "dwUserData",
+     "g_dwRdroid_curProcFaceUserData when the face was added"
     ]
    ]
   }
