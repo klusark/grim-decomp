@@ -24,6 +24,7 @@ extern undefined4 lua_assume_binary; /* 0x1002bee0, undefined4 in Ghidra */
 extern undefined4 lua_debug; /* 0x1002bee4, undefined4 in Ghidra */
 extern LState * g_pLuaState; /* 0x1002bf6c */
 extern LState * g_dwL_Main; /* 0x1002bf70 */
+extern ExecutionState * g_pExecutionState_pFreeStates; /* 0x1002bf84 */
 
 /* ---- unnamed data (type inferred from use) ---- */
 extern code LAB_1000f3b0;  /* code label (address only) */ /* used by 2 fn(s), first 0x1000f3d2 */
@@ -383,7 +384,6 @@ extern undefined4 g_dwLState_lstate_class_initialized; /* used by 4 fn(s), first
 extern undefined4 g_dwLState_numThreads; /* used by 4 fn(s), first 0x10002760 */
 extern undefined4 g_dwLState_bPtrsSorted; /* used by 2 fn(s), first 0x10007660 */
 extern undefined4 DAT_1002bf80; /* used by 1 fn(s), first 0x1000cc30 */
-extern void * g_pExecutionState_pFreeStates; /* used by 3 fn(s), first 0x1000db10 */
 extern undefined4 DAT_1002bf88; /* used by 3 fn(s), first 0x10011d6d */
 extern undefined DAT_1002bf8c; /* used by 2 fn(s), first 0x1000ef20 */
 extern undefined4 DAT_1002bf90; /* used by 2 fn(s), first 0x10015060 */

@@ -1426,8 +1426,9 @@ undefined4 __cdecl luaV_tostring(int *o)
 
 /* moves task state `this` into the task list right after `after` (it is first unlinked from where it is); doubly linked
  * through +0xcc (next) and +0xd0 (previous) */
-int __thiscall LState_attach(void *self, int after)
+int __thiscall LState_attach(LState *self_, int after)
 {
+    void *self = self_;
     int next = 0;
     LState_detach((int)self);
     if (after != 0) {

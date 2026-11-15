@@ -2086,3 +2086,14 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
 * What stays FUN_: the C runtime (EXE 195 in crt_unnamed.c, LUA.DLL 163, IMUSE.DLL 101; most of it dead, kept out of
   the build by names/lib_replace.json) and CHORE.DLL's 152 dead runtime copies.
 * Clean room 0 of 5457.
+
+## LUA.DLL's call frames and parser state typed (2026-11-15)
+
+* names/types_lua_frames.json: ExecutionState (0x30, one call frame of a task: closure, prototype, base, the calling
+  frame - the free list's link while unused -, call position, results wanted, the C-mark flag luaD_call tests,
+  &L->pTop, pc, aux, counter, constants), FuncState (0x168, the parser's function being compiled, Grim's layout: kept
+  in an array, pCurrState - 1 is the enclosing one; locals, stack sizes, counts, upvalues; 0xa8..0x127 unknown).
+  LState.pExecutionState / pResumeState are ExecutionState *, pMainState / pCurrState FuncState *; the
+  ExecutionState_* methods and LState_Save / Restore / attach take them.
+* LUA.DLL's raw offset accesses: 46 -> 0. The hand-written LState_attach takes `LState *`.
+* Clean room 0 of 5457.

@@ -288,10 +288,10 @@ undefined4 __stdcall LState_GlobalEndRestore(int a1); /* 0x10007930 */
 undefined4 __stdcall LState_GlobalBeginRestore(int a1); /* 0x100079d0 */
 undefined4 __stdcall LState_SaveGlobals(int a1); /* 0x100081c0 */
 byte * __cdecl LState_CodeLength(int param_1); /* 0x100085e0 */
-undefined4 __thiscall LState_Save(void *this,int a1); /* 0x10008640 */
-undefined4 __thiscall LState_Restore(void *this,int a1); /* 0x100087f0 */
+undefined4 __thiscall LState_Save(LState *this,int a1); /* 0x10008640 */
+undefined4 __thiscall LState_Restore(LState *this,int a1); /* 0x100087f0 */
 undefined4 * lua_newstate(void); /* 0x10008ad0 */
-int __thiscall LState_attach(void *this,int a1); /* 0x10008b70 */
+int __thiscall LState_attach(LState *this,int a1); /* 0x10008b70 */
 void __fastcall LState_detach(LState *L); /* 0x10008bb0 */
 LState * __fastcall LState_next(LState *L); /* 0x10008bf0 */
 void __fastcall LState_Destruct(LState *L); /* 0x10008c00 */
@@ -352,11 +352,11 @@ undefined4 __cdecl code_oparg_at(int param_1,char param_2,int param_3,uint param
 void __cdecl deltastack(int param_1); /* 0x1000a8b0 */
 int __cdecl luaY_parser(int param_1); /* 0x1000a900 */
 void __cdecl init_state(TaggedString *param_1); /* 0x1000a980 */
-void __cdecl code_byte(undefined1 param_1); /* 0x1000aa10 */
+void __cdecl code_byte(byte param_1); /* 0x1000aa10 */
 int close_func(void); /* 0x1000aa40 */
 void __cdecl code_neutralop(undefined1 param_1); /* 0x1000ab20 */
 void __cdecl code_opcode(undefined1 param_1,int param_2); /* 0x1000ab30 */
-void __cdecl luaI_registerlocalvar(undefined4 param_1,undefined4 param_2); /* 0x1000ab50 */
+void __cdecl luaI_registerlocalvar(TaggedString *param_1,int param_2); /* 0x1000ab50 */
 undefined4 luaY_parse(void); /* 0x1000abd0 */
 int __cdecl fix_opcode(int param_1,char param_2,int param_3,uint param_4); /* 0x1000b770 */
 void __cdecl code_pop(undefined1 param_1); /* 0x1000b800 */
@@ -369,7 +369,7 @@ int __cdecl real_constant(float param_1); /* 0x1000b950 */
 void __cdecl flush_record(int param_1); /* 0x1000b9c0 */
 void __cdecl flush_list(uint param_1,int param_2); /* 0x1000b9e0 */
 void __cdecl luaI_unregisterlocalvar(undefined4 param_1); /* 0x1000ba10 */
-void __cdecl store_localvar(undefined4 param_1,int param_2); /* 0x1000ba20 */
+void __cdecl store_localvar(TaggedString *param_1,int param_2); /* 0x1000ba20 */
 void __cdecl add_localvar(undefined4 param_1); /* 0x1000ba70 */
 void __cdecl add_varbuffer(int param_1,int param_2); /* 0x1000ba90 */
 int __cdecl var2store(int param_1); /* 0x1000bad0 */
@@ -458,14 +458,14 @@ void __cdecl luaV_getglobal(TaggedString *ts); /* 0x1000d900 */
 void __cdecl luaV_setglobal(TaggedString *ts); /* 0x1000d990 */
 void __cdecl luaV_pack(int firstel,int nvararg,TObject *tab); /* 0x1000da30 */
 void ExecutionState_CleanUp(void); /* 0x1000db10 */
-undefined4 __thiscall ExecutionState_Save(void *this,int a1); /* 0x1000db40 */
-undefined4 __thiscall ExecutionState_Restore(void *this,int a1,int a2,int a3); /* 0x1000dbd0 */
-void * __cdecl ExecutionState_New(int size); /* 0x1000dd10 */
+undefined4 __thiscall ExecutionState_Save(ExecutionState *this,int a1); /* 0x1000db40 */
+undefined4 __thiscall ExecutionState_Restore(ExecutionState *this,int a1,int a2,int a3); /* 0x1000dbd0 */
+ExecutionState * __cdecl ExecutionState_New(int size); /* 0x1000dd10 */
 void __cdecl ExecutionState_Delete(int param_1); /* 0x1000dd90 */
-int __thiscall ExecutionState_Construct(void *this,int a1,int a2,int a3); /* 0x1000ddb0 */
-undefined4 __fastcall ExecutionState_getaux(int param_1); /* 0x1000dde0 */
-int __thiscall ExecutionState_setvalues(void *this,int a1,int a2,int a3); /* 0x1000ddf0 */
-void __fastcall ExecutionState_resetcounter(int param_1); /* 0x1000de20 */
+int __thiscall ExecutionState_Construct(ExecutionState *this,int a1,int a2,int a3); /* 0x1000ddb0 */
+int __fastcall ExecutionState_getaux(ExecutionState *es); /* 0x1000dde0 */
+int __thiscall ExecutionState_setvalues(ExecutionState *this,int a1,int a2,int a3); /* 0x1000ddf0 */
+void __fastcall ExecutionState_resetcounter(ExecutionState *es); /* 0x1000de20 */
 int __fastcall ExecutionState_execute(int *param_1); /* 0x1000de30 */
 void __cdecl adjust_varargs(int param_1); /* 0x1000dee0 */
 int __fastcall ExecutionState_CrunchOpcodes(int *param_1); /* 0x1000df40 */
