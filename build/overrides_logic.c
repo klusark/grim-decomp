@@ -1224,7 +1224,7 @@ undefined4 sputLua_NotifyControlHandlers(void)
             hasAxis = 1;
         }
     }
-    rec = &g_aControlSymbols[0].dwValue;
+    rec = (uint *)&g_aControlSymbols[0].uValue;
     for (i = 0; i < (uint)g_nSputControl_numControlSymbols; i++, rec += 4) {
         if ((rec[-2] & 1) == 0)
             continue;

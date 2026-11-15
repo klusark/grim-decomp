@@ -273,6 +273,13 @@
    "args": 3,
    "cc": "__cdecl",
    "in": "stdDisplay_VBufferNew"
+  },
+  {
+   "func": "0049e0b0",
+   "call": "0049e1dd",
+   "args": 1,
+   "cc": "__cdecl",
+   "in": "sputLua_NotifyControlHandlers"
   }
  ],
  "IMUSE.DLL": [
@@ -317,6 +324,22 @@
    "args": 4,
    "cc": "__stdcall",
    "in": "Im_DSoundCreateBuffer"
+  }
+ ],
+ "LUA.DLL": [
+  {
+   "func": "1000a440",
+   "call": "1000a59b",
+   "args": 3,
+   "cc": "__cdecl",
+   "in": "str_format"
+  },
+  {
+   "func": "1000a440",
+   "call": "1000a5ba",
+   "args": 3,
+   "cc": "__cdecl",
+   "in": "str_format"
   }
  ]
 }

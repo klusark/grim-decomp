@@ -21,9 +21,9 @@
     ],
     [
      8,
-     "uint",
-     "dwValue",
-     "an axis's last value reported to system.axisHandler (float bits)"
+     "ControlValue",
+     "uValue",
+     "the last value reported: the key state of a button, the axis value of an axis"
     ],
     [
      12,
@@ -83,6 +83,25 @@
    "addr": "004d9e50",
    "type": "ushort[576]",
    "_g": "static_ltree (zlib 1.1.3: 288 ct_data {freq/code, dad/len})"
+  }
+ ],
+ "unions": [
+  {
+   "name": "ControlValue",
+   "size": 4,
+   "comment": "The last value of an input control: a button's key state or an axis's value, in the same slot (sputLua_NotifyControlHandlers compares and stores each as its own type).",
+   "fields": [
+    [
+     "int",
+     "nState",
+     "button controls: the key state stdControl_ReadKey returned"
+    ],
+    [
+     "float",
+     "fValue",
+     "axis controls: the axis value stdControl_ReadAxis returned"
+    ]
+   ]
   }
  ]
 }

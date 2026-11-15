@@ -234,6 +234,7 @@ typedef struct BlockyMotionVector BlockyMotionVector;
 typedef struct CacheRect CacheRect;
 typedef struct ColorFormat ColorFormat;
 typedef struct ControlSymbol ControlSymbol;
+typedef union ControlValue ControlValue;
 typedef struct CostumeNode CostumeNode;
 typedef struct DDSurfaceDesc DDSurfaceDesc;
 typedef struct DDrawSurfaceRec DDrawSurfaceRec;
@@ -543,16 +544,22 @@ _Static_assert(__builtin_offsetof(ColorFormat, dwUnknown2c) == 0x2c, "ColorForma
 _Static_assert(__builtin_offsetof(ColorFormat, dwUnknown30) == 0x30, "ColorFormat.dwUnknown30");
 _Static_assert(__builtin_offsetof(ColorFormat, dwUnknown34) == 0x34, "ColorFormat.dwUnknown34");
 _Static_assert(sizeof(ColorFormat) == 0x38, "sizeof ColorFormat");
+/* ControlValue: The last value of an input control: a button's key state or an axis's value, in the same slot (sputLua_NotifyControlHandlers compares and stores each as its own type). */
+union ControlValue {  /* 0x4 */
+    int nState;
+    float fValue;
+};
+_Static_assert(sizeof(ControlValue) == 0x4, "sizeof ControlValue");
 /* ControlSymbol: One input control of the engine (keys, mouse and joystick axes), g_aControlSymbols: system.controls maps its name to its index. */
 struct ControlSymbol {  /* 0x10 */
     uint dwFlags;  /* 0x00: 1 enabled (sputLua_NotifyControlHandlers reports it), 4 a key (else an axis), 8 axis inverted */
     int nId;  /* 0x04: the key (DirectInput scan code) or axis stdControl_ReadKey / stdControl_ReadAxis takes */
-    uint dwValue;  /* 0x08: an axis's last value reported to system.axisHandler (float bits) */
+    ControlValue uValue;  /* 0x08: the last value reported: the key state of a button, the axis value of an axis */
     char *pName;  /* 0x0c: KEY_ESCAPE, AXIS_MOUSE_X, ... */
 };
 _Static_assert(__builtin_offsetof(ControlSymbol, dwFlags) == 0x0, "ControlSymbol.dwFlags");
 _Static_assert(__builtin_offsetof(ControlSymbol, nId) == 0x4, "ControlSymbol.nId");
-_Static_assert(__builtin_offsetof(ControlSymbol, dwValue) == 0x8, "ControlSymbol.dwValue");
+_Static_assert(__builtin_offsetof(ControlSymbol, uValue) == 0x8, "ControlSymbol.uValue");
 _Static_assert(__builtin_offsetof(ControlSymbol, pName) == 0xc, "ControlSymbol.pName");
 _Static_assert(sizeof(ControlSymbol) == 0x10, "sizeof ControlSymbol");
 /* CostumeNode: One costume of an actor's costume stack (Actor::pCostumes, sputCostume.cpp; from the pool g_pCosNodePool): the CHORE.DLL instance and the actor's chores in it. Costume_InitRecord sets the defaults. */

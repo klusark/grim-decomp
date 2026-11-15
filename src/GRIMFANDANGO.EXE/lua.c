@@ -6555,21 +6555,26 @@ uint __cdecl sputLua_NotifyControlHandlers(void)
   bool bVar1;
   bool bVar2;
   int iVar3;
-  float fVar4;
+  int iVar4;
   float fVar5;
-  float fVar6;
+  uint uVar6;
   code *pcVar7;
-  uint *puVar8;
+  ControlValue *pCVar8;
   #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
   #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
   #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(float (*)[3])(_frame + (0x70 - 0x30)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(float (*)[2])(_frame + (0x70 - 0x1c)))
+  float axisValue;
+  int keyX;
+  int buttonHandler;
+  int axisHandler;
+  int buttonTable;
+  int keyY;
+  int axisTable;
+  longlong llIndex;
+  longlong llKeyX;
+  longlong llIndex2;
   
   bVar1 = false;
   bVar2 = false;
@@ -6577,26 +6582,27 @@ uint __cdecl sputLua_NotifyControlHandlers(void)
   iVar3 = lua_getref(g_nLrSystemTable);
   lua_pushobject(iVar3);
   lua_pushstring(s_buttonHandler_004ec574);
-  fVar4 = (float)lua_gettable();
-  iVar3 = lua_istable(PUN(int,(float)fVar4));
+  iVar3 = lua_gettable();
+  buttonTable = iVar3;
+  iVar4 = lua_istable(iVar3);
   pcVar7 = lua_isfunction_exref;
-  if (iVar3 == 0) {
-    iVar3 = lua_isfunction(PUN(int,(float)fVar4));
-    if (iVar3 == 0) {
+  if (iVar4 == 0) {
+    iVar4 = lua_isfunction(iVar3);
+    if (iVar4 == 0) {
       local_44 = 0;
     }
     else {
       bVar1 = false;
       local_44 = 1;
-      local_30[1] = fVar4;
+      buttonHandler = iVar3;
     }
   }
   else {
-    lua_pushobject(PUN(int,(float)fVar4));
+    lua_pushobject(iVar3);
     lua_pushstring(s_buttonHandler_004ec574);
-    local_30[1] = (float)lua_gettable();
+    buttonHandler = lua_gettable();
     pcVar7 = lua_isfunction_exref;
-    iVar3 = lua_isfunction(PUN(int,(float)local_30[1]));
+    iVar3 = lua_isfunction(buttonHandler);
     if (iVar3 != 0) {
       bVar1 = true;
       local_44 = 1;
@@ -6605,84 +6611,84 @@ uint __cdecl sputLua_NotifyControlHandlers(void)
   iVar3 = lua_getref(g_nLrSystemTable);
   lua_pushobject(iVar3);
   lua_pushstring(s_axisHandler_004ec568);
-  fVar5 = (float)lua_gettable();
-  local_1c[0] = fVar5;
-  iVar3 = lua_istable(PUN(int,(float)fVar5));
-  if (iVar3 == 0) {
-    iVar3 = (*pcVar7)();
-    if (iVar3 == 0) {
+  iVar3 = lua_gettable();
+  axisTable = iVar3;
+  iVar4 = lua_istable(iVar3);
+  if (iVar4 == 0) {
+    iVar4 = (*pcVar7)(iVar3);
+    if (iVar4 == 0) {
       local_3c = 0;
     }
     else {
       bVar2 = false;
       local_3c = 1;
-      local_30[2] = fVar5;
+      axisHandler = iVar3;
     }
   }
   else {
-    lua_pushobject(PUN(int,(float)fVar5));
+    lua_pushobject(iVar3);
     lua_pushstring(s_axisHandler_004ec568);
-    local_30[2] = (float)lua_gettable();
-    iVar3 = (*pcVar7)(local_30[2]);
+    axisHandler = lua_gettable();
+    iVar3 = (*pcVar7)(axisHandler);
     if (iVar3 != 0) {
       bVar2 = true;
       local_3c = 1;
     }
   }
-  fVar5 = 0.0f;
+  uVar6 = 0;
   if (g_nSputControl_numControlSymbols != 0) {
-    puVar8 = &g_aControlSymbols[0].dwValue;
+    pCVar8 = &g_aControlSymbols[0].uValue;
     do {
-      if ((((ControlSymbol *)(puVar8 + -2))->dwFlags & 1) != 0) {
-        if ((((ControlSymbol *)(puVar8 + -2))->dwFlags & 4) == 0) {
-          fVar6 = stdControl_ReadAxis(puVar8[-1]);
-          if ((((ControlSymbol *)(puVar8 + -2))->dwFlags & 8) != 0) {
-            fVar6 = -fVar6;
+      if ((((ControlSymbol *)(pCVar8 + -2))->dwFlags & 1) != 0) {
+        if ((((ControlSymbol *)(pCVar8 + -2))->dwFlags & 4) == 0) {
+          fVar5 = stdControl_ReadAxis(pCVar8[-1].nState);
+          if ((((ControlSymbol *)(pCVar8 + -2))->dwFlags & 8) != 0) {
+            fVar5 = -fVar5;
           }
-          if ((fVar6 != (float)*puVar8) && (local_3c != 0)) {
+          if ((fVar5 != pCVar8->fValue) && (local_3c != 0)) {
             if (bVar2) {
-              lua_pushobject(PUN(int,(float)local_1c[0]));
+              lua_pushobject(axisTable);
             }
-            lua_pushnumber((float)PUN(uint,(float)fVar5));
-            lua_pushnumber(fVar6);
-            lua_callfunction(PUN(int,(float)local_30[2]));
-            *puVar8 = PUN(uint,(float)fVar6);
+            PIECE(llIndex2,4,4) = 0;
+            PIECE(llIndex2,0,4) = uVar6;
+            lua_pushnumber((float)uVar6);
+            lua_pushnumber(fVar5);
+            lua_callfunction(axisHandler);
+            pCVar8->fValue = fVar5;
           }
         }
         else {
-          local_30[0] = 0.0f;
-          fVar6 = (float)stdControl_ReadKey(puVar8[-1],(int *)local_30,(int *)&local_20);
-          if ((fVar6 != (float)*puVar8) && (local_44 != 0)) {
+          keyX = 0;
+          fVar5 = (float)stdControl_ReadKey(pCVar8[-1].nState,&keyX,&keyY);
+          if ((fVar5 != (float)pCVar8->nState) && (local_44 != 0)) {
             if (bVar1) {
-              lua_pushobject(PUN(int,(float)fVar4));
+              lua_pushobject(buttonTable);
             }
-            local_1c[1] = fVar5;
-            lua_pushnumber((float)PUN(uint,(float)fVar5));
-            if (fVar6 == 0.0f) {
+            PIECE(llIndex,4,4) = 0;
+            PIECE(llIndex,0,4) = uVar6;
+            lua_pushnumber((float)uVar6);
+            if (fVar5 == 0.0f) {
               lua_pushnil();
             }
             else {
               lua_pushnumber(1.0f);
             }
-            lua_pushnumber((float)PUN(uint,(float)local_30[0]));
-            lua_pushnumber((float)(int)local_20);
-            lua_callfunction(PUN(int,(float)local_30[1]));
-            *puVar8 = PUN(uint,(float)fVar6);
+            PIECE(llKeyX,4,4) = 0;
+            PIECE(llKeyX,0,4) = keyX;
+            lua_pushnumber((float)(uint)keyX);
+            lua_pushnumber((float)keyY);
+            lua_callfunction(buttonHandler);
+            pCVar8->nState = PUN(int,(float)fVar5);
           }
         }
       }
-      fVar5 = (float)(PUN(int,(float)fVar5) + 1);
-      puVar8 = puVar8 + 4;
-    } while (PUN(uint,(float)fVar5) < (uint)g_nSputControl_numControlSymbols);
+      uVar6 = uVar6 + 1;
+      pCVar8 = pCVar8 + 4;
+    } while (uVar6 < (uint)g_nSputControl_numControlSymbols);
   }
   lua_endblock();
   return 0;
 }
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_30
-#undef local_34
 #undef local_38
 #undef local_3c
 #undef local_40

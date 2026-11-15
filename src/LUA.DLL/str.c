@@ -906,9 +906,11 @@ void __cdecl str_format(void)
   char *pcVar3;
   uint uVar4;
   char *buf;
+  char *a2;
   int numArg;
   uint *s;
-  float fVar5;
+  longlong lVar5;
+  float fVar6;
   #define aiStack_114 (*(int (*)[2])(_frame + (0x130 - 0x114)))
   #define iStack_10c (*(int *)(_frame + (0x130 - 0x10c)))
   #define iStack_104 (*(int *)(_frame + (0x130 - 0x104)))
@@ -958,8 +960,8 @@ void __cdecl str_format(void)
         case 'e':
         case 'f':
         case 'g':
-          fVar5 = luaL_check_number(numArg);
-          sprintf(buf,&cStack_c8,(double)fVar5);
+          fVar6 = luaL_check_number(numArg);
+          sprintf(buf,&cStack_c8,(double)fVar6);
           break;
         default:
           lua_error((byte *)s_invalid_option_in__format__10027a58);
@@ -971,17 +973,18 @@ void __cdecl str_format(void)
         case 'o':
         case 'u':
         case 'x':
-          fVar5 = luaL_check_number(numArg);
-          FTOL((float10)fVar5);
-          sprintf(buf,&cStack_c8);
+          fVar6 = luaL_check_number(numArg);
+          lVar5 = FTOL((float10)fVar6);
+          sprintf(buf,&cStack_c8,(int)lVar5);
           break;
         case 'q':
           pcVar3 = (char *)luaL_check_string(numArg);
           luaI_addquoted(pcVar3);
           goto LAB_1000a5fe;
         case 's':
-          pcVar3 = (char *)luaL_check_string(numArg);
+          a2 = (char *)luaL_check_string(numArg);
           uVar4 = 0xffffffff;
+          pcVar3 = a2;
           do {
             if (uVar4 == 0) break;
             uVar4 = uVar4 - 1;
@@ -989,7 +992,7 @@ void __cdecl str_format(void)
             pcVar3 = pcVar3 + 1;
           } while (cVar1 != '\0');
           buf = (char *)luaL_openspace(~uVar4 - 1);
-          sprintf(buf,&cStack_c8);
+          sprintf(buf,&cStack_c8,a2);
         }
         uVar4 = 0xffffffff;
         do {
