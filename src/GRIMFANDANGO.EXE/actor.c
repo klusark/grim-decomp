@@ -2623,16 +2623,16 @@ LAB_004951b3:
 /* Original name sputRoom_RemoveActor (the remaster's GrimFandango (Linux): aligned call in
    sputActor_FreeActor, body similarity); was Actor_RemoveFromSet. */
 
-void __cdecl sputRoom_RemoveActor(char *setName,void *actor)
+void __cdecl sputRoom_RemoveActor(char *setName,Actor *actor)
 
 {
-  int iVar1;
+  Puck *pPVar1;
   void *pvVar2;
   int *piVar3;
   
   pvVar2 = Set_FindNameInList((int)setName);
   if (pvVar2 != (void *)0x0) {
-    *(undefined4 *)((int)actor + 0x68) = 0;
+    actor->nScreenBoxValid = 0;
     piVar3 = *(int **)((int)pvVar2 + 0x80);
     if (piVar3 != (int *)0x0) {
       do {
@@ -2640,9 +2640,9 @@ void __cdecl sputRoom_RemoveActor(char *setName,void *actor)
         piVar3 = (int *)piVar3[2];
       } while (piVar3 != (int *)0x0);
       if (piVar3 != (int *)0x0) {
-        if ((*(int *)((int)actor + 0xa4) != 0) &&
-           (iVar1 = *(int *)(*(int *)((int)actor + 0xa4) + 0x1b4), iVar1 != 0)) {
-          *(undefined4 *)(iVar1 + 0x5c) = 0;
+        if ((actor->pExtra != (ActorExtra *)0x0) &&
+           (pPVar1 = actor->pExtra->pPuck, pPVar1 != (Puck *)0x0)) {
+          pPVar1->pSector = (WalkPlane *)0x0;
         }
         if (piVar3[2] != 0) {
           *(int *)(piVar3[2] + 4) = piVar3[1];
@@ -2654,7 +2654,7 @@ void __cdecl sputRoom_RemoveActor(char *setName,void *actor)
           *(int *)((int)pvVar2 + 0x80) = piVar3[2];
         }
         (*g_pSputRoomHS->pFree)(piVar3);
-        *(undefined1 *)((int)actor + 0x7c) = 0;
+        actor->aSetName[0] = '\0';
       }
     }
   }
@@ -2704,7 +2704,7 @@ LAB_004a5fa6:
   setName_00 = (uint *)(setName + 0x7c);
   if ((setName_00 != (uint *)0x0) || (actor != (Actor *)0x0)) {
     if ((setName != (char *)0x0) && (setName_00 != (uint *)0x0)) {
-      sputRoom_RemoveActor((char *)setName_00,setName);
+      sputRoom_RemoveActor((char *)setName_00,(Actor *)setName);
     }
     if (actor == (Actor *)0x0) {
       setName[0x68] = '\0';

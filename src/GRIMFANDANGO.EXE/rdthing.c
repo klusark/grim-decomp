@@ -27,7 +27,7 @@ int __cdecl rdModel3_Draw(rdThing *thing,float *position)
   
   g_pCurThing = thing;
   g_pCurModel3 = thing->pModel;
-  rdMatrix_TransformPoint34(local_c,(float *)((int)g_pCurModel3 + 0x78),position);
+  rdMatrix_TransformPoint34(local_c,g_pCurModel3->aInsertOffset,position);
   rdMatrix_TransformPoint34Acc(local_c,g_pRdCamera_CurCamera->aView);
   if (thing->nFrustumCull == 0) {
     g_dwThingFrustrumCull = 1;
@@ -35,18 +35,17 @@ int __cdecl rdModel3_Draw(rdThing *thing,float *position)
   else {
     g_dwThingFrustrumCull =
          rdClip_SphereInFrustrum
-                   (&g_pRdCamera_CurCamera->pFrustum->nClipFar,local_c,
-                    *(float *)((int)g_pCurModel3 + 0x5c));
+                   (&g_pRdCamera_CurCamera->pFrustum->nClipFar,local_c,g_pCurModel3->flRadius);
   }
   if (g_dwThingFrustrumCull != 2) {
     g_dwThingFrustrumCull = 1;
     if (thing->nCurGeoset == -1) {
-      iVar5 = *(int *)((int)g_pCurModel3 + 0x50);
+      iVar5 = g_pCurModel3->nCurGeoset;
     }
     else {
       iVar5 = g_pCurThing->nCurGeoset;
     }
-    g_dwCurGeo = (int)g_pCurModel3 + iVar5 * 8 + 0x24;
+    g_dwCurGeo = (uint)(g_pCurModel3->aGeosets + iVar5);
     rdPuppet_UpdateFrame(g_pCurThing,position);
     prVar4 = g_pRdCamera_CurCamera;
     g_dwCurTextureMode = g_pCurThing->nGeometryMode;
@@ -84,7 +83,7 @@ int __cdecl rdModel3_Draw(rdThing *thing,float *position)
                       (position[10] - *pfVar6) * (position[10] - *pfVar6) +
                       (position[9] - pfVar6[-1]) * (position[9] - pfVar6[-1]);
             }
-            fVar3 = prVar1->flFalloffMin + *(float *)((int)g_pCurModel3 + 0x5c);
+            fVar3 = prVar1->flFalloffMin + g_pCurModel3->flRadius;
             if (fVar2 < fVar3 * fVar3) {
               (&g_apGeoLights)[g_dwNumGeoLights] = (uint)prVar1;
               g_dwNumGeoLights = g_dwNumGeoLights + 1;
@@ -96,7 +95,7 @@ int __cdecl rdModel3_Draw(rdThing *thing,float *position)
         } while (uVar7 < prVar4->dwNumLights);
       }
     }
-    rdModel3_DrawHNode(*(int *)((int)g_pCurModel3 + 0x58));
+    rdModel3_DrawHNode((int)g_pCurModel3->pHierarchyNodes);
     g_dwRdModel3_numDrawnModels = g_dwRdModel3_numDrawnModels + 1;
     return 1;
   }
@@ -211,7 +210,7 @@ void __cdecl rdThing_FreeEntry(int *param_1)
 /* Original name rdThing_SetModel3 (the remaster's GrimFandango (Linux): aligned call in
    ThingInstancer); was rdThing_SetModel. */
 
-void __cdecl rdThing_SetModel3(rdThing *thing,void *model)
+void __cdecl rdThing_SetModel3(rdThing *thing,rdModel3 *model)
 
 {
   float *pfVar1;
@@ -225,14 +224,14 @@ void __cdecl rdThing_SetModel3(rdThing *thing,void *model)
   thing->pModel = model;
   thing->nCurGeoset = -1;
   pfVar1 = (float *)(*g_pRdroid_HS->pAlloc)
-                              (*(int *)((int)model + 0x54) * 0x30,
+                              (model->nNumHierarchyNodes * 0x30,
                                s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde10 + 0xd);
   thing->pHierarchyMatrices = pfVar1;
   pfVar1 = (float *)(*g_pRdroid_HS->pAlloc)
-                              (*(int *)((int)model + 0x54) * 0xc,
+                              (model->nNumHierarchyNodes * 0xc,
                                s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde10 + 0x10);
   thing->pHierarchyRot = pfVar1;
-  for (uVar4 = *(int *)((int)model + 0x54) * 3 & 0x3fffffff; uVar4 != 0; uVar4 = uVar4 - 1) {
+  for (uVar4 = model->nNumHierarchyNodes * 3 & 0x3fffffff; uVar4 != 0; uVar4 = uVar4 - 1) {
     *pfVar1 = 0.0;
     pfVar1 = pfVar1 + 1;
   }
@@ -242,11 +241,11 @@ void __cdecl rdThing_SetModel3(rdThing *thing,void *model)
   }
   if ((thing->pHierarchyMatrices != (float *)0x0) && (thing->pHierarchyRot != (float *)0x0)) {
     piVar2 = (int *)(*g_pRdroid_HS->pAlloc)
-                              (*(int *)((int)model + 0x54) << 2,
+                              (model->nNumHierarchyNodes << 2,
                                s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde10 + 0x1a);
     thing->pHierarchyFlags = piVar2;
     if (piVar2 != (int *)0x0) {
-      for (uVar4 = *(uint *)((int)model + 0x54) & 0x3fffffff; uVar4 != 0; uVar4 = uVar4 - 1) {
+      for (uVar4 = model->nNumHierarchyNodes & 0x3fffffff; uVar4 != 0; uVar4 = uVar4 - 1) {
         *piVar2 = 0;
         piVar2 = piVar2 + 1;
       }
@@ -255,25 +254,25 @@ void __cdecl rdThing_SetModel3(rdThing *thing,void *model)
         piVar2 = (int *)((int)piVar2 + 1);
       }
       pvVar3 = (void *)(*g_pRdroid_HS->pAlloc)
-                                 (*(int *)((int)model + 0x54) << 2,
+                                 (model->nNumHierarchyNodes << 2,
                                   s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde10 + 0x23);
       thing->pHierarchyExtra = pvVar3;
       if (pvVar3 != (void *)0x0) {
         iVar5 = 0;
-        if (0 < *(int *)((int)model + 0x54)) {
+        if (0 < model->nNumHierarchyNodes) {
           do {
             iVar5 = iVar5 + 1;
             *(undefined4 *)((int)thing->pHierarchyExtra + iVar5 * 4 + -4) = 1;
-          } while (iVar5 < *(int *)((int)model + 0x54));
+          } while (iVar5 < model->nNumHierarchyNodes);
         }
         uVar4 = 0;
-        if (*(int *)((int)model + 0x54) != 0) {
-          puVar6 = (uint *)(*(int *)((int)model + 0x58) + 0x7c);
+        if (model->nNumHierarchyNodes != 0) {
+          puVar6 = (uint *)((int)model->pHierarchyNodes + 0x7c);
           do {
             rdMatrix_Build34((float *)(puVar6 + 3),puVar6,(float *)(puVar6 + -3));
             puVar6 = puVar6 + 0x2e;
             uVar4 = uVar4 + 1;
-          } while (uVar4 < *(uint *)((int)model + 0x54));
+          } while (uVar4 < (uint)model->nNumHierarchyNodes);
         }
         return;
       }

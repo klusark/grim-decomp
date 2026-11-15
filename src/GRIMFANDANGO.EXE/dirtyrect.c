@@ -221,12 +221,10 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
   pSVar3 = sputRoom_GetCurrentRoom();
   if (pSVar3 != (Set *)0x0) {
     if (((byte)g_dwDebugFlags & 1) != 0) {
-      local_10 = *(uint *)((int)g_pSputRender_Canvas + 0x18);
-      local_c = *(uint *)((int)g_pSputRender_Canvas + 0x1c);
-      local_8 = (*(int *)((int)g_pSputRender_Canvas + 0x20) -
-                *(int *)((int)g_pSputRender_Canvas + 0x18)) + 1;
-      local_4 = (*(int *)((int)g_pSputRender_Canvas + 0x24) -
-                *(int *)((int)g_pSputRender_Canvas + 0x1c)) + 1;
+      local_10 = g_pSputRender_Canvas->nX0;
+      local_c = g_pSputRender_Canvas->nY0;
+      local_8 = (g_pSputRender_Canvas->nX1 - g_pSputRender_Canvas->nX0) + 1;
+      local_4 = (g_pSputRender_Canvas->nY1 - g_pSputRender_Canvas->nY0) + 1;
       Surface_Blit(dst,g_pSputRender_CleanBuffer,local_10,local_c,(int *)&local_10,0);
     }
     PIECE(UINT_008c9820,0,2) = (short)UINT_008c9820 + 1;

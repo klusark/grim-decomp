@@ -107,7 +107,7 @@ void __cdecl sputRender_SyncCamera(void *set,int setupIdx)
   }
   rdroid_SetColormap(*(uint *)(iVar3 + iVar2 * 0x34 + 4));
   rdCamera_SetCurrent(*(void **)(iVar1 + 0x48));
-  if (g_pSputRender_Canvas != (void *)0x0) {
+  if (g_pSputRender_Canvas != (rdCanvas *)0x0) {
     rdCamera_SetCanvas(*(rdCamera **)(iVar1 + 0x48),g_pSputRender_Canvas);
   }
   rdCamera_SetAspectRatio(*(rdCamera **)(iVar1 + 0x48),1.0);
@@ -196,12 +196,10 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx)
       ObjectState_LoadResources(state);
       ObjectState_Reset(state,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
     }
-    local_10 = *(uint *)((int)g_pSputRender_Canvas + 0x18);
-    local_c = *(uint *)((int)g_pSputRender_Canvas + 0x1c);
-    local_8 = (*(int *)((int)g_pSputRender_Canvas + 0x20) -
-              *(int *)((int)g_pSputRender_Canvas + 0x18)) + 1;
-    local_4 = (*(int *)((int)g_pSputRender_Canvas + 0x24) -
-              *(int *)((int)g_pSputRender_Canvas + 0x1c)) + 1;
+    local_10 = g_pSputRender_Canvas->nX0;
+    local_c = g_pSputRender_Canvas->nY0;
+    local_8 = (g_pSputRender_Canvas->nX1 - g_pSputRender_Canvas->nX0) + 1;
+    local_4 = (g_pSputRender_Canvas->nY1 - g_pSputRender_Canvas->nY0) + 1;
     MarkDirtyRect((int *)&local_10,1);
   }
   return;
@@ -307,29 +305,28 @@ void __cdecl Set_DrawDebugLights(int param_1)
 
 
 /* ---- 0x004859c0  Set_DrawDebugCameras ---- */
-void __cdecl Set_DrawDebugCameras(void *set,uint setupIdx)
+void __cdecl Set_DrawDebugCameras(Set *set,uint setupIdx)
 
 {
-  int iVar1;
+  Setup *pSVar1;
   uint uVar2;
   
   if (setupIdx == 0xffffffff) {
     uVar2 = 0;
-    iVar1 = *(int *)((int)set + 0xac);
-    if (*(int *)((int)set + 0xb0) != 0) {
+    pSVar1 = set->pSetups;
+    if (set->nSetups != 0) {
       do {
-        if (uVar2 != *(uint *)((int)set + 0xb4)) {
-          Setup_DrawDebugCamera(iVar1);
+        if (uVar2 != set->nCurSetup) {
+          Setup_DrawDebugCamera((int)pSVar1);
         }
         uVar2 = uVar2 + 1;
-        iVar1 = iVar1 + 300;
-      } while (uVar2 < *(uint *)((int)set + 0xb0));
+        pSVar1 = pSVar1 + 1;
+      } while (uVar2 < (uint)set->nSetups);
       return;
     }
   }
   else {
-    ((code *)Setup_DrawDebugCamera)(*(int *)((int)set + 0xac) + (setupIdx % *(uint *)((int)set + 0xb0)) * 300)
-    ;
+    Setup_DrawDebugCamera((int)(set->pSetups + setupIdx % (uint)set->nSetups));
   }
   return;
 }

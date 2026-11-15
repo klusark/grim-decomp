@@ -66,6 +66,7 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  rdModel3 *model;
   ResRef *pRVar1;
   int iVar2;
   uint extraout_EAX;
@@ -117,16 +118,16 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
   if (*(int *)componentIdx == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
   }
-  pvVar6 = *(void **)(iVar2 + 4);
+  model = *(rdModel3 **)(iVar2 + 4);
   ref = (ResRef *)(*g_pSputCosHS->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa8d);
   pRVar1 = ref;
   for (iVar2 = 0x65; iVar2 != 0; iVar2 = iVar2 + -1) {
     pRVar1->nValid = 0;
     pRVar1 = (ResRef *)&pRVar1->pData;
   }
-  Res_SetReference(ref,pvVar6,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa91);
+  Res_SetReference(ref,model,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa91);
   thing = (rdThing *)rdThing_New(0);
-  rdThing_SetModel3(thing,pvVar6);
+  rdThing_SetModel3(thing,model);
   puVar5 = rdPuppet_New(thing);
   thing->pPuppet = puVar5;
   *(rdThing **)(ref[1].aTag + 4) = thing;

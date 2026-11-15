@@ -1953,3 +1953,10 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   `model` was the thing), sputActor_SetActorHead an Actor, Text_DrawChar a TextContext.
 * animplay.c 49 -> 0, lighted.c 40 -> 2, lab.c 26 -> 3, resref.c 19 -> 1, movie.c 12 -> 0; the EXE 530 -> 329.
   Clean room 0 of 5457.
+
+## Canvas and model types (2026-11-15)
+
+* names/types_canvas.json: rdCanvas (0x28: flags, VBuffer, centre, ZBuffer, clip rect), rdModel3's current geoset,
+  hierarchy nodes, radius and insert offset; rdThing_SetModel3 takes an rdModel3, Set_DrawDebugCameras a Set,
+  sputRoom_RemoveActor an Actor, rdCanvas_DrawLine / rdCanvas_NewEntry an rdCanvas; g_pCurModel3 is an rdModel3 *,
+  g_pSputRender_Canvas an rdCanvas *. Clean room 0 of 5457.

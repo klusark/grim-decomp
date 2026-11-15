@@ -471,9 +471,9 @@
 | 004055d0 | rdActive_FlushSpans | rdcanvas.c | 26 |
 | 00405620 | rdActive_BuildEdges | rdcanvas.c | 90 |
 | 00405770 | rdActive_AddActiveFace | rdcanvas.c | 1 |
-| 00451950 | rdCanvas_DrawLine | rdcanvas.c | 110 |
+| 00451950 | rdCanvas_DrawLine | rdcanvas.c | 111 |
 | 00451dd0 | rdCanvas_DrawPoint | rdcanvas.c | 1 |
-| 004c04f0 | rdCanvas_New | rdcanvas.c | 17 |
+| 004c04f0 | rdCanvas_New | rdcanvas.c | 18 |
 | 004c0550 | rdCanvas_NewEntry | rdcanvas.c | 29 |
 | 004c0610 | rdCanvas_Free | rdcanvas.c | 9 |
 | 00406650 | rdCache_AdvanceFrame | rdcache.c | 12 |
@@ -562,7 +562,7 @@
 | 004c0ce0 | rdKeyframe_LoadEntryBinary | rdpuppet.c | 72 |
 | 004c0e40 | rdKeyframe_Free | rdpuppet.c | 16 |
 | 004c0e70 | rdKeyframe_FreeEntry | rdpuppet.c | 27 |
-| 0040cf20 | rdModel3_Draw | rdthing.c | 98 |
+| 0040cf20 | rdModel3_Draw | rdthing.c | 97 |
 | 00471a40 | rdThing_New | rdthing.c | 15 |
 | 00471a80 | rdThing_NewEntry | rdthing.c | 27 |
 | 00471af0 | rdThing_Free | rdthing.c | 9 |
@@ -1328,9 +1328,9 @@
 | 00482670 | grimlib_MakeCurrentSet | set.c | 25 |
 | 00482820 | grimlib_MakeCurrentSetup | set.c | 29 |
 | 00483aa0 | sputRender_SyncCamera | set.c | 29 |
-| 00483b50 | sputRender_UseSetup | set.c | 95 |
+| 00483b50 | sputRender_UseSetup | set.c | 93 |
 | 00485780 | Set_DrawDebugLights | set.c | 92 |
-| 004859c0 | Set_DrawDebugCameras | set.c | 26 |
+| 004859c0 | Set_DrawDebugCameras | set.c | 25 |
 | 004a4010 | sputRoom_SetSoundParameters | set.c | 16 |
 | 004a4050 | sputRoom_GetSoundParameters | set.c | 15 |
 | 004a40f0 | sputRoom_SetCurrentRoom | set.c | 28 |
@@ -1377,7 +1377,7 @@
 | 00483eb0 | sputRender_PageCountIs | render.c | 13 |
 | 00483ed0 | sputRender_MarkDirtyRect | render.c | 29 |
 | 00483f60 | MarkDirtyRect | render.c | 35 |
-| 00484030 | sputRender_SetDisplay | render.c | 72 |
+| 00484030 | sputRender_SetDisplay | render.c | 73 |
 | 004841f0 | sputRender_Close | render.c | 26 |
 | 004849a0 | sputRender_PageFlip | render.c | 14 |
 | 004849d0 | Render_SetPixelFormat | render.c | 23 |
@@ -1475,7 +1475,7 @@
 | 004a5f60 | sputRoom_AddActor | actor.c | 77 |
 | 004a8500 | Puck_GetYawToPoint | actor.c | 40 |
 | 00485420 | DirtyRect_Add | dirtyrect.c | 192 |
-| 00485e50 | DirtyRect_Flush | dirtyrect.c | 86 |
+| 00485e50 | DirtyRect_Flush | dirtyrect.c | 84 |
 | 00486020 | DirtyRect_Clear | dirtyrect.c | 16 |
 | 00485a40 | Setup_DrawDebugCamera | setup.c | 47 |
 | 004a3db0 | sputRoom_GetSetupBackground | setup.c | 73 |

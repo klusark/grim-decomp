@@ -264,6 +264,7 @@ typedef struct WalkPlaneCache WalkPlaneCache;
 typedef struct WalkVertex WalkVertex;
 typedef struct WalkVertexCache WalkVertexCache;
 typedef struct rdCamera rdCamera;
+typedef struct rdCanvas rdCanvas;
 typedef struct rdClipFrustum rdClipFrustum;
 typedef struct rdColormap rdColormap;
 typedef struct rdGeoset rdGeoset;
@@ -1433,6 +1434,30 @@ _Static_assert(__builtin_offsetof(rdCamera, aLightPositions) == 0x15c, "rdCamera
 _Static_assert(__builtin_offsetof(rdCamera, flAttenuationMin) == 0x45c, "rdCamera.flAttenuationMin");
 _Static_assert(__builtin_offsetof(rdCamera, flAttenuationMax) == 0x460, "rdCamera.flAttenuationMax");
 _Static_assert(sizeof(rdCamera) == 0x464, "sizeof rdCamera");
+/* rdCanvas: A drawing surface of the renderer (0x28 bytes). */
+struct rdCanvas {  /* 0x28 */
+    uint dwFlags;  /* 0x00: bit 0: an explicit clip rectangle */
+    VBuffer *pVBuffer;  /* 0x04 */
+    float flCenterX;  /* 0x08: centre of the clip rectangle */
+    float flCenterY;  /* 0x0c */
+    VBuffer *pZBuffer;  /* 0x10 */
+    uint dwExtra;  /* 0x14 */
+    int nX0;  /* 0x18: clip rectangle, inclusive */
+    int nY0;  /* 0x1c */
+    int nX1;  /* 0x20 */
+    int nY1;  /* 0x24 */
+};
+_Static_assert(__builtin_offsetof(rdCanvas, dwFlags) == 0x0, "rdCanvas.dwFlags");
+_Static_assert(__builtin_offsetof(rdCanvas, pVBuffer) == 0x4, "rdCanvas.pVBuffer");
+_Static_assert(__builtin_offsetof(rdCanvas, flCenterX) == 0x8, "rdCanvas.flCenterX");
+_Static_assert(__builtin_offsetof(rdCanvas, flCenterY) == 0xc, "rdCanvas.flCenterY");
+_Static_assert(__builtin_offsetof(rdCanvas, pZBuffer) == 0x10, "rdCanvas.pZBuffer");
+_Static_assert(__builtin_offsetof(rdCanvas, dwExtra) == 0x14, "rdCanvas.dwExtra");
+_Static_assert(__builtin_offsetof(rdCanvas, nX0) == 0x18, "rdCanvas.nX0");
+_Static_assert(__builtin_offsetof(rdCanvas, nY0) == 0x1c, "rdCanvas.nY0");
+_Static_assert(__builtin_offsetof(rdCanvas, nX1) == 0x20, "rdCanvas.nX1");
+_Static_assert(__builtin_offsetof(rdCanvas, nY1) == 0x24, "rdCanvas.nY1");
+_Static_assert(sizeof(rdCanvas) == 0x28, "sizeof rdCanvas");
 /* rdClipFrustum: The camera's clip volume (0x34 bytes, rdCamera.pFrustum). */
 struct rdClipFrustum {  /* 0x34 */
     int nClipFar;  /* 0x00: clip against zFar too */
@@ -1561,18 +1586,25 @@ struct rdModel3 {  /* 0x90 */
     rdGeoset aGeosets[4];  /* 0x24 */
     uint dwGeosets;  /* 0x44 */
     uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
-    uint8_t field_0x50, field_0x51, field_0x52, field_0x53, field_0x54, field_0x55, field_0x56, field_0x57;
-    uint8_t field_0x58, field_0x59, field_0x5a, field_0x5b, field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    int nCurGeoset;  /* 0x50: the geoset drawn */
+    int nNumHierarchyNodes;  /* 0x54 */
+    void *pHierarchyNodes;  /* 0x58 */
+    float flRadius;  /* 0x5c: bounding radius */
     uint8_t field_0x60, field_0x61, field_0x62, field_0x63, field_0x64, field_0x65, field_0x66, field_0x67;
     uint8_t field_0x68, field_0x69, field_0x6a, field_0x6b, field_0x6c, field_0x6d, field_0x6e, field_0x6f;
     uint8_t field_0x70, field_0x71, field_0x72, field_0x73, field_0x74, field_0x75, field_0x76, field_0x77;
-    uint8_t field_0x78, field_0x79, field_0x7a, field_0x7b, field_0x7c, field_0x7d, field_0x7e, field_0x7f;
-    uint8_t field_0x80, field_0x81, field_0x82, field_0x83, field_0x84, field_0x85, field_0x86, field_0x87;
-    uint8_t field_0x88, field_0x89, field_0x8a, field_0x8b, field_0x8c, field_0x8d, field_0x8e, field_0x8f;
+    float aInsertOffset[3];  /* 0x78: rdModel3_Draw transforms it with the position */
+    uint8_t field_0x84, field_0x85, field_0x86, field_0x87, field_0x88, field_0x89, field_0x8a, field_0x8b;
+    uint8_t field_0x8c, field_0x8d, field_0x8e, field_0x8f;
 };
 _Static_assert(__builtin_offsetof(rdModel3, aName) == 0x0, "rdModel3.aName");
 _Static_assert(__builtin_offsetof(rdModel3, aGeosets) == 0x24, "rdModel3.aGeosets");
 _Static_assert(__builtin_offsetof(rdModel3, dwGeosets) == 0x44, "rdModel3.dwGeosets");
+_Static_assert(__builtin_offsetof(rdModel3, nCurGeoset) == 0x50, "rdModel3.nCurGeoset");
+_Static_assert(__builtin_offsetof(rdModel3, nNumHierarchyNodes) == 0x54, "rdModel3.nNumHierarchyNodes");
+_Static_assert(__builtin_offsetof(rdModel3, pHierarchyNodes) == 0x58, "rdModel3.pHierarchyNodes");
+_Static_assert(__builtin_offsetof(rdModel3, flRadius) == 0x5c, "rdModel3.flRadius");
+_Static_assert(__builtin_offsetof(rdModel3, aInsertOffset) == 0x78, "rdModel3.aInsertOffset");
 _Static_assert(sizeof(rdModel3) == 0x90, "sizeof rdModel3");
 /* rdThing: A drawable of the renderer (0x4c bytes): a model with its puppet, or a camera / polyline. */
 struct rdThing {  /* 0x4c */
