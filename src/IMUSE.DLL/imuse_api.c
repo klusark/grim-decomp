@@ -2315,8 +2315,6 @@ uint __cdecl sounds_save(code *write)
 
 
 /* ---- 0x10008580  sounds_restore ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name sounds_restore (the remaster's GrimFandango (Linux): aligned call in
    SoundsInitialize); was FUN_10008580. */
@@ -2436,8 +2434,6 @@ LAB_1000883c:
 #undef iStack_2c
 #undef puStack_24
 #undef uStack_28
-
-#endif
 
 
 /* ---- 0x10008860  sounds_pause ---- */

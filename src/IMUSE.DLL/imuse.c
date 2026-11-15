@@ -1454,8 +1454,6 @@ undefined4 __cdecl DwInitialize(undefined4 services,undefined4 *trInitialize_wav
 }
 
 /* ---- 0x10003730  DwQuery ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Fills the DirectSound stream buffer from the mixer once per tick Original name DwQuery (the
    remaster's GrimFandango (Linux): aligned call in TrIntHandler); was Im_DSoundHeartbeat. */
 
@@ -1463,47 +1461,47 @@ int __cdecl DwQuery(int **buf_out,uint *count_out,int *rate_out)
 
 {
   int iVar1;
-  int *piVar2;
-  int *piVar3;
+  int **ppiVar2;
+  int **ppiVar3;
   uint uVar4;
   uint uVar5;
-  undefined4 *puVar6;
-  int *piVar7;
+  int *piVar6;
+  undefined4 *puVar7;
   undefined4 *puVar8;
   
   *count_out = 0;
   uVar5 = DAT_1002d82c;
-  piVar3 = DAT_1002d840;
-  if ((DAT_1002d840 == (int *)0x0) && (piVar3 = DAT_1002d844, DAT_1002d844 == (int *)0x0)) {
+  ppiVar3 = DAT_1002d840;
+  if ((DAT_1002d840 == (int **)0x0) && (ppiVar3 = DAT_1002d844, DAT_1002d844 == (int **)0x0)) {
     DAT_1002d848 = DAT_1002d848 ^ 1;
     if (DAT_1002d848 == 0) {
-      piVar3 = (int *)0x0;
+      ppiVar3 = (int **)0x0;
       if (g_dwCurrentWriteIndex != 0) {
         DAT_1002d848 = 0;
         if ((DAT_1002d854 != (undefined4 *)0x0) && (DAT_1002d820 != 0)) {
-          piVar3 = DAT_1002d818;
-          piVar2 = DAT_1002d850;
+          piVar6 = DAT_1002d818;
+          ppiVar3 = DAT_1002d850;
           for (uVar4 = DAT_1002d82c >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-            *piVar2 = *piVar3;
-            piVar3 = piVar3 + 1;
-            piVar2 = piVar2 + 1;
+            *ppiVar3 = (int *)*piVar6;
+            piVar6 = piVar6 + 1;
+            ppiVar3 = ppiVar3 + 1;
           }
           for (uVar5 = uVar5 & 3; uVar4 = DAT_1002d820, uVar5 != 0; uVar5 = uVar5 - 1) {
-            *(char *)piVar2 = (char)*piVar3;
-            piVar3 = (int *)((int)piVar3 + 1);
-            piVar2 = (int *)((int)piVar2 + 1);
+            *(char *)ppiVar3 = (char)*piVar6;
+            piVar6 = (int *)((int)piVar6 + 1);
+            ppiVar3 = (int **)((int)ppiVar3 + 1);
           }
-          puVar8 = (undefined4 *)(DAT_1002d82c + (int)DAT_1002d818);
-          puVar6 = DAT_1002d854;
+          puVar7 = (undefined4 *)(DAT_1002d82c + (int)DAT_1002d818);
+          puVar8 = DAT_1002d854;
           for (uVar5 = DAT_1002d820 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-            *puVar6 = *puVar8;
+            *puVar8 = *puVar7;
+            puVar7 = puVar7 + 1;
             puVar8 = puVar8 + 1;
-            puVar6 = puVar6 + 1;
           }
           for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-            *(undefined1 *)puVar6 = *(undefined1 *)puVar8;
+            *(undefined1 *)puVar8 = *(undefined1 *)puVar7;
+            puVar7 = (undefined4 *)((int)puVar7 + 1);
             puVar8 = (undefined4 *)((int)puVar8 + 1);
-            puVar6 = (undefined4 *)((int)puVar6 + 1);
           }
         }
         iVar1 = (**(code_std **)(*PTR_1002d83c + 0x4c))
@@ -1513,43 +1511,39 @@ int __cdecl DwQuery(int **buf_out,uint *count_out,int *rate_out)
       }
     }
     else {
-      piVar2 = (int *)iMUSE_dsound__3a80();
-      piVar3 = piVar2;
-      if (piVar2 != (int *)0xffffffff) {
-        piVar3 = (int *)(((int)PTR_100170ec + 1) / DAT_1002d824);
-        if (piVar2 != (int *)(((int)PTR_100170ec + 1) % DAT_1002d824)) {
+      ppiVar2 = (int **)iMUSE_dsound__3a80();
+      ppiVar3 = ppiVar2;
+      if (ppiVar2 != (int **)0xffffffff) {
+        ppiVar3 = (int **)(((int)PTR_100170ec + 1) / DAT_1002d824);
+        if (ppiVar2 != (int **)(((int)PTR_100170ec + 1) % DAT_1002d824)) {
           if ((int)PTR_100170ec < 0) {
-            PTR_100170ec = piVar2;
+            PTR_100170ec = (int *)ppiVar2;
           }
-          PTR_100170ec = (int *)(((int)PTR_100170ec + 1) % DAT_1002d824);
-          puVar8 = &DAT_1002d820;
-          piVar7 = (int *)&DAT_1002d82c;
-          piVar3 = (int *)(**(code_std **)(*PTR_1002d83c + 0x2c))
-                                    (PTR_1002d83c,(int)PTR_100170ec * 0x1800,0x1800,&DAT_1002d850,
-                                     &DAT_1002d82c,&DAT_1002d854,&DAT_1002d820,0);
-          piVar2 = DAT_1002d850;
-          if (piVar3 == (int *)0x0) {
+          PTR_100170ec = (int *)((int)((int)PTR_100170ec + 1) % DAT_1002d824);
+          ppiVar3 = (int **)(**(code_std **)(*PTR_1002d83c + 0x2c))
+                                      (PTR_1002d83c,(int)PTR_100170ec * 0x1800,0x1800,&DAT_1002d850,
+                                       &DAT_1002d82c,&DAT_1002d854,&DAT_1002d820,0);
+          ppiVar2 = DAT_1002d850;
+          if (ppiVar3 == (int **)0x0) {
             if ((DAT_1002d854 == (undefined4 *)0x0) || (DAT_1002d820 == 0)) {
-              *piVar7 = (int)DAT_1002d850;
+              *buf_out = (int *)DAT_1002d850;
               *count_out = DAT_1002d82c >> 2;
             }
             else {
-              *piVar7 = (int)DAT_1002d818;
+              *buf_out = DAT_1002d818;
               *count_out = 0x600;
-              piVar2 = piVar7;
+              ppiVar2 = buf_out;
             }
-            *puVar8 = 0x5622;
+            *rate_out = 0x5622;
             g_dwCurrentWriteIndex = 1;
-            piVar3 = piVar2;
+            ppiVar3 = ppiVar2;
           }
         }
       }
     }
   }
-  return (int)piVar3;
+  return (int)ppiVar3;
 }
-#endif
-
 
 /* ---- 0x100038d0  DwTerminate ---- */
 /* Original name DwTerminate (the remaster's GrimFandango (Linux): called by TrTerminate at the same

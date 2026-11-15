@@ -4,6 +4,7 @@ Usage: python -I tools/apply_types.py names/types_*.json [--dry]
 
 A batch is one JSON object:
   {"program": "/v101/GRIMFANDANGO.EXE",
+   "unions":  [{"name": "ControlValue", "size": 4, "comment": "...", "fields": [["int", "nState", "comment"], ...]}],
    "structs": [{"name": "Actor", "size": 168, "comment": "...",
                 "fields": [[0, "void *", "pColormapRef", "comment"], [4, "uint", "dwFlags", "..."], ...]}],
    "params":  [{"addr": "004947c0", "index": 0, "type": "Actor *", "name": "actor"}],   # name optional
@@ -322,9 +323,32 @@ def placeholder(s, names):
     return dict(s, fields=fs)
 
 
+def apply_union(prog, u, log):
+    """Creates the union when the program has none of that name (every member at offset 0; an existing one is left as
+    it is: retyping members in place is not supported by the bridge)."""
+    have = export_raw.union_layouts(prog).get(u["name"])
+    want = [[f[0], f[1]] for f in u["fields"]]
+    if have is not None:
+        got = [[f[2], f[3]] for f in have["fields"]]
+        if got != want:
+            log.append(f"FAIL union {u['name']}: members {got} != {want}, change it by hand")
+        return "exists"
+    if DRY:
+        return "would create"
+    r = g.post("create_union", program=prog, name=u["name"],
+               fields=json.dumps([{"name": n, "type": ty} for ty, n in want]))
+    have = export_raw.union_layouts(prog).get(u["name"])
+    if have is None or have["size"] != u["size"]:
+        log.append(f"FAIL union {u['name']}: not created as asked ({str(r)[:200]})")
+    return str(r)[:120]
+
+
 def main(paths):
     log = []
     batches = [(p, json.load(open(p))) for p in paths]
+    for p, b in batches:
+        for u in b.get("unions", []):
+            print(p, "union", u["name"], apply_union(b.get("program", g.EXE), u, log))
     items = struct_order([(p, b.get("program", g.EXE), s) for p, b in batches for s in b.get("structs", [])])
     names = {s["name"] for _, _, s in items}
     for p, prog, s in items:

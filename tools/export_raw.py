@@ -70,6 +70,50 @@ def struct_layouts(prog_path, getter=None):
             if r:
                 fields.append([int(r.group(1)), int(r.group(2)), r.group(3), r.group(4)])
         out[name] = {"size": int(m.group(1)) if m else 0, "fields": fields}
+    if getter is get:
+        out.update(union_layouts(prog_path))
+    return out
+
+
+# (no backslashes: the bridge un-escapes them in the script source)
+UNION_SCRIPT = """import ghidra.app.script.GhidraScript;
+import ghidra.program.model.data.*;
+public class UnionLayouts extends GhidraScript {
+  public void run() throws Exception {
+    java.util.Iterator<DataType> it = currentProgram.getDataTypeManager().getAllDataTypes();
+    while (it.hasNext()) {
+      DataType d = it.next();
+      if (!(d instanceof Union)) continue;
+      Union u = (Union) d;
+      println("U|" + u.getName() + "|" + u.getLength() + "|" + u.getCategoryPath().getPath());
+      for (DataTypeComponent c : u.getComponents())
+        println("F|" + c.getLength() + "|" + c.getDataType().getDisplayName() + "|" + c.getFieldName());
+    }
+  }
+}"""
+
+
+def union_layouts(prog_path):
+    """{name: {"size": n, "kind": "union", "fields": [[0, size, type, name], ...]}} for the program's unions (the bridge's
+    get_struct_layout reads structures only). Every member is at offset 0; the first is the one C initialises."""
+    body = json.dumps({"code": UNION_SCRIPT}).encode()
+    url = f"{BASE}/run_script_inline?" + urllib.parse.urlencode({"program": prog_path})
+    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=180) as r:
+        txt = r.read().decode("utf-8", "replace")
+    try:
+        txt = json.loads(txt).get("result", txt)
+    except ValueError:
+        pass
+    out, cur = {}, None
+    for line in txt.replace("\\r\\n", "\n").replace("\\n", "\n").replace("\r\n", "\n").splitlines():
+        p = line.strip().split("|")
+        if p[0] == "U" and len(p) == 4:
+            cur = None
+            if re.fullmatch(r"[A-Za-z_]\w*", p[1]) and not p[3].startswith(("/PE", "/DOS")) and not p[1].startswith("IMAGE_"):
+                cur = out[p[1]] = {"size": int(p[2]), "kind": "union", "fields": []}
+        elif p[0] == "F" and len(p) == 4 and cur is not None:
+            cur["fields"].append([0, int(p[1]), p[2], p[3]])
     return out
 
 

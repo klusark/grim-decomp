@@ -843,8 +843,6 @@ void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,u
 
 
 /* ---- 0x004d1180  sou_engine_start_stream ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Receives one chunk of a Smush audio stream (first chunk: picks a voice; later chunks: appended to
    its ring buffer). Per-voice stream state lives in g_anSndStreamKey, g_anSndStreamKind and
    g_anSndChunkCount. Original name sou_engine_start_stream (the remaster's GrimFandango (Linux):
@@ -1102,8 +1100,6 @@ LAB_004d153e:
 }
 #undef aiStack_40
 #undef local_44
-
-#endif
 
 
 /* ---- 0x004d1690  SoundModule_SyncClock ---- */

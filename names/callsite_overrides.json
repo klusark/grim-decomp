@@ -273,6 +273,41 @@
    "args": 3,
    "cc": "__cdecl",
    "in": "stdDisplay_VBufferNew"
+  },
+  {
+   "func": "0049e0b0",
+   "call": "0049e1dd",
+   "args": 1,
+   "cc": "__cdecl",
+   "in": "sputLua_NotifyControlHandlers"
+  },
+  {
+   "func": "0040a980",
+   "call": "0040a9d8",
+   "args": 1,
+   "cc": "__cdecl",
+   "in": "rdModel3_LoadEntry"
+  },
+  {
+   "func": "0040a980",
+   "call": "0040a9ec",
+   "args": 1,
+   "cc": "__cdecl",
+   "in": "rdModel3_LoadEntry"
+  },
+  {
+   "func": "004d2940",
+   "call": "004d2997",
+   "args": 3,
+   "cc": "__stdcall",
+   "in": "DsndDriver_InitDirectSound"
+  },
+  {
+   "func": "004d2940",
+   "call": "004d2970",
+   "args": 2,
+   "cc": "__cdecl",
+   "in": "DsndDriver_InitDirectSound"
   }
  ],
  "IMUSE.DLL": [
@@ -317,6 +352,36 @@
    "args": 4,
    "cc": "__stdcall",
    "in": "Im_DSoundCreateBuffer"
+  },
+  {
+   "func": "10003730",
+   "call": "1000386c",
+   "args": 8,
+   "cc": "__stdcall",
+   "in": "DwQuery"
+  },
+  {
+   "func": "10003730",
+   "call": "100037f5",
+   "args": 5,
+   "cc": "__stdcall",
+   "in": "DwQuery"
+  }
+ ],
+ "LUA.DLL": [
+  {
+   "func": "1000a440",
+   "call": "1000a59b",
+   "args": 3,
+   "cc": "__cdecl",
+   "in": "str_format"
+  },
+  {
+   "func": "1000a440",
+   "call": "1000a5ba",
+   "args": 3,
+   "cc": "__cdecl",
+   "in": "str_format"
   }
  ]
 }

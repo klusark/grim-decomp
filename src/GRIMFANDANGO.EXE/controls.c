@@ -32,7 +32,7 @@ void __cdecl sputControl_Reset(void)
   pCVar1 = g_aControlSymbols;
   for (iVar2 = g_nSputControl_numControlSymbols; iVar2 != 0; iVar2 = iVar2 + -1) {
     pCVar1->dwFlags = pCVar1->dwFlags & 0xfffffff6;
-    pCVar1->dwValue = 0;
+    (pCVar1->uValue).nState = 0;
     pCVar1 = pCVar1 + 1;
   }
   stdControl_Reset();

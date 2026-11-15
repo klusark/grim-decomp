@@ -16,7 +16,7 @@
 | 10002a60 | GoToNextRegion | imuse.c | 128 |
 | 10002d30 | Im_DispatchFetchNext | imuse.c | 168 |
 | 100036b0 | DwInitialize | imuse.c | 26 |
-| 10003730 | DwQuery | imuse.c | 1 |
+| 10003730 | DwQuery | imuse.c | 90 |
 | 100038d0 | DwTerminate | imuse.c | 18 |
 | 10003930 | Im_DSoundCreateBuffer | imuse.c | 1 |
 | 10003ac0 | FdInitialize | imuse.c | 17 |
@@ -231,7 +231,7 @@
 | 10008140 | sounds_shutdown | imuse_api.c | 41 |
 | 100081f0 | Sounds_MlFreeAll | imuse_api.c | 26 |
 | 10008250 | sounds_save | imuse_api.c | 166 |
-| 10008580 | sounds_restore | imuse_api.c | 1 |
+| 10008580 | sounds_restore | imuse_api.c | 120 |
 | 10008860 | sounds_pause | imuse_api.c | 13 |
 | 100088a0 | sounds_resume | imuse_api.c | 12 |
 | 10008ec0 | CacheGetSoundId | imuse_api.c | 228 |

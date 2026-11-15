@@ -54,7 +54,7 @@ void __cdecl Cos_InitChore(Chore *pChore); /* 0x10004140 */
 int __cdecl Cos_FindComponent(Costume *pCostume,int tagId,int hash,char *name); /* 0x10004170 */
 uint __cdecl Cos_ReadTagsSection(uint file,uint unused2,uint unused3); /* 0x100041e0 */
 int __cdecl Cos_FindTag(int tagId,char *name,int kind); /* 0x10004320 */
-uint __cdecl Cos_ReadComponentsSection(uint file,uint handle,uint unused3,uint unused4); /* 0x10004390 */
+uint __cdecl Cos_ReadComponentsSection(uint file,uint handle,uint unused3); /* 0x10004390 */
 int __cdecl Cos_FindComponentWithParent(Costume *pCostume,int tagId,int hash,char *name,int parent); /* 0x10004770 */
 uint __cdecl Cos_ReadChoresSection(uint file,int costume,uint unused3); /* 0x100047f0 */
 uint __cdecl Cos_ReadKeysSection(uint file,int costume); /* 0x10004970 */

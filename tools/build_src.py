@@ -1719,6 +1719,9 @@ def struct_comments(prog):
         b = json.load(open(p))
         if os.path.basename(b.get("program", "/v101/GRIMFANDANGO.EXE")) != prog:
             continue
+        for u in b.get("unions", []):
+            if u.get("comment"):
+                out.setdefault(u["name"], {})[""] = u["comment"]
         for s in b.get("structs", []):
             c = out.setdefault(s["name"], {})
             if s.get("comment"):
@@ -1763,6 +1766,15 @@ def struct_defs(structs, skip, comments=None):
     out = []
     for n in order:
         s = structs[n]
+        if s.get("kind") == "union":
+            # every member at offset 0 (tools/export_raw.py union_layouts); the first is the one an initialiser sets
+            head = (comments or {}).get(n, {}).get("")
+            if head:
+                out.append(f"/* {n}: {head} */")
+            mem = [f"    {c_field(ft, fn, fsz, structs)};" for _, fsz, ft, fn in s["fields"]]
+            out.append(f"union {n} {{  /* 0x{s['size']:x} */\n" + "\n".join(mem) + "\n};")
+            out.append(f"_Static_assert(sizeof({n}) == 0x{s['size']:x}, \"sizeof {n}\");")
+            continue
         body, asserts, pos, used = [], [], 0, Counter()
         packed = False
         for off, sz, t, fn in sorted(s["fields"]):
@@ -2221,7 +2233,7 @@ def build(prog):
             w.write("\n/* Ghidra's structures (raw/<prog>/structs.json). Those build/compat.h defines by hand\n"
                     " * are only declared here: " + (", ".join(sorted(skip & set(STRUCTS))) or "none") + ". */\n")
             for t in sorted(STRUCTS):
-                w.write(f"typedef struct {t} {t};\n")
+                w.write(f"typedef {'union' if STRUCTS[t].get('kind') == 'union' else 'struct'} {t} {t};\n")
             defs = struct_defs(STRUCTS, skip, struct_comments(prog))
             if defs:
                 w.write("\n" + "\n".join(defs) + "\n")

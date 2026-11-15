@@ -151,8 +151,6 @@ int __cdecl Cos_Load(char *fileName)
 }
 
 /* ---- 0x10001770  Cos_LoadEntry ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Export: loads the text costume file `name` into the costume `handle` (sections tags, components,
    chores, keys). Hand-written in build/overrides_asm_o2_chore.c, which has the details. */
 
@@ -168,7 +166,6 @@ uint __cdecl Cos_LoadEntry(char *name,int handle)
   uint uVar5;
   char *pcVar6;
   int iVar7;
-  uint unaff_EDI;
   uint *puVar8;
   uint *puVar9;
   #define uStack_10 (*(uint *)(_frame + (0x20 - 0x10)))
@@ -219,7 +216,7 @@ uint __cdecl Cos_LoadEntry(char *name,int handle)
              && (uVar5 = Cos_ReadTagsSection(uVar3,(uint)pCostume,(uint)name), uVar5 != 0)) &&
             ((iVar4 = Cos_ReadLine(uVar3,g_szParseLine,0x400), iVar4 != 0 &&
              (iVar4 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001024c)), iVar4 == 0)))) &&
-           ((uVar5 = Cos_ReadComponentsSection(uVar3,handle,(uint)name,unaff_EDI), uVar5 != 0 &&
+           ((uVar5 = Cos_ReadComponentsSection(uVar3,handle,(uint)name), uVar5 != 0 &&
             ((iVar4 = Cos_ReadLine(uVar3,g_szParseLine,0x400), iVar4 != 0 &&
              (iVar4 = msvc_sscanf(g_szParseLine,(char *)((unsigned)(uintptr_t)&DAT_1001023c)), iVar4 == 0)))))) &&
           (uVar5 = Cos_ReadChoresSection(uVar3,(int)pCostume,(uint)name), uVar5 != 0)) &&
@@ -270,8 +267,6 @@ LAB_10001a10:
 #undef auStack_4
 #undef auStack_8
 #undef uStack_10
-
-#endif
 
 
 /* ---- 0x10001a30  Cos_FreeCosInstance ---- */
@@ -2004,7 +1999,7 @@ int __cdecl Cos_FindTag(int tagId,char *name,int kind)
    calls Cos_RegisterComponent back); g_aComponentLookups maps the file's component index to the
    costume's. Hand-written in build/overrides_asm_o2_chore.c. */
 
-uint __cdecl Cos_ReadComponentsSection(uint file,uint handle,uint unused3,uint unused4)
+uint __cdecl Cos_ReadComponentsSection(uint file,uint handle,uint unused3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */

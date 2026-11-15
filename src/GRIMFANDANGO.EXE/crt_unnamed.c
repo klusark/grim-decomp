@@ -1,5 +1,5 @@
 /* GRIMFANDANGO.EXE :: crt_unnamed.c
- * functions 0x004ac690 .. 0x004d610b (314 functions)
+ * functions 0x004ac690 .. 0x004d610b (313 functions)
  * Decompiled from the shipped binaries with Ghidra; see ../../README.md */
 #include "ghidra_types.h"
 #include "globals.h"
@@ -35,35 +35,6 @@
 
 /* ---- 0x004ad2b0  FUN_004ad2b0 ---- */
 /* not in the source: names/lib_replace.json (dead): original C runtime code that nothing live reaches */
-
-
-/* ---- 0x004addf0  FUN_004addf0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
-/* WARNING: Unable to track spacebase fully for stack */
-/* WARNING: Unknown calling convention -- yet parameter storage is locked */
-
-int FUN_004addf0(void)
-
-{
-  unsigned char _frame[0x1010];  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint in_EAX;
-  undefined1 *puVar1;
-  uint local_res0;
-  #define local_ffc (*(uint *)(_frame + (0x1010 - 0xffc)))
-  #define local_4 (*(uint *)(_frame + (0x1010 - 0x4)))
-  
-  puVar1 = &STACK0X(0x00000004);
-  for (; 0xfff < in_EAX; in_EAX = in_EAX - 0x1000) {
-    puVar1 = puVar1 + -0x1000;
-  }
-  *(uint *)(puVar1 + (-4 - in_EAX)) = local_res0;
-  return local_res0;
-}
-#undef local_4
-#undef local_ffc
-
-#endif
 
 
 /* ---- 0x004adef0  FUN_004adef0 ---- */

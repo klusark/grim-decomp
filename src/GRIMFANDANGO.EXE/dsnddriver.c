@@ -218,35 +218,44 @@ int dsn_getrate(void)
 }
 
 /* ---- 0x004d2940  DsndDriver_InitDirectSound ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
 int DsndDriver_InitDirectSound(void)
 
 {
-  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  void *pvVar2;
+  void *a1;
+  undefined4 a2;
+  #define uStack_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
+  #define uStack_10 (*(undefined4 *)(_frame + (0x30 - 0x10)))
+  #define uStack_c (*(undefined4 *)(_frame + (0x30 - 0xc)))
+  #define uStack_8 (*(undefined4 *)(_frame + (0x30 - 0x8)))
+  #define uStack_4 (*(undefined4 *)(_frame + (0x30 - 0x4)))
   
   if (g_pStreamDS == (void *)0x0) {
     iVar1 = DirectSoundCreate(0,((unsigned)(uintptr_t)&g_pStreamDS),0);
     if (iVar1 != 0) {
       g_pStreamDS = (void *)0x0;
-      Lua_Stub(s_Cannot_create_DirectSound_object_004f40d0);
+      Lua_Stub(s_Cannot_create_DirectSound_object_004f40d0,iVar1);
       return -1;
     }
+    a2 = 3;
     iVar1 = *(int *)g_pStreamDS;
-    pvVar2 = Win_GetMainHwnd();
-    iVar1 = (**(code **)(iVar1 + 0x18))(g_pStreamDS,pvVar2);
+    a1 = Win_GetMainHwnd();
+    iVar1 = (**(code **)(iVar1 + 0x18))(g_pStreamDS,a1,a2);
     if (iVar1 != 0) {
       Lua_Stub(s_DirectSound__Error__08X_while_se_004f4098,iVar1);
       if (iVar1 != 0) {
         return -1;
       }
     }
-    iVar1 = (**(code_std **)(*(int *)g_pStreamDS + 0xc))
-                      (g_pStreamDS,(_stkneg + 16),&g_pStreamDSPrimary,0);
+    uStack_14 = 0x14;
+    uStack_10 = 0x81;
+    uStack_c = 0;
+    uStack_8 = 0;
+    uStack_4 = 0;
+    iVar1 = (**(code_std **)(*(int *)g_pStreamDS + 0xc))(g_pStreamDS,&uStack_14,&g_pStreamDSPrimary,0);
     if (iVar1 != 0) {
       Lua_Stub(s_DirectSound__Error__08X_while_cr_004f4060,iVar1);
       if (iVar1 != 0) {
@@ -271,7 +280,11 @@ int DsndDriver_InitDirectSound(void)
   }
   return 0;
 }
-#endif
+#undef uStack_10
+#undef uStack_14
+#undef uStack_4
+#undef uStack_8
+#undef uStack_c
 
 
 /* ---- 0x004d2aa0  DsndDriver_CreateStreamBuffer ---- */

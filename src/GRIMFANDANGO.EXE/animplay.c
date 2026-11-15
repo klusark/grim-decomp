@@ -106,8 +106,6 @@ void __cdecl anm_Stop(void **pp)
 }
 
 /* ---- 0x004c27a0  anm_Render ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* One step of the AnimPlay frame player: shows the next frame if due and adjusts the frame delay to
    keep sound and picture in sync Original name anm_Render (the remaster's GrimFandango (Linux):
    strings: 'Sync Ticks:  %ld    \n' | 'State:       %d    \n' | 'Frame Delay: %ld (%ld target)
@@ -229,8 +227,6 @@ anm_Render(AnimPlayer *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9
   }
   return uVar2;
 }
-#endif
-
 
 /* ---- 0x004c36b0  anm_animator_Initialize ---- */
 /* Resets the decoder state fields of an AnimPlay frame player and its streamer Original name

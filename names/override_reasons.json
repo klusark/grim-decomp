@@ -72,5 +72,12 @@
   "rdVector_Normalize3": "x87: leaves |v| unrounded in ST0 for its caller",
   "Script_SetState": "the twin passes unaff_EDI / unaff_ESI / the return address on to Script_Trans (register arguments of the dispatcher)",
   "Script_Trans": "its callers pass register arguments (the dispatcher ESI); the twin reads unaff_ registers",
-  "stdDisplay_VBufferNew": "the DirectDraw palette loop reads the palette argument from a stack slot the decompiler lost (puStack_8, never set) and drops the 0x40 flags of entries 0 and 255; the two allocations have their file / line arguments now (call-site overrides)"
+  "stdDisplay_VBufferNew": "the DirectDraw palette loop reads the palette argument from a stack slot the decompiler lost (puStack_8, never set) and drops the 0x40 flags of entries 0 and 255; the two allocations have their file / line arguments now (call-site overrides)",
+  "Insane_BlitRows16": "fast path: the per-pixel copy of a movie frame dominated the movie loop; the hand-written copy gives the same pixels",
+  "sputLua_GetVisibleThingsL": "the original's bug cannot be copied: when the argument is neither nil nor an actor it reads an uninitialised stack slot as the viewer (on the original a leftover actor pointer, varying from run to run; in the rebuild a null pointer, which crashed, grim_tools cleanroom args_GetVisibleThings_tab); the hand-written version takes the selected actor there",
+  "Collision_PointInBox": "stack aliasing: the original copies the box out of its parameter slots (rep movsd into the outgoing arguments), then reuses those slots for the moved end point; the decompiler orders the stores before the copy, so the twin passes the moved point as the box",
+  "ImSoundCall": "commands 0x11 and 0x14 read argument 15, four words beyond what any caller pushes (garbage in the original); the hand-written version takes a11, equal to every argument the two callers pass",
+  "Im_MixLoopC": "the byte-swapped big-endian sample is sign-extended (MOVSX EAX,AX); the decompiler prints (int)CONCAT11(lo, hi), which C zero-extends: negative samples come out as 65536 - |x|",
+  "Im_MixLoopD": "the byte-swapped big-endian sample is sign-extended (MOVSX EAX,AX); the decompiler prints (int)CONCAT11(lo, hi), which C zero-extends: negative samples come out as 65536 - |x|",
+  "rdCache_AddProcFace": "x87: the screen box is the bounds rounded UP (FLDCW round-up, FRNDINT, FLDCW back, _ftol); the decompiler's ROUND rounds to nearest (draw, shadow and lighting tests differ)"
 }

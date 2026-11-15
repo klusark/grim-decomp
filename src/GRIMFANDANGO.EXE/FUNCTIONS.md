@@ -1,6 +1,6 @@
 # GRIMFANDANGO.EXE function index
 
-2604 functions, 2408 with real names.
+2604 functions, 2409 with real names.
 
 | address | name | module | lines |
 |---|---|---|---|
@@ -86,7 +86,7 @@
 | 00498e20 | sputLua_Test | lua.c | 9 |
 | 00498e50 | sputLua_ShrinkBoxes | lua.c | 20 |
 | 00498e90 | sputLua_UnShrinkBoxes | lua.c | 10 |
-| 00498ea0 | sputLua_GetShrinkPosition | lua.c | 1 |
+| 00498ea0 | sputLua_GetShrinkPosition | lua.c | 67 |
 | 00499000 | sputLua_SetSoundParametersL | lua.c | 91 |
 | 004991c0 | sputLua_GetSoundParametersL | lua.c | 39 |
 | 00499250 | sputLua_SetDebugToggleCallback | lua.c | 9 |
@@ -192,7 +192,7 @@
 | 0049de00 | sputLua_Startup | lua.c | 1 |
 | 0049dfa0 | sputLua_SaveIndirector | lua.c | 37 |
 | 0049e020 | sputLua_RestoreIndirector | lua.c | 40 |
-| 0049e0b0 | sputLua_NotifyControlHandlers | lua.c | 1 |
+| 0049e0b0 | sputLua_NotifyControlHandlers | lua.c | 152 |
 | 0049e380 | Lua_CreateSystemTable | lua.c | 32 |
 | 0049e460 | Lua_CreateControlsTable | lua.c | 36 |
 | 0049e590 | sputLua_SetSoundPosition | lua.c | 116 |
@@ -498,7 +498,7 @@
 | 00409d50 | rdCache_InsertFace | rdprimit3.c | 1 |
 | 0040dcc0 | rdPrimit3_DrawLine | rdprimit3.c | 58 |
 | 0040dde0 | rdPrimit3_DrawPoint | rdprimit3.c | 38 |
-| 0040deb0 | rdPrimit3_ClipFace | rdprimit3.c | 1 |
+| 0040deb0 | rdPrimit3_ClipFace | rdprimit3.c | 288 |
 | 0040e500 | rdPrimit3_NoClipFace | rdprimit3.c | 1 |
 | 00409f50 | rdCamera_New | rdcamera.c | 15 |
 | 00409fb0 | rdCamera_NewEntry | rdcamera.c | 38 |
@@ -528,9 +528,9 @@
 | 0040a880 | rdModel3_SetClipPlane | renderer.c | 14 |
 | 0040a8c0 | rdModel3_NewEntry | rdmodel3.c | 22 |
 | 0040a8f0 | rdModel3_Load | rdmodel3.c | 40 |
-| 0040a980 | rdModel3_LoadEntry | rdmodel3.c | 1 |
-| 0040aa20 | rdModel3_LoadEntryText | rdmodel3.c | 1 |
-| 0040b8e0 | rdModel3_LoadEntryBinary | rdmodel3.c | 1 |
+| 0040a980 | rdModel3_LoadEntry | rdmodel3.c | 31 |
+| 0040aa20 | rdModel3_LoadEntryText | rdmodel3.c | 588 |
+| 0040b8e0 | rdModel3_LoadEntryBinary | rdmodel3.c | 277 |
 | 0040c090 | rdModel3_LoadPostProcess | rdmodel3.c | 14 |
 | 0040c0d0 | rdModel3_Free | rdmodel3.c | 16 |
 | 0040c100 | rdModel3_FreeEntry | rdmodel3.c | 83 |
@@ -1444,7 +1444,7 @@
 | 00490d30 | sputActor_PushCostume | actor.c | 28 |
 | 00490dd0 | sputActor_PopCostume | actor.c | 12 |
 | 00490f50 | Actor_PuckOrient | actor.c | 1 |
-| 00491110 | Actor_UpdateWalker | actor.c | 1 |
+| 00491110 | Actor_UpdateWalker | actor.c | 52 |
 | 004913f0 | Actor_UpdateMoveChores | actor.c | 125 |
 | 00492b30 | sputActor_SayLine | actor.c | 238 |
 | 00493060 | sputActor_ShutUp | actor.c | 74 |
@@ -1510,7 +1510,7 @@
 | 004a7ba0 | WalkPlane_RemoveVertex | sector.c | 13 |
 | 004a7bc0 | ParseCollection | sector.c | 368 |
 | 004a8cb0 | WalkPlane_ClipPoly | sector.c | 194 |
-| 004a9070 | WalkPlane_DistToEdge | sector.c | 1 |
+| 004a9070 | WalkPlane_DistToEdge | sector.c | 60 |
 | 004a9180 | WalkPlane_RemoveShortEdge | sector.c | 150 |
 | 004a9d00 | ShrinkBoxes | sector.c | 1 |
 | 00486250 | DrawList_Reset | drawlist.c | 16 |
@@ -1887,6 +1887,7 @@
 | 004adcc0 | bsearch | crt.c | 1 |
 | 004add60 | strncmp | crt.c | 1 |
 | 004adda0 | sscanf | crt.c | 1 |
+| 004addf0 | __alloca_probe | crt.c | 1 |
 | 004ade30 | strchr | crt.c | 1 |
 | 004adf70 | _snprintf | crt.c | 1 |
 | 004adfe0 | _strupr | crt.c | 1 |
@@ -2064,7 +2065,6 @@
 | 004acd10 | FUN_004acd10 | crt_unnamed.c | 1 |
 | 004acf30 | FUN_004acf30 | crt_unnamed.c | 1 |
 | 004ad2b0 | FUN_004ad2b0 | crt_unnamed.c | 1 |
-| 004addf0 | FUN_004addf0 | crt_unnamed.c | 1 |
 | 004adef0 | FUN_004adef0 | crt_unnamed.c | 1 |
 | 004ae410 | FUN_004ae410 | crt_unnamed.c | 1 |
 | 004ae735 | FUN_004ae735 | crt_unnamed.c | 1 |
@@ -2452,7 +2452,7 @@
 | 004c1e50 | LecShare_Nop | lecshare.c | 5 |
 | 004c23c0 | anm_Start | animplay.c | 72 |
 | 004c2690 | anm_Stop | animplay.c | 24 |
-| 004c27a0 | anm_Render | animplay.c | 1 |
+| 004c27a0 | anm_Render | animplay.c | 121 |
 | 004c36b0 | anm_animator_Initialize | animplay.c | 19 |
 | 004c3d30 | anm_animator_NewAnim | animplay.c | 20 |
 | 004c3e60 | gz_open | zlib.c | 1 |
@@ -2585,7 +2585,7 @@
 | 004d0eb0 | SoundModule_GetChannelVolume | soundmodule.c | 8 |
 | 004d0ed0 | SoundModule_SetChannelVolume | soundmodule.c | 9 |
 | 004d0f00 | SoundModule_PlayVoc | soundmodule.c | 139 |
-| 004d1180 | sou_engine_start_stream | soundmodule.c | 1 |
+| 004d1180 | sou_engine_start_stream | soundmodule.c | 258 |
 | 004d1690 | SoundModule_SyncClock | soundmodule.c | 8 |
 | 004d16a0 | sou_engine_fill | soundmodule.c | 1 |
 | 004d2340 | SoundModule_AdvanceClock | soundmodule.c | 1 |
@@ -2602,7 +2602,7 @@
 | 004d2630 | dsn_setvol | dsnddriver.c | 62 |
 | 004d27b0 | dsn_getvol | dsnddriver.c | 9 |
 | 004d27c0 | dsn_getrate | dsnddriver.c | 9 |
-| 004d2940 | DsndDriver_InitDirectSound | dsnddriver.c | 1 |
+| 004d2940 | DsndDriver_InitDirectSound | dsnddriver.c | 68 |
 | 004d2aa0 | DsndDriver_CreateStreamBuffer | dsnddriver.c | 81 |
 | 004d2bf0 | DsndDriver_ReleaseDirectSound | dsnddriver.c | 21 |
 | 004d5e70 | msc_rle_DecompressBlock | rle.c | 23 |

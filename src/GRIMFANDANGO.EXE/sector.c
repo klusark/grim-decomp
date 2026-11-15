@@ -2316,8 +2316,6 @@ LAB_004a903f:
 
 
 /* ---- 0x004a9070  WalkPlane_DistToEdge ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Source: Engine/WalkPlane.cpp (line 1736, from __FILE__/__LINE__ passed to the allocator) Original
    name WalkPlane_DistToEdge (the remaster's GrimFandango (Linux): same body (assert "edge_index <
    num_verts", WalkPlane.cpp; the distance of the point to the edge)); was Sector_EdgeDistance. */
@@ -2328,8 +2326,8 @@ float __thiscall WalkPlane_DistToEdge(WalkPlane *this,int edge,float *point)
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   WalkVertex *pWVar1;
   WalkVertex *pWVar2;
-  float10 extraout_ST0;
-  float fVar3;
+  float10 fVar3;
+  float fVar4;
   #define fStack_38 (*(float *)(_frame + (0x50 - 0x38)))
   #define fStack_34 (*(float *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(float *)(_frame + (0x50 - 0x30)))
@@ -2358,10 +2356,10 @@ float __thiscall WalkPlane_DistToEdge(WalkPlane *this,int edge,float *point)
   fStack_20 = point[1] - pWVar1->aPos[1];
   fStack_1c = point[2] - pWVar1->aPos[2];
   rdVector_Normalize3(&local_c,&local_30);
-  rdVector_Normalize3(&fStack_18,&fStack_24);
-  fVar3 = stdMath_ArcSin3(fStack_10 * fStack_4 + fStack_14 * fStack_8 + fStack_18 * local_c);
-  stdMath_SinCos(90.0f - fVar3,&fStack_38,&fStack_34);
-  return fStack_38 * (float)extraout_ST0;
+  fVar3 = rdVector_Normalize3(&fStack_18,&fStack_24);
+  fVar4 = stdMath_ArcSin3(fStack_10 * fStack_4 + fStack_14 * fStack_8 + fStack_18 * local_c);
+  stdMath_SinCos(90.0f - fVar4,&fStack_38,&fStack_34);
+  return fStack_38 * (float)fVar3;
 }
 #undef fStack_10
 #undef fStack_14
@@ -2377,8 +2375,6 @@ float __thiscall WalkPlane_DistToEdge(WalkPlane *this,int edge,float *point)
 #undef fStack_8
 #undef local_30
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004a9180  WalkPlane_RemoveShortEdge ---- */
@@ -2536,7 +2532,7 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
 /* ---- 0x004a9d00  ShrinkBoxes ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Variable defined which should be unmapped: local_18 */
+/* WARNING: Function: __alloca_probe replaced with injection: alloca_probe */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* SectorList_ShrinkWalkSectors(radius), called by Lua ShrinkBoxes after WalkPlane_BuildCache. For
    every active walk sector (type & 0x1000, flag +0x28): for each vertex take the bisector of the
@@ -2553,154 +2549,155 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
 void __cdecl ShrinkBoxes(float radius)
 
 {
-  unsigned char _frame[0x30];  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40e0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  float fVar2;
-  WalkVertex *pWVar3;
-  bool bVar4;
+  WalkVertex *pWVar2;
+  float fVar3;
+  int iVar4;
   float *pfVar5;
   int iVar6;
   float *pfVar7;
-  int iVar8;
-  int *piVar9;
+  int *piVar8;
   WalkPlane *this;
-  WalkVertex **ppWVar10;
-  undefined4 *puVar11;
-  float fVar12;
-  float fVar13;
+  WalkVertex **ppWVar9;
+  float fVar10;
   uint local_res0;
-  int iStack0000000c;
-  int iStack00000010;
-  float in_stack_00000014;
-  float in_stack_00000018;
-  float in_stack_0000001c;
-  float *pfStack00000020;
-  float in_stack_00000024;
-  float in_stack_00000028;
-  float in_stack_0000002c;
-  float in_stack_00000030;
-  double in_stack_00000038;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  #define fStack_40c4 (*(float *)(_frame + (0x40e0 - 0x40c4)))
+  #define fStack_40c0 (*(float *)(_frame + (0x40e0 - 0x40c0)))
+  #define fStack_40bc (*(float *)(_frame + (0x40e0 - 0x40bc)))
+  #define fStack_40b8 (*(float *)(_frame + (0x40e0 - 0x40b8)))
+  #define iStack_40b4 (*(int *)(_frame + (0x40e0 - 0x40b4)))
+  #define iStack_40b0 (*(int *)(_frame + (0x40e0 - 0x40b0)))
+  #define fStack_40ac (*(float *)(_frame + (0x40e0 - 0x40ac)))
+  #define fStack_40a8 (*(float *)(_frame + (0x40e0 - 0x40a8)))
+  #define fStack_40a4 (*(float *)(_frame + (0x40e0 - 0x40a4)))
+  #define pfStack_40a0 (*(float **)(_frame + (0x40e0 - 0x40a0)))
+  #define fStack_409c (*(float *)(_frame + (0x40e0 - 0x409c)))
+  #define fStack_4098 (*(float *)(_frame + (0x40e0 - 0x4098)))
+  #define fStack_4094 (*(float *)(_frame + (0x40e0 - 0x4094)))
+  #define fStack_4090 (*(float *)(_frame + (0x40e0 - 0x4090)))
+  #define fStack_408c (*(float *)(_frame + (0x40e0 - 0x408c)))
+  #define dStack_4088 (*(double *)(_frame + (0x40e0 - 0x4088)))
+  #define afStack_4080 (*(float (*)[30])(_frame + (0x40e0 - 0x4080)))
+  #define aiStack_4008 (*(int (*)[1024])(_frame + (0x40e0 - 0x4008)))
+  #define afStack_3008 (*(float (*)[3068])(_frame + (0x40e0 - 0x3008)))
+  #define local_18 (*(uint *)(_frame + (0x40e0 - 0x18)))
+  #define uStack_c (*(undefined4 *)(_frame + (0x40e0 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40e0 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x40e0 - 0x4)))
   
-  FUN_004addf0();
+  uStack_c = 0x4a9d10;
   if (0.0f <= radius) {
-    puVar11 = (undefined4 *)&STACK0X(0x000010b8);
+    pfVar7 = afStack_3008;
     for (iVar6 = 0xc00; iVar6 != 0; iVar6 = iVar6 + -1) {
-      *puVar11 = 0;
-      puVar11 = puVar11 + 1;
+      *pfVar7 = 0.0f;
+      pfVar7 = pfVar7 + 1;
     }
-    puVar11 = (undefined4 *)&STACK0X(0x000000b8);
+    piVar8 = aiStack_4008;
     for (iVar6 = 0x400; iVar6 != 0; iVar6 = iVar6 + -1) {
-      *puVar11 = 0;
-      puVar11 = puVar11 + 1;
+      *piVar8 = 0;
+      piVar8 = piVar8 + 1;
     }
     this = g_pWalkPlane_wp_head;
     if (g_pWalkPlane_wp_head != (WalkPlane *)0x0) {
 LAB_004a9d53:
       if (((this->dwType & 0x1000) != 0) && (this->nVisible != 0)) {
 LAB_004a9d6a:
-        pWVar3 = this->aVerts[0];
-        puVar11 = (undefined4 *)&STACK0X(0x00000040);
+        pWVar2 = this->aVerts[0];
+        pfVar7 = afStack_4080;
         for (iVar6 = 0x1e; iVar6 != 0; iVar6 = iVar6 + -1) {
-          *puVar11 = 0;
-          puVar11 = puVar11 + 1;
+          *pfVar7 = 0.0f;
+          pfVar7 = pfVar7 + 1;
         }
-        pfStack00000020 = (float *)&STACK0X(0x00000044);
-        iStack0000000c = 0;
+        pfStack_40a0 = afStack_4080 + 1;
+        iStack_40b4 = 0;
         pfVar7 = this->aVerts[this->nNumVerts + -1]->aPos;
-        pfVar5 = pWVar3->aPos;
+        pfVar5 = pWVar2->aPos;
         do {
-          if (this->nNumVerts <= iStack0000000c) {
+          if (this->nNumVerts <= iStack_40b4) {
             iVar6 = this->nNumVerts;
             if (0 < iVar6) {
-              ppWVar10 = this->aVerts;
-              pfVar7 = (float *)&STACK0X(0x00000044);
+              ppWVar9 = this->aVerts;
+              pfVar7 = afStack_4080 + 1;
               do {
-                pWVar3 = *ppWVar10;
-                ppWVar10 = ppWVar10 + 1;
-                iVar8 = ((int)((WalkVertex *)((char *)pWVar3 - ((unsigned)(uintptr_t)&g_aWalkPlane_vert_db))) >> 4) * 0xc;
-                *(float *)(&STACK0X(0x000010b8) + iVar8) =
-                     pfVar7[-1] + *(float *)(&STACK0X(0x000010b8) + iVar8);
-                *(float *)(&STACK0X(0x000010bc) + iVar8) =
-                     *(float *)(&STACK0X(0x000010bc) + iVar8) + *pfVar7;
-                *(float *)(&STACK0X(0x000010c0) + iVar8) =
-                     pfVar7[1] + *(float *)(&STACK0X(0x000010c0) + iVar8);
+                pWVar2 = *ppWVar9;
+                ppWVar9 = ppWVar9 + 1;
+                iVar4 = (int)((WalkVertex *)((char *)pWVar2 - ((unsigned)(uintptr_t)&g_aWalkPlane_vert_db))) >> 4;
+                afStack_3008[iVar4 * 3] = pfVar7[-1] + afStack_3008[iVar4 * 3];
+                afStack_3008[iVar4 * 3 + 1] = afStack_3008[iVar4 * 3 + 1] + *pfVar7;
+                afStack_3008[iVar4 * 3 + 2] = pfVar7[1] + afStack_3008[iVar4 * 3 + 2];
                 iVar6 = iVar6 + -1;
-                *(int *)(&STACK0X(0x000000b8) + ((int)((WalkVertex *)((char *)pWVar3 - ((unsigned)(uintptr_t)&g_aWalkPlane_vert_db))) >> 4) * 4) =
-                     *(int *)(&STACK0X(0x000000b8) + ((int)((WalkVertex *)((char *)pWVar3 - ((unsigned)(uintptr_t)&g_aWalkPlane_vert_db))) >> 4) * 4) + 1;
+                aiStack_4008[iVar4] = aiStack_4008[iVar4] + 1;
                 pfVar7 = pfVar7 + 3;
               } while (iVar6 != 0);
             }
             break;
           }
-          iStack0000000c = iStack0000000c + 1;
-          local_4 = *pfVar7 - *pfVar5;
-          pWVar3 = this->aVerts[iStack0000000c % this->nNumVerts];
-          fVar1 = pfVar7[1];
-          fVar2 = pfVar5[1];
-          fVar12 = pfVar7[2];
-          fVar13 = pfVar5[2];
-          rdVector_Normalize3Acc(&local_4);
-          in_stack_00000014 = pWVar3->aPos[0] - *pfVar5;
-          in_stack_00000018 = pWVar3->aPos[1] - pfVar5[1];
-          in_stack_0000001c = pWVar3->aPos[2] - pfVar5[2];
-          rdVector_Normalize3Acc(&STACK0X(0x00000014));
-          local_4 = in_stack_00000014 + local_4;
-          fVar1 = in_stack_00000018 + (fVar1 - fVar2);
-          fVar2 = in_stack_0000001c + (fVar12 - fVar13);
-          rdVector_Normalize3Acc(&local_4);
-          fVar12 = stdMath_ArcSin3(in_stack_0000001c * fVar2 +
-                                   in_stack_00000018 * fVar1 + in_stack_00000014 * local_4);
-          stdMath_SinCos(90.0f - fVar12,&STACK0X(0x00000024),(float *)&STACK0X(0x00000034));
-          fVar12 = fVar2 / in_stack_00000024;
-          bVar4 = true;
-          in_stack_00000028 = fVar12 * local_4 + *pfVar5;
-          in_stack_0000002c = fVar12 * fVar1 + pfVar5[1];
-          in_stack_00000030 = fVar12 * fVar2 + pfVar5[2];
-          iVar6 = WalkPlane_Within(this,&STACK0X(0x00000028),1);
+          iStack_40b4 = iStack_40b4 + 1;
+          fStack_40c4 = *pfVar7 - *pfVar5;
+          pWVar2 = this->aVerts[iStack_40b4 % this->nNumVerts];
+          fStack_40c0 = pfVar7[1] - pfVar5[1];
+          fStack_40bc = pfVar7[2] - pfVar5[2];
+          rdVector_Normalize3Acc(&fStack_40c4);
+          fStack_40ac = pWVar2->aPos[0] - *pfVar5;
+          fStack_40a8 = pWVar2->aPos[1] - pfVar5[1];
+          fStack_40a4 = pWVar2->aPos[2] - pfVar5[2];
+          rdVector_Normalize3Acc(&fStack_40ac);
+          fStack_40c4 = fStack_40ac + fStack_40c4;
+          fStack_40c0 = fStack_40a8 + fStack_40c0;
+          fStack_40bc = fStack_40a4 + fStack_40bc;
+          rdVector_Normalize3Acc(&fStack_40c4);
+          fStack_40b8 = stdMath_ArcSin3(fStack_40a4 * fStack_40bc +
+                                        fStack_40a8 * fStack_40c0 + fStack_40ac * fStack_40c4);
+          fStack_40b8 = 90.0f - fStack_40b8;
+          stdMath_SinCos(fStack_40b8,&fStack_409c,&fStack_408c);
+          fVar1 = radius / fStack_409c;
+          fStack_40b8 = 1.4013e-45f;
+          fStack_4098 = fVar1 * fStack_40c4 + *pfVar5;
+          fStack_4094 = fVar1 * fStack_40c0 + pfVar5[1];
+          fStack_4090 = fVar1 * fStack_40bc + pfVar5[2];
+          iVar6 = WalkPlane_Within(this,&fStack_4098,1);
           if (iVar6 == 0) {
 LAB_004a9f32:
-            bVar4 = false;
+            fStack_40b8 = 0.0f;
           }
           else {
-            iStack00000010 = 0;
+            iStack_40b0 = 0;
             if (0 < this->nNumVerts) {
-              in_stack_00000038 = (double)(fVar2 - 0.001);
+              dStack_4088 = (double)(radius - 0.001);
               do {
-                fVar13 = WalkPlane_DistToEdge(this,iStack00000010,&STACK0X(0x00000028));
-                if (fVar13 < (float)in_stack_00000038) goto LAB_004a9f32;
-                iStack00000010 = iStack00000010 + 1;
-              } while (iStack00000010 < this->nNumVerts);
+                fVar10 = WalkPlane_DistToEdge(this,iStack_40b0,&fStack_4098);
+                if (fVar10 < (float)dStack_4088) goto LAB_004a9f32;
+                iStack_40b0 = iStack_40b0 + 1;
+              } while (iStack_40b0 < this->nNumVerts);
             }
           }
-          if (!bVar4) goto LAB_004a9f7e;
-          pfStack00000020[-1] = fVar12 * local_4;
-          *pfStack00000020 = fVar12 * fVar1;
-          pfStack00000020[1] = fVar12 * fVar2;
-          pfStack00000020 = pfStack00000020 + 3;
+          if (fStack_40b8 == 0.0f) goto LAB_004a9f7e;
+          pfStack_40a0[-1] = fVar1 * fStack_40c4;
+          *pfStack_40a0 = fVar1 * fStack_40c0;
+          pfStack_40a0[1] = fVar1 * fStack_40bc;
+          pfStack_40a0 = pfStack_40a0 + 3;
           pfVar7 = pfVar5;
-          pfVar5 = pWVar3->aPos;
+          pfVar5 = pWVar2->aPos;
         } while( true );
       }
       goto LAB_004a9ffa;
     }
 LAB_004aa005:
-    piVar9 = (int *)&STACK0X(0x000000b8);
+    piVar8 = aiStack_4008;
     pfVar5 = g_aWalkPlane_vert_db[0].aPos + 1;
-    pfVar7 = (float *)&STACK0X(0x000010bc);
+    pfVar7 = afStack_3008 + 1;
     do {
-      if (*piVar9 != 0) {
-        fVar12 = 1.0f / (float)*piVar9;
+      if (*piVar8 != 0) {
+        fVar3 = 1.0f / (float)*piVar8;
         fVar1 = *pfVar7;
-        fVar2 = pfVar7[1];
-        pfVar5[-1] = pfVar7[-1] * fVar12 + pfVar5[-1];
-        *pfVar5 = fVar1 * fVar12 + *pfVar5;
-        pfVar5[1] = fVar2 * fVar12 + pfVar5[1];
+        fVar10 = pfVar7[1];
+        pfVar5[-1] = pfVar7[-1] * fVar3 + pfVar5[-1];
+        *pfVar5 = fVar1 * fVar3 + *pfVar5;
+        pfVar5[1] = fVar10 * fVar3 + pfVar5[1];
       }
       pfVar5 = pfVar5 + 4;
-      piVar9 = piVar9 + 1;
+      piVar8 = piVar8 + 1;
       pfVar7 = pfVar7 + 3;
     } while ((int)pfVar5 < ((unsigned)(uintptr_t)&UINT_008cf0b8));
   }
@@ -2716,9 +2713,29 @@ LAB_004a9ffa:
   if (this == (WalkPlane *)0x0) goto LAB_004aa005;
   goto LAB_004a9d53;
 }
+#undef afStack_3008
+#undef afStack_4080
+#undef aiStack_4008
+#undef dStack_4088
+#undef fStack_408c
+#undef fStack_4090
+#undef fStack_4094
+#undef fStack_4098
+#undef fStack_409c
+#undef fStack_40a4
+#undef fStack_40a8
+#undef fStack_40ac
+#undef fStack_40b8
+#undef fStack_40bc
+#undef fStack_40c0
+#undef fStack_40c4
+#undef iStack_40b0
+#undef iStack_40b4
 #undef local_18
 #undef local_4
 #undef local_8
+#undef pfStack_40a0
+#undef uStack_c
 
 #endif
 
