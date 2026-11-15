@@ -280,6 +280,20 @@
    "args": 1,
    "cc": "__cdecl",
    "in": "sputLua_NotifyControlHandlers"
+  },
+  {
+   "func": "0040a980",
+   "call": "0040a9d8",
+   "args": 1,
+   "cc": "__cdecl",
+   "in": "rdModel3_LoadEntry"
+  },
+  {
+   "func": "0040a980",
+   "call": "0040a9ec",
+   "args": 1,
+   "cc": "__cdecl",
+   "in": "rdModel3_LoadEntry"
   }
  ],
  "IMUSE.DLL": [

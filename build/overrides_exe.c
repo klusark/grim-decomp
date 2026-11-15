@@ -146,12 +146,11 @@ void Main_Service(void)
 }
 
 /* ==== rdVector_Normalize3 (0x00446920) ====
- * out = v / |v|, or a plain copy of v when |v| is zero (or NaN).  Ghidra shows a void function, but the original leaves
- * the length |v| unrounded in ST0 and WalkPlane_DistToEdge (assembled) reads it from there, so
- * the C pushes the length back on the x87 stack before it returns.  The original keeps the sum of squares, the length
+ * out = v / |v|, or a plain copy of v when |v| is zero (or NaN).  Returns the length |v| unrounded in ST0 (a float10
+ * return in Ghidra, custom storage), which WalkPlane_DistToEdge reads.  The original keeps the sum of squares, the length
  * and the quotients in extended precision and rounds to float only on the stores; the walk code is sensitive to that last
  * bit, so the C uses long double and the same order of additions (x^2 + (y^2 + z^2)). */
-void rdVector_Normalize3(float *out, float *v)
+long double rdVector_Normalize3(float *out, float *v)
 {
     long double x = v[0], y = v[1], z = v[2];
     long double len = x * x + (y * y + z * z);
@@ -166,7 +165,7 @@ void rdVector_Normalize3(float *out, float *v)
         out[1] = (float)(y / len);
         out[2] = (float)(z / len);
     }
-    __asm__ volatile("fldt %0" : : "m"(len));           /* the hidden return value: ST0 = |v| */
+    return len;                                         /* in ST0, unrounded, as the original leaves it */
 }
 
 /* ==== stdMath_NormalizeAngle (0x0047bc20) ====
